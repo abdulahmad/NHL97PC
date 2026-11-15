@@ -2,1146 +2,1146 @@
 bits 32
 %include "hockey.inc"
 section s_160000 progbits alloc noexec write align=1
-extern loc_101229, loc_1012C0, loc_1012D0, loc_1012E0, loc_1012F0, loc_101310, loc_1020A0, loc_1020B4
-extern loc_1020F0, loc_102148, loc_102158, loc_1021A0, loc_102220, loc_1022F0, loc_102300, loc_1023E0
-extern loc_102400, loc_10244C, loc_102498, loc_104770, loc_104780, loc_104790, loc_1047A0, loc_1047BC
-extern loc_1079C4, loc_10EA08, loc_10EA0C, loc_10EB0C, loc_10EC0C, loc_10ED0C, loc_10ED78, loc_10EDE0
-extern loc_115910, loc_11599C, loc_1159B8, loc_1159D0, loc_115A10, loc_1167BD, loc_1175F3, loc_117603
-extern loc_117615, loc_117622, loc_11766C, loc_11767E, loc_1176AD, loc_119349, loc_119352, loc_11935B
-extern loc_119364, loc_1197C7, loc_11A200, loc_11A210, loc_11A220, loc_11A230, loc_11A250, loc_11C010
-extern loc_11C0A8, loc_11C0BC, loc_11C0C4, loc_11C0D8, loc_11C0EC, loc_11C114, loc_11C1CC, loc_11C340
-extern loc_11C384, loc_11C3AC, loc_11C3C0, loc_11C3D4, loc_11C3FC, loc_11DEE4, loc_11DF4C, loc_11DFB4
-extern loc_11DFD4, loc_11DFF0, loc_11E004, loc_11E11C, loc_11EB64, loc_11F1FC, loc_11F218, loc_11F2B4
-extern loc_11F304, loc_11F3F4, loc_11F42C, loc_11F480, loc_11F494, loc_11F5D8, loc_11F794, loc_121A43
-extern loc_121AB5, loc_121D6F, loc_121DB9, loc_125285, loc_12528B, loc_125290, loc_125296, loc_12529B
-extern loc_1252A1, loc_1252A7, loc_1252AD, loc_1252B3, loc_1252CF, loc_1252D4, loc_1252EA, loc_1252EF
-extern loc_12530B, loc_12531B, loc_12532F, loc_12533F, loc_12535F, loc_125364, loc_12537E, loc_125383
-extern loc_1253A3, loc_1253B7, loc_1253CF, loc_1253E3, loc_125403, loc_125408, loc_125422, loc_125427
-extern loc_125447, loc_12545B, loc_125473, loc_125487, loc_1254A7, loc_1254AC, loc_1254C6, loc_1254CB
-extern loc_1254EB, loc_1254FF, loc_125517, loc_12552B, loc_12554B, loc_125550, loc_12556A, loc_12556F
-extern loc_12558F, loc_1255A3, loc_1255BB, loc_1255CF, loc_1255EF, loc_1255F4, loc_12560E, loc_125613
-extern loc_125633, loc_125647, loc_12565F, loc_125673, loc_125693, loc_125698, loc_1256B2, loc_1256B7
-extern loc_1256D7, loc_1256EB, loc_125703, loc_125D0C, loc_125D61, loc_125DBC, loc_125EED, loc_1260C2
-extern loc_128878, loc_128880, loc_1288F8, loc_128948, loc_1289B8, loc_128C70, loc_128CA8, loc_128E08
-extern loc_128F80, loc_129000, loc_1291F8, loc_129428, loc_129460, loc_129748, loc_1299BC, loc_129A48
-extern loc_129CB8, loc_129F00, loc_129F3C, loc_12E864, loc_12E9D8, loc_12F71D, loc_132448, loc_1324BF
-extern loc_132863, loc_135BCB, loc_135D41, loc_135F00, loc_135F0B, loc_135F18, loc_135F2B, loc_135F40
-extern loc_135F53, loc_135F68, loc_135F7B, loc_136C84, loc_138B74, loc_138C68, loc_138FCE, loc_13A69C
-extern loc_13B66E, loc_16BF9, loc_16D61, loc_16ED0, loc_17158, loc_172C7, loc_17639, loc_1771B
-extern loc_17818, loc_17DC0, loc_17EB6, loc_1870B, loc_1882A, loc_18958, loc_18B81, loc_1F5B4
-extern loc_1F7D0, loc_209D0, loc_209E0, loc_22B8C, loc_22CEC, loc_22E70, loc_238E8, loc_23A78
-extern loc_23B88, loc_23C98, loc_23E90, loc_23F44, loc_244BC, loc_25F64, loc_265FC, loc_27274
-extern loc_275C0, loc_27AD8, loc_28110, loc_282B8, loc_2842C, loc_28698, loc_289AC, loc_28A08
-extern loc_28D88, loc_29064, loc_293A8, loc_295CC, loc_298E8, loc_29A90, loc_29BFC, loc_29E2C
-extern loc_29F30, loc_2A000, loc_2A1C8, loc_2A3F4, loc_2D308, loc_2D330, loc_2EEE8, loc_30674
-extern loc_36AB0, loc_36E34, loc_3A2E8, loc_3A3C8, loc_3A440, loc_3A564, loc_3A65C, loc_3A75C
-extern loc_3A814, loc_3A884, loc_3A920, loc_3A9D0, loc_3AA48, loc_3AF30, loc_3AFDC, loc_3B05C
-extern loc_61540, loc_633E8, loc_63AA4, loc_63E8C, loc_640D0, loc_64490, loc_64700, loc_64820
-extern loc_648B4, loc_649E0, loc_64AE0, loc_64D54, loc_6A604, loc_6A77C, loc_6ABEC, loc_6B140
-extern loc_6B28C, loc_70378, loc_70424, loc_704D4, loc_708B0, loc_708F4, loc_709D0, loc_70A14
-extern loc_70A58, loc_70B38, loc_70B74, loc_70D60, loc_70E48, loc_71108, loc_71298, loc_71380
-extern loc_713E0, loc_7147C, loc_71574, loc_716F8, loc_72050, loc_72170, loc_72324, loc_7242C
-extern loc_724C8, loc_72564, loc_72648, loc_7291C, loc_72A84, loc_72B78, loc_72BF8, loc_72C70
-extern loc_72D74, loc_7320C, loc_73464, loc_73578, loc_7370C, loc_739B8, loc_73A58, loc_73A60
-extern loc_73F00, loc_73FBC, loc_74708, loc_747E8, loc_74A20, loc_74B74, loc_FC210, loc_FC215
-extern loc_FC238, loc_FCDC0, loc_FCE34, loc_FCE48, loc_FCE60, loc_FCEA0, loc_FDCB0, loc_FDCC4
-extern loc_FDCD4, loc_FDCE8, loc_FDD08, sub_1013FC, sub_1021B0, sub_102368, sub_1024AC, sub_1073BC
-extern sub_10ED10, sub_11EC18, sub_11EE6C, sub_11EF20, sub_11F154, sub_11F404, sub_11F440, sub_11F4A8
-extern sub_125DDE, sub_125E68, sub_125FE1, sub_126052, sub_1289B0, sub_128E00, sub_1291F0, sub_129740
-extern sub_129CB0, sub_12D784, sub_13BC17, sub_21B20, sub_27D10, sub_628C4, sub_62F14
-global asc_160004, asc_160010, asc_16007C, asc_160088, asc_1600BC, asc_1600D8, asc_160114, asc_160158
-global asc_160161, asc_16016A, asc_160172, asc_16017D, asc_160184, asc_160196, asc_16019C, asc_1601A5
-global asc_1601AF, asc_1601BC, asc_1601C7, asc_1601D3, asc_1601DB, asc_1601EB, asc_1601F6, asc_1601FF
-global asc_160210, asc_160428, asc_160438, asc_16049C, asc_1604A8, asc_1604E4, asc_1606D4, asc_1609CC
-global asc_1609D8, asc_1609DD, asc_1609E2, asc_1609E7, asc_1609EC, asc_1609F1, asc_1609F6, asc_1609FB
-global asc_160A00, asc_160A05, asc_160A0A, asc_160A0F, asc_160A16, asc_160A1B, asc_160A20, asc_160A2D
-global asc_160A32, asc_160A37, asc_160A40, asc_160A4C, asc_160A51, asc_160B30, asc_160B40, asc_160B48
-global asc_160B54, asc_160B60, asc_160B6C, asc_160C9C, asc_160CA4, asc_160CAC, asc_160CB4, asc_160CC0
+extern __InitFiles_, __checkIsDBCS_, __chk8087_, __full_io_exit_, __null_int23_exit_, __setEFGfmt_, __setenvp_, __terminate_
+extern bcopy_, fini_, init_, loc_1012C0, loc_1020A0, loc_104770, loc_115910, loc_1175F3
+extern loc_117603, loc_117615, loc_117622, loc_11766C, loc_11767E, loc_1176AD, loc_119352, loc_11935B
+extern loc_119364, loc_11A200, loc_125285, loc_12528B, loc_125290, loc_125296, loc_12529B, loc_1252A1
+extern loc_1252A7, loc_1252AD, loc_1252B3, loc_1252CF, loc_1252D4, loc_1252EA, loc_1252EF, loc_12530B
+extern loc_12531B, loc_12532F, loc_12533F, loc_12535F, loc_125364, loc_12537E, loc_125383, loc_1253A3
+extern loc_1253B7, loc_1253CF, loc_1253E3, loc_125403, loc_125408, loc_125422, loc_125427, loc_125447
+extern loc_12545B, loc_125473, loc_125487, loc_1254A7, loc_1254AC, loc_1254C6, loc_1254CB, loc_1254EB
+extern loc_1254FF, loc_125517, loc_12552B, loc_12554B, loc_125550, loc_12556A, loc_12556F, loc_12558F
+extern loc_1255A3, loc_1255BB, loc_1255CF, loc_1255EF, loc_1255F4, loc_12560E, loc_125613, loc_125633
+extern loc_125647, loc_12565F, loc_125673, loc_125693, loc_125698, loc_1256B2, loc_1256B7, loc_1256D7
+extern loc_1256EB, loc_125703, loc_135F00, loc_135F0B, loc_135F18, loc_135F2B, loc_135F40, loc_135F53
+extern loc_135F68, loc_135F7B, loc_172C7, loc_FCDC0, loc_FDCB0, loc_FDCC4, loc_FDCD4, loc_FDCE8
+extern puckfaceoff, sub_101229, sub_1012D0, sub_1012E0, sub_1012F0, sub_101310, sub_1013FC, sub_1020B4
+extern sub_1020F0, sub_102148, sub_102158, sub_1021A0, sub_1021B0, sub_102220, sub_1022F0, sub_102300
+extern sub_102368, sub_1023E0, sub_102400, sub_10244C, sub_102498, sub_1024AC, sub_104790, sub_1047A0
+extern sub_1047BC, sub_1073BC, sub_1079C4, sub_10EA08, sub_10EA0C, sub_10EB0C, sub_10EC0C, sub_10ED0C
+extern sub_10ED10, sub_10ED78, sub_10EDE0, sub_11599C, sub_1159B8, sub_1159D0, sub_115A10, sub_1167BD
+extern sub_119349, sub_11A210, sub_11A220, sub_11A230, sub_11A250, sub_11C010, sub_11C0A8, sub_11C0BC
+extern sub_11C0C4, sub_11C0D8, sub_11C0EC, sub_11C114, sub_11C1CC, sub_11C340, sub_11C384, sub_11C3AC
+extern sub_11C3C0, sub_11C3D4, sub_11C3FC, sub_11DEE4, sub_11DF4C, sub_11DFB4, sub_11DFD4, sub_11DFF0
+extern sub_11E004, sub_11E11C, sub_11EB64, sub_11EC18, sub_11EE6C, sub_11EF20, sub_11F154, sub_11F1FC
+extern sub_11F218, sub_11F2B4, sub_11F304, sub_11F3F4, sub_11F404, sub_11F42C, sub_11F440, sub_11F480
+extern sub_11F494, sub_11F4A8, sub_11F5D8, sub_11F794, sub_121A43, sub_121DB9, sub_125D0C, sub_125D61
+extern sub_125DBC, sub_125DDE, sub_125E68, sub_125EED, sub_125FE1, sub_126052, sub_1260C2, sub_128878
+extern sub_128880, sub_1288F8, sub_128948, sub_1289B0, sub_1289B8, sub_128C70, sub_128CA8, sub_128E00
+extern sub_128E08, sub_128F80, sub_129000, sub_1291F0, sub_1291F8, sub_129428, sub_129460, sub_129740
+extern sub_129748, sub_1299BC, sub_129A48, sub_129CB0, sub_129CB8, sub_129F00, sub_129F3C, sub_12D784
+extern sub_12E864, sub_12E9D8, sub_132863, sub_135BCB, sub_135D41, sub_136C84, sub_13A69C, sub_13B66E
+extern sub_16BF9, sub_16D61, sub_16ED0, sub_17158, sub_17639, sub_1771B, sub_17818, sub_17DC0
+extern sub_17EB6, sub_1870B, sub_1882A, sub_18958, sub_18B81, sub_1F5B4, sub_1F7D0, sub_209D0
+extern sub_209E0, sub_21B20, sub_22B8C, sub_22CEC, sub_22E70, sub_238E8, sub_23A78, sub_23B88
+extern sub_23C98, sub_23E90, sub_23F44, sub_244BC, sub_25F64, sub_265FC, sub_27274, sub_275C0
+extern sub_27AD8, sub_27D10, sub_28110, sub_282B8, sub_2842C, sub_28698, sub_289AC, sub_28A08
+extern sub_28D88, sub_29064, sub_293A8, sub_295CC, sub_298E8, sub_29A90, sub_29BFC, sub_29E2C
+extern sub_29F30, sub_2A000, sub_2A1C8, sub_2A3F4, sub_2D308, sub_2D330, sub_30674, sub_36AB0
+extern sub_36E34, sub_3A2E8, sub_3A3C8, sub_3A440, sub_3A564, sub_3A65C, sub_3A75C, sub_3A814
+extern sub_3A884, sub_3A920, sub_3A9D0, sub_3AA48, sub_3AF30, sub_3AFDC, sub_3B05C, sub_61540
+extern sub_628C4, sub_62F14, sub_633E8, sub_63AA4, sub_63E8C, sub_640D0, sub_64490, sub_64700
+extern sub_64820, sub_648B4, sub_649E0, sub_64AE0, sub_64D54, sub_6A604, sub_6A77C, sub_6ABEC
+extern sub_6B140, sub_6B28C, sub_70378, sub_70424, sub_704D4, sub_708B0, sub_708F4, sub_709D0
+extern sub_70A14, sub_70A58, sub_70B38, sub_70B74, sub_70D60, sub_70E48, sub_71108, sub_71298
+extern sub_71380, sub_713E0, sub_7147C, sub_71574, sub_716F8, sub_72050, sub_72170, sub_72324
+extern sub_7242C, sub_724C8, sub_72564, sub_72648, sub_7291C, sub_72A84, sub_72B78, sub_72BF8
+extern sub_72C70, sub_72D74, sub_7320C, sub_73464, sub_73578, sub_7370C, sub_739B8, sub_73A58
+extern sub_73A60, sub_73F00, sub_73FBC, sub_74708, sub_747E8, sub_74A20, sub_74B74, sub_FC210
+extern sub_FC215, sub_FC238, sub_FCE34, sub_FCE48, sub_FCE60, sub_FCEA0, sub_FDD08
+global SortCords, _Envptr, _Envptr_w4, _Extender, _ExtenderSubtype, _IsTable, _LpCmdLine, _STACKLOW
+global _STACKTOP, __8087, ___env_mask, __no87, __real87, _curbrk, _dynend, _environ
+global _osmajor, _osminor, _psp, asc_160004, asc_160010, asc_16007C, asc_160088, asc_1600BC
+global asc_1600D8, asc_160114, asc_160158, asc_160161, asc_16016A, asc_160172, asc_16017D, asc_160184
+global asc_160196, asc_16019C, asc_1601A5, asc_1601AF, asc_1601BC, asc_1601C7, asc_1601D3, asc_1601DB
+global asc_1601EB, asc_1601F6, asc_1601FF, asc_160210, asc_160428, asc_160438, asc_16049C, asc_1604A8
+global asc_1604E4, asc_1606D4, asc_1609CC, asc_1609D8, asc_1609DD, asc_1609E2, asc_1609E7, asc_1609EC
+global asc_1609F1, asc_1609F6, asc_1609FB, asc_160A00, asc_160A05, asc_160A0A, asc_160A0F, asc_160A16
+global asc_160A1B, asc_160A20, asc_160A2D, asc_160A32, asc_160A37, asc_160A40, asc_160A4C, asc_160A51
+global asc_160B30, asc_160B40, asc_160B48, asc_160C9C, asc_160CA4, asc_160CAC, asc_160CB4, asc_160CC0
 global asc_160CCC, asc_160CE4, asc_160CEC, asc_160D20, asc_160D28, asc_160D38, asc_160D40, asc_160D50
 global asc_160D60, asc_160D70, asc_160D7C, asc_160D88, asc_160D94, asc_160DA0, asc_160DB0, asc_160DC0
 global asc_160DC4, asc_160DCC, asc_160F3C, asc_1610DC, asc_161158, asc_161194, asc_1611A4, asc_1611AC
 global asc_1611B6, asc_1611E9, asc_1611ED, asc_161220, asc_161228, asc_16122C, asc_161234, asc_16123C
 global asc_161244, asc_16124C, asc_16125C, asc_161260, asc_161268, asc_161270, asc_161278, asc_161280
-global asc_161288, asc_161290, asc_161298, asc_1612A0, asc_1612A8, asc_1612B0, asc_1612B8, asc_1612C4
-global asc_1612CC, asc_1612D4, asc_1612E4, asc_1612EC, asc_1612F4, asc_1612FC, asc_161304, asc_16130C
-global asc_161314, asc_16131C, asc_161324, asc_16132C, asc_161334, asc_16133C, asc_161344, asc_16134C
-global asc_161354, asc_16135C, asc_161364, asc_16136C, asc_161374, asc_16137C, asc_161384, asc_1613FC
-global asc_161404, asc_161410, asc_161418, asc_161424, asc_161458, asc_161460, asc_161468, asc_161474
-global asc_16147C, asc_161488, asc_161494, asc_1614A4, asc_1614B4, asc_1614BC, asc_1614C4, asc_1614CC
-global asc_1614D4, asc_1614DC, asc_1614E4, asc_1614F0, asc_1614FC, asc_161508, asc_161510, asc_161518
-global asc_161520, asc_16152C, asc_161534, asc_16153C, asc_161544, asc_16154C, asc_161558, asc_161560
-global asc_161568, asc_161574, asc_16157C, asc_161588, asc_161590, asc_161598, asc_1615A0, asc_1615A8
-global asc_1615B0, asc_1615B8, asc_1615C0, asc_1615C4, asc_1615CC, asc_1615D4, asc_1615DC, asc_1615E4
-global asc_1615EC, asc_1615F4, asc_1615FC, asc_161604, asc_16160C, asc_161614, asc_16161C, asc_161628
-global asc_161630, asc_161638, asc_161640, asc_161648, asc_161650, asc_161658, asc_161664, asc_161670
-global asc_16167C, asc_161688, asc_161690, asc_16169C, asc_1616A8, asc_1616B0, asc_1616B8, asc_1616C0
-global asc_1616C8, asc_1616D0, asc_1616D8, asc_1616E0, asc_1616E8, asc_1616F0, asc_1616F8, asc_161704
-global asc_16170C, asc_161714, asc_16171C, asc_161728, asc_161734, asc_161738, asc_161740, asc_161748
-global asc_161750, asc_161758, asc_16177C, asc_161788, asc_161794, asc_1617A4, asc_1617AC, asc_1617B4
-global asc_1617C0, asc_1617C8, asc_1617E0, asc_161800, asc_161808, asc_161810, asc_161814, asc_161824
-global asc_161828, asc_161834, asc_161840, asc_16184C, asc_161858, asc_161860, asc_161870, asc_16187C
-global asc_161884, asc_161890, asc_161898, asc_1618A0, asc_1618A8, asc_1618B0, asc_1618B4, asc_1618BC
-global asc_1618C4, asc_1618CC, asc_1618D4, asc_1618DC, asc_1618E4, asc_1618EC, asc_1618F4, asc_161900
-global asc_161904, asc_16190C, asc_161914, asc_16191C, asc_16192C, asc_161934, asc_16193C, asc_161944
-global asc_16194C, asc_161954, asc_16195C, asc_161964, asc_16196C, asc_16197C, asc_161984, asc_16198C
-global asc_161998, asc_1619A4, asc_1619AC, asc_1619B8, asc_1619C0, asc_1619CC, asc_1619D4, asc_1619DC
-global asc_1619EC, asc_1619FC, asc_161A08, asc_161A14, asc_161A20, asc_161A2C, asc_161A34, asc_161A3C
-global asc_161A44, asc_161A4C, asc_161A54, asc_161A5C, asc_161A64, asc_161A6C, asc_161A74, asc_161A7C
-global asc_161A88, asc_161AD4, asc_161AE0, asc_161AE8, asc_161AF0, asc_161AF8, asc_161AFC, asc_161B08
-global asc_161B10, asc_161B18, asc_161B20, asc_162FFC, asc_163000, asc_163006, asc_16300F, asc_163015
-global asc_16301C, asc_163024, asc_163035, asc_16303C, asc_163045, asc_16304E, asc_163056, asc_16305C
-global asc_163060, asc_163065, asc_16306F, asc_163076, asc_16307B, asc_163081, asc_163088, asc_16308F
-global asc_163D6C, asc_163D74, asc_163D7C, asc_163D84, asc_163D8C, asc_163D94, asc_163D9C, asc_163DBC
-global asc_163ED8, asc_163EE4, asc_163EEC, asc_163F00, asc_163F07, asc_163F0C, asc_163F14, asc_164110
-global asc_164120, asc_16412C, asc_164134, asc_164140, asc_164148, asc_164154, asc_16415C, asc_164164
-global asc_16416F, asc_16417C, asc_164181, asc_164186, asc_16418B, asc_164190, asc_164195, asc_16419A
-global asc_16419F, asc_1641A4, asc_1641F6, asc_164237, asc_16427F, asc_1642B6, asc_1642FB, asc_164333
-global asc_164372, asc_164411, asc_16453F, asc_16457C, asc_164597, asc_164746, asc_164787, asc_1647C9
-global asc_164855, asc_164898, asc_164957, asc_16499E, asc_164A28, asc_164AA7, asc_164AEB, asc_164B0B
-global asc_164B89, asc_164BBB, asc_164E34, asc_164F06, asc_164FBD, asc_16502F, asc_16503D, asc_1650CC
-global asc_16510C, asc_165114, asc_16511C, asc_165124, asc_16512C, asc_165134, asc_16513C, asc_165144
-global asc_16514C, asc_165154, asc_16515C, asc_165164, asc_16516C, asc_165174, asc_16517C, asc_165184
-global asc_165194, asc_1651A0, asc_1651A8, asc_1651B0, asc_1651B8, asc_1651C0, asc_1651C8, asc_1651D0
-global asc_1651D8, asc_1651DD, asc_1651E2, asc_1651F3, asc_165203, asc_165214, asc_16521B, asc_165227
-global asc_165231, asc_165236, asc_16523D, asc_165244, asc_16524B, asc_165258, asc_165265, asc_165272
-global asc_165277, asc_16527C, asc_165281, asc_165286, asc_16528B, asc_165290, asc_165295, asc_16529A
-global asc_16529F, asc_1652A4, asc_1652A9, asc_1652AE, asc_1652B3, asc_1652B8, asc_1652C0, asc_1652C5
-global asc_1652CC, asc_1652D1, asc_1652D6, asc_1652DB, asc_1652E0, asc_1652E5, asc_1652EA, asc_1652EF
-global asc_1652F4, asc_1652F9, asc_1652FE, asc_165310, asc_165326, asc_165333, asc_16533A, asc_16533F
-global asc_165344, asc_165349, asc_16534E, asc_165353, asc_165358, asc_16535D, asc_165362, asc_165367
-global asc_16536C, asc_165371, asc_165376, asc_16537B, asc_165380, asc_165385, asc_16538A, asc_16538F
-global asc_165394, asc_165399, asc_16539E, asc_1653A3, asc_1653A8, asc_1653AD, asc_1653B2, asc_1653B7
-global asc_1653BC, asc_1653C1, asc_1653C6, asc_1653CB, asc_1653D0, asc_1653D5, asc_1653DA, asc_1653DF
-global asc_1653E4, asc_1653E9, asc_1653EE, asc_1653F3, asc_1653F8, asc_1653FD, asc_165402, asc_165407
-global asc_16540C, asc_165411, asc_165416, asc_16541B, asc_165421, asc_165426, asc_16542B, asc_165430
-global asc_165435, asc_16543A, asc_16543F, asc_165444, asc_165449, asc_16544E, asc_165453, asc_165458
-global asc_16545D, asc_165462, asc_165467, asc_16546C, asc_165471, asc_165476, asc_16547B, asc_165480
-global asc_165485, asc_16548A, asc_16548F, asc_165494, asc_165499, asc_16549E, asc_1654A3, asc_1654A8
-global asc_1654AD, asc_1654B2, asc_1654B7, asc_1654BB, asc_1654C0, asc_1654C5, asc_1654CA, asc_1654CF
-global asc_1654D4, asc_1654D9, asc_1654DE, asc_1654E3, asc_1654E8, asc_1654ED, asc_1654F2, asc_1654F7
-global asc_1654FC, asc_165501, asc_165506, asc_16550B, asc_165510, asc_165515, asc_16551B, asc_165521
-global asc_165527, asc_16552D, asc_165533, asc_165539, asc_16553E, asc_165543, asc_165578, asc_16557D
-global asc_165582, asc_16558B, asc_165590, asc_165595, asc_1655B4, asc_1655BC, asc_1655C1, asc_1655C6
-global asc_1655D3, asc_1655E0, asc_1655E5, asc_1655EA, asc_1655EF, asc_1655F4, asc_16561D, asc_165622
-global asc_165627, asc_16562C, asc_165631, asc_16563F, asc_16564A, asc_165657, asc_16565C, asc_165666
-global asc_16566B, asc_16567C, asc_16568D, asc_16569E, asc_1656AF, asc_1656C0, asc_1656D1, asc_1656FA
-global asc_1656FF, asc_165704, asc_165709, asc_16570E, asc_165713, asc_165718, asc_16571D, asc_165722
-global asc_165727, asc_16572C, asc_165731, asc_165736, asc_16573B, asc_165740, asc_165745, asc_16574A
-global asc_16574F, asc_165754, asc_165759, asc_16575E, asc_165765, asc_16576A, asc_16576F, asc_165774
-global asc_16577B, asc_165783, asc_165787, asc_16578C, asc_165796, asc_16579B, asc_1657C4, asc_1657D2
-global asc_1657D9, asc_1657E0, asc_1657E5, asc_1657FB, asc_16580C, asc_16581E, asc_165835, asc_165839
-global asc_16583E, asc_16584B, asc_165858, asc_165864, asc_16586F, asc_165878, asc_16587F, asc_1658B0
-global asc_1658BD, asc_1658CA, asc_1658CF, asc_1658D4, asc_1658E0, asc_1658E5, asc_1658EA, asc_1658EF
-global asc_1658F4, asc_1658F9, asc_1658FE, asc_165903, asc_165908, asc_16590D, asc_165912, asc_165917
-global asc_16591C, asc_16592B, asc_165937, asc_165944, asc_165949, asc_165951, asc_165958, asc_16595F
-global asc_165964, asc_165969, asc_16596E, asc_165973, asc_165978, asc_16597D, asc_165982, asc_165987
-global asc_16598C, asc_165991, asc_165996, asc_16599B, asc_1659A0, asc_1659AD, asc_1659B2, asc_1659B7
-global asc_1659C4, asc_1659C9, asc_1659CE, asc_1659DB, asc_1659E0, asc_1659E5, asc_1659F2, asc_1659F7
-global asc_1659FC, asc_165A09, asc_165A0E, asc_165A13, asc_165A20, asc_165A25, asc_165A2A, asc_165A37
-global asc_165A3C, asc_165A41, asc_165A46, asc_165A4B, asc_165A51, asc_165A56, asc_165A5D, asc_165A6A
-global asc_165A78, asc_165A88, asc_165A9B, asc_165AA0, asc_165AA5, asc_165AAA, asc_165AAF, asc_165AB4
-global asc_165AB9, asc_165ABE, asc_165AC3, asc_165AC8, asc_165ACD, asc_165AD2, asc_165AD7, asc_165ADC
-global asc_165AE1, asc_165AE6, asc_165AEB, asc_165AF0, asc_165AF5, asc_165AFA, asc_165B01, asc_165B06
-global asc_165B0B, asc_165B10, asc_165B15, asc_165B1C, asc_165B28, asc_165B2D, asc_165B32, asc_165B41
-global asc_165B46, asc_165B4D, asc_165B5B, asc_165B6C, asc_165B71, asc_165B76, asc_165B7B, asc_165B80
-global asc_165B85, asc_165B8A, asc_165B8E, asc_165B95, asc_165B9A, asc_165B9F, asc_165BA4, asc_165BB1
-global asc_165BB9, asc_165BC0, asc_165BC5, asc_165BCA, asc_165BCF, asc_165BD4, asc_165BD9, asc_165BDE
-global asc_165BE3, asc_165BE8, asc_165BED, asc_165BF2, asc_165BF9, asc_165BFE, asc_165C09, asc_165C10
-global asc_165C15, asc_165C1A, asc_165C1F, asc_165C24, asc_165C29, asc_165C2E, asc_165C34, asc_165C3A
-global asc_165C3F, asc_165C44, asc_165C49, asc_165C4E, asc_165C53, asc_165C58, asc_165C5D, asc_165C62
-global asc_165C67, asc_165C6C, asc_165C71, asc_165C76, asc_165C7B, asc_165C80, asc_165C85, asc_165C8A
-global asc_165C8F, asc_165C94, asc_165C99, asc_165C9E, asc_165CA3, asc_165CC8, asc_165CF1, asc_165CF6
-global asc_165CFB, asc_165D10, asc_165D15, asc_165D1A, asc_165D1F, asc_165D2A, asc_165D36, asc_165D42
-global asc_165D47, asc_165D53, asc_165D64, asc_165D74, asc_165D85, asc_165D8F, asc_165D9C, asc_165DA1
-global asc_165DAE, asc_165DBB, asc_165DC0, asc_165DC4, asc_165DD0, asc_165DDC, asc_165DE5, asc_165DEA
-global asc_165DEF, asc_165DF4, asc_165DF9, asc_165DFE, asc_165E03, asc_165E08, asc_165E0D, asc_165E12
-global asc_165E19, asc_165E20, asc_165E26, asc_165E2C, asc_165E30, asc_165E35, asc_165E3D, asc_165E50
-global asc_165E55, asc_165E5B, asc_165E61, asc_165E66, asc_165E6B, asc_165E70, asc_165E76, asc_165E7B
-global asc_165E82, asc_165E87, asc_165E8C, asc_165E91, asc_165E96, asc_165E9B, asc_165EA3, asc_165EA7
-global asc_165EAC, asc_165EB1, asc_165EB6, asc_165EBB, asc_165EC0, asc_165EC5, asc_165ECC, asc_165ED1
-global asc_165ED6, asc_165EDC, asc_165EE4, asc_165EEC, asc_165EF4, asc_165EFC, asc_165F04, asc_165F0C
-global asc_165F14, asc_165F1C, asc_165F24, asc_165F30, asc_165F38, asc_165F40, asc_165F48, asc_165F50
-global asc_165F5C, asc_165F68, asc_165F78, asc_165F88, asc_165F90, asc_165F98, asc_165FA0, asc_165FA8
-global asc_165FB0, asc_165FB8, asc_165FC0, asc_165FC8, asc_165FD0, asc_165FD8, asc_165FE0, asc_165FE8
-global asc_165FF0, asc_166000, asc_166008, asc_166014, asc_16601C, asc_166020, asc_166028, asc_166034
-global asc_16603C, asc_166044, asc_16604C, asc_166054, asc_16605C, asc_166064, asc_16606C, asc_166074
-global asc_16607C, asc_16608C, asc_166094, asc_1660A0, asc_1660A8, asc_1660C8, asc_1660E4, asc_1660F1
-global asc_1660FD, asc_166102, asc_166120, asc_166129, asc_166133, asc_166139, asc_16613D, asc_16614C
-global asc_166158, asc_166164, asc_16616F, asc_16617E, asc_16618D, asc_16619D, asc_1661AE, asc_1661BF
-global asc_1661D5, asc_1661EA, asc_1661F9, asc_166202, asc_166209, asc_166210, asc_166214, asc_16621C
-global asc_166222, asc_166238, asc_166240, asc_166244, asc_16624A, asc_166250, asc_166255, asc_16625A
-global asc_16625F, asc_166263, asc_16626A, asc_166271, asc_166279, asc_166281, asc_166286, asc_16628B
-global asc_166290, asc_166295, asc_16629A, asc_16629F, asc_1662A4, asc_1662A9, asc_1662AE, asc_1662B3
-global asc_1662B8, asc_1662BD, asc_1662C2, asc_1662C7, asc_1662CC, asc_1662D1, asc_1662D6, asc_1662DB
-global asc_1662E0, asc_1662E5, asc_1662EA, asc_1662EF, asc_1662F4, asc_1662F9, asc_1662FE, asc_166303
-global asc_166308, asc_16630D, asc_166312, asc_166317, asc_16631C, asc_166321, asc_166326, asc_16632B
-global asc_166330, asc_166335, asc_16633A, asc_16633F, asc_166344, asc_166349, asc_16634E, asc_166353
-global asc_166358, asc_16635D, asc_166362, asc_166367, asc_16636C, asc_166371, asc_166376, asc_16637B
-global asc_166380, asc_166385, asc_16638A, asc_16638F, asc_166394, asc_1663A7, asc_1663AF, asc_1663BB
-global asc_1663BF, asc_1663C6, asc_1663CD, asc_1663D3, asc_1663D9, asc_1663E0, asc_1663E9, asc_1663F3
-global asc_1663F7, asc_166404, asc_166409, asc_16640E, asc_166413, asc_166418, asc_16641D, asc_166422
-global asc_16642F, asc_166434, asc_166439, asc_16643E, asc_16644B, asc_166450, asc_166455, asc_16645A
-global asc_166467, asc_16646C, asc_166471, asc_166476, asc_166483, asc_166488, asc_16648D, asc_166492
-global asc_16649F, asc_1664A4, asc_1664A9, asc_1664AE, asc_1664B3, asc_1664C0, asc_1664C5, asc_1664CA
-global asc_1664CF, asc_1664D4, asc_1664E1, asc_1664E6, asc_1664EB, asc_1664F0, asc_1664FD, asc_166502
-global asc_166507, asc_16650C, asc_166519, asc_16651E, asc_166523, asc_166528, asc_166535, asc_16653A
-global asc_16653F, asc_166544, asc_166551, asc_166558, asc_16655F, asc_166564, asc_166569, asc_16657D
-global asc_166595, asc_1665AB, asc_1665BD, asc_1665CE, asc_1665D3, asc_1665D8, asc_1665DE, asc_1665E4
-global asc_1665E9, asc_1665EE, asc_1665F3, asc_1665F8, asc_1665FD, asc_166602, asc_16660C, asc_166611
-global asc_16662D, asc_16663D, asc_166657, asc_166668, asc_166673, asc_16667B, asc_166685, asc_16668A
-global asc_166693, asc_166699, asc_16669F, asc_1666A5, asc_1666AA, asc_1666AE, asc_1666B2, asc_1666B6
-global asc_1666BA, asc_1666C0, asc_1666C8, asc_1666CF, asc_1666D7, asc_1666DB, asc_1666E3, asc_1666EC
-global asc_1666F2, asc_1666F7, asc_1666FD, asc_166703, asc_16670B, asc_166713, asc_166718, asc_16671D
-global asc_166724, asc_166729, asc_16672E, asc_166733, asc_166738, asc_16673D, asc_166742, asc_166747
-global asc_16674C, asc_166751, asc_166756, asc_16675B, asc_166760, asc_166765, asc_16676A, asc_166770
-global asc_166776, asc_16677B, asc_166780, asc_16678B, asc_166790, asc_166795, asc_16679D, asc_1667AA
-global asc_1667AF, asc_1667B4, asc_1667B8, asc_1667C0, asc_1667C8, asc_1667CD, asc_1667D2, asc_1667D7
-global asc_1667DC, asc_1667E9, asc_1667EE, asc_1667F5, asc_1667FA, asc_166801, asc_166806, asc_16680B
-global asc_166810, asc_16681D, asc_166822, asc_166827, asc_16682C, asc_166839, asc_16683E, asc_166843
-global asc_166848, asc_166855, asc_16685A, asc_16685F, asc_166864, asc_166869, asc_16686E, asc_166873
-global asc_166879, asc_166880, asc_166885, asc_16688A, asc_16688F, asc_166894, asc_166899, asc_1668A6
-global asc_1668AB, asc_1668B0, asc_1668B5, asc_1668C7, asc_1668CF, asc_1668D5, asc_1668DB, asc_1668EC
-global asc_1668F1, asc_1668FB, asc_166908, asc_16690E, asc_166918, asc_16691D, asc_166922, asc_166929
-global asc_16692D, asc_166938, asc_16694A, asc_166951, asc_166956, asc_166963, asc_166968, asc_16696D
-global asc_166972, asc_166977, asc_166984, asc_166989, asc_16698E, asc_166993, asc_1669A0, asc_1669A5
-global asc_1669AA, asc_1669AF, asc_1669BC, asc_1669C1, asc_1669C6, asc_1669CB, asc_1669D8, asc_1669DD
-global asc_1669E2, asc_1669E7, asc_1669F4, asc_1669F9, asc_1669FE, asc_166A03, asc_166A10, asc_166A15
-global asc_166A1A, asc_166A1F, asc_166A24, asc_166A29, asc_166A2E, asc_166A3B, asc_166A43, asc_166A4B
-global asc_166A50, asc_166A5C, asc_166A61, asc_166A66, asc_166A6F, asc_166A78, asc_166A81, asc_166AAD
-global asc_166AB8, asc_166AD8, asc_166AE4, asc_166AEB, asc_166AF0, asc_166AF9, asc_166B07, asc_166B1B
-global asc_166B20, asc_166B9C, asc_166BA1, asc_166BA6, asc_166BAB, asc_166BB0, asc_166BB5, asc_166BBA
-global asc_166BBF, asc_166BC4, asc_166BC9, asc_166BCE, asc_166BD3, asc_166BD8, asc_166BDD, asc_166BE4
-global asc_166BE9, asc_166BEE, asc_166BF3, asc_166C00, asc_166C05, asc_166C0A, asc_166C11, asc_166C16
-global asc_166C1B, asc_166C20, asc_166C25, asc_166C2A, asc_166C30, asc_166C35, asc_166C3A, asc_166C3F
-global asc_166C44, asc_166C49, asc_166C4E, asc_166C53, asc_166C58, asc_166C5E, asc_166C64, asc_166C6A
-global asc_166C6F, asc_166C74, asc_166C79, asc_166C7E, asc_166C83, asc_166C88, asc_166C8D, asc_166C92
-global asc_166C9C, asc_166CA1, asc_166CA6, asc_166CAB, asc_166CB0, asc_166CB5, asc_166CBA, asc_166CBF
-global asc_166CC4, asc_166CC9, asc_166CCE, asc_166CD3, asc_166CD8, asc_166CDE, asc_166CE4, asc_166CEA
-global asc_166CF0, asc_166CF6, asc_166CFC, asc_166D02, asc_166D07, asc_166D0C, asc_166D11, asc_166D17
-global asc_166D1D, asc_166D24, asc_166D30, asc_166D3F, asc_166D44, asc_166D4F, asc_166D53, asc_166D60
-global asc_166D6B, asc_166D78, asc_166D89, asc_166D9C, asc_166DAE, asc_166DB3, asc_166DB8, asc_166DC9
-global asc_166DDA, asc_166DEB, asc_166DF0, asc_166DF5, asc_166DFA, asc_166DFF, asc_166E04, asc_166E09
-global asc_166E0E, asc_166E13, asc_166E18, asc_166E1D, asc_166E22, asc_166E27, asc_166E2C, asc_166E31
-global asc_166E36, asc_166E3B, asc_166E40, asc_166E45, asc_166E4A, asc_166E4F, asc_166E56, asc_166E5B
-global asc_166E60, asc_166E65, asc_166E6A, asc_166E6F, asc_166E74, asc_166E79, asc_166E7E, asc_166E83
-global asc_166E88, asc_166E8D, asc_166E92, asc_166E97, asc_166EA0, asc_166EAC, asc_166EC0, asc_166EC5
-global asc_166ECC, asc_166ED1, asc_166ED6, asc_166EDB, asc_166EE0, asc_166EE5, asc_166EEA, asc_166EEF
-global asc_166EF4, asc_166EF9, asc_166EFE, asc_166F03, asc_166F08, asc_166F0D, asc_166F12, asc_166F17
-global asc_166F1C, asc_166F21, asc_166F26, asc_166F2B, asc_166F33, asc_166F38, asc_166F3D, asc_166F42
-global asc_166F49, asc_166F59, asc_166F6B, asc_166F70, asc_166F75, asc_166F7A, asc_166F7F, asc_166F84
-global asc_166F89, asc_166F8E, asc_166F93, asc_166F98, asc_166F9D, asc_166FA2, asc_166FAC, asc_166FB8
-global asc_166FCC, asc_166FD1, asc_166FD6, asc_166FDB, asc_166FE5, asc_166FEF, asc_166FF7, asc_166FFD
-global asc_167002, asc_16700C, asc_167011, asc_167016, asc_167021, asc_167034, asc_16703F, asc_167049
-global asc_167053, asc_16705C, asc_167061, asc_167066, asc_16706C, asc_167071, asc_167076, asc_16707D
-global asc_167083, asc_167088, asc_16708E, asc_167093, asc_167098, asc_16709D, asc_1670A2, asc_1670AF
-global asc_1670B4, asc_1670BF, asc_1670C6, asc_1670D2, asc_1670DE, asc_1670E7, asc_1670ED, asc_1670F7
-global asc_1670FE, asc_167110, asc_167280, asc_167288, asc_167290, asc_167298, asc_1672A0, asc_1672A8
-global asc_1672B0, asc_1672B8, asc_1672C0, asc_1672C8, asc_1672D0, asc_1672D8, asc_1672E0, asc_1672E8
-global asc_1672F8, asc_167310, asc_167320, asc_167328, asc_167330, asc_167338, asc_167340, asc_167348
-global asc_167350, asc_167358, asc_167360, asc_167368, asc_167370, asc_167380, asc_167390, asc_167398
-global asc_1673A0, asc_1673A4, asc_1673AC, asc_1673B4, asc_1673BC, asc_1673C4, asc_1673D0, asc_1673D4
-global asc_1673DC, asc_1673E4, asc_1673EC, asc_1673F4, asc_1673FC, asc_167404, asc_167465, asc_167472
-global asc_16747D, asc_167482, asc_167488, asc_167494, asc_16749D, asc_1674A6, asc_1674AF, asc_1674B7
-global asc_1674BE, asc_1674C8, asc_1674D4, asc_1674D8, asc_1674E4, asc_1674E8, asc_1674F4, asc_167500
-global asc_16750C, asc_167518, asc_167524, asc_167530, asc_167544, asc_16759C, asc_1675A4, asc_1675AC
-global asc_1675B8, asc_1675C0, asc_1675CC, asc_1675D4, asc_1675DC, asc_1675E4, asc_1675EC, asc_1675F4
-global asc_1675FC, asc_167604, asc_16760C, asc_167614, asc_167624, asc_167629, asc_16762E, asc_167633
-global asc_167638, asc_16763F, asc_167646, asc_1676E9, asc_1676EE, asc_1676F3, asc_1676FA, asc_1676FF
-global asc_167704, asc_167709, asc_16770E, asc_167713, asc_167718, asc_16771D, asc_167722, asc_167727
-global asc_167734, asc_16773C, asc_167744, asc_167750, asc_167757, asc_16775C, asc_167761, asc_167766
-global asc_16776B, asc_167770, asc_167775, asc_16777A, asc_16777F, asc_167784, asc_167789, asc_16778E
-global asc_167793, asc_167798, asc_16779D, asc_1677A2, asc_1677A7, asc_1677AC, asc_1677B1, asc_1677B6
-global asc_1677BB, asc_1677C0, asc_1677C5, asc_1677CA, asc_1677CF, asc_1677D4, asc_1677D9, asc_1677DE
-global asc_1677E3, asc_1677E8, asc_1677ED, asc_1677F2, asc_1677F7, asc_1677FC, asc_167801, asc_16780C
-global asc_167810, asc_167817, asc_16781E, asc_167825, asc_16783A, asc_16784F, asc_16785E, asc_16786D
-global asc_16787E, asc_16788E, asc_1678A0, asc_1678B2, asc_1678B8, asc_1678CC, asc_1678D4, asc_1678D8
-global asc_16795B, asc_16795F, asc_167965, asc_16796B, asc_167970, asc_167975, asc_16797A, asc_16797F
-global asc_167985, asc_16798A, asc_16798F, asc_167994, asc_167999, asc_16799E, asc_1679A3, asc_1679A9
-global asc_1679AE, asc_1679B4, asc_1679BA, asc_1679BF, asc_1679C5, asc_1679CB, asc_1679D0, asc_1679D5
-global asc_1679DA, asc_1679DF, asc_1679E4, asc_1679E9, asc_1679EE, asc_1679F3, asc_1679F8, asc_1679FD
-global asc_167A02, asc_167A06, asc_167A0B, asc_167A10, asc_167A15, asc_167A1D, asc_167A24, asc_167A29
-global asc_167A2E, asc_167A4E, asc_167A5A, asc_167A65, asc_167A6B, asc_167A70, asc_167B85, asc_167BAB
-global asc_167CEC, asc_167CF5, asc_167CFC, asc_167D08, asc_167D10, asc_167D1C, asc_167D28, asc_167D2C
-global asc_167D38, asc_167D74, asc_167D84, asc_167D94, asc_167DD4, asc_167DDC, asc_167DE8, asc_167E28
-global asc_167E30, asc_167E3C, asc_167E48, asc_167E54, asc_167E64, asc_167E70, asc_167E78, asc_167E84
-global asc_167E8C, asc_167E98, asc_167EB0, asc_167EBC, asc_167ED8, asc_167EE8, asc_167EF4, asc_167F00
+global asc_161288, asc_161290, asc_161298, asc_1612A0, asc_1612A8, asc_1612B0, asc_1612B8, asc_1612CC
+global asc_1612D4, asc_1612E4, asc_1612EC, asc_1612F4, asc_1612FC, asc_161304, asc_16130C, asc_161314
+global asc_16131C, asc_161324, asc_16132C, asc_161334, asc_16133C, asc_161344, asc_16134C, asc_161354
+global asc_16135C, asc_161364, asc_16136C, asc_161374, asc_16137C, asc_161384, asc_1613FC, asc_161404
+global asc_161418, asc_161458, asc_161460, asc_161520, asc_16152C, asc_161534, asc_16153C, asc_161544
+global asc_16154C, asc_161558, asc_161560, asc_161590, asc_1615A0, asc_1615A8, asc_1615B0, asc_1615B8
+global asc_1615C0, asc_1615C4, asc_1615CC, asc_1615FC, asc_161614, asc_161714, asc_161734, asc_161758
+global asc_16177C, asc_1617A4, asc_1617AC, asc_1617B4, asc_1617C0, asc_1617C8, asc_1617E0, asc_161800
+global asc_161808, asc_161810, asc_161814, asc_161824, asc_161828, asc_161834, asc_161840, asc_16184C
+global asc_161858, asc_161860, asc_161870, asc_16187C, asc_161884, asc_161890, asc_161898, asc_1618A0
+global asc_1618A8, asc_1618B0, asc_1618B4, asc_1618BC, asc_1618C4, asc_1618CC, asc_1618D4, asc_1618DC
+global asc_1618E4, asc_1618EC, asc_1618F4, asc_161900, asc_161904, asc_16190C, asc_161914, asc_16191C
+global asc_16192C, asc_161934, asc_16193C, asc_161944, asc_16194C, asc_161954, asc_16195C, asc_161964
+global asc_16196C, asc_16197C, asc_161984, asc_16198C, asc_161998, asc_1619A4, asc_1619AC, asc_1619B8
+global asc_1619C0, asc_1619D4, asc_1619DC, asc_1619EC, asc_1619FC, asc_161A08, asc_161A14, asc_161A20
+global asc_161A34, asc_161A3C, asc_161A44, asc_161A4C, asc_161A54, asc_161A5C, asc_161A64, asc_161A6C
+global asc_161A74, asc_161A7C, asc_161A88, asc_161AD4, asc_161AE0, asc_161AE8, asc_161AF0, asc_161AF8
+global asc_161AFC, asc_161B08, asc_161B10, asc_161B18, asc_161B20, asc_162FFC, asc_163000, asc_163006
+global asc_16300F, asc_163015, asc_16301C, asc_163024, asc_163035, asc_16303C, asc_163045, asc_16304E
+global asc_163056, asc_16305C, asc_163060, asc_163065, asc_16306F, asc_163076, asc_16307B, asc_163081
+global asc_163088, asc_16308F, asc_163D6C, asc_163D74, asc_163D7C, asc_163D84, asc_163D8C, asc_163D94
+global asc_163D9C, asc_163DBC, asc_163ED8, asc_163EE4, asc_163EEC, asc_163F00, asc_163F07, asc_163F0C
+global asc_163F14, asc_164120, asc_164154, asc_164164, asc_16416F, asc_16417C, asc_164181, asc_164186
+global asc_16418B, asc_164190, asc_164195, asc_16419A, asc_16419F, asc_1641A4, asc_1641F6, asc_164237
+global asc_16427F, asc_1642B6, asc_1642FB, asc_164333, asc_164372, asc_164411, asc_16453F, asc_16457C
+global asc_164597, asc_164746, asc_164787, asc_1647C9, asc_164855, asc_164898, asc_164957, asc_16499E
+global asc_164A28, asc_164AA7, asc_164AEB, asc_164B0B, asc_164B89, asc_164BBB, asc_164E34, asc_164F06
+global asc_164FBD, asc_16502F, asc_16503D, asc_1650CC, asc_16510C, asc_165114, asc_16511C, asc_165124
+global asc_16512C, asc_165134, asc_16513C, asc_165144, asc_16514C, asc_165154, asc_16515C, asc_165164
+global asc_16516C, asc_165174, asc_16517C, asc_165184, asc_165194, asc_1651A0, asc_1651A8, asc_1651B0
+global asc_1651B8, asc_1651C0, asc_1651C8, asc_1651D0, asc_1651D8, asc_1651DD, asc_1651E2, asc_1651F3
+global asc_165203, asc_165214, asc_16521B, asc_165227, asc_165231, asc_165236, asc_16523D, asc_165244
+global asc_16524B, asc_165258, asc_165265, asc_165272, asc_165277, asc_16527C, asc_165281, asc_165286
+global asc_16528B, asc_165290, asc_165295, asc_16529A, asc_16529F, asc_1652A4, asc_1652A9, asc_1652AE
+global asc_1652B3, asc_1652B8, asc_1652C0, asc_1652C5, asc_1652CC, asc_1652D1, asc_1652D6, asc_1652DB
+global asc_1652E0, asc_1652E5, asc_1652EA, asc_1652EF, asc_1652F4, asc_1652F9, asc_1652FE, asc_165326
+global asc_165333, asc_16533A, asc_16533F, asc_165344, asc_165349, asc_16534E, asc_165353, asc_165358
+global asc_16535D, asc_165362, asc_165367, asc_16536C, asc_165371, asc_165376, asc_16537B, asc_165380
+global asc_165385, asc_16538A, asc_16538F, asc_165394, asc_165399, asc_16539E, asc_1653A3, asc_1653A8
+global asc_1653AD, asc_1653B2, asc_1653B7, asc_1653BC, asc_1653C1, asc_1653C6, asc_1653CB, asc_1653D0
+global asc_1653D5, asc_1653DA, asc_1653DF, asc_1653E4, asc_1653E9, asc_1653EE, asc_1653F3, asc_1653F8
+global asc_1653FD, asc_165402, asc_165407, asc_16540C, asc_165411, asc_165416, asc_16541B, asc_165421
+global asc_165426, asc_16542B, asc_165430, asc_165435, asc_16543A, asc_16543F, asc_165444, asc_165449
+global asc_16544E, asc_165453, asc_165458, asc_16545D, asc_165462, asc_165467, asc_16546C, asc_165471
+global asc_165476, asc_16547B, asc_165480, asc_165485, asc_16548A, asc_16548F, asc_165494, asc_165499
+global asc_16549E, asc_1654A3, asc_1654A8, asc_1654AD, asc_1654B2, asc_1654B7, asc_1654BB, asc_1654C0
+global asc_1654C5, asc_1654CA, asc_1654CF, asc_1654D4, asc_1654D9, asc_1654DE, asc_1654E3, asc_1654E8
+global asc_1654ED, asc_1654F2, asc_1654F7, asc_1654FC, asc_165501, asc_165506, asc_16550B, asc_165510
+global asc_165515, asc_16551B, asc_165521, asc_165527, asc_16552D, asc_165533, asc_165539, asc_16553E
+global asc_165543, asc_165578, asc_16557D, asc_165582, asc_16558B, asc_165590, asc_165595, asc_1655B4
+global asc_1655BC, asc_1655C1, asc_1655C6, asc_1655D3, asc_1655E0, asc_1655E5, asc_1655EA, asc_1655EF
+global asc_1655F4, asc_16561D, asc_165622, asc_165627, asc_16562C, asc_165631, asc_16563F, asc_16564A
+global asc_165657, asc_16565C, asc_165666, asc_16566B, asc_16567C, asc_16568D, asc_16569E, asc_1656AF
+global asc_1656C0, asc_1656D1, asc_1656FA, asc_1656FF, asc_165704, asc_165709, asc_16570E, asc_165713
+global asc_165718, asc_16571D, asc_165722, asc_165727, asc_16572C, asc_165731, asc_165736, asc_16573B
+global asc_165740, asc_165745, asc_16574A, asc_16574F, asc_165754, asc_165759, asc_16575E, asc_165765
+global asc_16576A, asc_16576F, asc_165774, asc_16577B, asc_165783, asc_165787, asc_16578C, asc_165796
+global asc_16579B, asc_1657C4, asc_1657D2, asc_1657D9, asc_1657E0, asc_1657E5, asc_1657FB, asc_16580C
+global asc_16581E, asc_165835, asc_165839, asc_16583E, asc_16584B, asc_165858, asc_165864, asc_16586F
+global asc_165878, asc_16587F, asc_1658B0, asc_1658BD, asc_1658CA, asc_1658CF, asc_1658D4, asc_1658E0
+global asc_1658E5, asc_1658EA, asc_1658EF, asc_1658F4, asc_1658F9, asc_1658FE, asc_165903, asc_165908
+global asc_16590D, asc_165912, asc_165917, asc_16591C, asc_16592B, asc_165937, asc_165944, asc_165949
+global asc_165951, asc_165958, asc_16595F, asc_165964, asc_165969, asc_16596E, asc_165973, asc_165978
+global asc_16597D, asc_165982, asc_165987, asc_16598C, asc_165991, asc_165996, asc_16599B, asc_1659A0
+global asc_1659AD, asc_1659B2, asc_1659B7, asc_1659C4, asc_1659C9, asc_1659CE, asc_1659DB, asc_1659E0
+global asc_1659E5, asc_1659F2, asc_1659F7, asc_1659FC, asc_165A09, asc_165A0E, asc_165A13, asc_165A20
+global asc_165A25, asc_165A2A, asc_165A37, asc_165A3C, asc_165A41, asc_165A46, asc_165A4B, asc_165A51
+global asc_165A56, asc_165A5D, asc_165A6A, asc_165A78, asc_165A88, asc_165A9B, asc_165AA0, asc_165AA5
+global asc_165AAA, asc_165AAF, asc_165AB4, asc_165AB9, asc_165ABE, asc_165AC3, asc_165AC8, asc_165ACD
+global asc_165AD2, asc_165AD7, asc_165ADC, asc_165AE1, asc_165AE6, asc_165AEB, asc_165AF0, asc_165AF5
+global asc_165AFA, asc_165B01, asc_165B06, asc_165B0B, asc_165B10, asc_165B15, asc_165B1C, asc_165B28
+global asc_165B2D, asc_165B32, asc_165B41, asc_165B46, asc_165B4D, asc_165B5B, asc_165B6C, asc_165B71
+global asc_165B76, asc_165B7B, asc_165B80, asc_165B85, asc_165B8A, asc_165B8E, asc_165B95, asc_165B9A
+global asc_165B9F, asc_165BA4, asc_165BB1, asc_165BB9, asc_165BC0, asc_165BC5, asc_165BCA, asc_165BCF
+global asc_165BD4, asc_165BD9, asc_165BDE, asc_165BE3, asc_165BE8, asc_165BED, asc_165BF2, asc_165BF9
+global asc_165BFE, asc_165C09, asc_165C10, asc_165C15, asc_165C1A, asc_165C1F, asc_165C24, asc_165C29
+global asc_165C2E, asc_165C34, asc_165C3A, asc_165C3F, asc_165C44, asc_165C49, asc_165C4E, asc_165C53
+global asc_165C58, asc_165C5D, asc_165C62, asc_165C67, asc_165C6C, asc_165C71, asc_165C76, asc_165C7B
+global asc_165C80, asc_165C85, asc_165C8A, asc_165C8F, asc_165C94, asc_165C99, asc_165C9E, asc_165CA3
+global asc_165CC8, asc_165CF1, asc_165CF6, asc_165CFB, asc_165D10, asc_165D15, asc_165D1A, asc_165D1F
+global asc_165D2A, asc_165D36, asc_165D42, asc_165D47, asc_165D53, asc_165D64, asc_165D74, asc_165D85
+global asc_165D8F, asc_165D9C, asc_165DA1, asc_165DAE, asc_165DBB, asc_165DC0, asc_165DC4, asc_165DD0
+global asc_165DDC, asc_165DE5, asc_165DEA, asc_165DEF, asc_165DF4, asc_165DF9, asc_165DFE, asc_165E03
+global asc_165E08, asc_165E0D, asc_165E12, asc_165E19, asc_165E20, asc_165E26, asc_165E2C, asc_165E30
+global asc_165E35, asc_165E3D, asc_165E50, asc_165E55, asc_165E5B, asc_165E61, asc_165E66, asc_165E6B
+global asc_165E70, asc_165E76, asc_165E7B, asc_165E82, asc_165E87, asc_165E8C, asc_165E91, asc_165E96
+global asc_165E9B, asc_165EA3, asc_165EA7, asc_165EAC, asc_165EB1, asc_165EB6, asc_165EBB, asc_165EC0
+global asc_165EC5, asc_165ECC, asc_165ED1, asc_165ED6, asc_165EDC, asc_165EE4, asc_165EEC, asc_165EF4
+global asc_165EFC, asc_165F04, asc_165F0C, asc_165F14, asc_165F1C, asc_165F24, asc_165F30, asc_165F38
+global asc_165F40, asc_165F48, asc_165F50, asc_165F5C, asc_165F68, asc_165F78, asc_165F88, asc_165F90
+global asc_165F98, asc_165FA0, asc_165FA8, asc_165FB0, asc_165FB8, asc_165FC0, asc_165FC8, asc_165FD0
+global asc_165FD8, asc_165FE0, asc_165FE8, asc_165FF0, asc_166000, asc_166008, asc_166014, asc_16601C
+global asc_166028, asc_166034, asc_16603C, asc_166044, asc_16604C, asc_166054, asc_16605C, asc_166064
+global asc_16606C, asc_166074, asc_16607C, asc_16608C, asc_166094, asc_1660A0, asc_1660A8, asc_1660C8
+global asc_1660E4, asc_1660F1, asc_1660FD, asc_166102, asc_166120, asc_166129, asc_166133, asc_166139
+global asc_16613D, asc_16614C, asc_166158, asc_166164, asc_16616F, asc_16617E, asc_16618D, asc_16619D
+global asc_1661AE, asc_1661BF, asc_1661D5, asc_1661EA, asc_1661F9, asc_166202, asc_166209, asc_166210
+global asc_166214, asc_16621C, asc_166222, asc_166238, asc_166240, asc_166244, asc_16624A, asc_166250
+global asc_166255, asc_16625A, asc_16625F, asc_166263, asc_16626A, asc_166271, asc_166279, asc_166281
+global asc_166286, asc_16628B, asc_166290, asc_166295, asc_16629A, asc_16629F, asc_1662A4, asc_1662A9
+global asc_1662AE, asc_1662B3, asc_1662B8, asc_1662BD, asc_1662C2, asc_1662C7, asc_1662CC, asc_1662D1
+global asc_1662D6, asc_1662DB, asc_1662E0, asc_1662E5, asc_1662EA, asc_1662EF, asc_1662F4, asc_1662F9
+global asc_1662FE, asc_166303, asc_166308, asc_16630D, asc_166312, asc_166317, asc_16631C, asc_166321
+global asc_166326, asc_16632B, asc_166330, asc_166335, asc_16633A, asc_16633F, asc_166344, asc_166349
+global asc_16634E, asc_166353, asc_166358, asc_16635D, asc_166362, asc_166367, asc_16636C, asc_166371
+global asc_166376, asc_16637B, asc_166380, asc_166385, asc_16638A, asc_16638F, asc_166394, asc_1663A7
+global asc_1663AF, asc_1663BB, asc_1663BF, asc_1663C6, asc_1663CD, asc_1663D3, asc_1663D9, asc_1663E0
+global asc_1663E9, asc_1663F3, asc_1663F7, asc_166404, asc_166409, asc_16640E, asc_166413, asc_166418
+global asc_16641D, asc_166422, asc_16642F, asc_166434, asc_166439, asc_16643E, asc_16644B, asc_166450
+global asc_166455, asc_16645A, asc_166467, asc_16646C, asc_166471, asc_166476, asc_166483, asc_166488
+global asc_16648D, asc_166492, asc_16649F, asc_1664A4, asc_1664A9, asc_1664AE, asc_1664B3, asc_1664C0
+global asc_1664C5, asc_1664CA, asc_1664CF, asc_1664D4, asc_1664E1, asc_1664E6, asc_1664EB, asc_1664F0
+global asc_1664FD, asc_166502, asc_166507, asc_16650C, asc_166519, asc_16651E, asc_166523, asc_166528
+global asc_166535, asc_16653A, asc_16653F, asc_166544, asc_166551, asc_166558, asc_16655F, asc_166564
+global asc_166569, asc_16657D, asc_166595, asc_1665AB, asc_1665BD, asc_1665CE, asc_1665D3, asc_1665D8
+global asc_1665DE, asc_1665E4, asc_1665E9, asc_1665EE, asc_1665F3, asc_1665F8, asc_1665FD, asc_166602
+global asc_16660C, asc_166611, asc_16662D, asc_16663D, asc_166657, asc_166668, asc_16667B, asc_166685
+global asc_16668A, asc_166693, asc_1666AA, asc_1666AE, asc_1666B2, asc_1666B6, asc_1666BA, asc_1666C0
+global asc_1666C8, asc_1666CF, asc_1666D7, asc_1666FD, asc_166713, asc_166718, asc_16671D, asc_166724
+global asc_166729, asc_16672E, asc_166733, asc_166738, asc_16673D, asc_166742, asc_166747, asc_16674C
+global asc_166751, asc_166756, asc_16675B, asc_166760, asc_166765, asc_16676A, asc_166770, asc_166776
+global asc_16677B, asc_166780, asc_16678B, asc_166790, asc_166795, asc_16679D, asc_1667AA, asc_1667AF
+global asc_1667B4, asc_1667B8, asc_1667C0, asc_1667C8, asc_1667CD, asc_1667D2, asc_1667D7, asc_1667DC
+global asc_1667E9, asc_1667EE, asc_1667F5, asc_1667FA, asc_166801, asc_166806, asc_16680B, asc_166810
+global asc_16681D, asc_166822, asc_166827, asc_16682C, asc_166839, asc_16683E, asc_166843, asc_166848
+global asc_166855, asc_16685A, asc_16685F, asc_166864, asc_166869, asc_16686E, asc_166873, asc_166879
+global asc_166880, asc_166885, asc_16688A, asc_16688F, asc_166894, asc_166899, asc_1668A6, asc_1668AB
+global asc_1668B0, asc_1668B5, asc_1668C7, asc_1668CF, asc_1668D5, asc_1668DB, asc_1668EC, asc_1668F1
+global asc_1668FB, asc_166908, asc_16690E, asc_166918, asc_16691D, asc_166922, asc_166929, asc_16692D
+global asc_166938, asc_16694A, asc_166951, asc_166956, asc_166963, asc_166968, asc_16696D, asc_166972
+global asc_166977, asc_166984, asc_166989, asc_16698E, asc_166993, asc_1669A0, asc_1669A5, asc_1669AA
+global asc_1669AF, asc_1669BC, asc_1669C1, asc_1669C6, asc_1669CB, asc_1669D8, asc_1669DD, asc_1669E2
+global asc_1669E7, asc_1669F4, asc_1669F9, asc_1669FE, asc_166A03, asc_166A10, asc_166A15, asc_166A1A
+global asc_166A1F, asc_166A24, asc_166A29, asc_166A2E, asc_166A3B, asc_166A43, asc_166A4B, asc_166A50
+global asc_166A5C, asc_166A61, asc_166A66, asc_166A6F, asc_166A78, asc_166A81, asc_166AAD, asc_166AB8
+global asc_166AD8, asc_166AE4, asc_166AEB, asc_166AF0, asc_166AF9, asc_166B07, asc_166B1B, asc_166B20
+global asc_166B9C, asc_166BA1, asc_166BA6, asc_166BAB, asc_166BB0, asc_166BB5, asc_166BBA, asc_166BBF
+global asc_166BC4, asc_166BC9, asc_166BCE, asc_166BD3, asc_166BD8, asc_166BDD, asc_166BE4, asc_166BE9
+global asc_166BEE, asc_166BF3, asc_166C00, asc_166C05, asc_166C0A, asc_166C11, asc_166C16, asc_166C1B
+global asc_166C20, asc_166C25, asc_166C2A, asc_166C30, asc_166C35, asc_166C3A, asc_166C3F, asc_166C44
+global asc_166C49, asc_166C4E, asc_166C53, asc_166C58, asc_166C5E, asc_166C64, asc_166C6A, asc_166C6F
+global asc_166C74, asc_166C79, asc_166C7E, asc_166C83, asc_166C88, asc_166C8D, asc_166C92, asc_166C9C
+global asc_166CA1, asc_166CA6, asc_166CAB, asc_166CB0, asc_166CB5, asc_166CBA, asc_166CBF, asc_166CC4
+global asc_166CC9, asc_166CCE, asc_166CD3, asc_166CD8, asc_166CDE, asc_166CE4, asc_166CEA, asc_166CF0
+global asc_166CF6, asc_166CFC, asc_166D02, asc_166D07, asc_166D0C, asc_166D11, asc_166D17, asc_166D1D
+global asc_166D24, asc_166D30, asc_166D3F, asc_166D44, asc_166D4F, asc_166D53, asc_166D60, asc_166D6B
+global asc_166D78, asc_166D89, asc_166D9C, asc_166DAE, asc_166DB3, asc_166DB8, asc_166DC9, asc_166DDA
+global asc_166DF0, asc_166DF5, asc_166DFA, asc_166DFF, asc_166E04, asc_166E09, asc_166E0E, asc_166E13
+global asc_166E18, asc_166E1D, asc_166E22, asc_166E27, asc_166E2C, asc_166E31, asc_166E36, asc_166E3B
+global asc_166E40, asc_166E45, asc_166E4A, asc_166E4F, asc_166E56, asc_166E5B, asc_166E60, asc_166E65
+global asc_166E6A, asc_166E6F, asc_166E74, asc_166E79, asc_166E7E, asc_166E83, asc_166E88, asc_166E8D
+global asc_166E92, asc_166E97, asc_166EA0, asc_166EAC, asc_166EC0, asc_166EC5, asc_166ECC, asc_166ED1
+global asc_166ED6, asc_166EDB, asc_166EE0, asc_166EE5, asc_166EEA, asc_166EEF, asc_166EF4, asc_166EF9
+global asc_166EFE, asc_166F03, asc_166F08, asc_166F0D, asc_166F12, asc_166F17, asc_166F1C, asc_166F21
+global asc_166F26, asc_166F2B, asc_166F33, asc_166F38, asc_166F3D, asc_166F42, asc_166F49, asc_166F59
+global asc_166F6B, asc_166F70, asc_166F75, asc_166F7A, asc_166F7F, asc_166F84, asc_166F89, asc_166F8E
+global asc_166F93, asc_166F98, asc_166F9D, asc_166FA2, asc_166FAC, asc_166FB8, asc_166FCC, asc_166FD1
+global asc_166FD6, asc_166FDB, asc_166FE5, asc_166FEF, asc_166FF7, asc_166FFD, asc_167002, asc_16700C
+global asc_167011, asc_167016, asc_167021, asc_167034, asc_16703F, asc_167049, asc_167053, asc_16705C
+global asc_167061, asc_167066, asc_16706C, asc_167071, asc_167076, asc_16707D, asc_167083, asc_16708E
+global asc_167093, asc_167098, asc_16709D, asc_1670A2, asc_1670AF, asc_1670B4, asc_1670BF, asc_1670C6
+global asc_1670D2, asc_1670DE, asc_1670E7, asc_1670ED, asc_1670F7, asc_1670FE, asc_167110, asc_167280
+global asc_167288, asc_167290, asc_167298, asc_1672A0, asc_1672A8, asc_1672B0, asc_1672B8, asc_1672C0
+global asc_1672C8, asc_1672D0, asc_1672D8, asc_1672E0, asc_1672E8, asc_1672F8, asc_167310, asc_167320
+global asc_167328, asc_167330, asc_167338, asc_167340, asc_167348, asc_167350, asc_167358, asc_167360
+global asc_167368, asc_167370, asc_167380, asc_167390, asc_167398, asc_1673A0, asc_1673BC, asc_1673D0
+global asc_1673D4, asc_1673DC, asc_1673E4, asc_1673EC, asc_167404, asc_167465, asc_167472, asc_16747D
+global asc_167482, asc_167488, asc_167494, asc_16749D, asc_1674A6, asc_1674AF, asc_1674B7, asc_1674BE
+global asc_1674C8, asc_1674D4, asc_1674D8, asc_1674E4, asc_1674E8, asc_1674F4, asc_167500, asc_16750C
+global asc_167518, asc_167524, asc_167530, asc_167544, asc_16759C, asc_1675A4, asc_1675AC, asc_1675B8
+global asc_1675C0, asc_1675CC, asc_1675D4, asc_1675DC, asc_1675E4, asc_1675EC, asc_1675F4, asc_1675FC
+global asc_167604, asc_16760C, asc_167614, asc_167624, asc_167629, asc_16762E, asc_167633, asc_167638
+global asc_16763F, asc_167646, asc_1676E9, asc_1676EE, asc_1676F3, asc_1676FA, asc_1676FF, asc_167704
+global asc_167709, asc_16770E, asc_167713, asc_167718, asc_16771D, asc_167722, asc_167727, asc_167734
+global asc_16773C, asc_167744, asc_167750, asc_167757, asc_16775C, asc_167761, asc_167766, asc_16776B
+global asc_167770, asc_167775, asc_16777A, asc_16777F, asc_167784, asc_167789, asc_16778E, asc_167793
+global asc_167798, asc_16779D, asc_1677A2, asc_1677A7, asc_1677AC, asc_1677B1, asc_1677B6, asc_1677BB
+global asc_1677C0, asc_1677C5, asc_1677CA, asc_1677CF, asc_1677D4, asc_1677D9, asc_1677DE, asc_1677E3
+global asc_1677E8, asc_1677ED, asc_1677F2, asc_1677F7, asc_1677FC, asc_167801, asc_16780C, asc_167810
+global asc_167817, asc_16781E, asc_167825, asc_16783A, asc_16784F, asc_16785E, asc_16786D, asc_16787E
+global asc_16788E, asc_1678A0, asc_1678B2, asc_1678B8, asc_1678CC, asc_1678D4, asc_1678D8, asc_16795B
+global asc_16795F, asc_167965, asc_16796B, asc_167970, asc_167975, asc_16797A, asc_16797F, asc_167985
+global asc_16798A, asc_16798F, asc_167994, asc_167999, asc_16799E, asc_1679A3, asc_1679A9, asc_1679AE
+global asc_1679BA, asc_1679BF, asc_1679C5, asc_1679CB, asc_1679D0, asc_1679D5, asc_1679DA, asc_1679DF
+global asc_1679E4, asc_1679E9, asc_1679EE, asc_1679F3, asc_1679F8, asc_1679FD, asc_167A02, asc_167A06
+global asc_167A0B, asc_167A10, asc_167A15, asc_167A1D, asc_167A24, asc_167A29, asc_167A2E, asc_167A4E
+global asc_167A5A, asc_167A65, asc_167A6B, asc_167A70, asc_167B85, asc_167BAB, asc_167CEC, asc_167CF5
+global asc_167CFC, asc_167D08, asc_167D10, asc_167D28, asc_167D2C, asc_167D38, asc_167D74, asc_167D84
+global asc_167D94, asc_167DD4, asc_167DDC, asc_167DE8, asc_167E28, asc_167E30, asc_167E48, asc_167E54
+global asc_167E64, asc_167E8C, asc_167E98, asc_167EBC, asc_167ED8, asc_167EE8, asc_167EF4, asc_167F00
 global asc_167F20, asc_167F40, asc_167F44, asc_167F4C, asc_167F54, asc_167F5C, asc_167F68, asc_167F70
 global asc_167F84, asc_167F8C, asc_167FA0, asc_167FA8, asc_167FE0, asc_167FEC, asc_167FF4, asc_167FFC
-global asc_168004, asc_16800C, asc_168014, asc_16801C, asc_168024, asc_168030, asc_16803C, asc_168044
-global asc_168050, asc_168058, asc_168060, asc_16806C, asc_168078, asc_16808C, asc_168094, asc_16809C
-global asc_1680A4, asc_1680A8, asc_1680AC, asc_1680B4, asc_1680C0, asc_1680C8, asc_1680D8, asc_1680E0
-global asc_1680EC, asc_16810C, asc_168118, asc_168148, asc_16816C, asc_1681FC, asc_168208, asc_16822E
-global asc_1682DD, asc_1682F4, asc_1684B0, asc_1684CC, asc_1684D5, asc_1684DA, asc_16D65F, asc_16DADC
-global asc_16E41A, asc_16E4F8, asc_1709DC, asc_19BEE8, asc_19BFD8, byte_16830C, byte_168410, byte_1684C8
-global byte_1687B4, byte_16892C, byte_16892D, byte_16892E, byte_16892F, byte_168930, byte_1689BC, byte_1689C0
-global byte_1689E4, byte_168B60, byte_168B69, byte_168C04, byte_168E50, byte_169038, byte_1691DC, byte_16C429
-global byte_16C914, byte_16CCF0, byte_16CDCC, byte_16CF98, byte_16D27A, byte_16D2A2, byte_16D5DC, byte_16D784
-global byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, byte_16E264, byte_16E273, byte_16E274, byte_16E275
-global byte_16E28E, byte_16E354, byte_16E358, byte_16E35C, byte_16E378, byte_16E394, byte_16E395, byte_16E396
-global byte_16E3D7, byte_16E414, byte_16E415, byte_16E460, byte_16E503, byte_16E504, byte_16E638, byte_16E639
-global byte_16E63A, byte_16E688, byte_16E689, byte_16E6C0, byte_16E6C1, byte_16F748, byte_16F794, byte_16F89C
-global byte_16FA3F, byte_16FA40, byte_16FA4F, byte_170044, byte_170045, byte_170046, byte_170047, byte_170048
-global byte_1700A0, byte_1700A1, byte_1700A4, byte_1700A5, byte_1700A6, byte_1700A7, byte_1700A8, byte_170124
-global byte_170160, byte_170161, byte_17075C, byte_170764, byte_170781, byte_17078E, byte_17079A, byte_17079C
-global byte_1707B7, byte_1707FC, byte_170800, byte_170804, byte_170810, byte_17086B, byte_1708C6, byte_170921
-global byte_17097C, byte_171C90, byte_171D33, byte_171D34, byte_172250, byte_172251, byte_172301, byte_172518
-global byte_17256C, byte_1725A2, byte_1725A3, byte_1725A4, byte_1725AB, byte_1725AC, byte_17268C, byte_172AB0
-global byte_172AB1, byte_172AB4, byte_172BC5, byte_172BF4, byte_172BF5, byte_172BF6, byte_172C14, byte_172C15
-global byte_172C2C, byte_172C2D, byte_172C2E, byte_172C2F, byte_172C88, byte_172C89, byte_199784, byte_19988D
-global byte_199A24, byte_199AA4, byte_199CD4, byte_199CD5, byte_199CE4, byte_19A748, byte_19A77C, byte_19A780
-global byte_19A784, byte_19A7B8, byte_19A7C0, byte_19A7C8, byte_19A7D0, byte_19A7D8, byte_19A7E0, byte_19C032
-global byte_19C040, byte_19C124, byte_19C16E, byte_19C3D0, byte_19C3D1, byte_19C3D2, byte_19C3D3, byte_19C3E0
-global byte_19C3E6, byte_19C620, byte_19C6E4, byte_19C724, byte_19C840, byte_19CA30, byte_19CA31, byte_19CA32
-global byte_19CA33, byte_19CB70, byte_19CB71, byte_19CB74, byte_19CB75, byte_19CB7E, byte_19CB7F, byte_19CB8A
-global byte_19CB8B, byte_19CBC2, byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CBFC, byte_19CCAF, byte_19CCC6
-global byte_19CD05, byte_19CD8C, byte_19CD9D, byte_19D01C, byte_19D53C, byte_19D555, byte_19D604, byte_19D636
-global byte_19DAD4, byte_19DAD5, byte_19DAD6, byte_19DAEF, byte_19DAF0, byte_19DAF1, byte_19EAC6, byte_19EB38
-global byte_19EB54, byte_19EB55, byte_19EB56, byte_19EB57, byte_19EB5C, byte_19EB7F, byte_19EBD2, byte_19EC44
-global byte_19EC60, byte_19EC61, byte_19EC62, byte_19EC63, byte_19EC68, byte_19EC8B, byte_1A0CC2, byte_1A8E89
-global byte_1A8E8E, byte_1A988C, byte_1A988D, byte_1A988E, byte_1AC638, byte_1AC818, byte_1AC81A, byte_1AC81B
-global byte_1AC81C, byte_1AC81D, byte_1AC8C6, byte_1AC93C, byte_1AC948, byte_1AC95B, byte_1ACA65, byte_1ACA66
-global byte_1ACA6A, byte_1ACC50, byte_1ACC51, byte_1ACC55, byte_1ACD2D, byte_1ACF62, byte_1ACF63, byte_1ACF69
-global byte_1AD23E, byte_1AD252, byte_1AD457, byte_1AD458, byte_1AD45E, byte_1AD72B, byte_1AD739, byte_1AD742
-global byte_1AEDED, byte_1AEDEE, byte_1AEDEF, byte_1B0300, byte_1B1378, byte_1B1398, byte_1B8571, byte_1B8580
-global byte_1B8581, byte_1B8582, byte_1B9058, byte_1B93DD, byte_1B93DE, byte_1BF670, byte_1C1267, byte_1C135A
-global byte_1C135B, byte_1C14BD, byte_1C315C, byte_1C31A7, byte_1C3449, byte_1C344A, byte_1C344B, byte_1C3455
-global byte_1C3456, byte_1C347D, byte_1C35E0, byte_1C527F, byte_1C52CA, byte_1C556C, byte_1C556D, byte_1C556E
-global byte_1C5578, byte_1C5579, byte_1C559C, byte_1C559D, byte_1C559E, byte_1C559F, byte_1C55A0, byte_1C55A4
-global byte_1C55A5, byte_1C55A6, byte_1C55A7, byte_1C55A8, byte_1C55A9, byte_1C55AA, byte_1C55AB, byte_1C6040
-global byte_1C82B3, byte_1C82B4, byte_1C8338, byte_1C833C, byte_1C83B4, byte_1C8700, byte_1C87FC, byte_1C8804
-global byte_1C880C, byte_1C944A, byte_1C944C, byte_1C9472, byte_1CA9D8, byte_1CAEC8, byte_1CB004, byte_1CBB8C
-global byte_1CC240, byte_1CC8B4, byte_1CD24D, byte_1CD250, byte_1CD460, byte_1CD75C, byte_1CD7A9, byte_1CD7B3
-global byte_1CD7B4, byte_1CD7FC, byte_1CD7FD, byte_1CD7FE, byte_1CD85E, byte_1CDA5F, byte_1CDC60, byte_1CDDFF
-global byte_1CDE61, byte_1CE224, byte_1CE23D, byte_1CE23E, byte_1CFADC, byte_1CFBF2, byte_1CFBF3, byte_1D1D88
-global byte_1D1D8C, byte_1D1FBC, byte_1D207C, byte_1D2434, byte_1D8018, byte_1D8088, byte_1DA4C4, byte_1DA4C5
-global byte_1DA8CF, byte_1DCEC8, byte_1DCEC9, byte_1DCECA, byte_1DCECB, byte_1DCECE, byte_1DCECF, byte_1DCED4
-global byte_1DCED5, byte_1DCED6, byte_1DCED7, byte_1DCEDC, byte_1DCEDD, byte_1DCEDE, byte_1DCEDF, byte_1DCEE0
-global byte_1DCEE1, byte_1DCEE2, byte_1DCEE3, byte_1DCEE4, byte_1DCEE5, byte_1DCEE6, byte_1DCEE7, byte_1DCF00
-global byte_1DCF01, byte_1DCF02, byte_1DCF03, byte_1DCF04, byte_1DCF05, byte_1DCF3B, byte_1DCF44, byte_1DCF45
-global byte_1DCF47, byte_1DCF67, byte_1DCF68, byte_1DD381, byte_1DD38C, byte_1DD38D, byte_1DD4AF, byte_1DD4B0
-global byte_1DE6B8, byte_1DE6B9, byte_1DE6BA, byte_1DE770, byte_1DE771, byte_1DE772, byte_1DE773, byte_1DE794
-global byte_1DE795, byte_1DE796, byte_1DE797, byte_1DE798, byte_1DE7F0, dword_160028, dword_160044, dword_160048
-global dword_160150, dword_160154, dword_1602D6, dword_1602DA, dword_1602DE, dword_1602E2, dword_1602EE, dword_1602F2
-global dword_160306, dword_160312, dword_160316, dword_16031A, dword_16031E, dword_160322, dword_160326, dword_16032A
-global dword_16032E, dword_160332, dword_160346, dword_16034A, dword_160386, dword_16039A, dword_16039E, dword_1603A2
-global dword_1603A6, dword_1603AA, dword_1603AE, dword_1603B2, dword_1603B6, dword_1603C2, dword_1603C6, dword_1603CA
-global dword_1603D6, dword_1603DA, dword_160443, dword_160457, dword_16045B, dword_16045F, dword_160463, dword_160467
-global dword_1604B2, dword_1604B6, dword_1604BA, dword_1604BE, dword_1604C2, dword_1604C6, dword_1604CA, dword_1604CE
-global dword_1604D2, dword_1604D6, dword_1604DA, dword_1604DE, dword_1604FF, dword_16050B, dword_16050F, dword_160513
-global dword_16051F, dword_160533, dword_160537, dword_160563, dword_160567, dword_160574, dword_160578, dword_16057C
-global dword_160580, dword_160584, dword_1605A0, dword_1605FC, dword_160600, dword_16060C, dword_160610, dword_160614
-global dword_160618, dword_16061C, dword_160620, dword_16062C, dword_160688, dword_16068C, dword_160690, dword_160694
-global dword_160698, dword_16069C, dword_1606A0, dword_1606A4, dword_1606A8, dword_1606AC, dword_1606B0, dword_1606B4
-global dword_1606B8, dword_1606CC, dword_1606D0, dword_1606DB, dword_1606DF, dword_16070B, dword_16070F, dword_160723
-global dword_160727, dword_160733, dword_160737, dword_160753, dword_160757, dword_16079B, dword_1607C7, dword_1607CB
-global dword_160877, dword_160893, dword_160897, dword_1608A3, dword_1608AF, dword_1608B3, dword_1608C0, dword_1608E4
-global dword_1608E8, dword_1609C4, dword_1609C8, dword_160A64, dword_160A68, dword_160A6C, dword_160A70, dword_160A74
-global dword_160AC0, dword_160B0C, dword_160B10, dword_160B24, dword_160D17, dword_160D1B, dword_161252, dword_161256
-global dword_161391, dword_1613AD, dword_1613B9, dword_1613E5, dword_1613E9, dword_1613ED, dword_1613F1, dword_1613F5
-global dword_161A96, dword_161ABA, dword_161ABE, dword_161AC2, dword_161AC6, dword_161ACA, dword_161AD0, dword_161B28
-global dword_161B34, dword_161B38, dword_161B3C, dword_161B48, dword_161B4C, dword_161B50, dword_161B54, dword_161B98
-global dword_161B9C, dword_161BA0, dword_161BA4, dword_162AE7, dword_162B13, dword_162B1F, dword_162B2B, dword_162B5F
-global dword_162B63, dword_162B67, dword_162B73, dword_162B77, dword_162B7B, dword_162BBF, dword_162C0B, dword_162C1F
-global dword_162C33, dword_162C37, dword_162C3B, dword_162CB7, dword_162CBB, dword_162CBF, dword_162D03, dword_162D37
-global dword_162E0B, dword_162E3F, dword_162E43, dword_162E87, dword_162E8B, dword_162ECF, dword_162F13, dword_162F17
-global dword_162F23, dword_162F6F, dword_162F73, dword_162FBF, dword_162FC3, dword_162FC7, dword_162FCB, dword_162FDF
-global dword_16300B, dword_16309C, dword_1630A0, dword_1630A4, dword_1630E0, dword_1630E4, dword_163138, dword_16317C
-global dword_163190, dword_163194, dword_163198, dword_1631A4, dword_1631D0, dword_1631D4, dword_1631D8, dword_1631DC
-global dword_163230, dword_163234, dword_163248, dword_16324C, dword_163280, dword_163284, dword_163288, dword_1632C4
-global dword_1632C8, dword_1632CC, dword_163300, dword_163304, dword_163308, dword_16330C, dword_163310, dword_16331C
-global dword_163320, dword_163334, dword_163378, dword_16337C, dword_163380, dword_163384, dword_163388, dword_163394
-global dword_163398, dword_1633AC, dword_1633F0, dword_1633F4, dword_1633F8, dword_1633FC, dword_163408, dword_16340C
-global dword_163420, dword_163464, dword_163468, dword_16346C, dword_163498, dword_16349C, dword_1634A0, dword_1634A4
-global dword_1634A8, dword_1634D4, dword_163578, dword_16357C, dword_1635D0, dword_1635D4, dword_163630, dword_163644
-global dword_163648, dword_16367C, dword_163680, dword_163684, dword_163688, dword_1636B4, dword_1636B8, dword_1636BC
-global dword_1636C0, dword_1636C4, dword_1636C8, dword_1636F4, dword_163720, dword_163744, dword_163758, dword_16375C
-global dword_163760, dword_16376C, dword_163790, dword_163794, dword_163798, dword_1637D4, dword_163808, dword_16380C
-global dword_163810, dword_163814, dword_163818, dword_16381C, dword_163828, dword_163834, dword_163838, dword_16383C
-global dword_163850, dword_16390C, dword_163958, dword_163A5C, dword_163A60, dword_163A6C, dword_163AD8, dword_163B04
-global dword_163B10, dword_163B24, dword_163B58, dword_163BD4, dword_163C00, dword_163C24, dword_163C28, dword_163C2C
-global dword_163C90, dword_163CB4, dword_163CB8, dword_163D3C, dword_163D40, dword_163D4C, dword_163D50, dword_163D5C
-global dword_163D60, dword_165548, dword_16554C, dword_165560, dword_165564, dword_165570, dword_165574, dword_165587
-global dword_16559A, dword_16559E, dword_1655A2, dword_1655A6, dword_166A95, dword_166A99, dword_166A9D, dword_166AA9
-global dword_166AC8, dword_166AD4, dword_166B0B, dword_166B17, dword_166B26, dword_166B32, dword_167A3B, dword_167A3F
-global dword_167A43, dword_167A47, dword_167A85, dword_167A89, dword_167A8D, dword_167A91, dword_167A95, dword_167A99
-global dword_167A9D, dword_167AA1, dword_167AA5, dword_167AA9, dword_167AAD, dword_167AE1, dword_167AE5, dword_167AE9
-global dword_167AED, dword_167AF1, dword_167AF5, dword_167AF9, dword_167AFD, dword_167B01, dword_167B05, dword_167B09
-global dword_167B0D, dword_167B11, dword_167B15, dword_167B19, dword_167B2D, dword_167B31, dword_167B35, dword_167B39
-global dword_167B3D, dword_167B41, dword_167B45, dword_167B49, dword_167B4D, dword_167B51, dword_167B55, dword_167B59
-global dword_167B5D, dword_167B61, dword_167B65, dword_167B71, dword_167B75, dword_167B81, dword_167B8B, dword_167B97
-global dword_167B9B, dword_167BA7, dword_167BC3, dword_167BC7, dword_167BCB, dword_167BCF, dword_167BD3, dword_167BD7
-global dword_167BDB, dword_167BDF, dword_167BE3, dword_167BE7, dword_167BEB, dword_167BEF, dword_167BF3, dword_167BF7
-global dword_167BFB, dword_167BFF, dword_167C03, dword_167C07, dword_167C0B, dword_167C0F, dword_167C13, dword_167C17
-global dword_167C1B, dword_167C1F, dword_167C23, dword_167C2F, dword_167C33, dword_167C37, dword_167C3B, dword_167C3F
-global dword_167C43, dword_167C47, dword_167C4B, dword_167C5F, dword_167C63, dword_167C67, dword_167C6B, dword_167C6F
-global dword_167C73, dword_167C77, dword_167C7B, dword_167C7F, dword_167C83, dword_167C87, dword_167C8B, dword_167C8F
-global dword_167C93, dword_167C97, dword_167C9B, dword_167C9F, dword_167CA3, dword_167CA7, dword_167CAB, dword_167CAF
-global dword_167CB3, dword_167CB7, dword_167CBB, dword_167CBF, dword_167CC3, dword_167CC7, dword_167CD3, dword_167CD7
-global dword_167CDB, dword_167CDF, dword_167CE3, dword_167CE7, dword_167D99, dword_167D9D, dword_167DC1, dword_167DC5
-global dword_167E08, dword_167E1C, dword_1682E4, dword_1682E8, dword_16841C, dword_168420, dword_16844C, dword_168450
-global dword_168454, dword_168458, dword_168462, dword_1684C0, dword_1684C4, dword_1684E4, dword_168564, dword_168571
-global dword_168628, dword_16862C, dword_16862E, dword_168630, dword_1686BA, dword_1686C0, dword_1686C4, dword_1686C8
-global dword_1686CC, dword_1686D0, dword_1686D2, dword_1686DC, dword_1686E0, dword_1686E2, dword_1686E6, dword_16875E
-global dword_1687B8, dword_168934, dword_16893C, dword_168A84, dword_168AA4, dword_168AA8, dword_168B14, dword_168B18
-global dword_168B1C, dword_168B66, dword_168D20, dword_168D8E, dword_168DA4, dword_168DCC, dword_168E70, dword_168E74
-global dword_168E7C, dword_168E80, dword_168F58, dword_168FB8, dword_168FD0, dword_169004, dword_16908A, dword_1690D2
-global dword_1690EE, dword_16910A, dword_169126, dword_16913A, dword_169150, dword_16916C, dword_169178, dword_169180
-global dword_169184, dword_16918C, dword_169190, dword_169194, dword_169198, dword_16919C, dword_1691A0, dword_1691A2
-global dword_1691A8, dword_1691AC, dword_1691AE, dword_1691B0, dword_1691B8, dword_1691BC, dword_1691C0, dword_1691C4
-global dword_1691C8, dword_1691CC, dword_1691D0, dword_1691D4, dword_1691D8, dword_1691E0, dword_1691FC, dword_169210
-global dword_169214, dword_169218, dword_16921C, dword_169220, dword_169224, dword_169228, dword_16922C, dword_16922E
-global dword_169230, dword_169238, dword_16923C, dword_169240, dword_169244, dword_169248, dword_16924C, dword_169250
-global dword_169254, dword_169258, dword_16925C, dword_169260, dword_169264, dword_16926C, dword_169274, dword_169278
-global dword_16927A, dword_16927C, dword_16927E, dword_169280, dword_169288, dword_16928C, dword_169290, dword_169294
-global dword_1697B4, dword_1697B8, dword_169818, dword_16981C, dword_169820, dword_169844, dword_1698AF, dword_169996
-global dword_16AEB4, dword_16AF30, dword_16AF34, dword_16AF38, dword_16AF3C, dword_16AF40, dword_16AF44, dword_16AF48
-global dword_16AF4C, dword_16AF50, dword_16AF54, dword_16AF58, dword_16AF5C, dword_16AF60, dword_16AF64, dword_16AF68
-global dword_16AF9C, dword_16AFAC, dword_16B164, dword_16B168, dword_16B174, dword_16B178, dword_16B1A0, dword_16B1A4
-global dword_16B1A8, dword_16B3F4, dword_16B550, dword_16B724, dword_16B72C, dword_16C32C, dword_16C360, dword_16C364
-global dword_16C368, dword_16C374, dword_16C384, dword_16C388, dword_16C38C, dword_16C390, dword_16C394, dword_16C398
-global dword_16C39C, dword_16C3A0, dword_16C3A4, dword_16C3A8, dword_16C3AC, dword_16C3B0, dword_16C3F0, dword_16C54C
-global dword_16C550, dword_16C55C, dword_16C568, dword_16C574, dword_16C580, dword_16C58C, dword_16C618, dword_16C63C
-global dword_16C648, dword_16C654, dword_16C664, dword_16C6B0, dword_16C6B4, dword_16C6B8, dword_16C6BC, dword_16C6C0
-global dword_16C730, dword_16C734, dword_16C738, dword_16C75C, dword_16C760, dword_16C982, dword_16C996, dword_16C9AC
-global dword_16C9B0, dword_16CAA8, dword_16CAAC, dword_16CAB0, dword_16CAB4, dword_16CAF0, dword_16CAF4, dword_16CB74
-global dword_16CB78, dword_16CB7C, dword_16CB80, dword_16CCC4, dword_16CCE8, dword_16CCEC, dword_16CCF1, dword_16CCFA
-global dword_16CCFE, dword_16CD02, dword_16CD08, dword_16CD0C, dword_16CD10, dword_16CD14, dword_16CD18, dword_16CD1C
-global dword_16CD24, dword_16CD28, dword_16CD2C, dword_16CD30, dword_16CD34, dword_16CD40, dword_16CD4C, dword_16CD50
-global dword_16CD54, dword_16CD58, dword_16CD60, dword_16CD64, dword_16CDC8, dword_16CDD0, dword_16CDD8, dword_16CDDC
-global dword_16CDFC, dword_16CE1C, dword_16CF18, dword_16CFBC, dword_16CFF4, dword_16CFF8, dword_16D23C, dword_16D250
-global dword_16D29E, dword_16D2A8, dword_16D2B8, dword_16D2BC, dword_16D2CC, dword_16D2EC, dword_16D30C, dword_16D34C
-global dword_16D350, dword_16D360, dword_16D400, dword_16D404, dword_16D440, dword_16D444, dword_16D448, dword_16D44C
-global dword_16D454, dword_16D458, dword_16D45C, dword_16D470, dword_16D484, dword_16D4B0, dword_16D4D4, dword_16D500
-global dword_16D504, dword_16D508, dword_16D664, dword_16D668, dword_16D66C, dword_16D670, dword_16D674, dword_16D678
-global dword_16D67C, dword_16D680, dword_16D684, dword_16D688, dword_16D694, dword_16D698, dword_16D6A4, dword_16D6A8
-global dword_16D6AC, dword_16D6B0, dword_16D6B4, dword_16D6B8, dword_16D6BC, dword_16D6C0, dword_16D6E8, dword_16D6EC
-global dword_16D6F0, dword_16D6F4, dword_16D6F8, dword_16D6FC, dword_16D700, dword_16D704, dword_16D708, dword_16D71C
-global dword_16D720, dword_16D724, dword_16D728, dword_16D73C, dword_16D740, dword_16D744, dword_16D748, dword_16D74C
-global dword_16D750, dword_16D754, dword_16D760, dword_16D764, dword_16D768, dword_16D76C, dword_16D770, dword_16D774
-global dword_16D778, dword_16D77C, dword_16D780, dword_16D788, dword_16D78C, dword_16D790, dword_16D794, dword_16D798
-global dword_16D79C, dword_16D7A0, dword_16D7A4, dword_16D7A8, dword_16D7D0, dword_16D7D4, dword_16D7D8, dword_16D7F0
-global dword_16D894, dword_16D898, dword_16D89C, dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0, dword_16D8B4
-global dword_16D8B8, dword_16D8BC, dword_16D8D8, dword_16D8DC, dword_16D90C, dword_16D910, dword_16D914, dword_16D918
-global dword_16D91C, dword_16D93A, dword_16DA9C, dword_16DAA0, dword_16DAA4, dword_16DAA8, dword_16DAAC, dword_16DAB0
-global dword_16DAB4, dword_16DAB6, dword_16DABC, dword_16DAC0, dword_16DAC4, dword_16DAC8, dword_16DACA, dword_16DAD2
-global dword_16E124, dword_16E128, dword_16E12A, dword_16E130, dword_16E134, dword_16E138, dword_16E13C, dword_16E140
-global dword_16E144, dword_16E1AC, dword_16E22C, dword_16E2B2, dword_16E2F4, dword_16E2F8, dword_16E2FC, dword_16E300
-global dword_16E304, dword_16E308, dword_16E30C, dword_16E310, dword_16E314, dword_16E318, dword_16E31C, dword_16E320
-global dword_16E324, dword_16E32C, dword_16E330, dword_16E334, dword_16E338, dword_16E33C, dword_16E340, dword_16E344
-global dword_16E348, dword_16E34C, dword_16E350, dword_16E360, dword_16E364, dword_16E368, dword_16E36C, dword_16E370
-global dword_16E374, dword_16E37C, dword_16E380, dword_16E384, dword_16E388, dword_16E38C, dword_16E390, dword_16E397
-global dword_16E39B, dword_16E39F, dword_16E3A3, dword_16E3A7, dword_16E3AB, dword_16E3AF, dword_16E3B3, dword_16E3B7
-global dword_16E3BB, dword_16E3BF, dword_16E3C3, dword_16E3C7, dword_16E3CB, dword_16E3CF, dword_16E3D3, dword_16E3EC
-global dword_16E3F0, dword_16E3F4, dword_16E3F8, dword_16E3FC, dword_16E402, dword_16E408, dword_16E410, dword_16E42C
-global dword_16E430, dword_16E444, dword_16E448, dword_16E44C, dword_16E450, dword_16E454, dword_16E458, dword_16E45C
-global dword_16E464, dword_16E468, dword_16E46C, dword_16E474, dword_16E478, dword_16E47C, dword_16E480, dword_16E484
-global dword_16E488, dword_16E48C, dword_16E490, dword_16E494, dword_16E498, dword_16E49C, dword_16E4A0, dword_16E4A4
-global dword_16E4A8, dword_16E4B0, dword_16E4B4, dword_16E4B8, dword_16E4BC, dword_16E4C8, dword_16E4D0, dword_16E500
-global dword_16E604, dword_16E608, dword_16E60C, dword_16E610, dword_16E614, dword_16E618, dword_16E61C, dword_16E620
-global dword_16E624, dword_16E628, dword_16E630, dword_16E634, dword_16E63C, dword_16E670, dword_16E674, dword_16E676
-global dword_16E678, dword_16E67A, dword_16E67C, dword_16E67E, dword_16E680, dword_16E682, dword_16E684, dword_16E690
-global dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16E6AC, dword_16E6B0, dword_16E6B4
-global dword_16E6B8, dword_16E6BC, dword_16E6C8, dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714
-global dword_16E718, dword_16E870, dword_16F140, dword_16F144, dword_16F148, dword_16F14C, dword_16F150, dword_16F184
-global dword_16F188, dword_16F5AC, dword_16F5B4, dword_16F5B8, dword_16F77C, dword_16F780, dword_16F784, dword_16F788
-global dword_16F78C, dword_16F790, dword_16F894, dword_16F898, dword_16F8A0, dword_16F8A8, dword_16F8AC, dword_16F8B0
-global dword_16F8B4, dword_16F8B8, dword_16F9FC, dword_16FA00, dword_16FA04, dword_16FA08, dword_16FA10, dword_16FA14
-global dword_16FB40, dword_16FB50, dword_16FB54, dword_16FB58, dword_16FB5C, dword_16FB60, dword_16FB64, dword_16FB74
-global dword_16FECC, dword_16FFC4, dword_170038, dword_17003C, dword_170040, dword_170042, dword_170043, dword_170050
-global dword_170054, dword_170058, dword_170060, dword_170080, dword_170084, dword_170088, dword_17008C, dword_170090
-global dword_170094, dword_170098, dword_17009C, dword_1700A9, dword_1700AD, dword_1700FD, dword_170101, dword_17014C
-global dword_170150, dword_170154, dword_170158, dword_17015C, dword_170164, dword_170200, dword_170204, dword_170208
-global dword_17020C, dword_170210, dword_170214, dword_170218, dword_17024C, dword_170250, dword_170254, dword_170258
-global dword_17025C, dword_170260, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274, dword_1702B4
-global dword_1702B8, dword_1702C0, dword_1702C4, dword_1702C8, dword_1702CC, dword_1706CC, dword_1706F8, dword_170704
-global dword_17070C, dword_170710, dword_170714, dword_170754, dword_170758, dword_170760, dword_1707E4, dword_1707EA
-global dword_1707F0, dword_1709D8, dword_1709ED, dword_1709F1, dword_1709F8, dword_170ACC, dword_170AF8, dword_170AFC
-global dword_170B00, dword_170B04, dword_170B08, dword_170B0C, dword_170B10, dword_1712CC, dword_171C88, dword_171C8C
-global dword_171E34, dword_172138, dword_17213C, dword_172168, dword_172194, dword_172198, dword_17219C, dword_1721A0
-global dword_1721A4, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4, dword_1721E0, dword_1721E4, dword_172244
-global dword_172248, dword_17224C, dword_172254, dword_172258, dword_17225C, dword_172260, dword_1722BC, dword_1724C9
-global dword_1724D4, dword_17251B, dword_172524, dword_172564, dword_172570, dword_172574, dword_172578, dword_17257C
-global dword_172584, dword_172588, dword_17258C, dword_172590, dword_172594, dword_17259C, dword_1725A5, dword_1725AD
-global dword_172674, dword_172678, dword_17267C, dword_1726A0, dword_1726A4, dword_172AAC, dword_172AB8, dword_172ABC
-global dword_172AC0, dword_172AC4, dword_172BC1, dword_172BC8, dword_172BCC, dword_172BD0, dword_172BD4, dword_172BD8
-global dword_172BDC, dword_172BE0, dword_172BE4, dword_172BE8, dword_172BEC, dword_172BF0, dword_172C00, dword_172C04
-global dword_172C08, dword_172C0C, dword_172C10, dword_172C20, dword_172C24, dword_172C28, dword_172C3E, dword_172C64
-global dword_172C68, dword_172C6C, dword_172C70, dword_172C74, dword_172C78, dword_172C7C, dword_172C80, dword_172C84
-global dword_172C90, dword_172C94, dword_172C98, dword_172C9C, dword_172CA0, dword_172CA4, dword_173F64, dword_19469C
-global dword_1946A0, dword_1946A4, dword_1946A8, dword_1996A4, dword_1996A8, dword_1996AC, dword_1996B0, dword_1996B4
-global dword_1996B8, dword_1996BC, dword_1996C0, dword_1996C4, dword_1996C8, dword_1996D0, dword_1996D4, dword_1996D8
-global dword_1996DC, dword_1996E0, dword_1996E4, dword_1996E8, dword_199734, dword_199888, dword_199990, dword_199994
-global dword_199998, dword_19999C, dword_1999A0, dword_1999A4, dword_1999A5, dword_1999BC, dword_1999C0, dword_199A14
-global dword_199A18, dword_199A1E, dword_199B2A, dword_199B2E, dword_199C38, dword_199C3C, dword_199C40, dword_199C44
-global dword_199C48, dword_199C4C, dword_199CE8, dword_19A6E0, dword_19A744, dword_19A758, dword_19A75C, dword_19A760
-global dword_19A764, dword_19A768, dword_19A76C, dword_19A770, dword_19A774, dword_19A778, dword_19A788, dword_19A78C
-global dword_19A790, dword_19A794, dword_19A798, dword_19A79C, dword_19A7A0, dword_19A7A4, dword_19A7A8, dword_19A7B0
-global dword_19A7B4, dword_19A7E4, dword_19A7E8, dword_19A878, dword_19BEB8, dword_19BED8, dword_19BEDC, dword_19BEE0
-global dword_19BEE4, dword_19C008, dword_19C00C, dword_19C010, dword_19C054, dword_19C0D4, dword_19C0F4, dword_19C0F8
-global dword_19C0FC, dword_19C100, dword_19C104, dword_19C108, dword_19C10C, dword_19C110, dword_19C114, dword_19C118
-global dword_19C11C, dword_19C120, dword_19C128, dword_19C12C, dword_19C132, dword_19C138, dword_19C13E, dword_19C144
-global dword_19C170, dword_19C178, dword_19C1A4, dword_19C1AA, dword_19C1AE, dword_19C1C6, dword_19C3CC, dword_19C3DD
-global dword_19C690, dword_19C694, dword_19C698, dword_19C69C, dword_19C6A0, dword_19C6A4, dword_19C6A8, dword_19C6AC
-global dword_19C6B0, dword_19C6B4, dword_19C6B8, dword_19C6BC, dword_19C6C0, dword_19C734, dword_19C738, dword_19C73C
-global dword_19C8C8, dword_19C8CC, dword_19CA2F, dword_19CA88, dword_19CA8C, dword_19CB30, dword_19CB32, dword_19CB38
-global dword_19CB3C, dword_19CB3E, dword_19CB40, dword_19CB44, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB54
-global dword_19CB58, dword_19CB5A, dword_19CB5E, dword_19CB62, dword_19CB66, dword_19CB6A, dword_19CB6D, dword_19CB7B
-global dword_19CBAA, dword_19CBC4, dword_19CBD0, dword_19CBE4, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC02
-global dword_19CC12, dword_19CC30, dword_19CC54, dword_19CC58, dword_19CC5C, dword_19CC78, dword_19CC7C, dword_19CC9C
-global dword_19CCA0, dword_19CCA4, dword_19CCA8, dword_19CCC2, dword_19CD08, dword_19CD0C, dword_19CD10, dword_19CD14
-global dword_19CD18, dword_19CD1C, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C, dword_19CD30, dword_19CD34
-global dword_19CD40, dword_19CD44, dword_19CD48, dword_19CD4C, dword_19CD50, dword_19CD54, dword_19CD88, dword_19CDA0
-global dword_19CDA5, dword_19D004, dword_19D008, dword_19D00C, dword_19D010, dword_19D014, dword_19D018, dword_19D020
-global dword_19D024, dword_19D034, dword_19D038, dword_19D03C, dword_19D040, dword_19D044, dword_19D048, dword_19D058
-global dword_19D068, dword_19D06C, dword_19D070, dword_19D074, dword_19D078, dword_19D07C, dword_19D080, dword_19D084
-global dword_19D088, dword_19D08C, dword_19D090, dword_19D094, dword_19D098, dword_19D09C, dword_19D0C8, dword_19D0CC
-global dword_19D0D0, dword_19D0D4, dword_19D0D8, dword_19D0DC, dword_19D0E4, dword_19D0E8, dword_19D0EC, dword_19D134
-global dword_19D138, dword_19D188, dword_19D18C, dword_19D190, dword_19D194, dword_19D198, dword_19D19C, dword_19D1A0
-global dword_19D1A4, dword_19D1A8, dword_19D1B8, dword_19D1BC, dword_19D1CC, dword_19D1D4, dword_19D1D8, dword_19D1DC
-global dword_19D1E0, dword_19D1E4, dword_19D1E8, dword_19D334, dword_19D338, dword_19D340, dword_19D344, dword_19D348
-global dword_19D364, dword_19D368, dword_19D36C, dword_19D370, dword_19D374, dword_19D378, dword_19D37C, dword_19D380
-global dword_19D384, dword_19D388, dword_19D38C, dword_19D390, dword_19D394, dword_19D398, dword_19D39C, dword_19D3A0
-global dword_19D3A4, dword_19D3A8, dword_19D3AC, dword_19D40D, dword_19D410, dword_19DA50, dword_19DA58, dword_19DA68
-global dword_19DA70, dword_19DA94, dword_19DAD3, dword_19DADD, dword_19DADE, dword_19DB12, dword_19DC60, dword_19DC68
-global dword_19E290, dword_19E298, dword_19EAAE, dword_19EB58, dword_19EBAA, dword_19EBAE, dword_19EBB0, dword_19EBB4
-global dword_19EBB8, dword_19EBBA, dword_19EC64, dword_19ECB6, dword_19ECBA, dword_19ECBC, dword_19ECC0, dword_19ECC4
-global dword_19ECD0, dword_19ECEC, dword_19ED00, dword_19ED10, dword_19ED14, dword_19ED18, dword_19ED1C, dword_19ED20
-global dword_19ED24, dword_19ED28, dword_19ED2C, dword_19ED30, dword_19ED34, dword_19ED38, dword_19ED3C, dword_19ED40
-global dword_19ED44, dword_19ED48, dword_19ED4C, dword_19ED50, dword_19ED54, dword_19ED58, dword_19ED5C, dword_19ED60
-global dword_19ED64, dword_19ED68, dword_19ED6C, dword_19ED70, dword_19F4F4, dword_19F4F8, dword_19F4FC, dword_19FD14
-global dword_19FD18, dword_1A0CBC, dword_1A0CC0, dword_1A8B48, dword_1A8B60, dword_1A8E48, dword_1A8E4C, dword_1A8E50
-global dword_1A8E54, dword_1A8E58, dword_1A8E5C, dword_1A8E60, dword_1A8E64, dword_1A8E68, dword_1A8E6C, dword_1A8E70
-global dword_1A8E74, dword_1A8E7C, dword_1A8E80, dword_1A8E84, dword_1A8E88, dword_1AC34C, dword_1AC350, dword_1AC354
-global dword_1AC358, dword_1AC35C, dword_1AC360, dword_1AC364, dword_1AC368, dword_1AC36C, dword_1AC370, dword_1AC374
-global dword_1AC378, dword_1AC37C, dword_1AC380, dword_1AC3D8, dword_1AC430, dword_1AC434, dword_1AC438, dword_1AC4F0
-global dword_1AC4F4, dword_1AC4F8, dword_1AC4FC, dword_1AC500, dword_1AC504, dword_1AC508, dword_1AC50C, dword_1AC510
-global dword_1AC5C8, dword_1AC5CC, dword_1AC5D0, dword_1AC5D4, dword_1AC5D8, dword_1AC5EC, dword_1AC5F0, dword_1AC604
-global dword_1AC608, dword_1AC620, dword_1AC778, dword_1AC77C, dword_1AC780, dword_1AC784, dword_1AC788, dword_1AC78C
-global dword_1AC790, dword_1AC794, dword_1AC798, dword_1AC79C, dword_1AC7A0, dword_1AC7A4, dword_1AC7A8, dword_1AC7AC
-global dword_1AC7B0, dword_1AC7B4, dword_1AC7B8, dword_1AC7BC, dword_1AC7C0, dword_1AC7C4, dword_1AC7C8, dword_1AC7CC
-global dword_1AC7D0, dword_1AC7D2, dword_1AC7D4, dword_1AC7D6, dword_1AC810, dword_1AC814, dword_1AC819, dword_1AC835
-global dword_1AC8AD, dword_1AC940, dword_1AC944, dword_1ACB45, dword_1ACF3A, dword_1ACF3E, dword_1ACF42, dword_1ACF46
-global dword_1ACF4A, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD244, dword_1AD248, dword_1AD24C, dword_1AD251
-global dword_1AD437, dword_1AD45A, dword_1AD62B, dword_1AD62F, dword_1AD69F, dword_1AD6A3, dword_1AD6A7, dword_1AD6AB
-global dword_1AD6AF, dword_1AD70F, dword_1AD71B, dword_1AD71F, dword_1AD723, dword_1AD727, dword_1AD743, dword_1AD748
-global dword_1ADBF8, dword_1ADC70, dword_1ADC74, dword_1ADC78, dword_1ADC7C, dword_1ADC80, dword_1ADC84, dword_1ADC88
-global dword_1ADC8C, dword_1ADC90, dword_1ADC94, dword_1ADC98, dword_1ADC9C, dword_1ADCA8, dword_1ADCB8, dword_1ADCC0
-global dword_1ADCC8, dword_1ADCD0, dword_1ADCD8, dword_1ADCE4, dword_1ADCE8, dword_1ADCEC, dword_1ADCF4, dword_1ADCF8
-global dword_1ADD00, dword_1ADD04, dword_1ADD0C, dword_1ADD10, dword_1ADD18, dword_1ADD80, dword_1ADDEC, dword_1ADF98
-global dword_1ADF9C, dword_1ADFA0, dword_1AE000, dword_1AE00C, dword_1AE030, dword_1AE03C, dword_1AE178, dword_1AE17C
-global dword_1AE1C0, dword_1AE1C4, dword_1AE3F8, dword_1AE408, dword_1AE40C, dword_1AE410, dword_1AE580, dword_1AE584
-global dword_1AE684, dword_1AEE04, dword_1AEEA4, dword_1AF100, dword_1AF1C8, dword_1AF1F0, dword_1AF238, dword_1AF254
-global dword_1AF2B8, dword_1AF2BC, dword_1AF2C0, dword_1AF318, dword_1AF31C, dword_1AF338, dword_1AF33C, dword_1AF344
-global dword_1AF348, dword_1AF3C0, dword_1AF3C4, dword_1AF3C8, dword_1AF3CC, dword_1AF3D0, dword_1AF428, dword_1AF42C
-global dword_1AF448, dword_1AF44C, dword_1AF454, dword_1AF458, dword_1AF4D0, dword_1AF4D4, dword_1AFC44, dword_1AFC48
-global dword_1AFD10, dword_1AFEA0, dword_1AFF68, dword_1B0004, dword_1B0008, dword_1B0018, dword_1B001C, dword_1B0020
-global dword_1B0024, dword_1B0028, dword_1B0038, dword_1B0068, dword_1B0074, dword_1B0084, dword_1B0088, dword_1B0208
-global dword_1B020C, dword_1B0210, dword_1B022C, dword_1B0248, dword_1B0254, dword_1B0258, dword_1B0264, dword_1B0268
-global dword_1B026C, dword_1B0270, dword_1B0274, dword_1B0278, dword_1B02C0, dword_1B0400, dword_1B0408, dword_1B080C
-global dword_1B0810, dword_1B0950, dword_1B0954, dword_1B0958, dword_1B095C, dword_1B0960, dword_1B0964, dword_1B0968
-global dword_1B096C, dword_1B0A70, dword_1B0A74, dword_1B0A78, dword_1B0A7C, dword_1B0A80, dword_1B0A84, dword_1B0A88
-global dword_1B0A8C, dword_1B0A90, dword_1B0A94, dword_1B0A98, dword_1B0A9C, dword_1B0AA0, dword_1B0AA4, dword_1B0AB4
-global dword_1B0AB8, dword_1B0ABC, dword_1B0AC0, dword_1B0AC4, dword_1B0AC8, dword_1B0ACC, dword_1B0B18, dword_1B0B1C
-global dword_1B0B20, dword_1B0B28, dword_1B0B2C, dword_1B0B34, dword_1B0B38, dword_1B0B60, dword_1B0B64, dword_1B0B68
-global dword_1B0B6C, dword_1B0B70, dword_1B0B74, dword_1B0B78, dword_1B0B7C, dword_1B0B80, dword_1B0B84, dword_1B0B88
-global dword_1B0B8C, dword_1B0B90, dword_1B0B94, dword_1B0B98, dword_1B0B9C, dword_1B0C78, dword_1B0C7C, dword_1B0C80
-global dword_1B0CE4, dword_1B0CE8, dword_1B0CEC, dword_1B0CFC, dword_1B0D5C, dword_1B0D70, dword_1B0D74, dword_1B0D78
-global dword_1B0D7C, dword_1B0D80, dword_1B0D84, dword_1B0D88, dword_1B0D8C, dword_1B0D90, dword_1B0D94, dword_1B0D98
-global dword_1B0D9C, dword_1B0DA0, dword_1B0DA4, dword_1B0DA8, dword_1B0DAC, dword_1B0DB0, dword_1B0DB4, dword_1B0DB8
-global dword_1B0DBC, dword_1B0DC0, dword_1B0DC4, dword_1B0DC8, dword_1B0DCC, dword_1B0DD0, dword_1B0DD4, dword_1B0DD8
-global dword_1B0DDC, dword_1B0DE0, dword_1B0DE4, dword_1B0DE8, dword_1B0DEC, dword_1B0DF0, dword_1B0DF4, dword_1B0DF8
-global dword_1B0DFC, dword_1B0E00, dword_1B0E04, dword_1B0E08, dword_1B0E0C, dword_1B0E10, dword_1B0E14, dword_1B0E18
-global dword_1B0E24, dword_1B0E28, dword_1B0E2C, dword_1B0E30, dword_1B0E34, dword_1B0E38, dword_1B0E4C, dword_1B0E50
-global dword_1B0E54, dword_1B0E58, dword_1B0E5C, dword_1B0E60, dword_1B0E64, dword_1B0E68, dword_1B0E6C, dword_1B0E70
-global dword_1B0E74, dword_1B0E78, dword_1B0E7C, dword_1B0E80, dword_1B0E84, dword_1B0E88, dword_1B0E8C, dword_1B0E90
-global dword_1B0E94, dword_1B0E98, dword_1B0E9C, dword_1B0EA0, dword_1B0EA4, dword_1B0EA8, dword_1B0EAC, dword_1B0EB0
-global dword_1B0EB4, dword_1B0EBC, dword_1B0EC0, dword_1B0ECC, dword_1B0ED4, dword_1B0ED8, dword_1B0EE0, dword_1B0EE4
-global dword_1B0EE8, dword_1B0EEC, dword_1B0EF0, dword_1B0EF4, dword_1B0EF8, dword_1B0F00, dword_1B0F04, dword_1B0F08
-global dword_1B0F0C, dword_1B0F10, dword_1B0F1C, dword_1B0F20, dword_1B0F24, dword_1B0F34, dword_1B0F38, dword_1B0F3C
-global dword_1B0F40, dword_1B0F44, dword_1B0F98, dword_1B0F9C, dword_1B0FA0, dword_1B0FA8, dword_1B0FB0, dword_1B0FB4
-global dword_1B0FB8, dword_1B0FBC, dword_1B0FCC, dword_1B0FD0, dword_1B0FD4, dword_1B0FD8, dword_1B0FDC, dword_1B0FE0
-global dword_1B0FE4, dword_1B0FE8, dword_1B0FEC, dword_1B0FF0, dword_1B0FF4, dword_1B0FF8, dword_1B0FFC, dword_1B1000
-global dword_1B1008, dword_1B100C, dword_1B1010, dword_1B1014, dword_1B1018, dword_1B101C, dword_1B1020, dword_1B1024
-global dword_1B1028, dword_1B102C, dword_1B1030, dword_1B1034, dword_1B1038, dword_1B103C, dword_1B1040, dword_1B1044
-global dword_1B1048, dword_1B104C, dword_1B1050, dword_1B1054, dword_1B1058, dword_1B105C, dword_1B1060, dword_1B1064
-global dword_1B108C, dword_1B10CC, dword_1B10D0, dword_1B10D4, dword_1B10D8, dword_1B10DC, dword_1B10E0, dword_1B10E4
-global dword_1B10E8, dword_1B10F4, dword_1B10F8, dword_1B1108, dword_1B110C, dword_1B1114, dword_1B1118, dword_1B111C
-global dword_1B1258, dword_1B1260, dword_1B1264, dword_1B126C, dword_1B1270, dword_1B1278, dword_1B127C, dword_1B1284
-global dword_1B1288, dword_1B12FC, dword_1B1300, dword_1B137C, dword_1B1380, dword_1B1384, dword_1B1388, dword_1B138C
-global dword_1B1390, dword_1B13B0, dword_1B13B4, dword_1B13B8, dword_1B13BC, dword_1B13C0, dword_1B13C4, dword_1B13C8
-global dword_1B13E0, dword_1B13E4, dword_1B1404, dword_1B1410, dword_1B141C, dword_1B145C, dword_1B1464, dword_1B1B64
-global dword_1B82AC, dword_1B82B0, dword_1B82B4, dword_1B82B8, dword_1B82BC, dword_1B82C0, dword_1B82C4, dword_1B82C8
-global dword_1B82CC, dword_1B82D0, dword_1B82D4, dword_1B82D8, dword_1B82DC, dword_1B82E0, dword_1B82E4, dword_1B82F0
-global dword_1B82F4, dword_1B82FC, dword_1B8300, dword_1B8304, dword_1B830C, dword_1B8318, dword_1B8324, dword_1B8330
-global dword_1B833C, dword_1B834C, dword_1B8358, dword_1B8364, dword_1B8368, dword_1B836C, dword_1B8370, dword_1B8374
-global dword_1B8380, dword_1B838C, dword_1B8394, dword_1B8398, dword_1B83A0, dword_1B83A4, dword_1B83C8, dword_1B83D4
-global dword_1B83E0, dword_1B83EC, dword_1B8410, dword_1B841C, dword_1B8428, dword_1B8434, dword_1B8440, dword_1B8444
-global dword_1B8450, dword_1B8454, dword_1B8458, dword_1B845C, dword_1B8468, dword_1B846C, dword_1B8478, dword_1B8484
-global dword_1B8488, dword_1B848C, dword_1B84B0, dword_1B84B4, dword_1B84C0, dword_1B84C4, dword_1B84C8, dword_1B84CC
-global dword_1B84D8, dword_1B84DC, dword_1B84E8, dword_1B84F4, dword_1B84F8, dword_1B84FC, dword_1B8500, dword_1B8520
-global dword_1B8530, dword_1B8534, dword_1B8538, dword_1B853C, dword_1B8540, dword_1B8544, dword_1B8548, dword_1B854C
-global dword_1B8550, dword_1B8554, dword_1B8558, dword_1B855C, dword_1B8560, dword_1B8564, dword_1B8568, dword_1B856C
-global dword_1B8570, dword_1B8574, dword_1B8578, dword_1B857C, dword_1B857F, dword_1B88D8, dword_1B88DC, dword_1B8910
-global dword_1B8944, dword_1B8978, dword_1B89AC, dword_1B89B0, dword_1B89D4, dword_1B89D8, dword_1B89F0, dword_1B8A14
-global dword_1B8A18, dword_1B8BCC, dword_1B8D84, dword_1B8F44, dword_1B8F48, dword_1B8F4C, dword_1B8F50, dword_1B8F54
-global dword_1B8F58, dword_1B8F5C, dword_1B8F60, dword_1B8F64, dword_1B8F68, dword_1B8F6C, dword_1B8F70, dword_1B8F74
-global dword_1B8F78, dword_1B8F7C, dword_1B8F80, dword_1B8F84, dword_1B8F88, dword_1B8F8C, dword_1B8F90, dword_1B8F94
-global dword_1B8F98, dword_1B8F9C, dword_1B8FA0, dword_1B8FA4, dword_1B9018, dword_1B901C, dword_1B9020, dword_1B9024
-global dword_1B9028, dword_1B902C, dword_1B9030, dword_1B9034, dword_1B905F, dword_1B9063, dword_1B9067, dword_1B906B
-global dword_1B906F, dword_1B9077, dword_1B907B, dword_1B907F, dword_1B9083, dword_1B9087, dword_1B908B, dword_1B908F
-global dword_1B9093, dword_1B9097, dword_1B90B3, dword_1B90CF, dword_1B90EB, dword_1B90EF, dword_1B90F3, dword_1B90F7
-global dword_1B90FB, dword_1B90FF, dword_1B92D0, dword_1B9358, dword_1B935C, dword_1B93D8, dword_1B93DC, dword_1B93E4
-global dword_1B93E8, dword_1B94DC, dword_1B9554, dword_1B9558, dword_1B9A14, dword_1B9A18, dword_1B9AB8, dword_1B9ABC
-global dword_1B9AC0, dword_1B9C50, dword_1B9C8C, dword_1B9C90, dword_1B9CA4, dword_1B9CAC, dword_1B9CB0, dword_1B9CFC
-global dword_1B9D04, dword_1B9D08, dword_1B9D18, dword_1B9D20, dword_1B9D28, dword_1BA050, dword_1BA068, dword_1BA088
-global dword_1BA0A0, dword_1BAAF8, dword_1BAB00, dword_1BAB04, dword_1BB258, dword_1BF050, dword_1BF054, dword_1BF058
-global dword_1BF05C, dword_1BF060, dword_1BF064, dword_1BF068, dword_1BF06C, dword_1BF070, dword_1BF074, dword_1BF078
-global dword_1BF07C, dword_1BF084, dword_1BF0B8, dword_1BF0BC, dword_1BF17C, dword_1BF1B4, dword_1BF248, dword_1BF7F0
-global dword_1BF7F4, dword_1BF7F8, dword_1BF7FC, dword_1BF800, dword_1BF888, dword_1BF88C, dword_1BF890, dword_1BF894
-global dword_1BF898, dword_1BF89C, dword_1BF8A0, dword_1BF8A4, dword_1BF8A8, dword_1BF8B0, dword_1BF8B4, dword_1C0EE0
-global dword_1C0EEC, dword_1C0EF0, dword_1C0EF8, dword_1C0EFC, dword_1C1200, dword_1C1204, dword_1C1208, dword_1C120C
-global dword_1C1210, dword_1C1214, dword_1C1218, dword_1C121C, dword_1C1220, dword_1C1224, dword_1C1228, dword_1C122C
-global dword_1C1230, dword_1C1234, dword_1C1238, dword_1C123C, dword_1C1240, dword_1C1244, dword_1C1248, dword_1C124C
-global dword_1C1250, dword_1C1254, dword_1C1258, dword_1C125C, dword_1C1260, dword_1C1334, dword_1C1338, dword_1C1346
-global dword_1C13C0, dword_1C13FB, dword_1C13FF, dword_1C1403, dword_1C309A, dword_1C309E, dword_1C30A2, dword_1C34E3
-global dword_1C351E, dword_1C3522, dword_1C3526, dword_1C51BD, dword_1C51C1, dword_1C51C5, dword_1C5DA4, dword_1C5DA8
-global dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE0, dword_1C5DE4, dword_1C5DE8, dword_1C5E74
-global dword_1C5E78, dword_1C5E7C, dword_1C5E80, dword_1C5E84, dword_1C5E9C, dword_1C5EA0, dword_1C5EA4, dword_1C5EA8
-global dword_1C5EC4, dword_1C5EC8, dword_1C5ECC, dword_1C5ED0, dword_1C5EEC, dword_1C5EF0, dword_1C5EF4, dword_1C5F08
-global dword_1C5F0C, dword_1C5F12, dword_1C5F16, dword_1C5F1A, dword_1C5F1E, dword_1C5F22, dword_1C5F26, dword_1C5F5A
-global dword_1C5F5E, dword_1C5F64, dword_1C5F68, dword_1C5F6C, dword_1C5F70, dword_1C5F74, dword_1C5F78, dword_1C5FAC
-global dword_1C5FB0, dword_1C5FB6, dword_1C5FBA, dword_1C5FBE, dword_1C5FC2, dword_1C5FC6, dword_1C5FCA, dword_1C5FFE
-global dword_1C6002, dword_1C6008, dword_1C600C, dword_1C6010, dword_1C6014, dword_1C6018, dword_1C601C, dword_1C6080
-global dword_1C6084, dword_1C60C0, dword_1C60C4, dword_1C8184, dword_1C8188, dword_1C818C, dword_1C8190, dword_1C8194
-global dword_1C8198, dword_1C819C, dword_1C81A0, dword_1C81A4, dword_1C81A8, dword_1C81AC, dword_1C81B0, dword_1C81B4
-global dword_1C81B8, dword_1C8268, dword_1C826C, dword_1C829C, dword_1C82A0, dword_1C82A4, dword_1C82A8, dword_1C82AC
-global dword_1C82B0, dword_1C82C0, dword_1C82C4, dword_1C82C8, dword_1C82CC, dword_1C82D0, dword_1C82D4, dword_1C82D8
-global dword_1C82DC, dword_1C82E0, dword_1C82E4, dword_1C82F4, dword_1C8318, dword_1C831C, dword_1C8320, dword_1C8324
-global dword_1C8328, dword_1C832C, dword_1C8330, dword_1C8334, dword_1C83B0, dword_1C83D0, dword_1C83D4, dword_1C83D8
-global dword_1C83DC, dword_1C83E0, dword_1C83E4, dword_1C83E8, dword_1C83EC, dword_1C83F0, dword_1C83F4, dword_1C83F8
-global dword_1C83FC, dword_1C8400, dword_1C8404, dword_1C8408, dword_1C840C, dword_1C8410, dword_1C8414, dword_1C8418
-global dword_1C841C, dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dword_1C8434, dword_1C8438
-global dword_1C843C, dword_1C8440, dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8450, dword_1C8454, dword_1C84D8
-global dword_1C8540, dword_1C8568, dword_1C85D0, dword_1C8618, dword_1C8680, dword_1C86E8, dword_1C86EC, dword_1C86F0
-global dword_1C86F4, dword_1C86F8, dword_1C86FC, dword_1C8704, dword_1C8708, dword_1C89EC, dword_1C8A34, dword_1C8A54
-global dword_1C8A74, dword_1C8A78, dword_1C8A7C, dword_1C8A80, dword_1C8A84, dword_1C8A88, dword_1C8A8C, dword_1C8A90
-global dword_1C8A94, dword_1C8A98, dword_1C8A9C, dword_1C8AA0, dword_1C8AA4, dword_1C8AA8, dword_1C8AAC, dword_1C8AB0
-global dword_1C8AB4, dword_1C8AF8, dword_1C8AFC, dword_1C8B44, dword_1C8B90, dword_1C8B94, dword_1C8BE4, dword_1C8BE8
-global dword_1C8BEC, dword_1C8BF0, dword_1C8BF4, dword_1C8BF8, dword_1C8BFC, dword_1C8C00, dword_1C8C04, dword_1C8C08
-global dword_1C8C0C, dword_1C8C34, dword_1C8C4C, dword_1C8C60, dword_1C8C64, dword_1C8C68, dword_1C8C6C, dword_1C8C70
-global dword_1C8C74, dword_1C8C78, dword_1C8C7C, dword_1C8C80, dword_1C8C84, dword_1C8C88, dword_1C8C8C, dword_1C8C90
-global dword_1C8C94, dword_1C8C98, dword_1C8CB4, dword_1C8CB8, dword_1C8CBC, dword_1C8CCC, dword_1C8CD0, dword_1C8CFC
-global dword_1C8D00, dword_1C8D04, dword_1C8D08, dword_1C8D0C, dword_1C8D10, dword_1C8D14, dword_1C8D18, dword_1C8D1C
-global dword_1C8D20, dword_1C8D2C, dword_1C8D3C, dword_1C8D40, dword_1C8D4C, dword_1C8D50, dword_1C8D54, dword_1C8D58
-global dword_1C8D5C, dword_1C8D60, dword_1C8D6C, dword_1C8D74, dword_1C8D78, dword_1C8D7C, dword_1C8D8C, dword_1C8D90
-global dword_1C8D94, dword_1C8D98, dword_1C8D9C, dword_1C8DA0, dword_1C8DA4, dword_1C8DA8, dword_1C8DAC, dword_1C8DB0
-global dword_1C8DB4, dword_1C8DB8, dword_1C8DBC, dword_1C8DC0, dword_1C8DC4, dword_1C8DC8, dword_1C8DCC, dword_1C8DD0
-global dword_1C8DD4, dword_1C8DD8, dword_1C8DDC, dword_1C8DE0, dword_1C8DE4, dword_1C8DE8, dword_1C8DEC, dword_1C8DF0
-global dword_1C8DF4, dword_1C8DF8, dword_1C8DFC, dword_1C8E00, dword_1C8E04, dword_1C8E08, dword_1C8E0C, dword_1C8E10
-global dword_1C8E14, dword_1C8E18, dword_1C8E1C, dword_1C8E20, dword_1C8E24, dword_1C8E28, dword_1C8E2C, dword_1C8E30
-global dword_1C8E34, dword_1C8E38, dword_1C8E3C, dword_1C8E40, dword_1C8E44, dword_1C8E48, dword_1C8E4C, dword_1C8E50
-global dword_1C8E54, dword_1C8E58, dword_1C8E5C, dword_1C8E60, dword_1C8E64, dword_1C8E88, dword_1C8E8C, dword_1C8E90
-global dword_1C8E94, dword_1C8E98, dword_1C8E9C, dword_1C8EA4, dword_1C8EB4, dword_1C8EB8, dword_1C8EF6, dword_1C8F4C
-global dword_1C8F58, dword_1C8F5C, dword_1C8F62, dword_1C8F66, dword_1C8F6A, dword_1C8F6E, dword_1C8F72, dword_1C93C4
-global dword_1C93C8, dword_1C93CC, dword_1C93D4, dword_1C93D8, dword_1C93DC, dword_1C93E0, dword_1C93F0, dword_1C9410
-global dword_1C9430, dword_1C9473, dword_1C94A4, dword_1C94A8, dword_1C94B4, dword_1C94B8, dword_1C94BC, dword_1C94C0
-global dword_1C94C4, dword_1C94C8, dword_1C94CC, dword_1C94D0, dword_1C94D4, dword_1C94D8, dword_1C94DC, dword_1C94E0
-global dword_1C94E4, dword_1C94E8, dword_1C950C, dword_1C9510, dword_1C9514, dword_1C9524, dword_1C9534, dword_1C9538
-global dword_1C953C, dword_1C9540, dword_1C9544, dword_1C9548, dword_1C954C, dword_1C9558, dword_1C955C, dword_1C9560
-global dword_1C9564, dword_1C9568, dword_1C956C, dword_1C9570, dword_1C9574, dword_1C9578, dword_1C957C, dword_1C9580
-global dword_1C9584, dword_1C9588, dword_1C958C, dword_1C9590, dword_1C9594, dword_1C9598, dword_1C959C, dword_1C95A0
-global dword_1C95A4, dword_1C95A8, dword_1C95AA, dword_1C95B0, dword_1C95B4, dword_1C95B8, dword_1C95BC, dword_1C95C0
-global dword_1C95C4, dword_1C95C8, dword_1C95CC, dword_1C95D0, dword_1C95D4, dword_1C95D8, dword_1C95DC, dword_1C95E0
-global dword_1C95E4, dword_1C95E8, dword_1C95EC, dword_1C95F0, dword_1C95F4, dword_1C95F8, dword_1C95FC, dword_1C9600
-global dword_1C9610, dword_1C9614, dword_1C9618, dword_1C961C, dword_1C9620, dword_1C9624, dword_1C9628, dword_1C9630
-global dword_1C9634, dword_1C9660, dword_1C9664, dword_1C967A, dword_1C967E, dword_1C9686, dword_1C968A, dword_1C96C2
-global dword_1C96C6, dword_1C96CC, dword_1C96D0, dword_1C96D4, dword_1C96D8, dword_1C96DC, dword_1C9714, dword_1C9718
-global dword_1C971E, dword_1C9722, dword_1C9726, dword_1C972A, dword_1C972E, dword_1C9766, dword_1C976A, dword_1C9770
-global dword_1C9774, dword_1C9778, dword_1C977C, dword_1C9780, dword_1C980A, dword_1C980E, dword_1C9814, dword_1C9818
-global dword_1C981C, dword_1C9820, dword_1C9824, dword_1C985C, dword_1C9860, dword_1C9866, dword_1C986A, dword_1C986E
-global dword_1C9872, dword_1C9876, dword_1CA998, dword_1CA99C, dword_1CA9A0, dword_1CA9A4, dword_1CA9A8, dword_1CA9AC
-global dword_1CA9B0, dword_1CA9B4, dword_1CA9B8, dword_1CA9BC, dword_1CA9C0, dword_1CA9C4, dword_1CA9C8, dword_1CA9CC
-global dword_1CA9D0, dword_1CA9D4, dword_1CAA00, dword_1CAB00, dword_1CAC00, dword_1CACDC, dword_1CAD28, dword_1CAD2C
-global dword_1CAD38, dword_1CAD48, dword_1CAE24, dword_1CAE28, dword_1CAE2C, dword_1CAE34, dword_1CAE6C, dword_1CAE70
-global dword_1CAE74, dword_1CAE78, dword_1CAE7C, dword_1CAE80, dword_1CAE84, dword_1CAE88, dword_1CAE8C, dword_1CAE90
-global dword_1CAE94, dword_1CAE98, dword_1CAE9C, dword_1CAEA0, dword_1CAEA4, dword_1CAEA8, dword_1CAEAC, dword_1CAEB0
-global dword_1CAEB4, dword_1CAEB8, dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, dword_1CAECC, dword_1CAED0, dword_1CAED4
-global dword_1CAED8, dword_1CAEDC, dword_1CAEE0, dword_1CAEE4, dword_1CAEE8, dword_1CAEEC, dword_1CAEF0, dword_1CAEF4
-global dword_1CAEF8, dword_1CAF8C, dword_1CAF90, dword_1CAF94, dword_1CAF98, dword_1CAF9C, dword_1CAFA0, dword_1CAFA4
-global dword_1CAFA8, dword_1CAFAC, dword_1CAFDC, dword_1CAFE0, dword_1CAFE4, dword_1CAFE8, dword_1CAFEC, dword_1CAFF0
-global dword_1CAFF4, dword_1CAFF8, dword_1CAFFC, dword_1CB000, dword_1CB014, dword_1CB018, dword_1CB064, dword_1CB068
-global dword_1CB06C, dword_1CB070, dword_1CB074, dword_1CB078, dword_1CB07C, dword_1CB080, dword_1CB084, dword_1CB088
-global dword_1CB08C, dword_1CB090, dword_1CB094, dword_1CB098, dword_1CB09C, dword_1CB0A0, dword_1CB0A4, dword_1CB0A8
-global dword_1CB0AC, dword_1CB0B0, dword_1CB0B4, dword_1CB0B8, dword_1CB0BC, dword_1CB0C0, dword_1CB0C4, dword_1CB0C8
-global dword_1CB0CC, dword_1CB0D0, dword_1CB0D4, dword_1CB0D8, dword_1CB0DC, dword_1CB0E0, dword_1CB0E4, dword_1CB0E8
-global dword_1CB0EC, dword_1CB0F0, dword_1CB0F4, dword_1CB0F8, dword_1CB0FC, dword_1CB100, dword_1CB104, dword_1CB108
-global dword_1CB10C, dword_1CB11C, dword_1CB128, dword_1CB12C, dword_1CB130, dword_1CB138, dword_1CB13C, dword_1CB140
-global dword_1CB14C, dword_1CB162, dword_1CB166, dword_1CB16A, dword_1CB16E, dword_1CB172, dword_1CB19A, dword_1CB1F0
-global dword_1CB1FC, dword_1CB200, dword_1CB206, dword_1CB20A, dword_1CB20E, dword_1CB212, dword_1CB216, dword_1CB242
-global dword_1CB24E, dword_1CB252, dword_1CB258, dword_1CB25C, dword_1CB260, dword_1CB264, dword_1CB268, dword_1CB2A0
-global dword_1CB2A4, dword_1CB2AA, dword_1CB2AE, dword_1CB2B2, dword_1CB2B6, dword_1CB2BA, dword_1CB2F2, dword_1CB2F6
-global dword_1CB2FC, dword_1CB300, dword_1CB304, dword_1CB308, dword_1CB30C, dword_1CB344, dword_1CB348, dword_1CB34E
-global dword_1CB352, dword_1CB356, dword_1CB35A, dword_1CB35E, dword_1CB396, dword_1CB39A, dword_1CB3A0, dword_1CB3A4
-global dword_1CB3A8, dword_1CB3AC, dword_1CB3B0, dword_1CB3E8, dword_1CB3EC, dword_1CB3F2, dword_1CB3F6, dword_1CB3FA
-global dword_1CB3FE, dword_1CB402, dword_1CB43A, dword_1CB43E, dword_1CB444, dword_1CB448, dword_1CB44C, dword_1CB450
-global dword_1CB454, dword_1CB48C, dword_1CB490, dword_1CB496, dword_1CB49A, dword_1CB49E, dword_1CB4A2, dword_1CB4A6
-global dword_1CB4DE, dword_1CB4E2, dword_1CB4E8, dword_1CB4EC, dword_1CB4F0, dword_1CB4F4, dword_1CB4F8, dword_1CB530
-global dword_1CB534, dword_1CB53A, dword_1CB53E, dword_1CB542, dword_1CB546, dword_1CB54A, dword_1CB5D4, dword_1CB5D8
-global dword_1CB5DE, dword_1CB5E2, dword_1CB5E6, dword_1CB5EA, dword_1CB5EE, dword_1CB626, dword_1CB62A, dword_1CB630
-global dword_1CB634, dword_1CB638, dword_1CB63C, dword_1CB640, dword_1CB678, dword_1CB67C, dword_1CB6CA, dword_1CB6CE
-global dword_1CB71C, dword_1CB720, dword_1CB76E, dword_1CB772, dword_1CB7C0, dword_1CB7C4, dword_1CB812, dword_1CB816
-global dword_1CB864, dword_1CB868, dword_1CB8B6, dword_1CB8BA, dword_1CB908, dword_1CB90C, dword_1CB95A, dword_1CB95E
-global dword_1CB9AC, dword_1CB9B0, dword_1CB9FE, dword_1CBA02, dword_1CBA50, dword_1CBA54, dword_1CBAA2, dword_1CBAA6
-global dword_1CBAF4, dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88, dword_1CBB8D, dword_1CBB94, dword_1CBB98
-global dword_1CBBA4, dword_1CBBB4, dword_1CBBC4, dword_1CBBD4, dword_1CBBE4, dword_1CBBE8, dword_1CBBEC, dword_1CBBF0
-global dword_1CBBF4, dword_1CBC04, dword_1CBC14, dword_1CBC1C, dword_1CBC28, dword_1CBC2C, dword_1CBC32, dword_1CBC36
-global dword_1CBC3A, dword_1CBC3E, dword_1CBC42, dword_1CBC46, dword_1CBC7A, dword_1CBC7E, dword_1CBC84, dword_1CBC88
-global dword_1CBC8C, dword_1CBC90, dword_1CBC94, dword_1CBC98, dword_1CBCCC, dword_1CBCD0, dword_1CBCD6, dword_1CBCE2
-global dword_1CBCE6, dword_1CBD1E, dword_1CBD22, dword_1CBD28, dword_1CBD34, dword_1CBD38, dword_1CBD70, dword_1CBD74
-global dword_1CBD7A, dword_1CBD86, dword_1CBD8A, dword_1CBE14, dword_1CBE18, dword_1CBE1E, dword_1CBE2A, dword_1CBE2E
-global dword_1CBE66, dword_1CBE6A, dword_1CBE70, dword_1CBE7C, dword_1CBE80, dword_1CBEB8, dword_1CBEBC, dword_1CBEC2
-global dword_1CBECE, dword_1CBED2, dword_1CBF0A, dword_1CBF0E, dword_1CBF14, dword_1CBF20, dword_1CBF24, dword_1CBF5C
-global dword_1CBF60, dword_1CBF66, dword_1CBF72, dword_1CBF76, dword_1CBFAE, dword_1CBFB2, dword_1CC000, dword_1CC004
-global dword_1CC052, dword_1CC056, dword_1CC0A4, dword_1CC0A8, dword_1CC0F6, dword_1CC0FA, dword_1CC148, dword_1CC14C
-global dword_1CC18C, dword_1CC19C, dword_1CC1AC, dword_1CC1BC, dword_1CC1C0, dword_1CC1C4, dword_1CC1C8, dword_1CC1CC
-global dword_1CC1D0, dword_1CC1D4, dword_1CC1D8, dword_1CC1DC, dword_1CC1E0, dword_1CC1E4, dword_1CC1E8, dword_1CC1EC
-global dword_1CC1F0, dword_1CC1F4, dword_1CC1F8, dword_1CC1FC, dword_1CC200, dword_1CC204, dword_1CC208, dword_1CC20C
-global dword_1CC210, dword_1CC214, dword_1CC218, dword_1CC21C, dword_1CC220, dword_1CC224, dword_1CC228, dword_1CC22C
-global dword_1CC230, dword_1CC234, dword_1CC238, dword_1CC23C, dword_1CC2A4, dword_1CC2A8, dword_1CC2AC, dword_1CC2B0
-global dword_1CC2B4, dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4, dword_1CC2C8, dword_1CC328, dword_1CC32C
-global dword_1CC330, dword_1CC334, dword_1CC338, dword_1CC33C, dword_1CC340, dword_1CC344, dword_1CC348, dword_1CC34C
-global dword_1CC4B0, dword_1CC4B4, dword_1CC4B8, dword_1CC4BC, dword_1CC4C0, dword_1CC4C4, dword_1CC4C8, dword_1CC4CC
-global dword_1CC5B0, dword_1CC5C8, dword_1CC5CC, dword_1CC5D0, dword_1CC5EC, dword_1CC5F0, dword_1CC5F4, dword_1CC5F8
-global dword_1CC638, dword_1CC63C, dword_1CC640, dword_1CC644, dword_1CC648, dword_1CC64C, dword_1CC650, dword_1CC654
-global dword_1CC658, dword_1CC65C, dword_1CC660, dword_1CC664, dword_1CC668, dword_1CC684, dword_1CC688, dword_1CC6A4
-global dword_1CC6A8, dword_1CC6AC, dword_1CC6E8, dword_1CC6EC, dword_1CC6F8, dword_1CC6FC, dword_1CC700, dword_1CC78C
-global dword_1CC790, dword_1CC794, dword_1CC798, dword_1CC79C, dword_1CC7A0, dword_1CC7A4, dword_1CC7A8, dword_1CC7AC
-global dword_1CC7B0, dword_1CC7B4, dword_1CC7B8, dword_1CC7BC, dword_1CC7C0, dword_1CC7C4, dword_1CC7C8, dword_1CC7CC
-global dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, dword_1CCEB8
-global dword_1CCEBC, dword_1CCEE8, dword_1CCEEC, dword_1CCEF0, dword_1CCEF8, dword_1CCEFC, dword_1CCF12, dword_1CCF16
-global dword_1CCF1E, dword_1CCF22, dword_1CD0F4, dword_1CD0F8, dword_1CD0FE, dword_1CD102, dword_1CD106, dword_1CD10A
-global dword_1CD10E, dword_1CD158, dword_1CD15C, dword_1CD160, dword_1CD17C, dword_1CD180, dword_1CD184, dword_1CD188
-global dword_1CD18C, dword_1CD190, dword_1CD194, dword_1CD198, dword_1CD1AC, dword_1CD1B0, dword_1CD1B4, dword_1CD1B8
-global dword_1CD244, dword_1CD248, dword_1CD264, dword_1CD268, dword_1CD26C, dword_1CD270, dword_1CD274, dword_1CD278
-global dword_1CD27C, dword_1CD280, dword_1CD284, dword_1CD288, dword_1CD28C, dword_1CD290, dword_1CD294, dword_1CD298
-global dword_1CD29C, dword_1CD2A0, dword_1CD2A4, dword_1CD2A8, dword_1CD2AA, dword_1CD2AE, dword_1CD2B2, dword_1CD2B6
-global dword_1CD2F4, dword_1CD378, dword_1CD402, dword_1CD40C, dword_1CD410, dword_1CD414, dword_1CD418, dword_1CD41C
-global dword_1CD428, dword_1CD42C, dword_1CD434, dword_1CD438, dword_1CD43C, dword_1CD440, dword_1CD444, dword_1CD448
-global dword_1CD450, dword_1CD454, dword_1CD458, dword_1CD45C, dword_1CD540, dword_1CD544, dword_1CD548, dword_1CD54C
-global dword_1CD550, dword_1CD554, dword_1CD558, dword_1CD55C, dword_1CD560, dword_1CD564, dword_1CD568, dword_1CD56C
-global dword_1CD574, dword_1CD578, dword_1CD57C, dword_1CD580, dword_1CD584, dword_1CD590, dword_1CD594, dword_1CD598
-global dword_1CD5B4, dword_1CD5B8, dword_1CD5BC, dword_1CD632, dword_1CD64C, dword_1CD650, dword_1CD654, dword_1CD6B0
-global dword_1CD6C6, dword_1CD6CA, dword_1CD6FE, dword_1CD750, dword_1CD754, dword_1CD758, dword_1CD760, dword_1CD764
-global dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778, dword_1CD77C, dword_1CD780, dword_1CD784
-global dword_1CD7DF, dword_1CE0E4, dword_1CE0E8, dword_1CE0EC, dword_1CE0F4, dword_1CE0FC, dword_1CE104, dword_1CE10C
-global dword_1CE110, dword_1CE114, dword_1CE118, dword_1CE11C, dword_1CE120, dword_1CE124, dword_1CE128, dword_1CE12C
-global dword_1CE130, dword_1CE134, dword_1CE158, dword_1CE15C, dword_1CE160, dword_1CE164, dword_1CE168, dword_1CE16C
-global dword_1CE170, dword_1CE174, dword_1CE178, dword_1CE17C, dword_1CE180, dword_1CE184, dword_1CE188, dword_1CE18C
-global dword_1CE190, dword_1CE1AC, dword_1CE1B0, dword_1CE1B4, dword_1CE1B8, dword_1CE1BC, dword_1CE1C0, dword_1CE1C4
-global dword_1CE1C8, dword_1CE1CC, dword_1CE1D0, dword_1CE1D4, dword_1CE1D8, dword_1CE1DC, dword_1CE1E0, dword_1CE1E4
-global dword_1CE1E8, dword_1CE1EC, dword_1CE1F0, dword_1CE1F4, dword_1CE1F8, dword_1CE1FC, dword_1CE200, dword_1CE204
-global dword_1CE208, dword_1CE20C, dword_1CE210, dword_1CE214, dword_1CE218, dword_1CE21C, dword_1CE220, dword_1CE258
-global dword_1CE260, dword_1CE264, dword_1CE2A0, dword_1CE2A4, dword_1CE2D8, dword_1CE2DC, dword_1CE308, dword_1CE318
-global dword_1CE31C, dword_1CE328, dword_1CE32C, dword_1CE330, dword_1CE33C, dword_1CE340, dword_1CE346, dword_1CE34A
-global dword_1CE34E, dword_1CE352, dword_1CE356, dword_1CE3EA, dword_1CE3EE, dword_1CE3F2, dword_1CE43C, dword_1CE440
-global dword_1CE444, dword_1CE478, dword_1CE48E, dword_1CE492, dword_1CE496, dword_1CE4D6, dword_1CE4DA, dword_1CE4E0
-global dword_1CE4E4, dword_1CE4E8, dword_1CE4EC, dword_1CE4F0, dword_1CE528, dword_1CE52C, dword_1CE532, dword_1CE536
-global dword_1CE53A, dword_1CE53E, dword_1CE542, dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dword_1CEF98
-global dword_1CEF9C, dword_1CEFA0, dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dword_1CEFBC
-global dword_1CEFC4, dword_1CEFC8, dword_1CEFCC, dword_1CEFD4, dword_1CEFD8, dword_1CEFDC, dword_1CEFE0, dword_1CEFE4
-global dword_1CF0C8, dword_1CF0D8, dword_1CF0DC, dword_1CF0E0, dword_1CF25C, dword_1CF260, dword_1CF264, dword_1CF268
-global dword_1CF26C, dword_1CF28C, dword_1CF290, dword_1CF294, dword_1CF298, dword_1CF29C, dword_1CF2A0, dword_1CF524
-global dword_1CF528, dword_1CF52C, dword_1CF530, dword_1CF534, dword_1CF538, dword_1CF53C, dword_1CF540, dword_1CF544
-global dword_1CF548, dword_1CF54C, dword_1CF550, dword_1CF554, dword_1CF558, dword_1CF598, dword_1CF59C, dword_1CF5A0
-global dword_1CF5A4, dword_1CF5A8, dword_1CF5AC, dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0
-global dword_1CF5C4, dword_1CF5C8, dword_1CF5CC, dword_1CF5D0, dword_1CF5D4, dword_1CF5D8, dword_1CF5DC, dword_1CF5E0
-global dword_1CF5E4, dword_1CF5E8, dword_1CF5EC, dword_1CF5F0, dword_1CF5F2, dword_1CF9F4, dword_1CF9F8, dword_1CF9FC
-global dword_1CFA04, dword_1CFA10, dword_1CFA14, dword_1CFA18, dword_1CFA1C, dword_1CFA20, dword_1CFA24, dword_1CFA28
-global dword_1CFA2C, dword_1CFA30, dword_1CFA34, dword_1CFA38, dword_1CFA3C, dword_1CFA40, dword_1CFA44, dword_1CFA48
-global dword_1CFA4C, dword_1CFA50, dword_1CFA54, dword_1CFA58, dword_1CFA5C, dword_1CFA60, dword_1CFA64, dword_1CFA68
-global dword_1CFA6C, dword_1CFA70, dword_1CFA74, dword_1CFA78, dword_1CFA7C, dword_1CFA80, dword_1CFA84, dword_1CFA88
-global dword_1CFA8C, dword_1CFA90, dword_1CFA94, dword_1CFA9C, dword_1CFAA0, dword_1CFAA4, dword_1CFAA8, dword_1CFAAC
-global dword_1CFAB0, dword_1CFAB4, dword_1CFABC, dword_1CFAC0, dword_1CFACC, dword_1CFAD0, dword_1CFAD4, dword_1CFAD8
-global dword_1CFBF4, dword_1CFC70, dword_1CFC74, dword_1CFC78, dword_1CFC7C, dword_1CFC80, dword_1CFC84, dword_1CFC88
-global dword_1CFC8C, dword_1CFC90, dword_1CFC94, dword_1CFC9C, dword_1CFCA0, dword_1CFCA4, dword_1CFCA8, dword_1CFCAC
-global dword_1CFCB0, dword_1CFCB4, dword_1CFCB8, dword_1CFCC0, dword_1CFCC4, dword_1CFCC8, dword_1CFCCC, dword_1CFCD0
-global dword_1CFCD4, dword_1CFCD8, dword_1CFCDC, dword_1CFCE0, dword_1CFCE4, dword_1CFCE8, dword_1CFCEC, dword_1CFCF0
-global dword_1D1CF8, dword_1D1CFC, dword_1D1D00, dword_1D1D04, dword_1D1D08, dword_1D1D0C, dword_1D1D10, dword_1D1D14
-global dword_1D1D2C, dword_1D1D30, dword_1D1D34, dword_1D1D38, dword_1D1D3C, dword_1D1D40, dword_1D1D44, dword_1D1D48
-global dword_1D1D4C, dword_1D1D50, dword_1D1D54, dword_1D1D58, dword_1D1D5C, dword_1D1D60, dword_1D1D64, dword_1D1D68
-global dword_1D1D6C, dword_1D1D70, dword_1D1D74, dword_1D1D78, dword_1D1D7C, dword_1D1D80, dword_1D1D84, dword_1D204C
-global dword_1D2050, dword_1D2054, dword_1D2058, dword_1D205C, dword_1D2060, dword_1D2064, dword_1D2068, dword_1D206C
-global dword_1D2070, dword_1D2078, dword_1D2080, dword_1D2084, dword_1D2088, dword_1D208C, dword_1D2090, dword_1D2094
-global dword_1D2418, dword_1D241C, dword_1D2420, dword_1D2424, dword_1D2428, dword_1D2430, dword_1D2438, dword_1D243C
-global dword_1D2440, dword_1D2444, dword_1D2448, dword_1D244C, dword_1D2450, dword_1D2454, dword_1D3350, dword_1D3354
-global dword_1D3358, dword_1D335C, dword_1D3364, dword_1D3368, dword_1D7FD4, dword_1D7FD8, dword_1D7FDC, dword_1D7FE0
-global dword_1D7FE4, dword_1D7FE8, dword_1D7FEC, dword_1D7FF8, dword_1D7FFC, dword_1D8000, dword_1D800C, dword_1D801C
-global dword_1D8020, dword_1D8024, dword_1D8028, dword_1D802C, dword_1D8030, dword_1D8034, dword_1D8044, dword_1D8048
-global dword_1D804C, dword_1D8050, dword_1D8054, dword_1D8058, dword_1D805C, dword_1D8068, dword_1D806C, dword_1D8070
-global dword_1D807C, dword_1D808C, dword_1D8090, dword_1D8094, dword_1D8098, dword_1D809C, dword_1D80A0, dword_1D80A4
-global dword_1D80B0, dword_1D8334, dword_1D8AB4, dword_1D8AB8, dword_1D8ABC, dword_1D8AC0, dword_1D8AC4, dword_1D91C8
-global dword_1D91CC, dword_1D9404, dword_1D940C, dword_1D9410, dword_1D960C, dword_1D9610, dword_1D9810, dword_1D990C
-global dword_1D9910, dword_1D9B0C, dword_1D9B10, dword_1D9B2C, dword_1D9B30, dword_1DA34C, dword_1DA350, dword_1DA390
-global dword_1DA394, dword_1DA398, dword_1DA39C, dword_1DA3A0, dword_1DA3A4, dword_1DA3A8, dword_1DA3AC, dword_1DA3B0
-global dword_1DA3B4, dword_1DA3CC, dword_1DA3E0, dword_1DA3E4, dword_1DA3E8, dword_1DA3EC, dword_1DA3F0, dword_1DA3F4
-global dword_1DA3F8, dword_1DA3FC, dword_1DA400, dword_1DA404, dword_1DA408, dword_1DA40C, dword_1DA410, dword_1DA414
-global dword_1DA4BC, dword_1DA4C0, dword_1DA4C8, dword_1DA4D0, dword_1DA8D0, dword_1DA8D4, dword_1DA8D8, dword_1DC518
-global dword_1DC51C, dword_1DC520, dword_1DC524, dword_1DC528, dword_1DC5A8, dword_1DC5AC, dword_1DC994, dword_1DC998
-global dword_1DC99C, dword_1DC9A0, dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dword_1DC9B4, dword_1DC9B8
-global dword_1DCAD0, dword_1DCAD4, dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC
-global dword_1DCAF0, dword_1DCAF4, dword_1DCAF8, dword_1DCAFC, dword_1DCB00, dword_1DCB04, dword_1DCB08, dword_1DCEC0
-global dword_1DCEC4, dword_1DCED0, dword_1DCED8, dword_1DCEEC, dword_1DCEF0, dword_1DCEF4, dword_1DCEF8, dword_1DCEFC
-global dword_1DCF08, dword_1DCF0C, dword_1DCF10, dword_1DCF14, dword_1DCF18, dword_1DCF1C, dword_1DCF20, dword_1DCF24
-global dword_1DCF28, dword_1DCF2C, dword_1DCF30, dword_1DCF34, dword_1DCF38, dword_1DCF3E, dword_1DCF3F, dword_1DCF48
-global dword_1DCF62, dword_1DCF78, dword_1DD378, dword_1DD37C, dword_1DD37E, dword_1DD384, dword_1DD390, dword_1DD394
-global dword_1DD398, dword_1DD39C, dword_1DD3A0, dword_1DD3A4, dword_1DD3A8, dword_1DD3AC, dword_1DD3B0, dword_1DD3B4
-global dword_1DD3C0, dword_1DD3C8, dword_1DD3CC, dword_1DD3D0, dword_1DD3D4, dword_1DD3D8, dword_1DD3DC, dword_1DD3E4
-global dword_1DD3EC, dword_1DD3F0, dword_1DD3F4, dword_1DD3F8, dword_1DD3FC, dword_1DD400, dword_1DD404, dword_1DD408
-global dword_1DD410, dword_1DD414, dword_1DD418, dword_1DD41C, dword_1DD420, dword_1DD424, dword_1DD428, dword_1DD42C
-global dword_1DD434, dword_1DD438, dword_1DD43C, dword_1DD440, dword_1DD444, dword_1DD448, dword_1DD44C, dword_1DD450
-global dword_1DD454, dword_1DD458, dword_1DD45C, dword_1DD460, dword_1DD464, dword_1DD468, dword_1DD474, dword_1DD478
-global dword_1DD47C, dword_1DD480, dword_1DD484, dword_1DD488, dword_1DD48C, dword_1DD490, dword_1DD494, dword_1DD498
-global dword_1DD49C, dword_1DD4AD, dword_1DD4B4, dword_1DE6BC, dword_1DE740, dword_1DE768, dword_1DE76C, dword_1DE774
-global dword_1DE778, dword_1DE784, dword_1DE788, dword_1DE7D0, dword_1DE7E4, dword_1DE7E8, dword_1DE7EC, off_168772
-global off_16877E, off_168CD8, off_168CE0, off_168CE8, off_168CEC, off_168CF0, off_168CFC, off_168D04
-global off_168D08, off_168D0C, off_1691E4, off_1691F8, off_1692E8, off_1692F0, off_1692F4, off_169338
-global off_16936C, off_1693C8, off_169478, off_1694E0, off_169590, off_1695F8, off_169658, off_1696B8
-global off_169768, off_169780, off_1697BC, off_169814, off_16B6F8, off_16B708, off_16B738, off_16B7CC
-global off_16B830, off_16B8C0, off_16B958, off_16B9A4, off_16BB54, off_16BC44, off_16BC5C, off_16BC98
-global off_16BD14, off_16BD2C, off_16C3B4, off_16C9B8, off_16C9C0, off_16D254, off_16D258, off_16D5F7
-global off_16D7AC, off_16D7B4, off_16D7DC, off_16D7E0, off_16D7E4, off_16D7E8, off_16E0FC, off_16E174
-global off_16E4D4, off_16E4D8, off_16E4DC, off_16E4E0, off_16E858, off_16E87C, off_16F588, off_16F5BC
-global off_16F5C0, off_16F684, off_16FA1C, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, off_170278
-global off_170284, off_170290, off_17029C, off_1702A8, off_1706D0, off_1706E0, off_1706E4, off_170B14
-global off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, off_171D10, off_172140, off_17216C
-global off_1721B8, off_1996EC, off_199C50, off_199C54, off_199CDC, off_199CE0, off_199CEC, off_199DB2
-global off_19A740, off_19C3F4, off_19C5F4, off_19C61F, off_19C6C4, off_19C6E2, off_19C6E3, off_19C740
-global off_19C894, qword_160018, qword_160020, qword_16002C, qword_160034, qword_16003C, qword_16004C, qword_160054
-global qword_16005C, qword_160064, qword_16006C, qword_160074, qword_1602E6, qword_1602F6, qword_1602FE, qword_16030A
-global qword_160336, qword_16033E, qword_16034E, qword_160356, qword_16035E, qword_160366, qword_16036E, qword_160376
-global qword_16037E, qword_16038A, qword_160392, qword_1603BA, qword_1603CE, qword_1603DE, qword_1603E6, qword_1603EE
-global qword_1603F6, qword_1603FE, qword_160406, qword_16040E, qword_160416, qword_16041E, qword_160447, qword_16044F
-global qword_16046B, qword_160473, qword_16047B, qword_160483, qword_16048B, qword_160493, qword_1604EF, qword_1604F7
-global qword_160503, qword_160517, qword_160523, qword_16052B, qword_16053B, qword_160543, qword_16054B, qword_160553
-global qword_16055B, qword_16056C, qword_160588, qword_160590, qword_160598, qword_1605A4, qword_1605AC, qword_1605B4
-global qword_1605BC, qword_1605C4, qword_1605CC, qword_1605D4, qword_1605DC, qword_1605E4, qword_1605EC, qword_1605F4
-global qword_160604, qword_160624, qword_160630, qword_160638, qword_160640, qword_160648, qword_160650, qword_160658
-global qword_160660, qword_160668, qword_160670, qword_160678, qword_160680, qword_1606BC, qword_1606C4, qword_1606E3
-global qword_1606EB, qword_1606F3, qword_1606FB, qword_160703, qword_160713, qword_16071B, qword_16072B, qword_16073B
-global qword_160743, qword_16074B, qword_16075B, qword_160763, qword_16076B, qword_160773, qword_16077B, qword_160783
-global qword_16078B, qword_160793, qword_16079F, qword_1607A7, qword_1607AF, qword_1607B7, qword_1607BF, qword_1607CF
-global qword_1607D7, qword_1607DF, qword_1607E7, qword_1607EF, qword_1607F7, qword_1607FF, qword_160807, qword_16080F
-global qword_160817, qword_16081F, qword_160827, qword_16082F, qword_160837, qword_16083F, qword_160847, qword_16084F
-global qword_160857, qword_16085F, qword_160867, qword_16086F, qword_16087B, qword_160883, qword_16088B, qword_16089B
-global qword_1608A7, qword_1608B7, qword_1608C4, qword_1608CC, qword_1608D4, qword_1608DC, qword_1608EC, qword_1608F4
-global qword_1608FC, qword_160904, qword_16090C, qword_160914, qword_16091C, qword_160924, qword_16092C, qword_160934
-global qword_16093C, qword_160944, qword_16094C, qword_160954, qword_16095C, qword_160964, qword_16096C, qword_160974
-global qword_16097C, qword_160984, qword_16098C, qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qword_1609B4
-global qword_1609BC, qword_160A5C, qword_160A78, qword_160A80, qword_160A88, qword_160A90, qword_160A98, qword_160AA0
-global qword_160AA8, qword_160AB0, qword_160AB8, qword_160AC4, qword_160ACC, qword_160AD4, qword_160ADC, qword_160AE4
-global qword_160AEC, qword_160AF4, qword_160AFC, qword_160B04, qword_160B14, qword_160B1C, qword_160B28, qword_160B35
-global qword_160CF7, qword_160CFF, qword_160D07, qword_160D0F, qword_161173, qword_16117B, qword_161183, qword_16118B
-global qword_161389, qword_161395, qword_16139D, qword_1613A5, qword_1613B1, qword_1613BD, qword_1613C5, qword_1613CD
-global qword_1613D5, qword_1613DD, qword_16142D, qword_161435, qword_16143D, qword_161445, qword_16144D, qword_1617D0
-global qword_1617D8, qword_1617E6, qword_1617EE, qword_1617F6, qword_161A9A, qword_161AA2, qword_161AAA, qword_161AB2
-global qword_161B2C, qword_161B40, qword_161B58, qword_161B60, qword_161B68, qword_161B70, qword_161B78, qword_161B80
-global qword_161B88, qword_161B90, qword_162AC7, qword_162ACF, qword_162AD7, qword_162ADF, qword_162AEB, qword_162AF3
-global qword_162AFB, qword_162B03, qword_162B0B, qword_162B17, qword_162B23, qword_162B2F, qword_162B37, qword_162B3F
-global qword_162B47, qword_162B4F, qword_162B57, qword_162B6B, qword_162B7F, qword_162B87, qword_162B8F, qword_162B97
-global qword_162B9F, qword_162BA7, qword_162BAF, qword_162BB7, qword_162BC3, qword_162BCB, qword_162BD3, qword_162BDB
-global qword_162BE3, qword_162BEB, qword_162BF3, qword_162BFB, qword_162C03, qword_162C0F, qword_162C17, qword_162C23
-global qword_162C2B, qword_162C3F, qword_162C47, qword_162C4F, qword_162C57, qword_162C5F, qword_162C67, qword_162C6F
-global qword_162C77, qword_162C7F, qword_162C87, qword_162C8F, qword_162C97, qword_162C9F, qword_162CA7, qword_162CAF
-global qword_162CC3, qword_162CCB, qword_162CD3, qword_162CDB, qword_162CE3, qword_162CEB, qword_162CF3, qword_162CFB
-global qword_162D07, qword_162D0F, qword_162D17, qword_162D1F, qword_162D27, qword_162D2F, qword_162D3B, qword_162D43
-global qword_162D4B, qword_162D53, qword_162D5B, qword_162D63, qword_162D6B, qword_162D73, qword_162D7B, qword_162D83
-global qword_162D8B, qword_162D93, qword_162D9B, qword_162DA3, qword_162DAB, qword_162DB3, qword_162DBB, qword_162DC3
-global qword_162DCB, qword_162DD3, qword_162DDB, qword_162DE3, qword_162DEB, qword_162DF3, qword_162DFB, qword_162E03
-global qword_162E0F, qword_162E17, qword_162E1F, qword_162E27, qword_162E2F, qword_162E37, qword_162E47, qword_162E4F
-global qword_162E57, qword_162E5F, qword_162E67, qword_162E6F, qword_162E77, qword_162E7F, qword_162E8F, qword_162E97
-global qword_162E9F, qword_162EA7, qword_162EAF, qword_162EB7, qword_162EBF, qword_162EC7, qword_162ED3, qword_162EDB
-global qword_162EE3, qword_162EEB, qword_162EF3, qword_162EFB, qword_162F03, qword_162F0B, qword_162F1B, qword_162F27
-global qword_162F2F, qword_162F37, qword_162F3F, qword_162F47, qword_162F4F, qword_162F57, qword_162F5F, qword_162F67
-global qword_162F77, qword_162F7F, qword_162F87, qword_162F8F, qword_162F97, qword_162F9F, qword_162FA7, qword_162FAF
-global qword_162FB7, qword_162FCF, qword_162FD7, qword_162FE3, qword_162FEB, qword_162FF3, qword_16302D, qword_1630A8
-global qword_1630B0, qword_1630B8, qword_1630C0, qword_1630C8, qword_1630D0, qword_1630D8, qword_1630E8, qword_1630F0
-global qword_1630F8, qword_163100, qword_163108, qword_163110, qword_163118, qword_163120, qword_163128, qword_163130
-global qword_16313C, qword_163144, qword_16314C, qword_163154, qword_16315C, qword_163164, qword_16316C, qword_163174
-global qword_163180, qword_163188, qword_16319C, qword_1631A8, qword_1631B0, qword_1631B8, qword_1631C0, qword_1631C8
-global qword_1631E0, qword_1631E8, qword_1631F0, qword_1631F8, qword_163200, qword_163208, qword_163210, qword_163218
-global qword_163220, qword_163228, qword_163238, qword_163240, qword_163250, qword_163258, qword_163260, qword_163268
-global qword_163270, qword_163278, qword_16328C, qword_163294, qword_16329C, qword_1632A4, qword_1632AC, qword_1632B4
-global qword_1632BC, qword_1632D0, qword_1632D8, qword_1632E0, qword_1632E8, qword_1632F0, qword_1632F8, qword_163314
-global qword_163324, qword_16332C, qword_163338, qword_163340, qword_163348, qword_163350, qword_163358, qword_163360
-global qword_163368, qword_163370, qword_16338C, qword_16339C, qword_1633A4, qword_1633B0, qword_1633B8, qword_1633C0
-global qword_1633C8, qword_1633D0, qword_1633D8, qword_1633E0, qword_1633E8, qword_163400, qword_163410, qword_163418
-global qword_163424, qword_16342C, qword_163434, qword_16343C, qword_163444, qword_16344C, qword_163454, qword_16345C
-global qword_163470, qword_163478, qword_163480, qword_163488, qword_163490, qword_1634AC, qword_1634B4, qword_1634BC
-global qword_1634C4, qword_1634CC, qword_1634D8, qword_1634E0, qword_1634E8, qword_1634F0, qword_1634F8, qword_163500
-global qword_163508, qword_163510, qword_163518, qword_163520, qword_163528, qword_163530, qword_163538, qword_163540
-global qword_163548, qword_163550, qword_163558, qword_163560, qword_163568, qword_163570, qword_163580, qword_163588
-global qword_163590, qword_163598, qword_1635A0, qword_1635A8, qword_1635B0, qword_1635B8, qword_1635C0, qword_1635C8
-global qword_1635D8, qword_1635E0, qword_1635E8, qword_1635F0, qword_1635F8, qword_163600, qword_163608, qword_163610
-global qword_163618, qword_163620, qword_163628, qword_163634, qword_16363C, qword_16364C, qword_163654, qword_16365C
-global qword_163664, qword_16366C, qword_163674, qword_16368C, qword_163694, qword_16369C, qword_1636A4, qword_1636AC
-global qword_1636CC, qword_1636D4, qword_1636DC, qword_1636E4, qword_1636EC, qword_1636F8, qword_163700, qword_163708
-global qword_163710, qword_163718, qword_163724, qword_16372C, qword_163734, qword_16373C, qword_163748, qword_163750
-global qword_163764, qword_163770, qword_163778, qword_163780, qword_163788, qword_16379C, qword_1637A4, qword_1637AC
-global qword_1637B4, qword_1637BC, qword_1637C4, qword_1637CC, qword_1637D8, qword_1637E0, qword_1637E8, qword_1637F0
-global qword_1637F8, qword_163800, qword_163820, qword_16382C, qword_163840, qword_163848, qword_163854, qword_16385C
-global qword_163864, qword_16386C, qword_163874, qword_16387C, qword_163884, qword_16388C, qword_163894, qword_16389C
-global qword_1638A4, qword_1638AC, qword_1638B4, qword_1638BC, qword_1638C4, qword_1638CC, qword_1638D4, qword_1638DC
-global qword_1638E4, qword_1638EC, qword_1638F4, qword_1638FC, qword_163904, qword_163910, qword_163918, qword_163920
-global qword_163928, qword_163930, qword_163938, qword_163940, qword_163948, qword_163950, qword_16395C, qword_163964
-global qword_16396C, qword_163974, qword_16397C, qword_163984, qword_16398C, qword_163994, qword_16399C, qword_1639A4
-global qword_1639AC, qword_1639B4, qword_1639BC, qword_1639C4, qword_1639CC, qword_1639D4, qword_1639DC, qword_1639E4
-global qword_1639EC, qword_1639F4, qword_1639FC, qword_163A04, qword_163A0C, qword_163A14, qword_163A1C, qword_163A24
-global qword_163A2C, qword_163A34, qword_163A3C, qword_163A44, qword_163A4C, qword_163A54, qword_163A64, qword_163A70
-global qword_163A78, qword_163A80, qword_163A88, qword_163A90, qword_163A98, qword_163AA0, qword_163AA8, qword_163AB0
-global qword_163AB8, qword_163AC0, qword_163AC8, qword_163AD0, qword_163ADC, qword_163AE4, qword_163AEC, qword_163AF4
-global qword_163AFC, qword_163B08, qword_163B14, qword_163B1C, qword_163B28, qword_163B30, qword_163B38, qword_163B40
-global qword_163B48, qword_163B50, qword_163B5C, qword_163B64, qword_163B6C, qword_163B74, qword_163B7C, qword_163B84
-global qword_163B8C, qword_163B94, qword_163B9C, qword_163BA4, qword_163BAC, qword_163BB4, qword_163BBC, qword_163BC4
-global qword_163BCC, qword_163BD8, qword_163BE0, qword_163BE8, qword_163BF0, qword_163BF8, qword_163C04, qword_163C0C
-global qword_163C14, qword_163C1C, qword_163C30, qword_163C38, qword_163C40, qword_163C48, qword_163C50, qword_163C58
-global qword_163C60, qword_163C68, qword_163C70, qword_163C78, qword_163C80, qword_163C88, qword_163C94, qword_163C9C
-global qword_163CA4, qword_163CAC, qword_163CBC, qword_163CC4, qword_163CCC, qword_163CD4, qword_163CDC, qword_163CE4
-global qword_163CEC, qword_163CF4, qword_163CFC, qword_163D04, qword_163D0C, qword_163D14, qword_163D1C, qword_163D24
-global qword_163D2C, qword_163D34, qword_163D44, qword_163D54, qword_163D64, qword_163DA1, qword_163DA9, qword_163DB1
-global qword_163EF8, qword_165550, qword_165558, qword_165568, qword_16695B, qword_166A8D, qword_166AA1, qword_166ACC
-global qword_166B0F, qword_166B2A, qword_166FC4, qword_167A33, qword_167A75, qword_167A7D, qword_167AB1, qword_167AB9
-global qword_167AC1, qword_167AC9, qword_167AD1, qword_167AD9, qword_167B1D, qword_167B25, qword_167B69, qword_167B79
-global qword_167B8F, qword_167B9F, qword_167BB3, qword_167BBB, qword_167C27, qword_167C4F, qword_167C57, qword_167CCB
-global qword_167DA1, qword_167DA9, qword_167DB1, qword_167DB9, qword_167DF0, qword_167DF8, qword_167E00, qword_167E0C
-global qword_167E14, qword_167E20, qword_167E9D, qword_167EA5, qword_167EC8, qword_167ED0, qword_167EE0, qword_16817C
-global qword_1682EC, qword_168418, qword_16843C, qword_168444, qword_16845E, qword_172690, qword_172698, qword_19C1BE
-global qword_19C858, qword_19C860, qword_19C870, qword_19C884, tbyte_172680, tbyte_19C878, tbyte_19C8B4, tbyte_19C8BE
-global tbyte_19C8D0, tbyte_19C8DA, tbyte_19C8E4, tbyte_19C8EE, tbyte_19C8F8, tbyte_19C902, tbyte_19C90C, unk_160000
-global unk_16000C, unk_1600A4, unk_160193, unk_1601EF, unk_1601F1, unk_1601F4, unk_160208, unk_160218
-global unk_160220, unk_160228, unk_160230, unk_160238, unk_160240, unk_160248, unk_160250, unk_160258
-global unk_160260, unk_160268, unk_160270, unk_160278, unk_160280, unk_160288, unk_160290, unk_160298
-global unk_1602A0, unk_1602A8, unk_1602B0, unk_1602B8, unk_1602C0, unk_1602C8, unk_1602D0, unk_160A56
-global unk_160B68, unk_160B78, unk_160B80, unk_160B88, unk_160B90, unk_160B98, unk_160BA0, unk_160BA8
-global unk_160BB4, unk_160BC0, unk_160BCC, unk_160BD4, unk_160BE0, unk_160BE8, unk_160BF8, unk_160C00
-global unk_160C08, unk_160C14, unk_160C1C, unk_160C24, unk_160C30, unk_160C3C, unk_160C4C, unk_160C58
-global unk_160C60, unk_160C68, unk_160C70, unk_160C7C, unk_160C80, unk_160C8C, unk_160C94, unk_160C98
-global unk_160DD4, unk_160E8C, unk_160FD4, unk_161068, unk_1611B4, unk_16175C, unk_161760, unk_161764
-global unk_161768, unk_16176C, unk_161770, unk_161774, unk_161778, unk_1617BC, unk_161BA8, unk_161BB4
-global unk_161BC0, unk_161BC8, unk_161BD0, unk_161BD8, unk_161BE0, unk_161BE8, unk_161BF0, unk_161BF8
-global unk_161C00, unk_161C08, unk_161C10, unk_161C18, unk_161C24, unk_161C30, unk_161C38, unk_161C40
-global unk_161C4C, unk_161C54, unk_161C5C, unk_161C64, unk_161C6C, unk_161C74, unk_161C7C, unk_161C84
-global unk_161C8C, unk_161C98, unk_161CA4, unk_161CB0, unk_161CBC, unk_161CC8, unk_161CD4, unk_161CDC
-global unk_161CE4, unk_161CEC, unk_161CF4, unk_161CFC, unk_161D04, unk_161D0C, unk_161D14, unk_161D20
-global unk_161D2C, unk_161D34, unk_161D3C, unk_161D44, unk_161D4C, unk_161D58, unk_161D60, unk_161D6C
-global unk_161D78, unk_161D84, unk_161D8C, unk_161D98, unk_161DA0, unk_161DA8, unk_161DB0, unk_161DBC
-global unk_161DC4, unk_161DCC, unk_161DD8, unk_161DE0, unk_161DE8, unk_161DF4, unk_161E00, unk_161E08
-global unk_161E14, unk_161E20, unk_161E2C, unk_161E34, unk_161E3C, unk_161E44, unk_161E4C, unk_161E54
-global unk_161E5C, unk_161E64, unk_161E6C, unk_161E74, unk_161E7C, unk_161E88, unk_161E94, unk_161EA0
-global unk_161EAC, unk_161EB8, unk_161EC4, unk_161ED0, unk_161EDC, unk_161EE8, unk_161EF4, unk_161F00
-global unk_161F0C, unk_161F18, unk_161F24, unk_161F30, unk_161F3C, unk_161F48, unk_161F50, unk_161F58
-global unk_161F60, unk_161F6C, unk_161F78, unk_161F80, unk_161F88, unk_161F90, unk_161F9C, unk_161FA8
-global unk_161FB4, unk_161FC0, unk_161FCC, unk_161FD8, unk_161FE4, unk_161FEC, unk_161FF4, unk_161FFC
-global unk_162008, unk_162014, unk_162020, unk_16202C, unk_162038, unk_162044, unk_162050, unk_16205C
-global unk_162068, unk_162074, unk_162080, unk_16208C, unk_162094, unk_16209C, unk_1620A8, unk_1620B4
-global unk_1620BC, unk_1620C4, unk_1620CC, unk_1620D4, unk_1620DC, unk_1620E4, unk_1620EC, unk_1620F4
-global unk_1620FC, unk_162104, unk_16210C, unk_162118, unk_162124, unk_162130, unk_16213C, unk_162148
-global unk_162154, unk_16215C, unk_162164, unk_16216C, unk_162174, unk_16217C, unk_162184, unk_16218C
-global unk_162194, unk_16219C, unk_1621A4, unk_1621AC, unk_1621B8, unk_1621C0, unk_1621C8, unk_1621D0
-global unk_1621D8, unk_1621E0, unk_1621E8, unk_1621F0, unk_1621F8, unk_162200, unk_162208, unk_162210
-global unk_162218, unk_162220, unk_16222C, unk_162238, unk_162240, unk_162244, unk_162248, unk_162254
-global unk_16225C, unk_162264, unk_16226C, unk_162274, unk_16227C, unk_162284, unk_16228C, unk_162294
-global unk_162298, unk_1622A0, unk_1622A8, unk_1622B4, unk_1622C0, unk_1622C8, unk_1622D0, unk_1622DC
-global unk_1622E8, unk_1622F0, unk_1622F8, unk_162300, unk_162308, unk_162310, unk_16231C, unk_162328
-global unk_162330, unk_162338, unk_162340, unk_162348, unk_162350, unk_162358, unk_162364, unk_162370
-global unk_162378, unk_162380, unk_16238C, unk_162394, unk_16239C, unk_1623A0, unk_1623AC, unk_1623B4
-global unk_1623BC, unk_1623C8, unk_1623D0, unk_1623D8, unk_1623E0, unk_1623E8, unk_1623F0, unk_1623F8
-global unk_162400, unk_162408, unk_162414, unk_16241C, unk_162424, unk_162430, unk_16243C, unk_162444
-global unk_16244C, unk_162454, unk_16245C, unk_162468, unk_162474, unk_162480, unk_162488, unk_162494
-global unk_16249C, unk_1624A8, unk_1624B4, unk_1624BC, unk_1624C4, unk_1624CC, unk_1624D4, unk_1624DC
-global unk_1624E4, unk_1624EC, unk_1624F8, unk_162504, unk_16250C, unk_162514, unk_16251C, unk_162524
-global unk_162530, unk_16253C, unk_162544, unk_162550, unk_16255C, unk_162568, unk_162574, unk_16257C
-global unk_162588, unk_162590, unk_16259C, unk_1625A4, unk_1625B0, unk_1625BC, unk_1625C8, unk_1625D4
-global unk_1625E0, unk_1625E8, unk_1625F4, unk_1625FC, unk_162608, unk_162614, unk_162620, unk_162628
-global unk_162634, unk_16263C, unk_162648, unk_162650, unk_16265C, unk_162664, unk_162670, unk_162678
-global unk_162684, unk_16268C, unk_162698, unk_1626A0, unk_1626AC, unk_1626B4, unk_1626C0, unk_1626C8
-global unk_1626D4, unk_1626DC, unk_1626E8, unk_1626F0, unk_1626FC, unk_162708, unk_162714, unk_162720
-global unk_16272C, unk_162738, unk_162744, unk_162750, unk_16275C, unk_162768, unk_162774, unk_162780
-global unk_16278C, unk_162798, unk_1627A4, unk_1627B0, unk_1627BC, unk_1627C8, unk_1627D4, unk_1627E0
-global unk_1627EC, unk_1627F4, unk_162800, unk_16280C, unk_162818, unk_162824, unk_162830, unk_16283C
-global unk_162848, unk_162850, unk_162858, unk_162864, unk_162870, unk_16287C, unk_162888, unk_162890
-global unk_16289C, unk_1628A8, unk_1628B4, unk_1628BC, unk_1628C8, unk_1628D0, unk_1628DC, unk_1628E0
-global unk_1628E8, unk_1628F4, unk_162900, unk_16290C, unk_162914, unk_16291C, unk_162928, unk_162934
-global unk_162940, unk_16294C, unk_162958, unk_162964, unk_162970, unk_16297C, unk_162988, unk_162994
-global unk_1629A0, unk_1629AC, unk_1629B8, unk_1629C4, unk_1629D0, unk_1629DC, unk_1629E8, unk_1629F4
-global unk_1629F8, unk_162A04, unk_162A0C, unk_162A18, unk_162A24, unk_162A30, unk_162A3C, unk_162A48
-global unk_162A50, unk_162A58, unk_162A64, unk_162A70, unk_162A78, unk_162A80, unk_162A88, unk_162A90
-global unk_162A98, unk_162AA0, unk_162AA8, unk_162AB0, unk_162AB8, unk_162AC0, unk_163F20, unk_163F24
-global unk_163F28, unk_163F2C, unk_163F38, unk_163F3C, unk_163F40, unk_163F48, unk_163F4C, unk_163F50
-global unk_163F5C, unk_163F60, unk_163F64, unk_163F6C, unk_163F70, unk_163F74, unk_163F84, unk_163F88
-global unk_163F8C, unk_163F9C, unk_163FA0, unk_163FA4, unk_163FB4, unk_163FBC, unk_163FC0, unk_163FC4
-global unk_163FD0, unk_163FD4, unk_163FD8, unk_163FE8, unk_163FF0, unk_163FF4, unk_164004, unk_16400C
-global unk_164010, unk_164024, unk_16402C, unk_164030, unk_164044, unk_16404C, unk_164050, unk_164068
-global unk_164070, unk_164074, unk_164084, unk_16408C, unk_164090, unk_1640A4, unk_1640AC, unk_1640B0
-global unk_1640C4, unk_1640CC, unk_1640D0, unk_1640E8, unk_1640F0, unk_1640F4, unk_164104, unk_16410C
-global unk_164138, unk_16413C, unk_164150, unk_164158, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF
-global unk_1645E7, unk_164636, unk_164686, unk_1646D4, unk_164724, unk_16480B, unk_1648DA, unk_16491D
-global unk_1649E0, unk_164A6A, unk_164B4D, unk_164BFD, unk_164C3F, unk_164C6C, unk_164D67, unk_164F96
-global unk_16503B, unk_16508B, unk_16518C, unk_165190, unk_16531C, unk_165320, unk_165323, unk_165330
-global unk_1655AC, unk_165779, unk_1657CD, unk_1657CF, unk_165A5B, unk_165BAB, unk_165BAE, unk_165D00
-global unk_165D08, unk_165E4A, unk_165EA0, unk_166010, unk_16609C, unk_166108, unk_166110, unk_166118
-global unk_16620D, unk_16622A, unk_16622D, unk_16622F, unk_166232, unk_166235, unk_16623E, unk_1663A5
-global unk_1663B8, unk_1665C8, unk_1665CB, unk_16661B, unk_166648, unk_1667A4, unk_1667A7, unk_1668C2
-global unk_1668C5, unk_1668F8, unk_166915, unk_166946, unk_166948, unk_166A8A, unk_166B38, unk_166B3C
-global unk_166B40, unk_166B44, unk_166B48, unk_166B4C, unk_166B50, unk_166B54, unk_166B58, unk_166B5C
-global unk_166B60, unk_166B64, unk_166B67, unk_166B6B, unk_166B6E, unk_166B72, unk_166B76, unk_166B7A
-global unk_166B7E, unk_166B82, unk_166B86, unk_166B8A, unk_166B8D, unk_166B90, unk_166B94, unk_166B98
-global unk_166C97, unk_166E9D, unk_166F30, unk_166FF4, unk_1670CF, unk_16711C, unk_167124, unk_167128
-global unk_167130, unk_167138, unk_16713C, unk_167144, unk_167148, unk_167150, unk_167154, unk_16715C
-global unk_167160, unk_167168, unk_16716C, unk_167178, unk_16717C, unk_167184, unk_167188, unk_167190
-global unk_167194, unk_16719C, unk_1671A0, unk_1671A8, unk_1671AC, unk_1671B4, unk_1671B8, unk_1671BC
-global unk_1671C4, unk_1671CC, unk_1671D4, unk_1671D8, unk_1671E0, unk_1671E4, unk_1671F0, unk_1671F4
-global unk_1671FC, unk_167200, unk_167208, unk_16720C, unk_167214, unk_16721C, unk_167220, unk_167228
-global unk_16722C, unk_167234, unk_167238, unk_16723C, unk_167240, unk_167244, unk_167250, unk_167260
-global unk_167264, unk_16726C, unk_167270, unk_16727C, unk_1673CC, unk_167410, unk_167418, unk_167421
-global unk_167429, unk_167431, unk_167437, unk_16743E, unk_167444, unk_16744D, unk_167455, unk_16745B
-global unk_167460, unk_167540, unk_167560, unk_167574, unk_167588, unk_16764C, unk_167655, unk_16765E
-global unk_167669, unk_167673, unk_16767E, unk_16768A, unk_167695, unk_1676A1, unk_1676AE, unk_1676BB
-global unk_1676C6, unk_1676D3, unk_1676DD, unk_167731, unk_167806, unk_167809, unk_167814, unk_1678E0
-global unk_1678E2, unk_1678E4, unk_1678E6, unk_1678E8, unk_1678EA, unk_1678EC, unk_1678EE, unk_1678F0
-global unk_1678F2, unk_1678F4, unk_1678F6, unk_1678F8, unk_1678FA, unk_1678FC, unk_1678FE, unk_167900
-global unk_167902, unk_167904, unk_167906, unk_167908, unk_16790A, unk_16790C, unk_16790E, unk_167910
-global unk_167912, unk_167914, unk_167916, unk_167918, unk_16791A, unk_16791C, unk_16791E, unk_167920
-global unk_167922, unk_167924, unk_167926, unk_167928, unk_16792A, unk_16792C, unk_16792E, unk_167930
-global unk_167932, unk_167934, unk_167936, unk_167938, unk_16793A, unk_16793C, unk_16793E, unk_167940
-global unk_167943, unk_167946, unk_167949, unk_16794C, unk_16794F, unk_167952, unk_167955, unk_167958
-global unk_167A1A, unk_167A4B, unk_167D44, unk_167D48, unk_167D4C, unk_167D50, unk_167D54, unk_167D58
-global unk_167D5C, unk_167D60, unk_167D64, unk_167D68, unk_167D6C, unk_167D70, unk_167DCC, unk_167FA4
-global unk_167FE8, unk_168088, unk_1680D4, unk_168184, unk_168189, unk_16818E, unk_168193, unk_168197
-global unk_16819C, unk_1681A1, unk_1681A5, unk_1681AB, unk_1681B0, unk_1681B4, unk_1681BA, unk_1681C0
-global unk_1681C6, unk_1681CB, unk_1681D1, unk_1681D5, unk_1681D9, unk_1681DD, unk_1681E0, unk_1681E3
-global unk_1681E6, unk_1681EA, unk_1681F0, unk_168258, unk_168265, unk_16827A, unk_16828F, unk_1682A5
-global unk_1682C0, unk_16845C, unk_168574, unk_1687BC, unk_1687C8, unk_1687D4, unk_1687E0, unk_1687EC
-global unk_1687F8, unk_168810, unk_16881C, unk_168828, unk_168834, unk_168840, unk_16884C, unk_168858
-global unk_168864, unk_168870, unk_16887C, unk_168888, unk_168894, unk_1688A0, unk_1688AC, unk_1688B8
-global unk_16897C, unk_1689AC, unk_1689FC, unk_168A24, unk_168C38, unk_169298, unk_1692B8, unk_1692C0
-global unk_1692E0, unk_1692F8, unk_169300, unk_169308, unk_169310, unk_169330, unk_16933C, unk_169344
-global unk_169364, unk_169370, unk_169378, unk_169398, unk_1693A0, unk_1693C0, unk_1693D0, unk_1693D8
-global unk_1693F8, unk_169400, unk_169420, unk_169428, unk_169448, unk_169450, unk_169470, unk_169488
-global unk_169490, unk_1694B0, unk_1694B8, unk_1694D8, unk_1694E8, unk_1694F0, unk_169510, unk_169518
-global unk_169538, unk_169540, unk_169560, unk_169580, unk_169588, unk_1695A0, unk_1695A8, unk_1695C8
-global unk_1695D0, unk_1695F0, unk_169600, unk_169608, unk_169628, unk_169630, unk_169650, unk_169660
-global unk_169668, unk_169688, unk_169690, unk_1696B0, unk_1696C0, unk_1696C8, unk_1696E8, unk_1696F0
-global unk_169710, unk_169718, unk_169738, unk_169740, unk_169760, unk_169778, unk_169848, unk_1698A2
-global unk_169989, unk_16AED4, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144, unk_16B16C
-global unk_16B51C, unk_16B534, unk_16B558, unk_16B590, unk_16B5C8, unk_16B600, unk_16B638, unk_16B668
-global unk_16B698, unk_16B6C8, unk_16B718, unk_16B728, unk_16C338, unk_16CB30, unk_16CCC8, unk_16CE20
-global unk_16CFFC, unk_16D262, unk_16D26A, unk_16D7F4, unk_16D7FC, unk_16D804, unk_16D992, unk_16E110
-global unk_16E1E4, unk_16E21C, unk_16E3E8, unk_16E8A0, unk_16F110, unk_16FB44, unk_17021C, unk_170240
-global unk_170B26, unk_170B30, unk_170F72, unk_170F7C, unk_1713BE, unk_1713C8, unk_17180A, unk_171814
-global unk_171E38, unk_172264, unk_17226C, unk_172274, unk_1722C0, unk_1722DA, unk_172342, unk_1724C8
-global unk_172C44, unk_193F64, unk_193FD8, unk_19404C, unk_1940C0, unk_194134, unk_1941A8, unk_19421C
-global unk_194290, unk_194304, unk_194378, unk_1943EC, unk_194460, unk_1944D4, unk_194548, unk_1945BC
-global unk_194630, unk_1956A4, unk_19972C, unk_199738, unk_1999C4, unk_199C58, unk_199DB4, unk_199DB8
-global unk_199DBE, unk_199DC6, unk_199DD0, unk_199DDC, unk_199DEA, unk_199DFA, unk_199E0C, unk_199E20
-global unk_199E36, unk_199E4E, unk_199E68, unk_199E84, unk_199EA2, unk_199EC2, unk_199EE4, unk_199F08
-global unk_199F2E, unk_199F56, unk_199F80, unk_199FAC, unk_199FDA, unk_19A00A, unk_19A03C, unk_19A070
-global unk_19A0A6, unk_19A0DE, unk_19A118, unk_19A154, unk_19A192, unk_19A1D2, unk_19A214, unk_19A258
-global unk_19A29E, unk_19A2E6, unk_19A330, unk_19A37C, unk_19A3CA, unk_19A41A, unk_19A46C, unk_19A4C0
-global unk_19A516, unk_19A56E, unk_19A5C8, unk_19A624, unk_19A682, unk_19C1B4, unk_19C1CA, unk_19C534
-global unk_19C544, unk_19C564, unk_19C574, unk_19C584, unk_19C594, unk_19C5A4, unk_19C5B4, unk_19C5C4
-global unk_19C5D4, unk_19C5E4, unk_19C648, unk_19C67E, unk_19CA1C, unk_19CA28, unk_19CA98, unk_19CCB0
+global asc_168004, asc_16800C, asc_168014, asc_16801C, asc_168024, asc_168030, asc_168044, asc_168050
+global asc_168058, asc_168060, asc_16806C, asc_168078, asc_16808C, asc_168094, asc_16809C, asc_1680A4
+global asc_1680A8, asc_1680AC, asc_1680B4, asc_1680C0, asc_1680C8, asc_1680E0, asc_168208, asc_16822E
+global asc_1682DD, asc_1682F4, asc_1684B0, asc_16D65F, asc_16DADC, asc_1709DC, asc_19BEE8, asc_19BFD8
+global awtmstruct, byte_168410, byte_1684C8, byte_1687B4, byte_16892C, byte_16892D, byte_16892E, byte_16892F
+global byte_168930, byte_1689BC, byte_1689C0, byte_1689E4, byte_168B60, byte_168B69, byte_168C04, byte_168E50
+global byte_169038, byte_1691DC, byte_16C429, byte_16C914, byte_16CCF0, byte_16CDCC, byte_16CF98, byte_16D27A
+global byte_16D2A2, byte_16D5DC, byte_16D784, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, byte_16E264
+global byte_16E273, byte_16E274, byte_16E275, byte_16E28E, byte_16E354, byte_16E358, byte_16E35C, byte_16E378
+global byte_16E394, byte_16E395, byte_16E396, byte_16E3D7, byte_16E415, byte_16E460, byte_16E503, byte_16E504
+global byte_16E638, byte_16E639, byte_16E63A, byte_16E688, byte_16E689, byte_16E6C0, byte_16E6C1, byte_16F748
+global byte_16F794, byte_16F89C, byte_16FA3F, byte_16FA40, byte_16FA4F, byte_170044, byte_170045, byte_170046
+global byte_170047, byte_170048, byte_1700A0, byte_1700A1, byte_1700A4, byte_1700A5, byte_1700A6, byte_1700A7
+global byte_1700A8, byte_170124, byte_170160, byte_170161, byte_17075C, byte_170764, byte_170781, byte_17078E
+global byte_17079A, byte_17079C, byte_1707B7, byte_1707FC, byte_170800, byte_170804, byte_170810, byte_17086B
+global byte_1708C6, byte_170921, byte_17097C, byte_171C90, byte_171D33, byte_171D34, byte_172250, byte_172251
+global byte_172301, byte_172518, byte_1725A4, byte_17268C, byte_172AB0, byte_172AB1, byte_172AB4, byte_172BC5
+global byte_172BF4, byte_172BF5, byte_172BF6, byte_172C14, byte_172C15, byte_172C2C, byte_172C2D, byte_172C2E
+global byte_172C2F, byte_172C88, byte_172C89, byte_199784, byte_19988D, byte_199A24, byte_199AA4, byte_199CD4
+global byte_199CD5, byte_199CE4, byte_19A748, byte_19A77C, byte_19A780, byte_19A784, byte_19A7B8, byte_19A7C0
+global byte_19A7C8, byte_19A7D0, byte_19A7D8, byte_19A7E0, byte_19C032, byte_19C040, byte_19C124, byte_19C16E
+global byte_19C3D0, byte_19C3D1, byte_19C3D2, byte_19C3D3, byte_19C3E0, byte_19C3E6, byte_19C620, byte_19C6E4
+global byte_19C724, byte_19C840, byte_19CA30, byte_19CA31, byte_19CA32, byte_19CA33, byte_19CB70, byte_19CB71
+global byte_19CB74, byte_19CB75, byte_19CB7E, byte_19CB7F, byte_19CB8A, byte_19CB8B, byte_19CBC2, byte_19CBC8
+global byte_19CBCA, byte_19CBCC, byte_19CBFC, byte_19CCAF, byte_19CCC6, byte_19CD05, byte_19CD8C, byte_19CD9D
+global byte_19D01C, byte_19D53C, byte_19D555, byte_19D604, byte_19D636, byte_19DAD4, byte_19DAD5, byte_19DAD6
+global byte_19DAEF, byte_19DAF0, byte_19DAF1, byte_19EAC6, byte_19EB38, byte_19EB54, byte_19EB55, byte_19EB56
+global byte_19EB57, byte_19EB5C, byte_19EB7F, byte_19EBD2, byte_19EC44, byte_19EC60, byte_19EC61, byte_19EC62
+global byte_19EC63, byte_19EC68, byte_19EC8B, byte_1A0CC2, byte_1A8E89, byte_1A8E8E, byte_1A988C, byte_1A988D
+global byte_1A988E, byte_1AC638, byte_1AC818, byte_1AC81A, byte_1AC81B, byte_1AC81C, byte_1AC81D, byte_1AC8C6
+global byte_1AC93C, byte_1AC948, byte_1AC95B, byte_1ACA65, byte_1ACA66, byte_1ACA6A, byte_1ACC50, byte_1ACC51
+global byte_1ACC55, byte_1ACD2D, byte_1ACF62, byte_1ACF63, byte_1ACF69, byte_1AD23E, byte_1AD252, byte_1AD457
+global byte_1AD458, byte_1AD45E, byte_1AD72B, byte_1AD739, byte_1AD742, byte_1AEDED, byte_1AEDEE, byte_1AEDEF
+global byte_1B0300, byte_1B1378, byte_1B1398, byte_1B8571, byte_1B8580, byte_1B8581, byte_1B8582, byte_1B9058
+global byte_1B93DD, byte_1B93DE, byte_1BF670, byte_1C1267, byte_1C135A, byte_1C135B, byte_1C14BD, byte_1C315C
+global byte_1C31A7, byte_1C3449, byte_1C344A, byte_1C344B, byte_1C3455, byte_1C3456, byte_1C347D, byte_1C35E0
+global byte_1C527F, byte_1C52CA, byte_1C556C, byte_1C556D, byte_1C556E, byte_1C5578, byte_1C5579, byte_1C559C
+global byte_1C559D, byte_1C559E, byte_1C559F, byte_1C55A0, byte_1C55A4, byte_1C55A5, byte_1C55A6, byte_1C55A7
+global byte_1C55A8, byte_1C55A9, byte_1C55AA, byte_1C55AB, byte_1C6040, byte_1C82B3, byte_1C82B4, byte_1C8338
+global byte_1C833C, byte_1C83B4, byte_1C8700, byte_1C87FC, byte_1C8804, byte_1C880C, byte_1C944A, byte_1C944C
+global byte_1C9472, byte_1CA9D8, byte_1CAEC8, byte_1CB004, byte_1CBB8C, byte_1CC240, byte_1CC8B4, byte_1CD24D
+global byte_1CD250, byte_1CD460, byte_1CD75C, byte_1CD7A9, byte_1CD7B3, byte_1CD7B4, byte_1CD7FC, byte_1CD7FD
+global byte_1CD7FE, byte_1CD85E, byte_1CDA5F, byte_1CDC60, byte_1CDDFF, byte_1CDE61, byte_1CE224, byte_1CE23D
+global byte_1CE23E, byte_1CFADC, byte_1CFBF2, byte_1CFBF3, byte_1D1D88, byte_1D1D8C, byte_1D1FBC, byte_1D207C
+global byte_1D2434, byte_1D8018, byte_1D8088, byte_1DA4C4, byte_1DA4C5, byte_1DA8CF, byte_1DCEC8, byte_1DCEC9
+global byte_1DCECA, byte_1DCECB, byte_1DCECE, byte_1DCECF, byte_1DCED4, byte_1DCED5, byte_1DCED6, byte_1DCED7
+global byte_1DCEDC, byte_1DCEDD, byte_1DCEDE, byte_1DCEDF, byte_1DCEE0, byte_1DCEE1, byte_1DCEE2, byte_1DCEE3
+global byte_1DCEE4, byte_1DCEE5, byte_1DCEE6, byte_1DCEE7, byte_1DCF00, byte_1DCF01, byte_1DCF02, byte_1DCF03
+global byte_1DCF04, byte_1DCF05, byte_1DCF3B, byte_1DCF44, byte_1DCF45, byte_1DCF47, byte_1DCF67, byte_1DCF68
+global byte_1DD381, byte_1DD38C, byte_1DD38D, byte_1DD4AF, byte_1DD4B0, byte_1DE6B8, byte_1DE6B9, byte_1DE6BA
+global byte_1DE770, byte_1DE771, byte_1DE772, byte_1DE773, byte_1DE794, byte_1DE795, byte_1DE796, byte_1DE797
+global byte_1DE798, byte_1DE7F0, dword_160028, dword_160044, dword_160048, dword_160150, dword_160154, dword_1602D6
+global dword_1602DA, dword_1602DE, dword_1602E2, dword_1602EE, dword_1602F2, dword_160306, dword_160312, dword_160316
+global dword_16031A, dword_16031E, dword_160322, dword_160326, dword_16032A, dword_16032E, dword_160332, dword_160346
+global dword_16034A, dword_160386, dword_16039A, dword_16039E, dword_1603A2, dword_1603A6, dword_1603AA, dword_1603AE
+global dword_1603B2, dword_1603B6, dword_1603C2, dword_1603C6, dword_1603CA, dword_1603D6, dword_1603DA, dword_160443
+global dword_160457, dword_16045B, dword_16045F, dword_160463, dword_160467, dword_1604B2, dword_1604B6, dword_1604BA
+global dword_1604BE, dword_1604C2, dword_1604C6, dword_1604CA, dword_1604CE, dword_1604D2, dword_1604D6, dword_1604DA
+global dword_1604DE, dword_1604FF, dword_16050B, dword_16050F, dword_160513, dword_16051F, dword_160533, dword_160537
+global dword_160563, dword_160567, dword_160574, dword_160578, dword_16057C, dword_160580, dword_160584, dword_1605A0
+global dword_1605FC, dword_160600, dword_16060C, dword_160610, dword_160614, dword_160618, dword_16061C, dword_160620
+global dword_16062C, dword_160688, dword_16068C, dword_160690, dword_160694, dword_160698, dword_16069C, dword_1606A0
+global dword_1606A4, dword_1606A8, dword_1606AC, dword_1606B0, dword_1606B4, dword_1606B8, dword_1606CC, dword_1606D0
+global dword_1606DB, dword_1606DF, dword_16070B, dword_16070F, dword_160723, dword_160727, dword_160733, dword_160737
+global dword_160753, dword_160757, dword_16079B, dword_1607C7, dword_1607CB, dword_160877, dword_160893, dword_160897
+global dword_1608A3, dword_1608AF, dword_1608B3, dword_1608C0, dword_1608E4, dword_1608E8, dword_1609C4, dword_1609C8
+global dword_160A64, dword_160A68, dword_160A6C, dword_160A70, dword_160A74, dword_160AC0, dword_160B0C, dword_160B10
+global dword_160B24, dword_160D17, dword_160D1B, dword_161252, dword_161256, dword_161391, dword_1613AD, dword_1613B9
+global dword_1613E5, dword_1613E9, dword_1613ED, dword_1613F1, dword_1613F5, dword_161A96, dword_161ABA, dword_161ABE
+global dword_161AC2, dword_161AC6, dword_161ACA, dword_161AD0, dword_161B28, dword_161B34, dword_161B38, dword_161B3C
+global dword_161B48, dword_161B4C, dword_161B50, dword_161B54, dword_161B98, dword_161B9C, dword_161BA0, dword_161BA4
+global dword_162AE7, dword_162B13, dword_162B1F, dword_162B2B, dword_162B5F, dword_162B63, dword_162B67, dword_162B73
+global dword_162B77, dword_162B7B, dword_162BBF, dword_162C0B, dword_162C1F, dword_162C33, dword_162C37, dword_162C3B
+global dword_162CB7, dword_162CBB, dword_162CBF, dword_162D03, dword_162D37, dword_162E0B, dword_162E3F, dword_162E43
+global dword_162E87, dword_162E8B, dword_162ECF, dword_162F13, dword_162F17, dword_162F23, dword_162F6F, dword_162F73
+global dword_162FBF, dword_162FC3, dword_162FC7, dword_162FCB, dword_162FDF, dword_16300B, dword_16309C, dword_1630A0
+global dword_1630A4, dword_1630E0, dword_1630E4, dword_163138, dword_16317C, dword_163190, dword_163194, dword_163198
+global dword_1631A4, dword_1631D0, dword_1631D4, dword_1631D8, dword_1631DC, dword_163230, dword_163234, dword_163248
+global dword_16324C, dword_163280, dword_163284, dword_163288, dword_1632C4, dword_1632C8, dword_1632CC, dword_163300
+global dword_163304, dword_163308, dword_16330C, dword_163310, dword_16331C, dword_163320, dword_163334, dword_163378
+global dword_16337C, dword_163380, dword_163384, dword_163388, dword_163394, dword_163398, dword_1633AC, dword_1633F0
+global dword_1633F4, dword_1633F8, dword_1633FC, dword_163408, dword_16340C, dword_163420, dword_163464, dword_163468
+global dword_16346C, dword_163498, dword_16349C, dword_1634A0, dword_1634A4, dword_1634A8, dword_1634D4, dword_163578
+global dword_16357C, dword_1635D0, dword_1635D4, dword_163630, dword_163644, dword_163648, dword_16367C, dword_163680
+global dword_163684, dword_163688, dword_1636B4, dword_1636B8, dword_1636BC, dword_1636C0, dword_1636C4, dword_1636C8
+global dword_1636F4, dword_163720, dword_163744, dword_163758, dword_16375C, dword_163760, dword_16376C, dword_163790
+global dword_163794, dword_163798, dword_1637D4, dword_163808, dword_16380C, dword_163810, dword_163814, dword_163818
+global dword_16381C, dword_163828, dword_163834, dword_163838, dword_16383C, dword_163850, dword_16390C, dword_163958
+global dword_163A5C, dword_163A60, dword_163A6C, dword_163AD8, dword_163B04, dword_163B10, dword_163B24, dword_163B58
+global dword_163BD4, dword_163C00, dword_163C24, dword_163C28, dword_163C2C, dword_163C90, dword_163CB4, dword_163CB8
+global dword_163D3C, dword_163D40, dword_163D4C, dword_163D50, dword_163D5C, dword_163D60, dword_165548, dword_16554C
+global dword_165560, dword_165564, dword_165570, dword_165574, dword_165587, dword_16559A, dword_16559E, dword_1655A2
+global dword_1655A6, dword_166A95, dword_166A99, dword_166A9D, dword_166AA9, dword_166AC8, dword_166AD4, dword_166B0B
+global dword_166B17, dword_166B26, dword_166B32, dword_167A3B, dword_167A3F, dword_167A43, dword_167A47, dword_167A85
+global dword_167A89, dword_167A8D, dword_167A91, dword_167A95, dword_167A99, dword_167A9D, dword_167AA1, dword_167AA5
+global dword_167AA9, dword_167AAD, dword_167AE1, dword_167AE5, dword_167AE9, dword_167AED, dword_167AF1, dword_167AF5
+global dword_167AF9, dword_167AFD, dword_167B01, dword_167B05, dword_167B09, dword_167B0D, dword_167B11, dword_167B15
+global dword_167B19, dword_167B2D, dword_167B31, dword_167B35, dword_167B39, dword_167B3D, dword_167B41, dword_167B45
+global dword_167B49, dword_167B4D, dword_167B51, dword_167B55, dword_167B59, dword_167B5D, dword_167B61, dword_167B65
+global dword_167B71, dword_167B75, dword_167B81, dword_167B8B, dword_167B97, dword_167B9B, dword_167BA7, dword_167BC3
+global dword_167BC7, dword_167BCB, dword_167BCF, dword_167BD3, dword_167BD7, dword_167BDB, dword_167BDF, dword_167BE3
+global dword_167BE7, dword_167BEB, dword_167BEF, dword_167BF3, dword_167BF7, dword_167BFB, dword_167BFF, dword_167C03
+global dword_167C07, dword_167C0B, dword_167C0F, dword_167C13, dword_167C17, dword_167C1B, dword_167C1F, dword_167C23
+global dword_167C2F, dword_167C33, dword_167C37, dword_167C3B, dword_167C3F, dword_167C43, dword_167C47, dword_167C4B
+global dword_167C5F, dword_167C63, dword_167C67, dword_167C6B, dword_167C6F, dword_167C73, dword_167C77, dword_167C7B
+global dword_167C7F, dword_167C83, dword_167C87, dword_167C8B, dword_167C8F, dword_167C93, dword_167C97, dword_167C9B
+global dword_167C9F, dword_167CA3, dword_167CA7, dword_167CAB, dword_167CAF, dword_167CB3, dword_167CB7, dword_167CBB
+global dword_167CBF, dword_167CC3, dword_167CC7, dword_167CD3, dword_167CD7, dword_167CDB, dword_167CDF, dword_167CE3
+global dword_167CE7, dword_167D99, dword_167D9D, dword_167DC1, dword_167DC5, dword_167E08, dword_167E1C, dword_1682E4
+global dword_1682E8, dword_16841C, dword_168420, dword_16844C, dword_168450, dword_168454, dword_168458, dword_168462
+global dword_1684C0, dword_1684C4, dword_1684E4, dword_168564, dword_168571, dword_168628, dword_16862C, dword_16862E
+global dword_168630, dword_1686BA, dword_1686C0, dword_1686C4, dword_1686C8, dword_1686CC, dword_1686D0, dword_1686D2
+global dword_1686DC, dword_1686E0, dword_1686E2, dword_1686E6, dword_16875E, dword_1687B8, dword_168934, dword_16893C
+global dword_168A84, dword_168AA4, dword_168AA8, dword_168B14, dword_168B18, dword_168B1C, dword_168B66, dword_168D20
+global dword_168D8E, dword_168DA4, dword_168DCC, dword_168E70, dword_168E74, dword_168E7C, dword_168E80, dword_168F58
+global dword_168FB8, dword_168FD0, dword_169004, dword_16908A, dword_1690D2, dword_1690EE, dword_16910A, dword_169126
+global dword_16913A, dword_169150, dword_16916C, dword_169178, dword_169180, dword_169184, dword_16918C, dword_169190
+global dword_169194, dword_169198, dword_16919C, dword_1691A0, dword_1691A2, dword_1691A8, dword_1691AC, dword_1691AE
+global dword_1691B0, dword_1691B8, dword_1691BC, dword_1691C0, dword_1691C4, dword_1691C8, dword_1691CC, dword_1691D0
+global dword_1691D4, dword_1691D8, dword_1691E0, dword_1691FC, dword_169210, dword_169214, dword_169218, dword_16921C
+global dword_169220, dword_169224, dword_169228, dword_16922C, dword_16922E, dword_169230, dword_169238, dword_16923C
+global dword_169240, dword_169244, dword_169248, dword_16924C, dword_169250, dword_169254, dword_169258, dword_16925C
+global dword_169260, dword_169264, dword_16926C, dword_169274, dword_169278, dword_16927A, dword_16927C, dword_16927E
+global dword_169280, dword_169288, dword_16928C, dword_169290, dword_169294, dword_1697B4, dword_1697B8, dword_169818
+global dword_16981C, dword_169820, dword_169844, dword_1698AF, dword_169996, dword_16AEB4, dword_16AF30, dword_16AF34
+global dword_16AF38, dword_16AF3C, dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF54
+global dword_16AF58, dword_16AF5C, dword_16AF60, dword_16AF64, dword_16AF68, dword_16AF9C, dword_16AFAC, dword_16B164
+global dword_16B168, dword_16B174, dword_16B178, dword_16B1A0, dword_16B1A4, dword_16B1A8, dword_16B3F4, dword_16B550
+global dword_16B724, dword_16B72C, dword_16C32C, dword_16C360, dword_16C364, dword_16C368, dword_16C374, dword_16C384
+global dword_16C388, dword_16C38C, dword_16C390, dword_16C394, dword_16C398, dword_16C39C, dword_16C3A0, dword_16C3A4
+global dword_16C3A8, dword_16C3AC, dword_16C3B0, dword_16C3F0, dword_16C54C, dword_16C550, dword_16C55C, dword_16C568
+global dword_16C574, dword_16C580, dword_16C58C, dword_16C618, dword_16C63C, dword_16C648, dword_16C654, dword_16C664
+global dword_16C6B0, dword_16C6B4, dword_16C6B8, dword_16C6BC, dword_16C6C0, dword_16C730, dword_16C734, dword_16C738
+global dword_16C75C, dword_16C760, dword_16C982, dword_16C996, dword_16C9AC, dword_16C9B0, dword_16CAA8, dword_16CAAC
+global dword_16CAB0, dword_16CAB4, dword_16CAF0, dword_16CAF4, dword_16CB74, dword_16CB78, dword_16CB7C, dword_16CB80
+global dword_16CCC4, dword_16CCE8, dword_16CCEC, dword_16CCF1, dword_16CCFA, dword_16CCFE, dword_16CD02, dword_16CD08
+global dword_16CD0C, dword_16CD10, dword_16CD14, dword_16CD18, dword_16CD1C, dword_16CD24, dword_16CD28, dword_16CD2C
+global dword_16CD30, dword_16CD34, dword_16CD40, dword_16CD4C, dword_16CD50, dword_16CD54, dword_16CD58, dword_16CD60
+global dword_16CD64, dword_16CDC8, dword_16CDD0, dword_16CDD8, dword_16CDDC, dword_16CDFC, dword_16CE1C, dword_16CF18
+global dword_16CFBC, dword_16CFF4, dword_16CFF8, dword_16D23C, dword_16D250, dword_16D29E, dword_16D2A8, dword_16D2B8
+global dword_16D2BC, dword_16D2CC, dword_16D2EC, dword_16D30C, dword_16D34C, dword_16D350, dword_16D360, dword_16D400
+global dword_16D404, dword_16D440, dword_16D444, dword_16D448, dword_16D44C, dword_16D454, dword_16D458, dword_16D45C
+global dword_16D470, dword_16D484, dword_16D4B0, dword_16D4D4, dword_16D500, dword_16D504, dword_16D508, dword_16D664
+global dword_16D668, dword_16D66C, dword_16D670, dword_16D674, dword_16D678, dword_16D67C, dword_16D680, dword_16D684
+global dword_16D688, dword_16D694, dword_16D698, dword_16D6A4, dword_16D6A8, dword_16D6AC, dword_16D6B0, dword_16D6B4
+global dword_16D6B8, dword_16D6BC, dword_16D6C0, dword_16D6E8, dword_16D6EC, dword_16D6F0, dword_16D6F4, dword_16D6F8
+global dword_16D6FC, dword_16D700, dword_16D704, dword_16D708, dword_16D71C, dword_16D720, dword_16D724, dword_16D728
+global dword_16D73C, dword_16D740, dword_16D744, dword_16D748, dword_16D74C, dword_16D750, dword_16D754, dword_16D760
+global dword_16D764, dword_16D768, dword_16D76C, dword_16D770, dword_16D774, dword_16D778, dword_16D77C, dword_16D780
+global dword_16D788, dword_16D78C, dword_16D790, dword_16D794, dword_16D798, dword_16D79C, dword_16D7A0, dword_16D7A4
+global dword_16D7A8, dword_16D7D0, dword_16D7D4, dword_16D7D8, dword_16D7F0, dword_16D894, dword_16D898, dword_16D89C
+global dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0, dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8
+global dword_16D8DC, dword_16D90C, dword_16D910, dword_16D914, dword_16D918, dword_16D91C, dword_16D93A, dword_16DA9C
+global dword_16DAA0, dword_16DAA4, dword_16DAA8, dword_16DAAC, dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC
+global dword_16DAC0, dword_16DAC4, dword_16DAC8, dword_16DACA, dword_16DAD2, dword_16E124, dword_16E128, dword_16E12A
+global dword_16E130, dword_16E134, dword_16E138, dword_16E13C, dword_16E140, dword_16E144, dword_16E1AC, dword_16E22C
+global dword_16E2B2, dword_16E2F4, dword_16E2F8, dword_16E2FC, dword_16E300, dword_16E304, dword_16E308, dword_16E30C
+global dword_16E310, dword_16E314, dword_16E318, dword_16E31C, dword_16E320, dword_16E324, dword_16E32C, dword_16E330
+global dword_16E334, dword_16E338, dword_16E33C, dword_16E340, dword_16E344, dword_16E348, dword_16E34C, dword_16E350
+global dword_16E360, dword_16E364, dword_16E368, dword_16E36C, dword_16E370, dword_16E374, dword_16E37C, dword_16E380
+global dword_16E384, dword_16E388, dword_16E38C, dword_16E390, dword_16E397, dword_16E39B, dword_16E39F, dword_16E3A3
+global dword_16E3A7, dword_16E3AB, dword_16E3AF, dword_16E3B3, dword_16E3B7, dword_16E3BB, dword_16E3BF, dword_16E3C3
+global dword_16E3C7, dword_16E3CB, dword_16E3CF, dword_16E3D3, dword_16E3EC, dword_16E3F4, dword_16E3F8, dword_16E3FC
+global dword_16E402, dword_16E408, dword_16E410, dword_16E430, dword_16E444, dword_16E448, dword_16E44C, dword_16E450
+global dword_16E454, dword_16E458, dword_16E45C, dword_16E464, dword_16E468, dword_16E46C, dword_16E474, dword_16E478
+global dword_16E47C, dword_16E480, dword_16E484, dword_16E488, dword_16E48C, dword_16E490, dword_16E494, dword_16E498
+global dword_16E49C, dword_16E4A0, dword_16E4A4, dword_16E4A8, dword_16E4B0, dword_16E4B4, dword_16E4B8, dword_16E4BC
+global dword_16E4C8, dword_16E4D0, dword_16E500, dword_16E604, dword_16E608, dword_16E60C, dword_16E610, dword_16E614
+global dword_16E618, dword_16E61C, dword_16E620, dword_16E624, dword_16E628, dword_16E630, dword_16E634, dword_16E63C
+global dword_16E670, dword_16E674, dword_16E676, dword_16E678, dword_16E67A, dword_16E67C, dword_16E67E, dword_16E680
+global dword_16E682, dword_16E684, dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0, dword_16E6A8
+global dword_16E6AC, dword_16E6B0, dword_16E6B4, dword_16E6B8, dword_16E6BC, dword_16E6C8, dword_16E6CC, dword_16E6D0
+global dword_16E6D4, dword_16E6D8, dword_16E714, dword_16E718, dword_16E870, dword_16F140, dword_16F144, dword_16F148
+global dword_16F14C, dword_16F150, dword_16F184, dword_16F188, dword_16F5AC, dword_16F5B4, dword_16F5B8, dword_16F77C
+global dword_16F780, dword_16F784, dword_16F788, dword_16F78C, dword_16F790, dword_16F894, dword_16F898, dword_16F8A0
+global dword_16F8A8, dword_16F8AC, dword_16F8B0, dword_16F8B4, dword_16F8B8, dword_16F9FC, dword_16FA00, dword_16FA04
+global dword_16FA08, dword_16FA10, dword_16FA14, dword_16FB40, dword_16FB50, dword_16FB54, dword_16FB58, dword_16FB5C
+global dword_16FB60, dword_16FB64, dword_16FB74, dword_16FECC, dword_16FFC4, dword_170038, dword_17003C, dword_170040
+global dword_170042, dword_170043, dword_170050, dword_170054, dword_170058, dword_170060, dword_170080, dword_170084
+global dword_170088, dword_17008C, dword_170090, dword_170094, dword_170098, dword_17009C, dword_1700A9, dword_1700AD
+global dword_1700FD, dword_170101, dword_17014C, dword_170150, dword_170154, dword_170158, dword_17015C, dword_170164
+global dword_170200, dword_170204, dword_170208, dword_17020C, dword_170210, dword_170214, dword_170218, dword_17024C
+global dword_170250, dword_170254, dword_170258, dword_17025C, dword_170260, dword_170264, dword_170268, dword_17026C
+global dword_170270, dword_170274, dword_1702B4, dword_1702B8, dword_1702C0, dword_1702C4, dword_1702C8, dword_1702CC
+global dword_1706CC, dword_1706F8, dword_170704, dword_17070C, dword_170710, dword_170714, dword_170754, dword_170758
+global dword_170760, dword_1707E4, dword_1707EA, dword_1707F0, dword_1709D8, dword_1709ED, dword_1709F1, dword_1709F8
+global dword_170ACC, dword_170AF8, dword_170AFC, dword_170B00, dword_170B04, dword_170B08, dword_170B0C, dword_170B10
+global dword_1712CC, dword_171C88, dword_171C8C, dword_171E34, dword_172138, dword_17213C, dword_172168, dword_172194
+global dword_172198, dword_17219C, dword_1721A0, dword_1721A4, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4
+global dword_1721E0, dword_1721E4, dword_172244, dword_172248, dword_17224C, dword_172254, dword_172258, dword_17225C
+global dword_172260, dword_1722BC, dword_1724C9, dword_1724D4, dword_17251B, dword_172524, dword_172564, dword_17257C
+global dword_17258C, dword_172590, dword_172594, dword_17259C, dword_1725AD, dword_172674, dword_172678, dword_17267C
+global dword_1726A0, dword_1726A4, dword_172AAC, dword_172AB8, dword_172ABC, dword_172AC0, dword_172AC4, dword_172BC1
+global dword_172BC8, dword_172BCC, dword_172BD0, dword_172BD4, dword_172BD8, dword_172BDC, dword_172BE0, dword_172BE4
+global dword_172BE8, dword_172BEC, dword_172BF0, dword_172C00, dword_172C04, dword_172C08, dword_172C0C, dword_172C10
+global dword_172C20, dword_172C24, dword_172C28, dword_172C3E, dword_172C64, dword_172C68, dword_172C6C, dword_172C70
+global dword_172C74, dword_172C78, dword_172C7C, dword_172C80, dword_172C84, dword_172C90, dword_172C94, dword_172C98
+global dword_172C9C, dword_172CA0, dword_172CA4, dword_173F64, dword_19469C, dword_1946A0, dword_1946A4, dword_1946A8
+global dword_1996A4, dword_1996A8, dword_1996AC, dword_1996B0, dword_1996B4, dword_1996B8, dword_1996BC, dword_1996C0
+global dword_1996C4, dword_1996C8, dword_1996D0, dword_1996D4, dword_1996D8, dword_1996DC, dword_1996E0, dword_1996E4
+global dword_1996E8, dword_199734, dword_199888, dword_199990, dword_199994, dword_199998, dword_19999C, dword_1999A0
+global dword_1999A4, dword_1999A5, dword_1999BC, dword_1999C0, dword_199A14, dword_199A18, dword_199A1E, dword_199B2A
+global dword_199B2E, dword_199C38, dword_199C3C, dword_199C48, dword_199C4C, dword_199CE8, dword_19A6E0, dword_19A744
+global dword_19A758, dword_19A75C, dword_19A760, dword_19A764, dword_19A768, dword_19A76C, dword_19A770, dword_19A774
+global dword_19A778, dword_19A788, dword_19A78C, dword_19A790, dword_19A794, dword_19A798, dword_19A79C, dword_19A7A0
+global dword_19A7A4, dword_19A7A8, dword_19A7B0, dword_19A7B4, dword_19A7E4, dword_19A7E8, dword_19A878, dword_19BEB8
+global dword_19BED8, dword_19BEDC, dword_19BEE0, dword_19BEE4, dword_19C008, dword_19C00C, dword_19C010, dword_19C054
+global dword_19C0D4, dword_19C0F4, dword_19C0F8, dword_19C0FC, dword_19C100, dword_19C104, dword_19C108, dword_19C10C
+global dword_19C110, dword_19C114, dword_19C118, dword_19C11C, dword_19C120, dword_19C128, dword_19C12C, dword_19C132
+global dword_19C138, dword_19C13E, dword_19C144, dword_19C170, dword_19C178, dword_19C1A4, dword_19C1AA, dword_19C1AE
+global dword_19C1C6, dword_19C3CC, dword_19C3DD, dword_19C690, dword_19C694, dword_19C698, dword_19C69C, dword_19C6A0
+global dword_19C6A4, dword_19C6A8, dword_19C6AC, dword_19C6B0, dword_19C6B4, dword_19C6B8, dword_19C6BC, dword_19C6C0
+global dword_19C734, dword_19C738, dword_19C73C, dword_19C8C8, dword_19C8CC, dword_19CA2F, dword_19CA88, dword_19CA8C
+global dword_19CB30, dword_19CB32, dword_19CB38, dword_19CB3C, dword_19CB3E, dword_19CB40, dword_19CB44, dword_19CB48
+global dword_19CB4C, dword_19CB50, dword_19CB54, dword_19CB58, dword_19CB5A, dword_19CB5E, dword_19CB62, dword_19CB66
+global dword_19CB6A, dword_19CB6D, dword_19CB7B, dword_19CBAA, dword_19CBC4, dword_19CBD0, dword_19CBE4, dword_19CBE8
+global dword_19CBF8, dword_19CC00, dword_19CC02, dword_19CC12, dword_19CC30, dword_19CC54, dword_19CC58, dword_19CC5C
+global dword_19CC78, dword_19CC7C, dword_19CC9C, dword_19CCA0, dword_19CCA4, dword_19CCA8, dword_19CCC2, dword_19CD08
+global dword_19CD0C, dword_19CD10, dword_19CD14, dword_19CD18, dword_19CD1C, dword_19CD20, dword_19CD24, dword_19CD28
+global dword_19CD2C, dword_19CD30, dword_19CD34, dword_19CD40, dword_19CD44, dword_19CD48, dword_19CD4C, dword_19CD50
+global dword_19CD54, dword_19CD88, dword_19CDA0, dword_19CDA5, dword_19D004, dword_19D008, dword_19D00C, dword_19D010
+global dword_19D014, dword_19D018, dword_19D020, dword_19D024, dword_19D034, dword_19D038, dword_19D03C, dword_19D040
+global dword_19D044, dword_19D048, dword_19D058, dword_19D068, dword_19D06C, dword_19D070, dword_19D074, dword_19D078
+global dword_19D07C, dword_19D080, dword_19D084, dword_19D088, dword_19D08C, dword_19D090, dword_19D094, dword_19D098
+global dword_19D09C, dword_19D0C8, dword_19D0CC, dword_19D0D0, dword_19D0D4, dword_19D0D8, dword_19D0DC, dword_19D0E4
+global dword_19D0E8, dword_19D0EC, dword_19D134, dword_19D138, dword_19D188, dword_19D18C, dword_19D190, dword_19D194
+global dword_19D198, dword_19D19C, dword_19D1A0, dword_19D1A4, dword_19D1A8, dword_19D1B8, dword_19D1BC, dword_19D1CC
+global dword_19D1D4, dword_19D1D8, dword_19D1DC, dword_19D1E0, dword_19D1E4, dword_19D1E8, dword_19D334, dword_19D338
+global dword_19D340, dword_19D344, dword_19D348, dword_19D364, dword_19D368, dword_19D36C, dword_19D370, dword_19D374
+global dword_19D378, dword_19D37C, dword_19D380, dword_19D384, dword_19D388, dword_19D38C, dword_19D390, dword_19D394
+global dword_19D398, dword_19D39C, dword_19D3A0, dword_19D3A4, dword_19D3A8, dword_19D3AC, dword_19D40D, dword_19D410
+global dword_19DA50, dword_19DA58, dword_19DA68, dword_19DA70, dword_19DA94, dword_19DAD3, dword_19DADD, dword_19DADE
+global dword_19DB12, dword_19DC60, dword_19DC68, dword_19E290, dword_19E298, dword_19EAAE, dword_19EB58, dword_19EBAA
+global dword_19EBAE, dword_19EBB0, dword_19EBB4, dword_19EBB8, dword_19EBBA, dword_19EC64, dword_19ECB6, dword_19ECBA
+global dword_19ECBC, dword_19ECC0, dword_19ECC4, dword_19ECD0, dword_19ECEC, dword_19ED00, dword_19ED10, dword_19ED14
+global dword_19ED18, dword_19ED1C, dword_19ED20, dword_19ED24, dword_19ED28, dword_19ED2C, dword_19ED30, dword_19ED34
+global dword_19ED38, dword_19ED3C, dword_19ED40, dword_19ED44, dword_19ED48, dword_19ED4C, dword_19ED50, dword_19ED54
+global dword_19ED58, dword_19ED5C, dword_19ED60, dword_19ED64, dword_19ED68, dword_19ED6C, dword_19ED70, dword_19F4F4
+global dword_19F4F8, dword_19F4FC, dword_19FD14, dword_19FD18, dword_1A0CBC, dword_1A0CC0, dword_1A8B48, dword_1A8B60
+global dword_1A8E48, dword_1A8E4C, dword_1A8E50, dword_1A8E54, dword_1A8E58, dword_1A8E5C, dword_1A8E60, dword_1A8E64
+global dword_1A8E68, dword_1A8E6C, dword_1A8E70, dword_1A8E74, dword_1A8E7C, dword_1A8E80, dword_1A8E84, dword_1A8E88
+global dword_1AC34C, dword_1AC350, dword_1AC354, dword_1AC358, dword_1AC35C, dword_1AC360, dword_1AC364, dword_1AC368
+global dword_1AC36C, dword_1AC370, dword_1AC374, dword_1AC378, dword_1AC37C, dword_1AC380, dword_1AC3D8, dword_1AC430
+global dword_1AC434, dword_1AC438, dword_1AC4F0, dword_1AC4F4, dword_1AC4F8, dword_1AC4FC, dword_1AC500, dword_1AC504
+global dword_1AC508, dword_1AC50C, dword_1AC510, dword_1AC5C8, dword_1AC5CC, dword_1AC5D0, dword_1AC5D4, dword_1AC5D8
+global dword_1AC5EC, dword_1AC5F0, dword_1AC604, dword_1AC608, dword_1AC620, dword_1AC778, dword_1AC77C, dword_1AC780
+global dword_1AC784, dword_1AC788, dword_1AC78C, dword_1AC790, dword_1AC794, dword_1AC798, dword_1AC79C, dword_1AC7A0
+global dword_1AC7A4, dword_1AC7A8, dword_1AC7AC, dword_1AC7B0, dword_1AC7B4, dword_1AC7B8, dword_1AC7BC, dword_1AC7C0
+global dword_1AC7C4, dword_1AC7C8, dword_1AC7CC, dword_1AC7D0, dword_1AC7D2, dword_1AC7D4, dword_1AC7D6, dword_1AC810
+global dword_1AC814, dword_1AC819, dword_1AC835, dword_1AC8AD, dword_1AC940, dword_1AC944, dword_1ACB45, dword_1ACF3A
+global dword_1ACF3E, dword_1ACF42, dword_1ACF46, dword_1ACF4A, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD244
+global dword_1AD248, dword_1AD24C, dword_1AD251, dword_1AD437, dword_1AD45A, dword_1AD62B, dword_1AD62F, dword_1AD69F
+global dword_1AD6A3, dword_1AD6A7, dword_1AD6AB, dword_1AD6AF, dword_1AD70F, dword_1AD71B, dword_1AD71F, dword_1AD723
+global dword_1AD727, dword_1AD743, dword_1AD748, dword_1ADBF8, dword_1ADC70, dword_1ADC74, dword_1ADC78, dword_1ADC7C
+global dword_1ADC80, dword_1ADC84, dword_1ADC88, dword_1ADC8C, dword_1ADC90, dword_1ADC94, dword_1ADC98, dword_1ADC9C
+global dword_1ADCA8, dword_1ADCB8, dword_1ADCC0, dword_1ADCC8, dword_1ADCD0, dword_1ADCD8, dword_1ADCE4, dword_1ADCE8
+global dword_1ADCEC, dword_1ADCF4, dword_1ADCF8, dword_1ADD00, dword_1ADD04, dword_1ADD0C, dword_1ADD10, dword_1ADD18
+global dword_1ADD80, dword_1ADDEC, dword_1ADF98, dword_1ADF9C, dword_1ADFA0, dword_1AE000, dword_1AE00C, dword_1AE030
+global dword_1AE03C, dword_1AE178, dword_1AE17C, dword_1AE1C0, dword_1AE1C4, dword_1AE3F8, dword_1AE408, dword_1AE40C
+global dword_1AE410, dword_1AE580, dword_1AE584, dword_1AE684, dword_1AEE04, dword_1AEEA4, dword_1AF100, dword_1AF1C8
+global dword_1AF1F0, dword_1AF238, dword_1AF254, dword_1AF2B8, dword_1AF2BC, dword_1AF2C0, dword_1AF318, dword_1AF31C
+global dword_1AF338, dword_1AF33C, dword_1AF344, dword_1AF348, dword_1AF3C0, dword_1AF3C4, dword_1AF3C8, dword_1AF3CC
+global dword_1AF3D0, dword_1AF428, dword_1AF42C, dword_1AF448, dword_1AF44C, dword_1AF454, dword_1AF458, dword_1AF4D0
+global dword_1AF4D4, dword_1AFC44, dword_1AFC48, dword_1AFD10, dword_1AFEA0, dword_1AFF68, dword_1B0004, dword_1B0008
+global dword_1B0018, dword_1B001C, dword_1B0020, dword_1B0024, dword_1B0028, dword_1B0038, dword_1B0068, dword_1B0074
+global dword_1B0084, dword_1B0088, dword_1B0208, dword_1B020C, dword_1B0210, dword_1B022C, dword_1B0248, dword_1B0254
+global dword_1B0258, dword_1B0264, dword_1B0268, dword_1B026C, dword_1B0270, dword_1B0274, dword_1B0278, dword_1B02C0
+global dword_1B0400, dword_1B0408, dword_1B080C, dword_1B0810, dword_1B0950, dword_1B0954, dword_1B0958, dword_1B095C
+global dword_1B0960, dword_1B0964, dword_1B0968, dword_1B096C, dword_1B0A70, dword_1B0A74, dword_1B0A78, dword_1B0A7C
+global dword_1B0A80, dword_1B0A84, dword_1B0A88, dword_1B0A8C, dword_1B0A90, dword_1B0A94, dword_1B0A98, dword_1B0A9C
+global dword_1B0AA0, dword_1B0AA4, dword_1B0AB4, dword_1B0AB8, dword_1B0ABC, dword_1B0AC0, dword_1B0AC4, dword_1B0AC8
+global dword_1B0ACC, dword_1B0B18, dword_1B0B1C, dword_1B0B20, dword_1B0B28, dword_1B0B2C, dword_1B0B34, dword_1B0B38
+global dword_1B0B60, dword_1B0B64, dword_1B0B68, dword_1B0B6C, dword_1B0B70, dword_1B0B74, dword_1B0B78, dword_1B0B7C
+global dword_1B0B80, dword_1B0B84, dword_1B0B88, dword_1B0B8C, dword_1B0B90, dword_1B0B94, dword_1B0B98, dword_1B0B9C
+global dword_1B0C78, dword_1B0C7C, dword_1B0C80, dword_1B0CE4, dword_1B0CE8, dword_1B0CEC, dword_1B0CFC, dword_1B0D5C
+global dword_1B0D70, dword_1B0D74, dword_1B0D78, dword_1B0D7C, dword_1B0D80, dword_1B0D84, dword_1B0D88, dword_1B0D8C
+global dword_1B0D90, dword_1B0D94, dword_1B0D98, dword_1B0D9C, dword_1B0DA0, dword_1B0DA4, dword_1B0DA8, dword_1B0DAC
+global dword_1B0DB0, dword_1B0DB4, dword_1B0DB8, dword_1B0DBC, dword_1B0DC0, dword_1B0DC4, dword_1B0DC8, dword_1B0DCC
+global dword_1B0DD0, dword_1B0DD4, dword_1B0DD8, dword_1B0DDC, dword_1B0DE0, dword_1B0DE4, dword_1B0DE8, dword_1B0DEC
+global dword_1B0DF0, dword_1B0DF4, dword_1B0DF8, dword_1B0DFC, dword_1B0E00, dword_1B0E04, dword_1B0E08, dword_1B0E0C
+global dword_1B0E10, dword_1B0E14, dword_1B0E18, dword_1B0E24, dword_1B0E28, dword_1B0E2C, dword_1B0E30, dword_1B0E34
+global dword_1B0E38, dword_1B0E4C, dword_1B0E50, dword_1B0E54, dword_1B0E58, dword_1B0E5C, dword_1B0E60, dword_1B0E64
+global dword_1B0E68, dword_1B0E6C, dword_1B0E70, dword_1B0E74, dword_1B0E78, dword_1B0E7C, dword_1B0E80, dword_1B0E84
+global dword_1B0E88, dword_1B0E8C, dword_1B0E90, dword_1B0E94, dword_1B0E98, dword_1B0E9C, dword_1B0EA0, dword_1B0EA4
+global dword_1B0EA8, dword_1B0EAC, dword_1B0EB0, dword_1B0EB4, dword_1B0EBC, dword_1B0EC0, dword_1B0ECC, dword_1B0ED4
+global dword_1B0ED8, dword_1B0EE0, dword_1B0EE4, dword_1B0EE8, dword_1B0EEC, dword_1B0EF0, dword_1B0EF4, dword_1B0EF8
+global dword_1B0F00, dword_1B0F04, dword_1B0F08, dword_1B0F0C, dword_1B0F10, dword_1B0F1C, dword_1B0F20, dword_1B0F24
+global dword_1B0F34, dword_1B0F38, dword_1B0F3C, dword_1B0F40, dword_1B0F44, dword_1B0F98, dword_1B0F9C, dword_1B0FA0
+global dword_1B0FA8, dword_1B0FB0, dword_1B0FB4, dword_1B0FB8, dword_1B0FBC, dword_1B0FCC, dword_1B0FD0, dword_1B0FD4
+global dword_1B0FD8, dword_1B0FDC, dword_1B0FE0, dword_1B0FE4, dword_1B0FE8, dword_1B0FEC, dword_1B0FF0, dword_1B0FF4
+global dword_1B0FF8, dword_1B0FFC, dword_1B1000, dword_1B1008, dword_1B100C, dword_1B1010, dword_1B1014, dword_1B1018
+global dword_1B101C, dword_1B1020, dword_1B1024, dword_1B1028, dword_1B102C, dword_1B1030, dword_1B1034, dword_1B1038
+global dword_1B103C, dword_1B1040, dword_1B1044, dword_1B1048, dword_1B104C, dword_1B1050, dword_1B1054, dword_1B1058
+global dword_1B105C, dword_1B1060, dword_1B1064, dword_1B108C, dword_1B10CC, dword_1B10D0, dword_1B10D4, dword_1B10D8
+global dword_1B10DC, dword_1B10E0, dword_1B10E4, dword_1B10E8, dword_1B10F4, dword_1B10F8, dword_1B1108, dword_1B110C
+global dword_1B1114, dword_1B1118, dword_1B111C, dword_1B1258, dword_1B1260, dword_1B1264, dword_1B126C, dword_1B1270
+global dword_1B1278, dword_1B127C, dword_1B1284, dword_1B1288, dword_1B12FC, dword_1B1300, dword_1B137C, dword_1B1380
+global dword_1B1384, dword_1B1388, dword_1B138C, dword_1B1390, dword_1B13B0, dword_1B13B4, dword_1B13B8, dword_1B13BC
+global dword_1B13C0, dword_1B13C4, dword_1B13C8, dword_1B13E0, dword_1B13E4, dword_1B1404, dword_1B1410, dword_1B141C
+global dword_1B145C, dword_1B1464, dword_1B1B64, dword_1B82AC, dword_1B82B0, dword_1B82B4, dword_1B82B8, dword_1B82BC
+global dword_1B82C0, dword_1B82C4, dword_1B82C8, dword_1B82CC, dword_1B82D0, dword_1B82D4, dword_1B82D8, dword_1B82DC
+global dword_1B82E0, dword_1B82E4, dword_1B82F0, dword_1B82F4, dword_1B82FC, dword_1B8300, dword_1B8304, dword_1B830C
+global dword_1B8318, dword_1B8324, dword_1B8330, dword_1B833C, dword_1B834C, dword_1B8358, dword_1B8364, dword_1B8368
+global dword_1B836C, dword_1B8370, dword_1B8374, dword_1B8380, dword_1B838C, dword_1B8394, dword_1B8398, dword_1B83A0
+global dword_1B83A4, dword_1B83C8, dword_1B83D4, dword_1B83E0, dword_1B83EC, dword_1B8410, dword_1B841C, dword_1B8428
+global dword_1B8434, dword_1B8440, dword_1B8444, dword_1B8450, dword_1B8454, dword_1B8458, dword_1B845C, dword_1B8468
+global dword_1B846C, dword_1B8478, dword_1B8484, dword_1B8488, dword_1B848C, dword_1B84B0, dword_1B84B4, dword_1B84C0
+global dword_1B84C4, dword_1B84C8, dword_1B84CC, dword_1B84D8, dword_1B84DC, dword_1B84E8, dword_1B84F4, dword_1B84F8
+global dword_1B84FC, dword_1B8500, dword_1B8520, dword_1B8530, dword_1B8534, dword_1B8538, dword_1B853C, dword_1B8540
+global dword_1B8544, dword_1B8548, dword_1B854C, dword_1B8550, dword_1B8554, dword_1B8558, dword_1B855C, dword_1B8560
+global dword_1B8564, dword_1B8568, dword_1B856C, dword_1B8570, dword_1B8574, dword_1B8578, dword_1B857C, dword_1B857F
+global dword_1B88D8, dword_1B88DC, dword_1B8910, dword_1B8944, dword_1B8978, dword_1B89AC, dword_1B89B0, dword_1B89D4
+global dword_1B89D8, dword_1B89F0, dword_1B8A14, dword_1B8A18, dword_1B8BCC, dword_1B8D84, dword_1B8F44, dword_1B8F48
+global dword_1B8F4C, dword_1B8F50, dword_1B8F54, dword_1B8F58, dword_1B8F5C, dword_1B8F60, dword_1B8F64, dword_1B8F68
+global dword_1B8F6C, dword_1B8F70, dword_1B8F74, dword_1B8F78, dword_1B8F7C, dword_1B8F80, dword_1B8F84, dword_1B8F88
+global dword_1B8F8C, dword_1B8F90, dword_1B8F94, dword_1B8F98, dword_1B8F9C, dword_1B8FA0, dword_1B8FA4, dword_1B9018
+global dword_1B901C, dword_1B9020, dword_1B9024, dword_1B9028, dword_1B902C, dword_1B9030, dword_1B9034, dword_1B905F
+global dword_1B9063, dword_1B9067, dword_1B906B, dword_1B906F, dword_1B9077, dword_1B907B, dword_1B907F, dword_1B9083
+global dword_1B9087, dword_1B908B, dword_1B908F, dword_1B9093, dword_1B9097, dword_1B90B3, dword_1B90CF, dword_1B90EB
+global dword_1B90EF, dword_1B90F3, dword_1B90F7, dword_1B90FB, dword_1B90FF, dword_1B92D0, dword_1B9358, dword_1B935C
+global dword_1B93D8, dword_1B93DC, dword_1B93E4, dword_1B93E8, dword_1B94DC, dword_1B9554, dword_1B9558, dword_1B9A14
+global dword_1B9A18, dword_1B9AB8, dword_1B9ABC, dword_1B9AC0, dword_1B9C50, dword_1B9C8C, dword_1B9C90, dword_1B9CA4
+global dword_1B9CAC, dword_1B9CB0, dword_1B9CFC, dword_1B9D04, dword_1B9D08, dword_1B9D18, dword_1B9D20, dword_1B9D28
+global dword_1BA050, dword_1BA068, dword_1BA088, dword_1BA0A0, dword_1BAAF8, dword_1BAB00, dword_1BAB04, dword_1BB258
+global dword_1BF050, dword_1BF054, dword_1BF058, dword_1BF05C, dword_1BF060, dword_1BF064, dword_1BF068, dword_1BF06C
+global dword_1BF070, dword_1BF074, dword_1BF078, dword_1BF07C, dword_1BF084, dword_1BF0B8, dword_1BF0BC, dword_1BF17C
+global dword_1BF1B4, dword_1BF248, dword_1BF7F0, dword_1BF7F4, dword_1BF7F8, dword_1BF7FC, dword_1BF800, dword_1BF888
+global dword_1BF88C, dword_1BF890, dword_1BF894, dword_1BF898, dword_1BF89C, dword_1BF8A0, dword_1BF8A4, dword_1BF8A8
+global dword_1BF8B0, dword_1BF8B4, dword_1C0EE0, dword_1C0EEC, dword_1C0EF0, dword_1C0EF8, dword_1C0EFC, dword_1C1200
+global dword_1C1204, dword_1C1208, dword_1C120C, dword_1C1210, dword_1C1214, dword_1C1218, dword_1C121C, dword_1C1220
+global dword_1C1224, dword_1C1228, dword_1C122C, dword_1C1230, dword_1C1234, dword_1C1238, dword_1C123C, dword_1C1240
+global dword_1C1244, dword_1C1248, dword_1C124C, dword_1C1250, dword_1C1254, dword_1C1258, dword_1C125C, dword_1C1260
+global dword_1C1334, dword_1C1338, dword_1C1346, dword_1C13C0, dword_1C13FB, dword_1C13FF, dword_1C1403, dword_1C309A
+global dword_1C309E, dword_1C30A2, dword_1C34E3, dword_1C351E, dword_1C3522, dword_1C3526, dword_1C51BD, dword_1C51C1
+global dword_1C51C5, dword_1C5DA4, dword_1C5DA8, dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE0
+global dword_1C5DE4, dword_1C5DE8, dword_1C5E74, dword_1C5E78, dword_1C5E7C, dword_1C5E80, dword_1C5E84, dword_1C5E9C
+global dword_1C5EA0, dword_1C5EA4, dword_1C5EA8, dword_1C5EC4, dword_1C5EC8, dword_1C5ECC, dword_1C5ED0, dword_1C5EEC
+global dword_1C5EF0, dword_1C5EF4, dword_1C5F08, dword_1C5F0C, dword_1C5F12, dword_1C5F16, dword_1C5F1A, dword_1C5F1E
+global dword_1C5F22, dword_1C5F26, dword_1C5F5A, dword_1C5F5E, dword_1C5F64, dword_1C5F68, dword_1C5F6C, dword_1C5F70
+global dword_1C5F74, dword_1C5F78, dword_1C5FAC, dword_1C5FB0, dword_1C5FB6, dword_1C5FBA, dword_1C5FBE, dword_1C5FC2
+global dword_1C5FC6, dword_1C5FCA, dword_1C5FFE, dword_1C6002, dword_1C6008, dword_1C600C, dword_1C6010, dword_1C6014
+global dword_1C6018, dword_1C601C, dword_1C6080, dword_1C6084, dword_1C60C0, dword_1C60C4, dword_1C8184, dword_1C8188
+global dword_1C818C, dword_1C8190, dword_1C8194, dword_1C8198, dword_1C819C, dword_1C81A0, dword_1C81A4, dword_1C81A8
+global dword_1C81AC, dword_1C81B0, dword_1C81B4, dword_1C81B8, dword_1C8268, dword_1C826C, dword_1C829C, dword_1C82A0
+global dword_1C82A4, dword_1C82A8, dword_1C82AC, dword_1C82B0, dword_1C82C0, dword_1C82C4, dword_1C82C8, dword_1C82CC
+global dword_1C82D0, dword_1C82D4, dword_1C82D8, dword_1C82DC, dword_1C82E0, dword_1C82E4, dword_1C82F4, dword_1C8318
+global dword_1C831C, dword_1C8320, dword_1C8324, dword_1C8328, dword_1C832C, dword_1C8330, dword_1C8334, dword_1C83B0
+global dword_1C83D0, dword_1C83D4, dword_1C83D8, dword_1C83DC, dword_1C83E0, dword_1C83E4, dword_1C83E8, dword_1C83EC
+global dword_1C83F0, dword_1C83F4, dword_1C83F8, dword_1C83FC, dword_1C8400, dword_1C8404, dword_1C8408, dword_1C840C
+global dword_1C8410, dword_1C8414, dword_1C8418, dword_1C841C, dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C
+global dword_1C8430, dword_1C8434, dword_1C8438, dword_1C843C, dword_1C8440, dword_1C8444, dword_1C8448, dword_1C844C
+global dword_1C8450, dword_1C8454, dword_1C84D8, dword_1C8540, dword_1C8568, dword_1C85D0, dword_1C8618, dword_1C8680
+global dword_1C86E8, dword_1C86EC, dword_1C86F0, dword_1C86F4, dword_1C86F8, dword_1C86FC, dword_1C8704, dword_1C8708
+global dword_1C89EC, dword_1C8A34, dword_1C8A54, dword_1C8A74, dword_1C8A78, dword_1C8A7C, dword_1C8A80, dword_1C8A84
+global dword_1C8A88, dword_1C8A8C, dword_1C8A90, dword_1C8A94, dword_1C8A98, dword_1C8A9C, dword_1C8AA0, dword_1C8AA4
+global dword_1C8AA8, dword_1C8AAC, dword_1C8AB0, dword_1C8AB4, dword_1C8AF8, dword_1C8AFC, dword_1C8B44, dword_1C8B90
+global dword_1C8B94, dword_1C8BE4, dword_1C8BE8, dword_1C8BEC, dword_1C8BF0, dword_1C8BF4, dword_1C8BF8, dword_1C8BFC
+global dword_1C8C00, dword_1C8C04, dword_1C8C08, dword_1C8C0C, dword_1C8C34, dword_1C8C4C, dword_1C8C60, dword_1C8C64
+global dword_1C8C68, dword_1C8C6C, dword_1C8C70, dword_1C8C74, dword_1C8C78, dword_1C8C7C, dword_1C8C80, dword_1C8C84
+global dword_1C8C88, dword_1C8C8C, dword_1C8C90, dword_1C8C94, dword_1C8C98, dword_1C8CB4, dword_1C8CB8, dword_1C8CBC
+global dword_1C8CCC, dword_1C8CD0, dword_1C8CFC, dword_1C8D00, dword_1C8D04, dword_1C8D08, dword_1C8D0C, dword_1C8D10
+global dword_1C8D14, dword_1C8D18, dword_1C8D1C, dword_1C8D20, dword_1C8D2C, dword_1C8D3C, dword_1C8D40, dword_1C8D4C
+global dword_1C8D50, dword_1C8D54, dword_1C8D58, dword_1C8D5C, dword_1C8D60, dword_1C8D6C, dword_1C8D74, dword_1C8D78
+global dword_1C8D7C, dword_1C8D8C, dword_1C8D90, dword_1C8D94, dword_1C8D98, dword_1C8D9C, dword_1C8DA0, dword_1C8DA4
+global dword_1C8DA8, dword_1C8DAC, dword_1C8DB0, dword_1C8DB4, dword_1C8DB8, dword_1C8DBC, dword_1C8DC0, dword_1C8DC4
+global dword_1C8DC8, dword_1C8DCC, dword_1C8DD0, dword_1C8DD4, dword_1C8DD8, dword_1C8DDC, dword_1C8DE0, dword_1C8DE4
+global dword_1C8DE8, dword_1C8DEC, dword_1C8DF0, dword_1C8DF4, dword_1C8DF8, dword_1C8DFC, dword_1C8E00, dword_1C8E04
+global dword_1C8E08, dword_1C8E0C, dword_1C8E10, dword_1C8E14, dword_1C8E18, dword_1C8E1C, dword_1C8E20, dword_1C8E24
+global dword_1C8E28, dword_1C8E2C, dword_1C8E30, dword_1C8E34, dword_1C8E38, dword_1C8E3C, dword_1C8E40, dword_1C8E44
+global dword_1C8E48, dword_1C8E4C, dword_1C8E50, dword_1C8E54, dword_1C8E58, dword_1C8E5C, dword_1C8E60, dword_1C8E64
+global dword_1C8E88, dword_1C8E8C, dword_1C8E90, dword_1C8E94, dword_1C8E98, dword_1C8E9C, dword_1C8EA4, dword_1C8EB4
+global dword_1C8EB8, dword_1C8EF6, dword_1C8F4C, dword_1C8F58, dword_1C8F5C, dword_1C8F62, dword_1C8F66, dword_1C8F6A
+global dword_1C8F6E, dword_1C8F72, dword_1C93C4, dword_1C93C8, dword_1C93CC, dword_1C93D4, dword_1C93D8, dword_1C93DC
+global dword_1C93E0, dword_1C93F0, dword_1C9410, dword_1C9430, dword_1C9473, dword_1C94A4, dword_1C94A8, dword_1C94B4
+global dword_1C94B8, dword_1C94BC, dword_1C94C0, dword_1C94C4, dword_1C94C8, dword_1C94CC, dword_1C94D0, dword_1C94D4
+global dword_1C94D8, dword_1C94DC, dword_1C94E0, dword_1C94E4, dword_1C94E8, dword_1C950C, dword_1C9510, dword_1C9514
+global dword_1C9524, dword_1C9534, dword_1C9538, dword_1C953C, dword_1C9540, dword_1C9544, dword_1C9548, dword_1C954C
+global dword_1C9558, dword_1C955C, dword_1C9560, dword_1C9564, dword_1C9568, dword_1C956C, dword_1C9570, dword_1C9574
+global dword_1C9578, dword_1C957C, dword_1C9580, dword_1C9584, dword_1C9588, dword_1C958C, dword_1C9590, dword_1C9594
+global dword_1C9598, dword_1C959C, dword_1C95A0, dword_1C95A4, dword_1C95A8, dword_1C95AA, dword_1C95B0, dword_1C95B4
+global dword_1C95B8, dword_1C95BC, dword_1C95C0, dword_1C95C4, dword_1C95C8, dword_1C95CC, dword_1C95D0, dword_1C95D4
+global dword_1C95D8, dword_1C95DC, dword_1C95E0, dword_1C95E4, dword_1C95E8, dword_1C95EC, dword_1C95F0, dword_1C95F4
+global dword_1C95F8, dword_1C95FC, dword_1C9600, dword_1C9610, dword_1C9614, dword_1C9618, dword_1C961C, dword_1C9620
+global dword_1C9624, dword_1C9628, dword_1C9630, dword_1C9634, dword_1C9660, dword_1C9664, dword_1C967A, dword_1C967E
+global dword_1C9686, dword_1C968A, dword_1C96C2, dword_1C96C6, dword_1C96CC, dword_1C96D0, dword_1C96D4, dword_1C96D8
+global dword_1C96DC, dword_1C9714, dword_1C9718, dword_1C971E, dword_1C9722, dword_1C9726, dword_1C972A, dword_1C972E
+global dword_1C9766, dword_1C976A, dword_1C9770, dword_1C9774, dword_1C9778, dword_1C977C, dword_1C9780, dword_1C980A
+global dword_1C980E, dword_1C9814, dword_1C9818, dword_1C981C, dword_1C9820, dword_1C9824, dword_1C985C, dword_1C9860
+global dword_1C9866, dword_1C986A, dword_1C986E, dword_1C9872, dword_1C9876, dword_1CA998, dword_1CA99C, dword_1CA9A0
+global dword_1CA9A4, dword_1CA9A8, dword_1CA9AC, dword_1CA9B0, dword_1CA9B4, dword_1CA9B8, dword_1CA9BC, dword_1CA9C0
+global dword_1CA9C4, dword_1CA9C8, dword_1CA9CC, dword_1CA9D0, dword_1CA9D4, dword_1CAA00, dword_1CAB00, dword_1CAC00
+global dword_1CACDC, dword_1CAD28, dword_1CAD2C, dword_1CAD38, dword_1CAD48, dword_1CAE24, dword_1CAE28, dword_1CAE2C
+global dword_1CAE34, dword_1CAE6C, dword_1CAE70, dword_1CAE74, dword_1CAE78, dword_1CAE7C, dword_1CAE80, dword_1CAE84
+global dword_1CAE88, dword_1CAE8C, dword_1CAE90, dword_1CAE94, dword_1CAE98, dword_1CAE9C, dword_1CAEA0, dword_1CAEA4
+global dword_1CAEA8, dword_1CAEAC, dword_1CAEB0, dword_1CAEB4, dword_1CAEB8, dword_1CAEBC, dword_1CAEC0, dword_1CAEC4
+global dword_1CAECC, dword_1CAED0, dword_1CAED4, dword_1CAED8, dword_1CAEDC, dword_1CAEE0, dword_1CAEE4, dword_1CAEE8
+global dword_1CAEEC, dword_1CAEF0, dword_1CAEF4, dword_1CAEF8, dword_1CAF8C, dword_1CAF90, dword_1CAF94, dword_1CAF98
+global dword_1CAF9C, dword_1CAFA0, dword_1CAFA4, dword_1CAFA8, dword_1CAFAC, dword_1CAFDC, dword_1CAFE0, dword_1CAFE4
+global dword_1CAFE8, dword_1CAFEC, dword_1CAFF0, dword_1CAFF4, dword_1CAFF8, dword_1CAFFC, dword_1CB000, dword_1CB014
+global dword_1CB018, dword_1CB064, dword_1CB068, dword_1CB06C, dword_1CB070, dword_1CB074, dword_1CB078, dword_1CB07C
+global dword_1CB080, dword_1CB084, dword_1CB088, dword_1CB08C, dword_1CB090, dword_1CB094, dword_1CB098, dword_1CB09C
+global dword_1CB0A0, dword_1CB0A4, dword_1CB0A8, dword_1CB0AC, dword_1CB0B0, dword_1CB0B4, dword_1CB0B8, dword_1CB0BC
+global dword_1CB0C0, dword_1CB0C4, dword_1CB0C8, dword_1CB0CC, dword_1CB0D0, dword_1CB0D4, dword_1CB0D8, dword_1CB0DC
+global dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dword_1CB0F4, dword_1CB0F8, dword_1CB0FC
+global dword_1CB100, dword_1CB104, dword_1CB108, dword_1CB10C, dword_1CB11C, dword_1CB128, dword_1CB12C, dword_1CB130
+global dword_1CB138, dword_1CB13C, dword_1CB140, dword_1CB14C, dword_1CB162, dword_1CB166, dword_1CB16A, dword_1CB16E
+global dword_1CB172, dword_1CB19A, dword_1CB1F0, dword_1CB1FC, dword_1CB200, dword_1CB206, dword_1CB20A, dword_1CB20E
+global dword_1CB212, dword_1CB216, dword_1CB242, dword_1CB24E, dword_1CB252, dword_1CB258, dword_1CB25C, dword_1CB260
+global dword_1CB264, dword_1CB268, dword_1CB2A0, dword_1CB2A4, dword_1CB2AA, dword_1CB2AE, dword_1CB2B2, dword_1CB2B6
+global dword_1CB2BA, dword_1CB2F2, dword_1CB2F6, dword_1CB2FC, dword_1CB300, dword_1CB304, dword_1CB308, dword_1CB30C
+global dword_1CB344, dword_1CB348, dword_1CB34E, dword_1CB352, dword_1CB356, dword_1CB35A, dword_1CB35E, dword_1CB396
+global dword_1CB39A, dword_1CB3A0, dword_1CB3A4, dword_1CB3A8, dword_1CB3AC, dword_1CB3B0, dword_1CB3E8, dword_1CB3EC
+global dword_1CB3F2, dword_1CB3F6, dword_1CB3FA, dword_1CB3FE, dword_1CB402, dword_1CB43A, dword_1CB43E, dword_1CB444
+global dword_1CB448, dword_1CB44C, dword_1CB450, dword_1CB454, dword_1CB48C, dword_1CB490, dword_1CB496, dword_1CB49A
+global dword_1CB49E, dword_1CB4A2, dword_1CB4A6, dword_1CB4DE, dword_1CB4E2, dword_1CB4E8, dword_1CB4EC, dword_1CB4F0
+global dword_1CB4F4, dword_1CB4F8, dword_1CB530, dword_1CB534, dword_1CB53A, dword_1CB53E, dword_1CB542, dword_1CB546
+global dword_1CB54A, dword_1CB5D4, dword_1CB5D8, dword_1CB5DE, dword_1CB5E2, dword_1CB5E6, dword_1CB5EA, dword_1CB5EE
+global dword_1CB626, dword_1CB62A, dword_1CB630, dword_1CB634, dword_1CB638, dword_1CB63C, dword_1CB640, dword_1CB678
+global dword_1CB67C, dword_1CB6CA, dword_1CB6CE, dword_1CB71C, dword_1CB720, dword_1CB76E, dword_1CB772, dword_1CB7C0
+global dword_1CB7C4, dword_1CB812, dword_1CB816, dword_1CB864, dword_1CB868, dword_1CB8B6, dword_1CB8BA, dword_1CB908
+global dword_1CB90C, dword_1CB95A, dword_1CB95E, dword_1CB9AC, dword_1CB9B0, dword_1CB9FE, dword_1CBA02, dword_1CBA50
+global dword_1CBA54, dword_1CBAA2, dword_1CBAA6, dword_1CBAF4, dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88
+global dword_1CBB8D, dword_1CBB94, dword_1CBB98, dword_1CBBA4, dword_1CBBB4, dword_1CBBC4, dword_1CBBD4, dword_1CBBE4
+global dword_1CBBE8, dword_1CBBEC, dword_1CBBF0, dword_1CBBF4, dword_1CBC04, dword_1CBC14, dword_1CBC1C, dword_1CBC28
+global dword_1CBC2C, dword_1CBC32, dword_1CBC36, dword_1CBC3A, dword_1CBC3E, dword_1CBC42, dword_1CBC46, dword_1CBC7A
+global dword_1CBC7E, dword_1CBC84, dword_1CBC88, dword_1CBC8C, dword_1CBC90, dword_1CBC94, dword_1CBC98, dword_1CBCCC
+global dword_1CBCD0, dword_1CBCD6, dword_1CBCE2, dword_1CBCE6, dword_1CBD1E, dword_1CBD22, dword_1CBD28, dword_1CBD34
+global dword_1CBD38, dword_1CBD70, dword_1CBD74, dword_1CBD7A, dword_1CBD86, dword_1CBD8A, dword_1CBE14, dword_1CBE18
+global dword_1CBE1E, dword_1CBE2A, dword_1CBE2E, dword_1CBE66, dword_1CBE6A, dword_1CBE70, dword_1CBE7C, dword_1CBE80
+global dword_1CBEB8, dword_1CBEBC, dword_1CBEC2, dword_1CBECE, dword_1CBED2, dword_1CBF0A, dword_1CBF0E, dword_1CBF14
+global dword_1CBF20, dword_1CBF24, dword_1CBF5C, dword_1CBF60, dword_1CBF66, dword_1CBF72, dword_1CBF76, dword_1CBFAE
+global dword_1CBFB2, dword_1CC000, dword_1CC004, dword_1CC052, dword_1CC056, dword_1CC0A4, dword_1CC0A8, dword_1CC0F6
+global dword_1CC0FA, dword_1CC148, dword_1CC14C, dword_1CC18C, dword_1CC19C, dword_1CC1AC, dword_1CC1BC, dword_1CC1C0
+global dword_1CC1C4, dword_1CC1C8, dword_1CC1CC, dword_1CC1D0, dword_1CC1D4, dword_1CC1D8, dword_1CC1DC, dword_1CC1E0
+global dword_1CC1E4, dword_1CC1E8, dword_1CC1EC, dword_1CC1F0, dword_1CC1F4, dword_1CC1F8, dword_1CC1FC, dword_1CC200
+global dword_1CC204, dword_1CC208, dword_1CC20C, dword_1CC210, dword_1CC214, dword_1CC218, dword_1CC21C, dword_1CC220
+global dword_1CC224, dword_1CC228, dword_1CC22C, dword_1CC230, dword_1CC234, dword_1CC238, dword_1CC23C, dword_1CC2A4
+global dword_1CC2A8, dword_1CC2AC, dword_1CC2B0, dword_1CC2B4, dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4
+global dword_1CC2C8, dword_1CC328, dword_1CC32C, dword_1CC330, dword_1CC334, dword_1CC338, dword_1CC33C, dword_1CC340
+global dword_1CC344, dword_1CC348, dword_1CC34C, dword_1CC4B0, dword_1CC4B4, dword_1CC4B8, dword_1CC4BC, dword_1CC4C0
+global dword_1CC4C4, dword_1CC4C8, dword_1CC4CC, dword_1CC5B0, dword_1CC5C8, dword_1CC5CC, dword_1CC5D0, dword_1CC5EC
+global dword_1CC5F0, dword_1CC5F4, dword_1CC5F8, dword_1CC638, dword_1CC63C, dword_1CC640, dword_1CC644, dword_1CC648
+global dword_1CC64C, dword_1CC650, dword_1CC654, dword_1CC658, dword_1CC65C, dword_1CC660, dword_1CC664, dword_1CC668
+global dword_1CC684, dword_1CC688, dword_1CC6A4, dword_1CC6A8, dword_1CC6AC, dword_1CC6E8, dword_1CC6EC, dword_1CC6F8
+global dword_1CC6FC, dword_1CC700, dword_1CC78C, dword_1CC790, dword_1CC794, dword_1CC798, dword_1CC79C, dword_1CC7A0
+global dword_1CC7A4, dword_1CC7A8, dword_1CC7AC, dword_1CC7B0, dword_1CC7B4, dword_1CC7B8, dword_1CC7BC, dword_1CC7C0
+global dword_1CC7C4, dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dword_1CC828, dword_1CC860
+global dword_1CC864, dword_1CC8A0, dword_1CCEB8, dword_1CCEBC, dword_1CCEE8, dword_1CCEEC, dword_1CCEF0, dword_1CCEF8
+global dword_1CCEFC, dword_1CCF12, dword_1CCF16, dword_1CCF1E, dword_1CCF22, dword_1CD0F4, dword_1CD0F8, dword_1CD0FE
+global dword_1CD102, dword_1CD106, dword_1CD10A, dword_1CD10E, dword_1CD158, dword_1CD15C, dword_1CD160, dword_1CD17C
+global dword_1CD180, dword_1CD184, dword_1CD188, dword_1CD18C, dword_1CD190, dword_1CD194, dword_1CD198, dword_1CD1AC
+global dword_1CD1B0, dword_1CD1B4, dword_1CD1B8, dword_1CD244, dword_1CD248, dword_1CD264, dword_1CD268, dword_1CD26C
+global dword_1CD270, dword_1CD274, dword_1CD278, dword_1CD27C, dword_1CD280, dword_1CD284, dword_1CD288, dword_1CD28C
+global dword_1CD290, dword_1CD294, dword_1CD298, dword_1CD29C, dword_1CD2A0, dword_1CD2A4, dword_1CD2A8, dword_1CD2AA
+global dword_1CD2AE, dword_1CD2B2, dword_1CD2B6, dword_1CD2F4, dword_1CD378, dword_1CD402, dword_1CD40C, dword_1CD410
+global dword_1CD414, dword_1CD418, dword_1CD41C, dword_1CD428, dword_1CD42C, dword_1CD434, dword_1CD438, dword_1CD43C
+global dword_1CD440, dword_1CD444, dword_1CD448, dword_1CD450, dword_1CD454, dword_1CD458, dword_1CD45C, dword_1CD540
+global dword_1CD544, dword_1CD548, dword_1CD54C, dword_1CD550, dword_1CD554, dword_1CD558, dword_1CD55C, dword_1CD560
+global dword_1CD564, dword_1CD568, dword_1CD56C, dword_1CD574, dword_1CD578, dword_1CD57C, dword_1CD580, dword_1CD584
+global dword_1CD590, dword_1CD594, dword_1CD598, dword_1CD5B4, dword_1CD5B8, dword_1CD5BC, dword_1CD632, dword_1CD64C
+global dword_1CD650, dword_1CD654, dword_1CD6B0, dword_1CD6C6, dword_1CD6CA, dword_1CD6FE, dword_1CD750, dword_1CD754
+global dword_1CD758, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778
+global dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, dword_1CE0E4, dword_1CE0E8, dword_1CE0EC, dword_1CE0F4
+global dword_1CE0FC, dword_1CE104, dword_1CE10C, dword_1CE110, dword_1CE114, dword_1CE118, dword_1CE11C, dword_1CE120
+global dword_1CE124, dword_1CE128, dword_1CE12C, dword_1CE130, dword_1CE134, dword_1CE158, dword_1CE15C, dword_1CE160
+global dword_1CE164, dword_1CE168, dword_1CE16C, dword_1CE170, dword_1CE174, dword_1CE178, dword_1CE17C, dword_1CE180
+global dword_1CE184, dword_1CE188, dword_1CE18C, dword_1CE190, dword_1CE1AC, dword_1CE1B0, dword_1CE1B4, dword_1CE1B8
+global dword_1CE1BC, dword_1CE1C0, dword_1CE1C4, dword_1CE1C8, dword_1CE1CC, dword_1CE1D0, dword_1CE1D4, dword_1CE1D8
+global dword_1CE1DC, dword_1CE1E0, dword_1CE1E4, dword_1CE1E8, dword_1CE1EC, dword_1CE1F0, dword_1CE1F4, dword_1CE1F8
+global dword_1CE1FC, dword_1CE200, dword_1CE204, dword_1CE208, dword_1CE20C, dword_1CE210, dword_1CE214, dword_1CE218
+global dword_1CE21C, dword_1CE220, dword_1CE258, dword_1CE260, dword_1CE264, dword_1CE2A0, dword_1CE2A4, dword_1CE2D8
+global dword_1CE2DC, dword_1CE308, dword_1CE318, dword_1CE31C, dword_1CE328, dword_1CE32C, dword_1CE330, dword_1CE33C
+global dword_1CE340, dword_1CE346, dword_1CE34A, dword_1CE34E, dword_1CE352, dword_1CE356, dword_1CE3EA, dword_1CE3EE
+global dword_1CE3F2, dword_1CE43C, dword_1CE440, dword_1CE444, dword_1CE478, dword_1CE48E, dword_1CE492, dword_1CE496
+global dword_1CE4D6, dword_1CE4DA, dword_1CE4E0, dword_1CE4E4, dword_1CE4E8, dword_1CE4EC, dword_1CE4F0, dword_1CE528
+global dword_1CE52C, dword_1CE532, dword_1CE536, dword_1CE53A, dword_1CE53E, dword_1CE542, dword_1CEF88, dword_1CEF8C
+global dword_1CEF90, dword_1CEF94, dword_1CEF98, dword_1CEF9C, dword_1CEFA0, dword_1CEFA4, dword_1CEFA8, dword_1CEFB0
+global dword_1CEFB4, dword_1CEFB8, dword_1CEFBC, dword_1CEFC4, dword_1CEFC8, dword_1CEFCC, dword_1CEFD4, dword_1CEFD8
+global dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, dword_1CF0D8, dword_1CF0E0, dword_1CF25C, dword_1CF260
+global dword_1CF264, dword_1CF268, dword_1CF26C, dword_1CF28C, dword_1CF290, dword_1CF294, dword_1CF298, dword_1CF29C
+global dword_1CF2A0, dword_1CF524, dword_1CF528, dword_1CF52C, dword_1CF530, dword_1CF534, dword_1CF538, dword_1CF53C
+global dword_1CF540, dword_1CF544, dword_1CF548, dword_1CF54C, dword_1CF550, dword_1CF554, dword_1CF558, dword_1CF598
+global dword_1CF59C, dword_1CF5A0, dword_1CF5A4, dword_1CF5A8, dword_1CF5AC, dword_1CF5B0, dword_1CF5B4, dword_1CF5B8
+global dword_1CF5BC, dword_1CF5C0, dword_1CF5C4, dword_1CF5C8, dword_1CF5CC, dword_1CF5D0, dword_1CF5D4, dword_1CF5D8
+global dword_1CF5DC, dword_1CF5E0, dword_1CF5E4, dword_1CF5E8, dword_1CF5EC, dword_1CF5F0, dword_1CF5F2, dword_1CF9F4
+global dword_1CF9F8, dword_1CF9FC, dword_1CFA04, dword_1CFA10, dword_1CFA14, dword_1CFA18, dword_1CFA1C, dword_1CFA20
+global dword_1CFA24, dword_1CFA28, dword_1CFA2C, dword_1CFA30, dword_1CFA34, dword_1CFA38, dword_1CFA3C, dword_1CFA40
+global dword_1CFA44, dword_1CFA48, dword_1CFA4C, dword_1CFA50, dword_1CFA54, dword_1CFA58, dword_1CFA5C, dword_1CFA60
+global dword_1CFA64, dword_1CFA68, dword_1CFA6C, dword_1CFA70, dword_1CFA74, dword_1CFA78, dword_1CFA7C, dword_1CFA80
+global dword_1CFA84, dword_1CFA88, dword_1CFA8C, dword_1CFA90, dword_1CFA94, dword_1CFA9C, dword_1CFAA0, dword_1CFAA4
+global dword_1CFAA8, dword_1CFAAC, dword_1CFAB0, dword_1CFAB4, dword_1CFABC, dword_1CFAC0, dword_1CFACC, dword_1CFAD0
+global dword_1CFAD4, dword_1CFAD8, dword_1CFBF4, dword_1CFC70, dword_1CFC74, dword_1CFC78, dword_1CFC7C, dword_1CFC80
+global dword_1CFC84, dword_1CFC88, dword_1CFC8C, dword_1CFC90, dword_1CFC94, dword_1CFC9C, dword_1CFCA0, dword_1CFCA4
+global dword_1CFCA8, dword_1CFCAC, dword_1CFCB0, dword_1CFCB4, dword_1CFCB8, dword_1CFCC0, dword_1CFCC4, dword_1CFCC8
+global dword_1CFCCC, dword_1CFCD0, dword_1CFCD4, dword_1CFCD8, dword_1CFCDC, dword_1CFCE0, dword_1CFCE4, dword_1CFCE8
+global dword_1CFCEC, dword_1CFCF0, dword_1D1CF8, dword_1D1CFC, dword_1D1D00, dword_1D1D04, dword_1D1D08, dword_1D1D0C
+global dword_1D1D10, dword_1D1D14, dword_1D1D2C, dword_1D1D30, dword_1D1D34, dword_1D1D38, dword_1D1D3C, dword_1D1D40
+global dword_1D1D44, dword_1D1D48, dword_1D1D4C, dword_1D1D50, dword_1D1D54, dword_1D1D58, dword_1D1D5C, dword_1D1D60
+global dword_1D1D64, dword_1D1D68, dword_1D1D6C, dword_1D1D70, dword_1D1D74, dword_1D1D78, dword_1D1D7C, dword_1D1D80
+global dword_1D1D84, dword_1D204C, dword_1D2050, dword_1D2054, dword_1D2058, dword_1D205C, dword_1D2060, dword_1D2064
+global dword_1D2068, dword_1D206C, dword_1D2070, dword_1D2078, dword_1D2080, dword_1D2084, dword_1D2088, dword_1D208C
+global dword_1D2090, dword_1D2094, dword_1D2418, dword_1D241C, dword_1D2420, dword_1D2424, dword_1D2428, dword_1D2430
+global dword_1D2438, dword_1D243C, dword_1D2440, dword_1D2444, dword_1D2448, dword_1D244C, dword_1D2450, dword_1D2454
+global dword_1D3350, dword_1D3354, dword_1D3358, dword_1D335C, dword_1D3364, dword_1D3368, dword_1D7FD4, dword_1D7FD8
+global dword_1D7FDC, dword_1D7FE0, dword_1D7FE4, dword_1D7FE8, dword_1D7FEC, dword_1D7FF8, dword_1D7FFC, dword_1D8000
+global dword_1D800C, dword_1D801C, dword_1D8020, dword_1D8024, dword_1D8028, dword_1D802C, dword_1D8030, dword_1D8034
+global dword_1D8044, dword_1D8048, dword_1D804C, dword_1D8050, dword_1D8054, dword_1D8058, dword_1D805C, dword_1D8068
+global dword_1D806C, dword_1D8070, dword_1D807C, dword_1D808C, dword_1D8090, dword_1D8094, dword_1D8098, dword_1D809C
+global dword_1D80A0, dword_1D80A4, dword_1D80B0, dword_1D8334, dword_1D8AB4, dword_1D8AB8, dword_1D8ABC, dword_1D8AC0
+global dword_1D8AC4, dword_1D91C8, dword_1D91CC, dword_1D9404, dword_1D940C, dword_1D9410, dword_1D960C, dword_1D9610
+global dword_1D9810, dword_1D990C, dword_1D9910, dword_1D9B0C, dword_1D9B10, dword_1D9B2C, dword_1D9B30, dword_1DA34C
+global dword_1DA350, dword_1DA390, dword_1DA394, dword_1DA398, dword_1DA39C, dword_1DA3A0, dword_1DA3A4, dword_1DA3A8
+global dword_1DA3AC, dword_1DA3B0, dword_1DA3B4, dword_1DA3CC, dword_1DA3E0, dword_1DA3E4, dword_1DA3E8, dword_1DA3EC
+global dword_1DA3F0, dword_1DA3F4, dword_1DA3F8, dword_1DA3FC, dword_1DA400, dword_1DA404, dword_1DA408, dword_1DA40C
+global dword_1DA410, dword_1DA414, dword_1DA4BC, dword_1DA4C0, dword_1DA4C8, dword_1DA4D0, dword_1DA8D0, dword_1DA8D4
+global dword_1DA8D8, dword_1DC518, dword_1DC51C, dword_1DC520, dword_1DC524, dword_1DC528, dword_1DC5A8, dword_1DC5AC
+global dword_1DC994, dword_1DC998, dword_1DC99C, dword_1DC9A0, dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0
+global dword_1DC9B4, dword_1DC9B8, dword_1DCAD0, dword_1DCAD4, dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4
+global dword_1DCAE8, dword_1DCAEC, dword_1DCAF0, dword_1DCAF4, dword_1DCAF8, dword_1DCAFC, dword_1DCB00, dword_1DCB04
+global dword_1DCB08, dword_1DCEC0, dword_1DCEC4, dword_1DCED0, dword_1DCED8, dword_1DCEEC, dword_1DCEF0, dword_1DCEF4
+global dword_1DCEF8, dword_1DCEFC, dword_1DCF08, dword_1DCF0C, dword_1DCF10, dword_1DCF14, dword_1DCF18, dword_1DCF1C
+global dword_1DCF20, dword_1DCF24, dword_1DCF28, dword_1DCF2C, dword_1DCF30, dword_1DCF34, dword_1DCF38, dword_1DCF3E
+global dword_1DCF3F, dword_1DCF48, dword_1DCF62, dword_1DCF78, dword_1DD378, dword_1DD37C, dword_1DD37E, dword_1DD384
+global dword_1DD390, dword_1DD394, dword_1DD398, dword_1DD39C, dword_1DD3A0, dword_1DD3A4, dword_1DD3A8, dword_1DD3AC
+global dword_1DD3B0, dword_1DD3B4, dword_1DD3C0, dword_1DD3C8, dword_1DD3CC, dword_1DD3D0, dword_1DD3D4, dword_1DD3D8
+global dword_1DD3DC, dword_1DD3E4, dword_1DD3EC, dword_1DD3F0, dword_1DD3F4, dword_1DD3F8, dword_1DD3FC, dword_1DD400
+global dword_1DD404, dword_1DD408, dword_1DD410, dword_1DD414, dword_1DD418, dword_1DD41C, dword_1DD420, dword_1DD424
+global dword_1DD428, dword_1DD42C, dword_1DD434, dword_1DD438, dword_1DD43C, dword_1DD440, dword_1DD444, dword_1DD448
+global dword_1DD44C, dword_1DD450, dword_1DD454, dword_1DD458, dword_1DD45C, dword_1DD460, dword_1DD464, dword_1DD468
+global dword_1DD474, dword_1DD478, dword_1DD47C, dword_1DD480, dword_1DD484, dword_1DD488, dword_1DD48C, dword_1DD490
+global dword_1DD494, dword_1DD498, dword_1DD49C, dword_1DD4AD, dword_1DD4B4, dword_1DE6BC, dword_1DE740, dword_1DE768
+global dword_1DE76C, dword_1DE774, dword_1DE778, dword_1DE784, dword_1DE788, dword_1DE7D0, dword_1DE7E4, dword_1DE7E8
+global dword_1DE7EC, hmtmstruct, kaufmfont, memlist1, off_168772, off_16877E, off_168CD8, off_168CE0
+global off_168CE8, off_168CEC, off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C, off_1691E4
+global off_1691F8, off_1692E8, off_1692F0, off_1692F4, off_169338, off_16936C, off_1693C8, off_169478
+global off_1694E0, off_169590, off_1695F8, off_169658, off_1696B8, off_169768, off_169780, off_1697BC
+global off_169814, off_16B6F8, off_16B708, off_16B738, off_16B7CC, off_16B830, off_16B8C0, off_16B958
+global off_16B9A4, off_16BB54, off_16BC44, off_16BC5C, off_16BC98, off_16BD14, off_16BD2C, off_16C3B4
+global off_16C9B8, off_16C9C0, off_16D254, off_16D258, off_16D5F7, off_16D7AC, off_16D7B4, off_16D7DC
+global off_16D7E0, off_16D7E4, off_16D7E8, off_16E0FC, off_16E174, off_16E4D4, off_16E4D8, off_16E4DC
+global off_16E4E0, off_16E858, off_16E87C, off_16F588, off_16F5BC, off_16F5C0, off_16F684, off_16FA1C
+global off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, off_170278, off_170284, off_170290, off_17029C
+global off_1702A8, off_1706D0, off_1706E0, off_1706E4, off_170B14, off_170B18, off_170B1C, off_171C7C
+global off_171C80, off_171C84, off_171D10, off_172140, off_17216C, off_1721B8, off_1996EC, off_199C50
+global off_199C54, off_199CDC, off_199CE0, off_199CEC, off_199DB2, off_19A740, off_19C3F4, off_19C5F4
+global off_19C61F, off_19C6C4, off_19C6E2, off_19C6E3, off_19C740, off_19C894, qword_160018, qword_160020
+global qword_16002C, qword_160034, qword_16003C, qword_16004C, qword_160054, qword_16005C, qword_160064, qword_16006C
+global qword_160074, qword_1602E6, qword_1602F6, qword_1602FE, qword_16030A, qword_160336, qword_16033E, qword_16034E
+global qword_160356, qword_16035E, qword_160366, qword_16036E, qword_160376, qword_16037E, qword_16038A, qword_160392
+global qword_1603BA, qword_1603CE, qword_1603DE, qword_1603E6, qword_1603EE, qword_1603F6, qword_1603FE, qword_160406
+global qword_16040E, qword_160416, qword_16041E, qword_160447, qword_16044F, qword_16046B, qword_160473, qword_16047B
+global qword_160483, qword_16048B, qword_160493, qword_1604EF, qword_1604F7, qword_160503, qword_160517, qword_160523
+global qword_16052B, qword_16053B, qword_160543, qword_16054B, qword_160553, qword_16055B, qword_16056C, qword_160588
+global qword_160590, qword_160598, qword_1605A4, qword_1605AC, qword_1605B4, qword_1605BC, qword_1605C4, qword_1605CC
+global qword_1605D4, qword_1605DC, qword_1605E4, qword_1605EC, qword_1605F4, qword_160604, qword_160624, qword_160630
+global qword_160638, qword_160640, qword_160648, qword_160650, qword_160658, qword_160660, qword_160668, qword_160670
+global qword_160678, qword_160680, qword_1606BC, qword_1606C4, qword_1606E3, qword_1606EB, qword_1606F3, qword_1606FB
+global qword_160703, qword_160713, qword_16071B, qword_16072B, qword_16073B, qword_160743, qword_16074B, qword_16075B
+global qword_160763, qword_16076B, qword_160773, qword_16077B, qword_160783, qword_16078B, qword_160793, qword_16079F
+global qword_1607A7, qword_1607AF, qword_1607B7, qword_1607BF, qword_1607CF, qword_1607D7, qword_1607DF, qword_1607E7
+global qword_1607EF, qword_1607F7, qword_1607FF, qword_160807, qword_16080F, qword_160817, qword_16081F, qword_160827
+global qword_16082F, qword_160837, qword_16083F, qword_160847, qword_16084F, qword_160857, qword_16085F, qword_160867
+global qword_16086F, qword_16087B, qword_160883, qword_16088B, qword_16089B, qword_1608A7, qword_1608B7, qword_1608C4
+global qword_1608CC, qword_1608D4, qword_1608DC, qword_1608EC, qword_1608F4, qword_1608FC, qword_160904, qword_16090C
+global qword_160914, qword_16091C, qword_160924, qword_16092C, qword_160934, qword_16093C, qword_160944, qword_16094C
+global qword_160954, qword_16095C, qword_160964, qword_16096C, qword_160974, qword_16097C, qword_160984, qword_16098C
+global qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qword_1609B4, qword_1609BC, qword_160A5C, qword_160A78
+global qword_160A80, qword_160A88, qword_160A90, qword_160A98, qword_160AA0, qword_160AA8, qword_160AB0, qword_160AB8
+global qword_160AC4, qword_160ACC, qword_160AD4, qword_160ADC, qword_160AE4, qword_160AEC, qword_160AF4, qword_160AFC
+global qword_160B04, qword_160B14, qword_160B1C, qword_160B28, qword_160B35, qword_160CF7, qword_160CFF, qword_160D07
+global qword_160D0F, qword_161173, qword_16117B, qword_161183, qword_16118B, qword_161389, qword_161395, qword_16139D
+global qword_1613A5, qword_1613B1, qword_1613BD, qword_1613C5, qword_1613CD, qword_1613D5, qword_1613DD, qword_16142D
+global qword_161435, qword_16143D, qword_161445, qword_16144D, qword_1617D0, qword_1617D8, qword_1617E6, qword_1617EE
+global qword_1617F6, qword_161A9A, qword_161AA2, qword_161AAA, qword_161AB2, qword_161B2C, qword_161B40, qword_161B58
+global qword_161B60, qword_161B68, qword_161B70, qword_161B78, qword_161B80, qword_161B88, qword_161B90, qword_162AC7
+global qword_162ACF, qword_162AD7, qword_162ADF, qword_162AEB, qword_162AF3, qword_162AFB, qword_162B03, qword_162B0B
+global qword_162B17, qword_162B23, qword_162B2F, qword_162B37, qword_162B3F, qword_162B47, qword_162B4F, qword_162B57
+global qword_162B6B, qword_162B7F, qword_162B87, qword_162B8F, qword_162B97, qword_162B9F, qword_162BA7, qword_162BAF
+global qword_162BB7, qword_162BC3, qword_162BCB, qword_162BD3, qword_162BDB, qword_162BE3, qword_162BEB, qword_162BF3
+global qword_162BFB, qword_162C03, qword_162C0F, qword_162C17, qword_162C23, qword_162C2B, qword_162C3F, qword_162C47
+global qword_162C4F, qword_162C57, qword_162C5F, qword_162C67, qword_162C6F, qword_162C77, qword_162C7F, qword_162C87
+global qword_162C8F, qword_162C97, qword_162C9F, qword_162CA7, qword_162CAF, qword_162CC3, qword_162CCB, qword_162CD3
+global qword_162CDB, qword_162CE3, qword_162CEB, qword_162CF3, qword_162CFB, qword_162D07, qword_162D0F, qword_162D17
+global qword_162D1F, qword_162D27, qword_162D2F, qword_162D3B, qword_162D43, qword_162D4B, qword_162D53, qword_162D5B
+global qword_162D63, qword_162D6B, qword_162D73, qword_162D7B, qword_162D83, qword_162D8B, qword_162D93, qword_162D9B
+global qword_162DA3, qword_162DAB, qword_162DB3, qword_162DBB, qword_162DC3, qword_162DCB, qword_162DD3, qword_162DDB
+global qword_162DE3, qword_162DEB, qword_162DF3, qword_162DFB, qword_162E03, qword_162E0F, qword_162E17, qword_162E1F
+global qword_162E27, qword_162E2F, qword_162E37, qword_162E47, qword_162E4F, qword_162E57, qword_162E5F, qword_162E67
+global qword_162E6F, qword_162E77, qword_162E7F, qword_162E8F, qword_162E97, qword_162E9F, qword_162EA7, qword_162EAF
+global qword_162EB7, qword_162EBF, qword_162EC7, qword_162ED3, qword_162EDB, qword_162EE3, qword_162EEB, qword_162EF3
+global qword_162EFB, qword_162F03, qword_162F0B, qword_162F1B, qword_162F27, qword_162F2F, qword_162F37, qword_162F3F
+global qword_162F47, qword_162F4F, qword_162F57, qword_162F5F, qword_162F67, qword_162F77, qword_162F7F, qword_162F87
+global qword_162F8F, qword_162F97, qword_162F9F, qword_162FA7, qword_162FAF, qword_162FB7, qword_162FCF, qword_162FD7
+global qword_162FE3, qword_162FEB, qword_162FF3, qword_16302D, qword_1630A8, qword_1630B0, qword_1630B8, qword_1630C0
+global qword_1630C8, qword_1630D0, qword_1630D8, qword_1630E8, qword_1630F0, qword_1630F8, qword_163100, qword_163108
+global qword_163110, qword_163118, qword_163120, qword_163128, qword_163130, qword_16313C, qword_163144, qword_16314C
+global qword_163154, qword_16315C, qword_163164, qword_16316C, qword_163174, qword_163180, qword_163188, qword_16319C
+global qword_1631A8, qword_1631B0, qword_1631B8, qword_1631C0, qword_1631C8, qword_1631E0, qword_1631E8, qword_1631F0
+global qword_1631F8, qword_163200, qword_163208, qword_163210, qword_163218, qword_163220, qword_163228, qword_163238
+global qword_163240, qword_163250, qword_163258, qword_163260, qword_163268, qword_163270, qword_163278, qword_16328C
+global qword_163294, qword_16329C, qword_1632A4, qword_1632AC, qword_1632B4, qword_1632BC, qword_1632D0, qword_1632D8
+global qword_1632E0, qword_1632E8, qword_1632F0, qword_1632F8, qword_163314, qword_163324, qword_16332C, qword_163338
+global qword_163340, qword_163348, qword_163350, qword_163358, qword_163360, qword_163368, qword_163370, qword_16338C
+global qword_16339C, qword_1633A4, qword_1633B0, qword_1633B8, qword_1633C0, qword_1633C8, qword_1633D0, qword_1633D8
+global qword_1633E0, qword_1633E8, qword_163400, qword_163410, qword_163418, qword_163424, qword_16342C, qword_163434
+global qword_16343C, qword_163444, qword_16344C, qword_163454, qword_16345C, qword_163470, qword_163478, qword_163480
+global qword_163488, qword_163490, qword_1634AC, qword_1634B4, qword_1634BC, qword_1634C4, qword_1634CC, qword_1634D8
+global qword_1634E0, qword_1634E8, qword_1634F0, qword_1634F8, qword_163500, qword_163508, qword_163510, qword_163518
+global qword_163520, qword_163528, qword_163530, qword_163538, qword_163540, qword_163548, qword_163550, qword_163558
+global qword_163560, qword_163568, qword_163570, qword_163580, qword_163588, qword_163590, qword_163598, qword_1635A0
+global qword_1635A8, qword_1635B0, qword_1635B8, qword_1635C0, qword_1635C8, qword_1635D8, qword_1635E0, qword_1635E8
+global qword_1635F0, qword_1635F8, qword_163600, qword_163608, qword_163610, qword_163618, qword_163620, qword_163628
+global qword_163634, qword_16363C, qword_16364C, qword_163654, qword_16365C, qword_163664, qword_16366C, qword_163674
+global qword_16368C, qword_163694, qword_16369C, qword_1636A4, qword_1636AC, qword_1636CC, qword_1636D4, qword_1636DC
+global qword_1636E4, qword_1636EC, qword_1636F8, qword_163700, qword_163708, qword_163710, qword_163718, qword_163724
+global qword_16372C, qword_163734, qword_16373C, qword_163748, qword_163750, qword_163764, qword_163770, qword_163778
+global qword_163780, qword_163788, qword_16379C, qword_1637A4, qword_1637AC, qword_1637B4, qword_1637BC, qword_1637C4
+global qword_1637CC, qword_1637D8, qword_1637E0, qword_1637E8, qword_1637F0, qword_1637F8, qword_163800, qword_163820
+global qword_16382C, qword_163840, qword_163848, qword_163854, qword_16385C, qword_163864, qword_16386C, qword_163874
+global qword_16387C, qword_163884, qword_16388C, qword_163894, qword_16389C, qword_1638A4, qword_1638AC, qword_1638B4
+global qword_1638BC, qword_1638C4, qword_1638CC, qword_1638D4, qword_1638DC, qword_1638E4, qword_1638EC, qword_1638F4
+global qword_1638FC, qword_163904, qword_163910, qword_163918, qword_163920, qword_163928, qword_163930, qword_163938
+global qword_163940, qword_163948, qword_163950, qword_16395C, qword_163964, qword_16396C, qword_163974, qword_16397C
+global qword_163984, qword_16398C, qword_163994, qword_16399C, qword_1639A4, qword_1639AC, qword_1639B4, qword_1639BC
+global qword_1639C4, qword_1639CC, qword_1639D4, qword_1639DC, qword_1639E4, qword_1639EC, qword_1639F4, qword_1639FC
+global qword_163A04, qword_163A0C, qword_163A14, qword_163A1C, qword_163A24, qword_163A2C, qword_163A34, qword_163A3C
+global qword_163A44, qword_163A4C, qword_163A54, qword_163A64, qword_163A70, qword_163A78, qword_163A80, qword_163A88
+global qword_163A90, qword_163A98, qword_163AA0, qword_163AA8, qword_163AB0, qword_163AB8, qword_163AC0, qword_163AC8
+global qword_163AD0, qword_163ADC, qword_163AE4, qword_163AEC, qword_163AF4, qword_163AFC, qword_163B08, qword_163B14
+global qword_163B1C, qword_163B28, qword_163B30, qword_163B38, qword_163B40, qword_163B48, qword_163B50, qword_163B5C
+global qword_163B64, qword_163B6C, qword_163B74, qword_163B7C, qword_163B84, qword_163B8C, qword_163B94, qword_163B9C
+global qword_163BA4, qword_163BAC, qword_163BB4, qword_163BBC, qword_163BC4, qword_163BCC, qword_163BD8, qword_163BE0
+global qword_163BE8, qword_163BF0, qword_163BF8, qword_163C04, qword_163C0C, qword_163C14, qword_163C1C, qword_163C30
+global qword_163C38, qword_163C40, qword_163C48, qword_163C50, qword_163C58, qword_163C60, qword_163C68, qword_163C70
+global qword_163C78, qword_163C80, qword_163C88, qword_163C94, qword_163C9C, qword_163CA4, qword_163CAC, qword_163CBC
+global qword_163CC4, qword_163CCC, qword_163CD4, qword_163CDC, qword_163CE4, qword_163CEC, qword_163CF4, qword_163CFC
+global qword_163D04, qword_163D0C, qword_163D14, qword_163D1C, qword_163D24, qword_163D2C, qword_163D34, qword_163D44
+global qword_163D54, qword_163D64, qword_163DA1, qword_163DA9, qword_163DB1, qword_163EF8, qword_165550, qword_165558
+global qword_165568, qword_16695B, qword_166A8D, qword_166AA1, qword_166ACC, qword_166B0F, qword_166B2A, qword_166FC4
+global qword_167A33, qword_167A75, qword_167A7D, qword_167AB1, qword_167AB9, qword_167AC1, qword_167AC9, qword_167AD1
+global qword_167AD9, qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qword_167B9F, qword_167BB3
+global qword_167BBB, qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, qword_167DA1, qword_167DA9, qword_167DB1
+global qword_167DB9, qword_167DF0, qword_167DF8, qword_167E00, qword_167E0C, qword_167E14, qword_167E20, qword_167E9D
+global qword_167EA5, qword_167EC8, qword_167ED0, qword_167EE0, qword_16817C, qword_1682EC, qword_168418, qword_16843C
+global qword_168444, qword_16845E, qword_172690, qword_172698, qword_19C1BE, qword_19C858, qword_19C860, qword_19C870
+global qword_19C884, regd1, slotteam, str_AALIAS, str_ASYNC, str_ASYNCFILE, str_ATA, str_ATD
+global str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, str_BLASTER, str_Back, str_Benchbk, str_Benchdiv
+global str_Benchx, str_Benchz0, str_Benchz1, str_Boardback, str_Botboards, str_CDSTREAM, str_CGRIP, str_CRD1
+global str_CRD2, str_Center, str_Crease, str_CrowdD, str_D02d2, str_DD, str_Door00, str_Door01
+global str_Door02, str_Door10, str_Door11, str_Door12, str_DoorZ0, str_DoorZ1, str_EASports, str_EMPTYFSH
+global str_FatBlueLines, str_FatRedLines, str_Flatboards, str_FloatingPointSupportNot, str_GRIP, str_GRIPGLL, str_Glass, str_Glassline
+global str_Glite0, str_Glite1, str_Grnlite, str_Gt002d, str_Gt004, str_Gt007, str_Gt102d, str_Gt202d
+global str_Gt302, str_Gt302d, str_HALFFSH, str_HIGHMEM, str_IceLine, str_Icelogo, str_Inversetmp, str_Lites
+global str_Logbook, str_Logname, str_Maxx, str_Maxz, str_Minx, str_Minz, str_NAMEINDEX, str_Nhll
+global str_Nhlp, str_NotEnoughMemoryTo, str_ORIINST, str_PAUSEPRESSANYKEY, str_Pbench0D, str_Pbench1D, str_Penback, str_Penbox0D
+global str_Penbox1D, str_Penboxt0, str_Penboxt1, str_Penboxz0, str_Penboxz1, str_Pl0, str_Pl1, str_R02d
+global str_RATIONALDOS4G, str_RMHandler, str_Redlite, str_Rink, str_Rlite0, str_Rlite1, str_SECCDSTREAM, str_STAND
+global str_STAND2ND, str_STANDSFSH, str_STREAM, str_SaveText, str_Score, str_SideD, str_StackOverflow, str_Stands2
+global str_Strobe, str_TR00, str_TR0D, str_TXTD, str_ThinRedLines, str_Topboards, str_Uarm, str_Ulstreak
+global str_Uname, str_Uopp, str_Upts, str_Urate, str_Usort, str_Ustreak, str_Uteam, str_Viv
+global str_WALL, str_WSSDMA, str_Zamboni, str_Zambpath, str_backslash3, tbyte_172680, tbyte_19C878, tbyte_19C8B4
+global tbyte_19C8BE, tbyte_19C8D0, tbyte_19C8DA, tbyte_19C8E4, tbyte_19C8EE, tbyte_19C8F8, tbyte_19C902, tbyte_19C90C
+global tickcount, tickdeadline, unk_160000, unk_16000C, unk_1600A4, unk_160193, unk_1601EF, unk_1601F1
+global unk_1601F4, unk_160208, unk_160218, unk_160220, unk_160228, unk_160230, unk_160238, unk_160240
+global unk_160248, unk_160250, unk_160258, unk_160260, unk_160268, unk_160270, unk_160278, unk_160280
+global unk_160288, unk_160290, unk_160298, unk_1602A0, unk_1602A8, unk_1602B0, unk_1602B8, unk_1602C0
+global unk_1602C8, unk_1602D0, unk_160A56, unk_160B68, unk_160B78, unk_160B80, unk_160B88, unk_160B90
+global unk_160B98, unk_160BA0, unk_160BA8, unk_160BB4, unk_160BC0, unk_160BCC, unk_160BD4, unk_160BE0
+global unk_160BE8, unk_160BF8, unk_160C00, unk_160C08, unk_160C14, unk_160C1C, unk_160C24, unk_160C30
+global unk_160C3C, unk_160C4C, unk_160C58, unk_160C60, unk_160C68, unk_160C70, unk_160C7C, unk_160C80
+global unk_160C8C, unk_160C94, unk_160C98, unk_160DD4, unk_160E8C, unk_160FD4, unk_161068, unk_1611B4
+global unk_16175C, unk_161760, unk_161764, unk_161768, unk_16176C, unk_161770, unk_161774, unk_161778
+global unk_1617BC, unk_161BA8, unk_161BB4, unk_161BC0, unk_161BC8, unk_161BD0, unk_161BD8, unk_161BE0
+global unk_161BE8, unk_161BF0, unk_161BF8, unk_161C00, unk_161C08, unk_161C10, unk_161C18, unk_161C24
+global unk_161C30, unk_161C38, unk_161C40, unk_161C4C, unk_161C54, unk_161C5C, unk_161C64, unk_161C6C
+global unk_161C74, unk_161C7C, unk_161C84, unk_161C8C, unk_161C98, unk_161CA4, unk_161CB0, unk_161CBC
+global unk_161CC8, unk_161CD4, unk_161CDC, unk_161CE4, unk_161CEC, unk_161CF4, unk_161CFC, unk_161D04
+global unk_161D0C, unk_161D14, unk_161D20, unk_161D2C, unk_161D34, unk_161D3C, unk_161D44, unk_161D4C
+global unk_161D58, unk_161D60, unk_161D6C, unk_161D78, unk_161D84, unk_161D8C, unk_161D98, unk_161DA0
+global unk_161DA8, unk_161DB0, unk_161DBC, unk_161DC4, unk_161DCC, unk_161DD8, unk_161DE0, unk_161DE8
+global unk_161DF4, unk_161E00, unk_161E08, unk_161E14, unk_161E20, unk_161E2C, unk_161E34, unk_161E3C
+global unk_161E44, unk_161E4C, unk_161E54, unk_161E5C, unk_161E64, unk_161E6C, unk_161E74, unk_161E7C
+global unk_161E88, unk_161E94, unk_161EA0, unk_161EAC, unk_161EB8, unk_161EC4, unk_161ED0, unk_161EDC
+global unk_161EE8, unk_161EF4, unk_161F00, unk_161F0C, unk_161F18, unk_161F24, unk_161F30, unk_161F3C
+global unk_161F48, unk_161F50, unk_161F58, unk_161F60, unk_161F6C, unk_161F78, unk_161F80, unk_161F88
+global unk_161F90, unk_161F9C, unk_161FA8, unk_161FB4, unk_161FC0, unk_161FCC, unk_161FD8, unk_161FE4
+global unk_161FEC, unk_161FF4, unk_161FFC, unk_162008, unk_162014, unk_162020, unk_16202C, unk_162038
+global unk_162044, unk_162050, unk_16205C, unk_162068, unk_162074, unk_162080, unk_16208C, unk_162094
+global unk_16209C, unk_1620A8, unk_1620B4, unk_1620BC, unk_1620C4, unk_1620CC, unk_1620D4, unk_1620DC
+global unk_1620E4, unk_1620EC, unk_1620F4, unk_1620FC, unk_162104, unk_16210C, unk_162118, unk_162124
+global unk_162130, unk_16213C, unk_162148, unk_162154, unk_16215C, unk_162164, unk_16216C, unk_162174
+global unk_16217C, unk_162184, unk_16218C, unk_162194, unk_16219C, unk_1621A4, unk_1621AC, unk_1621B8
+global unk_1621C0, unk_1621C8, unk_1621D0, unk_1621D8, unk_1621E0, unk_1621E8, unk_1621F0, unk_1621F8
+global unk_162200, unk_162208, unk_162210, unk_162218, unk_162220, unk_16222C, unk_162238, unk_162240
+global unk_162244, unk_162248, unk_162254, unk_16225C, unk_162264, unk_16226C, unk_162274, unk_16227C
+global unk_162284, unk_16228C, unk_162294, unk_162298, unk_1622A0, unk_1622A8, unk_1622B4, unk_1622C0
+global unk_1622C8, unk_1622D0, unk_1622DC, unk_1622E8, unk_1622F0, unk_1622F8, unk_162300, unk_162308
+global unk_162310, unk_16231C, unk_162328, unk_162330, unk_162338, unk_162340, unk_162348, unk_162350
+global unk_162358, unk_162364, unk_162370, unk_162378, unk_162380, unk_16238C, unk_162394, unk_16239C
+global unk_1623A0, unk_1623AC, unk_1623B4, unk_1623BC, unk_1623C8, unk_1623D0, unk_1623D8, unk_1623E0
+global unk_1623E8, unk_1623F0, unk_1623F8, unk_162400, unk_162408, unk_162414, unk_16241C, unk_162424
+global unk_162430, unk_16243C, unk_162444, unk_16244C, unk_162454, unk_16245C, unk_162468, unk_162474
+global unk_162480, unk_162488, unk_162494, unk_16249C, unk_1624A8, unk_1624B4, unk_1624BC, unk_1624C4
+global unk_1624CC, unk_1624D4, unk_1624DC, unk_1624E4, unk_1624EC, unk_1624F8, unk_162504, unk_16250C
+global unk_162514, unk_16251C, unk_162524, unk_162530, unk_16253C, unk_162544, unk_162550, unk_16255C
+global unk_162568, unk_162574, unk_16257C, unk_162588, unk_162590, unk_16259C, unk_1625A4, unk_1625B0
+global unk_1625BC, unk_1625C8, unk_1625D4, unk_1625E0, unk_1625E8, unk_1625F4, unk_1625FC, unk_162608
+global unk_162614, unk_162620, unk_162628, unk_162634, unk_16263C, unk_162648, unk_162650, unk_16265C
+global unk_162664, unk_162670, unk_162678, unk_162684, unk_16268C, unk_162698, unk_1626A0, unk_1626AC
+global unk_1626B4, unk_1626C0, unk_1626C8, unk_1626D4, unk_1626DC, unk_1626E8, unk_1626F0, unk_1626FC
+global unk_162708, unk_162714, unk_162720, unk_16272C, unk_162738, unk_162744, unk_162750, unk_16275C
+global unk_162768, unk_162774, unk_162780, unk_16278C, unk_162798, unk_1627A4, unk_1627B0, unk_1627BC
+global unk_1627C8, unk_1627D4, unk_1627E0, unk_1627EC, unk_1627F4, unk_162800, unk_16280C, unk_162818
+global unk_162824, unk_162830, unk_16283C, unk_162848, unk_162850, unk_162858, unk_162864, unk_162870
+global unk_16287C, unk_162888, unk_162890, unk_16289C, unk_1628A8, unk_1628B4, unk_1628BC, unk_1628C8
+global unk_1628D0, unk_1628DC, unk_1628E0, unk_1628E8, unk_1628F4, unk_162900, unk_16290C, unk_162914
+global unk_16291C, unk_162928, unk_162934, unk_162940, unk_16294C, unk_162958, unk_162964, unk_162970
+global unk_16297C, unk_162988, unk_162994, unk_1629A0, unk_1629AC, unk_1629B8, unk_1629C4, unk_1629D0
+global unk_1629DC, unk_1629E8, unk_1629F4, unk_1629F8, unk_162A04, unk_162A0C, unk_162A18, unk_162A24
+global unk_162A30, unk_162A3C, unk_162A48, unk_162A50, unk_162A58, unk_162A64, unk_162A70, unk_162A78
+global unk_162A80, unk_162A88, unk_162A90, unk_162A98, unk_162AA0, unk_162AA8, unk_162AB0, unk_162AB8
+global unk_162AC0, unk_163F20, unk_163F24, unk_163F28, unk_163F2C, unk_163F38, unk_163F3C, unk_163F40
+global unk_163F48, unk_163F4C, unk_163F50, unk_163F5C, unk_163F60, unk_163F64, unk_163F6C, unk_163F70
+global unk_163F74, unk_163F84, unk_163F88, unk_163F8C, unk_163F9C, unk_163FA0, unk_163FA4, unk_163FB4
+global unk_163FBC, unk_163FC0, unk_163FC4, unk_163FD0, unk_163FD4, unk_163FD8, unk_163FE8, unk_163FF0
+global unk_163FF4, unk_164004, unk_16400C, unk_164010, unk_164024, unk_16402C, unk_164030, unk_164044
+global unk_16404C, unk_164050, unk_164068, unk_164070, unk_164074, unk_164084, unk_16408C, unk_164090
+global unk_1640A4, unk_1640AC, unk_1640B0, unk_1640C4, unk_1640CC, unk_1640D0, unk_1640E8, unk_1640F0
+global unk_1640F4, unk_164104, unk_16410C, unk_164138, unk_16413C, unk_164150, unk_164158, unk_1643C2
+global unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7, unk_164636, unk_164686, unk_1646D4, unk_164724
+global unk_16480B, unk_1648DA, unk_16491D, unk_1649E0, unk_164A6A, unk_164B4D, unk_164BFD, unk_164C3F
+global unk_164C6C, unk_164D67, unk_164F96, unk_16503B, unk_16508B, unk_16518C, unk_165190, unk_165320
+global unk_165323, unk_165330, unk_1655AC, unk_165779, unk_1657CD, unk_1657CF, unk_165A5B, unk_165BAB
+global unk_165BAE, unk_165D00, unk_165D08, unk_165E4A, unk_165EA0, unk_166010, unk_16609C, unk_166108
+global unk_166110, unk_166118, unk_16620D, unk_16622A, unk_16622D, unk_16622F, unk_166232, unk_166235
+global unk_16623E, unk_1663A5, unk_1663B8, unk_1665C8, unk_1665CB, unk_16661B, unk_166648, unk_1667A4
+global unk_1667A7, unk_1668C2, unk_1668C5, unk_1668F8, unk_166915, unk_166946, unk_166948, unk_166A8A
+global unk_166B38, unk_166B3C, unk_166B40, unk_166B44, unk_166B48, unk_166B4C, unk_166B50, unk_166B54
+global unk_166B58, unk_166B5C, unk_166B60, unk_166B64, unk_166B67, unk_166B6B, unk_166B6E, unk_166B72
+global unk_166B76, unk_166B7A, unk_166B7E, unk_166B82, unk_166B86, unk_166B8A, unk_166B8D, unk_166B90
+global unk_166B94, unk_166B98, unk_166C97, unk_166E9D, unk_166F30, unk_166FF4, unk_1670CF, unk_16711C
+global unk_167124, unk_167128, unk_167130, unk_167138, unk_16713C, unk_167144, unk_167148, unk_167150
+global unk_167154, unk_16715C, unk_167160, unk_167168, unk_16716C, unk_167178, unk_16717C, unk_167184
+global unk_167188, unk_167190, unk_167194, unk_16719C, unk_1671A0, unk_1671A8, unk_1671AC, unk_1671B4
+global unk_1671B8, unk_1671BC, unk_1671C4, unk_1671CC, unk_1671D4, unk_1671D8, unk_1671E0, unk_1671E4
+global unk_1671F0, unk_1671F4, unk_1671FC, unk_167200, unk_167208, unk_16720C, unk_167214, unk_16721C
+global unk_167220, unk_167228, unk_16722C, unk_167234, unk_167238, unk_16723C, unk_167240, unk_167244
+global unk_167250, unk_167260, unk_167264, unk_16726C, unk_16727C, unk_1673CC, unk_167410, unk_167418
+global unk_167421, unk_167429, unk_167431, unk_167437, unk_16743E, unk_167444, unk_16744D, unk_167455
+global unk_16745B, unk_167460, unk_167540, unk_167560, unk_167574, unk_167588, unk_16764C, unk_167655
+global unk_16765E, unk_167669, unk_167673, unk_16767E, unk_16768A, unk_167695, unk_1676A1, unk_1676AE
+global unk_1676BB, unk_1676C6, unk_1676D3, unk_1676DD, unk_167731, unk_167806, unk_167809, unk_167814
+global unk_1678E0, unk_1678E2, unk_1678E4, unk_1678E6, unk_1678E8, unk_1678EA, unk_1678EC, unk_1678EE
+global unk_1678F0, unk_1678F2, unk_1678F4, unk_1678F6, unk_1678F8, unk_1678FA, unk_1678FC, unk_1678FE
+global unk_167900, unk_167902, unk_167904, unk_167906, unk_167908, unk_16790A, unk_16790C, unk_16790E
+global unk_167910, unk_167912, unk_167914, unk_167916, unk_167918, unk_16791A, unk_16791C, unk_16791E
+global unk_167920, unk_167922, unk_167924, unk_167926, unk_167928, unk_16792A, unk_16792C, unk_16792E
+global unk_167930, unk_167932, unk_167934, unk_167936, unk_167938, unk_16793A, unk_16793C, unk_16793E
+global unk_167940, unk_167943, unk_167946, unk_167949, unk_16794C, unk_16794F, unk_167952, unk_167955
+global unk_167958, unk_167A1A, unk_167A4B, unk_167D44, unk_167D48, unk_167D4C, unk_167D50, unk_167D54
+global unk_167D58, unk_167D5C, unk_167D60, unk_167D64, unk_167D68, unk_167D6C, unk_167D70, unk_167DCC
+global unk_167FA4, unk_167FE8, unk_168088, unk_1680D4, unk_168184, unk_168189, unk_16818E, unk_168193
+global unk_168197, unk_16819C, unk_1681A1, unk_1681A5, unk_1681AB, unk_1681B0, unk_1681B4, unk_1681BA
+global unk_1681C0, unk_1681C6, unk_1681CB, unk_1681D1, unk_1681D5, unk_1681D9, unk_1681DD, unk_1681E0
+global unk_1681E3, unk_1681E6, unk_1681EA, unk_1681F0, unk_168258, unk_168265, unk_16827A, unk_16828F
+global unk_1682A5, unk_1682C0, unk_16845C, unk_168574, unk_1687BC, unk_1687C8, unk_1687D4, unk_1687E0
+global unk_1687EC, unk_1687F8, unk_168810, unk_16881C, unk_168828, unk_168834, unk_168840, unk_16884C
+global unk_168858, unk_168864, unk_168870, unk_16887C, unk_168888, unk_168894, unk_1688A0, unk_1688AC
+global unk_1688B8, unk_16897C, unk_1689AC, unk_1689FC, unk_168A24, unk_168C38, unk_169298, unk_1692B8
+global unk_1692C0, unk_1692E0, unk_1692F8, unk_169300, unk_169308, unk_169310, unk_169330, unk_16933C
+global unk_169344, unk_169364, unk_169370, unk_169378, unk_169398, unk_1693A0, unk_1693C0, unk_1693D0
+global unk_1693D8, unk_1693F8, unk_169400, unk_169420, unk_169428, unk_169448, unk_169450, unk_169470
+global unk_169488, unk_169490, unk_1694B0, unk_1694B8, unk_1694D8, unk_1694E8, unk_1694F0, unk_169510
+global unk_169518, unk_169538, unk_169540, unk_169560, unk_169580, unk_169588, unk_1695A0, unk_1695A8
+global unk_1695C8, unk_1695D0, unk_1695F0, unk_169600, unk_169608, unk_169628, unk_169630, unk_169650
+global unk_169660, unk_169668, unk_169688, unk_169690, unk_1696B0, unk_1696C0, unk_1696C8, unk_1696E8
+global unk_1696F0, unk_169710, unk_169718, unk_169738, unk_169740, unk_169760, unk_169778, unk_169848
+global unk_1698A2, unk_169989, unk_16AED4, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144
+global unk_16B16C, unk_16B51C, unk_16B534, unk_16B558, unk_16B590, unk_16B5C8, unk_16B600, unk_16B638
+global unk_16B668, unk_16B698, unk_16B6C8, unk_16B718, unk_16B728, unk_16C338, unk_16CB30, unk_16CCC8
+global unk_16CE20, unk_16CFFC, unk_16D262, unk_16D26A, unk_16D7F4, unk_16D7FC, unk_16D804, unk_16D992
+global unk_16E110, unk_16E1E4, unk_16E21C, unk_16E3E8, unk_16E8A0, unk_16F110, unk_16FB44, unk_17021C
+global unk_170240, unk_170B26, unk_170B30, unk_170F72, unk_170F7C, unk_1713BE, unk_1713C8, unk_17180A
+global unk_171814, unk_171E38, unk_172264, unk_17226C, unk_172274, unk_1722C0, unk_1722DA, unk_172342
+global unk_1724C8, unk_172C44, unk_193F64, unk_193FD8, unk_19404C, unk_1940C0, unk_194134, unk_1941A8
+global unk_19421C, unk_194290, unk_194304, unk_194378, unk_1943EC, unk_194460, unk_1944D4, unk_194548
+global unk_1945BC, unk_194630, unk_1956A4, unk_19972C, unk_199738, unk_1999C4, unk_199C58, unk_199DB4
+global unk_199DB8, unk_199DBE, unk_199DC6, unk_199DD0, unk_199DDC, unk_199DEA, unk_199DFA, unk_199E0C
+global unk_199E20, unk_199E36, unk_199E4E, unk_199E68, unk_199E84, unk_199EA2, unk_199EC2, unk_199EE4
+global unk_199F08, unk_199F2E, unk_199F56, unk_199F80, unk_199FAC, unk_199FDA, unk_19A00A, unk_19A03C
+global unk_19A070, unk_19A0A6, unk_19A0DE, unk_19A118, unk_19A154, unk_19A192, unk_19A1D2, unk_19A214
+global unk_19A258, unk_19A29E, unk_19A2E6, unk_19A330, unk_19A37C, unk_19A3CA, unk_19A41A, unk_19A46C
+global unk_19A4C0, unk_19A516, unk_19A56E, unk_19A5C8, unk_19A624, unk_19A682, unk_19C1B4, unk_19C1CA
+global unk_19C534, unk_19C544, unk_19C564, unk_19C574, unk_19C584, unk_19C594, unk_19C5A4, unk_19C5B4
+global unk_19C5C4, unk_19C5D4, unk_19C5E4, unk_19C648, unk_19C67E, unk_19CA1C, unk_19CA98, unk_19CCB0
 global unk_19CCB8, unk_19CDA4, unk_19CF8C, unk_19D028, unk_19D04C, unk_19D05C, unk_19D0A4, unk_19D214
 global unk_19D298, unk_19D31C, unk_19D328, unk_19D474, unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E
-global unk_19D5A0, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DA30, unk_19DC40, unk_19E060, unk_19E270
-global unk_19E588, unk_19E690, unk_19E798, unk_19E79E, unk_19E7A2, unk_19E7A6, unk_19E7A8, unk_19E7AC
-global unk_19E7B0, unk_19E840, unk_19E8A0, unk_19E9A8, unk_19ECC8, unk_19ECE4, unk_19ED78, unk_19F548
-global unk_1A0CB8, unk_1A8D48, unk_1A8E8C, unk_1A9C8C, unk_1AC7DC, unk_1AC821, unk_1AC839, unk_1AC8E4
-global unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1ACD2B, unk_1ACD30, unk_1ACE38, unk_1ACF12
-global unk_1ACF4E, unk_1AD22E, unk_1AD236, unk_1AD250, unk_1AD255, unk_1AD35D, unk_1AD443, unk_1AD603
-global unk_1AD73A, unk_1AD7C0, unk_1ADCA0, unk_1ADD38, unk_1ADD40, unk_1ADD58, unk_1ADD60, unk_1ADD78
-global unk_1ADDE4, unk_1ADEF8, unk_1ADF38, unk_1ADFF8, unk_1AE028, unk_1AE058, unk_1AE0B8, unk_1AE118
-global unk_1AE278, unk_1AE588, unk_1AE688, unk_1AE6D0, unk_1AE748, unk_1AE7C0, unk_1AE808, unk_1AE850
-global unk_1AE8B0, unk_1AE910, unk_1AE9B8, unk_1AE9E8, unk_1AEA30, unk_1AEA60, unk_1AEB08, unk_1AEB50
-global unk_1AEB98, unk_1AEC40, unk_1AECB8, unk_1AED30, unk_1AEDD8, unk_1AEDF0, unk_1AEE08, unk_1AEEA8
-global unk_1AF340, unk_1AF450, unk_1AFB38, unk_1B0078, unk_1B0410, unk_1B0510, unk_1B0610, unk_1B0710
-global unk_1B0850, unk_1B0970, unk_1B0AA8, unk_1B0AD0, unk_1B0AE8, unk_1B0B3C, unk_1B0BA0, unk_1B0C0C
-global unk_1B0C84, unk_1B0CF0, unk_1B0F14, unk_1B0F28, unk_1B0FA4, unk_1B0FC0, unk_1B1068, unk_1B1090
-global unk_1B10FC, unk_1B1120, unk_1B13E8, unk_1B73F0, unk_1B7448, unk_1B7BA8, unk_1B8583, unk_1B85DC
-global unk_1B8BD0, unk_1B8D88, unk_1B8FA8, unk_1B9038, unk_1B91AF, unk_1B92AB, unk_1B93E0, unk_1B94E0
-global unk_1B9520, unk_1B9A58, unk_1B9CF8, unk_1BA510, unk_1BAA88, unk_1BB268, unk_1BBAB8, unk_1BBEE0
-global unk_1BD680, unk_1BE3A0, unk_1BE4F0, unk_1BE838, unk_1BEF00, unk_1BF110, unk_1BF174, unk_1BF204
-global unk_1BF29C, unk_1BF2E8, unk_1BF498, unk_1BF588, unk_1BF5A0, unk_1BF5DC, unk_1BF658, unk_1C0F00
-global unk_1C1264, unk_1C12B4, unk_1C133C, unk_1C134A, unk_1C1352, unk_1C135C, unk_1C1364, unk_1C1382
-global unk_1C139A, unk_1C347F, unk_1C3487, unk_1C34A5, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE
-global unk_1C6044, unk_1C6104, unk_1C7144, unk_1C81BC, unk_1C8300, unk_1C830C, unk_1C834C, unk_1C8360
-global unk_1C8388, unk_1C83BA, unk_1C85DC, unk_1C85E8, unk_1C85F4, unk_1C8600, unk_1C860C, unk_1C89F8
-global unk_1C8A04, unk_1C8A10, unk_1C8A1C, unk_1C8A28, unk_1C8F9A, unk_1C93D0, unk_1C94F4, unk_1C9704
-global unk_1C9756, unk_1C989E, unk_1CA9DC, unk_1CAADC, unk_1CABDC, unk_1CACE8, unk_1CACF4, unk_1CAD00
-global unk_1CAD24, unk_1CAEFC, unk_1CAF3C, unk_1CB148, unk_1CB1EC, unk_1CB23E, unk_1CBC18, unk_1CC8B8
-global unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_1CD19C
-global unk_1CD1E0, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480, unk_1CD570
-global unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE
-global unk_1CD989, unk_1CDA34, unk_1CDADF, unk_1CDB8A, unk_1CDC35, unk_1CDCE0, unk_1CDD8F, unk_1CDDFD
-global unk_1CDE36, unk_1CE03B, unk_1CE0A9, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, unk_1CEA99
-global unk_1CEAA8, unk_1CEAB7, unk_1CEAC6, unk_1CEAD5, unk_1CEAE4, unk_1CEAF3, unk_1CEB02, unk_1CEB11
-global unk_1CEB20, unk_1CEB2F, unk_1CEB3E, unk_1CEB4D, unk_1CEB5C, unk_1CEB6B, unk_1CEB7A, unk_1CEB89
-global unk_1CEB98, unk_1CEBA7, unk_1CEBB6, unk_1CEBC5, unk_1CEBD4, unk_1CEBE3, unk_1CEBF2, unk_1CEC01
-global unk_1CEC10, unk_1CEC1F, unk_1CEC2E, unk_1CEC3D, unk_1CEC4C, unk_1CEC5B, unk_1CEC6A, unk_1CEC79
-global unk_1CEC88, unk_1CEC97, unk_1CECA6, unk_1CECB5, unk_1CECC4, unk_1CECD3, unk_1CECE2, unk_1CECF1
-global unk_1CED00, unk_1CED0F, unk_1CED1E, unk_1CED2D, unk_1CED3C, unk_1CED4B, unk_1CED5A, unk_1CED69
-global unk_1CED78, unk_1CED87, unk_1CED96, unk_1CEDA5, unk_1CEDB4, unk_1CEDC3, unk_1CEDD2, unk_1CEDE1
-global unk_1CEDF0, unk_1CEDFF, unk_1CEE0E, unk_1CEE1D, unk_1CEE2C, unk_1CEE3B, unk_1CEE4A, unk_1CEE59
-global unk_1CEE68, unk_1CEE77, unk_1CEE86, unk_1CEE95, unk_1CEEA4, unk_1CEEB3, unk_1CEEC2, unk_1CEED1
-global unk_1CEEE0, unk_1CEEEF, unk_1CEEFE, unk_1CEF0D, unk_1CEF1C, unk_1CEF2B, unk_1CEF3A, unk_1CEF49
-global unk_1CEF58, unk_1CEF67, unk_1CEFE8, unk_1CF2A4, unk_1CFAF0, unk_1CFCBC, unk_1D1D20, unk_1D2098
-global unk_1D3D6C, unk_1D3D94, unk_1D5B94, unk_1D7994, unk_1D80B4, unk_1D8AC8, unk_1D8CC8, unk_1D8EC8
-global unk_1D91D0, unk_1D9B50, unk_1D9B70, unk_1D9B90, unk_1D9BB0, unk_1D9BD0, unk_1D9BF0, unk_1D9C10
-global unk_1D9C30, unk_1D9C34, unk_1D9C38, unk_1D9C3C, unk_1D9C40, unk_1D9C44, unk_1D9C48, unk_1D9C4C
-global unk_1D9C54, unk_1D9C78, unk_1D9C9C, unk_1D9CC0, unk_1D9CE4, unk_1D9D08, unk_1D9D2C, unk_1D9D50
-global unk_1D9D70, unk_1D9D90, unk_1D9DB0, unk_1D9DD0, unk_1D9DF0, unk_1D9E10, unk_1D9E30, unk_1D9E50
-global unk_1D9E70, unk_1D9E90, unk_1D9EB0, unk_1D9ED0, unk_1D9EF0, unk_1D9F10, unk_1D9F30, unk_1D9F50
-global unk_1D9F70, unk_1D9F90, unk_1D9FB0, unk_1D9FD0, unk_1D9FF0, unk_1DA010, unk_1DA030, unk_1DA050
-global unk_1DA070, unk_1DA090, unk_1DA0B0, unk_1DA0D0, unk_1DA0F0, unk_1DA110, unk_1DA130, unk_1DA150
-global unk_1DA170, unk_1DA190, unk_1DA1B0, unk_1DA1D0, unk_1DA1F0, unk_1DA210, unk_1DA230, unk_1DA250
-global unk_1DA270, unk_1DA290, unk_1DA2B0, unk_1DA2D0, unk_1DA2F0, unk_1DA310, unk_1DA330, unk_1DA3C4
-global unk_1DA418, unk_1DA448, unk_1DA464, unk_1DA466, unk_1DA468, unk_1DA498, unk_1DA4A4, unk_1DA4B4
-global unk_1DA4B8, unk_1DA4CC, unk_1DC118, unk_1DC218, unk_1DC318, unk_1DC418, unk_1DD3C4, unk_1DD40C
-global unk_1DD4B8, unk_1DD5B8, unk_1DD738, unk_1DD838, unk_1DD938, unk_1DDA38, unk_1DDBB8, unk_1DDD38
-global unk_1DDEB8, unk_1DDFB8, unk_1DE0B8, unk_1DE1B8, unk_1DE2B8, unk_1DE3B8, unk_1DE4B8, unk_1DE5B8
-global unk_1DE6C0, unk_1DE7A0, unk_1DE7F4, unk_1DEC00, unk_1DF7E4, word_1684BE, word_1684CA, word_1684E8
-global word_1684EC, word_1686BC, word_1686D4, word_1686D6, word_1686D8, word_1686DA, word_1686E4, word_1689BE
-global word_1689C8, word_1689CA, word_168A4C, word_168A4E, word_168A68, word_168A6A, word_168D18, word_168E2C
-global word_168E2E, word_168E34, word_168E60, word_169054, word_169066, word_1690AE, word_16914E, word_1691A4
-global word_1691B2, word_1691B4, word_1691B6, word_169232, word_169234, word_169236, word_169268, word_169282
-global word_169284, word_169824, word_16CCF8, word_16CD04, word_16CD20, word_16CD22, word_16D25C, word_16D25E
-global word_16D260, word_16D27E, word_16D28C, word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2
-global word_16D2B4, word_16D408, word_16D450, word_16D6C4, word_16D6D2, word_16D6E4, word_16D7EC, word_16D7EE
-global word_16D80C, word_16D80E, word_16D85E, word_16D860, word_16D8A4, word_16D8FC, word_16D920, word_16D922
-global word_16D924, word_16D926, word_16D928, word_16D92A, word_16D92C, word_16DAB8, word_16DACC, word_16DACE
-global word_16DAD0, word_16E0F8, word_16E0FA, word_16E108, word_16E10A, word_16E10C, word_16E120, word_16E12C
-global word_16E148, word_16E15E, word_16E16E, word_16E170, word_16E2EA, word_16E2EC, word_16E2EE, word_16E2F0
-global word_16E406, word_16E418, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E, word_170162
-global word_170708, word_17070A, word_1707E8, word_1707EE, word_1707F4, word_1707F6, word_170B24, word_171C56
-global word_172514, word_172516, word_172519, word_172568, word_17256A, word_172580, word_1725A0, word_1725A9
-global word_172AB2, word_172C42, word_172C48, word_172C4C, word_199A1C, word_199A22, word_199CD8, word_19A7AC
-global word_19A7AE, word_19A7B2, word_19A7B6, word_19C018, word_19C01A, word_19C020, word_19C022, word_19C024
-global word_19C026, word_19C028, word_19C02A, word_19C02C, word_19C02E, word_19C030, word_19C052, word_19C058
-global word_19C0DC, word_19C130, word_19C136, word_19C13C, word_19C142, word_19C1A8, word_19C3CA, word_19C3D8
-global word_19C3DA, word_19C3DC, word_19C3DE, word_19C3EC, word_19C3EE, word_19C3F0, word_19C3F2, word_19C628
-global word_19C62A, word_19CA90, word_19CA92, word_19CA94, word_19CA96, word_19CB16, word_19CB18, word_19CB28
-global word_19CB2A, word_19CB2C, word_19CB2E, word_19CB34, word_19CB36, word_19CB5C, word_19CB60, word_19CB64
-global word_19CB68, word_19CB6C, word_19CB72, word_19CB76, word_19CB78, word_19CB7A, word_19CB7C, word_19CB80
-global word_19CB82, word_19CB84, word_19CB86, word_19CB88, word_19CB8C, word_19CB8E, word_19CB90, word_19CB92
-global word_19CB94, word_19CB96, word_19CB98, word_19CB9A, word_19CB9C, word_19CB9E, word_19CBA0, word_19CBA2
-global word_19CBA4, word_19CBA6, word_19CBA8, word_19CBAC, word_19CBAE, word_19CBB0, word_19CBB2, word_19CBB4
-global word_19CBB6, word_19CBB8, word_19CBBA, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBC6, word_19CBD4
-global word_19CBD6, word_19CBD8, word_19CBDA, word_19CBDC, word_19CBDE, word_19CBE0, word_19CBE2, word_19CBE6
-global word_19CBEA, word_19CBEC, word_19CBEE, word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC14
-global word_19CC24, word_19CC26, word_19CC28, word_19CC2A, word_19CC2C, word_19CC2E, word_19CC50, word_19CC52
-global word_19CCB2, word_19CCB6, word_19CCBC, word_19CCBE, word_19CCC0, word_19CCC4, word_19CD9C, word_19CDA7
-global word_19D69A, word_19D69C, word_19D69E, word_19DAD9, word_19DAEA, word_19DCFA, word_19E109, word_19E32A
-global word_19E949, word_19EA51, word_19EAB0, word_19EAB2, word_19EAB4, word_19EAB6, word_19EABE, word_19EAC0
-global word_19EBAC, word_19EBB2, word_19EBBC, word_19EBBE, word_19EBC0, word_19EBC2, word_19EBCA, word_19EBCC
+global unk_19D5A0, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060, unk_19E270, unk_19E588
+global unk_19E690, unk_19E798, unk_19E79E, unk_19E7A2, unk_19E7A6, unk_19E7A8, unk_19E7AC, unk_19E7B0
+global unk_19E840, unk_19E8A0, unk_19E9A8, unk_19ECC8, unk_19ECE4, unk_19ED78, unk_19F548, unk_1A0CB8
+global unk_1A8D48, unk_1A8E8C, unk_1A9C8C, unk_1AC7DC, unk_1AC821, unk_1AC839, unk_1AC8E4, unk_1AC95D
+global unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1ACD2B, unk_1ACD30, unk_1ACE38, unk_1ACF12, unk_1ACF4E
+global unk_1AD22E, unk_1AD236, unk_1AD250, unk_1AD255, unk_1AD35D, unk_1AD443, unk_1AD603, unk_1AD73A
+global unk_1AD7C0, unk_1ADCA0, unk_1ADD38, unk_1ADD40, unk_1ADD58, unk_1ADD60, unk_1ADD78, unk_1ADDE4
+global unk_1ADEF8, unk_1ADF38, unk_1ADFF8, unk_1AE028, unk_1AE058, unk_1AE0B8, unk_1AE118, unk_1AE278
+global unk_1AE588, unk_1AE688, unk_1AE6D0, unk_1AE748, unk_1AE7C0, unk_1AE808, unk_1AE850, unk_1AE8B0
+global unk_1AE910, unk_1AE9B8, unk_1AE9E8, unk_1AEA30, unk_1AEA60, unk_1AEB08, unk_1AEB50, unk_1AEB98
+global unk_1AEC40, unk_1AECB8, unk_1AED30, unk_1AEDD8, unk_1AEDF0, unk_1AEE08, unk_1AEEA8, unk_1AF340
+global unk_1AF450, unk_1AFB38, unk_1B0078, unk_1B0410, unk_1B0510, unk_1B0610, unk_1B0710, unk_1B0850
+global unk_1B0970, unk_1B0AA8, unk_1B0AD0, unk_1B0AE8, unk_1B0B3C, unk_1B0BA0, unk_1B0C0C, unk_1B0C84
+global unk_1B0CF0, unk_1B0F14, unk_1B0F28, unk_1B0FA4, unk_1B0FC0, unk_1B1068, unk_1B1090, unk_1B10FC
+global unk_1B1120, unk_1B13E8, unk_1B73F0, unk_1B7448, unk_1B7BA8, unk_1B8583, unk_1B85DC, unk_1B8BD0
+global unk_1B8D88, unk_1B8FA8, unk_1B9038, unk_1B91AF, unk_1B92AB, unk_1B93E0, unk_1B94E0, unk_1B9520
+global unk_1B9A58, unk_1B9CF8, unk_1BA510, unk_1BAA88, unk_1BB268, unk_1BBAB8, unk_1BBEE0, unk_1BD680
+global unk_1BE3A0, unk_1BE4F0, unk_1BE838, unk_1BEF00, unk_1BF110, unk_1BF174, unk_1BF204, unk_1BF29C
+global unk_1BF2E8, unk_1BF498, unk_1BF588, unk_1BF5A0, unk_1BF5DC, unk_1BF658, unk_1C0F00, unk_1C1264
+global unk_1C12B4, unk_1C133C, unk_1C134A, unk_1C1352, unk_1C135C, unk_1C1364, unk_1C1382, unk_1C139A
+global unk_1C347F, unk_1C3487, unk_1C34A5, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1C6044
+global unk_1C6104, unk_1C7144, unk_1C81BC, unk_1C8300, unk_1C830C, unk_1C834C, unk_1C8360, unk_1C8388
+global unk_1C83BA, unk_1C85DC, unk_1C85E8, unk_1C85F4, unk_1C8600, unk_1C860C, unk_1C89F8, unk_1C8A04
+global unk_1C8A10, unk_1C8A1C, unk_1C8A28, unk_1C8F9A, unk_1C93D0, unk_1C94F4, unk_1C9704, unk_1C9756
+global unk_1C989E, unk_1CA9DC, unk_1CAADC, unk_1CABDC, unk_1CACE8, unk_1CACF4, unk_1CAD00, unk_1CAD24
+global unk_1CAEFC, unk_1CAF3C, unk_1CB148, unk_1CB1EC, unk_1CB23E, unk_1CBC18, unk_1CC8B8, unk_1CCBB8
+global unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_1CD19C, unk_1CD1E0
+global unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480, unk_1CD570, unk_1CD59C
+global unk_1CD5D8, unk_1CD636, unk_1CD6AC, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE, unk_1CD989
+global unk_1CDA34, unk_1CDADF, unk_1CDB8A, unk_1CDC35, unk_1CDCE0, unk_1CDD8F, unk_1CDDFD, unk_1CDE36
+global unk_1CE03B, unk_1CE0A9, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, unk_1CEA99, unk_1CEAA8
+global unk_1CEAB7, unk_1CEAC6, unk_1CEAD5, unk_1CEAE4, unk_1CEAF3, unk_1CEB02, unk_1CEB11, unk_1CEB20
+global unk_1CEB2F, unk_1CEB3E, unk_1CEB4D, unk_1CEB5C, unk_1CEB6B, unk_1CEB7A, unk_1CEB89, unk_1CEB98
+global unk_1CEBA7, unk_1CEBB6, unk_1CEBC5, unk_1CEBD4, unk_1CEBE3, unk_1CEBF2, unk_1CEC01, unk_1CEC10
+global unk_1CEC1F, unk_1CEC2E, unk_1CEC3D, unk_1CEC4C, unk_1CEC5B, unk_1CEC6A, unk_1CEC79, unk_1CEC88
+global unk_1CEC97, unk_1CECA6, unk_1CECB5, unk_1CECC4, unk_1CECD3, unk_1CECE2, unk_1CECF1, unk_1CED00
+global unk_1CED0F, unk_1CED1E, unk_1CED2D, unk_1CED3C, unk_1CED4B, unk_1CED5A, unk_1CED69, unk_1CED78
+global unk_1CED87, unk_1CED96, unk_1CEDA5, unk_1CEDB4, unk_1CEDC3, unk_1CEDD2, unk_1CEDE1, unk_1CEDF0
+global unk_1CEDFF, unk_1CEE0E, unk_1CEE1D, unk_1CEE2C, unk_1CEE3B, unk_1CEE4A, unk_1CEE59, unk_1CEE68
+global unk_1CEE77, unk_1CEE86, unk_1CEE95, unk_1CEEA4, unk_1CEEB3, unk_1CEEC2, unk_1CEED1, unk_1CEEE0
+global unk_1CEEEF, unk_1CEEFE, unk_1CEF0D, unk_1CEF1C, unk_1CEF2B, unk_1CEF3A, unk_1CEF49, unk_1CEF58
+global unk_1CEF67, unk_1CEFE8, unk_1CF2A4, unk_1CFAF0, unk_1CFCBC, unk_1D1D20, unk_1D2098, unk_1D3D6C
+global unk_1D3D94, unk_1D5B94, unk_1D7994, unk_1D80B4, unk_1D8AC8, unk_1D8CC8, unk_1D8EC8, unk_1D91D0
+global unk_1D9B50, unk_1D9B70, unk_1D9B90, unk_1D9BB0, unk_1D9BD0, unk_1D9BF0, unk_1D9C10, unk_1D9C30
+global unk_1D9C34, unk_1D9C38, unk_1D9C3C, unk_1D9C40, unk_1D9C44, unk_1D9C48, unk_1D9C4C, unk_1D9C54
+global unk_1D9C78, unk_1D9C9C, unk_1D9CC0, unk_1D9CE4, unk_1D9D08, unk_1D9D2C, unk_1D9D50, unk_1D9D70
+global unk_1D9D90, unk_1D9DB0, unk_1D9DD0, unk_1D9DF0, unk_1D9E10, unk_1D9E30, unk_1D9E50, unk_1D9E70
+global unk_1D9E90, unk_1D9EB0, unk_1D9ED0, unk_1D9EF0, unk_1D9F10, unk_1D9F30, unk_1D9F50, unk_1D9F70
+global unk_1D9F90, unk_1D9FB0, unk_1D9FD0, unk_1D9FF0, unk_1DA010, unk_1DA030, unk_1DA050, unk_1DA070
+global unk_1DA090, unk_1DA0B0, unk_1DA0D0, unk_1DA0F0, unk_1DA110, unk_1DA130, unk_1DA150, unk_1DA170
+global unk_1DA190, unk_1DA1B0, unk_1DA1D0, unk_1DA1F0, unk_1DA210, unk_1DA230, unk_1DA250, unk_1DA270
+global unk_1DA290, unk_1DA2B0, unk_1DA2D0, unk_1DA2F0, unk_1DA310, unk_1DA330, unk_1DA3C4, unk_1DA418
+global unk_1DA448, unk_1DA464, unk_1DA466, unk_1DA468, unk_1DA498, unk_1DA4A4, unk_1DA4B4, unk_1DA4B8
+global unk_1DA4CC, unk_1DC118, unk_1DC218, unk_1DC318, unk_1DC418, unk_1DD3C4, unk_1DD40C, unk_1DD4B8
+global unk_1DD5B8, unk_1DD738, unk_1DD838, unk_1DD938, unk_1DDA38, unk_1DDBB8, unk_1DDD38, unk_1DDEB8
+global unk_1DDFB8, unk_1DE0B8, unk_1DE1B8, unk_1DE2B8, unk_1DE3B8, unk_1DE4B8, unk_1DE5B8, unk_1DE6C0
+global unk_1DE7A0, unk_1DE7F4, unk_1DEC00, unk_1DF7E4, word_1684BE, word_1684CA, word_1684E8, word_1684EC
+global word_1686BC, word_1686D4, word_1686D6, word_1686D8, word_1686DA, word_1686E4, word_1689BE, word_1689C8
+global word_1689CA, word_168A4C, word_168A4E, word_168A68, word_168A6A, word_168D18, word_168E2C, word_168E2E
+global word_168E34, word_168E60, word_169054, word_169066, word_1690AE, word_16914E, word_1691A4, word_1691B2
+global word_1691B4, word_1691B6, word_169232, word_169234, word_169236, word_169268, word_169282, word_169284
+global word_169824, word_16CCF8, word_16CD04, word_16CD20, word_16CD22, word_16D25C, word_16D25E, word_16D260
+global word_16D27E, word_16D28C, word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2, word_16D2B4
+global word_16D408, word_16D450, word_16D6C4, word_16D6D2, word_16D6E4, word_16D7EC, word_16D7EE, word_16D80C
+global word_16D80E, word_16D85E, word_16D860, word_16D8A4, word_16D8FC, word_16D920, word_16D922, word_16D924
+global word_16D926, word_16D928, word_16D92A, word_16D92C, word_16DAB8, word_16DACC, word_16DACE, word_16DAD0
+global word_16E0F8, word_16E0FA, word_16E108, word_16E10A, word_16E10C, word_16E120, word_16E12C, word_16E148
+global word_16E15E, word_16E16E, word_16E170, word_16E2EA, word_16E2EC, word_16E2EE, word_16E2F0, word_16E406
+global word_16E418, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E, word_170162, word_170708
+global word_17070A, word_1707E8, word_1707EE, word_1707F4, word_1707F6, word_170B24, word_171C56, word_172514
+global word_172516, word_172519, word_172568, word_17256A, word_172AB2, word_172C42, word_172C48, word_172C4C
+global word_199A1C, word_199A22, word_199CD8, word_19A7AC, word_19A7AE, word_19A7B2, word_19A7B6, word_19C018
+global word_19C01A, word_19C020, word_19C022, word_19C024, word_19C026, word_19C028, word_19C02A, word_19C02C
+global word_19C02E, word_19C030, word_19C052, word_19C058, word_19C0DC, word_19C130, word_19C136, word_19C13C
+global word_19C142, word_19C1A8, word_19C3CA, word_19C3D8, word_19C3DA, word_19C3DC, word_19C3DE, word_19C3EC
+global word_19C3EE, word_19C3F0, word_19C3F2, word_19C628, word_19C62A, word_19CA90, word_19CA92, word_19CA94
+global word_19CA96, word_19CB16, word_19CB18, word_19CB28, word_19CB2A, word_19CB2C, word_19CB2E, word_19CB34
+global word_19CB36, word_19CB5C, word_19CB60, word_19CB64, word_19CB68, word_19CB72, word_19CB76, word_19CB78
+global word_19CB7A, word_19CB7C, word_19CB80, word_19CB82, word_19CB84, word_19CB86, word_19CB88, word_19CB8C
+global word_19CB8E, word_19CB90, word_19CB92, word_19CB94, word_19CB96, word_19CB98, word_19CB9A, word_19CB9C
+global word_19CB9E, word_19CBA0, word_19CBA2, word_19CBA4, word_19CBA6, word_19CBA8, word_19CBAC, word_19CBAE
+global word_19CBB0, word_19CBB2, word_19CBB4, word_19CBB6, word_19CBB8, word_19CBBA, word_19CBBC, word_19CBBE
+global word_19CBC0, word_19CBC6, word_19CBD4, word_19CBD6, word_19CBD8, word_19CBDA, word_19CBDC, word_19CBDE
+global word_19CBE0, word_19CBE2, word_19CBE6, word_19CBEA, word_19CBEC, word_19CBEE, word_19CBF0, word_19CBF2
+global word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28, word_19CC2A, word_19CC2C, word_19CC2E
+global word_19CC50, word_19CC52, word_19CCB2, word_19CCB6, word_19CCBC, word_19CCBE, word_19CCC0, word_19CCC4
+global word_19CD9C, word_19CDA7, word_19D69A, word_19D69C, word_19D69E, word_19DAD9, word_19DAEA, word_19DCFA
+global word_19E109, word_19E32A, word_19E949, word_19EA51, word_19EAB2, word_19EAB4, word_19EAB6, word_19EABE
+global word_19EAC0, word_19EBAC, word_19EBB2, word_19EBBE, word_19EBC0, word_19EBC2, word_19EBCA, word_19EBCC
 global word_19ECB8, word_19ECBE, word_19ED74, word_19ED76, word_1A928A, word_1A928C, word_1A928E, word_1ABD46
 global word_1ABD48, word_1ABD4A, word_1ABD4C, word_1ABD4E, word_1ABD50, word_1AC7D8, word_1AC8B1, word_1ACB47
 global word_1AD240, word_1AD242, word_1AD68F, word_1AD693, word_1B0B62, word_1C1344, word_1C1348, word_1C13C2
@@ -1986,13 +1986,13 @@ asc_160B40:
 db 048h,049h,053h,054h,00h,00h,00h,00h
 asc_160B48:
 db 04Dh,045h,047h,041h,048h,049h,053h,054h,00h,00h,00h,00h
-asc_160B54:
+str_CDSTREAM:
 db 043h,044h,053h,054h,052h,045h,041h,04Dh,00h,00h,00h,00h
-asc_160B60:
+str_STREAM:
 db 053h,054h,052h,045h,041h,04Dh,00h,00h
 unk_160B68:
 db 00h,00h,00h,00h
-asc_160B6C:
+str_SECCDSTREAM:
 db 053h,045h,043h,043h,044h,053h,054h,052h,045h,041h,04Dh,00h
 unk_160B78:
 db 047h,04Ch,04Fh,042h,041h,04Ch,00h,00h
@@ -2255,7 +2255,7 @@ asc_1612B0:
 db 06Eh,065h,077h,069h,063h,065h,00h,00h
 asc_1612B8:
 db 069h,063h,065h,070h,06Fh,06Ch,079h,073h,00h,00h,00h,00h
-asc_1612C4:
+str_Center:
 db 063h,065h,06Eh,074h,065h,072h,00h,00h
 asc_1612CC:
 db 025h,064h,069h,063h,065h,00h,00h,00h
@@ -2343,11 +2343,11 @@ asc_1613FC:
 db 047h,04Ch,041h,053h,053h,00h,00h,00h
 asc_161404:
 db 061h,072h,065h,06Eh,061h,02Eh,076h,069h,076h,00h,00h,00h
-asc_161410:
+str_Zamboni:
 db 07Ah,061h,06Dh,062h,06Fh,06Eh,069h,00h
 asc_161418:
 db 07Ah,061h,06Dh,074h,072h,061h,063h,06Bh,00h,00h,00h,00h
-asc_161424:
+str_Zambpath:
 db 07Ah,061h,06Dh,062h,070h,061h,074h,068h,00h
 qword_16142D:
 db 016h,06Ch,0C1h,016h,06Ch,0C1h,056h,03Fh
@@ -2363,41 +2363,41 @@ asc_161458:
 db 06Eh,065h,074h,062h,061h,063h,06Bh,00h
 asc_161460:
 db 06Eh,065h,074h,066h,072h,06Eh,074h,00h
-asc_161468:
+str_Glassline:
 db 067h,06Ch,061h,073h,073h,06Ch,069h,06Eh,065h,00h,00h,00h
-asc_161474:
+str_Glass:
 db 067h,06Ch,061h,073h,073h,00h,00h,00h
-asc_16147C:
+str_Topboards:
 db 074h,06Fh,070h,062h,06Fh,061h,072h,064h,073h,00h,00h,00h
-asc_161488:
+str_Botboards:
 db 062h,06Fh,074h,062h,06Fh,061h,072h,064h,073h,00h,00h,00h
-asc_161494:
+str_FatRedLines:
 db 066h,061h,074h,05Fh,072h,065h,064h,05Fh,06Ch,069h,06Eh,065h,073h,00h,00h,00h
-asc_1614A4:
+str_FatBlueLines:
 db 066h,061h,074h,05Fh,062h,06Ch,075h,065h,05Fh,06Ch,069h,06Eh,065h,073h,00h,00h
-asc_1614B4:
+str_SideD:
 db 073h,069h,064h,065h,025h,064h,00h,00h
-asc_1614BC:
+str_Gt002d:
 db 067h,074h,030h,025h,030h,032h,064h,00h
-asc_1614C4:
+str_Gt102d:
 db 067h,074h,031h,025h,030h,032h,064h,00h
-asc_1614CC:
+str_Gt202d:
 db 067h,074h,032h,025h,030h,032h,064h,00h
-asc_1614D4:
+str_Gt302d:
 db 067h,074h,033h,025h,030h,032h,064h,00h
-asc_1614DC:
+str_Icelogo:
 db 069h,063h,065h,06Ch,06Fh,067h,06Fh,00h
-asc_1614E4:
+str_EMPTYFSH:
 db 05Fh,045h,04Dh,050h,054h,059h,02Eh,046h,053h,048h,00h,00h
-asc_1614F0:
+str_HALFFSH:
 db 05Fh,048h,041h,04Ch,046h,02Eh,046h,053h,048h,00h,00h,00h
-asc_1614FC:
+str_STANDSFSH:
 db 05Fh,053h,054h,041h,04Eh,044h,053h,02Eh,046h,053h,048h,00h
-asc_161508:
+str_Stands2:
 db 073h,074h,061h,06Eh,064h,073h,00h,00h
-asc_161510:
+str_CrowdD:
 db 063h,072h,06Fh,077h,064h,025h,064h,00h
-asc_161518:
+str_WALL:
 db 057h,041h,04Ch,04Ch,00h,00h,00h,00h
 asc_161520:
 db 062h,06Ch,06Fh,067h,06Fh,025h,064h,025h,063h,00h,00h,00h
@@ -2415,17 +2415,17 @@ asc_161558:
 db 04Ch,04Fh,047h,04Fh,053h,00h,00h,00h
 asc_161560:
 db 062h,06Ch,06Fh,067h,06Fh,073h,00h,00h
-asc_161568:
+str_Boardback:
 db 062h,06Fh,061h,072h,064h,062h,061h,063h,06Bh,00h,00h,00h
-asc_161574:
+str_Crease:
 db 063h,072h,065h,061h,073h,065h,00h,00h
-asc_16157C:
+str_Flatboards:
 db 066h,06Ch,061h,074h,062h,06Fh,061h,072h,064h,073h,00h,00h
-asc_161588:
+str_Rink:
 db 072h,069h,06Eh,06Bh,00h,00h,00h,00h
 asc_161590:
 db 066h,06Ch,06Fh,06Fh,072h,00h,00h,00h
-asc_161598:
+str_Score:
 db 073h,063h,06Fh,072h,065h,00h,00h,00h
 asc_1615A0:
 db 070h,075h,063h,06Bh,00h,00h,00h,00h
@@ -2441,93 +2441,93 @@ asc_1615C4:
 db 067h,06Fh,061h,06Ch,030h,00h,00h,00h
 asc_1615CC:
 db 067h,06Fh,061h,06Ch,031h,00h,00h,00h
-asc_1615D4:
+str_Minx:
 db 06Dh,069h,06Eh,078h,00h,00h,00h,00h
-asc_1615DC:
+str_Maxx:
 db 06Dh,061h,078h,078h,00h,00h,00h,00h
-asc_1615E4:
+str_Minz:
 db 06Dh,069h,06Eh,07Ah,00h,00h,00h,00h
-asc_1615EC:
+str_Maxz:
 db 06Dh,061h,078h,07Ah,00h,00h,00h,00h
-asc_1615F4:
+str_Rlite1:
 db 072h,06Ch,069h,074h,065h,031h,00h,00h
 asc_1615FC:
 db 067h,074h,033h,030h,034h,00h,00h,00h
-asc_161604:
+str_Strobe:
 db 073h,074h,072h,06Fh,062h,065h,00h,00h
-asc_16160C:
+str_STAND:
 db 053h,054h,041h,04Eh,044h,00h,00h,00h
 asc_161614:
 db 046h,04Ch,04Fh,04Fh,052h,00h,00h,00h
-asc_16161C:
+str_STAND2ND:
 db 053h,054h,041h,04Eh,044h,032h,04Eh,044h,00h,00h,00h,00h
-asc_161628:
+str_Rlite0:
 db 072h,06Ch,069h,074h,065h,030h,00h,00h
-asc_161630:
+str_Redlite:
 db 072h,065h,064h,06Ch,069h,074h,065h,00h
-asc_161638:
+str_Glite0:
 db 067h,06Ch,069h,074h,065h,030h,00h,00h
-asc_161640:
+str_Glite1:
 db 067h,06Ch,069h,074h,065h,031h,00h,00h
-asc_161648:
+str_Grnlite:
 db 067h,072h,06Eh,06Ch,069h,074h,065h,00h
-asc_161650:
+str_Lites:
 db 06Ch,069h,074h,065h,073h,00h,00h,00h
-asc_161658:
+str_Penboxz0:
 db 070h,065h,06Eh,062h,06Fh,078h,07Ah,030h,00h,00h,00h,00h
-asc_161664:
+str_Penboxz1:
 db 070h,065h,06Eh,062h,06Fh,078h,07Ah,031h,00h,00h,00h,00h
-asc_161670:
+str_Penboxt0:
 db 070h,065h,06Eh,062h,06Fh,078h,074h,030h,00h,00h,00h,00h
-asc_16167C:
+str_Penboxt1:
 db 070h,065h,06Eh,062h,06Fh,078h,074h,031h,00h,00h,00h,00h
-asc_161688:
+str_Penback:
 db 070h,065h,06Eh,062h,061h,063h,06Bh,00h
-asc_161690:
+str_Penbox0D:
 db 070h,065h,06Eh,062h,06Fh,078h,030h,025h,064h,00h,00h,00h
-asc_16169C:
+str_Penbox1D:
 db 070h,065h,06Eh,062h,06Fh,078h,031h,025h,064h,00h,00h,00h
-asc_1616A8:
+str_DoorZ0:
 db 064h,06Fh,06Fh,072h,05Ah,030h,00h,00h
-asc_1616B0:
+str_DoorZ1:
 db 064h,06Fh,06Fh,072h,05Ah,031h,00h,00h
-asc_1616B8:
+str_Door00:
 db 064h,06Fh,06Fh,072h,030h,030h,00h,00h
-asc_1616C0:
+str_Door01:
 db 064h,06Fh,06Fh,072h,030h,031h,00h,00h
-asc_1616C8:
+str_Door02:
 db 064h,06Fh,06Fh,072h,030h,032h,00h,00h
-asc_1616D0:
+str_Door10:
 db 064h,06Fh,06Fh,072h,031h,030h,00h,00h
-asc_1616D8:
+str_Door11:
 db 064h,06Fh,06Fh,072h,031h,031h,00h,00h
-asc_1616E0:
+str_Door12:
 db 064h,06Fh,06Fh,072h,031h,032h,00h,00h
-asc_1616E8:
+str_Benchz0:
 db 062h,065h,06Eh,063h,068h,07Ah,030h,00h
-asc_1616F0:
+str_Benchz1:
 db 062h,065h,06Eh,063h,068h,07Ah,031h,00h
-asc_1616F8:
+str_Benchdiv:
 db 062h,065h,06Eh,063h,068h,064h,069h,076h,00h,00h,00h,00h
-asc_161704:
+str_Benchbk:
 db 062h,065h,06Eh,063h,068h,062h,06Bh,00h
-asc_16170C:
+str_Benchx:
 db 062h,065h,06Eh,063h,068h,078h,00h,00h
 asc_161714:
 db 062h,06Fh,078h,062h,061h,063h,06Bh,00h
-asc_16171C:
+str_Pbench0D:
 db 070h,062h,065h,06Eh,063h,068h,030h,025h,064h,00h,00h,00h
-asc_161728:
+str_Pbench1D:
 db 070h,062h,065h,06Eh,063h,068h,031h,025h,064h,00h,00h,00h
 asc_161734:
 db 062h,030h,030h,00h
-asc_161738:
+str_Gt007:
 db 067h,074h,030h,030h,037h,00h,00h,00h
-asc_161740:
+str_Gt004:
 db 067h,074h,030h,030h,034h,00h,00h,00h
-asc_161748:
+str_Gt302:
 db 067h,074h,033h,030h,032h,00h,00h,00h
-asc_161750:
+str_R02d:
 db 072h,025h,030h,02Eh,032h,064h,00h,00h
 asc_161758:
 db 078h,025h,064h,00h
@@ -2549,9 +2549,9 @@ unk_161778:
 db 06Ch,030h,00h,00h
 asc_16177C:
 db 066h,061h,063h,065h,06Fh,066h,066h,025h,064h,00h,00h,00h
-asc_161788:
+str_IceLine:
 db 069h,063h,065h,05Fh,06Ch,069h,06Eh,065h,00h,00h,00h,00h
-asc_161794:
+str_ThinRedLines:
 db 074h,068h,069h,06Eh,05Fh,072h,065h,064h,05Fh,06Ch,069h,06Eh,065h,073h,00h,00h
 asc_1617A4:
 db 066h,06Ch,061h,073h,068h,00h,00h,00h
@@ -2677,7 +2677,7 @@ asc_1619B8:
 db 063h,075h,070h,070h,00h,00h,00h,00h
 asc_1619C0:
 db 05Fh,074h,06Fh,072h,073h,06Fh,032h,02Eh,066h,073h,068h,00h
-asc_1619CC:
+str_Back:
 db 062h,061h,063h,06Bh,00h,00h,00h,00h
 asc_1619D4:
 db 066h,072h,06Fh,06Eh,00h,00h,00h,00h
@@ -2693,7 +2693,7 @@ asc_161A14:
 db 05Fh,06Ch,062h,06Ch,06Bh,072h,02Eh,066h,073h,068h,00h,00h
 asc_161A20:
 db 05Fh,072h,074h,072h,061h,070h,032h,02Eh,066h,073h,068h,00h
-asc_161A2C:
+str_Uarm:
 db 075h,061h,072h,06Dh,00h,00h,00h,00h
 asc_161A34:
 db 06Ch,061h,072h,06Dh,00h,00h,00h,00h
@@ -5120,21 +5120,21 @@ unk_164104:
 db 05Fh,031h,030h,037h,05Fh,00h,00h,00h
 unk_16410C:
 db 031h,030h,037h,00h
-asc_164110:
+str_ATZS760S1155:
 db 041h,054h,05Ah,053h,037h,03Dh,036h,030h,053h,031h,031h,03Dh,035h,035h,00h,00h
 asc_164120:
 db 041h,054h,045h,031h,051h,030h,058h,034h,046h,031h,00h,00h
-asc_16412C:
+str_ATH0:
 db 041h,054h,048h,030h,00h,00h,00h,00h
-asc_164134:
+str_ATD:
 db 041h,054h,044h,00h
 unk_164138:
 db 054h,00h,00h,00h
 unk_16413C:
 db 050h,00h,00h,00h
-asc_164140:
+str_ATS01:
 db 041h,054h,053h,030h,03Dh,031h,00h,00h
-asc_164148:
+str_ATA:
 db 041h,054h,041h,0Dh,00h,00h,00h,00h
 unk_164150:
 db 0Dh,00h,00h,00h
@@ -5142,7 +5142,7 @@ asc_164154:
 db 02Bh,02Bh,02Bh,00h
 unk_164158:
 db 041h,054h,00h,00h
-asc_16415C:
+str_ATM0:
 db 041h,054h,04Dh,030h,00h,00h,00h,00h
 asc_164164:
 db 06Ch,06Fh,067h,06Fh,020h,06Eh,061h,06Dh,065h,073h,00h
@@ -5630,9 +5630,9 @@ db 06Dh,06Fh,075h,073h,00h
 asc_1652FE:
 db 044h,041h,054h,041h,05Ch,052h,045h,050h,04Ch,041h,059h,02Eh,04Eh,044h,058h,00h
 db 00h,00h
-asc_165310:
+str_NAMEINDEX:
 db 04Eh,041h,04Dh,045h,049h,04Eh,044h,045h,058h,00h,00h,00h
-unk_16531C:
+str_backslash3:
 db 05Ch,00h,00h,00h
 unk_165320:
 db 072h,062h,00h
@@ -6617,7 +6617,7 @@ asc_166014:
 db 025h,064h,02Eh,025h,030h,031h,064h,00h
 asc_16601C:
 db 030h,02Eh,030h,00h
-asc_166020:
+str_DD:
 db 025h,064h,02Fh,025h,064h,00h,00h,00h
 asc_166028:
 db 062h,06Fh,078h,020h,073h,063h,06Fh,072h,065h,073h,00h,00h
@@ -7062,7 +7062,7 @@ db 03Ch,04Eh,045h,055h,045h,052h,020h,042h,045h,04Eh,055h,054h,05Ah,045h,052h,03
 db 00h
 asc_166668:
 db 025h,064h,02Dh,025h,064h,03Ah,025h,030h,032h,064h,00h
-asc_166673:
+str_D02d2:
 db 025h,064h,03Ah,025h,030h,032h,064h,00h
 asc_16667B:
 db 06Ch,06Fh,063h,061h,06Ch,02Eh,06Eh,064h,078h,00h
@@ -7072,11 +7072,11 @@ asc_16668A:
 db 025h,064h,02Dh,025h,064h,02Dh,025h,064h,00h
 asc_166693:
 db 025h,064h,02Dh,025h,064h,00h
-asc_166699:
+str_Uname:
 db 075h,06Eh,061h,06Dh,065h,00h
-asc_16669F:
+str_Urate:
 db 075h,072h,061h,074h,065h,00h
-asc_1666A5:
+str_Upts:
 db 075h,070h,074h,073h,00h
 asc_1666AA:
 db 075h,067h,066h,00h
@@ -7096,21 +7096,21 @@ asc_1666CF:
 db 075h,072h,061h,074h,069h,06Eh,067h,00h
 asc_1666D7:
 db 075h,073h,06Fh,00h
-asc_1666DB:
+str_Ustreak:
 db 075h,073h,074h,072h,065h,061h,06Bh,00h
-asc_1666E3:
+str_Ulstreak:
 db 075h,06Ch,073h,074h,072h,065h,061h,06Bh,00h
-asc_1666EC:
+str_Uteam:
 db 075h,074h,065h,061h,06Dh,00h
-asc_1666F2:
+str_Uopp:
 db 075h,06Fh,070h,070h,00h
-asc_1666F7:
+str_Usort:
 db 075h,073h,06Fh,072h,074h,00h
 asc_1666FD:
 db 075h,063h,075h,070h,073h,00h
-asc_166703:
+str_Logname:
 db 06Ch,06Fh,067h,06Eh,061h,06Dh,065h,00h
-asc_16670B:
+str_Logbook:
 db 06Ch,06Fh,067h,062h,06Fh,06Fh,06Bh,00h
 asc_166713:
 db 042h,041h,043h,04Bh,00h
@@ -7679,7 +7679,7 @@ db 00h
 asc_166DDA:
 db 043h,04Dh,030h,030h,043h,04Dh,030h,031h,043h,04Dh,030h,032h,043h,04Dh,030h,033h
 db 00h
-asc_166DEB:
+str_TR00:
 db 054h,052h,030h,030h,00h
 asc_166DF0:
 db 054h,052h,030h,031h,00h
@@ -7898,7 +7898,7 @@ asc_16707D:
 db 046h,049h,052h,025h,064h,00h
 asc_167083:
 db 030h,030h,030h,030h,00h
-asc_167088:
+str_TXTD:
 db 054h,058h,054h,025h,064h,00h
 asc_16708E:
 db 044h,04Fh,04Fh,052h,00h
@@ -8041,7 +8041,7 @@ unk_167264:
 db 056h,065h,072h,06Eh,06Fh,06Eh,00h,00h
 unk_16726C:
 db 044h,045h,054h,00h
-unk_167270:
+str_EASports:
 db 045h,041h,020h,053h,070h,06Fh,072h,074h,073h,00h,00h,00h
 unk_16727C:
 db 045h,041h,00h,00h
@@ -8108,15 +8108,15 @@ asc_167398:
 db 073h,063h,072h,032h,00h,00h,00h,00h
 asc_1673A0:
 db 070h,061h,06Ch,00h
-asc_1673A4:
+str_Pl0:
 db 021h,070h,06Ch,030h,00h,00h,00h,00h
-asc_1673AC:
+str_Pl1:
 db 021h,070h,06Ch,031h,00h,00h,00h,00h
-asc_1673B4:
+str_Nhll:
 db 06Eh,068h,06Ch,06Ch,00h,00h,00h,00h
 asc_1673BC:
 db 062h,06Bh,067h,064h,00h,00h,00h,00h
-asc_1673C4:
+str_Nhlp:
 db 06Eh,068h,06Ch,070h,00h,00h,00h,00h
 unk_1673CC:
 db 072h,074h,00h,00h
@@ -8130,9 +8130,9 @@ asc_1673E4:
 db 045h,041h,043h,032h,00h,00h,00h,00h
 asc_1673EC:
 db 051h,043h,052h,044h,00h,00h,00h,00h
-asc_1673F4:
+str_CRD2:
 db 043h,052h,044h,032h,00h,00h,00h,00h
-asc_1673FC:
+str_CRD1:
 db 043h,052h,044h,031h,00h,00h,00h,00h
 asc_167404:
 db 050h,041h,047h,045h,053h,054h,041h,043h,04Bh,00h,00h,00h
@@ -8590,7 +8590,7 @@ asc_1679A9:
 db 054h,04Fh,050h,030h,00h
 asc_1679AE:
 db 054h,04Ch,030h,025h,064h,00h
-asc_1679B4:
+str_TR0D:
 db 054h,052h,030h,025h,064h,00h
 asc_1679BA:
 db 04Dh,049h,044h,031h,00h
@@ -8944,7 +8944,7 @@ asc_167D08:
 db 04Dh,042h,05Fh,052h,041h,04Dh,00h,00h
 asc_167D10:
 db 04Ch,04Fh,057h,020h,025h,02Dh,038h,073h,00h,00h,00h,00h
-asc_167D1C:
+str_HIGHMEM:
 db 048h,049h,047h,048h,020h,025h,02Dh,037h,073h,00h,00h,00h
 asc_167D28:
 db 047h,041h,050h,00h
@@ -9026,7 +9026,7 @@ asc_167E28:
 db 074h,075h,062h,065h,033h,00h,00h,00h
 asc_167E30:
 db 069h,06Eh,076h,065h,072h,073h,065h,074h,062h,06Ch,00h,00h
-asc_167E3C:
+str_Inversetmp:
 db 069h,06Eh,076h,065h,072h,073h,065h,074h,06Dh,070h,00h,00h
 asc_167E48:
 db 043h,044h,052h,04Fh,04Dh,020h,044h,041h,054h,041h,00h,00h
@@ -9034,11 +9034,11 @@ asc_167E54:
 db 043h,044h,052h,04Fh,04Dh,020h,042h,055h,046h,046h,045h,052h,00h,00h,00h,00h
 asc_167E64:
 db 076h,06Fh,078h,020h,070h,06Ch,061h,079h,062h,075h,066h,00h
-asc_167E70:
+str_ASYNC:
 db 041h,053h,059h,04Eh,043h,00h,00h,00h
-asc_167E78:
+str_ASYNCFILE:
 db 041h,053h,059h,04Eh,043h,020h,046h,049h,04Ch,045h,00h,00h
-asc_167E84:
+str_AALIAS:
 db 041h,041h,04Ch,049h,041h,053h,00h,00h
 asc_167E8C:
 db 049h,04Eh,056h,04Dh,041h,054h,052h,058h,00h,00h,00h,00h
@@ -9048,7 +9048,7 @@ qword_167E9D:
 db 09Ah,099h,099h,099h,099h,099h,0B9h,03Fh
 qword_167EA5:
 db 00h,00h,00h,00h,00h,00h,0F4h,03Fh,00h,00h,00h
-asc_167EB0:
+str_ORIINST:
 db 04Fh,052h,049h,05Fh,049h,04Eh,053h,054h,00h,00h,00h,00h
 asc_167EBC:
 db 050h,052h,049h,04Dh,04Ch,049h,053h,054h,00h,00h,00h,00h
@@ -9121,7 +9121,7 @@ asc_168024:
 db 044h,04Dh,041h,020h,042h,055h,046h,046h,045h,052h,00h,00h
 asc_168030:
 db 044h,04Dh,041h,020h,042h,055h,046h,046h,045h,052h,00h,00h
-asc_16803C:
+str_WSSDMA:
 db 057h,053h,053h,044h,04Dh,041h,00h,00h
 asc_168044:
 db 044h,04Dh,041h,020h,042h,055h,046h,046h,045h,052h,00h,00h
@@ -9157,24 +9157,24 @@ asc_1680C8:
 db 057h,061h,076h,065h,050h,06Fh,072h,074h,00h,00h,00h,00h
 unk_1680D4:
 db 03Dh,00h,00h,00h
-asc_1680D8:
+str_BLASTER:
 db 042h,04Ch,041h,053h,054h,045h,052h,00h
 asc_1680E0:
 db 045h,078h,069h,074h,020h,028h,059h,02Fh,04Eh,029h,00h,00h
-asc_1680EC:
+str_PAUSEPRESSANYKEY:
 db 050h,041h,055h,053h,045h,020h,02Dh,020h,050h,052h,045h,053h,053h,020h,041h,04Eh
 db 059h,020h,04Bh,045h,059h,020h,054h,04Fh,020h,052h,045h,053h,055h,04Dh,045h,00h
-asc_16810C:
+str_SaveText:
 db 053h,061h,076h,065h,020h,054h,065h,078h,074h,00h,00h,00h
-asc_168118:
+str_NotEnoughMemoryTo:
 db 04Eh,06Fh,074h,020h,065h,06Eh,06Fh,075h,067h,068h,020h,06Dh,065h,06Dh,06Fh,072h
 db 079h,020h,074h,06Fh,020h,061h,06Ch,06Ch,06Fh,063h,061h,074h,065h,020h,066h,069h
 db 06Ch,065h,020h,073h,074h,072h,075h,063h,074h,075h,072h,065h,073h,0Dh,0Ah,00h
-asc_168148:
+str_FloatingPointSupportNot:
 db 046h,06Ch,06Fh,061h,074h,069h,06Eh,067h,02Dh,070h,06Fh,069h,06Eh,074h,020h,073h
 db 075h,070h,070h,06Fh,072h,074h,020h,06Eh,06Fh,074h,020h,06Ch,06Fh,061h,064h,065h
 db 064h,0Dh,0Ah,00h
-asc_16816C:
+str_RATIONALDOS4G:
 db 052h,041h,054h,049h,04Fh,04Eh,041h,04Ch,020h,044h,04Fh,053h,02Fh,034h,047h,00h
 qword_16817C:
 db 03Ah,08Ch,030h,0E2h,08Eh,079h,045h,03Eh
@@ -9226,7 +9226,7 @@ unk_1681EA:
 db 063h,06Fh,074h,061h,06Eh,00h
 unk_1681F0:
 db 055h,04Ch,054h,052h,041h,053h,04Eh,044h,00h,00h,00h,00h
-asc_1681FC:
+str_RMHandler:
 db 052h,04Dh,048h,061h,06Eh,064h,06Ch,065h,072h,00h,00h,00h
 asc_168208:
 db 055h,06Eh,061h,062h,06Ch,065h,020h,074h,06Fh,020h,061h,06Ch,06Ch,06Fh,063h,061h
@@ -9264,7 +9264,7 @@ db 00h,00h,00h,00h,00h,00h,0F0h,0BFh
 asc_1682F4:
 db 041h,042h,04Eh,04Fh,052h,04Dh,041h,04Ch,020h,054h,045h,052h,04Dh,049h,04Eh,041h
 db 054h,049h,04Fh,04Eh,0Dh,0Ah,00h,00h
-byte_16830C:
+_IsTable:
 db 00h,01h,01h,01h,01h,01h,01h,01h,01h,01h,03h,03h,03h,03h,03h,01h
 db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
 db 01h,0Ah,0Ch,0Ch,0Ch,0Ch,0Ch,0Ch,0Ch,0Ch,0Ch,0Ch,0Ch,0Ch,0Ch,0Ch
@@ -9330,11 +9330,11 @@ byte_1684C8:
 db 00h,00h
 word_1684CA:
 db 00h,00h
-asc_1684CC:
+str_GRIPGLL:
 db 047h,052h,049h,050h,02Eh,047h,04Ch,04Ch,00h
-asc_1684D5:
+str_GRIP:
 db 047h,052h,049h,050h,00h
-asc_1684DA:
+str_CGRIP:
 db 043h,03Ah,05Ch,047h,052h,049h,050h,05Ch,00h,00h
 dword_1684E4:
 db 00h,00h,00h,00h
@@ -9427,23 +9427,23 @@ dword_16875E:
 db 01Dh,00h,00h,00h,01Eh,00h,00h,00h,01Fh,00h,00h,00h,020h,00h,00h,00h
 db 021h,00h,00h,00h
 off_168772:
-dd loc_16BF9
-dd loc_16D61
-dd loc_16D61
+dd sub_16BF9
+dd sub_16D61
+dd sub_16D61
 off_16877E:
-dd loc_17DC0
-dd loc_16ED0
-dd loc_17818
+dd sub_17DC0
+dd sub_16ED0
+dd sub_17818
 db 00h,00h,00h,00h
-dd loc_18958
-dd loc_18B81
-dd loc_1870B
-dd loc_1882A
-dd loc_17158
+dd sub_18958
+dd sub_18B81
+dd sub_1870B
+dd sub_1882A
+dd sub_17158
 dd loc_172C7
-dd loc_17639
-dd loc_1771B
-dd loc_17EB6
+dd sub_17639
+dd sub_1771B
+dd sub_17EB6
 db 00h,00h
 byte_1687B4:
 db 00h,00h,00h,00h
@@ -9639,7 +9639,7 @@ off_168CEC:
 dd unk_19E7B0
 off_168CF0:
 dd unk_19E840
-dd unk_19DA30
+dd SortCords
 dd unk_19E060
 off_168CFC:
 dd unk_19E798
@@ -9650,8 +9650,8 @@ off_168D08:
 dd unk_19E8A0
 off_168D0C:
 dd unk_19E9A8
-dd word_19EAB0
-dd word_19EAB0
+dd hmtmstruct
+dd hmtmstruct
 word_168D18:
 db 02Ch,01h,058h,02h,0B0h,04h,0B0h,04h
 dword_168D20:
@@ -11181,384 +11181,384 @@ off_16BD2C:
 dd sub_62F14
 dd sub_62F14
 dd sub_62F14
-dd loc_64490
+dd sub_64490
 dd sub_628C4
 dd sub_628C4
 dd sub_628C4
-dd loc_63AA4
-dd loc_63AA4
-dd loc_63AA4
-dd loc_63AA4
+dd sub_63AA4
+dd sub_63AA4
+dd sub_63AA4
+dd sub_63AA4
 dd sub_62F14
 dd sub_62F14
-dd loc_63E8C
-dd loc_63E8C
-dd loc_63E8C
-dd loc_63E8C
-dd loc_633E8
-dd loc_649E0
-dd loc_64D54
-dd loc_64AE0
-dd loc_64AE0
-dd loc_64700
-dd loc_64700
-dd loc_64820
-dd loc_64820
-dd loc_648B4
-dd loc_648B4
-dd loc_640D0
-dd loc_640D0
-dd loc_640D0
-dd loc_640D0
-dd loc_648B4
-dd loc_64AE0
-dd loc_64AE0
-dd loc_64490
-dd loc_64490
-dd loc_6A77C
-dd loc_6A77C
-dd loc_6A77C
-dd loc_6A77C
-dd loc_6ABEC
-dd loc_6ABEC
-dd loc_6ABEC
-dd loc_6ABEC
-dd loc_6ABEC
-dd loc_6ABEC
-dd loc_6ABEC
-dd loc_6A77C
-dd loc_6A77C
-dd loc_6B140
-dd loc_6B28C
-dd loc_6A604
-dd loc_63AA4
-dd loc_63AA4
+dd sub_63E8C
+dd sub_63E8C
+dd sub_63E8C
+dd sub_63E8C
+dd sub_633E8
+dd sub_649E0
+dd sub_64D54
+dd sub_64AE0
+dd sub_64AE0
+dd sub_64700
+dd sub_64700
+dd sub_64820
+dd sub_64820
+dd sub_648B4
+dd sub_648B4
+dd sub_640D0
+dd sub_640D0
+dd sub_640D0
+dd sub_640D0
+dd sub_648B4
+dd sub_64AE0
+dd sub_64AE0
+dd sub_64490
+dd sub_64490
+dd sub_6A77C
+dd sub_6A77C
+dd sub_6A77C
+dd sub_6A77C
+dd sub_6ABEC
+dd sub_6ABEC
+dd sub_6ABEC
+dd sub_6ABEC
+dd sub_6ABEC
+dd sub_6ABEC
+dd sub_6ABEC
+dd sub_6A77C
+dd sub_6A77C
+dd sub_6B140
+dd sub_6B28C
+dd sub_6A604
+dd sub_63AA4
+dd sub_63AA4
 dd sub_62F14
-dd loc_633E8
-dd loc_64AE0
-dd loc_64AE0
-dd loc_64490
-dd loc_64490
-dd loc_64490
-dd loc_3A3C8
-dd loc_3A2E8
-dd loc_3A2E8
-dd loc_3A440
-dd loc_3A440
-dd loc_3A440
-dd loc_3A814
-dd loc_3A814
-dd loc_3A814
-dd loc_3A814
-dd loc_3A884
-dd loc_3A884
-dd loc_3A884
-dd loc_3A884
-dd loc_3A884
-dd loc_3A884
-dd loc_3A65C
-dd loc_3A564
-dd loc_3A564
-dd loc_3A564
-dd loc_3A564
-dd loc_3A564
-dd loc_3A440
-dd loc_3A440
-dd loc_3A440
-dd loc_3A440
-dd loc_3A3C8
-dd loc_3A65C
-dd loc_3A65C
-dd loc_3A564
-dd loc_3A564
-dd loc_3A564
-dd loc_3A564
-dd loc_3A75C
-dd loc_3A75C
-dd loc_61540
-dd loc_72050
-dd loc_72050
-dd loc_7291C
-dd loc_7291C
-dd loc_7291C
-dd loc_72170
-dd loc_72050
-dd loc_72050
-dd loc_72050
-dd loc_72170
-dd loc_72170
-dd loc_72170
-dd loc_724C8
-dd loc_724C8
-dd loc_724C8
-dd loc_72324
-dd loc_724C8
-dd loc_72648
-dd loc_72648
-dd loc_72648
-dd loc_72648
-dd loc_72564
-dd loc_72564
-dd loc_72564
-dd loc_72564
-dd loc_72170
-dd loc_72170
-dd loc_72A84
-dd loc_7242C
-dd loc_7242C
-dd loc_72324
-dd loc_7291C
-dd loc_7291C
-dd loc_7291C
-dd loc_72170
-dd loc_72170
-dd loc_72170
-dd loc_72170
-dd loc_3AF30
-dd loc_3AF30
-dd loc_3AF30
-dd loc_3AF30
-dd loc_3AFDC
-dd loc_3AFDC
-dd loc_3AFDC
-dd loc_3AFDC
-dd loc_3AFDC
-dd loc_3AFDC
-dd loc_3AFDC
-dd loc_3AFDC
-dd loc_3AFDC
-dd loc_3AFDC
-dd loc_3AFDC
-dd loc_3AFDC
-dd loc_3AFDC
-dd loc_3AFDC
-dd loc_3B05C
+dd sub_633E8
+dd sub_64AE0
+dd sub_64AE0
+dd sub_64490
+dd sub_64490
+dd sub_64490
+dd sub_3A3C8
+dd sub_3A2E8
+dd sub_3A2E8
+dd sub_3A440
+dd sub_3A440
+dd sub_3A440
+dd sub_3A814
+dd sub_3A814
+dd sub_3A814
+dd sub_3A814
+dd sub_3A884
+dd sub_3A884
+dd sub_3A884
+dd sub_3A884
+dd sub_3A884
+dd sub_3A884
+dd sub_3A65C
+dd sub_3A564
+dd sub_3A564
+dd sub_3A564
+dd sub_3A564
+dd sub_3A564
+dd sub_3A440
+dd sub_3A440
+dd sub_3A440
+dd sub_3A440
+dd sub_3A3C8
+dd sub_3A65C
+dd sub_3A65C
+dd sub_3A564
+dd sub_3A564
+dd sub_3A564
+dd sub_3A564
+dd sub_3A75C
+dd sub_3A75C
+dd sub_61540
+dd sub_72050
+dd sub_72050
+dd sub_7291C
+dd sub_7291C
+dd sub_7291C
+dd sub_72170
+dd sub_72050
+dd sub_72050
+dd sub_72050
+dd sub_72170
+dd sub_72170
+dd sub_72170
+dd sub_724C8
+dd sub_724C8
+dd sub_724C8
+dd sub_72324
+dd sub_724C8
+dd sub_72648
+dd sub_72648
+dd sub_72648
+dd sub_72648
+dd sub_72564
+dd sub_72564
+dd sub_72564
+dd sub_72564
+dd sub_72170
+dd sub_72170
+dd sub_72A84
+dd sub_7242C
+dd sub_7242C
+dd sub_72324
+dd sub_7291C
+dd sub_7291C
+dd sub_7291C
+dd sub_72170
+dd sub_72170
+dd sub_72170
+dd sub_72170
+dd sub_3AF30
+dd sub_3AF30
+dd sub_3AF30
+dd sub_3AF30
+dd sub_3AFDC
+dd sub_3AFDC
+dd sub_3AFDC
+dd sub_3AFDC
+dd sub_3AFDC
+dd sub_3AFDC
+dd sub_3AFDC
+dd sub_3AFDC
+dd sub_3AFDC
+dd sub_3AFDC
+dd sub_3AFDC
+dd sub_3AFDC
+dd sub_3AFDC
+dd sub_3AFDC
+dd sub_3B05C
 dd sub_62F14
-dd loc_6B140
-dd loc_73FBC
-dd loc_73FBC
-dd loc_73FBC
-dd loc_73FBC
-dd loc_73FBC
-dd loc_73FBC
-dd loc_63AA4
-dd loc_63AA4
-dd loc_63AA4
-dd loc_63AA4
-dd loc_739B8
-dd loc_7320C
-dd loc_739B8
-dd loc_739B8
-dd loc_739B8
-dd loc_73464
-dd loc_7370C
-dd loc_73578
-dd loc_73578
-dd loc_73578
-dd loc_7320C
-dd loc_739B8
-dd loc_739B8
-dd loc_739B8
-dd loc_739B8
-dd loc_73A58
-dd loc_73A58
-dd loc_73A58
-dd loc_64490
+dd sub_6B140
+dd sub_73FBC
+dd sub_73FBC
+dd sub_73FBC
+dd sub_73FBC
+dd sub_73FBC
+dd sub_73FBC
+dd sub_63AA4
+dd sub_63AA4
+dd sub_63AA4
+dd sub_63AA4
+dd sub_739B8
+dd sub_7320C
+dd sub_739B8
+dd sub_739B8
+dd sub_739B8
+dd sub_73464
+dd sub_7370C
+dd sub_73578
+dd sub_73578
+dd sub_73578
+dd sub_7320C
+dd sub_739B8
+dd sub_739B8
+dd sub_739B8
+dd sub_739B8
+dd sub_73A58
+dd sub_73A58
+dd sub_73A58
+dd sub_64490
 dd sub_628C4
-dd loc_74708
-dd loc_74708
-dd loc_74708
-dd loc_74708
-dd loc_74708
-dd loc_74708
-dd loc_74708
-dd loc_74708
-dd loc_63E8C
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_747E8
-dd loc_73A60
-dd loc_73A60
-dd loc_73A60
-dd loc_73A60
-dd loc_73A60
-dd loc_73A60
-dd loc_73A60
-dd loc_73A60
-dd loc_73A60
-dd loc_73A60
-dd loc_73A60
-dd loc_73A60
-dd loc_73A60
-dd loc_73A60
-dd loc_73F00
-dd loc_73A60
-dd loc_7370C
-dd loc_7370C
-dd loc_7370C
-dd loc_7370C
-dd loc_7370C
-dd loc_7370C
-dd loc_7370C
-dd loc_7320C
-dd loc_7370C
-dd loc_7370C
-dd loc_7320C
-dd loc_7320C
-dd loc_7320C
-dd loc_7320C
-dd loc_7320C
-dd loc_7320C
-dd loc_73464
-dd loc_73464
-dd loc_6A604
-dd loc_64490
-dd loc_63E8C
-dd loc_6A77C
-dd loc_6A77C
-dd loc_6A77C
-dd loc_6A77C
-dd loc_6A77C
-dd loc_6B28C
-dd loc_747E8
-dd loc_74A20
-dd loc_74B74
-dd loc_73F00
-dd loc_74A20
-dd loc_7320C
+dd sub_74708
+dd sub_74708
+dd sub_74708
+dd sub_74708
+dd sub_74708
+dd sub_74708
+dd sub_74708
+dd sub_74708
+dd sub_63E8C
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_747E8
+dd sub_73A60
+dd sub_73A60
+dd sub_73A60
+dd sub_73A60
+dd sub_73A60
+dd sub_73A60
+dd sub_73A60
+dd sub_73A60
+dd sub_73A60
+dd sub_73A60
+dd sub_73A60
+dd sub_73A60
+dd sub_73A60
+dd sub_73A60
+dd sub_73F00
+dd sub_73A60
+dd sub_7370C
+dd sub_7370C
+dd sub_7370C
+dd sub_7370C
+dd sub_7370C
+dd sub_7370C
+dd sub_7370C
+dd sub_7320C
+dd sub_7370C
+dd sub_7370C
+dd sub_7320C
+dd sub_7320C
+dd sub_7320C
+dd sub_7320C
+dd sub_7320C
+dd sub_7320C
+dd sub_73464
+dd sub_73464
+dd sub_6A604
+dd sub_64490
+dd sub_63E8C
+dd sub_6A77C
+dd sub_6A77C
+dd sub_6A77C
+dd sub_6A77C
+dd sub_6A77C
+dd sub_6B28C
+dd sub_747E8
+dd sub_74A20
+dd sub_74B74
+dd sub_73F00
+dd sub_74A20
+dd sub_7320C
 dd sub_62F14
 dd sub_62F14
 dd sub_62F14
 dd sub_62F14
-dd loc_63AA4
-dd loc_63AA4
-dd loc_63AA4
-dd loc_63AA4
+dd sub_63AA4
+dd sub_63AA4
+dd sub_63AA4
+dd sub_63AA4
 dd sub_628C4
 dd sub_628C4
-dd loc_63AA4
-dd loc_63AA4
-dd loc_63AA4
-dd loc_63AA4
-dd loc_63E8C
-dd loc_63E8C
-dd loc_63E8C
-dd loc_63E8C
-dd loc_64490
-dd loc_64490
-dd loc_64490
-dd loc_64490
-dd loc_64490
-dd loc_64490
-dd loc_640D0
-dd loc_640D0
-dd loc_640D0
-dd loc_640D0
-dd loc_640D0
-dd loc_640D0
-dd loc_640D0
-dd loc_640D0
-dd loc_64700
-dd loc_64700
-dd loc_64700
-dd loc_64700
-dd loc_64820
-dd loc_64820
-dd loc_64820
-dd loc_64820
-dd loc_633E8
-dd loc_633E8
-dd loc_64AE0
-dd loc_64AE0
-dd loc_64AE0
-dd loc_64AE0
-dd loc_64D54
-dd loc_64D54
-dd loc_648B4
-dd loc_648B4
-dd loc_648B4
-dd loc_648B4
-dd loc_648B4
-dd loc_648B4
-dd loc_649E0
-dd loc_649E0
-dd loc_64AE0
-dd loc_64AE0
-dd loc_64AE0
-dd loc_64AE0
-dd loc_72BF8
-dd loc_72D74
-dd loc_72C70
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_72B78
-dd loc_70424
-dd loc_708F4
-dd loc_708B0
-dd loc_70B74
-dd loc_704D4
-dd loc_704D4
-dd loc_708B0
-dd loc_70A58
-dd loc_70B38
-dd loc_70E48
-dd loc_70D60
-dd loc_71108
-dd loc_71108
-dd loc_71298
-dd loc_71298
-dd loc_70B74
-dd loc_70B74
-dd loc_70378
-dd loc_70378
-dd loc_713E0
-dd loc_7147C
-dd loc_71574
-dd loc_716F8
-dd loc_70B74
-dd loc_71380
-dd loc_709D0
-dd loc_70A14
-dd loc_71380
-dd loc_709D0
-dd loc_70B38
-dd loc_708F4
-dd loc_3AA48
-dd loc_3AA48
-dd loc_3A9D0
-dd loc_3A9D0
-dd loc_3A920
-dd loc_3A920
+dd sub_63AA4
+dd sub_63AA4
+dd sub_63AA4
+dd sub_63AA4
+dd sub_63E8C
+dd sub_63E8C
+dd sub_63E8C
+dd sub_63E8C
+dd sub_64490
+dd sub_64490
+dd sub_64490
+dd sub_64490
+dd sub_64490
+dd sub_64490
+dd sub_640D0
+dd sub_640D0
+dd sub_640D0
+dd sub_640D0
+dd sub_640D0
+dd sub_640D0
+dd sub_640D0
+dd sub_640D0
+dd sub_64700
+dd sub_64700
+dd sub_64700
+dd sub_64700
+dd sub_64820
+dd sub_64820
+dd sub_64820
+dd sub_64820
+dd sub_633E8
+dd sub_633E8
+dd sub_64AE0
+dd sub_64AE0
+dd sub_64AE0
+dd sub_64AE0
+dd sub_64D54
+dd sub_64D54
+dd sub_648B4
+dd sub_648B4
+dd sub_648B4
+dd sub_648B4
+dd sub_648B4
+dd sub_648B4
+dd sub_649E0
+dd sub_649E0
+dd sub_64AE0
+dd sub_64AE0
+dd sub_64AE0
+dd sub_64AE0
+dd sub_72BF8
+dd sub_72D74
+dd sub_72C70
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_72B78
+dd sub_70424
+dd sub_708F4
+dd sub_708B0
+dd sub_70B74
+dd sub_704D4
+dd sub_704D4
+dd sub_708B0
+dd sub_70A58
+dd sub_70B38
+dd sub_70E48
+dd sub_70D60
+dd sub_71108
+dd sub_71108
+dd sub_71298
+dd sub_71298
+dd sub_70B74
+dd sub_70B74
+dd sub_70378
+dd sub_70378
+dd sub_713E0
+dd sub_7147C
+dd sub_71574
+dd sub_716F8
+dd sub_70B74
+dd sub_71380
+dd sub_709D0
+dd sub_70A14
+dd sub_71380
+dd sub_709D0
+dd sub_70B38
+dd sub_708F4
+dd sub_3AA48
+dd sub_3AA48
+dd sub_3A9D0
+dd sub_3A9D0
+dd sub_3A920
+dd sub_3A920
 db 029h,00h,00h,00h,02Ah,00h,00h,00h,02Bh,00h,00h,00h
 dword_16C32C:
 db 02Ch,00h,00h,00h,02Eh,00h,00h,00h,02Fh,00h,00h,00h
@@ -12723,7 +12723,7 @@ db 00h,00h,00h,00h
 dword_16E320:
 db 00h,00h,00h,00h
 dword_16E324:
-dd dword_1CF0DC
+dd memlist1
 db 00h,00h,00h,00h
 dword_16E32C:
 db 00h,00h,00h,00h
@@ -12821,8 +12821,8 @@ db 00h
 unk_16E3E8:
 db 01h,00h,00h,00h
 dword_16E3EC:
-dd loc_121A43
-dword_16E3F0:
+dd sub_121A43
+tickcount:
 db 00h,00h,00h,00h
 dword_16E3F4:
 db 00h,00h,00h,00h
@@ -12838,16 +12838,16 @@ dword_16E408:
 db 00h,00h,00h,00h,00h,00h,00h,00h
 dword_16E410:
 db 00h,00h,00h,00h
-byte_16E414:
+__8087:
 db 00h
 byte_16E415:
 db 00h,00h,00h
 word_16E418:
 db 00h,00h
-asc_16E41A:
+str_StackOverflow:
 db 053h,074h,061h,063h,06Bh,020h,04Fh,076h,065h,072h,066h,06Ch,06Fh,077h,021h,0Dh
 db 0Ah,00h
-dword_16E42C:
+tickdeadline:
 db 00h,00h,00h,00h
 dword_16E430:
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -12927,7 +12927,7 @@ dd sub_1013FC
 dd sub_1013FC
 dd sub_1013FC
 dd sub_1013FC
-asc_16E4F8:
+str_Viv:
 db 02Eh,076h,069h,076h,00h,00h,00h,00h
 dword_16E500:
 db 00h,00h,00h
@@ -13082,11 +13082,11 @@ db 00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h
 db 00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h
 off_16E858:
 dd loc_FCDC0
-dd loc_FCE34
-dd loc_FCE48
-dd loc_FCE48
-dd loc_FCE60
-dd loc_FCEA0
+dd sub_FCE34
+dd sub_FCE48
+dd sub_FCE48
+dd sub_FCE60
+dd sub_FCEA0
 dword_16E870:
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 off_16E87C:
@@ -13095,7 +13095,7 @@ dd loc_FDCC4
 dd loc_FDCD4
 dd loc_FDCD4
 dd loc_FDCE8
-dd loc_FDD08
+dd sub_FDD08
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 unk_16E8A0:
 db 046h,04Eh,054h,046h,06Dh,08h,00h,00h,064h,00h,06Fh,00h,00h,00h,00h,00h
@@ -13251,7 +13251,7 @@ db 06Ch,01h,00h,00h,045h,04h,00h,00h,0D0h,0Ch,00h,00h,071h,026h,00h,00h
 db 054h,073h,00h,00h,0FDh,059h,01h,00h,0F8h,0Dh,04h,00h,0E9h,029h,0Ch,00h
 db 0FFh,0FFh,0FFh,07Fh
 dword_16F184:
-dd loc_101229
+dd sub_101229
 dword_16F188:
 db 00h,00h,00h,00h,0C1h,0C0h,00h,00h,081h,0C1h,00h,00h,040h,01h,00h,00h
 db 01h,0C3h,00h,00h,0C0h,03h,00h,00h,080h,02h,00h,00h,041h,0C2h,00h,00h
@@ -13319,11 +13319,11 @@ db 01h,082h,00h,00h,0C0h,042h,00h,00h,080h,043h,00h,00h,041h,083h,00h,00h
 db 00h,041h,00h,00h,0C1h,081h,00h,00h,081h,080h,00h,00h,040h,040h,00h,00h
 off_16F588:
 dd loc_1012C0
-dd loc_1012D0
-dd loc_1012E0
-dd loc_1012E0
-dd loc_1012F0
-dd loc_101310
+dd sub_1012D0
+dd sub_1012E0
+dd sub_1012E0
+dd sub_1012F0
+dd sub_101310
 db 00h,00h,00h,00h,02h,00h,00h,00h,00h,00h,00h,00h
 dword_16F5AC:
 dd unk_167DCC
@@ -13336,46 +13336,46 @@ off_16F5BC:
 dd dword_1DA4D0
 off_16F5C0:
 dd loc_1020A0
-dd loc_1020B4
-dd loc_1260C2
-dd loc_1260C2
-dd loc_1020B4
-dd loc_1020B4
-dd loc_1260C2
-dd loc_1020F0
-dd loc_102148
-dd loc_125EED
-dd loc_125EED
-dd loc_102158
-dd loc_125DBC
-dd loc_125EED
-dd loc_125D61
-dd loc_125D61
-dd loc_1021A0
-dd loc_125D61
-dd loc_125D61
+dd sub_1020B4
+dd sub_1260C2
+dd sub_1260C2
+dd sub_1020B4
+dd sub_1020B4
+dd sub_1260C2
+dd sub_1020F0
+dd sub_102148
+dd sub_125EED
+dd sub_125EED
+dd sub_102158
+dd sub_125DBC
+dd sub_125EED
+dd sub_125D61
+dd sub_125D61
+dd sub_1021A0
+dd sub_125D61
+dd sub_125D61
 dd sub_1021B0
 dd sub_125FE1
-dd loc_102220
-dd loc_102220
-dd loc_125D0C
-dd loc_1022F0
-dd loc_102300
+dd sub_102220
+dd sub_102220
+dd sub_125D0C
+dd sub_1022F0
+dd sub_102300
 dd sub_102368
-dd loc_125D0C
-dd loc_102400
-dd loc_102400
-dd loc_102400
-dd loc_102400
-dd loc_1023E0
-dd loc_102400
-dd loc_102400
+dd sub_125D0C
+dd sub_102400
+dd sub_102400
+dd sub_102400
+dd sub_102400
+dd sub_1023E0
+dd sub_102400
+dd sub_102400
 dd sub_125DDE
 dd sub_125DDE
 dd sub_125E68
 dd sub_125DDE
-dd loc_10244C
-dd loc_102498
+dd sub_10244C
+dd sub_102498
 dd sub_125E68
 dd sub_125FE1
 dd sub_125FE1
@@ -13383,49 +13383,49 @@ dd sub_125FE1
 dd sub_125FE1
 dd sub_125FE1
 dd sub_125FE1
-dd loc_1021A0
+dd sub_1021A0
 off_16F684:
 dd loc_1020A0
-dd loc_1020B4
-dd loc_1260C2
-dd loc_1260C2
-dd loc_1020B4
-dd loc_1020B4
-dd loc_1260C2
-dd loc_1020F0
-dd loc_102148
-dd loc_125EED
-dd loc_125EED
-dd loc_102158
-dd loc_125DBC
-dd loc_125EED
-dd loc_125D61
-dd loc_125D61
-dd loc_1021A0
-dd loc_125D61
-dd loc_125D61
+dd sub_1020B4
+dd sub_1260C2
+dd sub_1260C2
+dd sub_1020B4
+dd sub_1020B4
+dd sub_1260C2
+dd sub_1020F0
+dd sub_102148
+dd sub_125EED
+dd sub_125EED
+dd sub_102158
+dd sub_125DBC
+dd sub_125EED
+dd sub_125D61
+dd sub_125D61
+dd sub_1021A0
+dd sub_125D61
+dd sub_125D61
 dd sub_1021B0
 dd sub_125FE1
-dd loc_102220
-dd loc_102220
-dd loc_125D0C
-dd loc_1022F0
-dd loc_102300
+dd sub_102220
+dd sub_102220
+dd sub_125D0C
+dd sub_1022F0
+dd sub_102300
 dd sub_102368
-dd loc_125D0C
-dd loc_102400
-dd loc_102400
-dd loc_102400
-dd loc_102400
-dd loc_1023E0
-dd loc_102400
-dd loc_102400
+dd sub_125D0C
+dd sub_102400
+dd sub_102400
+dd sub_102400
+dd sub_102400
+dd sub_1023E0
+dd sub_102400
+dd sub_102400
 dd sub_126052
 dd sub_126052
 dd sub_1024AC
 dd sub_126052
-dd loc_10244C
-dd loc_102498
+dd sub_10244C
+dd sub_102498
 dd sub_1024AC
 dd sub_125FE1
 dd sub_125FE1
@@ -13433,7 +13433,7 @@ dd sub_125FE1
 dd sub_125FE1
 dd sub_125FE1
 dd sub_125FE1
-dd loc_1021A0
+dd sub_1021A0
 byte_16F748:
 db 07Ah,07Bh,07Eh,078h,07Bh,07Bh,07Eh,07Ah,07Bh,07Eh,078h,07Fh,07Dh,07Eh,078h,078h
 db 07Eh,078h,078h,07Dh,042h,07Bh,07Bh,07Eh,078h,07Fh,07Dh,07Eh,07Dh,07Dh,07Dh,07Dh
@@ -13520,11 +13520,11 @@ dword_16FA14:
 db 00h,00h,00h,00h,00h,00h,00h,00h
 off_16FA1C:
 dd loc_104770
-dd loc_104780
-dd loc_104790
-dd loc_104790
-dd loc_1047A0
-dd loc_1047BC
+dd bcopy_
+dd sub_104790
+dd sub_104790
+dd sub_1047A0
+dd sub_1047BC
 db 00h,00h,00h,00h,02h,00h,00h,00h,00h,00h,00h
 byte_16FA3F:
 db 00h
@@ -13640,34 +13640,34 @@ db 00h,00h,00h,00h
 off_16FFC8:
 dd sub_1073BC
 off_16FFCC:
-dd loc_1079C4
+dd sub_1079C4
 off_16FFD0:
-dd loc_1079C4
+dd sub_1079C4
 off_16FFD4:
 dd sub_1073BC
-dd loc_128880
-dd loc_1288F8
-dd loc_128948
-dd loc_128878
-dd loc_1289B8
-dd loc_128C70
-dd loc_128CA8
+dd sub_128880
+dd sub_1288F8
+dd sub_128948
+dd sub_128878
+dd sub_1289B8
+dd sub_128C70
+dd sub_128CA8
 dd sub_1289B0
-dd loc_128E08
-dd loc_128F80
-dd loc_129000
+dd sub_128E08
+dd sub_128F80
+dd sub_129000
 dd sub_128E00
-dd loc_1291F8
-dd loc_129428
-dd loc_129460
+dd sub_1291F8
+dd sub_129428
+dd sub_129460
 dd sub_1291F0
-dd loc_129748
-dd loc_1299BC
-dd loc_129A48
+dd sub_129748
+dd sub_1299BC
+dd sub_129A48
 dd sub_129740
-dd loc_129CB8
-dd loc_129F00
-dd loc_129F3C
+dd sub_129CB8
+dd sub_129F00
+dd sub_129F3C
 dd sub_129CB0
 dword_170038:
 db 00h,00h,00h,00h
@@ -13826,25 +13826,25 @@ db 00h,00h,00h,00h
 dword_170274:
 db 00h,00h,00h,00h
 off_170278:
-dd loc_10EA08
-dd loc_10EA08
-dd loc_10EA08
+dd sub_10EA08
+dd sub_10EA08
+dd sub_10EA08
 off_170284:
-dd loc_10EA0C
-dd loc_10EB0C
-dd loc_10EC0C
+dd sub_10EA0C
+dd sub_10EB0C
+dd sub_10EC0C
 off_170290:
-dd loc_10EA08
-dd loc_10EA08
-dd loc_10EA08
+dd sub_10EA08
+dd sub_10EA08
+dd sub_10EA08
 off_17029C:
 dd sub_10ED10
-dd loc_10EDE0
-dd loc_10ED78
+dd sub_10EDE0
+dd sub_10ED78
 off_1702A8:
-dd loc_10ED0C
-dd loc_10ED0C
-dd loc_10ED0C
+dd sub_10ED0C
+dd sub_10ED0C
+dd sub_10ED0C
 dword_1702B4:
 db 01h,00h,00h,00h
 dword_1702B8:
@@ -13924,17 +13924,17 @@ dword_1706CC:
 db 00h,00h,01h,00h
 off_1706D0:
 dd sub_12D784
-dd loc_12E864
-dd loc_12E9D8
-dd loc_12E864
+dd sub_12E864
+dd sub_12E9D8
+dd sub_12E864
 off_1706E0:
 dd loc_115910
 off_1706E4:
-dd loc_11599C
-dd loc_1159B8
-dd loc_1159B8
-dd loc_1159D0
-dd loc_115A10
+dd sub_11599C
+dd sub_1159B8
+dd sub_1159B8
+dd sub_1159D0
+dd sub_115A10
 dword_1706F8:
 db 00h,00h,00h,00h,01h,00h,00h,00h,00h,00h,00h,00h
 dword_170704:
@@ -13944,7 +13944,7 @@ db 020h,00h
 word_17070A:
 db 00h,00h
 dword_17070C:
-dd loc_1167BD
+dd sub_1167BD
 dword_170710:
 db 00h,00h,00h,00h
 dword_170714:
@@ -14086,7 +14086,7 @@ unk_170B26:
 db 02h,00h,00h,03h,0Ch,00h,010h,00h,0F8h,03h
 unk_170B30:
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dd loc_119349
+dd sub_119349
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -14381,11 +14381,11 @@ db 080h,01h,0C0h,00h,060h,00h,040h,00h,03Ah,00h,030h,00h,020h,00h,018h,00h
 db 010h,00h,0Ch,00h,08h,00h,06h,00h,04h,00h,02h,00h,01h,00h,043h,04Fh
 db 04Dh,04Dh,00h,00h,00h,00h
 off_171C7C:
-dd loc_1197C7
+dd __null_int23_exit_
 off_171C80:
-dd loc_1197C7
+dd __null_int23_exit_
 off_171C84:
-dd loc_1197C7
+dd __null_int23_exit_
 dword_171C88:
 db 00h,00h,00h,00h
 dword_171C8C:
@@ -14401,11 +14401,11 @@ db 00h,00h,00h,00h,00h,00h,00h,00h,010h,01h,04h,08h,00h,020h,0Fh,018h
 db 00h,00h,00h,00h,00h,00h,00h,00h,010h,01h,04h,08h,00h,020h,0Fh,018h
 off_171D10:
 dd loc_11A200
-dd loc_11A210
-dd loc_11A220
-dd loc_11A220
-dd loc_11A230
-dd loc_11A250
+dd sub_11A210
+dd sub_11A220
+dd sub_11A220
+dd sub_11A230
+dd sub_11A250
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 byte_171D33:
 db 00h
@@ -14482,24 +14482,24 @@ db 03Fh,03Fh,03Fh,00h
 dword_17213C:
 db 00h,00h,00h,00h
 off_172140:
-dd loc_11C010
-dd loc_11C0A8
-dd loc_11C0BC
-dd loc_11C0C4
-dd loc_11C0D8
-dd loc_11C0EC
-dd loc_11C114
+dd sub_11C010
+dd sub_11C0A8
+dd sub_11C0BC
+dd sub_11C0C4
+dd sub_11C0D8
+dd sub_11C0EC
+dd sub_11C114
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 dword_172168:
 db 00h,00h,00h,00h
 off_17216C:
-dd loc_11C1CC
-dd loc_11C340
-dd loc_11C384
-dd loc_11C3AC
-dd loc_11C3C0
-dd loc_11C3D4
-dd loc_11C3FC
+dd sub_11C1CC
+dd sub_11C340
+dd sub_11C384
+dd sub_11C3AC
+dd sub_11C3C0
+dd sub_11C3D4
+dd sub_11C3FC
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 dword_172194:
 db 00h,00h,00h,00h
@@ -14518,13 +14518,13 @@ db 01h,00h,00h,00h
 dword_1721B4:
 db 00h,00h,00h,00h
 off_1721B8:
-dd loc_11DEE4
-dd loc_11DF4C
-dd loc_11DFB4
-dd loc_11DFD4
-dd loc_11DFF0
-dd loc_11E004
-dd loc_11E11C
+dd sub_11DEE4
+dd sub_11DF4C
+dd sub_11DFB4
+dd sub_11DFD4
+dd sub_11DFF0
+dd sub_11E004
+dd sub_11E11C
 dword_1721D4:
 db 02h,01h,00h,00h,074h,00h,00h,00h,04h,00h,00h,00h
 dword_1721E0:
@@ -14532,25 +14532,25 @@ db 00h,00h,00h,00h
 dword_1721E4:
 dd unk_167FE8
 db 0E0h,0C2h,01Eh,012h,09Eh,049h,0CFh,011h,0ADh,01Ch,00h,020h,0AFh,0D3h,0BDh,03Fh
-dd loc_11EB64
+dd sub_11EB64
 dd sub_11EC18
 dd sub_11EE6C
 dd sub_11EF20
 dd sub_11F154
-dd loc_11F1FC
-dd loc_11F218
-dd loc_11F2B4
-dd loc_11F304
-dd loc_11F3F4
+dd sub_11F1FC
+dd sub_11F218
+dd sub_11F2B4
+dd sub_11F304
+dd sub_11F3F4
 db 00h,00h,00h,00h
 dd sub_11F404
-dd loc_11F42C
+dd sub_11F42C
 dd sub_11F440
-dd loc_11F480
-dd loc_11F494
+dd sub_11F480
+dd sub_11F494
 dd sub_11F4A8
-dd loc_11F5D8
-dd loc_11F794
+dd sub_11F5D8
+dd sub_11F794
 dword_172244:
 db 00h,00h,00h,00h
 dword_172248:
@@ -14652,21 +14652,21 @@ word_172568:
 db 00h,00h
 word_17256A:
 db 00h,00h
-byte_17256C:
+__real87:
 db 00h,00h,00h,00h
-dword_172570:
+_dynend:
 db 00h,00h,00h,00h
-dword_172574:
+_curbrk:
 db 00h,00h,00h,00h
-dword_172578:
+_LpCmdLine:
 db 00h,00h,00h,00h
 dword_17257C:
 db 00h,00h,00h,00h
-word_172580:
+_psp:
 db 00h,00h,00h,00h
-dword_172584:
+_STACKLOW:
 db 00h,00h,00h,00h
-dword_172588:
+_STACKTOP:
 db 00h,00h,00h,00h
 dword_17258C:
 db 00h,00h,00h,00h
@@ -14676,24 +14676,24 @@ dword_172594:
 db 00h,00h,00h,00h,00h,00h,00h,00h
 dword_17259C:
 db 00h,00h,00h,00h
-word_1725A0:
+__no87:
 db 00h,00h
-byte_1725A2:
+_Extender:
 db 00h
-byte_1725A3:
+_ExtenderSubtype:
 db 00h
 byte_1725A4:
 db 00h
-dword_1725A5:
+_Envptr:
 db 00h,00h,00h,00h
-word_1725A9:
+_Envptr_w4:
 db 00h,00h
-byte_1725AB:
+_osmajor:
 db 00h
-byte_1725AC:
+_osminor:
 db 00h
 dword_1725AD:
-dd loc_121DB9
+dd sub_121DB9
 db 00h,00h,00h,040h,081h,049h,081h,067h,081h,094h,081h,090h,081h,093h,081h,095h
 db 081h,066h,081h,069h,081h,06Ah,081h,096h,081h,07Bh,081h,043h,081h,07Ch,081h,044h
 db 081h,05Eh,081h,04Fh,082h,050h,082h,051h,082h,052h,082h,053h,082h,054h,082h,055h
@@ -25027,18 +25027,18 @@ dword_199C38:
 db 00h,00h,00h,00h
 dword_199C3C:
 db 00h,00h,00h,00h
-dword_199C40:
+_environ:
 db 00h,00h,00h,00h
-dword_199C44:
+___env_mask:
 db 00h,00h,00h,00h
 dword_199C48:
 db 01h,00h,00h,00h
 dword_199C4C:
 db 010h,00h,00h,00h
 off_199C50:
-dd loc_132863
+dd sub_132863
 off_199C54:
-dd loc_132863
+dd sub_132863
 unk_199C58:
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -25055,9 +25055,9 @@ db 00h,00h,00h
 word_199CD8:
 db 07Fh,012h,00h,00h
 off_199CDC:
-dd loc_135BCB
+dd sub_135BCB
 off_199CE0:
-dd loc_135BCB
+dd sub_135BCB
 byte_199CE4:
 db 00h,00h,00h,00h
 dword_199CE8:
@@ -25830,7 +25830,7 @@ db 00h,00h,00h,00h
 dword_19C00C:
 db 011h,00h,00h,00h
 dword_19C010:
-dd loc_13B66E
+dd sub_13B66E
 db 00h,00h,00h,00h
 word_19C018:
 db 020h,02h
@@ -25934,7 +25934,7 @@ db 01h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h
 db 02h,00h,00h,00h,02h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h
 db 01h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h
 dword_19C1A4:
-dd sub_13BC17
+dd __terminate_
 word_19C1A8:
 db 00h,00h
 dword_19C1AA:
@@ -26015,60 +26015,60 @@ db 00h,00h
 word_19C3F2:
 db 00h,00h
 off_19C3F4:
-dd loc_209D0
-dd loc_209E0
+dd sub_209D0
+dd sub_209E0
 dd sub_21B20
-dd loc_238E8
-dd loc_23A78
-dd loc_23B88
-dd loc_23C98
-dd loc_23E90
-dd loc_23F44
-dd loc_25F64
-dd loc_265FC
-dd loc_22B8C
-dd loc_22CEC
-dd loc_22E70
-dd loc_244BC
-dd loc_1F7D0
-dd loc_1F5B4
-dd loc_30674
-dd loc_28698
-dd loc_289AC
-dd loc_28A08
-dd loc_27AD8
-dd loc_282B8
-dd loc_275C0
-dd loc_27274
+dd sub_238E8
+dd sub_23A78
+dd sub_23B88
+dd sub_23C98
+dd sub_23E90
+dd sub_23F44
+dd sub_25F64
+dd sub_265FC
+dd sub_22B8C
+dd sub_22CEC
+dd sub_22E70
+dd sub_244BC
+dd sub_1F7D0
+dd sub_1F5B4
+dd sub_30674
+dd sub_28698
+dd sub_289AC
+dd sub_28A08
+dd sub_27AD8
+dd sub_282B8
+dd sub_275C0
+dd sub_27274
 dd sub_27D10
-dd loc_2842C
-dd loc_28110
-dd loc_36AB0
-dd loc_36E34
-dd loc_29F30
+dd sub_2842C
+dd sub_28110
+dd sub_36AB0
+dd sub_36E34
+dd sub_29F30
 db 00h,00h,00h,00h
-dd loc_2A000
-dd loc_2A1C8
+dd sub_2A000
+dd sub_2A1C8
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 db 00h,00h,00h,00h,00h,00h,00h,00h
-dd loc_209D0
-dd loc_29A90
-dd loc_29BFC
-dd loc_29E2C
-dd loc_295CC
-dd loc_293A8
-dd loc_298E8
-dd loc_29064
-dd loc_28D88
+dd sub_209D0
+dd sub_29A90
+dd sub_29BFC
+dd sub_29E2C
+dd sub_295CC
+dd sub_293A8
+dd sub_298E8
+dd sub_29064
+dd sub_28D88
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dd loc_209D0
-dd loc_2D308
-dd loc_2EEE8
-dd loc_2D330
-dd loc_2A3F4
+dd sub_209D0
+dd sub_2D308
+dd puckfaceoff
+dd sub_2D330
+dd sub_2A3F4
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -26117,30 +26117,30 @@ db 0C8h,00h,08Dh,00h,08Dh,00h,0C8h,00h,00h,00h,08Dh,00h,073h,0FFh,00h,00h
 db 038h,0FFh,073h,0FFh,073h,0FFh,038h,0FFh,00h,00h,073h,0FFh,08Dh,00h
 unk_19C648:
 db 00h,020h
-dd loc_121AB5
+dd __setEFGfmt_
 db 00h,01h
-dd loc_FC210
+dd sub_FC210
 db 00h,02h
-dd loc_121D6F
+dd __chk8087_
 db 00h,020h
-dd loc_FC238
+dd sub_FC238
 db 00h,020h
-dd loc_132448
+dd __InitFiles_
 db 00h,020h
-dd loc_12F71D
+dd __checkIsDBCS_
 db 00h,020h
-dd loc_138FCE
+dd __setenvp_
 db 00h,03h
-dd loc_135D41
+dd sub_135D41
 db 00h,0Ah
-dd loc_138B74
+dd init_
 unk_19C67E:
 db 00h,01h
-dd loc_FC215
+dd sub_FC215
 db 00h,020h
-dd loc_1324BF
+dd __full_io_exit_
 db 00h,0Ah
-dd loc_138C68
+dd fini_
 dword_19C690:
 db 00h,00h,00h,00h
 dword_19C694:
@@ -26318,10 +26318,10 @@ db 041h,066h,052h,0ACh,0B8h,085h,0CEh,0C0h,0FEh,03Fh,00h,00h,00h,00h,00h,00h
 db 035h,0C2h,068h,021h,0A2h,0DAh,0Fh,0C9h,0FEh,03Fh,00h,00h,00h,00h,00h,00h
 unk_19CA1C:
 db 00h,00h
-dd loc_136C84
+dd sub_136C84
 db 00h,00h
-dd loc_13A69C
-unk_19CA28:
+dd sub_13A69C
+kaufmfont:
 db 00h,00h,00h,00h,00h,00h,00h
 dword_19CA2F:
 db 00h
@@ -26417,7 +26417,7 @@ word_19CB68:
 db 00h,00h
 dword_19CB6A:
 db 00h,00h
-word_19CB6C:
+regd1:
 db 00h
 dword_19CB6D:
 db 00h,00h,00h
@@ -26573,7 +26573,7 @@ word_19CC04:
 db 0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh
 dword_19CC12:
 db 0FFh,0FFh
-word_19CC14:
+slotteam:
 db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 word_19CC24:
 db 00h,00h
@@ -26911,7 +26911,7 @@ word_19D69E:
 times 2 db 0
 unk_19D6A0:
 times 912 db 0
-unk_19DA30:
+SortCords:
 times 32 db 0
 dword_19DA50:
 times 8 db 0
@@ -26997,7 +26997,7 @@ word_19EA51:
 times 93 db 0
 dword_19EAAE:
 times 2 db 0
-word_19EAB0:
+hmtmstruct:
 times 2 db 0
 word_19EAB2:
 times 2 db 0
@@ -27043,7 +27043,7 @@ dword_19EBB8:
 times 2 db 0
 dword_19EBBA:
 times 2 db 0
-word_19EBBC:
+awtmstruct:
 times 2 db 0
 word_19EBBE:
 times 2 db 0
@@ -32087,7 +32087,7 @@ dword_1CF0C8:
 times 16 db 0
 dword_1CF0D8:
 times 4 db 0
-dword_1CF0DC:
+memlist1:
 times 4 db 0
 dword_1CF0E0:
 times 380 db 0

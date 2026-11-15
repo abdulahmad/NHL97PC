@@ -1,0 +1,884 @@
+kind,addr96,addr95,name95,file95,method,score,evidence
+func,10010,10D66,sub_10D66,front/front_10010.asm,sem,0.875,K:8490; K:101; K:100
+func,102F4,11107,sub_11107,front/front_10010.asm,neighbour,0.6,"between sub_10D66 and sub_1124D, mnemonic similarity 0.60"
+func,10354,1124D,sub_1124D,front/front_10010.asm,sem,1.0,S:GRIP; D:1684D5; S:GRIP.GLL; D:1684CC
+func,11744,4875E,clearteams,engine/hockey/hockey.asm,similar,0.8,mnemonic similarity 0.80 over 60 instructions
+func,11F10,4AF89,SetupTeamForIntermission,engine/hockey/hockey.asm,similar,0.879,mnemonic similarity 0.88 over 32 instructions
+func,1303C,3ABAE,AllInPlace,engine/faceoff/faceoff.asm,similar,0.872,mnemonic similarity 0.87 over 21 instructions
+func,18E35,54024,sub_54024,engine/lines/lines.asm,similar,0.816,mnemonic similarity 0.82 over 24 instructions
+func,265FC,327A2,assnearest,engine/logic/logic.asm,sem,0.451,D:19CB6C; C:1992; D:19DA30; K:320
+func,2DE3C,463AE,ReturnGoalies,engine/collide/collide.asm,similar,0.806,mnemonic similarity 0.81 over 33 instructions
+func,2EEE8,3AEBA,puckfaceoff,engine/faceoff/faceoff.asm,sem,0.656,C:306; D:19CC04; D:19EBBC; D:19EAB0
+func,3434C,46988,restorepl,engine/hockey/hockey.asm,sem,1.0,R:366; R:365
+func,343F8,46593,sub_46593,engine/collide/collide.asm,similar,0.875,mnemonic similarity 0.88 over 15 instructions
+func,34428,4806A,GiveControl,engine/hockey/hockey.asm,similar,0.836,mnemonic similarity 0.84 over 59 instructions
+func,34560,4666C,changeplayer,engine/hockey/hockey.asm,sem,0.669,C:364; D:19CC04; D:19DA30
+func,34980,3987A,SlotToJoy,engine/input/input.asm,similar,0.919,mnemonic similarity 0.92 over 36 instructions
+func,349E4,398DB,ReadJoy1,engine/input/input.asm,sem,1.0,C:371
+func,362E0,3A2F6,CountTeamSlots,engine/input/input.asm,similar,0.824,mnemonic similarity 0.82 over 32 instructions
+func,3E904,1C729,sub_1C729,front/main/main.asm,sem,0.51,S:STREAM; D:160B60; C:2409; K:3E80000
+func,3EF68,1CB54,sub_1CB54,front/main/main.asm,sem,0.867,C:547; C:545; C:2297
+func,3FB34,1D54E,sub_1D54E,front/main/main.asm,callsite,0.9,called at the same place of sub_1D5A9
+func,3FBBC,1D5A9,sub_1D5A9,front/main/main.asm,exact,1.0,19 instructions
+func,47F8C,699D0,sub_699D0,front/front_67000.asm,sem,0.611,C:2539
+func,48950,67636,sub_67636,front/front_67000.asm,similar,0.908,mnemonic similarity 0.91 over 69 instructions
+func,489F4,676D4,sub_676D4,front/front_67000.asm,sem,0.906,C:647
+func,4AB90,1E3E8,sub_1E3E8,front/main/main.asm,sem,0.811,C:2088; R:666
+func,4AF9F,1E779,sub_1E779,front/main/main.asm,sem,1.0,C:2562
+func,4B3F8,6A5EB,sub_6A5EB,front/front_67000.asm,similar,0.891,mnemonic similarity 0.89 over 47 instructions
+func,4E660,22522,sub_22522,front/rink_model/rink_model.asm,sem,0.703,D:1B10E8; C:2291; R:753; K:FFFF8000
+func,4EF68,22A3A,sub_22A3A,front/rink_model/rink_model.asm,similar,0.901,mnemonic similarity 0.90 over 49 instructions
+func,50540,23F6A,sub_23F6A,front/rink_model/rink_model.asm,sem,0.878,C:2293; C:2292; K:258
+func,507E4,241F6,sub_241F6,front/rink_model/rink_model.asm,sem,1.0,C:2619; K:880; K:6E8; K:550
+func,50C90,248B0,sub_248B0,front/rink_model/rink_model.asm,sem,1.0,C:2619
+func,51254,24D8C,sub_24D8C,front/rink_model/rink_model.asm,sem,0.859,C:2619; C:2366; C:2365
+func,516B8,25226,sub_25226,front/rink_model/rink_model.asm,sem,0.612,C:2592; C:2601; C:2291; C:2164
+func,51CB8,2583F,sub_2583F,front/rink_model/rink_model.asm,sem,0.799,S:side%d; D:1614B4; S:gt0%02d; D:1614BC
+func,52494,25EB3,sub_25EB3,front/rink_model/rink_model.asm,sem,0.555,S:_EMPTY.FSH; D:1614E4; S:_HALF.FSH; D:1614F0
+func,5454C,2751C,sub_2751C,front/rink_model/rink_model.asm,sem,1.0,D:1B10E8; C:2117
+func,5475C,2767F,sub_2767F,front/rink_model/rink_model.asm,sem,1.0,C:2570
+func,54794,276B5,sub_276B5,front/rink_model/rink_model.asm,sem,0.685,K:FFFFFC19; D:16E4A8; K:FFFFD8F1; K:3E7
+func,552E0,27F20,sub_27F20,front/rink_model/rink_model.asm,sem,0.713,C:2366; C:2580; D:1B105C; C:2365
+func,7C600,17675,putchar,front/front_1456D.asm,sem,1.0,S:ATZS7=60S11=55; D:164110
+func,7C690,1779C,sub_1779C,front/front_1456D.asm,sem,0.922,S:ATH0; D:16412C; C:1235; C:2088
+func,7C714,1780A,sub_1780A,front/front_1456D.asm,neighbour,0.622,"between sub_1779C and sub_17887, mnemonic similarity 0.62"
+func,7C7A4,17887,sub_17887,front/front_1456D.asm,sem,1.0,"S:ATS0=1; D:164140; S:ATA; D:164148"
+func,7C7E0,178C0,sub_178C0,front/front_1456D.asm,neighbour,0.781,"between sub_17887 and sub_17906, mnemonic similarity 0.78"
+func,7C834,17906,sub_17906,front/front_1456D.asm,sem,1.0,C:2830; C:2513; C:2834
+func,7C988,17A32,sub_17A32,front/front_1456D.asm,similar,0.855,mnemonic similarity 0.85 over 63 instructions
+func,7CA1C,17AC7,sub_17AC7,front/front_1456D.asm,similar,0.846,mnemonic similarity 0.85 over 63 instructions
+func,86300,19384,sub_19384,front/main/main.asm,similar,0.925,mnemonic similarity 0.93 over 34 instructions
+func,86368,193E8,sub_193E8,front/main/main.asm,sem,1.0,C:2409; C:2560; C:2088; C:2087
+func,86424,19491,sub_19491,front/main/main.asm,sem,1.0,C:2871; R:1318; C:2088; C:2560
+func,864C4,19522,sub_19522,front/main/main.asm,similar,0.824,mnemonic similarity 0.82 over 25 instructions
+func,86500,1955B,sub_1955B,front/main/main.asm,neighbour,0.633,"between sub_19522 and sub_19731, mnemonic similarity 0.63"
+func,86644,19659,sub_19659,front/main/main.asm,sem,1.0,S:NAMEINDEX; D:165310; K:2C093; C:2112
+func,86754,19731,sub_19731,front/main/main.asm,sem,0.871,D:16531C; C:2088; C:2560; C:2087
+func,8BF54,64721,sub_64721,front/front_5D993.asm,similar,0.806,mnemonic similarity 0.81 over 32 instructions
+func,B1FE9,2A692,sub_2A692,front/front_2A692.asm,sem,0.557,K:3EA; C:2087; C:2223
+func,B2258,2AB63,sub_2AB63,front/front_2A692.asm,similar,0.927,mnemonic similarity 0.93 over 19 instructions
+func,B2E5B,2AABB,sub_2AABB,front/front_2A692.asm,sem,0.471,S:LOCAL.NDX; S:%08d; C:1315; C:1316
+func,D68AC,63A5B,sub_63A5B,front/front_5D993.asm,similar,0.905,mnemonic similarity 0.90 over 22 instructions
+func,E9370,61A18,randomd0,front/front_5D993.asm,similar,0.971,mnemonic similarity 0.97 over 34 instructions
+func,E93D0,61A78,vtoa,front/front_5D993.asm,exact,1.0,39 instructions
+func,F5601,64103,sub_64103,front/front_5D993.asm,similar,0.921,mnemonic similarity 0.92 over 78 instructions
+func,F9B40,A9BCC,_searchenv_,lib/lib_A8B9B.asm,similar,0.974,mnemonic similarity 0.97 over 95 instructions
+func,F9C34,A9CB3,strcpy_,lib/watcom/watcom_clib_01.asm,exact,1.0,15 instructions
+func,F9C53,A9CD2,strcat_,lib/watcom/watcom_clib_01.asm,similar,1.0,mnemonic similarity 1.00 over 31 instructions
+func,F9C86,A9D09,__open_flags_,lib/watcom/watcom_clib_01.asm,similar,0.939,mnemonic similarity 0.94 over 69 instructions
+func,F9D57,A9DBD,__doopen_,lib/watcom/watcom_clib_01.asm,sem,0.832,C:2846; C:2998; C:2999; C:2996
+func,F9E1B,A9E85,_fsopen_,lib/watcom/watcom_clib_01.asm,callsite,0.9,called at the same place of fopen_
+func,F9E54,A9EA0,fopen_,lib/watcom/watcom_clib_01.asm,exact,1.0,5 instructions
+func,F9E5E,A9EAA,close_file_,lib/watcom/watcom_clib_01.asm,sem,0.805,D:1DA4BC; C:2101; D:1DA4C0; C:2992
+func,F9F08,A9F36,__update_buffer_,lib/watcom/watcom_clib_01.asm,exact,1.0,32 instructions
+func,F9F4A,A9F78,fseek_,lib/watcom/watcom_clib_01.asm,similar,1.0,mnemonic similarity 1.00 over 101 instructions
+func,FA046,AA074,ftell_,lib/watcom/watcom_clib_01.asm,callsite,0.9,called at the same place of __doclose_
+func,FA088,AA0A4,fclose_,lib/watcom/watcom_clib_01.asm,sem,1.0,C:2098; D:1DA4C0
+func,FA0B5,AA0D3,__shutdown_stream_,lib/watcom/watcom_clib_01.asm,exact,1.0,9 instructions
+func,FA0CA,AA0E8,__hex_,lib/watcom/watcom_clib_01.asm,exact,1.0,5 instructions
+func,FA0D6,AA0F4,__MkTmpFile_,lib/watcom/watcom_clib_01.asm,callsite,0.9,called at the same place of __doclose_
+func,FA13B,AA15D,__doclose_,lib/watcom/watcom_clib_01.asm,callsite,0.9,called at the same place of __shutdown_stream_
+func,FA1CB,AA1E6,_nmalloc_,lib/watcom/watcom_clib_01.asm,callsite,0.9,called at the same place of __setenvp_
+func,FA2AE,AA2C9,fread_,lib/watcom/watcom_clib_01.asm,similar,0.984,mnemonic similarity 0.98 over 158 instructions
+func,FA5B8,AB2EC,sub_AB2EC,lib/ea/ea_gfx_01.asm,similar,0.815,mnemonic similarity 0.82 over 59 instructions
+func,FA6A0,AB3B4,sub_AB3B4,lib/ea/ea_gfx_01.asm,similar,0.914,mnemonic similarity 0.91 over 56 instructions
+func,FA734,AB440,sub_AB440,lib/ea/ea_gfx_01.asm,similar,0.844,mnemonic similarity 0.84 over 119 instructions
+func,FA8AC,AB5BC,sub_AB5BC,lib/ea/ea_gfx_01.asm,similar,0.924,mnemonic similarity 0.92 over 58 instructions
+func,FA954,AB660,sub_AB660,lib/ea/ea_gfx_01.asm,similar,0.843,mnemonic similarity 0.84 over 42 instructions
+func,FA9C4,AB6D8,sub_AB6D8,lib/ea/ea_gfx_01.asm,sem,1.0,C:2115; R:3319
+func,FAA64,AB758,sub_AB758,lib/ea/ea_gfx_01.asm,sem,1.0,R:2650; R:1315; R:2421
+func,FABB8,AB87C,sub_AB87C,lib/ea/ea_memman.asm,sem,0.457,C:3030; C:2123; C:2128; C:2125
+func,FAF34,ABF4C,sub_ABF4C,lib/ea/ea_memman.asm,sem,0.537,C:2119; R:2421; R:2459
+func,FAFB0,ABFB4,sub_ABFB4,lib/ea/ea_memman.asm,similar,0.862,mnemonic similarity 0.86 over 93 instructions
+func,FB0BC,AC0C4,sub_AC0C4,lib/ea/ea_memman.asm,sem,0.73,D:16E338; R:3030; D:1CF0DC; R:2119
+func,FB168,AC244,sub_AC244,lib/ea/ea_memman.asm,similar,0.921,mnemonic similarity 0.92 over 43 instructions
+func,FB1DC,AC574,sub_AC574,lib/ea/ea_memman.asm,sem,1.0,D:16E324; C:2123
+func,FB214,AC5AC,sub_AC5AC,lib/ea/ea_memman.asm,similar,0.87,mnemonic similarity 0.87 over 112 instructions
+func,FB338,AC6D4,sub_AC6D4,lib/ea/ea_memman.asm,sem,1.0,D:16E324; C:2125
+func,FB370,AC70C,sub_AC70C,lib/ea/ea_memman.asm,similar,0.892,mnemonic similarity 0.89 over 121 instructions
+func,FB4A4,AC838,sub_AC838,lib/ea/ea_memman.asm,sem,1.0,C:2128
+func,FB4D4,AC868,sub_AC868,lib/ea/ea_memman.asm,sem,1.0,C:2128; R:2128
+func,FB508,AC89C,sub_AC89C,lib/ea/ea_memman.asm,similar,0.899,mnemonic similarity 0.90 over 71 instructions
+func,FB62C,AC9CC,sub_AC9CC,lib/ea/ea_memman.asm,sem,1.0,R:3319; R:3320; R:2872
+func,FB634,AC9D4,sub_AC9D4,lib/ea/ea_memman.asm,exact,1.0,3 instructions
+func,FB8AE,E0051,sub_E0051,lib/input/input_joystick_misc_01.asm,similar,0.946,mnemonic similarity 0.95 over 88 instructions
+func,FB9D8,E0158,sub_E0158,lib/input/input_joystick_misc_01.asm,similar,0.995,mnemonic similarity 0.99 over 197 instructions
+func,FBD60,BF070,__STOSB,lib/watcom/watcom_clib_07.asm,callsite,0.9,called at the same place of memset_
+func,FBD97,BF0A7,__STOSD,lib/watcom/watcom_clib_07.asm,callsite,0.9,called at the same place of __STOSB
+func,FBE03,B03F2,sub_B03F2,lib/watcom/watcom_clib_03.asm,callsite,0.9,called at the same place of rand_
+func,FBE09,B03F8,rand_,lib/watcom/watcom_clib_03.asm,exact,1.0,12 instructions
+func,FBE2D,B041C,srand_,lib/watcom/watcom_clib_03.asm,sem,1.0,C:2147
+func,FBE40,DFF28,sub_DFF28,lib/input/input_joystick_misc_01.asm,exact,1.0,11 instructions
+func,FBE5D,DFF45,sub_DFF45,lib/input/input_joystick_misc_01.asm,sem,1.0,D:16E3EC; R:2155
+func,FBE63,DFF4B,sub_DFF4B,lib/input/input_joystick_misc_01.asm,exact,1.0,9 instructions
+func,FBE78,DFF60,sub_DFF60,lib/input/input_joystick_misc_01.asm,exact,1.0,5 instructions
+func,FBE88,DFF70,WaitKey,lib/input/input_joystick_misc_01.asm,exact,1.0,4 instructions
+func,FBE94,DFF7C,sub_DFF7C,lib/input/input_joystick_misc_01.asm,sem,0.776,D:16E3EC; C:2174; C:2150
+func,FC008,AA664,sub_AA664,lib/ea/ea_timer.asm,similar,0.889,mnemonic similarity 0.89 over 48 instructions
+func,FC078,AA6D0,RestoreTimer,lib/ea/ea_timer.asm,similar,0.904,mnemonic similarity 0.90 over 34 instructions
+func,FC210,BE8AC,sub_BE8AC,lib/watcom/watcom_clib_06.asm,sem,1.0,C:3037
+func,FC21A,BC73C,__CHP,lib/watcom/watcom_clib_06.asm,callsite,0.9,called at the same place of modf_
+func,FC240,D1434,__CHK,lib/watcom/watcom_clib_17.asm,exact,1.0,4 instructions
+func,FC253,D1447,__STK,lib/watcom/watcom_clib_17.asm,exact,1.0,14 instructions
+func,FC280,DFEB4,GetTicks,lib/input/input_joystick_misc_01.asm,sem,0.767,R:2155; R:2830; D:16E3F0
+func,FC286,DFEBA,TicksSince,lib/input/input_joystick_misc_01.asm,sem,0.769,R:2824; R:2830; D:16E3F0
+func,FC290,DFEC6,sub_DFEC6,lib/input/input_joystick_misc_01.asm,sem,1.0,R:536; D:16E3F0
+func,FC2AB,DFEE1,SetTickDeadline,lib/input/input_joystick_misc_01.asm,exact,1.0,4 instructions
+func,FC2BB,DFEF1,WaitTickDeadline,lib/input/input_joystick_misc_01.asm,exact,1.0,4 instructions
+func,FC2C9,DFEFF,TickDeadlinePassed,lib/input/input_joystick_misc_01.asm,sem,1.0,D:16E42C; D:16E3F0
+func,FC2D9,DFF0F,WaitTicks,lib/input/input_joystick_misc_01.asm,sem,0.476,R:1236; D:16E3F0
+func,FC330,B7310,sub_B7310,lib/watcom/watcom_clib_05.asm,sem,0.665,S:.viv; D:16E4F8; K:5DC0
+func,FC590,DF8AC,sub_DF8AC,lib/input/input_mouse.asm,sem,1.0,D:16E448; R:2186
+func,FC5B6,DF8E8,sub_DF8E8,lib/input/input_mouse.asm,similar,0.917,mnemonic similarity 0.92 over 22 instructions
+func,FC65F,DF9B7,MouseReadMotion,lib/input/input_mouse.asm,similar,0.882,mnemonic similarity 0.88 over 57 instructions
+func,FC73E,DFA98,sub_DFA98,lib/input/input_mouse.asm,similar,0.821,mnemonic similarity 0.82 over 50 instructions
+func,FC804,B1004,_dos_getdate_,lib/watcom/watcom_clib_03.asm,exact,1.0,15 instructions
+func,FC88C,ACA3C,sub_ACA3C,lib/ea/ea_fileblock_01.asm,similar,0.971,mnemonic similarity 0.97 over 34 instructions
+func,FCF84,AA988,sub_AA988,lib/ea/ea_gfx_01.asm,similar,0.945,mnemonic similarity 0.95 over 26 instructions
+func,FDDD4,ADC18,sprintf_,lib/watcom/watcom_clib_02.asm,sem,1.0,C:3083; R:769; R:770
+func,100400,B75A0,sub_B75A0,lib/ea/ea_shpi_01.asm,similar,0.981,mnemonic similarity 0.98 over 52 instructions
+func,100674,E14C8,vecdist,lib/input/input_joystick_misc_02.asm,similar,0.943,mnemonic similarity 0.94 over 42 instructions
+func,100700,BA420,sub_BA420,lib/ea/ea_gfx_05.asm,sem,1.0,K:FFFF8000; K:4000; K:2000; K:8000
+func,1007C0,BA4F0,sub_BA4F0,lib/ea/ea_gfx_05.asm,similar,0.949,mnemonic similarity 0.95 over 38 instructions
+func,100830,BA55C,sub_BA55C,lib/ea/ea_gfx_05.asm,similar,0.952,mnemonic similarity 0.95 over 42 instructions
+func,100A68,E0520,sub_E0520,lib/input/input_joystick_misc_01.asm,similar,0.962,mnemonic similarity 0.96 over 50 instructions
+func,101229,E04D0,sub_E04D0,lib/input/input_joystick_misc_01.asm,sem,1.0,C:2839
+func,101430,E04E7,sub_E04E7,lib/input/input_joystick_misc_01.asm,similar,0.894,mnemonic similarity 0.89 over 22 instructions
+func,102BB8,DD760,SetClipWindow,lib/video/video_bios_vga_01.asm,similar,0.844,mnemonic similarity 0.84 over 21 instructions
+func,102CDC,DD8B0,sub_DD8B0,lib/video/video_bios_vga_01.asm,exact,1.0,12 instructions
+func,102CF4,DD8C8,sub_DD8C8,lib/video/video_bios_vga_01.asm,similar,0.954,mnemonic similarity 0.95 over 31 instructions
+func,102D3C,DE3D8,sub_DE3D8,lib/video/vesa_banked_blit_02.asm,exact,1.0,50 instructions
+func,102DC5,DE45F,sub_DE45F,lib/video/vesa_banked_blit_02.asm,sem,1.0,K:4F05; K:4F07
+func,102F40,BF42C,sub_BF42C,lib/watcom/watcom_clib_07.asm,sem,0.899,S:VESA MEM; D:167DDC; K:4F01; C:2893
+func,10376C,C3CC0,sub_C3CC0,lib/ea/ea_shapes_01.asm,exact,1.0,81 instructions
+func,10382C,C3D80,removewindow,lib/ea/ea_shapes_01.asm,similar,0.813,mnemonic similarity 0.81 over 65 instructions
+func,1048BC,DD87C,sub_DD87C,lib/video/video_bios_vga_01.asm,sem,1.0,R:2408; K:3C9; K:3C7
+func,104A2C,B6991,strncpy_,lib/watcom/watcom_clib_05.asm,sem,1.0,R:2853; R:2540; R:2115
+func,104A60,B04D0,sub_B04D0,lib/watcom/watcom_clib_03.asm,similar,0.993,mnemonic similarity 0.99 over 152 instructions
+func,104C78,B06E8,sub_B06E8,lib/watcom/watcom_clib_03.asm,similar,0.991,mnemonic similarity 0.99 over 107 instructions
+func,104DFC,B086C,sub_B086C,lib/watcom/watcom_clib_03.asm,exact,1.0,166 instructions
+func,1050A0,B0B10,sub_B0B10,lib/watcom/watcom_clib_03.asm,callsite,0.9,called at the same place of sub_B086C
+func,105258,B0CCC,sub_B0CCC,lib/watcom/watcom_clib_03.asm,sem,0.971,S:inversetbl; D:167E30; S:inversetmp; D:167E3C
+func,105324,B0F7C,sub_B0F7C,lib/watcom/watcom_clib_03.asm,similar,0.806,mnemonic similarity 0.81 over 43 instructions
+func,105380,B2200,strcmp_,lib/watcom/watcom_clib_04.asm,similar,0.951,mnemonic similarity 0.95 over 75 instructions
+func,105430,B65E0,sub_B65E0,lib/watcom/watcom_clib_05.asm,sem,0.552,C:2418; C:2421; C:2420; C:2523
+func,1055D4,B67BC,sub_B67BC,lib/watcom/watcom_clib_05.asm,sem,1.0,C:2410; R:536; R:544
+func,105644,B6824,sub_B6824,lib/watcom/watcom_clib_05.asm,sem,1.0,C:2526; R:544; R:536
+func,105688,B6864,sub_B6864,lib/watcom/watcom_clib_05.asm,similar,0.944,mnemonic similarity 0.94 over 35 instructions
+func,1056F0,B68C8,sub_B68C8,lib/watcom/watcom_clib_05.asm,sem,1.0,C:2414
+func,105728,B6900,sub_B6900,lib/watcom/watcom_clib_05.asm,similar,0.971,mnemonic similarity 0.97 over 35 instructions
+func,10578C,B6964,sub_B6964,lib/watcom/watcom_clib_05.asm,sem,1.0,C:2416
+func,1057C0,B69C0,sub_B69C0,lib/watcom/watcom_clib_05.asm,sem,1.0,C:3141
+func,1057E8,B69EC,sub_B69EC,lib/watcom/watcom_clib_05.asm,sem,1.0,R:536; R:2410
+func,105808,B6A14,sub_B6A14,lib/watcom/watcom_clib_05.asm,sem,1.0,K:150B; K:ADAD
+func,10585C,B6A68,sub_B6A68,lib/watcom/watcom_clib_05.asm,similar,0.932,mnemonic similarity 0.93 over 43 instructions
+func,105904,B6B10,sub_B6B10,lib/watcom/watcom_clib_05.asm,sem,0.688,K:1501; K:3D02; K:4402; K:3E00
+func,105B08,B6D2C,sub_B6D2C,lib/watcom/watcom_clib_05.asm,similar,0.902,mnemonic similarity 0.90 over 51 instructions
+func,105BDC,B6DFC,sub_B6DFC,lib/watcom/watcom_clib_05.asm,sem,0.523,C:2423; R:2414; C:2893; K:1510
+func,105D5C,B6FA0,sub_B6FA0,lib/watcom/watcom_clib_05.asm,sem,0.457,C:2893; R:2416; K:1510; K:300
+func,105E64,B7094,sub_B7094,lib/watcom/watcom_clib_05.asm,sem,0.621,D:1CFA9C; C:2893; C:2894; K:150F
+func,106EC0,AFB88,unpack,lib/ea/ea_unpack.asm,sem,0.679,C:3143; C:3144; C:3146; R:2562
+func,107000,B7410,sub_B7410,lib/ea/ea_gfx_04.asm,similar,0.912,mnemonic similarity 0.91 over 54 instructions
+func,107A2C,C13B1,sub_C13B1,lib/watcom/watcom_clib_08.asm,sem,1.0,C:3226; K:400; K:300; K:100
+func,107A9C,C1410,sub_C1410,lib/watcom/watcom_clib_08.asm,sem,1.0,C:3162
+func,10911D,B16C9,strstr_,lib/watcom/watcom_clib_03.asm,similar,0.985,mnemonic similarity 0.99 over 102 instructions
+func,1093E8,E0658,sub_E0658,lib/ea/ea_fileio_01.asm,exact,1.0,14 instructions
+func,109401,E0671,sub_E0671,lib/ea/ea_fileio_01.asm,sem,1.0,K:3D00; R:2459; R:2562
+func,109417,E0686,sub_E0686,lib/ea/ea_fileio_01.asm,sem,1.0,R:2563; K:3D00
+func,10942E,E06B2,openhandle,lib/ea/ea_fileio_01.asm,similar,0.908,mnemonic similarity 0.91 over 87 instructions
+func,109545,E07B8,sub_E07B8,lib/ea/ea_fileio_01.asm,sem,1.0,R:2525; R:2459; R:2872; R:666
+func,10955B,E07CC,sub_E07CC,lib/ea/ea_fileio_01.asm,similar,0.964,mnemonic similarity 0.96 over 27 instructions
+func,1095AD,E081C,sub_E081C,lib/ea/ea_fileio_01.asm,sem,1.0,C:2522; K:4200; R:2416; R:2284
+func,1097F0,BF8D0,sub_BF8D0,lib/ea/ea_vesa_init.asm,similar,0.97,mnemonic similarity 0.97 over 49 instructions
+func,109A74,1BA4D,sub_1BA4D,front/main/main.asm,sem,0.892,S:ASYNC FILE; D:167E78; K:FFFF800
+func,109B50,1BB20,sub_1BB20,front/main/main.asm,sem,1.0,C:2413; C:2159; C:2402; C:2117
+func,109C94,1BC7A,sub_1BC7A,front/main/main.asm,similar,0.906,mnemonic similarity 0.91 over 54 instructions
+func,109D70,1BD67,sub_1BD67,front/main/main.asm,similar,0.885,mnemonic similarity 0.88 over 52 instructions
+func,10ADAA,B17E2,strlen_,lib/watcom/watcom_clib_03.asm,exact,1.0,17 instructions
+func,10AE10,B74D0,sub_B74D0,lib/ea/ea_gfx_04.asm,similar,0.887,mnemonic similarity 0.89 over 83 instructions
+func,10AED0,B0430,sub_B0430,lib/watcom/watcom_clib_03.asm,similar,0.913,mnemonic similarity 0.91 over 23 instructions
+func,10AF13,B2C98,printf_,lib/watcom/watcom_clib_05.asm,callsite,0.9,called at the same place of sub_E2436
+func,10AF38,B32E0,DetectCPU,lib/watcom/watcom_clib_05.asm,similar,0.88,mnemonic similarity 0.88 over 48 instructions
+func,10AFCA,B71A6,_dos_close_,lib/watcom/watcom_clib_05.asm,exact,1.0,7 instructions
+func,10AFD9,B71B5,_dos_commit_,lib/watcom/watcom_clib_05.asm,exact,1.0,8 instructions
+func,10AFE9,B71C5,_dos_open_,lib/watcom/watcom_clib_05.asm,sem,1.0,C:3255; R:3617
+func,10B040,BBBD0,sub_BBBD0,lib/ea/ea_gfx_05.asm,exact,1.0,11 instructions
+func,10B074,BBC04,sub_BBC04,lib/ea/ea_gfx_05.asm,exact,1.0,5 instructions
+func,10B0EC,BBC80,sub_BBC80,lib/ea/ea_gfx_05.asm,similar,0.924,mnemonic similarity 0.92 over 58 instructions
+func,10B18C,BBD18,sub_BBD18,lib/ea/ea_gfx_05.asm,similar,0.98,mnemonic similarity 0.98 over 49 instructions
+func,10B20C,BBD98,sub_BBD98,lib/ea/ea_gfx_05.asm,similar,0.926,mnemonic similarity 0.93 over 52 instructions
+func,10B2CC,BBE50,sub_BBE50,lib/ea/ea_gfx_05.asm,similar,0.948,mnemonic similarity 0.95 over 47 instructions
+func,10B348,BBEC8,sub_BBEC8,lib/ea/ea_gfx_05.asm,similar,0.908,mnemonic similarity 0.91 over 125 instructions
+func,10B4E0,BC040,sub_BC040,lib/ea/ea_gfx_05.asm,sem,1.0,C:2579; C:2619
+func,10B59C,BC0C4,sub_BC0C4,lib/ea/ea_gfx_05.asm,similar,0.812,mnemonic similarity 0.81 over 55 instructions
+func,10B660,873AE,sub_873AE,front/front_849D5.asm,sem,1.0,S:AALIAS; D:167E84; K:110000; K:1004
+func,10C1C0,87DD6,sub_87DD6,front/front_849D5.asm,similar,0.803,mnemonic similarity 0.80 over 173 instructions
+func,10C8B0,B9C08,sub_B9C08,lib/ea/ea_shpi_01.asm,similar,0.92,mnemonic similarity 0.92 over 24 instructions
+func,10C8E8,B9C3C,sub_B9C3C,lib/ea/ea_shpi_01.asm,similar,0.92,mnemonic similarity 0.92 over 24 instructions
+func,10C920,B9C70,sub_B9C70,lib/ea/ea_shpi_01.asm,similar,0.855,mnemonic similarity 0.85 over 55 instructions
+func,10CF34,BB9C4,sub_BB9C4,lib/ea/ea_gfx_05.asm,similar,0.916,mnemonic similarity 0.92 over 52 instructions
+func,10CFB4,E1638,sub_E1638,lib/input/input_joystick_misc_02.asm,similar,0.977,mnemonic similarity 0.98 over 21 instructions
+func,10CFF7,E167A,sub_E167A,lib/input/input_joystick_misc_02.asm,similar,0.969,mnemonic similarity 0.97 over 95 instructions
+func,10E690,B78C0,sub_B78C0,lib/ea/ea_shpi_01.asm,exact,1.0,7 instructions
+func,10E6AC,B78DC,sub_B78DC,lib/ea/ea_shpi_01.asm,sem,0.652,D:170218; D:1D205C; R:750; R:2579
+func,10E6E4,B7924,sub_B7924,lib/ea/ea_shpi_01.asm,similar,0.952,mnemonic similarity 0.95 over 61 instructions
+func,10E794,B79C8,sub_B79C8,lib/ea/ea_shpi_01.asm,sem,1.0,D:1D2058; R:2579; R:750
+func,10E7AC,B79E0,sub_B79E0,lib/ea/ea_shpi_01.asm,similar,0.885,mnemonic similarity 0.88 over 57 instructions
+func,10FEE8,BC424,sub_BC424,lib/ea/ea_gfx_05.asm,similar,0.955,mnemonic similarity 0.96 over 76 instructions
+func,1100B4,BC150,sub_BC150,lib/ea/ea_gfx_05.asm,sem,1.0,S:ORI_INST; D:167EB0; C:2576
+func,110680,BA5D0,sub_BA5D0,lib/ea/ea_gfx_05.asm,similar,0.956,mnemonic similarity 0.96 over 553 instructions
+func,112010,BB470,sub_BB470,lib/ea/ea_gfx_05.asm,sem,1.0,R:727; C:2601; R:2575
+func,1120F0,BB570,sub_BB570,lib/ea/ea_gfx_05.asm,similar,0.919,mnemonic similarity 0.92 over 69 instructions
+func,112950,BC610,sub_BC610,lib/ea/ea_gfx_05.asm,similar,0.967,mnemonic similarity 0.97 over 29 instructions
+func,112B84,BD964,sub_BD964,lib/watcom/watcom_clib_06.asm,similar,0.957,mnemonic similarity 0.96 over 35 instructions
+func,11313C,E25E0,sub_E25E0,lib/video/video_bios_vga_03.asm,similar,0.893,mnemonic similarity 0.89 over 53 instructions
+func,1131E4,B17FB,strncmp_,lib/watcom/watcom_clib_03.asm,sem,1.0,R:2121; R:1235; R:3029
+func,115B78,B2C70,sub_B2C70,lib/ea/ea_gfx_03.asm,similar,0.909,mnemonic similarity 0.91 over 15 instructions
+func,116150,B6308,start,lib/watcom/watcom_clib_05.asm,loose,1.0,228 instructions
+func,1163E1,B6599,sub_B6599,lib/watcom/watcom_clib_05.asm,exact,1.0,26 instructions
+func,11673A,DFE28,sub_DFE28,lib/input/input_keyboard_01.asm,similar,1.0,mnemonic similarity 1.00 over 36 instructions
+func,1169F0,C5D00,sub_C5D00,lib/watcom/watcom_clib_13.asm,similar,0.927,mnemonic similarity 0.93 over 19 instructions
+func,116A50,CFEB0,memset_,lib/watcom/watcom_clib_15.asm,callsite,0.9,called at the same place of __setenvp_
+func,118520,C1890,sub_C1890,lib/watcom/watcom_clib_08.asm,similar,0.982,mnemonic similarity 0.98 over 55 instructions
+func,1185B0,C1920,sub_C1920,lib/watcom/watcom_clib_08.asm,similar,0.98,mnemonic similarity 0.98 over 98 instructions
+func,1186C0,C1A2C,sub_C1A2C,lib/watcom/watcom_clib_08.asm,sem,0.93,C:2811; C:2812; C:3308; C:3309
+func,118D54,B103C,sub_B103C,lib/watcom/watcom_clib_03.asm,similar,0.966,mnemonic similarity 0.97 over 84 instructions
+func,118E3F,B1121,sub_B1121,lib/watcom/watcom_clib_03.asm,sem,1.0,C:2816; C:3304; K:200
+func,118F1C,B11F8,sub_B11F8,lib/watcom/watcom_clib_03.asm,similar,0.821,mnemonic similarity 0.82 over 31 instructions
+func,11908E,B12AF,sub_B12AF,lib/watcom/watcom_clib_03.asm,similar,0.813,mnemonic similarity 0.81 over 51 instructions
+func,11910D,B1328,sub_B1328,lib/watcom/watcom_clib_03.asm,similar,0.97,mnemonic similarity 0.97 over 64 instructions
+func,1191F2,B13F1,sub_B13F1,lib/watcom/watcom_clib_03.asm,similar,0.962,mnemonic similarity 0.96 over 38 instructions
+func,119255,B147A,sub_B147A,lib/watcom/watcom_clib_03.asm,similar,0.859,mnemonic similarity 0.86 over 76 instructions
+func,119349,B151E,sub_B151E,lib/watcom/watcom_clib_03.asm,similar,0.871,mnemonic similarity 0.87 over 160 instructions
+func,1194D5,B178B,sub_B178B,lib/watcom/watcom_clib_03.asm,similar,0.854,mnemonic similarity 0.85 over 37 instructions
+func,1197C8,C3994,exit_,lib/watcom/watcom_clib_10.asm,exact,1.0,8 instructions
+func,1197E0,C39AC,_exit_,lib/watcom/watcom_clib_10.asm,callsite,0.9,called at the same place of exit_
+func,119800,B2CE0,sub_B2CE0,lib/watcom/watcom_clib_05.asm,similar,0.912,mnemonic similarity 0.91 over 27 instructions
+func,119C8D,B186C,open_,lib/watcom/watcom_clib_03.asm,exact,1.0,16 instructions
+func,119CB1,B1890,sopen_,lib/watcom/watcom_clib_03.asm,callsite,0.9,called at the same place of open_
+func,119E9A,B1A55,__set_binary_,lib/watcom/watcom_clib_03.asm,similar,1.0,mnemonic similarity 1.00 over 46 instructions
+func,11A13F,C2444,getcwd_,lib/watcom/watcom_clib_08.asm,sem,1.0,C:2102; C:2992; R:2086; R:3141
+func,11A1C8,B72D4,_dos_getdiskfree_,lib/watcom/watcom_clib_05.asm,sem,0.79,C:2994; K:FFFF
+func,11AE10,AD420,sub_AD420,lib/ea/ea_debug_01.asm,similar,0.961,mnemonic similarity 0.96 over 129 instructions
+func,11AFAC,AD5C8,sub_AD5C8,lib/ea/ea_debug_01.asm,similar,0.933,mnemonic similarity 0.93 over 29 instructions
+func,11B0D0,B22B0,sub_B22B0,lib/watcom/watcom_clib_04.asm,sem,1.0,C:2872
+func,11B104,B22E0,sub_B22E0,lib/ea/ea_fileblock_02.asm,sem,1.0,C:2872
+func,11B1A0,B2374,savefileblocka,lib/ea/ea_fileblock_02.asm,similar,0.878,mnemonic similarity 0.88 over 55 instructions
+func,11B20A,D0201,fputc_,lib/watcom/watcom_clib_16.asm,callsite,0.9,called at the same place of file_putc_
+func,11B4D7,B1C13,byteswap_,lib/watcom/watcom_clib_03.asm,exact,1.0,22 instructions
+func,11B4FD,B1C39,med3_,lib/watcom/watcom_clib_03.asm,similar,1.0,mnemonic similarity 1.00 over 44 instructions
+func,11B555,B1C91,qsort_,lib/watcom/watcom_clib_03.asm,similar,0.987,mnemonic similarity 0.99 over 339 instructions
+func,11B98E,B7256,sub_B7256,lib/watcom/watcom_clib_05.asm,callsite,0.9,called at the same place of __doclose_
+func,11BC80,C4AAE,memmove_,lib/watcom/watcom_clib_12.asm,similar,0.926,mnemonic similarity 0.93 over 48 instructions
+func,11BCCD,C2784,memcmp_,lib/watcom/watcom_clib_08.asm,similar,0.85,mnemonic similarity 0.85 over 21 instructions
+func,11BF84,C6011,segread_,lib/watcom/watcom_clib_13.asm,exact,1.0,16 instructions
+func,11BFAC,C6039,int386x_,lib/watcom/watcom_clib_13.asm,sem,1.0,C:3345; R:2423
+func,11FAD6,E0959,sub_E0959,lib/input/input_joystick_misc_02.asm,similar,0.95,mnemonic similarity 0.95 over 19 instructions
+func,11FB11,E0992,sub_E0992,lib/input/input_joystick_misc_02.asm,similar,0.99,mnemonic similarity 0.99 over 189 instructions
+func,11FD1E,E0B9B,sub_E0B9B,lib/input/input_joystick_misc_02.asm,exact,1.0,70 instructions
+func,11FDDC,E0C59,sub_E0C59,lib/input/input_joystick_misc_02.asm,exact,1.0,104 instructions
+func,11FF0E,E0D8B,sub_E0D8B,lib/input/input_joystick_misc_02.asm,similar,0.996,mnemonic similarity 1.00 over 624 instructions
+func,12075C,BF949,abs_,lib/watcom/watcom_clib_08.asm,exact,1.0,4 instructions
+func,120763,C2CB0,sub_C2CB0,lib/watcom/watcom_clib_09.asm,callsite,0.9,called at the same place of __set_errno_
+func,120769,C2CB6,sub_C2CB6,lib/watcom/watcom_clib_09.asm,callsite,0.9,called at the same place of __set_doserrno_
+func,12076F,C2CBC,access_,lib/watcom/watcom_clib_09.asm,exact,1.0,27 instructions
+func,1207AA,C2CF7,getenv_,lib/watcom/watcom_clib_09.asm,similar,0.98,mnemonic similarity 0.98 over 48 instructions
+func,120810,C2D56,__set_errno_,lib/watcom/watcom_clib_09.asm,callsite,0.9,called at the same place of __set_EINVAL_
+func,12081C,C2D62,__set_ERANGE_,lib/watcom/watcom_clib_09.asm,callsite,0.9,called at the same place of strtod_
+func,120823,C2D69,__set_EINVAL_,lib/watcom/watcom_clib_09.asm,exact,1.0,4 instructions
+func,120833,C2D79,__set_doserrno_,lib/watcom/watcom_clib_09.asm,callsite,0.9,called at the same place of __set_errno_dos_
+func,12083F,C2D8C,tolower_,lib/watcom/watcom_clib_09.asm,exact,1.0,6 instructions
+func,12084D,C2D9A,__allocfp_,lib/watcom/watcom_clib_09.asm,similar,0.991,mnemonic similarity 0.99 over 57 instructions
+func,1208F3,C2E42,__freefp_,lib/watcom/watcom_clib_09.asm,exact,1.0,36 instructions
+func,12094A,C2E99,__chktty_,lib/watcom/watcom_clib_09.asm,exact,1.0,22 instructions
+func,12097B,C2ECA,__flush_,lib/watcom/watcom_clib_09.asm,callsite,0.9,called at the same place of __flushall_
+func,120A54,B1ABA,lseek_,lib/watcom/watcom_clib_03.asm,callsite,0.9,called at the same place of tell_
+func,120A97,C2F89,tell_,lib/watcom/watcom_clib_09.asm,exact,1.0,8 instructions
+func,120AB8,C2F9A,sub_C2F9A,lib/watcom/watcom_clib_09.asm,callsite,0.9,called at the same place of __MkTmpFile_
+func,120ABE,C2FA0,__close_,lib/watcom/watcom_clib_09.asm,callsite,0.9,called at the same place of __doclose_
+func,120AF4,C2FD2,__MemAllocator,lib/watcom/watcom_clib_09.asm,loose,1.0,74 instructions
+func,120B9C,C307A,__MemFree,lib/watcom/watcom_clib_09.asm,exact,1.0,119 instructions
+func,120CA7,C3185,__unlink_,lib/watcom/watcom_clib_09.asm,callsite,0.9,called at the same place of __FreeDPMIBlocks_
+func,120CF8,C31C4,__FreeDPMIBlocks_,lib/dos4gw/dos4gw_dpmi_glue_01.asm,callsite,0.9,called at the same place of RationalAlloc_
+func,120D54,C3222,__ReAllocDPMIBlock_,lib/dos4gw/dos4gw_dpmi_glue_01.asm,similar,0.962,mnemonic similarity 0.96 over 93 instructions
+func,120E53,C3325,__LinkUpNewMHeap_,lib/dos4gw/dos4gw_dpmi_glue_01.asm,exact,1.0,39 instructions
+func,120EC7,C3399,__LastFree_,lib/dos4gw/dos4gw_dpmi_glue_01.asm,callsite,0.9,called at the same place of __AdjustAmount_
+func,120F17,C33E7,RationalAlloc_,lib/dos4gw/dos4gw_dpmi_glue_01.asm,callsite,0.9,called at the same place of __CreateNewNHeap_
+func,120FE8,C34BA,__CreateNewNHeap_,lib/dos4gw/dos4gw_dpmi_glue_01.asm,callsite,0.9,called at the same place of __ExpandDGROUP_
+func,121098,C3569,__ExpandDGROUP_,lib/dos4gw/dos4gw_dpmi_glue_01.asm,callsite,0.9,called at the same place of _nmalloc_
+func,1211E4,C36AD,__AdjustAmount_,lib/dos4gw/dos4gw_dpmi_glue_01.asm,callsite,0.9,called at the same place of __ExpandDGROUP_
+func,121261,C3724,sub_C3724,lib/ea/ea_mcga_window.asm,callsite,0.9,called at the same place of _nmalloc_
+func,121264,C3727,__ioalloc_,lib/watcom/watcom_clib_10.asm,callsite,0.9,called at the same place of __fill_buffer_
+func,1212DB,C379E,__qread_,lib/watcom/watcom_clib_10.asm,callsite,0.9,called at the same place of __fill_buffer_
+func,1212FA,C37BD,fgetc_,lib/watcom/watcom_clib_10.asm,exact,1.0,55 instructions
+func,121383,C3846,__filbuf_,lib/watcom/watcom_clib_10.asm,exact,1.0,24 instructions
+func,1213B2,C3875,__fill_buffer_,lib/watcom/watcom_clib_10.asm,callsite,0.9,called at the same place of __filbuf_
+func,1214A0,AA564,sub_AA564,lib/watcom/watcom_clib_01.asm,sem,1.0,R:2121; R:3029; R:2115
+func,1216B0,AC2B4,sub_AC2B4,lib/ea/ea_memman.asm,similar,0.938,mnemonic similarity 0.94 over 63 instructions
+func,12175C,AC360,sub_AC360,lib/ea/ea_memman.asm,similar,0.927,mnemonic similarity 0.93 over 104 instructions
+func,121888,AC470,sub_AC470,lib/ea/ea_memman.asm,exact,1.0,8 instructions
+func,12189C,AC484,sub_AC484,lib/ea/ea_memman.asm,callsite,0.9,called at the same place of sub_AC470
+func,121A43,E1927,sub_E1927,lib/video/video_bios_vga_02.asm,sem,1.0,C:3325; C:2150
+func,121A56,C39C2,_dos_setvect_,lib/dos4gw/dos4gw_dpmi_glue_02.asm,callsite,0.9,called at the same place of __hook387
+func,121A83,C39ED,_dos_getvect_,lib/dos4gw/dos4gw_dpmi_glue_02.asm,sem,1.0,D:1725A2; K:2502
+func,121AB5,CFDF1,__setEFGfmt_,lib/watcom/watcom_clib_15.asm,exact,1.0,9 instructions
+func,121AD0,CA6B0,__sys_init_387_emulator,lib/watcom/watcom_clib_13.asm,exact,1.0,26 instructions
+func,121B00,CA6E0,sub_CA6E0,lib/ea/ea_snap.asm,callsite,0.9,called at the same place of __sys_init_387_emulator
+func,121BCB,CA7AB,sub_CA7AB,lib/ea/ea_snap.asm,exact,1.0,9 instructions
+func,121BE8,CA7C8,sub_CA7C8,lib/ea/ea_snap.asm,exact,1.0,25 instructions
+func,121C35,CA815,sub_CA815,lib/ea/ea_snap.asm,exact,1.0,9 instructions
+func,121C55,CA835,__sys_fini_387_emulator,lib/watcom/watcom_clib_14.asm,exact,1.0,40 instructions
+func,121CCF,CA8AF,sub_CA8AF,lib/watcom/watcom_clib_14.asm,exact,1.0,17 instructions
+func,121D0A,CA8EA,sub_CA8EA,lib/watcom/watcom_clib_14.asm,exact,1.0,10 instructions
+func,121D2B,CA90B,__save_8087_,lib/watcom/watcom_clib_14.asm,exact,1.0,4 instructions
+func,121D30,CA910,__rest_8087_,lib/watcom/watcom_clib_14.asm,exact,1.0,3 instructions
+func,121D34,CA914,__init_8087_,lib/watcom/watcom_clib_14.asm,exact,1.0,14 instructions
+func,121D65,CA945,_fpreset_,lib/watcom/watcom_clib_14.asm,exact,1.0,3 instructions
+func,122094,C626C,sub_C626C,lib/watcom/watcom_clib_13.asm,similar,0.811,mnemonic similarity 0.81 over 50 instructions
+func,12226C,C3C22,vsprintf_,lib/watcom/watcom_clib_11.asm,sem,1.0,C:3083; R:2193
+func,123423,E19FE,sub_E19FE,lib/video/video_bios_vga_03.asm,similar,0.986,mnemonic similarity 0.99 over 700 instructions
+func,123FEA,C40B4,__prtf_,lib/watcom/watcom_clib_12.asm,callsite,0.9,called at the same place of __fprtf_
+func,124389,C4335,getprintspecs_,lib/watcom/watcom_clib_12.asm,callsite,0.9,called at the same place of __prtf_
+func,1244C7,C4468,evalflags_,lib/watcom/watcom_clib_12.asm,callsite,0.9,called at the same place of getprintspecs_
+func,124526,C44C3,far_strlen_,lib/watcom/watcom_clib_12.asm,callsite,0.9,called at the same place of formstring_
+func,12454A,C44E7,far_other_strlen_,lib/watcom/watcom_clib_12.asm,callsite,0.9,called at the same place of formstring_
+func,12456D,C450A,fmt4hex_,lib/watcom/watcom_clib_12.asm,callsite,0.9,called at the same place of formstring_
+func,1245CB,C456B,FixedPoint_Format_,lib/watcom/watcom_clib_12.asm,callsite,0.9,called at the same place of formstring_
+func,1246C0,C4646,float_format_,lib/watcom/watcom_clib_12.asm,callsite,0.9,called at the same place of formstring_
+func,1246C7,C464D,formstring_,lib/watcom/watcom_clib_12.asm,callsite,0.9,called at the same place of __prtf_
+func,125AE0,E2680,sub_E2680,lib/video/video_bios_vga_03.asm,exact,1.0,12 instructions
+func,125B02,E26A2,sub_E26A2,lib/video/video_bios_vga_03.asm,sem,1.0,D:1702CC; R:2603; R:2290
+func,125B3C,C9E70,sub_C9E70,lib/watcom/watcom_clib_13.asm,similar,0.823,mnemonic similarity 0.82 over 79 instructions
+func,125C56,C9F8A,sub_C9F8A,lib/watcom/watcom_clib_13.asm,similar,0.974,mnemonic similarity 0.97 over 20 instructions
+func,125C7B,C3920,_Full_at_exit_rtn_,lib/watcom/watcom_clib_10.asm,similar,0.927,mnemonic similarity 0.93 over 20 instructions
+func,125CB6,C3957,atexit_,lib/watcom/watcom_clib_10.asm,sem,1.0,D:171C7C
+func,126480,E2484,SaveTextMode,lib/video/video_bios_vga_03.asm,similar,0.938,mnemonic similarity 0.94 over 15 instructions
+func,1264C2,E24C4,RestoreTextMode,lib/video/video_bios_vga_03.asm,similar,0.913,mnemonic similarity 0.91 over 68 instructions
+func,1266FC,C5D56,sub_C5D56,lib/watcom/watcom_clib_13.asm,similar,0.902,mnemonic similarity 0.90 over 254 instructions
+func,126A04,C4AFC,sub_C4AFC,lib/watcom/watcom_clib_12.asm,similar,0.954,mnemonic similarity 0.95 over 141 instructions
+func,126B80,ADC50,sub_ADC50,lib/watcom/watcom_clib_02.asm,similar,0.898,mnemonic similarity 0.90 over 1198 instructions
+func,127D70,AEE40,sub_AEE40,lib/ea/ea_unpack.asm,neighbour,0.955,"between sub_ADC50 and sub_AEE84, mnemonic similarity 0.95"
+func,127DB4,AEE84,sub_AEE84,lib/ea/ea_unpack.asm,similar,0.898,mnemonic similarity 0.90 over 152 instructions
+func,128CEC,CE672,sub_CE672,lib/sound/snd_soundblaster.asm,sem,1.0,S:WSSDMA; D:16803C; C:2990; C:3162
+func,128D84,CE709,sub_CE709,lib/sound/snd_soundblaster.asm,similar,0.992,mnemonic similarity 0.99 over 63 instructions
+func,12AB6C,CBEB7,sub_CBEB7,lib/watcom/watcom_clib_14.asm,sem,0.948,D:1996AC; D:1996A4; D:1996EC
+func,12AE02,CC048,sub_CC048,lib/watcom/watcom_clib_14.asm,similar,0.877,mnemonic similarity 0.88 over 85 instructions
+func,12B061,CC200,sub_CC200,lib/watcom/watcom_clib_14.asm,loose,1.0,33 instructions
+func,12B0F2,CC15A,sub_CC15A,lib/watcom/watcom_clib_14.asm,sem,1.0,D:1996EC; R:3209
+func,12B216,CC250,sub_CC250,lib/watcom/watcom_clib_14.asm,similar,0.827,mnemonic similarity 0.83 over 394 instructions
+func,12B611,CC728,sub_CC728,lib/watcom/watcom_clib_14.asm,loose,1.0,36 instructions
+func,12C604,CE06B,sub_CE06B,lib/sound/snd_soundblaster.asm,sem,1.0,C:3581; R:3226
+func,12C64C,CE0A9,ParseBlasterEnv,lib/sound/snd_soundblaster.asm,similar,0.857,mnemonic similarity 0.86 over 106 instructions
+func,12C7A8,CE1F3,sub_CE1F3,lib/sound/snd_soundblaster.asm,sem,1.0,R:3233; K:30D40
+func,12C7DC,CE220,sub_CE220,lib/sound/snd_soundblaster.asm,similar,0.885,mnemonic similarity 0.88 over 25 instructions
+func,12C884,CE2B6,sub_CE2B6,lib/sound/snd_soundblaster.asm,sem,1.0,C:3228; R:3226
+func,12C8BC,CE2E8,sub_CE2E8,lib/sound/snd_soundblaster.asm,sem,1.0,R:2483; C:3229
+func,12CD6C,1DA02,ResetGameVars,front/main/main.asm,similar,0.817,mnemonic similarity 0.82 over 68 instructions
+func,12D24F,C511C,file_putc_,lib/watcom/watcom_clib_13.asm,exact,1.0,8 instructions
+func,12D260,C512D,__fprtf_,lib/watcom/watcom_clib_13.asm,callsite,0.9,called at the same place of printf_
+func,12D2E0,C6052,__doserror_,lib/watcom/watcom_clib_13.asm,callsite,0.9,called at the same place of _dos_close_
+func,12D4B8,BBA41,sub_BBA41,lib/ea/ea_gfx_05.asm,similar,0.929,mnemonic similarity 0.93 over 42 instructions
+func,12D6A0,C9D50,sub_C9D50,lib/watcom/watcom_clib_13.asm,sem,1.0,R:2594; C:2290
+func,12D6C4,E17B8,sub_E17B8,lib/input/input_joystick_misc_02.asm,similar,0.968,mnemonic similarity 0.97 over 45 instructions
+func,12F270,E2824,sub_E2824,lib/video/video_bios_vga_03.asm,similar,0.941,mnemonic similarity 0.94 over 40 instructions
+func,12F9E3,C59F8,__CMain,lib/watcom/watcom_clib_13.asm,callsite,0.9,called at the same place of start
+func,12FA32,C5A48,__InitRtns,lib/watcom/watcom_clib_13.asm,exact,1.0,38 instructions
+func,12FA7D,C5A93,__FiniRtns,lib/watcom/watcom_clib_13.asm,callsite,0.9,called at the same place of sub_B6599
+func,12FB20,C27F8,sub_C27F8,lib/ea/ea_kbd_exit.asm,similar,0.897,mnemonic similarity 0.90 over 197 instructions
+func,12FFD8,C2C7C,sub_C2C7C,lib/ea/ea_kbd_exit.asm,exact,1.0,18 instructions
+func,12FFF0,C2C94,sub_C2C94,lib/ea/ea_kbd_exit.asm,similar,0.952,mnemonic similarity 0.95 over 21 instructions
+func,13005A,E2436,sub_E2436,lib/video/video_bios_vga_03.asm,exact,1.0,14 instructions
+func,1300A8,CF7C0,sub_CF7C0,lib/sound/snd_soundblaster.asm,similar,0.977,mnemonic similarity 0.98 over 65 instructions
+func,13014C,CF864,sub_CF864,lib/sound/snd_soundblaster.asm,similar,0.964,mnemonic similarity 0.96 over 68 instructions
+func,1301FF,C51B2,_nexpand_,lib/watcom/watcom_clib_13.asm,sem,1.0,C:3311; D:16E318; R:2841
+func,130237,C51EA,__HeapManager_expand_,lib/watcom/watcom_clib_13.asm,similar,0.989,mnemonic similarity 0.99 over 173 instructions
+func,130438,C4EA1,isatty_,lib/watcom/watcom_clib_13.asm,callsite,0.9,called at the same place of __chktty_
+func,13045F,C4EBF,_dosret0_,lib/watcom/watcom_clib_13.asm,callsite,0.9,called at the same place of access_
+func,13046A,C4ECB,__set_errno_dos_,lib/watcom/watcom_clib_13.asm,callsite,0.9,called at the same place of sopen_
+func,1304DB,C4F31,__IOMode_,lib/watcom/watcom_clib_13.asm,exact,1.0,35 instructions
+func,130530,C4F86,__SetIOMode_,lib/watcom/watcom_clib_13.asm,callsite,0.9,called at the same place of sopen_
+func,130550,D06B0,sub_D06B0,lib/watcom/watcom_clib_17.asm,similar,0.969,mnemonic similarity 0.97 over 32 instructions
+func,13059C,D06FC,sub_D06FC,lib/watcom/watcom_clib_17.asm,similar,0.971,mnemonic similarity 0.97 over 52 instructions
+func,13061C,D077C,sub_D077C,lib/watcom/watcom_clib_17.asm,similar,0.933,mnemonic similarity 0.93 over 54 instructions
+func,1307BC,E22DC,sub_E22DC,lib/video/video_bios_vga_03.asm,similar,1.0,mnemonic similarity 1.00 over 31 instructions
+func,13086E,CFFA3,__qwrite_,lib/watcom/watcom_clib_15.asm,callsite,0.9,called at the same place of __flush_
+func,1308E2,C6065,unlink_,lib/watcom/watcom_clib_13.asm,callsite,0.9,called at the same place of sub_B7256
+func,132020,D1474,__int386x_,lib/watcom/watcom_clib_17.asm,exact,1.0,28 instructions
+func,132058,D14AC,sub_D14AC,lib/watcom/watcom_clib_17.asm,exact,1.0,13 instructions
+func,13207D,D14D1,_DoINTR_,lib/dos4gw/dos4gw_dpmi_glue_04.asm,exact,1.0,34 instructions
+func,132448,CFEC8,__InitFiles_,lib/watcom/watcom_clib_15.asm,similar,1.0,mnemonic similarity 1.00 over 37 instructions
+func,1324BF,CFF40,__full_io_exit_,lib/watcom/watcom_clib_15.asm,sem,1.0,C:3352
+func,1324D0,CFF51,docloseall_,lib/watcom/watcom_clib_15.asm,similar,0.973,mnemonic similarity 0.97 over 36 instructions
+func,13252D,D01B5,__flushall_,lib/watcom/watcom_clib_16.asm,exact,1.0,22 instructions
+func,13255C,D002F,sbrk_,lib/dos4gw/dos4gw_dpmi_glue_03.asm,similar,0.873,mnemonic similarity 0.87 over 68 instructions
+func,132624,D00EE,__brk_,lib/dos4gw/dos4gw_dpmi_glue_03.asm,callsite,0.9,called at the same place of __ExpandDGROUP_
+func,1326EF,D01E4,getche_,lib/watcom/watcom_clib_16.asm,exact,1.0,11 instructions
+func,13270C,D7AD5,_EFG_Format_,lib/video/vesa_banked_blit_01.asm,similar,0.939,mnemonic similarity 0.94 over 79 instructions
+func,1327F6,D7BB2,forcedecpt_,lib/watcom/watcom_clib_18.asm,similar,0.8,mnemonic similarity 0.80 over 37 instructions
+func,132855,D7BFA,__cnvs2d_,lib/watcom/watcom_clib_18.asm,exact,1.0,7 instructions
+func,132C84,D284C,sub_D284C,lib/watcom/watcom_emu387.asm,similar,0.811,mnemonic similarity 0.81 over 157 instructions
+func,13439A,D3F62,sub_D3F62,lib/watcom/watcom_emu387.asm,exact,1.0,6 instructions
+func,1343A8,D3F70,sub_D3F70,lib/watcom/watcom_emu387.asm,sem,1.0,C:3489
+func,1343D2,D3F9A,sub_D3F9A,lib/watcom/watcom_emu387.asm,exact,1.0,18 instructions
+func,134402,D3FCA,sub_D3FCA,lib/watcom/watcom_emu387.asm,exact,1.0,149 instructions
+func,13456E,D4136,sub_D4136,lib/watcom/watcom_emu387.asm,exact,1.0,61 instructions
+func,134607,D41CF,sub_D41CF,lib/watcom/watcom_emu387.asm,callsite,0.9,called at the same place of sub_D49EC
+func,134631,D41F9,sub_D41F9,lib/watcom/watcom_emu387.asm,exact,1.0,177 instructions
+func,1347DC,D43A4,sub_D43A4,lib/watcom/watcom_emu387.asm,callsite,0.9,called at the same place of sub_D4DED
+func,134806,D43CE,sub_D43CE,lib/watcom/watcom_emu387.asm,callsite,0.9,called at the same place of sub_D4AA2
+func,134957,D451F,sub_D451F,lib/watcom/watcom_emu387.asm,exact,1.0,3 instructions
+func,13495C,D4524,sub_D4524,lib/watcom/watcom_emu387.asm,exact,1.0,49 instructions
+func,1349C6,D458E,sub_D458E,lib/watcom/watcom_emu387.asm,exact,1.0,8 instructions
+func,1349D7,D459F,sub_D459F,lib/watcom/watcom_emu387.asm,exact,1.0,25 instructions
+func,134A0C,D45D4,sub_D45D4,lib/watcom/watcom_emu387.asm,exact,1.0,48 instructions
+func,134A8C,D4654,sub_D4654,lib/watcom/watcom_emu387.asm,exact,1.0,48 instructions
+func,134B0B,D46D3,sub_D46D3,lib/watcom/watcom_emu387.asm,exact,1.0,74 instructions
+func,134C97,D485F,sub_D485F,lib/watcom/watcom_emu387.asm,similar,0.857,mnemonic similarity 0.86 over 139 instructions
+func,134E24,D49EC,sub_D49EC,lib/watcom/watcom_emu387.asm,exact,1.0,53 instructions
+func,134EDA,D4AA2,sub_D4AA2,lib/watcom/watcom_emu387.asm,exact,1.0,116 instructions
+func,13503D,D4C05,sub_D4C05,lib/watcom/watcom_emu387.asm,exact,1.0,46 instructions
+func,1350A3,D4C6B,sub_D4C6B,lib/watcom/watcom_emu387.asm,exact,1.0,54 instructions
+func,13520C,D4DD4,sub_D4DD4,lib/watcom/watcom_emu387.asm,exact,1.0,11 instructions
+func,135225,D4DED,sub_D4DED,lib/watcom/watcom_emu387.asm,exact,1.0,29 instructions
+func,135268,D4E30,sub_D4E30,lib/watcom/watcom_emu387.asm,callsite,0.9,called at the same place of sub_D4DED
+func,135500,D50C8,sub_D50C8,lib/watcom/watcom_emu387.asm,callsite,0.9,called at the same place of sub_D52BF
+func,1356F7,D52BF,sub_D52BF,lib/watcom/watcom_emu387.asm,exact,1.0,5 instructions
+func,135701,D52C9,sub_D52C9,lib/watcom/watcom_emu387.asm,exact,1.0,5 instructions
+func,135744,D530C,sub_D530C,lib/watcom/watcom_emu387.asm,exact,1.0,163 instructions
+func,135918,D54E0,sub_D54E0,lib/watcom/watcom_emu387.asm,exact,1.0,102 instructions
+func,135A04,D55CC,sub_D55CC,lib/watcom/watcom_emu387.asm,exact,1.0,32 instructions
+func,135A56,D561E,sub_D561E,lib/watcom/watcom_emu387.asm,exact,1.0,30 instructions
+func,135A9E,D5666,__hook387,lib/watcom/watcom_emu387.asm,callsite,0.9,called at the same place of sub_CA6E0
+func,135B72,D5730,__unhook387,lib/watcom/watcom_emu387.asm,callsite,0.9,called at the same place of __sys_fini_387_emulator
+func,135C52,C271E,utoa_,lib/watcom/watcom_clib_08.asm,exact,1.0,35 instructions
+func,135C9C,C2768,itoa_,lib/watcom/watcom_clib_08.asm,loose,1.0,14 instructions
+func,135CDC,D02DF,ultoa_,lib/watcom/watcom_clib_16.asm,callsite,0.9,called at the same place of ltoa_
+func,135D26,D0328,ltoa_,lib/watcom/watcom_clib_16.asm,exact,1.0,13 instructions
+func,136100,D6120,sub_D6120,lib/sound/snd_gus_sdk_01.asm,similar,0.95,mnemonic similarity 0.95 over 83 instructions
+func,136210,D6230,sub_D6230,lib/sound/snd_gus_sdk_01.asm,exact,1.0,35 instructions
+func,136270,D6290,sub_D6290,lib/sound/snd_gus_sdk_01.asm,similar,0.983,mnemonic similarity 0.98 over 60 instructions
+func,136350,D6370,sub_D6370,lib/sound/snd_gus_sdk_01.asm,sem,1.0,C:3621; R:3543
+func,136370,D6390,sub_D6390,lib/sound/snd_gus_sdk_01.asm,sem,1.0,C:3620; R:3540
+func,1363A0,D63C0,sub_D63C0,lib/sound/snd_gus_sdk_01.asm,similar,0.983,mnemonic similarity 0.98 over 59 instructions
+func,136450,D6470,sub_D6470,lib/sound/snd_gus_sdk_01.asm,similar,0.991,mnemonic similarity 0.99 over 108 instructions
+func,1365EC,D660C,sub_D660C,lib/sound/snd_gus_sdk_01.asm,similar,0.989,mnemonic similarity 0.99 over 88 instructions
+func,1366D8,D66F8,sub_D66F8,lib/sound/snd_gus_sdk_01.asm,similar,0.969,mnemonic similarity 0.97 over 32 instructions
+func,13673C,D675C,sub_D675C,lib/sound/snd_gus_sdk_01.asm,similar,0.991,mnemonic similarity 0.99 over 117 instructions
+func,1368D0,D68F0,sub_D68F0,lib/sound/snd_gus_sdk_01.asm,similar,0.993,mnemonic similarity 0.99 over 208 instructions
+func,136C10,D6C30,sub_D6C30,lib/sound/snd_gus_sdk_01.asm,similar,0.967,mnemonic similarity 0.97 over 30 instructions
+func,136D2C,D6D4C,sub_D6D4C,lib/sound/snd_gus_sdk_01.asm,similar,0.993,mnemonic similarity 0.99 over 284 instructions
+func,13701C,D703C,sub_D703C,lib/sound/snd_gus_sdk_01.asm,sem,1.0,C:3556
+func,137022,D7042,sub_D7042,lib/sound/snd_gus_sdk_01.asm,exact,1.0,3 instructions
+func,1371FB,D721B,sub_D721B,lib/sound/snd_gus_sdk_01.asm,exact,1.0,13 instructions
+func,137247,D7267,sub_D7267,lib/sound/snd_gus_sdk_01.asm,exact,1.0,482 instructions
+func,13786C,D788C,sub_D788C,lib/sound/snd_gus_sdk_01.asm,sem,0.983,D:19A780; D:19A778; D:19C028; D:19A784
+func,13794C,D5B7C,sub_D5B7C,lib/sound/snd_hw_sb.asm,exact,1.0,12 instructions
+func,137966,D5B96,sub_D5B96,lib/sound/snd_hw_sb.asm,exact,1.0,7 instructions
+func,137981,D5BB1,sub_D5BB1,lib/sound/snd_hw_sb.asm,exact,1.0,12 instructions
+func,13799D,D5BCD,sub_D5BCD,lib/sound/snd_hw_sb.asm,exact,1.0,15 instructions
+func,1379BE,D5BEE,sub_D5BEE,lib/sound/snd_hw_sb.asm,exact,1.0,14 instructions
+func,1379DD,D5C0D,sub_D5C0D,lib/sound/snd_hw_sb.asm,exact,1.0,20 instructions
+func,1379FF,D5C2F,sub_D5C2F,lib/sound/snd_hw_sb.asm,exact,1.0,19 instructions
+func,137A2E,D5C5E,sub_D5C5E,lib/sound/snd_hw_sb.asm,exact,1.0,15 instructions
+func,137A4F,D5C7F,sub_D5C7F,lib/sound/snd_hw_sb.asm,exact,1.0,9 instructions
+func,137A72,D5CA2,sub_D5CA2,lib/sound/snd_hw_sb.asm,exact,1.0,111 instructions
+func,137BEE,D5E1E,sub_D5E1E,lib/sound/snd_hw_sb.asm,exact,1.0,23 instructions
+func,137C20,D5E50,sub_D5E50,lib/sound/snd_hw_sb.asm,similar,0.851,mnemonic similarity 0.85 over 22 instructions
+func,137D50,D5F5A,sub_D5F5A,lib/sound/snd_hw_sb.asm,similar,0.971,mnemonic similarity 0.97 over 17 instructions
+func,137D90,D5F95,sub_D5F95,lib/sound/snd_hw_sb.asm,similar,0.981,mnemonic similarity 0.98 over 26 instructions
+func,137DD0,D5FD4,sub_D5FD4,lib/sound/snd_hw_sb.asm,similar,0.978,mnemonic similarity 0.98 over 22 instructions
+func,137E04,D6005,sub_D6005,lib/sound/snd_hw_sb.asm,sem,1.0,C:3034; C:3035
+func,137E28,D6027,sub_D6027,lib/sound/snd_hw_sb.asm,sem,1.0,S:RMHandler; D:1681FC; K:201; K:200
+func,13800A,D59DB,sub_D59DB,lib/sound/snd_hw_sb.asm,similar,0.889,mnemonic similarity 0.89 over 120 instructions
+func,138177,D5B1E,sub_D5B1E,lib/sound/snd_hw_sb.asm,exact,1.0,3 instructions
+func,138C90,D0692,sub_D0692,lib/sound/snd_pcspeaker.asm,exact,1.0,3 instructions
+func,138F20,DF55C,sub_DF55C,lib/video/vesa_banked_blit_02.asm,exact,1.0,24 instructions
+func,138F5A,DF596,sub_DF596,lib/video/vesa_banked_blit_02.asm,similar,0.974,mnemonic similarity 0.97 over 20 instructions
+func,138FCE,D7C08,__setenvp_,lib/watcom/watcom_clib_18.asm,exact,1.0,81 instructions
+func,1390A8,DB9FA,DoEFormat_,lib/watcom/watcom_clib_20.asm,similar,0.979,mnemonic similarity 0.98 over 71 instructions
+func,13914B,DBAA1,DoFFormat_,lib/watcom/watcom_clib_20.asm,exact,1.0,56 instructions
+func,1391AE,DBB04,AdjField_,lib/watcom/watcom_clib_20.asm,similar,0.97,mnemonic similarity 0.97 over 49 instructions
+func,13921F,DBB6F,_FtoS_,lib/watcom/watcom_clib_20.asm,similar,0.871,mnemonic similarity 0.87 over 217 instructions
+func,139459,DBD93,strtod_,lib/watcom/watcom_clib_20.asm,callsite,0.9,called at the same place of __cnvs2d_
+func,1396C9,DA5AF,outp_,lib/watcom/watcom_clib_19.asm,callsite,0.9,called at the same place of sub_D6230
+func,1396D3,DA5BD,inp_,lib/watcom/watcom_clib_19.asm,callsite,0.9,called at the same place of sub_D6230
+func,1396E0,DA5D0,sub_DA5D0,lib/sound/snd_gus_sdk_02.asm,similar,0.978,mnemonic similarity 0.98 over 46 instructions
+func,13976C,DA65C,sub_DA65C,lib/sound/snd_gus_sdk_02.asm,exact,1.0,101 instructions
+func,13988C,DA77C,sub_DA77C,lib/sound/snd_gus_sdk_02.asm,similar,0.984,mnemonic similarity 0.98 over 124 instructions
+func,1399B4,DA8A4,sub_DA8A4,lib/sound/snd_gus_sdk_02.asm,sem,1.0,C:3034; R:3621; R:3620
+func,1399C0,DA8B0,sub_DA8B0,lib/sound/snd_gus_sdk_02.asm,sem,1.0,C:3035; R:3620
+func,1399CC,DA8BC,sub_DA8BC,lib/sound/snd_gus_sdk_02.asm,similar,0.981,mnemonic similarity 0.98 over 52 instructions
+func,139A6C,DA95C,sub_DA95C,lib/sound/snd_gus_sdk_02.asm,similar,0.977,mnemonic similarity 0.98 over 43 instructions
+func,139C21,DAB11,sub_DAB11,lib/sound/snd_gus_sdk_02.asm,exact,1.0,9 instructions
+func,139C35,DAB25,sub_DAB25,lib/sound/snd_gus_sdk_02.asm,similar,0.946,mnemonic similarity 0.95 over 38 instructions
+func,139C80,DAB70,sub_DAB70,lib/sound/snd_gus_sdk_02.asm,exact,1.0,3 instructions
+func,139C93,DAB83,sub_DAB83,lib/sound/snd_gus_sdk_02.asm,exact,1.0,13 instructions
+func,139CBA,DABAA,sub_DABAA,lib/sound/snd_gus_sdk_02.asm,exact,1.0,20 instructions
+func,139CF0,DABE0,sub_DABE0,lib/sound/snd_gus_sdk_02.asm,sem,1.0,D:19C104; D:19C108; D:19C10C; D:19C110
+func,139D4C,DAC3C,sub_DAC3C,lib/sound/snd_gus_sdk_02.asm,callsite,0.9,called at the same place of sub_DACC4
+func,139D74,DAC64,sub_DAC64,lib/sound/snd_gus_sdk_02.asm,callsite,0.9,called at the same place of sub_DACC4
+func,139D9C,DAC8C,sub_DAC8C,lib/sound/snd_gus_sdk_02.asm,sem,1.0,C:3631; D:19C0FC; D:19C100
+func,139DD4,DACC4,sub_DACC4,lib/sound/snd_gus_sdk_02.asm,callsite,0.9,called at the same place of sub_D7267
+func,139EE8,DADD8,sub_DADD8,lib/sound/snd_gus_sdk_02.asm,callsite,0.9,called at the same place of sub_DAE60
+func,139F70,DAE60,sub_DAE60,lib/sound/snd_gus_sdk_02.asm,exact,1.0,24 instructions
+func,139FAC,DAE9C,sub_DAE9C,lib/sound/snd_gus_sdk_02.asm,exact,1.0,188 instructions
+func,13A24C,DB13C,sub_DB13C,lib/sound/snd_gus_sdk_02.asm,exact,1.0,58 instructions
+func,13A2B7,DB1A7,outpw_,lib/sound/snd_gus_sdk_02.asm,callsite,0.9,called at the same place of sub_DB2BC
+func,13A2D0,DB1C0,sub_DB1C0,lib/sound/snd_gus_sdk_02.asm,similar,0.975,mnemonic similarity 0.97 over 40 instructions
+func,13A34C,DB23C,sub_DB23C,lib/sound/snd_gus_sdk_02.asm,callsite,0.9,called at the same place of sub_D7267
+func,13A3CC,DB2BC,sub_DB2BC,lib/sound/snd_gus_sdk_02.asm,exact,1.0,74 instructions
+func,13A4A4,DB394,sub_DB394,lib/sound/snd_gus_sdk_02.asm,similar,0.994,mnemonic similarity 0.99 over 174 instructions
+func,13A69C,DB564,sub_DB564,lib/sound/snd_gus_sdk_02.asm,sem,0.838,D:1DE794; D:1DE796; D:19C128; C:3633
+func,13A6F8,DB5E8,sub_DB5E8,lib/sound/snd_gus_sdk_02.asm,similar,0.981,mnemonic similarity 0.98 over 53 instructions
+func,13A7AC,DB69C,sub_DB69C,lib/sound/snd_gus_sdk_02.asm,similar,0.989,mnemonic similarity 0.99 over 92 instructions
+func,13A8BC,DB7AC,sub_DB7AC,lib/sound/snd_gus_sdk_02.asm,similar,0.989,mnemonic similarity 0.99 over 181 instructions
+func,13B0C9,DCC25,__Nan_Inf_,lib/watcom/watcom_clib_21.asm,similar,0.911,mnemonic similarity 0.91 over 43 instructions
+func,13B1CB,DCCA9,floor_,lib/watcom/watcom_clib_21.asm,exact,1.0,28 instructions
+func,13B207,DCCE5,_Scale_,lib/watcom/watcom_clib_21.asm,similar,1.0,mnemonic similarity 1.00 over 31 instructions
+func,13B248,DCD26,_Scale10V_,lib/watcom/watcom_clib_21.asm,callsite,0.9,called at the same place of strtod_
+func,13B365,DCE0D,__cvt_,lib/watcom/watcom_clib_21.asm,sem,0.758,C:3659; C:3681; C:3664; C:3684
+func,13B5D2,DD084,sub_DD084,lib/watcom/watcom_clib_21.asm,exact,1.0,40 instructions
+func,13B692,C3C3C,fputs_,lib/watcom/watcom_clib_11.asm,similar,0.974,mnemonic similarity 0.97 over 60 instructions
+func,13B70E,B72A2,_dos_read_,lib/watcom/watcom_clib_05.asm,similar,0.919,mnemonic similarity 0.92 over 17 instructions
+func,13B740,DCBB0,sub_DCBB0,lib/sound/snd_gus_sdk_03.asm,similar,0.98,mnemonic similarity 0.98 over 51 instructions
+func,13B9C2,DD32C,modf_,lib/watcom/watcom_clib_21.asm,exact,1.0,11 instructions
+func,13B9DC,DD346,__CmpBigInt,lib/watcom/watcom_clib_21.asm,exact,1.0,26 instructions
+func,13BA16,DD380,__Rnd2Int,lib/watcom/watcom_clib_21.asm,exact,1.0,48 instructions
+func,13BA81,DD3EB,__Bin2String,lib/watcom/watcom_clib_21.asm,exact,1.0,55 instructions
+func,13C180,DDE74,sub_DDE74,lib/video/video_bios_vga_01.asm,exact,1.0,5 instructions
+func,13C187,DDE7B,WaitRetrace,lib/video/video_bios_vga_01.asm,similar,0.875,mnemonic similarity 0.88 over 17 instructions
+data,150000,100000,byte_100000,dseg03/dseg03.asm,position,1.0,same fixup of sub_D5CA2
+data,150004,100004,byte_100004,dseg03/dseg03.asm,position,1.0,same fixup of sub_D5CA2
+data,150008,100008,byte_100008,dseg03/dseg03.asm,position,1.0,same fixup of sub_D5CA2
+data,15000C,10000C,byte_10000C,dseg03/dseg03.asm,position,1.0,same fixup of sub_D5CA2
+data,150010,100010,byte_100010,dseg03/dseg03.asm,position,1.0,same fixup of sub_D5CA2
+data,150014,100014,byte_100014,dseg03/dseg03.asm,position,1.0,same fixup of sub_D5CA2
+data,160B54,11061C,str_CDSTREAM,data/front/main_data_01.asm,string,1.0,'CDSTREAM'
+data,160B60,110682,str_STREAM,data/front/main_data_01.asm,string,1.0,'STREAM'
+data,160B6C,1106A7,str_SECCDSTREAM,data/front/main_data_01.asm,string,1.0,'SECCDSTREAM'
+data,1612C4,110A60,str_Center,data/front/rink_model_data_01.asm,string,1.0,'center'
+data,161410,11077E,str_Zamboni,data/front/front_201CD_data_01.asm,string,1.0,'zamboni'
+data,161424,1109DE,str_Zambpath,data/front/rink_model_data_01.asm,string,1.0,'zambpath'
+data,161468,110796,str_Glassline,data/front/front_201CD_data_01.asm,string,1.0,'glassline'
+data,161474,1107A0,str_Glass,data/front/front_201CD_data_01.asm,string,1.0,'glass'
+data,16147C,1107A6,str_Topboards,data/front/front_201CD_data_01.asm,string,1.0,'topboards'
+data,161488,1107B0,str_Botboards,data/front/front_201CD_data_01.asm,string,1.0,'botboards'
+data,161494,1107BA,str_FatRedLines,data/front/front_201CD_data_01.asm,string,1.0,'fat_red_lines'
+data,1614A4,1107C8,str_FatBlueLines,data/front/front_201CD_data_01.asm,string,1.0,'fat_blue_lines'
+data,1614B4,1107D7,str_SideD,data/front/front_201CD_data_01.asm,string,1.0,'side%d'
+data,1614BC,11080E,str_Gt002d,data/front/front_201CD_data_01.asm,string,1.0,'gt0%02d'
+data,1614C4,110816,str_Gt102d,data/front/front_201CD_data_01.asm,string,1.0,'gt1%02d'
+data,1614CC,11081E,str_Gt202d,data/front/front_201CD_data_01.asm,string,1.0,'gt2%02d'
+data,1614D4,110826,str_Gt302d,data/front/front_201CD_data_01.asm,string,1.0,'gt3%02d'
+data,1614DC,11082E,str_Icelogo,data/front/front_201CD_data_01.asm,string,1.0,'icelogo'
+data,1614E4,110836,str_EMPTYFSH,data/front/rink_model_data_01.asm,string,1.0,'_EMPTY.FSH'
+data,1614F0,110841,str_HALFFSH,data/front/rink_model_data_01.asm,string,1.0,'_HALF.FSH'
+data,1614FC,11084B,str_STANDSFSH,data/front/rink_model_data_01.asm,string,1.0,'_STANDS.FSH'
+data,161508,110876,str_Stands2,data/front/rink_model_data_01.asm,string,1.0,'stands'
+data,161510,11085E,str_CrowdD,data/front/rink_model_data_01.asm,string,1.0,'crowd%d'
+data,161518,11086C,str_WALL,data/front/rink_model_data_01.asm,string,1.0,'WALL'
+data,161568,1108F1,str_Boardback,data/front/rink_model_data_01.asm,string,1.0,'boardback'
+data,161574,110A42,str_Crease,data/front/rink_model_data_01.asm,string,1.0,'crease'
+data,16157C,1108FB,str_Flatboards,data/front/rink_model_data_01.asm,string,1.0,'flatboards'
+data,161588,110871,str_Rink,data/front/rink_model_data_01.asm,string,1.0,'rink'
+data,161598,11087D,str_Score,data/front/rink_model_data_01.asm,string,1.0,'score'
+data,1615D4,1108C9,str_Minx,data/front/rink_model_data_01.asm,string,1.0,'minx'
+data,1615DC,1108CE,str_Maxx,data/front/rink_model_data_01.asm,string,1.0,'maxx'
+data,1615E4,1108D3,str_Minz,data/front/rink_model_data_01.asm,string,1.0,'minz'
+data,1615EC,1108D8,str_Maxz,data/front/rink_model_data_01.asm,string,1.0,'maxz'
+data,1615F4,1108DD,str_Rlite1,data/front/rink_model_data_01.asm,string,1.0,'rlite1'
+data,161604,1108EA,str_Strobe,data/front/rink_model_data_01.asm,string,1.0,'strobe'
+data,16160C,110906,str_STAND,data/front/rink_model_data_01.asm,string,1.0,'STAND'
+data,16161C,11090C,str_STAND2ND,data/front/rink_model_data_01.asm,string,1.0,'STAND2ND'
+data,161628,110934,str_Rlite0,data/front/rink_model_data_01.asm,string,1.0,'rlite0'
+data,161630,11093B,str_Redlite,data/front/rink_model_data_01.asm,string,1.0,'redlite'
+data,161638,110943,str_Glite0,data/front/rink_model_data_01.asm,string,1.0,'glite0'
+data,161640,11094A,str_Glite1,data/front/rink_model_data_01.asm,string,1.0,'glite1'
+data,161648,110951,str_Grnlite,data/front/rink_model_data_01.asm,string,1.0,'grnlite'
+data,161650,110959,str_Lites,data/front/rink_model_data_01.asm,string,1.0,'lites'
+data,161658,11095F,str_Penboxz0,data/front/rink_model_data_01.asm,string,1.0,'penboxz0'
+data,161664,110968,str_Penboxz1,data/front/rink_model_data_01.asm,string,1.0,'penboxz1'
+data,161670,110971,str_Penboxt0,data/front/rink_model_data_01.asm,string,1.0,'penboxt0'
+data,16167C,11097A,str_Penboxt1,data/front/rink_model_data_01.asm,string,1.0,'penboxt1'
+data,161688,11098A,str_Penback,data/front/rink_model_data_01.asm,string,1.0,'penback'
+data,161690,110992,str_Penbox0D,data/front/rink_model_data_01.asm,string,1.0,'penbox0%d'
+data,16169C,11099C,str_Penbox1D,data/front/rink_model_data_01.asm,string,1.0,'penbox1%d'
+data,1616A8,1109A6,str_DoorZ0,data/front/rink_model_data_01.asm,string,1.0,'doorZ0'
+data,1616B0,1109AD,str_DoorZ1,data/front/rink_model_data_01.asm,string,1.0,'doorZ1'
+data,1616B8,1109B4,str_Door00,data/front/rink_model_data_01.asm,string,1.0,'door00'
+data,1616C0,1109BB,str_Door01,data/front/rink_model_data_01.asm,string,1.0,'door01'
+data,1616C8,1109C2,str_Door02,data/front/rink_model_data_01.asm,string,1.0,'door02'
+data,1616D0,1109C9,str_Door10,data/front/rink_model_data_01.asm,string,1.0,'door10'
+data,1616D8,1109D0,str_Door11,data/front/rink_model_data_01.asm,string,1.0,'door11'
+data,1616E0,1109D7,str_Door12,data/front/rink_model_data_01.asm,string,1.0,'door12'
+data,1616E8,1109E7,str_Benchz0,data/front/rink_model_data_01.asm,string,1.0,'benchz0'
+data,1616F0,1109EF,str_Benchz1,data/front/rink_model_data_01.asm,string,1.0,'benchz1'
+data,1616F8,110A00,str_Benchdiv,data/front/rink_model_data_01.asm,string,1.0,'benchdiv'
+data,161704,110A09,str_Benchbk,data/front/rink_model_data_01.asm,string,1.0,'benchbk'
+data,16170C,110A11,str_Benchx,data/front/rink_model_data_01.asm,string,1.0,'benchx'
+data,16171C,110A18,str_Pbench0D,data/front/rink_model_data_01.asm,string,1.0,'pbench0%d'
+data,161728,110A22,str_Pbench1D,data/front/rink_model_data_01.asm,string,1.0,'pbench1%d'
+data,161738,110A30,str_Gt007,data/front/rink_model_data_01.asm,string,1.0,'gt007'
+data,161740,110A36,str_Gt004,data/front/rink_model_data_01.asm,string,1.0,'gt004'
+data,161748,110A3C,str_Gt302,data/front/rink_model_data_01.asm,string,1.0,'gt302'
+data,161750,110A49,str_R02d,data/front/rink_model_data_01.asm,string,1.0,'r%0.2d'
+data,161788,110AAF,str_IceLine,data/front/rink_model_data_01.asm,string,1.0,'ice_line'
+data,161794,110AB8,str_ThinRedLines,data/front/rink_model_data_01.asm,string,1.0,'thin_red_lines'
+data,1619CC,1108B2,str_Back,data/front/rink_model_data_01.asm,string,1.0,'back'
+data,164110,11029C,str_ATZS760S1155,data/front/front_1456D_data_01.asm,string,1.0,'ATZS7=60S11=55'
+data,16412C,1102BF,str_ATH0,data/front/front_1456D_data_01.asm,string,1.0,'ATH0'
+data,164134,1102C4,str_ATD,data/front/front_1456D_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,164140,1102D1,str_ATS01,data/front/front_1456D_data_01.asm,string,1.0,'ATS0=1'
+data,164148,1102D8,str_ATA,data/front/front_1456D_data_01.asm,string,1.0,'ATA\r'
+data,16415C,1102E6,str_ATM0,data/front/front_1456D_data_01.asm,string,1.0,'ATM0'
+data,165310,1102EC,str_NAMEINDEX,data/front/main_data_01.asm,string,1.0,'NAMEINDEX'
+data,16531C,1102F6,str_backslash3,data/front/main_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,166020,11003D,str_DD,data/shared_data_01.asm,string,1.0,'%d/%d'
+data,166673,110043,str_D02d2,data/shared_data_01.asm,string,1.0,'%d:%02d'
+data,166699,110CF2,str_Uname,data/front/front_2A692_data_01.asm,string,1.0,'uname'
+data,16669F,110CF8,str_Urate,data/front/front_2A692_data_01.asm,string,1.0,'urate'
+data,1666A5,110CFE,str_Upts,data/front/front_2A692_data_01.asm,string,1.0,'upts'
+data,1666DB,110D17,str_Ustreak,data/front/front_2A692_data_01.asm,string,1.0,'ustreak'
+data,1666E3,110D1F,str_Ulstreak,data/front/front_2A692_data_01.asm,string,1.0,'ulstreak'
+data,1666EC,110D28,str_Uteam,data/front/front_2A692_data_01.asm,string,1.0,'uteam'
+data,1666F2,110D2E,str_Uopp,data/front/front_2A692_data_01.asm,string,1.0,'uopp'
+data,1666F7,110D33,str_Usort,data/front/front_2A692_data_01.asm,string,1.0,'usort'
+data,166703,110D39,str_Logname,data/front/front_2A692_data_01.asm,string,1.0,'logname'
+data,16670B,110D41,str_Logbook,data/front/front_2A692_data_01.asm,string,1.0,'logbook'
+data,166918,114454,asc_114454,data/lib/ea/ea_debug_02_data_01.asm,string,1.0,'%s\n\n'
+data,166DEB,112A91,str_TR00,data/front/front_93E6A_data_01.asm,string,1.0,'TR00'
+data,167088,110B8F,str_TXTD,data/front/front_2A692_data_01.asm,string,1.0,'TXT%d'
+data,1673A4,111296,str_Pl0,data/front/front_5D993_data_01.asm,string,1.0,'!pl0'
+data,1673AC,11129B,str_Pl1,data/front/front_5D993_data_01.asm,string,1.0,'!pl1'
+data,1673B4,1112A5,str_Nhll,data/front/front_5D993_data_01.asm,string,1.0,'nhll'
+data,1673C4,1112AA,str_Nhlp,data/front/front_5D993_data_01.asm,string,1.0,'nhlp'
+data,1673F4,11294B,str_CRD2,data/front/front_90879_data_01.asm,string,1.0,'CRD2'
+data,1673FC,112946,str_CRD1,data/front/front_90879_data_01.asm,string,1.0,'CRD1'
+data,1679B4,112AB4,str_TR0D,data/front/front_93E6A_data_01.asm,string,1.0,'TR0%d'
+data,167D1C,11315C,str_HIGHMEM,data/lib/lib_A8B9B_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,167DDC,1139D8,asc_1139D8,data/lib/watcom/watcom_clib_07_data_01.asm,string,1.0,'VESA MEM'
+data,167E30,1135E8,asc_1135E8,data/lib/ea/ea_unpack_data_01.asm,string,1.0,'inversetbl'
+data,167E3C,1135F4,str_Inversetmp,data/lib/ea/ea_unpack_data_01.asm,string,1.0,'inversetmp'
+data,167E48,113794,asc_113794,data/lib/watcom/watcom_clib_05_data_01.asm,string,1.0,'CDROM DATA'
+data,167E54,1137A0,asc_1137A0,data/lib/watcom/watcom_clib_05_data_01.asm,string,1.0,'CDROM BUFFER'
+data,167E70,11054C,str_ASYNC,data/front/main_data_01.asm,string,1.0,'ASYNC'
+data,167E78,110552,str_ASYNCFILE,data/front/main_data_01.asm,string,1.0,'ASYNC FILE'
+data,167E84,112534,str_AALIAS,data/front/front_849D5_data_01.asm,string,1.0,'AALIAS'
+data,167E8C,113960,asc_113960,data/lib/ea/ea_shpi_01_data_01.asm,string,1.0,'INVMATRX'
+data,167E98,11396C,asc_11396C,data/lib/ea/ea_shpi_01_data_01.asm,string,1.0,'.ori'
+data,167EB0,113954,str_ORIINST,data/lib/ea/ea_shpi_01_data_01.asm,string,1.0,'ORI_INST'
+data,167F5C,113F7C,asc_113F7C,data/lib/watcom/watcom_clib_13_data_01.asm,string,1.0,'DOS4GW.EXE'
+data,167F68,113F88,asc_113F88,data/lib/watcom/watcom_clib_13_data_01.asm,string,1.0,'c:\\%s'
+data,16803C,1140FB,str_WSSDMA,data/lib/sound/snd_soundblaster_data_01.asm,string,1.0,'WSSDMA'
+data,1680D8,1140E8,str_BLASTER,data/lib/sound/snd_soundblaster_data_01.asm,string,1.0,'BLASTER'
+data,1680EC,113E78,str_PAUSEPRESSANYKEY,data/lib/watcom/watcom_clib_08_data_01.asm,string,1.0,'PAUSE - PRESS ANY KEY TO RESUME'
+data,16810C,114180,str_SaveText,data/lib/sound/snd_soundblaster_data_01.asm,string,1.0,'Save Text'
+data,168118,11412C,str_NotEnoughMemoryTo,data/lib/sound/snd_soundblaster_data_01.asm,string,1.0,'Not enough memory to allocate file structures\r\n'
+data,168148,11415C,str_FloatingPointSupportNot,data/lib/sound/snd_soundblaster_data_01.asm,string,1.0,'Floating-point support not loaded\r\n'
+data,16816C,1142A8,str_RATIONALDOS4G,data/lib/sound/snd_soundblaster_data_01.asm,string,1.0,'RATIONAL DOS/4G'
+data,1681FC,1142B8,str_RMHandler,data/lib/sound/snd_soundblaster_data_01.asm,string,1.0,'RMHandler'
+data,1682EC,1149BC,qword_1149BC,data/lib/watcom/watcom_clib_21_data_01.asm,position,1.0,same fixup of floor_
+data,16830C,1149C4,_IsTable,data/lib/watcom/watcom_clib_21_data_01.asm,refset,0.8,referenced by the same 3 matched functions
+data,1684CC,114CB8,str_GRIPGLL,data/front/front_10010_data_01.asm,string,1.0,'GRIP.GLL'
+data,1684D5,114CC1,str_GRIP,data/front/front_10010_data_01.asm,string,1.0,'GRIP'
+data,1684DA,114CC6,str_CGRIP,data/front/front_10010_data_01.asm,string,1.0,'C:\\GRIP\\'
+data,16DADC,11DFC8,asc_11DFC8,data/front/front_741BD_data_02.asm,string,1.0,'Generic Hayes-Compatible'
+data,16E264,11BB28,byte_11BB28,data/front/front_5D993_data_02.asm,position,1.0,same fixup of vtoa
+data,16E318,11F8E8,dword_11F8E8,data/lib/input/input_joystick_misc_01_data_01.asm,position,1.0,same fixup of __LinkUpNewMHeap_
+data,16E31C,11F8EC,dword_11F8EC,data/lib/input/input_joystick_misc_01_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,16E324,11F9B4,dword_11F9B4,data/lib/input/input_joystick_misc_01_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,16E338,11F9C0,dword_11F9C0,data/lib/input/input_joystick_misc_01_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,16E33C,11F9C4,dword_11F9C4,data/lib/input/input_joystick_misc_01_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,16E3EC,11F8E4,dword_11F8E4,data/lib/input/input_joystick_misc_01_data_01.asm,position,1.0,same fixup of sub_DFF60
+data,16E3F0,11F9A4,tickcount,data/lib/input/input_joystick_misc_01_data_01.asm,position,1.0,same fixup of SetTickDeadline
+data,16E415,123985,byte_123985,data/lib/watcom/watcom_clib_05_data_04.asm,position,1.0,same fixup of __init_8087_
+data,16E418,14FADC,word_14FADC,data/lib/video/video_bios_vga_03_data_02.asm,position,1.0,same fixup of __STK
+data,16E41A,14FADE,str_StackOverflow,data/lib/video/video_bios_vga_03_data_02.asm,string,1.0,'Stack Overflow!\r\n'
+data,16E42C,11F8DC,tickdeadline,data/lib/input/input_joystick_misc_01_data_01.asm,position,1.0,same fixup of SetTickDeadline
+data,16E448,11F5A4,dword_11F5A4,data/lib/lib_A8B9B_data_02.asm,refset,0.8,referenced by the same 3 matched functions
+data,16E4A8,11F5F0,dword_11F5F0,data/lib/watcom/watcom_clib_05_data_02.asm,position,1.0,same fixup of sub_BBC04
+data,16E4F8,121FC0,str_Viv,data/lib/watcom/watcom_clib_05_data_03.asm,string,1.0,'.viv'
+data,16E504,1219A8,byte_1219A8,data/lib/input/input_joystick_misc_01_data_02.asm,refset,0.8,referenced by the same 2 matched functions
+data,16E618,11F57C,dword_11F57C,data/lib/lib_A8B9B_data_02.asm,refset,0.8,referenced by the same 2 matched functions
+data,16E678,1228D8,dword_1228D8,data/lib/watcom/watcom_clib_05_data_04.asm,position,1.0,same fixup of sub_E0B9B
+data,16E680,1228E0,dword_1228E0,data/lib/watcom/watcom_clib_05_data_04.asm,position,1.0,same fixup of sub_E0B9B
+data,16E69C,1228FC,dword_1228FC,data/lib/watcom/watcom_clib_05_data_04.asm,refset,0.8,referenced by the same 2 matched functions
+data,16F794,122794,byte_122794,data/lib/input/input_joystick_misc_02_data_01.asm,position,1.0,same fixup of sub_DD8B0
+data,16F894,124014,dword_124014,data/lib/video/video_bios_vga_02_data_01.asm,position,1.0,same fixup of sub_DE3D8
+data,16F898,124018,dword_124018,data/lib/video/video_bios_vga_02_data_01.asm,position,1.0,same fixup of sub_DE3D8
+data,16F89C,12401C,byte_12401C,data/lib/video/video_bios_vga_02_data_01.asm,position,1.0,same fixup of sub_DE3D8
+data,16FA08,11F9BC,dword_11F9BC,data/lib/input/input_joystick_misc_01_data_01.asm,position,1.0,same fixup of sub_C3CC0
+data,16FB50,121B48,dword_121B48,data/lib/watcom/watcom_clib_05_data_03.asm,refset,0.8,referenced by the same 4 matched functions
+data,16FB54,121B4C,dword_121B4C,data/lib/watcom/watcom_clib_05_data_03.asm,refset,0.8,referenced by the same 3 matched functions
+data,16FB5C,121B54,dword_121B54,data/lib/watcom/watcom_clib_05_data_03.asm,refset,0.8,referenced by the same 2 matched functions
+data,16FB60,121B58,dword_121B58,data/lib/watcom/watcom_clib_05_data_03.asm,refset,0.8,referenced by the same 3 matched functions
+data,16FB64,121B5C,dword_121B5C,data/lib/watcom/watcom_clib_05_data_03.asm,refset,0.8,referenced by the same 2 matched functions
+data,170218,122894,dword_122894,data/lib/input/input_joystick_misc_02_data_01.asm,position,1.0,same fixup of sub_BBC04
+data,17021C,122898,unk_122898,data/lib/input/input_joystick_misc_02_data_01.asm,position,1.0,same fixup of sub_BBBD0
+data,1702CC,122390,dword_122390,data/lib/input/input_joystick_misc_02_data_01.asm,position,1.0,same fixup of sub_E2680
+data,170704,121AD8,dword_121AD8,data/lib/input/input_joystick_misc_01_data_02.asm,position,1.0,same fixup of __sys_fini_387_emulator
+data,170708,121ADC,word_121ADC,data/lib/input/input_joystick_misc_01_data_02.asm,position,1.0,same fixup of __sys_fini_387_emulator
+data,17070C,11F618,off_11F618,data/lib/watcom/watcom_clib_05_data_02.asm,position,1.0,same fixup of sub_DFF28
+data,170B14,11FD58,off_11FD58,data/lib/watcom/watcom_clib_03_data_01.asm,refset,0.8,referenced by the same 6 matched functions
+data,170B24,11FD68,word_11FD68,data/lib/watcom/watcom_clib_03_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,171C7C,124008,off_124008,data/lib/video/video_bios_vga_02_data_01.asm,position,1.0,same fixup of exit_
+data,171C80,12400C,off_12400C,data/lib/video/video_bios_vga_02_data_01.asm,position,1.0,same fixup of exit_
+data,1722C0,123DF4,unk_123DF4,data/lib/video/video_bios_vga_02_data_01.asm,refset,0.8,referenced by the same 3 matched functions
+data,1724C9,123FFD,dword_123FFD,data/lib/video/video_bios_vga_02_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,172524,12487C,dword_12487C,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of sub_CA815
+data,172564,1248BC,dword_1248BC,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of sub_CA7C8
+data,172568,1248C0,word_1248C0,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of sub_CA7C8
+data,17256A,1248C2,word_1248C2,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of __sys_fini_387_emulator
+data,17256C,1248C4,byte_1248C4,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of __sys_fini_387_emulator
+data,172570,1243F8,_dynend,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of start
+data,172574,1243FC,_curbrk,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of start
+data,172578,124400,_LpCmdLine,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of start
+data,17257C,124404,dword_124404,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of start
+data,172580,124408,_psp,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of start
+data,172584,12440C,_STACKLOW,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of sub_D0692
+data,172588,124410,_STACKTOP,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of start
+data,172594,12441C,dword_12441C,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of getche_
+data,1725A0,124428,__no87,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of start
+data,1725A2,12442A,_Extender,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of sub_CA7C8
+data,1725A3,12442B,_ExtenderSubtype,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of start
+data,1725A4,12442C,byte_12442C,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of __sys_fini_387_emulator
+data,1725A5,12442D,_Envptr,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of __setenvp_
+data,1725A9,124431,_Envptr_w4,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of __setenvp_
+data,1725AB,124433,_osmajor,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of start
+data,1725AC,124434,_osminor,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of start
+data,1996A4,14EF9C,dword_14EF9C,data/lib/watcom/watcom_clib_14_data_01.asm,position,1.0,same fixup of sub_CC200
+data,1996AC,14EFA4,dword_14EFA4,data/lib/watcom/watcom_clib_14_data_01.asm,position,1.0,same fixup of sub_CC728
+data,1996EC,14EFDC,off_14EFDC,data/lib/watcom/watcom_clib_14_data_01.asm,position,1.0,same fixup of sub_CC200
+data,199990,124444,dword_124444,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of sub_E2436
+data,199994,124448,dword_124448,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of sub_E2436
+data,199998,12444C,dword_12444C,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of sub_E2436
+data,19999C,124450,dword_124450,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of sub_E2436
+data,1999A0,124454,dword_124454,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of sub_E2436
+data,1999A4,124458,dword_124458,data/lib/video/video_bios_vga_03_data_01.asm,position,1.0,same fixup of sub_E2436
+data,1999C0,124124,dword_124124,data/lib/watcom/watcom_clib_13_data_02.asm,position,1.0,same fixup of __IOMode_
+data,199A14,124178,dword_124178,data/lib/watcom/watcom_clib_13_data_02.asm,position,1.0,same fixup of __IOMode_
+data,199C40,14F09C,_environ,data/lib/sound/snd_soundblaster_data_02.asm,position,1.0,same fixup of __setenvp_
+data,199C44,14F0A0,___env_mask,data/lib/sound/snd_soundblaster_data_02.asm,position,1.0,same fixup of __setenvp_
+data,199C50,14FAA8,off_14FAA8,data/lib/sound/snd_soundblaster_data_02.asm,position,1.0,same fixup of __setEFGfmt_
+data,199C54,14FAAC,off_14FAAC,data/lib/sound/snd_soundblaster_data_02.asm,position,1.0,same fixup of __setEFGfmt_
+data,199CD8,14FC74,word_14FC74,data/lib/watcom/watcom_emu387_data_01.asm,position,1.0,same fixup of __sys_init_387_emulator
+data,199CDC,14FC78,off_14FC78,data/lib/watcom/watcom_emu387_data_01.asm,position,1.0,same fixup of __init_8087_
+data,199CE0,14FC7C,off_14FC7C,data/lib/watcom/watcom_emu387_data_01.asm,position,1.0,same fixup of __init_8087_
+data,19A744,151328,dword_151328,data/lib/sound/snd_hw_sb_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,19A748,15132C,byte_15132C,data/lib/sound/snd_hw_sb_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,19A758,15133C,dword_15133C,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D721B
+data,19A75C,151340,dword_151340,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D721B
+data,19A760,151344,dword_151344,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A764,151348,dword_151348,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A768,15134C,dword_15134C,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7042
+data,19A76C,151350,dword_151350,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A770,151354,dword_151354,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A774,151358,dword_151358,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7042
+data,19A778,15135C,dword_15135C,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A77C,151360,byte_151360,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A780,151364,byte_151364,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A784,151368,byte_151368,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A788,15136C,dword_15136C,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A78C,151370,dword_151370,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A790,151374,dword_151374,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A7A0,151384,dword_151384,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A7A4,151388,dword_151388,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A7A8,15138C,dword_15138C,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A7AC,151390,word_151390,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A7AE,151392,word_151392,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A7B0,151394,dword_151394,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A7B2,151396,word_151396,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A7B4,151398,word_151398,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19A7B6,15139A,word_15139A,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19C018,15140C,word_15140C,data/lib/sound/snd_hw_sb_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,19C01A,15140E,word_15140E,data/lib/sound/snd_hw_sb_data_01.asm,position,1.0,same fixup of sub_DAE60
+data,19C028,15141C,word_15141C,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19C02A,15141E,word_15141E,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19C02C,151420,word_151420,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19C02E,151422,word_151422,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19C030,151424,word_151424,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_D7267
+data,19C0DC,1514CC,word_1514CC,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_DAB70
+data,19C0F4,1514E4,dword_1514E4,data/lib/sound/snd_gus_sdk_02_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,19C0F8,1514E8,dword_1514E8,data/lib/sound/snd_gus_sdk_02_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,19C0FC,1514EC,dword_1514EC,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_DAE9C
+data,19C100,1514F0,dword_1514F0,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_DAE9C
+data,19C104,1514F4,dword_1514F4,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_DAE9C
+data,19C108,1514F8,dword_1514F8,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_DAE9C
+data,19C10C,1514FC,dword_1514FC,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_DAE9C
+data,19C110,151500,dword_151500,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_DAE9C
+data,19C114,151504,dword_151504,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_DAE9C
+data,19C118,151508,dword_151508,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_DAE9C
+data,19C128,151518,dword_151518,data/lib/sound/snd_gus_sdk_02_data_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,19C648,15155C,unk_15155C,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of __InitRtns
+data,19C67E,151580,unk_151580,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of __InitRtns
+data,19CA1C,15158C,unk_15158C,data/lib/sound/snd_gus_sdk_02_data_01.asm,position,1.0,same fixup of sub_DB13C
+data,19CA28,151598,kaufmfont,data/lib/sound/snd_gus_sdk_02_bss_01.asm,position,1.0,same fixup of sub_DB13C
+data,19CB6C,165980,regd1,data/engine/faceoff_bss_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,19CC04,1178CA,word_1178CA,data/front/front_2A692_data_02.asm,refset,0.8,referenced by the same 3 matched functions
+data,19CC14,1178D2,slotteam,data/front/front_2A692_data_02.asm,refset,0.8,referenced by the same 4 matched functions
+data,19DA30,16479C,SortCords,data/front/front_2A692_bss_01.asm,refset,0.8,referenced by the same 3 matched functions
+data,19EAB0,1656D8,hmtmstruct,data/engine/engine_2D9D9_bss_01.asm,refset,0.8,referenced by the same 3 matched functions
+data,19EBBC,16580E,awtmstruct,data/front/front_1456D_bss_02.asm,refset,0.8,referenced by the same 2 matched functions
+data,1AF2B8,15D2B8,dword_15D2B8,data/front/rink_model_bss_02.asm,refset,0.8,referenced by the same 4 matched functions
+data,1B101C,15E86C,dword_15E86C,data/front/rink_model_bss_02.asm,refset,0.8,referenced by the same 2 matched functions
+data,1B105C,15E87C,dword_15E87C,data/front/rink_model_bss_02.asm,refset,0.8,referenced by the same 2 matched functions
+data,1B1068,15E88C,unk_15E88C,data/front/rink_model_bss_02.asm,refset,0.8,referenced by the same 2 matched functions
+data,1B10E8,15E900,dword_15E900,data/front/rink_model_bss_02.asm,refset,0.8,referenced by the same 3 matched functions
+data,1CF0DC,18568C,dword_18568C,data/lib/lib_A8B9B_bss_01.asm,refset,0.8,referenced by the same 8 matched functions
+data,1CF9F8,18572C,dword_18572C,data/lib/lib_A8B9B_bss_01.asm,position,1.0,same fixup of sub_C3CC0
+data,1CFA18,1857EC,dword_1857EC,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA1C,1857B4,dword_1857B4,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA2C,1857F0,dword_1857F0,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA38,1857C8,dword_1857C8,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA3C,1857CC,dword_1857CC,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA40,1857D0,dword_1857D0,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA4C,185800,dword_185800,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA50,1857D4,dword_1857D4,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA54,1857D8,dword_1857D8,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA58,185804,dword_185804,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA5C,1857DC,dword_1857DC,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA68,18580C,dword_18580C,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA6C,185810,dword_185810,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA70,185814,dword_185814,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA74,185818,dword_185818,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA78,18581C,dword_18581C,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA7C,185820,dword_185820,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA80,185824,dword_185824,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA84,185828,dword_185828,data/lib/ea/ea_debug_01_bss_01.asm,position,1.0,same fixup of sub_B086C
+data,1CFA9C,18B07C,dword_18B07C,data/lib/watcom/watcom_clib_05_bss_01.asm,refset,0.8,referenced by the same 4 matched functions
+data,1CFAA0,18B090,dword_18B090,data/lib/watcom/watcom_clib_05_bss_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,1CFADC,18B0BC,word_18B0BC,data/lib/watcom/watcom_clib_05_bss_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,1D1D14,1983A8,dword_1983A8,data/lib/ea/ea_gfx_05_bss_01.asm,position,1.0,same fixup of sub_BBBD0
+data,1D2054,190E90,dword_190E90,data/lib/ea/ea_shpi_01_bss_01.asm,position,1.0,same fixup of sub_B78C0
+data,1D2058,190E94,dword_190E94,data/lib/ea/ea_shpi_01_bss_01.asm,position,1.0,same fixup of sub_B78C0
+data,1D205C,190E98,dword_190E98,data/lib/ea/ea_shpi_01_bss_01.asm,position,1.0,same fixup of sub_B78C0
+data,1DA4BC,19BA3C,dword_19BA3C,data/lib/watcom/watcom_clib_08_bss_01.asm,position,1.0,same fixup of __freefp_
+data,1DA4C0,19BA40,dword_19BA40,data/lib/watcom/watcom_clib_08_bss_01.asm,position,1.0,same fixup of __freefp_
+data,1DC5A8,19BAC8,dword_19BAC8,data/lib/watcom/watcom_clib_08_bss_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,1DD398,1A0FB8,dword_1A0FB8,data/lib/sound/snd_soundblaster_bss_01.asm,position,1.0,same fixup of sub_D5CA2
+data,1DD3A8,1A0FC0,dword_1A0FC0,data/lib/sound/snd_soundblaster_bss_01.asm,position,1.0,same fixup of sub_D5CA2
+data,1DD4A0,1A0FA0,word_1A0FA0,data/lib/watcom/watcom_clib_08_bss_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,1DD4A8,1A0FA8,word_1A0FA8,data/lib/watcom/watcom_clib_08_bss_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,1DD4AA,1A0FAA,word_1A0FAA,data/lib/watcom/watcom_clib_08_bss_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,1DD4AC,1A0FAC,word_1A0FAC,data/lib/watcom/watcom_clib_08_bss_01.asm,refset,0.8,referenced by the same 3 matched functions
+data,1DE764,1A1184,word_1A1184,data/lib/watcom/watcom_clib_17_bss_01.asm,position,1.0,same fixup of sub_D5CA2
+data,1DE766,1A1186,word_1A1186,data/lib/watcom/watcom_clib_17_bss_01.asm,position,1.0,same fixup of sub_D5CA2
+data,1DE768,1A1188,dword_1A1188,data/lib/watcom/watcom_clib_17_bss_01.asm,position,1.0,same fixup of sub_D5CA2
+data,1DE76C,1A118C,dword_1A118C,data/lib/watcom/watcom_clib_17_bss_01.asm,position,1.0,same fixup of sub_D5CA2
+data,1DE770,1A1190,byte_1A1190,data/lib/watcom/watcom_clib_17_bss_01.asm,position,1.0,same fixup of sub_D5CA2
+data,1DE771,1A1191,byte_1A1191,data/lib/watcom/watcom_clib_17_bss_01.asm,position,1.0,same fixup of sub_D5CA2
+data,1DE772,1A1192,byte_1A1192,data/lib/watcom/watcom_clib_17_bss_01.asm,position,1.0,same fixup of sub_D5BCD
+data,1DE773,1A1193,byte_1A1193,data/lib/watcom/watcom_clib_17_bss_01.asm,position,1.0,same fixup of sub_D5B96
+data,1DE774,1A1194,dword_1A1194,data/lib/watcom/watcom_clib_17_bss_01.asm,position,1.0,same fixup of sub_D5BCD
+data,1DE778,1A1198,dword_1A1198,data/lib/watcom/watcom_clib_17_bss_01.asm,position,1.0,same fixup of sub_D5CA2
+data,1DE78E,1A11E6,word_1A11E6,data/lib/ea/ea_debug_02_bss_01.asm,position,1.0,same fixup of sub_DABAA
+data,1DE790,1A11E8,word_1A11E8,data/lib/ea/ea_debug_02_bss_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,1DE792,1A11EA,word_1A11EA,data/lib/ea/ea_debug_02_bss_01.asm,position,1.0,same fixup of sub_DAB70
+data,1DE794,1A11EC,byte_1A11EC,data/lib/ea/ea_debug_02_bss_01.asm,refset,0.8,referenced by the same 4 matched functions
+data,1DE795,1A11ED,byte_1A11ED,data/lib/ea/ea_debug_02_bss_01.asm,refset,0.8,referenced by the same 2 matched functions
+data,1DE796,1A11EE,byte_1A11EE,data/lib/ea/ea_debug_02_bss_01.asm,refset,0.8,referenced by the same 3 matched functions
+data,1DE797,1A11EF,byte_1A11EF,data/lib/ea/ea_debug_02_bss_01.asm,position,1.0,same fixup of sub_DAE60
+data,1DE798,1A11F0,byte_1A11F0,data/lib/ea/ea_debug_02_bss_01.asm,position,1.0,same fixup of sub_DAE60
+data,1DE7A0,1A11F8,unk_1A11F8,data/lib/ea/ea_debug_02_bss_01.asm,position,1.0,same fixup of sub_DA65C
+data,1DE7D0,1A1228,dword_1A1228,data/lib/ea/ea_debug_02_bss_01.asm,position,1.0,same fixup of sub_DAE9C
+data,1DEC00,1A1258,unk_1A1258,data/lib/ea/ea_debug_02_bss_01.asm,position,1.0,same fixup of start
