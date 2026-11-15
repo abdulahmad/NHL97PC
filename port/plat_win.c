@@ -245,7 +245,6 @@ void plat_probe_game(void)
     CONTEXT c;
     uint32_t s[96];
     SIZE_T got = 0;
-    int i;
     int64_t now;
     if (!init) { init = 1; path = getenv("OVERBAR_PROBE"); }
     if (!path || !game_handle) return;

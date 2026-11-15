@@ -331,6 +331,23 @@ int dos_snap_regions(struct ob_snap_region *r, int n, int max)
 #define SIDI(c) ((R(c, ESI) << 16) | (R(c, EDI) & 0xFFFF))
 #define SETSIDI(c, v) do { R(c, ESI) = (R(c, ESI) & ~0xFFFFu) | ((v) >> 16); R(c, EDI) = (R(c, EDI) & ~0xFFFFu) | ((v) & 0xFFFF); } while (0)
 
+/* int 2Fh: MSCDEX, so NHL 97's "run from the CD" check passes. One CD drive, D:, version 2.10. Device requests (1510h) are
+ * answered "done" with nothing transferred: the game's files come from NHL97_ROOT, and CD audio is not played. */
+static int mscdex_int2f(ctx_t *c)
+{
+    uint32_t bx = R(c, EBX);
+    switch (AX(c)) {
+    case 0x1500: R(c, EBX) = (R(c, EBX) & ~0xFFFFu) | 1; R(c, ECX) = (R(c, ECX) & ~0xFFFFu) | 3; return 1;   /* 1 drive, first is D: */
+    case 0x1501: if (bx >= 0x1000) memset((void *)(uintptr_t)bx, 0, 5); return 1;                          /* drive device list */
+    case 0x150B: SETAX(c, (R(c, ECX) & 0xFFFF) == 3 ? 1 : 0); R(c, EBX) = (R(c, EBX) & ~0xFFFFu) | 0xADAD; return 1;
+    case 0x150C: R(c, EBX) = (R(c, EBX) & ~0xFFFFu) | 0x020A; return 1;                                      /* version 2.10 */
+    case 0x150D: if (bx >= 0x1000) *(uint8_t *)(uintptr_t)bx = 3; return 1;                                   /* drive letters: D: */
+    case 0x1510: if (bx >= 0x1000) { uint16_t st = 0x0100; memcpy((uint8_t *)(uintptr_t)bx + 3, &st, 2); } return 1;
+    }
+    TRACE("int 2Fh ax=%04x: no multiplex service\n", (unsigned)AX(c));
+    SETAL(c, 0); return 1;
+}
+
 static int int31(ctx_t *c)
 {
     switch (AX(c)) {
@@ -410,6 +427,13 @@ static int int31(ctx_t *c)
         memcpy(&v, rm + 0x14, 4); R(&t, EDX) = v;
         memcpy(&v, rm + 0x18, 4); R(&t, ECX) = v;
         memcpy(&v, rm + 0x1C, 4); R(&t, EAX) = v;
+        {   /* pointer arguments: DS:DX for the int 21h file calls, ES:BX for MSCDEX, made flat like ES:DI */
+            uint16_t ds; unsigned ah = (R(&t, EAX) >> 8) & 0xFF;
+            memcpy(&ds, rm + 0x24, 2);
+            if (vec == 0x21 && ds && strchr("\x09\x1A\x39\x3A\x3B\x3C\x3D\x3F\x40\x41\x43\x4E\x56\x5B", (int)ah) && ah)
+                R(&t, EDX) = ((uint32_t)ds << 4) + (R(&t, EDX) & 0xFFFF);
+            if (vec == 0x2F && ah == 0x15) R(&t, EBX) = ((uint32_t)es << 4) + (R(&t, EBX) & 0xFFFF);
+        }
         TRACE("real-mode int %02xh ax=%04x es:di=%08x\n", vec, (unsigned)(R(&t, EAX) & 0xFFFF), (unsigned)R(&t, EDI));
         if (AX(c) == 0x0300 && vec == 0x21 && (R(&t, EAX) & 0xFF00) == 0x6300) {
             /* NHL 97's C library start-up (Watcom __init_mbcs): get the DBCS lead-byte table. An empty table (two zero bytes) at
@@ -421,6 +445,7 @@ static int int31(ctx_t *c)
             ok = 1;
         } else ok = AX(c) == 0x0300 ? dos_int(&t, vec) : 0;
         if (!ok) { SETAX(c, 0x8001); SET_CF(c, 1); return 1; }
+        if (vec == 0x2F && ((R(&t, EAX) >> 8) & 0xFF) == 0x15) { uint32_t bx = R(&t, EBX) & 0xFFFF; R(&t, EBX) = bx; }   /* back to the offset */
         v = R(&t, ESI); memcpy(rm + 0x04, &v, 4);
         v = R(&t, EBP); memcpy(rm + 0x08, &v, 4);
         v = R(&t, EBX); memcpy(rm + 0x10, &v, 4);
@@ -526,6 +551,7 @@ static int int21(ctx_t *c)
     }
     case 0x44:                                                 /* IOCTL: device info for the C library */
         if (AL(c) == 0) { R(c, EDX) = R(c, EBX) <= 2 ? 0x80D3 : 0x0002; SET_CF(c, 0); return 1; }
+        if (AL(c) == 0x0D) { SETAX(c, 1); SET_CF(c, 1); return 1; }   /* generic block-device request: not supported */
         break;
     case 0x48: SETAX(c, 8); R(c, EBX) = 0; SET_CF(c, 1); return 1;         /* allocate memory: none (the heap uses DPMI blocks) */
     case 0x49: case 0x4A: SET_CF(c, 0); return 1;
@@ -593,7 +619,7 @@ int dos_int(ctx_t *c, int vec)
     else if (vec == 0x10) ok = video_int10(c);
     else if (vec == 0x33) ok = input_mouse(c);
     else if (vec == 0x16) { R(c, EAX) &= ~0xFFFFu; ok = 1; }
-    else if (vec == 0x2F) { SETAL(c, 0); ok = 1; }                      /* no multiplex services */
+    else if (vec == 0x2F) ok = mscdex_int2f(c);
     if (!ok) backtrace_hint(c);
     if (!ok) fprintf(stderr, "unhandled int %02xh ax=%04x bx=%08x cx=%08x dx=%08x\n", vec, (unsigned)AX(c), (unsigned)R(c, EBX), (unsigned)R(c, ECX), (unsigned)R(c, EDX));
     return ok;
