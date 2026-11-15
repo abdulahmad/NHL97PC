@@ -1135,6 +1135,7 @@ void video_present(void)
             for (i = 0; i < w * h; i++) nz += vram[(size_t)(i / w + disp_y) * w + disp_x + i % w] != 0;
             for (i = 0; i < 0x10000; i++) wz += WINDOW[i] != 0;
             for (i = 0; i < 256; i++) { ls += dac_latched[i][0] + dac_latched[i][1] + dac_latched[i][2]; ds += dac[i][0] + dac[i][1] + dac[i][2]; }
+            { static uint32_t lt; uint32_t t = *(volatile uint32_t *)GAME_ADDR(ORIG_TICKCOUNT); fprintf(stderr, "vlog ticks %u (+%u) ", t, t - lt); lt = t; }
             fprintf(stderr, "vlog %6dms mode %x %dx%d disp %d,%d bank %d | per s: banks %u dac %u latch %u retrace %u 3da %u 4f07 %u modes %u | vram nonzero %u window nonzero %u | pal sum latched %u live %u dac_wr %u comp %u\n",
                     (int)SDL_GetTicks(), mode_num, w, h, disp_x, disp_y, cur_bank, vl_bank, vl_dac, vl_latch, vl_retrace, vl_3da, vl_4f07, vl_mode,
                     nz, wz, ls, ds, dac_wr & 255, dac_comp);
