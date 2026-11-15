@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """build_segmap.py - write segmap97pc.json: the segment (module) layout of the 96 PC objects (maintainer tool).
 
-  python3 tools/build/build_segmap.py build/f96.pkl tools/names/match95.csv
+  python3 tools/build/build_segmap.py build/f97.pkl tools/names/match96.csv
 
 Code object: the proven atoms of tools/build/module_atoms.py are grouped into segments.
-  * An atom whose matched functions come from one NHL95PC module takes that module's path (engine/collide/collide.asm),
-    so 96 keeps the 95 layout. A short run with another label inside a module is absorbed (provisional).
-  * HAND names the segments that have no 95 counterpart but one clear theme; every other unmatched stretch is a
+  * An atom whose matched functions come from one NHL96PC module (tools/names/match96.csv) takes that module's path (engine/collide/collide.asm),
+    so 97 keeps the 96 layout. A short run with another label inside a module is absorbed (provisional).
+  * HAND names the segments that have no 96 counterpart but one clear theme; every other unmatched stretch is a
     placeholder named by its start address (front_<ADDR>, engine_<ADDR>, lib_<ADDR>) until the segment agent names it.
-  * Library zone: runs of the same 95 library module, numbered in 96 link order.
+  * Library zone: runs of the same 96 library module, numbered in 97 link order.
 Data objects: a cut where the owning code segment of the data changes (data follows the link order of the code).
 The boundaries are provisional module boundaries, not a proven object-file split (see docs/PLAN.md)."""
 import os, sys, json, pickle, re, bisect
@@ -18,19 +18,17 @@ import paths
 from module_atoms import atoms
 ROOT = paths.ROOT
 
-ENGINE = (0x2D9D9, 0x53260)       # the game engine (matches NHL95PC engine modules, in the same order)
+# NHL 97 PC zones (provisional, from the NHL96PC matches and the code itself):
+#   0x10000-0x11504 front (controller / joystick set-up), 0x11504-0x3E818 the game engine (NHL96PC engine modules
+#   match here, in the same order), 0x3E818-0xF94BC the front end (menus; mostly unaligned functions),
+#   0xF94BC- the library zone (EA gfx / file / timer libraries, sound drivers, Watcom C library)
+ENGINE = (0x11504, 0x3E818)
+LIB0 = 0xF94BC
 # start of atom -> (path under src/, note). Only segments with one clear theme; the rest stay placeholders.
 HAND = {
- 0x10003: ('lib/watcom/watcom_begtext', 'Watcom ___begtext'),
  0x10010: ('front/front_10010', 'placeholder'),
- 0x186DC: ('front/main/main', 'holds main_ (FLIRT); startup, CDSTREAM, asset loading'),
- 0x22522: ('front/rink_model/rink_model', 'rink and stands model parts by name (zamboni, glass, boards, crowd)'),
- 0x4F453: ('engine/gamelog/gamelog', 'goal and penalty log lines; holds a matched NHL95PC gamelog function'),
- 0x54519: ('front/replay_controls/replay_controls', 'replay control buttons (rew, play, fwd, camera); 95PC module name'),
- 0x6A891: ('front/pause_menu/pause_menu', 'pause menu buttons (PAUSREG, quit, return, replay, controls, stats)'),
- 0x711ED: ('front/modem_setup/modem_setup', 'modem setup screens (Generic Hayes-Compatible, tone/pulse)'),
- 0x7D580: ('front/calendar/calendar', 'Month Choice / Calendar Choices; 95PC module name'),
- 0xA4FD7: ('front/playoff/playoff', 'PLAYOFF.NDX, series length buttons; 95PC module name'),
+ 0x7D059: ('front/main/main', 'holds main_ (FLIRT)'),
+ 0x2DE3C: ('engine/engine_2DE3C', 'placeholder'),     # NHL96PC collide, faceoff, hockey and input routines mixed
 }
 
 def main():
@@ -39,7 +37,7 @@ def main():
     b = pickle.load(open(f96, 'rb')); objs = b['objs']; F = b['funcs']
     cb, cv, _ = objs[1]; CE = cb + cv
     # library zone: from the first atom after the last game module
-    lib0 = next(a['start'] for a in AT if a['start'] >= 0xA8B9B)
+    lib0 = next(a['start'] for a in AT if a['start'] >= LIB0)
     def label(a):
         if not a['mods']: return None
         m, n = a['mods'].most_common(1)[0]
@@ -72,8 +70,13 @@ def main():
         if st in HAND:
             segs.append([st, HAND[st][0], HAND[st][1]]); cur = ('hand', HAND[st][0]); continue
         if st == lib0 and l is None: segs.append([st, 'lib/lib_%05X' % st, 'placeholder']); cur = ('ph', None); continue
+        if l is not None and zone == 'lib' and not l.startswith('lib/'):
+            # a NHL96PC front module (or a NHL96PC placeholder) matched inside the library zone: library code there
+            l = cur[1] if cur and cur[0] == '95' and re.match(r'lib/lib_[0-9A-F]+$', cur[1] or '') else 'lib/lib_%05X' % st
+        elif l is not None and re.match(r'lib/lib_[0-9A-F]+$', l):
+            l = cur[1] if cur and cur[0] == '95' and re.match(r'lib/lib_[0-9A-F]+$', cur[1] or '') else 'lib/lib_%05X' % st
         if l is not None:
-            if cur != ('95', l): segs.append([st, l, 'NHL95PC module (matched functions)']); cur = ('95', l)
+            if cur != ('95', l): segs.append([st, l, 'NHL96PC module (matched functions)']); cur = ('95', l)
             continue
         if a['end'] - a['start'] >= 0x1000 and zone != 'lib':
             segs.append([st, '%s/%s_%05X' % (zone, zone, st), 'placeholder']); cur = ('ph', st)
@@ -134,7 +137,7 @@ def main():
     SM['dseg04'] = data
     json.dump(SM, open(os.path.join(ROOT, 'segmap97pc.json'), 'w'), indent=1)
     print('code segments', len(code), 'data segments', len(data), 'library zone from %05X' % lib0)
-    c = Counter(('placeholder' if s['note'] == 'placeholder' else ('95PC' if s['note'].startswith('NHL95PC') else 'named')) for s in code)
+    c = Counter(('placeholder' if s['note'] == 'placeholder' else ('96PC' if s['note'].startswith('NHL96PC') else 'named')) for s in code)
     print(dict(c), 'placeholder bytes', sum(s['end'] - s['start'] for s in code if s['note'] == 'placeholder'))
 
 if __name__ == '__main__':

@@ -109,10 +109,13 @@ def name_sources():
 REPO95 = os.path.join(os.path.dirname(asmaddr.ROOT), 'NHL95PC')
 
 
-def headers95():
-    """{name: (tag, description lines)} from the routine headers of a NHL95PC checkout next to this one"""
+REPO96 = os.path.join(os.path.dirname(asmaddr.ROOT), 'NHL96PC')
+
+
+def headers95(repo=REPO95):
+    """{name: (tag, description lines)} from the routine headers of a NHL95PC (or NHL96PC) checkout next to this one"""
     out = {}
-    for f in glob.glob(os.path.join(REPO95, 'src', '**', '*.asm'), recursive=True):
+    for f in glob.glob(os.path.join(repo, 'src', '**', '*.asm'), recursive=True):
         L = open(f, encoding='latin1').read().split('\n')
         for k in range(len(L) - 2):
             if L[k].startswith(RULE) and not L[k + 1].startswith(RULE):
@@ -127,9 +130,9 @@ def headers95():
 
 
 def name_sources96(cur, old):
-    """96: the tag and description of a name carried from 95 PC come from the 95 PC header of that name"""
+    """the tag and description of a name carried from 95 PC / 96 PC come from that game's header of that name"""
     import csv
-    h95 = headers95()
+    h95 = headers95(); h96 = headers95(REPO96)
     out = {}
     for r in csv.DictReader(open(NAMEREF, newline='')):
         try: a = int(r['address'], 16)
@@ -140,12 +143,17 @@ def name_sources96(cur, old):
             tag95, d95 = h95.get(name, ('95 PC', []))
             tag = '95 PC' if tag95.startswith('95 PC') else re.sub(r', \w+ confidence$', '', tag95)
             desc = d95
+        elif s == '96PC':
+            # a name carried from 96 PC keeps the tag of its 96 PC header (94G / 95 PC / 96 PC: the naming hierarchy)
+            tag96, d96 = h96.get(name, ('96 PC', []))
+            tag = re.sub(r', \w+ confidence$', '', tag96)
+            desc = d96
         elif s in ('93G', '94G'): tag = s
         elif s == 'WATCOM': tag = 'library'
-        else: tag = '96 PC'
+        else: tag = DEFAULT_TAG
         if conf in ('medium', 'low') and s != 'WATCOM': tag += ', %s confidence' % conf
         ev = '' if s == 'WATCOM' or desc else re.sub(r'\b(sub|loc|dword|word|byte|off|unk)_([0-9A-F]{5,6})\b', old, r['evidence']).strip()
-        if s == '95PC' and not desc: ev = ''
+        if s in ('95PC', '96PC') and not desc: ev = ''
         out[a] = (tag, ev, not name.startswith(('str_', 'byte_', 'word_', 'dword_', 'off_', 'unk_')), desc)
     return out
 

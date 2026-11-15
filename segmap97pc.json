@@ -10,11 +10,1099 @@
  "cseg01": [
   {
    "start": 65536,
-   "end": 1296283,
-   "module": "cseg01",
+   "end": 77884,
+   "module": "front_10010",
    "obj": 1,
-   "file": "cseg01/cseg01.asm",
-   "note": ""
+   "file": "front/front_10010.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 77884,
+   "end": 88770,
+   "module": "faceoff",
+   "obj": 1,
+   "file": "engine/faceoff/faceoff.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 88770,
+   "end": 153748,
+   "module": "engine_15AC2",
+   "obj": 1,
+   "file": "engine/engine_15AC2.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 153748,
+   "end": 187964,
+   "module": "engine_25894",
+   "obj": 1,
+   "file": "engine/engine_25894.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 187964,
+   "end": 192232,
+   "module": "engine_2DE3C",
+   "obj": 1,
+   "file": "engine/engine_2DE3C.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 192232,
+   "end": 229678,
+   "module": "faceoff_2",
+   "obj": 1,
+   "file": "engine/faceoff/faceoff_2.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 229678,
+   "end": 275832,
+   "module": "engine_3812E",
+   "obj": 1,
+   "file": "engine/engine_3812E.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 275832,
+   "end": 285676,
+   "module": "front_43578",
+   "obj": 1,
+   "file": "front/front_43578.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 285676,
+   "end": 298352,
+   "module": "front_45BEC",
+   "obj": 1,
+   "file": "front/front_45BEC.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 298352,
+   "end": 337776,
+   "module": "front_48D70",
+   "obj": 1,
+   "file": "front/front_48D70.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 337776,
+   "end": 357156,
+   "module": "front_52770",
+   "obj": 1,
+   "file": "front/front_52770.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 357156,
+   "end": 494064,
+   "module": "front_57324",
+   "obj": 1,
+   "file": "front/front_57324.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 494064,
+   "end": 502232,
+   "module": "front_789F0",
+   "obj": 1,
+   "file": "front/front_789F0.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 502232,
+   "end": 512089,
+   "module": "front_7A9D8",
+   "obj": 1,
+   "file": "front/front_7A9D8.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 512089,
+   "end": 542180,
+   "module": "main",
+   "obj": 1,
+   "file": "front/main/main.asm",
+   "note": "holds main_ (FLIRT)"
+  },
+  {
+   "start": 542180,
+   "end": 551117,
+   "module": "front_845E4",
+   "obj": 1,
+   "file": "front/front_845E4.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 551117,
+   "end": 573356,
+   "module": "front_868CD",
+   "obj": 1,
+   "file": "front/front_868CD.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 573356,
+   "end": 584087,
+   "module": "front_8BFAC",
+   "obj": 1,
+   "file": "front/front_8BFAC.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 584087,
+   "end": 602117,
+   "module": "front_8E997",
+   "obj": 1,
+   "file": "front/front_8E997.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 602117,
+   "end": 614974,
+   "module": "front_93005",
+   "obj": 1,
+   "file": "front/front_93005.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 614974,
+   "end": 648030,
+   "module": "front_9623E",
+   "obj": 1,
+   "file": "front/front_9623E.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 648030,
+   "end": 653045,
+   "module": "front_9E35E",
+   "obj": 1,
+   "file": "front/front_9E35E.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 653045,
+   "end": 668288,
+   "module": "front_9F6F5",
+   "obj": 1,
+   "file": "front/front_9F6F5.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 668288,
+   "end": 700992,
+   "module": "front_A3280",
+   "obj": 1,
+   "file": "front/front_A3280.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 700992,
+   "end": 706457,
+   "module": "front_AB240",
+   "obj": 1,
+   "file": "front/front_AB240.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 706457,
+   "end": 728605,
+   "module": "front_AC799",
+   "obj": 1,
+   "file": "front/front_AC799.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 728605,
+   "end": 741595,
+   "module": "front_B1E1D",
+   "obj": 1,
+   "file": "front/front_B1E1D.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 741595,
+   "end": 775724,
+   "module": "front_B50DB",
+   "obj": 1,
+   "file": "front/front_B50DB.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 775724,
+   "end": 790365,
+   "module": "front_BD62C",
+   "obj": 1,
+   "file": "front/front_BD62C.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 790365,
+   "end": 804399,
+   "module": "front_C0F5D",
+   "obj": 1,
+   "file": "front/front_C0F5D.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 804399,
+   "end": 810881,
+   "module": "front_C462F",
+   "obj": 1,
+   "file": "front/front_C462F.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 810881,
+   "end": 816475,
+   "module": "front_C5F81",
+   "obj": 1,
+   "file": "front/front_C5F81.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 816475,
+   "end": 857595,
+   "module": "front_C755B",
+   "obj": 1,
+   "file": "front/front_C755B.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 857595,
+   "end": 864530,
+   "module": "front_D15FB",
+   "obj": 1,
+   "file": "front/front_D15FB.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 864530,
+   "end": 871972,
+   "module": "front_D3112",
+   "obj": 1,
+   "file": "front/front_D3112.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 871972,
+   "end": 894573,
+   "module": "front_D4E24",
+   "obj": 1,
+   "file": "front/front_D4E24.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 894573,
+   "end": 949613,
+   "module": "front_DA66D",
+   "obj": 1,
+   "file": "front/front_DA66D.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 949613,
+   "end": 955433,
+   "module": "front_E7D6D",
+   "obj": 1,
+   "file": "front/front_E7D6D.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 955433,
+   "end": 976540,
+   "module": "front_E9429",
+   "obj": 1,
+   "file": "front/front_E9429.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 976540,
+   "end": 991393,
+   "module": "front_EE69C",
+   "obj": 1,
+   "file": "front/front_EE69C.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 991393,
+   "end": 1021116,
+   "module": "front_F20A1",
+   "obj": 1,
+   "file": "front/front_F20A1.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 1021116,
+   "end": 1022784,
+   "module": "lib_F94BC",
+   "obj": 1,
+   "file": "lib/lib_F94BC.asm",
+   "note": "placeholder"
+  },
+  {
+   "start": 1022784,
+   "end": 1023028,
+   "module": "lib_F9B40",
+   "obj": 1,
+   "file": "lib/lib_F9B40.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1023028,
+   "end": 1025464,
+   "module": "watcom_clib_01",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_01.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1025464,
+   "end": 1027000,
+   "module": "ea_gfx_01",
+   "obj": 1,
+   "file": "lib/ea/ea_gfx_01.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1027000,
+   "end": 1030318,
+   "module": "ea_memman_01",
+   "obj": 1,
+   "file": "lib/ea/ea_memman_01.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1030318,
+   "end": 1031520,
+   "module": "input_joystick_misc_01",
+   "obj": 1,
+   "file": "lib/input/input_joystick_misc_01.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1031520,
+   "end": 1031744,
+   "module": "watcom_clib_02",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_02.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1031744,
+   "end": 1032200,
+   "module": "input_joystick_misc_02",
+   "obj": 1,
+   "file": "lib/input/input_joystick_misc_02.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1032200,
+   "end": 1032720,
+   "module": "ea_timer",
+   "obj": 1,
+   "file": "lib/ea/ea_timer.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1032720,
+   "end": 1032832,
+   "module": "watcom_clib_03",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_03.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1032832,
+   "end": 1033008,
+   "module": "input_joystick_misc_03",
+   "obj": 1,
+   "file": "lib/input/input_joystick_misc_03.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1033008,
+   "end": 1033616,
+   "module": "watcom_clib_04",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_04.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1033616,
+   "end": 1034244,
+   "module": "input_mouse",
+   "obj": 1,
+   "file": "lib/input/input_mouse.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1034244,
+   "end": 1034380,
+   "module": "watcom_clib_05",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_05.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1034380,
+   "end": 1036164,
+   "module": "ea_fileblock_01",
+   "obj": 1,
+   "file": "lib/ea/ea_fileblock_01.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1036164,
+   "end": 1039828,
+   "module": "ea_gfx_02",
+   "obj": 1,
+   "file": "lib/ea/ea_gfx_02.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1039828,
+   "end": 1049600,
+   "module": "watcom_clib_06",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_06.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1049600,
+   "end": 1050228,
+   "module": "ea_shpi_01",
+   "obj": 1,
+   "file": "lib/ea/ea_shpi_01.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1050228,
+   "end": 1050368,
+   "module": "input_joystick_misc_04",
+   "obj": 1,
+   "file": "lib/input/input_joystick_misc_04.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1050368,
+   "end": 1051240,
+   "module": "ea_gfx_03",
+   "obj": 1,
+   "file": "lib/ea/ea_gfx_03.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1051240,
+   "end": 1059768,
+   "module": "input_joystick_misc_05",
+   "obj": 1,
+   "file": "lib/input/input_joystick_misc_05.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1059768,
+   "end": 1060156,
+   "module": "video_bios_vga_01",
+   "obj": 1,
+   "file": "lib/video/video_bios_vga_01.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1060156,
+   "end": 1060672,
+   "module": "vesa_banked_blit_01",
+   "obj": 1,
+   "file": "lib/video/vesa_banked_blit_01.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1060672,
+   "end": 1062764,
+   "module": "watcom_clib_07",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_07.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1062764,
+   "end": 1067196,
+   "module": "ea_shapes",
+   "obj": 1,
+   "file": "lib/ea/ea_shapes.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1067196,
+   "end": 1067564,
+   "module": "video_bios_vga_02",
+   "obj": 1,
+   "file": "lib/video/video_bios_vga_02.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1067564,
+   "end": 1076928,
+   "module": "watcom_clib_08",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_08.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1076928,
+   "end": 1077248,
+   "module": "ea_unpack_01",
+   "obj": 1,
+   "file": "lib/ea/ea_unpack_01.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1077248,
+   "end": 1079852,
+   "module": "ea_gfx_04",
+   "obj": 1,
+   "file": "lib/ea/ea_gfx_04.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1079852,
+   "end": 1086440,
+   "module": "watcom_clib_09",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_09.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1086440,
+   "end": 1087472,
+   "module": "ea_fileio",
+   "obj": 1,
+   "file": "lib/ea/ea_fileio.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1087472,
+   "end": 1088116,
+   "module": "ea_vesa_init",
+   "obj": 1,
+   "file": "lib/ea/ea_vesa_init.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1088116,
+   "end": 1093034,
+   "module": "lib_109A74",
+   "obj": 1,
+   "file": "lib/lib_109A74.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1093034,
+   "end": 1093136,
+   "module": "watcom_clib_10",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_10.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1093136,
+   "end": 1093328,
+   "module": "ea_gfx_05",
+   "obj": 1,
+   "file": "lib/ea/ea_gfx_05.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1093328,
+   "end": 1093696,
+   "module": "watcom_clib_11",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_11.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1093696,
+   "end": 1095264,
+   "module": "ea_gfx_06",
+   "obj": 1,
+   "file": "lib/ea/ea_gfx_06.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1095264,
+   "end": 1099952,
+   "module": "lib_10B660",
+   "obj": 1,
+   "file": "lib/lib_10B660.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1099952,
+   "end": 1101620,
+   "module": "ea_shpi_02",
+   "obj": 1,
+   "file": "lib/ea/ea_shpi_02.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1101620,
+   "end": 1101748,
+   "module": "ea_gfx_07",
+   "obj": 1,
+   "file": "lib/ea/ea_gfx_07.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1101748,
+   "end": 1107600,
+   "module": "input_joystick_misc_06",
+   "obj": 1,
+   "file": "lib/input/input_joystick_misc_06.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1107600,
+   "end": 1113832,
+   "module": "ea_shpi_03",
+   "obj": 1,
+   "file": "lib/ea/ea_shpi_03.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1113832,
+   "end": 1125252,
+   "module": "ea_gfx_08",
+   "obj": 1,
+   "file": "lib/ea/ea_gfx_08.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1125252,
+   "end": 1126716,
+   "module": "watcom_clib_12",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_12.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1126716,
+   "end": 1126884,
+   "module": "video_bios_vga_03",
+   "obj": 1,
+   "file": "lib/video/video_bios_vga_03.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1126884,
+   "end": 1158672,
+   "module": "watcom_clib_13",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_13.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1158672,
+   "end": 1159376,
+   "module": "ea_debug",
+   "obj": 1,
+   "file": "lib/ea/ea_debug.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1159376,
+   "end": 1159428,
+   "module": "watcom_clib_14",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_14.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1159428,
+   "end": 1159690,
+   "module": "ea_fileblock_02",
+   "obj": 1,
+   "file": "lib/ea/ea_fileblock_02.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1159690,
+   "end": 1178284,
+   "module": "watcom_clib_15",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_15.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1178284,
+   "end": 1181532,
+   "module": "input_joystick_misc_07",
+   "obj": 1,
+   "file": "lib/input/input_joystick_misc_07.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1181532,
+   "end": 1182968,
+   "module": "watcom_clib_16",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_16.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1182968,
+   "end": 1184353,
+   "module": "dos4gw_dpmi_glue_01",
+   "obj": 1,
+   "file": "lib/dos4gw/dos4gw_dpmi_glue_01.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1184353,
+   "end": 1184356,
+   "module": "ea_mcga_window",
+   "obj": 1,
+   "file": "lib/ea/ea_mcga_window.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1184356,
+   "end": 1185456,
+   "module": "watcom_clib_17",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_17.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1185456,
+   "end": 1186371,
+   "module": "ea_memman_02",
+   "obj": 1,
+   "file": "lib/ea/ea_memman_02.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1186371,
+   "end": 1186390,
+   "module": "video_bios_vga_04",
+   "obj": 1,
+   "file": "lib/video/video_bios_vga_04.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1186390,
+   "end": 1186485,
+   "module": "dos4gw_dpmi_glue_02",
+   "obj": 1,
+   "file": "lib/dos4gw/dos4gw_dpmi_glue_02.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1186485,
+   "end": 1186560,
+   "module": "watcom_clib_18",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_18.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1186560,
+   "end": 1186901,
+   "module": "ea_snap",
+   "obj": 1,
+   "file": "lib/ea/ea_snap.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1186901,
+   "end": 1192980,
+   "module": "watcom_clib_19",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_19.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1192980,
+   "end": 1196010,
+   "module": "video_bios_vga_05",
+   "obj": 1,
+   "file": "lib/video/video_bios_vga_05.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1196010,
+   "end": 1205376,
+   "module": "watcom_clib_20",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_20.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1205376,
+   "end": 1206012,
+   "module": "video_bios_vga_06",
+   "obj": 1,
+   "file": "lib/video/video_bios_vga_06.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1206012,
+   "end": 1211760,
+   "module": "watcom_clib_21",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_21.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1211760,
+   "end": 1215724,
+   "module": "ea_unpack_02",
+   "obj": 1,
+   "file": "lib/ea/ea_unpack_02.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1215724,
+   "end": 1223532,
+   "module": "snd_soundblaster_01",
+   "obj": 1,
+   "file": "lib/sound/snd_soundblaster_01.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1223532,
+   "end": 1230340,
+   "module": "watcom_clib_22",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_22.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1230340,
+   "end": 1232236,
+   "module": "snd_soundblaster_02",
+   "obj": 1,
+   "file": "lib/sound/snd_soundblaster_02.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1232236,
+   "end": 1233487,
+   "module": "lib_12CD6C",
+   "obj": 1,
+   "file": "lib/lib_12CD6C.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1233487,
+   "end": 1234104,
+   "module": "watcom_clib_23",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_23.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1234104,
+   "end": 1234592,
+   "module": "ea_gfx_09",
+   "obj": 1,
+   "file": "lib/ea/ea_gfx_09.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1234592,
+   "end": 1234628,
+   "module": "watcom_clib_24",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_24.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1234628,
+   "end": 1241712,
+   "module": "input_joystick_misc_08",
+   "obj": 1,
+   "file": "lib/input/input_joystick_misc_08.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1241712,
+   "end": 1243619,
+   "module": "video_bios_vga_07",
+   "obj": 1,
+   "file": "lib/video/video_bios_vga_07.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1243619,
+   "end": 1243936,
+   "module": "watcom_clib_25",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_25.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1243936,
+   "end": 1245274,
+   "module": "ea_kbd_exit",
+   "obj": 1,
+   "file": "lib/ea/ea_kbd_exit.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1245274,
+   "end": 1245352,
+   "module": "video_bios_vga_08",
+   "obj": 1,
+   "file": "lib/video/video_bios_vga_08.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1245352,
+   "end": 1245695,
+   "module": "snd_soundblaster_03",
+   "obj": 1,
+   "file": "lib/sound/snd_soundblaster_03.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1245695,
+   "end": 1254748,
+   "module": "watcom_clib_26",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_26.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1254748,
+   "end": 1255151,
+   "module": "dos4gw_dpmi_glue_03",
+   "obj": 1,
+   "file": "lib/dos4gw/dos4gw_dpmi_glue_03.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1255151,
+   "end": 1255180,
+   "module": "watcom_clib_27",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_27.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1255180,
+   "end": 1255414,
+   "module": "vesa_banked_blit_02",
+   "obj": 1,
+   "file": "lib/video/vesa_banked_blit_02.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1255414,
+   "end": 1256580,
+   "module": "watcom_clib_28",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_28.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1256580,
+   "end": 1268818,
+   "module": "watcom_emu387",
+   "obj": 1,
+   "file": "lib/watcom/watcom_emu387.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1268818,
+   "end": 1270016,
+   "module": "watcom_clib_29",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_29.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1270016,
+   "end": 1276236,
+   "module": "snd_gus_sdk_01",
+   "obj": 1,
+   "file": "lib/sound/snd_gus_sdk_01.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1276236,
+   "end": 1281168,
+   "module": "snd_hw_sb",
+   "obj": 1,
+   "file": "lib/sound/snd_hw_sb.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1281168,
+   "end": 1281824,
+   "module": "snd_pcspeaker",
+   "obj": 1,
+   "file": "lib/sound/snd_pcspeaker.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1281824,
+   "end": 1281998,
+   "module": "vesa_banked_blit_03",
+   "obj": 1,
+   "file": "lib/video/vesa_banked_blit_03.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1281998,
+   "end": 1283808,
+   "module": "watcom_clib_30",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_30.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1283808,
+   "end": 1290441,
+   "module": "snd_gus_sdk_02",
+   "obj": 1,
+   "file": "lib/sound/snd_gus_sdk_02.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1290441,
+   "end": 1292096,
+   "module": "watcom_clib_31",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_31.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1292096,
+   "end": 1292738,
+   "module": "snd_gus_sdk_03",
+   "obj": 1,
+   "file": "lib/sound/snd_gus_sdk_03.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1292738,
+   "end": 1294720,
+   "module": "watcom_clib_32",
+   "obj": 1,
+   "file": "lib/watcom/watcom_clib_32.asm",
+   "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "start": 1294720,
+   "end": 1296283,
+   "module": "video_bios_vga_09",
+   "obj": 1,
+   "file": "lib/video/video_bios_vga_09.asm",
+   "note": "NHL96PC module (matched functions)"
   }
  ],
  "cseg02": [
@@ -40,11 +1128,1299 @@
  "dseg04": [
   {
    "start": 1441792,
-   "end": 1993728,
-   "module": "dseg04",
+   "end": 1442128,
+   "module": "shared_data_01",
    "obj": 4,
-   "file": "data/dseg04.asm",
-   "note": ""
+   "file": "data/shared_data_01.asm",
+   "note": "owner: shared"
+  },
+  {
+   "start": 1442128,
+   "end": 1443424,
+   "module": "engine_15AC2_data_01",
+   "obj": 4,
+   "file": "data/engine/engine_15AC2_data_01.asm",
+   "note": "owner: engine/engine_15AC2.asm"
+  },
+  {
+   "start": 1443424,
+   "end": 1444023,
+   "module": "engine_25894_data_01",
+   "obj": 4,
+   "file": "data/engine/engine_25894_data_01.asm",
+   "note": "owner: engine/engine_25894.asm"
+  },
+  {
+   "start": 1444023,
+   "end": 1444312,
+   "module": "faceoff_2_data_01",
+   "obj": 4,
+   "file": "data/engine/faceoff_2_data_01.asm",
+   "note": "owner: engine/faceoff/faceoff_2.asm"
+  },
+  {
+   "start": 1444312,
+   "end": 1445232,
+   "module": "engine_3812E_data_01",
+   "obj": 4,
+   "file": "data/engine/engine_3812E_data_01.asm",
+   "note": "owner: engine/engine_3812E.asm"
+  },
+  {
+   "start": 1445232,
+   "end": 1446324,
+   "module": "front_43578_data_01",
+   "obj": 4,
+   "file": "data/front/front_43578_data_01.asm",
+   "note": "owner: front/front_43578.asm"
+  },
+  {
+   "start": 1446324,
+   "end": 1447244,
+   "module": "front_48D70_data_01",
+   "obj": 4,
+   "file": "data/front/front_48D70_data_01.asm",
+   "note": "owner: front/front_48D70.asm"
+  },
+  {
+   "start": 1447244,
+   "end": 1447944,
+   "module": "front_52770_data_01",
+   "obj": 4,
+   "file": "data/front/front_52770_data_01.asm",
+   "note": "owner: front/front_52770.asm"
+  },
+  {
+   "start": 1447944,
+   "end": 1457920,
+   "module": "front_57324_data_01",
+   "obj": 4,
+   "file": "data/front/front_57324_data_01.asm",
+   "note": "owner: front/front_57324.asm"
+  },
+  {
+   "start": 1457920,
+   "end": 1458596,
+   "module": "front_7A9D8_data_01",
+   "obj": 4,
+   "file": "data/front/front_7A9D8_data_01.asm",
+   "note": "owner: front/front_7A9D8.asm"
+  },
+  {
+   "start": 1458596,
+   "end": 1462744,
+   "module": "main_data_01",
+   "obj": 4,
+   "file": "data/front/main_data_01.asm",
+   "note": "owner: front/main/main.asm"
+  },
+  {
+   "start": 1462744,
+   "end": 1463078,
+   "module": "front_845E4_data_01",
+   "obj": 4,
+   "file": "data/front/front_845E4_data_01.asm",
+   "note": "owner: front/front_845E4.asm"
+  },
+  {
+   "start": 1463078,
+   "end": 1463624,
+   "module": "front_868CD_data_01",
+   "obj": 4,
+   "file": "data/front/front_868CD_data_01.asm",
+   "note": "owner: front/front_868CD.asm"
+  },
+  {
+   "start": 1463624,
+   "end": 1463882,
+   "module": "front_8BFAC_data_01",
+   "obj": 4,
+   "file": "data/front/front_8BFAC_data_01.asm",
+   "note": "owner: front/front_8BFAC.asm"
+  },
+  {
+   "start": 1463882,
+   "end": 1464440,
+   "module": "front_8E997_data_01",
+   "obj": 4,
+   "file": "data/front/front_8E997_data_01.asm",
+   "note": "owner: front/front_8E997.asm"
+  },
+  {
+   "start": 1464440,
+   "end": 1464952,
+   "module": "front_93005_data_01",
+   "obj": 4,
+   "file": "data/front/front_93005_data_01.asm",
+   "note": "owner: front/front_93005.asm"
+  },
+  {
+   "start": 1464952,
+   "end": 1465360,
+   "module": "front_9623E_data_01",
+   "obj": 4,
+   "file": "data/front/front_9623E_data_01.asm",
+   "note": "owner: front/front_9623E.asm"
+  },
+  {
+   "start": 1465360,
+   "end": 1465616,
+   "module": "front_9E35E_data_01",
+   "obj": 4,
+   "file": "data/front/front_9E35E_data_01.asm",
+   "note": "owner: front/front_9E35E.asm"
+  },
+  {
+   "start": 1465616,
+   "end": 1465936,
+   "module": "front_9F6F5_data_01",
+   "obj": 4,
+   "file": "data/front/front_9F6F5_data_01.asm",
+   "note": "owner: front/front_9F6F5.asm"
+  },
+  {
+   "start": 1465936,
+   "end": 1466656,
+   "module": "front_A3280_data_01",
+   "obj": 4,
+   "file": "data/front/front_A3280_data_01.asm",
+   "note": "owner: front/front_A3280.asm"
+  },
+  {
+   "start": 1466656,
+   "end": 1466914,
+   "module": "front_AB240_data_01",
+   "obj": 4,
+   "file": "data/front/front_AB240_data_01.asm",
+   "note": "owner: front/front_AB240.asm"
+  },
+  {
+   "start": 1466914,
+   "end": 1467848,
+   "module": "front_AC799_data_01",
+   "obj": 4,
+   "file": "data/front/front_AC799_data_01.asm",
+   "note": "owner: front/front_AC799.asm"
+  },
+  {
+   "start": 1467848,
+   "end": 1468272,
+   "module": "front_B1E1D_data_01",
+   "obj": 4,
+   "file": "data/front/front_B1E1D_data_01.asm",
+   "note": "owner: front/front_B1E1D.asm"
+  },
+  {
+   "start": 1468272,
+   "end": 1469020,
+   "module": "front_B50DB_data_01",
+   "obj": 4,
+   "file": "data/front/front_B50DB_data_01.asm",
+   "note": "owner: front/front_B50DB.asm"
+  },
+  {
+   "start": 1469020,
+   "end": 1469340,
+   "module": "front_BD62C_data_01",
+   "obj": 4,
+   "file": "data/front/front_BD62C_data_01.asm",
+   "note": "owner: front/front_BD62C.asm"
+  },
+  {
+   "start": 1469340,
+   "end": 1469596,
+   "module": "front_C0F5D_data_01",
+   "obj": 4,
+   "file": "data/front/front_C0F5D_data_01.asm",
+   "note": "owner: front/front_C0F5D.asm"
+  },
+  {
+   "start": 1469596,
+   "end": 1469852,
+   "module": "front_C5F81_data_01",
+   "obj": 4,
+   "file": "data/front/front_C5F81_data_01.asm",
+   "note": "owner: front/front_C5F81.asm"
+  },
+  {
+   "start": 1469852,
+   "end": 1470412,
+   "module": "front_C755B_data_01",
+   "obj": 4,
+   "file": "data/front/front_C755B_data_01.asm",
+   "note": "owner: front/front_C755B.asm"
+  },
+  {
+   "start": 1470412,
+   "end": 1470671,
+   "module": "front_D15FB_data_01",
+   "obj": 4,
+   "file": "data/front/front_D15FB_data_01.asm",
+   "note": "owner: front/front_D15FB.asm"
+  },
+  {
+   "start": 1470671,
+   "end": 1471104,
+   "module": "front_D3112_data_01",
+   "obj": 4,
+   "file": "data/front/front_D3112_data_01.asm",
+   "note": "owner: front/front_D3112.asm"
+  },
+  {
+   "start": 1471104,
+   "end": 1471589,
+   "module": "front_D4E24_data_01",
+   "obj": 4,
+   "file": "data/front/front_D4E24_data_01.asm",
+   "note": "owner: front/front_D4E24.asm"
+  },
+  {
+   "start": 1471589,
+   "end": 1472233,
+   "module": "front_DA66D_data_01",
+   "obj": 4,
+   "file": "data/front/front_DA66D_data_01.asm",
+   "note": "owner: front/front_DA66D.asm"
+  },
+  {
+   "start": 1472233,
+   "end": 1472493,
+   "module": "front_E7D6D_data_01",
+   "obj": 4,
+   "file": "data/front/front_E7D6D_data_01.asm",
+   "note": "owner: front/front_E7D6D.asm"
+  },
+  {
+   "start": 1472493,
+   "end": 1472863,
+   "module": "front_E9429_data_01",
+   "obj": 4,
+   "file": "data/front/front_E9429_data_01.asm",
+   "note": "owner: front/front_E9429.asm"
+  },
+  {
+   "start": 1472863,
+   "end": 1473125,
+   "module": "front_EE69C_data_01",
+   "obj": 4,
+   "file": "data/front/front_EE69C_data_01.asm",
+   "note": "owner: front/front_EE69C.asm"
+  },
+  {
+   "start": 1473125,
+   "end": 1473940,
+   "module": "front_F20A1_data_01",
+   "obj": 4,
+   "file": "data/front/front_F20A1_data_01.asm",
+   "note": "owner: front/front_F20A1.asm"
+  },
+  {
+   "start": 1473940,
+   "end": 1474200,
+   "module": "watcom_clib_06_data_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_06_data_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_06.asm"
+  },
+  {
+   "start": 1474200,
+   "end": 1474464,
+   "module": "ea_gfx_08_data_01",
+   "obj": 4,
+   "file": "data/lib/ea/ea_gfx_08_data_01.asm",
+   "note": "owner: lib/ea/ea_gfx_08.asm"
+  },
+  {
+   "start": 1474464,
+   "end": 1474724,
+   "module": "watcom_clib_15_data_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_15_data_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_15.asm"
+  },
+  {
+   "start": 1474724,
+   "end": 1475644,
+   "module": "snd_soundblaster_01_data_01",
+   "obj": 4,
+   "file": "data/lib/sound/snd_soundblaster_01_data_01.asm",
+   "note": "owner: lib/sound/snd_soundblaster_01.asm"
+  },
+  {
+   "start": 1475644,
+   "end": 1476142,
+   "module": "watcom_clib_31_data_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_31_data_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_31.asm"
+  },
+  {
+   "start": 1476142,
+   "end": 1476446,
+   "module": "faceoff_data_01",
+   "obj": 4,
+   "file": "data/engine/faceoff_data_01.asm",
+   "note": "owner: engine/faceoff/faceoff.asm"
+  },
+  {
+   "start": 1476446,
+   "end": 1477196,
+   "module": "engine_15AC2_data_02",
+   "obj": 4,
+   "file": "data/engine/engine_15AC2_data_02.asm",
+   "note": "owner: engine/engine_15AC2.asm"
+  },
+  {
+   "start": 1477196,
+   "end": 1477472,
+   "module": "engine_25894_data_02",
+   "obj": 4,
+   "file": "data/engine/engine_25894_data_02.asm",
+   "note": "owner: engine/engine_25894.asm"
+  },
+  {
+   "start": 1477472,
+   "end": 1478584,
+   "module": "faceoff_2_data_02",
+   "obj": 4,
+   "file": "data/engine/faceoff_2_data_02.asm",
+   "note": "owner: engine/faceoff/faceoff_2.asm"
+  },
+  {
+   "start": 1478584,
+   "end": 1478866,
+   "module": "front_8E997_data_02",
+   "obj": 4,
+   "file": "data/front/front_8E997_data_02.asm",
+   "note": "owner: front/front_8E997.asm"
+  },
+  {
+   "start": 1478866,
+   "end": 1479232,
+   "module": "engine_3812E_data_02",
+   "obj": 4,
+   "file": "data/engine/engine_3812E_data_02.asm",
+   "note": "owner: engine/engine_3812E.asm"
+  },
+  {
+   "start": 1479232,
+   "end": 1480576,
+   "module": "front_45BEC_data_01",
+   "obj": 4,
+   "file": "data/front/front_45BEC_data_01.asm",
+   "note": "owner: front/front_45BEC.asm"
+  },
+  {
+   "start": 1480576,
+   "end": 1480866,
+   "module": "front_43578_data_02",
+   "obj": 4,
+   "file": "data/front/front_43578_data_02.asm",
+   "note": "owner: front/front_43578.asm"
+  },
+  {
+   "start": 1480866,
+   "end": 1486688,
+   "module": "front_48D70_data_02",
+   "obj": 4,
+   "file": "data/front/front_48D70_data_02.asm",
+   "note": "owner: front/front_48D70.asm"
+  },
+  {
+   "start": 1486688,
+   "end": 1486980,
+   "module": "front_52770_data_02",
+   "obj": 4,
+   "file": "data/front/front_52770_data_02.asm",
+   "note": "owner: front/front_52770.asm"
+  },
+  {
+   "start": 1486980,
+   "end": 1487264,
+   "module": "front_48D70_data_03",
+   "obj": 4,
+   "file": "data/front/front_48D70_data_03.asm",
+   "note": "owner: front/front_48D70.asm"
+  },
+  {
+   "start": 1487264,
+   "end": 1492788,
+   "module": "front_57324_data_02",
+   "obj": 4,
+   "file": "data/front/front_57324_data_02.asm",
+   "note": "owner: front/front_57324.asm"
+  },
+  {
+   "start": 1492788,
+   "end": 1493680,
+   "module": "front_7A9D8_data_02",
+   "obj": 4,
+   "file": "data/front/front_7A9D8_data_02.asm",
+   "note": "owner: front/front_7A9D8.asm"
+  },
+  {
+   "start": 1493680,
+   "end": 1494212,
+   "module": "main_data_02",
+   "obj": 4,
+   "file": "data/front/main_data_02.asm",
+   "note": "owner: front/main/main.asm"
+  },
+  {
+   "start": 1494212,
+   "end": 1494472,
+   "module": "front_845E4_data_02",
+   "obj": 4,
+   "file": "data/front/front_845E4_data_02.asm",
+   "note": "owner: front/front_845E4.asm"
+  },
+  {
+   "start": 1494472,
+   "end": 1495032,
+   "module": "front_93005_data_02",
+   "obj": 4,
+   "file": "data/front/front_93005_data_02.asm",
+   "note": "owner: front/front_93005.asm"
+  },
+  {
+   "start": 1495032,
+   "end": 1495644,
+   "module": "front_9E35E_data_02",
+   "obj": 4,
+   "file": "data/front/front_9E35E_data_02.asm",
+   "note": "owner: front/front_9E35E.asm"
+  },
+  {
+   "start": 1495644,
+   "end": 1496128,
+   "module": "front_A3280_data_02",
+   "obj": 4,
+   "file": "data/front/front_A3280_data_02.asm",
+   "note": "owner: front/front_A3280.asm"
+  },
+  {
+   "start": 1496128,
+   "end": 1496680,
+   "module": "front_B1E1D_data_02",
+   "obj": 4,
+   "file": "data/front/front_B1E1D_data_02.asm",
+   "note": "owner: front/front_B1E1D.asm"
+  },
+  {
+   "start": 1496680,
+   "end": 1496936,
+   "module": "front_C755B_data_02",
+   "obj": 4,
+   "file": "data/front/front_C755B_data_02.asm",
+   "note": "owner: front/front_C755B.asm"
+  },
+  {
+   "start": 1496936,
+   "end": 1497236,
+   "module": "front_D4E24_data_02",
+   "obj": 4,
+   "file": "data/front/front_D4E24_data_02.asm",
+   "note": "owner: front/front_D4E24.asm"
+  },
+  {
+   "start": 1497236,
+   "end": 1499508,
+   "module": "front_DA66D_data_02",
+   "obj": 4,
+   "file": "data/front/front_DA66D_data_02.asm",
+   "note": "owner: front/front_DA66D.asm"
+  },
+  {
+   "start": 1499508,
+   "end": 1499764,
+   "module": "front_E7D6D_data_02",
+   "obj": 4,
+   "file": "data/front/front_E7D6D_data_02.asm",
+   "note": "owner: front/front_E7D6D.asm"
+  },
+  {
+   "start": 1499764,
+   "end": 1500020,
+   "module": "front_E9429_data_02",
+   "obj": 4,
+   "file": "data/front/front_E9429_data_02.asm",
+   "note": "owner: front/front_E9429.asm"
+  },
+  {
+   "start": 1500020,
+   "end": 1500300,
+   "module": "input_joystick_misc_01_data_01",
+   "obj": 4,
+   "file": "data/lib/input/input_joystick_misc_01_data_01.asm",
+   "note": "owner: lib/input/input_joystick_misc_01.asm"
+  },
+  {
+   "start": 1500300,
+   "end": 1500676,
+   "module": "watcom_clib_11_data_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_11_data_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_11.asm"
+  },
+  {
+   "start": 1500676,
+   "end": 1503624,
+   "module": "input_mouse_data_01",
+   "obj": 4,
+   "file": "data/lib/input/input_mouse_data_01.asm",
+   "note": "owner: lib/input/input_mouse.asm"
+  },
+  {
+   "start": 1503624,
+   "end": 1505148,
+   "module": "input_joystick_misc_05_data_01",
+   "obj": 4,
+   "file": "data/lib/input/input_joystick_misc_05_data_01.asm",
+   "note": "owner: lib/input/input_joystick_misc_05.asm"
+  },
+  {
+   "start": 1505148,
+   "end": 1506112,
+   "module": "video_bios_vga_01_data_01",
+   "obj": 4,
+   "file": "data/lib/video/video_bios_vga_01_data_01.asm",
+   "note": "owner: lib/video/video_bios_vga_01.asm"
+  },
+  {
+   "start": 1506112,
+   "end": 1507272,
+   "module": "watcom_clib_08_data_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_08_data_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_08.asm"
+  },
+  {
+   "start": 1507272,
+   "end": 1507676,
+   "module": "ea_gfx_04_data_01",
+   "obj": 4,
+   "file": "data/lib/ea/ea_gfx_04_data_01.asm",
+   "note": "owner: lib/ea/ea_gfx_04.asm"
+  },
+  {
+   "start": 1507676,
+   "end": 1507960,
+   "module": "lib_109A74_data_01",
+   "obj": 4,
+   "file": "data/lib/lib_109A74_data_01.asm",
+   "note": "owner: lib/lib_109A74.asm"
+  },
+  {
+   "start": 1507960,
+   "end": 1509088,
+   "module": "ea_gfx_06_data_01",
+   "obj": 4,
+   "file": "data/lib/ea/ea_gfx_06_data_01.asm",
+   "note": "owner: lib/ea/ea_gfx_06.asm"
+  },
+  {
+   "start": 1509088,
+   "end": 1515832,
+   "module": "watcom_clib_13_data_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_13_data_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_13.asm"
+  },
+  {
+   "start": 1515832,
+   "end": 1516756,
+   "module": "watcom_clib_15_data_02",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_15_data_02.asm",
+   "note": "owner: lib/watcom/watcom_clib_15.asm"
+  },
+  {
+   "start": 1516756,
+   "end": 1518256,
+   "module": "ea_memman_02_data_01",
+   "obj": 4,
+   "file": "data/lib/ea/ea_memman_02_data_01.asm",
+   "note": "owner: lib/ea/ea_memman_02.asm"
+  },
+  {
+   "start": 1518256,
+   "end": 1518529,
+   "module": "video_bios_vga_06_data_01",
+   "obj": 4,
+   "file": "data/lib/video/video_bios_vga_06_data_01.asm",
+   "note": "owner: lib/video/video_bios_vga_06.asm"
+  },
+  {
+   "start": 1518529,
+   "end": 1523556,
+   "module": "ea_unpack_02_data_01",
+   "obj": 4,
+   "file": "data/lib/ea/ea_unpack_02_data_01.asm",
+   "note": "owner: lib/ea/ea_unpack_02.asm"
+  },
+  {
+   "start": 1523556,
+   "end": 1677733,
+   "module": "watcom_clib_22_data_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_22_data_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_22.asm"
+  },
+  {
+   "start": 1677733,
+   "end": 1678424,
+   "module": "watcom_clib_26_data_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_26_data_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_26.asm"
+  },
+  {
+   "start": 1678424,
+   "end": 1681216,
+   "module": "watcom_emu387_data_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_emu387_data_01.asm",
+   "note": "owner: lib/watcom/watcom_emu387.asm"
+  },
+  {
+   "start": 1681216,
+   "end": 1681528,
+   "module": "snd_gus_sdk_01_data_01",
+   "obj": 4,
+   "file": "data/lib/sound/snd_gus_sdk_01_data_01.asm",
+   "note": "owner: lib/sound/snd_gus_sdk_01.asm"
+  },
+  {
+   "start": 1681528,
+   "end": 1687588,
+   "module": "snd_hw_sb_data_01",
+   "obj": 4,
+   "file": "data/lib/sound/snd_hw_sb_data_01.asm",
+   "note": "owner: lib/sound/snd_hw_sb.asm"
+  },
+  {
+   "start": 1687588,
+   "end": 1687976,
+   "module": "snd_gus_sdk_02_data_01",
+   "obj": 4,
+   "file": "data/lib/sound/snd_gus_sdk_02_data_01.asm",
+   "note": "owner: lib/sound/snd_gus_sdk_02.asm"
+  },
+  {
+   "start": 1687976,
+   "end": 1688536,
+   "module": "watcom_clib_32_data_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_32_data_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_32.asm"
+  },
+  {
+   "start": 1688536,
+   "end": 1689236,
+   "module": "faceoff_data_02",
+   "obj": 4,
+   "file": "data/engine/faceoff_data_02.asm",
+   "note": "owner: engine/faceoff/faceoff.asm"
+  },
+  {
+   "start": 1689236,
+   "end": 1689664,
+   "module": "watcom_clib_13_data_02",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_13_data_02.asm",
+   "note": "owner: lib/watcom/watcom_clib_13.asm"
+  },
+  {
+   "start": 1689664,
+   "end": 1690159,
+   "module": "video_bios_vga_09_data_01",
+   "obj": 4,
+   "file": "data/lib/video/video_bios_vga_09_data_01.asm",
+   "note": "owner: lib/video/video_bios_vga_09.asm"
+  },
+  {
+   "start": 1690159,
+   "end": 1690481,
+   "module": "faceoff_2_data_03",
+   "obj": 4,
+   "file": "data/engine/faceoff_2_data_03.asm",
+   "note": "owner: engine/faceoff/faceoff_2.asm"
+  },
+  {
+   "start": 1690481,
+   "end": 1690796,
+   "module": "faceoff_data_03",
+   "obj": 4,
+   "file": "data/engine/faceoff_data_03.asm",
+   "note": "owner: engine/faceoff/faceoff.asm"
+  },
+  {
+   "start": 1690796,
+   "end": 1690799,
+   "module": "faceoff_bss_01",
+   "obj": 4,
+   "file": "data/engine/faceoff_bss_01.asm",
+   "note": "owner: engine/faceoff/faceoff.asm"
+  },
+  {
+   "start": 1690799,
+   "end": 1691532,
+   "module": "front_10010_bss_01",
+   "obj": 4,
+   "file": "data/front/front_10010_bss_01.asm",
+   "note": "owner: front/front_10010.asm"
+  },
+  {
+   "start": 1691532,
+   "end": 1692588,
+   "module": "engine_15AC2_bss_01",
+   "obj": 4,
+   "file": "data/engine/engine_15AC2_bss_01.asm",
+   "note": "owner: engine/engine_15AC2.asm"
+  },
+  {
+   "start": 1692588,
+   "end": 1694430,
+   "module": "faceoff_2_bss_01",
+   "obj": 4,
+   "file": "data/engine/faceoff_2_bss_01.asm",
+   "note": "owner: engine/faceoff/faceoff_2.asm"
+  },
+  {
+   "start": 1694430,
+   "end": 1699016,
+   "module": "engine_25894_bss_01",
+   "obj": 4,
+   "file": "data/engine/engine_25894_bss_01.asm",
+   "note": "owner: engine/engine_25894.asm"
+  },
+  {
+   "start": 1699016,
+   "end": 1701108,
+   "module": "faceoff_2_bss_02",
+   "obj": 4,
+   "file": "data/engine/faceoff_2_bss_02.asm",
+   "note": "owner: engine/faceoff/faceoff_2.asm"
+  },
+  {
+   "start": 1701108,
+   "end": 1754352,
+   "module": "engine_3812E_bss_01",
+   "obj": 4,
+   "file": "data/engine/engine_3812E_bss_01.asm",
+   "note": "owner: engine/engine_3812E.asm"
+  },
+  {
+   "start": 1754352,
+   "end": 1754608,
+   "module": "front_45BEC_bss_01",
+   "obj": 4,
+   "file": "data/front/front_45BEC_bss_01.asm",
+   "note": "owner: front/front_45BEC.asm"
+  },
+  {
+   "start": 1754608,
+   "end": 1757002,
+   "module": "engine_3812E_bss_02",
+   "obj": 4,
+   "file": "data/engine/engine_3812E_bss_02.asm",
+   "note": "owner: engine/engine_3812E.asm"
+  },
+  {
+   "start": 1757002,
+   "end": 1759048,
+   "module": "front_8E997_bss_01",
+   "obj": 4,
+   "file": "data/front/front_8E997_bss_01.asm",
+   "note": "owner: front/front_8E997.asm"
+  },
+  {
+   "start": 1759048,
+   "end": 1769500,
+   "module": "front_48D70_bss_01",
+   "obj": 4,
+   "file": "data/front/front_48D70_bss_01.asm",
+   "note": "owner: front/front_48D70.asm"
+  },
+  {
+   "start": 1769500,
+   "end": 1770088,
+   "module": "front_52770_bss_01",
+   "obj": 4,
+   "file": "data/front/front_52770_bss_01.asm",
+   "note": "owner: front/front_52770.asm"
+  },
+  {
+   "start": 1770088,
+   "end": 1771024,
+   "module": "front_48D70_bss_02",
+   "obj": 4,
+   "file": "data/front/front_48D70_bss_02.asm",
+   "note": "owner: front/front_48D70.asm"
+  },
+  {
+   "start": 1771024,
+   "end": 1772152,
+   "module": "front_52770_bss_02",
+   "obj": 4,
+   "file": "data/front/front_52770_bss_02.asm",
+   "note": "owner: front/front_52770.asm"
+  },
+  {
+   "start": 1772152,
+   "end": 1773044,
+   "module": "front_48D70_bss_03",
+   "obj": 4,
+   "file": "data/front/front_48D70_bss_03.asm",
+   "note": "owner: front/front_48D70.asm"
+  },
+  {
+   "start": 1773044,
+   "end": 1773476,
+   "module": "front_52770_bss_03",
+   "obj": 4,
+   "file": "data/front/front_52770_bss_03.asm",
+   "note": "owner: front/front_52770.asm"
+  },
+  {
+   "start": 1773476,
+   "end": 1774168,
+   "module": "front_48D70_bss_04",
+   "obj": 4,
+   "file": "data/front/front_48D70_bss_04.asm",
+   "note": "owner: front/front_48D70.asm"
+  },
+  {
+   "start": 1774168,
+   "end": 1807320,
+   "module": "front_57324_bss_01",
+   "obj": 4,
+   "file": "data/front/front_57324_bss_01.asm",
+   "note": "owner: front/front_57324.asm"
+  },
+  {
+   "start": 1807320,
+   "end": 1807580,
+   "module": "engine_3812E_bss_03",
+   "obj": 4,
+   "file": "data/engine/engine_3812E_bss_03.asm",
+   "note": "owner: engine/engine_3812E.asm"
+  },
+  {
+   "start": 1807580,
+   "end": 1838848,
+   "module": "front_57324_bss_02",
+   "obj": 4,
+   "file": "data/front/front_57324_bss_02.asm",
+   "note": "owner: front/front_57324.asm"
+  },
+  {
+   "start": 1838848,
+   "end": 1840131,
+   "module": "front_7A9D8_bss_01",
+   "obj": 4,
+   "file": "data/front/front_7A9D8_bss_01.asm",
+   "note": "owner: front/front_7A9D8.asm"
+  },
+  {
+   "start": 1840131,
+   "end": 1840394,
+   "module": "front_43578_bss_01",
+   "obj": 4,
+   "file": "data/front/front_43578_bss_01.asm",
+   "note": "owner: front/front_43578.asm"
+  },
+  {
+   "start": 1840394,
+   "end": 1848333,
+   "module": "front_789F0_bss_01",
+   "obj": 4,
+   "file": "data/front/front_789F0_bss_01.asm",
+   "note": "owner: front/front_789F0.asm"
+  },
+  {
+   "start": 1848333,
+   "end": 1848614,
+   "module": "front_D15FB_bss_01",
+   "obj": 4,
+   "file": "data/front/front_D15FB_bss_01.asm",
+   "note": "owner: front/front_D15FB.asm"
+  },
+  {
+   "start": 1848614,
+   "end": 1848877,
+   "module": "front_43578_bss_02",
+   "obj": 4,
+   "file": "data/front/front_43578_bss_02.asm",
+   "note": "owner: front/front_43578.asm"
+  },
+  {
+   "start": 1848877,
+   "end": 1856816,
+   "module": "front_789F0_bss_02",
+   "obj": 4,
+   "file": "data/front/front_789F0_bss_02.asm",
+   "note": "owner: front/front_789F0.asm"
+  },
+  {
+   "start": 1856816,
+   "end": 1858992,
+   "module": "front_D15FB_bss_02",
+   "obj": 4,
+   "file": "data/front/front_D15FB_bss_02.asm",
+   "note": "owner: front/front_D15FB.asm"
+  },
+  {
+   "start": 1858992,
+   "end": 1868396,
+   "module": "main_bss_01",
+   "obj": 4,
+   "file": "data/front/main_bss_01.asm",
+   "note": "owner: front/main/main.asm"
+  },
+  {
+   "start": 1868396,
+   "end": 1868680,
+   "module": "front_845E4_bss_01",
+   "obj": 4,
+   "file": "data/front/front_845E4_bss_01.asm",
+   "note": "owner: front/front_845E4.asm"
+  },
+  {
+   "start": 1868680,
+   "end": 1869016,
+   "module": "front_868CD_bss_01",
+   "obj": 4,
+   "file": "data/front/front_868CD_bss_01.asm",
+   "note": "owner: front/front_868CD.asm"
+  },
+  {
+   "start": 1869016,
+   "end": 1869572,
+   "module": "front_8E997_bss_02",
+   "obj": 4,
+   "file": "data/front/front_8E997_bss_02.asm",
+   "note": "owner: front/front_8E997.asm"
+  },
+  {
+   "start": 1869572,
+   "end": 1870500,
+   "module": "front_93005_bss_01",
+   "obj": 4,
+   "file": "data/front/front_93005_bss_01.asm",
+   "note": "owner: front/front_93005.asm"
+  },
+  {
+   "start": 1870500,
+   "end": 1871436,
+   "module": "front_9623E_bss_01",
+   "obj": 4,
+   "file": "data/front/front_9623E_bss_01.asm",
+   "note": "owner: front/front_9623E.asm"
+  },
+  {
+   "start": 1871436,
+   "end": 1871704,
+   "module": "front_9E35E_bss_01",
+   "obj": 4,
+   "file": "data/front/front_9E35E_bss_01.asm",
+   "note": "owner: front/front_9E35E.asm"
+  },
+  {
+   "start": 1871704,
+   "end": 1872880,
+   "module": "front_9F6F5_bss_01",
+   "obj": 4,
+   "file": "data/front/front_9F6F5_bss_01.asm",
+   "note": "owner: front/front_9F6F5.asm"
+  },
+  {
+   "start": 1872880,
+   "end": 1873352,
+   "module": "front_A3280_bss_01",
+   "obj": 4,
+   "file": "data/front/front_A3280_bss_01.asm",
+   "note": "owner: front/front_A3280.asm"
+  },
+  {
+   "start": 1873352,
+   "end": 1873612,
+   "module": "front_AC799_bss_01",
+   "obj": 4,
+   "file": "data/front/front_AC799_bss_01.asm",
+   "note": "owner: front/front_AC799.asm"
+  },
+  {
+   "start": 1873612,
+   "end": 1878492,
+   "module": "front_B1E1D_bss_01",
+   "obj": 4,
+   "file": "data/front/front_B1E1D_bss_01.asm",
+   "note": "owner: front/front_B1E1D.asm"
+  },
+  {
+   "start": 1878492,
+   "end": 1879756,
+   "module": "front_B50DB_bss_01",
+   "obj": 4,
+   "file": "data/front/front_B50DB_bss_01.asm",
+   "note": "owner: front/front_B50DB.asm"
+  },
+  {
+   "start": 1879756,
+   "end": 1880084,
+   "module": "front_BD62C_bss_01",
+   "obj": 4,
+   "file": "data/front/front_BD62C_bss_01.asm",
+   "note": "owner: front/front_BD62C.asm"
+  },
+  {
+   "start": 1880084,
+   "end": 1880348,
+   "module": "front_C0F5D_bss_01",
+   "obj": 4,
+   "file": "data/front/front_C0F5D_bss_01.asm",
+   "note": "owner: front/front_C0F5D.asm"
+  },
+  {
+   "start": 1880348,
+   "end": 1883028,
+   "module": "front_C462F_bss_01",
+   "obj": 4,
+   "file": "data/front/front_C462F_bss_01.asm",
+   "note": "owner: front/front_C462F.asm"
+  },
+  {
+   "start": 1883028,
+   "end": 1884556,
+   "module": "front_C5F81_bss_01",
+   "obj": 4,
+   "file": "data/front/front_C5F81_bss_01.asm",
+   "note": "owner: front/front_C5F81.asm"
+  },
+  {
+   "start": 1884556,
+   "end": 1884872,
+   "module": "front_C755B_bss_01",
+   "obj": 4,
+   "file": "data/front/front_C755B_bss_01.asm",
+   "note": "owner: front/front_C755B.asm"
+  },
+  {
+   "start": 1884872,
+   "end": 1886392,
+   "module": "front_D15FB_bss_03",
+   "obj": 4,
+   "file": "data/front/front_D15FB_bss_03.asm",
+   "note": "owner: front/front_D15FB.asm"
+  },
+  {
+   "start": 1886392,
+   "end": 1888600,
+   "module": "front_D4E24_bss_01",
+   "obj": 4,
+   "file": "data/front/front_D4E24_bss_01.asm",
+   "note": "owner: front/front_D4E24.asm"
+  },
+  {
+   "start": 1888600,
+   "end": 1890152,
+   "module": "front_DA66D_bss_01",
+   "obj": 4,
+   "file": "data/front/front_DA66D_bss_01.asm",
+   "note": "owner: front/front_DA66D.asm"
+  },
+  {
+   "start": 1890152,
+   "end": 1892580,
+   "module": "front_E7D6D_bss_01",
+   "obj": 4,
+   "file": "data/front/front_E7D6D_bss_01.asm",
+   "note": "owner: front/front_E7D6D.asm"
+  },
+  {
+   "start": 1892580,
+   "end": 1892952,
+   "module": "front_E9429_bss_01",
+   "obj": 4,
+   "file": "data/front/front_E9429_bss_01.asm",
+   "note": "owner: front/front_E9429.asm"
+  },
+  {
+   "start": 1892952,
+   "end": 1895065,
+   "module": "front_EE69C_bss_01",
+   "obj": 4,
+   "file": "data/front/front_EE69C_bss_01.asm",
+   "note": "owner: front/front_EE69C.asm"
+  },
+  {
+   "start": 1895065,
+   "end": 1896328,
+   "module": "front_E9429_bss_02",
+   "obj": 4,
+   "file": "data/front/front_E9429_bss_02.asm",
+   "note": "owner: front/front_E9429.asm"
+  },
+  {
+   "start": 1896328,
+   "end": 1897116,
+   "module": "front_F20A1_bss_01",
+   "obj": 4,
+   "file": "data/front/front_F20A1_bss_01.asm",
+   "note": "owner: front/front_F20A1.asm"
+  },
+  {
+   "start": 1897116,
+   "end": 1897804,
+   "module": "ea_gfx_02_bss_01",
+   "obj": 4,
+   "file": "data/lib/ea/ea_gfx_02_bss_01.asm",
+   "note": "owner: lib/ea/ea_gfx_02.asm"
+  },
+  {
+   "start": 1897804,
+   "end": 1899024,
+   "module": "ea_fileblock_01_bss_01",
+   "obj": 4,
+   "file": "data/lib/ea/ea_fileblock_01_bss_01.asm",
+   "note": "owner: lib/ea/ea_fileblock_01.asm"
+  },
+  {
+   "start": 1899024,
+   "end": 1899504,
+   "module": "watcom_clib_08_bss_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_08_bss_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_08.asm"
+  },
+  {
+   "start": 1899504,
+   "end": 1907960,
+   "module": "ea_gfx_04_bss_01",
+   "obj": 4,
+   "file": "data/lib/ea/ea_gfx_04_bss_01.asm",
+   "note": "owner: lib/ea/ea_gfx_04.asm"
+  },
+  {
+   "start": 1907960,
+   "end": 1908832,
+   "module": "ea_gfx_06_bss_01",
+   "obj": 4,
+   "file": "data/lib/ea/ea_gfx_06_bss_01.asm",
+   "note": "owner: lib/ea/ea_gfx_06.asm"
+  },
+  {
+   "start": 1908832,
+   "end": 1916308,
+   "module": "ea_shpi_03_bss_01",
+   "obj": 4,
+   "file": "data/lib/ea/ea_shpi_03_bss_01.asm",
+   "note": "owner: lib/ea/ea_shpi_03.asm"
+  },
+  {
+   "start": 1916308,
+   "end": 1937864,
+   "module": "ea_gfx_08_bss_01",
+   "obj": 4,
+   "file": "data/lib/ea/ea_gfx_08_bss_01.asm",
+   "note": "owner: lib/ea/ea_gfx_08.asm"
+  },
+  {
+   "start": 1937864,
+   "end": 1942420,
+   "module": "watcom_clib_13_bss_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_13_bss_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_13.asm"
+  },
+  {
+   "start": 1942420,
+   "end": 1942680,
+   "module": "ea_debug_bss_01",
+   "obj": 4,
+   "file": "data/lib/ea/ea_debug_bss_01.asm",
+   "note": "owner: lib/ea/ea_debug.asm"
+  },
+  {
+   "start": 1942680,
+   "end": 1943760,
+   "module": "watcom_clib_15_bss_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_15_bss_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_15.asm"
+  },
+  {
+   "start": 1943760,
+   "end": 1951000,
+   "module": "watcom_clib_19_bss_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_19_bss_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_19.asm"
+  },
+  {
+   "start": 1951000,
+   "end": 1952508,
+   "module": "watcom_clib_20_bss_01",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_20_bss_01.asm",
+   "note": "owner: lib/watcom/watcom_clib_20.asm"
+  },
+  {
+   "start": 1952508,
+   "end": 1953480,
+   "module": "watcom_clib_08_bss_02",
+   "obj": 4,
+   "file": "data/lib/watcom/watcom_clib_08_bss_02.asm",
+   "note": "owner: lib/watcom/watcom_clib_08.asm"
+  },
+  {
+   "start": 1953480,
+   "end": 1954692,
+   "module": "lib_12CD6C_bss_01",
+   "obj": 4,
+   "file": "data/lib/lib_12CD6C_bss_01.asm",
+   "note": "owner: lib/lib_12CD6C.asm"
+  },
+  {
+   "start": 1954692,
+   "end": 1954948,
+   "module": "ea_unpack_02_bss_01",
+   "obj": 4,
+   "file": "data/lib/ea/ea_unpack_02_bss_01.asm",
+   "note": "owner: lib/ea/ea_unpack_02.asm"
+  },
+  {
+   "start": 1954948,
+   "end": 1955256,
+   "module": "snd_soundblaster_01_bss_01",
+   "obj": 4,
+   "file": "data/lib/sound/snd_soundblaster_01_bss_01.asm",
+   "note": "owner: lib/sound/snd_soundblaster_01.asm"
+  },
+  {
+   "start": 1955256,
+   "end": 1959780,
+   "module": "input_joystick_misc_08_bss_01",
+   "obj": 4,
+   "file": "data/lib/input/input_joystick_misc_08_bss_01.asm",
+   "note": "owner: lib/input/input_joystick_misc_08.asm"
+  },
+  {
+   "start": 1959780,
+   "end": 1964004,
+   "module": "snd_hw_sb_bss_01",
+   "obj": 4,
+   "file": "data/lib/sound/snd_hw_sb_bss_01.asm",
+   "note": "owner: lib/sound/snd_hw_sb.asm"
+  },
+  {
+   "start": 1964004,
+   "end": 1993728,
+   "module": "snd_gus_sdk_02_bss_01",
+   "obj": 4,
+   "file": "data/lib/sound/snd_gus_sdk_02_bss_01.asm",
+   "note": "owner: lib/sound/snd_gus_sdk_02.asm"
   }
  ]
 }
