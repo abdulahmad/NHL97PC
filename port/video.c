@@ -735,8 +735,10 @@ static void window_save(void)
 }
 static void window_load(void) { if (planar) { planar_load(); return; } memcpy(WINDOW, vram + (size_t)cur_bank * BANK, BANK); }
 
+static volatile unsigned vl_bank, vl_dac, vl_latch, vl_retrace, vl_mode, vl_3da, vl_4f07;
 static void set_bank(int bank)
 {
+    vl_bank++;
     SDL_LockMutex(lock);
     window_save();
     cur_bank = bank & 0x7F;
@@ -746,6 +748,7 @@ static void set_bank(int bank)
 
 static void set_mode(int mode, int clear)
 {
+    vl_mode++;
     size_t i;
     SDL_LockMutex(lock);
     for (i = 0; i < sizeof modes / sizeof *modes; i++)
@@ -775,6 +778,7 @@ void video_palette_unlock(void) { if (pal_lock_depth && !--pal_lock_depth) SDL_U
 static void latch_dac_and_crtc_unlocked(void)
 {
     if (dac_comp != 0) return;
+    vl_latch++;
     memcpy(dac_latched, dac, sizeof dac);
     crtc_start_disp = (crtc[0x0C] << 8 | crtc[0x0D]) & 0xFFFF;
     dac_dirty = 0;
@@ -790,6 +794,7 @@ static int tgv_pal_pending(void) { return 0; }
 
 void video_on_retrace(void)
 {
+    vl_retrace++;
     video_palette_lock();
     if (!tgv_pal_pending()) {
         crtc_start_disp = (crtc[0x0C] << 8 | crtc[0x0D]) & 0xFFFF;
@@ -819,6 +824,7 @@ uint32_t video_port_in(unsigned port)
     }
     case 0x3DA: {                               /* input status 1: vertical retrace for the first part of each 70 Hz frame */
         static int was_retrace;
+        vl_3da++;
         int in_retrace = (((intro_skip ? plat_now_ns() * 40 : plat_now_ns()) % 14285714) < 1200000);
         if (in_retrace && !was_retrace) video_on_retrace();
         was_retrace = in_retrace;
@@ -868,6 +874,7 @@ int video_port_out(unsigned port, uint32_t val)
     case 0x3C9:
         video_palette_lock();
         dac[dac_wr & 255][dac_comp] = val & 63;
+        vl_dac++;
         dac_dirty = 1;
         if (++dac_comp == 3) {
             dac_comp = 0; dac_wr++;
@@ -918,6 +925,7 @@ int video_int10(ctx_t *c)
             return 1;
         case 0x06: R(c, ECX) = (R(c, ECX) & ~0xFFFFu) | mode_w; R(c, EBX) = (R(c, EBX) & ~0xFFFFu) | mode_w; R(c, EDX) = (R(c, EDX) & ~0xFFFFu) | mode_h; return 1;
         case 0x07:
+            vl_4f07++;
             if ((R(c, EBX) & 0xFF) == 0) { disp_x = R(c, ECX) & 0xFFFF; disp_y = R(c, EDX) & 0xFFFF; }
             else { R(c, ECX) = (R(c, ECX) & ~0xFFFFu) | disp_x; R(c, EDX) = (R(c, EDX) & ~0xFFFFu) | disp_y; }
             return 1;
@@ -1117,6 +1125,22 @@ void video_present(void)
         }
     }
     dump_frame(w, h);
+    {   /* NHL97_VLOG=1: once a second, what the game did to the video hardware (stderr) */
+        static int on = -1; static int64_t at;
+        int64_t now = plat_now_ns();
+        if (on < 0) on = getenv("NHL97_VLOG") != 0;
+        if (on && now - at >= 1000000000LL) {
+            unsigned nz = 0, ls = 0, ds = 0, wz = 0; int i;
+            at = now;
+            for (i = 0; i < w * h; i++) nz += vram[(size_t)(i / w + disp_y) * w + disp_x + i % w] != 0;
+            for (i = 0; i < 0x10000; i++) wz += WINDOW[i] != 0;
+            for (i = 0; i < 256; i++) { ls += dac_latched[i][0] + dac_latched[i][1] + dac_latched[i][2]; ds += dac[i][0] + dac[i][1] + dac[i][2]; }
+            fprintf(stderr, "vlog %6dms mode %x %dx%d disp %d,%d bank %d | per s: banks %u dac %u latch %u retrace %u 3da %u 4f07 %u modes %u | vram nonzero %u window nonzero %u | pal sum latched %u live %u dac_wr %u comp %u\n",
+                    (int)SDL_GetTicks(), mode_num, w, h, disp_x, disp_y, cur_bank, vl_bank, vl_dac, vl_latch, vl_retrace, vl_3da, vl_4f07, vl_mode,
+                    nz, wz, ls, ds, dac_wr & 255, dac_comp);
+            vl_bank = vl_dac = vl_latch = vl_retrace = vl_3da = vl_4f07 = vl_mode = 0;
+        }
+    }
     if (!overbar_client_open()) overbar_client_set_class(w <= 320);
     if (overbar_client_open()) overbar_client_draw(argb, w, h, w);
     if (ob_plat_osk_is_open()) ob_plat_osk_draw(argb, w, h, w);
