@@ -1,0 +1,50 @@
+{
+ "bound_mz_off": 0,
+ "le_off": 11408,
+ "objects": [
+  "cseg01",
+  "cseg02",
+  "dseg03",
+  "dseg04"
+ ],
+ "cseg01": [
+  {
+   "start": 65536,
+   "end": 1296283,
+   "module": "cseg01",
+   "obj": 1,
+   "file": "cseg01/cseg01.asm",
+   "note": ""
+  }
+ ],
+ "cseg02": [
+  {
+   "start": 1310720,
+   "end": 1310780,
+   "module": "cseg02",
+   "obj": 2,
+   "file": "cseg02/cseg02.asm",
+   "note": ""
+  }
+ ],
+ "dseg03": [
+  {
+   "start": 1376256,
+   "end": 1376280,
+   "module": "dseg03",
+   "obj": 3,
+   "file": "dseg03/dseg03.asm",
+   "note": ""
+  }
+ ],
+ "dseg04": [
+  {
+   "start": 1441792,
+   "end": 1993728,
+   "module": "dseg04",
+   "obj": 4,
+   "file": "data/dseg04.asm",
+   "note": ""
+  }
+ ]
+}
