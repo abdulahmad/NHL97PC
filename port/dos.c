@@ -432,6 +432,7 @@ static int int31(ctx_t *c)
             memcpy(&ds, rm + 0x24, 2);
             if (vec == 0x21 && ds && strchr("\x09\x1A\x39\x3A\x3B\x3C\x3D\x3F\x40\x41\x43\x4E\x56\x5B", (int)ah) && ah)
                 R(&t, EDX) = ((uint32_t)ds << 4) + (R(&t, EDX) & 0xFFFF);
+            if (vec == 0x10 && ah == 0x10) R(&t, EDX) = ((uint32_t)es << 4) + (R(&t, EDX) & 0xFFFF);   /* DAC block at ES:DX */
             if (vec == 0x2F && ah == 0x15) R(&t, EBX) = ((uint32_t)es << 4) + (R(&t, EBX) & 0xFFFF);
         }
         TRACE("real-mode int %02xh ax=%04x es:di=%08x\n", vec, (unsigned)(R(&t, EAX) & 0xFFFF), (unsigned)R(&t, EDI));
@@ -444,7 +445,8 @@ static int int31(ctx_t *c)
             R(&t, ESI) = 0; R(&t, EAX) &= ~0xFFu; R(&t, EFL) &= ~1u;
             ok = 1;
         } else ok = AX(c) == 0x0300 ? dos_int(&t, vec) : 0;
-        if (!ok) { SETAX(c, 0x8001); SET_CF(c, 1); return 1; }
+        if (!ok) { static int n; if (n++ < 50) fprintf(stderr, "DPMI 0300: real-mode int %02xh ax=%04x not handled\n", vec, (unsigned)(R(&t, EAX) & 0xFFFF)); SETAX(c, 0x8001); SET_CF(c, 1); return 1; }
+        if (vec == 0x10 && ((R(&t, EAX) >> 8) & 0xFF) == 0x10) { uint32_t dx = R(&t, EDX) & 0xFFFF; R(&t, EDX) = (R(&t, EDX) & ~0xFFFFu) | dx; }
         if (vec == 0x2F && ((R(&t, EAX) >> 8) & 0xFF) == 0x15) { uint32_t bx = R(&t, EBX) & 0xFFFF; R(&t, EBX) = bx; }   /* back to the offset */
         v = R(&t, ESI); memcpy(rm + 0x04, &v, 4);
         v = R(&t, EBP); memcpy(rm + 0x08, &v, 4);

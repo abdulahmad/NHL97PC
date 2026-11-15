@@ -939,6 +939,27 @@ int video_int10(ctx_t *c)
     case 0x00: if ((ax & 0xFF) == 0x13) set_mode(0x13, 1); return 1;
     case 0x0B: return 1;
     case 0x0F: R(c, EAX) = (R(c, EAX) & ~0xFFFFu) | (mode_num == 0x13 ? 0x5013 : 0x5003); R(c, EBX) &= ~0xFF00u; return 1;
+    case 0x10: {                                 /* palette registers: NHL 97 loads DAC blocks through the BIOS */
+        unsigned al = ax & 0xFF, first = R(c, EBX) & 0xFFFF, n = R(c, ECX) & 0xFFFF, i;
+        uint8_t *tab = (uint8_t *)(uintptr_t)R(c, EDX);
+        if (al == 0x10 || al == 0x12) {
+            if (al == 0x10) { n = 1; }
+            video_palette_lock();
+            for (i = 0; i < n && first + i < 256; i++) {
+                if (al == 0x10) { dac[first][0] = (R(c, EDX) >> 8) & 63; dac[first][1] = (R(c, ECX) >> 8) & 63; dac[first][2] = R(c, ECX) & 63; }
+                else { dac[first + i][0] = tab[3 * i] & 63; dac[first + i][1] = tab[3 * i + 1] & 63; dac[first + i][2] = tab[3 * i + 2] & 63; }
+            }
+            vl_dac += n * 3;
+            dac_dirty = 1; dac_write_ns = plat_now_ns();
+            video_palette_unlock();
+        } else if (al == 0x15) {
+            R(c, EDX) = (R(c, EDX) & ~0xFF00u) | dac[first & 255][0] << 8;
+            R(c, ECX) = (R(c, ECX) & ~0xFFFFu) | dac[first & 255][1] << 8 | dac[first & 255][2];
+        } else if (al == 0x17) {
+            for (i = 0; i < n && first + i < 256; i++) { tab[3 * i] = dac[first + i][0]; tab[3 * i + 1] = dac[first + i][1]; tab[3 * i + 2] = dac[first + i][2]; }
+        }
+        return 1;
+    }
     case 0x11: case 0x12: return 1;
     }
     return 0;
