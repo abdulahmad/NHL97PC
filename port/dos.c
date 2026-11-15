@@ -505,6 +505,7 @@ static int int21(ctx_t *c)
         fd = open(path, flags | O_BINARY, 0666);
         if (fd < 0 && errno == ENOENT && (flags & O_CREAT) && make_parents(path)) fd = open(path, flags | O_BINARY, 0666);
         TRACE("open %s -> %d\n", path, fd);
+        if (fd < 0) { static int n; if (n++ < 100) fprintf(stderr, "dos: open \"%s\" (%s) failed\n", (char *)R(c, EDX), path); }
         if (strstr(path, ".SET") || strstr(path, ".set")) alog("open %s -> %d", path, fd);
         {                                               /* nhl97-audio.log: the music, instrument and sound files the game uses */
             const char *dot = strrchr(path, '.');
