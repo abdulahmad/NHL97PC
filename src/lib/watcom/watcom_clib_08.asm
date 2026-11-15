@@ -14,7 +14,7 @@ extern dword_1CFAD4, dword_1CFAD8, dword_1DC5AC, dword_1DC994, dword_1DC998, dwo
 extern dword_1DCB04, dword_1DCB08, dword_1DCEC0, dword_1DCF20, int386_, int386x_, memset_, segread_
 extern str_Inversetmp, sub_100A68, sub_102C30, sub_1048BC, sub_1093CF, sub_109401, sub_109545, sub_10955B
 extern sub_1095AD, sub_109608, sub_12189C, sub_126264, sub_126364, sub_1266FC, sub_FAA64, sub_FAAB4
-extern sub_FAB68, sub_FAF34, sub_FC2D9, tickcount, toupper_, unk_16FB44, unk_1CFAF0, word_1CFA98
+extern sub_FAB68, sub_FAF34, WaitTicks, tickcount, toupper_, unk_16FB44, unk_1CFAF0, word_1CFA98
 extern word_1CFAB8, word_1CFADE, word_1CFAE0
 global sub_105904_1FC, sub_105FAA_86, sub_1069F2_AD, sub_1069F2_AE, strcmp_, strncpy_, sub_104A60, sub_104C78
 global sub_104DFC, sub_1050A0, sub_105258, sub_105324, sub_105430, sub_1055D4, sub_10562C, sub_105644
@@ -1544,7 +1544,7 @@ sub_105BDC:
         test eax, eax
         jle near .1
         push byte 5
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         jmp near .1
 .2:
@@ -1640,7 +1640,7 @@ sub_105D5C:
         test eax, eax
         jle near .1
         push byte 5
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         jmp near .1
         db 08Dh,040h,00h

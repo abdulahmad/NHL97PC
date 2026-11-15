@@ -80,7 +80,7 @@ extern sub_52E8C, sub_53314, sub_5454C, sub_5475C, sub_55110, sub_55FE4, sub_560
 extern sub_56740, sub_57A1C, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
 extern sub_5AAB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450, sub_5C1CC, sub_5DD74, sub_779C8
 extern sub_77A30, sub_7C3EC, sub_842F4, sub_E3410, sub_E341C, sub_FAA64, sub_FAF34, sub_FB704
-extern sub_FC2D9, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, sub_FE150, sub_FE180
+extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, sub_FE150, sub_FE180
 extern sub_FF044, sub_FF128, sub_FF174, sub_FF444, sub_FF48C, sub_FF5E0, sub_FF690, sub_FF798
 extern sub_FFA14, sub_FFBB4, sub_FFBC8, sub_FFBE0, sub_FFCC4, sub_FFDAC, tickcount, unk_1611B4
 extern unk_169848, unk_1698A2, unk_169989, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144
@@ -2506,7 +2506,7 @@ sub_4A74C_277:
         mov eax, dword [dword_1691C4]
         call sub_109210
         push byte 1
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         mov ebx, 1
         call sub_108E74

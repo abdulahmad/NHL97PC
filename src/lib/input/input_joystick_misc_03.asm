@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_FC280 progbits alloc exec nowrite align=1
 extern dword_16E430, sub_F9A88, tickcount, tickdeadline
-global GetTicks, SetTickDeadline, TickDeadlinePassed, TicksSince, WaitTickDeadline, memcpy_, sub_FC290, sub_FC2D9
+global GetTicks, SetTickDeadline, TickDeadlinePassed, TicksSince, WaitTickDeadline, memcpy_, sub_FC290, WaitTicks
 GetTicks:
         mov eax, dword [tickcount]
         ret
@@ -36,7 +36,7 @@ TickDeadlinePassed:
         LD sbb, eax, eax
         inc eax
         ret
-sub_FC2D9:
+WaitTicks:
         mov eax, dword [byte esp+04h]
         mov edx, dword [tickcount]
         LD add, eax, edx

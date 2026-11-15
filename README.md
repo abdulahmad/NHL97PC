@@ -15,7 +15,8 @@
   97 is largely a new engine, so most game files are still placeholders named by address.
 - Names: 280 library names (FLIRT) and 189 from NHL96PC / NHL95PC where the code matches. Naming the rest is the work in
   progress (94 Genesis / SNES names first, then 95/96 PC).
-- Then: an SDL2 port on [Overbar](https://github.com/abdulahmad/overbar), the same way as NHL96PC (`port/`).
+- **SDL2 port on [Overbar](https://github.com/abdulahmad/overbar)** in `port/` (NHL96PC's host, retargeted to 97):
+  `make sdl2-win` builds `build/win/hockey97-win32.exe`. Not yet run on screen. See [docs/SDL2_PORT.md](docs/SDL2_PORT.md).
 - This is a **disassembly only**: labelled 32-bit x86 assembly that reassembles byte-identical. There is no C decompilation.
 
 **AI agent or new contributor: start with [START_HERE.md](START_HERE.md).**

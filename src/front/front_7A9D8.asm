@@ -24,7 +24,7 @@ extern sub_7F5A4, sub_80BBC, sub_81678, sub_84B55, sub_85A15, sub_85D1D, sub_8BD
 extern sub_8BE60, sub_8BEF8, sub_8BFA0, sub_8E740, sub_8E7E0, sub_8E840, sub_9CFD3, sub_9D333
 extern sub_C3594, sub_D547C, sub_D70C4, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
 extern sub_E0415, sub_E069E, sub_E076B, sub_E0841, sub_E08E9, sub_E3410, sub_E341C, sub_F9650
-extern sub_FAA64, sub_FAAB4, sub_FAF34, sub_FBE40, sub_FC2D9, sub_FC330, sub_FC510, sub_FCD90
+extern sub_FAA64, sub_FAAB4, sub_FAF34, sub_FBE40, WaitTicks, sub_FC330, sub_FC510, sub_FCD90
 extern sub_FD08C, sub_FD0F8, sub_FD110, tickcount, unk_164138, unk_16413C, unk_164150, unk_164158
 extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
 global sub_7A9D8_77E, sub_7CB8C_45, putchar, sub_7A9D8, sub_7B15D, sub_7B4E4, sub_7B84B, sub_7B85A
@@ -1535,7 +1535,7 @@ sub_7BBB0:
         push edx
         call sub_109210
         push byte 1
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         pop edx
         pop ecx
@@ -1755,10 +1755,10 @@ sub_7BE04:
         mov eax, dword [dword_1C1240]
         call sub_109210
         push byte 1
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         push byte 2
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
 .2:
         mov eax, dword [tickcount]
@@ -1797,10 +1797,10 @@ sub_7BE04:
         mov eax, dword [dword_1C1240]
         call sub_109210
         push byte 1
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         push byte 2
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
 .8:
         cmp dword [dword_1C1250], byte 0
@@ -1808,7 +1808,7 @@ sub_7BE04:
         call sub_108E74
 .9:
         push byte 5
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         push esi
         call sub_3EB40
@@ -2871,7 +2871,7 @@ sub_7CA1C:
         call sub_119054
         add esp, byte 4
         push byte 69h
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         push asc_164154
         push byte 3
@@ -2880,7 +2880,7 @@ sub_7CA1C:
         add esp, byte 0Ch
         push byte 69h
         mov ebx, ebp
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         mov edx, unk_164158
         mov eax, esi
@@ -2901,7 +2901,7 @@ sub_7CA1C:
         test edi, edi
         je short .1
         push byte 32h
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         jmp short .1
 .3:

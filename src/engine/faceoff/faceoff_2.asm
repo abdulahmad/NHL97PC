@@ -31,7 +31,7 @@ extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, sub_42098, sub_42220, sub_424
 extern sub_48D70, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
 extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
 extern sub_71D48, sub_71E58, sub_71F4C, sub_76FE8, sub_77F94, sub_780F0, sub_AA588, sub_F9A88
-extern sub_FAAB4, sub_FAF34, sub_FB71C, sub_FBFDC, sub_FC008, sub_FC2D9, unk_19CA98, unk_19D474
+extern sub_FAAB4, sub_FAF34, sub_FB71C, sub_FBFDC, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
 extern unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E, unk_19D5A0, unk_19D5D2, unk_19D668, unk_19E060
 extern unk_19ECC8, unk_19ECE4, unk_1C135C, unk_1C347F, vecdist, vtoa, word_1686D6, word_168E2C
 extern word_168E2E, word_168E34, word_168E60, word_19C3EC, word_19C3EE, word_19C628, word_19C62A, word_19CA90
@@ -12307,12 +12307,12 @@ sub_37FC8:
         jmp short .1
 .2:
         push byte 1
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         jmp short .1
 .3:
         push byte 2
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         mov eax, dword [esp]
         push ebp

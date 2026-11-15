@@ -20,7 +20,7 @@ extern dword_167C83, dword_167C87, dword_167C8B, dword_167C8F, dword_167C93, dwo
 extern dword_167CA3, dword_167CA7, dword_167CAB, dword_167CAF, dword_167CB3, dword_167CB7, dword_167CBB, dword_167CBF
 extern dword_167CC3, dword_167CC7, dword_167CD3, dword_167CD7, dword_167CDB, dword_167CDF, dword_167CE3, dword_167CE7
 extern dword_1686C0, dword_1686E0, dword_16AF3C, dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF50, dword_16AF54
-extern dword_16AF58, dword_16AF5C, dword_16D2BC, dword_16DA9C, dword_16E30C, dword_16E44C, dword_16E450, dword_16E464
+extern dword_16AF58, dword_16AF5C, dword_16D2BC, dword_16DA9C, dword_16E30C, mousex, mousey, dword_16E464
 extern dword_16E468, dword_16E500, dword_16E69C, dword_19CD10, dword_19CD30, dword_19CD54, dword_19D384, dword_1A8E50
 extern dword_1AC364, dword_1AC814, dword_1AC819, dword_1AC944, dword_1ADC88, dword_1B1410, dword_1B1464, dword_1B8578
 extern dword_1C5DE4, dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dword_1CEF98, dword_1CEF9C, dword_1CEFA0
@@ -2462,9 +2462,9 @@ sub_F3C43:
         call sub_E341C
         call dword [off_16E4E0]
         mov dword [byte ebp-018h], eax
-        mov eax, dword [dword_16E44C]
+        mov eax, dword [mousex]
         mov dword [byte ebp-01Ch], eax
-        mov eax, dword [dword_16E450]
+        mov eax, dword [mousey]
         mov dword [byte ebp-0Ch], eax
         cmp dword [dword_16DA9C], byte 0
         je short .8

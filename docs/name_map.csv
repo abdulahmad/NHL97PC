@@ -51,8 +51,10 @@ FC286,TicksSince,,96PC,medium,NHL96PC DFEBA (sem): R:2824; R:2830; D:16E3F0,
 FC2AB,SetTickDeadline,,96PC,high,NHL96PC DFEE1 (exact): 4 instructions,
 FC2BB,WaitTickDeadline,,96PC,high,NHL96PC DFEF1 (exact): 4 instructions,
 FC2C9,TickDeadlinePassed,,96PC,medium,NHL96PC DFEFF (sem): D:16E42C; D:16E3F0,
+FC2D9,WaitTicks,sub_FC2D9,96PC,high,NHL96PC WaitTicks: wait n ticks of tickcount; in 97 it runs the task list (sub_F9A88) while it waits,src/lib/input/input_joystick_misc_03.asm
 FC2FD,memcpy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FC5F8,MouseRead,,95PC,medium,NHL95PC B2DCA (sem): C:2186,
+FC635,SetViewRect,sub_FC635,96PC,high,"NHL96PC SetViewRect: stores the mouse range (min x, min y, max x, max y)",src/lib/input/input_mouse.asm
 FC65F,MouseReadMotion,,96PC,medium,NHL96PC DF9B7 (similar): mnemonic similarity 0.88 over 57 instructions,
 FC804,_dos_getdate_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FC81F,_dos_gettime_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -316,6 +318,8 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C108,__Intel_hook_init_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C160,__Intel_hook_fini_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C187,WaitRetrace,,96PC,medium,NHL96PC DDE7B (similar): mnemonic similarity 0.88 over 17 instructions,
+13C1BF,WaitRetraceEdges,sub_13C1BF,96PC,high,"NHL96PC WaitRetraceEdges: leave retrace, then wait for it (3DAh bit 3), the same code",src/lib/video/video_bios_vga_09.asm
+13C1EA,WaitDisplayRetrace,,96PC,high,NHL96PC WaitDisplayRetrace: wait for display enable then retrace (3DAh bit 3); label added (the listing had none),src/lib/video/video_bios_vga_09.asm
 13C228,fprem_common,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C42E,__fprem_chk,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C4E0,fprem1_common,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -444,7 +448,13 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 16E414,__8087,,95PC,medium,NHL95PC D4B9C (refset): referenced by the same 2 matched functions,
 16E41A,str_StackOverflow,,96PC,high,NHL96PC 14FADE (string): 'Stack Overflow!\r\n',
 16E42C,tickdeadline,,96PC,high,NHL96PC 11F8DC (position): same fixup of SetTickDeadline,
+16E44C,mousex,dword_16E44C,96PC,high,NHL96PC mousex: MouseRead / MouseReadMotion keep the pointer x here,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E450,mousey,dword_16E450,96PC,high,NHL96PC mousey: the pointer y,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E4F8,str_Viv,,96PC,high,NHL96PC 121FC0 (string): '.viv',
+16E604,mouseminx,dword_16E604,96PC,high,NHL96PC mouseminx (SetViewRect),src/data/lib/input/input_mouse_data_01.asm
+16E608,mouseminy,dword_16E608,96PC,high,NHL96PC mouseminy (SetViewRect),src/data/lib/input/input_mouse_data_01.asm
+16E60C,mousemaxx,dword_16E60C,96PC,high,"NHL96PC mousemaxx (SetViewRect, exclusive)",src/data/lib/input/input_mouse_data_01.asm
+16E610,mousemaxy,dword_16E610,96PC,high,"NHL96PC mousemaxy (SetViewRect, exclusive)",src/data/lib/input/input_mouse_data_01.asm
 17256C,__real87,,95PC,high,NHL95PC D51DC (position): same fixup of __sys_fini_387_emulator,
 172570,_dynend,,96PC,high,NHL96PC 1243F8 (position): same fixup of start,
 172574,_curbrk,,96PC,high,NHL96PC 1243FC (position): same fixup of start,

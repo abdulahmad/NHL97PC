@@ -8,7 +8,7 @@ global dword_16E374, dword_16E37C, dword_16E380, dword_16E384, dword_16E388, dwo
 global dword_16E39B, dword_16E39F, dword_16E3A3, dword_16E3A7, dword_16E3AB, dword_16E3AF, dword_16E3B3, dword_16E3B7
 global dword_16E3BB, dword_16E3BF, dword_16E3C3, dword_16E3C7, dword_16E3CB, dword_16E3CF, dword_16E3D3, dword_16E3EC
 global dword_16E3F4, dword_16E3F8, dword_16E3FC, dword_16E402, dword_16E408, dword_16E410, dword_16E430, dword_16E444
-global dword_16E448, dword_16E44C, dword_16E450, dword_16E454, dword_16E458, dword_16E45C, dword_16E464, dword_16E468
+global dword_16E448, mousex, mousey, dword_16E454, dword_16E458, dword_16E45C, dword_16E464, dword_16E468
 global dword_16E46C, dword_16E474, dword_16E478, dword_16E47C, dword_16E480, dword_16E484, dword_16E488, str_StackOverflow
 global tickcount, tickdeadline, unk_16E3E8, word_16E406, word_16E418
 dword_16E374:
@@ -106,9 +106,9 @@ dword_16E444:
         db 00h,00h,00h,00h
 dword_16E448:
         db 00h,00h,00h,00h
-dword_16E44C:
+mousex:
         db 00h,00h,00h,00h
-dword_16E450:
+mousey:
         db 00h,00h,00h,00h
 dword_16E454:
         db 00h,00h,00h,00h

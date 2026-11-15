@@ -35,7 +35,7 @@ extern sub_AA498, sub_AADEF, sub_AB0A6, sub_B2F49, sub_BD62C, sub_D68AC, sub_DA7
 extern sub_E117B, sub_E12D1, sub_E13BF, sub_E1744, sub_E304C, sub_E30F4, sub_E3174, sub_E3190
 extern sub_E3208, sub_E3218, sub_E341C, sub_E4248, sub_F1FF8, sub_F207F, sub_F30A0, sub_F30D7
 extern sub_F418F, sub_F9650, sub_F9789, sub_F9869, sub_FAA64, sub_FAF34, sub_FBE40, sub_FC290
-extern sub_FC330, sub_FC4BC, sub_FC635, sub_FC88C, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
+extern sub_FC330, sub_FC4BC, SetViewRect, sub_FC88C, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
 extern unk_19DC40, unk_19E270, unk_19E588, unk_1AC821, word_1684EC, word_1686BC, word_1686D4, word_1686D6
 extern word_1686D8, word_1686DA, word_1686E4, word_19C3D8, word_19C3DA, word_19C3DC, word_19C3DE, word_19C3EC
 extern word_19C3EE, word_19C3F0, word_19C3F2, word_19CA90, word_19CA92, word_19CA94, word_19CA96, word_19CB16
@@ -3058,7 +3058,7 @@ sub_152C4:
         push dword 280h
         push byte 0
         push byte 0
-        call sub_FC635
+        call SetViewRect
         add esp, byte 10h
         call sub_14FE0
         mov eax, 1

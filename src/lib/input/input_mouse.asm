@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_FC590 progbits alloc exec nowrite align=1
-extern dword_16E448, dword_16E44C, dword_16E450, dword_16E454, dword_16E458, dword_16E45C, dword_16E464, dword_16E468
-extern dword_16E604, dword_16E608, dword_16E60C, dword_16E610, dword_16E614, dword_16E618, dword_16E61C, dword_16E620
+extern dword_16E448, mousex, mousey, dword_16E454, dword_16E458, dword_16E45C, dword_16E464, dword_16E468
+extern mouseminx, mouseminy, mousemaxx, mousemaxy, dword_16E614, dword_16E618, dword_16E61C, dword_16E620
 extern dword_16E624, off_16E4D4, off_16E4D8, off_16E4DC, off_16E4E0, sub_101220
-global MouseRead, MouseReadMotion, sub_FC590, sub_FC5B6, sub_FC635, sub_FC714, sub_FC71B, sub_FC722
+global MouseRead, MouseReadMotion, sub_FC590, sub_FC5B6, SetViewRect, sub_FC714, sub_FC71B, sub_FC722
 global sub_FC73E
 sub_FC590:
         push ebx
@@ -55,8 +55,8 @@ MouseRead:
         LD mov, ebp, esp
         mov eax, dword [byte ebp+08h]
         mov edx, dword [byte ebp+0Ch]
-        mov dword [dword_16E44C], eax
-        mov dword [dword_16E450], edx
+        mov dword [mousex], eax
+        mov dword [mousey], edx
         leave
         ret
         push ebp
@@ -65,17 +65,17 @@ MouseRead:
         call MouseReadMotion
         mov ebx, dword [byte ebp+08h]
         mov dword [ebx], eax
-        mov ecx, dword [dword_16E44C]
+        mov ecx, dword [mousex]
         mov ebx, dword [byte ebp+0Ch]
         db 089h,0Bh                             ; insn: mov [ebx],ecx
         db 08Bh,015h                            ; insn: mov edx,[0E450h]
-        dd dword_16E450
+        dd mousey
         mov ebx, dword [byte ebp+010h]
         mov dword [ebx], edx
         pop ebx
         leave
         ret
-sub_FC635:
+SetViewRect:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -83,10 +83,10 @@ sub_FC635:
         mov edx, dword [byte ebp+0Ch]
         mov ebx, dword [byte ebp+010h]
         mov ecx, dword [byte ebp+014h]
-        mov dword [dword_16E604], eax
-        mov dword [dword_16E608], edx
-        mov dword [dword_16E60C], ebx
-        mov dword [dword_16E610], ecx
+        mov dword [mouseminx], eax
+        mov dword [mouseminy], edx
+        mov dword [mousemaxx], ebx
+        mov dword [mousemaxy], ecx
         pop ebx
         leave
         ret
@@ -101,37 +101,37 @@ MouseReadMotion:
         int 33h
         movsx ecx, cx
         movsx edx, dx
-        mov eax, dword [dword_16E44C]
+        mov eax, dword [mousex]
         mov ebx, dword [dword_16E614]
         LD add, ebx, ebx
         LD adc, eax, eax
         LD add, ecx, eax
         sar ecx, 1
         rcr ebx, 1
-        add edx, dword [dword_16E450]
-        cmp ecx, dword [dword_16E604]
+        add edx, dword [mousey]
+        cmp ecx, dword [mouseminx]
         jge short .1
-        mov ecx, dword [dword_16E604]
+        mov ecx, dword [mouseminx]
         LD xor, ebx, ebx
 .1:
-        cmp ecx, dword [dword_16E60C]
+        cmp ecx, dword [mousemaxx]
         jl short .2
-        mov ecx, dword [dword_16E60C]
+        mov ecx, dword [mousemaxx]
         dec ecx
         LD xor, ebx, ebx
 .2:
-        cmp edx, dword [dword_16E608]
+        cmp edx, dword [mouseminy]
         jge short .3
-        mov edx, dword [dword_16E608]
+        mov edx, dword [mouseminy]
 .3:
-        cmp edx, dword [dword_16E610]
+        cmp edx, dword [mousemaxy]
         jl short .4
-        mov edx, dword [dword_16E610]
+        mov edx, dword [mousemaxy]
         dec edx
 .4:
         mov dword [dword_16E614], ebx
-        mov dword [dword_16E44C], ecx
-        mov dword [dword_16E450], edx
+        mov dword [mousex], ecx
+        mov dword [mousey], edx
         inc dword [dword_16E618]
         call sub_FC590
         dec dword [dword_16E618]
@@ -170,13 +170,13 @@ sub_FC73E:
         push dword [dword_16E464]
         push byte 0
         push byte 0
-        call sub_FC635
+        call SetViewRect
         mov eax, dword [dword_16E468]
         shr eax, 1
-        mov dword [dword_16E44C], eax
+        mov dword [mousex], eax
         mov eax, dword [dword_16E464]
         shr eax, 1
-        mov dword [dword_16E450], eax
+        mov dword [mousey], eax
         mov eax, 1Bh
         int 33h
         movzx ebx, bx

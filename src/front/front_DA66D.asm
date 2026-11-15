@@ -16,7 +16,7 @@ extern dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8, dword_16D8DC, dwo
 extern dword_16D918, dword_16D91C, dword_16D93A, dword_16DA9C, dword_16DAA0, dword_16DAA4, dword_16DAA8, dword_16DAAC
 extern dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC, dword_16DAC0, dword_16DAC4, dword_16DAC8, dword_16DACA
 extern dword_16DAD2, dword_16E124, dword_16E128, dword_16E12A, dword_16E130, dword_16E134, dword_16E138, dword_16E13C
-extern dword_16E140, dword_16E144, dword_16E44C, dword_16E450, dword_16E464, dword_16E468, dword_16E46C, dword_1721A8
+extern dword_16E140, dword_16E144, mousex, mousey, dword_16E464, dword_16E468, dword_16E46C, dword_1721A8
 extern dword_1AC814, dword_1C5DE4, dword_1CD158, dword_1CD15C, dword_1CD160, dword_1CD17C, dword_1CD180, dword_1CD184
 extern dword_1CD188, dword_1CD18C, dword_1CD190, dword_1CD194, dword_1CD198, dword_1CD1AC, dword_1CD1B0, dword_1CD1B4
 extern dword_1CD1B8, dword_1CD244, dword_1CD248, dword_1CD264, dword_1CD268, dword_1CD26C, dword_1CD270, dword_1CD274
@@ -45,7 +45,7 @@ extern sub_80BBC, sub_81D1C, sub_83314, sub_834EC, sub_83558, sub_835AC, sub_835
 extern sub_83C08, sub_8BF54, sub_8BFAC, sub_8DF1F, sub_8E7E0, sub_D7A70, sub_D7B64, sub_D8130
 extern sub_D81D8, sub_D8B20, sub_D9960, sub_D9D74, sub_DA020, sub_DA02C, sub_DA48C, sub_DA498
 extern sub_DA544, sub_DA57C, sub_DA654, sub_E7D6D, sub_E8660, sub_E8923, sub_F9A88, sub_FAA64
-extern sub_FAAB4, sub_FAF34, sub_FB704, sub_FBE40, sub_FBFDC, sub_FC008, sub_FC2D9, sub_FC510
+extern sub_FAAB4, sub_FAF34, sub_FB704, sub_FBE40, sub_FBFDC, sub_FC008, WaitTicks, sub_FC510
 extern sub_FCD90, sub_FCF84, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FDC68, sub_FDD1C, sub_FDE44
 extern sub_FE150, sub_FE3D0, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
 extern unk_1CD19C, unk_1CD1E0, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
@@ -11244,7 +11244,7 @@ sub_E2790:
         mov ebx, eax
         call dword [off_16E4E0]
         mov edx, dword [dword_16E464]
-        mov ecx, dword [dword_16E44C]
+        mov ecx, dword [mousex]
         sar edx, 2
         cmp edx, ecx
         jle short .1
@@ -11253,14 +11253,14 @@ sub_E2790:
 .1:
         mov ecx, dword [dword_16E464]
         sar ecx, 1
-        mov esi, dword [dword_16E44C]
+        mov esi, dword [mousex]
         add edx, ecx
         cmp edx, esi
         jge short .2
         or byte [ebx], 4
 .2:
         mov edx, dword [dword_16E468]
-        mov edi, dword [dword_16E450]
+        mov edi, dword [mousey]
         sar edx, 2
         cmp edx, edi
         jle short .3
@@ -13097,7 +13097,7 @@ sub_E3AFC:
         mov dword [dword_16DAC4], eax
 .7:
         push byte 1
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         jmp short .6
 .8:
@@ -13149,11 +13149,11 @@ sub_E3AFC:
         mov dword [dword_16DAB0], ebx
         mov dword [dword_16DA9C], ecx
         call dword [off_16E4E0]
-        mov eax, dword [dword_16E44C]
+        mov eax, dword [mousex]
         mov si, word [word_16DAB8]
         mov dword [dword_1CD280], ebx
         mov dword [dword_1CD28C], eax
-        mov eax, dword [dword_16E450]
+        mov eax, dword [mousey]
         mov dword [dword_1CD284], ebx
         mov dword [dword_1CD290], eax
         test si, si
@@ -13229,7 +13229,7 @@ sub_E3E8C:
         call sub_F9A88
         add esp, byte 4
         push byte 2
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         push byte 0
         call sub_F9A88
@@ -13306,7 +13306,7 @@ sub_E3F04:
         test eax, eax
         jne near .8
         push byte 1
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         mov eax, dword [tickcount]
         cmp eax, dword [dword_16DAC4]
@@ -13441,7 +13441,7 @@ sub_E3F04:
         test eax, eax
         jne near .23
         push byte 1
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         mov eax, dword [tickcount]
         cmp eax, dword [dword_16DAC4]
@@ -13906,7 +13906,7 @@ sub_E4638:
         test eax, eax
         jne short .8
         push byte 1
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         mov eax, dword [tickcount]
         cmp eax, dword [dword_16DAC4]
@@ -13949,7 +13949,7 @@ sub_E4638:
         test eax, eax
         jne short .11
         push byte 1
-        call sub_FC2D9
+        call WaitTicks
         add esp, byte 4
         mov eax, dword [tickcount]
         cmp eax, dword [dword_16DAC4]
@@ -14737,7 +14737,7 @@ sub_E4908:
         test eax, eax
         jne near .35
         push byte 1
-        call sub_FC2D9
+        call WaitTicks
         mov ecx, dword [dword_16E46C]
         add esp, byte 4
         cmp ecx, byte 8

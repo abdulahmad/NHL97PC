@@ -6,7 +6,7 @@ extern MouseRead, WaitRetrace, __CHP, asc_165578, asc_16557D, asc_165582, asc_16
 extern asc_165595, dword_165548, dword_16554C, dword_165560, dword_165564, dword_165570, dword_165574, dword_165587
 extern dword_16559A, dword_16559E, dword_1655A2, dword_1655A6, dword_16CD02, dword_16CD08, dword_16CD0C, dword_16CD10
 extern dword_16CD14, dword_16CD18, dword_16CD1C, dword_16CD24, dword_16CD28, dword_16CD2C, dword_16CD30, dword_16CD34
-extern dword_16CD40, dword_16CD4C, dword_16CD50, dword_16CD54, dword_16DA9C, dword_16E44C, dword_16E450, dword_16E464
+extern dword_16CD40, dword_16CD4C, dword_16CD50, dword_16CD54, dword_16DA9C, mousex, mousey, dword_16E464
 extern dword_16E468, dword_16E46C, dword_1AC814, dword_1C5DE4, dword_1C83D0, dword_1C83D4, dword_1C83D8, dword_1C83DC
 extern dword_1C83E0, dword_1C83E4, dword_1C83E8, dword_1C83EC, dword_1C83F0, dword_1C83F4, dword_1C83F8, dword_1C83FC
 extern dword_1C8400, dword_1C8404, dword_1C8408, dword_1C840C, dword_1C8410, dword_1C8414, dword_1C8418, dword_1C841C
@@ -15,7 +15,7 @@ extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, sub_8E997_DD, sub
 extern sub_8E997_16F, sub_8E997_17B, sub_8E997_187, sub_8E997_193, off_16E4E0, qword_165550, qword_165558, qword_165568
 extern sub_101390, sub_1013CC, sub_1013FC, sub_101429, sub_1097F0, sub_11A318, sub_13C164, sub_41FDC
 extern sub_4AF9F, sub_7F028, sub_835AC, sub_835BC, sub_83850, sub_8BF54, sub_E3410, sub_E341C
-extern sub_E375C, sub_E3798, sub_FAF34, sub_FC510, sub_FC635, sub_FCD90, sub_FCFCC, sub_FD08C
+extern sub_E375C, sub_E3798, sub_FAF34, sub_FC510, SetViewRect, sub_FCD90, sub_FCFCC, sub_FD08C
 extern sub_FD0F8, sub_FD110, sub_FDC68, tickcount, word_16CD04, word_16CD20, word_16CD22
 global jpt_8E977, jpt_8E987, sub_8D956_223, sub_8DBAC_1F5, sub_8DBAC_220, sub_8BFAC, sub_8D5C0, sub_8D6B4
 global sub_8D6E0, sub_8D6E8, sub_8D910, sub_8D956, sub_8DBAC, sub_8DE0F, sub_8DE10, sub_8DE19
@@ -94,7 +94,7 @@ sub_8BFAC:
 .5:
         push byte 0
         push byte 0
-        call sub_FC635
+        call SetViewRect
         add esp, byte 10h
 .6:
         mov eax, dword [dword_16CD02]
@@ -271,9 +271,9 @@ sub_8BFAC:
 .27:
         call dword [off_16E4E0]
         mov dword [dword_16CD10], eax
-        mov eax, dword [dword_16E44C]
+        mov eax, dword [mousex]
         mov dword [dword_16CD08], eax
-        mov eax, dword [dword_16E450]
+        mov eax, dword [mousey]
         mov dword [dword_16CD0C], eax
         jmp short .29
 .28:
@@ -290,7 +290,7 @@ sub_8BFAC:
         push ecx
         mov eax, dword [dword_1C842C]
         push eax
-        call sub_FC635
+        call SetViewRect
         xor eax, eax
         add esp, byte 10h
         mov word [word_16CD22], ax
@@ -634,7 +634,7 @@ sub_8BFAC:
         push edx
         push byte 0
         push byte 0
-        call sub_FC635
+        call SetViewRect
         add esp, byte 10h
 .63:
         mov ecx, dword [byte esp+04h]
@@ -741,7 +741,7 @@ sub_8BFAC:
         push edx
         add eax, byte 2
         push eax
-        call sub_FC635
+        call SetViewRect
         mov ecx, 1
         add esp, byte 10h
         mov word [word_16CD22], cx
@@ -869,7 +869,7 @@ sub_8BFAC:
         mov eax, dword [byte esi+036h]
         add eax, edx
         push eax
-        call sub_FC635
+        call SetViewRect
         mov eax, dword [dword_1C844C]
         mov dword [dword_1C83FC], eax
         mov eax, dword [dword_1C841C]
@@ -996,7 +996,7 @@ sub_8BFAC:
 .92:
         push byte 0
         push byte 0
-        call sub_FC635
+        call SetViewRect
         add esp, byte 10h
         mov eax, 0FFFFFFFFh
         mov edx, dword [byte esp+04h]
@@ -2048,7 +2048,7 @@ sub_8D6E8:
         push edx
         mov ebx, dword [dword_1C842C]
         push ebx
-        call sub_FC635
+        call SetViewRect
         add esp, byte 10h
         mov ecx, 1
         mov eax, dword [dword_16CD1C]
@@ -2084,7 +2084,7 @@ sub_8D910:
         push byte 0
         push byte 0
         xor ebx, ebx
-        call sub_FC635
+        call SetViewRect
         add esp, byte 10h
         xor edx, edx
         mov word [word_16CD20], bx

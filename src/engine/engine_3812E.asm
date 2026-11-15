@@ -60,7 +60,7 @@ extern sub_8DF1F, sub_8E7E0, sub_99DAC, sub_AC369, sub_D0098, sub_DB75E, sub_DB7
 extern sub_DE3CF, sub_DE740, sub_E036F, sub_E0415, sub_E2378, sub_E23BC, sub_E2404, sub_E2458
 extern sub_E2494, sub_E24D0, sub_E341C, sub_E9429, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
 extern sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB71C, sub_FBFDC, sub_FC008, sub_FC290
-extern sub_FC2D9, sub_FC330, sub_FC410, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8
+extern WaitTicks, sub_FC330, sub_FC410, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8
 extern sub_FD110, sub_FDC68, sub_FE180, sub_FFA44, sub_FFA9C, tickcount, unk_160A56, unk_160B68
 extern unk_160C94, unk_160C98, unk_19ED78, unk_19F548, unk_1A0CB8, unk_1A8D48, unk_1A8E8C, unk_1A9C8C
 extern unk_1AD22E, unk_1B93E0, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_169054, word_169066, word_1690AE
@@ -14647,7 +14647,7 @@ sub_41DD8:
         jmp short .2
 .3:
         push byte 2
-        call sub_FC2D9
+        call WaitTicks
         xor esi, esi
         mov eax, 0FFFFFFFFh
         add esp, byte 4

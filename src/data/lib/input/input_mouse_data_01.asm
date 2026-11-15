@@ -5,21 +5,21 @@ section s_16E604 progbits alloc noexec write align=1
 extern sub_FCD90_30, sub_FDC68_48, sub_FDC68_5C, sub_FDC68_6C, sub_FDC68_80, sub_101229, sub_FCE34, sub_FCE48
 extern sub_FCE60, sub_FCEA0, sub_FDD08, unk_167D44, unk_167D48, unk_167D4C, unk_167D50, unk_167D54
 extern unk_167D58, unk_167D5C, unk_167D60, unk_167D64, unk_167D68, unk_167D6C, unk_167D70
-global byte_16E638, byte_16E639, byte_16E63A, byte_16E688, byte_16E689, byte_16E6C0, byte_16E6C1, dword_16E604
-global dword_16E608, dword_16E60C, dword_16E610, dword_16E614, dword_16E618, dword_16E61C, dword_16E620, dword_16E624
+global byte_16E638, byte_16E639, byte_16E63A, byte_16E688, byte_16E689, byte_16E6C0, byte_16E6C1, mouseminx
+global mouseminy, mousemaxx, mousemaxy, dword_16E614, dword_16E618, dword_16E61C, dword_16E620, dword_16E624
 global dword_16E628, dword_16E630, dword_16E634, dword_16E63C, dword_16E670, dword_16E674, dword_16E676, dword_16E678
 global dword_16E67A, dword_16E67C, dword_16E67E, dword_16E680, dword_16E682, dword_16E684, dword_16E690, dword_16E694
 global dword_16E698, dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16E6AC, dword_16E6B0, dword_16E6B4, dword_16E6B8
 global dword_16E6BC, dword_16E6C8, dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714, dword_16E718
 global dword_16E870, dword_16F140, dword_16F144, dword_16F148, dword_16F14C, dword_16F150, dword_16F184, off_16E858
 global off_16E87C, unk_16E8A0, unk_16F110
-dword_16E604:
+mouseminx:
         db 00h,00h,00h,00h
-dword_16E608:
+mouseminy:
         db 00h,00h,00h,00h
-dword_16E60C:
+mousemaxx:
         db 040h,01h,00h,00h
-dword_16E610:
+mousemaxy:
         db 0C8h,00h,00h,00h
 dword_16E614:
         db 00h,00h,00h,00h

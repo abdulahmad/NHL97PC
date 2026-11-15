@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_13C180 progbits alloc exec nowrite align=1
 extern byte_19C840, dword_171E34, qword_19C858, qword_19C860, qword_19C870, tbyte_19C878
-global WaitRetrace, __fprem_chk, fprem1_common, fprem_common, WaitRetrace_2D, sub_13C180, sub_13C1BF
+global WaitDisplayRetrace, WaitRetrace, __fprem_chk, fprem1_common, fprem_common, WaitRetrace_2D, sub_13C180, WaitRetraceEdges
 sub_13C180:
         in al, dx
         LD mov, ah, al
@@ -29,7 +29,7 @@ WaitRetrace:
 WaitRetrace_2D:
         mov dword [dword_171E34], 2710h
         ret
-sub_13C1BF:
+WaitRetraceEdges:
         mov dx, 3DAh
         mov ecx, dword [dword_171E34]
 .1:
@@ -44,6 +44,7 @@ sub_13C1BF:
         jecxz WaitRetrace_2D
         mov dword [dword_171E34], 186A0h
         ret
+WaitDisplayRetrace:
         mov dx, 3DAh
         mov ecx, dword [dword_171E34]
 .3:

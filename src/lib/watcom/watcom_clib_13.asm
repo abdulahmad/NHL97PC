@@ -76,7 +76,7 @@ global sub_118F67, sub_118F7B, sub_118F91, sub_118FB7, sub_119054, sub_11908E, s
 global sub_1191A4, sub_1191B8, sub_1191D1, sub_1191F2, sub_119255, sub_119328, sub_119349, sub_119550
 global sub_119730, sub_119780, sub_119800, sub_119850, sub_119BC8, sub_119BE4, sub_119F20, sub_119F54
 global sub_119FDC, sub_11A120, sub_11A210, sub_11A220, sub_11A230, sub_11A250, sub_11A264, sub_11A294
-global sub_11A318, sub_11A350, sub_11A3E0, sub_11ADD0, sub_11ADE8, unk_116425, unk_116427, unk_1166EF
+global sub_11A318, sub_11A350, sub_11A3E0, sub_11ADD0, sub_11ADE8, __saved_DS, unk_116427, unk_1166EF
 global unk_1193EA
 strncmp_:
         push ecx
@@ -5307,7 +5307,7 @@ start_74:
         mov byte [_ExtenderSubtype], ah
         mov es, ebx
         db 066h,026h,08Ch,01Dh                  ; insn: o16 mov [es:106425h],ds
-        dd unk_116425
+        dd __saved_DS
         mov dword [_Envptr], esi
         mov word [_Envptr_w4], cx
         push esi
@@ -5429,9 +5429,9 @@ sub_1163E1_23:
         lea eax, [byte eax+00h]
 sub_11641C:
         db 066h,02Eh,08Eh,01Dh                  ; insn: o16 mov ds,[cs:106425h]
-        dd unk_116425
+        dd __saved_DS
         ret
-unk_116425:
+__saved_DS:
         db 00h,00h
 unk_116427:
         db 00h
