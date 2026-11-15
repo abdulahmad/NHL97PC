@@ -411,7 +411,15 @@ static int int31(ctx_t *c)
         memcpy(&v, rm + 0x18, 4); R(&t, ECX) = v;
         memcpy(&v, rm + 0x1C, 4); R(&t, EAX) = v;
         TRACE("real-mode int %02xh ax=%04x es:di=%08x\n", vec, (unsigned)(R(&t, EAX) & 0xFFFF), (unsigned)R(&t, EDI));
-        ok = AX(c) == 0x0300 ? dos_int(&t, vec) : 0;
+        if (AX(c) == 0x0300 && vec == 0x21 && (R(&t, EAX) & 0xFF00) == 0x6300) {
+            /* NHL 97's C library start-up (Watcom __init_mbcs): get the DBCS lead-byte table. An empty table (two zero bytes) at
+             * DBCS_TABLE: no double-byte characters. */
+            uint16_t ds = DBCS_TABLE >> 4;
+            memset((void *)(uintptr_t)DBCS_TABLE, 0, 4);
+            memcpy(rm + 0x24, &ds, 2);
+            R(&t, ESI) = 0; R(&t, EAX) &= ~0xFFu; R(&t, EFL) &= ~1u;
+            ok = 1;
+        } else ok = AX(c) == 0x0300 ? dos_int(&t, vec) : 0;
         if (!ok) { SETAX(c, 0x8001); SET_CF(c, 1); return 1; }
         v = R(&t, ESI); memcpy(rm + 0x04, &v, 4);
         v = R(&t, EBP); memcpy(rm + 0x08, &v, 4);
@@ -422,6 +430,8 @@ static int int31(ctx_t *c)
         fl = (uint16_t)R(&t, EFL); memcpy(rm + 0x20, &fl, 2);
         SET_CF(c, 0); return 1;
     }
+    case 0x0600: case 0x0601: case 0x0602: case 0x0603: case 0x0702: case 0x0703:
+        SET_CF(c, 0); return 1;                     /* lock / unlock memory, mark pageable: nothing is ever paged out here (NHL 97 locks its interrupt code) */
     case 0x0900: SETAL(c, 1); SET_CF(c, 0); return 1;   /* disable virtual interrupts: they were enabled */
     case 0x0901: SETAL(c, 1); SET_CF(c, 0); return 1;
     case 0x0902: SETAL(c, 1); SET_CF(c, 0); return 1;
@@ -436,6 +446,8 @@ static int int21(ctx_t *c)
     case 0x02: putchar(R(c, EDX) & 0xFF); return 1;
     case 0x09: { char *s = (char *)R(c, EDX); while (*s != '$') putchar(*s++); return 1; }
     case 0x0E: SETAL(c, 5); return 1;
+    case 0x68: SET_CF(c, 0); return 1;                         /* commit file: the host's writes go straight to the file */
+    case 0xF3: return 1;                                       /* NHL 97's FPU start-up asks DOS/4GW (F3h): nothing to do here */
     case 0x19: SETAL(c, 2); return 1;                          /* current drive C: */
     case 0x1A: dta = (uint8_t *)R(c, EDX); return 1;
     case 0x25: pm_vec[AL(c)].off = R(c, EDX); pm_vec[AL(c)].sel = 0; TRACE("setvect %02x -> %08x\n", AL(c), (unsigned)R(c, EDX)); return 1;
