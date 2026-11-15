@@ -681,7 +681,8 @@ static uint8_t seq_idx, seq[8] = { 3, 1, 0x0F, 0, 0x0E }, crtc_idx, crtc[0x19], 
 static uint8_t planes[4][BANK];
 static int planar, planar_mask = 0x0F;
 static unsigned crtc_start_disp;           /* latched CRTC start; see palette latch notes */
-static int dac_dirty;                     /* live dac[] changed since last display latch */
+static int dac_dirty;
+static volatile int64_t dac_write_ns;      /* when the game last wrote a DAC component */                     /* live dac[] changed since last display latch */
 
 static int planar_height(void)
 {
@@ -874,6 +875,7 @@ int video_port_out(unsigned port, uint32_t val)
     case 0x3C9:
         video_palette_lock();
         dac[dac_wr & 255][dac_comp] = val & 63;
+        dac_write_ns = plat_now_ns();
         vl_dac++;
         dac_dirty = 1;
         if (++dac_comp == 3) {
@@ -1088,6 +1090,9 @@ void video_present(void)
     uint32_t pal[256];
     if (!ren && !use_gl) return;
     SDL_LockMutex(lock);
+    /* NHL 97's front end loads partial palettes (not all 256 colours) without polling the retrace or calling WaitRetrace, so neither
+     * latch ever ran and the screen stayed black. A palette the game has stopped writing for 3 ms is complete: show it. */
+    if (dac_dirty && dac_comp == 0 && plat_now_ns() - dac_write_ns > 3000000LL) latch_dac_and_crtc_unlocked();
     window_save();
     w = mode_w; h = mode_h;
     /* dac_latched only — never sample live dac[] here (partial updates and page-flip races) */
