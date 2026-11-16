@@ -29,10 +29,10 @@ extern sub_13DA4, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, Select
 extern CrowdForPuckZone, LineChangeCommentary, assreplace, assexit, AimAtPuckTarget, ChkPokeOrCheck, check4bench, ChkForwardSwap
 extern GetDefensePartner, ChkSwapWithPartner, Setplass, FaceoffSpotPosition, Endfaceoff, DelayedPenaltyEnd, assgoalie, KeepInsideRink
 extern DefendPuck, assextra4, FindManToCover, assextra3, BuildPassTargets, CreditPass, CarrierInShotArea, CanReceivePass
-extern StartPass, AIPassDecision, ChkAIShoot, sub_2E310, CompLine, ChkShoot, ForceShoot, UpdateLinesForAbsent
-extern AddPenalty, AddPenalty2, EndPenaltyShot, SetPlayerTarget, SetSlotPlayer, doplayeracc, sub_39DA4, sub_39EC0
-extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, MusicPlaying
-extern PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
+extern StartPass, AIPassDecision, ChkAIShoot, AvgLineEnergy, CompLine, ChkShoot, ForceShoot, UpdateLinesForAbsent
+extern AddPenalty, AddPenalty2, EndPenaltyShot, SetPlayerTarget, SetSlotPlayer, doplayeracc, PickBoxSeat, FreeBoxSeat
+extern MoveBoxToBenchSeat, SitDownAnim, StandUpAnim, GoToBoxAnim, LeaveBoxAnim, RefDodgePuck, QueueMusicRestart, MusicPlaying
+extern PlaySfxOr, PlaySfxVolume, SetCrowdMood, CommentaryEvent, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
 extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, sub_57324, sub_576EC, sub_57738, LoadCupArt
 extern sub_5AC28, SetSPA, sub_60D6C, sub_60F48, sub_64EBC, sub_650A4, sub_650E8, sub_6619C
@@ -392,7 +392,7 @@ GetLowestPen:
 ; chk4lc                                            25BD0  94G, low confidence
 ; 94G chk4lc (see if the computer should call a line change): line option
 ; 40h, puck in its own half, 1 in 4, enough clock and power play time, tired
-; line (sub_2E310 > 800h) -> CompLine, setpersonel
+; line (AvgLineEnergy > 800h) -> CompLine, setpersonel
 ;-----------------------------------------------------------------------------
 chk4lc:
         push ebx
@@ -464,7 +464,7 @@ chk4lc:
         test byte [dword ecx+0A6h], 40h
         jne short .12
         mov eax, ecx
-        call sub_2E310
+        call AvgLineEnergy
         mov edi, eax
         cmp ax, 800h
         jle short .8
@@ -2745,7 +2745,7 @@ assbench:
         mov dword [byte ebx+028h], edx
         mov eax, ebx
         mov dword [byte ebx+01Ch], 4096CBE4h
-        call sub_3AB68
+        call SitDownAnim
         add esp, byte 20h
         pop edx
         pop ecx
@@ -2816,7 +2816,7 @@ assbench:
 ;-----------------------------------------------------------------------------
 ; PutBoxPlayerOnBench                             27A00  97 PC, low confidence
 ; From assleavebox: the first roster entry flagged 8 goes to the bench spot
-; (position 8002h, sub_3A164), heading set
+; (position 8002h, MoveBoxToBenchSeat), heading set
 ;-----------------------------------------------------------------------------
 PutBoxPlayerOnBench:
         push ebx
@@ -2838,14 +2838,14 @@ PutBoxPlayerOnBench:
         mov dword [byte esi+028h], ecx
         mov eax, esi
         mov dword [byte esi+01Ch], 4096CBE4h
-        call sub_3AB68
+        call SitDownAnim
         or byte [dword esi+0C1h], 8
         mov word [byte edx+050h], 8002h
         test byte [dword esi+0BFh], 40h
         setne al
         and eax, 0FFh
         mov edx, ebx
-        call sub_3A164
+        call MoveBoxToBenchSeat
         mov dword [byte esi+060h], ebx
         pop esi
         pop edx
@@ -2885,7 +2885,7 @@ ReleaseBoxToBench:
         test byte [byte esi+051h], 8
         je short .3
         mov eax, ebx
-        call sub_3A164
+        call MoveBoxToBenchSeat
         mov word [byte esi+050h], 8002h
         mov dl, byte [dword ebx+byte_19CB70]
         test dl, dl
@@ -3230,7 +3230,7 @@ asspsclear:
         mov dword [byte ebx+028h], edx
         mov eax, ebx
         mov dword [byte ebx+01Ch], 4096CBE4h
-        call sub_3AB68
+        call SitDownAnim
         jmp short .10
 .9:
         mov dword [byte ebx+060h], 0FFFFFF9Ch
@@ -3365,7 +3365,7 @@ PenShotStart:
         mov word [byte ebx+0Ah], ax
         mov word [byte ebx+08h], ax
         mov eax, 9
-        call sub_424CC
+        call SetCrowdMood
         mov edx, dword [off_168CF0]
         mov al, byte [word_19CBE6]
         mov ecx, 3E8h
@@ -3558,7 +3558,7 @@ asseben:
         mov eax, ebx
         fstp dword [byte ebx+028h]
         mov byte [dword ebx+0BFh], dh
-        call sub_3ABD8
+        call StandUpAnim
         jmp near .8
 .2:
         mov dh, dl
@@ -3772,7 +3772,7 @@ assleaveice:
         mov dword [byte ebx+028h], edx
         mov eax, ebx
         mov dword [byte ebx+01Ch], 4096CBE4h
-        call sub_3AB68
+        call SitDownAnim
         add esp, byte 20h
         pop edx
         pop ecx
@@ -3850,7 +3850,7 @@ asspenalty:
         mov edx, eax
         mov ecx, eax
         mov eax, ebx
-        call sub_39DA4
+        call PickBoxSeat
         fld dword [byte esp+0Ch]
         call __CHP
         mov eax, dword [edx]
@@ -4019,7 +4019,7 @@ asspenalty:
         mov dword [byte ebx+028h], edx
         mov eax, ebx
         mov dword [byte ebx+01Ch], 3FC90FDBh
-        call sub_3AC3C
+        call GoToBoxAnim
 .12:
         add esp, byte 28h
         pop edi
@@ -4110,7 +4110,7 @@ assepen:
         faddp
         mov eax, ebx
         fstp dword [byte ebx+028h]
-        call sub_39EC0
+        call FreeBoxSeat
         test byte [dword ebx+0BFh], 40h
         setne al
         and eax, 0FFh
@@ -4129,7 +4129,7 @@ assepen:
         mov dword [byte ebx+038h], 0
         mov eax, ebx
         mov dword [byte ebx+01Ch], 4096CBE4h
-        call sub_3AD34
+        call LeaveBoxAnim
         add esp, byte 4
         pop edx
         pop ecx
@@ -5332,7 +5332,7 @@ assreffollow:
         call sub_56CF8
 .6:
         mov eax, ebx
-        call sub_3AD9C
+        call RefDodgePuck
         mov eax, dword [dword ebx+0EEh]
         fild word [word_19CB68]
         fstp dword [eax]
@@ -6182,7 +6182,7 @@ assstanley:
         call MusicPlaying
         test eax, eax
         je short .8
-        call sub_41CF0
+        call QueueMusicRestart
 .8:
         call sub_FBE5D
         cmp eax, byte 1Bh
@@ -6296,13 +6296,13 @@ PlayerGetsPuck:
         test byte [dword edx+0BFh], 40h
         jne short .7
         mov eax, 8
-        call sub_424CC
+        call SetCrowdMood
         mov ebx, dword [dword_19D3A0]
         mov eax, dword [dword_19D3A4]
         jmp short .8
 .7:
         mov eax, 6
-        call sub_424CC
+        call SetCrowdMood
         mov ebx, dword [dword_19D3A4]
         mov eax, dword [dword_19D3A0]
 .8:
@@ -8545,7 +8545,7 @@ PuckEntersZone:
         test ax, ax
         je near .4
         mov eax, 0Ch
-        call sub_424CC
+        call SetCrowdMood
         cmp word [penshotlive], byte 0
         jne short .1
         cmp word [penshotmode], byte 0
@@ -9342,7 +9342,7 @@ pucknorm_body:
         test dh, 40h
         jne short .31
         mov eax, 2
-        call sub_424CC
+        call SetCrowdMood
         jmp near .50
 .31:
         mov eax, 50Bh

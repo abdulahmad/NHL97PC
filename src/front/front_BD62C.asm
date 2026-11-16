@@ -19,8 +19,8 @@ extern sprintf_, strcmp_, strcpy_, BlitArt, sub_1013FC, FindShape, sub_101EAC, s
 extern sub_103648, sub_105324, sub_10AED0, sub_114C4, sub_11B98E, sub_12024, SetScreenTarget, InitGameDisplay
 extern ApplyDisplayFlags, ClearOverlayWindows, ReplayCameraOn, ReplayCameraOff, ReplayCamFollowMode, ReplayCamDrag, ReplayCamRestorePath, ReplayCamOrbitMode
 extern ReplayCamOrbit, ReplayCamStop, ReplayCamFreeMode, ReplayCamTurn, ReplayCamMove, ReplayCamZoomMode, ReplayCamZoom, ReplayCamClearFlag
-extern SetVideoMode, sub_3CA28, sub_3CB00, sub_3CB48, sub_3CB70, sub_3D020, sub_3E5F0, sub_41A28
-extern sub_41D18, sub_41DB8, WaitMusicEnd, ArenaFileName, StopAllSfx, sub_423B4, sub_4241C, sub_4A280
+extern SetVideoMode, SetViewSize, ClearViewInterlaced, ShowView, SetViewOrigin, SetRinkDetail, FadeGamePalette, ChkMenuMusic
+extern PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, StopAllSfx, SetAmbientVolume, SetCrowdNoise, sub_4A280
 extern MakeDirPath, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, sub_4BCB4
 extern sub_5B4D4, sub_5BD94, InitReplayBuffer, sub_5BE64, sub_5BEB0, sub_5C2CC, sub_5C2F4, sub_5C30C
 extern sub_5C32C, sub_5C34C, sub_5C4CC, sub_5C4E4, sub_5C500, sub_5C584, sub_5C5EC, sub_5C74C
@@ -61,7 +61,7 @@ RunReplay:
         mov eax, 0FFFFFFFFh
         xor ebx, ebx
         rep movsd
-        call sub_3E5F0
+        call FadeGamePalette
         push byte 14h
         lea eax, [byte ebp-030h]
         push eax
@@ -73,7 +73,7 @@ RunReplay:
         test eax, eax
         je near RunReplay_358
         xor eax, eax
-        call sub_4241C
+        call SetCrowdNoise
         call sub_4A280
         call StopAllSfx
         call sub_114C4
@@ -129,10 +129,10 @@ RunReplay:
         mov eax, dword [byte ebp-018h]
         mov dword [dword_19CD14], eax
         mov eax, dword [dword_1A8E80]
-        call sub_3CB00
+        call ClearViewInterlaced
         mov dword [dword_19CD30], 0
         mov eax, dword [dword_1A8E80]
-        call sub_3CB48
+        call ShowView
         movsx ebx, word [word_1686E4]
         mov eax, dword [dword_16E464]
         imul eax, ebx
@@ -182,11 +182,11 @@ RunReplay:
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
-        call sub_3CA28
+        call SetViewSize
         mov eax, dword [dword_1A8E80]
         mov ebx, esi
         mov edx, edi
-        call sub_3CB70
+        call SetViewOrigin
         mov eax, dword [dword_1C95BC]
         lea edx, [byte ebp-01Ch]
         mov dword [dword_1CAFA4], eax
@@ -201,10 +201,10 @@ RunReplay:
         mov eax, dword [byte ebp-018h]
         mov dword [dword_19CD14], eax
         mov eax, dword [dword_1A8E80]
-        call sub_3CB00
+        call ClearViewInterlaced
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD30], 0
-        call sub_3CB48
+        call ShowView
         movsx ebx, word [word_1686E4]
         mov eax, dword [dword_16E464]
         imul eax, ebx
@@ -254,14 +254,14 @@ RunReplay:
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
-        call sub_3CA28
+        call SetViewSize
         mov ecx, 10h
         mov eax, dword [dword_1A8E80]
         mov ebx, esi
         mov edx, edi
         mov edi, dword_19CD10
         mov esi, unk_1CAEFC
-        call sub_3CB70
+        call SetViewOrigin
         mov dword [InGameMenuRequest], 0
         rep movsd
         call ApplyDisplayFlags
@@ -277,7 +277,7 @@ RunReplay:
         mov dword [dword_1C5DE4], 0
         call ReplayCameraOff
         mov eax, 64h
-        call sub_423B4
+        call SetAmbientVolume
 RunReplay_358:
         leave
 RunReplay_359:
@@ -378,10 +378,10 @@ LoadReplay:
         call InitGameVideo
         mov eax, 947Ah
         mov edx, 10000h
-        call sub_3D020
+        call SetRinkDetail
         xor ebx, ebx
         mov eax, 0FFFFFFFFh
-        call sub_3E5F0
+        call FadeGamePalette
         call sub_5B4D4
         push dword [dword_1CAF9C]
         call FreeMemBlock
@@ -688,7 +688,7 @@ sub_BDB25:
         call sub_DA7EB
         call InitFrontEnd
         call WaitMusicEnd
-        call sub_41D18
+        call PauseMusic
         call rand_
         cdq
         idiv ebx
@@ -697,7 +697,7 @@ sub_BDB25:
         mov eax, ebx
         call ArenaFileName
         lea eax, [byte ebp-028h]
-        call sub_41A28
+        call ChkMenuMusic
         lea eax, [byte ebx+01h]
         mov ebx, 2
         cdq
@@ -706,8 +706,8 @@ sub_BDB25:
         lea edx, [byte ebp-028h]
         call ArenaFileName
         lea eax, [byte ebp-028h]
-        call sub_41A28
-        call sub_41DB8
+        call ChkMenuMusic
+        call RequestMusicStop
         leave
         pop edx
         pop ecx

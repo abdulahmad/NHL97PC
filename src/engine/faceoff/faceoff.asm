@@ -23,10 +23,10 @@ extern off_168D04, off_168D08, off_168D0C, qword_16002C, qword_160034, qword_160
 extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, regd1, sub_11328
 extern sub_11574, sub_116B0, sub_11808, IsPlayoffGame, sub_11F74, sub_12A10, ClockTick, sub_12C2C
 extern sub_12DE8, ChangeViewSize, PrevVideoModeKey, NextVideoModeKey, QueueOverlayPanel, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
-extern ResetSceneCamera, SelectCameraView, ToggleCameraFollow, EndOpeningCamera, LoadOpeningCamera, assreplace, Goal, sub_2DE94
-extern SetupAutoLines, InitGameLines, AddPenalty, SetPlayerTarget, InitPadSlots, DebugRestoreEnergy, ResetPlayerCounters, sub_3CA28
-extern sub_3CB70, sub_3D020, sub_3E5F0, InitGameAudio, sub_41670, sub_41CF0, WaitMusicEnd, sub_423B4
-extern sub_424CC, CommentaryEvent, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, sub_4B8DC, FreeGameGraphics
+extern ResetSceneCamera, SelectCameraView, ToggleCameraFollow, EndOpeningCamera, LoadOpeningCamera, assreplace, Goal, CoachLineChange
+extern SetupAutoLines, InitGameLines, AddPenalty, SetPlayerTarget, InitPadSlots, DebugRestoreEnergy, ResetPlayerCounters, SetViewSize
+extern SetViewOrigin, SetRinkDetail, FadeGamePalette, InitGameAudio, InitGameSounds, QueueMusicRestart, WaitMusicEnd, SetAmbientVolume
+extern SetCrowdMood, CommentaryEvent, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, sub_4B8DC, FreeGameGraphics
 extern DrawGameFrame, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
 extern InitReplayBuffer, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
 extern InitAnimPoints, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, AllocAnimStates, GameOver, sub_77FA8
@@ -456,7 +456,7 @@ RunOpeningFrames:
         jne short .12
         call WaitMusicEnd
         mov eax, 64h
-        call sub_423B4
+        call SetAmbientVolume
         mov dword [esp], 1
         mov eax, dword [word_19CBB6]
         sar eax, 10h
@@ -667,7 +667,7 @@ PlaceOpeningPlayers:
         mov eax, 64h
         mov ebx, 1
         mov dword [dword_19CBD0], edx
-        call sub_423B4
+        call SetAmbientVolume
         mov dword [dword_19CD88], ebx
         pop edx
         pop ecx
@@ -685,16 +685,16 @@ OpeningSequence:
         push edx
         push edi
         mov eax, 64h
-        call sub_423B4
+        call SetAmbientVolume
         mov eax, dword [dword_1AC944]
         test byte [byte eax+02h], 20h
         je short .1
         mov ebx, 64h
         mov edx, 10000h
         mov eax, 0FFFFFFFFh
-        call sub_3E5F0
+        call FadeGamePalette
         mov eax, 9
-        call sub_424CC
+        call SetCrowdMood
         mov eax, dword [word_19CBB6]
         sar eax, 10h
         inc eax
@@ -723,7 +723,7 @@ OpeningSequence:
         cmp byte [byte_19CD05], 0
         je short .3
         xor cl, cl
-        call sub_41CF0
+        call QueueMusicRestart
         mov byte [byte_19CD05], cl
 .3:
         call EndOpeningCamera
@@ -1353,12 +1353,12 @@ sub_13F7C:
         test byte [byte_19CD9D], 40h
         je short .11
         xor eax, eax
-        call sub_2DE94
+        call CoachLineChange
 .11:
         test byte [byte_19CD9D], 80h
         je short .12
         mov eax, 1
-        call sub_2DE94
+        call CoachLineChange
 .12:
         pop edi
         pop edx
@@ -2890,11 +2890,11 @@ SetGameBrightness:
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
-        call sub_3CA28
+        call SetViewSize
         mov eax, dword [dword_1A8E80]
         mov ebx, esi
         mov edx, edi
-        call sub_3CB70
+        call SetViewOrigin
         pop ebp
         pop edi
         pop esi
@@ -3041,11 +3041,11 @@ PlayGame:
         call SetGameBrightness
         call sub_F1FF8
         mov eax, 947Ah
-        call sub_3D020
+        call SetRinkDetail
         xor ebx, ebx
         xor edx, edx
         mov eax, 0FFFFFFFFh
-        call sub_3E5F0
+        call FadeGamePalette
         mov eax, 1
         call sub_4B8DC
         call sub_E30F4
@@ -3271,7 +3271,7 @@ RunDemoGame:
         call PlayGame
         call sub_AB0A6
         xor eax, eax
-        call sub_41670
+        call InitGameSounds
         call sub_F9650
         mov cl, byte [dword_1AC814]
         mov eax, esi

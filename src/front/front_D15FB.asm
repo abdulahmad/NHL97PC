@@ -20,7 +20,7 @@ extern dword_1CC7A8, dword_1CC7AC, dword_1CC7B0, dword_1CC7B4, dword_1CC7B8, dwo
 extern dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dword_1CC8A0, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7
 extern PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, memset_, rand_, sprintf_, strcpy_, BlitShape2, BlitArt
 extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, Random32, sub_11A318
-extern FindShapeList, SetScreenTarget, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, PlaySfx
+extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, PlaySfx
 extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, sub_7CB8C, sub_7E860, sub_7EDF0, sub_7EEB0
 extern sub_7EF70, SetTextColor, DrawTextAligned, sub_80BBC, sub_823F0, sub_84330, InitMenuItems, sub_8BFAC
 extern sub_E0DB7, sub_E341C, AllocMemBlock, FreeMemBlock, sub_FC330, MakeColor, FreeBitmap, DrawArt
@@ -275,21 +275,21 @@ PreGameMatchupScreen:
         cmp byte [byte_1C6040], 0
         je short .1
         call sub_7CB8C
-        call sub_415A0
+        call MusicEnabled
 .1:
         mov dword [dword_1CC79C], 0
         mov eax, 3
         mov dword [dword_1CC7B0], 0
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 22h
         call LoadDataFile
         mov dword [dword_1CC7D4], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 23h
         call LoadDataFile
         mov dword [dword_1CC7CC], eax
@@ -395,8 +395,8 @@ PreGameMatchupScreen:
         call sprintf_
         add esp, byte 0Ch
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         lea eax, [byte ebp+062h]
         push eax
@@ -428,8 +428,8 @@ PreGameMatchupScreen:
         call sprintf_
         add esp, byte 0Ch
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         lea eax, [byte ebp+062h]
         push eax
@@ -664,7 +664,7 @@ PreGameMatchupScreen_522:
         cmp byte [byte_1C6040], 0
         je short .20
         call LoadLogoNames
-        call sub_415F8
+        call LoadFrontEndSfx
 .20:
         mov eax, dword [byte ebp+07Ah]
 PreGameMatchupScreen_658:
@@ -1045,8 +1045,8 @@ DrawPlayerPortrait:
         cmp byte [ebx], 0
         je near .8
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push ebx
         call sub_101560
@@ -1949,7 +1949,7 @@ sub_D2ED6:
         cmp dword [dword_1CC7B0], byte 0
         jne short .7
         mov eax, 309h
-        call sub_41F2C
+        call PlayMenuSfx
         mov dword [dword_1CC79C], 0
 .7:
         cmp dword [dword_1CC79C], byte 0

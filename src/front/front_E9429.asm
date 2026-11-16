@@ -21,7 +21,7 @@ extern dword_1CE1E0, dword_1CE1E4, dword_1CE1E8, dword_1CE1EC, dword_1CE1F0, dwo
 extern dword_1CE200, dword_1CE204, dword_1CE208, dword_1CE20C, dword_1CE210, dword_1CE214, dword_1CE218, dword_1CE21C
 extern dword_1CE220, memcpy_, memset_, qsort_, sprintf_, strcpy_, BlitArt, BlitShape
 extern sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, sub_11A318, sub_11F8E0, sub_11F94C
-extern sub_11F9F0, sub_11FA34, SetScreenTarget, sub_39851, sub_415F8, sub_419B0, sub_419B8, StopAllSfx
+extern sub_11F9F0, sub_11FA34, SetScreenTarget, GetAllStarDate, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
 extern PlaySfx, PlayScreenMovie, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
 extern SetTextColor, DrawTextAligned, sub_7F5A4, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_81678
 extern sub_83314, sub_834EC, sub_83558, sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068
@@ -130,8 +130,8 @@ AllStarScreen:
         call SetTextColor
         mov eax, 3
         lea edx, [dword ebp-0F4Eh]
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         call AllocAllStarRosters
         lea eax, [dword ebp-01FA6h]
         call InitAllStarScreen
@@ -585,7 +585,7 @@ AllStarScreen:
         add esp, byte 4
         cmp dword [byte ebp+07Eh], byte 0
         je short .43
-        call sub_415F8
+        call LoadFrontEndSfx
 .43:
         mov eax, edi
         lea esp, [dword ebp+082h]
@@ -750,16 +750,16 @@ InitAllStarScreen:
         push eax
         mov edi, edx
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 6Eh
         call LoadDataFile
         mov dword [dword_1CE214], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 6Fh
         call LoadDataFile
         push byte 0
@@ -4455,7 +4455,7 @@ InitAllStarTeams:
         lea esi, [byte esi+04h]
         movsd
         movsd
-        call sub_39851
+        call GetAllStarDate
         mov edi, unk_1C134A
         mov esi, unk_16D7F4
         mov word [dword_1C1346], 131Eh

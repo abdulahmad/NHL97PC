@@ -71,11 +71,11 @@ extern sub_10E8F8, sub_10E960, sub_10ED10, sub_10F814, sub_10FAE4, sub_10FB98, s
 extern sub_10FE58, sub_10FEA8, sub_10FFBC, sub_11002C, sub_1100B4, sub_110414, sub_110440, sub_1104CC
 extern sub_110538, sub_11059C, sub_1105E4, sub_1105FC, sub_110634, sub_110658, sub_11066C, sub_110680
 extern sub_110D70, sub_111C08, sub_111FA0, sub_112010, sub_1120F0, sub_112190, sub_112894, sub_1129B8
-extern StartCameraPath, SelectCameraView, InitCamera, DrawCameraDebugMarks, RunCameraScene, DrawCameraDebug, sub_3B75B, SetVideoMode
-extern sub_3C880, sub_3C8DC, sub_3C944, sub_3C9C8, sub_3CA28, sub_3CAB8, sub_3CB38, sub_3CB70
-extern sub_3CCA8, sub_3D930, sub_3D95C, sub_3D988, sub_3DA18, sub_3DAC4, sub_3DBCC, sub_3DCBC
-extern sub_3E458, sub_3E590, sub_3E818, delstream, CdStreamQueue, CdStreamService, CdStreamNextPacket, sub_3FC88
-extern sub_41D94, WaitMusicEnd, sub_42650, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, sub_52E14
+extern StartCameraPath, SelectCameraView, InitCamera, DrawCameraDebugMarks, RunCameraScene, DrawCameraDebug, DrawFrameNoop, SetVideoMode
+extern InitDisplayViews, FreeDisplayViews, AddDisplayView, SetViewDrawTarget, SetViewSize, SetViewInterlaced, HideView, SetViewOrigin
+extern PresentGameView, InitPaletteManager, ShutdownPaletteManager, AddPaletteRange, AddArtToRange, RemapArtBank, SetRangeColors, RemapBankToRange
+extern QuantizeAllRanges, BuildGamePalette, OpenStreamBuffer, delstream, CdStreamQueue, CdStreamService, CdStreamNextPacket, StreamBufferFree
+extern MusicStreamTick, WaitMusicEnd, ServiceSpeechQueue, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, sub_52E14
 extern LoadRinkLines, LoadRinkModel, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
 extern sub_56740, LoadGoalieMask, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
 extern sub_5AAB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450, sub_5C1CC, sub_5DD74, LoadAiIcons
@@ -2333,7 +2333,7 @@ sub_4A74C_4B:
         push dword 25B7Eh
         mov ecx, dword [dword_1691BC]
         push ecx
-        call sub_3E818
+        call OpenStreamBuffer
         mov ebx, dword [word_1691B2]
         mov edx, eax
         sar ebx, 10h
@@ -2400,7 +2400,7 @@ sub_4A74C_105:
         je near sub_4A74C_277.14
         mov edi, dword [dword_1691C0]
         push edi
-        call sub_3FC88
+        call StreamBufferFree
         add esp, byte 4
         cmp eax, 1588h
         jl near sub_4A74C_277.14
@@ -2574,7 +2574,7 @@ sub_4AA78:
         mov dword [dword_169844], ebx
         test ecx, ecx
         je short .3
-        call sub_42650
+        call ServiceSpeechQueue
 .3:
         cmp dword [dword_169258], byte 0
         je short .5
@@ -3045,7 +3045,7 @@ jpt_4AE54:
 jpt_4AE54_137:
         add esp, byte 8
         mov edx, eax
-        call sub_41D94
+        call MusicStreamTick
         call sub_E341C
         mov eax, edx
         pop ecx
@@ -3664,31 +3664,31 @@ InitGameGraphics:
         mov eax, dword [byte ebp+028h]
         xor edx, edx
         mov ebx, 0E7h
-        call sub_3C880
+        call InitDisplayViews
         call sub_E341C
         xor edx, edx
         mov eax, 3Ch
         mov dword [dword_1ADC84], edx
         call sub_842F4
         call sub_E341C
-        call sub_3D930
+        call InitPaletteManager
         mov eax, str_Render
-        call sub_3D988
+        call AddPaletteRange
         mov ebx, 0EFh
         mov edx, 0E8h
         mov dword [dword_1ADC88], eax
         mov eax, str_Ice
-        call sub_3D988
+        call AddPaletteRange
         mov ebx, 0F8h
         mov edx, 0F0h
         mov dword [dword_1ADC8C], eax
         mov eax, str_Marks
-        call sub_3D988
+        call AddPaletteRange
         mov ebx, 0FEh
         mov edx, 0F9h
         mov dword [dword_1ADC90], eax
         mov eax, str_Frntend
-        call sub_3D988
+        call AddPaletteRange
         mov dword [dword_1ADC94], eax
         mov eax, 41h
         call sub_842F4
@@ -3769,9 +3769,9 @@ InitGameGraphics:
         mov eax, 55h
         call sub_842F4
         call sub_E341C
-        call sub_3E458
+        call QuantizeAllRanges
         mov eax, 0FFh
-        call sub_3E590
+        call BuildGamePalette
         call sub_58B80
         call LoadRinkLines
         mov eax, 5Ah
@@ -3826,34 +3826,34 @@ InitGameVideo:
         add esp, byte 0Ch
         mov edx, dword [byte eax+0Ch]
         mov eax, dword [byte eax+08h]
-        call sub_3C944
+        call AddDisplayView
         mov edx, dword [dword_1ADC70]
         mov dword [dword_1ADC7C], eax
         mov ebx, dword [byte edx+01Ch]
         mov edx, dword [byte edx+018h]
-        call sub_3CA28
+        call SetViewSize
         mov edx, dword [dword_1ADC70]
         mov eax, dword [dword_1ADC7C]
         mov ebx, dword [byte edx+014h]
         mov edx, dword [byte edx+010h]
-        call sub_3CB70
+        call SetViewOrigin
         mov eax, dword [dword_1ADC70]
         cmp dword [byte eax+020h], byte 0
         je short .1
         mov eax, dword [dword_1ADC7C]
-        call sub_3CAB8
+        call SetViewInterlaced
 .1:
         mov eax, dword [dword_1ADC70]
         cmp dword [byte eax+024h], byte 0
         je short .2
         mov eax, dword [dword_1ADC7C]
-        call sub_3CB38
+        call HideView
 .2:
         mov edx, dword [dword_1ADC70]
         mov eax, dword [dword_1ADC7C]
         mov ebx, dword [byte edx+01Ch]
         mov edx, dword [byte edx+018h]
-        call sub_3CA28
+        call SetViewSize
         add esp, 300h
         pop edx
         pop ecx
@@ -3897,8 +3897,8 @@ sub_4B8DC_47:
 FreeGameGraphics:
         call FreeRinkModel
         call sub_58CA0
-        call sub_3D95C
-        call sub_3C8DC
+        call ShutdownPaletteManager
+        call FreeDisplayViews
         jmp near sub_77A30
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
@@ -4018,7 +4018,7 @@ DrawGameFrame:
         call RunCameraScene
 .3:
         mov eax, dword [dword_1ADC7C]
-        call sub_3C9C8
+        call SetViewDrawTarget
         cmp dword [dword_1ADC74], byte 0
         je short .4
         push unk_16E8A0
@@ -4113,7 +4113,7 @@ DrawGameFrame:
         cmp edx, 5FE0h
         jne short .7
         call sub_560AC
-        call sub_3B75B
+        call DrawFrameNoop
         call DrawCameraDebug
         call DrawCameraDebugMarks
         fld dword [dword_1B9067]
@@ -4192,7 +4192,7 @@ DrawGameFrame:
 ; sub_4BCB4                                                       4BCB4  97 PC
 ;-----------------------------------------------------------------------------
 sub_4BCB4:
-        jmp near sub_3CCA8
+        jmp near PresentGameView
         db 00h,00h,00h,00h,00h,00h,00h
 unk_4BCC0:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -5268,7 +5268,7 @@ sub_4C5A0:
         jne short .3
         mov edx, unk_1AEDF0
         mov eax, dword [dword_1ADC8C]
-        call sub_3DBCC
+        call SetRangeColors
         push str_Icepolys
         mov ecx, dword [dword_1B0FA0]
         push ecx
@@ -5376,7 +5376,7 @@ sub_4C5A0:
         lea ecx, [byte eax+010h]
         mov edx, dword [dword_1ADC88]
         mov eax, str_Center
-        call sub_3DA18
+        call AddArtToRange
         push str_C100
         mov edx, dword [dword_1B0FA0]
         push edx
@@ -12221,7 +12221,7 @@ sub_51434:
         call sub_E341C
         mov edx, dword [dword_1B0B18]
         mov eax, dword [dword_1ADC88]
-        call sub_3DCBC
+        call RemapBankToRange
         mov ebx, 8
         mov edx, 20h
         mov eax, dword [dword_1B0B6C]
@@ -13521,7 +13521,7 @@ OpenArenaArchive_7D:
         mov edx, dword [dword_1ADC88]
         xor ecx, ecx
 .1:
-        call sub_3DAC4
+        call RemapArtBank
 .2:
         mov esi, dword [dword_16AF68]
         push esi

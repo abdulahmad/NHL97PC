@@ -17,9 +17,9 @@ extern str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, strcat_, strcpy_, strlen
 extern strstr_, bcopy, BlitShape, sub_1013FC, FindShape, sub_103234, sub_1047D0, sub_108900
 extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, sub_109210, sub_116D38
 extern sub_116E84, sub_116F78, sub_117338, sub_11756C, sub_117C26, sub_118C88, sub_119054, sub_11910D
-extern sub_1191D1, sub_1191F2, sub_119780, SetScreenTarget, sub_3E818, delstream, CdStreamStart, CdStreamOpenSecondary
-extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, sub_3FD0C, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern sub_41DB8, WaitMusicEnd, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
+extern sub_1191D1, sub_1191F2, sub_119780, SetScreenTarget, OpenStreamBuffer, delstream, CdStreamStart, CdStreamOpenSecondary
+extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, StreamReady, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
+extern RequestMusicStop, WaitMusicEnd, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
 extern sub_7F5A4, sub_80BBC, sub_81678, MainMenuScreen, RunGameScreens, RunStatsMenu, RunNetworkConnect, RunModemConnect
 extern sub_8BE60, sub_8BEF8, sub_8BFA0, LoadLangText, GetLangText, FreeLangText, sub_9CFD3, sub_9D333
 extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
@@ -1679,7 +1679,7 @@ OpenVideoStream:
         push dword 2000h
         push dword 4E290h
         push eax
-        call sub_3E818
+        call OpenStreamBuffer
         add esp, byte 0Ch
         mov dword [dword_1C1254], eax
         test eax, eax
@@ -1955,7 +1955,7 @@ sub_7C038:
         mov ecx, dword [dword_1C1254]
         push ecx
         mov dword [dword_1C1258], eax
-        call sub_3FD0C
+        call StreamReady
         add esp, byte 8
         test eax, eax
         je short .3
@@ -2067,7 +2067,7 @@ sub_7C038:
         mov dword [dword_1C1258], eax
         mov eax, dword [dword_1C1260]
         push eax
-        call sub_3FD0C
+        call StreamReady
         add esp, byte 8
         test eax, eax
         je short .13
@@ -2963,8 +2963,8 @@ LoadLogoNames:
         cmp dword [dword_16CB74], byte 0
         jne near .2
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push dword 230h
         push str_LogoNames
@@ -3055,8 +3055,8 @@ InitFrontEnd:
         call sub_F9650
         call sub_DA7EB
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         cmp dword [dword_1C5DE4], byte 0
         jne short .1
         mov eax, 2Eh
@@ -3079,8 +3079,8 @@ InitFrontEnd:
         mov dword [dword_1C5E78], eax
 .3:
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         call sub_81678
         push str_Remo2
         push dword [dword_1C5DE4]
@@ -3101,8 +3101,8 @@ InitFrontEnd:
         call LoadLangText
         mov eax, 3
         xor ebx, ebx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
 .4:
         push byte 0
         push str_CHK1
@@ -3249,7 +3249,7 @@ RunFrontEnd:
         push edx
         enter 50h, 0
         call InitFrontEnd
-        call sub_41D18
+        call PauseMusic
         call rand_
         mov ecx, 2
         cdq
@@ -3260,7 +3260,7 @@ RunFrontEnd:
         call ArenaFileName
         lea eax, [byte ebp-050h]
         mov ebx, 1
-        call sub_41A28
+        call ChkMenuMusic
         lea eax, [ecx+ebx]
         mov ecx, 2
         cdq
@@ -3269,8 +3269,8 @@ RunFrontEnd:
         lea edx, [byte ebp-050h]
         call ArenaFileName
         lea eax, [byte ebp-050h]
-        call sub_41A28
-        call sub_41DB8
+        call ChkMenuMusic
+        call RequestMusicStop
         call TitleScreen
         jmp short .7
 .1:
@@ -3347,8 +3347,8 @@ TitleScreen:
         push edx
         push esi
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 0E1h
         call LoadDataFile
@@ -3386,8 +3386,8 @@ TitleScreen:
         call FreeBitmap
         add esp, byte 4
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push dword 0B0000001h
         call PaEvent
         add esp, byte 4

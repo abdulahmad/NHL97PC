@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_16B1A0 progbits alloc noexec write align=1
-extern sub_3A2E8, sub_3A3C8, sub_3A440, sub_3A564, sub_3A65C, sub_3A75C, sub_3A814, sub_3A884
-extern sub_3A920, sub_3A9D0, sub_3AA48, checkgoal, sub_3AFDC, sub_3B05C, sub_61540, sub_628C4
+extern FaceoffStanceMove, RunSimpleMove, FaceoffMove, MoveWithSfx, RandomFollowMove, ShoutMove, BodyMove, TakePositionMove
+extern SkateStrideMove, CoastMove, BackStrideMove, checkgoal, CheckMove, SteerMove, sub_61540, sub_628C4
 extern sub_62F14, sub_633E8, sub_63AA4, sub_63E8C, sub_640D0, sub_64490, sub_64700, sub_64820
 extern sub_648B4, sub_649E0, sub_64AE0, sub_64D54, sub_6A604, sub_6A77C, sub_6ABEC, sub_6B140
 extern sub_6B28C, sub_70378, sub_70424, sub_704D4, sub_708B0, sub_708F4, sub_709D0, sub_70A14
@@ -649,41 +649,41 @@ off_16BD2C:
         dd sub_64490
         dd sub_64490
         dd sub_64490
-        dd sub_3A3C8
-        dd sub_3A2E8
-        dd sub_3A2E8
-        dd sub_3A440
-        dd sub_3A440
-        dd sub_3A440
-        dd sub_3A814
-        dd sub_3A814
-        dd sub_3A814
-        dd sub_3A814
-        dd sub_3A884
-        dd sub_3A884
-        dd sub_3A884
-        dd sub_3A884
-        dd sub_3A884
-        dd sub_3A884
-        dd sub_3A65C
-        dd sub_3A564
-        dd sub_3A564
-        dd sub_3A564
-        dd sub_3A564
-        dd sub_3A564
-        dd sub_3A440
-        dd sub_3A440
-        dd sub_3A440
-        dd sub_3A440
-        dd sub_3A3C8
-        dd sub_3A65C
-        dd sub_3A65C
-        dd sub_3A564
-        dd sub_3A564
-        dd sub_3A564
-        dd sub_3A564
-        dd sub_3A75C
-        dd sub_3A75C
+        dd RunSimpleMove
+        dd FaceoffStanceMove
+        dd FaceoffStanceMove
+        dd FaceoffMove
+        dd FaceoffMove
+        dd FaceoffMove
+        dd BodyMove
+        dd BodyMove
+        dd BodyMove
+        dd BodyMove
+        dd TakePositionMove
+        dd TakePositionMove
+        dd TakePositionMove
+        dd TakePositionMove
+        dd TakePositionMove
+        dd TakePositionMove
+        dd RandomFollowMove
+        dd MoveWithSfx
+        dd MoveWithSfx
+        dd MoveWithSfx
+        dd MoveWithSfx
+        dd MoveWithSfx
+        dd FaceoffMove
+        dd FaceoffMove
+        dd FaceoffMove
+        dd FaceoffMove
+        dd RunSimpleMove
+        dd RandomFollowMove
+        dd RandomFollowMove
+        dd MoveWithSfx
+        dd MoveWithSfx
+        dd MoveWithSfx
+        dd MoveWithSfx
+        dd ShoutMove
+        dd ShoutMove
         dd sub_61540
         dd sub_72050
         dd sub_72050
@@ -727,21 +727,21 @@ off_16BD2C:
         dd checkgoal
         dd checkgoal
         dd checkgoal
-        dd sub_3AFDC
-        dd sub_3AFDC
-        dd sub_3AFDC
-        dd sub_3AFDC
-        dd sub_3AFDC
-        dd sub_3AFDC
-        dd sub_3AFDC
-        dd sub_3AFDC
-        dd sub_3AFDC
-        dd sub_3AFDC
-        dd sub_3AFDC
-        dd sub_3AFDC
-        dd sub_3AFDC
-        dd sub_3AFDC
-        dd sub_3B05C
+        dd CheckMove
+        dd CheckMove
+        dd CheckMove
+        dd CheckMove
+        dd CheckMove
+        dd CheckMove
+        dd CheckMove
+        dd CheckMove
+        dd CheckMove
+        dd CheckMove
+        dd CheckMove
+        dd CheckMove
+        dd CheckMove
+        dd CheckMove
+        dd SteerMove
         dd sub_62F14
         dd sub_6B140
         dd sub_73FBC
@@ -962,12 +962,12 @@ off_16BD2C:
         dd sub_709D0
         dd sub_70B38
         dd sub_708F4
-        dd sub_3AA48
-        dd sub_3AA48
-        dd sub_3A9D0
-        dd sub_3A9D0
-        dd sub_3A920
-        dd sub_3A920
+        dd BackStrideMove
+        dd BackStrideMove
+        dd CoastMove
+        dd CoastMove
+        dd SkateStrideMove
+        dd SkateStrideMove
         db 029h,00h,00h,00h,02Ah,00h,00h,00h,02Bh,00h,00h,00h
 dword_16C32C:
         db 02Ch,00h,00h,00h,02Eh,00h,00h,00h,02Fh,00h,00h,00h

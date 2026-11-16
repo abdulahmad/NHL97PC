@@ -28,7 +28,7 @@ extern strlen_, sub_1008CC, bcopy, sub_101324, BlitShape2, BlitArt, BlitShape, s
 extern FindShape, sub_101EAC, sub_102B94, sub_102C10, Random32, LoadGripLibrary, sub_1046C, LoadJoystickConfig
 extern sub_105808, sub_106F64, sub_106F94, sub_107D30, sub_116428, sub_1164E8, sub_1167AE, sub_1169D4
 extern sub_119BE4, sub_119FDC, sub_11A120, sub_11A318, sub_11A3E0, sub_11ADD0, sub_11ADE8, sub_11B008
-extern SetScreenTarget, sub_4095C, OpenAudioStream, sub_41870, sub_41A28, sub_41D18, sub_41DB8, ArenaFileName
+extern SetScreenTarget, LoadMainSfxBank, OpenAudioStream, ShutdownGameAudio, ChkMenuMusic, PauseMusic, RequestMusicStop, ArenaFileName
 extern StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, sub_4B307, RunFrontEnd, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, GetLangText, FreeLangText
 extern RunIntro, AllocStaticBuffer, sub_DB747, sub_E341C, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
@@ -365,9 +365,9 @@ main_:
         movsx eax, byte [byte_1AC818]
         call OpenAudioStream
         call RunIntro
-        call sub_4095C
+        call LoadMainSfxBank
         call RunFrontEnd
-        call sub_41870
+        call ShutdownGameAudio
         call sub_DB747
         call sub_1046C
         call NetShutdown
@@ -9806,7 +9806,7 @@ sub_84570:
         push ecx
         push edx
         sub esp, byte 50h
-        call sub_41D18
+        call PauseMusic
         call Random32
         mov ebx, eax
         and ebx, byte 1
@@ -9815,7 +9815,7 @@ sub_84570:
         call ArenaFileName
         mov eax, esp
         lea edx, [byte ebx+01h]
-        call sub_41A28
+        call ChkMenuMusic
         mov ebx, 2
         mov eax, edx
         sar edx, 1Fh
@@ -9824,8 +9824,8 @@ sub_84570:
         mov edx, esp
         call ArenaFileName
         mov eax, esp
-        call sub_41A28
-        call sub_41DB8
+        call ChkMenuMusic
+        call RequestMusicStop
         add esp, byte 50h
         pop edx
         pop ecx

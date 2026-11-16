@@ -38,7 +38,7 @@ extern sub_1013FC, FindShape, sub_102B94, sub_106D08, sub_1070B0, sub_107D30, su
 extern sub_10FAC, sub_1167AE, sub_11A318, sub_11A350, sub_11B104, sub_11B98E, sub_11BFC5, sub_11C134
 extern sub_11C41C, sub_11D2D0, sub_11D364, sub_11D508, sub_11D5C0, sub_11D690, sub_11D780, sub_11D8D8
 extern sub_11DA0C, sub_11DE04, sub_11F850, sub_11F8D0, SetScreenTarget, sub_14140, InitPacketLink, ShutdownPacketLink
-extern PacketLinkSend, ClosePacketLink, sub_419B0, sub_419B8, sub_41A28, sub_41D18, sub_41DB8, WaitMusicEnd
+extern PacketLinkSend, ClosePacketLink, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd
 extern ArenaFileName, StopAllSfx, PlaySfx, sub_4AA78, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0
 extern sub_7EF70, SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7F5B8
 extern sub_80BBC, sub_81D1C, sub_83314, sub_834EC, sub_83558, sub_835AC, sub_835BC, sub_83850
@@ -15848,8 +15848,8 @@ FindNetworkGames:
         mov eax, 2
         mov word [word_1CD634], dx
         mov word [word_16E12C], bx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 1Eh
         push sub_E5D98
         push unk_1CD480
@@ -15878,8 +15878,8 @@ FindNetworkGames:
         add esp, byte 0Ch
         mov dword [dword_16E130], eax
         mov eax, 2
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
 .2:
         mov eax, dword [tickcount]
         cmp eax, ebx
@@ -17670,16 +17670,16 @@ sub_E77B1:
         mov dword [dword_16E144], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 8
         call LoadDataFile
         mov esi, eax
         mov dword [byte ebp+07Eh], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 9
         call LoadDataFile
         push str_BACK13
@@ -17946,13 +17946,13 @@ sub_E7B33:
         call sub_E7D6D
         lea eax, [dword ebp-031Eh]
         call sub_E8660
-        call sub_41D18
+        call PauseMusic
         lea edx, [byte ebp-042h]
         mov eax, 6
         call ArenaFileName
         lea eax, [byte ebp-042h]
-        call sub_41A28
-        call sub_41DB8
+        call ChkMenuMusic
+        call RequestMusicStop
         mov eax, dword [dword_1CD764]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
@@ -18037,7 +18037,7 @@ sub_E7B33_19C:
         add esp, byte 4
         mov ebx, 2
         call WaitMusicEnd
-        call sub_41D18
+        call PauseMusic
         call rand_
         cdq
         idiv ebx
@@ -18046,7 +18046,7 @@ sub_E7B33_19C:
         mov eax, ebx
         call ArenaFileName
         lea eax, [byte ebp-042h]
-        call sub_41A28
+        call ChkMenuMusic
         lea eax, [byte ebx+01h]
         mov ebx, 2
         cdq
@@ -18055,8 +18055,8 @@ sub_E7B33_19C:
         lea edx, [byte ebp-042h]
         call ArenaFileName
         lea eax, [byte ebp-042h]
-        call sub_41A28
-        call sub_41DB8
+        call ChkMenuMusic
+        call RequestMusicStop
         lea esp, [dword ebp+082h]
         pop ebp
         pop esi

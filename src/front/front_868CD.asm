@@ -21,8 +21,8 @@ extern dword_16E468, dword_16E46C, dword_1AC814, dword_1AC8AD, dword_1C5DE4, dwo
 extern dword_1C5F64, dword_1C5F70, dword_1C5F74, dword_1C83B0, dword_1C8440, dword_1C8444, dword_1C8448, dword_1C844C
 extern dword_1C8450, dword_1C8454, fclose_, fgets_, fread_, fseek_, fwrite_, memcpy_
 extern memset_, sprintf_, strcmp_, strcpy_, strlen_, strstr_, bcopy, sub_101324
-extern BlitShape2, BlitArt, sub_1013FC, FindShape, sub_102B94, sub_11A318, SetScreenTarget, sub_419B0
-extern sub_419B8, StopAllSfx, PlaySfx, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0, sub_7EEB0
+extern BlitShape2, BlitArt, sub_1013FC, FindShape, sub_102B94, sub_11A318, SetScreenTarget, SecondsToSamples
+extern WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0, sub_7EEB0
 extern SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5B8, sub_7FE38, sub_80BBC
 extern sub_81114, sub_81678, sub_835BC, sub_83850, sub_867F0, sub_86878, sub_8BFAC, sub_8D956
 extern sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, GetLangText, sub_E32B4, sub_E3410
@@ -2986,29 +2986,29 @@ NetworkGamesScreen:
         mov eax, 15h
         call InitMenuItems
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 67h
         call LoadDataFile
         mov dword [byte ebp-02Ch], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 68h
         call LoadDataFile
         mov dword [byte ebp-030h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 66h
         call LoadDataFile
         mov dword [byte ebp-01Ch], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push dword 96h
         push dword 181h
@@ -4696,35 +4696,35 @@ ModemConnectScreen:
         enter 24h, 0
         call sub_81678
         mov eax, 2
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 65h
         call LoadDataFile
         mov esi, eax
         mov dword [byte ebp-010h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 66h
         call LoadDataFile
         mov edi, eax
         mov dword [byte ebp-018h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 67h
         call LoadDataFile
         mov dword [byte ebp-04h], eax
         mov dword [byte ebp-020h], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push str_BG00
         push edi
@@ -4911,42 +4911,42 @@ sub_8AAE5:
         sub ebp, 82h
         call sub_81678
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 65h
         call LoadDataFile
         mov esi, eax
         mov dword [byte ebp+076h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 66h
         call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp+032h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 67h
         call LoadDataFile
         mov dword [byte ebp+042h], eax
         mov dword [byte ebp+062h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 68h
         call LoadDataFile
         mov edi, eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push str_BG00
         push ebx
@@ -5407,8 +5407,8 @@ sub_8B145:
         call sub_81678
         mov eax, 3
         mov dword [byte ebp+07Ah], 0
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         cmp dword [dword_16CCFE], byte 0
         jne short .1
         mov ax, word [word_1AC8B1]
@@ -5425,8 +5425,8 @@ sub_8B145:
         or dword [byte_1C83B4], eax
 .1:
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 65h
         call LoadDataFile
@@ -5434,30 +5434,30 @@ sub_8B145:
         mov dword [byte ebp+06Eh], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 66h
         call LoadDataFile
         mov edi, eax
         mov dword [byte ebp+032h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 67h
         call LoadDataFile
         mov dword [byte ebp+052h], eax
         mov dword [byte ebp+07Eh], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 68h
         call LoadDataFile
         mov esi, eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push str_BG00
         push edi
@@ -6094,41 +6094,41 @@ NetworkConnectScreen:
         enter 28h, 0
         call sub_81678
         mov eax, 2
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 67h
         call LoadDataFile
         mov dword [byte ebp-04h], eax
         mov dword [byte ebp-0Ch], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 68h
         call LoadDataFile
         mov esi, eax
         mov dword [byte ebp-014h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 65h
         call LoadDataFile
         mov dword [byte ebp-01Ch], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 66h
         call LoadDataFile
         mov dword [byte ebp-08h], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov ax, word [word_1AC8B1]
         mov edx, dword_1AC8AD
         mov word [word_1C83B8], ax

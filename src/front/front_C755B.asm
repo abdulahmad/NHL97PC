@@ -27,8 +27,8 @@ extern dword_1CC234, dword_1CC238, dword_1CC23C, dword_1CC2A4, dword_1CC2A8, dwo
 extern dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4, jpt_C750B, memmove_, memset_, qsort_
 extern qword_166FC4, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, BlitArt
 extern BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, sub_106DA0, sub_11A318
-extern FindShapeList, sub_11B104, sub_11B98E, SetScreenTarget, sub_415A0, sub_415F8, sub_419B0, sub_419B8
-extern sub_41F2C, PlaySfx, PlayScreenMovie, LoadDataFile, sub_7B4E4, sub_7DFC0, sub_7E52C, sub_7E860
+extern FindShapeList, sub_11B104, sub_11B98E, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime
+extern PlayMenuSfx, PlaySfx, PlayScreenMovie, LoadDataFile, sub_7B4E4, sub_7DFC0, sub_7E52C, sub_7E860
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7FE38
 extern LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_816E8
 extern sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068, sub_84570, InitMenuItems, sub_8BFAC
@@ -84,7 +84,7 @@ RosterScreen:
         mov dword [byte ebp+07Eh], 0
         cmp byte [byte_1C6040], 0
         je short .1
-        call sub_415A0
+        call MusicEnabled
 .1:
         lea eax, [byte ebp-026h]
         mov dword [dword_1CC210], eax
@@ -176,8 +176,8 @@ RosterScreen_172:
         call sub_7EF70
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 1Ch
         call LoadDataFile
         mov dword [dword_1CC2C4], eax
@@ -579,7 +579,7 @@ RosterScreen_66C:
         je near ShowTradeRejected_102
         cmp dword [dword ebp-0292h], byte 0
         je near ShowTradeRejected_102
-        call sub_415F8
+        call LoadFrontEndSfx
         jmp near ShowTradeRejected_102
 ;-----------------------------------------------------------------------------
 ; sub_C7CA4                                                       C7CA4  97 PC
@@ -682,7 +682,7 @@ sub_C7CE8:
         cmp word [word_16D6E4], byte 0
         je short .5
         mov eax, 309h
-        call sub_41F2C
+        call PlayMenuSfx
         mov word [word_16D6E4], si
 .5:
         test si, si
@@ -2865,16 +2865,16 @@ InitRosterScreen:
         push edi
         enter 8, 0
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 1Dh
         call LoadDataFile
         mov dword [dword_1CC2C0], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 1Ch
         call LoadDataFile
         push str_BACK11
@@ -10607,8 +10607,8 @@ CreatePlayerScreen:
         call PlayScreenMovie
         call sub_84570
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 4Ch
         call LoadDataFile
@@ -11106,8 +11106,8 @@ InitCreatePlayerScreen:
         cmp dword [byte ebp-04h], byte 28h
         jl short .1
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 4Ch
         call LoadDataFile
@@ -11115,8 +11115,8 @@ InitCreatePlayerScreen:
         mov dword [byte ebp-030h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 4Dh
         call LoadDataFile
         push str_00008

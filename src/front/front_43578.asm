@@ -24,8 +24,8 @@ extern CommentaryEvent_1A44, CommentaryEvent_1B16, CommentaryEvent_1B57, Comment
 extern CommentaryEvent_1E49, CommentaryEvent_1ECB, CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, off_169780, off_1697BC, off_169814
 extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, strcmp_, strcpy_
 extern SortIndices, bcopy, FindShape, sub_106036, sub_106D08, sub_1070B0, sub_1086BF, sub_10884C
-extern sub_109775, sub_1097F0, sub_42550, sub_425CC, sub_42910, sub_42960, sub_42C38, sub_42D38
-extern OpenSpeechBanks, sub_431E8, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7D539
+extern sub_109775, sub_1097F0, QueueSpeechRequest, ResetSpeechQueue, FindSpeechClip, LoadSpeechBlock, LoadClipIfMissing, SpeechFileHeader
+extern OpenSpeechBanks, ResolveSpeechClips, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7D539
 extern SetTextColor, sub_7F5B8, sub_81678, sub_83314, sub_834EC, sub_83558, sub_842F4, sub_8BE60
 extern sub_8BEF8, FileExists, FileOpen, FileSeek, FileReadRecord, FileWriteRecord, FileClose, FileLength
 extern sub_E341C, AllocMemBlock, sub_FAAB4, FreeMemBlock, sub_FC330, sub_FC410, MakeColor, tickcount
@@ -140,7 +140,7 @@ LoadSpeechBank:
 .11:
         test eax, eax
         jne short .12
-        call sub_431E8
+        call ResolveSpeechClips
         jmp short .8
 .12:
         mov ebx, dword [dword_1AC7B0]
@@ -150,7 +150,7 @@ LoadSpeechBank:
         sar ebx, 10h
         jmp short .14
 .13:
-        call sub_431E8
+        call ResolveSpeechClips
         mov ebx, eax
 .14:
         mov edi, 1
@@ -177,7 +177,7 @@ LoadSpeechBank:
         mov eax, dword [eax]
         mov dword [dword edx+02D8h], eax
         mov eax, ecx
-        call sub_42C38
+        call LoadClipIfMissing
         test eax, eax
         jl short .15
         mov edx, dword [dword_1AC7B0]
@@ -190,7 +190,7 @@ LoadSpeechBank:
         je short .15
         lea eax, [byte esp+050h]
         mov edx, dword [dword_1AC7AC]
-        call sub_42960
+        call LoadSpeechBlock
         mov edx, dword [dword_1AC7B0]
         mov dword [dword edx+esi+02E0h], eax
         mov eax, dword [dword_1AC7B0]
@@ -358,7 +358,7 @@ sub_43884_9C:
         test eax, eax
         jl short .9
         add eax, ecx
-        call sub_42550
+        call QueueSpeechRequest
         test eax, eax
         je short .9
         mov eax, 1
@@ -925,7 +925,7 @@ InitSpeechBanks:
         call FileLength
         mov edx, eax
         lea eax, [dword esp+0164h]
-        call sub_42D38
+        call SpeechFileHeader
         cmp edx, eax
         je short .41
         xor ecx, ecx
@@ -1297,7 +1297,7 @@ InitSpeechBanks:
         call FileOpen
         test eax, eax
         je near .78
-        call sub_425CC
+        call ResetSpeechQueue
         mov esi, 1
         mov eax, dword [dword_1AC7A8]
         xor edi, edi
@@ -2980,7 +2980,7 @@ sub_45A00:
         ret
 .2:
         mov eax, dword [byte eax+04h]
-        call sub_42910
+        call FindSpeechClip
         mov edx, eax
         test eax, eax
         jl short .3

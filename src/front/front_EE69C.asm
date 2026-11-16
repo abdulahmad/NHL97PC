@@ -16,7 +16,7 @@ extern dword_1CE4EC, dword_1CE4F0, dword_1CE528, dword_1CE52C, dword_1CE532, dwo
 extern dword_1CE542, dword_1CEF9C, dword_1CEFA0, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, rand_, sprintf_
 extern str_TR0D, strlen_, bcopy, sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC
 extern FindShape, sub_10FE58, sub_115830, sub_1167AE, sub_11A318, sub_11A350, sub_11BDC0, sub_11FAAC
-extern SetScreenTarget, CameraNoop, sub_419B0, sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, LoadDataFileLib
+extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFileLib
 extern sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, SetTextColor, DrawTextAligned, sub_7F5B8, sub_80BBC
 extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, sub_E341C, WaitForOtherComputer, GetKeyName, sub_F20A1
 extern sub_F22AF, DrawPauseClock, FreeMemBlock, sub_FC4BC, MakeColor, FreeBitmap, sub_FCF84, DrawArt
@@ -204,7 +204,7 @@ ShowReservedKey:
         add esp, byte 4
 .15:
         mov eax, 309h
-        call sub_41F2C
+        call PlayMenuSfx
         mov eax, 305h
         call PlaySfx
         mov eax, esi
@@ -249,8 +249,8 @@ sub_EE8BB:
         jmp short .1
 .2:
         mov eax, 2
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         cmp byte [byte_1C6040], 0
         jne near .5
         push byte 0
@@ -563,8 +563,8 @@ sub_EECBC:
         mov dword [byte ebp-08h], edx
         mov dword [byte ebp-014h], ecx
         mov eax, 2
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_BB002
         push edx
         call FindShape
@@ -1281,8 +1281,8 @@ sub_EF5B3:
         mov eax, 200h
         call PlaySfx
         mov eax, 2
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_BB02
         push edx
         call FindShape
@@ -3791,8 +3791,8 @@ sub_F174F:
         add esp, byte 8
         mov dword [dword_1CE492], eax
         mov eax, 2
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 200h
         call PlaySfx
         call SetScreenTarget

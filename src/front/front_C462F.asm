@@ -23,8 +23,8 @@ extern dword_1CB720, dword_1CB76E, dword_1CB772, dword_1CB7C0, dword_1CB7C4, dwo
 extern dword_1CB868, dword_1CB8B6, dword_1CB8BA, dword_1CB908, dword_1CB90C, dword_1CB95A, dword_1CB95E, dword_1CB9AC
 extern dword_1CB9B0, dword_1CB9FE, dword_1CBA02, dword_1CBA50, dword_1CBA54, dword_1CBAA2, dword_1CBAA6, dword_1CBAF4
 extern dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88, dword_1CBB8D, rand_, sprintf_, BlitShape2
-extern sub_1013FC, FindShape, sub_10FAC, sub_11A318, SetScreenTarget, sub_414B8, sub_41550, sub_419B0
-extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, WaitMusicEnd, ArenaFileName, sub_41F2C, PlaySfx
+extern sub_1013FC, FindShape, sub_10FAC, sub_11A318, SetScreenTarget, SetMusicVolume, SetSfxVolume, SecondsToSamples
+extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, PlaySfx
 extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, SetTextColor, DrawTextAligned, sub_80BBC, sub_83C08
 extern InitMenuItems, sub_8BFAC, DetailLevelScreen, FreeMemBlock, sub_FB4D4, MakeColor, FreeBitmap, sub_FCEEC
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, sub_FE3D0, unk_166C97, unk_1C5F4A, unk_1CB148
@@ -198,7 +198,7 @@ sub_C46EA:
         cmp dword [dword_1CBB8D], byte 0
         je short .8
         mov eax, 309h
-        call sub_41F2C
+        call PlayMenuSfx
         mov dword [dword_1CBB8D], edx
 .8:
         pop esi
@@ -294,23 +294,23 @@ OptionsScreen:
         mov eax, 20h
         call InitMenuItems
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 17h
         call LoadDataFile
         mov dword [byte ebp+06Eh], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 16h
         call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp+072h], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_BOTM3
         push ebx
         call FindShape
@@ -1179,17 +1179,17 @@ OptionsScreen_F22:
         shl eax, 17h
         shr eax, 19h
         cwde
-        call sub_414B8
+        call SetMusicVolume
         mov eax, dword [dword_1AC819]
         shl eax, 0Fh
         shr eax, 19h
         cwde
-        call sub_41550
+        call SetSfxVolume
         cmp byte [byte_1C6040], 0
         je short .31
         and byte [byte_1AC81B], 0F7h
 .31:
-        call sub_41D18
+        call PauseMusic
         call rand_
         mov ebx, 2
         cdq
@@ -1199,7 +1199,7 @@ OptionsScreen_F22:
         mov eax, ebx
         call ArenaFileName
         lea eax, [byte ebp-0Ah]
-        call sub_41A28
+        call ChkMenuMusic
         lea eax, [byte ebx+01h]
         mov ebx, 2
         cdq
@@ -1208,11 +1208,11 @@ OptionsScreen_F22:
         lea edx, [byte ebp-0Ah]
         call ArenaFileName
         lea eax, [byte ebp-0Ah]
-        call sub_41A28
+        call ChkMenuMusic
         mov eax, ebx
-        call sub_419B0
-        call sub_419B8
-        call sub_41DB8
+        call SecondsToSamples
+        call WaitSoundTime
+        call RequestMusicStop
         mov ebx, 4
         jmp short .35
 .32:
@@ -1344,7 +1344,7 @@ OptionsScreen_11CF:
         mov eax, dword [dword_1CB130]
         or byte [dword_1AC819], 2
         mov dword [dword_1CB3A8], eax
-        call sub_41D18
+        call PauseMusic
         call rand_
         cdq
         idiv ebx
@@ -1353,7 +1353,7 @@ OptionsScreen_11CF:
         mov eax, ebx
         call ArenaFileName
         lea eax, [byte ebp-0Ah]
-        call sub_41A28
+        call ChkMenuMusic
         lea eax, [byte ebx+01h]
         mov ebx, 2
         cdq
@@ -1362,11 +1362,11 @@ OptionsScreen_11CF:
         lea edx, [byte ebp-0Ah]
         call ArenaFileName
         lea eax, [byte ebp-0Ah]
-        call sub_41A28
+        call ChkMenuMusic
         mov eax, ebx
-        call sub_419B0
-        call sub_419B8
-        call sub_41DB8
+        call SecondsToSamples
+        call WaitSoundTime
+        call RequestMusicStop
         jmp near OptionsScreen_14BA
 OptionsScreen_1285:
         test byte [byte_1AC81B], 2
@@ -1501,7 +1501,7 @@ OptionsScreen_1451:
         shr eax, 19h
         cwde
         mov ebx, edi
-        call sub_414B8
+        call SetMusicVolume
         call SetScreenTarget
         mov eax, dword [dword_1AC819]
         mov ecx, 10Dh
@@ -1517,7 +1517,7 @@ OptionsScreen_147B:
         shr eax, 19h
         cwde
         mov ecx, 55h
-        call sub_41550
+        call SetSfxVolume
 .50:
         mov eax, dword [dword_1AC819]
         mov edx, dword [byte ebp+072h]

@@ -20,7 +20,7 @@ extern dword_1CC0A8, dword_1CC0F6, dword_1CC0FA, dword_1CC148, dword_1CC14C, Ros
 extern RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9, RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596
 extern RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF, RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B
 extern RosterScreen_66C, rand_, sprintf_, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape
-extern sub_102B94, sub_11A318, SetScreenTarget, sub_415A0, sub_415F8, sub_419B0, sub_419B8, StopAllSfx
+extern sub_102B94, sub_11A318, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
 extern PlaySfx, LoadDataFile, sub_7DFC0, SetRegionRect, InitMenuItems, sub_8BFAC, sub_E341C, FreeMemBlock
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, unk_1ACB44, unk_1ACD2B, unk_1CBC18
 extern unk_C5ED2
@@ -128,7 +128,7 @@ sub_C6064:
         mov dword [dword ebp+0314h], 0
         cmp byte [byte_1C6040], 0
         je short .1
-        call sub_415A0
+        call MusicEnabled
 .1:
         mov eax, dword [dword_1AC944]
         mov edx, dword [byte eax+01h]
@@ -175,15 +175,15 @@ sub_C6064:
         mov eax, 11h
         call InitMenuItems
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 21h
         call LoadDataFile
         mov dword [dword_1CBC14], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_00007
         push dword [dword_1CBC14]
         call FindShape
@@ -1444,7 +1444,7 @@ sub_C6064_139E:
         add esp, byte 4
         cmp byte [byte_1C6040], 0
         je short .83
-        call sub_415F8
+        call LoadFrontEndSfx
 .83:
         lea esp, [dword ebp+0318h]
         pop ebp

@@ -13,8 +13,8 @@ extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, off_16
 extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, qword_160018, qword_160020, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, sub_13AF0
 extern ShowCameraView, ClearOverlayWindows, ResetSceneCamera, assreplace, assinsert, Setplass, FaceoffSpotPosition, asspsclear
-extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
-extern sub_41DB8, MusicFileName, StopAllSfx, sub_424CC, CommentaryEvent, PaEvent, sub_4DDB0, sub_52E28
+extern ResetCoachModes, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, PickBenchSeat, ChkMenuMusic, StartMusicTrack, QueueMusicRestart
+extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEvent, PaEvent, sub_4DDB0, sub_52E28
 extern sub_57298, sub_57304, sub_57324, sub_57738, LoadGoalieMask, sub_5B558, sub_60D6C, sub_6539C
 extern sub_65E3B, DoGameFrame, sub_AA650, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
 extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
@@ -1669,12 +1669,12 @@ sub_11328:
         jmp dword [nosplit cs:eax*4+jpt_11318]
 sub_11328_26:
         mov eax, 0Dh
-        call sub_424CC
+        call SetCrowdMood
         mov eax, 5Bh
         mov ch, 1
-        call sub_41ACC
+        call StartMusicTrack
         mov byte [byte_19CD05], ch
-        call sub_41DB8
+        call RequestMusicStop
         add esp, byte 54h
         pop esi
         pop edx
@@ -1683,12 +1683,12 @@ sub_11328_26:
         ret
 sub_11328_4F:
         mov eax, 0Dh
-        call sub_424CC
+        call SetCrowdMood
         mov eax, 5Ah
         mov cl, 1
-        call sub_41ACC
+        call StartMusicTrack
         mov byte [byte_19CD05], cl
-        call sub_41DB8
+        call RequestMusicStop
         add esp, byte 54h
         pop esi
         pop edx
@@ -1703,9 +1703,9 @@ sub_11328_78:
         idiv ebx
         lea eax, [byte edx+05Dh]
         mov bh, 1
-        call sub_41ACC
+        call StartMusicTrack
         mov byte [byte_19CD05], bh
-        call sub_41DB8
+        call RequestMusicStop
         add esp, byte 54h
         pop esi
         pop edx
@@ -1715,9 +1715,9 @@ sub_11328_78:
 sub_11328_A6:
         mov eax, 61h
         mov bl, 1
-        call sub_41ACC
+        call StartMusicTrack
         mov byte [byte_19CD05], bl
-        call sub_41DB8
+        call RequestMusicStop
         add esp, byte 54h
         pop esi
         pop edx
@@ -1726,7 +1726,7 @@ sub_11328_A6:
         ret
 .1:
         mov eax, 8
-        call sub_424CC
+        call SetCrowdMood
         mov eax, dword [dword_1AC944]
         test byte [byte eax+02h], 20h
         jne near .6
@@ -1783,9 +1783,9 @@ sub_11328_A6:
         call MusicFileName
         mov eax, esp
         mov dh, 1
-        call sub_41A28
+        call ChkMenuMusic
         mov byte [byte_19CD05], dh
-        call sub_41DB8
+        call RequestMusicStop
 .6:
         add esp, byte 54h
         pop esi
@@ -1802,7 +1802,7 @@ sub_114C4:
         cmp byte [byte_19CD05], 0
         je short .1
         xor dl, dl
-        call sub_41CF0
+        call QueueMusicRestart
         mov byte [byte_19CD05], dl
 .1:
         pop edx
@@ -2379,7 +2379,7 @@ setplayer:
         mov edx, edi
         mov byte [dword ecx+0C0h], ah
         mov eax, ecx
-        call sub_3A06C
+        call PickBenchSeat
         mov esi, dword [dword ecx+0FEh]
         mov byte [dword ecx+0A6h], bl
         mov ax, word [byte esi+edi*2+050h]
@@ -2782,7 +2782,7 @@ sub_11FB4:
         mov eax, ebx
         mov edx, 0FFFFFFFFh
         add eax, SortCords
-        call sub_3A06C
+        call PickBenchSeat
 .2:
         mov eax, ebx
         xor edx, edx
@@ -3523,7 +3523,7 @@ setpersonel:
         jge short .12
         movsx edx, cx
         mov eax, esi
-        call sub_3A06C
+        call PickBenchSeat
         cmp word [penshotmode], byte 0
         je short .10
         mov edx, 19h
@@ -3819,14 +3819,14 @@ sub_12C2C:
         cmp byte [byte_19CD05], 0
         je short .1
         xor dl, dl
-        call sub_41CF0
+        call QueueMusicRestart
         mov byte [byte_19CD05], dl
 .1:
         xor edx, edx
         call StopAllSfx
         mov word [word_19CB2A], dx
         mov word [word_19CB28], dx
-        call sub_2E7D8
+        call ResetCoachModes
         call sub_12334
         mov eax, dword [dword_1AC814]
         and eax, byte 70h

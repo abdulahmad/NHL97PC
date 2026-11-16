@@ -48,11 +48,11 @@ extern qword_160553, qword_16055B, qword_16056C, qword_160588, qword_160590, qwo
 extern qword_1605B4, qword_1605BC, qword_1605C4, qword_1605CC, qword_1605D4, qword_1605DC, qword_1605E4, qword_1605EC
 extern qword_1605F4, qword_160604, qword_160624, qword_160630, qword_160638, qword_160640, qword_160648, qword_160650
 extern qword_160658, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, sub_100498
-extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, GetLowestPen, sub_2E11C
+extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, GetLowestPen, TeamLineSlots
 extern UpdateCoachModes, ChkShoot, ForceShoot, AddPenalty, AddPenalty2, PenGoalStuff, EndPenaltyShot, FaceDirFromMotion
-extern doplayeracc, ChkOneTimerSpot, ClearLastPasser, OneTimerShot, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
-extern sub_3B1EC, sub_3B738, SetVideoMode, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
-extern sub_3CB70, AddOverlayWindow, RemoveOverlayWindow, RefreshOverlayWindow, sub_3E5F0, sub_424CC, CommentaryEvent, SetArtArchive
+extern doplayeracc, ChkOneTimerSpot, ClearLastPasser, OneTimerShot, PickBenchSeat, FaceoffMoveResult, FaceoffSwipeAnim, FaceoffDrawAnim
+extern PokeCheckAnim, AIBodyCheck, SetVideoMode, SetViewSize, SetViewInterlaced, ClearViewInterlaced, HideView, ShowView
+extern SetViewOrigin, AddOverlayWindow, RemoveOverlayWindow, RefreshOverlayWindow, FadeGamePalette, SetCrowdMood, CommentaryEvent, SetArtArchive
 extern sub_4B8DC, sub_4C0C4, sub_4DDB0, sub_504E0, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
 extern sub_5D6A8, sub_5D7A4, sub_5D878, sub_5D900, sub_5DC1C, sub_5DC50, sub_5DCBC, sub_5DE74
 extern SetSPA, sub_60D6C, sub_60F48, sub_650A4, sub_65F50, sub_6619C, sub_66224, sub_69B78
@@ -188,11 +188,11 @@ ChangeViewSize:
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
-        call sub_3CA28
+        call SetViewSize
         mov eax, dword [dword_1A8E80]
         mov ebx, esi
         mov edx, edi
-        call sub_3CB70
+        call SetViewOrigin
         jmp near PrevVideoModeKey_216
 ;-----------------------------------------------------------------------------
 ; SetViewWindow                                   15BC5  97 PC, low confidence
@@ -221,11 +221,11 @@ SetViewWindow:
         mov dword [dword_19CD28], ecx
         mov edx, ecx
         mov dword [dword_19CD2C], ebx
-        call sub_3CA28
+        call SetViewSize
         mov eax, dword [dword_1A8E80]
         xor ebx, ebx
         xor edx, edx
-        call sub_3CB70
+        call SetViewOrigin
         pop edx
         pop ecx
         pop ebx
@@ -259,16 +259,16 @@ PrevVideoModeKey:
         cmp eax, 100h
         jl short .1
         mov eax, dword [dword_1A8E80]
-        call sub_3CAB8
+        call SetViewInterlaced
         mov dword [dword_19CD30], 1
         jmp short .2
 .1:
         mov eax, dword [dword_1A8E80]
-        call sub_3CB00
+        call ClearViewInterlaced
         mov dword [dword_19CD30], 0
 .2:
         mov eax, dword [dword_1A8E80]
-        call sub_3CB48
+        call ShowView
         movsx ebx, word [word_1686E4]
         mov eax, dword [dword_16E464]
         imul eax, ebx
@@ -323,11 +323,11 @@ PrevVideoModeKey:
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
-        call sub_3CA28
+        call SetViewSize
         mov eax, dword [dword_1A8E80]
         mov ebx, esi
         mov edx, edi
-        call sub_3CB70
+        call SetViewOrigin
         cmp dword [dword_16E468], 12Ch
         jge short .6
         push dword [dword_1C95B4]
@@ -362,18 +362,18 @@ PrevVideoModeKey:
         je short .10
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD30], 0
-        call sub_3CB00
+        call ClearViewInterlaced
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD34], 0
-        call sub_3CB48
+        call ShowView
         jmp short PrevVideoModeKey_20A
 .10:
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD30], 1
-        call sub_3CAB8
+        call SetViewInterlaced
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD34], 1
-        call sub_3CB38
+        call HideView
 PrevVideoModeKey_20A:
         push byte 50h
         push byte 2
@@ -420,10 +420,10 @@ NextVideoModeKey:
         mov eax, dword [byte ebp-014h]
         mov dword [dword_19CD14], eax
         mov eax, dword [dword_1A8E80]
-        call sub_3CB00
+        call ClearViewInterlaced
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD30], 0
-        call sub_3CB48
+        call ShowView
         movsx ebx, word [word_1686E4]
         mov eax, dword [dword_16E464]
         imul eax, ebx
@@ -478,11 +478,11 @@ NextVideoModeKey:
         mov dword [dword_19CD20], eax
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD24], esi
-        call sub_3CA28
+        call SetViewSize
         mov edx, dword [byte ebp-04h]
         mov eax, dword [dword_1A8E80]
         mov ebx, esi
-        call sub_3CB70
+        call SetViewOrigin
         cmp dword [dword_16E468], 12Ch
         jge short .6
         push dword [dword_1C95B4]
@@ -516,15 +516,15 @@ NextVideoModeKey:
         cmp dword [dword_19CD34], byte 0
         je short .10
         mov eax, dword [dword_1A8E80]
-        call sub_3CB48
+        call ShowView
         mov dword [dword_19CD34], 0
         jmp near PrevVideoModeKey_20A
 .10:
         mov eax, dword [dword_1A8E80]
-        call sub_3CB38
+        call HideView
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD34], 1
-        call sub_3CAB8
+        call SetViewInterlaced
         mov dword [dword_19CD30], 1
         jmp near PrevVideoModeKey_20A
 ;-----------------------------------------------------------------------------
@@ -536,19 +536,19 @@ ApplyDisplayFlags:
         cmp dword [dword_19CD30], byte 0
         je short .1
         mov eax, dword [dword_1A8E80]
-        call sub_3CAB8
+        call SetViewInterlaced
         jmp short .2
 .1:
         mov eax, dword [dword_1A8E80]
-        call sub_3CB00
+        call ClearViewInterlaced
 .2:
         cmp dword [dword_19CD34], byte 0
         je short .3
         mov eax, dword [dword_1A8E80]
-        jmp near sub_3CB38
+        jmp near HideView
 .3:
         mov eax, dword [dword_1A8E80]
-        jmp near sub_3CB48
+        jmp near ShowView
         push edx
         mov eax, unk_19CF8C
         xor edx, edx
@@ -3337,7 +3337,7 @@ UpdateScoreboardPanel:
 .9:
         movsx edx, word [byte ebp-0Ch]
         movsx eax, word [byte ebp-08h]
-        call sub_2E11C
+        call TeamLineSlots
         movsx edi, ax
         cmp edi, 0BB8h
         jle short .10
@@ -8087,7 +8087,7 @@ PenaltySceneStep_108:
         mov eax, 0FFFFFFFFh
         mov dword [dword_19D058], ebx
         mov ebx, 32h
-        call sub_3E5F0
+        call FadeGamePalette
 .1:
         pop ebp
         pop edi
@@ -8710,7 +8710,7 @@ SceneReturnToView:
         call SelectCameraView
         mov edx, 10000h
         mov eax, 0FFFFFFFFh
-        call sub_3E5F0
+        call FadeGamePalette
         xor ebx, ebx
         mov dword [dword_19D384], ebx
 .1:
@@ -8727,7 +8727,7 @@ SceneReturnToView:
         mov eax, 0FFFFFFFFh
         xor edx, edx
         mov esi, 1
-        call sub_3E5F0
+        call FadeGamePalette
         mov dword [dword_19D068], ecx
         mov dword [dword_19D384], esi
         xor edx, edx
@@ -9014,7 +9014,7 @@ FaceoffSweepStep:
         movsd
         movsd
         movsd
-        call sub_3E5F0
+        call FadeGamePalette
         mov ecx, dword [dword_19D088]
         inc ecx
         mov dword [dword_19D08C], ebp
@@ -9094,7 +9094,7 @@ FaceoffSweepStep:
         mov dword [dword_19D084], ecx
         mov dword [dword_19D384], esi
         mov dword [dword_19D058], edi
-        call sub_3E5F0
+        call FadeGamePalette
         pop edi
         pop esi
         pop edx
@@ -9207,7 +9207,7 @@ FaceoffCameraScene2:
         xor edx, edx
         mov eax, 0FFFFFFFFh
         mov dword [dword_19D058], ecx
-        call sub_3E5F0
+        call FadeGamePalette
         jmp short .4
 .3:
         call FaceoffSweepScene
@@ -9848,7 +9848,7 @@ FaceoffDropSceneStep:
         mov eax, 0FFFFFFFFh
         mov dword [dword_19D388], ebx
         mov ebx, 64h
-        call sub_3E5F0
+        call FadeGamePalette
         inc dword [dword_19D088]
         pop ebp
         pop edi
@@ -9907,7 +9907,7 @@ FaceoffDropCameraScene:
         mov ebx, 32h
         mov eax, 0FFFFFFFFh
         xor edx, edx
-        call sub_3E5F0
+        call FadeGamePalette
 .2:
         mov esi, FaceoffDropSceneStep
         xor bh, bh
@@ -11186,7 +11186,7 @@ CrowdForPuckZone:
         cmp ebx, 570h
         jge short .3
         mov eax, 6
-        call sub_424CC
+        call SetCrowdMood
         add esp, byte 4
         pop edx
         pop ecx
@@ -11199,7 +11199,7 @@ CrowdForPuckZone:
         jge short .5
 .4:
         mov eax, 7
-        call sub_424CC
+        call SetCrowdMood
         add esp, byte 4
         pop edx
         pop ecx
@@ -11213,7 +11213,7 @@ CrowdForPuckZone:
         sahf
         jbe short .6
         mov eax, 8
-        call sub_424CC
+        call SetCrowdMood
         add esp, byte 4
         pop edx
         pop ecx
@@ -11222,7 +11222,7 @@ CrowdForPuckZone:
 .6:
         mov eax, 9
 .7:
-        call sub_424CC
+        call SetCrowdMood
 .8:
         add esp, byte 4
         pop edx
@@ -11269,7 +11269,7 @@ CrowdForPlayer:
 .4:
         mov eax, 3
 .5:
-        call sub_424CC
+        call SetCrowdMood
 .6:
         add esp, byte 4
         pop edx
@@ -11344,7 +11344,7 @@ ShotChanceCommentary:
         jge short .5
         mov eax, 6
 .4:
-        call sub_424CC
+        call SetCrowdMood
 .5:
         mov eax, dword [off_168CFC]
         mov edx, dword [byte eax+04h]
@@ -12021,7 +12021,7 @@ TryPokePuck:
         test eax, eax
         je short .1
         mov eax, edx
-        call sub_3B1EC
+        call PokeCheckAnim
 .1:
         mov eax, dword [off_168CFC]
         mov edx, dword [byte esp+04h]
@@ -12081,7 +12081,7 @@ RandomPokeCheck:
         test eax, eax
         je short .2
         mov eax, edx
-        call sub_3B1EC
+        call PokeCheckAnim
 .2:
         mov eax, dword [off_168CFC]
         mov edx, dword [byte esp+04h]
@@ -12382,7 +12382,7 @@ ChkPokeOrCheck:
         jl short .31
         mov edx, ebx
         mov eax, ecx
-        call sub_3B738
+        call AIBodyCheck
         mov esp, ebp
         pop ebp
         pop edi
@@ -14407,7 +14407,7 @@ Endfaceoff:
         cmp eax, byte 43h
         jg short .8
         mov edx, esp
-        call sub_3A404
+        call FaceoffMoveResult
         mov edx, dword [byte esp+0Ch]
         mov eax, dword [esp]
         sub eax, dword [byte edx+04h]
@@ -14447,7 +14447,7 @@ Endfaceoff:
         jg short .13
         lea edx, [byte esp+08h]
         mov eax, esi
-        call sub_3A404
+        call FaceoffMoveResult
         mov eax, dword [byte esp+08h]
         sub eax, dword [byte ebp+04h]
         test eax, eax
@@ -14729,7 +14729,7 @@ assbenchwait:
         je short .3
         mov edx, 0FFFFFFFFh
         mov eax, ebx
-        call sub_3A06C
+        call PickBenchSeat
         mov cl, byte [dword ebx+0BFh]
         and cl, 0FDh
         mov dx, word [dword ebx+0A9h]
@@ -14863,7 +14863,7 @@ DelayedPenaltyEnd:
         and eax, 0FFh
         add eax, byte 3
 .9:
-        call sub_424CC
+        call SetCrowdMood
 .10:
         cmp dword [dword_1B8FA0], byte 0
         jne near .12
@@ -15278,7 +15278,7 @@ Goal:
         sete al
         and eax, 0FFh
 .34:
-        call sub_424CC
+        call SetCrowdMood
         mov al, byte [byte_1C135A]
         cmp al, byte [byte_1C135B]
         jne near .39
@@ -18879,7 +18879,7 @@ assfaceoffpl:
         jg short .17
         movsx edx, ax
         mov eax, ebx
-        call sub_3AAE8
+        call FaceoffSwipeAnim
         pop edx
         pop ecx
         pop ebx
@@ -18887,7 +18887,7 @@ assfaceoffpl:
 .17:
         movsx edx, ax
         mov eax, ebx
-        call sub_3AB28
+        call FaceoffDrawAnim
 .18:
         pop edx
         pop ecx

@@ -27,7 +27,7 @@ extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, s
 extern QueueOverlayPanel, ClearOverlayWindows, FightCameraScene, SetFightCameraReady, FaceoffCameraScene, FaceoffCameraScene2, EndPenShotScene, PenaltyCallCameraScene
 extern LineChangeCommentary, assreplace, assinsert, assexit, ChkPokeOrCheck, Setplass, Goal, CreditPass
 extern CarrierInShotArea, CanReceivePass, StartPass, checkob, AssignControlSlots, ResetFaceoffAssigns, CompLine, StartFaceoffLineChange
-extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent
+extern FaceoffSwipeAnim, FaceoffDrawAnim, ReachForPuckAnim, DoCheckButton, PlaySfxOr, PlaySfxVolume, SetCrowdMood, CommentaryEvent
 extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
 extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
 extern sub_71D48, sub_71E58, StartFightAnim, sub_76FE8, sub_77F94, clockcont_0, sub_AA588, sub_F9A88
@@ -535,7 +535,7 @@ ChkPenaltyCall:
         sete al
         and eax, 0FFh
         add eax, byte 3
-        call sub_424CC
+        call SetCrowdMood
         mov dh, byte [dword ecx+0C0h]
         or dh, 4
         mov bl, byte [dword ecx+0BEh]
@@ -1799,7 +1799,7 @@ UpdateShot:
         test byte [dword ebx+0BFh], 40h
         jne short .15
         mov eax, 8
-        call sub_424CC
+        call SetCrowdMood
 .15:
         mov esi, dword [dword_19CB48]
         push esi
@@ -4483,7 +4483,7 @@ AddPenalty2:
         call PlaySfxOr
 .5:
         mov eax, 9
-        call sub_424CC
+        call SetCrowdMood
         jmp near .13
 .6:
         cmp word [byte ebp-08h], byte 0
@@ -4512,7 +4512,7 @@ AddPenalty2:
         test ax, ax
         sete al
         and eax, 0FFh
-        call sub_424CC
+        call SetCrowdMood
         jmp near .13
 .10:
         cmp word [byte ebp-04h], byte 22h
@@ -4524,7 +4524,7 @@ AddPenalty2:
         test ax, ax
         sete al
         and eax, 0FFh
-        call sub_424CC
+        call SetCrowdMood
         mov edx, dword [penshottimer]
         sar edx, 10h
         mov eax, edx
@@ -7158,7 +7158,7 @@ GiveControl:
 ;-----------------------------------------------------------------------------
 ; ChkGrabPuckOnSwitch                             34500  97 PC, low confidence
 ; From changeplayer: the new controlled player close enough to the puck takes
-; it (sub_3B09C)
+; it (ReachForPuckAnim)
 ;-----------------------------------------------------------------------------
 ChkGrabPuckOnSwitch:
         push ebx
@@ -7186,7 +7186,7 @@ ChkGrabPuckOnSwitch:
         sahf
         ja short .1
         mov eax, ecx
-        call sub_3B09C
+        call ReachForPuckAnim
 .1:
         add esp, byte 0Ch
         pop edx
@@ -7884,13 +7884,13 @@ FaceoffInput:
         mov ebx, dword [off_168CFC]
         cmp dword [byte ebx+060h], byte 11h
         jge short .10
-        call sub_3AAE8
+        call FaceoffSwipeAnim
         pop edx
         pop ecx
         pop ebx
         ret
 .10:
-        call sub_3AB28
+        call FaceoffDrawAnim
 .11:
         pop edx
         pop ecx
@@ -9527,7 +9527,7 @@ doinput:
         test byte [regd1], 40h
         je short .42
         mov eax, ebx
-        call sub_3B690
+        call DoCheckButton
         add esp, byte 4
         pop ebp
         pop edi
@@ -10036,7 +10036,7 @@ checkfight:
         call assinsert
         mov eax, 9
         movsx ebx, bx
-        call sub_424CC
+        call SetCrowdMood
         mov edx, esi
         mov eax, ecx
         call StartFight

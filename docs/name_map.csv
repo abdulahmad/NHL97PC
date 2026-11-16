@@ -268,9 +268,15 @@ address,name,auto_name,source,confidence,evidence,file
 2DCC8,CPgoalie,sub_2DCC8,94G,medium,94G CPgoalie (96 PC body): pulls the computer team's goalie late in the third period,src/engine/engine_25894.asm
 2DD54,ChkGoalies,sub_2DD54,94G,high,"94G ChkGoalies (computer pulls goalie on delayed penalty): from periodicevents; per team, no goalie pull when the team has the puck; on a delayed penalty sets no goalie (setpersonel) and calls the PA event, else CPgoalie for a computer team",src/engine/engine_25894.asm
 2DE3C,ReturnGoalies,,96PC,medium,NHL96PC 463AE (similar): mnemonic similarity 0.81 over 33 instructions,
+2DE94,CoachLineChange,sub_2DE94,new,low,"computer coach changes a team's line when the line is tired or the situation changes (power play, empty net)",src/engine/engine_2DE3C.asm
+2E11C,TeamLineSlots,sub_2E11C,new,low,"picks the team (away when the argument is positive, else home) and falls into LineSlotsPtr",src/engine/engine_2DE3C.asm
+2E12C,LineSlotsPtr,sub_2E12C,new,low,returns a pointer to the player slots of a team's line,src/engine/engine_2DE3C.asm
 2E168,RestoreBenchEnergy,sub_2E168,94G,medium,"94G RestoreBenchEnergy: from periodicevents; every bench player (position 8002h) gains 5 energy, capped at 1000h",src/engine/engine_2DE3C.asm
+2E208,ChkTiredPlayer,sub_2E208,new,low,with line changes on: now and then a tired skater loses speed,src/engine/engine_2DE3C.asm
+2E310,AvgLineEnergy,sub_2E310,new,low,returns the average energy of a team's skaters on the ice,src/engine/engine_2DE3C.asm
 2E378,CompLine,sub_2E378,94G,medium,"94G CompLine: (team, other team) picks the line for the computer team to change to (0F33h threshold, as 96 PC)",src/engine/engine_2DE3C.asm
 2E6D4,SetCoachMode,sub_2E6D4,96PC,medium,96 PC SetCoachMode: the coach mode from the score difference,src/engine/engine_2DE3C.asm
+2E7D8,ResetCoachModes,sub_2E7D8,new,low,sets the coach modes of both teams to their defaults for the game type,src/engine/engine_2DE3C.asm
 2E8F0,UpdateCoachModes,sub_2E8F0,96PC,medium,96 PC UpdateCoachModes: from ClockTick at the same minutes of periods 2 and 3,src/engine/engine_2DE3C.asm
 2EDB8,StartFaceoffLineChange,sub_2EDB8,94G,low,94G StartFaceoffLineChange: starts a team's faceoff line change (once per stoppage: team flag +16h bit 1) when line changes are on,src/engine/engine_2DE3C.asm
 2EEE8,puckfaceoff,,96PC,medium,NHL96PC 3AEBA (sem): C:306; D:19CC04; D:19EBBC; D:19EAB0,
@@ -375,19 +381,129 @@ address,name,auto_name,source,confidence,evidence,file
 37F4C,PacketLinkSend,sub_37F4C,new,low,"packet link: queues and sends a block on a channel (LinkSendBlock, WaitForOtherComputer)",src/engine/faceoff/faceoff_2.asm
 37FC8,ClosePacketLink,sub_37FC8,new,low,packet link: flushes and closes a channel,src/engine/faceoff/faceoff_2.asm
 3812E,SeasonGameScreen,sub_3812E,new,low,"from RunSeasonMenus / RunPlayoffMenus: the next-game screen (HOME / AWAY teams; play, simulate or continue, with the ""team not present"", ""unplayed games"" and ""no games left"" messages)",src/engine/engine_3812E.asm
+385C3,SetSeasonUserTeam,sub_385C3,new,low,season schedule screen: works out which team the user follows (playoff pick or the season's user team),src/engine/engine_3812E.asm
 38675,InitSeasonGameScreen,sub_38675,new,low,"from SeasonGameScreen: sets up its menu items and art (BACK, TITL, AB00-AB05, BH00, BT00) and the HOME / AWAY labels",src/engine/engine_3812E.asm
+38B1A,TeamHasGamesLeft,sub_38B1A,new,low,whether a team still has a game in the schedule list; returns 1 if so,src/engine/engine_3812E.asm
+38B77,FindTeamGame,sub_38B77,new,low,"returns the index of the last scheduled game that involves the given team, -1 if none",src/engine/engine_3812E.asm
+38BAB,DrawMatchupLogo,sub_38BAB,new,low,draws a team logo in a slot of the season game panel,src/engine/engine_3812E.asm
+38BFC,DrawAllStarLogo,sub_38BFC,new,low,draws the All-Star logo in a slot of the season game panel,src/engine/engine_3812E.asm
+38C79,DrawGameScore,sub_38C79,new,low,"draws a game result in a slot of the season game panel (""W 3-2"" style)",src/engine/engine_3812E.asm
+38D84,DrawGameScoreLine,sub_38D84,new,low,draws a game result with both team names in a slot of the season game panel,src/engine/engine_3812E.asm
+38E26,FindUserOpponent,sub_38E26,new,low,finds the opponent of the user's team in the current scheduled game,src/engine/engine_3812E.asm
+38F7A,DrawLockedGame,sub_38F7A,new,low,draws the lock symbol over a game slot that cannot be played yet,src/engine/engine_3812E.asm
 39052,DrawSeasonGamePanel,sub_39052,new,low,"from SeasonGameScreen: draws the team panel (PANL) from the league file: records (""%c %d-%d"" W / L / T), scores (""%s %d-%s %d""), LOCK marks",src/engine/engine_3812E.asm
+397FD,SetPlayedTeams,sub_397FD,new,low,copies the two teams of the game just played into the season state,src/engine/engine_3812E.asm
+39824,IsAllStarDay,sub_39824,new,low,in a season: whether today is the All-Star game day; returns 1 if so,src/engine/engine_3812E.asm
+39851,GetAllStarDate,sub_39851,new,low,returns the day number of the All-Star game (earlier in a short season),src/engine/engine_3812E.asm
+39882,StartNextSeasonGame,sub_39882,new,low,"season: finds the next game to play, builds the All-Star teams on that day and sets up the matchup",src/engine/engine_3812E.asm
+39B20,AnimateWaitIcon,sub_39B20,new,low,draws the next frame of the waiting animation on the season screen every few ticks,src/engine/engine_3812E.asm
+39BB6,AnimateSparkle,sub_39BB6,new,low,draws a random sparkle shape on the screen every few ticks,src/engine/engine_3812E.asm
+39CE0,FindBenchSlot,sub_39CE0,new,low,"returns the bench or penalty box seat a player has on his team's list, -1 if none",src/engine/engine_3812E.asm
+39D1C,GetSeatPosition,sub_39D1C,new,low,fills a vector with the rink position of a bench or box seat,src/engine/engine_3812E.asm
+39DA4,PickBoxSeat,sub_39DA4,new,low,a penalized player takes the first free seat in his team's penalty box,src/engine/engine_3812E.asm
+39EC0,FreeBoxSeat,sub_39EC0,new,low,a player leaving the penalty box gives up his seat and gets the gate position,src/engine/engine_3812E.asm
+3A06C,PickBenchSeat,sub_3A06C,new,low,a player going to the bench takes a free seat on his team's bench,src/engine/engine_3812E.asm
+3A164,MoveBoxToBenchSeat,sub_3A164,new,low,moves a player from his penalty box seat to a bench seat,src/engine/engine_3812E.asm
+3A2E8,FaceoffStanceMove,sub_3A2E8,new,low,"move handler for the faceoff stance moves: stick down, random stance animation, face morphs",src/engine/engine_3812E.asm
+3A3C8,RunSimpleMove,sub_3A3C8,new,low,move handler for plain moves: plays the animation and picks the next move when it ends,src/engine/engine_3812E.asm
+3A404,FaceoffMoveResult,sub_3A404,new,low,"returns the faceoff result code of a faceoff move (win forward, win back, tie), -1 for others",src/engine/engine_3812E.asm
+3A440,FaceoffMove,sub_3A440,new,low,move handler for the faceoff draw moves; at the end starts the follow animation,src/engine/engine_3812E.asm
+3A564,MoveWithSfx,sub_3A564,new,low,move handler for moves that play a sound at a set frame (stick and body sounds),src/engine/engine_3812E.asm
+3A65C,RandomFollowMove,sub_3A65C,new,low,move handler that starts a random follow-up animation when the move ends,src/engine/engine_3812E.asm
+3A75C,ShoutMove,sub_3A75C,new,low,"move handler for moves with face morphs (open mouth, expression) chosen at random",src/engine/engine_3812E.asm
+3A814,BodyMove,sub_3A814,new,low,move handler for body moves that clear the busy flags when they end,src/engine/engine_3812E.asm
+3A884,TakePositionMove,sub_3A884,new,low,move handler that ends in the stand animation when the player is taking his position,src/engine/engine_3812E.asm
+3A920,SkateStrideMove,sub_3A920,new,low,move handler for forward skating strides: alternates the two stride animations,src/engine/engine_3812E.asm
+3A9D0,CoastMove,sub_3A9D0,new,low,move handler for coasting: steers and keeps the speed under the coasting limit,src/engine/engine_3812E.asm
+3AA48,BackStrideMove,sub_3AA48,new,low,move handler for backward skating strides: alternates the two backward stride animations,src/engine/engine_3812E.asm
+3AAE8,FaceoffSwipeAnim,sub_3AAE8,new,low,starts the faceoff swipe animation in the given direction,src/engine/engine_3812E.asm
+3AB28,FaceoffDrawAnim,sub_3AB28,new,low,starts the slower faceoff draw animation in the given direction,src/engine/engine_3812E.asm
+3AB68,SitDownAnim,sub_3AB68,new,low,stops the player and starts the sit-down animation on the bench or in the box,src/engine/engine_3812E.asm
+3ABD8,StandUpAnim,sub_3ABD8,new,low,starts the stand-up animation of a player leaving the bench,src/engine/engine_3812E.asm
+3AC3C,GoToBoxAnim,sub_3AC3C,new,low,starts the skate-to-penalty-box animation with a turn rate from the box distance,src/engine/engine_3812E.asm
+3AD34,LeaveBoxAnim,sub_3AD34,new,low,starts the animation of a player stepping out of the penalty box,src/engine/engine_3812E.asm
+3AD9C,RefDodgePuck,sub_3AD9C,new,low,the referee steps out of the way of a slow loose puck heading at him,src/engine/engine_3812E.asm
 3AF30,checkgoal,sub_3AF30,94G,low,"from the off_16BD2C handler table: the puck against a net; the two net checks (sub_2F8D8 / sub_2FA00) call Goal, as 93G/94G checkgoal does for the puck",src/engine/engine_3812E.asm
+3AFDC,CheckMove,sub_3AFDC,new,low,"move handler for a body check: tests contact each frame, ends when the hit is done",src/engine/engine_3812E.asm
+3B05C,SteerMove,sub_3B05C,new,low,move handler that steers the player until the move ends,src/engine/engine_3812E.asm
+3B09C,ReachForPuckAnim,sub_3B09C,new,low,turns a player toward the puck and starts the reach animation when the control switches to him,src/engine/engine_3812E.asm
+3B1EC,PokeCheckAnim,sub_3B1EC,new,low,"starts the poke check animation (left, right or straight) toward the puck",src/engine/engine_3812E.asm
+3B334,TryBodyCheck,sub_3B334,new,low,"one player tries to body check another: range, angle and speed checks, then the check animation; returns nonzero if started",src/engine/engine_3812E.asm
+3B690,DoCheckButton,sub_3B690,new,low,"the human player presses check: poke check, or body check the carrier, or the nearest opponent",src/engine/engine_3812E.asm
+3B738,AIBodyCheck,sub_3B738,new,low,a computer player body checks the given opponent,src/engine/engine_3812E.asm
+3B75B,DrawFrameNoop,sub_3B75B,new,low,empty step of the game frame drawing,src/engine/engine_3812E.asm
+3B760,AddDirtySpans,sub_3B760,new,low,adds the row spans of an overlay window to the list of screen spans to redraw,src/engine/engine_3812E.asm
+3B8AC,InsertSpanSlot,sub_3B8AC,new,low,opens a slot in the span list by moving the later entries up,src/engine/engine_3812E.asm
+3B900,RemoveSpanSlot,sub_3B900,new,low,closes a slot in the span list by moving the later entries down,src/engine/engine_3812E.asm
+3B954,MergeDirtySpans,sub_3B954,new,low,"merges a row's spans into the dirty span list, splitting and joining runs",src/engine/engine_3812E.asm
+3C0B4,RebuildOverlayMask,sub_3C0B4,new,low,rebuilds the list of screen areas covered by overlay windows after one closes,src/engine/engine_3812E.asm
+3C544,BlendOverlayRow,sub_3C544,new,low,"copies a row of an overlay window: transparent pixels show the screen, shade pixels darken it",src/engine/engine_3812E.asm
+3C580,ShadeOverlayRow,sub_3C580,new,low,"copies a row of an overlay window, darkening the shade pixels through the shade table",src/engine/engine_3812E.asm
+3C5D4,DrawOverlayRows,sub_3C5D4,new,low,draws the rows of an overlay window onto the screen,src/engine/engine_3812E.asm
 3C75C,SetVideoMode,sub_3C75C,new,medium,"(width, height): switches the screen mode when it differs from the current one (dword_1A8E84 x dword_1A8E88)",src/engine/engine_3812E.asm
+3C880,InitDisplayViews,sub_3C880,new,low,"allocates the display view table (""DMAN"") for the given number of views",src/engine/engine_3812E.asm
+3C8DC,FreeDisplayViews,sub_3C8DC,new,low,frees the bitmaps of the display views and the view table,src/engine/engine_3812E.asm
+3C944,AddDisplayView,sub_3C944,new,low,takes a free display view and creates its bitmap of the given size,src/engine/engine_3812E.asm
+3C9C8,SetViewDrawTarget,sub_3C9C8,new,low,makes a display view the drawing target and sets its projection,src/engine/engine_3812E.asm
+3CA28,SetViewSize,sub_3CA28,new,low,sets the width and height of a display view's bitmap,src/engine/engine_3812E.asm
+3CAB8,SetViewInterlaced,sub_3CAB8,new,low,switches a display view to half height (interlaced display),src/engine/engine_3812E.asm
+3CB00,ClearViewInterlaced,sub_3CB00,new,low,switches a display view back to full height,src/engine/engine_3812E.asm
+3CB38,HideView,sub_3CB38,new,low,marks a display view hidden and asks for a redraw,src/engine/engine_3812E.asm
+3CB48,ShowView,sub_3CB48,new,low,marks a display view shown and asks for a redraw,src/engine/engine_3812E.asm
+3CB70,SetViewOrigin,sub_3CB70,new,low,sets where a display view sits on the screen,src/engine/engine_3812E.asm
+3CB98,ClearViewBorders,sub_3CB98,new,low,clears the screen rows around the game view,src/engine/engine_3812E.asm
+3CCA8,PresentGameView,sub_3CCA8,new,low,copies the game view and the overlay windows to the screen,src/engine/engine_3812E.asm
 3CD70,AddOverlayWindow,sub_3CD70,new,low,"(id, ...): adds an entry to the 32-byte overlay window list (dword_1A8B48, count dword_1A8E7C) and draws it; from every overlay panel and the pause menu",src/engine/engine_3812E.asm
 3CE58,RemoveOverlayWindow,sub_3CE58,new,low,"(id): takes the overlay window out of the list and restores what was under it; from RemoveOverlayPanel, DrawGameOverlays, the pause menu",src/engine/engine_3812E.asm
+3CF68,UpdateScreenRegion,sub_3CF68,new,low,sets the size of a screen region by its id and asks for a redraw,src/engine/engine_3812E.asm
 3CFB0,RefreshOverlayWindow,sub_3CFB0,new,low,"(id): marks the overlay window's cells for redraw (byte_1A0CC2 bit 4); from DrawGameClock, DrawPowerPlayClock, the pause menu",src/engine/engine_3812E.asm
+3D020,SetRinkDetail,sub_3D020,new,low,stores the rink detail level and reloads the rink palette,src/engine/engine_3812E.asm
+3D030,FadePaletteStep,sub_3D030,new,low,one step of a palette fade: moves each colour toward its target,src/engine/engine_3812E.asm
+3D134,PaletteFadeTick,sub_3D134,new,low,timer routine: runs a palette fade step every few ticks,src/engine/engine_3812E.asm
+3D180,StartPaletteFade,sub_3D180,new,low,starts a fade from the current palette to the given one over a number of steps,src/engine/engine_3812E.asm
+3D2C0,BuildRangePalette,sub_3D2C0,new,low,fills a palette range from its colour table,src/engine/engine_3812E.asm
+3D3D0,BlendRangePalette,sub_3D3D0,new,low,fills a palette range blended toward a colour,src/engine/engine_3812E.asm
+3D4C4,CountArtPixels,sub_3D4C4,new,low,adds the pixels of an art to the colour use table,src/engine/engine_3812E.asm
+3D548,RemapArtColors,sub_3D548,new,low,remaps the pixels of a bank's art through a colour table,src/engine/engine_3812E.asm
+3D5EC,RemapArtToRange,sub_3D5EC,new,low,remaps an art bank into a palette range,src/engine/engine_3812E.asm
+3D660,RemapArtRange,sub_3D660,new,low,"remaps an art bank to the colours of a palette range, keeping the reserved colours",src/engine/engine_3812E.asm
+3D764,NewColorHistogram,sub_3D764,new,low,"allocates and clears a colour histogram (""HIST"")",src/engine/engine_3812E.asm
+3D898,ArtBankHistogram,sub_3D898,new,low,builds the colour histogram of an art bank,src/engine/engine_3812E.asm
+3D930,InitPaletteManager,sub_3D930,new,low,sets up the palette ranges and installs the palette fade timer,src/engine/engine_3812E.asm
+3D95C,ShutdownPaletteManager,sub_3D95C,new,low,removes the palette fade timer,src/engine/engine_3812E.asm
+3D988,AddPaletteRange,sub_3D988,new,low,adds a named palette range of the given first and last colour,src/engine/engine_3812E.asm
+3D9E4,LinkRangeHistogram,sub_3D9E4,new,low,attaches a colour histogram to a palette range,src/engine/engine_3812E.asm
+3DA18,AddArtToRange,sub_3DA18,new,low,adds an art bank's colours to a palette range,src/engine/engine_3812E.asm
+3DA80,AddBankToRange,sub_3DA80,new,low,adds a whole art bank's colours to a palette range,src/engine/engine_3812E.asm
+3DAC4,RemapArtBank,sub_3DAC4,new,low,after the palette is built: remaps each art of a bank to its palette range,src/engine/engine_3812E.asm
+3DBCC,SetRangeColors,sub_3DBCC,new,low,copies a colour list into a palette range,src/engine/engine_3812E.asm
+3DC2C,AddColorTable,sub_3DC2C,new,low,adds a colour table (no art) to a palette range,src/engine/engine_3812E.asm
+3DCBC,RemapBankToRange,sub_3DCBC,new,low,remaps the arts of a bank into a palette range,src/engine/engine_3812E.asm
+3DDD8,RemapRangeColors,sub_3DDD8,new,low,remaps an art through the colour table of a palette range,src/engine/engine_3812E.asm
+3DE08,RemapArtPixels,sub_3DE08,new,low,remaps the pixels of an art into a palette range,src/engine/engine_3812E.asm
+3DE94,FillQuantBoxes,sub_3DE94,new,low,colour quantizer: sorts the histogram colours into boxes,src/engine/engine_3812E.asm
+3DF14,ColorMomentTables,sub_3DF14,new,low,colour quantizer: builds the running sum tables of a box,src/engine/engine_3812E.asm
+3DF54,SplitColorBox,sub_3DF54,new,low,colour quantizer: splits a colour box where the variance drops most,src/engine/engine_3812E.asm
+3E064,MergeColorBoxes,sub_3E064,new,low,colour quantizer: joins two colour boxes,src/engine/engine_3812E.asm
+3E140,FindSmallestBox,sub_3E140,new,low,colour quantizer: returns the box with the smallest error,src/engine/engine_3812E.asm
+3E198,CopyRangePalette,sub_3E198,new,low,copies a palette range's colours into a palette buffer,src/engine/engine_3812E.asm
+3E1F8,BuildRangePaletteBuf,sub_3E1F8,new,low,clears a palette buffer and copies a range's colours into it,src/engine/engine_3812E.asm
+3E21C,QuantizeRange,sub_3E21C,new,low,"builds the colours of a palette range from its histograms (""MEGAHIST"")",src/engine/engine_3812E.asm
+3E458,QuantizeAllRanges,sub_3E458,new,low,builds the colours of every palette range,src/engine/engine_3812E.asm
+3E480,SetRangePalette,sub_3E480,new,low,loads a palette range's colours into the VGA palette,src/engine/engine_3812E.asm
+3E4B8,MergeRangePalettes,sub_3E4B8,new,low,joins the palette ranges into one 256-colour palette,src/engine/engine_3812E.asm
+3E590,BuildGamePalette,sub_3E590,new,low,builds the game palette from all ranges and loads it,src/engine/engine_3812E.asm
+3E5F0,FadeGamePalette,sub_3E5F0,new,low,"fades the screen to the game palette (camera scenes, replays, pause menu)",src/engine/engine_3812E.asm
+3E6D0,InitStreamBuffer,sub_3E6D0,new,low,sets up a CD stream buffer and its timer,src/engine/engine_3812E.asm
+3E818,OpenStreamBuffer,sub_3E818,new,low,opens a CD stream buffer for reading,src/engine/engine_3812E.asm
 3E850,CdStreamOpen,sub_3E850,96PC,medium,"96 PC CdStreamOpen: allocates and opens a CD stream (""CDSTREAM"" block)",src/engine/engine_3812E.asm
 3E904,setstreamspeed,sub_3E904,96PC,medium,"96 PC setstreamspeed (""STREAM"" block), measures the stream's read speed",src/engine/engine_3812E.asm
 3EB40,delstream,sub_3EB40,96PC,low,closes a CD stream: removes its timer callback and frees its buffer,src/engine/engine_3812E.asm
 3EBE0,CdStreamRequest,sub_3EBE0,new,low,the common body of the stream start / queue calls: copies the file name (8Fh) and sets the request flags,src/engine/engine_3812E.asm
 3EC58,CdStreamStart,sub_3EC58,96PC,low,"CdStreamRequest with flags (1, 0, 1, 1)",src/engine/engine_3812E.asm
 3EC78,CdStreamQueue,sub_3EC78,96PC,low,"CdStreamRequest with flags (1, 0, 1, 0)",src/engine/engine_3812E.asm
+3ED60,RequestStreamRead,sub_3ED60,new,low,asks the CD stream for the next block,src/engine/engine_3812E.asm
+3EE4C,UpdateMusicStream,sub_3EE4C,new,low,feeds the music stream position to the sound driver,src/engine/engine_3812E.asm
 3EE74,CdStreamOpenSecondary,sub_3EE74,96PC,medium,"96 PC CdStreamOpenSecondary (""SECCDSTREAM"")",src/engine/engine_3812E.asm
 3EF68,CdStreamService,sub_3EF68,96PC,medium,NHL96PC 1CB54 (sem 0.87): C:460; C:458; C:2029,src/engine/engine_3812E.asm
 3FB34,CdStreamSkipMarks,sub_3FB34,96PC,high,NHL96PC 1D54E (callsite 0.90): called at the same place of CdStreamSpaceLeft,src/engine/engine_3812E.asm
@@ -395,18 +511,75 @@ address,name,auto_name,source,confidence,evidence,file
 3FBBC,CdStreamSpaceLeft,sub_3FBBC,96PC,high,NHL96PC 1D5A9 (exact 1.00): 19 instructions,src/engine/engine_3812E.asm
 3FBE4,CdStreamNextPacket,sub_3FBE4,96PC,medium,"96 PC CdStreamNextPacket: the next packet of the stream; 0 while waiting, -2 at the end",src/engine/engine_3812E.asm
 3FC7C,CdStreamFreePacket,sub_3FC7C,96PC,high,"96 PC CdStreamFreePacket, same body",src/engine/engine_3812E.asm
+3FC88,StreamBufferFree,sub_3FC88,new,low,counts the free blocks of a stream buffer,src/engine/engine_3812E.asm
+3FD0C,StreamReady,sub_3FD0C,new,low,whether the CD stream can take a request; returns 1 if so,src/engine/engine_3812E.asm
+3FDCC,StreamQueueBlock,sub_3FDCC,new,low,queues a block on the CD stream,src/engine/engine_3812E.asm
+3FE54,RingBufferSpace,sub_3FE54,new,low,returns how much of a ring buffer is free from the write position,src/engine/engine_3812E.asm
+3FEE8,QueuePassSpeech,sub_3FEE8,new,low,play-by-play: queues the phrase for a pass made or completed,src/engine/engine_3812E.asm
+3FF4C,QueueShotSpeech,sub_3FF4C,new,low,play-by-play: queues the phrase for a shot,src/engine/engine_3812E.asm
+3FF9C,QueuePositionSpeech,sub_3FF9C,new,low,play-by-play: queues a phrase about where the play is on the rink,src/engine/engine_3812E.asm
+4006C,QueueHitSpeech,sub_4006C,new,low,play-by-play: queues the phrase for a collision,src/engine/engine_3812E.asm
+400E8,QueuePenaltySpeech,sub_400E8,new,low,play-by-play: queues the phrase for a penalty,src/engine/engine_3812E.asm
+401A0,QueueReceiveSpeech,sub_401A0,new,low,play-by-play: queues the phrase for a pass taken,src/engine/engine_3812E.asm
+40258,QueueLoosePuckSpeech,sub_40258,new,low,play-by-play: queues the phrase for a loose puck,src/engine/engine_3812E.asm
+40298,QueueCarrySpeech,sub_40298,new,low,play-by-play: queues the phrase for a player carrying the puck,src/engine/engine_3812E.asm
+40380,QueueTeamSpeech,sub_40380,new,low,play-by-play: queues a phrase naming a team,src/engine/engine_3812E.asm
+403C0,QueueDeflectSpeech,sub_403C0,new,low,play-by-play: queues the phrase for a deflection or a save,src/engine/engine_3812E.asm
+40400,QueuePickupSpeech,sub_40400,new,low,play-by-play: queues the phrase for a player picking up the puck,src/engine/engine_3812E.asm
+40440,QueueFaceoffSpeech,sub_40440,new,low,play-by-play: queues the phrase for a faceoff,src/engine/engine_3812E.asm
+404C4,QueuePenaltyEndSpeech,sub_404C4,new,low,play-by-play: queues the phrase for a penalty that ends,src/engine/engine_3812E.asm
+40574,QueueFinalSpeech,sub_40574,new,low,play-by-play: queues the phrase at the end of the game,src/engine/engine_3812E.asm
+405F8,QueueTouchPuckSpeech,sub_405F8,new,low,"play-by-play: queues the phrase for a touch that stops play (icing, offside)",src/engine/engine_3812E.asm
+40640,QueuePenaltyCallSpeech,sub_40640,new,low,play-by-play: queues the phrase for a called penalty,src/engine/engine_3812E.asm
+40680,QueueStoppageSpeech,sub_40680,new,low,"play-by-play: queues the phrases at a stoppage (new penalty, goalies, line change)",src/engine/engine_3812E.asm
+40850,QueuePowerPlaySpeech,sub_40850,new,low,play-by-play: queues the phrase for a power play,src/engine/engine_3812E.asm
+4095C,LoadMainSfxBank,sub_4095C,new,low,at start-up: builds the path of the main sound effect bank and loads it,src/engine/engine_3812E.asm
 409EC,LoadSfxBank,sub_409EC,new,low,"(bank): with sound on, loads a sound effect bank (SFX4%s .BKH / .BKD)",src/engine/engine_3812E.asm
+40D80,AdvanceStreamState,sub_40D80,new,low,moves an audio stream to its next state,src/engine/engine_3812E.asm
 40EBC,OpenAudioStream,sub_40EBC,new,low,"opens the audio stream (""AUDSTREAM"" block)",src/engine/engine_3812E.asm
 4123C,InitGameAudio,sub_4123C,new,low,with sound on: the crowd (CROWD.CRD) and the play-by-play table (GAMEDATA\AUDPBP3.TSF),src/engine/engine_3812E.asm
+414B8,SetMusicVolume,sub_414B8,new,low,sets the music volume (0 to 100) and passes it to the driver,src/engine/engine_3812E.asm
+41550,SetSfxVolume,sub_41550,new,low,sets the sound effect volume (0 to 100),src/engine/engine_3812E.asm
+415A0,MusicEnabled,sub_415A0,new,low,returns 1: music may play on this screen,src/engine/engine_3812E.asm
+415A8,FreeSfxBank,sub_415A8,new,low,stops the sounds of a sound effect bank and frees it,src/engine/engine_3812E.asm
+415F8,LoadFrontEndSfx,sub_415F8,new,low,loads the sound effect bank of the front-end screens,src/engine/engine_3812E.asm
+41670,InitGameSounds,sub_41670,new,low,"before a game: loads the game sound banks and the speech, starts the crowd",src/engine/engine_3812E.asm
+41870,ShutdownGameAudio,sub_41870,new,low,"at exit: stops the music, frees the sound banks and shuts the sound driver down",src/engine/engine_3812E.asm
+419B0,SecondsToSamples,sub_419B0,new,low,converts seconds to samples at 22050 Hz,src/engine/engine_3812E.asm
+419B8,WaitSoundTime,sub_419B8,new,low,"waits while the given amount of sound plays, keeping the sound serviced",src/engine/engine_3812E.asm
+41A28,ChkMenuMusic,sub_41A28,new,low,starts the menu music when the screen asks for it and music is on,src/engine/engine_3812E.asm
+41ACC,StartMusicTrack,sub_41ACC,new,low,builds the path of a music track and starts it,src/engine/engine_3812E.asm
+41CF0,QueueMusicRestart,sub_41CF0,new,low,asks for the current music track to start again,src/engine/engine_3812E.asm
+41D18,PauseMusic,sub_41D18,new,low,asks the music to pause,src/engine/engine_3812E.asm
+41D30,ResumeMusic,sub_41D30,new,low,lets the paused music play on,src/engine/engine_3812E.asm
 41D48,MusicPlaying,sub_41D48,new,low,"1 while the music stream (dword_1691C4) is still playing, with music on",src/engine/engine_3812E.asm
+41D94,MusicStreamTick,sub_41D94,new,low,keeps the music stream fed when one is open,src/engine/engine_3812E.asm
+41DB8,RequestMusicStop,sub_41DB8,new,low,asks the music to stop,src/engine/engine_3812E.asm
 41DD8,WaitMusicEnd,sub_41DD8,new,low,"with music on, restarts the current track request and idles (sub_E341C) until MusicPlaying is 0",src/engine/engine_3812E.asm
 41E64,MusicFileName,sub_41E64,new,medium,"(track 0-43h, buf): the music file path ""%s%02d.ASF"" in data folder 58h",src/engine/engine_3812E.asm
 41EA4,ArenaFileName,sub_41EA4,new,low,"(clip 0-8, buf): the ""%s%02d.ASF"" path of data folder 59h (clip + 1)",src/engine/engine_3812E.asm
+41EE4,StopBankSounds,sub_41EE4,new,low,stops every sound playing from a sound bank,src/engine/engine_3812E.asm
+41F2C,PlayMenuSfx,sub_41F2C,new,low,plays a sound effect by number (bank in the high byte),src/engine/engine_3812E.asm
 41FA0,StopAllSfx,sub_41FA0,new,low,stops every voice in PlaySfx's list (dword_1AC508),src/engine/engine_3812E.asm
 41FDC,PlaySfx,sub_41FDC,96PC,medium,96 PC PlaySfx: (id) plays a sound effect from the loaded banks (id high byte = bank 1-6) at the globalset volume; keeps the voice in a 16-entry list (dword_1AC508),src/engine/engine_3812E.asm
 42098,PlaySfxOr,sub_42098,96PC,medium,"96 PC PlaySfxOr: (id, other) plays other instead of id when id's bank is not loaded",src/engine/engine_3812E.asm
+420E4,PositionSfx,sub_420E4,new,low,works out a sound's volume and pan from its rink position and the camera,src/engine/engine_3812E.asm
 42220,PlaySfxVolume,sub_42220,new,low,"(id, volume 0-64h, ...): PlaySfx with a volume (scaled by the globalset sound volume) and position",src/engine/engine_3812E.asm
+42354,PlaySfxAt,sub_42354,new,low,plays a sound effect at an object's position,src/engine/engine_3812E.asm
+423B4,SetAmbientVolume,sub_423B4,new,low,sets the arena ambience volume in percent of the effect volume,src/engine/engine_3812E.asm
+4241C,SetCrowdNoise,sub_4241C,new,low,sets the crowd noise level in percent,src/engine/engine_3812E.asm
+424CC,SetCrowdMood,sub_424CC,new,low,sets the crowd mood (0 to 13) when crowd sound is on,src/engine/engine_3812E.asm
+42550,QueueSpeechRequest,sub_42550,new,low,adds a speech clip request to the 16-entry speech queue,src/engine/engine_3812E.asm
+425CC,ResetSpeechQueue,sub_425CC,new,low,clears the speech queue and the speech buffers,src/engine/engine_3812E.asm
+42650,ServiceSpeechQueue,sub_42650,new,low,reads the next queued speech clip from the speech file and plays it,src/engine/engine_3812E.asm
+42910,FindSpeechClip,sub_42910,new,low,"binary search of a clip number in the speech directory; returns its index, -1 if missing",src/engine/engine_3812E.asm
+42960,LoadSpeechBlock,sub_42960,new,low,"reads a block of speech clips into a work buffer (""TEMP"")",src/engine/engine_3812E.asm
+42A98,IsClipLoaded,sub_42A98,new,low,whether a speech clip is in memory; returns 1 if so,src/engine/engine_3812E.asm
+42AD0,LoadSpeechClips,sub_42AD0,new,low,loads the speech clips of a bank into memory,src/engine/engine_3812E.asm
+42C38,LoadClipIfMissing,sub_42C38,new,low,loads a speech clip unless it is already in memory,src/engine/engine_3812E.asm
+42D38,SpeechFileHeader,sub_42D38,new,low,returns the speech file's header size and id,src/engine/engine_3812E.asm
 42D50,OpenSpeechBanks,sub_42D50,96PC,low,"opens the play-by-play speech files (%sAUDPBP3.TSF, KTSF, %sAUDPBP2.VIV, CBANK%03d.DAT), like 96 PC OpenSpeechBanks",src/engine/engine_3812E.asm
+431E8,ResolveSpeechClips,sub_431E8,new,low,looks up the directory entry of each clip a bank uses,src/engine/engine_3812E.asm
 4329C,LoadTeamSpeech,sub_4329C,new,low,"(team, other): loads the team name speech file TEAM%04d.DAT when it is not loaded",src/engine/engine_3812E.asm
 43578,LoadSpeechBank,sub_43578,new,low,"from InitSpeechBanks: opens a speech bank's ""%03d.DAT"" / ""%03d.HDR"" pair (MakeDataPath) and reads its header",src/front/front_43578.asm
 43944,InitSpeechBanks,sub_43944,new,low,"from InitGameAudio: sets up the speech banks (TEMPBANK, EVENT.DAT, CBANK%03d.HDR, TEAM%04d.HDR, PBP, AUDPBP3.TSF, KTSF)",src/front/front_43578.asm

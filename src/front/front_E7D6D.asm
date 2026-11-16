@@ -10,7 +10,7 @@ extern seed, dword_1AC814, dword_1AC940, dword_1AD62F, dword_1AD6AB, dword_1AD71
 extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778
 extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprintf_, strcpy_, BlitArt
 extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, sub_101EAC, sub_102B94
-extern SetScreenTarget, sub_419B0, sub_419B8, OpenDataLibrary, sub_7E52C, sub_7E860, SetTextColor, DrawTextAligned
+extern SetScreenTarget, SecondsToSamples, WaitSoundTime, OpenDataLibrary, sub_7E52C, sub_7E860, SetTextColor, DrawTextAligned
 extern LoadTeamLogo, sub_80808, InitMenuItems, GetLangText, sub_CA44C, sub_D0098, sub_DB75E, sub_DC653
 extern sub_DCBB0, OpenLeagueFile, sub_E036F, sub_E0D0F, sub_E341C, FreeMemBlock, FillMem, MakeColor
 extern DrawArt, SetDrawTarget, unk_167731, unk_16E1E4, unk_16E21C, unk_1AD22E, unk_1AD443, unk_1C5F4A
@@ -1054,8 +1054,8 @@ sub_E8923:
         mov eax, 6Bh
         call OpenDataLibrary
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push dword [nosplit edi*4+off_16E174]
         call sub_101584
@@ -1087,8 +1087,8 @@ sub_E8923:
         cmp byte [dword esi+byte_1CD7A9], 0
         je near .4
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, word_1CD788
         add eax, esi
         push byte 0

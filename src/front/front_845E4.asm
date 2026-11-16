@@ -17,8 +17,8 @@ extern dword_1C831C, dword_1C8320, dword_1C8324, dword_1C8328, dword_1C832C, dwo
 extern fclose_, fopen_, fputc_, jpt_845CC, memcpy_, memset_, rand_, sprintf_
 extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, bcopy, sub_101324
 extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101584, sub_102B94, Random32
-extern sub_106DA0, sub_10AED0, sub_110D70, sub_11A318, FindShapeList, sub_11B104, SetScreenTarget, sub_419B0
-extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, WaitMusicEnd, ArenaFileName, sub_41F2C, StopAllSfx
+extern sub_106DA0, sub_10AED0, sub_110D70, sub_11A318, FindShapeList, sub_11B104, SetScreenTarget, SecondsToSamples
+extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, StopAllSfx
 extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, RunNewSeason, RunSeasonMenus
@@ -81,7 +81,7 @@ sub_845E4:
         cmp dword [dword_16CCEC], byte 0
         je short .4
         mov eax, 309h
-        call sub_41F2C
+        call PlayMenuSfx
         mov dword [dword_16CCEC], edx
 .4:
         mov eax, dword [tickcount]
@@ -583,8 +583,8 @@ MainMenuScreen:
         add esp, byte 8
         mov eax, 3
         xor ebx, ebx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         jmp short .17
 .16:
         call rand_
@@ -614,8 +614,8 @@ MainMenuScreen:
         cmp ebx, dword [dword_1C82A8]
         jl short .16
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push str_PIC2CFsh
         call sub_101584
@@ -625,8 +625,8 @@ MainMenuScreen:
         call sub_FC330
         add esp, byte 4
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 0F3h
         call LoadDataFile
@@ -634,8 +634,8 @@ MainMenuScreen:
         mov dword [byte ebp+06Ah], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 0F4h
         call LoadDataFile
         push str_OFF0
@@ -1676,7 +1676,7 @@ RunGameScreens:
         cmp ebx, byte 15h
         je near .8
         call WaitMusicEnd
-        call sub_41D18
+        call PauseMusic
         call rand_
         mov ecx, 2
         cdq
@@ -1686,7 +1686,7 @@ RunGameScreens:
         mov eax, ecx
         call ArenaFileName
         lea eax, [byte ebp-050h]
-        call sub_41A28
+        call ChkMenuMusic
         lea eax, [byte ecx+01h]
         mov ecx, 2
         cdq
@@ -1695,8 +1695,8 @@ RunGameScreens:
         lea edx, [byte ebp-050h]
         call ArenaFileName
         lea eax, [byte ebp-050h]
-        call sub_41A28
-        call sub_41DB8
+        call ChkMenuMusic
+        call RequestMusicStop
         cmp ebx, byte 1
         je near .8
         test byte [dword_1AC814], 70h
@@ -1839,23 +1839,23 @@ sub_85E1E:
         mov eax, 9
         call InitMenuItems
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 24h
         call LoadDataFile
         mov dword [byte ebp+06Eh], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 25h
         call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp+072h], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_BACK4
         push ebx
         call FindShape

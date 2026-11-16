@@ -10,7 +10,7 @@ extern dword_16E46C, dword_1AC814, dword_1AC940, dword_1AC944, dword_1ACF46, dwo
 extern dword_1AD62F, dword_1AD6AB, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, jpt_D3102
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, sub_101324, BlitArt
 extern BlitShape, sub_1013FC, FindShape, sub_101584, sub_101EAC, sub_102B94, sub_10CD98, SetScreenTarget
-extern sub_39824, sub_419B0, sub_419B8, StopAllSfx, PlaySfx, PaEvent, sub_4A280, LoadDataFile
+extern IsAllStarDay, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, PaEvent, sub_4A280, LoadDataFile
 extern OpenDataLibrary, sub_7B84B, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned
 extern sub_80BBC, sub_80F48, sub_83BF4, InitMenuItems, sub_8BFAC, GetLangText, sub_D306F, sub_DA7D6
 extern sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, OpenLeagueFile, sub_E036F, LoadExhibitionFile, FreeExhibitionFile
@@ -78,8 +78,8 @@ PreGameRostersScreen:
         cmp esi, byte 0Fh
         jl short .3
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 3Ch
         call LoadDataFile
@@ -87,14 +87,14 @@ PreGameRostersScreen:
         mov dword [byte ebp+07Eh], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 3Dh
         call LoadDataFile
         mov dword [byte ebp+07Ah], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_STAR
         push ebx
         call FindShape
@@ -156,7 +156,7 @@ PreGameRostersScreen:
         and eax, byte 70h
         cmp eax, byte 10h
         jne near .6
-        call sub_39824
+        call IsAllStarDay
         test eax, eax
         je short .5
         mov eax, dword [byte ebp+072h]
@@ -572,8 +572,8 @@ PreGameRostersScreen:
 .19:
         add esp, byte 10h
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push esi
         call FreeMemBlock
         add esp, byte 4
@@ -633,8 +633,8 @@ PreGameRostersScreen:
 .22:
         add esp, byte 10h
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push esi
         call FreeMemBlock
         add esp, byte 4
@@ -656,7 +656,7 @@ PreGameRostersScreen:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        call sub_39824
+        call IsAllStarDay
         test eax, eax
         jne short .24
         call sub_D3DFA
@@ -678,8 +678,8 @@ PreGameRostersScreen:
 .27:
         call sub_D41D1
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 202h
         call PlaySfx
         push dword 105h
@@ -1251,7 +1251,7 @@ sub_D40CF:
         push esi
         push edi
         enter 195Ch, 0
-        call sub_39824
+        call IsAllStarDay
         test eax, eax
         jne near sub_D40CF_FB
         xor ebx, ebx
@@ -2119,7 +2119,7 @@ sub_D4AAC:
         cmp eax, byte 0Ch
         jl short .9
 .11:
-        call sub_39824
+        call IsAllStarDay
         test eax, eax
         jne near .32
         lea eax, [byte ebp-0Ch]
