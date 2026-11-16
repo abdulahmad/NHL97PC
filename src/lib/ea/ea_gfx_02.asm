@@ -6,10 +6,13 @@ extern byte_16E688, byte_16E689, dword_16E46C, dword_16E670, dword_16E678, dword
 extern dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0, dword_1CF29C, dword_1CF2A0, dword_1CF524
 extern dword_1CFCF0, dword_1DA8D8, off_16E87C, sub_102B78, sub_102D3C, sub_117140, sub_12233C, sub_122838
 extern sub_122C09, sub_122D90, sub_122DF0, sub_122ECC, sub_122F7C, sub_1230E8, sub_1231AC, sub_12328C
-extern sub_123350, sub_123423, sub_123D38, sub_123FCB, sub_FAF34, sub_FB73D, sub_FCEEC, unk_1CF2A4
-global sub_FDC68_48, sub_FDC68_5C, sub_FDC68_6C, sub_FDC68_80, mem_putc_, sub_FCF84, sub_FCFCC, sub_FCFE8
-global sub_FD08C, sub_FD0DC, sub_FD0F8, sub_FD110, sub_FD140, sub_FD1D8, sub_FD440, sub_FD528
-global sub_FD570, sub_FD6D0, sub_FD768, sub_FD954, sub_FDC0C, sub_FDC68, sub_FDD08, sub_FDD1C
+extern sub_123350, sub_123423, sub_123D38, sub_123FCB, FreeMemBlock, sub_FB73D, sub_FCEEC, unk_1CF2A4
+global sub_FDC68_48, sub_FDC68_5C, sub_FDC68_6C, sub_FDC68_80, mem_putc_, sub_FCF84, DrawArt, DrawShape
+global CreateBitmap, sub_FD0DC, SetDrawTarget, ClearScreen, sub_FD140, sub_FD1D8, sub_FD440, sub_FD528
+global sub_FD570, sub_FD6D0, sub_FD768, sub_FD954, sub_FDC0C, sub_FDC68, sub_FDD08, FillRect
+;-----------------------------------------------------------------------------
+; sub_FCF84                                                            FCF84  
+;-----------------------------------------------------------------------------
 sub_FCF84:
         mov edx, dword [byte esp+04h]
         mov eax, dword [byte edx+0Ch]
@@ -40,7 +43,13 @@ sub_FCF84:
         pop ebx
         ret
         db 08Bh,0C0h
-sub_FCFCC:
+;-----------------------------------------------------------------------------
+; DrawArt                                         FCFCC  95 PC, low confidence
+; Graphics library: draw art at x, y (art, x, y) through sub_FCEEC, which
+; converts 8-bit art to the 16-bit screen; the module order matches the
+; NHL95PC DrawArt
+;-----------------------------------------------------------------------------
+DrawArt:
         push ebx
         mov edx, dword [byte esp+010h]
         push edx
@@ -53,7 +62,12 @@ sub_FCFCC:
         pop ebx
         ret
         db 08Bh,0C0h
-sub_FCFE8:
+;-----------------------------------------------------------------------------
+; DrawShape                                       FCFE8  95 PC, low confidence
+; Graphics library: DrawArt at the art's own position (+0Ah / +0Ch); right
+; after DrawArt as in NHL95PC
+;-----------------------------------------------------------------------------
+DrawShape:
         mov edx, dword [byte esp+04h]
         mov eax, dword [byte edx+0Ch]
         sar eax, 10h
@@ -127,7 +141,12 @@ sub_FCFE8:
         pop ebx
         ret
         db 090h
-sub_FD08C:
+;-----------------------------------------------------------------------------
+; CreateBitmap                                 FD08C  95 PC, medium confidence
+; Graphics library: create a bitmap (w, h, flags) at the current pixel depth
+; (dword_16E46C); returns the bitmap
+;-----------------------------------------------------------------------------
+CreateBitmap:
         push ebx
         push esi
         push byte 1
@@ -157,6 +176,9 @@ sub_FD08C:
         pop esi
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_FD0DC                                                            FD0DC  
+;-----------------------------------------------------------------------------
 sub_FD0DC:
         push esi
         push edi
@@ -169,7 +191,12 @@ sub_FD0DC:
         pop esi
         ret
         db 08Bh,0C0h
-sub_FD0F8:
+;-----------------------------------------------------------------------------
+; SetDrawTarget                                   FD0F8  97 PC, low confidence
+; Makes a bitmap the current draw target: copies its 0Eh-dword header to
+; dword_16E670
+;-----------------------------------------------------------------------------
+SetDrawTarget:
         push esi
         push edi
         mov ecx, 0Eh
@@ -180,7 +207,12 @@ sub_FD0F8:
         pop esi
         ret
         db 00h,00h,00h
-sub_FD110:
+;-----------------------------------------------------------------------------
+; ClearScreen                                  FD110  95 PC, medium confidence
+; Graphics library: fills the whole current draw target (dword_16E678..684)
+; with a colour (sub_FDD1C)
+;-----------------------------------------------------------------------------
+ClearScreen:
         push ebx
         mov edx, dword [byte esp+08h]
         mov eax, dword [dword_16E684]
@@ -194,11 +226,14 @@ sub_FD110:
         push eax
         push ebx
         push ecx
-        call sub_FDD1C
+        call FillRect
         add esp, byte 14h
         pop ebx
         ret
         db 00h,00h
+;-----------------------------------------------------------------------------
+; sub_FD140                                                            FD140  
+;-----------------------------------------------------------------------------
 sub_FD140:
         push ebx
         push esi
@@ -262,6 +297,9 @@ sub_FD140:
         pop ebx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_FD1D8                                                            FD1D8  
+;-----------------------------------------------------------------------------
 sub_FD1D8:
         push ebx
         push esi
@@ -470,7 +508,7 @@ sub_FD1D8:
         test ebx, ebx
         je short .16
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .16:
         add esp, byte 18h
@@ -480,6 +518,9 @@ sub_FD1D8:
         pop ebx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_FD440                                                            FD440  
+;-----------------------------------------------------------------------------
 sub_FD440:
         push ebx
         push esi
@@ -578,6 +619,9 @@ sub_FD440:
         add esp, byte 14h
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_FD528                                                            FD528  
+;-----------------------------------------------------------------------------
 sub_FD528:
         push ebx
         push esi
@@ -612,6 +656,9 @@ sub_FD528:
         pop ebx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_FD570                                                            FD570  
+;-----------------------------------------------------------------------------
 sub_FD570:
         push ebx
         push esi
@@ -766,6 +813,9 @@ sub_FD570:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_FD6D0                                                            FD6D0  
+;-----------------------------------------------------------------------------
 sub_FD6D0:
         push ebx
         push esi
@@ -824,6 +874,9 @@ sub_FD6D0:
         pop ebx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_FD768                                                            FD768  
+;-----------------------------------------------------------------------------
 sub_FD768:
         push ebx
         push esi
@@ -1008,6 +1061,9 @@ sub_FD768:
         pop ebx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_FD954                                                            FD954  
+;-----------------------------------------------------------------------------
 sub_FD954:
         push ebx
         push esi
@@ -1322,6 +1378,9 @@ sub_FD954:
         pop esi
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_FDC0C                                                            FDC0C  
+;-----------------------------------------------------------------------------
 sub_FDC0C:
         push ebx
         push esi
@@ -1365,6 +1424,9 @@ sub_FDC0C:
         pop ebx
         ret
         db 00h
+;-----------------------------------------------------------------------------
+; sub_FDC68                                                            FDC68  
+;-----------------------------------------------------------------------------
 sub_FDC68:
         push ebp
         LD mov, ebp, esp
@@ -1431,6 +1493,9 @@ sub_FDC68_80:
         pop ecx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_FDD08                                                            FDD08  
+;-----------------------------------------------------------------------------
 sub_FDD08:
         mov eax, edx
         mov edx, ebx
@@ -1438,7 +1503,12 @@ sub_FDD08:
         shl edx, 2
         jmp near sub_FB73D
         db 08Bh,0C0h
-sub_FDD1C:
+;-----------------------------------------------------------------------------
+; FillRect                                     FDD1C  95 PC, medium confidence
+; Graphics library: fill a rectangle (x, y, w, h, colour) on the current draw
+; target, by pixel depth
+;-----------------------------------------------------------------------------
+FillRect:
         push ebx
         sub esp, byte 14h
         mov eax, dword [byte esp+02Ch]
@@ -1499,6 +1569,9 @@ sub_FDD1C:
         add esp, byte 14h
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; mem_putc_                                                     FDDC1  library
+;-----------------------------------------------------------------------------
 mem_putc_:
         push ebx
         push ecx

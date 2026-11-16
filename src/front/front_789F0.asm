@@ -5,7 +5,7 @@ section s_789F0 progbits alloc exec nowrite align=1
 extern byte_1C135A, byte_1C135B, byte_1C31A7, byte_1C347D, byte_1C52CA, byte_1C55A0, dword_16C6C0, dword_16C730
 extern dword_1AC940, dword_1AC944, dword_1AD22A, dword_1AD743, dword_1C13C0, dword_1C13FB, dword_1C34E3, dword_1C351E
 extern memset_, rand_, srand_, sub_78938, sub_D0BD8, sub_DCBB0, sub_E036F, sub_E0841
-extern sub_E0DB7, sub_E341C, sub_FB704, unk_16D7FC, unk_16D804, unk_1C135C, unk_1C347F, unk_78930
+extern sub_E0DB7, sub_E341C, ZeroMem, unk_16D7FC, unk_16D804, unk_1C135C, unk_1C347F, unk_78930
 extern word_1C150A, word_1C319B, word_1C319D, word_1C31A3, word_1C3415, word_1C3417, word_1C3419, word_1C3427
 extern word_1C362D, word_1C52BE, word_1C52C0, word_1C52C6, word_1C5538, word_1C553A, word_1C553C, word_1C554A
 global sub_789F0, sub_7A4D4, sub_7A6D8, unk_7A788
@@ -130,7 +130,7 @@ sub_789F0:
 .10:
         push byte 3Dh
         push ecx
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
 .11:
         imul eax, dword [dword esp+01530h], dword 125h

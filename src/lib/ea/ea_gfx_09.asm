@@ -3,8 +3,11 @@ bits 32
 %include "hockey.inc"
 section s_12D4B8 progbits alloc exec nowrite align=1
 extern byte_16E688, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E694, dword_16E698, dword_16E69C
-extern dword_16E6A0, sub_100A68, sub_102D3C
+extern dword_16E6A0, bcopy, sub_102D3C
 global sub_12D4B8, sub_12D520
+;-----------------------------------------------------------------------------
+; sub_12D4B8                                                          12D4B8  
+;-----------------------------------------------------------------------------
 sub_12D4B8:
         push ebp
         LD mov, ebp, esp
@@ -50,6 +53,9 @@ sub_12D4B8:
         dec ecx
         jne short .1
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_12D520                                                          12D520  
+;-----------------------------------------------------------------------------
 sub_12D520:
         push ebx
         push esi
@@ -99,7 +105,7 @@ sub_12D520:
         lea edx, [byte esp+04h]
         push edx
         push eax
-        call sub_100A68
+        call bcopy
         mov edx, 4
         add esp, byte 0Ch
         lea eax, [byte edi+01h]
@@ -111,7 +117,7 @@ sub_12D520:
         push edx
         mov eax, dword [dword_16E69C]
         push eax
-        call sub_100A68
+        call bcopy
         lea eax, [byte esp+0Ch]
         add esp, byte 0Ch
         jmp short .2

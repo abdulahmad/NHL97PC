@@ -11,13 +11,13 @@ extern dword_172244, dword_172248, dword_17224C, dword_172254, dword_172258, dwo
 extern dword_1CF528, dword_1CF52C, dword_1CF548, dword_1DA3B4, dword_1DA3CC, dword_1DA3E0, dword_1DA3E4, dword_1DA3E8
 extern dword_1DA3EC, dword_1DA3F0, dword_1DA3F4, dword_1DA3F8, dword_1DA3FC, dword_1DA400, dword_1DA404, dword_1DA408
 extern dword_1DA40C, dword_1DA410, dword_1DA414, dword_1DA4D0, fgetc_, int386_, off_172140, off_17216C
-extern off_1721B8, putchar, sprintf_, strncmp_, strncpy_, sub_100A68, sub_100B88, sub_100BC8
+extern off_1721B8, putchar, sprintf_, strncmp_, strncpy_, bcopy, sub_100B88, sub_100BC8
 extern sub_100BCC, sub_100C08, sub_100C50, sub_100D8C, sub_100DC4, sub_100DCC, sub_100FCC, sub_101154
 extern sub_101220, sub_102B78, sub_11313C, sub_118D54, sub_118E3F, sub_118F7B, sub_118F91, sub_118FB7
 extern sub_11908E, sub_1190E8, sub_11910D, sub_1191A4, sub_1191B8, sub_1191D1, sub_119255, sub_119328
 extern sub_11FAD6, sub_120763, sub_123FA8, sub_12F270, sub_13130C, sub_1313FD, sub_37AB4, ModemReset
 extern ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemSpeakerOff, sub_F99C0, sub_F9A28, sub_F9A88
-extern sub_FAA64, sub_FAAB4, sub_FAF34, sub_FB704, sub_FB71C, addtimer, sub_FC008, WaitTicks
+extern AllocMemBlock, sub_FAAB4, FreeMemBlock, ZeroMem, FillMem, addtimer, sub_FC008, WaitTicks
 extern unk_167FA4, unk_172264, unk_17226C, unk_172274, unk_1DA3C4, unk_1DA418, unk_1DA448, unk_1DA464
 extern unk_1DA466, unk_1DA468, unk_1DA498, unk_1DA4A4, unlink_, word_1DA4A6, word_1DA4A8, word_1DA4AA
 extern word_1DA4AC, word_1DA4AE, word_1DA4B0, word_1DA4B2
@@ -981,7 +981,7 @@ sub_11BA50:
         test ebp, ebp
         je short .2
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .2:
         add esp, byte 30h
@@ -1092,7 +1092,7 @@ sub_11BA50:
         test ebp, ebp
         je short .4
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .4:
         add esp, byte 38h
@@ -2515,7 +2515,7 @@ sub_11C854:
         mov edx, 0EA646174h
         push ebx
         mov dword [dword esp+090h], edx
-        call sub_100A68
+        call bcopy
         lea ecx, [byte esp+0Ch]
         add esp, byte 0Ch
         lea ebx, [dword esp+084h]
@@ -3475,7 +3475,7 @@ sub_11D364:
 .3:
         push dword 0C0h
         push edi
-        call sub_FB704
+        call ZeroMem
         mov eax, dword [dword_1DA3E8]
         add esp, byte 8
         test eax, eax
@@ -3546,7 +3546,7 @@ sub_11D364:
         mov eax, dword [byte esp+020h]
         push eax
         mov ebx, 34h
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         lea eax, [byte edi+03Ch]
         mov edx, dword [byte esp+020h]
@@ -3922,7 +3922,7 @@ sub_11D780:
 .6:
         mov ecx, dword [byte ebp+0Ch]
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [byte ebp+0Ch], 0
 .7:
@@ -3974,7 +3974,7 @@ sub_11D8D8:
         je short .3
         mov ebp, dword [byte ebx+0Ch]
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [byte ebx+0Ch], 0
 .3:
@@ -4131,7 +4131,7 @@ sub_11DA0C:
 .6:
         mov edx, dword [byte esi+0Ch]
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [byte esi+0Ch], 0
         jmp short .8
@@ -4671,7 +4671,7 @@ sub_11E004:
         push edi
         lea ebx, [byte esp+038h]
         mov dword [byte esp+038h], ecx
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov eax, dword [byte ebp+028h]
         mov edx, dword [byte esp+050h]
@@ -4710,7 +4710,7 @@ sub_11E004:
         push edi
         lea eax, [byte esp+020h]
         push eax
-        call sub_100A68
+        call bcopy
         mov eax, 1
         add esp, byte 0Ch
         mov dword [byte ebp+040h], 1
@@ -4807,12 +4807,12 @@ sub_11E1A0:
         push byte 1Ch
         lea eax, [byte esp+038h]
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         push byte 32h
         lea eax, [byte esp+04h]
         push eax
-        call sub_FB704
+        call ZeroMem
         lea eax, [byte esp+058h]
         add esp, byte 8
         mov edx, 300h
@@ -4855,12 +4855,12 @@ sub_11E234:
         push byte 1Ch
         lea eax, [byte esp+038h]
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         push byte 32h
         lea eax, [byte esp+04h]
         push eax
-        call sub_FB704
+        call ZeroMem
         lea eax, [byte esp+058h]
         add esp, byte 8
         mov edx, 300h
@@ -4906,12 +4906,12 @@ sub_11E2D0:
         push byte 1Ch
         lea eax, [byte esp+038h]
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         push byte 32h
         lea eax, [byte esp+04h]
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         lea eax, [byte esp+050h]
         mov edx, 300h
@@ -4964,12 +4964,12 @@ sub_11E388:
         push byte 1Ch
         lea eax, [byte esp+038h]
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         push byte 32h
         lea eax, [byte esp+04h]
         push eax
-        call sub_FB704
+        call ZeroMem
         lea eax, [byte esp+058h]
         add esp, byte 8
         mov edx, 300h
@@ -5010,12 +5010,12 @@ sub_11E410:
         push byte 1Ch
         lea eax, [byte esp+038h]
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         push byte 32h
         lea eax, [byte esp+04h]
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         lea eax, [byte esp+050h]
         mov edx, 300h
@@ -5075,13 +5075,13 @@ sub_11E410:
         push byte 0
         push byte 4
         push eax
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
         push dword 0FFh
         push byte 6
         lea eax, [byte ebx+04h]
         push eax
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
         push byte 2
         push esi
@@ -5142,19 +5142,19 @@ sub_11E52C:
         lea eax, [byte ebx+020h]
         push eax
         push ebp
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         push byte 0Ch
         lea eax, [byte ebx+038h]
         push eax
         push edi
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         push byte 42h
         lea eax, [byte ebx+050h]
         push eax
         push unk_1DA464
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         push byte 0Ch
         lea eax, [byte ebx+044h]
@@ -5162,7 +5162,7 @@ sub_11E52C:
         mov eax, dword [dword_17225C]
         add eax, byte 8
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov eax, dword [dword_17225C]
         push ebx
@@ -5211,7 +5211,7 @@ sub_11E5E8:
         push eax
         add edi, byte 32h
         push edi
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov edx, esp
         mov eax, esi
@@ -5543,14 +5543,14 @@ sub_11E9EC:
         push byte 4
         lea eax, [byte esp+08h]
         push eax
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
         push dword 0FFh
         lea eax, [byte esp+04h]
         push byte 6
         add eax, byte 4
         push eax
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
         push byte 2
         lea eax, [byte esp+04h]
@@ -5672,13 +5672,13 @@ sub_11EB70:
         push byte 1Ch
         lea eax, [byte esp+038h]
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         push byte 32h
         lea eax, [byte esp+04h]
         push eax
         mov ebx, 2Fh
-        call sub_FB704
+        call ZeroMem
         lea eax, [byte esp+058h]
         add esp, byte 8
         mov edx, 300h
@@ -5752,7 +5752,7 @@ sub_11EC18:
         push dword 9E0h
         mov esi, dword [dword_17224C]
         push esi
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         push byte 0
         push byte 0
@@ -5836,21 +5836,21 @@ sub_11EC18:
         mov eax, dword [byte esp+014h]
         push unk_172264
         mov word [word_1DA4B2], ax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov eax, dword [dword_17224C]
         push byte 8
         add eax, byte 8
         push eax
         push unk_17226C
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov eax, dword [dword_17224C]
         push byte 48h
         add eax, byte 10h
         push eax
         push unk_172274
-        call sub_100A68
+        call bcopy
         mov eax, dword [dword_17224C]
         sar eax, 4
         mov dx, word [dword_17224C]
@@ -5938,7 +5938,7 @@ sub_11EE6C:
 .3:
         mov ecx, dword [dword_17224C]
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .4:
         xor edi, edi
@@ -5985,7 +5985,7 @@ sub_11EF20:
 .2:
         push dword 8628h
         push esi
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         push byte 2
         mov ebp, dword [byte esp+04h]
@@ -6005,7 +6005,7 @@ sub_11EF20:
         jmp short .4
 .3:
         push esi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .4:
         xor eax, eax
@@ -6217,7 +6217,7 @@ sub_11F154:
         jmp short .3
 .2:
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .3:
         mov eax, 1
@@ -6298,7 +6298,7 @@ sub_11F218:
         push unk_1DA498
         add ebx, byte 8
         push ebx
-        call sub_100A68
+        call bcopy
         mov eax, 1
         add esp, byte 0Ch
 .4:
@@ -6380,25 +6380,25 @@ sub_11F304:
         push eax
         lea eax, [byte esi+08h]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         push dword 0FFh
         push byte 6
         lea eax, [byte ebx+020h]
         push eax
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
         push byte 0
         push byte 4
         lea edi, [byte ebx+038h]
         push edi
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
         push dword 0FFh
         push byte 6
         lea eax, [byte edi+04h]
         push eax
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
         push byte 2
         push dword 452h
@@ -6490,7 +6490,7 @@ sub_11F440:
         add ebx, 1E0h
         push ebx
         push edx
-        call sub_100A68
+        call bcopy
         lea edx, [byte ebx+0Ch]
         add esp, byte 0Ch
         mov eax, ebx
@@ -6499,7 +6499,7 @@ sub_11F440:
         push esi
         push ebx
         mov edi, eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov eax, edi
         pop edi
@@ -6581,26 +6581,26 @@ sub_11F4A8:
         lea eax, [byte ebp+08h]
         push eax
         lea edi, [byte ebx+038h]
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         test esi, esi
         je short .2
         push byte 0Ch
         push edi
         push esi
-        call sub_100A68
+        call bcopy
         jmp short .3
 .2:
         push esi
         push byte 4
         push edi
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
         push dword 0FFh
         push byte 6
         lea eax, [byte edi+04h]
         push eax
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
         push byte 2
         push dword 452h
@@ -6619,7 +6619,7 @@ sub_11F4A8:
         lea eax, [byte ebx+054h]
         push eax
         push edi
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
 .4:
         lea eax, [byte ebx+020h]
@@ -6629,13 +6629,13 @@ sub_11F4A8:
         push eax
         add esi, byte 0Ch
         push esi
-        call sub_100A68
+        call bcopy
         jmp short .6
 .5:
         push dword 0FFh
         push byte 6
         push eax
-        call sub_FB71C
+        call FillMem
 .6:
         add esp, byte 0Ch
         push ebx
@@ -6719,14 +6719,14 @@ sub_11F5D8:
         push eax
         lea eax, [byte esi+044h]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         push byte 6
         lea eax, [byte esp+010h]
         push eax
         lea eax, [byte esi+020h]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov eax, dword [byte esp+024h]
         test eax, eax
@@ -6773,7 +6773,7 @@ sub_11F5D8:
         push ecx
         lea eax, [byte ebp+054h]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         jmp short .7
 .5:
@@ -6991,7 +6991,7 @@ sub_11F8E0:
         add eax, byte 0Ch
         push eax
         push asc_167FFC
-        call sub_FAA64
+        call AllocMemBlock
         mov ebx, eax
         add esp, byte 0Ch
         test eax, eax
@@ -6999,7 +6999,7 @@ sub_11F8E0:
         push byte 4
         push eax
         push asc_168004
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         add ebx, byte 8
         push byte 4
@@ -7007,7 +7007,7 @@ sub_11F8E0:
         add esi, ebx
         push esi
         push asc_16800C
-        call sub_100A68
+        call bcopy
         mov ecx, dword [dword_1722BC]
         add esp, byte 0Ch
         inc ecx
@@ -7077,10 +7077,10 @@ sub_11F94C:
         push byte 4
         push esi
         push asc_168014
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         push esi
-        call sub_FAF34
+        call FreeMemBlock
         mov edx, dword [dword_1722BC]
         dec edx
         add esp, byte 4

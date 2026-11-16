@@ -14,24 +14,24 @@ extern dword_19CB7B, dword_19CBAA, penshottimer, dword_19CBE8, dword_19CBF8, dwo
 extern dword_19CC54, dword_19CC58, dword_19CC5C, dword_19CC7C, dword_19CC9C, dword_19CCA4, dword_19D3AC, dword_19D40D
 extern dword_19D410, dword_19DAD3, dword_19EBAA, dword_19EBB8, dword_19ECB6, dword_19ECC4, dword_19ECD0, dword_19ECEC
 extern dword_1AC814, dword_1AC944, dword_1B8FA0, dword_1BF060, dword_1C13FF, dword_1C3522, hmtmstruct, hypot_
-extern sub_3812E_13F, sub_3812E_14D, sub_3812E_17B, sub_3812E_182, sub_3812E_1DA, sub_3812E_1E3, sub_3812E_1EC, sub_3812E_1F3
-extern sub_3812E_238, sub_3812E_2B1, sub_3812E_2CF, sub_3812E_3D3, sub_3812E_3DF, sub_3812E_3EB, off_168CD8, off_168CE8
+extern SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B, SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3
+extern SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF, SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, off_168CD8, off_168CE8
 extern off_168CEC, off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C, off_19C61F, qword_1608B7
 extern qword_1608C4, qword_1608CC, qword_1608D4, qword_1608DC, qword_1608EC, qword_1608F4, qword_1608FC, qword_160904
 extern qword_16090C, qword_160914, qword_16091C, qword_160924, qword_16092C, qword_160934, qword_16093C, qword_160944
 extern qword_16094C, qword_160954, qword_16095C, qword_160964, qword_16096C, qword_160974, qword_16097C, qword_160984
 extern qword_16098C, qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qword_1609B4, qword_1609BC, randomd0
-extern regd1, slotteam, sub_100940, sub_100A68, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
+extern regd1, slotteam, sub_100940, bcopy, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
 extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, sub_101154, sub_1011E8
 extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
-extern QueueOverlayPanel, sub_18E35, sub_1C108, sub_1C210, sub_1C29C, sub_1C7B4, sub_1CCBC, sub_1D16C
+extern QueueOverlayPanel, ClearOverlayWindows, FightCameraScene, sub_1C210, FaceoffCameraScene, FaceoffCameraScene2, sub_1CCBC, sub_1D16C
 extern sub_1E184, assreplace, assinsert, assexit, sub_1E8B0, Setplass, Goal, sub_24220
 extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, CompLine, StartFaceoffLineChange
 extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent
 extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
 extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
-extern sub_71D48, sub_71E58, StartFightAnim, sub_76FE8, sub_77F94, sub_780F0, sub_AA588, sub_F9A88
-extern sub_FAAB4, sub_FAF34, sub_FB71C, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
+extern sub_71D48, sub_71E58, StartFightAnim, sub_76FE8, sub_77F94, clockcont_0, sub_AA588, sub_F9A88
+extern sub_FAAB4, FreeMemBlock, FillMem, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
 extern unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E, unk_19D5A0, unk_19D5D2, unk_19D668, unk_19E060
 extern unk_19ECC8, unk_19ECE4, unk_1C135C, unk_1C347F, vecdist, vtoa, word_1686D6, word_168E2C
 extern word_168E2E, word_168E34, word_168E60, word_19C3EC, word_19C3EE, word_19C628, word_19C62A, word_19CA90
@@ -53,8 +53,8 @@ global InProgress_96E, sub_3509C_E0, assfwatch_1EC, sub_37198_DE, sub_37744_24C,
 global sub_2F744, sub_2F818, sub_2F8D8, sub_2FA00, sub_2FB40, checkint, sub_2FFB8, sub_30300
 global sub_305D8, sub_30674, sub_30778, sub_3085C, sub_308AC, sub_308F4, sub_30998, sub_30A34
 global sub_30BD8, sub_31070, sub_313F4, sub_31540, sub_31A2C, sub_31A5C, sub_31B6C, sub_31C14
-global sub_31F88, sub_32184, AddPenalty, AddPenalty2, sub_32888, sub_32B68, sub_32C04, sub_32CEC
-global sub_32D88, sub_32FF8, sub_3319C, updatepentime, checkfornewpen, sub_335CC, sub_336E4, EndPenaltyShot
+global sub_31F88, sub_32184, AddPenalty, AddPenalty2, Stop4Pen, updatepwrplay, chkatop, releasepl
+global PenGoalStuff, updatepentime_ut_chk, updatepentime_ut, updatepentime, checkfornewpen, sub_335CC, sub_336E4, EndPenaltyShot
 global sub_33904, InProgress, sub_34330, sub_343F8, sub_34500, sub_348DC, sub_34950, sub_34A48
 global sub_34B04, sub_34B78, sub_34C18, sub_34CF4, doplayeracc, sub_34F58, sub_34FD0, sub_3505C
 global sub_3509C, sub_35188, sub_35234, sub_353B4, sub_35464, sub_35588, sub_35690, sub_356A8
@@ -125,7 +125,7 @@ puckfaceoff:
         mov dx, word [awtmstruct]
         cmp dx, word [hmtmstruct]
         je short .7
-        call sub_780F0
+        call clockcont_0
         pop edi
         pop esi
         pop edx
@@ -136,7 +136,7 @@ puckfaceoff:
         test byte [byte_19CBC2], 8
         je short .8
         xor eax, eax
-        call sub_32888
+        call Stop4Pen
         pop edi
         pop esi
         pop edx
@@ -209,7 +209,7 @@ puckfaceoff:
         and bh, 0FDh
         mov edx, SortCords
         mov byte [byte_19EBD2], bh
-        call sub_1C29C
+        call FaceoffCameraScene
         xor eax, eax
 .16:
         mov ch, byte [dword edx+0C0h]
@@ -425,7 +425,7 @@ puckfaceoff:
         mov word [word_19EAB2], ax
         mov word [word_19EBC0], ax
 .32:
-        call sub_1C7B4
+        call FaceoffCameraScene2
         mov eax, dword [dword edi+0AEh]
         sar eax, 18h
         mov edx, 43h
@@ -4791,9 +4791,12 @@ AddPenalty2_354:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_32888                                                       32888  97 PC
+; Stop4Pen                                       32888  94G, medium confidence
+; 94G Stop4Pen (from checkfornewpen and puckfaceoff): stops the clock
+; (byte_19CBC2 bit 0), sets the faceoff spot from the penalty type, clears
+; the overlays, whistle sound and PA event
 ;-----------------------------------------------------------------------------
-sub_32888:
+Stop4Pen:
         push ebx
         push ecx
         push edx
@@ -4983,7 +4986,7 @@ sub_32888:
         call PlaySfxVolume
         jmp short .26
 .25:
-        call sub_18E35
+        call ClearOverlayWindows
 .26:
         test byte [byte_19CBC2], 8
         je short .27
@@ -4999,9 +5002,13 @@ sub_32888:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_32B68                                                       32B68  97 PC
+; updatepwrplay                                  32B68  94G, medium confidence
+; The 94G updatepwrplay state part (called from updatepentime here): players
+; on ice home minus away; sets / clears the power play flag (byte_19CBCA 20h,
+; 40h visitors) and counts a power play (+20CBh) and a shorthanded situation
+; (+20BDh) when it starts; no display
 ;-----------------------------------------------------------------------------
-sub_32B68:
+updatepwrplay:
         push ebx
         push ecx
         push edx
@@ -5053,9 +5060,11 @@ sub_32B68:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_32C04                                                       32C04  97 PC
+; chkatop                                        32C04  94G, medium confidence
+; 94G chkatop (attack time stat, once a second from updatepentime): puck y
+; beyond +/-570h credits the attacking team's attack time (+20D7h)
 ;-----------------------------------------------------------------------------
-sub_32C04:
+chkatop:
         push edx
         cmp dword [dword_1B8FA0], byte 0
         jne near .6
@@ -5125,9 +5134,12 @@ sub_32C04:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_32CEC                                                       32CEC  97 PC
+; releasepl                                                         32CEC  94G
+; 94G releasepl (player's penalty time is up, let him out): first sort object
+; off the ice, one more on the ice (+0Eh), line-change flags, position from
+; the priority list (off_19C61F), Setplass, setplayer
 ;-----------------------------------------------------------------------------
-sub_32CEC:
+releasepl:
         push ebx
         push ecx
         push esi
@@ -5168,9 +5180,12 @@ sub_32CEC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_32D88                                                       32D88  97 PC
+; PenGoalStuff                                   32D88  94G, medium confidence
+; 94G PenGoalStuff (after a goal): when the scoring team had more players on
+; the ice, releases the first scored-on player in the box without a
+; coincidental penalty (releasepl)
 ;-----------------------------------------------------------------------------
-sub_32D88:
+PenGoalStuff:
         push ebx
         push ecx
         push edx
@@ -5342,7 +5357,7 @@ sub_32D88:
         or byte [byte eax+051h], 8
         mov eax, edi
         mov ebx, 1
-        call sub_32CEC
+        call releasepl
 .20:
         mov edx, dword [byte esp+06h]
         movsx esi, bx
@@ -5372,9 +5387,12 @@ sub_32D88:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_32FF8                                                       32FF8  97 PC
+; updatepentime_ut_chk                32FF8  94G penalty94.asm, low confidence
+; The updatepentime_ut check for one box entry (team, player): when the time
+; is up, the PA event 1Bh and releasepl when the team is short (the NHL95PC
+; updatepentime_ut_chk part)
 ;-----------------------------------------------------------------------------
-sub_32FF8:
+updatepentime_ut_chk:
         push ebx
         push ecx
         push esi
@@ -5476,7 +5494,7 @@ sub_32FF8:
         test word [byte ebx+edx*2+050h], 7FFh
         jne short .8
         mov eax, ebx
-        call sub_32CEC
+        call releasepl
         mov edi, dword [dword_19CB48]
         push edi
         mov dx, word [byte ebx+0Eh]
@@ -5502,9 +5520,11 @@ sub_32FF8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3319C                                                       3319C  97 PC
+; updatepentime_ut                               3319C  94G, medium confidence
+; 94G updatepentime_ut (team): walks the team's penalty box list, the first
+; two entries serving, and counts their time down (updatepentime_ut_chk)
 ;-----------------------------------------------------------------------------
-sub_3319C:
+updatepentime_ut:
         push ebx
         push ecx
         push edx
@@ -5591,7 +5611,7 @@ sub_3319C:
         xor edx, edx
         mov eax, ecx
         mov dl, byte [esp]
-        call sub_32FF8
+        call updatepentime_ut_chk
         jmp short .11
 .10:
         mov eax, dword [dword_19CB6A]
@@ -5603,7 +5623,7 @@ sub_3319C:
         mov eax, ecx
         mov dl, byte [byte esp+01h]
 .12:
-        call sub_32FF8
+        call updatepentime_ut_chk
 .13:
         add esp, byte 4
         pop ebp
@@ -5641,8 +5661,8 @@ updatepentime:
         add esi, byte 10h
         mov byte [byte_19CBCC], dh
         mov word [word_19CBD4], si
-        call sub_32B68
-        call sub_32C04
+        call updatepwrplay
+        call chkatop
         mov bl, byte [byte_19CBCA]
         test bl, 20h
         je short .3
@@ -5658,9 +5678,9 @@ updatepentime:
         inc word [dword eax+020D1h]
 .3:
         mov eax, hmtmstruct
-        call sub_3319C
+        call updatepentime_ut
         mov eax, awtmstruct
-        call sub_3319C
+        call updatepentime_ut
 .4:
         pop esi
         pop edx
@@ -5797,7 +5817,7 @@ checkfornewpen:
         call sub_650E8
 .10:
         movsx eax, dx
-        call sub_32888
+        call Stop4Pen
 .11:
         movsx eax, dx
         lea eax, [eax+eax*2]
@@ -9863,7 +9883,7 @@ StartFight:
         xor eax, eax
         mov dl, byte [dword ecx+0A4h]
         mov al, byte [dword esi+0A4h]
-        call sub_1C108
+        call FightCameraScene
         pop esi
         pop ecx
         ret
@@ -10782,7 +10802,7 @@ sub_37044:
         push byte 0
         push ebx
         push esi
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
         push edi
         push ebp
@@ -10824,7 +10844,7 @@ sub_3708C:
         lea eax, [byte esp+04h]
         push eax
         push edi
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov eax, dword [byte esp+08h]
         mov ecx, ebx
@@ -10848,7 +10868,7 @@ sub_3708C:
         push edi
         lea eax, [byte esp+08h]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         xor eax, eax
         jmp short .3
@@ -10919,7 +10939,7 @@ sub_37134:
         mov byte [byte esi+0Ch], 0FEh
         push edi
         mov byte [byte esi+0Dh], cl
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         add esp, byte 4
         pop ebp
@@ -11339,7 +11359,7 @@ sub_37470:
         push eax
         mov edx, dword [byte esp+010h]
         push edx
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         push ebx
         lea eax, [dword edi+0A4h]
@@ -11497,7 +11517,7 @@ sub_375F0:
         push ebp
         lea eax, [ecx+ebp]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov dword [byte edi+024h], esi
 .8:
@@ -12032,7 +12052,7 @@ sub_37AB4:
         mov dword [byte esp+040h], eax
         lea eax, [byte esp+08h]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov dword [ebx], 0
         mov al, byte [dword esp+0CCh]
@@ -12203,7 +12223,7 @@ sub_37AB4:
         cmp dword [dword esp+0CCh], byte 0
         je short .29
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [byte esi+024h], 0
 .29:
@@ -12377,7 +12397,7 @@ sub_37FC8:
         test ah, ah
         je short .6
         push edi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [byte ebp+024h], 0
 .6:
@@ -12393,23 +12413,23 @@ sub_37FC8:
         pop ebx
         ret
 jpt_380E6:
-        dd sub_3812E_13F
-        dd sub_3812E_14D
-        dd sub_3812E_1EC
-        dd sub_3812E_1F3
-        dd sub_3812E_238
-        dd sub_3812E_2B1
-        dd sub_3812E_2CF
+        dd SeasonGameScreen_13F
+        dd SeasonGameScreen_14D
+        dd SeasonGameScreen_1EC
+        dd SeasonGameScreen_1F3
+        dd SeasonGameScreen_238
+        dd SeasonGameScreen_2B1
+        dd SeasonGameScreen_2CF
 jpt_38102:
-        dd sub_3812E_17B
-        dd sub_3812E_182
-        dd sub_3812E_1DA
-        dd sub_3812E_182
-        dd sub_3812E_1DA
-        dd sub_3812E_1E3
+        dd SeasonGameScreen_17B
+        dd SeasonGameScreen_182
+        dd SeasonGameScreen_1DA
+        dd SeasonGameScreen_182
+        dd SeasonGameScreen_1DA
+        dd SeasonGameScreen_1E3
 jpt_3811A:
-        dd sub_3812E_3D3
-        dd sub_3812E_3DF
-        dd sub_3812E_3D3
-        dd sub_3812E_3DF
-        dd sub_3812E_3EB
+        dd SeasonGameScreen_3D3
+        dd SeasonGameScreen_3DF
+        dd SeasonGameScreen_3D3
+        dd SeasonGameScreen_3DF
+        dd SeasonGameScreen_3EB

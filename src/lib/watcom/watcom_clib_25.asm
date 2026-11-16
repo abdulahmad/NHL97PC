@@ -3,8 +3,11 @@ bits 32
 %include "hockey.inc"
 section s_12F9E3 progbits alloc exec nowrite align=1
 extern __CommonInit_, dword_17258C, dword_172590, dword_19C690, dword_1DE784, dword_1DE788, exit_, main_
-extern sub_101324, sub_11A264, sub_138C90, sub_13C164, unk_19C648, unk_19C67E
+extern sub_101324, sub_11A264, sub_138C90, SetScreenTarget, unk_19C648, unk_19C67E
 global __CMain, __FiniRtns, __InitRtns, sub_12FACC
+;-----------------------------------------------------------------------------
+; __CMain                                                      12F9E3  library
+;-----------------------------------------------------------------------------
 __CMain:
         push edx
         push ebp
@@ -31,6 +34,9 @@ __CMain:
         call main_
         call exit_
         db 089h,0ECh,05Dh,05Ah,0C3h
+;-----------------------------------------------------------------------------
+; __InitRtns                                                   12FA32  library
+;-----------------------------------------------------------------------------
 __InitRtns:
         push esi
         push edi
@@ -78,6 +84,9 @@ __InitRtns:
         pop edi
         pop esi
         ret
+;-----------------------------------------------------------------------------
+; __FiniRtns                                                   12FA7D  library
+;-----------------------------------------------------------------------------
 __FiniRtns:
         push esi
         push edi
@@ -126,6 +135,9 @@ __FiniRtns:
         pop edi
         pop esi
         ret
+;-----------------------------------------------------------------------------
+; sub_12FACC                                                          12FACC  
+;-----------------------------------------------------------------------------
 sub_12FACC:
         push ebx
         int 5
@@ -137,7 +149,7 @@ sub_12FACC:
         push edi
         mov esi, eax
         mov edi, edx
-        call sub_13C164
+        call SetScreenTarget
         push ebx
         push edi
         mov edx, dword [byte esi+02Ch]
@@ -154,7 +166,7 @@ sub_12FACC:
         push edi
         mov esi, eax
         mov edi, edx
-        call sub_13C164
+        call SetScreenTarget
         push ebx
         push edi
         mov edx, dword [byte esi+02Ch]

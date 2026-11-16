@@ -4,7 +4,10 @@ bits 32
 section s_102BB8 progbits alloc exec nowrite align=1
 extern byte_16F794, dword_16E670, dword_16E674, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16F77C
 extern dword_16F780, dword_16F784, dword_16F788, dword_16F78C, dword_16F790
-global SetClipWindow, sub_102C10, sub_102C30, sub_102C96, sub_102CDC, sub_102CF4
+global SetClipWindow, sub_102C10, Random32, sub_102C96, sub_102CDC, sub_102CF4
+;-----------------------------------------------------------------------------
+; SetClipWindow                               102BB8  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 SetClipWindow:
         push ebx
         mov eax, dword [byte esp+08h]
@@ -34,6 +37,9 @@ SetClipWindow:
         pop ebx
         ret
         db 00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_102C10                                                          102C10  
+;-----------------------------------------------------------------------------
 sub_102C10:
         push ebx
         mov edx, dword [dword_16E674]
@@ -47,7 +53,12 @@ sub_102C10:
         pop ebx
         ret
         db 00h,00h,00h
-sub_102C30:
+;-----------------------------------------------------------------------------
+; Random32                                    102C30  97 PC, medium confidence
+; Returns a pseudo-random dword (multi-word add-with-carry generator,
+; dword_16F77C-790)
+;-----------------------------------------------------------------------------
+Random32:
         mov eax, dword [dword_16F790]
         add eax, dword [dword_16F78C]
         mov dword [dword_16F78C], eax
@@ -72,6 +83,9 @@ sub_102C30:
 .1:
         mov dword [dword_16F77C], eax
         ret
+;-----------------------------------------------------------------------------
+; sub_102C96                                                          102C96  
+;-----------------------------------------------------------------------------
 sub_102C96:
         push ebp
         LD mov, ebp, esp
@@ -91,6 +105,9 @@ sub_102C96:
         leave
         ret
         db 00h,00h
+;-----------------------------------------------------------------------------
+; sub_102CDC                                                          102CDC  
+;-----------------------------------------------------------------------------
 sub_102CDC:
         push ebp
         LD mov, ebp, esp
@@ -104,6 +121,9 @@ sub_102CDC:
         pop esi
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_102CF4                                                          102CF4  
+;-----------------------------------------------------------------------------
 sub_102CF4:
         push ebp
         LD mov, ebp, esp

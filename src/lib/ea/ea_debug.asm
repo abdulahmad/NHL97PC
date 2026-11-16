@@ -3,8 +3,11 @@ bits 32
 %include "hockey.inc"
 section s_11AE10 progbits alloc exec nowrite align=1
 extern byte_16E503, byte_16E504, byte_171D33, byte_171D34, dword_1DA394, dword_1DA398, dword_1DA39C, dword_1DA3A0
-extern dword_1DA3A4, dword_1DA3A8, dword_1DA3AC, dword_1DA3B0, sub_101429, sub_101430
-global sub_11AE10, sub_11AFAC, sub_11B008, sub_11B094
+extern dword_1DA3A4, dword_1DA3A8, dword_1DA3AC, dword_1DA3B0, FindShape, FindShapeQuiet
+global sub_11AE10, sub_11AFAC, sub_11B008, FindShapeList
+;-----------------------------------------------------------------------------
+; sub_11AE10                                                          11AE10  
+;-----------------------------------------------------------------------------
 sub_11AE10:
         push ebx
         push ecx
@@ -143,6 +146,9 @@ sub_11AE10:
         pop ebx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_11AFAC                                                          11AFAC  
+;-----------------------------------------------------------------------------
 sub_11AFAC:
         push ebx
         push esi
@@ -177,6 +183,9 @@ sub_11AFAC:
         pop ebx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_11B008                                                          11B008  
+;-----------------------------------------------------------------------------
 sub_11B008:
         push ebx
         mov eax, dword [byte esp+08h]
@@ -232,7 +241,7 @@ sub_11B008:
 .5:
         push ebx
         push edi
-        call sub_101430
+        call FindShapeQuiet
         add ebx, byte 4
         mov dword [esi], eax
         add esi, byte 4
@@ -246,7 +255,12 @@ sub_11B008:
         pop ebx
         ret
         db 08Dh,040h,00h
-sub_11B094:
+;-----------------------------------------------------------------------------
+; FindShapeList                               11B094  97 PC, medium confidence
+; (bank, names, out): FindShape for each 4-character name of a list, storing
+; the pointers
+;-----------------------------------------------------------------------------
+FindShapeList:
         push ebx
         push esi
         push edi
@@ -259,7 +273,7 @@ sub_11B094:
 .1:
         push ebx
         push edi
-        call sub_101429
+        call FindShape
         add ebx, byte 4
         mov dword [esi], eax
         add esi, byte 4

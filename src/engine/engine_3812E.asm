@@ -40,41 +40,41 @@ extern qword_160A88, qword_160A90, qword_160A98, qword_160AA0, qword_160AA8, qwo
 extern qword_160ACC, qword_160AD4, qword_160ADC, qword_160AE4, qword_160AEC, qword_160AF4, qword_160AFC, qword_160B04
 extern qword_160B14, qword_160B1C, qword_160B28, qword_160B35, qword_160CF7, qword_160CFF, qword_160D07, qword_160D0F
 extern randomd0, removewindow, sprintf_, str_CDSTREAM, str_SECCDSTREAM, str_STREAM, strcat_, strcmp_
-extern strcpy_, strncpy_, strstr_, sub_100A68, sub_101390, sub_1013AC, sub_1013FC, sub_101429
-extern sub_101430, sub_101560, sub_101EAC, sub_102B94, sub_102C10, sub_102C30, sub_102CDC, sub_102D3C
+extern strcpy_, strncpy_, strstr_, bcopy, BlitArt, BlitShape, sub_1013FC, FindShape
+extern FindShapeQuiet, sub_101560, sub_101EAC, sub_102B94, sub_102C10, Random32, sub_102CDC, sub_102D3C
 extern sub_102E0C, sub_102EBC, sub_103298, sub_103648, sub_1047D0, sub_10483C, sub_1048BC, sub_10491C
 extern sub_104940, sub_104948, sub_104980, sub_1049D0, sub_105258, sub_1055D4, sub_105644, sub_1056F0
 extern sub_10578C, sub_1057E8, sub_105808, sub_10585C, sub_105904, sub_106AA6, sub_106D08, sub_106DA0
 extern sub_106F7C, sub_106F94, sub_1070B0, sub_1070D0, sub_107154, sub_1072F0, sub_1079E4, sub_107AE0
 extern sub_107B70, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48, sub_108040, sub_108144
 extern sub_10815C, sub_1081B0, sub_108640, sub_1086BF, sub_108CE8, sub_1091E0, sub_109210, sub_109250
-extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, sub_13C164, sub_1E7C4
+extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, SetScreenTarget, sub_1E7C4
 extern sub_2F8D8, sub_2FA00, sub_2FB40, InitSpeechBanks, OpenSpeechFile, sub_47D70, sub_47EA4, ShutdownSound
 extern sub_4AA78, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_52D4C, sub_55648, sub_5696C, sub_56A08
 extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, sub_5AC30, sub_5B4B8, sub_5C1CC, sub_5CD68
 extern sub_5DF50, SetSPA, sub_5EEEC, sub_60D6C, sub_60F48, sub_612E4, sub_613AC, sub_6152C
 extern sub_617EC, sub_62C14, sub_74CEC, sub_74FA4, sub_76944, sub_789F0, sub_7B15D, sub_7DFC0
-extern sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, DrawTextAligned, sub_7F29C
-extern sub_7F5A4, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMenuItems, sub_8BFAC
+extern sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C
+extern sub_7F5A4, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMenuItems, sub_8BFAC
 extern sub_8DF1F, GetLangText, sub_99DAC, sub_AC369, sub_D0098, sub_DB75E, sub_DB763, sub_DE25F
 extern OpenLeagueFile, sub_DE740, sub_E036F, sub_E0415, FileExists, FileCreate, FileSeek, FileReadRecord
 extern FileWriteRecord, FileClose, sub_E341C, BuildAllStarTeams, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
-extern sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB71C, addtimer, sub_FC008, sub_FC290
-extern WaitTicks, sub_FC330, sub_FC410, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8
-extern sub_FD110, sub_FDC68, sub_FE180, sub_FFA44, sub_FFA9C, tickcount, unk_160A56, unk_160B68
+extern AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, FillMem, addtimer, sub_FC008, sub_FC290
+extern WaitTicks, sub_FC330, sub_FC410, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
+extern ClearScreen, sub_FDC68, sub_FE180, sub_FFA44, sub_FFA9C, tickcount, unk_160A56, unk_160B68
 extern unk_160C94, unk_160C98, unk_19ED78, unk_19F548, unk_1A0CB8, unk_1A8D48, unk_1A8E8C, unk_1A9C8C
 extern unk_1AD22E, unk_1B93E0, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_169054, word_169066, word_1690AE
 extern word_16914E, word_1691A4, word_1691B2, word_1691B6, word_169232, word_169234, word_169236, word_19ED74
 extern word_19ED76, word_1A928A, word_1A928C, word_1A928E, word_1ABD46, word_1ABD48, word_1ABD4A, word_1ABD4C
 extern word_1ABD4E, word_1ABD50, word_1AC7D8, word_1AD240, word_1AD242, word_1C1344
-global jpt_3EF24, jpt_40D68, jpt_40DCC, jpt_40E30, jpt_40EA4, sub_3812E_13F, sub_3812E_14D, sub_3812E_17B
-global sub_3812E_182, sub_3812E_1DA, sub_3812E_1E3, sub_3812E_1EC, sub_3812E_1F3, sub_3812E_238, sub_3812E_2B1, sub_3812E_2CF
-global sub_3812E_3D3, sub_3812E_3DF, sub_3812E_3EB, sub_38675_472, sub_38E26_14D, sub_38E26_14E, sub_39BB6_6B, sub_3D030_FC
+global jpt_3EF24, jpt_40D68, jpt_40DCC, jpt_40E30, jpt_40EA4, SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B
+global SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3, SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF
+global SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, InitSeasonGameScreen_472, sub_38E26_14D, sub_38E26_14E, sub_39BB6_6B, sub_3D030_FC
 global sub_3DE08_70, CdStreamService_20, CdStreamService_5B, CdStreamService_D6, CdStreamService_14C, CdStreamService_1A3, CdStreamService_1E3, CdStreamService_47A
 global CdStreamService_595, CdStreamService_74E, CdStreamService_81D, CdStreamService_956, CdStreamService_AC2, CdStreamService_BB8, sub_40D80_11, sub_40D80_19
 global sub_40D80_21, sub_40D80_29, sub_40D80_31, sub_40D80_39, OpenAudioStream_97, OpenAudioStream_A4, OpenAudioStream_B1, OpenAudioStream_BE
-global OpenAudioStream_CB, OpenAudioStream_D8, sub_3812E, sub_385C3, sub_38675, sub_38B1A, sub_38B77, sub_38BAB
-global sub_38BFC, sub_38C79, sub_38D84, sub_38E26, sub_38F7A, sub_39052, sub_397FD, sub_39824
+global OpenAudioStream_CB, OpenAudioStream_D8, SeasonGameScreen, sub_385C3, InitSeasonGameScreen, sub_38B1A, sub_38B77, sub_38BAB
+global sub_38BFC, sub_38C79, sub_38D84, sub_38E26, sub_38F7A, DrawSeasonGamePanel, sub_397FD, sub_39824
 global sub_39851, sub_39882, sub_39B20, sub_39BB6, sub_39CE0, sub_39D1C, sub_39DA4, sub_39EC0
 global sub_3A06C, sub_3A164, sub_3A2E8, sub_3A3C8, sub_3A404, sub_3A440, sub_3A564, sub_3A65C
 global sub_3A75C, sub_3A814, sub_3A884, sub_3A920, sub_3A9D0, sub_3AA48, sub_3AAE8, sub_3AB28
@@ -100,9 +100,12 @@ global PlaySfxOr, sub_420E4, PlaySfxVolume, sub_42354, sub_423B4, sub_4241C, sub
 global sub_425CC, sub_42650, sub_42910, sub_42960, sub_42A98, sub_42AD0, sub_42C38, sub_42D38
 global OpenSpeechBanks, sub_431E8, LoadTeamSpeech
 ;-----------------------------------------------------------------------------
-; sub_3812E                                                       3812E  97 PC
+; SeasonGameScreen                                3812E  97 PC, low confidence
+; From RunSeasonMenus / RunPlayoffMenus: the next-game screen (HOME / AWAY
+; teams; play, simulate or continue, with the "team not present", "unplayed
+; games" and "no games left" messages)
 ;-----------------------------------------------------------------------------
-sub_3812E:
+SeasonGameScreen:
         push ebx
         push ecx
         push edx
@@ -133,9 +136,9 @@ sub_3812E:
         mov dword [dword_19ED2C], eax
         call sub_39851
         push byte 0FFFFFFFFh
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         mov eax, 3
         xor edx, edx
         call sub_419B0
@@ -153,7 +156,7 @@ sub_3812E:
         push dword 1E0h
         push dword 280h
         mov dword [dword_19ED44], eax
-        call sub_FD08C
+        call CreateBitmap
         add esp, byte 0Ch
         mov dword [dword_19ED10], eax
         call sub_385C3
@@ -168,35 +171,35 @@ sub_3812E:
 .3:
         lea edx, [dword ebp-0232h]
         lea eax, [dword ebp-0472h]
-        call sub_38675
+        call InitSeasonGameScreen
         mov eax, dword [dword_19ED10]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
         xor edi, edi
         call sub_80BBC
-        jmp short sub_3812E_182.6
-sub_3812E_13F:
+        jmp short SeasonGameScreen_182.6
+SeasonGameScreen_13F:
         call sub_7EEB0
         mov esi, 1Ah
         mov edi, ecx
-        jmp short sub_3812E_182.6
-sub_3812E_14D:
+        jmp short SeasonGameScreen_182.6
+SeasonGameScreen_14D:
         call sub_7EDF0
         mov edi, ecx
         cmp dword [dword_19ED18], byte 0
         je short .4
         mov esi, 1Fh
-        jmp short sub_3812E_182.6
+        jmp short SeasonGameScreen_182.6
 .4:
         mov eax, dword [dword_19ED14]
         mov esi, 1Ah
         cmp eax, byte 5
-        ja short sub_3812E_182.6
+        ja short SeasonGameScreen_182.6
         jmp dword [nosplit cs:eax*4+jpt_38102]
-sub_3812E_17B:
+SeasonGameScreen_17B:
         mov esi, 0Eh
-        jmp short sub_3812E_182.6
-sub_3812E_182:
+        jmp short SeasonGameScreen_182.6
+SeasonGameScreen_182:
         push byte 1
         mov eax, 24Ch
 .5:
@@ -207,7 +210,7 @@ sub_3812E_182:
         call sub_7F5A4
 .6:
         test edi, edi
-        jne near sub_3812E_3EB.17
+        jne near SeasonGameScreen_3EB.17
         lea eax, [byte ebp+07Eh]
         push edi
         mov ecx, sub_39BB6_6B
@@ -222,38 +225,38 @@ sub_3812E_182:
         lea ecx, [byte edi+01h]
         imul eax, ebx, byte 52h
         jmp dword [nosplit cs:ebx*4+jpt_380E6]
-sub_3812E_1DA:
+SeasonGameScreen_1DA:
         push byte 1
         mov eax, 24Dh
-        jmp short sub_3812E_182.5
-sub_3812E_1E3:
+        jmp short SeasonGameScreen_182.5
+SeasonGameScreen_1E3:
         push byte 1
         mov eax, 24Eh
-        jmp short sub_3812E_182.5
-sub_3812E_1EC:
+        jmp short SeasonGameScreen_182.5
+SeasonGameScreen_1EC:
         call sub_7EF70
-        jmp short sub_3812E_182.6
-sub_3812E_1F3:
+        jmp short SeasonGameScreen_182.6
+SeasonGameScreen_1F3:
         cmp dword [dword_19ED4C], byte 0
-        jle short sub_3812E_182.6
+        jle short SeasonGameScreen_182.6
         push dword [dword_19ED10]
         dec dword [dword_19ED4C]
 .7:
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         xor eax, eax
-        call sub_39052
-        call sub_13C164
+        call DrawSeasonGamePanel
+        call SetScreenTarget
         push edi
         mov eax, dword [dword_19ED10]
         push edi
 .8:
         push dword [byte eax+02Ch]
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         call sub_1013FC
-        jmp near sub_3812E_182.6
-sub_3812E_238:
+        jmp near SeasonGameScreen_182.6
+SeasonGameScreen_238:
         mov ebx, dword [dword eax+ebp-0458h]
         mov edx, dword [dword eax+ebp-044Ch]
         movsx ecx, word [byte ebx+06h]
@@ -272,25 +275,25 @@ sub_3812E_238:
         mov eax, edx
         call sub_8DF1F
         cmp eax, dword [dword_19ED4C]
-        je near sub_3812E_182.6
+        je near SeasonGameScreen_182.6
         test eax, eax
-        jl near sub_3812E_182.6
+        jl near SeasonGameScreen_182.6
         cmp eax, byte 9
-        jge near sub_3812E_182.6
+        jge near SeasonGameScreen_182.6
         push dword [dword_19ED10]
         mov dword [dword_19ED4C], eax
-        jmp near sub_3812E_1F3.7
-sub_3812E_2B1:
+        jmp near SeasonGameScreen_1F3.7
+SeasonGameScreen_2B1:
         cmp dword [dword_19ED4C], byte 8
-        jge near sub_3812E_182.6
+        jge near SeasonGameScreen_182.6
         push dword [dword_19ED10]
         inc dword [dword_19ED4C]
-        jmp near sub_3812E_1F3.7
-sub_3812E_2CF:
+        jmp near SeasonGameScreen_1F3.7
+SeasonGameScreen_2CF:
         push dword [dword eax+ebp-0448h]
         push dword [dword eax+ebp-044Ch]
         push dword [dword eax+ebp-0458h]
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         cmp dword [dword_19ED14], byte 0
         jne near .16
@@ -332,45 +335,45 @@ sub_3812E_2CF:
         jne short .15
         mov esi, 1Ah
         inc edi
-        jmp near sub_3812E_182.6
+        jmp near SeasonGameScreen_182.6
 .15:
         call sub_39882
         push dword [dword_19ED10]
         mov word [word_19ED76], ax
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         mov eax, 1
-        call sub_39052
-        call sub_13C164
+        call DrawSeasonGamePanel
+        call SetScreenTarget
         push byte 0
         mov eax, dword [dword_19ED10]
         push byte 0
-        jmp near sub_3812E_1F3.8
+        jmp near SeasonGameScreen_1F3.8
 .16:
         mov eax, dword [dword_19ED14]
         dec eax
         cmp eax, byte 4
-        ja near sub_3812E_182.6
+        ja near SeasonGameScreen_182.6
         jmp dword [nosplit cs:eax*4+jpt_3811A]
-sub_3812E_3D3:
+SeasonGameScreen_3D3:
         push byte 1
         mov eax, 1E5h
-        jmp near sub_3812E_182.5
-sub_3812E_3DF:
+        jmp near SeasonGameScreen_182.5
+SeasonGameScreen_3DF:
         push byte 1
         mov eax, 1E6h
-        jmp near sub_3812E_182.5
-sub_3812E_3EB:
+        jmp near SeasonGameScreen_182.5
+SeasonGameScreen_3EB:
         push byte 1
         mov eax, 1E7h
-        jmp near sub_3812E_182.5
+        jmp near SeasonGameScreen_182.5
 .17:
         xor ebx, ebx
 .18:
         mov edx, dword [dword_19ED2C]
         mov eax, ebx
         push dword [edx+eax*4]
-        call sub_FCD90
+        call FreeBitmap
         inc ebx
         add esp, byte 4
         cmp ebx, byte 1Ah
@@ -384,17 +387,17 @@ sub_3812E_3EB:
         cmp dword [dword_19ED48], byte 0
         je short .20
         push dword [dword_19ED48]
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .20:
         push dword [dword_19ED10]
-        call sub_FCD90
+        call FreeBitmap
         add esp, byte 4
         push dword [dword_19ED44]
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         push dword [dword_19ED70]
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         cmp byte [byte_1C6040], 0
         je short .21
@@ -465,9 +468,11 @@ sub_385C3:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_38675                                                       38675  97 PC
+; InitSeasonGameScreen                            38675  97 PC, low confidence
+; From SeasonGameScreen: sets up its menu items and art (BACK, TITL,
+; AB00-AB05, BH00, BT00) and the HOME / AWAY labels
 ;-----------------------------------------------------------------------------
-sub_38675:
+InitSeasonGameScreen:
         push ebx
         push ecx
         push esi
@@ -490,22 +495,22 @@ sub_38675:
         cmp dword [byte ebp-04h], byte 7
         jl short .1
         push dword [dword_19ED10]
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push asc_1609D8
         push dword [dword_19ED70]
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         mov dword [dword_19ED1C], eax
-        call sub_1013AC
+        call BlitShape
         add esp, byte 4
         push asc_1609DD
         push dword [dword_19ED44]
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_1013AC
+        call BlitShape
         mov eax, dword [dword_19ED10]
         mov edi, dword [byte ebp-018h]
         mov esi, unk_1C5EF8
@@ -570,7 +575,7 @@ sub_38675:
         lea eax, [byte ebp-014h]
         push eax
         push dword [dword_19ED44]
-        call sub_101429
+        call FindShape
         mov edx, eax
         mov eax, dword [byte ebp-04h]
         add esp, byte 8
@@ -595,7 +600,7 @@ sub_38675:
         push eax
         push dword [dword_19ED44]
         mov ebx, dword [byte ebp-04h]
-        call sub_101429
+        call FindShape
         mov edx, eax
         mov eax, dword [dword_19ED58]
         add esp, byte 8
@@ -604,7 +609,7 @@ sub_38675:
         push eax
         push dword [dword_19ED44]
         mov byte [byte ebp-013h], 48h
-        call sub_101429
+        call FindShape
         mov edx, eax
         mov eax, dword [dword_19ED64]
         inc dword [byte ebp-04h]
@@ -625,7 +630,7 @@ sub_38675:
         lea eax, [byte ebp-014h]
         push eax
         push dword [dword_19ED70]
-        call sub_101429
+        call FindShape
         mov ebx, dword [dword_19ED38]
         mov edx, eax
         mov eax, dword [byte ebp-04h]
@@ -647,7 +652,7 @@ sub_38675:
         lea eax, [byte ebp-014h]
         push eax
         push dword [dword_19ED70]
-        call sub_101429
+        call FindShape
         mov ebx, dword [dword_19ED24]
         mov edx, eax
         mov eax, dword [byte ebp-04h]
@@ -660,7 +665,7 @@ sub_38675:
         mov dword [dword_19ED30], 0
         call OpenDataLibrary
         push dword [dword_19ED10]
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push dword [dword_19ED50]
         push asc_160A20
@@ -682,7 +687,7 @@ sub_38675:
         je short .6
         push asc_160A2D
         push eax
-        call sub_101430
+        call FindShapeQuiet
         add esp, byte 8
         mov dword [dword_19ED54], eax
 .6:
@@ -695,9 +700,9 @@ sub_38675:
         mov eax, dword [byte eax+02Ch]
         call sub_7E52C
         push dword 40FF80h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         mov eax, 90h
         call GetLangText
         push eax
@@ -707,9 +712,9 @@ sub_38675:
         call DrawTextAligned
         add esp, byte 10h
         push dword 0FF4040h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         mov eax, 91h
         call GetLangText
         push eax
@@ -733,7 +738,7 @@ sub_38675:
         push dword [byte eax+02Ah]
         push dword [byte eax+026h]
         push dword [byte eax+01Ah]
-        call sub_FCFCC
+        call DrawArt
         add esp, byte 0Ch
 .8:
         inc dword [byte ebp-04h]
@@ -744,20 +749,20 @@ sub_38675:
         push byte 0
         push byte 42h
         push byte 48h
-        call sub_FD08C
+        call CreateBitmap
         mov edx, dword [byte ebp-04h]
         mov ebx, eax
         mov eax, dword [dword_19ED2C]
         add esp, byte 0Ch
         mov dword [eax+edx*4], ebx
         mov eax, edx
-        call sub_80758
+        call LoadTeamLogo
         mov eax, dword [dword_19ED2C]
         push dword [eax+edx*4]
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push byte 0
-        call sub_FD110
+        call ClearScreen
         add esp, byte 4
         push byte 2
         push byte 0FFFFFFF4h
@@ -770,11 +775,11 @@ sub_38675:
         cmp dword [byte ebp-04h], byte 1Ah
         jl short .9
         push dword [dword_19ED10]
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         mov eax, 1
-        call sub_39052
-sub_38675_472:
+        call DrawSeasonGamePanel
+InitSeasonGameScreen_472:
         leave
         pop edi
         pop esi
@@ -928,7 +933,7 @@ sub_38BFC:
         push dword [dword_16E46C]
         push asc_160A32
         push dword [dword_19ED70]
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         call sub_102B94
@@ -955,7 +960,7 @@ sub_38BFC:
         mov eax, esi
         call sub_7DFC0
         push esi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         pop edi
         pop esi
@@ -975,9 +980,9 @@ sub_38C79:
         mov dword [byte ebp-014h], ecx
         mov ebx, dword [byte ebp+010h]
         push byte 0FFFFFFFFh
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         mov eax, dword [byte ebp-010h]
         movsx edx, word [byte ebx+04h]
         mov ecx, dword [nosplit eax*4+dword_16910A]
@@ -999,7 +1004,7 @@ sub_38C79:
         push dword [byte ebp-04h]
         push ebx
         mov dword [byte ebp-08h], edx
-        call sub_FCFCC
+        call DrawArt
         mov eax, edi
         mov edx, dword [byte esi+020h]
         shl eax, 4
@@ -1070,9 +1075,9 @@ sub_38D84:
         mov edi, eax
         mov esi, edx
         push byte 0FFFFFFFFh
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         mov eax, edi
         movsx edi, word [byte ebx+04h]
         mov edx, dword [nosplit eax*4+dword_16910A]
@@ -1092,7 +1097,7 @@ sub_38D84:
         push esi
         push edi
         push ebx
-        call sub_FCFCC
+        call DrawArt
         add esp, byte 0Ch
         movsx eax, word [word_1AD242]
         push eax
@@ -1262,7 +1267,7 @@ sub_38F7A:
         add eax, byte 53h
         push dword 0FFFFFF50h
         mov dword [byte ebp-08h], eax
-        call sub_FC510
+        call MakeColor
         mov edx, dword [byte ebp-08h]
         add esp, byte 4
         mov ecx, dword [dword edi+dword_16913A]
@@ -1275,10 +1280,10 @@ sub_38F7A:
         sub eax, byte 3
         call sub_99DAC
         cmp dword [dword_19ED14], byte 0
-        je near sub_38675_472
+        je near InitSeasonGameScreen_472
         push asc_160A4C
         push dword [dword_19ED70]
-        call sub_101429
+        call FindShape
         movsx edx, word [byte eax+04h]
         mov ebx, dword [dword esi+dword_16910A]
         sub ebx, edx
@@ -1295,9 +1300,9 @@ sub_38F7A:
         push dword [byte ebp-08h]
         push dword [byte ebp-04h]
         push eax
-        call sub_FCFCC
+        call DrawArt
         add esp, byte 0Ch
-        jmp near sub_38675_472
+        jmp near InitSeasonGameScreen_472
         push edx
         mov edx, dword [dword_1AC814]
         and edx, byte 70h
@@ -1311,9 +1316,11 @@ sub_38F7A:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_39052                                                       39052  97 PC
+; DrawSeasonGamePanel                             39052  97 PC, low confidence
+; From SeasonGameScreen: draws the team panel (PANL) from the league file:
+; records ("%c %d-%d" W / L / T), scores ("%s %d-%s %d"), LOCK marks
 ;-----------------------------------------------------------------------------
-sub_39052:
+DrawSeasonGamePanel:
         push ebx
         push ecx
         push edx
@@ -1353,7 +1360,7 @@ sub_39052:
 .3:
         push asc_160A51
         push dword [dword_19ED70]
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov dword [byte ebp-01Ch], eax
         cmp dword [byte ebp-010h], byte 0
@@ -1571,7 +1578,7 @@ sub_39052:
         push dword [dword eax+0172h]
         push dword [dword eax+016Eh]
         push dword [dword eax+0162h]
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         cmp dword [dword_19ED54], byte 0
         je near .29
@@ -1585,7 +1592,7 @@ sub_39052:
         call SetClipWindow
         add esp, byte 10h
         push dword [dword_19ED1C]
-        call sub_1013AC
+        call BlitShape
         mov eax, dword [dword_19ED54]
         movsx edx, word [byte eax+06h]
         add esp, byte 4
@@ -1600,7 +1607,7 @@ sub_39052:
         call SetClipWindow
         add esp, byte 10h
         push dword [dword_19ED1C]
-        call sub_1013AC
+        call BlitShape
         add esp, byte 4
         mov eax, dword [dword_19ED54]
         push byte 53h
@@ -1612,7 +1619,7 @@ sub_39052:
         call SetClipWindow
         add esp, byte 10h
         push dword [dword_19ED1C]
-        call sub_1013AC
+        call BlitShape
         mov eax, dword [dword_19ED54]
         movsx edx, word [byte eax+06h]
         add esp, byte 4
@@ -1627,7 +1634,7 @@ sub_39052:
         call SetClipWindow
         add esp, byte 10h
         push dword [dword_19ED1C]
-        call sub_1013AC
+        call BlitShape
         add esp, byte 4
         push dword 1E0h
         push byte 0
@@ -1638,15 +1645,15 @@ sub_39052:
         push byte 53h
         push byte 4Ch
         push dword [dword_19ED54]
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
 .29:
         push byte 0FFFFFFFFh
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         mov ebx, 7
         xor esi, esi
-        call sub_7F0D8
+        call SetTextColor
 .30:
         mov eax, dword [dword_19ED4C]
         mov eax, dword [nosplit eax*4+dword_16908A]
@@ -1683,7 +1690,7 @@ sub_39052:
         idiv ebx
         push byte 0FFFFFFFFh
         mov dword [byte ebp-0Ch], eax
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         mov dword [byte ebp-014h], eax
         cmp dword [byte ebp-010h], byte 0
@@ -1731,7 +1738,7 @@ sub_39052:
         push dword 0FF4040h
         mov ebx, edx
 .37:
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         mov dword [byte ebp-014h], eax
         mov edx, dword [byte ebp-0Ch]
@@ -1820,7 +1827,7 @@ sub_39052:
 .45:
         push dword 0FF4040h
 .46:
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         mov dword [byte ebp-014h], eax
         mov edx, dword [byte ebp-0Ch]
@@ -1884,7 +1891,7 @@ sub_39052:
         call sub_38D84
 .52:
         mov eax, dword [byte ebp-014h]
-        call sub_7F0D8
+        call SetTextColor
         inc esi
         mov eax, dword [byte ebp-0Ch]
         push esi
@@ -1913,11 +1920,11 @@ sub_39052:
         mov eax, dword [dword_19ED24]
         add esp, byte 10h
         push dword [eax]
-        call sub_1013AC
+        call BlitShape
         mov eax, dword [dword_19ED24]
         add esp, byte 4
         push dword [byte eax+0Ch]
-        call sub_1013AC
+        call BlitShape
         add esp, byte 4
         call sub_102C10
         jmp near sub_38E26_14D
@@ -2160,7 +2167,7 @@ sub_39B20:
         mov eax, dword [dword_19ED5C]
         mov ecx, dword [dword_19ED38]
         push dword [ecx+eax*4]
-        call sub_1013AC
+        call BlitShape
         mov ecx, 0Ah
         add dword [dword_19ED5C], byte 2
         xor edx, edx
@@ -2176,7 +2183,7 @@ sub_39B20:
         mov ebx, dword [dword_19ED60]
         mov eax, dword [dword_19ED38]
         push dword [eax+ebx*4]
-        call sub_1013AC
+        call BlitShape
         mov ebx, 0Ah
         add dword [dword_19ED60], byte 2
         xor edx, edx
@@ -2209,17 +2216,17 @@ sub_39BB6:
         push byte 0
         call SetClipWindow
         add esp, byte 10h
-        call sub_102C30
+        call Random32
         mov ecx, 6
         xor edx, edx
         div ecx
         mov eax, edx
         mov edx, dword [dword_19ED24]
         push dword [edx+eax*4]
-        call sub_1013AC
+        call BlitShape
         add esp, byte 4
         call sub_102C10
-        call sub_102C30
+        call Random32
         mov ecx, 12Ch
         xor edx, edx
         div ecx
@@ -2246,7 +2253,7 @@ sub_39BB6_6B:
         mov eax, dword [dword_19ED6C]
         cmp dword [dword eax+01F0h], byte 1
         jne short .3
-        call sub_102C30
+        call Random32
         mov ecx, 3
         xor edx, edx
         div ecx
@@ -2261,7 +2268,7 @@ sub_39BB6_6B:
         push dword [dword eax+0212h]
         push dword [nosplit edx*4+dword_19ED00]
         add esi, byte 4
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         mov dword [dword_19ED28], esi
 .3:
@@ -5639,7 +5646,7 @@ sub_3C0B4:
         mov dword [dword_1A8E68], ebx
         mov dword [dword_1A0CC0], edx
 .1:
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [dword_16E69C]
         mov esi, dword [dword_16E698]
         mov dword [byte esp+038h], eax
@@ -6282,10 +6289,10 @@ SetVideoMode:
         call sub_102EBC
         add esp, byte 0Ch
         mov dword [dword_16F8A8], edi
-        call sub_13C164
+        call SetScreenTarget
         mov ebp, dword [dword_169184]
         push ebp
-        call sub_FD110
+        call ClearScreen
         add esp, byte 4
         call sub_1013FC
         call sub_F9496
@@ -6306,17 +6313,17 @@ SetVideoMode:
         call sub_103648
         add esp, byte 0Ch
         push dword 0FF111111h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
         push byte 0FFFFFFFFh
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
         call sub_FE180
         add esp, byte 8
         push dword 0FF111111h
-        call sub_FC510
+        call MakeColor
         mov dword [dword_169184], eax
         mov eax, dword [dword_16E468]
         add esp, byte 4
@@ -6356,7 +6363,7 @@ sub_3C880:
         shl eax, 3
         push eax
         push asc_160B30
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1A8E80], eax
         xor edx, edx
@@ -6403,7 +6410,7 @@ sub_3C8DC:
         mov eax, dword [dword_1A8E80]
         mov ebp, dword [ebx+eax]
         push ebp
-        call sub_FCD90
+        call FreeBitmap
         add esp, byte 4
 .2:
         mov ecx, dword [dword_1A8E74]
@@ -6415,7 +6422,7 @@ sub_3C8DC:
 .3:
         mov eax, dword [dword_1A8E80]
         push eax
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         pop ebp
         pop edi
@@ -6453,7 +6460,7 @@ sub_3C944:
         push ebp
         push edi
         mov dword [byte esi+04h], 1
-        call sub_FD08C
+        call CreateBitmap
         mov dword [esi], eax
         add esp, byte 0Ch
         mov eax, dword [byte eax+028h]
@@ -6489,7 +6496,7 @@ sub_3C9C8:
         mov ebx, eax
         mov edx, dword [eax]
         push edx
-        call sub_FD0F8
+        call SetDrawTarget
         mov eax, dword [byte ebx+018h]
         mov dword [dword_1A8E84], eax
         mov eax, dword [byte ebx+01Ch]
@@ -6691,7 +6698,7 @@ sub_3CB98:
         je short .1
         add edi, edi
 .1:
-        call sub_13C164
+        call SetScreenTarget
         xor esi, esi
         jmp short .3
 .2:
@@ -6811,7 +6818,7 @@ sub_3CCA8:
         mov eax, dword [dword_1A8E80]
         test byte [byte eax+04h], 2
         jne short .2
-        call sub_13C164
+        call SetScreenTarget
         mov edx, dword [dword_1A8E80]
         mov ebx, dword [byte edx+014h]
         push ebx
@@ -6908,7 +6915,7 @@ AddOverlayWindow:
         xor edi, edi
         test edx, edx
         jne near .7
-        call sub_13C164
+        call SetScreenTarget
         mov ebx, dword [dword_1A8E68]
         xor esi, esi
         test ebx, ebx
@@ -6936,7 +6943,7 @@ AddOverlayWindow:
         push eax
         mov ecx, dword [dword ebx+dword_1A0CBC]
         push ecx
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
 .5:
         mov ecx, dword [dword_1A8E68]
@@ -7304,7 +7311,7 @@ sub_3D180:
         push ebx
         mov dword [dword_1AC34C], edx
         mov dword [dword esp+040Ch], eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov eax, esp
         push eax
@@ -7872,7 +7879,7 @@ sub_3D764:
         push byte 20h
         push dword 0C1Ch
         push asc_160B40
-        call sub_FAA64
+        call AllocMemBlock
         mov ebx, eax
         add esp, byte 0Ch
         mov ecx, eax
@@ -8826,7 +8833,7 @@ sub_3E064:
         push ecx
         add ecx, byte 4
         push ecx
-        call sub_100A68
+        call bcopy
         mov eax, dword [esi]
         sub eax, edi
         add esp, byte 0Ch
@@ -8837,7 +8844,7 @@ sub_3E064:
         push ecx
         add ecx, byte 4
         push ecx
-        call sub_100A68
+        call bcopy
         mov eax, dword [esi]
         sub eax, edi
         add esp, byte 0Ch
@@ -8848,7 +8855,7 @@ sub_3E064:
         push ecx
         add ecx, byte 4
         push ecx
-        call sub_100A68
+        call bcopy
         mov eax, dword [esi]
         sub eax, edi
         add esp, byte 0Ch
@@ -8859,7 +8866,7 @@ sub_3E064:
         push ebx
         add ebx, byte 4
         push ebx
-        call sub_100A68
+        call bcopy
         mov ebx, dword [esi]
         dec ebx
         add esp, byte 0Ch
@@ -9046,7 +9053,7 @@ sub_3E21C:
         push byte 20h
         push dword 9C44h
         push asc_160B48
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov edi, eax
         mov dword [eax], 0
@@ -9196,7 +9203,7 @@ sub_3E21C:
         test eax, eax
         je short .20
         push eax
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .20:
         lea eax, [byte esi+014h]
@@ -9222,14 +9229,14 @@ sub_3E21C:
         call sub_E341C
         push esi
         mov ebx, dword [dword esi+0C0Ch]
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov esi, ebx
         test ebx, ebx
         jne short .21
 .23:
         push edi
-        call sub_FAF34
+        call FreeMemBlock
         mov ecx, 100h
         add esp, byte 4
         mov edx, 1010101h
@@ -9334,7 +9341,7 @@ sub_3E4B8:
         push edx
         add eax, dword [byte esp+014h]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         cmp dword [byte esp+08h], byte 0
         jne short .2
@@ -9405,7 +9412,7 @@ sub_3E590:
         test edx, edx
         je short .1
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .1:
         mov eax, esp
@@ -9647,7 +9654,7 @@ CdStreamOpen:
         add eax, ebx
         push eax
         push str_CDSTREAM
-        call sub_FAA64
+        call AllocMemBlock
         mov edx, dword [dword_16918C]
         mov ecx, eax
         lea eax, [nosplit edx*4+00h]
@@ -9758,7 +9765,7 @@ setstreamspeed:
         push byte 0
         push dword 2000h
         push str_STREAM
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov ecx, 2000h
         push ecx
@@ -9807,7 +9814,7 @@ setstreamspeed:
         add esp, byte 4
 .6:
         push esi
-        call sub_FAF34
+        call FreeMemBlock
         lea eax, [nosplit ebx*4+00h]
         lea edx, [ebx+eax]
         add edx, edx
@@ -9930,7 +9937,7 @@ delstream:
 .3:
         push esi
         mov ebx, dword [byte ebx+06Ch]
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov esi, ebx
         test ebx, ebx
@@ -9954,7 +9961,7 @@ delstream:
         mov ebx, dword [byte esi+06Ch]
         push esi
         mov dword [byte eax+06Ch], ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         pop edi
         pop esi
@@ -10268,7 +10275,7 @@ CdStreamOpenSecondary:
         add ebx, 90h
         push ebx
         push str_SECCDSTREAM
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         push ebx
         mov ebx, dword [byte esp+010h]
@@ -10585,7 +10592,7 @@ CdStreamService_1E3:
         push ebx
         mov ecx, dword [byte eax+0Ch]
         push ecx
-        call sub_100A68
+        call bcopy
         mov eax, dword [dword_1AC378]
         mov eax, dword [byte eax+0Ch]
         mov dword [eax], 0FFFFFFFFh
@@ -10852,7 +10859,7 @@ CdStreamService_595:
         push ebx
         mov ecx, dword [byte eax+0Ch]
         push ecx
-        call sub_100A68
+        call bcopy
         mov eax, dword [dword_1AC374]
         mov ebx, dword [dword_1AC378]
         mov edx, dword [byte eax+0Ch]
@@ -10874,7 +10881,7 @@ CdStreamService_595:
         push ebx
         mov ecx, dword [byte eax+0Ch]
         push ecx
-        call sub_100A68
+        call bcopy
         mov eax, dword [dword_1AC374]
         mov ebx, dword [dword_1AC378]
         mov edx, dword [byte eax+0Ch]
@@ -10894,7 +10901,7 @@ CdStreamService_595:
         push ebx
         lea edx, [ebx+ecx]
         push edx
-        call sub_100A68
+        call bcopy
         mov eax, dword [dword_1AC378]
         mov edx, dword [byte eax+044h]
         mov esi, dword [byte eax+08h]
@@ -10947,7 +10954,7 @@ CdStreamService_74E:
         push edx
         mov ebx, dword [byte eax+0Ch]
         push ebx
-        call sub_100A68
+        call bcopy
         mov eax, dword [dword_1AC374]
         mov eax, dword [byte eax+0Ch]
         mov dword [eax], 0FFFFFFFFh
@@ -11146,7 +11153,7 @@ CdStreamService_956:
         push edi
         mov ebp, dword [byte eax+0Ch]
         push ebp
-        call sub_100A68
+        call bcopy
         mov eax, dword [dword_1AC374]
         mov edx, dword [byte eax+0Ch]
         mov dword [byte eax+08h], edx
@@ -13111,7 +13118,7 @@ LoadSfxBank:
         test ebp, ebp
         je near .28
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         jmp near .28
 .22:
@@ -13130,7 +13137,7 @@ LoadSfxBank:
         lea eax, [byte esp+08h]
         push eax
         mov dword [dword ebx+dword_1AC608], edx
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword ebx+dword_1691FC], eax
         mov edx, dword [byte esp+034h]
@@ -13150,7 +13157,7 @@ LoadSfxBank:
         mov edi, dword [dword ebx+dword_1691FC]
         push edi
         xor ebp, ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov eax, esi
         mov dword [dword ebx+dword_1691FC], ebp
@@ -13176,11 +13183,11 @@ LoadSfxBank:
         test eax, eax
         jne short .25
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov eax, dword [dword ebx+dword_1691FC]
         push eax
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         xor edx, edx
         mov eax, esi
@@ -13206,7 +13213,7 @@ LoadSfxBank:
         mov ecx, dword [dword ebx+dword_1691FC]
         push ecx
         xor edi, edi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov eax, esi
         mov dword [dword ebx+dword_1691FC], edi
@@ -13223,7 +13230,7 @@ LoadSfxBank:
         test ebp, ebp
         je short .26
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .26:
         shl edi, 2
@@ -13236,7 +13243,7 @@ LoadSfxBank:
         jge short .27
         mov ebx, dword [dword edi+dword_1691FC]
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         xor ecx, ecx
         mov eax, esi
@@ -13533,7 +13540,7 @@ OpenAudioStream_D8:
         push asc_160CB4
         xor ebp, ebp
         mov word [word_1691A4], cx
-        call sub_FAA64
+        call AllocMemBlock
         mov si, word [word_1691A4]
         add esp, byte 0Ch
         mov dword [dword_1691BC], eax
@@ -13802,7 +13809,7 @@ InitGameAudio:
         mov ecx, dword [dword_169224]
         push ecx
         xor esi, esi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov eax, 5
         mov dword [dword_169224], esi
@@ -13977,7 +13984,7 @@ sub_415A8:
         mov ecx, dword [dword ebx+dword_1691FC]
         push ecx
         xor esi, esi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [dword ebx+dword_1691FC], esi
         mov dword [dword ebx+dword_1AC608], esi
@@ -14087,7 +14094,7 @@ sub_41670:
         call sub_1081B0
         mov ebp, dword [dword_169224]
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         xor eax, eax
         add esp, byte 4
         mov dword [dword_169224], eax
@@ -14109,7 +14116,7 @@ sub_41670:
         test esi, esi
         je short .5
         push esi
-        call sub_FAF34
+        call FreeMemBlock
         xor ebp, ebp
         add esp, byte 4
         mov dword [dword_16923C], ebp
@@ -14253,7 +14260,7 @@ sub_41870:
         mov edi, dword [dword_169224]
         push edi
         xor ebp, ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [dword_169224], ebp
 .5:
@@ -14270,7 +14277,7 @@ sub_41870:
         test ecx, ecx
         je short .6
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         xor edi, edi
         add esp, byte 4
         mov dword [dword_16923C], edi
@@ -15430,7 +15437,7 @@ sub_425CC:
         mov word [dword_1AC7D4], dx
         mov word [word_1AC7D8], dx
         mov word [dword_1AC7D6], dx
-        call sub_FB704
+        call ZeroMem
         mov eax, dword [dword_1AC7C8]
         add esp, byte 8
         mov dword [dword_1AC7C4], ebx
@@ -15716,7 +15723,7 @@ sub_42960:
         push dword 2000h
         push asc_160D20
         xor esi, esi
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov ebp, eax
         mov edi, dword [esp]
@@ -15747,7 +15754,7 @@ sub_42960:
         call sub_109545
         add esp, byte 4
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         xor eax, eax
         add esp, byte 10h
@@ -15769,7 +15776,7 @@ sub_42960:
         call sub_109545
         add esp, byte 4
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         xor eax, eax
         add esp, byte 10h
@@ -15797,7 +15804,7 @@ sub_42960:
         call sub_109545
         add esp, byte 4
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov eax, dword [byte esp+04h]
 .8:
@@ -16124,7 +16131,7 @@ OpenSpeechBanks:
         push dword 81Ah
         mov ecx, dword [dword_1AC7B0]
         push ecx
-        call sub_FB704
+        call ZeroMem
         mov eax, dword [dword_1AC7B0]
         mov word [dword eax+02D4h], 0
         mov eax, dword [dword_1AC7B0]
@@ -16267,13 +16274,13 @@ OpenSpeechBanks:
         push byte 20h
         push dword 20000h
         push asc_160D20
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         push dword 20000h
         push eax
         mov ebx, 3405C0h
         mov ebp, eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov dword [dword esp+0100h], ebx
 .15:
@@ -16311,7 +16318,7 @@ OpenSpeechBanks:
         test edx, edx
         jg short .15
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov edx, 3405C0h
         mov eax, edi

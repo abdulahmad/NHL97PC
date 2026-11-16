@@ -21,8 +21,8 @@ extern dword_1B1410, dword_1B1464, dword_1B8578, dword_1B8F4C, dword_1B8FA0, dwo
 extern dword_1C1346, dword_1C5DE4, dword_1C5EF4, hmtmstruct, memcpy_, off_168CE8, off_168CF0, off_168CFC
 extern off_168D04, off_168D08, off_168D0C, qword_16002C, qword_160034, qword_16003C, qword_16004C, qword_160054
 extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, regd1, sub_11328
-extern sub_11574, sub_116B0, sub_11808, sub_11984, sub_11F74, sub_12A10, ClockTick, sub_12C2C
-extern sub_12DE8, ChangeViewSize, sub_15C30, sub_15E4D, QueueOverlayPanel, sub_18E35, DrawGameOverlays, StartCameraPath
+extern sub_11574, sub_116B0, sub_11808, IsPlayoffGame, sub_11F74, sub_12A10, ClockTick, sub_12C2C
+extern sub_12DE8, ChangeViewSize, PrevVideoModeKey, NextVideoModeKey, QueueOverlayPanel, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
 extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, assreplace, Goal, sub_2DE94
 extern sub_30BD8, sub_31F88, AddPenalty, sub_34330, sub_34950, sub_36370, sub_36754, sub_3CA28
 extern sub_3CB70, sub_3D020, sub_3E5F0, InitGameAudio, sub_41670, sub_41CF0, WaitMusicEnd, sub_423B4
@@ -30,11 +30,11 @@ extern sub_424CC, CommentaryEvent, LoadDataFileLib, LoadDataFile, InitGameGraphi
 extern DrawGameFrame, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
 extern InitReplayBuffer, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
 extern InitAnimPoints, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, AllocAnimStates, GameOver, sub_77FA8
-extern DoGameFrame, sub_7F0D8, sub_81678, ShowLoadingScreen, sub_842E8, sub_842F4, LoadLangText, FreeLangText
+extern DoGameFrame, SetTextColor, sub_81678, ShowLoadingScreen, sub_842E8, sub_842F4, LoadLangText, FreeLangText
 extern sub_AA498, LoadGameLogos, sub_AB0A6, sub_B2F49, RunReplay, FadeOut, sub_DA7EB, sub_DB6AC
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E1744, sub_E304C, sub_E30F4, sub_E3174, sub_E3190
 extern InputRecordAvail, TakeInputRecord, sub_E341C, sub_E4248, sub_F1FF8, sub_F207F, sub_F30A0, sub_F30D7
-extern PauseMenu, sub_F9650, sub_F9789, sub_F9869, sub_FAA64, sub_FAF34, sub_FBE40, sub_FC290
+extern PauseMenu, sub_F9650, sub_F9789, sub_F9869, AllocMemBlock, FreeMemBlock, sub_FBE40, sub_FC290
 extern sub_FC330, sub_FC4BC, SetViewRect, sub_FC88C, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
 extern unk_19DC40, unk_19E270, unk_19E588, unk_1AC821, word_1684EC, word_1686BC, word_1686D4, word_1686D6
 extern word_1686D8, word_1686DA, word_1686E4, word_19C3D8, word_19C3DA, word_19C3DC, word_19C3DE, word_19C3EC
@@ -944,7 +944,7 @@ sub_13BAC:
         sar eax, 10h
         cmp eax, byte 0FFFFFFFFh
         je near .8
-        call sub_11984
+        call IsPlayoffGame
         mov ecx, 19h
         test eax, eax
         je short .3
@@ -2093,13 +2093,13 @@ GameFunctionKeys:
         pop ecx
         ret
 .12:
-        call sub_15C30
+        call PrevVideoModeKey
         pop ebp
         pop edx
         pop ecx
         ret
 .13:
-        call sub_15E4D
+        call NextVideoModeKey
         pop ebp
         pop edx
         pop ecx
@@ -2339,7 +2339,7 @@ GameLoop:
         push byte 0
         push byte 18h
         push asc_16007C
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1B8F4C], eax
         call sub_E3174
@@ -2556,7 +2556,7 @@ GameLoop:
         call FadeOut
         mov ebx, dword [dword_1B8F4C]
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         pop ebp
         pop edi
@@ -3000,7 +3000,7 @@ PlayGame:
         push byte 0FFFFFFFFh
         call sub_FC4BC
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         mov eax, dword [dword_1AC814]
         shl eax, 1Ch
         shr eax, 1Eh
@@ -3025,13 +3025,13 @@ PlayGame:
 .9:
         mov edx, dword [dword_1C5DE4]
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov ecx, dword [dword_1C5EF4]
         xor ebx, ebx
         push ecx
         mov dword [dword_1C5DE4], ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [dword_1C5EF4], ebx
 .10:
@@ -3061,12 +3061,12 @@ PlayGame:
         test edi, edi
         je short .12
         push edi
-        call sub_FAF34
+        call FreeMemBlock
         xor eax, eax
         add esp, byte 4
         mov dword [dword_1686C0], eax
 .12:
-        call sub_18E35
+        call ClearOverlayWindows
         call sub_77610
         mov ecx, 0Dh
         mov eax, dword_19CD54
@@ -3078,7 +3078,7 @@ PlayGame:
         test edx, edx
         je short .13
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         xor ecx, ecx
         add esp, byte 4
         mov dword [dword_16E500], ecx
@@ -3250,7 +3250,7 @@ RunDemoGame:
         mov dword [dword_1C5EF4], eax
         call sub_FC4BC
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         mov eax, dword [dword_1AC814]
         shl eax, 1Ch
         shr eax, 1Eh
@@ -3259,7 +3259,7 @@ RunDemoGame:
         call FreeLangText
         mov ebp, dword [dword_1C5EF4]
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         xor eax, eax
         add esp, byte 4
         mov dword [dword_1C5EF4], eax

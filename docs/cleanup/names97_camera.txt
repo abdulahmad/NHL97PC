@@ -1,0 +1,20 @@
+sub_1B890 CanStartCameraScene {confidence=low} (priority 1-7): whether a scripted camera scene of this priority may start now (none running, or a higher priority than the running one; 0 ends the scene)
+sub_1BB18 PenaltyCameraScene {confidence=low} from asspenalty: scripted camera scene, priority 6 (SetCameraView 8, StartCameraPath, sub_1B9D4 per frame)
+sub_1C108 FightCameraScene {confidence=low} from StartFight: scripted camera scene, priority 2 (follows the two fighters, sub_1BFC0 per frame)
+sub_1C29C FaceoffCameraScene {confidence=low} from puckfaceoff: scripted camera scene, priority 7 (path 18h)
+sub_1C7B4 FaceoffCameraScene2 {confidence=low} from puckfaceoff: scripted camera scene, priority 7, one of two random camera moves
+sub_1CBD8 PenaltyShotCameraScene {confidence=low} from assrefpenshot: scripted camera scene, priority 3 (penshottimer)
+sub_1CD80 GoalCameraScene {confidence=low} from Goal: scripted camera scene, priority 5 (sub_1CCF8 per frame)
+sub_1D008 FaceoffDropCameraScene {confidence=low} from puckfaceoff2: scripted camera scene, priority 1 (sub_1CE98 per frame)
+sub_1D2A8 DrawCameraDebug {confidence=low} from DrawGameFrame when dword_19D094 is set: draws the camera target and prints its "(%d,%d,%d)" position
+sub_18E35 ClearOverlayWindows {confidence=medium} removes and frees all ten game overlay windows (unk_19CF8C), RemoveOverlayWindow on each
+sub_F98E4 NextVideoMode {confidence=low} steps to the next entry of the video mode list (dword_16E304, wraps) and prints its name as a message
+sub_F994D PrevVideoMode {confidence=low} steps to the previous entry of the video mode list (dword_16E304, wraps) and prints its name as a message
+sub_15C30 PrevVideoModeKey {confidence=low} from GameFunctionKeys (F11 range): clears the overlays, PrevVideoMode, SetVideoMode and rebuilds the overlay windows
+sub_15E4D NextVideoModeKey {confidence=low} from GameFunctionKeys (F12): clears the overlays, NextVideoMode, SetVideoMode and rebuilds the overlay windows
+sub_2DD54 ChkGoalies {source=94G,confidence=high} 94G ChkGoalies (computer pulls goalie on delayed penalty): from periodicevents; per team, no goalie pull when the team has the puck; on a delayed penalty sets no goalie (setpersonel) and calls the PA event, else CPgoalie for a computer team
+sub_2E168 RestoreBenchEnergy {source=94G,confidence=medium} 94G RestoreBenchEnergy: from periodicevents; every bench player (position 8002h) gains 5 energy, capped at 1000h
+sub_780F0 clockcont_0 {source=94G,confidence=medium} 94G clockcont_0 (end of period; also entered from puckfaceoff): puck assinsert 41h, periods 1-2 AddPenalty2 end of period (PA event), later periods score / overtime / cup checks
+sub_3812E SeasonGameScreen {confidence=low} from RunSeasonMenus / RunPlayoffMenus: the next-game screen (HOME / AWAY teams; play, simulate or continue, with the "team not present", "unplayed games" and "no games left" messages)
+sub_38675 InitSeasonGameScreen {confidence=low} from SeasonGameScreen: sets up its menu items and art (BACK, TITL, AB00-AB05, BH00, BT00) and the HOME / AWAY labels
+sub_39052 DrawSeasonGamePanel {confidence=low} from SeasonGameScreen: draws the team panel (PANL) from the league file: records ("%c %d-%d" W / L / T), scores ("%s %d-%s %d"), LOCK marks

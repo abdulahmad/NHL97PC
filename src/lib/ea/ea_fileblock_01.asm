@@ -6,11 +6,14 @@ extern _dos_getdate_, _dos_gettime_, asc_167D74, asc_167D84, byte_16E638, byte_1
 extern byte_171C90, dword_16E628, dword_16E630, dword_16E634, dword_16E63C, dword_16E870, dword_1CF298, dword_1CF530
 extern dword_1CF534, dword_1CF538, dword_1CF53C, dword_1CF540, dword_1CF544, dword_1CF548, dword_1CF54C, dword_1CF598
 extern dword_1CF59C, dword_1CF5A0, dword_1CF5A4, dword_1CF5A8, dword_1CF5AC, dword_1CF5C4, dword_1CF5C8, dword_1DA4D0
-extern off_16E858, removewindow, sprintf_, sub_100A68, sub_102698, sub_122290, sub_1222BC, sub_12233C
-extern sub_FAF34, sub_FB704, sub_FEDEC, vsprintf_
-global jpt_FC910, sub_FC924_BA, sub_FC924_CB, sub_FC924_11F, sub_FC924_149, sub_FC924_153, sub_FCD90_30, sub_FCEA0_1C
-global sub_FC88C, sub_FC924, sub_FCACC, sub_FCC40, sub_FCD90, sub_FCE34, sub_FCE48, sub_FCE60
+extern off_16E858, removewindow, sprintf_, bcopy, sub_102698, sub_122290, sub_1222BC, sub_12233C
+extern FreeMemBlock, ZeroMem, sub_FEDEC, vsprintf_
+global jpt_FC910, sub_FC924_BA, sub_FC924_CB, sub_FC924_11F, sub_FC924_149, sub_FC924_153, FreeBitmap_30, sub_FCEA0_1C
+global sub_FC88C, sub_FC924, sub_FCACC, sub_FCC40, FreeBitmap, sub_FCE34, sub_FCE48, sub_FCE60
 global sub_FCEA0, sub_FCEEC
+;-----------------------------------------------------------------------------
+; sub_FC88C                                                            FC88C  
+;-----------------------------------------------------------------------------
 sub_FC88C:
         push ebx
         push esi
@@ -56,6 +59,9 @@ jpt_FC910:
         dd sub_FC924_11F
         dd sub_FC924_149
         dd sub_FC924_153
+;-----------------------------------------------------------------------------
+; sub_FC924                                                            FC924  
+;-----------------------------------------------------------------------------
 sub_FC924:
         push ebx
         push ecx
@@ -199,6 +205,9 @@ sub_FC924_153:
         pop ebx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_FCACC                                                            FCACC  
+;-----------------------------------------------------------------------------
 sub_FCACC:
         push ebx
         push ecx
@@ -227,14 +236,14 @@ sub_FCACC:
         shl eax, 5
         add eax, ebx
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov eax, dword [dword_16E630]
         push dword 0A0h
         add eax, 0F00h
         push eax
         mov esi, 0F00h
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov dword [dword_16E634], esi
 .1:
@@ -331,6 +340,9 @@ sub_FCACC:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_FCC40                                                            FCC40  
+;-----------------------------------------------------------------------------
 sub_FCC40:
         push ebx
         push esi
@@ -426,7 +438,12 @@ sub_FCC40:
         pop ebx
         ret
         db 00h,00h
-sub_FCD90:
+;-----------------------------------------------------------------------------
+; FreeBitmap                                      FCD90  97 PC, low confidence
+; Removes a bitmap's two windows (+28h, +30h, removewindow) and frees it
+; (FreeMemBlock)
+;-----------------------------------------------------------------------------
+FreeBitmap:
         push ebx
         mov edx, dword [byte esp+08h]
         mov ebx, dword [byte edx+028h]
@@ -442,12 +459,12 @@ sub_FCD90:
         call removewindow
 .2:
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         pop ebx
         ret
         db 00h,00h,00h,00h
-sub_FCD90_30:
+FreeBitmap_30:
         push ecx
         push esi
         push edi
@@ -506,6 +523,9 @@ sub_FCD90_30:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; sub_FCE34                                                            FCE34  
+;-----------------------------------------------------------------------------
 sub_FCE34:
         push ecx
 .1:
@@ -521,6 +541,9 @@ sub_FCE34:
         pop ecx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_FCE48                                                            FCE48  
+;-----------------------------------------------------------------------------
 sub_FCE48:
         push ecx
 .1:
@@ -536,6 +559,9 @@ sub_FCE48:
         pop ecx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_FCE60                                                            FCE60  
+;-----------------------------------------------------------------------------
 sub_FCE60:
         push ecx
         push esi
@@ -567,6 +593,9 @@ sub_FCE60:
         pop ecx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_FCEA0                                                            FCEA0  
+;-----------------------------------------------------------------------------
 sub_FCEA0:
         push ecx
         push esi
@@ -609,6 +638,9 @@ sub_FCEA0_1C:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; sub_FCEEC                                                            FCEEC  
+;-----------------------------------------------------------------------------
 sub_FCEEC:
         push ebx
         push esi

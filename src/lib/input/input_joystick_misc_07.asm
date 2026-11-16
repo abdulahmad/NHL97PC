@@ -4,10 +4,13 @@ bits 32
 section s_11FAAC progbits alloc exec nowrite align=1
 extern dword_16E478, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16F8AC, dword_16F8B0, dword_16F8B4
 extern dword_16F8B8, dword_199C38, dword_199C3C, dword_1CF53C, sub_103024, sub_103298, sub_1049D0, sub_123414
-extern sub_123423, sub_123D38, sub_132400, sub_FB704, sub_FDC68, sub_FEDEC
+extern sub_123423, sub_123D38, sub_132400, ZeroMem, sub_FDC68, sub_FEDEC
 global jpt_11FDFD, jpt_11FF3D, jpt_120116, sub_11FAD6_10, sub_11FB11_10, sub_11FB11_27, jpt_11FDFD_38, jpt_11FF3D_3B
 global jpt_120116_22F, sub_11FAAC, sub_11FAD6, sub_11FB11, sub_11FD1E, sub_11FDDC, sub_11FF0E, sub_120650
 global sub_120680, sub_12071C
+;-----------------------------------------------------------------------------
+; sub_11FAAC                                                          11FAAC  
+;-----------------------------------------------------------------------------
 sub_11FAAC:
         mov eax, dword [byte esp+04h]
         mov dword [dword_1CF53C], eax
@@ -24,6 +27,9 @@ sub_11FAAC:
         push edi
         mov byte [byte ebp-011h], 1
         jmp short sub_11FAD6_10
+;-----------------------------------------------------------------------------
+; sub_11FAD6                                                          11FAD6  
+;-----------------------------------------------------------------------------
 sub_11FAD6:
         push ebp
         LD mov, ebp, esp
@@ -47,6 +53,9 @@ sub_11FAD6_10:
         push edi
         mov byte [byte ebp-011h], 1
         jmp short sub_11FB11_10
+;-----------------------------------------------------------------------------
+; sub_11FB11                                                          11FB11  
+;-----------------------------------------------------------------------------
 sub_11FB11:
         db 055h                                 ; insn: push ebp
         LD mov, ebp, esp
@@ -266,6 +275,9 @@ sub_11FB11_27:
         pop ebx
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_11FD1E                                                          11FD1E  
+;-----------------------------------------------------------------------------
 sub_11FD1E:
         mov ecx, dword [byte esi+020h]
         LD or, ecx, ecx
@@ -474,6 +486,9 @@ jpt_11FDFD_38:
         dec eax
         mov dword [dword edi+01400h], eax
         ret
+;-----------------------------------------------------------------------------
+; sub_11FF0E                                                          11FF0E  
+;-----------------------------------------------------------------------------
 sub_11FF0E:
         mov ecx, dword [byte esi+018h]
         LD or, ecx, ecx
@@ -944,6 +959,9 @@ jpt_120116:
         dec ecx
         jne short .43
         jmp short jpt_120116_22F
+;-----------------------------------------------------------------------------
+; jpt_120116_22F                                                      120345  
+;-----------------------------------------------------------------------------
 jpt_120116_22F:
         cmp byte [byte ebp-012h], 0
         jne short .46
@@ -1237,6 +1255,9 @@ jpt_120116_22F:
         pop ebx
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_120650                                                          120650  
+;-----------------------------------------------------------------------------
 sub_120650:
         push ebx
         xor ebx, ebx
@@ -1259,6 +1280,9 @@ sub_120650:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_120680                                                          120680  
+;-----------------------------------------------------------------------------
 sub_120680:
         push ebx
         push esi
@@ -1294,7 +1318,7 @@ sub_120680:
         push byte 14h
         push ebp
         shl esi, 4
-        call sub_FB704
+        call ZeroMem
         mov eax, dword [dword esi+dword_16F8AC]
         mov dword [byte ebp+00h], eax
         mov eax, dword [dword esi+dword_16F8B0]
@@ -1320,6 +1344,9 @@ sub_120680:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_12071C                                                          12071C  
+;-----------------------------------------------------------------------------
 sub_12071C:
         push ebx
         push esi

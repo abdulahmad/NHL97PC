@@ -25,7 +25,7 @@ extern qword_160817, qword_16081F, qword_160827, qword_16082F, qword_160837, qwo
 extern qword_160857, qword_16085F, qword_160867, qword_16086F, qword_16087B, qword_160883, qword_16088B, qword_16089B
 extern qword_1608A7, randomd0, regd1, slotteam, sub_100700, sub_1008CC, sub_11328, sub_114C4
 extern forcepldata, sub_116B0, ResetBench, setplayer, sub_123A0, setpersonel, ReleaseBoxPlayers, sub_13D50
-extern sub_13DA4, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, SelectCameraView, sub_1BB18, sub_1CBD8, sub_1D008
+extern sub_13DA4, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, SelectCameraView, PenaltyCameraScene, PenaltyShotCameraScene, FaceoffDropCameraScene
 extern sub_1DEE4, sub_1E184, assreplace, assexit, sub_1E284, sub_1E8B0, check4bench, sub_1F32C
 extern sub_1F4EC, sub_1F538, Setplass, sub_1FF5C, Endfaceoff, sub_20A80, assgoalie, sub_21E98
 extern sub_22050, assextra4, sub_22FF0, assextra3, sub_240D0, sub_24220, sub_2471C, sub_248E8
@@ -38,7 +38,7 @@ extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, sub_57324, sub_576EC, sub_577
 extern sub_5AC28, SetSPA, sub_60D6C, sub_60F48, sub_64EBC, sub_650A4, sub_650E8, sub_6619C
 extern sub_66524, sub_6947C, sub_69654, sub_69A44, sub_69B08, sub_69B78, sub_6A0BC, sub_6A244
 extern RefAtDotAnim, RefFaceoffAnim, RefGoalPaAnim, RefWhistleAnim, RefSignalAnim, RefGoalLineAnim, sub_75B94, sub_78044
-extern FadePalette, FadeOut, sub_FAA64, sub_FAF34, sub_FBE5D, unk_19E060, vtoa, word_168A4C
+extern FadePalette, FadeOut, AllocMemBlock, FreeMemBlock, sub_FBE5D, unk_19E060, vtoa, word_168A4C
 extern word_168A4E, word_168A68, word_168A6A, word_19CB60, word_19CB64, word_19CB68, word_19CB82, word_19CB84
 extern word_19CB8C, word_19CB8E, word_19CB90, word_19CB92, word_19CB94, word_19CB96, word_19CB98, word_19CB9A
 extern word_19CB9C, word_19CB9E, gameover, word_19CBAC, word_19CBAE, word_19CBB4, word_19CBB6, gsp
@@ -54,7 +54,7 @@ global sub_28C0C, assrefpenshot, assrefsignal, assrefwhistle, assrefgoalpa, assr
 global assrefatdot, assintrostand, assintroline, asstakeposition, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
 global sub_2AC40, sub_2AD18, sub_2AFD8, sub_2B4D4, sub_2B9EC, sub_2BAC0, sub_2BE2C, a2offsides
 global sub_2BFC4, a2touchpuck, sub_2C42C, sub_2C4E8, sub_2C5C8, sub_2C900, pucknorm_body, pucknorm
-global puckfaceoff2, CPgoalie, sub_2DD54
+global puckfaceoff2, CPgoalie, ChkGoalies
 ;-----------------------------------------------------------------------------
 ; sub_25894                                                       25894  97 PC
 ;-----------------------------------------------------------------------------
@@ -3886,7 +3886,7 @@ asspenalty:
         setne dl
         xor eax, eax
         mov al, byte [dword ebx+0A4h]
-        call sub_1BB18
+        call PenaltyCameraScene
         mov edx, 1
         mov eax, dword [dword ebx+0F2h]
         call sub_56CE4
@@ -4374,7 +4374,7 @@ assrefpenshot:
         test cl, 80h
         sete al
         and eax, 0FFh
-        call sub_1CBD8
+        call PenaltyShotCameraScene
 .4:
         mov eax, dword [penshottimer]
         sar eax, 10h
@@ -5986,7 +5986,7 @@ assstanley:
         and bh, 0FDh
         push asc_1606D4
         mov byte [dword eax+0BFh], bh
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         push eax
         push dword 100h
@@ -6123,7 +6123,7 @@ assstanley:
         call FadePalette
         mov ebx, dword [dword_19D39C]
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .6:
         mov eax, dword [esp]
@@ -10147,7 +10147,7 @@ puckfaceoff2:
         and ch, 0DFh
         mov esi, 0FFFFFFFFh
         mov byte [dword eax+0BFh], ch
-        call sub_1D008
+        call FaceoffDropCameraScene
         xor eax, eax
         xor ecx, ecx
 .30:
@@ -10312,9 +10312,13 @@ CPgoalie:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2DD54                                                       2DD54  97 PC
+; ChkGoalies                                                        2DD54  94G
+; 94G ChkGoalies (computer pulls goalie on delayed penalty): from
+; periodicevents; per team, no goalie pull when the team has the puck; on a
+; delayed penalty sets no goalie (setpersonel) and calls the PA event, else
+; CPgoalie for a computer team
 ;-----------------------------------------------------------------------------
-sub_2DD54:
+ChkGoalies:
         push ebx
         push ecx
         push edx

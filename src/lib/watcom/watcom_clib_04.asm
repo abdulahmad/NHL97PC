@@ -3,8 +3,11 @@ bits 32
 %include "hockey.inc"
 section s_FC330 progbits alloc exec nowrite align=1
 extern asc_167D38, byte_16E504, byte_16E688, byte_170124, dword_16E500, dword_17014C, dword_170150, dword_170154
-extern dword_170158, dword_1DA4D0, str_Viv, sub_122068, sub_FAA64, sub_FAF34, unk_1DA4CC
-global sub_FC330, sub_FC410, sub_FC420, sub_FC4BC, sub_FC510
+extern dword_170158, dword_1DA4D0, str_Viv, sub_122068, AllocMemBlock, FreeMemBlock, unk_1DA4CC
+global sub_FC330, sub_FC410, sub_FC420, sub_FC4BC, MakeColor
+;-----------------------------------------------------------------------------
+; sub_FC330                                                            FC330  
+;-----------------------------------------------------------------------------
 sub_FC330:
         push ebx
         push esi
@@ -17,7 +20,7 @@ sub_FC330:
         test ebx, ebx
         je short .1
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .1:
         xor edi, edi
@@ -31,7 +34,7 @@ sub_FC330:
         push asc_167D38
         mov ebp, unk_1DA4CC
         mov edi, byte_170124
-        call sub_FAA64
+        call AllocMemBlock
         mov edx, 5DC0h
         add esp, byte 0Ch
         mov dword [dword_17014C], eax
@@ -99,10 +102,16 @@ sub_FC330:
         pop esi
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_FC410                                                            FC410  
+;-----------------------------------------------------------------------------
 sub_FC410:
         mov eax, byte_170124
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_FC420                                                            FC420  
+;-----------------------------------------------------------------------------
 sub_FC420:
         push ebx
         push esi
@@ -160,6 +169,9 @@ sub_FC420:
         pop ebx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_FC4BC                                                            FC4BC  
+;-----------------------------------------------------------------------------
 sub_FC4BC:
         push ebx
         mov eax, dword [byte esp+08h]
@@ -192,7 +204,12 @@ sub_FC4BC:
         pop ebx
         ret
         db 08Bh,0C0h
-sub_FC510:
+;-----------------------------------------------------------------------------
+; MakeColor                                       FC510  97 PC, low confidence
+; (0RGB): converts a colour to a pixel value for the current pixel depth
+; (byte_16E688: 8, 15 / 16, 24 / 32 bits)
+;-----------------------------------------------------------------------------
+MakeColor:
         push ebx
         mov edx, dword [byte esp+08h]
         mov al, byte [byte_16E688]

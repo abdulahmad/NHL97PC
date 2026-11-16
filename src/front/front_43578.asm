@@ -23,20 +23,22 @@ extern CommentaryEvent_1871, CommentaryEvent_189C, CommentaryEvent_18A1, Comment
 extern CommentaryEvent_1A44, CommentaryEvent_1B16, CommentaryEvent_1B57, CommentaryEvent_1B97, CommentaryEvent_1BF5, CommentaryEvent_1C3D, CommentaryEvent_1CB2, CommentaryEvent_1DD1
 extern CommentaryEvent_1E49, CommentaryEvent_1ECB, CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, off_169780, off_1697BC, off_169814
 extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, strcmp_, strcpy_
-extern sub_100940, sub_100A68, sub_101429, sub_106036, sub_106D08, sub_1070B0, sub_1086BF, sub_10884C
+extern sub_100940, bcopy, FindShape, sub_106036, sub_106D08, sub_1070B0, sub_1086BF, sub_10884C
 extern sub_109775, sub_1097F0, sub_42550, sub_425CC, sub_42910, sub_42960, sub_42C38, sub_42D38
 extern OpenSpeechBanks, sub_431E8, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7D539
-extern sub_7F0D8, sub_7F5B8, sub_81678, sub_83314, sub_834EC, sub_83558, sub_842F4, sub_8BE60
+extern SetTextColor, sub_7F5B8, sub_81678, sub_83314, sub_834EC, sub_83558, sub_842F4, sub_8BE60
 extern sub_8BEF8, FileExists, FileOpen, FileSeek, FileReadRecord, FileWriteRecord, FileClose, FileLength
-extern sub_E341C, sub_FAA64, sub_FAAB4, sub_FAF34, sub_FC330, sub_FC410, sub_FC510, tickcount
+extern sub_E341C, AllocMemBlock, sub_FAAB4, FreeMemBlock, sub_FC330, sub_FC410, MakeColor, tickcount
 extern unk_160DD4, unk_160E8C, unk_160FD4, unk_161068, vecdist
 global jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60, jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8
-global sub_43884_9C, sub_43578, sub_43884, InitSpeechBanks, sub_44998, sub_449F0, sub_44A50, sub_4518C
+global sub_43884_9C, LoadSpeechBank, sub_43884, InitSpeechBanks, sub_44998, sub_449F0, sub_44A50, sub_4518C
 global sub_45430, sub_45628, sub_4564C, sub_45954, sub_45A00, sub_45A3C
 ;-----------------------------------------------------------------------------
-; sub_43578                                                       43578  97 PC
+; LoadSpeechBank                                  43578  97 PC, low confidence
+; From InitSpeechBanks: opens a speech bank's "%03d.DAT" / "%03d.HDR" pair
+; (MakeDataPath) and reads its header
 ;-----------------------------------------------------------------------------
-sub_43578:
+LoadSpeechBank:
         push dword 98h
         call __CHK
         push ebx
@@ -656,7 +658,7 @@ InitSpeechBanks:
         push byte 20h
         push dword 578h
         push asc_160D88
-        call sub_FAA64
+        call AllocMemBlock
         mov dword [dword_1AC7CC], eax
         mov eax, dword [dword_1AC7A8]
         lea edi, [nosplit eax*8+00h]
@@ -761,7 +763,7 @@ InitSpeechBanks:
         push edi
         push asc_160DC0
         mov dword [dword_16924C], edi
-        call sub_FAA64
+        call AllocMemBlock
         xor edi, edi
         mov ebp, dword [dword_1AC7A8]
         add esp, byte 0Ch
@@ -896,11 +898,11 @@ InitSpeechBanks:
         push ebx
         mov esi, dword [dword_1AC7CC]
         push esi
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov ebp, dword [dword_1AC7CC]
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov eax, 16h
         mov dword [dword_1AC7CC], ebx
@@ -988,22 +990,22 @@ InitSpeechBanks:
         mov ebx, dword [dword_1C5DE4]
         push ebx
         mov dword [dword_1C5EF4], eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push asc_160DC4
         mov ecx, dword [dword_1C5DE4]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov edx, ebx
         call sub_8BE60
         call sub_81678
         push byte 0FFFFFFFFh
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         mov ebp, 408Ch
-        call sub_7F0D8
+        call SetTextColor
         mov dword [dword esp+0164h], ebp
         call sub_7D539
         mov edx, eax
@@ -1087,9 +1089,9 @@ InitSpeechBanks:
         test eax, eax
         je near .52
         push byte 0FFFFFFFFh
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         mov edx, esi
         mov eax, asc_161158
         mov ebx, 1
@@ -1124,13 +1126,13 @@ InitSpeechBanks:
         call sub_8BEF8
         mov ecx, dword [dword_1C5DE4]
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov eax, dword [dword_1C5EF4]
         xor ebp, ebp
         push eax
         mov dword [dword_1C5DE4], ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [dword_1C5EF4], ebp
         test esi, esi
@@ -1153,7 +1155,7 @@ InitSpeechBanks:
 .55:
         call sub_E341C
         mov eax, dword [dword esp+0164h]
-        call sub_43578
+        call LoadSpeechBank
         imul edx, dword [dword esp+0164h], byte 14h
         mov ebp, dword [dword_1AC7A8]
         mov eax, edx
@@ -1427,13 +1429,13 @@ InitSpeechBanks:
         test edi, edi
         je short .81
         push edi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [dword_16923C], esi
 .81:
         mov edx, dword [dword esp+0174h]
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         cmp byte [dword esp+0B4h], 0
         je short .82
@@ -1475,7 +1477,7 @@ sub_44998:
         test ebx, ebx
         je short .1
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         xor esi, esi
         add esp, byte 4
         mov dword [dword_16923C], esi

@@ -4,11 +4,11 @@ bits 32
 section s_FABB8 progbits alloc exec nowrite align=1
 extern byte_16E354, byte_16E358, byte_16E35C, dword_16E324, dword_16E338, dword_16E33C, dword_16E344, dword_16E348
 extern dword_16E34C, dword_16E350, dword_16E360, dword_1CF0E0, dword_1CF25C, dword_1CF260, dword_1CF264, dword_1CF268
-extern memlist1, strncmp_, strncpy_, sub_100A68, sub_121470, sub_121494, sub_1214A0, sub_1214D0
+extern memlist1, strncmp_, strncpy_, bcopy, sub_121470, sub_121494, sub_1214A0, sub_1214D0
 extern sub_12175C
-global sub_FABB8, findmemblock, sub_FAF34, sub_FAF70, sub_FAFB0, sub_FB0BC, sub_FB168, sub_FB1DC
+global sub_FABB8, findmemblock, FreeMemBlock, sub_FAF70, sub_FAFB0, sub_FB0BC, sub_FB168, sub_FB1DC
 global sub_FB214, sub_FB338, sub_FB370, sub_FB4A4, sub_FB4D4, sub_FB508, sub_FB5C8, sub_FB5F4
-global sub_FB618, sub_FB62C, sub_FB634, sub_FB64C, sub_FB658, sub_FB6E4, sub_FB704, sub_FB71C
+global sub_FB618, sub_FB62C, sub_FB634, sub_FB64C, sub_FB658, sub_FB6E4, ZeroMem, FillMem
 global sub_FB731, sub_FB73D, type_info__raw_name
 ;-----------------------------------------------------------------------------
 ; sub_FABB8                                                            FABB8  
@@ -364,9 +364,11 @@ findmemblock:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FAF34                                                            FAF34  
+; FreeMemBlock                                                    FAF34  95 PC
+; Memory manager: findmemblock on the pointer and frees the block (under the
+; memory lock dword_1CF260); 600+ calls
 ;-----------------------------------------------------------------------------
-sub_FAF34:
+FreeMemBlock:
         push ebx
         push esi
         mov edx, dword [byte esp+0Ch]
@@ -742,7 +744,7 @@ sub_FB214:
         sub ebp, edx
         push ebp
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov edx, ebp
         mov dword [esi], ebp
@@ -757,7 +759,7 @@ sub_FB214:
         sub ebp, edx
         push ebp
         push eax
-        call sub_100A68
+        call bcopy
         mov edx, dword [byte esi+024h]
         mov eax, dword [byte esi+020h]
         mov dword [esi], ebp
@@ -890,7 +892,7 @@ sub_FB370:
         push edi
         mov eax, dword [ebx]
         push eax
-        call sub_100A68
+        call bcopy
         mov edx, 1
         add esp, byte 0Ch
         mov ecx, dword [byte ebx+010h]
@@ -905,7 +907,7 @@ sub_FB370:
         push edi
         mov eax, dword [esi]
         push eax
-        call sub_100A68
+        call bcopy
         mov edx, dword [byte esi+024h]
         mov eax, dword [byte esi+020h]
         mov dword [esi], edi
@@ -1264,9 +1266,11 @@ sub_FB6E4:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_FB704                                                            FB704  
+; ZeroMem                                      FB704  97 PC, medium confidence
+; (ptr, n): fills n bytes with zero (sub_FB73D, 8 bytes at a time through the
+; FPU)
 ;-----------------------------------------------------------------------------
-sub_FB704:
+ZeroMem:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -1279,9 +1283,11 @@ sub_FB704:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FB71C                                                            FB71C  
+; FillMem                                      FB71C  97 PC, medium confidence
+; (ptr, n, byte): fills n bytes with a byte value (sub_FB731 spreads it over
+; a dword)
 ;-----------------------------------------------------------------------------
-sub_FB71C:
+FillMem:
         push ebp
         LD mov, ebp, esp
         push ebx

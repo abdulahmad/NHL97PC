@@ -12,11 +12,11 @@ extern dword_19ECC0, dword_19ECC4, dword_1AC814, dword_1AC944, dword_1ACF46, dwo
 extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, off_168CD8
 extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, qword_160018, qword_160020, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, sub_13AF0
-extern ShowCameraView, sub_18E35, sub_1B3D8, assreplace, assinsert, Setplass, sub_1FF5C, asspsclear
+extern ShowCameraView, ClearOverlayWindows, sub_1B3D8, assreplace, assinsert, Setplass, sub_1FF5C, asspsclear
 extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, sub_34330, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
 extern sub_41DB8, MusicFileName, StopAllSfx, sub_424CC, CommentaryEvent, PaEvent, sub_4DDB0, sub_52E28
 extern sub_57298, sub_57304, sub_57324, sub_57738, LoadGoalieMask, sub_5B558, sub_60D6C, sub_6539C
-extern sub_65E3B, DoGameFrame, sub_AA650, sub_FAA64, sub_FB704, sub_FB8AE, sub_FBCD8, unk_16000C
+extern sub_65E3B, DoGameFrame, sub_AA650, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
 extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
 extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, word_1684BE, word_1684CA, word_1684E8, word_1684EC
 extern word_1686D8, word_1686DA, word_168D18, word_19CB28, word_19CB2A, word_19CB5C, word_19CB60, word_19CB64
@@ -28,7 +28,7 @@ extern word_19E32A, word_19E949, word_19EA51, word_19EAB6, word_19EAC0, word_19E
 global SetupTeamForIntermission, clearteams, jpt_11318, loc_10000, sub_11328_26, sub_11328_4F, sub_11328_78, sub_11328_A6
 global forcepldata_E, sub_123A0_62, sub_123A0_81, GripLinkLibrary, sub_102F4, LoadGripLibrary, sub_1046C, LoadJoystickConfig
 global sub_10A68, sub_10CC8, sub_10FAC, sub_1120C, sub_11328, sub_114C4, forcepldata, sub_11574
-global sub_116B0, sub_11808, ResetBench, sub_11984, sub_119A8, setplayer, reenergizeteam, sub_11F74
+global sub_116B0, sub_11808, ResetBench, IsPlayoffGame, sub_119A8, setplayer, reenergizeteam, sub_11F74
 global sub_11FB4, sub_12024, sub_12334, sub_123A0, sub_12440, sub_124A4, setpersonel, sub_12970
 global sub_12A10, ClockTick, sub_12C2C, sub_12DE8, ReleaseBoxPlayers, unk_10003
 ;-----------------------------------------------------------------------------
@@ -575,7 +575,7 @@ LoadJoystickConfig:
         push eax
         push asc_160010
         xor ebx, ebx
-        call sub_FAA64
+        call AllocMemBlock
         mov bx, word [word_1684BE]
         mov edx, eax
         mov dword [dword_1684C0], eax
@@ -588,7 +588,7 @@ LoadJoystickConfig:
         add ebx, eax
         push edx
         mov dword [dword_1684C4], ebx
-        call sub_FB704
+        call ZeroMem
         xor edx, edx
         mov dx, word [word_1684BE]
         lea eax, [nosplit edx*4+00h]
@@ -600,7 +600,7 @@ LoadJoystickConfig:
         push eax
         mov edx, dword [dword_1684C4]
         push edx
-        call sub_FB704
+        call ZeroMem
         mov bl, byte [byte_1684C8]
         add esp, byte 8
         test bl, 2
@@ -2220,9 +2220,11 @@ ResetBench:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11984                                                       11984  97 PC
+; IsPlayoffGame                                   11984  97 PC, low confidence
+; Game mode check (dword_1AC814 bits 4-6 = 20h, or 10h with dword_1ACF46
+; set); clockcont_0 and the cup code use it
 ;-----------------------------------------------------------------------------
-sub_11984:
+IsPlayoffGame:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 20h
@@ -3891,7 +3893,7 @@ sub_12C2C:
         mov word [word_19CBDC], si
         mov word [word_19CBDA], si
         mov word [word_19CBE6], cx
-        call sub_18E35
+        call ClearOverlayWindows
         mov ax, word [gsp]
         mov word [word_19CBC0], si
         mov word [word_19CBBE], si

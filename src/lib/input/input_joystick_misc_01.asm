@@ -6,12 +6,15 @@ extern byte_16E354, byte_16E358, byte_16E35C, byte_16E378, byte_16E394, byte_16E
 extern byte_16E460, dword_16E344, dword_16E360, dword_16E364, dword_16E368, dword_16E36C, dword_16E370, dword_16E374
 extern dword_16E37C, dword_16E380, dword_16E384, dword_16E388, dword_16E38C, dword_16E390, dword_16E397, dword_16E39B
 extern dword_16E39F, dword_16E3A3, dword_16E3A7, dword_16E3AB, dword_16E3AF, dword_16E3B3, dword_16E3B7, dword_16E3BB
-extern dword_16E3BF, dword_16E3C3, dword_16E3C7, dword_16E3CB, dword_16E3CF, dword_16E3D3, dword_16E4B4, sub_102C30
+extern dword_16E3BF, dword_16E3C3, dword_16E3C7, dword_16E3CB, dword_16E3CF, dword_16E3D3, dword_16E4B4, Random32
 global sub_FB8AE, sub_FB9D8, sub_FBCD8
+;-----------------------------------------------------------------------------
+; sub_FB8AE                                                            FB8AE  
+;-----------------------------------------------------------------------------
 sub_FB8AE:
         push ebx
 .1:
-        call sub_102C30
+        call Random32
         LD mov, bh, al
         LD xor, eax, eax
         mov ecx, 186A0h
@@ -122,6 +125,9 @@ sub_FB8AE:
         mov byte [byte_16E354], al
         ret
         db 00h,00h
+;-----------------------------------------------------------------------------
+; sub_FB9D8                                                            FB9D8  
+;-----------------------------------------------------------------------------
 sub_FB9D8:
         push ebx
         mov byte [byte_16E396], 0
@@ -353,6 +359,9 @@ sub_FB9D8:
 .31:
         or byte [byte_16E396], 1
         jmp short .27
+;-----------------------------------------------------------------------------
+; sub_FBCD8                                                            FBCD8  
+;-----------------------------------------------------------------------------
 sub_FBCD8:
         push ebx
         mov byte [byte_16E460], 1
