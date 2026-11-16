@@ -13,7 +13,7 @@ extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, PickIndexEntryScreen_393, PickI
 extern PickIndexEntryScreen_4EE, rand_, sprintf_, sub_101340, sub_101390, sub_1013FC, sub_101429, sub_11B094
 extern sub_13C164, sub_419B0, sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, LoadDataFile, sub_7E860
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, sub_80AB8, sub_80B28, sub_80BBC, sub_835BC
-extern sub_83850, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, sub_9281C, sub_C6064
+extern sub_83850, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, LinkTransferSetup, sub_C6064
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E1744, sub_E3410, sub_E341C, LinkSendBlock, LinkReceiveBlock
 extern sub_FAA64, sub_FAF34, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcount, unk_16CFFC
 extern unk_1ACB44, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1ACB47, word_1C8EA0, word_1C8EA2
@@ -1211,7 +1211,7 @@ TeamSelectScreen_B61:
         cmp dword [byte ebp+072h], byte 19h
         jne short .33
         mov eax, dword [dword_1C86FC]
-        call sub_9281C
+        call LinkTransferSetup
 .33:
         cmp dword [byte ebp+066h], byte 1
         je short .34

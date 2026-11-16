@@ -921,7 +921,7 @@
 ;  840F8  sub_840F8                                front/main/main.asm                          1
 ;  84138  sub_84138                                front/main/main.asm                          1
 ;  84170  sub_84170                                front/main/main.asm                          1
-;  84204  sub_84204                                front/main/main.asm                          2
+;  84204  ShowLoadingScreen                        front/main/main.asm                          2
 ;  842E8  sub_842E8                                front/main/main.asm                          1
 ;  842F4  sub_842F4                                front/main/main.asm                          5
 ;  84330  sub_84330                                front/main/main.asm                          2
@@ -991,7 +991,7 @@
 ;  91D7F  sub_91D7F                                front/front_8E997.asm                        1
 ;  925BE  sub_925BE                                front/front_8E997.asm                        1
 ;  9279A  sub_9279A                                front/front_8E997.asm                        2
-;  9281C  sub_9281C                                front/front_8E997.asm                        2
+;  9281C  LinkTransferSetup                        front/front_8E997.asm                        2
 ;  92DB7  sub_92DB7                                front/front_8E997.asm                        1
 ;  92E37  sub_92E37                                front/front_8E997.asm                        1
 ;  92EE2  sub_92EE2                                front/front_8E997.asm                        1
@@ -1034,8 +1034,8 @@
 ;  A2EF0  AllocCrusherBuffers                      front/front_9F6F5.asm                        2
 ;  A2F31  sub_A2F31                                front/front_9F6F5.asm                        2
 ;  A2F52  sub_A2F52                                front/front_9F6F5.asm                        2
-;  A2F78  sub_A2F78                                front/front_9F6F5.asm                        2
-;  A3048  sub_A3048                                front/front_9F6F5.asm                        2
+;  A2F78  LinkSendData                             front/front_9F6F5.asm                        2
+;  A3048  LinkReceiveData                          front/front_9F6F5.asm                        2
 ;  A3116  sub_A3116                                front/front_9F6F5.asm                        2
 ;  A3136  sub_A3136                                front/front_9F6F5.asm                        1
 ;  A31DE  sub_A31DE                                front/front_9F6F5.asm                        1
@@ -1072,7 +1072,7 @@
 ;  B1DFD  unk_B1DFD                                front/front_AC799.asm                        1
 ;  B1E09  unk_B1E09                                front/front_AC799.asm                        1
 ;  B1E11  unk_B1E11                                front/front_AC799.asm                        1
-;  B2364  sub_B2364                                front/front_B1E1D.asm                        1
+;  B2364  UserLogScreen                            front/front_B1E1D.asm                        1
 ;  B2F49  sub_B2F49                                front/front_B1E1D.asm                        1
 ;  B418C  sub_B418C                                front/front_B1E1D.asm                        1
 ;  B4F87  sub_B4F87                                front/front_B1E1D.asm                        1

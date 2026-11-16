@@ -41,13 +41,13 @@ extern unk_166E9D, unk_166F30, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, u
 extern word_16D6D2, word_16D6E4
 global jpt_CBFAA, jpt_CD7E3, RosterScreen_11C, RosterScreen_157, RosterScreen_172, RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9
 global RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596, RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF
-global RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B, RosterScreen_66C, sub_C7FBC_4A, sub_C8EDC_86F
+global RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B, RosterScreen_66C, sub_C7FBC_4A, DrawRosterList_86F
 global sub_CA49A_2B8, sub_CB216_F7, sub_CB216_100, sub_CB216_102, sub_CB216_108, sub_CB9C9_306, sub_CBCD9_EE, sub_CBFBA_59
 global sub_CBFBA_D9, sub_CBFBA_133, sub_CBFBA_17B, sub_CD7F3_24, sub_CD7F3_AD, sub_CD7F3_1BD, sub_CD7F3_25B, sub_CE111_61
 global sub_CEC58_D4, sub_CEC58_110, sub_CEC58_12B, sub_CED89_83, sub_CED89_8D, sub_CEE20_B1, sub_CF255_152, sub_CF255_157
 global sub_CF255_158, sub_CF70F_20, sub_D096D_146, RosterScreen, sub_C7CA4, sub_C7CE8, sub_C7EAE, sub_C7F31
 global sub_C7FBC, sub_C800C, sub_C80C8, sub_C8127, sub_C817F, sub_C885D, sub_C8BEE, sub_C8C90
-global sub_C8EDC, sub_C9757, sub_C97FF, sub_C98B1, sub_C9A45, sub_C9AEE, sub_C9B24, sub_C9D84
+global DrawRosterList, sub_C9757, sub_C97FF, sub_C98B1, sub_C9A45, sub_C9AEE, sub_C9B24, sub_C9D84
 global sub_C9DDF, sub_C9F18, sub_CA206, sub_CA2A7, sub_CA44C, sub_CA49A, sub_CA758, sub_CAA0F
 global sub_CABF2, sub_CACE0, CheckRosterInjuries, sub_CB192, sub_CB216, CheckRosterLimits, CheckRegularRosterLimits, sub_CB9C9
 global sub_CBCD9, sub_CBDD0, sub_CBECB, sub_CBFBA, sub_CC1CA, sub_CC3AD, sub_CCB24, sub_CCC30
@@ -202,10 +202,10 @@ RosterScreen_172:
         add esp, byte 4
         xor edx, edx
         xor eax, eax
-        call sub_C8EDC
+        call DrawRosterList
         mov eax, 1
         xor edx, edx
-        call sub_C8EDC
+        call DrawRosterList
         xor eax, eax
         xor ebx, ebx
         call sub_CAA0F
@@ -241,10 +241,10 @@ RosterScreen_246:
         call sub_CB9C9
         mov edx, 1
         xor eax, eax
-        call sub_C8EDC
+        call DrawRosterList
         mov edx, 1
         mov eax, edx
-        call sub_C8EDC
+        call DrawRosterList
         imul eax, dword [dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         xor ebx, ebx
@@ -293,10 +293,10 @@ RosterScreen_2EC:
         call SetScrollBarPos
         mov edx, 1
         xor eax, eax
-        call sub_C8EDC
+        call DrawRosterList
         mov edx, 1
         mov eax, edx
-        call sub_C8EDC
+        call DrawRosterList
         call sub_CABF2
         mov eax, 1
         call sub_CAA0F
@@ -509,7 +509,7 @@ RosterScreen_624:
         mov edx, 1
         mov eax, edx
 .25:
-        call sub_C8EDC
+        call DrawRosterList
         jmp short RosterScreen_66C.29
 RosterScreen_65B:
         lea eax, [dword ebp-018Eh]
@@ -1945,9 +1945,10 @@ sub_C8C90:
         jl short .14
         jmp near sub_CF255_157
 ;-----------------------------------------------------------------------------
-; sub_C8EDC                                                       C8EDC  97 PC
+; DrawRosterList                                  C8EDC  97 PC, low confidence
+; Roster screen: the "Team Roster" / "Additional Players" lists
 ;-----------------------------------------------------------------------------
-sub_C8EDC:
+DrawRosterList:
         push ebx
         push ecx
         push esi
@@ -2545,7 +2546,7 @@ sub_C8EDC:
         mov eax, dword [nosplit edi*4+dword_1CC1BC]
         call DrawScrollBar
         mov eax, dword [byte ebp+03Ah]
-sub_C8EDC_86F:
+DrawRosterList_86F:
         lea esp, [dword ebp+082h]
         pop ebp
         pop edi
@@ -2973,10 +2974,10 @@ sub_C9B24:
         call sub_CABF2
         xor edx, edx
         xor eax, eax
-        call sub_C8EDC
+        call DrawRosterList
         mov eax, 1
         xor edx, edx
-        call sub_C8EDC
+        call DrawRosterList
         xor eax, eax
         xor edi, edi
         call sub_CAA0F
@@ -4291,7 +4292,7 @@ sub_CACE0:
         add esp, byte 4
         mov eax, esi
         xor edx, edx
-        call sub_C8EDC
+        call DrawRosterList
         cmp dword [byte ebp-04h], byte 0
         jne short .5
 .4:
@@ -7562,14 +7563,14 @@ sub_CD7F3:
         sub ebp, 82h
         mov esi, edx
         cmp eax, byte 3
-        ja near sub_C8EDC_86F
+        ja near DrawRosterList_86F
         shl edx, 2
         jmp dword [nosplit cs:eax*4+jpt_CD7E3]
 sub_CD7F3_24:
         imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         test byte [byte edx+eax+06Ah], 8
-        je near sub_C8EDC_86F
+        je near DrawRosterList_86F
         cmp dword [dword_16D668], byte 0
         je short .1
         call sub_C9D84
@@ -7587,16 +7588,16 @@ sub_CD7F3_24:
         mov eax, dword [byte eax+02Ch]
         call sub_80BBC
         test edi, edi
-        je near sub_C8EDC_86F
+        je near DrawRosterList_86F
         imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
 .3:
         mov edx, dword [dword_1CC2AC]
         or byte [byte edx+eax+06Ah], 2
         mov dword [dword_1CC2BC], 1
-        jmp near sub_C8EDC_86F
+        jmp near DrawRosterList_86F
 sub_CD7F3_AD:
         cmp dword [dword_1CC208], byte 0
-        jne near sub_C8EDC_86F
+        jne near DrawRosterList_86F
         mov eax, esi
         call sub_CE3F2
         mov ebx, eax
@@ -7639,10 +7640,10 @@ sub_CD7F3_AD:
         call SetScrollBarPos
         mov edx, 1
         xor eax, eax
-        call sub_C8EDC
+        call DrawRosterList
         mov edx, 1
         mov eax, edx
-        call sub_C8EDC
+        call DrawRosterList
         mov eax, dword [dword_1CC1BC]
         xor edx, edx
         call DrawScrollBar
@@ -7652,18 +7653,18 @@ sub_CD7F3_AD:
         mov eax, 1
         call sub_CAA0F
         test edi, edi
-        je near sub_C8EDC_86F
+        je near DrawRosterList_86F
         imul eax, dword [dword esi+dword_1CC1C4], dword 32C6h
         jmp near sub_CD7F3_24.3
 sub_CD7F3_1BD:
         imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
         mov ebx, dword [dword_1CC2AC]
         test byte [byte ebx+eax+06Ah], 8
-        je near sub_C8EDC_86F
+        je near DrawRosterList_86F
         mov eax, esi
         call CheckRegularRosterLimits
         test eax, eax
-        jne near sub_C8EDC_86F
+        jne near DrawRosterList_86F
         mov eax, esi
         call sub_CE53C
         imul ebx, dword [dword edx+dword_1CC1C4], dword 32C6h
@@ -7683,13 +7684,13 @@ sub_CD7F3_1BD:
         call SetScrollBarPos
         mov edx, 1
         mov eax, esi
-        call sub_C8EDC
+        call DrawRosterList
         mov eax, 1
         call sub_CAA0F
-        jmp near sub_C8EDC_86F
+        jmp near DrawRosterList_86F
 sub_CD7F3_25B:
         cmp dword [dword_1CC208], byte 0
-        jne near sub_C8EDC_86F
+        jne near DrawRosterList_86F
         xor edi, edi
         jmp near .8
 .5:
@@ -7748,7 +7749,7 @@ sub_CD7F3_25B:
         cmp edi, ebx
         jl near .5
         test byte [byte eax+06Ah], 2
-        je near sub_C8EDC_86F
+        je near DrawRosterList_86F
         mov eax, esi
         mov dword [dword_1CC2BC], 1
         call sub_CBECB
@@ -7774,7 +7775,7 @@ sub_CD7F3_25B:
         call sub_8E6AF
         mov edx, 1
         mov eax, esi
-        call sub_C8EDC
+        call DrawRosterList
         mov eax, dword [nosplit esi*4+dword_1CC1BC]
         xor edx, edx
         call DrawScrollBar
@@ -7788,7 +7789,7 @@ sub_CD7F3_25B:
         mov edx, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
         call sub_D0C88
-        jmp near sub_C8EDC_86F
+        jmp near DrawRosterList_86F
 ;-----------------------------------------------------------------------------
 ; sub_CDBE5                                                       CDBE5  97 PC
 ;-----------------------------------------------------------------------------
@@ -10718,7 +10719,7 @@ CreatePlayerScreen:
         call sub_FAF34
         mov eax, dword [byte ebp+06Eh]
         add esp, byte 4
-        jmp near sub_C8EDC_86F
+        jmp near DrawRosterList_86F
 ;-----------------------------------------------------------------------------
 ; sub_CFFAB                                                       CFFAB  97 PC
 ;-----------------------------------------------------------------------------

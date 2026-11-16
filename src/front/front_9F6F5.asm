@@ -29,9 +29,9 @@ extern unk_1ACD2B, unk_1ACD30, unk_1ACE38, unk_1AD22E, unk_1AD236, unk_1AD250, u
 extern unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C8F9A, unk_1C93D0, unk_9F5F1, unk_9F611, unk_9F631
 extern unk_9F651, word_1ACB47, word_1AD240, word_1AD242, word_1C13C2, word_1C34E5, word_1C9450, word_1C94EE
 global jpt_A31C6, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9, PickIndexEntryScreen_4EE, PickIndexEntryScreen_1080
-global sub_A219A_6F3, sub_A219A_6FD, sub_A219A_6FE, sub_A2F78_BB, sub_A31DE_20, sub_A31DE_45, sub_A31DE_50, sub_A31DE_57
+global sub_A219A_6F3, sub_A219A_6FD, sub_A219A_6FE, LinkSendData_BB, sub_A31DE_20, sub_A31DE_45, sub_A31DE_50, sub_A31DE_57
 global sub_A31DE_5E, PickIndexEntryScreen, sub_A0784, sub_A0867, sub_A0C74, sub_A12CD, sub_A1961, sub_A219A
-global sub_A289E, AllocCrusherBuffers, sub_A2F31, sub_A2F52, sub_A2F78, sub_A3048, sub_A3116, sub_A3136
+global sub_A289E, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData, LinkReceiveData, sub_A3116, sub_A3136
 global sub_A31DE
 ;-----------------------------------------------------------------------------
 ; PickIndexEntryScreen                         9F6F5  96 PC, medium confidence
@@ -2179,13 +2179,13 @@ sub_A12CD:
         call sub_FDC68
         add esp, byte 14h
         xor eax, eax
-        call sub_A2F78
+        call LinkSendData
         movsx edx, word [byte esi+02h]
         mov eax, dword [byte esi+020h]
         shl edx, 4
         call sub_A2F52
         xor eax, eax
-        call sub_A2F78
+        call LinkSendData
         cmp dword [byte ebp-0Ch], byte 0
         je short .3
         mov edx, 4
@@ -2212,7 +2212,7 @@ sub_A12CD:
         cmp eax, dword [dword_1AD24C]
         jl short .1
         xor eax, eax
-        call sub_A2F78
+        call LinkSendData
 .3:
         mov dword [byte ebp-04h], 0
         jmp near .29
@@ -2456,7 +2456,7 @@ sub_A12CD:
         cmp eax, dword [byte ebp-04h]
         jg near .4
         xor eax, eax
-        call sub_A2F78
+        call LinkSendData
         mov eax, 227h
         movsx edx, word [byte esi+02h]
         call GetLangText
@@ -2525,7 +2525,7 @@ sub_A12CD:
         add esp, byte 4
 .34:
         mov eax, 1
-        call sub_A2F78
+        call LinkSendData
 .35:
         cmp dword [byte ebp-0Ch], byte 0
         jne near .39
@@ -2574,7 +2574,7 @@ sub_A12CD:
         add esp, byte 4
 .38:
         mov eax, 1
-        call sub_A2F78
+        call LinkSendData
 .39:
         inc dword [byte ebp-04h]
 .40:
@@ -2617,7 +2617,7 @@ sub_A1961:
         call sub_81650
         xor eax, eax
         mov ebx, 24h
-        call sub_A3048
+        call LinkReceiveData
         mov edx, dword [dword_1C93CC]
         lea eax, [byte ebp+052h]
         add edx, dword [dword_1C93C4]
@@ -2680,7 +2680,7 @@ sub_A1961:
         call memcpy_
         xor eax, eax
         add dword [dword_1C93C4], ecx
-        call sub_A3048
+        call LinkReceiveData
         movsx ecx, word [byte ebp+054h]
         mov eax, dword [byte ebp+072h]
         mov edx, dword [dword_1C93CC]
@@ -2699,7 +2699,7 @@ sub_A1961:
         call LinkReceiveBlock
         xor eax, eax
         xor edi, edi
-        call sub_A3048
+        call LinkReceiveData
         jmp short .2
 .1:
         mov eax, dword [dword_1AD244]
@@ -2722,7 +2722,7 @@ sub_A1961:
         jl short .1
 .3:
         xor eax, eax
-        call sub_A3048
+        call LinkReceiveData
         xor edi, edi
         jmp near .29
 .4:
@@ -3001,7 +3001,7 @@ sub_A1961:
 .32:
         mov eax, 1
         mov ebx, 4A78h
-        call sub_A3048
+        call LinkReceiveData
         mov edx, dword [dword_1C93CC]
         lea eax, [dword ebp-04B4Ah]
         add edx, dword [dword_1C93C4]
@@ -3048,7 +3048,7 @@ sub_A1961:
 .35:
         mov eax, 1
         mov ebx, 4A78h
-        call sub_A3048
+        call LinkReceiveData
         mov edx, dword [dword_1C93CC]
         lea eax, [dword ebp-04B4Ah]
         add edx, dword [dword_1C93C4]
@@ -3453,12 +3453,12 @@ sub_A219A:
         cmp eax, dword [byte ebp-04h]
         jg near .33
         xor eax, eax
-        call sub_A2F78
+        call LinkSendData
         jmp near .64
 .48:
         xor eax, eax
         mov dword [byte ebp-04h], 0
-        call sub_A3048
+        call LinkReceiveData
         jmp near .63
 .49:
         imul eax, dword [byte ebp-04h], byte 1Ch
@@ -3956,12 +3956,12 @@ sub_A289E:
         cmp eax, dword [byte ebp-04h]
         jg near .28
         xor eax, eax
-        call sub_A2F78
+        call LinkSendData
         jmp near .59
 .43:
         xor eax, eax
         mov dword [byte ebp-04h], 0
-        call sub_A3048
+        call LinkReceiveData
         jmp near .58
 .44:
         imul eax, dword [byte ebp-04h], byte 1Ch
@@ -4200,9 +4200,11 @@ sub_A2F52:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_A2F78                                                       A2F78  97 PC
+; LinkSendData                                    A2F78  97 PC, low confidence
+; Link games: "Please wait... / Transferring data...", sends a block to the
+; other computer (LinkSendBlock)
 ;-----------------------------------------------------------------------------
-sub_A2F78:
+LinkSendData:
         push ebx
         push ecx
         push edx
@@ -4235,7 +4237,7 @@ sub_A2F78:
         mov edx, ecx
         xor ebx, ebx
         call LinkSendBlock
-        jmp short sub_A2F78_BB.3
+        jmp short LinkSendData_BB.3
 .1:
         cmp ecx, 1F4h
         jle short .2
@@ -4248,7 +4250,7 @@ sub_A2F78:
         mov edx, ecx
         call LinkSendBlock
         call sub_83558
-        jmp short sub_A2F78_BB.3
+        jmp short LinkSendData_BB.3
 .2:
         mov eax, 227h
         call GetLangText
@@ -4257,7 +4259,7 @@ sub_A2F78:
         xor ebx, ebx
         mov eax, dword [dword_1C93C8]
         call LinkSendBlock
-sub_A2F78_BB:
+LinkSendData_BB:
         call sub_83850
 .3:
         mov dword [dword_1C93C4], 0
@@ -4268,9 +4270,11 @@ sub_A2F78_BB:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_A3048                                                       A3048  97 PC
+; LinkReceiveData                                 A3048  97 PC, low confidence
+; Link games: "Please wait... / Transferring data...", receives a block from
+; the other computer (LinkReceiveBlock, atoi of its size)
 ;-----------------------------------------------------------------------------
-sub_A3048:
+LinkReceiveData:
         push ebx
         push ecx
         push edx
@@ -4331,7 +4335,7 @@ sub_A3048:
         mov ebx, dword [dword_1C93CC]
         mov eax, dword [dword_1C93C8]
         call sub_ED6C8
-        jmp near sub_A2F78_BB
+        jmp near LinkSendData_BB
 ;-----------------------------------------------------------------------------
 ; sub_A3116                                                       A3116  97 PC
 ;-----------------------------------------------------------------------------
