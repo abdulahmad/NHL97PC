@@ -24,7 +24,7 @@ extern ClearReplayEntry, KeysEqual, FindPlayerRecord, UpdatePlayerRecord, OpenLe
 extern AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, FindTeamStat, UpdateTeamStat, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile
 extern RenameReplayIndexEntry, ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSendBlock, LinkReceiveBlock, LinkReceiveChunk, LinkSendFile
 extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawShape, CreateBitmap, SetDrawTarget
-extern FillRectColor, DrawTextAt, SetTextColors, tickcount, str_D_LinkSendData, unk_16D7F4, GlobalSetVersion, IndexEntrySettings
+extern FillRectColor, DrawTextAt, SetTextColors, tickcount, str_D_LinkSendData, DbKeyBuffer, GlobalSetVersion, IndexEntrySettings
 extern SeasonName, SeasonPath, SeasonIndexPath, SeasonFilePath, SeasonStatsPath, PlayoffSettings, PlayoffIndexSettings, PlayoffIndexFlags
 extern PlayoffStatsPath, unk_1C5EF8, unk_1C5F4A, IndexListBox, LinkMessageText, str_Punct_PickIndexEntry, unk_9F611, unk_9F631
 extern unk_9F651, TeamSelectMode, SeasonLastHome, SeasonLastAway, IndexEntryList, HomeTeamCode, LinkSetupValues, LinkSetupItemCount
@@ -2479,7 +2479,7 @@ SendLeagueData:
         shl ebx, 4
         mov eax, dword [byte esi+020h]
         add eax, ebx
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         add eax, byte 8
         call KeysEqual
         test eax, eax
@@ -2986,7 +2986,7 @@ ReceiveLeagueData:
         mov eax, dword [byte ebp+072h]
         shl ecx, 4
         add eax, ecx
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         add eax, byte 8
         call KeysEqual
         test eax, eax

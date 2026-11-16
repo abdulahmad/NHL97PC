@@ -37,7 +37,7 @@ extern unk_16790E, str_A, str_S_GetKeyName, str_D_GetKeyName, str_F_GetKeyName, 
 extern str_K, str_L, unk_167922, unk_167924, unk_167926, unk_167928, str_Z, str_X_GetKeyName
 extern str_C_GetKeyName, str_V, str_B, str_N_GetKeyName, str_M, unk_167938, unk_16793A, unk_16793C
 extern unk_16793E, str_F1, str_F2, str_F3, str_F4, str_F5, str_F6, str_F7
-extern str_F8, str_F9, unk_16D7F4, AllStarTeamIds, AllStarHomeLines, AllStarAwayLines, AutoLineData, AllStarRoster
+extern str_F8, str_F9, DbKeyBuffer, AllStarTeamIds, AllStarHomeLines, AllStarAwayLines, AutoLineData, AllStarRoster
 extern HomeLines, HomeTeamName, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1CEA8A, unk_1CEA99
 extern unk_1CEAA8, unk_1CEAB7, unk_1CEAC6, unk_1CEAD5, unk_1CEAE4, unk_1CEAF3, unk_1CEB02, unk_1CEB11
 extern unk_1CEB20, unk_1CEB2F, unk_1CEB3E, unk_1CEB4D, unk_1CEB5C, unk_1CEB6B, unk_1CEB7A, unk_1CEB89
@@ -4474,7 +4474,7 @@ InitAllStarTeams:
         push esi
         push edi
         mov edi, SeasonFileName
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         movsd
         movsd
         mov esi, dword [SeasonUserTeam]
@@ -4484,13 +4484,13 @@ InitAllStarTeams:
         movsd
         call GetAllStarDate
         mov edi, AllStarHomeLines
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         mov word [AllStarTeamCode], 131Eh
         mov word [AllStarDay], ax
         movsd
         movsd
         mov edi, AllStarAwayLines
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         mov ebx, 2123h
         xor edx, edx
         movsd

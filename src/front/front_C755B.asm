@@ -37,7 +37,7 @@ extern SetListSelection, GetLangText, PositionAbbrev, LoadFakeExhibition, SaveAg
 extern BuildAutoLines, PlayerRatingsScreen, KeysEqual, DaysToYear, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, FindGameRecord
 extern UpdateGameRecord, FindPlayerStat, FindTeamStat, FreeExhibitionFile, ResetExhibitionStats, AllocMemBlock, FreeMemBlock, MakeColor
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount
-extern str_D_JerseyScreen, str_S_DrawCreatePlayerLabel, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, CreateSkaterRows
+extern str_D_JerseyScreen, str_S_DrawCreatePlayerLabel, DbKeyBuffer, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, CreateSkaterRows
 extern CreateGoalieRows, RosterSoundOn
 global jpt_CBFAA, jpt_CD7E3, RosterScreen_11C, RosterScreen_157, RosterScreen_172, RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9
 global RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596, RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF
@@ -74,7 +74,7 @@ RosterScreen:
         push eax
         sub ebp, 82h
         lea edi, [byte ebp+062h]
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         movsd
         movsd
         lea edi, [byte ebp+06Ah]

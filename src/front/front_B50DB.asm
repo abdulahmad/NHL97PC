@@ -36,7 +36,7 @@ extern VideoOptionsScreen, KeysEqual, FreeDbBlock, AgeFromBirthDate, FindTeamRec
 extern FindPlayerStat, FindTeamStat, ServiceIdle, LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor
 extern FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern str_Ai_PlayerStatsScreen, str_Rp, str_D_DrawPlayerRatings, str_0_DrawPlayerStatsText, str_S_DrawPlayerBio, str_Wt_ExportPlayerCard, str_Punct_ExportPlayerCard, CardExportSeparator
-extern unk_16D7FC, unk_16D804, SeasonFilePath, SeasonStatsPath, PlayoffStatsPath, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE
+extern PlayoffDbKey, SeasonDbKey, SeasonFilePath, SeasonStatsPath, PlayoffStatsPath, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE
 extern RatingsScrollBar, RatingsSkaterList, RatingsGoalieList, PlayerStatsPageShapes, PlayerStatsArrowShapes, PlayerStatsTitleShapes, StatsCardList
 global jpt_B585D, jpt_B6B27, jpt_B6B53, jpt_B6B7F, jpt_B6BAB, jpt_B6BD7, jpt_B6BFB, jpt_B6C1F
 global jpt_B6C43, jpt_B7214, jpt_B724C, jpt_B7758, jpt_B7790, jpt_B77B4, jpt_B77E0, jpt_B780C
@@ -703,10 +703,10 @@ PlayerStatsScreen:
         cmp byte [FrontEndExit], 0
         je short .2
         lea edx, [byte ebp+032h]
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         call OpenLeagueFile
         lea edx, [byte ebp+02Eh]
-        mov eax, unk_16D804
+        mov eax, SeasonDbKey
         jmp short .4
 .2:
         mov eax, dword [GameSettings]
@@ -5032,10 +5032,10 @@ PlayerRatingsScreen:
         cmp dword [dword ebp-01CBEh], byte 0
         je short .2
         lea edx, [byte ebp+01Ah]
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         call OpenLeagueFile
         lea edx, [byte ebp+016h]
-        mov eax, unk_16D804
+        mov eax, SeasonDbKey
         jmp short .4
 .2:
         mov eax, dword [GameSettings]

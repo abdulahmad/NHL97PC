@@ -6,7 +6,7 @@ extern str_00004, str_HOM1, str_HOM2, str_AWY1, str_AWY2, str_Menu3, str_03dB, s
 extern str_011R3, str_012R2, str_013R2, str_11SR3, str_12SR2, str_13SR2, str_SW002, str_SWL2
 extern str_SWL3, str_01LL, str_02LL, str_03LL, str_01LR, str_02LR, str_03LR, str_01RL
 extern str_02RL, str_03RL, str_01RR, str_02RR, str_03RR, str_012R013R014R12SR13SR14SRS, str_SW00SW01SW02SW03SW04SW05S, str_1
-extern str_0001, str_0002, TeamSelectSparkleCount, PanelTeamNameShift, PanelTeamBase, dword_16D76C, dword_16DA9C, GameOptionFlags
+extern str_0001, str_0002, TeamSelectSparkleCount, PanelTeamNameShift, PanelTeamBase, CreditsKeyFlag, dword_16DA9C, GameOptionFlags
 extern TeamSelectFlags, SeasonFileName, ExhibitionData, HomePanelTick, TeamSelectSoundOn, TeamSelectDrawn, HomePanelShapes, AwayPanelShapes
 extern AwayPanelTick, TeamSelectValues, HomePanelLayer, AwayPanelLayer, TeamSelectItems, TeamSelectTargets, HomePanelPos, AwayPanelPos
 extern IndexSoundMode, IndexSoundPlayed, IndexDialogShapeMid, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
@@ -493,7 +493,7 @@ TeamSelectScreen:
         mov eax, ExhibitionData
         call LoadExhibitionFile
 .3:
-        cmp dword [dword_16D76C], byte 0
+        cmp dword [CreditsKeyFlag], byte 0
         jne short .4
         mov eax, dword [TeamSelectFlags]
         and eax, 0FC000h
@@ -502,7 +502,7 @@ TeamSelectScreen:
         and dword [TeamSelectFlags], 0FFF03FFFh
         or byte [TeamSelectMode], 7
 .4:
-        cmp dword [dword_16D76C], byte 0
+        cmp dword [CreditsKeyFlag], byte 0
         jne short .5
         mov eax, dword [TeamSelectFlags]
         and eax, 3F00000h
@@ -1009,7 +1009,7 @@ TeamSelectScreen_8C4:
         dec dword [byte ebp+07Ah]
         cmp dword [byte ebp+07Ah], byte 0
         jge short .15
-        cmp dword [dword_16D76C], byte 0
+        cmp dword [CreditsKeyFlag], byte 0
         je short .13
         mov eax, 23h
         jmp short .14
@@ -1030,7 +1030,7 @@ TeamSelectScreen_8C4:
         jmp near TeamSelectScreen_94F.23
 TeamSelectScreen_918:
         inc dword [byte ebp+07Ah]
-        cmp dword [dword_16D76C], byte 0
+        cmp dword [CreditsKeyFlag], byte 0
         je short .16
         mov eax, 23h
         jmp short .17
@@ -1039,7 +1039,7 @@ TeamSelectScreen_918:
 .17:
         cmp eax, dword [byte ebp+07Ah]
         jne short TeamSelectScreen_8C4.15
-        cmp dword [dword_16D76C], byte 0
+        cmp dword [CreditsKeyFlag], byte 0
         je short .18
         mov eax, 23h
         jmp short .19
@@ -1052,7 +1052,7 @@ TeamSelectScreen_94F:
         dec dword [byte ebp+076h]
         cmp dword [byte ebp+076h], byte 0
         jge short .22
-        cmp dword [dword_16D76C], byte 0
+        cmp dword [CreditsKeyFlag], byte 0
         je short .20
         mov eax, 23h
         jmp short .21
@@ -1099,7 +1099,7 @@ TeamSelectScreen_94F:
         jmp dword [nosplit cs:eax*4+jpt_9E8E8]
 TeamSelectScreen_A05:
         inc dword [byte ebp+076h]
-        cmp dword [dword_16D76C], byte 0
+        cmp dword [CreditsKeyFlag], byte 0
         je short .24
         mov eax, 23h
         jmp short .25
@@ -1108,7 +1108,7 @@ TeamSelectScreen_A05:
 .25:
         cmp eax, dword [byte ebp+076h]
         jne near TeamSelectScreen_94F.22
-        cmp dword [dword_16D76C], byte 0
+        cmp dword [CreditsKeyFlag], byte 0
         je short .26
         mov eax, 23h
         jmp short .27
@@ -1132,7 +1132,7 @@ TeamSelectScreen_A43:
         lea eax, [dword ebp-014Eh]
         mov ebx, dword [dword ebx+0308h]
         push eax
-        cmp dword [dword_16D76C], byte 0
+        cmp dword [CreditsKeyFlag], byte 0
         je short .28
         mov eax, 23h
         jmp short .29
@@ -1167,7 +1167,7 @@ TeamSelectScreen_ACB:
         lea eax, [dword ebp-014Eh]
         mov ebx, dword [dword ebx+035Ah]
         push eax
-        cmp dword [dword_16D76C], byte 0
+        cmp dword [CreditsKeyFlag], byte 0
         je short .30
         mov eax, 23h
         jmp short .31

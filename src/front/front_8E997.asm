@@ -32,7 +32,7 @@ extern FindGameRecord, UpdateGameRecord, MakeGoalieStatKey, AddPlayerStat, AddPl
 extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, ImportTradedPlayers, ImportNewPlayers, AllocImportBuffer, FindReplayIndexEntry
 extern AllocClearBlock, ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, SeasonIntroScreen, AllStarScreen, AllocMemBlock, FreeMemBlock
 extern MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, str_Punct_SeasonMenuScreen
-extern str_Punct_StandingsScreen, str_D_StandingsScreen, unk_16D7F4, unk_16D7FC, GlobalSetVersion, SeasonName, MatchupNote, SeasonUserRecords
+extern str_Punct_StandingsScreen, str_D_StandingsScreen, DbKeyBuffer, PlayoffDbKey, GlobalSetVersion, SeasonName, MatchupNote, SeasonUserRecords
 extern SeasonFilePath, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, NewSeasonShapes, SeasonNameShapes, SeasonRecordShapes, SeasonGameShapes
 extern SeasonDateShapes, SeasonLastHome, SeasonLastAway
 global jpt_912BF, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8, RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187
@@ -1272,7 +1272,7 @@ CreateSeason:
         call LinkReceiveBlock
 .2:
         lea edx, [byte ebp+076h]
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         call OpenLeagueFile
         cmp dword [dword_16DA9C], byte 0
         jne short .4
@@ -4702,7 +4702,7 @@ FindSeasonReplay:
         shl esi, 4
         mov eax, dword [byte eax+020h]
         add eax, esi
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         add eax, byte 8
         call KeysEqual
         test eax, eax

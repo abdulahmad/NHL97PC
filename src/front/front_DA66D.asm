@@ -9,9 +9,9 @@ extern str_Pktlayer, str_Disconnecting, str_WaitingForOtherComputer, str_IPXMEM,
 extern str_PICKS2, str_REGS2, str_LX003, str_LC003, str_LX0D3, str_LC0D3, str_DTOP, str_DBOT
 extern str_08x, str_KWKJSK122691, str_BACK13, str_MB014, str_MB023, str_MB03, str_AR02d2, str_LT02d2
 extern str_MB004, str_GenericHayesCompatible, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, byte_1CD24D, byte_1CD250
-extern byte_1CD460, byte_1CD75C, GripDriverPtr, PacketSize, dword_16D788, dword_16D78C, dword_16D790, dword_16D794
-extern dword_16D798, dword_16D79C, dword_16D7A0, dword_16D7A4, dword_16D7A8, dword_16D7D0, dword_16D7D4, dword_16D7D8
-extern dword_16D7F0, dword_16D894, dword_16D898, dword_16D89C, dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0
+extern byte_1CD460, byte_1CD75C, GripDriverPtr, PacketSize, DbGameRecordCount, DbPlayerRecordCount, DbStatRecordCount, DbTeamRecordCount
+extern DbGameRecords, DbPlayerRecords, DbStatRecords, DbTeamRecords, DbRecordsLoaded, DbIndexRoot, DbPlayerIndex, DbGameIndex
+extern StaticBuffer, dword_16D894, dword_16D898, dword_16D89C, dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0
 extern dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8, dword_16D8DC, InputRecordTail, InputRecordHead, InputRecordCount
 extern dword_16D918, InputRecordStamp, dword_16D93A, dword_16DA9C, dword_16DAA0, dword_16DAA4, dword_16DAA8, dword_16DAAC
 extern dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC, str_Punct_ModemSettingsScreen, dword_16DAC4, dword_16DAC8, dword_16DACA
@@ -31,7 +31,7 @@ extern dword_1CD598, dword_1CD5B4, dword_1CD5B8, dword_1CD5BC, dword_1CD632, dwo
 extern dword_1CD6B0, dword_1CD6C6, dword_1CD6CA, dword_1CD6FE, dword_1CD750, dword_1CD754, dword_1CD758, dword_1CD760
 extern dword_1CD764, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD77C, dword_1CD780, dword_1CD784, LinkTextFont
 extern fclose_, fopen_, fread_, fseek_, ftell_, fwrite_, int386x_, memcmp_
-extern memcpy_, memset_, off_16D7AC, off_16D7B4, off_16D7DC, off_16D7E0, off_16D7E4, off_16D7E8
+extern memcpy_, memset_, DbFileNames, DbFileExtensions, LeagueFileDir, LeagueFilePrefix, DbDirName, DbFileSuffix
 extern off_16E0FC, PresentFuncInput, rand_, segread_, slotteam, sprintf_, strcat_, strcmp_
 extern strcpy_, stricmp_, strlen_, strncpy_, bcopy, BlitShape2, BlitArt, BlitShape
 extern PresentScreen, FindShape, ConvertArtNew, FileSizePath, LoadFileToBlockPlain, DetectWindows, SetupOptionsAnim, DosFileInfo
@@ -47,10 +47,10 @@ extern CloseDbFile, AddIndexKey, DeleteIndexKey, FindIndexKey, FindLastKey, Find
 extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, BuildSeasonIntro, SetupSeasonIntro, DrawSeasonIntro, RunIdleHandlers, AllocMemBlock
 extern AllocMemData, FreeMemBlock, ZeroMem, KbdGetKey, addtimer, RemoveTimerCallback, WaitTicks, MakeColor
 extern FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, FillRectColor, FillRect, MeasureText
-extern DrawTextAt, FillRectCorners, tickcount, str_X_WaitForOtherComputer, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
+extern DrawTextAt, FillRectCorners, tickcount, str_X_WaitForOtherComputer, DbKeyBuffer, PlayoffDbKey, unk_16E110, unk_1C5F4A
 extern unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
-extern unk_1CD570, unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC, GripPortWord, word_16D7EC, word_16D7EE
-extern str_Punct_SetMatchupTeams, word_16D80E, str_Punct_DaysToYear, word_16D860, word_16D8A4, SlotWords, word_16D920, str_Punct_ReadJoystickPads
+extern unk_1CD570, unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC, GripPortWord, StaticBufferReady, DbOpen
+extern str_Punct_SetMatchupTeams, MatchupTeamCodes, str_Punct_DaysToYear, MonthStartDays, word_16D8A4, SlotWords, word_16D920, str_Punct_ReadJoystickPads
 extern word_16D924, word_16D926, word_16D928, word_16D92A, word_16D92C, word_16DAB8, word_16DACC, word_16DACE
 extern word_16DAD0, word_16E0F8, word_16E0FA, word_16E108, word_16E10A, word_16E10C, word_16E120, word_16E12C
 extern word_16E148, word_16E15E, word_16E16E, word_16E170, word_1CD1C0, word_1CD1CE, word_1CD1D0, HotKeyFlags
@@ -134,12 +134,12 @@ AllocMediaBuffer:
         jmp near UpdatePlayerRecord_229
 ;-----------------------------------------------------------------------------
 ; AllocStaticBuffer                            DA713  97 PC, medium confidence
-; Allocates the "STATIC BUF" once (flag word_16D7EC)
+; Allocates the "STATIC BUF" once (flag StaticBufferReady)
 ;-----------------------------------------------------------------------------
 AllocStaticBuffer:
         push ebx
         push edx
-        cmp word [word_16D7EC], byte 0
+        cmp word [StaticBufferReady], byte 0
         je short .1
         xor eax, eax
         pop edx
@@ -152,16 +152,16 @@ AllocStaticBuffer:
         call AllocClearBlock20
         test eax, eax
         je short .2
-        mov word [word_16D7EC], 1
+        mov word [StaticBufferReady], 1
         call AllocMediaBuffer
-        mov dword [dword_16D7F0], eax
+        mov dword [StaticBuffer], eax
         mov eax, 1
 .2:
         pop edx
         pop ebx
         ret
         push ebx
-        mov ebx, dword [dword_16D7F0]
+        mov ebx, dword [StaticBuffer]
         mov dword [edx], ebx
         mov dword [byte edx+04h], eax
         mov eax, 1
@@ -245,7 +245,7 @@ OpenGameDatabase:
         push esi
         push edi
         enter 54h, 0
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         je short OpenGameDatabase_18.1
 OpenGameDatabase_13:
         mov eax, 1
@@ -261,15 +261,15 @@ OpenGameDatabase_18:
         xor ecx, ecx
 .2:
         lea eax, [byte ebp-054h]
-        mov edx, dword [off_16D7E0]
+        mov edx, dword [LeagueFilePrefix]
         mov ebx, ecx
         call strcpy_
         shl ebx, 2
         lea eax, [byte ebp-054h]
-        mov edx, dword [dword ebx+off_16D7AC]
+        mov edx, dword [dword ebx+DbFileNames]
         call strcat_
         lea eax, [byte ebp-054h]
-        mov edx, dword [off_16D7E8]
+        mov edx, dword [DbFileSuffix]
         call strcat_
         lea edx, [byte ebp-054h]
         mov eax, esi
@@ -300,13 +300,13 @@ OpenGameDatabase_18:
         jmp near OpenGameDatabase_18
 .5:
         lea eax, [byte ebp-054h]
-        mov edx, dword [off_16D7E0]
+        mov edx, dword [LeagueFilePrefix]
         call strcpy_
         lea eax, [byte ebp-054h]
-        mov edx, dword [dword ebx+off_16D7B4]
+        mov edx, dword [dword ebx+DbFileExtensions]
         call strcat_
         lea eax, [byte ebp-054h]
-        mov edx, dword [off_16D7E4]
+        mov edx, dword [DbDirName]
         call strcat_
         lea eax, [byte ebp-054h]
         mov edx, edi
@@ -362,15 +362,15 @@ OpenGameDatabase_18:
         cmp ecx, byte 7
         jge near .19
         lea eax, [byte ebp-054h]
-        mov edx, dword [off_16D7E0]
+        mov edx, dword [LeagueFilePrefix]
         mov ebx, ecx
         call strcpy_
         shl ebx, 2
         lea eax, [byte ebp-054h]
-        mov edx, dword [dword ebx+off_16D7B4]
+        mov edx, dword [dword ebx+DbFileExtensions]
         call strcat_
         lea eax, [byte ebp-054h]
-        mov edx, dword [off_16D7E4]
+        mov edx, dword [DbDirName]
         mov edi, ebx
         call strcat_
         lea eax, [byte ebp-054h]
@@ -449,9 +449,9 @@ OpenGameDatabase_18:
         inc ecx
         jmp near .10
 .19:
-        mov word [word_16D7EE], 1
+        mov word [DbOpen], 1
         mov eax, 1
-        mov dword [dword_16D7A8], 0
+        mov dword [DbRecordsLoaded], 0
         jmp near OpenGameDatabase_18
 ;-----------------------------------------------------------------------------
 ; LoadHomeRosterRecords                           DAA82  97 PC, low confidence
@@ -484,7 +484,7 @@ LoadHomeRosterRecords:
         lea edx, [dword esi+0E6h]
         call CopyBytesOk
         mov ebx, 8
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         lea eax, [byte ecx+020h]
         call memcmp_
         test eax, eax
@@ -553,7 +553,7 @@ LoadAwayRosterRecords:
         lea edx, [dword ecx+0E6h]
         call CopyBytesOk
         mov ebx, 8
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         lea eax, [byte esi+020h]
         call memcmp_
         test eax, eax
@@ -619,7 +619,7 @@ SetMatchupTeams:
         movzx edi, word [dword eax+str_Punct_SetMatchupTeams]
         cmp edi, dword [byte edx+04h]
         jne short .2
-        mov ax, word [dword eax+word_16D80E]
+        mov ax, word [dword eax+MatchupTeamCodes]
         jmp near FindGameRecord_A0
 .2:
         jae short .3
@@ -759,7 +759,7 @@ WriteDbRecord:
         mov dword [byte ebp-0Ch], ebx
         mov edi, ecx
         mov ebx, 1
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         leave
@@ -767,7 +767,7 @@ WriteDbRecord:
         pop esi
         ret
 .1:
-        cmp dword [dword_16D7A8], byte 0
+        cmp dword [DbRecordsLoaded], byte 0
         je near WriteDbRecord_5C.6
         cmp ebx, eax
         je short .2
@@ -784,15 +784,15 @@ WriteDbRecord:
         ja near WriteDbRecord_5C.6
         jmp dword [nosplit cs:eax*4+jpt_DADC0]
 WriteDbRecord_5C:
-        cmp esi, dword [dword_16D788]
+        cmp esi, dword [DbGameRecordCount]
         jge near .6
         xor eax, eax
 .3:
-        cmp eax, dword [dword_16D788]
+        cmp eax, dword [DbGameRecordCount]
         jge short .5
         imul edx, eax, dword 0C4h
         mov dword [byte ebp-010h], edx
-        mov edx, dword [dword_16D798]
+        mov edx, dword [DbGameRecords]
         add edx, dword [byte ebp-010h]
         cmp esi, dword [edx]
         jne short .4
@@ -804,11 +804,11 @@ WriteDbRecord_5C:
         add esp, byte 0Ch
         mov eax, dword [tickcount]
         mov edx, eax
-        mov eax, dword [dword_16D798]
+        mov eax, dword [DbGameRecords]
         add eax, dword [byte ebp-010h]
         mov dword [byte eax+04h], edx
         xor ebx, ebx
-        mov eax, dword [dword_16D788]
+        mov eax, dword [DbGameRecordCount]
 .4:
         inc eax
         jmp short .3
@@ -842,15 +842,15 @@ WriteDbRecord_5C:
         pop esi
         ret
 WriteDbRecord_102:
-        cmp esi, dword [dword_16D78C]
+        cmp esi, dword [DbPlayerRecordCount]
         jge short WriteDbRecord_5C.6
         xor eax, eax
 .9:
-        cmp eax, dword [dword_16D78C]
+        cmp eax, dword [DbPlayerRecordCount]
         jge short WriteDbRecord_5C.5
         imul edx, eax, byte 2Fh
         mov dword [byte ebp-08h], edx
-        mov edx, dword [dword_16D79C]
+        mov edx, dword [DbPlayerRecords]
         add edx, dword [byte ebp-08h]
         cmp esi, dword [edx]
         jne short .10
@@ -862,24 +862,24 @@ WriteDbRecord_102:
         add esp, byte 0Ch
         mov eax, dword [tickcount]
         mov edx, eax
-        mov eax, dword [dword_16D79C]
+        mov eax, dword [DbPlayerRecords]
         add eax, dword [byte ebp-08h]
         mov dword [byte eax+04h], edx
         xor ebx, ebx
-        mov eax, dword [dword_16D78C]
+        mov eax, dword [DbPlayerRecordCount]
 .10:
         inc eax
         jmp short .9
 WriteDbRecord_152:
-        cmp esi, dword [dword_16D790]
+        cmp esi, dword [DbStatRecordCount]
         jge near WriteDbRecord_5C.6
         xor eax, eax
 .11:
-        cmp eax, dword [dword_16D790]
+        cmp eax, dword [DbStatRecordCount]
         jge near WriteDbRecord_5C.5
         imul edx, eax, byte 45h
         mov dword [byte ebp-04h], edx
-        mov edx, dword [dword_16D7A0]
+        mov edx, dword [DbStatRecords]
         add edx, dword [byte ebp-04h]
         cmp esi, dword [edx]
         jne short .12
@@ -891,24 +891,24 @@ WriteDbRecord_152:
         add esp, byte 0Ch
         mov eax, dword [tickcount]
         mov edx, eax
-        mov eax, dword [dword_16D7A0]
+        mov eax, dword [DbStatRecords]
         add eax, dword [byte ebp-04h]
         mov dword [byte eax+04h], edx
         xor ebx, ebx
-        mov eax, dword [dword_16D790]
+        mov eax, dword [DbStatRecordCount]
 .12:
         inc eax
         jmp short .11
 WriteDbRecord_1AA:
-        cmp esi, dword [dword_16D794]
+        cmp esi, dword [DbTeamRecordCount]
         jge near WriteDbRecord_5C.6
         xor eax, eax
 .13:
-        cmp eax, dword [dword_16D794]
+        cmp eax, dword [DbTeamRecordCount]
         jge near WriteDbRecord_5C.5
         imul edx, eax, dword 1957h
         mov dword [byte ebp-014h], edx
-        mov edx, dword [dword_16D7A4]
+        mov edx, dword [DbTeamRecords]
         add edx, dword [byte ebp-014h]
         cmp esi, dword [edx]
         jne short .14
@@ -920,11 +920,11 @@ WriteDbRecord_1AA:
         add esp, byte 0Ch
         mov eax, dword [tickcount]
         mov edx, eax
-        mov eax, dword [dword_16D7A4]
+        mov eax, dword [DbTeamRecords]
         add eax, dword [byte ebp-014h]
         mov dword [byte eax+04h], edx
         xor ebx, ebx
-        mov eax, dword [dword_16D794]
+        mov eax, dword [DbTeamRecordCount]
 .14:
         inc eax
         jmp short .13
@@ -953,7 +953,7 @@ ReadDbRecord:
         xor esi, esi
         mov ebx, 1
         mov dword [byte ebp-08h], esi
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         leave
@@ -961,7 +961,7 @@ ReadDbRecord:
         pop esi
         ret
 .1:
-        cmp dword [dword_16D7A8], byte 0
+        cmp dword [DbRecordsLoaded], byte 0
         je near ReadDbRecord_62.8
         cmp ebx, eax
         je short .2
@@ -978,16 +978,16 @@ ReadDbRecord:
         ja near ReadDbRecord_62.8
         jmp dword [nosplit cs:eax*4+jpt_DAFD8]
 ReadDbRecord_62:
-        cmp edi, dword [dword_16D788]
+        cmp edi, dword [DbGameRecordCount]
         jge near .8
         xor eax, eax
 .3:
-        cmp eax, dword [dword_16D788]
+        cmp eax, dword [DbGameRecordCount]
         jge near .6
         test eax, eax
         je short .4
         imul edx, eax, dword 0C4h
-        mov ecx, dword [dword_16D798]
+        mov ecx, dword [DbGameRecords]
         mov dword [byte ebp-020h], ecx
         add edx, ecx
         imul ecx, esi, dword 0C4h
@@ -1001,7 +1001,7 @@ ReadDbRecord_62:
 .4:
         imul edx, eax, dword 0C4h
         mov dword [byte ebp-018h], edx
-        mov edx, dword [dword_16D798]
+        mov edx, dword [DbGameRecords]
         add edx, dword [byte ebp-018h]
         cmp edi, dword [edx]
         jne short .5
@@ -1013,18 +1013,18 @@ ReadDbRecord_62:
         add esp, byte 0Ch
         mov eax, dword [tickcount]
         mov edx, eax
-        mov eax, dword [dword_16D798]
+        mov eax, dword [DbGameRecords]
         add eax, dword [byte ebp-018h]
         mov dword [byte eax+04h], edx
         xor ebx, ebx
-        mov eax, dword [dword_16D788]
+        mov eax, dword [DbGameRecordCount]
 .5:
         inc eax
         jmp short .3
 .6:
-        cmp dword [dword_16D788], byte 0
+        cmp dword [DbGameRecordCount], byte 0
         jle near .8
-        cmp eax, dword [dword_16D788]
+        cmp eax, dword [DbGameRecordCount]
 .7:
         jne near .8
         mov dword [byte ebp-08h], 1
@@ -1055,16 +1055,16 @@ ReadDbRecord_62:
         ja near ReadDbRecord_33C.23
         jmp dword [nosplit cs:eax*4+jpt_DAFE8]
 ReadDbRecord_16E:
-        cmp edi, dword [dword_16D78C]
+        cmp edi, dword [DbPlayerRecordCount]
         jge short ReadDbRecord_62.8
         xor eax, eax
 .10:
-        cmp eax, dword [dword_16D78C]
+        cmp eax, dword [DbPlayerRecordCount]
         jge short .13
         test eax, eax
         je short .11
         imul edx, eax, byte 2Fh
-        mov ecx, dword [dword_16D79C]
+        mov ecx, dword [DbPlayerRecords]
         mov dword [byte ebp-020h], ecx
         add edx, ecx
         imul ecx, esi, byte 2Fh
@@ -1078,7 +1078,7 @@ ReadDbRecord_16E:
 .11:
         imul edx, eax, byte 2Fh
         mov dword [byte ebp-014h], edx
-        mov edx, dword [dword_16D79C]
+        mov edx, dword [DbPlayerRecords]
         add edx, dword [byte ebp-014h]
         cmp edi, dword [edx]
         jne short .12
@@ -1090,30 +1090,30 @@ ReadDbRecord_16E:
         add esp, byte 0Ch
         mov eax, dword [tickcount]
         mov edx, eax
-        mov eax, dword [dword_16D79C]
+        mov eax, dword [DbPlayerRecords]
         add eax, dword [byte ebp-014h]
         mov dword [byte eax+04h], edx
         xor ebx, ebx
-        mov eax, dword [dword_16D78C]
+        mov eax, dword [DbPlayerRecordCount]
 .12:
         inc eax
         jmp short .10
 .13:
-        cmp dword [dword_16D78C], byte 0
+        cmp dword [DbPlayerRecordCount], byte 0
         jle near ReadDbRecord_62.8
-        cmp eax, dword [dword_16D78C]
+        cmp eax, dword [DbPlayerRecordCount]
         jmp near ReadDbRecord_62.7
 ReadDbRecord_200:
-        cmp edi, dword [dword_16D790]
+        cmp edi, dword [DbStatRecordCount]
         jge near ReadDbRecord_62.8
         xor eax, eax
 .14:
-        cmp eax, dword [dword_16D790]
+        cmp eax, dword [DbStatRecordCount]
         jge short .17
         test eax, eax
         je short .15
         imul edx, eax, byte 45h
-        mov ecx, dword [dword_16D7A0]
+        mov ecx, dword [DbStatRecords]
         mov dword [byte ebp-020h], ecx
         add edx, ecx
         imul ecx, esi, byte 45h
@@ -1127,7 +1127,7 @@ ReadDbRecord_200:
 .15:
         imul edx, eax, byte 45h
         mov dword [byte ebp-0Ch], edx
-        mov edx, dword [dword_16D7A0]
+        mov edx, dword [DbStatRecords]
         add edx, dword [byte ebp-0Ch]
         cmp edi, dword [edx]
         jne short .16
@@ -1139,30 +1139,30 @@ ReadDbRecord_200:
         add esp, byte 0Ch
         mov eax, dword [tickcount]
         mov edx, eax
-        mov eax, dword [dword_16D7A0]
+        mov eax, dword [DbStatRecords]
         add eax, dword [byte ebp-0Ch]
         mov dword [byte eax+04h], edx
         xor ebx, ebx
-        mov eax, dword [dword_16D790]
+        mov eax, dword [DbStatRecordCount]
 .16:
         inc eax
         jmp short .14
 .17:
-        cmp dword [dword_16D790], byte 0
+        cmp dword [DbStatRecordCount], byte 0
         jle near ReadDbRecord_62.8
-        cmp eax, dword [dword_16D790]
+        cmp eax, dword [DbStatRecordCount]
         jmp near ReadDbRecord_62.7
 ReadDbRecord_296:
-        cmp edi, dword [dword_16D794]
+        cmp edi, dword [DbTeamRecordCount]
         jge near ReadDbRecord_62.8
         xor eax, eax
 .18:
-        cmp eax, dword [dword_16D794]
+        cmp eax, dword [DbTeamRecordCount]
         jge near .21
         test eax, eax
         je short .19
         imul edx, eax, dword 1957h
-        mov ecx, dword [dword_16D7A4]
+        mov ecx, dword [DbTeamRecords]
         mov dword [byte ebp-024h], ecx
         add edx, ecx
         imul ecx, esi, dword 1957h
@@ -1176,7 +1176,7 @@ ReadDbRecord_296:
 .19:
         imul edx, eax, dword 1957h
         mov dword [byte ebp-010h], edx
-        mov edx, dword [dword_16D7A4]
+        mov edx, dword [DbTeamRecords]
         add edx, dword [byte ebp-010h]
         cmp edi, dword [edx]
         jne short .20
@@ -1188,47 +1188,47 @@ ReadDbRecord_296:
         add esp, byte 0Ch
         mov eax, dword [tickcount]
         mov edx, eax
-        mov eax, dword [dword_16D7A4]
+        mov eax, dword [DbTeamRecords]
         add eax, dword [byte ebp-010h]
         mov dword [byte eax+04h], edx
         xor ebx, ebx
-        mov eax, dword [dword_16D794]
+        mov eax, dword [DbTeamRecordCount]
 .20:
         inc eax
         jmp short .18
 .21:
-        cmp dword [dword_16D794], byte 0
+        cmp dword [DbTeamRecordCount], byte 0
         jle near ReadDbRecord_62.8
-        cmp eax, dword [dword_16D794]
+        cmp eax, dword [DbTeamRecordCount]
         jmp near ReadDbRecord_62.7
 ReadDbRecord_33C:
         imul eax, esi, dword 0C4h
-        mov edx, dword [dword_16D798]
+        mov edx, dword [DbGameRecords]
         add eax, edx
         cmp dword [byte eax+04h], byte 0
         je short .22
-        mov dword [dword_16D7A8], 0
+        mov dword [DbRecordsLoaded], 0
         mov ebx, 0BCh
         lea ecx, [byte eax+08h]
         mov edx, dword [eax]
         mov eax, 1
         call WriteDbRecord
-        mov dword [dword_16D7A8], 1
+        mov dword [DbRecordsLoaded], 1
 .22:
         imul esi, dword 0C4h
-        mov eax, dword [dword_16D798]
+        mov eax, dword [DbGameRecords]
         add eax, esi
         push dword 0BCh
         add eax, byte 8
         push eax
         push dword [byte ebp-04h]
         call bcopy
-        mov eax, dword [dword_16D798]
+        mov eax, dword [DbGameRecords]
         add esp, byte 0Ch
         mov dword [esi+eax], edi
         mov eax, dword [tickcount]
         mov edx, eax
-        mov eax, dword [dword_16D798]
+        mov eax, dword [DbGameRecords]
         mov dword [byte esi+eax+04h], edx
 .23:
         call ServiceIdle
@@ -1240,89 +1240,89 @@ ReadDbRecord_33C:
         ret
 ReadDbRecord_3BF:
         imul eax, esi, byte 2Fh
-        mov edx, dword [dword_16D79C]
+        mov edx, dword [DbPlayerRecords]
         add eax, edx
         cmp dword [byte eax+04h], byte 0
         je short .25
-        mov dword [dword_16D7A8], 0
+        mov dword [DbRecordsLoaded], 0
         mov ebx, 27h
         lea ecx, [byte eax+08h]
         mov edx, dword [eax]
         mov eax, 4
         call WriteDbRecord
-        mov dword [dword_16D7A8], 1
+        mov dword [DbRecordsLoaded], 1
 .25:
         imul esi, byte 2Fh
-        mov eax, dword [dword_16D79C]
+        mov eax, dword [DbPlayerRecords]
         add eax, esi
         push byte 27h
         add eax, byte 8
         push eax
         push dword [byte ebp-04h]
         call bcopy
-        mov eax, dword [dword_16D79C]
+        mov eax, dword [DbPlayerRecords]
         add esp, byte 0Ch
         mov dword [esi+eax], edi
         mov eax, dword [tickcount]
-        mov edx, dword [dword_16D79C]
+        mov edx, dword [DbPlayerRecords]
 .26:
         mov dword [byte edx+esi+04h], eax
         jmp short ReadDbRecord_33C.23
 ReadDbRecord_42C:
         imul eax, esi, byte 45h
-        mov edx, dword [dword_16D7A0]
+        mov edx, dword [DbStatRecords]
         add eax, edx
         cmp dword [byte eax+04h], byte 0
         je short .27
-        mov dword [dword_16D7A8], 0
+        mov dword [DbRecordsLoaded], 0
         mov ebx, 3Dh
         lea ecx, [byte eax+08h]
         mov edx, dword [eax]
         mov eax, 3
         call WriteDbRecord
-        mov dword [dword_16D7A8], 1
+        mov dword [DbRecordsLoaded], 1
 .27:
         imul esi, byte 45h
-        mov eax, dword [dword_16D7A0]
+        mov eax, dword [DbStatRecords]
         add eax, esi
         push byte 3Dh
         add eax, byte 8
         push eax
         push dword [byte ebp-04h]
         call bcopy
-        mov eax, dword [dword_16D7A0]
+        mov eax, dword [DbStatRecords]
         add esp, byte 0Ch
         mov dword [esi+eax], edi
         mov eax, dword [tickcount]
-        mov edx, dword [dword_16D7A0]
+        mov edx, dword [DbStatRecords]
         jmp short ReadDbRecord_3BF.26
 ReadDbRecord_495:
         imul eax, esi, dword 1957h
-        mov edx, dword [dword_16D7A4]
+        mov edx, dword [DbTeamRecords]
         add eax, edx
         cmp dword [byte eax+04h], byte 0
         je short .28
-        mov dword [dword_16D7A8], 0
+        mov dword [DbRecordsLoaded], 0
         mov ebx, 194Fh
         lea ecx, [byte eax+08h]
         mov edx, dword [eax]
         mov eax, 2
         call WriteDbRecord
-        mov dword [dword_16D7A8], 1
+        mov dword [DbRecordsLoaded], 1
 .28:
         imul esi, dword 1957h
-        mov eax, dword [dword_16D7A4]
+        mov eax, dword [DbTeamRecords]
         add eax, esi
         push dword 194Fh
         add eax, byte 8
         push eax
         push dword [byte ebp-04h]
         call bcopy
-        mov eax, dword [dword_16D7A4]
+        mov eax, dword [DbTeamRecords]
         add esp, byte 0Ch
         mov dword [esi+eax], edi
         mov eax, dword [tickcount]
-        mov edx, dword [dword_16D7A4]
+        mov edx, dword [DbTeamRecords]
         jmp near ReadDbRecord_3BF.26
         mov eax, 1
         ret
@@ -1339,7 +1339,7 @@ AppendDbRecord:
         push edx
         mov edi, ebx
         mov dword [byte ebp-04h], 0
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         leave
@@ -1405,7 +1405,7 @@ AllocRecordSlot:
         push eax
         mov esi, edx
         mov edi, ebx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         leave
@@ -1492,7 +1492,7 @@ CloseGameDatabase:
         push ebx
         push ecx
         push edx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         pop edx
@@ -1526,10 +1526,10 @@ CloseGameDatabase:
         cmp edx, ecx
         jne short .3
         call FreeDbPages
-        mov word [word_16D7EE], 0
-        mov dword [dword_16D7D0], 0
-        mov dword [dword_16D7D4], 0
-        mov dword [dword_16D7D8], 0
+        mov word [DbOpen], 0
+        mov dword [DbIndexRoot], 0
+        mov dword [DbPlayerIndex], 0
+        mov dword [DbGameIndex], 0
         call ServiceIdle
         mov eax, 1
         pop edx
@@ -1541,7 +1541,7 @@ CloseGameDatabase:
 ; Clears the database state at start-up
 ;-----------------------------------------------------------------------------
 InitDbState:
-        cmp word [word_16D7EC], byte 0
+        cmp word [StaticBufferReady], byte 0
         jne short .1
         xor eax, eax
         ret
@@ -1631,7 +1631,7 @@ AgeFromBirthDate:
         movsx eax, word [ebx]
         add eax, eax
         add eax, dword [byte ebp-08h]
-        movsx edx, word [dword eax+word_16D860]
+        movsx edx, word [dword eax+MonthStartDays]
         cmp edx, esi
         jge short .2
         inc word [ebx]
@@ -1654,7 +1654,7 @@ NewRecordKey:
         push esi
         enter 30h, 0
         mov esi, edx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -1682,7 +1682,7 @@ NewRecordKey:
         jne short .4
         cmp dword [byte ebp-04h], byte 0FFFFFFFFh
         jne short .4
-        mov eax, dword [dword_16D7F0]
+        mov eax, dword [StaticBuffer]
         mov dword [byte esi+04h], 0
         mov dword [esi], eax
         jmp short .5
@@ -1696,7 +1696,7 @@ NewRecordKey:
         mov ebx, esi
         add edx, byte 5
         call KeyToLong
-        mov eax, dword [dword_16D7F0]
+        mov eax, dword [StaticBuffer]
         mov dword [esi], eax
         inc dword [byte esi+04h]
         call ServiceIdle
@@ -1873,7 +1873,7 @@ LookupRecord_FD:
         enter 38h, 0
         push eax
         push edx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .14
         xor eax, eax
         jmp near FindGameRecord_A0
@@ -1940,7 +1940,7 @@ LookupRecord_249:
         push esi
         enter 38h, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .15
         xor eax, eax
         jmp near UpdatePlayerRecord_229
@@ -2004,7 +2004,7 @@ FindRecordByKey:
         sub ebp, byte 76h
         mov byte [byte ebp+072h], bl
         mov dword [byte ebp+062h], ecx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -2153,7 +2153,7 @@ CountDbRecords:
         mov edi, edx
         mov dword [byte ebp-04h], 0
         mov dword [byte ebp-08h], 7FFFFFFFh
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         je short .2
         push byte 0
         push byte 0
@@ -2238,7 +2238,7 @@ RebuildDbIndex:
         push edx
         push ebx
         mov dword [byte ebp-04h], 7FFFFFFFh
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         je short .2
         push byte 0
         push byte 0
@@ -2395,7 +2395,7 @@ RebuildDbIndex:
         push edi
         enter 5Ch, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .13
         xor eax, eax
         jmp near OpenGameDatabase_18
@@ -2465,7 +2465,7 @@ RepairDatabase:
         enter 9Ch, 0
         push eax
         sub ebp, 82h
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -2625,7 +2625,7 @@ RepairDatabase_21E:
         push esi
         enter 30h, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .8
         xor eax, eax
         jmp near UpdatePlayerRecord_229
@@ -2656,7 +2656,7 @@ RepairDatabase_21E:
         push esi
         enter 30h, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .11
 .10:
         xor eax, eax
@@ -2666,7 +2666,7 @@ RepairDatabase_21E:
         lea ebx, [byte ebp-030h]
         mov edx, 3
         mov eax, dword [dword_1CD158]
-        mov dword [dword_16D7D0], 0
+        mov dword [DbIndexRoot], 0
         call FindLastKey
         test eax, eax
         je near UpdatePlayerRecord_229
@@ -2688,7 +2688,7 @@ RepairDatabase_21E:
         mov edx, esi
         inc eax
         call CopyBytesOk
-        mov dword [dword_16D7D0], 1
+        mov dword [DbIndexRoot], 1
         jmp near LookupRecord_30C
         push ebx
         push ecx
@@ -2696,7 +2696,7 @@ RepairDatabase_21E:
         push esi
         enter 30h, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .13
         xor eax, eax
         jmp near UpdatePlayerRecord_229
@@ -2705,7 +2705,7 @@ RepairDatabase_21E:
         lea ebx, [byte ebp-030h]
         mov edx, 3
         mov eax, dword [dword_1CD158]
-        mov dword [dword_16D7D0], 0
+        mov dword [DbIndexRoot], 0
         call FindFirstKey
         test eax, eax
         je near UpdatePlayerRecord_229
@@ -2721,14 +2721,14 @@ RepairDatabase_21E:
         mov edx, esi
         inc eax
         call CopyBytesOk
-        mov dword [dword_16D7D0], 1
+        mov dword [DbIndexRoot], 1
         jmp near LookupRecord_307
         push ebx
         push ecx
         push esi
         enter 30h, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .15
 .14:
         xor eax, eax
@@ -2738,7 +2738,7 @@ RepairDatabase_21E:
         pop ebx
         ret
 .15:
-        cmp dword [dword_16D7D0], byte 0
+        cmp dword [DbIndexRoot], byte 0
         je short .14
         test edx, edx
         je short .17
@@ -2750,7 +2750,7 @@ RepairDatabase_21E:
 .16:
         test eax, eax
         jne short .18
-        mov dword [dword_16D7D0], eax
+        mov dword [DbIndexRoot], eax
         leave
         pop esi
         pop ecx
@@ -2796,7 +2796,7 @@ RepairDatabase_21E:
         push edi
         enter 5Ch, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .21
         xor eax, eax
         jmp near OpenGameDatabase_18
@@ -2866,7 +2866,7 @@ FindTeamRecord:
         enter 38h, 0
         push eax
         push edx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         jmp near FindGameRecord_A0
@@ -2928,7 +2928,7 @@ BuildAllStarRecords:
         push esi
         enter 30h, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         jmp near UpdatePlayerRecord_229
@@ -2949,7 +2949,7 @@ BuildAllStarRecords:
         mov edx, dword [byte ebp-04h]
         mov ecx, dword [dword_1CD17C]
         xor eax, eax
-        mov dword [dword_16D7D0], 1
+        mov dword [DbIndexRoot], 1
         call ReadDbRecord
         test eax, eax
         je near UpdatePlayerRecord_229
@@ -2965,7 +2965,7 @@ BuildAllStarRecords:
         push esi
         enter 30h, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
         xor eax, eax
         jmp near UpdatePlayerRecord_229
@@ -2999,7 +2999,7 @@ BuildAllStarRecords:
         push esi
         enter 30h, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .5
 .4:
         xor eax, eax
@@ -3009,7 +3009,7 @@ BuildAllStarRecords:
         lea ebx, [byte ebp-030h]
         mov edx, 5
         mov eax, dword [dword_1CD158]
-        mov dword [dword_16D7D4], 0
+        mov dword [DbPlayerIndex], 0
         call FindLastKey
         test eax, eax
         je near UpdatePlayerRecord_229
@@ -3028,7 +3028,7 @@ BuildAllStarRecords:
         je near UpdatePlayerRecord_229
 .7:
         mov eax, 1
-        mov dword [dword_16D7D4], 1
+        mov dword [DbPlayerIndex], 1
         jmp near UpdatePlayerRecord_229
         push ebx
         push ecx
@@ -3036,7 +3036,7 @@ BuildAllStarRecords:
         push esi
         enter 30h, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .8
         xor eax, eax
         jmp near UpdatePlayerRecord_229
@@ -3045,7 +3045,7 @@ BuildAllStarRecords:
         lea ebx, [byte ebp-030h]
         mov edx, 5
         mov eax, dword [dword_1CD158]
-        mov dword [dword_16D7D4], 0
+        mov dword [DbPlayerIndex], 0
         call FindFirstKey
         test eax, eax
         je near UpdatePlayerRecord_229
@@ -3063,7 +3063,7 @@ BuildAllStarRecords:
         push esi
         enter 30h, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .10
 .9:
         xor eax, eax
@@ -3073,7 +3073,7 @@ BuildAllStarRecords:
         pop ebx
         ret
 .10:
-        cmp dword [dword_16D7D4], byte 0
+        cmp dword [DbPlayerIndex], byte 0
         je short .9
         test edx, edx
         je short .12
@@ -3085,7 +3085,7 @@ BuildAllStarRecords:
 .11:
         test eax, eax
         jne short .13
-        mov dword [dword_16D7D4], eax
+        mov dword [DbPlayerIndex], eax
         leave
         pop esi
         pop ecx
@@ -3131,7 +3131,7 @@ AddPlayerRecord:
         push edi
         enter 5Ch, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         jmp near OpenGameDatabase_18
@@ -3191,7 +3191,7 @@ AddTradeRecord:
         push edi
         enter 64h, 0
         push eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -3200,7 +3200,7 @@ AddTradeRecord:
         cmp dword [edx], byte 0
         je short .1
         mov eax, dword [edx]
-        cmp eax, dword [dword_16D7F0]
+        cmp eax, dword [StaticBuffer]
         je short .1
         mov edi, dword [byte ebp-068h]
         lea ebx, [byte ebp-064h]
@@ -3289,7 +3289,7 @@ FindPlayerRecord:
         enter 38h, 0
         push eax
         push edx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         jmp near FindGameRecord_A0
@@ -3352,7 +3352,7 @@ UpdatePlayerRecord:
         enter 14Ch, 0
         sub ebp, 82h
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -3388,7 +3388,7 @@ UpdatePlayerRecord:
         test eax, eax
         jne near .4
         mov eax, dword [esi]
-        cmp eax, dword [dword_16D7F0]
+        cmp eax, dword [StaticBuffer]
         je near .4
         mov ebx, 0BCh
         lea edx, [byte ebp+07Eh]
@@ -3476,7 +3476,7 @@ UpdatePlayerRecord_1AD:
         push esi
         enter 30h, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .5
         xor eax, eax
         jmp short UpdatePlayerRecord_229
@@ -3498,7 +3498,7 @@ UpdatePlayerRecord_1AD:
         mov edx, dword [byte ebp-04h]
         mov eax, 1
         mov ecx, esi
-        mov dword [dword_16D7D4], 1
+        mov dword [DbPlayerIndex], 1
         call ReadDbRecord
 UpdatePlayerRecord_221:
         test eax, eax
@@ -3520,7 +3520,7 @@ MakeLeagueKey:
         push esi
         enter 30h, 0
         mov esi, edx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -3554,7 +3554,7 @@ MakeLeagueKey:
         jne short .4
         cmp dword [byte ebp-04h], byte 0FFFFFFFFh
         jne short .4
-        mov eax, dword [dword_16D7F0]
+        mov eax, dword [StaticBuffer]
         mov dword [byte esi+04h], 0
         mov dword [esi], eax
         mov eax, 1
@@ -3573,7 +3573,7 @@ MakeLeagueKey:
         mov ebx, esi
         add edx, byte 5
         call KeyToLong
-        mov eax, dword [dword_16D7F0]
+        mov eax, dword [StaticBuffer]
         mov dword [esi], eax
         mov eax, 1
         add dword [byte esi+04h], eax
@@ -3643,7 +3643,7 @@ CreateExhibitionFile:
         push ebx
         push ecx
         sub ebp, byte 7Eh
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         je near .7
         movsx eax, dx
         imul eax, byte 18h
@@ -3794,7 +3794,7 @@ CreateExhibitionFile:
         mov byte [byte eax+01h], 0FFh
         mov byte [byte eax+02h], 0FFh
         mov byte [byte eax+03h], 0FFh
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         mov word [byte eax+04h], 0
         inc edx
         lea edi, [byte eax+08h]
@@ -3811,7 +3811,7 @@ CreateExhibitionFile:
         mov eax, dword [byte eax+04h]
         xor eax, 0AAAAAAAAh
         push eax
-        push dword [off_16D7E0]
+        push dword [LeagueFilePrefix]
         push str_S08x03x
         lea eax, [byte ebp-012h]
         push eax
@@ -3930,10 +3930,10 @@ CreatePlayoffFile:
         push ebx
         push ecx
         sub ebp, byte 7Eh
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         je short .3
         lea edx, [byte ebp+06Ah]
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         call OpenLeagueFile
         test eax, eax
         je short CreateExhibitionFile_325
@@ -4063,7 +4063,7 @@ CreatePlayoffFile:
         add edi, ecx
         movsd
         movsd
-        push unk_16D7F4
+        push DbKeyBuffer
         mov eax, dword [byte ebp+06Ah]
         mov edi, dword [byte ebp+07Ah]
         mov ebx, dword [byte ebp+076h]
@@ -4102,7 +4102,7 @@ CreatePlayoffFile:
         mov byte [byte eax+01h], 0FFh
         mov byte [byte eax+02h], 0FFh
         mov byte [byte eax+03h], 0FFh
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         mov word [byte eax+04h], 0
         inc edx
         lea edi, [byte eax+08h]
@@ -4119,7 +4119,7 @@ CreatePlayoffFile:
         mov eax, dword [byte eax+04h]
         xor eax, 0AAAAAAAAh
         push eax
-        push dword [off_16D7E0]
+        push dword [LeagueFilePrefix]
         push str_S08x03x
         lea eax, [byte ebp-016h]
         push eax
@@ -4216,10 +4216,10 @@ CreatePlayoffSchedule:
         push ebx
         push ecx
         sub ebp, byte 76h
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         je near .7
         lea edx, [byte ebp+062h]
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         call OpenLeagueFile
         test eax, eax
         je near FindRecordByKey_1BC
@@ -4378,7 +4378,7 @@ CreatePlayoffSchedule:
         mov byte [byte eax+01h], 0FFh
         mov byte [byte eax+02h], 0FFh
         mov byte [byte eax+03h], 0FFh
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         mov word [byte eax+04h], 0
         inc edx
         lea edi, [byte eax+08h]
@@ -4395,7 +4395,7 @@ CreatePlayoffSchedule:
         mov eax, dword [byte eax+04h]
         xor eax, 0AAAAAAAAh
         push eax
-        push dword [off_16D7E0]
+        push dword [LeagueFilePrefix]
         push str_S08x03x
         lea eax, [byte ebp-01Eh]
         push eax
@@ -4506,14 +4506,14 @@ CreateSeasonFile:
         push edx
         push ebx
         sub ebp, byte 7Eh
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
         jmp near CreateExhibitionFile_325
 .2:
         lea edx, [byte ebp+076h]
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         call OpenLeagueFile
         test eax, eax
         je near CreateExhibitionFile_325
@@ -4598,7 +4598,7 @@ CreateSeasonFile:
         mov byte [byte eax+01h], 0FFh
         mov byte [byte eax+02h], 0FFh
         mov byte [byte eax+03h], 0FFh
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         mov word [byte eax+04h], 0
         inc edx
         lea edi, [byte eax+08h]
@@ -4648,7 +4648,7 @@ CreateSeasonFile:
         mov eax, dword [byte eax+04h]
         xor eax, 0AAAAAAAAh
         push eax
-        push dword [off_16D7E0]
+        push dword [LeagueFilePrefix]
         push str_S08x03x
         lea eax, [byte ebp-0Ah]
         push eax
@@ -4760,10 +4760,10 @@ CreateSeasonSchedule:
         mov ecx, eax
         mov dword [byte ebp+076h], edx
         mov dword [byte ebp+07Ah], ebx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         je short .2
         lea edx, [byte ebp+072h]
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         call OpenLeagueFile
         test eax, eax
         je near CreateSeasonSchedule_2F0
@@ -4855,7 +4855,7 @@ CreateSeasonSchedule:
         mov byte [byte eax+01h], 0FFh
         mov byte [byte eax+02h], 0FFh
         mov byte [byte eax+03h], 0FFh
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         mov word [byte eax+04h], 0
         inc edx
         lea edi, [byte eax+08h]
@@ -4886,7 +4886,7 @@ CreateSeasonSchedule:
         mov eax, edi
         mov edx, dword [byte ebp+076h]
         call UpdateWorkingBox
-        push unk_16D7F4
+        push DbKeyBuffer
         mov ebx, esi
         mov eax, esi
         call BuildPlayoffRecords
@@ -4905,7 +4905,7 @@ CreateSeasonSchedule:
         mov eax, dword [byte eax+04h]
         xor eax, 0AAAAAAAAh
         push eax
-        push dword [off_16D7E0]
+        push dword [LeagueFilePrefix]
         push str_S08x03x
         lea eax, [byte ebp-0Eh]
         push eax
@@ -5023,7 +5023,7 @@ CreateSeasonSchedule_2F0:
         mov ecx, eax
         mov dword [byte ebp+07Ah], edx
         mov dword [byte ebp+076h], ebx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .19
 .18:
         xor eax, eax
@@ -5110,7 +5110,7 @@ CreateSeasonSchedule_2F0:
         mov byte [byte eax+01h], 0FFh
         mov byte [byte eax+02h], 0FFh
         mov byte [byte eax+03h], 0FFh
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         mov word [byte eax+04h], 0
         inc edx
         lea edi, [byte eax+08h]
@@ -5162,7 +5162,7 @@ CreateSeasonSchedule_2F0:
         mov eax, dword [byte eax+04h]
         xor eax, 0AAAAAAAAh
         push eax
-        push dword [off_16D7E0]
+        push dword [LeagueFilePrefix]
         push str_S08x03x
         lea eax, [byte ebp-0Ah]
         push eax
@@ -5443,7 +5443,7 @@ FindNextSeasonGame:
         push esi
         enter 30h, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .16
         xor eax, eax
         jmp near UpdatePlayerRecord_229
@@ -5480,14 +5480,14 @@ OpenLeagueFile:
         push esi
         enter 5Ch, 0
         mov esi, edx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         je near .6
         cmp dword [eax], byte 0
         jne short .2
         cmp dword [byte eax+04h], byte 0
         jne short .2
-        push dword [off_16D7DC]
-        push dword [off_16D7E0]
+        push dword [LeagueFileDir]
+        push dword [LeagueFilePrefix]
         push str_SSSEA
 .1:
         lea eax, [byte ebp-05Ch]
@@ -5500,8 +5500,8 @@ OpenLeagueFile:
         jne short .3
         cmp dword [byte eax+04h], byte 1
         jne short .3
-        push dword [off_16D7DC]
-        push dword [off_16D7E0]
+        push dword [LeagueFileDir]
+        push dword [LeagueFilePrefix]
         push str_SSPLY
         jmp short .1
 .3:
@@ -5509,7 +5509,7 @@ OpenLeagueFile:
         mov eax, dword [eax]
         xor eax, 0AAAAAAAAh
         push eax
-        push dword [off_16D7E0]
+        push dword [LeagueFilePrefix]
         push str_S08x03x
         lea eax, [byte ebp-05Ch]
         push eax
@@ -5648,7 +5648,7 @@ WriteLeagueHeader:
         push edx
         enter 54h, 0
         mov ecx, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor edx, edx
@@ -5658,7 +5658,7 @@ WriteLeagueHeader:
         mov eax, dword [byte eax+04h]
         xor eax, 0AAAAAAAAh
         push eax
-        push dword [off_16D7E0]
+        push dword [LeagueFilePrefix]
         push str_S08x03x
         lea eax, [byte ebp-054h]
         push eax
@@ -5670,7 +5670,7 @@ WriteLeagueHeader:
         test eax, eax
         jne near .7
         mov eax, dword [byte ecx+04h]
-        cmp eax, dword [dword_16D7F0]
+        cmp eax, dword [StaticBuffer]
         je short .1
         lea edx, [byte ebp-04h]
         lea eax, [byte ebp-054h]
@@ -5818,7 +5818,7 @@ StartSeasonGame:
         cmp eax, byte 0FFFFFFFFh
         jne short .1
         mov ebx, 8
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         lea eax, [byte ecx+08h]
         call memcmp_
         test eax, eax
@@ -5840,7 +5840,7 @@ StartSeasonGame:
         mov edx, 4A78h
         mov eax, dword [byte ebp-0Ch]
         mov edi, dword [byte ebp-0Ch]
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         call ZeroBytesOk
         movsd
         movsd
@@ -6416,7 +6416,7 @@ SaveExhibitionResult:
         cmp eax, byte 0FFFFFFFFh
         jne short .1
         mov ebx, 8
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         lea eax, [byte ecx+08h]
         call memcmp_
         test eax, eax
@@ -6515,7 +6515,7 @@ SaveSeasonResult:
         cmp eax, byte 0FFFFFFFFh
         jne short .1
         mov ebx, 8
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         lea eax, [byte ecx+08h]
         call memcmp_
         test eax, eax
@@ -6593,7 +6593,7 @@ SaveSeasonResult:
         shl ecx, 4
         mov ebx, 8
         add ecx, eax
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         lea eax, [byte ecx+08h]
         call memcmp_
         test eax, eax
@@ -6620,7 +6620,7 @@ SaveSeasonResult:
         push eax
         push edx
         sub ebp, 82h
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .8
         xor eax, eax
         jmp near .9
@@ -6772,7 +6772,7 @@ BuildPlayoffRecords:
         push ebx
         push ecx
         sub ebp, byte 7Eh
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -6844,7 +6844,7 @@ BuildPlayoffRecords:
         lea eax, [byte ebp-022h]
         mov ebx, 8
         call ZeroBytesOk
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         mov eax, dword [byte ebp+03Eh]
         call memcmp_
         test eax, eax
@@ -6872,7 +6872,7 @@ BuildPlayoffRecords:
         mov ebx, 8
         lea edi, [byte ebp-01Ah]
         lea esi, [dword ebp-019AAh]
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         mov eax, dword [dword ebp+08Eh]
         movsd
         movsd
@@ -6991,7 +6991,7 @@ BuildPlayoffRecords:
         lea eax, [byte ebp-022h]
         mov ebx, 8
         call ZeroBytesOk
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         mov eax, dword [byte ebp+07Ah]
         call memcmp_
         test eax, eax
@@ -7019,7 +7019,7 @@ BuildPlayoffRecords:
         lea edi, [byte ebp-01Ah]
         lea esi, [dword ebp-019AAh]
         mov ebx, 8
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         movsd
         movsd
         call ServiceIdle
@@ -7138,7 +7138,7 @@ BuildPlayoffRecords:
         lea eax, [byte ebp-022h]
         mov ebx, 8
         call ZeroBytesOk
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         mov eax, dword [byte ebp+042h]
         call memcmp_
         test eax, eax
@@ -7166,7 +7166,7 @@ BuildPlayoffRecords:
         lea edi, [byte ebp-01Ah]
         lea esi, [dword ebp-019AAh]
         mov ebx, 8
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         movsd
         movsd
         call ServiceIdle
@@ -7285,7 +7285,7 @@ BuildPlayoffRecords:
         lea eax, [byte ebp-022h]
         mov ebx, 8
         call ZeroBytesOk
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         mov eax, dword [byte ebp+03Ah]
         call memcmp_
         test eax, eax
@@ -7313,7 +7313,7 @@ BuildPlayoffRecords:
         mov ebx, 8
         lea edi, [byte ebp-01Ah]
         lea esi, [dword ebp-019AAh]
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         mov eax, dword [dword ebp+08Eh]
         movsd
         movsd
@@ -7433,7 +7433,7 @@ BuildSeasonRecords:
         enter 3370h, 0
         push ebx
         sub ebp, 82h
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -7507,7 +7507,7 @@ BuildSeasonRecords:
         lea eax, [byte ebp-04Eh]
         mov ebx, 8
         call ZeroBytesOk
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         mov eax, dword [byte ebp+05Ah]
         call memcmp_
         test eax, eax
@@ -7635,7 +7635,7 @@ BuildSeasonRecords:
         lea eax, [byte ebp-04Eh]
         mov ebx, 8
         call ZeroBytesOk
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         mov eax, dword [byte ebp+072h]
         call memcmp_
         test eax, eax
@@ -7763,7 +7763,7 @@ BuildSeasonRecords:
         lea eax, [byte ebp-04Eh]
         mov ebx, 8
         call ZeroBytesOk
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         mov eax, dword [byte ebp+076h]
         call memcmp_
         test eax, eax
@@ -7891,7 +7891,7 @@ BuildSeasonRecords:
         lea eax, [byte ebp-04Eh]
         mov ebx, 8
         call ZeroBytesOk
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         mov eax, dword [byte ebp+056h]
         call memcmp_
         test eax, eax
@@ -8027,7 +8027,7 @@ AddGameRecord:
         push edi
         enter 5Ch, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         jmp near OpenGameDatabase_18
@@ -8095,7 +8095,7 @@ FindGameRecord:
         push edi
         enter 38h, 0
         push edx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         jmp near FindGameRecord_A0
@@ -8160,7 +8160,7 @@ UpdateGameRecord:
         enter 19E0h, 0
         sub ebp, 82h
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -8196,7 +8196,7 @@ UpdateGameRecord:
         test eax, eax
         jne near .4
         mov eax, dword [esi]
-        cmp eax, dword [dword_16D7F0]
+        cmp eax, dword [StaticBuffer]
         je short .1
         mov ebx, 194Fh
         lea edx, [byte ebp+07Eh]
@@ -8371,7 +8371,7 @@ AddPlayerStat:
         push edi
         enter 5Ch, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         jmp near OpenGameDatabase_18
@@ -8431,14 +8431,14 @@ AddPlayerStatAt:
         push edi
         enter 5Ch, 0
         push eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
         jmp near FindGameRecord_A0
 .2:
         mov eax, dword [edx]
-        cmp eax, dword [dword_16D7F0]
+        cmp eax, dword [StaticBuffer]
         je short .1
         mov edi, dword [byte ebp-060h]
         mov ebx, 27h
@@ -8502,7 +8502,7 @@ FindPlayerStat:
         push edi
         enter 38h, 0
         push edx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         jmp near FindGameRecord_A0
@@ -8559,7 +8559,7 @@ UpdatePlayerStat:
         enter 0B8h, 0
         sub ebp, 82h
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -8595,7 +8595,7 @@ UpdatePlayerStat:
         test eax, eax
         jne near .4
         mov eax, dword [esi]
-        cmp eax, dword [dword_16D7F0]
+        cmp eax, dword [StaticBuffer]
         je short .1
         mov ebx, 27h
         lea edx, [byte ebp+07Eh]
@@ -8775,7 +8775,7 @@ AddTeamStat:
         push edi
         enter 5Ch, 0
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         jmp near OpenGameDatabase_18
@@ -8835,7 +8835,7 @@ AddTeamStatAt:
         push edi
         enter 5Ch, 0
         push eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         jmp near FindGameRecord_A0
@@ -8894,7 +8894,7 @@ FindTeamStat:
         push edi
         enter 38h, 0
         push edx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         jmp near FindGameRecord_A0
@@ -8950,7 +8950,7 @@ ReadTeamStats:
         push eax
         push edx
         push ebx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         leave
@@ -9044,7 +9044,7 @@ ReadTeamStats:
         cmp dword [byte ebp-018h], byte 0FFFFFFFFh
         jne short .3
         lea edi, [byte ebp-020h]
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         movsd
         movsd
         jmp short .4
@@ -9105,7 +9105,7 @@ UpdateTeamStat:
         enter 0D0h, 0
         sub ebp, 82h
         mov esi, eax
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -9141,7 +9141,7 @@ UpdateTeamStat:
         test eax, eax
         jne near .4
         mov eax, dword [esi]
-        cmp eax, dword [dword_16D7F0]
+        cmp eax, dword [StaticBuffer]
         je short .1
         mov ebx, 3Dh
         lea edx, [byte ebp+07Eh]
@@ -9249,8 +9249,8 @@ LoadExhibitionFile:
         push edx
         enter 54h, 0
         mov ecx, eax
-        push dword [off_16D7DC]
-        push dword [off_16D7E0]
+        push dword [LeagueFileDir]
+        push dword [LeagueFilePrefix]
         push str_SSEXH
         lea eax, [byte ebp-054h]
         push eax
@@ -9325,8 +9325,8 @@ SaveExhibitionFile:
         push edx
         enter 54h, 0
         mov ecx, eax
-        push dword [off_16D7DC]
-        push dword [off_16D7E0]
+        push dword [LeagueFileDir]
+        push dword [LeagueFilePrefix]
         push str_SSEXH
         lea eax, [byte ebp-054h]
         push eax
@@ -9444,13 +9444,13 @@ ResetExhibitionStats:
         je short .2
         mov esi, dword [ecx]
         lea edi, [dword esi+ebx+0DF4h]
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         movsd
         movsd
         mov esi, dword [ecx]
         add dword [byte ebp-08h], byte 66h
         lea edi, [dword esi+ebx+0DFCh]
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         inc dword [byte ebp-04h]
         add ebx, 194Fh
         movsd
@@ -9502,7 +9502,7 @@ ImportTradedPlayers:
         mov esi, ebx
         mov dword [byte ebp-04h], ecx
         mov ecx, dword [byte ebp+010h]
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -9514,11 +9514,11 @@ ImportTradedPlayers:
         cmp dword [eax], byte 0
         je short .1
         mov eax, dword [edx]
-        cmp eax, dword [dword_16D7F0]
+        cmp eax, dword [StaticBuffer]
         je short .1
         mov eax, dword [byte ebp-04h]
         mov eax, dword [eax]
-        cmp eax, dword [dword_16D7F0]
+        cmp eax, dword [StaticBuffer]
         je short .1
         mov eax, dword [byte ebp-044h]
         movsx eax, word [eax]
@@ -9585,7 +9585,7 @@ ImportTradedPlayers:
         movsd
         movsd
         lea edi, [byte ebp-020h]
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         mov edx, dword [byte ebp-044h]
         movsd
         movsd
@@ -9623,7 +9623,7 @@ ImportNewPlayers:
         push eax
         mov esi, edx
         mov dword [byte ebp-08h], ebx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .1
         xor eax, eax
         jmp near .3
@@ -9682,7 +9682,7 @@ ImportNewPlayers:
         movsd
         movsd
         lea edi, [byte ebp-020h]
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         mov edx, dword [byte ebp-044h]
         movsd
         movsd
@@ -9808,13 +9808,13 @@ PickDemoTeams:
         ret
 .2:
         mov edx, 4A78h
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         mov eax, ecx
         mov edi, ecx
         call ZeroBytesOk
         movsd
         movsd
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         lea edi, [byte ecx+08h]
         movsd
         movsd
@@ -9929,13 +9929,13 @@ PickDemoTeams:
         jmp near SaveGameResult_55
 .16:
         mov edx, 4A78h
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         mov eax, ecx
         mov edi, ecx
         call ZeroBytesOk
         movsd
         movsd
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         lea edi, [byte ecx+08h]
         movsd
         movsd
@@ -10031,14 +10031,14 @@ AddReplayIndexEntry:
         mov esi, eax
         mov dword [byte ebp+07Eh], edx
         mov edi, ebx
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
         jmp near CreateSeasonSchedule_2F0
 .2:
         mov ebx, 8
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         call memcmp_
         test eax, eax
         sete al
@@ -10064,7 +10064,7 @@ AddReplayIndexEntry:
         push dword [byte esi+04h]
         xor eax, 0ABCDCBAFh
         push eax
-        push dword [off_16D7E0]
+        push dword [LeagueFilePrefix]
         push str_S08x03x
         lea eax, [byte ebp-0Ah]
         push eax
@@ -10114,7 +10114,7 @@ AddReplayIndexEntry:
         test eax, eax
         jne short .6
         mov eax, dword [esi]
-        cmp eax, dword [dword_16D7F0]
+        cmp eax, dword [StaticBuffer]
         je near .1
 .5:
         mov ebx, dword [byte ebp+07Eh]
@@ -10148,7 +10148,7 @@ AddReplayIndexEntry:
         push dword [byte esi+04h]
         xor eax, 0ABCDCBAFh
         push eax
-        push dword [off_16D7E0]
+        push dword [LeagueFilePrefix]
         push str_S08x03x
         lea eax, [byte ebp-0Ah]
         push eax
@@ -10262,7 +10262,7 @@ OpenReplayFile:
         mov eax, dword [eax]
         xor eax, 0ABCDCBAFh
         push eax
-        push dword [off_16D7E0]
+        push dword [LeagueFilePrefix]
         push str_S08x03x
         lea eax, [byte ebp-050h]
         push eax
@@ -10319,14 +10319,14 @@ RenameReplayIndexEntry:
         push ebx
         push ecx
         sub ebp, 82h
-        cmp word [word_16D7EE], byte 0
+        cmp word [DbOpen], byte 0
         jne short .2
 .1:
         xor eax, eax
         jmp near BuildSeasonRecords_797
 .2:
         mov ebx, 8
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         call memcmp_
         test eax, eax
         sete al
@@ -10335,7 +10335,7 @@ RenameReplayIndexEntry:
         jne short .1
         mov eax, dword [byte ebp-0Ah]
         mov eax, dword [eax]
-        cmp eax, dword [dword_16D7F0]
+        cmp eax, dword [StaticBuffer]
         je short .1
         mov edi, dword [byte ebp-0Eh]
         mov esi, dword [byte ebp-0Ah]
@@ -10382,7 +10382,7 @@ RenameReplayIndexEntry:
         mov eax, dword [eax]
         xor eax, 0ABCDCBAFh
         push eax
-        push dword [off_16D7E0]
+        push dword [LeagueFilePrefix]
         push str_S08x03x
         lea eax, [byte ebp-06h]
         push eax
@@ -10481,7 +10481,7 @@ DeleteReplayIndexEntry:
         push dword [dword ebp-04A7Ah]
         xor eax, 0ABCDCBAFh
         push eax
-        push dword [off_16D7E0]
+        push dword [LeagueFilePrefix]
         push str_S08x03x
         lea eax, [byte ebp-06h]
         push eax
@@ -10514,7 +10514,7 @@ DeleteReplayIndexEntry:
         mov ebx, eax
         mov ecx, edx
         lea edx, [byte ebp-08h]
-        mov eax, dword [dword_16D7F0]
+        mov eax, dword [StaticBuffer]
         mov dword [byte ebp-04h], ebx
         mov dword [byte ebp-08h], eax
         add edx, byte 4
@@ -10543,7 +10543,7 @@ SaveUserRecord:
         mov esi, eax
         mov edi, edx
         lea ecx, [byte ebp-08h]
-        mov eax, dword [dword_16D7F0]
+        mov eax, dword [StaticBuffer]
         mov dword [byte ebp-0Ch], edx
         lea edx, [byte ebp-04Ch]
         mov dword [byte ebp-010h], eax
@@ -10597,7 +10597,7 @@ SaveUserRecord:
         cmp dword [byte ebp-04h], byte 0
         jne near LookupRecord_249
         lea edx, [byte ebp-04Ch]
-        mov eax, dword [dword_16D7F0]
+        mov eax, dword [StaticBuffer]
         lea ebx, [byte ebp-04Ch]
         mov dword [byte ebp-020h], eax
         lea eax, [byte ebp-020h]
@@ -10622,7 +10622,7 @@ LoadUserRecord:
         mov edi, edx
         lea edx, [byte ebp-040h]
         lea ecx, [byte ebp-04h]
-        mov eax, dword [dword_16D7F0]
+        mov eax, dword [StaticBuffer]
         lea ebx, [byte ebp-040h]
         mov dword [byte ebp-0Ch], eax
         lea eax, [byte ebp-0Ch]
@@ -10666,7 +10666,7 @@ DeleteUserRecord:
         mov esi, eax
         lea edx, [byte ebp-040h]
         lea ecx, [byte ebp-04h]
-        mov eax, dword [dword_16D7F0]
+        mov eax, dword [StaticBuffer]
         lea ebx, [byte ebp-040h]
         mov dword [byte ebp-0Ch], eax
         lea eax, [byte ebp-0Ch]
@@ -17427,7 +17427,7 @@ JoinNetworkGame:
         xor edx, edx
         mov dword [dword_16E140], ecx
         call memset_
-        mov ecx, dword [dword_16D7F0]
+        mov ecx, dword [StaticBuffer]
         push ecx
         push str_08x
         lea eax, [byte esp+08h]

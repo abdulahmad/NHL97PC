@@ -9,7 +9,7 @@ extern str_MB06, str_MB05, str_MB04, str_MB10, str_MB09, str_MB08, str_BACK4, st
 extern str_SY00, str_SY01, str_SY02, str_SY03, str_SY04, str_SY05, str_SY06, str_GL00
 extern str_GR00, str_Mous3, str_DATAREPLAYNDX, FrontEndExit, MenuOptionFlags, LinkMenuCursor, IndexMenuCursor, PlayoffUserIndex
 extern byte_1C6040, MainMenuAnimEnd, MainMenuAnimDone, StatsMenuDrawn, StatsMenuChoice, OptionsMenuChoice, MainMenuSelection, MainMenuFirstShow
-extern MainMenuAnimStop, StatsMenuMode, LinkTransferReady, dword_16D76C, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags
+extern MainMenuAnimStop, StatsMenuMode, LinkTransferReady, CreditsKeyFlag, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags
 extern SeasonDefaultUser, GameRecordIds, dword_1C5DE0, dword_1C5DE4, dword_1C8268, MainMenuAnimFrames, MainMenuAnimTimer, MainMenuAnimFrame
 extern MainMenuAnimStart, MainMenuAnimRate, MainMenuAnimShape, MainMenuAnimMode, MainMenuAnimX, MainMenuAnimY, MainMenuAnimArt, MainMenuAnimBack
 extern MainMenuAnimLogo, MainMenuAnimTitle, MainMenuAnimCursor, MainMenuAnimItems, MainMenuAnimPanel, MainMenuAnimSprites, MainMenuButtons, MainMenuChoice
@@ -27,7 +27,7 @@ extern GameStatsScreen, PlayMenuGame, FinishLeagueGame, TeamStatsScreen, StatsTa
 extern RunVideoOptions, HistoryScreen, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, FreeDbBlock, OpenLeagueFile, FindGameRecord
 extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
 extern OpenResourceArchive, FreeBitmap, DrawShapeCore, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
-extern str_Rb_WritePhonebookFile, str_Wb, MainMenuAnimName, unk_16D804, LinkSettings, LinkSettingsData, GlobalSetVersion, IndexEntrySettings
+extern str_Rb_WritePhonebookFile, str_Wb, MainMenuAnimName, SeasonDbKey, LinkSettings, LinkSettingsData, GlobalSetVersion, IndexEntrySettings
 extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, MainMenuButtonRect, MainMenuTextRect, unk_845C0
 global jpt_84AF5, jpt_84B15, jpt_84B25, jpt_84B3D, jpt_85CFD, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
 global MainMenuAnim_370, MainMenuAnim_50B, MainMenuScreen_911, MainMenuScreen_999, MainMenuScreen_A17, MainMenuScreen_A23, MainMenuScreen_A2F, MainMenuScreen_A3B
@@ -488,7 +488,7 @@ MainMenuScreen:
         je near .8
         push dword [byte ebp+06Eh]
         push dword [byte ebp+072h]
-        push dword [dword_16D76C]
+        push dword [CreditsKeyFlag]
         push str_DDD2
         lea eax, [byte ebp+056h]
         push eax
@@ -518,7 +518,7 @@ MainMenuScreen:
 .5:
         cmp byte [byte ebp+052h], 31h
         jne short .6
-        mov dword [dword_16D76C], 1
+        mov dword [CreditsKeyFlag], 1
 .6:
         cmp byte [byte ebp+053h], 31h
         jne short .7
@@ -1748,7 +1748,7 @@ RunStatsMenu:
         cmp byte [FrontEndExit], 0
         je short RunStatsMenu_82.4
         lea edx, [byte ebp-04h]
-        mov eax, unk_16D804
+        mov eax, SeasonDbKey
         call OpenLeagueFile
         xor ecx, ecx
 .1:

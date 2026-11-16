@@ -29,7 +29,7 @@ extern FindSeasonReplay, LinkTransferSetup, SetPlayoffFormat, SeasonSetupScreen,
 extern MakeLeagueKeyBase, CreatePlayoffFile, CreatePlayoffSchedule, OpenLeagueFile, WriteLeagueHeader, FindGameRecord, UpdateGameRecord, MakeStandingsKey
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, SeasonIntroScreen, AllocMemBlock
 extern FreeMemBlock, MakeColor, SelectFont, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen
-extern str_Punct_PlayoffTreeScreen, PlayoffTreeLayout, unk_16D7FC, GlobalSetVersion, SeasonName, SeasonUserRecords, PlayoffSettings, PlayoffUserRecords
+extern str_Punct_PlayoffTreeScreen, PlayoffTreeLayout, PlayoffDbKey, GlobalSetVersion, SeasonName, SeasonUserRecords, PlayoffSettings, PlayoffUserRecords
 extern PlayoffName, PlayoffStatsPath, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, PlayoffRoundShapes, PlayoffStatShapes, PlayoffTeamRecordShapes
 extern PlayoffSeriesShapes, PlayoffScheduleShapes
 global jpt_93502, jpt_9621A, RunNewPlayoffs_F7, RunNewPlayoffs_100, RunNewPlayoffs_104, RunNewPlayoffs_108, RunNewPlayoffs_1A6, PlayoffSetupScreen_952
@@ -585,7 +585,7 @@ PlayoffSetupScreen:
         push eax
         sub ebp, 82h
         mov edx, SeasonUserTeam
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         call OpenLeagueFile
         mov eax, 3
         call SecondsToSamples

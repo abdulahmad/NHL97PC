@@ -5,9 +5,9 @@ section s_D3112 progbits alloc exec nowrite align=1
 extern str_Hros, str_Vros, str_Blurb, str_STAR, str_FIR1, str_FDPD, str_FIRD, str_000010
 extern str_DOOR, str_TXT1, str_TRM1, str_TITL13, str_LOGO02dFSH2, str_LOGO7, str_LOGO28FSH, str_SS12
 extern str_SDD, str_SDDD, str_SSS2, str_SS13, str_SSS3, str_Roster4, str_SVsSDDD, str_SDSD2
-extern PlayoffUserIndex, byte_1C6040, byte_1CC8B4, PlayoffColumns, MatchupNoteCount, MatchupNoteLength, RostersSparkleTick, RostersSparkleFrame
+extern PlayoffUserIndex, byte_1C6040, RostersSparkleCount, PlayoffColumns, MatchupNoteCount, MatchupNoteLength, RostersSparkleTick, RostersSparkleFrame
 extern MenuScreenBitmap, GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, SeasonUserReplay, SeasonDefaultUser, PlayoffRoundBits
-extern PlayoffTeamNames, PlayoffTeams, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, jpt_D3102
+extern PlayoffTeamNames, PlayoffTeams, RostersShapeLists, MatchupNotes, RosterInfoLines, MatchupNoteFormats, RostersSparkleShapes, jpt_D3102
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, BlitConverted, BlitArt
 extern BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, DrawSpriteScaledBy, SetScreenTarget
 extern IsAllStarDay, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, PaEvent, ResetStreamAudio, LoadDataFile
@@ -15,18 +15,18 @@ extern OpenDataLibrary, PlayerInjuryDays, DrawScreenBackground, FadeInScreen, Sh
 extern WipeScreen, DrawRosterPanelBox, WaitShortDelay, InitMenuItems, RunMenu, GetLangText, RostersSparkle, KeysEqual
 extern FreeDbBlock, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord, LoadExhibitionFile, FreeExhibitionFile
 extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount
-extern str_S_DrawMatchupNotes, str_Barasso, str_PIT, str_199596, str_Beaupre, str_OTT, str_Brodeur, unk_167144
-extern str_Burke, str_HFD, str_Carey, str_WAS, str_Fichaud, unk_167168, str_Flaherty, unk_167178
+extern str_S_DrawMatchupNotes, str_Barasso, str_PIT, str_199596, str_Beaupre, str_OTT, str_Brodeur, str_NJ_GoalieMaskList
+extern str_Burke, str_HFD, str_Carey, str_WAS, str_Fichaud, str_NYI_GoalieMaskList, str_Flaherty, str_SJ_GoalieMaskList
 extern str_Fuhr, str_BUF, str_199495, str_STL, str_Hackett, str_CHI, str_Hebert, str_ANA
 extern str_Hextall, str_PHI, str_QUE, str_199293, str_Heyward, str_Hirsch, str_VAN, str_Hrudey
-extern unk_1671E0, str_Jablonski, unk_1671F0, str_Joseph, str_EDM, str_Kidd, str_CAL, str_Kolzig
-extern str_Lacher, str_BOS, str_Moog, str_DAL, str_Richter, unk_167234, str_Roy, str_COL
-extern str_MTL, str_Thibault, str_Vanbiesbrouck, str_FLA, str_Vernon, str_DET, str_EA, unk_16D7FC
+extern str_LA_GoalieMaskList, str_Jablonski, str_TB_GoalieMaskList, str_Joseph, str_EDM, str_Kidd, str_CAL, str_Kolzig
+extern str_Lacher, str_BOS, str_Moog, str_DAL, str_Richter, str_NYR_GoalieMaskList, str_Roy, str_COL
+extern str_MTL, str_Thibault, str_Vanbiesbrouck, str_FLA, str_Vernon, str_DET, str_EA, PlayoffDbKey
 extern MatchupNote, AutoLineData, MatchupNoteText, MatchupNoteLine, HomeLines, HomeCityName, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_D3057, unk_D305F, unk_D3067, AllStarDay
 global jpt_D4215, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7, PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, PreGameRostersScreen_C3F, DrawMatchupHistory_FB, DrawMatchupHistory_FC
 global DrawMatchupNotes_86, DrawMatchupNotes_C5, DrawMatchupNotes_10F, DrawMatchupNotes_14B, PreGameRostersScreen, FormatMatchupNote, DrawRosterPlayerInfo, DrawMatchupHistory
-global DrawRosterLabel, DrawMatchupNotes, FindMatchupNotes, CountTeamResults, MatchupAnnouncement, unk_D4CB0
+global DrawRosterLabel, DrawMatchupNotes, FindMatchupNotes, CountTeamResults, MatchupAnnouncement, GoalieMaskList
 ;-----------------------------------------------------------------------------
 ; PreGameRostersScreen                            D3112  97 PC, low confidence
 ; Game screen 13h before play: the home and visitor rosters ("hros" /
@@ -43,10 +43,10 @@ PreGameRostersScreen:
         mov dword [byte ebp+046h], 0
         cmp byte [byte_1C6040], 0
         je short .1
-        mov byte [byte_1CC8B4], 2
+        mov byte [RostersSparkleCount], 2
         jmp short .2
 .1:
-        mov byte [byte_1CC8B4], 5
+        mov byte [RostersSparkleCount], 5
 .2:
         push byte 0
         push dword 194Fh
@@ -74,7 +74,7 @@ PreGameRostersScreen:
         mov edx, dword [byte ebp+05Eh]
         inc esi
         add edx, eax
-        mov dword [nosplit esi*4+dword_1CC860], edx
+        mov dword [nosplit esi*4+RosterInfoLines], edx
         cmp esi, byte 0Fh
         jl short .3
         mov eax, 3
@@ -252,7 +252,7 @@ PreGameRostersScreen:
         shl ebx, 2
         add esp, byte 8
         inc edi
-        mov dword [dword ebx+eax+dword_1CC7D8], edx
+        mov dword [dword ebx+eax+RostersShapeLists], edx
         cmp edi, byte 4
         jl short .12
         push dword [byte ebp+052h]
@@ -281,7 +281,7 @@ PreGameRostersScreen:
         call CreateBitmap
         add esp, byte 0Ch
         push eax
-        mov dword [dword ebx+dword_1CC8A0], eax
+        mov dword [dword ebx+RostersSparkleShapes], eax
         call SetDrawTarget
         add esp, byte 4
         push dword 0FFFFFF47h
@@ -317,7 +317,7 @@ PreGameRostersScreen:
         push dword [byte ebp+04Eh]
         mov dword [byte ebp+04Ah], edx
         push edx
-        mov eax, dword [nosplit esi*4+dword_1CC8A0]
+        mov eax, dword [nosplit esi*4+RostersSparkleShapes]
         mov edx, dword [byte ebp+066h]
         call DrawRosterPanelBox
         push dword [byte ebp+04Eh]
@@ -347,7 +347,7 @@ PreGameRostersScreen:
         mov edx, dword [byte ebp+066h]
         push eax
         mov dword [byte ebp+04Ah], eax
-        mov eax, dword [nosplit esi*4+dword_1CC8A0]
+        mov eax, dword [nosplit esi*4+RostersSparkleShapes]
         call DrawRosterPanelBox
         push dword [byte ebp+04Eh]
         mov eax, dword [byte ebp+06Ah]
@@ -425,7 +425,7 @@ PreGameRostersScreen:
         call BlitArt
         add esp, byte 0Ch
 .17:
-        movzx eax, byte [byte_1CC8B4]
+        movzx eax, byte [RostersSparkleCount]
         cmp esi, eax
         jl near .11
         push dword [byte ebp+072h]
@@ -735,7 +735,7 @@ PreGameRostersScreen:
         inc dword [RostersSparkleFrame]
         mov dword [RostersSparkleTick], eax
         mov eax, dword [RostersSparkleFrame]
-        movzx ecx, byte [byte_1CC8B4]
+        movzx ecx, byte [RostersSparkleCount]
         cdq
         idiv ecx
         mov dword [RostersSparkleFrame], edx
@@ -839,11 +839,11 @@ PreGameRostersScreen:
         mov eax, 203h
         call PlaySfx
         call MatchupAnnouncement
-        cmp byte [byte_1CC8B4], 5
+        cmp byte [RostersSparkleCount], 5
         jne near PreGameRostersScreen_B6A
         xor esi, esi
 .31:
-        mov eax, dword [dword_1CC8A0]
+        mov eax, dword [RostersSparkleShapes]
         mov eax, dword [byte eax+02Ch]
         push byte 0
         movsx edx, word [byte eax+06h]
@@ -862,7 +862,7 @@ PreGameRostersScreen:
         push eax
         mov ebx, eax
         call SetDrawTarget
-        mov eax, dword [dword_1CC8A0]
+        mov eax, dword [RostersSparkleShapes]
         mov eax, dword [byte eax+02Ch]
         movsx edx, word [byte eax+04h]
         mov eax, dword [byte ebx+02Ch]
@@ -875,15 +875,15 @@ PreGameRostersScreen:
         sar eax, 1
         push eax
         call rand_
-        movzx ecx, byte [byte_1CC8B4]
+        movzx ecx, byte [RostersSparkleCount]
         cdq
         idiv ecx
-        mov eax, dword [nosplit edx*4+dword_1CC8A0]
+        mov eax, dword [nosplit edx*4+RostersSparkleShapes]
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
         call SetScreenTarget
-        mov eax, dword [dword_1CC8A0]
+        mov eax, dword [RostersSparkleShapes]
         mov eax, dword [byte eax+02Ch]
         movsx eax, word [byte eax+04h]
         mov dword [byte ebp+04Eh], eax
@@ -944,12 +944,12 @@ PreGameRostersScreen_BC3:
         call FreeMemBlock
         jmp short .34
 .33:
-        push dword [nosplit esi*4+dword_1CC8A0]
+        push dword [nosplit esi*4+RostersSparkleShapes]
         call FreeBitmap
         inc esi
 .34:
         add esp, byte 4
-        movzx eax, byte [byte_1CC8B4]
+        movzx eax, byte [RostersSparkleCount]
         cmp esi, eax
         jl short .33
         push dword [byte ebp+06Ah]
@@ -999,7 +999,7 @@ FormatMatchupNote:
         call GetLangText
         push eax
         mov eax, dword [MatchupNoteCount]
-        push dword [nosplit eax*4+dword_1CC864]
+        push dword [nosplit eax*4+MatchupNoteFormats]
         call sprintf_
         add esp, byte 8
         jmp short .5
@@ -1013,7 +1013,7 @@ FormatMatchupNote:
         push MatchupNote
         mov eax, dword [MatchupNoteCount]
         push str_SS12
-        push dword [nosplit eax*4+dword_1CC864]
+        push dword [nosplit eax*4+MatchupNoteFormats]
         call sprintf_
         add esp, byte 10h
 .5:
@@ -1023,7 +1023,7 @@ FormatMatchupNote:
         mov edx, dword [MatchupNoteCount]
         add esp, byte 4
         inc dword [MatchupNoteCount]
-        mov dword [nosplit edx*4+dword_1CC828], eax
+        mov dword [nosplit edx*4+MatchupNotes], eax
 .6:
         pop edx
         pop ecx
@@ -1050,7 +1050,7 @@ DrawRosterPlayerInfo:
         mov edx, eax
         mov eax, dword [MatchupNoteCount]
         add esp, byte 4
-        mov dword [nosplit eax*4+dword_1CC828], edx
+        mov dword [nosplit eax*4+MatchupNotes], edx
         movsx eax, word [byte ebp+07Ah]
         push eax
         movsx eax, word [byte ebp+076h]
@@ -1062,7 +1062,7 @@ DrawRosterPlayerInfo:
         mov edx, dword [MatchupNoteCount]
         push str_SDD
         inc edx
-        push dword [nosplit edx*4+dword_1CC860]
+        push dword [nosplit edx*4+RosterInfoLines]
         mov dword [MatchupNoteCount], edx
         call sprintf_
         add esp, byte 14h
@@ -1114,13 +1114,13 @@ DrawRosterPlayerInfo:
         mov edx, eax
         mov eax, dword [MatchupNoteCount]
         add esp, byte 4
-        mov dword [nosplit eax*4+dword_1CC828], edx
+        mov dword [nosplit eax*4+MatchupNotes], edx
         lea eax, [byte ebp+040h]
         mov edx, dword [MatchupNoteCount]
         push eax
         inc edx
         push str_S_DrawMatchupNotes
-        push dword [nosplit edx*4+dword_1CC860]
+        push dword [nosplit edx*4+RosterInfoLines]
         mov dword [MatchupNoteCount], edx
         call sprintf_
         add esp, byte 0Ch
@@ -1164,7 +1164,7 @@ DrawRosterPlayerInfo:
         call MakeColor
         mov edx, eax
         mov eax, dword [MatchupNoteCount]
-        mov dword [nosplit eax*4+dword_1CC828], edx
+        mov dword [nosplit eax*4+MatchupNotes], edx
         imul eax, dword [byte ebp+06Eh], byte 7
         add eax, esi
         movzx edx, byte [dword eax+ebp-0D0Dh]
@@ -1229,7 +1229,7 @@ DrawRosterPlayerInfo:
         mov edx, dword [MatchupNoteCount]
         push eax
         inc edx
-        push dword [nosplit edx*4+dword_1CC860]
+        push dword [nosplit edx*4+RosterInfoLines]
         mov dword [MatchupNoteCount], edx
         call sprintf_
         add esp, byte 18h
@@ -1288,7 +1288,7 @@ DrawMatchupHistory:
         jmp short .7
 .6:
         lea edx, [byte ebp-08h]
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         call OpenLeagueFile
         mov eax, dword [byte ebp-08h]
         shl esi, 3
@@ -1316,9 +1316,9 @@ DrawMatchupHistory:
         push dword [byte ebp-0Ch]
         inc ebx
         push str_SDDD
-        mov dword [nosplit eax*4+dword_1CC828], edx
+        mov dword [nosplit eax*4+MatchupNotes], edx
         lea edx, [byte eax+01h]
-        push dword [nosplit eax*4+dword_1CC864]
+        push dword [nosplit eax*4+MatchupNoteFormats]
         mov dword [MatchupNoteCount], edx
         call sprintf_
         add esp, byte 18h
@@ -1344,10 +1344,10 @@ DrawRosterLabel:
         xor ebx, ebx
         jmp short .2
 .1:
-        mov eax, dword [nosplit ebx*4+dword_1CC828]
+        mov eax, dword [nosplit ebx*4+MatchupNotes]
         call SetTextColor
         mov eax, ebx
-        push dword [nosplit ebx*4+dword_1CC864]
+        push dword [nosplit ebx*4+MatchupNoteFormats]
         shl eax, 4
         push str_S_DrawMatchupNotes
         add eax, byte 4Bh
@@ -1425,7 +1425,7 @@ DrawMatchupNotes_86:
         mov ecx, eax
         mov eax, dword [MatchupNoteCount]
         add esp, byte 4
-        mov dword [nosplit eax*4+dword_1CC828], ecx
+        mov dword [nosplit eax*4+MatchupNotes], ecx
         mov eax, 1Bh
         call GetLangText
         push eax
@@ -1442,7 +1442,7 @@ DrawMatchupNotes_C5:
         mov ecx, eax
         mov eax, dword [MatchupNoteCount]
         add esp, byte 4
-        mov dword [nosplit eax*4+dword_1CC828], ecx
+        mov dword [nosplit eax*4+MatchupNotes], ecx
         mov eax, 1Ch
         call GetLangText
         push eax
@@ -1450,7 +1450,7 @@ DrawMatchupNotes_C5:
         mov ebx, dword [MatchupNoteCount]
         push str_SS13
         inc ebx
-        push dword [nosplit ebx*4+dword_1CC860]
+        push dword [nosplit ebx*4+RosterInfoLines]
         mov dword [MatchupNoteCount], ebx
         call sprintf_
         add esp, byte 10h
@@ -1461,7 +1461,7 @@ DrawMatchupNotes_10F:
         mov ecx, eax
         mov eax, dword [MatchupNoteCount]
         add esp, byte 4
-        mov dword [nosplit eax*4+dword_1CC828], ecx
+        mov dword [nosplit eax*4+MatchupNotes], ecx
         mov eax, 1Eh
         call GetLangText
         push eax
@@ -1478,7 +1478,7 @@ DrawMatchupNotes_14B:
         mov ecx, eax
         mov eax, dword [MatchupNoteCount]
         add esp, byte 4
-        mov dword [nosplit eax*4+dword_1CC828], ecx
+        mov dword [nosplit eax*4+MatchupNotes], ecx
         mov eax, 20h
         call GetLangText
         push eax
@@ -1490,7 +1490,7 @@ DrawMatchupNotes_14B:
         push str_SSS2
 .4:
         inc ebx
-        push dword [nosplit ebx*4+dword_1CC860]
+        push dword [nosplit ebx*4+RosterInfoLines]
         mov dword [MatchupNoteCount], ebx
         call sprintf_
         add esp, byte 14h
@@ -1686,7 +1686,7 @@ DrawMatchupNotes_14B:
         call MakeColor
         mov ebx, eax
         mov eax, dword [MatchupNoteCount]
-        mov dword [nosplit eax*4+dword_1CC828], ebx
+        mov dword [nosplit eax*4+MatchupNotes], ebx
         add esp, byte 4
         movzx eax, byte [byte edi+06Ch]
         push eax
@@ -1699,7 +1699,7 @@ DrawMatchupNotes_14B:
         push edi
         inc ebx
         push str_SDDD
-        push dword [nosplit ebx*4+dword_1CC860]
+        push dword [nosplit ebx*4+RosterInfoLines]
         jmp near .37
 .36:
         push byte 0FFFFFFFFh
@@ -1707,14 +1707,14 @@ DrawMatchupNotes_14B:
         mov ebx, eax
         mov eax, dword [MatchupNoteCount]
         add esp, byte 4
-        mov dword [nosplit eax*4+dword_1CC828], ebx
+        mov dword [nosplit eax*4+MatchupNotes], ebx
         mov eax, 21h
         call GetLangText
         push eax
         mov ebx, dword [MatchupNoteCount]
         push str_S_DrawMatchupNotes
         inc ebx
-        push dword [nosplit ebx*4+dword_1CC860]
+        push dword [nosplit ebx*4+RosterInfoLines]
         mov dword [MatchupNoteCount], ebx
         call sprintf_
         add esp, byte 0Ch
@@ -1729,9 +1729,9 @@ DrawMatchupNotes_14B:
         mov ebx, eax
         mov eax, dword [MatchupNoteCount]
         push str_SVsSDDD
-        mov dword [nosplit eax*4+dword_1CC828], ebx
+        mov dword [nosplit eax*4+MatchupNotes], ebx
         lea ebx, [byte eax+01h]
-        push dword [nosplit eax*4+dword_1CC864]
+        push dword [nosplit eax*4+MatchupNoteFormats]
         mov dword [MatchupNoteCount], ebx
         call sprintf_
         add esp, byte 1Ch
@@ -1740,14 +1740,14 @@ DrawMatchupNotes_14B:
         mov ebx, eax
         mov eax, dword [MatchupNoteCount]
         add esp, byte 4
-        mov dword [nosplit eax*4+dword_1CC828], ebx
+        mov dword [nosplit eax*4+MatchupNotes], ebx
         mov eax, 22h
         call GetLangText
         push eax
         mov ebx, dword [MatchupNoteCount]
         push str_S_DrawMatchupNotes
         inc ebx
-        push dword [nosplit ebx*4+dword_1CC860]
+        push dword [nosplit ebx*4+RosterInfoLines]
         mov dword [MatchupNoteCount], ebx
         call sprintf_
         add esp, byte 0Ch
@@ -1762,9 +1762,9 @@ DrawMatchupNotes_14B:
         mov eax, dword [MatchupNoteCount]
         mov esi, 1
         push str_SDSD2
-        mov dword [nosplit eax*4+dword_1CC828], ebx
+        mov dword [nosplit eax*4+MatchupNotes], ebx
         lea ebx, [byte eax+01h]
-        push dword [nosplit eax*4+dword_1CC864]
+        push dword [nosplit eax*4+MatchupNoteFormats]
 .37:
         mov dword [MatchupNoteCount], ebx
         call sprintf_
@@ -2267,7 +2267,7 @@ MatchupAnnouncement:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_D4CB0:
+GoalieMaskList:
         dd str_Barasso
         dd str_PIT
         dd str_199596
@@ -2275,7 +2275,7 @@ unk_D4CB0:
         dd str_OTT
         dd str_199596
         dd str_Brodeur
-        dd unk_167144
+        dd str_NJ_GoalieMaskList
         dd str_199596
         dd str_Burke
         dd str_HFD
@@ -2284,10 +2284,10 @@ unk_D4CB0:
         dd str_WAS
         dd str_199596
         dd str_Fichaud
-        dd unk_167168
+        dd str_NYI_GoalieMaskList
         dd str_199596
         dd str_Flaherty
-        dd unk_167178
+        dd str_SJ_GoalieMaskList
         dd str_199596
         dd str_Fuhr
         dd str_BUF
@@ -2308,16 +2308,16 @@ unk_D4CB0:
         dd str_QUE
         dd str_199293
         dd str_Heyward
-        dd unk_167178
+        dd str_SJ_GoalieMaskList
         dd str_199293
         dd str_Hirsch
         dd str_VAN
         dd str_199596
         dd str_Hrudey
-        dd unk_1671E0
+        dd str_LA_GoalieMaskList
         dd str_199596
         dd str_Jablonski
-        dd unk_1671F0
+        dd str_TB_GoalieMaskList
         dd str_199495
         dd str_Joseph
         dd str_EDM
@@ -2338,7 +2338,7 @@ unk_D4CB0:
         dd str_DAL
         dd str_199596
         dd str_Richter
-        dd unk_167234
+        dd str_NYR_GoalieMaskList
         dd str_199596
         dd str_Roy
         dd str_COL
@@ -2353,7 +2353,7 @@ unk_D4CB0:
         dd str_FLA
         dd str_199596
         dd str_Vanbiesbrouck
-        dd unk_167234
+        dd str_NYR_GoalieMaskList
         dd str_199293
         dd str_Vernon
         dd str_DET

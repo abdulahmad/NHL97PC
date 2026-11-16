@@ -2,163 +2,130 @@
 bits 32
 %include "hockey.inc"
 section s_1CC2C8 nobits alloc noexec write align=1
-global byte_1CC8B4, dword_1CC2C8, dword_1CC328, dword_1CC32C, dword_1CC330, dword_1CC334, dword_1CC338, dword_1CC33C
-global dword_1CC340, dword_1CC344, dword_1CC348, dword_1CC34C, dword_1CC4B0, dword_1CC4B4, dword_1CC4B8, dword_1CC4BC
-global dword_1CC4C0, dword_1CC4C4, dword_1CC4C8, dword_1CC4CC, dword_1CC5B0, dword_1CC5C8, dword_1CC5CC, dword_1CC5D0
-global dword_1CC5EC, dword_1CC5F0, dword_1CC5F4, dword_1CC5F8, dword_1CC638, dword_1CC63C, dword_1CC640, dword_1CC644
-global dword_1CC648, dword_1CC64C, dword_1CC650, dword_1CC654, dword_1CC658, dword_1CC65C, dword_1CC660, dword_1CC664
-global dword_1CC668, dword_1CC684, dword_1CC688, dword_1CC6A4, dword_1CC6A8, dword_1CC6AC, dword_1CC6E8, dword_1CC6EC
-global dword_1CC6F8, dword_1CC6FC, dword_1CC700, dword_1CC78C, dword_1CC790, dword_1CC794, dword_1CC798, dword_1CC79C
-global dword_1CC7A0, dword_1CC7A4, dword_1CC7A8, dword_1CC7AC, dword_1CC7B0, dword_1CC7B4, dword_1CC7B8, dword_1CC7BC
-global dword_1CC7C0, dword_1CC7C4, dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dword_1CC828
-global dword_1CC860, dword_1CC864, dword_1CC8A0
-dword_1CC2C8:
+global RostersSparkleCount, MatchupSparkleShapes, MatchupPortraitShown, MatchupPlayerCount, MatchupRightRegions
+global MatchupLeftRegion
+global MatchupPortraitLayers
+global MatchupStatsLayer, MatchupStatsArt, MatchupPortraitDrawn, MatchupPlayers
+
+global MatchupPlayerLayers, MatchupLeftSlots, MatchupRightSlots, MatchupRightSlotShape
+global MatchupRightSlotText, MatchupRightSlotArt, MatchupArtBuffer, MatchupStatRows, MatchupHomeBar, MatchupAwayBar, MatchupBitmap, MatchupMusicOn
+global MatchupSparkleTick, MatchupHomeStats, MatchupSparkleFrame, MatchupSparkleOn, MatchupSpeechDone, MatchupLastSpeech, MatchupHomeLine, MatchupLayer
+global MatchupAnimDone, MatchupHomeGoalie, MatchupNoteBuffer, MatchupStatsFile, MatchupAwayStats, MatchupShapeFile, RostersShapeLists, MatchupNotes
+global RosterInfoLines, MatchupNoteFormats, RostersSparkleShapes
+MatchupSparkleShapes:
         resb 96
-dword_1CC328:
+MatchupPortraitShown:
         resb 4
-dword_1CC32C:
+MatchupPlayerCount:
         resb 4
-dword_1CC330:
+MatchupRightRegions:
         resb 4
-dword_1CC334:
         resb 4
-dword_1CC338:
         resb 4
-dword_1CC33C:
         resb 4
-dword_1CC340:
         resb 4
-dword_1CC344:
         resb 4
-dword_1CC348:
         resb 4
-dword_1CC34C:
         resb 356
-dword_1CC4B0:
+MatchupLeftRegion:
         resb 4
-dword_1CC4B4:
         resb 4
-dword_1CC4B8:
         resb 4
-dword_1CC4BC:
         resb 4
-dword_1CC4C0:
         resb 4
-dword_1CC4C4:
         resb 4
-dword_1CC4C8:
         resb 4
-dword_1CC4CC:
         resb 228
-dword_1CC5B0:
+MatchupPortraitLayers:
         resb 24
-dword_1CC5C8:
         resb 4
-dword_1CC5CC:
         resb 4
-dword_1CC5D0:
         resb 28
-dword_1CC5EC:
         resb 4
-dword_1CC5F0:
+MatchupStatsLayer:
         resb 4
-dword_1CC5F4:
+MatchupStatsArt:
         resb 4
-dword_1CC5F8:
+MatchupPortraitDrawn:
         resb 64
-dword_1CC638:
+MatchupPlayers:
         resb 4
-dword_1CC63C:
         resb 4
-dword_1CC640:
         resb 4
-dword_1CC644:
         resb 4
-dword_1CC648:
         resb 4
-dword_1CC64C:
         resb 4
-dword_1CC650:
         resb 4
-dword_1CC654:
         resb 4
-dword_1CC658:
         resb 4
-dword_1CC65C:
         resb 4
-dword_1CC660:
         resb 4
-dword_1CC664:
         resb 4
-dword_1CC668:
+MatchupPlayerLayers:
         resb 28
-dword_1CC684:
         resb 4
-dword_1CC688:
         resb 28
-dword_1CC6A4:
         resb 4
-dword_1CC6A8:
+MatchupLeftSlots:
         resb 4
-dword_1CC6AC:
         resb 60
-dword_1CC6E8:
+MatchupRightSlots:
         resb 4
-dword_1CC6EC:
+MatchupRightSlotShape:
         resb 12
-dword_1CC6F8:
+MatchupRightSlotText:
         resb 4
-dword_1CC6FC:
+MatchupRightSlotArt:
         resb 4
-dword_1CC700:
+MatchupArtBuffer:
         resb 140
-dword_1CC78C:
+MatchupStatRows:
         resb 4
-dword_1CC790:
+MatchupHomeBar:
         resb 4
-dword_1CC794:
+MatchupAwayBar:
         resb 4
-dword_1CC798:
+MatchupBitmap:
         resb 4
-dword_1CC79C:
+MatchupMusicOn:
         resb 4
-dword_1CC7A0:
+MatchupSparkleTick:
         resb 4
-dword_1CC7A4:
+MatchupHomeStats:
         resb 4
-dword_1CC7A8:
+MatchupSparkleFrame:
         resb 4
-dword_1CC7AC:
+MatchupSparkleOn:
         resb 4
-dword_1CC7B0:
+MatchupSpeechDone:
         resb 4
-dword_1CC7B4:
+MatchupLastSpeech:
         resb 4
-dword_1CC7B8:
+MatchupHomeLine:
         resb 4
-dword_1CC7BC:
+MatchupLayer:
         resb 4
-dword_1CC7C0:
+MatchupAnimDone:
         resb 4
-dword_1CC7C4:
+MatchupHomeGoalie:
         resb 4
-dword_1CC7C8:
+MatchupNoteBuffer:
         resb 4
-dword_1CC7CC:
+MatchupStatsFile:
         resb 4
-dword_1CC7D0:
+MatchupAwayStats:
         resb 4
-dword_1CC7D4:
+MatchupShapeFile:
         resb 4
-dword_1CC7D8:
+RostersShapeLists:
         resb 80
-dword_1CC828:
+MatchupNotes:
         resb 56
-dword_1CC860:
+RosterInfoLines:
         resb 4
-dword_1CC864:
+MatchupNoteFormats:
         resb 60
-dword_1CC8A0:
+RostersSparkleShapes:
         resb 20
-byte_1CC8B4:
+RostersSparkleCount:
         resb 4

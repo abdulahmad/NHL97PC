@@ -3,12 +3,12 @@ bits 32
 %include "hockey.inc"
 section s_1670CF progbits alloc noexec write align=1
 global str_SDDD, str_SSS2, str_SS13, str_SSS3, str_Roster4, str_SVsSDDD, str_SDSD2, str_EASports
-global str_S_DrawMatchupNotes, str_Barasso, str_PIT, str_199596, str_Beaupre, str_OTT, str_Brodeur, unk_167144
-global str_Burke, str_HFD, str_Carey, str_WAS, str_Fichaud, unk_167168, str_Flaherty, unk_167178
+global str_S_DrawMatchupNotes, str_Barasso, str_PIT, str_199596, str_Beaupre, str_OTT, str_Brodeur, str_NJ_GoalieMaskList
+global str_Burke, str_HFD, str_Carey, str_WAS, str_Fichaud, str_NYI_GoalieMaskList, str_Flaherty, str_SJ_GoalieMaskList
 global str_Fuhr, str_BUF, str_199495, str_STL, str_Hackett, str_CHI, str_Hebert, str_ANA
 global str_Hextall, str_PHI, str_QUE, str_199293, str_Heyward, str_Hirsch, str_VAN, str_Hrudey
-global unk_1671E0, str_Jablonski, unk_1671F0, str_Joseph, str_EDM, str_Kidd, str_CAL, str_Kolzig
-global str_Lacher, str_BOS, str_Moog, str_DAL, str_Richter, unk_167234, str_Roy, str_COL
+global str_LA_GoalieMaskList, str_Jablonski, str_TB_GoalieMaskList, str_Joseph, str_EDM, str_Kidd, str_CAL, str_Kolzig
+global str_Lacher, str_BOS, str_Moog, str_DAL, str_Richter, str_NYR_GoalieMaskList, str_Roy, str_COL
 global str_MTL, str_Thibault, str_Vanbiesbrouck, str_FLA, str_Vernon, str_DET, str_EA
 str_S_DrawMatchupNotes:
         db 025h,073h,00h
@@ -39,7 +39,7 @@ str_OTT:
         db 04Fh,054h,054h,00h
 str_Brodeur:
         db 042h,072h,06Fh,064h,065h,075h,072h,00h
-unk_167144:
+str_NJ_GoalieMaskList:
         db 04Eh,04Ah,00h,00h
 str_Burke:
         db 042h,075h,072h,06Bh,065h,00h,00h,00h
@@ -51,11 +51,11 @@ str_WAS:
         db 057h,041h,053h,00h
 str_Fichaud:
         db 046h,069h,063h,068h,061h,075h,064h,00h
-unk_167168:
+str_NYI_GoalieMaskList:
         db 04Eh,059h,049h,00h
 str_Flaherty:
         db 046h,06Ch,061h,068h,065h,072h,074h,079h,00h,00h,00h,00h
-unk_167178:
+str_SJ_GoalieMaskList:
         db 053h,04Ah,00h,00h
 str_Fuhr:
         db 046h,075h,068h,072h,00h,00h,00h,00h
@@ -89,11 +89,11 @@ str_VAN:
         db 056h,041h,04Eh,00h
 str_Hrudey:
         db 048h,072h,075h,064h,065h,079h,00h,00h
-unk_1671E0:
+str_LA_GoalieMaskList:
         db 04Ch,041h,00h,00h
 str_Jablonski:
         db 04Ah,061h,062h,06Ch,06Fh,06Eh,073h,06Bh,069h,00h,00h,00h
-unk_1671F0:
+str_TB_GoalieMaskList:
         db 054h,042h,00h,00h
 str_Joseph:
         db 04Ah,06Fh,073h,065h,070h,068h,00h,00h
@@ -115,7 +115,7 @@ str_DAL:
         db 044h,041h,04Ch,00h
 str_Richter:
         db 052h,069h,063h,068h,074h,065h,072h,00h
-unk_167234:
+str_NYR_GoalieMaskList:
         db 04Eh,059h,052h,00h
 str_Roy:
         db 052h,06Fh,079h,00h

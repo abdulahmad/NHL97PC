@@ -37,7 +37,7 @@ extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList
 extern FreeDbBlock, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindPlayerStat, FindTeamStat, ServiceIdle
 extern LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, str_D_ExportStatTable, str_S_ExportStatTable, str_Punct_WriteCsvLine, str_Rt, str_Wt, str_Punct_ExportStatTable
-extern StatExportSeparator, str_Punct_StatsTablesScreen, str_Ai, unk_16D7FC, unk_16D804, SeasonFilePath, SeasonStatsPath, PlayoffStatsPath
+extern StatExportSeparator, str_Punct_StatsTablesScreen, str_Ai, PlayoffDbKey, SeasonDbKey, SeasonFilePath, SeasonStatsPath, PlayoffStatsPath
 extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, StatsColumnFields, StatTableSortColumn
 global jpt_ACD96, jpt_AD11D, jpt_ADBD6, jpt_AF064, AllocStatTable_2AA, SortStatTable_301, SortStatTable_303, SortStatTable_310
 global SortStatTable_321, SortStatTable_323, SortStatTable_36B, DrawStatTableRows_2A9, DrawStatTableRows_2C4, DrawStatTableRows_2ED, DrawStatTableRows_34B, DrawStatTableRows_36C
@@ -2143,8 +2143,8 @@ TeamStatsScreen:
         call SetHighlightText
         cmp byte [FrontEndExit], 0
         je short .1
-        mov dword [byte ebp+066h], unk_16D804
-        mov dword [byte ebp+06Ah], unk_16D7FC
+        mov dword [byte ebp+066h], SeasonDbKey
+        mov dword [byte ebp+06Ah], PlayoffDbKey
         jmp short .4
 .1:
         mov eax, dword [GameSettings]
@@ -3646,8 +3646,8 @@ StatsTablesScreen:
         call SetTextColor
         cmp byte [FrontEndExit], 0
         je short .4
-        mov dword [byte ebp+04Ah], unk_16D804
-        mov dword [byte ebp+042h], unk_16D7FC
+        mov dword [byte ebp+04Ah], SeasonDbKey
+        mov dword [byte ebp+042h], PlayoffDbKey
         jmp short .7
 .4:
         mov eax, dword [GameSettings]

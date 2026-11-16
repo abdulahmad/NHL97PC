@@ -12,7 +12,7 @@ extern EditFileName, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, NameIndex
 extern GetLangText, SortStandings, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, FreeTransferBuffers, CopyToTransfer, LinkSendData
 extern LinkReceiveData, AppendToTransfer, KeysEqual, OpenGameDatabase, CloseGameDatabase, DaysToYear, CreateExhibitionFile, WriteLeagueHeader
 extern StartSeasonGame, SaveExhibitionResult, SaveSeasonResult, FindGameRecord, UpdateGameRecord, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile
-extern ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem, SelectFont, unk_16D7F4
+extern ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem, SelectFont, DbKeyBuffer
 extern SeasonUserRecords, SeasonStatsPath, PlayoffUserRecords, AllStarDay
 global SendGameResult_32D, SaveGameResults_B2F, SaveGameResults_B30, SendGameResult, SaveGameResults, AdvanceSeasonDate, FinishLeagueGame, SaveReplayFile
 global WriteReplayFile, ReplayNameToKey, ClearReplayEntry
@@ -81,7 +81,7 @@ SendGameResult:
         shl esi, 4
         mov eax, dword [byte eax+020h]
         add eax, esi
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         add eax, byte 8
         call KeysEqual
         test eax, eax
@@ -317,7 +317,7 @@ SaveGameResults:
         movsx edx, byte [byte eax+02h]
         cmp edx, byte 0FFFFFFFFh
         jne near .8
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         add eax, byte 8
         call KeysEqual
         test eax, eax
@@ -403,7 +403,7 @@ SaveGameResults:
         movsx edx, byte [byte eax+02h]
         cmp edx, byte 0FFFFFFFFh
         jne short .8
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         add eax, byte 8
         call KeysEqual
         test eax, eax
@@ -1337,7 +1337,7 @@ FinishLeagueGame:
         jne short .1
         imul eax, dword [SeasonDefaultUser], byte 1Ch
         mov edi, SeasonFileName
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         xor ebx, ebx
         xor edx, edx
         mov ecx, dword [dword eax+SeasonUserReplay]
@@ -1542,7 +1542,7 @@ SaveReplayFile:
 .17:
         mov ecx, eax
         mov edi, SeasonFileName
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         movsd
         movsd
         mov dword [ReplayFileOpen], 0
@@ -1606,7 +1606,7 @@ WriteReplayFile:
         push eax
         mov edi, SeasonFileName
         push str_Saverepl
-        mov esi, unk_16D7F4
+        mov esi, DbKeyBuffer
         mov ebx, eax
         call AllocMemBlock
         add esp, byte 0Ch

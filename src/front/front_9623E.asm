@@ -35,7 +35,7 @@ extern WipeScreen, SetNormalText, DrawPortrait, DrawStatHeader, InitMenuItems, R
 extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList, GetLangText, PositionAbbrev, SetRosterMode
 extern SkaterOverall, GoalieOverall, InitListBox, InitShapeListBox, KeysEqual, FindGameRecord, FindPlayerStat, ServiceIdle
 extern AllocMemBlock, FreeMemBlock, KbdIdleCall, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
-extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, str_D_DrawLinesCardDetails, str_C_DrawForwardLines, unk_16D7F4
+extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, str_D_DrawLinesCardDetails, str_C_DrawForwardLines, DbKeyBuffer
 extern AllStarHomeLines, AllStarAwayLines, AutoLineData, HomeLines, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, AllStarDay
 extern LinesSlotPositions, LinesGridSlotIds
 global jpt_9861E, jpt_9AC47, EditLinesScreen_17F, EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA
@@ -2624,7 +2624,7 @@ LoadEditLinesRoster:
 .1:
         mov ebx, AllStarAwayLines
 .2:
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         mov eax, ebx
         call KeysEqual
         test eax, eax

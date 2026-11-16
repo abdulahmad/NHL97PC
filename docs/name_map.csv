@@ -6849,12 +6849,15 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 167130,str_Beaupre,unk_167130,new,high,"string ""Beaupre""",src/data/front/front_D3112_data_01.asm
 167138,str_OTT,unk_167138,new,high,"string ""OTT""",src/data/front/front_D3112_data_01.asm
 16713C,str_Brodeur,unk_16713C,new,high,"string ""Brodeur""",src/data/front/front_D3112_data_01.asm
+167144,str_NJ_GoalieMaskList,unk_167144,new,low,team abbreviation NJ in the goalie mask list,src/data/front/front_D3112_data_01.asm
 167148,str_Burke,unk_167148,new,high,"string ""Burke""",src/data/front/front_D3112_data_01.asm
 167150,str_HFD,unk_167150,new,high,"string ""HFD""",src/data/front/front_D3112_data_01.asm
 167154,str_Carey,unk_167154,new,high,"string ""Carey""",src/data/front/front_D3112_data_01.asm
 16715C,str_WAS,unk_16715C,new,high,"string ""WAS""",src/data/front/front_D3112_data_01.asm
 167160,str_Fichaud,unk_167160,new,high,"string ""Fichaud""",src/data/front/front_D3112_data_01.asm
+167168,str_NYI_GoalieMaskList,unk_167168,new,low,team abbreviation NYI in the goalie mask list,src/data/front/front_D3112_data_01.asm
 16716C,str_Flaherty,unk_16716C,new,high,"string ""Flaherty""",src/data/front/front_D3112_data_01.asm
+167178,str_SJ_GoalieMaskList,unk_167178,new,low,team abbreviation SJ in the goalie mask list,src/data/front/front_D3112_data_01.asm
 16717C,str_Fuhr,unk_16717C,new,high,"string ""Fuhr""",src/data/front/front_D3112_data_01.asm
 167184,str_BUF,unk_167184,new,high,"string ""BUF""",src/data/front/front_D3112_data_01.asm
 167188,str_199495,unk_167188,new,high,"string ""1994-95""",src/data/front/front_D3112_data_01.asm
@@ -6871,7 +6874,9 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1671CC,str_Hirsch,unk_1671CC,new,high,"string ""Hirsch""",src/data/front/front_D3112_data_01.asm
 1671D4,str_VAN,unk_1671D4,new,high,"string ""VAN""",src/data/front/front_D3112_data_01.asm
 1671D8,str_Hrudey,unk_1671D8,new,high,"string ""Hrudey""",src/data/front/front_D3112_data_01.asm
+1671E0,str_LA_GoalieMaskList,unk_1671E0,new,low,team abbreviation LA in the goalie mask list,src/data/front/front_D3112_data_01.asm
 1671E4,str_Jablonski,unk_1671E4,new,high,"string ""Jablonski""",src/data/front/front_D3112_data_01.asm
+1671F0,str_TB_GoalieMaskList,unk_1671F0,new,low,team abbreviation TB in the goalie mask list,src/data/front/front_D3112_data_01.asm
 1671F4,str_Joseph,unk_1671F4,new,high,"string ""Joseph""",src/data/front/front_D3112_data_01.asm
 1671FC,str_EDM,unk_1671FC,new,high,"string ""EDM""",src/data/front/front_D3112_data_01.asm
 167200,str_Kidd,unk_167200,new,high,"string ""Kidd""",src/data/front/front_D3112_data_01.asm
@@ -6882,6 +6887,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 167220,str_Moog,unk_167220,new,high,"string ""Moog""",src/data/front/front_D3112_data_01.asm
 167228,str_DAL,unk_167228,new,high,"string ""DAL""",src/data/front/front_D3112_data_01.asm
 16722C,str_Richter,unk_16722C,new,high,"string ""Richter""",src/data/front/front_D3112_data_01.asm
+167234,str_NYR_GoalieMaskList,unk_167234,new,low,team abbreviation NYR in the goalie mask list,src/data/front/front_D3112_data_01.asm
 167238,str_Roy,unk_167238,new,high,"string ""Roy""",src/data/front/front_D3112_data_01.asm
 16723C,str_COL,unk_16723C,new,high,"string ""COL""",src/data/front/front_D3112_data_01.asm
 167240,str_MTL,unk_167240,new,high,"string ""MTL""",src/data/front/front_D3112_data_01.asm
@@ -7929,8 +7935,42 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16D754,GoalieMaskSoundOn,dword_16D754,new,low,goalie mask sound enabled,src/data/front/front_C755B_data_02.asm
 16D760,CreditsLastLine,dword_16D760,new,low,last credits line drawn,src/data/front/front_C755B_data_02.asm
 16D764,CreditsLastY,dword_16D764,new,low,last credits y,src/data/front/front_C755B_data_02.asm
+16D768,CreditsKeyTimer,dword_16D768,new,low,credits key timer,src/data/front/front_D4E24_data_02.asm
+16D76C,CreditsKeyFlag,dword_16D76C,new,low,set by the credits key check,src/data/front/front_D4E24_data_02.asm
+16D770,DbPageNext,dword_16D770,new,low,next free database page,src/data/front/front_D4E24_data_02.asm
+16D774,DbPageStack,dword_16D774,new,low,database page stack,src/data/front/front_D4E24_data_02.asm
+16D778,DbPageEnd,dword_16D778,new,low,end of the database pages,src/data/front/front_D4E24_data_02.asm
+16D77C,DbPageBuffer,dword_16D77C,new,low,database page buffer,src/data/front/front_D4E24_data_02.asm
+16D780,DbPageWanted,dword_16D780,new,low,database page being looked up,src/data/front/front_D4E24_data_02.asm
+16D784,DbFlags,byte_16D784,new,low,database flags,src/data/front/front_D4E24_data_02.asm
+16D788,DbGameRecordCount,dword_16D788,new,low,database game record count,src/data/front/front_D4E24_data_02.asm
+16D78C,DbPlayerRecordCount,dword_16D78C,new,low,database player record count,src/data/front/front_D4E24_data_02.asm
+16D790,DbStatRecordCount,dword_16D790,new,low,database stat record count,src/data/front/front_D4E24_data_02.asm
+16D794,DbTeamRecordCount,dword_16D794,new,low,database team record count,src/data/front/front_D4E24_data_02.asm
+16D798,DbGameRecords,dword_16D798,new,low,database game records (196 bytes each),src/data/front/front_D4E24_data_02.asm
+16D79C,DbPlayerRecords,dword_16D79C,new,low,database player records (47 bytes each),src/data/front/front_D4E24_data_02.asm
+16D7A0,DbStatRecords,dword_16D7A0,new,low,database stat records (69 bytes each),src/data/front/front_D4E24_data_02.asm
+16D7A4,DbTeamRecords,dword_16D7A4,new,low,database team records (6487 bytes each),src/data/front/front_D4E24_data_02.asm
+16D7A8,DbRecordsLoaded,dword_16D7A8,new,low,set once database records are loaded,src/data/front/front_D4E24_data_02.asm
+16D7AC,DbFileNames,off_16D7AC,new,low,database file names,src/data/front/front_D4E24_data_02.asm
+16D7B4,DbFileExtensions,off_16D7B4,new,low,database file extensions,src/data/front/front_D4E24_data_02.asm
+16D7D0,DbIndexRoot,dword_16D7D0,new,low,database index root,src/data/front/front_D4E24_data_02.asm
+16D7D4,DbPlayerIndex,dword_16D7D4,new,low,database player index,src/data/front/front_D4E24_data_02.asm
+16D7D8,DbGameIndex,dword_16D7D8,new,low,database game index,src/data/front/front_D4E24_data_02.asm
+16D7DC,LeagueFileDir,off_16D7DC,new,low,league file directory,src/data/front/front_D4E24_data_02.asm
+16D7E0,LeagueFilePrefix,off_16D7E0,new,low,league file prefix,src/data/front/front_D4E24_data_02.asm
+16D7E4,DbDirName,off_16D7E4,new,low,database directory name,src/data/front/front_D4E24_data_02.asm
+16D7E8,DbFileSuffix,off_16D7E8,new,low,database file suffix,src/data/front/front_D4E24_data_02.asm
+16D7EC,StaticBufferReady,word_16D7EC,new,low,set once the static buffer exists,src/data/front/front_D4E24_data_02.asm
+16D7EE,DbOpen,word_16D7EE,new,low,set while the database is open,src/data/front/front_D4E24_data_02.asm
+16D7F0,StaticBuffer,dword_16D7F0,new,low,static buffer,src/data/front/front_D4E24_data_02.asm
+16D7F4,DbKeyBuffer,unk_16D7F4,new,low,database key buffer,src/data/front/front_D4E24_data_02.asm
+16D7FC,PlayoffDbKey,unk_16D7FC,new,low,playoff database key,src/data/front/front_D4E24_data_02.asm
+16D804,SeasonDbKey,unk_16D804,new,low,season database key,src/data/front/front_D4E24_data_02.asm
 16D80C,str_Punct_SetMatchupTeams,word_16D80C,new,high,"string ""\r""",src/data/front/front_D4E24_data_02.asm
+16D80E,MatchupTeamCodes,word_16D80E,new,low,matchup team codes,src/data/front/front_D4E24_data_02.asm
 16D85E,str_Punct_DaysToYear,word_16D85E,new,high,"string ""/""",src/data/front/front_D4E24_data_02.asm
+16D860,MonthStartDays,word_16D860,new,low,day each month starts,src/data/front/front_D4E24_data_02.asm
 16D8FC,SlotWords,word_16D8FC,new,high,"8 words: high byte device (bits 0-2) and team (bit 7), low byte buttons",src/data/front/front_DA66D_data_02.asm
 16D90C,InputRecordTail,dword_16D90C,new,high,where TakeInputRecord reads the next record,src/data/front/front_DA66D_data_02.asm
 16D910,InputRecordHead,dword_16D910,96PC,high,96 PC InputRecordHead: where the timer writes the next record,src/data/front/front_DA66D_data_02.asm
@@ -10300,6 +10340,57 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1CC2BC,RosterEditOpen,dword_1CC2BC,new,low,set while a roster edit is open,src/data/front/front_C755B_bss_01.asm
 1CC2C0,RosterShapeFile,dword_1CC2C0,new,low,roster shape file,src/data/front/front_C755B_bss_01.asm
 1CC2C4,RosterBackFile,dword_1CC2C4,new,low,roster back art file,src/data/front/front_C755B_bss_01.asm
+1CC2C8,MatchupSparkleShapes,dword_1CC2C8,new,low,matchup sparkle shapes,src/data/front/front_D15FB_bss_03.asm
+1CC328,MatchupPortraitShown,dword_1CC328,new,low,set per matchup slot when a portrait is shown,src/data/front/front_D15FB_bss_03.asm
+1CC32C,MatchupPlayerCount,dword_1CC32C,new,low,players shown on the matchup,src/data/front/front_D15FB_bss_03.asm
+1CC330,MatchupRightRegions,dword_1CC330,97PC,low,matchup right side screen regions (64 bytes each),src/data/front/front_D15FB_bss_03.asm
+1CC4B0,MatchupLeftRegion,dword_1CC4B0,97PC,low,matchup left side screen region,src/data/front/front_D15FB_bss_03.asm
+1CC5B0,MatchupPortraitLayers,dword_1CC5B0,97PC,low,matchup portrait layers per side and slot,src/data/front/front_D15FB_bss_03.asm
+1CC5F0,MatchupStatsLayer,dword_1CC5F0,new,low,matchup stats layer,src/data/front/front_D15FB_bss_03.asm
+1CC5F4,MatchupStatsArt,dword_1CC5F4,new,low,matchup stats art,src/data/front/front_D15FB_bss_03.asm
+1CC5F8,MatchupPortraitDrawn,dword_1CC5F8,new,low,set per matchup slot once its portrait is drawn,src/data/front/front_D15FB_bss_03.asm
+1CC638,MatchupPlayers,dword_1CC638,97PC,low,"matchup player record pointers, home then away",src/data/front/front_D15FB_bss_03.asm
+1CC668,MatchupPlayerLayers,dword_1CC668,97PC,low,matchup player layers per side,src/data/front/front_D15FB_bss_03.asm
+1CC6A8,MatchupLeftSlots,dword_1CC6A8,97PC,low,matchup left slots (16 bytes each),src/data/front/front_D15FB_bss_03.asm
+1CC6E8,MatchupRightSlots,dword_1CC6E8,new,low,matchup right slots (28 bytes each),src/data/front/front_D15FB_bss_03.asm
+1CC6EC,MatchupRightSlotShape,dword_1CC6EC,new,low,matchup right slot: shape,src/data/front/front_D15FB_bss_03.asm
+1CC6F8,MatchupRightSlotText,dword_1CC6F8,new,low,matchup right slot: text,src/data/front/front_D15FB_bss_03.asm
+1CC6FC,MatchupRightSlotArt,dword_1CC6FC,new,low,matchup right slot: art per frame,src/data/front/front_D15FB_bss_03.asm
+1CC700,MatchupArtBuffer,dword_1CC700,new,low,matchup art buffer,src/data/front/front_D15FB_bss_03.asm
+1CC78C,MatchupStatRows,dword_1CC78C,new,low,matchup stat rows per side,src/data/front/front_D15FB_bss_03.asm
+1CC790,MatchupHomeBar,dword_1CC790,new,low,matchup home bar choice,src/data/front/front_D15FB_bss_03.asm
+1CC794,MatchupAwayBar,dword_1CC794,new,low,matchup away bar choice,src/data/front/front_D15FB_bss_03.asm
+1CC798,MatchupBitmap,dword_1CC798,new,low,matchup bitmap,src/data/front/front_D15FB_bss_03.asm
+1CC79C,MatchupMusicOn,dword_1CC79C,new,low,matchup music started,src/data/front/front_D15FB_bss_03.asm
+1CC7A0,MatchupSparkleTick,dword_1CC7A0,new,low,tick of the next matchup sparkle,src/data/front/front_D15FB_bss_03.asm
+1CC7A4,MatchupHomeStats,dword_1CC7A4,new,low,matchup home stats data,src/data/front/front_D15FB_bss_03.asm
+1CC7A8,MatchupSparkleFrame,dword_1CC7A8,new,low,matchup sparkle frame,src/data/front/front_D15FB_bss_03.asm
+1CC7AC,MatchupSparkleOn,dword_1CC7AC,new,low,matchup sparkle enabled,src/data/front/front_D15FB_bss_03.asm
+1CC7B0,MatchupSpeechDone,dword_1CC7B0,new,low,set once the matchup speech plays,src/data/front/front_D15FB_bss_03.asm
+1CC7B4,MatchupLastSpeech,dword_1CC7B4,new,low,last matchup speech picked,src/data/front/front_D15FB_bss_03.asm
+1CC7B8,MatchupHomeLine,dword_1CC7B8,new,low,matchup home line data,src/data/front/front_D15FB_bss_03.asm
+1CC7BC,MatchupLayer,dword_1CC7BC,new,low,matchup draw layer,src/data/front/front_D15FB_bss_03.asm
+1CC7C0,MatchupAnimDone,dword_1CC7C0,new,low,set once the matchup animation finishes,src/data/front/front_D15FB_bss_03.asm
+1CC7C4,MatchupHomeGoalie,dword_1CC7C4,new,low,matchup home goalie record,src/data/front/front_D15FB_bss_03.asm
+1CC7C8,MatchupNoteBuffer,dword_1CC7C8,new,low,matchup note buffer,src/data/front/front_D15FB_bss_03.asm
+1CC7CC,MatchupStatsFile,dword_1CC7CC,new,low,matchup stats file,src/data/front/front_D15FB_bss_03.asm
+1CC7D0,MatchupAwayStats,dword_1CC7D0,new,low,matchup away stats data,src/data/front/front_D15FB_bss_03.asm
+1CC7D4,MatchupShapeFile,dword_1CC7D4,new,low,matchup shape file,src/data/front/front_D15FB_bss_03.asm
+1CC7D8,RostersShapeLists,dword_1CC7D8,new,low,rosters screen shape lists,src/data/front/front_D15FB_bss_03.asm
+1CC828,MatchupNotes,dword_1CC828,new,low,matchup notes,src/data/front/front_D15FB_bss_03.asm
+1CC860,RosterInfoLines,dword_1CC860,new,low,roster info line offsets (indexed from 1),src/data/front/front_D15FB_bss_03.asm
+1CC864,MatchupNoteFormats,dword_1CC864,new,low,matchup note formats,src/data/front/front_D15FB_bss_03.asm
+1CC8A0,RostersSparkleShapes,dword_1CC8A0,new,low,rosters sparkle shapes,src/data/front/front_D15FB_bss_03.asm
+1CC8B4,RostersSparkleCount,byte_1CC8B4,new,low,rosters sparkle shape count,src/data/front/front_D15FB_bss_03.asm
+1CC8B8,FadePaletteBuffer,unk_1CC8B8,new,low,palette used while fading,src/data/front/front_D4E24_bss_01.asm
+1CCBB8,IntroPalette,unk_1CCBB8,new,low,intro palette,src/data/front/front_D4E24_bss_01.asm
+1CCEB8,GoalieMaskAnimKinds,dword_1CCEB8,new,low,goalie mask animation kind per slot,src/data/front/front_D4E24_bss_01.asm
+1CCEBC,GoalieMaskAnimFrames,dword_1CCEBC,new,low,goalie mask animation frames per kind,src/data/front/front_D4E24_bss_01.asm
+1CCEE8,CreditsScrollY,dword_1CCEE8,new,low,credits scroll y,src/data/front/front_D4E24_bss_01.asm
+1CCEEC,CreditsLine,dword_1CCEEC,new,low,credits line,src/data/front/front_D4E24_bss_01.asm
+1CCEF0,CreditsBitmap,dword_1CCEF0,new,low,credits bitmap,src/data/front/front_D4E24_bss_01.asm
+1CCEF8,GoalieMaskItems,dword_1CCEF8,97PC,low,goalie mask screen menu item records (82 bytes each),src/data/front/front_D4E24_bss_01.asm
+1CD138,DbPageSlots,unk_1CD138,new,low,database page slots,src/data/front/front_D4E24_bss_01.asm
 1CD1E0,InputRecordRing,unk_1CD1E0,96PC,high,96 PC InputRecordRing (97: 5 records of 14h bytes),src/data/front/front_DA66D_bss_01.asm
 1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,

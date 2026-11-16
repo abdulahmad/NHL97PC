@@ -5,7 +5,7 @@ section s_789F0 progbits alloc exec nowrite align=1
 extern PeriodHomeTeam, PeriodAwayTeam, HomeRosterData, HomeBackupGoalie, AwayRosterData, AwayBackupGoalie, str_D_SimulateGame, SimGameResult
 extern SeasonUserTeam, GameOptionFlags, SeasonRandomSeed, PlayoffRandomSeed, PaEventValue, ThreeStarsCount, HomeTeamRating, HomeInjuredCount
 extern memset_, rand_, srand_, RandomCrowdDelay, PlayerOverall, FindPlayerRecord, FindGameRecord, FindPlayerStat
-extern ReadTeamStats, ServiceIdle, ZeroMem, unk_16D7FC, unk_16D804, AutoLineData, HomeLines, unk_78930
+extern ReadTeamStats, ServiceIdle, ZeroMem, PlayoffDbKey, SeasonDbKey, AutoLineData, HomeLines, unk_78930
 extern HomeRosterData, HomeSimGoals, HomeSimShots, HomeShotTotals, HomeGoalTotals
 extern AwayRosterData, AwaySimGoals, AwaySimShots, AwayShotTotals, AwayGoalTotals
 global SimulateGame, SimPlayerRating, SimTeamStrength, unk_7A788
@@ -116,14 +116,14 @@ SimulateGame:
         add edx, edi
         test eax, eax
         je short .9
-        mov eax, unk_16D804
+        mov eax, SeasonDbKey
         mov ebx, ecx
         call ReadTeamStats
         test eax, eax
         jne short .11
         jmp short .10
 .9:
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         mov ebx, ecx
         call ReadTeamStats
         test eax, eax
@@ -299,7 +299,7 @@ SimulateGame:
         mov ecx, dword [dword esp+01594h]
         mov edx, ebp
         add ecx, eax
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         mov ebx, ecx
         call ReadTeamStats
         mov eax, dword [dword esp+01558h]
@@ -2144,7 +2144,7 @@ unk_7A788:
         call FindPlayerStat
         lea ebx, [byte ebp-04Eh]
         lea edx, [dword ebp-010Ah]
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         xor ecx, ecx
         call ReadTeamStats
         push byte 0
@@ -2189,7 +2189,7 @@ unk_7A788:
         call FindPlayerStat
         lea ebx, [byte ebp-04Eh]
         lea edx, [dword ebp-010Ah]
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         lea esi, [byte ebp+01Ah]
         call ReadTeamStats
         push byte 0
