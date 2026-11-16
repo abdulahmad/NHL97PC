@@ -17,7 +17,7 @@ extern sub_109E74, sub_10A7D0, sub_10A860, sub_10A868, sub_10A8C4, sub_10A930, s
 extern sub_10AB1C, sub_10ABC8, sub_3FE54, sub_3FEE8, sub_3FF4C, sub_3FF9C, sub_4006C, sub_400E8
 extern sub_401A0, sub_40258, sub_40298, sub_40380, sub_403C0, sub_40400, sub_40440, sub_404C4
 extern sub_40574, sub_405F8, sub_40640, sub_40680, sub_40850, sub_44A50, sub_4518C, sub_45628
-extern sub_4564C, sub_45954, sub_45A00, MakeDataPath, sub_E341C, sub_FAA64, sub_FAF34, sub_FB704
+extern sub_4564C, sub_45954, sub_45A00, MakeDataPath, sub_E341C, AllocMemBlock, FreeMemBlock, sub_FB704
 extern tickcount, word_1691A4, word_169268, word_169282, word_169284, word_169824
 global jpt_48D20, jpt_48D50, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D, CommentaryEvent_3F6, CommentaryEvent_3FF
 global CommentaryEvent_408, CommentaryEvent_411, CommentaryEvent_41A, CommentaryEvent_423, CommentaryEvent_48A, CommentaryEvent_4E4, CommentaryEvent_4ED, CommentaryEvent_4F6
@@ -2808,7 +2808,7 @@ OpenSpeechFile:
         shl eax, 2
         push eax
         push asc_1611AC
-        call sub_FAA64
+        call AllocMemBlock
         mov edx, dword [dword_1AC78C]
         mov dword [byte edx+ebx+04h], eax
         mov eax, dword [dword_1AC78C]
@@ -2860,7 +2860,7 @@ sub_47D70:
         mov eax, dword [dword_1AC78C]
         mov ecx, dword [byte ebx+eax+04h]
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         mov eax, dword [dword_1AC78C]
         add esp, byte 4
         mov dword [byte ebx+eax+04h], 0
@@ -2992,7 +2992,7 @@ sub_47EA4:
         push ebx
         push asc_1611AC
         mov dword [dword_169260], ebx
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         push ebx
         push eax
@@ -3063,7 +3063,7 @@ ShutdownSound:
         call sub_107154
         mov ecx, dword [dword_169258]
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         xor esi, esi
         push byte 14h

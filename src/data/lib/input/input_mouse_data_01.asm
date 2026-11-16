@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_16E604 progbits alloc noexec write align=1
-extern sub_FCD90_30, sub_FDC68_48, sub_FDC68_5C, sub_FDC68_6C, sub_FDC68_80, sub_101229, sub_FCE34, sub_FCE48
+extern FreeBitmap_30, sub_FDC68_48, sub_FDC68_5C, sub_FDC68_6C, sub_FDC68_80, sub_101229, sub_FCE34, sub_FCE48
 extern sub_FCE60, sub_FCEA0, sub_FDD08, unk_167D44, unk_167D48, unk_167D4C, unk_167D50, unk_167D54
 extern unk_167D58, unk_167D5C, unk_167D60, unk_167D64, unk_167D68, unk_167D6C, unk_167D70
 global byte_16E638, byte_16E639, byte_16E63A, byte_16E688, byte_16E689, byte_16E6C0, byte_16E6C1, mouseminx
@@ -144,7 +144,7 @@ dword_16E718:
         db 00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h
         db 00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h
 off_16E858:
-        dd sub_FCD90_30
+        dd FreeBitmap_30
         dd sub_FCE34
         dd sub_FCE48
         dd sub_FCE48

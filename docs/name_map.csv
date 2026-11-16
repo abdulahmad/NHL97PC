@@ -282,6 +282,7 @@ address,name,auto_name,source,confidence,evidence,file
 7CF94,TitleScreen,sub_7CF94,new,low,"the title screen at front-end start (BACK, LOGO) with its PA announcement",src/front/front_7A9D8.asm
 7D059,main_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 7F028,SetRegionRect,sub_7F028,new,low,"(region, x, y, w, h): stores the rectangle twice (x0, y0, x1, y1)",src/front/main/main.asm
+7F0D8,SetTextColor,sub_7F0D8,new,low,(pixel colour): builds the font colour tables (sub_FE180) for text drawn next with DrawTextAligned; cached on the last colour,src/front/main/main.asm
 7F16C,DrawTextAligned,sub_7F16C,new,low,"(align, x, y, ..., format, ...): sprintf-style text drawn left (0), centred (1) or right (2) of x",src/front/main/main.asm
 7FEC4,EditText,sub_7FEC4,96PC,medium,"NHL96PC EditText 197ED: same 394h text buffer, eax/edx/ebx/ecx + stack args, reads keys (sub_FBE40) and handles backspace/enter; called by every name entry through sub_7FE38/sub_7FE4C",src/front/main/main.asm
 84204,ShowLoadingScreen,sub_84204,new,medium,"from PlayMenuGame and RunDemoGame: loads a picture and draws ""Loading..."" before the game",src/front/main/main.asm
@@ -383,15 +384,20 @@ C7FBC,FreeRosterInfoAnim,sub_C7FBC,new,low,"roster screen: frees the ""rosinfo!.
 C800C,AllocRosterInfo,sub_C800C,new,low,"allocates the ""rosPlrInfo"" and ""seasRosArray"" tables of the roster screen",src/front/front_C755B.asm
 C885D,InitRosterData,sub_C885D,new,low,"roster screen: allocates ""deletion indices"" and ""roster player info"" and fills them (sub_C817F)",src/front/front_C755B.asm
 C8EDC,DrawRosterList,sub_C8EDC,new,low,"roster screen: the ""Team Roster"" / ""Additional Players"" lists",src/front/front_C755B.asm
+C9B24,InitRosterScreen,sub_C9B24,new,low,"from RosterScreen: loads the roster screen art (LoadDataFile 1Ch; BACK, TITL) and draws its panels",src/front/front_C755B.asm
+C9D84,FreeRosterScreen,sub_C9D84,new,low,from RosterScreen: frees the roster screen art once (dword_16D680 guard),src/front/front_C755B.asm
 CB041,CheckRosterInjuries,sub_CB041,new,low,"roster: the ""Roster Violation: %c. %s is injured."" check",src/front/front_C755B.asm
 CB216,ShowTradeRejected,sub_CB216,new,low,"roster screen: ""Rejected by %s.""",src/front/front_C755B.asm
 CB324,CheckRosterLimits,sub_CB324,new,low,"roster: the minimum / maximum roster and goalie count checks (""Roster Violation: %s must have..."")",src/front/front_C755B.asm
 CB6D5,CheckRegularRosterLimits,sub_CB6D5,new,low,roster: the non-injured minimum and regular / additional roster maximum checks,src/front/front_C755B.asm
 CD272,JerseyScreen,sub_CD272,new,low,"the jersey screen (""jersey menu"" / ""jersey menu regions"")",src/front/front_C755B.asm
 CEC58,DrawCreatePlayerName,sub_CEC58,new,low,"create player screen: the name panel (NAM1, ""%c. %s"")",src/front/front_C755B.asm
+CEE20,DrawCreatePlayerPosition,sub_CEE20,new,low,"from CreatePlayerScreen: the position buttons (GO / LW / RW / CE, ON / OF art)",src/front/front_C755B.asm
+CEEEA,DrawCreatePlayerHand,sub_CEEEA,new,low,"from CreatePlayerScreen: the shoots / catches buttons (SR / SL skater, GR / GL goalie, ON / OF art)",src/front/front_C755B.asm
 CF005,DrawCreatePlayerHeight,sub_CF005,new,low,"create player screen: the height field (""%d feet %d inches"")",src/front/front_C755B.asm
 CF0CD,DrawCreatePlayerWeight,sub_CF0CD,new,low,"create player screen: the weight field (""%d pounds"")",src/front/front_C755B.asm
 CF749,CreatePlayerScreen,sub_CF749,96PC,medium,"96 PC CreatePlayerScreen: the create player screen (""create plr menu"" / ""create plr region""), from the roster screens",src/front/front_C755B.asm
+D0397,InitCreatePlayerScreen,sub_D0397,new,low,"from CreatePlayerScreen: menu items and art (TITL, NA / JN name and jersey buttons, LoadDataFile)",src/front/front_C755B.asm
 D0D56,CompareFirstDword,sub_D0D56,new,medium,"qsort compare: the first dword of the two entries, ascending",src/front/front_C755B.asm
 D0F07,BuildTradePlayerLists,sub_D0F07,new,low,"from the roster screen (sub_CE73B): allocates and sorts ""aiplayers"", ""statplayers"" and ""statgoalies"" (qsort with sub_D0D56-sub_D0EBE)",src/front/front_C755B.asm
 D1927,PreGameMatchupScreen,sub_D1927,96PC,low,"96 PC PreGameMatchupScreen: game screen 14h before play: the matchup with the left / right team pictures (%03dL.FSH / %03dR.FSH), PANL, team and player stats",src/front/front_D15FB.asm
@@ -487,7 +493,9 @@ FA13B,__doclose_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FA1CB,_nmalloc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FA2AE,fread_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FA489,_nfree_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+FAA64,AllocMemBlock,sub_FAA64,95PC,high,"memory manager: allocate a named block (name, size, flags), e.g. ""DMAN"", ""HIST""; under the memory lock",src/lib/ea/ea_gfx_01.asm
 FAEF8,findmemblock,sub_FAEF8,96PC,high,NHL96PC ABEEC (callsite 0.90): called at the same place of sub_AC9B8,src/lib/ea/ea_memman_01.asm
+FAF34,FreeMemBlock,sub_FAF34,95PC,high,memory manager: findmemblock on the pointer and frees the block (under the memory lock dword_1CF260); 600+ calls,src/lib/ea/ea_memman_01.asm
 FB63C,type_info__raw_name,,95PC,high,NHL95PC 8DBE4 (exact): 6 instructions,
 FBD60,__STOSB,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBD97,__STOSD,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -509,11 +517,19 @@ FC2BB,WaitTickDeadline,,96PC,high,NHL96PC DFEF1 (exact): 4 instructions,
 FC2C9,TickDeadlinePassed,,96PC,medium,NHL96PC DFEFF (sem): D:16E42C; D:16E3F0,
 FC2D9,WaitTicks,sub_FC2D9,96PC,high,NHL96PC WaitTicks: wait n ticks of tickcount; in 97 it runs the task list (sub_F9A88) while it waits,src/lib/input/input_joystick_misc_03.asm
 FC2FD,memcpy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+FC510,MakeColor,sub_FC510,new,low,"(0RGB): converts a colour to a pixel value for the current pixel depth (byte_16E688: 8, 15 / 16, 24 / 32 bits)",src/lib/watcom/watcom_clib_04.asm
 FC5F8,MouseRead,,95PC,medium,NHL95PC B2DCA (sem): C:2186,
 FC635,SetViewRect,sub_FC635,96PC,high,"NHL96PC SetViewRect: stores the mouse range (min x, min y, max x, max y)",src/lib/input/input_mouse.asm
 FC65F,MouseReadMotion,,96PC,medium,NHL96PC DF9B7 (similar): mnemonic similarity 0.88 over 57 instructions,
 FC804,_dos_getdate_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FC81F,_dos_gettime_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+FCD90,FreeBitmap,sub_FCD90,new,low,"removes a bitmap's two windows (+28h, +30h, removewindow) and frees it (FreeMemBlock)",src/lib/ea/ea_fileblock_01.asm
+FCFCC,DrawArt,sub_FCFCC,95PC,low,"graphics library: draw art at x, y (art, x, y) through sub_FCEEC, which converts 8-bit art to the 16-bit screen; the module order matches the NHL95PC DrawArt",src/lib/ea/ea_gfx_02.asm
+FCFE8,DrawShape,sub_FCFE8,95PC,low,graphics library: DrawArt at the art's own position (+0Ah / +0Ch); right after DrawArt as in NHL95PC,src/lib/ea/ea_gfx_02.asm
+FD08C,CreateBitmap,sub_FD08C,95PC,medium,"graphics library: create a bitmap (w, h, flags) at the current pixel depth (dword_16E46C); returns the bitmap",src/lib/ea/ea_gfx_02.asm
+FD0F8,SetDrawTarget,sub_FD0F8,new,low,makes a bitmap the current draw target: copies its 0Eh-dword header to dword_16E670,src/lib/ea/ea_gfx_02.asm
+FD110,ClearScreen,sub_FD110,95PC,medium,graphics library: fills the whole current draw target (dword_16E678..684) with a colour (sub_FDD1C),src/lib/ea/ea_gfx_02.asm
+FDD1C,FillRect,sub_FDD1C,95PC,medium,"graphics library: fill a rectangle (x, y, w, h, colour) on the current draw target, by pixel depth",src/lib/ea/ea_gfx_02.asm
 FDDC1,mem_putc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10023C,IF@ATAN,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -522,7 +538,13 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10029A,IF@DPOW,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 100674,vecdist,,96PC,medium,NHL96PC E14C8 (similar): mnemonic similarity 0.94 over 42 instructions,
 1008A2,IF@DFMOD,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+100A68,bcopy,sub_100A68,new,medium,"(src, dst, n): copies n bytes, backwards when they overlap (BSD order)",src/lib/input/input_joystick_misc_05.asm
 100AD0,_os_handle,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+101340,BlitShape2,sub_101340,new,low,same body as BlitShape (a second copy in the library),src/lib/input/input_joystick_misc_05.asm
+101390,BlitArt,sub_101390,new,low,"graphics library: draws art at x, y (art, x, y) straight through the blitter table off_16F588, no colour conversion (next to FindShape)",src/lib/input/input_joystick_misc_05.asm
+1013AC,BlitShape,sub_1013AC,new,low,graphics library: BlitArt at the art's own position (+0Ah / +0Ch),src/lib/input/input_joystick_misc_05.asm
+101429,FindShape,sub_101429,95PC,high,"graphics library: find the named art in a bank (bank, name), returns its pointer; error text ""locateshape - '%-4.4s' SHAPE NOT FOUND"" (unk_101400); 1500+ calls",src/lib/input/input_joystick_misc_05.asm
+101430,FindShapeQuiet,sub_101430,new,medium,FindShape without the not-found message: 0 when the art is missing,src/lib/input/input_joystick_misc_05.asm
 102BB8,SetClipWindow,,96PC,medium,NHL96PC DD760 (similar): mnemonic similarity 0.84 over 21 instructions,
 10382C,removewindow,,96PC,medium,NHL96PC C3D80 (similar): mnemonic similarity 0.81 over 65 instructions,
 104780,bcopy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -785,6 +807,7 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C0EE,__Ergo_hook_fini_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C108,__Intel_hook_init_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C160,__Intel_hook_fini_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+13C164,SetScreenTarget,sub_13C164,new,low,makes the screen the draw target again: copies the screen header (dword_16E6A8) to dword_16E670,src/lib/watcom/watcom_clib_32.asm
 13C187,WaitRetrace,,96PC,medium,NHL96PC DDE7B (similar): mnemonic similarity 0.88 over 17 instructions,
 13C1BF,WaitRetraceEdges,sub_13C1BF,96PC,high,"NHL96PC WaitRetraceEdges: leave retrace, then wait for it (3DAh bit 3), the same code",src/lib/video/video_bios_vga_09.asm
 13C1EA,WaitDisplayRetrace,,96PC,high,NHL96PC WaitDisplayRetrace: wait for display enable then retrace (3DAh bit 3); label added (the listing had none),src/lib/video/video_bios_vga_09.asm

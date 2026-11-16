@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_FC008 progbits alloc exec nowrite align=1
 extern __STOSD, _dos_getvect_, _dos_setvect_, asc_167D2C, dword_16E3FC, dword_16E402, dword_16E4B0, dword_16E4B4
-extern dword_16E4C8, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, sub_101220, sub_FAA64, sub_FAF34
+extern dword_16E4C8, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, sub_101220, AllocMemBlock, FreeMemBlock
 extern TimerISR, word_16E406
 global RestoreTimer, sub_FC008, sub_FC0F0
 ;-----------------------------------------------------------------------------
@@ -102,7 +102,7 @@ RestoreTimer:
         out dx, al
         mov ecx, dword [dword_1CF294]
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [dword_1CF294], ebx
 .2:
@@ -128,7 +128,7 @@ sub_FC0F0:
         mov ecx, dword [dword_16E3FC]
         push ecx
         push asc_167D2C
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1CF294], eax
 .1:

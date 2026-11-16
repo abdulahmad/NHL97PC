@@ -5,9 +5,12 @@ section s_12FB20 progbits alloc exec nowrite align=1
 extern asc_1680E0, dword_16E464, dword_16E468, dword_16E46C, dword_16E4C8, dword_16E6A8, dword_16F184, dword_199990
 extern dword_199994, dword_199998, dword_19999C, dword_1999A0, dword_1999A4, off_16E4D4, off_16E4D8, off_16E4DC
 extern off_16E4E0, str_PAUSEPRESSANYKEY, sub_101324, sub_1013FC, sub_115BB0, sub_115BD8, sub_117338, sub_11A264
-extern sub_11ADD0, sub_11ADE8, sub_138D04, sub_138E00, sub_138EB0, sub_138F00, sub_13C164, sub_FBE40
-extern sub_FC510, sub_FCC40, sub_FCD90, sub_FD0F8, sub_FDD1C, sub_FE180, sub_FE3D0, unk_16E8A0
+extern sub_11ADD0, sub_11ADE8, sub_138D04, sub_138E00, sub_138EB0, sub_138F00, SetScreenTarget, sub_FBE40
+extern MakeColor, sub_FCC40, FreeBitmap, SetDrawTarget, FillRect, sub_FE180, sub_FE3D0, unk_16E8A0
 global sub_12FB20, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0, sub_13000C
+;-----------------------------------------------------------------------------
+; sub_12FB20                                                          12FB20  
+;-----------------------------------------------------------------------------
 sub_12FB20:
         push esi
         push edi
@@ -65,9 +68,9 @@ sub_12FB20:
         add esp, byte 14h
         call dword [off_16E4D8]
         push ebx
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
-        call sub_13C164
+        call SetScreenTarget
         mov ecx, dword [dword esp+0130h]
         push ecx
         mov eax, dword [dword esp+0130h]
@@ -76,9 +79,9 @@ sub_12FB20:
         push edx
         call sub_11A264
         add esp, byte 0Ch
-        call sub_13C164
+        call SetScreenTarget
         push dword 0FF000000h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
         mov ebx, dword [dword esp+0148h]
@@ -89,10 +92,10 @@ sub_12FB20:
         push eax
         mov edx, dword [dword esp+013Ch]
         push edx
-        call sub_FDD1C
+        call FillRect
         add esp, byte 14h
         push dword 0FFAA0000h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
         mov eax, dword [dword esp+0128h]
@@ -110,7 +113,7 @@ sub_12FB20:
         add esp, byte 14h
         push byte 0
         push byte 0FFFFFFFFh
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
         call sub_FE180
@@ -162,7 +165,7 @@ sub_12FB20:
         call sub_138D04
         add esp, byte 14h
         call dword [off_16E4D4]
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [dword esp+0130h]
         push eax
         mov eax, dword [dword esp+0124h]
@@ -182,7 +185,7 @@ sub_12FB20:
         add esp, byte 4
         mov ecx, dword [dword esp+0120h]
         push ecx
-        call sub_FCD90
+        call FreeBitmap
         add esp, byte 4
         mov edi, dword [dword esp+011Ch]
         push edi
@@ -195,6 +198,9 @@ sub_12FB20:
         pop esi
         ret 8
         db 090h
+;-----------------------------------------------------------------------------
+; sub_12FDC8                                                          12FDC8  
+;-----------------------------------------------------------------------------
 sub_12FDC8:
         push ebx
         mov eax, dword [dword_16E468]
@@ -255,7 +261,7 @@ sub_12FDC8:
         call sub_FCC40
         add esp, byte 4
         push ebx
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         mov edi, dword [dword_16E468]
         push edi
@@ -270,16 +276,16 @@ sub_12FDC8:
         call dword [off_16E4D8]
         mov edi, dword [dword_16E468]
         sub edi, byte 0Ah
-        call sub_13C164
+        call SetScreenTarget
         push edi
         push byte 0
         mov eax, dword [byte ebx+02Ch]
         push eax
         call sub_11A264
         add esp, byte 0Ch
-        call sub_13C164
+        call SetScreenTarget
         push dword 0FF000000h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
         push byte 0Ah
@@ -289,11 +295,11 @@ sub_12FDC8:
         sub eax, byte 0Ah
         push eax
         push byte 0
-        call sub_FDD1C
+        call FillRect
         add esp, byte 14h
         push byte 0
         push byte 0FFFFFFFFh
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
         call sub_FE180
@@ -314,7 +320,7 @@ sub_12FDC8:
         call dword [off_16E4D4]
         mov edi, dword [dword_16E468]
         sub edi, byte 0Ah
-        call sub_13C164
+        call SetScreenTarget
         push edi
         push byte 0
         mov ebp, dword [byte ebx+02Ch]
@@ -331,7 +337,7 @@ sub_12FDC8:
         call sub_115BD8
         add esp, byte 4
         push ebx
-        call sub_FCD90
+        call FreeBitmap
         add esp, byte 4
         push esi
         call sub_1013FC
@@ -343,6 +349,9 @@ sub_12FDC8:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_12FF9C                                                          12FF9C  
+;-----------------------------------------------------------------------------
 sub_12FF9C:
         push ebx
         mov eax, dword [dword_16E468]
@@ -365,6 +374,9 @@ sub_12FF9C:
         pop ebx
         ret
         db 00h
+;-----------------------------------------------------------------------------
+; sub_12FFD8                                                          12FFD8  
+;-----------------------------------------------------------------------------
 sub_12FFD8:
         push ebx
         push es
@@ -384,6 +396,9 @@ sub_12FFD8:
         pop es
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_12FFF0                                                          12FFF0  
+;-----------------------------------------------------------------------------
 sub_12FFF0:
         push es
         push ds
@@ -406,6 +421,9 @@ sub_12FFF0:
         pop es
         ret
         db 00h,00h
+;-----------------------------------------------------------------------------
+; sub_13000C                                                          13000C  
+;-----------------------------------------------------------------------------
 sub_13000C:
         mov dword [dword_199990], ebx
         mov dword [dword_199994], ecx

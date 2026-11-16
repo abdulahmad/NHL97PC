@@ -8,10 +8,13 @@ extern dword_16E4C8, dword_16E670, dword_16E6A8, dword_16E6AC, dword_16E6B0, dwo
 extern dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714, dword_16F894, dword_16F898, dword_16F8A8
 extern dword_16F8AC, dword_16F8B0, dword_16F8B4, dword_16F8B8, dword_16F9FC, dword_16FA00, dword_16FA04, dword_16FA08
 extern dword_172AAC, dword_1CF9F4, dword_1CF9F8, dword_1DA4D0, int386_, int386x_, memset_, removewindow
-extern segread_, sub_102D3C, sub_102DB2, sub_102DC5, sub_10376C, sub_1049D0, sub_13C164, sub_FAA64
-extern sub_FAF34, sub_FCD90
+extern segread_, sub_102D3C, sub_102DB2, sub_102DC5, sub_10376C, sub_1049D0, SetScreenTarget, AllocMemBlock
+extern FreeMemBlock, FreeBitmap
 global sub_102F40, sub_103024, sub_103068, sub_103130, sub_1031C0, sub_103234, sub_103298, sub_103648
 global sub_1036F0, sub_10374C
+;-----------------------------------------------------------------------------
+; sub_102F40                                                          102F40  
+;-----------------------------------------------------------------------------
 sub_102F40:
         push ebx
         push ecx
@@ -26,7 +29,7 @@ sub_102F40:
         push asc_167DDC
         mov ebx, 32h
         xor ebp, ebp
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_16F9FC], eax
         mov ecx, eax
@@ -75,7 +78,7 @@ sub_102F40:
 .1:
         mov ecx, dword [dword_16F9FC]
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov eax, ebp
         add esp, byte 78h
@@ -86,6 +89,9 @@ sub_102F40:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_103024                                                          103024  
+;-----------------------------------------------------------------------------
 sub_103024:
         push edx
         sub esp, 100h
@@ -117,6 +123,9 @@ sub_103024:
         pop ecx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_103068                                                          103068  
+;-----------------------------------------------------------------------------
 sub_103068:
         push esi
         push edi
@@ -196,6 +205,9 @@ sub_103068:
         pop esi
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_103130                                                          103130  
+;-----------------------------------------------------------------------------
 sub_103130:
         push ebx
         push ecx
@@ -250,6 +262,9 @@ sub_103130:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_1031C0                                                          1031C0  
+;-----------------------------------------------------------------------------
 sub_1031C0:
         push ebx
         sub esp, byte 1Ch
@@ -289,6 +304,9 @@ sub_1031C0:
         pop ebx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_103234                                                          103234  
+;-----------------------------------------------------------------------------
 sub_103234:
         push ebx
         push esi
@@ -326,6 +344,9 @@ sub_103234:
         pop ebx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_103298                                                          103298  
+;-----------------------------------------------------------------------------
 sub_103298:
         push ebx
         push esi
@@ -575,12 +596,12 @@ sub_103298:
         test edi, edi
         je short .25
         push edi
-        call sub_FCD90
+        call FreeBitmap
         xor eax, eax
         add esp, byte 4
         mov dword [dword_16E4B8], eax
 .25:
-        call sub_13C164
+        call SetScreenTarget
         mov dword [dword_1CF9F4], dword_16E670
 .26:
         add esp, 15Ch
@@ -590,6 +611,9 @@ sub_103298:
         pop ebx
         ret
         db 00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_103648                                                          103648  
+;-----------------------------------------------------------------------------
 sub_103648:
         push ebx
         push esi
@@ -650,6 +674,9 @@ sub_103648:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_1036F0                                                          1036F0  
+;-----------------------------------------------------------------------------
 sub_1036F0:
         push ebx
         push ecx
@@ -662,7 +689,7 @@ sub_1036F0:
         shl eax, 2
         push eax
         push asc_167DE8
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_16FA08], eax
 .1:
@@ -680,6 +707,9 @@ sub_1036F0:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_10374C                                                          10374C  
+;-----------------------------------------------------------------------------
 sub_10374C:
         push ecx
         push edx
@@ -687,7 +717,7 @@ sub_10374C:
         test edx, edx
         je short .1
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .1:
         xor ecx, ecx

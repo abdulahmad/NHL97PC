@@ -38,7 +38,7 @@ extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, sub_57324, sub_576EC, sub_577
 extern sub_5AC28, SetSPA, sub_60D6C, sub_60F48, sub_64EBC, sub_650A4, sub_650E8, sub_6619C
 extern sub_66524, sub_6947C, sub_69654, sub_69A44, sub_69B08, sub_69B78, sub_6A0BC, sub_6A244
 extern RefAtDotAnim, RefFaceoffAnim, RefGoalPaAnim, RefWhistleAnim, RefSignalAnim, RefGoalLineAnim, sub_75B94, sub_78044
-extern FadePalette, FadeOut, sub_FAA64, sub_FAF34, sub_FBE5D, unk_19E060, vtoa, word_168A4C
+extern FadePalette, FadeOut, AllocMemBlock, FreeMemBlock, sub_FBE5D, unk_19E060, vtoa, word_168A4C
 extern word_168A4E, word_168A68, word_168A6A, word_19CB60, word_19CB64, word_19CB68, word_19CB82, word_19CB84
 extern word_19CB8C, word_19CB8E, word_19CB90, word_19CB92, word_19CB94, word_19CB96, word_19CB98, word_19CB9A
 extern word_19CB9C, word_19CB9E, gameover, word_19CBAC, word_19CBAE, word_19CBB4, word_19CBB6, gsp
@@ -5986,7 +5986,7 @@ assstanley:
         and bh, 0FDh
         push asc_1606D4
         mov byte [dword eax+0BFh], bh
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         push eax
         push dword 100h
@@ -6123,7 +6123,7 @@ assstanley:
         call FadePalette
         mov ebx, dword [dword_19D39C]
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .6:
         mov eax, dword [esp]

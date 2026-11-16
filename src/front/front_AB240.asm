@@ -12,7 +12,7 @@ extern sub_7FE4C, sub_83314, sub_834EC, sub_83558, NameIndexNew, NameIndexLoad, 
 extern GetLangText, sub_91D7F, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData
 extern LinkReceiveData, sub_A3116, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DB763, sub_DCFB0, sub_DE5A3
 extern sub_DE740, sub_DEE95, sub_DEF96, sub_E036F, sub_E0415, sub_E19D5, sub_E1C19, sub_E1CC0
-extern sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_FAA64, sub_FAF34, sub_FB704, sub_FCC40, unk_16D7F4
+extern sub_E3410, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, sub_FB704, sub_FCC40, unk_16D7F4
 extern unk_1ACF4E, unk_1AD236, unk_1AD443, word_1C1344
 global sub_AB240_32D, sub_AB573_B2F, sub_AB573_B30, sub_AB240, sub_AB573, sub_AC0A9, sub_AC369, sub_AC41B
 global sub_AC69C, sub_AC6EB, sub_AC73E
@@ -29,7 +29,7 @@ sub_AB240:
         push byte 0
         push dword 4A78h
         push asc_166120
-        call sub_FAA64
+        call AllocMemBlock
         mov dword [byte ebp-04h], eax
         mov eax, dword [dword_1AC940]
         add esp, byte 0Ch
@@ -152,7 +152,7 @@ sub_AB240:
         push byte 0
         push dword [dword eax+04A70h]
         push asc_166129
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp-0Ch], eax
 .13:
@@ -169,7 +169,7 @@ sub_AB240:
         mov edx, dword [dword edx+04A70h]
         call sub_A2F52
         push dword [byte ebp-0Ch]
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .14:
         mov eax, 1
@@ -190,7 +190,7 @@ sub_AB240:
         push byte 0
         push dword [dword eax+04A70h]
         push asc_166129
-        call sub_FAA64
+        call AllocMemBlock
         mov edx, dword [byte ebp-04h]
         add esp, byte 0Ch
         mov edx, dword [dword edx+04A70h]
@@ -211,7 +211,7 @@ sub_AB240:
         cmp dword [dword eax+04A70h], byte 0
         je short .18
         push dword [byte ebp-0Ch]
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .18:
         mov ebx, 4A78h
@@ -254,7 +254,7 @@ sub_AB240:
         call sub_83558
         call sub_AB573
         push dword [byte ebp-04h]
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 sub_AB240_32D:
         leave
@@ -273,7 +273,7 @@ sub_AB573:
         push byte 0
         push dword 4A78h
         push asc_166133
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp+072h], 0
         push byte 0
@@ -285,7 +285,7 @@ sub_AB573:
         push asc_166139
         mov dword [byte ebp+07Ah], 0
         mov dword [byte ebp+066h], eax
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp+06Ah], eax
         jmp near .11
@@ -1069,10 +1069,10 @@ sub_AB573:
         call sub_83558
 .61:
         push dword [byte ebp+06Ah]
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         push dword [byte ebp+066h]
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         lea esp, [dword ebp+082h]
 sub_AB573_B2F:
@@ -1602,7 +1602,7 @@ sub_AC69C:
         push asc_166158
         mov esi, unk_16D7F4
         mov ebx, eax
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov edx, ebx
         mov ecx, eax
@@ -1613,7 +1613,7 @@ sub_AC69C:
         movsd
         call sub_E19D5
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         jmp near sub_AB573_B30
 ;-----------------------------------------------------------------------------

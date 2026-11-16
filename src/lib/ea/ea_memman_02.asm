@@ -3,10 +3,13 @@ bits 32
 %include "hockey.inc"
 section s_1216B0 progbits alloc exec nowrite align=1
 extern GetTicks, TicksSince, byte_172518, dword_16E324, dword_16E338, dword_1724D4, dword_17251B, dword_1CF260
-extern memlist1, off_16E4E0, strncmp_, sub_100A68, sub_121470, sub_121494, sub_1214A0, sub_1307BC
+extern memlist1, off_16E4E0, strncmp_, bcopy, sub_121470, sub_121494, sub_1214A0, sub_1307BC
 extern sub_FABB8, sub_FAF70, sub_FAFB0, sub_FB0BC, sub_FB9D8, sub_FBE40, word_172514, word_172516
 extern word_172519
 global sub_1216B0, sub_12175C, sub_121888, sub_12189C
+;-----------------------------------------------------------------------------
+; sub_1216B0                                                          1216B0  
+;-----------------------------------------------------------------------------
 sub_1216B0:
         push ebx
         push esi
@@ -76,6 +79,9 @@ sub_1216B0:
         pop ebx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_12175C                                                          12175C  
+;-----------------------------------------------------------------------------
 sub_12175C:
         push ebx
         push esi
@@ -174,7 +180,7 @@ sub_12175C:
         push esi
         mov eax, dword [edi]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         push edi
         call sub_FAFB0
@@ -200,6 +206,9 @@ sub_12175C:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_121888                                                          121888  
+;-----------------------------------------------------------------------------
 sub_121888:
         mov edx, dword [byte esp+04h]
         push edx
@@ -210,6 +219,9 @@ sub_121888:
         mov eax, dword [eax]
 .1:
         ret
+;-----------------------------------------------------------------------------
+; sub_12189C                                                          12189C  
+;-----------------------------------------------------------------------------
 sub_12189C:
         push ebx
         push esi
@@ -245,7 +257,7 @@ sub_12189C:
         push ebp
         mov eax, dword [ebx]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         push ebx
         call sub_FAF70
@@ -279,7 +291,7 @@ sub_12189C:
         mov ebp, dword [esi]
         push ebp
         mov ebx, eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov eax, ebx
         pop ebp

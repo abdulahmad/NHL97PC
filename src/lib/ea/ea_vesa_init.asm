@@ -3,8 +3,11 @@ bits 32
 %include "hockey.inc"
 section s_1097F0 progbits alloc exec nowrite align=1
 extern dword_16E4C8, dword_1CFC9C, dword_1CFCC8, dword_1CFCCC, dword_1CFCD0, dword_1CFCDC, dword_1CFCE8, str_ASYNC
-extern sub_1055D4, sub_105644, sub_1056F0, sub_105904, sub_FAA64, sub_FAF34, sub_FC290
+extern sub_1055D4, sub_105644, sub_1056F0, sub_105904, AllocMemBlock, FreeMemBlock, sub_FC290
 global sub_1097F0, sub_109870
+;-----------------------------------------------------------------------------
+; sub_1097F0                                                          1097F0  
+;-----------------------------------------------------------------------------
 sub_1097F0:
         push ebx
         push esi
@@ -63,6 +66,9 @@ sub_1097F0:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_109870                                                          109870  
+;-----------------------------------------------------------------------------
 sub_109870:
         push ebx
         push esi
@@ -102,7 +108,7 @@ sub_109870:
         mov ebp, dword [byte esp+014h]
         push ebp
         push str_ASYNC
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov ebx, eax
         mov edi, eax
@@ -192,7 +198,7 @@ sub_109870:
         call sub_105644
         add esp, byte 4
         push edi
-        call sub_FAF34
+        call FreeMemBlock
         mov eax, 3E80000h
         mov edx, eax
         mov ecx, dword [dword_1CFCC8]

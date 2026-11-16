@@ -12,16 +12,16 @@ extern dword_16D778, dword_16D77C, dword_16D780, dword_16E454, dword_1CCEB8, dwo
 extern dword_1CCEF0, dword_1CCEF8, dword_1CCEFC, dword_1CCF12, dword_1CCF16, dword_1CCF1E, dword_1CCF22, dword_1CD0F4
 extern dword_1CD0F8, dword_1CD0FE, dword_1CD102, dword_1CD106, dword_1CD10A, dword_1CD10E, fclose_, fgets_
 extern fopen_, memcpy_, memset_, off_16E4E0, rand_, sprintf_, sscanf_, str_CRD1
-extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, sub_101340
-extern sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_103298, sub_1167AE, sub_11A318
-extern sub_11BED4, sub_13C164, WaitRetraceEdges, RunDemoGame, sub_419B0, sub_419B8, sub_41A28, sub_41D18
+extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, BlitShape2
+extern BlitArt, BlitShape, sub_1013FC, FindShape, sub_101584, sub_103298, sub_1167AE, sub_11A318
+extern sub_11BED4, SetScreenTarget, WaitRetraceEdges, RunDemoGame, sub_419B0, sub_419B8, sub_41A28, sub_41D18
 extern MusicPlaying, sub_41DB8, WaitMusicEnd, ArenaFileName, StopAllSfx, PlaySfx, PlayScreenMovie, MakeDataPath
-extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_80BBC, sub_81650
+extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, SetTextColor, DrawTextAligned, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, AllocClearBlock
 extern FreePtr, sub_E22FC, sub_E2310, sub_E2334, sub_E2348, FileCreate, FileOpen, FileSeek
-extern FileReadRecord, FileWriteRecord, FileClose, sub_E341C, sub_F9496, sub_F94BC, sub_FAA64, sub_FAF34
-extern sub_FBE40, sub_FBE5D, sub_FC330, sub_FC510, sub_FCD90, sub_FCEEC, sub_FCF84, sub_FCFCC
-extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
+extern FileReadRecord, FileWriteRecord, FileClose, sub_E341C, sub_F9496, sub_F94BC, AllocMemBlock, FreeMemBlock
+extern sub_FBE40, sub_FBE5D, sub_FC330, MakeColor, FreeBitmap, sub_FCEEC, sub_FCF84, DrawArt
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
 global jpt_D5460, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
 global GoalieMaskIntro, sub_D53A4, GoalieMaskScreen, FadePalette, FadeOut, sub_D68E0, RunIntro, sub_D6D38
@@ -48,92 +48,92 @@ GoalieMaskIntro:
         push byte 0
         push dword 1E0h
         push dword 280h
-        call sub_FD08C
+        call CreateBitmap
         mov dword [byte esp+01Ch], eax
         add esp, byte 0Ch
         push asc_167280
         push edi
-        call sub_101429
+        call FindShape
         mov dword [byte esp+010h], eax
         add esp, byte 8
         push asc_167288
         push edi
         mov dword [byte esp+020h], eax
-        call sub_101429
+        call FindShape
         mov dword [byte esp+0Ch], eax
         add esp, byte 8
         push asc_167290
         push edi
         mov dword [byte esp+024h], eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push asc_167298
         push edi
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push asc_1672A0
         push edi
         mov ebp, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov edx, dword [byte esp+010h]
         push edx
         mov esi, eax
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push asc_1672A8
         push edi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         push asc_1672B0
         push edi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         push asc_1672B8
         push edi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         push asc_1672C0
         mov ecx, dword [byte esp+010h]
         push ecx
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         push asc_1672C8
         mov eax, dword [byte esp+010h]
         push eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         push asc_1672D0
         mov edx, dword [byte esp+010h]
         push edx
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         mov ecx, dword [byte esp+04h]
         push ecx
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         mov eax, dword [byte esp+08h]
         push eax
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         call sub_1013FC
         mov eax, dword [byte esp+010h]
@@ -142,7 +142,7 @@ GoalieMaskIntro:
         call sub_80BBC
         mov edx, dword [byte esp+010h]
         push edx
-        call sub_FCD90
+        call FreeBitmap
         mov eax, ebx
         add esp, byte 4
         mov eax, dword [byte eax+04h]
@@ -153,7 +153,7 @@ GoalieMaskIntro:
         mov eax, dword [byte eax+02h]
         sar eax, 10h
         push eax
-        call sub_FD08C
+        call CreateBitmap
         add esp, byte 0Ch
         xor edx, edx
         mov dword [byte esp+020h], eax
@@ -163,16 +163,16 @@ GoalieMaskIntro:
 .1:
         mov ecx, dword [byte esp+020h]
         push ecx
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push byte 0
         push byte 0
         push ebx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push asc_1672D8
         push edi
-        call sub_101429
+        call FindShape
         mov eax, dword [byte eax+0Ch]
         sar eax, 10h
         add esp, byte 8
@@ -180,7 +180,7 @@ GoalieMaskIntro:
         push eax
         push asc_1672D8
         push edi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+0Ah]
         mov eax, dword [byte ebx+0Ah]
         sar edx, 10h
@@ -190,14 +190,14 @@ GoalieMaskIntro:
         push edx
         push asc_1672D8
         push edi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push asc_1672E0
         push edi
-        call sub_101429
+        call FindShape
         mov eax, dword [byte eax+0Ch]
         sar eax, 10h
         add esp, byte 8
@@ -205,7 +205,7 @@ GoalieMaskIntro:
         push eax
         push asc_1672E0
         push edi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+0Ah]
         mov eax, dword [byte ebx+0Ah]
         sar edx, 10h
@@ -215,10 +215,10 @@ GoalieMaskIntro:
         push edx
         push asc_1672E0
         push edi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101390
+        call BlitArt
         mov eax, dword [byte esi+0Ch]
         sar eax, 10h
         add esp, byte 0Ch
@@ -231,12 +231,12 @@ GoalieMaskIntro:
         sub eax, edx
         push eax
         push esi
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push dword 1051h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         mov eax, dword [byte esi+0Ch]
         push asc_1672E8
         sar eax, 10h
@@ -277,7 +277,7 @@ GoalieMaskIntro:
         push byte 0
         mov eax, dword [byte esp+020h]
         push eax
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         mov edx, dword [byte esp+01Ch]
         mov edx, dword [byte edx+04h]
@@ -296,9 +296,9 @@ GoalieMaskIntro:
         push byte 0
         mov ecx, dword [byte esp+024h]
         push ecx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [byte ebx+0Ch]
         sar eax, 10h
         push eax
@@ -308,7 +308,7 @@ GoalieMaskIntro:
         mov eax, dword [byte esp+028h]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         mov ecx, dword [byte esp+028h]
         inc ecx
@@ -320,12 +320,12 @@ GoalieMaskIntro:
 .2:
         mov ecx, dword [byte esp+020h]
         push ecx
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push byte 0
         push byte 0
         push ebx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         mov ecx, 5
         mov eax, dword [byte esp+022h]
@@ -351,11 +351,11 @@ GoalieMaskIntro:
         sub eax, edx
         push eax
         push ebp
-        call sub_FCFCC
+        call DrawArt
         add esp, byte 0Ch
         push asc_1672D8
         push edi
-        call sub_101429
+        call FindShape
         mov eax, dword [byte eax+0Ch]
         sar eax, 10h
         add esp, byte 8
@@ -363,7 +363,7 @@ GoalieMaskIntro:
         push eax
         push asc_1672D8
         push edi
-        call sub_101429
+        call FindShape
         mov eax, dword [byte eax+0Ah]
         mov edx, dword [byte ebx+0Ah]
         sar eax, 10h
@@ -373,14 +373,14 @@ GoalieMaskIntro:
         push eax
         push asc_1672D8
         push edi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push asc_1672E0
         push edi
-        call sub_101429
+        call FindShape
         mov eax, dword [byte eax+0Ch]
         sar eax, 10h
         add esp, byte 8
@@ -388,7 +388,7 @@ GoalieMaskIntro:
         push eax
         push asc_1672E0
         push edi
-        call sub_101429
+        call FindShape
         mov eax, dword [byte eax+0Ah]
         mov edx, dword [byte ebx+0Ah]
         sar eax, 10h
@@ -398,10 +398,10 @@ GoalieMaskIntro:
         push eax
         push asc_1672E0
         push edi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         mov eax, dword [byte esi+0Ch]
         sar eax, 10h
@@ -414,12 +414,12 @@ GoalieMaskIntro:
         sub eax, edx
         push eax
         push esi
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push dword 1051h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         mov eax, dword [byte esi+0Ch]
         push asc_1672E8
         sar eax, 10h
@@ -442,9 +442,9 @@ GoalieMaskIntro:
         call DrawTextAligned
         add esp, byte 10h
         push byte 0FFFFFFFFh
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         mov edx, dword [byte ebp+04h]
         mov eax, dword [byte esp+014h]
         sar edx, 10h
@@ -475,7 +475,7 @@ GoalieMaskIntro:
         push byte 1
         call DrawTextAligned
         add esp, byte 10h
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [byte ebx+0Ch]
         sar eax, 10h
         push eax
@@ -485,7 +485,7 @@ GoalieMaskIntro:
         mov eax, dword [byte esp+028h]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         mov ecx, dword [byte esp+024h]
         inc ecx
@@ -495,7 +495,7 @@ GoalieMaskIntro:
         call sub_1013FC
         mov edx, dword [byte esp+020h]
         push edx
-        call sub_FCD90
+        call FreeBitmap
         add esp, byte 4
         call StopAllSfx
         mov eax, 203h
@@ -543,7 +543,7 @@ sub_D53A4:
         push edx
         mov ecx, dword [dword ebx+dword_1CCF16]
         push ecx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
 .3:
         add esi, byte 10h
@@ -627,7 +627,7 @@ GoalieMaskScreen:
         push byte 0
         push asc_167290
         push ebx
-        call sub_101429
+        call FindShape
         mov eax, dword [byte eax+04h]
         sar eax, 10h
         add esp, byte 8
@@ -635,18 +635,18 @@ GoalieMaskScreen:
         push eax
         push asc_167290
         push ebx
-        call sub_101429
+        call FindShape
         mov eax, dword [byte eax+02h]
         add esp, byte 8
         sar eax, 10h
         push eax
-        call sub_FD08C
+        call CreateBitmap
         add esp, byte 0Ch
         push asc_167290
         push ebx
         mov esi, eax
         mov dword [dword esp+057Ch], eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov edx, dword [byte esi+02Ch]
         mov ax, word [byte eax+0Ch]
@@ -656,7 +656,7 @@ GoalieMaskScreen:
         mov eax, dword [byte esi+02Ch]
         push ebx
         mov word [byte eax+0Eh], 1Eh
-        call sub_101429
+        call FindShape
         mov eax, dword [byte eax+04h]
         sar eax, 10h
         add esp, byte 8
@@ -664,18 +664,18 @@ GoalieMaskScreen:
         push eax
         push asc_167290
         push ebx
-        call sub_101429
+        call FindShape
         mov eax, dword [byte eax+02h]
         add esp, byte 8
         sar eax, 10h
         push eax
-        call sub_FD08C
+        call CreateBitmap
         add esp, byte 0Ch
         mov edi, eax
         mov dword [dword esp+0568h], eax
         push asc_167290
         push ebx
-        call sub_101429
+        call FindShape
         mov edx, dword [byte edi+02Ch]
         mov ax, word [byte eax+0Ch]
         mov word [byte edx+0Ch], ax
@@ -683,7 +683,7 @@ GoalieMaskScreen:
         mov eax, dword [byte edi+02Ch]
         push esi
         mov word [byte eax+0Eh], 1Eh
-        call sub_FD0F8
+        call SetDrawTarget
         mov eax, dword [byte esi+02Ch]
         add esp, byte 4
         mov eax, dword [byte eax+0Ch]
@@ -691,7 +691,7 @@ GoalieMaskScreen:
         sar eax, 10h
         push ebx
         mov dword [dword esp+056Ch], eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov eax, dword [byte eax+0Ch]
         mov edx, dword [dword esp+0564h]
@@ -704,7 +704,7 @@ GoalieMaskScreen:
         sar eax, 10h
         push ebx
         mov dword [dword esp+0570h], eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov eax, dword [byte eax+0Ah]
         mov ecx, dword [dword esp+0568h]
@@ -713,13 +713,13 @@ GoalieMaskScreen:
         push eax
         push asc_167290
         push ebx
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push edi
-        call sub_FD0F8
+        call SetDrawTarget
         mov eax, dword [byte esi+02Ch]
         add esp, byte 4
         mov eax, dword [byte eax+0Ch]
@@ -727,7 +727,7 @@ GoalieMaskScreen:
         sar eax, 10h
         push ebx
         mov dword [dword esp+056Ch], eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov eax, dword [byte eax+0Ch]
         mov edx, dword [dword esp+0564h]
@@ -740,7 +740,7 @@ GoalieMaskScreen:
         sar eax, 10h
         push ebx
         mov dword [dword esp+0570h], eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov eax, dword [byte eax+0Ah]
         mov ecx, dword [dword esp+0568h]
@@ -749,10 +749,10 @@ GoalieMaskScreen:
         push eax
         push asc_167290
         push ebx
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         call sub_1013FC
         mov edx, ebp
@@ -778,17 +778,17 @@ GoalieMaskScreen:
         push edi
         mov ebx, eax
         mov dword [dword esp+0574h], eax
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push byte 0
         push byte 0
         mov ebp, dword [byte esi+02Ch]
         push ebp
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push asc_167320
         push ebx
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -805,7 +805,7 @@ GoalieMaskScreen:
         push eax
         push asc_167320
         push ebx
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -822,14 +822,14 @@ GoalieMaskScreen:
         push eax
         push asc_167320
         push ebx
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         call sub_FCEEC
         add esp, byte 0Ch
         push asc_167320
         push ebx
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -846,7 +846,7 @@ GoalieMaskScreen:
         sub eax, ebp
         push ebx
         mov ebp, eax
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -864,16 +864,16 @@ GoalieMaskScreen:
         sub eax, edx
         mov esi, dword [byte edi+02Ch]
         mov dword [dword esp+056Ch], eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov ecx, ebp
         mov edx, esi
         mov ebx, dword [dword esp+0564h]
         call sub_823F0
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [byte edi+02Ch]
         push eax
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         xor edi, edi
         call sub_1013FC
@@ -896,7 +896,7 @@ GoalieMaskScreen:
         inc ebx
         push ecx
         shl ebp, 4
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov dword [dword ebp+esi*4+dword_1CCEB8], eax
         cmp bx, byte 4
@@ -908,7 +908,7 @@ GoalieMaskScreen:
         mov edx, dword [dword esp+0564h]
         push edx
         xor esi, esi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov ebp, eax
 .3:
@@ -921,7 +921,7 @@ GoalieMaskScreen:
         mov eax, dword [byte ebp+02h]
         sar eax, 10h
         push eax
-        call sub_FD08C
+        call CreateBitmap
         movsx edx, si
         lea edi, [nosplit edx*8+00h]
         movsx edx, bx
@@ -930,12 +930,12 @@ GoalieMaskScreen:
         add edx, edi
         push eax
         mov dword [dword esp+edx+02F8h], eax
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push byte 0
         push byte 0
         push ebp
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         test bx, bx
         jne short .5
@@ -944,9 +944,9 @@ GoalieMaskScreen:
 .5:
         push dword 0F7DF00h
 .6:
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         movsx edi, si
         imul eax, edi, byte 0Ch
         mov edx, dword [dword esp+eax+0184h]
@@ -989,12 +989,12 @@ GoalieMaskScreen:
         push asc_1672B0
         mov esi, dword [dword esp+0564h]
         push esi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push asc_1672B0
         push esi
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov edi, esi
         push asc_1672B0
@@ -1002,7 +1002,7 @@ GoalieMaskScreen:
         mov eax, edi
         push eax
         mov edi, dword_1CCEF8
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov edx, esi
         mov ecx, 14h
@@ -1104,19 +1104,19 @@ GoalieMaskScreen_72B:
         mov ebx, dword [dword esp+0568h]
         call sub_83C08
         push ebx
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push byte 0
         mov eax, dword [dword esp+0578h]
         push byte 0
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push asc_1672A8
         mov esi, dword [dword esp+0574h]
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -1134,7 +1134,7 @@ GoalieMaskScreen_72B:
         push eax
         push asc_1672A8
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -1152,14 +1152,14 @@ GoalieMaskScreen_72B:
         push eax
         push asc_1672A8
         push esi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         call sub_FCEEC
         add esp, byte 0Ch
         push asc_1672A8
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -1177,7 +1177,7 @@ GoalieMaskScreen_72B:
         sub eax, ebx
         push esi
         mov ebx, eax
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -1198,17 +1198,17 @@ GoalieMaskScreen_72B:
         mov edi, dword [dword esp+056Ch]
         push eax
         mov edi, dword [byte edi+02Ch]
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov ecx, ebx
         mov edx, edi
         mov ebx, esi
         call sub_823F0
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [dword esp+0568h]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         jmp near GoalieMaskScreen_FF0.12
 GoalieMaskScreen_89F:
@@ -1216,19 +1216,19 @@ GoalieMaskScreen_89F:
         mov ecx, dword [dword esp+0568h]
         call sub_83C08
         push ecx
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push byte 0
         mov eax, dword [dword esp+0578h]
         push byte 0
         mov esi, dword [byte eax+02Ch]
         push esi
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push asc_167320
         mov edi, dword [dword esp+0574h]
         push edi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -1246,7 +1246,7 @@ GoalieMaskScreen_89F:
         push eax
         push asc_167320
         push edi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -1264,14 +1264,14 @@ GoalieMaskScreen_89F:
         push eax
         push asc_167320
         push edi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         call sub_FCEEC
         add esp, byte 0Ch
         push asc_167320
         push edi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -1289,7 +1289,7 @@ GoalieMaskScreen_89F:
         sub eax, ebx
         push edi
         mov ebx, eax
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -1310,17 +1310,17 @@ GoalieMaskScreen_89F:
         mov esi, dword [dword esp+056Ch]
         push eax
         mov esi, dword [byte esi+02Ch]
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov ecx, ebx
         mov edx, esi
         mov ebx, edi
         call sub_823F0
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [dword esp+0568h]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         jmp near GoalieMaskScreen_FF0.12
 GoalieMaskScreen_A13:
@@ -1328,19 +1328,19 @@ GoalieMaskScreen_A13:
         call sub_83C08
         mov eax, dword [dword esp+0568h]
         push eax
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push byte 0
         mov eax, dword [dword esp+0578h]
         push byte 0
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push asc_1672B0
         mov ebx, dword [dword esp+0574h]
         push ebx
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -1358,7 +1358,7 @@ GoalieMaskScreen_A13:
         push eax
         push asc_1672B0
         push ebx
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -1376,14 +1376,14 @@ GoalieMaskScreen_A13:
         push eax
         push asc_1672B0
         push ebx
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         call sub_FCEEC
         add esp, byte 0Ch
         push asc_1672B0
         push ebx
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -1402,7 +1402,7 @@ GoalieMaskScreen_A13:
         sub eax, ebx
         push esi
         mov ebx, eax
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -1423,17 +1423,17 @@ GoalieMaskScreen_A13:
         sub eax, edi
         mov esi, dword [byte esi+02Ch]
         mov edi, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov ecx, ebx
         mov edx, esi
         mov ebx, edi
         call sub_823F0
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [dword esp+0568h]
         mov ebx, dword [byte eax+02Ch]
         push ebx
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         jmp near GoalieMaskScreen_FF0.12
 GoalieMaskScreen_B89:
@@ -1453,7 +1453,7 @@ GoalieMaskScreen_B89:
         push ecx
         mov dword [dword_1CD102], edx
         mov dword [dword_1CD106], edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         push ebx
         imul ebx, byte 0Ch
@@ -1470,9 +1470,9 @@ GoalieMaskScreen_B89:
         push byte 0FFFFFFFFh
         mov esi, eax
         mov dword [dword esp+0574h], eax
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         mov edi, dword [dword esp+ebx+0188h]
         push edi
         mov eax, dword [dword esp+ebx+0188h]
@@ -1486,18 +1486,18 @@ GoalieMaskScreen_B89:
         add esp, byte 14h
         mov ebx, dword [dword esp+0568h]
         push ebx
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push byte 0
         mov eax, dword [dword esp+0578h]
         push byte 0
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push asc_167320
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -1515,7 +1515,7 @@ GoalieMaskScreen_B89:
         push eax
         push asc_167320
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -1533,14 +1533,14 @@ GoalieMaskScreen_B89:
         push eax
         push asc_167320
         push esi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         call sub_FCEEC
         add esp, byte 0Ch
         push asc_167320
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -1558,7 +1558,7 @@ GoalieMaskScreen_B89:
         sub eax, edx
         push esi
         mov dword [dword esp+056Ch], eax
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -1578,16 +1578,16 @@ GoalieMaskScreen_B89:
         sub eax, ebx
         mov edi, dword [byte edi+02Ch]
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov edx, edi
         mov ecx, dword [dword esp+0564h]
         call sub_823F0
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [dword esp+0568h]
         mov esi, dword [byte eax+02Ch]
         push esi
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         push asc_167298
         mov edi, dword [dword esp+0564h]
@@ -1610,7 +1610,7 @@ GoalieMaskScreen_DBB:
         push esi
         mov dword [dword_1CD102], edx
         mov dword [dword_1CD106], edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         push ebx
         push asc_167370
@@ -1626,9 +1626,9 @@ GoalieMaskScreen_DBB:
         push byte 0FFFFFFFFh
         mov esi, eax
         mov dword [dword esp+0574h], eax
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         imul eax, ebx, byte 0Ch
         mov edi, dword [dword esp+eax+0188h]
         push edi
@@ -1643,18 +1643,18 @@ GoalieMaskScreen_DBB:
         add esp, byte 14h
         mov ecx, dword [dword esp+0568h]
         push ecx
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push byte 0
         mov eax, dword [dword esp+0578h]
         push byte 0
         mov edi, dword [byte eax+02Ch]
         push edi
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push asc_167320
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -1672,7 +1672,7 @@ GoalieMaskScreen_DBB:
         push eax
         push asc_167320
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -1690,14 +1690,14 @@ GoalieMaskScreen_DBB:
         push eax
         push asc_167320
         push esi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         call sub_FCEEC
         add esp, byte 0Ch
         push asc_167320
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -1715,7 +1715,7 @@ GoalieMaskScreen_DBB:
         sub eax, ebx
         push esi
         mov ebx, eax
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -1735,17 +1735,17 @@ GoalieMaskScreen_DBB:
         sub eax, edx
         mov edi, dword [byte edi+02Ch]
         mov dword [dword esp+056Ch], eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov ecx, ebx
         mov edx, edi
         mov ebx, dword [dword esp+0564h]
         call sub_823F0
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [dword esp+0568h]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         push asc_167298
         mov ebx, dword [dword esp+0564h]
@@ -1784,7 +1784,7 @@ GoalieMaskScreen_FF0:
         push eax
         mov dword [dword_1CD102], edx
         mov dword [dword_1CD106], edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         push edi
         imul edi, byte 0Ch
@@ -1801,9 +1801,9 @@ GoalieMaskScreen_FF0:
         push byte 0FFFFFFFFh
         mov esi, eax
         mov dword [dword esp+0574h], eax
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
-        call sub_7F0D8
+        call SetTextColor
         mov edx, dword [dword esp+edi+0188h]
         push edx
         mov ebx, dword [dword esp+edi+0188h]
@@ -1817,18 +1817,18 @@ GoalieMaskScreen_FF0:
         add esp, byte 14h
         mov edi, dword [dword esp+0568h]
         push edi
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push byte 0
         mov eax, dword [dword esp+0578h]
         push byte 0
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push asc_167320
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -1846,7 +1846,7 @@ GoalieMaskScreen_FF0:
         push eax
         push asc_167320
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -1864,14 +1864,14 @@ GoalieMaskScreen_FF0:
         push eax
         push asc_167320
         push esi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         call sub_FCEEC
         add esp, byte 0Ch
         push asc_167320
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+04h]
         mov eax, 17Ch
         sar edx, 10h
@@ -1889,7 +1889,7 @@ GoalieMaskScreen_FF0:
         sub eax, ebx
         push esi
         mov ebx, eax
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, 280h
         sar edx, 10h
@@ -1908,23 +1908,23 @@ GoalieMaskScreen_FF0:
         sub eax, edx
         mov edi, dword [byte edi+02Ch]
         mov dword [dword esp+056Ch], eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov ecx, ebx
         mov edx, edi
         mov ebx, dword [dword esp+0564h]
         call sub_823F0
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [dword esp+0568h]
         mov ebx, dword [byte eax+02Ch]
         push ebx
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         push asc_167298
         mov ecx, dword [dword esp+0564h]
         push ecx
 .11:
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         call sub_FCF84
@@ -1944,35 +1944,35 @@ GoalieMaskScreen_FF0:
 .14:
         mov ecx, dword [dword esp+0560h]
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov esi, dword [dword esp+056Ch]
         push esi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov edi, dword [dword esp+0570h]
         push edi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov ebp, dword [dword esp+0574h]
         push ebp
-        call sub_FCD90
+        call FreeBitmap
         add esp, byte 4
         mov eax, dword [dword esp+0568h]
         push eax
         xor ebx, ebx
-        call sub_FCD90
+        call FreeBitmap
         add esp, byte 4
 .15:
         movsx esi, bx
         mov ecx, dword [dword esp+esi*8+02F4h]
         push ecx
-        call sub_FCD90
+        call FreeBitmap
         add esp, byte 4
         mov edi, dword [dword esp+esi*8+02F8h]
         push edi
         inc ebx
-        call sub_FCD90
+        call FreeBitmap
         add esp, byte 4
         cmp bx, byte 1Fh
         jl short .15
@@ -2186,12 +2186,12 @@ RunIntro:
         push edi
         push ebp
         sub esp, byte 68h
-        call sub_13C164
+        call SetScreenTarget
         push dword 0FF000000h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
-        call sub_FD110
+        call ClearScreen
         add esp, byte 4
         call sub_1013FC
         call sub_F9496
@@ -2201,12 +2201,12 @@ RunIntro:
         call sub_103298
         add esp, byte 0Ch
         call sub_F94BC
-        call sub_13C164
+        call SetScreenTarget
         push dword 0FF000000h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
-        call sub_FD110
+        call ClearScreen
         add esp, byte 4
         call sub_1013FC
         mov eax, 62h
@@ -2217,20 +2217,20 @@ RunIntro:
         push asc_167390
         mov edi, eax
         mov dword [byte esp+060h], eax
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         push byte 20h
         push dword 300h
         push asc_167398
         mov ebp, eax
-        call sub_FAA64
+        call AllocMemBlock
         mov dword [byte esp+064h], eax
         add esp, byte 0Ch
         push byte 20h
         push dword 300h
         push asc_1673A0
         mov dword [byte esp+068h], eax
-        call sub_FAA64
+        call AllocMemBlock
         mov dword [byte esp+070h], eax
         add esp, byte 0Ch
         mov edx, esp
@@ -2255,7 +2255,7 @@ RunIntro:
         add esp, byte 0Ch
         push str_Pl0
         push edi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         lea edx, [byte eax+010h]
         mov ebx, 300h
@@ -2263,7 +2263,7 @@ RunIntro:
         call memcpy_
         push str_Pl1
         push edi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         lea edx, [byte eax+010h]
         mov ebx, 300h
@@ -2275,20 +2275,20 @@ RunIntro:
         call memset_
         push str_Nhll
         push edi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov ebx, eax
         mov dword [byte esp+060h], eax
-        call sub_13C164
+        call SetScreenTarget
         push asc_1673BC
         push edi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_1013AC
+        call BlitShape
         add esp, byte 4
         push ebx
-        call sub_1013AC
+        call BlitShape
         add esp, byte 4
         call sub_1013FC
         push byte 14h
@@ -2334,7 +2334,7 @@ RunIntro:
         mov edx, ebp
         xor eax, eax
         call FadePalette
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [byte esp+060h]
         mov eax, dword [byte eax+04h]
         push byte 0
@@ -2352,15 +2352,15 @@ RunIntro:
         mov eax, dword [byte eax+0Ah]
         sar eax, 10h
         push eax
-        call sub_FDD1C
+        call FillRect
         add esp, byte 14h
         push str_Nhlp
         mov ecx, dword [byte esp+058h]
         push ecx
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_1013AC
+        call BlitShape
         add esp, byte 4
         mov ebx, 4Bh
         call sub_1013FC
@@ -2399,18 +2399,18 @@ RunIntro:
         mov edi, dword [byte esp+050h]
         call FadePalette
         push edi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov eax, dword [byte esp+05Ch]
         push eax
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov edx, dword [byte esp+054h]
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .7:
         call MusicPlaying
@@ -2425,12 +2425,12 @@ RunIntro:
         jmp short .7
 .9:
         call WaitMusicEnd
-        call sub_13C164
+        call SetScreenTarget
         push dword 0FF000000h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
-        call sub_FD110
+        call ClearScreen
         add esp, byte 4
         call sub_1013FC
         call sub_F9496
@@ -2440,24 +2440,24 @@ RunIntro:
         call sub_103298
         add esp, byte 0Ch
         call sub_F94BC
-        call sub_13C164
+        call SetScreenTarget
         push dword 0FF000000h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
-        call sub_FD110
+        call ClearScreen
         add esp, byte 4
         call sub_1013FC
         test esi, esi
         jne short .10
         call sub_D68E0
 .10:
-        call sub_13C164
+        call SetScreenTarget
         push dword 0FF000000h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
-        call sub_FD110
+        call ClearScreen
         add esp, byte 4
         call sub_1013FC
         add esp, byte 68h
@@ -2500,14 +2500,14 @@ sub_D6D38:
         mov esi, ebx
         mov edi, ecx
         push edx
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push byte 0
         push byte 0
         mov edx, dword [byte esp+08h]
         push edx
         xor ebx, ebx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         jmp short .3
 .1:
@@ -2538,10 +2538,10 @@ sub_D6D38:
         movsx eax, bx
         cmp eax, esi
         jl short .1
-        call sub_13C164
+        call SetScreenTarget
         mov esi, dword [byte ebp+02Ch]
         push esi
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         call sub_1013FC
         call sub_E341C
@@ -2555,10 +2555,10 @@ sub_D6D38:
         push byte 0
         push byte 32h
         push byte 32h
-        call sub_FD08C
+        call CreateBitmap
         add esp, byte 0Ch
         mov dword [dword_1CCEF0], eax
-        call sub_13C164
+        call SetScreenTarget
         push dword 0D7h
         mov eax, dword [dword_1CCEF0]
         push dword 127h
@@ -2621,7 +2621,7 @@ sub_D6E20:
         cmp edi, dword [dword_16D764]
         je near .6
 .3:
-        call sub_13C164
+        call SetScreenTarget
         mov edx, dword [byte esp+014h]
         mov ecx, dword [dword_1CCEE8]
         mov eax, dword [byte esp+018h]
@@ -2647,7 +2647,7 @@ sub_D6E20:
         mov eax, dword [dword_1CCEF0]
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         lea eax, [byte edi-019h]
         mov dword [esp], eax
@@ -2700,7 +2700,7 @@ sub_D6E20:
         push ebx
         push ecx
         push edx
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [dword_1CCEE8]
         sub eax, byte 19h
         push eax
@@ -2710,12 +2710,12 @@ sub_D6E20:
         mov eax, dword [dword_1CCEF0]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         call sub_1013FC
         mov ebx, dword [dword_1CCEF0]
         push ebx
-        call sub_FCD90
+        call FreeBitmap
         xor ecx, ecx
         add esp, byte 4
         mov dword [dword_1CCEE8], ecx
@@ -2848,7 +2848,7 @@ CreditsScreen:
         push dword 1E0h
         push dword 280h
         mov dword [dword esp+06B64h], eax
-        call sub_FD08C
+        call CreateBitmap
         add esp, byte 0Ch
         mov edx, 0FBh
         mov dword [dword esp+06B54h], eax
@@ -3006,7 +3006,7 @@ CreditsScreen:
         push asc_1673D4
         mov ecx, dword [dword esp+06B5Ch]
         push ecx
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov cl, byte [dword esp+06B74h]
         mov edi, eax
@@ -3014,24 +3014,24 @@ CreditsScreen:
         jne short .3
         mov esi, dword [dword esp+06B54h]
         push esi
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push asc_1673DC
         mov ebp, dword [dword esp+06B5Ch]
         push ebp
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
         push asc_1673E4
         push ebp
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
-        call sub_13C164
+        call SetScreenTarget
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte esi+02Ch]
         call sub_80BBC
@@ -3041,10 +3041,10 @@ CreditsScreen:
         push byte 0
         push byte 32h
         push byte 32h
-        call sub_FD08C
+        call CreateBitmap
         add esp, byte 0Ch
         mov dword [dword_1CCEF0], eax
-        call sub_13C164
+        call SetScreenTarget
         push dword 0D7h
         mov eax, dword [dword_1CCEF0]
         push dword 127h
@@ -3060,23 +3060,23 @@ CreditsScreen:
         mov dword [dword_1CCEE8], ecx
 .4:
         imul ebp, esi, dword 0A8h
-        call sub_13C164
+        call SetScreenTarget
         push dword 0FF000000h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
         push byte 24h
         push dword 104h
         push dword 19Bh
         push byte 2Eh
-        call sub_FDD1C
+        call FillRect
         add esp, byte 14h
         push byte 0FFFFFFFFh
         lea ebx, [dword esp+039D4h]
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         add ebx, ebp
-        call sub_7F0D8
+        call SetTextColor
         push ebx
         push dword 19Fh
         push dword 0AFh
@@ -3084,10 +3084,10 @@ CreditsScreen:
         call DrawTextAligned
         add esp, byte 10h
         push dword 0FFFFFF50h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         add ebx, byte 50h
-        call sub_7F0D8
+        call SetTextColor
         push ebx
         push dword 1AEh
         push dword 0AFh
@@ -3120,7 +3120,7 @@ CreditsScreen:
         inc esi
         cmp esi, byte 1Ch
         jl near .4
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [dword_1CCEE8]
         sub eax, byte 19h
         push eax
@@ -3130,12 +3130,12 @@ CreditsScreen:
         mov eax, dword [dword_1CCEF0]
         mov esi, dword [byte eax+02Ch]
         push esi
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         call sub_1013FC
         mov ebp, dword [dword_1CCEF0]
         push ebp
-        call sub_FCD90
+        call FreeBitmap
         add esp, byte 4
         xor eax, eax
         xor ch, ch
@@ -3144,31 +3144,31 @@ CreditsScreen:
         push ebx
         mov dword [dword_1CCEEC], eax
         mov byte [dword esp+06B7Ch], ch
-        call sub_FD0F8
+        call SetDrawTarget
         add esp, byte 4
         push asc_1673EC
         mov ecx, dword [dword esp+06B5Ch]
         push ecx
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101340
+        call BlitShape2
         add esp, byte 4
-        call sub_13C164
+        call SetScreenTarget
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte ebx+02Ch]
         call sub_80BBC
         call sub_1013FC
         push ebx
-        call sub_FCD90
+        call FreeBitmap
         add esp, byte 4
         push byte 0
         push byte 32h
         push byte 32h
-        call sub_FD08C
+        call CreateBitmap
         add esp, byte 0Ch
         mov dword [dword_1CCEF0], eax
-        call sub_13C164
+        call SetScreenTarget
         push dword 0D7h
         mov eax, dword [dword_1CCEF0]
         push dword 127h
@@ -3187,7 +3187,7 @@ CreditsScreen:
         cmp byte [dword esp+06B78h], 0
         je near .11
 .9:
-        call sub_13C164
+        call SetScreenTarget
         mov eax, dword [dword_1CCEE8]
         sub eax, byte 19h
         push eax
@@ -3197,13 +3197,13 @@ CreditsScreen:
         mov eax, dword [dword_1CCEF0]
         mov ebx, dword [byte eax+02Ch]
         push ebx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         call sub_1013FC
         mov ecx, dword [dword_1CCEF0]
         push ecx
         xor esi, esi
-        call sub_FCD90
+        call FreeBitmap
         add esp, byte 4
         mov dword [dword_1CCEE8], esi
         mov dword [dword_1CCEEC], esi
@@ -3213,7 +3213,7 @@ CreditsScreen:
         xor bh, bh
         push ebp
         mov byte [dword esp+06B84h], bh
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov edx, 0D5h
         mov dword [dword esp+06B60h], eax
@@ -3252,23 +3252,23 @@ CreditsScreen:
         jmp short .10
 .11:
         imul ebp, esi, dword 0A8h
-        call sub_13C164
+        call SetScreenTarget
         push dword 0FF000000h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
         push byte 24h
         push dword 103h
         push dword 19Bh
         push byte 2Eh
-        call sub_FDD1C
+        call FillRect
         add esp, byte 14h
         push byte 0FFFFFFFFh
         lea ebx, [dword esp+05D8Ch]
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         add ebx, ebp
-        call sub_7F0D8
+        call SetTextColor
         push ebx
         push dword 19Fh
         push dword 0AFh
@@ -3276,10 +3276,10 @@ CreditsScreen:
         call DrawTextAligned
         add esp, byte 10h
         push dword 0FFFFFF50h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         add ebx, byte 50h
-        call sub_7F0D8
+        call SetTextColor
         push ebx
         push dword 1AEh
         push dword 0AFh
@@ -3326,53 +3326,53 @@ CreditsScreen:
         push byte 0
         push dword 1E0h
         push dword 140h
-        call sub_FD08C
+        call CreateBitmap
         add esp, byte 0Ch
         mov edi, eax
         mov eax, dword [byte eax+02Ch]
         push byte 0FFFFFFFFh
         mov word [byte eax+0Ch], 140h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         mov cl, byte [dword esp+06B7Ch]
-        call sub_7F0D8
+        call SetTextColor
         test cl, cl
         jne short .17
-        call sub_13C164
+        call SetScreenTarget
         push byte 0
         push byte 0
         push str_CRD1
         mov eax, dword [dword esp+06B64h]
         push eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         push byte 0
         push dword 140h
         mov edx, dword [dword esp+06B68h]
         push edx
-        call sub_101390
+        call BlitArt
         add esp, byte 0Ch
         call sub_1013FC
 .17:
         push str_CRD1
         mov ebx, dword [dword esp+06B5Ch]
         push ebx
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push str_CRD1
         mov ecx, dword [dword esp+06B5Ch]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push str_CRD1
         mov esi, eax
         mov eax, dword [dword esp+06B5Ch]
         push eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov edx, esi
         call sub_7E860
@@ -3421,11 +3421,11 @@ CreditsScreen:
         call sub_1013FC
         call sub_81678
         push edi
-        call sub_FCD90
+        call FreeBitmap
         add esp, byte 4
         mov edx, dword [dword esp+06B58h]
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         call sub_D705C
 .24:

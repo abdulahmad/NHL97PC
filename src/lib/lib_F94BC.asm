@@ -5,8 +5,8 @@ section s_F94BC progbits alloc exec nowrite align=1
 extern abs_, asc_167CEC, asc_167CF5, asc_167CFC, dword_16E2F4, dword_16E2F8, dword_16E2FC, dword_16E300
 extern dword_16E304, dword_16E308, dword_16E30C, dword_16E310, dword_16E314, dword_16E3F4, dword_16E464, dword_16E468
 extern dword_16E46C, dword_16E474, dword_16F8A8, dword_1CEFC4, dword_1CEFC8, dword_1CEFCC, dword_1CEFD4, dword_1CEFD8
-extern dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, sub_100A68, sub_1013FC, sub_120650, sub_120680
-extern sub_12071C, sub_13C164, sub_FAA64, sub_FAF34, sub_FC510, sub_FD110, tickcount, unk_1CEFE8
+extern dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, bcopy, sub_1013FC, sub_120650, sub_120680
+extern sub_12071C, SetScreenTarget, AllocMemBlock, FreeMemBlock, MakeColor, ClearScreen, tickcount, unk_1CEFE8
 global sub_F94BC, sub_F94E6, sub_F9650, sub_F9789, sub_F97B2, sub_F9869, NextVideoMode, PrevVideoMode
 global sub_F99C0, sub_F9A28, sub_F9A88, sub_F9B30
 ;-----------------------------------------------------------------------------
@@ -20,7 +20,7 @@ sub_F94BC:
         push dword 200h
         push dword 400h
         push asc_167CEC
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_16E30C], eax
 .1:
@@ -40,7 +40,7 @@ sub_F94E6:
         push dword 400h
         push asc_167CF5
         xor ebx, ebx
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         xor esi, esi
         mov dword [dword_16E30C], eax
@@ -71,7 +71,7 @@ sub_F94E6:
         cmp dword [dword_16E30C], byte 0
         je short .4
         push dword [dword_16E30C]
-        call sub_FAF34
+        call FreeMemBlock
         mov dword [dword_16E30C], 0
         add esp, byte 4
 .4:
@@ -106,7 +106,7 @@ sub_F94E6:
         cmp dword [dword_16E304], byte 0
         je short .8
         push dword [dword_16E304]
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .8:
         mov ebx, esi
@@ -114,14 +114,14 @@ sub_F94E6:
         shl ebx, 2
         push ebx
         push asc_167CFC
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         push ebx
         push eax
         mov dword [dword_16E304], eax
         lea eax, [dword ebp-0A0h]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov dword [dword_16E2F4], esi
         leave
@@ -184,19 +184,19 @@ sub_F9650:
 .4:
         test ebx, ebx
         jne short .5
-        call sub_13C164
+        call SetScreenTarget
         push dword 0FF000000h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
-        call sub_FD110
+        call ClearScreen
         add esp, byte 4
         call sub_1013FC
 .5:
         cmp dword [dword_16E30C], byte 0
         je short .6
         push dword [dword_16E30C]
-        call sub_FAF34
+        call FreeMemBlock
         mov dword [dword_16E30C], 0
         add esp, byte 4
 .6:
@@ -206,12 +206,12 @@ sub_F9650:
         add esp, byte 4
         call sub_F94BC
 .7:
-        call sub_13C164
+        call SetScreenTarget
         push dword 0FF000000h
-        call sub_FC510
+        call MakeColor
         add esp, byte 4
         push eax
-        call sub_FD110
+        call ClearScreen
         add esp, byte 4
         call sub_1013FC
         mov dword [dword_16E300], 0
@@ -236,7 +236,7 @@ sub_F9789:
         push byte 14h
         push edx
         push dword_1CEFC4
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
 .2:
         pop edx
@@ -300,7 +300,7 @@ sub_F97B2:
         push byte 14h
         push dword [byte ebp-08h]
         push dword_1CEFC4
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         leave
         pop edi
@@ -397,7 +397,7 @@ NextVideoMode:
         push byte 14h
         push ebx
         push dword_1CEFC4
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         pop edx
         pop ecx
@@ -443,7 +443,7 @@ PrevVideoMode:
         push byte 14h
         push ebx
         push dword_1CEFC4
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         pop edx
         pop ecx

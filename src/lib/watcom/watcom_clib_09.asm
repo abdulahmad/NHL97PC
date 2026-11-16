@@ -15,7 +15,7 @@ extern sub_107154, sub_1072B4, sub_1072F0, sub_107308, sub_107370, sub_1077D0, s
 extern sub_1095C4, sub_10A860, sub_10A868, sub_10A8C4, sub_10AD20, sub_128280, sub_128680, sub_128D84
 extern sub_12AB04, sub_12AB0C, sub_12C8BC, sub_12C950, sub_12C970, sub_12C9D0, sub_12CA20, sub_12CD34
 extern sub_12CEE1, sub_12D13B, sub_12D141, sub_12D150, sub_3ED60, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
-extern sub_FAA64, sub_FAF34, unk_1072E0, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E
+extern AllocMemBlock, FreeMemBlock, unk_1072E0, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E
 global jpt_108240, sub_108250_20, sub_108250_FC, sub_108250_1C0, sub_108250_27B, strstr_, sub_107A2C, sub_107A9C
 global sub_107AE0, sub_107B70, sub_107BD8, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48
 global sub_108040, sub_108144, sub_10815C, sub_1081B0, sub_1081E4, sub_108250, sub_108584, sub_108640
@@ -1294,7 +1294,7 @@ sub_1086BF:
         cmp dword [dword_1DCAD8], byte 0
         je short .3
         push dword [dword_1DCAD8]
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .3:
         call sub_12CEE1
@@ -1320,7 +1320,7 @@ sub_108725:
         push eax
         push asc_167E64
         mov dword [dword_1DCAEC], 3480h
-        call sub_FAA64
+        call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1DCAD8], eax
         test eax, eax
@@ -1429,7 +1429,7 @@ sub_10884C:
         cmp dword [dword_1DCAD8], byte 0
         je short .4
         push dword [dword_1DCAD8]
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .4:
         call sub_12CEE1

@@ -21,7 +21,7 @@ extern qword_1608C4, qword_1608CC, qword_1608D4, qword_1608DC, qword_1608EC, qwo
 extern qword_16090C, qword_160914, qword_16091C, qword_160924, qword_16092C, qword_160934, qword_16093C, qword_160944
 extern qword_16094C, qword_160954, qword_16095C, qword_160964, qword_16096C, qword_160974, qword_16097C, qword_160984
 extern qword_16098C, qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qword_1609B4, qword_1609BC, randomd0
-extern regd1, slotteam, sub_100940, sub_100A68, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
+extern regd1, slotteam, sub_100940, bcopy, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
 extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, sub_101154, sub_1011E8
 extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
 extern QueueOverlayPanel, ClearOverlayWindows, FightCameraScene, sub_1C210, FaceoffCameraScene, FaceoffCameraScene2, sub_1CCBC, sub_1D16C
@@ -31,7 +31,7 @@ extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, PlaySfxOr, PlaySfxVolume, sub
 extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
 extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
 extern sub_71D48, sub_71E58, StartFightAnim, sub_76FE8, sub_77F94, clockcont_0, sub_AA588, sub_F9A88
-extern sub_FAAB4, sub_FAF34, sub_FB71C, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
+extern sub_FAAB4, FreeMemBlock, sub_FB71C, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
 extern unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E, unk_19D5A0, unk_19D5D2, unk_19D668, unk_19E060
 extern unk_19ECC8, unk_19ECE4, unk_1C135C, unk_1C347F, vecdist, vtoa, word_1686D6, word_168E2C
 extern word_168E2E, word_168E34, word_168E60, word_19C3EC, word_19C3EE, word_19C628, word_19C62A, word_19CA90
@@ -10824,7 +10824,7 @@ sub_3708C:
         lea eax, [byte esp+04h]
         push eax
         push edi
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov eax, dword [byte esp+08h]
         mov ecx, ebx
@@ -10848,7 +10848,7 @@ sub_3708C:
         push edi
         lea eax, [byte esp+08h]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         xor eax, eax
         jmp short .3
@@ -10919,7 +10919,7 @@ sub_37134:
         mov byte [byte esi+0Ch], 0FEh
         push edi
         mov byte [byte esi+0Dh], cl
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         add esp, byte 4
         pop ebp
@@ -11339,7 +11339,7 @@ sub_37470:
         push eax
         mov edx, dword [byte esp+010h]
         push edx
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         push ebx
         lea eax, [dword edi+0A4h]
@@ -11497,7 +11497,7 @@ sub_375F0:
         push ebp
         lea eax, [ecx+ebp]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov dword [byte edi+024h], esi
 .8:
@@ -12032,7 +12032,7 @@ sub_37AB4:
         mov dword [byte esp+040h], eax
         lea eax, [byte esp+08h]
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov dword [ebx], 0
         mov al, byte [dword esp+0CCh]
@@ -12203,7 +12203,7 @@ sub_37AB4:
         cmp dword [dword esp+0CCh], byte 0
         je short .29
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [byte esi+024h], 0
 .29:
@@ -12377,7 +12377,7 @@ sub_37FC8:
         test ah, ah
         je short .6
         push edi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [byte ebp+024h], 0
 .6:

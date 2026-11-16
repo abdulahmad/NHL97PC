@@ -43,7 +43,7 @@ extern str_Gt004, str_Gt007, str_Gt302, str_IceLine, str_Lites, str_Maxx, str_Ma
 extern str_Minz, str_Pbench0D, str_Pbench1D, str_Penback, str_Penbox0D, str_Penbox1D, str_Penboxt0, str_Penboxt1
 extern str_Penboxz0, str_Penboxz1, str_R02d, str_Redlite, str_Rink, str_Rlite0, str_Rlite1, str_STAND
 extern str_STAND2ND, str_Score, str_Stands2, str_Strobe, str_ThinRedLines, str_Topboards, str_WALL, sub_1007C0
-extern sub_100A68, sub_101429, sub_101584, sub_102C30, sub_102C96, sub_102CDC, sub_102CF4, sub_103648
+extern bcopy, FindShape, sub_101584, sub_102C30, sub_102C96, sub_102CDC, sub_102CF4, sub_103648
 extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_10B000, sub_10B040, sub_10B060, sub_10B084
 extern sub_10B0EC, sub_10B4E0, sub_10B580, BuildAntiAliasTable, sub_10C8E8, sub_10DDE0, sub_10E284, sub_10E4B0
 extern sub_10E62C, sub_10E6AC, sub_10E7AC, sub_10E8F8, sub_10EE50, sub_10FB98, sub_10FBB0, sub_10FD58
@@ -55,8 +55,8 @@ extern sub_4E868, sub_4E894, sub_4E8C0, sub_4E8EC, sub_4E9A0, sub_4EA44, sub_4EF
 extern sub_4F068, sub_4F294, sub_4F404, sub_4FC50, sub_4FD08, DrawGoalLight, TransformRink, sub_509E8
 extern sub_50AF4, DrawStandsSides, sub_50DF4, sub_50EB8, sub_50F90, sub_510FC, sub_511AC, sub_51254
 extern sub_51B5C, sub_51BD8, LoadNetArt, BuildRinkSides, LoadBoardLogo, sub_52648, sub_526EC, sub_59174
-extern sub_5AAB8, sub_5AC38, sub_5B4D4, sub_5BCCC, sub_5BD1C, sub_E341C, sub_FAA64, sub_FAF34
-extern sub_FC330, sub_FC4BC, sub_FD110, sub_FD954, sub_FDD1C, sub_FF044, sub_FF444, sub_FF600
+extern sub_5AAB8, sub_5AC38, sub_5B4D4, sub_5BCCC, sub_5BD1C, sub_E341C, AllocMemBlock, FreeMemBlock
+extern sub_FC330, sub_FC4BC, ClearScreen, sub_FD954, FillRect, sub_FF044, sub_FF444, sub_FF600
 extern sub_FF798, sub_FFBB4, sub_FFCC4, tickcount, unk_16175C, unk_161760, unk_161764, unk_161768
 extern unk_16176C, unk_161770, unk_161774, unk_161778, unk_1617BC, unk_16B51C, unk_16B534, unk_1A8D48
 extern unk_1AEDD8, unk_1AEDF0, unk_1AFB38, unk_1B0078, unk_1B0410, unk_1B0510, unk_1B0610, unk_1B0710
@@ -185,7 +185,7 @@ LoadLogos:
         push byte 0
         push ecx
         push asc_161558
-        call sub_FAA64
+        call AllocMemBlock
         mov edx, eax
         add esp, byte 0Ch
         mov dword [dword_1B0F38], eax
@@ -264,7 +264,7 @@ LoadLogos:
         jl short .16
 .17:
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         mov ebp, 1
         add esp, byte 4
         xor ecx, ecx
@@ -1109,7 +1109,7 @@ sub_53260:
         je short .7
         mov esi, dword [dword_1B0B94]
         push esi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov dword [dword_1B0B94], ebx
 .7:
@@ -1322,7 +1322,7 @@ LoadRinkModel:
         push ebp
         add edi, byte 4
         inc esi
-        call sub_101429
+        call FindShape
         add esp, byte 8
         mov dword [dword edi+dword_1B0274], eax
         cmp esi, byte 12h
@@ -2355,13 +2355,13 @@ LoadRinkModel:
         push asc_1617AC
         push eax
         mov dword [dword_1B0E30], eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push asc_1617B4
         mov ebp, dword [dword_1B0E30]
         push ebp
         mov dword [dword_1B0208], eax
-        call sub_101429
+        call FindShape
         mov ebx, dword [dword_1B0E30]
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
@@ -2381,7 +2381,7 @@ LoadRinkModel:
         push edi
         mov dword [dword_1B0ABC], ecx
         mov dword [dword_1B0AB8], eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         lea edx, [byte eax+010h]
         mov eax, dword [byte esp+05Ch]
@@ -2418,7 +2418,7 @@ FreeRinkModel:
         je short .1
         mov ebx, dword [dword_1B0B94]
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         xor ecx, ecx
         add esp, byte 4
         mov dword [dword_1B0B94], ecx
@@ -2430,47 +2430,47 @@ FreeRinkModel:
         call sub_4FD08
         mov ebp, dword [dword_1B10F4]
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov edx, dword [dword_1B110C]
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov ebx, dword [dword_1B0F38]
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov ecx, dword [dword_1B10D0]
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov esi, dword [dword_1B10E8]
         push esi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov edi, dword [dword_16AF68]
         push edi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov ebp, dword [dword_1B10D8]
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov eax, dword [dword_1B10CC]
         push eax
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov edx, dword [dword_1B10D4]
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov ebx, dword [dword_1B0FB8]
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         xor ebx, ebx
 .2:
@@ -2495,7 +2495,7 @@ FreeRinkModel:
         add esp, byte 4
         mov eax, dword [dword_1B0F20]
         push eax
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov edx, dword [dword_1B0FA0]
         push edx
@@ -2507,55 +2507,55 @@ FreeRinkModel:
         add esp, byte 4
         mov ecx, dword [dword_1B0FB0]
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         mov esi, dword [dword_1B0FBC]
         add esp, byte 4
         test esi, esi
         je short .3
         push esi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .3:
         mov ebp, dword [dword_1B0E30]
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         mov eax, dword [dword_1B0E2C]
         add esp, byte 4
         test eax, eax
         je short .4
         mov edx, dword [dword_1B0E28]
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov ebx, dword [dword_1B0E24]
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .4:
         call sub_10E62C
         mov ecx, dword [dword_1B0FFC]
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov esi, dword [dword_1B0FF8]
         push esi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov edi, dword [dword_1B0FE8]
         push edi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov ebp, dword [dword_1B1000]
         push ebp
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov eax, dword [dword_1B102C]
         push eax
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov edx, dword [dword_1B1024]
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         pop ebp
         pop edi
@@ -2658,7 +2658,7 @@ sub_54794:
         test eax, eax
         jne short .3
         push eax
-        call sub_FD110
+        call ClearScreen
         add esp, byte 4
         jmp near .18
 .3:
@@ -2694,7 +2694,7 @@ sub_54794:
         jg short .9
 .8:
         push byte 0
-        call sub_FD110
+        call ClearScreen
         add esp, byte 4
         add esp, 248h
         pop ebp
@@ -2715,7 +2715,7 @@ sub_54794:
         push ebx
         push byte 0
         push byte 0
-        call sub_FDD1C
+        call FillRect
         add esp, byte 14h
 .10:
         mov eax, dword [dword esp+023Ch]
@@ -2733,7 +2733,7 @@ sub_54794:
         mov edx, dword [dword esp+0248h]
         push edx
         push byte 0
-        call sub_FDD1C
+        call FillRect
         add esp, byte 14h
 .11:
         mov eax, dword [dword esp+0234h]
@@ -3212,7 +3212,7 @@ sub_54A8C:
         mov eax, dword [dword_1B1108]
         mov ebx, dword [byte eax+07Ch]
         push ebx
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         mov ecx, dword [dword_16E4A8]
         push ecx
@@ -3260,11 +3260,11 @@ sub_55000:
         je short .1
         mov esi, dword [dword_1B0E28]
         push esi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov edi, dword [dword_1B0E24]
         push edi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .1:
         mov eax, 64h
@@ -5367,7 +5367,7 @@ sub_56A08:
         push dword 138h
         push unk_1B1120
         push eax
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         call sub_5B4D4
 .2:
@@ -5737,7 +5737,7 @@ sub_56DDC:
         push edx
         push eax
         mov ebx, esi
-        call sub_100A68
+        call bcopy
         lea eax, [byte esi+0Ch]
         add esp, byte 0Ch
         mov dword [byte ebp-04h], eax

@@ -4,10 +4,10 @@ bits 32
 section s_107000 progbits alloc exec nowrite align=1
 extern byte_172BC5, byte_1CFBF2, byte_1CFBF3, byte_1DCF44, byte_1DCF67, byte_1DCF68, dword_16E4D0, dword_170038
 extern dword_17003C, dword_170040, dword_172AC0, dword_172AC4, dword_1CFBF4, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
-extern dword_1DCF62, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, sub_100A68, sub_101220, sub_107A2C
+extern dword_1DCF62, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, bcopy, sub_101220, sub_107A2C
 extern sub_107A9C, sub_107B70, sub_109210, sub_109401, sub_109545, sub_10955B, sub_10A930, sub_121888
 extern sub_128280, sub_1286F0, sub_129F80, sub_12A274, sub_12A8E0, sub_12AB40, sub_12AE02, sub_12AF0F
-extern sub_12AFAB, sub_12B03D, sub_12B061, sub_12BD70, sub_FAF34, sub_FB618, addtimer, sub_FC008
+extern sub_12AFAB, sub_12B03D, sub_12B061, sub_12BD70, FreeMemBlock, sub_FB618, addtimer, sub_FC008
 extern word_1CFBF0
 global jpt_1074C0, sub_1074E8_B1, sub_1074E8_C2, sub_1074E8_D3, sub_1074E8_E7, sub_1074E8_FB, sub_1074E8_10F, sub_1074E8_123
 global sub_1074E8_135, sub_1074E8_140, sub_1079C4_1, sub_1079C4_7, sub_1079C4_D, sub_1079C4_13, sub_1079C4_19, sub_107000
@@ -36,10 +36,10 @@ sub_107000:
         push eax
         push esi
         push ebx
-        call sub_100A68
+        call bcopy
         add esp, byte 0Ch
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         jmp short .3
 .1:
         mov ebx, dword [byte esp+024h]

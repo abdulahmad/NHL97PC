@@ -59,7 +59,7 @@ extern sprintf_, str_Botboards, str_Center, str_CrowdD, str_EMPTYFSH, str_FatBlu
 extern str_Glassline, str_Gt002d, str_Gt102d, str_Gt202d, str_Gt302d, str_HALFFSH, str_Icelogo, str_STANDSFSH
 extern str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpath, strcat_, stricmp_
 extern strlen_, strncpy_, sub_1001F8, sub_100498, sub_1004B8, sub_1004F8, sub_100510, sub_100700
-extern sub_1007C0, sub_100830, sub_100940, sub_101429, sub_10150C, sub_101524, sub_101560, sub_101584
+extern sub_1007C0, sub_100830, sub_100940, FindShape, sub_10150C, sub_101524, sub_101560, sub_101584
 extern sub_102C30, sub_102CDC, sub_102CF4, sub_103648, sub_104948, sub_106C74, sub_106D80, sub_106DA0
 extern sub_106DE0, sub_106DF8, sub_107098, sub_1070B0, sub_108144, sub_108640, sub_108900, sub_108A60
 extern sub_108BA0, sub_108E74, sub_1091E0, sub_109210, sub_109545, sub_109557, sub_109E54, sub_109E74
@@ -79,7 +79,7 @@ extern sub_41D94, WaitMusicEnd, sub_42650, sub_480CC, sub_4880C, sub_48864, Reco
 extern LoadRinkLines, LoadRinkModel, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
 extern sub_56740, LoadGoalieMask, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
 extern sub_5AAB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450, sub_5C1CC, sub_5DD74, LoadAiIcons
-extern sub_77A30, PlayMovie, sub_842F4, sub_E3410, sub_E341C, sub_FAA64, sub_FAF34, sub_FB704
+extern sub_77A30, PlayMovie, sub_842F4, sub_E3410, sub_E341C, AllocMemBlock, FreeMemBlock, sub_FB704
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, sub_FE150, sub_FE180
 extern sub_FF044, sub_FF128, sub_FF174, sub_FF444, sub_FF48C, sub_FF5E0, sub_FF690, sub_FF798
 extern sub_FFA14, sub_FFBB4, sub_FFBC8, sub_FFBE0, sub_FFCC4, sub_FFDAC, tickcount, unk_1611B4
@@ -3440,7 +3440,7 @@ sub_4B307:
         call memcpy_
 .4:
         push ecx
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
 .5:
         mov eax, esi
@@ -5071,7 +5071,7 @@ sub_4C48C:
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5100,7 +5100,7 @@ sub_4C48C:
         mov ecx, dword [dword_1B0FB0]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5146,7 +5146,7 @@ sub_4C5A0:
         push asc_161268
         mov ebx, dword [dword_1B0FB0]
         push ebx
-        call sub_101429
+        call FindShape
         add esp, byte 8
         lea edx, [byte eax+010h]
         mov ebx, 18h
@@ -5175,7 +5175,7 @@ sub_4C5A0:
         mov edi, dword [dword_1B0FB0]
         push edi
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5192,7 +5192,7 @@ sub_4C5A0:
         mov edx, dword [dword_1B0FB0]
         push edx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5209,7 +5209,7 @@ sub_4C5A0:
         mov esi, dword [dword_1B0FB0]
         push esi
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5226,7 +5226,7 @@ sub_4C5A0:
         mov ebx, eax
         mov eax, dword [dword_1B0FB0]
         push eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5370,7 +5370,7 @@ sub_4C5A0:
         push asc_161268
         push eax
         mov dword [dword_1B0FBC], eax
-        call sub_101429
+        call FindShape
         mov ebx, dword [dword_1B0FBC]
         add esp, byte 8
         lea ecx, [byte eax+010h]
@@ -5386,7 +5386,7 @@ sub_4C5A0:
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5410,7 +5410,7 @@ sub_4C5A0:
         mov ebx, eax
         mov eax, dword [dword_1B0FBC]
         push eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5428,7 +5428,7 @@ sub_4C5A0:
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5446,7 +5446,7 @@ sub_4C5A0:
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5464,7 +5464,7 @@ sub_4C5A0:
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5482,7 +5482,7 @@ sub_4C5A0:
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5500,7 +5500,7 @@ sub_4C5A0:
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5518,7 +5518,7 @@ sub_4C5A0:
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5536,7 +5536,7 @@ sub_4C5A0:
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5554,7 +5554,7 @@ sub_4C5A0:
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5572,7 +5572,7 @@ sub_4C5A0:
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5590,7 +5590,7 @@ sub_4C5A0:
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5608,7 +5608,7 @@ sub_4C5A0:
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5626,7 +5626,7 @@ sub_4C5A0:
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5644,7 +5644,7 @@ sub_4C5A0:
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5662,7 +5662,7 @@ sub_4C5A0:
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5680,7 +5680,7 @@ sub_4C5A0:
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5698,7 +5698,7 @@ sub_4C5A0:
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5716,7 +5716,7 @@ sub_4C5A0:
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5734,7 +5734,7 @@ sub_4C5A0:
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -5752,7 +5752,7 @@ sub_4C5A0:
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
-        call sub_101429
+        call FindShape
         add esp, byte 8
         push eax
         push ebx
@@ -9905,7 +9905,7 @@ sub_4FC50:
         push byte 20h
         push dword 32A0h
         push asc_1613FC
-        call sub_FAA64
+        call AllocMemBlock
         mov dword [dword_1B0B94], eax
         mov dword [dword_1B0B90], eax
         add eax, 0F30h
@@ -9961,7 +9961,7 @@ sub_4FD24:
         je short .1
         mov ebx, dword [dword_1B0B94]
         push ebx
-        call sub_FAF34
+        call FreeMemBlock
         xor ecx, ecx
         add esp, byte 4
         mov dword [dword_1B0B94], ecx
@@ -12360,7 +12360,7 @@ sub_51434:
         add esp, byte 4
         mov esi, dword [dword_1B0B18]
         push esi
-        call sub_FAF34
+        call FreeMemBlock
         add esp, byte 4
         mov eax, dword [dword_1B0B7C]
         xor edi, edi
@@ -13452,7 +13452,7 @@ BuildRinkSides:
         test edx, edx
         je short .28
         push edx
-        call sub_FAF34
+        call FreeMemBlock
         xor ecx, ecx
         add esp, byte 4
         mov dword [dword_16AF68], ecx
@@ -13642,7 +13642,7 @@ sub_52648:
         mov eax, esp
         push eax
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov ebx, dword [byte eax+04h]
         sar edx, 10h
@@ -13658,7 +13658,7 @@ sub_52648:
         mov eax, esp
         push eax
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, dword [byte eax+04h]
         sar edx, 10h
@@ -13676,7 +13676,7 @@ sub_52648:
         mov eax, esp
         push eax
         push esi
-        call sub_101429
+        call FindShape
         mov edx, dword [byte eax+02h]
         mov eax, dword [byte eax+04h]
         sar edx, 10h
@@ -13710,7 +13710,7 @@ sub_526EC:
         mov eax, esp
         push eax
         push ebx
-        call sub_101429
+        call FindShape
         mov ebx, 4
         lea edx, [byte esp+08h]
         add esp, byte 8
