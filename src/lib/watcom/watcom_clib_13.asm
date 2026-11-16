@@ -31,7 +31,7 @@ extern sub_103298, sub_103648, sub_10374C, sub_10376C, sub_1049D0, FileExistsPat
 extern sub_109545, sub_10955B, sub_1095AD, sub_10CFB4, sub_10CFF7, DrawPolyArray, sub_121460, sub_121470
 extern sub_121494, sub_12189C, sub_121A43, sub_12200C, sub_12233C, sub_123FCB, sub_124DB0, sub_1258A4
 extern sub_125DDE, sub_12D520, sub_12F270, sub_12FACC, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0
-extern sub_13005A, sub_1300A8, sub_13014C, sub_13059C, sub_13061C, sub_1306A0, sub_130709, sub_13073E
+extern sub_13005A, TgvCopyBlock, TgvFillBlock, sub_13059C, sub_13061C, sub_1306A0, sub_130709, sub_13073E
 extern sub_130815, SetScreenTarget, NoOpPlatformHook, sub_FA5B8, sub_FA6A0, sub_FA734, sub_FA8AC, sub_FA954
 extern sub_FAA14, AllocMemBlock, sub_FAB68, FreeMemBlock, sub_FB5C8, sub_FB62C, ZeroMem, sub_FBE78
 extern sub_FC0F0, sub_FC410, MakeColor, sub_FC73E, sub_FC88C, sub_FCC40, sub_FD0DC, ClearScreen
@@ -8788,7 +8788,7 @@ DecodeTgvFrame:
         push ebx
         mov ecx, dword [byte esi+030h]
         push ecx
-        call sub_1300A8
+        call TgvCopyBlock
         add esp, byte 10h
 .9:
         mov eax, dword [byte esi+04h]
@@ -8813,7 +8813,7 @@ DecodeTgvFrame:
         push eax
         mov ebx, dword [byte esi+030h]
         push ebx
-        call sub_13014C
+        call TgvFillBlock
         add esp, byte 24h
 .10:
         mov eax, dword [byte esp+018h]

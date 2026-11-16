@@ -10,10 +10,17 @@ extern dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dword_1DC9B4, dwo
 extern dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC, dword_1DCAF0, dword_1DCAF4
 extern dword_1DCAF8, dword_1DCEC4, dword_1DCED0, dword_1DCED8, dword_1DCEEC, dword_1DCEF0, dword_1DCEF4, dword_1DCEF8
 extern dword_1DCEFC, dword_1DCF08, dword_1DCF0C, dword_1DCF10, dword_1DCF14, dword_1DCF18, dword_1DCF1C, sub_1072B4
-extern sub_107808, sub_128680, sub_12AB04, sub_12AB0C, sub_12B0B1, sub_12CD34, sub_1386E1, word_1DCECC
+extern sub_107808, sub_128680, AudioEnter, AudioLeaveCheck, sub_12B0B1, IsChannelActive, ScanFloat, word_1DCECC
 extern word_1DCEE8, word_1DCEEA, word_1DCF06
 global ResetGameVars, sub_12CEE1, sub_12CF50, sub_12CF9F, sub_12D0D2, sub_12D13B, sub_12D141, sub_12D150
 global sub_12D1C0, sub_12D210
+;-----------------------------------------------------------------------------
+; ResetGameVars                               12CD6C  95 PC, medium confidence
+; Clears the per-game state (penalty / referee / line-change / penalty-shot
+; vars, pass state, crowd excitement, input counters, exitgame / gameover,
+; frameaccum), calls StartGame, centres the mouse when a pad uses it,
+; joyq_flush
+;-----------------------------------------------------------------------------
 ResetGameVars:
         mov byte [byte_1DCEC8], 1
         mov byte [byte_1DCEC9], 0
@@ -62,6 +69,9 @@ ResetGameVars:
         mov dword [dword_1DCF1C], 7Fh
         mov dword [dword_1DCEC4], 6C544150h
         ret
+;-----------------------------------------------------------------------------
+; sub_12CEE1                                                          12CEE1  
+;-----------------------------------------------------------------------------
 sub_12CEE1:
         mov dword [dword_1DCAD4], 0
         mov dword [dword_1DCAD8], 0
@@ -75,6 +85,9 @@ sub_12CEE1:
         mov dword [dword_1DCAF8], 0
         mov dword [dword_1DCAD0], 0
         ret
+;-----------------------------------------------------------------------------
+; sub_12CF50                                                          12CF50  
+;-----------------------------------------------------------------------------
 sub_12CF50:
         push ecx
         push esi
@@ -98,7 +111,7 @@ sub_12CF50:
         push byte 1
         mov ebx, edi
         inc dword [byte ebp-04h]
-        call sub_1386E1
+        call ScanFloat
         add edi, byte 10h
         add esi, byte 70h
 .2:
@@ -110,6 +123,9 @@ sub_12CF50:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; sub_12CF9F                                                          12CF9F  
+;-----------------------------------------------------------------------------
 sub_12CF9F:
         push ebx
         push ecx
@@ -197,6 +213,9 @@ sub_12CF9F:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_12D0D2                                                          12D0D2  
+;-----------------------------------------------------------------------------
 sub_12D0D2:
         push ebx
         push edx
@@ -231,14 +250,23 @@ sub_12D0D2:
         pop edx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_12D13B                                                          12D13B  
+;-----------------------------------------------------------------------------
 sub_12D13B:
         mov eax, dword [dword_1DCAF8]
         ret
+;-----------------------------------------------------------------------------
+; sub_12D141                                                          12D141  
+;-----------------------------------------------------------------------------
 sub_12D141:
         cmp dword [dword_1DCAD0], byte 0
         jne short sub_12D0D2
         ret
         db 00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_12D150                                                          12D150  
+;-----------------------------------------------------------------------------
 sub_12D150:
         push esi
         push edi
@@ -287,6 +315,9 @@ sub_12D150:
         pop esi
         ret 0Ch
         db 00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_12D1C0                                                          12D1C0  
+;-----------------------------------------------------------------------------
 sub_12D1C0:
         push ecx
         push edx
@@ -298,12 +329,12 @@ sub_12D1C0:
         pop ecx
         ret
 .1:
-        call sub_12AB04
+        call AudioEnter
         mov eax, edx
-        call sub_12CD34
+        call IsChannelActive
         test eax, eax
         jge short .2
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, 0FFFFFFF8h
         pop edx
         pop ecx
@@ -313,12 +344,15 @@ sub_12D1C0:
         call sub_12B0B1
         add esp, byte 4
         mov edx, eax
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, edx
         pop edx
         pop ecx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_12D210                                                          12D210  
+;-----------------------------------------------------------------------------
 sub_12D210:
         push edx
         mov edx, eax
@@ -328,19 +362,19 @@ sub_12D210:
         pop edx
         ret
 .1:
-        call sub_12AB04
+        call AudioEnter
         mov eax, edx
-        call sub_12CD34
+        call IsChannelActive
         test eax, eax
         jge short .2
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, 0FFFFFFF8h
         pop edx
         ret
 .2:
         call sub_107808
         mov edx, eax
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, edx
         pop edx
         ret

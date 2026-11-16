@@ -2807,7 +2807,61 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 126480,SaveTextMode,,96PC,medium,NHL96PC E2484 (similar): mnemonic similarity 0.94 over 15 instructions,
 1264C2,RestoreTextMode,,96PC,medium,NHL96PC E24C4 (similar): mnemonic similarity 0.91 over 68 instructions,
 1269F5,toupper_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+128CEC,ReadBlasterPort,sub_128CEC,new,low,reads the sound card port from the BLASTER setting,src/lib/sound/snd_soundblaster_01.asm
+128D84,ProbeDspReset,sub_128D84,new,low,probes a Sound Blaster port by resetting its DSP,src/lib/sound/snd_soundblaster_01.asm
+128E00,SbDriverId,sub_128E00,new,low,Sound Blaster driver: returns its id,src/lib/sound/snd_soundblaster_01.asm
+128E08,SbDriverInit,sub_128E08,new,low,Sound Blaster driver: finds the card and sets it up,src/lib/sound/snd_soundblaster_01.asm
+128F80,SbDriverShutdown,sub_128F80,new,low,Sound Blaster driver: stops the card and frees the buffers,src/lib/sound/snd_soundblaster_01.asm
+129000,SbDriverStart,sub_129000,new,low,Sound Blaster driver: starts playback,src/lib/sound/snd_soundblaster_01.asm
+129044,SbSetupDma,sub_129044,new,low,Sound Blaster driver: sets up the DMA buffer and interrupt,src/lib/sound/snd_soundblaster_01.asm
+1291F0,SbProDriverId,sub_1291F0,new,low,Sound Blaster Pro driver: returns its id,src/lib/sound/snd_soundblaster_01.asm
+1291F8,SbProDriverInit,sub_1291F8,new,low,Sound Blaster Pro driver: finds the card and sets it up,src/lib/sound/snd_soundblaster_01.asm
+129428,SbProDriverShutdown,sub_129428,new,low,Sound Blaster Pro driver: stops the card and frees the buffers,src/lib/sound/snd_soundblaster_01.asm
+129460,SbProDriverStart,sub_129460,new,low,Sound Blaster Pro driver: starts playback,src/lib/sound/snd_soundblaster_01.asm
+1294A4,SbProSetupDma,sub_1294A4,new,low,Sound Blaster Pro driver: sets up the DMA buffer and interrupt,src/lib/sound/snd_soundblaster_01.asm
+1296BC,SbProStopDma,sub_1296BC,new,low,Sound Blaster Pro driver: stops the DMA and restores the interrupt,src/lib/sound/snd_soundblaster_01.asm
+129740,Sb16DriverId,sub_129740,new,low,Sound Blaster 16 driver: returns its id (probably),src/lib/sound/snd_soundblaster_01.asm
+129748,Sb16DriverInit,sub_129748,new,low,Sound Blaster 16 driver: finds the card and sets it up (probably),src/lib/sound/snd_soundblaster_01.asm
+1299BC,Sb16DriverShutdown,sub_1299BC,new,low,Sound Blaster 16 driver: stops the card and frees the buffers,src/lib/sound/snd_soundblaster_01.asm
+129A48,Sb16DriverStart,sub_129A48,new,low,Sound Blaster 16 driver: starts playback,src/lib/sound/snd_soundblaster_01.asm
+129A8C,Sb16AckIrq,sub_129A8C,new,low,Sound Blaster 16 driver: acknowledges the interrupt,src/lib/sound/snd_soundblaster_01.asm
+129ACC,Sb16SetupDma,sub_129ACC,new,low,Sound Blaster 16 driver: sets up the DMA buffer and interrupt,src/lib/sound/snd_soundblaster_01.asm
+129C44,Sb16StopDma,sub_129C44,new,low,Sound Blaster 16 driver: stops the DMA and restores the interrupt,src/lib/sound/snd_soundblaster_01.asm
+129CB0,SoundscapeDriverId,sub_129CB0,new,low,Soundscape driver: returns its id,src/lib/sound/snd_soundblaster_01.asm
+129CB8,SoundscapeDriverInit,sub_129CB8,new,low,Soundscape driver: reads SNDSCAPE.INI and sets up the card,src/lib/sound/snd_soundblaster_01.asm
+129F00,SoundscapeDriverShutdown,sub_129F00,new,low,Soundscape driver: stops the card and frees the buffers,src/lib/sound/snd_soundblaster_01.asm
+129F3C,SoundscapeDriverStart,sub_129F3C,new,low,Soundscape driver: starts playback,src/lib/sound/snd_soundblaster_01.asm
+129F80,ReadSoundscapeIni,sub_129F80,new,low,reads the Soundscape settings file,src/lib/sound/snd_soundblaster_01.asm
+12A274,SoundscapeCodecReady,sub_12A274,new,low,Soundscape driver: waits for the codec,src/lib/sound/snd_soundblaster_01.asm
+12A2F8,SoundscapeSetupCodec,sub_12A2F8,new,low,Soundscape driver: sets up the codec,src/lib/sound/snd_soundblaster_01.asm
+12A4B4,SoundscapeSetupDma,sub_12A4B4,new,low,Soundscape driver: sets up the DMA,src/lib/sound/snd_soundblaster_01.asm
+12A55C,SoundscapeWriteReg,sub_12A55C,new,low,Soundscape driver: writes a codec register,src/lib/sound/snd_soundblaster_01.asm
+12A5A8,SoundscapeStopCodec,sub_12A5A8,new,low,Soundscape driver: stops the codec,src/lib/sound/snd_soundblaster_01.asm
+12A6B0,SoundscapeRateCode,sub_12A6B0,new,low,Soundscape driver: returns the code for a sample rate,src/lib/sound/snd_soundblaster_01.asm
+12A788,IniFindKey,sub_12A788,new,low,finds a key in a settings file,src/lib/sound/snd_soundblaster_01.asm
+12A8E0,AudioLeave,sub_12A8E0,new,low,leaves the audio critical section and runs deferred work,src/lib/sound/snd_soundblaster_01.asm
+12A97C,AudioDeferredWork,sub_12A97C,new,low,runs the audio work deferred during the critical section,src/lib/sound/snd_soundblaster_01.asm
+12AB04,AudioEnter,sub_12AB04,new,low,enters the audio critical section,src/lib/sound/snd_soundblaster_01.asm
+12AB0C,AudioLeaveCheck,sub_12AB0C,new,low,leaves the audio critical section,src/lib/sound/snd_soundblaster_01.asm
+12AB40,SampleFormatSize,sub_12AB40,new,low,returns the size of a sample format,src/lib/sound/snd_soundblaster_01.asm
+12C604,ParseHexValue,sub_12C604,new,low,parses a hexadecimal setting value,src/lib/sound/snd_soundblaster_02.asm
 12C64C,ParseBlasterEnv,,96PC,medium,NHL96PC CE0A9 (similar): mnemonic similarity 0.86 over 106 instructions,
+12C78C,SbReadData,sub_12C78C,new,low,reads a byte from the Sound Blaster DSP,src/lib/sound/snd_soundblaster_02.asm
+12C7A8,SbWaitRead,sub_12C7A8,new,low,waits for the Sound Blaster DSP to have data,src/lib/sound/snd_soundblaster_02.asm
+12C7DC,SbWriteDsp,sub_12C7DC,new,low,writes a byte to the Sound Blaster DSP,src/lib/sound/snd_soundblaster_02.asm
+12C814,SbMixerWrite,sub_12C814,new,low,writes a Sound Blaster mixer register,src/lib/sound/snd_soundblaster_02.asm
+12C84C,SbMixerRead,sub_12C84C,new,low,reads a Sound Blaster mixer register,src/lib/sound/snd_soundblaster_02.asm
+12C884,SbResetDsp,sub_12C884,new,low,resets the Sound Blaster DSP,src/lib/sound/snd_soundblaster_02.asm
+12C8BC,SbDetectDsp,sub_12C8BC,new,low,detects the Sound Blaster DSP,src/lib/sound/snd_soundblaster_02.asm
+12C8F4,SbSetRate,sub_12C8F4,new,low,sets the Sound Blaster sample rate,src/lib/sound/snd_soundblaster_02.asm
+12C950,StopAllSoundChannels,sub_12C950,new,low,stops all the sound channels,src/lib/sound/snd_soundblaster_02.asm
+12C970,StartChannel,sub_12C970,new,low,starts a sound channel,src/lib/sound/snd_soundblaster_02.asm
+12C9D0,MixNoise,sub_12C9D0,new,low,mixes random noise,src/lib/sound/snd_soundblaster_02.asm
+12CA20,RampChannelVolume,sub_12CA20,new,low,ramps a channel's volume,src/lib/sound/snd_soundblaster_02.asm
+12CAA0,ChannelSlotOf,sub_12CAA0,new,low,returns the slot of a channel,src/lib/sound/snd_soundblaster_02.asm
+12CAD8,UpdateChannels,sub_12CAD8,new,low,updates the sound channels,src/lib/sound/snd_soundblaster_02.asm
+12CD1C,SetChannelCount,sub_12CD1C,new,low,sets the number of channels,src/lib/sound/snd_soundblaster_02.asm
+12CD34,IsChannelActive,sub_12CD34,new,low,returns whether a channel is active,src/lib/sound/snd_soundblaster_02.asm
 12CD6C,ResetGameVars,,96PC,medium,NHL96PC 1DA02 (similar): mnemonic similarity 0.82 over 68 instructions,
 12D24F,file_putc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12D260,__fprtf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -2832,6 +2886,8 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 12F9E3,__CMain,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12FA32,__InitRtns,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12FA7D,__FiniRtns,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+1300A8,TgvCopyBlock,sub_1300A8,new,low,movie decoder: copies a block,src/lib/sound/snd_soundblaster_03.asm
+13014C,TgvFillBlock,sub_13014C,new,low,movie decoder: fills a block,src/lib/sound/snd_soundblaster_03.asm
 1301FF,_nexpand_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 130237,__HeapManager_expand_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13042F,_nmsize_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -3027,9 +3083,49 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 135FA0,__math87_err_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13601B,__math1err_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 136025,__math2err_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+13794C,TimerCalibrate,sub_13794C,new,low,calibrates the timer,src/lib/sound/snd_hw_sb.asm
+137966,TimerRestore,sub_137966,new,low,restores the timer,src/lib/sound/snd_hw_sb.asm
+137981,TimerSetRate,sub_137981,new,low,sets the timer rate,src/lib/sound/snd_hw_sb.asm
+13799D,TimerWritePit,sub_13799D,new,low,writes the timer chip divisor,src/lib/sound/snd_hw_sb.asm
+1379BE,TimerReadCount,sub_1379BE,new,low,reads the timer count,src/lib/sound/snd_hw_sb.asm
+1379DD,TimerTicksForRate,sub_1379DD,new,low,works out the ticks for a rate,src/lib/sound/snd_hw_sb.asm
+1379FF,TimerMeasure,sub_1379FF,new,low,measures the timer,src/lib/sound/snd_hw_sb.asm
+137A2E,TimerSetDivisor,sub_137A2E,new,low,sets the timer divisor,src/lib/sound/snd_hw_sb.asm
+137A4F,TimerReset,sub_137A4F,new,low,resets the timer,src/lib/sound/snd_hw_sb.asm
+137A72,TimerInstall,sub_137A72,new,low,installs the timer handler,src/lib/sound/snd_hw_sb.asm
+137BEE,TimerChainOld,sub_137BEE,new,low,chains to the old timer handler,src/lib/sound/snd_hw_sb.asm
+137C20,DmaMaskChannel,sub_137C20,new,low,masks a DMA channel,src/lib/sound/snd_hw_sb.asm
+137C50,DmaProgram,sub_137C50,new,low,programs a DMA channel,src/lib/sound/snd_hw_sb.asm
+137D14,IrqEoi,sub_137D14,new,low,sends end of interrupt to the interrupt controller,src/lib/sound/snd_hw_sb.asm
+137D50,IrqAck,sub_137D50,new,low,acknowledges a sound interrupt,src/lib/sound/snd_hw_sb.asm
+137D7C,IrqVector,sub_137D7C,new,low,returns the interrupt vector of an IRQ,src/lib/sound/snd_hw_sb.asm
+137D90,IrqUnmask,sub_137D90,new,low,unmasks an IRQ,src/lib/sound/snd_hw_sb.asm
+137DD0,IrqMask,sub_137DD0,new,low,masks an IRQ,src/lib/sound/snd_hw_sb.asm
+137E04,IrqSetHandler,sub_137E04,new,low,sets an interrupt handler,src/lib/sound/snd_hw_sb.asm
+137E28,AllocDosDmaBuffer,sub_137E28,new,low,allocates a DMA buffer in DOS memory,src/lib/sound/snd_hw_sb.asm
+137EF8,FreeDosDmaBuffer,sub_137EF8,new,low,frees a DMA buffer in DOS memory,src/lib/sound/snd_hw_sb.asm
+137F4C,SbTimeConstant,sub_137F4C,new,low,works out the Sound Blaster time constant for a rate,src/lib/sound/snd_hw_sb.asm
+137FB8,SbRateFromConstant,sub_137FB8,new,low,works out the rate from a Sound Blaster time constant,src/lib/sound/snd_hw_sb.asm
+13800A,StrToLong,sub_13800A,new,low,converts a string to a number (strtol),src/lib/sound/snd_hw_sb.asm
+138177,ReturnArg,sub_138177,new,low,returns its argument,src/lib/sound/snd_hw_sb.asm
+13817F,DigitValue,sub_13817F,new,low,returns the value of a digit character,src/lib/sound/snd_hw_sb.asm
+1381E0,InitFloatFormat,sub_1381E0,new,low,sets up the number formatting tables,src/lib/sound/snd_hw_sb.asm
+138288,FormatFloat,sub_138288,new,low,formats a floating-point number,src/lib/sound/snd_hw_sb.asm
+1386E1,ScanFloat,sub_1386E1,new,low,reads a floating-point number,src/lib/sound/snd_hw_sb.asm
+1388B1,RoundDigits,sub_1388B1,new,low,rounds the digits of a formatted number,src/lib/sound/snd_hw_sb.asm
+138910,DrawCharMono,sub_138910,new,low,draws a character in one colour,src/lib/sound/snd_hw_sb.asm
+1389B0,DrawCharShadow,sub_1389B0,new,low,draws a character with a shadow,src/lib/sound/snd_hw_sb.asm
+138A50,DrawCharOutline,sub_138A50,new,low,draws a character with an outline,src/lib/sound/snd_hw_sb.asm
+138AE0,DrawCharBold,sub_138AE0,new,low,draws a character in bold,src/lib/sound/snd_hw_sb.asm
+138B6F,NoDbcsTable,sub_138B6F,new,low,returns no double-byte lead table,src/lib/sound/snd_hw_sb.asm
 138B74,init_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 138C68,fini_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+138C90,CMainHook,sub_138C90,new,low,start-up hook (returns at once),src/lib/sound/snd_pcspeaker.asm
 138C99,__CommonInit_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+138D04,DebugPrintf,sub_138D04,new,low,prints a formatted debug message on screen,src/lib/sound/snd_pcspeaker.asm
+138E00,DebugPrintAt,sub_138E00,new,low,prints a debug message at a position,src/lib/sound/snd_pcspeaker.asm
+138EB0,DebugPrintLine,sub_138EB0,new,low,prints a debug line,src/lib/sound/snd_pcspeaker.asm
+138F00,DebugLineCount,sub_138F00,new,low,returns the debug line count,src/lib/sound/snd_pcspeaker.asm
 138F82,__FDFS,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 138FCE,__setenvp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1390A2,_SetMaxPrec_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

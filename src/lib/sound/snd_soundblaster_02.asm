@@ -4,15 +4,16 @@ bits 32
 section s_12C604 progbits alloc exec nowrite align=1
 extern byte_172BC5, byte_1DCF3B, byte_1DCF45, byte_1DCF47, byte_1DCF67, byte_1DD4AF, byte_1DD4B0, dword_199734
 extern dword_1DCF38, dword_1DCF48, dword_1DCF78, dword_1DD37C, dword_1DD37E, dword_1DD4AD, dword_1DD4B4, getenv_
-extern str_BLASTER, Random32, sub_1078AC, StopChannel, sub_12AB04, sub_12AB0C, sub_138177, word_1DD4A0
+extern str_BLASTER, Random32, sub_1078AC, StopChannel, AudioEnter, AudioLeaveCheck, ReturnArg, word_1DD4A0
 extern word_1DD4A2, word_1DD4A4, word_1DD4A6, word_1DD4A8, word_1DD4AA, word_1DD4AC
-global ParseBlasterEnv, sub_12C604, sub_12C78C, sub_12C7A8, sub_12C7DC, sub_12C814, sub_12C84C, sub_12C884
-global sub_12C8BC, sub_12C8F4, sub_12C950, sub_12C970, sub_12C9D0, sub_12CA20, sub_12CAA0, sub_12CAD8
-global sub_12CD1C, sub_12CD34
+global ParseBlasterEnv, ParseHexValue, SbReadData, SbWaitRead, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp
+global SbDetectDsp, SbSetRate, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, ChannelSlotOf, UpdateChannels
+global SetChannelCount, IsChannelActive
 ;-----------------------------------------------------------------------------
-; sub_12C604                                                          12C604  
+; ParseHexValue                                  12C604  97 PC, low confidence
+; Parses a hexadecimal setting value
 ;-----------------------------------------------------------------------------
-sub_12C604:
+ParseHexValue:
         push ecx
         push esi
         push edi
@@ -41,7 +42,7 @@ sub_12C604:
         lea edx, [byte esp+08h]
         mov byte [esp+ecx], al
         mov eax, esp
-        call sub_138177
+        call ReturnArg
         mov dword [edi], eax
         mov eax, ecx
         add esp, byte 0Ch
@@ -123,7 +124,7 @@ ParseBlasterEnv:
         mov edx, dword [esp]
 .9:
         mov eax, ecx
-        call sub_12C604
+        call ParseHexValue
         add ecx, eax
 .10:
         cmp byte [ecx], 0
@@ -164,7 +165,7 @@ ParseBlasterEnv:
         add ecx, byte 0Ch
         mov word [word_1DD4AC], ax
         mov word [word_1DD4AA], cx
-        call sub_12C884
+        call SbResetDsp
         xor eax, eax
         add esp, byte 4
         pop ebp
@@ -179,9 +180,10 @@ ParseBlasterEnv:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_12C78C                                                          12C78C  
+; SbReadData                                     12C78C  97 PC, low confidence
+; Reads a byte from the Sound Blaster DSP
 ;-----------------------------------------------------------------------------
-sub_12C78C:
+SbReadData:
         push ebx
         push edx
         mov ebx, 64h
@@ -199,9 +201,10 @@ sub_12C78C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12C7A8                                                          12C7A8  
+; SbWaitRead                                     12C7A8  97 PC, low confidence
+; Waits for the Sound Blaster DSP to have data
 ;-----------------------------------------------------------------------------
-sub_12C7A8:
+SbWaitRead:
         push ebx
         push edx
         mov ebx, 30D40h
@@ -228,9 +231,10 @@ sub_12C7A8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_12C7DC                                                          12C7DC  
+; SbWriteDsp                                     12C7DC  97 PC, low confidence
+; Writes a byte to the Sound Blaster DSP
 ;-----------------------------------------------------------------------------
-sub_12C7DC:
+SbWriteDsp:
         push ebx
         push ecx
         push edx
@@ -261,9 +265,10 @@ sub_12C7DC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12C814                                                          12C814  
+; SbMixerWrite                                   12C814  97 PC, low confidence
+; Writes a Sound Blaster mixer register
 ;-----------------------------------------------------------------------------
-sub_12C814:
+SbMixerWrite:
         push ebx
         push ecx
         push edx
@@ -290,9 +295,10 @@ sub_12C814:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12C84C                                                          12C84C  
+; SbMixerRead                                    12C84C  97 PC, low confidence
+; Reads a Sound Blaster mixer register
 ;-----------------------------------------------------------------------------
-sub_12C84C:
+SbMixerRead:
         push ebx
         push ecx
         push edx
@@ -319,9 +325,10 @@ sub_12C84C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12C884                                                          12C884  
+; SbResetDsp                                     12C884  97 PC, low confidence
+; Resets the Sound Blaster DSP
 ;-----------------------------------------------------------------------------
-sub_12C884:
+SbResetDsp:
         push ebx
         push edx
         xor edx, edx
@@ -342,26 +349,27 @@ sub_12C884:
         xor al, al
         mov dx, word [word_1DD4A8]
         out dx, al
-        call sub_12C7A8
+        call SbWaitRead
         pop edx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12C8BC                                                          12C8BC  
+; SbDetectDsp                                    12C8BC  97 PC, low confidence
+; Detects the Sound Blaster DSP
 ;-----------------------------------------------------------------------------
-sub_12C8BC:
+SbDetectDsp:
         push edx
         mov eax, 0E1h
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .1
         mov eax, 0FFFFFFFBh
         pop edx
         ret
 .1:
-        call sub_12C7A8
+        call SbWaitRead
         mov edx, eax
-        call sub_12C7A8
+        call SbWaitRead
         test edx, edx
         jl short .2
         test eax, eax
@@ -376,9 +384,10 @@ sub_12C8BC:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12C8F4                                                          12C8F4  
+; SbSetRate                                      12C8F4  97 PC, low confidence
+; Sets the Sound Blaster sample rate
 ;-----------------------------------------------------------------------------
-sub_12C8F4:
+SbSetRate:
         push ebx
         cmp eax, 0FA0h
         jl short .1
@@ -398,7 +407,7 @@ sub_12C8F4:
         mov edx, 10000h
         sub edx, eax
         mov eax, 40h
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .3
         mov eax, 0FFFFFFFBh
@@ -407,7 +416,7 @@ sub_12C8F4:
 .3:
         mov eax, edx
         sar eax, 8
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .4
         mov eax, 0FFFFFFFBh
@@ -418,9 +427,10 @@ sub_12C8F4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12C950                                                          12C950  
+; StopAllSoundChannels                           12C950  97 PC, low confidence
+; Stops all the sound channels
 ;-----------------------------------------------------------------------------
-sub_12C950:
+StopAllSoundChannels:
         push edx
         xor edx, edx
 .1:
@@ -433,9 +443,10 @@ sub_12C950:
         ret
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_12C970                                                          12C970  
+; StartChannel                                   12C970  97 PC, low confidence
+; Starts a sound channel
 ;-----------------------------------------------------------------------------
-sub_12C970:
+StartChannel:
         push ebx
         push ecx
         push edx
@@ -474,9 +485,10 @@ sub_12C970:
         ret
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_12C9D0                                                          12C9D0  
+; MixNoise                                       12C9D0  97 PC, low confidence
+; Mixes random noise
 ;-----------------------------------------------------------------------------
-sub_12C9D0:
+MixNoise:
         push ebx
         push ecx
         push edx
@@ -510,9 +522,10 @@ sub_12C9D0:
         ret
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_12CA20                                                          12CA20  
+; RampChannelVolume                              12CA20  97 PC, low confidence
+; Ramps a channel's volume
 ;-----------------------------------------------------------------------------
-sub_12CA20:
+RampChannelVolume:
         push ebx
         push ecx
         mov ecx, eax
@@ -534,13 +547,13 @@ sub_12CA20:
         pop ebx
         ret
 .3:
-        call sub_12AB04
+        call AudioEnter
         mov eax, ecx
-        call sub_12CD34
+        call IsChannelActive
         mov ecx, eax
         test eax, eax
         jge short .4
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, 0FFFFFFF8h
         pop ecx
         pop ebx
@@ -562,15 +575,16 @@ sub_12CA20:
         shl eax, 4
         add eax, ecx
         mov byte [nosplit eax*4+byte_1DCF67], bl
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12CAA0                                                          12CAA0  
+; ChannelSlotOf                                  12CAA0  97 PC, low confidence
+; Returns the slot of a channel
 ;-----------------------------------------------------------------------------
-sub_12CAA0:
+ChannelSlotOf:
         push ebx
         push ecx
         push edx
@@ -600,9 +614,10 @@ sub_12CAA0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_12CAD8                                                          12CAD8  
+; UpdateChannels                                 12CAD8  97 PC, low confidence
+; Updates the sound channels
 ;-----------------------------------------------------------------------------
-sub_12CAD8:
+UpdateChannels:
         push esi
         push edi
         push ebp
@@ -611,7 +626,7 @@ sub_12CAD8:
         mov dword [byte esp+018h], edx
         mov dword [byte esp+010h], ebx
         mov dword [byte esp+08h], ecx
-        call sub_12AB04
+        call AudioEnter
         mov edx, 0FFFFFFF7h
         mov ecx, dword [byte esp+018h]
         xor ebx, ebx
@@ -648,7 +663,7 @@ sub_12CAD8:
         cmp byte [dword ebx+byte_1DCF45], 0
         jne short .5
         mov eax, edx
-        call sub_12CAA0
+        call ChannelSlotOf
         test eax, eax
         jne short .5
         mov eax, dword [byte esp+04h]
@@ -681,7 +696,7 @@ sub_12CAD8:
         test ebp, eax
         je short .10
         mov eax, edx
-        call sub_12CAA0
+        call ChannelSlotOf
         test eax, eax
         jne short .10
         mov al, byte [dword ebx+byte_1DCF47]
@@ -784,7 +799,7 @@ sub_12CAD8:
         cmp eax, dword [byte esp+04h]
         jl short .16
 .17:
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, dword [byte esp+0Ch]
         add esp, byte 1Ch
         pop ebp
@@ -793,9 +808,10 @@ sub_12CAD8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_12CD1C                                                          12CD1C  
+; SetChannelCount                                12CD1C  97 PC, low confidence
+; Sets the number of channels
 ;-----------------------------------------------------------------------------
-sub_12CD1C:
+SetChannelCount:
         mov edx, dword [byte esp+04h]
         mov eax, edx
         shl eax, 4
@@ -805,15 +821,16 @@ sub_12CD1C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_12CD34                                                          12CD34  
+; IsChannelActive                                12CD34  97 PC, low confidence
+; Returns whether a channel is active
 ;-----------------------------------------------------------------------------
-sub_12CD34:
+IsChannelActive:
         push ebx
         push edx
         mov ebx, eax
         mov edx, ebx
         and edx, byte 1Fh
-        call sub_12AB04
+        call AudioEnter
         mov eax, edx
         shl eax, 4
         add eax, edx
@@ -825,7 +842,7 @@ sub_12CD34:
 .1:
         mov edx, 0FFFFFFF8h
 .2:
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, edx
         pop edx
         pop ebx

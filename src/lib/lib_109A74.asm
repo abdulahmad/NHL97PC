@@ -9,7 +9,7 @@ extern dword_1CFCA4, dword_1CFCA8, dword_1CFCAC, dword_1CFCB0, dword_1CFCB4, dwo
 extern dword_1CFCC8, dword_1CFCCC, dword_1CFCD0, dword_1CFCD4, dword_1CFCD8, dword_1CFCDC, dword_1CFCE0, dword_1CFCE4
 extern dword_1CFCE8, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, CdOpenStream, CdHandleEntry, CdCloseFile
 extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, sub_1072B4, SetMusicStreamVolume, ChannelPlaying
-extern StopChannel, PlaySample, sub_128280, sub_12AB04, sub_12AB0C, sub_12CD34, sub_12D1C0, sub_12D210
+extern StopChannel, PlaySample, sub_128280, AudioEnter, AudioLeaveCheck, IsChannelActive, sub_12D1C0, sub_12D210
 extern sub_FA9C4, AllocMemBlock, FreeMemBlock, sub_FAF70, addtimer, sub_FC008, unk_1CFCBC, word_170162
 global jpt_109E64, sub_109E74_2E, sub_109E74_57B, sub_109E74_613, sub_109E74_78F, AsyncInit, AsyncClose, AsyncRequestOpen
 global AsyncRequestSection, sub_109E54, sub_109E74, sub_10A788, sub_10A7D0, sub_10A844, sub_10A860, sub_10A868
@@ -1167,11 +1167,11 @@ sub_10A980:
         ret
 .1:
         xor ebx, ebx
-        call sub_12AB04
+        call AudioEnter
         mov dword [dword_170208], ebx
         mov dword [dword_170200], ebx
         mov dword [dword_170204], ebx
-        call sub_12AB0C
+        call AudioLeaveCheck
         cmp edx, byte 7Fh
         jg short .2
         test edx, edx
@@ -1262,7 +1262,7 @@ sub_10AA38:
         pop ecx
         ret
 .3:
-        call sub_12AB04
+        call AudioEnter
         mov edx, dword [dword_170200]
         lea eax, [byte edx+01h]
         mov dword [dword_170200], eax
@@ -1278,7 +1278,7 @@ sub_10AA38:
         mov dword [nosplit edx*8+dword_170164], edi
         mov cl, byte [byte esp+04h]
         mov byte [nosplit edx*8+byte_170161], cl
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, edx
 .5:
         add esp, byte 8
@@ -1342,19 +1342,19 @@ sub_10AB2C:
         pop ebx
         ret
 .2:
-        call sub_12AB04
+        call AudioEnter
         xor ebx, ebx
         mov eax, dword [dword_170210]
         mov dword [dword_170208], ebx
         call StopChannel
         mov eax, dword [dword_170214]
         call StopChannel
-        call sub_12AB04
+        call AudioEnter
         mov dword [dword_170208], ebx
         mov dword [dword_170200], ebx
         mov dword [dword_170204], ebx
-        call sub_12AB0C
-        call sub_12AB0C
+        call AudioLeaveCheck
+        call AudioLeaveCheck
         xor eax, eax
         pop ebx
         ret
@@ -1401,12 +1401,12 @@ sub_10ABC8:
         pop ecx
         ret
 .2:
-        call sub_12AB04
+        call AudioEnter
         cmp byte [byte_172BC5], 0
         je short .3
         cmp dword [dword_17015C], byte 0
         je short .3
-        call sub_12AB04
+        call AudioEnter
         xor ecx, ecx
         mov eax, dword [dword_170210]
         mov dword [dword_170208], ecx
@@ -1414,11 +1414,11 @@ sub_10ABC8:
         mov eax, dword [dword_170214]
         call StopChannel
         call sub_10ACF0
-        call sub_12AB0C
+        call AudioLeaveCheck
 .3:
         xor esi, esi
         mov dword [dword_172BC8], esi
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov dword [dword_17015C], esi
         xor eax, eax
         pop esi
@@ -1488,11 +1488,11 @@ sub_10AC48:
 sub_10ACF0:
         push edx
         xor edx, edx
-        call sub_12AB04
+        call AudioEnter
         mov dword [dword_170208], edx
         mov dword [dword_170200], edx
         mov dword [dword_170204], edx
-        call sub_12AB0C
+        call AudioLeaveCheck
         pop edx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -1522,12 +1522,12 @@ sub_10AD20:
         pop ecx
         ret
 .3:
-        call sub_12AB04
+        call AudioEnter
         mov eax, esi
-        call sub_12CD34
+        call IsChannelActive
         test eax, eax
         jge short .4
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, 0FFFFFFF8h
         pop esi
         pop ecx
@@ -1555,7 +1555,7 @@ sub_10AD20:
         sar edx, 1Fh
         idiv ecx
         mov dword [byte ebx+014h], eax
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop esi
         pop ecx

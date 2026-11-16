@@ -12,8 +12,8 @@ extern dword_1DC9A0, dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dwo
 extern dword_1DCAD4, dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC, dword_1DCAF0
 extern dword_1DCEC0, dword_1DCEC4, dword_1DCF38, dword_1DCF62, dword_1DD378, dword_1DD37C, int386_, ClearSpeechQueue
 extern sub_107154, sub_1072B4, sub_1072F0, sub_107308, sub_107370, sub_1077D0, sub_1077F8, sub_1078E4
-extern sub_1095C4, sub_10A860, sub_10A868, sub_10A8C4, sub_10AD20, sub_128280, sub_128680, sub_128D84
-extern sub_12AB04, sub_12AB0C, sub_12C8BC, sub_12C950, sub_12C970, sub_12C9D0, sub_12CA20, sub_12CD34
+extern sub_1095C4, sub_10A860, sub_10A868, sub_10A8C4, sub_10AD20, sub_128280, sub_128680, ProbeDspReset
+extern AudioEnter, AudioLeaveCheck, SbDetectDsp, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, IsChannelActive
 extern sub_12CEE1, sub_12D13B, sub_12D141, sub_12D150, RequestStreamRead, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
 extern AllocMemBlock, FreeMemBlock, unk_1072E0, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E
 global jpt_108240, MixChannelFormat_20, MixChannelFormat_FC, MixChannelFormat_1C0, MixChannelFormat_27B, strstr_, DetectSoundCard, ProbeSoundPorts
@@ -41,7 +41,7 @@ DetectSoundCard:
         mov eax, 0FFFFFFFDh
         jmp short .5
 .1:
-        call sub_12C8BC
+        call SbDetectDsp
         cmp eax, 100h
         jl short .4
         cmp eax, 300h
@@ -95,7 +95,7 @@ ProbeSoundPorts:
         movsd
 .1:
         mov eax, dword [esp+edx]
-        call sub_128D84
+        call ProbeDspReset
         test eax, eax
         jl short .2
         xor eax, eax
@@ -189,7 +189,7 @@ CloseDigitalAudio:
         pop ebx
         ret
 .1:
-        call sub_12C950
+        call StopAllSoundChannels
         mov eax, 0FFFFFFFFh
         call sub_107154
         call sub_107370
@@ -365,7 +365,7 @@ StartDigitalAudio:
         pop ebx
         ret
 .3:
-        call sub_12AB04
+        call AudioEnter
         mov byte [byte_1DD381], dl
         xor ebx, ebx
         xor ecx, ecx
@@ -375,7 +375,7 @@ StartDigitalAudio:
         cmp dword [dword ecx+dword_1DCF38], byte 0
         jl short .5
         mov eax, ebx
-        call sub_12C970
+        call StartChannel
         mov edx, dword [dword ecx+dword_1DCF62]
         mov eax, ebx
         sar edx, 18h
@@ -385,7 +385,7 @@ StartDigitalAudio:
         add ecx, byte 44h
         cmp ebx, byte 10h
         jl short .4
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop edx
         pop ecx
@@ -548,7 +548,7 @@ SetMixerVolumes:
         pop ebx
         ret
 .2:
-        call sub_12AB04
+        call AudioEnter
         mov byte [byte_170048], bl
         xor ebx, ebx
         mov dword [dword_170050], ebx
@@ -592,7 +592,7 @@ SetMixerVolumes:
         mov al, byte [byte eax+06h]
         and eax, 0FFh
         call SetMasterVolume
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
 .7:
         pop edi
@@ -649,7 +649,7 @@ SetMasterVolume:
         pop ebx
         ret
 .5:
-        call sub_12AB04
+        call AudioEnter
         mov eax, dword [dword_1CFC70]
         add ebx, eax
         mov eax, dword [byte ebx+02Ch]
@@ -692,7 +692,7 @@ SetMasterVolume:
         sar eax, 18h
         call PlaySample
 .8:
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop edx
         pop ecx
@@ -744,7 +744,7 @@ SetChannelVolume:
         pop ebx
         ret
 .5:
-        call sub_12AB04
+        call AudioEnter
         xor ecx, ecx
 .6:
         mov ebx, 0FFFFFFFFh
@@ -755,7 +755,7 @@ SetChannelVolume:
         cmp ecx, byte 20h
         jne short .6
         mov byte [byte_170044], 3
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop esi
         pop edx
@@ -784,7 +784,7 @@ SetChannelVolume:
         pop ebx
         ret
 .8:
-        call sub_12AB04
+        call AudioEnter
         xor ecx, ecx
         xor esi, esi
 .9:
@@ -805,7 +805,7 @@ SetChannelVolume:
         cmp ecx, byte 8
         jl short .9
         mov byte [byte_170044], 2
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop esi
         pop edx
@@ -851,7 +851,7 @@ StopAllChannels:
         pop edx
         ret
 .2:
-        call sub_12AB04
+        call AudioEnter
         xor edx, edx
 .3:
         mov eax, dword [dword edx+dword_170060]
@@ -860,7 +860,7 @@ StopAllChannels:
         cmp edx, byte 20h
         jne short .3
         mov byte [byte_170044], 1
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop edx
         ret
@@ -877,11 +877,11 @@ ResetSoundChannels:
         pop edx
         ret
 .1:
-        call sub_12AB04
+        call AudioEnter
         xor edx, edx
         call StopAllChannels
         mov dword [dword_172BCC], edx
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor dl, dl
         xor eax, eax
         mov byte [byte_170044], dl
@@ -960,7 +960,7 @@ MixChannelFormat_20:
         mov dword [dword_170050], ebp
         sar eax, 10h
         sar edx, 10h
-        call sub_12C9D0
+        call MixNoise
         add edx, eax
         mov dword [dword_170054], edx
         cmp edx, 1FFh
@@ -1027,7 +1027,7 @@ MixChannelFormat_FC:
         mov dword [dword_170050], edi
         sar eax, 10h
         sar edx, 10h
-        call sub_12C9D0
+        call MixNoise
         add edx, eax
         mov dword [dword_170054], edx
         cmp edx, 1FFh
@@ -1044,7 +1044,7 @@ MixChannelFormat_FC:
         shl ecx, 10h
         mov eax, dword [byte edx+01Ch]
         mov dword [dword_170054], ecx
-        call sub_12C9D0
+        call MixNoise
         mov ebx, dword [byte edx+018h]
         add ebx, eax
         cmp ebx, byte 1
@@ -1082,7 +1082,7 @@ MixChannelFormat_1C0:
         mov dword [dword_170050], ecx
         sar eax, 10h
         sar edx, 10h
-        call sub_12C9D0
+        call MixNoise
         add edx, eax
         mov dword [dword_170054], edx
         cmp edx, 1FFh
@@ -1097,7 +1097,7 @@ MixChannelFormat_1C0:
         shl dword [dword_170054], 10h
         mov edx, dword [dword_1CFC70]
         mov eax, dword [byte edx+010h]
-        call sub_12C9D0
+        call MixNoise
         mov ebx, dword [byte edx+0Ch]
         add ebx, eax
         cmp ebx, byte 1
@@ -1135,7 +1135,7 @@ MixChannelFormat_27B:
         mov dword [dword_170050], ebx
         sar eax, 10h
         sar edx, 10h
-        call sub_12C9D0
+        call MixNoise
         add edx, eax
         mov dword [dword_170054], edx
         cmp edx, 1FFh
@@ -1152,7 +1152,7 @@ MixChannelFormat_27B:
         mov edx, dword [dword_1CFC70]
         mov dword [dword_170054], eax
         mov eax, dword [byte edx+01Ch]
-        call sub_12C9D0
+        call MixNoise
         mov ebx, dword [byte edx+018h]
         mov edx, dword [dword_170050]
         add ebx, eax
@@ -1222,7 +1222,7 @@ MixVolumeRamp:
         call SetMusicStreamVolume
         mov edx, ecx
         mov eax, dword [dword ebx+dword_170060]
-        call sub_12CA20
+        call RampChannelVolume
 .2:
         add ebx, byte 4
         cmp ebx, byte 20h
@@ -1262,13 +1262,13 @@ SetMusicStreamVolume:
         pop ebx
         ret
 .3:
-        call sub_12AB04
+        call AudioEnter
         mov eax, ebx
-        call sub_12CD34
+        call IsChannelActive
         mov ebx, eax
         test eax, eax
         jge short .4
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, 0FFFFFFF8h
         pop ecx
         pop ebx
@@ -1283,12 +1283,12 @@ SetMusicStreamVolume:
         mov dword [byte ecx+014h], 0
         mov eax, ebx
         mov dword [byte ecx+01Ch], edx
-        call sub_12C970
+        call StartChannel
         mov edx, dword [byte ecx+02Ah]
         mov eax, ebx
         sar edx, 18h
         call sub_1077D0
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop ecx
         pop ebx
@@ -1634,7 +1634,7 @@ CloseAudioStreamChannel:
         or byte [byte_1700A5], 4
 .5:
         mov eax, dword [dword_170088]
-        call sub_12CD34
+        call IsChannelActive
         mov byte [byte_1700A0], al
         mov eax, dword [dword_170088]
         pop edx
@@ -1712,7 +1712,7 @@ FeedAudioStream:
         push edi
         push ebp
         mov ebx, eax
-        call sub_12AB04
+        call AudioEnter
         mov eax, dword [ebx]
         lea edx, [byte ebx+08h]
         cmp eax, 6C454353h
@@ -1770,7 +1770,7 @@ FeedAudioStream:
 .8:
         mov ebx, 3
         mov dword [dword_170098], edx
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, ebx
         pop ebp
         pop edi
@@ -1811,7 +1811,7 @@ FeedAudioStream:
         call CdStreamFreePacket
         add esp, byte 8
 .14:
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, ebx
         pop ebp
         pop edi
@@ -1850,7 +1850,7 @@ AudioStreamPosition:
         pop ebx
         ret
 .2:
-        call sub_12AB04
+        call AudioEnter
         xor eax, eax
 .3:
         mov ecx, dword [byte edx+04h]
@@ -1871,7 +1871,7 @@ AudioStreamPosition:
         sub edx, ebx
         shl edx, 3
         add edx, ebx
-        call sub_12AB0C
+        call AudioLeaveCheck
         shl edx, 2
         mov ebp, dword [dword_170084]
         mov eax, edx
@@ -2398,7 +2398,7 @@ ChannelPlaying:
         mov eax, 0FFFFFFF6h
         ret
 .1:
-        call sub_12CD34
+        call IsChannelActive
         test eax, eax
         jge short .2
         mov eax, 1
@@ -2424,9 +2424,9 @@ StopChannel:
         pop ebx
         ret
 .1:
-        call sub_12AB04
+        call AudioEnter
         mov eax, edx
-        call sub_12CD34
+        call IsChannelActive
         test eax, eax
         jl short .2
         call sub_1077F8
@@ -2434,7 +2434,7 @@ StopChannel:
 .2:
         mov ebx, 0FFFFFFF8h
 .3:
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, ebx
         pop edx
         pop ebx

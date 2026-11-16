@@ -6,10 +6,10 @@ extern str_DMABUFFER, str_DMABUFFER2, byte_172BF4, byte_172BF5, byte_172BF6, byt
 extern dword_172BDC, dword_172BE0, dword_172BE4, dword_172BE8, dword_172BEC, dword_172BF0, dword_19A75C, dword_1DCF24
 extern dword_1DCF28, dword_1DCF2C, dword_1DCF30, dword_1DCF34, dword_1DCF38, dword_1DD384, dword_1DD390, dword_1DD394
 extern dword_1DD398, dword_1DD39C, dword_1DD3A0, dword_1DD3A4, dword_1DD3A8, dword_1DD3AC, dword_1DD3B0, dword_1DD3B4
-extern jpt_12C300_24, memset_, sub_1073B0, sub_1073BC, sub_1073C0, sub_107988, sub_128CEC, sub_12AB04
-extern sub_12AB0C, sub_12AB6C, sub_12AD27, sub_12BE3C, sub_12C970, sub_12C9D0, sub_12CAD8, sub_12CD1C
+extern jpt_12C300_24, memset_, sub_1073B0, sub_1073BC, sub_1073C0, sub_107988, ReadBlasterPort, AudioEnter
+extern AudioLeaveCheck, sub_12AB6C, sub_12AD27, sub_12BE3C, StartChannel, MixNoise, UpdateChannels, SetChannelCount
 extern sub_136100, sub_136210, sub_1365EC, sub_1366D8, sub_136D2C, sub_13701C, sub_137022, sub_1371FB
-extern sub_137247, sub_13794C, sub_137966, sub_137981, sub_137D50, sub_FAAB4, FreeMemBlock, word_1DD388
+extern sub_137247, TimerCalibrate, TimerRestore, TimerSetRate, IrqAck, sub_FAAB4, FreeMemBlock, word_1DD388
 extern word_1DD38A
 global jpt_127FC0, sub_127FD0_B3, sub_127FD0_F0, sub_127FD0_FD, sub_127FD0_124, sub_127FD0_1B0, sub_127D70, sub_127DB4
 global sub_127FD0, sub_128280, sub_1282A0, sub_128680, sub_1286F0, sub_128734, sub_128878, sub_128880
@@ -651,7 +651,7 @@ sub_1282A0:
         mov eax, dword [byte esi+0Eh]
         sar eax, 18h
         mov ecx, dword [byte esp+010h]
-        call sub_12C9D0
+        call MixNoise
         add ecx, eax
         mov dword [byte esp+010h], ecx
 .21:
@@ -712,7 +712,7 @@ sub_1282A0:
         mov eax, dword [byte esi+014h]
         sar eax, 10h
         mov ebx, dword [byte esp+0Ch]
-        call sub_12C9D0
+        call MixNoise
         add ebx, eax
         mov dword [byte esp+0Ch], ebx
 .28:
@@ -738,17 +738,17 @@ sub_1282A0:
         mov dword [byte esp+04h], eax
         mov bl, byte [byte esi+08h]
 .31:
-        call sub_12AB04
+        call AudioEnter
         mov ecx, dword_1DD384
         xor edx, edx
         mov eax, dword [byte esp+04h]
         mov dl, byte [byte esi+0Fh]
-        call sub_12CAD8
+        call UpdateChannels
         mov edx, eax
         mov dword [byte esp+08h], eax
         test eax, eax
         jge short .32
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, edx
         add esp, byte 14h
         pop ebp
@@ -785,7 +785,7 @@ sub_1282A0:
         mov edx, eax
         mov eax, dword [byte esi+010h]
         sar eax, 18h
-        call sub_12C9D0
+        call MixNoise
         add edx, eax
         cmp edx, ecx
         jle short .33
@@ -833,7 +833,7 @@ sub_1282A0:
         mov byte [byte ebx+0Ah], al
         mov eax, dword [byte esp+08h]
         xor edx, edx
-        call sub_12C970
+        call StartChannel
         mov eax, dword [dword_172BC1]
         mov dl, byte [byte esi+0Eh]
         sar eax, 18h
@@ -863,11 +863,11 @@ sub_1282A0:
         jge short .35
         mov eax, dword [byte esp+08h]
         push eax
-        call sub_12CD1C
+        call SetChannelCount
         add esp, byte 4
         mov dword [dword_1DD384], ebx
 .35:
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, dword [dword_1DD384]
 .36:
         add esp, byte 14h
@@ -1107,7 +1107,7 @@ sub_128880:
         call sub_128734
         test eax, eax
         jl short .5
-        push sub_12CD1C
+        push SetChannelCount
         push dword 5622h
         push byte 3
         call sub_12AB6C
@@ -1331,7 +1331,7 @@ sub_1289B8:
         add eax, 10000h
         mov dword [dword_1DD3AC], eax
 .17:
-        call sub_128CEC
+        call ReadBlasterPort
         mov ebx, eax
         test eax, eax
         jge short .18
@@ -1351,7 +1351,7 @@ sub_1289B8:
         ret
 .18:
         sar eax, 10h
-        push sub_12CD1C
+        push SetChannelCount
         mov dword [dword_1DD3A0], eax
         mov eax, dword [dword_1DD3B0]
         push eax
@@ -1380,7 +1380,7 @@ sub_1289B8:
         mov eax, dword [dword_1DD3AC]
         push eax
         push ebx
-        call sub_13794C
+        call TimerCalibrate
         mov ebx, eax
         add esp, byte 8
         test eax, eax
@@ -1402,7 +1402,7 @@ sub_1289B8:
 .19:
         push byte 7Fh
         mov edi, 1
-        call sub_137981
+        call TimerSetRate
         mov eax, esi
         add esp, byte 4
         shl eax, 10h
@@ -1426,7 +1426,7 @@ sub_128C70:
         push esi
         cmp dword [dword_172BEC], byte 0
         je short .1
-        call sub_137966
+        call TimerRestore
         mov ebx, dword [dword_172BEC]
         push ebx
         call FreeMemBlock
@@ -1451,7 +1451,7 @@ sub_128CA8:
         push edx
         mov edx, dword [dword_1DD3A0]
         mov eax, dword [dword_1DD3A4]
-        call sub_137D50
+        call IrqAck
         mov dword [dword_1DD3B4], eax
         test eax, eax
         jl short .1

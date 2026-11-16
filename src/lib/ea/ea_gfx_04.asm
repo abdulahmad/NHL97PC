@@ -6,7 +6,7 @@ extern byte_172BC5, byte_1CFBF2, byte_1CFBF3, byte_1DCF44, byte_1DCF67, byte_1DC
 extern dword_17003C, dword_170040, dword_172AC0, dword_172AC4, dword_1CFBF4, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
 extern dword_1DCF62, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, bcopy, AddExitHandler, DetectSoundCard
 extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, sub_109401, sub_109545, sub_10955B, sub_10A930, sub_121888
-extern sub_128280, sub_1286F0, sub_129F80, sub_12A274, sub_12A8E0, sub_12AB40, sub_12AE02, sub_12AF0F
+extern sub_128280, sub_1286F0, ReadSoundscapeIni, SoundscapeCodecReady, AudioLeave, SampleFormatSize, sub_12AE02, sub_12AF0F
 extern sub_12AFAB, sub_12B03D, sub_12B061, sub_12BD70, FreeMemBlock, sub_FB618, addtimer, sub_FC008
 extern word_1CFBF0
 global jpt_1074C0, sub_1074E8_B1, sub_1074E8_C2, sub_1074E8_D3, sub_1074E8_E7, sub_1074E8_FB, sub_1074E8_10F, sub_1074E8_123
@@ -383,7 +383,7 @@ sub_107308:
         cmp dword [dword_170038], byte 0
         jne short .2
         mov esi, 1
-        push sub_12A8E0
+        push AudioLeave
         mov dword [dword_170038], esi
         call addtimer
         add esp, byte 4
@@ -412,7 +412,7 @@ sub_107370:
         push edx
         cmp dword [dword_170038], byte 0
         je short .1
-        push sub_12A8E0
+        push AudioLeave
         call sub_FC008
         xor ebx, ebx
         add esp, byte 4
@@ -511,7 +511,7 @@ sub_1073C0:
         mov eax, dword [byte esp+020h]
         mov dword [nosplit edi*8+dword_1CFBF4], edx
         mov edx, dword [byte esp+024h]
-        call sub_12AB40
+        call SampleFormatSize
         push eax
         mov edx, dword [byte esp+0Ch]
         push edx
@@ -711,7 +711,7 @@ sub_1074E8_140:
         mov dword [nosplit eax*8+dword_1CFBF4], ebx
         mov ebx, dword [byte esp+044h]
         mov eax, dword [byte esp+03Ch]
-        call sub_12AB40
+        call SampleFormatSize
         push eax
         mov ecx, dword [byte esp+04h]
         push ecx
@@ -900,7 +900,7 @@ sub_107808:
         sar ebx, 10h
         mov al, byte [nosplit eax*4+byte_1DCF67]
         and eax, 0FFh
-        call sub_12AB40
+        call SampleFormatSize
         mov ebx, eax
         test eax, eax
         jl short .1
@@ -945,7 +945,7 @@ sub_1078AC:
         mov dl, byte [nosplit eax*4+byte_1DCF68]
         sar ebx, 10h
         mov eax, esi
-        call sub_12AB40
+        call SampleFormatSize
         push eax
         push ecx
         call sub_12B03D
@@ -1103,10 +1103,10 @@ sub_1079E4:
         mov eax, 1
         ret
 .1:
-        call sub_129F80
+        call ReadSoundscapeIni
         test eax, eax
         jl short .2
-        call sub_12A274
+        call SoundscapeCodecReady
         test eax, eax
         jl short .2
         mov eax, 6

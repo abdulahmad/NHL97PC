@@ -5,8 +5,8 @@ section s_12AB6C progbits alloc exec nowrite align=1
 extern dword_172BD8, dword_172CA4, dword_173F64, dword_19469C, dword_1946A0, dword_1946A4, dword_1946A8, dword_1996A4
 extern dword_1996A8, dword_1996AC, dword_1996B0, dword_1996B4, dword_1996B8, dword_1996BC, dword_1996C0, dword_1996C4
 extern dword_1996C8, dword_1996D0, dword_1996D4, dword_1996D8, dword_1996DC, dword_1996E0, dword_1996E4, dword_1996E8
-extern dword_1DCF38, dword_1DD49C, off_1996EC, sub_1074E8, sub_10770C, sub_12AB04, sub_12AB0C, sub_12C78C
-extern sub_12C7A8, sub_12C970, sub_12C9D0, sub_12CAD8, sub_12CD1C, sub_1381E0, sub_138288, unk_1956A4
+extern dword_1DCF38, dword_1DD49C, off_1996EC, sub_1074E8, sub_10770C, AudioEnter, AudioLeaveCheck, SbReadData
+extern SbWaitRead, StartChannel, MixNoise, UpdateChannels, SetChannelCount, InitFloatFormat, FormatFloat, unk_1956A4
 extern unk_19972C, word_1DD4A0, word_1DD4A2, word_1DD4A4, word_1DD4A6, word_1DD4A8, word_1DD4AA, word_1DD4AC
 global jpt_12C300, sub_12B216_4A, sub_12B216_8F, sub_12B216_10C, sub_12B216_21B, sub_12B216_341, sub_12B769_7B, sub_12B769_102
 global sub_12B769_184, sub_12B769_20B, sub_12B769_291, sub_12B769_2B4, sub_12B769_330, sub_12B769_3AD, sub_12BC22_46, sub_12BC22_8A
@@ -14,6 +14,9 @@ global jpt_12C300_24, sub_12AB6C, sub_12AD27, sub_12AD6A, sub_12AE02, sub_12AF0F
 global sub_12B061, sub_12B0B1, sub_12B0F2, sub_12B110, sub_12B216, sub_12B611, sub_12B68A, sub_12B6EC
 global sub_12B769, sub_12BBA1, sub_12BC22, sub_12BCF7, sub_12BCF8, sub_12BCF9, sub_12BD46, sub_12BD47
 global sub_12BD48, sub_12BD70, sub_12BDA0, sub_12BE3C
+;-----------------------------------------------------------------------------
+; sub_12AB6C                                                          12AB6C  
+;-----------------------------------------------------------------------------
 sub_12AB6C:
         push ebp
         LD mov, ebp, esp
@@ -123,6 +126,9 @@ sub_12AB6C:
         pop esi
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_12AD27                                                          12AD27  
+;-----------------------------------------------------------------------------
 sub_12AD27:
         push ebp
         LD mov, ebp, esp
@@ -153,6 +159,9 @@ sub_12AD27:
         pop ebx
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_12AD6A                                                          12AD6A  
+;-----------------------------------------------------------------------------
 sub_12AD6A:
         push ebp
         LD mov, ebp, esp
@@ -202,6 +211,9 @@ sub_12AD6A:
         pop esi
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_12AE02                                                          12AE02  
+;-----------------------------------------------------------------------------
 sub_12AE02:
         push ebp
         LD mov, ebp, esp
@@ -285,6 +297,9 @@ sub_12AE02:
         pop ebx
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_12AF0F                                                          12AF0F  
+;-----------------------------------------------------------------------------
 sub_12AF0F:
         push ebp
         LD mov, ebp, esp
@@ -342,6 +357,9 @@ sub_12AF0F:
         pop esi
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_12AFAB                                                          12AFAB  
+;-----------------------------------------------------------------------------
 sub_12AFAB:
         push ebp
         LD mov, ebp, esp
@@ -400,6 +418,9 @@ sub_12AFAB:
         pop eax
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_12B03D                                                          12B03D  
+;-----------------------------------------------------------------------------
 sub_12B03D:
         push ebp
         LD mov, ebp, esp
@@ -420,6 +441,9 @@ sub_12B03D:
         pop ebx
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_12B061                                                          12B061  
+;-----------------------------------------------------------------------------
 sub_12B061:
         push ebp
         LD mov, ebp, esp
@@ -457,6 +481,9 @@ sub_12B061:
         pop esi
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_12B0B1                                                          12B0B1  
+;-----------------------------------------------------------------------------
 sub_12B0B1:
         push ebp
         LD mov, ebp, esp
@@ -486,6 +513,9 @@ sub_12B0B1:
         pop esi
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_12B0F2                                                          12B0F2  
+;-----------------------------------------------------------------------------
 sub_12B0F2:
         push ebp
         LD mov, ebp, esp
@@ -499,6 +529,9 @@ sub_12B0F2:
         pop esi
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_12B110                                                          12B110  
+;-----------------------------------------------------------------------------
 sub_12B110:
         push ebp
         LD mov, ebp, esp
@@ -548,11 +581,11 @@ sub_12B110:
         je short .10
         test dword [byte esi+04h], 2
         je short .9
-        lea eax, [sub_138288]
+        lea eax, [FormatFloat]
         mov dword [byte esi+05Ch], eax
         jmp short .10
 .9:
-        lea eax, [sub_1381E0]
+        lea eax, [InitFloatFormat]
         mov dword [byte esi+05Ch], eax
 .10:
         mov eax, dword [byte esi+04h]
@@ -602,6 +635,9 @@ sub_12B110:
         pop esi
         leave
         ret
+;-----------------------------------------------------------------------------
+; sub_12B216                                                          12B216  
+;-----------------------------------------------------------------------------
 sub_12B216:
         mov edx, dword [byte esi+014h]
         sub edx, dword [byte esi+018h]
@@ -942,6 +978,9 @@ sub_12B216_341:
         mov dword [byte esi+018h], ebx
         pop eax
         ret
+;-----------------------------------------------------------------------------
+; sub_12B611                                                          12B611  
+;-----------------------------------------------------------------------------
 sub_12B611:
         pusha
         add ebx, 2000h
@@ -981,6 +1020,9 @@ sub_12B611:
         mov dword [byte esi+030h], eax
         popa
         ret
+;-----------------------------------------------------------------------------
+; sub_12B68A                                                          12B68A  
+;-----------------------------------------------------------------------------
 sub_12B68A:
         push eax
         push ecx
@@ -1022,6 +1064,9 @@ sub_12B68A:
         pop ecx
         pop eax
         ret
+;-----------------------------------------------------------------------------
+; sub_12B6EC                                                          12B6EC  
+;-----------------------------------------------------------------------------
 sub_12B6EC:
         mov ebp, dword [dword_1996C4]
         lea ebp, [nosplit ebp*8+00h]
@@ -1055,6 +1100,9 @@ sub_12B6EC:
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_12B769                                                          12B769  
+;-----------------------------------------------------------------------------
 sub_12B769:
         mov ebp, dword [dword_1996C4]
         lea ebp, [nosplit ebp*8+00h]
@@ -1346,6 +1394,9 @@ sub_12B769_3AD:
         test ecx, 0FFFFFFFFh
         jne short .13
         ret
+;-----------------------------------------------------------------------------
+; sub_12BBA1                                                          12BBA1  
+;-----------------------------------------------------------------------------
 sub_12BBA1:
         mov ebp, dword [dword_1996C4]
         lea ebp, [nosplit ebp*8+00h]
@@ -1382,6 +1433,9 @@ sub_12BBA1:
         test ecx, 0FFFFFFFFh
         jne short .1
         ret
+;-----------------------------------------------------------------------------
+; sub_12BC22                                                          12BC22  
+;-----------------------------------------------------------------------------
 sub_12BC22:
         mov edi, dword [dword_1996B8]
         mov ecx, dword [dword_1996B0]
@@ -1457,10 +1511,19 @@ sub_12BC22_8A:
         mov byte [byte ecx+edi-01h], 0
         loop .7
         ret
+;-----------------------------------------------------------------------------
+; sub_12BCF7                                                          12BCF7  
+;-----------------------------------------------------------------------------
 sub_12BCF7:
         ret
+;-----------------------------------------------------------------------------
+; sub_12BCF8                                                          12BCF8  
+;-----------------------------------------------------------------------------
 sub_12BCF8:
         ret
+;-----------------------------------------------------------------------------
+; sub_12BCF9                                                          12BCF9  
+;-----------------------------------------------------------------------------
 sub_12BCF9:
         mov edi, dword [dword_1996B8]
         mov ecx, dword [dword_1996B0]
@@ -1486,10 +1549,19 @@ sub_12BCF9:
         mov word [byte edi+ecx*2-02h], 8000h
         loop .1
         ret
+;-----------------------------------------------------------------------------
+; sub_12BD46                                                          12BD46  
+;-----------------------------------------------------------------------------
 sub_12BD46:
         ret
+;-----------------------------------------------------------------------------
+; sub_12BD47                                                          12BD47  
+;-----------------------------------------------------------------------------
 sub_12BD47:
         ret
+;-----------------------------------------------------------------------------
+; sub_12BD48                                                          12BD48  
+;-----------------------------------------------------------------------------
 sub_12BD48:
         push es
         mov ax, ds
@@ -1503,6 +1575,9 @@ sub_12BD48:
         pop es
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_12BD70                                                          12BD70  
+;-----------------------------------------------------------------------------
 sub_12BD70:
         push ebx
         push ecx
@@ -1533,6 +1608,9 @@ sub_12BD70:
         mov dword [eax], 1
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_12BDA0                                                          12BDA0  
+;-----------------------------------------------------------------------------
 sub_12BDA0:
         mov dword [byte eax+04h], 0
         mov dword [byte eax+08h], 7Fh
@@ -1558,6 +1636,9 @@ sub_12BDA0:
         mov dword [byte eax+068h], unk_19972C
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_12BE3C                                                          12BE3C  
+;-----------------------------------------------------------------------------
 sub_12BE3C:
         push esi
         push edi
@@ -1755,7 +1836,7 @@ sub_12BE3C:
         je short .27
         mov eax, edi
         mov ebp, dword [byte esp+078h]
-        call sub_12C9D0
+        call MixNoise
         add ebp, eax
         mov dword [byte esp+078h], ebp
 .27:
@@ -1798,7 +1879,7 @@ sub_12BE3C:
         test edi, edi
         je short .33
         mov eax, edi
-        call sub_12C9D0
+        call MixNoise
         add esi, eax
 .33:
         cmp dword [dword esp+09Ch], byte 0FFFFFFFFh
@@ -1812,16 +1893,16 @@ sub_12BE3C:
         mov edi, dword [byte esp+014h]
         mov ebx, dword [byte esp+018h]
 .35:
-        call sub_12AB04
+        call AudioEnter
         mov ecx, dword_1DD49C
         mov edx, dword [byte esp+02Ch]
         mov eax, edi
-        call sub_12CAD8
+        call UpdateChannels
         mov edx, eax
         mov edi, eax
         test eax, eax
         jge short .36
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, edx
         add esp, 8Ch
         pop ebp
@@ -1865,7 +1946,7 @@ sub_12BE3C:
         mov edx, dword [byte esp+038h]
         test eax, eax
         je short .39
-        call sub_12C9D0
+        call MixNoise
         add edx, eax
 .39:
         cmp edx, byte 7Fh
@@ -1913,7 +1994,7 @@ sub_12BE3C:
         mov byte [byte ebx+0Ah], al
         mov eax, edi
         mov ebp, dword [dword esp+0A0h]
-        call sub_12C970
+        call StartChannel
         xor eax, eax
         push esi
         mov al, byte [byte ebx+030h]
@@ -1934,12 +2015,12 @@ sub_12BE3C:
         test eax, eax
         jge short .42
         push edi
-        call sub_12CD1C
+        call SetChannelCount
         mov eax, 0FFFFFFFFh
         add esp, byte 4
         mov dword [dword_1DD49C], eax
 .42:
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, dword [dword_1DD49C]
 .43:
         add esp, 8Ch
@@ -1958,6 +2039,9 @@ jpt_12C300:
         dd jpt_12C300_24.23
         dd jpt_12C300_24.24
         dd jpt_12C300_24.27
+;-----------------------------------------------------------------------------
+; jpt_12C300_24                                                       12C324  
+;-----------------------------------------------------------------------------
 jpt_12C300_24:
         push ecx
         push esi
@@ -2227,12 +2311,12 @@ jpt_12C300_24:
         mov al, 1
         mov dx, word [word_1DD4A8]
         out dx, al
-        call sub_12C78C
+        call SbReadData
         xor edx, edx
         xor al, al
         mov dx, word [word_1DD4A8]
         out dx, al
-        call sub_12C7A8
+        call SbWaitRead
         pop edx
         ret
         db 08Bh,0C0h

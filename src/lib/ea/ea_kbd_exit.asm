@@ -5,7 +5,7 @@ section s_12FB20 progbits alloc exec nowrite align=1
 extern str_ExitYN, dword_16E464, dword_16E468, dword_16E46C, dword_16E4C8, dword_16E6A8, dword_16F184, dword_199990
 extern dword_199994, dword_199998, dword_19999C, dword_1999A0, dword_1999A4, off_16E4D4, off_16E4D8, off_16E4DC
 extern off_16E4E0, str_PAUSEPRESSANYKEY, BlitConverted, PresentScreen, SaveDrawContext, RestoreDrawContext, CreateBitmapDefault, ConvertArtAt
-extern SaveTextState, RestoreTextState, sub_138D04, sub_138E00, sub_138EB0, sub_138F00, SetScreenTarget, sub_FBE40
+extern SaveTextState, RestoreTextState, DebugPrintf, DebugPrintAt, DebugPrintLine, DebugLineCount, SetScreenTarget, sub_FBE40
 extern MakeColor, sub_FCC40, FreeBitmap, SetDrawTarget, FillRect, SetTextColors, FillRectCorners, unk_16E8A0
 global sub_12FB20, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0, sub_13000C
 ;-----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ sub_12FB20:
         mov edx, dword [dword esp+0138h]
         push edx
         push dword_16E6A8
-        call sub_138D04
+        call DebugPrintf
         add esp, byte 14h
         call dword [off_16E4D8]
         push ebx
@@ -122,11 +122,11 @@ sub_12FB20:
         add eax, byte 9
         push eax
         push ebp
-        call sub_138E00
+        call DebugPrintAt
         add esp, byte 8
         call dword [off_16E4DC]
         push dword_16E6A8
-        call sub_138EB0
+        call DebugPrintLine
         add esp, byte 4
 .1:
         call dword [off_16E4E0]
@@ -162,7 +162,7 @@ sub_12FB20:
         mov ebp, dword [dword esp+0138h]
         push ebp
         push dword_16E6A8
-        call sub_138D04
+        call DebugPrintf
         add esp, byte 14h
         call dword [off_16E4D4]
         call SetScreenTarget
@@ -271,7 +271,7 @@ sub_12FDC8:
         push ebp
         push byte 0
         push dword_16E6A8
-        call sub_138D04
+        call DebugPrintf
         add esp, byte 14h
         call dword [off_16E4D8]
         mov edi, dword [dword_16E468]
@@ -309,13 +309,13 @@ sub_12FDC8:
         push eax
         mov ecx, dword [dword esp+0134h]
         push ecx
-        call sub_138E00
+        call DebugPrintAt
         add esp, byte 8
         call dword [off_16E4DC]
         mov edi, dword [dword esp+0134h]
         call PresentScreen
         push edi
-        call sub_138F00
+        call DebugLineCount
         add esp, byte 4
         call dword [off_16E4D4]
         mov edi, dword [dword_16E468]

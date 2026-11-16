@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_12D6C4 progbits alloc exec nowrite align=1
 extern byte_16E688, byte_16F794, byte_171C90, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, BlendShapeRows
-extern ConvertArtNew, FixedLerp, sub_12F270, sub_138910, sub_1389B0, sub_138A50, sub_138AE0, FreeMemBlock
+extern ConvertArtNew, FixedLerp, sub_12F270, DrawCharMono, DrawCharShadow, DrawCharOutline, DrawCharBold, FreeMemBlock
 extern unk_1DD4B8, unk_1DD5B8, unk_1DD738, unk_1DD838, unk_1DD938, unk_1DDA38, unk_1DDBB8, unk_1DDD38
 extern unk_1DDEB8, unk_1DDFB8, unk_1DE0B8, unk_1DE1B8, unk_1DE2B8, unk_1DE3B8, unk_1DE4B8, unk_1DE5B8
 global sub_12DD3C_13C, sub_12ED68_137, sub_12D6C4, sub_12D740, sub_12D784, sub_12DAC4, sub_12DC04, sub_12DD3C
@@ -1421,7 +1421,7 @@ sub_12E390:
         push edi
         lea eax, [dword esp+0C10h]
         push eax
-        call sub_138910
+        call DrawCharMono
         mov dword [dword esp+04814h], eax
         add esp, byte 14h
         mov edx, dword [dword esp+04824h]
@@ -1441,7 +1441,7 @@ sub_12E390:
         mov dword [dword esp+04818h], eax
         lea eax, [dword esp+03014h]
         push eax
-        call sub_138A50
+        call DrawCharOutline
         add esp, byte 18h
         mov eax, dword [dword esp+04800h]
         push eax
@@ -1455,7 +1455,7 @@ sub_12E390:
         push edi
         lea eax, [dword esp+02414h]
         push eax
-        call sub_138A50
+        call DrawCharOutline
         add esp, byte 18h
 .8:
         mov ecx, dword [dword esp+04838h]
@@ -1491,7 +1491,7 @@ sub_12E390:
         push edi
         lea eax, [byte esp+010h]
         push eax
-        call sub_1389B0
+        call DrawCharShadow
         add esp, byte 14h
         mov ebp, eax
         mov ecx, dword [dword esp+0482Ch]
@@ -1511,7 +1511,7 @@ sub_12E390:
         mov dword [dword esp+0481Ch], eax
         lea eax, [dword esp+01814h]
         push eax
-        call sub_138AE0
+        call DrawCharBold
         add esp, byte 18h
         mov eax, dword [dword esp+04804h]
         push ebp
@@ -1524,7 +1524,7 @@ sub_12E390:
         push edi
         lea eax, [dword esp+03C14h]
         push eax
-        call sub_138AE0
+        call DrawCharBold
         add esp, byte 18h
 .11:
         mov ebx, dword [dword esp+04840h]
