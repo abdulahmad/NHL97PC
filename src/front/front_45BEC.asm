@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_45BEC progbits alloc exec nowrite align=1
-extern __CHK, asc_161194, asc_1611A4, asc_1611AC, byte_1C135A, byte_1C135B, dword_16922E, dword_169240
+extern __CHK, str_CarrySS, str_GKSF, str_SPEECH, byte_1C135A, byte_1C135B, dword_16922E, dword_169240
 extern dword_169244, dword_169248, dword_169250, dword_169254, dword_169258, dword_16925C, dword_169260, dword_169264
 extern dword_16926C, dword_169274, dword_169278, dword_16927A, dword_16927C, dword_16927E, dword_169280, dword_169288
 extern dword_1697B4, dword_16981C, dword_169820, dword_1AC4F0, dword_1AC4F4, dword_1AC4F8, dword_1AC4FC, dword_1AC500
@@ -123,7 +123,7 @@ CommentaryEvent_66:
         mov eax, dword [byte ebp+03Eh]
         call sub_45628
         push eax
-        push asc_161194
+        push str_CarrySS
         lea eax, [dword ebp-05B6h]
         push eax
         call sprintf_
@@ -2757,7 +2757,7 @@ OpenSpeechFile:
         mov edx, dword [dword_1AC78C]
         shl eax, 2
         add eax, edx
-        mov edx, asc_1611A4
+        mov edx, str_GKSF
         add eax, byte 8
         call strcat_
 .3:
@@ -2807,7 +2807,7 @@ OpenSpeechFile:
         push byte 20h
         shl eax, 2
         push eax
-        push asc_1611AC
+        push str_SPEECH
         call AllocMemBlock
         mov edx, dword [dword_1AC78C]
         mov dword [byte edx+ebx+04h], eax
@@ -2990,7 +2990,7 @@ sub_47EA4:
         push byte 0
         lea ebx, [dword eax+03A0D4h]
         push ebx
-        push asc_1611AC
+        push str_SPEECH
         mov dword [dword_169260], ebx
         call AllocMemBlock
         add esp, byte 0Ch

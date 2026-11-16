@@ -3,11 +3,14 @@ bits 32
 %include "hockey.inc"
 section s_138FCE progbits alloc exec nowrite align=1
 extern IF@LOG10, _Envptr, _Envptr_w4, _Scale10V_, __CHP, __Nan_Inf_, ___env_mask, __cvt_
-extern __get_std_stream_, __set_EDOM_, __set_ERANGE_, _environ, _nfree_, _nmalloc_, asc_1682DD, dword_16841C
+extern __get_std_stream_, __set_EDOM_, __set_ERANGE_, _environ, _nfree_, _nmalloc_, str_In, dword_16841C
 extern dword_168420, dword_19C00C, dword_19C010, floor_, fputc_, fputs_, memset_, qword_168418
 extern sub_13B5D2
 global AdjField_, DoEFormat_, DoFFormat_, _FtoS_, _SetMaxPrec_, __rterrmsg_, __setenvp_, _matherr_
 global _set_matherr_, inp_, DoEFormat__A1, outp_, strtod_
+;-----------------------------------------------------------------------------
+; __setenvp_                                                   138FCE  library
+;-----------------------------------------------------------------------------
 __setenvp_:
         push ebx
         push ecx
@@ -100,9 +103,15 @@ __setenvp_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _SetMaxPrec_                                                 1390A2  library
+;-----------------------------------------------------------------------------
 _SetMaxPrec_:
         mov dword [dword_19C00C], eax
         ret
+;-----------------------------------------------------------------------------
+; DoEFormat_                                                   1390A8  library
+;-----------------------------------------------------------------------------
 DoEFormat_:
         push esi
         push edi
@@ -183,6 +192,9 @@ DoEFormat_:
 DoEFormat__A1:
         pop esi
         ret
+;-----------------------------------------------------------------------------
+; DoFFormat_                                                   13914B  library
+;-----------------------------------------------------------------------------
 DoFFormat_:
         push esi
         mov esi, ebx
@@ -248,6 +260,9 @@ DoFFormat_:
         mov byte [eax], 30h
         inc eax
         jmp short .8
+;-----------------------------------------------------------------------------
+; AdjField_                                                    1391AE  library
+;-----------------------------------------------------------------------------
 AdjField_:
         push ebp
         mov ebp, esp
@@ -306,6 +321,9 @@ AdjField_:
         pop ecx
         pop ebp
         ret
+;-----------------------------------------------------------------------------
+; _FtoS_                                                       13921F  library
+;-----------------------------------------------------------------------------
 _FtoS_:
         push ebp
         mov ebp, esp
@@ -558,6 +576,9 @@ _FtoS_:
         pop esi
         pop ebp
         ret 14h
+;-----------------------------------------------------------------------------
+; strtod_                                                      139459  library
+;-----------------------------------------------------------------------------
 strtod_:
         push ebp
         mov ebp, esp
@@ -779,9 +800,15 @@ strtod_:
         pop ebx
         pop ebp
         ret
+;-----------------------------------------------------------------------------
+; _set_matherr_                                                13964C  library
+;-----------------------------------------------------------------------------
 _set_matherr_:
         mov dword [dword_19C010], eax
         ret
+;-----------------------------------------------------------------------------
+; __rterrmsg_                                                  139652  library
+;-----------------------------------------------------------------------------
 __rterrmsg_:
         push ebx
         push ecx
@@ -795,7 +822,7 @@ __rterrmsg_:
         mov edx, ebx
         mov eax, dword [nosplit eax*4+dword_168420]
         call fputs_
-        mov eax, asc_1682DD
+        mov eax, str_In
         mov edx, ebx
         call fputs_
         mov edx, ebx
@@ -808,6 +835,9 @@ __rterrmsg_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _matherr_                                                    13969A  library
+;-----------------------------------------------------------------------------
 _matherr_:
         push ebx
         push edx
@@ -829,6 +859,9 @@ _matherr_:
         pop edx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; outp_                                                        1396C9  library
+;-----------------------------------------------------------------------------
 outp_:
         push ebx
         mov ebx, eax
@@ -837,6 +870,9 @@ outp_:
         out dx, al
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; inp_                                                         1396D3  library
+;-----------------------------------------------------------------------------
 inp_:
         push edx
         mov edx, eax

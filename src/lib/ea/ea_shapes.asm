@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_10376C progbits alloc exec nowrite align=1
-extern IF@ATAN2, asc_167E28, dword_167E08, dword_167E1C, dword_16E46C, dword_16E4A8, dword_16E4BC, dword_16FA04
+extern IF@ATAN2, str_Tube3, dword_167E08, dword_167E1C, dword_16E46C, dword_16E4A8, dword_16E4BC, dword_16FA04
 extern dword_16FA08, dword_16FA10, dword_16FA14, dword_1CF9F8, dword_1CF9FC, dword_1CFA04, dword_1DA4D0, hypot_
 extern off_16FA1C, qword_167DF0, qword_167DF8, qword_167E00, qword_167E0C, qword_167E14, qword_167E20, sub_100940
 extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_112894, sub_12233C, sub_1265D0, sub_126624
@@ -1306,7 +1306,7 @@ sub_1043A4:
         push byte 0
         shl eax, 2
         push eax
-        push asc_167E28
+        push str_Tube3
         xor ebx, ebx
         call AllocMemBlock
         add esp, byte 0Ch

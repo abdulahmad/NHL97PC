@@ -2,144 +2,144 @@
 bits 32
 %include "hockey.inc"
 section s_165A78 progbits alloc noexec write align=1
-global asc_165A78, asc_165A88, asc_165A9B, asc_165AA0, asc_165AA5, asc_165AAA, asc_165AAF, asc_165AB4
-global asc_165AB9, asc_165ABE, asc_165AC3, asc_165AC8, asc_165ACD, asc_165AD2, asc_165AD7, asc_165ADC
-global asc_165AE1, asc_165AE6, asc_165AEB, asc_165AF0, asc_165AF5, asc_165AFA, asc_165B01, asc_165B06
-global asc_165B0B, asc_165B10, asc_165B15, asc_165B1C, asc_165B28, asc_165B2D, asc_165B32, asc_165B41
-global asc_165B46, asc_165B4D, asc_165B5B, asc_165B6C, asc_165B71, asc_165B76, asc_165B7B, asc_165B80
-global asc_165B85, asc_165B8A, asc_165B8E, asc_165B95, asc_165B9A, asc_165B9F, asc_165BA4, asc_165BB1
-global asc_165BB9, asc_165BC0, asc_165BC5, asc_165BCA, asc_165BCF, asc_165BD4, asc_165BD9, asc_165BDE
-global asc_165BE3, asc_165BE8, asc_165BED, asc_165BF2, asc_165BF9, asc_165BFE, asc_165C09, unk_165BAB
+global str_EditLinesMenu, str_EditLinesRegions, str_00003, str_OVAL, str_CRCL, str_SW06, str_HLRT, str_HLLF
+global str_AB022, str_AB012, str_AB002, str_AB052, str_AB042, str_AB032, str_TITL5, str_STKL
+global str_STCR, str_DFLT, str_SBTL, str_TB07, str_TB06, str_DF02d, str_DF00, str_DF01
+global str_TV00, str_LMON, str_MN02d, str_UNPACKLOGOa, str_LOGO3, str_TILE, str_TempGameTeam, str_SW00
+global str_Roster2, str_ELPopupMenu, str_ELPopupRegions, str_1TOP2, str_2TOP2, str_3TOP2, str_1BOT2, str_2BOT2
+global str_3BOT2, str_Punct4, str_SL02d2, str_BTTM2, str_POWR, str_CHEK, str_CS, str_SS5
+global str_SS6, str_TB05, str_TB04, str_TB03, str_TB02, str_TB01, str_TB00, str_PB022
+global str_PB002, str_PB03, str_PB012, str_AR02d, str_FART, str_NOFACEFSH, str_FRR0, unk_165BAB
 global unk_165BAE
-asc_165A78:
+str_EditLinesMenu:
         db 065h,064h,069h,074h,020h,06Ch,069h,06Eh,065h,073h,020h,06Dh,065h,06Eh,075h,00h
-asc_165A88:
+str_EditLinesRegions:
         db 065h,064h,069h,074h,020h,06Ch,069h,06Eh,065h,073h,020h,072h,065h,067h,069h,06Fh
         db 06Eh,073h,00h
-asc_165A9B:
+str_00003:
         db 030h,030h,030h,030h,00h
-asc_165AA0:
+str_OVAL:
         db 04Fh,056h,041h,04Ch,00h
-asc_165AA5:
+str_CRCL:
         db 043h,052h,043h,04Ch,00h
-asc_165AAA:
+str_SW06:
         db 053h,057h,030h,036h,00h
-asc_165AAF:
+str_HLRT:
         db 048h,04Ch,052h,054h,00h
-asc_165AB4:
+str_HLLF:
         db 048h,04Ch,04Ch,046h,00h
-asc_165AB9:
+str_AB022:
         db 041h,042h,030h,032h,00h
-asc_165ABE:
+str_AB012:
         db 041h,042h,030h,031h,00h
-asc_165AC3:
+str_AB002:
         db 041h,042h,030h,030h,00h
-asc_165AC8:
+str_AB052:
         db 041h,042h,030h,035h,00h
-asc_165ACD:
+str_AB042:
         db 041h,042h,030h,034h,00h
-asc_165AD2:
+str_AB032:
         db 041h,042h,030h,033h,00h
-asc_165AD7:
+str_TITL5:
         db 054h,049h,054h,04Ch,00h
-asc_165ADC:
+str_STKL:
         db 053h,054h,04Bh,04Ch,00h
-asc_165AE1:
+str_STCR:
         db 053h,054h,043h,052h,00h
-asc_165AE6:
+str_DFLT:
         db 044h,046h,04Ch,054h,00h
-asc_165AEB:
+str_SBTL:
         db 053h,042h,054h,04Ch,00h
-asc_165AF0:
+str_TB07:
         db 054h,042h,030h,037h,00h
-asc_165AF5:
+str_TB06:
         db 054h,042h,030h,036h,00h
-asc_165AFA:
+str_DF02d:
         db 044h,046h,025h,030h,032h,064h,00h
-asc_165B01:
+str_DF00:
         db 044h,046h,030h,030h,00h
-asc_165B06:
+str_DF01:
         db 044h,046h,030h,031h,00h
-asc_165B0B:
+str_TV00:
         db 054h,056h,030h,030h,00h
-asc_165B10:
+str_LMON:
         db 04Ch,04Dh,04Fh,04Eh,00h
-asc_165B15:
+str_MN02d:
         db 04Dh,04Eh,025h,030h,032h,064h,00h
-asc_165B1C:
+str_UNPACKLOGOa:
         db 055h,04Eh,050h,041h,043h,04Bh,04Ch,04Fh,047h,04Fh,061h,00h
-asc_165B28:
+str_LOGO3:
         db 04Ch,04Fh,047h,04Fh,00h
-asc_165B2D:
+str_TILE:
         db 054h,049h,04Ch,045h,00h
-asc_165B32:
+str_TempGameTeam:
         db 074h,065h,06Dh,070h,020h,067h,061h,06Dh,065h,020h,074h,065h,061h,06Dh,00h
-asc_165B41:
+str_SW00:
         db 053h,057h,030h,030h,00h
-asc_165B46:
+str_Roster2:
         db 072h,06Fh,073h,074h,065h,072h,00h
-asc_165B4D:
+str_ELPopupMenu:
         db 045h,04Ch,020h,070h,06Fh,070h,075h,070h,020h,06Dh,065h,06Eh,075h,00h
-asc_165B5B:
+str_ELPopupRegions:
         db 045h,04Ch,020h,070h,06Fh,070h,075h,070h,020h,072h,065h,067h,069h,06Fh,06Eh,073h
         db 00h
-asc_165B6C:
+str_1TOP2:
         db 031h,054h,04Fh,050h,00h
-asc_165B71:
+str_2TOP2:
         db 032h,054h,04Fh,050h,00h
-asc_165B76:
+str_3TOP2:
         db 033h,054h,04Fh,050h,00h
-asc_165B7B:
+str_1BOT2:
         db 031h,042h,04Fh,054h,00h
-asc_165B80:
+str_2BOT2:
         db 032h,042h,04Fh,054h,00h
-asc_165B85:
+str_3BOT2:
         db 033h,042h,04Fh,054h,00h
-asc_165B8A:
+str_Punct4:
         db 020h,02Dh,020h,00h
-asc_165B8E:
+str_SL02d2:
         db 053h,04Ch,025h,030h,032h,064h,00h
-asc_165B95:
+str_BTTM2:
         db 042h,054h,054h,04Dh,00h
-asc_165B9A:
+str_POWR:
         db 050h,04Fh,057h,052h,00h
-asc_165B9F:
+str_CHEK:
         db 043h,048h,045h,04Bh,00h
-asc_165BA4:
+str_CS:
         db 025h,063h,02Eh,020h,025h,073h,00h
 unk_165BAB:
         db 025h,064h,00h
 unk_165BAE:
         db 025h,063h,00h
-asc_165BB1:
+str_SS5:
         db 025h,073h,020h,025h,073h,020h,02Dh,00h
-asc_165BB9:
+str_SS6:
         db 025h,073h,02Ch,020h,025h,073h,00h
-asc_165BC0:
+str_TB05:
         db 054h,042h,030h,035h,00h
-asc_165BC5:
+str_TB04:
         db 054h,042h,030h,034h,00h
-asc_165BCA:
+str_TB03:
         db 054h,042h,030h,033h,00h
-asc_165BCF:
+str_TB02:
         db 054h,042h,030h,032h,00h
-asc_165BD4:
+str_TB01:
         db 054h,042h,030h,031h,00h
-asc_165BD9:
+str_TB00:
         db 054h,042h,030h,030h,00h
-asc_165BDE:
+str_PB022:
         db 050h,042h,030h,032h,00h
-asc_165BE3:
+str_PB002:
         db 050h,042h,030h,030h,00h
-asc_165BE8:
+str_PB03:
         db 050h,042h,030h,033h,00h
-asc_165BED:
+str_PB012:
         db 050h,042h,030h,031h,00h
-asc_165BF2:
+str_AR02d:
         db 041h,052h,025h,030h,032h,064h,00h
-asc_165BF9:
+str_FART:
         db 046h,041h,052h,054h,00h
-asc_165BFE:
+str_NOFACEFSH:
         db 04Eh,04Fh,046h,041h,043h,045h,02Eh,046h,053h,048h,00h
-asc_165C09:
+str_FRR0:
         db 046h,052h,052h,030h,00h,00h,00h

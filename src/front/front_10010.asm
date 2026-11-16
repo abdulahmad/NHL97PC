@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_10000 progbits alloc exec nowrite align=1
-extern SortCords, __STOSB, _nfree_, _nmalloc_, _searchenv_, asc_160004, asc_160010, asc_1684B0
+extern SortCords, __STOSB, _nfree_, _nmalloc_, _searchenv_, str_PATH2, str_JSTICKS, str_DOSJoystick
 extern awtmstruct, byte_1684C8, byte_16E35C, byte_19C3E0, byte_19C3E6, byte_19C620, byte_19CA30, byte_19CA31
 extern byte_19CB70, byte_19CBC2, byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CCAF, byte_19CCC6, byte_19CD05
 extern byte_19D604, byte_19D636, byte_19EB38, byte_19EB5C, byte_19EC44, byte_19EC68, dword_1684C0, dword_1684C4
@@ -434,7 +434,7 @@ LoadGripLibrary:
         cmp byte [esp], 0
         jne short .1
         mov ebx, esp
-        mov edx, asc_160004
+        mov edx, str_PATH2
         mov eax, str_GRIPGLL
         call _searchenv_
 .1:
@@ -573,7 +573,7 @@ LoadJoystickConfig:
         push byte 20h
         shl eax, 2
         push eax
-        push asc_160010
+        push str_JSTICKS
         xor ebx, ebx
         call AllocMemBlock
         mov bx, word [word_1684BE]
@@ -829,7 +829,7 @@ LoadJoystickConfig:
         mov eax, dword [dword_1684C0]
         or byte [eax], 8
         mov eax, dword [dword_1684C0]
-        mov edx, asc_1684B0
+        mov edx, str_DOSJoystick
         add eax, byte 4
         call strcpy_
         mov eax, dword [dword_1684C0]
@@ -885,7 +885,7 @@ LoadJoystickConfig:
         or ch, 8
         mov byte [byte eax+038h], ch
         mov eax, dword [dword_1684C0]
-        mov edx, asc_1684B0
+        mov edx, str_DOSJoystick
         add eax, byte 3Ch
         call strcpy_
         mov eax, dword [dword_1684C0]
@@ -978,7 +978,7 @@ sub_10A68:
         mov eax, dword [dword_1684C0]
         or byte [eax], 8
         mov eax, dword [dword_1684C0]
-        mov edx, asc_1684B0
+        mov edx, str_DOSJoystick
         add eax, byte 4
         call strcpy_
         mov eax, dword [dword_1684C0]
@@ -1043,7 +1043,7 @@ sub_10A68:
         or bh, 8
         mov byte [byte eax+038h], bh
         mov eax, dword [dword_1684C0]
-        mov edx, asc_1684B0
+        mov edx, str_DOSJoystick
         add eax, byte 3Ch
         call strcpy_
         mov eax, dword [dword_1684C0]

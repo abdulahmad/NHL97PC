@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_FDDD4 progbits alloc exec nowrite align=1
 extern IF@DACOS, IF@SQRT, __@DEXP, __CHP, __fdiv_fpr, __fpatan_wrap, __pow87_err_, __prtf_
-extern asc_167D94, byte_16E688, byte_17268C, dword_167D99, dword_167D9D, dword_167DC1, dword_167DC5, dword_16E678
+extern str_Acos, byte_16E688, byte_17268C, dword_167D99, dword_167D9D, dword_167DC1, dword_167DC5, dword_16E678
 extern dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0
 extern dword_16F140, dword_16F144, dword_16F148, dword_170254, dword_170258, dword_17025C, dword_170260, dword_170264
 extern dword_170268, dword_1CF528, dword_1CF52C, dword_1CF530, dword_1CF534, dword_1CF538, dword_1CF53C, dword_1CF540
@@ -1639,7 +1639,7 @@ sub_FEFC4:
         mov ebx, eax
         cmp dword [eax], byte 1
         jne short .4
-        mov edx, asc_167D94
+        mov edx, str_Acos
         mov eax, dword [byte eax+04h]
         call strcmp_
         test eax, eax

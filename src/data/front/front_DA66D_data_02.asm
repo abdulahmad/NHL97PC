@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_16D894 progbits alloc noexec write align=1
 extern unk_167560, unk_167574, unk_167588
-global asc_16DADC, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, dword_16D894, dword_16D898, dword_16D89C
+global str_GenericHayesCompatible, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, dword_16D894, dword_16D898, dword_16D89C
 global dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0, dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8
 global dword_16D8DC, InputRecordTail, InputRecordHead, InputRecordCount, dword_16D918, InputRecordStamp, dword_16D93A, dword_16DA9C
 global dword_16DAA0, dword_16DAA4, dword_16DAA8, dword_16DAAC, dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC
@@ -135,7 +135,7 @@ word_16DAD0:
         db 04h,00h
 dword_16DAD2:
         db 07h,00h,02h,00h,01h,00h,02h,00h,01h,00h
-asc_16DADC:
+str_GenericHayesCompatible:
         db 047h,065h,06Eh,065h,072h,069h,063h,020h,048h,061h,079h,065h,073h,02Dh,043h,06Fh
         db 06Dh,070h,061h,074h,069h,062h,06Ch,065h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,041h,054h,026h,046h,026h,04Bh,030h,026h,051h,030h

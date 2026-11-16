@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_1670CF progbits alloc noexec write align=1
-global asc_1670D2, asc_1670DE, asc_1670E7, asc_1670ED, asc_1670F7, asc_1670FE, asc_167110, str_EASports
+global str_SDDD, str_SSS2, str_SS13, str_SSS3, str_Roster4, str_SVsSDDD, str_SDSD2, str_EASports
 global unk_1670CF, unk_16711C, unk_167124, unk_167128, unk_167130, unk_167138, unk_16713C, unk_167144
 global unk_167148, unk_167150, unk_167154, unk_16715C, unk_167160, unk_167168, unk_16716C, unk_167178
 global unk_16717C, unk_167184, unk_167188, unk_167190, unk_167194, unk_16719C, unk_1671A0, unk_1671A8
@@ -12,20 +12,20 @@ global unk_167214, unk_16721C, unk_167220, unk_167228, unk_16722C, unk_167234, u
 global unk_167240, unk_167244, unk_167250, unk_167260, unk_167264, unk_16726C, unk_16727C
 unk_1670CF:
         db 025h,073h,00h
-asc_1670D2:
+str_SDDD:
         db 025h,073h,020h,025h,064h,02Dh,025h,064h,02Dh,025h,064h,00h
-asc_1670DE:
+str_SSS2:
         db 025h,073h,020h,025h,073h,020h,025h,073h,00h
-asc_1670E7:
+str_SS13:
         db 025h,073h,020h,025h,073h,00h
-asc_1670ED:
+str_SSS3:
         db 025h,073h,02Ch,020h,025h,073h,020h,025h,073h,00h
-asc_1670F7:
+str_Roster4:
         db 072h,06Fh,073h,074h,065h,072h,00h
-asc_1670FE:
+str_SVsSDDD:
         db 025h,073h,020h,076h,073h,020h,025h,073h,03Ah,025h,064h,02Dh,025h,064h,02Dh,025h
         db 064h,00h
-asc_167110:
+str_SDSD2:
         db 025h,073h,020h,025h,064h,020h,025h,073h,020h,025h,064h,00h
 unk_16711C:
         db 042h,061h,072h,061h,073h,073h,06Fh,00h

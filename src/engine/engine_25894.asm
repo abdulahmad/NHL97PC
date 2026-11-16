@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_25894 progbits alloc exec nowrite align=1
-extern AllInPlace, GiveControl, IF@ATAN2, IF@DFMOD, SortCords, __CHP, asc_1606D4, awtmstruct
+extern AllInPlace, GiveControl, IF@ATAN2, IF@DFMOD, SortCords, __CHP, str_Cuppal, awtmstruct
 extern byte_19CB70, byte_19CB74, byte_19CB7E, byte_19CB8A, byte_19CB8B, byte_19CBC2, byte_19CBC8, byte_19CBCA
 extern byte_19CBCC, byte_19CBFC, byte_19DAD4, byte_19DAD6, byte_19DAEF, byte_19EAC6, byte_19EBD2, changeplayer
 extern dword_160688, dword_16068C, dword_160690, dword_160694, dword_160698, dword_16069C, dword_1606A0, dword_1606A4
@@ -5984,7 +5984,7 @@ assstanley:
         mov bh, dl
         push dword 300h
         and bh, 0FDh
-        push asc_1606D4
+        push str_Cuppal
         mov byte [dword eax+0BFh], bh
         call AllocMemBlock
         add esp, byte 0Ch

@@ -2,16 +2,16 @@
 bits 32
 %include "hockey.inc"
 section s_8E997 progbits alloc exec nowrite align=1
-extern _dos_gettime_, asc_1655B4, asc_1655BC, asc_1655C1, asc_1655C6, asc_1655D3, asc_1655E0, asc_1655E5
-extern asc_1655EA, asc_1655EF, asc_1655F4, asc_16561D, asc_165622, asc_165627, asc_16562C, asc_165631
-extern asc_16563F, asc_16564A, asc_165657, asc_16565C, asc_165666, asc_16566B, asc_16567C, asc_16568D
-extern asc_16569E, asc_1656AF, asc_1656C0, asc_1656D1, asc_1656FA, asc_1656FF, asc_165704, asc_165709
-extern asc_16570E, asc_165713, asc_165718, asc_16571D, asc_165722, asc_165727, asc_16572C, asc_165731
-extern asc_165736, asc_16573B, asc_165740, asc_165745, asc_16574A, asc_16574F, asc_165754, asc_165759
-extern asc_16575E, asc_165765, asc_16576A, asc_16576F, asc_165774, asc_16577B, asc_165783, asc_165787
-extern asc_16578C, asc_165796, asc_16579B, asc_1657C4, asc_1657D2, asc_1657D9, asc_1657E0, asc_1657E5
-extern asc_1657FB, asc_16580C, asc_16581E, asc_165835, asc_165839, asc_16583E, asc_16584B, asc_165858
-extern asc_165864, asc_16586F, byte_169038, byte_16CCF0, byte_1ACD2D, byte_1ACF62, byte_1ACF63, byte_1ACF69
+extern _dos_gettime_, str_Newmenu, str_000W, str_TTLW, str_012R013R014R, str_12SR13SR14SR, str_WC00, str_WC01
+extern str_011R, str_11SR, str_LBL1LBL2LBL3LBR1LBR2LTL1L, str_000E, str_TTLE, str_EC00, str_EC01, str_SSEASONNDX
+extern str_SEASONNDX, str_SEAS04dSET, str_SS3, str_Delstring, str_Menu2, str_SD00SD01SD02SD03, str_RL00RL01RL02RL03, str_SN00SN01SN02SN03
+extern str_SR00SR01SR02SR03, str_SG00SG01SG02SG03, str_DT00DT01DT02DT03, str_LBL1LBL2LBL3LBR1LBR2LTL1L2, str_BGWS, str_BGES, str_SD02, str_SD01
+extern str_SD00, str_RL02, str_RL01, str_RL00, str_SN02, str_SN01, str_SN00, str_SR02
+extern str_SR01, str_SR00, str_SG02, str_SG01, str_SG00, str_DT02, str_DT01, str_DT00
+extern str_LG02d, str_DIV3, str_DIV4, str_DIV1, str_DIV2, str_Factoid, str_Rts, str_Ross
+extern str_Standmenu, str_FACT, str_LBL1LBL2LBL3LBR1LBR2LTL1L3, str_DDD3, str_Ptlist, str_Idlist, str_List, str_SSSDSS
+extern str_SSDSS, str_SSDSS2, str_SSD02dSS, str_S3, str_S4, str_SSEASDSET, str_Importagents, str_FakeEXHIBIT
+extern str_FakeAGENTS, str_Agents, byte_169038, byte_16CCF0, byte_1ACD2D, byte_1ACF62, byte_1ACF63, byte_1ACF69
 extern byte_1AD23E, byte_1C6040, byte_1C8700, dword_168E80, dword_168F58, dword_168FB8, dword_168FD0, dword_169004
 extern dword_16CB7C, dword_16CD50, dword_16CD54, dword_16CD58, dword_16CD60, dword_16CD64, dword_16CDD0, dword_16DA9C
 extern dword_1AC940, dword_1AC944, dword_1ACF3A, dword_1ACF3E, dword_1ACF42, dword_1ACF46, dword_1ACF4A, dword_1AD226
@@ -294,7 +294,7 @@ NewSeasonScreen:
         push byte 0
         push dword 616h
         lea eax, [byte ebp-04h]
-        push asc_1655B4
+        push str_Newmenu
         mov dword [byte ebp-04Ch], eax
         call AllocMemBlock
         add esp, byte 0Ch
@@ -321,26 +321,26 @@ NewSeasonScreen:
         mov eax, 3
         call sub_419B0
         call sub_419B8
-        push asc_1655BC
+        push str_000W
         push edx
         call FindShape
         add esp, byte 8
         mov esi, eax
         mov dword [byte ebp-08h], eax
-        push asc_1655C1
+        push str_TTLW
         movsx eax, word [byte eax+0Eh]
         push dword [byte ebp-01Ch]
         mov dword [byte ebp-0Ch], eax
         call FindShape
         add esp, byte 8
         push dword_1C85D0
-        push asc_1655C6
+        push str_012R013R014R
         push dword [byte ebp-01Ch]
         mov dword [byte ebp-030h], eax
         call FindShapeList
         add esp, byte 0Ch
         push unk_1C85DC
-        push asc_1655D3
+        push str_12SR13SR14SR
         push dword [byte ebp-01Ch]
         call FindShapeList
         add esp, byte 0Ch
@@ -372,27 +372,27 @@ NewSeasonScreen:
         lea edi, [dword esi+05C4h]
         mov esi, unk_1C5F9C
         rep movsb
-        push asc_1655E0
+        push str_WC00
         mov eax, dword [dword_1C86F8]
         push dword [byte ebp-01Ch]
         mov dword [dword eax+05C4h], 12h
         call FindShape
         add esp, byte 8
-        push asc_1655E5
+        push str_WC01
         mov edx, eax
         mov eax, dword [dword_1C86F8]
         push dword [byte ebp-01Ch]
         mov dword [dword eax+04E8h], edx
         call FindShape
         add esp, byte 8
-        push asc_1655E5
+        push str_WC01
         mov edx, eax
         mov eax, dword [dword_1C86F8]
         push dword [byte ebp-01Ch]
         mov dword [dword eax+04ECh], edx
         call FindShape
         add esp, byte 8
-        push asc_1655EA
+        push str_011R
         mov edx, eax
         mov eax, dword [dword_1C86F8]
         push dword [byte ebp-01Ch]
@@ -405,7 +405,7 @@ NewSeasonScreen:
         mov eax, edx
         add esp, byte 8
         mov dword [dword esi+053Eh], eax
-        push asc_1655EF
+        push str_11SR
         mov eax, dword [dword_1C86F8]
         push dword [byte ebp-01Ch]
         mov dword [dword eax+053Ah], edx
@@ -457,7 +457,7 @@ NewSeasonScreen:
         cmp esi, byte 12h
         jl short .2
         push dword_1C8540
-        push asc_1655F4
+        push str_LBL1LBL2LBL3LBR1LBR2LTL1L
         push dword [byte ebp-034h]
         call FindShapeList
         add esp, byte 0Ch
@@ -797,52 +797,52 @@ NewSeasonScreen:
         xor byte [byte ebp-024h], 1
         cmp dword [byte ebp-024h], byte 0
         je short .23
-        push asc_16561D
+        push str_000E
         push dword [byte ebp-034h]
         call FindShape
         add esp, byte 8
-        push asc_165622
+        push str_TTLE
         push dword [byte ebp-020h]
         mov dword [byte ebp-08h], eax
         call FindShape
         add esp, byte 8
-        push asc_165627
+        push str_EC00
         push dword [byte ebp-020h]
         mov dword [byte ebp-030h], eax
         call FindShape
         add esp, byte 8
-        push asc_16562C
+        push str_EC01
         mov edx, eax
         mov eax, dword [dword_1C86F8]
         push dword [byte ebp-020h]
         mov dword [dword eax+04E8h], edx
         call FindShape
         add esp, byte 8
-        push asc_16562C
+        push str_EC01
         jmp short .24
 .23:
-        push asc_1655BC
+        push str_000W
         push dword [byte ebp-034h]
         call FindShape
         add esp, byte 8
-        push asc_1655C1
+        push str_TTLW
         push dword [byte ebp-020h]
         mov dword [byte ebp-08h], eax
         call FindShape
         add esp, byte 8
-        push asc_1655E0
+        push str_WC00
         push dword [byte ebp-020h]
         mov dword [byte ebp-030h], eax
         call FindShape
         add esp, byte 8
-        push asc_1655E5
+        push str_WC01
         mov edx, eax
         mov eax, dword [dword_1C86F8]
         push dword [byte ebp-020h]
         mov dword [dword eax+04E8h], edx
         call FindShape
         add esp, byte 8
-        push asc_1655E5
+        push str_WC01
 .24:
         mov edx, eax
         mov eax, dword [dword_1C86F8]
@@ -1476,7 +1476,7 @@ CreateSeason:
         call MakeDirPath
         lea eax, [byte ebp-06Eh]
         push eax
-        push asc_165631
+        push str_SSEASONNDX
         lea eax, [dword ebp-0BEh]
         push eax
         call sprintf_
@@ -1487,12 +1487,12 @@ CreateSeason:
         add esp, byte 4
         test eax, eax
         jne short .15
-        mov edx, asc_16563F
+        mov edx, str_SEASONNDX
         lea eax, [byte ebp-06Eh]
         call NameIndexNew
         jmp short .16
 .15:
-        mov edx, asc_16563F
+        mov edx, str_SEASONNDX
         lea eax, [byte ebp-06Eh]
         call NameIndexLoad
 .16:
@@ -1500,7 +1500,7 @@ CreateSeason:
         mov eax, esi
         call sub_867D4
         push eax
-        push asc_16564A
+        push str_SEAS04dSET
         lea eax, [byte ebp-01Eh]
         push eax
         call sprintf_
@@ -1509,7 +1509,7 @@ CreateSeason:
         push eax
         lea eax, [byte ebp-06Eh]
         push eax
-        push asc_165657
+        push str_SS3
         lea eax, [dword ebp-0BEh]
         push eax
         call sprintf_
@@ -1805,12 +1805,12 @@ SeasonMenuScreen:
         call sub_9260A
         push byte 0
         push dword 3E8h
-        push asc_16565C
+        push str_Delstring
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 0B88h
-        push asc_165666
+        push str_Menu2
         mov dword [byte ebp-034h], eax
         call AllocMemBlock
         add esp, byte 0Ch
@@ -1835,37 +1835,37 @@ SeasonMenuScreen:
         call sub_419B0
         call sub_419B8
         push dword_1C85D0
-        push asc_16566B
+        push str_SD00SD01SD02SD03
         push ebx
         call FindShapeList
         add esp, byte 0Ch
         push unk_1C85DC
-        push asc_16567C
+        push str_RL00RL01RL02RL03
         push ebx
         call FindShapeList
         add esp, byte 0Ch
         push unk_1C85E8
-        push asc_16568D
+        push str_SN00SN01SN02SN03
         push ebx
         call FindShapeList
         add esp, byte 0Ch
         push unk_1C85F4
-        push asc_16569E
+        push str_SR00SR01SR02SR03
         push ebx
         call FindShapeList
         add esp, byte 0Ch
         push unk_1C8600
-        push asc_1656AF
+        push str_SG00SG01SG02SG03
         push ebx
         call FindShapeList
         add esp, byte 0Ch
         push unk_1C860C
-        push asc_1656C0
+        push str_DT00DT01DT02DT03
         push ebx
         call FindShapeList
         add esp, byte 0Ch
         push dword_1C8540
-        push asc_1656D1
+        push str_LBL1LBL2LBL3LBR1LBR2LTL1L2
         push esi
         call FindShapeList
         add esp, byte 0Ch
@@ -1874,10 +1874,10 @@ SeasonMenuScreen:
         call InitMenuItems
         cmp dword [byte ebp-024h], byte 3
         jne short .3
-        push asc_1656FA
+        push str_BGWS
         jmp short .4
 .3:
-        push asc_1656FF
+        push str_BGES
 .4:
         push esi
         call FindShape
@@ -1909,54 +1909,54 @@ SeasonMenuScreen:
         mov dword [dword eax+0B36h], 23h
         lea eax, [dword ebp-09C0h]
         push eax
-        mov ebx, asc_16570E
+        mov ebx, str_SD00
         mov edx, dword [byte ebp-018h]
-        push asc_165704
+        push str_SD02
         mov eax, dword [dword_1C86F0]
-        mov ecx, asc_165709
+        mov ecx, str_SD01
         add eax, 0A4h
         call sub_81D1C
         lea eax, [dword ebp-0980h]
         push eax
-        mov ecx, asc_165718
-        mov ebx, asc_16571D
-        push asc_165713
+        mov ecx, str_RL01
+        mov ebx, str_RL00
+        push str_RL02
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 0F6h
         call sub_81D1C
         lea eax, [dword ebp-0940h]
         push eax
-        mov ecx, asc_165727
-        mov ebx, asc_16572C
-        push asc_165722
+        mov ecx, str_SN01
+        mov ebx, str_SN00
+        push str_SN02
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 148h
         call sub_81D1C
         lea eax, [dword ebp-0900h]
         push eax
-        mov ecx, asc_165736
-        mov ebx, asc_16573B
-        push asc_165731
+        mov ecx, str_SR01
+        mov ebx, str_SR00
+        push str_SR02
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 19Ah
         call sub_81D1C
         lea eax, [dword ebp-08C0h]
         push eax
-        mov ecx, asc_165745
-        mov ebx, asc_16574A
-        push asc_165740
+        mov ecx, str_SG01
+        mov ebx, str_SG00
+        push str_SG02
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 1ECh
         call sub_81D1C
         lea eax, [dword ebp-0880h]
         push eax
-        mov ecx, asc_165754
-        mov ebx, asc_165759
-        push asc_16574F
+        mov ecx, str_DT01
+        mov ebx, str_DT00
+        push str_DT02
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 23Eh
@@ -1965,16 +1965,16 @@ SeasonMenuScreen:
         jne short .5
         lea eax, [dword ebp-01C0h]
         push eax
-        mov ecx, asc_1655E5
-        mov ebx, asc_1655E0
-        push asc_1655E5
+        mov ecx, str_WC01
+        mov ebx, str_WC00
+        push str_WC01
         jmp short .6
 .5:
         lea eax, [dword ebp-01C0h]
         push eax
-        mov ecx, asc_16562C
-        mov ebx, asc_165627
-        push asc_16562C
+        mov ecx, str_EC01
+        mov ebx, str_EC00
+        push str_EC01
 .6:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
@@ -2090,7 +2090,7 @@ SeasonMenuScreen:
         mov eax, dword [byte ebp-028h]
         neg eax
         push eax
-        push asc_1656FA
+        push str_BGWS
         jmp short .20
 .19:
         mov eax, dword [byte ebp-01Ch]
@@ -2100,7 +2100,7 @@ SeasonMenuScreen:
         mov eax, dword [byte ebp-028h]
         neg eax
         push eax
-        push asc_1656FF
+        push str_BGES
 .20:
         push dword [byte ebp-020h]
         call FindShape
@@ -2109,7 +2109,7 @@ SeasonMenuScreen:
         call sub_1013CC
         add esp, byte 0Ch
         push esi
-        push asc_16575E
+        push str_LG02d
         lea eax, [byte ebp-048h]
         push eax
         call sprintf_
@@ -2155,7 +2155,7 @@ SeasonMenuScreen:
         mov eax, dword [byte ebp-028h]
         neg eax
         push eax
-        push asc_1656FA
+        push str_BGWS
         jmp short .23
 .22:
         mov eax, dword [byte ebp-01Ch]
@@ -2165,7 +2165,7 @@ SeasonMenuScreen:
         mov eax, dword [byte ebp-028h]
         neg eax
         push eax
-        push asc_1656FF
+        push str_BGES
 .23:
         push dword [byte ebp-020h]
         call FindShape
@@ -2174,7 +2174,7 @@ SeasonMenuScreen:
         call sub_1013CC
         add esp, byte 0Ch
         push esi
-        push asc_16575E
+        push str_LG02d
         lea eax, [byte ebp-048h]
         push eax
         call sprintf_
@@ -2304,38 +2304,38 @@ SeasonMenuScreen:
         add esp, byte 4
         cmp dword [byte ebp-024h], byte 3
         jne short .29
-        push asc_1655C1
+        push str_TTLW
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_165765
+        push str_DIV3
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_16576A
+        push str_DIV4
         jmp short .30
 .29:
-        push asc_165622
+        push str_TTLE
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_16576F
+        push str_DIV1
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_165774
+        push str_DIV2
 .30:
         push dword [byte ebp-018h]
         call FindShape
@@ -2566,7 +2566,7 @@ SeasonMenuScreen:
         push edx
         neg eax
         push eax
-        push asc_1656FA
+        push str_BGWS
         jmp short .61
 .60:
         mov edx, dword [dword_1C86F0]
@@ -2578,7 +2578,7 @@ SeasonMenuScreen:
         push edx
         neg eax
         push eax
-        push asc_1656FF
+        push str_BGES
 .61:
         push dword [byte ebp-020h]
         call FindShape
@@ -2587,7 +2587,7 @@ SeasonMenuScreen:
         call BlitArt
         add esp, byte 0Ch
         push esi
-        push asc_16575E
+        push str_LG02d
         lea eax, [byte ebp-048h]
         push eax
         call sprintf_
@@ -2626,7 +2626,7 @@ SeasonMenuScreen:
         push edx
         neg eax
         push eax
-        push asc_1656FA
+        push str_BGWS
         jmp short .63
 .62:
         mov edx, dword [dword_1C86F0]
@@ -2638,7 +2638,7 @@ SeasonMenuScreen:
         push edx
         neg eax
         push eax
-        push asc_1656FF
+        push str_BGES
 .63:
         push dword [byte ebp-020h]
         call FindShape
@@ -2647,7 +2647,7 @@ SeasonMenuScreen:
         call BlitArt
         add esp, byte 0Ch
         push esi
-        push asc_16575E
+        push str_LG02d
         lea eax, [byte ebp-048h]
         push eax
         call sprintf_
@@ -2697,7 +2697,7 @@ SeasonMenuScreen:
 .67:
         cmp dword [byte ebp-024h], byte 3
         jne near .68
-        push asc_1656FF
+        push str_BGES
         push dword [byte ebp-020h]
         call FindShape
         mov esi, eax
@@ -2708,9 +2708,9 @@ SeasonMenuScreen:
         call sub_7E860
         lea eax, [dword ebp-01C0h]
         push eax
-        mov ecx, asc_16562C
-        mov ebx, asc_165627
-        push asc_16562C
+        mov ecx, str_EC01
+        mov ebx, str_EC00
+        push str_EC01
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 0AE4h
@@ -2721,21 +2721,21 @@ SeasonMenuScreen:
         push esi
         call BlitShape
         add esp, byte 4
-        push asc_165622
+        push str_TTLE
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_16576F
+        push str_DIV1
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_165774
+        push str_DIV2
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
@@ -2743,7 +2743,7 @@ SeasonMenuScreen:
         mov dword [byte ebp-024h], 0Ch
         jmp near .69
 .68:
-        push asc_1656FA
+        push str_BGWS
         push dword [byte ebp-020h]
         call FindShape
         mov esi, eax
@@ -2754,9 +2754,9 @@ SeasonMenuScreen:
         call sub_7E860
         lea eax, [dword ebp-01C0h]
         push eax
-        mov ecx, asc_1655E5
-        mov ebx, asc_1655E0
-        push asc_1655E5
+        mov ecx, str_WC01
+        mov ebx, str_WC00
+        push str_WC01
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 0AE4h
@@ -2767,21 +2767,21 @@ SeasonMenuScreen:
         push esi
         call BlitShape
         add esp, byte 4
-        push asc_1655C1
+        push str_TTLW
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_165765
+        push str_DIV3
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_16576A
+        push str_DIV4
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
@@ -3043,18 +3043,18 @@ StandingsScreen:
         sub ebp, 82h
         push byte 0
         push dword 0A28h
-        push asc_16577B
+        push str_Factoid
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 0A5Ch
-        push asc_165783
+        push str_Rts
         mov dword [byte ebp+032h], eax
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 29206h
-        push asc_165787
+        push str_Ross
         mov dword [byte ebp+04Ah], eax
         call AllocMemBlock
         add esp, byte 0Ch
@@ -3065,7 +3065,7 @@ StandingsScreen:
         push dword 616h
         mov dword [byte ebp+036h], 1
         mov dword [byte ebp+06Eh], 0FFFFFFFFh
-        push asc_16578C
+        push str_Standmenu
         xor esi, esi
         mov dword [byte ebp+07Ah], eax
         call AllocMemBlock
@@ -3111,23 +3111,23 @@ StandingsScreen:
         mov eax, 3
         call sub_419B0
         call sub_419B8
-        push asc_1656FA
+        push str_BGWS
         push ebx
         call FindShape
         add esp, byte 8
-        push asc_1655C1
+        push str_TTLW
         mov dword [byte ebp+062h], eax
         push dword [byte ebp+06Ah]
         mov dword [byte ebp+072h], eax
         call FindShape
         add esp, byte 8
-        push asc_165796
+        push str_FACT
         push ebx
         mov dword [byte ebp+03Eh], eax
         call FindShape
         add esp, byte 8
         push dword_1C8540
-        push asc_16579B
+        push str_LBL1LBL2LBL3LBR1LBR2LTL1L3
         push ebx
         mov dword [byte ebp+02Ah], eax
         call FindShapeList
@@ -3159,7 +3159,7 @@ StandingsScreen:
         mov eax, dword [dword_1C86F4]
         mov dword [dword eax+05C4h], 12h
         mov eax, dword [dword_1C86F4]
-        push asc_1655E0
+        push str_WC00
         mov dword [byte eax+062h], 4
         lea edx, [dword ebp-074Ah]
         mov eax, dword [dword_1C86F4]
@@ -3167,14 +3167,14 @@ StandingsScreen:
         mov dword [byte eax+066h], edx
         call FindShape
         add esp, byte 8
-        push asc_1655E5
+        push str_WC01
         mov edx, eax
         mov eax, dword [dword_1C86F4]
         push dword [byte ebp+06Ah]
         mov dword [byte eax+06Ch], edx
         call FindShape
         add esp, byte 8
-        push asc_1655E5
+        push str_WC01
         mov edx, eax
         mov eax, dword [dword_1C86F4]
         push dword [byte ebp+06Ah]
@@ -3345,7 +3345,7 @@ StandingsScreen:
         lea eax, [dword ebp-03CAh]
         push dword [byte ebp+05Ah]
         lea edx, [esi+esi*8]
-        push asc_1657C4
+        push str_DDD3
         add eax, edx
         push eax
         call sprintf_
@@ -3354,7 +3354,7 @@ StandingsScreen:
         push dword [byte ebp+03Ah]
         push dword [byte ebp+046h]
         lea eax, [dword ebp-02E0h]
-        push asc_1657C4
+        push str_DDD3
         add edx, eax
         push edx
         dec ebx
@@ -3641,28 +3641,28 @@ StandingsScreen_718:
 .39:
         cmp dword [byte ebp+05Eh], byte 3
         jne short .40
-        push asc_1656FF
+        push str_BGES
         push dword [byte ebp+04Eh]
         call FindShape
         add esp, byte 8
-        push asc_165622
+        push str_TTLE
         push dword [byte ebp+076h]
         mov dword [byte ebp+072h], eax
         call FindShape
         add esp, byte 8
-        push asc_165627
+        push str_EC00
         push dword [byte ebp+076h]
         mov dword [byte ebp+03Eh], eax
         call FindShape
         add esp, byte 8
-        push asc_16562C
+        push str_EC01
         mov edx, eax
         mov eax, dword [dword_1C86F4]
         push dword [byte ebp+076h]
         mov dword [byte eax+06Ch], edx
         call FindShape
         add esp, byte 8
-        push asc_16562C
+        push str_EC01
         mov edx, eax
         mov eax, dword [dword_1C86F4]
         push dword [byte ebp+076h]
@@ -3673,28 +3673,28 @@ StandingsScreen_718:
         mov dword [byte ebp+05Eh], 0Ch
         jmp short .41
 .40:
-        push asc_1656FA
+        push str_BGWS
         push dword [byte ebp+04Eh]
         call FindShape
         add esp, byte 8
-        push asc_1655C1
+        push str_TTLW
         push dword [byte ebp+076h]
         mov dword [byte ebp+072h], eax
         call FindShape
         add esp, byte 8
-        push asc_1655E0
+        push str_WC00
         push dword [byte ebp+076h]
         mov dword [byte ebp+03Eh], eax
         call FindShape
         add esp, byte 8
-        push asc_1655E5
+        push str_WC01
         mov edx, eax
         mov eax, dword [dword_1C86F4]
         push dword [byte ebp+076h]
         mov dword [byte eax+06Ch], edx
         call FindShape
         add esp, byte 8
-        push asc_1655E5
+        push str_WC01
         mov edx, eax
         mov eax, dword [dword_1C86F4]
         push dword [byte ebp+076h]
@@ -4001,30 +4001,30 @@ BuildStandingsFactoids:
         sub ebp, 82h
         push byte 0
         push dword 0A28h
-        push asc_1657D2
+        push str_Ptlist
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 1450h
-        push asc_1657D9
+        push str_Idlist
         mov dword [byte ebp+056h], eax
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 0A28h
-        push asc_1657E0
+        push str_List
         mov dword [byte ebp+072h], eax
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 138h
-        push asc_1657D2
+        push str_Ptlist
         mov dword [byte ebp+06Eh], eax
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 270h
-        push asc_1657D9
+        push str_Idlist
         mov dword [byte ebp+06Ah], eax
         call AllocMemBlock
         add esp, byte 0Ch
@@ -4033,7 +4033,7 @@ BuildStandingsFactoids:
         push dword 138h
         mov dword [byte ebp+076h], 0
         mov dword [byte ebp+05Ah], 0
-        push asc_1657E0
+        push str_List
         xor ebx, ebx
         mov dword [byte ebp+062h], eax
         call AllocMemBlock
@@ -4203,7 +4203,7 @@ BuildStandingsFactoids:
         push eax
         mov eax, dword [byte ebp+07Eh]
         shl eax, 2
-        push asc_1657E5
+        push str_SSSDSS
         add eax, dword [dword ebp-01AA6h]
         push dword [eax]
         call sprintf_
@@ -4225,7 +4225,7 @@ BuildStandingsFactoids:
         push eax
         lea eax, [dword ebp-013Ah]
         push eax
-        push asc_1657FB
+        push str_SSDSS
         lea eax, [byte ebp+012h]
         push eax
         call sprintf_
@@ -4293,7 +4293,7 @@ BuildStandingsFactoids:
         push eax
         mov eax, dword [byte ebp+07Eh]
         shl eax, 2
-        push asc_16580C
+        push str_SSDSS2
         add eax, dword [dword ebp-01AA6h]
         push dword [eax]
         call sprintf_
@@ -4371,7 +4371,7 @@ BuildStandingsFactoids:
         push eax
         mov eax, dword [byte ebp+07Eh]
         shl eax, 2
-        push asc_16581E
+        push str_SSD02dSS
         add eax, dword [dword ebp-01AA6h]
         push dword [eax]
         call sprintf_
@@ -4407,7 +4407,7 @@ BuildStandingsFactoids:
         push eax
         mov eax, dword [byte ebp+07Eh]
         shl eax, 2
-        push asc_165835
+        push str_S3
         add eax, dword [dword ebp-01AA6h]
         push dword [eax]
         xor ebx, ebx
@@ -4444,7 +4444,7 @@ BuildStandingsFactoids:
         call sub_DC653
         lea eax, [byte ebp-070h]
         push eax
-        push asc_165839
+        push str_S4
         lea eax, [byte ebp+012h]
         push eax
         call sprintf_
@@ -4505,7 +4505,7 @@ SeasonSettingsPath:
         push dword [dword_1ACF3A]
         lea eax, [byte ebp-028h]
         push eax
-        push asc_16583E
+        push str_SSEASDSET
         lea eax, [byte ebp-078h]
         push eax
         call sprintf_
@@ -4831,7 +4831,7 @@ LinkTransferSetup:
         imul eax, byte 38h
         push byte 0
         push eax
-        push asc_16584B
+        push str_Importagents
         call AllocMemBlock
         movsx edx, word [esi]
         imul edx, byte 38h
@@ -5150,7 +5150,7 @@ LoadFakeExhibition:
 .1:
         mov edx, 383C5h
         mov ebx, eax
-        mov eax, asc_165858
+        mov eax, str_FakeEXHIBIT
         call AllocClearBlock
         mov ebx, 383C5h
         mov edx, dword [dword_1C86FC]
@@ -5162,7 +5162,7 @@ LoadFakeExhibition:
         movsx edx, word [eax]
         imul edx, byte 38h
         lea ebx, [dword eax+0383C1h]
-        mov eax, asc_165864
+        mov eax, str_FakeAGENTS
         call AllocClearBlock
         mov eax, dword [ecx]
         movsx ebx, word [eax]
@@ -5216,7 +5216,7 @@ SaveAgents:
         imul eax, byte 38h
         push byte 0
         push eax
-        push asc_16586F
+        push str_Agents
         call AllocMemBlock
         mov edx, eax
         mov eax, dword [dword_1C86FC]

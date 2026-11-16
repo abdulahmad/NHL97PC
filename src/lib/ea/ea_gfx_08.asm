@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_10FEE8 progbits alloc exec nowrite align=1
-extern asc_167E8C, asc_167E98, byte_1D8018, byte_1D8088, dword_16E4A8, dword_16E670, dword_16E678, dword_16E67C
+extern str_INVMATRX, str_Ori2, byte_1D8018, byte_1D8088, dword_16E4A8, dword_16E670, dword_16E678, dword_16E67C
 extern dword_16E680, dword_16E684, dword_16E698, dword_16E69C, dword_17025C, dword_170260, dword_170264, dword_170268
 extern dword_170274, dword_1702B8, dword_1702C0, dword_1702C4, dword_1702C8, dword_1CFCF0, dword_1D1D30, dword_1D1D38
 extern dword_1D1D5C, dword_1D1D60, dword_1D7FD4, dword_1D7FD8, dword_1D7FDC, dword_1D7FE0, dword_1D7FE4, dword_1D7FE8
@@ -40,7 +40,7 @@ sub_10FEE8:
         push ecx
         shl eax, 2
         push eax
-        push asc_167E8C
+        push str_INVMATRX
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebx+074h], eax
@@ -143,7 +143,7 @@ sub_10FFBC:
         cmp edx, eax
         jb short .1
 .4:
-        mov edx, asc_167E98
+        mov edx, str_Ori2
         mov eax, esp
         call strcat_
         push esi

@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_2EEE8 progbits alloc exec nowrite align=1
-extern IF@ATAN2, ReturnGoalies, SortCords, __CHP, asc_1609CC, awtmstruct, byte_168B60, byte_168B69
+extern IF@ATAN2, ReturnGoalies, SortCords, __CHP, str_Pktbuffer, awtmstruct, byte_168B60, byte_168B69
 extern byte_168C04, byte_168E50, byte_19CA30, byte_19CA31, byte_19CA32, byte_19CA33, byte_19CB70, byte_19CBC2
 extern byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CBFC, byte_19CD8C, byte_19D53C, byte_19D555, byte_19D604
 extern byte_19D636, byte_19DAD6, byte_19DAEF, byte_19DAF0, byte_19EAC6, byte_19EB56, byte_19EB7F, byte_19EBD2
@@ -12003,7 +12003,7 @@ sub_37AB4:
         mov ecx, dword [dword esp+0100h]
         push ecx
         push eax
-        push asc_1609CC
+        push str_Pktbuffer
         mov edi, 1
         call sub_FAAB4
         add esp, byte 0Ch

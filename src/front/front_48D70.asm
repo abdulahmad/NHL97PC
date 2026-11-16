@@ -2,14 +2,14 @@
 bits 32
 %include "hockey.inc"
 section s_48D70 progbits alloc exec nowrite align=1
-extern DetectCPU, IF@ATAN2, __CHK, __CHP, __STOSB, _dos_close_, _dos_open_, asc_1611B6
-extern asc_1611E9, asc_1611ED, asc_161220, asc_161228, asc_16122C, asc_161234, asc_16123C, asc_161244
-extern asc_16124C, asc_16125C, asc_161260, asc_161268, asc_161270, asc_161278, asc_161280, asc_161288
-extern asc_161290, asc_161298, asc_1612A0, asc_1612A8, asc_1612B0, asc_1612B8, asc_1612CC, asc_1612D4
-extern asc_1612E4, asc_1612EC, asc_1612F4, asc_1612FC, asc_161304, asc_16130C, asc_161314, asc_16131C
-extern asc_161324, asc_16132C, asc_161334, asc_16133C, asc_161344, asc_16134C, asc_161354, asc_16135C
-extern asc_161364, asc_16136C, asc_161374, asc_16137C, asc_161384, asc_1613FC, asc_161404, asc_161418
-extern asc_161458, asc_161460, asc_161520, asc_16152C, asc_161534, asc_16153C, asc_161544, byte_16FA40
+extern DetectCPU, IF@ATAN2, __CHK, __CHP, __STOSB, _dos_close_, _dos_open_, str_DIRECTORYS
+extern str_S, str_BIGFILES, str_Render, str_Ice, str_Marks, str_Frntend, str_Player, str_Puck
+extern str_JBUG, str_Ice2, str_Flatice, str_Pal, str_Ice0, str_0ice0, str_Ice1, str_0ice1
+extern str_Ice22, str_0ice2, str_Ice3, str_0ice3, str_Newice, str_Icepolys, str_Dice, str_Center02dFsh
+extern str_C100, str_C200, str_C201, str_C210, str_C211, str_C300, str_C301, str_C302
+extern str_C303, str_C310, str_C311, str_C312, str_C313, str_C320, str_C321, str_C322
+extern str_C323, str_C330, str_C331, str_C332, str_C333, str_GLASS, str_ArenaViv2, str_Zamtrack
+extern str_Netback, str_Netfrnt, str_BlogoDC, str_L02da, str_L02db, str_L02dc, str_L02dC, byte_16FA40
 extern byte_1AC638, byte_1AC818, byte_1AC81A, byte_1AC81B, byte_1AC948, byte_1AC95B, byte_1AEDED, byte_1AEDEE
 extern byte_1AEDEF, dword_161252, dword_161256, dword_161391, dword_1613AD, dword_1613B9, dword_1613E5, dword_1613E9
 extern dword_1613ED, dword_1613F1, dword_1613F5, dword_1691A8, dword_1691AC, dword_1691AE, dword_1691B0, dword_1691B8
@@ -3314,7 +3314,7 @@ SetArtArchive:
         imul eax, ebx, byte 0Fh
         add eax, unk_169848
         push eax
-        push asc_1611B6
+        push str_DIRECTORYS
         xor edx, edx
         call printf_
         add esp, byte 8
@@ -3324,7 +3324,7 @@ SetArtArchive:
         jne short .8
         add eax, unk_1698A2
         push eax
-        push asc_1611E9
+        push str_S
         call printf_
         add esp, byte 8
 .8:
@@ -3338,7 +3338,7 @@ SetArtArchive:
         jne short .10
         add eax, unk_169989
         push eax
-        push asc_1611E9
+        push str_S
         call printf_
         add esp, byte 8
 .10:
@@ -3353,7 +3353,7 @@ SetArtArchive:
         imul eax, ebx, byte 15h
         add eax, unk_1698A2
         push eax
-        push asc_1611ED
+        push str_BIGFILES
         xor edx, edx
         call printf_
         add esp, byte 8
@@ -3365,7 +3365,7 @@ SetArtArchive:
         jne short .13
         add eax, unk_169989
         push eax
-        push asc_1611E9
+        push str_S
         call printf_
         add esp, byte 8
 .13:
@@ -3672,22 +3672,22 @@ InitGameGraphics:
         call sub_842F4
         call sub_E341C
         call sub_3D930
-        mov eax, asc_161220
+        mov eax, str_Render
         call sub_3D988
         mov ebx, 0EFh
         mov edx, 0E8h
         mov dword [dword_1ADC88], eax
-        mov eax, asc_161228
+        mov eax, str_Ice
         call sub_3D988
         mov ebx, 0F8h
         mov edx, 0F0h
         mov dword [dword_1ADC8C], eax
-        mov eax, asc_16122C
+        mov eax, str_Marks
         call sub_3D988
         mov ebx, 0FEh
         mov edx, 0F9h
         mov dword [dword_1ADC90], eax
-        mov eax, asc_161234
+        mov eax, str_Frntend
         call sub_3D988
         mov dword [dword_1ADC94], eax
         mov eax, 41h
@@ -3740,7 +3740,7 @@ InitGameGraphics:
         mov ecx, sub_5AAB8
         push esi
         mov ebx, sub_59174
-        mov eax, asc_16123C
+        mov eax, str_Player
         push byte 1
         mov edx, esi
         inc edi
@@ -3764,7 +3764,7 @@ InitGameGraphics:
         mov ebx, sub_4DD0C
         push byte 2
         mov edx, unk_1B10FC
-        mov eax, asc_161244
+        mov eax, str_Puck
         call sub_4B4C4
         mov eax, 55h
         call sub_842F4
@@ -4044,7 +4044,7 @@ DrawGameFrame:
         LD sub, eax, edx
         sar eax, 1
         push eax
-        push asc_16124C
+        push str_JBUG
         call sub_FE150
         add esp, byte 0Ch
 .4:
@@ -5128,22 +5128,22 @@ sub_4C5A0:
         mov edx, dword [dword_1B108C]
         test edx, edx
         je short .1
-        mov eax, asc_16125C
+        mov eax, str_Ice2
         xor edx, edx
         jmp short .2
 .1:
-        mov eax, asc_161260
+        mov eax, str_Flatice
 .2:
         call sub_10FFBC
         mov dword [dword_1B0F3C], eax
         call sub_E341C
         push byte 0
-        push asc_16125C
+        push str_Ice2
         call sub_101584
         add esp, byte 8
         mov dword [dword_1B0FB0], eax
         call sub_E341C
-        push asc_161268
+        push str_Pal
         mov ebx, dword [dword_1B0FB0]
         push ebx
         call FindShape
@@ -5166,12 +5166,12 @@ sub_4C5A0:
         and dl, 0FDh
         add esp, byte 8
         mov byte [byte eax+010h], dl
-        push asc_161278
+        push str_0ice0
         mov esi, dword [dword_1B0FA0]
         push esi
         call sub_10FB98
         add esp, byte 8
-        push asc_161270
+        push str_Ice0
         mov edi, dword [dword_1B0FB0]
         push edi
         mov ebx, eax
@@ -5183,12 +5183,12 @@ sub_4C5A0:
         push ebp
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_161288
+        push str_0ice1
         mov eax, dword [dword_1B0FA0]
         push eax
         call sub_10FB98
         add esp, byte 8
-        push asc_161280
+        push str_Ice1
         mov edx, dword [dword_1B0FB0]
         push edx
         mov ebx, eax
@@ -5200,12 +5200,12 @@ sub_4C5A0:
         push ebx
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_161298
+        push str_0ice2
         mov ecx, dword [dword_1B0FA0]
         push ecx
         call sub_10FB98
         add esp, byte 8
-        push asc_161290
+        push str_Ice22
         mov esi, dword [dword_1B0FB0]
         push esi
         mov ebx, eax
@@ -5217,12 +5217,12 @@ sub_4C5A0:
         push edi
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_1612A8
+        push str_0ice3
         mov ebp, dword [dword_1B0FA0]
         push ebp
         call sub_10FB98
         add esp, byte 8
-        push asc_1612A0
+        push str_Ice3
         mov ebx, eax
         mov eax, dword [dword_1B0FB0]
         push eax
@@ -5234,7 +5234,7 @@ sub_4C5A0:
         push edx
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_1612B0
+        push str_Newice
         mov ebx, dword [dword_1B0FA0]
         push ebx
         call sub_10FB98
@@ -5269,7 +5269,7 @@ sub_4C5A0:
         mov edx, unk_1AEDF0
         mov eax, dword [dword_1ADC8C]
         call sub_3DBCC
-        push asc_1612B8
+        push str_Icepolys
         mov ecx, dword [dword_1B0FA0]
         push ecx
         call sub_1105E4
@@ -5300,7 +5300,7 @@ sub_4C5A0:
         xor edi, edi
 .5:
         push edi
-        push asc_1612CC
+        push str_Dice
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -5353,7 +5353,7 @@ sub_4C5A0:
         je near .8
         mov eax, dword [byte esp+0Ch]
         push eax
-        push asc_1612D4
+        push str_Center02dFsh
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -5367,7 +5367,7 @@ sub_4C5A0:
         push byte 0
         push byte 20h
         push byte 8
-        push asc_161268
+        push str_Pal
         push eax
         mov dword [dword_1B0FBC], eax
         call FindShape
@@ -5377,12 +5377,12 @@ sub_4C5A0:
         mov edx, dword [dword_1ADC88]
         mov eax, str_Center
         call sub_3DA18
-        push asc_1612E4
+        push str_C100
         mov edx, dword [dword_1B0FA0]
         push edx
         call sub_10FB98
         add esp, byte 8
-        push asc_1612E4
+        push str_C100
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
@@ -5401,12 +5401,12 @@ sub_4C5A0:
         push edi
         call sub_10FEA8
         add esp, byte 0Ch
-        push asc_1612EC
+        push str_C200
         mov ebp, dword [dword_1B0FA0]
         push ebp
         call sub_10FB98
         add esp, byte 8
-        push asc_1612EC
+        push str_C200
         mov ebx, eax
         mov eax, dword [dword_1B0FBC]
         push eax
@@ -5419,12 +5419,12 @@ sub_4C5A0:
         mov dword [dword_1B0DA0], eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_1612F4
+        push str_C201
         mov ebx, dword [dword_1B0FA0]
         push ebx
         call sub_10FB98
         add esp, byte 8
-        push asc_1612F4
+        push str_C201
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
@@ -5437,12 +5437,12 @@ sub_4C5A0:
         mov dword [dword_1B0DA4], eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_1612FC
+        push str_C210
         mov edi, dword [dword_1B0FA0]
         push edi
         call sub_10FB98
         add esp, byte 8
-        push asc_1612FC
+        push str_C210
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
@@ -5455,12 +5455,12 @@ sub_4C5A0:
         push eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_161304
+        push str_C211
         mov edx, dword [dword_1B0FA0]
         push edx
         call sub_10FB98
         add esp, byte 8
-        push asc_161304
+        push str_C211
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
@@ -5473,12 +5473,12 @@ sub_4C5A0:
         mov dword [dword_1B0DAC], eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_16130C
+        push str_C300
         mov edi, dword [dword_1B0FA0]
         push edi
         call sub_10FB98
         add esp, byte 8
-        push asc_16130C
+        push str_C300
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
@@ -5491,12 +5491,12 @@ sub_4C5A0:
         push eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_161314
+        push str_C301
         mov edx, dword [dword_1B0FA0]
         push edx
         call sub_10FB98
         add esp, byte 8
-        push asc_161314
+        push str_C301
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
@@ -5509,12 +5509,12 @@ sub_4C5A0:
         mov dword [dword_1B0DB4], eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_16131C
+        push str_C302
         mov edi, dword [dword_1B0FA0]
         push edi
         call sub_10FB98
         add esp, byte 8
-        push asc_16131C
+        push str_C302
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
@@ -5527,12 +5527,12 @@ sub_4C5A0:
         push eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_161324
+        push str_C303
         mov edx, dword [dword_1B0FA0]
         push edx
         call sub_10FB98
         add esp, byte 8
-        push asc_161324
+        push str_C303
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
@@ -5545,12 +5545,12 @@ sub_4C5A0:
         mov dword [dword_1B0DBC], eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_16132C
+        push str_C310
         mov edi, dword [dword_1B0FA0]
         push edi
         call sub_10FB98
         add esp, byte 8
-        push asc_16132C
+        push str_C310
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
@@ -5563,12 +5563,12 @@ sub_4C5A0:
         push eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_161334
+        push str_C311
         mov edx, dword [dword_1B0FA0]
         push edx
         call sub_10FB98
         add esp, byte 8
-        push asc_161334
+        push str_C311
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
@@ -5581,12 +5581,12 @@ sub_4C5A0:
         mov dword [dword_1B0DC4], eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_16133C
+        push str_C312
         mov edi, dword [dword_1B0FA0]
         push edi
         call sub_10FB98
         add esp, byte 8
-        push asc_16133C
+        push str_C312
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
@@ -5599,12 +5599,12 @@ sub_4C5A0:
         push eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_161344
+        push str_C313
         mov edx, dword [dword_1B0FA0]
         push edx
         call sub_10FB98
         add esp, byte 8
-        push asc_161344
+        push str_C313
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
@@ -5617,12 +5617,12 @@ sub_4C5A0:
         mov dword [dword_1B0DCC], eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_16134C
+        push str_C320
         mov edi, dword [dword_1B0FA0]
         push edi
         call sub_10FB98
         add esp, byte 8
-        push asc_16134C
+        push str_C320
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
@@ -5635,12 +5635,12 @@ sub_4C5A0:
         push eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_161354
+        push str_C321
         mov edx, dword [dword_1B0FA0]
         push edx
         call sub_10FB98
         add esp, byte 8
-        push asc_161354
+        push str_C321
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
@@ -5653,12 +5653,12 @@ sub_4C5A0:
         mov dword [dword_1B0DD4], eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_16135C
+        push str_C322
         mov edi, dword [dword_1B0FA0]
         push edi
         call sub_10FB98
         add esp, byte 8
-        push asc_16135C
+        push str_C322
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
@@ -5671,12 +5671,12 @@ sub_4C5A0:
         push eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_161364
+        push str_C323
         mov edx, dword [dword_1B0FA0]
         push edx
         call sub_10FB98
         add esp, byte 8
-        push asc_161364
+        push str_C323
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
@@ -5689,12 +5689,12 @@ sub_4C5A0:
         mov dword [dword_1B0DDC], eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_16136C
+        push str_C330
         mov edi, dword [dword_1B0FA0]
         push edi
         call sub_10FB98
         add esp, byte 8
-        push asc_16136C
+        push str_C330
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
@@ -5707,12 +5707,12 @@ sub_4C5A0:
         push eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_161374
+        push str_C331
         mov edx, dword [dword_1B0FA0]
         push edx
         call sub_10FB98
         add esp, byte 8
-        push asc_161374
+        push str_C331
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
@@ -5725,12 +5725,12 @@ sub_4C5A0:
         mov dword [dword_1B0DE4], eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_16137C
+        push str_C332
         mov edi, dword [dword_1B0FA0]
         push edi
         call sub_10FB98
         add esp, byte 8
-        push asc_16137C
+        push str_C332
         mov ebp, dword [dword_1B0FBC]
         push ebp
         mov ebx, eax
@@ -5743,12 +5743,12 @@ sub_4C5A0:
         push eax
         call sub_10FE58
         add esp, byte 0Ch
-        push asc_161384
+        push str_C333
         mov edx, dword [dword_1B0FA0]
         push edx
         call sub_10FB98
         add esp, byte 8
-        push asc_161384
+        push str_C333
         mov ecx, dword [dword_1B0FBC]
         push ecx
         mov ebx, eax
@@ -9904,7 +9904,7 @@ sub_4FC50:
         jne short .1
         push byte 20h
         push dword 32A0h
-        push asc_1613FC
+        push str_GLASS
         call AllocMemBlock
         mov dword [dword_1B0B94], eax
         mov dword [dword_1B0B90], eax
@@ -12202,7 +12202,7 @@ sub_51434:
         push ebp
         cmp dword [dword_16B168], byte 0
         jne near .1
-        mov eax, asc_161404
+        mov eax, str_ArenaViv2
         mov edx, 20h
         call SetArtArchive
         call sub_E341C
@@ -12248,7 +12248,7 @@ sub_51434:
         call sub_4B4C4
         mov edx, 20h
         mov dword [dword_1B0B7C], eax
-        mov eax, asc_161418
+        mov eax, str_Zamtrack
         xor edi, edi
         call sub_10FFBC
         mov dword [dword_1B0B78], eax
@@ -12905,7 +12905,7 @@ LoadNetArt:
         shl eax, 2
         push byte 0
         add esi, eax
-        mov eax, asc_161458
+        mov eax, str_Netback
         mov edx, esi
         call sub_4B4C4
         mov ecx, sub_51AEC_50
@@ -12914,7 +12914,7 @@ LoadNetArt:
         mov edx, esi
         push byte 0
         mov dword [dword edi+dword_1ADCC0], eax
-        mov eax, asc_161460
+        mov eax, str_Netfrnt
         call sub_4B4C4
         mov dword [dword edi+dword_1ADCC8], eax
         pop ebp
@@ -13478,7 +13478,7 @@ OpenArenaArchive:
         push ebp
         sub esp, byte 10h
         mov edx, eax
-        mov eax, asc_161404
+        mov eax, str_ArenaViv2
         call SetArtArchive
         inc edx
         call sub_E341C
@@ -13590,7 +13590,7 @@ LoadBoardLogo:
         lea edx, [byte ebx+061h]
         push edx
         push eax
-        push asc_161520
+        push str_BlogoDC
         lea eax, [byte esp+0Ch]
         push eax
         call sprintf_
@@ -13634,7 +13634,7 @@ sub_52648:
         mov esi, eax
         mov edi, edx
         push edx
-        push asc_16152C
+        push str_L02da
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -13650,7 +13650,7 @@ sub_52648:
         imul ebx, edx
         add esp, byte 8
         push edi
-        push asc_161534
+        push str_L02db
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -13667,7 +13667,7 @@ sub_52648:
         add esp, byte 8
         push edi
         add ebx, byte 4Bh
-        push asc_16153C
+        push str_L02dc
         add ebx, eax
         lea eax, [byte esp+08h]
         push eax
@@ -13702,7 +13702,7 @@ sub_526EC:
         mov al, byte [byte esp+018h]
         push eax
         push ecx
-        push asc_161544
+        push str_L02dC
         lea eax, [byte esp+0Ch]
         push eax
         call sprintf_

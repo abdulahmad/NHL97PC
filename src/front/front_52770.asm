@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_52770 progbits alloc exec nowrite align=1
-extern __CHP, __STOSB, asc_161404, asc_16154C, asc_161558, asc_161560, asc_161590, asc_1615A0
-extern asc_1615A8, asc_1615B0, asc_1615B8, asc_1615C0, asc_1615C4, asc_1615CC, asc_1615FC, asc_161614
-extern asc_161714, asc_161734, asc_161758, asc_16177C, asc_1617A4, asc_1617AC, asc_1617B4, asc_1617C0
-extern asc_1617C8, asc_1617E0, asc_161800, byte_1B0300, byte_1B1378, byte_1B8580, byte_1B8581, byte_1B8582
+extern __CHP, __STOSB, str_ArenaViv2, str_LogosFsh, str_LOGOS, str_Blogos, str_Floor, str_Puck2
+extern str_04d, str_Lonet, str_Hinet, str_Net, str_Goal0, str_Goal1, str_Gt304, str_FLOOR
+extern str_Boxback, str_B00, str_XD, str_FaceoffD, str_Flash, str_Fla0, str_Fla1, str_PAL
+extern str_Light6, str_BOGIE, str_Front, byte_1B0300, byte_1B1378, byte_1B8580, byte_1B8581, byte_1B8582
 extern dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF58, dword_16AF5C, dword_16AF60
 extern dword_16AF64, dword_16AF68, dword_16AF9C, dword_16AFAC, dword_16B174, dword_16B550, dword_16E464, dword_16E468
 extern dword_16E4A8, dword_16E676, dword_16E67A, dword_16E67E, dword_16E682, dword_1702CC, dword_1A8E60, dword_1AC364
@@ -93,7 +93,7 @@ LoadLogos:
         mov dword [dword esp+0E0h], eax
         call sub_E341C
         push byte 0
-        push asc_16154C
+        push str_LogosFsh
         call sub_101584
         add esp, byte 8
         push eax
@@ -184,7 +184,7 @@ LoadLogos:
 .13:
         push byte 0
         push ecx
-        push asc_161558
+        push str_LOGOS
         call AllocMemBlock
         mov edx, eax
         add esp, byte 0Ch
@@ -292,7 +292,7 @@ LoadLogos:
         jl short .18
         push byte 0
         mov ecx, dword [dword esp+0D8h]
-        mov eax, asc_161560
+        mov eax, str_Blogos
         mov ebx, dword [dword_1B0F38]
         mov edx, dword [dword_1ADC88]
         call sub_3DA80
@@ -1139,7 +1139,7 @@ LoadRinkModel:
         push ebp
         sub esp, byte 64h
         mov dword [byte esp+05Ch], eax
-        mov eax, asc_161404
+        mov eax, str_ArenaViv2
         call SetArtArchive
         mov dword [dword_1B108C], edx
         call sub_10B000
@@ -1260,7 +1260,7 @@ LoadRinkModel:
         call sub_1100B4
         mov dword [dword_1B10E8], eax
         or byte [byte eax+010h], 2
-        push asc_161590
+        push str_Floor
         mov ebx, dword [dword_1B10E8]
         push ebx
         call sub_10FB98
@@ -1303,7 +1303,7 @@ LoadRinkModel:
         mov byte [byte eax+010h], bl
         call sub_E341C
         push byte 0
-        push asc_1615A0
+        push str_Puck2
         xor edi, edi
         xor esi, esi
         call sub_101584
@@ -1311,7 +1311,7 @@ LoadRinkModel:
         mov dword [dword_1B0FB8], eax
 .1:
         push esi
-        push asc_1615A8
+        push str_04d
         lea eax, [byte esp+030h]
         push eax
         call sprintf_
@@ -1328,12 +1328,12 @@ LoadRinkModel:
         cmp esi, byte 12h
         jl short .1
         call sub_E341C
-        mov eax, asc_1615B0
+        mov eax, str_Lonet
         xor edx, edx
         call sub_10FFBC
         mov dword [dword_1B0F98], eax
         xor edx, edx
-        mov eax, asc_1615B8
+        mov eax, str_Hinet
         call sub_10FFBC
         push byte 0
         mov dword [dword_1B0F34], eax
@@ -1346,7 +1346,7 @@ LoadRinkModel:
         mov dword [dword_1B0F20], eax
         mov ebx, eax
         xor ecx, ecx
-        mov eax, asc_1615C0
+        mov eax, str_Net
         xor esi, esi
         call sub_3DAC4
         xor ebp, ebp
@@ -1379,7 +1379,7 @@ LoadRinkModel:
         mov byte [byte eax+010h], bh
         cmp esi, byte 8
         jne short .2
-        push asc_1615C4
+        push str_Goal0
         mov esi, dword [dword_1B1108]
         push esi
         call sub_110538
@@ -1396,7 +1396,7 @@ LoadRinkModel:
         xor eax, eax
         push byte 0
         call sub_51BD8
-        push asc_1615CC
+        push str_Goal1
         mov edi, dword [dword_1B1108]
         push edi
         call sub_110538
@@ -1466,7 +1466,7 @@ LoadRinkModel:
         call sub_110538
         add esp, byte 8
         mov edx, eax
-        push asc_1615FC
+        push str_Gt304
         shl eax, 2
         mov ecx, dword [dword_1B1108]
         sub eax, edx
@@ -1543,7 +1543,7 @@ LoadRinkModel:
         push ebx
         call sub_110634
         add esp, byte 10h
-        push asc_161614
+        push str_FLOOR
         mov ecx, dword [dword_1B10E8]
         push ecx
         call sub_1105E4
@@ -1906,7 +1906,7 @@ LoadRinkModel:
         shl eax, 2
         add esp, byte 8
         sub eax, edx
-        push asc_161714
+        push str_Boxback
         mov edx, dword [dword_1B1108]
         mov eax, dword [byte esi+eax*4+08h]
         push edx
@@ -1960,7 +1960,7 @@ LoadRinkModel:
         cmp ebx, byte 7
         jl near .5
 .6:
-        push asc_161734
+        push str_B00
         mov edi, dword [dword_1B1108]
         push edi
         call sub_110538
@@ -2059,7 +2059,7 @@ LoadRinkModel:
 .9:
         mov ecx, dword [dword_16AF64]
         push ecx
-        push asc_161758
+        push str_XD
         lea eax, [byte esp+05Ch]
         push eax
         call sprintf_
@@ -2128,7 +2128,7 @@ LoadRinkModel:
         add esp, byte 8
         mov dword [dword_1B095C], eax
         call sub_4EA44
-        push asc_1615C4
+        push str_Goal0
         mov edx, dword [dword_1B1108]
         push edx
         call sub_110538
@@ -2167,7 +2167,7 @@ LoadRinkModel:
         call sub_FF044
 .11:
         push ebp
-        push asc_16177C
+        push str_FaceoffD
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -2198,7 +2198,7 @@ LoadRinkModel:
         xor esi, esi
 .12:
         push ebp
-        push asc_16177C
+        push str_FaceoffD
         lea eax, [byte esp+01Ch]
         push eax
         call sprintf_
@@ -2224,14 +2224,14 @@ LoadRinkModel:
         call sub_FF044
         cmp esi, byte 10h
         jne short .12
-        push asc_1615C4
+        push str_Goal0
         mov edx, dword [dword_1B1108]
         push edx
         call sub_110538
         add esp, byte 8
         mov edx, eax
         shl eax, 2
-        push asc_1615CC
+        push str_Goal1
         sub eax, edx
         mov edx, dword [byte esp+064h]
         shl eax, 2
@@ -2349,15 +2349,15 @@ LoadRinkModel:
         cmp esi, 190h
         jne short .13
         push byte 0
-        push asc_1617A4
+        push str_Flash
         call sub_101584
         add esp, byte 8
-        push asc_1617AC
+        push str_Fla0
         push eax
         mov dword [dword_1B0E30], eax
         call FindShape
         add esp, byte 8
-        push asc_1617B4
+        push str_Fla1
         mov ebp, dword [dword_1B0E30]
         push ebp
         mov dword [dword_1B0208], eax
@@ -2372,7 +2372,7 @@ LoadRinkModel:
         call sub_E341C
         call sub_4C0CC
         mov ecx, 0FFFFFFFFh
-        push asc_1617C0
+        push str_PAL
         xor eax, eax
         mov edi, dword [dword_1B110C]
         mov dword [dword_1B0A70], eax
@@ -3290,7 +3290,7 @@ sub_55000:
         xor edx, edx
         div ebx
         add edx, byte 30h
-        mov eax, asc_161404
+        mov eax, str_ArenaViv2
         mov byte [byte esp+05h], dl
         call SetArtArchive
         push byte 20h
@@ -3301,7 +3301,7 @@ sub_55000:
         mov dword [dword_1B0E28], eax
         call sub_E341C
         push byte 20h
-        push asc_1617C8
+        push str_Light6
         call sub_101584
         add esp, byte 8
         mov dword [dword_1B0E24], eax
@@ -5310,7 +5310,7 @@ sub_5696C:
         add edx, byte 3
         lea edi, [dword edi+unk_1B8583]
         mov ebx, sub_568CC
-        mov eax, asc_1617E0
+        mov eax, str_BOGIE
         movsd
         movsd
         movsd
@@ -5744,7 +5744,7 @@ sub_56DDC:
 .1:
         mov ecx, dword [dword edi+dword_1B8444]
         push ecx
-        push asc_161800
+        push str_Front
         mov eax, dword [dword ebx+06D8h]
         push eax
         call sub_10FB98

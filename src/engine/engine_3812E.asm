@@ -3,11 +3,11 @@ bits 32
 %include "hockey.inc"
 section s_3812E progbits alloc exec nowrite align=1
 extern IF@ATAN2, IF@DFMOD, SetClipWindow, SortCords, __CHK, __CHP, __STOSB, __STOSD
-extern asc_1609D8, asc_1609DD, asc_1609E2, asc_1609E7, asc_1609EC, asc_1609F1, asc_1609F6, asc_1609FB
-extern asc_160A00, asc_160A05, asc_160A0A, asc_160A0F, asc_160A16, asc_160A1B, asc_160A20, asc_160A2D
-extern asc_160A32, asc_160A37, asc_160A40, asc_160A4C, asc_160A51, asc_160B30, asc_160B40, asc_160B48
-extern asc_160C9C, asc_160CA4, asc_160CAC, asc_160CB4, asc_160CC0, asc_160CCC, asc_160CE4, asc_160CEC
-extern asc_160D20, asc_160D28, asc_160D38, asc_160D40, asc_160D50, asc_160D60, byte_1691DC, byte_16E503
+extern str_BACK, str_TITL, str_AB02, str_AB01, str_AB00, str_BH00, str_BT00, str_AB05
+extern str_AB04, str_AB03, str_SIM0, str_BT02d, str_FAN0, str_LT00, str_Logo02dFsh, str_LOGO
+extern str_ALST, str_CDD, str_SDSD, str_LOCK, str_PANL, str_DMAN, str_HIST, str_MEGAHIST
+extern str_BKH, str_BKD, str_SFX4S, str_AUDSTREAM, str_CROWDCRD, str_GAMEDATAAUDPBP3TSF, str_MENU, str_S02dASF
+extern str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, byte_1691DC, byte_16E503
 extern byte_16E504, byte_16F794, byte_16FA40, byte_19CBC2, byte_1A0CC2, byte_1A8E89, byte_1A8E8E, byte_1A988C
 extern byte_1A988D, byte_1A988E, byte_1AC638, byte_1AC81A, byte_1AC81B, byte_1ACF62, byte_1ACF63, byte_1AD457
 extern byte_1AD458, byte_1AD742, byte_1B93DD, byte_1B93DE, byte_1BF670, byte_1C135A, byte_1C135B, byte_1C6040
@@ -497,7 +497,7 @@ InitSeasonGameScreen:
         push dword [dword_19ED10]
         call SetDrawTarget
         add esp, byte 4
-        push asc_1609D8
+        push str_BACK
         push dword [dword_19ED70]
         call FindShape
         add esp, byte 8
@@ -505,7 +505,7 @@ InitSeasonGameScreen:
         mov dword [dword_19ED1C], eax
         call BlitShape
         add esp, byte 4
-        push asc_1609DD
+        push str_TITL
         push dword [dword_19ED44]
         call FindShape
         add esp, byte 8
@@ -533,36 +533,36 @@ InitSeasonGameScreen:
         mov dword [byte eax+052h], 1
         mov esi, unk_1C5F9C
         lea edi, [dword edi+0A4h]
-        push asc_1609E2
-        mov ebx, asc_1609EC
+        push str_AB02
+        mov ebx, str_AB00
         rep movsb
         lea edx, [dword eax+0F6h]
         mov dword [dword eax+0A4h], 2
-        mov ecx, asc_1609E7
+        mov ecx, str_AB01
         mov eax, dword [dword_19ED70]
         call sub_D0098
-        push asc_1609F1
+        push str_BH00
         mov edx, dword [byte ebp-018h]
-        mov ecx, asc_1609F1
-        mov ebx, asc_1609F6
+        mov ecx, str_BH00
+        mov ebx, str_BT00
         mov eax, dword [dword_19ED44]
         add edx, 148h
         call sub_D0098
-        push asc_1609FB
+        push str_AB05
         mov edx, dword [byte ebp-018h]
-        mov ecx, asc_160A00
-        mov ebx, asc_160A05
+        mov ecx, str_AB04
+        mov ebx, str_AB03
         mov eax, dword [dword_19ED70]
         add edx, 19Ah
         call sub_D0098
-        push asc_160A0A
+        push str_SIM0
         mov edx, dword [byte ebp-018h]
-        mov ecx, asc_160A0A
+        mov ecx, str_SIM0
         mov eax, dword [dword_19ED44]
         add edx, 1ECh
         mov ebx, ecx
         call sub_D0098
-        push asc_160A0A
+        push str_SIM0
         lea eax, [byte ebp-014h]
         push eax
         mov dword [byte ebp-04h], 0
@@ -591,7 +591,7 @@ InitSeasonGameScreen:
         cdq
         idiv ebx
         push edx
-        push asc_160A0F
+        push str_BT02d
         lea eax, [byte ebp-014h]
         push eax
         call sprintf_
@@ -617,7 +617,7 @@ InitSeasonGameScreen:
         mov dword [eax+ebx*4], edx
         cmp dword [byte ebp-04h], byte 9
         jl short .3
-        push asc_160A16
+        push str_FAN0
         lea eax, [byte ebp-014h]
         push eax
         mov dword [byte ebp-04h], 0
@@ -639,7 +639,7 @@ InitSeasonGameScreen:
         mov dword [ebx+eax*4], edx
         cmp dword [byte ebp-04h], byte 0Ah
         jl short .4
-        push asc_160A1B
+        push str_LT00
         lea eax, [byte ebp-014h]
         push eax
         mov dword [byte ebp-04h], 0
@@ -668,7 +668,7 @@ InitSeasonGameScreen:
         call SetDrawTarget
         add esp, byte 4
         push dword [dword_19ED50]
-        push asc_160A20
+        push str_Logo02dFsh
         lea eax, [byte ebp-014h]
         push eax
         call sprintf_
@@ -685,7 +685,7 @@ InitSeasonGameScreen:
         mov dword [dword_19ED48], eax
         test eax, eax
         je short .6
-        push asc_160A2D
+        push str_LOGO
         push eax
         call FindShapeQuiet
         add esp, byte 8
@@ -931,7 +931,7 @@ sub_38BFC:
         mov edi, eax
         mov ebx, edx
         push dword [dword_16E46C]
-        push asc_160A32
+        push str_ALST
         push dword [dword_19ED70]
         call FindShape
         add esp, byte 8
@@ -1051,7 +1051,7 @@ sub_38C79:
         movzx eax, byte [eax]
         push eax
         mov eax, dword [byte ebp-08h]
-        push asc_160A37
+        push str_CDD
         add eax, byte 3
         push eax
         movsx eax, word [byte ebx+04h]
@@ -1111,7 +1111,7 @@ sub_38D84:
         call GetLangText
         push eax
         movsx eax, word [byte ebx+04h]
-        push asc_160A40
+        push str_SDSD
         sar eax, 1
         push esi
         add eax, edi
@@ -1281,7 +1281,7 @@ sub_38F7A:
         call sub_99DAC
         cmp dword [dword_19ED14], byte 0
         je near InitSeasonGameScreen_472
-        push asc_160A4C
+        push str_LOCK
         push dword [dword_19ED70]
         call FindShape
         movsx edx, word [byte eax+04h]
@@ -1358,7 +1358,7 @@ DrawSeasonGamePanel:
         jne short .3
         mov dword [dword_19ED30], eax
 .3:
-        push asc_160A51
+        push str_PANL
         push dword [dword_19ED70]
         call FindShape
         add esp, byte 8
@@ -6362,7 +6362,7 @@ sub_3C880:
         push edx
         shl eax, 3
         push eax
-        push asc_160B30
+        push str_DMAN
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1A8E80], eax
@@ -7878,7 +7878,7 @@ sub_3D764:
         mov dword [esp], ebx
         push byte 20h
         push dword 0C1Ch
-        push asc_160B40
+        push str_HIST
         call AllocMemBlock
         mov ebx, eax
         add esp, byte 0Ch
@@ -9052,7 +9052,7 @@ sub_3E21C:
         je near .24
         push byte 20h
         push dword 9C44h
-        push asc_160B48
+        push str_MEGAHIST
         call AllocMemBlock
         add esp, byte 0Ch
         mov edi, eax
@@ -13040,7 +13040,7 @@ LoadSfxBank:
 .10:
         call strcat_
 .11:
-        mov edx, asc_160C9C
+        mov edx, str_BKH
         lea eax, [byte esp+024h]
         call strcat_
         lea eax, [byte esp+024h]
@@ -13090,7 +13090,7 @@ LoadSfxBank:
         lea eax, [byte esp+014h]
         call strcat_
 .19:
-        mov edx, asc_160CA4
+        mov edx, str_BKD
         lea eax, [byte esp+014h]
         call strcat_
         cmp dword [byte esp+038h], byte 0
@@ -13125,7 +13125,7 @@ LoadSfxBank:
         lea ebx, [nosplit edi*4+00h]
         mov ecx, dword [dword ebx+off_1691E4]
         push ecx
-        push asc_160CAC
+        push str_SFX4S
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -13537,7 +13537,7 @@ OpenAudioStream_D8:
         push dword 25B7Eh
         mov ecx, 1
         mov edi, 1
-        push asc_160CB4
+        push str_AUDSTREAM
         xor ebp, ebp
         mov word [word_1691A4], cx
         call AllocMemBlock
@@ -13794,7 +13794,7 @@ InitGameAudio:
         mov eax, 10266h
         call sub_419B8
         push byte 0
-        push asc_160CC0
+        push str_CROWDCRD
         call sub_106DA0
         add esp, byte 8
         mov dword [dword_169224], eax
@@ -13849,7 +13849,7 @@ InitGameAudio:
         and eax, byte 70h
         cmp eax, byte 40h
         jne short .14
-        mov eax, asc_160CCC
+        mov eax, str_GAMEDATAAUDPBP3TSF
         call FileExists
         test eax, eax
         je short .15
@@ -14370,7 +14370,7 @@ sub_41A28:
         je near .3
         test byte [dword_1AC819], 2
         je near .3
-        mov edx, asc_160CE4
+        mov edx, str_MENU
         mov eax, ecx
         call strstr_
         test eax, eax
@@ -14432,7 +14432,7 @@ sub_41ACC:
         lea eax, [nosplit edx*4+00h]
         add eax, edx
         shl eax, 4
-        mov edx, asc_160CE4
+        mov edx, str_MENU
         add eax, byte_1AC638
         call strstr_
         test eax, eax
@@ -14462,7 +14462,7 @@ sub_41ACC:
         mov ecx, eax
         cmp word [word_1691A4], byte 0
         je near .6
-        mov edx, asc_160CE4
+        mov edx, str_MENU
         call strstr_
         test eax, eax
         je short .4
@@ -14524,7 +14524,7 @@ sub_41ACC:
         lea eax, [nosplit edx*4+00h]
         add eax, edx
         shl eax, 4
-        mov edx, asc_160CE4
+        mov edx, str_MENU
         add eax, byte_1AC638
         call strstr_
         test eax, eax
@@ -14729,7 +14729,7 @@ MusicFileName:
         push ebx
         lea eax, [byte esp+04h]
         push eax
-        push asc_160CEC
+        push str_S02dASF
         push ecx
         call sprintf_
         add esp, byte 10h
@@ -14764,7 +14764,7 @@ ArenaFileName:
         push ebx
         lea eax, [byte esp+04h]
         push eax
-        push asc_160CEC
+        push str_S02dASF
         push ecx
         call sprintf_
         add esp, byte 10h
@@ -15721,7 +15721,7 @@ sub_42960:
 .1:
         push byte 20h
         push dword 2000h
-        push asc_160D20
+        push str_TEMP
         xor esi, esi
         call AllocMemBlock
         add esp, byte 0Ch
@@ -16068,7 +16068,7 @@ OpenSpeechBanks:
         mov edi, eax
         mov dword [dword esp+0104h], ebx
         push edx
-        push asc_160D28
+        push str_SAUDPBP3TSF
         lea eax, [dword esp+080h]
         push eax
         call sprintf_
@@ -16081,7 +16081,7 @@ OpenSpeechBanks:
         test eax, eax
         je near .22
         mov ebx, 4
-        mov edx, asc_160D38
+        mov edx, str_KTSF
         mov eax, dword [dword_1AC7AC]
         call FileWriteRecord
         test eax, eax
@@ -16216,7 +16216,7 @@ OpenSpeechBanks:
         call dword [dword esp+0104h]
 .11:
         push edi
-        push asc_160D40
+        push str_SAUDPBP2VIV
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -16236,7 +16236,7 @@ OpenSpeechBanks:
         mov dword [eax+edx*4], edi
         mov ebx, dword [dword esp+0100h]
         push ebx
-        push asc_160D50
+        push str_CBANK03dDAT
         lea eax, [dword esp+0F8h]
         push eax
         call sprintf_
@@ -16273,7 +16273,7 @@ OpenSpeechBanks:
         jl near .12
         push byte 20h
         push dword 20000h
-        push asc_160D20
+        push str_TEMP
         call AllocMemBlock
         add esp, byte 0Ch
         push dword 20000h
@@ -16489,7 +16489,7 @@ LoadTeamSpeech:
         call sub_FC330
         add esp, byte 4
         push ebx
-        push asc_160D60
+        push str_TEAM04dDAT
         lea eax, [byte esp+070h]
         push eax
         call sprintf_
@@ -16569,7 +16569,7 @@ LoadTeamSpeech:
         mov eax, 19h
         call sub_842F4
         push esi
-        push asc_160D60
+        push str_TEAM04dDAT
         lea eax, [byte esp+070h]
         push eax
         call sprintf_

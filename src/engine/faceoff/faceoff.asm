@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_1303C progbits alloc exec nowrite align=1
 extern CountTeamSlots, SetupTeamForIntermission, SortCords, __CHK, __CHP, __STOSB, __STOSD, _dos_gettime_
-extern asc_16007C, asc_160088, asc_1600BC, asc_1600D8, asc_160114, awtmstruct, byte_19C3E0, byte_19CB70
+extern str_RPEVENT2, str_WaitingForOtherComputer2, str_WarteAufAnderenComputer, str_BREAKIN, str_BREAKOUT, awtmstruct, byte_19C3E0, byte_19CB70
 extern byte_19CB71, byte_19CB74, byte_19CB75, byte_19CB7E, byte_19CB7F, byte_19CB8A, byte_19CB8B, byte_19CBC2
 extern byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CBFC, byte_19CCC6, byte_19CD05, byte_19CD8C, byte_19CD9D
 extern byte_19DAF1, byte_1AC81B, byte_1AC81C, byte_1AC81D, byte_1C135A, byte_1C135B, byte_1C6040, clearteams
@@ -2338,7 +2338,7 @@ GameLoop:
         call sub_FC290
         push byte 0
         push byte 18h
-        push asc_16007C
+        push str_RPEVENT2
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1B8F4C], eax
@@ -3013,13 +3013,13 @@ PlayGame:
 .5:
         test eax, eax
         jne short .9
-        mov eax, asc_160088
+        mov eax, str_WaitingForOtherComputer2
         jmp short .8
 .6:
         mov eax, unk_1600A4
         jmp short .8
 .7:
-        mov eax, asc_1600BC
+        mov eax, str_WarteAufAnderenComputer
 .8:
         call sub_E4248
 .9:
@@ -3310,7 +3310,7 @@ RunInGameMenu:
         push ebx
         push ecx
         push edx
-        push asc_1600D8
+        push str_BREAKIN
         push byte 18h
         push byte 4Fh
         mov ebx, dword [InGameMenuRequest]
@@ -3354,7 +3354,7 @@ RunInGameMenu:
         jne short .7
         call sub_E304C
 .7:
-        push asc_160114
+        push str_BREAKOUT
         push byte 18h
         push byte 4Fh
         call sub_FC88C

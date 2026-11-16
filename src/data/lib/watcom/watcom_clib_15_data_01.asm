@@ -2,60 +2,60 @@
 bits 32
 %include "hockey.inc"
 section s_167FA0 progbits alloc noexec write align=1
-global asc_167FA0, asc_167FA8, asc_167FE0, asc_167FEC, asc_167FF4, asc_167FFC, asc_168004, asc_16800C
-global asc_168014, asc_16801C, asc_168024, asc_168030, asc_168044, asc_168050, asc_168058, asc_168060
-global asc_16806C, asc_168078, asc_16808C, asc_168094, asc_16809C, str_WSSDMA, unk_167FA4, unk_167FE8
+global str_ATD2, str_EAGAME08x04x04x02x02x02x0, str_Netserv, str_IPXINTF, str_IPXSOCK, str_Galloc, str_GMEM, str_GEND
+global str_GFRE, str_RESIZE, str_DMABUFFER, str_DMABUFFER2, str_DMABUFFER3, str_DMABUF, str_DMABUF2, str_DMABUFFER4
+global str_SNDSCAPE, str_SNDSCAPEINI, str_Product, str_SoundFX, str_Port, str_WSSDMA, unk_167FA4, unk_167FE8
 global unk_168088
-asc_167FA0:
+str_ATD2:
         db 041h,054h,044h,00h
 unk_167FA4:
         db 0Dh,00h,00h,00h
-asc_167FA8:
+str_EAGAME08x04x04x02x02x02x0:
         db 045h,041h,047h,041h,04Dh,045h,02Eh,025h,030h,038h,078h,02Eh,025h,030h,034h,078h
         db 025h,030h,034h,078h,02Eh,025h,030h,032h,078h,025h,030h,032h,078h,025h,030h,032h
         db 078h,025h,030h,032h,078h,02Eh,025h,030h,032h,078h,025h,030h,032h,078h,025h,030h
         db 032h,078h,025h,030h,032h,078h,00h,00h
-asc_167FE0:
+str_Netserv:
         db 06Eh,065h,074h,073h,065h,072h,076h,00h
 unk_167FE8:
         db 049h,050h,058h,00h
-asc_167FEC:
+str_IPXINTF:
         db 049h,050h,058h,049h,04Eh,054h,046h,00h
-asc_167FF4:
+str_IPXSOCK:
         db 049h,050h,058h,053h,04Fh,043h,04Bh,00h
-asc_167FFC:
+str_Galloc:
         db 067h,061h,06Ch,06Ch,06Fh,063h,00h,00h
-asc_168004:
+str_GMEM:
         db 047h,04Dh,045h,04Dh,00h,00h,00h,00h
-asc_16800C:
+str_GEND:
         db 047h,045h,04Eh,044h,00h,00h,00h,00h
-asc_168014:
+str_GFRE:
         db 047h,046h,052h,045h,00h,00h,00h,00h
-asc_16801C:
+str_RESIZE:
         db 052h,045h,053h,049h,05Ah,045h,00h,00h
-asc_168024:
+str_DMABUFFER:
         db 044h,04Dh,041h,020h,042h,055h,046h,046h,045h,052h,00h,00h
-asc_168030:
+str_DMABUFFER2:
         db 044h,04Dh,041h,020h,042h,055h,046h,046h,045h,052h,00h,00h
 str_WSSDMA:
         db 057h,053h,053h,044h,04Dh,041h,00h,00h
-asc_168044:
+str_DMABUFFER3:
         db 044h,04Dh,041h,020h,042h,055h,046h,046h,045h,052h,00h,00h
-asc_168050:
+str_DMABUF:
         db 044h,04Dh,041h,042h,055h,046h,00h,00h
-asc_168058:
+str_DMABUF2:
         db 044h,04Dh,041h,042h,055h,046h,00h,00h
-asc_168060:
+str_DMABUFFER4:
         db 044h,04Dh,041h,020h,042h,055h,046h,046h,045h,052h,00h,00h
-asc_16806C:
+str_SNDSCAPE:
         db 053h,04Eh,044h,053h,043h,041h,050h,045h,00h,00h,00h,00h
-asc_168078:
+str_SNDSCAPEINI:
         db 05Ch,053h,04Eh,044h,053h,043h,041h,050h,045h,02Eh,049h,04Eh,049h,00h,00h,00h
 unk_168088:
         db 072h,074h,00h,00h
-asc_16808C:
+str_Product:
         db 050h,072h,06Fh,064h,075h,063h,074h,00h
-asc_168094:
+str_SoundFX:
         db 053h,06Fh,075h,06Eh,064h,046h,058h,00h
-asc_16809C:
+str_Port:
         db 050h,06Fh,072h,074h,00h,00h,00h,00h

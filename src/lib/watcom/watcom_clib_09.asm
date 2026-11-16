@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_107A2C progbits alloc exec nowrite align=1
-extern ParseBlasterEnv, ResetGameVars, asc_167E64, byte_170044, byte_170045, byte_170046, byte_170047, byte_170048
+extern ParseBlasterEnv, ResetGameVars, str_VoxPlaybuf, byte_170044, byte_170045, byte_170046, byte_170047, byte_170048
 extern byte_1700A0, byte_1700A1, byte_1700A4, byte_1700A5, byte_1700A6, byte_1700A7, byte_1700A8, byte_172BC5
 extern byte_1DCF01, byte_1DCF45, byte_1DD381, dword_170042, dword_170043, dword_170050, dword_170054, dword_170058
 extern dword_170060, dword_170080, dword_170084, dword_170088, dword_17008C, dword_170090, dword_170094, dword_170098
@@ -1318,7 +1318,7 @@ sub_108725:
         push byte 0
         add eax, 3480h
         push eax
-        push asc_167E64
+        push str_VoxPlaybuf
         mov dword [dword_1DCAEC], 3480h
         call AllocMemBlock
         add esp, byte 0Ch

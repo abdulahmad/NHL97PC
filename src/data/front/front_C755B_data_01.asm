@@ -2,196 +2,196 @@
 bits 32
 %include "hockey.inc"
 section s_166D9C progbits alloc noexec write align=1
-global asc_166D9C, asc_166DAE, asc_166DB3, asc_166DB8, asc_166DC9, asc_166DDA, asc_166DF0, asc_166DF5
-global asc_166DFA, asc_166DFF, asc_166E04, asc_166E09, asc_166E0E, asc_166E13, asc_166E18, asc_166E1D
-global asc_166E22, asc_166E27, asc_166E2C, asc_166E31, asc_166E36, asc_166E3B, asc_166E40, asc_166E45
-global asc_166E4A, asc_166E4F, asc_166E56, asc_166E5B, asc_166E60, asc_166E65, asc_166E6A, asc_166E6F
-global asc_166E74, asc_166E79, asc_166E7E, asc_166E83, asc_166E88, asc_166E8D, asc_166E92, asc_166E97
-global asc_166EA0, asc_166EAC, asc_166EC0, asc_166EC5, asc_166ECC, asc_166ED1, asc_166ED6, asc_166EDB
-global asc_166EE0, asc_166EE5, asc_166EEA, asc_166EEF, asc_166EF4, asc_166EF9, asc_166EFE, asc_166F03
-global asc_166F08, asc_166F0D, asc_166F12, asc_166F17, asc_166F1C, asc_166F21, asc_166F26, asc_166F2B
-global asc_166F33, asc_166F38, asc_166F3D, asc_166F42, asc_166F49, asc_166F59, asc_166F6B, asc_166F70
-global asc_166F75, asc_166F7A, asc_166F7F, asc_166F84, asc_166F89, asc_166F8E, asc_166F93, asc_166F98
-global asc_166F9D, asc_166FA2, asc_166FAC, asc_166FB8, qword_166FC4, str_TR00, unk_166E9D, unk_166F30
-asc_166D9C:
+global str_CDCS2, str_TITL11, str_MTR2, str_TR00TR01TR02TR03, str_DF00DF01DF02DF03, str_CM00CM01CM02CM03, str_TR01, str_DF002
+global str_CM002, str_CM012, str_GB00, str_LD002, str_LB004, str_ATL2, str_ATL1, str_ATL0
+global str_ATL5, str_ATL4, str_ATL3, str_ATR2, str_ATR1, str_ATR0, str_ATR5, str_ATR4
+global str_ATR3, str_LB02d5, str_LB04, str_LD04, str_LB02, str_LD02, str_GB04, str_GB02
+global str_LB03, str_LD03, str_LB01, str_LD01, str_GB03, str_GB01, str_TR04, str_SS11
+global str_JerseyMenu, str_JerseyMenuRegions, str_NAM1, str_CS2, str_NAOF, str_GOOF, str_GOON, str_LWOF
+global str_LWON, str_RWOF, str_RWON, str_CEOF, str_CEON, str_DEOF, str_DEON, str_SROF
+global str_SRON, str_GROF, str_GRON, str_SLOF, str_SLON, str_GLOF, str_GLON, str_POB1
+global str_PBOF, str_STSP, str_STSG, str_AN02d, str_CreatePlrMenu, str_CreatePlrRegion, str_00008, str_NAON
+global str_JNON, str_JNOF, str_PBON, str_HEON, str_HEOF, str_WEON, str_WEOF, str_AGON
+global str_AGOF, str_Aiplayers, str_Statplayers, str_Statgoalies, qword_166FC4, str_TR00, unk_166E9D, unk_166F30
+str_CDCS2:
         db 025h,063h,020h,020h,020h,025h,064h,020h,020h,020h,025h,063h,02Eh,020h,020h,025h
         db 073h,00h
-asc_166DAE:
+str_TITL11:
         db 054h,049h,054h,04Ch,00h
-asc_166DB3:
+str_MTR2:
         db 04Dh,054h,052h,032h,00h
-asc_166DB8:
+str_TR00TR01TR02TR03:
         db 054h,052h,030h,030h,054h,052h,030h,031h,054h,052h,030h,032h,054h,052h,030h,033h
         db 00h
-asc_166DC9:
+str_DF00DF01DF02DF03:
         db 044h,046h,030h,030h,044h,046h,030h,031h,044h,046h,030h,032h,044h,046h,030h,033h
         db 00h
-asc_166DDA:
+str_CM00CM01CM02CM03:
         db 043h,04Dh,030h,030h,043h,04Dh,030h,031h,043h,04Dh,030h,032h,043h,04Dh,030h,033h
         db 00h
 str_TR00:
         db 054h,052h,030h,030h,00h
-asc_166DF0:
+str_TR01:
         db 054h,052h,030h,031h,00h
-asc_166DF5:
+str_DF002:
         db 044h,046h,030h,030h,00h
-asc_166DFA:
+str_CM002:
         db 043h,04Dh,030h,030h,00h
-asc_166DFF:
+str_CM012:
         db 043h,04Dh,030h,031h,00h
-asc_166E04:
+str_GB00:
         db 047h,042h,030h,030h,00h
-asc_166E09:
+str_LD002:
         db 04Ch,044h,030h,030h,00h
-asc_166E0E:
+str_LB004:
         db 04Ch,042h,030h,030h,00h
-asc_166E13:
+str_ATL2:
         db 041h,054h,04Ch,032h,00h
-asc_166E18:
+str_ATL1:
         db 041h,054h,04Ch,031h,00h
-asc_166E1D:
+str_ATL0:
         db 041h,054h,04Ch,030h,00h
-asc_166E22:
+str_ATL5:
         db 041h,054h,04Ch,035h,00h
-asc_166E27:
+str_ATL4:
         db 041h,054h,04Ch,034h,00h
-asc_166E2C:
+str_ATL3:
         db 041h,054h,04Ch,033h,00h
-asc_166E31:
+str_ATR2:
         db 041h,054h,052h,032h,00h
-asc_166E36:
+str_ATR1:
         db 041h,054h,052h,031h,00h
-asc_166E3B:
+str_ATR0:
         db 041h,054h,052h,030h,00h
-asc_166E40:
+str_ATR5:
         db 041h,054h,052h,035h,00h
-asc_166E45:
+str_ATR4:
         db 041h,054h,052h,034h,00h
-asc_166E4A:
+str_ATR3:
         db 041h,054h,052h,033h,00h
-asc_166E4F:
+str_LB02d5:
         db 04Ch,042h,025h,030h,032h,064h,00h
-asc_166E56:
+str_LB04:
         db 04Ch,042h,030h,034h,00h
-asc_166E5B:
+str_LD04:
         db 04Ch,044h,030h,034h,00h
-asc_166E60:
+str_LB02:
         db 04Ch,042h,030h,032h,00h
-asc_166E65:
+str_LD02:
         db 04Ch,044h,030h,032h,00h
-asc_166E6A:
+str_GB04:
         db 047h,042h,030h,034h,00h
-asc_166E6F:
+str_GB02:
         db 047h,042h,030h,032h,00h
-asc_166E74:
+str_LB03:
         db 04Ch,042h,030h,033h,00h
-asc_166E79:
+str_LD03:
         db 04Ch,044h,030h,033h,00h
-asc_166E7E:
+str_LB01:
         db 04Ch,042h,030h,031h,00h
-asc_166E83:
+str_LD01:
         db 04Ch,044h,030h,031h,00h
-asc_166E88:
+str_GB03:
         db 047h,042h,030h,033h,00h
-asc_166E8D:
+str_GB01:
         db 047h,042h,030h,031h,00h
-asc_166E92:
+str_TR04:
         db 054h,052h,030h,034h,00h
-asc_166E97:
+str_SS11:
         db 025h,073h,020h,025h,073h,00h
 unk_166E9D:
         db 025h,064h,00h
-asc_166EA0:
+str_JerseyMenu:
         db 06Ah,065h,072h,073h,065h,079h,020h,06Dh,065h,06Eh,075h,00h
-asc_166EAC:
+str_JerseyMenuRegions:
         db 06Ah,065h,072h,073h,065h,079h,020h,06Dh,065h,06Eh,075h,020h,072h,065h,067h,069h
         db 06Fh,06Eh,073h,00h
-asc_166EC0:
+str_NAM1:
         db 04Eh,041h,04Dh,031h,00h
-asc_166EC5:
+str_CS2:
         db 025h,063h,02Eh,020h,025h,073h,00h
-asc_166ECC:
+str_NAOF:
         db 04Eh,041h,04Fh,046h,00h
-asc_166ED1:
+str_GOOF:
         db 047h,04Fh,04Fh,046h,00h
-asc_166ED6:
+str_GOON:
         db 047h,04Fh,04Fh,04Eh,00h
-asc_166EDB:
+str_LWOF:
         db 04Ch,057h,04Fh,046h,00h
-asc_166EE0:
+str_LWON:
         db 04Ch,057h,04Fh,04Eh,00h
-asc_166EE5:
+str_RWOF:
         db 052h,057h,04Fh,046h,00h
-asc_166EEA:
+str_RWON:
         db 052h,057h,04Fh,04Eh,00h
-asc_166EEF:
+str_CEOF:
         db 043h,045h,04Fh,046h,00h
-asc_166EF4:
+str_CEON:
         db 043h,045h,04Fh,04Eh,00h
-asc_166EF9:
+str_DEOF:
         db 044h,045h,04Fh,046h,00h
-asc_166EFE:
+str_DEON:
         db 044h,045h,04Fh,04Eh,00h
-asc_166F03:
+str_SROF:
         db 053h,052h,04Fh,046h,00h
-asc_166F08:
+str_SRON:
         db 053h,052h,04Fh,04Eh,00h
-asc_166F0D:
+str_GROF:
         db 047h,052h,04Fh,046h,00h
-asc_166F12:
+str_GRON:
         db 047h,052h,04Fh,04Eh,00h
-asc_166F17:
+str_SLOF:
         db 053h,04Ch,04Fh,046h,00h
-asc_166F1C:
+str_SLON:
         db 053h,04Ch,04Fh,04Eh,00h
-asc_166F21:
+str_GLOF:
         db 047h,04Ch,04Fh,046h,00h
-asc_166F26:
+str_GLON:
         db 047h,04Ch,04Fh,04Eh,00h
-asc_166F2B:
+str_POB1:
         db 050h,04Fh,042h,031h,00h
 unk_166F30:
         db 025h,073h,00h
-asc_166F33:
+str_PBOF:
         db 050h,042h,04Fh,046h,00h
-asc_166F38:
+str_STSP:
         db 053h,054h,053h,050h,00h
-asc_166F3D:
+str_STSG:
         db 053h,054h,053h,047h,00h
-asc_166F42:
+str_AN02d:
         db 041h,04Eh,025h,030h,032h,064h,00h
-asc_166F49:
+str_CreatePlrMenu:
         db 063h,072h,065h,061h,074h,065h,020h,070h,06Ch,072h,020h,06Dh,065h,06Eh,075h,00h
-asc_166F59:
+str_CreatePlrRegion:
         db 063h,072h,065h,061h,074h,065h,020h,070h,06Ch,072h,020h,072h,065h,067h,069h,06Fh
         db 06Eh,00h
-asc_166F6B:
+str_00008:
         db 030h,030h,030h,030h,00h
-asc_166F70:
+str_NAON:
         db 04Eh,041h,04Fh,04Eh,00h
-asc_166F75:
+str_JNON:
         db 04Ah,04Eh,04Fh,04Eh,00h
-asc_166F7A:
+str_JNOF:
         db 04Ah,04Eh,04Fh,046h,00h
-asc_166F7F:
+str_PBON:
         db 050h,042h,04Fh,04Eh,00h
-asc_166F84:
+str_HEON:
         db 048h,045h,04Fh,04Eh,00h
-asc_166F89:
+str_HEOF:
         db 048h,045h,04Fh,046h,00h
-asc_166F8E:
+str_WEON:
         db 057h,045h,04Fh,04Eh,00h
-asc_166F93:
+str_WEOF:
         db 057h,045h,04Fh,046h,00h
-asc_166F98:
+str_AGON:
         db 041h,047h,04Fh,04Eh,00h
-asc_166F9D:
+str_AGOF:
         db 041h,047h,04Fh,046h,00h
-asc_166FA2:
+str_Aiplayers:
         db 061h,069h,070h,06Ch,061h,079h,065h,072h,073h,00h
-asc_166FAC:
+str_Statplayers:
         db 073h,074h,061h,074h,070h,06Ch,061h,079h,065h,072h,073h,00h
-asc_166FB8:
+str_Statgoalies:
         db 073h,074h,061h,074h,067h,06Fh,061h,06Ch,069h,065h,073h,00h
 qword_166FC4:
         db 00h,00h,00h,00h,00h,00h,00h,040h

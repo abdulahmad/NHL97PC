@@ -3,20 +3,20 @@ bits 32
 %include "hockey.inc"
 section s_57324 progbits alloc exec nowrite align=1
 extern IF@ATAN2, IF@DFMOD, ReadJoy1, SetClipWindow, SortCords, __CHP, __STOSB, _makepath_
-extern _splitpath_, asc_1617E0, asc_161808, asc_161810, asc_161814, asc_161824, asc_161828, asc_161834
-extern asc_161840, asc_16184C, asc_161858, asc_161860, asc_161870, asc_16187C, asc_161884, asc_161890
-extern asc_161898, asc_1618A0, asc_1618A8, asc_1618B0, asc_1618B4, asc_1618BC, asc_1618C4, asc_1618CC
-extern asc_1618D4, asc_1618DC, asc_1618E4, asc_1618EC, asc_1618F4, asc_161900, asc_161904, asc_16190C
-extern asc_161914, asc_16191C, asc_16192C, asc_161934, asc_16193C, asc_161944, asc_16194C, asc_161954
-extern asc_16195C, asc_161964, asc_16196C, asc_16197C, asc_161984, asc_16198C, asc_161998, asc_1619A4
-extern asc_1619AC, asc_1619B8, asc_1619C0, asc_1619D4, asc_1619DC, asc_1619EC, asc_1619FC, asc_161A08
-extern asc_161A14, asc_161A20, asc_161A34, asc_161A3C, asc_161A44, asc_161A4C, asc_161A54, asc_161A5C
-extern asc_161A64, asc_161A6C, asc_161A74, asc_161A7C, asc_161A88, asc_161AD4, asc_161AE0, asc_161AE8
-extern asc_161AF0, asc_161AF8, asc_161AFC, asc_161B08, asc_161B10, asc_161B18, asc_161B20, asc_162FFC
-extern asc_163000, asc_163006, asc_16300F, asc_163015, asc_16301C, asc_163024, asc_163035, asc_16303C
-extern asc_163045, asc_16304E, asc_163056, asc_16305C, asc_163060, asc_163065, asc_16306F, asc_163076
-extern asc_16307B, asc_163081, asc_163088, asc_16308F, asc_163D6C, asc_163D74, asc_163D7C, asc_163D84
-extern asc_163D8C, asc_163D94, asc_163D9C, asc_163DBC, asc_163ED8, asc_163EE4, asc_163EEC, awtmstruct
+extern _splitpath_, str_BOGIE, str_CUPP, str_2d, str_PLYRCOMNVIV, str_Cup, str_MASKSVIV, str_MASK02da
+extern str_MASK02db, str_MASK02dc, str_Gmask, str_PlyrcomnViv, str_TeampalFsh, str_PAL2, str_HndfistFsh, str_Fist
+extern str_Torso0, str_Torso1, str_Torso2, str_PD, str_Helmet0, str_Face, str_Helmet1, str_Helmet2
+extern str_Stick0, str_Stick1, str_Stick2, str_Lstick2, str_Stick2Fsh, str_Ori, str_Gstick0, str_Gstick1
+extern str_Gstick2, str_Gstick2Fsh, str_Glleg, str_Grleg, str_Rblkr, str_Lblkr, str_Ltrap2, str_Rtrap2
+extern str_Lskate0, str_Lskate1, str_Lskate1Fsh, str_Rskate0, str_Rskate1, str_Uni04dViv, str_NumbersFfn, str_A2zFfn
+extern str_Cuppatch, str_Cupp, str_Torso2Fsh, str_Fron, str_Helmet0Fsh, str_Helmet2Fsh, str_GllegFsh, str_GrlegFsh
+extern str_LblkrFsh, str_Rtrap2Fsh, str_Larm, str_Uleg, str_Lleg, str_Glove, str_SHPCOPY, str_Marks2
+extern str_04d2, str_Player2, str_Faces, str_05dFsh, str_ABCDEFGHIJKLM, str_FacesViv, str_Facepal, str_Pal2
+extern str_Face2, str_FAC, str_Fac00000, str_Face3, str_REPLAY, str_RPGAME, str_RSPRITE, str_Tmp
+extern str_Skate, str_Stop, str_Puckh, str_PlAct, str_PlFall, str_Interfer, str_Goalie, str_Refskate
+extern str_Refcalls, str_Refambi, str_Fight, str_Cup2, str_Puck3, str_Stickheel, str_Origin, str_Chin
+extern str_Rhand, str_Lshldr, str_Rshldr, str_ANIMSVIV, str_MIRROR, str_SCALED, str_LOOP, str_MASTER
+extern str_SLAVE, str_FADING, str_4da, str_ANIMSTAT, str_AiconsViv, str_Cross, str_ANIMSVIV2, awtmstruct
 extern byte_16C429, byte_16FA40, byte_16FA4F, byte_19CA30, byte_19CB74, byte_19CBC2, byte_19CBC8, byte_19CBCA
 extern byte_19CBCC, byte_19CD8C, byte_19DAEF, byte_1AD72B, byte_1B1378, byte_1B1398, byte_1B8571, byte_1B8580
 extern byte_1B8582, byte_1B9058, byte_1BF670, chkprogress, dword_161A96, dword_161ABA, dword_161ABE, dword_161AC2
@@ -614,7 +614,7 @@ sub_576EC:
         mov ebx, eax
         call SetDrawTarget
         add esp, byte 4
-        push asc_161808
+        push str_CUPP
         mov ecx, dword [dword_1B84C8]
         push ecx
         call FindShape
@@ -725,7 +725,7 @@ sub_57738:
         call sub_57504
         push ebp
         mov ebx, sub_57324_D8
-        push asc_161810
+        push str_2d
         lea eax, [byte esp+08h]
         mov dword [dword_1CF5B8], ebx
         push eax
@@ -825,10 +825,10 @@ LoadCupArt:
         mov esi, dword_1B1410
         shl eax, 5
         add esi, eax
-        mov eax, asc_161814
+        mov eax, str_PLYRCOMNVIV
         xor edx, edx
         call SetArtArchive
-        mov eax, asc_161824
+        mov eax, str_Cup
         call sub_10FFBC
         push eax
         mov dword [dword_1B84F8], eax
@@ -902,10 +902,10 @@ LoadGoalieMask:
 .1:
         mov dword [byte esp+024h], ecx
 .2:
-        mov eax, asc_161828
+        mov eax, str_MASKSVIV
         call SetArtArchive
         push esi
-        push asc_161834
+        push str_MASK02da
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -918,7 +918,7 @@ LoadGoalieMask:
         sub eax, ebx
         push esi
         lea ebx, [nosplit eax*4+00h]
-        push asc_161840
+        push str_MASK02db
         lea eax, [byte esp+08h]
         push eax
         mov dword [dword ebx+dword_1B84FC], edx
@@ -929,7 +929,7 @@ LoadGoalieMask:
         call sub_10FFBC
         push esi
         mov dword [dword ebx+dword_1B8500], eax
-        push asc_16184C
+        push str_MASK02dc
         lea eax, [byte esp+08h]
         mov edi, ebx
         push eax
@@ -971,7 +971,7 @@ LoadGoalieMask:
         mov ebx, edx
         xor ecx, ecx
         mov edx, eax
-        mov eax, asc_161858
+        mov eax, str_Gmask
         call sub_3DAC4
 .5:
         mov ebx, 0Ah
@@ -1016,13 +1016,13 @@ LoadPlayerCommonArt:
         push edi
         push ebp
         sub esp, byte 4
-        mov eax, asc_161860
+        mov eax, str_PlyrcomnViv
         call SetArtArchive
         push byte 20h
-        push asc_161870
+        push str_TeampalFsh
         call sub_101584
         add esp, byte 8
-        push asc_16187C
+        push str_PAL2
         push eax
         mov ebp, eax
         call FindShape
@@ -1030,7 +1030,7 @@ LoadPlayerCommonArt:
         lea esi, [byte eax+010h]
         call sub_E341C
         push byte 0
-        push asc_161884
+        push str_HndfistFsh
         mov ebx, dword_1B82E0
         call sub_101584
         add esp, byte 8
@@ -1042,19 +1042,19 @@ LoadPlayerCommonArt:
         mov ebx, dword [dword_1B84C4]
         mov edx, dword [dword_1ADC88]
         mov dword [dword_1B8364], eax
-        mov eax, asc_161890
+        mov eax, str_Fist
         call sub_3DA80
         call sub_E341C
-        mov eax, asc_161898
+        mov eax, str_Torso0
         xor edx, edx
         call sub_10FFBC
         mov dword [dword_1B8560], eax
         xor edx, edx
-        mov eax, asc_1618A0
+        mov eax, str_Torso1
         call sub_10FFBC
         mov dword [dword_1B8564], eax
         xor edx, edx
-        mov eax, asc_1618A8
+        mov eax, str_Torso2
         xor esi, esi
         call sub_10FFBC
         mov dword [dword_1B8568], eax
@@ -1073,7 +1073,7 @@ LoadPlayerCommonArt:
         xor esi, esi
 .2:
         push esi
-        push asc_1618B0
+        push str_PD
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -1090,28 +1090,28 @@ LoadPlayerCommonArt:
         cmp esi, byte 0Ah
         jl short .2
         call sub_E341C
-        mov eax, asc_1618B4
+        mov eax, str_Helmet0
         xor edx, edx
         call sub_10FFBC
-        push asc_1618BC
+        push str_Face
         push eax
         mov dword [dword_1B8530], eax
         call sub_10FB50
         add esp, byte 8
         mov dword [dword_1B856C], eax
         xor edx, edx
-        mov eax, asc_1618C4
+        mov eax, str_Helmet1
         call sub_10FFBC
-        push asc_1618BC
+        push str_Face
         push eax
         mov dword [dword_1B8534], eax
         call sub_10FB50
         add esp, byte 8
         mov dword [dword_1B8570], eax
         xor edx, edx
-        mov eax, asc_1618CC
+        mov eax, str_Helmet2
         call sub_10FFBC
-        push asc_1618BC
+        push str_Face
         push eax
         xor esi, esi
         mov dword [dword_1B8538], eax
@@ -1130,20 +1130,20 @@ LoadPlayerCommonArt:
         cmp esi, byte 0Ch
         jne short .3
         call sub_E341C
-        mov eax, asc_1618D4
+        mov eax, str_Stick0
         xor edx, edx
         call sub_10FFBC
         mov dword [dword_1B13B0], eax
         xor edx, edx
-        mov eax, asc_1618DC
+        mov eax, str_Stick1
         call sub_10FFBC
         mov dword [dword_1B13B4], eax
         xor edx, edx
-        mov eax, asc_1618E4
+        mov eax, str_Stick2
         call sub_10FFBC
         mov dword [dword_1B13B8], eax
         xor edx, edx
-        mov eax, asc_1618EC
+        mov eax, str_Lstick2
         xor esi, esi
         call sub_10FFBC
         mov dword [dword_1B13BC], eax
@@ -1160,7 +1160,7 @@ LoadPlayerCommonArt:
         jne short .4
         call sub_E341C
         push byte 0
-        push asc_1618F4
+        push str_Stick2Fsh
         call sub_101584
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
@@ -1168,7 +1168,7 @@ LoadPlayerCommonArt:
         mov edi, eax
         mov ebx, eax
         xor ecx, ecx
-        mov eax, asc_161900
+        mov eax, str_Ori
         xor esi, esi
         call sub_3DAC4
 .5:
@@ -1197,16 +1197,16 @@ LoadPlayerCommonArt:
         mov dword [dword_1B8370], eax
         call sub_10FBB0
         add esp, byte 8
-        mov eax, asc_161904
+        mov eax, str_Gstick0
         xor edx, edx
         call sub_10FFBC
         mov dword [dword_1B8554], eax
         xor edx, edx
-        mov eax, asc_16190C
+        mov eax, str_Gstick1
         call sub_10FFBC
         mov dword [dword_1B8558], eax
         xor edx, edx
-        mov eax, asc_161914
+        mov eax, str_Gstick2
         xor esi, esi
         call sub_10FFBC
         mov dword [dword_1B855C], eax
@@ -1223,7 +1223,7 @@ LoadPlayerCommonArt:
         jne short .6
         call sub_E341C
         push byte 0
-        push asc_16191C
+        push str_Gstick2Fsh
         call sub_101584
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
@@ -1231,7 +1231,7 @@ LoadPlayerCommonArt:
         mov edi, eax
         mov ebx, eax
         xor ecx, ecx
-        mov eax, asc_161900
+        mov eax, str_Ori
         xor esi, esi
         call sub_3DAC4
 .7:
@@ -1247,7 +1247,7 @@ LoadPlayerCommonArt:
         add esp, byte 8
         cmp esi, byte 0Ch
         jne short .7
-        mov eax, asc_16192C
+        mov eax, str_Glleg
         xor edx, edx
         call sub_10FFBC
         push eax
@@ -1258,7 +1258,7 @@ LoadPlayerCommonArt:
         mov eax, dword [dword_1B8548]
         call sub_115150
         call sub_E341C
-        mov eax, asc_161934
+        mov eax, str_Grleg
         xor edx, edx
         call sub_10FFBC
         push eax
@@ -1268,7 +1268,7 @@ LoadPlayerCommonArt:
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B84B0]
         call sub_115150
-        mov eax, asc_16193C
+        mov eax, str_Rblkr
         xor edx, edx
         call sub_10FFBC
         push eax
@@ -1278,7 +1278,7 @@ LoadPlayerCommonArt:
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B8488]
         call sub_115150
-        mov eax, asc_161944
+        mov eax, str_Lblkr
         xor edx, edx
         call sub_10FFBC
         push eax
@@ -1289,7 +1289,7 @@ LoadPlayerCommonArt:
         mov eax, dword [dword_1B8484]
         call sub_115150
         call sub_E341C
-        mov eax, asc_16194C
+        mov eax, str_Ltrap2
         xor edx, edx
         call sub_10FFBC
         push eax
@@ -1299,7 +1299,7 @@ LoadPlayerCommonArt:
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B84C0]
         call sub_115150
-        mov eax, asc_161954
+        mov eax, str_Rtrap2
         xor edx, edx
         call sub_10FFBC
         push eax
@@ -1310,15 +1310,15 @@ LoadPlayerCommonArt:
         mov eax, dword [dword_1B8440]
         call sub_115150
         call sub_E341C
-        mov eax, asc_16195C
+        mov eax, str_Lskate0
         xor edx, edx
         call sub_10FFBC
         mov dword [dword_1B13E0], eax
         xor edx, edx
-        mov eax, asc_161964
+        mov eax, str_Lskate1
         call sub_10FFBC
         push byte 0
-        push asc_16196C
+        push str_Lskate1Fsh
         mov dword [dword_1B13E4], eax
         call sub_101584
         mov edx, dword [dword_1ADC88]
@@ -1327,7 +1327,7 @@ LoadPlayerCommonArt:
         mov edi, eax
         mov ebx, eax
         xor ecx, ecx
-        mov eax, asc_161900
+        mov eax, str_Ori
         xor esi, esi
         call sub_3DAC4
 .8:
@@ -1351,12 +1351,12 @@ LoadPlayerCommonArt:
         cmp esi, byte 8
         jne short .8
         call sub_E341C
-        mov eax, asc_16197C
+        mov eax, str_Rskate0
         xor edx, edx
         call sub_10FFBC
         mov dword [dword_1B13C0], eax
         xor edx, edx
-        mov eax, asc_161984
+        mov eax, str_Rskate1
         xor esi, esi
         call sub_10FFBC
         mov dword [dword_1B13C4], eax
@@ -1410,7 +1410,7 @@ LoadUniformArt:
         mov dword [byte esp+028h], ebx
         push edx
         lea ebx, [nosplit eax*4+00h]
-        push asc_16198C
+        push str_Uni04dViv
         lea eax, [byte esp+08h]
         push eax
         mov dword [dword ebx+dword_1B8428], edx
@@ -1419,10 +1419,10 @@ LoadUniformArt:
         mov eax, esp
         call SetArtArchive
         push byte 0
-        push asc_161870
+        push str_TeampalFsh
         call sub_101584
         add esp, byte 8
-        push asc_16187C
+        push str_PAL2
         push eax
         mov dword [byte esp+02Ch], eax
         call FindShape
@@ -1434,7 +1434,7 @@ LoadUniformArt:
         test edx, edx
         jne short .1
         push edx
-        push asc_161998
+        push str_NumbersFfn
         call sub_100498
         add esp, byte 8
         mov edi, dword [unk_56790]
@@ -1448,7 +1448,7 @@ LoadUniformArt:
         call sub_57504
         push byte 0
         mov ecx, sub_57324_D8
-        push asc_1619A4
+        push str_A2zFfn
         mov dword [dword_1CF5B8], ecx
         call sub_100498
         add esp, byte 8
@@ -1456,7 +1456,7 @@ LoadUniformArt:
         jmp short .2
 .1:
         push byte 0
-        push asc_1619AC
+        push str_Cuppatch
         call sub_101584
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
@@ -1464,11 +1464,11 @@ LoadUniformArt:
         mov ebx, eax
         push byte 0
         mov ecx, dword [byte esp+034h]
-        mov eax, asc_1619B8
+        mov eax, str_Cupp
         call sub_3DA80
 .2:
         push byte 0
-        push asc_1619C0
+        push str_Torso2Fsh
         call sub_101584
         add esp, byte 8
         push str_Back
@@ -1478,7 +1478,7 @@ LoadUniformArt:
         mov dword [nosplit esi*4+dword_1B8520], eax
         call FindShape
         add esp, byte 8
-        push asc_1619D4
+        push str_Fron
         push ebx
         mov dword [nosplit esi*4+dword_1B8478], eax
         call FindShape
@@ -1486,11 +1486,11 @@ LoadUniformArt:
         add esp, byte 8
         xor ecx, ecx
         mov dword [nosplit esi*4+dword_1B8444], eax
-        mov eax, asc_161900
+        mov eax, str_Ori
         call sub_3DAC4
         call sub_E341C
         push byte 0
-        push asc_1619DC
+        push str_Helmet0Fsh
         call sub_101584
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
@@ -1498,7 +1498,7 @@ LoadUniformArt:
         mov ebx, eax
         xor ecx, ecx
         mov dword [nosplit esi*4+dword_1B84B4], eax
-        mov eax, asc_161900
+        mov eax, str_Ori
         call sub_3DAC4
         mov ebx, 0Ah
         mov eax, dword [dword_1B8530]
@@ -1516,7 +1516,7 @@ LoadUniformArt:
         call sub_10FBB0
         add esp, byte 8
         push byte 0
-        push asc_1619EC
+        push str_Helmet2Fsh
         mov edi, 1
         call sub_101584
         mov edx, dword [dword_1ADC88]
@@ -1525,7 +1525,7 @@ LoadUniformArt:
         mov ebp, eax
         xor ecx, ecx
         mov dword [nosplit esi*4+dword_1B84DC], eax
-        mov eax, asc_161900
+        mov eax, str_Ori
         mov esi, dword [byte esp+020h]
         call sub_3DAC4
         add esi, byte 4
@@ -1548,7 +1548,7 @@ LoadUniformArt:
         test esi, esi
         jne near .4
         push esi
-        push asc_1619FC
+        push str_GllegFsh
         call sub_101584
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
@@ -1558,7 +1558,7 @@ LoadUniformArt:
         shl esi, 2
         xor ecx, ecx
         mov dword [dword esi+dword_1B84E8], eax
-        mov eax, asc_161900
+        mov eax, str_Ori
         call sub_3DAC4
         mov ebx, 0Ah
         mov eax, dword [dword_1B8548]
@@ -1570,7 +1570,7 @@ LoadUniformArt:
         call sub_10FBB0
         add esp, byte 8
         push byte 0
-        push asc_161A08
+        push str_GrlegFsh
         call sub_101584
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
@@ -1578,7 +1578,7 @@ LoadUniformArt:
         mov ebx, eax
         xor ecx, ecx
         mov dword [dword esi+dword_1B84CC], eax
-        mov eax, asc_161900
+        mov eax, str_Ori
         call sub_3DAC4
         mov ebx, 0Ah
         mov eax, dword [dword_1B84B0]
@@ -1590,7 +1590,7 @@ LoadUniformArt:
         call sub_10FBB0
         add esp, byte 8
         push byte 0
-        push asc_161A14
+        push str_LblkrFsh
         call sub_101584
         add esp, byte 8
         mov edi, eax
@@ -1598,7 +1598,7 @@ LoadUniformArt:
         mov edx, dword [dword_1ADC88]
         mov ebx, eax
         xor ecx, ecx
-        mov eax, asc_161900
+        mov eax, str_Ori
         call sub_3DAC4
         call sub_E341C
         mov ebx, 0Ah
@@ -1620,7 +1620,7 @@ LoadUniformArt:
         call sub_10FBB0
         add esp, byte 8
         push byte 0
-        push asc_161A20
+        push str_Rtrap2Fsh
         call sub_101584
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
@@ -1628,7 +1628,7 @@ LoadUniformArt:
         mov ebx, eax
         xor ecx, ecx
         mov dword [dword esi+dword_1B845C], eax
-        mov eax, asc_161900
+        mov eax, str_Ori
         call sub_3DAC4
         mov ebx, 0Ah
         mov eax, dword [dword_1B8440]
@@ -1669,7 +1669,7 @@ LoadUniformArt:
         mov eax, str_Uarm
         call sub_3DA80
         push byte 0
-        push asc_161A34
+        push str_Larm
         mov ebx, dword_1B82E0
         call sub_101584
         mov edx, dword_1B82DC
@@ -1682,11 +1682,11 @@ LoadUniformArt:
         mov edx, dword [dword_1ADC88]
         mov ebx, edi
         mov dword [dword esi+dword_1B83C8], eax
-        mov eax, asc_161A34
+        mov eax, str_Larm
         call sub_3DA80
         call sub_E341C
         push byte 0
-        push asc_161A3C
+        push str_Uleg
         call sub_101584
         add esp, byte 8
         mov edi, eax
@@ -1699,10 +1699,10 @@ LoadUniformArt:
         mov edx, dword [dword_1ADC88]
         mov ebx, edi
         mov dword [dword esi+dword_1B834C], eax
-        mov eax, asc_161A3C
+        mov eax, str_Uleg
         call sub_3DA80
         push byte 0
-        push asc_161A44
+        push str_Lleg
         mov ebx, dword_1B82E0
         call sub_101584
         mov edx, dword_1B82DC
@@ -1715,11 +1715,11 @@ LoadUniformArt:
         mov edx, dword [dword_1ADC88]
         mov ebx, edi
         mov dword [dword esi+dword_1B8330], eax
-        mov eax, asc_161A44
+        mov eax, str_Lleg
         call sub_3DA80
         call sub_E341C
         push byte 0
-        push asc_161A4C
+        push str_Glove
         mov ebp, 1
         mov ebx, dword_1B82E0
         call sub_101584
@@ -1736,7 +1736,7 @@ LoadUniformArt:
         mov ebx, edi
         push eax
         mov dword [dword_1CF9FC], eax
-        mov eax, asc_161A4C
+        mov eax, str_Glove
         call sub_3DA80
         mov edx, dword [byte esp+024h]
         call sub_E341C
@@ -1771,7 +1771,7 @@ sub_58680:
         push byte 0
         add edi, byte 10h
         push edi
-        push asc_161A54
+        push str_SHPCOPY
         call AllocMemBlock
         add esp, byte 0Ch
         push edi
@@ -1906,7 +1906,7 @@ sub_5876C:
         mov ebx, sub_568CC
         push byte 3
         mov edx, esi
-        mov eax, asc_1617E0
+        mov eax, str_BOGIE
         call sub_4B4C4
         mov byte [dword edi+byte_1B8582], al
         movsx eax, al
@@ -1941,11 +1941,11 @@ sub_5881C:
         mov dword [dword_1D91CC], edx
         mov dword [dword_1B8550], ebx
         call AllocSpriteBuffers
-        mov eax, asc_161860
+        mov eax, str_PlyrcomnViv
         call SetArtArchive
         call sub_E341C
         push ebx
-        push asc_161A5C
+        push str_Marks2
         mov bl, 1
         call sub_101584
         mov ecx, 0FFFFFFFFh
@@ -1964,7 +1964,7 @@ sub_5881C:
         xor ebx, ebx
 .2:
         push ebx
-        push asc_161A64
+        push str_04d2
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -1980,7 +1980,7 @@ sub_5881C:
         mov dword [dword esi+dword_1B138C], eax
         cmp ebx, byte 4
         jl short .2
-        mov eax, asc_161A6C
+        mov eax, str_Player2
         xor edx, edx
         mov ecx, unk_1B85DC
         call sub_1152B0
@@ -1991,7 +1991,7 @@ sub_5881C:
         mov ebx, 100h
         call LoadFaceArt
         push byte 0
-        mov eax, asc_161A74
+        mov eax, str_Faces
         mov edx, dword [dword_1ADC88]
         call sub_3DC2C
         mov eax, sub_5876C
@@ -2260,7 +2260,7 @@ sub_58B80:
         mov dword [dword_1B854C], eax
 .6:
         push byte 0
-        push asc_161A7C
+        push str_05dFsh
         lea eax, [byte esp+08h]
         push eax
         lea edx, [byte esp+0Ch]
@@ -2274,7 +2274,7 @@ sub_58B80:
         div ebx
         lea ebx, [byte edx+01h]
         mov eax, esi
-        mov edx, asc_161A88
+        mov edx, str_ABCDEFGHIJKLM
         inc esi
         call sub_57738
         cmp esi, byte 0Dh
@@ -5696,17 +5696,17 @@ LoadFaceArt:
         push ebp
         mov esi, eax
         mov edx, 1
-        mov eax, asc_161AD4
+        mov eax, str_FacesViv
         mov ebp, dword [dword_1D91CC]
         mov dword [dword_1D91CC], edx
         call SetArtArchive
         push byte 0
-        push asc_161AE0
+        push str_Facepal
         call sub_101584
         add esp, byte 8
         mov edi, eax
         call sub_E341C
-        push asc_161AE8
+        push str_Pal2
         push edi
         call FindShape
         add esp, byte 8
@@ -5717,7 +5717,7 @@ LoadFaceArt:
         push edi
         call FreeMemBlock
         add esp, byte 4
-        mov eax, asc_161AF0
+        mov eax, str_Face2
         xor edx, edx
         call sub_10FFBC
         mov dword [dword_1B89AC], eax
@@ -5847,7 +5847,7 @@ LoadPlayerFace:
         mov edi, edx
         lea edx, [nosplit eax*4+00h]
         mov ebp, dword [dword_1B89AC]
-        mov eax, asc_161AD4
+        mov eax, str_FacesViv
         mov ebp, dword [byte ebp+014h]
         mov esi, dword [dword edx+dword_1B88DC]
         call SetArtArchive
@@ -5858,7 +5858,7 @@ LoadPlayerFace:
         call FreeMemBlock
         add esp, byte 4
 .1:
-        mov edx, asc_161AF8
+        mov edx, str_FAC
         mov eax, esp
         call strcpy_
         lea eax, [byte esp+03h]
@@ -5873,12 +5873,12 @@ LoadPlayerFace:
         test eax, eax
         jne short .2
         push eax
-        push asc_161AFC
+        push str_Fac00000
         call sub_101584
         add esp, byte 8
         mov dword [byte esp+01Ch], eax
 .2:
-        push asc_161B08
+        push str_Face3
         mov edx, dword [byte esp+020h]
         push edx
         call FindShape
@@ -5886,7 +5886,7 @@ LoadPlayerFace:
         add esp, byte 8
         mov dword [ebx], eax
         mov edx, dword [byte esp+018h]
-        push asc_161B08
+        push str_Face3
         shl edx, 2
         push esi
         mov dword [dword edx+dword_1B8944], eax
@@ -6420,7 +6420,7 @@ InitReplayBuffer:
         push byte 20h
         mov ecx, dword [dword_1B8F80]
         push ecx
-        push asc_161B10
+        push str_REPLAY
         xor edi, edi
         call sub_FAAB4
         mov esi, dword [dword_1B8F80]
@@ -6526,7 +6526,7 @@ SetReplayRecording:
         push byte 20h
         mov eax, dword [dword_1B8F9C]
         push eax
-        push asc_161B18
+        push str_RPGAME
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1B8F6C], eax
@@ -7765,7 +7765,7 @@ AllocSpriteBuffers:
         push edi
         push byte 0
         push dword 0C240h
-        push asc_161B20
+        push str_RSPRITE
         xor esi, esi
         call AllocMemBlock
         add esp, byte 0Ch
@@ -19747,7 +19747,7 @@ sub_65481:
         add esp, byte 8
         push byte 20h
         push eax
-        push asc_162FFC
+        push str_Tmp
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp-014h], eax
@@ -19956,7 +19956,7 @@ sub_656D3:
         imul eax, esi, byte 0Ch
         push byte 20h
         push eax
-        push asc_162FFC
+        push str_Tmp
         call AllocMemBlock
         mov ecx, eax
         add esp, byte 0Ch
@@ -20091,7 +20091,7 @@ LoadSkateAnims:
         push ecx
         push edx
         mov edx, 20h
-        mov eax, asc_163000
+        mov eax, str_Skate
         mov ecx, dword_1BF07C
         mov ebx, off_16B738
         call LoadAnimFile
@@ -20116,7 +20116,7 @@ LoadSkateAnims:
         push byte 20h
         shl eax, 2
         push eax
-        push asc_163006
+        push str_Stop
         call AllocMemBlock
         mov edx, eax
         mov dword [dword_1BF7F8], eax
@@ -20130,7 +20130,7 @@ LoadSkateAnims:
         push byte 20h
         shl eax, 2
         push eax
-        push asc_163006
+        push str_Stop
         call AllocMemBlock
         mov edx, eax
         mov dword [dword_1BF7FC], eax
@@ -20153,7 +20153,7 @@ CamShot23D:
         push ecx
         push edx
         mov edx, 20h
-        mov eax, asc_16300F
+        mov eax, str_Puckh
         mov ecx, unk_1BF110
         mov ebx, off_16B7CC
         call LoadAnimFile
@@ -20175,7 +20175,7 @@ LoadActAnims:
         push ecx
         push edx
         mov edx, 20h
-        mov eax, asc_163015
+        mov eax, str_PlAct
         mov ecx, unk_1BF174
         mov ebx, off_16B830
         call LoadAnimFile
@@ -20193,7 +20193,7 @@ LoadFallAnims:
         push edx
         push esi
         mov edx, 20h
-        mov eax, asc_16301C
+        mov eax, str_PlFall
         mov ecx, unk_1BF204
         mov ebx, off_16B8C0
         call LoadAnimFile
@@ -20226,7 +20226,7 @@ LoadInterferAnims:
         push ecx
         push edx
         mov edx, 20h
-        mov eax, asc_163024
+        mov eax, str_Interfer
         mov ecx, unk_1BF29C
         mov ebx, off_16B958
         call LoadAnimFile
@@ -20259,7 +20259,7 @@ sub_659F6:
         imul eax, byte 0Ch
         push byte 20h
         push eax
-        push asc_162FFC
+        push str_Tmp
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp-010h], eax
@@ -20378,7 +20378,7 @@ LoadGoalieAnims:
         push ecx
         push edx
         mov edx, 20h
-        mov eax, asc_163035
+        mov eax, str_Goalie
         mov ecx, unk_1BF2E8
         mov ebx, off_16B9A4
         call LoadAnimFile
@@ -20428,7 +20428,7 @@ LoadRefSkateAnims:
         push ecx
         push edx
         mov edx, 20h
-        mov eax, asc_16303C
+        mov eax, str_Refskate
         mov ecx, unk_1BF498
         mov ebx, off_16BB54
         call LoadAnimFile
@@ -20445,7 +20445,7 @@ LoadRefCallAnims:
         push ecx
         push edx
         mov edx, 20h
-        mov eax, asc_163045
+        mov eax, str_Refcalls
         mov ecx, unk_1BF5A0
         mov ebx, off_16BC5C
         call LoadAnimFile
@@ -20462,7 +20462,7 @@ LoadRefAmbiAnims:
         push ecx
         push edx
         mov edx, 20h
-        mov eax, asc_16304E
+        mov eax, str_Refambi
         mov ecx, unk_1BF588
         mov ebx, off_16BC44
         call LoadAnimFile
@@ -20479,7 +20479,7 @@ LoadFightAnims:
         push ecx
         push edx
         mov edx, 20h
-        mov eax, asc_163056
+        mov eax, str_Fight
         mov ecx, unk_1BF5DC
         mov ebx, off_16BC98
         call LoadAnimFile
@@ -20496,7 +20496,7 @@ LoadCupAnims:
         push ecx
         push edx
         mov edx, 20h
-        mov eax, asc_16305C
+        mov eax, str_Cup2
         mov ecx, unk_1BF658
         mov ebx, off_16BD14
         call LoadAnimFile
@@ -20519,31 +20519,31 @@ InitAnimPoints:
         mov ebx, dword [dword_1B1464]
         mov edi, dword_16C360
         mov esi, unk_16C338
-        mov edx, asc_163060
+        mov edx, str_Puck3
         mov eax, ebx
         rep movsd
         call sub_115318
-        mov edx, asc_163065
+        mov edx, str_Stickheel
         mov dword [dword_1BF06C], eax
         mov eax, ebx
         call sub_115318
-        mov edx, asc_16306F
+        mov edx, str_Origin
         mov dword [dword_1BF060], eax
         mov eax, ebx
         call sub_115318
-        mov edx, asc_163076
+        mov edx, str_Chin
         mov dword [dword_16C55C], eax
         mov eax, ebx
         call sub_115318
-        mov edx, asc_16307B
+        mov edx, str_Rhand
         mov dword [dword_1BF068], eax
         mov eax, ebx
         call sub_115318
-        mov edx, asc_163081
+        mov edx, str_Lshldr
         mov dword [dword_1BF078], eax
         mov eax, ebx
         call sub_115318
-        mov edx, asc_163088
+        mov edx, str_Rshldr
         mov dword [dword_1BF074], eax
         mov eax, ebx
         xor esi, esi
@@ -20557,7 +20557,7 @@ InitAnimPoints:
         mov dword [nosplit esi*4+dword_1B9C8C], eax
         cmp esi, byte 0Fh
         jl short .1
-        mov eax, asc_16308F
+        mov eax, str_ANIMSVIV
         call SetArtArchive
         call LoadSkateAnims
         call CamShot23D
@@ -42592,22 +42592,22 @@ sub_75B94:
         je short .12
 .11:
         mov edx, dword [byte ebx+01Ch]
-        mov eax, asc_163D6C
+        mov eax, str_MIRROR
         and edx, byte 8
         mov edx, dword [byte ebx+01Ch]
-        mov eax, asc_163D74
+        mov eax, str_SCALED
         and edx, byte 10h
         mov edx, dword [byte ebx+01Ch]
-        mov eax, asc_163D7C
+        mov eax, str_LOOP
         and edx, byte 20h
         mov edx, dword [byte ebx+01Ch]
-        mov eax, asc_163D84
+        mov eax, str_MASTER
         and edx, 100h
         mov edx, dword [byte ebx+01Ch]
-        mov eax, asc_163D8C
+        mov eax, str_SLAVE
         and edx, 200h
         mov edx, dword [byte ebx+01Ch]
-        mov eax, asc_163D94
+        mov eax, str_FADING
         and edx, 400h
         mov ebx, dword [byte ebx+020h]
         test ebx, ebx
@@ -42765,7 +42765,7 @@ LoadAnimFile:
         lea ebx, [byte esp+04h]
         lea edx, [dword esp+0198h]
         call _splitpath_
-        push asc_163D9C
+        push str_4da
         lea ecx, [dword esp+0184h]
         lea ebx, [byte esp+04h]
         lea edx, [dword esp+0198h]
@@ -44957,7 +44957,7 @@ AllocAnimStates:
         imul eax, dword 358h
         push edx
         push eax
-        push asc_163DBC
+        push str_ANIMSTAT
         mov ebx, 10h
         call AllocMemBlock
         add esp, byte 0Ch
@@ -45261,10 +45261,10 @@ LoadAiIcons:
         push ebx
         push ecx
         push edx
-        mov eax, asc_163ED8
+        mov eax, str_AiconsViv
         call SetArtArchive
         xor edx, edx
-        mov eax, asc_163EE4
+        mov eax, str_Cross
         call sub_10FFBC
         push eax
         mov ebx, 8
@@ -46086,7 +46086,7 @@ clockcont_0:
         call sub_78044
         test eax, eax
         jl short .26
-        mov eax, asc_163EEC
+        mov eax, str_ANIMSVIV2
         call SetArtArchive
         call LoadCupAnims
         push byte 0

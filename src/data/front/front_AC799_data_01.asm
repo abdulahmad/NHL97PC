@@ -2,26 +2,26 @@
 bits 32
 %include "hockey.inc"
 section s_166222 progbits alloc noexec write align=1
-global asc_166222, asc_166238, asc_166240, asc_166244, asc_16624A, asc_166250, asc_166255, asc_16625A
-global asc_16625F, asc_166263, asc_16626A, asc_166271, asc_166279, asc_166281, asc_166286, asc_16628B
-global asc_166290, asc_166295, asc_16629A, asc_16629F, asc_1662A4, asc_1662A9, asc_1662AE, asc_1662B3
-global asc_1662B8, asc_1662BD, asc_1662C2, asc_1662C7, asc_1662CC, asc_1662D1, asc_1662D6, asc_1662DB
-global asc_1662E0, asc_1662E5, asc_1662EA, asc_1662EF, asc_1662F4, asc_1662F9, asc_1662FE, asc_166303
-global asc_166308, asc_16630D, asc_166312, asc_166317, asc_16631C, asc_166321, asc_166326, asc_16632B
-global asc_166330, asc_166335, asc_16633A, asc_16633F, asc_166344, asc_166349, asc_16634E, asc_166353
-global asc_166358, asc_16635D, asc_166362, asc_166367, asc_16636C, asc_166371, asc_166376, asc_16637B
-global asc_166380, asc_166385, asc_16638A, asc_16638F, asc_166394, asc_1663A7, asc_1663AF, asc_1663BB
-global asc_1663BF, asc_1663C6, asc_1663CD, asc_1663D3, asc_1663D9, asc_1663E0, asc_1663E9, asc_1663F3
-global asc_1663F7, asc_166404, asc_166409, asc_16640E, asc_166413, asc_166418, asc_16641D, asc_166422
-global asc_16642F, asc_166434, asc_166439, asc_16643E, asc_16644B, asc_166450, asc_166455, asc_16645A
-global asc_166467, asc_16646C, asc_166471, asc_166476, asc_166483, asc_166488, asc_16648D, asc_166492
-global asc_16649F, asc_1664A4, asc_1664A9, asc_1664AE, asc_1664B3, asc_1664C0, asc_1664C5, asc_1664CA
-global asc_1664CF, asc_1664D4, asc_1664E1, asc_1664E6, asc_1664EB, asc_1664F0, asc_1664FD, asc_166502
-global asc_166507, asc_16650C, asc_166519, asc_16651E, asc_166523, asc_166528, asc_166535, asc_16653A
-global asc_16653F, asc_166544, asc_166551, asc_166558, asc_16655F, asc_166564, asc_166569, asc_16657D
-global asc_166595, asc_1665AB, asc_1665BD, unk_16622A, unk_16622D, unk_16622F, unk_166232, unk_166235
+global str_D01d2, str_03d, str_Pts, str_Pppct, str_Pkpct, str_Avgt, str_High, str_Menu4
+global str_Reg, str_SgRos, str_SgRts, str_SgPros, str_SgPrts, str_00006, str_STTL, str_TS50
+global str_TS49, str_TS48, str_TS51, str_TS06, str_TS05, str_TS04, str_TS07, str_TS02
+global str_TS01, str_TS00, str_TS03, str_TS10, str_TS09, str_TS08, str_TS11, str_TS52
+global str_TS46, str_TS45, str_TS44, str_TS47, str_TS14, str_TS13, str_TS12, str_TS15
+global str_TS18, str_TS17, str_TS16, str_TS19, str_TS26, str_TS25, str_TS24, str_TS27
+global str_TS22, str_TS21, str_TS20, str_TS23, str_TS42, str_TS41, str_TS40, str_TS43
+global str_TS34, str_TS33, str_TS32, str_TS35, str_TS30, str_TS29, str_TS28, str_TS31
+global str_TS38, str_TS37, str_TS36, str_TS39, str_SDDSD, str_Rosters, str_Rawteams, str_Gai
+global str_Pstats, str_Gstats, str_Mpick, str_Names, str_Gnames, str_Nameptrs, str_Gnameptrs, str_Avg
+global str_LOGO02dFSH, str_LOGO6, str_NHLP2, str_TTL1, str_RS02, str_RS01, str_RS00, str_RS01RS02RS03
+global str_RS14, str_RS13, str_RS12, str_RS13RS14RS15, str_RS10, str_RS09, str_RS08, str_RS09RS10RS11
+global str_RS18, str_RS17, str_RS16, str_RS17RS18RS19, str_RS34, str_RS33, str_RS32, str_RS33RS34RS35
+global str_LB26, str_RS06, str_RS05, str_RS04, str_RS05RS06RS07, str_LAHL, str_LABL, str_RAHL
+global str_RABL, str_RS09RS11RS11, str_RS22, str_RS21, str_RS20, str_RS21RS22RS23, str_RS26, str_RS25
+global str_RS24, str_RS25RS26RS27, str_RS30, str_RS29, str_RS28, str_RS29RS30RS31, str_RS38, str_RS37
+global str_RS36, str_RS37RS38RS39, str_LB02d2, str_LH02d, str_LH26, str_TTL0, str_SDDSDD, str_SD02dSD02d
+global str_SD02dSDD, str_SDDSD2, str_CSS, unk_16622A, unk_16622D, unk_16622F, unk_166232, unk_166235
 global unk_16623E, unk_1663A5, unk_1663B8
-asc_166222:
+str_D01d2:
         db 025h,064h,02Eh,025h,030h,031h,064h,00h
 unk_16622A:
         db 025h,073h,00h
@@ -33,290 +33,290 @@ unk_166232:
         db 077h,074h,00h
 unk_166235:
         db 0Ah,0Ah,00h
-asc_166238:
+str_03d:
         db 02Eh,025h,030h,033h,064h,00h
 unk_16623E:
         db 0Ah,00h
-asc_166240:
+str_Pts:
         db 070h,074h,073h,00h
-asc_166244:
+str_Pppct:
         db 070h,070h,070h,063h,074h,00h
-asc_16624A:
+str_Pkpct:
         db 070h,06Bh,070h,063h,074h,00h
-asc_166250:
+str_Avgt:
         db 061h,076h,067h,074h,00h
-asc_166255:
+str_High:
         db 068h,069h,067h,068h,00h
-asc_16625A:
+str_Menu4:
         db 06Dh,065h,06Eh,075h,00h
-asc_16625F:
+str_Reg:
         db 072h,065h,067h,00h
-asc_166263:
+str_SgRos:
         db 073h,067h,020h,072h,06Fh,073h,00h
-asc_16626A:
+str_SgRts:
         db 073h,067h,020h,072h,074h,073h,00h
-asc_166271:
+str_SgPros:
         db 073h,067h,020h,070h,072h,06Fh,073h,00h
-asc_166279:
+str_SgPrts:
         db 073h,067h,020h,070h,072h,074h,073h,00h
-asc_166281:
+str_00006:
         db 030h,030h,030h,030h,00h
-asc_166286:
+str_STTL:
         db 053h,054h,054h,04Ch,00h
-asc_16628B:
+str_TS50:
         db 054h,053h,035h,030h,00h
-asc_166290:
+str_TS49:
         db 054h,053h,034h,039h,00h
-asc_166295:
+str_TS48:
         db 054h,053h,034h,038h,00h
-asc_16629A:
+str_TS51:
         db 054h,053h,035h,031h,00h
-asc_16629F:
+str_TS06:
         db 054h,053h,030h,036h,00h
-asc_1662A4:
+str_TS05:
         db 054h,053h,030h,035h,00h
-asc_1662A9:
+str_TS04:
         db 054h,053h,030h,034h,00h
-asc_1662AE:
+str_TS07:
         db 054h,053h,030h,037h,00h
-asc_1662B3:
+str_TS02:
         db 054h,053h,030h,032h,00h
-asc_1662B8:
+str_TS01:
         db 054h,053h,030h,031h,00h
-asc_1662BD:
+str_TS00:
         db 054h,053h,030h,030h,00h
-asc_1662C2:
+str_TS03:
         db 054h,053h,030h,033h,00h
-asc_1662C7:
+str_TS10:
         db 054h,053h,031h,030h,00h
-asc_1662CC:
+str_TS09:
         db 054h,053h,030h,039h,00h
-asc_1662D1:
+str_TS08:
         db 054h,053h,030h,038h,00h
-asc_1662D6:
+str_TS11:
         db 054h,053h,031h,031h,00h
-asc_1662DB:
+str_TS52:
         db 054h,053h,035h,032h,00h
-asc_1662E0:
+str_TS46:
         db 054h,053h,034h,036h,00h
-asc_1662E5:
+str_TS45:
         db 054h,053h,034h,035h,00h
-asc_1662EA:
+str_TS44:
         db 054h,053h,034h,034h,00h
-asc_1662EF:
+str_TS47:
         db 054h,053h,034h,037h,00h
-asc_1662F4:
+str_TS14:
         db 054h,053h,031h,034h,00h
-asc_1662F9:
+str_TS13:
         db 054h,053h,031h,033h,00h
-asc_1662FE:
+str_TS12:
         db 054h,053h,031h,032h,00h
-asc_166303:
+str_TS15:
         db 054h,053h,031h,035h,00h
-asc_166308:
+str_TS18:
         db 054h,053h,031h,038h,00h
-asc_16630D:
+str_TS17:
         db 054h,053h,031h,037h,00h
-asc_166312:
+str_TS16:
         db 054h,053h,031h,036h,00h
-asc_166317:
+str_TS19:
         db 054h,053h,031h,039h,00h
-asc_16631C:
+str_TS26:
         db 054h,053h,032h,036h,00h
-asc_166321:
+str_TS25:
         db 054h,053h,032h,035h,00h
-asc_166326:
+str_TS24:
         db 054h,053h,032h,034h,00h
-asc_16632B:
+str_TS27:
         db 054h,053h,032h,037h,00h
-asc_166330:
+str_TS22:
         db 054h,053h,032h,032h,00h
-asc_166335:
+str_TS21:
         db 054h,053h,032h,031h,00h
-asc_16633A:
+str_TS20:
         db 054h,053h,032h,030h,00h
-asc_16633F:
+str_TS23:
         db 054h,053h,032h,033h,00h
-asc_166344:
+str_TS42:
         db 054h,053h,034h,032h,00h
-asc_166349:
+str_TS41:
         db 054h,053h,034h,031h,00h
-asc_16634E:
+str_TS40:
         db 054h,053h,034h,030h,00h
-asc_166353:
+str_TS43:
         db 054h,053h,034h,033h,00h
-asc_166358:
+str_TS34:
         db 054h,053h,033h,034h,00h
-asc_16635D:
+str_TS33:
         db 054h,053h,033h,033h,00h
-asc_166362:
+str_TS32:
         db 054h,053h,033h,032h,00h
-asc_166367:
+str_TS35:
         db 054h,053h,033h,035h,00h
-asc_16636C:
+str_TS30:
         db 054h,053h,033h,030h,00h
-asc_166371:
+str_TS29:
         db 054h,053h,032h,039h,00h
-asc_166376:
+str_TS28:
         db 054h,053h,032h,038h,00h
-asc_16637B:
+str_TS31:
         db 054h,053h,033h,031h,00h
-asc_166380:
+str_TS38:
         db 054h,053h,033h,038h,00h
-asc_166385:
+str_TS37:
         db 054h,053h,033h,037h,00h
-asc_16638A:
+str_TS36:
         db 054h,053h,033h,036h,00h
-asc_16638F:
+str_TS39:
         db 054h,053h,033h,039h,00h
-asc_166394:
+str_SDDSD:
         db 025h,073h,03Ah,025h,064h,02Eh,025h,064h,020h,020h,020h,025h,073h,03Ah,025h,064h
         db 00h
 unk_1663A5:
         db 025h,00h
-asc_1663A7:
+str_Rosters:
         db 072h,06Fh,073h,074h,065h,072h,073h,00h
-asc_1663AF:
+str_Rawteams:
         db 072h,061h,077h,074h,065h,061h,06Dh,073h,00h
 unk_1663B8:
         db 061h,069h,00h
-asc_1663BB:
+str_Gai:
         db 067h,061h,069h,00h
-asc_1663BF:
+str_Pstats:
         db 070h,073h,074h,061h,074h,073h,00h
-asc_1663C6:
+str_Gstats:
         db 067h,073h,074h,061h,074h,073h,00h
-asc_1663CD:
+str_Mpick:
         db 06Dh,070h,069h,063h,06Bh,00h
-asc_1663D3:
+str_Names:
         db 06Eh,061h,06Dh,065h,073h,00h
-asc_1663D9:
+str_Gnames:
         db 067h,06Eh,061h,06Dh,065h,073h,00h
-asc_1663E0:
+str_Nameptrs:
         db 06Eh,061h,06Dh,065h,070h,074h,072h,073h,00h
-asc_1663E9:
+str_Gnameptrs:
         db 067h,06Eh,061h,06Dh,065h,070h,074h,072h,073h,00h
-asc_1663F3:
+str_Avg:
         db 061h,076h,067h,00h
-asc_1663F7:
+str_LOGO02dFSH:
         db 04Ch,04Fh,047h,04Fh,025h,030h,032h,064h,02Eh,046h,053h,048h,00h
-asc_166404:
+str_LOGO6:
         db 04Ch,04Fh,047h,04Fh,00h
-asc_166409:
+str_NHLP2:
         db 04Eh,048h,04Ch,050h,00h
-asc_16640E:
+str_TTL1:
         db 054h,054h,04Ch,031h,00h
-asc_166413:
+str_RS02:
         db 052h,053h,030h,032h,00h
-asc_166418:
+str_RS01:
         db 052h,053h,030h,031h,00h
-asc_16641D:
+str_RS00:
         db 052h,053h,030h,030h,00h
-asc_166422:
+str_RS01RS02RS03:
         db 052h,053h,030h,031h,052h,053h,030h,032h,052h,053h,030h,033h,00h
-asc_16642F:
+str_RS14:
         db 052h,053h,031h,034h,00h
-asc_166434:
+str_RS13:
         db 052h,053h,031h,033h,00h
-asc_166439:
+str_RS12:
         db 052h,053h,031h,032h,00h
-asc_16643E:
+str_RS13RS14RS15:
         db 052h,053h,031h,033h,052h,053h,031h,034h,052h,053h,031h,035h,00h
-asc_16644B:
+str_RS10:
         db 052h,053h,031h,030h,00h
-asc_166450:
+str_RS09:
         db 052h,053h,030h,039h,00h
-asc_166455:
+str_RS08:
         db 052h,053h,030h,038h,00h
-asc_16645A:
+str_RS09RS10RS11:
         db 052h,053h,030h,039h,052h,053h,031h,030h,052h,053h,031h,031h,00h
-asc_166467:
+str_RS18:
         db 052h,053h,031h,038h,00h
-asc_16646C:
+str_RS17:
         db 052h,053h,031h,037h,00h
-asc_166471:
+str_RS16:
         db 052h,053h,031h,036h,00h
-asc_166476:
+str_RS17RS18RS19:
         db 052h,053h,031h,037h,052h,053h,031h,038h,052h,053h,031h,039h,00h
-asc_166483:
+str_RS34:
         db 052h,053h,033h,034h,00h
-asc_166488:
+str_RS33:
         db 052h,053h,033h,033h,00h
-asc_16648D:
+str_RS32:
         db 052h,053h,033h,032h,00h
-asc_166492:
+str_RS33RS34RS35:
         db 052h,053h,033h,033h,052h,053h,033h,034h,052h,053h,033h,035h,00h
-asc_16649F:
+str_LB26:
         db 04Ch,042h,032h,036h,00h
-asc_1664A4:
+str_RS06:
         db 052h,053h,030h,036h,00h
-asc_1664A9:
+str_RS05:
         db 052h,053h,030h,035h,00h
-asc_1664AE:
+str_RS04:
         db 052h,053h,030h,034h,00h
-asc_1664B3:
+str_RS05RS06RS07:
         db 052h,053h,030h,035h,052h,053h,030h,036h,052h,053h,030h,037h,00h
-asc_1664C0:
+str_LAHL:
         db 04Ch,041h,048h,04Ch,00h
-asc_1664C5:
+str_LABL:
         db 04Ch,041h,042h,04Ch,00h
-asc_1664CA:
+str_RAHL:
         db 052h,041h,048h,04Ch,00h
-asc_1664CF:
+str_RABL:
         db 052h,041h,042h,04Ch,00h
-asc_1664D4:
+str_RS09RS11RS11:
         db 052h,053h,030h,039h,052h,053h,031h,031h,052h,053h,031h,031h,00h
-asc_1664E1:
+str_RS22:
         db 052h,053h,032h,032h,00h
-asc_1664E6:
+str_RS21:
         db 052h,053h,032h,031h,00h
-asc_1664EB:
+str_RS20:
         db 052h,053h,032h,030h,00h
-asc_1664F0:
+str_RS21RS22RS23:
         db 052h,053h,032h,031h,052h,053h,032h,032h,052h,053h,032h,033h,00h
-asc_1664FD:
+str_RS26:
         db 052h,053h,032h,036h,00h
-asc_166502:
+str_RS25:
         db 052h,053h,032h,035h,00h
-asc_166507:
+str_RS24:
         db 052h,053h,032h,034h,00h
-asc_16650C:
+str_RS25RS26RS27:
         db 052h,053h,032h,035h,052h,053h,032h,036h,052h,053h,032h,037h,00h
-asc_166519:
+str_RS30:
         db 052h,053h,033h,030h,00h
-asc_16651E:
+str_RS29:
         db 052h,053h,032h,039h,00h
-asc_166523:
+str_RS28:
         db 052h,053h,032h,038h,00h
-asc_166528:
+str_RS29RS30RS31:
         db 052h,053h,032h,039h,052h,053h,033h,030h,052h,053h,033h,031h,00h
-asc_166535:
+str_RS38:
         db 052h,053h,033h,038h,00h
-asc_16653A:
+str_RS37:
         db 052h,053h,033h,037h,00h
-asc_16653F:
+str_RS36:
         db 052h,053h,033h,036h,00h
-asc_166544:
+str_RS37RS38RS39:
         db 052h,053h,033h,037h,052h,053h,033h,038h,052h,053h,033h,039h,00h
-asc_166551:
+str_LB02d2:
         db 04Ch,042h,025h,030h,032h,064h,00h
-asc_166558:
+str_LH02d:
         db 04Ch,048h,025h,030h,032h,064h,00h
-asc_16655F:
+str_LH26:
         db 04Ch,048h,032h,036h,00h
-asc_166564:
+str_TTL0:
         db 054h,054h,04Ch,030h,00h
-asc_166569:
+str_SDDSDD:
         db 025h,073h,03Ah,025h,064h,02Dh,025h,064h,020h,020h,020h,025h,073h,03Ah,025h,064h
         db 02Dh,025h,064h,00h
-asc_16657D:
+str_SD02dSD02d:
         db 025h,073h,03Ah,025h,064h,02Eh,025h,030h,032h,064h,020h,020h,020h,025h,073h,03Ah
         db 025h,064h,02Eh,025h,030h,032h,064h,00h
-asc_166595:
+str_SD02dSDD:
         db 025h,073h,03Ah,025h,064h,02Eh,025h,030h,032h,064h,020h,020h,020h,025h,073h,03Ah
         db 025h,064h,02Eh,025h,064h,00h
-asc_1665AB:
+str_SDDSD2:
         db 025h,073h,03Ah,02Dh,025h,064h,02Eh,025h,064h,020h,020h,020h,025h,073h,03Ah,025h
         db 064h,00h
-asc_1665BD:
+str_CSS:
         db 025h,063h,020h,025h,073h,02Ch,020h,025h,073h,020h,00h

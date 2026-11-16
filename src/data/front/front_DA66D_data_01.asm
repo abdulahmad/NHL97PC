@@ -2,61 +2,61 @@
 bits 32
 %include "hockey.inc"
 section s_167465 progbits alloc noexec write align=1
-global asc_167465, asc_167472, asc_16747D, asc_167482, asc_167488, asc_167494, asc_16749D, asc_1674A6
-global asc_1674AF, asc_1674B7, asc_1674BE, asc_1674C8, asc_1674D4, asc_1674D8, asc_1674E4, asc_1674E8
-global asc_1674F4, asc_167500, asc_16750C, asc_167518, asc_167524, asc_167530, asc_167544, asc_16759C
-global asc_1675A4, asc_1675AC, asc_1675B8, asc_1675C0, asc_1675CC, asc_1675D4, asc_1675DC, asc_1675E4
-global asc_1675EC, asc_1675F4, asc_1675FC, asc_167604, asc_16760C, asc_167614, asc_167624, asc_167629
-global asc_16762E, asc_167633, asc_167638, asc_16763F, asc_167646, unk_167540, unk_167560, unk_167574
+global str_MEDIABUFFER, str_STATICBUF, str_TEMP2, str_SCHED, str_S08x03x, str_SSSEA, str_SSPLY, str_SSEXH
+global str_EXHIBIT, str_AGENTS, str_ORIGEXH, str_FILEdelete, str_WB, str_FILEcreate, str_RB, str_FILEopen
+global str_FILEseek, str_FILEseekend, str_FILEread, str_FILEclose, str_Pktlayer, str_Disconnecting, str_WaitingForOtherComputer, str_IPXMEM
+global str_NETWORK, str_SERVLIST, str_NHL97, str_GAMEADDR, str_PICKS2, str_REGS2, str_LX003, str_LC003
+global str_LX0D3, str_LC0D3, str_DTOP, str_DBOT, str_08x, str_KWKJSK122691, str_BACK13, str_MB014
+global str_MB023, str_MB03, str_AR02d2, str_LT02d2, str_MB004, unk_167540, unk_167560, unk_167574
 global unk_167588, unk_16764C, unk_167655, unk_16765E, unk_167669, unk_167673, unk_16767E, unk_16768A
 global unk_167695, unk_1676A1, unk_1676AE, unk_1676BB, unk_1676C6, unk_1676D3, unk_1676DD
-asc_167465:
+str_MEDIABUFFER:
         db 04Dh,045h,044h,049h,041h,020h,042h,055h,046h,046h,045h,052h,00h
-asc_167472:
+str_STATICBUF:
         db 053h,054h,041h,054h,049h,043h,020h,042h,055h,046h,00h
-asc_16747D:
+str_TEMP2:
         db 054h,045h,04Dh,050h,00h
-asc_167482:
+str_SCHED:
         db 053h,043h,048h,045h,044h,00h
-asc_167488:
+str_S08x03x:
         db 025h,073h,025h,030h,038h,078h,02Eh,025h,030h,033h,078h,00h
-asc_167494:
+str_SSSEA:
         db 025h,073h,025h,073h,02Eh,053h,045h,041h,00h
-asc_16749D:
+str_SSPLY:
         db 025h,073h,025h,073h,02Eh,050h,04Ch,059h,00h
-asc_1674A6:
+str_SSEXH:
         db 025h,073h,025h,073h,02Eh,045h,058h,048h,00h
-asc_1674AF:
+str_EXHIBIT:
         db 045h,058h,048h,049h,042h,049h,054h,00h
-asc_1674B7:
+str_AGENTS:
         db 041h,047h,045h,04Eh,054h,053h,00h
-asc_1674BE:
+str_ORIGEXH:
         db 04Fh,052h,049h,047h,045h,058h,048h,00h,00h,00h
-asc_1674C8:
+str_FILEdelete:
         db 046h,049h,04Ch,045h,064h,065h,06Ch,065h,074h,065h,00h,00h
-asc_1674D4:
+str_WB:
         db 077h,02Bh,062h,00h
-asc_1674D8:
+str_FILEcreate:
         db 046h,049h,04Ch,045h,063h,072h,065h,061h,074h,065h,00h,00h
-asc_1674E4:
+str_RB:
         db 072h,02Bh,062h,00h
-asc_1674E8:
+str_FILEopen:
         db 046h,049h,04Ch,045h,06Fh,070h,065h,06Eh,00h,00h,00h,00h
-asc_1674F4:
+str_FILEseek:
         db 046h,049h,04Ch,045h,073h,065h,065h,06Bh,00h,00h,00h,00h
-asc_167500:
+str_FILEseekend:
         db 046h,049h,04Ch,045h,073h,065h,065h,06Bh,065h,06Eh,064h,00h
-asc_16750C:
+str_FILEread:
         db 046h,049h,04Ch,045h,072h,065h,061h,064h,00h,00h,00h,00h
-asc_167518:
+str_FILEclose:
         db 046h,049h,04Ch,045h,063h,06Ch,06Fh,073h,065h,00h,00h,00h
-asc_167524:
+str_Pktlayer:
         db 070h,06Bh,074h,06Ch,061h,079h,065h,072h,00h,00h,00h,00h
-asc_167530:
+str_Disconnecting:
         db 044h,069h,073h,063h,06Fh,06Eh,06Eh,065h,063h,074h,069h,06Eh,067h,00h,00h,00h
 unk_167540:
         db 058h,00h,00h,00h
-asc_167544:
+str_WaitingForOtherComputer:
         db 057h,061h,069h,074h,069h,06Eh,067h,020h,066h,06Fh,072h,020h,06Fh,074h,068h,065h
         db 072h,020h,063h,06Fh,06Dh,070h,075h,074h,065h,072h,00h,00h
 unk_167560:
@@ -68,49 +68,49 @@ unk_167574:
 unk_167588:
         db 044h,04Fh,053h,02Dh,06Bh,06Fh,06Dh,070h,061h,074h,069h,062h,06Ch,065h,073h,020h
         db 049h,050h,058h,00h
-asc_16759C:
+str_IPXMEM:
         db 049h,050h,058h,04Dh,045h,04Dh,00h,00h
-asc_1675A4:
+str_NETWORK:
         db 04Eh,045h,054h,057h,04Fh,052h,04Bh,00h
-asc_1675AC:
+str_SERVLIST:
         db 053h,045h,052h,056h,04Ch,049h,053h,054h,00h,00h,00h,00h
-asc_1675B8:
+str_NHL97:
         db 04Eh,048h,04Ch,039h,037h,00h,00h,00h
-asc_1675C0:
+str_GAMEADDR:
         db 047h,041h,04Dh,045h,041h,044h,044h,052h,00h,00h,00h,00h
-asc_1675CC:
+str_PICKS2:
         db 050h,049h,043h,04Bh,053h,00h,00h,00h
-asc_1675D4:
+str_REGS2:
         db 052h,045h,047h,053h,00h,00h,00h,00h
-asc_1675DC:
+str_LX003:
         db 04Ch,058h,030h,030h,00h,00h,00h,00h
-asc_1675E4:
+str_LC003:
         db 04Ch,043h,030h,030h,00h,00h,00h,00h
-asc_1675EC:
+str_LX0D3:
         db 04Ch,058h,030h,025h,064h,00h,00h,00h
-asc_1675F4:
+str_LC0D3:
         db 04Ch,043h,030h,025h,064h,00h,00h,00h
-asc_1675FC:
+str_DTOP:
         db 025h,064h,054h,04Fh,050h,00h,00h,00h
-asc_167604:
+str_DBOT:
         db 025h,064h,042h,04Fh,054h,00h,00h,00h
-asc_16760C:
+str_08x:
         db 025h,030h,038h,078h,00h,00h,00h,00h
-asc_167614:
+str_KWKJSK122691:
         db 04Bh,057h,04Bh,04Ah,053h,04Bh,031h,032h,032h,036h,039h,031h,00h,00h,00h,00h
-asc_167624:
+str_BACK13:
         db 042h,041h,043h,04Bh,00h
-asc_167629:
+str_MB014:
         db 04Dh,042h,030h,031h,00h
-asc_16762E:
+str_MB023:
         db 04Dh,042h,030h,032h,00h
-asc_167633:
+str_MB03:
         db 04Dh,042h,030h,033h,00h
-asc_167638:
+str_AR02d2:
         db 041h,052h,025h,030h,032h,064h,00h
-asc_16763F:
+str_LT02d2:
         db 04Ch,054h,025h,030h,032h,064h,00h
-asc_167646:
+str_MB004:
         db 04Dh,042h,030h,030h,00h,00h
 unk_16764C:
         db 048h,041h,052h,054h,02Eh,046h,053h,048h,00h

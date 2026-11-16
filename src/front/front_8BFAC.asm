@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_8BFAC progbits alloc exec nowrite align=1
-extern MouseRead, WaitRetrace, __CHP, asc_165578, asc_16557D, asc_165582, asc_16558B, asc_165590
-extern asc_165595, dword_165548, dword_16554C, dword_165560, dword_165564, dword_165570, dword_165574, dword_165587
+extern MouseRead, WaitRetrace, __CHP, str_PNS, str_SLUP, str_SLDN, str_PWE, str_SLLT
+extern str_SLRT, dword_165548, dword_16554C, dword_165560, dword_165564, dword_165570, dword_165574, dword_165587
 extern dword_16559A, dword_16559E, dword_1655A2, dword_1655A6, dword_16CD02, dword_16CD08, dword_16CD0C, dword_16CD10
 extern dword_16CD14, dword_16CD18, dword_16CD1C, dword_16CD24, dword_16CD28, dword_16CD2C, dword_16CD30, dword_16CD34
 extern dword_16CD40, dword_16CD4C, dword_16CD50, dword_16CD54, dword_16DA9C, mousex, mousey, dword_16E464
@@ -2125,7 +2125,7 @@ sub_8D956:
         mov dword [byte esi+014h], eax
         call CreateBitmap
         add esp, byte 0Ch
-        push asc_165578
+        push str_PNS
         mov dword [byte esi+018h], eax
         push dword [dword_1C5DE4]
         call FindShape
@@ -2161,7 +2161,7 @@ sub_8D956:
 .2:
         push byte 0
         push byte 0
-        push asc_16557D
+        push str_SLUP
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -2172,7 +2172,7 @@ sub_8D956:
         sub edi, byte 15h
         push edi
         push byte 0
-        push asc_165582
+        push str_SLDN
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -2321,7 +2321,7 @@ sub_8DBAC:
         mov dword [byte esi+014h], eax
         call CreateBitmap
         add esp, byte 0Ch
-        push asc_16558B
+        push str_PWE
         mov dword [byte esi+018h], eax
         push dword [dword_1C5DE4]
         call FindShape
@@ -2341,7 +2341,7 @@ sub_8DBAC:
         add esp, byte 0Ch
         push byte 0
         push byte 0
-        push asc_165590
+        push str_SLLT
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -2352,7 +2352,7 @@ sub_8DBAC:
         push byte 0
         sub edi, byte 15h
         push edi
-        push asc_165595
+        push str_SLRT
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8

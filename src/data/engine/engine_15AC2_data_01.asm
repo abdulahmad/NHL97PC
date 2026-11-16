@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_160150 progbits alloc noexec write align=1
-global asc_160158, asc_160161, asc_16016A, asc_160172, asc_16017D, asc_160184, asc_160196, asc_16019C
-global asc_1601A5, asc_1601AF, asc_1601BC, asc_1601C7, asc_1601D3, asc_1601DB, asc_1601EB, asc_1601F6
-global asc_1601FF, asc_160210, asc_160428, asc_160438, asc_16049C, asc_1604A8, asc_1604E4, dword_160150
+global str_2d02d, str_DXD, str_Doubled, str_Interlaced, str_Normal, str_SDSS, str_SS, str_SSS
+global str_DSS, str_SDSS2, str_SSD, str_SSDD, str_SD, str_SDCS, str_Punct, str_2d01d
+global str_SD2, str_CHASE, str_THRILLCAMTm, str_USERCHASE, str_IntroD3cp, str_ArenaViv, str_DDD, dword_160150
 global dword_160154, dword_1602D6, dword_1602DA, dword_1602DE, dword_1602E2, dword_1602EE, dword_1602F2, dword_160306
 global dword_160312, dword_160316, dword_16031A, dword_16031E, dword_160322, dword_160326, dword_16032A, dword_16032E
 global dword_160332, dword_160346, dword_16034A, dword_160386, dword_16039A, dword_16039E, dword_1603A2, dword_1603A6
@@ -31,37 +31,37 @@ dword_160150:
         db 00h,00h,00h,03Fh
 dword_160154:
         db 00h,00h,080h,047h
-asc_160158:
+str_2d02d:
         db 025h,032h,064h,03Ah,025h,030h,032h,064h,00h
-asc_160161:
+str_DXD:
         db 025h,064h,020h,078h,020h,025h,064h,020h,00h
-asc_16016A:
+str_Doubled:
         db 044h,06Fh,075h,062h,06Ch,065h,064h,00h
-asc_160172:
+str_Interlaced:
         db 049h,06Eh,074h,065h,072h,06Ch,061h,063h,065h,064h,00h
-asc_16017D:
+str_Normal:
         db 04Eh,06Fh,072h,06Dh,061h,06Ch,00h
-asc_160184:
+str_SDSS:
         db 025h,073h,020h,02Dh,020h,023h,025h,064h,020h,025h,073h,020h,025h,073h,00h
 unk_160193:
         db 025h,073h,00h
-asc_160196:
+str_SS:
         db 025h,073h,020h,025h,073h,00h
-asc_16019C:
+str_SSS:
         db 025h,073h,020h,025h,073h,020h,025h,073h,00h
-asc_1601A5:
+str_DSS:
         db 023h,025h,064h,020h,025h,073h,020h,025h,073h,00h
-asc_1601AF:
+str_SDSS2:
         db 025h,073h,020h,023h,025h,064h,020h,025h,073h,020h,025h,073h,00h
-asc_1601BC:
+str_SSD:
         db 025h,073h,020h,025h,073h,020h,025h,064h,025h,025h,00h
-asc_1601C7:
+str_SSDD:
         db 025h,073h,020h,025h,073h,020h,025h,064h,02Fh,025h,064h,00h
-asc_1601D3:
+str_SD:
         db 025h,073h,020h,020h,020h,025h,064h,00h
-asc_1601DB:
+str_SDCS:
         db 025h,073h,020h,02Dh,020h,023h,025h,064h,020h,025h,063h,02Eh,020h,025h,073h,00h
-asc_1601EB:
+str_Punct:
         db 020h,02Dh,020h,00h
 unk_1601EF:
         db 028h,00h
@@ -69,13 +69,13 @@ unk_1601F1:
         db 02Ch,020h,00h
 unk_1601F4:
         db 029h,00h
-asc_1601F6:
+str_2d01d:
         db 025h,032h,064h,02Eh,025h,030h,031h,064h,00h
-asc_1601FF:
+str_SD2:
         db 025h,073h,020h,025h,064h,00h,00h,00h,00h
 unk_160208:
         db 04Eh,04Fh,04Eh,045h,00h,00h,00h,00h
-asc_160210:
+str_CHASE:
         db 043h,048h,041h,053h,045h,00h,00h,00h
 unk_160218:
         db 04Fh,046h,046h,053h,054h,00h,00h,00h
@@ -241,9 +241,9 @@ qword_160416:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
 qword_16041E:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h,00h,00h
-asc_160428:
+str_THRILLCAMTm:
         db 054h,048h,052h,049h,04Ch,04Ch,02Dh,043h,041h,04Dh,020h,028h,074h,06Dh,029h,00h
-asc_160438:
+str_USERCHASE:
         db 055h,053h,045h,052h,020h,043h,048h,041h,053h,045h,00h
 dword_160443:
         db 00h,00h,080h,0BFh
@@ -273,9 +273,9 @@ qword_16048B:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
 qword_160493:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h,00h
-asc_16049C:
+str_IntroD3cp:
         db 069h,06Eh,074h,072h,06Fh,025h,064h,02Eh,033h,063h,070h,00h
-asc_1604A8:
+str_ArenaViv:
         db 061h,072h,065h,06Eh,061h,02Eh,076h,069h,076h,00h
 dword_1604B2:
         db 00h,00h,07Ah,0C4h
@@ -301,7 +301,7 @@ dword_1604DA:
         db 00h,080h,03Bh,0C4h
 dword_1604DE:
         db 00h,080h,03Bh,044h,00h,00h
-asc_1604E4:
+str_DDD:
         db 028h,025h,064h,02Ch,025h,064h,02Ch,025h,064h,029h,00h
 qword_1604EF:
         db 00h,00h,00h,00h,00h,00h,08h,040h

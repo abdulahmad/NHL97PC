@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_15AC2 progbits alloc exec nowrite align=1
-extern IF@ATAN2, IF@DFMOD, IF@DPOW, SortCords, __CHP, asc_160158, asc_160161, asc_16016A
-extern asc_160172, asc_16017D, asc_160184, asc_160196, asc_16019C, asc_1601A5, asc_1601AF, asc_1601BC
-extern asc_1601C7, asc_1601D3, asc_1601DB, asc_1601EB, asc_1601F6, asc_1601FF, asc_160210, asc_160428
-extern asc_160438, asc_16049C, asc_1604A8, asc_1604E4, awtmstruct, byte_1687B4, byte_16892C, byte_16892D
+extern IF@ATAN2, IF@DFMOD, IF@DPOW, SortCords, __CHP, str_2d02d, str_DXD, str_Doubled
+extern str_Interlaced, str_Normal, str_SDSS, str_SS, str_SSS, str_DSS, str_SDSS2, str_SSD
+extern str_SSDD, str_SD, str_SDCS, str_Punct, str_2d01d, str_SD2, str_CHASE, str_THRILLCAMTm
+extern str_USERCHASE, str_IntroD3cp, str_ArenaViv, str_DDD, awtmstruct, byte_1687B4, byte_16892C, byte_16892D
 extern byte_16892E, byte_16892F, byte_168930, byte_1689BC, byte_1689C0, byte_1689E4, byte_19CA30, byte_19CA31
 extern byte_19CB7E, byte_19CBC2, byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19D01C, byte_19DAD5, byte_19DAD6
 extern byte_19DAEF, byte_19EAC6, byte_19EB54, byte_19EB55, byte_19EBD2, byte_19EC60, byte_19EC61, byte_1C135A
@@ -1107,7 +1107,7 @@ sub_161F0:
         cdq
         idiv ebx
         push eax
-        push asc_160158
+        push str_2d02d
         lea eax, [byte ebp-018h]
         push eax
         call sprintf_
@@ -1673,7 +1673,7 @@ DrawVideoModePanel:
         jne short .5
         push dword [dword_19CD14]
         push dword [dword_19CD10]
-        push asc_160161
+        push str_DXD
         lea eax, [byte ebp-038h]
         push eax
         call sprintf_
@@ -1682,13 +1682,13 @@ DrawVideoModePanel:
         je short .3
         cmp dword [dword_19CD34], byte 0
         je short .2
-        mov edx, asc_16016A
+        mov edx, str_Doubled
         jmp short .4
 .2:
-        mov edx, asc_160172
+        mov edx, str_Interlaced
         jmp short .4
 .3:
-        mov edx, asc_16017D
+        mov edx, str_Normal
 .4:
         lea eax, [byte ebp-038h]
         call strcat_
@@ -1834,7 +1834,7 @@ DrawPenaltyPanel:
         call GetLangText
         push eax
         mov edx, dword [byte ebp+07Eh]
-        push asc_160184
+        push str_SDSS
         lea eax, [byte ebp-072h]
         xor dh, dh
         push eax
@@ -1875,7 +1875,7 @@ DrawPenaltyPanel:
         mov eax, 28h
         call GetLangText
         push eax
-        push asc_160196
+        push str_SS
         lea eax, [byte ebp-022h]
         push eax
         call sprintf_
@@ -1893,7 +1893,7 @@ DrawPenaltyPanel:
         mov eax, 1Fh
         call GetLangText
         push eax
-        push asc_16019C
+        push str_SSS
         lea eax, [byte ebp+02Eh]
         push eax
         call sprintf_
@@ -1907,7 +1907,7 @@ DrawPenaltyPanel:
         mov eax, 1Dh
         call GetLangText
         push eax
-        push asc_16019C
+        push str_SSS
         lea eax, [byte ebp-022h]
         push eax
         call sprintf_
@@ -1922,7 +1922,7 @@ DrawPenaltyPanel:
         mov eax, dword [nosplit eax*4+dword_16875E]
         call GetLangText
         push eax
-        push asc_160196
+        push str_SS
         lea eax, [byte ebp+02Eh]
         push eax
         call sprintf_
@@ -2042,7 +2042,7 @@ DrawPenaltyShotPanel:
         mov eax, ebx
         call sub_16AD0
         push eax
-        push asc_1601A5
+        push str_DSS
         lea eax, [byte ebp+02Eh]
         push eax
         call sprintf_
@@ -2059,7 +2059,7 @@ DrawPenaltyShotPanel:
         mov eax, 35h
         call GetLangText
         push eax
-        push asc_1601AF
+        push str_SDSS2
         lea eax, [byte ebp-022h]
         push eax
         lea ecx, [byte ebp+02Eh]
@@ -2209,7 +2209,7 @@ DrawSpecialTeamsPanel:
         mov eax, dword [dword eax+0108h]
         call sub_16BF5
         push eax
-        push asc_1601BC
+        push str_SSD
         lea eax, [byte ebp+07Eh]
         push eax
         call sprintf_
@@ -2278,7 +2278,7 @@ DrawSpecialTeamsPanel:
         mov eax, dword [dword eax+0108h]
         call sub_16BF5
         push eax
-        push asc_1601BC
+        push str_SSD
         lea eax, [byte ebp+02Eh]
         push eax
         call sprintf_
@@ -2338,7 +2338,7 @@ DrawSpecialTeamsPanel:
         mov eax, dword [dword eax+0108h]
         call sub_16BF5
         push eax
-        push asc_1601C7
+        push str_SSDD
         lea eax, [byte ebp+07Eh]
         push eax
         call sprintf_
@@ -2444,7 +2444,7 @@ DrawInjuryPanel:
         mov eax, ebx
         call sub_16AD0
         push eax
-        push asc_1601A5
+        push str_DSS
         lea eax, [byte ebp+02Eh]
         push eax
         lea ecx, [byte ebp+02Eh]
@@ -2502,7 +2502,7 @@ DrawPeriodPanel:
         add eax, byte 2Ch
         call GetLangText
         push eax
-        push asc_160196
+        push str_SS
         lea eax, [byte ebp+07Eh]
         push eax
         call sprintf_
@@ -2512,7 +2512,7 @@ DrawPeriodPanel:
         mov eax, dword [dword_19ECC4]
         call sub_16BF5
         push eax
-        push asc_1601D3
+        push str_SD
         lea eax, [byte ebp+02Eh]
         push eax
         call sprintf_
@@ -2522,7 +2522,7 @@ DrawPeriodPanel:
         mov eax, dword [dword_19EBB8]
         call sub_16BF5
         push eax
-        push asc_1601D3
+        push str_SD
         lea eax, [byte ebp-022h]
         push eax
         lea ecx, [byte ebp+02Eh]
@@ -2601,7 +2601,7 @@ DrawGoalScorerPanel:
         mov eax, 23h
         call GetLangText
         push eax
-        push asc_1601DB
+        push str_SDCS
         jmp short .6
 .4:
         push edx
@@ -2612,7 +2612,7 @@ DrawGoalScorerPanel:
         mov eax, 23h
         call GetLangText
         push eax
-        push asc_160184
+        push str_SDSS
         jmp short .6
 .5:
         movsx edi, di
@@ -2631,7 +2631,7 @@ DrawGoalScorerPanel:
         mov eax, 23h
         call GetLangText
         push eax
-        push asc_160184
+        push str_SDSS
 .6:
         lea eax, [byte ebp-076h]
         push eax
@@ -2656,7 +2656,7 @@ DrawGoalScorerPanel:
         je short .11
         cmp byte [byte ebp-026h], 0
         je short .10
-        mov edx, asc_1601EB
+        mov edx, str_Punct
         lea eax, [byte ebp-026h]
         call strcat_
 .10:
@@ -2824,7 +2824,7 @@ DrawGameClock:
         jle short .6
         push edx
         push esi
-        push asc_160158
+        push str_2d02d
         jmp short .7
 .6:
         movsx eax, word [word_19CBBC]
@@ -2835,7 +2835,7 @@ DrawGameClock:
         sar eax, 4
         push eax
         push ecx
-        push asc_1601F6
+        push str_2d01d
 .7:
         lea eax, [byte ebp-014h]
         push eax
@@ -2939,7 +2939,7 @@ DrawPowerPlayClock:
         cdq
         idiv ecx
         push eax
-        push asc_160158
+        push str_2d02d
         lea eax, [byte ebp-014h]
         push eax
         call sprintf_
@@ -3628,7 +3628,7 @@ sub_18025:
 .41:
         call GetLangText
         push eax
-        push asc_1601FF
+        push str_SD2
         lea eax, [byte ebp-028h]
         push eax
         call sprintf_
@@ -4007,7 +4007,7 @@ sub_18958:
 .3:
         call GetLangText
         push eax
-        push asc_1601FF
+        push str_SD2
         lea eax, [byte ebp-028h]
         push eax
         call sprintf_
@@ -4223,7 +4223,7 @@ sub_18B81:
 .5:
         call GetLangText
         push eax
-        push asc_1601FF
+        push str_SD2
         lea eax, [byte ebp-01Ch]
         push eax
         call sprintf_
@@ -6548,7 +6548,7 @@ SetCameraView_14F:
         pop ebx
         ret
 SetCameraView_1EF:
-        mov edx, asc_160210
+        mov edx, str_CHASE
         call strcpy_
         mov dword [byte ebx+024h], 1
         mov dword [dword ebx+0114h], 453B8000h
@@ -6735,7 +6735,7 @@ SetCameraView_4AE:
         pop ebx
         ret
 SetCameraView_532:
-        mov edx, asc_160428
+        mov edx, str_THRILLCAMTm
         mov edi, dword_19D1A0
         mov esi, dword_1B905F
         call strcpy_
@@ -6763,7 +6763,7 @@ SetCameraView_532:
         pop ebx
         ret
 SetCameraView_5A5:
-        mov edx, asc_160438
+        mov edx, str_USERCHASE
         call strcpy_
         mov edx, dword_19D188
         mov eax, dword_1B905F
@@ -8386,12 +8386,12 @@ LoadOpeningCamera:
         mov dword [dword_19D388], edx
         call sub_55000
         push byte 1
-        push asc_16049C
+        push str_IntroD3cp
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
         add esp, byte 0Ch
-        mov eax, asc_1604A8
+        mov eax, str_ArenaViv
         call SetArtArchive
         push byte 20h
         lea eax, [byte esp+04h]
@@ -10133,7 +10133,7 @@ DrawCameraDebug:
         fistp dword [byte esp+060h]
         mov ebx, dword [byte esp+060h]
         push ebx
-        push asc_1604E4
+        push str_DDD
         lea eax, [byte esp+010h]
         push eax
         call sprintf_

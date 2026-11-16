@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_100A68 progbits alloc exec nowrite align=1
-extern asc_167DD4, atexit_, byte_16E688, byte_16F748, byte_16FA40, byte_171C90, dword_16E4C8, dword_16E500
+extern str_DtoD, atexit_, byte_16E688, byte_16F748, byte_16FA40, byte_171C90, dword_16E4C8, dword_16E500
 extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E698, dword_16E69C, dword_16E6A0, dword_16F188
 extern dword_16F5AC, dword_16F5B4, dword_1CF5F0, dword_1DA4D0, exit_, off_16F588, off_16F5BC, off_16F5C0
 extern off_16F684, sprintf_, strrchr_, sub_100528, sub_1049D0, sub_1155B0, sub_12189C, sub_12233C
@@ -3532,7 +3532,7 @@ sub_102878:
         push ecx
         mov esi, dword [byte esp+02Ch]
         push esi
-        push asc_167DD4
+        push str_DtoD
         lea eax, [byte esp+0Ch]
         push eax
         call sprintf_

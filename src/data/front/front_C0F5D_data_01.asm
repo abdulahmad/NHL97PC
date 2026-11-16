@@ -2,105 +2,105 @@
 bits 32
 %include "hockey.inc"
 section s_166B9C progbits alloc noexec write align=1
-global asc_166B9C, asc_166BA1, asc_166BA6, asc_166BAB, asc_166BB0, asc_166BB5, asc_166BBA, asc_166BBF
-global asc_166BC4, asc_166BC9, asc_166BCE, asc_166BD3, asc_166BD8, asc_166BDD, asc_166BE4, asc_166BE9
-global asc_166BEE, asc_166BF3, asc_166C00, asc_166C05, asc_166C0A, asc_166C11, asc_166C16, asc_166C1B
-global asc_166C20, asc_166C25, asc_166C2A, asc_166C30, asc_166C35, asc_166C3A, asc_166C3F, asc_166C44
-global asc_166C49, asc_166C4E, asc_166C53, asc_166C58, asc_166C5E, asc_166C64, asc_166C6A, asc_166C6F
-global asc_166C74, asc_166C79, asc_166C7E, asc_166C83, asc_166C88, asc_166C8D, asc_166C92, unk_166C97
-asc_166B9C:
+global str_POPM, str_BACK9, str_TITL10, str_MAP0, str_BDOT, str_RDOT, str_ARRW, str_ARED
+global str_MB022, str_MB012, str_MB002, str_LB003, str_LD00, str_LB02d4, str_FNL0, str_LTL0
+global str_CSV, str_HistoryCsv, str_MNTR2, str_MB042, str_MB02d, str_1TOP5, str_2TOP5, str_3TOP5
+global str_1BOT5, str_2BOT5, str_3BOT5, str_BAK0, str_BAK1, str_BOTM3, str_BACK10, str_TTL12
+global str_BOT1, str_TTL02, str_BAL1, str_ON0D, str_OF0D, str_MB0D, str_MB003, str_MB013
+global str_MB043, str_MB052, str_CENT, str_LFT02, str_LFT2, str_RIT02, str_RIT2, unk_166C97
+str_POPM:
         db 050h,04Fh,050h,04Dh,00h
-asc_166BA1:
+str_BACK9:
         db 042h,041h,043h,04Bh,00h
-asc_166BA6:
+str_TITL10:
         db 054h,049h,054h,04Ch,00h
-asc_166BAB:
+str_MAP0:
         db 04Dh,041h,050h,030h,00h
-asc_166BB0:
+str_BDOT:
         db 042h,044h,04Fh,054h,00h
-asc_166BB5:
+str_RDOT:
         db 052h,044h,04Fh,054h,00h
-asc_166BBA:
+str_ARRW:
         db 041h,052h,052h,057h,00h
-asc_166BBF:
+str_ARED:
         db 041h,052h,045h,044h,00h
-asc_166BC4:
+str_MB022:
         db 04Dh,042h,030h,032h,00h
-asc_166BC9:
+str_MB012:
         db 04Dh,042h,030h,031h,00h
-asc_166BCE:
+str_MB002:
         db 04Dh,042h,030h,030h,00h
-asc_166BD3:
+str_LB003:
         db 04Ch,042h,030h,030h,00h
-asc_166BD8:
+str_LD00:
         db 04Ch,044h,030h,030h,00h
-asc_166BDD:
+str_LB02d4:
         db 04Ch,042h,025h,030h,032h,064h,00h
-asc_166BE4:
+str_FNL0:
         db 046h,04Eh,04Ch,030h,00h
-asc_166BE9:
+str_LTL0:
         db 04Ch,054h,04Ch,030h,00h
-asc_166BEE:
+str_CSV:
         db 02Eh,043h,053h,056h,00h
-asc_166BF3:
+str_HistoryCsv:
         db 068h,069h,073h,074h,06Fh,072h,079h,020h,02Eh,063h,073h,076h,00h
-asc_166C00:
+str_MNTR2:
         db 04Dh,04Eh,054h,052h,00h
-asc_166C05:
+str_MB042:
         db 04Dh,042h,030h,034h,00h
-asc_166C0A:
+str_MB02d:
         db 04Dh,042h,025h,030h,032h,064h,00h
-asc_166C11:
+str_1TOP5:
         db 031h,054h,04Fh,050h,00h
-asc_166C16:
+str_2TOP5:
         db 032h,054h,04Fh,050h,00h
-asc_166C1B:
+str_3TOP5:
         db 033h,054h,04Fh,050h,00h
-asc_166C20:
+str_1BOT5:
         db 031h,042h,04Fh,054h,00h
-asc_166C25:
+str_2BOT5:
         db 032h,042h,04Fh,054h,00h
-asc_166C2A:
+str_3BOT5:
         db 033h,042h,04Fh,054h,00h,00h
-asc_166C30:
+str_BAK0:
         db 042h,041h,04Bh,030h,00h
-asc_166C35:
+str_BAK1:
         db 042h,041h,04Bh,031h,00h
-asc_166C3A:
+str_BOTM3:
         db 042h,04Fh,054h,04Dh,00h
-asc_166C3F:
+str_BACK10:
         db 042h,041h,043h,04Bh,00h
-asc_166C44:
+str_TTL12:
         db 054h,054h,04Ch,031h,00h
-asc_166C49:
+str_BOT1:
         db 042h,04Fh,054h,031h,00h
-asc_166C4E:
+str_TTL02:
         db 054h,054h,04Ch,030h,00h
-asc_166C53:
+str_BAL1:
         db 042h,041h,04Ch,031h,00h
-asc_166C58:
+str_ON0D:
         db 04Fh,04Eh,030h,025h,064h,00h
-asc_166C5E:
+str_OF0D:
         db 04Fh,046h,030h,025h,064h,00h
-asc_166C64:
+str_MB0D:
         db 04Dh,042h,030h,025h,064h,00h
-asc_166C6A:
+str_MB003:
         db 04Dh,042h,030h,030h,00h
-asc_166C6F:
+str_MB013:
         db 04Dh,042h,030h,031h,00h
-asc_166C74:
+str_MB043:
         db 04Dh,042h,030h,034h,00h
-asc_166C79:
+str_MB052:
         db 04Dh,042h,030h,035h,00h
-asc_166C7E:
+str_CENT:
         db 043h,045h,04Eh,054h,00h
-asc_166C83:
+str_LFT02:
         db 04Ch,046h,054h,030h,00h
-asc_166C88:
+str_LFT2:
         db 04Ch,046h,054h,032h,00h
-asc_166C8D:
+str_RIT02:
         db 052h,049h,054h,030h,00h
-asc_166C92:
+str_RIT2:
         db 052h,049h,054h,032h,00h
 unk_166C97:
         db 025h,064h,00h,00h,00h

@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_11B20A progbits alloc exec nowrite align=1
-extern SetClipWindow, __flush_, __fprtf_, __int386x_, __ioalloc_, __qwrite_, __set_errno_, asc_167FA0
-extern asc_167FA8, asc_167FE0, asc_167FEC, asc_167FF4, asc_167FFC, asc_168004, asc_16800C, asc_168014
+extern SetClipWindow, __flush_, __fprtf_, __int386x_, __ioalloc_, __qwrite_, __set_errno_, str_ATD2
+extern str_EAGAME08x04x04x02x02x02x0, str_Netserv, str_IPXINTF, str_IPXSOCK, str_Galloc, str_GMEM, str_GEND, str_GFRE
 extern byte_16E689, byte_172250, byte_172251, byte_1DA8CF, dword_16E3F4, dword_16E46C, dword_16E4B0, dword_16E4BC
 extern dword_16E4C8, dword_1702CC, dword_172138, dword_17213C, dword_172168, dword_172194, dword_172198, dword_17219C
 extern dword_1721A0, dword_1721A4, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4, dword_1721E0, dword_1721E4
@@ -1864,7 +1864,7 @@ sub_11C1CC:
         test ecx, ecx
         jne short .8
 .7:
-        mov dword [byte ebx+050h], asc_167FA0
+        mov dword [byte ebx+050h], str_ATD2
 .8:
         mov eax, dword [byte ebx+048h]
         push eax
@@ -2108,7 +2108,7 @@ sub_11C4C8:
         push ebx
         mov ebx, dword [eax]
         push ebx
-        push asc_167FA8
+        push str_EAGAME08x04x04x02x02x02x0
         push edx
         call sprintf_
         add esp, byte 34h
@@ -3865,7 +3865,7 @@ sub_11D780:
         shl eax, 2
         add eax, 0F8h
         push eax
-        push asc_167FE0
+        push str_Netserv
         call sub_FAAB4
         add esp, byte 0Ch
         mov dword [byte ebp+0Ch], eax
@@ -5742,7 +5742,7 @@ sub_11EC18:
         or ah, 2
         push eax
         push dword 9E0h
-        push asc_167FEC
+        push str_IPXINTF
         call sub_FAAB4
         add esp, byte 0Ch
         mov dword [dword_17224C], eax
@@ -5976,7 +5976,7 @@ sub_11EF20:
         or ah, 2
         push eax
         push dword 8628h
-        push asc_167FF4
+        push str_IPXSOCK
         call sub_FAAB4
         add esp, byte 0Ch
         mov esi, eax
@@ -6990,7 +6990,7 @@ sub_11F8E0:
         push edx
         add eax, byte 0Ch
         push eax
-        push asc_167FFC
+        push str_Galloc
         call AllocMemBlock
         mov ebx, eax
         add esp, byte 0Ch
@@ -6998,7 +6998,7 @@ sub_11F8E0:
         je short .2
         push byte 4
         push eax
-        push asc_168004
+        push str_GMEM
         call bcopy
         add esp, byte 0Ch
         add ebx, byte 8
@@ -7006,7 +7006,7 @@ sub_11F8E0:
         mov dword [byte ebx-04h], esi
         add esi, ebx
         push esi
-        push asc_16800C
+        push str_GEND
         call bcopy
         mov ecx, dword [dword_1722BC]
         add esp, byte 0Ch
@@ -7032,7 +7032,7 @@ sub_11F94C:
         push ebp
         mov edx, eax
         mov ecx, 4
-        mov edi, asc_168004
+        mov edi, str_GMEM
         lea esi, [byte eax-08h]
         mov ebp, dword [byte eax-04h]
         xor eax, eax
@@ -7049,7 +7049,7 @@ sub_11F94C:
         cmp ebp, 2000000h
         jge short .3
         mov ecx, 4
-        mov edi, asc_16800C
+        mov edi, str_GEND
         lea esi, [edx+ebp]
         xor eax, eax
         repe cmpsb
@@ -7065,7 +7065,7 @@ sub_11F94C:
         test ebx, ebx
         jne short .5
         mov ecx, 4
-        mov edi, asc_168014
+        mov edi, str_GFRE
         xor eax, eax
         repe cmpsb
         je short .4
@@ -7076,7 +7076,7 @@ sub_11F94C:
 .5:
         push byte 4
         push esi
-        push asc_168014
+        push str_GFRE
         call bcopy
         add esp, byte 0Ch
         push esi

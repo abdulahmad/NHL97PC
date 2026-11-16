@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_AB240 progbits alloc exec nowrite align=1
-extern asc_166120, asc_166129, asc_166133, asc_166139, asc_16613D, asc_16614C, asc_166158, byte_1ACF63
+extern str_Xferdata, str_Replaybuf2, str_Gdata, str_Ros2, str_SEXHIBITNDX, str_EXHIBITNDX2, str_Saverepl, byte_1ACF63
 extern byte_1AD458, byte_1AD72B, byte_1AD739, byte_1AD742, dword_168F58, dword_16D2CC, dword_16D2EC, dword_16D30C
 extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, dword_1AC814, dword_1AC940, dword_1ACF42
 extern dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dword_1AD45A, dword_1AD62F, dword_1AD6AB
@@ -28,7 +28,7 @@ sub_AB240:
         enter 14h, 0
         push byte 0
         push dword 4A78h
-        push asc_166120
+        push str_Xferdata
         call AllocMemBlock
         mov dword [byte ebp-04h], eax
         mov eax, dword [dword_1AC940]
@@ -151,7 +151,7 @@ sub_AB240:
         je short .13
         push byte 0
         push dword [dword eax+04A70h]
-        push asc_166129
+        push str_Replaybuf2
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp-0Ch], eax
@@ -189,7 +189,7 @@ sub_AB240:
         je short .16
         push byte 0
         push dword [dword eax+04A70h]
-        push asc_166129
+        push str_Replaybuf2
         call AllocMemBlock
         mov edx, dword [byte ebp-04h]
         add esp, byte 0Ch
@@ -272,7 +272,7 @@ sub_AB573:
         sub ebp, 82h
         push byte 0
         push dword 4A78h
-        push asc_166133
+        push str_Gdata
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp+072h], 0
@@ -282,7 +282,7 @@ sub_AB573:
         push dword 194Fh
         mov dword [byte ebp+05Eh], 0
         mov dword [byte ebp+076h], 0FFFFFFFFh
-        push asc_166139
+        push str_Ros2
         mov dword [byte ebp+07Ah], 0
         mov dword [byte ebp+066h], eax
         call AllocMemBlock
@@ -1515,7 +1515,7 @@ sub_AC41B:
         call MakeDirPath
         lea eax, [byte ebp+036h]
         push eax
-        push asc_16613D
+        push str_SEXHIBITNDX
         lea eax, [byte ebp-01Ah]
         push eax
         call sprintf_
@@ -1526,12 +1526,12 @@ sub_AC41B:
         add esp, byte 4
         test eax, eax
         jne short .16
-        mov edx, asc_16614C
+        mov edx, str_EXHIBITNDX2
         lea eax, [byte ebp+036h]
         call NameIndexNew
         jmp short .17
 .16:
-        mov edx, asc_16614C
+        mov edx, str_EXHIBITNDX2
         lea eax, [byte ebp+036h]
         call NameIndexLoad
 .17:
@@ -1599,7 +1599,7 @@ sub_AC69C:
         push byte 0
         push eax
         mov edi, dword_1C1334
-        push asc_166158
+        push str_Saverepl
         mov esi, unk_16D7F4
         mov ebx, eax
         call AllocMemBlock
