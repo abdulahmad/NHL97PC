@@ -4,7 +4,7 @@ bits 32
 section s_138C90 progbits alloc exec nowrite align=1
 extern _Extender, _STACKLOW, __DPMI_hosted_, TimerTickStep, ViewScreenWidth, ClipTopRow, ClipLeftCol, ClipRight
 extern ScreenHeight, DrawDestPitch, __amblksiz, DebugLineStart, TextOriginX, TextOriginY, RestoreDS, SetTextOrigin
-extern MeasureText, DrawTextRun, unk_116427, vsprintf_
+extern MeasureText, DrawTextRun, RestoreDSEnd, vsprintf_
 global __CommonInit_, CMainHook, DebugPrintf, DebugPrintAt, DebugPrintLine, DebugLineCount
 ;-----------------------------------------------------------------------------
 ; CMainHook                                      138C90  97 PC, low confidence
@@ -42,7 +42,7 @@ __CommonInit_:
         call __DPMI_hosted_
         cmp eax, byte 1
         jne short .4
-        mov edx, unk_116427
+        mov edx, RestoreDSEnd
         mov eax, RestoreDS
         sub edx, RestoreDS
         mov di, dx

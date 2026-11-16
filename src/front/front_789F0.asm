@@ -8,7 +8,7 @@ extern memset_, rand_, srand_, RandomCrowdDelay, PlayerOverall, FindPlayerRecord
 extern ReadTeamStats, ServiceIdle, ZeroMem, PlayoffDbKey, SeasonDbKey, AutoLineData, HomeLines, SimGameBlankPair
 extern HomeRosterData, HomeSimGoals, HomeSimShots, HomeShotTotals, HomeGoalTotals
 extern AwayRosterData, AwaySimGoals, AwaySimShots, AwayShotTotals, AwayGoalTotals
-global SimulateGame, SimPlayerRating, SimTeamStrength, unk_7A788
+global SimulateGame, SimPlayerRating, SimTeamStrength, SimTeamStrengthJumpTable
 ;-----------------------------------------------------------------------------
 ; SimulateGame                                    789F0  97 PC, low confidence
 ; Simulates a game without playing it
@@ -2025,7 +2025,7 @@ SimTeamStrength:
         pop ecx
         ret
         db 08Bh,0C0h
-unk_7A788:
+SimTeamStrengthJumpTable:
         dd .2
         dd .3
         dd .4
@@ -2046,7 +2046,7 @@ unk_7A788:
         cmp ebp, byte 4
         ja short .7
         mov eax, dword [dword esp+01A0Ch]
-        jmp dword [dword cs:eax+unk_7A788]
+        jmp dword [dword cs:eax+SimTeamStrengthJumpTable]
 .2:
         mov ecx, 2Dh
         jmp short .7

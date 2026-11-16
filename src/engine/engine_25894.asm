@@ -46,7 +46,7 @@ extern gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, OneTimerReady, OneTime
 extern penshotmode, BenchRequest, penshotlive, FaceoffRequest, PuckY, DelayedPen, MessagePanel, GoalLineFlag
 extern BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeEbenPlayer, AwayEbenPlayer, PlayerAssignWords, HmPlayersInBox
 extern AwPlayersInBox
-global jpt_2B4B4, PlayerPastLine_D1, PuckToStick_424, PuckToStick_43B, PuckToStick_452, PuckToStick_469, PlayerPastLine, checkob
+global PuckToStickJumpTable, PlayerPastLine_D1, PuckToStick_424, PuckToStick_43B, PuckToStick_452, PuckToStick_469, PlayerPastLine, checkob
 global GetLowestPen, chk4lc, SkateOnside, SkateToEndBoards, asspuckc, ChkDefenseSwitch, ChasePuck, assnearest
 global StartScoreCelebration, assscore, ChkPullGoalieLate, assbench, PutBoxPlayerOnBench, ReleaseBoxToBench, assleavebox, asspsclear
 global AssignControlSlots, PenShotStart, asspenshot, asseben, assleaveice, asspenalty, assdopen, assepen
@@ -7205,7 +7205,7 @@ PuckHitsGoalie:
         pop ebx
         ret
         db 08Bh,0C0h
-jpt_2B4B4:
+PuckToStickJumpTable:
         dd PuckToStick_424
         dd PuckToStick_424
         dd PuckToStick_43B
@@ -7443,8 +7443,8 @@ PuckToStick:
         fstp dword [byte edx+040h]
         cmp ebx, byte 7
         ja near PuckToStick_469.21
-        db 02Eh,0FFh,024h,09Dh                  ; insn: jmp dword [cs:ebx*4+1B4B4h]
-        dd jpt_2B4B4
+        db 02Eh,0FFh,024h,09Dh                  ; insn: jmp dword [cs:ebx*4+PuckToStickJumpTable]
+        dd PuckToStickJumpTable
 .16:
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
@@ -7502,8 +7502,8 @@ PuckToStick:
 .20:
         cmp ebx, byte 7
         ja near PuckToStick_469.21
-        db 02Eh,0FFh,024h,09Dh                  ; insn: jmp dword [cs:ebx*4+1B4B4h]
-        dd jpt_2B4B4
+        db 02Eh,0FFh,024h,09Dh                  ; insn: jmp dword [cs:ebx*4+PuckToStickJumpTable]
+        dd PuckToStickJumpTable
 PuckToStick_424:
         push dword [byte ecx+028h]
         mov edx, 64h

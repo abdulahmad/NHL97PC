@@ -79,7 +79,7 @@ MouseRead:
         mov ecx, dword [mousex]
         mov ebx, dword [byte ebp+0Ch]
         db 089h,0Bh                             ; insn: mov [ebx],ecx
-        db 08Bh,015h                            ; insn: mov edx,[0E450h]
+        db 08Bh,015h                            ; insn: mov edx,[mousey]
         dd mousey
         mov ebx, dword [byte ebp+010h]
         mov dword [ebx], edx

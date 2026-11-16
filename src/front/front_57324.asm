@@ -247,8 +247,8 @@ global ReadAnimValue, DecodeAnimFrame, DecodeAnimDelta, GetAnimId, UpdateObjectP
 global SetAnimClock, AddAnimClock, UpdateAnimBlends, AnimClockTick, SetAnimFrame, SetAnimFlags, ClearAnimFlags, InitAnimState
 global AllocAnimStateBlocks, StartAnim, StartAnimNow, BlendToAnim, ChangeAnim, InitAnimNodePool, FreeAnimStates, AllocAnimStates
 global BuildCameraDebugView, DrawCameraPath, LoadAiIcons, FreeCameraDebug, updateplayers, GameOver, RequestPauseMenu, CheckIntermission
-global CupCelebration, clockcont_0, periodicevents, PlayCrowdAmbience, DoGameFrame, RandomCrowdDelay, GoalieAnimBlank, unk_704AC
-global unk_704C0, unk_717E0, unk_717F4, unk_71A94, unk_71AA8, SimGameBlankPair
+global CupCelebration, clockcont_0, periodicevents, PlayCrowdAmbience, DoGameFrame, RandomCrowdDelay, GoalieAnimBlank, FightPunchMoveJumpTable
+global FightPunchHitJumpTable, StartFightPunchJumpTable, StartFightPunchHitJumpTable, StartFightBlockJumpTable, StartFightBlockHitJumpTable, SimGameBlankPair
 ;-----------------------------------------------------------------------------
 ; SetupPlayerModel                                57324  97 PC, low confidence
 ; Builds a player's 3D model: jersey, number and team textures for one roster
@@ -34976,13 +34976,13 @@ FightHoldMove:
         pop ecx
         pop ebx
         ret
-unk_704AC:
+FightPunchMoveJumpTable:
         dd FightPunchMove_1B3
         dd FightPunchMove_1B8
         dd FightPunchMove_1B8
         dd FightPunchMove_1BE
         dd FightPunchMove_1C4
-unk_704C0:
+FightPunchHitJumpTable:
         dd FightPunchMove_288
         dd FightPunchMove_28D
         dd FightPunchMove_28D
@@ -35118,7 +35118,7 @@ FightPunchMove:
         call SetFaceBlink
         xor edx, edx
         mov eax, ecx
-        jmp dword [dword cs:edx+unk_704AC]
+        jmp dword [dword cs:edx+FightPunchMoveJumpTable]
 FightPunchMove_1B3:
         dec dword [byte ecx+056h]
         jmp short FightPunchMove_1C4.6
@@ -35179,7 +35179,7 @@ FightPunchMove_1C4:
         call SetFaceBlink
         mov edx, 4
         mov eax, ecx
-        jmp dword [dword cs:edx+unk_704C0]
+        jmp dword [dword cs:edx+FightPunchHitJumpTable]
 FightPunchMove_288:
         dec dword [byte ecx+056h]
         jmp short FightPunchMove_299.12
@@ -36675,13 +36675,13 @@ FightFallMove:
         pop ecx
         pop ebx
         ret
-unk_717E0:
+StartFightPunchJumpTable:
         dd StartFightPunch_86
         dd StartFightPunch_8B
         dd StartFightPunch_8B
         dd StartFightPunch_91
         dd StartFightPunch_97
-unk_717F4:
+StartFightPunchHitJumpTable:
         dd StartFightPunch_186
         dd StartFightPunch_18B
         dd StartFightPunch_18B
@@ -36729,7 +36729,7 @@ StartFightPunch:
         mov esi, 8
         call SetSPA
         mov eax, ecx
-        jmp dword [dword cs:esi+unk_717E0]
+        jmp dword [dword cs:esi+StartFightPunchJumpTable]
 StartFightPunch_86:
         dec dword [byte ecx+056h]
         jmp short StartFightPunch_97.1
@@ -36803,7 +36803,7 @@ StartFightPunch_97:
         mov esi, 10h
         call SetSPA
         mov eax, ecx
-        jmp dword [dword cs:esi+unk_717F4]
+        jmp dword [dword cs:esi+StartFightPunchHitJumpTable]
 StartFightPunch_186:
         dec dword [byte ecx+056h]
         jmp short StartFightPunch_197.6
@@ -36893,13 +36893,13 @@ StartFightPunch_197:
         pop ebx
         ret
         db 08Bh,0C0h
-unk_71A94:
+StartFightBlockJumpTable:
         dd StartFightBlock_86
         dd StartFightBlock_8B
         dd StartFightBlock_8B
         dd StartFightBlock_91
         dd StartFightBlock_97
-unk_71AA8:
+StartFightBlockHitJumpTable:
         dd StartFightBlock_186
         dd StartFightBlock_18B
         dd StartFightBlock_18B
@@ -36947,7 +36947,7 @@ StartFightBlock:
         mov esi, 0Ch
         call SetSPA
         mov eax, ecx
-        jmp dword [dword cs:esi+unk_71A94]
+        jmp dword [dword cs:esi+StartFightBlockJumpTable]
 StartFightBlock_86:
         dec dword [byte ecx+056h]
         jmp short StartFightBlock_97.1
@@ -37021,7 +37021,7 @@ StartFightBlock_97:
         mov esi, 10h
         call SetSPA
         mov eax, ecx
-        jmp dword [dword cs:esi+unk_71AA8]
+        jmp dword [dword cs:esi+StartFightBlockHitJumpTable]
 StartFightBlock_186:
         dec dword [byte ecx+056h]
         jmp short StartFightBlock_197.6

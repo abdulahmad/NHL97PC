@@ -29,7 +29,7 @@ extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlo
 extern OpenResourceArchive, FreeBitmap, DrawShapeCore, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern str_Rb_WritePhonebookFile, str_Wb, MainMenuAnimName, SeasonDbKey, LinkSettings, LinkSettingsData, GlobalSetVersion, IndexEntrySettings
 extern ScreenTitleItem, BlankMenuItem, ScreenFrameItem, MainMenuButtonRect, MainMenuTextRect, MainMenuItemMetrics
-global MainMenuOptionsJumpTable, MainMenuMessageJumpTable, MainMenuSelectionJumpTable, jpt_84B3D, RunStatsMenuJumpTable, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
+global MainMenuOptionsJumpTable, MainMenuMessageJumpTable, MainMenuSelectionJumpTable, MainMenuSettingsJumpTable, RunStatsMenuJumpTable, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
 global MainMenuAnim_370, MainMenuAnim_50B, MainMenuScreen_911, MainMenuScreen_999, MainMenuScreen_A17, MainMenuScreen_A23, MainMenuScreen_A2F, MainMenuScreen_A3B
 global MainMenuScreen_A68, MainMenuScreen_A79, MainMenuScreen_A82, MainMenuScreen_A94, MainMenuScreen_A9D, MainMenuScreen_AAF, MainMenuScreen_AB8, MainMenuScreen_BA5
 global MainMenuScreen_BBD, MainMenuScreen_BC6, MainMenuScreen_BD5, MainMenuScreen_BDE, MainMenuScreen_BED, MainMenuScreen_BF6, MainMenuScreen_C76, MainMenuScreen_CFF
@@ -421,7 +421,7 @@ MainMenuSelectionJumpTable:
         dd MainMenuScreen_A94
         dd MainMenuScreen_A9D
         dd MainMenuScreen_AAF
-jpt_84B3D:
+MainMenuSettingsJumpTable:
         dd MainMenuScreen_BA5
         dd MainMenuScreen_BBD
         dd MainMenuScreen_BC6
@@ -1262,7 +1262,7 @@ MainMenuScreen_AB8:
         mov ecx, edx
         or si, byte 10h
         or cl, 20h
-        jmp dword [dword cs:eax+jpt_84B3D]
+        jmp dword [dword cs:eax+MainMenuSettingsJumpTable]
 MainMenuScreen_BA5:
         mov dword [byte ebp+07Eh], 4
 .37:

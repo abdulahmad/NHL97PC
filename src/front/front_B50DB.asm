@@ -38,10 +38,10 @@ extern FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetD
 extern str_Ai_PlayerStatsScreen, str_Rp, str_D_DrawPlayerRatings, str_0_DrawPlayerStatsText, str_S_DrawPlayerBio, str_Wt_ExportPlayerCard, str_Punct_ExportPlayerCard, CardExportSeparator
 extern PlayoffDbKey, SeasonDbKey, SeasonFilePath, SeasonStatsPath, PlayoffStatsPath, BlankMenuItem, ScreenFrameItem, StatsBackItem
 extern RatingsScrollBar, RatingsSkaterList, RatingsGoalieList, PlayerStatsPageShapes, PlayerStatsArrowShapes, PlayerStatsTitleShapes, StatsCardList
-global PlayerStatsScreenJumpTable, DrawSkaterStatLabelJumpTable, jpt_B6B53, jpt_B6B7F, DrawSkaterStatJumpTable, DrawGoalieStatLabelJumpTable, jpt_B6BFB, jpt_B6C1F
-global DrawGoalieStatJumpTable, DrawBioSkaterRatingJumpTable, DrawBioGoalieRatingJumpTable, ExportSkaterRatingJumpTable, ExportGoalieRatingJumpTable, ExportSkaterStatLabelJumpTable, jpt_B77E0, jpt_B780C
-global ExportSkaterStatJumpTable, ExportGoalieStatLabelJumpTable, jpt_B7888, jpt_B78AC, ExportGoalieStatJumpTable, PlayerRatingsScreenJumpTable, DrawRatingsSkaterJumpTable, DrawRatingsGoalieJumpTable
-global jpt_BBD85, jpt_BBDB1, DrawRatingsStatJumpTable, DrawStatsCardPage_76D, DrawStatsCardPage_776, DrawStatsCardPage_77C, PlayerStatsScreen_975, PlayerStatsScreen_986
+global PlayerStatsScreenJumpTable, DrawSkaterStatLabelJumpTable, DrawSkaterPlayoffStatJumpTable, DrawSkaterSeasonStatJumpTable, DrawSkaterStatJumpTable, DrawGoalieStatLabelJumpTable, DrawGoaliePlayoffStatJumpTable, DrawGoalieSeasonStatJumpTable
+global DrawGoalieStatJumpTable, DrawBioSkaterRatingJumpTable, DrawBioGoalieRatingJumpTable, ExportSkaterRatingJumpTable, ExportGoalieRatingJumpTable, ExportSkaterStatLabelJumpTable, ExportSkaterPlayoffStatJumpTable, ExportSkaterSeasonStatJumpTable
+global ExportSkaterStatJumpTable, ExportGoalieStatLabelJumpTable, ExportGoaliePlayoffStatJumpTable, ExportGoalieSeasonStatJumpTable, ExportGoalieStatJumpTable, PlayerRatingsScreenJumpTable, DrawRatingsSkaterJumpTable, DrawRatingsGoalieJumpTable
+global DrawRatingsSkaterBarJumpTable, DrawRatingsGoalieBarJumpTable, DrawRatingsStatJumpTable, DrawStatsCardPage_76D, DrawStatsCardPage_776, DrawStatsCardPage_77C, PlayerStatsScreen_975, PlayerStatsScreen_986
 global PlayerStatsScreen_99A, PlayerStatsScreen_9A6, PlayerStatsScreen_9B7, PlayerStatsScreen_9CA, PlayerStatsScreen_9DB, PlayerStatsScreen_B94, PlayerStatsScreen_C43, PlayerStatsScreen_CB4
 global PlayerStatsScreen_DC7, PlayerStatsScreen_10AA, PlayerStatsScreen_1114, DrawPlayerStatsText_4C, DrawPlayerStatsText_53, DrawPlayerStatsText_5A, DrawPlayerStatsText_61, DrawPlayerStatsText_68
 global DrawPlayerStatsText_6F, DrawPlayerStatsText_76, DrawPlayerStatsText_7D, DrawPlayerStatsText_84, DrawPlayerStatsText_8B, DrawPlayerStatsText_92, DrawPlayerStatsText_123, DrawPlayerStatsText_129
@@ -1961,7 +1961,7 @@ DrawSkaterStatLabelJumpTable:
         dd DrawPlayerStatsText_84
         dd DrawPlayerStatsText_8B
         dd DrawPlayerStatsText_92
-jpt_B6B53:
+DrawSkaterPlayoffStatJumpTable:
         dd DrawPlayerStatsText_123
         dd DrawPlayerStatsText_129
         dd DrawPlayerStatsText_12F
@@ -1973,7 +1973,7 @@ jpt_B6B53:
         dd DrawPlayerStatsText_1C9
         dd DrawPlayerStatsText_1F4
         dd DrawPlayerStatsText_200
-jpt_B6B7F:
+DrawSkaterSeasonStatJumpTable:
         dd DrawPlayerStatsText_21C
         dd DrawPlayerStatsText_225
         dd DrawPlayerStatsText_22E
@@ -2007,7 +2007,7 @@ DrawGoalieStatLabelJumpTable:
         dd DrawPlayerStatsText_399
         dd DrawPlayerStatsText_3A0
         dd DrawPlayerStatsText_3A7
-jpt_B6BFB:
+DrawGoaliePlayoffStatJumpTable:
         dd DrawPlayerStatsText_430
         dd DrawPlayerStatsText_44B
         dd DrawPlayerStatsText_451
@@ -2017,7 +2017,7 @@ jpt_B6BFB:
         dd DrawPlayerStatsText_469
         dd DrawPlayerStatsText_46F
         dd DrawPlayerStatsText_478
-jpt_B6C1F:
+DrawGoalieSeasonStatJumpTable:
         dd DrawPlayerStatsText_48D
         dd DrawPlayerStatsText_493
         dd DrawPlayerStatsText_499
@@ -2143,7 +2143,7 @@ DrawPlayerStatsText_92:
         je near DrawPlayerStatsText_200.11
         cmp esi, byte 0Ah
         ja near DrawPlayerStatsText_15A.8
-        jmp dword [dword cs:edx+jpt_B6B53]
+        jmp dword [dword cs:edx+DrawSkaterPlayoffStatJumpTable]
 DrawPlayerStatsText_123:
         movsx eax, word [byte eax+078h]
         jmp short DrawPlayerStatsText_15A.7
@@ -2235,7 +2235,7 @@ DrawPlayerStatsText_200:
 .11:
         cmp esi, byte 0Ah
         ja near DrawPlayerStatsText_15A.8
-        jmp dword [dword cs:edx+jpt_B6B7F]
+        jmp dword [dword cs:edx+DrawSkaterSeasonStatJumpTable]
 DrawPlayerStatsText_21C:
         movsx eax, word [byte eax+060h]
         jmp near DrawPlayerStatsText_15A.7
@@ -2436,7 +2436,7 @@ DrawPlayerStatsText_3A7:
         je short DrawPlayerStatsText_478.24
         cmp esi, byte 8
         ja near DrawPlayerStatsText_4C3.25
-        jmp dword [dword cs:ebx+jpt_B6BFB]
+        jmp dword [dword cs:ebx+DrawGoaliePlayoffStatJumpTable]
 DrawPlayerStatsText_430:
         movsx eax, word [byte eax+072h]
 .23:
@@ -2474,7 +2474,7 @@ DrawPlayerStatsText_478:
 .24:
         cmp esi, byte 8
         ja short DrawPlayerStatsText_4C3.25
-        jmp dword [dword cs:ebx+jpt_B6C1F]
+        jmp dword [dword cs:ebx+DrawGoalieSeasonStatJumpTable]
 DrawPlayerStatsText_48D:
         movsx eax, word [byte eax+060h]
         jmp short DrawPlayerStatsText_430.23
@@ -3080,7 +3080,7 @@ ExportSkaterStatLabelJumpTable:
         dd ExportPlayerCard_451
         dd ExportPlayerCard_45A
         dd ExportPlayerCard_463
-jpt_B77E0:
+ExportSkaterPlayoffStatJumpTable:
         dd ExportPlayerCard_4F9
         dd ExportPlayerCard_4FF
         dd ExportPlayerCard_505
@@ -3092,7 +3092,7 @@ jpt_B77E0:
         dd ExportPlayerCard_597
         dd ExportPlayerCard_5C2
         dd ExportPlayerCard_5CE
-jpt_B780C:
+ExportSkaterSeasonStatJumpTable:
         dd ExportPlayerCard_5EA
         dd ExportPlayerCard_5F3
         dd ExportPlayerCard_5FC
@@ -3126,7 +3126,7 @@ ExportGoalieStatLabelJumpTable:
         dd ExportPlayerCard_77C
         dd ExportPlayerCard_785
         dd ExportPlayerCard_78E
-jpt_B7888:
+ExportGoaliePlayoffStatJumpTable:
         dd ExportPlayerCard_81C
         dd ExportPlayerCard_837
         dd ExportPlayerCard_83D
@@ -3136,7 +3136,7 @@ jpt_B7888:
         dd ExportPlayerCard_855
         dd ExportPlayerCard_85B
         dd ExportPlayerCard_864
-jpt_B78AC:
+ExportGoalieSeasonStatJumpTable:
         dd ExportPlayerCard_879
         dd ExportPlayerCard_87F
         dd ExportPlayerCard_885
@@ -3577,7 +3577,7 @@ ExportPlayerCard_463:
         je near ExportPlayerCard_5CE.29
         cmp esi, byte 0Ah
         ja near ExportPlayerCard_530.26
-        jmp dword [dword cs:edx+jpt_B77E0]
+        jmp dword [dword cs:edx+ExportSkaterPlayoffStatJumpTable]
 ExportPlayerCard_4F9:
         movsx eax, word [byte eax+078h]
         jmp short ExportPlayerCard_530.25
@@ -3662,7 +3662,7 @@ ExportPlayerCard_5CE:
 .29:
         cmp esi, byte 0Ah
         ja near ExportPlayerCard_530.26
-        jmp dword [dword cs:edx+jpt_B780C]
+        jmp dword [dword cs:edx+ExportSkaterSeasonStatJumpTable]
 ExportPlayerCard_5EA:
         movsx eax, word [byte eax+060h]
         jmp near ExportPlayerCard_530.25
@@ -3853,7 +3853,7 @@ ExportPlayerCard_78E:
         je short ExportPlayerCard_864.42
         cmp esi, byte 8
         ja near ExportPlayerCard_8AF.43
-        jmp dword [dword cs:edi+jpt_B7888]
+        jmp dword [dword cs:edi+ExportGoaliePlayoffStatJumpTable]
 ExportPlayerCard_81C:
         movsx eax, word [byte eax+072h]
 .41:
@@ -3891,7 +3891,7 @@ ExportPlayerCard_864:
 .42:
         cmp esi, byte 8
         ja short ExportPlayerCard_8AF.43
-        jmp dword [dword cs:edi+jpt_B78AC]
+        jmp dword [dword cs:edi+ExportGoalieSeasonStatJumpTable]
 ExportPlayerCard_879:
         movsx eax, word [byte eax+060h]
         jmp short ExportPlayerCard_81C.41
@@ -8254,7 +8254,7 @@ DrawRatingsGoalieJumpTable:
         dd DrawPlayerRatings_719
         dd DrawPlayerRatings_741
         dd DrawPlayerRatings_769
-jpt_BBD85:
+DrawRatingsSkaterBarJumpTable:
         dd DrawPlayerRatings_99B
         dd DrawPlayerRatings_A38
         dd DrawPlayerRatings_AD5
@@ -8266,7 +8266,7 @@ jpt_BBD85:
         dd DrawPlayerRatings_E68
         dd DrawPlayerRatings_EEB
         dd DrawPlayerRatings_F6E
-jpt_BBDB1:
+DrawRatingsGoalieBarJumpTable:
         dd DrawPlayerRatings_111B
         dd DrawPlayerRatings_11B8
         dd DrawPlayerRatings_1255
@@ -9071,7 +9071,7 @@ DrawPlayerRatings_769:
         mov ecx, dword [byte ebp-034h]
         add edx, dword [byte ebp-08h]
         add eax, ebx
-        jmp dword [dword cs:ecx+jpt_BBD85]
+        jmp dword [dword cs:ecx+DrawRatingsSkaterBarJumpTable]
 DrawPlayerRatings_99B:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
@@ -9661,7 +9661,7 @@ DrawPlayerRatings_F6E:
         mov ecx, dword [byte ebp-038h]
         add edx, dword [byte ebp-08h]
         add eax, ebx
-        jmp dword [dword cs:ecx+jpt_BBDB1]
+        jmp dword [dword cs:ecx+DrawRatingsGoalieBarJumpTable]
 DrawPlayerRatings_111B:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]

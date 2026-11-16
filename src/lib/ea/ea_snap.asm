@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_121B00 progbits alloc exec nowrite align=1
 extern _Extender, __8087, __hook387, __real87, Is8087, FpuFlags, FpuSystemFlags, OldFpuVectorOffset
-extern jpt_132AF0_100, jpt_132AF0_170, str_Punct_InitFpuFlags, SavedEsSelector, OldFpuVectorSelector, FpuCr0Bits
+extern NoFloatSupport_38D, NoFloatSupport_3FD, str_Punct_InitFpuFlags, SavedEsSelector, OldFpuVectorSelector, FpuCr0Bits
 global InitFpuFlags, MakeFpuGate, HookCoprocessorVector, SetSystemFpuFlag
 ;-----------------------------------------------------------------------------
 ; InitFpuFlags                                                   121B00  95 PC
@@ -34,7 +34,7 @@ InitFpuFlags:
         push ds
         mov cx, cs
         mov ds, ecx
-        lea edx, [jpt_132AF0_170]
+        lea edx, [NoFloatSupport_3FD]
         int 21h
         pop ds
         mov al, 4
@@ -73,7 +73,7 @@ InitFpuFlags:
 ; Builds the gate descriptor for the coprocessor-missing handler
 ;-----------------------------------------------------------------------------
 MakeFpuGate:
-        lea ecx, [jpt_132AF0_170]
+        lea ecx, [NoFloatSupport_3FD]
         mov dx, cs
         shl edx, 10h
         mov dx, cx
@@ -99,13 +99,13 @@ HookCoprocessorVector:
         push cs
         pop ds
         jl short .1
-        lea edx, [jpt_132AF0_100]
+        lea edx, [NoFloatSupport_38D]
         int 21h
         pop ds
         call SetSystemFpuFlag
         jmp short .2
 .1:
-        lea edx, [jpt_132AF0_170]
+        lea edx, [NoFloatSupport_3FD]
         int 21h
         pop ds
         mov ecx, cr0

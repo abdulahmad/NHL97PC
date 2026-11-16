@@ -75,7 +75,7 @@ PlotPixelClipped:
         jl near .10
         cmp eax, dword [ScreenHeight]
         jge near .10
-        db 08Bh,015h                            ; insn: mov edx,[0E698h]
+        db 08Bh,015h                            ; insn: mov edx,[DrawDestBuffer]
         dd DrawDestBuffer
         db 0C1h,0E0h,02h                        ; insn: shl eax,2
         lea esi, [edx+eax]

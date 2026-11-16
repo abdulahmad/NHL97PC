@@ -34,7 +34,7 @@ global IpxGetTargetCall, IpxRelinquishCall, IpxOpenSocketCall, IpxSetupPacket, I
 global IpxDetect, IpxHookCheck, IpxRestoreVector, IpxSetupLayer, IpxShutdown, IpxSocketNumber, IpxStart, IpxStop
 global IpxBuildHeader, IpxClearName, IpxSameNode, IpxCopyAddress, IpxLookupTarget, IpxLockSend, IpxLockListen, IpxQueueSend
 global IpxReceive, IpxPeek, IpxLinkStartup, SetNetCallback, AllocNetBuffer, FreeNetBuffer, ReadBigEndian, WriteBigEndian
-global GetCurrentFont, SetTextOrigin, uncget_string_, unk_11C450, unk_11C468, unk_11C480, unk_11C498, unk_11C4B0
+global GetCurrentFont, SetTextOrigin, uncget_string_, NetPollMsgBlank, NetAnnounceMsgBlank, NetJoinMsgBlank, NetDisconnectMsgBlank, NetBroadcastMsgBlank
 global vsscanf_
 ;-----------------------------------------------------------------------------
 ; fputc_                                                       11B20A  library
@@ -1221,9 +1221,9 @@ vsscanf_:
         push ecx
         push esi
         sub esp, byte 14h
-        db 0B9h                                 ; insn: mov ecx,10BCEBh
+        db 0B9h                                 ; insn: mov ecx,cget_string_
         dd cget_string_
-        db 0BEh                                 ; insn: mov esi,10BD14h
+        db 0BEh                                 ; insn: mov esi,uncget_string_
         dd uncget_string_
         mov dword [byte esp+08h], eax
         mov eax, esp
@@ -1745,7 +1745,7 @@ ModemLinkClose:
 .2:
         cmp dword [ModemConnected], byte 0
         jne short .3
-        db 068h                                 ; insn: push 10C170h
+        db 068h                                 ; insn: push ModemLinkClose
         dd ModemLinkClose
         call RemoveIdleHandler
         add esp, byte 4
@@ -1950,7 +1950,7 @@ ModemLinkHangup:
         je short .1
         push byte 0
         push byte 0
-        db 068h                                 ; insn: push 10C170h
+        db 068h                                 ; insn: push ModemLinkClose
         dd ModemLinkClose
         call AddIdleHandler
         mov eax, 1
@@ -2081,19 +2081,19 @@ OpenModemPacketLink:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h
-unk_11C450:
+NetPollMsgBlank:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-unk_11C468:
+NetAnnounceMsgBlank:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-unk_11C480:
+NetJoinMsgBlank:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-unk_11C498:
+NetDisconnectMsgBlank:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-unk_11C4B0:
+NetBroadcastMsgBlank:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
@@ -3264,8 +3264,8 @@ NetPollMessages:
         jne short .2
         mov ecx, 6
         mov edi, esp
-        db 0BEh                                 ; insn: mov esi,10C450h
-        dd unk_11C450
+        db 0BEh                                 ; insn: mov esi,NetPollMsgBlank
+        dd NetPollMsgBlank
         mov edx, dword [dword eax+094h]
         rep movsd
         mov dword [byte esp+0Ch], eax
@@ -3368,7 +3368,7 @@ NetPollMessages_168:
         push ecx
         push edx
         push byte 1
-        db 068h                                 ; insn: push 10D118h
+        db 068h                                 ; insn: push NetPollMessages
         dd NetPollMessages
         push NetMessageBuf
         call QueuePostBuffer
@@ -3485,7 +3485,7 @@ NetOpenSession:
         push NetMessageBuf
         call QueueInit
         add esp, byte 0Ch
-        db 068h                                 ; insn: push 10D29Ch
+        db 068h                                 ; insn: push NetPollMessages_184
         dd NetPollMessages_184
         call AddExitHandler
         mov ebx, dword [NetSessionHandle]
@@ -3599,7 +3599,7 @@ NetOpenSession:
         add esp, byte 4
         test eax, eax
         jne short .9
-        db 068h                                 ; insn: push 10D280h
+        db 068h                                 ; insn: push NetPollMessages_168
         dd NetPollMessages_168
         call addtimer
         add esp, byte 4
@@ -3677,7 +3677,7 @@ NetCloseSession:
         add esp, byte 4
         test eax, eax
         jne short .7
-        db 068h                                 ; insn: push 10D280h
+        db 068h                                 ; insn: push NetPollMessages_168
         dd NetPollMessages_168
         call RemoveTimerCallback
         add esp, byte 4
@@ -3714,8 +3714,8 @@ NetAnnounce:
 .1:
         mov ecx, 6
         lea edi, [byte esp+030h]
-        db 0BEh                                 ; insn: mov esi,10C468h
-        dd unk_11C468
+        db 0BEh                                 ; insn: mov esi,NetAnnounceMsgBlank
+        dd NetAnnounceMsgBlank
         mov edx, esp
         lea eax, [dword ebx+084h]
         rep movsd
@@ -3792,8 +3792,8 @@ NetJoinGame:
 .1:
         mov ecx, 6
         lea edi, [byte esp+070h]
-        db 0BEh                                 ; insn: mov esi,10C480h
-        dd unk_11C480
+        db 0BEh                                 ; insn: mov esi,NetJoinMsgBlank
+        dd NetJoinMsgBlank
         rep movsd
         cmp dword [dword ebp+098h], byte 0
         je short .3
@@ -4302,8 +4302,8 @@ NetDisconnectPeer:
         lea edi, [byte esp+070h]
         mov ebx, 0EA726571h
         mov eax, dword [str_D_UpdateFrameRate]
-        db 0BEh                                 ; insn: mov esi,10C498h
-        dd unk_11C498
+        db 0BEh                                 ; insn: mov esi,NetDisconnectMsgBlank
+        dd NetDisconnectMsgBlank
         add eax, eax
         lea edx, [byte esp+070h]
         push eax
@@ -4707,8 +4707,8 @@ NetBroadcast:
         mov edx, dword [byte esp+048h]
         mov ecx, 6
         mov edi, esp
-        db 0BEh                                 ; insn: mov esi,10C4B0h
-        dd unk_11C4B0
+        db 0BEh                                 ; insn: mov esi,NetBroadcastMsgBlank
+        dd NetBroadcastMsgBlank
         mov ebp, edx
         xor ebx, ebx
         rep movsd
@@ -5453,7 +5453,7 @@ IpxSendPacket:
         mov dword [byte esp+018h], eax
 .5:
         push byte 0
-        db 068h                                 ; insn: push 10E674h
+        db 068h                                 ; insn: push IpxResolveTarget_8C
         dd IpxResolveTarget_8C
         mov edx, dword [byte esp+020h]
         push edx
@@ -5552,7 +5552,7 @@ IpxSendPacket:
         add esi, byte 38h
 .12:
         push byte 0
-        db 068h                                 ; insn: push 10E674h
+        db 068h                                 ; insn: push IpxResolveTarget_8C
         dd IpxResolveTarget_8C
         push esi
         call QueueAppend
@@ -5708,7 +5708,7 @@ IpxPostListen:
         sti
         cld
         push byte 0
-        db 068h                                 ; insn: push 10E688h
+        db 068h                                 ; insn: push IpxSendPacket
         dd IpxSendPacket
         push IpxRealRegs
         call QueuePostBuffer
@@ -6138,7 +6138,7 @@ IpxSetupLayer:
         jne short .7
         push eax
         push byte 1
-        db 068h                                 ; insn: push 10E9ECh
+        db 068h                                 ; insn: push IpxPostListen
         dd IpxPostListen
         call AddIdleHandler
         add esp, byte 0Ch
@@ -6257,7 +6257,7 @@ IpxShutdown:
         add esp, byte 4
         test eax, eax
         jne short .1
-        db 068h                                 ; insn: push 10E9ECh
+        db 068h                                 ; insn: push IpxPostListen
         dd IpxPostListen
         call RemoveIdleHandler
         add esp, byte 4

@@ -9,13 +9,13 @@ extern DmaCountPorts, TimerIrqMask, TimerChainFlag, TimerPitMode, TimerInstalled
 extern IrqAckLast, FloatPow10Table, FloatPow10Exponents, FloatFormatDigits, FloatFormatExponent, FloatFormatMantissaLo, FloatFormatMantissaHi, DacTimerRate
 extern DacTimerDivisor, TimerOldHandler, TimerOldRealHandler, TimerDivisor, TimerChainCount, int386_, str_RMHandler, AllocMemData
 extern FreeMemBlock, tolower_, SavedEsSelector, TimerOldOffsetLo, TimerOldSelector, DbcsLeadTable
-global fini_, init_, jpt_138417, ScanFloatClassJumpTable, ScanFloatResultJumpTable, unk_137FE1_2, StrToLong_166, jpt_138417_64
-global jpt_138417_74, jpt_138417_84, jpt_138417_94, ScanFloat_24, ScanFloat_34, ScanFloat_44, ScanFloat_54, TimerCalibrate
+global fini_, init_, FormatFloatClampJumpTable, ScanFloatClassJumpTable, ScanFloatResultJumpTable, SbRateFromConstant_2B, StrToLong_166, FormatFloat_1F3
+global FormatFloat_203, FormatFloat_213, FormatFloat_223, ScanFloat_24, ScanFloat_34, ScanFloat_44, ScanFloat_54, TimerCalibrate
 global TimerRestore, TimerSetRate, TimerWritePit, TimerReadCount, TimerTicksForRate, TimerMeasure, TimerSetDivisor, TimerReset
 global TimerInstall, TimerChainOld, DmaMaskChannel, DmaProgram, IrqEoi, IrqAck, IrqVector, IrqUnmask
 global IrqMask, IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, StrToLong, ReturnArg
 global DigitValue, InitFloatFormat, FormatFloat, ScanFloat, RoundDigits, DrawCharMono, DrawCharShadow, DrawCharOutline
-global DrawCharBold, NoDbcsTable, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, unk_138407
+global DrawCharBold, NoDbcsTable, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, FormatFloatJumpTable
 ;-----------------------------------------------------------------------------
 ; TimerCalibrate                                 13794C  97 PC, low confidence
 ; Calibrates the timer
@@ -787,11 +787,11 @@ SbRateConstHi:
 SbTimeConstant:
         pusha
         push ds
-        db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127F48h]
+        db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:SbRateConstMid]
         dd SbRateConstMid
         in al, dx
         mov ah, 14h
-        db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127F4Ah]
+        db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:SbRateConstHi]
         dd SbRateConstHi
         mov ecx, 2710h
 .1:
@@ -801,7 +801,7 @@ SbTimeConstant:
         LD mov, al, ah
         out dx, al
         mov ah, 0FFh
-        db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127F4Ah]
+        db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:SbRateConstHi]
         dd SbRateConstHi
         mov ecx, 2710h
 .2:
@@ -811,7 +811,7 @@ SbTimeConstant:
         LD mov, al, ah
         out dx, al
         mov ah, 0FFh
-        db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127F4Ah]
+        db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:SbRateConstHi]
         dd SbRateConstHi
         mov ecx, 2710h
 .3:
@@ -820,7 +820,7 @@ SbTimeConstant:
         loopne .3
         LD mov, al, ah
         out dx, al
-        db 066h,02Eh,083h,03Dh                  ; insn: cmp word [cs:127F46h],8
+        db 066h,02Eh,083h,03Dh                  ; insn: cmp word [cs:SbRateConstLo],8
         dd SbRateConstLo
         db 08h
         jb short .4
@@ -841,10 +841,10 @@ SbTimeConstant:
 SbRateFromConstant:
         push eax
         push edx
-        db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127F48h]
+        db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:SbRateConstMid]
         dd SbRateConstMid
         in al, dx
-        db 066h,02Eh,083h,03Dh                  ; insn: cmp word [cs:127F46h],8
+        db 066h,02Eh,083h,03Dh                  ; insn: cmp word [cs:SbRateConstLo],8
         dd SbRateConstLo
         db 08h
         jb short .1
@@ -862,16 +862,13 @@ SbProStereoFlag:
         db 00h,00h
 SbProRateConst:
         db 00h,00h
-;-----------------------------------------------------------------------------
-; unk_137FE1_2                                                        137FE3  
-;-----------------------------------------------------------------------------
-unk_137FE1_2:
+SbRateFromConstant_2B:
         push eax
         push edx
-        db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127FE1h]
+        db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:SbProRateConst]
         dd SbProRateConst
         in al, dx
-        db 066h,02Eh,083h,03Dh                  ; insn: cmp word [cs:127FDFh],8
+        db 066h,02Eh,083h,03Dh                  ; insn: cmp word [cs:SbProStereoFlag],8
         dd SbProStereoFlag
         db 08h
         jb short .1
@@ -1299,16 +1296,16 @@ FormatFloat:
 .14:
         mov edx, 0FFFF8000h
         jmp near .4
-unk_138407:
-        dd jpt_138417_64
-        dd jpt_138417_74
-        dd jpt_138417_84
-        dd jpt_138417_94
-jpt_138417:
-        dd jpt_138417_94.12
-        dd jpt_138417_94.13
-        dd jpt_138417_94.14
-        dd jpt_138417_94.15
+FormatFloatJumpTable:
+        dd FormatFloat_1F3
+        dd FormatFloat_203
+        dd FormatFloat_213
+        dd FormatFloat_223
+FormatFloatClampJumpTable:
+        dd FormatFloat_223.12
+        dd FormatFloat_223.13
+        dd FormatFloat_223.14
+        dd FormatFloat_223.15
         push esi
         push edi
         enter 48h, 0
@@ -1319,7 +1316,7 @@ jpt_138417:
         cmp dword [byte ebp+010h], byte 0
         jne short .1
         mov edx, 1
-        jmp near jpt_138417_94.29
+        jmp near FormatFloat_223.29
 .1:
         mov dword [byte ebp-08h], 0
         xor edi, edi
@@ -1329,36 +1326,24 @@ jpt_138417:
         shl eax, cl
         mov dword [byte edi+ebp-048h], 7FFFFFFFh
         test dword [byte ebp+010h], eax
-        je near jpt_138417_94.9
+        je near FormatFloat_223.9
         mov dword [byte edi+ebp-048h], 0
         cmp dword [byte ebp-08h], byte 3
-        ja short jpt_138417_94.3
-        jmp dword [dword cs:edi+unk_138407]
-;-----------------------------------------------------------------------------
-; jpt_138417_64                                                       13847B  
-;-----------------------------------------------------------------------------
-jpt_138417_64:
+        ja short FormatFloat_223.3
+        jmp dword [dword cs:edi+FormatFloatJumpTable]
+FormatFloat_1F3:
         mov dword [byte ebp-0Ch], 0
         mov dword [byte ebp-04h], 0
-        jmp short jpt_138417_94.3
-;-----------------------------------------------------------------------------
-; jpt_138417_74                                                       13848B  
-;-----------------------------------------------------------------------------
-jpt_138417_74:
+        jmp short FormatFloat_223.3
+FormatFloat_203:
         mov dword [byte ebp-0Ch], 0
         mov dword [byte ebp-04h], 0F0h
-        jmp short jpt_138417_94.3
-;-----------------------------------------------------------------------------
-; jpt_138417_84                                                       13849B  
-;-----------------------------------------------------------------------------
-jpt_138417_84:
+        jmp short FormatFloat_223.3
+FormatFloat_213:
         mov dword [byte ebp-0Ch], 0FFFFFF30h
         mov dword [byte ebp-04h], 1CCh
-        jmp short jpt_138417_94.3
-;-----------------------------------------------------------------------------
-; jpt_138417_94                                                       1384AB  
-;-----------------------------------------------------------------------------
-jpt_138417_94:
+        jmp short FormatFloat_223.3
+FormatFloat_223:
         mov dword [byte ebp-0Ch], 0FFFFFF24h
         mov dword [byte ebp-04h], 188h
 .3:
@@ -1412,7 +1397,7 @@ jpt_138417_94:
         inc dword [byte ebp-08h]
         add edi, byte 4
         cmp dword [byte ebp-08h], byte 4
-        jl near jpt_138417.2
+        jl near FormatFloatClampJumpTable.2
         mov ebx, 7FFFFFFFh
         xor ecx, ecx
         xor edx, edx
@@ -1430,7 +1415,7 @@ jpt_138417_94:
         cmp ecx, byte 3
         ja short .16
         mov eax, ecx
-        jmp dword [nosplit cs:eax*4+jpt_138417]
+        jmp dword [nosplit cs:eax*4+FormatFloatClampJumpTable]
 .12:
         mov dword [byte ebp-0Ch], 0
         mov dword [byte ebp-04h], 0

@@ -25,19 +25,19 @@ extern FaceoffSpot, FaceoffZone, PeriodLength, OneTimerTarget, PuckZone, penshot
 extern FaceoffRequest, BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeControlSlot, AwayControlSlot, GripDriverSeg
 extern GripDriverSel, GripCodeSel, GripDataSeg, GripResult, ChantIndex, PlayerAssignWords, PlayerControlWords, HomeTeamRecord
 extern AwayTeamRecord, HomeIceSlots, AwayIceSlots, HmCounters, HmLineState, AwCounters, AwLineState
-global SetupTeamForIntermission, clearteams, StartCrowdMusicJumpTable, loc_10000, StartCrowdMusic_26, StartCrowdMusic_4F, StartCrowdMusic_78, StartCrowdMusic_A6
+global SetupTeamForIntermission, clearteams, StartCrowdMusicJumpTable, CodeStartTrap, StartCrowdMusic_26, StartCrowdMusic_4F, StartCrowdMusic_78, StartCrowdMusic_A6
 global forcepldata_E, ReplaceFaceoffPlayers_62, ReplaceFaceoffPlayers_81, GripLinkLibrary, CallGripDriver, LoadGripLibrary, InitGripDriver, LoadJoystickConfig
 global SetupOptionsAnim, DrawOptionsAnimFrame, UpdateOptionsAnim, PickCrowdChant, StartCrowdMusic, RestartGameMusic, forcepldata, SetupFaceoffPlayers
 global ClearPlayerFlags, ResetTeamStats, ResetBench, IsPlayoffGame, RefreshPlayerModel, setplayer, reenergizeteam, ResetForIntermission
 global SeatBenchPlayer, ResetPlayers, ResetPlayersForPeriod, ReplaceFaceoffPlayers, PlayerInLine, PickLinePlayers, setpersonel, PeriodLengthSetting
-global RefreshRinkPalette, ClockTick, StartPeriod, FindStartingGoalies, ReleaseBoxPlayers, unk_10003
+global RefreshRinkPalette, ClockTick, StartPeriod, FindStartingGoalies, ReleaseBoxPlayers, CodeStartPad
 ;-----------------------------------------------------------------------------
-; loc_10000                                                       10000  97 PC
+; CodeStartTrap                                                   10000  97 PC
 ;-----------------------------------------------------------------------------
-loc_10000:
+CodeStartTrap:
         int3
-        jmp short loc_10000
-unk_10003:
+        jmp short CodeStartTrap
+CodeStartPad:
         db 090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h
 ;-----------------------------------------------------------------------------
 ; GripLinkLibrary                              10010  96 PC, medium confidence

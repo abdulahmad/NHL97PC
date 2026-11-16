@@ -2,14 +2,34 @@
 bits 32
 %include "hockey.inc"
 section s_140000 progbits alloc noexec write align=1
-global unk_140000, unk_14000D, unk_14001A, unk_14002B
-unk_140000:
+global SbIrqStub220, SbIrqStub240, SbIrqStub220Slave, SbIrqStub240Slave
+;-----------------------------------------------------------------------------
+; SbIrqStub220                                   140000  97 PC, low confidence
+; Real-mode IRQ stub for a Sound Blaster at 220h: acks the DSP (22Eh) and the
+; master PIC, then iret
+;-----------------------------------------------------------------------------
+SbIrqStub220:
         db 050h,052h,0BAh,02Eh,02h,0ECh,0B0h,020h,0E6h,020h,05Ah,058h,0CFh
-unk_14000D:
+;-----------------------------------------------------------------------------
+; SbIrqStub240                                   14000D  97 PC, low confidence
+; Real-mode IRQ stub for a Sound Blaster at 240h: acks the DSP (24Eh) and the
+; master PIC, then iret
+;-----------------------------------------------------------------------------
+SbIrqStub240:
         db 050h,052h,0BAh,04Eh,02h,0ECh,0B0h,020h,0E6h,020h,05Ah,058h,0CFh
-unk_14001A:
+;-----------------------------------------------------------------------------
+; SbIrqStub220Slave                              14001A  97 PC, low confidence
+; Real-mode IRQ stub for a Sound Blaster at 220h on a slave PIC IRQ: acks the
+; DSP and both PICs, then iret
+;-----------------------------------------------------------------------------
+SbIrqStub220Slave:
         db 050h,052h,0BAh,02Eh,02h,0ECh,0B0h,020h,0E6h,0A0h,0B0h,020h,0E6h,020h,05Ah,058h
         db 0CFh
-unk_14002B:
+;-----------------------------------------------------------------------------
+; SbIrqStub240Slave                              14002B  97 PC, low confidence
+; Real-mode IRQ stub for a Sound Blaster at 240h on a slave PIC IRQ: acks the
+; DSP and both PICs, then iret
+;-----------------------------------------------------------------------------
+SbIrqStub240Slave:
         db 050h,052h,0BAh,04Eh,02h,0ECh,0B0h,020h,0E6h,0A0h,0B0h,020h,0E6h,020h,05Ah,058h
         db 0CFh

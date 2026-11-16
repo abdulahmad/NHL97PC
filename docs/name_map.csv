@@ -3362,6 +3362,9 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1327F6,forcedecpt_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 132855,__cnvs2d_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 132863,NoFloatSupport,sub_132863,new,low,reports that floating-point support is not loaded and exits,src/lib/watcom/watcom_clib_28.asm
+132878,EmuZeroTbyte,unk_132878,97PC,low,x87 emulator: an 80-bit zero loaded into a stack register,src/lib/watcom/watcom_clib_28.asm
+132882,EmuRegRing,unk_132882,97PC,low,"x87 emulator: 8 ten-byte stack register records (next and previous register offsets, top-of-stack status bits)",src/lib/watcom/watcom_clib_28.asm
+1328D2,EmuRegTagMasks,unk_1328D2,97PC,low,"x87 emulator: 8 ten-byte tag word records per register (clear mask, then the valid, zero and empty tag bits)",src/lib/watcom/watcom_clib_28.asm
 132C84,EmuTrapExit,sub_132C84,new,low,x87 emulator: restores the registers and returns from the trap,src/lib/watcom/watcom_emu387.asm
 132DB8,RoundToSingle,sub_132DB8,new,low,x87 emulator: rounds the result to single precision,src/lib/watcom/watcom_emu387.asm
 132DF4,RoundToDouble,sub_132DF4,new,low,x87 emulator: rounds the result to double precision,src/lib/watcom/watcom_emu387.asm
@@ -3718,6 +3721,10 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 13C228,fprem_common,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C42E,__fprem_chk,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C4E0,fprem1_common,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+140000,SbIrqStub220,unk_140000,new,low,"real-mode IRQ stub for a Sound Blaster at 220h: acks the DSP (22Eh) and the master PIC, then iret",src/cseg02/cseg02.asm
+14000D,SbIrqStub240,unk_14000D,new,low,"real-mode IRQ stub for a Sound Blaster at 240h: acks the DSP (24Eh) and the master PIC, then iret",src/cseg02/cseg02.asm
+14001A,SbIrqStub220Slave,unk_14001A,new,low,"real-mode IRQ stub for a Sound Blaster at 220h on a slave PIC IRQ: acks the DSP and both PICs, then iret",src/cseg02/cseg02.asm
+14002B,SbIrqStub240Slave,unk_14002B,new,low,"real-mode IRQ stub for a Sound Blaster at 240h on a slave PIC IRQ: acks the DSP and both PICs, then iret",src/cseg02/cseg02.asm
 150000,SbDmaPagePorts,byte_150000,new,low,Sound Blaster 8237 DMA page register port for each channel 0-3,src/dseg03/dseg03.asm
 150004,SbDmaMaskPorts,byte_150004,new,low,Sound Blaster 8237 DMA single-channel mask register port for each channel,src/dseg03/dseg03.asm
 150008,SbDmaModePorts,byte_150008,new,low,Sound Blaster 8237 DMA mode register port for each channel,src/dseg03/dseg03.asm

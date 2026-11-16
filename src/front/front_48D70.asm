@@ -98,7 +98,7 @@ global FeedMusicStreamJumpTable, MakeDataPathJumpTable, MakeDirPathJumpTable, Re
 global PaEvent_518, PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E
 global PaEvent_745, PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967
 global PaEvent_14CD, FeedMusicStream_34, FeedMusicStream_4B, FeedMusicStream_105, FeedMusicStream_277, MakeDataPath_41, MakeDataPath_49, MakeDataPath_4F
-global MakeDataPath_62, MakeDataPath_111, MakeDataPath_119, MakeDataPath_11F, MakeDataPath_132, jpt_4AE54_137, ResetRenderTimers_27, ResetRenderTimers_33
+global MakeDataPath_62, MakeDataPath_111, MakeDataPath_119, MakeDataPath_11F, MakeDataPath_132, MakeDirPath_177, ResetRenderTimers_27, ResetRenderTimers_33
 global ResetRenderTimers_3D, ResetRenderTimers_47, DrawCenterCircle_30, EndCrowdReaction_59, DrawBoardsTop_184, SetupNetArt_58, ResetNetArt_50, OpenArenaArchive_2C
 global OpenArenaArchive_42, OpenArenaArchive_58, OpenArenaArchive_7D, PaEvent, StopStreamTimer, ResetStreamAudio, PlayScreenMovie, CloseMusicStream
 global PumpMusicStream, FeedMusicStream, ServiceBackgroundAudio, MakeDataPath, MakeDirPath, LoadDataFileHandle, LoadDataFileLib, LoadDataFile
@@ -116,7 +116,7 @@ global FindNearestBenchPlayer, StartBenchCheer, BenchCheerStep, UpdateBenchCheer
 global TransformRink, DrawBenchLines, DrawBoardsTop, DrawStandsSides, DrawBenchDoors, DrawGlass, DrawBenchPlayers, DrawBenchArea
 global DrawPenaltyBox, DrawBenches, ScoreboardTransform, LoadScoreboardArt, DrawScoreboard, NetFrameDistance, SetupNetArt, ResetNetArt
 global UpdateScoreboardPos, UpdateScoreboardSpin, LoadNetArt, BuildRinkSides, OpenArenaArchive, LoadBoardLogo, LoadTeamLogoShape, LoadTeamLogoCopy
-global unk_4AB70, unk_4AB80, GameGfxInitVector, ScoreboardZeroVector, str_Light
+global MakeArtPathJumpTable, MakeDataPathKindJumpTable, GameGfxInitVector, ScoreboardZeroVector, str_Light
 ;-----------------------------------------------------------------------------
 ; PaEvent                                         48D70  96 PC, low confidence
 ; The arena PA announcer: B events (0B000001h-0B000006h) from the front end
@@ -2641,12 +2641,12 @@ ServiceBackgroundAudio:
         pop esi
         pop ebx
         ret
-unk_4AB70:
+MakeArtPathJumpTable:
         dd MakeDataPath_62
         dd MakeDataPath_41
         dd MakeDataPath_49
         dd MakeDataPath_4F
-unk_4AB80:
+MakeDataPathKindJumpTable:
         dd MakeDataPath_132
         dd MakeDataPath_111
         dd MakeDataPath_119
@@ -2676,7 +2676,7 @@ MakeDataPath:
         add ecx, ArtArchivePaths
         cmp edx, byte 3
         ja short MakeDataPath_62
-        jmp dword [dword cs:eax+unk_4AB70]
+        jmp dword [dword cs:eax+MakeArtPathJumpTable]
 MakeDataPath_41:
         test byte [byte ecx+011h], 1
 .1:
@@ -2757,7 +2757,7 @@ MakeDataPath_62:
 .10:
         cmp edx, byte 3
         ja short MakeDataPath_132
-        jmp dword [dword cs:eax+unk_4AB80]
+        jmp dword [dword cs:eax+MakeDataPathKindJumpTable]
 MakeDataPath_111:
         test byte [byte esi+011h], 1
 .11:
@@ -3049,7 +3049,7 @@ MakeDirPathJumpTable:
         push ebx
         push DataFilePath
         call LoadFileAlloc
-jpt_4AE54_137:
+MakeDirPath_177:
         add esp, byte 8
         mov edx, eax
         call MusicStreamTick
@@ -3073,7 +3073,7 @@ LoadDataFileHandle:
         push ebx
         push DataFilePath
         call LoadFileAllocQuiet
-        jmp short jpt_4AE54_137
+        jmp short MakeDirPath_177
         push ebx
         push ecx
         mov ebx, edx
@@ -3084,7 +3084,7 @@ LoadDataFileHandle:
         push ebx
         push DataFilePath
         call LoadFileInto
-        jmp short jpt_4AE54_137
+        jmp short MakeDirPath_177
         push ebx
         push ecx
         mov ebx, edx
@@ -3095,7 +3095,7 @@ LoadDataFileHandle:
         push ebx
         push DataFilePath
         call LoadFileIntoQuiet
-        jmp short jpt_4AE54_137
+        jmp short MakeDirPath_177
         push ebx
         push ecx
         mov ebx, edx
@@ -3106,7 +3106,7 @@ LoadDataFileHandle:
         push ebx
         push DataFilePath
         call LoadFileToBlockShared
-        jmp near jpt_4AE54_137
+        jmp near MakeDirPath_177
         push ebx
         push ecx
         mov ebx, edx
@@ -3117,7 +3117,7 @@ LoadDataFileHandle:
         push ebx
         push DataFilePath
         call LoadFileToBlockPlain
-        jmp near jpt_4AE54_137
+        jmp near MakeDirPath_177
         push ebx
         push ecx
         mov ebx, edx
@@ -3128,7 +3128,7 @@ LoadDataFileHandle:
         push ebx
         push DataFilePath
         call ReadWholeFile
-        jmp near jpt_4AE54_137
+        jmp near MakeDirPath_177
 ;-----------------------------------------------------------------------------
 ; LoadDataFileLib                                 4B074  96 PC, low confidence
 ; LoadDataFile through the other library loader (flag
@@ -3145,7 +3145,7 @@ LoadDataFileLib:
         push ebx
         push DataFilePath
         call LoadResourceDataShared
-        jmp near jpt_4AE54_137
+        jmp near MakeDirPath_177
         push ebx
         push ecx
         mov ebx, edx
@@ -3156,7 +3156,7 @@ LoadDataFileLib:
         push ebx
         push DataFilePath
         call LoadResourceData
-        jmp near jpt_4AE54_137
+        jmp near MakeDirPath_177
         push ebx
         push ecx
         mov ebx, edx
@@ -3167,7 +3167,7 @@ LoadDataFileLib:
         push ebx
         push DataFilePath
         call LoadResourceBlockShared
-        jmp near jpt_4AE54_137
+        jmp near MakeDirPath_177
         push ebx
         push ecx
         mov ebx, edx
@@ -3178,7 +3178,7 @@ LoadDataFileLib:
         push ebx
         push DataFilePath
         call LoadResourceBlock
-        jmp near jpt_4AE54_137
+        jmp near MakeDirPath_177
 ;-----------------------------------------------------------------------------
 ; LoadDataFile                                 4B108  96 PC, medium confidence
 ; (file id, flags): loads a game data file by id (MakeDataPath, then the
@@ -3195,7 +3195,7 @@ LoadDataFile:
         push ebx
         push DataFilePath
         call OpenArtArchiveErr
-        jmp near jpt_4AE54_137
+        jmp near MakeDirPath_177
 ;-----------------------------------------------------------------------------
 ; LoadDataFileFlag0                            4B12D  96 PC, medium confidence
 ; LoadDataFile through the same loader with flag 0
@@ -3211,7 +3211,7 @@ LoadDataFileFlag0:
         push ebx
         push DataFilePath
         call OpenArtArchive
-        jmp near jpt_4AE54_137
+        jmp near MakeDirPath_177
         push ebx
         push ecx
         mov ebx, edx
@@ -3222,7 +3222,7 @@ LoadDataFileFlag0:
         push ebx
         push DataFilePath
         call LoadDataFileErr
-        jmp near jpt_4AE54_137
+        jmp near MakeDirPath_177
         push ebx
         push ecx
         mov ebx, edx
@@ -3233,7 +3233,7 @@ LoadDataFileFlag0:
         push ebx
         push DataFilePath
         call LoadDataFileNoErr
-        jmp near jpt_4AE54_137
+        jmp near MakeDirPath_177
 ;-----------------------------------------------------------------------------
 ; OpenDataLibrary                                 4B19C  97 PC, low confidence
 ; (file id): makes the data file the current library (OpenResourceArchive)

@@ -71,9 +71,9 @@ SetCameraAngles_2E:
         shr eax, 1
         mov dword [str_D_SetCameraAngles], eax
         add eax, dword [CameraPitch]
-        db 0A3h                                 ; insn: mov [10260h],eax
+        db 0A3h                                 ; insn: mov [str_D_ProjectPointsPersp],eax
         dd str_D_ProjectPointsPersp
-        db 0FFh,035h                            ; insn: push dword [1026Ch]
+        db 0FFh,035h                            ; insn: push dword [CameraOriginX]
         dd CameraOriginX
         call CosLookup
         add esp, byte 4

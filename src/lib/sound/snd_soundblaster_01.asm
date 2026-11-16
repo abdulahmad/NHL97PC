@@ -15,13 +15,13 @@ extern SbProDmaChannel, SbProIrqLine, SbProIrqNum, SbProHalfSize, SbProOldMask, 
 extern SbProStartTime, Sb16OldIrq, Sb16IrqVector, Sb16IrqMask, Sb16DmaBufSize, Sb16Config, Sb16Rate, Sb16DmaChannel
 extern Sb16BlockSize, Sb16DmaBuffer, Sb16HalfSize, Sb16IrqLine, Sb16Format, Sb16Stereo, Sb16StartTime, ScapeDmaBufSize
 extern ScapeCodecBase, ScapeCodecState, ScapeBasePort, ScapeIrq, ScapeDmaChannel, ScapeDmaBuffer, ScapeCodecPort, ScapeRate
-extern fclose_, fgets_, fopen_, fseek_, getenv_, unk_137FE1_2, str_WSSDMA, strcmp_
+extern fclose_, fgets_, fopen_, fseek_, getenv_, SbRateFromConstant_2B, str_WSSDMA, strcmp_
 extern strstr_, strupr_, AudioDriverUpdate, ApplyChannelVolume, PickSampleRate, StopChannel, RestoreDS, MixerInit
 extern MixerFillBuffer, SbReadData, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp, SbDetectDsp, SbSetRate
 extern StartChannel, SetChannelCount, DmaMaskChannel, DmaProgram, IrqAck, IrqVector, IrqUnmask, IrqMask
 extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, ReturnArg, AllocMemData, FreeMemBlock
-extern WssBasePortsBlaster, BlasterCodeList, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, unk_140000
-extern unk_14000D, unk_14001A, unk_14002B, str_Rt_ReadSoundscapeIni, str_Punct_IniFindKey, Sb16DmaSetupCode, SbConfig, SbProConfig
+extern WssBasePortsBlaster, BlasterCodeList, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, SbIrqStub220
+extern SbIrqStub240, SbIrqStub220Slave, SbIrqStub240Slave, str_Rt_ReadSoundscapeIni, str_Punct_IniFindKey, Sb16DmaSetupCode, SbConfig, SbProConfig
 extern Sb16SavedIrqSelector, Sb16DmaPortPatch, str_Punct_Sb16SetupDma, SbDspVersion, SbOldIrqSelector, SbProOldSelector, Sb16DspVersion, Sb16IrqStatusPort
 extern Sb16DmaBits
 global AudioEnter_6, ReadBlasterPort, ProbeDspReset, SbDriverId, SbDriverInit, SbDriverShutdown, SbDriverStart, SbSetupDma
@@ -826,7 +826,7 @@ SbProSetupDma:
         call MixerFillBuffer
         add esp, byte 8
         mov eax, dword [SbProIrqNum]
-        mov ebx, unk_137FE1_2
+        mov ebx, SbRateFromConstant_2B
         call IrqMask
         mov ecx, cs
         mov eax, dword [SbProIrqNum]
@@ -840,24 +840,24 @@ SbProSetupDma:
         jne short .1
         push byte 20h
         mov edx, SbProIrqVector
-        mov ebx, unk_140000
+        mov ebx, SbIrqStub220
         jmp short .4
 .1:
         push byte 20h
         mov edx, SbProIrqVector
-        mov ebx, unk_14000D
+        mov ebx, SbIrqStub240
         jmp short .4
 .2:
         cmp dword [SbProBasePort], 220h
         jne short .3
         push byte 20h
         mov edx, SbProIrqVector
-        mov ebx, unk_14001A
+        mov ebx, SbIrqStub220Slave
         jmp short .4
 .3:
         push byte 20h
         mov edx, SbProIrqVector
-        mov ebx, unk_14002B
+        mov ebx, SbIrqStub240Slave
 .4:
         push SbProOldIrq
         mov eax, edi

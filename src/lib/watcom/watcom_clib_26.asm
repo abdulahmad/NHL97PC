@@ -17,7 +17,7 @@ global _nexpand__10, __HeapManager_expand__18F, __HeapManager_expand__1F0, Clear
 global InitTextOutput, ClearNumLock, InstallBreakHandler, RemoveBreakHandler, DispatchHotkey, RegisterHotkey, RasterShapeTriangle, DrawShapeTriangleMapped
 global ScanGetChar, ScanUngetChar, ScanFormat, ScanParseSpec, ScanSkipSpace, ScanStoreCount, ScanChars, ScanStoreInt
 global ScanBuildCharSet, ScanCharSet, ScanFloatField, ScanIntegerField, HexDigitValue, ScanGetCharWidth, IntrLoadSegRegs, IntrLoadRegs
-global FillRectList, unk_1320FE, unlink_
+global FillRectList, IntrStubs, unlink_
 ;-----------------------------------------------------------------------------
 ; _nexpand_                                                    1301FF  library
 ;-----------------------------------------------------------------------------
@@ -3149,7 +3149,7 @@ __int386x_:
 ;-----------------------------------------------------------------------------
 IntrLoadSegRegs:
         lea esi, [esi+esi*2]
-        lea eax, [dword cs:esi+unk_1320FE]
+        lea eax, [dword cs:esi+IntrStubs]
         push eax
         mov es, word [ebx]
         mov bp, word [byte ebx+06h]
@@ -3207,7 +3207,7 @@ _DoINTR_:
 IntrLoadRegs:
         and eax, 0FFh
         lea eax, [eax+eax*2]
-        lea eax, [dword cs:eax+unk_1320FE]
+        lea eax, [dword cs:eax+IntrStubs]
         push eax
         mov ebx, edx
         push dword [byte ebx+01Ch]
@@ -3223,7 +3223,7 @@ IntrLoadRegs:
         mov ebx, dword [byte ebx+04h]
         pop ds
         ret
-unk_1320FE:
+IntrStubs:
         db 0CDh,00h
         ret
         db 0CDh,01h,0C3h,0CDh,02h,0C3h,0CCh,090h,0C3h,0CDh,04h,0C3h,0CDh,05h,0C3h,0CDh

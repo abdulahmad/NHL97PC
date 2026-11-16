@@ -3,23 +3,23 @@ bits 32
 %include "hockey.inc"
 section s_102D3C progbits alloc exec nowrite align=1
 extern VesaBankShift, MenuScreenBitmap, VesaBank, VesaBankFunc, PaletteReadFunc, PaletteWords
-global jpt_102D5C, jpt_102D5C_27, VesaSetBank, VesaSetModeCall, VgaSetModeNoClear, CopyMemFpu, GetPaletteEntries
+global VesaSetBankJumpTable, VesaSetBank_47, VesaSetBank, VesaSetModeCall, VgaSetModeNoClear, CopyMemFpu, GetPaletteEntries
 ;-----------------------------------------------------------------------------
 ; VesaSetBank                                    102D3C  97 PC, low confidence
 ; Switches the VESA bank window when the wanted bank differs
 ;-----------------------------------------------------------------------------
 VesaSetBank:
         cmp al, byte [VesaBankShift]
-        je short jpt_102D5C_27
+        je short VesaSetBank_47
         mov byte [VesaBankShift], al
         cmp eax, byte 0
-        jl short jpt_102D5C_27
+        jl short VesaSetBank_47
         push edx
         mov edx, dword [VesaBank]
-        jmp dword [nosplit edx*4+jpt_102D5C]
-jpt_102D5C:
+        jmp dword [nosplit edx*4+VesaSetBankJumpTable]
+VesaSetBankJumpTable:
         dd .1
-        dd jpt_102D5C_27.2
+        dd VesaSetBank_47.2
 .1:
         push ebx
         push ecx
@@ -38,7 +38,7 @@ jpt_102D5C:
         pop ecx
         pop ebx
         pop edx
-jpt_102D5C_27:
+VesaSetBank_47:
         ret
 .2:
         push ebx

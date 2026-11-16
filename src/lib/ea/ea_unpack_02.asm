@@ -6,7 +6,7 @@ extern str_DMABUFFER, str_DMABUFFER2, DacPortTable, DacPortBits, DacRateTable, G
 extern GusDriverIsOpen, GusDriverStreaming, GusDriverFound, GusDriverRunning, DacDriverBuffer, DacDriverRunning, GusStreamRefillB, UnpackSrcPtr
 extern UnpackDestPtr, UnpackCount, UnpackStackPtr, UnpackPairTable, ChannelSampleTable, PatlChannelParams, GusDriverCardMem, GusDriverDmaBuf
 extern DacTimerRate, DacBuffer, DacIrq, DacPort, DacTimerDivisor, DacBufPos, DacBufSize, DacState
-extern jpt_12C300_24, memset_, AdvanceStreamOffset, AudioNullFunc, StartTmplSample, PickSampleRate, ReadBlasterPort, AudioEnter
+extern PlayPatchNote_4E8, memset_, AdvanceStreamOffset, AudioNullFunc, StartTmplSample, PickSampleRate, ReadBlasterPort, AudioEnter
 extern AudioLeaveCheck, MixerInit, MixerFillBuffer, PlayPatchNote, StartChannel, MixNoise, UpdateChannels, SetChannelCount
 extern GusGetEnvConfig, GusProbePort, GusOpen, GusClose, GusMemAlloc, GusStopStream, GusStreamBusy, GusServiceStream
 extern GusStartStream, TimerCalibrate, TimerRestore, TimerSetRate, IrqAck, AllocMemData, FreeMemBlock, GusDriverConfig
@@ -497,7 +497,7 @@ LoadSampleHeader:
         cmp dword [eax], 6C544150h
         je near PrepareBankSampleData_1B0
         cmp word [eax], 5450h
-        je near jpt_12C300_24
+        je near PlayPatchNote_4E8
         mov eax, 0FFFFFFFFh
         ret
         db 08Dh,040h,00h

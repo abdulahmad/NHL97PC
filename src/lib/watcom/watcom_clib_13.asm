@@ -36,7 +36,7 @@ extern RegisterHotkey, SetScreenTarget, NoOpPlatformHook, AddMemRegion, AddMemRe
 extern AllocMemBlockMovable, AllocMemBlock, AllocMemBlockFull, FreeMemBlock, InitMemDescriptors, MemDescPtr, ZeroMem, SetKbdIdleHook
 extern InstallTimer, CurrentArchiveName, MakeColor, MouseInit, DebugSetLine, SelectFont, LoadDrawContext, ClearScreen
 extern FillPolygon, FillRectColor, SetTextColors, DrawTextBoxedAt, RefreshTextColors, MatTranspose, TransformVecs, VecAdd
-extern VecSub, AddVecs, VecCross, VecScale, VecNormalize, VecCrossUnit, unk_10003, DebugTagStr
+extern VecSub, AddVecs, VecCross, VecScale, VecNormalize, VecCrossUnit, CodeStartPad, DebugTagStr
 extern SerialPorts
 extern VideoOptionsText, GripCallOffset, PartFuncTable, VideoCoefs
 extern VideoCoefs, VideoIdctTemp
@@ -56,7 +56,7 @@ global DrawPrimList_401, DrawPrimList_48F, DrawPrimList_53A, DrawPrimList_607, D
 global TransformModelParts_D3, TransformModelParts_DF, TransformModelParts_EA, TransformModelParts_EF, TransformModelPartsWith_9F, TransformModelPartsWith_BF, TransformModelPartsWith_DD, AttachModelFrame_4C
 global FixedSinCos_70, BlitRowKey32_1C, start_74, start_28F, WriteConsoleMessage_23, ReadVideoCodes_5B, ReadVideoCodes_6B, ReadVideoCodes_7D
 global ReadVideoCodes_8A, ReadVideoCodes_D4, ReadVideoCodes_E6, ReadVideoCodes_115, SerialWriteIfRoom_20, SerialWrite_6, SerialRead_46, SerialISR_9
-global SerialISR_12, SerialISR_1B, SerialISR_85, unk_1193EA_10, _dos_getdiskfree__38, memset_, open_, pickup_
+global SerialISR_12, SerialISR_1B, SerialISR_85, SerialISR_B1, _dos_getdiskfree__38, memset_, open_, pickup_
 global sopen_, start, strncmp_, strnicmp_, strupr_, PrimRect, PrimRectDebug, PrimTriFlat
 global PrimTriLitCcw, PrimTriShade, PrimTriShadeBlend, PrimTriShadeCcw, PrimTriDebug, PrimTriDebugCw, PrimTriDebugCcw, CopyTriScreenVerts
 global TriVertsIfCw, TriVertsIfCcw, CopyTriTexVerts, TriTexVertsIfCw, TriTexVertsIfCcw, CopyTriShadeVerts, TriShadeVertsIfCw, TriShadeVertsIfCcw
@@ -76,8 +76,8 @@ global SerialCloseAll, SerialIsOpen, SerialSetBaud, SerialProgramUart, SerialRai
 global SerialRxCount, SerialTxFree, SerialFlushTx, SerialWaitTxEmpty, SerialRead, SerialFlushRx, SerialISR, LoadNamedResource
 global LoadNamedResourceEx, LoadNameFile, GrabLargestBlock, InitMemoryPool, InitMemoryPoolDefault, InitMemoryPoolArgs, ExitGraphics, FindDos4gw
 global InitPlatform, InstallErrorHandlers, CopyPixels8, CopyPixels16, CopyPixels24, CopyPixels32, ConvertArtAt, ConvertArtInPlace
-global ConvertArtXY, ConvertArtKeepPos, FormatString, SaveTextState, RestoreTextState, __saved_DS, unk_116427, unk_1166EF
-global unk_1193EA
+global ConvertArtXY, ConvertArtKeepPos, FormatString, SaveTextState, RestoreTextState, __saved_DS, RestoreDSEnd, IretStub
+global SerialIsrJumpTable
 ;-----------------------------------------------------------------------------
 ; strncmp_                                                     1131E4  library
 ;-----------------------------------------------------------------------------
@@ -5558,7 +5558,7 @@ start:
         db 065h,073h, start_74.6-($+3)
         jb short start_74.7
         db 065h,064h,02Eh,08Dh,040h,00h         ; insn: lea eax,[eax]
-        dd unk_10003
+        dd CodeStartPad
 start_74:
         arpl word [byte edi+06Eh], bp
         db 00h
@@ -5672,13 +5672,13 @@ start_74:
         mov byte [_Extender], al
         mov byte [_ExtenderSubtype], ah
         mov es, ebx
-        db 066h,026h,08Ch,01Dh                  ; insn: o16 mov [es:106425h],ds
+        db 066h,026h,08Ch,01Dh                  ; insn: o16 mov [es:__saved_DS],ds
         dd __saved_DS
         mov dword [_Envptr], esi
         mov word [_Envptr_w4], cx
         push esi
         o16 mov es, word [_psp]
-        db 03Eh,0BAh                            ; insn: mov edx,7EC00h
+        db 03Eh,0BAh                            ; insn: mov edx,StartupStack
         dd StartupStack
         add edx, byte 0Fh
         and dl, 0F0h
@@ -5733,9 +5733,9 @@ start_74:
         mov word [__no87], bp
         mov dword [_STACKLOW], edi
         mov dword [_dynend], ebx
-        db 03Eh,0B9h                            ; insn: mov ecx,7EC00h
+        db 03Eh,0B9h                            ; insn: mov ecx,StartupStack
         dd StartupStack
-        db 03Eh,0BFh                            ; insn: mov edi,3CCB0h
+        db 03Eh,0BFh                            ; insn: mov edi,GripCallOffset
         dd GripCallOffset
         sub ecx, edi
         cmp byte [_Extender], 1
@@ -5751,7 +5751,7 @@ start_74:
         mov cl, dl
         and cl, 3
         rep stosb
-        db 03Eh,0B8h                            ; insn: mov eax,7EC00h
+        db 03Eh,0B8h                            ; insn: mov eax,StartupStack
         dd StartupStack
         add eax, byte 0Fh
         and al, 0F0h
@@ -5770,7 +5770,7 @@ start_28F:
 WriteConsoleMessage:
         push edx
         push eax
-        db 0BAh                                 ; insn: mov edx,1061C4h
+        db 0BAh                                 ; insn: mov edx,start_74
         dd start_74
         mov ax, 3D01h
         int 21h
@@ -5802,12 +5802,12 @@ WriteConsoleMessage_23:
 ; Loads the saved data segment (for interrupt handlers)
 ;-----------------------------------------------------------------------------
 RestoreDS:
-        db 066h,02Eh,08Eh,01Dh                  ; insn: o16 mov ds,[cs:106425h]
+        db 066h,02Eh,08Eh,01Dh                  ; insn: o16 mov ds,[cs:__saved_DS]
         dd __saved_DS
         ret
 __saved_DS:
         db 00h,00h
-unk_116427:
+RestoreDSEnd:
         db 00h
 ;-----------------------------------------------------------------------------
 ; InstallKeyboardHandler                         116428  97 PC, low confidence
@@ -5841,24 +5841,24 @@ InstallKeyboardHandler:
         mov word [SavedRealKbdSegment], dx
         mov dx, cs
         mov ebx, 9
-        db 0B8h                                 ; insn: mov eax,106559h
+        db 0B8h                                 ; insn: mov eax,KeyboardISR
         dd KeyboardISR
         call DosSetVector
         mov dx, cs
         mov ebx, 16h
-        db 0B8h                                 ; insn: mov eax,1066F0h
+        db 0B8h                                 ; insn: mov eax,Int16Handler
         dd Int16Handler
         mov dx, cs
         mov ebx, 23h
-        db 0B8h                                 ; insn: mov eax,1066EFh
-        dd unk_1166EF
+        db 0B8h                                 ; insn: mov eax,IretStub
+        dd IretStub
         call DosSetVector
         pop eax
         out 21h, al
-        db 0BBh                                 ; insn: mov ebx,10673Ah
+        db 0BBh                                 ; insn: mov ebx,Int16Service
         dd Int16Service
         mov dword [BiosKeyFunc], ebx
-        db 068h                                 ; insn: push 1064E8h
+        db 068h                                 ; insn: push RemoveKeyboardHandler
         dd RemoveKeyboardHandler
         call AddExitHandler
         add esp, byte 4
@@ -5893,7 +5893,7 @@ RemoveKeyboardHandler:
         and byte [0417h], 0F0h
         pop eax
         out 21h, al
-        db 0BBh                                 ; insn: mov ebx,1067BDh
+        db 0BBh                                 ; insn: mov ebx,BiosKeyCall
         dd BiosKeyCall
         mov dword [BiosKeyFunc], ebx
         popa
@@ -5918,7 +5918,7 @@ KeyboardISR:
         LD xor, eax, eax
         in al, 60h
         LD mov, ebx, eax
-        db 066h,02Eh,08Eh,01Dh                  ; insn: o16 mov ds,[cs:107F6h]
+        db 066h,02Eh,08Eh,01Dh                  ; insn: o16 mov ds,[cs:KbdDataSelector]
         dd KbdDataSelector
         mov byte [KbdPauseState], 0
         cmp byte [KbdPrefixByte], 0E0h
@@ -6037,7 +6037,7 @@ KeyboardISR:
         cmp dword [KbdHandlerInstalled], byte 0
         je near .7
         call dword [ExitHandler]
-unk_1166EF:
+IretStub:
         db 0CFh
 ;-----------------------------------------------------------------------------
 ; Int16Handler                                   1166F0  97 PC, low confidence
@@ -7518,7 +7518,7 @@ UpdateFrameRate:
         ret
         push ebx
         push byte 0
-        db 068h                                 ; insn: push 1069F0h
+        db 068h                                 ; insn: push PrintBoxedText
         dd PrintBoxedText
         mov edx, dword [ScreenModeHeight]
         push edx
@@ -9365,7 +9365,7 @@ SerialOpen:
         LD and, al, dl
         out 21h, al
         popf
-        db 068h                                 ; insn: push 108F67h
+        db 068h                                 ; insn: push SerialCloseAll
         dd SerialCloseAll
         call AddExitHandler
         add esp, byte 4
@@ -9965,7 +9965,7 @@ SerialISR_1B:
         push esi
         push edi
         push ds
-        db 066h,02Eh,0A1h                       ; insn: mov ax,[cs:10B24h]
+        db 066h,02Eh,0A1h                       ; insn: mov ax,[cs:SerialIrqMask]
         dd SerialIrqMask
         mov ds, ax
         inc dword [byte ebx+044h]
@@ -9976,7 +9976,7 @@ SerialISR_1B:
         in al, dx
         test al, 1
         je short SerialISR_85.2
-        jmp short unk_1193EA_10
+        jmp short SerialISR_B1
         db 01Fh,05Fh,05Eh,05Ah,059h,058h,03Bh,01Dh
         dd SerialPortTable
         db 075h,08h,05Bh,0EAh
@@ -9998,21 +9998,18 @@ SerialISR_85:
         LD xor, eax, eax
         in al, dx
         test al, 1
-        jne short unk_1193EA_10
+        jne short SerialISR_B1
 .2:
         LD mov, esi, eax
         and esi, byte 6
-        db 02Eh,0FFh,024h,075h                  ; insn: jmp dword [cs:esi*2+1093EAh]
-        dd unk_1193EA
-unk_1193EA:
-        dd unk_1193EA_10.1
-        dd unk_1193EA_10.6
-        dd unk_1193EA_10.12
-        dd unk_1193EA_10.12
-;-----------------------------------------------------------------------------
-; unk_1193EA_10                                                       1193FA  
-;-----------------------------------------------------------------------------
-unk_1193EA_10:
+        db 02Eh,0FFh,024h,075h                  ; insn: jmp dword [cs:esi*2+SerialIsrJumpTable]
+        dd SerialIsrJumpTable
+SerialIsrJumpTable:
+        dd SerialISR_B1.1
+        dd SerialISR_B1.6
+        dd SerialISR_B1.12
+        dd SerialISR_B1.12
+SerialISR_B1:
         mov al, 20h
         out 20h, al
         pop ds
@@ -11283,7 +11280,7 @@ InitPlatform:
         test esi, esi
         jne short .3
         call SaveTextScreen
-        db 068h                                 ; insn: push 109F20h
+        db 068h                                 ; insn: push ExitGraphics
         dd ExitGraphics
         mov dword [PlatformState], eax
         call AddExitHandler

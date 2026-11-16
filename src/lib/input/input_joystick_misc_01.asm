@@ -67,7 +67,7 @@ CalibrateJoystick:
         mov dword [JoyCalibrateTicks], eax
 .6:
         LD mov, eax, edx
-        db 08Bh,015h                            ; insn: mov edx,[0E360h]
+        db 08Bh,015h                            ; insn: mov edx,[JoyPort]
         dd JoyPort
 .7:
         sub ecx, byte 1

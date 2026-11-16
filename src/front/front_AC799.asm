@@ -47,7 +47,7 @@ global TeamStatsScreen_FC4, TeamStatsScreen_1027, TeamStatsScreen_108A, TeamStat
 global StatsTablesScreen_C68, StatsTablesScreen_D0E, AllocStatTable, FreeStatTable, SetStatCell, SetStatCellFlag, SetStatColumn, SetStatRowWidth
 global SortStatTableBy, CompareStatNumber, CompareStatText, CompareStatTextDown, CompareStatName, SortStatTable, DrawStatTableRows, DrawStatTableArt
 global WriteCsvField, WriteCsvLine, AskExportFile, ExportStatTable, TeamStatsSound, TeamStatsScreen, StatsScreenSound, StatsTablesScreen
-global BuildTeamStatsTable, SetSkaterStatColumns, SetGoalieStatColumns, SetTeamStatColumns, unk_AD76B, UserRecordScaleSteps, UserRecordScaleHalf, UserRecordScalePair
+global BuildTeamStatsTable, SetSkaterStatColumns, SetGoalieStatColumns, SetTeamStatColumns, ExportStatTableJumpTable, UserRecordScaleSteps, UserRecordScaleHalf, UserRecordScalePair
 global UserRecordScaleQuarter
 ;-----------------------------------------------------------------------------
 ; AllocStatTable                                  AC799  97 PC, low confidence
@@ -1603,7 +1603,7 @@ AskExportFile:
         pop ecx
         pop ebx
         ret
-unk_AD76B:
+ExportStatTableJumpTable:
         dd ExportStatTable_19A
         dd ExportStatTable_19A
         dd ExportStatTable_221
@@ -1758,7 +1758,7 @@ ExportStatTable:
         movzx edx, dl
         mov ebx, edx
         shl ebx, 2
-        jmp dword [dword cs:ebx+unk_AD76B]
+        jmp dword [dword cs:ebx+ExportStatTableJumpTable]
 ExportStatTable_19A:
         movsx edx, word [byte ebp-08h]
         mov eax, dword [byte ecx+01Ah]

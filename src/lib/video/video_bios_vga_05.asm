@@ -3,9 +3,9 @@ bits 32
 %include "hockey.inc"
 section s_123414 progbits alloc exec nowrite align=1
 extern ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, str_2_SetupRectFill, ReciprocalRowTable, PlotPixel, FillRect
-global SetupRectFillJumpTable, jpt_1235F5, jpt_1236E1, jpt_1237CB, jpt_1239B2, FillRectSpansJumpTable, SetupRectFill_D, SetupRectFill_5B
-global SetupRectFill_165, jpt_123595_40, jpt_1235F5_D2, jpt_1236E1_DF, jpt_1237CB_14A, jpt_1237CB_1DB, jpt_1239B2_145, jpt_1239B2_153
-global jpt_1239B2_1AC, jpt_1239B2_1BF, jpt_1239B2_27F, FillRectSpans_7C, FillRectSpans_A2, FillRectSpans_C7, FillRectSpans_E7, FillRectSpans_107
+global SetupRectFillJumpTable, RectFillClipLeftJumpTable, RectFillClipBottomJumpTable, RectFillClipRightJumpTable, RectFillStepJumpTable, FillRectSpansJumpTable, SetupRectFill_D, SetupRectFill_5B
+global SetupRectFill_165, SetupRectFill_1B2, SetupRectFill_2A4, SetupRectFill_39D, SetupRectFill_4F2, SetupRectFill_583, SetupRectFill_6D4, SetupRectFill_6E2
+global SetupRectFill_73B, SetupRectFill_74E, SetupRectFill_80E, FillRectSpans_7C, FillRectSpans_A2, FillRectSpans_C7, FillRectSpans_E7, FillRectSpans_107
 global FillRectSpans_14C, FillRectSpans_193, FillRectSpans_1DE, FillRectSpans_225, SetupRectFillShaded, SetupRectFill, FillRectSpans, StoreBigEndian
 global StoreLittleEndian
 ;-----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ SetupRectFill_D:
         mov dword [byte esi+014h], eax
 .2:
         jne short SetupRectFill_5B
-        jmp near jpt_1239B2_1BF
+        jmp near SetupRectFill_74E
 SetupRectFill_5B:
         LD xor, edx, edx
         db 080h,07Dh,0FBh,00h                   ; insn: cmp byte [ebp-5],0
@@ -72,7 +72,7 @@ SetupRectFill_5B:
         LD cmp, eax, ecx
         jl short .3
         mov dl, 8
-        jmp near jpt_1237CB_14A
+        jmp near SetupRectFill_4F2
 .3:
         LD cmp, eax, ebx
         jge short .4
@@ -82,7 +82,7 @@ SetupRectFill_5B:
         LD cmp, eax, ebx
         jge short .5
         mov dl, 4
-        jmp near jpt_1237CB_14A
+        jmp near SetupRectFill_4F2
 .5:
         LD cmp, eax, ecx
         jl short .6
@@ -111,7 +111,7 @@ SetupRectFill_5B:
         test dh, dl
         je short .11
         LD and, dl, dh
-        jmp near jpt_1237CB_14A
+        jmp near SetupRectFill_4F2
 .11:
         LD or, dl, dh
         movzx edx, dl
@@ -120,7 +120,7 @@ SetupRectFill_5B:
         sub ecx, dword [byte esi+0Ch]
         jno short .13
 .12:
-        jmp near jpt_1239B2_27F
+        jmp near SetupRectFill_80E
 .13:
         mov edx, dword [byte esi+010h]
         sub edx, dword [byte esi+04h]
@@ -183,29 +183,26 @@ SetupRectFill_5B:
         mov dword [byte esi+018h], ecx
 SetupRectFill_165:
         mov ebx, dword [byte ebp-04h]
-        je short jpt_123595_40
+        je short SetupRectFill_1B2
         jmp dword [nosplit cs:ebx*4+SetupRectFillJumpTable]
 SetupRectFillJumpTable:
-        dd jpt_123595_40
-        dd jpt_1237CB_1DB
-        dd jpt_1236E1_DF
-        dd jpt_1236E1_DF
-        dd jpt_123595_40.1
-        dd jpt_123595_40.1
-        dd jpt_123595_40.1
-        dd jpt_123595_40.1
-        dd jpt_1235F5_D2
-        dd jpt_1235F5_D2
-        dd jpt_1235F5_D2
-        dd jpt_1235F5_D2
-        dd jpt_123595_40.1
-        dd jpt_123595_40.1
-        dd jpt_123595_40.1
-        dd jpt_123595_40.1
-;-----------------------------------------------------------------------------
-; jpt_123595_40                                                       1235D5  
-;-----------------------------------------------------------------------------
-jpt_123595_40:
+        dd SetupRectFill_1B2
+        dd SetupRectFill_583
+        dd SetupRectFill_39D
+        dd SetupRectFill_39D
+        dd SetupRectFill_1B2.1
+        dd SetupRectFill_1B2.1
+        dd SetupRectFill_1B2.1
+        dd SetupRectFill_1B2.1
+        dd SetupRectFill_2A4
+        dd SetupRectFill_2A4
+        dd SetupRectFill_2A4
+        dd SetupRectFill_2A4
+        dd SetupRectFill_1B2.1
+        dd SetupRectFill_1B2.1
+        dd SetupRectFill_1B2.1
+        dd SetupRectFill_1B2.1
+SetupRectFill_1B2:
         LD xor, eax, eax
         pop edi
         pop esi
@@ -218,8 +215,8 @@ jpt_123595_40:
         mov dword [byte esi+0Ch], ecx
         LD sub, ecx, eax
         mov bl, byte [byte esi+034h]
-        jmp dword [nosplit cs:ebx*4+jpt_1235F5]
-jpt_1235F5:
+        jmp dword [nosplit cs:ebx*4+RectFillClipLeftJumpTable]
+RectFillClipLeftJumpTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h
         dd .1
         dd .2
@@ -230,29 +227,29 @@ jpt_1235F5:
         dd .8
 .1:
         sub dword [byte esi+018h], ecx
-        jmp near jpt_1239B2_145
+        jmp near SetupRectFill_6D4
 .2:
         sub dword [byte esi+04h], ecx
         sub dword [byte esi+018h], ecx
-        jmp near jpt_1239B2_145
+        jmp near SetupRectFill_6D4
 .3:
         add dword [byte esi+04h], ecx
         sub dword [byte esi+018h], ecx
-        jmp near jpt_1239B2_145
+        jmp near SetupRectFill_6D4
 .4:
         mov eax, dword [byte esi+030h]
         mul ecx
         sub dword [esi], eax
         sbb dword [byte esi+04h], edx
         sub dword [byte esi+018h], ecx
-        jmp near jpt_1239B2_145
+        jmp near SetupRectFill_6D4
 .5:
         mov eax, dword [byte esi+030h]
         mul ecx
         add dword [esi], eax
         adc dword [byte esi+04h], edx
         sub dword [byte esi+018h], ecx
-        jmp near jpt_1239B2_145
+        jmp near SetupRectFill_6D4
 .6:
         mov dword [byte esi+0Ch], eax
         LD mov, edx, ecx
@@ -268,14 +265,14 @@ jpt_1235F5:
         mul dword [byte esi+030h]
         add dword [byte esi+08h], eax
         adc dword [byte esi+0Ch], edx
-        jmp near jpt_1239B2_145
+        jmp near SetupRectFill_6D4
 .7:
         mov dword [byte esi+018h], 1
         mov eax, dword [ClipLeftCol]
         mov dword [byte esi+0Ch], eax
         mov eax, dword [byte esi+010h]
         mov dword [byte esi+04h], eax
-        jmp near jpt_1239B2_145
+        jmp near SetupRectFill_6D4
 .8:
         mov dword [byte esi+0Ch], eax
         LD mov, edx, ecx
@@ -291,19 +288,16 @@ jpt_1235F5:
         mul dword [byte esi+030h]
         add dword [byte esi+08h], eax
         adc dword [byte esi+0Ch], edx
-        jmp near jpt_1239B2_145
-;-----------------------------------------------------------------------------
-; jpt_1235F5_D2                                                       1236C7  
-;-----------------------------------------------------------------------------
-jpt_1235F5_D2:
+        jmp near SetupRectFill_6D4
+SetupRectFill_2A4:
         mov ecx, dword [byte esi+014h]
         mov edx, dword [ScreenHeight]
         dec edx
         mov dword [byte esi+014h], edx
         LD sub, ecx, edx
         mov bl, byte [byte esi+034h]
-        jmp dword [nosplit cs:ebx*4+jpt_1236E1]
-jpt_1236E1:
+        jmp dword [nosplit cs:ebx*4+RectFillClipBottomJumpTable]
+RectFillClipBottomJumpTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h
         dd .1
         dd .2
@@ -314,15 +308,15 @@ jpt_1236E1:
         dd .9
 .1:
         sub dword [byte esi+018h], ecx
-        jmp near jpt_1239B2_153
+        jmp near SetupRectFill_6E2
 .2:
         add dword [byte esi+010h], ecx
         sub dword [byte esi+018h], ecx
-        jmp near jpt_1239B2_153
+        jmp near SetupRectFill_6E2
 .3:
         sub dword [byte esi+010h], ecx
         sub dword [byte esi+018h], ecx
-        jmp near jpt_1239B2_153
+        jmp near SetupRectFill_6E2
 .4:
         mov edx, dword [byte esi+018h]
         LD sub, edx, ecx
@@ -337,7 +331,7 @@ jpt_1236E1:
         add ebx, 80000000h
         adc ecx, byte 0
         mov dword [byte esi+010h], ecx
-        jmp near jpt_1239B2_153
+        jmp near SetupRectFill_6E2
 .5:
         mov edx, dword [byte esi+018h]
         LD sub, edx, ecx
@@ -350,7 +344,7 @@ jpt_1236E1:
         add eax, 80000000h
         adc edx, byte 0
         mov dword [byte esi+010h], edx
-        jmp near jpt_1239B2_153
+        jmp near SetupRectFill_6E2
 .6:
         LD xor, eax, eax
         sub eax, dword [byte esi+08h]
@@ -367,7 +361,7 @@ jpt_1236E1:
         mov dword [byte esi+010h], edx
         inc eax
         mov dword [byte esi+018h], eax
-        jmp near jpt_1239B2_153
+        jmp near SetupRectFill_6E2
 .8:
         LD xor, eax, eax
         jmp short .7
@@ -386,14 +380,11 @@ jpt_1236E1:
         mov dword [byte esi+010h], edx
         inc eax
         mov dword [byte esi+018h], eax
-        jmp near jpt_1239B2_153
-;-----------------------------------------------------------------------------
-; jpt_1236E1_DF                                                       1237C0  
-;-----------------------------------------------------------------------------
-jpt_1236E1_DF:
+        jmp near SetupRectFill_6E2
+SetupRectFill_39D:
         mov bl, byte [byte esi+034h]
-        jmp dword [nosplit cs:ebx*4+jpt_1237CB]
-jpt_1237CB:
+        jmp dword [nosplit cs:ebx*4+RectFillClipRightJumpTable]
+RectFillClipRightJumpTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h
         dd .10
         dd .1
@@ -410,7 +401,7 @@ jpt_1237CB:
         add dword [byte esi+024h], ecx
         sub dword [byte esi+018h], ecx
         sub dword [byte esi+014h], ecx
-        jmp near jpt_1239B2_1AC
+        jmp near SetupRectFill_73B
 .2:
         mov eax, dword [byte esi+04h]
         mov ecx, dword [ClipTopRow]
@@ -419,7 +410,7 @@ jpt_1237CB:
         add dword [byte esi+020h], ecx
         add dword [byte esi+0Ch], ecx
         sub dword [byte esi+018h], ecx
-        jmp near jpt_1239B2_1AC
+        jmp near SetupRectFill_73B
 .3:
         mov eax, dword [esi]
         mov edx, dword [byte esi+04h]
@@ -441,7 +432,7 @@ jpt_1237CB:
         dec eax
         add eax, dword [byte esi+0Ch]
         mov dword [byte esi+014h], eax
-        jmp near jpt_1239B2_1AC
+        jmp near SetupRectFill_73B
 .5:
         mov eax, 1
         jmp short .4
@@ -463,7 +454,7 @@ jpt_1237CB:
         mul dword [byte esi+030h]
         add dword [esi], eax
         adc dword [byte esi+04h], edx
-        jmp near jpt_1239B2_1AC
+        jmp near SetupRectFill_73B
 .7:
         jmp short .10
 .8:
@@ -483,7 +474,7 @@ jpt_1237CB:
         LD sub, eax, edx
         mov dword [byte esi+014h], edx
         add dword [byte esi+024h], eax
-        jmp near jpt_1239B2_1AC
+        jmp near SetupRectFill_73B
 .9:
         mov ecx, dword [byte esi+04h]
         mov eax, dword [ClipTopRow]
@@ -503,10 +494,10 @@ jpt_1237CB:
         adc edx, byte 0
         LD sub, edx, ecx
         add dword [byte esi+020h], edx
-        jmp near jpt_1239B2_1AC
+        jmp near SetupRectFill_73B
 .10:
         mov edx, 2
-jpt_1237CB_14A:
+SetupRectFill_4F2:
         mov byte [byte esi+035h], dl
         mov dword [byte esi+018h], 0
         mov al, byte [byte esi+035h]
@@ -559,13 +550,10 @@ jpt_1237CB_14A:
         pop ebx
         leave
         ret
-;-----------------------------------------------------------------------------
-; jpt_1237CB_1DB                                                      1239A6  
-;-----------------------------------------------------------------------------
-jpt_1237CB_1DB:
+SetupRectFill_583:
         movzx ebx, byte [byte esi+034h]
-        jmp dword [nosplit cs:ebx*4+jpt_1239B2]
-jpt_1239B2:
+        jmp dword [nosplit cs:ebx*4+RectFillStepJumpTable]
+RectFillStepJumpTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h
         dd .1
         dd .2
@@ -576,7 +564,7 @@ jpt_1239B2:
         dd .7
 .1:
         mov edx, 1
-        jmp near jpt_1237CB_14A
+        jmp near SetupRectFill_4F2
 .2:
         mov ecx, dword [byte esi+04h]
         mov eax, dword [ClipRight]
@@ -586,7 +574,7 @@ jpt_1239B2:
         add dword [byte esi+0Ch], ecx
         sub dword [byte esi+018h], ecx
         add dword [byte esi+028h], ecx
-        jmp near jpt_123595_40
+        jmp near SetupRectFill_1B2
 .3:
         mov ecx, dword [ClipRight]
         dec ecx
@@ -596,7 +584,7 @@ jpt_1239B2:
         add dword [byte esi+02Ch], eax
         sub dword [byte esi+018h], eax
         sub dword [byte esi+014h], eax
-        jmp near jpt_123595_40
+        jmp near SetupRectFill_1B2
 .4:
         mov eax, dword [esi]
         mov edx, dword [byte esi+04h]
@@ -614,7 +602,7 @@ jpt_1239B2:
         mul dword [byte esi+030h]
         sub dword [esi], eax
         sbb dword [byte esi+04h], edx
-        jmp near jpt_123595_40
+        jmp near SetupRectFill_1B2
 .5:
         mov edx, dword [ClipRight]
         dec edx
@@ -636,7 +624,7 @@ jpt_1239B2:
         dec eax
         add eax, dword [byte esi+0Ch]
         mov dword [byte esi+014h], eax
-        jmp near jpt_123595_40
+        jmp near SetupRectFill_1B2
 .6:
         mov eax, dword [byte esi+04h]
         mov ecx, dword [ClipRight]
@@ -657,7 +645,7 @@ jpt_1239B2:
         adc edx, byte 0
         LD sub, edx, ecx
         add dword [byte esi+028h], edx
-        jmp near jpt_123595_40
+        jmp near SetupRectFill_1B2
 .7:
         mov eax, dword [ClipRight]
         LD mov, ecx, eax
@@ -675,18 +663,12 @@ jpt_1239B2:
         LD sub, eax, edx
         mov dword [byte esi+014h], edx
         add dword [byte esi+02Ch], eax
-        jmp near jpt_123595_40
-;-----------------------------------------------------------------------------
-; jpt_1239B2_145                                                      123AF7  
-;-----------------------------------------------------------------------------
-jpt_1239B2_145:
+        jmp near SetupRectFill_1B2
+SetupRectFill_6D4:
         test dword [byte ebp-04h], 8
-        je short jpt_1239B2_153
-        jmp near jpt_1235F5_D2
-;-----------------------------------------------------------------------------
-; jpt_1239B2_153                                                      123B05  
-;-----------------------------------------------------------------------------
-jpt_1239B2_153:
+        je short SetupRectFill_6E2
+        jmp near SetupRectFill_2A4
+SetupRectFill_6E2:
         LD xor, edx, edx
         mov eax, dword [byte esi+04h]
         cmp eax, dword [ClipTopRow]
@@ -712,26 +694,20 @@ jpt_1239B2_153:
         test dh, dl
         je short .12
         LD and, dl, dh
-        jmp near jpt_1237CB_14A
+        jmp near SetupRectFill_4F2
 .12:
         LD or, dl, dh
-        je short jpt_1239B2_1AC.13
+        je short SetupRectFill_73B.13
         movzx edx, dl
         mov dword [byte ebp-04h], edx
         jmp near SetupRectFill_165
-;-----------------------------------------------------------------------------
-; jpt_1239B2_1AC                                                      123B5E  
-;-----------------------------------------------------------------------------
-jpt_1239B2_1AC:
+SetupRectFill_73B:
         test dword [byte ebp-04h], 1
         je short .13
-        jmp near jpt_1237CB_1DB
+        jmp near SetupRectFill_583
 .13:
-        jmp near jpt_123595_40
-;-----------------------------------------------------------------------------
-; jpt_1239B2_1BF                                                      123B71  
-;-----------------------------------------------------------------------------
-jpt_1239B2_1BF:
+        jmp near SetupRectFill_1B2
+SetupRectFill_74E:
         mov byte [byte esi+034h], 1
         LD cmp, ecx, edx
         jne short .14
@@ -764,7 +740,7 @@ jpt_1239B2_1BF:
         LD sub, edx, ecx
         inc edx
         mov dword [byte esi+018h], edx
-        jmp near jpt_123595_40
+        jmp near SetupRectFill_1B2
 .18:
         mov ebx, dword [ScreenHeight]
         LD cmp, eax, ebx
@@ -807,11 +783,8 @@ jpt_1239B2_1BF:
         sub dword [byte esi+018h], eax
         mov dword [byte esi+010h], ebx
 .23:
-        jmp near jpt_123595_40
-;-----------------------------------------------------------------------------
-; jpt_1239B2_27F                                                      123C31  
-;-----------------------------------------------------------------------------
-jpt_1239B2_27F:
+        jmp near SetupRectFill_1B2
+SetupRectFill_80E:
         mov ecx, dword [byte esi+014h]
         sar ecx, 1
         mov eax, dword [byte esi+0Ch]

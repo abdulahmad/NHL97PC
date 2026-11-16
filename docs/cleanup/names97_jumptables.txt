@@ -146,3 +146,83 @@ jpt_F4167 PauseMenuJumpTable {confidence=low} jump table for the cases of PauseM
 jpt_F56E5 RulesMenuJumpTable {confidence=low} jump table for the cases of RulesMenu
 jpt_F7BB6 DetailLevelMenuJumpTable {confidence=low} jump table for the cases of DetailLevelMenu
 jpt_FC910 DebugShowLinesJumpTable {confidence=low} jump table for the cases of DebugShowLines
+jpt_84B3D MainMenuSettingsJumpTable {confidence=low} jump table for the main menu game settings cases
+jpt_B6B53 DrawSkaterPlayoffStatJumpTable {confidence=low} jump table for the skater stat values drawn in playoff mode (pre-scaled index)
+jpt_B6B7F DrawSkaterSeasonStatJumpTable {confidence=low} jump table for the skater stat values drawn in season mode (pre-scaled index)
+jpt_B6BFB DrawGoaliePlayoffStatJumpTable {confidence=low} jump table for the goalie stat values drawn in playoff mode (pre-scaled index)
+jpt_B6C1F DrawGoalieSeasonStatJumpTable {confidence=low} jump table for the goalie stat values drawn in season mode (pre-scaled index)
+jpt_B77E0 ExportSkaterPlayoffStatJumpTable {confidence=low} jump table for the skater stat values exported in playoff mode (pre-scaled index)
+jpt_B780C ExportSkaterSeasonStatJumpTable {confidence=low} jump table for the skater stat values exported in season mode (pre-scaled index)
+jpt_B7888 ExportGoaliePlayoffStatJumpTable {confidence=low} jump table for the goalie stat values exported in playoff mode (pre-scaled index)
+jpt_B78AC ExportGoalieSeasonStatJumpTable {confidence=low} jump table for the goalie stat values exported in season mode (pre-scaled index)
+jpt_BBD85 DrawRatingsSkaterBarJumpTable {confidence=low} jump table for the skater rating bars (pre-scaled index)
+jpt_BBDB1 DrawRatingsGoalieBarJumpTable {confidence=low} jump table for the goalie rating bars (pre-scaled index)
+unk_113189 AngleFromDeltaJumpTable {confidence=low} jump table for the octant cases of AngleFromDelta (pre-scaled index)
+unk_138407 FormatFloatJumpTable {confidence=low} jump table for the format cases of FormatFloat (pre-scaled index)
+unk_4AB70 MakeArtPathJumpTable {confidence=low} jump table for the art archive path kinds in MakeDataPath (pre-scaled index)
+unk_4AB80 MakeDataPathKindJumpTable {confidence=low} jump table for the data path kinds in MakeDataPath (pre-scaled index)
+unk_704AC FightPunchMoveJumpTable {confidence=low} jump table for the punch move cases (pre-scaled index)
+unk_704C0 FightPunchHitJumpTable {confidence=low} jump table for the punch move cases after the hit (pre-scaled index)
+unk_717E0 StartFightPunchJumpTable {confidence=low} jump table for the punch start cases (pre-scaled index)
+unk_717F4 StartFightPunchHitJumpTable {confidence=low} jump table for the punch start cases after the hit (pre-scaled index)
+unk_71A94 StartFightBlockJumpTable {confidence=low} jump table for the block start cases (pre-scaled index)
+unk_71AA8 StartFightBlockHitJumpTable {confidence=low} jump table for the block start cases after the hit (pre-scaled index)
+unk_7A788 SimTeamStrengthJumpTable {confidence=low} jump table for the cases of SimTeamStrength (pre-scaled index)
+unk_AD76B ExportStatTableJumpTable {confidence=low} jump table for the stat column cases of ExportStatTable (pre-scaled index)
+jpt_2B4B4 PuckToStickJumpTable {confidence=low} jump table for the cases of PuckToStick
+jpt_133E4B_2C EmuDispatchDBReg_34 {no_record}
+jpt_134209_20 EmuDispatchDFReg_28 {no_record}
+jpt_134209_69 EmuDispatchDFReg_71 {no_record}
+jpt_134209_CE EmuDispatchDFReg_D6 {no_record}
+jpt_134209_F8 EmuDispatchDFReg_100 {no_record}
+jpt_134209_110 EmuDispatchDFReg_118 {no_record}
+jpt_12C300 PlayPatchNoteJumpTable {confidence=low} jump table for the cases of PlayPatchNote
+jpt_12C300_24 PlayPatchNote_4E8 {no_record}
+jpt_132AF0_100 NoFloatSupport_38D {no_record}
+jpt_132AF0_170 NoFloatSupport_3FD {no_record}
+unk_1193EA_10 SerialISR_B1 {no_record}
+unk_137FE1_2 SbRateFromConstant_2B {no_record}
+jpt_138417 FormatFloatClampJumpTable {confidence=low} jump table for the clamp cases of FormatFloat
+jpt_138417_64 FormatFloat_1F3 {no_record}
+jpt_138417_74 FormatFloat_203 {no_record}
+jpt_138417_84 FormatFloat_213 {no_record}
+jpt_138417_94 FormatFloat_223 {no_record}
+jpt_11FDFD_38 FillBandRows_59 {no_record}
+jpt_11FF3D_3B FillBandRowsBlend_6A {no_record}
+jpt_120116_22F FillBandRowsBlend_437 {no_record}
+jpt_123595_40 SetupRectFill_1B2 {no_record}
+jpt_1235F5 RectFillClipLeftJumpTable {confidence=low} rect fill: per-mode cases run when the left edge is clipped
+jpt_1235F5_D2 SetupRectFill_2A4 {no_record}
+jpt_1236E1 RectFillClipBottomJumpTable {confidence=low} rect fill: per-mode cases run when the bottom edge is clipped
+jpt_1236E1_DF SetupRectFill_39D {no_record}
+jpt_1237CB RectFillClipRightJumpTable {confidence=low} rect fill: per-mode cases run for the right edge clip
+jpt_1237CB_14A SetupRectFill_4F2 {no_record}
+jpt_1237CB_1DB SetupRectFill_583 {no_record}
+jpt_1239B2 RectFillStepJumpTable {confidence=low} rect fill: per-mode cases for stepping the edges
+jpt_1239B2_145 SetupRectFill_6D4 {no_record}
+jpt_1239B2_153 SetupRectFill_6E2 {no_record}
+jpt_1239B2_1AC SetupRectFill_73B {no_record}
+jpt_1239B2_1BF SetupRectFill_74E {no_record}
+jpt_1239B2_27F SetupRectFill_80E {no_record}
+jpt_102D5C VesaSetBankJumpTable {confidence=low} jump table for the cases of VesaSetBank
+jpt_102D5C_27 VesaSetBank_47 {no_record}
+jpt_4AE54_137 MakeDirPath_177 {no_record}
+loc_10000 CodeStartTrap {confidence=low} first bytes of the code segment: int3 and a jump to itself, so a jump to address 0 of the code traps
+unk_10003 CodeStartPad {confidence=low} nop padding after the code start trap; its address is stored after the run-time copyright text
+unk_11C450 NetPollMsgBlank {confidence=low} zeroed 24-byte message header copied in before NetPollMessages queues its message
+unk_11C468 NetAnnounceMsgBlank {confidence=low} zeroed 24-byte message header copied in before NetAnnounce queues its message
+unk_11C480 NetJoinMsgBlank {confidence=low} zeroed 24-byte message header copied in before NetJoinGame queues its message
+unk_11C498 NetDisconnectMsgBlank {confidence=low} zeroed 24-byte message header copied in before NetDisconnectPeer queues its message
+unk_11C4B0 NetBroadcastMsgBlank {confidence=low} zeroed 24-byte message header copied in before NetBroadcast queues its message
+unk_116427 RestoreDSEnd {confidence=low} end of the RestoreDS code and saved DS word, used for the DPMI lock size
+unk_1166EF IretStub {confidence=low} a lone iret, installed as a do-nothing interrupt handler
+unk_1193EA SerialIsrJumpTable {confidence=low} jump table for the UART interrupt identification cases in SerialISR
+unk_1320FE IntrStubs {confidence=low} 3-byte "int N; ret" stubs, one per interrupt number, called by the intr helpers
+unk_132922 EmuCompareCcBits {confidence=low} x87 emulator: condition code bits (C0, C2, C3) for each compare result
+unk_132926 EmuFpremCcBits {confidence=low} x87 emulator: condition code bits for the low quotient bits of a partial remainder
+unk_132930 EmuEaModRmTable {confidence=low} x87 emulator: effective address routine for each ModRM mod/rm value
+unk_132990 EmuEaSibTable {confidence=low} x87 emulator: effective address routine for each SIB base value
+unk_140000 SbIrqStub220 {confidence=low} real-mode IRQ stub for a Sound Blaster at 220h: acks the DSP (22Eh) and the master PIC, then iret
+unk_14000D SbIrqStub240 {confidence=low} real-mode IRQ stub for a Sound Blaster at 240h: acks the DSP (24Eh) and the master PIC, then iret
+unk_14001A SbIrqStub220Slave {confidence=low} real-mode IRQ stub for a Sound Blaster at 220h on a slave PIC IRQ: acks the DSP and both PICs, then iret
+unk_14002B SbIrqStub240Slave {confidence=low} real-mode IRQ stub for a Sound Blaster at 240h on a slave PIC IRQ: acks the DSP and both PICs, then iret
