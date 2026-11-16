@@ -19,7 +19,7 @@ extern dword_167C63, dword_167C67, dword_167C6B, dword_167C6F, dword_167C73, dwo
 extern dword_167C83, dword_167C87, dword_167C8B, dword_167C8F, dword_167C93, dword_167C97, dword_167C9B, dword_167C9F
 extern dword_167CA3, dword_167CA7, dword_167CAB, dword_167CAF, dword_167CB3, dword_167CB7, dword_167CBB, dword_167CBF
 extern dword_167CC3, dword_167CC7, dword_167CD3, dword_167CD7, dword_167CDB, dword_167CDF, dword_167CE3, dword_167CE7
-extern dword_1686C0, dword_1686E0, dword_16AF3C, dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF50, dword_16AF54
+extern dword_1686C0, InGameMenuRequest, dword_16AF3C, dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF50, dword_16AF54
 extern dword_16AF58, dword_16AF5C, dword_16D2BC, dword_16DA9C, dword_16E30C, mousex, mousey, dword_16E464
 extern dword_16E468, dword_16E500, dword_16E69C, dword_19CD10, dword_19CD30, dword_19CD54, dword_19D384, dword_1A8E50
 extern dword_1AC364, dword_1AC814, dword_1AC819, dword_1AC944, dword_1ADC88, dword_1B1410, dword_1B1464, dword_1B8578
@@ -3102,7 +3102,7 @@ sub_F418F_60A:
         jmp near sub_F418F_4BB
 sub_F418F_62A:
         mov dword [byte ebp+07Ah], 0
-        mov dword [dword_1686E0], 0
+        mov dword [InGameMenuRequest], 0
         jmp near sub_F418F_4BB
 sub_F418F_640:
         call sub_E4908

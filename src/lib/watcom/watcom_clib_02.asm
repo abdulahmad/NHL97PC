@@ -3,7 +3,10 @@ bits 32
 %include "hockey.inc"
 section s_FBD60 progbits alloc exec nowrite align=1
 extern unk_16E3E8
-global __STOSB, __STOSD, rand_, srand_, sub_FBE03
+global __STOSB, __STOSD, rand_, srand_, GetRandState
+;-----------------------------------------------------------------------------
+; __STOSB                                                       FBD60  library
+;-----------------------------------------------------------------------------
 __STOSB:
         or ecx, ecx
         je short .3
@@ -33,6 +36,9 @@ __STOSB:
 .3:
         ret
         db 090h,090h,090h,090h,090h,090h
+;-----------------------------------------------------------------------------
+; __STOSD                                                       FBD97  library
+;-----------------------------------------------------------------------------
 __STOSD:
         or ecx, ecx
         je short .7
@@ -89,12 +95,19 @@ __STOSD:
         lea eax, [byte eax+04h]
 .7:
         ret
-sub_FBE03:
+;-----------------------------------------------------------------------------
+; GetRandState                                                    FBE03  97 PC
+; Returns the C library's rand state address
+;-----------------------------------------------------------------------------
+GetRandState:
         mov eax, unk_16E3E8
         ret
+;-----------------------------------------------------------------------------
+; rand_                                                         FBE09  library
+;-----------------------------------------------------------------------------
 rand_:
         push edx
-        call sub_FBE03
+        call GetRandState
         test eax, eax
         je short .1
         imul edx, dword [eax], dword 41C64E6Dh
@@ -106,10 +119,13 @@ rand_:
 .1:
         pop edx
         ret
+;-----------------------------------------------------------------------------
+; srand_                                                        FBE2D  library
+;-----------------------------------------------------------------------------
 srand_:
         push edx
         mov edx, eax
-        call sub_FBE03
+        call GetRandState
         test eax, eax
         je short .1
         mov dword [eax], edx

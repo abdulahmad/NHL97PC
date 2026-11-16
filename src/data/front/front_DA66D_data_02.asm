@@ -5,11 +5,11 @@ section s_16D894 progbits alloc noexec write align=1
 extern unk_167560, unk_167574, unk_167588
 global asc_16DADC, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, dword_16D894, dword_16D898, dword_16D89C
 global dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0, dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8
-global dword_16D8DC, dword_16D90C, dword_16D910, dword_16D914, dword_16D918, dword_16D91C, dword_16D93A, dword_16DA9C
+global dword_16D8DC, InputRecordTail, InputRecordHead, InputRecordCount, dword_16D918, InputRecordStamp, dword_16D93A, dword_16DA9C
 global dword_16DAA0, dword_16DAA4, dword_16DAA8, dword_16DAAC, dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC
 global dword_16DAC0, dword_16DAC4, dword_16DAC8, dword_16DACA, dword_16DAD2, dword_16E124, dword_16E128, dword_16E12A
 global dword_16E130, dword_16E134, dword_16E138, dword_16E13C, dword_16E140, dword_16E144, off_16E0FC, unk_16D992
-global unk_16E110, word_16D8A4, word_16D8FC, word_16D920, word_16D922, word_16D924, word_16D926, word_16D928
+global unk_16E110, word_16D8A4, SlotWords, word_16D920, word_16D922, word_16D924, word_16D926, word_16D928
 global word_16D92A, word_16D92C, word_16DAB8, word_16DACC, word_16DACE, word_16DAD0, word_16E0F8, word_16E0FA
 global word_16E108, word_16E10A, word_16E10C, word_16E120, word_16E12C, word_16E148, word_16E15E, word_16E16E
 global word_16E170
@@ -43,19 +43,19 @@ dword_16D8DC:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 byte_16D8FA:
         db 00h,00h
-word_16D8FC:
+SlotWords:
         db 00h
 byte_16D8FD:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_16D90C:
+InputRecordTail:
         db 00h,00h,00h,00h
-dword_16D910:
+InputRecordHead:
         db 00h,00h,00h,00h
-dword_16D914:
+InputRecordCount:
         db 00h,00h,00h,00h
 dword_16D918:
         db 00h,00h,00h,00h
-dword_16D91C:
+InputRecordStamp:
         db 00h,00h,00h,00h
 word_16D920:
         db 010h,00h

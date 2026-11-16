@@ -4,8 +4,11 @@ bits 32
 section s_FBE40 progbits alloc exec nowrite align=1
 extern GetTicks, TickDeadlinePassed, dword_16E3EC, dword_16E3F4, dword_16E3F8, dword_16E3FC, dword_16E402, dword_16E410
 extern dword_17070C, dword_1CF26C, dword_1CF28C, dword_1CF290, dword_1CF294, sub_11641C, tickcount, word_1CF28E
-global WaitKey, sub_FBE40, sub_FBE5D, sub_FBE63, sub_FBE78, sub_FBE94, sub_FBF00, sub_FBF24
+global WaitKey, sub_FBE40, sub_FBE5D, sub_FBE63, sub_FBE78, sub_FBE94, sub_FBF00, TimerISR
 global sub_FBFDC
+;-----------------------------------------------------------------------------
+; sub_FBE40                                                            FBE40  
+;-----------------------------------------------------------------------------
 sub_FBE40:
         mov ah, 1
         call dword [dword_17070C]
@@ -20,8 +23,14 @@ sub_FBE40:
         LD xor, ah, ah
 .2:
         ret
+;-----------------------------------------------------------------------------
+; sub_FBE5D                                                            FBE5D  
+;-----------------------------------------------------------------------------
 sub_FBE5D:
         jmp dword [dword_16E3EC]
+;-----------------------------------------------------------------------------
+; sub_FBE63                                                            FBE63  
+;-----------------------------------------------------------------------------
 sub_FBE63:
         mov ah, 1
         call dword [dword_17070C]
@@ -34,17 +43,26 @@ sub_FBE63:
         LD xor, ah, ah
 .2:
         ret
+;-----------------------------------------------------------------------------
+; sub_FBE78                                                            FBE78  
+;-----------------------------------------------------------------------------
 sub_FBE78:
         mov eax, dword [byte esp+04h]
         mov dword [dword_16E3EC], eax
         ret
         mov eax, dword [dword_16E3EC]
         ret
+;-----------------------------------------------------------------------------
+; WaitKey                                                         FBE88  96 PC
+;-----------------------------------------------------------------------------
 WaitKey:
         call dword [dword_16E3EC]
         LD or, ax, ax
         je short WaitKey
         ret
+;-----------------------------------------------------------------------------
+; sub_FBE94                                                            FBE94  
+;-----------------------------------------------------------------------------
 sub_FBE94:
         call sub_FBE40
         LD or, ax, ax
@@ -98,6 +116,9 @@ sub_FBE94:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_FBF00                                                            FBF00  
+;-----------------------------------------------------------------------------
 sub_FBF00:
         push edx
         sti
@@ -116,7 +137,10 @@ sub_FBF00:
         pop edx
         ret
         db 08Dh,040h,00h
-sub_FBF24:
+;-----------------------------------------------------------------------------
+; TimerISR                                     FBF24  96 PC, medium confidence
+;-----------------------------------------------------------------------------
+TimerISR:
         pusha
         push ds
         push es
@@ -190,6 +214,9 @@ sub_FBF24:
         popa
         iret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_FBFDC                                                            FBFDC  
+;-----------------------------------------------------------------------------
 sub_FBFDC:
         mov edx, dword [dword_1CF26C]
         xor eax, eax

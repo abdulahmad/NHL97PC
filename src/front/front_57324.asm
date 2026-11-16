@@ -41,7 +41,7 @@ extern dword_163798, dword_1637D4, dword_163808, dword_16380C, dword_163810, dwo
 extern dword_163828, dword_163834, dword_163838, dword_16383C, dword_163850, dword_16390C, dword_163958, dword_163A5C
 extern dword_163A60, dword_163A6C, dword_163AD8, dword_163B04, dword_163B10, dword_163B24, dword_163B58, dword_163BD4
 extern dword_163C00, dword_163C24, dword_163C28, dword_163C2C, dword_163C90, dword_163CB4, dword_163CB8, dword_163D3C
-extern dword_163D40, dword_163D4C, dword_163D50, dword_163D5C, dword_163D60, dword_16862C, dword_1686BA, dword_1686E0
+extern dword_163D40, dword_163D4C, dword_163D50, dword_163D5C, dword_163D60, dword_16862C, dword_1686BA, InGameMenuRequest
 extern dword_168F58, dword_16AF5C, dword_16B178, dword_16B1A0, dword_16B1A4, dword_16B1A8, dword_16B3F4, dword_16B550
 extern dword_16B724, dword_16B72C, dword_16C32C, dword_16C360, dword_16C364, dword_16C368, dword_16C374, dword_16C384
 extern dword_16C388, dword_16C38C, dword_16C390, dword_16C394, dword_16C398, dword_16C39C, dword_16C3A0, dword_16C3A4
@@ -161,14 +161,14 @@ extern sub_110414, sub_1104F0, sub_11328, sub_114C4, sub_114FD0, sub_115020, sub
 extern sub_115170, sub_1151A4, sub_115220, sub_1152B0, sub_115318, sub_1153AC, sub_1153DC, sub_115810
 extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, sub_116050, sub_11984
 extern sub_119A8, sub_11B38, sub_12A10, sub_1306C, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
-extern sub_13F28, sub_14078, sub_15AC2, sub_15BC5, sub_18DF7, sub_18E35, sub_1900F, sub_1B09C
+extern sub_13F28, RunSimFrames, sub_15AC2, sub_15BC5, sub_18DF7, sub_18E35, sub_1900F, sub_1B09C
 extern sub_1B3F4, sub_1DFA0, sub_1E014, sub_1E208, sub_1E224, sub_1E354, sub_1FBF4, sub_20CB0
 extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, sub_2C064, sub_2DD54, sub_2E11C, sub_2E168
 extern sub_2E208, sub_2EDB8, sub_2F4B8, sub_2FED8, sub_32260, sub_32340, sub_33880, sub_34330
 extern sub_358E4, sub_365FC, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
 extern sub_41ACC, sub_41FA0, sub_42098, sub_42220, sub_42354, sub_4241C, sub_424CC, sub_45BEC
 extern sub_4A280, sub_4B1C4, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, sub_4BA00, sub_4BCB4
-extern sub_4C0C4, sub_4DA84, sub_4DD90, sub_4DD9C, sub_4DDB0, sub_4FC50, sub_50050, sub_51B5C
+extern sub_4C0C4, sub_4DA84, PeriodOver, sub_4DD9C, sub_4DDB0, sub_4FC50, sub_50050, sub_51B5C
 extern sub_51BD8, sub_56798, sub_567B0, sub_568CC, sub_56908, sub_56A84, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_56D0C, sub_56DDC, sub_AA650, sub_BD61B, sub_E341C, sub_FAA64
 extern sub_FAAB4, sub_FAF34, sub_FB4A4, sub_FB704, sub_FB71C, sub_FC330, sub_FC4BC, sub_FCC40
@@ -6982,7 +6982,7 @@ sub_5C34C:
         add edx, byte 4
         call memcpy_
         mov eax, 1
-        call sub_14078
+        call RunSimFrames
         mov eax, dword [dword_1BF8B4]
         mov dword [dword_1B8F50], eax
         jmp short .6
@@ -7191,7 +7191,7 @@ sub_5C5EC:
         mov eax, byte_19CD8C
         call memcpy_
         mov eax, edi
-        call sub_14078
+        call RunSimFrames
         mov eax, dword [dword_1BF8B4]
         mov dword [dword_1B8F50], eax
         jmp short .7
@@ -38194,7 +38194,7 @@ sub_72C70:
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
         call sub_56D0C
-        call sub_4DD90
+        call PeriodOver
         cmp word [word_19CBBE], byte 0
         jg short .2
         mov eax, dword [word_19CBBC]
@@ -38270,7 +38270,7 @@ sub_72D74:
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
         call sub_56D0C
-        call sub_4DD90
+        call PeriodOver
         cmp word [word_19CBBE], byte 0
         jg short .1
         mov eax, dword [word_19CBBC]
@@ -38444,7 +38444,7 @@ sub_72F34:
         push dword 3F800000h
         call sub_5ED80
         or byte [dword ecx+0BFh], 24h
-        call sub_4DD90
+        call PeriodOver
         mov esp, ebp
         pop ebp
         pop edx
@@ -40647,7 +40647,7 @@ sub_747E8:
         cmp edx, byte 25h
         jne short .7
 .6:
-        call sub_4DD90
+        call PeriodOver
 .7:
         cmp edi, 0C5h
         jl near .10
@@ -45655,7 +45655,7 @@ sub_77F88:
 ;-----------------------------------------------------------------------------
 sub_77F94:
         mov word [word_19CBB2], 1
-        mov dword [dword_1686E0], 3
+        mov dword [InGameMenuRequest], 3
         ret
 ;-----------------------------------------------------------------------------
 ; sub_77FA8                                                       77FA8  97 PC
