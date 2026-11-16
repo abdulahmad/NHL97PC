@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_1C8F58 nobits alloc noexec write align=1
-global IndexDialogType, IndexDialogText, IndexDialogShape, IndexDialogFrame, IndexDialogBack, IndexDialogWidth, IndexDialogHeight, dword_1C93C4
-global dword_1C93C8, dword_1C93CC, dword_1C93D4, dword_1C93D8, dword_1C93DC, dword_1C93E0, IndexListBox, unk_1C93D0
+global IndexDialogType, IndexDialogText, IndexDialogShape, IndexDialogFrame, IndexDialogBack, IndexDialogWidth, IndexDialogHeight, TransferOffset
+global TransferPackBuffer, TransferBuffer, IndexSoundPlayed, IndexDialogShapeMid, IndexDialogShapeEnd, IndexDialogShapeTop, IndexListBox, LinkMessageText
 IndexDialogType:
         resb 4
 IndexDialogText:
@@ -20,19 +20,19 @@ IndexDialogHeight:
         resb 40
 IndexListBox:
         resb 1066
-dword_1C93C4:
+TransferOffset:
         resb 4
-dword_1C93C8:
+TransferPackBuffer:
         resb 4
-dword_1C93CC:
+TransferBuffer:
         resb 4
-unk_1C93D0:
+LinkMessageText:
         resb 4
-dword_1C93D4:
+IndexSoundPlayed:
         resb 4
-dword_1C93D8:
+IndexDialogShapeMid:
         resb 4
-dword_1C93DC:
+IndexDialogShapeEnd:
         resb 4
-dword_1C93E0:
+IndexDialogShapeTop:
         resb 16

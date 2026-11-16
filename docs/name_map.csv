@@ -6251,6 +6251,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 166232,str_Wt,unk_166232,new,high,"string ""wt""",src/data/front/front_AC799_data_01.asm
 166235,str_Punct_ExportStatTable,unk_166235,new,high,"string ""\n\n""",src/data/front/front_AC799_data_01.asm
 166238,str_03d,asc_166238,new,high,"string "".%03d""",src/data/front/front_AC799_data_01.asm
+16623E,StatExportSeparator,unk_16623E,new,low,separator written between exported stat columns,src/data/front/front_AC799_data_01.asm
 166240,str_Pts,asc_166240,new,high,"string ""pts""",src/data/front/front_AC799_data_01.asm
 166244,str_Pppct,asc_166244,new,high,"string ""pppct""",src/data/front/front_AC799_data_01.asm
 16624A,str_Pkpct,asc_16624A,new,high,"string ""pkpct""",src/data/front/front_AC799_data_01.asm
@@ -6405,8 +6406,10 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 166602,str_LOCALNDX,asc_166602,new,high,"string ""LOCAL.NDX""",src/data/front/front_B1E1D_data_01.asm
 16660C,str_08d,asc_16660C,new,high,"string ""%08d""",src/data/front/front_B1E1D_data_01.asm
 166611,str_NOUSER,asc_166611,new,high,"string ""<NO USER>""",src/data/front/front_B1E1D_data_01.asm
+16661B,UserListFileSeason,unk_16661B,new,low,"user list file name, season",src/data/front/front_B1E1D_data_01.asm
 16662D,str_KEINBENUTZER,asc_16662D,new,high,"string ""<KEIN BENUTZER>""",src/data/front/front_B1E1D_data_01.asm
 16663D,str_NEWUSER,asc_16663D,new,high,"string ""<NEW USER>""",src/data/front/front_B1E1D_data_01.asm
+166648,UserListFilePlayoff,unk_166648,new,low,"user list file name, playoffs",src/data/front/front_B1E1D_data_01.asm
 166657,str_NEUERBENUTZER,asc_166657,new,high,"string ""<NEUER BENUTZER>""",src/data/front/front_B1E1D_data_01.asm
 166668,str_DD02d,asc_166668,new,high,"string ""%d-%d:%02d""",src/data/front/front_B1E1D_data_01.asm
 166673,str_D02d2,,96PC,high,NHL96PC 110043 (string): '%d:%02d',
@@ -7837,9 +7840,59 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16CFF4,LinesSoundPlayed,dword_16CFF4,new,low,set once the lines intro sound plays,src/data/front/front_93005_data_02.asm
 16CFF8,TeamSelectSparkleCount,dword_16CFF8,new,low,team select sparkle counter,src/data/front/front_9E35E_data_02.asm
 16CFFC,TeamSelectArtBase,unk_16CFFC,new,low,team select art base,src/data/front/front_9E35E_data_02.asm
+16D23C,PanelTeamNameShift,dword_16D23C,new,low,team name shift on the team panels,src/data/front/front_9E35E_data_02.asm
+16D250,PanelTeamBase,dword_16D250,new,low,team panel base offset,src/data/front/front_9E35E_data_02.asm
+16D254,ReplayIndexSendBuf,off_16D254,new,low,replay index block sent over the link,src/data/front/front_9E35E_data_02.asm
+16D258,ReplayIndexRecvBuf,off_16D258,new,low,replay index block received over the link,src/data/front/front_9E35E_data_02.asm
+16D25C,LinkSetupItemX,word_16D25C,new,low,link setup item x per type,src/data/front/front_A3280_data_02.asm
+16D25E,LinkSetupSlotY,word_16D25E,new,low,link setup slot y,src/data/front/front_A3280_data_02.asm
+16D260,LinkSetupStatusX,word_16D260,new,low,link setup status x,src/data/front/front_A3280_data_02.asm
+16D262,LinkSetupShapeName,unk_16D262,new,low,link setup shape file name,src/data/front/front_A3280_data_02.asm
 16D26A,str_S_RunLinkGameScreens,unk_16D26A,new,high,"string ""s""",src/data/front/front_A3280_data_02.asm
+16D27A,LinkButtonLetters,byte_16D27A,new,low,link setup button letter per slot,src/data/front/front_A3280_data_02.asm
+16D27E,LinkButtonX,word_16D27E,new,low,link setup button x per slot,src/data/front/front_A3280_data_02.asm
+16D28C,LinkButtonY,word_16D28C,new,low,link setup button y per slot,src/data/front/front_A3280_data_02.asm
+16D29C,LinkSetupTitleY,word_16D29C,new,low,link setup title y,src/data/front/front_A3280_data_02.asm
+16D29E,LinkSetupMaxPlayers,dword_16D29E,new,low,most players on the link setup,src/data/front/front_A3280_data_02.asm
+16D2A2,LinkSetupCursorFlags,byte_16D2A2,new,low,link setup cursor flags,src/data/front/front_A3280_data_02.asm
+16D2A6,LinkSetupSoundIndex,word_16D2A6,new,low,link setup sound index,src/data/front/front_A3280_data_02.asm
+16D2A8,LinkSetupSoundTick,dword_16D2A8,new,low,tick of the next link setup sound,src/data/front/front_A3280_data_02.asm
+16D2AC,LinkSetupSoundOn,word_16D2AC,new,low,set once the link setup sound plays,src/data/front/front_A3280_data_02.asm
+16D2B0,ThreeStarsSoundOn,word_16D2B0,new,low,set once the three stars sound plays,src/data/front/front_A3280_data_02.asm
+16D2B2,GameStatsSoundOn,word_16D2B2,new,low,set once the game stats sound plays,src/data/front/front_A3280_data_02.asm
+16D2B4,GameStatsAnimSoundOn,word_16D2B4,new,low,set once the game stats animation sound plays,src/data/front/front_A3280_data_02.asm
+16D2B8,LinesChangedInGame,dword_16D2B8,new,low,set when lines were changed in game,src/data/front/front_A3280_data_02.asm
+16D2BC,InIntermission,dword_16D2BC,new,low,set while in the intermission,src/data/front/front_A3280_data_02.asm
+16D2CC,HomeUserSlot,dword_16D2CC,new,low,season user slot per home player,src/data/front/front_A3280_data_02.asm
+16D2EC,AwayUserSlot,dword_16D2EC,new,low,season user slot per away player,src/data/front/front_A3280_data_02.asm
+16D30C,PlayoffRoundSlots,dword_16D30C,new,low,first playoff slot per round,src/data/front/front_A3280_data_02.asm
+16D34C,PlayoffRoundGames,dword_16D34C,new,low,games per playoff round,src/data/front/front_A3280_data_02.asm
+16D350,PlayoffWinsNeeded,dword_16D350,new,low,wins needed per playoff round,src/data/front/front_A3280_data_02.asm
+16D360,PlayoffPairings,dword_16D360,new,low,playoff pairings per round,src/data/front/front_A3280_data_02.asm
+16D400,StatsColumn,dword_16D400,new,low,stats table column,src/data/front/front_A3280_data_02.asm
+16D404,StatsPlayoffMode,dword_16D404,new,low,set when the stats show the playoffs,src/data/front/front_A3280_data_02.asm
+16D408,StatsColumnFields,word_16D408,new,low,field per stats column,src/data/front/front_A3280_data_02.asm
+16D440,UserNameIndex,dword_16D440,new,low,user name index,src/data/front/front_B1E1D_data_02.asm
+16D444,UserRecordsTop,dword_16D444,new,low,user records list top,src/data/front/front_B1E1D_data_02.asm
+16D448,UserRecordsFirst,dword_16D448,new,low,first user record shown,src/data/front/front_B1E1D_data_02.asm
+16D44C,UserRecordsRow,dword_16D44C,new,low,user records row,src/data/front/front_B1E1D_data_02.asm
+16D450,UserRecordsSoundOn,word_16D450,new,low,set once the user records sound plays,src/data/front/front_B1E1D_data_02.asm
+16D454,RatingsColumn,dword_16D454,new,low,player ratings sort column,src/data/front/front_B1E1D_data_02.asm
+16D458,RatingsGoalieMode,dword_16D458,new,low,set when the ratings show goalies,src/data/front/front_B1E1D_data_02.asm
+16D45C,RatingsColumnLimit,dword_16D45C,new,low,player ratings column limit,src/data/front/front_B1E1D_data_02.asm
+16D470,RatingsColumnBase,dword_16D470,new,low,player ratings column base,src/data/front/front_B1E1D_data_02.asm
+16D484,RatingsHeaderText,dword_16D484,new,low,player ratings header text ids,src/data/front/front_B1E1D_data_02.asm
+16D4B0,GoalieRatingsHeaderText,dword_16D4B0,new,low,goalie ratings header text ids,src/data/front/front_B1E1D_data_02.asm
+16D4D4,RatingsLabelText,dword_16D4D4,new,low,player ratings label text ids,src/data/front/front_B1E1D_data_02.asm
+16D500,ReplayListTop,dword_16D500,new,low,replay list top entry,src/data/front/front_B1E1D_data_02.asm
 16D504,str_E_BuildHistoryList,dword_16D504,new,high,"string ""e""",src/data/front/front_B1E1D_data_02.asm
+16D508,HistoryEntries,dword_16D508,new,low,"history entries (year, team)",src/data/front/front_B1E1D_data_02.asm
+16D5DC,HistoryTeamFlags,byte_16D5DC,new,low,history team flags,src/data/front/front_B1E1D_data_02.asm
+16D5F7,HistoryCsvNames,off_16D5F7,new,low,history CSV file names,src/data/front/front_B1E1D_data_02.asm
 16D65F,str_None,asc_16D65F,new,high,"string ""None""",src/data/front/front_B1E1D_data_02.asm
+16D664,SeasonMenuSoundOn,dword_16D664,new,low,set once the season menu sound plays,src/data/front/front_B1E1D_data_02.asm
+16D668,RosterScreenOpen,dword_16D668,new,low,set while the roster screen is open,src/data/front/front_C755B_data_02.asm
+16D66C,RosterData,dword_16D66C,new,low,roster data,src/data/front/front_C755B_data_02.asm
 16D684,str_Punct_InitRosterScreen,dword_16D684,new,high,"string ""\n""",src/data/front/front_C755B_data_02.asm
 16D688,str_X_InitRosterScreen,dword_16D688,new,high,"string ""x""",src/data/front/front_C755B_data_02.asm
 16D694,str_7_SetupRosterLists,dword_16D694,new,high,"string ""7""",src/data/front/front_C755B_data_02.asm
@@ -9842,6 +9895,144 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1C8F6E,IndexDialogWidth,dword_1C8F6E,new,low,index dialog width,src/data/front/front_9F6F5_bss_01.asm
 1C8F72,IndexDialogHeight,dword_1C8F72,new,low,index dialog height,src/data/front/front_9F6F5_bss_01.asm
 1C8F9A,IndexListBox,unk_1C8F9A,new,low,index list box,src/data/front/front_9F6F5_bss_01.asm
+1C93C4,TransferOffset,dword_1C93C4,new,low,link transfer write offset,src/data/front/front_9F6F5_bss_01.asm
+1C93C8,TransferPackBuffer,dword_1C93C8,new,low,link transfer packing buffer,src/data/front/front_9F6F5_bss_01.asm
+1C93CC,TransferBuffer,dword_1C93CC,new,low,link transfer buffer,src/data/front/front_9F6F5_bss_01.asm
+1C93D0,LinkMessageText,unk_1C93D0,new,low,link message text,src/data/front/front_9F6F5_bss_01.asm
+1C93D4,IndexSoundPlayed,dword_1C93D4,new,low,set once the index screen sound plays,src/data/front/front_9F6F5_bss_01.asm
+1C93D8,IndexDialogShapeMid,dword_1C93D8,new,low,index dialog middle shape,src/data/front/front_9F6F5_bss_01.asm
+1C93DC,IndexDialogShapeEnd,dword_1C93DC,new,low,index dialog end shape,src/data/front/front_9F6F5_bss_01.asm
+1C93E0,IndexDialogShapeTop,dword_1C93E0,new,low,index dialog top shape,src/data/front/front_9F6F5_bss_01.asm
+1C93F0,LinkSetupLogos,dword_1C93F0,new,low,link setup team logo bitmaps,src/data/front/front_A3280_bss_01.asm
+1C9410,LinkSetupNames,dword_1C9410,new,low,link setup team name bitmaps,src/data/front/front_A3280_bss_01.asm
+1C9430,LinkSetupArt,dword_1C9430,new,low,link setup art per slot,src/data/front/front_A3280_bss_01.asm
+1C9448,LinkSetupOrder,word_1C9448,new,low,link setup item order,src/data/front/front_A3280_bss_01.asm
+1C944A,LinkSetupCursorRow,byte_1C944A,new,low,link setup cursor row per item,src/data/front/front_A3280_bss_01.asm
+1C944C,LinkSetupCursorCol,byte_1C944C,new,low,link setup cursor column per item,src/data/front/front_A3280_bss_01.asm
+1C9450,LinkSetupValues,word_1C9450,new,low,link setup value per item,src/data/front/front_A3280_bss_01.asm
+1C9470,LinkSetupItemType,word_1C9470,new,low,link setup item records (7 bytes each): type,src/data/front/front_A3280_bss_01.asm
+1C9472,LinkSetupItemFlags,byte_1C9472,new,low,link setup item record: flags,src/data/front/front_A3280_bss_01.asm
+1C9473,LinkSetupItemShape,dword_1C9473,new,low,link setup item record: shape,src/data/front/front_A3280_bss_01.asm
+1C94A4,LinkSetupShapes,dword_1C94A4,new,low,link setup shapes,src/data/front/front_A3280_bss_01.asm
+1C94A8,LinkSetupSounds,dword_1C94A8,new,low,link setup sound per choice,src/data/front/front_A3280_bss_01.asm
+1C94B4,LinkSetupScrollUp,dword_1C94B4,new,low,link setup scroll up count,src/data/front/front_A3280_bss_01.asm
+1C94B8,LinkSetupBuffer,dword_1C94B8,new,low,link setup buffer,src/data/front/front_A3280_bss_01.asm
+1C94BC,LinkSetupSlots,dword_1C94BC,new,low,link setup slot records,src/data/front/front_A3280_bss_01.asm
+1C94C0,LinkSetupScrollDown,dword_1C94C0,new,low,link setup scroll down count,src/data/front/front_A3280_bss_01.asm
+1C94C4,LinkSetupTop,dword_1C94C4,new,low,link setup list top,src/data/front/front_A3280_bss_01.asm
+1C94C8,LinkSetupRow,dword_1C94C8,new,low,link setup list row,src/data/front/front_A3280_bss_01.asm
+1C94CC,LinkSetupItems,dword_1C94CC,new,low,link setup items,src/data/front/front_A3280_bss_01.asm
+1C94D0,LinkSetupShapeFile,dword_1C94D0,new,low,link setup shape file,src/data/front/front_A3280_bss_01.asm
+1C94D4,LinkSetupCount,dword_1C94D4,new,low,link setup list count,src/data/front/front_A3280_bss_01.asm
+1C94D8,LinkSetupSettings,dword_1C94D8,new,low,link settings data,src/data/front/front_A3280_bss_01.asm
+1C94DC,LinkPlayerCount,dword_1C94DC,new,low,players in the link game,src/data/front/front_A3280_bss_01.asm
+1C94E0,LinkLogoFile,dword_1C94E0,new,low,link setup logo file,src/data/front/front_A3280_bss_01.asm
+1C94E4,LinkShapeFile,dword_1C94E4,new,low,link setup screen shape file,src/data/front/front_A3280_bss_01.asm
+1C94E8,LinkScreensDone,dword_1C94E8,new,low,set to leave the link game screens,src/data/front/front_A3280_bss_01.asm
+1C94EC,LinkHomeChoice,word_1C94EC,new,low,home choice on the link setup,src/data/front/front_A3280_bss_01.asm
+1C94EE,LinkSetupItemCount,word_1C94EE,new,low,link setup item count,src/data/front/front_A3280_bss_01.asm
+1C94F0,LinkAwayChoice,word_1C94F0,new,low,away choice on the link setup,src/data/front/front_A3280_bss_01.asm
+1C94F4,ThreeStarsData,unk_1C94F4,new,low,three stars data copy,src/data/front/front_A3280_bss_01.asm
+1C94F6,ThreeStarsPlayer,word_1C94F6,new,low,three stars record: player,src/data/front/front_A3280_bss_01.asm
+1C94F8,ThreeStarsTeam,word_1C94F8,new,low,three stars record: team,src/data/front/front_A3280_bss_01.asm
+1C94FA,ThreeStarsPoints,word_1C94FA,new,low,three stars record: points,src/data/front/front_A3280_bss_01.asm
+1C950C,ScoringHomeLayer,dword_1C950C,new,low,scoring summary home logo layer,src/data/front/front_A3280_bss_01.asm
+1C9510,ScoringAwayLayer,dword_1C9510,new,low,scoring summary away logo layer,src/data/front/front_A3280_bss_01.asm
+1C9514,GoldStarShapes,dword_1C9514,new,low,three stars gold star shapes,src/data/front/front_A3280_bss_01.asm
+1C9524,StarFrameShapes,dword_1C9524,new,low,three stars frame shapes,src/data/front/front_A3280_bss_01.asm
+1C9534,StatsLineTotals,dword_1C9534,new,low,stats table line: totals,src/data/front/front_A3280_bss_01.asm
+1C9538,StatsLineGoals,dword_1C9538,new,low,stats table line: goals,src/data/front/front_A3280_bss_01.asm
+1C953C,StatsLineAssists,dword_1C953C,new,low,stats table line: assists,src/data/front/front_A3280_bss_01.asm
+1C9540,StatsLinePoints,dword_1C9540,new,low,stats table line: points,src/data/front/front_A3280_bss_01.asm
+1C9544,StatsLinePenalties,dword_1C9544,new,low,stats table line: penalties,src/data/front/front_A3280_bss_01.asm
+1C9548,StatsLineNames,dword_1C9548,new,low,stats table line: names,src/data/front/front_A3280_bss_01.asm
+1C954C,ThreeStarsLayers,dword_1C954C,new,low,three stars draw layers,src/data/front/front_A3280_bss_01.asm
+1C9558,PostGameLayer,dword_1C9558,new,low,post game draw layer,src/data/front/front_A3280_bss_01.asm
+1C955C,GameStatsPage,dword_1C955C,new,low,game stats page,src/data/front/front_A3280_bss_01.asm
+1C9560,GameStatsRow,dword_1C9560,new,low,game stats row,src/data/front/front_A3280_bss_01.asm
+1C9564,GameStatsTeam,dword_1C9564,new,low,game stats team side,src/data/front/front_A3280_bss_01.asm
+1C9568,GameStatsList,dword_1C9568,new,low,game stats list,src/data/front/front_A3280_bss_01.asm
+1C956C,GameStatsLine,dword_1C956C,new,low,game stats line,src/data/front/front_A3280_bss_01.asm
+1C9570,ScoringEntryCount,dword_1C9570,new,low,scoring summary entries,src/data/front/front_A3280_bss_01.asm
+1C9574,ThreeStarsChoice,dword_1C9574,new,low,three stars choice,src/data/front/front_A3280_bss_01.asm
+1C9578,GameStatsBackFile,dword_1C9578,new,low,game stats back art file,src/data/front/front_A3280_bss_01.asm
+1C957C,GameStatsTable,dword_1C957C,new,low,game stats table,src/data/front/front_A3280_bss_01.asm
+1C9580,GameStatsTitleFile,dword_1C9580,new,low,game stats title art file,src/data/front/front_A3280_bss_01.asm
+1C9584,GameStatsColumn,dword_1C9584,new,low,game stats column,src/data/front/front_A3280_bss_01.asm
+1C9588,GameStatsScroll,dword_1C9588,new,low,game stats scroll,src/data/front/front_A3280_bss_01.asm
+1C958C,GameStatsDrawn,dword_1C958C,new,low,set once the game stats page is drawn,src/data/front/front_A3280_bss_01.asm
+1C9590,ThreeStarsTimer,dword_1C9590,new,low,three stars timer,src/data/front/front_A3280_bss_01.asm
+1C9594,ThreeStarsPos,dword_1C9594,new,low,three stars position,src/data/front/front_A3280_bss_01.asm
+1C9598,GameStatsSpeechCount,dword_1C9598,new,low,game stats speech count,src/data/front/front_A3280_bss_01.asm
+1C959C,PostGameArtFile,dword_1C959C,new,low,post game art file,src/data/front/front_A3280_bss_01.asm
+1C95A0,ThreeStarsSpeechCount,dword_1C95A0,new,low,three stars speech count,src/data/front/front_A3280_bss_01.asm
+1C95A4,PostGameShapeFile,dword_1C95A4,new,low,post game shape file,src/data/front/front_A3280_bss_01.asm
+1C95A8,PostGameLastSpeech,dword_1C95A8,new,low,last post game speech picked,src/data/front/front_A3280_bss_01.asm
+1C95AA,ScoringLogPad,dword_1C95AA,new,low,low half of the dword read for the scoring log count,src/data/front/front_A3280_bss_01.asm
+1C95AC,ScoringLogCount,word_1C95AC,new,low,scoring log entries,src/data/front/front_A3280_bss_01.asm
+1C95AE,PenaltyLogCount,word_1C95AE,new,low,penalty log entries,src/data/front/front_A3280_bss_01.asm
+1C95B0,PanelArtLarge,dword_1C95B0,new,low,panel art for high resolution,src/data/front/front_A3280_bss_01.asm
+1C95B4,ClockFontSmall,dword_1C95B4,new,low,"game clock font, low resolution",src/data/front/front_A3280_bss_01.asm
+1C95B8,GameLogoShape,dword_1C95B8,new,low,game logo shape,src/data/front/front_A3280_bss_01.asm
+1C95BC,ClockFontLarge,dword_1C95BC,new,low,"game clock font, high resolution",src/data/front/front_A3280_bss_01.asm
+1C95C0,GameLogoBitmap,dword_1C95C0,new,low,game logo bitmap,src/data/front/front_A3280_bss_01.asm
+1C95C4,PanelArtSmall,dword_1C95C4,new,low,panel art for low resolution,src/data/front/front_A3280_bss_01.asm
+1C95C8,StatsShapeLists,dword_1C95C8,new,low,stats screen shape lists,src/data/front/front_AC799_bss_01.asm
+1C95CC,TeamStatsShapeTop,dword_1C95CC,new,low,team stats top shape,src/data/front/front_AC799_bss_01.asm
+1C95D0,TeamStatsShapeBottom,dword_1C95D0,new,low,team stats bottom shape,src/data/front/front_AC799_bss_01.asm
+1C95D4,StatsHeaderShape,dword_1C95D4,new,low,stats header shape,src/data/front/front_AC799_bss_01.asm
+1C95D8,TeamStatsLogoShape,dword_1C95D8,new,low,team stats logo shape,src/data/front/front_AC799_bss_01.asm
+1C95DC,TeamStatsNameShape,dword_1C95DC,new,low,team stats name shape,src/data/front/front_AC799_bss_01.asm
+1C95E0,StatsRowShape,dword_1C95E0,new,low,stats row shape,src/data/front/front_AC799_bss_01.asm
+1C95E4,TeamStatsBarShape,dword_1C95E4,new,low,team stats bar shape,src/data/front/front_AC799_bss_01.asm
+1C95E8,TeamStatsBarEnd,dword_1C95E8,new,low,team stats bar end shape,src/data/front/front_AC799_bss_01.asm
+1C95EC,StatsArrowUp,dword_1C95EC,new,low,stats arrow up shape,src/data/front/front_AC799_bss_01.asm
+1C95F0,StatsArrowDown,dword_1C95F0,new,low,stats arrow down shape,src/data/front/front_AC799_bss_01.asm
+1C95F4,TeamStatsPanelShape,dword_1C95F4,new,low,team stats panel shape,src/data/front/front_AC799_bss_01.asm
+1C95F8,StatsSparkleShape,dword_1C95F8,new,low,stats sparkle shape,src/data/front/front_AC799_bss_01.asm
+1C95FC,TeamStatsGlowShape,dword_1C95FC,new,low,team stats glow shape,src/data/front/front_AC799_bss_01.asm
+1C9600,TeamStatsBitmap,dword_1C9600,new,low,team stats bitmap,src/data/front/front_AC799_bss_01.asm
+1C9610,StatsMenuItems,dword_1C9610,new,low,stats menu items,src/data/front/front_AC799_bss_01.asm
+1C9614,StatTableRows,dword_1C9614,new,low,stat table rows,src/data/front/front_AC799_bss_01.asm
+1C9618,StatsSoundPlayed,dword_1C9618,new,low,set once the stats sound plays,src/data/front/front_AC799_bss_01.asm
+1C961C,StatTableSortText,dword_1C961C,new,low,stat table sort strings,src/data/front/front_AC799_bss_01.asm
+1C9620,StatTableSortKeys,dword_1C9620,new,low,stat table sort keys,src/data/front/front_AC799_bss_01.asm
+1C9624,StatTableAlpha,dword_1C9624,new,low,stat table alphabetic order,src/data/front/front_AC799_bss_01.asm
+1C9628,StatTableColumns,dword_1C9628,new,low,stat table columns,src/data/front/front_AC799_bss_01.asm
+1C962C,StatTableSortColumn,word_1C962C,new,low,stat table sort column,src/data/front/front_AC799_bss_01.asm
+1C9630,UserRecordKinds,dword_1C9630,new,low,user record kind per record,src/data/front/front_AC799_bss_01.asm
+1C9634,UserRecordArt,dword_1C9634,new,low,user record art per kind,src/data/front/front_AC799_bss_01.asm
+1C9660,UserRecordsData,dword_1C9660,new,low,user records data,src/data/front/front_AC799_bss_01.asm
+1C9664,UserRecordItems,dword_1C9664,new,low,user records items,src/data/front/front_AC799_bss_01.asm
+1C967A,UserRecordItemKind,dword_1C967A,new,low,user records item: kind,src/data/front/front_AC799_bss_01.asm
+1C967E,UserRecordItemArt,dword_1C967E,new,low,user records item: art,src/data/front/front_AC799_bss_01.asm
+1C9686,UserRecordItemX,dword_1C9686,new,low,user records item: x,src/data/front/front_AC799_bss_01.asm
+1C968A,UserRecordItemY,dword_1C968A,new,low,user records item: y,src/data/front/front_AC799_bss_01.asm
+1C96C2,UserDetailPopupFields,dword_1C96C2,97PC,low,"user detail popup record, from its type field: type, text, three shapes, width, height",src/data/front/front_AC799_bss_01.asm
+1C96CC,UserDetailPopupShapes,dword_1C96CC,97PC,low,"user detail popup record, shapes then width and height",src/data/front/front_B1E1D_bss_01.asm
+1C9704,UserGamesPopup,unk_1C9704,97PC,low,"user games popup record: type, text, three shapes, width, height",src/data/front/front_B1E1D_bss_01.asm
+1C9756,UserCupsPopup,unk_1C9756,97PC,low,"user cups popup record: type, text, three shapes, width, height",src/data/front/front_B1E1D_bss_01.asm
+1C980A,UserRatingPopupFields,dword_1C980A,97PC,low,"user rating popup record, from its type field",src/data/front/front_B1E1D_bss_01.asm
+1C985C,UserStreakPopupFields,dword_1C985C,97PC,low,"user streak popup record, from its type field",src/data/front/front_B1E1D_bss_01.asm
+1C989E,UserGamesListBox,unk_1C989E,new,low,user games list box,src/data/front/front_B1E1D_bss_01.asm
+1CA998,UserRecordList,dword_1CA998,new,low,user record list (374 bytes each),src/data/front/front_B1E1D_bss_01.asm
+1CA99C,UserNameColumn,dword_1CA99C,new,low,user records name column,src/data/front/front_B1E1D_bss_01.asm
+1CA9A0,UserRateColumn,dword_1CA9A0,new,low,user records rate column,src/data/front/front_B1E1D_bss_01.asm
+1CA9A4,UserPointsColumn,dword_1CA9A4,new,low,user records points column,src/data/front/front_B1E1D_bss_01.asm
+1CA9A8,UserGoalsForColumn,dword_1CA9A8,new,low,user records goals for column,src/data/front/front_B1E1D_bss_01.asm
+1CA9AC,UserGoalsAgainstColumn,dword_1CA9AC,new,low,user records goals against column,src/data/front/front_B1E1D_bss_01.asm
+1CA9B0,UserPowerPlayColumn,dword_1CA9B0,new,low,user records power play column,src/data/front/front_B1E1D_bss_01.asm
+1CA9B4,UserPenaltyKillColumn,dword_1CA9B4,new,low,user records penalty kill column,src/data/front/front_B1E1D_bss_01.asm
+1CA9B8,UserRatingColumn,dword_1CA9B8,new,low,user records rating column,src/data/front/front_B1E1D_bss_01.asm
+1CA9BC,UserShutoutColumn,dword_1CA9BC,new,low,user records shutout column,src/data/front/front_B1E1D_bss_01.asm
+1CA9C0,UserStreakColumn,dword_1CA9C0,new,low,user records streak column,src/data/front/front_B1E1D_bss_01.asm
+1CA9C4,UserLongStreakColumn,dword_1CA9C4,new,low,user records longest streak column,src/data/front/front_B1E1D_bss_01.asm
+1CA9C8,UserTeamColumn,dword_1CA9C8,new,low,user records team column,src/data/front/front_B1E1D_bss_01.asm
+1CA9CC,UserOpponentColumn,dword_1CA9CC,new,low,user records opponent column,src/data/front/front_B1E1D_bss_01.asm
+1CA9D0,UserSortColumn,dword_1CA9D0,new,low,user records sort column,src/data/front/front_B1E1D_bss_01.asm
+1CA9D4,UserCupsTable,dword_1CA9D4,new,low,user cups table,src/data/front/front_B1E1D_bss_01.asm
+1CA9D8,StatsMenuChoice,byte_1CA9D8,new,low,stats menu choice,src/data/front/front_B1E1D_bss_01.asm
+1CA9DC,RatingsScrollBar,unk_1CA9DC,new,low,player ratings scroll bar,src/data/front/front_B50DB_bss_01.asm
 1CD1E0,InputRecordRing,unk_1CD1E0,96PC,high,96 PC InputRecordRing (97: 5 records of 14h bytes),src/data/front/front_DA66D_bss_01.asm
 1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,

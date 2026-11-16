@@ -6,14 +6,14 @@ extern SetClipWindow, str_POPM, str_BACK9, str_TITL10, str_MAP0, str_BDOT, str_R
 extern str_ARED, str_MB022, str_MB012, str_MB002, str_LB003, str_LD00, str_LB02d4, str_FNL0
 extern str_LTL0, str_CSV, str_HistoryCsv, str_MNTR2, str_MB042, str_MB02d, str_1TOP5, str_2TOP5
 extern str_3TOP5, str_1BOT5, str_2BOT5, str_3BOT5, str_BAK0, str_BAK1, str_BOTM3, str_BACK10
-extern str_TTL12, str_BOT1, str_TTL02, str_None, byte_16D5DC, MusicOptions, DetailLevel, byte_1C6040
-extern byte_1CBB8C, str_E_BuildHistoryList, dword_16D508, dword_16DA9C, AudioOptions, dword_1C5DE4, dword_1C5E74, dword_1CB014
+extern str_TTL12, str_BOT1, str_TTL02, str_None, HistoryTeamFlags, MusicOptions, DetailLevel, byte_1C6040
+extern byte_1CBB8C, str_E_BuildHistoryList, HistoryEntries, dword_16DA9C, AudioOptions, dword_1C5DE4, dword_1C5E74, dword_1CB014
 extern dword_1CB018, dword_1CB064, dword_1CB068, dword_1CB06C, dword_1CB070, dword_1CB074, dword_1CB078, dword_1CB07C
 extern dword_1CB080, dword_1CB084, dword_1CB088, dword_1CB08C, dword_1CB090, dword_1CB094, dword_1CB098, dword_1CB09C
 extern dword_1CB0A0, dword_1CB0A4, dword_1CB0A8, dword_1CB0AC, dword_1CB0B0, dword_1CB0B4, dword_1CB0B8, dword_1CB0BC
 extern dword_1CB0C0, dword_1CB0C4, dword_1CB0C8, dword_1CB0CC, dword_1CB0D0, dword_1CB0D4, dword_1CB0D8, dword_1CB0DC
 extern dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dword_1CB0F4, dword_1CB0F8, dword_1CB0FC
-extern dword_1CB100, dword_1CB104, dword_1CBB88, off_16D5F7, sprintf_, strcat_, strcpy_, strlen_
+extern dword_1CB100, dword_1CB104, dword_1CBB88, HistoryCsvNames, sprintf_, strcat_, strcpy_, strlen_
 extern BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, DrawShapeBlended, ResetClipWindow, Random32
 extern LoadFileAlloc, UnpackShared, UnpackedSize, ConvertArtXY, ConvertArtKeepPos, DrawShadowRect, SetScreenTarget, MusicEnabled
 extern LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, ShadeShape
@@ -657,7 +657,7 @@ DrawHistoryScreen:
 .6:
         mov eax, dword [byte ebp-04h]
         mov edi, dword [nosplit eax*8+str_E_BuildHistoryList]
-        mov eax, dword [nosplit eax*8+dword_16D508]
+        mov eax, dword [nosplit eax*8+HistoryEntries]
         sub eax, byte 28h
         push dword [dword_1CB0AC]
         mov dword [byte ebp-08h], eax
@@ -675,7 +675,7 @@ DrawHistoryScreen:
         call BlitArt
         mov eax, dword [byte ebp-04h]
         add esp, byte 0Ch
-        cmp byte [dword eax+byte_16D5DC], 1
+        cmp byte [dword eax+HistoryTeamFlags], 1
         jne short .7
         mov eax, dword [dword_1CB0C8]
         movsx edx, word [byte eax+0Eh]
@@ -906,7 +906,7 @@ FindHistoryTeam:
         mov ecx, eax
         xor eax, eax
 .1:
-        movzx edx, byte [dword eax+byte_16D5DC]
+        movzx edx, byte [dword eax+HistoryTeamFlags]
         cmp edx, dword [dword_1CB088]
         jne short .6
         xor ebx, ebx
@@ -985,7 +985,7 @@ BuildHistoryList:
         mov edi, 28h
         mov dword [byte ebp+07Eh], eax
         add eax, edi
-        mov edx, dword [nosplit esi*8+dword_16D508]
+        mov edx, dword [nosplit esi*8+HistoryEntries]
         mov dword [byte ebp-03Ah], eax
         mov eax, edx
         sub eax, edi
@@ -1058,8 +1058,8 @@ BuildHistoryList:
 .2:
         cmp esi, ecx
         je near .15
-        mov al, byte [dword esi+byte_16D5DC]
-        cmp al, byte [dword ecx+byte_16D5DC]
+        mov al, byte [dword esi+HistoryTeamFlags]
+        cmp al, byte [dword ecx+HistoryTeamFlags]
         jne near .15
         mov eax, ecx
         shl eax, 3
@@ -1075,14 +1075,14 @@ BuildHistoryList:
         mov ebx, dword [dword eax+str_E_BuildHistoryList]
         cmp ebx, dword [byte ebp+046h]
         jle near .8
-        cmp edx, dword [dword eax+dword_16D508]
+        cmp edx, dword [dword eax+HistoryEntries]
         jle short .5
         lea ebx, [edi+edi]
         mov dword [byte ebp+046h], ebx
         mov ebx, edx
         sub ebx, dword [byte ebp+046h]
         mov dword [byte ebp+046h], ebx
-        mov ebx, dword [dword eax+dword_16D508]
+        mov ebx, dword [dword eax+HistoryEntries]
         cmp ebx, dword [byte ebp+046h]
         jle short .5
         mov eax, dword [dword eax+str_E_BuildHistoryList]
@@ -1091,7 +1091,7 @@ BuildHistoryList:
         jle short .3
         mov dword [byte ebp-02Ah], eax
 .3:
-        mov eax, dword [nosplit ecx*8+dword_16D508]
+        mov eax, dword [nosplit ecx*8+HistoryEntries]
         add eax, edi
         cmp eax, dword [byte ebp-01Eh]
         jle near .15
@@ -1102,16 +1102,16 @@ BuildHistoryList:
         mov eax, ecx
         shl eax, 3
         mov dword [byte ebp+062h], eax
-        cmp edx, dword [dword eax+dword_16D508]
+        cmp edx, dword [dword eax+HistoryEntries]
         jge short .7
         lea eax, [edi+edi]
         lea ebx, [edx+eax]
         mov eax, dword [byte ebp+062h]
-        mov eax, dword [dword eax+dword_16D508]
+        mov eax, dword [dword eax+HistoryEntries]
         cmp eax, ebx
         jge short .7
         mov eax, dword [byte ebp+062h]
-        mov eax, dword [dword eax+dword_16D508]
+        mov eax, dword [dword eax+HistoryEntries]
         sub eax, edi
         mov dword [byte ebp+052h], eax
         mov eax, dword [byte ebp-06h]
@@ -1129,7 +1129,7 @@ BuildHistoryList:
 .7:
         mov eax, ecx
         shl eax, 3
-        cmp edx, dword [dword eax+dword_16D508]
+        cmp edx, dword [dword eax+HistoryEntries]
         jne near .15
         mov ebx, edx
         mov eax, dword [dword eax+str_E_BuildHistoryList]
@@ -1154,12 +1154,12 @@ BuildHistoryList:
         mov ebx, dword [dword eax+str_E_BuildHistoryList]
         cmp ebx, dword [byte ebp+046h]
         jge near .13
-        cmp edx, dword [dword eax+dword_16D508]
+        cmp edx, dword [dword eax+HistoryEntries]
         jge short .10
         lea ebx, [edi+edi]
         add ebx, edx
         mov dword [byte ebp+046h], ebx
-        mov ebx, dword [dword eax+dword_16D508]
+        mov ebx, dword [dword eax+HistoryEntries]
         cmp ebx, dword [byte ebp+046h]
         jge short .10
         mov eax, dword [dword eax+str_E_BuildHistoryList]
@@ -1168,7 +1168,7 @@ BuildHistoryList:
         jge short .9
         mov dword [byte ebp+016h], eax
 .9:
-        mov eax, dword [nosplit ecx*8+dword_16D508]
+        mov eax, dword [nosplit ecx*8+HistoryEntries]
         sub eax, edi
         cmp eax, dword [byte ebp+022h]
         jge near .15
@@ -1178,17 +1178,17 @@ BuildHistoryList:
         mov eax, ecx
         shl eax, 3
         mov dword [byte ebp+066h], eax
-        cmp edx, dword [dword eax+dword_16D508]
+        cmp edx, dword [dword eax+HistoryEntries]
         jle short .12
         mov ebx, edx
         lea eax, [edi+edi]
         sub ebx, eax
         mov eax, dword [byte ebp+066h]
-        mov eax, dword [dword eax+dword_16D508]
+        mov eax, dword [dword eax+HistoryEntries]
         cmp eax, ebx
         jle short .12
         mov eax, dword [byte ebp+066h]
-        mov eax, dword [dword eax+dword_16D508]
+        mov eax, dword [dword eax+HistoryEntries]
         add eax, edi
         mov dword [byte ebp+05Eh], eax
         mov eax, dword [byte ebp+03Ah]
@@ -1206,7 +1206,7 @@ BuildHistoryList:
 .12:
         mov eax, ecx
         shl eax, 3
-        cmp edx, dword [dword eax+dword_16D508]
+        cmp edx, dword [dword eax+HistoryEntries]
         jne near .15
         lea ebx, [edx+edi]
         mov eax, dword [dword eax+str_E_BuildHistoryList]
@@ -1223,13 +1223,13 @@ BuildHistoryList:
         cmp eax, dword [byte ebp+07Eh]
         jne near .15
         mov eax, dword [byte ebp+06Ah]
-        cmp edx, dword [dword eax+dword_16D508]
+        cmp edx, dword [dword eax+HistoryEntries]
         jle short .14
         mov ebx, edx
         lea eax, [edi+edi]
         sub ebx, eax
         mov eax, dword [byte ebp+06Ah]
-        mov eax, dword [dword eax+dword_16D508]
+        mov eax, dword [dword eax+HistoryEntries]
         cmp eax, ebx
         jle short .14
         mov eax, dword [byte ebp+07Eh]
@@ -1237,22 +1237,22 @@ BuildHistoryList:
         dec eax
         mov dword [byte ebp-02Ah], eax
         mov eax, dword [byte ebp+06Ah]
-        mov eax, dword [dword eax+dword_16D508]
+        mov eax, dword [dword eax+HistoryEntries]
         add eax, edi
         jmp near .4
 .14:
         mov eax, ecx
         shl eax, 3
-        cmp edx, dword [dword eax+dword_16D508]
+        cmp edx, dword [dword eax+HistoryEntries]
         jge short .15
         lea ebx, [edi+edi]
         add ebx, edx
         mov dword [byte ebp+046h], ebx
-        mov ebx, dword [dword eax+dword_16D508]
+        mov ebx, dword [dword eax+HistoryEntries]
         cmp ebx, dword [byte ebp+046h]
         jge short .15
         mov ebx, dword [byte ebp+07Eh]
-        mov eax, dword [dword eax+dword_16D508]
+        mov eax, dword [dword eax+HistoryEntries]
         sub ebx, dword [byte ebp+07Ah]
         sub eax, edi
         inc ebx
@@ -1701,7 +1701,7 @@ ExportHistoryCsv:
         mov eax, 0F5h
         call OpenDataLibrary
         mov eax, edx
-        mov edx, dword [nosplit eax*4+off_16D5F7]
+        mov edx, dword [nosplit eax*4+HistoryCsvNames]
         lea eax, [byte ebp-050h]
         call strcpy_
         mov edx, str_CSV
@@ -2603,7 +2603,7 @@ DrawHistoryTrophy:
         shl eax, 3
         cmp ebx, byte 1Ah
         jne short .10
-        mov ebx, dword [dword eax+dword_16D508]
+        mov ebx, dword [dword eax+HistoryEntries]
         sub ebx, byte 4
         mov eax, dword [dword eax+str_E_BuildHistoryList]
         push ebx
@@ -2612,7 +2612,7 @@ DrawHistoryTrophy:
         push dword [dword edx+dword_1CB06C]
         jmp short .11
 .10:
-        mov ebx, dword [dword eax+dword_16D508]
+        mov ebx, dword [dword eax+HistoryEntries]
         sub ebx, byte 4
         mov eax, dword [dword eax+str_E_BuildHistoryList]
         push ebx

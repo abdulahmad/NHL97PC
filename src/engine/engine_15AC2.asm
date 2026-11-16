@@ -35,8 +35,8 @@ extern TargetPointObj, CameraSceneCenter, CameraSceneYaw, CameraSceneDist, Camer
 extern TargetVecX, TargetVecY, TargetVecZ, PassTargetAngle, PenaltyRecord, PlayerAssignPtrs, HmScore, AwScore
 extern ViewSizeIndex, GameSettings, GameOptionFlags, ScoreboardAngle, ObjectPositions, TargetPoints, ReplayPlaying, CameraStateRecords
 extern CameraStateRecords
-extern CameraStateRecords, CreaseBounds, GoalLineY, dword_1C95B0, dword_1C95B4
-extern dword_1C95BC, dword_1C95C4, TextAlign, TextColorTable, TextColor, DrawGlyphFn, ProjOffsetX, ProjOffsetY
+extern CameraStateRecords, CreaseBounds, GoalLineY, PanelArtLarge, ClockFontSmall
+extern ClockFontLarge, PanelArtSmall, TextAlign, TextColorTable, TextColor, DrawGlyphFn, ProjOffsetX, ProjOffsetY
 extern hmtmstruct, hypot_, DrawGlyph_494, OverlayPanelFuncs, ClockPanelFunc, PtrPuckTarget, PtrPuckState, PtrPuckOwner
 extern PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, F64_0p000333333, F64_1p2_UpdateCameraView, F64_neg0p000454545
 extern F64_neg0p000357143, F64_neg99p9, F64_0p785398, F64_0p0004, F64_3, F64_10, F64_8, F64_neg4
@@ -330,10 +330,10 @@ PrevVideoModeKey:
         call SetViewOrigin
         cmp dword [dword_16E468], 12Ch
         jge short .6
-        push dword [dword_1C95B4]
+        push dword [ClockFontSmall]
         jmp short .7
 .6:
-        push dword [dword_1C95BC]
+        push dword [ClockFontLarge]
 .7:
         call SelectFont
         add esp, byte 4
@@ -485,10 +485,10 @@ NextVideoModeKey:
         call SetViewOrigin
         cmp dword [dword_16E468], 12Ch
         jge short .6
-        push dword [dword_1C95B4]
+        push dword [ClockFontSmall]
         jmp short .7
 .6:
-        push dword [dword_1C95BC]
+        push dword [ClockFontLarge]
 .7:
         call SelectFont
         add esp, byte 4
@@ -618,10 +618,10 @@ DrawPanelArtScaled:
         rep movsd
         test eax, eax
         je short .1
-        mov ebx, dword [dword_1C95C4]
+        mov ebx, dword [PanelArtSmall]
         jmp short .2
 .1:
-        mov ebx, dword [dword_1C95B0]
+        mov ebx, dword [PanelArtLarge]
 .2:
         fld dword [byte ebp+01Ch]
         fcomp dword [F32_0p5]
@@ -2800,7 +2800,7 @@ DrawGameClock:
         add esp, byte 4
         cmp dword [dword_16E468], 12Ch
         jge short .3
-        push dword [dword_1C95B4]
+        push dword [ClockFontSmall]
         jmp short .4
 .3:
         push dword [ClockShown]
@@ -2906,7 +2906,7 @@ DrawPowerPlayClock:
         add esp, byte 4
         cmp dword [dword_16E468], 12Ch
         jge short .2
-        push dword [dword_1C95BC]
+        push dword [ClockFontLarge]
         jmp short .3
 .2:
         push dword [ClockShown]
@@ -4582,10 +4582,10 @@ SetOverlayFont:
         push edx
         cmp dword [dword_16E468], 12Ch
         jge short .1
-        mov eax, dword [dword_1C95B4]
+        mov eax, dword [ClockFontSmall]
         jmp short .2
 .1:
-        mov eax, dword [dword_1C95BC]
+        mov eax, dword [ClockFontLarge]
 .2:
         cmp eax, dword [TextColor]
         je short .3

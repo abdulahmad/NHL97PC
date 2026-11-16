@@ -5,7 +5,7 @@ section s_C5F81 progbits alloc exec nowrite align=1
 extern str_00007, str_ON00, str_OF00, str_MA00, str_AUOO, str_5000, str_1000, str_2000
 extern str_NA00, str_10IL, str_102L, str_103L, str_ONDL, str_OFDL, str_MADL, str_AUDL
 extern str_50DL, str_20DL, str_NADL, str_OFF, str_LX002, str_LC002, str_LX0D2, str_LC0D2
-extern str_BALL, SeasonCreated, PlayoffOptionFlags, PlayoffStarted, byte_1C6040, dword_16D664, MenuScreenBitmap, GameSettings
+extern str_BALL, SeasonCreated, PlayoffOptionFlags, PlayoffStarted, byte_1C6040, SeasonMenuSoundOn, MenuScreenBitmap, GameSettings
 extern GameOptionFlags, PlayoffOptionBits, dword_1C5DE4, dword_1CBB94, dword_1CBB98, dword_1CBBA4, dword_1CBBB4, dword_1CBBC4
 extern dword_1CBBD4, dword_1CBBE4, dword_1CBBE8, dword_1CBBEC, dword_1CBBF0, dword_1CBBF4, dword_1CBC04, dword_1CBC14
 extern dword_1CBC1C, dword_1CBC28, dword_1CBC2C, dword_1CBC32, dword_1CBC36, dword_1CBC3A, dword_1CBC3E, dword_1CBC42
@@ -71,19 +71,19 @@ SeasonMenuSound:
         inc esi
         cmp esi, byte 0Ah
         jle short .1
-        cmp dword [dword_16D664], byte 0
+        cmp dword [SeasonMenuSoundOn], byte 0
         jne short .5
         test edi, edi
         je short .5
         mov eax, 309h
-        mov dword [dword_16D664], 1
+        mov dword [SeasonMenuSoundOn], 1
         call PlaySfx
 .5:
-        cmp dword [dword_16D664], byte 0
+        cmp dword [SeasonMenuSoundOn], byte 0
         je short .6
         test edi, edi
         jne short .6
-        mov dword [dword_16D664], edi
+        mov dword [SeasonMenuSoundOn], edi
         call StopAllSfx
 .6:
         leave

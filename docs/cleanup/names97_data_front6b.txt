@@ -1,0 +1,2 @@
+dword_1C94D8 LinkSetupSettings {confidence=low} link settings data
+word_16D2A6 LinkSetupSoundIndex {confidence=low} link setup sound index

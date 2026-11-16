@@ -20,7 +20,7 @@ extern F32_64_DetailLevelMenu, F32_81_DetailLevelMenu, F32_98_DetailLevelMenu, F
 extern F32_36_DetailLevelMenu, F32_53_DetailLevelMenu, F32_87_DetailLevelMenu, F32_104_DetailLevelMenu, F32_121_DetailLevelMenu, F32_37, F32_18, F32_15_DetailLevelMenu
 extern F32_63, F32_0p005_DetailLevelMenu, F32_0p003125_DetailLevelMenu, F32_55_DetailLevelMenu, F32_40_DetailLevelMenu, F32_100_DetailLevelMenu, F32_85_DetailLevelMenu, F32_25_DetailLevelMenu
 extern ClockShown, InGameMenuRequest, ShowFrameRate, ShowStands, ShowRink, ShowCenterLogo, ShowOverlay, ShowCrowd
-extern ShowBenches, CameraScenesEnabled, dword_16D2BC, dword_16DA9C, dword_16E30C, mousex, mousey, dword_16E464
+extern ShowBenches, CameraScenesEnabled, InIntermission, dword_16DA9C, dword_16E30C, mousex, mousey, dword_16E464
 extern dword_16E468, QuantizePalette, DrawDestPitch, VideoModePanelMode, VideoModeChanged, GameObjects, ActiveCameraScene, ViewSizeChanged
 extern FadeDone, GameSettings, AudioOptions, GameOptionFlags, ArenaArchive, ObjectPositions, ReplayFrames, PlayerNamesOn
 extern dword_1C5DE4, dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dword_1CEF98, dword_1CEF9C, dword_1CEFA0
@@ -2328,7 +2328,7 @@ RunIntermission:
         mov eax, 3
         call FadeOut
         call ResetForIntermission
-        mov dword [dword_16D2BC], 1
+        mov dword [InIntermission], 1
         mov eax, dword [ShowBenches]
         mov dword [ShowBenches], 0
         mov dword [byte ebp-04h], eax

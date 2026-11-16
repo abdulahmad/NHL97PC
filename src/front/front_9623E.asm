@@ -10,7 +10,7 @@ extern str_SW00, str_Roster2, str_ELPopupMenu, str_ELPopupRegions, str_1TOP2, st
 extern str_2BOT2, str_3BOT2, str_Punct4, str_SL02d2, str_BTTM2, str_POWR, str_CHEK, str_CS
 extern str_SS5, str_SS6, str_TB05, str_TB04, str_TB03, str_TB02, str_TB01, str_TB00
 extern str_PB022, str_PB002, str_PB03, str_PB012, str_AR02d, str_FART, str_NOFACEFSH, str_FRR0
-extern LinesArtDigits, byte_1C6040, str_Punct_LoadLinesArt, LinesSoundPlayed, dword_16D2B8, MenuScreenBitmap, GameOptionFlags, PlayoffTeams
+extern LinesArtDigits, byte_1C6040, str_Punct_LoadLinesArt, LinesSoundPlayed, LinesChangedInGame, MenuScreenBitmap, GameOptionFlags, PlayoffTeams
 extern dword_1C5DE4, dword_1C5DE8, LinesGridX, LinesGridHeaderArt, LinesGridHeaderPtr, LinesGridLabelPtr, LinesForwardList, LinesForwardListShapes
 extern LinesForwardGrid, LinesDefenceList, LinesDefenceListShapes, LinesDefenceGrid, LinesHighlightShape, LinesForwardShape, LinesForwardStatKeys
 extern LinesForwardStatKeys, LinesIntroShapes
@@ -4120,7 +4120,7 @@ EditLinesGridScreen_E82:
         call DrawForwardLines
         jmp short EditLinesGridScreen_FA7.70
 EditLinesGridScreen_FA7:
-        cmp dword [dword_16D2B8], byte 0
+        cmp dword [LinesChangedInGame], byte 0
         jne short EditLinesGridScreen_1010
         cmp dword [byte ebp+07Eh], byte 0
         jl short EditLinesGridScreen_1010
@@ -6565,7 +6565,7 @@ DrawLinesLabel:
         push byte 1
         call DrawTextAligned
         add esp, byte 14h
-        cmp dword [dword_16D2B8], byte 0
+        cmp dword [LinesChangedInGame], byte 0
         je short .11
         mov edx, 0FFFFFFFFh
         jmp short .12
@@ -9416,7 +9416,7 @@ BuildAutoLines:
         lea eax, [byte ebp-05Eh]
         mov edx, edi
         call qsort_
-        cmp dword [dword_16D2B8], byte 0
+        cmp dword [LinesChangedInGame], byte 0
         jne near .31
         xor edx, edx
         jmp short .17
@@ -9558,7 +9558,7 @@ BuildAutoLines:
         mov edx, edi
         call qsort_
 .37:
-        cmp dword [dword_16D2B8], byte 0
+        cmp dword [LinesChangedInGame], byte 0
         jne near .55
         xor edx, edx
         jmp short .39

@@ -6,10 +6,10 @@ extern str_00004, str_HOM1, str_HOM2, str_AWY1, str_AWY2, str_Menu3, str_03dB, s
 extern str_011R3, str_012R2, str_013R2, str_11SR3, str_12SR2, str_13SR2, str_SW002, str_SWL2
 extern str_SWL3, str_01LL, str_02LL, str_03LL, str_01LR, str_02LR, str_03LR, str_01RL
 extern str_02RL, str_03RL, str_01RR, str_02RR, str_03RR, str_012R013R014R12SR13SR14SRS, str_SW00SW01SW02SW03SW04SW05S, str_1
-extern str_0001, str_0002, TeamSelectSparkleCount, dword_16D23C, dword_16D250, dword_16D76C, dword_16DA9C, GameOptionFlags
+extern str_0001, str_0002, TeamSelectSparkleCount, PanelTeamNameShift, PanelTeamBase, dword_16D76C, dword_16DA9C, GameOptionFlags
 extern TeamSelectFlags, SeasonFileName, ExhibitionData, HomePanelTick, TeamSelectSoundOn, TeamSelectDrawn, HomePanelShapes, AwayPanelShapes
 extern AwayPanelTick, TeamSelectValues, HomePanelLayer, AwayPanelLayer, TeamSelectItems, TeamSelectTargets, HomePanelPos, AwayPanelPos
-extern IndexSoundMode, dword_1C93D4, dword_1C93D8, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
+extern IndexSoundMode, IndexSoundPlayed, IndexDialogShapeMid, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
 extern PickIndexEntryScreen_4EE, rand_, sprintf_, BlitShape2, BlitArt, PresentScreen, FindShape, FindShapeList
 extern SetScreenTarget, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFile, DrawScreenBackground
 extern FadeInScreen, ShowScreen, ExitScreen, SetRegionRect, DrawTeamLogoBanner, DrawProgressBar, WipeScreen, ShowLinkMessage
@@ -101,11 +101,11 @@ DrawHomeTeamPanel:
         call DrawArt
         mov word [HomePanelTeam], si
         imul esi, dword 194Fh
-        mov eax, dword [dword_16D250]
+        mov eax, dword [PanelTeamBase]
         add esp, byte 0Ch
         add eax, byte 7
         push byte 0
-        sub eax, dword [dword_16D23C]
+        sub eax, dword [PanelTeamNameShift]
         push eax
         push dword 8Fh
         call CreateBitmap
@@ -113,7 +113,7 @@ DrawHomeTeamPanel:
         push eax
         mov edi, eax
         call SetDrawTarget
-        mov eax, dword [dword_16D23C]
+        mov eax, dword [PanelTeamNameShift]
         add esp, byte 4
         neg eax
         push eax
@@ -136,10 +136,10 @@ DrawHomeTeamPanel:
         mov eax, dword [byte ebp-04h]
         mov ecx, 6
         mov ebx, 8Fh
-        mov edx, dword [nosplit esi*4+dword_16D23C]
+        mov edx, dword [nosplit esi*4+PanelTeamNameShift]
         push byte 1Ah
         movzx eax, byte [esi+eax]
-        sub edx, dword [dword_16D23C]
+        sub edx, dword [PanelTeamNameShift]
         push eax
         mov eax, ebx
         inc esi
@@ -155,7 +155,7 @@ DrawHomeTeamPanel:
         call SetDrawTarget
         add esp, byte 4
 .6:
-        push dword [dword_16D23C]
+        push dword [PanelTeamNameShift]
         push byte 50h
 DrawHomeTeamPanel_1C9:
         push dword [byte edi+02Ch]
@@ -257,11 +257,11 @@ DrawAwayTeamPanel:
         call DrawArt
         mov eax, dword [byte ebp-04h]
         mov word [AwayPanelTeam], ax
-        mov eax, dword [dword_16D250]
+        mov eax, dword [PanelTeamBase]
         add esp, byte 0Ch
         add eax, byte 7
         push byte 0
-        sub eax, dword [dword_16D23C]
+        sub eax, dword [PanelTeamNameShift]
         push eax
         push dword 8Fh
         call CreateBitmap
@@ -269,7 +269,7 @@ DrawAwayTeamPanel:
         push eax
         mov edi, eax
         call SetDrawTarget
-        mov eax, dword [dword_16D23C]
+        mov eax, dword [PanelTeamNameShift]
         add esp, byte 4
         neg eax
         push eax
@@ -291,9 +291,9 @@ DrawAwayTeamPanel:
         mov ebx, 8Fh
         push byte 1Ah
         movzx eax, byte [dword esi+eax+0E4Fh]
-        mov edx, dword [nosplit esi*4+dword_16D23C]
+        mov edx, dword [nosplit esi*4+PanelTeamNameShift]
         push eax
-        sub edx, dword [dword_16D23C]
+        sub edx, dword [PanelTeamNameShift]
         xor eax, eax
         inc esi
         call DrawProgressBar
@@ -308,7 +308,7 @@ DrawAwayTeamPanel:
         call SetDrawTarget
         add esp, byte 4
 .6:
-        push dword [dword_16D23C]
+        push dword [PanelTeamNameShift]
         push dword 1A2h
         jmp near DrawHomeTeamPanel_1C9
 ;-----------------------------------------------------------------------------
@@ -1311,25 +1311,25 @@ IndexScreenSound:
         mov ebx, 3
         cdq
         idiv ebx
-        push dword [nosplit edx*4+dword_1C93D8]
+        push dword [nosplit edx*4+IndexDialogShapeMid]
         call BlitShape2
         mov edx, 1
         add esp, byte 4
 .1:
         test edx, edx
         je short .2
-        cmp dword [dword_1C93D4], byte 0
+        cmp dword [IndexSoundPlayed], byte 0
         jne short .2
         mov eax, 309h
         call PlaySfx
-        mov dword [dword_1C93D4], 1
+        mov dword [IndexSoundPlayed], 1
 .2:
         test edx, edx
         jne short .3
-        cmp dword [dword_1C93D4], byte 0
+        cmp dword [IndexSoundPlayed], byte 0
         je short .3
         call StopAllSfx
-        mov dword [dword_1C93D4], edx
+        mov dword [IndexSoundPlayed], edx
 .3:
         pop edx
         pop ecx

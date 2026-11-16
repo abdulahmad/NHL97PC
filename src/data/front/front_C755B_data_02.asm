@@ -2,15 +2,15 @@
 bits 32
 %include "hockey.inc"
 section s_16D668 progbits alloc noexec write align=1
-global dword_16D668, dword_16D66C, dword_16D670, dword_16D674, dword_16D678, dword_16D67C, dword_16D680, str_Punct_InitRosterScreen
+global RosterScreenOpen, RosterData, dword_16D670, dword_16D674, dword_16D678, dword_16D67C, dword_16D680, str_Punct_InitRosterScreen
 global str_X_InitRosterScreen, str_7_SetupRosterLists, str_I_SetupRosterLists, str_Punct_DrawRosterList, str_X_DrawRosterList, dword_16D6AC, str_X_SetupRosterLists, dword_16D6B4
 global str_X_ShowRosterLogo, dword_16D6BC, dword_16D6C0, dword_16D6E8, dword_16D6EC, dword_16D6F0, dword_16D6F4, dword_16D6F8
 global dword_16D6FC, dword_16D700, dword_16D704, dword_16D708, dword_16D71C, dword_16D720, dword_16D724, dword_16D728
 global dword_16D73C, dword_16D740, dword_16D744, dword_16D748, dword_16D74C, dword_16D750, dword_16D754, dword_16D760
 global dword_16D764, word_16D6C4, word_16D6D2, word_16D6E4
-dword_16D668:
+RosterScreenOpen:
         db 01h,00h,00h,00h
-dword_16D66C:
+RosterData:
         db 00h,00h,00h,00h
 dword_16D670:
         db 00h,00h,00h,00h

@@ -6,9 +6,9 @@ global byte_1CAEC8, dword_1CAA00, dword_1CAB00, dword_1CAC00, dword_1CACDC, dwor
 global dword_1CAD48, dword_1CAE24, dword_1CAE28, dword_1CAE2C, dword_1CAE34, dword_1CAE6C, dword_1CAE70, dword_1CAE74
 global dword_1CAE78, dword_1CAE7C, dword_1CAE80, dword_1CAE84, dword_1CAE88, dword_1CAE8C, dword_1CAE90, dword_1CAE94
 global dword_1CAE98, dword_1CAE9C, dword_1CAEA0, dword_1CAEA4, dword_1CAEA8, dword_1CAEAC, dword_1CAEB0, dword_1CAEB4
-global dword_1CAEB8, dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, unk_1CA9DC, unk_1CAADC, unk_1CABDC, unk_1CACE8
+global dword_1CAEB8, dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, RatingsScrollBar, unk_1CAADC, unk_1CABDC, unk_1CACE8
 global unk_1CACF4, unk_1CAD00, unk_1CAD24
-unk_1CA9DC:
+RatingsScrollBar:
         resb 36
 dword_1CAA00:
         resb 220

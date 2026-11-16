@@ -9,7 +9,7 @@ global str_Upk, str_Exrec, str_Seasrec, str_Plyrec, str_Urating, str_Uso, str_Uc
 global str_TITL8, str_UL2d, str_UL08, str_UL09, str_UL10, str_UL00, str_UL01, str_UL02
 global str_UL04, str_UL05, str_UL06, str_ULA0, str_ULA1, str_ULA2, str_ULA3, str_ULA4
 global str_ULA5, str_D02d2, str_Logbook, str_Logname, str_Ulstreak, str_Uname, str_Uopp, str_Upts
-global str_Urate, str_Usort, str_Ustreak, str_Uteam, str_D_ParseUserName, str_S_DrawUserName, unk_16661B, unk_166648
+global str_Urate, str_Usort, str_Ustreak, str_Uteam, str_D_ParseUserName, str_S_DrawUserName, UserListFileSeason, UserListFilePlayoff
 str_D_ParseUserName:
         db 025h,064h,00h
 str_S_DrawUserName:
@@ -40,14 +40,14 @@ str_08d:
         db 025h,030h,038h,064h,00h
 str_NOUSER:
         db 03Ch,04Eh,04Fh,020h,055h,053h,045h,052h,03Eh,00h
-unk_16661B:
+UserListFileSeason:
         db 03Ch,049h,04Eh,047h,045h,04Eh,020h,041h,04Eh,056h,0C4h,04Eh,044h,041h,052h,045h
         db 03Eh,00h
 str_KEINBENUTZER:
         db 03Ch,04Bh,045h,049h,04Eh,020h,042h,045h,04Eh,055h,054h,05Ah,045h,052h,03Eh,00h
 str_NEWUSER:
         db 03Ch,04Eh,045h,057h,020h,055h,053h,045h,052h,03Eh,00h
-unk_166648:
+UserListFilePlayoff:
         db 03Ch,04Eh,059h,020h,041h,04Eh,056h,0C4h,04Eh,044h,041h,052h,045h,03Eh,00h
 str_NEUERBENUTZER:
         db 03Ch,04Eh,045h,055h,045h,052h,020h,042h,045h,04Eh,055h,054h,05Ah,045h,052h,03Eh

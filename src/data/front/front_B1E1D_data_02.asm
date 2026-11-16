@@ -6,46 +6,46 @@ extern str_Ana, str_Bos, str_Buf, str_Cal, str_Chi, str_Col, str_Dal, str_Det
 extern str_Edm, str_Fla, str_Har, str_LA, str_Mon, str_NJ, str_NYI, str_NYR
 extern str_Ott, str_Phi, str_Pho, str_Pit, str_StL, str_SJ, str_TB, str_Tor
 extern str_Van, str_Was
-global str_None, byte_16D5DC, dword_16D440, dword_16D444, dword_16D448, dword_16D44C, dword_16D454, dword_16D458
-global dword_16D45C, dword_16D470, dword_16D484, dword_16D4B0, dword_16D4D4, dword_16D500, str_E_BuildHistoryList, dword_16D508
-global dword_16D664, off_16D5F7, word_16D450
-dword_16D440:
+global str_None, HistoryTeamFlags, UserNameIndex, UserRecordsTop, UserRecordsFirst, UserRecordsRow, RatingsColumn, RatingsGoalieMode
+global RatingsColumnLimit, RatingsColumnBase, RatingsHeaderText, GoalieRatingsHeaderText, RatingsLabelText, ReplayListTop, str_E_BuildHistoryList, HistoryEntries
+global SeasonMenuSoundOn, HistoryCsvNames, UserRecordsSoundOn
+UserNameIndex:
         db 00h,00h,00h,00h
-dword_16D444:
+UserRecordsTop:
         db 00h,00h,00h,00h
-dword_16D448:
+UserRecordsFirst:
         db 00h,00h,00h,00h
-dword_16D44C:
+UserRecordsRow:
         db 00h,00h,00h,00h
-word_16D450:
+UserRecordsSoundOn:
         db 00h,00h,00h,00h
-dword_16D454:
+RatingsColumn:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16D458:
+RatingsGoalieMode:
         db 01h,00h,00h,00h
-dword_16D45C:
+RatingsColumnLimit:
         db 02h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h
         db 02h,00h,00h,00h
-dword_16D470:
+RatingsColumnBase:
         db 00h,00h,00h,00h,02h,00h,00h,00h,05h,00h,00h,00h,09h,00h,00h,00h
         db 0Ch,00h,00h,00h
-dword_16D484:
+RatingsHeaderText:
         db 040h,01h,00h,00h,09Bh,01h,00h,00h,09Ch,01h,00h,00h,09Dh,01h,00h,00h
         db 049h,01h,00h,00h,04Ah,01h,00h,00h,047h,01h,00h,00h,048h,01h,00h,00h
         db 06Eh,00h,00h,00h,02Bh,01h,00h,00h,0A0h,00h,00h,00h
-dword_16D4B0:
+GoalieRatingsHeaderText:
         db 040h,01h,00h,00h,041h,01h,00h,00h,042h,01h,00h,00h,043h,01h,00h,00h
         db 045h,01h,00h,00h,046h,01h,00h,00h,044h,01h,00h,00h,02Bh,01h,00h,00h
         db 059h,01h,00h,00h
-dword_16D4D4:
+RatingsLabelText:
         db 09Ah,01h,00h,00h,09Bh,01h,00h,00h,09Ch,01h,00h,00h,09Dh,01h,00h,00h
         db 02Bh,01h,00h,00h,04Eh,01h,00h,00h,048h,01h,00h,00h,046h,01h,00h,00h
         db 064h,02h,00h,00h,045h,01h,00h,00h,058h,02h,00h,00h
-dword_16D500:
+ReplayListTop:
         db 0FFh,0FFh,0FFh,0FFh
 str_E_BuildHistoryList:
         db 065h,00h,00h,00h
-dword_16D508:
+HistoryEntries:
         db 033h,01h,00h,00h,00h,02h,00h,00h,0CDh,00h,00h,00h,0C4h,01h,00h,00h
         db 0D4h,00h,00h,00h,0B6h,00h,00h,00h,084h,00h,00h,00h,078h,01h,00h,00h
         db 0F5h,00h,00h,00h,0E2h,00h,00h,00h,01h,01h,00h,00h,02Dh,01h,00h,00h
@@ -60,10 +60,10 @@ dword_16D508:
         db 085h,01h,00h,00h,0B7h,01h,00h,00h,0C4h,00h,00h,00h,06Ah,00h,00h,00h
         db 07Ch,00h,00h,00h,0DCh,01h,00h,00h,00h,01h,00h,00h,0F0h,01h,00h,00h
         db 0E3h,00h,00h,00h
-byte_16D5DC:
+HistoryTeamFlags:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,01h,01h,01h
         db 00h,01h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-off_16D5F7:
+HistoryCsvNames:
         dd str_Ana
         dd str_Bos
         dd str_Buf
@@ -92,5 +92,5 @@ off_16D5F7:
         dd str_Was
 str_None:
         db 04Eh,06Fh,06Eh,065h,00h
-dword_16D664:
+SeasonMenuSoundOn:
         db 00h,00h,00h,00h

@@ -8,12 +8,12 @@ extern str_TITL2, str_GMT1, str_BOTM, str_LB00, str_LB07, str_MB02, str_MB01, st
 extern str_MB06, str_MB05, str_MB04, str_MB10, str_MB09, str_MB08, str_BACK4, str_SY02d
 extern str_SY00, str_SY01, str_SY02, str_SY03, str_SY04, str_SY05, str_SY06, str_GL00
 extern str_GR00, str_Mous3, str_DATAREPLAYNDX, FrontEndExit, MenuOptionFlags, LinkMenuCursor, IndexMenuCursor, PlayoffUserIndex
-extern byte_1C6040, MainMenuAnimEnd, MainMenuAnimDone, StatsMenuDrawn, byte_1CA9D8, byte_1CBB8C, MainMenuSelection, MainMenuFirstShow
+extern byte_1C6040, MainMenuAnimEnd, MainMenuAnimDone, StatsMenuDrawn, StatsMenuChoice, byte_1CBB8C, MainMenuSelection, MainMenuFirstShow
 extern MainMenuAnimStop, StatsMenuMode, LinkTransferReady, dword_16D76C, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags
 extern SeasonDefaultUser, GameRecordIds, dword_1C5DE0, dword_1C5DE4, dword_1C8268, MainMenuAnimFrames, MainMenuAnimTimer, MainMenuAnimFrame
 extern MainMenuAnimStart, MainMenuAnimRate, MainMenuAnimShape, MainMenuAnimMode, MainMenuAnimX, MainMenuAnimY, MainMenuAnimArt, MainMenuAnimBack
 extern MainMenuAnimLogo, MainMenuAnimTitle, MainMenuAnimCursor, MainMenuAnimItems, MainMenuAnimPanel, MainMenuAnimSprites, MainMenuButtons, MainMenuChoice
-extern MainMenuAnimTick, MainMenuCursor, MainMenuWindow, MainMenuAnimRunning, MainMenuResult, MainMenuScreenArt, SeasonMenuExit, dword_1C94E8
+extern MainMenuAnimTick, MainMenuCursor, MainMenuWindow, MainMenuAnimRunning, MainMenuResult, MainMenuScreenArt, SeasonMenuExit, LinkScreensDone
 extern fclose_, fopen_, fputc_, jpt_845CC, memcpy_, memset_, rand_, sprintf_
 extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, bcopy, BlitConverted
 extern BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, ConvertArtNew, Random32
@@ -1512,7 +1512,7 @@ RunGameScreens:
         cmp ebx, byte 4
         jne short .8
         call TeamSelectScreen
-        mov dword [dword_1C94E8], 1
+        mov dword [LinkScreensDone], 1
         jmp short .7
 .5:
         mov eax, 5
@@ -2083,7 +2083,7 @@ StatsMenuScreen:
         xor ecx, ecx
         mov eax, 8
         call RunMenu
-        mov byte [byte_1CA9D8], al
+        mov byte [StatsMenuChoice], al
         call RestoreMenuView
         cmp dword [byte ebp+062h], byte 0
         jne short .6

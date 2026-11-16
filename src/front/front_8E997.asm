@@ -17,7 +17,7 @@ extern dword_16CB7C, LangTextLoaded, LangTextHandle, LinkTransferReady, str_F_Ne
 extern SeasonUserTeam, GameOptionFlags, SeasonSlot, SeasonPhase, PlayoffRounds, SeasonActive, NewSeasonUserCount, SeasonDefaultUser
 extern SeasonRandomSeed, SeasonScheduleData, SeasonFileName, dword_1C5DE0, SeasonMenuExit, StandingsGoalsFor, SeasonSparkleShapes, StandingsTies
 extern SeasonMenuShapeLists, StandingsWins, StandingsGoalsAgainst, StandingsSortKey, SeasonSparkleSoundOn, SeasonMenuItems, StandingsBuffer, NewSeasonItems
-extern ExhibitionData, PlayoffTeamCount, PlayoffFormat, dword_1C94E8, jpt_8E977, jpt_8E987, memcpy_, memset_
+extern ExhibitionData, PlayoffTeamCount, PlayoffFormat, LinkScreensDone, jpt_8E977, jpt_8E987, memcpy_, memset_
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, BlitShape2
 extern BlitArt, BlitShape, BlitClippedY, PresentScreen, FindShape, Random32, DosFileInfo, FindShapeList
 extern SaveDataFileNew, SetScreenTarget, SeasonGameScreen, MusicEnabled, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
@@ -1703,7 +1703,7 @@ RunSeasonMenus:
         cmp edx, byte 0Eh
         jne short .15
         call ClearTeamInjuries
-        mov dword [dword_1C94E8], 1
+        mov dword [LinkScreensDone], 1
 .15:
         mov eax, edx
         pop edx

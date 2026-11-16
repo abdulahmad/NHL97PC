@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_16CFF8 progbits alloc noexec write align=1
 extern str_HAVEIT, str_WANTIT
-global TeamSelectSparkleCount, dword_16D23C, dword_16D250, off_16D254, off_16D258, TeamSelectArtBase
+global TeamSelectSparkleCount, PanelTeamNameShift, PanelTeamBase, ReplayIndexSendBuf, ReplayIndexRecvBuf, TeamSelectArtBase
 TeamSelectSparkleCount:
         db 00h,00h,00h,00h
 TeamSelectArtBase:
@@ -43,12 +43,12 @@ TeamSelectArtBase:
         db 035h,02h,00h,00h,047h,01h,00h,00h,09Ch,01h,00h,00h,047h,01h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_16D23C:
+PanelTeamNameShift:
         db 054h,01h,00h,00h,06Ch,01h,00h,00h,082h,01h,00h,00h,099h,01h,00h,00h
         db 0AEh,01h,00h,00h
-dword_16D250:
+PanelTeamBase:
         db 0C4h,01h,00h,00h
-off_16D254:
+ReplayIndexSendBuf:
         dd str_HAVEIT
-off_16D258:
+ReplayIndexRecvBuf:
         dd str_WANTIT

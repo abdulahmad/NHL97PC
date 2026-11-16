@@ -16,7 +16,7 @@ extern PlayoffColumns, LinkTransferReady, PlayoffTreeTimer, PlayoffDefaultTeams,
 extern dword_16DA9C, GameSettings, SeasonUserTeam, GameOptionFlags, SeasonSlot, SeasonDefaultUser, PlayoffRoundBits, PlayoffFileHandle
 extern PlayoffTeamNames, PlayoffTeams, PlayoffRandomSeed, dword_1C5DE0, SeasonMenuExit, ExhibitionData, PlayoffTreeSlotX, PlayoffTreeSlotY
 extern PlayoffShapeLists, PlayoffSetupShapes, PlayoffLogoArt, PlayoffTreeLayer, PlayoffTreeArt, PlayoffTreeData, PlayoffTreeLogos, PlayoffMenuBuffer
-extern PlayoffSetupArt, PlayoffFormat, PlayoffSparkleSoundOn, PlayoffNameFont, PlayoffSetupItems, PlayoffTeamFont, dword_1C94E8, EditLinesScreen_17F
+extern PlayoffSetupArt, PlayoffFormat, PlayoffSparkleSoundOn, PlayoffNameFont, PlayoffSetupItems, PlayoffTeamFont, LinkScreensDone, EditLinesScreen_17F
 extern EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA, EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D
 extern memcpy_, memset_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_
 extern BlitConverted, BlitShape2, BlitArt, BlitShape, BlitClippedY, PresentScreen, FindShape, DosFileInfo
@@ -2078,7 +2078,7 @@ RunPlayoffMenus:
         call SeasonGameScreen
         cmp eax, byte 1Ah
         je short .4
-        mov dword [dword_1C94E8], 1
+        mov dword [LinkScreensDone], 1
         mov eax, 0Eh
         jmp short .5
 .7:

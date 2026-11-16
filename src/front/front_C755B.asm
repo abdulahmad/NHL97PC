@@ -15,7 +15,7 @@ extern str_GRON, str_SLOF, str_SLON, str_GLOF, str_GLON, str_POB1, str_PBOF, str
 extern str_STSG, str_AN02d, str_CreatePlrMenu, str_CreatePlrRegion, str_00008, str_NAON, str_JNON, str_JNOF
 extern str_PBON, str_HEON, str_HEOF, str_WEON, str_WEOF, str_AGON, str_AGOF, str_Aiplayers
 extern str_Statplayers, str_Statgoalies, SeasonUserHuman, SeasonUserActive, SeasonUserLocked, SeasonCreated, PlayoffUserHuman, PlayoffUserActive
-extern PlayoffUserLocked, PlayoffStarted, byte_1C6040, byte_1CC240, dword_16D668, dword_16D66C, dword_16D670, dword_16D674
+extern PlayoffUserLocked, PlayoffStarted, byte_1C6040, byte_1CC240, RosterScreenOpen, RosterData, dword_16D670, dword_16D674
 extern dword_16D678, dword_16D67C, dword_16D680, str_Punct_InitRosterScreen, str_X_InitRosterScreen, str_7_SetupRosterLists, str_I_SetupRosterLists, str_Punct_DrawRosterList
 extern str_X_DrawRosterList, dword_16D6AC, str_X_SetupRosterLists, dword_16D6B4, str_X_ShowRosterLogo, dword_16D6BC, dword_16D6C0, dword_16DA9C
 extern GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, SeasonDefaultUser, PlayoffTeams, dword_1C5E74, dword_1CC18C
@@ -316,7 +316,7 @@ RosterScreen_3B9:
         test eax, eax
         je near RosterScreen_66C.29
 .7:
-        cmp dword [dword_16D668], byte 0
+        cmp dword [RosterScreenOpen], byte 0
         je short .8
         call FreeRosterScreen
 .8:
@@ -328,7 +328,7 @@ RosterScreen_3B9:
         je short .9
         call LoadRosterInfoAnim
 .9:
-        cmp dword [dword_16D668], byte 0
+        cmp dword [RosterScreenOpen], byte 0
         je short .10
         call InitRosterScreen
 .10:
@@ -805,7 +805,7 @@ LoadRosterInfoAnim:
         imul edx, eax, dword 194Fh
         cmp dword [dword_1CC208], byte 0
         jne short .2
-        mov esi, dword [dword_16D66C]
+        mov esi, dword [RosterData]
         add esi, 0DF4h
         jmp short .3
 .2:
@@ -1022,9 +1022,9 @@ LoadRosterData:
         imul eax, esi, dword 194Fh
         cmp dword [byte ebp-018h], byte 0
         jne short .3
-        cmp dword [dword_16D66C], byte 0
+        cmp dword [RosterData], byte 0
         je near .9
-        mov edx, dword [dword_16D66C]
+        mov edx, dword [RosterData]
         add edx, 0DF4h
         lea ecx, [edx+eax]
         mov eax, dword [dword_1CC2AC]
@@ -1358,7 +1358,7 @@ LoadRosterData:
         jl near .18
         cmp dword [byte ebp-018h], byte 0
         jne near .34
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         cmp word [eax], byte 0
         jle near .34
         xor edi, edi
@@ -1368,7 +1368,7 @@ LoadRosterData:
         jmp short .23
 .21:
         imul edx, edi, byte 38h
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         mov dword [byte ebp-08h], edx
         mov edx, dword [dword eax+0383C1h]
         imul eax, ebx, byte 38h
@@ -1396,7 +1396,7 @@ LoadRosterData:
         jmp short .26
 .24:
         imul edx, edi, byte 38h
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add eax, edx
         lea edx, [byte eax+018h]
@@ -1422,7 +1422,7 @@ LoadRosterData:
         jmp short .29
 .27:
         imul edx, edi, byte 38h
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add eax, edx
         lea edx, [byte eax+018h]
@@ -1448,7 +1448,7 @@ LoadRosterData:
         jmp short .32
 .30:
         imul edx, edi, byte 38h
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         mov dword [byte ebp-0Ch], edx
         mov edx, dword [dword eax+0383C1h]
         imul eax, ebx, byte 38h
@@ -1473,7 +1473,7 @@ LoadRosterData:
         jl short .30
         inc edi
 .33:
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         movsx eax, word [eax]
         cmp edi, eax
         jl near .20
@@ -1501,7 +1501,7 @@ InitRosterData:
         mov edi, eax
         mov esi, 1
         mov dword [dword_1CC1C4], 0
-        mov dword [dword_16D66C], 0
+        mov dword [RosterData], 0
         mov dword [dword_16D670], 0
         mov dword [dword_1CC2BC], 0
         mov dword [dword_1CC22C], 0
@@ -1576,7 +1576,7 @@ InitRosterData:
         xor edx, edx
         mov dword [dword_1CC2AC], eax
         call memset_
-        mov eax, dword_16D66C
+        mov eax, RosterData
         call LoadFakeExhibition
         test eax, eax
         jne near .20
@@ -1770,11 +1770,11 @@ FreeRosterData:
         jae short .4
         test ebx, ebx
         jne short .4
-        cmp dword [dword_16D66C], byte 0
+        cmp dword [RosterData], byte 0
         je short .4
-        mov eax, dword_16D66C
+        mov eax, RosterData
         call FreeExhibitionFile
-        mov dword [dword_16D66C], ebx
+        mov dword [RosterData], ebx
 .4:
         pop edx
         pop ecx
@@ -7618,7 +7618,7 @@ RosterEditScreen_24:
         mov edx, dword [dword_1CC2AC]
         test byte [byte edx+eax+06Ah], 8
         je near DrawRosterList_86F
-        cmp dword [dword_16D668], byte 0
+        cmp dword [RosterScreenOpen], byte 0
         je short .1
         call FreeRosterScreen
 .1:
@@ -7626,7 +7626,7 @@ RosterEditScreen_24:
         mov edx, dword [nosplit esi*4+dword_1CC1C4]
         call EditLinesScreen
         mov edi, eax
-        cmp dword [dword_16D668], byte 0
+        cmp dword [RosterScreenOpen], byte 0
         je short .2
         call InitRosterScreen
 .2:
@@ -7984,7 +7984,7 @@ FindTradedPlayer:
 .8:
         inc ecx
 .9:
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         movsx edx, word [eax]
         cmp ecx, edx
         jl short .7
@@ -8638,14 +8638,14 @@ RosterCreatePlayer:
         jge short .3
         or dl, 1
 .3:
-        cmp dword [dword_16D668], byte 0
+        cmp dword [RosterScreenOpen], byte 0
         je short .4
         call FreeRosterScreen
 .4:
         lea eax, [dword ebp-0124h]
         call CreatePlayerScreen
         mov edi, eax
-        cmp dword [dword_16D668], byte 0
+        cmp dword [RosterScreenOpen], byte 0
         je short .5
         call InitRosterScreen
 .5:
@@ -8885,11 +8885,11 @@ SaveTrades:
         imul eax, esi, dword 0BCh
         add edx, 8FEh
         add edx, eax
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         call SaveTradesLink
         movsx edx, word [byte ebp-04h]
         imul edx, byte 38h
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
         mov eax, dword [dword_1CC2AC]
@@ -8902,7 +8902,7 @@ SaveTrades:
         rep movsd
         movsx edx, word [byte ebp-04h]
         imul edx, byte 38h
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
         mov eax, dword [dword_1CC2AC]
@@ -8944,11 +8944,11 @@ SaveTrades:
         imul eax, esi, dword 0BCh
         add edx, 1B5Ah
         add edx, eax
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         call SaveTradesLink
         movsx edx, word [byte ebp-04h]
         imul edx, byte 38h
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
         mov eax, dword [dword_1CC2AC]
@@ -8961,7 +8961,7 @@ SaveTrades:
         rep movsd
         movsx edx, word [byte ebp-04h]
         imul edx, byte 38h
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
         mov eax, dword [dword_1CC2AC]
@@ -9003,11 +9003,11 @@ SaveTrades:
         imul edx, esi, dword 0BCh
         add eax, 1D8Eh
         add edx, eax
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         call SaveTradesLink
         movsx ebx, word [byte ebp-04h]
         imul ebx, byte 38h
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         mov edx, dword [dword eax+0383C1h]
         mov eax, dword [dword_1CC2AC]
         add eax, dword [byte ebp-018h]
@@ -9020,7 +9020,7 @@ SaveTrades:
         rep movsd
         movsx edx, word [byte ebp-04h]
         imul edx, byte 38h
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
         mov eax, dword [dword_1CC2AC]
@@ -9062,11 +9062,11 @@ SaveTrades:
         imul eax, esi, dword 0BCh
         add edx, 2FEAh
         add edx, eax
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         call SaveTradesLink
         movsx edx, word [byte ebp-04h]
         imul edx, byte 38h
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
         mov eax, dword [dword_1CC2AC]
@@ -9079,7 +9079,7 @@ SaveTrades:
         rep movsd
         movsx edx, word [byte ebp-04h]
         imul edx, byte 38h
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
         mov eax, dword [dword_1CC2AC]
@@ -9119,7 +9119,7 @@ SaveTrades:
         jne short .20
         test esi, esi
         je short .17
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         call SaveAgents
 .17:
         cmp dword [dword_1CC2A4], byte 0
@@ -9134,7 +9134,7 @@ SaveTrades:
 .18:
         mov edx, dword [dword_1CC2A8]
         movsx edx, word [edx+eax*2]
-        mov eax, dword [dword_16D66C]
+        mov eax, dword [RosterData]
         inc dword [byte ebp-0Ch]
         call SaveAgentsOnly
 .19:
@@ -9181,9 +9181,9 @@ ResetExhibitionRosters:
         jl short .1
         cmp dword [dword_1CC208], byte 0
         jne short .3
-        mov eax, dword_16D66C
+        mov eax, RosterData
         call FreeExhibitionFile
-        mov eax, dword_16D66C
+        mov eax, RosterData
         call ResetExhibitionStats
         mov dword [dword_1CC2A4], 0
 .3:
@@ -12211,7 +12211,7 @@ BuildTradePlayerLists:
         shl eax, 2
         cmp dword [dword_1CC208], byte 0
         jne short .2
-        mov ebx, dword [dword_16D66C]
+        mov ebx, dword [RosterData]
         add ebx, 0DF4h
         jmp short .3
 .2:

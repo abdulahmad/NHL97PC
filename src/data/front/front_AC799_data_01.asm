@@ -20,7 +20,7 @@ global str_RABL, str_RS09RS11RS11, str_RS22, str_RS21, str_RS20, str_RS21RS22RS2
 global str_RS24, str_RS25RS26RS27, str_RS30, str_RS29, str_RS28, str_RS29RS30RS31, str_RS38, str_RS37
 global str_RS36, str_RS37RS38RS39, str_LB02d2, str_LH02d, str_LH26, str_TTL0, str_SDDSDD, str_SD02dSD02d
 global str_SD02dSDD, str_SDDSD2, str_CSS, str_S_ExportStatTable, str_Punct_WriteCsvLine, str_Rt, str_Wt, str_Punct_ExportStatTable
-global unk_16623E, str_Punct_StatsTablesScreen, str_Ai
+global StatExportSeparator, str_Punct_StatsTablesScreen, str_Ai
 str_D01d2:
         db 025h,064h,02Eh,025h,030h,031h,064h,00h
 str_S_ExportStatTable:
@@ -35,7 +35,7 @@ str_Punct_ExportStatTable:
         db 0Ah,0Ah,00h
 str_03d:
         db 02Eh,025h,030h,033h,064h,00h
-unk_16623E:
+StatExportSeparator:
         db 0Ah,00h
 str_Pts:
         db 070h,074h,073h,00h

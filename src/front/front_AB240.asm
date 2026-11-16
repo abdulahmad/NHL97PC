@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_AB240 progbits alloc exec nowrite align=1
 extern str_Xferdata, str_Replaybuf2, str_Gdata, str_Ros2, str_SEXHIBITNDX, str_EXHIBITNDX2, str_Saverepl, SeasonUserActive
-extern PlayoffUserActive, PlayoffRound, PlayoffStarted, PlayoffUserIndex, PlayoffColumns, dword_16D2CC, dword_16D2EC, dword_16D30C
-extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, GameSettings, SeasonUserTeam, PlayoffRounds
+extern PlayoffUserActive, PlayoffRound, PlayoffStarted, PlayoffUserIndex, PlayoffColumns, HomeUserSlot, AwayUserSlot, PlayoffRoundSlots
+extern PlayoffRoundGames, PlayoffWinsNeeded, PlayoffPairings, dword_16DA9C, dword_16E464, GameSettings, SeasonUserTeam, PlayoffRounds
 extern SeasonActive, SeasonUserReplay, SeasonDefaultUser, SeasonRandomSeed, PlayoffRoundBits, PlayoffUserReplay, PlayoffTeamNames, PlayoffTeams
 extern PlayoffOpponents, PlayoffGameCount, PlayoffRandomSeed, SeasonFileName, ReplayIndexHandle, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
 extern memcpy_, sprintf_, DosFileInfo, MakeDirPath, SaveReplayHeader, SimulateGame, UpdateTeamLines, CheckLeagueInjuries
@@ -715,7 +715,7 @@ SaveGameResults:
         cmp dword [byte ebp+05Ah], byte 8
         jge short .31
         mov eax, dword [byte ebp+05Ah]
-        imul edi, dword [nosplit eax*4+dword_16D2CC], byte 1Ch
+        imul edi, dword [nosplit eax*4+HomeUserSlot], byte 1Ch
         lea esi, [dword esi+SeasonUserRecords]
         lea edi, [dword edi+PlayoffUserRecords]
         movsd
@@ -725,7 +725,7 @@ SaveGameResults:
         movsd
         movsd
         movsd
-        mov esi, dword [nosplit eax*4+dword_16D2CC]
+        mov esi, dword [nosplit eax*4+HomeUserSlot]
         mov dword [nosplit esi*4+PlayoffTeams], ecx
         mov ecx, dword [SeasonUserTeam]
         mov ebx, dword [byte ecx+014h]
@@ -741,7 +741,7 @@ SaveGameResults:
         cmp dword [byte ebp+05Eh], byte 8
         jge short .33
         mov eax, dword [byte ebp+05Eh]
-        imul edi, dword [nosplit eax*4+dword_16D2EC], byte 1Ch
+        imul edi, dword [nosplit eax*4+AwayUserSlot], byte 1Ch
         lea esi, [dword esi+SeasonUserRecords]
         lea edi, [dword edi+PlayoffUserRecords]
         movsd
@@ -751,7 +751,7 @@ SaveGameResults:
         movsd
         movsd
         movsd
-        mov esi, dword [nosplit eax*4+dword_16D2EC]
+        mov esi, dword [nosplit eax*4+AwayUserSlot]
         mov dword [nosplit esi*4+PlayoffTeams], ecx
         mov ecx, dword [SeasonUserTeam]
         mov ecx, dword [byte ecx+014h]
@@ -1139,9 +1139,9 @@ AdvanceSeasonDate:
 .6:
         mov eax, dword [byte ebp-04h]
         movzx ecx, byte [PlayoffRound]
-        mov eax, dword [nosplit eax*4+dword_16D30C]
+        mov eax, dword [nosplit eax*4+PlayoffRoundSlots]
         xor ebx, ebx
-        mov ecx, dword [nosplit ecx*4+dword_16D34C]
+        mov ecx, dword [nosplit ecx*4+PlayoffRoundGames]
         mov edx, dword [nosplit eax*4+PlayoffTeams]
         jmp short .9
 .7:
@@ -1159,7 +1159,7 @@ AdvanceSeasonDate:
         mov ebx, dword [byte ebp-018h]
         mov eax, esi
         shl ebx, 5
-        mov eax, dword [dword ebx+eax*4+dword_16D360]
+        mov eax, dword [dword ebx+eax*4+PlayoffPairings]
         inc esi
         mov ebx, 1
         mov dword [nosplit eax*4+PlayoffTeams], edx
@@ -1168,7 +1168,7 @@ AdvanceSeasonDate:
 .9:
         movzx eax, byte [PlayoffRound]
         mov dword [byte ebp-018h], eax
-        cmp ecx, dword [nosplit eax*4+dword_16D350]
+        cmp ecx, dword [nosplit eax*4+PlayoffWinsNeeded]
         jge short .10
         test ebx, ebx
         je short .7

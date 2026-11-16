@@ -6,15 +6,15 @@ extern SortCords, __CHP, __STOSD, str_Mous4, str_Remo3, str_Replload, str_RPEVEN
 extern str_Replregs, str_REPLAYNDX, str_DATAREPLAYNDX2, str_DONTHAVEIT2, str_Replay, str_SS10, str_Replbuff, str_SREPLAYNDX
 extern str_S12, str_NOIS, str_ARWD, gmode, byte_1C6040, byte_1CB004, F32_0p005_ReplayScreen, F32_0p003125_ReplayScreen
 extern F32_0p005_DrawReplayTimeline, F32_0p003125_DrawReplayTimeline, F32_0p003125_PickReplayScreen, F32_0p005_PickReplayScreen, F32_0p003125_DrawReplayEntry, F32_0p005_DrawReplayEntry, F32_0p003125_ReplayMenuScreen, F32_0p005_ReplayMenuScreen
-extern ClockShown, InGameMenuRequest, StatsMenuMode, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
+extern ClockShown, InGameMenuRequest, StatsMenuMode, ReplayListTop, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
 extern VideoModeCount, QuantizePalette, VideoModePanelMode, VideoModeSel, ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH
 extern VideoModeChanged, DisplayFlags, ReplayLoaded, GameObjects, ViewSizeIndex, GameSettings, GameOptionFlags, ReplayData
-extern ReplayMode, SeasonFileName, ReplayIndexHandle, dword_1C5DA4, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, dword_1C95B4
-extern dword_1C95BC, dword_1CAECC, dword_1CAED0, dword_1CAED4, dword_1CAED8, dword_1CAEDC, dword_1CAEE0, dword_1CAEE4
+extern ReplayMode, SeasonFileName, ReplayIndexHandle, dword_1C5DA4, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, ClockFontSmall
+extern ClockFontLarge, dword_1CAECC, dword_1CAED0, dword_1CAED4, dword_1CAED8, dword_1CAEDC, dword_1CAEE0, dword_1CAEE4
 extern dword_1CAEE8, dword_1CAEEC, dword_1CAEF0, dword_1CAEF4, dword_1CAEF8, dword_1CAF8C, dword_1CAF90, dword_1CAF94
 extern dword_1CAF98, dword_1CAF9C, dword_1CAFA0, dword_1CAFA4, dword_1CAFA8, dword_1CAFAC, dword_1CAFDC, dword_1CAFE0
 extern dword_1CAFE4, dword_1CAFE8, dword_1CAFEC, dword_1CAFF0, dword_1CAFF4, dword_1CAFF8, dword_1CAFFC, dword_1CB000
-extern off_16D254, off_16D258, F64_0p5_ReplayScreen, F64_0p5_DrawReplayTimeline, F64_0p5_PickReplayScreen, F64_0p5_DrawReplayEntry, F64_0p5_ReplayMenuScreen, rand_
+extern ReplayIndexSendBuf, ReplayIndexRecvBuf, F64_0p5_ReplayScreen, F64_0p5_DrawReplayTimeline, F64_0p5_PickReplayScreen, F64_0p5_DrawReplayEntry, F64_0p5_ReplayMenuScreen, rand_
 extern sprintf_, strcmp_, strcpy_, BlitArt, PresentScreen, FindShape, DrawShapeBlended, SetGraphicsMode
 extern WritePaletteRegs, FreeInverseTable, DosFileInfo, RestartGameMusic, UnlinkJump, ResetPlayers, SetScreenTarget, InitGameDisplay
 extern ApplyDisplayFlags, ClearOverlayWindows, ReplayCameraOn, ReplayCameraOff, ReplayCamFollowMode, ReplayCamDrag, ReplayCamRestorePath, ReplayCamOrbitMode
@@ -187,7 +187,7 @@ RunReplay:
         mov ebx, esi
         mov edx, edi
         call SetViewOrigin
-        mov eax, dword [dword_1C95BC]
+        mov eax, dword [ClockFontLarge]
         lea edx, [byte ebp-01Ch]
         mov dword [dword_1CAFA4], eax
         call ReplayScreen
@@ -532,8 +532,8 @@ VideoOptionsScreen:
         add esp, byte 4
         mov eax, dword [dword_1C5EF4]
         push dword 0FF000000h
-        mov dword [dword_1C95BC], eax
-        mov dword [dword_1C95B4], eax
+        mov dword [ClockFontLarge], eax
+        mov dword [ClockFontSmall], eax
         call MakeColor
         add esp, byte 4
         push eax
@@ -737,9 +737,9 @@ PlayReplayFromMenu:
         jne short PlayReplayFromMenu_5A.2
         test ebx, ebx
         jne short PlayReplayFromMenu_5A.2
-        mov eax, dword [dword_16D500]
+        mov eax, dword [ReplayListTop]
         sub eax, byte 0Ah
-        mov edx, dword_16D500
+        mov edx, ReplayListTop
         cmp eax, byte 3
         ja short PlayReplayFromMenu_5A.1
         jmp dword [nosplit cs:eax*4+jpt_BE037]
@@ -1189,14 +1189,14 @@ ReplayScreen_3D5:
         cmp esi, byte 2
         jne near ReplayScreen.2
 .12:
-        cmp dword [dword_16D500], byte 0Ah
+        cmp dword [ReplayListTop], byte 0Ah
         je short .13
         call ReplayCamOrbitMode
 .13:
         lea ebx, [byte ebp-010h]
         lea edx, [byte ebp-0Ch]
         mov eax, esi
-        mov dword [dword_16D500], 0Ah
+        mov dword [ReplayListTop], 0Ah
         call ScrollPosToValue
         imul eax, dword [byte ebp-0Ch], dword 140h
         mov dword [byte ebp-04h], eax
@@ -1252,14 +1252,14 @@ ReplayScreen_4D2:
         cmp esi, byte 2
         jne near ReplayScreen.2
 .15:
-        cmp dword [dword_16D500], byte 0Bh
+        cmp dword [ReplayListTop], byte 0Bh
         je short .16
         call ReplayCamFollowMode
 .16:
         lea ebx, [byte ebp-010h]
         lea edx, [byte ebp-0Ch]
         mov eax, esi
-        mov dword [dword_16D500], 0Bh
+        mov dword [ReplayListTop], 0Bh
         call ScrollPosToValue
         imul eax, dword [byte ebp-0Ch], dword 140h
         mov dword [byte ebp-04h], eax
@@ -1381,14 +1381,14 @@ ReplayScreen_6A2:
         cmp esi, byte 2
         jne near ReplayScreen.2
 .24:
-        cmp dword [dword_16D500], byte 0Ch
+        cmp dword [ReplayListTop], byte 0Ch
         je short .25
         call ReplayCamZoomMode
 .25:
         lea ebx, [byte ebp-010h]
         lea edx, [byte ebp-0Ch]
         mov eax, esi
-        mov dword [dword_16D500], 0Ch
+        mov dword [ReplayListTop], 0Ch
         call ScrollPosToValue
         imul eax, dword [byte ebp-010h], dword 0C8h
         mov dword [byte ebp-04h], eax
@@ -1433,14 +1433,14 @@ ReplayScreen_771:
         cmp esi, byte 2
         jne near ReplayScreen.2
 .27:
-        cmp dword [dword_16D500], byte 0Dh
+        cmp dword [ReplayListTop], byte 0Dh
         je short .28
         call ReplayCamFreeMode
 .28:
         lea ebx, [byte ebp-010h]
         lea edx, [byte ebp-0Ch]
         mov eax, esi
-        mov dword [dword_16D500], 0Dh
+        mov dword [ReplayListTop], 0Dh
         call ScrollPosToValue
         imul eax, dword [byte ebp-0Ch], dword 140h
         mov dword [byte ebp-04h], eax
@@ -1532,7 +1532,7 @@ ReplayScreen_8F5:
         call WaitForOtherComputer
         jmp near ReplayScreen.1
 ReplayScreen_8FF:
-        mov eax, dword [dword_16D500]
+        mov eax, dword [ReplayListTop]
         sub eax, byte 0Ah
         cmp eax, byte 3
         ja short ReplayScreen_929.32
@@ -1549,7 +1549,7 @@ ReplayScreen_922:
 ReplayScreen_929:
         call ReplayCamMove
 .32:
-        mov dword [dword_16D500], 0FFFFFFFFh
+        mov dword [ReplayListTop], 0FFFFFFFFh
         jmp near ReplayScreen.2
 .33:
         mov eax, dword [dword_1CAFF4]
@@ -3085,14 +3085,14 @@ OpenReplayIndex:
         test eax, eax
         jne short .2
         mov edx, 8
-        mov eax, dword [off_16D258]
+        mov eax, dword [ReplayIndexRecvBuf]
         xor ebx, ebx
         mov esi, 1
         call LinkSendBlock
         jmp short .3
 .2:
         mov edx, 8
-        mov eax, dword [off_16D254]
+        mov eax, dword [ReplayIndexSendBuf]
         xor ebx, ebx
         call LinkSendBlock
         xor esi, esi
@@ -3102,7 +3102,7 @@ OpenReplayIndex:
         xor ebx, ebx
         call LinkReceiveBlock
         lea eax, [byte ebp+066h]
-        mov edx, dword [off_16D254]
+        mov edx, dword [ReplayIndexSendBuf]
         call strcmp_
         test eax, eax
         jne near .5
@@ -3196,20 +3196,20 @@ OpenReplayIndex:
         test eax, eax
         jne short .7
         mov edx, 8
-        mov eax, dword [off_16D258]
+        mov eax, dword [ReplayIndexRecvBuf]
         xor ebx, ebx
         mov esi, 1
         call LinkSendBlock
         jmp short .8
 .7:
         mov edx, 8
-        mov eax, dword [off_16D254]
+        mov eax, dword [ReplayIndexSendBuf]
         xor ebx, ebx
         call LinkSendBlock
         xor esi, esi
 .8:
         lea eax, [byte ebp+066h]
-        mov edx, dword [off_16D254]
+        mov edx, dword [ReplayIndexSendBuf]
         call strcmp_
         test eax, eax
         je near .4
