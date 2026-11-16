@@ -12,7 +12,7 @@ extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dwo
 extern dword_1CF5D0, dword_1CF5D4, dword_1CF5D8, dword_1CF5DC, dword_1CF5E0, dword_1CF5E4, dword_1CF5E8, dword_1CF5EC
 extern dword_1CF5F0, dword_1DA4D0, mem_putc_, qword_167DA1, qword_167DA9, qword_167DB1, qword_167DB9, strcmp_
 extern Random32, PlotPixelRGB, PlotPixel, SaveTextState, RestoreTextState, AllocNetBuffer, FreeNetBuffer, SetTextOrigin
-extern sub_11FAAC, sub_124C30, sub_124D78, sub_124DB0, sub_124E1C, sub_124FB9, MakeColor, FillRect
+extern sub_11FAAC, DrawTextLimited, DrawTextString, ConvertColor555, DrawGlyphScaled, SetTextScale, MakeColor, FillRect
 global IF@ATAN, IF@ATAN2, IF@DPOW, hypot_, DrawGlyph_494, DrawGlyph_590, PrepareTextDraw_72, FloatsToInts_47
 global ProjectPointsWithZ_DF, sprintf_, ProjectPointFloat, PowIntLoop, MeasureText, FindGlyph, GetGlyph, GetKerning
 global DrawTextRun, DrawTextAt, SetTextColors, DrawTextBoxed, DrawTextBoxedAt, FillRectCorners, DrawGlyph, BuildTextColorTable
@@ -59,7 +59,7 @@ sprintf_:
         push edx
         mov ebx, dword [byte esp+02Ch]
         push ebx
-        call sub_124C30
+        call DrawTextLimited
         add esp, byte 18h
         mov eax, dword [byte esp+04h]
         add esp, byte 10h
@@ -83,7 +83,7 @@ MeasureText:
         push dword 100h
         mov edx, dword [byte esp+028h]
         push edx
-        call sub_124C30
+        call DrawTextLimited
         add esp, byte 18h
         mov eax, dword [byte esp+04h]
         add esp, byte 10h
@@ -420,7 +420,7 @@ SetTextColors:
         push eax
         mov dword [dword_1CF550], eax
         mov dword [dword_1CF554], ebx
-        call sub_124DB0
+        call ConvertColor555
         mov edx, eax
         shr edx, 10h
         add esp, byte 4
@@ -433,7 +433,7 @@ SetTextColors:
         and edx, 0FFh
         mov dword [byte esp+014h], eax
         mov dword [byte esp+010h], edx
-        call sub_124DB0
+        call ConvertColor555
         mov edx, eax
         xor esi, esi
         shr edx, 10h
@@ -551,7 +551,7 @@ DrawTextBoxed:
         push eax
         mov ecx, dword [dword esp+0E0h]
         push ecx
-        call sub_124D78
+        call DrawTextString
         add esp, byte 14h
         mov esi, dword [dword_1CF554]
         push esi
@@ -987,7 +987,7 @@ DrawGlyph:
         push edi
         add ebp, byte 40h
         push ebp
-        call sub_124E1C
+        call DrawGlyphScaled
         add esp, byte 1Ch
         jmp near .21
 .15:
@@ -1543,7 +1543,7 @@ BuildColorRamp:
         mov edx, dword [dword_1CF5B0]
         push eax
         mov dword [byte esp+0Ch], edx
-        call sub_124DB0
+        call ConvertColor555
         add esp, byte 4
         mov edi, eax
         mov ecx, eax
@@ -2853,7 +2853,7 @@ SetViewScale:
         fistp dword [esp]
         mov edx, dword [esp]
         push edx
-        call sub_124FB9
+        call SetTextScale
         add esp, byte 4
         mov eax, dword [byte esp+010h]
         mov dword [dword_16F140], eax

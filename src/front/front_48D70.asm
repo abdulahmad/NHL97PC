@@ -61,7 +61,7 @@ extern str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpat
 extern strlen_, strncpy_, ProjectPointFloat, sub_100498, sub_1004B8, sub_1004F8, sub_100510, sub_100700
 extern sub_1007C0, sub_100830, SortIndices, FindShape, LoadDataFileNoErr, LoadDataFileErr, OpenArtArchive, OpenArtArchiveErr
 extern Random32, sub_102CDC, sub_102CF4, sub_103648, sub_104948, PlayQueuedSpeech, LoadFileAlloc, LoadFileAllocQuiet
-extern LoadFileInto, LoadFileIntoQuiet, sub_107098, sub_1070B0, SetSpeechVolume, SetMusicStreamVolume, OpenAudioStreamChannel, CloseAudioStreamChannel
+extern LoadFileInto, LoadFileIntoQuiet, LoadFileToBlockShared, LoadFileToBlockPlain, SetSpeechVolume, SetMusicStreamVolume, OpenAudioStreamChannel, CloseAudioStreamChannel
 extern FeedAudioStream, FlushAudioStream, ChannelPlaying, StopChannel, sub_109545, sub_109557, sub_109E54, sub_109E74
 extern sub_10A7D0, sub_10A930, sub_10AB2C, sub_10AB94, sub_10AD20, sub_10AE10, sub_10AED0, sub_10B000
 extern sub_10B074, sub_10B084, sub_10B0EC, sub_10B2CC, sub_10B580, sub_10B59C, DrawFixedLine, sub_10C434
@@ -3106,7 +3106,7 @@ LoadDataFileHandle:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_107098
+        call LoadFileToBlockShared
         jmp near jpt_4AE54_137
         push ebx
         push ecx
@@ -3117,7 +3117,7 @@ LoadDataFileHandle:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_1070B0
+        call LoadFileToBlockPlain
         jmp near jpt_4AE54_137
         push ebx
         push ecx

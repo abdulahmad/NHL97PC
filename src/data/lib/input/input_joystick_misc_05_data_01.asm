@@ -4,8 +4,8 @@ bits 32
 section s_16F188 progbits alloc noexec write align=1
 extern dword_1DA4D0, PacketChecksum_90, DrawShapeBlended_1F4, CopyRow8, CopyRow16, CopyRow24, CopyRow32, ConvertRow4To8
 extern ConvertRow4To16, ConvertRow8To8, ConvertRow8To16, ConvertRow16To16, ConvertRow16To8, ConvertRow16To15, ConvertRow15To15, ConvertRow15To16
-extern ConvertRow15To8, ConvertRow24To24, ConvertRow32To16, ConvertRow24To16, ConvertRow32To32, ConvertRowPalTo16, sub_125D0C, sub_125D61
-extern sub_125DBC, sub_125DDE, sub_125E68, sub_125EED, sub_125FE1, sub_126052, sub_1260C2, unk_167DCC
+extern ConvertRow15To8, ConvertRow24To24, ConvertRow32To16, ConvertRow24To16, ConvertRow32To32, ConvertRowPalTo16, Convert565To555, Convert555To565
+extern ConvertIndexedTo32, Convert32To565Keyed, Convert32To555Keyed, ConvertIndexedTo16, SwapRedBlue555, Convert32To565, ConvertNibbleTo16, unk_167DCC
 global byte_16F748, dword_16F188, dword_16F5AC, dword_16F5B4, dword_16F5B8, off_16F588, off_16F5BC, off_16F5C0
 global off_16F684
 dword_16F188:
@@ -93,32 +93,32 @@ off_16F5BC:
 off_16F5C0:
         dd DrawShapeBlended_1F4
         dd ConvertRow4To8
-        dd sub_1260C2
-        dd sub_1260C2
+        dd ConvertNibbleTo16
+        dd ConvertNibbleTo16
         dd ConvertRow4To8
         dd ConvertRow4To8
-        dd sub_1260C2
+        dd ConvertNibbleTo16
         dd ConvertRow4To16
         dd ConvertRow8To8
-        dd sub_125EED
-        dd sub_125EED
+        dd ConvertIndexedTo16
+        dd ConvertIndexedTo16
         dd ConvertRow8To16
-        dd sub_125DBC
-        dd sub_125EED
-        dd sub_125D61
-        dd sub_125D61
+        dd ConvertIndexedTo32
+        dd ConvertIndexedTo16
+        dd Convert555To565
+        dd Convert555To565
         dd ConvertRow16To16
-        dd sub_125D61
-        dd sub_125D61
+        dd Convert555To565
+        dd Convert555To565
         dd ConvertRow16To8
-        dd sub_125FE1
+        dd SwapRedBlue555
         dd ConvertRow16To15
         dd ConvertRow16To15
-        dd sub_125D0C
+        dd Convert565To555
         dd ConvertRow15To15
         dd ConvertRow15To16
         dd ConvertRow15To8
-        dd sub_125D0C
+        dd Convert565To555
         dd ConvertRow32To16
         dd ConvertRow32To16
         dd ConvertRow32To16
@@ -126,49 +126,49 @@ off_16F5C0:
         dd ConvertRow24To24
         dd ConvertRow32To16
         dd ConvertRow32To16
-        dd sub_125DDE
-        dd sub_125DDE
-        dd sub_125E68
-        dd sub_125DDE
+        dd Convert32To565Keyed
+        dd Convert32To565Keyed
+        dd Convert32To555Keyed
+        dd Convert32To565Keyed
         dd ConvertRow24To16
         dd ConvertRow32To32
-        dd sub_125E68
-        dd sub_125FE1
-        dd sub_125FE1
-        dd sub_125FE1
-        dd sub_125FE1
-        dd sub_125FE1
-        dd sub_125FE1
+        dd Convert32To555Keyed
+        dd SwapRedBlue555
+        dd SwapRedBlue555
+        dd SwapRedBlue555
+        dd SwapRedBlue555
+        dd SwapRedBlue555
+        dd SwapRedBlue555
         dd ConvertRow16To16
 off_16F684:
         dd DrawShapeBlended_1F4
         dd ConvertRow4To8
-        dd sub_1260C2
-        dd sub_1260C2
+        dd ConvertNibbleTo16
+        dd ConvertNibbleTo16
         dd ConvertRow4To8
         dd ConvertRow4To8
-        dd sub_1260C2
+        dd ConvertNibbleTo16
         dd ConvertRow4To16
         dd ConvertRow8To8
-        dd sub_125EED
-        dd sub_125EED
+        dd ConvertIndexedTo16
+        dd ConvertIndexedTo16
         dd ConvertRow8To16
-        dd sub_125DBC
-        dd sub_125EED
-        dd sub_125D61
-        dd sub_125D61
+        dd ConvertIndexedTo32
+        dd ConvertIndexedTo16
+        dd Convert555To565
+        dd Convert555To565
         dd ConvertRow16To16
-        dd sub_125D61
-        dd sub_125D61
+        dd Convert555To565
+        dd Convert555To565
         dd ConvertRow16To8
-        dd sub_125FE1
+        dd SwapRedBlue555
         dd ConvertRow16To15
         dd ConvertRow16To15
-        dd sub_125D0C
+        dd Convert565To555
         dd ConvertRow15To15
         dd ConvertRow15To16
         dd ConvertRow15To8
-        dd sub_125D0C
+        dd Convert565To555
         dd ConvertRow32To16
         dd ConvertRow32To16
         dd ConvertRow32To16
@@ -176,19 +176,19 @@ off_16F684:
         dd ConvertRow24To24
         dd ConvertRow32To16
         dd ConvertRow32To16
-        dd sub_126052
-        dd sub_126052
+        dd Convert32To565
+        dd Convert32To565
         dd ConvertRowPalTo16
-        dd sub_126052
+        dd Convert32To565
         dd ConvertRow24To16
         dd ConvertRow32To32
         dd ConvertRowPalTo16
-        dd sub_125FE1
-        dd sub_125FE1
-        dd sub_125FE1
-        dd sub_125FE1
-        dd sub_125FE1
-        dd sub_125FE1
+        dd SwapRedBlue555
+        dd SwapRedBlue555
+        dd SwapRedBlue555
+        dd SwapRedBlue555
+        dd SwapRedBlue555
+        dd SwapRedBlue555
         dd ConvertRow16To16
 byte_16F748:
         db 07Ah,07Bh,07Eh,078h,07Bh,07Bh,07Eh,07Ah,07Bh,07Eh,078h,07Fh,07Dh,07Eh,078h,078h

@@ -4,7 +4,7 @@ bits 32
 section s_12C604 progbits alloc exec nowrite align=1
 extern byte_172BC5, byte_1DCF3B, byte_1DCF45, byte_1DCF47, byte_1DCF67, byte_1DD4AF, byte_1DD4B0, dword_199734
 extern dword_1DCF38, dword_1DCF48, dword_1DCF78, dword_1DD37C, dword_1DD37E, dword_1DD4AD, dword_1DD4B4, getenv_
-extern str_BLASTER, Random32, sub_1078AC, StopChannel, AudioEnter, AudioLeaveCheck, ReturnArg, word_1DD4A0
+extern str_BLASTER, Random32, SetChannelPitch, StopChannel, AudioEnter, AudioLeaveCheck, ReturnArg, word_1DD4A0
 extern word_1DD4A2, word_1DD4A4, word_1DD4A6, word_1DD4A8, word_1DD4AA, word_1DD4AC
 global ParseBlasterEnv, ParseHexValue, SbReadData, SbWaitRead, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp
 global SbDetectDsp, SbSetRate, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, ChannelSlotOf, UpdateChannels
@@ -570,7 +570,7 @@ RampChannelVolume:
 .5:
         mov edx, ebx
         mov eax, ecx
-        call sub_1078AC
+        call SetChannelPitch
         mov eax, ecx
         shl eax, 4
         add eax, ecx

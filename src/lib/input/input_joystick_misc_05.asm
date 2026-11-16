@@ -6,8 +6,8 @@ extern str_DtoD, atexit_, byte_16E688, byte_16F748, byte_16FA40, byte_171C90, dw
 extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E698, dword_16E69C, dword_16E6A0, dword_16F188
 extern dword_16F5AC, dword_16F5B4, dword_1CF5F0, dword_1DA4D0, exit_, off_16F588, off_16F5BC, off_16F5C0
 extern off_16F684, sprintf_, strrchr_, sub_100528, sub_1049D0, PlotPixelRGB, sub_12189C, BlitCore
-extern ShapeRowBytes, sub_123FA8, sub_125DDE, sub_125E68, sub_125FE1, sub_126052, sub_1261A4, sub_126264
-extern sub_126364, AllocMemBlock, FreeMemBlock, MakeColor, word_1CF5F4
+extern ShapeRowBytes, sub_123FA8, Convert32To565Keyed, Convert32To555Keyed, SwapRedBlue555, Convert32To565, FindPaletteChunk, ExpandPalette6To8
+extern CopyPaletteRGB, AllocMemBlock, FreeMemBlock, MakeColor, word_1CF5F4
 global _os_handle, jpt_1015B0, jpt_101980, PacketChecksum_90, FindShapeQuiet_2, BlendPixelMode_30, BlendPixelMode_54, BlendPixelMode_6E
 global BlendPixelMode_94, BlendPixelMode_B9, BlendPixelMode_10C, BlendPixelMode_153, BlendPixelMode_1A6, BlendPixelMode_1BC, BlendPixelMode_204, BlendPixelMode_232
 global BlendPixelMode_27B, BlendPixelMode_2A1, BlendPixelMode_2F4, BlendPixelMode_33A, BlendPixelMode_38A, BlendPixels_14, BlendPixels_2D, BlendPixels_46
@@ -3184,7 +3184,7 @@ ConvertArtPalette:
         mov esi, edx
         push eax
         mov ebx, dword_1DA4D0
-        call sub_1261A4
+        call FindPaletteChunk
         add esp, byte 4
         test eax, eax
         je near .6
@@ -3202,7 +3202,7 @@ ConvertArtPalette:
         push eax
         push dword 100h
         mov ebx, esi
-        call sub_126364
+        call CopyPaletteRGB
         add esp, byte 0Ch
         mov eax, ebx
         add esp, 200h
@@ -3224,7 +3224,7 @@ ConvertArtPalette:
         push eax
         push dword 100h
         mov ebx, esi
-        call sub_126264
+        call ExpandPalette6To8
         add esp, byte 0Ch
         mov eax, ebx
         add esp, 200h
@@ -3237,7 +3237,7 @@ ConvertArtPalette:
         jne short .6
         mov ebx, 100h
         mov edx, esp
-        call sub_125FE1
+        call SwapRedBlue555
         mov ebx, 100h
         mov eax, esp
         mov edx, esi
@@ -3262,7 +3262,7 @@ ConvertArtPalette16:
         sub esp, 400h
         mov esi, edx
         push eax
-        call sub_1261A4
+        call FindPaletteChunk
         add esp, byte 4
         test eax, eax
         je near .5
@@ -3281,7 +3281,7 @@ ConvertArtPalette16:
         push eax
         push dword 100h
         mov ebx, 100h
-        call sub_126364
+        call CopyPaletteRGB
         add esp, byte 0Ch
         mov eax, esp
         jmp short .6
@@ -3298,7 +3298,7 @@ ConvertArtPalette16:
         push eax
         push dword 100h
         mov ebx, 100h
-        call sub_126264
+        call ExpandPalette6To8
         add esp, byte 0Ch
         mov eax, esp
         jmp short .6
@@ -3307,14 +3307,14 @@ ConvertArtPalette16:
         jne short .8
         mov ebx, 100h
         mov edx, esi
-        call sub_125FE1
+        call SwapRedBlue555
         jmp short .7
 .5:
         mov ebx, 100h
         mov eax, dword_1DA4D0
 .6:
         mov edx, esi
-        call sub_125DDE
+        call Convert32To565Keyed
 .7:
         mov ebx, esi
 .8:
@@ -3405,13 +3405,13 @@ ConvertArtRows:
         cmp edi, byte 0Fh
         jne short .3
         mov edx, word_1CF5F4
-        call sub_125E68
+        call Convert32To555Keyed
         jmp short .6
 .3:
         cmp edi, byte 10h
         jne short .6
         mov edx, word_1CF5F4
-        call sub_125DDE
+        call Convert32To565Keyed
         jmp short .6
 .4:
         cmp edi, byte 0Fh
@@ -3429,7 +3429,7 @@ ConvertArtRows:
         cmp edi, byte 10h
         jne short .6
         mov edx, word_1CF5F4
-        call sub_126052
+        call Convert32To565
 .6:
         mov eax, ebp
         add esp, byte 8
@@ -3454,7 +3454,7 @@ ConvertArtShape:
         push edi
         mov dword [byte esp+030h], edx
         mov dword [byte esp+034h], ebx
-        call sub_1261A4
+        call FindPaletteChunk
         add esp, byte 4
         mov dword [byte esp+024h], eax
 .1:
@@ -3559,14 +3559,14 @@ ConvertArtShape:
         jne short .8
         mov edx, word_1CF5F4
         mov eax, dword [off_16F5BC]
-        call sub_125E68
+        call Convert32To555Keyed
         jmp short .11
 .8:
         cmp eax, byte 10h
         jne short .11
         mov edx, word_1CF5F4
         mov eax, dword [off_16F5BC]
-        call sub_125DDE
+        call Convert32To565Keyed
         jmp short .11
 .9:
         mov ecx, dword [byte esp+038h]
@@ -3581,7 +3581,7 @@ ConvertArtShape:
         jne short .11
         mov edx, word_1CF5F4
         mov eax, dword [off_16F5BC]
-        call sub_126052
+        call Convert32To565
 .11:
         xor ebx, ebx
         mov dword [byte esp+068h], ebx

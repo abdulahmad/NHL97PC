@@ -23,7 +23,7 @@ extern CommentaryEvent_1871, CommentaryEvent_189C, CommentaryEvent_18A1, Comment
 extern CommentaryEvent_1A44, CommentaryEvent_1B16, CommentaryEvent_1B57, CommentaryEvent_1B97, CommentaryEvent_1BF5, CommentaryEvent_1C3D, CommentaryEvent_1CB2, CommentaryEvent_1DD1
 extern CommentaryEvent_1E49, CommentaryEvent_1ECB, CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, off_169780, off_1697BC, off_169814
 extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, strcmp_, strcpy_
-extern SortIndices, bcopy, FindShape, InitSpeechBank, FileSizePath, sub_1070B0, CloseSpeechChannels, InitSpeechChannels
+extern SortIndices, bcopy, FindShape, InitSpeechBank, FileSizePath, LoadFileToBlockPlain, CloseSpeechChannels, InitSpeechChannels
 extern sub_109775, sub_1097F0, QueueSpeechRequest, ResetSpeechQueue, FindSpeechClip, LoadSpeechBlock, LoadClipIfMissing, SpeechFileHeader
 extern OpenSpeechBanks, ResolveSpeechClips, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, CheckDiskSpace
 extern SetTextColor, ShowMessageBoxNoWait, SetNormalText, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, ShowLoadingBar, CreateMenuBitmap
@@ -256,7 +256,7 @@ LoadSpeechBank:
         push esi
         lea eax, [byte esp+054h]
         push eax
-        call sub_1070B0
+        call LoadFileToBlockPlain
         add esp, byte 8
         test eax, eax
         jne short .19
@@ -836,7 +836,7 @@ InitSpeechBanks:
         push ecx
         lea eax, [dword esp+0158h]
         push eax
-        call sub_1070B0
+        call LoadFileToBlockPlain
         add esp, byte 8
         test eax, eax
         je near .80
@@ -860,7 +860,7 @@ InitSpeechBanks:
         push esi
         lea eax, [dword esp+0158h]
         push eax
-        call sub_1070B0
+        call LoadFileToBlockPlain
         add esp, byte 8
         test eax, eax
         je near .80
@@ -880,7 +880,7 @@ InitSpeechBanks:
         push edx
         lea eax, [dword esp+0158h]
         push eax
-        call sub_1070B0
+        call LoadFileToBlockPlain
         add esp, byte 8
         test eax, eax
         je near .80
@@ -1211,7 +1211,7 @@ InitSpeechBanks:
         call ServiceIdle
         push edi
         push str_EVENTDAT
-        call sub_1070B0
+        call LoadFileToBlockPlain
         add esp, byte 8
         test eax, eax
         jne short .59

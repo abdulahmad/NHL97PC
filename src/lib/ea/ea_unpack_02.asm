@@ -6,7 +6,7 @@ extern str_DMABUFFER, str_DMABUFFER2, byte_172BF4, byte_172BF5, byte_172BF6, byt
 extern dword_172BDC, dword_172BE0, dword_172BE4, dword_172BE8, dword_172BEC, dword_172BF0, dword_19A75C, dword_1DCF24
 extern dword_1DCF28, dword_1DCF2C, dword_1DCF30, dword_1DCF34, dword_1DCF38, dword_1DD384, dword_1DD390, dword_1DD394
 extern dword_1DD398, dword_1DD39C, dword_1DD3A0, dword_1DD3A4, dword_1DD3A8, dword_1DD3AC, dword_1DD3B0, dword_1DD3B4
-extern jpt_12C300_24, memset_, sub_1073B0, sub_1073BC, sub_1073C0, sub_107988, ReadBlasterPort, AudioEnter
+extern jpt_12C300_24, memset_, AdvanceStreamOffset, AudioNullFunc, StartTmplSample, PickSampleRate, ReadBlasterPort, AudioEnter
 extern AudioLeaveCheck, MixerInit, MixerFillBuffer, PlayPatchNote, StartChannel, MixNoise, UpdateChannels, SetChannelCount
 extern GusGetEnvConfig, GusProbePort, GusOpen, GusClose, GusMemAlloc, GusStopStream, GusStreamBusy, GusServiceStream
 extern GusStartStream, TimerCalibrate, TimerRestore, TimerSetRate, IrqAck, sub_FAAB4, FreeMemBlock, word_1DD388
@@ -436,7 +436,7 @@ sub_127FD0_1B0:
         add eax, esi
         mov edx, dword [byte esp+04h]
         add eax, byte 28h
-        call sub_1073B0
+        call AdvanceStreamOffset
         mov dword [byte esp+08h], eax
         test eax, eax
         jge short .13
@@ -468,7 +468,7 @@ sub_127FD0_1B0:
         add eax, esi
         add eax, byte 28h
         add esi, byte 44h
-        call sub_1073BC
+        call AudioNullFunc
         cmp esi, edx
         jg short .18
         jmp short .16
@@ -857,7 +857,7 @@ sub_1282A0:
         push eax
         mov ebx, dword [byte esp+01Ch]
         lea eax, [byte esi+028h]
-        call sub_1073C0
+        call StartTmplSample
         mov ebx, eax
         test eax, eax
         jge short .35
@@ -1219,7 +1219,7 @@ sub_1289B8:
 .3:
         mov esi, 3
 .4:
-        call sub_107988
+        call PickSampleRate
         mov dword [dword_1DD3B0], eax
         cmp eax, 3E80h
         jb short .6

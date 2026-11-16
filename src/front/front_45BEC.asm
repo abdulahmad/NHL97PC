@@ -11,7 +11,7 @@ extern dword_1AC7A0, dword_1AC814, dword_1AC944, dword_1B8FA0, jpt_45A64, jpt_45
 extern jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8, PaEvent_4D6, PaEvent_4EC, PaEvent_502, PaEvent_518
 extern PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E, PaEvent_745
 extern PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967, PaEvent_14CD
-extern rand_, sprintf_, strcat_, RequestSpeechEvent, PlayQueuedSpeech, SetSpeechEnabled, sub_107154, sub_109417
+extern rand_, sprintf_, strcat_, RequestSpeechEvent, PlayQueuedSpeech, SetSpeechEnabled, UnregisterSoundBank, sub_109417
 extern sub_109545, sub_10955B, sub_1095AD, sub_109870, AsyncInit, AsyncClose, AsyncRequestOpen, AsyncRequestSection
 extern sub_109E74, sub_10A7D0, sub_10A860, sub_10A868, sub_10A8C4, sub_10A930, sub_10A980, sub_10AA38
 extern sub_10AB1C, sub_10ABC8, RingBufferSpace, QueuePassSpeech, QueueShotSpeech, QueuePositionSpeech, QueueHitSpeech, QueuePenaltySpeech
@@ -3064,7 +3064,7 @@ ShutdownSound:
         mov eax, 2
         call FreeSpeechBuffers
         mov eax, dword [dword_169264]
-        call sub_107154
+        call UnregisterSoundBank
         mov ecx, dword [dword_169258]
         push ecx
         call FreeMemBlock

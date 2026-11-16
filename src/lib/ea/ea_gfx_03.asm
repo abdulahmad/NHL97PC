@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_100700 progbits alloc exec nowrite align=1
 extern __fprem_chk, byte_17268C, dword_16E46C, dword_16F14C, dword_16F150, dword_1702CC, dword_1726A0, dword_1726A4
-extern dword_1DA4D0, jpt_1006E0, sub_125B3C, sub_125C56
+extern dword_1DA4D0, jpt_1006E0, Div64By32, Shl64
 global IF@DFMOD, sub_100700_91, sub_100700_93, sub_100700_9A, sub_100700_A3, sub_100700_A7, sub_100700_AE, sub_100700_B0
 global sub_100700_B5, sub_100700, sub_1007C0, sub_100830, sub_1008CC, SortIndices
 ;-----------------------------------------------------------------------------
@@ -41,12 +41,12 @@ sub_100700:
         push edx
         lea esi, [byte esp+04h]
         mov edx, 20h
-        call sub_125C56
+        call Shl64
         mov edx, dword [byte esp+08h]
         push edx
         mov ecx, dword [byte esp+08h]
         push ecx
-        call sub_125B3C
+        call Div64By32
         mov esi, eax
         shr eax, 18h
         lea edx, [nosplit eax*4+00h]

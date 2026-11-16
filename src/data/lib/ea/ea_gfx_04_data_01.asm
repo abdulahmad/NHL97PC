@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_16FFC8 progbits alloc noexec write align=1
-extern sub_1073BC, sub_1079C4, sub_128878, sub_128880, sub_1288F8, sub_128948, sub_1289B0, sub_1289B8
+extern AudioNullFunc, SampleRateResults, sub_128878, sub_128880, sub_1288F8, sub_128948, sub_1289B0, sub_1289B8
 extern sub_128C70, sub_128CA8, SbDriverId, SbDriverInit, SbDriverShutdown, SbDriverStart, SbProDriverId, SbProDriverInit
 extern SbProDriverShutdown, SbProDriverStart, Sb16DriverId, Sb16DriverInit, Sb16DriverShutdown, Sb16DriverStart, SoundscapeDriverId, SoundscapeDriverInit
 extern SoundscapeDriverShutdown, SoundscapeDriverStart
@@ -13,13 +13,13 @@ global dword_170088, dword_17008C, dword_170090, dword_170094, dword_170098, dwo
 global dword_1700FD, dword_170101, dword_17014C, dword_170150, dword_170154, dword_170158, off_16FFC8, off_16FFCC
 global off_16FFD0, off_16FFD4, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E
 off_16FFC8:
-        dd sub_1073BC
+        dd AudioNullFunc
 off_16FFCC:
-        dd sub_1079C4
+        dd SampleRateResults
 off_16FFD0:
-        dd sub_1079C4
+        dd SampleRateResults
 off_16FFD4:
-        dd sub_1073BC
+        dd AudioNullFunc
         dd sub_128880
         dd sub_1288F8
         dd sub_128948

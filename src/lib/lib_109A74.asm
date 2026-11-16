@@ -8,7 +8,7 @@ extern dword_1CFC80, dword_1CFC84, dword_1CFC88, dword_1CFC8C, dword_1CFC90, dwo
 extern dword_1CFCA4, dword_1CFCA8, dword_1CFCAC, dword_1CFCB0, dword_1CFCB4, dword_1CFCB8, dword_1CFCC0, dword_1CFCC4
 extern dword_1CFCC8, dword_1CFCCC, dword_1CFCD0, dword_1CFCD4, dword_1CFCD8, dword_1CFCDC, dword_1CFCE0, dword_1CFCE4
 extern dword_1CFCE8, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, CdOpenStream, CdHandleEntry, CdCloseFile
-extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, sub_1072B4, SetMusicStreamVolume, ChannelPlaying
+extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, CheckBankIndex, SetMusicStreamVolume, ChannelPlaying
 extern StopChannel, PlaySample, sub_128280, AudioEnter, AudioLeaveCheck, IsChannelActive, sub_12D1C0, sub_12D210
 extern sub_FA9C4, AllocMemBlock, FreeMemBlock, sub_FAF70, addtimer, sub_FC008, unk_1CFCBC, word_170162
 global jpt_109E64, sub_109E74_2E, sub_109E74_57B, sub_109E74_613, sub_109E74_78F, AsyncInit, AsyncClose, AsyncRequestOpen
@@ -1118,7 +1118,7 @@ sub_10A8C4:
 sub_10A930:
         push ebx
         mov ebx, eax
-        call sub_1072B4
+        call CheckBankIndex
         test eax, eax
         je short .1
         mov eax, 0FFFFFFF8h

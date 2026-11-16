@@ -11,7 +11,7 @@ extern dword_172BCC, dword_172BD0, dword_172BD4, dword_172BD8, dword_1CFC70, dwo
 extern dword_1DC9A0, dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dword_1DC9B4, dword_1DC9B8, dword_1DCAD0
 extern dword_1DCAD4, dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC, dword_1DCAF0
 extern dword_1DCEC0, dword_1DCEC4, dword_1DCF38, dword_1DCF62, dword_1DD378, dword_1DD37C, int386_, ClearSpeechQueue
-extern sub_107154, sub_1072B4, sub_1072F0, sub_107308, sub_107370, sub_1077D0, sub_1077F8, sub_1078E4
+extern UnregisterSoundBank, CheckBankIndex, DetectAudioDriver, OpenAudioDriver, CloseAudioDriver, ApplyChannelVolume, FadeOutChannel, InitStreamHeader
 extern sub_1095C4, sub_10A860, sub_10A868, sub_10A8C4, sub_10AD20, sub_128280, sub_128680, ProbeDspReset
 extern AudioEnter, AudioLeaveCheck, SbDetectDsp, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, IsChannelActive
 extern sub_12CEE1, sub_12D13B, sub_12D141, sub_12D150, RequestStreamRead, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
@@ -154,11 +154,11 @@ OpenDigitalAudio:
         mov dword [dword_172BD0], esi
         call SetAudioDmaChannel
         mov edx, ebx
-        call sub_107308
+        call OpenAudioDriver
         mov ebx, eax
         test eax, eax
         jge short .3
-        call sub_107370
+        call CloseAudioDriver
         mov eax, ebx
         pop edi
         pop esi
@@ -191,8 +191,8 @@ CloseDigitalAudio:
 .1:
         call StopAllSoundChannels
         mov eax, 0FFFFFFFFh
-        call sub_107154
-        call sub_107370
+        call UnregisterSoundBank
+        call CloseAudioDriver
         mov edx, eax
         test eax, eax
         jl short .2
@@ -236,7 +236,7 @@ SetAudioDmaChannel:
         sub edx, ebx
 .1:
         mov eax, ecx
-        call sub_1072F0
+        call DetectAudioDriver
         mov ecx, eax
         and ebx, eax
         and edx, eax
@@ -379,7 +379,7 @@ StartDigitalAudio:
         mov edx, dword [dword ecx+dword_1DCF62]
         mov eax, ebx
         sar edx, 18h
-        call sub_1077D0
+        call ApplyChannelVolume
 .5:
         inc ebx
         add ecx, byte 44h
@@ -1287,7 +1287,7 @@ SetMusicStreamVolume:
         mov edx, dword [byte ecx+02Ah]
         mov eax, ebx
         sar edx, 18h
-        call sub_1077D0
+        call ApplyChannelVolume
         call AudioLeaveCheck
         xor eax, eax
         pop ecx
@@ -1308,7 +1308,7 @@ CloseSpeechChannels:
         cmp dword [dword_1DCAE0], byte 0
         jl short .2
         mov eax, dword [dword_1DCAE0]
-        call sub_107154
+        call UnregisterSoundBank
 .2:
         cmp dword [dword_1DCAD8], byte 0
         je short .3
@@ -1445,7 +1445,7 @@ InitSpeechChannels:
         cmp dword [dword_1DCAE0], byte 0
         jl short .3
         mov eax, dword [dword_1DCAE0]
-        call sub_107154
+        call UnregisterSoundBank
 .3:
         cmp dword [dword_1DCAD8], byte 0
         je short .4
@@ -2219,7 +2219,7 @@ AudioStreamCallback:
         mov edx, dword [ebx]
         mov ebx, eax
         mov eax, edi
-        call sub_1078E4
+        call InitStreamHeader
         mov eax, dword [esi]
         mov dword [dword_1700A9], eax
         pop ebp
@@ -2429,7 +2429,7 @@ StopChannel:
         call IsChannelActive
         test eax, eax
         jl short .2
-        call sub_1077F8
+        call FadeOutChannel
         jmp short .3
 .2:
         mov ebx, 0FFFFFFF8h
@@ -2456,7 +2456,7 @@ PlaySample:
         ret
 .1:
         mov eax, esi
-        call sub_1072B4
+        call CheckBankIndex
         test eax, eax
         jge short .2
         mov eax, 0FFFFFFF8h
@@ -2502,7 +2502,7 @@ PlaySampleVolume:
         ret
 .1:
         mov eax, esi
-        call sub_1072B4
+        call CheckBankIndex
         test eax, eax
         jge short .2
         mov eax, 0FFFFFFF8h

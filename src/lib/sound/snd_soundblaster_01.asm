@@ -16,7 +16,7 @@ extern dword_1DD434, dword_1DD438, dword_1DD43C, dword_1DD440, dword_1DD444, dwo
 extern dword_1DD454, dword_1DD458, dword_1DD45C, dword_1DD460, dword_1DD464, dword_1DD468, dword_1DD474, dword_1DD478
 extern dword_1DD47C, dword_1DD480, dword_1DD484, dword_1DD488, dword_1DD48C, dword_1DD490, dword_1DD494, dword_1DD498
 extern fclose_, fgets_, fopen_, fseek_, getenv_, unk_137FE1_2, str_WSSDMA, strcmp_
-extern strstr_, strupr_, sub_107798, sub_1077D0, sub_107988, StopChannel, RestoreDS, MixerInit
+extern strstr_, strupr_, AudioDriverUpdate, ApplyChannelVolume, PickSampleRate, StopChannel, RestoreDS, MixerInit
 extern MixerFillBuffer, SbReadData, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp, SbDetectDsp, SbSetRate
 extern StartChannel, SetChannelCount, DmaMaskChannel, DmaProgram, IrqAck, IrqVector, IrqUnmask, IrqMask
 extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, ReturnArg, sub_FAAB4, FreeMemBlock
@@ -211,7 +211,7 @@ SbDriverInit:
         mov eax, 0FFFFFFF4h
         jmp near .9
 .1:
-        call sub_107988
+        call PickSampleRate
         mov dword [dword_1DD3C0], eax
         cmp eax, 157Ch
         ja short .2
@@ -575,7 +575,7 @@ SbProDriverInit:
         mov eax, 0FFFFFFF4h
         jmp near .14
 .2:
-        call sub_107988
+        call PickSampleRate
         mov dword [dword_1DD408], eax
         cmp eax, 157Ch
         ja short .3
@@ -1064,7 +1064,7 @@ Sb16DriverInit:
 .3:
         mov dword [dword_172C28], 3
 .4:
-        call sub_107988
+        call PickSampleRate
         mov dword [dword_1DD444], eax
         cmp eax, 157Ch
         ja short .5
@@ -1554,7 +1554,7 @@ SoundscapeDriverInit:
         je short .6
         mov ebp, 1
 .6:
-        call sub_107988
+        call PickSampleRate
         mov dword [dword_1DD484], eax
         cmp eax, 3E80h
         jb short .8
@@ -2785,7 +2785,7 @@ AudioDeferredWork:
         inc ebx
         mov dword [dword_1DD37C], edx
         mov dword [dword_172CA0], ebx
-        call sub_107798
+        call AudioDriverUpdate
         cmp dword [dword_172BD4], byte 0
         je short .1
         call dword [dword_172BD4]
@@ -2898,7 +2898,7 @@ AudioDeferredWork:
         mov edx, dword [byte ebx+02Ah]
         mov eax, esi
         sar edx, 18h
-        call sub_1077D0
+        call ApplyChannelVolume
 .12:
         inc esi
         add ecx, byte 44h

@@ -45,7 +45,7 @@ extern FindShapeQuiet, OpenArtArchive, DrawShapeBlended, ConvertArtNew, sub_102C
 extern sub_102E0C, sub_102EBC, sub_103298, sub_103648, sub_1047D0, sub_10483C, sub_1048BC, sub_10491C
 extern sub_104940, sub_104948, sub_104980, sub_1049D0, BuildInverseTable, CdOpenStream, CdCloseFile, CdRead
 extern CdSeek, DriveLetterIndex, IsCdDrive, AllocCdBuffer, DetectMscdex, RequestSpeechEvent, FileSizePath, LoadFileAllocQuiet
-extern sub_106F7C, sub_106F94, sub_1070B0, sub_1070D0, sub_107154, sub_1072F0, sub_1079E4, OpenDigitalAudio
+extern sub_106F7C, sub_106F94, LoadFileToBlockPlain, RegisterSoundBank, UnregisterSoundBank, DetectAudioDriver, DetectAudioHardware, OpenDigitalAudio
 extern CloseDigitalAudio, StartDigitalAudio, DetectWindows, InitSoundMixer, SetMixerVolumes, SetMasterVolume, SetChannelVolume, SetSpeechVolume
 extern StopAllChannels, ResetSoundChannels, SetMusicStreamVolume, CloseSpeechChannels, AudioStreamPosition, ChannelPlaying, StopChannel, PlaySample
 extern PlaySampleVolume, PushSpeechRing, SpeechRingCount, sub_109417, sub_109545, sub_10955B, SetScreenTarget, TryPokePuck
@@ -13313,7 +13313,7 @@ LoadSfxBank:
         push ecx
         lea eax, [byte esp+028h]
         push eax
-        call sub_1070B0
+        call LoadFileToBlockPlain
         add esp, byte 8
         test eax, eax
         jne short .23
@@ -13369,7 +13369,7 @@ LoadSfxBank:
         push edx
         lea eax, [byte esp+018h]
         push eax
-        call sub_1070B0
+        call LoadFileToBlockPlain
         add esp, byte 8
         test eax, eax
         jne short .25
@@ -13401,7 +13401,7 @@ LoadSfxBank:
         mov ebx, dword [dword edi+dword_1AC5D8]
         mov edx, dword [dword edi+dword_1AC620]
         add eax, edi
-        call sub_1070D0
+        call RegisterSoundBank
         test eax, eax
         jge short .27
         mov ebx, dword [dword edi+dword_1691FC]
@@ -13535,7 +13535,7 @@ jpt_40E30:
         push ebx
         push edx
         mov edx, eax
-        call sub_1079E4
+        call DetectAudioHardware
         mov dword [edx], eax
         dec eax
         mov ebx, edx
@@ -13622,7 +13622,7 @@ OpenAudioStream:
 .2:
         cmp dword [dword esp+0F0h], byte 0FFFFFFFFh
         jne short .3
-        call sub_1079E4
+        call DetectAudioHardware
         mov dword [dword esp+0F0h], eax
         lea eax, [dword esp+0F0h]
         call AdvanceStreamState
@@ -13667,7 +13667,7 @@ OpenAudioStream_D8:
         ret
 .6:
         mov eax, ecx
-        call sub_1072F0
+        call DetectAudioDriver
         mov esi, dword [dword_16E308]
         cmp esi, 510FF40h
         jae short .7
@@ -14151,7 +14151,7 @@ FreeSfxBank:
         je short .1
         call StopBankSounds
         mov eax, dword [dword ebx+dword_1AC5F0]
-        call sub_107154
+        call UnregisterSoundBank
         mov ecx, dword [dword ebx+dword_1691FC]
         push ecx
         xor esi, esi

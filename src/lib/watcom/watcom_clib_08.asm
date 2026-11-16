@@ -13,7 +13,7 @@ extern dword_1CFAA8, dword_1CFAAC, dword_1CFAB0, dword_1CFAB4, dword_1CFABC, dwo
 extern dword_1CFAD4, dword_1CFAD8, dword_1DC5AC, dword_1DC994, dword_1DC998, dword_1DC99C, dword_1DCAFC, dword_1DCB00
 extern dword_1DCB04, dword_1DCB08, dword_1DCEC0, dword_1DCF20, int386_, int386x_, memset_, segread_
 extern str_Inversetmp, bcopy, Random32, sub_1048BC, SpeechBusy, sub_109401, sub_109545, sub_10955B
-extern sub_1095AD, sub_109608, sub_12189C, sub_126264, sub_126364, sub_1266FC, AllocMemBlock, sub_FAAB4
+extern sub_1095AD, sub_109608, sub_12189C, ExpandPalette6To8, CopyPaletteRGB, sub_1266FC, AllocMemBlock, sub_FAAB4
 extern sub_FAB68, FreeMemBlock, WaitTicks, tickcount, toupper_, unk_16FB44, unk_1CFAF0, word_1CFA98
 extern word_1CFAB8, word_1CFADE, word_1CFAE0
 global DetectMscdex_1FC, ParseSpeechEvents_86, QueueSpeechEvent_AD, QueueSpeechEvent_AE, strcmp_, strncpy_, InverseTableSlice, InverseTablePass
@@ -740,7 +740,7 @@ BuildInverseTable:
         mov edx, dword [dword esp+0408h]
         push edx
         push dword 100h
-        call sub_126264
+        call ExpandPalette6To8
         add esp, byte 0Ch
         mov eax, esp
         push eax
@@ -754,7 +754,7 @@ BuildInverseTable:
         mov edx, dword [dword esp+0408h]
         push edx
         push dword 100h
-        call sub_126364
+        call CopyPaletteRGB
         add esp, byte 0Ch
         mov eax, esp
         push eax

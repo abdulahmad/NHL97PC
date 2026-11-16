@@ -5,7 +5,7 @@ section s_12AB6C progbits alloc exec nowrite align=1
 extern dword_172BD8, dword_172CA4, dword_173F64, dword_19469C, dword_1946A0, dword_1946A4, dword_1946A8, dword_1996A4
 extern dword_1996A8, dword_1996AC, dword_1996B0, dword_1996B4, dword_1996B8, dword_1996BC, dword_1996C0, dword_1996C4
 extern dword_1996C8, dword_1996D0, dword_1996D4, dword_1996D8, dword_1996DC, dword_1996E0, dword_1996E4, dword_1996E8
-extern dword_1DCF38, dword_1DD49C, off_1996EC, sub_1074E8, sub_10770C, AudioEnter, AudioLeaveCheck, SbReadData
+extern dword_1DCF38, dword_1DD49C, off_1996EC, StartPatchSample, ParsePatchTags, AudioEnter, AudioLeaveCheck, SbReadData
 extern SbWaitRead, StartChannel, MixNoise, UpdateChannels, SetChannelCount, InitFloatFormat, FormatFloat, unk_1956A4
 extern unk_19972C, word_1DD4A0, word_1DD4A2, word_1DD4A4, word_1DD4A6, word_1DD4A8, word_1DD4AA, word_1DD4AC
 global jpt_12C300, MixerChunkLength_4A, MixerChunkLength_8F, MixerChunkLength_10C, MixerChunkLength_21B, MixerChunkLength_341, MixSample16_7B, MixSample16_102
@@ -2050,7 +2050,7 @@ PlayPatchNote:
         push ebp
         mov al, byte [byte edx+02h]
         mov edx, dword [dword esp+098h]
-        call sub_1074E8
+        call StartPatchSample
         test eax, eax
         jge short .42
         push edi
@@ -2117,7 +2117,7 @@ jpt_12C300_24:
         inc ebp
         mov edx, dword [byte esp+08h]
         mov eax, ebp
-        call sub_10770C
+        call ParsePatchTags
         jmp near .8
 .3:
         cmp eax, 0FEh

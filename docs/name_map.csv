@@ -2321,6 +2321,30 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 106DF8,LoadFileIntoQuiet,sub_106DF8,new,low,loads a file into a buffer without the error message,src/lib/watcom/watcom_clib_08.asm
 106E10,LoadFileCore,sub_106E10,new,low,loads a file,src/lib/watcom/watcom_clib_08.asm
 106EC0,unpack,,96PC,medium,NHL96PC AFB88 (sem): C:3143; C:3144; C:3146; R:2562,
+107000,LoadFileToBlock,sub_107000,new,low,"returns a file already held in a named memory block, or loads it from disk into a new block",src/lib/ea/ea_gfx_04.asm
+107098,LoadFileToBlockShared,sub_107098,new,low,loads a file into a memory block in shared mode,src/lib/ea/ea_gfx_04.asm
+1070B0,LoadFileToBlockPlain,sub_1070B0,new,low,loads a file into a memory block,src/lib/ea/ea_gfx_04.asm
+1070D0,RegisterSoundBank,sub_1070D0,new,low,"checks a BNKl sound bank header, stores it in a free bank slot and prepares its samples",src/lib/ea/ea_gfx_04.asm
+107154,UnregisterSoundBank,sub_107154,new,low,stops every channel playing from a bank (or from all banks) and frees its slot,src/lib/ea/ea_gfx_04.asm
+1071F4,PrepareBankSamples,sub_1071F4,new,low,relocates each sample offset of a bank and loads the samples into the sound driver,src/lib/ea/ea_gfx_04.asm
+1072B4,CheckBankIndex,sub_1072B4,new,low,"returns 0 when a bank index is valid and in use, otherwise an error",src/lib/ea/ea_gfx_04.asm
+1072F0,DetectAudioDriver,sub_1072F0,new,low,calls the detect function of an audio driver (1..6),src/lib/ea/ea_gfx_04.asm
+107308,OpenAudioDriver,sub_107308,new,low,"opens an audio driver, starts the audio timer and registers the close at exit",src/lib/ea/ea_gfx_04.asm
+107370,CloseAudioDriver,sub_107370,new,low,stops the audio timer and closes the current audio driver,src/lib/ea/ea_gfx_04.asm
+1073B0,AdvanceStreamOffset,sub_1073B0,new,low,adds a byte count to a stream's read offset,src/lib/ea/ea_gfx_04.asm
+1073BC,AudioNullFunc,sub_1073BC,new,low,empty audio driver entry: returns 0,src/lib/ea/ea_gfx_04.asm
+1073C0,StartTmplSample,sub_1073C0,new,low,"checks a TMpl sample header, records its format and starts it on a mixer channel",src/lib/ea/ea_gfx_04.asm
+1074E8,StartPatchSample,sub_1074E8,new,low,reads the tag list of a patch sample and starts it on a mixer channel,src/lib/ea/ea_gfx_04.asm
+10770C,ParsePatchTags,sub_10770C,new,low,walks a patch tag list and reads the values of the known tags,src/lib/ea/ea_gfx_04.asm
+107798,AudioDriverUpdate,sub_107798,new,low,calls the update function of the current audio driver; followed by the channel pan update,src/lib/ea/ea_gfx_04.asm
+1077D0,ApplyChannelVolume,sub_1077D0,new,low,sets a mixer channel's volume and pan from the channel table,src/lib/ea/ea_gfx_04.asm
+1077F8,FadeOutChannel,sub_1077F8,new,low,fades out and stops a mixer channel,src/lib/ea/ea_gfx_04.asm
+107808,ChannelTimeLeft,sub_107808,new,low,"returns how long a channel has left to play, from its remaining samples and rate",src/lib/ea/ea_gfx_04.asm
+1078AC,SetChannelPitch,sub_1078AC,new,low,sets a mixer channel's playback rate from its sample format and pitch,src/lib/ea/ea_gfx_04.asm
+1078E4,InitStreamHeader,sub_1078E4,new,low,clears or fills the header of an audio stream block from the channel format,src/lib/ea/ea_gfx_04.asm
+107988,PickSampleRate,sub_107988,new,low,picks an output sample rate from the requested DMA buffer size,src/lib/ea/ea_gfx_04.asm
+1079C4,SampleRateResults,sub_1079C4,new,low,"the return points of the sample rate picker: 11025, 16000, 32000, 44100 or 22050 Hz",src/lib/ea/ea_gfx_04.asm
+1079E4,DetectAudioHardware,sub_1079E4,new,low,tries each sound card detector in turn and returns the driver number that answers,src/lib/ea/ea_gfx_04.asm
 107A2C,DetectSoundCard,sub_107A2C,new,low,detects the sound card from the BLASTER setting,src/lib/watcom/watcom_clib_09.asm
 107A9C,ProbeSoundPorts,sub_107A9C,new,low,probes the sound card ports,src/lib/watcom/watcom_clib_09.asm
 107AE0,OpenDigitalAudio,sub_107AE0,new,low,opens the digital audio driver,src/lib/watcom/watcom_clib_09.asm
@@ -2811,7 +2835,12 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1246C0,float_format_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1246C7,formstring_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 124BB0,zupstr_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+124C30,DrawTextLimited,sub_124C30,new,low,copies up to the given number of characters of a string and draws them at the current text origin,src/lib/watcom/watcom_clib_20.asm
+124D78,DrawTextString,sub_124D78,new,low,draws a string of up to 256 characters at the current text origin,src/lib/watcom/watcom_clib_20.asm
+124DB0,ConvertColor555,sub_124DB0,new,low,converts a 15-bit RGB colour to the pixel format of the current screen,src/lib/watcom/watcom_clib_20.asm
+124E1C,DrawGlyphScaled,sub_124E1C,new,low,draws one font glyph scaled by the current text scale,src/lib/watcom/watcom_clib_20.asm
 124F22,IF@DACOS,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+124FB9,SetTextScale,sub_124FB9,new,low,sets the scale used to draw text glyphs,src/lib/watcom/watcom_clib_20.asm
 124FC8,__fpatan_wrap,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 124FFC,sqrt_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12502C,IF@SQRT,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -2826,9 +2855,28 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 12572A,__fdivrp_sti_st,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12573D,__fdiv_chk,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12579C,__fdiv_m64,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+1258A4,CreateBitmapFromBlock,sub_1258A4,new,low,finds a memory block and creates a bitmap header for it; followed by the variant that does not mark it shared,src/lib/watcom/watcom_clib_20.asm
+1258FC,CreateBitmapForMem,sub_1258FC,new,low,creates a bitmap header for memory the caller already holds,src/lib/watcom/watcom_clib_20.asm
+125914,CreateBitmapCore,sub_125914,new,low,"allocates the bitmap descriptor in its memory list and fills in size, depth and pixel pointer",src/lib/watcom/watcom_clib_20.asm
+125AE0,SinLookup,sub_125AE0,new,low,returns the sine of a 10-bit angle from the quarter-wave table,src/lib/watcom/watcom_clib_20.asm
+125B02,CosLookup,sub_125B02,new,low,returns the cosine of a 10-bit angle from the quarter-wave table,src/lib/watcom/watcom_clib_20.asm
+125B3C,Div64By32,sub_125B3C,new,low,divides a 64-bit value by a 32-bit one; followed by the signed and remainder variants,src/lib/watcom/watcom_clib_20.asm
+125C56,Shl64,sub_125C56,new,low,shifts a 64-bit value left,src/lib/watcom/watcom_clib_20.asm
 125C7B,_Full_at_exit_rtn_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 125CB6,atexit_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 125CF2,strrchr_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+125D0C,Convert565To555,sub_125D0C,new,low,converts a run of 16-bit 5:6:5 pixels to 5:5:5,src/lib/watcom/watcom_clib_20.asm
+125D61,Convert555To565,sub_125D61,new,low,converts a run of 16-bit 5:5:5 pixels to 5:6:5,src/lib/watcom/watcom_clib_20.asm
+125DBC,ConvertIndexedTo32,sub_125DBC,new,low,converts a run of 8-bit pixels to 32-bit through the current palette,src/lib/watcom/watcom_clib_20.asm
+125DDE,Convert32To565Keyed,sub_125DDE,new,low,"converts a run of 32-bit pixels to 5:6:5, keeping transparent pixels transparent",src/lib/watcom/watcom_clib_20.asm
+125E68,Convert32To555Keyed,sub_125E68,new,low,"converts a run of 32-bit pixels to 5:5:5, keeping transparent pixels transparent",src/lib/watcom/watcom_clib_20.asm
+125EED,ConvertIndexedTo16,sub_125EED,new,low,converts a run of 8-bit pixels to 16-bit through the palette lookup table,src/lib/watcom/watcom_clib_20.asm
+125FE1,SwapRedBlue555,sub_125FE1,new,low,swaps the red and blue fields of a run of 5:5:5 pixels,src/lib/watcom/watcom_clib_20.asm
+126052,Convert32To565,sub_126052,new,low,"converts a run of 32-bit pixels to 5:6:5, two at a time",src/lib/watcom/watcom_clib_20.asm
+1260C2,ConvertNibbleTo16,sub_1260C2,new,low,converts a run of 4-bit pixels to 16-bit through the palette lookup table,src/lib/watcom/watcom_clib_20.asm
+1261A4,FindPaletteChunk,sub_1261A4,new,low,walks a shape's attached chunks and returns the first palette chunk,src/lib/watcom/watcom_clib_20.asm
+126264,ExpandPalette6To8,sub_126264,new,low,expands a 6-bit-per-component palette to 8-bit RGBA entries,src/lib/watcom/watcom_clib_20.asm
+126364,CopyPaletteRGB,sub_126364,new,low,copies an 8-bit-per-component palette into RGBA entries,src/lib/watcom/watcom_clib_20.asm
 126463,int386_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 126480,SaveTextMode,,96PC,medium,NHL96PC E2484 (similar): mnemonic similarity 0.94 over 15 instructions,
 1264C2,RestoreTextMode,,96PC,medium,NHL96PC E24C4 (similar): mnemonic similarity 0.91 over 68 instructions,

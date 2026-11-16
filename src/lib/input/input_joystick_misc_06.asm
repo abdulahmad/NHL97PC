@@ -5,7 +5,7 @@ section s_10CFB4 progbits alloc exec nowrite align=1
 extern byte_1D1D8C, byte_1D1FBC, dword_16E464, dword_16E468, dword_16E4A8, dword_17024C, dword_170250, dword_170254
 extern dword_170258, dword_17025C, dword_170260, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274
 extern dword_1D204C, dword_1D2050, memcpy_, sub_100700, sub_10C8E8, sub_10CF34, FixedLerp, DrawClippedPoly
-extern RotatePoint2D, RotateModelPoint, sub_11313C, sub_125AE0, sub_125B02, sub_12D300, sub_12D4B8, sub_12D6C4
+extern RotatePoint2D, RotateModelPoint, sub_11313C, SinLookup, CosLookup, sub_12D300, sub_12D4B8, sub_12D6C4
 extern FreeMemBlock, MakeColor, sub_FDC68, unk_1D1D20, vecdist
 global sub_10CFF7_2E, sub_10D348_292, sub_10D5E8_2A6, sub_10CFB4, sub_10CFF7, sub_10D140, sub_10D244, sub_10D348
 global sub_10D5E8, sub_10D89C, sub_10DB34, sub_10DDE0, sub_10E284, sub_10E42C, sub_10E47C, sub_10E4B0
@@ -71,12 +71,12 @@ sub_10CFF7_2E:
         dd dword_170260
         db 0FFh,035h                            ; insn: push dword [1026Ch]
         dd dword_17026C
-        call sub_125B02
+        call CosLookup
         add esp, byte 4
         mul dword [dword_17024C]
         LD mov, esi, eax
         push dword [dword_17026C]
-        call sub_125AE0
+        call SinLookup
         add esp, byte 4
         LD mov, ecx, eax
         LD mov, eax, esi
@@ -86,12 +86,12 @@ sub_10CFF7_2E:
         LD or, ebx, ebx
         je short .1
         push dword [dword_170270]
-        call sub_125B02
+        call CosLookup
         add esp, byte 4
         mul dword [dword_170250]
         LD mov, esi, eax
         push dword [dword_170270]
-        call sub_125AE0
+        call SinLookup
         add esp, byte 4
         LD mov, ecx, eax
         LD mov, eax, esi

@@ -3,8 +3,11 @@ bits 32
 %include "hockey.inc"
 section s_100674 progbits alloc exec nowrite align=1
 extern sub_100700_91, sub_100700_93, sub_100700_9A, sub_100700_A3, sub_100700_A7, sub_100700_AE, sub_100700_B0, sub_100700_B5
-extern sub_11313C, sub_125AE0, sub_125B02
+extern sub_11313C, SinLookup, CosLookup
 global jpt_1006E0, vecdist
+;-----------------------------------------------------------------------------
+; vecdist                                     100674  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 vecdist:
         push ebp
         LD mov, ebp, esp
@@ -25,7 +28,7 @@ vecdist:
         cmp eax, 80h
         jg short .4
         push eax
-        call sub_125B02
+        call CosLookup
         add esp, byte 4
         LD mov, ebx, eax
         mov eax, dword [byte ebp+08h]
@@ -41,7 +44,7 @@ vecdist:
         ret
 .4:
         push eax
-        call sub_125AE0
+        call SinLookup
         add esp, byte 4
         LD mov, ebx, eax
         mov eax, dword [byte ebp+0Ch]

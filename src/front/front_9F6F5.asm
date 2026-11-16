@@ -13,7 +13,7 @@ extern dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE0, dword_1C8EA4, dwo
 extern dword_1C8F58, dword_1C8F5C, dword_1C8F62, dword_1C8F66, dword_1C8F6A, dword_1C8F6E, dword_1C8F72, dword_1C93C4
 extern dword_1C93C8, dword_1C93CC, dword_1C93D8, dword_1C93DC, dword_1C93E0, dword_1C94B8, jpt_9F6DD, memcpy_
 extern off_16D254, off_16D258, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
-extern BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, LoadFileAlloc, sub_107098
+extern BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, LoadFileAlloc, LoadFileToBlockShared
 extern ConvertArtXY, sub_11B0D0, UnlinkJump, GetFileTimes, FileDateText, FreeArtArchive, SetScreenTarget, SecondsToSamples
 extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, FadeInScreen, ShowScreen, SetRegionRect
 extern DrawEditBox, SetTextColor, DrawTextAligned, ShowMessageBox, DrawEntryList, SetHighlightText, ShowWorkingBox, UpdateWorkingBox
@@ -710,7 +710,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte ebp+02h]
         push eax
         xor ebx, ebx
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         mov edx, 525h
         mov eax, unk_1ACD2B
@@ -745,7 +745,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte ebp-03Eh]
         push eax
         xor ebx, ebx
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         mov edx, 4F7h
         mov eax, unk_1AD250
@@ -761,7 +761,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte ebp+02h]
         push eax
         xor ebx, ebx
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         mov edx, 4F7h
         mov eax, unk_1AD250
@@ -1015,7 +1015,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte ebp+02h]
         push eax
         xor ebx, ebx
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         mov edx, 525h
         mov eax, unk_1ACD2B
@@ -1049,7 +1049,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte ebp+02h]
         push eax
         xor ebx, ebx
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         mov edx, 4F7h
         mov eax, unk_1AD250
@@ -1077,7 +1077,7 @@ PickIndexEntryScreen_4EE:
         push unk_1ACD2B
         lea eax, [byte ebp+02h]
         push eax
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         cmp dword [dword_1ACF46], byte 0
         je short .73
@@ -1098,7 +1098,7 @@ PickIndexEntryScreen_4EE:
         push unk_1AD250
         lea eax, [byte ebp+02h]
         push eax
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
 .73:
         cmp dword [dword_1ACF46], byte 0
@@ -1137,7 +1137,7 @@ PickIndexEntryScreen_4EE:
         push unk_1AD250
         lea eax, [byte ebp+02h]
         push eax
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         mov edx, dword_1AC940
         mov eax, unk_1AD73A

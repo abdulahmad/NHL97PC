@@ -34,7 +34,7 @@ extern fclose_, fopen_, fread_, fseek_, ftell_, fwrite_, int386x_, memcmp_
 extern memcpy_, memset_, off_16D7AC, off_16D7B4, off_16D7DC, off_16D7E0, off_16D7E4, off_16D7E8
 extern off_16E0FC, off_16E4E0, rand_, segread_, slotteam, sprintf_, strcat_, strcmp_
 extern strcpy_, stricmp_, strlen_, strncpy_, bcopy, BlitShape2, BlitArt, BlitShape
-extern PresentScreen, FindShape, ConvertArtNew, FileSizePath, sub_1070B0, DetectWindows, SetupOptionsAnim, sub_10AED0
+extern PresentScreen, FindShape, ConvertArtNew, FileSizePath, LoadFileToBlockPlain, DetectWindows, SetupOptionsAnim, sub_10AED0
 extern UpdateOptionsAnim, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11B104, UnlinkJump, StrCopyEnd, OpenSerialPacketLink
 extern OpenModemPacketLink, NetCopyName, NetOpenSession, NetCloseSession, NetAnnounce, NetJoinGame, NetLeaveGame, NetListGames
 extern NetDisconnectPeer, OpenNetPacketLink, IpxLinkStartup, SetNetCallback, SetScreenTarget, JoystickAxisScale, InitPacketLink, ShutdownPacketLink
@@ -10290,7 +10290,7 @@ OpenReplayFile:
         push esi
         lea eax, [byte ebp-050h]
         push eax
-        call sub_1070B0
+        call LoadFileToBlockPlain
         add esp, byte 8
         test eax, eax
         je short .3
