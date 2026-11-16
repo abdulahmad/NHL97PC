@@ -109,6 +109,11 @@ address,name,auto_name,source,confidence,evidence,file
 349E4,ReadJoy1,,96PC,medium,NHL96PC 398DB (sem): C:371,
 34EF8,doplayeracc,sub_34EF8,94G,medium,"94G doplayeracc: (player, direction 0-7, 8+ = none) the player accelerates toward the direction (x87 heading, sub_34CF4)",src/engine/faceoff/faceoff_2.asm
 362E0,CountTeamSlots,,96PC,medium,NHL96PC 3A2F6 (similar): mnemonic similarity 0.82 over 32 instructions,
+363EC,CheckFightOdds,sub_363EC,new,low,"(player, other) from checkfight: both skaters on the ice, play live, enough hits (word_19CB82 >= 50h): rolls the fight chance",src/engine/faceoff/faceoff_2.asm
+36524,StartFight,sub_36524,new,medium,"(player, other): marks both fighters, gives each a fighting penalty (AddPenalty2 1Ch) and assfight (1Ch), user control, commentary",src/engine/faceoff/faceoff_2.asm
+365FC,checkfight,sub_365FC,93G,medium,"NHLPA 93 checkfight: (player a3, player a2) after a hit, with fighting on in the options: counts the hits and may start a fight (StartFight); the others get assfwatch (1Dh)",src/engine/faceoff/faceoff_2.asm
+36AB0,assfight,sub_36AB0,93G,medium,"NHLPA 93 assfight: assignment 1Ch (StartFight gives it to both fighters), the fighting logic",src/engine/faceoff/faceoff_2.asm
+36E34,assfwatch,sub_36E34,93G,medium,"NHLPA 93 assfwatch: assignment 1Dh (checkfight gives it to the others), players watching the fight",src/engine/faceoff/faceoff_2.asm
 3C75C,SetVideoMode,sub_3C75C,new,medium,"(width, height): switches the screen mode when it differs from the current one (dword_1A8E84 x dword_1A8E88)",src/engine/engine_3812E.asm
 3E850,CdStreamOpen,sub_3E850,96PC,medium,"96 PC CdStreamOpen: allocates and opens a CD stream (""CDSTREAM"" block)",src/engine/engine_3812E.asm
 3E904,setstreamspeed,sub_3E904,96PC,medium,"96 PC setstreamspeed (""STREAM"" block), measures the stream's read speed",src/engine/engine_3812E.asm

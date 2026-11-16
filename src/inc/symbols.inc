@@ -241,10 +241,10 @@
 ;  358E4  sub_358E4                                engine/faceoff/faceoff_2.asm                 1
 ;  362E0  CountTeamSlots                           engine/faceoff/faceoff_2.asm                 1
 ;  36370  sub_36370                                engine/faceoff/faceoff_2.asm                 1
-;  365FC  sub_365FC                                engine/faceoff/faceoff_2.asm                 1
+;  365FC  checkfight                               engine/faceoff/faceoff_2.asm                 1
 ;  36754  sub_36754                                engine/faceoff/faceoff_2.asm                 1
-;  36AB0  sub_36AB0                                engine/faceoff/faceoff_2.asm                 1
-;  36E34  sub_36E34                                engine/faceoff/faceoff_2.asm                 1
+;  36AB0  assfight                                 engine/faceoff/faceoff_2.asm                 1
+;  36E34  assfwatch                                engine/faceoff/faceoff_2.asm                 1
 ;  379AC  sub_379AC                                engine/faceoff/faceoff_2.asm                 1
 ;  37A1C  sub_37A1C                                engine/faceoff/faceoff_2.asm                 1
 ;  37AB4  sub_37AB4                                engine/faceoff/faceoff_2.asm                 1

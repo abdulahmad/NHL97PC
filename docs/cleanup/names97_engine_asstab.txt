@@ -36,3 +36,8 @@ sub_2BEF0 a2offsides {source=94G,confidence=low} 94G a2offsides: (player) from a
 sub_29F30 assintrostand {source=96PC,confidence=medium} 96 PC assintrostand: assignment 1Eh (PlaceOpeningPlayers gives it), players stand during the opening, random idle animations
 sub_2A000 assintroline {source=96PC,confidence=low} 96 PC assintroline: assignment 1Fh, after assintrostand as in 96 PC: the opening line-up
 sub_2A1C8 asstakeposition {source=96PC,confidence=low} 96 PC asstakeposition: assignment 20h, after assintroline as in 96 PC: skate to the starting position
+sub_365FC checkfight {source=93G,confidence=medium} NHLPA 93 checkfight: (player a3, player a2) after a hit, with fighting on in the options: counts the hits and may start a fight (StartFight); the others get assfwatch (1Dh)
+sub_363EC CheckFightOdds {confidence=low} (player, other) from checkfight: both skaters on the ice, play live, enough hits (word_19CB82 >= 50h): rolls the fight chance
+sub_36524 StartFight {confidence=medium} (player, other): marks both fighters, gives each a fighting penalty (AddPenalty2 1Ch) and assfight (1Ch), user control, commentary
+sub_36AB0 assfight {source=93G,confidence=medium} NHLPA 93 assfight: assignment 1Ch (StartFight gives it to both fighters), the fighting logic
+sub_36E34 assfwatch {source=93G,confidence=medium} NHLPA 93 assfwatch: assignment 1Dh (checkfight gives it to the others), players watching the fight

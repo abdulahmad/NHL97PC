@@ -8,7 +8,7 @@ extern asswingo, asscentero, assdefd, asswingd, asscenterd, sub_23C98, assfaceof
 extern sub_244BC, sub_25F64, assnearest, sub_27274, assbench, sub_27AD8, sub_27D10, sub_28110
 extern asseben, sub_2842C, asspenalty, assdopen, assepen, assrefpenshot, sub_29064, sub_293A8
 extern sub_295CC, sub_298E8, sub_29A90, sub_29BFC, sub_29E2C, assintrostand, assintroline, asstakeposition
-extern assstanley, pucknorm, puckfaceoff2, sub_30674, sub_36AB0, sub_36E34, sub_FC210, sub_FC215
+extern assstanley, pucknorm, puckfaceoff2, sub_30674, assfight, assfwatch, sub_FC210, sub_FC215
 extern sub_FC238
 global byte_19C3E0, byte_19C3E6, byte_19C620, dword_19C3DD, dword_19C690, off_19C3F4, off_19C5F4, off_19C61F
 global unk_19C534, unk_19C544, unk_19C564, unk_19C574, unk_19C584, unk_19C594, unk_19C5A4, unk_19C5B4
@@ -65,8 +65,8 @@ off_19C3F4:
         dd sub_27D10
         dd sub_2842C
         dd sub_28110
-        dd sub_36AB0
-        dd sub_36E34
+        dd assfight
+        dd assfwatch
         dd assintrostand
         db 00h,00h,00h,00h
         dd assintroline
