@@ -58,6 +58,19 @@ address,name,auto_name,source,confidence,evidence,file
 1E224,assinsert,sub_1E224,94G,medium,"94G assinsert: (player, assignment) pushes a new assignment (index - 1) unless it is already the current one, then as assreplace",src/engine/engine_15AC2.asm
 1E268,assexit,sub_1E268,94G,high,94G assexit: ends the current assignment (index + 1) and sets the new-assignment flag,src/engine/engine_15AC2.asm
 1EC5C,check4bench,sub_1EC5C,94G,medium,"94G check4bench: whether player a3 should go to the bench; if so assreplace with assbench (17h); 0 when he stays (joystick-controlled, penalty shot, ...)",src/engine/engine_15AC2.asm
+1EF88,SwapPosition,sub_1EF88,96PC,medium,"96 PC SwapPosition: (player, position) gives the player the position and hands his old one to the teammate who held it; returns the player number",src/engine/engine_15AC2.asm
+1FB6C,Setplass,sub_1FB6C,94G,medium,"94G Setplass: sets the player's starting assignment by position from the list byte_1689C0 (goalie 2, defence 3, wings 4, centre 5), after SwapPosition",src/engine/engine_15AC2.asm
+21B20,assgoalie,sub_21B20,94G,medium,"94G assgoalie: assignment 2 (Setplass list for the goalie), the goalie AI",src/engine/engine_15AC2.asm
+22828,assextra4,sub_22828,96PC,low,96 PC assextra4 (placeholder name): called from the offence assignments,src/engine/engine_15AC2.asm
+22B8C,assdefo,sub_22B8C,94G,low,"94G assdefo: assignment 0Bh, defenceman on offence (SwapPosition, assextra4, as 96 PC assdefo)",src/engine/engine_15AC2.asm
+22CEC,asswingo,sub_22CEC,94G,low,"94G asswingo: assignment 0Ch, winger on offence",src/engine/engine_15AC2.asm
+22E70,asscentero,sub_22E70,94G,low,"94G asscentero: assignment 0Dh, centre on offence",src/engine/engine_15AC2.asm
+23284,assextra3,sub_23284,96PC,low,96 PC assextra3 (placeholder name): called from asswingd and asscenterd,src/engine/engine_15AC2.asm
+238E8,assdefd,sub_238E8,94G,medium,"94G assdefd: assignment 3 (Setplass list for defence), defenceman on defence",src/engine/engine_15AC2.asm
+23A78,asswingd,sub_23A78,94G,medium,"94G asswingd: assignment 4 (Setplass list for wings), winger on defence",src/engine/engine_15AC2.asm
+23B88,asscenterd,sub_23B88,94G,medium,"94G asscenterd: assignment 5 (Setplass list for the centre), centre on defence",src/engine/engine_15AC2.asm
+23E90,assfaceoff,sub_23E90,94G,medium,"94G assfaceoff: assignment 7, players idle until the faceoff is over (puckfaceoff2 gives it to everyone but the centre, as 94G afaceoff)",src/engine/engine_15AC2.asm
+23F44,assfaceoffpl,sub_23F44,94G,medium,"94G assfaceoffpl: assignment 8, the faceoff player (puckfaceoff2 gives it to the centre, as 94G afaceoffpl)",src/engine/engine_15AC2.asm
 265FC,assnearest,sub_265FC,94G,medium,"94G assnearest: assignment 0Ah (off_19C3F4), the main skater AI (forcepldata gives it to the centre, as in 94G)",src/engine/engine_25894.asm
 27500,ChkPullGoalieLate,sub_27500,96PC,medium,"96 PC ChkPullGoalieLate: (team) third period, last 60 seconds, losing by 1-2 and no goalie pulled yet: pull the goalie (from assbench)",src/engine/engine_25894.asm
 275C0,assbench,sub_275C0,94G,medium,"94G assbench: assignment 17h, skating off to the bench (check4bench gives it); setplayer for the replacement",src/engine/engine_25894.asm
@@ -66,7 +79,12 @@ address,name,auto_name,source,confidence,evidence,file
 289AC,assdopen,sub_289AC,96PC,low,"96 PC assdopen: assignment 13h, opens the penalty box door (SetPenaltyBoxDoor, sound)",src/engine/engine_25894.asm
 28A08,assepen,sub_28A08,94G,medium,"94G assepen: assignment 14h, leaving the penalty box (setplayer gives it for a player from the box, as in 94G)",src/engine/engine_25894.asm
 28D88,assrefpenshot,sub_28D88,96PC,low,"96 PC assrefpenshot: assignment 29h (last referee handler): waits for AllInPlace before the penalty shot, with a sound",src/engine/engine_25894.asm
+29F30,assintrostand,sub_29F30,96PC,medium,"96 PC assintrostand: assignment 1Eh (PlaceOpeningPlayers gives it), players stand during the opening, random idle animations",src/engine/engine_25894.asm
+2A000,assintroline,sub_2A000,96PC,low,"96 PC assintroline: assignment 1Fh, after assintrostand as in 96 PC: the opening line-up",src/engine/engine_25894.asm
+2A1C8,asstakeposition,sub_2A1C8,96PC,low,"96 PC asstakeposition: assignment 20h, after assintroline as in 96 PC: skate to the starting position",src/engine/engine_25894.asm
 2A3F4,assstanley,sub_2A3F4,96PC,low,"96 PC assstanley: player handler 46, the Stanley Cup presentation (cuppal, LoadCupArt, fade, camera path)",src/engine/engine_25894.asm
+2BEF0,a2offsides,sub_2BEF0,94G,low,94G a2offsides: (player) from a2touchpuck: offsides when the rule is on and the touching player's team is past the line,src/engine/engine_25894.asm
+2C064,a2touchpuck,sub_2C064,94G,medium,"94G a2touchpuck: (player) the player touches the puck: records the last touch (player word_19CBAE, position), then checks offsides and the other rules",src/engine/engine_25894.asm
 2CA40,pucknorm_body,sub_2CA40,96PC,medium,"96 PC pucknorm_body: the puck's handler body: the puck carrier (off_168CF0), goals and the puck physics",src/engine/engine_25894.asm
 2D308,pucknorm,sub_2D308,96PC,medium,"96 PC pucknorm: player handler 43 (off_19C3F4), the puck's normal handler: clears the new-assignment flag (+0BFh bit 1) and its counter, then pucknorm_body",src/engine/engine_25894.asm
 2D330,puckfaceoff2,sub_2D330,96PC,low,"96 PC puckfaceoff2: player handler 45, after puckfaceoff: waits for AllInPlace, resets the bench and the personnel, then drops the puck",src/engine/engine_25894.asm
@@ -75,7 +93,10 @@ address,name,auto_name,source,confidence,evidence,file
 2E378,CompLine,sub_2E378,94G,medium,"94G CompLine: (team, other team) picks the line for the computer team to change to (0F33h threshold, as 96 PC)",src/engine/engine_2DE3C.asm
 2E6D4,SetCoachMode,sub_2E6D4,96PC,medium,96 PC SetCoachMode: the coach mode from the score difference,src/engine/engine_2DE3C.asm
 2E8F0,UpdateCoachModes,sub_2E8F0,96PC,medium,96 PC UpdateCoachModes: from ClockTick at the same minutes of periods 2 and 3,src/engine/engine_2DE3C.asm
+2EDB8,StartFaceoffLineChange,sub_2EDB8,94G,low,94G StartFaceoffLineChange: starts a team's faceoff line change (once per stoppage: team flag +16h bit 1) when line changes are on,src/engine/engine_2DE3C.asm
 2EEE8,puckfaceoff,,96PC,medium,NHL96PC 3AEBA (sem): C:306; D:19CC04; D:19EBBC; D:19EAB0,
+32260,AddPenalty,sub_32260,94G,medium,"94G AddPenalty: (player, penalty, ...) adds a penalty unless the clock is stopped, a penalty shot is live or the rule is off in the options (offsides 5, two-line pass 6 ...); falls through to AddPenalty2",src/engine/faceoff/faceoff_2.asm
+32340,AddPenalty2,sub_32340,94G,low,"94G AddPenalty2: (player, penalty, ...) a forced penalty: penalty table dword_168D20, the penalty panel (QueueOverlayPanel)",src/engine/faceoff/faceoff_2.asm
 332C0,updatepentime,sub_332C0,94G,medium,"94G updatepentime (96 PC body): counts the penalty times down, from chkprogress",src/engine/faceoff/faceoff_2.asm
 33368,checkfornewpen,sub_33368,94G,medium,"94G checkfornewpen (96 PC body), from chkprogress",src/engine/faceoff/faceoff_2.asm
 33880,EndPenaltyShot,sub_33880,96PC,medium,96 PC EndPenaltyShot: from ClockTick when the penalty shot time runs out,src/engine/faceoff/faceoff_2.asm
@@ -107,9 +128,13 @@ address,name,auto_name,source,confidence,evidence,file
 4123C,InitGameAudio,sub_4123C,new,low,with sound on: the crowd (CROWD.CRD) and the play-by-play table (GAMEDATA\AUDPBP3.TSF),src/engine/engine_3812E.asm
 41E64,MusicFileName,sub_41E64,new,medium,"(track 0-43h, buf): the music file path ""%s%02d.ASF"" in data folder 58h",src/engine/engine_3812E.asm
 41EA4,ArenaFileName,sub_41EA4,new,low,"(clip 0-8, buf): the ""%s%02d.ASF"" path of data folder 59h (clip + 1)",src/engine/engine_3812E.asm
-42220,PlaySfx,sub_42220,96PC,medium,"96 PC PlaySfx: (id, volume, ...) plays a sound effect from the loaded banks (id high byte = bank 1-6) at the globalset volume",src/engine/engine_3812E.asm
+41FA0,StopAllSfx,sub_41FA0,new,low,stops every voice in PlaySfx's list (dword_1AC508),src/engine/engine_3812E.asm
+41FDC,PlaySfx,sub_41FDC,96PC,medium,96 PC PlaySfx: (id) plays a sound effect from the loaded banks (id high byte = bank 1-6) at the globalset volume; keeps the voice in a 16-entry list (dword_1AC508),src/engine/engine_3812E.asm
+42098,PlaySfxOr,sub_42098,96PC,medium,"96 PC PlaySfxOr: (id, other) plays other instead of id when id's bank is not loaded",src/engine/engine_3812E.asm
+42220,PlaySfxVolume,sub_42220,new,low,"(id, volume 0-64h, ...): PlaySfx with a volume (scaled by the globalset sound volume) and position",src/engine/engine_3812E.asm
 42D50,OpenSpeechBanks,sub_42D50,96PC,low,"opens the play-by-play speech files (%sAUDPBP3.TSF, KTSF, %sAUDPBP2.VIV, CBANK%03d.DAT), like 96 PC OpenSpeechBanks",src/engine/engine_3812E.asm
 4329C,LoadTeamSpeech,sub_4329C,new,low,"(team, other): loads the team name speech file TEAM%04d.DAT when it is not loaded",src/engine/engine_3812E.asm
+45BEC,CommentaryEvent,sub_45BEC,new,low,"the play-by-play commentary: (event 0A0000001h-0A000002Fh, args...) with speech on, not in a replay (dword_1B8FA0); jump table jpt_45A64 by event, each case queues commentary clips. The arena PA announcer is PaEvent (B/C events)",src/front/front_45BEC.asm
 47F8C,ShutdownSound,sub_47F8C,96PC,medium,NHL96PC 699D0 (sem 0.61): C:2246,src/front/front_45BEC.asm
 4890C,CountRecordGame,sub_4890C,96PC,medium,96 PC CountRecordGame: counts one game of a W/L/T byte string,src/front/front_45BEC.asm
 48950,RecordPctClip,sub_48950,96PC,medium,NHL96PC 67636 (similar 0.91): mnemonic similarity 0.91 over 69 instructions,src/front/front_45BEC.asm
@@ -142,6 +167,7 @@ address,name,auto_name,source,confidence,evidence,file
 5BDF4,InitReplayBuffer,sub_5BDF4,new,medium,"allocates the ""REPLAY"" buffer when free memory exceeds the request by 200000 bytes, at most 0EA60h bytes",src/front/front_57324.asm
 5BEDC,SetReplayRecording,sub_5BEDC,new,low,"(on/off): starts or stops replay recording (dword_1B8FA0), allocating the ""RP_GAME"" block on start",src/front/front_57324.asm
 5CCE0,AllocSpriteBuffers,sub_5CCE0,new,low,"allocates the ""RSPRITE"" block (0C240h): 12 sprite buffers of 1010h bytes",src/front/front_57324.asm
+5ED80,SetSPA,sub_5ED80,94G,medium,"94G SetSPA: (player, animation 0-17Ch, flags, speed) sets the player's animation; restarts it unless it is already playing",src/front/front_57324.asm
 6590A,CamShot23D,sub_6590A,96PC,medium,NHL96PC 603FF (similar 0.81): mnemonic similarity 0.81 over 16 instructions,src/front/front_57324.asm
 65CED,InitAnimPoints,sub_65CED,new,low,"looks up the animation attachment points (puck, stickheel, origin, chin, rhand, lshldr, rshldr) and loads ANIMS.VIV",src/front/front_57324.asm
 77630,AllocAnimStates,sub_77630,new,low,"(count): allocates the ""ANIMSTAT"" block (count x 358h) and clears it",src/front/front_57324.asm
@@ -165,12 +191,17 @@ address,name,auto_name,source,confidence,evidence,file
 7FEC4,EditText,sub_7FEC4,96PC,medium,"NHL96PC EditText 197ED: same 394h text buffer, eax/edx/ebx/ecx + stack args, reads keys (sub_FBE40) and handles backspace/enter; called by every name entry through sub_7FE38/sub_7FE4C",src/front/main/main.asm
 84B55,MainMenuScreen,sub_84B55,96PC,medium,"96 PC MainMenuScreen: the main menu (""menu"", MB01-MB11 buttons, PIC%d%c pictures); checks which of EXHIBIT / SEASON / PLAYOFF.NDX exist; returns the next screen",src/front/front_845E4.asm
 85A15,RunGameScreens,sub_85A15,new,low,"(screen): from RunFrontEnd, runs the game set-up screens by number (team select 4, pick saves 5/7/9, new season 6, new play-offs 8, season 0Ch, play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h, roster 19h) until one returns to the main menu",src/front/front_845E4.asm
+85D1D,RunStatsMenu,sub_85D1D,96PC,medium,"96 PC RunStatsMenu: from the main menu (RunFrontEnd 2), the season menus and the play-offs: loads the season's stats and runs the stats screens",src/front/front_845E4.asm
 86300,NameIndexNew,sub_86300,96PC,medium,NHL96PC 19384 (similar 0.93): mnemonic similarity 0.93 over 34 instructions,src/front/front_845E4.asm
 86368,NameIndexLoad,sub_86368,96PC,medium,NHL96PC 193E8 (sem 1.00): C:2120; C:1834; C:2265; C:1833,src/front/front_845E4.asm
 86424,NameIndexSave,sub_86424,96PC,medium,NHL96PC 19491 (sem 1.00): C:2514; R:1135; C:1834; C:2265,src/front/front_845E4.asm
 864C4,NameIndexFree,sub_864C4,96PC,medium,NHL96PC 19522 (similar 0.82): mnemonic similarity 0.82 over 25 instructions,src/front/front_845E4.asm
 86644,NameIndexRemove,sub_86644,96PC,medium,NHL96PC 19659 (sem 1.00): S:NAMEINDEX; D:165310; K:2C093; C:1858,src/front/front_845E4.asm
 86754,NameIndexPath,sub_86754,96PC,medium,NHL96PC 19731 (sem 0.94): D:16531C; C:1834; C:2265; C:1833,src/front/front_845E4.asm
+87B57,ModemSettingsScreen,sub_87B57,96PC,low,"96 PC ModemSettingsScreen: the modem settings screen (CP00-CP10 buttons, ""Generic Hayes-Compatible"" default)",src/front/front_868CD.asm
+8907B,NetworkGamesScreen,sub_8907B,new,low,"the network game list screen (TPB0-TPB5, SERVLIST)",src/front/front_868CD.asm
+8BDCF,RunNetworkConnect,sub_8BDCF,new,low,"from RunFrontEnd (18h): the network (IPX) game list first, then the modem settings screen, until connected or back",src/front/front_868CD.asm
+8BE23,RunModemConnect,sub_8BE23,new,low,"from RunFrontEnd: the modem settings screen first, then the network game list, until connected or back",src/front/front_868CD.asm
 8BF54,InitMenuItems,sub_8BF54,96PC,medium,NHL96PC 64721 (similar 0.81): mnemonic similarity 0.81 over 32 instructions,src/front/front_868CD.asm
 8DE19,DrawScrollBar,sub_8DE19,96PC,medium,"96 PC DrawScrollBar, same structure",src/front/front_8BFAC.asm
 8DE9D,SetScrollBarPos,sub_8DE9D,96PC,low,"96 PC SetScrollBarPos, the call after DrawScrollBar at the same places",src/front/front_8BFAC.asm
@@ -203,13 +234,19 @@ B2258,ScrollUserList,sub_B2258,96PC,medium,NHL96PC 2AB63 (similar 0.93): mnemoni
 B2E5B,LoadUserList,sub_B2E5B,new,low,"loads LOCAL.NDX (creating it when missing) and adds the ""<NO USER>"" / ""<NEW USER>"" entries (German text when the language is German)",src/front/front_B1E1D.asm
 B36D6,LoadUserRecords,sub_B36D6,96PC,low,"96 PC LoadUserRecords: reads every user's record (local.ndx, ""user"") into the tables of the user records screen",src/front/front_B1E1D.asm
 B41EF,UserRecordsScreen,sub_B41EF,96PC,medium,"96 PC UserRecordsScreen: the user records screen: allocates the column tables (uname, urate, upts, ugf, uga, upp, upk, exrec ...), sorts by the picked column",src/front/front_B1E1D.asm
+B5891,PlayerStatsScreen,sub_B5891,96PC,low,"96 PC PlayerStatsScreen: the player stats screen (""pl menu"" / ""pl reg"", sortable ""pl sort"" columns, cursor, team filter), from RunStatsMenu",src/front/front_B50DB.asm
+B8FDF,PlayerRatingsScreen,sub_B8FDF,96PC,low,"96 PC PlayerRatingsScreen: the player ratings screen, from RunStatsMenu and RosterScreen (as in 96 PC), same list tables as PlayerStatsScreen",src/front/front_B50DB.asm
 BD62C,RunReplay,sub_BD62C,96PC,low,"96 PC RunReplay: RunInGameMenu's replay request: sets up and runs ReplayScreen, then back to the game",src/front/front_BD62C.asm
 BD98B,LoadReplay,sub_BD98B,new,low,"loads a saved replay (""replload"") and sets up the game view and animations for it",src/front/front_BD62C.asm
 BE2A6,ReplayScreen,sub_BE2A6,96PC,low,"96 PC ReplayScreen: the instant replay screen (""replmenu"" / ""replregs"")",src/front/front_BD62C.asm
 BF4F9,PickReplayScreen,sub_BF4F9,new,low,the saved replay list (REPLAY.NDX),src/front/front_BD62C.asm
+C3594,RunOptionsScreens,sub_C3594,new,low,from RunFrontEnd (0Ah): runs the options screen and its control set-up screens (screen numbers 22h-24h) until it returns 1Ah; in a network session only one side may change them,src/front/front_C0F5D.asm
+C48A2,OptionsScreen,sub_C48A2,new,low,"the options screen (ON0%d / OF0%d toggles, MB0%d buttons, BOTM)",src/front/front_C462F.asm
 C755B,RosterScreen,sub_C755B,96PC,low,"96 PC RosterScreen: the roster screen (""roster menu"" / ""roster regions"")",src/front/front_C755B.asm
 CD272,JerseyScreen,sub_CD272,new,low,"the jersey screen (""jersey menu"" / ""jersey menu regions"")",src/front/front_C755B.asm
 CF749,CreatePlayerScreen,sub_CF749,96PC,medium,"96 PC CreatePlayerScreen: the create player screen (""create plr menu"" / ""create plr region""), from the roster screens",src/front/front_C755B.asm
+D1927,PreGameMatchupScreen,sub_D1927,96PC,low,"96 PC PreGameMatchupScreen: game screen 14h before play: the matchup with the left / right team pictures (%03dL.FSH / %03dR.FSH), PANL, team and player stats",src/front/front_D15FB.asm
+D3112,PreGameRostersScreen,sub_D3112,new,low,"game screen 13h before play: the home and visitor rosters (""hros"" / ""vros""), the ""blurb"" and the star players (STAR, FIR1, F%dP%d)",src/front/front_D3112.asm
 D67D4,FadePalette,sub_D67D4,96PC,medium,96 PC FadePalette: fades the 300h-byte palette,src/front/front_D4E24.asm
 D68AC,FadeOut,sub_D68AC,96PC,medium,NHL96PC 63A5B (similar 0.91): mnemonic similarity 0.90 over 22 instructions,src/front/front_D4E24.asm
 D6930,RunIntro,sub_D6930,96PC,medium,"96 PC RunIntro: from main_, the intro screens (scr1, scr2, !pl0, !pl1, nhll, nhlp, bkgd) with music",src/front/front_D4E24.asm
@@ -249,6 +286,12 @@ E5A98,IpxInit,sub_E5A98,new,low,"looks for the IPX driver and allocates the ""IP
 E5C78,IpxCloseSocket,,new,low,closes the open IPX socket (sub_11D508) and frees its buffer (dword_16E128); the earlier 95 PC FreeRinkGfx match was wrong (only a mnemonic similarity),src/front/front_DA66D.asm
 E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 over 34 instructions,
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
+E9429,BuildAllStarTeams,sub_E9429,new,low,"from the season code: sets up the two All-Star teams (InitAllStarTeams, AllocAllStarRosters, PickAllStarPlayers)",src/front/front_E9429.asm
+E947A,AllStarScreen,sub_E947A,new,low,"from RunSeasonMenus: the All-Star screen (conference pages WC00 / EC00, player lists, BAK0 / BAK1)",src/front/front_E9429.asm
+ECA57,PickAllStarPlayers,sub_ECA57,new,low,"allocates ""all star player info"" / ""all star goalie info"", sorts the season's players and goalies (qsort) and picks the All-Stars",src/front/front_E9429.asm
+ECF20,InitAllStarTeams,sub_ECF20,new,low,"names the two teams ""West All Stars"" / ""East All Stars"" and clears them",src/front/front_E9429.asm
+ED01F,AllocAllStarRosters,sub_ED01F,new,low,"allocates the ""all star rosters"", ""all star airecs"", ""all star raw plrs"" and ""all star statrecs"" blocks and fills them from the season database",src/front/front_E9429.asm
+F0339,ControlSetupScreen,sub_F0339,96PC,low,"96 PC ControlSetupScreen: (mode) the control set-up screen (KMB%d keyboard / mouse buttons, TB00-TB03, GLW%d)",src/front/front_EE69C.asm
 F5601,FillBox,sub_F5601,96PC,medium,NHL96PC 64103 (similar 0.92): mnemonic similarity 0.92 over 78 instructions,src/front/front_F20A1.asm
 F9B40,_searchenv_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 F9C34,strcpy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

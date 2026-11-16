@@ -15,7 +15,7 @@ extern dword_1C93C8, dword_1C93CC, dword_1C93D8, dword_1C93DC, dword_1C93E0, dwo
 extern off_16D254, off_16D258, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
 extern sub_101324, sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_106D80, sub_107098
 extern sub_11A318, sub_11B0D0, sub_11B98E, sub_11B9A0, sub_11BA08, sub_11BA50, sub_13C164, sub_419B0
-extern sub_419B8, sub_41FA0, sub_41FDC, MakeDirPath, LoadDataFile, sub_7EDF0, sub_7EEB0, SetRegionRect
+extern sub_419B8, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, sub_7EDF0, sub_7EEB0, SetRegionRect
 extern sub_7F04C, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_81114, sub_81650, sub_83314, sub_834EC
 extern sub_83558, sub_835BC, sub_83850, NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500
 extern NameIndexRemove, NameIndexPath, sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar
@@ -1869,7 +1869,7 @@ sub_A0C74:
         mov eax, dword [tickcount]
         mov dword [byte ebp+066h], eax
         mov eax, 204h
-        call sub_41FDC
+        call PlaySfx
 .6:
         mov eax, dword [tickcount]
         sub eax, dword [byte ebp+066h]
@@ -2143,9 +2143,9 @@ sub_A0C74:
         push dword [byte ebp+06Ah]
         call sub_FCD90
         add esp, byte 4
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 205h
-        call sub_41FDC
+        call PlaySfx
         lea esp, [dword ebp+082h]
         pop ebp
         pop edi

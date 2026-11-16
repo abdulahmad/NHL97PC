@@ -163,10 +163,10 @@ extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, s
 extern sub_119A8, setplayer, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
 extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, sub_18DF7, sub_18E35, DrawGameOverlays, StartCameraPath
 extern SelectCameraView, sub_1DFA0, sub_1E014, assreplace, assinsert, sub_1E354, sub_1FBF4, sub_20CB0
-extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, sub_2C064, sub_2DD54, sub_2E11C, sub_2E168
-extern sub_2E208, sub_2EDB8, sub_2F4B8, sub_2FED8, sub_32260, sub_32340, EndPenaltyShot, sub_34330
+extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, a2touchpuck, sub_2DD54, sub_2E11C, sub_2E168
+extern sub_2E208, StartFaceoffLineChange, sub_2F4B8, sub_2FED8, AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330
 extern sub_358E4, sub_365FC, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
-extern sub_41ACC, sub_41FA0, sub_42098, PlaySfx, sub_42354, sub_4241C, sub_424CC, sub_45BEC
+extern sub_41ACC, StopAllSfx, PlaySfxOr, PlaySfxVolume, sub_42354, sub_4241C, sub_424CC, CommentaryEvent
 extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, sub_4BA00, sub_4BCB4
 extern sub_4C0C4, sub_4DA84, PeriodOver, sub_4DD9C, sub_4DDB0, sub_4FC50, sub_50050, sub_51B5C
 extern sub_51BD8, sub_56798, sub_567B0, sub_568CC, sub_56908, sub_56A84, sub_56AE4, sub_56CD0
@@ -215,7 +215,7 @@ global sub_5CD90, sub_5D100, sub_5D1E0, sub_5D23C, sub_5D294, sub_5D2F0, sub_5D4
 global sub_5D488, sub_5D594, sub_5D5DC, sub_5D6A8, sub_5D7A4, sub_5D878, sub_5D900, sub_5DC1C
 global sub_5DC50, sub_5DCBC, sub_5DD74, sub_5DE74, sub_5DF50, sub_5DF90, sub_5E1B0, sub_5E224
 global sub_5E7D8, sub_5E81C, sub_5E934, sub_5E998, sub_5E9F0, sub_5EA78, sub_5EB14, sub_5EC50
-global sub_5ED80, sub_5EEEC, sub_5F018, sub_5FE2C, sub_60078, sub_6023C, sub_60710, sub_6077C
+global SetSPA, sub_5EEEC, sub_5F018, sub_5FE2C, sub_60078, sub_6023C, sub_60710, sub_6077C
 global sub_60D28, sub_60D6C, sub_60D84, sub_60F48, sub_612E4, sub_613AC, sub_613F8, sub_6152C
 global sub_61540, sub_615D0, sub_61764, sub_617EC, sub_61804, sub_61BF8, sub_61F78, sub_6211C
 global sub_62340, sub_624D0, sub_626BC, sub_628C4, sub_62C14, sub_62F14, sub_633E8, sub_63878
@@ -6896,7 +6896,7 @@ sub_5C1F8:
 sub_5C2CC:
         xor eax, eax
         call sub_4241C
-        call sub_41FA0
+        call StopAllSfx
         call sub_114C4
         cmp dword [dword_1B8F48], byte 0
         sete al
@@ -6923,7 +6923,7 @@ sub_5C30C:
         xor eax, eax
         mov edx, 12Ch
         call sub_4241C
-        call sub_41FA0
+        call StopAllSfx
         call sub_114C4
         mov dword [dword_1B8F48], edx
         pop edx
@@ -6937,7 +6937,7 @@ sub_5C32C:
         xor eax, eax
         mov edx, 4B0h
         call sub_4241C
-        call sub_41FA0
+        call StopAllSfx
         call sub_114C4
         mov dword [dword_1B8F48], edx
         pop edx
@@ -6958,7 +6958,7 @@ sub_5C34C:
         mov edx, 12Ch
         call sub_4241C
         call sub_4A280
-        call sub_41FA0
+        call StopAllSfx
         call sub_114C4
         mov eax, esi
         mov dword [dword_1B8F48], edx
@@ -9615,7 +9615,7 @@ sub_5DF90:
         mov edx, 64h
         mov eax, 410h
         push dword [byte ebx+020h]
-        call PlaySfx
+        call PlaySfxVolume
 .10:
         fld dword [byte ebx+030h]
         fchs
@@ -10818,9 +10818,11 @@ sub_5EC50:
         ret 0Ch
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5ED80                                                       5ED80  97 PC
+; SetSPA                                         5ED80  94G, medium confidence
+; 94G SetSPA: (player, animation 0-17Ch, flags, speed) sets the player's
+; animation; restarts it unless it is already playing
 ;-----------------------------------------------------------------------------
-sub_5ED80:
+SetSPA:
         push ecx
         push esi
         push edi
@@ -13599,7 +13601,7 @@ sub_60D84:
         mov byte [dword ecx+0BFh], bl
         mov ebx, 20h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, 1
         pop esi
         pop edx
@@ -13863,7 +13865,7 @@ sub_60F48:
         mov byte [dword ecx+0BFh], bl
         mov ebx, 20h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0FAh]
         and byte [byte eax+031h], 0F7h
 .33:
@@ -14448,7 +14450,7 @@ sub_61804:
         mov byte [dword ecx+0BFh], bl
         mov ebx, 20h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .5:
         mov edx, 1
         mov eax, edx
@@ -14664,7 +14666,7 @@ sub_61804:
         mov byte [dword ecx+0BFh], bl
         mov ebx, 20h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .31:
         mov edx, 1
         mov eax, edx
@@ -14753,7 +14755,7 @@ sub_61BF8:
         mov byte [dword ecx+0BFh], bl
         mov ebx, 20h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, 1
         add esp, byte 4
         pop esi
@@ -14935,7 +14937,7 @@ sub_61BF8:
         mov byte [dword ecx+0BFh], bl
         mov ebx, 20h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, 1
         add esp, byte 4
         pop esi
@@ -15063,7 +15065,7 @@ sub_61F78:
         mov byte [dword ecx+0BFh], bl
         mov ebx, 20h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .11:
         add esp, byte 4
         pop esi
@@ -15225,7 +15227,7 @@ sub_6211C:
         mov byte [dword ecx+0BFh], bl
         xor ebx, ebx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         test esi, esi
         je short .14
         mov edx, dword [dword ecx+0EEh]
@@ -15375,7 +15377,7 @@ sub_62340:
         mov eax, ecx
         mov byte [dword ecx+0BFh], bh
         xor ebx, ebx
-        call sub_5ED80
+        call SetSPA
 .10:
         mov esp, ebp
         pop ebp
@@ -15529,7 +15531,7 @@ sub_624D0:
         mov byte [dword ecx+0BFh], bl
         xor ebx, ebx
         push dword 3F000000h
-        call sub_5ED80
+        call SetSPA
         or byte [dword ecx+0BFh], 20h
 .12:
         mov esp, ebp
@@ -15682,7 +15684,7 @@ sub_626BC:
         mov byte [dword ecx+0BFh], bl
         xor ebx, ebx
         push dword 3F000000h
-        call sub_5ED80
+        call SetSPA
         or byte [dword ecx+0BFh], 20h
 .12:
         mov esp, ebp
@@ -16551,7 +16553,7 @@ sub_62F14_A9:
         mov byte [dword ecx+0BFh], bl
         xor ebx, ebx
         push dword 3F333333h
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -16943,7 +16945,7 @@ sub_633E8_51:
         mov byte [dword ecx+0BFh], bh
         xor ebx, ebx
         push dword 3F333333h
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -17821,7 +17823,7 @@ sub_63E8C:
         cwde
         add eax, 431h
 .14:
-        call PlaySfx
+        call PlaySfxVolume
 .15:
         lea edx, [byte ebp-024h]
         mov eax, esi
@@ -18516,7 +18518,7 @@ sub_64700:
         mov edx, 11h
 .4:
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop esi
@@ -19201,7 +19203,7 @@ sub_64D54:
         cwde
         add eax, 431h
 .11:
-        call PlaySfx
+        call PlaySfxVolume
 .12:
         lea edx, [byte ebp-010h]
         mov eax, esi
@@ -21328,7 +21330,7 @@ sub_666CC:
         mov edx, 64h
         mov eax, 460h
         push dword [byte ebx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         mov eax, dword [byte ebx+04h]
         xor ecx, ecx
         sar eax, 10h
@@ -21451,12 +21453,12 @@ sub_66758:
         mov ebx, 1
         mov edx, 1Bh
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
 .5:
         mov edx, 8
         mov eax, ecx
         xor ebx, ebx
-        call sub_32340
+        call AddPenalty2
 .6:
         call EndPenaltyShot
         xor edi, edi
@@ -21490,7 +21492,7 @@ sub_66758:
         add eax, edx
         mov edx, 8
         xor esi, esi
-        call sub_32340
+        call AddPenalty2
         call EndPenaltyShot
         mov word [word_19CBD8], si
         mov word [word_19CBD6], si
@@ -22200,7 +22202,7 @@ sub_66E38:
         mov eax, 411h
 .18:
         push dword [byte ebx+020h]
-        call PlaySfx
+        call PlaySfxVolume
 .19:
         fld dword [dword_1631D0]
         fsub dword [byte ebx+050h]
@@ -22471,7 +22473,7 @@ sub_67248:
         mov eax, 411h
 .14:
         push dword [byte ebx+020h]
-        call PlaySfx
+        call PlaySfxVolume
 .15:
         fld dword [dword_1631D8]
         fsub dword [byte ebx+050h]
@@ -23219,7 +23221,7 @@ sub_67B10:
         mov eax, 41Bh
         push dword [byte edx+020h]
         mov edx, 64h
-        call PlaySfx
+        call PlaySfxVolume
 .3:
         mov esp, ebp
         pop ebp
@@ -23276,7 +23278,7 @@ sub_67BD0:
         push eax
         push edx
         push dword 0A0000017h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
         pop edx
         pop ebx
@@ -23293,7 +23295,7 @@ sub_67BD0:
         push eax
         push byte 0
         push dword 0A0000016h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
         pop edx
         pop ebx
@@ -24019,7 +24021,7 @@ sub_68378:
         mov eax, ecx
         xor ebx, ebx
         mov dword [byte ecx+038h], 0
-        call sub_32340
+        call AddPenalty2
 .7:
         fld dword [byte ebp-04h]
         fcomp dword [dword_163320]
@@ -24123,7 +24125,7 @@ sub_68378:
         push dword [byte ebp-010h]
         mov eax, 414h
         push dword [byte ebp-018h]
-        call PlaySfx
+        call PlaySfxVolume
         mov ah, byte [byte_19CBC2]
         mov edi, 1
         test ah, 1
@@ -24497,7 +24499,7 @@ sub_6889C:
         mov eax, ecx
         xor ebx, ebx
         mov dword [byte ecx+038h], 0
-        call sub_32340
+        call AddPenalty2
 .7:
         fld dword [byte ebp-04h]
         fcomp dword [dword_163398]
@@ -24601,7 +24603,7 @@ sub_6889C:
         push dword [byte ebp-010h]
         mov eax, 414h
         push dword [byte ebp-018h]
-        call PlaySfx
+        call PlaySfxVolume
         mov ah, byte [byte_19CBC2]
         mov edi, 1
         test ah, 1
@@ -25186,7 +25188,7 @@ sub_68DBC:
         push dword [byte ebx+028h]
         mov eax, 414h
         push dword [byte ebx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         test byte [byte_19CBC2], 1
         jne short .17
         mov eax, 4
@@ -26297,7 +26299,7 @@ sub_69BA0:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0FAh]
         and byte [byte eax+030h], 0FEh
         mov eax, ecx
@@ -26441,7 +26443,7 @@ sub_69DF4:
         mov byte [dword ecx+0BFh], bh
         xor ebx, ebx
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0FAh]
         and byte [byte eax+030h], 0FEh
         mov eax, ecx
@@ -26563,7 +26565,7 @@ sub_69F3C:
         mov byte [dword ecx+0BFh], bl
         xor ebx, ebx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0FAh]
         and byte [byte eax+030h], 0FEh
         mov esp, ebp
@@ -26597,7 +26599,7 @@ sub_6A0BC:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         xor edx, edx
         mov eax, dword [off_168CF0]
         mov dl, byte [dword ecx+0A4h]
@@ -26846,7 +26848,7 @@ sub_6A244:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -26864,7 +26866,7 @@ sub_6A244:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -26882,7 +26884,7 @@ sub_6A244:
         mov byte [dword ecx+0BFh], bh
         mov ebx, 20h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [byte edi+04h]
         mov dword [byte esi+010h], eax
         mov esp, ebp
@@ -26903,7 +26905,7 @@ sub_6A244:
         mov byte [dword ecx+0BFh], dl
         mov edx, 9Ch
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov dword [byte esi+010h], 0
         mov esp, ebp
         pop ebp
@@ -26923,7 +26925,7 @@ sub_6A244:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .14:
         mov eax, dword [byte edi+04h]
         mov dword [byte esi+010h], eax
@@ -26967,7 +26969,7 @@ sub_6A244:
         mov dl, al
         add edx, byte 35h
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         mov dword [byte esi+010h], 0
         mov esp, ebp
         pop ebp
@@ -26990,7 +26992,7 @@ sub_6A244:
         mov dl, al
         add edx, byte 39h
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         mov dword [byte esi+010h], 0
         mov esp, ebp
         pop ebp
@@ -27325,7 +27327,7 @@ sub_6A77C:
         push dword [byte edx+028h]
         push dword [byte edx+020h]
         mov edx, 64h
-        call PlaySfx
+        call PlaySfxVolume
         cmp word [word_19CB94], byte 0
         jl near .27
         mov eax, dword [off_168CFC]
@@ -27435,7 +27437,7 @@ sub_6A77C:
         and eax, 0FFh
         push eax
         push dword 0A0000001h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 2Ch
         jmp short .28
 .27:
@@ -27560,7 +27562,7 @@ sub_6ABEC:
 .2:
         mov eax, ecx
         mov ebx, 1
-        call sub_2C064
+        call a2touchpuck
         mov dword [byte ebp-018h], ebx
         jmp short .4
 .3:
@@ -27719,7 +27721,7 @@ sub_6ABEC:
         push dword [byte edx+028h]
         push dword [byte edx+020h]
         mov edx, 64h
-        call PlaySfx
+        call PlaySfxVolume
         test byte [byte_19CBC2], 1
         jne near .34
         cmp word [word_19CBF4], byte 0
@@ -27824,7 +27826,7 @@ sub_6ABEC:
         and eax, 0FFh
         push eax
         push dword 0A0000004h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 24h
         jmp short .34
 .33:
@@ -27838,7 +27840,7 @@ sub_6ABEC:
         push eax
         push edi
         push dword 0A0000010h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
 .34:
         xor ebx, ebx
@@ -29802,7 +29804,7 @@ sub_6C73C:
         mov eax, 420h
         push dword [byte ecx+020h]
 .13:
-        call PlaySfx
+        call PlaySfxVolume
         mov eax, dword [dword ecx+0FAh]
         mov dword [eax], 41400000h
 .14:
@@ -30130,7 +30132,7 @@ sub_6CA24:
         mov eax, 420h
         push dword [byte ecx+020h]
 .21:
-        call PlaySfx
+        call PlaySfxVolume
         mov eax, dword [dword ecx+0FAh]
         mov dword [eax], 41400000h
 .22:
@@ -30288,7 +30290,7 @@ sub_6CD58:
         mov edx, 0Ah
         mov eax, ecx
         xor ebx, ebx
-        call sub_32340
+        call AddPenalty2
 .7:
         fld dword [byte esp+024h]
         fabs
@@ -31099,7 +31101,7 @@ sub_6D678:
         push ecx
         push eax
         push dword 0A0000008h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 1Ch
 .10:
         pop edi
@@ -31321,7 +31323,7 @@ sub_6D980:
         call sub_6D59C
         mov edx, eax
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0FAh]
         or byte [byte eax+031h], 1
         xor edx, edx
@@ -31438,7 +31440,7 @@ sub_6DAB0:
         call sub_6D59C
         mov edx, eax
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0FAh]
         or byte [byte eax+031h], 1
         xor edx, edx
@@ -31520,7 +31522,7 @@ sub_6DAB0:
         mov byte [dword ecx+0BFh], bl
         xor ebx, ebx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0FAh]
         mov bh, byte [byte eax+031h]
         or bh, 1
@@ -31572,7 +31574,7 @@ sub_6DAB0:
         mov edx, eax
         xor ebx, ebx
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0FAh]
         or byte [byte eax+031h], 1
         xor edx, edx
@@ -31617,7 +31619,7 @@ sub_6DAB0:
         call sub_6D59C
         mov edx, eax
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0FAh]
         mov bl, byte [byte eax+031h]
         or bl, 1
@@ -31924,7 +31926,7 @@ sub_6E170:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         fld dword [byte ecx+040h]
         fsub dword [byte ecx+01Ch]
         fld qword [qword_163874]
@@ -32298,7 +32300,7 @@ sub_6E290:
         mov byte [dword esi+0BFh], al
         mov eax, esi
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, ecx
         shl ecx, 3
         sub ecx, eax
@@ -32346,7 +32348,7 @@ sub_6E290:
         mov eax, 425h
         push dword [byte esi+020h]
         mov ecx, 83h
-        call PlaySfx
+        call PlaySfxVolume
         jmp short .27
 .24:
         fld dword [byte esp+04Ch]
@@ -32810,7 +32812,7 @@ sub_6E9A4:
         mov edx, 64h
         mov eax, 425h
         push dword [byte esi+020h]
-        call PlaySfx
+        call PlaySfxVolume
         jmp near .45
 .22:
         fld dword [byte esi+020h]
@@ -34574,7 +34576,7 @@ sub_70324:
         mov edx, eax
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .1:
         pop edx
         pop ecx
@@ -34621,7 +34623,7 @@ sub_70378:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         jmp short .5
 .3:
         mov edx, esp
@@ -34682,7 +34684,7 @@ sub_70424:
         mov byte [dword ecx+0BFh], dl
         mov edx, esi
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         jmp short .3
 .2:
         xor edx, edx
@@ -34825,7 +34827,7 @@ sub_704D4:
         sete al
         and eax, 0FFh
         add eax, 440h
-        call PlaySfx
+        call PlaySfxVolume
         mov edx, 1
         mov eax, dword [dword esi+0F2h]
         call sub_56CE4
@@ -34895,7 +34897,7 @@ sub_704D4_1C4:
         sete al
         and eax, 0FFh
         add eax, 440h
-        call PlaySfx
+        call PlaySfxVolume
         mov edx, 1
         mov eax, dword [dword esi+0F2h]
         call sub_56CE4
@@ -34968,7 +34970,7 @@ sub_704D4_299:
         mov byte [dword ecx+0BFh], dh
         mov edx, edi
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         or byte [dword ecx+0BFh], 20h
         jmp short .20
 .17:
@@ -34988,7 +34990,7 @@ sub_704D4_299:
         mov edx, 64h
         mov eax, 443h
         push dword [byte esi+020h]
-        call PlaySfx
+        call PlaySfxVolume
         and byte [byte edi+030h], 7Fh
 .20:
         mov eax, dword [byte ebp-010h]
@@ -35223,7 +35225,7 @@ sub_70A58:
         mov edx, 64h
         mov eax, 423h
         push dword [byte ecx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         mov edx, 2
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -35245,7 +35247,7 @@ sub_70A58:
         mov byte [dword ecx+0BFh], dh
         mov edx, 160h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -35324,7 +35326,7 @@ sub_70B74:
         mov edx, 64h
         mov eax, 423h
         push dword [byte ecx+020h]
-        call PlaySfx
+        call PlaySfxVolume
 .3:
         test byte [byte ebx+01Ch], 80h
         je short .4
@@ -35337,7 +35339,7 @@ sub_70B74:
         mov byte [dword ecx+0BFh], dh
         mov edx, 175h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -35522,7 +35524,7 @@ sub_70D60:
         mov byte [dword ecx+0BFh], dl
         mov edx, 170h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         jmp short .4
 .2:
         test byte [byte ebx+01Ch], 80h
@@ -35662,7 +35664,7 @@ sub_70E48:
         mov byte [dword ecx+0BFh], bh
         xor ebx, ebx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0F6h]
         mov edx, esi
         mov eax, dword [eax]
@@ -35687,7 +35689,7 @@ sub_70E48:
         mov byte [dword ecx+0BFh], dh
         mov edx, 172h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0F6h]
         mov edx, esi
         mov eax, dword [eax]
@@ -35711,7 +35713,7 @@ sub_70E48:
         mov byte [dword edi+0BFh], ah
         mov eax, edi
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         or byte [dword edi+0BFh], 20h
         or byte [byte ebp+030h], 2
         mov edx, dword [dword edi+0FAh]
@@ -35750,7 +35752,7 @@ sub_70E48:
         mov byte [dword ecx+0BFh], bh
         xor ebx, ebx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         add esp, byte 30h
         pop ebp
         pop edi
@@ -35822,7 +35824,7 @@ sub_71108:
         mov edx, 64h
         mov eax, 442h
         push dword [byte ecx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -35855,7 +35857,7 @@ sub_71108:
         mov byte [dword ecx+0BFh], dh
         mov edx, 171h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
         call sub_56CE4
@@ -35874,7 +35876,7 @@ sub_71108:
         mov byte [dword ecx+0BFh], dl
         mov edx, 161h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0F6h]
         mov eax, dword [eax]
         mov edx, dword [eax]
@@ -35944,7 +35946,7 @@ sub_71298:
         mov byte [dword ecx+0BFh], dh
         mov edx, 162h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -36067,7 +36069,7 @@ sub_713E0:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         pop esi
         pop edx
         pop ecx
@@ -36137,7 +36139,7 @@ sub_7147C:
         mov byte [dword ecx+0BFh], dh
         mov edx, 173h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         jmp short .4
 .2:
         test byte [byte ebx+01Ch], 80h
@@ -36217,7 +36219,7 @@ sub_71574:
         mov edx, 64h
         mov eax, 442h
         push dword [byte ecx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -36259,7 +36261,7 @@ sub_71574:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         jmp short .6
 .4:
         mov bh, byte [dword ecx+0BFh]
@@ -36269,7 +36271,7 @@ sub_71574:
         mov byte [dword ecx+0BFh], bh
         mov ebx, 840h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0F6h]
         mov eax, dword [eax]
         mov edx, dword [eax]
@@ -36340,7 +36342,7 @@ sub_716F8:
         mov byte [dword ecx+0BFh], dh
         mov edx, 16Ch
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -36437,7 +36439,7 @@ sub_71808:
         mov byte [dword esi+0BFh], bh
         xor ebx, ebx
         mov esi, 8
-        call sub_5ED80
+        call SetSPA
         mov eax, ecx
         jmp dword [dword cs:esi+unk_717E0]
 sub_71808_86:
@@ -36473,7 +36475,7 @@ sub_71808_97:
         mov byte [dword ecx+0BFh], dl
         mov edx, 167h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0EEh]
         or byte [byte eax+031h], 1
         or byte [dword ecx+0BFh], 20h
@@ -36489,7 +36491,7 @@ sub_71808_97:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         pop edi
         pop esi
         pop edx
@@ -36511,7 +36513,7 @@ sub_71808_97:
         mov byte [dword esi+0BFh], bh
         xor ebx, ebx
         mov esi, 10h
-        call sub_5ED80
+        call SetSPA
         mov eax, ecx
         jmp dword [dword cs:esi+unk_717F4]
 sub_71808_186:
@@ -36547,7 +36549,7 @@ sub_71808_197:
         mov byte [dword ecx+0BFh], dl
         mov edx, 16Fh
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0EEh]
         or byte [byte eax+031h], 1
         or byte [dword ecx+0BFh], 20h
@@ -36570,7 +36572,7 @@ sub_71808_197:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         pop edi
         pop esi
         pop edx
@@ -36594,7 +36596,7 @@ sub_71808_197:
         mov byte [dword esi+0BFh], dh
         mov edx, 15Ch
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .12:
         pop edi
         pop esi
@@ -36654,7 +36656,7 @@ sub_71ABC:
         mov byte [dword esi+0BFh], bh
         xor ebx, ebx
         mov esi, 0Ch
-        call sub_5ED80
+        call SetSPA
         mov eax, ecx
         jmp dword [dword cs:esi+unk_71A94]
 sub_71ABC_86:
@@ -36690,7 +36692,7 @@ sub_71ABC_97:
         mov byte [dword ecx+0BFh], dl
         mov edx, 168h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0EEh]
         or byte [byte eax+031h], 1
         or byte [dword ecx+0BFh], 20h
@@ -36706,7 +36708,7 @@ sub_71ABC_97:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         pop edi
         pop esi
         pop edx
@@ -36728,7 +36730,7 @@ sub_71ABC_97:
         mov byte [dword esi+0BFh], bh
         xor ebx, ebx
         mov esi, 10h
-        call sub_5ED80
+        call SetSPA
         mov eax, ecx
         jmp dword [dword cs:esi+unk_71AA8]
 sub_71ABC_186:
@@ -36764,7 +36766,7 @@ sub_71ABC_197:
         mov byte [dword ecx+0BFh], dl
         mov edx, 16Fh
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0EEh]
         or byte [byte eax+031h], 1
         or byte [dword ecx+0BFh], 20h
@@ -36787,7 +36789,7 @@ sub_71ABC_197:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         pop edi
         pop esi
         pop edx
@@ -36811,7 +36813,7 @@ sub_71ABC_197:
         mov byte [dword esi+0BFh], dh
         mov edx, 15Dh
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .12:
         pop edi
         pop esi
@@ -36858,7 +36860,7 @@ sub_71D48:
         mov byte [dword ecx+0BFh], bl
         mov ebx, 40h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword esi+0FAh]
         or byte [byte eax+030h], 4
         mov eax, dword [dword esi+0FAh]
@@ -36870,7 +36872,7 @@ sub_71D48:
         mov byte [dword esi+0BFh], al
         mov eax, esi
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov dword [byte ecx+05Ah], 3E8h
         mov dword [byte esi+05Ah], 0FFFFFC18h
         pop esi
@@ -36894,7 +36896,7 @@ sub_71D48:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .3:
         pop esi
         pop edx
@@ -36936,7 +36938,7 @@ sub_71E58:
         mov byte [dword esi+0BFh], al
         mov eax, esi
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0FAh]
         call sub_60D6C
         mov ah, byte [dword ecx+0BFh]
@@ -36958,7 +36960,7 @@ sub_71E58:
         mov byte [dword esi+0BFh], al
         mov eax, esi
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0FAh]
         call sub_60D6C
         mov ah, byte [dword ecx+0BFh]
@@ -36969,7 +36971,7 @@ sub_71E58:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .3:
         pop esi
         pop edx
@@ -37001,7 +37003,7 @@ sub_71F4C:
         mov edx, 159h
 .2:
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -37052,7 +37054,7 @@ sub_71FD0:
         and eax, 0FFh
         add eax, 426h
         inc ecx
-        call PlaySfx
+        call PlaySfxVolume
 .2:
         test byte [byte ebp-04h], 2
         je short .3
@@ -37060,7 +37062,7 @@ sub_71FD0:
         mov edx, 64h
         mov eax, 423h
         push dword [byte ebx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         inc ecx
 .3:
         mov eax, ecx
@@ -37126,7 +37128,7 @@ sub_72050:
         mov byte [dword ecx+0BFh], bh
         xor ebx, ebx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         or byte [byte esi+031h], 1
         or byte [dword ecx+0BFh], 20h
         add esp, byte 0Ch
@@ -37219,7 +37221,7 @@ sub_72170:
         mov byte [dword ecx+0BFh], dh
         mov edx, 71h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         or byte [byte esi+031h], 1
         or byte [dword ecx+0BFh], 20h
         jmp near .10
@@ -37260,7 +37262,7 @@ sub_72170:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -37349,7 +37351,7 @@ sub_72324:
         mov byte [dword ecx+0BFh], bh
         mov ebx, 20h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov ebx, dword [dword ecx+0FAh]
         or byte [byte ebx+031h], 1
         or byte [dword ecx+0BFh], 20h
@@ -37364,7 +37366,7 @@ sub_72324:
         mov byte [dword ecx+0BFh], dl
         mov edx, 72h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -37542,7 +37544,7 @@ sub_72564:
         setne al
         and eax, 0FFh
         add eax, 421h
-        call PlaySfx
+        call PlaySfxVolume
 .2:
         mov al, byte [byte ebx+01Ch]
         test al, 80h
@@ -37624,7 +37626,7 @@ sub_72648:
         setne al
         and eax, 0FFh
         add eax, 421h
-        call PlaySfx
+        call PlaySfxVolume
         mov eax, dword [byte esi+04h]
         xor edx, edx
         sar eax, 10h
@@ -37880,7 +37882,7 @@ sub_7291C:
         mov edx, 64h
         mov eax, 425h
         push dword [byte ecx+020h]
-        call PlaySfx
+        call PlaySfxVolume
 .1:
         mov dl, byte [byte ebx+01Ch]
         test dl, 80h
@@ -38003,7 +38005,7 @@ sub_72A84:
         mov byte [dword ecx+0BFh], dl
         mov edx, 72h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0FAh]
         or byte [byte eax+031h], 1
         or byte [dword ecx+0BFh], 20h
@@ -38369,7 +38371,7 @@ sub_72E94:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0F2h]
         xor ebx, ebx
         xor edx, edx
@@ -38401,7 +38403,7 @@ sub_72EF4:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         or byte [dword ecx+0BFh], 20h
         pop edx
         pop ecx
@@ -38458,7 +38460,7 @@ sub_72F34:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         or byte [dword ecx+0BFh], 24h
         call PeriodOver
         mov esp, ebp
@@ -38485,7 +38487,7 @@ sub_72FE8:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         or byte [dword ecx+0BFh], 20h
         pop edx
         pop ecx
@@ -38510,7 +38512,7 @@ sub_73028:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         or byte [dword ecx+0BFh], 20h
 .1:
         pop ecx
@@ -38659,7 +38661,7 @@ sub_730C4:
         mov byte [dword ecx+0BFh], bl
         xor ebx, ebx
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
 .11:
         mov esp, ebp
         pop ebp
@@ -38854,7 +38856,7 @@ sub_7320C:
         mov byte [dword ecx+0BFh], bh
         xor ebx, ebx
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop esi
@@ -38899,7 +38901,7 @@ sub_73464:
         mov edx, 64h
         mov eax, 409h
         push dword [byte ecx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         jmp short .4
 .1:
         cmp edi, 0F7h
@@ -38951,7 +38953,7 @@ sub_73464:
         mov byte [dword ecx+0BFh], bl
         xor ebx, ebx
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         add esp, byte 0Ch
         pop edi
         pop esi
@@ -39090,7 +39092,7 @@ sub_73578:
         mov byte [dword ecx+0BFh], bl
         xor ebx, ebx
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop esi
@@ -39141,7 +39143,7 @@ sub_7370C:
         mov edx, 64h
         mov eax, 423h
         push dword [byte ecx+020h]
-        call PlaySfx
+        call PlaySfxVolume
 .1:
         test byte [byte edi+01Ch], 80h
         je near .11
@@ -39204,7 +39206,7 @@ sub_7370C:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -39250,7 +39252,7 @@ sub_7370C:
         mov byte [dword ecx+0BFh], bh
         mov ebx, 20h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -39316,7 +39318,7 @@ sub_7370C:
         mov byte [dword ecx+0BFh], bl
         xor ebx, ebx
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -39377,7 +39379,7 @@ sub_739B8:
         mov byte [dword ecx+0BFh], bl
         mov ebx, 20h
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         jmp short .8
 .4:
         cmp eax, 0A1h
@@ -39619,7 +39621,7 @@ sub_73B3C:
         mov byte [dword ecx+0BFh], bh
         xor ebx, ebx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, 1
         mov esp, ebp
         pop ebp
@@ -39859,7 +39861,7 @@ sub_73F00:
         mov edx, 106h
 .4:
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         jmp short .6
 .5:
         fld dword [byte ecx+040h]
@@ -40067,7 +40069,7 @@ sub_73FBC:
         mov byte [dword ecx+0BFh], dh
         mov edx, esi
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -40126,7 +40128,7 @@ sub_73FBC:
         mov byte [dword ecx+0BFh], dh
         mov edx, esi
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -40147,7 +40149,7 @@ sub_73FBC:
         mov byte [dword ecx+0BFh], dl
         mov edx, 9Eh
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -40178,7 +40180,7 @@ sub_73FBC:
         mov byte [dword ecx+0BFh], dl
         mov edx, esi
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -40207,7 +40209,7 @@ sub_73FBC:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -40377,7 +40379,7 @@ sub_73FBC_481:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -40396,7 +40398,7 @@ sub_73FBC_481:
         mov byte [dword ecx+0BFh], dl
         mov edx, 6
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -40468,7 +40470,7 @@ sub_73FBC_671:
         mov byte [dword ecx+0BFh], bh
         xor ebx, ebx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -40633,7 +40635,7 @@ sub_747E8:
         mov edx, 25h
         mov eax, 430h
         push dword [byte esi+020h]
-        call PlaySfx
+        call PlaySfxVolume
         jmp short .7
 .2:
         cmp edi, 0CCh
@@ -40644,7 +40646,7 @@ sub_747E8:
         mov edx, 64h
         mov eax, 409h
         push dword [byte esi+020h]
-        call PlaySfx
+        call PlaySfxVolume
         jmp short .7
 .3:
         cmp edi, 0CAh
@@ -40747,7 +40749,7 @@ sub_747E8:
         and cl, 0DFh
         mov eax, esi
         mov byte [dword esi+0BFh], cl
-        call sub_5ED80
+        call SetSPA
         jmp short .15
 .13:
         mov eax, esi
@@ -40864,7 +40866,7 @@ sub_74A20:
         mov edx, 0E4h
 .4:
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop esi
@@ -40967,7 +40969,7 @@ sub_74BA8:
         mov byte [dword ecx+0BFh], bh
         xor ebx, ebx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .7:
         pop edx
         pop ecx
@@ -41016,7 +41018,7 @@ sub_74C64:
         mov eax, ecx
 .4:
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .5:
         pop edx
         pop ecx
@@ -41525,7 +41527,7 @@ sub_75068:
         mov eax, esi
         mov edx, dword [dword edx+dword_16C3F0]
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         mov eax, 1
         jmp near .16
 .1:
@@ -41723,7 +41725,7 @@ sub_75068:
         mov eax, esi
         mov edx, dword [dword edx+dword_16C3F0]
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         mov eax, 1
         mov esp, ebp
         pop ebp
@@ -42229,7 +42231,7 @@ sub_75500:
         xor ebx, ebx
         mov edx, dword [nosplit esi*4+dword_16C3F0]
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
 .26:
         lea esp, [dword ebp+082h]
         pop ebp
@@ -45817,13 +45819,13 @@ sub_780F0:
         mov edx, 1
         mov eax, dword [off_168CFC]
         xor ebx, ebx
-        call sub_32340
+        call AddPenalty2
         mov eax, dword [word_19CBAE]
         sar eax, 10h
         inc eax
         push eax
         push dword 0A000002Ah
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 8
         jmp near .36
 .2:
@@ -45864,25 +45866,25 @@ sub_780F0:
         mov byte [byte_19CBC2], ah
         mov eax, dword [off_168CFC]
         mov ecx, 1000h
-        call sub_32340
+        call AddPenalty2
         push ecx
         push dword 0C001h
         push dword 0A000001Fh
         mov dword [dword_19CB48], ecx
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 0Ch
         jmp short .6
 .5:
         mov edx, 1
         mov eax, dword [off_168CFC]
         xor ebx, ebx
-        call sub_32340
+        call AddPenalty2
         mov eax, dword [word_19CBAE]
         sar eax, 10h
         inc eax
         push eax
         push dword 0A000002Ah
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 8
 .6:
         cmp dword [dword_1B8FA0], byte 0
@@ -46107,7 +46109,7 @@ sub_780F0:
         mov eax, dword [off_168CFC]
         mov byte [byte_19CBC2], dl
         mov edx, 2
-        call sub_32340
+        call AddPenalty2
         cmp dword [dword_1B8FA0], byte 0
         jne short .32
         mov eax, dword [word_19CBAE]
@@ -46135,7 +46137,7 @@ sub_780F0:
         push dword 0A000001Fh
         mov dword [dword_19CB48], ebp
 .35:
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 0Ch
 .36:
         pop ebp
@@ -46203,7 +46205,7 @@ sub_785E8:
         add eax, edx
         shl eax, 3
         add eax, SortCords
-        call sub_2EDB8
+        call StartFaceoffLineChange
 .3:
         mov edx, dword [awtmstruct]
         mov eax, 1
@@ -46225,7 +46227,7 @@ sub_785E8:
         add eax, edx
         shl eax, 3
         add eax, SortCords
-        call sub_2EDB8
+        call StartFaceoffLineChange
 .4:
         pop edx
         ret
@@ -46250,7 +46252,7 @@ sub_78730:
 .1:
         mov eax, 503h
 .2:
-        call sub_42098
+        call PlaySfxOr
 .3:
         test byte [byte_19CBC2], 1
         jne near .6
@@ -46358,7 +46360,7 @@ sub_78810:
         and eax, 0FFh
         push eax
         push dword 0A0000005h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 18h
 .3:
         cmp dword [dword_1B8FA0], byte 0

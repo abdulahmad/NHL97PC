@@ -30,7 +30,7 @@ extern dword_1CF548, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcp
 extern sub_100A68, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101430, sub_101560, sub_101EAC
 extern sub_102B94, sub_102C10, sub_102C30, sub_106D80, sub_106F64, sub_106F94, sub_110D70, sub_117338
 extern sub_11A318, sub_11A350, sub_13B50, sub_13B98, sub_13C164, PlayGame, sub_397FD, sub_39824
-extern InitGameAudio, sub_415A0, sub_415F8, sub_41670, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC
+extern InitGameAudio, sub_415A0, sub_415F8, sub_41670, sub_419B0, sub_419B8, StopAllSfx, PlaySfx
 extern PaEvent, sub_4A280, LoadDataFileLib, LoadDataFile, OpenDataLibrary, InitFrontEnd, FreeFrontEnd, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, DrawTextAligned
 extern sub_7F29C, sub_80758, sub_80808, sub_80A38, sub_80AB8, sub_80BBC, sub_81650, sub_81678
@@ -279,7 +279,7 @@ sub_A3280:
         call sub_B2364
         mov eax, 302h
         mov dword [byte ebp-08h], 7
-        call sub_41FDC
+        call PlaySfx
 .10:
         push dword [byte ebp-08h]
         push asc_165E5B
@@ -1298,7 +1298,7 @@ sub_A4164:
         cmp word [byte ebp-04h], byte 0
         jne near .48
         mov eax, 100h
-        call sub_41FDC
+        call PlaySfx
         movsx eax, si
         imul eax, byte 7
         cmp word [dword eax+word_1C9470], byte 2
@@ -1523,7 +1523,7 @@ sub_A4164:
         cmp word [dword edx+word_1C9470], byte 1
         je near .48
         mov eax, 100h
-        call sub_41FDC
+        call PlaySfx
         mov dword [byte ebx+01Ah], 0
         mov dword [byte ebx+046h], 0
         mov dword [byte ebx+04Eh], 0
@@ -1665,7 +1665,7 @@ sub_A4164:
         jmp near .48
 .32:
         mov eax, 100h
-        call sub_41FDC
+        call PlaySfx
         movsx eax, si
         imul eax, byte 7
         cmp word [dword eax+word_1C9470], byte 0
@@ -1960,14 +1960,14 @@ sub_A4A5C:
         cmp word [word_16D2AC], byte 0
         jne short .4
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov word [word_16D2AC], 1
 .4:
         test dx, dx
         jne near sub_A3280_8CB
         cmp word [word_16D2AC], byte 0
         je near sub_A3280_8CB
-        call sub_41FA0
+        call StopAllSfx
         mov word [word_16D2AC], dx
         jmp near sub_A3280_8CB
 jpt_A4B35:
@@ -3596,7 +3596,7 @@ sub_A4B7D_112:
         sete al
         movzx eax, al
         add eax, 208h
-        call sub_41FDC
+        call PlaySfx
         jmp short .88
 .86:
         lea edx, [byte eax+05h]
@@ -3616,7 +3616,7 @@ sub_A4B7D_112:
         je near .76
         cmp word [word_16D2AC], byte 0
         je short .89
-        call sub_41FA0
+        call StopAllSfx
         mov word [word_16D2AC], 0
 .89:
         cmp dword [byte ebp-010h], byte 1Ah
@@ -5351,7 +5351,7 @@ sub_A79EC:
         jne short .1
         mov eax, 309h
         mov esi, 3
-        call sub_41FDC
+        call PlaySfx
         mov word [word_16D2B0], si
 .1:
         mov ecx, dword [dword_1C9598]
@@ -5397,7 +5397,7 @@ sub_A79EC:
         cmp word [word_16D2B0], byte 3
         jne short .5
         xor ebx, ebx
-        call sub_41FA0
+        call StopAllSfx
         mov word [word_16D2B0], bx
 .5:
         pop ebp
@@ -5424,7 +5424,7 @@ sub_A7AD0:
         jne short .1
         mov eax, 309h
         mov esi, 4
-        call sub_41FDC
+        call PlaySfx
         mov word [word_16D2B0], si
 .1:
         mov ecx, dword [dword_1C95A0]
@@ -5470,7 +5470,7 @@ sub_A7AD0:
         cmp word [word_16D2B0], byte 4
         jne short .5
         xor ebx, ebx
-        call sub_41FA0
+        call StopAllSfx
         mov word [word_16D2B0], bx
 .5:
         pop ebp
@@ -8525,7 +8525,7 @@ sub_AA170:
         jne short .1
         mov eax, 309h
         mov esi, 1
-        call sub_41FDC
+        call PlaySfx
         mov word [word_16D2B2], si
 .1:
         call sub_102C30
@@ -8579,7 +8579,7 @@ sub_AA170:
         cmp word [word_16D2B2], byte 0
         je short .5
         xor ebx, ebx
-        call sub_41FA0
+        call StopAllSfx
         mov word [word_16D2B2], bx
 .5:
         add esp, byte 8
@@ -8745,14 +8745,14 @@ sub_AA274:
         jne short .12
         mov eax, 309h
         mov ecx, 1
-        call sub_41FDC
+        call PlaySfx
         mov word [word_16D2B4], cx
 .12:
         test bx, bx
         jne short .13
         cmp word [word_16D2B4], byte 0
         je short .13
-        call sub_41FA0
+        call StopAllSfx
         mov word [word_16D2B4], bx
 .13:
         add esp, byte 8

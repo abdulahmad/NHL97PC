@@ -52,13 +52,13 @@ extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, s
 extern sub_2F8D8, sub_2FA00, sub_2FB40, sub_43944, sub_47C08, sub_47D70, sub_47EA4, ShutdownSound
 extern sub_4AA78, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_52D4C, sub_55648, sub_5696C, sub_56A08
 extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, sub_5AC30, sub_5B4B8, sub_5C1CC, sub_5CD68
-extern sub_5DF50, sub_5ED80, sub_5EEEC, sub_60D6C, sub_60F48, sub_612E4, sub_613AC, sub_6152C
+extern sub_5DF50, SetSPA, sub_5EEEC, sub_60D6C, sub_60F48, sub_612E4, sub_613AC, sub_6152C
 extern sub_617EC, sub_62C14, sub_74CEC, sub_74FA4, sub_76944, sub_789F0, sub_7B15D, sub_7DFC0
 extern sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, DrawTextAligned, sub_7F29C
 extern sub_7F5A4, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMenuItems, sub_8BFAC
 extern sub_8DF1F, GetLangText, sub_99DAC, sub_AC369, sub_D0098, sub_DB75E, sub_DB763, sub_DE25F
 extern sub_DE3CF, sub_DE740, sub_E036F, sub_E0415, FileExists, FileCreate, FileSeek, FileReadRecord
-extern FileWriteRecord, FileClose, sub_E341C, sub_E9429, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
+extern FileWriteRecord, FileClose, sub_E341C, BuildAllStarTeams, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
 extern sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB71C, addtimer, sub_FC008, sub_FC290
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8
 extern sub_FD110, sub_FDC68, sub_FE180, sub_FFA44, sub_FFA9C, tickcount, unk_160A56, unk_160B68
@@ -95,8 +95,8 @@ global sub_40298, sub_40380, sub_403C0, sub_40400, sub_40440, sub_404C4, sub_405
 global sub_40640, sub_40680, sub_40850, sub_4095C, LoadSfxBank, sub_40D80, OpenAudioStream, InitGameAudio
 global sub_414B8, sub_41550, sub_415A0, sub_415A8, sub_415F8, sub_41670, sub_41870, sub_419B0
 global sub_419B8, sub_41A28, sub_41ACC, sub_41CF0, sub_41D18, sub_41D30, sub_41D48, sub_41D94
-global sub_41DB8, sub_41DD8, MusicFileName, ArenaFileName, sub_41EE4, sub_41F2C, sub_41FA0, sub_41FDC
-global sub_42098, sub_420E4, PlaySfx, sub_42354, sub_423B4, sub_4241C, sub_424CC, sub_42550
+global sub_41DB8, sub_41DD8, MusicFileName, ArenaFileName, sub_41EE4, sub_41F2C, StopAllSfx, PlaySfx
+global PlaySfxOr, sub_420E4, PlaySfxVolume, sub_42354, sub_423B4, sub_4241C, sub_424CC, sub_42550
 global sub_425CC, sub_42650, sub_42910, sub_42960, sub_42A98, sub_42AD0, sub_42C38, sub_42D38
 global OpenSpeechBanks, sub_431E8, LoadTeamSpeech
 ;-----------------------------------------------------------------------------
@@ -2027,7 +2027,7 @@ sub_39882:
         mov ax, word [byte edx+eax+04h]
         cmp ax, word [word_19ED74]
         jbe short .5
-        call sub_E9429
+        call BuildAllStarTeams
         mov eax, dword [dword_1AC944]
         and dword [byte eax+01h], 0FFF03FFFh
         or dword [byte eax+01h], 68000h
@@ -2269,7 +2269,7 @@ sub_39BB6_6B:
         jne short .4
         cmp word [word_16914E], byte 0
         je short .4
-        call sub_41FA0
+        call StopAllSfx
         mov word [word_16914E], bx
 .4:
         test bx, bx
@@ -2277,7 +2277,7 @@ sub_39BB6_6B:
         cmp word [word_16914E], byte 0
         jne short .5
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov word [word_16914E], 1
 .5:
         pop esi
@@ -2905,7 +2905,7 @@ sub_3A2E8:
         xor ebx, ebx
         mov edx, dword [nosplit eax*4+dword_169150]
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         jmp short .7
 .4:
         mov eax, ebx
@@ -3024,7 +3024,7 @@ sub_3A440:
         mov byte [dword ecx+0BFh], bl
         mov ebx, 20h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         jmp near .11
 .1:
         lea edx, [byte esp+0Ch]
@@ -3077,7 +3077,7 @@ sub_3A440:
         mov edx, 64h
         add eax, 402h
 .9:
-        call PlaySfx
+        call PlaySfxVolume
 .10:
         mov eax, dword [off_168CFC]
         cmp dword [byte eax+024h], 42400000h
@@ -3135,7 +3135,7 @@ sub_3A564:
         mov byte [dword ecx+0BFh], bh
         mov ebx, 20h
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         jmp near .9
 .4:
         mov eax, esi
@@ -3157,7 +3157,7 @@ sub_3A564:
         mov eax, 420h
 .6:
         push dword [byte ecx+020h]
-        call PlaySfx
+        call PlaySfxVolume
 .7:
         test bl, 2
         je short .8
@@ -3237,7 +3237,7 @@ sub_3A65C:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         pop edx
         pop ecx
         pop ebx
@@ -3264,7 +3264,7 @@ sub_3A65C:
 .5:
         mov eax, ecx
 .6:
-        call sub_5ED80
+        call SetSPA
 .7:
         pop edx
         pop ecx
@@ -3420,7 +3420,7 @@ sub_3A884:
         mov byte [dword ecx+0BFh], dh
         mov edx, 17Ch
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         jmp short .5
 .1:
         mov eax, ebx
@@ -3487,7 +3487,7 @@ sub_3A920:
         mov dl, al
         add edx, 177h
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop esi
@@ -3537,7 +3537,7 @@ sub_3A9D0:
         mov byte [dword ecx+0BFh], dh
         mov edx, 17Bh
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         jmp short .3
 .1:
         mov edx, esp
@@ -3597,7 +3597,7 @@ sub_3AA48:
         mov dl, al
         add edx, 17Bh
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop esi
@@ -3639,7 +3639,7 @@ sub_3AAE8:
         mov eax, ecx
         mov edx, dword [nosplit edx*4+dword_16916C]
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         or byte [dword ecx+0BFh], 20h
         pop ecx
         pop ebx
@@ -3661,7 +3661,7 @@ sub_3AB28:
         mov eax, ecx
         mov edx, dword [nosplit edx*4+dword_169178]
         push dword 3F000000h
-        call sub_5ED80
+        call SetSPA
         or byte [dword ecx+0BFh], 20h
         pop ecx
         pop ebx
@@ -3687,7 +3687,7 @@ sub_3AB68:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         or byte [dword ecx+0BFh], 24h
         mov dh, byte [dword ecx+0C1h]
         or dh, 1
@@ -3770,7 +3770,7 @@ sub_3AC3C:
         mov byte [dword ecx+0BFh], dl
         mov edx, 40h
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         mov dh, byte [dword ecx+0BFh]
         or dh, 24h
         mov bl, byte [dword ecx+0C1h]
@@ -3937,7 +3937,7 @@ sub_3AD9C:
         mov byte [dword esi+0BFh], bl
         xor ebx, ebx
         push dword [byte esp+038h]
-        call sub_5ED80
+        call SetSPA
         mov eax, 1
         mov esp, ebp
         pop ebp
@@ -4224,7 +4224,7 @@ sub_3B09C:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         mov esp, ebp
         pop ebp
         pop edi
@@ -4274,7 +4274,7 @@ sub_3B1EC:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         jmp near .6
 .1:
         mov edx, dword [off_168CFC]
@@ -4325,7 +4325,7 @@ sub_3B1EC:
         mov byte [dword ecx+0BFh], bl
         xor ebx, ebx
         push dword 3F19999Ah
-        call sub_5ED80
+        call SetSPA
         mov edx, dword [dword ecx+0EEh]
         or byte [byte edx+031h], 1
 .6:
@@ -4592,7 +4592,7 @@ sub_3B334:
         mov byte [dword esi+0BFh], al
         mov eax, esi
         push dword 3F333333h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0FAh]
         xor edx, edx
         call sub_60D6C
@@ -4637,7 +4637,7 @@ sub_3B334:
         xor ebx, ebx
         add edx, 81h
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
         mov eax, 1
 .19:
         mov esp, ebp
@@ -14835,9 +14835,10 @@ sub_41F2C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_41FA0                                                       41FA0  97 PC
+; StopAllSfx                                      41FA0  97 PC, low confidence
+; Stops every voice in PlaySfx's list (dword_1AC508)
 ;-----------------------------------------------------------------------------
-sub_41FA0:
+StopAllSfx:
         push ecx
         push edx
         cmp word [word_1691A4], byte 0
@@ -14860,9 +14861,12 @@ sub_41FA0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_41FDC                                                       41FDC  97 PC
+; PlaySfx                                      41FDC  96 PC, medium confidence
+; (id 1-48h): plays a digital sound effect from the loaded banks on a free
+; voice at the globalset volume; called from checkcheck, FallDown, CompPass,
+; the faceoff and the menus
 ;-----------------------------------------------------------------------------
-sub_41FDC:
+PlaySfx:
         push ebx
         push ecx
         push edx
@@ -14917,9 +14921,11 @@ sub_41FDC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_42098                                                       42098  97 PC
+; PlaySfxOr                                    42098  96 PC, medium confidence
+; (id, other): plays other instead of id when id is 40h+ and the extra bank
+; (dword_11D1F2) is not loaded
 ;-----------------------------------------------------------------------------
-sub_42098:
+PlaySfxOr:
         push ebx
         push ecx
         push esi
@@ -14946,7 +14952,7 @@ sub_42098:
         je short .2
         mov eax, edx
 .2:
-        call sub_41FDC
+        call PlaySfx
 .3:
         pop esi
         pop ecx
@@ -15061,12 +15067,11 @@ sub_420E4:
         ret 10h
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; PlaySfx                                      42220  96 PC, medium confidence
-; (id 1-48h): plays a digital sound effect from the loaded banks on a free
-; voice at the globalset volume; called from checkcheck, FallDown, CompPass,
-; the faceoff and the menus
+; PlaySfxVolume                                   42220  97 PC, low confidence
+; (id, volume 0-64h, ...): PlaySfx with a volume (scaled by the globalset
+; sound volume) and position
 ;-----------------------------------------------------------------------------
-PlaySfx:
+PlaySfxVolume:
         push ebx
         push ecx
         push esi
@@ -15199,7 +15204,7 @@ sub_42354:
         push dword [byte esp+014h]
 .3:
         push dword [byte esp+014h]
-        call PlaySfx
+        call PlaySfxVolume
 .4:
         pop edi
         pop esi

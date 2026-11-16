@@ -10,7 +10,7 @@ extern dword_16E46C, dword_1AC814, dword_1AC940, dword_1AC944, dword_1ACF46, dwo
 extern dword_1AD62F, dword_1AD6AB, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, jpt_D3102
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, sub_101324, sub_101390
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_101EAC, sub_102B94, sub_10CD98, sub_13C164
-extern sub_39824, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC, PaEvent, sub_4A280, LoadDataFile
+extern sub_39824, sub_419B0, sub_419B8, StopAllSfx, PlaySfx, PaEvent, sub_4A280, LoadDataFile
 extern OpenDataLibrary, sub_7B84B, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, DrawTextAligned
 extern sub_80BBC, sub_80F48, sub_83BF4, InitMenuItems, sub_8BFAC, GetLangText, sub_D306F, sub_DA7D6
 extern sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, sub_DE3CF, sub_E036F, LoadExhibitionFile, FreeExhibitionFile
@@ -25,12 +25,14 @@ extern unk_167240, unk_167244, unk_167250, unk_167260, unk_167264, unk_16726C, u
 extern unk_1ACF12, unk_1C135C, unk_1C1382, unk_1C139A, unk_1C347F, unk_1C34A5, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_D3057, unk_D305F, unk_D3067, word_1C1344
 global jpt_D4215, sub_D3112_B6A, sub_D3112_BA7, sub_D3112_BB5, sub_D3112_BC3, sub_D3112_C3F, sub_D40CF_FB, sub_D40CF_FC
-global sub_D4225_86, sub_D4225_C5, sub_D4225_10F, sub_D4225_14B, sub_D3112, sub_D3D5D, sub_D3DFA, sub_D40CF
+global sub_D4225_86, sub_D4225_C5, sub_D4225_10F, sub_D4225_14B, PreGameRostersScreen, sub_D3D5D, sub_D3DFA, sub_D40CF
 global sub_D41D1, sub_D4225, sub_D4727, sub_D49BE, sub_D4AAC, unk_D4CB0
 ;-----------------------------------------------------------------------------
-; sub_D3112                                                       D3112  97 PC
+; PreGameRostersScreen                            D3112  97 PC, low confidence
+; Game screen 13h before play: the home and visitor rosters ("hros" /
+; "vros"), the "blurb" and the star players (STAR, FIR1, F%dP%d)
 ;-----------------------------------------------------------------------------
-sub_D3112:
+PreGameRostersScreen:
         push ebx
         push ecx
         push edx
@@ -679,7 +681,7 @@ sub_D3112:
         call sub_419B0
         call sub_419B8
         mov eax, 202h
-        call sub_41FDC
+        call PlaySfx
         push dword 105h
         push dword 0C8h
         push asc_16708E
@@ -833,9 +835,9 @@ sub_D3112:
         add esp, byte 8
         cmp esi, eax
         jl near .28
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 203h
-        call sub_41FDC
+        call PlaySfx
         call sub_D4AAC
         cmp byte [byte_1CC8B4], 5
         jne near sub_D3112_B6A
@@ -922,14 +924,23 @@ sub_D3112_B6A:
         ja short sub_D3112_B6A
         mov eax, dword [byte ebp+046h]
         jmp dword [nosplit cs:eax*4+jpt_D3102]
+;-----------------------------------------------------------------------------
+; sub_D3112_BA7                                                   D3CB9  97 PC
+;-----------------------------------------------------------------------------
 sub_D3112_BA7:
         call sub_7EDF0
         mov dword [byte ebp+056h], 14h
         jmp short sub_D3112_B6A
+;-----------------------------------------------------------------------------
+; sub_D3112_BB5                                                   D3CC7  97 PC
+;-----------------------------------------------------------------------------
 sub_D3112_BB5:
         call sub_7EEB0
         mov dword [byte ebp+056h], 0Eh
         jmp short sub_D3112_B6A
+;-----------------------------------------------------------------------------
+; sub_D3112_BC3                                                   D3CD5  97 PC
+;-----------------------------------------------------------------------------
 sub_D3112_BC3:
         call sub_7EF70
         jmp short sub_D3112_B6A

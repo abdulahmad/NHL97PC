@@ -20,8 +20,8 @@ extern dword_1CC0A8, dword_1CC0F6, dword_1CC0FA, dword_1CC148, dword_1CC14C, sub
 extern sub_C755B_246, sub_C755B_2EC, sub_C755B_3B9, sub_C755B_42C, sub_C755B_49B, sub_C755B_4ED, sub_C755B_53E, sub_C755B_596
 extern sub_C755B_5AB, sub_C755B_5AF, sub_C755B_5CF, sub_C755B_5D3, sub_C755B_604, sub_C755B_615, sub_C755B_624, sub_C755B_65B
 extern sub_C755B_66C, rand_, sprintf_, sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429
-extern sub_102B94, sub_11A318, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41FA0
-extern sub_41FDC, LoadDataFile, sub_7DFC0, SetRegionRect, InitMenuItems, sub_8BFAC, sub_E341C, sub_FAF34
+extern sub_102B94, sub_11A318, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, StopAllSfx
+extern PlaySfx, LoadDataFile, sub_7DFC0, SetRegionRect, InitMenuItems, sub_8BFAC, sub_E341C, sub_FAF34
 extern sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcount, unk_1ACB44, unk_1ACD2B, unk_1CBC18
 extern unk_C5ED2
 global jpt_C6038, jpt_C750B, sub_C5F81_B1, sub_C6064_E65, sub_C6064_EB8, sub_C6064_F19, sub_C6064_1135, sub_C6064_115B
@@ -76,14 +76,14 @@ sub_C5F81:
         je short .5
         mov eax, 309h
         mov dword [dword_16D664], 1
-        call sub_41FDC
+        call PlaySfx
 .5:
         cmp dword [dword_16D664], byte 0
         je short .6
         test edi, edi
         jne short .6
         mov dword [dword_16D664], edi
-        call sub_41FA0
+        call StopAllSfx
 .6:
         leave
 sub_C5F81_B1:

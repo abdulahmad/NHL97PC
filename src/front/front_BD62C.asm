@@ -20,7 +20,7 @@ extern sub_103648, sub_105324, sub_10AED0, sub_114C4, sub_11B98E, sub_12024, sub
 extern ApplyDisplayFlags, sub_18E35, sub_1D1DC, sub_1D208, sub_1D480, sub_1D4FC, sub_1D828, sub_1D858
 extern sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0, sub_1DD5C, sub_1DDE4, sub_1DEB8
 extern SetVideoMode, sub_3CA28, sub_3CB00, sub_3CB48, sub_3CB70, sub_3D020, sub_3E5F0, sub_41A28
-extern sub_41D18, sub_41DB8, sub_41DD8, ArenaFileName, sub_41FA0, sub_423B4, sub_4241C, sub_4A280
+extern sub_41D18, sub_41DB8, sub_41DD8, ArenaFileName, StopAllSfx, sub_423B4, sub_4241C, sub_4A280
 extern MakeDirPath, LoadDataFileLib, LoadDataFile, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00, sub_4BCB4
 extern sub_5B4D4, sub_5BD94, InitReplayBuffer, sub_5BE64, sub_5BEB0, sub_5C2CC, sub_5C2F4, sub_5C30C
 extern sub_5C32C, sub_5C34C, sub_5C4CC, sub_5C4E4, sub_5C500, sub_5C584, sub_5C5EC, sub_5C74C
@@ -75,7 +75,7 @@ RunReplay:
         xor eax, eax
         call sub_4241C
         call sub_4A280
-        call sub_41FA0
+        call StopAllSfx
         call sub_114C4
         call sub_1D1DC
         xor edx, edx

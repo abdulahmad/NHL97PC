@@ -22,7 +22,7 @@ extern dword_1CA9B8, dword_1CA9BC, dword_1CA9C0, dword_1CA9C4, dword_1CA9C8, dwo
 extern dword_1CAEA8, dword_1CAEB8, rand_, sprintf_, sscanf_, str_D02d2, str_Logbook, str_Logname
 extern str_Ulstreak, str_Uname, str_Uopp, str_Upts, str_Urate, str_Usort, str_Ustreak, str_Uteam
 extern strcmp_, strcpy_, strlen_, sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429
-extern sub_102B94, sub_11A318, sub_13C164, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC, MakeDirPath
+extern sub_102B94, sub_11A318, sub_13C164, sub_419B0, sub_419B8, StopAllSfx, PlaySfx, MakeDirPath
 extern LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned
 extern sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_823F0, sub_82FB8, sub_83C08
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath
@@ -2319,14 +2319,14 @@ sub_B3A9C:
         jne short .5
         mov eax, 309h
         mov word [word_16D450], 1
-        call sub_41FDC
+        call PlaySfx
 .5:
         test edi, edi
         jne near sub_B211C_C7
         cmp word [word_16D450], byte 0
         je near sub_B211C_C7
         mov word [word_16D450], 0
-        call sub_41FA0
+        call StopAllSfx
         jmp near sub_B211C_C7
 ;-----------------------------------------------------------------------------
 ; sub_B3B5D                                                       B3B5D  97 PC

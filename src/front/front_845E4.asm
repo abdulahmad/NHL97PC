@@ -18,13 +18,13 @@ extern fclose_, fopen_, fputc_, jpt_845CC, memcpy_, memset_, rand_, sprintf_
 extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, sub_100A68, sub_101324
 extern sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_102B94, sub_102C30
 extern sub_106DA0, sub_10AED0, sub_110D70, sub_11A318, sub_11B094, sub_11B104, sub_13C164, sub_419B0
-extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, ArenaFileName, sub_41F2C, sub_41FA0
-extern sub_41FDC, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
+extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, ArenaFileName, sub_41F2C, StopAllSfx
+extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, RunNewSeason, RunSeasonMenus
 extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, sub_A4B7D, PostGameScreen
-extern GameStatsScreen, PlayMenuGame, sub_AC369, sub_ADBE6, sub_AF074, sub_B418C, sub_B5891, sub_B8FDF
-extern sub_BD621, sub_C0F5D, RosterScreen, sub_D1927, sub_D3112, sub_DB75E, sub_DE3CF, sub_E036F
+extern GameStatsScreen, PlayMenuGame, sub_AC369, sub_ADBE6, sub_AF074, sub_B418C, PlayerStatsScreen, PlayerRatingsScreen
+extern sub_BD621, sub_C0F5D, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, sub_DB75E, sub_DE3CF, sub_E036F
 extern sub_E3410, sub_E341C, NetDisconnect, LinkSendBlock, LinkReceiveBlock, sub_FAA64, sub_FAF34, sub_FB704
 extern sub_FC330, sub_FCD90, sub_FCEEC, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, tickcount
 extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
@@ -34,7 +34,7 @@ global sub_845E4_370, sub_845E4_50B, sub_84B55_911, sub_84B55_999, sub_84B55_A17
 global sub_84B55_A68, sub_84B55_A79, sub_84B55_A82, sub_84B55_A94, sub_84B55_A9D, sub_84B55_AAF, sub_84B55_AB8, sub_84B55_BA5
 global sub_84B55_BBD, sub_84B55_BC6, sub_84B55_BD5, sub_84B55_BDE, sub_84B55_BED, sub_84B55_BF6, sub_84B55_C76, sub_84B55_CFF
 global sub_84B55_DDB, sub_84B55_DF1, sub_85D1D_6E, sub_85D1D_82, sub_85D1D_9E, sub_85D1D_A5, sub_85D1D_AC, sub_85D1D_B3
-global sub_85D1D_BA, sub_85D1D_C1, sub_845E4, MainMenuScreen, RunGameScreens, sub_85D1D, sub_85E1E, NameIndexNew
+global sub_85D1D_BA, sub_85D1D_C1, sub_845E4, MainMenuScreen, RunGameScreens, RunStatsMenu, sub_85E1E, NameIndexNew
 global NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath, sub_867D4
 global sub_867F0, sub_86878
 ;-----------------------------------------------------------------------------
@@ -73,7 +73,7 @@ sub_845E4:
         cmp dword [dword_16CCEC], byte 0
         jne short .3
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_16CCEC], 1
 .3:
         test edx, edx
@@ -911,7 +911,7 @@ MainMenuScreen:
         mov eax, dword [tickcount]
         mov ebx, eax
         mov eax, 202h
-        call sub_41FDC
+        call PlaySfx
 .21:
         mov eax, dword [dword_1C82A4]
         add eax, byte 64h
@@ -1065,9 +1065,9 @@ MainMenuScreen:
         call sub_101390
         add esp, byte 0Ch
         call sub_1013FC
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 203h
-        call sub_41FDC
+        call PlaySfx
         mov eax, dword [tickcount]
         mov dword [dword_1C82A4], eax
         jmp near sub_84B55_CFF.48
@@ -1700,10 +1700,10 @@ RunGameScreens:
         mov eax, 1
         jmp short .28
 .30:
-        call sub_D3112
+        call PreGameRostersScreen
         jmp near .7
 .31:
-        call sub_D1927
+        call PreGameMatchupScreen
         jmp near .7
 .32:
         call sub_41DD8
@@ -1803,9 +1803,11 @@ jpt_85CFD:
         dd sub_85D1D_B3
         dd sub_85D1D_9E
 ;-----------------------------------------------------------------------------
-; sub_85D1D                                                       85D1D  97 PC
+; RunStatsMenu                                 85D1D  96 PC, medium confidence
+; From the main menu, the season menus and the play-offs: runs the team stats
+; and player stats screens, frees their tables after
 ;-----------------------------------------------------------------------------
-sub_85D1D:
+RunStatsMenu:
         push ebx
         push ecx
         push edx
@@ -1837,6 +1839,9 @@ sub_85D1D:
         call sub_DB75E
         and byte [dword_1AC814], 8Fh
         jmp short sub_85D1D_82.4
+;-----------------------------------------------------------------------------
+; sub_85D1D_6E                                                    85D8B  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_6E:
         call sub_85E1E
         mov ebx, eax
@@ -1847,6 +1852,9 @@ sub_85D1D_6E:
 .2:
         mov esi, eax
         jmp short sub_85D1D_82.4
+;-----------------------------------------------------------------------------
+; sub_85D1D_82                                                    85D9F  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_82:
         call sub_ADBE6
 .3:
@@ -1858,26 +1866,44 @@ sub_85D1D_82:
         cmp eax, byte 7
         ja short .4
         jmp dword [nosplit cs:eax*4+jpt_85CFD]
+;-----------------------------------------------------------------------------
+; sub_85D1D_9E                                                    85DBB  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_9E:
         call sub_AF074
         jmp short sub_85D1D_82.3
+;-----------------------------------------------------------------------------
+; sub_85D1D_A5                                                    85DC2  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_A5:
         call sub_C0F5D
         jmp short sub_85D1D_82.3
+;-----------------------------------------------------------------------------
+; sub_85D1D_AC                                                    85DC9  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_AC:
-        call sub_B5891
+        call PlayerStatsScreen
         jmp short sub_85D1D_82.3
+;-----------------------------------------------------------------------------
+; sub_85D1D_B3                                                    85DD0  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_B3:
         call sub_BD621
         jmp short sub_85D1D_82.3
+;-----------------------------------------------------------------------------
+; sub_85D1D_BA                                                    85DD7  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_BA:
         call sub_B418C
         jmp short sub_85D1D_82.3
+;-----------------------------------------------------------------------------
+; sub_85D1D_C1                                                    85DDE  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_C1:
         movzx ebx, byte [byte_16CCF0]
         xor edx, edx
         xor eax, eax
-        call sub_B8FDF
+        call PlayerRatingsScreen
         jmp short sub_85D1D_82.3
 .5:
         cmp dword [dword_16CCF1], byte 0
@@ -2220,7 +2246,7 @@ sub_85E1E:
         je near .5
         mov eax, 304h
         mov dword [byte ebp+076h], 0FFFFFFFFh
-        call sub_41FDC
+        call PlaySfx
         jmp near .5
 .14:
         push dword [byte ebp+072h]

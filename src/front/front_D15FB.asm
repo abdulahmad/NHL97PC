@@ -20,7 +20,7 @@ extern dword_1CC7A8, dword_1CC7AC, dword_1CC7B0, dword_1CC7B4, dword_1CC7B8, dwo
 extern dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dword_1CC8A0, sub_D3112_B6A, sub_D3112_BA7
 extern sub_D3112_BB5, sub_D3112_BC3, memset_, rand_, sprintf_, strcpy_, sub_101340, sub_101390
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101430, sub_101560, sub_101584, sub_102C30, sub_11A318
-extern sub_11B094, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, sub_41FDC
+extern sub_11B094, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, PlaySfx
 extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, sub_7CB8C, sub_7E860, sub_7EDF0, sub_7EEB0
 extern sub_7EF70, sub_7F0D8, DrawTextAligned, sub_80BBC, sub_823F0, sub_84330, InitMenuItems, sub_8BFAC
 extern sub_E0DB7, sub_E341C, sub_FAA64, sub_FAF34, sub_FC330, sub_FC510, sub_FCD90, sub_FCFCC
@@ -28,7 +28,7 @@ extern sub_FCFE8, sub_FD08C, sub_FD0F8, sub_FD110, tickcount, unk_166FF4, unk_16
 extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_D15D1, unk_D15EE
 extern word_1C340D, word_1C5530
 global jpt_D1917, jpt_D3102, sub_D15FB_1E9, sub_D1927_4E0, sub_D1927_4EC, sub_D1927_516, sub_D1927_522, sub_D1927_658
-global sub_D26EE_4DF, sub_D26EE_4E0, sub_D15FB, sub_D17EA, sub_D1927, sub_D1F8B, sub_D230A, sub_D24F8
+global sub_D26EE_4DF, sub_D26EE_4E0, sub_D15FB, sub_D17EA, PreGameMatchupScreen, sub_D1F8B, sub_D230A, sub_D24F8
 global sub_D26EE, sub_D2BD4, sub_D2C78, sub_D2CCA, sub_D2D94, sub_D2E1A, sub_D2ED6, sub_D306F
 global unk_D3057, unk_D305F, unk_D3067
 ;-----------------------------------------------------------------------------
@@ -257,9 +257,11 @@ jpt_D1917:
         dd sub_D1927_522
         dd sub_D1927_516
 ;-----------------------------------------------------------------------------
-; sub_D1927                                                       D1927  97 PC
+; PreGameMatchupScreen                            D1927  96 PC, low confidence
+; Pre-game screen 1: the matchup with the home and away pictures (H%07d /
+; A%07d .FSH, pal.fsh); the announcer's team pair call (PaEvent 8)
 ;-----------------------------------------------------------------------------
-sub_D1927:
+PreGameMatchupScreen:
         push ebx
         push ecx
         push edx
@@ -566,9 +568,15 @@ sub_D1927:
         cmp eax, byte 3
         ja short sub_D1927_522.12
         jmp dword [nosplit cs:eax*4+jpt_D1917]
+;-----------------------------------------------------------------------------
+; sub_D1927_4E0                                                   D1E07  97 PC
+;-----------------------------------------------------------------------------
 sub_D1927_4E0:
         mov dword [dword_16D740], 1
         jmp short sub_D1927_522.13
+;-----------------------------------------------------------------------------
+; sub_D1927_4EC                                                   D1E13  97 PC
+;-----------------------------------------------------------------------------
 sub_D1927_4EC:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
@@ -582,9 +590,15 @@ sub_D1927_4EC:
 .11:
         mov dword [dword_16D740], 3
         jmp short sub_D1927_522.13
+;-----------------------------------------------------------------------------
+; sub_D1927_516                                                   D1E3D  97 PC
+;-----------------------------------------------------------------------------
 sub_D1927_516:
         mov dword [dword_16D740], 0
         jmp short sub_D1927_522.13
+;-----------------------------------------------------------------------------
+; sub_D1927_522                                                   D1E49  97 PC
+;-----------------------------------------------------------------------------
 sub_D1927_522:
         cmp dword [dword_1ACF46], byte 0
         jne short sub_D1927_4EC.11
@@ -609,7 +623,7 @@ sub_D1927_522:
         call sub_1013FC
         mov eax, dword [dword_1CC7C8]
         xor edx, edx
-        jmp near sub_D1927.4
+        jmp near PreGameMatchupScreen.4
 .14:
         call sub_7EEB0
         mov dword [byte ebp+07Ah], 13h
@@ -629,7 +643,7 @@ sub_D1927_522:
         mov dword [byte ebp+07Ah], 4
         call sub_8BFAC
         cmp dword [byte ebp+072h], byte 7
-        jb near sub_D1927.5
+        jb near PreGameMatchupScreen.5
         mov edx, dword [byte ebp+07Eh]
         inc edx
         cmp dword [byte ebp+072h], byte 7
@@ -1830,7 +1844,7 @@ sub_D2E1A:
         cmp byte [byte_1C6040], 0
         jne short .1
         mov eax, 207h
-        call sub_41FDC
+        call PlaySfx
 .1:
         cmp dword [dword_1CC7A8], byte 17h
         jb short .2
@@ -1952,7 +1966,7 @@ sub_D2ED6:
         cmp dword [dword_1CC7B0], byte 0
         je short .8
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_1CC79C], 1
 .8:
         pop edx

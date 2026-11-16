@@ -28,13 +28,13 @@ extern dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4, jpt_C750B, memmov
 extern qword_166FC4, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, sub_101390
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101EAC, sub_102C10, sub_102C30, sub_106DA0, sub_11A318
 extern sub_11B094, sub_11B104, sub_11B98E, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8
-extern sub_41F2C, sub_41FDC, sub_4A4F4, LoadDataFile, sub_7B4E4, sub_7DFC0, sub_7E52C, sub_7E860
+extern sub_41F2C, PlaySfx, sub_4A4F4, LoadDataFile, sub_7B4E4, sub_7DFC0, sub_7E52C, sub_7E860
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7FE38
 extern sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_816E8
 extern sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068, sub_84570, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F
 extern sub_8E6AF, GetLangText, sub_8E870, sub_92DB7, sub_92E37, sub_92EE2, sub_92F25, EditLinesScreen
-extern sub_9D333, sub_B8FDF, sub_DA7D6, sub_DB763, sub_DB7B1, sub_DC653, sub_DCBB0, sub_E036F
+extern sub_9D333, PlayerRatingsScreen, sub_DA7D6, sub_DB763, sub_DB7B1, sub_DC653, sub_DCBB0, sub_E036F
 extern sub_E0415, sub_E0841, sub_E0D0F, FreeExhibitionFile, sub_E12EF, sub_FAA64, sub_FAF34, sub_FC510
 extern sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, tickcount
 extern unk_166E9D, unk_166F30, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D6C4
@@ -341,7 +341,7 @@ sub_C755B_3B9:
         lea edx, [byte ebp+06Ah]
         lea eax, [byte ebp+062h]
         xor ebx, ebx
-        call sub_B8FDF
+        call PlayerRatingsScreen
         cmp byte [byte_1C6040], 0
         je short .9
         call sub_C7F31
@@ -750,7 +750,7 @@ sub_C7CE8:
         cmp word [word_16D6E4], byte 0
         jne near sub_CF255_158
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov word [word_16D6E4], 1
         jmp near sub_CF255_158
         push esi

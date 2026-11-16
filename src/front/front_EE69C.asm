@@ -16,7 +16,7 @@ extern dword_1CE4EC, dword_1CE4F0, dword_1CE528, dword_1CE52C, dword_1CE532, dwo
 extern dword_1CE542, dword_1CEF9C, dword_1CEFA0, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, rand_, sprintf_
 extern str_TR0D, strlen_, sub_100A68, sub_101324, sub_101340, sub_101390, sub_1013AC, sub_1013FC
 extern sub_101429, sub_10FE58, sub_115830, sub_1167AE, sub_11A318, sub_11A350, sub_11BDC0, sub_11FAAC
-extern sub_13C164, sub_1B88C, sub_419B0, sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC, LoadDataFileLib
+extern sub_13C164, sub_1B88C, sub_419B0, sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, LoadDataFileLib
 extern sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5B8, sub_80BBC
 extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, sub_E341C, WaitForOtherComputer, sub_EE0F7, sub_F20A1
 extern sub_F22AF, sub_F27A4, sub_FAF34, sub_FC4BC, sub_FC510, sub_FCD90, sub_FCF84, sub_FCFCC
@@ -25,7 +25,7 @@ extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, unk_EDDEF, un
 extern unk_EE053, unk_EE093, unk_EE0E3, word_16E2EC, word_16E2EE, word_16E2F0
 global jpt_F031D, sub_EE69C_20A, sub_EE8BB_3F3, sub_EE8BB_3FB, sub_F0339_B8D, sub_F0339_BB1, sub_F0339_BC0, sub_F0339_BF3
 global sub_F0339_C3A, sub_F0339_F11, sub_F0339_1064, sub_EE69C, sub_EE8AC, sub_EE8BB, sub_EECBC, sub_EF5B3
-global sub_EFD08, sub_F0004, sub_F01C5, sub_F0339, sub_F174F, sub_F1FF8, sub_F207F
+global sub_EFD08, sub_F0004, sub_F01C5, ControlSetupScreen, sub_F174F, sub_F1FF8, sub_F207F
 ;-----------------------------------------------------------------------------
 ; sub_EE69C                                                       EE69C  97 PC
 ;-----------------------------------------------------------------------------
@@ -43,7 +43,7 @@ sub_EE69C:
         cmp eax, byte 0FFFFFFFFh
         je near .2
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         test di, di
         jne short .1
         mov edi, 8
@@ -204,7 +204,7 @@ sub_EE69C:
         mov eax, 309h
         call sub_41F2C
         mov eax, 305h
-        call sub_41FDC
+        call PlaySfx
         mov eax, esi
         leave
 sub_EE69C_20A:
@@ -354,10 +354,10 @@ sub_EE8BB:
         call sub_101340
 .8:
         add esp, byte 4
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 200h
         mov dword [byte ebp-04h], 0
-        call sub_41FDC
+        call PlaySfx
         jmp near .14
 .9:
         push ebx
@@ -485,9 +485,9 @@ sub_EE8BB:
 .14:
         cmp word [byte ebp-04h], byte 5
         jle near .9
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 203h
-        call sub_41FDC
+        call PlaySfx
         push ebx
         call sub_FD0F8
         add esp, byte 4
@@ -610,7 +610,7 @@ sub_EECBC:
         mov dword [dword_1CE492], eax
         mov eax, 200h
         mov edi, 5
-        call sub_41FDC
+        call PlaySfx
         jmp short .2
 .1:
         movsx eax, di
@@ -1163,10 +1163,10 @@ sub_EECBC:
         call sub_115830
         add esp, byte 8
         mov ebx, eax
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 201h
         xor edi, edi
-        call sub_41FDC
+        call PlaySfx
         jmp short .15
 .14:
         call sub_13C164
@@ -1277,7 +1277,7 @@ sub_EF5B3:
         mov dword [byte ebp-010h], edx
         mov edi, ecx
         mov eax, 200h
-        call sub_41FDC
+        call PlaySfx
         mov eax, 2
         call sub_419B0
         call sub_419B8
@@ -1849,9 +1849,9 @@ sub_EF5B3:
         call sub_FCFCC
         add esp, byte 0Ch
         call sub_1013FC
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 203h
-        call sub_41FDC
+        call PlaySfx
         jmp near sub_EE8BB_3FB
 ;-----------------------------------------------------------------------------
 ; sub_EFD08                                                       EFD08  97 PC
@@ -1876,14 +1876,14 @@ sub_EFD08:
         cmp word [word_16E2F0], byte 0
         jne short .1
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
 .1:
         mov word [word_16E2F0], 1
         jmp short .4
 .2:
         cmp word [word_16E2F0], byte 0
         je short .3
-        call sub_41FA0
+        call StopAllSfx
 .3:
         mov word [word_16E2F0], 0
 .4:
@@ -2038,7 +2038,7 @@ sub_EFD08:
         cmp dword [dword_1CE318], byte 0
         jne short .17
         mov eax, 206h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_1CE318], 1
         jmp near sub_EE69C_20A
 .17:
@@ -2046,7 +2046,7 @@ sub_EFD08:
         jne near sub_EE69C_20A
         cmp dword [dword_1CE318], byte 0
         je near sub_EE69C_20A
-        call sub_41FA0
+        call StopAllSfx
         mov dword [dword_1CE318], esi
         jmp near sub_EE69C_20A
 ;-----------------------------------------------------------------------------
@@ -2320,9 +2320,11 @@ jpt_F031D:
         dd sub_F0339_F11
         dd sub_F0339_1064
 ;-----------------------------------------------------------------------------
-; sub_F0339                                                       F0339  97 PC
+; ControlSetupScreen                              F0339  96 PC, low confidence
+; The control setup screen: mouse, keyboard, joystick 1 and 2 pictures,
+; detect and on/off sliders
 ;-----------------------------------------------------------------------------
-sub_F0339:
+ControlSetupScreen:
         push ebx
         push ecx
         push edx
@@ -3134,6 +3136,9 @@ sub_F0339:
         ja near sub_F0339_1064.44
         mov eax, dword [byte ebp+066h]
         jmp dword [nosplit cs:eax*4+jpt_F031D]
+;-----------------------------------------------------------------------------
+; sub_F0339_B8D                                                   F0EC6  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_B8D:
         call sub_7EDF0
         push byte 58h
@@ -3143,10 +3148,16 @@ sub_F0339_B8D:
         mov dword [byte ebp+072h], 64h
         call sub_100A68
         jmp near sub_F0339_C3A.38
+;-----------------------------------------------------------------------------
+; sub_F0339_BB1                                                   F0EEA  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_BB1:
         call sub_7EF70
         call WaitForOtherComputer
         jmp near sub_F0339_F11.42
+;-----------------------------------------------------------------------------
+; sub_F0339_BC0                                                   F0EF9  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_BC0:
         cmp word [byte ebp+07Eh], byte 0
         je near sub_F0339_F11.42
@@ -3160,6 +3171,9 @@ sub_F0339_BC0:
         mov dword [byte ebp+07Eh], 0
         call sub_EF5B3
         jmp near sub_F0339_F11.42
+;-----------------------------------------------------------------------------
+; sub_F0339_BF3                                                   F0F2C  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_BF3:
         cmp word [byte ebp+07Eh], byte 0
         jne near sub_F0339_F11.42
@@ -3177,6 +3191,9 @@ sub_F0339_BF3:
         mov dword [byte ebp+07Eh], 1
         mov dword [dword ebp-063Ah], 0
         jmp near sub_F0339_F11.42
+;-----------------------------------------------------------------------------
+; sub_F0339_C3A                                                   F0F73  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_C3A:
         cmp word [byte ebp+07Eh], byte 0
         jne near .35
@@ -3382,6 +3399,9 @@ sub_F0339_C3A:
         push dword 15Eh
         push asc_1679E4
         jmp short .37
+;-----------------------------------------------------------------------------
+; sub_F0339_F11                                                   F124A  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_F11:
         push dword [byte ebp+05Eh]
         call sub_FD0F8
@@ -3456,9 +3476,9 @@ sub_F0339_F11:
         cmp dword [byte ebp+072h], byte 0
         jne near sub_F0339_1064.46
         cmp word [dword ebp-063Ah], byte 0
-        jne near sub_F0339.24
+        jne near ControlSetupScreen.24
         cmp word [byte ebp+07Eh], byte 0
-        jne near sub_F0339.23
+        jne near ControlSetupScreen.23
         push byte 2
         lea eax, [byte ebp+066h]
         mov ecx, sub_EFD08
@@ -3468,7 +3488,10 @@ sub_F0339_F11:
         mov eax, 17h
 .43:
         call sub_8BFAC
-        jmp near sub_F0339.25
+        jmp near ControlSetupScreen.25
+;-----------------------------------------------------------------------------
+; sub_F0339_1064                                                  F139D  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_1064:
         push dword [byte ebp+056h]
         call sub_FD0F8
@@ -3790,7 +3813,7 @@ sub_F174F:
         call sub_419B0
         call sub_419B8
         mov eax, 200h
-        call sub_41FDC
+        call PlaySfx
         call sub_13C164
         push asc_16797A
         push edi
@@ -4269,10 +4292,10 @@ sub_F174F:
         call sub_1013AC
         add esp, byte 4
         call sub_1013FC
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 201h
         mov dword [byte ebp-08h], 0
-        call sub_41FDC
+        call PlaySfx
         jmp near .9
 .8:
         push dword [byte ebp-018h]

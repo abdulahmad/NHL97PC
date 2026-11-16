@@ -49,13 +49,13 @@ extern qword_1605B4, qword_1605BC, qword_1605C4, qword_1605CC, qword_1605D4, qwo
 extern qword_1605F4, qword_160604, qword_160624, qword_160630, qword_160638, qword_160640, qword_160648, qword_160650
 extern qword_160658, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, sub_100498
 extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, sub_25AEC, sub_2E11C
-extern UpdateCoachModes, sub_30778, sub_3085C, sub_32260, sub_32340, sub_32D88, EndPenaltyShot, sub_34CF4
+extern UpdateCoachModes, sub_30778, sub_3085C, AddPenalty, AddPenalty2, sub_32D88, EndPenaltyShot, sub_34CF4
 extern doplayeracc, sub_35588, sub_35690, sub_356A8, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
 extern sub_3B1EC, sub_3B738, SetVideoMode, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
-extern sub_3CB70, sub_3CD70, sub_3CE58, sub_3CFB0, sub_3E5F0, sub_424CC, sub_45BEC, SetArtArchive
+extern sub_3CB70, sub_3CD70, sub_3CE58, sub_3CFB0, sub_3E5F0, sub_424CC, CommentaryEvent, SetArtArchive
 extern sub_4B8DC, sub_4C0C4, sub_4DDB0, sub_504E0, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
 extern sub_5D6A8, sub_5D7A4, sub_5D878, sub_5D900, sub_5DC1C, sub_5DC50, sub_5DCBC, sub_5DE74
-extern sub_5ED80, sub_60D6C, sub_60F48, sub_650A4, sub_65F50, sub_6619C, sub_66224, sub_69B78
+extern SetSPA, sub_60D6C, sub_60F48, sub_650A4, sub_65F50, sub_6619C, sub_66224, sub_69B78
 extern sub_69BA0, sub_69DF4, sub_74BA8, sub_74C64, sub_75500, sub_77838, sub_7F0D8, DrawTextAligned
 extern GetLangText, sub_AA4BC, sub_F2AA0, sub_F98E4, sub_F994D, sub_FAF34, sub_FC4BC, sub_FCC40
 extern sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FD528, sub_FD954, sub_FDC68
@@ -99,11 +99,11 @@ global sub_1D09C, sub_1D0BC, sub_1D16C, sub_1D1D4, sub_1D1DC, sub_1D208, sub_1D2
 global sub_1D4FC, sub_1D828, sub_1D858, sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0
 global sub_1DD5C, sub_1DDE4, sub_1DEB8, sub_1DEE4, sub_1DFA0, sub_1E014, sub_1E184, assreplace
 global assinsert, assexit, sub_1E284, sub_1E354, sub_1E4E4, sub_1E7C4, sub_1E810, sub_1E8B0
-global check4bench, sub_1EF88, sub_1F32C, sub_1F4EC, sub_1F538, sub_1F5B4, sub_1F7D0, sub_1FB6C
+global check4bench, SwapPosition, sub_1F32C, sub_1F4EC, sub_1F538, sub_1F5B4, sub_1F7D0, Setplass
 global sub_1FBF4, sub_1FF5C, sub_20508, sub_209CC, sub_209D0, sub_209E0, sub_20A80, sub_20C50
-global sub_20CB0, sub_218B8, sub_21A4C, sub_21AB4, sub_21B20, sub_21E98, sub_22050, sub_22828
-global sub_22B8C, sub_22CEC, sub_22E70, sub_22FF0, sub_23284, sub_238E8, sub_23A78, sub_23B88
-global sub_23C98, sub_23E90, sub_23F44, sub_240D0, sub_24220, sub_244BC, sub_2471C, sub_248E8
+global sub_20CB0, sub_218B8, sub_21A4C, sub_21AB4, assgoalie, sub_21E98, sub_22050, assextra4
+global assdefo, asswingo, asscentero, sub_22FF0, assextra3, assdefd, asswingd, asscenterd
+global sub_23C98, assfaceoff, assfaceoffpl, sub_240D0, sub_24220, sub_244BC, sub_2471C, sub_248E8
 global sub_249F8, sub_24C00, sub_25010, sub_25188, sub_251F0, sub_25730, unk_19178, unk_19180
 global unk_19188, unk_19194, unk_191A0, unk_191AC
 ;-----------------------------------------------------------------------------
@@ -11256,7 +11256,7 @@ sub_1E014:
         push byte 0
 .8:
         push dword 0A000002Fh
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 8
 .9:
         pop edx
@@ -11307,7 +11307,7 @@ sub_1E184:
         push ebx
         push edx
         push dword 0A0000015h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
 .5:
         pop ecx
@@ -12454,7 +12454,7 @@ check4bench:
         mov word [dword ebx+0A9h], ax
 .14:
         mov eax, ebx
-        call sub_1FB6C
+        call Setplass
         test byte [byte_19CBC2], 1
         je near .20
         mov di, word [word_19CB98]
@@ -12521,9 +12521,11 @@ check4bench:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1EF88                                                       1EF88  97 PC
+; SwapPosition                                 1EF88  96 PC, medium confidence
+; Gives the player (eax) position edx and hands his old position to the
+; teammate who held it (struct +66h, team position map +102h)
 ;-----------------------------------------------------------------------------
-sub_1EF88:
+SwapPosition:
         push ebx
         push ecx
         push esi
@@ -12871,7 +12873,7 @@ sub_1F32C:
         mov edx, 4
 .7:
         mov eax, ebx
-        call sub_1EF88
+        call SwapPosition
         xor edx, edx
         mov dl, byte [dword ebx+0A4h]
         cmp eax, edx
@@ -12932,7 +12934,7 @@ sub_1F32C:
         jl short .11
         mov edx, 3
         mov eax, ebx
-        call sub_1EF88
+        call SwapPosition
         pop edi
         pop esi
         pop edx
@@ -12946,7 +12948,7 @@ sub_1F32C:
         jl short .12
         mov edx, 5
         mov eax, ebx
-        call sub_1EF88
+        call SwapPosition
         pop edi
         pop esi
         pop edx
@@ -12957,7 +12959,7 @@ sub_1F32C:
         mov edx, 4
 .13:
         mov eax, ebx
-        call sub_1EF88
+        call SwapPosition
 .14:
         pop edi
         pop esi
@@ -13038,7 +13040,7 @@ sub_1F538:
         mov edx, dword [dword ecx+0A9h]
         mov eax, ebx
         sar edx, 10h
-        call sub_1EF88
+        call SwapPosition
         mov eax, 1
         jmp short .2
 .1:
@@ -13098,7 +13100,7 @@ sub_1F5B4:
         mov eax, ebx
         sar edx, 10h
         mov dword [dword ebx+0ADh], 0FFFFFFFFh
-        call sub_1EF88
+        call SwapPosition
         mov al, byte [dword ebx+0B1h]
         inc al
         and al, 7
@@ -13138,7 +13140,7 @@ sub_1F5B4:
         jle short .4
         mov edx, dword [dword eax+0A7h]
         sar edx, 10h
-        call sub_1EF88
+        call SwapPosition
 .4:
         mov al, byte [dword ebx+0B1h]
         mov ch, byte [dword ebx+0BFh]
@@ -13175,7 +13177,7 @@ sub_1F5B4:
         mov edx, dword [dword eax+0A7h]
         sar edx, 10h
         mov dword [dword eax+0ADh], 0FFFFFFFFh
-        call sub_1EF88
+        call SwapPosition
         mov al, byte [dword ebx+0B1h]
         mov cl, byte [dword ebx+0BFh]
         inc al
@@ -13260,7 +13262,7 @@ sub_1F7D0:
         mov eax, ebx
         sar edx, 10h
         mov dword [dword ebx+0ADh], 0FFFFFFFFh
-        call sub_1EF88
+        call SwapPosition
         mov al, byte [dword ebx+0B1h]
         mov dl, byte [dword ebx+0BFh]
         inc al
@@ -13298,7 +13300,7 @@ sub_1F7D0:
         mov dword [dword eax+0ADh], 0FFFFFFFFh
         sar edx, 10h
         mov eax, ebx
-        call sub_1EF88
+        call SwapPosition
         mov al, byte [dword ebx+0B1h]
         inc al
         and al, 7
@@ -13472,9 +13474,12 @@ sub_1F7D0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1FB6C                                                       1FB6C  97 PC
+; Setplass                                       1FB6C  94G, medium confidence
+; 94G Setplass: sets the player's starting assignment by position from the
+; list byte_1689C0 (goalie 2, defence 3, wings 4, centre 5), after
+; SwapPosition
 ;-----------------------------------------------------------------------------
-sub_1FB6C:
+Setplass:
         push ebx
         push ecx
         push edx
@@ -13488,7 +13493,7 @@ sub_1FB6C:
         jl short .1
         mov edx, dword [dword eax+0A7h]
         sar edx, 10h
-        call sub_1EF88
+        call SwapPosition
         mov edx, dword [dword ebx+0ADh]
         mov eax, edx
         shl eax, 5
@@ -13500,7 +13505,7 @@ sub_1FB6C:
         mov edx, dword [dword ebx+0A7h]
         mov eax, ebx
         sar edx, 10h
-        call sub_1EF88
+        call SwapPosition
         mov eax, dword [dword ebx+0A7h]
         sar eax, 10h
         mov al, byte [dword eax+byte_1689C0]
@@ -14915,19 +14920,19 @@ sub_20CB0:
         shl eax, 3
         mov edx, 14h
         add eax, SortCords
-        call sub_32260
+        call AddPenalty
 .15:
         test di, di
         je short .16
         mov edx, 5
         mov eax, dword [dword ecx+0104h]
         xor ebx, ebx
-        call sub_32260
+        call AddPenalty
 .16:
         mov edx, 0Bh
         mov eax, dword [dword esi+0104h]
         xor ebx, ebx
-        call sub_32340
+        call AddPenalty2
         add esp, byte 2Ch
         pop ebp
         pop edi
@@ -15351,7 +15356,7 @@ sub_20CB0:
         mov ebx, dword [byte esp+0Ch]
         push ebx
         push dword 0A0000007h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
         jmp short .69
 .66:
@@ -15497,7 +15502,7 @@ sub_20CB0:
         mov edx, 7
         mov eax, dword [dword esi+0104h]
         xor ebx, ebx
-        call sub_32340
+        call AddPenalty2
         call EndPenaltyShot
         mov eax, dword [off_168D04]
         mov edx, dword [dword eax+0AEh]
@@ -15819,9 +15824,10 @@ sub_21AB4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_21B20                                                       21B20  97 PC
+; assgoalie                                      21B20  94G, medium confidence
+; 94G assgoalie: assignment 2 (Setplass list for the goalie), the goalie AI
 ;-----------------------------------------------------------------------------
-sub_21B20:
+assgoalie:
         push ebx
         push ecx
         push edx
@@ -15939,7 +15945,7 @@ sub_21B20:
         mov edx, 9
         mov eax, ecx
         xor ebx, ebx
-        call sub_32340
+        call AddPenalty2
         mov eax, dword [off_168CFC]
         mov dword [byte eax+038h], edi
         jmp short .14
@@ -16792,9 +16798,11 @@ sub_22050:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_22828                                                       22828  97 PC
+; assextra4                                       22828  96 PC, low confidence
+; Placeholder (Abdul 2026-11-15): called from asscentero, asswingo, assdefo,
+; assnearest; positioning on offence, not read yet
 ;-----------------------------------------------------------------------------
-sub_22828:
+assextra4:
         push ebx
         push ecx
         push edx
@@ -17038,9 +17046,11 @@ sub_22828:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_22B8C                                                       22B8C  97 PC
+; assdefo                                           22B8C  94G, low confidence
+; 94G assdefo: assignment 0Bh, defenceman on offence (SwapPosition,
+; assextra4, as 96 PC assdefo)
 ;-----------------------------------------------------------------------------
-sub_22B8C:
+assdefo:
         push ebx
         push ecx
         push edx
@@ -17122,7 +17132,7 @@ sub_22B8C:
         mov edx, dword [dword ebx+0A7h]
         mov eax, ebx
         sar edx, 10h
-        call sub_1EF88
+        call SwapPosition
 .4:
         mov eax, ebx
         call sub_1F538
@@ -17138,7 +17148,7 @@ sub_22B8C:
         cmp cx, byte 2
         jle short .5
         mov eax, ebx
-        call sub_22828
+        call assextra4
         pop edi
         pop edx
         pop ecx
@@ -17155,9 +17165,10 @@ sub_22B8C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_22CEC                                                       22CEC  97 PC
+; asswingo                                          22CEC  94G, low confidence
+; 94G asswingo: assignment 0Ch, winger on offence
 ;-----------------------------------------------------------------------------
-sub_22CEC:
+asswingo:
         push ebx
         push ecx
         push edx
@@ -17252,7 +17263,7 @@ sub_22CEC:
         sar edx, 10h
         mov byte [dword ebx+0BFh], ah
         mov eax, ebx
-        call sub_1EF88
+        call SwapPosition
         pop esi
         pop edx
         pop ecx
@@ -17268,7 +17279,7 @@ sub_22CEC:
         mov al, byte [dword ebx+0C5h]
         mov dword [byte ebx+056h], eax
         mov eax, ebx
-        call sub_22828
+        call assextra4
 .5:
         pop esi
         pop edx
@@ -17277,9 +17288,10 @@ sub_22CEC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_22E70                                                       22E70  97 PC
+; asscentero                                        22E70  94G, low confidence
+; 94G asscentero: assignment 0Dh, centre on offence
 ;-----------------------------------------------------------------------------
-sub_22E70:
+asscentero:
         push ebx
         push ecx
         push edx
@@ -17373,7 +17385,7 @@ sub_22E70:
         mov edx, 4
         mov byte [dword ebx+0BFh], ah
         mov eax, ebx
-        call sub_1EF88
+        call SwapPosition
         pop esi
         pop edx
         pop ecx
@@ -17389,7 +17401,7 @@ sub_22E70:
         mov al, byte [dword ebx+0C5h]
         mov dword [byte ebx+056h], eax
         mov eax, ebx
-        call sub_22828
+        call assextra4
 .5:
         pop esi
         pop edx
@@ -17591,9 +17603,11 @@ sub_22FF0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_23284                                                       23284  97 PC
+; assextra3                                       23284  96 PC, low confidence
+; Placeholder (Abdul 2026-11-15): called from asscenterd, asswingd,
+; assnearest; forwards' positioning on defence, not read yet
 ;-----------------------------------------------------------------------------
-sub_23284:
+assextra3:
         push ebx
         push ecx
         push edx
@@ -18014,9 +18028,11 @@ sub_23284:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_238E8                                                       238E8  97 PC
+; assdefd                                        238E8  94G, medium confidence
+; 94G assdefd: assignment 3 (Setplass list for defence), defenceman on
+; defence
 ;-----------------------------------------------------------------------------
-sub_238E8:
+assdefd:
         push ebx
         push ecx
         push edx
@@ -18081,7 +18097,7 @@ sub_238E8:
         mov edx, dword [dword ebx+0A7h]
         mov eax, ebx
         sar edx, 10h
-        call sub_1EF88
+        call SwapPosition
 .3:
         mov dword [dword ecx+0ADh], 0FFFFFFFFh
         mov eax, dword [dword ecx+0ADh]
@@ -18146,9 +18162,10 @@ sub_238E8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_23A78                                                       23A78  97 PC
+; asswingd                                       23A78  94G, medium confidence
+; 94G asswingd: assignment 4 (Setplass list for wings), winger on defence
 ;-----------------------------------------------------------------------------
-sub_23A78:
+asswingd:
         push ebx
         push ecx
         push edx
@@ -18230,7 +18247,7 @@ sub_23A78:
         mov al, byte [dword ebx+0C6h]
         mov dword [byte ebx+05Ah], eax
         mov eax, ebx
-        call sub_23284
+        call assextra3
 .4:
         pop esi
         pop edx
@@ -18239,9 +18256,11 @@ sub_23A78:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_23B88                                                       23B88  97 PC
+; asscenterd                                     23B88  94G, medium confidence
+; 94G asscenterd: assignment 5 (Setplass list for the centre), centre on
+; defence
 ;-----------------------------------------------------------------------------
-sub_23B88:
+asscenterd:
         push ebx
         push ecx
         push edx
@@ -18323,7 +18342,7 @@ sub_23B88:
         mov al, byte [dword ebx+0C6h]
         mov dword [byte ebx+05Ah], eax
         mov eax, ebx
-        call sub_23284
+        call assextra3
 .4:
         pop esi
         pop edx
@@ -18476,9 +18495,11 @@ sub_23C98:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_23E90                                                       23E90  97 PC
+; assfaceoff                                     23E90  94G, medium confidence
+; 94G assfaceoff: assignment 7, players idle until the faceoff is over
+; (puckfaceoff2 gives it to everyone but the centre, as 94G afaceoff)
 ;-----------------------------------------------------------------------------
-sub_23E90:
+assfaceoff:
         push ebx
         push ecx
         push edx
@@ -18532,7 +18553,7 @@ sub_23E90:
         mov dl, al
         add edx, byte 56h
         mov eax, ecx
-        call sub_5ED80
+        call SetSPA
 .3:
         pop edx
         pop ecx
@@ -18540,9 +18561,11 @@ sub_23E90:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_23F44                                                       23F44  97 PC
+; assfaceoffpl                                   23F44  94G, medium confidence
+; 94G assfaceoffpl: assignment 8, the faceoff player (puckfaceoff2 gives it
+; to the centre, as 94G afaceoffpl)
 ;-----------------------------------------------------------------------------
-sub_23F44:
+assfaceoffpl:
         push ebx
         push ecx
         push edx
@@ -18897,7 +18920,7 @@ sub_24220:
         and eax, 0FFh
         push eax
         push dword 0A0000002h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 2Ch
         mov eax, edx
         call sub_1DEE4
@@ -18964,7 +18987,7 @@ sub_24220:
         push eax
         push ebx
         push dword 0A000000Dh
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
 .9:
         mov word [word_19CB94], 0FFFFh
@@ -19143,7 +19166,7 @@ sub_244BC:
         push ebx
         push eax
         push dword 0A0000014h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
 .12:
         xor ebx, ebx
@@ -19597,7 +19620,7 @@ sub_249F8:
         and eax, 0FFh
         push eax
         push dword 0A0000001h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 2Ch
 .4:
         pop edi

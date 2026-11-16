@@ -28,7 +28,7 @@ extern dword_1C8E1C, dword_1C8E20, dword_1C8E24, dword_1C8E28, dword_1C8E2C, dwo
 extern dword_1C8E3C, dword_1C8E40, dword_1C8E44, dword_1C8E48, dword_1CC2AC, dword_1CF548, jpt_9621A, memset_
 extern qsort_, sprintf_, strcat_, strcpy_, sub_101390, sub_1013AC, sub_1013FC, sub_101429
 extern sub_101430, sub_101560, sub_102B94, sub_102C10, sub_102C30, sub_106F64, sub_106F94, sub_11A318
-extern sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC
+extern sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, StopAllSfx, PlaySfx
 extern LoadDataFile, LoadDataFileFlag0, OpenDataLibrary, sub_7B84B, LoadLogoNames, sub_7CB8C, sub_7DFC0, sub_7E52C
 extern sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, DrawTextAligned, sub_7F29C, sub_7F5A4
 extern sub_80BBC, sub_81678, sub_823F0, sub_830D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
@@ -1546,7 +1546,7 @@ sub_9732A:
         mov dword [byte ebp+03Eh], eax
         mov eax, 308h
         mov dword [byte ebp+06Ah], 0FFFFFFF8h
-        call sub_41FDC
+        call PlaySfx
         push dword 0FF00FFh
         mov dword [byte ebp+066h], 4
         sub ebx, dword [byte ebp+032h]
@@ -1920,7 +1920,7 @@ sub_9732A:
         call sub_1013FC
         jmp near .14
 .44:
-        call sub_41FA0
+        call StopAllSfx
         xor ebx, ebx
 .45:
         push dword [byte ebp+ebx*4+0Eh]
@@ -8718,7 +8718,7 @@ sub_9CCB1:
         cmp dword [dword_16CFF4], byte 0
         jne short .1
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_16CFF4], 1
 .1:
         cmp ebx, dword [dword_1C8DDC]
@@ -8836,7 +8836,7 @@ sub_9CE1D:
         mov byte [byte ebp-019h], 30h
         mov eax, 30Bh
         mov byte [byte ebp-018h], 0
-        call sub_41FDC
+        call PlaySfx
         xor ebx, ebx
 .1:
         mov al, bl

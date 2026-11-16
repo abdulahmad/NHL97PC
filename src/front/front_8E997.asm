@@ -20,17 +20,17 @@ extern dword_1C85D0, dword_1C8618, dword_1C8680, dword_1C86E8, dword_1C86EC, dwo
 extern dword_1C86FC, dword_1C8A8C, dword_1C8A90, dword_1C94E8, jpt_8E977, jpt_8E987, memcpy_, memset_
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, sub_101340
 extern sub_101390, sub_1013AC, sub_1013CC, sub_1013FC, sub_101429, sub_102C30, sub_10AED0, sub_11B094
-extern sub_11B0D0, sub_13C164, sub_3812E, sub_415A0, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC
+extern sub_11B0D0, sub_13C164, sub_3812E, sub_415A0, sub_419B0, sub_419B8, StopAllSfx, PlaySfx
 extern MakeDirPath, LoadDataFile, sub_7A9D8, sub_7BB27, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
 extern SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80AB8, sub_80BBC, sub_81650
-extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, sub_85D1D, NameIndexNew, NameIndexLoad, NameIndexFree
+extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad, NameIndexFree
 extern sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DBAC, sub_8DE10, DrawScrollBar, sub_8DE68
 extern sub_8DE7E, sub_8DEAC, GetLangText, PlayoffTreeScreen, AllocCrusherBuffers, sub_A2F31, sub_A2F52, sub_A2F78
 extern sub_A3048, sub_A3116, sub_C6064, RosterScreen, sub_D49BE, sub_DA7D6, sub_DB75E, sub_DB763
 extern sub_DC653, sub_DCA6C, sub_DCBB0, sub_DCFA4, sub_DD970, sub_DDC4A, sub_DE3CF, sub_DE5A3
 extern sub_E036F, sub_E0415, sub_E0691, sub_E069E, sub_E076B, sub_E0841, sub_E0B75, sub_E0D0F
 extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E13FE, sub_E1563, sub_E167A, sub_E1C19
-extern AllocClearBlock, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, sub_E947A, sub_FAA64, sub_FAF34
+extern AllocClearBlock, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, AllStarScreen, sub_FAA64, sub_FAF34
 extern sub_FC510, sub_FCD90, sub_FCEEC, sub_FCF84, sub_FCFCC, sub_FD08C, sub_FD0F8, unk_165779
 extern unk_1657CD, unk_1657CF, unk_16D7F4, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF12, unk_1ACF4E
 extern unk_1AD22E, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C85DC, unk_1C85E8, unk_1C85F4, unk_1C8600
@@ -281,14 +281,14 @@ sub_8EBDF:
         cmp dword [dword_1C86EC], byte 0
         jne short .4
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_1C86EC], 1
 .4:
         test esi, esi
         jne short .5
         cmp dword [dword_1C86EC], byte 0
         je short .5
-        call sub_41FA0
+        call StopAllSfx
         mov dword [dword_1C86EC], esi
 .5:
         pop esi
@@ -1711,7 +1711,7 @@ RunSeasonMenus:
 .11:
         mov edx, 0Ch
         mov byte [byte_16CCF0], 0
-        call sub_85D1D
+        call RunStatsMenu
         jmp short .7
 .12:
         call sub_3812E
@@ -1720,7 +1720,7 @@ RunSeasonMenus:
         jne short .7
         jmp short .4
 .13:
-        call sub_E947A
+        call AllStarScreen
         jmp short .6
 .14:
         cmp edx, byte 0Eh
@@ -1780,14 +1780,14 @@ sub_900AE:
         cmp dword [dword_1C86EC], byte 0
         jne short .4
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_1C86EC], 1
 .4:
         test esi, esi
         jne short .5
         cmp dword [dword_1C86EC], byte 0
         je short .5
-        call sub_41FA0
+        call StopAllSfx
         mov dword [dword_1C86EC], esi
 .5:
         pop esi

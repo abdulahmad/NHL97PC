@@ -25,9 +25,9 @@ extern regd1, slotteam, sub_100940, sub_100A68, sub_100B88, sub_100BC8, sub_100B
 extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, sub_101154, sub_1011E8
 extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
 extern QueueOverlayPanel, sub_18E35, sub_1C108, sub_1C210, sub_1C29C, sub_1C7B4, sub_1CCBC, sub_1D16C
-extern sub_1E184, assreplace, assinsert, assexit, sub_1E8B0, sub_1FB6C, sub_20CB0, sub_24220
-extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, CompLine, sub_2EDB8
-extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, sub_42098, PlaySfx, sub_424CC, sub_45BEC
+extern sub_1E184, assreplace, assinsert, assexit, sub_1E8B0, Setplass, sub_20CB0, sub_24220
+extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, CompLine, StartFaceoffLineChange
+extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent
 extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
 extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
 extern sub_71D48, sub_71E58, sub_71F4C, sub_76FE8, sub_77F94, sub_780F0, sub_AA588, sub_F9A88
@@ -53,7 +53,7 @@ global InProgress_96E, sub_3509C_E0, sub_36E34_1EC, sub_37198_DE, sub_37744_24C,
 global sub_2F744, sub_2F818, sub_2F8D8, sub_2FA00, sub_2FB40, sub_2FED8, sub_2FFB8, sub_30300
 global sub_305D8, sub_30674, sub_30778, sub_3085C, sub_308AC, sub_308F4, sub_30998, sub_30A34
 global sub_30BD8, sub_31070, sub_313F4, sub_31540, sub_31A2C, sub_31A5C, sub_31B6C, sub_31C14
-global sub_31F88, sub_32184, sub_32260, sub_32340, sub_32888, sub_32B68, sub_32C04, sub_32CEC
+global sub_31F88, sub_32184, AddPenalty, AddPenalty2, sub_32888, sub_32B68, sub_32C04, sub_32CEC
 global sub_32D88, sub_32FF8, sub_3319C, updatepentime, checkfornewpen, sub_335CC, sub_336E4, EndPenaltyShot
 global sub_33904, InProgress, sub_34330, sub_343F8, sub_34500, sub_348DC, sub_34950, sub_34A48
 global sub_34B04, sub_34B78, sub_34C18, sub_34CF4, doplayeracc, sub_34F58, sub_34FD0, sub_3505C
@@ -246,7 +246,7 @@ puckfaceoff:
         add edx, eax
         and byte [dword edx+0C0h], 0F7h
         mov eax, edx
-        call sub_2EDB8
+        call StartFaceoffLineChange
         test byte [dword edx+0C0h], 8
         je short .20
         test byte [dword edx+0BFh], 40h
@@ -293,7 +293,7 @@ puckfaceoff:
         and bh, 0F7h
         mov eax, edx
         mov byte [dword edx+0C0h], bh
-        call sub_2EDB8
+        call StartFaceoffLineChange
         test byte [dword edx+0C0h], 8
         je short .24
         test byte [dword edx+0BFh], 40h
@@ -584,7 +584,7 @@ sub_2F4B8:
         push edx
         push eax
         push dword 0A0000009h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
         mov edx, 2
         mov eax, dword [dword ecx+0F2h]
@@ -602,7 +602,7 @@ sub_2F4B8:
         mov edx, 0Dh
         mov dword [dword_19CB38], eax
         mov eax, ecx
-        call sub_32340
+        call AddPenalty2
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
         call sub_1D16C
@@ -843,7 +843,7 @@ sub_2F8D8:
         xor ebx, ebx
         mov word [word_19CBEC], ax
         mov eax, esi
-        call sub_32260
+        call AddPenalty
         mov eax, dword [off_168CF0]
         mov byte [eax], 0FFh
         mov dword [byte ecx+064h], 20h
@@ -871,7 +871,7 @@ sub_2F8D8:
 .7:
         movsx edx, ax
         mov eax, esi
-        call sub_32260
+        call AddPenalty
 .8:
         pop esi
         pop edx
@@ -941,7 +941,7 @@ sub_2FA00:
         xor ebx, ebx
         mov word [word_19CBEC], ax
         mov eax, esi
-        call sub_32260
+        call AddPenalty
         mov eax, dword [off_168CF0]
         mov byte [eax], 0FFh
         mov dword [byte ecx+064h], 20h
@@ -964,7 +964,7 @@ sub_2FA00:
         mov ebx, 1
         mov edx, 12h
         mov eax, esi
-        call sub_32260
+        call AddPenalty
 .6:
         pop esi
         pop edx
@@ -1065,7 +1065,7 @@ sub_2FB40:
         xor ebx, ebx
         mov word [word_19CBEC], ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         mov eax, dword [off_168CF0]
         mov byte [eax], 0FFh
         mov dword [byte esi+064h], 20h
@@ -1177,7 +1177,7 @@ sub_2FB40_229:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1189,7 +1189,7 @@ sub_2FB40_229:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1201,7 +1201,7 @@ sub_2FB40_229:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1214,7 +1214,7 @@ sub_2FB40_2CE:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1229,7 +1229,7 @@ sub_2FB40_2EB:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1244,7 +1244,7 @@ sub_2FB40_30C:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1259,7 +1259,7 @@ sub_2FB40_32D:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1273,7 +1273,7 @@ sub_2FB40_32D:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1290,7 +1290,7 @@ sub_2FB40_370:
         movsx edx, ax
 .25:
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
 .26:
         pop edi
         pop esi
@@ -1345,7 +1345,7 @@ sub_2FED8:
         mov ebx, 1
         mov edx, 14h
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
 .1:
         pop edx
         pop ecx
@@ -1730,7 +1730,7 @@ sub_30300:
         and eax, 0FFh
         push eax
         push dword 0A0000004h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 20h
         pop esi
         pop ecx
@@ -1796,7 +1796,7 @@ sub_30300:
         and eax, 0FFh
         push eax
         push dword 0A0000003h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 18h
 .16:
         test edx, edx
@@ -4300,9 +4300,12 @@ sub_32184:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_32260                                                       32260  97 PC
+; AddPenalty                                     32260  94G, medium confidence
+; 94G AddPenalty: (player, penalty, ...) adds a penalty unless the clock is
+; stopped, a penalty shot is live or the rule is off in the options (offsides
+; 5, two-line pass 6 ...); falls through to AddPenalty2
 ;-----------------------------------------------------------------------------
-sub_32260:
+AddPenalty:
         push ecx
         push esi
         mov ecx, eax
@@ -4330,7 +4333,7 @@ sub_32260:
         movsx ebx, bx
         movsx edx, dx
         mov eax, ecx
-        call sub_32340
+        call AddPenalty2
         pop esi
         pop ecx
         ret
@@ -4359,7 +4362,7 @@ sub_32260:
         movsx ebx, bx
         movsx edx, dx
         mov eax, ecx
-        call sub_32340
+        call AddPenalty2
 .5:
         pop esi
         pop ecx
@@ -4373,9 +4376,11 @@ jpt_32328:
         dd sub_32340_32E
         dd sub_32340_308
 ;-----------------------------------------------------------------------------
-; sub_32340                                                       32340  97 PC
+; AddPenalty2                                       32340  94G, low confidence
+; 94G AddPenalty2: (player, penalty, ...) a forced penalty: penalty table
+; dword_168D20, the penalty panel (QueueOverlayPanel)
 ;-----------------------------------------------------------------------------
-sub_32340:
+AddPenalty2:
         push ecx
         push esi
         push edi
@@ -4427,7 +4432,7 @@ sub_32340:
         je short .5
         mov eax, 504h
         xor edx, edx
-        call sub_42098
+        call PlaySfxOr
 .5:
         mov eax, 9
         call sub_424CC
@@ -4452,7 +4457,7 @@ sub_32340:
         mov eax, dword [nosplit eax*4+dword_168DCC]
 .8:
         xor edx, edx
-        call sub_42098
+        call PlaySfxOr
 .9:
         mov eax, 2
         call randomd0
@@ -4495,7 +4500,7 @@ sub_32340:
 .12:
         push eax
         push dword 0A0000027h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 8
 .13:
         mov bl, byte [byte_19CA30]
@@ -4564,10 +4569,13 @@ sub_32340:
         ja near sub_32340_2CB
         and edx, 0FFFFh
         jmp dword [nosplit cs:edx*4+jpt_32328]
+;-----------------------------------------------------------------------------
+; sub_32340_2BD                                                   325FD  97 PC
+;-----------------------------------------------------------------------------
 sub_32340_2BD:
         push eax
         push dword 0A0000028h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 8
 sub_32340_2CB:
         mov esp, ebp
@@ -4576,6 +4584,9 @@ sub_32340_2CB:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; sub_32340_2D2                                                   32612  97 PC
+;-----------------------------------------------------------------------------
 sub_32340_2D2:
         mov esi, 1000h
         mov dword [dword_19CB48], esi
@@ -4588,7 +4599,7 @@ sub_32340_2D2:
         push edx
         push eax
         push dword 0A0000022h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
         mov esp, ebp
         pop ebp
@@ -4596,6 +4607,9 @@ sub_32340_2D2:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; sub_32340_308                                                   32648  97 PC
+;-----------------------------------------------------------------------------
 sub_32340_308:
         mov ecx, 1000h
         push ecx
@@ -4603,7 +4617,7 @@ sub_32340_308:
         push eax
         push dword 0A0000020h
         mov dword [dword_19CB48], ecx
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
         mov esp, ebp
         pop ebp
@@ -4611,6 +4625,9 @@ sub_32340_308:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; sub_32340_32E                                                   3266E  97 PC
+;-----------------------------------------------------------------------------
 sub_32340_32E:
         mov esi, 1000h
         push esi
@@ -4618,7 +4635,7 @@ sub_32340_32E:
         push eax
         push dword 0A0000020h
         mov dword [dword_19CB48], esi
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
         mov esp, ebp
         pop ebp
@@ -4626,6 +4643,9 @@ sub_32340_32E:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; sub_32340_354                                                   32694  97 PC
+;-----------------------------------------------------------------------------
 sub_32340_354:
         cmp dword [dword_19CB54], byte 0
         je short .19
@@ -4635,7 +4655,7 @@ sub_32340_354:
         push eax
         push dword 0A0000020h
         mov dword [dword_19CB48], ecx
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
         mov esp, ebp
         pop ebp
@@ -4657,7 +4677,7 @@ sub_32340_354:
         push eax
         push dword 0A0000006h
         mov dword [dword_19CB48], ebx
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
         mov esp, ebp
         pop ebp
@@ -4672,7 +4692,7 @@ sub_32340_354:
         push eax
         push dword 0A0000020h
         mov dword [dword_19CB48], edx
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
         mov esp, ebp
         pop ebp
@@ -4736,7 +4756,7 @@ sub_32340_354:
         push edx
         push eax
         push dword 0A000000Ah
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
         mov esp, ebp
         pop ebp
@@ -4763,7 +4783,7 @@ sub_32340_354:
         cmp eax, byte 60h
         jge near sub_32340_2CB
         cmp byte [dword eax+byte_19CA30], 0
-        je near sub_32340.14
+        je near AddPenalty2.14
         jmp short .28
         db 08Bh,0C0h
         push edx
@@ -4962,7 +4982,7 @@ sub_32888:
         or al, 4
         mov word [word_19CBF0], cx
         mov byte [byte_19CBC2], al
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 4
         cmp bl, 1
         je short .25
@@ -4973,7 +4993,7 @@ sub_32888:
         mov edx, 64h
         push dword [byte eax+020h]
         mov eax, 461h
-        call PlaySfx
+        call PlaySfxVolume
         jmp short .26
 .25:
         call sub_18E35
@@ -4981,7 +5001,7 @@ sub_32888:
         test byte [byte_19CBC2], 8
         je short .27
         push dword 0A0000026h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 4
 .27:
         pop edi
@@ -5147,7 +5167,7 @@ sub_32CEC:
         mov word [dword ebx+0A9h], ax
         mov eax, ebx
         movsx edx, dx
-        call sub_1FB6C
+        call Setplass
         mov eax, ebx
         call setplayer
         or byte [dword ebx+0C0h], 4
@@ -5402,7 +5422,7 @@ sub_32FF8:
         push eax
         push esi
         push dword 0A000001Bh
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
 .1:
         cmp edx, byte 5
@@ -5463,7 +5483,7 @@ sub_32FF8:
         mov eax, 409h
         push dword [byte edx+020h]
         mov edx, 64h
-        call PlaySfx
+        call PlaySfxVolume
 .7:
         movsx edx, cx
         test word [byte ebx+edx*2+050h], 7FFh
@@ -5483,7 +5503,7 @@ sub_32FF8:
         and eax, 0FFh
         push eax
         push dword 0A000002Bh
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
 .8:
         mov esp, ebp
@@ -5768,7 +5788,7 @@ checkfornewpen:
         push ebx
         push esi
         push dword 0A0000023h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
 .8:
         mov eax, dword [off_168D04]
@@ -6074,7 +6094,7 @@ EndPenaltyShot:
         mov word [penshotmode], cx
         mov word [penshotlive], cx
         mov word [word_19CBE6], di
-        call sub_32340
+        call AddPenalty2
         mov ax, word [word_19CBA6]
         mov word [word_19CBB6], ax
         mov word [word_19CB8C], ax
@@ -6210,7 +6230,7 @@ InProgress:
         and eax, 0FFh
         push eax
         push dword 0A000001Ch
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
         push dword 1F4h
         push byte 0Ch
@@ -7630,7 +7650,7 @@ sub_34B04:
 .1:
         test byte [dword eax+0C0h], 8
         jne short .2
-        call sub_2EDB8
+        call StartFaceoffLineChange
         xor eax, eax
         pop ecx
         pop ebx
@@ -9822,11 +9842,11 @@ sub_36524:
         mov edx, 1Ch
         mov byte [byte ecx+06Ch], al
         mov eax, esi
-        call sub_32340
+        call AddPenalty2
         mov ebx, 4
         mov edx, 1Ch
         mov eax, ecx
-        call sub_32340
+        call AddPenalty2
         mov edx, 1Ch
         mov eax, esi
         call assinsert
@@ -9847,7 +9867,7 @@ sub_36524:
         push dword 0A000001Dh
         xor edx, edx
         mov dword [byte eax+05Ah], 3E8h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 4
         xor eax, eax
         mov dl, byte [dword ecx+0A4h]
@@ -10393,7 +10413,7 @@ sub_36AB0:
         test byte [dword esi+0C0h], 1
         je near .25
         push dword 0A000001Eh
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 4
         call sub_1C210
         jmp near .25
