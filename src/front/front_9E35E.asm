@@ -11,20 +11,22 @@ extern dword_1ACB45, dword_1C1334, dword_1C86FC, dword_1C8E4C, dword_1C8E50, dwo
 extern dword_1C8E60, dword_1C8E64, dword_1C8E88, dword_1C8E8C, dword_1C8E90, dword_1C8E94, dword_1C8E98, dword_1C8E9C
 extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, sub_9F6F5_393, sub_9F6F5_3A4, sub_9F6F5_3B5, sub_9F6F5_470, sub_9F6F5_4D9
 extern sub_9F6F5_4EE, rand_, sprintf_, sub_101340, sub_101390, sub_1013FC, sub_101429, sub_11B094
-extern sub_13C164, sub_419B0, sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC, sub_4B108, sub_7E860
-extern sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F028, sub_80AB8, sub_80B28, sub_80BBC, sub_835BC
-extern sub_83850, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_8E7E0, sub_9281C, sub_C6064
-extern sub_E117B, sub_E12D1, sub_E13BF, sub_E1744, sub_E3410, sub_E341C, sub_E4638, sub_E4838
+extern sub_13C164, sub_419B0, sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC, LoadDataFile, sub_7E860
+extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, sub_80AB8, sub_80B28, sub_80BBC, sub_835BC
+extern sub_83850, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, sub_9281C, sub_C6064
+extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E1744, sub_E3410, sub_E341C, LinkSendBlock, LinkReceiveBlock
 extern sub_FAA64, sub_FAF34, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcount, unk_16CFFC
 extern unk_1ACB44, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1ACB47, word_1C8EA0, word_1C8EA2
 global jpt_9E8E8, jpt_9F6DD, sub_9E35E_1C9, sub_9E35E_1EC, sub_9E91C_7BE, sub_9E91C_7CF, sub_9E91C_7E0, sub_9E91C_7FC
 global sub_9E91C_815, sub_9E91C_8C4, sub_9E91C_918, sub_9E91C_94F, sub_9E91C_A05, sub_9E91C_A43, sub_9E91C_ACB, sub_9E91C_B55
-global sub_9E91C_B61, sub_9E35E, sub_9E550, sub_9E723, sub_9E91C, sub_9F671, unk_9F5F1, unk_9F611
+global sub_9E91C_B61, DrawHomeTeamPanel, DrawAwayTeamPanel, sub_9E723, TeamSelectScreen, sub_9F671, unk_9F5F1, unk_9F611
 global unk_9F631, unk_9F651
 ;-----------------------------------------------------------------------------
-; sub_9E35E                                                       9E35E  97 PC
+; DrawHomeTeamPanel                               9E35E  96 PC, low confidence
+; The home team's panel on the team select screen: logo, name art, rank
+; (rk%02d)
 ;-----------------------------------------------------------------------------
-sub_9E35E:
+DrawHomeTeamPanel:
         push ebx
         push ecx
         push edx
@@ -175,9 +177,11 @@ sub_9E35E_1EC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9E550                                                       9E550  97 PC
+; DrawAwayTeamPanel                               9E550  97 PC, low confidence
+; The away team's panel on the team select screen (AWY1 / AWY2), as
+; DrawHomeTeamPanel
 ;-----------------------------------------------------------------------------
-sub_9E550:
+DrawAwayTeamPanel:
         push ebx
         push ecx
         push edx
@@ -451,9 +455,11 @@ jpt_9E8E8:
         dd sub_9E91C_B55
         dd sub_9E91C_B61
 ;-----------------------------------------------------------------------------
-; sub_9E91C                                                       9E91C  97 PC
+; TeamSelectScreen                             9E91C  96 PC, medium confidence
+; The exhibition team select screen (arrows ahl / ahr / aal / aar, logos,
+; names, ranks); returns the next screen
 ;-----------------------------------------------------------------------------
-sub_9E91C:
+TeamSelectScreen:
         push ebx
         push ecx
         push edx
@@ -476,15 +482,15 @@ sub_9E91C:
         cmp dword [dword_1C86FC], byte 0
         je short .2
         mov eax, dword_1C86FC
-        call sub_E12D1
+        call FreeExhibitionFile
 .2:
         mov eax, dword_1C86FC
-        call sub_E117B
+        call LoadExhibitionFile
         test eax, eax
         jne short .3
-        call sub_E13BF
+        call ResetExhibitionFile
         mov eax, dword_1C86FC
-        call sub_E117B
+        call LoadExhibitionFile
 .3:
         cmp dword [dword_16D76C], byte 0
         jne short .4
@@ -522,7 +528,7 @@ sub_9E91C:
         push byte 0FFFFFFFFh
         lea eax, [byte ebp+01Eh]
         mov edx, ebx
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [byte ebp+07Eh]
         mov edx, dword [byte ebp+07Eh]
         mov dword [dword eax+0396h], 4
@@ -533,7 +539,7 @@ sub_9E91C:
         call sub_419B8
         xor edx, edx
         mov eax, 2Ch
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1C8E5C], eax
         mov eax, 3
         xor edx, edx
@@ -541,7 +547,7 @@ sub_9E91C:
         call sub_419B8
         mov eax, 2Dh
         xor ebx, ebx
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1C8E58], eax
 .6:
         push ebx
@@ -859,9 +865,9 @@ sub_9E91C:
         cmp ebx, byte 0Bh
         jl short .9
         mov eax, dword [byte ebp+07Ah]
-        call sub_9E35E
+        call DrawHomeTeamPanel
         mov eax, dword [byte ebp+076h]
-        call sub_9E550
+        call DrawAwayTeamPanel
         mov eax, dword [tickcount]
         sub eax, byte 32h
         mov dword [dword_1C8E4C], eax
@@ -932,14 +938,23 @@ sub_9E91C:
         call sub_FCD90
         add esp, byte 4
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_7BE                                                   9F0DA  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_7BE:
         call sub_7EEB0
         mov dword [byte ebp+072h], 1
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_7CF                                                   9F0EB  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_7CF:
         call sub_7EDF0
         mov dword [byte ebp+072h], 0Eh
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_7E0                                                   9F0FC  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_7E0:
         mov eax, dword [byte ebp+07Eh]
         add eax, 0A4h
@@ -947,12 +962,18 @@ sub_9E91C_7E0:
         mov eax, 1
         call sub_C6064
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_7FC                                                   9F118  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_7FC:
         mov eax, dword [byte ebp+07Eh]
         add eax, 0F6h
         mov dword [byte ebp+072h], 19h
         call sub_83C08
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_815                                                   9F131  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_815:
         mov eax, 30Bh
         call sub_41FDC
@@ -979,7 +1000,7 @@ sub_9E91C_815:
         mov eax, dword [byte ebp+076h]
         mov ebx, dword [byte ebp+07Ah]
         mov dword [byte ebp+07Ah], eax
-        call sub_9E35E
+        call DrawHomeTeamPanel
         mov eax, dword [byte ebp+07Ah]
         mov ecx, dword [byte ebp+07Eh]
         mov edx, dword [dword ebp+eax*4-014Eh]
@@ -988,7 +1009,7 @@ sub_9E91C_815:
         mov dword [dword ecx+0304h], eax
         mov dword [dword ecx+0300h], eax
         mov eax, ebx
-        call sub_9E550
+        call DrawAwayTeamPanel
         mov edx, dword [dword ebp+ebx*4-014Eh]
         mov dword [dword ecx+034Eh], edx
         mov eax, dword [dword ebp+ebx*4-0C2h]
@@ -998,6 +1019,9 @@ sub_9E91C_815:
         mov dword [byte ebp+076h], ebx
         mov dword [dword_1C8E4C], eax
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_8C4                                                   9F1E0  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_8C4:
         dec dword [byte ebp+07Ah]
         cmp dword [byte ebp+07Ah], byte 0
@@ -1012,7 +1036,7 @@ sub_9E91C_8C4:
         add dword [byte ebp+07Ah], eax
 .15:
         mov eax, dword [byte ebp+07Ah]
-        call sub_9E35E
+        call DrawHomeTeamPanel
         mov eax, dword [byte ebp+07Ah]
         mov ebx, dword [byte ebp+07Eh]
         mov edx, dword [dword ebp+eax*4-014Eh]
@@ -1021,6 +1045,9 @@ sub_9E91C_8C4:
         mov dword [dword ebx+0304h], eax
         mov dword [dword ebx+0300h], eax
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_918                                                   9F234  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_918:
         inc dword [byte ebp+07Ah]
         cmp dword [dword_16D76C], byte 0
@@ -1041,6 +1068,9 @@ sub_9E91C_918:
 .19:
         sub dword [byte ebp+07Ah], eax
         jmp short sub_9E91C_8C4.15
+;-----------------------------------------------------------------------------
+; sub_9E91C_94F                                                   9F26B  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_94F:
         dec dword [byte ebp+076h]
         cmp dword [byte ebp+076h], byte 0
@@ -1055,7 +1085,7 @@ sub_9E91C_94F:
         add dword [byte ebp+076h], eax
 .22:
         mov eax, dword [byte ebp+076h]
-        call sub_9E550
+        call DrawAwayTeamPanel
         mov eax, dword [byte ebp+076h]
         mov ebx, dword [byte ebp+07Eh]
         mov edx, dword [dword ebp+eax*4-014Eh]
@@ -1090,6 +1120,9 @@ sub_9E91C_94F:
         ja short .23
         mov eax, dword [byte ebp+066h]
         jmp dword [nosplit cs:eax*4+jpt_9E8E8]
+;-----------------------------------------------------------------------------
+; sub_9E91C_A05                                                   9F321  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_A05:
         inc dword [byte ebp+076h]
         cmp dword [dword_16D76C], byte 0
@@ -1110,6 +1143,9 @@ sub_9E91C_A05:
 .27:
         sub dword [byte ebp+076h], eax
         jmp near sub_9E91C_94F.22
+;-----------------------------------------------------------------------------
+; sub_9E91C_A43                                                   9F35F  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_A43:
         mov eax, dword [byte ebp+07Eh]
         mov eax, dword [dword eax+0308h]
@@ -1138,13 +1174,16 @@ sub_9E91C_A43:
         je near sub_9E91C_94F.23
         mov edx, dword [byte ebp+07Eh]
         mov dword [byte ebp+07Ah], eax
-        call sub_9E35E
+        call DrawHomeTeamPanel
         mov eax, dword [dword ebp+ebx*4-014Eh]
         mov dword [dword edx+02FCh], eax
         mov eax, dword [dword ebp+ebx*4-0C2h]
         mov dword [dword edx+0304h], eax
         mov dword [dword edx+0300h], eax
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_ACB                                                   9F3E7  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_ACB:
         mov eax, dword [byte ebp+07Eh]
         mov eax, dword [dword eax+035Ah]
@@ -1173,16 +1212,22 @@ sub_9E91C_ACB:
         je near sub_9E91C_94F.23
         mov edx, dword [byte ebp+07Eh]
         mov dword [byte ebp+076h], eax
-        call sub_9E550
+        call DrawAwayTeamPanel
         mov eax, dword [dword ebp+ebx*4-014Eh]
         mov dword [dword edx+034Eh], eax
         mov eax, dword [dword ebp+ebx*4-0C2h]
         mov dword [dword edx+0356h], eax
         mov dword [dword edx+0352h], eax
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_B55                                                   9F471  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_B55:
         mov dword [byte ebp+072h], 15h
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_B61                                                   9F47D  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_B61:
         call sub_7EF70
         jmp near sub_9E91C_94F.23
@@ -1231,11 +1276,11 @@ sub_9E91C_B61:
         je short .37
         mov eax, 227h
         mov edx, 4A78h
-        call sub_8E7E0
+        call GetLangText
         call sub_835BC
         xor ebx, ebx
         mov eax, dword_1C1334
-        call sub_E4638
+        call LinkSendBlock
         call sub_83850
 .37:
         cmp dword [dword_16DA9C], byte 0
@@ -1245,11 +1290,11 @@ sub_9E91C_B61:
         jne short .38
         mov eax, 227h
         mov edx, 4A78h
-        call sub_8E7E0
+        call GetLangText
         call sub_835BC
         xor ebx, ebx
         mov eax, dword_1C1334
-        call sub_E4838
+        call LinkReceiveBlock
         call sub_83850
 .38:
         mov eax, dword [byte ebp+07Ah]
@@ -1270,7 +1315,7 @@ sub_9E91C_B61:
         jne short .41
 .40:
         mov eax, dword_1C86FC
-        call sub_E12D1
+        call FreeExhibitionFile
 .41:
         mov eax, dword [byte ebp+072h]
         lea esp, [dword ebp+082h]

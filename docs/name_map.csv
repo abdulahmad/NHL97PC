@@ -1,30 +1,128 @@
 address,name,auto_name,source,confidence,evidence,file
 10010,GripLinkLibrary,sub_10010,96PC,medium,NHL96PC 10D66 (sem 0.87): K:8490; K:101; K:100,src/front/front_10010.asm
 10354,LoadGripLibrary,sub_10354,96PC,medium,NHL96PC 1124D (sem 1.00): S:GRIP; D:1684D5; S:GRIP.GLL; D:1684CC,src/front/front_10010.asm
+11504,forcepldata,sub_11504,94G,medium,"94G forcepldata: (team) faceoffs only: puts each player straight into his requested position (+0A8h -> +0A9h), assnearest for the centre, setplayer",src/front/front_10010.asm
 11744,clearteams,,96PC,medium,NHL96PC 4875E (similar): mnemonic similarity 0.80 over 60 instructions,
+11908,ResetBench,sub_11908,94G,medium,94G ResetBench (96 PC body): the bench and penalty box state of both teams' rosters,src/front/front_10010.asm
+11B38,setplayer,sub_11B38,94G,medium,"94G setplayer: (player, roster index) brings a player onto the ice: pnum (+0A6h), marks him in the team's line table (+50h, 8001h / 8002h)",src/front/front_10010.asm
+11ED8,reenergizeteam,sub_11ED8,94G,medium,94G reenergizeteam (96 PC body): every player's energy back to 1000h,src/front/front_10010.asm
 11F10,SetupTeamForIntermission,,96PC,medium,NHL96PC 4AF89 (similar): mnemonic similarity 0.88 over 32 instructions,
+127D4,setpersonel,sub_127D4,94G,medium,94G setpersonel (96 PC body): clears the team's 6 on-ice slots and sets the personnel,src/front/front_10010.asm
+12A70,ClockTick,sub_12A70,96PC,medium,"96 PC ClockTick: counts the game clock down (word_19CBBA minutes, word_19CBBC seconds) and posts the clock events; from RunSimFrames",src/front/front_10010.asm
 1303C,AllInPlace,,96PC,medium,NHL96PC 3ABAE (similar): mnemonic similarity 0.87 over 21 instructions,
+1306C,Intermission,sub_1306C,96PC,medium,"96 PC Intermission: GameOver when gsp is 4, else SetupTeamForIntermission and resets the players for the next period",src/engine/faceoff/faceoff.asm
+130C8,StartGame,sub_130C8,96PC,medium,"96 PC StartGame: CountTeamSlots, clears the game vars and teams, restores the teams and starts the period",src/engine/faceoff/faceoff.asm
+131E0,InitGameVars,sub_131E0,new,medium,"clears the per-game state (clock, period, gameover, penalties, counters), then StartGame",src/engine/faceoff/faceoff.asm
+134F0,RunOpeningFrames,sub_134F0,new,low,runs the input records and frames of the opening until a button or 5DCh frames,src/engine/faceoff/faceoff.asm
+136C0,PlaceOpeningPlayers,sub_136C0,new,low,puts the players at their opening places (random spread by team and arena),src/engine/faceoff/faceoff.asm
+13920,OpeningSequence,sub_13920,new,low,"the game's opening: in a simulated game posts event 29h and returns, else places the players (PlaceOpeningPlayers) and runs the intro frames (RunOpeningFrames)",src/engine/faceoff/faceoff.asm
+13A4C,BeginGame,sub_13A4C,new,low,"from PlayGame: InitGameVars, the period fraction, then the opening sequence (OpeningSequence); 2 when it was aborted",src/engine/faceoff/faceoff.asm
 14078,RunSimFrames,sub_14078,96PC,medium,96 PC RunSimFrames: runs the simulation for one input record,src/engine/faceoff/faceoff.asm
+14184,ToggleFKeyFlag,sub_14184,new,low,(key 5E00h-6600h): toggles the flag of a Ctrl+F key (dword_16AF3C),src/engine/faceoff/faceoff.asm
+141AC,ShowCameraView,sub_141AC,new,low,(view 0-7): from the camera keys and the attract game: SelectCameraView and the camera name panel,src/engine/faceoff/faceoff.asm
+14238,CountDebugUnlock,sub_14238,new,low,counts one step of the debug key unlock (sound 10h at 4),src/engine/faceoff/faceoff.asm
+1426C,ResetDebugUnlock,sub_1426C,new,low,clears the debug key unlock count,src/engine/faceoff/faceoff.asm
+14294,DebugKeys,sub_14294,new,low,"(key): the debug keys, active once the unlock count (word_1686D4) reaches 4",src/engine/faceoff/faceoff.asm
+14710,GameFunctionKeys,sub_14710,new,low,"(key): Ctrl+F1-F9 toggles (dword_16AF3C), +, - and =",src/engine/faceoff/faceoff.asm
+14880,HandleGameKeys,sub_14880,new,medium,"from GameLoop: the in-game keyboard: the unlocked debug keys (DebugKeys), the function keys (GameFunctionKeys)",src/engine/faceoff/faceoff.asm
 14AC8,GameLoop,sub_14AC8,96PC,high,"96 PC GameLoop: same structure (input records, RunSimFrames, in-game menu, period over, game over)",src/engine/faceoff/faceoff.asm
+14E60,InitGameDisplay,sub_14E60,new,low,from PlayGame: copies the display options (unk_16AED4) and sets the 640x480 game screen,src/engine/faceoff/faceoff.asm
+14FE0,SaveGameDisplay,sub_14FE0,new,low,writes the game's display options back (dword_1AC835) after the game,src/engine/faceoff/faceoff.asm
+151A8,SetGameBrightness,sub_151A8,new,low,the brightness (28h-64h) from the display options,src/engine/faceoff/faceoff.asm
 152C4,PlayGame,sub_152C4,96PC,high,"96 PC PlayGame: seeds, then calls GameLoop",src/engine/faceoff/faceoff.asm
+15578,RunDemoGame,sub_15578,96PC,medium,"96 PC RunDemoGame: the attract mode game (gameopts 40h, a seed from the DOS time)",src/engine/faceoff/faceoff.asm
 1583F,RunInGameMenu,sub_1583F,96PC,high,96 PC RunInGameMenu: called when InGameMenuRequest is set,src/engine/faceoff/faceoff.asm
+15AC2,ChangeViewSize,sub_15AC2,new,medium,"(+1 / -1): the game view size in steps of 10 between 28h and 64h percent (word_1686E4), then the view window",src/engine/engine_15AC2.asm
+15BC5,SetViewWindow,sub_15BC5,new,low,the game view window from the view size and the screen size (dword_16E464 x dword_16E468),src/engine/engine_15AC2.asm
+1603A,ApplyDisplayFlags,sub_1603A,new,low,"sets the doubled / interlaced display flags (dword_19CD30, dword_19CD34) in the screen record",src/engine/engine_15AC2.asm
+16090,RemoveOverlayPanel,sub_16090,new,medium,(kind): takes the queued panels of a kind out of the panel queue,src/engine/engine_15AC2.asm
+16D61,DrawVideoModePanel,sub_16D61,new,medium,"the screen mode panel (""%d x %d"", Doubled / Interlaced / Normal)",src/engine/engine_15AC2.asm
+16ED0,DrawGoalScorerPanel,sub_16ED0,new,low,"the ""%s - #%d %s %s"" panel with ""%s %s"" assist lines (team, number, name)",src/engine/engine_15AC2.asm
+17158,DrawPlayerNamePanel,sub_17158,96PC,low,"a player name panel (""#%d %s %s""), like 96 PC DrawPlayerNamePanel",src/engine/engine_15AC2.asm
+17AD1,DrawGameClock,sub_17AD1,96PC,medium,"96 PC DrawGameClock: the game clock ""%2d:%02d"", or ""%2d.%01d"" under a minute",src/engine/engine_15AC2.asm
+17DC0,DrawClockPanel,sub_17DC0,96PC,low,the clock panel (overlay kind table off_16877E entry 0): removes panels 300h / 700h and draws the clock (DrawGameClock),src/engine/engine_15AC2.asm
+18D8A,QueueOverlayPanel,sub_18D8A,96PC,medium,"96 PC QueueOverlayPanel (kind, ticks, ...): puts a panel in a free slot of the 10-panel queue (unk_19CF8C, 0Ch each)",src/engine/engine_15AC2.asm
+1900F,DrawGameOverlays,sub_1900F,96PC,medium,"96 PC DrawGameOverlays: from GameLoop, the overlay panels of the frame (clock, queued panels)",src/engine/engine_15AC2.asm
+191F8,GetCameraTarget,sub_191F8,new,low,"(target 4-10h and up): the position record of a camera target (player records at dword_1B1410, then fixed targets); 0 when none",src/engine/engine_15AC2.asm
+1963C,UpdateCameraView,sub_1963C,new,low,"(camera, ...): per frame, the camera by its view kind (+24h, 0-0Dh)",src/engine/engine_15AC2.asm
+19F30,UpdateCameraZoom,sub_19F30,new,low,"(camera): the camera distance by its zoom mode (+28h, 0-5)",src/engine/engine_15AC2.asm
+1A31C,UpdateCameraTrack,sub_1A31C,new,low,"(camera): follows the camera path target by its track mode (+2Ch, 0-5)",src/engine/engine_15AC2.asm
+1A740,SetCameraView,sub_1A740,new,medium,"(camera, view 0-0Dh): fills a camera record (unk_19D0A4) with the view's name (GetLangText) and settings",src/engine/engine_15AC2.asm
+1AF4C,SetCameraHeight,sub_1AF4C,new,low,"sets the camera height (dword_19D1A4), at once or eased over frames",src/engine/engine_15AC2.asm
+1AF90,SetCameraFocus,sub_1AF90,new,low,"sets the camera focus x / z (dword_19D1A0, dword_19D1A8), at once or eased",src/engine/engine_15AC2.asm
+1B034,SetCameraPathPoint,sub_1B034,new,low,"sets the camera path point (dword_19D340, dword_19D344), at once or eased",src/engine/engine_15AC2.asm
+1B09C,StartCameraPath,sub_1B09C,new,low,"(path, ticks): starts a camera path (dword_19D380) for the game camera",src/engine/engine_15AC2.asm
+1B3F4,SelectCameraView,sub_1B3F4,new,medium,"(view, ticks): picks the game camera view (mod 10) with SetCameraView and moves the camera to it",src/engine/engine_15AC2.asm
+1BEA4,LoadOpeningCamera,sub_1BEA4,new,low,from OpeningSequence: loads the opening camera path intro%d.3cp from arena.viv,src/engine/engine_15AC2.asm
+1E208,assreplace,sub_1E208,94G,high,"94G assreplace: (player, assignment) replaces the current assignment (+0B2h list at index +0B1h) and sets the new-assignment flag (+0BFh bit 1)",src/engine/engine_15AC2.asm
+1E224,assinsert,sub_1E224,94G,medium,"94G assinsert: (player, assignment) pushes a new assignment (index - 1) unless it is already the current one, then as assreplace",src/engine/engine_15AC2.asm
+1E268,assexit,sub_1E268,94G,high,94G assexit: ends the current assignment (index + 1) and sets the new-assignment flag,src/engine/engine_15AC2.asm
+1EC5C,check4bench,sub_1EC5C,94G,medium,"94G check4bench: whether player a3 should go to the bench; if so assreplace with assbench (17h); 0 when he stays (joystick-controlled, penalty shot, ...)",src/engine/engine_15AC2.asm
+265FC,assnearest,sub_265FC,94G,medium,"94G assnearest: assignment 0Ah (off_19C3F4), the main skater AI (forcepldata gives it to the centre, as in 94G)",src/engine/engine_25894.asm
+27500,ChkPullGoalieLate,sub_27500,96PC,medium,"96 PC ChkPullGoalieLate: (team) third period, last 60 seconds, losing by 1-2 and no goalie pulled yet: pull the goalie (from assbench)",src/engine/engine_25894.asm
+275C0,assbench,sub_275C0,94G,medium,"94G assbench: assignment 17h, skating off to the bench (check4bench gives it); setplayer for the replacement",src/engine/engine_25894.asm
+282B8,asseben,sub_282B8,94G,medium,"94G asseben: assignment 16h, coming on from the bench (setplayer gives it for a player from the bench, as in 94G)",src/engine/engine_25894.asm
+28698,asspenalty,sub_28698,94G,medium,"94G asspenalty: assignment 12h, the penalised player skates to the penalty box (InProgress gives it, as in 94G)",src/engine/engine_25894.asm
+289AC,assdopen,sub_289AC,96PC,low,"96 PC assdopen: assignment 13h, opens the penalty box door (SetPenaltyBoxDoor, sound)",src/engine/engine_25894.asm
+28A08,assepen,sub_28A08,94G,medium,"94G assepen: assignment 14h, leaving the penalty box (setplayer gives it for a player from the box, as in 94G)",src/engine/engine_25894.asm
+28D88,assrefpenshot,sub_28D88,96PC,low,"96 PC assrefpenshot: assignment 29h (last referee handler): waits for AllInPlace before the penalty shot, with a sound",src/engine/engine_25894.asm
+2A3F4,assstanley,sub_2A3F4,96PC,low,"96 PC assstanley: player handler 46, the Stanley Cup presentation (cuppal, LoadCupArt, fade, camera path)",src/engine/engine_25894.asm
+2CA40,pucknorm_body,sub_2CA40,96PC,medium,"96 PC pucknorm_body: the puck's handler body: the puck carrier (off_168CF0), goals and the puck physics",src/engine/engine_25894.asm
+2D308,pucknorm,sub_2D308,96PC,medium,"96 PC pucknorm: player handler 43 (off_19C3F4), the puck's normal handler: clears the new-assignment flag (+0BFh bit 1) and its counter, then pucknorm_body",src/engine/engine_25894.asm
+2D330,puckfaceoff2,sub_2D330,96PC,low,"96 PC puckfaceoff2: player handler 45, after puckfaceoff: waits for AllInPlace, resets the bench and the personnel, then drops the puck",src/engine/engine_25894.asm
+2DCC8,CPgoalie,sub_2DCC8,94G,medium,94G CPgoalie (96 PC body): pulls the computer team's goalie late in the third period,src/engine/engine_25894.asm
 2DE3C,ReturnGoalies,,96PC,medium,NHL96PC 463AE (similar): mnemonic similarity 0.81 over 33 instructions,
+2E378,CompLine,sub_2E378,94G,medium,"94G CompLine: (team, other team) picks the line for the computer team to change to (0F33h threshold, as 96 PC)",src/engine/engine_2DE3C.asm
+2E6D4,SetCoachMode,sub_2E6D4,96PC,medium,96 PC SetCoachMode: the coach mode from the score difference,src/engine/engine_2DE3C.asm
+2E8F0,UpdateCoachModes,sub_2E8F0,96PC,medium,96 PC UpdateCoachModes: from ClockTick at the same minutes of periods 2 and 3,src/engine/engine_2DE3C.asm
 2EEE8,puckfaceoff,,96PC,medium,NHL96PC 3AEBA (sem): C:306; D:19CC04; D:19EBBC; D:19EAB0,
+332C0,updatepentime,sub_332C0,94G,medium,"94G updatepentime (96 PC body): counts the penalty times down, from chkprogress",src/engine/faceoff/faceoff_2.asm
+33368,checkfornewpen,sub_33368,94G,medium,"94G checkfornewpen (96 PC body), from chkprogress",src/engine/faceoff/faceoff_2.asm
+33880,EndPenaltyShot,sub_33880,96PC,medium,96 PC EndPenaltyShot: from ClockTick when the penalty shot time runs out,src/engine/faceoff/faceoff_2.asm
+33950,InProgress,sub_33950,94G,medium,"94G InProgress: the penalty in progress (whistle, box, power play), from chkprogress after checkfornewpen",src/engine/faceoff/faceoff_2.asm
 342C4,chkprogress,,95PC,medium,NHL95PC 63C0C (similar): mnemonic similarity 0.83 over 28 instructions,
 3434C,restorepl,,96PC,medium,NHL96PC 46988 (sem): R:366; R:365,
 34428,GiveControl,,96PC,medium,NHL96PC 4806A (similar): mnemonic similarity 0.84 over 59 instructions,
 34560,changeplayer,,96PC,medium,NHL96PC 4666C (sem): C:364; D:19CC04; D:19DA30,
 34980,SlotToJoy,,96PC,medium,NHL96PC 3987A (similar): mnemonic similarity 0.92 over 36 instructions,
 349E4,ReadJoy1,,96PC,medium,NHL96PC 398DB (sem): C:371,
+34EF8,doplayeracc,sub_34EF8,94G,medium,"94G doplayeracc: (player, direction 0-7, 8+ = none) the player accelerates toward the direction (x87 heading, sub_34CF4)",src/engine/faceoff/faceoff_2.asm
 362E0,CountTeamSlots,,96PC,medium,NHL96PC 3A2F6 (similar): mnemonic similarity 0.82 over 32 instructions,
+3C75C,SetVideoMode,sub_3C75C,new,medium,"(width, height): switches the screen mode when it differs from the current one (dword_1A8E84 x dword_1A8E88)",src/engine/engine_3812E.asm
+3E850,CdStreamOpen,sub_3E850,96PC,medium,"96 PC CdStreamOpen: allocates and opens a CD stream (""CDSTREAM"" block)",src/engine/engine_3812E.asm
+3E904,setstreamspeed,sub_3E904,96PC,medium,"96 PC setstreamspeed (""STREAM"" block), measures the stream's read speed",src/engine/engine_3812E.asm
+3EB40,delstream,sub_3EB40,96PC,low,closes a CD stream: removes its timer callback and frees its buffer,src/engine/engine_3812E.asm
+3EBE0,CdStreamRequest,sub_3EBE0,new,low,the common body of the stream start / queue calls: copies the file name (8Fh) and sets the request flags,src/engine/engine_3812E.asm
+3EC58,CdStreamStart,sub_3EC58,96PC,low,"CdStreamRequest with flags (1, 0, 1, 1)",src/engine/engine_3812E.asm
+3EC78,CdStreamQueue,sub_3EC78,96PC,low,"CdStreamRequest with flags (1, 0, 1, 0)",src/engine/engine_3812E.asm
+3EE74,CdStreamOpenSecondary,sub_3EE74,96PC,medium,"96 PC CdStreamOpenSecondary (""SECCDSTREAM"")",src/engine/engine_3812E.asm
 3EF68,CdStreamService,sub_3EF68,96PC,medium,NHL96PC 1CB54 (sem 0.87): C:460; C:458; C:2029,src/engine/engine_3812E.asm
 3FB34,CdStreamSkipMarks,sub_3FB34,96PC,high,NHL96PC 1D54E (callsite 0.90): called at the same place of CdStreamSpaceLeft,src/engine/engine_3812E.asm
+3FB7C,CdStreamContigData,sub_3FB7C,96PC,high,"96 PC CdStreamContigData, same body",src/engine/engine_3812E.asm
 3FBBC,CdStreamSpaceLeft,sub_3FBBC,96PC,high,NHL96PC 1D5A9 (exact 1.00): 19 instructions,src/engine/engine_3812E.asm
+3FBE4,CdStreamNextPacket,sub_3FBE4,96PC,medium,"96 PC CdStreamNextPacket: the next packet of the stream; 0 while waiting, -2 at the end",src/engine/engine_3812E.asm
+3FC7C,CdStreamFreePacket,sub_3FC7C,96PC,high,"96 PC CdStreamFreePacket, same body",src/engine/engine_3812E.asm
+409EC,LoadSfxBank,sub_409EC,new,low,"(bank): with sound on, loads a sound effect bank (SFX4%s .BKH / .BKD)",src/engine/engine_3812E.asm
+40EBC,OpenAudioStream,sub_40EBC,new,low,"opens the audio stream (""AUDSTREAM"" block)",src/engine/engine_3812E.asm
+4123C,InitGameAudio,sub_4123C,new,low,with sound on: the crowd (CROWD.CRD) and the play-by-play table (GAMEDATA\AUDPBP3.TSF),src/engine/engine_3812E.asm
+41E64,MusicFileName,sub_41E64,new,medium,"(track 0-43h, buf): the music file path ""%s%02d.ASF"" in data folder 58h",src/engine/engine_3812E.asm
+41EA4,ArenaFileName,sub_41EA4,new,low,"(clip 0-8, buf): the ""%s%02d.ASF"" path of data folder 59h (clip + 1)",src/engine/engine_3812E.asm
+42220,PlaySfx,sub_42220,96PC,medium,"96 PC PlaySfx: (id, volume, ...) plays a sound effect from the loaded banks (id high byte = bank 1-6) at the globalset volume",src/engine/engine_3812E.asm
+42D50,OpenSpeechBanks,sub_42D50,96PC,low,"opens the play-by-play speech files (%sAUDPBP3.TSF, KTSF, %sAUDPBP2.VIV, CBANK%03d.DAT), like 96 PC OpenSpeechBanks",src/engine/engine_3812E.asm
+4329C,LoadTeamSpeech,sub_4329C,new,low,"(team, other): loads the team name speech file TEAM%04d.DAT when it is not loaded",src/engine/engine_3812E.asm
 47F8C,ShutdownSound,sub_47F8C,96PC,medium,NHL96PC 699D0 (sem 0.61): C:2246,src/front/front_45BEC.asm
+4890C,CountRecordGame,sub_4890C,96PC,medium,96 PC CountRecordGame: counts one game of a W/L/T byte string,src/front/front_45BEC.asm
 48950,RecordPctClip,sub_48950,96PC,medium,NHL96PC 67636 (similar 0.91): mnemonic similarity 0.91 over 69 instructions,src/front/front_45BEC.asm
 489F4,RecordStreakClips,sub_489F4,96PC,medium,NHL96PC 676D4 (sem 0.91): C:560,src/front/front_45BEC.asm
+48D70,PaEvent,sub_48D70,96PC,low,"the play-by-play event call: ClockTick posts 0C0000004h with the period at one minute left, where 96 PC posts PaEvent(100h)",src/front/front_48D70.asm
 4AB90,MakeDataPath,sub_4AB90,96PC,medium,NHL96PC 1E3E8 (sem 0.84): C:1920; C:1834; R:579; R:572,src/front/front_48D70.asm
+4AE14,MakeDirPath,sub_4AE14,96PC,high,"96 PC MakeDirPath: (out, dir, language) a game directory path (language prefix, directory from unk_169848, backslash)",src/front/front_48D70.asm
 4AF9F,LoadDataFileHandle,sub_4AF9F,96PC,medium,NHL96PC 1E779 (sem 1.00): C:2267,src/front/front_48D70.asm
+4B074,LoadDataFileLib,sub_4B074,96PC,low,96 PC LoadDataFileLib: LoadDataFile through the other library loader (sub_100498),src/front/front_48D70.asm
+4B108,LoadDataFile,sub_4B108,96PC,medium,"96 PC LoadDataFile: (file id, flags) loads a game data file by id (MakeDataPath, then the loader with flag 1)",src/front/front_48D70.asm
+4B12D,LoadDataFileFlag0,sub_4B12D,96PC,medium,96 PC LoadDataFileFlag0: LoadDataFile through the same loader with flag 0,src/front/front_48D70.asm
+4B19C,OpenDataLibrary,sub_4B19C,new,low,(file id): makes the data file the current library (sub_FC330),src/front/front_48D70.asm
+4B1C4,SetArtArchive,sub_4B1C4,new,low,"(file name): finds the data file by name (102h-entry table), builds its path and makes it the current art archive; a null name closes it",src/front/front_48D70.asm
 4B3F8,WriteGlobalSet,sub_4B3F8,96PC,medium,NHL96PC 6A5EB (similar 0.83): mnemonic similarity 0.83 over 47 instructions,src/front/front_48D70.asm
 4DD90,PeriodOver,sub_4DD90,96PC,medium,96 PC PeriodOver: called from GameLoop at the end of a period,src/front/front_48D70.asm
 50540,UpdateGoalLight,sub_50540,96PC,medium,NHL96PC 23F6A (sem 0.87): C:2025; C:2024; K:258,src/front/front_48D70.asm
@@ -34,7 +132,21 @@ address,name,auto_name,source,confidence,evidence,file
 51CB8,BuildRinkSides,sub_51CB8,96PC,medium,NHL96PC 2583F (sem 0.80): S:side%d; D:1614B4; S:gt0%02d; D:1614BC,src/front/front_48D70.asm
 5454C,FreeRinkModel,sub_5454C,96PC,medium,NHL96PC 2751C (sem 1.00): D:1B10E8; C:1863,src/front/front_52770.asm
 552E0,DrawBenchSide,sub_552E0,96PC,medium,NHL96PC 27F20 (sem 0.71): C:2080; C:2285; D:1B105C; C:2079,src/front/front_52770.asm
+5585C,SetPenaltyBoxDoor,sub_5585C,96PC,medium,"96 PC SetPenaltyBoxDoor: (team, open) sets a penalty box door's state (dword_1B0A80) and starts its animation when it opens",src/front/front_52770.asm
+5794C,LoadCupArt,sub_5794C,new,low,"(team): loads the ""cup"" shape from PLYRCOMN.VIV into the team record (+6C0h)",src/front/front_57324.asm
+57A1C,LoadGoalieMask,sub_57A1C,new,low,"(team, mask): loads the MASK%02da/b/c shapes from MASKS.VIV (""gmask"")",src/front/front_57324.asm
+57BA4,LoadPlayerCommonArt,sub_57BA4,new,low,"loads plyrcomn.viv: team palette, fist and torso shapes",src/front/front_57324.asm
+58144,LoadUniformArt,sub_58144,new,low,"(team, uniform, ...): loads uni%04d.viv: team palette, numbers.ffn / a2z.ffn fonts, torso and cup patch shapes",src/front/front_57324.asm
+5B660,LoadFaceArt,sub_5B660,new,low,loads faces.viv: the face palette and the face2 shape set,src/front/front_57324.asm
+5B7E0,LoadPlayerFace,sub_5B7E0,new,low,"(slot, name): loads one player's face shape (""FAC"" + name, fallback fac00000)",src/front/front_57324.asm
+5BDF4,InitReplayBuffer,sub_5BDF4,new,medium,"allocates the ""REPLAY"" buffer when free memory exceeds the request by 200000 bytes, at most 0EA60h bytes",src/front/front_57324.asm
+5BEDC,SetReplayRecording,sub_5BEDC,new,low,"(on/off): starts or stops replay recording (dword_1B8FA0), allocating the ""RP_GAME"" block on start",src/front/front_57324.asm
+5CCE0,AllocSpriteBuffers,sub_5CCE0,new,low,"allocates the ""RSPRITE"" block (0C240h): 12 sprite buffers of 1010h bytes",src/front/front_57324.asm
 6590A,CamShot23D,sub_6590A,96PC,medium,NHL96PC 603FF (similar 0.81): mnemonic similarity 0.81 over 16 instructions,src/front/front_57324.asm
+65CED,InitAnimPoints,sub_65CED,new,low,"looks up the animation attachment points (puck, stickheel, origin, chin, rhand, lshldr, rshldr) and loads ANIMS.VIV",src/front/front_57324.asm
+77630,AllocAnimStates,sub_77630,new,low,"(count): allocates the ""ANIMSTAT"" block (count x 358h) and clears it",src/front/front_57324.asm
+779C8,LoadAiIcons,sub_779C8,new,low,"loads the ""cross"" icon shapes from aicons.viv",src/front/front_57324.asm
+77F88,GameOver,sub_77F88,96PC,medium,sets gameover (word_19CBA0); 96 PC GameOver without its already-over check,src/front/front_57324.asm
 7C600,putchar,,96PC,medium,NHL96PC 17675 (sem): S:ATZS7=60S11=55; D:164110,
 7C690,ModemHangup,sub_7C690,96PC,medium,NHL96PC 1779C (sem 0.94): S:ATH0; D:16412C; C:1054; C:1053,src/front/front_7A9D8.asm
 7C7A4,ModemAutoAnswer,sub_7C7A4,96PC,medium,NHL96PC 17887 (sem 1.00): S:ATS0=1; D:164140; S:ATA ; D:164148,src/front/front_7A9D8.asm
@@ -42,8 +154,17 @@ address,name,auto_name,source,confidence,evidence,file
 7C834,ModemReadResult,sub_7C834,96PC,medium,NHL96PC 17906 (sem 1.00): C:2478; C:2221; R:1054,src/front/front_7A9D8.asm
 7C988,ModemSendCommand,sub_7C988,96PC,medium,NHL96PC 17A32 (similar 0.85): mnemonic similarity 0.85 over 63 instructions,src/front/front_7A9D8.asm
 7CA1C,ModemAttention,sub_7CA1C,96PC,medium,NHL96PC 17AC7 (similar 0.86): mnemonic similarity 0.86 over 63 instructions,src/front/front_7A9D8.asm
+7CADA,LoadLogoNames,sub_7CADA,new,low,"loads the ""logo names"" block from the logo%02d.qfs files",src/front/front_7A9D8.asm
+7CBD6,InitFrontEnd,sub_7CBD6,new,low,"front-end start-up (also after a game): input devices (mous / remo), the front-end art and the team logo names",src/front/front_7A9D8.asm
+7CDD8,FreeFrontEnd,sub_7CDD8,new,low,undoes InitFrontEnd and saves GLOBAL.SET (WriteGlobalSet),src/front/front_7A9D8.asm
+7CE9E,RunFrontEnd,sub_7CE9E,96PC,medium,"96 PC RunFrontEnd: the front end, from main_: picks the front-end music, shows the title, then runs the screen with the current number (main menu, game screens 4-9 through RunGameScreens, credits, ...) until quit",src/front/front_7A9D8.asm
+7CF94,TitleScreen,sub_7CF94,new,low,"the title screen at front-end start (BACK, LOGO) with its PA announcement",src/front/front_7A9D8.asm
 7D059,main_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+7F028,SetRegionRect,sub_7F028,new,low,"(region, x, y, w, h): stores the rectangle twice (x0, y0, x1, y1)",src/front/main/main.asm
+7F16C,DrawTextAligned,sub_7F16C,new,low,"(align, x, y, ..., format, ...): sprintf-style text drawn left (0), centred (1) or right (2) of x",src/front/main/main.asm
 7FEC4,EditText,sub_7FEC4,96PC,medium,"NHL96PC EditText 197ED: same 394h text buffer, eax/edx/ebx/ecx + stack args, reads keys (sub_FBE40) and handles backspace/enter; called by every name entry through sub_7FE38/sub_7FE4C",src/front/main/main.asm
+84B55,MainMenuScreen,sub_84B55,96PC,medium,"96 PC MainMenuScreen: the main menu (""menu"", MB01-MB11 buttons, PIC%d%c pictures); checks which of EXHIBIT / SEASON / PLAYOFF.NDX exist; returns the next screen",src/front/front_845E4.asm
+85A15,RunGameScreens,sub_85A15,new,low,"(screen): from RunFrontEnd, runs the game set-up screens by number (team select 4, pick saves 5/7/9, new season 6, new play-offs 8, season 0Ch, play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h, roster 19h) until one returns to the main menu",src/front/front_845E4.asm
 86300,NameIndexNew,sub_86300,96PC,medium,NHL96PC 19384 (similar 0.93): mnemonic similarity 0.93 over 34 instructions,src/front/front_845E4.asm
 86368,NameIndexLoad,sub_86368,96PC,medium,NHL96PC 193E8 (sem 1.00): C:2120; C:1834; C:2265; C:1833,src/front/front_845E4.asm
 86424,NameIndexSave,sub_86424,96PC,medium,NHL96PC 19491 (sem 1.00): C:2514; R:1135; C:1834; C:2265,src/front/front_845E4.asm
@@ -51,15 +172,81 @@ address,name,auto_name,source,confidence,evidence,file
 86644,NameIndexRemove,sub_86644,96PC,medium,NHL96PC 19659 (sem 1.00): S:NAMEINDEX; D:165310; K:2C093; C:1858,src/front/front_845E4.asm
 86754,NameIndexPath,sub_86754,96PC,medium,NHL96PC 19731 (sem 0.94): D:16531C; C:1834; C:2265; C:1833,src/front/front_845E4.asm
 8BF54,InitMenuItems,sub_8BF54,96PC,medium,NHL96PC 64721 (similar 0.81): mnemonic similarity 0.81 over 32 instructions,src/front/front_868CD.asm
+8DE19,DrawScrollBar,sub_8DE19,96PC,medium,"96 PC DrawScrollBar, same structure",src/front/front_8BFAC.asm
+8DE9D,SetScrollBarPos,sub_8DE9D,96PC,low,"96 PC SetScrollBarPos, the call after DrawScrollBar at the same places",src/front/front_8BFAC.asm
+8E740,LoadLangText,sub_8E740,96PC,medium,96 PC LoadLangText: loads the front-end text file for the language (file ids 33h-35h) into dword_16CD54,src/front/front_8BFAC.asm
+8E790,LoadLangTextB,sub_8E790,new,low,"LoadLangText for the second text set (file ids 0D6h-0D8h), used by the network screens and after a game",src/front/front_8BFAC.asm
+8E7E0,GetLangText,sub_8E7E0,96PC,medium,"96 PC GetLangText: (text id) the text for an id from the loaded language text (8-byte entries), or the default string",src/front/front_8BFAC.asm
+8E840,FreeLangText,sub_8E840,96PC,medium,96 PC FreeLangText: frees the language text,src/front/front_8BFAC.asm
+8E997,RunNewSeason,sub_8E997,new,low,"screen 6: sets up a new season (copies the set-up, NewSeasonScreen, roster, import agents)",src/front/front_8E997.asm
+8EC93,NewSeasonScreen,sub_8EC93,96PC,medium,"96 PC NewSeasonScreen: the new season set-up screen (""newmenu"", TTLW, WC00/WC01, 012R-014R)",src/front/front_8E997.asm
+8FA67,CreateSeason,sub_8FA67,new,low,"creates the new season: seeds rand from the time, picks a free SEAS%04d.SET name and adds it to SEASON.NDX",src/front/front_8E997.asm
+8FFCF,RunSeasonMenus,sub_8FFCF,96PC,low,"96 PC RunSeasonMenus: screen 0Ch, runs the season screens (season menu, standings, play-off tree, roster) until they leave",src/front/front_8E997.asm
+90162,SeasonMenuScreen,sub_90162,96PC,low,"96 PC SeasonMenuScreen: the season menu (""menu"", SD00-SD03, RL00, SN00, SR00 ...)",src/front/front_8E997.asm
+912E3,StandingsScreen,sub_912E3,96PC,medium,"96 PC StandingsScreen: the standings screen (""standmenu"", factoids, BGWS, TTLW)",src/front/front_8E997.asm
+93512,RunNewPlayoffs,sub_93512,new,low,"screen 8: sets up new play-offs (copies the set-up, PlayoffSetupScreen, roster, import agents)",src/front/front_93005.asm
+936BE,PlayoffSetupScreen,sub_936BE,96PC,low,"96 PC PlayoffSetupScreen: the new play-offs screen (""playoffmenu"", TITL, 012R-014R, the option toggles SCOF/SCON ...)",src/front/front_93005.asm
+9401D,CreatePlayoffs,sub_9401D,new,low,creates the new play-offs: picks a free PLAY%04d.SET name and adds it to PLAYOFF.NDX,src/front/front_93005.asm
+94B30,RunPlayoffMenus,sub_94B30,96PC,low,"96 PC RunPlayoffMenus: screen 0Dh, runs the play-off screens (play-off tree, standings, roster) until they leave",src/front/front_93005.asm
+94BDA,PlayoffTreeScreen,sub_94BDA,96PC,low,"96 PC PlayoffTreeScreen: the play-off tree screen (""playoffmenu"", ""pieces"", pan2 / pan6, 01RU, 01SR ...)",src/front/front_93005.asm
+9623E,EditLinesScreen,sub_9623E,96PC,medium,"96 PC EditLinesScreen: (team, line) the edit lines screen (""edit lines menu"" / ""edit lines regions"")",src/front/front_9623E.asm
+9E35E,DrawHomeTeamPanel,sub_9E35E,96PC,low,96 PC DrawHomeTeamPanel: the home team's panel on the team select screen (HOM1 / HOM2),src/front/front_9E35E.asm
+9E550,DrawAwayTeamPanel,sub_9E550,new,low,"the away team's panel on the team select screen (AWY1 / AWY2), as DrawHomeTeamPanel",src/front/front_9E35E.asm
+9E91C,TeamSelectScreen,sub_9E91C,96PC,medium,"96 PC TeamSelectScreen: the exhibition team select screen (HOM1/HOM2, AWY1/AWY2, team ranks); returns the next screen",src/front/front_9E35E.asm
+9F6F5,PickIndexEntryScreen,sub_9F6F5,96PC,medium,"96 PC PickIndexEntryScreen: (kind 5/7/9) picks an entry of SEASON / PLAYOFF / EXHIBIT.NDX (DL00-DL03), with new and delete",src/front/front_9F6F5.asm
+A2EF0,AllocCrusherBuffers,sub_A2EF0,new,low,"allocates the ""CRUSHER"" (493E0h) and ""CRUSHER pack"" (186A0h) buffers used to pack data sent to the other computer",src/front/front_9F6F5.asm
+A6690,PostGameScreen,sub_A6690,new,low,"the post-game screen (NHL0 / NHLP, FLR1/2, T3S2, GS00/GS01, RM00/RM01), alternating with GameStatsScreen",src/front/front_A3280.asm
+A7D9C,GameStatsScreen,sub_A7D9C,96PC,medium,"96 PC GameStatsScreen: the game statistics screen (""gameStatMenu"" / ""gameStatRegn"")",src/front/front_A3280.asm
+AB0E8,PlayMenuGame,sub_AB0E8,96PC,medium,"96 PC PlayMenuGame: plays a game started from the menus: frees the front end, InitGameAudio, PlayGame, then back to the front end",src/front/front_A3280.asm
 B1FE9,DeleteUser,sub_B1FE9,96PC,medium,NHL96PC 2A692 (sem 0.62): C:1134; K:3EA; C:1833,src/front/front_B1E1D.asm
 B2258,ScrollUserList,sub_B2258,96PC,medium,NHL96PC 2AB63 (similar 0.93): mnemonic similarity 0.93 over 19 instructions,src/front/front_B1E1D.asm
+B2E5B,LoadUserList,sub_B2E5B,new,low,"loads LOCAL.NDX (creating it when missing) and adds the ""<NO USER>"" / ""<NEW USER>"" entries (German text when the language is German)",src/front/front_B1E1D.asm
+B36D6,LoadUserRecords,sub_B36D6,96PC,low,"96 PC LoadUserRecords: reads every user's record (local.ndx, ""user"") into the tables of the user records screen",src/front/front_B1E1D.asm
+B41EF,UserRecordsScreen,sub_B41EF,96PC,medium,"96 PC UserRecordsScreen: the user records screen: allocates the column tables (uname, urate, upts, ugf, uga, upp, upk, exrec ...), sorts by the picked column",src/front/front_B1E1D.asm
+BD62C,RunReplay,sub_BD62C,96PC,low,"96 PC RunReplay: RunInGameMenu's replay request: sets up and runs ReplayScreen, then back to the game",src/front/front_BD62C.asm
+BD98B,LoadReplay,sub_BD98B,new,low,"loads a saved replay (""replload"") and sets up the game view and animations for it",src/front/front_BD62C.asm
+BE2A6,ReplayScreen,sub_BE2A6,96PC,low,"96 PC ReplayScreen: the instant replay screen (""replmenu"" / ""replregs"")",src/front/front_BD62C.asm
+BF4F9,PickReplayScreen,sub_BF4F9,new,low,the saved replay list (REPLAY.NDX),src/front/front_BD62C.asm
+C755B,RosterScreen,sub_C755B,96PC,low,"96 PC RosterScreen: the roster screen (""roster menu"" / ""roster regions"")",src/front/front_C755B.asm
+CD272,JerseyScreen,sub_CD272,new,low,"the jersey screen (""jersey menu"" / ""jersey menu regions"")",src/front/front_C755B.asm
+CF749,CreatePlayerScreen,sub_CF749,96PC,medium,"96 PC CreatePlayerScreen: the create player screen (""create plr menu"" / ""create plr region""), from the roster screens",src/front/front_C755B.asm
+D67D4,FadePalette,sub_D67D4,96PC,medium,96 PC FadePalette: fades the 300h-byte palette,src/front/front_D4E24.asm
 D68AC,FadeOut,sub_D68AC,96PC,medium,NHL96PC 63A5B (similar 0.91): mnemonic similarity 0.90 over 22 instructions,src/front/front_D4E24.asm
+D6930,RunIntro,sub_D6930,96PC,medium,"96 PC RunIntro: from main_, the intro screens (scr1, scr2, !pl0, !pl1, nhll, nhlp, bkgd) with music",src/front/front_D4E24.asm
+D70C4,CreditsScreen,sub_D70C4,new,low,"from RunFrontEnd: the credits (reads the credits text file, EAC1/EAC2, CRD1/CRD2, QCRD) with the arena music",src/front/front_D4E24.asm
+DA66D,AllocMediaBuffer,sub_DA66D,new,medium,"allocates the ""MEDIA BUFFER"" (200h paragraphs of DOS memory)",src/front/front_DA66D.asm
+DA713,AllocStaticBuffer,sub_DA713,new,medium,"allocates the ""STATIC BUF"" once (flag word_16D7EC)",src/front/front_DA66D.asm
+E117B,LoadExhibitionFile,sub_E117B,new,medium,"(&block): reads the exhibition file %s%s.EXH into a new ""EXHIBIT"" block (383C1h bytes) with its ""AGENTS"" part",src/front/front_DA66D.asm
+E1245,SaveExhibitionFile,sub_E1245,new,medium,(block): writes the exhibition file %s%s.EXH,src/front/front_DA66D.asm
+E12D1,FreeExhibitionFile,sub_E12D1,new,medium,(&block): frees the exhibition block and its agents part (+383C1h),src/front/front_DA66D.asm
+E13BF,ResetExhibitionFile,sub_E13BF,new,low,"builds the original exhibition data (sub_E12EF, ""ORIGEXH"") and saves it as the exhibition file",src/front/front_DA66D.asm
+E2270,AllocClearBlock,sub_E2270,new,low,"(tag, size, &ptr): allocates a block (flag 0), clears it and stores it; returns 1, or 0 when out of memory",src/front/front_DA66D.asm
+E22A0,AllocClearBlock20,sub_E22A0,new,low,AllocClearBlock with allocation flag 20h,src/front/front_DA66D.asm
+E22D0,FreePtr,sub_E22D0,new,medium,"(&ptr): frees the block and clears the pointer; returns 1, or 0 when it was already null",src/front/front_DA66D.asm
+E2378,FileExists,sub_E2378,new,low,(path): 1 when the file exists (sub_10AED0),src/front/front_DA66D.asm
+E2388,FileDelete,sub_E2388,new,medium,"deletes a file; returns 1, or 0 with the error text ""FILEdelete"" in eax",src/front/front_DA66D.asm
+E23BC,FileCreate,sub_E23BC,new,medium,"fopen ""w+b""; returns 1, or 0 with the error text ""FILEcreate""",src/front/front_DA66D.asm
+E23E0,FileOpen,sub_E23E0,new,medium,"fopen ""r+b""; returns 1, or 0 with the error text ""FILEopen""",src/front/front_DA66D.asm
+E2404,FileSeek,sub_E2404,new,medium,"fseek from the start; returns 1, or 0 with the error text ""FILEseek""",src/front/front_DA66D.asm
+E2420,FileSeekEnd,sub_E2420,new,medium,"fseek to the end of the file; returns 1, or 0 with the error text ""FILEseekend""",src/front/front_DA66D.asm
+E2444,FileTell,sub_E2444,new,medium,"(file, &pos): ftell; returns 0 on error",src/front/front_DA66D.asm
+E2458,FileReadRecord,sub_E2458,new,medium,"freads one record; returns 1, or 0 with the error text ""FILEread""",src/front/front_DA66D.asm
+E2494,FileWriteRecord,sub_E2494,new,medium,"fwrites one record; returns 1, or 0 with the error text ""FILEread"" (the game reuses the read message)",src/front/front_DA66D.asm
+E24D0,FileClose,sub_E24D0,new,medium,"fclose; returns 1, or 0 with the error text ""FILEclose""",src/front/front_DA66D.asm
+E24F0,FileLength,sub_E24F0,new,medium,"(file): the file's length (ftell at the end), keeping the position",src/front/front_DA66D.asm
 E2AF4,PollControllers,sub_E2AF4,96PC,high,96 PC PollControllers: controllers and hot keys into the slot words,src/front/front_DA66D.asm
 E2E28,InputRecordTimer,sub_E2E28,96PC,high,96 PC InputRecordTimer: timer callback pushing input records into the ring of 5,src/front/front_DA66D.asm
 E2F98,InitSlotTable,sub_E2F98,96PC,medium,slot words and teams from the 8 controller set-up bytes,src/front/front_DA66D.asm
 E3208,InputRecordAvail,sub_E3208,new,high,returns InputRecordCount (GameLoop's is there a record),src/front/front_DA66D.asm
 E3218,TakeInputRecord,sub_E3218,new,high,copies the next record out of InputRecordRing,src/front/front_DA66D.asm
-E5C78,FreeRinkGfx,,95PC,medium,NHL95PC 33727 (similar): mnemonic similarity 0.81 over 30 instructions,
+E3A44,NetInit,sub_E3A44,new,low,"from main_: once, starts IPX (IpxInit) and the serial layer, allocates the ""pktlayer"" buffer and marks the network ready (dword_16DAA0)",src/front/front_DA66D.asm
+E3AB8,NetShutdown,sub_E3AB8,new,low,"from main_: closes the IPX socket and the serial layer, frees ""pktlayer""",src/front/front_DA66D.asm
+E3E8C,NetDisconnect,sub_E3E8C,new,low,"ends a network session with the ""Disconnecting"" message (IPX or serial), then clears the connected flag (dword_16DA9C)",src/front/front_DA66D.asm
+E4638,LinkSendBlock,sub_E4638,96PC,low,"96 PC LinkSendBlock: (data, length, progress) sends a block to the other computer in packets (80h header), idling while it waits",src/front/front_DA66D.asm
+E4838,LinkReceiveBlock,sub_E4838,96PC,low,"96 PC LinkReceiveBlock: (dest, length, progress) waits (idling) for the next block from the other computer",src/front/front_DA66D.asm
+E4908,WaitForOtherComputer,sub_E4908,new,low,"the ""Waiting for other computer"" box: shows it and syncs with the other side",src/front/front_DA66D.asm
+E5A98,IpxInit,sub_E5A98,new,low,"looks for the IPX driver and allocates the ""IPXMEM"" / ""NETWORK"" blocks",src/front/front_DA66D.asm
+E5C78,IpxCloseSocket,,new,low,closes the open IPX socket (sub_11D508) and frees its buffer (dword_16E128); the earlier 95 PC FreeRinkGfx match was wrong (only a mnemonic similarity),src/front/front_DA66D.asm
 E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 over 34 instructions,
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
 F5601,FillBox,sub_F5601,96PC,medium,NHL96PC 64103 (similar 0.92): mnemonic similarity 0.92 over 78 instructions,src/front/front_F20A1.asm
@@ -91,6 +278,7 @@ FBE09,rand_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBE2D,srand_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBE88,WaitKey,,96PC,high,NHL96PC DFF70 (exact): 4 instructions,
 FBF24,TimerISR,sub_FBF24,96PC,medium,timer interrupt handler: increments tickcount,src/lib/input/input_joystick_misc_02.asm
+FBFDC,addtimer,sub_FBFDC,96PC,medium,96 PC addtimer: adds a timer callback to the 8-entry table,src/lib/input/input_joystick_misc_02.asm
 FC078,RestoreTimer,,96PC,medium,NHL96PC AA6D0 (similar): mnemonic similarity 0.90 over 34 instructions,
 FC21A,__CHP,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FC240,__CHK,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -137,6 +325,12 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AFD9,_dos_commit_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AFE9,_dos_open_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10B660,BuildAntiAliasTable,sub_10B660,96PC,medium,NHL96PC 873AE (sem 1.00): S:AALIAS; D:167E84; K:110000; K:1004,src/lib/lib_10B660.asm
+10B780,ClipLineY,sub_10B780,96PC,medium,96 PC ClipLineY (the line clipper of the 3D library),src/lib/lib_10B660.asm
+10B99C,ClipLineX,sub_10B99C,96PC,medium,96 PC ClipLineX,src/lib/lib_10B660.asm
+10BBB8,DrawLineYPlot,sub_10BBB8,96PC,medium,96 PC DrawLineYPlot,src/lib/lib_10B660.asm
+10BD74,DrawLineY,sub_10BD74,96PC,medium,96 PC DrawLineY,src/lib/lib_10B660.asm
+10BEC0,DrawLineXPlot,sub_10BEC0,96PC,medium,96 PC DrawLineXPlot,src/lib/lib_10B660.asm
+10C07C,DrawLineX,sub_10C07C,96PC,medium,96 PC DrawLineX,src/lib/lib_10B660.asm
 10C1C0,DrawFixedLine,sub_10C1C0,96PC,medium,NHL96PC 87DD6 (similar 0.80): mnemonic similarity 0.80 over 173 instructions,src/lib/lib_10B660.asm
 1131E4,strncmp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 115874,strupr_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -535,7 +729,13 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 199C44,___env_mask,,96PC,high,NHL96PC 14F0A0 (position): same fixup of __setenvp_,
 19CA28,kaufmfont,,96PC,high,NHL96PC 151598 (position): same fixup of sub_DB13C,
 19CB6C,regd1,,96PC,medium,NHL96PC 165980 (refset): referenced by the same 2 matched functions,
+19CBA0,gameover,word_19CBA0,96PC,medium,"96 PC gameover (GameOver sets it, RunSimFrames checks it)",src/data/engine/faceoff_data_03.asm
+19CBB8,gsp,word_19CBB8,94G,medium,"94G gsp, the game segment (period 0-3, 4 = game over), as in 96 PC StartGame / Intermission / ClockTick",src/data/engine/faceoff_data_03.asm
+19CBBA,gameclock,word_19CBBA,94G,medium,94G gameclock: seconds left in the period (ClockTick),src/data/engine/faceoff_data_03.asm
 19CBC4,seed,dword_19CBC4,94G,high,randomd0's state (94G seed),src/data/engine/faceoff_data_03.asm
+19CBDE,penshotmode,word_19CBDE,96PC,medium,"96 PC penshotmode (CPgoalie, EndPenaltyShot)",src/data/engine/faceoff_data_03.asm
+19CBE2,penshotlive,word_19CBE2,96PC,medium,96 PC penshotlive: a penalty shot is running (ClockTick),src/data/engine/faceoff_data_03.asm
+19CBE4,penshottimer,dword_19CBE4,96PC,medium,96 PC penshottimer: ticks left of the penalty shot,src/data/engine/faceoff_data_03.asm
 19CC14,slotteam,,96PC,medium,NHL96PC 1178D2 (refset): referenced by the same 4 matched functions,
 19DA30,SortCords,,96PC,medium,NHL96PC 16479C (refset): referenced by the same 3 matched functions,
 19EAB0,hmtmstruct,,96PC,medium,NHL96PC 1656D8 (refset): referenced by the same 3 matched functions,
@@ -543,6 +743,4 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1CD1E0,InputRecordRing,unk_1CD1E0,96PC,high,96 PC InputRecordRing (97: 5 records of 14h bytes),src/data/front/front_DA66D_bss_01.asm
 1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,
-1306C,Intermission,sub_1306C,96PC,medium,"96 PC Intermission: GameOver when gsp is 4, else SetupTeamForIntermission and resets the players for the next period",src/engine/faceoff/faceoff.asm
-130C8,StartGame,sub_130C8,96PC,medium,"96 PC StartGame: CountTeamSlots, clears the game vars and teams, restores the teams and starts the period",src/engine/faceoff/faceoff.asm
-77F88,GameOver,sub_77F88,96PC,medium,sets gameover (word_19CBA0); 96 PC GameOver without its already-over check,src/front/front_57324.asm
+1CF26C,timercallbacks,dword_1CF26C,96PC,medium,96 PC timercallbacks: the 8 timer callbacks (addtimer),src/data/front/front_F20A1_bss_01.asm

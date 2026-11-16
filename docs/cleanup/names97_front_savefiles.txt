@@ -1,0 +1,9 @@
+sub_E117B LoadExhibitionFile {confidence=medium} (&block): reads the exhibition file %s%s.EXH into a new "EXHIBIT" block (383C1h bytes) with its "AGENTS" part
+sub_E1245 SaveExhibitionFile {confidence=medium} (block): writes the exhibition file %s%s.EXH
+sub_E12D1 FreeExhibitionFile {confidence=medium} (&block): frees the exhibition block and its agents part (+383C1h)
+sub_E13BF ResetExhibitionFile {confidence=low} builds the original exhibition data (sub_E12EF, "ORIGEXH") and saves it as the exhibition file
+sub_E2270 AllocClearBlock {confidence=low} (tag, size, &ptr): allocates a block (flag 0), clears it and stores it; returns 1, or 0 when out of memory
+sub_E22A0 AllocClearBlock20 {confidence=low} AllocClearBlock with allocation flag 20h
+sub_E2378 FileExists {confidence=low} (path): 1 when the file exists (sub_10AED0)
+sub_E2444 FileTell {confidence=medium} (file, &pos): ftell; returns 0 on error
+sub_E24F0 FileLength {confidence=medium} (file): the file's length (ftell at the end), keeping the position

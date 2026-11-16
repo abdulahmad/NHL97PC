@@ -10,7 +10,7 @@ extern dword_1CFCC8, dword_1CFCCC, dword_1CFCD0, dword_1CFCD4, dword_1CFCD8, dwo
 extern dword_1CFCE8, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, sub_1055D4, sub_10562C, sub_105644
 extern sub_1056F0, sub_10578C, sub_1057C0, sub_1057E8, sub_105808, sub_1072B4, sub_108640, sub_1091E0
 extern sub_109210, sub_109250, sub_128280, sub_12AB04, sub_12AB0C, sub_12CD34, sub_12D1C0, sub_12D210
-extern sub_FA9C4, sub_FAA64, sub_FAF34, sub_FAF70, sub_FBFDC, sub_FC008, unk_1CFCBC, word_170162
+extern sub_FA9C4, sub_FAA64, sub_FAF34, sub_FAF70, addtimer, sub_FC008, unk_1CFCBC, word_170162
 global jpt_109E64, sub_109E74_2E, sub_109E74_57B, sub_109E74_613, sub_109E74_78F, AsyncInit, AsyncClose, AsyncRequestOpen
 global AsyncRequestSection, sub_109E54, sub_109E74, sub_10A788, sub_10A7D0, sub_10A844, sub_10A860, sub_10A868
 global sub_10A8C4, sub_10A930, sub_10A980, sub_10AA38, sub_10AB1C, sub_10AB2C, sub_10AB94, sub_10ABC8
@@ -80,7 +80,7 @@ AsyncInit:
         push sub_10A788
         mov dword [dword_1CFCCC], eax
         mov dword [dword_1CFCC4], ebx
-        call sub_FBFDC
+        call addtimer
         add esp, byte 4
         pop ebp
         pop esi

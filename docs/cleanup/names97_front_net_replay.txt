@@ -1,0 +1,21 @@
+FreeRinkGfx IpxCloseSocket {confidence=low} closes the open IPX socket (sub_11D508) and frees its buffer (dword_16E128); the earlier 95 PC FreeRinkGfx match was wrong (only a mnemonic similarity)
+sub_E3A44 NetInit {confidence=low} from main_: once, starts IPX (IpxInit) and the serial layer, allocates the "pktlayer" buffer and marks the network ready (dword_16DAA0)
+sub_E3AB8 NetShutdown {confidence=low} from main_: closes the IPX socket and the serial layer, frees "pktlayer"
+sub_E5A98 IpxInit {confidence=low} looks for the IPX driver and allocates the "IPXMEM" / "NETWORK" blocks
+sub_E3E8C NetDisconnect {confidence=low} ends a network session with the "Disconnecting" message (IPX or serial), then clears the connected flag (dword_16DA9C)
+sub_E4638 LinkSendBlock {source=96PC,confidence=low} 96 PC LinkSendBlock: (data, length, progress) sends a block to the other computer in packets (80h header), idling while it waits
+sub_E4838 LinkReceiveBlock {source=96PC,confidence=low} 96 PC LinkReceiveBlock: (dest, length, progress) waits (idling) for the next block from the other computer
+sub_E4908 WaitForOtherComputer {confidence=low} the "Waiting for other computer" box: shows it and syncs with the other side
+sub_D6930 RunIntro {source=96PC,confidence=medium} 96 PC RunIntro: from main_, the intro screens (scr1, scr2, !pl0, !pl1, nhll, nhlp, bkgd) with music
+sub_BD62C RunReplay {source=96PC,confidence=low} 96 PC RunReplay: RunInGameMenu's replay request: sets up and runs ReplayScreen, then back to the game
+sub_BE2A6 ReplayScreen {source=96PC,confidence=low} 96 PC ReplayScreen: the instant replay screen ("replmenu" / "replregs")
+sub_BD98B LoadReplay {confidence=low} loads a saved replay ("replload") and sets up the game view and animations for it
+sub_BF4F9 PickReplayScreen {confidence=low} the saved replay list (REPLAY.NDX)
+sub_B41EF UserRecordsScreen {source=96PC,confidence=medium} 96 PC UserRecordsScreen: the user records screen: allocates the column tables (uname, urate, upts, ugf, uga, upp, upk, exrec ...), sorts by the picked column
+sub_B36D6 LoadUserRecords {source=96PC,confidence=low} 96 PC LoadUserRecords: reads every user's record (local.ndx, "user") into the tables of the user records screen
+sub_B2E5B LoadUserList {confidence=low} loads LOCAL.NDX (creating it when missing) and adds the "<NO USER>" / "<NEW USER>" entries (German text when the language is German)
+sub_CF749 CreatePlayerScreen {source=96PC,confidence=medium} 96 PC CreatePlayerScreen: the create player screen ("create plr menu" / "create plr region"), from the roster screens
+sub_CD272 JerseyScreen {confidence=low} the jersey screen ("jersey menu" / "jersey menu regions")
+sub_9E35E DrawHomeTeamPanel {source=96PC,confidence=low} 96 PC DrawHomeTeamPanel: the home team's panel on the team select screen (HOM1 / HOM2)
+sub_9E550 DrawAwayTeamPanel {confidence=low} the away team's panel on the team select screen (AWY1 / AWY2), as DrawHomeTeamPanel
+sub_A2EF0 AllocCrusherBuffers {confidence=low} allocates the "CRUSHER" (493E0h) and "CRUSHER pack" (186A0h) buffers used to pack data sent to the other computer

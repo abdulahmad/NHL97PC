@@ -12,7 +12,7 @@ extern dword_1686C8, dword_1686CC, dword_1686D0, dword_1686DC, InGameMenuRequest
 extern dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF54, dword_16AF58, dword_16AF5C, dword_16C6BC
 extern InputRecordStamp, dword_16DA9C, dword_16E464, dword_16E468, dword_16E500, dword_19CB30, dword_19CB38, dword_19CB3C
 extern dword_19CB40, dword_19CB44, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB58, dword_19CBAA, seed
-extern dword_19CBD0, dword_19CBE4, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC54, dword_19CC58, dword_19CC78
+extern dword_19CBD0, penshottimer, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC54, dword_19CC58, dword_19CC78
 extern dword_19CC9C, dword_19CCA0, dword_19CCA4, dword_19CCA8, dword_19CD08, dword_19CD0C, dword_19CD10, dword_19CD14
 extern dword_19CD18, dword_19CD1C, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C, dword_19CD30, dword_19CD34
 extern dword_19CD40, dword_19CD44, dword_19CD48, dword_19CD4C, dword_19CD50, dword_19CD54, dword_19CD88, dword_19CDA0
@@ -21,18 +21,18 @@ extern dword_1B1410, dword_1B1464, dword_1B8578, dword_1B8F4C, dword_1B8FA0, dwo
 extern dword_1C1346, dword_1C5DE4, dword_1C5EF4, hmtmstruct, memcpy_, off_168CE8, off_168CF0, off_168CFC
 extern off_168D04, off_168D08, off_168D0C, qword_16002C, qword_160034, qword_16003C, qword_16004C, qword_160054
 extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, regd1, sub_11328
-extern sub_11574, sub_116B0, sub_11808, sub_11984, sub_11F74, sub_12A10, sub_12A70, sub_12C2C
-extern sub_12DE8, sub_15AC2, sub_15C30, sub_15E4D, sub_18D8A, sub_18E35, sub_1900F, sub_1B09C
-extern sub_1B3D8, sub_1B3F4, sub_1B67C, sub_1BCA8, sub_1BEA4, sub_1E208, sub_20CB0, sub_2DE94
+extern sub_11574, sub_116B0, sub_11808, sub_11984, sub_11F74, sub_12A10, ClockTick, sub_12C2C
+extern sub_12DE8, ChangeViewSize, sub_15C30, sub_15E4D, QueueOverlayPanel, sub_18E35, DrawGameOverlays, StartCameraPath
+extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, assreplace, sub_20CB0, sub_2DE94
 extern sub_30BD8, sub_31F88, sub_32260, sub_34330, sub_34950, sub_36370, sub_36754, sub_3CA28
-extern sub_3CB70, sub_3D020, sub_3E5F0, sub_4123C, sub_41670, sub_41CF0, sub_41DD8, sub_423B4
-extern sub_424CC, sub_45BEC, sub_4B074, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928
+extern sub_3CB70, sub_3D020, sub_3E5F0, InitGameAudio, sub_41670, sub_41CF0, sub_41DD8, sub_423B4
+extern sub_424CC, sub_45BEC, LoadDataFileLib, LoadDataFile, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928
 extern sub_4BA00, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
-extern sub_5BDF4, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
-extern sub_65CED, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, sub_77630, GameOver, sub_77FA8
-extern sub_78810, sub_7F0D8, sub_81678, sub_84204, sub_842E8, sub_842F4, sub_8E740, sub_8E840
-extern sub_AA498, sub_AADEF, sub_AB0A6, sub_B2F49, sub_BD62C, FadeOut, sub_DA7EB, sub_DB6AC
-extern sub_E117B, sub_E12D1, sub_E13BF, sub_E1744, sub_E304C, sub_E30F4, sub_E3174, sub_E3190
+extern InitReplayBuffer, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
+extern InitAnimPoints, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, AllocAnimStates, GameOver, sub_77FA8
+extern sub_78810, sub_7F0D8, sub_81678, sub_84204, sub_842E8, sub_842F4, LoadLangText, FreeLangText
+extern sub_AA498, sub_AADEF, sub_AB0A6, sub_B2F49, RunReplay, FadeOut, sub_DA7EB, sub_DB6AC
+extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E1744, sub_E304C, sub_E30F4, sub_E3174, sub_E3190
 extern InputRecordAvail, TakeInputRecord, sub_E341C, sub_E4248, sub_F1FF8, sub_F207F, sub_F30A0, sub_F30D7
 extern sub_F418F, sub_F9650, sub_F9789, sub_F9869, sub_FAA64, sub_FAF34, sub_FBE40, sub_FC290
 extern sub_FC330, sub_FC4BC, SetViewRect, sub_FC88C, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
@@ -42,18 +42,18 @@ extern word_19C3EE, word_19C3F0, word_19C3F2, word_19CA90, word_19CA92, word_19C
 extern word_19CB28, word_19CB2A, word_19CB2C, word_19CB2E, word_19CB34, word_19CB36, word_19CB5C, word_19CB60
 extern word_19CB64, word_19CB68, word_19CB72, word_19CB76, word_19CB78, word_19CB7A, word_19CB7C, word_19CB80
 extern word_19CB82, word_19CB84, word_19CB86, word_19CB88, word_19CB8C, word_19CB8E, word_19CB90, word_19CB92
-extern word_19CB96, word_19CB9A, word_19CB9C, word_19CB9E, word_19CBA0, word_19CBA2, word_19CBA4, word_19CBA6
-extern word_19CBA8, word_19CBAC, word_19CBAE, word_19CBB0, word_19CBB2, word_19CBB4, word_19CBB6, word_19CBB8
-extern word_19CBBA, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD4, word_19CBD6, word_19CBD8, word_19CBDA
-extern word_19CBDC, word_19CBDE, word_19CBE0, word_19CBE2, word_19CBE6, word_19CBEA, word_19CBEC, word_19CBEE
+extern word_19CB96, word_19CB9A, word_19CB9C, word_19CB9E, gameover, word_19CBA2, word_19CBA4, word_19CBA6
+extern word_19CBA8, word_19CBAC, word_19CBAE, word_19CBB0, word_19CBB2, word_19CBB4, word_19CBB6, gsp
+extern gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD4, word_19CBD6, word_19CBD8, word_19CBDA
+extern word_19CBDC, penshotmode, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA, word_19CBEC, word_19CBEE
 extern word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28, word_19CC2A
 extern word_19CC2C, word_19CC50, word_19CC52, word_19CCC4, word_19CD9C, word_19CDA7, word_19DAD9, word_19DCFA
 extern word_19E32A, word_1C3415, word_1C3417, word_1C5538, word_1C553A
-global AllInPlace, Intermission, StartGame, sub_131E0, sub_134F0, sub_136C0, sub_13920, sub_13A4C
+global AllInPlace, Intermission, StartGame, InitGameVars, RunOpeningFrames, PlaceOpeningPlayers, OpeningSequence, BeginGame
 global sub_13ACB, sub_13AF0, sub_13B50, sub_13B98, sub_13BAC, sub_13D00, sub_13D50, sub_13DA4
 global sub_13DF8, sub_13E4C, sub_13EB4, sub_13EF0, sub_13F28, sub_13F7C, RunSimFrames, sub_14140
-global sub_14184, sub_141AC, sub_141E8, sub_14238, sub_1426C, sub_14294, sub_14710, sub_14880
-global GameLoop, sub_14E60, sub_14FE0, sub_151A8, PlayGame, sub_15578, RunInGameMenu, unk_158E2
+global ToggleFKeyFlag, ShowCameraView, sub_141E8, CountDebugUnlock, ResetDebugUnlock, DebugKeys, GameFunctionKeys, HandleGameKeys
+global GameLoop, InitGameDisplay, SaveGameDisplay, SetGameBrightness, PlayGame, RunDemoGame, RunInGameMenu, unk_158E2
 global unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A72
 ;-----------------------------------------------------------------------------
 ; AllInPlace                                   1303C  95 PC, medium confidence
@@ -89,7 +89,7 @@ AllInPlace:
 Intermission:
         push ebx
         push edx
-        cmp word [word_19CBB8], byte 4
+        cmp word [gsp], byte 4
         jne short .1
         call GameOver
         pop edx
@@ -161,7 +161,7 @@ StartGame:
         call clearteams
         mov word [word_19CB82], bx
         mov word [word_19CBB0], dx
-        mov word [word_19CBB8], bx
+        mov word [gsp], bx
         call sub_11808
         call sub_30BD8
         xor eax, eax
@@ -170,7 +170,7 @@ StartGame:
         call sub_31F88
         mov eax, dword [off_168D04]
         mov dword [byte eax+05Ah], 0FFFFFFFFh
-        cmp word [word_19CBB8], byte 4
+        cmp word [gsp], byte 4
         jne short .1
         call GameOver
         jmp short .2
@@ -183,15 +183,17 @@ StartGame:
         mov byte [dword eax+0BEh], 0
         mov edx, 42h
         mov eax, dword [off_168CFC]
-        call sub_1E208
+        call assreplace
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_131E0                                                       131E0  97 PC
+; InitGameVars                                 131E0  97 PC, medium confidence
+; Clears the per-game state (clock, period, gameover, penalties, counters),
+; then StartGame
 ;-----------------------------------------------------------------------------
-sub_131E0:
+InitGameVars:
         push ebx
         push ecx
         push edx
@@ -217,7 +219,7 @@ sub_131E0:
         mov word [word_19CB88], bx
         mov dword [dword_19CC00], ebp
         mov word [word_19CBB2], bx
-        mov word [word_19CBA0], bx
+        mov word [gameover], bx
         mov dword [dword_19CBD0], ecx
         mov word [word_19CBF2], bx
         mov word [word_19CBF4], bx
@@ -231,7 +233,7 @@ sub_131E0:
         mov word [word_19CBE0], bx
         mov word [word_19CBDC], si
         mov word [word_19CBDA], bx
-        mov word [dword_19CBE4], bx
+        mov word [penshottimer], bx
         mov dword [dword_19CB48], ecx
         mov dword [dword_19CB50], ecx
         mov dword [dword_19CB4C], ecx
@@ -272,7 +274,7 @@ sub_131E0:
         xor eax, eax
         xor edx, edx
         mov word [word_19CBD4], ax
-        mov word [word_19CBDE], ax
+        mov word [penshotmode], ax
         mov word [word_19CBD6], ax
         mov word [word_19CC52], ax
         xor dh, bh
@@ -282,7 +284,7 @@ sub_131E0:
         mov word [word_19CB2A], ax
         mov word [word_19CBB4], dx
         xor bl, bl
-        mov word [word_19CBE2], dx
+        mov word [penshotlive], dx
         mov byte [byte_19CB71], bl
         xor edx, edx
         xor bh, bh
@@ -349,9 +351,11 @@ sub_131E0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_134F0                                                       134F0  97 PC
+; RunOpeningFrames                                134F0  97 PC, low confidence
+; Runs the input records and frames of the opening until a button or 5DCh
+; frames
 ;-----------------------------------------------------------------------------
-sub_134F0:
+RunOpeningFrames:
         push ebx
         push ecx
         push edx
@@ -419,7 +423,7 @@ sub_134F0:
         cmp eax, dword [dword_1686DC]
         jle short .10
         mov eax, edx
-        call sub_14710
+        call GameFunctionKeys
         mov eax, dword [tickcount]
         add eax, byte 0Ah
         mov dword [dword_1686DC], eax
@@ -477,7 +481,7 @@ sub_134F0:
 .14:
         mov edx, 42h
         mov eax, dword [off_168CFC]
-        call sub_1E208
+        call assreplace
         mov eax, esi
         add esp, byte 0Ch
         pop ebp
@@ -516,9 +520,10 @@ sub_134F0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_136C0                                                       136C0  97 PC
+; PlaceOpeningPlayers                             136C0  97 PC, low confidence
+; Puts the players at their opening places (random spread by team and arena)
 ;-----------------------------------------------------------------------------
-sub_136C0:
+PlaceOpeningPlayers:
         push ebx
         push ecx
         push edx
@@ -618,7 +623,7 @@ sub_136C0:
         mov dword [byte eax+028h], 100h
         mov eax, ebx
         inc ecx
-        call sub_1E208
+        call assreplace
         sub ebx, 108h
         cmp ecx, byte 0Ch
         jl near .4
@@ -648,10 +653,10 @@ sub_136C0:
         mov dword [byte eax+024h], 0
         mov edx, 1Eh
         mov eax, dword [off_168D04]
-        call sub_1E208
+        call assreplace
         mov edx, 40h
         mov eax, dword [off_168CFC]
-        call sub_1E208
+        call assreplace
         call PeriodOver
         mov bl, byte [byte_19CBCA]
         or bl, 4
@@ -669,9 +674,12 @@ sub_136C0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_13920                                                       13920  97 PC
+; OpeningSequence                                 13920  97 PC, low confidence
+; The game's opening: in a simulated game posts event 29h and returns, else
+; places the players (PlaceOpeningPlayers) and runs the intro frames
+; (RunOpeningFrames)
 ;-----------------------------------------------------------------------------
-sub_13920:
+OpeningSequence:
         push ebx
         push ecx
         push edx
@@ -702,11 +710,11 @@ sub_13920:
         ret
 .1:
         mov eax, 1
-        call sub_1BEA4
+        call LoadOpeningCamera
         mov eax, 0F5Ch
         call sub_4C0C4
-        call sub_136C0
-        call sub_134F0
+        call PlaceOpeningPlayers
+        call RunOpeningFrames
         mov ebx, eax
         test eax, eax
         jne short .2
@@ -755,15 +763,17 @@ sub_13920:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_13A4C                                                       13A4C  97 PC
+; BeginGame                                       13A4C  97 PC, low confidence
+; From PlayGame: InitGameVars, the period fraction, then the opening sequence
+; (OpeningSequence); 2 when it was aborted
 ;-----------------------------------------------------------------------------
-sub_13A4C:
+BeginGame:
         push ebx
         push ecx
         push edx
         push esi
-        call sub_131E0
-        mov dx, word [word_19CBBA]
+        call InitGameVars
+        mov dx, word [gameclock]
         mov esi, 1
         test dx, dx
         jne short .1
@@ -772,7 +782,7 @@ sub_13A4C:
         xor eax, eax
         jmp short .2
 .1:
-        mov ebx, dword [word_19CBB8]
+        mov ebx, dword [gsp]
         mov eax, dword [word_19CB96]
         sar ebx, 10h
         sar eax, 10h
@@ -792,7 +802,7 @@ sub_13A4C:
         mov edx, esi
         call sub_52E28
         call sub_11574
-        call sub_13920
+        call OpeningSequence
         test eax, eax
         jge short .3
         mov eax, 2
@@ -1365,14 +1375,14 @@ RunSimFrames:
         push esi
         test byte [byte_19CBC2], 1
         jne short .1
-        call sub_12A70
+        call ClockTick
 .1:
         call sub_78810
         cmp dword [InGameMenuRequest], byte 0
         jne near .5
         cmp word [word_19CBB2], byte 0
         jne near .5
-        cmp word [word_19CBA0], byte 0
+        cmp word [gameover], byte 0
         jne near .5
         mov eax, dword [dword_1AC814]
         mov dl, byte [word_19CD9C]
@@ -1447,9 +1457,10 @@ sub_14140:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_14184                                                       14184  97 PC
+; ToggleFKeyFlag                                  14184  97 PC, low confidence
+; (key 5E00h-6600h): toggles the flag of a Ctrl+F key (dword_16AF3C)
 ;-----------------------------------------------------------------------------
-sub_14184:
+ToggleFKeyFlag:
         push dword 4
         call __CHK
         sub eax, 5E00h
@@ -1465,9 +1476,11 @@ sub_14184:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_141AC                                                       141AC  97 PC
+; ShowCameraView                                  141AC  97 PC, low confidence
+; (view 0-7): from the camera keys and the attract game: SelectCameraView and
+; the camera name panel
 ;-----------------------------------------------------------------------------
-sub_141AC:
+ShowCameraView:
         push dword 14h
         call __CHK
         push edx
@@ -1478,13 +1491,13 @@ sub_141AC:
         mov word [word_1686BC], ax
         xor edx, edx
         cwde
-        call sub_1B3F4
+        call SelectCameraView
         mov eax, dword [dword_1686BA]
         sar eax, 10h
         push eax
         push byte 50h
         push byte 1
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
 .1:
         pop edx
@@ -1523,9 +1536,10 @@ sub_141E8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_14238                                                       14238  97 PC
+; CountDebugUnlock                                14238  97 PC, low confidence
+; Counts one step of the debug key unlock (sound 10h at 4)
 ;-----------------------------------------------------------------------------
-sub_14238:
+CountDebugUnlock:
         push dword 14h
         call __CHK
         push edx
@@ -1537,16 +1551,17 @@ sub_14238:
         push byte 1
         push dword 0C8h
         push byte 10h
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
 .1:
         pop edx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1426C                                                       1426C  97 PC
+; ResetDebugUnlock                                1426C  97 PC, low confidence
+; Clears the debug key unlock count
 ;-----------------------------------------------------------------------------
-sub_1426C:
+ResetDebugUnlock:
         push dword 14h
         call __CHK
         push edx
@@ -1555,15 +1570,16 @@ sub_1426C:
         xor edx, edx
         push byte 10h
         mov word [word_1686D4], dx
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_14294                                                       14294  97 PC
+; DebugKeys                                       14294  97 PC, low confidence
+; (key): the debug keys, active once the unlock count (word_1686D4) reaches 4
 ;-----------------------------------------------------------------------------
-sub_14294:
+DebugKeys:
         push dword 18h
         call __CHK
         push ebx
@@ -1718,9 +1734,9 @@ sub_14294:
         mov edx, 2
         mov word [word_19CBBC], si
         mov word [word_19CBB0], dx
-        mov word [word_19CBB8], dx
+        mov word [gsp], dx
         mov dh, byte [byte_19CBC2]
-        mov word [word_19CBBA], si
+        mov word [gameclock], si
         or dh, 40h
         mov word [awtmstruct], ax
         mov byte [byte_19CBC2], dh
@@ -1743,13 +1759,13 @@ sub_14294:
         mov word [word_1C5538], di
         mov word [word_1C3417], di
         mov word [word_19CBBC], ax
-        mov word [word_19CBBA], ax
+        mov word [gameclock], ax
         mov ch, 1
         mov esi, 2
         mov al, byte [byte_19CBC2]
         mov byte [byte_1C135B], ch
         mov word [word_19CBB0], si
-        mov word [word_19CBB8], si
+        mov word [gsp], si
         or al, 40h
         xor ch, ch
         mov byte [byte_19CBC2], al
@@ -1777,8 +1793,8 @@ sub_14294:
         mov byte [byte_1C135B], dh
         mov word [word_1C5538], dx
         mov word [word_19CBB0], si
-        mov word [word_19CBB8], si
-        mov word [word_19CBBA], dx
+        mov word [gsp], si
+        mov word [gameclock], dx
         mov eax, 1
         pop edi
         pop esi
@@ -1789,7 +1805,7 @@ sub_14294:
 .17:
         xor ecx, ecx
         xor ebx, ebx
-        mov word [word_19CBBA], cx
+        mov word [gameclock], cx
         mov word [word_19CBBC], bx
         mov eax, 1
         pop edi
@@ -1803,17 +1819,17 @@ sub_14294:
         mov di, word [awtmstruct]
         xor esi, esi
         xor ecx, ecx
-        mov word [word_19CBBA], si
+        mov word [gameclock], si
         mov word [word_19CBBC], cx
         cmp ax, di
         jne short .19
         mov ebx, 3
-        mov word [word_19CBB8], bx
+        mov word [gsp], bx
         mov word [word_19CBB0], bx
         jmp short .20
 .19:
         mov eax, 2
-        mov word [word_19CBB8], ax
+        mov word [gsp], ax
         mov word [word_19CBB0], ax
 .20:
         or byte [byte_19CBC2], 40h
@@ -1949,9 +1965,10 @@ sub_14294:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_14710                                                       14710  97 PC
+; GameFunctionKeys                                14710  97 PC, low confidence
+; (key): Ctrl+F1-F9 toggles (dword_16AF3C), +, - and =
 ;-----------------------------------------------------------------------------
-sub_14710:
+GameFunctionKeys:
         push dword 10h
         call __CHK
         push ecx
@@ -2089,14 +2106,14 @@ sub_14710:
         ret
 .14:
         mov eax, 1
-        call sub_15AC2
+        call ChangeViewSize
         pop ebp
         pop edx
         pop ecx
         ret
 .15:
         mov eax, 0FFFFFFFFh
-        call sub_15AC2
+        call ChangeViewSize
 .16:
         pop ebp
         pop edx
@@ -2104,9 +2121,11 @@ sub_14710:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_14880                                                       14880  97 PC
+; HandleGameKeys                               14880  97 PC, medium confidence
+; From GameLoop: the in-game keyboard: the unlocked debug keys (DebugKeys),
+; the function keys (GameFunctionKeys)
 ;-----------------------------------------------------------------------------
-sub_14880:
+HandleGameKeys:
         push dword 20h
         call __CHK
         push ebx
@@ -2128,7 +2147,7 @@ sub_14880:
         je near .14
         cmp word [word_1686D4], byte 4
         jne short .1
-        call sub_14294
+        call DebugKeys
         test eax, eax
         jne near .14
 .1:
@@ -2136,7 +2155,7 @@ sub_14880:
         cmp eax, dword [dword_1686DC]
         jle short .2
         mov eax, dword [dword_19CD50]
-        call sub_14710
+        call GameFunctionKeys
         mov eax, dword [tickcount]
         add eax, byte 0Ah
         mov dword [dword_1686DC], eax
@@ -2183,7 +2202,7 @@ sub_14880:
         mov word [word_1686BC], ax
         xor edx, edx
         cwde
-        call sub_1B3F4
+        call SelectCameraView
         mov eax, dword [dword_1686BA]
         sar eax, 10h
         push eax
@@ -2206,7 +2225,7 @@ sub_14880:
         push byte 1
         push dword 0C8h
         push byte 10h
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edi
         pop edx
@@ -2219,7 +2238,7 @@ sub_14880:
         xor ecx, ecx
         push byte 10h
         mov word [word_1686D4], cx
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edi
         pop edx
@@ -2235,7 +2254,7 @@ sub_14880:
         push byte 1
         push dword 0C8h
         push byte 10h
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edi
         pop edx
@@ -2251,7 +2270,7 @@ sub_14880:
         push byte 1
         push dword 0C8h
         push byte 10h
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edi
         pop edx
@@ -2264,7 +2283,7 @@ sub_14880:
         xor edi, edi
         push byte 10h
         mov word [word_1686D4], di
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edi
         pop edx
@@ -2280,7 +2299,7 @@ sub_14880:
         push byte 1
         push dword 0C8h
         push byte 10h
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edi
         pop edx
@@ -2294,7 +2313,7 @@ sub_14880:
         push byte 10h
         mov word [word_1686D4], dx
 .13:
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
 .14:
         pop edi
@@ -2331,7 +2350,7 @@ GameLoop:
         mov ebp, dword_1B1410
         add ebp, byte 58h
 .2:
-        cmp word [word_19CBA0], byte 0
+        cmp word [gameover], byte 0
         jne near .21
         cmp dword [dword_19CB58], byte 0
         jne near .21
@@ -2419,9 +2438,9 @@ GameLoop:
 .9:
         cmp dword [InGameMenuRequest], byte 0
         jne near .14
-        call sub_14880
+        call HandleGameKeys
         mov eax, esi
-        call sub_1900F
+        call DrawGameOverlays
         mov ecx, ebp
         xor edi, edi
         xor esi, esi
@@ -2548,9 +2567,11 @@ GameLoop:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_14E60                                                       14E60  97 PC
+; InitGameDisplay                                 14E60  97 PC, low confidence
+; From PlayGame: copies the display options (unk_16AED4) and sets the 640x480
+; game screen
 ;-----------------------------------------------------------------------------
-sub_14E60:
+InitGameDisplay:
         push dword 2Ch
         call __CHK
         push ebx
@@ -2659,9 +2680,10 @@ sub_14E60:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_14FE0                                                       14FE0  97 PC
+; SaveGameDisplay                                 14FE0  97 PC, low confidence
+; Writes the game's display options back (dword_1AC835) after the game
 ;-----------------------------------------------------------------------------
-sub_14FE0:
+SaveGameDisplay:
         push dword 18h
         call __CHK
         push ebx
@@ -2780,9 +2802,10 @@ sub_14FE0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_151A8                                                       151A8  97 PC
+; SetGameBrightness                               151A8  97 PC, low confidence
+; The brightness (28h-64h) from the display options
 ;-----------------------------------------------------------------------------
-sub_151A8:
+SetGameBrightness:
         push dword 1Ch
         call __CHK
         push ebx
@@ -2918,10 +2941,10 @@ PlayGame:
         add esi, eax
         mov edx, 20h
         mov dword [seed], esi
-        call sub_14E60
+        call InitGameDisplay
         call sub_5BD94
         mov eax, 34h
-        call sub_77630
+        call AllocAnimStates
         mov eax, 3Ch
         call sub_842F4
         xor eax, eax
@@ -2939,20 +2962,20 @@ PlayGame:
         mov dword [dword_19CD4C], eax
         mov eax, dword_19CD10
         call sub_4B5C4
-        call sub_65CED
+        call InitAnimPoints
         call sub_5C894
         mov eax, dword [dword_1686BA]
         xor edx, edx
         sar eax, 10h
-        call sub_1B3F4
+        call SelectCameraView
         mov eax, 1
         xor edx, edx
-        call sub_1B09C
+        call StartCameraPath
         cmp dword [dword_1686C0], byte 0
         jne short .4
         mov edx, 20h
         mov eax, 70h
-        call sub_4B074
+        call LoadDataFileLib
         mov dword [dword_1686C0], eax
 .4:
         push byte 0
@@ -2960,18 +2983,18 @@ PlayGame:
         add esp, byte 4
         call sub_AA498
         mov eax, 0C350h
-        call sub_5BDF4
+        call InitReplayBuffer
         mov eax, 64h
         call sub_842F4
         cmp dword [dword_16DA9C], byte 0
         je near .10
         mov eax, 2Eh
         xor edx, edx
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1C5DE4], eax
         xor edx, edx
         mov eax, 2Fh
-        call sub_4B074
+        call LoadDataFileLib
         mov dword [dword_1C5EF4], eax
         call sub_81678
         push byte 0FFFFFFFFh
@@ -3015,7 +3038,7 @@ PlayGame:
         call sub_842E8
         call sub_4B80C
         call sub_AADEF
-        call sub_151A8
+        call SetGameBrightness
         call sub_F1FF8
         mov eax, 947Ah
         call sub_3D020
@@ -3027,7 +3050,7 @@ PlayGame:
         call sub_4B8DC
         call sub_E30F4
         call sub_E304C
-        call sub_13A4C
+        call BeginGame
         mov dword [dword_19CB58], eax
         cmp eax, byte 2
         je short .11
@@ -3072,7 +3095,7 @@ PlayGame:
         push byte 0
         call SetViewRect
         add esp, byte 10h
-        call sub_14FE0
+        call SaveGameDisplay
         mov eax, 1
         pop edi
         pop esi
@@ -3082,9 +3105,12 @@ PlayGame:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_15578                                                       15578  97 PC
+; RunDemoGame                                  15578  96 PC, medium confidence
+; Attract-mode demo game: seeds rand from the time, InitSlotTable, loads the
+; game, starts InputRecordTimer, SetupDemoGame, GameLoop, then stops the
+; timer and restores the screen; same job as 95 PC RunDemoGame
 ;-----------------------------------------------------------------------------
-sub_15578:
+RunDemoGame:
         push dword 28h
         call __CHK
         push ebx
@@ -3195,12 +3221,12 @@ sub_15578:
         mov dword [dword_19CDA5], eax
 .4:
         lea eax, [byte esp+04h]
-        call sub_E117B
+        call LoadExhibitionFile
         test eax, eax
         jne short .5
-        call sub_E13BF
+        call ResetExhibitionFile
         lea eax, [byte esp+04h]
-        call sub_E117B
+        call LoadExhibitionFile
 .5:
         mov eax, dword [dword_19CDA5]
         shl eax, 6
@@ -3215,11 +3241,11 @@ sub_15578:
         call sub_E1744
         lea eax, [byte esp+04h]
         mov ecx, unk_19CDA4
-        call sub_E12D1
+        call FreeExhibitionFile
         xor edx, edx
         mov eax, 2Fh
         mov dword [dword_1AC944], ecx
-        call sub_4B074
+        call LoadDataFileLib
         push byte 0FFFFFFFFh
         mov dword [dword_1C5EF4], eax
         call sub_FC4BC
@@ -3228,9 +3254,9 @@ sub_15578:
         mov eax, dword [dword_1AC814]
         shl eax, 1Ch
         shr eax, 1Eh
-        call sub_8E740
+        call LoadLangText
         call sub_84204
-        call sub_8E840
+        call FreeLangText
         mov ebp, dword [dword_1C5EF4]
         push ebp
         call sub_FAF34
@@ -3238,7 +3264,7 @@ sub_15578:
         add esp, byte 4
         mov dword [dword_1C5EF4], eax
         call sub_DB6AC
-        call sub_4123C
+        call InitGameAudio
         mov eax, 37h
         call sub_842F4
         xor eax, eax
@@ -3314,7 +3340,7 @@ RunInGameMenu:
         sete al
         movzx eax, al
         call sub_F30A0
-        call sub_BD62C
+        call RunReplay
         call sub_F30D7
         jmp short .6
 .4:

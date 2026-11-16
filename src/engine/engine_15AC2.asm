@@ -21,7 +21,7 @@ extern dword_16057C, dword_160580, dword_160584, dword_1605A0, dword_1605FC, dwo
 extern dword_160614, dword_160618, dword_16061C, dword_160620, dword_16062C, dword_168628, dword_1686BA, dword_1686C0
 extern dword_1686D2, dword_1686E6, dword_16875E, dword_1687B8, dword_168934, dword_16893C, dword_16AF5C, dword_16B168
 extern dword_16E464, dword_16E468, dword_16E670, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB5A, dword_19CB5E
-extern dword_19CB62, dword_19CB66, dword_19CB6A, dword_19CB7B, dword_19CBAA, dword_19CBE4, dword_19CD10, dword_19CD14
+extern dword_19CB62, dword_19CB66, dword_19CB6A, dword_19CB7B, dword_19CBAA, penshottimer, dword_19CD10, dword_19CD14
 extern dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C, dword_19CD30, dword_19CD34, dword_19D004, dword_19D008
 extern dword_19D00C, dword_19D010, dword_19D014, dword_19D018, dword_19D020, dword_19D024, dword_19D034, dword_19D038
 extern dword_19D03C, dword_19D040, dword_19D044, dword_19D048, dword_19D058, dword_19D068, dword_19D06C, dword_19D070
@@ -49,15 +49,15 @@ extern qword_1605B4, qword_1605BC, qword_1605C4, qword_1605CC, qword_1605D4, qwo
 extern qword_1605F4, qword_160604, qword_160624, qword_160630, qword_160638, qword_160640, qword_160648, qword_160650
 extern qword_160658, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, sub_100498
 extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, sub_25AEC, sub_2E11C
-extern sub_2E8F0, sub_30778, sub_3085C, sub_32260, sub_32340, sub_32D88, sub_33880, sub_34CF4
-extern sub_34EF8, sub_35588, sub_35690, sub_356A8, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
-extern sub_3B1EC, sub_3B738, sub_3C75C, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
-extern sub_3CB70, sub_3CD70, sub_3CE58, sub_3CFB0, sub_3E5F0, sub_424CC, sub_45BEC, sub_4B1C4
+extern UpdateCoachModes, sub_30778, sub_3085C, sub_32260, sub_32340, sub_32D88, EndPenaltyShot, sub_34CF4
+extern doplayeracc, sub_35588, sub_35690, sub_356A8, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
+extern sub_3B1EC, sub_3B738, SetVideoMode, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
+extern sub_3CB70, sub_3CD70, sub_3CE58, sub_3CFB0, sub_3E5F0, sub_424CC, sub_45BEC, SetArtArchive
 extern sub_4B8DC, sub_4C0C4, sub_4DDB0, sub_504E0, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
 extern sub_5D6A8, sub_5D7A4, sub_5D878, sub_5D900, sub_5DC1C, sub_5DC50, sub_5DCBC, sub_5DE74
 extern sub_5ED80, sub_60D6C, sub_60F48, sub_650A4, sub_65F50, sub_6619C, sub_66224, sub_69B78
-extern sub_69BA0, sub_69DF4, sub_74BA8, sub_74C64, sub_75500, sub_77838, sub_7F0D8, sub_7F16C
-extern sub_8E7E0, sub_AA4BC, sub_F2AA0, sub_F98E4, sub_F994D, sub_FAF34, sub_FC4BC, sub_FCC40
+extern sub_69BA0, sub_69DF4, sub_74BA8, sub_74C64, sub_75500, sub_77838, sub_7F0D8, DrawTextAligned
+extern GetLangText, sub_AA4BC, sub_F2AA0, sub_F98E4, sub_F994D, sub_FAF34, sub_FC4BC, sub_FCC40
 extern sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FD528, sub_FD954, sub_FDC68
 extern sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC, sub_FE3D0, sub_FF1FC, sub_FF320
 extern sub_FF444, sub_FF5E0, sub_FF600, sub_FF798, sub_FF7DC, sub_FF7F4, sub_FF818, sub_FFE8C
@@ -71,35 +71,35 @@ extern unk_19E060, unk_1B0AD0, unk_1B0AE8, unk_1B1090, unk_1B9038, unk_1B92AB, v
 extern word_1686E4, word_1689BE, word_1689C8, word_1689CA, word_19C628, word_19C62A, word_19CB34, word_19CB36
 extern word_19CB5C, word_19CB60, word_19CB64, word_19CB68, word_19CB82, word_19CB84, word_19CB86, word_19CB8C
 extern word_19CB8E, word_19CB90, word_19CB92, word_19CB94, word_19CB96, word_19CB98, word_19CB9A, word_19CB9C
-extern word_19CB9E, word_19CBA0, word_19CBA2, word_19CBA4, word_19CBA6, word_19CBA8, word_19CBAC, word_19CBAE
-extern word_19CBB2, word_19CBB4, word_19CBB6, word_19CBB8, word_19CBBA, word_19CBBC, word_19CBBE, word_19CBC0
-extern word_19CBD6, word_19CBD8, word_19CBDA, word_19CBDC, word_19CBDE, word_19CBE0, word_19CBE2, word_19CBE6
+extern word_19CB9E, gameover, word_19CBA2, word_19CBA4, word_19CBA6, word_19CBA8, word_19CBAC, word_19CBAE
+extern word_19CBB2, word_19CBB4, word_19CBB6, gsp, gameclock, word_19CBBC, word_19CBBE, word_19CBC0
+extern word_19CBD6, word_19CBD8, word_19CBDA, word_19CBDC, penshotmode, word_19CBE0, penshotlive, word_19CBE6
 extern word_19CBEA, word_19CBEE, word_19CBF4, word_19CC24, word_19CC26, word_19CC50, word_19DAD9, word_19E109
 extern word_19EABE, word_19EAC0, word_19EBCA, word_19EBCC
 global jpt_19604, jpt_19F18, jpt_1A304, jpt_1A680, jpt_1A708, jpt_1B9C4, jpt_1F03C, sub_15C30_20A
-global sub_15C30_20E, sub_15C30_216, sub_15C30_217, sub_16BF9_15D, sub_16BF9_15F, sub_16ED0_26F, sub_17158_16F, sub_17158_48E
-global sub_17158_49A, sub_17158_4D7, sub_17C2C_18E, sub_1963C_28, sub_1963C_54, sub_1963C_AC, sub_1963C_11B, sub_1963C_1AC
-global sub_1963C_272, sub_1963C_326, sub_1963C_461, sub_1963C_5F0, sub_1963C_7F5, sub_1963C_8D3, sub_19F30_21, sub_19F30_169
-global sub_19F30_221, sub_19F30_232, sub_19F30_3CB, sub_1A31C_30, sub_1A31C_8E, sub_1A31C_19B, sub_1A31C_22F, sub_1A31C_2D2
-global sub_1A690_15, sub_1A690_29, sub_1A690_40, sub_1A690_57, sub_1A740_16, sub_1A740_AF, sub_1A740_14F, sub_1A740_1EF
-global sub_1A740_25A, sub_1A740_2CE, sub_1A740_36E, sub_1A740_40E, sub_1A740_4AE, sub_1A740_532, sub_1A740_5A5, sub_1A740_608
-global sub_1B9D4_1C, sub_1B9D4_73, sub_1B9D4_C6, sub_1B9D4_108, sub_15AC2, sub_15BC5, sub_15C30, sub_15E4D
-global sub_1603A, sub_16090, sub_160E2, sub_161F0, sub_16AD0, sub_16B17, sub_16BAD, sub_16BF5
-global sub_16BF9, sub_16D61, sub_16ED0, sub_17158, sub_17639, sub_1771B, sub_17818, sub_17AD1
-global sub_17C2C, sub_17DC0, sub_17EB6, sub_18025, sub_1870B, sub_1882A, sub_18958, sub_18B81
-global sub_18D8A, sub_18DF7, sub_18E35, sub_18E76, sub_18E9A, sub_18EEE, sub_18F67, sub_1900F
-global sub_19133, sub_191F8, sub_19540, sub_1963C, sub_19F30, sub_1A31C, sub_1A5F8, sub_1A690
-global sub_1A740, sub_1AD4C, sub_1AE58, sub_1AF4C, sub_1AF90, sub_1B034, sub_1B09C, sub_1B1CC
-global sub_1B340, sub_1B3D8, sub_1B3F4, sub_1B4E4, sub_1B5B0, sub_1B67C, sub_1B6E8, sub_1B71C
+global sub_15C30_20E, sub_15C30_216, sub_15C30_217, sub_16BF9_15D, sub_16BF9_15F, DrawGoalScorerPanel_26F, DrawPlayerNamePanel_16F, DrawPlayerNamePanel_48E
+global DrawPlayerNamePanel_49A, DrawPlayerNamePanel_4D7, sub_17C2C_18E, UpdateCameraView_28, UpdateCameraView_54, UpdateCameraView_AC, UpdateCameraView_11B, UpdateCameraView_1AC
+global UpdateCameraView_272, UpdateCameraView_326, UpdateCameraView_461, UpdateCameraView_5F0, UpdateCameraView_7F5, UpdateCameraView_8D3, UpdateCameraZoom_21, UpdateCameraZoom_169
+global UpdateCameraZoom_221, UpdateCameraZoom_232, UpdateCameraZoom_3CB, UpdateCameraTrack_30, UpdateCameraTrack_8E, UpdateCameraTrack_19B, UpdateCameraTrack_22F, UpdateCameraTrack_2D2
+global sub_1A690_15, sub_1A690_29, sub_1A690_40, sub_1A690_57, SetCameraView_16, SetCameraView_AF, SetCameraView_14F, SetCameraView_1EF
+global SetCameraView_25A, SetCameraView_2CE, SetCameraView_36E, SetCameraView_40E, SetCameraView_4AE, SetCameraView_532, SetCameraView_5A5, SetCameraView_608
+global sub_1B9D4_1C, sub_1B9D4_73, sub_1B9D4_C6, sub_1B9D4_108, ChangeViewSize, SetViewWindow, sub_15C30, sub_15E4D
+global ApplyDisplayFlags, RemoveOverlayPanel, sub_160E2, sub_161F0, sub_16AD0, sub_16B17, sub_16BAD, sub_16BF5
+global sub_16BF9, DrawVideoModePanel, DrawGoalScorerPanel, DrawPlayerNamePanel, sub_17639, sub_1771B, sub_17818, DrawGameClock
+global sub_17C2C, DrawClockPanel, sub_17EB6, sub_18025, sub_1870B, sub_1882A, sub_18958, sub_18B81
+global QueueOverlayPanel, sub_18DF7, sub_18E35, sub_18E76, sub_18E9A, sub_18EEE, sub_18F67, DrawGameOverlays
+global sub_19133, GetCameraTarget, sub_19540, UpdateCameraView, UpdateCameraZoom, UpdateCameraTrack, sub_1A5F8, sub_1A690
+global SetCameraView, sub_1AD4C, sub_1AE58, SetCameraHeight, SetCameraFocus, SetCameraPathPoint, StartCameraPath, sub_1B1CC
+global sub_1B340, sub_1B3D8, SelectCameraView, sub_1B4E4, sub_1B5B0, sub_1B67C, sub_1B6E8, sub_1B71C
 global sub_1B85C, sub_1B88C, sub_1B890, sub_1B90C, sub_1B930, sub_1B9D4, sub_1BB18, sub_1BB94
-global sub_1BC18, sub_1BCA8, sub_1BCDC, sub_1BEA4, sub_1BFC0, sub_1C108, sub_1C210, sub_1C21C
+global sub_1BC18, sub_1BCA8, sub_1BCDC, LoadOpeningCamera, sub_1BFC0, sub_1C108, sub_1C210, sub_1C21C
 global sub_1C29C, sub_1C2EC, sub_1C360, sub_1C4F4, sub_1C70C, sub_1C7B4, sub_1C854, sub_1C8DC
 global sub_1C9F0, sub_1CB9C, sub_1CBD8, sub_1CCBC, sub_1CCF8, sub_1CD80, sub_1CE98, sub_1D008
 global sub_1D09C, sub_1D0BC, sub_1D16C, sub_1D1D4, sub_1D1DC, sub_1D208, sub_1D2A8, sub_1D480
 global sub_1D4FC, sub_1D828, sub_1D858, sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0
-global sub_1DD5C, sub_1DDE4, sub_1DEB8, sub_1DEE4, sub_1DFA0, sub_1E014, sub_1E184, sub_1E208
-global sub_1E224, sub_1E268, sub_1E284, sub_1E354, sub_1E4E4, sub_1E7C4, sub_1E810, sub_1E8B0
-global sub_1EC5C, sub_1EF88, sub_1F32C, sub_1F4EC, sub_1F538, sub_1F5B4, sub_1F7D0, sub_1FB6C
+global sub_1DD5C, sub_1DDE4, sub_1DEB8, sub_1DEE4, sub_1DFA0, sub_1E014, sub_1E184, assreplace
+global assinsert, assexit, sub_1E284, sub_1E354, sub_1E4E4, sub_1E7C4, sub_1E810, sub_1E8B0
+global check4bench, sub_1EF88, sub_1F32C, sub_1F4EC, sub_1F538, sub_1F5B4, sub_1F7D0, sub_1FB6C
 global sub_1FBF4, sub_1FF5C, sub_20508, sub_209CC, sub_209D0, sub_209E0, sub_20A80, sub_20C50
 global sub_20CB0, sub_218B8, sub_21A4C, sub_21AB4, sub_21B20, sub_21E98, sub_22050, sub_22828
 global sub_22B8C, sub_22CEC, sub_22E70, sub_22FF0, sub_23284, sub_238E8, sub_23A78, sub_23B88
@@ -107,9 +107,11 @@ global sub_23C98, sub_23E90, sub_23F44, sub_240D0, sub_24220, sub_244BC, sub_247
 global sub_249F8, sub_24C00, sub_25010, sub_25188, sub_251F0, sub_25730, unk_19178, unk_19180
 global unk_19188, unk_19194, unk_191A0, unk_191AC
 ;-----------------------------------------------------------------------------
-; sub_15AC2                                                       15AC2  97 PC
+; ChangeViewSize                               15AC2  97 PC, medium confidence
+; (+1 / -1): the game view size in steps of 10 between 28h and 64h percent
+; (word_1686E4), then the view window
 ;-----------------------------------------------------------------------------
-sub_15AC2:
+ChangeViewSize:
         push ebx
         push ecx
         push edx
@@ -193,9 +195,11 @@ sub_15AC2:
         call sub_3CB70
         jmp near sub_15C30_216
 ;-----------------------------------------------------------------------------
-; sub_15BC5                                                       15BC5  97 PC
+; SetViewWindow                                   15BC5  97 PC, low confidence
+; The game view window from the view size and the screen size (dword_16E464 x
+; dword_16E468)
 ;-----------------------------------------------------------------------------
-sub_15BC5:
+SetViewWindow:
         push ebx
         push ecx
         push edx
@@ -245,7 +249,7 @@ sub_15C30:
         call sub_F994D
         mov edx, dword [byte ebp-014h]
         mov eax, dword [byte ebp-018h]
-        call sub_3C75C
+        call SetVideoMode
         mov eax, dword [byte ebp-018h]
         mov dword [dword_19CD10], eax
         mov eax, dword [byte ebp-014h]
@@ -337,7 +341,7 @@ sub_15C30:
         push eax
         push byte 0
         push byte 9
-        call sub_18D8A
+        call QueueOverlayPanel
         mov dword [dword_19D004], 0FFFFFFFFh
         add esp, byte 0Ch
 .8:
@@ -347,7 +351,7 @@ sub_15C30:
         push eax
         push byte 0
         push byte 0Ah
-        call sub_18D8A
+        call QueueOverlayPanel
         mov dword [dword_19D008], 0FFFFFFFFh
         add esp, byte 0Ch
         jmp short sub_15C30_20A
@@ -372,7 +376,7 @@ sub_15C30_20A:
         push byte 50h
         push byte 2
 sub_15C30_20E:
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 8
 sub_15C30_216:
         leave
@@ -406,7 +410,7 @@ sub_15E4D:
         call sub_F98E4
         mov edx, dword [byte ebp-014h]
         mov eax, dword [byte ebp-018h]
-        call sub_3C75C
+        call SetVideoMode
         mov eax, dword [byte ebp-018h]
         mov dword [dword_19CD10], eax
         mov eax, dword [byte ebp-014h]
@@ -490,7 +494,7 @@ sub_15E4D:
         push eax
         push byte 0
         push byte 9
-        call sub_18D8A
+        call QueueOverlayPanel
         mov dword [dword_19D004], 0FFFFFFFFh
         add esp, byte 0Ch
 .8:
@@ -500,7 +504,7 @@ sub_15E4D:
         push eax
         push byte 0
         push byte 0Ah
-        call sub_18D8A
+        call QueueOverlayPanel
         mov dword [dword_19D008], 0FFFFFFFFh
         add esp, byte 0Ch
         jmp near sub_15C30_20A
@@ -520,9 +524,11 @@ sub_15E4D:
         mov dword [dword_19CD30], 1
         jmp near sub_15C30_20A
 ;-----------------------------------------------------------------------------
-; sub_1603A                                                       1603A  97 PC
+; ApplyDisplayFlags                               1603A  97 PC, low confidence
+; Sets the doubled / interlaced display flags (dword_19CD30, dword_19CD34) in
+; the screen record
 ;-----------------------------------------------------------------------------
-sub_1603A:
+ApplyDisplayFlags:
         cmp dword [dword_19CD30], byte 0
         je short .1
         mov eax, dword [dword_1A8E80]
@@ -554,9 +560,10 @@ sub_1603A:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_16090                                                       16090  97 PC
+; RemoveOverlayPanel                           16090  97 PC, medium confidence
+; (kind): takes the queued panels of a kind out of the panel queue
 ;-----------------------------------------------------------------------------
-sub_16090:
+RemoveOverlayPanel:
         push ebx
         push ecx
         push edx
@@ -1077,11 +1084,11 @@ sub_161F0:
         push dword 3F000000h
 .53:
         call sub_160E2
-        movsx esi, word [word_19CBBA]
+        movsx esi, word [gameclock]
         movsx eax, word [word_19CB98]
         sub eax, esi
         mov esi, eax
-        cmp word [word_19CBBA], byte 3Ch
+        cmp word [gameclock], byte 3Ch
         jge short .54
         cmp word [word_19CBBC], byte 0
         je short .54
@@ -1139,7 +1146,7 @@ sub_161F0:
         sub ebx, eax
         push ebx
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .58
 .56:
@@ -1198,7 +1205,7 @@ sub_161F0:
         idiv ebx
         push eax
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .62
 .60:
@@ -1267,7 +1274,7 @@ sub_161F0:
         idiv ebx
         push eax
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp near .76
 .69:
@@ -1364,7 +1371,7 @@ sub_161F0:
         idiv ebx
         push eax
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp near .90
 .83:
@@ -1530,13 +1537,13 @@ sub_16BF9:
         jg near sub_16BF9_15F.7
         cmp eax, byte 0FFFFFFFFh
         je short .1
-        call sub_16090
+        call RemoveOverlayPanel
 .1:
         mov word [word_19CBEE], cx
         mov dword [byte esi+04h], ecx
         call sub_18F67
         mov eax, dword [nosplit ecx*4+dword_1686E6]
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         lea eax, [byte ebp-024h]
         call strcpy_
@@ -1603,7 +1610,7 @@ sub_16BF9:
         push eax
         push ecx
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .6
 .5:
@@ -1637,9 +1644,10 @@ sub_16BF9_15F:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_16D61                                                       16D61  97 PC
+; DrawVideoModePanel                           16D61  97 PC, medium confidence
+; The screen mode panel ("%d x %d", Doubled / Interlaced / Normal)
 ;-----------------------------------------------------------------------------
-sub_16D61:
+DrawVideoModePanel:
         push esi
         push edi
         enter 38h, 0
@@ -1647,7 +1655,7 @@ sub_16D61:
         mov edi, ebx
         call sub_18F67
         mov eax, 200h
-        call sub_16090
+        call RemoveOverlayPanel
         mov dword [byte esi+04h], 200h
         add dword [ecx], byte 4
         cmp edx, byte 1
@@ -1736,7 +1744,7 @@ sub_16D61:
         push eax
         push ecx
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .9
 .8:
@@ -1757,9 +1765,10 @@ sub_16D61:
         mov ebx, dword [byte eax+02Ch]
         jmp near sub_16BF9_15D
 ;-----------------------------------------------------------------------------
-; sub_16ED0                                                       16ED0  97 PC
+; DrawGoalScorerPanel                             16ED0  97 PC, low confidence
+; The "%s - #%d %s %s" panel with "%s %s" assist lines (team, number, name)
 ;-----------------------------------------------------------------------------
-sub_16ED0:
+DrawGoalScorerPanel:
         push esi
         push edi
         enter 0F4h, 0
@@ -1772,7 +1781,7 @@ sub_16ED0:
         mov esi, unk_158E2
         mov eax, 100h
         rep movsd
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, dword [byte ebp-076h]
         mov dword [byte eax+04h], 100h
         add dword [edx], byte 4
@@ -1817,7 +1826,7 @@ sub_16ED0:
         call sub_16AD0
         push eax
         mov eax, 7
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov edx, dword [byte ebp+07Eh]
         push asc_160184
@@ -1834,7 +1843,7 @@ sub_16ED0:
         movsx eax, dx
         sar eax, 1
         mov eax, dword [nosplit eax*4+dword_16875E]
-        call sub_8E7E0
+        call GetLangText
         push eax
         push unk_160193
         lea eax, [byte ebp+02Eh]
@@ -1842,24 +1851,24 @@ sub_16ED0:
         call sprintf_
         add esp, byte 0Ch
         mov eax, 29h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         lea eax, [byte ebp+02Eh]
         call strcat_
         jmp short .2
 .1:
         mov eax, 21h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         lea eax, [byte ebp+02Eh]
         call strcpy_
 .2:
         movsx eax, si
         mov eax, dword [nosplit eax*4+dword_1686D2]
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, 28h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_160196
         lea eax, [byte ebp-022h]
@@ -1871,13 +1880,13 @@ sub_16ED0:
         cmp si, byte 1Dh
         jne short .4
         mov eax, 17h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, 28h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, 1Fh
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_16019C
         lea eax, [byte ebp+02Eh]
@@ -1885,13 +1894,13 @@ sub_16ED0:
         call sprintf_
         add esp, byte 14h
         mov eax, 18h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, 28h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, 1Dh
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_16019C
         lea eax, [byte ebp-022h]
@@ -1901,12 +1910,12 @@ sub_16ED0:
         jmp short .5
 .4:
         mov eax, 28h
-        call sub_8E7E0
+        call GetLangText
         push eax
         movsx eax, dx
         sar eax, 1
         mov eax, dword [nosplit eax*4+dword_16875E]
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_160196
         lea eax, [byte ebp+02Eh]
@@ -1915,7 +1924,7 @@ sub_16ED0:
         movsx eax, si
         add esp, byte 10h
         mov eax, dword [nosplit eax*4+dword_1686D2]
-        call sub_8E7E0
+        call GetLangText
         push eax
         push unk_160193
         lea eax, [byte ebp-022h]
@@ -1946,7 +1955,7 @@ sub_16ED0:
         mov esi, 190h
         cdq
         idiv esi
-sub_16ED0_26F:
+DrawGoalScorerPanel_26F:
         shl ecx, 4
         or cl, 8
         mov edx, eax
@@ -1958,9 +1967,10 @@ sub_16ED0_26F:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_17158                                                       17158  97 PC
+; DrawPlayerNamePanel                             17158  96 PC, low confidence
+; (queued kind 3): a player's name panel (FormatPlayerName)
 ;-----------------------------------------------------------------------------
-sub_17158:
+DrawPlayerNamePanel:
         push esi
         push edi
         enter 0F0h, 0
@@ -1973,7 +1983,7 @@ sub_17158:
         mov esi, unk_15932
         mov eax, 100h
         rep movsd
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, dword [byte ebp-026h]
         mov dword [byte eax+04h], 100h
         add dword [ebx], byte 4
@@ -1986,7 +1996,7 @@ sub_17158:
         mov eax, dword [dword ebx+0102h]
         mov ax, word [dword eax+0FCh]
         test ax, ax
-        jl near sub_17158_4D7
+        jl near DrawPlayerNamePanel_4D7
         cwde
         imul eax, dword 108h
         mov esi, SortCords
@@ -2010,7 +2020,7 @@ sub_17158:
         add esp, byte 0Ch
         mov dword [byte edx+08h], eax
         mov eax, 8
-        call sub_8E7E0
+        call GetLangText
         push eax
         push unk_160193
         lea eax, [byte ebp+07Eh]
@@ -2041,7 +2051,7 @@ sub_17158:
         call sub_16AD0
         push eax
         mov eax, 35h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_1601AF
         lea eax, [byte ebp-022h]
@@ -2070,8 +2080,8 @@ sub_17158:
         imul eax, dword [dword_16E468], dword 140h
         cdq
         idiv edi
-        jmp near sub_17158_49A.30
-sub_17158_16F:
+        jmp near DrawPlayerNamePanel_49A.30
+DrawPlayerNamePanel_16F:
         push esi
         push edi
         enter 0F0h, 0
@@ -2086,9 +2096,9 @@ sub_17158_16F:
         movsx ebx, word [word_19EBCA]
         sub eax, ebx
         mov ebx, eax
-        je near sub_17158_4D7
+        je near DrawPlayerNamePanel_4D7
         mov eax, 100h
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, dword [byte ebp-026h]
         mov dword [byte eax+04h], 100h
         imul eax, dword [dword_16E464], dword 1F4h
@@ -2123,7 +2133,7 @@ sub_17158_16F:
         cmp word [dword eax+020CBh], byte 0
         jne near .22
         mov eax, 34h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push unk_160193
         lea eax, [byte ebp-022h]
@@ -2173,7 +2183,7 @@ sub_17158_16F:
         idiv ecx
         push eax
         mov eax, 36h
-        call sub_8E7E0
+        call GetLangText
         push eax
         test ebx, ebx
         setl al
@@ -2242,7 +2252,7 @@ sub_17158_16F:
         sub edx, eax
         push edx
         mov eax, 37h
-        call sub_8E7E0
+        call GetLangText
         push eax
         test ebx, ebx
         setg al
@@ -2268,7 +2278,7 @@ sub_17158_16F:
         jmp near .29
 .22:
         mov eax, 33h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push unk_160193
         lea eax, [byte ebp-022h]
@@ -2302,7 +2312,7 @@ sub_17158_16F:
         movsx eax, word [dword eax+020CDh]
         push eax
         mov eax, 36h
-        call sub_8E7E0
+        call GetLangText
         push eax
         test ebx, ebx
         setl al
@@ -2330,13 +2340,13 @@ sub_17158_16F:
         push eax
         test ebx, ebx
         setg al
-sub_17158_48E:
+DrawPlayerNamePanel_48E:
         movzx esi, al
         mov eax, dword [byte ebp-026h]
         mov ebx, edx
         mov edx, esi
         mov eax, dword [eax]
-sub_17158_49A:
+DrawPlayerNamePanel_49A:
         call sub_161F0
         cmp dword [dword_19CD30], byte 0
         sete al
@@ -2355,7 +2365,7 @@ sub_17158_49A:
         mov edx, eax
         xor eax, eax
         call sub_3CD70
-sub_17158_4D7:
+DrawPlayerNamePanel_4D7:
         lea esp, [dword ebp+0CEh]
         pop ebp
         pop edi
@@ -2377,7 +2387,7 @@ sub_17639:
         mov esi, unk_159D2
         mov eax, 100h
         rep movsd
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, dword [byte ebp-026h]
         mov dword [byte eax+04h], 100h
         add dword [edx], byte 4
@@ -2406,7 +2416,7 @@ sub_17639:
         add esp, byte 0Ch
         mov dword [byte edx+08h], eax
         mov eax, 31h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push unk_160193
         lea eax, [byte ebp-022h]
@@ -2433,7 +2443,7 @@ sub_17639:
         push eax
         test byte [dword ebx+0BFh], 40h
         sete al
-        jmp near sub_17158_48E
+        jmp near DrawPlayerNamePanel_48E
 ;-----------------------------------------------------------------------------
 ; sub_1771B                                                       1771B  97 PC
 ;-----------------------------------------------------------------------------
@@ -2451,7 +2461,7 @@ sub_1771B:
         rep movsd
         call sub_19133
         test eax, eax
-        jne near sub_17158_4D7
+        jne near DrawPlayerNamePanel_4D7
         mov eax, dword [byte ebp-026h]
         mov dword [byte eax+04h], 100h
         imul eax, dword [dword_16E464], dword 1F4h
@@ -2473,11 +2483,11 @@ sub_1771B:
         add esp, byte 0Ch
         mov dword [byte ebx+08h], eax
         mov eax, 30h
-        call sub_8E7E0
+        call GetLangText
         push eax
-        movsx eax, word [word_19CBB8]
+        movsx eax, word [gsp]
         add eax, byte 2Ch
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_160196
         lea eax, [byte ebp+07Eh]
@@ -2510,7 +2520,7 @@ sub_1771B:
         push eax
         mov eax, dword [ebx]
         lea ebx, [byte ebp+07Eh]
-        jmp near sub_17158_49A
+        jmp near DrawPlayerNamePanel_49A
 ;-----------------------------------------------------------------------------
 ; sub_17818                                                       17818  97 PC
 ;-----------------------------------------------------------------------------
@@ -2527,7 +2537,7 @@ sub_17818:
         mov esi, unk_15A72
         mov eax, 100h
         rep movsd
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, dword [byte ebp-07Ah]
         mov dword [byte eax+04h], 100h
         add dword [edx], byte 4
@@ -2574,7 +2584,7 @@ sub_17818:
         movzx eax, byte [dword eax+0BCh]
         push eax
         mov eax, 23h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_1601DB
         jmp short .6
@@ -2585,7 +2595,7 @@ sub_17818:
         movzx eax, byte [dword eax+0BCh]
         push eax
         mov eax, 23h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_160184
         jmp short .6
@@ -2604,7 +2614,7 @@ sub_17818:
         movzx eax, byte [dword eax+0BCh]
         push eax
         mov eax, 23h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_160184
 .6:
@@ -2622,7 +2632,7 @@ sub_17818:
         je short .9
         mov eax, 25h
 .8:
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         lea eax, [byte ebp-026h]
         call strcpy_
@@ -2636,7 +2646,7 @@ sub_17818:
         call strcat_
 .10:
         mov eax, 26h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         lea eax, [byte ebp-026h]
         call strcat_
@@ -2685,7 +2695,7 @@ sub_17818:
         jmp short .14
 .16:
         mov eax, 27h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
 .17:
         lea eax, [byte ebp+02Ah]
@@ -2730,11 +2740,12 @@ sub_17818:
         mov edi, 190h
         cdq
         idiv edi
-        jmp near sub_16ED0_26F
+        jmp near DrawGoalScorerPanel_26F
 ;-----------------------------------------------------------------------------
-; sub_17AD1                                                       17AD1  97 PC
+; DrawGameClock                                17AD1  96 PC, medium confidence
+; Draws the game clock "%2d:%02d" (or "%2d.%01d" under a minute)
 ;-----------------------------------------------------------------------------
-sub_17AD1:
+DrawGameClock:
         push ebx
         push ecx
         push edx
@@ -2742,19 +2753,19 @@ sub_17AD1:
         push edi
         enter 14h, 0
         mov ebx, eax
-        cmp word [word_19CBBA], byte 3Ch
+        cmp word [gameclock], byte 3Ch
         jle short .1
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         cmp eax, dword [dword_19D018]
         je near sub_15C30_216
 .1:
-        cmp word [word_19CBBA], byte 3Dh
+        cmp word [gameclock], byte 3Dh
         jge short .2
         movsx eax, word [word_19CBBC]
         cmp eax, dword [dword_19D014]
         je near sub_15C30_216
 .2:
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         mov dword [dword_19D018], eax
         movsx eax, word [word_19CBBC]
         push ebx
@@ -2770,7 +2781,7 @@ sub_17AD1:
 .4:
         call sub_FCC40
         add esp, byte 4
-        cmp word [word_19CBBA], byte 3Bh
+        cmp word [gameclock], byte 3Bh
         jne short .5
         push dword 0FEh
         call sub_FD110
@@ -2782,7 +2793,7 @@ sub_17AD1:
         add esp, byte 4
         push eax
         call sub_FE180
-        movsx ecx, word [word_19CBBA]
+        movsx ecx, word [gameclock]
         mov eax, ecx
         mov esi, 3Ch
         cdq
@@ -2851,7 +2862,7 @@ sub_17C2C:
         push esi
         enter 14h, 0
         mov ebx, eax
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         cmp eax, dword [dword_19D018]
         je near sub_17C2C_18E
         mov dword [dword_19D018], eax
@@ -2860,7 +2871,7 @@ sub_17C2C:
         test esi, esi
         jne short .1
         mov eax, 700h
-        call sub_16090
+        call RemoveOverlayPanel
         jmp near sub_17C2C_18E
 .1:
         push ebx
@@ -2935,7 +2946,7 @@ sub_17C2C:
         cmp dword [dword_16E468], 12Ch
         jge short .4
         mov eax, 36h
-        call sub_8E7E0
+        call GetLangText
         push eax
         imul eax, dword [dword_16E468], byte 37h
         cdq
@@ -2947,7 +2958,7 @@ sub_17C2C:
         idiv esi
         push eax
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .5
 .4:
@@ -2961,7 +2972,7 @@ sub_17C2C:
         idiv ecx
         push eax
         mov eax, 36h
-        call sub_8E7E0
+        call GetLangText
         push eax
         call sub_FE150
         add esp, byte 0Ch
@@ -2976,18 +2987,19 @@ sub_17C2C_18E:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_17DC0                                                       17DC0  97 PC
+; DrawClockPanel                                  17DC0  96 PC, low confidence
+; The power play panel or the game clock, with its show / hide timers
 ;-----------------------------------------------------------------------------
-sub_17DC0:
+DrawClockPanel:
         push esi
         push edi
         mov esi, eax
         mov edi, ebx
         mov eax, 300h
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, 700h
         mov dword [byte esi+04h], 300h
-        call sub_16090
+        call RemoveOverlayPanel
         imul eax, dword [dword_16E464], byte 64h
         mov ebx, 280h
         cdq
@@ -3012,7 +3024,7 @@ sub_17DC0:
         mov dword [dword_19D018], 0FFFFFFFFh
         add esp, byte 4
         mov eax, dword [esi]
-        call sub_17AD1
+        call DrawGameClock
         mov dword [dword_19D018], 0FFFFFFFFh
         cmp dword [dword_1B8FA0], byte 0
         je short .1
@@ -3058,7 +3070,7 @@ sub_17EB6:
         mov esi, eax
         mov dword [byte ebp-08h], ebx
         mov eax, 700h
-        call sub_16090
+        call RemoveOverlayPanel
         mov dword [byte esi+04h], 700h
         add dword [ecx], byte 4
         mov eax, dword [ecx]
@@ -3173,7 +3185,7 @@ sub_18025:
         mov dword [byte ebp-08h], edx
         mov eax, edx
         shl eax, 2
-        movsx edx, word [word_19CBBA]
+        movsx edx, word [gameclock]
         cmp edx, dword [dword eax+dword_19D004]
         jne short .1
         mov ecx, dword [byte ebp-08h]
@@ -3182,7 +3194,7 @@ sub_18025:
         je near .57
 .1:
         mov eax, dword [byte ebp-08h]
-        movsx edx, word [word_19CBBA]
+        movsx edx, word [gameclock]
         mov dword [nosplit eax*4+dword_19D004], edx
         movsx edx, word [nosplit eax*2+word_19CB34]
         movsx esi, word [word_19EBCA]
@@ -3597,7 +3609,7 @@ sub_18025:
         push eax
         mov eax, 2Bh
 .41:
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_1601FF
         lea eax, [byte ebp-028h]
@@ -3634,7 +3646,7 @@ sub_18025:
         push byte 0
 .44:
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp near .55
 .45:
@@ -3765,9 +3777,9 @@ sub_1870B:
         cmp dword [eax], byte 0
         jne near .5
         mov eax, 500h
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, 501h
-        call sub_16090
+        call RemoveOverlayPanel
         mov dword [byte esi+04h], 500h
         imul eax, dword [dword_16E464], dword 0A0h
         mov ebx, 280h
@@ -3855,9 +3867,9 @@ sub_1882A:
         cmp dword [eax], byte 0
         jne near .5
         mov eax, 600h
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, 601h
-        call sub_16090
+        call RemoveOverlayPanel
         mov dword [byte esi+04h], 600h
         imul eax, dword [dword_16E464], dword 0A0h
         mov ecx, 280h
@@ -3951,9 +3963,9 @@ sub_18958:
         cmp dword [esi], byte 0
         jne near .14
         mov eax, 500h
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, 501h
-        call sub_16090
+        call RemoveOverlayPanel
         mov dword [byte esi+04h], 501h
         add dword [ecx], byte 4
         mov eax, dword [ecx]
@@ -3976,7 +3988,7 @@ sub_18958:
         push eax
         mov eax, 2Bh
 .3:
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_1601FF
         lea eax, [byte ebp-028h]
@@ -4069,7 +4081,7 @@ sub_18958:
         sub edi, eax
         push edi
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .11
 .10:
@@ -4139,9 +4151,9 @@ sub_18B81:
         cmp dword [esi], byte 0
         jne near .14
         mov eax, 600h
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, 601h
-        call sub_16090
+        call RemoveOverlayPanel
         mov dword [byte esi+04h], 601h
         add dword [ecx], byte 4
         imul eax, dword [dword_16E464], dword 0A0h
@@ -4192,7 +4204,7 @@ sub_18B81:
         push ebx
         mov eax, 2Bh
 .5:
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_1601FF
         lea eax, [byte ebp-01Ch]
@@ -4246,7 +4258,7 @@ sub_18B81:
         push eax
         push byte 0
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .11
 .10:
@@ -4303,9 +4315,11 @@ sub_18B81:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_18D8A                                                       18D8A  97 PC
+; QueueOverlayPanel                            18D8A  96 PC, medium confidence
+; (kind, a, b, c): puts a panel in a free slot of the 3-panel queue (kind 3
+; waits 2EE0h), from BuildEventLines
 ;-----------------------------------------------------------------------------
-sub_18D8A:
+QueueOverlayPanel:
         push ebx
         push ecx
         push edx
@@ -4432,7 +4446,7 @@ sub_18E76:
 sub_18E9A:
         push ebx
         push edx
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         mov ebx, 78h
         cdq
         idiv ebx
@@ -4443,14 +4457,14 @@ sub_18E9A:
         push dword 1F4h
 .1:
         push byte 3
-        call sub_18D8A
+        call QueueOverlayPanel
         mov eax, 1
         add esp, byte 8
         pop edx
         pop ebx
         ret
 .2:
-        cmp word [word_19CBBA], byte 41h
+        cmp word [gameclock], byte 41h
         jne short .3
         cmp word [word_19CBBC], byte 0Ah
         jge short .3
@@ -4472,7 +4486,7 @@ sub_18EEE:
         movsx ebx, word [word_19EABE]
         sub ebx, eax
         je short .1
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         mov ecx, 1Eh
         cdq
         idiv ecx
@@ -4481,7 +4495,7 @@ sub_18EEE:
         push ebx
         push dword 12Ch
         push edx
-        call sub_18D8A
+        call QueueOverlayPanel
         mov eax, 1
         add esp, byte 0Ch
         pop edx
@@ -4496,7 +4510,7 @@ sub_18EEE:
         ret
         push ebx
         push edx
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         mov ebx, 5Ah
         cdq
         idiv ebx
@@ -4504,7 +4518,7 @@ sub_18EEE:
         jne short .2
         push dword 1F4h
         push byte 0Eh
-        call sub_18D8A
+        call QueueOverlayPanel
         mov eax, 1
         add esp, byte 8
         pop edx
@@ -4580,9 +4594,11 @@ sub_18F67:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1900F                                                       1900F  97 PC
+; DrawGameOverlays                             1900F  96 PC, medium confidence
+; (ticks): per frame draws the overlay for the view state (byte_179DC1 9,
+; 0Dh, 11h), the queued panels, the clock, time-left and score panels
 ;-----------------------------------------------------------------------------
-sub_1900F:
+DrawGameOverlays:
         push ebx
         push ecx
         push edx
@@ -4623,7 +4639,7 @@ sub_1900F:
         jne short .4
         mov eax, dword [ebx]
         mov dword [byte ebp-08h], 1
-        call sub_17AD1
+        call DrawGameClock
         jmp short .8
 .4:
         cmp dword [ebx], byte 0
@@ -4663,7 +4679,7 @@ sub_1900F:
         call sub_18EEE
         test eax, eax
         jne near sub_15C30_216
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         mov ebx, 5Ah
         cdq
         idiv ebx
@@ -4741,9 +4757,11 @@ unk_191AC:
         ret 0Ch
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_191F8                                                       191F8  97 PC
+; GetCameraTarget                                 191F8  97 PC, low confidence
+; (target 4-10h and up): the position record of a camera target (player
+; records at dword_1B1410, then fixed targets); 0 when none
 ;-----------------------------------------------------------------------------
-sub_191F8:
+GetCameraTarget:
         push ebx
         push ecx
         push edx
@@ -5012,7 +5030,7 @@ sub_191F8:
         xor ecx, ecx
 .22:
         mov eax, dword [dword ecx+dword_19D0E8]
-        call sub_191F8
+        call GetCameraTarget
         test eax, eax
         je short .23
         lea ebx, [byte esp+024h]
@@ -5138,7 +5156,7 @@ sub_19540:
         push edi
         mov esi, eax
         mov eax, dword [dword_19D380]
-        call sub_191F8
+        call GetCameraTarget
         test eax, eax
         je short .11
         lea edi, [dword esi+0E4h]
@@ -5151,24 +5169,25 @@ sub_19540:
         pop esi
         ret
 jpt_19604:
-        dd sub_1963C_8D3
-        dd sub_1963C_54
-        dd sub_1963C_28
-        dd sub_1963C_AC
-        dd sub_1963C_8D3
-        dd sub_1963C_8D3
-        dd sub_1963C_8D3
-        dd sub_1963C_11B
-        dd sub_1963C_272
-        dd sub_1963C_326
-        dd sub_1963C_1AC
-        dd sub_1963C_461
-        dd sub_1963C_5F0
-        dd sub_1963C_7F5
+        dd UpdateCameraView_8D3
+        dd UpdateCameraView_54
+        dd UpdateCameraView_28
+        dd UpdateCameraView_AC
+        dd UpdateCameraView_8D3
+        dd UpdateCameraView_8D3
+        dd UpdateCameraView_8D3
+        dd UpdateCameraView_11B
+        dd UpdateCameraView_272
+        dd UpdateCameraView_326
+        dd UpdateCameraView_1AC
+        dd UpdateCameraView_461
+        dd UpdateCameraView_5F0
+        dd UpdateCameraView_7F5
 ;-----------------------------------------------------------------------------
-; sub_1963C                                                       1963C  97 PC
+; UpdateCameraView                                1963C  97 PC, low confidence
+; (camera, ...): per frame, the camera by its view kind (+24h, 0-0Dh)
 ;-----------------------------------------------------------------------------
-sub_1963C:
+UpdateCameraView:
         push ebx
         push ecx
         push esi
@@ -5181,11 +5200,11 @@ sub_1963C:
         mov eax, edx
         mov edx, dword [byte ecx+024h]
         cmp edx, byte 0Dh
-        ja near sub_1963C_8D3
+        ja near UpdateCameraView_8D3
         jmp dword [nosplit cs:edx*4+jpt_19604]
-sub_1963C_28:
+UpdateCameraView_28:
         cmp dword [dword_19D380], byte 0
-        je near sub_1963C_8D3
+        je near UpdateCameraView_8D3
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword ecx+0108h]
         lea eax, [dword ecx+0E4h]
@@ -5197,9 +5216,9 @@ sub_1963C_28:
         pop ecx
         pop ebx
         ret
-sub_1963C_54:
+UpdateCameraView_54:
         cmp dword [dword_19D380], byte 0
-        je near sub_1963C_8D3
+        je near UpdateCameraView_8D3
         lea edx, [dword ecx+0E4h]
         lea ebx, [dword esp+0CCh]
         lea eax, [dword ecx+0F0h]
@@ -5219,9 +5238,9 @@ sub_1963C_54:
         pop ecx
         pop ebx
         ret
-sub_1963C_AC:
+UpdateCameraView_AC:
         cmp dword [dword_19D380], byte 0
-        je near sub_1963C_8D3
+        je near UpdateCameraView_8D3
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword ecx+0108h]
         lea eax, [dword ecx+0E4h]
@@ -5245,7 +5264,7 @@ sub_1963C_AC:
         pop ecx
         pop ebx
         ret
-sub_1963C_11B:
+UpdateCameraView_11B:
         mov edx, dword [dword_19D1E0]
         sub edx, byte 1Eh
         cmp eax, edx
@@ -5292,12 +5311,12 @@ sub_1963C_11B:
         pop ecx
         pop ebx
         ret
-sub_1963C_1AC:
+UpdateCameraView_1AC:
         lea edx, [dword esp+0150h]
         mov eax, dword [dword_19D380]
         call sub_19540
         test eax, eax
-        je near sub_1963C_8D3
+        je near UpdateCameraView_8D3
         xor esi, esi
         mov eax, dword [dword_19D1B8]
         mov dword [dword esp+013Ch], esi
@@ -5333,12 +5352,12 @@ sub_1963C_1AC:
         pop ecx
         pop ebx
         ret
-sub_1963C_272:
+UpdateCameraView_272:
         lea edx, [dword esp+014Ch]
         mov eax, dword [dword_19D380]
         call sub_19540
         test eax, eax
-        je near sub_1963C_8D3
+        je near UpdateCameraView_8D3
         fld dword [dword esp+014Ch]
         lea ebx, [dword esp+0F0h]
         lea edx, [byte esp+024h]
@@ -5371,20 +5390,20 @@ sub_1963C_272:
         pop ecx
         pop ebx
         ret
-sub_1963C_326:
+UpdateCameraView_326:
         mov eax, dword [dword_19D0E8]
-        call sub_191F8
+        call GetCameraTarget
         test eax, eax
-        je near sub_1963C_8D3
+        je near UpdateCameraView_8D3
         lea edi, [dword esp+0FCh]
         mov esi, eax
         movsd
         movsd
         movsd
         mov eax, dword [dword_19D0EC]
-        call sub_191F8
+        call GetCameraTarget
         test eax, eax
-        je near sub_1963C_8D3
+        je near UpdateCameraView_8D3
         lea edi, [dword esp+0114h]
         lea ebx, [dword esp+0D8h]
         mov esi, eax
@@ -5441,20 +5460,20 @@ sub_1963C_326:
         pop ecx
         pop ebx
         ret
-sub_1963C_461:
+UpdateCameraView_461:
         mov eax, dword [dword_19D0E8]
-        call sub_191F8
+        call GetCameraTarget
         test eax, eax
-        je near sub_1963C_8D3
+        je near UpdateCameraView_8D3
         lea edi, [dword esp+0108h]
         mov esi, eax
         movsd
         movsd
         movsd
         mov eax, dword [dword_19D0EC]
-        call sub_191F8
+        call GetCameraTarget
         test eax, eax
-        je near sub_1963C_8D3
+        je near UpdateCameraView_8D3
         lea edi, [dword esp+0E4h]
         lea ebx, [dword esp+0A8h]
         mov esi, eax
@@ -5537,7 +5556,7 @@ sub_1963C_461:
         pop ecx
         pop ebx
         ret
-sub_1963C_5F0:
+UpdateCameraView_5F0:
         mov ah, byte [byte_1687B4]
         lea esi, [dword ecx+0108h]
         test ah, ah
@@ -5645,7 +5664,7 @@ sub_1963C_5F0:
         fcomp dword [dword_16032A]
         fnstsw ax
         sahf
-        jbe near sub_1963C_8D3
+        jbe near UpdateCameraView_8D3
         fld dword [dword ecx+0F0h]
         fcomp dword [dword ecx+0E4h]
         fnstsw ax
@@ -5672,7 +5691,7 @@ sub_1963C_5F0:
         pop ecx
         pop ebx
         ret
-sub_1963C_7F5:
+UpdateCameraView_7F5:
         fld dword [dword ecx+0ECh]
         fcomp dword [dword_1602EE]
         fnstsw ax
@@ -5725,12 +5744,12 @@ sub_1963C_7F5:
         movsd
 .21:
         cmp dword [dword_19D380], byte 0
-        je short sub_1963C_8D3
+        je short UpdateCameraView_8D3
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword esp+0C0h]
         lea eax, [dword ecx+0E4h]
         call sub_FF5E0
-sub_1963C_8D3:
+UpdateCameraView_8D3:
         mov esp, ebp
         pop ebp
         pop edi
@@ -5740,16 +5759,17 @@ sub_1963C_8D3:
         ret
         db 090h
 jpt_19F18:
-        dd sub_19F30_3CB
-        dd sub_19F30_169
-        dd sub_19F30_3CB
-        dd sub_19F30_232
-        dd sub_19F30_221
-        dd sub_19F30_21
+        dd UpdateCameraZoom_3CB
+        dd UpdateCameraZoom_169
+        dd UpdateCameraZoom_3CB
+        dd UpdateCameraZoom_232
+        dd UpdateCameraZoom_221
+        dd UpdateCameraZoom_21
 ;-----------------------------------------------------------------------------
-; sub_19F30                                                       19F30  97 PC
+; UpdateCameraZoom                                19F30  97 PC, low confidence
+; (camera): the camera distance by its zoom mode (+28h, 0-5)
 ;-----------------------------------------------------------------------------
-sub_19F30:
+UpdateCameraZoom:
         push esi
         push edi
         push ebp
@@ -5759,9 +5779,9 @@ sub_19F30:
         mov esi, eax
         mov eax, dword [byte eax+028h]
         cmp eax, byte 5
-        ja near sub_19F30_3CB
+        ja near UpdateCameraZoom_3CB
         jmp dword [nosplit cs:eax*4+jpt_19F18]
-sub_19F30_21:
+UpdateCameraZoom_21:
         fld dword [dword esi+0FCh]
         fcomp dword [dword_160346]
         fnstsw ax
@@ -5844,7 +5864,7 @@ sub_19F30_21:
         pop edi
         pop esi
         ret
-sub_19F30_169:
+UpdateCameraZoom_169:
         fld dword [dword esi+0FCh]
         fcomp dword [dword esi+0278h]
         fnstsw ax
@@ -5889,7 +5909,7 @@ sub_19F30_169:
         fcomp dword [dword esi+028Ch]
         fnstsw ax
         sahf
-        jbe near sub_19F30_3CB
+        jbe near UpdateCameraZoom_3CB
         mov eax, dword [dword esi+028Ch]
         mov dword [dword esi+0104h], eax
         mov esp, ebp
@@ -5897,12 +5917,12 @@ sub_19F30_169:
         pop edi
         pop esi
         ret
-sub_19F30_221:
+UpdateCameraZoom_221:
         cmp eax, byte 4
-        jne short sub_19F30_232
+        jne short UpdateCameraZoom_232
         mov eax, dword [dword esi+027Ch]
         mov dword [dword esi+0100h], eax
-sub_19F30_232:
+UpdateCameraZoom_232:
         fld dword [dword esi+0FCh]
         fabs
         fld dword [dword esi+0104h]
@@ -6016,13 +6036,13 @@ sub_19F30_232:
         mov dword [dword esi+0100h], eax
 .20:
         cmp dword [dword esi+0100h], 45BB8000h
-        jle short sub_19F30_3CB
+        jle short UpdateCameraZoom_3CB
         lea edi, [dword esi+0FCh]
         lea esi, [dword esi+0F0h]
         movsd
         movsd
         movsd
-sub_19F30_3CB:
+UpdateCameraZoom_3CB:
         mov esp, ebp
         pop ebp
         pop edi
@@ -6030,16 +6050,17 @@ sub_19F30_3CB:
         ret
         db 08Dh,040h,00h
 jpt_1A304:
-        dd sub_1A31C_2D2
-        dd sub_1A31C_30
-        dd sub_1A31C_2D2
-        dd sub_1A31C_19B
-        dd sub_1A31C_22F
-        dd sub_1A31C_8E
+        dd UpdateCameraTrack_2D2
+        dd UpdateCameraTrack_30
+        dd UpdateCameraTrack_2D2
+        dd UpdateCameraTrack_19B
+        dd UpdateCameraTrack_22F
+        dd UpdateCameraTrack_8E
 ;-----------------------------------------------------------------------------
-; sub_1A31C                                                       1A31C  97 PC
+; UpdateCameraTrack                               1A31C  97 PC, low confidence
+; (camera): follows the camera path target by its track mode (+2Ch, 0-5)
 ;-----------------------------------------------------------------------------
-sub_1A31C:
+UpdateCameraTrack:
         push ebx
         push ecx
         push edx
@@ -6050,12 +6071,12 @@ sub_1A31C:
         and esp, byte 0FFFFFFF8h
         mov ecx, eax
         cmp dword [dword_19D380], byte 0
-        je near sub_1A31C_2D2
+        je near UpdateCameraTrack_2D2
         mov eax, dword [byte eax+02Ch]
         cmp eax, byte 5
-        ja near sub_1A31C_2D2
+        ja near UpdateCameraTrack_2D2
         jmp dword [nosplit cs:eax*4+jpt_1A304]
-sub_1A31C_30:
+UpdateCameraTrack_30:
         mov ebx, esp
         mov edx, dword_1B905F
         lea eax, [dword ecx+0E4h]
@@ -6084,7 +6105,7 @@ sub_1A31C_30:
         pop ecx
         pop ebx
         ret
-sub_1A31C_8E:
+UpdateCameraTrack_8E:
         mov ebx, esp
         mov edx, dword_1B905F
         lea eax, [dword ecx+0E4h]
@@ -6172,7 +6193,7 @@ sub_1A31C_8E:
         pop ecx
         pop ebx
         ret
-sub_1A31C_19B:
+UpdateCameraTrack_19B:
         mov ebx, esp
         mov edx, dword_1B905F
         lea eax, [dword ecx+0E4h]
@@ -6209,8 +6230,8 @@ sub_1A31C_19B:
 .7:
         fld dword [dword ecx+02B4h]
         fld dword [byte esp+04Ch]
-        jmp near sub_1A31C_22F.10
-sub_1A31C_22F:
+        jmp near UpdateCameraTrack_22F.10
+UpdateCameraTrack_22F:
         mov ebx, esp
         mov edx, dword_1B905F
         lea eax, [dword ecx+0E4h]
@@ -6252,7 +6273,7 @@ sub_1A31C_22F:
         fmulp
         fadd dword [dword ecx+02B0h]
         fstp dword [dword ecx+02A0h]
-sub_1A31C_2D2:
+UpdateCameraTrack_2D2:
         mov esp, ebp
         pop ebp
         pop esi
@@ -6373,34 +6394,36 @@ sub_1A690_57:
         ret
         db 090h
 jpt_1A708:
-        dd sub_1A740_16
-        dd sub_1A740_AF
-        dd sub_1A740_14F
-        dd sub_1A740_4AE
-        dd sub_1A740_25A
-        dd sub_1A740_2CE
-        dd sub_1A740_40E
-        dd sub_1A740_36E
-        dd sub_1A740_532
-        dd sub_1A740_5A5
-        dd sub_1A740_608
-        dd sub_1A740_608
-        dd sub_1A740_608
-        dd sub_1A740_1EF
+        dd SetCameraView_16
+        dd SetCameraView_AF
+        dd SetCameraView_14F
+        dd SetCameraView_4AE
+        dd SetCameraView_25A
+        dd SetCameraView_2CE
+        dd SetCameraView_40E
+        dd SetCameraView_36E
+        dd SetCameraView_532
+        dd SetCameraView_5A5
+        dd SetCameraView_608
+        dd SetCameraView_608
+        dd SetCameraView_608
+        dd SetCameraView_1EF
 ;-----------------------------------------------------------------------------
-; sub_1A740                                                       1A740  97 PC
+; SetCameraView                                1A740  97 PC, medium confidence
+; (camera, view 0-0Dh): fills a camera record (unk_19D0A4) with the view's
+; name (GetLangText) and settings
 ;-----------------------------------------------------------------------------
-sub_1A740:
+SetCameraView:
         push ebx
         push esi
         push edi
         mov ebx, eax
         cmp edx, byte 0Dh
-        ja near sub_1A740_608
+        ja near SetCameraView_608
         jmp dword [nosplit cs:edx*4+jpt_1A708]
-sub_1A740_16:
+SetCameraView_16:
         mov eax, 86h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_1687BC
@@ -6433,9 +6456,9 @@ sub_1A740_16:
         pop esi
         pop ebx
         ret
-sub_1A740_AF:
+SetCameraView_AF:
         mov eax, 87h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_1687E0
@@ -6469,9 +6492,9 @@ sub_1A740_AF:
         pop esi
         pop ebx
         ret
-sub_1A740_14F:
+SetCameraView_14F:
         mov eax, 88h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_1687E0
@@ -6505,7 +6528,7 @@ sub_1A740_14F:
         pop esi
         pop ebx
         ret
-sub_1A740_1EF:
+SetCameraView_1EF:
         mov edx, asc_160210
         call strcpy_
         mov dword [byte ebx+024h], 1
@@ -6530,9 +6553,9 @@ sub_1A740_1EF:
         pop esi
         pop ebx
         ret
-sub_1A740_25A:
+SetCameraView_25A:
         mov eax, 8Ah
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         call strcpy_
@@ -6558,9 +6581,9 @@ sub_1A740_25A:
         pop esi
         pop ebx
         ret
-sub_1A740_2CE:
+SetCameraView_2CE:
         mov eax, 8Bh
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_168864
@@ -6594,9 +6617,9 @@ sub_1A740_2CE:
         pop esi
         pop ebx
         ret
-sub_1A740_36E:
+SetCameraView_36E:
         mov eax, 8Dh
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_1688B8
@@ -6630,9 +6653,9 @@ sub_1A740_36E:
         pop esi
         pop ebx
         ret
-sub_1A740_40E:
+SetCameraView_40E:
         mov eax, 8Ch
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_1688B8
@@ -6666,9 +6689,9 @@ sub_1A740_40E:
         pop esi
         pop ebx
         ret
-sub_1A740_4AE:
+SetCameraView_4AE:
         mov eax, 89h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_168828
@@ -6692,7 +6715,7 @@ sub_1A740_4AE:
         pop esi
         pop ebx
         ret
-sub_1A740_532:
+SetCameraView_532:
         mov edx, asc_160428
         mov edi, dword_19D1A0
         mov esi, dword_1B905F
@@ -6720,7 +6743,7 @@ sub_1A740_532:
         pop esi
         pop ebx
         ret
-sub_1A740_5A5:
+SetCameraView_5A5:
         mov edx, asc_160438
         call strcpy_
         mov edx, dword_19D188
@@ -6737,7 +6760,7 @@ sub_1A740_5A5:
         fstp dword [dword ebx+027Ch]
         mov eax, dword [dword_1B9077]
         mov dword [dword ebx+02C4h], eax
-sub_1A740_608:
+SetCameraView_608:
         pop edi
         pop esi
         pop ebx
@@ -6949,9 +6972,10 @@ sub_1AE58:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1AF4C                                                       1AF4C  97 PC
+; SetCameraHeight                                 1AF4C  97 PC, low confidence
+; Sets the camera height (dword_19D1A4), at once or eased over frames
 ;-----------------------------------------------------------------------------
-sub_1AF4C:
+SetCameraHeight:
         push ebx
         push edx
         mov edx, dword [byte esp+010h]
@@ -6979,9 +7003,10 @@ sub_1AF4C:
         ret 8
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1AF90                                                       1AF90  97 PC
+; SetCameraFocus                                  1AF90  97 PC, low confidence
+; Sets the camera focus x / z (dword_19D1A0, dword_19D1A8), at once or eased
 ;-----------------------------------------------------------------------------
-sub_1AF90:
+SetCameraFocus:
         push ebx
         push edx
         mov ebx, dword [byte esp+014h]
@@ -7041,9 +7066,10 @@ sub_1AF90:
         ret 8
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1B034                                                       1B034  97 PC
+; SetCameraPathPoint                              1B034  97 PC, low confidence
+; Sets the camera path point (dword_19D340, dword_19D344), at once or eased
 ;-----------------------------------------------------------------------------
-sub_1B034:
+SetCameraPathPoint:
         push ebx
         push edx
         mov ebx, dword [byte esp+014h]
@@ -7079,9 +7105,10 @@ sub_1B034:
         ret 0Ch
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1B09C                                                       1B09C  97 PC
+; StartCameraPath                                 1B09C  97 PC, low confidence
+; (path, ticks): starts a camera path (dword_19D380) for the game camera
 ;-----------------------------------------------------------------------------
-sub_1B09C:
+StartCameraPath:
         push ebx
         push ecx
         push esi
@@ -7090,7 +7117,7 @@ sub_1B09C:
         mov ecx, edx
         test eax, eax
         je short .1
-        call sub_191F8
+        call GetCameraTarget
         test eax, eax
         je near .5
 .1:
@@ -7098,7 +7125,7 @@ sub_1B09C:
         mov dword [dword_19D380], ebx
         mov eax, ebx
         mov dword [dword_19D0D0], edx
-        call sub_191F8
+        call GetCameraTarget
         test eax, eax
         je short .2
         mov edi, dword_19D188
@@ -7108,7 +7135,7 @@ sub_1B09C:
         movsd
 .2:
         mov eax, unk_19D0A4
-        call sub_1A31C
+        call UpdateCameraTrack
         test ecx, ecx
         jle short .3
         fld dword [dword_19D340]
@@ -7145,7 +7172,7 @@ sub_1B09C:
         mov ebx, eax
         mov edx, 8
         mov eax, unk_19D0A4
-        call sub_1A740
+        call SetCameraView
         mov edx, 8
         mov esi, 3
         mov dword [dword_19D388], edx
@@ -7155,7 +7182,7 @@ sub_1B09C:
         idiv esi
         mov edx, eax
         mov eax, ebx
-        call sub_1B09C
+        call StartCameraPath
         test eax, eax
         je short .6
         mov eax, dword [byte esp+014h]
@@ -7276,7 +7303,7 @@ sub_1B1CC:
         mov edx, 8
         mov eax, unk_19D0A4
         xor ebx, ebx
-        call sub_1A740
+        call SetCameraView
         push byte 0
         mov edx, 8
         push dword 442F0000h
@@ -7320,7 +7347,7 @@ sub_1B340:
         mov edx, 8
         mov eax, unk_19D0A4
         xor ebx, ebx
-        call sub_1A740
+        call SetCameraView
         push byte 0
         mov edx, 8
         push dword 442F0000h
@@ -7359,14 +7386,16 @@ sub_1B3D8:
         push edx
         mov edx, 8
         mov eax, unk_19D0A4
-        call sub_1A740
+        call SetCameraView
         mov dword [dword_19D388], 8
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1B3F4                                                       1B3F4  97 PC
+; SelectCameraView                             1B3F4  97 PC, medium confidence
+; (view, ticks): picks the game camera view (mod 10) with SetCameraView and
+; moves the camera to it
 ;-----------------------------------------------------------------------------
-sub_1B3F4:
+SelectCameraView:
         push ebx
         push ecx
         push esi
@@ -7378,7 +7407,7 @@ sub_1B3F4:
         idiv esi
         mov eax, unk_19D0A4
         mov dword [dword_19D388], edx
-        call sub_1A740
+        call SetCameraView
         cmp byte [byte_1687B4], 0
         je short .1
         mov eax, unk_19D0A4
@@ -7457,7 +7486,7 @@ sub_1B4E4:
         fstp dword [dword_19D334]
         fstp dword [dword_19D338]
         fstp dword [dword_19D364]
-        call sub_191F8
+        call GetCameraTarget
         test eax, eax
         je short .1
         mov edi, dword_19D188
@@ -7468,15 +7497,15 @@ sub_1B4E4:
 .1:
         mov eax, unk_19D0A4
         mov edx, ecx
-        call sub_1963C
+        call UpdateCameraView
         mov ebx, ebp
         mov eax, unk_19D0A4
         mov edx, dword_19D1A0
-        call sub_19F30
+        call UpdateCameraZoom
         mov eax, ecx
         call sub_5DC1C
         mov eax, unk_19D0A4
-        call sub_1A31C
+        call UpdateCameraTrack
         mov eax, unk_19D0A4
         call sub_1A690
         push ebp
@@ -7938,7 +7967,7 @@ sub_1B9D4_73:
         sub eax, edx
         push dword [nosplit eax*4+dword_16893C]
         push dword [nosplit eax*4+dword_168934]
-        call sub_1AF90
+        call SetCameraFocus
         mov ebx, dword [dword_19D088]
         xor edx, edx
         inc ebx
@@ -7957,7 +7986,7 @@ sub_1B9D4_C6:
         mov edx, 8
         mov eax, unk_19D0A4
         mov esi, 8
-        call sub_1A740
+        call SetCameraView
         xor edi, edi
         mov ebp, dword [dword_19D088]
         mov dword [dword_19D388], esi
@@ -8016,11 +8045,11 @@ sub_1BB18:
         mov dword [dword_19D088], edx
         mov edx, 8
         mov dword [dword_19D384], edi
-        call sub_1A740
+        call SetCameraView
         mov edx, 12Ch
         lea eax, [byte ebx+04h]
         mov dword [dword_19D388], ebp
-        call sub_1B09C
+        call StartCameraPath
         mov dword [dword_16AF5C], edi
         call sub_F2AA0
 .1:
@@ -8093,7 +8122,7 @@ sub_1BC18:
         mov esi, sub_1BB94
         mov edi, 1
         mov ebp, 4B0h
-        call sub_1A740
+        call SetCameraView
         xor ebx, ebx
         xor ecx, ecx
         mov edx, 8
@@ -8106,7 +8135,7 @@ sub_1BC18:
         mov dword [dword_19D388], edx
         mov edx, 1F4h
         mov esi, unk_16897C
-        call sub_1B09C
+        call StartCameraPath
         mov edx, unk_16897C
         mov eax, 1
         mov dword [esp], ebp
@@ -8291,7 +8320,7 @@ sub_1BCDC:
         push ecx
         push dword [byte esp+010h]
         push dword [byte esp+018h]
-        call sub_1B034
+        call SetCameraPathPoint
         push byte 4
         mov eax, dword [byte esp+018h]
         mov edx, 6
@@ -8310,9 +8339,11 @@ sub_1BCDC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1BEA4                                                       1BEA4  97 PC
+; LoadOpeningCamera                               1BEA4  97 PC, low confidence
+; From OpeningSequence: loads the opening camera path intro%d.3cp from
+; arena.viv
 ;-----------------------------------------------------------------------------
-sub_1BEA4:
+LoadOpeningCamera:
         push ebx
         push ecx
         push edx
@@ -8322,7 +8353,7 @@ sub_1BEA4:
         sub esp, byte 14h
         mov edx, 8
         mov eax, unk_19D0A4
-        call sub_1A740
+        call SetCameraView
         mov edx, 8
         mov eax, 1
         mov dword [dword_19D388], edx
@@ -8334,7 +8365,7 @@ sub_1BEA4:
         call sprintf_
         add esp, byte 0Ch
         mov eax, asc_1604A8
-        call sub_4B1C4
+        call SetArtArchive
         push byte 20h
         lea eax, [byte esp+04h]
         push eax
@@ -8343,7 +8374,7 @@ sub_1BEA4:
         mov dword [dword_19D06C], eax
         xor eax, eax
         mov ebx, 1
-        call sub_4B1C4
+        call SetArtArchive
         mov edx, dword [dword_19D06C]
         mov edi, sub_1BCDC
         lea eax, [byte edx+04h]
@@ -8371,7 +8402,7 @@ sub_1BEA4:
         push ecx
         push dword [byte edx+010h]
         push dword [byte edx+0Ch]
-        call sub_1B034
+        call SetCameraPathPoint
         mov eax, dword [dword_19D078]
         mov ebx, ebp
         push byte 4
@@ -8426,13 +8457,13 @@ sub_1BFC0:
         movsd
         movsd
         movsd
-        call sub_1B09C
+        call StartCameraPath
         push dword 190h
         push byte 0
         mov edi, 457A0000h
         push dword 0C4FF0000h
         xor esi, esi
-        call sub_1AF90
+        call SetCameraFocus
         push byte 0
         mov edx, 1F4h
         push dword 457A0000h
@@ -8458,7 +8489,7 @@ sub_1BFC0:
         mov dword [dword_19D374], eax
         mov eax, 12h
         mov dword [dword_19D37C], ebp
-        call sub_1B09C
+        call StartCameraPath
         mov ebx, dword [dword_19D088]
         inc ebx
         mov dword [dword_19D08C], ebp
@@ -8478,7 +8509,7 @@ sub_1BFC0:
         mov ecx, 43FA0000h
         push dword 44070000h
         mov edx, 1F4h
-        call sub_1AF90
+        call SetCameraFocus
         push byte 0
         xor ebx, ebx
         push dword 43FA0000h
@@ -8512,7 +8543,7 @@ sub_1C108:
         mov edx, 8
         mov eax, unk_19D0A4
         mov ebp, sub_1BFC0
-        call sub_1A740
+        call SetCameraView
         add ecx, byte 4
         add ebx, byte 4
         xor esi, esi
@@ -8587,7 +8618,7 @@ sub_1C21C:
         mov eax, dword [dword_19D068]
         xor edx, edx
         mov ebx, 64h
-        call sub_1B3F4
+        call SelectCameraView
         mov edx, 10000h
         mov eax, 0FFFFFFFFh
         call sub_3E5F0
@@ -8635,13 +8666,13 @@ sub_1C29C:
         jne short .1
         mov edx, 8
         mov eax, unk_19D0A4
-        call sub_1A740
+        call SetCameraView
         mov edx, 8
         mov eax, 18h
         mov dword [dword_19D388], edx
         mov edx, 0C8h
         mov ebx, 1
-        call sub_1B09C
+        call StartCameraPath
         mov dword [dword_168628], ebx
 .1:
         pop edx
@@ -8710,7 +8741,7 @@ sub_1C360:
         mov dword [dword_19D088], edx
         mov dword [dword_19D084], ecx
         mov dword [dword_19D384], esi
-        call sub_191F8
+        call GetCameraTarget
         mov esi, eax
         movsd
         movsd
@@ -8728,7 +8759,7 @@ sub_1C360:
         jbe short .1
         mov eax, 0Fh
         lea edi, [byte esp+018h]
-        call sub_191F8
+        call GetCameraTarget
         mov esi, eax
         movsd
         movsd
@@ -8766,7 +8797,7 @@ sub_1C360:
         jae short .3
         mov eax, 0Fh
         lea edi, [byte esp+018h]
-        call sub_191F8
+        call GetCameraTarget
         mov esi, eax
         movsd
         movsd
@@ -8803,14 +8834,14 @@ sub_1C360:
         call sub_1AE58
         mov eax, esi
         mov edi, dword_19D374
-        call sub_191F8
+        call GetCameraTarget
         mov esi, eax
         mov edx, 0C8h
         mov eax, 12h
         movsd
         movsd
         movsd
-        call sub_1B09C
+        call StartCameraPath
         add esp, byte 2Ch
         pop ebp
         pop edi
@@ -8859,14 +8890,14 @@ sub_1C4F4:
         mov eax, unk_19D0A4
         mov esi, 1
         mov edi, 447A0000h
-        call sub_1A740
+        call SetCameraView
         xor ebp, ebp
         mov eax, 10h
         mov dword [dword_19D388], ecx
         mov dword [dword_19D0C8], esi
         xor edx, edx
         mov dword [dword_19D1B8], edi
-        call sub_1B09C
+        call StartCameraPath
         mov eax, 442F0000h
         push byte 4
         mov edi, unk_19D31C
@@ -8935,7 +8966,7 @@ sub_1C4F4:
         mov ecx, 458CA000h
         push dword [dword_19D188]
         mov edx, 7D0h
-        call sub_1AF90
+        call SetCameraFocus
         push byte 0
         xor ebx, ebx
         push dword 458CA000h
@@ -9106,7 +9137,7 @@ sub_1C854:
         mov ecx, 3F060A92h
         mov edi, dword_19D1A0
         mov esi, unk_19D04C
-        call sub_1A740
+        call SetCameraView
         xor ebx, ebx
         mov edx, 8
         push byte 4
@@ -9132,7 +9163,7 @@ sub_1C854:
         movsd
         movsd
         movsd
-        call sub_1B09C
+        call StartCameraPath
         pop edi
         pop esi
         pop edx
@@ -9200,7 +9231,7 @@ sub_1C8DC:
         movsd
         movsd
         movsd
-        call sub_191F8
+        call GetCameraTarget
         mov esi, eax
         mov eax, dword [dword_19D048]
         mov edx, eax
@@ -9275,13 +9306,13 @@ sub_1C9F0:
         mov dword [dword_19D088], ecx
         mov dword [dword_19D084], edi
         mov dword [dword_19D384], ebp
-        call sub_1A740
+        call SetCameraView
         mov eax, 8
         mov edx, ebx
         mov dword [dword_19D388], eax
         mov eax, 11h
         shl edx, 2
-        call sub_191F8
+        call GetCameraTarget
         sub edx, ebx
         mov esi, eax
         mov eax, edx
@@ -9303,7 +9334,7 @@ sub_1C9F0:
         mov edx, eax
         mov eax, 12h
         fstp dword [dword_19D378]
-        call sub_1B09C
+        call StartCameraPath
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -9319,7 +9350,7 @@ sub_1C9F0:
         mov edi, 43FA0000h
         mov ebp, 4541C000h
         mov ebx, 4
-        call sub_1A740
+        call SetCameraView
         mov eax, 0C47A0000h
         mov dword [dword_19D388], esi
         mov dword [esp], edi
@@ -9337,7 +9368,7 @@ sub_1C9F0:
         call sub_5DC1C
         mov eax, 11h
         mov edi, dword_19D374
-        call sub_191F8
+        call GetCameraTarget
         mov esi, eax
         mov ebx, 447A0000h
         xor edx, edx
@@ -9357,7 +9388,7 @@ sub_1C9F0:
         fxch
         fstp dword [dword_19D374]
         fstp dword [dword_19D378]
-        call sub_1B09C
+        call StartCameraPath
         movsd
         movsd
         movsd
@@ -9414,7 +9445,7 @@ sub_1CBD8:
         je near .2
         mov edi, sub_1CB9C
         mov ebp, 1
-        mov eax, dword [dword_19CBE4]
+        mov eax, dword [penshottimer]
         mov dword [dword_19D040], ebx
         add edx, byte 4
         xor ecx, ecx
@@ -9432,7 +9463,7 @@ sub_1CBD8:
         lea edx, [byte esp+04h]
         push dword 442F0000h
         mov ebx, 258h
-        call sub_1AF4C
+        call SetCameraHeight
         mov eax, 2
         call sub_1B1CC
         test eax, eax
@@ -9588,7 +9619,7 @@ sub_1CD80:
         lea ecx, [byte eax+02h]
         mov edx, 8
         mov eax, unk_19D0A4
-        call sub_1A740
+        call SetCameraView
         mov eax, 8
         mov dword [byte esp+018h], ecx
         mov dword [byte esp+01Ch], ebx
@@ -9598,7 +9629,7 @@ sub_1CD80:
         lea edx, [byte esp+01Ch]
         push dword 442F0000h
         mov ebx, 12Ch
-        call sub_1AF4C
+        call SetCameraHeight
         mov eax, 2
         call sub_1B1CC
         test eax, eax
@@ -9661,18 +9692,18 @@ sub_1CE98:
         mov dword [dword_19D088], eax
         mov eax, unk_19D0A4
         mov ebp, 8
-        call sub_1A740
+        call SetCameraView
         mov eax, 1
         xor edx, edx
         mov dword [dword_19D388], ebp
-        call sub_1B09C
+        call StartCameraPath
         mov eax, dword [dword_1686BA]
         xor edx, edx
         sar eax, 10h
-        call sub_1B3F4
+        call SelectCameraView
         mov eax, 1
         xor edx, edx
-        call sub_1B09C
+        call StartCameraPath
         xor eax, eax
         mov dword [dword_16AF5C], eax
         pop ebp
@@ -9707,7 +9738,7 @@ sub_1CE98:
         mov edx, 8
         mov eax, unk_19D0A4
         mov ebx, 8
-        call sub_1A740
+        call SetCameraView
         mov edx, 10000h
         mov eax, 0FFFFFFFFh
         mov dword [dword_19D388], ebx
@@ -9724,11 +9755,11 @@ sub_1CE98:
         je short .6
         mov eax, 1
         xor edx, edx
-        call sub_1B09C
+        call StartCameraPath
         mov eax, dword [dword_1686BA]
         mov edx, 12Ch
         sar eax, 10h
-        call sub_1B3F4
+        call SelectCameraView
         mov edx, 0FFFFFFFFh
         xor ebx, ebx
         mov dword [dword_168628], edx
@@ -9759,7 +9790,7 @@ sub_1D008:
         mov byte [byte_168930], ah
         mov byte [byte_16892E], ah
         mov eax, unk_19D0A4
-        call sub_1A740
+        call SetCameraView
         mov dword [dword_19D388], 8
         cmp byte [byte_16892F], 0
         je short .1
@@ -9795,11 +9826,11 @@ sub_1D09C:
         push edx
         mov eax, 1
         xor edx, edx
-        call sub_1B09C
+        call StartCameraPath
         mov eax, dword [dword_1686BA]
         xor edx, edx
         sar eax, 10h
-        call sub_1B3F4
+        call SelectCameraView
         pop edx
         ret
         db 08Bh,0C0h
@@ -9889,11 +9920,11 @@ sub_1D16C:
         mov dword [dword_19D084], esi
         mov edx, 8
         mov dword [dword_19D384], edi
-        call sub_1A740
+        call SetCameraView
         mov edx, 0C8h
         lea eax, [byte ebx+04h]
         mov dword [dword_19D388], ebp
-        call sub_1B09C
+        call StartCameraPath
 .1:
         pop ebp
         pop edi
@@ -9918,11 +9949,11 @@ sub_1D1DC:
         mov byte [byte_16892D], ah
         mov eax, 1
         mov dword [dword_19D384], edx
-        call sub_1B09C
+        call StartCameraPath
         mov eax, dword [dword_1686BA]
         xor edx, edx
         sar eax, 10h
-        call sub_1B3F4
+        call SelectCameraView
         pop edx
         ret
 ;-----------------------------------------------------------------------------
@@ -9934,11 +9965,11 @@ sub_1D208:
         xor edx, edx
         mov byte [byte_16892D], ah
         mov eax, 1
-        call sub_1B09C
+        call StartCameraPath
         mov eax, dword [dword_1686BA]
         xor edx, edx
         sar eax, 10h
-        call sub_1B3F4
+        call SelectCameraView
         pop edx
         ret
         db 08Bh,0C0h
@@ -10132,7 +10163,7 @@ sub_1D2A8:
         push edi
         mov eax, dword [dword_19D380]
         mov edx, 1
-        call sub_191F8
+        call GetCameraTarget
         mov dword [dword_19D094], edx
         test eax, eax
         je short .5
@@ -10173,7 +10204,7 @@ sub_1D480:
         mov dword [dword_19D0DC], ebx
         mov dword [dword_19D03C], ebx
         mov dword [dword_19D038], ebx
-        call sub_191F8
+        call GetCameraTarget
         mov dword [dword_19D094], ecx
         test eax, eax
         je short .1
@@ -10186,7 +10217,7 @@ sub_1D480:
         mov edx, 64h
         mov eax, 12h
         mov ebx, 0FFFFFFFFh
-        call sub_1B09C
+        call StartCameraPath
         mov dword [dword_19D034], ebx
         pop edi
         pop esi
@@ -10328,7 +10359,7 @@ sub_1D4FC:
         jle near .18
 .8:
         mov eax, ebx
-        call sub_191F8
+        call GetCameraTarget
         mov edx, eax
         mov esi, eax
         test eax, eax
@@ -10455,7 +10486,7 @@ sub_1D828:
         je short .1
         mov edx, 64h
         mov eax, ebx
-        call sub_1B09C
+        call StartCameraPath
 .1:
         mov dword [dword_19D034], 0FFFFFFFFh
         pop edx
@@ -10484,13 +10515,13 @@ sub_1D858:
         mov dword [dword_19D0DC], eax
         mov eax, dword [dword_19D380]
         mov dword [dword_19D0D0], ebp
-        call sub_191F8
+        call GetCameraTarget
         test eax, eax
         jne short .1
         mov eax, 12h
-        call sub_1B09C
+        call StartCameraPath
         mov eax, dword [dword_19D380]
-        call sub_191F8
+        call GetCameraTarget
 .1:
         test eax, eax
         je short .2
@@ -10506,7 +10537,7 @@ sub_1D858:
 .3:
         mov eax, dword [dword_19D380]
         mov ebx, 1
-        call sub_191F8
+        call GetCameraTarget
         mov dword [dword_19D094], ebx
         test eax, eax
         je short .4
@@ -10711,7 +10742,7 @@ sub_1D914:
         call sub_FF5E0
         mov eax, dword [dword_19D380]
         xor edx, edx
-        call sub_1B09C
+        call StartCameraPath
         add esp, byte 64h
         pop esi
         pop ecx
@@ -10739,7 +10770,7 @@ sub_1DBA0:
         xor edx, edx
         xor eax, eax
         mov ebx, 3
-        call sub_1B09C
+        call StartCameraPath
         mov eax, dword_19D374
         mov dword [dword_19D0CC], ebx
         xor edx, edx
@@ -10889,11 +10920,11 @@ sub_1DD5C:
         jne short .1
         mov edx, 64h
         mov eax, 12h
-        call sub_1B09C
+        call StartCameraPath
 .1:
         mov eax, dword [dword_19D380]
         mov ebx, esp
-        call sub_191F8
+        call GetCameraTarget
         mov edx, eax
         mov eax, dword_1B905F
         mov edi, 1
@@ -10901,7 +10932,7 @@ sub_1DD5C:
         call sub_FF7DC
         mov eax, dword [dword_19D380]
         fstp dword [dword_19D1B8]
-        call sub_191F8
+        call GetCameraTarget
         mov dword [dword_19D094], edi
         test eax, eax
         je short .2
@@ -11284,9 +11315,11 @@ sub_1E184:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1E208                                                       1E208  97 PC
+; assreplace                                                        1E208  94G
+; 94G assreplace: (player, assignment) replaces the current assignment (+0B2h
+; list at index +0B1h) and sets the new-assignment flag (+0BFh bit 1)
 ;-----------------------------------------------------------------------------
-sub_1E208:
+assreplace:
         push ebx
         mov ebx, dword [dword eax+0AEh]
         sar ebx, 18h
@@ -11296,9 +11329,11 @@ sub_1E208:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1E224                                                       1E224  97 PC
+; assinsert                                      1E224  94G, medium confidence
+; 94G assinsert: (player, assignment) pushes a new assignment (index - 1)
+; unless it is already the current one, then as assreplace
 ;-----------------------------------------------------------------------------
-sub_1E224:
+assinsert:
         push ebx
         mov ebx, dword [dword eax+0AEh]
         sar ebx, 18h
@@ -11318,9 +11353,11 @@ sub_1E224:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1E268                                                       1E268  97 PC
+; assexit                                                           1E268  94G
+; 94G assexit: ends the current assignment (index + 1) and sets the
+; new-assignment flag
 ;-----------------------------------------------------------------------------
-sub_1E268:
+assexit:
         push edx
         mov dl, byte [dword eax+0B1h]
         inc dl
@@ -12225,9 +12262,12 @@ sub_1E8B0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1EC5C                                                       1EC5C  97 PC
+; check4bench                                    1EC5C  94G, medium confidence
+; 94G check4bench: whether player a3 should go to the bench; if so assreplace
+; with assbench (17h); 0 when he stays (joystick-controlled, penalty shot,
+; ...)
 ;-----------------------------------------------------------------------------
-sub_1EC5C:
+check4bench:
         push ebx
         push ecx
         push edx
@@ -12290,7 +12330,7 @@ sub_1EC5C:
         ret
 .7:
         mov si, word [word_19CB98]
-        cmp si, word [word_19CBBA]
+        cmp si, word [gameclock]
         jne near .9
         cmp word [word_19CBBC], byte 0
         jne near .9
@@ -12418,7 +12458,7 @@ sub_1EC5C:
         test byte [byte_19CBC2], 1
         je near .20
         mov di, word [word_19CB98]
-        cmp di, word [word_19CBBA]
+        cmp di, word [gameclock]
         jne short .15
         cmp word [word_19CBBC], byte 0
         je short .16
@@ -12467,7 +12507,7 @@ sub_1EC5C:
         mov byte [dword ebx+0B1h], dl
 .19:
         movsx edx, cx
-        call sub_1E208
+        call assreplace
 .20:
         mov byte [dword ebx+0A8h], 0FFh
         mov byte [dword ebx+0A7h], 0FFh
@@ -12859,7 +12899,7 @@ sub_1F32C:
         mov byte [dword ecx+0B1h], dl
 .9:
         movsx edx, si
-        call sub_1E208
+        call assreplace
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
         mov dword [dword ebx+0ADh], eax
@@ -13024,7 +13064,7 @@ sub_1F5B4:
         test byte [dword eax+0BFh], 20h
         jne near .8
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .8
         test byte [byte_19CBC2], 1
@@ -13036,7 +13076,7 @@ sub_1F5B4:
         jne near .8
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         jmp near .8
 .1:
         mov dh, byte [dword ebx+0BFh]
@@ -13184,7 +13224,7 @@ sub_1F7D0:
         test byte [dword eax+0BFh], 20h
         jne near .17
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .17
         test byte [byte_19CBC2], 1
@@ -13196,7 +13236,7 @@ sub_1F7D0:
         jne near .17
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         jmp near .17
 .1:
         mov dh, byte [dword ebx+0BFh]
@@ -14144,9 +14184,9 @@ sub_20508:
 .1:
         call sub_114C4
         mov eax, 501h
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, 601h
-        call sub_16090
+        call RemoveOverlayPanel
         mov dl, byte [byte_19CBC2]
         mov ebx, SortCords
         and dl, 0FEh
@@ -14481,7 +14521,7 @@ sub_20508:
         test dl, 8
         jne short .30
         mov edx, 8
-        call sub_34EF8
+        call doplayeracc
 .30:
         pop edx
 sub_209CC:
@@ -14532,7 +14572,7 @@ sub_209E0:
         mov dword [byte ebx+020h], 0C50B8000h
 .3:
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         je short .4
         mov al, byte [dword ebx+0C1h]
@@ -14615,7 +14655,7 @@ sub_20A80:
         mov bh, byte [dword edx+0BFh]
         test bh, 40h
         je short .5
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         je short .7
         mov eax, 9
         jmp short .9
@@ -14897,12 +14937,12 @@ sub_20CB0:
         pop ebx
         ret
 .17:
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         je short .18
         mov dx, word [word_19CBEA]
         cmp dx, word [word_19CBAC]
         je short .18
-        call sub_33880
+        call EndPenaltyShot
         add esp, byte 2Ch
         pop ebp
         pop edi
@@ -15235,7 +15275,7 @@ sub_20CB0:
         mov edx, dword [dword ecx+0108h]
         inc word [dword edx+eax+01E45h]
 .56:
-        cmp word [word_19CBDE], byte 0
+        cmp word [penshotmode], byte 0
         je short .57
         mov eax, dword [dword ecx+0108h]
         inc word [dword eax+020E5h]
@@ -15251,7 +15291,7 @@ sub_20CB0:
         mov eax, dword [dword ecx+0108h]
         inc word [dword eax+020DDh]
 .59:
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         jne near .64
         mov dx, word [byte ecx+0Eh]
         cmp dx, word [byte esi+0Eh]
@@ -15315,7 +15355,7 @@ sub_20CB0:
         add esp, byte 10h
         jmp short .69
 .66:
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         jne short .67
         mov eax, dword [dword_19CBAA]
         sar eax, 10h
@@ -15380,7 +15420,7 @@ sub_20CB0:
         mov edx, dword [byte esp+012h]
         mov eax, edi
         sar edx, 10h
-        call sub_1E208
+        call assreplace
         mov edx, dword [dword ebx+0AEh]
         mov edi, 18h
         sar edx, 18h
@@ -15396,7 +15436,7 @@ sub_20CB0:
 .73:
         mov edx, dword [byte esp+016h]
         sar edx, 10h
-        call sub_1E208
+        call assreplace
         mov word [byte esp+010h], 16h
         mov edx, dword [dword ebx+0AEh]
         sar edx, 18h
@@ -15427,7 +15467,7 @@ sub_20CB0:
         mov eax, edi
 .77:
         sar edx, 10h
-        call sub_1E208
+        call assreplace
 .78:
         inc ecx
         add ebx, 108h
@@ -15435,7 +15475,7 @@ sub_20CB0:
         jl near .71
         cmp dword [dword_1B8FA0], byte 0
         jne short .79
-        mov eax, dword [word_19CBA0]
+        mov eax, dword [gameover]
         sar eax, 10h
         mov ecx, dword [word_19CB98]
         push eax
@@ -15449,7 +15489,7 @@ sub_20CB0:
         sar eax, 10h
         sar ebx, 10h
         push eax
-        mov eax, dword [word_19CBB8]
+        mov eax, dword [gsp]
         sar edx, 10h
         sar eax, 10h
         call sub_AA4BC
@@ -15458,7 +15498,7 @@ sub_20CB0:
         mov eax, dword [dword esi+0104h]
         xor ebx, ebx
         call sub_32340
-        call sub_33880
+        call EndPenaltyShot
         mov eax, dword [off_168D04]
         mov edx, dword [dword eax+0AEh]
         sar edx, 18h
@@ -15536,7 +15576,7 @@ sub_20CB0:
         dec cl
         mov byte [byte_19EC61], cl
 .85:
-        call sub_2E8F0
+        call UpdateCoachModes
 .86:
         add esp, byte 2Ch
         pop ebp
@@ -15790,7 +15830,7 @@ sub_21B20:
         push ebp
         sub esp, byte 8
         mov ecx, eax
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .19
         mov ah, byte [dword ecx+0BFh]
@@ -17009,7 +17049,7 @@ sub_22B8C:
         test byte [dword eax+0BFh], 20h
         jne near .6
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .6
         test byte [byte_19CBC2], 1
@@ -17021,7 +17061,7 @@ sub_22B8C:
         jne near .6
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         pop edi
         pop edx
         pop ecx
@@ -17126,7 +17166,7 @@ sub_22CEC:
         test byte [dword eax+0BFh], 20h
         jne near .5
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .5
         test byte [byte_19CBC2], 1
@@ -17138,7 +17178,7 @@ sub_22CEC:
         jne near .5
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         pop esi
         pop edx
         pop ecx
@@ -17248,7 +17288,7 @@ sub_22E70:
         test byte [dword eax+0BFh], 20h
         jne near .5
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .5
         test byte [byte_19CBC2], 1
@@ -17260,7 +17300,7 @@ sub_22E70:
         jne near .5
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         pop esi
         pop edx
         pop ecx
@@ -17985,7 +18025,7 @@ sub_238E8:
         test byte [dword eax+0BFh], 20h
         jne near .7
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .7
         test byte [byte_19CBC2], 1
@@ -17997,7 +18037,7 @@ sub_238E8:
         jne near .7
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         pop edi
         pop edx
         pop ecx
@@ -18117,7 +18157,7 @@ sub_23A78:
         test byte [dword eax+0BFh], 20h
         jne near .4
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .4
         test byte [byte_19CBC2], 1
@@ -18129,7 +18169,7 @@ sub_23A78:
         jne near .4
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         pop esi
         pop edx
         pop ecx
@@ -18210,7 +18250,7 @@ sub_23B88:
         test byte [dword eax+0BFh], 20h
         jne near .4
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .4
         test byte [byte_19CBC2], 1
@@ -18222,7 +18262,7 @@ sub_23B88:
         jne near .4
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         pop esi
         pop edx
         pop ecx
@@ -18304,7 +18344,7 @@ sub_23C98:
         test byte [dword eax+0BFh], 20h
         jne near .11
         mov eax, edx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .11
         mov bl, byte [dword edx+0BFh]
@@ -18316,7 +18356,7 @@ sub_23C98:
         and bh, 0FDh
         mov byte [dword edx+0C0h], cl
         mov byte [dword edx+0BFh], bh
-        cmp word [word_19CBDE], byte 0
+        cmp word [penshotmode], byte 0
         je near .5
         mov cx, word [word_19CBE6]
         mov al, byte [dword edx+0A4h]
@@ -19042,7 +19082,7 @@ sub_244BC:
         jne near .12
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         jmp near .12
 .8:
         mov eax, dword [off_168CF0]
@@ -19499,7 +19539,7 @@ sub_249F8:
         mov byte [dword ebx+0B1h], dl
 .2:
         movsx edx, si
-        call sub_1E208
+        call assreplace
         mov eax, dword [dword ebx+0FAh]
         mov dword [byte eax+01Ch], 0
         mov eax, ebx
@@ -20402,7 +20442,7 @@ sub_251F0:
         mov byte [dword esi+0B1h], dl
 .32:
         movsx edx, bx
-        call sub_1E208
+        call assreplace
         mov eax, dword [off_168CFC]
         mov dword [byte eax+060h], 0A0h
         mov eax, 1
@@ -20467,9 +20507,9 @@ sub_25730:
         push edx
         push edi
         mov ebx, eax
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         jne short .1
-        cmp word [word_19CBBA], byte 4
+        cmp word [gameclock], byte 4
         jge short .1
         mov eax, dword [dword eax+0FEh]
         mov edx, dword [dword ebx+0102h]

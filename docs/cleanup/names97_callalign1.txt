@@ -1,0 +1,24 @@
+sub_11908 ResetBench {source=94G,confidence=medium} 94G ResetBench (96 PC body): the bench and penalty box state of both teams' rosters
+sub_11ED8 reenergizeteam {source=94G,confidence=medium} 94G reenergizeteam (96 PC body): every player's energy back to 1000h
+sub_2DCC8 CPgoalie {source=94G,confidence=medium} 94G CPgoalie (96 PC body): pulls the computer team's goalie late in the third period
+sub_2E6D4 SetCoachMode {source=96PC,confidence=medium} 96 PC SetCoachMode: the coach mode from the score difference
+sub_332C0 updatepentime {source=94G,confidence=medium} 94G updatepentime (96 PC body): counts the penalty times down, from chkprogress
+sub_33368 checkfornewpen {source=94G,confidence=medium} 94G checkfornewpen (96 PC body), from chkprogress
+sub_33950 InProgress {source=94G,confidence=medium} 94G InProgress: the penalty in progress (whistle, box, power play), from chkprogress after checkfornewpen
+sub_4890C CountRecordGame {source=96PC,confidence=medium} 96 PC CountRecordGame: counts one game of a W/L/T byte string
+sub_FBFDC addtimer {source=96PC,confidence=medium} 96 PC addtimer: adds a timer callback to the 8-entry table
+dword_1CF26C timercallbacks {source=96PC,confidence=medium} 96 PC timercallbacks: the 8 timer callbacks (addtimer)
+word_19CBDE penshotmode {source=96PC,confidence=medium} 96 PC penshotmode (CPgoalie, EndPenaltyShot)
+sub_3FB7C CdStreamContigData {source=96PC,confidence=high} 96 PC CdStreamContigData, same body
+sub_D67D4 FadePalette {source=96PC,confidence=medium} 96 PC FadePalette: fades the 300h-byte palette
+sub_8DE19 DrawScrollBar {source=96PC,confidence=medium} 96 PC DrawScrollBar, same structure
+sub_8DE9D SetScrollBarPos {source=96PC,confidence=low} 96 PC SetScrollBarPos, the call after DrawScrollBar at the same places
+sub_10B780 ClipLineY {source=96PC,confidence=medium} 96 PC ClipLineY (the line clipper of the 3D library)
+sub_10B99C ClipLineX {source=96PC,confidence=medium} 96 PC ClipLineX
+sub_10BBB8 DrawLineYPlot {source=96PC,confidence=medium} 96 PC DrawLineYPlot
+sub_10BD74 DrawLineY {source=96PC,confidence=medium} 96 PC DrawLineY
+sub_10BEC0 DrawLineXPlot {source=96PC,confidence=medium} 96 PC DrawLineXPlot
+sub_10C07C DrawLineX {source=96PC,confidence=medium} 96 PC DrawLineX
+sub_33950_8B2 InProgress_8B2 {no_record}
+sub_33950_96E InProgress_96E {no_record}
+sub_127D4 setpersonel {source=94G,confidence=medium} 94G setpersonel (96 PC body): clears the team's 6 on-ice slots and sets the personnel

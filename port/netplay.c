@@ -42,12 +42,14 @@
 /* ---- the game's code and data (original linear addresses) ---- */
 #define O_PLAYGAME     SYM_PlayGame            /* PlayGame: push 28h (5 bytes), call __CHK ... */
 #define O_LOOP         SYM_GameLoop            /* GameLoop, up to the next routine */
-#define O_LOOP_END     SYM_sub_14E60
+#define O_LOOP_END     SYM_InitGameDisplay     /* InitGameDisplay, the routine after GameLoop */
 #define O_SAMPLER      SYM_InputRecordTimer    /* push ebx, ecx, edx, esi, edi, ebp */
 #define O_AVAIL        SYM_InputRecordAvail    /* push 4 / call __CHK / mov eax, InputRecordCount / ret */
 #define O_READPADS     SYM_PollControllers     /* the controllers into SlotWords, the hot keys into HotKeyFlags */
 #define O_INITPADS     SYM_InitSlotTable       /* InitSlotTable(eax: the 8 controller set-up bytes): SlotWords' high bytes, the teams */
 #define O_MENU         SYM_RunInGameMenu
+#define O_STREAMSVC    0x3EF68u                /* sub_3EF68, the audio stream service */
+#define O_NEXTCHUNK    0x3FBE4u                /* sub_3FBE4, the stream's next chunk (0: none) */
 #define O_TICK_ISR     SYM_TimerISR            /* has inc dword [tickcount] (FF 05 addr) */
 #define O_CSEED_FN     SYM_GetRandState        /* mov eax, <the C library's rand state> / ret */
 #define D_EASEED       SYM_seed                /* randomd0's state */
@@ -163,7 +165,7 @@ static int nh_frame(void *user)
     return r;
 }
 
-/* what the desync check compares: both random states, the clock, the steps, the record ring */
+/* what the desync check compares: both random states, the clock, the steps, the record ring, the players' positions */
 static uint64_t sim_hash(void)
 {
     uint64_t h = 1469598103934665603ULL;
@@ -171,9 +173,12 @@ static uint64_t sim_hash(void)
     uint32_t v[4];
     const uint8_t *q;
     size_t k;
+    int i;
     v[0] = G32(D_EASEED); v[1] = cs ? *cs : 0; v[2] = *nh_tick_ptr; v[3] = nh_steps;
     for (q = (const uint8_t *)v, k = 0; k < sizeof v; k++) { h ^= q[k]; h *= 1099511628211ULL; }
     for (q = GAME_ADDR(D_QRING), k = 0; k < 5 * REC_N; k++) { h ^= q[k]; h *= 1099511628211ULL; }
+    for (i = 0; i < 16; i++)                        /* where everyone is: SortCords' positions and speeds (+1Ch..+38h of each 108h) */
+        for (q = GAME_ADDR(SYM_SortCords) + i * 0x108 + 0x1C, k = 0; k < 0x1C; k++) { h ^= q[k]; h *= 1099511628211ULL; }
     return h;
 }
 
@@ -184,7 +189,7 @@ static void read_local(uint32_t step)
     uint16_t *slots = (uint16_t *)GAME_ADDR(D_SLOTS), saved[8], w;
     int i;
     if (getenv("NHL97_AUTOPAD")) {
-        w = (uint16_t)(((my_cfg & 0x87u) << 8) | (1u + step / 6u % 8u) | (step % 13u == 0 ? 0x10u : 0) | (step % 29u == 0 ? 0x20u : 0));
+        w = (uint16_t)(((my_cfg & 0x87u) << 8) | (step < 100u ? 0u : (1u + step / 6u % 8u) | (step % 13u == 5u ? 0x10u : 0)));
         nh_local[0] = w; nh_local[1] = 0;
         return;
     }
@@ -478,6 +483,26 @@ __attribute__((naked)) static void tick_stub(void)
         "1:\n\tincl " SYM("nh_rt_ticks") "\n\tret");
 }
 
+/* The streamed audio (the stream service sub_3EF68 and its "next chunk" sub_3FBE4) is not part of a session. Its buffers and
+ * its state are in the game's memory, so a loaded state takes them back, while the sound card's DMA and the stream file's
+ * position go on: the service then found its stream stopped, or waited for ever (the loop at 3EF88) for an event that had already
+ * happened. In a session (muted anyway: audio.c) the service does nothing and there is never a next chunk. */
+void *nh_svc_cont, *nh_chunk_cont;
+__attribute__((naked)) static void svc_entry(void)       /* sub_3EF68: push ebx, esi, edi, ebp / sub esp, 4 */
+{
+    __asm__ volatile(
+        "cmpl $0, " SYM("nh_sim") "\n\tjne 1f\n\t"
+        "pushl %ebx\n\tpushl %esi\n\tpushl %edi\n\tpushl %ebp\n\tsubl $4, %esp\n\tjmp *" SYM("nh_svc_cont") "\n"
+        "1:\n\tret");
+}
+__attribute__((naked)) static void chunk_entry(void)     /* sub_3FBE4: push ebx, esi / mov eax, [esp+0Ch] */
+{
+    __asm__ volatile(
+        "cmpl $0, " SYM("nh_sim") "\n\tjne 1f\n\t"
+        "pushl %ebx\n\tpushl %esi\n\tmovl 12(%esp), %eax\n\tjmp *" SYM("nh_chunk_cont") "\n"
+        "1:\n\txorl %eax, %eax\n\tret");
+}
+
 static void set_call(uint8_t *p, void *to)
 {
     int32_t rel = (int32_t)((uintptr_t)to - ((uintptr_t)p + 5));
@@ -546,6 +571,15 @@ void netplay_install(void)
     }
     for (i = 0; i < nmenu; i++) set_call(menus[i], (void *)menu_stub);
     set_call(loops[0], (void *)loop_stub);
+    {
+        static const uint8_t svc_head[7] = { 0x53, 0x56, 0x57, 0x55, 0x83, 0xEC, 0x04 }, chunk_head[6] = { 0x53, 0x56, 0x8B, 0x44, 0x24, 0x0C };
+        if (!memcmp(GAME_ADDR(O_STREAMSVC), svc_head, 7) && !memcmp(GAME_ADDR(O_NEXTCHUNK), chunk_head, 6)) {
+            nh_svc_cont = GAME_ADDR(O_STREAMSVC + 7);
+            nh_chunk_cont = GAME_ADDR(O_NEXTCHUNK + 6);
+            patch_jmp(GAME_ADDR(O_STREAMSVC), (void *)svc_entry);
+            patch_jmp(GAME_ADDR(O_NEXTCHUNK), (void *)chunk_entry);
+        } else fprintf(stderr, "online play: the audio stream service is not as expected, not patched\n");
+    }
     nh_ok = 1;
 }
 

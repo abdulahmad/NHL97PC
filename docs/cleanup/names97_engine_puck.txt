@@ -1,0 +1,10 @@
+sub_2D308 pucknorm {source=96PC,confidence=medium} 96 PC pucknorm: player handler 43 (off_19C3F4), the puck's normal handler: clears the new-assignment flag (+0BFh bit 1) and its counter, then pucknorm_body
+sub_2CA40 pucknorm_body {source=96PC,confidence=medium} 96 PC pucknorm_body: the puck's handler body: the puck carrier (off_168CF0), goals and the puck physics
+sub_2D330 puckfaceoff2 {source=96PC,confidence=low} 96 PC puckfaceoff2: player handler 45, after puckfaceoff: waits for AllInPlace, resets the bench and the personnel, then drops the puck
+sub_2A3F4 assstanley {source=96PC,confidence=low} 96 PC assstanley: player handler 46, the Stanley Cup presentation (cuppal, LoadCupArt, fade, camera path)
+sub_1E208 assreplace {source=94G,confidence=high} 94G assreplace: (player, assignment) replaces the current assignment (+0B2h list at index +0B1h) and sets the new-assignment flag (+0BFh bit 1)
+sub_1E224 assinsert {source=94G,confidence=medium} 94G assinsert: (player, assignment) pushes a new assignment (index - 1) unless it is already the current one, then as assreplace
+sub_1E268 assexit {source=94G,confidence=high} 94G assexit: ends the current assignment (index + 1) and sets the new-assignment flag
+sub_11B38 setplayer {source=94G,confidence=medium} 94G setplayer: (player, roster index) brings a player onto the ice: pnum (+0A6h), marks him in the team's line table (+50h, 8001h / 8002h)
+sub_11504 forcepldata {source=94G,confidence=medium} 94G forcepldata: (team) faceoffs only: puts each player straight into his requested position (+0A8h -> +0A9h), assnearest for the centre, setplayer
+sub_2E378 CompLine {source=94G,confidence=medium} 94G CompLine: (team, other team) picks the line for the computer team to change to (0F33h threshold, as 96 PC)

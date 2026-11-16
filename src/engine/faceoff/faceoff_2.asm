@@ -10,7 +10,7 @@ extern byte_19EC62, byte_19EC8B, dword_1608C0, dword_1608E4, dword_1608E8, dword
 extern dword_168B1C, dword_168B66, dword_168D20, dword_168D8E, dword_168DA4, dword_168DCC, dword_168E70, dword_168E74
 extern dword_168E7C, dword_19CA2F, dword_19CA88, dword_19CA8C, dword_19CB30, dword_19CB32, dword_19CB38, dword_19CB3C
 extern dword_19CB3E, dword_19CB40, dword_19CB44, dword_19CB48, dword_19CB54, dword_19CB62, dword_19CB66, dword_19CB6A
-extern dword_19CB7B, dword_19CBAA, dword_19CBE4, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC02, dword_19CC30
+extern dword_19CB7B, dword_19CBAA, penshottimer, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC02, dword_19CC30
 extern dword_19CC54, dword_19CC58, dword_19CC5C, dword_19CC7C, dword_19CC9C, dword_19CCA4, dword_19D3AC, dword_19D40D
 extern dword_19D410, dword_19DAD3, dword_19EBAA, dword_19EBB8, dword_19ECB6, dword_19ECC4, dword_19ECD0, dword_19ECEC
 extern dword_1AC814, dword_1AC944, dword_1B8FA0, dword_1BF060, dword_1C13FF, dword_1C3522, hmtmstruct, hypot_
@@ -23,15 +23,15 @@ extern qword_16094C, qword_160954, qword_16095C, qword_160964, qword_16096C, qwo
 extern qword_16098C, qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qword_1609B4, qword_1609BC, randomd0
 extern regd1, slotteam, sub_100940, sub_100A68, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
 extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, sub_101154, sub_1011E8
-extern sub_101220, sub_101230, sub_11504, sub_11B38, sub_127D4, sub_13D50, sub_13EB4, sub_16090
-extern sub_18D8A, sub_18E35, sub_1C108, sub_1C210, sub_1C29C, sub_1C7B4, sub_1CCBC, sub_1D16C
-extern sub_1E184, sub_1E208, sub_1E224, sub_1E268, sub_1E8B0, sub_1FB6C, sub_20CB0, sub_24220
-extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, sub_2E378, sub_2EDB8
-extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, sub_42098, sub_42220, sub_424CC, sub_45BEC
-extern sub_48D70, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
+extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
+extern QueueOverlayPanel, sub_18E35, sub_1C108, sub_1C210, sub_1C29C, sub_1C7B4, sub_1CCBC, sub_1D16C
+extern sub_1E184, assreplace, assinsert, assexit, sub_1E8B0, sub_1FB6C, sub_20CB0, sub_24220
+extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, CompLine, sub_2EDB8
+extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, sub_42098, PlaySfx, sub_424CC, sub_45BEC
+extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
 extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
 extern sub_71D48, sub_71E58, sub_71F4C, sub_76FE8, sub_77F94, sub_780F0, sub_AA588, sub_F9A88
-extern sub_FAAB4, sub_FAF34, sub_FB71C, sub_FBFDC, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
+extern sub_FAAB4, sub_FAF34, sub_FB71C, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
 extern unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E, unk_19D5A0, unk_19D5D2, unk_19D668, unk_19E060
 extern unk_19ECC8, unk_19ECE4, unk_1C135C, unk_1C347F, vecdist, vtoa, word_1686D6, word_168E2C
 extern word_168E2E, word_168E34, word_168E60, word_19C3EC, word_19C3EE, word_19C628, word_19C62A, word_19CA90
@@ -39,8 +39,8 @@ extern word_19CA92, word_19CA94, word_19CA96, word_19CB18, word_19CB28, word_19C
 extern word_19CB64, word_19CB68, word_19CB72, word_19CB76, word_19CB78, word_19CB7A, word_19CB7C, word_19CB80
 extern word_19CB82, word_19CB86, word_19CB88, word_19CB8C, word_19CB8E, word_19CB90, word_19CB92, word_19CB94
 extern word_19CB96, word_19CB98, word_19CBA4, word_19CBA6, word_19CBA8, word_19CBAC, word_19CBAE, word_19CBB4
-extern word_19CBB6, word_19CBB8, word_19CBBA, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD4, word_19CBD6
-extern word_19CBD8, word_19CBDA, word_19CBDC, word_19CBDE, word_19CBE0, word_19CBE2, word_19CBE6, word_19CBEA
+extern word_19CBB6, gsp, gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD4, word_19CBD6
+extern word_19CBD8, word_19CBDA, word_19CBDC, penshotmode, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA
 extern word_19CBEC, word_19CBEE, word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19CC26
 extern word_19CC28, word_19CC2A, word_19CC2C, word_19CC2E, word_19CC50, word_19CC52, word_19D69A, word_19D69C
 extern word_19D69E, word_19DAEA, word_19EAB2, word_19EAB4, word_19EABE, word_19EAC0, word_19EBBE, word_19EBC0
@@ -48,15 +48,15 @@ extern word_19EBCA, word_19EBCC
 global CountTeamSlots, GiveControl, ReadJoy1, SlotToJoy, changeplayer, chkprogress, jpt_2FB20, jpt_30890
 global jpt_32328, jpt_380E6, jpt_38102, jpt_3811A, sub_2FB40_229, sub_2FB40_2CE, sub_2FB40_2EB, sub_2FB40_30C
 global sub_2FB40_32D, sub_2FB40_370, sub_308AC_1D, sub_308AC_21, sub_308AC_25, sub_308AC_29, sub_308AC_2D, sub_308AC_31
-global sub_308AC_35, sub_32340_2BD, sub_32340_2CB, sub_32340_2D2, sub_32340_308, sub_32340_32E, sub_32340_354, sub_33950_8B2
-global sub_33950_96E, sub_3509C_E0, sub_36E34_1EC, sub_37198_DE, sub_37744_24C, puckfaceoff, restorepl, sub_2F4B8
+global sub_308AC_35, sub_32340_2BD, sub_32340_2CB, sub_32340_2D2, sub_32340_308, sub_32340_32E, sub_32340_354, InProgress_8B2
+global InProgress_96E, sub_3509C_E0, sub_36E34_1EC, sub_37198_DE, sub_37744_24C, puckfaceoff, restorepl, sub_2F4B8
 global sub_2F744, sub_2F818, sub_2F8D8, sub_2FA00, sub_2FB40, sub_2FED8, sub_2FFB8, sub_30300
 global sub_305D8, sub_30674, sub_30778, sub_3085C, sub_308AC, sub_308F4, sub_30998, sub_30A34
 global sub_30BD8, sub_31070, sub_313F4, sub_31540, sub_31A2C, sub_31A5C, sub_31B6C, sub_31C14
 global sub_31F88, sub_32184, sub_32260, sub_32340, sub_32888, sub_32B68, sub_32C04, sub_32CEC
-global sub_32D88, sub_32FF8, sub_3319C, sub_332C0, sub_33368, sub_335CC, sub_336E4, sub_33880
-global sub_33904, sub_33950, sub_34330, sub_343F8, sub_34500, sub_348DC, sub_34950, sub_34A48
-global sub_34B04, sub_34B78, sub_34C18, sub_34CF4, sub_34EF8, sub_34F58, sub_34FD0, sub_3505C
+global sub_32D88, sub_32FF8, sub_3319C, updatepentime, checkfornewpen, sub_335CC, sub_336E4, EndPenaltyShot
+global sub_33904, InProgress, sub_34330, sub_343F8, sub_34500, sub_348DC, sub_34950, sub_34A48
+global sub_34B04, sub_34B78, sub_34C18, sub_34CF4, doplayeracc, sub_34F58, sub_34FD0, sub_3505C
 global sub_3509C, sub_35188, sub_35234, sub_353B4, sub_35464, sub_35588, sub_35690, sub_356A8
 global sub_358E4, sub_36370, sub_363EC, sub_36524, sub_365FC, sub_36754, sub_36778, sub_36AB0
 global sub_36E34, sub_37044, sub_3708C, sub_37134, sub_37198, sub_3727C, sub_37374, sub_373D8
@@ -109,7 +109,7 @@ puckfaceoff:
         and byte [dword edi+0BFh], 0FDh
         mov eax, dword [off_168CFC]
         mov word [byte eax+06Dh], 0FFFFh
-        cmp word [word_19CBBA], byte 0
+        cmp word [gameclock], byte 0
         jne short .4
         cmp word [word_19CBBC], byte 0
         je short .5
@@ -120,7 +120,7 @@ puckfaceoff:
         call sub_77F94
         jmp near .33
 .6:
-        cmp word [word_19CBB8], byte 3
+        cmp word [gsp], byte 3
         jne short .7
         mov dx, word [awtmstruct]
         cmp dx, word [hmtmstruct]
@@ -163,7 +163,7 @@ puckfaceoff:
         inc ebx
         cmp bx, byte 8
         jl short .9
-        cmp word [word_19CBDE], byte 0
+        cmp word [penshotmode], byte 0
         je short .13
         xor edx, edx
         mov word [word_19CC52], dx
@@ -194,9 +194,9 @@ puckfaceoff:
         test byte [byte eax+01h], 0C0h
         jne short .15
         mov eax, hmtmstruct
-        call sub_127D4
+        call setpersonel
         mov eax, awtmstruct
-        call sub_127D4
+        call setpersonel
 .15:
         mov esi, 0FFFFFFFFh
         mov eax, dword [dword_1AC944]
@@ -326,9 +326,9 @@ puckfaceoff:
 .25:
         mov edx, awtmstruct
         mov eax, hmtmstruct
-        call sub_2E378
+        call CompLine
         mov eax, awtmstruct
-        call sub_127D4
+        call setpersonel
         mov eax, 1
         call sub_28C0C
         mov eax, dword [awtmstruct]
@@ -336,7 +336,7 @@ puckfaceoff:
         push eax
         push dword 12Ch
         push byte 8
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
 .26:
         xor esi, esi
@@ -355,21 +355,21 @@ puckfaceoff:
         imul ebx, edx, dword 10Ch
         add ebx, hmtmstruct
         mov eax, ebx
-        call sub_127D4
+        call setpersonel
         mov eax, edx
         call sub_28C0C
         mov eax, dword [dword_1AC944]
         test byte [byte eax+02h], 20h
         jne short .29
-        cmp word [word_19CBB8], byte 0
+        cmp word [gsp], byte 0
         jne short .29
         mov dx, word [word_19CB98]
-        cmp dx, word [word_19CBBA]
+        cmp dx, word [gameclock]
         jne short .29
         cmp word [word_19CBBC], byte 0
         jne short .29
         mov eax, ebx
-        call sub_11504
+        call forcepldata
         jmp short .29
 .28:
         mov cx, word [dword eax+word_19CA90]
@@ -403,9 +403,9 @@ puckfaceoff:
 .30:
         mov edx, hmtmstruct
         mov eax, awtmstruct
-        call sub_2E378
+        call CompLine
         mov eax, hmtmstruct
-        call sub_127D4
+        call setpersonel
         xor eax, eax
         call sub_28C0C
         mov eax, dword [hmtmstruct]
@@ -413,7 +413,7 @@ puckfaceoff:
         push eax
         push dword 12Ch
         push byte 7
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
 .31:
         mov eax, dword [dword_1AC944]
@@ -613,7 +613,7 @@ sub_2F4B8:
         push ebx
         push byte 0Dh
         mov dword [dword_19CC00], ebx
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         mov edx, dword [dword ecx+0A3h]
         mov ah, byte [dword ecx+0BFh]
@@ -663,7 +663,7 @@ sub_2F744:
         ja short .2
         sar edx, 2
 .2:
-        cmp word [word_19CBB8], byte 2
+        cmp word [gsp], byte 2
         jle short .3
         shl edx, 2
 .3:
@@ -1652,7 +1652,7 @@ sub_30300:
         cmp edx, byte 0FFFFFFFFh
         jne near .18
         mov eax, ebx
-        call sub_1E268
+        call assexit
         pop esi
         pop ecx
         pop ebx
@@ -1895,7 +1895,7 @@ sub_30674:
         test byte [byte_19CBC8], 8
         jne short .2
         mov eax, ecx
-        call sub_1E268
+        call assexit
         add esp, byte 8
         pop esi
         pop edx
@@ -2015,7 +2015,7 @@ sub_30778:
         mov edx, 11h
         mov word [word_19CB7A], ax
         mov eax, ebx
-        call sub_1E208
+        call assreplace
 .8:
         pop edx
         pop ecx
@@ -2033,7 +2033,7 @@ sub_3085C:
         mov word [word_19CB80], dx
         mov word [word_19CB7A], dx
         mov edx, 11h
-        call sub_1E208
+        call assreplace
 .1:
         pop edx
         ret
@@ -4311,7 +4311,7 @@ sub_32260:
         cmp dword [dword_19CB38], byte 0
         je near .5
 .1:
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         jne near .5
         cmp dx, byte 4
         je near .4
@@ -4406,7 +4406,7 @@ sub_32340:
 .2:
         push eax
         push byte 0
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
 .3:
         mov esi, dword [byte ebp-04h]
@@ -4472,7 +4472,7 @@ sub_32340:
         sete al
         and eax, 0FFh
         call sub_424CC
-        mov edx, dword [dword_19CBE4]
+        mov edx, dword [penshottimer]
         sar edx, 10h
         mov eax, edx
         shl eax, 5
@@ -4483,7 +4483,7 @@ sub_32340:
         add eax, dword_1C3522
         jmp short .12
 .11:
-        mov edx, dword [dword_19CBE4]
+        mov edx, dword [penshottimer]
         sar edx, 10h
         mov eax, edx
         shl eax, 5
@@ -4778,7 +4778,7 @@ sub_32340_354:
         add eax, byte 36h
         movsx edx, ax
         mov eax, dword [off_168D04]
-        call sub_1E208
+        call assreplace
 .29:
         pop edx
         ret
@@ -4973,7 +4973,7 @@ sub_32888:
         mov edx, 64h
         push dword [byte eax+020h]
         mov eax, 461h
-        call sub_42220
+        call PlaySfx
         jmp short .26
 .25:
         call sub_18E35
@@ -5149,12 +5149,12 @@ sub_32CEC:
         movsx edx, dx
         call sub_1FB6C
         mov eax, ebx
-        call sub_11B38
+        call setplayer
         or byte [dword ebx+0C0h], 4
         mov eax, 500h
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, 600h
-        call sub_16090
+        call RemoveOverlayPanel
         pop esi
         pop ecx
         pop ebx
@@ -5230,7 +5230,7 @@ sub_32D88:
         xor ebx, ebx
         jmp near .17
 .9:
-        cmp word [word_19CBB8], byte 3
+        cmp word [gsp], byte 3
         jne short .10
         mov si, word [awtmstruct]
         cmp si, word [hmtmstruct]
@@ -5307,7 +5307,7 @@ sub_32D88:
         cmp word [word_19CBEE], byte 7
         jne short .18
         mov eax, 7
-        call sub_16090
+        call RemoveOverlayPanel
 .18:
         mov dx, word [byte edi+0Eh]
         cmp dx, word [byte ebp+0Eh]
@@ -5463,7 +5463,7 @@ sub_32FF8:
         mov eax, 409h
         push dword [byte edx+020h]
         mov edx, 64h
-        call sub_42220
+        call PlaySfx
 .7:
         movsx edx, cx
         test word [byte ebx+edx*2+050h], 7FFh
@@ -5607,9 +5607,11 @@ sub_3319C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_332C0                                                       332C0  97 PC
+; updatepentime                                  332C0  94G, medium confidence
+; 94G updatepentime (96 PC body): counts the penalty times down, from
+; chkprogress
 ;-----------------------------------------------------------------------------
-sub_332C0:
+updatepentime:
         push ebx
         push edx
         push esi
@@ -5619,7 +5621,7 @@ sub_332C0:
         mov byte [byte_19CBCC], ah
         test dl, 1
         jne near .4
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         jne near .4
         mov bx, word [word_19CBD4]
         dec ebx
@@ -5658,9 +5660,10 @@ sub_332C0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_33368                                                       33368  97 PC
+; checkfornewpen                                 33368  94G, medium confidence
+; 94G checkfornewpen (96 PC body), from chkprogress
 ;-----------------------------------------------------------------------------
-sub_33368:
+checkfornewpen:
         push ebx
         push ecx
         push edx
@@ -5778,7 +5781,7 @@ sub_33368:
         push dword 0C8h
         push eax
         mov ecx, 28h
-        call sub_18D8A
+        call QueueOverlayPanel
         mov eax, dword [off_168D04]
         mov dword [dword_19CB30], ecx
         or byte [dword eax+0C1h], 2
@@ -5932,11 +5935,11 @@ sub_336E4:
         push edx
         push esi
         push edi
-        cmp word [word_19CBDE], byte 0
+        cmp word [penshotmode], byte 0
         jne near .14
         mov ebx, 1
         mov cx, word [word_19CBE6]
-        mov word [word_19CBDE], bx
+        mov word [penshotmode], bx
         cmp cx, byte 5
         setg al
         xor ah, ah
@@ -5954,7 +5957,7 @@ sub_336E4:
         mov eax, dword [dword eax+0108h]
         inc word [dword eax+020E3h]
 .3:
-        mov edx, dword [dword_19CBE4]
+        mov edx, dword [penshottimer]
         sar edx, 10h
         mov eax, edx
         shl eax, 5
@@ -6039,7 +6042,7 @@ sub_336E4:
         sar eax, 10h
         push eax
         push dword 0C0000002h
-        call sub_48D70
+        call PaEvent
         add esp, byte 14h
 .14:
         pop edi
@@ -6050,24 +6053,26 @@ sub_336E4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_33880                                                       33880  97 PC
+; EndPenaltyShot                               33880  95 PC, medium confidence
+; Clears penshotmode / penshotlive / penshotplayer, AddPenalty2, restores
+; state
 ;-----------------------------------------------------------------------------
-sub_33880:
+EndPenaltyShot:
         push ebx
         push ecx
         push edx
         push edi
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         je short .1
-        cmp word [word_19CBDE], byte 0
+        cmp word [penshotmode], byte 0
         je short .1
         mov edi, 0FFFFFFFFh
         mov edx, 3
         mov eax, dword [off_168CFC]
         xor ecx, ecx
         xor ebx, ebx
-        mov word [word_19CBDE], cx
-        mov word [word_19CBE2], cx
+        mov word [penshotmode], cx
+        mov word [penshotlive], cx
         mov word [word_19CBE6], di
         call sub_32340
         mov ax, word [word_19CBA6]
@@ -6078,7 +6083,7 @@ sub_33880:
         mov word [word_19CBB4], ax
         mov word [word_19CB90], ax
         mov eax, dword [off_168D04]
-        call sub_1E208
+        call assreplace
         call sub_1CCBC
 .1:
         pop edi
@@ -6121,9 +6126,11 @@ sub_33904:
         mov eax, 0FFFFFFFFh
         ret
 ;-----------------------------------------------------------------------------
-; sub_33950                                                       33950  97 PC
+; InProgress                                     33950  94G, medium confidence
+; 94G InProgress: the penalty in progress (whistle, box, power play), from
+; chkprogress after checkfornewpen
 ;-----------------------------------------------------------------------------
-sub_33950:
+InProgress:
         push ebx
         push ecx
         push edx
@@ -6207,7 +6214,7 @@ sub_33950:
         add esp, byte 10h
         push dword 1F4h
         push byte 0Ch
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 8
 .7:
         and byte [byte_19CBC2], 0FBh
@@ -6220,7 +6227,7 @@ sub_33950:
         cmp dx, byte 43h
         je short .8
         mov edx, 42h
-        call sub_1E208
+        call assreplace
 .8:
         xor ah, ah
         mov byte [byte_19CBFC], ah
@@ -6303,15 +6310,15 @@ sub_33950:
         add eax, byte 36h
         movsx edx, ax
         mov eax, dword [off_168D04]
-        call sub_1E208
+        call assreplace
 .14:
-        mov eax, dword [dword_19CBE4]
+        mov eax, dword [penshottimer]
         sar eax, 10h
         push eax
         push dword 1F4h
         push byte 0Bh
         mov esi, 320h
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         mov dword [dword_19CC00], esi
         mov esp, ebp
@@ -6365,7 +6372,7 @@ sub_33950:
         xor ebx, ebx
         mov edx, dword [word_19CBAE]
         mov bl, al
-        mov eax, dword [word_19CBB8]
+        mov eax, dword [gsp]
         sar edx, 10h
         sar eax, 10h
         call sub_AA588
@@ -6383,7 +6390,7 @@ sub_33950:
         push eax
         push dword 1F4h
         push byte 4
-        call sub_18D8A
+        call QueueOverlayPanel
         mov eax, 320h
         add esp, byte 14h
         mov dword [dword_19CC00], eax
@@ -6429,7 +6436,7 @@ sub_33950:
         mov edx, 1Ah
         mov word [byte eax+050h], 8005h
         mov eax, edi
-        call sub_1E208
+        call assreplace
         movsx edx, si
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
@@ -6452,7 +6459,7 @@ sub_33950:
         add eax, byte 36h
         movsx edx, ax
         mov eax, dword [off_168D04]
-        call sub_1E208
+        call assreplace
 .25:
         movsx edx, si
         lea eax, [nosplit edx*4+00h]
@@ -6496,7 +6503,7 @@ sub_33950:
         and eax, 0FFh
         push eax
         push dword 0C0000003h
-        call sub_48D70
+        call PaEvent
         add esp, byte 14h
         mov esp, ebp
         pop ebp
@@ -6621,7 +6628,7 @@ sub_33950:
         and eax, 0FFh
         push eax
         push dword 0C0000003h
-        call sub_48D70
+        call PaEvent
         add esp, byte 14h
 .39:
         imul ecx, byte 3Ch
@@ -6771,7 +6778,7 @@ sub_33950:
         mov byte [dword eax+088h], dl
         mov edx, 12h
         mov eax, edi
-        call sub_1E208
+        call assreplace
         xor eax, eax
         mov al, byte [byte ebp-04h]
         cmp ax, 3
@@ -6786,7 +6793,7 @@ sub_33950:
         add eax, byte 36h
         movsx edx, ax
         mov eax, dword [off_168D04]
-        call sub_1E208
+        call assreplace
 .56:
         mov esp, ebp
         pop ebp
@@ -6796,19 +6803,19 @@ sub_33950:
         pop ecx
         pop ebx
         ret
-sub_33950_8B2:
+InProgress_8B2:
         mov edx, dword [dword_19CB30]
         dec edx
         mov dword [dword_19CB30], edx
         test edx, edx
-        jge near sub_33950_96E
+        jge near InProgress_96E
         mov edi, esi
         xor ecx, ecx
         dec edi
         mov dword [dword_19CB30], ecx
         mov word [word_19CBF0], di
         test di, di
-        jge near sub_33950_96E
+        jge near InProgress_96E
         mov bl, byte [byte_19CBC2]
         mov eax, 0FFFFFFFDh
         and bl, 0F7h
@@ -6820,7 +6827,7 @@ sub_33950_8B2:
         mov cl, byte [dword ebx+byte_19CA30]
         add edx, byte 3
         test cl, cl
-        je short sub_33950_96E
+        je short InProgress_96E
         cmp byte [dword eax+byte_19CA32], 0
         je short .57
         mov al, byte [byte_19CBCA]
@@ -6838,12 +6845,12 @@ sub_33950_8B2:
         cmp byte [dword edx+eax+0B2h], 41h
         jne short .58
         mov edx, 40h
-        call sub_1E224
+        call assinsert
 .58:
         mov eax, dword [word_19CBEC]
         sar eax, 10h
-        call sub_16090
-sub_33950_96E:
+        call RemoveOverlayPanel
+InProgress_96E:
         pop edi
         pop esi
         pop edx
@@ -6858,8 +6865,8 @@ sub_33950_96E:
 ; bit 2
 ;-----------------------------------------------------------------------------
 chkprogress:
-        call sub_332C0
-        call sub_33368
+        call updatepentime
+        call checkfornewpen
         LD mov, eax, eax
         push ebx
         push ecx
@@ -6867,7 +6874,7 @@ chkprogress:
         push esi
         push edi
         test byte [byte_19CBC2], 1
-        je short sub_33950_96E
+        je short InProgress_96E
         mov dx, word [word_19CB72]
         test dx, dx
         jl short .1
@@ -6879,11 +6886,11 @@ chkprogress:
         or byte [byte_19CBCA], 4
 .1:
         test byte [byte_19CBC2], 4
-        je short sub_33950_96E
+        je short InProgress_96E
         mov si, word [word_19CBF0]
         test si, si
-        jge near sub_33950_8B2
-        call sub_33950
+        jge near InProgress_8B2
+        call InProgress
         pop edi
         pop esi
         pop edx
@@ -7584,7 +7591,7 @@ sub_34A48:
         call sub_1E184
 .5:
         mov eax, ebx
-        call sub_127D4
+        call setpersonel
         test byte [dword ecx+0BFh], 40h
         jne short .6
         mov edx, dword [ebx]
@@ -7600,7 +7607,7 @@ sub_34A48:
         push dword 12Ch
         push byte 8
 .7:
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop esi
         pop ecx
@@ -7710,7 +7717,7 @@ sub_34B78:
         mov edx, dword [dword_19CB66]
         mov eax, ebx
         sar edx, 10h
-        call sub_34EF8
+        call doplayeracc
 .4:
         pop edx
         pop ecx
@@ -7970,9 +7977,11 @@ sub_34CF4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_34EF8                                                       34EF8  97 PC
+; doplayeracc                                    34EF8  94G, medium confidence
+; 94G doplayeracc: (player, direction 0-7, 8+ = none) the player accelerates
+; toward the direction (x87 heading, sub_34CF4)
 ;-----------------------------------------------------------------------------
-sub_34EF8:
+doplayeracc:
         push ebp
         mov ebp, esp
         sub esp, byte 4
@@ -8090,7 +8099,7 @@ sub_34FD0:
         mov edx, dword [byte esp-02h]
         mov eax, ebx
         sar edx, 10h
-        call sub_34EF8
+        call doplayeracc
         mov eax, ebx
         call sub_1E8B0
         add esp, byte 4
@@ -8122,7 +8131,7 @@ sub_3505C:
         call sub_34F58
         movsx edx, cx
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         mov eax, 1
         pop ecx
         pop ebx
@@ -8719,7 +8728,7 @@ sub_356A8:
         cmp byte [dword ecx+eax+0B2h], 0Eh
         jne short .4
         mov eax, ecx
-        call sub_1E268
+        call assexit
 .4:
         mov eax, dword [off_168CF0]
         xor edx, edx
@@ -8879,13 +8888,13 @@ sub_358E4:
         mov ax, word [word_19CB68]
         xor ah, ah
         and al, 0Fh
-        mov dx, word [word_19CBDE]
+        mov dx, word [penshotmode]
         cwde
         and esi, 0FFh
         mov dword [dword_19CB40], eax
         test dx, dx
         jne short .1
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         je short .2
 .1:
         test byte [byte_19CBC2], 1
@@ -8893,7 +8902,7 @@ sub_358E4:
 .2:
         cmp word [nosplit esi*2+word_19CB28], byte 0
         je near .10
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         jne near .10
         test esi, esi
         je short .3
@@ -8958,7 +8967,7 @@ sub_358E4:
         sar edx, 18h
         cmp byte [dword edx+eax+0B2h], 43h
         jne short .13
-        cmp word [word_19CBDE], byte 0
+        cmp word [penshotmode], byte 0
         jne short .13
         test byte [regd1], 40h
         je near .55
@@ -9594,7 +9603,7 @@ sub_358E4:
         mov edx, dword [dword_19CB3E]
         mov eax, ebx
         sar edx, 10h
-        call sub_34EF8
+        call doplayeracc
 .55:
         add esp, byte 4
         pop ebp
@@ -9820,10 +9829,10 @@ sub_36524:
         call sub_32340
         mov edx, 1Ch
         mov eax, esi
-        call sub_1E224
+        call assinsert
         mov edx, 1Ch
         mov eax, ecx
-        call sub_1E224
+        call assinsert
         xor eax, eax
         mov al, byte [dword esi+0A4h]
         call GiveControl
@@ -9904,7 +9913,7 @@ sub_365FC:
         mov byte [eax], 0FFh
         mov edx, 40h
         mov eax, dword [off_168CFC]
-        call sub_1E224
+        call assinsert
         mov eax, 9
         movsx ebx, bx
         call sub_424CC
@@ -9926,7 +9935,7 @@ sub_365FC:
         jne short .6
         mov edx, 1Dh
         mov eax, ecx
-        call sub_1E224
+        call assinsert
 .6:
         inc ebx
         add ecx, 108h
@@ -10376,7 +10385,7 @@ sub_36AB0:
         and cl, 0FEh
         mov eax, ebx
         mov byte [dword ebx+0C0h], cl
-        call sub_1E268
+        call assexit
         mov eax, ebx
         call sub_60F48
         mov eax, dword [dword ebx+0EEh]
@@ -11772,7 +11781,7 @@ sub_379AC:
         call sub_100B88
         add esp, byte 0Ch
         push sub_37744_24C
-        call sub_FBFDC
+        call addtimer
         add esp, byte 4
         push sub_37A1C
         mov ebx, 1

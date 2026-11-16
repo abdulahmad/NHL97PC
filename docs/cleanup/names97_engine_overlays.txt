@@ -1,0 +1,62 @@
+sub_17AD1 DrawGameClock {source=96PC,confidence=medium} 96 PC DrawGameClock: the game clock "%2d:%02d", or "%2d.%01d" under a minute
+sub_17DC0 DrawClockPanel {source=96PC,confidence=low} the clock panel (overlay kind table off_16877E entry 0): removes panels 300h / 700h and draws the clock (DrawGameClock)
+sub_1900F DrawGameOverlays {source=96PC,confidence=medium} 96 PC DrawGameOverlays: from GameLoop, the overlay panels of the frame (clock, queued panels)
+sub_18D8A QueueOverlayPanel {source=96PC,confidence=medium} 96 PC QueueOverlayPanel (kind, ticks, ...): puts a panel in a free slot of the 10-panel queue (unk_19CF8C, 0Ch each)
+sub_16090 RemoveOverlayPanel {confidence=medium} (kind): takes the queued panels of a kind out of the panel queue
+sub_16D61 DrawVideoModePanel {confidence=medium} the screen mode panel ("%d x %d", Doubled / Interlaced / Normal)
+sub_16ED0 DrawGoalScorerPanel {confidence=low} the "%s - #%d %s %s" panel with "%s %s" assist lines (team, number, name)
+sub_17158 DrawPlayerNamePanel {source=96PC,confidence=low} a player name panel ("#%d %s %s"), like 96 PC DrawPlayerNamePanel
+sub_1BEA4 LoadOpeningCamera {confidence=low} from OpeningSequence: loads the opening camera path intro%d.3cp from arena.viv
+sub_16ED0_26F DrawGoalScorerPanel_26F {no_record}
+sub_17158_16F DrawPlayerNamePanel_16F {no_record}
+sub_17158_48E DrawPlayerNamePanel_48E {no_record}
+sub_17158_49A DrawPlayerNamePanel_49A {no_record}
+sub_17158_4D7 DrawPlayerNamePanel_4D7 {no_record}
+sub_1A740 SetCameraView {confidence=medium} (camera, view 0-0Dh): fills a camera record (unk_19D0A4) with the view's name (GetLangText) and settings
+sub_1B3F4 SelectCameraView {confidence=medium} (view, ticks): picks the game camera view (mod 10) with SetCameraView and moves the camera to it
+sub_141AC ShowCameraView {confidence=low} (view 0-7): from the camera keys and the attract game: SelectCameraView and the camera name panel
+sub_1B09C StartCameraPath {confidence=low} (path, ticks): starts a camera path (dword_19D380) for the game camera
+sub_1A740_14F SetCameraView_14F {no_record}
+sub_1A740_16 SetCameraView_16 {no_record}
+sub_1A740_1EF SetCameraView_1EF {no_record}
+sub_1A740_25A SetCameraView_25A {no_record}
+sub_1A740_2CE SetCameraView_2CE {no_record}
+sub_1A740_36E SetCameraView_36E {no_record}
+sub_1A740_40E SetCameraView_40E {no_record}
+sub_1A740_4AE SetCameraView_4AE {no_record}
+sub_1A740_532 SetCameraView_532 {no_record}
+sub_1A740_5A5 SetCameraView_5A5 {no_record}
+sub_1A740_608 SetCameraView_608 {no_record}
+sub_1A740_AF SetCameraView_AF {no_record}
+sub_15AC2 ChangeViewSize {confidence=medium} (+1 / -1): the game view size in steps of 10 between 28h and 64h percent (word_1686E4), then the view window
+sub_15BC5 SetViewWindow {confidence=low} the game view window from the view size and the screen size (dword_16E464 x dword_16E468)
+sub_1603A ApplyDisplayFlags {confidence=low} sets the doubled / interlaced display flags (dword_19CD30, dword_19CD34) in the screen record
+sub_3C75C SetVideoMode {confidence=medium} (width, height): switches the screen mode when it differs from the current one (dword_1A8E84 x dword_1A8E88)
+sub_191F8 GetCameraTarget {confidence=low} (target 4-10h and up): the position record of a camera target (player records at dword_1B1410, then fixed targets); 0 when none
+sub_1963C UpdateCameraView {confidence=low} (camera, ...): per frame, the camera by its view kind (+24h, 0-0Dh)
+sub_19F30 UpdateCameraZoom {confidence=low} (camera): the camera distance by its zoom mode (+28h, 0-5)
+sub_1A31C UpdateCameraTrack {confidence=low} (camera): follows the camera path target by its track mode (+2Ch, 0-5)
+sub_1AF4C SetCameraHeight {confidence=low} sets the camera height (dword_19D1A4), at once or eased over frames
+sub_1AF90 SetCameraFocus {confidence=low} sets the camera focus x / z (dword_19D1A0, dword_19D1A8), at once or eased
+sub_1B034 SetCameraPathPoint {confidence=low} sets the camera path point (dword_19D340, dword_19D344), at once or eased
+sub_1963C_11B UpdateCameraView_11B {no_record}
+sub_1963C_1AC UpdateCameraView_1AC {no_record}
+sub_1963C_272 UpdateCameraView_272 {no_record}
+sub_1963C_28 UpdateCameraView_28 {no_record}
+sub_1963C_326 UpdateCameraView_326 {no_record}
+sub_1963C_461 UpdateCameraView_461 {no_record}
+sub_1963C_54 UpdateCameraView_54 {no_record}
+sub_1963C_5F0 UpdateCameraView_5F0 {no_record}
+sub_1963C_7F5 UpdateCameraView_7F5 {no_record}
+sub_1963C_8D3 UpdateCameraView_8D3 {no_record}
+sub_1963C_AC UpdateCameraView_AC {no_record}
+sub_19F30_169 UpdateCameraZoom_169 {no_record}
+sub_19F30_21 UpdateCameraZoom_21 {no_record}
+sub_19F30_221 UpdateCameraZoom_221 {no_record}
+sub_19F30_232 UpdateCameraZoom_232 {no_record}
+sub_19F30_3CB UpdateCameraZoom_3CB {no_record}
+sub_1A31C_19B UpdateCameraTrack_19B {no_record}
+sub_1A31C_22F UpdateCameraTrack_22F {no_record}
+sub_1A31C_2D2 UpdateCameraTrack_2D2 {no_record}
+sub_1A31C_30 UpdateCameraTrack_30 {no_record}
+sub_1A31C_8E UpdateCameraTrack_8E {no_record}

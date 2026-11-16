@@ -5,7 +5,7 @@ section s_1CEF88 nobits alloc noexec write align=1
 global dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dword_1CEF98, dword_1CEF9C, dword_1CEFA0, dword_1CEFA4
 global dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dword_1CEFBC, dword_1CEFC4, dword_1CEFC8, dword_1CEFCC
 global dword_1CEFD4, dword_1CEFD8, dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, dword_1CF0D8, dword_1CF0E0
-global dword_1CF25C, dword_1CF260, dword_1CF264, dword_1CF268, dword_1CF26C, dword_1CF28C, dword_1CF290, dword_1CF294
+global dword_1CF25C, dword_1CF260, dword_1CF264, dword_1CF268, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294
 global dword_1CF298, memlist1, unk_1CEFE8, word_1CEFC0, word_1CF28E
 dword_1CEF88:
         resb 4
@@ -69,7 +69,7 @@ dword_1CF264:
         resb 4
 dword_1CF268:
         resb 4
-dword_1CF26C:
+timercallbacks:
         resb 32
 dword_1CF28C:
         resb 2

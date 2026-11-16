@@ -17,7 +17,7 @@ extern sub_101220, sub_102B78, sub_11313C, sub_118D54, sub_118E3F, sub_118F7B, s
 extern sub_11908E, sub_1190E8, sub_11910D, sub_1191A4, sub_1191B8, sub_1191D1, sub_119255, sub_119328
 extern sub_11FAD6, sub_120763, sub_123FA8, sub_12F270, sub_13130C, sub_1313FD, sub_37AB4, sub_7C614
 extern ModemHangup, sub_7C714, ModemAutoAnswer, ModemWaitConnect, sub_7CAB4, sub_F99C0, sub_F9A28, sub_F9A88
-extern sub_FAA64, sub_FAAB4, sub_FAF34, sub_FB704, sub_FB71C, sub_FBFDC, sub_FC008, WaitTicks
+extern sub_FAA64, sub_FAAB4, sub_FAF34, sub_FB704, sub_FB71C, addtimer, sub_FC008, WaitTicks
 extern unk_167FA4, unk_172264, unk_17226C, unk_172274, unk_1DA3C4, unk_1DA418, unk_1DA448, unk_1DA464
 extern unk_1DA466, unk_1DA468, unk_1DA498, unk_1DA4A4, unlink_, word_1DA4A6, word_1DA4A8, word_1DA4AA
 extern word_1DA4AC, word_1DA4AE, word_1DA4B0, word_1DA4B2
@@ -3562,7 +3562,7 @@ sub_11D364:
         jne short .9
         db 068h                                 ; insn: push 10D280h
         dd sub_11D118_168
-        call sub_FBFDC
+        call addtimer
         add esp, byte 4
 .9:
         push edi

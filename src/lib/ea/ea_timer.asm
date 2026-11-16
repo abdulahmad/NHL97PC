@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_FC008 progbits alloc exec nowrite align=1
 extern __STOSD, _dos_getvect_, _dos_setvect_, asc_167D2C, dword_16E3FC, dword_16E402, dword_16E4B0, dword_16E4B4
-extern dword_16E4C8, dword_1CF26C, dword_1CF28C, dword_1CF290, dword_1CF294, sub_101220, sub_FAA64, sub_FAF34
+extern dword_16E4C8, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, sub_101220, sub_FAA64, sub_FAF34
 extern TimerISR, word_16E406
 global RestoreTimer, sub_FC008, sub_FC0F0
 ;-----------------------------------------------------------------------------
@@ -13,13 +13,13 @@ sub_FC008:
         push ebx
         push esi
         mov edx, dword [byte esp+0Ch]
-        mov ebx, dword [dword_1CF26C]
+        mov ebx, dword [timercallbacks]
         xor eax, eax
         cmp edx, ebx
         jne short .2
 .1:
         xor esi, esi
-        mov dword [dword eax+dword_1CF26C], esi
+        mov dword [dword eax+timercallbacks], esi
         pop esi
         pop ebx
         ret
@@ -27,7 +27,7 @@ sub_FC008:
         add eax, byte 4
         cmp eax, byte 20h
         jge short .3
-        cmp edx, dword [dword eax+dword_1CF26C]
+        cmp edx, dword [dword eax+timercallbacks]
         je short .1
         jmp short .2
 .3:
@@ -38,7 +38,7 @@ sub_FC008:
         xor edx, edx
         xor eax, eax
 .4:
-        cmp dword [dword eax+dword_1CF26C], byte 0
+        cmp dword [dword eax+timercallbacks], byte 0
         je short .5
         inc edx
 .5:
@@ -144,7 +144,7 @@ sub_FC0F0:
         test bx, bx
         jne short .2
         mov ecx, 8
-        mov eax, dword_1CF26C
+        mov eax, timercallbacks
         xor edx, edx
         call __STOSD
         mov eax, 8

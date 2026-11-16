@@ -10,10 +10,10 @@ extern dword_16E46C, dword_1AC814, dword_1AC940, dword_1AC944, dword_1ACF46, dwo
 extern dword_1AD62F, dword_1AD6AB, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, jpt_D3102
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, sub_101324, sub_101390
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_101EAC, sub_102B94, sub_10CD98, sub_13C164
-extern sub_39824, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC, sub_48D70, sub_4A280, sub_4B108
-extern sub_4B19C, sub_7B84B, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C
-extern sub_80BBC, sub_80F48, sub_83BF4, InitMenuItems, sub_8BFAC, sub_8E7E0, sub_D306F, sub_DA7D6
-extern sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, sub_DE3CF, sub_E036F, sub_E117B, sub_E12D1
+extern sub_39824, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC, PaEvent, sub_4A280, LoadDataFile
+extern OpenDataLibrary, sub_7B84B, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, DrawTextAligned
+extern sub_80BBC, sub_80F48, sub_83BF4, InitMenuItems, sub_8BFAC, GetLangText, sub_D306F, sub_DA7D6
+extern sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, sub_DE3CF, sub_E036F, LoadExhibitionFile, FreeExhibitionFile
 extern sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcount
 extern unk_1670CF, unk_16711C, unk_167124, unk_167128, unk_167130, unk_167138, unk_16713C, unk_167144
 extern unk_167148, unk_167150, unk_167154, unk_16715C, unk_167160, unk_167168, unk_16716C, unk_167178
@@ -80,7 +80,7 @@ sub_D3112:
         call sub_419B8
         xor edx, edx
         mov eax, 3Ch
-        call sub_4B108
+        call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp+07Eh], eax
         mov eax, 3
@@ -88,7 +88,7 @@ sub_D3112:
         call sub_419B0
         call sub_419B8
         mov eax, 3Dh
-        call sub_4B108
+        call LoadDataFile
         mov dword [byte ebp+07Ah], eax
         mov eax, 3
         call sub_419B0
@@ -127,7 +127,7 @@ sub_D3112:
         test byte [dword_1AC814], 70h
         jne short .4
         lea eax, [byte ebp+042h]
-        call sub_E117B
+        call LoadExhibitionFile
         mov eax, dword [dword_1AC944]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
@@ -527,7 +527,7 @@ sub_D3112:
         call sub_101390
         add esp, byte 0Ch
         mov eax, 39h
-        call sub_4B19C
+        call OpenDataLibrary
         mov eax, dword [dword_1AC944]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
@@ -966,7 +966,7 @@ sub_D3112_BC3:
         test byte [dword_1AC814], 70h
         jne short .35
         lea eax, [byte ebp+042h]
-        call sub_E12D1
+        call FreeExhibitionFile
 .35:
         mov eax, dword [byte ebp+056h]
 sub_D3112_C3F:
@@ -993,7 +993,7 @@ sub_D3D5D:
         jne short .5
         mov eax, 11h
 .2:
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, dword [dword_16D744]
         push dword [nosplit eax*4+dword_1CC864]
@@ -1005,7 +1005,7 @@ sub_D3D5D:
         jmp short .2
 .4:
         mov eax, 13h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push unk_1ACF12
         mov eax, dword [dword_16D744]
@@ -1053,7 +1053,7 @@ sub_D3DFA:
         push eax
         movsx eax, word [byte ebp+07Eh]
         add eax, byte 22h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov edx, dword [dword_16D744]
         push asc_1670C6
@@ -1187,7 +1187,7 @@ sub_D3DFA:
         push eax
         mov eax, 7Ch
 .11:
-        call sub_8E7E0
+        call GetLangText
         push eax
         lea eax, [byte ebp+056h]
         push eax
@@ -1203,7 +1203,7 @@ sub_D3DFA:
 .13:
         mov eax, 7Ah
 .14:
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         lea eax, [byte ebp+056h]
         call strcpy_
@@ -1214,14 +1214,14 @@ sub_D3DFA:
         imul eax, dword [byte ebp+072h], byte 7
         add eax, edx
         movzx eax, byte [dword eax+ebp-0D0Eh]
-        call sub_8E7E0
+        call GetLangText
         push eax
         lea eax, [dword ebp-0C6h]
         push eax
         lea eax, [dword ebp-0B6h]
         push eax
         mov eax, 5Dh
-        call sub_8E7E0
+        call GetLangText
         mov edx, dword [dword_16D744]
         push eax
         inc edx
@@ -1349,7 +1349,7 @@ sub_D41D1:
         push dword 140h
         push byte 1
         inc ebx
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
 .2:
         cmp ebx, dword [dword_16D744]
@@ -1419,11 +1419,11 @@ sub_D4225_86:
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], ecx
         mov eax, 1Bh
-        call sub_8E7E0
+        call GetLangText
         push eax
         push ebx
         mov eax, 1Ah
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov ebx, dword [dword_16D744]
         push asc_1670DE
@@ -1436,7 +1436,7 @@ sub_D4225_C5:
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], ecx
         mov eax, 1Ch
-        call sub_8E7E0
+        call GetLangText
         push eax
         push ebx
         mov ebx, dword [dword_16D744]
@@ -1455,11 +1455,11 @@ sub_D4225_10F:
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], ecx
         mov eax, 1Eh
-        call sub_8E7E0
+        call GetLangText
         push eax
         push ebx
         mov eax, 1Dh
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov ebx, dword [dword_16D744]
         push asc_1670ED
@@ -1472,11 +1472,11 @@ sub_D4225_14B:
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], ecx
         mov eax, 20h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push ebx
         mov eax, 1Fh
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov ebx, dword [dword_16D744]
         push asc_1670DE
@@ -1701,7 +1701,7 @@ sub_D4225_14B:
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], ebx
         mov eax, 21h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov ebx, dword [dword_16D744]
         push unk_1670CF
@@ -1734,7 +1734,7 @@ sub_D4225_14B:
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], ebx
         mov eax, 22h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov ebx, dword [dword_16D744]
         push unk_1670CF
@@ -2122,7 +2122,7 @@ sub_D4AAC:
         push eax
         push dword [dword_1AD226]
         push dword 0B0000005h
-        call sub_48D70
+        call PaEvent
         add esp, byte 0Ch
         jmp near .32
 .12:
@@ -2246,7 +2246,7 @@ sub_D4AAC:
         push dword [dword ebx+dword_1AD6AB]
 .31:
         push dword 0B0000006h
-        call sub_48D70
+        call PaEvent
         add esp, byte 14h
 .32:
         leave

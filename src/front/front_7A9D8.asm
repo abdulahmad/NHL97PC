@@ -17,12 +17,12 @@ extern str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, strcat_, strcpy_, strlen
 extern strstr_, sub_100A68, sub_1013AC, sub_1013FC, sub_101429, sub_103234, sub_1047D0, sub_108900
 extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, sub_109210, sub_116D38
 extern sub_116E84, sub_116F78, sub_117338, sub_11756C, sub_117C26, sub_118C88, sub_119054, sub_11910D
-extern sub_1191D1, sub_1191F2, sub_119780, sub_13C164, sub_3E818, sub_3EB40, sub_3EC58, sub_3EE74
-extern CdStreamService, sub_3FBE4, sub_3FC7C, sub_3FD0C, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern sub_41DB8, sub_41DD8, sub_41EA4, sub_48D70, MakeDataPath, sub_4B074, sub_4B108, WriteGlobalSet
-extern sub_7F5A4, sub_80BBC, sub_81678, sub_84B55, sub_85A15, sub_85D1D, sub_8BDCF, sub_8BE23
-extern sub_8BE60, sub_8BEF8, sub_8BFA0, sub_8E740, sub_8E7E0, sub_8E840, sub_9CFD3, sub_9D333
-extern sub_C3594, sub_D547C, sub_D70C4, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
+extern sub_1191D1, sub_1191F2, sub_119780, sub_13C164, sub_3E818, delstream, CdStreamStart, CdStreamOpenSecondary
+extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, sub_3FD0C, sub_419B0, sub_419B8, sub_41A28, sub_41D18
+extern sub_41DB8, sub_41DD8, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
+extern sub_7F5A4, sub_80BBC, sub_81678, MainMenuScreen, RunGameScreens, sub_85D1D, sub_8BDCF, sub_8BE23
+extern sub_8BE60, sub_8BEF8, sub_8BFA0, LoadLangText, GetLangText, FreeLangText, sub_9CFD3, sub_9D333
+extern sub_C3594, sub_D547C, CreditsScreen, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
 extern sub_E0415, sub_E069E, sub_E076B, sub_E0841, sub_E08E9, sub_E3410, sub_E341C, sub_F9650
 extern sub_FAA64, sub_FAAB4, sub_FAF34, sub_FBE40, WaitTicks, sub_FC330, sub_FC510, sub_FCD90
 extern sub_FD08C, sub_FD0F8, sub_FD110, tickcount, unk_164138, unk_16413C, unk_164150, unk_164158
@@ -30,8 +30,8 @@ extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
 global sub_7A9D8_77E, sub_7CB8C_45, putchar, sub_7A9D8, sub_7B15D, sub_7B4E4, sub_7B84B, sub_7B85A
 global sub_7B88D, sub_7BB27, sub_7BBB0, sub_7BC34, sub_7BC68, sub_7BCF0, sub_7BE04, sub_7BF64
 global sub_7C038, sub_7C3EC, sub_7C614, ModemHangup, sub_7C714, ModemAutoAnswer, ModemWaitConnect, ModemReadResult
-global ModemSendCommand, ModemAttention, sub_7CAB4, sub_7CADA, sub_7CB8C, sub_7CBD6, sub_7CDD8, sub_7CE9E
-global sub_7CF94
+global ModemSendCommand, ModemAttention, sub_7CAB4, LoadLogoNames, sub_7CB8C, InitFrontEnd, FreeFrontEnd, RunFrontEnd
+global TitleScreen
 ;-----------------------------------------------------------------------------
 ; sub_7A9D8                                                       7A9D8  97 PC
 ;-----------------------------------------------------------------------------
@@ -1360,7 +1360,7 @@ sub_7B88D:
         push eax
         mov eax, 7Ch
 .10:
-        call sub_8E7E0
+        call GetLangText
         push eax
         lea eax, [byte ebp+056h]
         push eax
@@ -1376,7 +1376,7 @@ sub_7B88D:
 .12:
         mov eax, 7Ah
 .13:
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         lea eax, [byte ebp+056h]
         call strcpy_
@@ -1387,14 +1387,14 @@ sub_7B88D:
         imul eax, edi, byte 7
         add eax, edx
         movzx eax, byte [dword eax+ebp-0D3Eh]
-        call sub_8E7E0
+        call GetLangText
         push eax
         lea eax, [dword ebp-0F6h]
         push eax
         lea eax, [dword ebp-0E6h]
         push eax
         mov eax, 5Dh
-        call sub_8E7E0
+        call GetLangText
         push eax
         lea eax, [byte ebp+022h]
         push eax
@@ -1427,7 +1427,7 @@ sub_7B88D:
         push eax
         mov eax, 1EAh
 .18:
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_163F07
         lea eax, [byte ebp-042h]
@@ -1688,13 +1688,13 @@ sub_7BCF0:
         push dword 0FFFFh
         push dword 4353h
         push esi
-        call sub_3EE74
+        call CdStreamOpenSecondary
         add esp, byte 10h
         push edi
         mov edx, dword [dword_1C1254]
         push edx
         mov dword [dword_1C1260], eax
-        call sub_3EC58
+        call CdStreamStart
         mov ecx, dword [dword_1C1250]
         add esp, byte 8
         test ecx, ecx
@@ -1811,11 +1811,11 @@ sub_7BE04:
         call WaitTicks
         add esp, byte 4
         push esi
-        call sub_3EB40
+        call delstream
         add esp, byte 4
         mov ebx, dword [dword_1C1208]
         push ebx
-        call sub_3EB40
+        call delstream
         add esp, byte 4
         mov ecx, dword [dword_1C1208]
         push ecx
@@ -1948,7 +1948,7 @@ sub_7C038:
         call CdStreamService
         mov edx, dword [dword_1C1254]
         push edx
-        call sub_3FBE4
+        call CdStreamNextPacket
         add esp, byte 4
         push eax
         mov ecx, dword [dword_1C1254]
@@ -2010,7 +2010,7 @@ sub_7C038:
         push edx
         mov ecx, dword [dword_1C1254]
         push ecx
-        call sub_3FC7C
+        call CdStreamFreePacket
         add esp, byte 8
 .8:
         mov eax, dword [tickcount]
@@ -2060,7 +2060,7 @@ sub_7C038:
         call CdStreamService
         mov ecx, dword [dword_1C1260]
         push ecx
-        call sub_3FBE4
+        call CdStreamNextPacket
         add esp, byte 4
         push eax
         mov dword [dword_1C1258], eax
@@ -2104,7 +2104,7 @@ sub_7C038:
         push eax
         mov edx, dword [dword_1C1260]
         push edx
-        call sub_3FC7C
+        call CdStreamFreePacket
         mov ecx, dword [dword_1C1228]
         add esp, byte 8
         cmp edi, ecx
@@ -2946,9 +2946,10 @@ sub_7CAB4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7CADA                                                       7CADA  97 PC
+; LoadLogoNames                                   7CADA  97 PC, low confidence
+; Loads the "logo names" block from the logo%02d.qfs files
 ;-----------------------------------------------------------------------------
-sub_7CADA:
+LoadLogoNames:
         push ebx
         push ecx
         push edx
@@ -3037,9 +3038,11 @@ sub_7CB8C_45:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7CBD6                                                       7CBD6  97 PC
+; InitFrontEnd                                    7CBD6  97 PC, low confidence
+; Front-end start-up (also after a game): input devices (mous / remo), the
+; front-end art and the team logo names
 ;-----------------------------------------------------------------------------
-sub_7CBD6:
+InitFrontEnd:
         push ebx
         push ecx
         push edx
@@ -3052,21 +3055,21 @@ sub_7CBD6:
         jne short .1
         mov eax, 2Eh
         xor edx, edx
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1C5DE4], eax
 .1:
         cmp dword [dword_1C5EF4], byte 0
         jne short .2
         mov eax, 2Fh
         xor edx, edx
-        call sub_4B074
+        call LoadDataFileLib
         mov dword [dword_1C5EF4], eax
 .2:
         cmp dword [dword_1C5E78], byte 0
         jne short .3
         mov eax, 0F6h
         xor edx, edx
-        call sub_4B074
+        call LoadDataFileLib
         mov dword [dword_1C5E78], eax
 .3:
         mov eax, 3
@@ -3089,7 +3092,7 @@ sub_7CBD6:
         mov eax, dword [dword_1AC814]
         shl eax, 1Ch
         shr eax, 1Eh
-        call sub_8E740
+        call LoadLangText
         mov eax, 3
         xor ebx, ebx
         call sub_419B0
@@ -3172,15 +3175,16 @@ sub_7CBD6:
         mov dword [nosplit ebx*4+dword_1C5DA8], eax
         cmp ebx, byte 0Ch
         jl short .6
-        call sub_7CADA
+        call LoadLogoNames
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7CDD8                                                       7CDD8  97 PC
+; FreeFrontEnd                                    7CDD8  97 PC, low confidence
+; Undoes InitFrontEnd and saves GLOBAL.SET (WriteGlobalSet)
 ;-----------------------------------------------------------------------------
-sub_7CDD8:
+FreeFrontEnd:
         push ecx
         push edx
         push esi
@@ -3197,7 +3201,7 @@ sub_7CDD8:
         add esp, byte 4
         xor esi, esi
         mov dword [dword_1C5E78], 0
-        call sub_8E840
+        call FreeLangText
         call sub_8BEF8
 .1:
         push dword [nosplit esi*4+dword_1C5EA0]
@@ -3228,14 +3232,17 @@ sub_7CDD8:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7CE9E                                                       7CE9E  97 PC
+; RunFrontEnd                                  7CE9E  96 PC, medium confidence
+; The front end: runs the screen with the current number (each screen returns
+; the next: main menu, exhibition, season, playoffs, options, modem, ...)
+; until quit; main_ calls it
 ;-----------------------------------------------------------------------------
-sub_7CE9E:
+RunFrontEnd:
         push ebx
         push ecx
         push edx
         enter 50h, 0
-        call sub_7CBD6
+        call InitFrontEnd
         call sub_41D18
         call rand_
         mov ecx, 2
@@ -3244,7 +3251,7 @@ sub_7CE9E:
         mov ecx, edx
         lea edx, [byte ebp-050h]
         mov eax, ecx
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-050h]
         mov ebx, 1
         call sub_41A28
@@ -3254,11 +3261,11 @@ sub_7CE9E:
         idiv ecx
         mov eax, edx
         lea edx, [byte ebp-050h]
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-050h]
         call sub_41A28
         call sub_41DB8
-        call sub_7CF94
+        call TitleScreen
         jmp short .7
 .1:
         cmp ebx, byte 0Ah
@@ -3272,7 +3279,7 @@ sub_7CE9E:
 .3:
         cmp ebx, byte 1
         jne short .7
-        call sub_84B55
+        call MainMenuScreen
         mov ebx, eax
         jmp short .7
 .4:
@@ -3305,29 +3312,30 @@ sub_7CE9E:
         jmp short .6
 .9:
         mov eax, ebx
-        call sub_85A15
+        call RunGameScreens
         jmp short .6
 .10:
         call sub_C3594
         jmp short .6
 .11:
-        call sub_D70C4
+        call CreditsScreen
         jmp short .6
 .12:
         call sub_D547C
         jmp short .6
 .13:
         call sub_41DD8
-        call sub_7CDD8
+        call FreeFrontEnd
         leave
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7CF94                                                       7CF94  97 PC
+; TitleScreen                                     7CF94  97 PC, low confidence
+; The title screen at front-end start (BACK, LOGO) with its PA announcement
 ;-----------------------------------------------------------------------------
-sub_7CF94:
+TitleScreen:
         push ebx
         push ecx
         push edx
@@ -3337,7 +3345,7 @@ sub_7CF94:
         call sub_419B8
         xor edx, edx
         mov eax, 0E1h
-        call sub_4B108
+        call LoadDataFile
         push byte 0
         push dword 1E0h
         push dword 280h
@@ -3375,7 +3383,7 @@ sub_7CF94:
         call sub_419B0
         call sub_419B8
         push dword 0B0000001h
-        call sub_48D70
+        call PaEvent
         add esp, byte 4
         mov eax, dword [tickcount]
         lea ebx, [dword eax+01F4h]

@@ -4,14 +4,14 @@ bits 32
 section s_19CB71 progbits alloc noexec write align=1
 global byte_19CB71, byte_19CB74, byte_19CB75, byte_19CB7E, byte_19CB7F, byte_19CB8A, byte_19CB8B, byte_19CBC2
 global byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CBFC, dword_19CB7B, dword_19CBAA, seed, dword_19CBD0
-global dword_19CBE4, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC02, dword_19CC12, dword_19CC30, dword_19CC54
+global penshottimer, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC02, dword_19CC12, dword_19CC30, dword_19CC54
 global dword_19CC58, dword_19CC5C, dword_19CC78, dword_19CC7C, dword_19CC9C, dword_19CCA0, dword_19CCA4, dword_19CCA8
 global slotteam, word_19CB72, word_19CB76, word_19CB78, word_19CB7A, word_19CB7C, word_19CB80, word_19CB82
 global word_19CB84, word_19CB86, word_19CB88, word_19CB8C, word_19CB8E, word_19CB90, word_19CB92, word_19CB94
-global word_19CB96, word_19CB98, word_19CB9A, word_19CB9C, word_19CB9E, word_19CBA0, word_19CBA2, word_19CBA4
+global word_19CB96, word_19CB98, word_19CB9A, word_19CB9C, word_19CB9E, gameover, word_19CBA2, word_19CBA4
 global word_19CBA6, word_19CBA8, word_19CBAC, word_19CBAE, word_19CBB0, word_19CBB2, word_19CBB4, word_19CBB6
-global word_19CBB8, word_19CBBA, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBC6, word_19CBD4, word_19CBD6
-global word_19CBD8, word_19CBDA, word_19CBDC, word_19CBDE, word_19CBE0, word_19CBE2, word_19CBE6, word_19CBEA
+global gsp, gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBC6, word_19CBD4, word_19CBD6
+global word_19CBD8, word_19CBDA, word_19CBDC, penshotmode, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA
 global word_19CBEC, word_19CBEE, word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19CC26
 global word_19CC28, word_19CC2A, word_19CC2C, word_19CC2E, word_19CC50, word_19CC52
 byte_19CB71:
@@ -70,7 +70,7 @@ word_19CB9C:
         db 00h,00h
 word_19CB9E:
         db 00h,00h
-word_19CBA0:
+gameover:
         db 00h,00h
 word_19CBA2:
         db 00h,00h
@@ -94,9 +94,9 @@ word_19CBB4:
         db 00h,00h
 word_19CBB6:
         db 00h,00h
-word_19CBB8:
+gsp:
         db 00h,00h
-word_19CBBA:
+gameclock:
         db 00h,00h
 word_19CBBC:
         db 00h,00h
@@ -128,13 +128,13 @@ word_19CBDA:
         db 00h,00h
 word_19CBDC:
         db 00h,00h
-word_19CBDE:
+penshotmode:
         db 00h,00h
 word_19CBE0:
         db 00h,00h
-word_19CBE2:
+penshotlive:
         db 00h,00h
-dword_19CBE4:
+penshottimer:
         db 00h,00h
 word_19CBE6:
         db 00h,00h

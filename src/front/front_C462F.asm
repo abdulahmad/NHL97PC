@@ -24,8 +24,8 @@ extern dword_1CB868, dword_1CB8B6, dword_1CB8BA, dword_1CB908, dword_1CB90C, dwo
 extern dword_1CB9B0, dword_1CB9FE, dword_1CBA02, dword_1CBA50, dword_1CBA54, dword_1CBAA2, dword_1CBAA6, dword_1CBAF4
 extern dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88, dword_1CBB8D, rand_, sprintf_, sub_101340
 extern sub_1013FC, sub_101429, sub_10FAC, sub_11A318, sub_13C164, sub_414B8, sub_41550, sub_419B0
-extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, sub_41EA4, sub_41F2C, sub_41FDC
-extern sub_4B108, sub_7E860, sub_7EDF0, sub_7F028, sub_7F0D8, sub_7F16C, sub_80BBC, sub_83C08
+extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, ArenaFileName, sub_41F2C, sub_41FDC
+extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_80BBC, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_C36CA, sub_FAF34, sub_FB4D4, sub_FC510, sub_FCD90, sub_FCEEC
 extern sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FE3D0, unk_166C97, unk_1C5F4A, unk_1CB148
 extern unk_1CB1EC, unk_1CB23E, word_1684BE
@@ -297,14 +297,14 @@ sub_C48A2:
         call sub_419B8
         xor edx, edx
         mov eax, 17h
-        call sub_4B108
+        call LoadDataFile
         mov dword [byte ebp+06Eh], eax
         mov eax, 3
         xor edx, edx
         call sub_419B0
         call sub_419B8
         mov eax, 16h
-        call sub_4B108
+        call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp+072h], eax
         mov eax, 3
@@ -470,7 +470,7 @@ sub_C48A2:
         push edx
         lea eax, [dword ebp-078Ah]
         mov edx, dword [dword_1CB212]
-        call sub_7F028
+        call SetRegionRect
         push asc_166C74
         push dword [byte ebp+06Eh]
         call sub_101429
@@ -508,7 +508,7 @@ sub_C48A2:
         push edx
         lea eax, [dword ebp-074Ah]
         mov edx, dword [dword_1CB264]
-        call sub_7F028
+        call SetRegionRect
         test byte [byte_1AC81A], 2
         je short .10
         mov eax, dword [dword_1CB128]
@@ -537,7 +537,7 @@ sub_C48A2:
         push edx
         lea eax, [dword ebp-070Ah]
         mov edx, 140h
-        call sub_7F028
+        call SetRegionRect
         test byte [byte_1AC81B], 4
         je short .12
         mov eax, dword [dword_1CB128]
@@ -566,7 +566,7 @@ sub_C48A2:
         push edx
         lea eax, [dword ebp-06CAh]
         mov edx, 140h
-        call sub_7F028
+        call SetRegionRect
         test byte [byte_1AC81B], 10h
         je short .14
         mov eax, dword [dword_1CB128]
@@ -595,7 +595,7 @@ sub_C48A2:
         push edx
         lea eax, [dword ebp-068Ah]
         mov edx, 140h
-        call sub_7F028
+        call SetRegionRect
         test byte [dword_1AC819], 2
         je short .16
         mov eax, dword [dword_1CB128]
@@ -624,7 +624,7 @@ sub_C48A2:
         push edx
         lea eax, [dword ebp-064Ah]
         mov edx, 140h
-        call sub_7F028
+        call SetRegionRect
         test byte [byte_1AC81B], 2
         je short .18
         mov eax, dword [dword_1CB128]
@@ -653,7 +653,7 @@ sub_C48A2:
         push edx
         lea eax, [dword ebp-060Ah]
         mov edx, 140h
-        call sub_7F028
+        call SetRegionRect
         test byte [byte_1AC81B], 8
         je short .20
         cmp byte [byte_1C6040], 0
@@ -684,7 +684,7 @@ sub_C48A2:
         push edx
         lea eax, [dword ebp-05CAh]
         mov edx, 140h
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [byte ebp+04Eh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword_1CB496], eax
@@ -706,7 +706,7 @@ sub_C48A2:
         push edx
         lea eax, [dword ebp-058Ah]
         mov edx, 203h
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [byte ebp+04Eh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword_1CB4E8], eax
@@ -728,7 +728,7 @@ sub_C48A2:
         push edx
         lea eax, [dword ebp-054Ah]
         mov edx, 203h
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [byte ebp+04Eh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword_1CB53A], eax
@@ -759,7 +759,7 @@ sub_C48A2:
         push edx
         lea eax, [dword ebp-050Ah]
         mov edx, 203h
-        call sub_7F028
+        call SetRegionRect
         push asc_166C7E
         push dword [byte ebp+072h]
         call sub_101429
@@ -801,7 +801,7 @@ sub_C48A2:
         mov edx, dword [dword_1CB5EA]
         mov ecx, eax
         lea eax, [dword ebp-04CAh]
-        call sub_7F028
+        call SetRegionRect
         push asc_166C7E
         push dword [byte ebp+072h]
         call sub_101429
@@ -844,7 +844,7 @@ sub_C48A2:
         mov ecx, eax
         add edx, eax
         lea eax, [dword ebp-048Ah]
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CB678], 4
         lea eax, [dword ebp-044Ah]
         push byte 15h
@@ -852,7 +852,7 @@ sub_C48A2:
         mov ebx, 110h
         mov edx, 0C4h
         mov dword [dword_1CB67C], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CB6CA], 4
         lea eax, [dword ebp-040Ah]
         push byte 18h
@@ -860,7 +860,7 @@ sub_C48A2:
         mov ebx, 10Fh
         mov edx, 0D1h
         mov dword [dword_1CB6CE], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CB71C], 4
         lea eax, [dword ebp-03CAh]
         push byte 1Ch
@@ -868,7 +868,7 @@ sub_C48A2:
         mov ebx, 10Ch
         mov edx, 0DCh
         mov dword [dword_1CB720], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CB76E], 4
         lea eax, [dword ebp-038Ah]
         push byte 1Fh
@@ -876,7 +876,7 @@ sub_C48A2:
         mov ebx, 10Bh
         mov edx, 0E8h
         mov dword [dword_1CB772], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CB7C0], 4
         lea eax, [dword ebp-034Ah]
         push byte 25h
@@ -884,7 +884,7 @@ sub_C48A2:
         mov ebx, 108h
         mov edx, 0F6h
         mov dword [dword_1CB7C4], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CB812], 4
         lea eax, [dword ebp-030Ah]
         push byte 2Dh
@@ -892,7 +892,7 @@ sub_C48A2:
         mov ebx, 104h
         mov edx, 102h
         mov dword [dword_1CB816], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CB864], 4
         lea eax, [dword ebp-02CAh]
         push byte 30h
@@ -900,7 +900,7 @@ sub_C48A2:
         mov ebx, 102h
         mov edx, 10Eh
         mov dword [dword_1CB868], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CB8B6], 4
         lea eax, [dword ebp-028Ah]
         push byte 39h
@@ -908,7 +908,7 @@ sub_C48A2:
         mov ebx, 0FEh
         mov edx, 11Ah
         mov dword [dword_1CB8BA], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CB908], 4
         lea eax, [dword ebp-024Ah]
         push byte 15h
@@ -916,7 +916,7 @@ sub_C48A2:
         mov ebx, 5Eh
         mov edx, 0C4h
         mov dword [dword_1CB90C], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CB95A], 4
         lea eax, [dword ebp-020Ah]
         push byte 18h
@@ -924,7 +924,7 @@ sub_C48A2:
         mov ebx, 5Bh
         mov edx, 0D1h
         mov dword [dword_1CB95E], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CB9AC], 4
         lea eax, [dword ebp-01CAh]
         push byte 1Ch
@@ -932,7 +932,7 @@ sub_C48A2:
         mov ebx, 57h
         mov edx, 0DCh
         mov dword [dword_1CB9B0], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CB9FE], 4
         lea eax, [dword ebp-018Ah]
         push byte 1Fh
@@ -940,7 +940,7 @@ sub_C48A2:
         mov ebx, 55h
         mov edx, 0E8h
         mov dword [dword_1CBA02], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CBA50], 4
         lea eax, [dword ebp-014Ah]
         push byte 25h
@@ -948,7 +948,7 @@ sub_C48A2:
         mov ebx, 52h
         mov edx, 0F6h
         mov dword [dword_1CBA54], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CBAA2], 4
         lea eax, [dword ebp-010Ah]
         push byte 2Dh
@@ -956,7 +956,7 @@ sub_C48A2:
         mov ebx, 4Fh
         mov edx, 102h
         mov dword [dword_1CBAA6], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CBAF4], 4
         lea eax, [dword ebp-0CAh]
         push byte 30h
@@ -964,7 +964,7 @@ sub_C48A2:
         mov ebx, 4Dh
         mov edx, 10Eh
         mov dword [dword_1CBAF8], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CBB46], 4
         lea eax, [dword ebp-08Ah]
         push byte 39h
@@ -972,7 +972,7 @@ sub_C48A2:
         mov ebx, 49h
         mov edx, 11Ah
         mov dword [dword_1CBB4A], eax
-        call sub_7F028
+        call SetRegionRect
         push byte 0
         push byte 0Fh
         push byte 2Dh
@@ -1057,7 +1057,7 @@ sub_C48A2:
         push dword 13Ah
         push dword 237h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
 .27:
         push byte 0
@@ -1143,7 +1143,7 @@ sub_C48A2:
         push dword 13Ah
         push dword 237h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         call sub_1013FC
         movsx eax, word [byte ebp+ebx*2+01Eh]
@@ -1196,7 +1196,7 @@ sub_C48A2_F22:
         mov ebx, edx
         lea edx, [byte ebp-0Ah]
         mov eax, ebx
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-0Ah]
         call sub_41A28
         lea eax, [byte ebx+01h]
@@ -1205,7 +1205,7 @@ sub_C48A2_F22:
         idiv ebx
         mov eax, edx
         lea edx, [byte ebp-0Ah]
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-0Ah]
         call sub_41A28
         mov eax, ebx
@@ -1350,7 +1350,7 @@ sub_C48A2_11CF:
         mov ebx, edx
         lea edx, [byte ebp-0Ah]
         mov eax, ebx
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-0Ah]
         call sub_41A28
         lea eax, [byte ebx+01h]
@@ -1359,7 +1359,7 @@ sub_C48A2_11CF:
         idiv ebx
         mov eax, edx
         lea edx, [byte ebp-0Ah]
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-0Ah]
         call sub_41A28
         mov eax, ebx
@@ -1460,7 +1460,7 @@ sub_C48A2_13A6:
         push dword 13Ah
         push dword 237h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         jmp near sub_C48A2_147B.52
 sub_C48A2_140D:

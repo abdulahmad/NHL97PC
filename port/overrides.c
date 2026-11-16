@@ -73,6 +73,25 @@ void host_set_deadline(uint32_t ticks)
 /* Spinning on tickcount in host code deadlocks on Windows: plat_kick_game only delivers IRQs when EIP is in the game image, so
  * the PIT handler never runs and WaitTicks(1) at the end of a TGV (PlayTGV) hangs forever. That matched "freeze after Pioneer /
  * freeze when skipping EA or Pioneer". Allow the kick while we wait, and sleep so the main thread can raise the timer and poll input. */
+/* Waiting in the host for the game's clock. The timer interrupt has to reach the game thread meanwhile. It used to be put into
+ * the thread wherever it was (host_allow_irq), also inside a Windows system call (the sleep): there the changed context was now
+ * and then lost, the interrupt counted as taken but its handler never ran, and no interrupt came again (the clock stopped for
+ * good: the intro hung in WaitTickDeadline, the start of an online test hung on one side). Now the thread sleeps while nothing is
+ * pending and, while an interrupt is, spins in host_safe_spin: a pause loop of a few instructions with no system call, where
+ * plat_kick_game may put an interrupt at any instruction. */
+__asm__(".text\n\t.globl " SYM("host_safe_spin") "\n" SYM("host_safe_spin") ":\n\t"
+        "1:\n\tpause\n\tdecl %ecx\n\tjnz 1b\n\tret\n\t"
+        ".globl " SYM("host_safe_spin_end") "\n" SYM("host_safe_spin_end") ":\n\tnop\n");
+void host_wait_until(volatile uint32_t *count, uint32_t until)
+{
+    while ((int32_t)(*count - until) < 0) {
+        if (irq_deliverable()) {
+            uint32_t n = 4000;                    /* a few hundred microseconds: the main thread kicks about every millisecond */
+            __asm__ volatile("call " SYM("host_safe_spin") : "+c"(n) : : "memory", "cc");
+        } else plat_sleep_ms(1);
+    }
+}
+
 void host_wait_ticks(uint32_t ticks)
 {
     uint32_t *count = (uint32_t *)GAME_ADDR(ORIG_TICKCOUNT);
@@ -80,9 +99,7 @@ void host_wait_ticks(uint32_t ticks)
     if (intro_skip) ticks = 0;
     until = *count + ticks;
     if (netplay_vtime_wait(until, 0)) return;   /* online: the clock is the steps' (netplay.c) */
-    host_allow_irq = 1;
-    while ((int32_t)(*count - until) < 0) plat_sleep_ms(1);
-    host_allow_irq = 0;
+    host_wait_until(count, until);
 }
 
 /* WaitTickDeadline: wait for the deadline SetTickDeadline set (the CD audio's 5-tick pauses, the disk speed test) */
@@ -91,9 +108,7 @@ void host_wait_deadline(void)
     uint32_t *count = (uint32_t *)GAME_ADDR(ORIG_TICKCOUNT);
     uint32_t until = *(uint32_t *)GAME_ADDR(ORIG_TICKDEADLINE);
     if (netplay_vtime_wait(until, 0)) return;
-    host_allow_irq = 1;
-    while ((int32_t)(*count - until) < 0) plat_sleep_ms(1);
-    host_allow_irq = 0;
+    host_wait_until(count, until);
 }
 
 /* TickDeadlinePassed: 1 once tickcount has reached the deadline (unsigned, as the original's sbb), else 0. The callers spin on it
@@ -205,6 +220,66 @@ static void install_x87_stack_fix(void)
     memset(p, 0x90, 8);
 }
 
+/* WaitTicks (FC2D9) runs the task list (sub_F9A88) until tickcount has moved on by the ticks asked for. Online the clock only
+ * moves with the steps (netplay.c), so a WaitTicks inside a step (the sound code's, with the game's sound on) spun for ever. In a
+ * session the clock is moved on by those ticks at once and the task list runs once (the same on both machines); otherwise the
+ * original runs (its first 10 bytes replayed here). */
+uint32_t wt_tick_addr, wt_task, wt_back;   /* read by the stub */
+int host_wait_ticks_online(uint32_t ticks)
+{
+    volatile uint32_t *count = (volatile uint32_t *)GAME_ADDR(ORIG_TICKCOUNT);
+    return netplay_vtime_wait(*count + ticks, 0);
+}
+__attribute__((naked)) static void wait_ticks_online_entry(void)
+{
+    __asm__ volatile(
+        "movl 4(%esp), %eax\n\t"
+        "pushal\n\t"
+        "push %eax\n\t"
+        "call " SYM("host_wait_ticks_online") "\n\t"
+        "addl $4, %esp\n\t"
+        "testl %eax, %eax\n\t"
+        "popal\n\t"
+        "je 1f\n\t"
+        "pushal\n\t"
+        "call *" SYM("wt_task") "\n\t"
+        "popal\n\t"
+        "ret\n"
+        "1:\n\t"
+        "movl 4(%esp), %eax\n\t"
+        "movl " SYM("wt_tick_addr") ", %edx\n\t"
+        "movl (%edx), %edx\n\t"
+        "jmp *" SYM("wt_back"));
+}
+static void install_wait_ticks_online(void)
+{
+    uint8_t *p = GAME_ADDR(ORIG_WAITTICKS);
+    if (p[0] != 0x8B || p[1] != 0x44 || p[2] != 0x24 || p[3] != 0x04 || p[4] != 0x8B || p[5] != 0x15 || p[15] != 0xE8) {
+        fprintf(stderr, "overrides: WaitTicks starts %02X %02X, not patched\n", p[0], p[1]); return; }
+    wt_tick_addr = (uint32_t)(uintptr_t)GAME_ADDR(ORIG_TICKCOUNT);
+    wt_task = (uint32_t)(uintptr_t)(p + 20 + *(int32_t *)(p + 16));
+    wt_back = (uint32_t)(uintptr_t)(p + 10);
+    patch_jmp(p, wait_ticks_online_entry);
+}
+
+/* The streamed EA audio (SCHl..SCEl chunks; sub_4A6F8 and sub_4A74C's two copies of it) hands the next chunk of the stream to sub_108BA0 when
+ * sub_3FBE4 returns neither 0 nor -1. sub_3FBE4 also returns -2 (FFFFFFFEh) when the stream has stopped (state 0Eh, set by the
+ * stream service sub_3EF68), and sub_108BA0 then reads the chunk header at address -2. The library's own callers skip every small
+ * negative answer; these three only skip -1. Online play (states loaded while the sound card and the stream's file go on) reaches
+ * the stopped state at once and crashed both machines at the first step. The je after cmp eax,-1 (4A731, 4A87E, 4A9F9) becomes jle:
+ * every negative answer is "no chunk". A real chunk is a game address, never negative. */
+static void install_stream_guard(void)
+{
+    static const uint32_t at[3] = { 0x4A731, 0x4A87E, 0x4A9F9 };
+    int i;
+    for (i = 0; i < 3; i++) {
+        uint8_t *p = GAME_ADDR(at[i]);
+        if (p[-3] != 0x83 || p[-2] != 0xF8 || p[-1] != 0xFF || p[0] != 0x74 || p[2] != 0xE8) {
+            fprintf(stderr, "overrides: the audio stream check at %X not found, not patched\n", (unsigned)at[i]); continue; }
+        p[0] = 0x7E;
+    }
+}
+
 void install_overrides(void)
 {
     osk_hook_install();
@@ -230,4 +305,6 @@ void install_overrides(void)
     install_flag_traps();
     install_rdtsc_traps();
     install_x87_stack_fix();
+    install_stream_guard();
+    install_wait_ticks_online();
 }

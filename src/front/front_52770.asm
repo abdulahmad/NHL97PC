@@ -49,7 +49,7 @@ extern sub_10B0EC, sub_10B4E0, sub_10B580, BuildAntiAliasTable, sub_10C8E8, sub_
 extern sub_10E62C, sub_10E6AC, sub_10E7AC, sub_10E8F8, sub_10EE50, sub_10FB98, sub_10FBB0, sub_10FD58
 extern sub_10FE58, sub_10FEA8, sub_10FFBC, sub_11002C, sub_1100B4, sub_110414, sub_110538, sub_1105E4
 extern sub_110634, sub_112BCC, sub_112DE4, sub_11313C, sub_3D2C0, sub_3D3D0, sub_3DA80, sub_3DAC4
-extern sub_3DBCC, sub_3DDD8, sub_3E198, sub_3E1F8, sub_3E5F0, sub_4B1C4, sub_4B4C4, sub_4B540
+extern sub_3DBCC, sub_3DDD8, sub_3E198, sub_3E1F8, sub_3E5F0, SetArtArchive, sub_4B4C4, sub_4B540
 extern sub_4B944, sub_4BF54, sub_4BF94, sub_4C0CC, sub_4C5A0, sub_4D3B4, sub_4E818, sub_4E840
 extern sub_4E868, sub_4E894, sub_4E8C0, sub_4E8EC, sub_4E9A0, sub_4EA44, sub_4EF68, sub_4F004
 extern sub_4F068, sub_4F294, sub_4F404, sub_4FC50, sub_4FD08, DrawGoalLight, TransformRink, sub_509E8
@@ -65,7 +65,7 @@ extern unk_1B8583, unk_1B92AB, unk_4BCCC
 global jpt_56DCC, sub_55670_105, sub_55670_115, sub_55670_11A, sub_56DDC_C8, sub_56DDC_E3, sub_56DDC_114, sub_56DDC_18F
 global sub_52770, sub_52A44, sub_52BEC, sub_52CA0, sub_52CE0, sub_52D4C, sub_52E14, sub_52E28
 global sub_52E8C, sub_53260, sub_53314, FreeRinkModel, sub_5475C, sub_54794, sub_54A8C, sub_55000
-global sub_55110, sub_55228, DrawBenchSide, sub_55648, sub_55670, sub_5585C, sub_5586C, sub_55894
+global sub_55110, sub_55228, DrawBenchSide, sub_55648, sub_55670, SetPenaltyBoxDoor, sub_5586C, sub_55894
 global sub_55B14, sub_55FE4, sub_560AC, sub_56464, sub_56740, sub_56798, sub_567B0, sub_568CC
 global sub_56908, sub_5696C, sub_56A08, sub_56A84, sub_56AE4, sub_56B98, sub_56CD0, sub_56CE4
 global sub_56CF8, sub_56D0C, sub_56DDC, sub_57298, sub_572D4, sub_57304, unk_56790, unk_56794
@@ -1134,7 +1134,7 @@ sub_53314:
         sub esp, byte 64h
         mov dword [byte esp+05Ch], eax
         mov eax, asc_161404
-        call sub_4B1C4
+        call SetArtArchive
         mov dword [dword_1B108C], edx
         call sub_10B000
         mov edx, 4CCCCh
@@ -3286,7 +3286,7 @@ sub_55000:
         add edx, byte 30h
         mov eax, asc_161404
         mov byte [byte esp+05h], dl
-        call sub_4B1C4
+        call SetArtArchive
         push byte 20h
         lea eax, [byte esp+04h]
         push eax
@@ -3907,9 +3907,11 @@ sub_55670_11A:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5585C                                                       5585C  97 PC
+; SetPenaltyBoxDoor                            5585C  96 PC, medium confidence
+; (team, open): from asspenalty, assdopen, assepen and puckfaceoff2: opens or
+; closes a penalty box door
 ;-----------------------------------------------------------------------------
-sub_5585C:
+SetPenaltyBoxDoor:
         mov dword [nosplit eax*4+dword_1B0A80], edx
         test edx, edx
         jne near sub_55670

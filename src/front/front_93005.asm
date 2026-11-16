@@ -21,20 +21,20 @@ extern sub_9623E_18C, sub_9623E_2C7, sub_9623E_49D, sub_9623E_4C4, sub_9623E_5BA
 extern memcpy_, memset_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_
 extern sub_101324, sub_101340, sub_101390, sub_1013AC, sub_1013CC, sub_1013FC, sub_101429, sub_10AED0
 extern sub_11A318, sub_11B094, sub_11B0D0, sub_13C164, sub_3812E, sub_415A0, sub_415F8, sub_419B0
-extern sub_419B8, sub_41FA0, sub_41FDC, sub_4AE14, sub_4B074, sub_4B108, sub_7E860, sub_7EDF0
-extern sub_7EEB0, sub_7EF70, sub_7F028, sub_7F0D8, sub_7F16C, sub_7F5A4, sub_7FE38, sub_80B28
+extern sub_419B8, sub_41FA0, sub_41FDC, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0
+extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80B28
 extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, sub_85D1D, NameIndexNew, NameIndexLoad
-extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_8E7E0, sub_912E3
-extern sub_9279A, sub_9281C, sub_92FE9, sub_C6064, sub_C755B, sub_DB75E, sub_DB763, sub_DC653
+extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, StandingsScreen
+extern sub_9279A, sub_9281C, sub_92FE9, sub_C6064, RosterScreen, sub_DB75E, sub_DB763, sub_DC653
 extern sub_DCFA4, sub_DD2DE, sub_DD61F, sub_DE3CF, sub_DE5A3, sub_E036F, sub_E0415, sub_E0B75
-extern sub_E117B, sub_E12D1, sub_E13BF, sub_E3410, sub_E4638, sub_E4838, sub_E7B33, sub_FAA64
+extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, sub_FAA64
 extern sub_FAF34, sub_FC510, sub_FCC40, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110
 extern unk_165A5B, unk_16CE20, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF4E, unk_1AD250, unk_1AD443
 extern unk_1AD603, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C89F8, unk_1C8A04, unk_1C8A10
 extern unk_1C8A1C, unk_1C8A28
 global jpt_93502, jpt_9621A, sub_93512_F7, sub_93512_100, sub_93512_104, sub_93512_108, sub_93512_1A6, sub_936BE_952
-global sub_936BE_959, sub_945A7_96, sub_945A7_9B, sub_93005, sub_93480, sub_93512, sub_936BE, sub_9401D
-global sub_945A7, sub_94643, sub_948B7, sub_94B30, sub_94BDA, sub_96019, sub_96083, sub_961AA
+global sub_936BE_959, sub_945A7_96, sub_945A7_9B, sub_93005, sub_93480, RunNewPlayoffs, PlayoffSetupScreen, CreatePlayoffs
+global sub_945A7, sub_94643, sub_948B7, RunPlayoffMenus, PlayoffTreeScreen, sub_96019, sub_96083, sub_961AA
 global sub_961E2
 ;-----------------------------------------------------------------------------
 ; sub_93005                                                       93005  97 PC
@@ -219,12 +219,12 @@ sub_93005:
         call sub_101390
         add esp, byte 0Ch
         mov eax, 259h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push dword 12Ch
         push dword 140h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         mov eax, dword [dword_1C8A98]
         add esp, byte 10h
         movsx edx, word [byte eax+0Eh]
@@ -258,12 +258,12 @@ sub_93005:
         call sub_101390
         add esp, byte 0Ch
         mov eax, 259h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push dword 12Ch
         push dword 140h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         mov eax, dword [dword_1C8A98]
         add esp, byte 10h
         movsx edx, word [byte eax+0Eh]
@@ -367,7 +367,7 @@ sub_93005:
         mov edx, 1
         xor ecx, ecx
         xor ebx, ebx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
 .19:
         call sub_13C164
@@ -432,9 +432,11 @@ jpt_93502:
         dd sub_93512_104
         dd sub_93512_108
 ;-----------------------------------------------------------------------------
-; sub_93512                                                       93512  97 PC
+; RunNewPlayoffs                                  93512  97 PC, low confidence
+; Screen 8: sets up new play-offs (copies the set-up, PlayoffSetupScreen,
+; roster, import agents)
 ;-----------------------------------------------------------------------------
-sub_93512:
+RunNewPlayoffs:
         push ebx
         push ecx
         push edx
@@ -467,30 +469,30 @@ sub_93512:
 .2:
         mov eax, 1EBh
         mov edx, 1Eh
-        call sub_8E7E0
+        call GetLangText
         mov ebx, eax
         mov eax, unk_1AD603
         call sub_7FE38
         test eax, eax
         je short .3
         mov eax, 0Ah
-        call sub_8E7E0
+        call GetLangText
         mov dword [byte ebp-010h], eax
         mov eax, 0Bh
-        call sub_8E7E0
+        call GetLangText
         mov dword [byte ebp-0Ch], eax
         mov eax, 0Ch
         mov ecx, 1
-        call sub_8E7E0
+        call GetLangText
         mov dword [byte ebp-08h], eax
         mov eax, 0Dh
         lea ebx, [byte ebp-014h]
-        call sub_8E7E0
+        call GetLangText
         push byte 0
         mov dword [byte ebp-04h], eax
         mov eax, 9
         mov edx, 5
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         mov edi, eax
         test eax, eax
@@ -504,27 +506,39 @@ sub_93512:
         mov eax, dword [dword_1AD437]
         and al, 0F8h
         jmp dword [nosplit cs:edx*4+jpt_93502]
+;-----------------------------------------------------------------------------
+; sub_93512_F7                                                    93609  97 PC
+;-----------------------------------------------------------------------------
 sub_93512_F7:
         or byte [dword_1AD437], 7
         jmp short sub_93512_108.6
+;-----------------------------------------------------------------------------
+; sub_93512_100                                                   93612  97 PC
+;-----------------------------------------------------------------------------
 sub_93512_100:
         or al, 5
         jmp short sub_93512_108.5
+;-----------------------------------------------------------------------------
+; sub_93512_104                                                   93616  97 PC
+;-----------------------------------------------------------------------------
 sub_93512_104:
         or al, 3
         jmp short sub_93512_108.5
+;-----------------------------------------------------------------------------
+; sub_93512_108                                                   9361A  97 PC
+;-----------------------------------------------------------------------------
 sub_93512_108:
         or al, 1
 .5:
         mov dword [dword_1AD437], eax
 .6:
         mov eax, dword_1C86FC
-        call sub_E117B
+        call LoadExhibitionFile
         test eax, eax
         jne short .7
-        call sub_E13BF
+        call ResetExhibitionFile
         mov eax, dword_1C86FC
-        call sub_E117B
+        call LoadExhibitionFile
 .7:
         cmp dword [dword_16CD58], byte 0
         jne short .8
@@ -544,32 +558,34 @@ sub_93512_108:
         jmp short .8
 .9:
         mov eax, dword [dword_1C86FC]
-        call sub_936BE
+        call PlayoffSetupScreen
         mov esi, eax
         jmp short .8
 .10:
         xor eax, eax
-        call sub_C755B
+        call RosterScreen
         cmp dword [dword_16DA9C], byte 0
         jne short .11
         mov eax, dword_1C86FC
-        call sub_E12D1
+        call FreeExhibitionFile
         mov eax, dword_1C86FC
-        call sub_E117B
+        call LoadExhibitionFile
 .11:
         mov esi, 8
         jmp short .8
 .12:
         mov eax, dword_1C86FC
-        call sub_E12D1
+        call FreeExhibitionFile
         mov eax, esi
 sub_93512_1A6:
         leave
         jmp near sub_936BE_959
 ;-----------------------------------------------------------------------------
-; sub_936BE                                                       936BE  97 PC
+; PlayoffSetupScreen                              936BE  96 PC, low confidence
+; The new play-offs screen (1GM0, BT00-BT0x): the teams in the tree, name,
+; series length
 ;-----------------------------------------------------------------------------
-sub_936BE:
+PlayoffSetupScreen:
         push ebx
         push ecx
         push edx
@@ -586,7 +602,7 @@ sub_936BE:
         call sub_419B8
         xor edx, edx
         mov eax, 4Ah
-        call sub_4B108
+        call LoadDataFile
         mov esi, eax
         mov dword [byte ebp+062h], eax
         mov eax, 3
@@ -594,7 +610,7 @@ sub_936BE:
         call sub_419B0
         call sub_419B8
         mov eax, 4Bh
-        call sub_4B108
+        call LoadDataFile
         mov dword [byte ebp+07Eh], eax
         mov dword [byte ebp+05Eh], eax
         mov eax, 3
@@ -649,12 +665,12 @@ sub_936BE:
         add esp, byte 4
         call sub_7F0D8
         mov eax, 259h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push dword 12Ch
         push dword 140h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         push byte 0
         push dword 0D22h
@@ -843,7 +859,7 @@ sub_936BE:
         mov ebx, dword [byte ebp+076h]
         mov edx, 0Fh
         mov eax, dword [byte ebp+066h]
-        call sub_7F028
+        call SetRegionRect
         lea eax, [byte esi+0Bh]
         imul eax, byte 52h
         mov edx, dword [dword_1C8A9C]
@@ -879,7 +895,7 @@ sub_936BE:
         mov dword [byte edx+eax+04Eh], sub_93005
         mov edx, 23Fh
         mov eax, dword [byte ebp+05Ah]
-        call sub_7F028
+        call SetRegionRect
         lea edx, [byte esi+013h]
         imul edx, byte 52h
         mov eax, dword [dword_1C8A9C]
@@ -897,7 +913,7 @@ sub_936BE:
         mov dword [byte eax+014h], ebx
         mov ebx, dword [byte ebp+076h]
         mov eax, dword [byte ebp+05Ah]
-        call sub_7F028
+        call SetRegionRect
         lea edx, [byte esi+01Bh]
         imul edx, byte 52h
         mov eax, dword [dword_1C8A9C]
@@ -912,7 +928,7 @@ sub_936BE:
         mov dword [byte edx+ebx+014h], eax
         mov ebx, dword [byte ebp+076h]
         mov edx, 1ACh
-        call sub_7F028
+        call SetRegionRect
         cmp byte [dword esi+byte_1C87FC], 0
         jne short .2
         mov edx, dword [dword edi+dword_16CDDC]
@@ -1006,7 +1022,7 @@ sub_936BE:
         call sub_DB75E
         mov eax, dword [dword ebp-099Eh]
         mov dword [byte ebp+072h], 0Dh
-        call sub_9401D
+        call CreatePlayoffs
         jmp near .4
 .10:
         push byte 0
@@ -1014,7 +1030,7 @@ sub_936BE:
         mov ecx, 1
         xor ebx, ebx
         mov edx, ecx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         jmp near .4
 .11:
@@ -1084,13 +1100,13 @@ sub_936BE:
         add esp, byte 4
         call sub_7F0D8
         mov eax, 259h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push dword 12Ch
         push dword 140h
         push byte 1
         xor esi, esi
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
 .16:
         mov edx, dword [byte ebp+07Ah]
@@ -1181,9 +1197,11 @@ sub_936BE_959:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9401D                                                       9401D  97 PC
+; CreatePlayoffs                                  9401D  97 PC, low confidence
+; Creates the new play-offs: picks a free PLAY%04d.SET name and adds it to
+; PLAYOFF.NDX
 ;-----------------------------------------------------------------------------
-sub_9401D:
+CreatePlayoffs:
         push ebx
         push ecx
         push edx
@@ -1215,13 +1233,13 @@ sub_9401D:
         mov edx, 4
         mov eax, dword_1AD743
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         jmp short .2
 .1:
         mov edx, 4
         mov eax, dword_1AD743
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
 .2:
         mov dword [byte ebp+07Ah], 0
 .3:
@@ -1294,21 +1312,21 @@ sub_9401D:
         xor ebx, ebx
         call sub_E0B75
         lea eax, [byte ebp+066h]
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 8
         lea eax, [byte ebp+05Eh]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         jmp short .11
 .10:
         mov edx, 8
         lea eax, [byte ebp+066h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 8
         lea eax, [byte ebp+05Eh]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
 .11:
         lea eax, [byte ebp+05Eh]
         push eax
@@ -1507,7 +1525,7 @@ sub_9401D:
         movsd
         call sub_DB75E
         lea eax, [dword ebp-092h]
-        call sub_4AE14
+        call MakeDirPath
         lea eax, [dword ebp-092h]
         push eax
         push asc_16591C
@@ -1586,7 +1604,7 @@ sub_945A7:
         imul edi, esi, byte 1Eh
         push byte 1
         mov eax, 2Fh
-        call sub_8E7E0
+        call GetLangText
         mov ecx, edx
         mov edx, 10h
         add edi, byte_1C880C
@@ -1710,7 +1728,7 @@ sub_94643:
         push byte 5
         push byte 14h
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         imul edx, dword [nosplit esi*4+dword_16CDDC], dword 194Fh
         mov eax, dword [dword_1C86FC]
         add eax, 0DF4h
@@ -1793,7 +1811,7 @@ sub_94643:
         push byte 5
         push dword 8Ch
         push byte 2
-        call sub_7F16C
+        call DrawTextAligned
         imul edx, dword [nosplit esi*4+dword_16CDDC], dword 194Fh
         mov eax, dword [dword_1C86FC]
         add eax, 0DF4h
@@ -2022,9 +2040,10 @@ sub_948B7:
         mov dword [dword_1C8A94], 0
         jmp near sub_93512_1A6
 ;-----------------------------------------------------------------------------
-; sub_94B30                                                       94B30  97 PC
+; RunPlayoffMenus                                 94B30  96 PC, low confidence
+; From the main menu: loads PLAYOFF.NDX and runs the play-off screens
 ;-----------------------------------------------------------------------------
-sub_94B30:
+RunPlayoffMenus:
         mov eax, 0Dh
         cmp dword [dword_1C8334], byte 0
         je short .5
@@ -2041,11 +2060,11 @@ sub_94B30:
         jbe near .7
         cmp eax, byte 0Dh
         jne short .5
-        call sub_94BDA
+        call PlayoffTreeScreen
         jmp short .5
 .3:
         mov eax, 1
-        call sub_C755B
+        call RosterScreen
 .4:
         mov eax, 0Dh
 .5:
@@ -2074,15 +2093,17 @@ sub_94B30:
         call sub_85D1D
         jmp short .4
 .8:
-        call sub_912E3
+        call StandingsScreen
         jmp short .4
 .9:
         call sub_E7B33
         jmp short .4
 ;-----------------------------------------------------------------------------
-; sub_94BDA                                                       94BDA  97 PC
+; PlayoffTreeScreen                               94BDA  96 PC, low confidence
+; The play-off tree screen (PTOP / PBOT halves, AWD0 awards, choices): series
+; results, play or simulate the next games
 ;-----------------------------------------------------------------------------
-sub_94BDA:
+PlayoffTreeScreen:
         push ebx
         push ecx
         push edx
@@ -2146,7 +2167,7 @@ sub_94BDA:
         jl short .4
         mov eax, 0F6h
         xor edx, edx
-        call sub_4B074
+        call LoadDataFileLib
         push byte 0
         push dword 8F8h
         xor esi, esi
@@ -2175,7 +2196,7 @@ sub_94BDA:
         call sub_419B8
         xor edx, edx
         mov eax, 4Eh
-        call sub_4B108
+        call LoadDataFile
         mov dword [byte ebp+066h], eax
         mov dword [byte ebp+07Ah], eax
         mov eax, 3
@@ -2183,7 +2204,7 @@ sub_94BDA:
         call sub_419B0
         call sub_419B8
         mov eax, 4Fh
-        call sub_4B108
+        call LoadDataFile
         mov dword [byte ebp+072h], eax
         mov dword [byte ebp+076h], eax
         mov eax, 3
@@ -2460,7 +2481,7 @@ sub_94BDA:
         mov dword [dword eax+0816h], edx
         lea eax, [dword ebp-019Eh]
         xor edx, edx
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [dword_1C8A7C]
         lea edx, [dword ebp-015Eh]
         mov dword [dword eax+0864h], 4
@@ -2471,7 +2492,7 @@ sub_94BDA:
         mov dword [dword eax+0868h], edx
         mov edx, 262h
         lea eax, [dword ebp-015Eh]
-        call sub_7F028
+        call SetRegionRect
         push byte 0
         push dword 1E0h
         push dword 280h
@@ -2628,7 +2649,7 @@ sub_94BDA:
         push dword 8Eh
         push byte 2
 .21:
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         call sub_81678
         imul eax, dword [byte ebp+07Eh], byte 1Ch
@@ -2713,7 +2734,7 @@ sub_94BDA:
         push dword 8Eh
         push byte 2
 .29:
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov edx, dword [byte ebp+07Eh]
         add edx, byte 8
@@ -2745,7 +2766,7 @@ sub_94BDA:
         mov ecx, 96h
         mov eax, dword [byte ebp+056h]
         inc edi
-        call sub_7F028
+        call SetRegionRect
         cmp edi, byte 3
         jl near .22
         imul eax, dword [byte ebp+07Eh], byte 0Ch
@@ -3007,7 +3028,7 @@ sub_94BDA:
         mov edx, 1
         xor ecx, ecx
         xor ebx, ebx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         jmp near .78
 .51:
@@ -3027,7 +3048,7 @@ sub_94BDA:
         jmp near .78
 .55:
         mov eax, 7Fh
-        call sub_8E7E0
+        call GetLangText
         xor ebx, ebx
         xor edi, edi
         mov edx, eax
@@ -3147,7 +3168,7 @@ sub_94BDA:
         push dword 8Eh
         push byte 2
 .66:
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         call sub_81678
         call sub_13C164
@@ -3228,7 +3249,7 @@ sub_94BDA:
         mov ecx, 1
         xor ebx, ebx
         mov edx, ecx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         jmp short .77
 .74:
@@ -3487,7 +3508,7 @@ sub_96019:
         mov edx, 1
         lea eax, [byte ebp-028h]
         xor ebx, ebx
-        call sub_4AE14
+        call MakeDirPath
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 10h
@@ -3578,12 +3599,12 @@ sub_96083:
         call sub_7F0D8
         mov eax, 247h
 .3:
-        call sub_8E7E0
+        call GetLangText
         push eax
         push byte 0
         push dword 96h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         push dword [byte ebp-04h]
         call sub_FD0F8

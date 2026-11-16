@@ -28,11 +28,11 @@ extern strlen_, sub_1008CC, sub_100A68, sub_101324, sub_101340, sub_101390, sub_
 extern sub_101429, sub_101EAC, sub_102B94, sub_102C10, sub_102C30, LoadGripLibrary, sub_1046C, sub_104A8
 extern sub_105808, sub_106F64, sub_106F94, sub_107D30, sub_116428, sub_1164E8, sub_1167AE, sub_1169D4
 extern sub_119BE4, sub_119FDC, sub_11A120, sub_11A318, sub_11A3E0, sub_11ADD0, sub_11ADE8, sub_11B008
-extern sub_13C164, sub_4095C, sub_40EBC, sub_41870, sub_41A28, sub_41D18, sub_41DB8, sub_41EA4
-extern sub_41FA0, sub_41FDC, sub_4AE14, sub_4B108, sub_4B307, sub_7CE9E, InitMenuItems, sub_8BFAC
-extern sub_8D956, sub_8DE10, sub_8DE68, sub_8DE7E, sub_8DE9D, sub_8DEAC, sub_8E7E0, sub_8E840
-extern sub_D6930, sub_DA713, sub_DB747, sub_E341C, sub_E3A44, sub_E3AB8, sub_E4638, sub_E4838
-extern sub_E4908, FillBox, sub_F9650, sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB73D
+extern sub_13C164, sub_4095C, OpenAudioStream, sub_41870, sub_41A28, sub_41D18, sub_41DB8, ArenaFileName
+extern sub_41FA0, sub_41FDC, MakeDirPath, LoadDataFile, sub_4B307, RunFrontEnd, InitMenuItems, sub_8BFAC
+extern sub_8D956, sub_8DE10, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, GetLangText, FreeLangText
+extern RunIntro, AllocStaticBuffer, sub_DB747, sub_E341C, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
+extern WaitForOtherComputer, FillBox, sub_F9650, sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB73D
 extern sub_FBE40, sub_FBE94, sub_FC510, sub_FC73E, sub_FCC40, sub_FCD90, sub_FCF84, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDC68, sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180
 extern sub_FE3D0, sub_FE470, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
@@ -42,7 +42,7 @@ extern unk_16508B, unk_16518C, unk_165190, unk_16CB30, unk_16E8A0, unk_1C1264, u
 extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1C6044, unk_1C6104, unk_1C7144, unk_1C81BC
 global jpt_816D8, jpt_845CC, sub_816E8_425, sub_816E8_438, sub_816E8_44A, sub_816E8_45A, main_, sub_7D539
 global sub_7D830, sub_7D92C, sub_7DA28, sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0
-global sub_7EF70, sub_7F028, sub_7F04C, sub_7F0D8, sub_7F16C, sub_7F29C, sub_7F5A4, sub_7F5B8
+global sub_7EF70, SetRegionRect, sub_7F04C, sub_7F0D8, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7F5B8
 global sub_7F5CC, sub_7FE38, sub_7FE4C, sub_7FE60, EditText, sub_80758, sub_80808, sub_80828
 global sub_80A38, sub_80AB8, sub_80B28, sub_80BBC, sub_80F48, sub_81114, sub_81468, sub_815F8
 global sub_81650, sub_81678, sub_816A4, sub_816BC, sub_816E8, sub_81D1C, sub_821CC, sub_823F0
@@ -277,7 +277,7 @@ main_:
         mov ebx, 1
         mov eax, unk_1C1264
         mov edx, ebx
-        call sub_4AE14
+        call MakeDirPath
         mov edx, asc_16502F
         mov eax, unk_1C1264
         call strcat_
@@ -357,21 +357,21 @@ main_:
         mov dword [dword_16E628], 0
         mov dword [dword_170710], 0
         call sub_11A120
-        call sub_E3A44
+        call NetInit
         call sub_F9650
         call sub_104A8
-        call sub_DA713
+        call AllocStaticBuffer
         mov edx, 1
         movsx eax, byte [byte_1AC818]
-        call sub_40EBC
-        call sub_D6930
+        call OpenAudioStream
+        call RunIntro
         call sub_4095C
-        call sub_7CE9E
+        call RunFrontEnd
         call sub_41870
         call sub_DB747
         call sub_1046C
-        call sub_E3AB8
-        call sub_8E840
+        call NetShutdown
+        call FreeLangText
         call dword [dword_16F184]
         leave
         pop edx
@@ -2732,7 +2732,7 @@ sub_7EF70:
         cmp ebx, byte 16h
         jl short .1
         call sub_13C164
-        call sub_E4908
+        call WaitForOtherComputer
         call sub_1013FC
         cmp dword [esp], byte 0
         jle short .4
@@ -2750,9 +2750,10 @@ sub_7EF70:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_7F028                                                       7F028  97 PC
+; SetRegionRect                                   7F028  97 PC, low confidence
+; (region, x, y, w, h): stores the rectangle twice (x0, y0, x1, y1)
 ;-----------------------------------------------------------------------------
-sub_7F028:
+SetRegionRect:
         mov dword [byte eax+04h], ebx
         mov dword [byte eax+0Ch], ebx
         add ecx, edx
@@ -2878,9 +2879,11 @@ sub_7F0D8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_7F16C                                                       7F16C  97 PC
+; DrawTextAligned                                 7F16C  97 PC, low confidence
+; (align, x, y, ..., format, ...): sprintf-style text drawn left (0), centred
+; (1) or right (2) of x
 ;-----------------------------------------------------------------------------
-sub_7F16C:
+DrawTextAligned:
         push ebx
         push esi
         push edi
@@ -3504,7 +3507,7 @@ sub_7F5CC:
         mov dword [dword esp+0700h], edx
         mov ebx, edx
         mov edx, dword [dword esp+075Ch]
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [dword esp+072Ch]
         mov edx, dword [dword esp+0720h]
         mov dword [dword esp+0750h], eax
@@ -3691,7 +3694,7 @@ sub_7F5CC:
         mov eax, dword [dword esp+0718h]
         push eax
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
 .30:
         mov ecx, dword [dword esp+073Ch]
@@ -3728,7 +3731,7 @@ sub_7F5CC:
         mov eax, dword [dword esp+071Ch]
         push eax
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov edx, dword [dword esp+06F0h]
         xor ebx, ebx
@@ -3758,7 +3761,7 @@ sub_7F5CC:
         sar eax, 1
         push eax
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         call sub_13C164
         mov edx, dword [dword esp+0704h]
@@ -4205,7 +4208,7 @@ EditText:
         mov ecx, dword [dword esp+066Ch]
         push ecx
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         mov eax, dword [dword esp+0674h]
         add edi, byte 14h
@@ -4240,7 +4243,7 @@ EditText:
         sar eax, 1
         push eax
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         push dword 0FF000000h
         call sub_FC510
@@ -4314,7 +4317,7 @@ EditText:
         push ebx
         push edi
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         mov cl, byte [byte ebp+00h]
         add esp, byte 14h
         test cl, cl
@@ -4469,7 +4472,7 @@ EditText:
         mov edx, dword [dword esp+0658h]
         mov eax, ebp
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         jmp near .39
 .36:
         test eax, eax
@@ -4486,12 +4489,12 @@ EditText:
         mov eax, 253h
 .38:
         mov edx, 10h
-        call sub_8E7E0
+        call GetLangText
         call sub_835CC
         mov edx, dword [dword esp+0658h]
         mov eax, ebp
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         cmp dword [dword_16CB80], byte 0
         je short .39
         call sub_13C164
@@ -6111,7 +6114,7 @@ sub_816E8:
         push eax
         sar ecx, 10h
         mov eax, dword [dword esp+010Eh]
-        call sub_7F028
+        call SetRegionRect
         push edi
         call sub_FD0F8
         add esp, byte 4
@@ -6159,11 +6162,11 @@ sub_816E8:
         push byte 5Ah
         push byte 1
         mov ebx, edi
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         lea eax, [dword esp+0148h]
         mov edx, ebp
-        call sub_8DE9D
+        call SetScrollBarPos
         mov edx, dword [dword esp+03C0h]
         push edx
         mov ebx, dword [dword esp+03D0h]
@@ -6406,7 +6409,7 @@ sub_81D1C:
         push eax
         dec ecx
         mov eax, ebp
-        call sub_7F028
+        call SetRegionRect
         pop ebp
         pop edi
         pop esi
@@ -8255,7 +8258,7 @@ sub_83334:
         sar eax, 1
         push eax
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         call sub_13C164
         mov ebp, dword [dword_1C81A4]
@@ -8549,7 +8552,7 @@ sub_835CC:
         sar eax, 1
         push eax
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         call sub_13C164
         mov ebx, dword [dword_1C8190]
@@ -9247,7 +9250,7 @@ sub_83D4C:
         push eax
         sar ecx, 10h
         mov eax, unk_1C6044
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [dword_1C5EC8]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword_1C6008], eax
@@ -9504,7 +9507,7 @@ sub_84204:
         call sub_1013FC
         mov eax, 0F7h
         xor edx, edx
-        call sub_4B108
+        call LoadDataFile
         push asc_1651D0
         push eax
         mov esi, eax
@@ -9540,14 +9543,14 @@ sub_84204:
         call sub_101390
         add esp, byte 0Ch
         mov eax, 1E4h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, dword [dword_16E464]
         push dword 96h
         sar eax, 1
         push eax
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         call sub_1013FC
         push esi
@@ -9803,7 +9806,7 @@ sub_84570:
         and ebx, byte 1
         mov edx, esp
         mov eax, ebx
-        call sub_41EA4
+        call ArenaFileName
         mov eax, esp
         lea edx, [byte ebx+01h]
         call sub_41A28
@@ -9813,7 +9816,7 @@ sub_84570:
         idiv ebx
         mov eax, edx
         mov edx, esp
-        call sub_41EA4
+        call ArenaFileName
         mov eax, esp
         call sub_41A28
         call sub_41DB8

@@ -202,6 +202,8 @@ void plat_start_game(void)
  * in NtContinue, which would overwrite the change. Nor just after an int3 (a pushf / popf of the game): Windows reports a
  * breakpoint with the address after the instruction, and the handler has not emulated it yet. The exception handler delivers the
  * interrupt instead. */
+extern char host_safe_spin[], host_safe_spin_end[];     /* overrides.c: the host's waits spin here while an interrupt is pending */
+#define IN_SAFE_SPIN(p) ((uintptr_t)(p) >= (uintptr_t)host_safe_spin && (uintptr_t)(p) < (uintptr_t)host_safe_spin_end)
 void plat_kick_game(void)
 {
     CONTEXT c;
@@ -210,8 +212,9 @@ void plat_kick_game(void)
     memset(&c, 0, sizeof c);
     c.ContextFlags = CONTEXT_CONTROL | CONTEXT_INTEGER | CONTEXT_SEGMENTS;
     /* nothing in here may take a lock: the game thread may hold one (the C library's, the heap's) */
-    if (GetThreadContext(game_handle, &c) && (IN_GAME_CODE(c.Eip) || host_allow_irq) && c.Eip != resume_eip &&
-        (host_allow_irq || (!traps((uint8_t *)c.Eip) && ((uint8_t *)c.Eip)[-1] != 0xCC && !accesses_low_memory(&c, (uint8_t *)c.Eip))) &&
+    if (GetThreadContext(game_handle, &c) && c.Eip != resume_eip &&
+        (IN_SAFE_SPIN(c.Eip) || (IN_GAME_CODE(c.Eip) &&
+         !traps((uint8_t *)c.Eip) && ((uint8_t *)c.Eip)[-1] != 0xCC && !accesses_low_memory(&c, (uint8_t *)c.Eip))) &&
         irq_try_deliver(&c))
         SetThreadContext(game_handle, &c);
     ResumeThread(game_handle);

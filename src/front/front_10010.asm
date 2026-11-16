@@ -7,30 +7,30 @@ extern awtmstruct, byte_1684C8, byte_16E35C, byte_19C3E0, byte_19C3E6, byte_19C6
 extern byte_19CB70, byte_19CBC2, byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CCAF, byte_19CCC6, byte_19CD05
 extern byte_19D604, byte_19D636, byte_19EB38, byte_19EB5C, byte_19EC44, byte_19EC68, dword_1684C0, dword_1684C4
 extern dword_1684E4, dword_168564, dword_168571, dword_16E344, dword_16E348, dword_16E34C, dword_16E350, dword_19C3DD
-extern dword_19CB48, dword_19CBE4, dword_19CBE8, dword_19CD54, dword_19CD88, dword_19DA50, dword_19EBB4, dword_19EBB8
+extern dword_19CB48, penshottimer, dword_19CBE8, dword_19CD54, dword_19CD88, dword_19DA50, dword_19EBB4, dword_19EBB8
 extern dword_19ECC0, dword_19ECC4, dword_1AC814, dword_1AC944, dword_1ACF46, dword_1B1410, dword_1B8FA0, dword_1B9554
 extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, off_168CD8
 extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, qword_160018, qword_160020, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, sub_13AF0
-extern sub_141AC, sub_18E35, sub_1B3D8, sub_1E208, sub_1E224, sub_1FB6C, sub_1FF5C, sub_27D10
-extern sub_2E7D8, sub_2E8F0, sub_33880, sub_34330, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
-extern sub_41DB8, sub_41E64, sub_41FA0, sub_424CC, sub_45BEC, sub_48D70, sub_4DDB0, sub_52E28
-extern sub_57298, sub_57304, sub_57324, sub_57738, sub_57A1C, sub_5B558, sub_60D6C, sub_6539C
+extern ShowCameraView, sub_18E35, sub_1B3D8, assreplace, assinsert, sub_1FB6C, sub_1FF5C, sub_27D10
+extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, sub_34330, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
+extern sub_41DB8, MusicFileName, sub_41FA0, sub_424CC, sub_45BEC, PaEvent, sub_4DDB0, sub_52E28
+extern sub_57298, sub_57304, sub_57324, sub_57738, LoadGoalieMask, sub_5B558, sub_60D6C, sub_6539C
 extern sub_65E3B, sub_78810, sub_AA650, sub_FAA64, sub_FB704, sub_FB8AE, sub_FBCD8, unk_16000C
 extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
 extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, word_1684BE, word_1684CA, word_1684E8, word_1684EC
 extern word_1686D8, word_1686DA, word_168D18, word_19CB28, word_19CB2A, word_19CB5C, word_19CB60, word_19CB64
-extern word_19CB68, word_19CB96, word_19CB98, word_19CBAE, word_19CBB6, word_19CBB8, word_19CBBA, word_19CBBC
-extern word_19CBBE, word_19CBC0, word_19CBD4, word_19CBDA, word_19CBDC, word_19CBDE, word_19CBE0, word_19CBE2
+extern word_19CB68, word_19CB96, word_19CB98, word_19CBAE, word_19CBB6, gsp, gameclock, word_19CBBC
+extern word_19CBBE, word_19CBC0, word_19CBD4, word_19CBDA, word_19CBDC, penshotmode, word_19CBE0, penshotlive
 extern word_19CBE6, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28, word_19CC2A, word_19CCB2
 extern word_19CCB6, word_19CCBC, word_19CCBE, word_19CCC0, word_19CCC4, word_19DAD9, word_19DAEA, word_19DCFA
 extern word_19E32A, word_19E949, word_19EA51, word_19EAB6, word_19EAC0, word_19EBC2, word_19EBCC
 global SetupTeamForIntermission, clearteams, jpt_11318, loc_10000, sub_11328_26, sub_11328_4F, sub_11328_78, sub_11328_A6
 global sub_11504_E, sub_123A0_62, sub_123A0_81, GripLinkLibrary, sub_102F4, LoadGripLibrary, sub_1046C, sub_104A8
-global sub_10A68, sub_10CC8, sub_10FAC, sub_1120C, sub_11328, sub_114C4, sub_11504, sub_11574
-global sub_116B0, sub_11808, sub_11908, sub_11984, sub_119A8, sub_11B38, sub_11ED8, sub_11F74
-global sub_11FB4, sub_12024, sub_12334, sub_123A0, sub_12440, sub_124A4, sub_127D4, sub_12970
-global sub_12A10, sub_12A70, sub_12C2C, sub_12DE8, sub_12E50, unk_10003
+global sub_10A68, sub_10CC8, sub_10FAC, sub_1120C, sub_11328, sub_114C4, forcepldata, sub_11574
+global sub_116B0, sub_11808, ResetBench, sub_11984, sub_119A8, setplayer, reenergizeteam, sub_11F74
+global sub_11FB4, sub_12024, sub_12334, sub_123A0, sub_12440, sub_124A4, setpersonel, sub_12970
+global sub_12A10, ClockTick, sub_12C2C, sub_12DE8, sub_12E50, unk_10003
 ;-----------------------------------------------------------------------------
 ; loc_10000                                                       10000  97 PC
 ;-----------------------------------------------------------------------------
@@ -1745,7 +1745,7 @@ sub_11328_A6:
         cmp dx, byte 8
         jne near .6
 .2:
-        mov ebx, dword [word_19CBB8]
+        mov ebx, dword [gsp]
         sar ebx, 10h
         mov esi, 3Ch
         mov edx, ebx
@@ -1779,7 +1779,7 @@ sub_11328_A6:
         xor eax, eax
         mov edx, esp
         mov ax, word [byte esp+050h]
-        call sub_41E64
+        call MusicFileName
         mov eax, esp
         mov dh, 1
         call sub_41A28
@@ -1808,14 +1808,19 @@ sub_114C4:
         ret
         db 08Dh,040h,00h
         mov eax, hmtmstruct
-        call sub_127D4
+        call setpersonel
         mov eax, hmtmstruct
-        call sub_11504
+        call forcepldata
         mov eax, awtmstruct
-        call sub_127D4
+        call setpersonel
         mov eax, awtmstruct
         nop
-sub_11504:
+;-----------------------------------------------------------------------------
+; forcepldata                                    11504  94G, medium confidence
+; 94G forcepldata: (team) faceoffs only: puts each player straight into his
+; requested position (+0A8h -> +0A9h), assnearest for the centre, setplayer
+;-----------------------------------------------------------------------------
+forcepldata:
         push ebx
         push ecx
         push edx
@@ -1834,7 +1839,7 @@ sub_11504_E:
         jne short .1
         mov edx, 0Ah
         mov eax, ebx
-        call sub_1E224
+        call assinsert
 .1:
         mov edx, dword [dword ebx+0A4h]
         sar edx, 18h
@@ -1842,7 +1847,7 @@ sub_11504_E:
         mov edx, dword [dword ebx+0A4h]
         mov eax, ebx
         sar edx, 18h
-        call sub_11B38
+        call setplayer
         and byte [dword ebx+0C1h], 0FEh
         jmp near sub_123A0_81
         db 090h
@@ -1859,14 +1864,14 @@ sub_11574:
         test byte [byte eax+02h], 20h
         jne near .3
         mov eax, hmtmstruct
-        call sub_127D4
+        call setpersonel
         mov eax, hmtmstruct
-        call sub_11504
+        call forcepldata
         mov eax, awtmstruct
-        call sub_127D4
+        call setpersonel
         mov eax, awtmstruct
         xor edx, edx
-        call sub_11504
+        call forcepldata
         mov eax, dword [off_168CD8]
         mov word [word_19CBBE], dx
         mov word [eax], dx
@@ -1905,7 +1910,7 @@ sub_11574:
         add edx, byte 7
         mov eax, ebx
         movsx edx, dx
-        call sub_1E224
+        call assinsert
         cmp word [dword ebx+0A9h], byte 0
         jl short .2
         mov eax, ebx
@@ -2156,9 +2161,11 @@ sub_11808:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11908                                                       11908  97 PC
+; ResetBench                                     11908  94G, medium confidence
+; 94G ResetBench (96 PC body): the bench and penalty box state of both teams'
+; rosters
 ;-----------------------------------------------------------------------------
-sub_11908:
+ResetBench:
         push ebx
         push ecx
         push edx
@@ -2268,7 +2275,7 @@ sub_119A8:
         test bl, 40h
         setne al
         and eax, 0FFh
-        call sub_57A1C
+        call LoadGoalieMask
         jmp near .9
 .1:
         xor eax, eax
@@ -2351,9 +2358,11 @@ sub_119A8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11B38                                                       11B38  97 PC
+; setplayer                                      11B38  94G, medium confidence
+; 94G setplayer: (player, roster index) brings a player onto the ice: pnum
+; (+0A6h), marks him in the team's line table (+50h, 8001h / 8002h)
 ;-----------------------------------------------------------------------------
-sub_11B38:
+setplayer:
         push ebx
         push ecx
         push esi
@@ -2381,7 +2390,7 @@ sub_11B38:
         mov edx, 16h
 .2:
         mov eax, ecx
-        call sub_1E224
+        call assinsert
         and byte [dword ecx+0BFh], 0DFh
 .3:
         movsx eax, bx
@@ -2652,9 +2661,10 @@ sub_11B38:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11ED8                                                       11ED8  97 PC
+; reenergizeteam                                 11ED8  94G, medium confidence
+; 94G reenergizeteam (96 PC body): every player's energy back to 1000h
 ;-----------------------------------------------------------------------------
-sub_11ED8:
+reenergizeteam:
         push ebx
         push ecx
         push edx
@@ -2692,13 +2702,13 @@ SetupTeamForIntermission:
         push ecx
         push edx
         push esi
-        call sub_11908
+        call ResetBench
         mov edx, hmtmstruct
         mov ecx, awtmstruct
         xor ebx, ebx
 .1:
         mov eax, edx
-        call sub_11ED8
+        call reenergizeteam
         mov word [byte edx+02h], 0
         mov eax, dword [dword_1AC944]
         test byte [byte eax+01h], 0C0h
@@ -3090,7 +3100,7 @@ sub_123A0_62:
         je short sub_123A0_81
         mov edx, 1
         mov eax, ebx
-        call sub_1E208
+        call assreplace
 sub_123A0_81:
         add ebx, 108h
         mov byte [byte ebx-060h], 0FFh
@@ -3176,7 +3186,7 @@ sub_124A4:
         mov byte [dword edx+byte_19C3E0], bl
         cmp ax, 6
         jl short .1
-        cmp word [word_19CBDE], byte 0
+        cmp word [penshotmode], byte 0
         je short .2
         cmp esi, awtmstruct
         sete al
@@ -3422,9 +3432,11 @@ sub_124A4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_127D4                                                       127D4  97 PC
+; setpersonel                                    127D4  94G, medium confidence
+; 94G setpersonel (96 PC body): clears the team's 6 on-ice slots and sets the
+; personnel
 ;-----------------------------------------------------------------------------
-sub_127D4:
+setpersonel:
         push ebx
         push ecx
         push edx
@@ -3509,14 +3521,14 @@ sub_127D4:
         movsx edx, cx
         mov eax, esi
         call sub_3A06C
-        cmp word [word_19CBDE], byte 0
+        cmp word [penshotmode], byte 0
         je short .10
         mov edx, 19h
         mov dword [byte ebx+028h], 0
         mov eax, esi
         fld dword [byte ebx+028h]
         fstp dword [byte ebx+020h]
-        call sub_1E208
+        call assreplace
         mov eax, esi
         call sub_27D10
         jmp short .11
@@ -3524,7 +3536,7 @@ sub_127D4:
         mov edx, 1
         mov eax, esi
         mov dword [byte esi+020h], 0C58AC000h
-        call sub_1E208
+        call assreplace
 .11:
         mov word [dword esi+0A9h], 5
 .12:
@@ -3570,7 +3582,7 @@ sub_12970:
 .3:
         test eax, eax
         jne short .4
-        cmp word [word_19CBB8], byte 3
+        cmp word [gsp], byte 3
         jl short .4
         mov ax, word [word_168D18]
         ret
@@ -3595,7 +3607,7 @@ sub_12970:
 .6:
         mov ebx, 0Fh
         mov word [word_19CB98], ax
-        mov word [word_19CBBA], ax
+        mov word [gameclock], ax
         xor edx, edx
         mov ah, byte [byte_19CBC2]
         mov word [word_19CBBC], dx
@@ -3617,14 +3629,14 @@ sub_12A10:
         mov esi, eax
         test eax, eax
         je short .1
-        cmp word [word_19CBBA], byte 0
+        cmp word [gameclock], byte 0
         jne short .1
         cmp word [word_19CBBC], byte 0
         jne short .1
         xor eax, eax
         jmp short .2
 .1:
-        mov ebx, dword [word_19CBB8]
+        mov ebx, dword [gsp]
         mov eax, dword [word_19CB96]
         sar ebx, 10h
         sar eax, 10h
@@ -3650,28 +3662,30 @@ sub_12A10:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12A70                                                       12A70  97 PC
+; ClockTick                                    12A70  95 PC, medium confidence
+; run from the main loop. Counts clockticks (18h per second) and gameclock down; horn sfx 97h at
+; 60 s (unless music plays), UpdateCoachModes each second. Debug playback (penshotlive) ends via EndPenaltyShot.
 ;-----------------------------------------------------------------------------
-sub_12A70:
+ClockTick:
         push ebx
         push ecx
         push edx
         push esi
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         je short .1
-        mov cx, word [dword_19CBE4]
+        mov cx, word [penshottimer]
         dec ecx
-        mov word [dword_19CBE4], cx
+        mov word [penshottimer], cx
         test cx, cx
         jg near .10
-        call sub_33880
+        call EndPenaltyShot
         pop esi
         pop edx
         pop ecx
         pop ebx
         ret
 .1:
-        cmp word [word_19CBBA], byte 0
+        cmp word [gameclock], byte 0
         jne short .2
         cmp word [word_19CBBC], byte 0
         je near .10
@@ -3681,7 +3695,7 @@ sub_12A70:
         mov word [word_19CBBC], si
         test si, si
         jge near .10
-        mov ax, word [word_19CBBA]
+        mov ax, word [gameclock]
         test ax, ax
         jle short .3
         mov ecx, esi
@@ -3689,16 +3703,16 @@ sub_12A70:
         add ecx, byte 10h
         dec ebx
         mov word [word_19CBBC], cx
-        mov word [word_19CBBA], bx
+        mov word [gameclock], bx
         jmp short .4
 .3:
         xor edx, edx
         mov word [word_19CBBC], dx
 .4:
-        cmp word [word_19CBBA], byte 78h
+        cmp word [gameclock], byte 78h
         jge short .5
         mov edx, dword [dword_19CB48]
-        mov eax, dword [word_19CBB8]
+        mov eax, dword [gsp]
         push edx
         sar eax, 10h
         push eax
@@ -3709,17 +3723,17 @@ sub_12A70:
         call sub_45BEC
         add esp, byte 10h
 .5:
-        cmp word [word_19CBBA], byte 3Ch
+        cmp word [gameclock], byte 3Ch
         jne short .6
         mov eax, dword [word_19CBB6]
         sar eax, 10h
         push eax
         push dword 0C0000004h
-        call sub_48D70
+        call PaEvent
         add esp, byte 8
 .6:
         mov ebx, dword [word_19CB96]
-        mov eax, dword [word_19CBB8]
+        mov eax, dword [gsp]
         sar ebx, 10h
         sar eax, 10h
         mov edx, ebx
@@ -3736,7 +3750,7 @@ sub_12A70:
         add eax, ecx
         xor edx, edx
         call sub_52E28
-        mov edx, dword [word_19CBB8]
+        mov edx, dword [gsp]
         sar edx, 10h
         mov ebx, 3Ch
         mov eax, edx
@@ -3744,9 +3758,9 @@ sub_12A70:
         idiv ebx
         test edx, edx
         jne short .9
-        cmp word [word_19CBB8], byte 2
+        cmp word [gsp], byte 2
         jne short .7
-        mov dx, word [word_19CBBA]
+        mov dx, word [gameclock]
         cmp dx, byte 3Ch
         je short .8
         cmp dx, byte 78h
@@ -3758,20 +3772,20 @@ sub_12A70:
         cmp dx, 258h
         je short .8
 .7:
-        cmp word [word_19CBB8], byte 1
+        cmp word [gsp], byte 1
         jne short .9
-        cmp word [word_19CBBA], 258h
+        cmp word [gameclock], 258h
         jne short .9
 .8:
-        call sub_2E8F0
+        call UpdateCoachModes
 .9:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 40h
         jne short .10
-        cmp word [word_19CBBA], byte 0
+        cmp word [gameclock], byte 0
         jle short .10
-        mov edx, dword [word_19CBB8]
+        mov edx, dword [gsp]
         sar edx, 10h
         mov ebx, 5Ah
         mov eax, edx
@@ -3782,7 +3796,7 @@ sub_12A70:
         mov eax, 7
         call randomd0
         cwde
-        call sub_141AC
+        call ShowCameraView
 .10:
         pop esi
         pop edx
@@ -3823,10 +3837,10 @@ sub_12C2C:
 .3:
         mov esi, 0Fh
         mov dh, byte [byte_19CBC2]
-        mov di, word [word_19CBB8]
+        mov di, word [gsp]
         mov word [word_19CB98], ax
         xor ecx, ecx
-        mov word [word_19CBBA], ax
+        mov word [gameclock], ax
         mov word [word_19CBBC], cx
         or dh, 1
         mov word [word_19CBD4], si
@@ -3870,14 +3884,14 @@ sub_12C2C:
 .6:
         xor esi, esi
         mov ecx, 0FFFFFFFFh
-        mov word [word_19CBDE], si
-        mov word [word_19CBE2], si
+        mov word [penshotmode], si
+        mov word [penshotlive], si
         mov word [word_19CBE0], si
         mov word [word_19CBDC], si
         mov word [word_19CBDA], si
         mov word [word_19CBE6], cx
         call sub_18E35
-        mov ax, word [word_19CBB8]
+        mov ax, word [gsp]
         mov word [word_19CBC0], si
         mov word [word_19CBBE], si
         test ax, ax
@@ -3888,7 +3902,7 @@ sub_12C2C:
         mov edx, 42h
 .8:
         mov eax, dword [off_168CFC]
-        call sub_1E208
+        call assreplace
         call sub_4DDB0
         mov bl, byte [byte_19CBCA]
         or bl, 4
@@ -3958,7 +3972,7 @@ sub_12E50:
         push edx
         push esi
         push edi
-        mov dx, word [word_19CBDE]
+        mov dx, word [penshotmode]
         mov ebx, SortCords
         test dx, dx
         je near .9
@@ -3969,7 +3983,7 @@ sub_12E50:
         mov ax, word [dword ebx+0A9h]
         test ax, ax
         jle short .4
-        mov eax, dword [dword_19CBE4]
+        mov eax, dword [penshottimer]
         sar eax, 10h
         cmp ecx, eax
         je short .2
@@ -4017,7 +4031,7 @@ sub_12E50:
 .6:
         mov eax, ebx
 .7:
-        call sub_1E224
+        call assinsert
 .8:
         inc ecx
         add ebx, 108h
@@ -4041,7 +4055,7 @@ sub_12E50:
         jne near .19
         mov edx, edi
         mov eax, ebx
-        call sub_1E224
+        call assinsert
         mov edx, 16h
         jmp near .18
 .11:
@@ -4094,7 +4108,7 @@ sub_12E50:
         mov edx, edi
 .18:
         mov eax, ebx
-        call sub_1E224
+        call assinsert
 .19:
         inc ecx
         add ebx, 108h

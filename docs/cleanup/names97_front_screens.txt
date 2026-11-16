@@ -1,0 +1,26 @@
+sub_7CE9E RunFrontEnd {source=96PC,confidence=medium} 96 PC RunFrontEnd: the front end, from main_: picks the front-end music, shows the title, then runs the screen with the current number (main menu, game screens 4-9 through RunGameScreens, credits, ...) until quit
+sub_7CBD6 InitFrontEnd {confidence=low} front-end start-up (also after a game): input devices (mous / remo), the front-end art and the team logo names
+sub_7CDD8 FreeFrontEnd {confidence=low} undoes InitFrontEnd and saves GLOBAL.SET (WriteGlobalSet)
+sub_7CADA LoadLogoNames {confidence=low} loads the "logo names" block from the logo%02d.qfs files
+sub_7CF94 TitleScreen {confidence=low} the title screen at front-end start (BACK, LOGO) with its PA announcement
+sub_84B55 MainMenuScreen {source=96PC,confidence=medium} 96 PC MainMenuScreen: the main menu ("menu", MB01-MB11 buttons, PIC%d%c pictures); checks which of EXHIBIT / SEASON / PLAYOFF.NDX exist; returns the next screen
+sub_85A15 RunGameScreens {confidence=low} (screen): from RunFrontEnd, runs the game set-up screens by number (team select 4, pick saves 5/7/9, new season 6, new play-offs 8, season 0Ch, play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h, roster 19h) until one returns to the main menu
+sub_9E91C TeamSelectScreen {source=96PC,confidence=medium} 96 PC TeamSelectScreen: the exhibition team select screen (HOM1/HOM2, AWY1/AWY2, team ranks); returns the next screen
+sub_9F6F5 PickIndexEntryScreen {source=96PC,confidence=medium} 96 PC PickIndexEntryScreen: (kind 5/7/9) picks an entry of SEASON / PLAYOFF / EXHIBIT.NDX (DL00-DL03), with new and delete
+sub_AB0E8 PlayMenuGame {source=96PC,confidence=medium} 96 PC PlayMenuGame: plays a game started from the menus: frees the front end, InitGameAudio, PlayGame, then back to the front end
+sub_A6690 PostGameScreen {confidence=low} the post-game screen (NHL0 / NHLP, FLR1/2, T3S2, GS00/GS01, RM00/RM01), alternating with GameStatsScreen
+sub_A7D9C GameStatsScreen {source=96PC,confidence=medium} 96 PC GameStatsScreen: the game statistics screen ("gameStatMenu" / "gameStatRegn")
+sub_9623E EditLinesScreen {source=96PC,confidence=medium} 96 PC EditLinesScreen: (team, line) the edit lines screen ("edit lines menu" / "edit lines regions")
+sub_C755B RosterScreen {source=96PC,confidence=low} 96 PC RosterScreen: the roster screen ("roster menu" / "roster regions")
+sub_8E997 RunNewSeason {confidence=low} screen 6: sets up a new season (copies the set-up, NewSeasonScreen, roster, import agents)
+sub_8EC93 NewSeasonScreen {source=96PC,confidence=medium} 96 PC NewSeasonScreen: the new season set-up screen ("newmenu", TTLW, WC00/WC01, 012R-014R)
+sub_8FA67 CreateSeason {confidence=low} creates the new season: seeds rand from the time, picks a free SEAS%04d.SET name and adds it to SEASON.NDX
+sub_8FFCF RunSeasonMenus {source=96PC,confidence=low} 96 PC RunSeasonMenus: screen 0Ch, runs the season screens (season menu, standings, play-off tree, roster) until they leave
+sub_90162 SeasonMenuScreen {source=96PC,confidence=low} 96 PC SeasonMenuScreen: the season menu ("menu", SD00-SD03, RL00, SN00, SR00 ...)
+sub_912E3 StandingsScreen {source=96PC,confidence=medium} 96 PC StandingsScreen: the standings screen ("standmenu", factoids, BGWS, TTLW)
+sub_93512 RunNewPlayoffs {confidence=low} screen 8: sets up new play-offs (copies the set-up, PlayoffSetupScreen, roster, import agents)
+sub_936BE PlayoffSetupScreen {source=96PC,confidence=low} 96 PC PlayoffSetupScreen: the new play-offs screen ("playoffmenu", TITL, 012R-014R, the option toggles SCOF/SCON ...)
+sub_9401D CreatePlayoffs {confidence=low} creates the new play-offs: picks a free PLAY%04d.SET name and adds it to PLAYOFF.NDX
+sub_94B30 RunPlayoffMenus {source=96PC,confidence=low} 96 PC RunPlayoffMenus: screen 0Dh, runs the play-off screens (play-off tree, standings, roster) until they leave
+sub_94BDA PlayoffTreeScreen {source=96PC,confidence=low} 96 PC PlayoffTreeScreen: the play-off tree screen ("playoffmenu", "pieces", pan2 / pan6, 01RU, 01SR ...)
+sub_D70C4 CreditsScreen {confidence=low} from RunFrontEnd: the credits (reads the credits text file, EAC1/EAC2, CRD1/CRD2, QCRD) with the arena music

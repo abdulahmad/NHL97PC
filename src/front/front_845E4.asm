@@ -18,14 +18,14 @@ extern fclose_, fopen_, fputc_, jpt_845CC, memcpy_, memset_, rand_, sprintf_
 extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, sub_100A68, sub_101324
 extern sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_102B94, sub_102C30
 extern sub_106DA0, sub_10AED0, sub_110D70, sub_11A318, sub_11B094, sub_11B104, sub_13C164, sub_419B0
-extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, sub_41EA4, sub_41F2C, sub_41FA0
-extern sub_41FDC, MakeDataPath, sub_4B108, sub_4B19C, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
-extern sub_7EEB0, sub_7EF70, sub_7F028, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
-extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, sub_8E7E0, sub_8E997, sub_8FFCF
-extern sub_9279A, sub_93512, sub_94B30, sub_9623E, sub_9E91C, sub_9F6F5, sub_A4B7D, sub_A6690
-extern sub_A7D9C, sub_AB0E8, sub_AC369, sub_ADBE6, sub_AF074, sub_B418C, sub_B5891, sub_B8FDF
-extern sub_BD621, sub_C0F5D, sub_C755B, sub_D1927, sub_D3112, sub_DB75E, sub_DE3CF, sub_E036F
-extern sub_E3410, sub_E341C, sub_E3E8C, sub_E4638, sub_E4838, sub_FAA64, sub_FAF34, sub_FB704
+extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, ArenaFileName, sub_41F2C, sub_41FA0
+extern sub_41FDC, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
+extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
+extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, RunNewSeason, RunSeasonMenus
+extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, sub_A4B7D, PostGameScreen
+extern GameStatsScreen, PlayMenuGame, sub_AC369, sub_ADBE6, sub_AF074, sub_B418C, sub_B5891, sub_B8FDF
+extern sub_BD621, sub_C0F5D, RosterScreen, sub_D1927, sub_D3112, sub_DB75E, sub_DE3CF, sub_E036F
+extern sub_E3410, sub_E341C, NetDisconnect, LinkSendBlock, LinkReceiveBlock, sub_FAA64, sub_FAF34, sub_FB704
 extern sub_FC330, sub_FCD90, sub_FCEEC, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, tickcount
 extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
 extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C8300, unk_1C830C, unk_845C0
@@ -34,7 +34,7 @@ global sub_845E4_370, sub_845E4_50B, sub_84B55_911, sub_84B55_999, sub_84B55_A17
 global sub_84B55_A68, sub_84B55_A79, sub_84B55_A82, sub_84B55_A94, sub_84B55_A9D, sub_84B55_AAF, sub_84B55_AB8, sub_84B55_BA5
 global sub_84B55_BBD, sub_84B55_BC6, sub_84B55_BD5, sub_84B55_BDE, sub_84B55_BED, sub_84B55_BF6, sub_84B55_C76, sub_84B55_CFF
 global sub_84B55_DDB, sub_84B55_DF1, sub_85D1D_6E, sub_85D1D_82, sub_85D1D_9E, sub_85D1D_A5, sub_85D1D_AC, sub_85D1D_B3
-global sub_85D1D_BA, sub_85D1D_C1, sub_845E4, sub_84B55, sub_85A15, sub_85D1D, sub_85E1E, NameIndexNew
+global sub_85D1D_BA, sub_85D1D_C1, sub_845E4, MainMenuScreen, RunGameScreens, sub_85D1D, sub_85E1E, NameIndexNew
 global NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath, sub_867D4
 global sub_867F0, sub_86878
 ;-----------------------------------------------------------------------------
@@ -428,9 +428,10 @@ jpt_84B3D:
         dd sub_84B55_BDE
         dd sub_84B55_BED
 ;-----------------------------------------------------------------------------
-; sub_84B55                                                       84B55  97 PC
+; MainMenuScreen                               84B55  96 PC, medium confidence
+; From RunFrontEnd: the main menu (bkgd, !pal, 8 items, buttons by optflags)
 ;-----------------------------------------------------------------------------
-sub_84B55:
+MainMenuScreen:
         push ebx
         push ecx
         push edx
@@ -498,21 +499,21 @@ sub_84B55:
         mov edx, 4
         lea eax, [byte ebp+056h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 4
         lea eax, [byte ebp+052h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         jmp short .5
 .4:
         mov edx, 4
         lea eax, [byte ebp+052h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 4
         lea eax, [byte ebp+056h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
 .5:
         cmp byte [byte ebp+052h], 31h
         jne short .6
@@ -563,7 +564,7 @@ sub_84B55:
 .13:
         mov eax, 0F9h
         mov ebx, 3
-        call sub_4B19C
+        call OpenDataLibrary
         call rand_
         cdq
         idiv ebx
@@ -628,7 +629,7 @@ sub_84B55:
         call sub_419B8
         xor edx, edx
         mov eax, 0F3h
-        call sub_4B108
+        call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp+06Ah], eax
         mov eax, 3
@@ -636,7 +637,7 @@ sub_84B55:
         call sub_419B0
         call sub_419B8
         mov eax, 0F4h
-        call sub_4B108
+        call LoadDataFile
         push asc_165231
         push ebx
         mov dword [byte ebp+076h], eax
@@ -712,7 +713,7 @@ sub_84B55:
         push dword 1E0h
         lea eax, [dword ebp-01B6h]
         xor edx, edx
-        call sub_7F028
+        call SetRegionRect
         push asc_165272
         push dword [byte ebp+06Ah]
         call sub_101429
@@ -1070,6 +1071,9 @@ sub_84B55:
         mov eax, dword [tickcount]
         mov dword [dword_1C82A4], eax
         jmp near sub_84B55_CFF.48
+;-----------------------------------------------------------------------------
+; sub_84B55_911                                                   85466  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_911:
         call sub_7EEB0
         cmp dword [dword_16DA9C], byte 0
@@ -1079,7 +1083,7 @@ sub_84B55_911:
         mov ecx, 1
         mov edx, 2
         xor ebx, ebx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         test eax, eax
         je short sub_84B55_999
@@ -1108,47 +1112,62 @@ sub_84B55_911:
         mov eax, unk_1ACB44
         call memcpy_
         jmp short sub_84B55_999.26
+;-----------------------------------------------------------------------------
+; sub_84B55_999                                                   854EE  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_999:
         mov dword [byte ebp+07Eh], 1
         jmp near sub_84B55_CFF.48
 .26:
-        call sub_E3E8C
+        call NetDisconnect
         jmp short .28
 .27:
         mov dword [byte ebp+07Eh], 0
 .28:
         mov eax, 202h
-        call sub_8E7E0
+        call GetLangText
         mov dword [byte ebp+032h], eax
         mov eax, 203h
-        call sub_8E7E0
+        call GetLangText
         mov dword [byte ebp+036h], eax
         mov eax, 204h
         lea ebx, [byte ebp+032h]
-        call sub_8E7E0
+        call GetLangText
         mov dword [byte ebp+03Ah], eax
         mov eax, 205h
         mov edx, 4
-        call sub_8E7E0
+        call GetLangText
         push byte 0
         mov dword [byte ebp+03Eh], eax
         mov eax, 201h
         xor ecx, ecx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         cmp ax, 3
         ja near sub_84B55_CFF.48
         movzx eax, ax
         jmp dword [nosplit cs:eax*4+jpt_84B15]
+;-----------------------------------------------------------------------------
+; sub_84B55_A17                                                   8556C  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_A17:
         mov dword [byte ebp+07Eh], 20h
         jmp near sub_84B55_CFF.48
+;-----------------------------------------------------------------------------
+; sub_84B55_A23                                                   85578  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_A23:
         mov dword [byte ebp+07Eh], 21h
         jmp near sub_84B55_CFF.48
+;-----------------------------------------------------------------------------
+; sub_84B55_A2F                                                   85584  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_A2F:
         mov dword [byte ebp+07Eh], 0
         jmp near sub_84B55_CFF.48
+;-----------------------------------------------------------------------------
+; sub_84B55_A3B                                                   85590  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_A3B:
         call sub_7EDF0
         mov edx, dword [dword_16CCC4]
@@ -1161,30 +1180,51 @@ sub_84B55_A3B:
         or bl, 10h
         or cl, 20h
         jmp dword [nosplit cs:edx*4+jpt_84B25]
+;-----------------------------------------------------------------------------
+; sub_84B55_A68                                                   855BD  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_A68:
         mov dword [byte ebp+07Eh], 4
 .29:
         mov dword [dword_1AC814], eax
         jmp near sub_84B55_CFF.48
+;-----------------------------------------------------------------------------
+; sub_84B55_A79                                                   855CE  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_A79:
         mov dword [byte ebp+07Eh], 5
         jmp short sub_84B55_A68.29
+;-----------------------------------------------------------------------------
+; sub_84B55_A82                                                   855D7  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_A82:
         mov dword [byte ebp+07Eh], 6
 .30:
         mov dword [dword_1AC814], ebx
         jmp near sub_84B55_CFF.48
+;-----------------------------------------------------------------------------
+; sub_84B55_A94                                                   855E9  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_A94:
         mov dword [byte ebp+07Eh], 7
         jmp short sub_84B55_A82.30
+;-----------------------------------------------------------------------------
+; sub_84B55_A9D                                                   855F2  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_A9D:
         mov dword [byte ebp+07Eh], 8
 .31:
         mov dword [dword_1AC814], ecx
         jmp near sub_84B55_CFF.48
+;-----------------------------------------------------------------------------
+; sub_84B55_AAF                                                   85604  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_AAF:
         mov dword [byte ebp+07Eh], 9
         jmp short sub_84B55_A9D.31
+;-----------------------------------------------------------------------------
+; sub_84B55_AB8                                                   8560D  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_AB8:
         xor ebx, ebx
 .32:
@@ -1261,6 +1301,9 @@ sub_84B55_AB8:
         or si, byte 10h
         or cl, 20h
         jmp dword [dword cs:eax+jpt_84B3D]
+;-----------------------------------------------------------------------------
+; sub_84B55_BA5                                                   856FA  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_BA5:
         mov dword [byte ebp+07Eh], 4
 .37:
@@ -1270,25 +1313,43 @@ sub_84B55_BA5:
         cmp ebx, byte 6
         jl short sub_84B55_AB8.36
         jmp near sub_84B55_CFF.48
+;-----------------------------------------------------------------------------
+; sub_84B55_BBD                                                   85712  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_BBD:
         mov dword [byte ebp+07Eh], 5
         jmp short sub_84B55_BA5.37
+;-----------------------------------------------------------------------------
+; sub_84B55_BC6                                                   8571B  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_BC6:
         mov dword [byte ebp+07Eh], 6
 .39:
         mov dword [dword_1AC814], esi
         jmp short sub_84B55_BA5.38
+;-----------------------------------------------------------------------------
+; sub_84B55_BD5                                                   8572A  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_BD5:
         mov dword [byte ebp+07Eh], 7
         jmp short sub_84B55_BC6.39
+;-----------------------------------------------------------------------------
+; sub_84B55_BDE                                                   85733  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_BDE:
         mov dword [byte ebp+07Eh], 8
 .40:
         mov dword [dword_1AC814], ecx
         jmp short sub_84B55_BA5.38
+;-----------------------------------------------------------------------------
+; sub_84B55_BED                                                   85742  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_BED:
         mov dword [byte ebp+07Eh], 9
         jmp short sub_84B55_BDE.40
+;-----------------------------------------------------------------------------
+; sub_84B55_BF6                                                   8574B  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_BF6:
         xor ebx, ebx
 .41:
@@ -1325,6 +1386,9 @@ sub_84B55_BF6:
         shl eax, 7
         or dword [dword_1AC814], eax
         jmp near sub_84B55_CFF.48
+;-----------------------------------------------------------------------------
+; sub_84B55_C76                                                   857CB  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_C76:
         mov eax, dword [dword_1C8320]
         add eax, 148h
@@ -1336,7 +1400,7 @@ sub_84B55_C76:
         mov ecx, 1
         mov edx, 2
         xor ebx, ebx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         test eax, eax
         je short .43
@@ -1348,7 +1412,7 @@ sub_84B55_C76:
         mov eax, unk_1ACB44
         call memcpy_
 .42:
-        call sub_E3E8C
+        call NetDisconnect
 .43:
         mov dword [byte ebp+07Eh], 1
         jmp short .46
@@ -1362,6 +1426,9 @@ sub_84B55_C76:
 .46:
         mov dword [dword_16CCC4], 0FFFFFFFFh
         jmp short sub_84B55_CFF.48
+;-----------------------------------------------------------------------------
+; sub_84B55_CFF                                                   85854  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_CFF:
         mov eax, dword [dword_1C8320]
         add eax, 19Ah
@@ -1413,11 +1480,17 @@ sub_84B55_CFF:
         ja near .48
         mov eax, dword [byte ebp+04Eh]
         jmp dword [nosplit cs:eax*4+jpt_84AF5]
+;-----------------------------------------------------------------------------
+; sub_84B55_DDB                                                   85930  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_DDB:
         mov eax, dword [dword_1C8320]
         add eax, 1ECh
         mov dword [byte ebp+07Eh], 0Ah
         jmp near sub_84B55_CFF.47
+;-----------------------------------------------------------------------------
+; sub_84B55_DF1                                                   85946  97 PC
+;-----------------------------------------------------------------------------
 sub_84B55_DF1:
         call sub_7EF70
         mov dword [byte ebp+04Eh], 2
@@ -1472,9 +1545,13 @@ sub_84B55_DF1:
         pop ebp
         jmp near sub_845E4_50B
 ;-----------------------------------------------------------------------------
-; sub_85A15                                                       85A15  97 PC
+; RunGameScreens                                  85A15  97 PC, low confidence
+; (screen): from RunFrontEnd, runs the game set-up screens by number (team
+; select 4, pick saves 5/7/9, new season 6, new play-offs 8, season 0Ch,
+; play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h, roster 19h)
+; until one returns to the main menu
 ;-----------------------------------------------------------------------------
-sub_85A15:
+RunGameScreens:
         push ebx
         push ecx
         push edx
@@ -1505,13 +1582,13 @@ sub_85A15:
 .4:
         cmp ebx, byte 4
         jne short .8
-        call sub_9E91C
+        call TeamSelectScreen
         mov dword [dword_1C94E8], 1
         jmp short .7
 .5:
         mov eax, 5
 .6:
-        call sub_9F6F5
+        call PickIndexEntryScreen
 .7:
         mov ebx, eax
 .8:
@@ -1530,22 +1607,22 @@ sub_85A15:
         je near .26
         jmp short .8
 .9:
-        call sub_8E997
+        call RunNewSeason
         jmp short .7
 .10:
         mov eax, 7
         jmp short .6
 .11:
-        call sub_93512
+        call RunNewPlayoffs
         jmp short .7
 .12:
         mov eax, 9
         jmp short .6
 .13:
-        call sub_8FFCF
+        call RunSeasonMenus
         jmp short .7
 .14:
-        call sub_94B30
+        call RunPlayoffMenus
         jmp short .7
 .15:
         call sub_A4B7D
@@ -1609,14 +1686,14 @@ sub_85A15:
 .26:
         mov eax, 1
         mov ebx, 4
-        call sub_C755B
+        call RosterScreen
         jmp near .8
 .27:
         mov edx, 0FFFFFFFFh
         xor eax, eax
 .28:
         mov ebx, 0Eh
-        call sub_9623E
+        call EditLinesScreen
         jmp near .8
 .29:
         mov edx, 0FFFFFFFFh
@@ -1630,7 +1707,7 @@ sub_85A15:
         jmp near .7
 .32:
         call sub_41DD8
-        call sub_AB0E8
+        call PlayMenuGame
         test eax, eax
         je short .40
 .33:
@@ -1648,11 +1725,11 @@ sub_85A15:
         je short .37
         jmp short .34
 .36:
-        call sub_A6690
+        call PostGameScreen
         mov ebx, eax
         jmp short .34
 .37:
-        call sub_A7D9C
+        call GameStatsScreen
         jmp short .33
 .38:
         mov eax, dword [dword_1AC814]
@@ -1679,7 +1756,7 @@ sub_85A15:
         mov ecx, edx
         lea edx, [byte ebp-050h]
         mov eax, ecx
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-050h]
         call sub_41A28
         lea eax, [byte ecx+01h]
@@ -1688,7 +1765,7 @@ sub_85A15:
         idiv ecx
         mov eax, edx
         lea edx, [byte ebp-050h]
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-050h]
         call sub_41A28
         call sub_41DB8
@@ -1836,14 +1913,14 @@ sub_85E1E:
         call sub_419B8
         xor edx, edx
         mov eax, 24h
-        call sub_4B108
+        call LoadDataFile
         mov dword [byte ebp+06Eh], eax
         mov eax, 3
         xor edx, edx
         call sub_419B0
         call sub_419B8
         mov eax, 25h
-        call sub_4B108
+        call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp+072h], eax
         mov eax, 3
@@ -2103,21 +2180,21 @@ sub_85E1E:
         mov edx, 1
         lea eax, [byte ebp+07Eh]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 1
         lea eax, [byte ebp+07Ah]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         jmp short .12
 .10:
         mov edx, 1
         lea eax, [byte ebp+07Ah]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 1
         lea eax, [byte ebp+07Eh]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         jmp short .12
 .11:
         mov byte [byte ebp+07Ah], 4Eh
@@ -2134,7 +2211,7 @@ sub_85E1E:
         mov dword [byte ebp+076h], 0FFFFFFFFh
         xor ecx, ecx
         xor ebx, ebx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
 .13:
         cmp dword [byte ebp+076h], byte 6Ah

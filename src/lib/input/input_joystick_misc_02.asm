@@ -3,9 +3,9 @@ bits 32
 %include "hockey.inc"
 section s_FBE40 progbits alloc exec nowrite align=1
 extern GetTicks, TickDeadlinePassed, dword_16E3EC, dword_16E3F4, dword_16E3F8, dword_16E3FC, dword_16E402, dword_16E410
-extern dword_17070C, dword_1CF26C, dword_1CF28C, dword_1CF290, dword_1CF294, sub_11641C, tickcount, word_1CF28E
+extern dword_17070C, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, sub_11641C, tickcount, word_1CF28E
 global WaitKey, sub_FBE40, sub_FBE5D, sub_FBE63, sub_FBE78, sub_FBE94, sub_FBF00, TimerISR
-global sub_FBFDC
+global addtimer
 ;-----------------------------------------------------------------------------
 ; sub_FBE40                                                            FBE40  
 ;-----------------------------------------------------------------------------
@@ -125,10 +125,10 @@ sub_FBF00:
         cld
         xor edx, edx
 .1:
-        cmp dword [dword edx+dword_1CF26C], byte 0
+        cmp dword [dword edx+timercallbacks], byte 0
         je short .2
         mov eax, edx
-        call dword [dword eax+dword_1CF26C]
+        call dword [dword eax+timercallbacks]
 .2:
         add edx, byte 4
         cmp edx, byte 20h
@@ -215,23 +215,23 @@ TimerISR:
         iret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FBFDC                                                            FBFDC  
+; addtimer                                     FBFDC  96 PC, medium confidence
 ;-----------------------------------------------------------------------------
-sub_FBFDC:
-        mov edx, dword [dword_1CF26C]
+addtimer:
+        mov edx, dword [timercallbacks]
         xor eax, eax
         test edx, edx
         jne short .3
 .1:
         mov edx, dword [byte esp+04h]
-        mov dword [dword eax+dword_1CF26C], edx
+        mov dword [dword eax+timercallbacks], edx
 .2:
         ret
 .3:
         add eax, byte 4
         cmp eax, byte 20h
         jge short .2
-        cmp dword [dword eax+dword_1CF26C], byte 0
+        cmp dword [dword eax+timercallbacks], byte 0
         je short .1
         jmp short .3
         db 08Bh,0C0h

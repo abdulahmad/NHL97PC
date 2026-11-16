@@ -2,3 +2,48 @@ sub_77F88 GameOver {source=96PC,confidence=medium} sets gameover (word_19CBA0); 
 sub_1306C Intermission {source=96PC,confidence=medium} 96 PC Intermission: GameOver when gsp is 4, else SetupTeamForIntermission and resets the players for the next period
 sub_130C8 StartGame {source=96PC,confidence=medium} 96 PC StartGame: CountTeamSlots, clears the game vars and teams, restores the teams and starts the period
 
+sub_12A70 ClockTick {source=96PC,confidence=medium} 96 PC ClockTick: counts the game clock down (word_19CBBA minutes, word_19CBBC seconds) and posts the clock events; from RunSimFrames
+sub_131E0 InitGameVars {confidence=medium} clears the per-game state (clock, period, gameover, penalties, counters), then StartGame
+sub_13A4C BeginGame {confidence=low} from PlayGame: InitGameVars, the period fraction, then the opening sequence (OpeningSequence); 2 when it was aborted
+sub_13920 OpeningSequence {confidence=low} the game's opening: in a simulated game posts event 29h and returns, else places the players (PlaceOpeningPlayers) and runs the intro frames (RunOpeningFrames)
+sub_134F0 RunOpeningFrames {confidence=low} runs the input records and frames of the opening until a button or 5DCh frames
+sub_136C0 PlaceOpeningPlayers {confidence=low} puts the players at their opening places (random spread by team and arena)
+sub_14880 HandleGameKeys {confidence=medium} from GameLoop: the in-game keyboard: the unlocked debug keys (DebugKeys), the function keys (GameFunctionKeys)
+sub_14294 DebugKeys {confidence=low} (key): the debug keys, active once the unlock count (word_1686D4) reaches 4
+sub_14710 GameFunctionKeys {confidence=low} (key): Ctrl+F1-F9 toggles (dword_16AF3C), +, - and =
+sub_14184 ToggleFKeyFlag {confidence=low} (key 5E00h-6600h): toggles the flag of a Ctrl+F key (dword_16AF3C)
+sub_14238 CountDebugUnlock {confidence=low} counts one step of the debug key unlock (sound 10h at 4)
+sub_1426C ResetDebugUnlock {confidence=low} clears the debug key unlock count
+sub_14E60 InitGameDisplay {confidence=low} from PlayGame: copies the display options (unk_16AED4) and sets the 640x480 game screen
+sub_14FE0 SaveGameDisplay {confidence=low} writes the game's display options back (dword_1AC835) after the game
+sub_151A8 SetGameBrightness {confidence=low} the brightness (28h-64h) from the display options
+sub_15578 RunDemoGame {source=96PC,confidence=medium} 96 PC RunDemoGame: the attract mode game (gameopts 40h, a seed from the DOS time)
+
+word_19CBB8 gsp {source=94G,confidence=medium} 94G gsp, the game segment (period 0-3, 4 = game over), as in 96 PC StartGame / Intermission / ClockTick
+word_19CBBA gameclock {source=94G,confidence=medium} 94G gameclock: seconds left in the period (ClockTick)
+word_19CBE2 penshotlive {source=96PC,confidence=medium} 96 PC penshotlive: a penalty shot is running (ClockTick)
+dword_19CBE4 penshottimer {source=96PC,confidence=medium} 96 PC penshottimer: ticks left of the penalty shot
+word_19CBA0 gameover {source=96PC,confidence=medium} 96 PC gameover (GameOver sets it, RunSimFrames checks it)
+sub_33880 EndPenaltyShot {source=96PC,confidence=medium} 96 PC EndPenaltyShot: from ClockTick when the penalty shot time runs out
+sub_2E8F0 UpdateCoachModes {source=96PC,confidence=medium} 96 PC UpdateCoachModes: from ClockTick at the same minutes of periods 2 and 3
+sub_48D70 PaEvent {source=96PC,confidence=low} the play-by-play event call: ClockTick posts 0C0000004h with the period at one minute left, where 96 PC posts PaEvent(100h)
+sub_48D70_14CD PaEvent_14CD {no_record}
+sub_48D70_4D6 PaEvent_4D6 {no_record}
+sub_48D70_4EC PaEvent_4EC {no_record}
+sub_48D70_502 PaEvent_502 {no_record}
+sub_48D70_518 PaEvent_518 {no_record}
+sub_48D70_536 PaEvent_536 {no_record}
+sub_48D70_572 PaEvent_572 {no_record}
+sub_48D70_5AE PaEvent_5AE {no_record}
+sub_48D70_5D6 PaEvent_5D6 {no_record}
+sub_48D70_5FE PaEvent_5FE {no_record}
+sub_48D70_64E PaEvent_64E {no_record}
+sub_48D70_69E PaEvent_69E {no_record}
+sub_48D70_745 PaEvent_745 {no_record}
+sub_48D70_7FF PaEvent_7FF {no_record}
+sub_48D70_87E PaEvent_87E {no_record}
+sub_48D70_8CF PaEvent_8CF {no_record}
+sub_48D70_8F5 PaEvent_8F5 {no_record}
+sub_48D70_91B PaEvent_91B {no_record}
+sub_48D70_941 PaEvent_941 {no_record}
+sub_48D70_967 PaEvent_967 {no_record}

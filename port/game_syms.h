@@ -5,7 +5,7 @@
 #define GAME_SYMS_H
 
 #define SYM_GameLoop           0x14AC8u   /* engine/faceoff/faceoff.asm */
-#define SYM_sub_14E60          0x14E60u   /* engine/faceoff/faceoff.asm */
+#define SYM_InitGameDisplay    0x14E60u   /* engine/faceoff/faceoff.asm */
 #define SYM_PlayGame           0x152C4u   /* engine/faceoff/faceoff.asm */
 #define SYM_RunInGameMenu      0x1583Fu   /* engine/faceoff/faceoff.asm */
 #define SYM_EditText           0x7FEC4u   /* front/main/main.asm */
@@ -63,6 +63,7 @@
 #define SYM__environ           0x199C40u   /* data/lib/watcom/watcom_clib_26_data_01.asm */
 #define SYM____env_mask        0x199C44u   /* data/lib/watcom/watcom_clib_26_data_01.asm */
 #define SYM_seed               0x19CBC4u   /* data/engine/faceoff_data_03.asm */
+#define SYM_SortCords          0x19DA30u   /* data/engine/faceoff_2_bss_01.asm */
 #define SYM_dword_1AC810       0x1AC810u   /* data/engine/engine_3812E_bss_02.asm */
 #define SYM_unk_1ACB44         0x1ACB44u   /* data/engine/engine_3812E_bss_02.asm */
 #define SYM_InputRecordRing    0x1CD1E0u   /* data/front/front_DA66D_bss_01.asm */
