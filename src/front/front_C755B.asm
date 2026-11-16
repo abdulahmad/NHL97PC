@@ -41,23 +41,23 @@ extern unk_166E9D, unk_166F30, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, u
 extern word_16D6D2, word_16D6E4
 global jpt_CBFAA, jpt_CD7E3, RosterScreen_11C, RosterScreen_157, RosterScreen_172, RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9
 global RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596, RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF
-global RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B, RosterScreen_66C, sub_C7FBC_4A, DrawRosterList_86F
-global sub_CA49A_2B8, sub_CB216_F7, sub_CB216_100, sub_CB216_102, sub_CB216_108, sub_CB9C9_306, sub_CBCD9_EE, sub_CBFBA_59
+global RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B, RosterScreen_66C, FreeRosterInfoAnim_4A, DrawRosterList_86F
+global sub_CA49A_2B8, ShowTradeRejected_F7, ShowTradeRejected_100, ShowTradeRejected_102, ShowTradeRejected_108, sub_CB9C9_306, sub_CBCD9_EE, sub_CBFBA_59
 global sub_CBFBA_D9, sub_CBFBA_133, sub_CBFBA_17B, sub_CD7F3_24, sub_CD7F3_AD, sub_CD7F3_1BD, sub_CD7F3_25B, sub_CE111_61
-global sub_CEC58_D4, sub_CEC58_110, sub_CEC58_12B, sub_CED89_83, sub_CED89_8D, sub_CEE20_B1, sub_CF255_152, sub_CF255_157
-global sub_CF255_158, sub_CF70F_20, sub_D096D_146, RosterScreen, sub_C7CA4, sub_C7CE8, sub_C7EAE, sub_C7F31
-global sub_C7FBC, sub_C800C, sub_C80C8, sub_C8127, sub_C817F, sub_C885D, sub_C8BEE, sub_C8C90
+global DrawCreatePlayerName_D4, DrawCreatePlayerName_110, DrawCreatePlayerName_12B, sub_CED89_83, sub_CED89_8D, sub_CEE20_B1, sub_CF255_152, sub_CF255_157
+global sub_CF255_158, sub_CF70F_20, sub_D096D_146, RosterScreen, sub_C7CA4, sub_C7CE8, sub_C7EAE, LoadRosterInfoAnim
+global FreeRosterInfoAnim, AllocRosterInfo, sub_C80C8, sub_C8127, sub_C817F, InitRosterData, sub_C8BEE, sub_C8C90
 global DrawRosterList, sub_C9757, sub_C97FF, sub_C98B1, sub_C9A45, sub_C9AEE, sub_C9B24, sub_C9D84
 global sub_C9DDF, sub_C9F18, sub_CA206, sub_CA2A7, sub_CA44C, sub_CA49A, sub_CA758, sub_CAA0F
-global sub_CABF2, sub_CACE0, CheckRosterInjuries, sub_CB192, sub_CB216, CheckRosterLimits, CheckRegularRosterLimits, sub_CB9C9
+global sub_CABF2, sub_CACE0, CheckRosterInjuries, sub_CB192, ShowTradeRejected, CheckRosterLimits, CheckRegularRosterLimits, sub_CB9C9
 global sub_CBCD9, sub_CBDD0, sub_CBECB, sub_CBFBA, sub_CC1CA, sub_CC3AD, sub_CCB24, sub_CCC30
 global sub_CCF2E, sub_CD037, sub_CD13A, JerseyScreen, sub_CD7B7, sub_CD7F3, sub_CDBE5, sub_CDC8B
 global sub_CDD99, sub_CDEEA, sub_CDF39, sub_CE111, sub_CE178, sub_CE3F2, sub_CE53C, sub_CE730
-global sub_CE73B, sub_CEBC0, sub_CEC15, sub_CEC58, sub_CED89, sub_CEE20, sub_CEEEA, sub_CEF6E
-global sub_CF005, sub_CF0CD, sub_CF162, sub_CF1FF, sub_CF255, sub_CF3B3, sub_CF626, sub_CF6A3
+global sub_CE73B, sub_CEBC0, sub_CEC15, DrawCreatePlayerName, sub_CED89, sub_CEE20, sub_CEEEA, sub_CEF6E
+global DrawCreatePlayerHeight, DrawCreatePlayerWeight, sub_CF162, sub_CF1FF, sub_CF255, sub_CF3B3, sub_CF626, sub_CF6A3
 global sub_CF70F, sub_CF73D, CreatePlayerScreen, sub_CFFAB, sub_D0098, sub_D00F1, sub_D0397, sub_D096D
-global sub_D0ABE, sub_D0BD8, sub_D0C88, sub_D0D56, sub_D0D71, sub_D0D8E, sub_D0DAB, sub_D0DC8
-global sub_D0DE5, sub_D0E02, sub_D0E21, sub_D0E40, sub_D0E81, sub_D0EBE, sub_D0F07, unk_D15D1
+global sub_D0ABE, sub_D0BD8, sub_D0C88, CompareFirstDword, sub_D0D71, sub_D0D8E, sub_D0DAB, sub_D0DC8
+global sub_D0DE5, sub_D0E02, sub_D0E21, sub_D0E40, sub_D0E81, sub_D0EBE, BuildTradePlayerLists, unk_D15D1
 global unk_D15EE
 ;-----------------------------------------------------------------------------
 ; RosterScreen                                    C755B  96 PC, low confidence
@@ -120,7 +120,7 @@ RosterScreen:
         mov edx, ebx
         mov dword [dword_1CC208], eax
         mov esi, eax
-        call sub_C885D
+        call InitRosterData
         mov eax, 28h
         xor ebx, ebx
         call InitMenuItems
@@ -232,7 +232,7 @@ RosterScreen_246:
         call CheckRosterInjuries
         test eax, eax
         jne near RosterScreen_66C.29
-        call sub_CB216
+        call ShowTradeRejected
         test eax, eax
         jne near RosterScreen_66C.29
         call CheckRosterLimits
@@ -312,7 +312,7 @@ RosterScreen_3B9:
         call sub_C7CA4
         cmp byte [byte_1C6040], 0
         je short .7
-        call sub_C7FBC
+        call FreeRosterInfoAnim
         test eax, eax
         je near RosterScreen_66C.29
 .7:
@@ -326,7 +326,7 @@ RosterScreen_3B9:
         call PlayerRatingsScreen
         cmp byte [byte_1C6040], 0
         je short .9
-        call sub_C7F31
+        call LoadRosterInfoAnim
 .9:
         cmp dword [dword_16D668], byte 0
         je short .10
@@ -576,11 +576,11 @@ RosterScreen_66C:
         call sub_FAF34
         add esp, byte 4
         cmp byte [byte_1C6040], 0
-        je near sub_CB216_102
+        je near ShowTradeRejected_102
         cmp dword [dword ebp-0292h], byte 0
-        je near sub_CB216_102
+        je near ShowTradeRejected_102
         call sub_415F8
-        jmp near sub_CB216_102
+        jmp near ShowTradeRejected_102
 ;-----------------------------------------------------------------------------
 ; sub_C7CA4                                                       C7CA4  97 PC
 ;-----------------------------------------------------------------------------
@@ -775,9 +775,10 @@ sub_C7EAE:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C7F31                                                       C7F31  97 PC
+; LoadRosterInfoAnim                              C7F31  97 PC, low confidence
+; Roster screen: loads "rosinfo!.ana"
 ;-----------------------------------------------------------------------------
-sub_C7F31:
+LoadRosterInfoAnim:
         push ebx
         push ecx
         push edx
@@ -824,38 +825,40 @@ sub_C7F31:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C7FBC                                                       C7FBC  97 PC
+; FreeRosterInfoAnim                              C7FBC  97 PC, low confidence
+; Roster screen: frees the "rosinfo!.ana" animation
 ;-----------------------------------------------------------------------------
-sub_C7FBC:
+FreeRosterInfoAnim:
         push ebx
         push ecx
         push edx
         xor ebx, ebx
         cmp dword [dword_1CC238], byte 0
-        je short sub_C7FBC_4A
+        je short FreeRosterInfoAnim_4A
         push dword [dword_1CC23C]
         push dword [dword_1CC2AC]
         push asc_166D53
         call sub_11B104
         add esp, byte 0Ch
         test eax, eax
-        je short sub_C7FBC_4A
+        je short FreeRosterInfoAnim_4A
         push dword [dword_1CC2AC]
         call sub_FAF34
         add esp, byte 4
         mov dword [dword_1CC238], ebx
         mov dword [dword_1CC2AC], ebx
         mov ebx, 1
-sub_C7FBC_4A:
+FreeRosterInfoAnim_4A:
         mov eax, ebx
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C800C                                                       C800C  97 PC
+; AllocRosterInfo                                 C800C  97 PC, low confidence
+; Allocates the "rosPlrInfo" and "seasRosArray" tables of the roster screen
 ;-----------------------------------------------------------------------------
-sub_C800C:
+AllocRosterInfo:
         push ebx
         push ecx
         push edx
@@ -1479,9 +1482,11 @@ sub_C817F:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C885D                                                       C885D  97 PC
+; InitRosterData                                  C885D  97 PC, low confidence
+; Roster screen: allocates "deletion indices" and "roster player info" and
+; fills them (sub_C817F)
 ;-----------------------------------------------------------------------------
-sub_C885D:
+InitRosterData:
         push ebx
         push ecx
         push edx
@@ -1626,7 +1631,7 @@ sub_C885D:
 .18:
         mov dword [dword_1CC2B0], 0
 .19:
-        call sub_C800C
+        call AllocRosterInfo
         and esi, eax
 .20:
         mov ebx, 1
@@ -3510,7 +3515,7 @@ sub_CA2A7:
 .4:
         add esp, byte 8
         mov dword [byte eax+0Ch], edx
-        jmp near sub_C7FBC_4A
+        jmp near FreeRosterInfoAnim_4A
 ;-----------------------------------------------------------------------------
 ; sub_CA44C                                                       CA44C  97 PC
 ;-----------------------------------------------------------------------------
@@ -4500,11 +4505,11 @@ CheckRosterInjuries:
         jg near .2
 .10:
         test esi, esi
-        jne near sub_CB216_100
+        jne near ShowTradeRejected_100
         inc dword [byte ebp+07Ah]
         cmp dword [byte ebp+07Ah], byte 2
         jl near .1
-        jmp near sub_CB216_100
+        jmp near ShowTradeRejected_100
 ;-----------------------------------------------------------------------------
 ; sub_CB192                                                       CB192  97 PC
 ;-----------------------------------------------------------------------------
@@ -4553,9 +4558,10 @@ sub_CB192:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CB216                                                       CB216  97 PC
+; ShowTradeRejected                               CB216  97 PC, low confidence
+; Roster screen: "Rejected by %s."
 ;-----------------------------------------------------------------------------
-sub_CB216:
+ShowTradeRejected:
         push ebx
         push ecx
         push edx
@@ -4574,10 +4580,10 @@ sub_CB216:
         cmp byte [byte ebx+eax+071h], 0
         jbe short .1
         xor eax, eax
-        jmp near sub_CB216_102
+        jmp near ShowTradeRejected_102
 .1:
         mov eax, 1
-        jmp near sub_CB216_102
+        jmp near ShowTradeRejected_102
 .2:
         mov dword [byte ebp+076h], esi
         mov dword [byte ebp+07Ah], esi
@@ -4631,19 +4637,19 @@ sub_CB216:
         add esp, byte 0Ch
 .8:
         test esi, esi
-        je short sub_CB216_100
+        je short ShowTradeRejected_100
         push byte 1
         mov edx, 1
         lea eax, [byte ebp-0Ah]
-sub_CB216_F7:
+ShowTradeRejected_F7:
         xor ecx, ecx
         xor ebx, ebx
         call sub_7F5A4
-sub_CB216_100:
+ShowTradeRejected_100:
         mov eax, esi
-sub_CB216_102:
+ShowTradeRejected_102:
         lea esp, [dword ebp+082h]
-sub_CB216_108:
+ShowTradeRejected_108:
         pop ebp
         jmp near sub_CF255_158
 ;-----------------------------------------------------------------------------
@@ -4935,7 +4941,7 @@ CheckRosterLimits:
         call sub_7F5A4
 .28:
         mov eax, dword [byte ebp+07Eh]
-        jmp near sub_CB216_102
+        jmp near ShowTradeRejected_102
 ;-----------------------------------------------------------------------------
 ; CheckRegularRosterLimits                        CB6D5  97 PC, low confidence
 ; Roster: the non-injured minimum and regular / additional roster maximum
@@ -5164,11 +5170,11 @@ CheckRegularRosterLimits:
         add esp, byte 0Ch
 .18:
         test esi, esi
-        je near sub_CB216_100
+        je near ShowTradeRejected_100
         push byte 1
         mov edx, 1
         lea eax, [byte ebp-026h]
-        jmp near sub_CB216_F7
+        jmp near ShowTradeRejected_F7
 ;-----------------------------------------------------------------------------
 ; sub_CB9C9                                                       CB9C9  97 PC
 ;-----------------------------------------------------------------------------
@@ -8778,7 +8784,7 @@ sub_CE53C:
         call sub_CD7B7
 .12:
         lea esp, [dword ebp+03E6h]
-        jmp near sub_CB216_108
+        jmp near ShowTradeRejected_108
 ;-----------------------------------------------------------------------------
 ; sub_CE730                                                       CE730  97 PC
 ;-----------------------------------------------------------------------------
@@ -9055,7 +9061,7 @@ sub_CE73B:
         jl near .1
         test esi, esi
         je short .16
-        call sub_D0F07
+        call BuildTradePlayerLists
 .16:
         cmp dword [dword_1CC208], byte 0
         jne short .20
@@ -9164,9 +9170,10 @@ sub_CEC15:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CEC58                                                       CEC58  97 PC
+; DrawCreatePlayerName                            CEC58  97 PC, low confidence
+; Create player screen: the name panel (NAM1, "%c. %s")
 ;-----------------------------------------------------------------------------
-sub_CEC58:
+DrawCreatePlayerName:
         push esi
         push edi
         enter 8, 0
@@ -9232,7 +9239,7 @@ sub_CEC58:
         push byte 0
         call DrawTextAligned
         add esp, byte 18h
-        jmp short sub_CEC58_110
+        jmp short DrawCreatePlayerName_110
 .2:
         push eax
         push ebx
@@ -9240,7 +9247,7 @@ sub_CEC58:
         jmp short .1
 .3:
         push asc_166ECC
-sub_CEC58_D4:
+DrawCreatePlayerName_D4:
         push eax
         call sub_101429
         add esp, byte 8
@@ -9262,7 +9269,7 @@ sub_CEC58_D4:
         push edi
         call sub_101390
         add esp, byte 0Ch
-sub_CEC58_110:
+DrawCreatePlayerName_110:
         call sub_13C164
         push dword [byte esi+02Ah]
         push dword [byte esi+026h]
@@ -9270,7 +9277,7 @@ sub_CEC58_110:
         call sub_101390
         add esp, byte 0Ch
         call sub_1013FC
-sub_CEC58_12B:
+DrawCreatePlayerName_12B:
         leave
         pop edi
         pop esi
@@ -9511,14 +9518,15 @@ sub_CEF6E:
         push byte 0
         call DrawTextAligned
         add esp, byte 14h
-        jmp near sub_CEC58_110
+        jmp near DrawCreatePlayerName_110
 .1:
         push asc_166F33
-        jmp near sub_CEC58_D4
+        jmp near DrawCreatePlayerName_D4
 ;-----------------------------------------------------------------------------
-; sub_CF005                                                       CF005  97 PC
+; DrawCreatePlayerHeight                          CF005  97 PC, low confidence
+; Create player screen: the height field ("%d feet %d inches")
 ;-----------------------------------------------------------------------------
-sub_CF005:
+DrawCreatePlayerHeight:
         push ecx
         push esi
         push edi
@@ -9589,9 +9597,10 @@ sub_CF005:
         add esp, byte 18h
         jmp near sub_CED89_8D
 ;-----------------------------------------------------------------------------
-; sub_CF0CD                                                       CF0CD  97 PC
+; DrawCreatePlayerWeight                          CF0CD  97 PC, low confidence
+; Create player screen: the weight field ("%d pounds")
 ;-----------------------------------------------------------------------------
-sub_CF0CD:
+DrawCreatePlayerWeight:
         push ecx
         push esi
         push edi
@@ -10253,12 +10262,12 @@ CreatePlayerScreen:
         mov ebx, dword [byte ebp+066h]
         lea edx, [dword ebp-0136h]
         add eax, 290h
-        call sub_CF005
+        call DrawCreatePlayerHeight
         mov eax, dword [byte ebp+072h]
         mov ebx, dword [byte ebp+066h]
         lea edx, [dword ebp-0136h]
         add eax, 2E2h
-        call sub_CF0CD
+        call DrawCreatePlayerWeight
         mov eax, dword [byte ebp+072h]
         mov ebx, dword [byte ebp+066h]
         lea edx, [dword ebp-0136h]
@@ -10385,7 +10394,7 @@ CreatePlayerScreen:
         mov ebx, dword [byte ebp+05Eh]
         lea edx, [dword ebp-0136h]
         add eax, dword [byte ebp+072h]
-        call sub_CEC58
+        call DrawCreatePlayerName
         jmp near .33
 .14:
         cmp byte [dword ebp-0BFh], 0
@@ -10504,7 +10513,7 @@ CreatePlayerScreen:
         mov word [dword ebp-01FDh], si
         add eax, dword [byte ebp+072h]
         mov word [dword ebp-0DDh], si
-        call sub_CF005
+        call DrawCreatePlayerHeight
         jmp near .33
 .30:
         movsx esi, word [dword ebp-0DBh]
@@ -10521,7 +10530,7 @@ CreatePlayerScreen:
         mov word [dword ebp-01FBh], si
         add eax, dword [byte ebp+072h]
         mov word [dword ebp-0DBh], si
-        call sub_CF0CD
+        call DrawCreatePlayerWeight
         jmp short .33
 .31:
         movzx eax, word [byte ebp-07Dh]
@@ -10651,7 +10660,7 @@ CreatePlayerScreen:
         lea edx, [dword ebp-0136h]
         push dword [byte ebp+066h]
         add eax, 0F6h
-        call sub_CEC58
+        call DrawCreatePlayerName
         mov eax, dword [byte ebp+072h]
         mov ebx, dword [byte ebp+066h]
         lea edx, [dword ebp-0136h]
@@ -10678,12 +10687,12 @@ CreatePlayerScreen:
         mov ebx, dword [byte ebp+066h]
         lea edx, [dword ebp-0136h]
         add eax, 290h
-        call sub_CF005
+        call DrawCreatePlayerHeight
         mov eax, dword [byte ebp+072h]
         mov ebx, dword [byte ebp+066h]
         lea edx, [dword ebp-0136h]
         add eax, 2E2h
-        call sub_CF0CD
+        call DrawCreatePlayerWeight
         mov eax, dword [byte ebp+072h]
         mov ebx, dword [byte ebp+066h]
         lea edx, [dword ebp-0136h]
@@ -10854,7 +10863,7 @@ sub_D0098:
         mov ebx, eax
         mov eax, esi
         call sub_CA44C
-        jmp near sub_CEC58_12B
+        jmp near DrawCreatePlayerName_12B
 ;-----------------------------------------------------------------------------
 ; sub_D00F1                                                       D00F1  97 PC
 ;-----------------------------------------------------------------------------
@@ -11812,9 +11821,10 @@ sub_D0C88:
         call memmove_
         jmp near sub_CF255_157
 ;-----------------------------------------------------------------------------
-; sub_D0D56                                                       D0D56  97 PC
+; CompareFirstDword                            D0D56  97 PC, medium confidence
+; Qsort compare: the first dword of the two entries, ascending
 ;-----------------------------------------------------------------------------
-sub_D0D56:
+CompareFirstDword:
         push ebx
         mov ebx, dword [eax]
         cmp ebx, dword [edx]
@@ -12078,9 +12088,11 @@ sub_D0EBE:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D0F07                                                       D0F07  97 PC
+; BuildTradePlayerLists                           D0F07  97 PC, low confidence
+; From the roster screen (sub_CE73B): allocates and sorts "aiplayers",
+; "statplayers" and "statgoalies" (qsort with sub_D0D56-sub_D0EBE)
 ;-----------------------------------------------------------------------------
-sub_D0F07:
+BuildTradePlayerLists:
         push ebx
         push ecx
         push edx
@@ -12432,7 +12444,7 @@ sub_D0F07:
         mov eax, dword [byte ebp-04h]
         cmp eax, dword [dword_1CC230]
         jl near .6
-        mov ecx, sub_D0D56
+        mov ecx, CompareFirstDword
         mov ebx, 1Ch
         lea eax, [dword ebp-0360h]
         mov edx, dword [dword_1CC230]

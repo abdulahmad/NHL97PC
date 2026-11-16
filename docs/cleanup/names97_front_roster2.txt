@@ -1,0 +1,10 @@
+sub_C7F31 LoadRosterInfoAnim {confidence=low} roster screen: loads "rosinfo!.ana"
+sub_C7FBC FreeRosterInfoAnim {confidence=low} roster screen: frees the "rosinfo!.ana" animation
+sub_C800C AllocRosterInfo {confidence=low} allocates the "rosPlrInfo" and "seasRosArray" tables of the roster screen
+sub_C885D InitRosterData {confidence=low} roster screen: allocates "deletion indices" and "roster player info" and fills them (sub_C817F)
+sub_CB216 ShowTradeRejected {confidence=low} roster screen: "Rejected by %s."
+sub_CEC58 DrawCreatePlayerName {confidence=low} create player screen: the name panel (NAM1, "%c. %s")
+sub_CF005 DrawCreatePlayerHeight {confidence=low} create player screen: the height field ("%d feet %d inches")
+sub_CF0CD DrawCreatePlayerWeight {confidence=low} create player screen: the weight field ("%d pounds")
+sub_D0F07 BuildTradePlayerLists {confidence=low} from the roster screen (sub_CE73B): allocates and sorts "aiplayers", "statplayers" and "statgoalies" (qsort with sub_D0D56-sub_D0EBE)
+sub_D0D56 CompareFirstDword {confidence=medium} qsort compare: the first dword of the two entries, ascending

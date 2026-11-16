@@ -326,12 +326,22 @@ C3594,RunOptionsScreens,sub_C3594,new,low,from RunFrontEnd (0Ah): runs the optio
 C36CA,DetailLevelScreen,sub_C36CA,new,low,"the front end detail level panel (On / Off for crowd, ice logos, ice texture, boards, glass, names, benches), from OptionsScreen",src/front/front_C0F5D.asm
 C48A2,OptionsScreen,sub_C48A2,new,low,"the options screen (ON0%d / OF0%d toggles, MB0%d buttons, BOTM)",src/front/front_C462F.asm
 C755B,RosterScreen,sub_C755B,96PC,low,"96 PC RosterScreen: the roster screen (""roster menu"" / ""roster regions"")",src/front/front_C755B.asm
+C7F31,LoadRosterInfoAnim,sub_C7F31,new,low,"roster screen: loads ""rosinfo!.ana""",src/front/front_C755B.asm
+C7FBC,FreeRosterInfoAnim,sub_C7FBC,new,low,"roster screen: frees the ""rosinfo!.ana"" animation",src/front/front_C755B.asm
+C800C,AllocRosterInfo,sub_C800C,new,low,"allocates the ""rosPlrInfo"" and ""seasRosArray"" tables of the roster screen",src/front/front_C755B.asm
+C885D,InitRosterData,sub_C885D,new,low,"roster screen: allocates ""deletion indices"" and ""roster player info"" and fills them (sub_C817F)",src/front/front_C755B.asm
 C8EDC,DrawRosterList,sub_C8EDC,new,low,"roster screen: the ""Team Roster"" / ""Additional Players"" lists",src/front/front_C755B.asm
 CB041,CheckRosterInjuries,sub_CB041,new,low,"roster: the ""Roster Violation: %c. %s is injured."" check",src/front/front_C755B.asm
+CB216,ShowTradeRejected,sub_CB216,new,low,"roster screen: ""Rejected by %s.""",src/front/front_C755B.asm
 CB324,CheckRosterLimits,sub_CB324,new,low,"roster: the minimum / maximum roster and goalie count checks (""Roster Violation: %s must have..."")",src/front/front_C755B.asm
 CB6D5,CheckRegularRosterLimits,sub_CB6D5,new,low,roster: the non-injured minimum and regular / additional roster maximum checks,src/front/front_C755B.asm
 CD272,JerseyScreen,sub_CD272,new,low,"the jersey screen (""jersey menu"" / ""jersey menu regions"")",src/front/front_C755B.asm
+CEC58,DrawCreatePlayerName,sub_CEC58,new,low,"create player screen: the name panel (NAM1, ""%c. %s"")",src/front/front_C755B.asm
+CF005,DrawCreatePlayerHeight,sub_CF005,new,low,"create player screen: the height field (""%d feet %d inches"")",src/front/front_C755B.asm
+CF0CD,DrawCreatePlayerWeight,sub_CF0CD,new,low,"create player screen: the weight field (""%d pounds"")",src/front/front_C755B.asm
 CF749,CreatePlayerScreen,sub_CF749,96PC,medium,"96 PC CreatePlayerScreen: the create player screen (""create plr menu"" / ""create plr region""), from the roster screens",src/front/front_C755B.asm
+D0D56,CompareFirstDword,sub_D0D56,new,medium,"qsort compare: the first dword of the two entries, ascending",src/front/front_C755B.asm
+D0F07,BuildTradePlayerLists,sub_D0F07,new,low,"from the roster screen (sub_CE73B): allocates and sorts ""aiplayers"", ""statplayers"" and ""statgoalies"" (qsort with sub_D0D56-sub_D0EBE)",src/front/front_C755B.asm
 D1927,PreGameMatchupScreen,sub_D1927,96PC,low,"96 PC PreGameMatchupScreen: game screen 14h before play: the matchup with the left / right team pictures (%03dL.FSH / %03dR.FSH), PANL, team and player stats",src/front/front_D15FB.asm
 D3112,PreGameRostersScreen,sub_D3112,new,low,"game screen 13h before play: the home and visitor rosters (""hros"" / ""vros""), the ""blurb"" and the star players (STAR, FIR1, F%dP%d)",src/front/front_D3112.asm
 D4225,DrawMatchupNotes,sub_D4225,new,low,"pre-game: the playoff race notes, season series and ""last time they met"" lines",src/front/front_D3112.asm
