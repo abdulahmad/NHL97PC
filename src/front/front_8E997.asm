@@ -31,7 +31,7 @@ extern FindTeamRecord, AddTradeRecord, FindPlayerRecord, MakeLeagueKeyBase, Crea
 extern FindGameRecord, UpdateGameRecord, MakeGoalieStatKey, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, MakeStandingsKey, FindTeamStat
 extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, ImportTradedPlayers, ImportNewPlayers, AllocImportBuffer, FindReplayIndexEntry
 extern AllocClearBlock, ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, SeasonIntroScreen, AllStarScreen, AllocMemBlock, FreeMemBlock
-extern MakeColor, FreeBitmap, sub_FCEEC, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, unk_165779
+extern MakeColor, FreeBitmap, sub_FCEEC, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, unk_165779
 extern unk_1657CD, unk_1657CF, unk_16D7F4, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF12, unk_1ACF4E
 extern unk_1AD22E, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C85DC, unk_1C85E8, unk_1C85F4, unk_1C8600
 extern unk_1C860C, word_1AD240, word_1AD242
@@ -229,7 +229,7 @@ NewSeasonSound:
         xor edx, edx
         div ebx
         push dword [nosplit edx*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
 .1:
         xor ebx, ebx
@@ -474,7 +474,7 @@ NewSeasonScreen:
         add esp, byte 4
 .3:
         push dword [nosplit esi*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         inc esi
         inc esi
         add esp, byte 4
@@ -1069,7 +1069,7 @@ NewSeasonScreen:
         add esp, byte 4
 .32:
         push dword [nosplit esi*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         inc esi
         inc esi
         add esp, byte 4
@@ -1729,7 +1729,7 @@ SeasonMenuSparkle:
         xor edx, edx
         div ebx
         push dword [nosplit edx*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
 .1:
         xor ebx, ebx
@@ -2348,7 +2348,7 @@ SeasonMenuScreen:
         mov esi, 1
 .31:
         push dword [nosplit esi*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         inc esi
         inc esi
         add esp, byte 4
@@ -2795,7 +2795,7 @@ SeasonMenuScreen:
         mov esi, 1
 .70:
         push dword [nosplit esi*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         inc esi
         inc esi
         add esp, byte 4
@@ -3015,7 +3015,7 @@ StandingsSparkle:
         xor edx, edx
         div ebx
         push dword [nosplit edx*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
 .1:
         pop edx
@@ -3383,11 +3383,11 @@ StandingsScreen:
         add esp, byte 4
         push dword [byte ebp+02Ah]
         mov esi, 1
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
 .19:
         push dword [nosplit esi*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         inc esi
         inc esi
         add esp, byte 4

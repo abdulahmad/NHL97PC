@@ -34,7 +34,7 @@ extern InitMenuItems, RunMenu, InitScrollList, ScrollUp, DrawScrollBar, ScrollDo
 extern ScrollToMouse, RunScrollList, SetListSelection, GetLangText, WriteCsvLine, AskExportFile, CompareStatColumn, CompareRatingColumn
 extern VideoOptionsScreen, KeysEqual, FreeDbBlock, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord
 extern FindPlayerStat, FindTeamStat, ServiceIdle, LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor
-extern FreeBitmap, sub_FCEEC, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
+extern FreeBitmap, sub_FCEEC, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern unk_1667A4, unk_1667A7, unk_1668C2, unk_1668C5, unk_1668F8, unk_166915, unk_166946, unk_166948
 extern unk_16D7FC, unk_16D804, unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE
 extern unk_1CA9DC, unk_1CAADC, unk_1CABDC, unk_1CACE8, unk_1CACF4, unk_1CAD00, unk_1CAD24
@@ -227,7 +227,7 @@ DrawStatsCardPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         call PresentScreen
         mov eax, dword [tickcount]
@@ -476,7 +476,7 @@ DrawStatsCardPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         call PresentScreen
         mov eax, dword [tickcount]
@@ -4145,7 +4145,7 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         call PresentScreen
         mov eax, dword [tickcount]
@@ -4165,7 +4165,7 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
 .11:
         mov eax, dword [dword_1CAB00]
@@ -4205,7 +4205,7 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         call PresentScreen
         mov eax, dword [tickcount]
@@ -4226,7 +4226,7 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         call PresentScreen
 .15:
@@ -4393,7 +4393,7 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         call PresentScreen
         mov eax, dword [tickcount]
@@ -4748,7 +4748,7 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         call PresentScreen
         mov eax, dword [tickcount]
@@ -4769,7 +4769,7 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         call PresentScreen
         push esi
@@ -5826,14 +5826,14 @@ PlayerRatingsScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_MN04
         push dword [dword_1CAE6C]
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         mov eax, unk_1CAADC
         xor edx, edx

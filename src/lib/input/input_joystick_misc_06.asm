@@ -6,7 +6,7 @@ extern byte_1D1D8C, byte_1D1FBC, dword_16E464, dword_16E468, dword_16E4A8, dword
 extern dword_170258, dword_17025C, dword_170260, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274
 extern dword_1D204C, dword_1D2050, memcpy_, sub_100700, sub_10C8E8, sub_10CF34, FixedLerp, DrawClippedPoly
 extern RotatePoint2D, RotateModelPoint, sub_11313C, SinLookup, CosLookup, sub_12D300, sub_12D4B8, TransposeMatrix
-extern FreeMemBlock, MakeColor, sub_FDC68, unk_1D1D20, vecdist
+extern FreeMemBlock, MakeColor, FillRectColor, unk_1D1D20, vecdist
 global SetCameraAngles_2E, ClipSurfPolyLeft_292, ClipSurfPolyRight_2A6, SetViewScreenOrigin, SetCameraAngles, ClipSurfEdgeAtX, ClipSurfEdgeAtY, ClipSurfPolyLeft
 global ClipSurfPolyRight, ClipSurfPolyTop, ClipSurfPolyBottom, DrawSurfacePolys, DrawOverlayModels, AllocOverlaySlot, SetOverlayCentre, ProjectOverlayPoint
 global AimOverlayModel, SetOverlayPosition, AllocOverlayModel, FreeOverlaySlots
@@ -1575,7 +1575,7 @@ DrawOverlayModels:
         push edi
         mov ebp, dword [byte esp+010h]
         push ebp
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
 .5:
         cmp dword [dword ebx+084h], 0FFFFD8F1h
@@ -1592,7 +1592,7 @@ DrawOverlayModels:
         push esi
         mov edi, dword [byte esp+010h]
         push edi
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
 .6:
         add esp, byte 8

@@ -19,7 +19,7 @@ extern FindShape, SetModelShape, CreateBitmapForArt, IsKeyDown, ConvertArtXY, Co
 extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFileLib
 extern DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, WipeScreen
 extern SetModemButton, InitMenuItems, RunMenu, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, LoadPauseArt
-extern FreePauseArt, DrawPauseClock, FreeMemBlock, sub_FC4BC, MakeColor, FreeBitmap, sub_FCF84, DrawArt
+extern FreePauseArt, DrawPauseClock, FreeMemBlock, sub_FC4BC, MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_167A1A, unk_16D992, unk_1AC8E4
 extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, unk_EDDEF, unk_EDE3F, unk_EDE53
 extern unk_EE053, unk_EE093, unk_EE0E3, word_16E2EC, word_16E2EE, word_16E2F0
@@ -290,7 +290,7 @@ ControlSetupMain:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_BOT02
         push dword [byte ebp-014h]
@@ -341,7 +341,7 @@ ControlSetupMain:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_BOT02
         push dword [byte ebp-014h]
@@ -3429,7 +3429,7 @@ ControlSetupScreen_F11:
         call SetScreenTarget
         mov eax, dword [byte ebp+05Eh]
         push dword [byte eax+02Ch]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         mov eax, 0FFFFFFFFh
         call ShowReservedKey
@@ -3516,7 +3516,7 @@ ControlSetupScreen_1064:
         call SetScreenTarget
         mov eax, dword [byte ebp+056h]
         push dword [byte eax+02Ch]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         mov eax, 0FFFFFFFFh
         call ShowReservedKey

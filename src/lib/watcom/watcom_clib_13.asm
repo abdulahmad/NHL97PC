@@ -27,15 +27,15 @@ extern dword_1DA390, dword_1DA4D0, int386_, isatty_, memcpy_, off_1706E0, off_17
 extern off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, off_171D10, off_19C6C4, off_19C6E2
 extern off_19C6E3, qword_167EC8, qword_167ED0, qword_167EE0, sprintf_, strcat_, strcpy_, strlen_
 extern strncpy_, sub_1004B8, bcopy, AddExitHandler, PresentScreen, ConvertArtPalette, Random32, sub_102D3C
-extern sub_103298, sub_103648, sub_10374C, sub_10376C, sub_1049D0, FileExistsPath, sub_106F64, sub_109401
-extern sub_109545, sub_10955B, sub_1095AD, SetViewScreenOrigin, SetCameraAngles, DrawPolyArray, sub_121460, sub_121470
+extern sub_103298, sub_103648, sub_10374C, sub_10376C, sub_1049D0, FileExistsPath, sub_106F64, DosOpenFile
+extern DosCloseFile, DosReadFile, DosSeekFile, SetViewScreenOrigin, SetCameraAngles, DrawPolyArray, sub_121460, sub_121470
 extern sub_121494, sub_12189C, sub_121A43, ArchiveEntryOffset, BlitCore, sub_123FCB, ConvertColor555, CreateBitmapFromBlock
 extern Convert32To565Keyed, sub_12D520, sub_12F270, sub_12FACC, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0
 extern sub_13005A, TgvCopyBlock, TgvFillBlock, SaveTextScreen, RestoreTextScreen, InitTextOutput, ClearNumLock, InstallBreakHandler
 extern RegisterHotkey, SetScreenTarget, NoOpPlatformHook, sub_FA5B8, sub_FA6A0, sub_FA734, sub_FA8AC, sub_FA954
 extern sub_FAA14, AllocMemBlock, sub_FAB68, FreeMemBlock, InitMemDescriptors, MemDescPtr, ZeroMem, sub_FBE78
-extern sub_FC0F0, sub_FC410, MakeColor, sub_FC73E, sub_FC88C, sub_FCC40, sub_FD0DC, ClearScreen
-extern sub_FD954, sub_FDC68, SetTextColors, DrawTextBoxedAt, RefreshTextColors, MatTranspose, TransformVecs, VecAdd
+extern sub_FC0F0, sub_FC410, MakeColor, sub_FC73E, sub_FC88C, sub_FCC40, LoadDrawContext, ClearScreen
+extern FillPolygon, FillRectColor, SetTextColors, DrawTextBoxedAt, RefreshTextColors, MatTranspose, TransformVecs, VecAdd
 extern VecSub, AddVecs, VecCross, VecScale, VecNormalize, VecCrossUnit, unk_10003, unk_16E8A0
 extern unk_170B26, unk_170B30, unk_170F72, unk_170F7C, unk_1713BE, unk_1713C8, unk_17180A, unk_171814
 extern unk_171E38, unk_19CCB0, unk_1D91D0, unk_1D9B50, unk_1D9B70, unk_1D9B90, unk_1D9BB0, unk_1D9BD0
@@ -133,7 +133,7 @@ PrimRect:
         push esi
         mov edi, dword [eax]
         push edi
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         pop edi
         pop esi
@@ -165,7 +165,7 @@ PrimRectDebug:
         push esi
         mov edi, dword [eax]
         push edi
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         pop edi
         pop esi
@@ -198,7 +198,7 @@ PrimRectDebug_30:
         push byte 3
         mov edx, dword [byte eax+028h]
         push edx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -258,7 +258,7 @@ PrimTriFlat:
         push byte 3
         mov ecx, dword [byte ebp+028h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -322,7 +322,7 @@ PrimTriLitCcw:
         push byte 3
         mov ecx, dword [byte ebp+028h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -360,7 +360,7 @@ PrimTriShade:
         push byte 3
         mov edx, dword [byte eax+028h]
         push edx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -420,7 +420,7 @@ PrimTriShadeBlend:
         push byte 3
         mov ecx, dword [byte ebp+028h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -483,7 +483,7 @@ PrimTriShadeCcw:
         push byte 3
         mov ecx, dword [byte ebp+028h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -522,7 +522,7 @@ PrimTriDebug:
         movsd
         call Random32
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -1333,7 +1333,7 @@ PrimQuadDebug:
         movsd
         call Random32
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -1393,7 +1393,7 @@ PrimQuadDebugCw:
         movsd
         call Random32
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -1456,7 +1456,7 @@ PrimQuadDebugCcw:
         movsd
         call Random32
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -1495,7 +1495,7 @@ PrimQuadDebugCcw_80:
         push byte 4
         mov edx, dword [byte eax+034h]
         push edx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -1559,7 +1559,7 @@ PrimQuadFlat:
         push byte 4
         mov ecx, dword [byte ebp+034h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -1626,7 +1626,7 @@ PrimQuadLitCcw:
         push byte 4
         mov ecx, dword [byte ebp+034h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -1668,7 +1668,7 @@ PrimQuadShade:
         push byte 4
         mov edx, dword [byte eax+034h]
         push edx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -1732,7 +1732,7 @@ PrimQuadShadeCw:
         push byte 4
         mov ecx, dword [byte ebp+034h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -1799,7 +1799,7 @@ PrimQuadShadeBlendCcw:
         push byte 4
         mov ecx, dword [byte ebp+034h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -1842,7 +1842,7 @@ PrimQuadSplit:
         movsd
         call Random32
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -2322,7 +2322,7 @@ PrimQuadRandomFill:
         movsd
         call Random32
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -4895,7 +4895,7 @@ RestoreDrawContext:
         mov esi, dword [byte esp+0Ch]
         push esi
         mov edi, dword_16E6A8
-        call sub_FD0DC
+        call LoadDrawContext
         mov ecx, 0Eh
         lea esi, [byte esi+038h]
         add esp, byte 4
@@ -10193,7 +10193,7 @@ LoadNamedResource:
         lea ebx, [byte esp+0Ch]
         push ebx
         push eax
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         cmp dword [byte esp+08h], byte 0
         jne short .3
@@ -10220,7 +10220,7 @@ LoadNamedResource:
         mov edi, dword [byte esp+08h]
         push edi
         mov ebp, 1
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
         mov edi, dword [dword_170158]
         mov eax, dword [byte esp+02Ch]
@@ -10265,7 +10265,7 @@ LoadNamedResource:
         push esi
         mov edi, dword [byte esp+04h]
         push edi
-        call sub_1095AD
+        call DosSeekFile
         add esp, byte 8
         mov edi, esi
 .7:
@@ -10289,7 +10289,7 @@ LoadNamedResource:
         push ecx
         mov eax, dword [byte esp+08h]
         push eax
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
 .8:
         cmp dword [dword_172ABC], byte 0
@@ -10323,7 +10323,7 @@ LoadNamedResource:
 .12:
         mov edi, dword [esp]
         push edi
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         mov eax, dword [byte esp+0Ch]
 .13:

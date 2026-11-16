@@ -48,7 +48,7 @@ extern CdSeek, DriveLetterIndex, IsCdDrive, AllocCdBuffer, DetectMscdex, Request
 extern sub_106F7C, sub_106F94, LoadFileToBlockPlain, RegisterSoundBank, UnregisterSoundBank, DetectAudioDriver, DetectAudioHardware, OpenDigitalAudio
 extern CloseDigitalAudio, StartDigitalAudio, DetectWindows, InitSoundMixer, SetMixerVolumes, SetMasterVolume, SetChannelVolume, SetSpeechVolume
 extern StopAllChannels, ResetSoundChannels, SetMusicStreamVolume, CloseSpeechChannels, AudioStreamPosition, ChannelPlaying, StopChannel, PlaySample
-extern PlaySampleVolume, PushSpeechRing, SpeechRingCount, sub_109417, sub_109545, sub_10955B, SetScreenTarget, TryPokePuck
+extern PlaySampleVolume, PushSpeechRing, SpeechRingCount, DosOpenReadOnly, DosCloseFile, DosReadFile, SetScreenTarget, TryPokePuck
 extern NetCollide, NetCollide2, ChkBodyContact, InitSpeechBanks, OpenSpeechFile, FreeSpeechBuffers, InitSpeechStream, ShutdownSound
 extern ServiceBackgroundAudio, MakeDataPath, LoadDataFile, OpenDataLibrary, BuildRinkPalette, GetSeatPos, AddSeatModel, FindSeatModel
 extern SetFaceMouth, SetFaceExpression, SetFaceBlink, SetModelHeading, SetObjectHidden, ClearModelSlots, ReplaySoundAllowed, MarkPaletteDirty
@@ -61,7 +61,7 @@ extern OpenLeagueFile, StartSeasonGame, FindGameRecord, UpdateGameRecord, FileEx
 extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, FreeVideoBuffer, sub_F94BC, sub_F99C0, sub_F9A28
 extern AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMem, addtimer, sub_FC008, sub_FC290
 extern WaitTicks, sub_FC330, sub_FC410, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
-extern ClearScreen, sub_FDC68, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, unk_160A56, unk_160B68
+extern ClearScreen, FillRectColor, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, unk_160A56, unk_160B68
 extern unk_160C94, unk_160C98, unk_19ED78, unk_19F548, unk_1A0CB8, unk_1A8D48, unk_1A8E8C, unk_1A9C8C
 extern unk_1AD22E, unk_1B93E0, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_169054, word_169066, word_1690AE
 extern word_16914E, word_1691A4, word_1691B2, word_1691B6, word_169232, word_169234, word_169236, word_19ED74
@@ -6802,7 +6802,7 @@ ClearViewBorders:
         push ecx
         push esi
         push byte 0
-        call sub_FDC68
+        call FillRectColor
         inc esi
         add esp, byte 14h
 .3:
@@ -6840,7 +6840,7 @@ ClearViewBorders:
         push edx
         push ebx
         push byte 0
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         mov ecx, dword [dword_169184]
         push ecx
@@ -6854,7 +6854,7 @@ ClearViewBorders:
         add ebx, edx
         push ebx
 .6:
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         inc esi
         cmp esi, edi
@@ -6874,7 +6874,7 @@ ClearViewBorders:
         push edx
         push ebx
         push byte 0
-        call sub_FDC68
+        call FillRectColor
         inc ebx
         mov ecx, dword [dword_16E468]
         add esp, byte 14h
@@ -15905,7 +15905,7 @@ LoadSpeechBlock:
         lea esi, [byte esp+010h]
         push esi
         push eax
-        call sub_109417
+        call DosOpenReadOnly
         add esp, byte 10h
         cmp dword [byte esp+08h], byte 0
         jne short .1
@@ -15942,13 +15942,13 @@ LoadSpeechBlock:
         push ebp
         mov eax, dword [byte esp+010h]
         push eax
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
         test eax, eax
         jne short .5
         mov ebx, dword [byte esp+08h]
         push ebx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         push ebp
         call FreeMemBlock
@@ -15970,7 +15970,7 @@ LoadSpeechBlock:
         jne short .6
         mov edx, dword [byte esp+08h]
         push edx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         push ebp
         call FreeMemBlock
@@ -15998,7 +15998,7 @@ LoadSpeechBlock:
 .7:
         mov ecx, dword [byte esp+08h]
         push ecx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         push ebp
         call FreeMemBlock

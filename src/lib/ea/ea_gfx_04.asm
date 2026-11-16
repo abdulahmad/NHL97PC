@@ -5,7 +5,7 @@ section s_107000 progbits alloc exec nowrite align=1
 extern byte_172BC5, byte_1CFBF2, byte_1CFBF3, byte_1DCF44, byte_1DCF67, byte_1DCF68, dword_16E4D0, dword_170038
 extern dword_17003C, dword_170040, dword_172AC0, dword_172AC4, dword_1CFBF4, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
 extern dword_1DCF62, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, bcopy, AddExitHandler, DetectSoundCard
-extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, sub_109401, sub_109545, sub_10955B, ReleaseBankSample, sub_121888
+extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, DosOpenFile, DosCloseFile, DosReadFile, ReleaseBankSample, sub_121888
 extern LoadSampleHeader, GusDetect, ReadSoundscapeIni, SoundscapeCodecReady, AudioLeave, SampleFormatSize, MixerStartSample, MixerFadeChannel
 extern MixerSetPanVolume, MixerSetPitch, MixerSamplesLeft, ReadLittleEndian, FreeMemBlock, MemPtrSize, addtimer, sub_FC008
 extern word_1CFBF0
@@ -54,7 +54,7 @@ LoadFileToBlock:
         push eax
         mov ecx, dword [byte esp+02Ch]
         push ecx
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         mov edi, dword [byte esp+08h]
         test edi, edi
@@ -66,14 +66,14 @@ LoadFileToBlock:
         push esi
         mov eax, dword [byte esp+08h]
         push eax
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
         mov edx, dword [esp]
         mov eax, dword [byte esp+08h]
         push edx
         mov ebx, esi
         mov dword [dword_16E4D0], eax
-        call sub_109545
+        call DosCloseFile
 .3:
         add esp, byte 4
 .4:

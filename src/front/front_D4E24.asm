@@ -20,7 +20,7 @@ extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextC
 extern SetNormalText, DrawStatTable, DrawPortrait, ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, AllocClearBlock
 extern FreePtr, CopyBytesOk, CopyAndClear, ZeroBytesOk, CompareKeyBytes, FileCreate, FileOpen, FileSeek
 extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, FreeVideoBuffer, sub_F94BC, AllocMemBlock, FreeMemBlock
-extern sub_FBE40, sub_FBE5D, sub_FC330, MakeColor, FreeBitmap, sub_FCEEC, sub_FCF84, DrawArt
+extern sub_FBE40, sub_FBE5D, sub_FC330, MakeColor, FreeBitmap, sub_FCEEC, DrawShapeAtOwnPos, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
 global jpt_D5460, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
@@ -1928,7 +1928,7 @@ GoalieMaskScreen_FF0:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         lea eax, [dword esp+04E4h]
         push eax

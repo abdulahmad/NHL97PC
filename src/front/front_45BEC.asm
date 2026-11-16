@@ -11,8 +11,8 @@ extern dword_1AC7A0, dword_1AC814, dword_1AC944, dword_1B8FA0, jpt_45A64, jpt_45
 extern jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8, PaEvent_4D6, PaEvent_4EC, PaEvent_502, PaEvent_518
 extern PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E, PaEvent_745
 extern PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967, PaEvent_14CD
-extern rand_, sprintf_, strcat_, RequestSpeechEvent, PlayQueuedSpeech, SetSpeechEnabled, UnregisterSoundBank, sub_109417
-extern sub_109545, sub_10955B, sub_1095AD, sub_109870, AsyncInit, AsyncClose, AsyncRequestOpen, AsyncRequestSection
+extern rand_, sprintf_, strcat_, RequestSpeechEvent, PlayQueuedSpeech, SetSpeechEnabled, UnregisterSoundBank, DosOpenReadOnly
+extern DosCloseFile, DosReadFile, DosSeekFile, sub_109870, AsyncInit, AsyncClose, AsyncRequestOpen, AsyncRequestSection
 extern AsyncStreamStep, AsyncFreeRequest, SpeechBufferSize, RegisterStreamBank, AddStreamSample, ReleaseBankSample, StartSpeechQueue, QueueSpeechClip
 extern SpeechQueueGo, ShutdownSpeechQueue, RingBufferSpace, QueuePassSpeech, QueueShotSpeech, QueuePositionSpeech, QueueHitSpeech, QueuePenaltySpeech
 extern QueueReceiveSpeech, QueueLoosePuckSpeech, QueueCarrySpeech, QueueTeamSpeech, QueueDeflectSpeech, QueuePickupSpeech, QueueFaceoffSpeech, QueuePenaltyEndSpeech
@@ -2776,7 +2776,7 @@ OpenSpeechFile:
         add eax, edx
         add eax, byte 8
         push eax
-        call sub_109417
+        call DosOpenReadOnly
         add esp, byte 10h
         cmp dword [byte esp+08h], byte 0
         jne short .4
@@ -2788,7 +2788,7 @@ OpenSpeechFile:
         push byte 0
         mov ebp, dword [byte esp+0Ch]
         push ebp
-        call sub_1095AD
+        call DosSeekFile
         mov eax, ebx
         shl eax, 4
         add esp, byte 8
@@ -2800,7 +2800,7 @@ OpenSpeechFile:
         push eax
         mov eax, dword [byte esp+010h]
         push eax
-        call sub_10955B
+        call DosReadFile
         mov eax, dword [dword_1AC78C]
         add esp, byte 0Ch
         mov eax, dword [ebx+eax]
@@ -2821,11 +2821,11 @@ OpenSpeechFile:
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
         mov ecx, dword [byte esp+08h]
         push ecx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
 .5:
         add esp, byte 0Ch

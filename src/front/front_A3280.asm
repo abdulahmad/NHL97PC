@@ -39,7 +39,7 @@ extern DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse, LoadLangTextB, 
 extern DrawLinkStatusText, ResetLinkSetup, AllocStatTable, FreeStatTable, SetStatCell, SetStatCellFlag, SetStatColumn, SetStatRowWidth
 extern SortStatTable, DrawStatTableRows, DrawStatTableArt, UserLogScreen, InitListBox, InitShapeListBox, InitSlotTable, InitLinkSettings
 extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, CopyControlSettings, AllocMemBlock
-extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, sub_FCEEC, sub_FCF84
+extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, sub_FCEEC, DrawShapeAtOwnPos
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, unk_165EA0, unk_166010
 extern unk_16609C, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_1C94F4, word_1684BE, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
@@ -4357,7 +4357,7 @@ PostGameScreen:
         add esp, byte 8
         push eax
         mov esi, eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         mov edx, dword [dword_1C9558]
         add esp, byte 4
         mov eax, esi
@@ -4375,7 +4375,7 @@ PostGameScreen:
         add esp, byte 8
         push eax
         mov esi, eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         mov edx, dword [dword_1C9558]
         add esp, byte 4
         mov eax, esi
@@ -4388,7 +4388,7 @@ PostGameScreen:
         mov ebx, dword [dword esp+0568h]
         call ServiceIdle
         push ebx
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         mov edx, dword [dword_1C9558]
         add esp, byte 4
         mov ecx, dword [byte ebx+0Ch]

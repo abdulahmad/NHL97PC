@@ -24,7 +24,7 @@ extern CommentaryEvent_1A44, CommentaryEvent_1B16, CommentaryEvent_1B57, Comment
 extern CommentaryEvent_1E49, CommentaryEvent_1ECB, CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, off_169780, off_1697BC, off_169814
 extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, strcmp_, strcpy_
 extern SortIndices, bcopy, FindShape, InitSpeechBank, FileSizePath, LoadFileToBlockPlain, CloseSpeechChannels, InitSpeechChannels
-extern sub_109775, sub_1097F0, QueueSpeechRequest, ResetSpeechQueue, FindSpeechClip, LoadSpeechBlock, LoadClipIfMissing, SpeechFileHeader
+extern RegisterSpeechBank, sub_1097F0, QueueSpeechRequest, ResetSpeechQueue, FindSpeechClip, LoadSpeechBlock, LoadClipIfMissing, SpeechFileHeader
 extern OpenSpeechBanks, ResolveSpeechClips, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, CheckDiskSpace
 extern SetTextColor, ShowMessageBoxNoWait, SetNormalText, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, ShowLoadingBar, CreateMenuBitmap
 extern FreeMenuBitmap, FileExists, FileOpen, FileSeek, FileReadRecord, FileWriteRecord, FileClose, FileLength
@@ -1233,7 +1233,7 @@ InitSpeechBanks:
 .61:
         mov eax, dword [dword esp+0164h]
         mov eax, dword [nosplit eax*8+dword_1AC5CC]
-        call sub_109775
+        call RegisterSpeechBank
         mov edx, eax
         mov eax, dword [dword esp+0164h]
         mov ecx, edx
@@ -1263,7 +1263,7 @@ InitSpeechBanks:
         mov eax, dword [dword_1AC7CC]
         mov edx, ebx
         mov eax, dword [byte eax+edx*8+04h]
-        call sub_109775
+        call RegisterSpeechBank
         mov ebx, dword [dword_1AC7CC]
         mov edx, eax
         mov eax, dword [dword esp+0164h]
@@ -1318,7 +1318,7 @@ InitSpeechBanks:
         cmp edx, byte 0FFFFFFFFh
         je short .69
         mov eax, dword [byte eax+0Ah]
-        call sub_109775
+        call RegisterSpeechBank
         mov ebp, dword [dword esp+0164h]
         mov edx, eax
         imul eax, ebp, byte 0Eh

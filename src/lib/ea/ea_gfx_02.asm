@@ -7,13 +7,15 @@ extern dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0, dwo
 extern dword_1CFCF0, dword_1DA8D8, off_16E87C, ConvertArtSame, sub_102D3C, CreateBitmapEx, BlitCore, SetBlitSource
 extern CopyScaledSpan, ShapeRowBytes, BuildSpanOffsets, FillMemFast, RemapPixels, ClipPolyLeft, ClipPolyRight, ClipPolyTop
 extern ClipPolyBottom, sub_123423, sub_123D38, sub_123FCB, FreeMemBlock, FillMemPattern, sub_FCEEC, unk_1CF2A4
-global sub_FDC68_48, sub_FDC68_5C, sub_FDC68_6C, sub_FDC68_80, mem_putc_, sub_FCF84, DrawArt, DrawShape
-global CreateBitmap, sub_FD0DC, SetDrawTarget, ClearScreen, sub_FD140, sub_FD1D8, sub_FD440, sub_FD528
-global sub_FD570, sub_FD6D0, sub_FD768, sub_FD954, sub_FDC0C, sub_FDC68, sub_FDD08, FillRect
+global FillRectColor_48, FillRectColor_5C, FillRectColor_6C, FillRectColor_80, mem_putc_, DrawShapeAtOwnPos, DrawArt, DrawShape
+global CreateBitmap, LoadDrawContext, SetDrawTarget, ClearScreen, DrawScaledRow, DrawShapeScaledCore, DrawShapeScaledFit, DrawShapeScaledBy
+global DrawShapeScaledFlip, BuildPolyEdge, FillPolySpans, FillPolygon, FillPolygonPoints, FillRectColor, FillRowColor, FillRect
 ;-----------------------------------------------------------------------------
-; sub_FCF84                                                            FCF84  
+; DrawShapeAtOwnPos                               FCF84  97 PC, low confidence
+; Draws a shape at the position stored in its header; followed by the draw at
+; a given position
 ;-----------------------------------------------------------------------------
-sub_FCF84:
+DrawShapeAtOwnPos:
         mov edx, dword [byte esp+04h]
         mov eax, dword [byte edx+0Ch]
         sar eax, 10h
@@ -177,9 +179,11 @@ CreateBitmap:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FD0DC                                                            FD0DC  
+; LoadDrawContext                                 FD0DC  97 PC, low confidence
+; Copies a saved drawing context (clip window, screen pointers) back into the
+; current one
 ;-----------------------------------------------------------------------------
-sub_FD0DC:
+LoadDrawContext:
         push esi
         push edi
         mov ecx, 0Eh
@@ -232,9 +236,10 @@ ClearScreen:
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_FD140                                                            FD140  
+; DrawScaledRow                                   FD140  97 PC, low confidence
+; Draws one row of a scaled shape through the span offsets
 ;-----------------------------------------------------------------------------
-sub_FD140:
+DrawScaledRow:
         push ebx
         push esi
         push edi
@@ -298,9 +303,11 @@ sub_FD140:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FD1D8                                                            FD1D8  
+; DrawShapeScaledCore                             FD1D8  97 PC, low confidence
+; Scales a shape to a width and height: builds the span offsets and draws
+; each visible row
 ;-----------------------------------------------------------------------------
-sub_FD1D8:
+DrawShapeScaledCore:
         push ebx
         push esi
         push edi
@@ -466,7 +473,7 @@ sub_FD1D8:
         mov edx, dword [dword_16E694]
         test edx, edx
         je short .13
-        mov dword [byte esp+0Ch], sub_FD140
+        mov dword [byte esp+0Ch], DrawScaledRow
 .13:
         test ecx, ecx
         push ebp
@@ -519,9 +526,10 @@ sub_FD1D8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FD440                                                            FD440  
+; DrawShapeScaledFit                              FD440  97 PC, low confidence
+; Scales a shape to fit a box, keeping its aspect
 ;-----------------------------------------------------------------------------
-sub_FD440:
+DrawShapeScaledFit:
         push ebx
         push esi
         push edi
@@ -596,7 +604,7 @@ sub_FD440:
         push ebx
         mov ecx, dword [byte esp+020h]
         push ecx
-        call sub_FD1D8
+        call DrawShapeScaledCore
         add esp, byte 14h
         pop edi
         pop esi
@@ -615,14 +623,15 @@ sub_FD440:
         push edx
         mov ebx, dword [byte esp+018h]
         push ebx
-        call sub_FD1D8
+        call DrawShapeScaledCore
         add esp, byte 14h
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FD528                                                            FD528  
+; DrawShapeScaledBy                               FD528  97 PC, low confidence
+; Scales a shape by a factor and draws it
 ;-----------------------------------------------------------------------------
-sub_FD528:
+DrawShapeScaledBy:
         push ebx
         push esi
         mov eax, dword [byte esp+0Ch]
@@ -650,16 +659,17 @@ sub_FD528:
         push eax
         sar ebx, 10h
         push ebx
-        call sub_FD1D8
+        call DrawShapeScaledCore
         add esp, byte 14h
         pop esi
         pop ebx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FD570                                                            FD570  
+; DrawShapeScaledFlip                             FD570  97 PC, low confidence
+; Scales a shape by a factor, mirroring it for negative factors
 ;-----------------------------------------------------------------------------
-sub_FD570:
+DrawShapeScaledFlip:
         push ebx
         push esi
         push edi
@@ -718,7 +728,7 @@ sub_FD570:
         push ebx
         push ebp
         push edi
-        call sub_FD1D8
+        call DrawShapeScaledCore
         add esp, byte 14h
         pop ebp
         pop edi
@@ -739,7 +749,7 @@ sub_FD570:
         push esi
         mov edi, dword [byte esp+020h]
         push edi
-        call sub_FD1D8
+        call DrawShapeScaledCore
         add esp, byte 14h
         pop edi
         pop esi
@@ -758,7 +768,7 @@ sub_FD570:
         push esi
         mov edi, dword [byte esp+020h]
         push edi
-        call sub_FD440
+        call DrawShapeScaledFit
         add esp, byte 14h
         pop edi
         pop esi
@@ -777,7 +787,7 @@ sub_FD570:
         push edx
         mov ebx, dword [byte esp+018h]
         push ebx
-        call sub_FD1D8
+        call DrawShapeScaledCore
         add esp, byte 14h
         pop ebx
         ret
@@ -791,7 +801,7 @@ sub_FD570:
         push ecx
         mov esi, dword [byte esp+018h]
         push esi
-        call sub_FD528
+        call DrawShapeScaledBy
         add esp, byte 10h
         pop esi
         pop ebx
@@ -807,16 +817,17 @@ sub_FD570:
         push ecx
         mov esi, dword [byte esp+018h]
         push esi
-        call sub_FD570
+        call DrawShapeScaledFlip
         add esp, byte 10h
         pop esi
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_FD6D0                                                            FD6D0  
+; BuildPolyEdge                                   FD6D0  97 PC, low confidence
+; Steps one polygon edge and records its x at each row
 ;-----------------------------------------------------------------------------
-sub_FD6D0:
+BuildPolyEdge:
         push ebx
         push esi
         push edi
@@ -875,9 +886,10 @@ sub_FD6D0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FD768                                                            FD768  
+; FillPolySpans                                   FD768  97 PC, low confidence
+; Fills or shades the row spans between a polygon's left and right edges
 ;-----------------------------------------------------------------------------
-sub_FD768:
+FillPolySpans:
         push ebx
         push esi
         push edi
@@ -1062,9 +1074,10 @@ sub_FD768:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FD954                                                            FD954  
+; FillPolygon                                     FD954  97 PC, low confidence
+; Fills a flat-coloured polygon given its points
 ;-----------------------------------------------------------------------------
-sub_FD954:
+FillPolygon:
         push ebx
         push esi
         push edi
@@ -1308,7 +1321,7 @@ sub_FD954:
         mov ecx, dword [byte ebp+01Ch]
         push ecx
         push esi
-        call sub_FD6D0
+        call BuildPolyEdge
         add esp, byte 10h
         mov eax, ebx
         inc ebx
@@ -1332,7 +1345,7 @@ sub_FD954:
         push edi
         push eax
         push ebx
-        call sub_FD768
+        call FillPolySpans
         mov eax, 1
         add esp, byte 14h
 .28:
@@ -1371,7 +1384,7 @@ sub_FD954:
         push ecx
         mov ecx, dword [byte esp+070h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         add esp, byte 50h
         pop edi
@@ -1379,9 +1392,10 @@ sub_FD954:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FDC0C                                                            FDC0C  
+; FillPolygonPoints                               FDC0C  97 PC, low confidence
+; Copies a list of points and fills them as one polygon
 ;-----------------------------------------------------------------------------
-sub_FDC0C:
+FillPolygonPoints:
         push ebx
         push esi
         push edi
@@ -1415,7 +1429,7 @@ sub_FDC0C:
         push ebp
         mov ecx, dword [byte esp+074h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         add esp, byte 50h
         pop ebp
@@ -1425,9 +1439,11 @@ sub_FDC0C:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_FDC68                                                            FDC68  
+; FillRectColor                                   FDC68  97 PC, low confidence
+; Clips a rectangle to the screen and fills it with a colour; followed by the
+; row fillers
 ;-----------------------------------------------------------------------------
-sub_FDC68:
+FillRectColor:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFC8h
@@ -1455,27 +1471,27 @@ sub_FDC68:
         leave
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-sub_FDC68_48:
+FillRectColor_48:
         mov eax, edx
         mov edx, ebx
         mov ebx, dword [dword_1CF524]
         sar edx, 1
         jmp near FillMemPattern
         db 08Dh,040h,00h
-sub_FDC68_5C:
+FillRectColor_5C:
         mov eax, edx
         mov edx, ebx
         mov ebx, dword [dword_1CF524]
         jmp near FillMemPattern
         db 090h
-sub_FDC68_6C:
+FillRectColor_6C:
         mov eax, edx
         mov edx, ebx
         mov ebx, dword [dword_1CF524]
         add edx, edx
         jmp near FillMemPattern
         db 08Dh,040h,00h
-sub_FDC68_80:
+FillRectColor_80:
         push ecx
         push esi
         mov esi, edx
@@ -1494,9 +1510,10 @@ sub_FDC68_80:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FDD08                                                            FDD08  
+; FillRowColor                                    FDD08  97 PC, low confidence
+; Fills one row of pixels with a colour
 ;-----------------------------------------------------------------------------
-sub_FDD08:
+FillRowColor:
         mov eax, edx
         mov edx, ebx
         mov ebx, dword [dword_1CF524]

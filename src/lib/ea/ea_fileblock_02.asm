@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_11B104 progbits alloc exec nowrite align=1
-extern dword_16E4C8, openhandle, sub_109545, sub_109557, MemDescPtr, MemDescSize
+extern dword_16E4C8, openhandle, DosCloseFile, DosWriteFile, MemDescPtr, MemDescSize
 global savefileblocka, sub_11B104
 ;-----------------------------------------------------------------------------
 ; sub_11B104                                                          11B104  
@@ -102,11 +102,11 @@ savefileblocka:
         push ebx
         push esi
         push ecx
-        call sub_109557
+        call DosWriteFile
         add esp, byte 0Ch
         mov edi, dword [byte esp+08h]
         push edi
-        call sub_109545
+        call DosCloseFile
         mov eax, 1
         add esp, byte 4
 .2:

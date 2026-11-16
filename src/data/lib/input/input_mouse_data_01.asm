@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_16E604 progbits alloc noexec write align=1
-extern FreeBitmap_30, sub_FDC68_48, sub_FDC68_5C, sub_FDC68_6C, sub_FDC68_80, ExitProgram, sub_FCE34, sub_FCE48
-extern sub_FCE60, sub_FCEA0, sub_FDD08, unk_167D44, unk_167D48, unk_167D4C, unk_167D50, unk_167D54
+extern FreeBitmap_30, FillRectColor_48, FillRectColor_5C, FillRectColor_6C, FillRectColor_80, ExitProgram, sub_FCE34, sub_FCE48
+extern sub_FCE60, sub_FCEA0, FillRowColor, unk_167D44, unk_167D48, unk_167D4C, unk_167D50, unk_167D54
 extern unk_167D58, unk_167D5C, unk_167D60, unk_167D64, unk_167D68, unk_167D6C, unk_167D70
 global byte_16E638, byte_16E639, byte_16E63A, byte_16E688, byte_16E689, byte_16E6C0, byte_16E6C1, mouseminx
 global mouseminy, mousemaxx, mousemaxy, dword_16E614, dword_16E618, dword_16E61C, dword_16E620, dword_16E624
@@ -153,12 +153,12 @@ off_16E858:
 dword_16E870:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 off_16E87C:
-        dd sub_FDC68_48
-        dd sub_FDC68_5C
-        dd sub_FDC68_6C
-        dd sub_FDC68_6C
-        dd sub_FDC68_80
-        dd sub_FDD08
+        dd FillRectColor_48
+        dd FillRectColor_5C
+        dd FillRectColor_6C
+        dd FillRectColor_6C
+        dd FillRectColor_80
+        dd FillRowColor
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 unk_16E8A0:
         db 046h,04Eh,054h,046h,06Dh,08h,00h,00h,064h,00h,06Fh,00h,00h,00h,00h,00h

@@ -12,7 +12,7 @@ extern dword_1DC9A0, dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dwo
 extern dword_1DCAD4, dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC, dword_1DCAF0
 extern dword_1DCEC0, dword_1DCEC4, dword_1DCF38, dword_1DCF62, dword_1DD378, dword_1DD37C, int386_, ClearSpeechQueue
 extern UnregisterSoundBank, CheckBankIndex, DetectAudioDriver, OpenAudioDriver, CloseAudioDriver, ApplyChannelVolume, FadeOutChannel, InitStreamHeader
-extern sub_1095C4, SpeechBufferSize, RegisterStreamBank, AddStreamSample, SetChannelVolumeChecked, LoadSampleHeader, PlaySoundEntry, ProbeDspReset
+extern ClearSpeechBankTable, SpeechBufferSize, RegisterStreamBank, AddStreamSample, SetChannelVolumeChecked, LoadSampleHeader, PlaySoundEntry, ProbeDspReset
 extern AudioEnter, AudioLeaveCheck, SbDetectDsp, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, IsChannelActive
 extern sub_12CEE1, sub_12D13B, sub_12D141, sub_12D150, RequestStreamRead, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
 extern AllocMemBlock, FreeMemBlock, unk_1072E0, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E
@@ -1426,7 +1426,7 @@ InitSpeechChannels:
         mov dword [dword_1DCAD0], 1
         mov dword [dword_1DC994], 0FFFFFFFFh
         mov dword [dword_1DC998], 0
-        call sub_1095C4
+        call ClearSpeechBankTable
         call AllocSpeechBuffers
         test eax, eax
         je short .1

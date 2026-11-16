@@ -46,7 +46,7 @@ extern ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, GetLangText, Allo
 extern CloseDbFile, AddIndexKey, DeleteIndexKey, FindIndexKey, FindLastKey, FindFirstKey, NextIndexKey, PrevIndexKey
 extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, BuildSeasonIntro, SetupSeasonIntro, DrawSeasonIntro, sub_F9A88, AllocMemBlock
 extern sub_FAAB4, FreeMemBlock, ZeroMem, sub_FBE40, addtimer, sub_FC008, WaitTicks, MakeColor
-extern FreeBitmap, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, sub_FDC68, FillRect, MeasureText
+extern FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, FillRectColor, FillRect, MeasureText
 extern DrawTextAt, FillRectCorners, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
 extern unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
 extern unk_1CD570, unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC, word_1684BE, word_16D7EC, word_16D7EE
@@ -14358,7 +14358,7 @@ WaitForOtherComputer:
         push edx
         push eax
         push ebx
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         mov eax, dword [dword esp+0170h]
         mov ecx, dword [dword_16E46C]
@@ -14408,7 +14408,7 @@ WaitForOtherComputer:
         push edx
         push eax
         push ebx
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         mov eax, dword [dword esp+0174h]
         mov edx, dword [dword_1CF548]
@@ -14459,7 +14459,7 @@ WaitForOtherComputer:
         push esi
         push eax
         push ebx
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         call PresentScreen
         push byte 0FFFFFFFFh
@@ -17684,7 +17684,7 @@ OptionsAnimFrame:
         movsx eax, word [word_16E16E]
         imul eax, byte 0Ch
         push dword [dword eax+dword_1CD64C]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         mov word [word_16E170], 0
         movsx eax, word [word_16E16E]
         add esp, byte 4
@@ -17741,7 +17741,7 @@ OptionsAnimFrame:
 .9:
         shl edx, 2
         push dword [dword edx+eax+dword_1CD650]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         mov word [word_16E170], 1
         add esp, byte 4
 .10:

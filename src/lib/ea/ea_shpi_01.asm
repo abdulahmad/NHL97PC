@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_100400 progbits alloc exec nowrite align=1
-extern bcopy, LoadFileCore, sub_106F94, sub_10955B, sub_1095AD, CreateBitmapForMem, CreateBitmapCore, sub_FAB68
+extern bcopy, LoadFileCore, sub_106F94, DosReadFile, DosSeekFile, CreateBitmapForMem, CreateBitmapCore, sub_FAB68
 extern UnlinkMemBlockLocked, CompactDownLocked, CompactUpLocked, MemDescSize, UnlockMemBlock, LockMemBlock, unpack
 global sub_100400, sub_100498, sub_1004B8, sub_1004F8, sub_100510, sub_100528
 ;-----------------------------------------------------------------------------
@@ -19,7 +19,7 @@ sub_100400:
         push edx
         push edi
         xor ebx, ebx
-        call sub_1095AD
+        call DosSeekFile
         lea eax, [byte esi-08h]
         add esp, byte 8
         cmp eax, 100h
@@ -40,7 +40,7 @@ sub_100400:
         lea eax, [byte esp+04h]
         push eax
         push edi
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
         test eax, eax
         je short .4
@@ -56,7 +56,7 @@ sub_100400:
         mov ecx, dword [dword esp+0114h]
         push ecx
         push edi
-        call sub_1095AD
+        call DosSeekFile
         add esp, byte 8
         mov eax, ebx
         add esp, 100h

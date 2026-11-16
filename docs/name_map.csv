@@ -2150,11 +2150,24 @@ FC65F,MouseReadMotion,,96PC,medium,NHL96PC DF9B7 (similar): mnemonic similarity 
 FC804,_dos_getdate_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FC81F,_dos_gettime_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FCD90,FreeBitmap,sub_FCD90,new,low,"removes a bitmap's two windows (+28h, +30h, removewindow) and frees it (FreeMemBlock)",src/lib/ea/ea_fileblock_01.asm
+FCF84,DrawShapeAtOwnPos,sub_FCF84,new,low,draws a shape at the position stored in its header; followed by the draw at a given position,src/lib/ea/ea_gfx_02.asm
 FCFCC,DrawArt,sub_FCFCC,95PC,low,"graphics library: draw art at x, y (art, x, y) through sub_FCEEC, which converts 8-bit art to the 16-bit screen; the module order matches the NHL95PC DrawArt",src/lib/ea/ea_gfx_02.asm
 FCFE8,DrawShape,sub_FCFE8,95PC,low,graphics library: DrawArt at the art's own position (+0Ah / +0Ch); right after DrawArt as in NHL95PC,src/lib/ea/ea_gfx_02.asm
 FD08C,CreateBitmap,sub_FD08C,95PC,medium,"graphics library: create a bitmap (w, h, flags) at the current pixel depth (dword_16E46C); returns the bitmap",src/lib/ea/ea_gfx_02.asm
+FD0DC,LoadDrawContext,sub_FD0DC,new,low,"copies a saved drawing context (clip window, screen pointers) back into the current one",src/lib/ea/ea_gfx_02.asm
 FD0F8,SetDrawTarget,sub_FD0F8,new,low,makes a bitmap the current draw target: copies its 0Eh-dword header to dword_16E670,src/lib/ea/ea_gfx_02.asm
 FD110,ClearScreen,sub_FD110,95PC,medium,graphics library: fills the whole current draw target (dword_16E678..684) with a colour (sub_FDD1C),src/lib/ea/ea_gfx_02.asm
+FD140,DrawScaledRow,sub_FD140,new,low,draws one row of a scaled shape through the span offsets,src/lib/ea/ea_gfx_02.asm
+FD1D8,DrawShapeScaledCore,sub_FD1D8,new,low,scales a shape to a width and height: builds the span offsets and draws each visible row,src/lib/ea/ea_gfx_02.asm
+FD440,DrawShapeScaledFit,sub_FD440,new,low,"scales a shape to fit a box, keeping its aspect",src/lib/ea/ea_gfx_02.asm
+FD528,DrawShapeScaledBy,sub_FD528,new,low,scales a shape by a factor and draws it,src/lib/ea/ea_gfx_02.asm
+FD570,DrawShapeScaledFlip,sub_FD570,new,low,"scales a shape by a factor, mirroring it for negative factors",src/lib/ea/ea_gfx_02.asm
+FD6D0,BuildPolyEdge,sub_FD6D0,new,low,steps one polygon edge and records its x at each row,src/lib/ea/ea_gfx_02.asm
+FD768,FillPolySpans,sub_FD768,new,low,fills or shades the row spans between a polygon's left and right edges,src/lib/ea/ea_gfx_02.asm
+FD954,FillPolygon,sub_FD954,new,low,fills a flat-coloured polygon given its points,src/lib/ea/ea_gfx_02.asm
+FDC0C,FillPolygonPoints,sub_FDC0C,new,low,copies a list of points and fills them as one polygon,src/lib/ea/ea_gfx_02.asm
+FDC68,FillRectColor,sub_FDC68,new,low,clips a rectangle to the screen and fills it with a colour; followed by the row fillers,src/lib/ea/ea_gfx_02.asm
+FDD08,FillRowColor,sub_FDD08,new,low,fills one row of pixels with a colour,src/lib/ea/ea_gfx_02.asm
 FDD1C,FillRect,sub_FDD1C,95PC,medium,"graphics library: fill a rectangle (x, y, w, h, colour) on the current draw target, by pixel depth",src/lib/ea/ea_gfx_02.asm
 FDDC1,mem_putc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -2406,7 +2419,20 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 109352,PushSpeechRing,sub_109352,new,low,adds an entry to the speech ring,src/lib/watcom/watcom_clib_09.asm
 109384,SpeechRingCount,sub_109384,new,low,returns the entries in the speech ring,src/lib/watcom/watcom_clib_09.asm
 1093CF,SpeechBusy,sub_1093CF,new,low,returns whether speech is playing,src/lib/watcom/watcom_clib_09.asm
+1093E8,DosCallSplitDx,sub_1093E8,new,low,calls DOS with a 32-bit value split into CX:DX and joins DX:AX back into EAX,src/lib/ea/ea_fileio.asm
+109401,DosOpenFile,sub_109401,new,low,opens a file through DOS with the given mode,src/lib/ea/ea_fileio.asm
+109417,DosOpenReadOnly,sub_109417,new,low,opens a file read-only through DOS,src/lib/ea/ea_fileio.asm
 10942E,openhandle,,96PC,medium,NHL96PC E06B2 (similar): mnemonic similarity 0.91 over 87 instructions,
+109545,DosCloseFile,sub_109545,new,low,closes a DOS file handle when it is open,src/lib/ea/ea_fileio.asm
+109557,DosWriteFile,sub_109557,new,low,writes a buffer to a DOS file,src/lib/ea/ea_fileio.asm
+10955B,DosReadFile,sub_10955B,new,low,"reads from a DOS file into a buffer, in chunks",src/lib/ea/ea_fileio.asm
+1095AD,DosSeekFile,sub_1095AD,new,low,moves a DOS file pointer to an absolute position,src/lib/ea/ea_fileio.asm
+1095C4,ClearSpeechBankTable,sub_1095C4,new,low,clears the table of loaded speech banks; followed by the free-slot search,src/lib/ea/ea_fileio.asm
+109608,FindSpeechBank,sub_109608,new,low,returns the loaded speech bank with the given id,src/lib/ea/ea_fileio.asm
+109641,RelocateBankOffsets,sub_109641,new,low,turns the offsets of a bank's offset table into pointers,src/lib/ea/ea_fileio.asm
+10968F,RelocateBankGroups,sub_10968F,new,low,relocates each group table of a speech bank,src/lib/ea/ea_fileio.asm
+1096F2,RelocateBankEntries,sub_1096F2,new,low,relocates each entry table of a speech bank,src/lib/ea/ea_fileio.asm
+109775,RegisterSpeechBank,sub_109775,new,low,"checks a speech bank header, relocates it and stores it in a free slot",src/lib/ea/ea_fileio.asm
 109A74,AsyncInit,sub_109A74,96PC,medium,NHL96PC 1BA4D (sem 0.89): S:ASYNC FILE; D:167E78; K:FFFF800,src/lib/lib_109A74.asm
 109B50,AsyncClose,sub_109B50,96PC,medium,NHL96PC 1BB20 (sem 1.00): C:1905; C:2113,src/lib/lib_109A74.asm
 109C94,AsyncRequestOpen,sub_109C94,96PC,medium,NHL96PC 1BC7A (similar 0.91): mnemonic similarity 0.91 over 54 instructions,src/lib/lib_109A74.asm
@@ -2436,6 +2462,19 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 10AFCA,_dos_close_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AFD9,_dos_commit_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AFE9,_dos_open_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+10B040,SetRinkMatrix,sub_10B040,new,low,copies the rink view rotation matrix and marks the view as changed,src/lib/ea/ea_gfx_06.asm
+10B060,SetRinkTranslation,sub_10B060,new,low,copies the rink view translation vector,src/lib/ea/ea_gfx_06.asm
+10B074,SetScreenScale,sub_10B074,new,low,sets the screen scale and the matching text scale,src/lib/ea/ea_gfx_06.asm
+10B084,ProjectRinkObjectPoints,sub_10B084,new,low,transforms and projects the points of a rink object,src/lib/ea/ea_gfx_06.asm
+10B0D4,ProjectModelPoints,sub_10B0D4,new,low,projects the points of a model part,src/lib/ea/ea_gfx_06.asm
+10B0EC,DrawRinkObjectPolys,sub_10B0EC,new,low,"draws the faces of a rink object as flat polygons, with outlines when asked",src/lib/ea/ea_gfx_06.asm
+10B18C,SetModelFrame,sub_10B18C,new,low,selects an animation frame of a model instance,src/lib/ea/ea_gfx_06.asm
+10B20C,DrawSortedModelPolys,sub_10B20C,new,low,sorts a model's faces by depth and draws them back to front,src/lib/ea/ea_gfx_06.asm
+10B2CC,DrawModelSorted,sub_10B2CC,new,low,sets the rink view and draws a model's faces depth-sorted,src/lib/ea/ea_gfx_06.asm
+10B348,DrawModelPartPolys,sub_10B348,new,low,"transforms, projects and draws each part of a model",src/lib/ea/ea_gfx_06.asm
+10B4E0,DrawModelInstance,sub_10B4E0,new,low,"runs a model's part functions, sets the rink view and draws its parts",src/lib/ea/ea_gfx_06.asm
+10B580,DrawModel,sub_10B580,new,low,draws a model instance at its current frame,src/lib/ea/ea_gfx_06.asm
+10B59C,InitModelParts,sub_10B59C,new,low,runs every part function of a model in set-up mode; followed by the plain run,src/lib/ea/ea_gfx_06.asm
 10B660,BuildAntiAliasTable,sub_10B660,96PC,medium,NHL96PC 873AE (sem 1.00): S:AALIAS; D:167E84; K:110000; K:1004,src/lib/lib_10B660.asm
 10B780,ClipLineY,sub_10B780,96PC,medium,96 PC ClipLineY (the line clipper of the 3D library),src/lib/lib_10B660.asm
 10B99C,ClipLineX,sub_10B99C,96PC,medium,96 PC ClipLineX,src/lib/lib_10B660.asm
@@ -3447,10 +3486,23 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 13B9DC,__CmpBigInt,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13BA16,__Rnd2Int,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13BA81,__Bin2String,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+13BAEB,BigIntCallHook,sub_13BAEB,new,low,calls the empty big-integer compare hook,src/lib/watcom/watcom_clib_32.asm
+13BBA0,BigIntNullHook,sub_13BBA0,new,low,empty big-integer compare hook,src/lib/watcom/watcom_clib_32.asm
 13BBA2,frexp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13BC11,abort_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13BC17,__terminate_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+13BC29,SignalHookFpu,sub_13BC29,new,low,signal() entry that hooks the coprocessor exception handler,src/lib/watcom/watcom_clib_32.asm
 13BC2E,__GrabFP87_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+13BC60,HookFpuExceptions,sub_13BC60,new,low,installs the coprocessor exception handler through the running DOS extender when a coprocessor is present,src/lib/watcom/watcom_clib_32.asm
+13BCBD,UnhookFpuExceptions,sub_13BCBD,new,low,masks coprocessor exceptions and removes the handler through the running DOS extender,src/lib/watcom/watcom_clib_32.asm
+13BD1A,EnableFpuExceptions,sub_13BD1A,new,low,"unmasks the invalid, divide-by-zero and overflow coprocessor exceptions",src/lib/watcom/watcom_clib_32.asm
+13BD2F,FpuIrqEoi,sub_13BD2F,new,low,acknowledges the coprocessor interrupt at both interrupt controllers and the coprocessor port,src/lib/watcom/watcom_clib_32.asm
+13BD3C,FpuExceptionHandler,sub_13BD3C,new,low,"coprocessor exception handler: works out which exception fired, fixes the result and raises SIGFPE",src/lib/watcom/watcom_clib_32.asm
+13BE42,FpuClassifyException,sub_13BE42,new,low,decodes the faulting coprocessor instruction and returns the matching floating-point error code,src/lib/watcom/watcom_clib_32.asm
+13BECF,FpuFixupResult,sub_13BECF,new,low,replaces the result of the faulting instruction with an infinity or the original operand,src/lib/watcom/watcom_clib_32.asm
+13BF21,FpuLoadInfinity,sub_13BF21,new,low,loads a signed infinity of the operand's size,src/lib/watcom/watcom_clib_32.asm
+13BF47,FpuRestoreStackTop,sub_13BF47,new,low,reloads the faulting operand into its coprocessor stack slot,src/lib/watcom/watcom_clib_32.asm
+13BF6C,FpuStoreResult,sub_13BF6C,new,low,stores the fixed result to memory as a double or a float,src/lib/watcom/watcom_clib_32.asm
 13BF7A,__Phar_hook_init_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C03D,__Phar_hook_fini_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C06A,__DOS4G_hook_init_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

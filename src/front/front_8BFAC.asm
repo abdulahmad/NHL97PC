@@ -16,7 +16,7 @@ extern RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187, RunNewSeason_193, o
 extern BlitArt, BlitClippedY, PresentScreen, FindShape, sub_1097F0, ConvertArtXY, SetScreenTarget, PlaySfx
 extern LoadDataFileHandle, SetRegionRect, ShowLinkWait, ShowLinkMessage, HideLinkBox, InitMenuItems, ClearLinkAbort, ServiceIdle
 extern ResetLinkStats, SyncLinkGame, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
-extern SetDrawTarget, ClearScreen, sub_FDC68, tickcount, word_16CD04, word_16CD20, word_16CD22
+extern SetDrawTarget, ClearScreen, FillRectColor, tickcount, word_16CD04, word_16CD20, word_16CD22
 global jpt_8E977, jpt_8E987, InitScrollList_223, InitScrollTable_1F5, InitScrollTable_220, RunMenu, ScrollPosToValue, ResetMouseInput
 global SetMenuMode, SetupMenuView, RestoreMenuView, InitScrollList, InitScrollTable, NoOpReturn, ScrollUp, DrawScrollBar
 global ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList, RunScrollMenu, SetListSelection, LoadLangText
@@ -2194,7 +2194,7 @@ InitScrollList:
         push byte 7
         push byte 15h
         push byte 7
-        call sub_FDC68
+        call FillRectColor
         mov eax, ebx
         sub eax, dword [byte ebp-04h]
         mov dword [byte ebp-010h], eax
@@ -2375,7 +2375,7 @@ InitScrollTable:
         push edi
         push byte 7
         push byte 15h
-        call sub_FDC68
+        call FillRectColor
         mov eax, ebx
         sub eax, dword [byte ebp-04h]
         mov dword [byte ebp-010h], eax

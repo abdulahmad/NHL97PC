@@ -8,8 +8,8 @@ extern dword_19C1AE, dword_19C1C6, dword_19C3CC, off_171C84, qword_19C1BE, Resto
 extern word_19C1A8, word_19C3CA
 global __Bin2String, __CmpBigInt, __DOS4G_hook_fini_, __DOS4G_hook_init_, __Ergo_hook_fini_, __Ergo_hook_init_, __GrabFP87_, __Intel_hook_fini_
 global __Intel_hook_init_, __Phar_hook_fini_, __Phar_hook_init_, __Rnd2Int, __terminate_, abort_, frexp_, modf_
-global sub_13BAEB, sub_13BBA0, sub_13BC29, sub_13BC60, sub_13BCBD, sub_13BD1A, sub_13BD2F, sub_13BD3C
-global sub_13BE42, sub_13BECF, sub_13BF21, sub_13BF47, sub_13BF6C, SetScreenTarget
+global BigIntCallHook, BigIntNullHook, SignalHookFpu, HookFpuExceptions, UnhookFpuExceptions, EnableFpuExceptions, FpuIrqEoi, FpuExceptionHandler
+global FpuClassifyException, FpuFixupResult, FpuLoadInfinity, FpuRestoreStackTop, FpuStoreResult, SetScreenTarget
 ;-----------------------------------------------------------------------------
 ; modf_                                                        13B9C2  library
 ;-----------------------------------------------------------------------------
@@ -31,7 +31,7 @@ modf_:
 __CmpBigInt:
         push edi
         push ecx
-        call sub_13BAEB
+        call BigIntCallHook
         inc eax
         lea edi, [edi+eax*8]
         mov ecx, dword [edx]
@@ -183,10 +183,11 @@ __Bin2String:
         pop ebp
         ret
 ;-----------------------------------------------------------------------------
-; sub_13BAEB                                                          13BAEB  
+; BigIntCallHook                                 13BAEB  97 PC, low confidence
+; Calls the empty big-integer compare hook
 ;-----------------------------------------------------------------------------
-sub_13BAEB:
-        call sub_13BBA0
+BigIntCallHook:
+        call BigIntNullHook
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,01h,00h,00h,00h
         db 00h,00h,00h,00h,0Ah,00h,00h,00h,00h,00h,00h,00h,064h,00h,00h,00h
         db 00h,00h,00h,00h,0E8h,03h,00h,00h,00h,00h,00h,00h,010h,027h,00h,00h
@@ -199,9 +200,10 @@ sub_13BAEB:
         db 078h,045h,063h,01h,00h,00h,08Ah,05Dh,0B3h,0B6h,0E0h,0Dh,00h,00h,064h,0A7h
         db 04h,023h,0C7h,08Ah,00h,00h,0E8h,089h,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh
 ;-----------------------------------------------------------------------------
-; sub_13BBA0                                                          13BBA0  
+; BigIntNullHook                                 13BBA0  97 PC, low confidence
+; Empty big-integer compare hook
 ;-----------------------------------------------------------------------------
-sub_13BBA0:
+BigIntNullHook:
         pop edi
         ret
 ;-----------------------------------------------------------------------------
@@ -261,9 +263,10 @@ __terminate_:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_13BC29                                                          13BC29  
+; SignalHookFpu                                  13BC29  97 PC, low confidence
+; Signal() entry that hooks the coprocessor exception handler
 ;-----------------------------------------------------------------------------
-sub_13BC29:
+SignalHookFpu:
         jmp near __GrabFP87_
 ;-----------------------------------------------------------------------------
 ; __GrabFP87_                                                  13BC2E  library
@@ -271,23 +274,25 @@ sub_13BC29:
 __GrabFP87_:
         push ebx
         push ecx
-        cmp dword [off_171C84], sub_13BCBD
+        cmp dword [off_171C84], UnhookFpuExceptions
         je short .1
         mov ebx, __sigfpe_handler_
-        mov ecx, sub_13BCBD
+        mov ecx, UnhookFpuExceptions
         mov dword [dword_1725AD], ebx
-        call sub_13BC60
+        call HookFpuExceptions
         mov dword [off_171C84], ecx
 .1:
-        call sub_13BD1A
+        call EnableFpuExceptions
         pop ecx
         pop ebx
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_13BC60                                                          13BC60  
+; HookFpuExceptions                              13BC60  97 PC, low confidence
+; Installs the coprocessor exception handler through the running DOS extender
+; when a coprocessor is present
 ;-----------------------------------------------------------------------------
-sub_13BC60:
+HookFpuExceptions:
         cmp word [word_19C1A8], byte 0
         jne short .1
         cmp byte [__8087], 0
@@ -320,7 +325,7 @@ sub_13BC60:
         call __Phar_hook_init_
 .6:
         pop ds
-        call sub_13BD1A
+        call EnableFpuExceptions
         pop es
         pop edx
         pop ecx
@@ -328,9 +333,11 @@ sub_13BC60:
         pop eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_13BCBD                                                          13BCBD  
+; UnhookFpuExceptions                            13BCBD  97 PC, low confidence
+; Masks coprocessor exceptions and removes the handler through the running
+; DOS extender
 ;-----------------------------------------------------------------------------
-sub_13BCBD:
+UnhookFpuExceptions:
         cmp word [word_19C1A8], byte 0
         jne short .1
         ret
@@ -371,9 +378,10 @@ sub_13BCBD:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_13BD1A                                                          13BD1A  
+; EnableFpuExceptions                            13BD1A  97 PC, low confidence
+; Unmasks the invalid, divide-by-zero and overflow coprocessor exceptions
 ;-----------------------------------------------------------------------------
-sub_13BD1A:
+EnableFpuExceptions:
         sub esp, byte 4
         wait
         fnstcw word [esp]
@@ -384,9 +392,11 @@ sub_13BD1A:
         add esp, byte 4
         ret
 ;-----------------------------------------------------------------------------
-; sub_13BD2F                                                          13BD2F  
+; FpuIrqEoi                                      13BD2F  97 PC, low confidence
+; Acknowledges the coprocessor interrupt at both interrupt controllers and
+; the coprocessor port
 ;-----------------------------------------------------------------------------
-sub_13BD2F:
+FpuIrqEoi:
         push eax
         mov al, 20h
         out 20h, al
@@ -394,7 +404,12 @@ sub_13BD2F:
         xor ax, ax
         out 0F0h, al
         pop eax
-sub_13BD3C:
+;-----------------------------------------------------------------------------
+; FpuExceptionHandler                            13BD3C  97 PC, low confidence
+; Coprocessor exception handler: works out which exception fired, fixes the
+; result and raises SIGFPE
+;-----------------------------------------------------------------------------
+FpuExceptionHandler:
         push eax
         push ebx
         push ecx
@@ -449,7 +464,7 @@ sub_13BD3C:
 .5:
         test dl, 1
         je short .6
-        call sub_13BE42
+        call FpuClassifyException
         jmp short .10
 .6:
         test dl, 2
@@ -459,7 +474,7 @@ sub_13BD3C:
 .7:
         test dl, 8
         je short .8
-        call sub_13BECF
+        call FpuFixupResult
         mov cl, 84h
         jmp short .10
 .8:
@@ -470,7 +485,7 @@ sub_13BD3C:
 .9:
         test dl, 4
         je short .10
-        call sub_13BF21
+        call FpuLoadInfinity
         mov cl, 83h
 .10:
         cmp cl, 0
@@ -507,9 +522,11 @@ sub_13BD3C:
         pop eax
         iret
 ;-----------------------------------------------------------------------------
-; sub_13BE42                                                          13BE42  
+; FpuClassifyException                           13BE42  97 PC, low confidence
+; Decodes the faulting coprocessor instruction and returns the matching
+; floating-point error code
 ;-----------------------------------------------------------------------------
-sub_13BE42:
+FpuClassifyException:
         mov cl, 81h
         cmp bx, 0D9FAh
         jne short .1
@@ -545,7 +562,7 @@ sub_13BE42:
         and dl, 0C0h
         cmp dl, 0C0h
         je short .6
-        call sub_13BF6C
+        call FpuStoreResult
 .6:
         test bl, 8
         je short .7
@@ -570,9 +587,11 @@ sub_13BE42:
 .9:
         ret
 ;-----------------------------------------------------------------------------
-; sub_13BECF                                                          13BECF  
+; FpuFixupResult                                 13BECF  97 PC, low confidence
+; Replaces the result of the faulting instruction with an infinity or the
+; original operand
 ;-----------------------------------------------------------------------------
-sub_13BECF:
+FpuFixupResult:
         cmp bx, 0D9FDh
         jne short .1
         jmp short .6
@@ -581,12 +600,12 @@ sub_13BECF:
         and dx, 110h
         cmp dx, 110h
         jne short .4
-        call sub_13BF21
+        call FpuLoadInfinity
         mov dl, bl
         and dl, 0C0h
         cmp dl, 0C0h
         je short .2
-        call sub_13BF6C
+        call FpuStoreResult
 .2:
         test bl, 8
         je short .3
@@ -599,16 +618,17 @@ sub_13BECF:
         cmp dl, 0C0h
         jne short .5
         lea esi, [unk_19C1B4]
-        call sub_13BF47
+        call FpuRestoreStackTop
         jmp short .6
 .5:
-        call sub_13BF21
+        call FpuLoadInfinity
 .6:
         ret
 ;-----------------------------------------------------------------------------
-; sub_13BF21                                                          13BF21  
+; FpuLoadInfinity                                13BF21  97 PC, low confidence
+; Loads a signed infinity of the operand's size
 ;-----------------------------------------------------------------------------
-sub_13BF21:
+FpuLoadInfinity:
         ftst
         wait
         fnstsw word [byte ebp+014h]
@@ -626,9 +646,10 @@ sub_13BF21:
 .3:
         ret
 ;-----------------------------------------------------------------------------
-; sub_13BF47                                                          13BF47  
+; FpuRestoreStackTop                             13BF47  97 PC, low confidence
+; Reloads the faulting operand into its coprocessor stack slot
 ;-----------------------------------------------------------------------------
-sub_13BF47:
+FpuRestoreStackTop:
         test bh, 4
         jne short .1
         mov dl, 0
@@ -655,9 +676,10 @@ sub_13BF47:
 .6:
         ret
 ;-----------------------------------------------------------------------------
-; sub_13BF6C                                                          13BF6C  
+; FpuStoreResult                                 13BF6C  97 PC, low confidence
+; Stores the fixed result to memory as a double or a float
 ;-----------------------------------------------------------------------------
-sub_13BF6C:
+FpuStoreResult:
         test bl, 4
         je short .1
         fst qword [es:edi]
@@ -673,10 +695,10 @@ __Phar_hook_init_:
         push ds
         cmp byte [byte_19C3D3], 20h
         jne short .1
-        lea edx, [sub_13BD2F]
+        lea edx, [FpuIrqEoi]
         jmp short .2
 .1:
-        lea edx, [sub_13BD3C]
+        lea edx, [FpuExceptionHandler]
 .2:
         cmp byte [_Extender], 3
         jae short .3
@@ -767,7 +789,7 @@ __DOS4G_hook_init_:
         mov al, byte [byte_19C3D0]
         mov dx, cs
         mov ds, edx
-        lea edx, [sub_13BD3C]
+        lea edx, [FpuExceptionHandler]
         int 21h
         pop ds
         ret
@@ -797,10 +819,10 @@ __Ergo_hook_init_:
         mov al, byte [byte_19C3D2]
         cmp byte [byte_19C3D3], 20h
         jne short .1
-        lea edx, [sub_13BD2F]
+        lea edx, [FpuIrqEoi]
         jmp short .2
 .1:
-        lea edx, [sub_13BD3C]
+        lea edx, [FpuExceptionHandler]
 .2:
         mov bx, cs
         mov ds, ebx
@@ -838,10 +860,10 @@ __Intel_hook_init_:
         mov cx, cs
         cmp byte [byte_19C3D3], 20h
         jne short .1
-        lea edx, [sub_13BD2F]
+        lea edx, [FpuIrqEoi]
         jmp short .2
 .1:
-        lea edx, [sub_13BD3C]
+        lea edx, [FpuExceptionHandler]
 .2:
         mov ax, 205h
         mov bl, byte [byte_19C3D0]

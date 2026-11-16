@@ -12,8 +12,8 @@ extern dword_1CFA84, dword_1CFA88, dword_1CFA8C, dword_1CFA90, dword_1CFA94, dwo
 extern dword_1CFAA8, dword_1CFAAC, dword_1CFAB0, dword_1CFAB4, dword_1CFABC, dword_1CFAC0, dword_1CFACC, dword_1CFAD0
 extern dword_1CFAD4, dword_1CFAD8, dword_1DC5AC, dword_1DC994, dword_1DC998, dword_1DC99C, dword_1DCAFC, dword_1DCB00
 extern dword_1DCB04, dword_1DCB08, dword_1DCEC0, dword_1DCF20, int386_, int386x_, memset_, segread_
-extern str_Inversetmp, bcopy, Random32, sub_1048BC, SpeechBusy, sub_109401, sub_109545, sub_10955B
-extern sub_1095AD, sub_109608, sub_12189C, ExpandPalette6To8, CopyPaletteRGB, sub_1266FC, AllocMemBlock, sub_FAAB4
+extern str_Inversetmp, bcopy, Random32, sub_1048BC, SpeechBusy, DosOpenFile, DosCloseFile, DosReadFile
+extern DosSeekFile, FindSpeechBank, sub_12189C, ExpandPalette6To8, CopyPaletteRGB, sub_1266FC, AllocMemBlock, sub_FAAB4
 extern sub_FAB68, FreeMemBlock, WaitTicks, tickcount, toupper_, unk_16FB44, unk_1CFAF0, word_1CFA98
 extern word_1CFAB8, word_1CFADE, word_1CFAE0
 global DetectMscdex_1FC, ParseSpeechEvents_86, QueueSpeechEvent_AD, QueueSpeechEvent_AE, strcmp_, strncpy_, InverseTableSlice, InverseTablePass
@@ -988,7 +988,7 @@ CdOpenFile:
         push eax
         mov ecx, dword [dword esp+0124h]
         push ecx
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         mov eax, dword [dword esp+011Ch]
         mov eax, dword [eax]
@@ -1080,7 +1080,7 @@ CdCloseFile:
         jne short .1
         mov ebx, dword [dword eax+dword_16FB54]
         push ebx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
 .1:
         mov edx, dword [byte esp+08h]
@@ -1112,7 +1112,7 @@ CdReadSectors:
         push edx
         mov edx, dword [dword ebx+dword_16FB54]
         push edx
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
         jmp short .2
 .1:
@@ -1182,7 +1182,7 @@ CdSeekSectors:
         push edx
         mov ebp, dword [dword ebx+dword_16FB54]
         push ebp
-        call sub_1095AD
+        call DosSeekFile
         add esp, byte 8
         xor eax, eax
         pop ebp
@@ -2151,7 +2151,7 @@ ClipValue:
         ret
 .1:
         movsx eax, word [byte eax+04h]
-        jmp near sub_109608
+        jmp near FindSpeechBank
 ;-----------------------------------------------------------------------------
 ; PickEventClip                                  10623B  97 PC, low confidence
 ; Picks the clip for an event
@@ -3237,11 +3237,11 @@ FileExistsPath:
         push eax
         mov edx, dword [byte esp+024h]
         push edx
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         mov ebx, dword [byte esp+08h]
         push ebx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         mov eax, dword [esp]
         add esp, byte 0Ch
@@ -3264,11 +3264,11 @@ FileSizePath:
         push eax
         mov edx, dword [byte esp+024h]
         push edx
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         mov ebx, dword [byte esp+08h]
         push ebx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         mov eax, dword [esp]
         add esp, byte 0Ch
@@ -3287,11 +3287,11 @@ FileSizePath:
         push eax
         mov ebx, dword [byte esp+024h]
         push ebx
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         mov ecx, dword [byte esp+08h]
         push ecx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         mov eax, dword [esp]
         add esp, byte 0Ch
@@ -3411,7 +3411,7 @@ LoadFileCore:
         lea eax, [byte esp+0Ch]
         push eax
         push esi
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         mov edx, dword [byte esp+08h]
         test edx, edx
@@ -3432,14 +3432,14 @@ LoadFileCore:
         push edx
         mov ecx, dword [byte esp+08h]
         push ecx
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
         mov eax, dword [byte esp+08h]
         mov dword [dword_16E4D0], eax
 .1:
         mov ebp, dword [esp]
         push ebp
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
 .2:
         cmp dword [dword_172ABC], byte 0

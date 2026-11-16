@@ -7,12 +7,13 @@ extern dword_1D1D10, dword_1D1D14, dword_1D1D2C, off_170278, off_170284, off_170
 extern SortIndices, sub_10C8E8, sub_10CF34, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip
 extern DrawFlatPoly, DrawPolyOutline, CallModelPartFuncs, CallAllPartFuncs, sub_12D300, sub_12D4B8, ProjectPoints, unk_17021C
 extern unk_170240
-global sub_10B0EC_9B, sub_10B20C_B8, sub_10B348_190, sub_10B040, sub_10B060, sub_10B074, sub_10B084, sub_10B0D4
-global sub_10B0EC, sub_10B18C, sub_10B20C, sub_10B2CC, sub_10B348, sub_10B4E0, sub_10B580, sub_10B59C
+global DrawRinkObjectPolys_9B, DrawSortedModelPolys_B8, DrawModelPartPolys_190, SetRinkMatrix, SetRinkTranslation, SetScreenScale, ProjectRinkObjectPoints, ProjectModelPoints
+global DrawRinkObjectPolys, SetModelFrame, DrawSortedModelPolys, DrawModelSorted, DrawModelPartPolys, DrawModelInstance, DrawModel, InitModelParts
 ;-----------------------------------------------------------------------------
-; sub_10B040                                                          10B040  
+; SetRinkMatrix                                  10B040  97 PC, low confidence
+; Copies the rink view rotation matrix and marks the view as changed
 ;-----------------------------------------------------------------------------
-sub_10B040:
+SetRinkMatrix:
         push esi
         push edi
         mov edx, 1
@@ -25,9 +26,10 @@ sub_10B040:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_10B060                                                          10B060  
+; SetRinkTranslation                             10B060  97 PC, low confidence
+; Copies the rink view translation vector
 ;-----------------------------------------------------------------------------
-sub_10B060:
+SetRinkTranslation:
         push esi
         push edi
         mov esi, dword [byte esp+0Ch]
@@ -40,18 +42,20 @@ sub_10B060:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10B074                                                          10B074  
+; SetScreenScale                                 10B074  97 PC, low confidence
+; Sets the screen scale and the matching text scale
 ;-----------------------------------------------------------------------------
-sub_10B074:
+SetScreenScale:
         mov eax, dword [byte esp+04h]
         mov dword [dword_170218], eax
         dec eax
         mov dword [dword_16E4A8], eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_10B084                                                          10B084  
+; ProjectRinkObjectPoints                        10B084  97 PC, low confidence
+; Transforms and projects the points of a rink object
 ;-----------------------------------------------------------------------------
-sub_10B084:
+ProjectRinkObjectPoints:
         push ebx
         push esi
         mov ebx, dword [byte esp+0Ch]
@@ -86,9 +90,10 @@ sub_10B084:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10B0D4                                                          10B0D4  
+; ProjectModelPoints                             10B0D4  97 PC, low confidence
+; Projects the points of a model part
 ;-----------------------------------------------------------------------------
-sub_10B0D4:
+ProjectModelPoints:
         push ebx
         mov eax, dword [byte esp+08h]
         mov ebx, dword [dword eax+080h]
@@ -98,9 +103,10 @@ sub_10B0D4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_10B0EC                                                          10B0EC  
+; DrawRinkObjectPolys                            10B0EC  97 PC, low confidence
+; Draws the faces of a rink object as flat polygons, with outlines when asked
 ;-----------------------------------------------------------------------------
-sub_10B0EC:
+DrawRinkObjectPolys:
         push ebx
         push esi
         push edi
@@ -159,16 +165,17 @@ sub_10B0EC:
         mov eax, dword [byte esp+08h]
         mov dword [byte ebx+018h], eax
         add esp, byte 18h
-sub_10B0EC_9B:
+DrawRinkObjectPolys_9B:
         pop ebp
         pop edi
         pop esi
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_10B18C                                                          10B18C  
+; SetModelFrame                                  10B18C  97 PC, low confidence
+; Selects an animation frame of a model instance
 ;-----------------------------------------------------------------------------
-sub_10B18C:
+SetModelFrame:
         push ebx
         push esi
         push edi
@@ -187,7 +194,7 @@ sub_10B18C:
         mov edi, dword [byte esi+028h]
         xor ebx, ebx
         test ebp, ebp
-        jle short sub_10B0EC_9B
+        jle short DrawRinkObjectPolys_9B
 .2:
         test byte [byte edi+01h], 4
         jne short .3
@@ -199,7 +206,7 @@ sub_10B18C:
 .3:
         inc ebx
         cmp ebx, dword [byte esi+024h]
-        jge short sub_10B0EC_9B
+        jge short DrawRinkObjectPolys_9B
         jmp short .2
 .4:
         mov edx, dword [byte esi+050h]
@@ -217,16 +224,17 @@ sub_10B18C:
 .5:
         dec ebx
         cmp ebx, byte 0FFFFFFFFh
-        je short sub_10B0EC_9B
+        je short DrawRinkObjectPolys_9B
         add eax, byte 4
         mov ecx, dword [edx]
         add edx, byte 4
         mov dword [byte eax-04h], ecx
         jmp short .5
 ;-----------------------------------------------------------------------------
-; sub_10B20C                                                          10B20C  
+; DrawSortedModelPolys                           10B20C  97 PC, low confidence
+; Sorts a model's faces by depth and draws them back to front
 ;-----------------------------------------------------------------------------
-sub_10B20C:
+DrawSortedModelPolys:
         push ebx
         push esi
         push edi
@@ -280,7 +288,7 @@ sub_10B20C:
         call SortIndices
         add esp, byte 0Ch
         add esp, 0FA8h
-sub_10B20C_B8:
+DrawSortedModelPolys_B8:
         pop ebp
         pop edi
         pop esi
@@ -288,9 +296,10 @@ sub_10B20C_B8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10B2CC                                                          10B2CC  
+; DrawModelSorted                                10B2CC  97 PC, low confidence
+; Sets the rink view and draws a model's faces depth-sorted
 ;-----------------------------------------------------------------------------
-sub_10B2CC:
+DrawModelSorted:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [dword eax+088h]
@@ -298,7 +307,7 @@ sub_10B2CC:
         mov ebx, dword [byte eax+08h]
         push ebx
         push eax
-        call sub_10B20C
+        call DrawSortedModelPolys
         add esp, byte 0Ch
         pop ebx
         ret
@@ -321,7 +330,7 @@ sub_10B2CC:
 .1:
         dec esi
         cmp esi, byte 0FFFFFFFFh
-        je short sub_10B20C_B8
+        je short DrawSortedModelPolys_B8
         mov eax, dword [ebx]
         and eax, byte 7
         cmp eax, byte 4
@@ -344,9 +353,10 @@ sub_10B2CC:
         add ebx, byte 10h
         jmp short .1
 ;-----------------------------------------------------------------------------
-; sub_10B348                                                          10B348  
+; DrawModelPartPolys                             10B348  97 PC, low confidence
+; Transforms, projects and draws each part of a model
 ;-----------------------------------------------------------------------------
-sub_10B348:
+DrawModelPartPolys:
         push ebx
         push esi
         push edi
@@ -492,7 +502,7 @@ sub_10B348:
         jmp near .1
 .14:
         add esp, byte 8
-sub_10B348_190:
+DrawModelPartPolys_190:
         pop ebp
         pop edi
         pop esi
@@ -500,9 +510,10 @@ sub_10B348_190:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10B4E0                                                          10B4E0  
+; DrawModelInstance                              10B4E0  97 PC, low confidence
+; Runs a model's part functions, sets the rink view and draws its parts
 ;-----------------------------------------------------------------------------
-sub_10B4E0:
+DrawModelInstance:
         push ebx
         push esi
         push edi
@@ -549,18 +560,19 @@ sub_10B4E0:
         mov eax, esi
         dec esi
         test eax, eax
-        jle near sub_10B348_190
+        jle near DrawModelPartPolys_190
         mov ebp, dword [ebx]
         push ebp
         add ebx, byte 4
-        call sub_10B348
+        call DrawModelPartPolys
         add esp, byte 4
         jmp short .2
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10B580                                                          10B580  
+; DrawModel                                      10B580  97 PC, low confidence
+; Draws a model instance at its current frame
 ;-----------------------------------------------------------------------------
-sub_10B580:
+DrawModel:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [dword eax+088h]
@@ -568,15 +580,17 @@ sub_10B580:
         mov ebx, dword [byte eax+08h]
         push ebx
         push eax
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10B59C                                                          10B59C  
+; InitModelParts                                 10B59C  97 PC, low confidence
+; Runs every part function of a model in set-up mode; followed by the plain
+; run
 ;-----------------------------------------------------------------------------
-sub_10B59C:
+InitModelParts:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, 1
@@ -603,7 +617,7 @@ sub_10B59C:
         mov ebx, dword [byte eax+08h]
         push ebx
         push eax
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         pop ebx
         ret
@@ -619,7 +633,7 @@ sub_10B59C:
         mov edx, dword [eax]
         mov edx, dword [byte edx+010h]
         test edx, edx
-        je near sub_10B348_190
+        je near DrawModelPartPolys_190
         mov eax, dword [dword eax+080h]
         mov esi, dword [eax]
         mov dword [ebx], esi
@@ -632,7 +646,7 @@ sub_10B59C:
 .2:
         dec edx
         cmp edx, byte 0FFFFFFFFh
-        je near sub_10B348_190
+        je near DrawModelPartPolys_190
         mov esi, dword [eax]
         cmp esi, dword [byte ebp+00h]
         jge short .3

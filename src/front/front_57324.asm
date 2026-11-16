@@ -155,7 +155,7 @@ extern qword_163D2C, qword_163D34, qword_163D44, qword_163D54, qword_163D64, qwo
 extern qword_163EF8, rand_, randomd0, regd1, sprintf_, str_Back, str_Uarm, strcpy_
 extern strncmp_, strncpy_, strnicmp_, strupr_, sub_100498, sub_100700, SortIndices, bcopy
 extern BlitShape2, FindShape, OpenArtArchive, OpenArtArchiveErr, Random32, sub_1038B0, sub_103E14, sub_1043A4
-extern sub_1049D0, LoadFileAlloc, sub_10B0D4, sub_10B580, sub_10CDE0, FindModelShapeByName, FindInstanceShape, BindModelShapes
+extern sub_1049D0, LoadFileAlloc, ProjectModelPoints, DrawModel, sub_10CDE0, FindModelShapeByName, FindInstanceShape, BindModelShapes
 extern UpdateModelInstance, UpdateModelPart, SetModelShape, SetModelShapeWith, LoadModelByName, FreeModelFile, InitModelInstance, CreateModelInstance
 extern FreeModelInstance, FindModelPartByName, StartCrowdMusic, RestartGameMusic, TransformBoneVerts, SkinModelVerts, AttachModelFrame, AttachModel
 extern UpdateModelFrame, SkinModel, ScaleModelVerts, LoadModelFile, FindModelPart, ResetMorphVerts, ApplyMorphTarget, PlotPixelRGBAt
@@ -172,7 +172,7 @@ extern TriggerCameraFlashes, DrawNetShadows, PeriodOver, IsCameraOnPuck, SetCame
 extern UpdateScoreboardSpin, ShapePixelSize, DrawShadowShape, ModelViewDepth, DrawPortraitModels, PickMarkerShape, SetTeamColours, SetFaceMouth
 extern SetFaceExpression, SetFaceBlink, SetModelHeading, BuildFaceTextures, LogPeriodEnd, IsReplayRecordingOn, ServiceIdle, AllocMemBlock
 extern sub_FAAB4, FreeMemBlock, MemFreeSizeAny, ZeroMem, FillMem, sub_FC330, sub_FC4BC, sub_FCC40
-extern FreeBitmap, SetDrawTarget, sub_FD954, sub_FDC0C, sub_FDC68, FillRect, MeasureText, DrawTextAt
+extern FreeBitmap, SetDrawTarget, FillPolygon, FillPolygonPoints, FillRectColor, FillRect, MeasureText, DrawTextAt
 extern SetTextColors, ClearIfNaN, FloatsToInts, MatRotX, MatRotY, MatTranspose, MatMul, VecMulMat
 extern TransformVecs, TransformTranslateVecs, VecAdd, VecSub, OffsetVecs, SubVecs, VecCross, VecDistance
 extern VecLength, VecScale, VecDot, PerspectiveScale, ProjectCoord, ProjectPoints, ProjectPointInt, ClipProjectPoints
@@ -3426,10 +3426,10 @@ PoseAndDrawModel:
         mov eax, ebx
         call SkinModel
         push ebx
-        call sub_10B0D4
+        call ProjectModelPoints
         add esp, byte 4
         push ebx
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
         pop ecx
         pop ebx
@@ -3483,10 +3483,10 @@ DrawModelByDetail:
         mov eax, ebx
         call SkinModel
         push ebx
-        call sub_10B0D4
+        call ProjectModelPoints
         add esp, byte 4
         push ebx
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
 .4:
         add esp, byte 8
@@ -3546,7 +3546,7 @@ DrawPlayerModel:
         mov eax, esi
         call SkinModel
         push esi
-        call sub_10B0D4
+        call ProjectModelPoints
         add esp, byte 4
         test edi, edi
         je short .4
@@ -3557,7 +3557,7 @@ DrawPlayerModel:
         push edx
         push byte 0Ah
         push byte 0
-        call sub_FDC0C
+        call FillPolygonPoints
         add esp, byte 18h
 .4:
         mov dword [dword ebx+0738h], esi
@@ -3574,7 +3574,7 @@ DrawPlayerModel_BC:
         push edx
         mov edx, dword [dword eax+0738h]
         push edx
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
         pop edx
         pop ecx
@@ -3730,10 +3730,10 @@ DrawHeadModel:
         mov eax, edi
         call SkinModel
         push edi
-        call sub_10B0D4
+        call ProjectModelPoints
         add esp, byte 4
         push edi
-        call sub_10B580
+        call DrawModel
         mov ecx, dword [byte esi+034h]
         add esp, byte 4
         test ecx, ecx
@@ -3831,10 +3831,10 @@ DrawHeadModel:
         mov eax, ebx
         call SkinModel
         push ebx
-        call sub_10B0D4
+        call ProjectModelPoints
         add esp, byte 4
         push ebx
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
 .15:
         add esp, byte 0Ch
@@ -3867,10 +3867,10 @@ DrawLeftArmModel:
         mov eax, ebx
         call SkinModel
         push ebx
-        call sub_10B0D4
+        call ProjectModelPoints
         add esp, byte 4
         push ebx
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
         jmp short .3
 .1:
@@ -3949,10 +3949,10 @@ DrawRightArmModel:
         mov eax, ebx
         call SkinModel
         push ebx
-        call sub_10B0D4
+        call ProjectModelPoints
         add esp, byte 4
         push ebx
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
         jmp short .3
 .1:
@@ -4125,10 +4125,10 @@ DrawStickModel:
         mov eax, ebx
         call SkinModel
         push ebx
-        call sub_10B0D4
+        call ProjectModelPoints
         add esp, byte 4
         push ebx
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
         add esp, byte 4
         pop edx
@@ -4169,10 +4169,10 @@ DrawGoalieStickModel:
         mov eax, ebx
         call SkinModel
         push ebx
-        call sub_10B0D4
+        call ProjectModelPoints
         add esp, byte 4
         push ebx
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
         add esp, byte 4
         pop edx
@@ -4192,10 +4192,10 @@ DrawGoalieStickModel:
         mov eax, ebx
         call SkinModel
         push ebx
-        call sub_10B0D4
+        call ProjectModelPoints
         add esp, byte 4
         push ebx
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
         pop edx
         pop ecx
@@ -4214,10 +4214,10 @@ DrawGoalieStickModel:
         mov eax, ebx
         call SkinModel
         push ebx
-        call sub_10B0D4
+        call ProjectModelPoints
         add esp, byte 4
         push ebx
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
         pop edx
         pop ecx
@@ -4991,7 +4991,7 @@ DrawPuckMarker:
         push eax
         push byte 4
         push byte 0FFFFFFFFh
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         mov esp, ebp
@@ -5120,7 +5120,7 @@ DrawPlayerMarkers:
         push eax
         push byte 3
         push byte 0FFFFFFFFh
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         push byte 1
         push byte 0FFFFFFFFh
@@ -5129,7 +5129,7 @@ DrawPlayerMarkers:
         push eax
         push byte 3
         push byte 0FFFFFFFFh
-        call sub_FDC0C
+        call FillPolygonPoints
         add esp, byte 18h
         jmp short .8
 .7:
@@ -5139,7 +5139,7 @@ DrawPlayerMarkers:
         push eax
         push byte 4
         push byte 0FFFFFFFFh
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .8:
         add esp, byte 50h
@@ -45449,7 +45449,7 @@ BuildCameraDebugView:
         add eax, eax
         call FloatsToInts
         push esi
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
 .3:
         add esp, 2E0h
@@ -45564,7 +45564,7 @@ DrawCameraPath:
         push edi
         mov ebp, dword [byte esp+034h]
         push ebp
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
 .1:
         add esp, byte 34h

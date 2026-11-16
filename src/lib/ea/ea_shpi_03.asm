@@ -10,7 +10,7 @@ extern dword_1D2428, dword_1D2430, dword_1D2438, dword_1D243C, dword_1D2440, dwo
 extern dword_1D2450, dword_1D2454, dword_1D3350, dword_1D3354, dword_1D3358, dword_1D335C, dword_1D3364, dword_1D3368
 extern strncpy_, strnicmp_, FindShapeQuiet, sub_102EBC, DrawClippedPoly, DrawPolyList, FillSpanRows, sub_112BCC
 extern sub_112F3C, GetModelVertex, TransformModelParts, TransformModelPartsWith, UpdateModelParts, PolyCrossProduct, TexSpanCopy, ClipTexPolyLeft
-extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, sub_FC4BC, sub_FD954, sub_FDC68, unk_1D2098, unk_1D3D6C
+extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, sub_FC4BC, FillPolygon, FillRectColor, unk_1D2098, unk_1D3D6C
 global DrawTileEdgeLeft_24E, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip, DrawRinkFan, DrawRinkPolys
 global DrawRinkRing, RinkNoOpA, DrawRinkPrimFlat, DrawRinkPrimShaded, DrawRinkPrimTextured, RinkNoOpB, DrawRinkLineFlat, DrawRinkLineShaded
 global DrawRinkLineTextured, DrawIceSpans, SetupTileSpans, DrawTileSpan, DrawTileEdgeLeft, DrawTileEdgeRight, DrawTileTexture, DrawTilePage
@@ -175,7 +175,7 @@ DrawRinkPolyStrip:
         push esi
         mov edi, dword [edx+eax*8]
         push edi
-        call sub_FDC68
+        call FillRectColor
         jmp short .4
 .1:
         test ebp, ebp
@@ -203,7 +203,7 @@ DrawRinkPolyStrip:
         push ebp
         mov ebp, dword [dword esp+0124h]
         push ebp
-        call sub_FD954
+        call FillPolygon
 .4:
         add esp, byte 14h
         add esp, 100h
@@ -270,7 +270,7 @@ DrawRinkFan:
         push eax
         mov ebp, dword [dword esp+02A4h]
         push ebp
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .3:
         add esp, 280h
@@ -317,7 +317,7 @@ DrawRinkPolys:
         push eax
         push ebp
         push byte 0Ch
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .3:
         add esp, 100h
@@ -383,7 +383,7 @@ DrawRinkRing:
         push edx
         push eax
         push byte 0Ch
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .3:
         add esp, 280h

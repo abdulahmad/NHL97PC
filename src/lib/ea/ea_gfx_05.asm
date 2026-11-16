@@ -2,8 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_10AE10 progbits alloc exec nowrite align=1
-extern sub_100400, sub_109401, sub_109545, sub_10955B, unpack
+extern sub_100400, DosOpenFile, DosCloseFile, DosReadFile, unpack
 global sub_10AE10
+;-----------------------------------------------------------------------------
+; sub_10AE10                                                          10AE10  
+;-----------------------------------------------------------------------------
 sub_10AE10:
         push ebx
         push esi
@@ -19,7 +22,7 @@ sub_10AE10:
         push eax
         mov edx, dword [byte esp+030h]
         push edx
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         mov ebx, dword [byte esp+08h]
         test ebx, ebx
@@ -40,7 +43,7 @@ sub_10AE10:
         jne short .2
         mov edx, dword [esp]
         push edx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         xor eax, eax
         add esp, byte 0Ch
@@ -65,7 +68,7 @@ sub_10AE10:
         push ebx
         mov edi, dword [byte esp+08h]
         push edi
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
         push byte 0
         mov ebp, dword [byte esp+028h]
@@ -75,7 +78,7 @@ sub_10AE10:
         add esp, byte 0Ch
         mov eax, dword [esp]
         push eax
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         mov eax, esi
 .4:

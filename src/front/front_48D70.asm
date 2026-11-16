@@ -62,9 +62,9 @@ extern strlen_, strncpy_, ProjectPointFloat, sub_100498, sub_1004B8, sub_1004F8,
 extern sub_1007C0, sub_100830, SortIndices, FindShape, LoadDataFileNoErr, LoadDataFileErr, OpenArtArchive, OpenArtArchiveErr
 extern Random32, sub_102CDC, sub_102CF4, sub_103648, sub_104948, PlayQueuedSpeech, LoadFileAlloc, LoadFileAllocQuiet
 extern LoadFileInto, LoadFileIntoQuiet, LoadFileToBlockShared, LoadFileToBlockPlain, SetSpeechVolume, SetMusicStreamVolume, OpenAudioStreamChannel, CloseAudioStreamChannel
-extern FeedAudioStream, FlushAudioStream, ChannelPlaying, StopChannel, sub_109545, sub_109557, AsyncResetRequest, AsyncStreamStep
+extern FeedAudioStream, FlushAudioStream, ChannelPlaying, StopChannel, DosCloseFile, DosWriteFile, AsyncResetRequest, AsyncStreamStep
 extern AsyncFreeRequest, ReleaseBankSample, StopSpeechQueue, SpeechQueueState, SetChannelVolumeChecked, sub_10AE10, sub_10AED0, sub_10B000
-extern sub_10B074, sub_10B084, sub_10B0EC, sub_10B2CC, sub_10B580, sub_10B59C, DrawFixedLine, sub_10C434
+extern SetScreenScale, ProjectRinkObjectPoints, DrawRinkObjectPolys, DrawModelSorted, DrawModel, InitModelParts, DrawFixedLine, sub_10C434
 extern sub_10C8B0, sub_10C8E8, sub_10C920, sub_10CE9C, sub_10CF34, DrawSurfacePolys, AllocOverlaySlot, SetOverlayCentre
 extern AimOverlayModel, SetOverlayPosition, AllocOverlayModel, SetRinkView, TransformRinkPoints, ProjectRinkObject, DrawRinkPolyStrip, DrawRinkFan
 extern DrawRinkPolys, DrawRinkRing, DrawRinkLineFlat, DrawTileTexture, DrawTilePage, FindInstanceShape, BindModelShapes, UpdateModelInstance
@@ -80,7 +80,7 @@ extern LoadRinkLines, LoadRinkModel, FreeRinkModel, SetRinkTransform, DrawRinkOv
 extern SaveViewOrigin, LoadGoalieMask, LoadGameModels, SetupTeamModels, FreeGameModels, UpdateViewMatrix, ScaleModelLods, SetModelExtraFlags
 extern DrawPlayersSorted, DrawIceMarkers, DrawPlayerNames, DrawPuckArrow, NoOpDraw, ReplaySoundAllowed, ProjectRinkPoints, LoadAiIcons
 extern FreeCameraDebug, PlayMovie, ShowLoadingBar, ClearLinkAbort, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
-extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, DrawTextAt, SetTextColors
+extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, FillPolygon, DrawTextAt, SetTextColors
 extern IntsToFloats, FloatsToInts, ScaleFloatsToInts, VecMulMat, TransformVecs, VecAdd, AddVecs, VecDistance
 extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, unk_1611B4
 extern unk_169848, unk_1698A2, unk_169989, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144
@@ -3483,7 +3483,7 @@ WriteGlobalSet:
         push dword 130h
         push dword_1AC810
         push dword [byte ebp-04h]
-        call sub_109557
+        call DosWriteFile
         add esp, byte 0Ch
         test eax, eax
         je short .4
@@ -3493,7 +3493,7 @@ WriteGlobalSet:
         push eax
         push byte_1AC948
         push dword [byte ebp-04h]
-        call sub_109557
+        call DosWriteFile
         add esp, byte 0Ch
         test eax, eax
         je short .4
@@ -3511,11 +3511,11 @@ WriteGlobalSet:
         push unk_1AC95D
 .3:
         push dword [byte ebp-04h]
-        call sub_109557
+        call DosWriteFile
         add esp, byte 0Ch
 .4:
         push dword [byte ebp-04h]
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         leave
         pop edx
@@ -3671,7 +3671,7 @@ InitGameGraphics:
         push dword 42C80000h
         call SetViewScale
         push byte 64h
-        call sub_10B074
+        call SetScreenScale
         add esp, byte 4
         mov eax, dword [byte ebp+028h]
         xor edx, edx
@@ -7038,7 +7038,7 @@ DrawNets:
         push eax
         push esi
         push edi
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .7:
         add esp, 120h
@@ -7136,7 +7136,7 @@ DrawNetShadows:
         push eax
         push esi
         push edi
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .7:
         add esp, 120h
@@ -7225,7 +7225,7 @@ DrawNetShadows:
         push eax
         push esi
         push edx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .11:
         add esp, 0A8h
@@ -7691,7 +7691,7 @@ InitRinkView:
 .14:
         mov dword [byte esp+03Ch], edx
 .15:
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .16:
         mov edi, dword_1B1114
@@ -9355,7 +9355,7 @@ DrawGoalLines:
         push edx
         mov esi, dword [dword_1B0F40]
         push esi
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .9:
         lea eax, [dword esp+088h]
@@ -9399,7 +9399,7 @@ DrawGoalLines:
         push edx
         mov esi, dword [dword_1B0F40]
         push esi
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .12:
         add esp, 0B0h
@@ -11914,7 +11914,7 @@ DrawBenchPlayers:
         push edx
         push byte 3
         push byte 0
-        call sub_FD954
+        call FillPolygon
         mov edx, dword [dword_1B0AC4]
         add esp, byte 14h
         cmp edx, byte 4
@@ -11927,7 +11927,7 @@ DrawBenchPlayers:
         push edx
         push byte 3
         push byte 0
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .5:
         mov eax, dword [dword_1B0B8C]
@@ -12264,14 +12264,14 @@ ScoreboardTransform:
         push esi
         mov ebx, eax
         push eax
-        call sub_10B0EC
+        call DrawRinkObjectPolys
         add esp, byte 4
         push ebx
         mov esi, eax
-        call sub_10B084
+        call ProjectRinkObjectPoints
         add esp, byte 4
         push ebx
-        call sub_10B2CC
+        call DrawModelSorted
         add esp, byte 4
         mov eax, esi
         pop esi
@@ -12288,7 +12288,7 @@ LoadScoreboardArt:
         push ecx
         push edx
         push eax
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
         pop edx
         pop ecx
@@ -12747,13 +12747,13 @@ NetFrameDistance:
         mov eax, dword [ebx]
         mov ebp, dword [nosplit eax*4+dword_1ADCB8]
         push ebp
-        call sub_10B0EC
+        call DrawRinkObjectPolys
         mov esi, eax
         mov eax, dword [ebx]
         add esp, byte 4
         mov edx, dword [nosplit eax*4+dword_1ADCB8]
         push edx
-        call sub_10B084
+        call ProjectRinkObjectPoints
         add esp, byte 4
         lea eax, [byte esi+028h]
         pop ebp
@@ -12820,7 +12820,7 @@ SetupNetArt_58:
         cmp dword [byte eax+018h], 190h
         jle short .5
         push eax
-        call sub_10B59C
+        call InitModelParts
         add esp, byte 4
 .5:
         pop edx
@@ -12880,7 +12880,7 @@ ResetNetArt_50:
         cmp dword [byte eax+018h], 190h
         jle short .5
         push eax
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
 .5:
         pop edx

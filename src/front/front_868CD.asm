@@ -27,7 +27,7 @@ extern SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, DrawFrameBox, 
 extern DrawEntryList, SetNormalText, ShowLinkMessage, HideLinkBox, WritePhonebookFile, OpenPhonebookFile, RunMenu, InitScrollList
 extern ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse, GetLangText, InitLinkSettings, ClearLinkAbort
 extern ServiceIdle, StartNetworkLink, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, AllocMemBlock, FreeMemBlock
-extern MakeColor, FreeBitmap, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect
+extern MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect
 extern MeasureText, unk_165330, unk_1AC839, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1C5EF8
 extern unk_1C5F4A, unk_1C834C, unk_1C8360, unk_1C8388, unk_1C83BA, word_16CCF8, word_16DACC, word_16DAD0
 extern word_1AC8B1, word_1C8340, word_1C8342, word_1C8344, word_1C8346, word_1C8348, word_1C834A, word_1C83B8
@@ -4822,28 +4822,28 @@ ModemConnectScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_LB002
         push esi
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_RB00
         push esi
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_RT00
         push esi
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_NET0
         push edi
@@ -6207,28 +6207,28 @@ NetworkConnectScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_BOT0
         push dword [byte ebp-04h]
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_LFT0
         push dword [byte ebp-04h]
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_RIT0
         push dword [byte ebp-04h]
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         test byte [byte_1C83B4], 1
         jne short .1

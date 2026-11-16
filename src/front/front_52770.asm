@@ -44,8 +44,8 @@ extern str_Minz, str_Pbench0D, str_Pbench1D, str_Penback, str_Penbox0D, str_Penb
 extern str_Penboxz0, str_Penboxz1, str_R02d, str_Redlite, str_Rink, str_Rlite0, str_Rlite1, str_STAND
 extern str_STAND2ND, str_Score, str_Stands2, str_Strobe, str_ThinRedLines, str_Topboards, str_WALL, sub_1007C0
 extern bcopy, FindShape, OpenArtArchiveErr, Random32, sub_102C96, sub_102CDC, sub_102CF4, sub_103648
-extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_10B000, sub_10B040, sub_10B060, sub_10B084
-extern sub_10B0EC, sub_10B4E0, sub_10B580, BuildAntiAliasTable, sub_10C8E8, DrawSurfacePolys, DrawOverlayModels, ProjectOverlayPoint
+extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_10B000, SetRinkMatrix, SetRinkTranslation, ProjectRinkObjectPoints
+extern DrawRinkObjectPolys, DrawModelInstance, DrawModel, BuildAntiAliasTable, sub_10C8E8, DrawSurfacePolys, DrawOverlayModels, ProjectOverlayPoint
 extern FreeOverlaySlots, TransformRinkPoints, DrawRinkPolyStrip, DrawRinkPolys, DrawIceSpans, FindInstanceShape, BindModelShapes, UpdateModelInstance
 extern SetModelShape, SetModelPartName, LoadModelByName, FreeModelFile, CreateModelInstance, FreeModelInstance, FindInstancePart, FindInstanceGroup
 extern GetInstanceGroupEntry, sub_112BCC, sub_112DE4, sub_11313C, BuildRangePalette, BlendRangePalette, AddBankToRange, RemapArtBank
@@ -56,7 +56,7 @@ extern DrawRinkMarkings, DrawBoardsLines, DrawGoalLines, StartCrowdReaction, Cle
 extern DrawBoardsTop, DrawStandsSides, DrawBenchDoors, DrawGlass, DrawBenchPlayers, DrawBenchArea, DrawPenaltyBox, DrawBenches
 extern UpdateScoreboardPos, UpdateScoreboardSpin, LoadNetArt, BuildRinkSides, LoadBoardLogo, LoadTeamLogoShape, LoadTeamLogoCopy, UpdateViewMatrix
 extern DrawPlayersSorted, RenderModelPortrait, RestoreSavedPalette, ReplayRegisterStates, ReplayRegisterObjects, ServiceIdle, AllocMemBlock, FreeMemBlock
-extern sub_FC330, sub_FC4BC, ClearScreen, sub_FD954, FillRect, IntsToFloats, VecMulMat, VecSub
+extern sub_FC330, sub_FC4BC, ClearScreen, FillPolygon, FillRect, IntsToFloats, VecMulMat, VecSub
 extern VecDistance, ProjectCoord, ProjectPointsWithZ, tickcount, unk_16175C, unk_161760, unk_161764, unk_161768
 extern unk_16176C, unk_161770, unk_161774, unk_161778, unk_1617BC, unk_16B51C, unk_16B534, unk_1A8D48
 extern unk_1AEDD8, unk_1AEDF0, unk_1AFB38, unk_1B0078, unk_1B0410, unk_1B0510, unk_1B0610, unk_1B0710
@@ -2592,10 +2592,10 @@ SetRinkTransform:
         mov esi, edx
         push eax
         rep movsd
-        call sub_10B060
+        call SetRinkTranslation
         add esp, byte 4
         push ebx
-        call sub_10B040
+        call SetRinkMatrix
         add esp, byte 4
         pop edi
         pop esi
@@ -2787,7 +2787,7 @@ DrawRinkBackground:
         push edx
         mov ecx, dword [dword_1B0F24]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         xor edx, edx
         mov esi, dword [dword esp+0240h]
@@ -2831,7 +2831,7 @@ DrawRinkBackground:
         push edx
         mov eax, dword [dword_1B0F24]
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .18:
         add esp, 248h
@@ -2869,11 +2869,11 @@ DrawRinkSurface:
         mov eax, 1
         push edx
         mov dword [dword_1B111C], eax
-        call sub_10B0EC
+        call DrawRinkObjectPolys
         add esp, byte 4
         mov ebx, dword [dword_1B0FA0]
         push ebx
-        call sub_10B084
+        call ProjectRinkObjectPoints
         add esp, byte 4
         xor edx, edx
         xor ebx, ebx
@@ -2913,7 +2913,7 @@ DrawRinkSurface:
         push edi
         mov ebp, dword [dword_1B0FA0]
         push ebp
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         jmp near .8
 .3:
@@ -2944,7 +2944,7 @@ DrawRinkSurface:
         push eax
         mov ecx, dword [dword_1B0FB4]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .4:
         cmp dword [dword_1B111C], byte 0
@@ -2957,11 +2957,11 @@ DrawRinkSurface:
         xor edi, edi
         push ebp
         mov dword [dword_1B111C], edi
-        call sub_10B0EC
+        call DrawRinkObjectPolys
         add esp, byte 4
         mov eax, dword [dword_1B0FA0]
         push eax
-        call sub_10B084
+        call ProjectRinkObjectPoints
         mov eax, dword [dword_1B0FA0]
         add esp, byte 4
         mov edx, dword [dword eax+080h]
@@ -2977,7 +2977,7 @@ DrawRinkSurface:
         push esi
         mov edi, dword [dword_1B0FA0]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         jmp short .8
 .6:
@@ -3014,7 +3014,7 @@ DrawRinkSurface:
         push ebx
         mov esi, dword [dword_1B0FB4]
         push esi
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .8:
         call DrawIceSurface
@@ -3064,7 +3064,7 @@ DrawRinkSurface:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov eax, dword [dword_1B1108]
         mov dh, byte [byte eax+010h]
         or dh, 2
@@ -3189,7 +3189,7 @@ DrawRinkSurface:
         push eax
         push byte 4
         push dword 270Fh
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .20:
         mov eax, dword [dword esp+0328h]
@@ -3356,33 +3356,33 @@ DrawRinkOverlay:
         push ebp
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10B0EC
+        call DrawRinkObjectPolys
         add esp, byte 4
         mov ebx, dword [dword_1B1108]
         push ebx
-        call sub_10B084
+        call ProjectRinkObjectPoints
         mov ecx, dword [dword_16AF50]
         add esp, byte 4
         test ecx, ecx
         je short .1
         mov esi, dword [dword_1B10E8]
         push esi
-        call sub_10B0EC
+        call DrawRinkObjectPolys
         add esp, byte 4
         mov edi, dword [dword_1B10E8]
         push edi
-        call sub_10B084
+        call ProjectRinkObjectPoints
         add esp, byte 4
 .1:
         cmp dword [dword_16AF5C], byte 0
         je short .2
         mov eax, dword [dword_1B10CC]
         push eax
-        call sub_10B0EC
+        call DrawRinkObjectPolys
         add esp, byte 4
         mov edx, dword [dword_1B10CC]
         push edx
-        call sub_10B084
+        call ProjectRinkObjectPoints
         add esp, byte 4
 .2:
         cmp dword [dword_1B0E2C], byte 0
@@ -3546,7 +3546,7 @@ DrawBenchSide:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1108]
         mov bl, byte [byte edx+010h]
         or bl, 2
@@ -3562,7 +3562,7 @@ DrawBenchSide:
         push ebp
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         mov edx, 0FFFFFFFFh
         mov eax, 1
@@ -3580,7 +3580,7 @@ DrawBenchSide:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1064]
         mov esi, dword [dword_1B0E80]
         add esp, byte 0Ch
@@ -3607,7 +3607,7 @@ DrawBenchSide:
         push ebp
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1064]
         mov ebx, dword [dword_1B0E80]
         add esp, byte 0Ch
@@ -3628,7 +3628,7 @@ DrawBenchSide:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         mov edx, 0FFFFFFFFh
         xor eax, eax
@@ -3645,7 +3645,7 @@ DrawBenchSide:
         push edi
         mov ebp, dword [dword_1B1108]
         push ebp
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1064]
         mov eax, dword [dword_1B0E7C]
         add esp, byte 0Ch
@@ -3673,7 +3673,7 @@ DrawBenchSide:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1064]
         mov esi, dword [dword_1B0E7C]
         add esp, byte 0Ch
@@ -3707,7 +3707,7 @@ DrawBenchSide:
         push edi
         mov ebp, dword [dword_1B1108]
         push ebp
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1108]
         mov ch, byte [byte edx+010h]
         or ch, 2
@@ -4093,7 +4093,7 @@ DrawBenchRow:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         pop edx
         pop ecx
@@ -4108,7 +4108,7 @@ DrawBenchRow:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         pop edx
         pop ecx
@@ -4134,7 +4134,7 @@ DrawBenchRow:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov ebp, dword [dword_1B0A84]
         add esp, byte 0Ch
         test ebp, ebp
@@ -4173,7 +4173,7 @@ DrawBenchRow:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov ebp, dword [dword_1B0A80]
         add esp, byte 0Ch
         test ebp, ebp
@@ -4227,7 +4227,7 @@ DrawBenchSection:
         push eax
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1108]
         mov bl, byte [byte edx+010h]
         or bl, 2
@@ -4242,7 +4242,7 @@ DrawBenchSection:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         mov ecx, 12Ch
         add esp, byte 0Ch
         mov ebx, dword [dword_1B0EE8]
@@ -4265,7 +4265,7 @@ DrawBenchSection:
         push eax
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10B4E0
+        call DrawModelInstance
         mov ebx, dword [dword_1B0A84]
         add esp, byte 0Ch
         test ebx, ebx
@@ -4293,7 +4293,7 @@ DrawBenchSection:
         push edx
         mov ebx, dword [dword_1B1108]
         push ebx
-        call sub_10B4E0
+        call DrawModelInstance
         mov ecx, dword [dword_1B0A80]
         add esp, byte 0Ch
         test ecx, ecx
@@ -4321,7 +4321,7 @@ DrawBenchSection:
         push eax
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1064]
         mov ebx, dword [dword_1B0E70]
         add esp, byte 0Ch
@@ -4352,7 +4352,7 @@ DrawBenchSection:
         push eax
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10B4E0
+        call DrawModelInstance
         mov ebx, dword [dword_1B0A80]
         add esp, byte 0Ch
         test ebx, ebx
@@ -4369,7 +4369,7 @@ DrawBenchSection:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov ecx, 0FFFFFC7Ch
         add esp, byte 0Ch
         mov ebx, dword [dword_1B0EE8]
@@ -4392,7 +4392,7 @@ DrawBenchSection:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         mov esi, dword [dword_1B0A80]
         add esp, byte 0Ch
         test esi, esi
@@ -4420,7 +4420,7 @@ DrawBenchSection:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov ebp, dword [dword_1B0A84]
         add esp, byte 0Ch
         test ebp, ebp
@@ -4448,7 +4448,7 @@ DrawBenchSection:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1064]
         mov ebp, dword [dword_1B0E6C]
         add esp, byte 0Ch
@@ -4478,7 +4478,7 @@ DrawBenchSection:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov ebp, dword [dword_1B0A84]
         add esp, byte 0Ch
         test ebp, ebp
@@ -4514,7 +4514,7 @@ DrawBenchSection:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1108]
         mov cl, byte [byte edx+010h]
         or cl, 2
@@ -4591,7 +4591,7 @@ DrawRinkPass:
         push eax
         mov eax, dword [dword_1B0F24]
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         add esp, 280h
         pop ebp
@@ -4624,7 +4624,7 @@ DrawNearSide:
         push ecx
         mov esi, dword [dword_1B10E8]
         push esi
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
 .1:
         cmp dword [dword_16AF50], byte 0
@@ -5058,7 +5058,7 @@ DrawFarSide:
         je short .9
         mov edx, dword [dword_1B10CC]
         push edx
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
 .9:
         add esp, byte 18h
@@ -5215,7 +5215,7 @@ DrawShadowShape:
         push esi
         mov dword [byte esp+01Ch], edi
         mov dword [byte esp+028h], ebp
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         add esp, byte 20h
         pop ebp

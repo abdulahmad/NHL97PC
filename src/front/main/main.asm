@@ -33,8 +33,8 @@ extern StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, LoadStartupData, RunFront
 extern InitScrollList, ScrollUp, ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, GetLangText, FreeLangText
 extern RunIntro, AllocStaticBuffer, InitDbState, ServiceIdle, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
 extern WaitForOtherComputer, FillBox, sub_F9650, AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMemPattern
-extern sub_FBE40, sub_FBE94, MakeColor, sub_FC73E, sub_FCC40, FreeBitmap, sub_FCF84, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, sub_FDC68, FillRect, MeasureText, DrawTextAt, SetTextColors
+extern sub_FBE40, sub_FBE94, MakeColor, sub_FC73E, sub_FCC40, FreeBitmap, DrawShapeAtOwnPos, DrawArt
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRectColor, FillRect, MeasureText, DrawTextAt, SetTextColors
 extern FillRectCorners, DrawGlyph, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
 extern unk_164636, unk_164686, unk_1646D4, unk_164724, unk_16480B, unk_1648DA, unk_16491D, unk_1649E0
 extern unk_164A6A, unk_164B4D, unk_164BFD, unk_164C3F, unk_164C6C, unk_164D67, unk_164F96, unk_16503B
@@ -4998,7 +4998,7 @@ DrawProgressBar:
         mov edx, dword [byte esp+018h]
         push edx
         push esi
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         inc ebp
         mov ecx, dword [esp]
@@ -9043,7 +9043,7 @@ ShowPopupScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         call SetScreenTarget
         mov ecx, dword [byte esi+02Ah]

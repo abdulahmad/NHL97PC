@@ -58,7 +58,7 @@ extern SetCameraTarget, SetCameraPathTarget, SetCameraSplineTarget, UpdateCamera
 extern SetSPA, ResetAnimTimer, PickSkateAnim, SetSkateSpeedFromRating, StickReach, ObjectFramePos, TryStickTouch, StopObject
 extern StartPassAnim, StartDropPassAnim, StartGoalieSave, StartGoalieStance, GoalieMoves, DrawCameraPath, SetTextColor, DrawTextAligned
 extern GetLangText, LogGoal, DrawClockOverlay, NextVideoMode, PrevVideoMode, FreeMemBlock, sub_FC4BC, sub_FCC40
-extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, sub_FD528, sub_FD954, sub_FDC68
+extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, DrawShapeScaledBy, FillPolygon, FillRectColor
 extern FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt, FillRectCorners, MatRotY, MatTranspose
 extern VecMulMat, VecAdd, VecSub, VecDistance, VecLength, VecScale, VecNormalizeTo, ProjectPointInt
 extern tickcount, unk_158E2, unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A72, unk_160193
@@ -683,7 +683,7 @@ DrawPanelArtScaled:
         push ebx
         add eax, eax
         push eax
-        call sub_FD528
+        call DrawShapeScaledBy
         add esp, byte 10h
         lea eax, [byte ebp-040h]
         push eax
@@ -825,7 +825,7 @@ DrawPanelPlayerCard:
         push eax
         push byte 3
         push dword 0FFh
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         push dword 0FF0000AAh
         call sub_FC4BC
@@ -909,7 +909,7 @@ DrawPanelPlayerCard:
         cdq
         idiv ebx
         push eax
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         push dword 0FF0000AAh
         call sub_FC4BC
@@ -991,7 +991,7 @@ DrawPanelPlayerCard:
         cdq
         idiv ebx
         push eax
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         push dword 0FFh
         cmp dword [dword_16E468], 12Ch
@@ -7752,7 +7752,7 @@ DrawCameraDebugMarks:
         fistp dword [byte esp+010h]
         mov edi, dword [byte esp+010h]
         push edi
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         push dword 0FF00AA00h
         call sub_FC4BC
@@ -7780,7 +7780,7 @@ DrawCameraDebugMarks:
         mov edx, dword [byte esp+010h]
         push edx
         push eax
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
 .1:
         add esp, byte 8
