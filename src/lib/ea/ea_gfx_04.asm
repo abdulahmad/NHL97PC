@@ -356,7 +356,7 @@ CheckBankIndex:
         xor eax, eax
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-WssBasePorts:
+WssBasePorts:                                   ; used by ProbeSoundPorts
         db 030h,05h,00h,00h,04h,06h,00h,00h,080h,0Eh,00h,00h,040h,0Fh,00h,00h
 ;-----------------------------------------------------------------------------
 ; DetectAudioDriver                              1072F0  97 PC, low confidence
@@ -562,7 +562,7 @@ StartTmplSample:
         pop esi
         ret 14h
         db 08Dh,040h,00h
-StartPatchSampleJumpTable:
+StartPatchSampleJumpTable:                      ; jump table for the switch cases of StartPatchSample
         dd StartPatchSample_D3
         dd StartPatchSample_E7
         dd StartPatchSample_10F

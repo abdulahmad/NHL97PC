@@ -6,21 +6,28 @@ global GoalieMaskAnimKinds, GoalieMaskAnimFrames, CreditsScrollY, CreditsLine, C
 
 global FadePaletteBuffer, IntroPalette
 global DbPageSlots
-FadePaletteBuffer:
+FadePaletteBuffer:                              ; palette used while fading; used by FadePalette,
+                                                ; GoalieMaskScreen
         resb 768
-IntroPalette:
+IntroPalette:                                   ; intro palette; used by FadeOut, RunIntro
         resb 768
-GoalieMaskAnimKinds:
+GoalieMaskAnimKinds:                            ; goalie mask animation kind per slot; used by GoalieMaskAnim,
+                                                ; GoalieMaskScreen
         resb 4
-GoalieMaskAnimFrames:
+GoalieMaskAnimFrames:                           ; goalie mask animation frames per kind; used by
+                                                ; GoalieMaskAnim
         resb 44
-CreditsScrollY:
+CreditsScrollY:                                 ; credits scroll y; used by CreditsScreen, DrawCreditsPage,
+                                                ; ScrollCredits
         resb 4
-CreditsLine:
+CreditsLine:                                    ; credits line; used by CreditsScreen, DrawCreditsPage,
+                                                ; ScrollCredits
         resb 4
-CreditsBitmap:
+CreditsBitmap:                                  ; credits bitmap; used by CreditsScreen, DrawCreditsPage,
+                                                ; ScrollCredits
         resb 8
-GoalieMaskItems:
+GoalieMaskItems:                                ; goalie mask screen menu item records (82 bytes each); used
+                                                ; by GoalieMaskAnim, GoalieMaskScreen
         resb 4
         resb 22
         resb 4
@@ -39,5 +46,5 @@ GoalieMaskItems:
         resb 4
         resb 4
         resb 42
-DbPageSlots:
+DbPageSlots:                                    ; database page slots; used by AllocPageStack, FreeDbPages
         resb 32

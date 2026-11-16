@@ -3022,7 +3022,7 @@ StandingsSparkle:
         pop ecx
         pop ebx
         ret
-StandingsScreenJumpTable:
+StandingsScreenJumpTable:                       ; jump table for the switch cases of StandingsScreen
         dd StandingsScreen_65C
         dd StandingsScreen_685
         dd StandingsScreen_699

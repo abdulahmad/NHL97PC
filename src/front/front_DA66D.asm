@@ -741,7 +741,7 @@ LoadGameRosters:
         pop esi
         pop ecx
         ret
-WriteDbRecordJumpTable:
+WriteDbRecordJumpTable:                         ; jump table for the switch cases of WriteDbRecord
         dd WriteDbRecord_5C
         dd WriteDbRecord_1AA
         dd WriteDbRecord_152
@@ -928,12 +928,12 @@ WriteDbRecord_1AA:
 .14:
         inc eax
         jmp short .13
-DbGameRecordJumpTable:
+DbGameRecordJumpTable:                          ; jump table for the switch cases of ReadDbRecord
         dd ReadDbRecord_62
         dd ReadDbRecord_296
         dd ReadDbRecord_200
         dd ReadDbRecord_16E
-DbPlayerRecordJumpTable:
+DbPlayerRecordJumpTable:                        ; jump table for the switch cases of ReadDbRecord
         dd ReadDbRecord_33C
         dd ReadDbRecord_495
         dd ReadDbRecord_42C
@@ -1708,7 +1708,7 @@ NewRecordKey:
         pop ecx
         pop ebx
         ret
-LookupRecordJumpTable:
+LookupRecordJumpTable:                          ; jump table for the switch cases of LookupRecord
         dd LookupRecord_2D
         dd LookupRecord_49
         dd LookupRecord_2D
@@ -12302,7 +12302,7 @@ TakeInputRecord:
         pop ebx
         ret
         db 090h
-InitLinkSettingsJumpTable:
+InitLinkSettingsJumpTable:                      ; jump table for the switch cases of InitLinkSettings
         dd InitLinkSettings_E8
         dd InitLinkSettings_D6
         dd InitLinkSettings_FF
@@ -16399,7 +16399,7 @@ ChooseNetGame:
         pop ecx
         pop ebx
         ret
-ChooseNetworkGameScreenJumpTable:
+ChooseNetworkGameScreenJumpTable:               ; jump table for the switch cases of ChooseNetworkGameScreen
         dd ChooseNetworkGameScreen_A51
         dd ChooseNetworkGameScreen_A99
         dd ChooseNetworkGameScreen_BA2
@@ -18027,7 +18027,7 @@ OptionsAnimScreen:
         lea esp, [dword ebp+082h]
         pop ebp
         jmp near OptionsAnimFrame_20C
-SeasonIntroScreenJumpTable:
+SeasonIntroScreenJumpTable:                     ; jump table for the switch cases of SeasonIntroScreen
         dd SeasonIntroScreen_C6
         dd SeasonIntroScreen_D1
         dd SeasonIntroScreen_DB

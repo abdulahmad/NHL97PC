@@ -10,23 +10,32 @@ global SeasonIntroLeaders
 
 global SeasonIntroLeaderStats
 
-SeasonIntroDialogText:
+SeasonIntroDialogText:                          ; season intro dialog text; used by BuildSeasonIntro,
+                                                ; DrawSeasonIntro, SetupSeasonIntro
         resb 4
-SeasonIntroDialogType:
+SeasonIntroDialogType:                          ; season intro dialog type; used by BuildSeasonIntro,
+                                                ; SeasonIntroScreen, SetupSeasonIntro
         resb 4
-SeasonIntroPageShown:
+SeasonIntroPageShown:                           ; season intro page shown; used by BuildSeasonIntro,
+                                                ; DrawSeasonIntro, SeasonIntroScreen ...
         resb 4
-SeasonIntroTitleFile:
+SeasonIntroTitleFile:                           ; season intro title art file; used by DrawSeasonIntro,
+                                                ; SeasonIntroScreen, SetupSeasonIntro
         resb 4
-SeasonIntroTeamKey:
+SeasonIntroTeamKey:                             ; season intro team key; used by BuildSeasonIntro,
+                                                ; TeamRankValue
         resb 4
-SeasonIntroShapes:
+SeasonIntroShapes:                              ; season intro shapes; used by DrawSeasonIntro,
+                                                ; SeasonIntroScreen, SetupSeasonIntro
         resb 4
-SeasonIntroIcons:
+SeasonIntroIcons:                               ; season intro icons; used by DrawSeasonIntro,
+                                                ; SeasonIntroScreen, SetupSeasonIntro
         resb 4
-SeasonIntroBackFile:
+SeasonIntroBackFile:                            ; season intro back art file; used by DrawSeasonIntro,
+                                                ; SeasonIntroScreen, SetupSeasonIntro
         resb 4
-SeasonIntroLeaders:
+SeasonIntroLeaders:                             ; season intro leader entries (171 bytes each), up to the stat
+                                                ; words; used by BuildSeasonIntro, DrawSeasonIntro
         resb 2
         resb 2
         resb 29
@@ -46,7 +55,8 @@ SeasonIntroLeaders:
         resb 2
         resb 2
         resb 2
-SeasonIntroLeaderStats:
+SeasonIntroLeaderStats:                         ; season intro leader entries from the stat words on; used by
+                                                ; BuildSeasonIntro, DrawSeasonIntro
         resb 15
         resb 2
         resb 1

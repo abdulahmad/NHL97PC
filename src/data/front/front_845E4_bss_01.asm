@@ -7,83 +7,99 @@ global MainMenuAnimRate, MainMenuAnimShape, MainMenuAnimMode, MainMenuAnimX, Mai
 global MainMenuAnimTitle, MainMenuAnimCursor, MainMenuAnimItems, MainMenuAnimPanel, MainMenuAnimSprites, MainMenuButtons, MainMenuChoice, MainMenuAnimTick
 global MainMenuCursor, MainMenuWindow, MainMenuAnimRunning, MainMenuResult, MainMenuScreenArt, SeasonMenuExit, MainMenuButtonRect, MainMenuTextRect
 global ModemInitString, ModemPhoneNumber, ModemPort, ModemIrq, ModemBaudRate, ModemDialMode, ModemAnswer, ModemSpeed
-MainMenuAnimFrames:
+MainMenuAnimFrames:                             ; main menu animation frames; used by MainMenuAnim,
+                                                ; MainMenuScreen
         resb 48
-MainMenuAnimTimer:
+MainMenuAnimTimer:                              ; main menu animation timer; used by MainMenuAnim,
+                                                ; MainMenuScreen
         resb 4
-MainMenuAnimFrame:
+MainMenuAnimFrame:                              ; main menu animation frame; used by MainMenuAnim
         resb 4
-MainMenuAnimStart:
+MainMenuAnimStart:                              ; main menu animation start tick; used by MainMenuAnim,
+                                                ; MainMenuScreen
         resb 4
-MainMenuAnimRate:
+MainMenuAnimRate:                               ; main menu animation rate; used by MainMenuAnim,
+                                                ; MainMenuScreen
         resb 4
-MainMenuAnimShape:
+MainMenuAnimShape:                              ; main menu animation shape; used by MainMenuAnim,
+                                                ; MainMenuScreen
         resb 4
-MainMenuAnimMode:
+MainMenuAnimMode:                               ; main menu animation mode; used by MainMenuAnim,
+                                                ; MainMenuScreen
         resb 3
-MainMenuAnimEnd:
+MainMenuAnimEnd:                                ; main menu animation end marker; used by MainMenuAnim
         resb 1
-MainMenuAnimDone:
+MainMenuAnimDone:                               ; main menu animation done flags; used by MainMenuAnim
         resb 12
-MainMenuAnimX:
+MainMenuAnimX:                                  ; main menu animation x; used by MainMenuAnim, MainMenuScreen
         resb 4
-MainMenuAnimY:
+MainMenuAnimY:                                  ; main menu animation y; used by MainMenuAnim, MainMenuScreen
         resb 4
-MainMenuAnimArt:
+MainMenuAnimArt:                                ; main menu animation art; used by MainMenuAnim
         resb 4
-MainMenuAnimBack:
+MainMenuAnimBack:                               ; main menu animation back art; used by MainMenuAnim
         resb 4
-MainMenuAnimLogo:
+MainMenuAnimLogo:                               ; main menu animation logo art; used by MainMenuAnim
         resb 4
-MainMenuAnimTitle:
+MainMenuAnimTitle:                              ; main menu animation title art; used by MainMenuAnim
         resb 4
-MainMenuAnimCursor:
+MainMenuAnimCursor:                             ; main menu animation cursor art; used by MainMenuAnim
         resb 4
-MainMenuAnimItems:
+MainMenuAnimItems:                              ; main menu animation item art; used by MainMenuAnim
         resb 4
-MainMenuAnimPanel:
+MainMenuAnimPanel:                              ; main menu animation panel art; used by MainMenuAnim
         resb 4
-MainMenuAnimSprites:
+MainMenuAnimSprites:                            ; main menu animation sprites; used by MainMenuAnim
         resb 16
-MainMenuButtons:
+MainMenuButtons:                                ; main menu button art; used by MainMenuAnim, MainMenuScreen
         resb 12
-MainMenuButtonRect:
+MainMenuButtonRect:                             ; main menu button rectangle; used by MainMenuScreen
         resb 12
-MainMenuTextRect:
+MainMenuTextRect:                               ; main menu text rectangle; used by MainMenuScreen
         resb 12
-MainMenuChoice:
+MainMenuChoice:                                 ; main menu choice; used by MainMenuScreen
         resb 4
-MainMenuAnimTick:
+MainMenuAnimTick:                               ; main menu animation tick; used by MainMenuAnim
         resb 4
-MainMenuCursor:
+MainMenuCursor:                                 ; main menu cursor; used by MainMenuAnim, MainMenuScreen
         resb 4
-MainMenuWindow:
+MainMenuWindow:                                 ; main menu window; used by MainMenuAnim, MainMenuScreen
         resb 4
-MainMenuAnimRunning:
+MainMenuAnimRunning:                            ; set while the main menu animation runs; used by MainMenuAnim
         resb 4
-MainMenuResult:
+MainMenuResult:                                 ; main menu result; used by MainMenuScreen
         resb 4
-MainMenuScreenArt:
+MainMenuScreenArt:                              ; main menu screen art; used by MainMenuAnim, MainMenuScreen
         resb 4
-SeasonMenuExit:
+SeasonMenuExit:                                 ; set to leave the season menus; used by RunGameScreens,
+                                                ; RunPlayoffMenus, RunSeasonMenus
         resb 4
-StatsMenuDrawn:
+StatsMenuDrawn:                                 ; set once the stats menu is drawn; used by
+                                                ; PlayerRatingsScreen, PlayerStatsScreen, RunStatsMenu ...
         resb 4
-ModemFlags:
+ModemFlags:                                     ; modem settings flags; used by DrawConnectScreen,
+                                                ; ModemSettingsScreen
         resb 4
-ModemPort:
+ModemPort:                                      ; modem COM port; used by DrawConnectScreen,
+                                                ; ModemSettingsScreen
         resb 2
-ModemIrq:
+ModemIrq:                                       ; modem IRQ; used by DrawConnectScreen, ModemSettingsScreen
         resb 2
-ModemBaudRate:
+ModemBaudRate:                                  ; modem baud rate; used by DrawConnectScreen,
+                                                ; ModemSettingsScreen
         resb 2
-ModemDialMode:
+ModemDialMode:                                  ; modem dial mode (tone or pulse); used by DrawConnectScreen,
+                                                ; ModemSettingsScreen
         resb 2
-ModemAnswer:
+ModemAnswer:                                    ; modem answer mode; used by DrawConnectScreen,
+                                                ; ModemSettingsScreen
         resb 2
-ModemSpeed:
+ModemSpeed:                                     ; modem speed choice; used by DrawConnectScreen,
+                                                ; ModemSettingsScreen
         resb 2
-ModemInitString:
+ModemInitString:                                ; modem init string; used by DrawConnectScreen,
+                                                ; ModemSettingsScreen
         resb 20
-ModemPhoneNumber:
+ModemPhoneNumber:                               ; modem phone number; used by DrawConnectScreen,
+                                                ; ModemSettingsScreen
         resb 40

@@ -2971,7 +2971,7 @@ FindPlayerInLines:
         pop ecx
         pop ebx
         ret
-EditLinesGridScreenJumpTable:
+EditLinesGridScreenJumpTable:                   ; jump table for the switch cases of EditLinesGridScreen
         dd EditLinesGridScreen_C5B
         dd EditLinesGridScreen_A49
         dd EditLinesGridScreen_1010
@@ -6028,7 +6028,7 @@ DrawPlayerHealth:
         push ebx
         push dword [byte ebp+07Eh]
         jmp near DrawPlayerLines_214
-DrawLinesScreenJumpTable:
+DrawLinesScreenJumpTable:                       ; jump table for the switch cases of DrawLinesScreen
         dd DrawLinesScreen_2E6
         dd DrawLinesScreen_309
         dd DrawLinesScreen_31A

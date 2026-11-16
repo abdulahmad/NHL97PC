@@ -8,62 +8,78 @@ global str_X_ShowRosterLogo, RosterTitleWidth, RosterTitleRight, MatchupArt, Mat
 global MatchupPanelRects
 global MatchupLayout, MatchupLeftSide, MatchupNoteCount, MatchupNoteLength, RostersSparkleTick, RostersSparkleFrame, GoalieMaskSoundOn, CreditsLastLine
 global CreditsLastY, CreateSkaterRows, CreateGoalieRows, RosterSoundOn
-RosterScreenOpen:
+RosterScreenOpen:                               ; set while the roster screen is open; used by
+                                                ; RosterCreatePlayer, RosterEditScreen, RosterScreen
         db 01h,00h,00h,00h
-RosterData:
+RosterData:                                     ; roster data; used by BuildTradePlayerLists,
+                                                ; FindTradedPlayer, FreeRosterData ...
         db 00h,00h,00h,00h
-RosterFreeAgents:
+RosterFreeAgents:                               ; roster free agent data; used by AllocRosterInfo,
+                                                ; BuildTradePlayerLists, FreeRosterData ...
         db 00h,00h,00h,00h
-RosterSpeechCount:
+RosterSpeechCount:                              ; roster speech count; used by PlayRosterSound
         db 00h,00h,00h,00h
-RatingPanelTick:
+RatingPanelTick:                                ; tick of the next rating panel frame; used by DrawRatingPanel
         db 00h,00h,00h,00h
-RatingPanelFrame:
+RatingPanelFrame:                               ; rating panel frame; used by CreatePlayerScreen,
+                                                ; DrawRatingPanel
         db 00h,00h,00h,00h
-RosterScreenReady:
+RosterScreenReady:                              ; set once the roster screen is ready; used by
+                                                ; FreeRosterScreen, InitRosterScreen
         db 00h,00h,00h,00h
-str_Punct_InitRosterScreen:
+str_Punct_InitRosterScreen:                     ; string "\n"; used by InitRosterScreen
         db 0Ah,00h,00h,00h
-str_X_InitRosterScreen:
+str_X_InitRosterScreen:                         ; string "x"; used by InitRosterScreen
         db 078h,00h,00h,00h,062h,02h,00h,00h,078h,00h,00h,00h
-str_7_SetupRosterLists:
+str_7_SetupRosterLists:                         ; string "7"; used by SetupRosterLists
         db 037h,00h,00h,00h
-str_I_SetupRosterLists:
+str_I_SetupRosterLists:                         ; string "I"; used by SetupRosterLists
         db 049h,00h,00h,00h,0BFh,01h,00h,00h,049h,00h,00h,00h
-str_Punct_DrawRosterList:
+str_Punct_DrawRosterList:                       ; string "("; used by CreateRosterPanel, DrawRosterList,
+                                                ; DrawRosterRow ...
         db 028h,00h,00h,00h
-str_X_DrawRosterList:
+str_X_DrawRosterList:                           ; string "x"; used by CreateRosterPanel, DrawRosterList,
+                                                ; DrawRosterRow ...
         db 078h,00h,00h,00h
-RosterTitleX:
+RosterTitleX:                                   ; roster title x; used by DrawRosterTitle, SetupRosterLists,
+                                                ; ShowRosterLogo
         db 0A4h,01h,00h,00h
-str_X_SetupRosterLists:
+str_X_SetupRosterLists:                         ; string "x"; used by SetupRosterLists
         db 078h,00h,00h,00h
-RosterTitleY:
+RosterTitleY:                                   ; roster title y; used by CreateRosterPanel, DrawRosterTitle,
+                                                ; RedrawRosterScreen
         db 0DCh,00h,00h,00h
-str_X_ShowRosterLogo:
+str_X_ShowRosterLogo:                           ; string "x"; used by CreateRosterPanel, DrawRosterDetails,
+                                                ; DrawRosterTitle ...
         db 078h,00h,00h,00h
-RosterTitleWidth:
+RosterTitleWidth:                               ; roster title width; used by CreateRosterPanel,
+                                                ; DrawRosterTitle, RedrawRosterScreen
         db 0A4h,01h,00h,00h
-RosterTitleRight:
+RosterTitleRight:                               ; roster title right edge; used by CreateRosterPanel,
+                                                ; DrawRosterTitle, ShowRosterLogo
         db 068h,01h,00h,00h
-CreateSkaterRows:
+CreateSkaterRows:                               ; create player skater rating rows; used by
+                                                ; SetupCreatePlayerLists
         db 03Eh,01h,050h,01h,062h,01h,075h,01h,088h,01h,09Bh,01h,0AEh,01h
-CreateGoalieRows:
+CreateGoalieRows:                               ; create player goalie rating rows; used by
+                                                ; SetupCreatePlayerLists
         db 063h,01h,06Dh,01h,075h,01h,07Fh,01h,087h,01h,091h,01h,09Ah,01h,0A4h,01h
         db 0ADh,01h
-RosterSoundOn:
+RosterSoundOn:                                  ; roster sound enabled; used by PlayRosterSound
         db 00h,00h,00h,00h
-MatchupArt:
+MatchupArt:                                     ; matchup art; used by LoadMatchupArt
         db 00h,00h,00h,00h
-MatchupStatsX:
+MatchupStatsX:                                  ; matchup stats x; used by DrawMatchupStats, PreGameStatsPanel
         db 0DCh,00h,00h,00h
-MatchupStatsY:
+MatchupStatsY:                                  ; matchup stats y; used by DrawMatchupStats, PreGameStatsPanel
         db 0CAh,00h,00h,00h
-MatchupStatsWidth:
+MatchupStatsWidth:                              ; matchup stats width; used by DrawMatchupStats,
+                                                ; PreGameStatsPanel
         db 0B4h,00h,00h,00h
-MatchupPanelBottom:
+MatchupPanelBottom:                             ; matchup panel bottom; used by PreGameStatsPanel
         db 082h,00h,00h,00h
-MatchupPanelRects:
+MatchupPanelRects:                              ; pre-game matchup panel rectangles (x, y, width, height per
+                                                ; panel); used by DrawPlayerPortrait, PreGameStatsPanel
         db 08h,00h,00h,00h
         db 08Ch,00h,00h,00h
         db 0C4h,00h,00h,00h
@@ -74,21 +90,27 @@ MatchupPanelRects:
         db 0F0h,00h,00h,00h
         db 010h,00h,00h,00h,08Ch,01h,00h,00h,089h,01h,00h,00h,0F0h,00h,00h,00h
         db 010h,00h,00h,00h
-MatchupLayout:
+MatchupLayout:                                  ; matchup layout; used by AnimateMatchup, DrawMatchupStats,
+                                                ; LayoutMatchupLeft ...
         db 00h,00h,00h,00h
-MatchupLeftSide:
+MatchupLeftSide:                                ; matchup left side; used by LayoutMatchupLeft,
+                                                ; PreGameMatchupScreen
         db 01h,00h,00h,00h
-MatchupNoteCount:
+MatchupNoteCount:                               ; matchup note count; used by DrawMatchupHistory,
+                                                ; DrawMatchupNotes, DrawRosterLabel ...
         db 00h,00h,00h,00h
-MatchupNoteLength:
+MatchupNoteLength:                              ; matchup note length; used by FormatMatchupNote,
+                                                ; PreGameRostersScreen
         db 00h,00h,00h,00h
-RostersSparkleTick:
+RostersSparkleTick:                             ; tick of the next rosters sparkle; used by
+                                                ; PreGameRostersScreen, RostersSparkle
         db 00h,00h,00h,00h
-RostersSparkleFrame:
+RostersSparkleFrame:                            ; rosters sparkle frame; used by PreGameRostersScreen,
+                                                ; RostersSparkle
         db 00h,00h,00h,00h
-GoalieMaskSoundOn:
+GoalieMaskSoundOn:                              ; goalie mask sound enabled; used by GoalieMaskAnim
         db 00h,00h,00h,00h,0Fh,00h,00h,00h,00h,00h,00h,00h
-CreditsLastLine:
+CreditsLastLine:                                ; last credits line drawn; used by ScrollCredits
         db 0FFh,0FFh,0FFh,0FFh
-CreditsLastY:
+CreditsLastY:                                   ; last credits y; used by ScrollCredits
         db 0FFh,0FFh,0FFh,0FFh

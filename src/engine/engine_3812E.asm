@@ -10425,7 +10425,7 @@ CdStreamOpenSecondary:
         add esp, byte 10h
         pop ebx
         ret
-CdStreamServiceJumpTable:
+CdStreamServiceJumpTable:                       ; jump table for the switch cases of CdStreamService
         dd CdStreamService_D6
         dd CdStreamService_1E3
         dd CdStreamService_47A
@@ -13436,7 +13436,7 @@ LoadSfxBank:
         pop ebx
         ret
         db 08Dh,040h,00h
-AdvanceStreamStateJumpTable:
+AdvanceStreamStateJumpTable:                    ; jump table for the switch cases of AdvanceStreamState
         dd AdvanceStreamState_11
         dd AdvanceStreamState_19
         dd AdvanceStreamState_21
@@ -13483,7 +13483,7 @@ AdvanceStreamState_39:
         pop edx
         ret
         db 08Dh,040h,00h
-RewindStreamStateJumpTable:
+RewindStreamStateJumpTable:                     ; jump table for the switch cases
         dd .3
         dd .4
         dd .5
@@ -13525,7 +13525,7 @@ RewindStreamStateJumpTable:
         pop edx
         ret
         db 08Dh,040h,00h
-DetectedAudioJumpTable:
+DetectedAudioJumpTable:                         ; jump table for the switch cases
         dd .1
         dd .2
         dd .3
@@ -13578,7 +13578,7 @@ DetectedAudioJumpTable:
         pop ebx
         ret
         db 08Bh,0C0h
-OpenAudioStreamJumpTable:
+OpenAudioStreamJumpTable:                       ; jump table for the switch cases of OpenAudioStream
         dd OpenAudioStream_B1
         dd OpenAudioStream_BE
         dd OpenAudioStream_CB

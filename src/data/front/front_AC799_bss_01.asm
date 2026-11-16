@@ -7,68 +7,82 @@ global TeamStatsBarEnd, StatsArrowUp, StatsArrowDown, TeamStatsPanelShape, Stats
 global StatTableRows, StatsSoundPlayed, StatTableSortText, StatTableSortKeys, StatTableAlpha, StatTableColumns, UserRecordKinds, UserRecordArt
 global UserRecordsData, UserRecordItems, UserRecordItemKind, UserRecordItemArt, UserRecordItemX, UserRecordItemY, UserDetailPopupFields
 global StatTableSortColumn
-StatsShapeLists:
+StatsShapeLists:                                ; stats screen shape lists; used by StatsScreenSound,
+                                                ; StatsTablesScreen, TeamStatsScreen ...
         resb 4
-TeamStatsShapeTop:
+TeamStatsShapeTop:                              ; team stats top shape; used by TeamStatsScreen
         resb 4
-TeamStatsShapeBottom:
+TeamStatsShapeBottom:                           ; team stats bottom shape; used by TeamStatsScreen
         resb 4
-StatsHeaderShape:
+StatsHeaderShape:                               ; stats header shape; used by StatsTablesScreen,
+                                                ; TeamStatsScreen
         resb 4
-TeamStatsLogoShape:
+TeamStatsLogoShape:                             ; team stats logo shape; used by TeamStatsScreen
         resb 4
-TeamStatsNameShape:
+TeamStatsNameShape:                             ; team stats name shape; used by TeamStatsScreen
         resb 4
-StatsRowShape:
+StatsRowShape:                                  ; stats row shape; used by StatsTablesScreen, TeamStatsScreen
         resb 4
-TeamStatsBarShape:
+TeamStatsBarShape:                              ; team stats bar shape; used by TeamStatsScreen
         resb 4
-TeamStatsBarEnd:
+TeamStatsBarEnd:                                ; team stats bar end shape; used by TeamStatsScreen
         resb 4
-StatsArrowUp:
+StatsArrowUp:                                   ; stats arrow up shape; used by StatsTablesScreen,
+                                                ; TeamStatsScreen
         resb 4
-StatsArrowDown:
+StatsArrowDown:                                 ; stats arrow down shape; used by TeamStatsScreen
         resb 4
-TeamStatsPanelShape:
+TeamStatsPanelShape:                            ; team stats panel shape; used by TeamStatsScreen
         resb 4
-StatsSparkleShape:
+StatsSparkleShape:                              ; stats sparkle shape; used by StatsScreenSound,
+                                                ; StatsTablesScreen, TeamStatsScreen
         resb 4
-TeamStatsGlowShape:
+TeamStatsGlowShape:                             ; team stats glow shape; used by TeamStatsScreen
         resb 4
-TeamStatsBitmap:
+TeamStatsBitmap:                                ; team stats bitmap; used by TeamStatsScreen
         resb 16
-StatsMenuItems:
+StatsMenuItems:                                 ; stats menu items; used by StatsScreenSound,
+                                                ; StatsTablesScreen, TeamStatsScreen ...
         resb 4
-StatTableRows:
+StatTableRows:                                  ; stat table rows; used by AllocStatTable, CompareStatText,
+                                                ; CompareStatTextDown ...
         resb 4
-StatsSoundPlayed:
+StatsSoundPlayed:                               ; set once the stats sound plays; used by StatsScreenSound,
+                                                ; TeamStatsSound
         resb 4
-StatTableSortText:
+StatTableSortText:                              ; stat table sort strings; used by AllocStatTable,
+                                                ; CompareStatName, CompareStatText ...
         resb 4
-StatTableSortKeys:
+StatTableSortKeys:                              ; stat table sort keys; used by AllocStatTable,
+                                                ; CompareStatName, CompareStatNumber ...
         resb 4
-StatTableAlpha:
+StatTableAlpha:                                 ; stat table alphabetic order; used by AllocStatTable,
+                                                ; DrawStatTableRows, ExportStatTable ...
         resb 4
-StatTableColumns:
+StatTableColumns:                               ; stat table columns; used by AllocStatTable, CompareStatName,
+                                                ; CompareStatText ...
         resb 4
-StatTableSortColumn:
+StatTableSortColumn:                            ; stat table sort column; used by CompareStatName,
+                                                ; CompareStatText, CompareStatTextDown ...
         resb 4
-UserRecordKinds:
+UserRecordKinds:                                ; user record kind per record; used by UserRecordsScreen,
+                                                ; UserRecordsSound
         resb 4
-UserRecordArt:
+UserRecordArt:                                  ; user record art per kind; used by UserRecordsSound
         resb 44
-UserRecordsData:
+UserRecordsData:                                ; user records data; used by UserRecordsScreen
         resb 4
-UserRecordItems:
+UserRecordItems:                                ; user records items; used by UserRecordsSound
         resb 22
-UserRecordItemKind:
+UserRecordItemKind:                             ; user records item: kind; used by UserRecordsSound
         resb 4
-UserRecordItemArt:
+UserRecordItemArt:                              ; user records item: art; used by UserRecordsSound
         resb 8
-UserRecordItemX:
+UserRecordItemX:                                ; user records item: x; used by UserRecordsSound
         resb 4
-UserRecordItemY:
+UserRecordItemY:                                ; user records item: y; used by UserRecordsSound
         resb 56
-UserDetailPopupFields:
+UserDetailPopupFields:                          ; user detail popup record, from its type field: type, text,
+                                                ; three shapes, width, height; used by UserRecordsScreen
         resb 4
         resb 6

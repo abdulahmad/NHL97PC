@@ -214,7 +214,7 @@ UnpackBytePairs:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-PrepareBankSampleDataJumpTable:
+PrepareBankSampleDataJumpTable:                 ; jump table for the switch cases of PrepareBankSampleData
         dd PrepareBankSampleData_B3
         dd PrepareBankSampleData_F0
         dd PrepareBankSampleData_FD
@@ -1192,9 +1192,9 @@ GusDriverUpdate:
         pop ecx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-WssBasePortsBlaster:
+WssBasePortsBlaster:                            ; used by ReadBlasterPort
         db 030h,05h,00h,00h,04h,06h,00h,00h,080h,0Eh,00h,00h,040h,0Fh,00h,00h
-BlasterCodeList:
+BlasterCodeList:                                ; used by ReadBlasterPort
         db 011h,00h,00h,00h,012h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh,013h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; DacDriverCaps                                  1289B0  97 PC, low confidence

@@ -13,120 +13,136 @@ global FrameRateMin, FrameRateMax, PlatformState, PlatformFirstInit, RetraceTime
 global SerialPortTable, SerialIsrPort1, SerialIsrPort2, ExitHook, Int23Hook, FpuExitHook, ArtConvertFuncs, SerialPorts
 global VideoOptionsText
 global str_Punct_InitFpuFlags, SavedEsSelector, SavedKbdVecSelector, SavedInt16Selector, SavedRealKbdSegment, KbdDataSelector, SerialIrqMask, SerialBaudDivisors
-KeyedRowFuncs:
+KeyedRowFuncs:                                  ; keyed blit row routine table; used by BlitShapeKeyed
         dd FixedSinCos_70
-KeyDownTable:
+KeyDownTable:                                   ; key down flag per scan code; used by KeyboardISR
         dd BlitRowRemap8
         dd BlitRowKey16
         dd BlitRowKey16
         dd BlitRowKey24
         dd BlitRowKey32
-KeyedBlitState:
+KeyedBlitState:                                 ; keyed blit state; used by BlitShapeKeyed
         db 00h,00h,00h,00h,01h,00h,00h,00h,00h,00h,00h,00h
-FpuFlags:
+FpuFlags:                                       ; FPU flags set at start up; used by InitFpuFlags,
+                                                ; __sys_fini_387_emulator, start
         db 00h,00h,00h,00h
-str_Punct_InitFpuFlags:
+str_Punct_InitFpuFlags:                         ; string " "; used by InitFpuFlags, __sys_fini_387_emulator,
+                                                ; start
         db 020h,00h
-SavedEsSelector:
+SavedEsSelector:                                ; ES selector saved at start up; used by InitFpuFlags, init_
         db 00h,00h
-BiosKeyFunc:
+BiosKeyFunc:                                    ; routine that calls the BIOS keyboard service; used by
+                                                ; InstallKeyboardHandler, KbdGetKey, KbdPeekKey ...
         dd BiosKeyCall
-KbdHandlerInstalled:
+KbdHandlerInstalled:                            ; game keyboard handler installed; used by KeyboardISR, main_
         db 00h,00h,00h,00h
-KeyBuffer:
+KeyBuffer:                                      ; keyboard buffer ring; used by Int16Service, KeyboardISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-KeyBufferHead:
+KeyBufferHead:                                  ; keyboard buffer read position; used by Int16Service,
+                                                ; KeyboardISR
         db 00h,00h,00h,00h
-KeyBufferTail:
+KeyBufferTail:                                  ; keyboard buffer write position; used by Int16Service
         db 00h,00h,00h,00h
-KbdCapsLock:
+KbdCapsLock:                                    ; caps lock toggle; used by KeyboardISR
         db 00h,00h,00h,00h
-KeyBufferMask:
+KeyBufferMask:                                  ; keyboard buffer index mask; used by Int16Service,
+                                                ; KeyboardISR
         db 01h,00h,00h,00h
-KeyStateTable:
+KeyStateTable:                                  ; key down state per scan code; used by
+                                                ; InstallKeyboardHandler, IsKeyDown, KeyboardISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-KbdShiftDown:
+KbdShiftDown:                                   ; shift held; used by KeyboardISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-KbdCtrlDown:
+KbdCtrlDown:                                    ; control held; used by Int16Service, KeyboardISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-KbdAltDown:
+KbdAltDown:                                     ; alt held; used by Int16Service, KeyboardISR
         db 00h,00h
-KbdNumLock:
+KbdNumLock:                                     ; num lock toggle; used by KeyboardISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-KbdScrollLock:
+KbdScrollLock:                                  ; scroll lock toggle; used by KeyboardISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-SavedKbdVecOffset:
+SavedKbdVecOffset:                              ; previous keyboard interrupt offset; used by
+                                                ; InstallKeyboardHandler, RemoveKeyboardHandler
         db 00h,00h,00h,00h
-SavedKbdVecSelector:
+SavedKbdVecSelector:                            ; previous keyboard interrupt selector; used by
+                                                ; InstallKeyboardHandler, RemoveKeyboardHandler
         db 00h,00h
-SavedInt16Offset:
+SavedInt16Offset:                               ; previous INT 16h offset; used by InstallKeyboardHandler,
+                                                ; RemoveKeyboardHandler
         db 00h,00h,00h,00h
-SavedInt16Selector:
+SavedInt16Selector:                             ; previous INT 16h selector; used by InstallKeyboardHandler,
+                                                ; RemoveKeyboardHandler
         db 00h,00h
-SavedRealKbdOffset:
+SavedRealKbdOffset:                             ; previous real mode keyboard handler offset; used by
+                                                ; InstallKeyboardHandler, RemoveKeyboardHandler
         db 00h,00h,00h,00h
-SavedRealKbdSegment:
+SavedRealKbdSegment:                            ; previous real mode keyboard handler segment; used by
+                                                ; InstallKeyboardHandler, RemoveKeyboardHandler
         db 00h,00h
-KbdDataSelector:
+KbdDataSelector:                                ; data selector used by the keyboard handler
         db 00h,00h,00h,00h,00h,00h
-KbdPrefixByte:
+KbdPrefixByte:                                  ; extended (E0h) scan code prefix seen; used by KeyboardISR
         db 00h,00h,00h,00h
-KbdInsertMode:
+KbdInsertMode:                                  ; insert toggle; used by KeyboardISR
         db 00h,00h,00h,00h
-KbdPauseState:
+KbdPauseState:                                  ; pause key state; used by KeyboardISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,0FFh,0FFh,00h,00h
-ScanToAscii:
+ScanToAscii:                                    ; scan code to ASCII, no shift; used by KeyboardISR
         db 00h,01Bh,031h,032h,033h,034h,035h,036h,037h,038h,039h,030h,02Dh,03Dh,08h,09h
         db 071h,077h,065h,072h,074h,079h,075h,069h,06Fh,070h,05Bh,05Dh,0Dh,00h,061h,073h
         db 064h,066h,067h,068h,06Ah,06Bh,06Ch,03Bh,027h,060h,00h,05Ch,07Ah,078h,063h,076h
         db 062h,06Eh,06Dh,02Ch,02Eh,02Fh,00h,02Ah,00h,020h,00h,0BBh,0BCh,0BDh,0BEh,0BFh
         db 0C0h,0C1h,0C2h,0C3h,0C4h,00h,00h,0C7h,0C8h,0C9h,02Dh,0CBh,0CCh,0CDh,02Bh,0CFh
         db 0D0h,0D1h,0D2h,0D3h,00h,00h,00h,087h,088h,00h,00h
-ScanToAsciiShift:
+ScanToAsciiShift:                               ; scan code to ASCII with shift; used by KeyboardISR
         db 00h,01Bh,021h,040h,023h,024h,025h,05Eh,026h,02Ah,028h,029h,05Fh,02Bh,08h,08Fh
         db 051h,057h,045h,052h,054h,059h,055h,049h,04Fh,050h,07Bh,07Dh,0Dh,00h,041h,053h
         db 044h,046h,047h,048h,04Ah,04Bh,04Ch,03Ah,022h,07Eh,00h,07Ch,05Ah,058h,043h,056h
         db 042h,04Eh,04Dh,03Ch,03Eh,03Fh,00h,00h,00h,020h,00h,0D4h,0D5h,0D6h,0D7h,0D8h
         db 0D9h,0DAh,0DBh,0DCh,0DDh,00h,00h,0C7h,0C8h,0C9h,02Dh,0CBh,0CCh,0CDh,02Bh,0CFh
         db 0D0h,0D1h,0D2h,0D3h,00h,00h,00h,089h,08Ah,00h,00h
-ScanToAsciiCaps:
+ScanToAsciiCaps:                                ; scan code to ASCII with caps lock; used by KeyboardISR
         db 00h,01Bh,031h,032h,033h,034h,035h,036h,037h,038h,039h,030h,02Dh,03Dh,08h,08Fh
         db 051h,057h,045h,052h,054h,059h,055h,049h,04Fh,050h,05Bh,05Dh,0Dh,00h,041h,053h
         db 044h,046h,047h,048h,04Ah,04Bh,04Ch,03Bh,027h,060h,00h,05Ch,05Ah,058h,043h,056h
         db 042h,04Eh,04Dh,02Ch,02Eh,02Fh,00h,00h,00h,020h,00h,0D4h,0D5h,0D6h,0D7h,0D8h
         db 0D9h,0DAh,0DBh,0DCh,0DDh,00h,00h,0C7h,0C8h,0C9h,02Dh,0CBh,0CCh,0CDh,02Bh,0CFh
         db 0D0h,0D1h,0D2h,0D3h,00h,00h,00h,089h,08Ah,00h,00h
-ScanToAsciiCtrl:
+ScanToAsciiCtrl:                                ; scan code to ASCII with control; used by KeyboardISR
         db 00h,01Bh,021h,00h,023h,024h,025h,01Eh,026h,02Ah,028h,029h,01Fh,0B3h,07Fh,09h
         db 011h,017h,05h,012h,014h,019h,015h,09h,0Fh,010h,01Bh,01Dh,0Dh,00h,01h,013h
         db 04h,06h,07h,08h,0Ah,0Bh,0Ch,03Bh,02Ch,060h,00h,01Ch,01Ah,018h,03h,016h
         db 02h,0Eh,0B2h,03Ch,03Eh,03Fh,00h,00h,00h,020h,00h,0DEh,0DFh,0E0h,0E1h,0E2h
         db 0E3h,0E4h,0E5h,0E6h,0E7h,00h,00h,0C7h,0C8h,0C9h,02Dh,0CBh,0CCh,0CDh,02Bh,0CFh
         db 0D0h,0D1h,0D2h,0D3h,00h,00h,00h,08Bh,08Ch,00h,00h
-ScanToAsciiCapsShift:
+ScanToAsciiCapsShift:                           ; scan code to ASCII with caps lock and shift; used by
+                                                ; KeyboardISR
         db 00h,01Bh,021h,040h,023h,024h,025h,05Eh,026h,02Ah,028h,029h,05Fh,02Bh,08h,08Fh
         db 090h,091h,092h,093h,094h,095h,096h,097h,098h,099h,07Bh,07Dh,0Dh,00h,09Eh,09Fh
         db 0A0h,0A1h,0A2h,0A3h,0A4h,0A5h,0A6h,03Ah,022h,07Eh,00h,07Ch,0ACh,0ADh,0AEh,0AFh
         db 0B0h,0B1h,0B2h,03Ch,03Eh,03Fh,00h,00h,00h,020h,00h,0F8h,0F9h,0FAh,0FBh,0FCh
         db 0FDh,0FEh,0FFh,080h,081h,00h,00h,0C7h,0C8h,0C9h,02Dh,0CBh,0CCh,0CDh,02Bh,0CFh
         db 0D0h,0D1h,0D2h,0D3h,00h,00h,00h,08Dh,08Eh,00h,00h,00h
-AssertLine:
+AssertLine:                                     ; line number of the failed assertion; used by AssertFail
         db 00h,00h,00h,00h
-str_FILESLINED:
+str_FILESLINED:                                 ; string "FILE %s LINE %d "; used by AssertFail
         db 046h,049h,04Ch,045h,020h,025h,073h,020h,04Ch,049h,04Eh,045h,020h,025h,064h,0Dh
         db 00h
-AssertFileName:
+AssertFileName:                                 ; file name of the failed assertion; used by AssertFail,
+                                                ; UpdateFrameRate
         db 00h,00h,00h,00h
-AssertMessage:
+AssertMessage:                                  ; message of the failed assertion; used by AssertFail,
+                                                ; UpdateFrameRate
         db 00h,00h,00h,00h,00h,00h,00h
-VideoGammaSource:
+VideoGammaSource:                               ; source curve for the video gamma table; used by
+                                                ; BuildVideoGammaTable
         db 00h,020h,00h,00h,012h,017h,00h,00h,07Eh,018h,00h,00h,037h,01Bh,00h,00h
         db 00h,020h,00h,00h,0BAh,028h,00h,00h,021h,03Bh,00h,00h,0FCh,073h,00h,00h
         db 012h,017h,00h,00h,0A2h,010h,00h,00h,0A8h,011h,00h,00h,09Fh,013h,00h,00h
@@ -141,34 +157,40 @@ VideoGammaSource:
         db 0BAh,028h,00h,00h,0D6h,033h,00h,00h,042h,04Bh,00h,00h,09Fh,093h,00h,00h
         db 021h,03Bh,00h,00h,0A1h,02Ah,00h,00h,041h,02Dh,00h,00h,049h,032h,00h,00h
         db 021h,03Bh,00h,00h
-str_BK:
+str_BK:                                         ; string "BK"; used by SinCosLookup
         db 042h,04Bh,00h,00h,041h,06Dh,00h,00h,050h,0D6h,00h,00h,0FCh,073h,00h,00h
         db 09Fh,053h,00h,00h,0C5h,058h,00h,00h,0A3h,062h,00h,00h,0FCh,073h,00h,00h
         db 09Fh,093h,00h,00h,050h,0D6h,00h,00h,063h,0A4h,01h,00h
-VideoDecoderReady:
+VideoDecoderReady:                              ; video decoder initialised; used by InitVideoDecoder
         db 00h,00h,00h,00h
-FrameRateCount:
+FrameRateCount:                                 ; frames counted for the frame rate; used by ResetFrameRate,
+                                                ; UpdateFrameRate
         db 00h,00h,00h,00h
-FrameRateStart:
+FrameRateStart:                                 ; tick count when frame counting began; used by ResetFrameRate
         db 00h,00h,00h,00h
-FrameRateTicks:
+FrameRateTicks:                                 ; ticks counted for the frame rate; used by ResetFrameRate,
+                                                ; UpdateFrameRate
         db 00h,00h,00h,00h
-FrameRateValue:
+FrameRateValue:                                 ; measured frame rate; used by ResetFrameRate, UpdateFrameRate
         db 00h,00h,00h,00h
-FrameRateMin:
+FrameRateMin:                                   ; lowest frame rate seen; used by ResetFrameRate,
+                                                ; UpdateFrameRate
         db 00h,00h,00h,00h
-FrameRateMax:
+FrameRateMax:                                   ; highest frame rate seen; used by ResetFrameRate,
+                                                ; UpdateFrameRate
         db 00h,00h,00h,00h
-SerialPortTable:
+SerialPortTable:                                ; serial port record per COM port; used by SerialCarrier,
+                                                ; SerialClose, SerialConfigure ...
         dd SerialPorts
-SerialIsrPort1:
+SerialIsrPort1:                                 ; serial port record used by the first interrupt handler
         dd SerialPorts+44Ch
-SerialIsrPort2:
+SerialIsrPort2:                                 ; serial port record used by the second interrupt handler
         dd SerialPorts+898h
         dd SerialPorts+0CE4h
-SerialIrqMask:
+SerialIrqMask:                                  ; serial IRQ mask; used by SerialISR, SerialOpen
         db 00h,00h
-SerialPorts:
+SerialPorts:                                    ; serial port records, one per COM port (44Ch bytes each);
+                                                ; used by SerialISR, SinCosLookup
         db 02h,00h,00h,03h,0Ch,00h,010h,00h,0F8h,03h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         dd SerialISR
@@ -454,21 +476,25 @@ SerialPorts:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-SerialBaudDivisors:
+SerialBaudDivisors:                             ; baud rate divisor table; used by SerialConfigure
         db 080h,01h,0C0h,00h,060h,00h,040h,00h,03Ah,00h,030h,00h,020h,00h,018h,00h
         db 010h,00h,0Ch,00h,08h,00h,06h,00h,04h,00h,02h,00h,01h,00h,043h,04Fh
         db 04Dh,04Dh,00h,00h,00h,00h
-ExitHook:
+ExitHook:                                       ; routine called by exit; used by atexit_, exit_
         dd __null_int23_exit_
-Int23Hook:
+Int23Hook:                                      ; ctrl-C handler; used by __grab_int23_,
+                                                ; __grab_int_ctrl_break_, __int23_handler_ ...
         dd __null_int23_exit_
-FpuExitHook:
+FpuExitHook:                                    ; FPU shutdown routine called at exit; used by __GrabFP87_,
+                                                ; _exit_
         dd __null_int23_exit_
-PlatformState:
+PlatformState:                                  ; platform layer state; used by ExitGraphics, InitPlatform
         db 00h,00h,00h,00h
-PlatformFirstInit:
+PlatformFirstInit:                              ; set until the platform layer is first set up; used by
+                                                ; InitPlatform
         db 01h,00h,00h,00h
-ShadeTable:
+ShadeTable:                                     ; colour shade table; used by BlitCore, BlitShapeKeyed,
+                                                ; ConvertArtRows ...
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,018h,00h,018h,00h,00h,00h,00h,010h,020h,00h,00h,00h,00h,00h
@@ -477,7 +503,8 @@ ShadeTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,010h,01h,04h,08h,00h,020h,0Fh,018h
         db 00h,00h,00h,00h,00h,00h,00h,00h,010h,01h,04h,08h,00h,020h,0Fh,018h
-ArtConvertFuncs:
+ArtConvertFuncs:                                ; art conversion routine table; used by ConvertArtAt,
+                                                ; ConvertArtInPlace, ConvertArtKeepPos ...
         dd _dos_getdiskfree__38
         dd CopyPixels8
         dd CopyPixels16
@@ -485,9 +512,9 @@ ArtConvertFuncs:
         dd CopyPixels24
         dd CopyPixels32
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-TintByte:
+TintByte:                                       ; tint scratch byte; used by TintRect
         db 00h
-TintTable:
+TintTable:                                      ; tint colour table; used by TintRows
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
@@ -504,9 +531,11 @@ TintTable:
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
-RetraceTimeout:
+RetraceTimeout:                                 ; loop count before giving up on vertical retrace; used by
+                                                ; WaitDisplayRetrace, WaitRetrace, WaitRetraceEdges
         db 0A0h,086h,01h,00h
-VideoOptionsText:
+VideoOptionsText:                               ; video options screen text; used by InitPlatform,
+                                                ; VideoOptionsScreen
         db 00h,00h,00h,00h,00h,0A8h,00h,0A8h,00h,00h,0A8h,0A8h,0A8h,00h,00h,0A8h
         db 00h,0A8h,0A8h,054h,00h,0A8h,0A8h,0A8h,054h,054h,054h,054h,054h,0FCh,054h,0FCh
         db 054h,054h,0FCh,0FCh,0FCh,054h,054h,0FCh,054h,0FCh,0FCh,0FCh,054h,0FCh,0FCh,0FCh

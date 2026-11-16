@@ -10,119 +10,122 @@ global str_Ana, str_Bos, str_Buf, str_Cal, str_Chi, str_Col, str_Dal, str_Det
 global str_Edm, str_Fla, str_Har, str_LA, str_Mon, str_NJ, str_NYI, str_NYR
 global str_Ott, str_Phi, str_Pho, str_Pit, str_StL, str_SJ, str_TB, str_Tor
 global str_Van, str_Was
-str_Mous4:
+str_Mous4:                                      ; string "mous"; used by ReplayMenuScreen, ReplayScreen,
+                                                ; RunReplay ...
         db 06Dh,06Fh,075h,073h,00h
-str_Remo3:
+str_Remo3:                                      ; string "remo"; used by ReplayMenuScreen, RunReplay,
+                                                ; VideoOptionsScreen
         db 072h,065h,06Dh,06Fh,00h
-str_Replload:
+str_Replload:                                   ; string "replload"; used by LoadReplay
         db 072h,065h,070h,06Ch,06Ch,06Fh,061h,064h,00h
-str_RPEVENT:
+str_RPEVENT:                                    ; string "RP_EVENT"; used by VideoOptionsScreen
         db 052h,050h,05Fh,045h,056h,045h,04Eh,054h,00h
-str_Replmenu:
+str_Replmenu:                                   ; string "replmenu"; used by ReplayScreen
         db 072h,065h,070h,06Ch,06Dh,065h,06Eh,075h,00h
-str_Replregs:
+str_Replregs:                                   ; string "replregs"; used by ReplayScreen
         db 072h,065h,070h,06Ch,072h,065h,067h,073h,00h
-str_S_ReplayScreen:
+str_S_ReplayScreen:                             ; string "%s"; used by DrawReplayMenu, ReplayScreen
         db 025h,073h,00h
-F64_0p5_ReplayScreen:
+F64_0p5_ReplayScreen:                           ; double constant 0.5; used by ReplayScreen
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-F32_0p005_ReplayScreen:
+F32_0p005_ReplayScreen:                         ; float constant 0.005; used by ReplayScreen
         db 0Ah,0D7h,0A3h,03Bh
-F32_0p003125_ReplayScreen:
+F32_0p003125_ReplayScreen:                      ; float constant 0.003125; used by ReplayScreen
         db 0CDh,0CCh,04Ch,03Bh
-F32_0p005_DrawReplayTimeline:
+F32_0p005_DrawReplayTimeline:                   ; float constant 0.005; used by DrawReplayTimeline
         db 0Ah,0D7h,0A3h,03Bh
-F64_0p5_DrawReplayTimeline:
+F64_0p5_DrawReplayTimeline:                     ; double constant 0.5; used by DrawReplayTimeline
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-F32_0p003125_DrawReplayTimeline:
+F32_0p003125_DrawReplayTimeline:                ; float constant 0.003125; used by DrawReplayTimeline
         db 0CDh,0CCh,04Ch,03Bh
-str_REPLAYNDX:
+str_REPLAYNDX:                                  ; string "REPLAY.NDX"; used by OpenReplayIndex,
+                                                ; PickReplayScreen, SaveReplay
         db 052h,045h,050h,04Ch,041h,059h,02Eh,04Eh,044h,058h,00h
-str_DATAREPLAYNDX2:
+str_DATAREPLAYNDX2:                             ; string "DATA\REPLAY.NDX"; used by PickReplayScreen
         db 044h,041h,054h,041h,05Ch,052h,045h,050h,04Ch,041h,059h,02Eh,04Eh,044h,058h,00h
-F32_0p003125_PickReplayScreen:
+F32_0p003125_PickReplayScreen:                  ; float constant 0.003125; used by PickReplayScreen
         db 0CDh,0CCh,04Ch,03Bh
-F64_0p5_PickReplayScreen:
+F64_0p5_PickReplayScreen:                       ; double constant 0.5; used by PickReplayScreen
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-F32_0p005_PickReplayScreen:
+F32_0p005_PickReplayScreen:                     ; float constant 0.005; used by PickReplayScreen
         db 0Ah,0D7h,0A3h,03Bh
-str_DONTHAVEIT2:
+str_DONTHAVEIT2:                                ; string "DONTHAVE.IT"; used by OpenReplayIndex
         db 044h,04Fh,04Eh,054h,048h,041h,056h,045h,02Eh,049h,054h,00h
-str_Replay:
+str_Replay:                                     ; string "replay"; used by OpenReplayIndex
         db 072h,065h,070h,06Ch,061h,079h,00h
-str_SS10:
+str_SS10:                                       ; string "%s%s"; used by OpenReplayIndex, SaveReplay
         db 025h,073h,025h,073h,00h
-str_Replbuff:
+str_Replbuff:                                   ; string "replbuff"; used by OpenReplayIndex
         db 072h,065h,070h,06Ch,062h,075h,066h,066h,00h
-str_SREPLAYNDX:
+str_SREPLAYNDX:                                 ; string "%s\REPLAY.NDX"; used by SaveReplay
         db 025h,073h,05Ch,052h,045h,050h,04Ch,041h,059h,02Eh,04Eh,044h,058h,00h
-str_S12:
+str_S12:                                        ; string ">%s"; used by DrawReplayEntry
         db 03Eh,025h,073h,00h
-F32_0p003125_DrawReplayEntry:
+F32_0p003125_DrawReplayEntry:                   ; float constant 0.003125; used by DrawReplayEntry
         db 0CDh,0CCh,04Ch,03Bh
-F64_0p5_DrawReplayEntry:
+F64_0p5_DrawReplayEntry:                        ; double constant 0.5; used by DrawReplayEntry
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-F32_0p005_DrawReplayEntry:
+F32_0p005_DrawReplayEntry:                      ; float constant 0.005; used by DrawReplayEntry
         db 0Ah,0D7h,0A3h,03Bh
-str_NOIS:
+str_NOIS:                                       ; string "NOIS"; used by ReplayMenuScreen
         db 04Eh,04Fh,049h,053h,00h
-str_ARWD:
+str_ARWD:                                       ; string "ARW%d"; used by ReplayMenuScreen
         db 041h,052h,057h,025h,064h,00h
-F32_0p003125_ReplayMenuScreen:
+F32_0p003125_ReplayMenuScreen:                  ; float constant 0.003125; used by ReplayMenuScreen
         db 0CDh,0CCh,04Ch,03Bh
-F64_0p5_ReplayMenuScreen:
+F64_0p5_ReplayMenuScreen:                       ; double constant 0.5; used by ReplayMenuScreen
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-F32_0p005_ReplayMenuScreen:
+F32_0p005_ReplayMenuScreen:                     ; float constant 0.005; used by ReplayMenuScreen
         db 0Ah,0D7h,0A3h,03Bh,00h,00h
-str_Ana:
+str_Ana:                                        ; string "Ana"
         db 041h,06Eh,061h,00h
-str_Bos:
+str_Bos:                                        ; string "Bos"
         db 042h,06Fh,073h,00h
-str_Buf:
+str_Buf:                                        ; string "Buf"
         db 042h,075h,066h,00h
-str_Cal:
+str_Cal:                                        ; string "Cal"
         db 043h,061h,06Ch,00h
-str_Chi:
+str_Chi:                                        ; string "Chi"
         db 043h,068h,069h,00h
-str_Col:
+str_Col:                                        ; string "Col"
         db 043h,06Fh,06Ch,00h
-str_Dal:
+str_Dal:                                        ; string "Dal"
         db 044h,061h,06Ch,00h
-str_Det:
+str_Det:                                        ; string "Det"
         db 044h,065h,074h,00h
-str_Edm:
+str_Edm:                                        ; string "Edm"
         db 045h,064h,06Dh,00h
-str_Fla:
+str_Fla:                                        ; string "Fla"
         db 046h,06Ch,061h,00h
-str_Har:
+str_Har:                                        ; string "Har"
         db 048h,061h,072h,00h
-str_LA:
+str_LA:                                         ; string "LA"
         db 04Ch,041h,00h
-str_Mon:
+str_Mon:                                        ; string "Mon"
         db 04Dh,06Fh,06Eh,00h
-str_NJ:
+str_NJ:                                         ; string "NJ"
         db 04Eh,04Ah,00h
-str_NYI:
+str_NYI:                                        ; string "NYI"
         db 04Eh,059h,049h,00h
-str_NYR:
+str_NYR:                                        ; string "NYR"
         db 04Eh,059h,052h,00h
-str_Ott:
+str_Ott:                                        ; string "Ott"
         db 04Fh,074h,074h,00h
-str_Phi:
+str_Phi:                                        ; string "Phi"
         db 050h,068h,069h,00h
-str_Pho:
+str_Pho:                                        ; string "Pho"
         db 050h,068h,06Fh,00h
-str_Pit:
+str_Pit:                                        ; string "Pit"
         db 050h,069h,074h,00h
-str_StL:
+str_StL:                                        ; string "StL"
         db 053h,074h,04Ch,00h
-str_SJ:
+str_SJ:                                         ; string "SJ"
         db 053h,04Ah,00h
-str_TB:
+str_TB:                                         ; string "TB"
         db 054h,042h,00h
-str_Tor:
+str_Tor:                                        ; string "Tor"
         db 054h,06Fh,072h,00h
-str_Van:
+str_Van:                                        ; string "Van"
         db 056h,061h,06Eh,00h
-str_Was:
+str_Was:                                        ; string "Was"; not referenced by name
         db 057h,061h,073h,00h

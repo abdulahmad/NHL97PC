@@ -10,130 +10,138 @@ global str_Hextall, str_PHI, str_QUE, str_199293, str_Heyward, str_Hirsch, str_V
 global str_LA_GoalieMaskList, str_Jablonski, str_TB_GoalieMaskList, str_Joseph, str_EDM, str_Kidd, str_CAL, str_Kolzig
 global str_Lacher, str_BOS, str_Moog, str_DAL, str_Richter, str_NYR_GoalieMaskList, str_Roy, str_COL
 global str_MTL, str_Thibault, str_Vanbiesbrouck, str_FLA, str_Vernon, str_DET, str_EA
-str_S_DrawMatchupNotes:
+str_S_DrawMatchupNotes:                         ; string "%s"; used by DrawMatchupNotes, DrawRosterLabel,
+                                                ; DrawRosterPlayerInfo
         db 025h,073h,00h
-str_SDDD:
+str_SDDD:                                       ; string "%s %d-%d-%d"; used by DrawMatchupHistory,
+                                                ; DrawMatchupNotes
         db 025h,073h,020h,025h,064h,02Dh,025h,064h,02Dh,025h,064h,00h
-str_SSS2:
+str_SSS2:                                       ; string "%s %s %s"; used by DrawMatchupNotes
         db 025h,073h,020h,025h,073h,020h,025h,073h,00h
-str_SS13:
+str_SS13:                                       ; string "%s %s"; used by DrawMatchupNotes
         db 025h,073h,020h,025h,073h,00h
-str_SSS3:
+str_SSS3:                                       ; string "%s, %s %s"; used by DrawMatchupNotes
         db 025h,073h,02Ch,020h,025h,073h,020h,025h,073h,00h
-str_Roster4:
+str_Roster4:                                    ; string "roster"; used by DrawMatchupNotes
         db 072h,06Fh,073h,074h,065h,072h,00h
-str_SVsSDDD:
+str_SVsSDDD:                                    ; string "%s vs %s:%d-%d-%d"; used by DrawMatchupNotes
         db 025h,073h,020h,076h,073h,020h,025h,073h,03Ah,025h,064h,02Dh,025h,064h,02Dh,025h
         db 064h,00h
-str_SDSD2:
+str_SDSD2:                                      ; string "%s %d %s %d"; used by DrawMatchupNotes
         db 025h,073h,020h,025h,064h,020h,025h,073h,020h,025h,064h,00h
-str_Barasso:
+str_Barasso:                                    ; string "Barasso"; used by GoalieMaskList
         db 042h,061h,072h,061h,073h,073h,06Fh,00h
-str_PIT:
+str_PIT:                                        ; string "PIT"; used by GoalieMaskList
         db 050h,049h,054h,00h
-str_199596:
+str_199596:                                     ; string "1995-96"; used by GoalieMaskList
         db 031h,039h,039h,035h,02Dh,039h,036h,00h
-str_Beaupre:
+str_Beaupre:                                    ; string "Beaupre"; used by GoalieMaskList
         db 042h,065h,061h,075h,070h,072h,065h,00h
-str_OTT:
+str_OTT:                                        ; string "OTT"; used by GoalieMaskList
         db 04Fh,054h,054h,00h
-str_Brodeur:
+str_Brodeur:                                    ; string "Brodeur"; used by GoalieMaskList
         db 042h,072h,06Fh,064h,065h,075h,072h,00h
-str_NJ_GoalieMaskList:
+str_NJ_GoalieMaskList:                          ; team abbreviation NJ in the goalie mask list; used by
+                                                ; GoalieMaskList
         db 04Eh,04Ah,00h,00h
-str_Burke:
+str_Burke:                                      ; string "Burke"; used by GoalieMaskList
         db 042h,075h,072h,06Bh,065h,00h,00h,00h
-str_HFD:
+str_HFD:                                        ; string "HFD"; used by GoalieMaskList
         db 048h,046h,044h,00h
-str_Carey:
+str_Carey:                                      ; string "Carey"; used by GoalieMaskList
         db 043h,061h,072h,065h,079h,00h,00h,00h
-str_WAS:
+str_WAS:                                        ; string "WAS"; used by GoalieMaskList
         db 057h,041h,053h,00h
-str_Fichaud:
+str_Fichaud:                                    ; string "Fichaud"; used by GoalieMaskList
         db 046h,069h,063h,068h,061h,075h,064h,00h
-str_NYI_GoalieMaskList:
+str_NYI_GoalieMaskList:                         ; team abbreviation NYI in the goalie mask list; used by
+                                                ; GoalieMaskList
         db 04Eh,059h,049h,00h
-str_Flaherty:
+str_Flaherty:                                   ; string "Flaherty"; used by GoalieMaskList
         db 046h,06Ch,061h,068h,065h,072h,074h,079h,00h,00h,00h,00h
-str_SJ_GoalieMaskList:
+str_SJ_GoalieMaskList:                          ; team abbreviation SJ in the goalie mask list; used by
+                                                ; GoalieMaskList
         db 053h,04Ah,00h,00h
-str_Fuhr:
+str_Fuhr:                                       ; string "Fuhr"; used by GoalieMaskList
         db 046h,075h,068h,072h,00h,00h,00h,00h
-str_BUF:
+str_BUF:                                        ; string "BUF"; used by GoalieMaskList
         db 042h,055h,046h,00h
-str_199495:
+str_199495:                                     ; string "1994-95"; used by GoalieMaskList
         db 031h,039h,039h,034h,02Dh,039h,035h,00h
-str_STL:
+str_STL:                                        ; string "STL"; used by GoalieMaskList
         db 053h,054h,04Ch,00h
-str_Hackett:
+str_Hackett:                                    ; string "Hackett"; used by GoalieMaskList
         db 048h,061h,063h,06Bh,065h,074h,074h,00h
-str_CHI:
+str_CHI:                                        ; string "CHI"; used by GoalieMaskList
         db 043h,048h,049h,00h
-str_Hebert:
+str_Hebert:                                     ; string "Hebert"; used by GoalieMaskList
         db 048h,065h,062h,065h,072h,074h,00h,00h
-str_ANA:
+str_ANA:                                        ; string "ANA"; used by GoalieMaskList
         db 041h,04Eh,041h,00h
-str_Hextall:
+str_Hextall:                                    ; string "Hextall"; used by GoalieMaskList
         db 048h,065h,078h,074h,061h,06Ch,06Ch,00h
-str_PHI:
+str_PHI:                                        ; string "PHI"; used by GoalieMaskList
         db 050h,048h,049h,00h
-str_QUE:
+str_QUE:                                        ; string "QUE"; used by GoalieMaskList
         db 051h,055h,045h,00h
-str_199293:
+str_199293:                                     ; string "1992-93"; used by GoalieMaskList
         db 031h,039h,039h,032h,02Dh,039h,033h,00h
-str_Heyward:
+str_Heyward:                                    ; string "Heyward"; used by GoalieMaskList
         db 048h,065h,079h,077h,061h,072h,064h,00h
-str_Hirsch:
+str_Hirsch:                                     ; string "Hirsch"; used by GoalieMaskList
         db 048h,069h,072h,073h,063h,068h,00h,00h
-str_VAN:
+str_VAN:                                        ; string "VAN"; used by GoalieMaskList
         db 056h,041h,04Eh,00h
-str_Hrudey:
+str_Hrudey:                                     ; string "Hrudey"; used by GoalieMaskList
         db 048h,072h,075h,064h,065h,079h,00h,00h
-str_LA_GoalieMaskList:
+str_LA_GoalieMaskList:                          ; team abbreviation LA in the goalie mask list; used by
+                                                ; GoalieMaskList
         db 04Ch,041h,00h,00h
-str_Jablonski:
+str_Jablonski:                                  ; string "Jablonski"; used by GoalieMaskList
         db 04Ah,061h,062h,06Ch,06Fh,06Eh,073h,06Bh,069h,00h,00h,00h
-str_TB_GoalieMaskList:
+str_TB_GoalieMaskList:                          ; team abbreviation TB in the goalie mask list; used by
+                                                ; GoalieMaskList
         db 054h,042h,00h,00h
-str_Joseph:
+str_Joseph:                                     ; string "Joseph"; used by GoalieMaskList
         db 04Ah,06Fh,073h,065h,070h,068h,00h,00h
-str_EDM:
+str_EDM:                                        ; string "EDM"; used by GoalieMaskList
         db 045h,044h,04Dh,00h
-str_Kidd:
+str_Kidd:                                       ; string "Kidd"; used by GoalieMaskList
         db 04Bh,069h,064h,064h,00h,00h,00h,00h
-str_CAL:
+str_CAL:                                        ; string "CAL"; used by GoalieMaskList
         db 043h,041h,04Ch,00h
-str_Kolzig:
+str_Kolzig:                                     ; string "Kolzig"; used by GoalieMaskList
         db 04Bh,06Fh,06Ch,07Ah,069h,067h,00h,00h
-str_Lacher:
+str_Lacher:                                     ; string "Lacher"; used by GoalieMaskList
         db 04Ch,061h,063h,068h,065h,072h,00h,00h
-str_BOS:
+str_BOS:                                        ; string "BOS"; used by GoalieMaskList
         db 042h,04Fh,053h,00h
-str_Moog:
+str_Moog:                                       ; string "Moog"; used by GoalieMaskList
         db 04Dh,06Fh,06Fh,067h,00h,00h,00h,00h
-str_DAL:
+str_DAL:                                        ; string "DAL"; used by GoalieMaskList
         db 044h,041h,04Ch,00h
-str_Richter:
+str_Richter:                                    ; string "Richter"; used by GoalieMaskList
         db 052h,069h,063h,068h,074h,065h,072h,00h
-str_NYR_GoalieMaskList:
+str_NYR_GoalieMaskList:                         ; team abbreviation NYR in the goalie mask list; used by
+                                                ; GoalieMaskList
         db 04Eh,059h,052h,00h
-str_Roy:
+str_Roy:                                        ; string "Roy"; used by GoalieMaskList
         db 052h,06Fh,079h,00h
-str_COL:
+str_COL:                                        ; string "COL"; used by GoalieMaskList
         db 043h,04Fh,04Ch,00h
-str_MTL:
+str_MTL:                                        ; string "MTL"; used by GoalieMaskList
         db 04Dh,054h,04Ch,00h
-str_Thibault:
+str_Thibault:                                   ; string "Thibault"; used by GoalieMaskList
         db 054h,068h,069h,062h,061h,075h,06Ch,074h,00h,00h,00h,00h
-str_Vanbiesbrouck:
+str_Vanbiesbrouck:                              ; string "Vanbiesbrouck"; used by GoalieMaskList
         db 056h,061h,06Eh,062h,069h,065h,073h,062h,072h,06Fh,075h,063h,06Bh,00h,00h,00h
-str_FLA:
+str_FLA:                                        ; string "FLA"; used by GoalieMaskList
         db 046h,04Ch,041h,00h
-str_Vernon:
+str_Vernon:                                     ; string "Vernon"; used by GoalieMaskList
         db 056h,065h,072h,06Eh,06Fh,06Eh,00h,00h
-str_DET:
+str_DET:                                        ; string "DET"; used by GoalieMaskList
         db 044h,045h,054h,00h
-str_EASports:
+str_EASports:                                   ; string "EA Sports"; used by GoalieMaskList
         db 045h,041h,020h,053h,070h,06Fh,072h,074h,073h,00h,00h,00h
-str_EA:
+str_EA:                                         ; string "EA"; used by GoalieMaskList
         db 045h,041h,00h,00h

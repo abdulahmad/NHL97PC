@@ -7,76 +7,76 @@ global str_002dFSH, str_FRNT, str_FART4, str_NOFACEFSH4, str_PortraitNotFound, s
 global str_ST02d, str_Hros, str_Vros, str_Blurb, str_STAR, str_FIR1, str_FDPD, str_FIRD
 global str_000010, str_DOOR, str_TXT1, str_TRM1, str_TITL13, str_LOGO02dFSH2, str_LOGO7, str_LOGO28FSH
 global str_SS12, str_SDD, str_TXTD, str_D_DrawMatchupStats
-str_PANL2:
+str_PANL2:                                      ; string "PANL"; used by PreGameMatchupScreen
         db 050h,041h,04Eh,04Ch,00h
-str_TITL12:
+str_TITL12:                                     ; string "TITL"; used by PreGameMatchupScreen
         db 054h,049h,054h,04Ch,00h
-str_00009:
+str_00009:                                      ; string "0000"; used by PreGameMatchupScreen
         db 030h,030h,030h,030h,00h
-str_03dLFSH:
+str_03dLFSH:                                    ; string "%03dL.FSH"; used by PreGameMatchupScreen
         db 025h,030h,033h,064h,04Ch,02Eh,046h,053h,048h,00h
-str_03dRFSH:
+str_03dRFSH:                                    ; string "%03dR.FSH"; used by PreGameMatchupScreen
         db 025h,030h,033h,064h,052h,02Eh,046h,053h,048h,00h
-str_GSTS:
+str_GSTS:                                       ; string "GSTS"; used by DrawMatchupStats
         db 047h,053h,054h,053h,00h
-str_D_DrawMatchupStats:
+str_D_DrawMatchupStats:                         ; string "%d"; used by DrawMatchupStats
         db 025h,064h,00h
-str_DD5:
+str_DD5:                                        ; string "%d.%d"; used by DrawMatchupStats
         db 025h,064h,02Eh,025h,064h,00h
-str_PSTS:
+str_PSTS:                                       ; string "PSTS"; used by DrawMatchupStats, PreGameStatsPanel
         db 050h,053h,054h,053h,00h
-str_002dFSH:
+str_002dFSH:                                    ; string "0%02d.FSH"; used by DrawPlayerPortrait
         db 030h,025h,030h,032h,064h,02Eh,046h,053h,048h,00h
-str_FRNT:
+str_FRNT:                                       ; string "FRNT"; used by DrawPlayerPortrait
         db 046h,052h,04Eh,054h,00h
-str_FART4:
+str_FART4:                                      ; string "FART"; used by DrawPlayerPortrait
         db 046h,041h,052h,054h,00h
-str_NOFACEFSH4:
+str_NOFACEFSH4:                                 ; string "NOFACE.FSH"; used by DrawPlayerPortrait
         db 04Eh,04Fh,046h,041h,043h,045h,02Eh,046h,053h,048h,00h
-str_PortraitNotFound:
+str_PortraitNotFound:                           ; string "Portrait not found"; used by DrawPlayerPortrait
         db 050h,06Fh,072h,074h,072h,061h,069h,074h,020h,06Eh,06Fh,074h,020h,066h,06Fh,075h
         db 06Eh,064h,00h
-str_DSS3:
+str_DSS3:                                       ; string "#%d %s %s"; used by DrawPlayerPortrait
         db 023h,025h,064h,020h,020h,025h,073h,020h,025h,073h,00h
-str_Homestats:
+str_Homestats:                                  ; string "homestats"; used by PreGameStatsPanel
         db 068h,06Fh,06Dh,065h,073h,074h,061h,074h,073h,00h
-str_Awaystats:
+str_Awaystats:                                  ; string "awaystats"; used by PreGameStatsPanel
         db 061h,077h,061h,079h,073h,074h,061h,074h,073h,00h
-str_ST02d:
+str_ST02d:                                      ; string "ST%02d"; used by LoadMatchupArt
         db 053h,054h,025h,030h,032h,064h,00h,00h,00h
-str_Hros:
+str_Hros:                                       ; string "hros"; used by PreGameRostersScreen
         db 068h,072h,06Fh,073h,00h
-str_Vros:
+str_Vros:                                       ; string "vros"; used by PreGameRostersScreen
         db 076h,072h,06Fh,073h,00h
-str_Blurb:
+str_Blurb:                                      ; string "blurb"; used by PreGameRostersScreen
         db 062h,06Ch,075h,072h,062h,00h
-str_STAR:
+str_STAR:                                       ; string "STAR"; used by PreGameRostersScreen
         db 053h,054h,041h,052h,00h
-str_FIR1:
+str_FIR1:                                       ; string "FIR1"; used by PreGameRostersScreen
         db 046h,049h,052h,031h,00h
-str_FDPD:
+str_FDPD:                                       ; string "F%dP%d"; used by PreGameRostersScreen
         db 046h,025h,064h,050h,025h,064h,00h
-str_FIRD:
+str_FIRD:                                       ; string "FIR%d"; used by PreGameRostersScreen
         db 046h,049h,052h,025h,064h,00h
-str_000010:
+str_000010:                                     ; string "0000"; used by PreGameRostersScreen
         db 030h,030h,030h,030h,00h
-str_TXTD:
+str_TXTD:                                       ; string "TXT%d"; used by PreGameRostersScreen
         db 054h,058h,054h,025h,064h,00h
-str_DOOR:
+str_DOOR:                                       ; string "DOOR"; used by PreGameRostersScreen
         db 044h,04Fh,04Fh,052h,00h
-str_TXT1:
+str_TXT1:                                       ; string "TXT1"; used by PreGameRostersScreen
         db 054h,058h,054h,031h,00h
-str_TRM1:
+str_TRM1:                                       ; string "TRM1"; used by PreGameRostersScreen
         db 054h,052h,04Dh,031h,00h
-str_TITL13:
+str_TITL13:                                     ; string "TITL"; used by PreGameRostersScreen
         db 054h,049h,054h,04Ch,00h
-str_LOGO02dFSH2:
+str_LOGO02dFSH2:                                ; string "LOGO%02d.FSH"; used by PreGameRostersScreen
         db 04Ch,04Fh,047h,04Fh,025h,030h,032h,064h,02Eh,046h,053h,048h,00h
-str_LOGO7:
+str_LOGO7:                                      ; string "LOGO"; used by PreGameRostersScreen
         db 04Ch,04Fh,047h,04Fh,00h
-str_LOGO28FSH:
+str_LOGO28FSH:                                  ; string "LOGO28.FSH"; used by PreGameRostersScreen
         db 04Ch,04Fh,047h,04Fh,032h,038h,02Eh,046h,053h,048h,00h
-str_SS12:
+str_SS12:                                       ; string "'%s'%s"; used by FormatMatchupNote
         db 022h,025h,073h,022h,025h,073h,00h
-str_SDD:
+str_SDD:                                        ; string "%s %d,%d"; used by DrawRosterPlayerInfo
         db 025h,073h,020h,025h,064h,02Ch,025h,064h,00h

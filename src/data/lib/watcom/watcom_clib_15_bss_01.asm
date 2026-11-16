@@ -5,41 +5,53 @@ section s_1DA498 nobits alloc noexec write align=1
 global __nheap_clean, __HeapFlags, PaletteDirty, __OpenStreams, __ClosedStreams, MemLockState, PaletteWords, IpxEcb
 global IpxSocket, errno, _doserrno, ArchiveHeader, IpxRealSegment, IpxCallSegment, IpxCallOffset, IpxSavedVecOffset
 global IpxBufferSegment, IpxBufferOffset, IpxSavedVecSegment
-IpxEcb:
+IpxEcb:                                         ; IPX event control block; used by IpxStart
         resb 12
-IpxSocket:
+IpxSocket:                                      ; IPX socket number; used by IpxStart, IpxStop
         resb 2
-IpxRealSegment:
+IpxRealSegment:                                 ; real mode segment of the IPX buffers; used by IpxHookCheck,
+                                                ; IpxSendPacket
         resb 2
-IpxCallSegment:
+IpxCallSegment:                                 ; real mode segment for IPX calls; used by IpxCloseSocketCall,
+                                                ; IpxGetAddressCall, IpxGetTargetCall ...
         resb 2
-IpxCallOffset:
+IpxCallOffset:                                  ; real mode offset for IPX calls; used by IpxCloseSocketCall,
+                                                ; IpxGetAddressCall, IpxGetTargetCall ...
         resb 2
-IpxSavedVecOffset:
+IpxSavedVecOffset:                              ; previous IPX interrupt offset; used by IpxHookCheck,
+                                                ; IpxRestoreVector
         resb 2
-IpxBufferSegment:
+IpxBufferSegment:                               ; real mode segment of the IPX packet buffer; used by
+                                                ; IpxHookCheck, IpxSendPacket
         resb 2
-IpxBufferOffset:
+IpxBufferOffset:                                ; real mode offset of the IPX packet buffer; used by
+                                                ; IpxHookCheck, IpxSendPacket
         resb 2
-IpxSavedVecSegment:
+IpxSavedVecSegment:                             ; previous IPX interrupt segment; used by IpxHookCheck,
+                                                ; IpxRestoreVector
         resb 2
-errno:
+errno:                                          ; C library errno; used by ErrnoPtr
         resb 4
-_doserrno:
+_doserrno:                                      ; C library DOS error code; used by DosErrnoPtr
         resb 4
-__OpenStreams:
+__OpenStreams:                                  ; list of open stdio streams; used by __InitFiles_,
+                                                ; __allocfp_, __freefp_ ...
         resb 4
-__ClosedStreams:
+__ClosedStreams:                                ; list of closed stdio streams; used by __InitFiles_,
+                                                ; __allocfp_, __flushall_ ...
         resb 4
-__nheap_clean:
+__nheap_clean:                                  ; near heap clean flag; used by _nfree_, _nmalloc_
         resb 1
-__HeapFlags:
+__HeapFlags:                                    ; heap manager flags; used by __HeapManager_expand_
         resb 3
-MemLockState:
+MemLockState:                                   ; memory lock state; used by ResetMemLock
         resb 4
-ArchiveHeader:
+ArchiveHeader:                                  ; resource archive header; used by ArchiveEntryOffset,
+                                                ; ArchiveEntryOffsetAt, LocateArchiveEntries ...
         resb 4
-PaletteWords:
+PaletteWords:                                   ; palette as 32-bit entries; used by BlendShapeRows,
+                                                ; BlitShapeKeyed, BuildTextColorTable ...
         resb 1023
-PaletteDirty:
+PaletteDirty:                                   ; palette changed since the last write; used by
+                                                ; CountFrameTick, WritePaletteRegs
         resb 1

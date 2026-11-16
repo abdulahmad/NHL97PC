@@ -7,70 +7,94 @@ global IntermissionOverlay, MenuFontSmall, MenuFontLarge, MenuTextColour, PauseF
 global IdleHandlers, IdleHandlerCount, HeapFreeList, MemBlockGuards
 global MemDescriptorTop, MemLockHandle, MemFreeStart, MemFreeBytes, timercallbacks, TimerFraction, TimerStep, TimerOldCount
 global ShapeDrawDest, memlist1, PauseMenuMode, TimerFractionHigh
-PauseRemoteShape:
+PauseRemoteShape:                               ; pause menu remote shape; used by FreePauseArt, LoadPauseArt,
+                                                ; OpenInGameMenu ...
         resb 4
-PauseMouseShape:
+PauseMouseShape:                                ; pause menu mouse shape; used by LoadPauseArt,
+                                                ; OpenInGameMenu, PauseMenu
         resb 4
-PauseRemoteLitShape:
+PauseRemoteLitShape:                            ; pause menu lit remote shape; used by LoadPauseArt,
+                                                ; OpenInGameMenu, PauseMenu
         resb 4
-PauseBitmap:
+PauseBitmap:                                    ; pause menu bitmap; used by LoadPauseArt, OpenInGameMenu,
+                                                ; PauseMenu
         resb 4
-MenuItemHighlight:
+MenuItemHighlight:                              ; menu item highlight; used by DetailLevelMenu,
+                                                ; DrawIntermissionTitle, DrawMenuItem ...
         resb 4
-PauseClockArea:
+PauseClockArea:                                 ; pause clock area; used by CleanupPauseArt, DrawClockOverlay,
+                                                ; LeaveGameForMenu ...
         resb 4
-MenuFrameColour:
+MenuFrameColour:                                ; menu frame colour; used by ConfirmQuitGame,
+                                                ; DrawIntermissionTitle, DrawMenuFrame ...
         resb 4
-PauseResumeTick:
+PauseResumeTick:                                ; tick when play resumes after the pause; used by PauseMenu
         resb 4
-IntermissionOverlay:
+IntermissionOverlay:                            ; intermission overlay; used by CloseIntermission,
+                                                ; DrawIntermissionTitle, PauseMenu ...
         resb 8
-MenuFontSmall:
+MenuFontSmall:                                  ; menu font, low resolution; used by ConfirmQuitGame,
+                                                ; DetailLevelMenu, DrawIntermissionTitle ...
         resb 4
-MenuFontLarge:
+MenuFontLarge:                                  ; menu font, high resolution; used by ConfirmQuitGame,
+                                                ; DetailLevelMenu, DrawIntermissionTitle ...
         resb 4
-MenuTextColour:
+MenuTextColour:                                 ; menu text colour; used by DetailLevelMenu, DrawMenuItem,
+                                                ; DrawPauseButton ...
         resb 4
-PauseFrameMode:
+PauseFrameMode:                                 ; pause frame mode; used by PauseMenu, RunPauseIntermission
         resb 4
-PauseMenuMode:
+PauseMenuMode:                                  ; pause menu mode; used by ConfirmQuitGame, DetailLevelMenu,
+                                                ; PauseMenu ...
         resb 4
-VideoModeInfo:
+VideoModeInfo:                                  ; video mode info: width, height, bits per pixel, flags; used
+                                                ; by FindNearestVideoMode, GetVideoModeList, InitVideoModeList
+                                                ; ...
         resb 4
         resb 4
         resb 8
         resb 4
-IdleHandlers:
+IdleHandlers:                                   ; idle handler table (16 bytes each: routine, context, period,
+                                                ; next tick); used by AddIdleHandler, RemoveIdleHandler,
+                                                ; RunIdleHandlers
         resb 4
         resb 4
         resb 4
         resb 4
         resb 224
-IdleHandlerCount:
+IdleHandlerCount:                               ; idle handler count; used by RemoveIdleHandler
         resb 16
-HeapFreeList:
+HeapFreeList:                                   ; near heap free list; used by __unlink_, _nfree_
         resb 4
-memlist1:
+memlist1:                                       ; used by AddHighMemRegion, AddMemRegion, AddMemRegions ...
         resb 4
-MemBlockGuards:
+MemBlockGuards:                                 ; memory block guards; used by CheckBlockGuards, MemListEnd,
+                                                ; findmemblock
         resb 380
-MemDescriptorTop:
+MemDescriptorTop:                               ; memory descriptor top; used by AddHighMemRegion,
+                                                ; AddMemRegion, AllocMemBlockEx ...
         resb 4
-MemLockHandle:
+MemLockHandle:                                  ; memory lock handle; used by AllocMemBlock,
+                                                ; AllocMemBlockFixed, AllocMemBlockFull ...
         resb 4
-MemFreeStart:
+MemFreeStart:                                   ; memory free start; used by AllocMemBlockEx,
+                                                ; CompactMemListUp, InitMemoryPool
         resb 4
-MemFreeBytes:
+MemFreeBytes:                                   ; memory free size; used by AllocMemBlockEx, CompactMemListUp,
+                                                ; InitMemoryPool ...
         resb 4
-timercallbacks:
+timercallbacks:                                 ; used by InstallTimer, RemoveTimerCallback, RunTimerCallbacks
+                                                ; ...
         resb 32
-TimerFraction:
+TimerFraction:                                  ; timer tick fraction; used by InstallTimer, TimerISR
         resb 2
-TimerFractionHigh:
+TimerFractionHigh:                              ; timer tick fraction high word; used by TimerISR
         resb 2
-TimerStep:
+TimerStep:                                      ; timer tick step; used by InstallTimer, TimerISR
         resb 4
-TimerOldCount:
+TimerOldCount:                                  ; old timer count; used by InstallTimer, RestoreTimer,
+                                                ; TimerISR
         resb 4
-ShapeDrawDest:
+ShapeDrawDest:                                  ; shape draw destination; used by CopyRowKeyed32,
+                                                ; DrawShapeCore
         resb 4

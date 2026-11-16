@@ -8,29 +8,39 @@ global ControlPadShapes, ControlPadShapesNext, ControlShapeFile, ControlSetupIte
 
 
 global KeyNames
-ControlBitmaps:
+ControlBitmaps:                                 ; control setup bitmaps (16 bytes each); used by
+                                                ; ControlSetupScreen
         resb 8
-ControlKeyArt:
+ControlKeyArt:                                  ; control key art per row (8 bytes each); used by
+                                                ; ControlSetupScreen
         resb 4
-ControlKeyLitArt:
+ControlKeyLitArt:                               ; control key lit art per row; used by ControlSetupScreen
         resb 60
-ControlPadArt:
+ControlPadArt:                                  ; control pad art per item (8 bytes each); used by
+                                                ; ControlSetupSound
         resb 4
-ControlPadLitArt:
+ControlPadLitArt:                               ; control pad lit art per item; used by ControlSetupSound
         resb 52
-ControlLabelLayers:
+ControlLabelLayers:                             ; control label layers (8 bytes each); used by
+                                                ; ControlSetupScreen, DrawControlLabel
         resb 4
-ControlLabelLitLayers:
+ControlLabelLitLayers:                          ; control label lit layers; used by ControlSetupScreen,
+                                                ; DrawControlLabel
         resb 44
-ControlKeyShapes:
+ControlKeyShapes:                               ; control key shapes; used by ControlSetupKeys,
+                                                ; ControlSetupPlayers
         resb 16
-ControlPadShapes:
+ControlPadShapes:                               ; control pad shapes; used by ControlSetupPads,
+                                                ; ControlSetupScreen, ControlSetupSound
         resb 4
-ControlPadShapesNext:
+ControlPadShapesNext:                           ; control pad shapes from the second; used by
+                                                ; ControlSetupSound
         resb 12
-ControlShapeFile:
+ControlShapeFile:                               ; control setup shape file; used by ControlSetupScreen,
+                                                ; ShowReservedKey
         resb 4
-ControlSetupItems:
+ControlSetupItems:                              ; control setup menu item records (82 bytes each); used by
+                                                ; ControlSetupKeys, ControlSetupMain, ControlSetupPads ...
         resb 4
         resb 12
         resb 4
@@ -67,5 +77,6 @@ ControlSetupItems:
         resb 4
         resb 4
         resb 1352
-KeyNames:
+KeyNames:                                       ; key name strings per scan code (15 bytes each); used by
+                                                ; ControlSetupScreen, GetKeyName, ShowReservedKey
         resb 15

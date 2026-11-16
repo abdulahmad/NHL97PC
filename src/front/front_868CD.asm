@@ -426,7 +426,7 @@ DrawPhonebookField:
         pop edi
         pop esi
         ret
-PhonebookEntryScreenJumpTable:
+PhonebookEntryScreenJumpTable:                  ; jump table for the switch cases of PhonebookEntryScreen
         dd PhonebookEntryScreen_4B8
         dd PhonebookEntryScreen_4C9
         dd PhonebookEntryScreen_5DB
@@ -1488,7 +1488,7 @@ DrawModemField:
         pop esi
         pop ecx
         ret
-ModemSettingsScreenJumpTable:
+ModemSettingsScreenJumpTable:                   ; jump table for the switch cases of ModemSettingsScreen
         dd ModemSettingsScreen_AE3
         dd ModemSettingsScreen_AF4
         dd ModemSettingsScreen_CC6
@@ -2950,7 +2950,7 @@ DrawNetworkStatus:
         pop esi
         pop ecx
         ret
-NetworkGamesScreenJumpTable:
+NetworkGamesScreenJumpTable:                    ; jump table for the switch cases of NetworkGamesScreen
         dd NetworkGamesScreen_646
         dd NetworkGamesScreen_657
         dd NetworkGamesScreen_880

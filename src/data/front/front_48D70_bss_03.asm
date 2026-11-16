@@ -14,159 +14,190 @@ global CameraModeOn, NetShadowH, NetShadowD, NetY, NetZ, BoardAdArt, ArenaArtPar
 
 global BenchDoorArt, CrowdReactPos, ScoreboardCorners, RinkViewPoints, ScoreboardText, IceLinePolys
 global BoardLinePolys, IceSurfacePolys, IceCenterPoly, ScoreboardTick
-GoalCheerState:
+GoalCheerState:                                 ; goal cheer state; used by GoalCrowdCheer, UpdateGoalLight
         resb 4
-GoalLightState:
+GoalLightState:                                 ; goal light state; used by DrawFarSide, DrawGoalLight,
+                                                ; DrawNearSide ...
         resb 4
-BenchModel:
+BenchModel:                                     ; bench model; used by DrawBenchRow, DrawBenchSection,
+                                                ; SetPenaltyBoxDoor ...
         resb 4
-BenchDetail:
+BenchDetail:                                    ; bench detail; used by DrawBenchRow, DrawBenchSection,
+                                                ; SetupRinkModel
         resb 4
-StandsDetail:
+StandsDetail:                                   ; stands detail; used by LoadRinkModel, SetStandsDetail,
+                                                ; TriggerCameraFlashes ...
         resb 4
-BenchCheerTeam:
+BenchCheerTeam:                                 ; team cheering on the bench; used by StartBenchCheer,
+                                                ; UpdateBenchCheer
         resb 4
-BenchCheerTimer:
+BenchCheerTimer:                                ; bench cheer timer; used by StartBenchCheer, UpdateBenchCheer
         resb 4
-BenchCheerFrame:
+BenchCheerFrame:                                ; bench cheer frame; used by StartBenchCheer, UpdateBenchCheer
         resb 4
-BenchCheerCount:
+BenchCheerCount:                                ; bench cheerers; used by StartBenchCheer, UpdateBenchCheer
         resb 4
-BenchCheerFirst:
+BenchCheerFirst:                                ; first bench cheerer; used by StartBenchCheer,
+                                                ; UpdateBenchCheer
         resb 4
-BenchCheerLast:
+BenchCheerLast:                                 ; last bench cheerer; used by StartBenchCheer,
+                                                ; UpdateBenchCheer
         resb 4
-BenchCheerOn:
+BenchCheerOn:                                   ; bench cheer running; used by BenchCheerStep, LoadRinkModel,
+                                                ; StartBenchCheer ...
         resb 4
-CrowdReactPos:
+CrowdReactPos:                                  ; crowd reaction position; used by SetupRinkModel,
+                                                ; StartCrowdReaction
         resb 12
-CrowdReactStart:
+CrowdReactStart:                                ; crowd reaction start time; used by SetupRinkModel,
+                                                ; StartCrowdReaction, UpdateCrowdReaction
         resb 4
-CrowdReactOn:
+CrowdReactOn:                                   ; crowd reaction running; used by EndCrowdReaction,
+                                                ; FreeRinkModel, LoadRinkModel ...
         resb 4
-CrowdReactCount:
+CrowdReactCount:                                ; crowd members reacting; used by BuildCrowdReaction,
+                                                ; EndCrowdReaction, FreeRinkModel ...
         resb 4
-CrowdReactList:
+CrowdReactList:                                 ; crowd reaction list; used by BuildCrowdReaction,
+                                                ; StartCrowdReaction
         resb 4
-CrowdReactLevel:
+CrowdReactLevel:                                ; crowd reaction level; used by BuildCrowdReaction,
+                                                ; DrawBenchPlayers, EndCrowdReaction ...
         resb 4
-CrowdReactTime:
+CrowdReactTime:                                 ; crowd reaction time; used by BuildCrowdReaction,
+                                                ; StartCrowdReaction
         resb 4
-CameraOnPuck:
+CameraOnPuck:                                   ; camera follows the puck; used by DrawNetsHook, InitRinkView,
+                                                ; IsCameraOnPuck ...
         resb 4
-ScoreboardCorners:
+ScoreboardCorners:                              ; scoreboard corner points; used by GetCameraTarget,
+                                                ; UpdateScoreboardPos
         resb 24
-RinkViewPoints:
+RinkViewPoints:                                 ; rink view points; used by GetCameraTarget, LoadRinkModel
         resb 48
-ScoreboardArt:
+ScoreboardArt:                                  ; scoreboard art; used by LoadScoreboardArt
         resb 4
-ScoreboardDigits:
+ScoreboardDigits:                               ; scoreboard digit art; used by DrawScoreboard,
+                                                ; LoadScoreboardArt
         resb 4
-ScoreboardSize:
+ScoreboardSize:                                 ; scoreboard size; used by DrawScoreboard, LoadScoreboardArt
         resb 8
-ScoreboardFrame:
+ScoreboardFrame:                                ; scoreboard frame; used by DrawScoreboard, LoadScoreboardArt
         resb 4
-ScoreboardBounds:
+ScoreboardBounds:                               ; scoreboard bounds; used by DrawScoreboard, LoadScoreboardArt
         resb 8
-ScoreboardTime:
+ScoreboardTime:                                 ; scoreboard time shown; used by DrawScoreboard,
+                                                ; LoadScoreboardArt
         resb 4
-ScoreboardScore:
+ScoreboardScore:                                ; scoreboard score shown; used by DrawScoreboard,
+                                                ; LoadScoreboardArt
         resb 4
-ScoreboardText:
+ScoreboardText:                                 ; scoreboard text; used by DrawScoreboard, LoadScoreboardArt
         resb 36
-ScoreboardPeriod:
+ScoreboardPeriod:                               ; scoreboard period; used by DrawScoreboard, LoadScoreboardArt
         resb 2
-ScoreboardTick:
+ScoreboardTick:                                 ; scoreboard tick; used by DrawScoreboard
         resb 2
-ScoreboardBuffer:
+ScoreboardBuffer:                               ; scoreboard buffer; used by DrawScoreboard, LoadScoreboardArt
         resb 4
-ScoreboardPitch:
+ScoreboardPitch:                                ; scoreboard buffer pitch; used by DrawScoreboard,
+                                                ; LoadScoreboardArt
         resb 4
-ScoreboardLogo:
+ScoreboardLogo:                                 ; scoreboard logo; used by LoadScoreboardArt
         resb 4
-ScoreboardHome:
+ScoreboardHome:                                 ; scoreboard home score art; used by DrawScoreboard,
+                                                ; LoadScoreboardArt
         resb 4
-ScoreboardAway:
+ScoreboardAway:                                 ; scoreboard away score art; used by DrawScoreboard,
+                                                ; LoadScoreboardArt
         resb 4
-ScoreboardClock:
+ScoreboardClock:                                ; scoreboard clock art; used by DrawScoreboard,
+                                                ; LoadScoreboardArt
         resb 4
-ScoreboardLoaded:
+ScoreboardLoaded:                               ; scoreboard loaded; used by LoadScoreboardArt
         resb 4
-GoalLightArt:
+GoalLightArt:                                   ; goal light art; used by DrawGoalLight, LoadRinkModel
         resb 4
-GoalLightModel:
+GoalLightModel:                                 ; goal light model; used by LoadRinkModel, UpdateGoalLight
         resb 4
-CrowdDelay:
+CrowdDelay:                                     ; crowd reaction delay; used by CrowdRandomDelay,
+                                                ; EndCrowdReaction, StartCrowdReaction
         resb 4
-CrowdReactType:
+CrowdReactType:                                 ; crowd reaction type; used by BuildCrowdReaction,
+                                                ; CrowdRandomDelay, DrawBenchPlayers ...
         resb 4
-CrowdReactEnd:
+CrowdReactEnd:                                  ; crowd reaction end time; used by CrowdRandomDelay,
+                                                ; EndCrowdReaction, StartCrowdReaction
         resb 4
-CrowdModel:
+CrowdModel:                                     ; crowd model; used by EndCrowdReaction, FreeRinkModel,
+                                                ; SetupRinkModel ...
         resb 4
-CrowdFrame:
+CrowdFrame:                                     ; crowd frame; used by DrawBenchPlayers, EndCrowdReaction,
+                                                ; StartCrowdReaction
         resb 4
-CrowdFrameTime:
+CrowdFrameTime:                                 ; crowd frame time; used by DrawBenchPlayers,
+                                                ; StartCrowdReaction
         resb 4
-IceLinePolys:
+IceLinePolys:                                   ; ice line polygons; used by DrawGoalLines, DrawIceSurface
         resb 108
-BoardLinePolys:
+BoardLinePolys:                                 ; board line polygons; used by DrawBoardsLines, DrawIceSurface
         resb 108
-RinkLength:
+RinkLength:                                     ; rink length; used by BuildRinkGeometry, DrawRinkSurface,
+                                                ; LoadRinkModel
         resb 4
-RinkWidth:
+RinkWidth:                                      ; rink width; used by BuildRinkGeometry, DrawRinkSurface,
+                                                ; LoadRinkModel
         resb 4
-RinkCorner:
+RinkCorner:                                     ; rink corner radius; used by BuildRinkGeometry,
+                                                ; DrawRinkSurface, LoadRinkModel
         resb 4
-IceSurfacePolys:
+IceSurfacePolys:                                ; ice surface polygons; used by DrawIceSurface
         resb 96
-RinkGoalLine:
+RinkGoalLine:                                   ; goal line position; used by BuildRinkGeometry
         resb 4
-RinkBlueLine:
+RinkBlueLine:                                   ; blue line position; used by BuildRinkGeometry
         resb 4
-RinkCenterLine:
+RinkCenterLine:                                 ; center line position; used by BuildRinkGeometry
         resb 4
-IceCenterPoly:
+IceCenterPoly:                                  ; ice center polygon; used by DrawIceSurface
         resb 12
-ModelSlotTable:
+ModelSlotTable:                                 ; model slots; used by ClearModelSlots
         resb 96
-RinkModelState:
+RinkModelState:                                 ; rink model state; used by DrawRinkSurface, LoadRinkModel
         resb 20
-NetX:
+NetX:                                           ; net X; used by DrawNets, InitRinkProjection, SetNetPositions
         resb 4
-NetShadowX:
+NetShadowX:                                     ; net shadow X; used by DrawNetShadows, InitRinkProjection,
+                                                ; SetNetPositions
         resb 4
-NetShadowY:
+NetShadowY:                                     ; net shadow Y; used by DrawNetShadows, InitRinkProjection,
+                                                ; SetNetPositions
         resb 4
-ViewDistance:
+ViewDistance:                                   ; view distance; used by InitRinkView, UpdateViewDistance
         resb 4
-NetShadowZ:
+NetShadowZ:                                     ; net shadow Z; used by DrawNetShadows, InitRinkProjection,
+                                                ; SetNetPositions
         resb 4
-NetShadowW:
+NetShadowW:                                     ; net shadow width; used by DrawNetShadows,
+                                                ; InitRinkProjection, SetNetPositions
         resb 4
-CameraModeOn:
+CameraModeOn:                                   ; camera mode set; used by InitRinkView, IsCameraOnPuck,
+                                                ; SetCameraMode ...
         resb 4
-NetShadowH:
+NetShadowH:                                     ; net shadow height; used by DrawNetShadows,
+                                                ; InitRinkProjection, SetNetPositions
         resb 4
-NetShadowD:
+NetShadowD:                                     ; net shadow depth; used by DrawNetShadows,
+                                                ; InitRinkProjection, SetNetPositions
         resb 4
-NetY:
+NetY:                                           ; net Y; used by DrawNets, InitRinkProjection, SetNetPositions
         resb 4
-NetZ:
+NetZ:                                           ; net Z; used by DrawNets, InitRinkProjection, SetNetPositions
         resb 4
-BoardAdArt:
+BoardAdArt:                                     ; board ad art; used by LoadArenaArt, SetupBoardAds
         resb 4
-ArenaArtParts:
-        resb 4
-        resb 4
-        resb 4
-        resb 4
-        resb 4
-        resb 4
-        resb 4
-        resb 4
-        resb 4
-        resb 4
+ArenaArtParts:                                  ; arena art pieces loaded by LoadArenaArt (20 pointers); used
+                                                ; by LoadArenaArt
         resb 4
         resb 4
         resb 4
@@ -177,5 +208,15 @@ ArenaArtParts:
         resb 4
         resb 4
         resb 4
-BenchDoorArt:
+        resb 4
+        resb 4
+        resb 4
+        resb 4
+        resb 4
+        resb 4
+        resb 4
+        resb 4
+        resb 4
+        resb 4
+BenchDoorArt:                                   ; bench door art; used by BuildRinkSides, DrawBenchDoors
         resb 4

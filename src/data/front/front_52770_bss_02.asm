@@ -4,35 +4,40 @@ bits 32
 section s_1B0610 nobits alloc noexec write align=1
 global ArenaArchiveSize, StandsArt, RinkModelHeader, RinkModelVerts, RinkModelPolys, RinkModelNormals, RinkModelTexInfo, RinkModelBounds
 global RinkModelSize, RinkModelFlags, GoalCheerTeam, GoalCheerOn, RinkPaletteBase, RinkPaletteRemap, StandsPalette, BenchPalette
-RinkPaletteBase:
+RinkPaletteBase:                                ; rink base palette; used by BuildRinkPalette, SetRinkPalette
         resb 256
-RinkPaletteRemap:
+RinkPaletteRemap:                               ; rink palette remap; used by BuildRinkPalette, DrawNearSide,
+                                                ; DrawRinkSurface
         resb 252
-ArenaArchiveSize:
+ArenaArchiveSize:                               ; arena archive size; used by OpenArenaArchive
         resb 4
-StandsArt:
+StandsArt:                                      ; stands art; used by DrawStandsSide, OpenArenaArchive
         resb 64
-StandsPalette:
+StandsPalette:                                  ; stands palette; used by BuildRinkPalette, DrawRinkSurface
         resb 256
-RinkModelHeader:
+RinkModelHeader:                                ; rink model header; used by LoadRinkModel
         resb 4
-RinkModelVerts:
+RinkModelVerts:                                 ; rink model vertices; used by LoadRinkModel
         resb 4
-RinkModelPolys:
+RinkModelPolys:                                 ; rink model polygons; used by LoadRinkModel
         resb 4
-RinkModelNormals:
+RinkModelNormals:                               ; rink model normals; used by LoadRinkModel
         resb 4
-RinkModelTexInfo:
+RinkModelTexInfo:                               ; rink model texture info; used by DrawRinkSurface,
+                                                ; LoadRinkModel
         resb 4
-RinkModelBounds:
+RinkModelBounds:                                ; rink model bounds; used by LoadRinkModel
         resb 4
-RinkModelSize:
+RinkModelSize:                                  ; rink model size; used by LoadRinkModel
         resb 4
-RinkModelFlags:
+RinkModelFlags:                                 ; rink model flags; used by LoadRinkModel
         resb 4
-BenchPalette:
+BenchPalette:                                   ; bench palette; used by BuildRinkPalette, DrawBenchRow,
+                                                ; DrawBenches
         resb 256
-GoalCheerTeam:
+GoalCheerTeam:                                  ; team cheering a goal; used by GoalCrowdCheer, LoadRinkModel,
+                                                ; UpdateGoalLight
         resb 4
-GoalCheerOn:
+GoalCheerOn:                                    ; goal cheer running; used by DrawFarSide, DrawNearSide,
+                                                ; GoalCrowdCheer
         resb 4

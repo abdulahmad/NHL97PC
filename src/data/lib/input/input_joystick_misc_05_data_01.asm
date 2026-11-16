@@ -8,7 +8,7 @@ extern ConvertRow15To8, ConvertRow24To24, ConvertRow32To16, ConvertRow24To16, Co
 extern ConvertIndexedTo32, Convert32To565Keyed, Convert32To555Keyed, ConvertIndexedTo16, SwapRedBlue555, Convert32To565, ConvertNibbleTo16, str_Fsh
 global ArtFormatCodes, PacketCrcTable, FshExtension, ConvertPalette, ColorKeyEnabled, BlitRowFuncTable, ConvertDestBuffer, ArtRowFuncs8
 global ArtRowFuncs16
-PacketCrcTable:
+PacketCrcTable:                                 ; CRC table for link packet checksums; used by PacketChecksum
         db 00h,00h,00h,00h,0C1h,0C0h,00h,00h,081h,0C1h,00h,00h,040h,01h,00h,00h
         db 01h,0C3h,00h,00h,0C0h,03h,00h,00h,080h,02h,00h,00h,041h,0C2h,00h,00h
         db 01h,0C6h,00h,00h,0C0h,06h,00h,00h,080h,07h,00h,00h,041h,0C7h,00h,00h
@@ -73,7 +73,8 @@ PacketCrcTable:
         db 01h,087h,00h,00h,0C0h,047h,00h,00h,080h,046h,00h,00h,041h,086h,00h,00h
         db 01h,082h,00h,00h,0C0h,042h,00h,00h,080h,043h,00h,00h,041h,083h,00h,00h
         db 00h,041h,00h,00h,0C1h,081h,00h,00h,081h,080h,00h,00h,040h,040h,00h,00h
-BlitRowFuncTable:
+BlitRowFuncTable:                               ; row blit routine table; used by BlitArt, BlitClippedY,
+                                                ; BlitConverted ...
         dd PacketChecksum_90
         dd CopyRow8
         dd CopyRow16
@@ -81,16 +82,21 @@ BlitRowFuncTable:
         dd CopyRow24
         dd CopyRow32
         db 00h,00h,00h,00h,02h,00h,00h,00h,00h,00h,00h,00h
-FshExtension:
+FshExtension:                                   ; pointer to the ".fsh" file extension; used by
+                                                ; LoadDataFileExt
         dd str_Fsh
         db 00h,00h,00h,00h
-ConvertPalette:
+ConvertPalette:                                 ; palette used to convert true colour rows to 8-bit; used by
+                                                ; Convert32To565Keyed, ConvertRow15To8, ConvertRow16To8
         db 00h,00h,00h,00h
-ColorKeyEnabled:
+ColorKeyEnabled:                                ; colour key used when converting 32-bit art; used by
+                                                ; Convert32To565Keyed
         db 01h,00h,00h,00h
-ConvertDestBuffer:
+ConvertDestBuffer:                              ; destination buffer for art conversion; used by
+                                                ; ConvertArtRows, ConvertArtShape, ConvertIndexedTo32 ...
         dd PaletteWords
-ArtRowFuncs8:
+ArtRowFuncs8:                                   ; row conversion routine per art format (8-bit); used by
+                                                ; ConvertArtRows, ConvertArtShape
         dd DrawShapeBlended_1F4
         dd ConvertRow4To8
         dd ConvertNibbleTo16
@@ -140,7 +146,8 @@ ArtRowFuncs8:
         dd SwapRedBlue555
         dd SwapRedBlue555
         dd ConvertRow16To16
-ArtRowFuncs16:
+ArtRowFuncs16:                                  ; row conversion routine per art format (16-bit); used by
+                                                ; ConvertArtRows, ConvertArtShape
         dd DrawShapeBlended_1F4
         dd ConvertRow4To8
         dd ConvertNibbleTo16
@@ -190,7 +197,8 @@ ArtRowFuncs16:
         dd SwapRedBlue555
         dd SwapRedBlue555
         dd ConvertRow16To16
-ArtFormatCodes:
+ArtFormatCodes:                                 ; art format code bytes; used by ConvertArtRows,
+                                                ; ConvertArtShape
         db 07Ah,07Bh,07Eh,078h,07Bh,07Bh,07Eh,07Ah,07Bh,07Eh,078h,07Fh,07Dh,07Eh,078h,078h
         db 07Eh,078h,078h,07Dh,042h,07Bh,07Bh,07Eh,078h,07Fh,07Dh,07Eh,07Dh,07Dh,07Dh,07Dh
         db 07Fh,07Dh,07Dh,078h,078h,07Eh,078h,07Fh,07Dh,07Eh,07Eh,07Eh,07Eh,07Eh,07Eh,07Eh

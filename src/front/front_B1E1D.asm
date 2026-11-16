@@ -566,7 +566,7 @@ DrawUserName:
         pop edi
         pop esi
         ret 4
-UserLogScreenJumpTable:
+UserLogScreenJumpTable:                         ; jump table for the switch cases of UserLogScreen
         dd UserLogScreen_77D
         dd UserLogScreen_71B
         dd UserLogScreen_8CA
@@ -2842,7 +2842,7 @@ RunUserRecords:
         mov eax, edx
         pop edx
         ret
-UserRecordsScreenJumpTable:
+UserRecordsScreenJumpTable:                     ; jump table for the switch cases of UserRecordsScreen
         dd UserRecordsScreen_95C
         dd UserRecordsScreen_96D
         dd UserRecordsScreen_9B4

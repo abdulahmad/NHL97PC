@@ -148,7 +148,7 @@ signal_:
         mov dword [nosplit ebx*4+SignalTable], edx
         pop ebx
         ret
-raise_JumpTable:
+raise_JumpTable:                                ; jump table for the switch cases of raise_
         dd raise__3F
         dd raise__2A
         dd raise__96

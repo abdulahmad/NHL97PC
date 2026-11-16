@@ -2412,7 +2412,7 @@ PrimQuadRandomFillCcw:
         pop ecx
         pop ebx
         ret
-DrawPrimListJumpTable:
+DrawPrimListJumpTable:                          ; jump table for the switch cases of DrawPrimList
         dd DrawPrimList_A3
         dd DrawPrimList_D6
         dd DrawPrimList_10C
@@ -3120,7 +3120,7 @@ GetModelVertex:
         pop ecx
         ret
         db 08Bh,0C0h
-TransformModelPartsJumpTable:
+TransformModelPartsJumpTable:                   ; jump table for the switch cases of TransformModelParts
         dd TransformModelParts_5F
         dd TransformModelParts_DF
         dd TransformModelParts_DF
@@ -3228,7 +3228,7 @@ TransformModelParts_EF:
         pop ecx
         ret
         db 08Bh,0C0h
-TransformModelPartsWithJumpTable:
+TransformModelPartsWithJumpTable:               ; jump table for the switch cases of TransformModelPartsWith
         dd TransformModelPartsWith_9F
         dd TransformModelPartsWith_DD
         dd TransformModelPartsWith_DD
@@ -5801,13 +5801,14 @@ WriteConsoleMessage_23:
 ; RestoreDS                                      11641C  97 PC, low confidence
 ; Loads the saved data segment (for interrupt handlers)
 ;-----------------------------------------------------------------------------
-RestoreDS:
+RestoreDS:                                      ; loads the saved data segment (for interrupt handlers); used
+                                                ; by AssertFail, ClearNumLock, EmuTrapExit ...
         db 066h,02Eh,08Eh,01Dh                  ; insn: o16 mov ds,[cs:__saved_DS]
         dd __saved_DS
         ret
-__saved_DS:
+__saved_DS:                                     ; used by RestoreDS, start
         db 00h,00h
-RestoreDSEnd:
+RestoreDSEnd:                                   ; used by __CommonInit_
         db 00h
 ;-----------------------------------------------------------------------------
 ; InstallKeyboardHandler                         116428  97 PC, low confidence
@@ -6037,7 +6038,7 @@ KeyboardISR:
         cmp dword [KbdHandlerInstalled], byte 0
         je near .7
         call dword [ExitHandler]
-IretStub:
+IretStub:                                       ; used by InstallKeyboardHandler
         db 0CFh
 ;-----------------------------------------------------------------------------
 ; Int16Handler                                   1166F0  97 PC, low confidence
@@ -10004,7 +10005,7 @@ SerialISR_85:
         and esi, byte 6
         db 02Eh,0FFh,024h,075h                  ; insn: jmp dword [cs:esi*2+SerialIsrJumpTable]
         dd SerialIsrJumpTable
-SerialIsrJumpTable:
+SerialIsrJumpTable:                             ; jump table for the switch cases of SerialISR
         dd SerialISR_B1.1
         dd SerialISR_B1.6
         dd SerialISR_B1.12

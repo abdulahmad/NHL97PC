@@ -12,13 +12,16 @@ global MatchupRightSlotText, MatchupRightSlotArt, MatchupArtBuffer, MatchupStatR
 global MatchupSparkleTick, MatchupHomeStats, MatchupSparkleFrame, MatchupSparkleOn, MatchupSpeechDone, MatchupLastSpeech, MatchupHomeLine, MatchupLayer
 global MatchupAnimDone, MatchupHomeGoalie, MatchupNoteBuffer, MatchupStatsFile, MatchupAwayStats, MatchupShapeFile, RostersShapeLists, MatchupNotes
 global RosterInfoLines, MatchupNoteFormats, RostersSparkleShapes
-MatchupSparkleShapes:
+MatchupSparkleShapes:                           ; matchup sparkle shapes; used by LoadMatchupArt,
+                                                ; MatchupSparkle
         resb 96
-MatchupPortraitShown:
+MatchupPortraitShown:                           ; set per matchup slot when a portrait is shown; used by
+                                                ; DrawPlayerPortrait, PreGameStatsPanel
         resb 4
-MatchupPlayerCount:
+MatchupPlayerCount:                             ; players shown on the matchup; used by PreGameStatsPanel
         resb 4
-MatchupRightRegions:
+MatchupRightRegions:                            ; matchup right side screen regions (64 bytes each); used by
+                                                ; LayoutMatchupRight
         resb 4
         resb 4
         resb 4
@@ -27,7 +30,7 @@ MatchupRightRegions:
         resb 4
         resb 4
         resb 356
-MatchupLeftRegion:
+MatchupLeftRegion:                              ; matchup left side screen region; used by LayoutMatchupLeft
         resb 4
         resb 4
         resb 4
@@ -36,19 +39,24 @@ MatchupLeftRegion:
         resb 4
         resb 4
         resb 228
-MatchupPortraitLayers:
+MatchupPortraitLayers:                          ; matchup portrait layers per side and slot; used by
+                                                ; DrawMatchupPlayer, DrawPlayerPortrait, FreeMatchupScreen ...
         resb 24
         resb 4
         resb 4
         resb 28
         resb 4
-MatchupStatsLayer:
+MatchupStatsLayer:                              ; matchup stats layer; used by DrawMatchupPlayer,
+                                                ; DrawMatchupStats, FreeMatchupScreen ...
         resb 4
-MatchupStatsArt:
+MatchupStatsArt:                                ; matchup stats art; used by DrawMatchupStats,
+                                                ; FreeMatchupScreen, PreGameStatsPanel
         resb 4
-MatchupPortraitDrawn:
+MatchupPortraitDrawn:                           ; set per matchup slot once its portrait is drawn; used by
+                                                ; DrawPlayerPortrait, FreeMatchupScreen, PreGameStatsPanel
         resb 64
-MatchupPlayers:
+MatchupPlayers:                                 ; matchup player record pointers, home then away; used by
+                                                ; DrawPlayerPortrait, FreeMatchupScreen, PreGameStatsPanel ...
         resb 4
         resb 4
         resb 4
@@ -61,71 +69,95 @@ MatchupPlayers:
         resb 4
         resb 4
         resb 4
-MatchupPlayerLayers:
+MatchupPlayerLayers:                            ; matchup player layers per side; used by DrawMatchupPlayer,
+                                                ; DrawPlayerPortrait, FreeMatchupScreen ...
         resb 28
         resb 4
         resb 28
         resb 4
-MatchupLeftSlots:
+MatchupLeftSlots:                               ; matchup left slots (16 bytes each); used by AnimateMatchup,
+                                                ; LayoutMatchupLeft, PreGameMatchupScreen
         resb 4
         resb 60
-MatchupRightSlots:
+MatchupRightSlots:                              ; matchup right slots (28 bytes each); used by AnimateMatchup,
+                                                ; LayoutMatchupRight, PreGameMatchupScreen
         resb 4
-MatchupRightSlotShape:
+MatchupRightSlotShape:                          ; matchup right slot: shape; used by LayoutMatchupRight,
+                                                ; PreGameMatchupScreen
         resb 12
-MatchupRightSlotText:
+MatchupRightSlotText:                           ; matchup right slot: text; used by LayoutMatchupRight,
+                                                ; PreGameMatchupScreen
         resb 4
-MatchupRightSlotArt:
+MatchupRightSlotArt:                            ; matchup right slot: art per frame; used by
+                                                ; PreGameMatchupScreen
         resb 4
-MatchupArtBuffer:
+MatchupArtBuffer:                               ; matchup art buffer; used by PreGameMatchupScreen
         resb 140
-MatchupStatRows:
+MatchupStatRows:                                ; matchup stat rows per side; used by PreGameStatsPanel
         resb 4
-MatchupHomeBar:
+MatchupHomeBar:                                 ; matchup home bar choice; used by DrawMatchupPlayer
         resb 4
-MatchupAwayBar:
+MatchupAwayBar:                                 ; matchup away bar choice; used by DrawMatchupPlayer
         resb 4
-MatchupBitmap:
+MatchupBitmap:                                  ; matchup bitmap; used by AnimateMatchup, PreGameMatchupScreen
         resb 4
-MatchupMusicOn:
+MatchupMusicOn:                                 ; matchup music started; used by AnimateMatchup,
+                                                ; PreGameMatchupScreen
         resb 4
-MatchupSparkleTick:
+MatchupSparkleTick:                             ; tick of the next matchup sparkle; used by LoadMatchupArt,
+                                                ; MatchupSparkle
         resb 4
-MatchupHomeStats:
+MatchupHomeStats:                               ; matchup home stats data; used by DrawMatchupStats,
+                                                ; FreeMatchupScreen, PreGameStatsPanel
         resb 4
-MatchupSparkleFrame:
+MatchupSparkleFrame:                            ; matchup sparkle frame; used by LoadMatchupArt,
+                                                ; MatchupSparkle
         resb 4
-MatchupSparkleOn:
+MatchupSparkleOn:                               ; matchup sparkle enabled; used by LoadMatchupArt,
+                                                ; MatchupSparkle
         resb 4
-MatchupSpeechDone:
+MatchupSpeechDone:                              ; set once the matchup speech plays; used by AnimateMatchup,
+                                                ; PreGameMatchupScreen
         resb 4
-MatchupLastSpeech:
+MatchupLastSpeech:                              ; last matchup speech picked; used by AnimateMatchup
         resb 4
-MatchupHomeLine:
+MatchupHomeLine:                                ; matchup home line data; used by MatchupBarLength,
+                                                ; PreGameStatsPanel
         resb 4
-MatchupLayer:
+MatchupLayer:                                   ; matchup draw layer; used by PreGameMatchupScreen
         resb 4
-MatchupAnimDone:
+MatchupAnimDone:                                ; set once the matchup animation finishes; used by
+                                                ; AnimateMatchup, LayoutMatchupRight, PreGameMatchupScreen
         resb 4
-MatchupHomeGoalie:
+MatchupHomeGoalie:                              ; matchup home goalie record; used by MatchupBarLength,
+                                                ; PreGameStatsPanel
         resb 4
-MatchupNoteBuffer:
+MatchupNoteBuffer:                              ; matchup note buffer; used by AnimateMatchup,
+                                                ; PreGameMatchupScreen
         resb 4
-MatchupStatsFile:
+MatchupStatsFile:                               ; matchup stats file; used by DrawMatchupStats,
+                                                ; PreGameMatchupScreen, PreGameStatsPanel
         resb 4
-MatchupAwayStats:
+MatchupAwayStats:                               ; matchup away stats data; used by DrawMatchupStats,
+                                                ; FreeMatchupScreen, PreGameStatsPanel
         resb 4
-MatchupShapeFile:
+MatchupShapeFile:                               ; matchup shape file; used by PreGameMatchupScreen
         resb 4
-RostersShapeLists:
+RostersShapeLists:                              ; rosters screen shape lists; used by PreGameRostersScreen,
+                                                ; RostersSparkle
         resb 80
-MatchupNotes:
+MatchupNotes:                                   ; matchup notes; used by DrawMatchupHistory, DrawMatchupNotes,
+                                                ; DrawRosterLabel ...
         resb 56
-RosterInfoLines:
+RosterInfoLines:                                ; roster info line offsets (indexed from 1); used by
+                                                ; DrawMatchupNotes, DrawRosterPlayerInfo, PreGameRostersScreen
         resb 4
-MatchupNoteFormats:
+MatchupNoteFormats:                             ; matchup note formats; used by DrawMatchupHistory,
+                                                ; DrawMatchupNotes, DrawRosterLabel ...
         resb 60
-RostersSparkleShapes:
+RostersSparkleShapes:                           ; rosters sparkle shapes; used by PreGameRostersScreen,
+                                                ; RostersSparkle
         resb 20
-RostersSparkleCount:
+RostersSparkleCount:                            ; rosters sparkle shape count; used by PreGameRostersScreen,
+                                                ; RostersSparkle
         resb 4

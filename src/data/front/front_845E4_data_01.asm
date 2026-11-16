@@ -8,100 +8,102 @@ global str_TITL2, str_GMT1, str_BOTM, str_LB00, str_LB07, str_MB02, str_MB01, st
 global str_MB06, str_MB05, str_MB04, str_MB10, str_MB09, str_MB08, str_BACK4, str_SY02d
 global str_SY00, str_SY01, str_SY02, str_SY03, str_SY04, str_SY05, str_SY06, str_GL00
 global str_GR00, str_Mous3, str_DATAREPLAYNDX, str_NAMEINDEX, str_backslash3, str_Rb_WritePhonebookFile, str_Wb
-str_0000:
+str_0000:                                       ; string "0000"; used by MainMenuAnim
         db 030h,030h,030h,030h,00h
-str_Menu:
+str_Menu:                                       ; string "menu"; used by MainMenuScreen
         db 06Dh,065h,06Eh,075h,00h
-str_DATAEXHIBITNDX:
+str_DATAEXHIBITNDX:                             ; string "DATA\EXHIBIT.NDX"; used by MainMenuScreen
         db 044h,041h,054h,041h,05Ch,045h,058h,048h,049h,042h,049h,054h,02Eh,04Eh,044h,058h
         db 00h
-str_DATASEASONNDX:
+str_DATASEASONNDX:                              ; string "DATA\SEASON.NDX"; used by MainMenuScreen
         db 044h,041h,054h,041h,05Ch,053h,045h,041h,053h,04Fh,04Eh,02Eh,04Eh,044h,058h,00h
-str_DATAPLAYOFFNDX:
+str_DATAPLAYOFFNDX:                             ; string "DATA\PLAYOFF.NDX"; used by MainMenuScreen
         db 044h,041h,054h,041h,05Ch,050h,04Ch,041h,059h,04Fh,046h,046h,02Eh,04Eh,044h,058h
         db 00h
-str_DDD2:
+str_DDD2:                                       ; string "%d%d%d"; used by MainMenuScreen
         db 025h,064h,025h,064h,025h,064h,00h
-str_PICDCFsh:
+str_PICDCFsh:                                   ; string "PIC%d%c.fsh"; used by MainMenuScreen
         db 050h,049h,043h,025h,064h,025h,063h,02Eh,066h,073h,068h,00h
-str_PIC2CFsh:
+str_PIC2CFsh:                                   ; string "PIC2C.fsh"; used by MainMenuScreen
         db 050h,049h,043h,032h,043h,02Eh,066h,073h,068h,00h
-str_OFF0:
+str_OFF0:                                       ; string "OFF0"; used by MainMenuScreen
         db 04Fh,046h,046h,030h,00h
-str_SL02d:
+str_SL02d:                                      ; string "SL%02d"; used by MainMenuScreen
         db 053h,04Ch,025h,030h,032h,064h,00h
-str_LB02d:
+str_LB02d:                                      ; string "LB%02d"; used by MainMenuScreen
         db 04Ch,042h,025h,030h,032h,064h,00h
-str_LY02d:
+str_LY02d:                                      ; string "LY%02d"; used by MainMenuScreen
         db 04Ch,059h,025h,030h,032h,064h,00h
-str_MB01MB02MB03:
+str_MB01MB02MB03:                               ; string "MB01MB02MB03"; used by MainMenuScreen
         db 04Dh,042h,030h,031h,04Dh,042h,030h,032h,04Dh,042h,030h,033h,00h
-str_MB05MB06MB07:
+str_MB05MB06MB07:                               ; string "MB05MB06MB07"; used by MainMenuScreen
         db 04Dh,042h,030h,035h,04Dh,042h,030h,036h,04Dh,042h,030h,037h,00h
-str_MB09MB10MB11:
+str_MB09MB10MB11:                               ; string "MB09MB10MB11"; used by MainMenuScreen
         db 04Dh,042h,030h,039h,04Dh,042h,031h,030h,04Dh,042h,031h,031h,00h
-str_BACK3:
+str_BACK3:                                      ; string "BACK"; used by MainMenuScreen
         db 042h,041h,043h,04Bh,00h
-str_TITL2:
+str_TITL2:                                      ; string "TITL"; used by MainMenuScreen
         db 054h,049h,054h,04Ch,00h
-str_GMT1:
+str_GMT1:                                       ; string "GMT1"; used by MainMenuScreen
         db 047h,04Dh,054h,031h,00h
-str_BOTM:
+str_BOTM:                                       ; string "BOTM"; used by MainMenuScreen
         db 042h,04Fh,054h,04Dh,00h
-str_LB00:
+str_LB00:                                       ; string "LB00"; used by MainMenuScreen
         db 04Ch,042h,030h,030h,00h
-str_LB07:
+str_LB07:                                       ; string "LB07"; used by MainMenuScreen
         db 04Ch,042h,030h,037h,00h
-str_MB02:
+str_MB02:                                       ; string "MB02"; used by MainMenuScreen
         db 04Dh,042h,030h,032h,00h
-str_MB01:
+str_MB01:                                       ; string "MB01"; used by MainMenuScreen
         db 04Dh,042h,030h,031h,00h
-str_MB00:
+str_MB00:                                       ; string "MB00"; used by MainMenuScreen
         db 04Dh,042h,030h,030h,00h
-str_MB06:
+str_MB06:                                       ; string "MB06"; used by MainMenuScreen
         db 04Dh,042h,030h,036h,00h
-str_MB05:
+str_MB05:                                       ; string "MB05"; used by MainMenuScreen
         db 04Dh,042h,030h,035h,00h
-str_MB04:
+str_MB04:                                       ; string "MB04"; used by MainMenuScreen
         db 04Dh,042h,030h,034h,00h
-str_MB10:
+str_MB10:                                       ; string "MB10"; used by MainMenuScreen
         db 04Dh,042h,031h,030h,00h
-str_MB09:
+str_MB09:                                       ; string "MB09"; used by MainMenuScreen
         db 04Dh,042h,030h,039h,00h
-str_MB08:
+str_MB08:                                       ; string "MB08"; used by MainMenuScreen
         db 04Dh,042h,030h,038h,00h,00h,00h,00h
-str_BACK4:
+str_BACK4:                                      ; string "BACK"; used by StatsMenuScreen
         db 042h,041h,043h,04Bh,00h
-str_SY02d:
+str_SY02d:                                      ; string "SY%02d"; used by StatsMenuScreen
         db 053h,059h,025h,030h,032h,064h,00h
-str_SY00:
+str_SY00:                                       ; string "SY00"; used by StatsMenuScreen
         db 053h,059h,030h,030h,00h
-str_SY01:
+str_SY01:                                       ; string "SY01"; used by StatsMenuScreen
         db 053h,059h,030h,031h,00h
-str_SY02:
+str_SY02:                                       ; string "SY02"; used by StatsMenuScreen
         db 053h,059h,030h,032h,00h
-str_SY03:
+str_SY03:                                       ; string "SY03"; used by StatsMenuScreen
         db 053h,059h,030h,033h,00h
-str_SY04:
+str_SY04:                                       ; string "SY04"; used by StatsMenuScreen
         db 053h,059h,030h,034h,00h
-str_SY05:
+str_SY05:                                       ; string "SY05"; used by StatsMenuScreen
         db 053h,059h,030h,035h,00h
-str_SY06:
+str_SY06:                                       ; string "SY06"; used by StatsMenuScreen
         db 053h,059h,030h,036h,00h
-str_GL00:
+str_GL00:                                       ; string "GL00"; used by StatsMenuScreen
         db 047h,04Ch,030h,030h,00h
-str_GR00:
+str_GR00:                                       ; string "GR00"; used by StatsMenuScreen
         db 047h,052h,030h,030h,00h
-str_Mous3:
+str_Mous3:                                      ; string "mous"; used by StatsMenuScreen
         db 06Dh,06Fh,075h,073h,00h
-str_DATAREPLAYNDX:
+str_DATAREPLAYNDX:                              ; string "DATA\REPLAY.NDX"; used by StatsMenuScreen
         db 044h,041h,054h,041h,05Ch,052h,045h,050h,04Ch,041h,059h,02Eh,04Eh,044h,058h,00h
         db 00h,00h
-str_NAMEINDEX:
+str_NAMEINDEX:                                  ; string "NAMEINDEX"; used by LoadNameIndex, NameIndexNew,
+                                                ; NameIndexRemove
         db 04Eh,041h,04Dh,045h,049h,04Eh,044h,045h,058h,00h,00h,00h
-str_backslash3:
+str_backslash3:                                 ; string "\"; used by NameIndexLoad, NameIndexPath,
+                                                ; NameIndexSave
         db 05Ch,00h,00h,00h
-str_Rb_WritePhonebookFile:
+str_Rb_WritePhonebookFile:                      ; string "rb"; used by WritePhonebookFile
         db 072h,062h,00h
-str_Wb:
+str_Wb:                                         ; string "wb"; used by OpenPhonebookFile, WritePhonebookFile
         db 077h,062h,00h

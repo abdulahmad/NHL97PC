@@ -12,26 +12,33 @@ global HomeIcePlayers, AwayIcePlayers
 global PlayerControlWords, HomeIceSlots, AwayIceSlots, HmFaceoffCenter, HmFaceoffWinger
 global HmCounters, HmPlayersInBox, HmLineState, HmActiveCount, HmLineCount, AwFaceoffCenter, AwFaceoffWinger, AwCounters
 global AwPlayersInBox, AwLineState, AwActiveCount, AwLineCount
-PuckCarrierPos:
+PuckCarrierPos:                                 ; puck carrier position read by assstanley; used by assstanley
         resb 12
-PlayerControlWords:
+PlayerControlWords:                             ; control word per player (8 bytes each); used by GiveControl,
+                                                ; ResetPlayersForPeriod
         resb 5
-PlayerControlFlags:
+PlayerControlFlags:                             ; control flags per player (8 bytes each); used by
+                                                ; AutoSwitchToCarrier, PlayCrowdAmbience, PuckPlayerContact
+                                                ; ...
         resb 1
-PlayerStateFlags:
+PlayerStateFlags:                               ; state flags per player (8 bytes each); used by
+                                                ; AutoSwitchToCarrier, PenGoalStuff, restorepl
         resb 1
-PlayerControlRest:
+PlayerControlRest:                              ; rest of the per player control records; used by
+                                                ; EndGameCleanup
         resb 33
-PuckPathTable:
+PuckPathTable:                                  ; puck path table read by pucknorm_body; used by pucknorm_body
         resb 302
-HomeTeamRecord:
+HomeTeamRecord:                                 ; home team game record (630h bytes); used by
+                                                ; AssignControlSlots, ChkTeamPlayerFlag, CupCelebration ...
         resb 32
         resb 8
         resb 146
         resb 870
         resb 169
         resb 359
-AwayTeamRecord:
+AwayTeamRecord:                                 ; away team game record (630h bytes); used by OpeningSequence,
+                                                ; PlaceOpeningPlayers, StartPeriod ...
         resb 32
         resb 8
         resb 146
@@ -46,103 +53,130 @@ AwayTeamRecord:
         resb 4
         resb 144
         resb 96
-HomeIcePlayers:
+HomeIcePlayers:                                 ; home players on the ice
         resb 169
-HomeIceSlots:
+HomeIceSlots:                                   ; home ice slot words; used by ResetPlayers
         resb 95
-AwayIcePlayers:
+AwayIcePlayers:                                 ; away players on the ice
         resb 169
-AwayIceSlots:
+AwayIceSlots:                                   ; away ice slot words; used by ResetPlayers
         resb 93
-HmAssignPlayer:
+HmAssignPlayer:                                 ; home team: player picked by assstanley; used by assstanley
         resb 2
-hmtmstruct:
+hmtmstruct:                                     ; used by BuildTeamLines, CanPlayLineSlot, CheckIntermission
+                                                ; ...
         resb 2
-HmFaceoffCenter:
+HmFaceoffCenter:                                ; home team: face-off center; used by puckfaceoff
         resb 2
-HmFaceoffWinger:
+HmFaceoffWinger:                                ; home team: face-off winger; used by puckfaceoff
         resb 2
-HmCounters:
+HmCounters:                                     ; home team: team counters cleared each game; used by
+                                                ; clearteams
         resb 8
-HmPlayersInBox:
+HmPlayersInBox:                                 ; home team: players in the penalty box; used by AddPenalty2,
+                                                ; ChkPowerPlayPanel, DrawSpecialTeamsPanel ...
         resb 2
-HmLineState:
+HmLineState:                                    ; home team: current line state; used by CoachLineChange,
+                                                ; Goal, changeplayer ...
         resb 6
-HmPlayerFlags:
+HmPlayerFlags:                                  ; home team: flags per roster player; used by
+                                                ; NextVideoModeKey, PenGoalStuff, PrevVideoModeKey ...
         resb 114
-HmPlayerSlots:
+HmPlayerSlots:                                  ; home team: slot per roster player; used by clearteams
         resb 28
-HmCoachOffense:
+HmCoachOffense:                                 ; home team: coach offense mode; used by Goal,
+                                                ; ResetCoachModes, SetCoachMode ...
         resb 1
-HmCoachDefense:
+HmCoachDefense:                                 ; home team: coach defense mode; used by Goal,
+                                                ; ResetCoachModes, SetCoachMode ...
         resb 1
-HmCoachGoalie:
+HmCoachGoalie:                                  ; home team: coach goalie mode; used by ResetCoachModes,
+                                                ; SetCoachMode, UpdateCoachModes ...
         resb 1
-HmCoachLines:
+HmCoachLines:                                   ; home team: coach line change mode; used by ResetCoachModes,
+                                                ; SetCoachMode, UpdateCoachModes
         resb 1
-HmCoachTimer:
+HmCoachTimer:                                   ; home team: coach mode timer; used by ResetCoachModes,
+                                                ; SetCoachMode, UpdateCoachModes
         resb 4
-HmRosterMap:
+HmRosterMap:                                    ; home team: roster index per slot; used by clearteams
         resb 35
-HmPlayerEnergy:
+HmPlayerEnergy:                                 ; home team: energy per roster player; used by
+                                                ; DebugRestoreEnergy, ResetPlayerCounters
         resb 43
-HmPenaltyPlayer:
+HmPenaltyPlayer:                                ; home team: player getting the next penalty; used by
+                                                ; checkfornewpen
         resb 2
-HmActiveCount:
+HmActiveCount:                                  ; home team: players on the ice; used by updateplayers
         resb 2
-HmSkaterCount:
+HmSkaterCount:                                  ; home team: skaters on the ice; used by updateplayers
         resb 2
-HmGoalieOnIce:
+HmGoalieOnIce:                                  ; home team: goalie on the ice; used by pucknorm_body
         resb 2
-HmLineCount:
+HmLineCount:                                    ; home team: lines used; used by updateplayers
         resb 2
-HmTeamData:
+HmTeamData:                                     ; home team: team data pointer; used by LoadReplayData,
+                                                ; clearteams
         resb 4
-HmScore:
+HmScore:                                        ; home team: score; used by CupCelebration,
+                                                ; DrawGoalScorerPanel, DrawPeriodPanel ...
         resb 2
-AwAssignPlayer:
+AwAssignPlayer:                                 ; away team: player picked by assstanley; used by assstanley
         resb 2
-awtmstruct:
+awtmstruct:                                     ; used by BuildTeamLines, CPgoalie, CanPlayLineSlot ...
         resb 2
-AwFaceoffCenter:
+AwFaceoffCenter:                                ; away team: face-off center; used by puckfaceoff
         resb 2
-AwFaceoffWinger:
+AwFaceoffWinger:                                ; away team: face-off winger; used by puckfaceoff
         resb 2
-AwCounters:
+AwCounters:                                     ; away team: team counters cleared each game; used by
+                                                ; clearteams
         resb 8
-AwPlayersInBox:
+AwPlayersInBox:                                 ; away team: players in the penalty box; used by
+                                                ; ChkPowerPlayPanel, DrawSpecialTeamsPanel, GetLowestPen ...
         resb 2
-AwLineState:
+AwLineState:                                    ; away team: current line state; used by Goal, checkfornewpen,
+                                                ; clearteams
         resb 6
-AwPlayerFlags:
+AwPlayerFlags:                                  ; away team: flags per roster player; used by
+                                                ; NextVideoModeKey, PenGoalStuff, PrevVideoModeKey ...
         resb 114
-AwPlayerSlots:
+AwPlayerSlots:                                  ; away team: slot per roster player; used by clearteams
         resb 28
-AwCoachOffense:
+AwCoachOffense:                                 ; away team: coach offense mode; used by Goal,
+                                                ; ResetCoachModes, SetCoachMode ...
         resb 1
-AwCoachDefense:
+AwCoachDefense:                                 ; away team: coach defense mode; used by Goal,
+                                                ; ResetCoachModes, SetCoachMode ...
         resb 1
-AwCoachGoalie:
+AwCoachGoalie:                                  ; away team: coach goalie mode; used by ResetCoachModes,
+                                                ; SetCoachMode, UpdateCoachModes ...
         resb 1
-AwCoachLines:
+AwCoachLines:                                   ; away team: coach line change mode; used by ResetCoachModes,
+                                                ; SetCoachMode, UpdateCoachModes
         resb 1
-AwCoachTimer:
+AwCoachTimer:                                   ; away team: coach mode timer; used by ResetCoachModes,
+                                                ; SetCoachMode, UpdateCoachModes
         resb 4
-AwRosterMap:
+AwRosterMap:                                    ; away team: roster index per slot; used by clearteams
         resb 35
-AwPlayerEnergy:
+AwPlayerEnergy:                                 ; away team: energy per roster player; used by
+                                                ; DebugRestoreEnergy, ResetPlayerCounters
         resb 43
-AwPenaltyPlayer:
+AwPenaltyPlayer:                                ; away team: player getting the next penalty; used by
+                                                ; checkfornewpen
         resb 2
-AwActiveCount:
+AwActiveCount:                                  ; away team: players on the ice; used by updateplayers
         resb 2
-AwSkaterCount:
+AwSkaterCount:                                  ; away team: skaters on the ice; used by updateplayers
         resb 2
-AwGoalieOnIce:
+AwGoalieOnIce:                                  ; away team: goalie on the ice; used by pucknorm_body
         resb 2
-AwLineCount:
+AwLineCount:                                    ; away team: lines used; used by updateplayers
         resb 2
-AwTeamData:
+AwTeamData:                                     ; away team: team data pointer; used by LoadReplayData,
+                                                ; clearteams
         resb 4
-AwScore:
+AwScore:                                        ; away team: score; used by DrawGoalScorerPanel,
+                                                ; DrawPeriodPanel, LoadReplayData ...
         resb 4

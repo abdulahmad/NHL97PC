@@ -3,17 +3,22 @@ bits 32
 %include "hockey.inc"
 section s_1B93D8 nobits alloc noexec write align=1
 global BoxSeatSlot, BoxSeatFlags, BoxSeatPlayer, BoxSeatTeam, BenchSeats, SeatTable, BoxSeats
-BoxSeatPlayer:
+BoxSeatPlayer:                                  ; penalty box seat player; used by FreeBoxSeat,
+                                                ; MoveBoxToBenchSeat
         resb 4
-BoxSeatTeam:
+BoxSeatTeam:                                    ; penalty box seat team; used by FreeBoxSeat,
+                                                ; MoveBoxToBenchSeat
         resb 1
-BoxSeatSlot:
+BoxSeatSlot:                                    ; penalty box seat slot; used by FreeBoxSeat,
+                                                ; MoveBoxToBenchSeat
         resb 1
-BoxSeatFlags:
+BoxSeatFlags:                                   ; penalty box seat flags; used by FindBenchSlot, FreeBoxSeat,
+                                                ; MoveBoxToBenchSeat
         resb 2
-BoxSeats:
+BoxSeats:                                       ; penalty box seats; used by FreeBoxSeat, MoveBoxToBenchSeat,
+                                                ; PickBenchSeat ...
         resb 4
-BenchSeats:
+BenchSeats:                                     ; bench seats; used by PickBoxSeat
         resb 4
-SeatTable:
+SeatTable:                                      ; bench and box seat table; used by PickBoxSeat
         resb 244

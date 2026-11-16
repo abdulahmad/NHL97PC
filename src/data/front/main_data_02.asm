@@ -4,33 +4,39 @@ bits 32
 section s_16CAB0 progbits alloc noexec write align=1
 global EntryListItems, EntryRowOffsets, str_Punct_DrawScreenBackground, EntryColumnOffsets, LogoNamesLoaded, HighlightTextOn, ScreenWipeMode, LinkBoxShown
 global LinkFrameTitle
-EntryListItems:
+EntryListItems:                                 ; entry list menu item template; used by DrawEntryList,
+                                                ; DrawScreenBackground
         db 044h,02h,00h,00h
-EntryRowOffsets:
+EntryRowOffsets:                                ; entry row offsets (8 bytes each); used by DrawEntryList
         db 0BDh,01h,00h,00h,051h,02h,00h,00h,0B0h,01h,00h,00h,06Dh,02h,00h,00h
         db 0A1h,01h,00h,00h,079h,02h,00h,00h,0AFh,01h,00h,00h,055h,02h,00h,00h
         db 0D3h,01h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-str_Punct_DrawScreenBackground:
+str_Punct_DrawScreenBackground:                 ; string "\t"; used by DrawEntryList, DrawEntryRow,
+                                                ; DrawScreenBackground
         db 09h,00h,00h,00h
-EntryColumnOffsets:
+EntryColumnOffsets:                             ; entry column offsets (8 bytes each); used by DrawEntryList,
+                                                ; DrawEntryRow
         db 0ADh,01h,00h,00h,013h,00h,00h,00h,0A0h,01h,00h,00h,02Eh,00h,00h,00h
         db 098h,01h,00h,00h,03Dh,00h,00h,00h,0A5h,01h,00h,00h,03Dh,00h,00h,00h
         db 0C3h,01h,00h,00h,033h,00h,00h,00h,0D0h,01h,00h,00h,019h,00h,00h,00h
         db 0D7h,01h,00h,00h,09h,00h,00h,00h,0CCh,01h,00h,00h
-LinkFrameTitle:
+LinkFrameTitle:                                 ; link screen frame title; used by DrawScreenBackground
         db 078h,02h,00h,00h,01Bh,00h,00h,00h,077h,02h,00h,00h,02Ah,00h,00h,00h
         db 05Ch,02h,00h,00h,037h,00h,00h,00h,046h,02h,00h,00h,037h,00h,00h,00h
         db 02Dh,02h,00h,00h,029h,00h,00h,00h,02Dh,02h,00h,00h,019h,00h,00h,00h
         db 044h,02h,00h,00h,0Ah,00h,00h,00h,061h,02h,00h,00h,0Ah,00h,00h,00h
         db 00h,00h,00h,00h
-LogoNamesLoaded:
+LogoNamesLoaded:                                ; set once the logo names are loaded; used by FreeTempArt,
+                                                ; LoadLogoNames
         db 00h,00h,00h,00h
-HighlightTextOn:
+HighlightTextOn:                                ; set while highlight text is used; used by SetHighlightText
         db 01h,00h,00h,00h
-ScreenWipeMode:
+ScreenWipeMode:                                 ; screen wipe mode; used by FadeInScreen,
+                                                ; PickIndexEntryScreen, RunNewSeason ...
         db 00h,00h,00h,00h
-LinkBoxShown:
+LinkBoxShown:                                   ; set while the link box shows; used by DrawLinkBox, EditText,
+                                                ; HideLinkBox
         db 00h,00h,00h,00h,032h,00h,00h,00h,0C8h,00h,00h,00h,0FAh,00h,00h,00h
         db 0C8h,00h,00h,00h,0FAh,00h,00h,00h,0F9h,00h,00h,00h,031h,00h,00h,00h
         db 0F9h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h

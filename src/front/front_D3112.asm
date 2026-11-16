@@ -1364,7 +1364,7 @@ DrawRosterLabel:
         pop ecx
         pop ebx
         ret
-DrawMatchupNotesJumpTable:
+DrawMatchupNotesJumpTable:                      ; jump table for the switch cases of DrawMatchupNotes
         dd DrawMatchupNotes_86
         dd DrawMatchupNotes_C5
         dd DrawMatchupNotes_10F
@@ -2267,7 +2267,7 @@ MatchupAnnouncement:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-GoalieMaskList:
+GoalieMaskList:                                 ; used by GoalieMaskScreen
         dd str_Barasso
         dd str_PIT
         dd str_199596

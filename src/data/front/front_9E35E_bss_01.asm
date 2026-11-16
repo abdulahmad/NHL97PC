@@ -5,43 +5,56 @@ section s_1C8E4C nobits alloc noexec write align=1
 global HomePanelTick, TeamSelectSoundOn, TeamSelectDrawn, HomePanelShapes, AwayPanelShapes, AwayPanelTick, TeamSelectValues, HomePanelLayer
 global AwayPanelLayer, TeamSelectItems, TeamSelectTargets, HomePanelPos, AwayPanelPos, IndexPickChoice, IndexItemType, IndexItemValue
 global IndexItemTemplate, IndexSoundMode, AwayPanelTeam, HomePanelTeam
-HomePanelTick:
+HomePanelTick:                                  ; tick of the last home panel update; used by
+                                                ; DrawHomeTeamPanel, TeamSelectScreen, TeamSelectSparkle
         resb 4
-TeamSelectSoundOn:
+TeamSelectSoundOn:                              ; set once the team select sound plays; used by
+                                                ; TeamSelectSparkle
         resb 4
-TeamSelectDrawn:
+TeamSelectDrawn:                                ; set once the team select screen is drawn; used by
+                                                ; DrawAwayTeamPanel, DrawHomeTeamPanel, TeamSelectScreen
         resb 4
-HomePanelShapes:
+HomePanelShapes:                                ; home team panel shapes; used by DrawAwayTeamPanel,
+                                                ; DrawHomeTeamPanel, TeamSelectScreen ...
         resb 4
-AwayPanelShapes:
+AwayPanelShapes:                                ; away team panel shapes; used by DrawAwayTeamPanel,
+                                                ; DrawHomeTeamPanel, TeamSelectScreen
         resb 4
-AwayPanelTick:
+AwayPanelTick:                                  ; tick of the last away panel update; used by
+                                                ; DrawAwayTeamPanel, TeamSelectScreen, TeamSelectSparkle
         resb 4
-TeamSelectValues:
+TeamSelectValues:                               ; team select item values; used by TeamSelectScreen,
+                                                ; TeamSelectSparkle
         resb 36
-HomePanelLayer:
+HomePanelLayer:                                 ; home team panel draw layer; used by DrawHomeTeamPanel,
+                                                ; TeamSelectScreen, TeamSelectSparkle
         resb 4
-AwayPanelLayer:
+AwayPanelLayer:                                 ; away team panel draw layer; used by DrawAwayTeamPanel,
+                                                ; TeamSelectScreen, TeamSelectSparkle
         resb 4
-TeamSelectItems:
+TeamSelectItems:                                ; team select items; used by TeamSelectScreen,
+                                                ; TeamSelectSparkle
         resb 4
-TeamSelectTargets:
+TeamSelectTargets:                              ; team select item value targets; used by TeamSelectScreen,
+                                                ; TeamSelectSparkle
         resb 4
-HomePanelPos:
+HomePanelPos:                                   ; home team panel position; used by TeamSelectScreen
         resb 4
-AwayPanelPos:
+AwayPanelPos:                                   ; away team panel position; used by TeamSelectScreen
         resb 4
-AwayPanelTeam:
+AwayPanelTeam:                                  ; team shown on the away panel; used by DrawAwayTeamPanel,
+                                                ; TeamSelectScreen, TeamSelectSparkle
         resb 2
-HomePanelTeam:
+HomePanelTeam:                                  ; team shown on the home panel; used by DrawHomeTeamPanel,
+                                                ; TeamSelectScreen, TeamSelectSparkle
         resb 2
-IndexPickChoice:
+IndexPickChoice:                                ; index entry picked; used by PickIndexEntryScreen
         resb 16
-IndexItemType:
+IndexItemType:                                  ; index item type; used by PickIndexEntryScreen
         resb 4
-IndexItemValue:
+IndexItemValue:                                 ; index item value; used by PickIndexEntryScreen
         resb 62
-IndexItemTemplate:
+IndexItemTemplate:                              ; index item template; used by PickIndexEntryScreen
         resb 86
-IndexSoundMode:
+IndexSoundMode:                                 ; index screen sound mode; used by IndexScreenSound
         resb 12

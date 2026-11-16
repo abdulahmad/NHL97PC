@@ -400,7 +400,7 @@ MainMenuAnim_50B:
         pop ecx
         pop ebx
         ret
-MainMenuOptionsJumpTable:
+MainMenuOptionsJumpTable:                       ; jump table for the switch cases of MainMenuScreen
         dd MainMenuScreen_911
         dd MainMenuScreen_A3B
         dd MainMenuScreen_AB8
@@ -409,19 +409,19 @@ MainMenuOptionsJumpTable:
         dd MainMenuScreen_CFF
         dd MainMenuScreen_DDB
         dd MainMenuScreen_DF1
-MainMenuMessageJumpTable:
+MainMenuMessageJumpTable:                       ; jump table for the switch cases of MainMenuScreen
         dd MainMenuScreen_A17
         dd MainMenuScreen_A23
         dd MainMenuScreen_A2F
         dd MainMenuScreen_999
-MainMenuSelectionJumpTable:
+MainMenuSelectionJumpTable:                     ; jump table for the switch cases of MainMenuScreen
         dd MainMenuScreen_A68
         dd MainMenuScreen_A79
         dd MainMenuScreen_A82
         dd MainMenuScreen_A94
         dd MainMenuScreen_A9D
         dd MainMenuScreen_AAF
-MainMenuSettingsJumpTable:
+MainMenuSettingsJumpTable:                      ; jump table for the switch cases of MainMenuScreen
         dd MainMenuScreen_BA5
         dd MainMenuScreen_BBD
         dd MainMenuScreen_BC6
@@ -1722,7 +1722,7 @@ RunGameScreens:
         pop ecx
         pop ebx
         ret
-RunStatsMenuJumpTable:
+RunStatsMenuJumpTable:                          ; jump table for the switch cases of RunStatsMenu
         dd RunStatsMenu_6E
         dd RunStatsMenu_82
         dd RunStatsMenu_A5

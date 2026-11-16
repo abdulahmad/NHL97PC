@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_1C3526 nobits alloc noexec write align=1
 global AwaySpeechLoaded, AwaySpeechNames
-AwaySpeechNames:
+AwaySpeechNames:                                ; away team speech name clips; used by InitSpeechBanks
         resb 186
-AwaySpeechLoaded:
+AwaySpeechLoaded:                               ; away team speech clips loaded; used by InitSpeechBanks
         resb 77

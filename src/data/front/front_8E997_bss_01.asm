@@ -8,97 +8,132 @@ global SeasonScheduleOffset, SeasonScheduleSize, PlayoffOptionBits, PlayoffRound
 global PlayoffFinalRound, GameRecordIds, PlayoffTeams, PlayoffOpponents, PlayoffRoundMatch, PlayoffSeriesMatch, PlayoffFinalHome, PlayoffFinalAway
 global PlayoffGameCount, PlayoffRandomSeed, SeasonUserRecords, SeasonFilePath, SeasonStatsPath, PlayoffSettings, PlayoffIndexSettings, PlayoffIndexFlags
 global PlayoffUserRecords, PlayoffName, PlayoffStatsPath, SeasonLastHome, SeasonLastAway, PlayoffRecordWins, PlayoffRecordLosses
-NewSeasonUserCount:
+NewSeasonUserCount:                             ; number of human users in the new season; used by
+                                                ; NewSeasonScreen
         resb 4
-SeasonUserRecords:
+SeasonUserRecords:                              ; season user records (28 bytes each, name first); used by
+                                                ; ClearPlayoffTree, CreateSeason, FillPlayoffTree ...
         resb 20
-SeasonUserHuman:
+SeasonUserHuman:                                ; season user record: human controlled flag; used by
+                                                ; DrawSeasonTitle, FindUserOpponent, InitRosterData ...
         resb 1
-SeasonUserActive:
+SeasonUserActive:                               ; season user record: active flag; used by BuildRosterLines,
+                                                ; CheckLeagueInjuries, FindUserOpponent ...
         resb 2
-SeasonUserReplay:
+SeasonUserReplay:                               ; season user record: saved replay id; used by
+                                                ; FinishLeagueGame, MatchupAnnouncement, SaveReplayFile ...
         resb 4
-SeasonUserLocked:
+SeasonUserLocked:                               ; season user record: locked flag, then the rest of the season
+                                                ; data; used by InitRosterData, LoadRosterData,
+                                                ; RedrawRosterScreen ...
         resb 701
-SeasonDefaultUser:
+SeasonDefaultUser:                              ; default season user index; used by DrawSeasonGamePanel,
+                                                ; DrawSeasonTitle, FinishLeagueGame ...
         resb 4
-SeasonRandomSeed:
+SeasonRandomSeed:                               ; season random seed; used by BuildSeasonSchedule,
+                                                ; CreateSeason, SaveGameResults ...
         resb 4
-SeasonFilePath:
+SeasonFilePath:                                 ; season file path; used by BuildSeasonIntro, CreateSeason,
+                                                ; DrawSeasonGamePanel ...
         resb 8
-SeasonStatsPath:
+SeasonStatsPath:                                ; season stats file path; used by PickIndexEntryScreen,
+                                                ; PlayerRatingsScreen, PlayerStatsScreen ...
         resb 8
-SeasonCreated:
+SeasonCreated:                                  ; set once the season is created; used by CreateSeason,
+                                                ; RulesMenu, SeasonSetupScreen ...
         resb 2
-SeasonLastHome:
+SeasonLastHome:                                 ; home team of the last season game; used by CreateSeason,
+                                                ; DrawGameScoreLine, DrawSeasonGamePanel ...
         resb 2
-SeasonLastAway:
+SeasonLastAway:                                 ; away team of the last season game; used by CreateSeason,
+                                                ; DrawGameScoreLine, SeasonGameScreen ...
         resb 2
-SeasonScheduleData:
+SeasonScheduleData:                             ; season schedule data; used by BuildRosterLines,
+                                                ; BuildSeasonSchedule, CreateSeason ...
         resb 4
-SeasonScheduleOffset:
+SeasonScheduleOffset:                           ; season schedule offset; used by BuildSeasonSchedule,
+                                                ; ReceiveLeagueData, SendLeagueData
         resb 4
-SeasonScheduleSize:
+SeasonScheduleSize:                             ; season schedule size; used by BuildSeasonSchedule,
+                                                ; ReceiveLeagueData, SendLeagueData
         resb 4
-PlayoffSettings:
+PlayoffSettings:                                ; playoff settings block; used by CreatePlayoffs,
+                                                ; PickIndexEntryScreen, PlayoffSettingsPath ...
         resb 1
-PlayoffOptionBits:
+PlayoffOptionBits:                              ; playoff option bit fields; used by SeasonSetupScreen,
+                                                ; UpdateUserRecords
         resb 1
-PlayoffOptionFlags:
+PlayoffOptionFlags:                             ; playoff option flags; used by SeasonSetupScreen
         resb 3
-PlayoffIndexSettings:
+PlayoffIndexSettings:                           ; playoff index entry settings; used by PickIndexEntryScreen
         resb 264
-PlayoffIndexFlags:
+PlayoffIndexFlags:                              ; playoff index flags; used by PickIndexEntryScreen
         resb 218
-PlayoffRoundBits:
+PlayoffRoundBits:                               ; playoff round bit fields; used by AdvanceSeasonDate,
+                                                ; CreatePlayoffs, CupCelebration ...
         resb 12
-PlayoffUserRecords:
+PlayoffUserRecords:                             ; playoff user records (28 bytes each, name first); used by
+                                                ; ClearPlayoffTree, CreatePlayoffs, DrawSeasonIntro ...
         resb 20
-PlayoffUserHuman:
+PlayoffUserHuman:                               ; playoff user record: human controlled flag; used by
+                                                ; CreatePlayoffs, DrawPlayoffTitle, FindUserOpponent ...
         resb 1
-PlayoffUserActive:
+PlayoffUserActive:                              ; playoff user record: active flag; used by BuildRosterLines,
+                                                ; CheckLeagueInjuries, CreatePlayoffs ...
         resb 2
-PlayoffUserReplay:
+PlayoffUserReplay:                              ; playoff user record: saved replay id; used by
+                                                ; FinishLeagueGame, SaveReplayFile, StartNextSeasonGame
         resb 4
-PlayoffUserLocked:
+PlayoffUserLocked:                              ; playoff user record: locked flag, then the rest of the
+                                                ; playoff data; used by InitRosterData
         resb 421
-PlayoffName:
+PlayoffName:                                    ; playoff name; used by CreatePlayoffs, RunNewPlayoffs
         resb 40
-PlayoffFileHandle:
+PlayoffFileHandle:                              ; playoff file handle; used by CreatePlayoffs,
+                                                ; PickIndexEntryScreen, PlayoffSettingsPath
         resb 4
-PlayoffTeamNames:
+PlayoffTeamNames:                               ; playoff team name per slot; used by AdvanceSeasonDate,
+                                                ; DrawSeasonIntro, MatchupAnnouncement ...
         resb 96
-PlayoffRecordWins:
+PlayoffRecordWins:                              ; playoff record wins; used by UpdateUserRecords
         resb 4
-PlayoffRecordLosses:
+PlayoffRecordLosses:                            ; playoff record losses; used by UpdateUserRecords
         resb 12
-PlayoffCurrentRound:
+PlayoffCurrentRound:                            ; playoff current round; used by CupCelebration,
+                                                ; UpdateUserRecords
         resb 4
-PlayoffFinalRound:
+PlayoffFinalRound:                              ; playoff final round; used by CupCelebration,
+                                                ; UpdateUserRecords
         resb 4
-GameRecordIds:
+GameRecordIds:                                  ; game record id per stats slot; used by RunStatsMenu
         resb 4
-PlayoffTeams:
+PlayoffTeams:                                   ; playoff team per slot; used by AdvanceSeasonDate,
+                                                ; BuildSeasonIntro, ClearPlayoffTree ...
         resb 4
-PlayoffOpponents:
+PlayoffOpponents:                               ; playoff opponent per slot; used by AdvanceSeasonDate
         resb 96
-PlayoffRoundMatch:
+PlayoffRoundMatch:                              ; used by UpdateUserRecords
         resb 12
-PlayoffSeriesMatch:
+PlayoffSeriesMatch:                             ; used by BuildSeasonIntro, UpdateUserRecords
         resb 4
-PlayoffFinalHome:
+PlayoffFinalHome:                               ; playoff final home team; used by BuildSeasonIntro
         resb 4
-PlayoffFinalAway:
+PlayoffFinalAway:                               ; playoff final away team; used by BuildSeasonIntro
         resb 4
-PlayoffGameCount:
+PlayoffGameCount:                               ; playoff games played; used by SaveGameResults
         resb 4
-PlayoffRound:
+PlayoffRound:                                   ; playoff round; used by AdvanceSeasonDate, CreatePlayoffs,
+                                                ; CupCelebration ...
         resb 14
-PlayoffStarted:
+PlayoffStarted:                                 ; set once the playoffs start; used by BuildPlayerStats,
+                                                ; CreatePlayoffs, DrawPlayerRatingsPage ...
         resb 1
-PlayoffStatsPath:
+PlayoffStatsPath:                               ; playoff stats file path; used by CreatePlayoffs,
+                                                ; PickIndexEntryScreen, PlayerRatingsScreen ...
         resb 8
-PlayoffUserIndex:
+PlayoffUserIndex:                               ; playoff user index; used by DrawPlayoffTitle,
+                                                ; DrawSeasonGamePanel, FinishLeagueGame ...
         resb 1
-PlayoffRandomSeed:
+PlayoffRandomSeed:                              ; playoff random seed; used by CreatePlayoffs,
+                                                ; SaveGameResults, SimulateGame
         resb 5

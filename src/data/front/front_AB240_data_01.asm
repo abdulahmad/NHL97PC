@@ -5,53 +5,53 @@ section s_166120 progbits alloc noexec write align=1
 global str_Xferdata, str_Replaybuf2, str_Gdata, str_Ros2, str_SEXHIBITNDX, str_EXHIBITNDX2, str_Saverepl, str_Statthingy
 global str_StatthingyFlg, str_StatthingyCol, str_StatthingySort, str_StatthingyNames, str_StatthingyAlpha, str_StatthingyStringsort, str_StatthingyColNames, str_StatthingySort2
 global str_DDD4, str_DS3, str_D, str_NA, str_D02d, str_DD2, str_D_ExportStatTable
-str_Xferdata:
+str_Xferdata:                                   ; string "xferdata"; used by SendGameResult
         db 078h,066h,065h,072h,064h,061h,074h,061h,00h
-str_Replaybuf2:
+str_Replaybuf2:                                 ; string "replaybuf"; used by SendGameResult
         db 072h,065h,070h,06Ch,061h,079h,062h,075h,066h,00h
-str_Gdata:
+str_Gdata:                                      ; string "gdata"; used by SaveGameResults
         db 067h,064h,061h,074h,061h,00h
-str_Ros2:
+str_Ros2:                                       ; string "ros"; used by SaveGameResults
         db 072h,06Fh,073h,00h
-str_SEXHIBITNDX:
+str_SEXHIBITNDX:                                ; string "%s\EXHIBIT.NDX"; used by SaveReplayFile
         db 025h,073h,05Ch,045h,058h,048h,049h,042h,049h,054h,02Eh,04Eh,044h,058h,00h
-str_EXHIBITNDX2:
+str_EXHIBITNDX2:                                ; string "EXHIBIT.NDX"; used by SaveReplayFile
         db 045h,058h,048h,049h,042h,049h,054h,02Eh,04Eh,044h,058h,00h
-str_Saverepl:
+str_Saverepl:                                   ; string "saverepl"; used by WriteReplayFile
         db 073h,061h,076h,065h,072h,065h,070h,06Ch,00h,00h,00h,00h
-str_Statthingy:
+str_Statthingy:                                 ; string "statthingy"; used by AllocStatTable
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,00h
-str_StatthingyFlg:
+str_StatthingyFlg:                              ; string "statthingy Flg"; used by AllocStatTable
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,046h,06Ch,067h,00h
-str_StatthingyCol:
+str_StatthingyCol:                              ; string "statthingy Col"; used by AllocStatTable
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,043h,06Fh,06Ch,00h
-str_StatthingySort:
+str_StatthingySort:                             ; string "statthingy Sort"; used by AllocStatTable
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,053h,06Fh,072h,074h,00h
-str_StatthingyNames:
+str_StatthingyNames:                            ; string "statthingy names"; used by AllocStatTable
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,06Eh,061h,06Dh,065h,073h
         db 00h
-str_StatthingyAlpha:
+str_StatthingyAlpha:                            ; string "statthingy alpha"; used by AllocStatTable
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,061h,06Ch,070h,068h,061h
         db 00h
-str_StatthingyStringsort:
+str_StatthingyStringsort:                       ; string "statthingy stringsort"; used by AllocStatTable
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,073h,074h,072h,069h,06Eh
         db 067h,073h,06Fh,072h,074h,00h
-str_StatthingyColNames:
+str_StatthingyColNames:                         ; string "statthingy col names"; used by AllocStatTable
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,063h,06Fh,06Ch,020h,06Eh
         db 061h,06Dh,065h,073h,00h
-str_StatthingySort2:
+str_StatthingySort2:                            ; string "statthingySort"; used by AllocStatTable
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,053h,06Fh,072h,074h,00h
-str_DDD4:
+str_DDD4:                                       ; string "%d-%d-%d"; used by CompareStatNumber
         db 025h,064h,02Dh,025h,064h,02Dh,025h,064h,00h
-str_DS3:
+str_DS3:                                        ; string "%d. %s"; used by DrawStatTableRows
         db 025h,064h,02Eh,020h,025h,073h,00h
-str_D:
+str_D:                                          ; string "%d."; used by DrawStatTableRows, ExportStatTable
         db 025h,064h,02Eh,00h
-str_D_ExportStatTable:
+str_D_ExportStatTable:                          ; string "%d"; used by DrawStatTableRows, ExportStatTable
         db 025h,064h,00h
-str_NA:
+str_NA:                                         ; string "N/A"; used by DrawStatTableRows
         db 04Eh,02Fh,041h,00h
-str_D02d:
+str_D02d:                                       ; string "%d.%02d"; used by DrawStatTableRows, ExportStatTable
         db 025h,064h,02Eh,025h,030h,032h,064h,00h
-str_DD2:
+str_DD2:                                        ; string "%d-%d"; used by DrawStatTableRows, ExportStatTable
         db 025h,064h,02Dh,025h,064h,00h

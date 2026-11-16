@@ -6,65 +6,75 @@ global SortCords, LineSlotTaken, LineSlotStart, DefenseByDefense, ForwardsByOffe
 global LineSortKeys, LineSortIndex, LineSortOrder, PlayerPointsTable, PlayerScoreTable, PlayerUpdateFlags, PlayerUpdateTable, PuckStickTimers
 global PenaltyRecord, PlayerAssignPtrs, CentersByOffense, RightWingsByDefense, CentersByDefense, LeftWingsByOffense, LeftWingsByDefense, RightWingsByOffense
 global DefenseByOffense, ForwardsByDefense, BenchPlayerTable, LineBuildLine, LineBuildSlot, LineBuildPlayer, PlayerAssignWords
-LineSortKeys:
+LineSortKeys:                                   ; line sort keys; used by InitGameLines, SortByPosition,
+                                                ; SortForwards
         resb 97
-LineSortIndex:
+LineSortIndex:                                  ; line sort index; used by SortByPosition, SortForwards
         resb 3
-LineSortOrder:
+LineSortOrder:                                  ; line sort order; used by BuildTeamLines, SortByPosition,
+                                                ; SortForwards
         resb 100
-CentersByOffense:
+CentersByOffense:                               ; used by PickLineReplacement, SetupAutoLines
         resb 50
-RightWingsByDefense:
+RightWingsByDefense:                            ; used by PickLineReplacement, SetupAutoLines
         resb 50
-CentersByDefense:
+CentersByDefense:                               ; used by PickLineReplacement, SetupAutoLines
         resb 50
-LeftWingsByOffense:
+LeftWingsByOffense:                             ; used by PickLineReplacement, SetupAutoLines
         resb 50
-LineSlotTaken:
+LineSlotTaken:                                  ; used by CanPlayLineSlot, FindLinePlayer, InitGameLines ...
         resb 25
-LineSlotStart:
+LineSlotStart:                                  ; used by InitGameLines
         resb 25
-LeftWingsByDefense:
+LeftWingsByDefense:                             ; used by PickLineReplacement, SetupAutoLines
         resb 50
-RightWingsByOffense:
+RightWingsByOffense:                            ; used by PickLineReplacement, SetupAutoLines
         resb 50
-DefenseByOffense:
+DefenseByOffense:                               ; used by PickLinePlayers, PickLineReplacement, SetupAutoLines
         resb 50
-DefenseByDefense:
+DefenseByDefense:                               ; used by ChkTwoInBox, InitGameLines, PickLinePlayers ...
         resb 50
-ForwardsByOffense:
+ForwardsByOffense:                              ; used by ChkTwoInBox, FixLineSlot, InitGameLines ...
         resb 50
-ForwardsByDefense:
+ForwardsByDefense:                              ; used by PickLinePlayers, PickLineReplacement, SetupAutoLines
         resb 50
-LineBuildLine:
+LineBuildLine:                                  ; line being built; used by CanPlayLineSlot, FindLinePlayer,
+                                                ; InitGameLines ...
         resb 2
-LineBuildSlot:
+LineBuildSlot:                                  ; slot being filled; used by CanPlayLineSlot, FindLinePlayer,
+                                                ; InitGameLines ...
         resb 2
-LineBuildPlayer:
+LineBuildPlayer:                                ; player being placed; used by FindLinePlayer, InitGameLines
         resb 2
-BenchPlayerTable:
+BenchPlayerTable:                               ; bench player records; used by LoadReplayData,
+                                                ; ReplaySetupObjects, ResetPlayers ...
         resb 912
-SortCords:
+SortCords:                                      ; used by AIPassDecision, AimAtPuckTarget, AllInPlace ...
         resb 32
-PlayerPointsTable:
+PlayerPointsTable:                              ; points per player (8 bytes each); used by Intermission,
+                                                ; ResetForIntermission, assscore
         resb 8
-PlayerScoreTable:
+PlayerScoreTable:                               ; scoring record per player; used by assscore
         resb 16
-PlayerUpdateFlags:
+PlayerUpdateFlags:                              ; update flags per player; used by updateplayers
         resb 8
-PlayerUpdateTable:
+PlayerUpdateTable:                              ; update records per player; used by updateplayers
         resb 36
-PuckStickTimers:
+PuckStickTimers:                                ; puck-to-stick timer per player; used by PuckToStick
         resb 63
-PenaltyRecord:
+PenaltyRecord:                                  ; penalty record per player (8 bytes each); used by
+                                                ; AddPenalty2, DelayedPenaltyEnd, SetupPenaltyShot ...
         resb 1
-StanleyFlag:
+StanleyFlag:                                    ; flag read by assstanley; used by assstanley
         resb 1
-GoalFlags:
+GoalFlags:                                      ; goal flags per player; used by Goal
         resb 1
-GoalieFlags:
+GoalieFlags:                                    ; goalie flags per player; used by CPgoalie, ChkGoalies, Goal
+                                                ; ...
         resb 3
-PlayerAssignWords:
+PlayerAssignWords:                              ; assignment word per player; used by DebugKeys, Endfaceoff,
+                                                ; FindStartingGoalies ...
         resb 4
-PlayerAssignPtrs:
+PlayerAssignPtrs:                               ; assignment pointer per player; used by Setplass,
+                                                ; SwapPositionJumpTable
         resb 1

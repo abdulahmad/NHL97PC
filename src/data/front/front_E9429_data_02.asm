@@ -8,88 +8,110 @@ global VideoModeChoice, VesaModeIndex, VesaModeChanged, VideoModeList, AudioDriv
 global HeapList, HeapRover, HeapLargestFree, FileCacheList, MemPoolEnd, MemPoolBase, MemPoolSize, FreeSpaceList
 global MemLockOn, MemListEndFunc, JoyAxisValues, JoyAxisY, JoyAxisSecondX, JoyAxisSecondY, JoyPort, JoyTimeX
 global JoyTimeY, JoyTimeSecondX, JoyTimeSecondY, AllStarSoundOn, ControlSetupDelay, ControlSetupItem, ControlSetupSoundOn
-AllStarSlotOrder:
+AllStarSlotOrder:                               ; all-star slot order; used by AllocAllStarRosters,
+                                                ; LoadAllStarLogo, PickAllStarPlayers
         db 00h
-AllStarSlotOrderNext:
+AllStarSlotOrderNext:                           ; all-star slot order from the second entry; used by
+                                                ; AllStarNextSlot
         db 01h,01h,00h,00h,00h,00h,00h,00h,01h,01h,00h,01h,01h,01h,01h,01h
         db 01h,00h,01h,00h,00h,01h,00h,00h,01h
-AllStarArtDigits:
+AllStarArtDigits:                               ; digit per all-star art set; used by LoadAllStarArt
         db 00h,00h,00h,00h,01h,00h,00h,00h,04h,00h,00h,00h,03h,00h,00h,00h
         db 08h,00h,00h,00h,05h,00h,00h,00h,06h,00h,00h,00h,07h,00h,00h,00h
         db 02h,00h,00h,00h
-str_Punct_LoadAllStarArt:
+str_Punct_LoadAllStarArt:                       ; string "\r"; used by LoadAllStarArt
         db 0Dh,00h,00h,00h,04h,00h,00h,00h,0Ah,00h,00h,00h,06h,00h,00h,00h
         db 07h,00h,00h,00h,03h,00h,00h,00h,0Bh,00h,00h,00h,01h,00h,00h,00h
         db 08h,00h,00h,00h,00h,00h,00h,00h,09h,00h,00h,00h,02h,00h,00h,00h
         db 0Ch,00h,00h,00h,05h,00h,00h,00h
-AllStarSoundOn:
+AllStarSoundOn:                                 ; all-star sound enabled; used by AllStarSound
         db 00h,00h
-ControlSetupDelay:
+ControlSetupDelay:                              ; control setup sound delay; used by ControlSetupSound
         db 00h,00h
-ControlSetupItem:
+ControlSetupItem:                               ; control setup item for the sound; used by ControlSetupSound
         db 0FFh,0FFh
-ControlSetupSoundOn:
+ControlSetupSoundOn:                            ; control setup sound enabled; used by ControlSetupSound
         db 00h,00h,00h,00h
-VesaModeCount:
+VesaModeCount:                                  ; VESA video modes found; used by FindNearestVideoMode,
+                                                ; GetVideoModeList, InitVideoModeList ...
         db 0FFh,0FFh,0FFh,0FFh
-VideoModeChoice:
+VideoModeChoice:                                ; chosen video mode; used by InitVideoModeList,
+                                                ; ProbeVideoModes
         db 0FFh,0FFh,0FFh,0FFh
-VesaModeIndex:
+VesaModeIndex:                                  ; VESA video mode index; used by FindNearestVideoMode,
+                                                ; NextVideoMode, PrevVideoMode
         db 0FFh,0FFh,0FFh,0FFh
-VesaModeChanged:
+VesaModeChanged:                                ; set when the VESA mode changed; used by InitVideoModeList,
+                                                ; NextVideoMode, PickVideoMode ...
         db 00h,00h,00h,00h
-VideoModeList:
+VideoModeList:                                  ; video mode list; used by FindNearestVideoMode,
+                                                ; NextVideoMode, PrevVideoMode ...
         db 00h,00h,00h,00h
-AudioDriverVersion:
+AudioDriverVersion:                             ; audio driver version; used by InitVideoModeList,
+                                                ; OpenAudioStream, UpdateScoreClockData
         db 0FFh,0FFh,0FFh,0FFh
-GfxFixBuffer:
+GfxFixBuffer:                                   ; graphics fix buffer; used by AllocGfxFixBuffer,
+                                                ; FreeVideoBuffer, InitVideoModeList ...
         db 00h,00h,00h,00h
-IdleContext:
+IdleContext:                                    ; idle handler context; used by RunIdleHandlers,
+                                                ; SetIdleContext
         db 01h,00h,00h,00h
-IdleNextTick:
+IdleNextTick:                                   ; tick of the next idle handler run; used by RunIdleHandlers
         db 00h,00h,00h,00h
-HeapList:
+HeapList:                                       ; near heap list; used by __ExpandDGROUP_, __FreeDPMIBlocks_,
+                                                ; __HeapManager_expand_ ...
         db 00h,00h,00h,00h
-HeapRover:
+HeapRover:                                      ; near heap rover; used by __unlink_, _nfree_, _nmalloc_
         db 00h,00h,00h,00h
-HeapLargestFree:
+HeapLargestFree:                                ; largest free near heap block; used by _nfree_, _nmalloc_
         db 00h,00h,00h,00h
-FileCacheList:
+FileCacheList:                                  ; file cache list; used by CompactDownLocked, CompactUpLocked,
+                                                ; FindCachedFile ...
         dd memlist1
         db 00h,00h,00h,00h
-MemPoolEnd:
+MemPoolEnd:                                     ; memory pool end; used by InitMemoryPool, _nfree_
         db 00h,00h,00h,00h
-MemPoolBase:
+MemPoolBase:                                    ; memory pool base; used by InitMemoryPool, InitPlatform,
+                                                ; _nfree_
         db 00h,00h,00h,00h
-MemPoolSize:
+MemPoolSize:                                    ; memory pool size; used by InitMemoryPool
         db 00h,00h,00h,00h
-FreeSpaceList:
+FreeSpaceList:                                  ; free space list; used by AllocMemBlockEx, FindFreeSpace,
+                                                ; MergeFreeSpace
         db 00h,00h,00h,00h
-MemLockOn:
+MemLockOn:                                      ; memory lock enabled; used by AllocMemBlockEx,
+                                                ; LargestFreeSpace
         db 01h,00h,00h,00h
-MemListEndFunc:
+MemListEndFunc:                                 ; routine at the end of the memory list; used by MemListEnd
         dd PresentScreen
-JoyAxisValues:
+JoyAxisValues:                                  ; joystick axis values; used by CalibrateJoystick,
+                                                ; FillMemPattern, LoadJoystickConfig ...
         db 00h,00h,00h,00h
-JoyAxisY:
+JoyAxisY:                                       ; joystick y axis; used by FillMemPattern, LoadJoystickConfig,
+                                                ; SetupOptionsAnim ...
         db 00h,00h,00h,00h
-JoyAxisSecondX:
+JoyAxisSecondX:                                 ; second joystick x axis; used by FillMemPattern,
+                                                ; LoadJoystickConfig, SetupOptionsAnim ...
         db 00h,00h,00h,00h
-JoyAxisSecondY:
+JoyAxisSecondY:                                 ; second joystick y axis; used by FillMemPattern,
+                                                ; LoadJoystickConfig, SetupOptionsAnim ...
         db 00h,00h,00h,00h
-JoyButtonBits:
+JoyButtonBits:                                  ; joystick button bits; used by CalibrateJoystick,
+                                                ; FillMemPattern
         db 00h,00h,00h,00h
-JoyButtonMask:
+JoyButtonMask:                                  ; joystick button mask; used by CalibrateJoystick,
+                                                ; FillMemPattern
         db 00h,00h,00h,00h
-JoyPortMask:
+JoyPortMask:                                    ; joystick port mask; used by CalibrateJoystick,
+                                                ; FillMemPattern, LoadJoystickConfig ...
         db 0Fh,00h,00h,00h
-JoyPort:
+JoyPort:                                        ; joystick port; used by CalibrateJoystick, FillMemPattern
         db 01h,02h,00h,00h
-JoyTimeX:
+JoyTimeX:                                       ; joystick x timing; used by CalibrateJoystick
         db 00h,00h,00h,00h
-JoyTimeY:
+JoyTimeY:                                       ; joystick y timing; used by CalibrateJoystick
         db 00h,00h,00h,00h
-JoyTimeSecondX:
+JoyTimeSecondX:                                 ; second joystick x timing; used by CalibrateJoystick
         db 00h,00h,00h,00h
-JoyTimeSecondY:
+JoyTimeSecondY:                                 ; second joystick y timing; used by CalibrateJoystick
         db 00h,00h,00h,00h

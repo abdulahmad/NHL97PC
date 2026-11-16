@@ -13,185 +13,200 @@ global str_SRON, str_GROF, str_GRON, str_SLOF, str_SLON, str_GLOF, str_GLON, str
 global str_PBOF, str_STSP, str_STSG, str_AN02d, str_CreatePlrMenu, str_CreatePlrRegion, str_00008, str_NAON
 global str_JNON, str_JNOF, str_PBON, str_HEON, str_HEOF, str_WEON, str_WEOF, str_AGON
 global str_AGOF, str_Aiplayers, str_Statplayers, str_Statgoalies, F64_2_BuildTradePlayerLists, str_TR00, str_D_JerseyScreen, str_S_DrawCreatePlayerLabel
-str_CDCS2:
+str_CDCS2:                                      ; string "%c %d %c. %s"; used by DrawPlayerCardText,
+                                                ; DrawRosterList
         db 025h,063h,020h,020h,020h,025h,064h,020h,020h,020h,025h,063h,02Eh,020h,020h,025h
         db 073h,00h
-str_TITL11:
+str_TITL11:                                     ; string "TITL"; used by CreatePlayerScreen,
+                                                ; InitCreatePlayerScreen, InitRosterScreen
         db 054h,049h,054h,04Ch,00h
-str_MTR2:
+str_MTR2:                                       ; string "MTR2"; used by DrawRosterPanel
         db 04Dh,054h,052h,032h,00h
-str_TR00TR01TR02TR03:
+str_TR00TR01TR02TR03:                           ; string "TR00TR01TR02TR03"; used by SetupRosterLists
         db 054h,052h,030h,030h,054h,052h,030h,031h,054h,052h,030h,032h,054h,052h,030h,033h
         db 00h
-str_DF00DF01DF02DF03:
+str_DF00DF01DF02DF03:                           ; string "DF00DF01DF02DF03"; used by SetupRosterLists
         db 044h,046h,030h,030h,044h,046h,030h,031h,044h,046h,030h,032h,044h,046h,030h,033h
         db 00h
-str_CM00CM01CM02CM03:
+str_CM00CM01CM02CM03:                           ; string "CM00CM01CM02CM03"; used by SetupRosterLists
         db 043h,04Dh,030h,030h,043h,04Dh,030h,031h,043h,04Dh,030h,032h,043h,04Dh,030h,033h
         db 00h
-str_TR00:
+str_TR00:                                       ; string "TR00"; used by SetRosterArrows, SetupRosterLists
         db 054h,052h,030h,030h,00h
-str_TR01:
+str_TR01:                                       ; string "TR01"; used by SetRosterArrows, SetupRosterLists
         db 054h,052h,030h,031h,00h
-str_DF002:
+str_DF002:                                      ; string "DF00"; used by SetupRosterLists
         db 044h,046h,030h,030h,00h
-str_CM002:
+str_CM002:                                      ; string "CM00"; used by SetupRosterLists
         db 043h,04Dh,030h,030h,00h
-str_CM012:
+str_CM012:                                      ; string "CM01"; used by SetupRosterLists
         db 043h,04Dh,030h,031h,00h
-str_GB00:
+str_GB00:                                       ; string "GB00"; used by RedrawRosterScreen, SetupRosterLists
         db 047h,042h,030h,030h,00h
-str_LD002:
+str_LD002:                                      ; string "LD00"; used by RedrawRosterScreen, SetupRosterLists
         db 04Ch,044h,030h,030h,00h
-str_LB004:
+str_LB004:                                      ; string "LB00"; used by RedrawRosterScreen, SetupRosterLists
         db 04Ch,042h,030h,030h,00h
-str_ATL2:
+str_ATL2:                                       ; string "ATL2"; used by SetupRosterLists
         db 041h,054h,04Ch,032h,00h
-str_ATL1:
+str_ATL1:                                       ; string "ATL1"; used by SetupRosterLists
         db 041h,054h,04Ch,031h,00h
-str_ATL0:
+str_ATL0:                                       ; string "ATL0"; used by SetupRosterLists
         db 041h,054h,04Ch,030h,00h
-str_ATL5:
+str_ATL5:                                       ; string "ATL5"; used by SetupRosterLists
         db 041h,054h,04Ch,035h,00h
-str_ATL4:
+str_ATL4:                                       ; string "ATL4"; used by SetupRosterLists
         db 041h,054h,04Ch,034h,00h
-str_ATL3:
+str_ATL3:                                       ; string "ATL3"; used by SetupRosterLists
         db 041h,054h,04Ch,033h,00h
-str_ATR2:
+str_ATR2:                                       ; string "ATR2"; used by SetupRosterLists
         db 041h,054h,052h,032h,00h
-str_ATR1:
+str_ATR1:                                       ; string "ATR1"; used by SetupRosterLists
         db 041h,054h,052h,031h,00h
-str_ATR0:
+str_ATR0:                                       ; string "ATR0"; used by SetupRosterLists
         db 041h,054h,052h,030h,00h
-str_ATR5:
+str_ATR5:                                       ; string "ATR5"; used by SetupRosterLists
         db 041h,054h,052h,035h,00h
-str_ATR4:
+str_ATR4:                                       ; string "ATR4"; used by SetupRosterLists
         db 041h,054h,052h,034h,00h
-str_ATR3:
+str_ATR3:                                       ; string "ATR3"; used by SetupRosterLists
         db 041h,054h,052h,033h,00h
-str_LB02d5:
+str_LB02d5:                                     ; string "LB%02d"; used by LoadRosterArt
         db 04Ch,042h,025h,030h,032h,064h,00h
-str_LB04:
+str_LB04:                                       ; string "LB04"; used by SetRosterButtons
         db 04Ch,042h,030h,034h,00h
-str_LD04:
+str_LD04:                                       ; string "LD04"; used by SetRosterButtons
         db 04Ch,044h,030h,034h,00h
-str_LB02:
+str_LB02:                                       ; string "LB02"; used by SetRosterButtons
         db 04Ch,042h,030h,032h,00h
-str_LD02:
+str_LD02:                                       ; string "LD02"; used by SetRosterButtons
         db 04Ch,044h,030h,032h,00h
-str_GB04:
+str_GB04:                                       ; string "GB04"; used by SetRosterButtons
         db 047h,042h,030h,034h,00h
-str_GB02:
+str_GB02:                                       ; string "GB02"; used by SetRosterButtons
         db 047h,042h,030h,032h,00h
-str_LB03:
+str_LB03:                                       ; string "LB03"; used by SetRosterButtons
         db 04Ch,042h,030h,033h,00h
-str_LD03:
+str_LD03:                                       ; string "LD03"; used by SetRosterButtons
         db 04Ch,044h,030h,033h,00h
-str_LB01:
+str_LB01:                                       ; string "LB01"; used by SetRosterButtons
         db 04Ch,042h,030h,031h,00h
-str_LD01:
+str_LD01:                                       ; string "LD01"; used by SetRosterButtons
         db 04Ch,044h,030h,031h,00h
-str_GB03:
+str_GB03:                                       ; string "GB03"; used by SetRosterButtons
         db 047h,042h,030h,033h,00h
-str_GB01:
+str_GB01:                                       ; string "GB01"; used by SetRosterButtons
         db 047h,042h,030h,031h,00h
-str_TR04:
+str_TR04:                                       ; string "TR04"; used by SetRosterArrows
         db 054h,052h,030h,034h,00h
-str_SS11:
+str_SS11:                                       ; string "%s %s"; used by DrawCreatePlayerName,
+                                                ; FormatTradeMessage, RosterTradeScreen
         db 025h,073h,020h,025h,073h,00h
-str_D_JerseyScreen:
+str_D_JerseyScreen:                             ; string "%d"; used by DrawCreatePlayerAge,
+                                                ; DrawCreatePlayerNameLine, DrawCreatePlayerPanel ...
         db 025h,064h,00h
-str_JerseyMenu:
+str_JerseyMenu:                                 ; string "jersey menu"; used by JerseyScreen
         db 06Ah,065h,072h,073h,065h,079h,020h,06Dh,065h,06Eh,075h,00h
-str_JerseyMenuRegions:
+str_JerseyMenuRegions:                          ; string "jersey menu regions"; used by JerseyScreen
         db 06Ah,065h,072h,073h,065h,079h,020h,06Dh,065h,06Eh,075h,020h,072h,065h,067h,069h
         db 06Fh,06Eh,073h,00h
-str_NAM1:
+str_NAM1:                                       ; string "NAM1"; used by DrawCreatePlayerName
         db 04Eh,041h,04Dh,031h,00h
-str_CS2:
+str_CS2:                                        ; string "%c. %s"; used by DrawCreatePlayerName
         db 025h,063h,02Eh,020h,025h,073h,00h
-str_NAOF:
+str_NAOF:                                       ; string "NAOF"; used by DrawCreatePlayerName,
+                                                ; InitCreatePlayerScreen
         db 04Eh,041h,04Fh,046h,00h
-str_GOOF:
+str_GOOF:                                       ; string "GOOF"; used by DrawCreatePlayerPosition,
+                                                ; InitCreatePlayerScreen
         db 047h,04Fh,04Fh,046h,00h
-str_GOON:
+str_GOON:                                       ; string "GOON"; used by DrawCreatePlayerPosition,
+                                                ; InitCreatePlayerScreen
         db 047h,04Fh,04Fh,04Eh,00h
-str_LWOF:
+str_LWOF:                                       ; string "LWOF"; used by DrawCreatePlayerPosition,
+                                                ; InitCreatePlayerScreen
         db 04Ch,057h,04Fh,046h,00h
-str_LWON:
+str_LWON:                                       ; string "LWON"; used by DrawCreatePlayerPosition,
+                                                ; InitCreatePlayerScreen
         db 04Ch,057h,04Fh,04Eh,00h
-str_RWOF:
+str_RWOF:                                       ; string "RWOF"; used by DrawCreatePlayerPosition
         db 052h,057h,04Fh,046h,00h
-str_RWON:
+str_RWON:                                       ; string "RWON"; used by DrawCreatePlayerPosition
         db 052h,057h,04Fh,04Eh,00h
-str_CEOF:
+str_CEOF:                                       ; string "CEOF"; used by DrawCreatePlayerPosition
         db 043h,045h,04Fh,046h,00h
-str_CEON:
+str_CEON:                                       ; string "CEON"; used by DrawCreatePlayerPosition
         db 043h,045h,04Fh,04Eh,00h
-str_DEOF:
+str_DEOF:                                       ; string "DEOF"; used by DrawCreatePlayerPosition
         db 044h,045h,04Fh,046h,00h
-str_DEON:
+str_DEON:                                       ; string "DEON"; used by DrawCreatePlayerPosition
         db 044h,045h,04Fh,04Eh,00h
-str_SROF:
+str_SROF:                                       ; string "SROF"; used by DrawCreatePlayerHand
         db 053h,052h,04Fh,046h,00h
-str_SRON:
+str_SRON:                                       ; string "SRON"; used by DrawCreatePlayerHand
         db 053h,052h,04Fh,04Eh,00h
-str_GROF:
+str_GROF:                                       ; string "GROF"; used by DrawCreatePlayerHand
         db 047h,052h,04Fh,046h,00h
-str_GRON:
+str_GRON:                                       ; string "GRON"; used by DrawCreatePlayerHand
         db 047h,052h,04Fh,04Eh,00h
-str_SLOF:
+str_SLOF:                                       ; string "SLOF"; used by DrawCreatePlayerHand,
+                                                ; InitCreatePlayerScreen
         db 053h,04Ch,04Fh,046h,00h
-str_SLON:
+str_SLON:                                       ; string "SLON"; used by DrawCreatePlayerHand,
+                                                ; InitCreatePlayerScreen
         db 053h,04Ch,04Fh,04Eh,00h
-str_GLOF:
+str_GLOF:                                       ; string "GLOF"; used by DrawCreatePlayerHand,
+                                                ; InitCreatePlayerScreen
         db 047h,04Ch,04Fh,046h,00h
-str_GLON:
+str_GLON:                                       ; string "GLON"; used by DrawCreatePlayerHand,
+                                                ; InitCreatePlayerScreen
         db 047h,04Ch,04Fh,04Eh,00h
-str_POB1:
+str_POB1:                                       ; string "POB1"; used by DrawCreatePlayerLabel
         db 050h,04Fh,042h,031h,00h
-str_S_DrawCreatePlayerLabel:
+str_S_DrawCreatePlayerLabel:                    ; string "%s"; used by DrawCreatePlayerLabel
         db 025h,073h,00h
-str_PBOF:
+str_PBOF:                                       ; string "PBOF"; used by DrawCreatePlayerLabel,
+                                                ; InitCreatePlayerScreen
         db 050h,042h,04Fh,046h,00h
-str_STSP:
+str_STSP:                                       ; string "STSP"; used by DrawRatingBars
         db 053h,054h,053h,050h,00h
-str_STSG:
+str_STSG:                                       ; string "STSG"; used by DrawRatingBars
         db 053h,054h,053h,047h,00h
-str_AN02d:
+str_AN02d:                                      ; string "AN%02d"; used by DrawRatingPanel
         db 041h,04Eh,025h,030h,032h,064h,00h
-str_CreatePlrMenu:
+str_CreatePlrMenu:                              ; string "create plr menu"; used by CreatePlayerScreen
         db 063h,072h,065h,061h,074h,065h,020h,070h,06Ch,072h,020h,06Dh,065h,06Eh,075h,00h
-str_CreatePlrRegion:
+str_CreatePlrRegion:                            ; string "create plr region"; used by CreatePlayerScreen
         db 063h,072h,065h,061h,074h,065h,020h,070h,06Ch,072h,020h,072h,065h,067h,069h,06Fh
         db 06Eh,00h
-str_00008:
+str_00008:                                      ; string "0000"; used by CreatePlayerScreen,
+                                                ; InitCreatePlayerScreen
         db 030h,030h,030h,030h,00h
-str_NAON:
+str_NAON:                                       ; string "NAON"; used by InitCreatePlayerScreen
         db 04Eh,041h,04Fh,04Eh,00h
-str_JNON:
+str_JNON:                                       ; string "JNON"; used by InitCreatePlayerScreen
         db 04Ah,04Eh,04Fh,04Eh,00h
-str_JNOF:
+str_JNOF:                                       ; string "JNOF"; used by InitCreatePlayerScreen
         db 04Ah,04Eh,04Fh,046h,00h
-str_PBON:
+str_PBON:                                       ; string "PBON"; used by InitCreatePlayerScreen
         db 050h,042h,04Fh,04Eh,00h
-str_HEON:
+str_HEON:                                       ; string "HEON"; used by InitCreatePlayerScreen
         db 048h,045h,04Fh,04Eh,00h
-str_HEOF:
+str_HEOF:                                       ; string "HEOF"; used by InitCreatePlayerScreen
         db 048h,045h,04Fh,046h,00h
-str_WEON:
+str_WEON:                                       ; string "WEON"; used by InitCreatePlayerScreen
         db 057h,045h,04Fh,04Eh,00h
-str_WEOF:
+str_WEOF:                                       ; string "WEOF"; used by InitCreatePlayerScreen
         db 057h,045h,04Fh,046h,00h
-str_AGON:
+str_AGON:                                       ; string "AGON"; used by InitCreatePlayerScreen
         db 041h,047h,04Fh,04Eh,00h
-str_AGOF:
+str_AGOF:                                       ; string "AGOF"; used by InitCreatePlayerScreen
         db 041h,047h,04Fh,046h,00h
-str_Aiplayers:
+str_Aiplayers:                                  ; string "aiplayers"; used by BuildTradePlayerLists
         db 061h,069h,070h,06Ch,061h,079h,065h,072h,073h,00h
-str_Statplayers:
+str_Statplayers:                                ; string "statplayers"; used by BuildTradePlayerLists
         db 073h,074h,061h,074h,070h,06Ch,061h,079h,065h,072h,073h,00h
-str_Statgoalies:
+str_Statgoalies:                                ; string "statgoalies"; used by BuildTradePlayerLists
         db 073h,074h,061h,074h,067h,06Fh,061h,06Ch,069h,065h,073h,00h
-F64_2_BuildTradePlayerLists:
+F64_2_BuildTradePlayerLists:                    ; double constant 2; used by BuildTradePlayerLists
         db 00h,00h,00h,00h,00h,00h,00h,040h

@@ -70,11 +70,11 @@ global ClockDataBase, CupCelebrationActive, str_D_SimulateGame, SimGameResult, M
 global ActAnimNames, FallAnimNames, InterferAnimNames, GoalieAnimNames, RefSkateAnimNames, RefAmbiAnimNames, RefCallAnimNames, FightAnimNames
 global CupAnimNames, MoveFuncTable, AnimPointNames, TeamColorTable, TeamColorRanges, ModelPartLinkRows
 global MarkerColors, ReplayFrameMarker, AnimPointTable
-F32_1:
+F32_1:                                          ; float constant 1; used by ScaleModelLods
         db 00h,00h,080h,03Fh
-LetterOffsets:
+LetterOffsets:                                  ; jersey letter offsets; used by DrawJerseyLettering
         db 0FFh,0FFh,0FFh,0FFh
-LetterMasks:
+LetterMasks:                                    ; jersey letter masks; used by DrawJerseyLettering
         db 0FFh,0FFh,00h,0FFh,02Dh,0Eh,030h,0FFh,039h,059h,0Bh,0FFh,0FFh,0FFh,0FFh,0FFh
         db 039h,059h,0Bh,0FFh,00h,00h,00h,0FFh,01h,0A8h,0FEh,0FFh,01h,0A8h,0FEh,0FFh
         db 0FFh,0FFh,0FFh,0FFh,00h,00h,00h,0FFh,00h,00h,0BBh,0FFh,0FFh,0FFh,0FFh,0FFh
@@ -112,7 +112,7 @@ LetterMasks:
         db 00h,00h,0C2h,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,08h,00h,0D8h,0FFh
         db 05Eh,022h,07h,0FFh,0FFh,0FFh,0FFh,0FFh,08h,00h,0D8h,0FFh,08Eh,033h,0Ah,0FFh
         db 00h,0C0h,0E1h,0FFh,00h,0C0h,0E1h,0FFh,0FFh,0FFh,0FFh,0FFh
-LetterColors:
+LetterColors:                                   ; jersey letter colours; used by DrawJerseyLettering
         db 00h,00h,0FFh,0FFh,02Dh,0Eh,030h,0FFh,0FFh,0FFh,0FFh,0FFh,00h,00h,00h,0FFh
         db 01h,0A8h,0FEh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,00h,00h,0FFh,0FFh
         db 0FFh,0FFh,0FFh,0FFh,00h,00h,00h,0FFh,0FFh,0FFh,0FFh,0FFh,062h,030h,0Fh,0FFh
@@ -132,15 +132,15 @@ LetterColors:
         db 00h,00h,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,00h,00h,0C2h,0FFh,0FFh,0FFh,0FFh,0FFh
         db 00h,00h,0C2h,0FFh,0FFh,0FFh,0FFh,0FFh,08h,00h,0D8h,0FFh,0FFh,0FFh,0FFh,0FFh
         db 08Eh,033h,0Ah,0FFh,00h,0C0h,0E1h,0FFh
-TeamColorTable:
+TeamColorTable:                                 ; team colour table; used by SetTeamColours
         db 0FFh,00h,00h,031h,086h,0FFh,031h,0EFh,018h,0FFh,0EFh,08h,0FFh,059h,00h,0FFh
         db 010h,0F7h,0DFh,041h,0D7h,00h,0EFh,0EFh
-TeamColorRanges:
+TeamColorRanges:                                ; team colour ranges; used by SetTeamColours, SetupTeamModels
         db 096h,00h,00h,020h,051h,0B4h,018h,097h,010h,0B2h,0AAh,00h,09Eh,039h,00h,09Ch
         db 00h,094h,071h,020h,069h,00h,071h,071h,0E4h,0CEh,05h,00h
-SeatModelsUsed:
+SeatModelsUsed:                                 ; seat models used; used by FindSeatModel, LoadGameModels
         db 00h,00h,00h,00h,01h,00h,00h,00h
-ModelPartLinkRows:
+ModelPartLinkRows:                              ; model part link rows (offset and next-part pairs)
         db 0E2h,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh
         db 046h,00h,00h,00h,046h,00h,00h,00h,050h,00h,00h,00h,050h,00h,00h,00h
         db 0CEh,0FFh,0FFh,0FFh,0CEh,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh
@@ -169,25 +169,27 @@ ModelPartLinkRows:
         db 0F6h,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,0F6h,0FFh,0FFh,0FFh
         db 050h,00h,00h,00h,03Ch,00h,00h,00h,01Eh,00h,00h,00h,0F6h,0FFh,0FFh,0FFh
         db 0E2h,0FFh,0FFh,0FFh,0CEh,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh
-ModelPartLinksLeft:
+ModelPartLinksLeft:                             ; model part links, left side; used by DrawModelParts
         dd ModelPartLinkRows+110h
         dd ModelPartLinkRows+140h
         dd ModelPartLinkRows+0E0h
         dd ModelPartLinkRows+170h
-ModelPartLinksRight:
+ModelPartLinksRight:                            ; model part links, right side; used by DrawModelParts
         dd ModelPartLinkRows+38h
         dd ModelPartLinkRows+70h
         dd ModelPartLinkRows
         dd ModelPartLinkRows+0A8h
-MarkerColors:
+MarkerColors:                                   ; marker colours; used by DrawPlayerMarkers
         db 02h,00h,00h,00h,03h,00h,00h,00h,00h,00h,00h,00h
-ReplayStatesSet:
+ReplayStatesSet:                                ; replay states registered; used by InitReplayBuffer,
+                                                ; ReplayRegisterObjects, ReplayRegisterStates ...
         db 00h,00h,00h,00h
-ReplayFrameMarker:
+ReplayFrameMarker:                              ; replay frame marker; used by ReplayWriteFrame
         db 0F2h,0FFh,04h,00h
-F32_ViewAngle:
+F32_ViewAngle:                                  ; view angle (pi/8); used by SetViewDrawTarget,
+                                                ; UpdateCameraProjection
         db 0DBh,0Fh,0C9h,03Eh,00h,0C8h,02Fh,040h,00h,040h,09Ch,03Eh
-SkateAnimNames:
+SkateAnimNames:                                 ; skate animation names; used by LoadSkateAnims
         dd str_BASEPOS
         dd str_Standing
         dd str_Glide
@@ -225,7 +227,7 @@ SkateAnimNames:
         dd str_BcsovR
         dd str_AcclL
         dd str_AcclR
-ShotAnimNames:
+ShotAnimNames:                                  ; shot animation names; used by CamShot23D
         dd str_PFHSW
         dd str_PFHFWD
         dd str_PBKHSW
@@ -251,7 +253,7 @@ ShotAnimNames:
         dd str_PSTARTF
         dd str_PACCLL
         dd str_PACCLR
-ActAnimNames:
+ActAnimNames:                                   ; act animation names; used by LoadActAnims
         dd str_BENCICE
         dd str_ICEBENC
         dd str_GOPENAL
@@ -288,7 +290,7 @@ ActAnimNames:
         dd str_SINGAD
         dd str_SINGAU
         dd str_HURDAL
-FallAnimNames:
+FallAnimNames:                                  ; fall animation names; used by LoadFallAnims
         dd str_HIPHITR
         dd str_HIPHITL
         dd str_HIHITR
@@ -327,7 +329,7 @@ FallAnimNames:
         dd str_SPINL
         dd str_SPINR
         dd str_SPINB
-InterferAnimNames:
+InterferAnimNames:                              ; interference animation names; used by LoadInterferAnims
         dd str_HOLD
         dd str_HOOKR
         dd str_HOOKL
@@ -347,7 +349,7 @@ InterferAnimNames:
         dd str_SHOULL
         dd str_SHOULF
         dd str_POKECH
-GoalieAnimNames:
+GoalieAnimNames:                                ; goalie animation names; used by LoadGoalieAnims
         dd str_Glide
         dd str_PkGlid
         dd str_Setpos
@@ -456,7 +458,7 @@ GoalieAnimNames:
         dd str_Btcover
         dd str_Btcover
         dd str_Btcover
-RefSkateAnimNames:
+RefSkateAnimNames:                              ; referee skate animation names; used by LoadRefSkateAnims
         dd str_RefGlid
         dd str_RfGldau
         dd str_RefStnd
@@ -517,14 +519,14 @@ RefSkateAnimNames:
         dd str_RbcsvLa
         dd str_RbcsovR
         dd str_RbcsvRa
-RefAmbiAnimNames:
+RefAmbiAnimNames:                               ; referee ambient animation names; used by LoadRefAmbiAnims
         dd str_ADropuk
         dd str_APikpuk
         dd str_RefGetp
         dd str_ClGoal
         dd str_ClIcing
         dd str_ClWsnog
-RefCallAnimNames:
+RefCallAnimNames:                               ; referee call animation names; used by LoadRefCallAnims
         dd str_ClCharg
         dd str_ClBoard
         dd str_ClElbow
@@ -540,7 +542,7 @@ RefCallAnimNames:
         dd str_ClSpear
         dd str_ClUnspo
         dd str_ClPenal
-FightAnimNames:
+FightAnimNames:                                 ; fight animation names; used by LoadFightAnims
         dd str_READY
         dd str_THRWGLVS
         dd str_JABBED
@@ -572,14 +574,15 @@ FightAnimNames:
         dd str_RLSPULJ
         dd str_UP
         dd str_THGLVOD
-CupAnimNames:
+CupAnimNames:                                   ; cup animation names; used by LoadCupAnims
         dd str_CUPSK8
         dd str_CUPCASK
         dd str_CUPKISS
         dd str_CUPUPDW
         dd str_CUPGLAU
         dd str_CUPGLAD
-MoveFuncTable:
+MoveFuncTable:                                  ; move routine per animation; used by AllocAnimStateBlocks,
+                                                ; SetSPA, SetSPAInPlace ...
         dd SkateForwardMove
         dd SkateForwardMove
         dd SkateForwardMove
@@ -962,45 +965,46 @@ MoveFuncTable:
         dd SkateStrideMove
         dd SkateStrideMove
         db 029h,00h,00h,00h,02Ah,00h,00h,00h,02Bh,00h,00h,00h
-str_Punct_LoadAnimData:
+str_Punct_LoadAnimData:                         ; string ","; used by HitKnockback, LoadAnimData
         db 02Ch,00h,00h,00h,02Eh,00h,00h,00h,02Fh,00h,00h,00h
-AnimPointTable:
+AnimPointTable:                                 ; animation point table; used by InitAnimPoints
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,080h,03Fh,00h,00h,080h,03Fh,00h,00h,080h,03Fh
         db 00h,00h,080h,03Fh,00h,00h,00h,00h
-MoveState:
+MoveState:                                      ; move state; used by InitAnimPoints, InitPlayerAnims, SetSPA
+                                                ; ...
         db 00h,00h,00h,00h
-PlayerAnimBase:
+PlayerAnimBase:                                 ; player animation base; used by InitPlayerAnims
         db 00h,00h,00h,00h
-PlayerAnimSize:
+PlayerAnimSize:                                 ; player animation size; used by InitPlayerAnims
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-PlayerAnimScale:
+PlayerAnimScale:                                ; player animation scale (1.0); used by InitPlayerAnims
         db 00h,00h,080h,03Fh,00h,00h,080h,03Fh,00h,00h,080h,03Fh,00h,00h,080h,03Fh
-PlayerAnimMove:
+PlayerAnimMove:                                 ; player animation move; used by InitPlayerAnims
         db 00h,00h,00h,00h
-SkateAnimData:
+SkateAnimData:                                  ; skate animation data; used by FreeAnimTables, LoadSkateAnims
         db 00h,00h,00h,00h
-ShotAnimData:
+ShotAnimData:                                   ; shot animation data; used by CamShot23D
         db 00h,00h,00h,00h
-ActAnimData:
+ActAnimData:                                    ; act animation data; used by LoadActAnims
         db 00h,00h,00h,00h
-FallAnimData:
+FallAnimData:                                   ; fall animation data; used by LoadFallAnims
         db 00h,00h,00h,00h
-InterferAnimData:
+InterferAnimData:                               ; interference animation data; used by LoadInterferAnims
         db 00h,00h,00h,00h
-GoalieAnimDataPtr:
+GoalieAnimDataPtr:                              ; goalie animation data; used by LoadGoalieAnims
         db 00h,00h,00h,00h
-RefSkateAnimData:
+RefSkateAnimData:                               ; referee skate animation data; used by LoadRefSkateAnims
         db 00h,00h,00h,00h
-RefAmbiAnimData:
+RefAmbiAnimData:                                ; referee ambient animation data; used by LoadRefAmbiAnims
         db 00h,00h,00h,00h
-RefCallAnimData:
+RefCallAnimData:                                ; referee call animation data; used by LoadRefCallAnims
         db 00h,00h,00h,00h
-FightAnimData:
+FightAnimData:                                  ; fight animation data; used by LoadFightAnims
         db 00h,00h,00h,00h
-CupAnimData:
+CupAnimData:                                    ; cup animation data; used by LoadCupAnims
         db 00h,00h,00h,00h
-AnimPointNames:
+AnimPointNames:                                 ; animation point names; used by InitAnimPoints
         dd str_rhand
         dd str_Lhand
         dd str_stickheel
@@ -1016,12 +1020,14 @@ AnimPointNames:
         dd str_Relbow
         dd str_lshldr
         dd str_rshldr
-MoveAnimIds:
+MoveAnimIds:                                    ; animation id per move; used by GoalieMoves, GoalieSave,
+                                                ; LoadAnimData ...
         db 0D6h,00h,00h,00h,0D7h,00h,00h,00h,0D8h,00h,00h,00h,0D9h,00h,00h,00h
         db 0DAh,00h,00h,00h,0DBh,00h,00h,00h,0DCh,00h,00h,00h,0DDh,00h,00h,00h
         db 0DEh,00h,00h,00h,0DFh,00h,00h,00h,0E0h,00h,00h,00h,0E1h,00h,00h,00h
         db 0E2h,00h,00h,00h,0E3h,00h,00h,00h,02h
-MoveContactFlags:
+MoveContactFlags:                               ; contact flags per move; used by LoadAnimData,
+                                                ; ResolveBodyCheck, ResolvePlayerContact
         db 01h,00h,00h,0E6h,00h,00h,00h,0E7h,00h,00h,00h,0E8h,00h,00h,00h,0EBh
         db 00h,00h,00h,0ECh,00h,00h,00h,0A8h,00h,00h,00h,0EDh,00h,00h,00h,0EEh
         db 00h,00h,00h,0EFh,00h,00h,00h,0F0h,00h,00h,00h,0F1h,00h,00h,00h,0F3h
@@ -1041,19 +1047,19 @@ MoveContactFlags:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h
-SpaEnabled:
+SpaEnabled:                                     ; SPA moves enabled; used by SetSPA
         db 01h,00h,00h,00h
-IdleAnims:
+IdleAnims:                                      ; idle animations; used by PickIdleAnim
         db 06h,00h,00h,00h,05h,00h,00h,00h,04h,00h,00h,00h
-AnimPointUnset:
+AnimPointUnset:                                 ; unset animation point (-1); used by InitAnimPoints
         db 0FFh,0FFh,0FFh,0FFh,08Eh,00h,00h,00h,099h,00h,00h,00h
-CollideAnimsFront:
+CollideAnimsFront:                              ; collision animations from the front; used by checkcx
         db 092h,00h,00h,00h,090h,00h,00h,00h,091h,00h,00h,00h
-CollideAnimsSide:
+CollideAnimsSide:                               ; collision animations from the side; used by checkcx
         db 08Ch,00h,00h,00h,097h,00h,00h,00h,093h,00h,00h,00h
-CollideAnimsBack:
+CollideAnimsBack:                               ; collision animations from behind; used by checkcx
         db 08Dh,00h,00h,00h,098h,00h,00h,00h,094h,00h,00h,00h
-RefGoalLineAnims:
+RefGoalLineAnims:                               ; referee goal line animations; used by RefGoalLineAnim
         db 0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh
         db 047h,01h,00h,00h,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh
         db 0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,048h,01h,00h,00h
@@ -1063,31 +1069,35 @@ RefGoalLineAnims:
         db 051h,01h,00h,00h,04Ah,01h,00h,00h,04Ah,01h,00h,00h,0FFh,0FFh,0FFh,0FFh
         db 053h,01h,00h,00h,0FFh,0FFh,0FFh,0FFh,056h,01h,00h,00h,0FFh,0FFh,0FFh,0FFh
         db 04Eh,01h,00h,00h,055h,01h,00h,00h,057h,01h,00h,00h
-BlockShotAnims:
+BlockShotAnims:                                 ; block shot animations; used by BlockShotMove
         db 0CBh,00h,00h,00h,0CCh,00h,00h,00h,0CDh,00h,00h,00h,0D1h,00h,00h,00h
         db 0D0h,00h,00h,00h,0D3h,00h,00h,00h,0D2h,00h,00h,00h,0D5h,00h,00h,00h
         db 01h,01h,00h,00h
-BlockShotMoveLeft:
+BlockShotMoveLeft:                              ; block shot move per direction, left side; used by
+                                                ; BlockShotMove
         db 0C8h,00h,00h,00h,0C9h,00h,00h,00h,0CAh,00h,00h,00h
-BlockShotMoveRight:
+BlockShotMoveRight:                             ; block shot move per direction, right side; used by
+                                                ; BlockShotMove
         db 0D4h,00h,00h,00h,0CFh,00h,00h,00h,0CEh,00h,00h,00h
-F32_7p84727eneg44:
+F32_7p84727eneg44:                              ; float constant 7.8472714e-44; used by PuckDeflect
         db 038h,00h,00h,00h,03Ch,00h,00h,00h,044h,00h,00h,00h,00h,00h,00h,00h
-F32_0:
+F32_0:                                          ; float constant 0; used by DecodeAnimTree, InitAnimState
         db 00h,00h,00h,00h,00h,00h,080h,03Fh,0ABh,0AAh,0AAh,03Eh,025h,049h,012h,03Eh
         db 089h,088h,088h,03Dh,08h,021h,04h,03Dh,021h,08h,082h,03Ch,04h,02h,01h,03Ch
         db 081h,080h,080h,03Bh,020h,040h,00h,03Bh,08h,020h,080h,03Ah,02h,010h,00h,03Ah
         db 01h,08h,080h,039h,00h,04h,00h,039h,00h,02h,080h,038h,00h,01h,00h,038h
         db 01h,00h,00h,00h,01h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh
-ClockDataTicks:
+ClockDataTicks:                                 ; saved clock data tick count; used by PlaySavedReplay,
+                                                ; ReplayDrawFrame, ReplayPlayFrames ...
         db 00h,00h,00h,00h
-ClockDataRate:
+ClockDataRate:                                  ; clock data rate (20.0); used by ResetClockData
         db 00h,00h,0A0h,041h
-ClockDataBase:
+ClockDataBase:                                  ; clock data base value; used by ResetClockData
         db 00h,00h,00h,00h
-CupCelebrationActive:
+CupCelebrationActive:                           ; set while the cup celebration runs; used by CupCelebration,
+                                                ; DebugKeys
         db 00h,00h,00h,00h
-str_D_SimulateGame:
+str_D_SimulateGame:                             ; string "d"; used by SimulateGame
         db 064h,00h,00h,00h,064h,00h,00h,00h,04Bh,00h,00h,00h,064h,00h,00h,00h
         db 064h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h
         db 064h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h
@@ -1095,5 +1105,6 @@ str_D_SimulateGame:
         db 04Bh,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h
         db 064h,00h,00h,00h,064h,00h,00h,00h,05Ah,00h,00h,00h,064h,00h,00h,00h
         db 05Ah,00h,00h,00h,055h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h
-SimGameResult:
+SimGameResult:                                  ; result value saved by the game simulation; used by
+                                                ; SimulateGame
         db 00h,00h,00h,00h

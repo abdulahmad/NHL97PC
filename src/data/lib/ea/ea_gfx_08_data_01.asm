@@ -5,51 +5,52 @@ section s_167E98 progbits alloc noexec write align=1
 global str_Ori2, str_PRIMLIST, str_4db, str_DxDxD, str_CmnFrateC, str_FramerateTIMERHZNOTSET, str_Rate2dDAvg2dDD, str_TGV
 global str_MBRAM2, str_MBDOS, str_PATH, str_DOS4GWEXE, str_CS3, str_0123456789abcdef, str_Null, str_0123456789ABCDEF
 global F64_0p1_InitModelInstance, F64_1p25_InitModelInstance, F64_0p1_ScaleModelVerts, F64_1p25_ScaleModelVerts, F64_0p5_ReadBits, str_ORIINST
-str_Ori2:
+str_Ori2:                                       ; string ".ori"; used by LoadModelByName
         db 02Eh,06Fh,072h,069h,00h
-F64_0p1_InitModelInstance:
+F64_0p1_InitModelInstance:                      ; double constant 0.1; used by InitModelInstance
         db 09Ah,099h,099h,099h,099h,099h,0B9h,03Fh
-F64_1p25_InitModelInstance:
+F64_1p25_InitModelInstance:                     ; double constant 1.25; used by InitModelInstance
         db 00h,00h,00h,00h,00h,00h,0F4h,03Fh,00h,00h,00h
-str_ORIINST:
+str_ORIINST:                                    ; string "ORI_INST"; used by CreateModelInstance
         db 04Fh,052h,049h,05Fh,049h,04Eh,053h,054h,00h,00h,00h,00h
-str_PRIMLIST:
+str_PRIMLIST:                                   ; string "PRIMLIST"; used by DrawPrimList
         db 050h,052h,049h,04Dh,04Ch,049h,053h,054h,00h,00h,00h,00h
-F64_0p1_ScaleModelVerts:
+F64_0p1_ScaleModelVerts:                        ; double constant 0.1; used by ScaleModelVerts
         db 09Ah,099h,099h,099h,099h,099h,0B9h,03Fh
-F64_1p25_ScaleModelVerts:
+F64_1p25_ScaleModelVerts:                       ; double constant 1.25; used by ScaleModelVerts
         db 00h,00h,00h,00h,00h,00h,0F4h,03Fh
-str_4db:
+str_4db:                                        ; string ".4db"; used by LoadModelFile
         db 02Eh,034h,064h,062h,00h,00h,00h,00h
-F64_0p5_ReadBits:
+F64_0p5_ReadBits:                               ; double constant 0.5; used by ReadBits
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-str_DxDxD:
+str_DxDxD:                                      ; string "%dx%dx%d"; used by CreateBitmapEx
         db 025h,064h,078h,025h,064h,078h,025h,064h,00h,00h,00h,00h
-str_CmnFrateC:
+str_CmnFrateC:                                  ; string "cmn\frate.c"; used by UpdateFrameRate
         db 063h,06Dh,06Eh,05Ch,066h,072h,061h,074h,065h,02Eh,063h,00h
-str_FramerateTIMERHZNOTSET:
+str_FramerateTIMERHZNOTSET:                     ; string "framerate - TIMERHZ NOT SET! "; used by
+                                                ; UpdateFrameRate
         db 066h,072h,061h,06Dh,065h,072h,061h,074h,065h,020h,02Dh,020h,054h,049h,04Dh,045h
         db 052h,048h,05Ah,020h,04Eh,04Fh,054h,020h,053h,045h,054h,021h,0Ah,00h,00h,00h
-str_Rate2dDAvg2dDD:
+str_Rate2dDAvg2dDD:                             ; string "rate=%2d.%d avg=%2d.%d %d "; used by UpdateFrameRate
         db 072h,061h,074h,065h,03Dh,025h,032h,064h,02Eh,025h,064h,020h,020h,061h,076h,067h
         db 03Dh,025h,032h,064h,02Eh,025h,064h,020h,020h,025h,064h,020h,0Ah,00h,00h,00h
-str_TGV:
+str_TGV:                                        ; string "TGV"; used by DecodeTgvFrame, DecodeTgvKeyFrame
         db 054h,047h,056h,00h
-str_MBRAM2:
+str_MBRAM2:                                     ; string "MB_RAM"; used by InitMemoryPool
         db 04Dh,042h,05Fh,052h,041h,04Dh,00h,00h
-str_MBDOS:
+str_MBDOS:                                      ; string "MB_DOS"; used by InitMemoryPool
         db 04Dh,042h,05Fh,044h,04Fh,053h,00h,00h
-str_PATH:
+str_PATH:                                       ; string "PATH"; used by FindDos4gw
         db 050h,041h,054h,048h,00h,00h,00h,00h
-str_DOS4GWEXE:
+str_DOS4GWEXE:                                  ; string "DOS4GW.EXE"; used by FindDos4gw
         db 044h,04Fh,053h,034h,047h,057h,02Eh,045h,058h,045h,00h,00h
-str_CS3:
+str_CS3:                                        ; string "c:\%s"; used by FindDos4gw
         db 063h,03Ah,05Ch,025h,073h,00h,00h,00h
-str_0123456789abcdef:
+str_0123456789abcdef:                           ; string "0123456789abcdef"; used by FormatString
         db 030h,031h,032h,033h,034h,035h,036h,037h,038h,039h,061h,062h,063h,064h,065h,066h
         db 00h,00h,00h,00h
-str_Null:
+str_Null:                                       ; string "null"; used by FormatString
         db 06Eh,075h,06Ch,06Ch,00h,00h,00h,00h
-str_0123456789ABCDEF:
+str_0123456789ABCDEF:                           ; string "0123456789ABCDEF"; used by FormatString
         db 030h,031h,032h,033h,034h,035h,036h,037h,038h,039h,041h,042h,043h,044h,045h,046h
         db 00h,00h,00h,00h

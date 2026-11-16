@@ -4235,7 +4235,7 @@ RecordStreakClips:
         pop esi
         ret
         db 08Bh,0C0h
-PaEventJumpTable:
+PaEventJumpTable:                               ; jump table for the switch cases of PaEvent
         dd PaEvent_4D6
         dd PaEvent_4EC
         dd PaEvent_502
@@ -4248,7 +4248,7 @@ PaEventJumpTable:
         dd PaEvent_5FE
         dd PaEvent_64E
         dd PaEvent_69E
-PaEventArgJumpTable:
+PaEventArgJumpTable:                            ; jump table for the switch cases of PaEvent
         dd PaEvent_745
         dd PaEvent_7FF
         dd PaEvent_87E

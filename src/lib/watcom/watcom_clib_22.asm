@@ -2068,7 +2068,7 @@ PlayPatchNote:
         pop esi
         ret 10h
         db 08Bh,0C0h
-PlayPatchNoteJumpTable:
+PlayPatchNoteJumpTable:                         ; jump table for the switch cases
         dd PlayPatchNote_4E8.12
         dd PlayPatchNote_4E8.28
         dd PlayPatchNote_4E8.15

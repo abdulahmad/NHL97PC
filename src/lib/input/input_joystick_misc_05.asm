@@ -1305,7 +1305,8 @@ PresentScreen:
         LD xor, eax, eax
         ret
         db 00h
-str_Locateshape44sSHAPENOTFOUND:
+str_Locateshape44sSHAPENOTFOUND:                ; string "locateshape - '%-4.4s' SHAPE NOT FOUND "; used by
+                                                ; FindShape
         db 06Ch,06Fh,063h,061h,074h,065h,073h,068h,061h,070h,065h,020h,02Dh,020h,027h,025h
         db 02Dh,034h,02Eh,034h,073h,027h,020h,053h,048h,041h,050h,045h,020h,04Eh,04Fh,054h
         db 020h,046h,04Fh,055h,04Eh,044h,0Dh,0Ah,00h
@@ -1517,7 +1518,7 @@ OpenArtArchiveErr:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-BlendPixelModeJumpTable:
+BlendPixelModeJumpTable:                        ; jump table for the switch cases of BlendPixelMode
         dd BlendPixelMode_38A
         dd BlendPixelMode_30
         dd BlendPixelMode_54
@@ -1851,7 +1852,7 @@ BlendPixelMode_38A:
         pop esi
         ret 8
         db 090h
-BlendPixelsJumpTable:
+BlendPixelsJumpTable:                           ; jump table for the switch cases of BlendPixels
         dd BlendPixels_DB
         dd BlendPixels_14
         dd BlendPixels_2D

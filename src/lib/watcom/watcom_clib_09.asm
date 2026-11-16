@@ -925,7 +925,7 @@ MixAudioBlock:
         pop ecx
         ret
         db 08Dh,040h,00h
-MixChannelFormatJumpTable:
+MixChannelFormatJumpTable:                      ; jump table for the switch cases of MixChannelFormat
         dd MixChannelFormat_20
         dd MixChannelFormat_FC
         dd MixChannelFormat_1C0

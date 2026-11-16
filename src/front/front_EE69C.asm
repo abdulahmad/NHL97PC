@@ -2320,7 +2320,7 @@ DrawControlKey:
         pop edi
         pop esi
         ret 8
-ControlSetupScreenJumpTable:
+ControlSetupScreenJumpTable:                    ; jump table for the switch cases of ControlSetupScreen
         dd ControlSetupScreen_B8D
         dd ControlSetupScreen_BB1
         dd ControlSetupScreen_BC0

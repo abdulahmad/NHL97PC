@@ -10,118 +10,118 @@ global str_D2, str_Ring, str_EAC1, str_EAC2, str_QCRD, str_PAGESTACK, str_CRD1, 
 global str_Nhll, str_Nhlp, str_Pl0, str_Pl1, str_Rt_CreditsScreen, str_STATICS, str_DYNAMICS, str_PLAYERS
 global str_ROSTERS, str_STATS, str_BRAINS, str_GAMES, str_USERLOGS, str_NHL9596, str_DATA, str_HDB
 global str_BIX
-str_DOR0:
+str_DOR0:                                       ; string "DOR0"; used by GoalieMaskIntro
         db 044h,04Fh,052h,030h,00h,00h,00h,00h
-str_DOR1:
+str_DOR1:                                       ; string "DOR1"; used by GoalieMaskIntro
         db 044h,04Fh,052h,031h,00h,00h,00h,00h
-str_BACK12:
+str_BACK12:                                     ; string "BACK"; used by GoalieMaskIntro, GoalieMaskScreen
         db 042h,041h,043h,04Bh,00h,00h,00h,00h
-str_PANL3:
+str_PANL3:                                      ; string "PANL"; used by GoalieMaskIntro, GoalieMaskScreen
         db 050h,041h,04Eh,04Ch,00h,00h,00h,00h
-str_LADR:
+str_LADR:                                       ; string "LADR"; used by GoalieMaskIntro, GoalieMaskScreen
         db 04Ch,041h,044h,052h,00h,00h,00h,00h
-str_LEFT:
+str_LEFT:                                       ; string "LEFT"; used by GoalieMaskIntro, GoalieMaskScreen
         db 04Ch,045h,046h,054h,00h,00h,00h,00h
-str_RIGH:
+str_RIGH:                                       ; string "RIGH"; used by GoalieMaskIntro, GoalieMaskScreen
         db 052h,049h,047h,048h,00h,00h,00h,00h
-str_BOTM4:
+str_BOTM4:                                      ; string "BOTM"; used by GoalieMaskIntro
         db 042h,04Fh,054h,04Dh,00h,00h,00h,00h
-str_BB00:
+str_BB00:                                       ; string "BB00"; used by GoalieMaskIntro, GoalieMaskScreen
         db 042h,042h,030h,030h,00h,00h,00h,00h
-str_BB04:
+str_BB04:                                       ; string "BB04"; used by GoalieMaskIntro, GoalieMaskScreen
         db 042h,042h,030h,034h,00h,00h,00h,00h
-str_BB08:
+str_BB08:                                       ; string "BB08"; used by GoalieMaskIntro, GoalieMaskScreen
         db 042h,042h,030h,038h,00h,00h,00h,00h
-str_AB004:
+str_AB004:                                      ; string "AB00"; used by GoalieMaskIntro, GoalieMaskScreen
         db 041h,042h,030h,030h,00h,00h,00h,00h
-str_AB034:
+str_AB034:                                      ; string "AB03"; used by GoalieMaskIntro, GoalieMaskScreen
         db 041h,042h,030h,033h,00h,00h,00h,00h
-str_BarassoPIT:
+str_BarassoPIT:                                 ; string "Barasso - PIT"; used by GoalieMaskIntro
         db 042h,061h,072h,061h,073h,073h,06Fh,020h,02Dh,020h,050h,049h,054h,00h,00h,00h
-str_BarassoPIT199596:
+str_BarassoPIT199596:                           ; string "Barasso - PIT - 1995-96"; used by GoalieMaskIntro
         db 042h,061h,072h,061h,073h,073h,06Fh,020h,02Dh,020h,050h,049h,054h,020h,02Dh,020h
         db 031h,039h,039h,035h,02Dh,039h,036h,00h
-str_MASK0000FSH:
+str_MASK0000FSH:                                ; string "MASK0000.FSH"; used by GoalieMaskScreen
         db 04Dh,041h,053h,04Bh,030h,030h,030h,030h,02Eh,046h,053h,048h,00h,00h,00h,00h
-str_FRNT2:
+str_FRNT2:                                      ; string "FRNT"; used by GoalieMaskScreen
         db 046h,052h,04Eh,054h,00h,00h,00h,00h
-str_BB02d:
+str_BB02d:                                      ; string "BB%02d"; used by GoalieMaskScreen
         db 042h,042h,025h,030h,032h,064h,00h,00h
-str_SS14:
+str_SS14:                                       ; string "%s - %s"; used by GoalieMaskScreen
         db 025h,073h,020h,02Dh,020h,025h,073h,00h
-str_BB01:
+str_BB01:                                       ; string "BB01"; used by GoalieMaskScreen
         db 042h,042h,030h,031h,00h,00h,00h,00h
-str_BB05:
+str_BB05:                                       ; string "BB05"; used by GoalieMaskScreen
         db 042h,042h,030h,035h,00h,00h,00h,00h
-str_BB09:
+str_BB09:                                       ; string "BB09"; used by GoalieMaskScreen
         db 042h,042h,030h,039h,00h,00h,00h,00h
-str_AB024:
+str_AB024:                                      ; string "AB02"; used by GoalieMaskScreen
         db 041h,042h,030h,032h,00h,00h,00h,00h
-str_AB014:
+str_AB014:                                      ; string "AB01"; used by GoalieMaskScreen
         db 041h,042h,030h,031h,00h,00h,00h,00h
-str_AB054:
+str_AB054:                                      ; string "AB05"; used by GoalieMaskScreen
         db 041h,042h,030h,035h,00h,00h,00h,00h
-str_AB044:
+str_AB044:                                      ; string "AB04"; used by GoalieMaskScreen
         db 041h,042h,030h,034h,00h,00h,00h,00h
-str_MASK0002dFSH:
+str_MASK0002dFSH:                               ; string "MASK00%02d.FSH"; used by GoalieMaskScreen
         db 04Dh,041h,053h,04Bh,030h,030h,025h,030h,032h,064h,02Eh,046h,053h,048h,00h,00h
-str_SSS4:
+str_SSS4:                                       ; string "%s - %s - %s"; used by GoalieMaskScreen
         db 025h,073h,020h,02Dh,020h,025h,073h,020h,02Dh,020h,025h,073h,00h,00h,00h,00h
-str_Scr1:
+str_Scr1:                                       ; string "scr1"; used by RunIntro
         db 073h,063h,072h,031h,00h,00h,00h,00h
-str_Scr2:
+str_Scr2:                                       ; string "scr2"; used by RunIntro
         db 073h,063h,072h,032h,00h,00h,00h,00h
-str_Pal3:
+str_Pal3:                                       ; string "pal"; used by RunIntro
         db 070h,061h,06Ch,00h
-str_Pl0:
+str_Pl0:                                        ; string "!pl0"; used by RunIntro
         db 021h,070h,06Ch,030h,00h,00h,00h,00h
-str_Pl1:
+str_Pl1:                                        ; string "!pl1"; used by RunIntro
         db 021h,070h,06Ch,031h,00h,00h,00h,00h
-str_Nhll:
+str_Nhll:                                       ; string "nhll"; used by RunIntro
         db 06Eh,068h,06Ch,06Ch,00h,00h,00h,00h
-str_Bkgd:
+str_Bkgd:                                       ; string "bkgd"; used by RunIntro
         db 062h,06Bh,067h,064h,00h,00h,00h,00h
-str_Nhlp:
+str_Nhlp:                                       ; string "nhlp"; used by RunIntro
         db 06Eh,068h,06Ch,070h,00h,00h,00h,00h
-str_Rt_CreditsScreen:
+str_Rt_CreditsScreen:                           ; string "rt"; used by CreditsScreen
         db 072h,074h,00h,00h
-str_D2:
+str_D2:                                         ; string "%d "; used by CreditsScreen
         db 025h,064h,0Ah,00h
-str_Ring:
+str_Ring:                                       ; string "ring"; used by CreditsScreen
         db 072h,069h,06Eh,067h,00h,00h,00h,00h
-str_EAC1:
+str_EAC1:                                       ; string "EAC1"; used by CreditsScreen
         db 045h,041h,043h,031h,00h,00h,00h,00h
-str_EAC2:
+str_EAC2:                                       ; string "EAC2"; used by CreditsScreen
         db 045h,041h,043h,032h,00h,00h,00h,00h
-str_QCRD:
+str_QCRD:                                       ; string "QCRD"; used by CreditsScreen
         db 051h,043h,052h,044h,00h,00h,00h,00h
-str_CRD2:
+str_CRD2:                                       ; string "CRD2"; used by CreditsScreen
         db 043h,052h,044h,032h,00h,00h,00h,00h
-str_CRD1:
+str_CRD1:                                       ; string "CRD1"; used by CreditsScreen
         db 043h,052h,044h,031h,00h,00h,00h,00h
-str_PAGESTACK:
+str_PAGESTACK:                                  ; string "PAGESTACK"; used by AllocPageStack
         db 050h,041h,047h,045h,053h,054h,041h,043h,04Bh,00h,00h,00h
-str_STATICS:
+str_STATICS:                                    ; string "STATICS"
         db 053h,054h,041h,054h,049h,043h,053h,00h
-str_DYNAMICS:
+str_DYNAMICS:                                   ; string "DYNAMICS"
         db 044h,059h,04Eh,041h,04Dh,049h,043h,053h,00h
-str_PLAYERS:
+str_PLAYERS:                                    ; string "PLAYERS"
         db 050h,04Ch,041h,059h,045h,052h,053h,00h
-str_ROSTERS:
+str_ROSTERS:                                    ; string "ROSTERS"
         db 052h,04Fh,053h,054h,045h,052h,053h,00h
-str_STATS:
+str_STATS:                                      ; string "STATS"
         db 053h,054h,041h,054h,053h,00h
-str_BRAINS:
+str_BRAINS:                                     ; string "BRAINS"
         db 042h,052h,041h,049h,04Eh,053h,00h
-str_GAMES:
+str_GAMES:                                      ; string "GAMES"
         db 047h,041h,04Dh,045h,053h,00h
-str_USERLOGS:
+str_USERLOGS:                                   ; string "USERLOGS"
         db 055h,053h,045h,052h,04Ch,04Fh,047h,053h,00h
-str_NHL9596:
+str_NHL9596:                                    ; league file directory name, the letters NHL then 9596 (LeagueFileDir)
         db 04Eh,048h,04Ch,039h,035h,039h,036h,00h
-str_DATA:
+str_DATA:                                       ; string "DATA\"
         db 044h,041h,054h,041h,05Ch,00h
-str_HDB:
+str_HDB:                                        ; string ".HDB"
         db 02Eh,048h,044h,042h,00h
-str_BIX:
+str_BIX:                                        ; string ".BIX"
         db 02Eh,042h,049h,058h,00h

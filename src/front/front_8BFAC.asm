@@ -3566,12 +3566,12 @@ PositionAbbrev:
         pop ecx
         pop ebx
         ret
-SeasonLengthJumpTable:
+SeasonLengthJumpTable:                          ; jump table for the switch cases of RunNewSeason
         dd RunNewSeason_F8
         dd RunNewSeason_DD
         dd RunNewSeason_E6
         dd RunNewSeason_EF
-PlayoffRoundsJumpTable:
+PlayoffRoundsJumpTable:                         ; jump table for the switch cases of RunNewSeason
         dd RunNewSeason_16F
         dd RunNewSeason_17B
         dd RunNewSeason_187

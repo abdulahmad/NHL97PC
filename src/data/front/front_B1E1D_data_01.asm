@@ -10,133 +10,133 @@ global str_TITL8, str_UL2d, str_UL08, str_UL09, str_UL10, str_UL00, str_UL01, st
 global str_UL04, str_UL05, str_UL06, str_ULA0, str_ULA1, str_ULA2, str_ULA3, str_ULA4
 global str_ULA5, str_D02d2, str_Logbook, str_Logname, str_Ulstreak, str_Uname, str_Uopp, str_Upts
 global str_Urate, str_Usort, str_Ustreak, str_Uteam, str_D_ParseUserName, str_S_DrawUserName, UserListFileSeason, UserListFilePlayoff
-str_D_ParseUserName:
+str_D_ParseUserName:                            ; string "%d"; used by NewUser, ParseUserName
         db 025h,064h,00h
-str_S_DrawUserName:
+str_S_DrawUserName:                             ; string "%s"; used by DrawUserName
         db 025h,073h,00h
-str_LX00:
+str_LX00:                                       ; string "LX00"; used by UserLogScreen
         db 04Ch,058h,030h,030h,00h
-str_LC00:
+str_LC00:                                       ; string "LC00"; used by UserLogScreen
         db 04Ch,043h,030h,030h,00h
-str_LX0D:
+str_LX0D:                                       ; string "LX0%d"; used by UserLogScreen
         db 04Ch,058h,030h,025h,064h,00h
-str_LC0D:
+str_LC0D:                                       ; string "LC0%d"; used by UserLogScreen
         db 04Ch,043h,030h,025h,064h,00h
-str_1TOP4:
+str_1TOP4:                                      ; string "1TOP"; used by UserLogScreen
         db 031h,054h,04Fh,050h,00h
-str_2TOP4:
+str_2TOP4:                                      ; string "2TOP"; used by UserLogScreen
         db 032h,054h,04Fh,050h,00h
-str_3TOP4:
+str_3TOP4:                                      ; string "3TOP"; used by UserLogScreen
         db 033h,054h,04Fh,050h,00h
-str_1BOT4:
+str_1BOT4:                                      ; string "1BOT"; used by UserLogScreen
         db 031h,042h,04Fh,054h,00h
-str_2BOT4:
+str_2BOT4:                                      ; string "2BOT"; used by UserLogScreen
         db 032h,042h,04Fh,054h,00h
-str_3BOT4:
+str_3BOT4:                                      ; string "3BOT"; used by UserLogScreen
         db 033h,042h,04Fh,054h,00h
-str_LOCALNDX:
+str_LOCALNDX:                                   ; string "LOCAL.NDX"; used by LoadUserList
         db 04Ch,04Fh,043h,041h,04Ch,02Eh,04Eh,044h,058h,00h
-str_08d:
+str_08d:                                        ; string "%08d"; used by LoadUserList
         db 025h,030h,038h,064h,00h
-str_NOUSER:
+str_NOUSER:                                     ; string "<NO USER>"; used by LoadUserList
         db 03Ch,04Eh,04Fh,020h,055h,053h,045h,052h,03Eh,00h
-UserListFileSeason:
+UserListFileSeason:                             ; user list file name, season; used by LoadUserList
         db 03Ch,049h,04Eh,047h,045h,04Eh,020h,041h,04Eh,056h,0C4h,04Eh,044h,041h,052h,045h
         db 03Eh,00h
-str_KEINBENUTZER:
+str_KEINBENUTZER:                               ; string "<KEIN BENUTZER>"; used by LoadUserList
         db 03Ch,04Bh,045h,049h,04Eh,020h,042h,045h,04Eh,055h,054h,05Ah,045h,052h,03Eh,00h
-str_NEWUSER:
+str_NEWUSER:                                    ; string "<NEW USER>"; used by LoadUserList
         db 03Ch,04Eh,045h,057h,020h,055h,053h,045h,052h,03Eh,00h
-UserListFilePlayoff:
+UserListFilePlayoff:                            ; user list file name, playoffs; used by LoadUserList
         db 03Ch,04Eh,059h,020h,041h,04Eh,056h,0C4h,04Eh,044h,041h,052h,045h,03Eh,00h
-str_NEUERBENUTZER:
+str_NEUERBENUTZER:                              ; string "<NEUER BENUTZER>"; used by LoadUserList
         db 03Ch,04Eh,045h,055h,045h,052h,020h,042h,045h,04Eh,055h,054h,05Ah,045h,052h,03Eh
         db 00h
-str_DD02d:
+str_DD02d:                                      ; string "%d-%d:%02d"; used by UpdateUserRecords
         db 025h,064h,02Dh,025h,064h,03Ah,025h,030h,032h,064h,00h
-str_D02d2:
+str_D02d2:                                      ; string "%d:%02d"; used by UpdateUserRecords
         db 025h,064h,03Ah,025h,030h,032h,064h,00h
-str_LocalNdx:
+str_LocalNdx:                                   ; string "local.ndx"; used by LoadUserRecords
         db 06Ch,06Fh,063h,061h,06Ch,02Eh,06Eh,064h,078h,00h
-str_User:
+str_User:                                       ; string "user"; used by LoadUserRecords
         db 075h,073h,065h,072h,00h
-str_DDD5:
+str_DDD5:                                       ; string "%d-%d-%d"; used by BuildUserRecordsTable
         db 025h,064h,02Dh,025h,064h,02Dh,025h,064h,00h
-str_DD3:
+str_DD3:                                        ; string "%d-%d"; used by BuildUserRecordsTable
         db 025h,064h,02Dh,025h,064h,00h
-str_Uname:
+str_Uname:                                      ; string "uname"; used by UserRecordsScreen
         db 075h,06Eh,061h,06Dh,065h,00h
-str_Urate:
+str_Urate:                                      ; string "urate"; used by UserRecordsScreen
         db 075h,072h,061h,074h,065h,00h
-str_Upts:
+str_Upts:                                       ; string "upts"; used by UserRecordsScreen
         db 075h,070h,074h,073h,00h
-str_Ugf:
+str_Ugf:                                        ; string "ugf"; used by UserRecordsScreen
         db 075h,067h,066h,00h
-str_Uga:
+str_Uga:                                        ; string "uga"; used by UserRecordsScreen
         db 075h,067h,061h,00h
-str_Upp:
+str_Upp:                                        ; string "upp"; used by UserRecordsScreen
         db 075h,070h,070h,00h
-str_Upk:
+str_Upk:                                        ; string "upk"; used by UserRecordsScreen
         db 075h,070h,06Bh,00h
-str_Exrec:
+str_Exrec:                                      ; string "exrec"; used by UserRecordsScreen
         db 065h,078h,072h,065h,063h,00h
-str_Seasrec:
+str_Seasrec:                                    ; string "seasrec"; used by UserRecordsScreen
         db 073h,065h,061h,073h,072h,065h,063h,00h
-str_Plyrec:
+str_Plyrec:                                     ; string "plyrec"; used by UserRecordsScreen
         db 070h,06Ch,079h,072h,065h,063h,00h
-str_Urating:
+str_Urating:                                    ; string "urating"; used by UserRecordsScreen
         db 075h,072h,061h,074h,069h,06Eh,067h,00h
-str_Uso:
+str_Uso:                                        ; string "uso"; used by UserRecordsScreen
         db 075h,073h,06Fh,00h
-str_Ustreak:
+str_Ustreak:                                    ; string "ustreak"; used by UserRecordsScreen
         db 075h,073h,074h,072h,065h,061h,06Bh,00h
-str_Ulstreak:
+str_Ulstreak:                                   ; string "ulstreak"; used by UserRecordsScreen
         db 075h,06Ch,073h,074h,072h,065h,061h,06Bh,00h
-str_Uteam:
+str_Uteam:                                      ; string "uteam"; used by UserRecordsScreen
         db 075h,074h,065h,061h,06Dh,00h
-str_Uopp:
+str_Uopp:                                       ; string "uopp"; used by UserRecordsScreen
         db 075h,06Fh,070h,070h,00h
-str_Usort:
+str_Usort:                                      ; string "usort"; used by UserRecordsScreen
         db 075h,073h,06Fh,072h,074h,00h
-str_Ucups:
+str_Ucups:                                      ; string "ucups"; used by UserRecordsScreen
         db 075h,063h,075h,070h,073h,00h
-str_Logname:
+str_Logname:                                    ; string "logname"; used by UserRecordsScreen
         db 06Ch,06Fh,067h,06Eh,061h,06Dh,065h,00h
-str_Logbook:
+str_Logbook:                                    ; string "logbook"; used by UserRecordsScreen
         db 06Ch,06Fh,067h,062h,06Fh,06Fh,06Bh,00h
-str_BACK7:
+str_BACK7:                                      ; string "BACK"; used by UserRecordsScreen
         db 042h,041h,043h,04Bh,00h
-str_TITL8:
+str_TITL8:                                      ; string "TITL"; used by UserRecordsScreen
         db 054h,049h,054h,04Ch,00h
-str_UL2d:
+str_UL2d:                                       ; string "UL%.2d"; used by UserRecordsScreen
         db 055h,04Ch,025h,02Eh,032h,064h,00h
-str_UL08:
+str_UL08:                                       ; string "UL08"; used by UserRecordsScreen
         db 055h,04Ch,030h,038h,00h
-str_UL09:
+str_UL09:                                       ; string "UL09"; used by UserRecordsScreen
         db 055h,04Ch,030h,039h,00h
-str_UL10:
+str_UL10:                                       ; string "UL10"; used by UserRecordsScreen
         db 055h,04Ch,031h,030h,00h
-str_UL00:
+str_UL00:                                       ; string "UL00"; used by UserRecordsScreen
         db 055h,04Ch,030h,030h,00h
-str_UL01:
+str_UL01:                                       ; string "UL01"; used by UserRecordsScreen
         db 055h,04Ch,030h,031h,00h
-str_UL02:
+str_UL02:                                       ; string "UL02"; used by UserRecordsScreen
         db 055h,04Ch,030h,032h,00h
-str_UL04:
+str_UL04:                                       ; string "UL04"; used by UserRecordsScreen
         db 055h,04Ch,030h,034h,00h
-str_UL05:
+str_UL05:                                       ; string "UL05"; used by UserRecordsScreen
         db 055h,04Ch,030h,035h,00h
-str_UL06:
+str_UL06:                                       ; string "UL06"; used by UserRecordsScreen
         db 055h,04Ch,030h,036h,00h
-str_ULA0:
+str_ULA0:                                       ; string "ULA0"; used by UserRecordsScreen
         db 055h,04Ch,041h,030h,00h
-str_ULA1:
+str_ULA1:                                       ; string "ULA1"; used by UserRecordsScreen
         db 055h,04Ch,041h,031h,00h
-str_ULA2:
+str_ULA2:                                       ; string "ULA2"; used by UserRecordsScreen
         db 055h,04Ch,041h,032h,00h
-str_ULA3:
+str_ULA3:                                       ; string "ULA3"; used by UserRecordsScreen
         db 055h,04Ch,041h,033h,00h
-str_ULA4:
+str_ULA4:                                       ; string "ULA4"; used by UserRecordsScreen
         db 055h,04Ch,041h,034h,00h
-str_ULA5:
+str_ULA5:                                       ; string "ULA5"; used by UserRecordsScreen
         db 055h,04Ch,041h,035h,00h,00h

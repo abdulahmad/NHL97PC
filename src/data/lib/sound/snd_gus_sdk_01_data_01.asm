@@ -8,81 +8,118 @@ global DmaAddressPorts, DmaCountPorts, GusOpenCount, GusStreamRefillA, GusStream
 global GusStreamSrcB, GusStreamHalfB, GusStreamBusyB, GusStreamActive, GusStreamBufSize, GusStreamHalfSize, GusStreamQuarterSize, GusRefillSrc
 global GusRefillDest, GusRefillLength, GusStreamCardA, GusStreamCardB, GusStreamCardEnd, GusStreamStartLo, GusStreamEndLo, StrToLongLimits
 global IrqAckLast, GusEnvVarName, GusStreamLoopLo, GusStreamLoopHi, GusStreamStartHi, GusStreamEndHi
-GusEnvVarName:
+GusEnvVarName:                                  ; points to the name of the environment variable that holds
+                                                ; the card settings; used by GusGetEnvConfig
         dd str_ULTRASND
-GusOpenCount:
+GusOpenCount:                                   ; number of times the card has been opened without a matching
+                                                ; close; used by GusClose, GusOpen
         db 00h,00h,00h,00h
-GusIrqLatchBits:
+GusIrqLatchBits:                                ; latch register bits for each IRQ line the card can use; used
+                                                ; by GusOpenCard, GusSetIrqDmaLatches
         db 00h,00h,01h,03h,00h,02h,00h,04h,00h,00h,00h,05h,06h,00h,00h,07h
-GusStreamRefillA:
+GusStreamRefillA:                               ; set when the first streaming channel needs its next half
+                                                ; buffer; used by GusServiceStream, GusStreamVoiceIrq
         db 00h,00h,00h,00h
-GusStreamRefillB:
+GusStreamRefillB:                               ; set when the second streaming channel needs its next half
+                                                ; buffer; used by GusDriverUpdate, GusServiceStream,
+                                                ; GusStreamVoiceIrq
         db 00h,00h,00h,00h
-GusStreamSrcA:
+GusStreamSrcA:                                  ; source pointer of the first streaming channel; used by
+                                                ; GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
-GusStreamHalfA:
+GusStreamHalfA:                                 ; which half buffer of the first streaming channel is being
+                                                ; filled; used by GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
-GusStreamBusyA:
+GusStreamBusyA:                                 ; set while the first streaming channel is playing; used by
+                                                ; GusServiceStream, GusStreamBusy, GusStreamVoiceIrq
         db 00h,00h,00h,00h
-GusStreamSrcB:
+GusStreamSrcB:                                  ; source pointer of the second streaming channel; used by
+                                                ; GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
-GusStreamHalfB:
+GusStreamHalfB:                                 ; which half buffer of the second streaming channel is being
+                                                ; filled; used by GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
-GusStreamBusyB:
+GusStreamBusyB:                                 ; set while the second streaming channel is playing; used by
+                                                ; GusServiceStream, GusStreamBusy, GusStreamVoiceIrq
         db 00h,00h,00h,00h
-GusStreamActive:
+GusStreamActive:                                ; set while the stream voices are running; used by
+                                                ; GusStartStream, GusStopStreamVoices, GusStreamVoiceIrq
         db 00h,00h,00h,00h
-GusStreamVoiceA:
+GusStreamVoiceA:                                ; voice number of the first streaming channel; used by
+                                                ; GusStartStream, GusStopStreamVoices, GusStreamVoiceIrq
         db 00h,00h,00h,00h
-GusStreamVoiceStereo:
+GusStreamVoiceStereo:                           ; set when the stream uses a second (stereo) voice; used by
+                                                ; GusStartStream, GusStopStreamVoices
         db 00h,00h,00h,00h
-GusStreamVoiceB:
+GusStreamVoiceB:                                ; voice number of the second streaming channel; used by
+                                                ; GusStartStream, GusStopStreamVoices, GusStreamVoiceIrq
         db 00h,00h,00h,00h
-GusStreamBufSize:
+GusStreamBufSize:                               ; size of the stream buffer in card memory; used by
+                                                ; GusStartStream
         db 00h,00h,00h,00h
-GusStreamHalfSize:
+GusStreamHalfSize:                              ; size of one half of the stream buffer; used by
+                                                ; GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
-GusStreamQuarterSize:
+GusStreamQuarterSize:                           ; quarter of the stream buffer size; used by GusStartStream
         db 00h,00h,00h,00h
-GusRefillSrc:
+GusRefillSrc:                                   ; source pointer of the half buffer being copied; used by
+                                                ; GusRefillStreamChannel
         db 00h,00h,00h,00h
-GusRefillDest:
+GusRefillDest:                                  ; card address the half buffer is copied to; used by
+                                                ; GusRefillStreamChannel
         db 00h,00h,00h,00h
-GusRefillLength:
+GusRefillLength:                                ; length of the half buffer being copied; used by
+                                                ; GusRefillStreamChannel
         db 00h,00h,00h,00h
-GusStreamCardA:
+GusStreamCardA:                                 ; card memory address of the first streaming channel's buffer;
+                                                ; used by GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
-GusStreamCardB:
+GusStreamCardB:                                 ; card memory address of the second streaming channel's
+                                                ; buffer; used by GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
-GusStreamCardEnd:
+GusStreamCardEnd:                               ; end of the stream buffers in card memory; used by
+                                                ; GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
-GusStreamLoopLo:
+GusStreamLoopLo:                                ; low word of the stream voices' loop point; used by
+                                                ; GusStartStream, GusStreamVoiceIrq
         db 00h,00h
-GusStreamLoopHi:
+GusStreamLoopHi:                                ; high word of the stream voices' loop point; used by
+                                                ; GusStartStream, GusStreamVoiceIrq
         db 00h,00h
-GusStreamStartLo:
+GusStreamStartLo:                               ; low word of the stream voices' start address; used by
+                                                ; GusStartStream
         db 00h,00h
-GusStreamStartHi:
+GusStreamStartHi:                               ; high word of the stream voices' start address; used by
+                                                ; GusStartStream
         db 00h,00h
-GusStreamEndLo:
+GusStreamEndLo:                                 ; low word of the stream voices' end address; used by
+                                                ; GusStartStream
         db 00h,00h
-GusStreamEndHi:
+GusStreamEndHi:                                 ; high word of the stream voices' end address; used by
+                                                ; GusStartStream
         db 00h,00h
-DmaPagePorts:
+DmaPagePorts:                                   ; ISA DMA page register port of each channel; used by
+                                                ; DmaProgram
         db 087h,083h,081h,082h,08Fh,08Bh,089h,08Ah
-DmaMaskPorts:
+DmaMaskPorts:                                   ; ISA DMA mask register port of each channel; used by
+                                                ; DmaMaskChannel, DmaProgram
         db 0Ah,0Ah,0Ah,0Ah,0D4h,0D4h,0D4h,0D4h
-DmaModePorts:
+DmaModePorts:                                   ; ISA DMA mode register port of each channel; used by
+                                                ; DmaProgram
         db 0Bh,0Bh,0Bh,0Bh,0D6h,0D6h,0D6h,0D6h
-DmaClearPorts:
+DmaClearPorts:                                  ; ISA DMA flip-flop clear port of each channel; used by
+                                                ; DmaProgram
         db 0Ch,0Ch,0Ch,0Ch,0D8h,0D8h,0D8h,0D8h
-DmaAddressPorts:
+DmaAddressPorts:                                ; ISA DMA address register port of each channel; used by
+                                                ; DmaProgram
         db 00h,02h,04h,06h,0C0h,0C4h,0C8h,0CCh
-DmaCountPorts:
+DmaCountPorts:                                  ; ISA DMA count register port of each channel (also the EOI
+                                                ; table base); used by DmaProgram, IrqEoi
         db 01h,03h,05h,07h
-StrToLongLimits:
+StrToLongLimits:                                ; overflow limits used by the string to number conversion
         db 0C2h,0C6h,0CAh,0CEh
-IrqAckLast:
+IrqAckLast:                                     ; last IRQ status read by the interrupt acknowledge; used by
+                                                ; IrqAck
         db 0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,07Fh,055h,055h,055h,055h,0FFh,0FFh,0FFh,03Fh
         db 033h,033h,033h,033h,0AAh,0AAh,0AAh,02Ah,024h,049h,092h,024h,0FFh,0FFh,0FFh,01Fh
         db 01Ch,0C7h,071h,01Ch,099h,099h,099h,019h,074h,0D1h,045h,017h,055h,055h,055h,015h

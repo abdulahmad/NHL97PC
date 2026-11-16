@@ -3,21 +3,29 @@ bits 32
 %include "hockey.inc"
 section s_172AB0 progbits alloc noexec write align=1
 global SavedTextMode, SavedTextPage, SavedTextRows, SpeechChannelFunc, LoadFileHook, SoundBankTable, SoundBankSamples, SavedTextColumns
-SavedTextMode:
+SavedTextMode:                                  ; text mode saved at start up; used by RestoreTextMode,
+                                                ; SaveTextMode
         db 00h
-SavedTextPage:
+SavedTextPage:                                  ; text page saved at start up; used by RestoreTextMode,
+                                                ; SaveTextMode
         db 00h
-SavedTextColumns:
+SavedTextColumns:                               ; text columns saved at start up; used by RestoreTextMode,
+                                                ; SaveTextMode
         db 00h,00h
-SavedTextRows:
+SavedTextRows:                                  ; text rows saved at start up; used by RestoreTextMode,
+                                                ; SaveTextMode
         db 00h,00h,00h,00h
-SpeechChannelFunc:
+SpeechChannelFunc:                              ; speech channel callback; used by BuildSpeechEvent,
+                                                ; CloseSpeechChannels, InitSpeechChannels
         db 00h,00h,00h,00h
-LoadFileHook:
+LoadFileHook:                                   ; routine called around file loads; used by LoadFileCore,
+                                                ; LoadNamedResource
         db 00h,00h,00h,00h
-SoundBankTable:
+SoundBankTable:                                 ; registered sound bank per slot; used by AddStreamSample,
+                                                ; CheckBankIndex, PlayBankSample ...
         db 00h,00h,00h,00h
-SoundBankSamples:
+SoundBankSamples:                               ; sample table per registered sound bank; used by
+                                                ; PrepareBankSamples, RegisterSoundBank
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h

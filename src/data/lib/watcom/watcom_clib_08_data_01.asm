@@ -4,23 +4,26 @@ bits 32
 section s_16FB40 progbits alloc noexec write align=1
 global CdSectorSize, CdFileMode, CdFileHandle, CdFileStart, CdFileSize, CdFilePos, CdFileBuffer, CdDriveCount
 global SinCosTable, CdStreamSpeed, CdFileTable
-CdSectorSize:
+CdSectorSize:                                   ; CD sector size (800h); used by CdOpenFile
         db 00h,08h,00h,00h
-CdFileTable:
+CdFileTable:                                    ; open CD file records; used by CdHandleEntry, CdOpenFile
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-CdFileMode:
+CdFileMode:                                     ; CD file: open mode; used by CdCloseFile, CdOpenFile,
+                                                ; CdReadSectors ...
         db 00h,00h,00h,00h
-CdFileHandle:
+CdFileHandle:                                   ; CD file: handle; used by CdCloseFile, CdReadSectors,
+                                                ; CdSeekSectors
         db 00h,00h,00h,00h
-CdFileStart:
+CdFileStart:                                    ; CD file: first sector; used by CdOpenFile
         db 00h,00h,00h,00h
-CdFileSize:
+CdFileSize:                                     ; CD file: size; used by CdOpenFile, CdSeekSectors
         db 00h,00h,00h,00h
-CdFilePos:
+CdFilePos:                                      ; CD file: position; used by CdOpenFile, CdReadSectors,
+                                                ; CdSeekSectors
         db 00h,00h,00h,00h
-CdFileBuffer:
+CdFileBuffer:                                   ; CD file: buffer; used by CdReadSectors, CdSeekSectors
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-CdDriveCount:
+CdDriveCount:                                   ; number of CD drives; used by CdOpenFile
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -75,7 +78,7 @@ CdDriveCount:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-SinCosTable:
+SinCosTable:                                    ; sine/cosine lookup table; used by SinCosLookup
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -92,5 +95,5 @@ SinCosTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-CdStreamSpeed:
+CdStreamSpeed:                                  ; CD stream speed; used by IsCdDrive, setstreamspeed
         db 00h,00h,00h,00h

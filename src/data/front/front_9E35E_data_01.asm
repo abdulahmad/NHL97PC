@@ -7,79 +7,82 @@ global str_011R3, str_012R2, str_013R2, str_11SR3, str_12SR2, str_13SR2, str_SW0
 global str_SWL3, str_01LL, str_02LL, str_03LL, str_01LR, str_02LR, str_03LR, str_01RL
 global str_02RL, str_03RL, str_01RR, str_02RR, str_03RR, str_012R013R014R12SR13SR14SRS, str_SW00SW01SW02SW03SW04SW05S, str_1
 global str_0001, str_0002, str_HAVEIT, str_WANTIT
-str_00004:
+str_00004:                                      ; string "0000"; used by DrawAwayTeamPanel, DrawHomeTeamPanel,
+                                                ; TeamSelectScreen
         db 030h,030h,030h,030h,00h
-str_HOM1:
+str_HOM1:                                       ; string "HOM1"; used by DrawHomeTeamPanel
         db 048h,04Fh,04Dh,031h,00h
-str_HOM2:
+str_HOM2:                                       ; string "HOM2"; used by DrawHomeTeamPanel, TeamSelectSparkle
         db 048h,04Fh,04Dh,032h,00h
-str_AWY1:
+str_AWY1:                                       ; string "AWY1"; used by DrawAwayTeamPanel
         db 041h,057h,059h,031h,00h
-str_AWY2:
+str_AWY2:                                       ; string "AWY2"; used by DrawAwayTeamPanel, TeamSelectSparkle
         db 041h,057h,059h,032h,00h
-str_Menu3:
+str_Menu3:                                      ; string "menu"; used by TeamSelectScreen
         db 06Dh,065h,06Eh,075h,00h
-str_03dB:
+str_03dB:                                       ; string "%03dB"; used by TeamSelectScreen
         db 025h,030h,033h,064h,042h,00h
-str_03dY:
+str_03dY:                                       ; string "%03dY"; used by TeamSelectScreen
         db 025h,030h,033h,064h,059h,00h
-str_011R3:
+str_011R3:                                      ; string "011R"; used by TeamSelectScreen
         db 030h,031h,031h,052h,00h
-str_012R2:
+str_012R2:                                      ; string "012R"; used by TeamSelectScreen
         db 030h,031h,032h,052h,00h
-str_013R2:
+str_013R2:                                      ; string "013R"; used by TeamSelectScreen
         db 030h,031h,033h,052h,00h
-str_11SR3:
+str_11SR3:                                      ; string "11SR"; used by TeamSelectScreen
         db 031h,031h,053h,052h,00h
-str_12SR2:
+str_12SR2:                                      ; string "12SR"; used by TeamSelectScreen
         db 031h,032h,053h,052h,00h
-str_13SR2:
+str_13SR2:                                      ; string "13SR"; used by TeamSelectScreen
         db 031h,033h,053h,052h,00h
-str_SW002:
+str_SW002:                                      ; string "SW00"; used by TeamSelectScreen
         db 053h,057h,030h,030h,00h
-str_SWL2:
+str_SWL2:                                       ; string "SWL2"; used by TeamSelectScreen
         db 053h,057h,04Ch,032h,00h
-str_SWL3:
+str_SWL3:                                       ; string "SWL3"; used by TeamSelectScreen
         db 053h,057h,04Ch,033h,00h
-str_01LL:
+str_01LL:                                       ; string "01LL"; used by TeamSelectScreen
         db 030h,031h,04Ch,04Ch,00h
-str_02LL:
+str_02LL:                                       ; string "02LL"; used by TeamSelectScreen
         db 030h,032h,04Ch,04Ch,00h
-str_03LL:
+str_03LL:                                       ; string "03LL"; used by TeamSelectScreen
         db 030h,033h,04Ch,04Ch,00h
-str_01LR:
+str_01LR:                                       ; string "01LR"; used by TeamSelectScreen
         db 030h,031h,04Ch,052h,00h
-str_02LR:
+str_02LR:                                       ; string "02LR"; used by TeamSelectScreen
         db 030h,032h,04Ch,052h,00h
-str_03LR:
+str_03LR:                                       ; string "03LR"; used by TeamSelectScreen
         db 030h,033h,04Ch,052h,00h
-str_01RL:
+str_01RL:                                       ; string "01RL"; used by TeamSelectScreen
         db 030h,031h,052h,04Ch,00h
-str_02RL:
+str_02RL:                                       ; string "02RL"; used by TeamSelectScreen
         db 030h,032h,052h,04Ch,00h
-str_03RL:
+str_03RL:                                       ; string "03RL"; used by TeamSelectScreen
         db 030h,033h,052h,04Ch,00h
-str_01RR:
+str_01RR:                                       ; string "01RR"; used by TeamSelectScreen
         db 030h,031h,052h,052h,00h
-str_02RR:
+str_02RR:                                       ; string "02RR"; used by TeamSelectScreen
         db 030h,032h,052h,052h,00h
-str_03RR:
+str_03RR:                                       ; string "03RR"; used by TeamSelectScreen
         db 030h,033h,052h,052h,00h
-str_012R013R014R12SR13SR14SRS:
+str_012R013R014R12SR13SR14SRS:                  ; string "012R013R014R12SR13SR14SRSWL1SWL2SWL3"; used by
+                                                ; TeamSelectScreen
         db 030h,031h,032h,052h,030h,031h,033h,052h,030h,031h,034h,052h,031h,032h,053h,052h
         db 031h,033h,053h,052h,031h,034h,053h,052h,053h,057h,04Ch,031h,053h,057h,04Ch,032h
         db 053h,057h,04Ch,033h,00h
-str_SW00SW01SW02SW03SW04SW05S:
+str_SW00SW01SW02SW03SW04SW05S:                  ; string "SW00SW01SW02SW03SW04SW05SW06SW07SW08SW09"; used by
+                                                ; TeamSelectScreen
         db 053h,057h,030h,030h,053h,057h,030h,031h,053h,057h,030h,032h,053h,057h,030h,033h
         db 053h,057h,030h,034h,053h,057h,030h,035h,053h,057h,030h,036h,053h,057h,030h,037h
         db 053h,057h,030h,038h,053h,057h,030h,039h,00h
-str_1:
+str_1:                                          ; string "1 "; used by TeamSelectScreen
         db 031h,020h,020h,020h,00h
-str_0001:
+str_0001:                                       ; string "0001"; used by TeamSelectScreen
         db 030h,030h,030h,031h,00h
-str_0002:
+str_0002:                                       ; string "0002"; used by TeamSelectScreen
         db 030h,030h,030h,032h,00h
-str_HAVEIT:
+str_HAVEIT:                                     ; string "HAVE IT"
         db 048h,041h,056h,045h,020h,049h,054h,00h
-str_WANTIT:
+str_WANTIT:                                     ; string "WANT IT"
         db 057h,041h,04Eh,054h,020h,049h,054h,00h

@@ -6,51 +6,61 @@ global str_DOSJoystick, GripFlags, DblMaxLow, DblMaxHigh, DblMinusMaxLow, DblMin
 global GripDriverData, GripLinked, LinePlayerSlots, LinePlayerOffsets, CameraSceneId, ScoreClockShown, F64_Scale10Max, F64_Scale10Min
 global Pow10Table, str_CGRIP, str_GRIP, str_GRIPGLL, Scale10Count, LinePlayerOrder, GripPortWord, GripSlot
 global GripReady, CrowdChantTable
-F64_Scale10Max:
+F64_Scale10Max:                                 ; largest power of ten scale for _Scale10V_; used by
+                                                ; _Scale10V_
         db 00h,00h,00h,00h,00h,00h,0F0h,07Fh
-F64_Scale10Min:
+F64_Scale10Min:                                 ; smallest power of ten scale for _Scale10V_; used by
+                                                ; _Scale10V_
         db 00h,00h,00h,00h,00h,00h,0F0h,0FFh
-DblMaxLow:
+DblMaxLow:                                      ; DBL_MAX low dword; used by _Scale10V_
         db 0FFh,0FFh,0FFh,0FFh
-DblMaxHigh:
+DblMaxHigh:                                     ; DBL_MAX high dword; used by _Scale10V_
         db 0FFh,0FFh,0EFh,07Fh
-DblMinusMaxLow:
+DblMinusMaxLow:                                 ; -DBL_MAX low dword; used by _Scale10V_
         db 0FFh,0FFh,0FFh,0FFh
-DblMinusMaxHigh:
+DblMinusMaxHigh:                                ; -DBL_MAX high dword; used by _Scale10V_
         db 0FFh,0FFh,0EFh,0FFh
-Scale10Count:
+Scale10Count:                                   ; power of ten table length; used by _Scale10V_
         db 0D8h,00h
-Pow10Table:
+Pow10Table:                                     ; powers of ten; used by _Scale10V_
         db 0C6h,0F9h,0C6h,040h
-Pow10TableHigh:
+Pow10TableHigh:                                 ; powers of ten, high dwords; used by _Scale10V_
         db 0E9h,034h,0C7h,06Ch,06Ch,00h,012h,04Eh,083h,0CCh,03Dh,040h,05Bh,056h,036h,00h
         db 0CEh,0C9h,014h,088h,087h,0E1h,024h,04Bh,01Bh,00h,02h,084h,0FEh,0E4h,071h,0D9h
         db 089h,045h,0Eh,00h,00h,00h,090h,01Eh,0C4h,0BCh,0D6h,042h,08h,00h,00h,00h
         db 00h,00h,084h,0D7h,097h,041h,04h,00h,00h,00h,00h,00h,00h,088h,0C3h,040h
         db 01h,00h,00h,00h,00h,00h,00h,00h,024h,040h,00h,00h,00h,00h
-str_DOSJoystick:
+str_DOSJoystick:                                ; string "DOS-Joystick"; used by LoadJoystickConfig,
+                                                ; SetupOptionsAnim
         db 044h,04Fh,053h,02Dh,04Ah,06Fh,079h,073h,074h,069h,063h,06Bh,00h,00h
-GripPortWord:
+GripPortWord:                                   ; Gravis GrIP port; used by InitLinkSettings,
+                                                ; LoadJoystickConfig, OptionsAnimScreen ...
         db 00h,00h
-GripDriverPtr:
+GripDriverPtr:                                  ; Gravis GrIP driver; used by DrawOptionsAnimFrame,
+                                                ; InitLinkSettings, LoadJoystickConfig ...
         db 00h,00h,00h,00h
-GripDriverData:
+GripDriverData:                                 ; Gravis GrIP driver data; used by DrawOptionsAnimFrame,
+                                                ; LoadJoystickConfig, SetupOptionsAnim ...
         db 00h,00h,00h,00h
-GripFlags:
+GripFlags:                                      ; Gravis GrIP flags; used by InitGripDriver, LoadGripLibrary,
+                                                ; LoadJoystickConfig ...
         db 00h,00h
-GripSlot:
+GripSlot:                                       ; Gravis GrIP slot; used by LoadJoystickConfig
         db 00h,00h
-str_GRIPGLL:
+str_GRIPGLL:                                    ; string "GRIP.GLL"; used by LoadGripLibrary
         db 047h,052h,049h,050h,02Eh,047h,04Ch,04Ch,00h
-str_GRIP:
+str_GRIP:                                       ; string "GRIP"; used by LoadGripLibrary
         db 047h,052h,049h,050h,00h
-str_CGRIP:
+str_CGRIP:                                      ; string "C:\GRIP\"; used by LoadGripLibrary
         db 043h,03Ah,05Ch,047h,052h,049h,050h,05Ch,00h,00h
-GripLinked:
+GripLinked:                                     ; Gravis GrIP library linked; used by CallGripDriver,
+                                                ; GripLinkLibrary
         db 00h,00h,00h,00h
-GripReady:
+GripReady:                                      ; Gravis GrIP pad ready; used by InitGripDriver,
+                                                ; LoadJoystickConfig, UpdateOptionsAnim
         db 00h,00h,00h,00h
-CrowdChantTable:
+CrowdChantTable:                                ; crowd chant per situation; used by PickCrowdChant,
+                                                ; StartGame, UpdateOptionsAnim
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,040h,00h,03Fh,00h,00h,00h,00h,00h
@@ -59,11 +69,11 @@ CrowdChantTable:
         db 01h,00h,03h,00h,00h,00h,03h,00h,01h,00h,00h,00h,02h,00h,01h,00h
         db 00h,00h,02h,00h,01h,00h,01h,00h,00h,00h,02h,00h,01h,00h,01h,00h
         db 02h,00h,03h,00h,01h,00h,00h,00h
-LinePlayerSlots:
+LinePlayerSlots:                                ; player slot per line position; used by PickLinePlayers
         db 01h,00h,00h,00h,03h,00h,01Ch,00h,035h,00h,073h,00h,054h
-LinePlayerOffsets:
+LinePlayerOffsets:                              ; offsets per line position; used by PickLinePlayers
         db 00h,092h,00h
-LinePlayerOrder:
+LinePlayerOrder:                                ; line player order; used by PickLinePlayers
         db 034h,035h,0FFh,0Ch,0Eh,010h,0Ch,015h,01Ah,01Eh,022h,028h,02Ch,02Fh,032h,0Dh
         db 0Fh,011h,0Dh,016h,01Bh,01Fh,023h,029h,02Dh,030h,033h,0FFh,0Dh,0Fh,011h,0Dh
         db 016h,01Bh,01Fh,023h,029h,02Dh,030h,033h,0Ch,0Eh,010h,0Ch,015h,01Ah,01Eh,022h
@@ -76,7 +86,9 @@ LinePlayerOrder:
         db 025h,0FFh,024h,025h,01h,04h,07h,0Ah,013h,018h,01Dh,021h,027h,02Bh,02Eh,031h
         db 00h,03h,06h,09h,012h,017h,01Ch,020h,026h,02Ah,02h,05h,08h,0Bh,014h,019h
         db 0FFh,00h,00h,00h
-CameraSceneId:
+CameraSceneId:                                  ; camera scene being played (-1 none); used by
+                                                ; FaceoffCameraScene, FaceoffCameraScene2,
+                                                ; FaceoffDropSceneStep ...
         db 0FFh,0FFh,0FFh,0FFh
-ScoreClockShown:
+ScoreClockShown:                                ; score clock visible; used by UpdateScoreClockData
         db 01h,00h

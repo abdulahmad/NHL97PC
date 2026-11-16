@@ -12,15 +12,15 @@ extern ModemResultStrings
 extern ModemResultStrings
 global ScheduleDivisionFlags, ScheduleWeekDays, ScheduleMonthDays, str_1_BuildSeasonSchedule, ScheduleMonthLengths, ScheduleGameCounts, ScheduleHomeCounts, MovieFileHandle
 global MovieFileOffset, ModemResultCount, ModemLastResult, ModemResultTextTable, ModemResultCodeTable
-ScheduleWeekDays:
+ScheduleWeekDays:                               ; season schedule days per week; used by BuildSeasonSchedule
         db 081h,00h,00h,00h
-ScheduleMonthDays:
+ScheduleMonthDays:                              ; season schedule days per month; used by BuildSeasonSchedule
         db 081h,00h,00h,00h,082h,00h,00h,00h,082h,00h,00h,00h,083h,00h,00h,00h
         db 084h,00h,00h,00h,085h,00h,00h,00h,086h,00h,00h,00h,087h,00h,00h,00h
         db 088h,00h,00h,00h
-str_1_BuildSeasonSchedule:
+str_1_BuildSeasonSchedule:                      ; string "1"; used by BuildSeasonSchedule
         db 031h,00h,00h,00h
-ScheduleMonthLengths:
+ScheduleMonthLengths:                           ; season schedule month lengths; used by BuildSeasonSchedule
         db 031h,00h,00h,00h,032h,00h,00h,00h,034h,00h,00h,00h,033h,00h,00h,00h
         db 035h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,036h,00h,00h,00h,038h,00h,00h,00h,036h,00h,00h,00h
@@ -49,7 +49,8 @@ ScheduleMonthLengths:
         db 00h,00h,00h,00h,05Bh,00h,00h,00h,05Bh,00h,00h,00h,05Bh,00h,00h,00h
         db 05Ch,00h,00h,00h,05Ch,00h,00h,00h,05Ch,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-ScheduleDivisionFlags:
+ScheduleDivisionFlags:                          ; season schedule division pairing flags; used by
+                                                ; BuildSeasonSchedule
         db 00h,00h,01h,01h,01h,01h,02h,02h,02h,02h,00h,00h,00h,01h,01h,01h
         db 01h,02h,02h,02h,01h,01h,02h,02h,02h,03h,03h,03h,04h,04h,02h,02h
         db 02h,03h,03h,03h,03h,04h,04h,04h,00h,01h,01h,01h,02h,02h,03h,03h
@@ -57,20 +58,22 @@ ScheduleDivisionFlags:
         db 01h,01h,02h,02h,03h,04h,00h,00h,00h,00h,00h,01h,01h,01h,01h,01h
         db 00h,00h,00h,01h,01h,01h,01h,02h,03h,04h,00h,00h,00h,01h,01h,01h
         db 01h,02h,02h,00h,01h,01h,01h,02h,02h,02h,02h,03h,03h,03h
-ScheduleGameCounts:
+ScheduleGameCounts:                             ; season schedule games per pairing; used by
+                                                ; BuildSeasonSchedule
         db 05h,00h,00h,00h,0Eh,00h,00h,00h,01Eh,00h,00h,00h,05Ah,00h,00h,00h
         db 0B4h,00h,00h,00h
-ScheduleHomeCounts:
+ScheduleHomeCounts:                             ; season schedule home games per pairing; used by
+                                                ; BuildSeasonSchedule
         db 01h,00h,00h,00h,03h,00h,00h,00h,05h,00h,00h,00h,0Ah,00h,00h,00h
         db 014h,00h,00h,00h,00h,00h
-MovieFileHandle:
+MovieFileHandle:                                ; movie file handle; used by OpenMovieStream
         db 00h,00h,00h,00h
-MovieFileOffset:
+MovieFileOffset:                                ; movie file offset; used by OpenMovieStream
         db 00h,00h,00h,00h,00h,00h,00h,00h
-ModemResultTextTable:
+ModemResultTextTable:                           ; modem result text string table; used by ModemReadResult
         dd str_OK
         dd str_0
-ModemResultCodeTable:
+ModemResultCodeTable:                           ; modem result code string table; used by ModemReadResult
         dd ModemResultStrings
         dd ModemResultStrings+4
         dd ModemResultStrings+10h
@@ -129,7 +132,7 @@ ModemResultCodeTable:
         dd ModemResultStrings+1CCh
         dd ModemResultStrings+1DCh
         dd ModemResultStrings+1E4h
-ModemResultCount:
+ModemResultCount:                               ; number of modem result codes; used by ModemReadResult
         db 014h,00h,00h,00h
-ModemLastResult:
+ModemLastResult:                                ; last modem result code; used by ModemReadResult
         db 00h,00h,00h,00h

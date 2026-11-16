@@ -5,25 +5,25 @@ section s_160D70 progbits alloc noexec write align=1
 global str_03dDAT, str_03dHDR, str_TEMPBANK, str_EVENTDAT, str_CBANK03dHDR, str_TEAM04dHDR, str_PBP, str_Mous
 global str_Remo, str_PlayByPlayNeedsToBeInstal, str_PlayByPlayNeedsToBeInstal2, str_InstallingPlayByPlay, str_CarrySS, str_GKSF, str_SPEECH, F64_0p5_SayShotCall
 global F64_0p5_SaySaveCall, F64_0p5_SayPlayerCall, F64_0p5_SayRandomFiller, str_DerHome, str_PlayHome, str_DerAway, str_PlayAway
-str_03dDAT:
+str_03dDAT:                                     ; string "%03d.DAT"; used by LoadSpeechBank
         db 025h,030h,033h,064h,02Eh,044h,041h,054h,00h,00h,00h,00h
-str_03dHDR:
+str_03dHDR:                                     ; string "%03d.HDR"; used by LoadSpeechBank
         db 025h,030h,033h,064h,02Eh,048h,044h,052h,00h,00h,00h,00h
-str_TEMPBANK:
+str_TEMPBANK:                                   ; string "TEMPBANK"; used by InitSpeechBanks
         db 054h,045h,04Dh,050h,042h,041h,04Eh,04Bh,00h,00h,00h,00h
-str_EVENTDAT:
+str_EVENTDAT:                                   ; string "EVENT.DAT"; used by InitSpeechBanks
         db 045h,056h,045h,04Eh,054h,02Eh,044h,041h,054h,00h,00h,00h
-str_CBANK03dHDR:
+str_CBANK03dHDR:                                ; string "CBANK%03d.HDR"; used by InitSpeechBanks
         db 043h,042h,041h,04Eh,04Bh,025h,030h,033h,064h,02Eh,048h,044h,052h,00h,00h,00h
-str_TEAM04dHDR:
+str_TEAM04dHDR:                                 ; string "TEAM%04d.HDR"; used by InitSpeechBanks
         db 054h,045h,041h,04Dh,025h,030h,034h,064h,02Eh,048h,044h,052h,00h,00h,00h,00h
-str_PBP:
+str_PBP:                                        ; string "PBP"; used by InitSpeechBanks
         db 050h,042h,050h,00h
-str_Mous:
+str_Mous:                                       ; string "mous"; used by InitSpeechBanks
         db 06Dh,06Fh,075h,073h,00h,00h,00h,00h
-str_Remo:
+str_Remo:                                       ; string "remo"; used by InitSpeechBanks
         db 072h,065h,06Dh,06Fh,00h,00h,00h,00h
-str_DerHome:
+str_DerHome:                                    ; "Der..." home speech bank text; used by InitSpeechBanks
         db 044h,065h,072h,020h,053h,070h,069h,065h,06Ch,06Bh,06Fh,06Dh,06Dh,065h,06Eh,074h
         db 061h,072h,020h,06Dh,075h,0DFh,020h,065h,072h,073h,074h,020h,069h,06Eh,073h,074h
         db 061h,06Ch,06Ch,069h,065h,072h,074h,020h,077h,065h,072h,064h,065h,06Eh,02Ch,020h
@@ -36,7 +36,7 @@ str_DerHome:
         db 06Ch,061h,074h,069h,06Fh,06Eh,02Eh,020h,053h,069h,065h,020h,062h,072h,061h,075h
         db 063h,068h,065h,06Eh,0Ah,025h,064h,06Bh,020h,06Dh,065h,068h,072h,020h,050h,06Ch
         db 061h,074h,07Ah,02Eh,00h,00h,00h,00h
-str_PlayHome:
+str_PlayHome:                                   ; "Play..." home speech bank text; used by InitSpeechBanks
         db 050h,06Ch,061h,079h,020h,062h,079h,020h,050h,06Ch,061h,079h,020h,062h,065h,068h
         db 0F6h,076h,065h,072h,020h,069h,06Eh,073h,074h,061h,06Ch,06Ch,065h,072h,061h,073h
         db 020h,069h,06Eh,06Eh,061h,06Eh,0Ah,064h,065h,074h,020h,06Bh,061h,06Eh,020h,061h
@@ -48,7 +48,10 @@ str_PlayHome:
         db 065h,072h,061h,020h,064h,065h,074h,02Eh,020h,044h,075h,020h,062h,065h,068h,0F6h
         db 076h,065h,072h,0Ah,025h,064h,06Bh,020h,06Dh,065h,072h,020h,068h,0E5h,072h,064h
         db 064h,069h,073h,06Bh,020h,075h,074h,072h,079h,06Dh,06Dh,065h,02Eh,00h,00h,00h
-str_PlayByPlayNeedsToBeInstal:
+str_PlayByPlayNeedsToBeInstal:                  ; string "Play-by-Play needs to be installed before it can be
+                                                ; used. There is not enough free hard disk space to install
+                                                ; it. You require %dk more disk space."; used by
+                                                ; InitSpeechBanks
         db 050h,06Ch,061h,079h,02Dh,062h,079h,02Dh,050h,06Ch,061h,079h,020h,06Eh,065h,065h
         db 064h,073h,020h,074h,06Fh,020h,062h,065h,020h,069h,06Eh,073h,074h,061h,06Ch,06Ch
         db 065h,064h,020h,062h,065h,066h,06Fh,072h,065h,0Ah,069h,074h,020h,063h,061h,06Eh
@@ -59,7 +62,7 @@ str_PlayByPlayNeedsToBeInstal:
         db 074h,02Eh,020h,020h,059h,06Fh,075h,020h,072h,065h,071h,075h,069h,072h,065h,0Ah
         db 025h,064h,06Bh,020h,06Dh,06Fh,072h,065h,020h,064h,069h,073h,06Bh,020h,073h,070h
         db 061h,063h,065h,02Eh,00h,00h,00h,00h
-str_DerAway:
+str_DerAway:                                    ; "Der..." away speech bank text; used by InitSpeechBanks
         db 044h,065h,072h,020h,053h,070h,069h,065h,06Ch,06Bh,06Fh,06Dh,06Dh,065h,06Eh,074h
         db 061h,072h,020h,06Dh,075h,0DFh,020h,065h,072h,073h,074h,020h,069h,06Eh,073h,074h
         db 061h,06Ch,06Ch,069h,065h,072h,074h,020h,077h,065h,072h,064h,065h,06Eh,02Ch,020h
@@ -70,7 +73,7 @@ str_DerAway:
         db 070h,06Ch,061h,074h,07Ah,02Eh,020h,057h,06Fh,06Ch,06Ch,065h,06Eh,020h,053h,069h
         db 065h,020h,069h,068h,06Eh,020h,069h,06Eh,073h,074h,061h,06Ch,06Ch,069h,065h,072h
         db 065h,06Eh,03Fh,00h
-str_PlayAway:
+str_PlayAway:                                   ; "Play..." away speech bank text; used by InitSpeechBanks
         db 050h,06Ch,061h,079h,020h,062h,079h,020h,050h,06Ch,061h,079h,020h,06Dh,0E5h,073h
         db 074h,065h,020h,069h,06Eh,073h,074h,061h,06Ch,06Ch,065h,072h,061h,073h,020h,069h
         db 06Eh,06Eh,061h,06Eh,0Ah,064h,065h,074h,020h,06Bh,061h,06Eh,020h,061h,06Eh,076h
@@ -79,7 +82,9 @@ str_PlayAway:
         db 020h,075h,074h,072h,079h,06Dh,06Dh,065h,02Eh,020h,056h,069h,06Ch,06Ch,020h,064h
         db 075h,020h,069h,06Eh,073h,074h,061h,06Ch,06Ch,065h,072h,061h,020h,064h,065h,074h
         db 03Fh,00h,00h,00h
-str_PlayByPlayNeedsToBeInstal2:
+str_PlayByPlayNeedsToBeInstal2:                 ; string "Play-by-Play needs to be installed before it can be
+                                                ; used. This will require %dk of disk space. Do you want to
+                                                ; install it?"; used by InitSpeechBanks
         db 050h,06Ch,061h,079h,02Dh,062h,079h,02Dh,050h,06Ch,061h,079h,020h,06Eh,065h,065h
         db 064h,073h,020h,074h,06Fh,020h,062h,065h,020h,069h,06Eh,073h,074h,061h,06Ch,06Ch
         db 065h,064h,020h,062h,065h,066h,06Fh,072h,065h,0Ah,069h,074h,020h,063h,061h,06Eh
@@ -88,20 +93,20 @@ str_PlayByPlayNeedsToBeInstal2:
         db 0Ah,06Fh,066h,020h,064h,069h,073h,06Bh,020h,073h,070h,061h,063h,065h,02Eh,020h
         db 020h,044h,06Fh,020h,079h,06Fh,075h,020h,077h,061h,06Eh,074h,020h,074h,06Fh,020h
         db 069h,06Eh,073h,074h,061h,06Ch,06Ch,020h,069h,074h,03Fh,00h
-str_InstallingPlayByPlay:
+str_InstallingPlayByPlay:                       ; string "Installing Play-by-Play..."; used by InitSpeechBanks
         db 049h,06Eh,073h,074h,061h,06Ch,06Ch,069h,06Eh,067h,020h,050h,06Ch,061h,079h,02Dh
         db 062h,079h,02Dh,050h,06Ch,061h,079h,02Eh,02Eh,02Eh,00h
-F64_0p5_SayShotCall:
+F64_0p5_SayShotCall:                            ; double constant 0.5; used by SayShotCall
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-F64_0p5_SaySaveCall:
+F64_0p5_SaySaveCall:                            ; double constant 0.5; used by SaySaveCall
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-F64_0p5_SayPlayerCall:
+F64_0p5_SayPlayerCall:                          ; double constant 0.5; used by SayPlayerCall
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-F64_0p5_SayRandomFiller:
+F64_0p5_SayRandomFiller:                        ; double constant 0.5; used by SayRandomFiller
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh,00h
-str_CarrySS:
+str_CarrySS:                                    ; string "Carry %s->%s"; used by CommentaryEvent
         db 043h,061h,072h,072h,079h,020h,025h,073h,02Dh,03Eh,025h,073h,00h,00h,00h,00h
-str_GKSF:
+str_GKSF:                                       ; string "G.KSF"; used by OpenSpeechFile
         db 047h,02Eh,04Bh,053h,046h,00h,00h,00h
-str_SPEECH:
+str_SPEECH:                                     ; string "SPEECH"; used by InitSpeechStream, OpenSpeechFile
         db 053h,050h,045h,045h,043h,048h,00h,00h

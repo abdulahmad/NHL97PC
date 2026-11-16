@@ -7,75 +7,108 @@ global TileLeftX, TileLeftU, TileLeftUf, TileLeftVf, TileLeftDu, TileLeftDv, Til
 global TileRightBottom, TileRightHeight, TileRightStep, TileRightCount, TileRightX, TileRightU, TileRightUf, TileRightVf
 global TileRightDu, TileRightDv, IceShadeScale, IceShadeTable, TileTexture, TileRowCount, TileRowY, TileTexSize
 global IceShadeBase, TileRowShade, TileEdgeTable, ModelPartName
-TileDestRow:
+TileDestRow:                                    ; screen row address of the tile span; used by
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight, DrawTileSpan
         resb 4
-TileLeftTop:
+TileLeftTop:                                    ; top vertex of the tile's left edge; used by
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight
         resb 4
-TileLeftBottom:
+TileLeftBottom:                                 ; bottom vertex of the tile's left edge; used by
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight
         resb 4
-TileLeftHeight:
+TileLeftHeight:                                 ; rows of the tile's left edge; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight
         resb 4
-TileLeftStep:
+TileLeftStep:                                   ; steps of the tile's left edge; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight
         resb 8
-TileLeftCount:
+TileLeftCount:                                  ; steps left on the tile's left edge; used by
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight
         resb 4
-TileLeftFlags:
+TileLeftFlags:                                  ; flags of the tile's left edge; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight
         resb 4
-TileLeftX:
+TileLeftX:                                      ; x of the tile's left edge; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight, DrawTileSpan
         resb 4
-TileLeftU:
+TileLeftU:                                      ; texture u of the tile's left edge; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight, DrawTileSpan
         resb 4
-TileLeftUf:
+TileLeftUf:                                     ; float u of the tile's left edge; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight
         resb 4
-TileLeftVf:
+TileLeftVf:                                     ; float v of the tile's left edge; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight
         resb 4
-TileLeftDu:
+TileLeftDu:                                     ; float u step of the tile's left edge; used by
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight
         resb 4
-TileLeftDv:
+TileLeftDv:                                     ; float v step of the tile's left edge; used by
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight
         resb 4
-TileEdgeTable:
+TileEdgeTable:                                  ; edges of the tile being filled; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight, DrawTileTexture
         resb 896
-TileRightRow:
+TileRightRow:                                   ; screen row of the tile's right edge; used by
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight, DrawTileSpan
         resb 4
-TileRightTop:
+TileRightTop:                                   ; top vertex of the tile's right edge; used by
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight
         resb 4
-TileRightBottom:
+TileRightBottom:                                ; bottom vertex of the tile's right edge; used by
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight
         resb 4
-TileRightHeight:
+TileRightHeight:                                ; rows of the tile's right edge; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight
         resb 4
-TileRightStep:
+TileRightStep:                                  ; steps of the tile's right edge; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight
         resb 8
-TileRightCount:
+TileRightCount:                                 ; steps left on the tile's right edge; used by
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight
         resb 4
-TileRightFlags:
+TileRightFlags:                                 ; flags of the tile's right edge; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight
         resb 4
-TileRightX:
+TileRightX:                                     ; x of the tile's right edge; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight, DrawTileSpan
         resb 4
-TileRightU:
+TileRightU:                                     ; texture u of the tile's right edge; used by
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight, DrawTileSpan
         resb 4
-TileRightUf:
+TileRightUf:                                    ; float u of the tile's right edge; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight
         resb 4
-TileRightVf:
+TileRightVf:                                    ; float v of the tile's right edge; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight
         resb 4
-TileRightDu:
+TileRightDu:                                    ; float u step of the tile's right edge; used by
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight
         resb 4
-TileRightDv:
+TileRightDv:                                    ; float v step of the tile's right edge; used by
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight
         resb 4
-IceShadeScale:
+IceShadeScale:                                  ; shade scale of the ice spans; used by DrawIceSpans,
+                                                ; DrawTileEdgeLeft, DrawTileEdgeRight
         resb 4
-IceShadeTable:
+IceShadeTable:                                  ; shade value of each ice row; used by DrawIceSpans
         resb 3836
-TileTexture:
+TileTexture:                                    ; texture of the tile being drawn; used by DrawTileSpan,
+                                                ; DrawTileTexture
         resb 4
-TileRowCount:
+TileRowCount:                                   ; rows of the tile left to fill; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight, DrawTileTexture
         resb 4
-TileRowY:
+TileRowY:                                       ; row of the tile being filled; used by DrawTileEdgeLeft,
+                                                ; DrawTileEdgeRight, DrawTileSpan ...
         resb 4
-TileTexSize:
+TileTexSize:                                    ; width and height of the tile's texture; used by
+                                                ; DrawTileSpan, DrawTileTexture
         resb 8
-IceShadeBase:
+IceShadeBase:                                   ; first ice shade value; used by DrawIceSpans
         resb 4
-TileRowShade:
+TileRowShade:                                   ; shade of each tile row; used by DrawTileSpan
         resb 2564
-ModelPartName:
+ModelPartName:                                  ; name of the model part being looked up; used by
+                                                ; LoadModelByName, SetModelPartName
         resb 40

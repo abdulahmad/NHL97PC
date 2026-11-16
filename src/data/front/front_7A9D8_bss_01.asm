@@ -8,97 +8,128 @@ global MovieVideoDone, MovieStartTick, MoviePageFlip, MovieSoundChannel, MovieCh
 global MovieStreamBuffer, MovieChunkSize, MovieChunkData, MovieCdStream, SeasonFileName, ReplayIndexHandle, AllStarTeamCode, PaEventValue
 global ThreeStarsCount, HomePlayerRecords, MoviePalette, MainArgFlag, MainPathBuffer, AllStarTeamIds, AllStarHomeLines, AllStarAwayLines
 global AutoLineData, AllStarRoster, MatchupNoteText, MatchupNoteLine, AllStarDay, AllStarArena, IndexEntryList
-MoviePalette:
+MoviePalette:                                   ; movie palette (256 RGB entries); used by PlayMovieFrames
         resb 768
-MovieFrameCount:
+MovieFrameCount:                                ; frames shown so far in the movie; used by CloseMovie,
+                                                ; OpenVideoStream
         resb 4
-MovieFrameShown:
+MovieFrameShown:                                ; movie frame now on screen; used by PlayMovieFrames
         resb 4
-MovieAudioStream:
+MovieAudioStream:                               ; movie audio stream handle; used by CloseMovie,
+                                                ; OpenVideoStream
         resb 4
-MovieLastFrame:
+MovieLastFrame:                                 ; last movie frame decoded; used by OpenVideoStream,
+                                                ; PlayMovieFrames
         resb 4
-MovieEndReached:
+MovieEndReached:                                ; set when the movie stream ends; used by OpenVideoStream,
+                                                ; PlayMovieFrames
         resb 4
-MovieFlags:
+MovieFlags:                                     ; movie playback flags; used by CloseMovie, OpenVideoStream,
+                                                ; PlayMovieFrames
         resb 4
-MovieFrameIndex:
+MovieFrameIndex:                                ; movie frame index read from the stream; used by
+                                                ; OpenVideoStream, PlayMovieFrames
         resb 4
-MovieAudioDone:
+MovieAudioDone:                                 ; set when the movie audio has finished; used by CloseMovie,
+                                                ; OpenMovieStream, OpenVideoStream ...
         resb 4
-MovieFramesAhead:
+MovieFramesAhead:                               ; frames decoded ahead of the clock; used by PlayMovieFrames
         resb 4
-MovieSkippable:
+MovieSkippable:                                 ; set when a key press can skip the movie; used by
+                                                ; MovieKeyPressed, PlayMovie
         resb 4
-MovieState:
+MovieState:                                     ; movie playback state; used by CloseMovie, OpenMovieStream,
+                                                ; OpenVideoStream ...
         resb 4
-MovieSkipped:
+MovieSkipped:                                   ; set when a key skipped the movie; used by MovieKeyPressed,
+                                                ; PlayMovie
         resb 4
-MovieNextFrame:
+MovieNextFrame:                                 ; next movie frame to show; used by PlayMovieFrames
         resb 4
-MovieVideoDone:
+MovieVideoDone:                                 ; set when the movie video has finished; used by
+                                                ; OpenVideoStream, PlayMovieFrames
         resb 4
-MovieStartTick:
+MovieStartTick:                                 ; tick count when the movie started; used by OpenVideoStream,
+                                                ; PlayMovieFrames
         resb 4
-MoviePageFlip:
+MoviePageFlip:                                  ; movie double buffer page toggle; used by PlayMovie
         resb 4
-MovieSoundChannel:
+MovieSoundChannel:                              ; sound channel playing the movie audio; used by CloseMovie,
+                                                ; FadeMovieOut, PlayMovieFrames
         resb 4
-MovieChunkTag:
+MovieChunkTag:                                  ; tag of the movie chunk being read; used by PlayMovieFrames
         resb 4
-MovieVideoBuffer:
+MovieVideoBuffer:                               ; movie video buffer; used by CloseMovie, DecodeMovieFrame,
+                                                ; OpenVideoStream
         resb 4
-MovieDropCount:
+MovieDropCount:                                 ; movie frames dropped; used by OpenVideoStream,
+                                                ; PlayMovieFrames
         resb 4
-MovieHasAudio:
+MovieHasAudio:                                  ; set when the movie has an audio track; used by CloseMovie,
+                                                ; OpenMovieStream, OpenVideoStream ...
         resb 4
-MovieStreamBuffer:
+MovieStreamBuffer:                              ; movie stream buffer handle; used by OpenVideoStream,
+                                                ; PlayMovieFrames
         resb 4
-MovieChunkSize:
+MovieChunkSize:                                 ; size of the movie chunk being read; used by PlayMovieFrames
         resb 4
-MovieChunkData:
+MovieChunkData:                                 ; movie chunk data pointer; used by PlayMovieFrames
         resb 4
-MovieCdStream:
+MovieCdStream:                                  ; movie CD stream handle; used by OpenVideoStream,
+                                                ; PlayMovieFrames
         resb 4
-MainArgFlag:
+MainArgFlag:                                    ; main argument flag text; used by main_
         resb 3
-MainCmdLine:
+MainCmdLine:                                    ; main command line copy; used by main_
         resb 77
-MainPathBuffer:
+MainPathBuffer:                                 ; main path buffer; used by main_
         resb 128
-SeasonFileName:
+SeasonFileName:                                 ; season file name pointer; used by FindSeasonReplay,
+                                                ; FinishLeagueGame, InitAllStarTeams ...
         resb 4
-ReplayIndexHandle:
+ReplayIndexHandle:                              ; replay index file handle; used by OpenReplayIndex,
+                                                ; PickIndexEntryScreen, SaveReplay ...
         resb 4
-AllStarTeamIds:
+AllStarTeamIds:                                 ; all-star team ids; used by InitAllStarTeams
         resb 8
-AllStarDay:
+AllStarDay:                                     ; day of the all-star game; used by CheckLeagueInjuries,
+                                                ; ClearTeamInjuries, DrawPlayerHealth ...
         resb 2
-AllStarTeamCode:
+AllStarTeamCode:                                ; all-star team code; used by InitAllStarTeams,
+                                                ; InitGameDisplay, PickGameEvents
         resb 2
-AllStarArena:
+AllStarArena:                                   ; all-star game arena; used by InitAllStarTeams,
+                                                ; PlayArenaAnnouncement
         resb 2
-AllStarHomeLines:
+AllStarHomeLines:                               ; all-star home team lines; used by InitAllStarTeams,
+                                                ; LoadEditLinesRoster
         resb 8
-AllStarAwayLines:
+AllStarAwayLines:                               ; all-star away team lines; used by InitAllStarTeams,
+                                                ; LoadEditLinesRoster
         resb 8
-PeriodHomeTeam:
+PeriodHomeTeam:                                 ; home team shown on the period panel; used by
+                                                ; ClearThreeStars, CommentaryEvent, DebugKeys ...
         resb 1
-PeriodAwayTeam:
+PeriodAwayTeam:                                 ; away team shown on the period panel; used by
+                                                ; ClearThreeStars, CommentaryEvent, DebugKeys ...
         resb 1
-AutoLineData:
+AutoLineData:                                   ; auto line data; used by AllocAllStarRosters,
+                                                ; AllocTempGameTeam, BuildPlayerStatsTable ...
         resb 8
-AllStarRoster:
+AllStarRoster:                                  ; all-star roster; used by InitAllStarTeams
         resb 30
-MatchupNoteText:
+MatchupNoteText:                                ; matchup note text; used by DrawMatchupNotes
         resb 24
-MatchupNoteLine:
+MatchupNoteLine:                                ; matchup note line buffer; used by DrawMatchupNotes
         resb 38
-PaEventValue:
+PaEventValue:                                   ; PA event value; used by PaEvent, SimulateGame
         resb 2
-IndexEntryList:
+IndexEntryList:                                 ; index entry list; used by InitAllStarTeams,
+                                                ; PickIndexEntryScreen
         resb 57
-ThreeStarsCount:
+ThreeStarsCount:                                ; three stars count; used by InitSpeechBanks, PickThreeStars,
+                                                ; SimulateGame
         resb 4
-HomePlayerRecords:
+HomePlayerRecords:                              ; home team player records (293 bytes each); used by
+                                                ; AddPenalty2, DrawThreeStarStats, InitSpeechBanks ...
         resb 4

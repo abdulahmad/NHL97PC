@@ -94,7 +94,7 @@ SeasonMenuSound_B1:
         pop ecx
         pop ebx
         ret
-SeasonSetupScreenJumpTable:
+SeasonSetupScreenJumpTable:                     ; jump table for the switch cases of SeasonSetupScreen
         dd SeasonSetupScreen_F19
         dd SeasonSetupScreen_EB8
         dd SeasonSetupScreen_1135
@@ -1451,7 +1451,7 @@ SeasonSetupScreen_139E:
         lea esp, [dword ebp+0318h]
         pop ebp
         jmp near SeasonMenuSound_B1
-RosterScreenJumpTable:
+RosterScreenJumpTable:                          ; jump table for the switch cases of RosterScreen
         dd RosterScreen_11C
         dd RosterScreen_157
         dd RosterScreen_172

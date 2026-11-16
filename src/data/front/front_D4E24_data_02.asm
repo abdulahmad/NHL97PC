@@ -9,44 +9,57 @@ global DbGameRecordCount, DbPlayerRecordCount, DbStatRecordCount, DbTeamRecordCo
 global DbRecordsLoaded, DbIndexRoot, DbPlayerIndex, DbGameIndex, StaticBuffer, DbFileNames, DbFileExtensions, LeagueFileDir
 global LeagueFilePrefix, DbDirName, DbFileSuffix, DbKeyBuffer, PlayoffDbKey, SeasonDbKey, StaticBufferReady, DbOpen
 global str_Punct_SetMatchupTeams, MatchupTeamCodes, str_Punct_DaysToYear, MonthStartDays
-CreditsKeyTimer:
+CreditsKeyTimer:                                ; credits key timer; used by CreditsKeyPressed
         db 00h,00h,00h,00h
-CreditsKeyFlag:
+CreditsKeyFlag:                                 ; set by the credits key check; used by CreditsKeyPressed,
+                                                ; MainMenuScreen, TeamSelectScreen
         db 00h,00h,00h,00h
-DbPageNext:
+DbPageNext:                                     ; next free database page; used by AllocPageStack, GetDbPage,
+                                                ; OldestDbPageSlot ...
         db 016h,00h,00h,00h
-DbPageStack:
+DbPageStack:                                    ; database page stack; used by AddIndexKey, AllocPageStack,
+                                                ; CreateDbFile ...
         db 00h,00h,00h,00h
-DbPageEnd:
+DbPageEnd:                                      ; end of the database pages; used by AllocPageStack, GetDbPage
         db 00h,00h,00h,00h
-DbPageBuffer:
+DbPageBuffer:                                   ; database page buffer; used by AllocPageStack, GetDbPage,
+                                                ; OldestDbPageSlot
         db 00h,00h,00h,00h
-DbPageWanted:
+DbPageWanted:                                   ; database page being looked up; used by GetDbPage
         db 00h,00h,00h,00h
-DbFlags:
+DbFlags:                                        ; database flags; used by AllocPageStack, FreeDbPages
         db 00h,00h,00h,00h
-DbGameRecordCount:
+DbGameRecordCount:                              ; database game record count; used by ReadDbRecord,
+                                                ; WriteDbRecord
         db 00h,00h,00h,00h
-DbPlayerRecordCount:
+DbPlayerRecordCount:                            ; database player record count; used by ReadDbRecord,
+                                                ; WriteDbRecord
         db 00h,00h,00h,00h
-DbStatRecordCount:
+DbStatRecordCount:                              ; database stat record count; used by ReadDbRecord,
+                                                ; WriteDbRecord
         db 00h,00h,00h,00h
-DbTeamRecordCount:
+DbTeamRecordCount:                              ; database team record count; used by ReadDbRecord,
+                                                ; WriteDbRecord
         db 00h,00h,00h,00h
-DbGameRecords:
+DbGameRecords:                                  ; database game records (196 bytes each); used by
+                                                ; ReadDbRecord, WriteDbRecord
         db 00h,00h,00h,00h
-DbPlayerRecords:
+DbPlayerRecords:                                ; database player records (47 bytes each); used by
+                                                ; ReadDbRecord, WriteDbRecord
         db 00h,00h,00h,00h
-DbStatRecords:
+DbStatRecords:                                  ; database stat records (69 bytes each); used by ReadDbRecord,
+                                                ; WriteDbRecord
         db 00h,00h,00h,00h
-DbTeamRecords:
+DbTeamRecords:                                  ; database team records (6487 bytes each); used by
+                                                ; ReadDbRecord, WriteDbRecord
         db 00h,00h,00h,00h
-DbRecordsLoaded:
+DbRecordsLoaded:                                ; set once database records are loaded; used by
+                                                ; OpenGameDatabase, ReadDbRecord, WriteDbRecord
         db 00h,00h,00h,00h
-DbFileNames:
+DbFileNames:                                    ; database file names; used by OpenGameDatabase
         dd str_STATICS
         dd str_DYNAMICS
-DbFileExtensions:
+DbFileExtensions:                               ; database file extensions; used by OpenGameDatabase
         dd str_STATICS
         dd str_PLAYERS
         dd str_ROSTERS
@@ -54,43 +67,53 @@ DbFileExtensions:
         dd str_BRAINS
         dd str_GAMES
         dd str_USERLOGS
-DbIndexRoot:
+DbIndexRoot:                                    ; database index root; used by BuildAllStarRecords,
+                                                ; CloseGameDatabase, RepairDatabase
         db 00h,00h,00h,00h
-DbPlayerIndex:
+DbPlayerIndex:                                  ; database player index; used by BuildAllStarRecords,
+                                                ; CloseGameDatabase, UpdatePlayerRecord
         db 00h,00h,00h,00h
-DbGameIndex:
+DbGameIndex:                                    ; database game index; used by CloseGameDatabase
         db 00h,00h,00h,00h
-LeagueFileDir:
+LeagueFileDir:                                  ; league file directory; used by LoadExhibitionFile,
+                                                ; OpenLeagueFile, SaveExhibitionFile
         dd str_NHL9596
-LeagueFilePrefix:
+LeagueFilePrefix:                               ; league file prefix; used by AddReplayIndexEntry,
+                                                ; CreateExhibitionFile, CreatePlayoffFile ...
         dd str_DATA
-DbDirName:
+DbDirName:                                      ; database directory name; used by OpenGameDatabase
         dd str_HDB
-DbFileSuffix:
+DbFileSuffix:                                   ; database file suffix; used by OpenGameDatabase
         dd str_BIX
-StaticBufferReady:
+StaticBufferReady:                              ; set once the static buffer exists; used by
+                                                ; AllocStaticBuffer, InitDbState
         db 00h,00h
-DbOpen:
+DbOpen:                                         ; set while the database is open; used by AddGameRecord,
+                                                ; AddPlayerRecord, AddPlayerStat ...
         db 00h,00h
-StaticBuffer:
+StaticBuffer:                                   ; static buffer; used by AddPlayerStatAt, AddReplayIndexEntry,
+                                                ; AddTradeRecord ...
         db 00h,00h,00h,00h
-DbKeyBuffer:
+DbKeyBuffer:                                    ; database key buffer; used by AddReplayIndexEntry,
+                                                ; BuildPlayoffRecords, BuildSeasonRecords ...
         db 00h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh
-PlayoffDbKey:
+PlayoffDbKey:                                   ; playoff database key; used by CreatePlayoffFile,
+                                                ; CreatePlayoffSchedule, CreateSeason ...
         db 00h,00h,00h,00h,00h,00h,00h,00h
-SeasonDbKey:
+SeasonDbKey:                                    ; season database key; used by PlayerRatingsScreen,
+                                                ; PlayerStatsScreen, PreGameStatsPanel ...
         db 00h,00h,00h,00h,01h,00h,00h,00h
-str_Punct_SetMatchupTeams:
+str_Punct_SetMatchupTeams:                      ; string "\r"; used by SetMatchupTeams
         db 0Dh,00h
-MatchupTeamCodes:
+MatchupTeamCodes:                               ; matchup team codes; used by SetMatchupTeams
         db 02Dh,00h,02Ah,00h,01Bh,00h,054h,00h,01Ch,00h,09Eh,00h,01Dh,00h,0C5h,00h
         db 01Eh,00h,0ECh,00h,01Fh,00h,012h,01h,020h,00h,037h,01h,021h,00h,048h,01h
         db 024h,00h,076h,01h,022h,00h,07Bh,01h,023h,00h,0DCh,01h,025h,00h,0E1h,01h
         db 026h,00h,09h,02h,027h,00h,042h,02h,028h,00h,075h,02h,029h,00h,0ACh,02h
         db 02Ah,00h,0D4h,02h,02Ch,00h,0F4h,02h,02Bh,00h,050h,03h,02Eh,00h,05Dh,03h
-str_Punct_DaysToYear:
+str_Punct_DaysToYear:                           ; string "/"; used by AgeFromBirthDate, DaysToYear
         db 02Fh,00h
-MonthStartDays:
+MonthStartDays:                                 ; day each month starts; used by AgeFromBirthDate
         db 00h,00h,01Fh,00h,03Bh,00h,05Ah,00h,078h,00h,097h,00h,0B5h,00h,0D4h,00h
         db 0F3h,00h,011h,01h,030h,01h,04Eh,01h,06Dh,01h,00h,00h,01Fh,00h,03Ch,00h
         db 05Bh,00h,079h,00h,098h,00h,0B6h,00h,0D5h,00h,0F4h,00h,012h,01h,031h,01h

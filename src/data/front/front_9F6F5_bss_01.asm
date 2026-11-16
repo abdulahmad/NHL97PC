@@ -4,35 +4,40 @@ bits 32
 section s_1C8F58 nobits alloc noexec write align=1
 global IndexDialogType, IndexDialogText, IndexDialogShape, IndexDialogFrame, IndexDialogBack, IndexDialogWidth, IndexDialogHeight, TransferOffset
 global TransferPackBuffer, TransferBuffer, IndexSoundPlayed, IndexDialogShapeMid, IndexDialogShapeEnd, IndexDialogShapeTop, IndexListBox, LinkMessageText
-IndexDialogType:
+IndexDialogType:                                ; index dialog type; used by PickIndexEntryScreen
         resb 4
-IndexDialogText:
+IndexDialogText:                                ; index dialog text; used by PickIndexEntryScreen
         resb 6
-IndexDialogShape:
+IndexDialogShape:                               ; index dialog shape; used by PickIndexEntryScreen
         resb 4
-IndexDialogFrame:
+IndexDialogFrame:                               ; index dialog frame; used by PickIndexEntryScreen
         resb 4
-IndexDialogBack:
+IndexDialogBack:                                ; index dialog back; used by PickIndexEntryScreen
         resb 4
-IndexDialogWidth:
+IndexDialogWidth:                               ; index dialog width; used by PickIndexEntryScreen
         resb 4
-IndexDialogHeight:
+IndexDialogHeight:                              ; index dialog height; used by PickIndexEntryScreen
         resb 40
-IndexListBox:
+IndexListBox:                                   ; index list box; used by PickIndexEntryScreen
         resb 1066
-TransferOffset:
+TransferOffset:                                 ; link transfer write offset; used by AllocCrusherBuffers,
+                                                ; AppendToTransfer, CopyToTransfer ...
         resb 4
-TransferPackBuffer:
+TransferPackBuffer:                             ; link transfer packing buffer; used by AllocCrusherBuffers,
+                                                ; FreeTransferBuffers, LinkReceiveData ...
         resb 4
-TransferBuffer:
+TransferBuffer:                                 ; link transfer buffer; used by AllocCrusherBuffers,
+                                                ; AppendToTransfer, CopyToTransfer ...
         resb 4
-LinkMessageText:
+LinkMessageText:                                ; link message text; used by LinkReceiveData
         resb 4
-IndexSoundPlayed:
+IndexSoundPlayed:                               ; set once the index screen sound plays; used by
+                                                ; IndexScreenSound
         resb 4
-IndexDialogShapeMid:
+IndexDialogShapeMid:                            ; index dialog middle shape; used by IndexScreenSound,
+                                                ; PickIndexEntryScreen
         resb 4
-IndexDialogShapeEnd:
+IndexDialogShapeEnd:                            ; index dialog end shape; used by PickIndexEntryScreen
         resb 4
-IndexDialogShapeTop:
+IndexDialogShapeTop:                            ; index dialog top shape; used by PickIndexEntryScreen
         resb 16

@@ -13,19 +13,19 @@ global ModemResultStrings
 
 
 global str_T, str_P, str_Punct_ModemSendCommand, str_AT
-str_Roster:
+str_Roster:                                     ; string "roster"; used by BuildSeasonSchedule
         db 072h,06Fh,073h,074h,065h,072h,00h
-str_SS2:
+str_SS2:                                        ; string "%s%s"; used by CheckLeagueInjuries
         db 025h,073h,025h,073h,00h
-str_VIDEO:
+str_VIDEO:                                      ; string "VIDEO"; used by OpenVideoStream
         db 056h,049h,044h,045h,04Fh,00h,00h,00h
-str_AUDSTRMHACK:
+str_AUDSTRMHACK:                                ; string "AUDSTRMHACK"; used by PlayMovie
         db 041h,055h,044h,053h,054h,052h,04Dh,048h,041h,043h,04Bh,00h
-str_OK:
+str_OK:                                         ; string "_OK"
         db 05Fh,04Fh,04Bh,00h
-str_0:
+str_0:                                          ; string "_0_"
         db 05Fh,030h,05Fh,00h
-ModemResultStrings:
+ModemResultStrings:                             ; modem result code strings (numeric and text forms)
         db 030h,00h,00h,00h
         db 05Fh,043h,04Fh,04Eh,04Eh,045h,043h,054h,00h,00h,00h,00h
         db 05Fh,031h,05Fh,00h
@@ -88,47 +88,47 @@ ModemResultStrings:
         db 05Fh,043h,04Fh,04Eh,04Eh,045h,043h,054h,020h,032h,038h,038h,030h,030h,00h,00h
         db 05Fh,031h,030h,037h,05Fh,00h,00h,00h
         db 031h,030h,037h,00h
-str_ATZS760S1155:
+str_ATZS760S1155:                               ; string "ATZS7=60S11=55"; used by putchar
         db 041h,054h,05Ah,053h,037h,03Dh,036h,030h,053h,031h,031h,03Dh,035h,035h,00h,00h
-str_ATE1Q0X4F1:
+str_ATE1Q0X4F1:                                 ; string "ATE1Q0X4F1"; used by ModemReset
         db 041h,054h,045h,031h,051h,030h,058h,034h,046h,031h,00h,00h
-str_ATH0:
+str_ATH0:                                       ; string "ATH0"; used by ModemHangup
         db 041h,054h,048h,030h,00h,00h,00h,00h
-str_ATD:
+str_ATD:                                        ; string "ATD"; used by ModemDial, ModemHangup
         db 041h,054h,044h,00h
-str_T:
+str_T:                                          ; string "T"; used by ModemDial
         db 054h,00h,00h,00h
-str_P:
+str_P:                                          ; string "P"; used by ModemDial
         db 050h,00h,00h,00h
-str_ATS01:
+str_ATS01:                                      ; string "ATS0=1"; used by ModemAutoAnswer
         db 041h,054h,053h,030h,03Dh,031h,00h,00h
-str_ATA:
+str_ATA:                                        ; string "ATA "; used by ModemAutoAnswer
         db 041h,054h,041h,0Dh,00h,00h,00h,00h
-str_Punct_ModemSendCommand:
+str_Punct_ModemSendCommand:                     ; string "\r"; used by ModemSendCommand
         db 0Dh,00h,00h,00h
-str_Punct2:
+str_Punct2:                                     ; string "+++"; used by ModemAttention
         db 02Bh,02Bh,02Bh,00h
-str_AT:
+str_AT:                                         ; string "AT"; used by ModemAttention
         db 041h,054h,00h,00h
-str_ATM0:
+str_ATM0:                                       ; string "ATM0"; used by ModemSpeakerOff
         db 041h,054h,04Dh,030h,00h,00h,00h,00h
-str_LogoNames:
+str_LogoNames:                                  ; string "logo names"; used by LoadLogoNames
         db 06Ch,06Fh,067h,06Fh,020h,06Eh,061h,06Dh,065h,073h,00h
-str_Logo02dQfs:
+str_Logo02dQfs:                                 ; string "logo%02d.qfs"; used by LoadLogoNames
         db 06Ch,06Fh,067h,06Fh,025h,030h,032h,064h,02Eh,071h,066h,073h,00h
-str_Mous2:
+str_Mous2:                                      ; string "mous"; used by InitFrontEnd
         db 06Dh,06Fh,075h,073h,00h
-str_Remo2:
+str_Remo2:                                      ; string "remo"; used by InitFrontEnd
         db 072h,065h,06Dh,06Fh,00h
-str_CHK1:
+str_CHK1:                                       ; string "CHK1"; used by InitFrontEnd
         db 043h,048h,04Bh,031h,00h
-str_X1:
+str_X1:                                         ; string "X1 "; used by InitFrontEnd
         db 058h,031h,020h,020h,00h
-str_CB00:
+str_CB00:                                       ; string "CB00"; used by InitFrontEnd
         db 043h,042h,030h,030h,00h
-str_CB01:
+str_CB01:                                       ; string "CB01"; used by InitFrontEnd
         db 043h,042h,030h,031h,00h
-str_BACK2:
+str_BACK2:                                      ; string "BACK"; used by TitleScreen
         db 042h,041h,043h,04Bh,00h
-str_LOGO2:
+str_LOGO2:                                      ; string "LOGO"; used by TitleScreen
         db 04Ch,04Fh,047h,04Fh,00h

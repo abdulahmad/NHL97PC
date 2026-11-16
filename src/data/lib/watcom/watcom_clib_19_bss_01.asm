@@ -3,17 +3,22 @@ bits 32
 %include "hockey.inc"
 section s_1DA8D0 nobits alloc noexec write align=1
 global TextCharFunc, TextCharFuncNext, ScaledRowBuffer, PolyClipBottomBuf, PolyClipLeftBuf, PolyClipRightBuf, PolyClipTopBuf
-TextCharFunc:
+TextCharFunc:                                   ; text character routine; used by BlitCore, NextTextChar
         resb 4
-TextCharFuncNext:
+TextCharFuncNext:                               ; next text character routine; used by BlitCore, NextTextChar
         resb 4
-ScaledRowBuffer:
+ScaledRowBuffer:                                ; scaled shape row buffer; used by DrawScaledRow,
+                                                ; DrawShapeScaledCore, DrawSpriteRow ...
         resb 6208
-PolyClipBottomBuf:
+PolyClipBottomBuf:                              ; polygon vertices after clipping the bottom edge; used by
+                                                ; ClipPolyBottom
         resb 256
-PolyClipLeftBuf:
+PolyClipLeftBuf:                                ; polygon vertices after clipping the left edge; used by
+                                                ; ClipPolyLeft
         resb 256
-PolyClipRightBuf:
+PolyClipRightBuf:                               ; polygon vertices after clipping the right edge; used by
+                                                ; ClipPolyRight
         resb 256
-PolyClipTopBuf:
+PolyClipTopBuf:                                 ; polygon vertices after clipping the top edge; used by
+                                                ; ClipPolyTop
         resb 256

@@ -11,142 +11,145 @@ global str_03DE, str_02DE, str_02DE03DE04DE, str_03RU, str_02RU, str_02RU03RU04R
 global str_02TR03TR04TR, str_03SR, str_02SR, str_02SR03SR04SR, str_03SD, str_02SD, str_02SD03SD04SD, str_03AW
 global str_02AW, str_02AW03AW04AW, str_BG012, str_BG022, str_BG03, str_NHL0, str_SD3, str_LG27
 global str_LG28, str_SSEASDPLY, str_SPLAYDSET, str_Punct_PlayoffTreeScreen
-str_LG02d2:
+str_LG02d2:                                     ; string "LG%02d"; used by DrawPlayoffSetup,
+                                                ; PlayoffSetupScreen, PlayoffTreeScreen
         db 04Ch,047h,025h,030h,032h,064h,00h
-str_SCOFDEOFCHOFGOOFPOOFOVOFS:
+str_SCOFDEOFCHOFGOOFPOOFOVOFS:                  ; string "SCOFDEOFCHOFGOOFPOOFOVOFSCONDEONCHONGOONPOONOVON";
+                                                ; used by PlayoffSetupScreen
         db 053h,043h,04Fh,046h,044h,045h,04Fh,046h,043h,048h,04Fh,046h,047h,04Fh,04Fh,046h
         db 050h,04Fh,04Fh,046h,04Fh,056h,04Fh,046h,053h,043h,04Fh,04Eh,044h,045h,04Fh,04Eh
         db 043h,048h,04Fh,04Eh,047h,04Fh,04Fh,04Eh,050h,04Fh,04Fh,04Eh,04Fh,056h,04Fh,04Eh
         db 00h
-str_012R013R014R2:
+str_012R013R014R2:                              ; string "012R013R014R"; used by PlayoffSetupScreen
         db 030h,031h,032h,052h,030h,031h,033h,052h,030h,031h,034h,052h,00h
-str_12SR13SR14SR2:
+str_12SR13SR14SR2:                              ; string "12SR13SR14SR"; used by PlayoffSetupScreen
         db 031h,032h,053h,052h,031h,033h,053h,052h,031h,034h,053h,052h,00h
-str_00002:
+str_00002:                                      ; string "0000"; used by PlayoffSetupScreen
         db 030h,030h,030h,030h,00h
-str_TITL4:
+str_TITL4:                                      ; string "TITL"; used by PlayoffSetupScreen, PlayoffTreeScreen
         db 054h,049h,054h,04Ch,00h
-str_Playoffmenu:
+str_Playoffmenu:                                ; string "playoffmenu"; used by PlayoffSetupScreen,
+                                                ; PlayoffTreeScreen
         db 070h,06Ch,061h,079h,06Fh,066h,066h,06Dh,065h,06Eh,075h,00h
-str_OVON:
+str_OVON:                                       ; string "OVON"; used by PlayoffSetupScreen
         db 04Fh,056h,04Fh,04Eh,00h
-str_OVOF:
+str_OVOF:                                       ; string "OVOF"; used by PlayoffSetupScreen
         db 04Fh,056h,04Fh,046h,00h
-str_13SR:
+str_13SR:                                       ; string "13SR"; used by PlayoffSetupScreen
         db 031h,033h,053h,052h,00h
-str_12SR:
+str_12SR:                                       ; string "12SR"; used by PlayoffSetupScreen
         db 031h,032h,053h,052h,00h
-str_11SR2:
+str_11SR2:                                      ; string "11SR"; used by PlayoffSetupScreen
         db 031h,031h,053h,052h,00h
-str_013R:
+str_013R:                                       ; string "013R"; used by PlayoffSetupScreen
         db 030h,031h,033h,052h,00h
-str_012R:
+str_012R:                                       ; string "012R"; used by PlayoffSetupScreen
         db 030h,031h,032h,052h,00h
-str_011R2:
+str_011R2:                                      ; string "011R"; used by PlayoffSetupScreen
         db 030h,031h,031h,052h,00h
-str_LAON:
+str_LAON:                                       ; string "LAON"; used by PlayoffSetupScreen
         db 04Ch,041h,04Fh,04Eh,00h
-str_LAOF:
+str_LAOF:                                       ; string "LAOF"; used by PlayoffSetupScreen
         db 04Ch,041h,04Fh,046h,00h
-str_RAON:
+str_RAON:                                       ; string "RAON"; used by PlayoffSetupScreen
         db 052h,041h,04Fh,04Eh,00h
-str_RAOF:
+str_RAOF:                                       ; string "RAOF"; used by PlayoffSetupScreen
         db 052h,041h,04Fh,046h,00h
-str_SPLAYOFFNDX:
+str_SPLAYOFFNDX:                                ; string "%s\PLAYOFF.NDX"; used by CreatePlayoffs
         db 025h,073h,05Ch,050h,04Ch,041h,059h,04Fh,046h,046h,02Eh,04Eh,044h,058h,00h
-str_PLAYOFFNDX:
+str_PLAYOFFNDX:                                 ; string "PLAYOFF.NDX"; used by CreatePlayoffs
         db 050h,04Ch,041h,059h,04Fh,046h,046h,02Eh,04Eh,044h,058h,00h
-str_PLAY04dSET:
+str_PLAY04dSET:                                 ; string "PLAY%04d.SET"; used by CreatePlayoffs
         db 050h,04Ch,041h,059h,025h,030h,034h,064h,02Eh,053h,045h,054h,00h
-str_SS4:
+str_SS4:                                        ; string "%s%s"; used by CreatePlayoffs
         db 025h,073h,025h,073h,00h
-str_DS:
+str_DS:                                         ; string "*%d. %s"; used by DrawPlayoffTeam
         db 02Ah,025h,064h,02Eh,020h,025h,073h,00h
-str_DS2:
+str_DS2:                                        ; string "%d. %s"; used by DrawPlayoffTeam
         db 025h,064h,02Eh,020h,025h,073h,00h
-str_Pieces:
+str_Pieces:                                     ; string "pieces"; used by PlayoffTreeScreen
         db 070h,069h,065h,063h,065h,073h,00h
-str_Pan2:
+str_Pan2:                                       ; string "pan2"; used by PlayoffTreeScreen
         db 070h,061h,06Eh,032h,00h
-str_01RU:
+str_01RU:                                       ; string "01RU"; used by PlayoffTreeScreen
         db 030h,031h,052h,055h,00h
-str_01SR:
+str_01SR:                                       ; string "01SR"; used by PlayoffTreeScreen
         db 030h,031h,053h,052h,00h
-str_01ST:
+str_01ST:                                       ; string "01ST"; used by PlayoffTreeScreen
         db 030h,031h,053h,054h,00h
-str_Pan6:
+str_Pan6:                                       ; string "pan6"; used by PlayoffTreeScreen
         db 070h,061h,06Eh,036h,00h
-str_01DE:
+str_01DE:                                       ; string "01DE"; used by PlayoffTreeScreen
         db 030h,031h,044h,045h,00h
-str_01TR:
+str_01TR:                                       ; string "01TR"; used by PlayoffTreeScreen
         db 030h,031h,054h,052h,00h
-str_01SD:
+str_01SD:                                       ; string "01SD"; used by PlayoffTreeScreen
         db 030h,031h,053h,044h,00h
-str_Pan5:
+str_Pan5:                                       ; string "pan5"; used by PlayoffTreeScreen
         db 070h,061h,06Eh,035h,00h
-str_Pan3:
+str_Pan3:                                       ; string "pan3"; used by PlayoffTreeScreen
         db 070h,061h,06Eh,033h,00h
-str_01AW:
+str_01AW:                                       ; string "01AW"; used by PlayoffTreeScreen
         db 030h,031h,041h,057h,00h
-str_03ST:
+str_03ST:                                       ; string "03ST"; used by PlayoffTreeScreen
         db 030h,033h,053h,054h,00h
-str_02ST:
+str_02ST:                                       ; string "02ST"; used by PlayoffTreeScreen
         db 030h,032h,053h,054h,00h
-str_02ST03ST04ST:
+str_02ST03ST04ST:                               ; string "02ST03ST04ST"; used by PlayoffTreeScreen
         db 030h,032h,053h,054h,030h,033h,053h,054h,030h,034h,053h,054h,00h
-str_03DE:
+str_03DE:                                       ; string "03DE"; used by PlayoffTreeScreen
         db 030h,033h,044h,045h,00h
-str_02DE:
+str_02DE:                                       ; string "02DE"; used by PlayoffTreeScreen
         db 030h,032h,044h,045h,00h
-str_02DE03DE04DE:
+str_02DE03DE04DE:                               ; string "02DE03DE04DE"; used by PlayoffTreeScreen
         db 030h,032h,044h,045h,030h,033h,044h,045h,030h,034h,044h,045h,00h
-str_03RU:
+str_03RU:                                       ; string "03RU"; used by PlayoffTreeScreen
         db 030h,033h,052h,055h,00h
-str_02RU:
+str_02RU:                                       ; string "02RU"; used by PlayoffTreeScreen
         db 030h,032h,052h,055h,00h
-str_02RU03RU04RU:
+str_02RU03RU04RU:                               ; string "02RU03RU04RU"; used by PlayoffTreeScreen
         db 030h,032h,052h,055h,030h,033h,052h,055h,030h,034h,052h,055h,00h
-str_03TR:
+str_03TR:                                       ; string "03TR"; used by PlayoffTreeScreen
         db 030h,033h,054h,052h,00h
-str_02TR:
+str_02TR:                                       ; string "02TR"; used by PlayoffTreeScreen
         db 030h,032h,054h,052h,00h
-str_02TR03TR04TR:
+str_02TR03TR04TR:                               ; string "02TR03TR04TR"; used by PlayoffTreeScreen
         db 030h,032h,054h,052h,030h,033h,054h,052h,030h,034h,054h,052h,00h
-str_03SR:
+str_03SR:                                       ; string "03SR"; used by PlayoffTreeScreen
         db 030h,033h,053h,052h,00h
-str_02SR:
+str_02SR:                                       ; string "02SR"; used by PlayoffTreeScreen
         db 030h,032h,053h,052h,00h
-str_02SR03SR04SR:
+str_02SR03SR04SR:                               ; string "02SR03SR04SR"; used by PlayoffTreeScreen
         db 030h,032h,053h,052h,030h,033h,053h,052h,030h,034h,053h,052h,00h
-str_03SD:
+str_03SD:                                       ; string "03SD"; used by PlayoffTreeScreen
         db 030h,033h,053h,044h,00h
-str_02SD:
+str_02SD:                                       ; string "02SD"; used by PlayoffTreeScreen
         db 030h,032h,053h,044h,00h
-str_02SD03SD04SD:
+str_02SD03SD04SD:                               ; string "02SD03SD04SD"; used by PlayoffTreeScreen
         db 030h,032h,053h,044h,030h,033h,053h,044h,030h,034h,053h,044h,00h
-str_03AW:
+str_03AW:                                       ; string "03AW"; used by PlayoffTreeScreen
         db 030h,033h,041h,057h,00h
-str_02AW:
+str_02AW:                                       ; string "02AW"; used by PlayoffTreeScreen
         db 030h,032h,041h,057h,00h
-str_02AW03AW04AW:
+str_02AW03AW04AW:                               ; string "02AW03AW04AW"; used by PlayoffTreeScreen
         db 030h,032h,041h,057h,030h,033h,041h,057h,030h,034h,041h,057h,00h
-str_BG012:
+str_BG012:                                      ; string "BG01"; used by PlayoffTreeScreen
         db 042h,047h,030h,031h,00h
-str_BG022:
+str_BG022:                                      ; string "BG02"; used by PlayoffTreeScreen
         db 042h,047h,030h,032h,00h
-str_BG03:
+str_BG03:                                       ; string "BG03"; used by PlayoffTreeScreen
         db 042h,047h,030h,033h,00h
-str_NHL0:
+str_NHL0:                                       ; string "NHL0"; used by PlayoffTreeScreen
         db 04Eh,048h,04Ch,030h,00h
-str_SD3:
+str_SD3:                                        ; string "%s %d"; used by PlayoffTreeScreen
         db 025h,073h,020h,025h,064h,00h
-str_LG27:
+str_LG27:                                       ; string "LG27"; used by PlayoffTreeScreen
         db 04Ch,047h,032h,037h,00h
-str_LG28:
+str_LG28:                                       ; string "LG28"; used by PlayoffTreeScreen
         db 04Ch,047h,032h,038h,00h
-str_Punct_PlayoffTreeScreen:
+str_Punct_PlayoffTreeScreen:                    ; string "\n"; used by PlayoffTreeScreen
         db 0Ah,00h
-str_SSEASDPLY:
+str_SSEASDPLY:                                  ; string "%sSEAS%d.PLY"; used by PlayoffSettingsPath
         db 025h,073h,053h,045h,041h,053h,025h,064h,02Eh,050h,04Ch,059h,00h
-str_SPLAYDSET:
+str_SPLAYDSET:                                  ; string "%sPLAY%d.SET"; used by PlayoffSettingsPath
         db 025h,073h,050h,04Ch,041h,059h,025h,064h,02Eh,053h,045h,054h,00h,00h

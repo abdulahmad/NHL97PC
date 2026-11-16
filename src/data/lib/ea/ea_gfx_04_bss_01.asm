@@ -7,75 +7,99 @@ global AsyncCurBuffer, AsyncQueueHead, AsyncQueueTail, AsyncReadLength, AsyncSta
 global AsyncDosResult, AsyncSector, AsyncSectorCount, AsyncBytesLeft, AsyncDest, AsyncCallback, AsyncWaitTimer, AsyncStreamFile
 global AsyncStreamBase, AsyncStreamSize, AsyncTickCount, AsyncLastSector, AsyncStreamPos, AsyncChunkSize, AsyncChunkDest, AsyncStreamEnd
 global ReciprocalBase, ReciprocalTable, AsyncSeekRegs, SampleRateTable
-SampleRateTable:
+SampleRateTable:                                ; playback rate of each mixer channel's sample; used by
+                                                ; ChannelTimeLeft, InitStreamHeader, StartPatchSample ...
         resb 2
-SampleBitsTable:
+SampleBitsTable:                                ; bits per sample of each mixer channel's sample; used by
+                                                ; StartPatchSample, StartTmplSample
         resb 1
-SampleChannelsTable:
+SampleChannelsTable:                            ; channel count of each mixer channel's sample; used by
+                                                ; StartPatchSample, StartTmplSample
         resb 1
-SampleInfoTable:
+SampleInfoTable:                                ; length and loop of each mixer channel's sample; used by
+                                                ; StartPatchSample, StartTmplSample
         resb 124
-MixerVolumeTable:
+MixerVolumeTable:                               ; volume table of the sound mixer; used by InitSoundMixer,
+                                                ; MixChannelFormat, MixVolumeRamp ...
         resb 4
-AsyncRequests:
+AsyncRequests:                                  ; pool of async file requests; used by AsyncClose, AsyncInit
         resb 4
-AsyncCurFile:
+AsyncCurFile:                                   ; file of the request being serviced; used by AsyncClose,
+                                                ; AsyncRequestOpen, AsyncRequestSection ...
         resb 4
-AsyncCurOffset:
+AsyncCurOffset:                                 ; file offset of the request being serviced; used by
+                                                ; AsyncClose, AsyncRequestOpen, AsyncRequestSection ...
         resb 4
-AsyncFreeList:
+AsyncFreeList:                                  ; free list of async file requests; used by AsyncFreeRequest,
+                                                ; AsyncInit, AsyncPopRequest ...
         resb 4
-AsyncCurBuffer:
+AsyncCurBuffer:                                 ; buffer of the request being serviced; used by
+                                                ; AsyncStreamStep
         resb 4
-AsyncQueueHead:
+AsyncQueueHead:                                 ; first request in the async queue; used by AsyncClose,
+                                                ; AsyncInit, AsyncStreamStep
         resb 4
-AsyncQueueTail:
+AsyncQueueTail:                                 ; last request in the async queue; used by AsyncClose,
+                                                ; AsyncInit, AsyncStreamStep
         resb 4
-AsyncReadLength:
+AsyncReadLength:                                ; length of the read being serviced; used by AsyncStreamStep
         resb 4
-AsyncState:
+AsyncState:                                     ; state of the async CD reader; used by AsyncInit,
+                                                ; AsyncStreamStep
         resb 8
-AsyncFileHandle:
+AsyncFileHandle:                                ; DOS handle of the file being streamed; used by AsyncInit,
+                                                ; AsyncStreamStep, OpenSpeechStreamFile
         resb 4
-AsyncError:
+AsyncError:                                     ; error of the last async request; used by AsyncStreamStep
         resb 4
-AsyncDosRegs:
+AsyncDosRegs:                                   ; register block of the async DOS read; used by
+                                                ; AsyncStreamStep
         resb 4
-AsyncDosResult:
+AsyncDosResult:                                 ; result of the async DOS read; used by AsyncStreamStep
         resb 4
-AsyncSector:
+AsyncSector:                                    ; CD sector being read; used by AsyncStreamStep
         resb 4
-AsyncSectorCount:
+AsyncSectorCount:                               ; number of CD sectors still to read; used by AsyncStreamStep
         resb 4
-AsyncBytesLeft:
+AsyncBytesLeft:                                 ; bytes still to read for the current request; used by
+                                                ; AsyncStreamStep
         resb 4
-AsyncDest:
+AsyncDest:                                      ; destination of the current read; used by AsyncStreamStep
         resb 4
-AsyncSeekRegs:
+AsyncSeekRegs:                                  ; register block of the async seek; used by AsyncStreamStep
         resb 4
-AsyncCallback:
+AsyncCallback:                                  ; callback of the request being serviced; used by
+                                                ; AsyncStreamStep
         resb 4
-AsyncWaitTimer:
+AsyncWaitTimer:                                 ; countdown before the next async step; used by AsyncInit,
+                                                ; AsyncStreamStep, AsyncTick
         resb 4
-AsyncStreamFile:
+AsyncStreamFile:                                ; file the speech stream reads from; used by AsyncInit,
+                                                ; AsyncStreamStep, OpenSpeechStreamFile
         resb 4
-AsyncStreamBase:
+AsyncStreamBase:                                ; start offset of the speech stream in its file; used by
+                                                ; AsyncInit, AsyncStreamStep, OpenSpeechStreamFile
         resb 4
-AsyncStreamSize:
+AsyncStreamSize:                                ; size of the speech stream; used by AsyncInit,
+                                                ; AsyncStreamStep, OpenSpeechStreamFile
         resb 4
-AsyncTickCount:
+AsyncTickCount:                                 ; async ticks counted while waiting; used by AsyncStreamStep,
+                                                ; AsyncTick
         resb 4
-AsyncLastSector:
+AsyncLastSector:                                ; last CD sector read; used by AsyncStreamStep
         resb 4
-AsyncStreamPos:
+AsyncStreamPos:                                 ; read position in the speech stream; used by AsyncStreamStep,
+                                                ; OpenSpeechStreamFile
         resb 4
-AsyncChunkSize:
+AsyncChunkSize:                                 ; size of the chunk being read; used by AsyncStreamStep
         resb 4
-AsyncChunkDest:
+AsyncChunkDest:                                 ; destination of the chunk being read; used by AsyncStreamStep
         resb 4
-AsyncStreamEnd:
+AsyncStreamEnd:                                 ; end offset of the speech stream; used by AsyncStreamStep,
+                                                ; OpenSpeechStreamFile
         resb 4
-ReciprocalBase:
+ReciprocalBase:                                 ; base of the fixed-point reciprocal table; used by
+                                                ; BuildReciprocalTable
         resb 4
-ReciprocalTable:
+ReciprocalTable:                                ; fixed-point reciprocals 1/n used by the polygon fillers
         resb 8200

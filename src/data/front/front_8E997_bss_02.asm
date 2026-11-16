@@ -5,39 +5,51 @@ section s_1C84D8 nobits alloc noexec write align=1
 global SeasonTypeCode, StandingsGoalsFor, SeasonSparkleShapes, StandingsTies, SeasonMenuShapeLists, StandingsWins, StandingsGoalsAgainst, StandingsSortKey
 global SeasonSparkleSoundOn, SeasonMenuItems, StandingsBuffer, NewSeasonItems, ExhibitionData, NewSeasonShapes, SeasonNameShapes, SeasonRecordShapes
 global SeasonGameShapes, SeasonDateShapes
-StandingsGoalsFor:
+StandingsGoalsFor:                              ; goals for per team, for the standings sort; used by
+                                                ; CompareStandings, SortStandings
         resb 104
-SeasonSparkleShapes:
+SeasonSparkleShapes:                            ; season menu sparkle shapes; used by NewSeasonScreen,
+                                                ; NewSeasonSound, SeasonMenuScreen ...
         resb 40
-StandingsTies:
+StandingsTies:                                  ; ties per team, for the standings sort; used by
+                                                ; CompareStandings, SortStandings
         resb 104
-SeasonMenuShapeLists:
+SeasonMenuShapeLists:                           ; season menu shape lists; used by NewSeasonScreen,
+                                                ; NewSeasonSound, SeasonMenuScreen ...
         resb 12
-NewSeasonShapes:
+NewSeasonShapes:                                ; new season screen shapes; used by NewSeasonScreen,
+                                                ; SeasonMenuScreen
         resb 12
-SeasonNameShapes:
+SeasonNameShapes:                               ; season name shapes; used by SeasonMenuScreen
         resb 12
-SeasonRecordShapes:
+SeasonRecordShapes:                             ; season record shapes; used by SeasonMenuScreen
         resb 12
-SeasonGameShapes:
+SeasonGameShapes:                               ; season game shapes; used by SeasonMenuScreen
         resb 12
-SeasonDateShapes:
+SeasonDateShapes:                               ; season date shapes; used by SeasonMenuScreen
         resb 12
-StandingsWins:
+StandingsWins:                                  ; wins per team, for the standings sort; used by
+                                                ; CompareStandings, SortStandings
         resb 104
-StandingsGoalsAgainst:
+StandingsGoalsAgainst:                          ; goals against per team, for the standings sort; used by
+                                                ; CompareStandings, SortStandings
         resb 104
-StandingsSortKey:
+StandingsSortKey:                               ; standings sort key; used by BuildStandingsFactoids,
+                                                ; CompareStandingsValue
         resb 4
-SeasonSparkleSoundOn:
+SeasonSparkleSoundOn:                           ; set once the season menu sparkle sound plays; used by
+                                                ; NewSeasonSound, SeasonMenuSparkle
         resb 4
-SeasonMenuItems:
+SeasonMenuItems:                                ; season menu items; used by SeasonMenuScreen,
+                                                ; SeasonMenuSparkle
         resb 4
-StandingsBuffer:
+StandingsBuffer:                                ; standings screen buffer; used by StandingsScreen
         resb 4
-NewSeasonItems:
+NewSeasonItems:                                 ; new season screen items; used by NewSeasonScreen,
+                                                ; NewSeasonSound
         resb 4
-ExhibitionData:
+ExhibitionData:                                 ; exhibition file data; used by DrawAwayTeamPanel,
+                                                ; DrawHomeTeamPanel, DrawPlayoffTeam ...
         resb 4
-SeasonTypeCode:
+SeasonTypeCode:                                 ; season type letter; used by CreateSeason, RunNewSeason
         resb 4

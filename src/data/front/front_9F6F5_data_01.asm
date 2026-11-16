@@ -7,83 +7,85 @@ global str_DATAEXHIBITNDX2, str_DATASEASONNDX2, str_DATAPLAYOFFNDX2, str_Replayb
 global str_PLY, str_S5, str_IdlistFfc, str_SharedFfc, str_WHATEVER, str_04d3, str_TRBL, str_TRBR
 global str_TRLS, str_TRRS, str_TRSE, str_TRSS, str_TRSP, str_PICT, str_Roster3, str_Rosids
 global str_Rtids, str_Games, str_Ros, str_Lros, str_CRUSHER, str_CRUSHERPack, str_D_LinkSendData
-str_DL01:
+str_DL01:                                       ; string "DL01"; used by PickIndexEntryScreen
         db 044h,04Ch,030h,031h,00h
-str_DL02:
+str_DL02:                                       ; string "DL02"; used by PickIndexEntryScreen
         db 044h,04Ch,030h,032h,00h
-str_DL03:
+str_DL03:                                       ; string "DL03"; used by PickIndexEntryScreen
         db 044h,04Ch,030h,033h,00h
-str_SEASONNDX2:
+str_SEASONNDX2:                                 ; string "SEASON.NDX"; used by PickIndexEntryScreen
         db 053h,045h,041h,053h,04Fh,04Eh,02Eh,04Eh,044h,058h,00h
-str_PLAYOFFNDX2:
+str_PLAYOFFNDX2:                                ; string "PLAYOFF.NDX"; used by PickIndexEntryScreen
         db 050h,04Ch,041h,059h,04Fh,046h,046h,02Eh,04Eh,044h,058h,00h
-str_EXHIBITNDX:
+str_EXHIBITNDX:                                 ; string "EXHIBIT.NDX"; used by PickIndexEntryScreen
         db 045h,058h,048h,049h,042h,049h,054h,02Eh,04Eh,044h,058h,00h
-str_DL00:
+str_DL00:                                       ; string "DL00"; used by PickIndexEntryScreen
         db 044h,04Ch,030h,030h,00h
-str_DONTHAVEIT:
+str_DONTHAVEIT:                                 ; string "DONTHAVE.IT"; used by LoadIndexFile,
+                                                ; PickIndexEntryScreen
         db 044h,04Fh,04Eh,054h,048h,041h,056h,045h,02Eh,049h,054h,00h
-str_DATAEXHIBITNDX2:
+str_DATAEXHIBITNDX2:                            ; string "DATA\EXHIBIT.NDX"; used by PickIndexEntryScreen
         db 044h,041h,054h,041h,05Ch,045h,058h,048h,049h,042h,049h,054h,02Eh,04Eh,044h,058h
         db 00h
-str_DATASEASONNDX2:
+str_DATASEASONNDX2:                             ; string "DATA\SEASON.NDX"; used by PickIndexEntryScreen
         db 044h,041h,054h,041h,05Ch,053h,045h,041h,053h,04Fh,04Eh,02Eh,04Eh,044h,058h,00h
-str_DATAPLAYOFFNDX2:
+str_DATAPLAYOFFNDX2:                            ; string "DATA\PLAYOFF.NDX"; used by PickIndexEntryScreen
         db 044h,041h,054h,041h,05Ch,050h,04Ch,041h,059h,04Fh,046h,046h,02Eh,04Eh,044h,058h
         db 00h
-str_Replaybuf:
+str_Replaybuf:                                  ; string "replaybuf"; used by PickIndexEntryScreen,
+                                                ; ReceiveLeagueData, SendLeagueData
         db 072h,065h,070h,06Ch,061h,079h,062h,075h,066h,00h
-str_SEAS04dSET2:
+str_SEAS04dSET2:                                ; string "SEAS%04d.SET"; used by PickIndexEntryScreen
         db 053h,045h,041h,053h,025h,030h,034h,064h,02Eh,053h,045h,054h,00h
-str_SS7:
+str_SS7:                                        ; string "%s%s"; used by PickIndexEntryScreen
         db 025h,073h,025h,073h,00h
-str_SEAS04dPLY:
+str_SEAS04dPLY:                                 ; string "SEAS%04d.PLY"; used by PickIndexEntryScreen
         db 053h,045h,041h,053h,025h,030h,034h,064h,02Eh,050h,04Ch,059h,00h
-str_PLAY04dSET2:
+str_PLAY04dSET2:                                ; string "PLAY%04d.SET"; used by PickIndexEntryScreen
         db 050h,04Ch,041h,059h,025h,030h,034h,064h,02Eh,053h,045h,054h,00h
-str_PLY:
+str_PLY:                                        ; string ".PLY"; used by PickIndexEntryScreen
         db 02Eh,050h,04Ch,059h,00h
-str_S5:
+str_S5:                                         ; string ">%s"; used by DrawIndexEntry
         db 03Eh,025h,073h,00h
-str_IdlistFfc:
+str_IdlistFfc:                                  ; string "idlist(ffc)"; used by LoadIndexFile
         db 069h,064h,06Ch,069h,073h,074h,028h,066h,066h,063h,029h,00h
-str_SharedFfc:
+str_SharedFfc:                                  ; string "shared(ffc)"; used by LoadIndexFile
         db 073h,068h,061h,072h,065h,064h,028h,066h,066h,063h,029h,00h
-str_WHATEVER:
+str_WHATEVER:                                   ; string "WHATEVER"; used by LoadIndexFile
         db 057h,048h,041h,054h,045h,056h,045h,052h,00h
-str_04d3:
+str_04d3:                                       ; string "%04d"; used by LoadIndexFile
         db 025h,030h,034h,064h,00h
-str_TRBL:
+str_TRBL:                                       ; string "TRBL"; used by PickIndexEntry
         db 054h,052h,042h,04Ch,00h
-str_TRBR:
+str_TRBR:                                       ; string "TRBR"; used by PickIndexEntry
         db 054h,052h,042h,052h,00h
-str_TRLS:
+str_TRLS:                                       ; string "TRLS"; used by PickIndexEntry
         db 054h,052h,04Ch,053h,00h
-str_TRRS:
+str_TRRS:                                       ; string "TRRS"; used by PickIndexEntry
         db 054h,052h,052h,053h,00h
-str_TRSE:
+str_TRSE:                                       ; string "TRSE"; used by PickIndexEntry
         db 054h,052h,053h,045h,00h
-str_TRSS:
+str_TRSS:                                       ; string "TRSS"; used by PickIndexEntry
         db 054h,052h,053h,053h,00h
-str_TRSP:
+str_TRSP:                                       ; string "TRSP"; used by PickIndexEntry
         db 054h,052h,053h,050h,00h
-str_PICT:
+str_PICT:                                       ; string "PICT"; used by PickIndexEntry
         db 050h,049h,043h,054h,00h
-str_Roster3:
+str_Roster3:                                    ; string "roster"; used by ReceiveLeagueData, SendLeagueData
         db 072h,06Fh,073h,074h,065h,072h,00h
-str_Rosids:
+str_Rosids:                                     ; string "rosids"; used by ReceiveLeagueData
         db 072h,06Fh,073h,069h,064h,073h,00h
-str_Rtids:
+str_Rtids:                                      ; string "rtids"; used by ReceiveLeagueData
         db 072h,074h,069h,064h,073h,00h
-str_Games:
+str_Games:                                      ; string "games"; used by ReceiveLeagueData
         db 067h,061h,06Dh,065h,073h,00h
-str_Ros:
+str_Ros:                                        ; string "ros"; used by ReceiveLeagueFile, SendLeagueFile
         db 072h,06Fh,073h,00h
-str_Lros:
+str_Lros:                                       ; string "lros"; used by ReceiveLeagueFile, SendLeagueFile
         db 06Ch,072h,06Fh,073h,00h
-str_CRUSHER:
+str_CRUSHER:                                    ; string "CRUSHER"; used by AllocCrusherBuffers
         db 043h,052h,055h,053h,048h,045h,052h,00h
-str_CRUSHERPack:
+str_CRUSHERPack:                                ; string "CRUSHER pack"; used by AllocCrusherBuffers
         db 043h,052h,055h,053h,048h,045h,052h,020h,070h,061h,063h,06Bh,00h
-str_D_LinkSendData:
+str_D_LinkSendData:                             ; string "%d"; used by LinkSendData
         db 025h,064h,00h,00h,00h,00h

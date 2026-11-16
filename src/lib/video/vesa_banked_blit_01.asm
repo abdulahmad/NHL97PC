@@ -17,7 +17,7 @@ VesaSetBank:
         push edx
         mov edx, dword [VesaBank]
         jmp dword [nosplit edx*4+VesaSetBankJumpTable]
-VesaSetBankJumpTable:
+VesaSetBankJumpTable:                           ; jump table for the switch cases of VesaSetBank
         dd .1
         dd VesaSetBank_47.2
 .1:

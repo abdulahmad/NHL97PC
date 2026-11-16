@@ -11,133 +11,192 @@ global Sb16IrqMask, Sb16DmaBufSize, Sb16Config, Sb16Rate, Sb16DmaChannel, Sb16Bl
 global Sb16IrqLine, Sb16Format, Sb16Stereo, Sb16StartTime, ScapeDmaBufSize, ScapeCodecBase, ScapeCodecState, SbConfig
 global SbProConfig, GusDriverConfig, GusDriverBasePort, SbDspVersion, SbOldIrqSelector, SbProOldSelector, Sb16DspVersion, Sb16IrqStatusPort
 global Sb16DmaBits
-PatlChannelParams:
+PatlChannelParams:                              ; parameters of the PATl sample being started; used by
+                                                ; PlayPatlSample
         resb 4
-GusDriverConfig:
+GusDriverConfig:                                ; card settings read by the Gravis driver; used by GusDetect,
+                                                ; GusDriverOpen, GusDriverStartStream
         resb 2
-GusDriverBasePort:
+GusDriverBasePort:                              ; base port of the Gravis card; used by GusDetect,
+                                                ; GusDriverOpen, GusDriverStartStream
         resb 2
-GusDriverDma:
+GusDriverDma:                                   ; DMA channel of the Gravis driver; used by
+                                                ; GusDriverStartStream
         resb 1
-GusDriverIrq:
+GusDriverIrq:                                   ; IRQ line of the Gravis driver; used by GusDriverStartStream
         resb 3
-GusDriverCardMem:
+GusDriverCardMem:                               ; card memory allocated for the stream; used by
+                                                ; GusDriverStartStream
         resb 4
-GusDriverDmaBuf:
+GusDriverDmaBuf:                                ; DMA buffer of the Gravis driver; used by
+                                                ; GusDriverStartStream, GusDriverUpdate
         resb 4
-DacTimerRate:
+DacTimerRate:                                   ; timer rate of the DAC driver; used by DacDriverOpen,
+                                                ; TimerInstall
         resb 4
-DacBuffer:
+DacBuffer:                                      ; output buffer of the DAC driver; used by DacDriverOpen,
+                                                ; DacDriverUpdate
         resb 4
-DacIrq:
+DacIrq:                                         ; interrupt line acknowledged by the DAC driver; used by
+                                                ; DacDriverOpen, DacDriverUpdate
         resb 4
-DacPort:
+DacPort:                                        ; output port of the DAC driver; used by DacDriverOpen,
+                                                ; DacDriverUpdate
         resb 4
-DacTimerDivisor:
+DacTimerDivisor:                                ; timer divisor of the DAC driver; used by DacDriverOpen,
+                                                ; TimerInstall
         resb 4
-DacBufPos:
+DacBufPos:                                      ; position in the DAC output buffer; used by DacDriverOpen,
+                                                ; DacDriverUpdate
         resb 4
-DacBufSize:
+DacBufSize:                                     ; size of the DAC output buffer; used by DacDriverOpen
         resb 4
-DacState:
+DacState:                                       ; state words of the DAC driver; used by DacDriverUpdate
         resb 12
-SbDmaBuffer:
+SbDmaBuffer:                                    ; DMA buffer of the Sound Blaster driver; used by
+                                                ; SbDriverInit, SbSetupDma
         resb 4
-SbConfig:
+SbConfig:                                       ; settings of the Sound Blaster driver; used by SbDriverInit
         resb 4
-SbRate:
+SbRate:                                         ; sample rate of the Sound Blaster driver; used by
+                                                ; SbDriverInit, SbDriverStart
         resb 4
-SbDmaChannel:
+SbDmaChannel:                                   ; DMA channel of the Sound Blaster driver; used by
+                                                ; SbDriverInit, SbDriverShutdown, SbDriverStart ...
         resb 4
-SbDmaBufSize:
+SbDmaBufSize:                                   ; DMA buffer size of the Sound Blaster driver; used by
+                                                ; SbDriverInit, SbSetupDma
         resb 4
-SbIrqLine:
+SbIrqLine:                                      ; IRQ line of the Sound Blaster driver; used by SbDriverInit,
+                                                ; SbDriverShutdown, SbSetupDma
         resb 4
-SbBlockSize:
+SbBlockSize:                                    ; DMA block size of the Sound Blaster driver; used by
+                                                ; SbDriverInit, SbDriverStart, SbSetupDma
         resb 4
-SbHalfSize:
+SbHalfSize:                                     ; half DMA buffer size of the Sound Blaster driver; used by
+                                                ; SbDriverInit, SbDriverShutdown, SbSetupDma
         resb 4
-SbDspVersion:
+SbDspVersion:                                   ; DSP version of the Sound Blaster; used by SbDriverInit
         resb 4
-SbOldIrqHandler:
+SbOldIrqHandler:                                ; saved interrupt handler of the Sound Blaster line; used by
+                                                ; SbDriverShutdown, SbSetupDma
         resb 4
-SbOldIrqSelector:
+SbOldIrqSelector:                               ; saved interrupt selector of the Sound Blaster line; used by
+                                                ; SbDriverShutdown, SbSetupDma
         resb 4
-SbStartTime:
+SbStartTime:                                    ; start time of the Sound Blaster driver; used by
+                                                ; SbDriverStart
         resb 4
-SbProDmaBuffer:
+SbProDmaBuffer:                                 ; DMA buffer of the Sound Blaster Pro driver; used by
+                                                ; SbProDriverInit, SbProDriverStart, SbProSetupDma
         resb 4
-SbProOldIrq:
+SbProOldIrq:                                    ; saved interrupt handler of the Sound Blaster Pro line; used
+                                                ; by SbProSetupDma, SbProStopDma
         resb 4
-SbProIrqVector:
+SbProIrqVector:                                 ; interrupt vector of the Sound Blaster Pro line; used by
+                                                ; SbProSetupDma, SbProStopDma
         resb 4
-SbProRate:
+SbProRate:                                      ; sample rate of the Sound Blaster Pro driver; used by
+                                                ; SbProDriverInit, SbProDriverStart, SbProSetupDma
         resb 4
-SbProIrqMask:
+SbProIrqMask:                                   ; interrupt mask of the Sound Blaster Pro line; used by
+                                                ; SbProSetupDma, SbProStopDma
         resb 4
-SbProDmaBufSize:
+SbProDmaBufSize:                                ; DMA buffer size of the Sound Blaster Pro driver; used by
+                                                ; SbProDriverInit, SbProSetupDma
         resb 4
-SbProBlockSize:
+SbProBlockSize:                                 ; DMA block size of the Sound Blaster Pro driver; used by
+                                                ; SbProDriverInit, SbProSetupDma
         resb 4
-SbProConfig:
+SbProConfig:                                    ; settings of the Sound Blaster Pro driver; used by
+                                                ; SbProDriverInit
         resb 4
-SbProDmaChannel:
+SbProDmaChannel:                                ; DMA channel of the Sound Blaster Pro driver; used by
+                                                ; SbProDriverInit, SbProDriverStart, SbProSetupDma ...
         resb 4
-SbProIrqLine:
+SbProIrqLine:                                   ; IRQ line of the Sound Blaster Pro driver; used by
+                                                ; SbProSetupDma, SbProStopDma
         resb 4
-SbProIrqNum:
+SbProIrqNum:                                    ; interrupt number of the Sound Blaster Pro line; used by
+                                                ; SbProDriverInit, SbProSetupDma, SbProStopDma
         resb 4
-SbProHalfSize:
+SbProHalfSize:                                  ; half DMA buffer size of the Sound Blaster Pro driver; used
+                                                ; by SbProDriverInit, SbProDriverStart, SbProSetupDma
         resb 4
-SbProOldMask:
+SbProOldMask:                                   ; saved interrupt controller mask of the Sound Blaster Pro
+                                                ; line; used by SbProSetupDma, SbProStopDma
         resb 4
-SbProStereo:
+SbProStereo:                                    ; set when the Sound Blaster Pro plays in stereo; used by
+                                                ; SbProDriverInit
         resb 4
-SbProBasePort:
+SbProBasePort:                                  ; base port of the Sound Blaster Pro; used by SbProDriverInit,
+                                                ; SbProSetupDma
         resb 4
-SbProOldHandler:
+SbProOldHandler:                                ; saved handler offset of the Sound Blaster Pro line; used by
+                                                ; SbProSetupDma, SbProStopDma
         resb 4
-SbProOldSelector:
+SbProOldSelector:                               ; saved handler selector of the Sound Blaster Pro line; used
+                                                ; by SbProSetupDma, SbProStopDma
         resb 4
-SbProStartTime:
+SbProStartTime:                                 ; start time of the Sound Blaster Pro driver; used by
+                                                ; SbProDriverStart
         resb 4
-Sb16OldIrq:
+Sb16OldIrq:                                     ; saved interrupt handler of the Sound Blaster 16 line; used
+                                                ; by Sb16DriverShutdown, Sb16SetupDma, Sb16StopDma
         resb 4
-Sb16IrqVector:
+Sb16IrqVector:                                  ; interrupt vector of the Sound Blaster 16 line; used by
+                                                ; Sb16DriverShutdown, Sb16SetupDma, Sb16StopDma
         resb 4
-Sb16IrqMask:
+Sb16IrqMask:                                    ; interrupt mask of the Sound Blaster 16 line; used by
+                                                ; Sb16DriverShutdown, Sb16SetupDma, Sb16StopDma
         resb 4
-Sb16DmaBufSize:
+Sb16DmaBufSize:                                 ; DMA buffer size of the Sound Blaster 16 driver; used by
+                                                ; Sb16DriverInit, Sb16SetupDma
         resb 4
-Sb16Config:
+Sb16Config:                                     ; settings of the Sound Blaster 16 driver; used by
+                                                ; Sb16DriverInit
         resb 4
-Sb16Rate:
+Sb16Rate:                                       ; sample rate of the Sound Blaster 16 driver; used by
+                                                ; Sb16DriverInit, Sb16DriverStart, Sb16SetupDma
         resb 4
-Sb16DmaChannel:
+Sb16DmaChannel:                                 ; DMA channel of the Sound Blaster 16 driver; used by
+                                                ; Sb16DriverInit, Sb16DriverShutdown, Sb16DriverStart ...
         resb 4
-Sb16BlockSize:
+Sb16BlockSize:                                  ; DMA block size of the Sound Blaster 16 driver; used by
+                                                ; Sb16DriverInit, Sb16SetupDma
         resb 4
-Sb16DmaBuffer:
+Sb16DmaBuffer:                                  ; DMA buffer of the Sound Blaster 16 driver; used by
+                                                ; Sb16DriverInit
         resb 4
-Sb16HalfSize:
+Sb16HalfSize:                                   ; half DMA buffer size of the Sound Blaster 16 driver; used by
+                                                ; Sb16DriverInit, Sb16DriverStart, Sb16SetupDma
         resb 4
-Sb16IrqLine:
+Sb16IrqLine:                                    ; IRQ line of the Sound Blaster 16 driver; used by
+                                                ; Sb16DriverInit, Sb16DriverShutdown, Sb16SetupDma ...
         resb 4
-Sb16Format:
+Sb16Format:                                     ; sample format of the Sound Blaster 16 driver; used by
+                                                ; Sb16DriverInit, Sb16DriverStart, Sb16SetupDma
         resb 4
-Sb16Stereo:
+Sb16Stereo:                                     ; set when the Sound Blaster 16 plays in stereo; used by
+                                                ; Sb16DriverInit
         resb 4
-Sb16DspVersion:
+Sb16DspVersion:                                 ; DSP version of the Sound Blaster 16; used by Sb16DriverInit
         resb 4
-Sb16IrqStatusPort:
+Sb16IrqStatusPort:                              ; interrupt status port of the Sound Blaster 16; used by
+                                                ; Sb16AckIrq, Sb16DriverInit, Sb16SetupDma
         resb 2
-Sb16DmaBits:
+Sb16DmaBits:                                    ; DMA width of the Sound Blaster 16 (8 or 16); used by
+                                                ; Sb16AckIrq, Sb16DriverInit, Sb16SetupDma
         resb 2
-Sb16StartTime:
+Sb16StartTime:                                  ; start time of the Sound Blaster 16 driver; used by
+                                                ; Sb16DriverStart
         resb 4
-ScapeDmaBufSize:
+ScapeDmaBufSize:                                ; DMA buffer size of the Soundscape driver; used by
+                                                ; SoundscapeDriverInit, SoundscapeSetupDma
         resb 4
-ScapeCodecBase:
+ScapeCodecBase:                                 ; codec base port of the Soundscape card; used by IniFindKey,
+                                                ; ReadSoundscapeIni, SoundscapeRateCode ...
         resb 4
-ScapeCodecState:
+ScapeCodecState:                                ; state of the Soundscape codec; used by ReadSoundscapeIni,
+                                                ; SoundscapeSetupCodec, SoundscapeStopCodec
         resb 4

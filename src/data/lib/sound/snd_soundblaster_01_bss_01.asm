@@ -5,41 +5,59 @@ section s_1DD484 nobits alloc noexec write align=1
 global SbChannelVoice, SbChannelFlags, ScapeBasePort, ScapeIrq, ScapeDmaChannel, ScapeDmaBuffer, ScapeCodecPort, ScapeRate
 global PatchRegionParams, SbChannelSlots, SbChannelCount, ClipTexVertsTop, SbBasePort, SbIrq, SbMixerAddrPort, SbMixerDataPort
 global SbResetPort, SbWritePort, SbReadPort
-ScapeBasePort:
+ScapeBasePort:                                  ; base port of the Soundscape card; used by
+                                                ; SoundscapeDriverInit
         resb 4
-ScapeIrq:
+ScapeIrq:                                       ; IRQ line of the Soundscape card; used by
+                                                ; SoundscapeDriverInit, SoundscapeDriverStart
         resb 4
-ScapeDmaChannel:
+ScapeDmaChannel:                                ; DMA channel of the Soundscape card; used by
+                                                ; SoundscapeDriverInit, SoundscapeDriverStart
         resb 4
-ScapeDmaBuffer:
+ScapeDmaBuffer:                                 ; DMA buffer of the Soundscape card; used by
+                                                ; SoundscapeDriverInit, SoundscapeDriverStart,
+                                                ; SoundscapeSetupDma
         resb 4
-ScapeCodecPort:
+ScapeCodecPort:                                 ; codec port of the Soundscape card; used by
+                                                ; ReadSoundscapeIni, SoundscapeDriverStart,
+                                                ; SoundscapeSetupCodec ...
         resb 4
-ScapeRate:
+ScapeRate:                                      ; sample rate the Soundscape driver runs at; used by
+                                                ; SoundscapeDriverStart
         resb 4
-PatchRegionParams:
+PatchRegionParams:                              ; parameters of the patch region picked for a note; used by
+                                                ; PlayPatchNote
         resb 4
-SbBasePort:
+SbBasePort:                                     ; base port of the Sound Blaster; used by ParseBlasterEnv,
+                                                ; PlayPatchNoteJumpTable, SbWaitRead
         resb 2
-SbIrq:
+SbIrq:                                          ; IRQ line of the Sound Blaster; used by ParseBlasterEnv,
+                                                ; PlayPatchNoteJumpTable
         resb 2
-SbMixerAddrPort:
+SbMixerAddrPort:                                ; Sound Blaster mixer address port; used by ParseBlasterEnv,
+                                                ; PlayPatchNoteJumpTable, SbMixerRead ...
         resb 2
-SbMixerDataPort:
+SbMixerDataPort:                                ; Sound Blaster mixer data port; used by ParseBlasterEnv,
+                                                ; PlayPatchNoteJumpTable, SbMixerRead ...
         resb 2
-SbResetPort:
+SbResetPort:                                    ; Sound Blaster DSP reset port; used by ParseBlasterEnv,
+                                                ; PlayPatchNoteJumpTable, SbResetDsp
         resb 2
-SbWritePort:
+SbWritePort:                                    ; Sound Blaster DSP write port; used by ParseBlasterEnv,
+                                                ; PlayPatchNoteJumpTable, SbWriteDsp
         resb 2
-SbReadPort:
+SbReadPort:                                     ; Sound Blaster DSP read port; used by ParseBlasterEnv,
+                                                ; PlayPatchNoteJumpTable, SbReadData ...
         resb 1
-SbChannelSlots:
+SbChannelSlots:                                 ; channel slot table of the Sound Blaster mixer; used by
+                                                ; ChannelSlotOf, UpdateChannels
         resb 2
-SbChannelVoice:
+SbChannelVoice:                                 ; voice byte of the channel slot table; used by UpdateChannels
         resb 1
-SbChannelFlags:
+SbChannelFlags:                                 ; flags of the channel slot table; used by UpdateChannels
         resb 4
-SbChannelCount:
+SbChannelCount:                                 ; number of channel slots in use; used by ChannelSlotOf
         resb 4
-ClipTexVertsTop:
+ClipTexVertsTop:                                ; vertex buffer of textured polygons clipped against the top
+                                                ; edge; used by ClipTexPolyTop
         resb 256

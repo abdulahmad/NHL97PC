@@ -2303,7 +2303,7 @@ PumpMusicStream:
         pop ecx
         ret
         db 090h
-FeedMusicStreamJumpTable:
+FeedMusicStreamJumpTable:                       ; jump table for the switch cases of FeedMusicStream
         dd FeedMusicStream_34
         dd FeedMusicStream_4B
         dd FeedMusicStream_105
@@ -2641,12 +2641,12 @@ ServiceBackgroundAudio:
         pop esi
         pop ebx
         ret
-MakeArtPathJumpTable:
+MakeArtPathJumpTable:                           ; jump table for the switch cases of MakeDataPath
         dd MakeDataPath_62
         dd MakeDataPath_41
         dd MakeDataPath_49
         dd MakeDataPath_4F
-MakeDataPathKindJumpTable:
+MakeDataPathKindJumpTable:                      ; jump table for the switch cases of MakeDataPath
         dd MakeDataPath_132
         dd MakeDataPath_111
         dd MakeDataPath_119
@@ -2827,7 +2827,7 @@ MakeDataPath_132:
         pop ecx
         pop ebx
         ret
-MakeDataPathJumpTable:
+MakeDataPathJumpTable:                          ; jump table for the switch cases
         dd .6
         dd .1
         dd .3
@@ -2936,7 +2936,7 @@ MakeDirPath:
         pop esi
         pop ecx
         ret
-MakeDirPathJumpTable:
+MakeDirPathJumpTable:                           ; jump table for the switch cases
         dd .7
         dd .2
         dd .4
@@ -3521,7 +3521,7 @@ WriteGlobalSet:
         pop ecx
         ret
         db 00h,00h
-GameGfxInitVector:
+GameGfxInitVector:                              ; used by InitGameGraphics
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,0FAh,044h
 ;-----------------------------------------------------------------------------
 ; NoOpPlatformHook                                4B4AC  97 PC, low confidence
@@ -3870,7 +3870,7 @@ InitGameVideo:
         pop ecx
         pop ebx
         ret
-ResetRenderTimersJumpTable:
+ResetRenderTimersJumpTable:                     ; jump table for the switch cases of ResetRenderTimers
         dd ResetRenderTimers_27
         dd ResetRenderTimers_47
         dd ResetRenderTimers_3D
@@ -4208,9 +4208,9 @@ DrawGameFrame:
 RedrawGameView:
         jmp near PresentGameView
         db 00h,00h,00h,00h,00h,00h,00h
-ScoreboardZeroVector:
+ScoreboardZeroVector:                           ; used by DrawScoreboard
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-str_Light:
+str_Light:                                      ; string "light"; used by LoadOpeningArt
         db 06Ch,069h,067h,068h,074h,00h,00h,00h
         push ebx
         sub esp, byte 4
@@ -13565,7 +13565,7 @@ BuildRinkSides:
         pop edx
         pop ecx
         ret
-OpenArenaArchiveJumpTable:
+OpenArenaArchiveJumpTable:                      ; jump table for the switch cases of OpenArenaArchive
         dd OpenArenaArchive_58
         dd OpenArenaArchive_2C
         dd OpenArenaArchive_42

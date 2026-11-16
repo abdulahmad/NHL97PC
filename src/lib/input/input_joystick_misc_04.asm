@@ -59,7 +59,7 @@ vecdist:
         leave
         ret
         db 00h,00h,00h
-AngleOfVectorJumpTable:
+AngleOfVectorJumpTable:                         ; jump table for the switch cases of AngleOfVector
         dd AngleOfVector_B5
         dd AngleOfVector_91
         dd AngleOfVector_9A

@@ -4,25 +4,32 @@ bits 32
 section s_1B0268 nobits alloc noexec write align=1
 global RinkColorUsed, RinkFov, RinkAspect, RinkViewCenter, RinkModel, RinkViewTable, RinkModelParts, ScoreboardFrames
 global ScoreboardSpin, GlassRemap, BenchRemap
-RinkFov:
+RinkFov:                                        ; rink view field of view; used by InitRinkProjection,
+                                                ; InitRinkView
         resb 4
-RinkAspect:
+RinkAspect:                                     ; rink view aspect; used by InitRinkView
         resb 4
-RinkViewCenter:
+RinkViewCenter:                                 ; rink view center; used by InitRinkProjection, InitRinkView
         resb 4
-RinkModel:
+RinkModel:                                      ; rink model; used by InitRinkView, LoadRinkModel
         resb 4
-RinkViewTable:
+RinkViewTable:                                  ; rink view table; used by InitRinkView
         resb 72
-RinkModelParts:
+RinkModelParts:                                 ; rink model parts; used by DrawRinkBackground,
+                                                ; DrawRinkSurface, LoadRinkModel
         resb 64
-RinkColorUsed:
+RinkColorUsed:                                  ; rink colour used flags; used by BrightenRangeColours,
+                                                ; LoadRinkLines
         resb 256
-ScoreboardFrames:
+ScoreboardFrames:                               ; scoreboard frames; used by FreeRinkModel, LoadRinkLines,
+                                                ; LoadRinkModel ...
         resb 8
-ScoreboardSpin:
+ScoreboardSpin:                                 ; scoreboard spin; used by FreeRinkModel, LoadRinkLines,
+                                                ; LoadRinkModel ...
         resb 8
-GlassRemap:
+GlassRemap:                                     ; glass colour remap; used by BuildRinkPalette,
+                                                ; DrawBenchPlayers, DrawBenchRow ...
         resb 256
-BenchRemap:
+BenchRemap:                                     ; bench colour remap; used by BuildRinkPalette,
+                                                ; DrawBenchPlayers, DrawBenchRow ...
         resb 256

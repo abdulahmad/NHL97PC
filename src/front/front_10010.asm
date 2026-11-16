@@ -37,7 +37,7 @@ global RefreshRinkPalette, ClockTick, StartPeriod, FindStartingGoalies, ReleaseB
 CodeStartTrap:
         int3
         jmp short CodeStartTrap
-CodeStartPad:
+CodeStartPad:                                   ; used by start
         db 090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h
 ;-----------------------------------------------------------------------------
 ; GripLinkLibrary                              10010  96 PC, medium confidence
@@ -1653,7 +1653,7 @@ PickCrowdChant:
         pop ebx
         ret
         db 090h
-StartCrowdMusicJumpTable:
+StartCrowdMusicJumpTable:                       ; jump table for the switch cases of StartCrowdMusic
         dd StartCrowdMusic_26
         dd StartCrowdMusic_4F
         dd StartCrowdMusic_78

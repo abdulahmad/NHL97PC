@@ -8,93 +8,130 @@ global HistoryLineCount, HistoryTextList, HistoryShineFrame, HistoryLastTeam, Hi
 global HistoryTrophyList, HistoryBackShape, HistoryPopupOpen, HistoryTeamShape, HistoryDetailsTop, HistoryShineOn, HistoryTrophyState, HistoryLastSpeech
 global HistoryTrophyRow, HistoryEntryList, HistoryArtList, HistoryScreenBitmap, HistoryArtTop, HistoryDetailsList, HistoryArtChoice, HistoryTextShown
 global HistoryBackBitmap, HistoryDetailsChoice, HistoryShapeFile, OptionsButtonShapes, OptionsSoundShapes
-HistoryTextX:
+HistoryTextX:                                   ; history text x; used by DrawHistoryScreen, DrawHistoryText
         resb 4
-HistoryTextY:
+HistoryTextY:                                   ; history text y; used by DrawHistoryScreen
         resb 76
-HistoryDotShape:
+HistoryDotShape:                                ; history dot shape; used by DrawHistoryScreen,
+                                                ; DrawHistoryTrophy
         resb 4
-HistoryArrowShape:
+HistoryArrowShape:                              ; history arrow shape; used by DrawHistoryScreen
         resb 4
-HistoryArrowLitShape:
+HistoryArrowLitShape:                           ; history lit arrow shape; used by DrawHistoryScreen,
+                                                ; DrawHistoryTrophy
         resb 4
-HistoryArrowEndShape:
+HistoryArrowEndShape:                           ; history arrow end shape; used by DrawHistoryScreen
         resb 4
-HistoryHighlightText:
+HistoryHighlightText:                           ; history highlight text style; used by DrawHistoryScreen,
+                                                ; DrawTrophySparkle, HistoryScreen
         resb 4
-HistoryShineList:
+HistoryShineList:                               ; history trophy shine list; used by DrawHistoryScreen,
+                                                ; DrawTrophyShine, HistoryScreen
         resb 4
-HistorySparkleFrame:
+HistorySparkleFrame:                            ; history sparkle frame; used by DrawTrophySparkle,
+                                                ; HistoryScreen
         resb 4
-HistorySelectedTeam:
+HistorySelectedTeam:                            ; history selected team; used by DrawHistoryScreen,
+                                                ; DrawHistoryTrophy
         resb 4
-HistoryTrophyIndex:
+HistoryTrophyIndex:                             ; history trophy index; used by DrawHistoryScreen,
+                                                ; DrawHistoryTrophy
         resb 4
-HistoryDetailsOpen:
+HistoryDetailsOpen:                             ; set while the history details show; used by
+                                                ; DrawHistoryScreen, DrawHistoryTrophy, FindHistoryTeam ...
         resb 4
-HistoryTextBuffer:
+HistoryTextBuffer:                              ; history text buffer; used by ExportHistoryCsv,
+                                                ; HistoryScreen, ShowHistoryDetails
         resb 4
-HistorySoundOn:
+HistorySoundOn:                                 ; history sound enabled; used by HistoryTrophySound
         resb 4
-HistoryLineLimit:
+HistoryLineLimit:                               ; history text line width limit; used by DrawHistoryText,
+                                                ; HistoryLineWidth, ShowHistoryDetails
         resb 4
-HistoryTextBitmap:
+HistoryTextBitmap:                              ; history text bitmap; used by DrawHistoryScreen,
+                                                ; DrawHistoryText, HistoryScreen ...
         resb 4
-HistoryLineCount:
+HistoryLineCount:                               ; history text line count; used by DrawHistoryText,
+                                                ; ShowHistoryDetails
         resb 4
-HistoryTextList:
+HistoryTextList:                                ; history text list; used by DrawHistoryText,
+                                                ; ExportHistoryCsv, HistoryLineWidth ...
         resb 4
-HistoryShineFrame:
+HistoryShineFrame:                              ; history trophy shine frame; used by DrawTrophyShine,
+                                                ; HistoryScreen
         resb 4
-HistoryLastTeam:
+HistoryLastTeam:                                ; history team shown last; used by DrawHistoryScreen,
+                                                ; DrawHistoryTrophy
         resb 4
-HistoryPopupBitmap:
+HistoryPopupBitmap:                             ; history popup bitmap; used by DrawHistoryScreen,
+                                                ; HistoryScreen
         resb 4
-HistoryShineTimer:
+HistoryShineTimer:                              ; history trophy shine timer; used by DrawTrophyShine,
+                                                ; HistoryScreen
         resb 4
-HistoryTrophyTick:
+HistoryTrophyTick:                              ; tick of the next history trophy frame; used by
+                                                ; AnimateHistoryTrophy, HistoryTrophySound
         resb 4
-HistorySparkleTimer:
+HistorySparkleTimer:                            ; history sparkle timer; used by DrawTrophySparkle,
+                                                ; HistoryScreen
         resb 4
-HistoryTrophyList:
+HistoryTrophyList:                              ; history trophy list; used by DrawHistoryScreen,
+                                                ; DrawHistoryTrophy, HistoryScreen
         resb 4
-HistoryBackShape:
+HistoryBackShape:                               ; history back shape; used by DrawHistoryScreen,
+                                                ; DrawHistoryText, DrawHistoryTrophy ...
         resb 4
-HistoryPopupOpen:
+HistoryPopupOpen:                               ; set while the history popup shows; used by
+                                                ; DrawHistoryScreen, HistoryScreen, ShowHistoryDetails
         resb 4
-HistoryTeamShape:
+HistoryTeamShape:                               ; history team shape; used by DrawHistoryScreen,
+                                                ; DrawHistoryTrophy, HistoryScreen
         resb 4
-HistoryDetailsTop:
+HistoryDetailsTop:                              ; history details list top; used by DrawTrophyShine,
+                                                ; HistoryScreen
         resb 4
-HistoryShineOn:
+HistoryShineOn:                                 ; history trophy shine enabled; used by DrawTrophyShine,
+                                                ; HistoryScreen
         resb 4
-HistoryTrophyState:
+HistoryTrophyState:                             ; history trophy animation state; used by
+                                                ; AnimateHistoryTrophy, HistoryTrophySound
         resb 4
-HistoryLastSpeech:
+HistoryLastSpeech:                              ; last history speech picked; used by AnimateHistoryTrophy,
+                                                ; HistoryTrophySound
         resb 4
-HistoryTrophyRow:
+HistoryTrophyRow:                               ; history trophy row; used by DrawHistoryScreen,
+                                                ; DrawHistoryTrophy
         resb 4
-HistoryEntryList:
+HistoryEntryList:                               ; history entry list; used by AnimateHistoryTrophy,
+                                                ; DrawHistoryList, DrawHistoryPopup ...
         resb 4
-HistoryArtList:
+HistoryArtList:                                 ; history art list; used by DrawHistoryScreen, HistoryScreen,
+                                                ; ShowHistoryArt
         resb 4
-HistoryScreenBitmap:
+HistoryScreenBitmap:                            ; history screen bitmap; used by DrawHistoryList,
+                                                ; DrawHistoryPopup, DrawHistoryScreen ...
         resb 4
-HistoryArtTop:
+HistoryArtTop:                                  ; history art list top; used by DrawHistoryScreen,
+                                                ; HistoryScreen, ShowHistoryArt
         resb 4
-HistoryDetailsList:
+HistoryDetailsList:                             ; history details list; used by DrawHistoryText,
+                                                ; HistoryScreen, ShowHistoryDetails
         resb 4
-HistoryArtChoice:
+HistoryArtChoice:                               ; history art choice; used by HistoryScreen, ShowHistoryArt
         resb 4
-HistoryTextShown:
+HistoryTextShown:                               ; set once the history text is drawn; used by DrawHistoryText,
+                                                ; HistoryScreen, ShowHistoryDetails
         resb 4
-HistoryBackBitmap:
+HistoryBackBitmap:                              ; history back bitmap; used by AnimateHistoryTrophy,
+                                                ; DrawHistoryList, DrawHistoryPopup ...
         resb 4
-HistoryDetailsChoice:
+HistoryDetailsChoice:                           ; history details choice; used by HistoryScreen,
+                                                ; ShowHistoryDetails
         resb 4
-HistoryShapeFile:
+HistoryShapeFile:                               ; history shape file; used by DrawHistoryList,
+                                                ; DrawHistoryPopup, DrawHistoryScreen ...
         resb 4
-OptionsButtonShapes:
+OptionsButtonShapes:                            ; options button shapes; used by OptionsScreen
         resb 4
-OptionsSoundShapes:
+OptionsSoundShapes:                             ; options sound shapes; used by OptionsSound
         resb 16

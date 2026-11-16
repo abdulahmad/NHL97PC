@@ -4,7 +4,8 @@ bits 32
 section s_1C150A nobits alloc noexec write align=1
 global HomeRosterData
 
-HomeRosterData:
+HomeRosterData:                                 ; home team roster, stats and simulation data; used by
+                                                ; DrawThreeStarStats, InitSpeechBanks, PickThreeStars ...
         resb 7056
         resb 4
         resb 4

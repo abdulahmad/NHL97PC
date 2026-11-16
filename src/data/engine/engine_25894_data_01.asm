@@ -14,187 +14,187 @@ global F64_4272_ChkDelayedOffside, F64_2, F64_6p28319_PuckPlayerContact, F64_0p0
 global F64_4276, F64_12_PuckIChk, F64_neg4276, F64_288_PuckIChk, F64_neg12_ChkOffsides, F64_1435_ChkOffsides, F64_12_ChkOffsides, F64_neg1435
 global F64_neg12_MarkTwoLinePlayers, F64_24_MarkTwoLinePlayers, F64_12_MarkTwoLinePlayers, F64_neg24, F64_4272_pucknorm_body, F64_1392, F64_1080_pucknorm_body, F64_0p392699_pucknorm_body
 global F64_0p159155_pucknorm_body, F64_65536_pucknorm_body, F64_4284, F64_3p14159_puckfaceoff2
-F64_neg12:
+F64_neg12:                                      ; double constant -12; used by checkob
         db 00h,00h,00h,00h,00h,00h,028h,0C0h
-F64_1435:
+F64_1435:                                       ; double constant 1435; used by checkob
         db 00h,00h,00h,00h,00h,06Ch,096h,040h
-F64_3312:
+F64_3312:                                       ; double constant 3312; used by assscore
         db 00h,00h,00h,00h,00h,0E0h,0A9h,040h
-F64_720:
+F64_720:                                        ; double constant 720; used by assscore
         db 00h,00h,00h,00h,00h,080h,086h,040h
-F64_240:
+F64_240:                                        ; double constant 240; used by assscore
         db 00h,00h,00h,00h,00h,00h,06Eh,040h
-F32_144:
+F32_144:                                        ; float constant 144; used by assbench
         db 00h,00h,010h,043h
-F32_96:
+F32_96:                                         ; float constant 96; used by assbench
         db 00h,00h,0C0h,042h
-F32_144_assleavebox:
+F32_144_assleavebox:                            ; float constant 144; used by assleavebox
         db 00h,00h,010h,043h
-F32_48_assleavebox:
+F32_48_assleavebox:                             ; float constant 48; used by assleavebox
         db 00h,00h,040h,042h
-F32_144_asspsclear:
+F32_144_asspsclear:                             ; float constant 144; used by asspsclear
         db 00h,00h,010h,043h
-F32_96_asspsclear:
+F32_96_asspsclear:                              ; float constant 96; used by asspsclear
         db 00h,00h,0C0h,042h
-F32_96_assleaveice:
+F32_96_assleaveice:                             ; float constant 96; used by assleaveice
         db 00h,00h,0C0h,042h
-F32_144_asspenalty:
+F32_144_asspenalty:                             ; float constant 144; used by asspenalty
         db 00h,00h,010h,043h
-F32_96_asspenalty:
+F32_96_asspenalty:                              ; float constant 96; used by asspenalty
         db 00h,00h,0C0h,042h
-F32_40:
+F32_40:                                         ; float constant 40; used by assepen
         db 00h,00h,020h,042h
-F32_96_assrefpenshot:
+F32_96_assrefpenshot:                           ; float constant 96; used by assrefpenshot
         db 00h,00h,0C0h,042h
-F32_96_assrefsignal:
+F32_96_assrefsignal:                            ; float constant 96; used by assrefsignal
         db 00h,00h,0C0h,042h
-F32_96_assrefwhistle:
+F32_96_assrefwhistle:                           ; float constant 96; used by assrefwhistle
         db 00h,00h,0C0h,042h
-F64_2040:
+F64_2040:                                       ; double constant 2040; used by assrefgoalpa
         db 00h,00h,00h,00h,00h,0E0h,09Fh,040h
-F64_4800:
+F64_4800:                                       ; double constant 4800; used by assrefgoalpa
         db 00h,00h,00h,00h,00h,0C0h,0B2h,040h
-F32_96_assrefgoalline:
+F32_96_assrefgoalline:                          ; float constant 96; used by assrefgoalline
         db 00h,00h,0C0h,042h
-F32_96_assrefdrop:
+F32_96_assrefdrop:                              ; float constant 96; used by assrefdrop
         db 00h,00h,0C0h,042h
-str_Cuppal:
+str_Cuppal:                                     ; string "cuppal"; used by assstanley
         db 063h,075h,070h,070h,061h,06Ch,00h
-F32_3:
+F32_3:                                          ; float constant 3; used by DeflectPuck
         db 00h,00h,040h,040h
-F32_0p25:
+F32_0p25:                                       ; float constant 0.25; used by DeflectPuck
         db 00h,00h,080h,03Eh
-F64_0p01_DeflectPuck:
+F64_0p01_DeflectPuck:                           ; double constant 0.01; used by DeflectPuck
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,084h,03Fh
-F64_6p28319_DeflectPuck:
+F64_6p28319_DeflectPuck:                        ; double constant 6.28319; used by DeflectPuck
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_3p14159_DeflectPuck:
+F64_3p14159_DeflectPuck:                        ; double constant 3.14159; used by DeflectPuck
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F64_neg6p28319_DeflectPuck:
+F64_neg6p28319_DeflectPuck:                     ; double constant -6.28319; used by DeflectPuck
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-F64_neg3p14159_DeflectPuck:
+F64_neg3p14159_DeflectPuck:                     ; double constant -3.14159; used by DeflectPuck
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-F32_7:
+F32_7:                                          ; float constant 7; used by DeflectPuck
         db 00h,00h,0E0h,040h
-F32_0p125:
+F32_0p125:                                      ; float constant 0.125; used by DeflectPuck
         db 00h,00h,00h,03Eh
-F64_DeflectScale:
+F64_DeflectScale:                               ; puck deflection scale; used by DeflectPuck
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_0p00277778:
+F64_0p00277778:                                 ; double constant 0.00277778; used by DeflectPuck
         db 016h,06Ch,0C1h,016h,06Ch,0C1h,066h,03Fh
-F32_0p125_KnockPuckAway:
+F32_0p125_KnockPuckAway:                        ; float constant 0.125; used by KnockPuckAway
         db 00h,00h,00h,03Eh
-F32_48_PuckHitsGoalie:
+F32_48_PuckHitsGoalie:                          ; float constant 48; used by PuckHitsGoalie
         db 00h,00h,040h,042h
-F64_24:
+F64_24:                                         ; double constant 24; used by PuckHitsGoalie
         db 00h,00h,00h,00h,00h,00h,038h,040h
-F32_0p25_PuckHitsGoalie:
+F32_0p25_PuckHitsGoalie:                        ; float constant 0.25; used by PuckHitsGoalie
         db 00h,00h,080h,03Eh
-F32_0p166667_PuckHitsGoalie:
+F32_0p166667_PuckHitsGoalie:                    ; float constant 0.166667; used by PuckHitsGoalie
         db 0ABh,0AAh,02Ah,03Eh
-F64_6p28319_PuckHitsGoalie:
+F64_6p28319_PuckHitsGoalie:                     ; double constant 6.28319; used by PuckHitsGoalie
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_0p00277778_PuckHitsGoalie:
+F64_0p00277778_PuckHitsGoalie:                  ; double constant 0.00277778; used by PuckHitsGoalie
         db 016h,06Ch,0C1h,016h,06Ch,0C1h,066h,03Fh
-F64_20:
+F64_20:                                         ; double constant 20; used by PuckHitsGoalie
         db 00h,00h,00h,00h,00h,00h,034h,040h
-F32_0p333333:
+F32_0p333333:                                   ; float constant 0.333333; used by PuckHitsGoalie
         db 0ABh,0AAh,0AAh,03Eh
-F32_3_PuckHitsGoalie:
+F32_3_PuckHitsGoalie:                           ; float constant 3; used by PuckHitsGoalie
         db 00h,00h,040h,040h
-F64_3p14159_PuckToStick:
+F64_3p14159_PuckToStick:                        ; double constant 3.14159; used by PuckToStick
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F64_0p00555556:
+F64_0p00555556:                                 ; double constant 0.00555556; used by PuckToStick
         db 016h,06Ch,0C1h,016h,06Ch,0C1h,076h,03Fh
-F64_neg0p698132:
+F64_neg0p698132:                                ; double constant -0.698132; used by PuckToStick
         db 04Eh,0BAh,070h,050h,018h,057h,0E6h,0BFh
-F64_0p698132:
+F64_0p698132:                                   ; double constant 0.698132; used by PuckToStick
         db 04Eh,0BAh,070h,050h,018h,057h,0E6h,03Fh
-F64_0p5_PuckToStick:
+F64_0p5_PuckToStick:                            ; double constant 0.5; used by PuckToStick
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-F64_6p28319_PuckToStick:
+F64_6p28319_PuckToStick:                        ; double constant 6.28319; used by PuckToStick
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_neg6p28319_PuckToStick:
+F64_neg6p28319_PuckToStick:                     ; double constant -6.28319; used by PuckToStick
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-F64_neg3p14159_PuckToStick:
+F64_neg3p14159_PuckToStick:                     ; double constant -3.14159; used by PuckToStick
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-F32_0p142857:
+F32_0p142857:                                   ; float constant 0.142857; used by PuckToStick
         db 025h,049h,012h,03Eh
-F64_0p0174533:
+F64_0p0174533:                                  ; double constant 0.0174533; used by PuckToStick
         db 0Bh,095h,0C0h,0A6h,046h,0DFh,091h,03Fh
-F64_5p49779:
+F64_5p49779:                                    ; double constant 5.49779; used by PuckToStick
         db 064h,0F7h,02Eh,0EFh,0BBh,0FDh,015h,040h
-F64_12:
+F64_12:                                         ; double constant 12; used by ChkDelayedOffside
         db 00h,00h,00h,00h,00h,00h,028h,040h
-F64_4272_ChkDelayedOffside:
+F64_4272_ChkDelayedOffside:                     ; double constant 4272; used by ChkDelayedOffside
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-F64_2:
+F64_2:                                          ; double constant 2; used by PuckPlayerContact
         db 00h,00h,00h,00h,00h,00h,00h,040h
-F32_7_PuckPlayerContact:
+F32_7_PuckPlayerContact:                        ; float constant 7; used by PuckPlayerContact
         db 00h,00h,0E0h,040h
-F32_0p125_PuckPlayerContact:
+F32_0p125_PuckPlayerContact:                    ; float constant 0.125; used by PuckPlayerContact
         db 00h,00h,00h,03Eh
-F64_6p28319_PuckPlayerContact:
+F64_6p28319_PuckPlayerContact:                  ; double constant 6.28319; used by PuckPlayerContact
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_0p00277778_PuckPlayerContact:
+F64_0p00277778_PuckPlayerContact:               ; double constant 0.00277778; used by PuckPlayerContact
         db 016h,06Ch,0C1h,016h,06Ch,0C1h,066h,03Fh
-F64_neg12_a2offsides:
+F64_neg12_a2offsides:                           ; double constant -12; used by a2offsides
         db 00h,00h,00h,00h,00h,00h,028h,0C0h
-F64_1440:
+F64_1440:                                       ; double constant 1440; used by a2offsides
         db 00h,00h,00h,00h,00h,080h,096h,040h
-F64_4272_a2touchpuck:
+F64_4272_a2touchpuck:                           ; double constant 4272; used by a2touchpuck
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-F64_neg12_PuckIChk:
+F64_neg12_PuckIChk:                             ; double constant -12; used by PuckIChk
         db 00h,00h,00h,00h,00h,00h,028h,0C0h
-F64_4276:
+F64_4276:                                       ; double constant 4276; used by PuckIChk
         db 00h,00h,00h,00h,00h,0B4h,0B0h,040h
-F64_12_PuckIChk:
+F64_12_PuckIChk:                                ; double constant 12; used by PuckIChk
         db 00h,00h,00h,00h,00h,00h,028h,040h
-F64_neg4276:
+F64_neg4276:                                    ; double constant -4276; used by PuckIChk
         db 00h,00h,00h,00h,00h,0B4h,0B0h,0C0h
-F64_288_PuckIChk:
+F64_288_PuckIChk:                               ; double constant 288; used by PuckIChk
         db 00h,00h,00h,00h,00h,00h,072h,040h
-F64_neg12_ChkOffsides:
+F64_neg12_ChkOffsides:                          ; double constant -12; used by ChkOffsides
         db 00h,00h,00h,00h,00h,00h,028h,0C0h
-F64_1435_ChkOffsides:
+F64_1435_ChkOffsides:                           ; double constant 1435; used by ChkOffsides
         db 00h,00h,00h,00h,00h,06Ch,096h,040h
-F64_12_ChkOffsides:
+F64_12_ChkOffsides:                             ; double constant 12; used by ChkOffsides
         db 00h,00h,00h,00h,00h,00h,028h,040h
-F64_neg1435:
+F64_neg1435:                                    ; double constant -1435; used by ChkOffsides
         db 00h,00h,00h,00h,00h,06Ch,096h,0C0h
-F64_neg12_MarkTwoLinePlayers:
+F64_neg12_MarkTwoLinePlayers:                   ; double constant -12; used by MarkTwoLinePlayers
         db 00h,00h,00h,00h,00h,00h,028h,0C0h
-F64_24_MarkTwoLinePlayers:
+F64_24_MarkTwoLinePlayers:                      ; double constant 24; used by MarkTwoLinePlayers
         db 00h,00h,00h,00h,00h,00h,038h,040h
-F64_12_MarkTwoLinePlayers:
+F64_12_MarkTwoLinePlayers:                      ; double constant 12; used by MarkTwoLinePlayers
         db 00h,00h,00h,00h,00h,00h,028h,040h
-F64_neg24:
+F64_neg24:                                      ; double constant -24; used by MarkTwoLinePlayers
         db 00h,00h,00h,00h,00h,00h,038h,0C0h
-F64_4272_pucknorm_body:
+F64_4272_pucknorm_body:                         ; double constant 4272; used by pucknorm_body
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-F64_1392:
+F64_1392:                                       ; double constant 1392; used by pucknorm_body
         db 00h,00h,00h,00h,00h,0C0h,095h,040h
-F64_1080_pucknorm_body:
+F64_1080_pucknorm_body:                         ; double constant 1080; used by pucknorm_body
         db 00h,00h,00h,00h,00h,0E0h,090h,040h
-F32_0p5_pucknorm_body:
+F32_0p5_pucknorm_body:                          ; float constant 0.5; used by pucknorm_body
         db 00h,00h,00h,03Fh
-F64_0p392699_pucknorm_body:
+F64_0p392699_pucknorm_body:                     ; double constant 0.392699; used by pucknorm_body
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-F64_0p159155_pucknorm_body:
+F64_0p159155_pucknorm_body:                     ; double constant 0.159155; used by pucknorm_body
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-F64_65536_pucknorm_body:
+F64_65536_pucknorm_body:                        ; double constant 65536; used by pucknorm_body
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-F32_neg1872:
+F32_neg1872:                                    ; float constant -1872; used by pucknorm_body
         db 00h,00h,0EAh,0C4h
-F32_neg1152:
+F32_neg1152:                                    ; float constant -1152; used by pucknorm_body
         db 00h,00h,090h,0C4h
-F64_4284:
+F64_4284:                                       ; double constant 4284; used by pucknorm_body
         db 00h,00h,00h,00h,00h,0BCh,0B0h,040h
-F32_neg1392_pucknorm_body:
+F32_neg1392_pucknorm_body:                      ; float constant -1392; used by pucknorm_body
         db 00h,00h,0AEh,0C4h
-F64_3p14159_puckfaceoff2:
+F64_3p14159_puckfaceoff2:                       ; double constant 3.14159; used by puckfaceoff2
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F32_40_ChkTiredPlayer:
+F32_40_ChkTiredPlayer:                          ; float constant 40; used by ChkTiredPlayer
         db 00h,00h,020h,042h
-F32_0p01:
+F32_0p01:                                       ; float constant 0.01; used by ChkTiredPlayer
         db 0Ah,0D7h,023h,03Ch

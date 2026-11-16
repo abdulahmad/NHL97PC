@@ -9,7 +9,7 @@ extern SpeechClipDefs
 extern SpeechClipDefs
 global CommentaryLast, PlayerCallStart, PlayerCallClip, CommentaryCurrent, CommentaryPrev, BackgroundAudioOn, SpeechClipDefTable, SpeechTableNames
 global SpeechTableError, DataDirPath, PaNameRanges
-SpeechClipDefTable:
+SpeechClipDefTable:                             ; speech clip definition per clip; used by SpeechClipLength
         dd SpeechClipDefs+60h
         dd SpeechClipDefs+68h
         dd SpeechClipDefs+70h
@@ -23,11 +23,11 @@ SpeechClipDefTable:
         dd SpeechClipDefs+3C8h
         dd SpeechClipDefs+428h
         dd SpeechClipDefs+4E0h
-CommentaryLast:
+CommentaryLast:                                 ; last commentary event; used by CommentaryEvent
         db 0FFh,0FFh,0FFh,0FFh
-PlayerCallStart:
+PlayerCallStart:                                ; player call start time; used by SayPlayerCall
         db 00h,00h,00h,00h
-SpeechTableNames:
+SpeechTableNames:                               ; speech table entry names; used by SpeechTableEntry
         dd str_CentreArea
         dd str_CentreIce
         dd str_BlueLine
@@ -50,20 +50,21 @@ SpeechTableNames:
         dd str_PointBlank
         dd str_NetExt
         dd str_EndBoards
-SpeechTableError:
+SpeechTableError:                               ; "ERROR" speech table entry; used by SpeechTableEntry
         dd str_ERROR
-PlayerCallClip:
+PlayerCallClip:                                 ; player call clip; used by SayPlayerCall
         db 00h,00h,00h,00h
-CommentaryCurrent:
+CommentaryCurrent:                              ; current commentary event; used by CommentaryEvent
         db 00h,00h,00h,00h
-CommentaryPrev:
+CommentaryPrev:                                 ; previous commentary event (-2 none); used by CommentaryEvent
         db 0FEh,0FFh,0FFh,0FFh
-PaNameRanges:
+PaNameRanges:                                   ; announcer name clip ranges; used by PaPlayerName
         db 0Ah,01h,0Ch,01h,018h,03h,07h,04h,014h,04h,017h,07h,03h,08h,00h,0Bh
         db 017h,0Ch,0Dh,0Fh,0Eh,0Fh,011h,013h,09h,016h,0Fh,017h,0Fh,018h,00h,00h
-BackgroundAudioOn:
+BackgroundAudioOn:                              ; background audio on; used by ServiceBackgroundAudio
         db 00h,00h,00h,00h
-DataDirPath:
+DataDirPath:                                    ; data directory path; used by MakeDataPath,
+                                                ; MakeDataPathJumpTable, MakeDirPath ...
         db 02Eh,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,044h
         db 041h,054h,041h,00h,00h,00h,00h,00h,00h,00h,00h,00h,01h,00h,04Ch,041h
         db 04Eh,047h,055h,041h,047h,045h,00h,00h,00h,00h,00h,02h,00h,055h,053h,045h

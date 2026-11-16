@@ -9,13 +9,15 @@ global UserStreakPopupFields
 global UserRecordList, UserNameColumn, UserRateColumn, UserPointsColumn, UserGoalsForColumn, UserGoalsAgainstColumn
 global UserPowerPlayColumn, UserPenaltyKillColumn, UserRatingColumn, UserShutoutColumn, UserStreakColumn, UserLongStreakColumn, UserTeamColumn, UserOpponentColumn
 global UserSortColumn, UserCupsTable, UserGamesPopup, UserCupsPopup, UserGamesListBox
-UserDetailPopupShapes:
+UserDetailPopupShapes:                          ; user detail popup record, shapes then width and height; used
+                                                ; by UserRecordsScreen
         resb 4
         resb 4
         resb 4
         resb 4
         resb 40
-UserGamesPopup:
+UserGamesPopup:                                 ; user games popup record: type, text, three shapes, width,
+                                                ; height; used by UserRecordsScreen
         resb 16
         resb 4
         resb 6
@@ -24,7 +26,8 @@ UserGamesPopup:
         resb 4
         resb 4
         resb 40
-UserCupsPopup:
+UserCupsPopup:                                  ; user cups popup record: type, text, three shapes, width,
+                                                ; height; used by UserRecordsScreen
         resb 16
         resb 4
         resb 6
@@ -33,7 +36,8 @@ UserCupsPopup:
         resb 4
         resb 4
         resb 138
-UserRatingPopupFields:
+UserRatingPopupFields:                          ; user rating popup record, from its type field; used by
+                                                ; UserRecordsScreen
         resb 4
         resb 6
         resb 4
@@ -41,7 +45,8 @@ UserRatingPopupFields:
         resb 4
         resb 4
         resb 56
-UserStreakPopupFields:
+UserStreakPopupFields:                          ; user streak popup record, from its type field; used by
+                                                ; UserRecordsScreen
         resb 4
         resb 6
         resb 4
@@ -49,39 +54,54 @@ UserStreakPopupFields:
         resb 4
         resb 4
         resb 40
-UserGamesListBox:
+UserGamesListBox:                               ; user games list box; used by BuildUserGamesTable
         resb 4346
-UserRecordList:
+UserRecordList:                                 ; user record list (374 bytes each); used by
+                                                ; BuildUserRecordsTable, LoadUserRecords, UserRecordsScreen
         resb 4
-UserNameColumn:
+UserNameColumn:                                 ; user records name column; used by LoadUserRecords,
+                                                ; UserRecordsScreen
         resb 4
-UserRateColumn:
+UserRateColumn:                                 ; user records rate column; used by BuildUserRecordsTable,
+                                                ; LoadUserRecords, UserRecordsScreen
         resb 4
-UserPointsColumn:
+UserPointsColumn:                               ; user records points column; used by BuildUserRecordsTable,
+                                                ; LoadUserRecords, UserRecordsScreen
         resb 4
-UserGoalsForColumn:
+UserGoalsForColumn:                             ; user records goals for column; used by
+                                                ; BuildUserRecordsTable, LoadUserRecords, UserRecordsScreen
         resb 4
-UserGoalsAgainstColumn:
+UserGoalsAgainstColumn:                         ; user records goals against column; used by
+                                                ; BuildUserRecordsTable, LoadUserRecords, UserRecordsScreen
         resb 4
-UserPowerPlayColumn:
+UserPowerPlayColumn:                            ; user records power play column; used by LoadUserRecords,
+                                                ; UserRecordsScreen
         resb 4
-UserPenaltyKillColumn:
+UserPenaltyKillColumn:                          ; user records penalty kill column; used by
+                                                ; BuildUserRecordsTable, LoadUserRecords, UserRecordsScreen
         resb 4
-UserRatingColumn:
+UserRatingColumn:                               ; user records rating column; used by LoadUserRecords,
+                                                ; UserRecordsScreen
         resb 4
-UserShutoutColumn:
+UserShutoutColumn:                              ; user records shutout column; used by BuildUserRecordsTable,
+                                                ; LoadUserRecords, UserRecordsScreen
         resb 4
-UserStreakColumn:
+UserStreakColumn:                               ; user records streak column; used by BuildUserRecordsTable,
+                                                ; LoadUserRecords, UserRecordsScreen
         resb 4
-UserLongStreakColumn:
+UserLongStreakColumn:                           ; user records longest streak column; used by LoadUserRecords,
+                                                ; UserRecordsScreen
         resb 4
-UserTeamColumn:
+UserTeamColumn:                                 ; user records team column; used by BuildUserRecordsTable,
+                                                ; LoadUserRecords, UserRecordsScreen
         resb 4
-UserOpponentColumn:
+UserOpponentColumn:                             ; user records opponent column; used by BuildUserRecordsTable,
+                                                ; LoadUserRecords, UserRecordsScreen
         resb 4
-UserSortColumn:
+UserSortColumn:                                 ; user records sort column; used by BuildUserRecordsTable,
+                                                ; LoadUserRecords, UserRecordsScreen
         resb 4
-UserCupsTable:
+UserCupsTable:                                  ; user cups table; used by UserRecordsScreen
         resb 4
-StatsMenuChoice:
+StatsMenuChoice:                                ; stats menu choice; used by RunUserRecords, StatsMenuScreen
         resb 4

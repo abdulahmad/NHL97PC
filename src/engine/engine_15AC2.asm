@@ -4762,17 +4762,17 @@ IsOverlayShown:
         ret
         db 00h,00h,00h,00h,0FFh,0C4h,00h,00h,0C8h,042h,00h,00h,096h,0C5h,00h,00h
         db 0FFh,044h,00h,00h,07Ah,045h,00h,00h,096h,045h
-FaceoffCloseupInit:
+FaceoffCloseupInit:                             ; used by FaceoffCloseupScene
         db 02Ch,01h,00h,00h,02Ch,01h,00h,00h
-FaceoffSweepInit:
+FaceoffSweepInit:                               ; used by FaceoffSweepScene
         db 0F4h,01h,00h,00h,0F4h,01h,00h,00h
-GoalSceneCamFrom:
+GoalSceneCamFrom:                               ; used by GoalSceneStep
         db 00h,0C0h,05h,0C5h,00h,00h,048h,043h,00h,020h,099h,0C5h
-GoalSceneCamTo:
+GoalSceneCamTo:                                 ; used by GoalSceneStep
         db 00h,0C0h,05h,045h,00h,080h,0BBh,044h,00h,020h,099h,045h
-GoalCameraFrom:
+GoalCameraFrom:                                 ; used by GoalCameraScene
         db 00h,080h,018h,0C5h,00h,00h,0C8h,043h,00h,080h,0A2h,0C5h
-GoalCameraTo:
+GoalCameraTo:                                   ; used by GoalCameraScene
         db 00h,080h,018h,045h,00h,080h,0BBh,044h,00h,080h,0A2h,045h
         push eax
         push ebx
@@ -5215,7 +5215,7 @@ GetTargetPoint:
         pop edi
         pop esi
         ret
-UpdateCameraViewJumpTable:
+UpdateCameraViewJumpTable:                      ; jump table for the switch cases of UpdateCameraView
         dd UpdateCameraView_8D3
         dd UpdateCameraView_54
         dd UpdateCameraView_28
@@ -5805,7 +5805,7 @@ UpdateCameraView_8D3:
         pop ebx
         ret
         db 090h
-UpdateCameraZoomJumpTable:
+UpdateCameraZoomJumpTable:                      ; jump table for the switch cases of UpdateCameraZoom
         dd UpdateCameraZoom_3CB
         dd UpdateCameraZoom_169
         dd UpdateCameraZoom_3CB
@@ -6096,7 +6096,7 @@ UpdateCameraZoom_3CB:
         pop esi
         ret
         db 08Dh,040h,00h
-UpdateCameraTrackJumpTable:
+UpdateCameraTrackJumpTable:                     ; jump table for the switch cases of UpdateCameraTrack
         dd UpdateCameraTrack_2D2
         dd UpdateCameraTrack_30
         dd UpdateCameraTrack_2D2
@@ -6391,7 +6391,7 @@ EaseAngle:
         pop ebp
         pop ecx
         ret
-EaseCameraAnglesJumpTable:
+EaseCameraAnglesJumpTable:                      ; jump table for the switch cases of EaseCameraAngles
         dd EaseCameraAngles_57
         dd EaseCameraAngles_15
         dd EaseCameraAngles_40
@@ -6443,7 +6443,7 @@ EaseCameraAngles_57:
         pop edx
         ret
         db 090h
-SetCameraViewJumpTable:
+SetCameraViewJumpTable:                         ; jump table for the switch cases of SetCameraView
         dd SetCameraView_16
         dd SetCameraView_AF
         dd SetCameraView_14F
@@ -7989,7 +7989,7 @@ PenaltyCameraDistance:
         pop eax
         ret
         db 08Dh,040h,00h
-PenaltySceneStepJumpTable:
+PenaltySceneStepJumpTable:                      ; jump table for the switch cases of PenaltySceneStep
         dd PenaltySceneStep_1C
         dd PenaltySceneStep_73
         dd PenaltySceneStep_C6
@@ -12746,7 +12746,7 @@ SwapPosition:
         pop ebx
         ret
         db 090h
-SwapPositionJumpTable:
+SwapPositionJumpTable:                          ; jump table for the switch cases
         dd .4
         dd .6
         dd .13

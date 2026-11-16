@@ -578,7 +578,7 @@ GoalieMaskAnim:
         pop ecx
         pop ebx
         ret
-GoalieMaskScreenJumpTable:
+GoalieMaskScreenJumpTable:                      ; jump table for the switch cases of GoalieMaskScreen
         dd GoalieMaskScreen_715
         dd GoalieMaskScreen_72B
         dd GoalieMaskScreen_89F

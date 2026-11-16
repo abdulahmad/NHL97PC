@@ -228,7 +228,7 @@ InitModelInstance:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h
-ModelInstanceDefault:
+ModelInstanceDefault:                           ; used by CreateModelInstance
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; CreateModelInstance                            1100B4  97 PC, low confidence

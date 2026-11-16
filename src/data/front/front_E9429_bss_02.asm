@@ -13,7 +13,8 @@ global KeyNameSlots
 
 
 
-KeyNameSlots:
+KeyNameSlots:                                   ; key name strings from scan code 1 on (15 bytes each);
+                                                ; KeyNames is entry 0; used by GetKeyName
         resb 15
         resb 15
         resb 15

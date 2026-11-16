@@ -3155,7 +3155,7 @@ RunOptionsScreens:
         or dword [byte eax+09h], edx
         pop ebx
         ret
-DetailLevelScreenJumpTable:
+DetailLevelScreenJumpTable:                     ; jump table for the switch cases of DetailLevelScreen
         dd DetailLevelScreen_A25
         dd DetailLevelScreen_A36
         dd DetailLevelScreen_A93

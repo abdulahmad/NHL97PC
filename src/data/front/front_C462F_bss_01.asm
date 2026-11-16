@@ -21,21 +21,25 @@ global OptionsMenuChoice, OptionsMusicShapes, OptionsButtonOff, OptionsButtonOnS
 
 global OptionsAnimChoice, OptionsSoundPlayed, OptionsMenuItems
 
-OptionsMusicShapes:
+OptionsMusicShapes:                             ; options music shapes; used by OptionsSound
         resb 12
-OptionsButtonOff:
+OptionsButtonOff:                               ; options button off shape; used by OptionsScreen,
+                                                ; OptionsSound
         resb 4
-OptionsButtonOnShapes:
+OptionsButtonOnShapes:                          ; options button on shapes; used by OptionsScreen,
+                                                ; OptionsSound
         resb 4
-OptionsButtonLit:
+OptionsButtonLit:                               ; options button lit shape; used by OptionsScreen
         resb 8
-OptionsLabelShapes:
+OptionsLabelShapes:                             ; options label shapes; used by OptionsScreen
         resb 4
-OptionsButtonDownShapes:
+OptionsButtonDownShapes:                        ; options button down shapes; used by OptionsScreen,
+                                                ; OptionsSound
         resb 4
-OptionsButtonDownLit:
+OptionsButtonDownLit:                           ; options button down lit shape; used by OptionsScreen
         resb 8
-OptionsMenuItems:
+OptionsMenuItems:                               ; options screen menu item records (82 bytes each); used by
+                                                ; OptionsScreen, OptionsSound
         resb 4
         resb 22
         resb 4
@@ -171,9 +175,11 @@ OptionsMenuItems:
         resb 78
         resb 4
         resb 62
-OptionsAnimChoice:
+OptionsAnimChoice:                              ; options animation choice; used by OptionsScreen,
+                                                ; RunOptionsScreens
         resb 4
-OptionsMenuChoice:
+OptionsMenuChoice:                              ; options menu choice; used by MainMenuScreen,
+                                                ; RunOptionsScreens
         resb 1
-OptionsSoundPlayed:
+OptionsSoundPlayed:                             ; set once the options sound plays; used by OptionsSound
         resb 7

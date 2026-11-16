@@ -10,133 +10,139 @@ global str_LX0D3, str_LC0D3, str_DTOP, str_DBOT, str_08x, str_KWKJSK122691, str_
 global str_MB023, str_MB03, str_AR02d2, str_LT02d2, str_MB004, str_X_WaitForOtherComputer, str_DOSCompatibleIPX, str_DOSKompatibelIPX
 global str_DOSKompatiblesIPX, str_HARTFSH, str_ROSSFSH, str_NORRISFSH, str_SELKEFSH, str_VEZINAFSH, str_JENNINGFSH, str_CALDERFSH
 global str_PEARSONFSH, str_EATROPHYFSH, str_PRESIDNTFSH, str_SMYTHEFSH, str_CAMPBELLFSH, str_WALESFSH, str_STANLEYFSH
-str_MEDIABUFFER:
+str_MEDIABUFFER:                                ; string "MEDIA BUFFER"; used by AllocMediaBuffer
         db 04Dh,045h,044h,049h,041h,020h,042h,055h,046h,046h,045h,052h,00h
-str_STATICBUF:
+str_STATICBUF:                                  ; string "STATIC BUF"; used by AllocStaticBuffer
         db 053h,054h,041h,054h,049h,043h,020h,042h,055h,046h,00h
-str_TEMP2:
+str_TEMP2:                                      ; string "TEMP"; used by AppendDbRecord, CountDbRecords,
+                                                ; RebuildDbIndex ...
         db 054h,045h,04Dh,050h,00h
-str_SCHED:
+str_SCHED:                                      ; string "SCHED"; used by CreateExhibitionFile,
+                                                ; CreatePlayoffFile, CreatePlayoffSchedule ...
         db 053h,043h,048h,045h,044h,00h
-str_S08x03x:
+str_S08x03x:                                    ; string "%s%08x.%03x"; used by AddReplayIndexEntry,
+                                                ; CreateExhibitionFile, CreatePlayoffFile ...
         db 025h,073h,025h,030h,038h,078h,02Eh,025h,030h,033h,078h,00h
-str_SSSEA:
+str_SSSEA:                                      ; string "%s%s.SEA"; used by OpenLeagueFile
         db 025h,073h,025h,073h,02Eh,053h,045h,041h,00h
-str_SSPLY:
+str_SSPLY:                                      ; string "%s%s.PLY"; used by OpenLeagueFile
         db 025h,073h,025h,073h,02Eh,050h,04Ch,059h,00h
-str_SSEXH:
+str_SSEXH:                                      ; string "%s%s.EXH"; used by LoadExhibitionFile,
+                                                ; SaveExhibitionFile
         db 025h,073h,025h,073h,02Eh,045h,058h,048h,00h
-str_EXHIBIT:
+str_EXHIBIT:                                    ; string "EXHIBIT"; used by LoadExhibitionFile
         db 045h,058h,048h,049h,042h,049h,054h,00h
-str_AGENTS:
+str_AGENTS:                                     ; string "AGENTS"; used by AllocImportBuffer,
+                                                ; ImportNewPlayers, ImportTradedPlayers ...
         db 041h,047h,045h,04Eh,054h,053h,00h
-str_ORIGEXH:
+str_ORIGEXH:                                    ; string "ORIGEXH"; used by ResetExhibitionStats
         db 04Fh,052h,049h,047h,045h,058h,048h,00h,00h,00h
-str_FILEdelete:
+str_FILEdelete:                                 ; string "FILEdelete"; used by FileDelete
         db 046h,049h,04Ch,045h,064h,065h,06Ch,065h,074h,065h,00h,00h
-str_WB:
+str_WB:                                         ; string "w+b"; used by FileCreate
         db 077h,02Bh,062h,00h
-str_FILEcreate:
+str_FILEcreate:                                 ; string "FILEcreate"; used by FileCreate
         db 046h,049h,04Ch,045h,063h,072h,065h,061h,074h,065h,00h,00h
-str_RB:
+str_RB:                                         ; string "r+b"; used by FileOpen
         db 072h,02Bh,062h,00h
-str_FILEopen:
+str_FILEopen:                                   ; string "FILEopen"; used by FileOpen
         db 046h,049h,04Ch,045h,06Fh,070h,065h,06Eh,00h,00h,00h,00h
-str_FILEseek:
+str_FILEseek:                                   ; string "FILEseek"; used by FileSeek
         db 046h,049h,04Ch,045h,073h,065h,065h,06Bh,00h,00h,00h,00h
-str_FILEseekend:
+str_FILEseekend:                                ; string "FILEseekend"; used by FileSeekEnd
         db 046h,049h,04Ch,045h,073h,065h,065h,06Bh,065h,06Eh,064h,00h
-str_FILEread:
+str_FILEread:                                   ; string "FILEread"; used by FileReadRecord, FileWriteRecord
         db 046h,049h,04Ch,045h,072h,065h,061h,064h,00h,00h,00h,00h
-str_FILEclose:
+str_FILEclose:                                  ; string "FILEclose"; used by FileClose
         db 046h,049h,04Ch,045h,063h,06Ch,06Fh,073h,065h,00h,00h,00h
-str_Pktlayer:
+str_Pktlayer:                                   ; string "pktlayer"; used by NetInit
         db 070h,06Bh,074h,06Ch,061h,079h,065h,072h,00h,00h,00h,00h
-str_Disconnecting:
+str_Disconnecting:                              ; string "Disconnecting"; used by NetDisconnect
         db 044h,069h,073h,063h,06Fh,06Eh,06Eh,065h,063h,074h,069h,06Eh,067h,00h,00h,00h
-str_X_WaitForOtherComputer:
+str_X_WaitForOtherComputer:                     ; string "X"; used by WaitForOtherComputer
         db 058h,00h,00h,00h
-str_WaitingForOtherComputer:
+str_WaitingForOtherComputer:                    ; string "Waiting for other computer"; used by
+                                                ; WaitForOtherComputer
         db 057h,061h,069h,074h,069h,06Eh,067h,020h,066h,06Fh,072h,020h,06Fh,074h,068h,065h
         db 072h,020h,063h,06Fh,06Dh,070h,075h,074h,065h,072h,00h,00h
-str_DOSCompatibleIPX:
+str_DOSCompatibleIPX:                           ; string "DOS-compatible IPX"
         db 044h,04Fh,053h,02Dh,063h,06Fh,06Dh,070h,061h,074h,069h,062h,06Ch,065h,020h,049h
         db 050h,058h,00h,00h
-str_DOSKompatibelIPX:
+str_DOSKompatibelIPX:                           ; string "DOS-kompatibel IPX"
         db 044h,04Fh,053h,02Dh,06Bh,06Fh,06Dh,070h,061h,074h,069h,062h,065h,06Ch,020h,049h
         db 050h,058h,00h,00h
-str_DOSKompatiblesIPX:
+str_DOSKompatiblesIPX:                          ; string "DOS-kompatibles IPX"
         db 044h,04Fh,053h,02Dh,06Bh,06Fh,06Dh,070h,061h,074h,069h,062h,06Ch,065h,073h,020h
         db 049h,050h,058h,00h
-str_IPXMEM:
+str_IPXMEM:                                     ; string "IPXMEM"; used by IpxInit
         db 049h,050h,058h,04Dh,045h,04Dh,00h,00h
-str_NETWORK:
+str_NETWORK:                                    ; string "NETWORK"; used by IpxInit
         db 04Eh,045h,054h,057h,04Fh,052h,04Bh,00h
-str_SERVLIST:
+str_SERVLIST:                                   ; string "SERVLIST"; used by LoadServerList
         db 053h,045h,052h,056h,04Ch,049h,053h,054h,00h,00h,00h,00h
-str_NHL97:
+str_NHL97:                                      ; string "NHL97"; used by AddFoundGame, JoinNetworkGame
         db 04Eh,048h,04Ch,039h,037h,00h,00h,00h
-str_GAMEADDR:
+str_GAMEADDR:                                   ; string "GAMEADDR"; used by FindNetworkGames
         db 047h,041h,04Dh,045h,041h,044h,044h,052h,00h,00h,00h,00h
-str_PICKS2:
+str_PICKS2:                                     ; string "PICKS"; used by ChooseNetworkGameScreen
         db 050h,049h,043h,04Bh,053h,00h,00h,00h
-str_REGS2:
+str_REGS2:                                      ; string "REGS"; used by ChooseNetworkGameScreen
         db 052h,045h,047h,053h,00h,00h,00h,00h
-str_LX003:
+str_LX003:                                      ; string "LX00"; used by ChooseNetworkGameScreen
         db 04Ch,058h,030h,030h,00h,00h,00h,00h
-str_LC003:
+str_LC003:                                      ; string "LC00"; used by ChooseNetworkGameScreen
         db 04Ch,043h,030h,030h,00h,00h,00h,00h
-str_LX0D3:
+str_LX0D3:                                      ; string "LX0%d"; used by ChooseNetworkGameScreen
         db 04Ch,058h,030h,025h,064h,00h,00h,00h
-str_LC0D3:
+str_LC0D3:                                      ; string "LC0%d"; used by ChooseNetworkGameScreen
         db 04Ch,043h,030h,025h,064h,00h,00h,00h
-str_DTOP:
+str_DTOP:                                       ; string "%dTOP"; used by ChooseNetworkGameScreen
         db 025h,064h,054h,04Fh,050h,00h,00h,00h
-str_DBOT:
+str_DBOT:                                       ; string "%dBOT"; used by ChooseNetworkGameScreen
         db 025h,064h,042h,04Fh,054h,00h,00h,00h
-str_08x:
+str_08x:                                        ; string "%08x"; used by JoinNetworkGame
         db 025h,030h,038h,078h,00h,00h,00h,00h
-str_KWKJSK122691:
+str_KWKJSK122691:                               ; string "KWKJSK122691"; used by JoinNetworkGame
         db 04Bh,057h,04Bh,04Ah,053h,04Bh,031h,032h,032h,036h,039h,031h,00h,00h,00h,00h
-str_BACK13:
+str_BACK13:                                     ; string "BACK"; used by OptionsAnimScreen
         db 042h,041h,043h,04Bh,00h
-str_MB014:
+str_MB014:                                      ; string "MB01"; used by OptionsAnimScreen
         db 04Dh,042h,030h,031h,00h
-str_MB023:
+str_MB023:                                      ; string "MB02"; used by OptionsAnimScreen
         db 04Dh,042h,030h,032h,00h
-str_MB03:
+str_MB03:                                       ; string "MB03"; used by OptionsAnimScreen
         db 04Dh,042h,030h,033h,00h
-str_AR02d2:
+str_AR02d2:                                     ; string "AR%02d"; used by OptionsAnimScreen
         db 041h,052h,025h,030h,032h,064h,00h
-str_LT02d2:
+str_LT02d2:                                     ; string "LT%02d"; used by OptionsAnimScreen
         db 04Ch,054h,025h,030h,032h,064h,00h
-str_MB004:
+str_MB004:                                      ; string "MB00"; used by OptionsAnimScreen
         db 04Dh,042h,030h,030h,00h,00h
-str_HARTFSH:
+str_HARTFSH:                                    ; string "HART.FSH"
         db 048h,041h,052h,054h,02Eh,046h,053h,048h,00h
-str_ROSSFSH:
+str_ROSSFSH:                                    ; string "ROSS.FSH"
         db 052h,04Fh,053h,053h,02Eh,046h,053h,048h,00h
-str_NORRISFSH:
+str_NORRISFSH:                                  ; string "NORRIS.FSH"
         db 04Eh,04Fh,052h,052h,049h,053h,02Eh,046h,053h,048h,00h
-str_SELKEFSH:
+str_SELKEFSH:                                   ; string "SELKE.FSH"
         db 053h,045h,04Ch,04Bh,045h,02Eh,046h,053h,048h,00h
-str_VEZINAFSH:
+str_VEZINAFSH:                                  ; string "VEZINA.FSH"
         db 056h,045h,05Ah,049h,04Eh,041h,02Eh,046h,053h,048h,00h
-str_JENNINGFSH:
+str_JENNINGFSH:                                 ; string "JENNING.FSH"
         db 04Ah,045h,04Eh,04Eh,049h,04Eh,047h,02Eh,046h,053h,048h,00h
-str_CALDERFSH:
+str_CALDERFSH:                                  ; string "CALDER.FSH"
         db 043h,041h,04Ch,044h,045h,052h,02Eh,046h,053h,048h,00h
-str_PEARSONFSH:
+str_PEARSONFSH:                                 ; string "PEARSON.FSH"
         db 050h,045h,041h,052h,053h,04Fh,04Eh,02Eh,046h,053h,048h,00h
-str_EATROPHYFSH:
+str_EATROPHYFSH:                                ; string "EATROPHY.FSH"
         db 045h,041h,054h,052h,04Fh,050h,048h,059h,02Eh,046h,053h,048h,00h
-str_PRESIDNTFSH:
+str_PRESIDNTFSH:                                ; string "PRESIDNT.FSH"
         db 050h,052h,045h,053h,049h,044h,04Eh,054h,02Eh,046h,053h,048h,00h
-str_SMYTHEFSH:
+str_SMYTHEFSH:                                  ; string "SMYTHE.FSH"
         db 053h,04Dh,059h,054h,048h,045h,02Eh,046h,053h,048h,00h
-str_CAMPBELLFSH:
+str_CAMPBELLFSH:                                ; string "CAMPBELL.FSH"
         db 043h,041h,04Dh,050h,042h,045h,04Ch,04Ch,02Eh,046h,053h,048h,00h
-str_WALESFSH:
+str_WALESFSH:                                   ; string "WALES.FSH"
         db 057h,041h,04Ch,045h,053h,02Eh,046h,053h,048h,00h
-str_STANLEYFSH:
+str_STANLEYFSH:                                 ; string "STANLEY.FSH"
         db 053h,054h,041h,04Eh,04Ch,045h,059h,02Eh,046h,053h,048h,00h

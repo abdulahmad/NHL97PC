@@ -5093,9 +5093,9 @@ SaveViewOrigin:
         mov dword [ViewOriginY], eax
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-UniformFontColors:
+UniformFontColors:                              ; used by LoadUniformArt
         db 0FFh,028h,028h,0FFh
-UniformFontShadow:
+UniformFontShadow:                              ; used by LoadUniformArt
         db 0FFh,0FFh,0FFh,0FFh
 ;-----------------------------------------------------------------------------
 ; ShapePixelSize                                  56798  97 PC, low confidence
@@ -5738,7 +5738,7 @@ SetModelHeading:
         pop esi
         pop ecx
         ret
-BuildFaceTexturesJumpTable:
+BuildFaceTexturesJumpTable:                     ; jump table for the switch cases of BuildFaceTextures
         dd BuildFaceTextures_E3
         dd BuildFaceTextures_114
         dd BuildFaceTextures_18F

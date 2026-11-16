@@ -5667,7 +5667,7 @@ SwapRosterPlayers:
         mov eax, esi
         call UpdateRosterCounts
         jmp short .2
-ComparePlayersForTradeJumpTable:
+ComparePlayersForTradeJumpTable:                ; jump table for the switch cases of ComparePlayersForTrade
         dd ComparePlayersForTrade_59
         dd ComparePlayersForTrade_D9
         dd ComparePlayersForTrade_133
@@ -7592,7 +7592,7 @@ ClampRosterScroll:
         mov word [byte eax+072h], dx
         pop ebx
         ret
-RosterEditScreenJumpTable:
+RosterEditScreenJumpTable:                      ; jump table for the switch cases of RosterEditScreen
         dd RosterEditScreen_24
         dd RosterEditScreen_AD
         dd RosterEditScreen_1BD
@@ -12663,8 +12663,9 @@ BuildTradePlayerLists:
         call FreeMemBlock
         add esp, byte 4
         jmp near DrawRatingBars_157
-str_Xx00xx01xx02xx03xx10xx11xx12:
+str_Xx00xx01xx02xx03xx10xx11xx12:               ; string "xx00xx01xx02xx03xx10xx11xx12"; used by
+                                                ; LayoutMatchupRight
         db 078h,078h,030h,030h,078h,078h,030h,031h,078h,078h,030h,032h,078h,078h,030h,033h
         db 078h,078h,031h,030h,078h,078h,031h,031h,078h,078h,031h,032h,00h
-str_G0LWC0RWLDRD:
+str_G0LWC0RWLDRD:                               ; string "G0LWC0RWLDRD"; used by LayoutMatchupRight
         db 047h,030h,04Ch,057h,043h,030h,052h,057h,04Ch,044h,052h,044h,00h

@@ -5,39 +5,42 @@ section s_1B001C nobits alloc noexec write align=1
 global OpeningArt, OpeningArtPalette, OpeningArtSize, RinkTexturePtrs, RinkTextureRows, RinkTextureInfo, StandsDetailLevel, FlashSpotTime
 global FlashSpotTable, FlashModel, BenchModelData, HomeBenchModels, AwayBenchModels, SeatPositions, BenchSideModel, BoxModels
 global BoxModelData, FlashSpotPos
-OpeningArt:
+OpeningArt:                                     ; opening art; used by LoadOpeningArt
         resb 4
-OpeningArtPalette:
+OpeningArtPalette:                              ; opening art palette; used by LoadOpeningArt
         resb 4
-OpeningArtSize:
+OpeningArtSize:                                 ; opening art size; used by LoadOpeningArt
         resb 4
-RinkTexturePtrs:
+RinkTexturePtrs:                                ; rink texture pointers; used by DrawRinkOverlay,
+                                                ; LoadRinkTextures
         resb 16
-RinkTextureRows:
+RinkTextureRows:                                ; rink texture rows; used by DrawRinkOverlay, LoadRinkTextures
         resb 48
-RinkTextureInfo:
+RinkTextureInfo:                                ; rink texture info; used by DrawRinkOverlay, LoadRinkTextures
         resb 12
-StandsDetailLevel:
+StandsDetailLevel:                              ; stands detail level; used by LoadRinkModel, SetStandsDetail
         resb 4
-FlashSpotPos:
+FlashSpotPos:                                   ; camera flash spot; used by DrawCameraFlashes, DrawNearSide,
+                                                ; PickFlashSpot
         resb 12
-FlashSpotTime:
+FlashSpotTime:                                  ; camera flash time; used by PickFlashSpot
         resb 4
-FlashSpotTable:
+FlashSpotTable:                                 ; camera flash spots; used by DrawCameraFlashes, DrawNearSide,
+                                                ; PickFlashSpot
         resb 384
-FlashModel:
+FlashModel:                                     ; camera flash model; used by DrawCameraFlashes, LoadRinkModel
         resb 4
-BenchModelData:
+BenchModelData:                                 ; bench model data; used by LoadRinkModel
         resb 4
-HomeBenchModels:
+HomeBenchModels:                                ; home bench models; used by DrawBenchModels, LoadRinkModel
         resb 28
-AwayBenchModels:
+AwayBenchModels:                                ; away bench models; used by LoadRinkModel
         resb 28
-SeatPositions:
+SeatPositions:                                  ; seat positions; used by GetSeatPos, LoadRinkModel
         resb 12
-BenchSideModel:
+BenchSideModel:                                 ; bench side model; used by DrawBenchSide, LoadRinkModel
         resb 4
-BoxModels:
+BoxModels:                                      ; penalty box models; used by LoadRinkModel
         resb 12
-BoxModelData:
+BoxModelData:                                   ; penalty box model data; used by LoadRinkModel
         resb 4

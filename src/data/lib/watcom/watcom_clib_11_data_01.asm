@@ -6,54 +6,66 @@ extern PresentScreen
 global QuantizeByte, QuantizeTable, CpuIs386, CpuIs486, CpuType, CpuIsPentium, CpuHasCpuid, CpuFeatures
 global CpuSignature, str_Punct_DrawRinkSurface, str_D_UpdateFrameRate, TimerCalibration, ModeSetCount, FrameCounter, MessageBoxActive, LastLoadedSize
 global QuantizePalette, PresentFunc, PresentFuncMenu, PresentFuncGame, PresentFuncInput, str_Viv
-CpuIs386:
+CpuIs386:                                       ; CPU is a 386; used by DetectCPU
         db 00h,00h,00h,00h
-CpuIs486:
+CpuIs486:                                       ; CPU is a 486; used by DetectCPU
         db 00h,00h,00h,00h
-CpuType:
+CpuType:                                        ; CPU type; used by DetectCPU
         db 00h,00h,00h,00h
-CpuIsPentium:
+CpuIsPentium:                                   ; CPU is a Pentium; used by DetectCPU
         db 00h,00h,00h,00h
-CpuHasCpuid:
+CpuHasCpuid:                                    ; CPU has CPUID; used by DetectCPU
         db 00h,00h,00h,00h
-CpuFeatures:
+CpuFeatures:                                    ; CPUID feature bits; used by DetectCPU
         db 00h,00h,00h,00h
-CpuSignature:
+CpuSignature:                                   ; CPUID signature; used by DetectCPU
         db 00h,00h,00h,00h
-str_Punct_DrawRinkSurface:
+str_Punct_DrawRinkSurface:                      ; string "\n"; used by ClipLinePoint, DrawCameraFlashes,
+                                                ; DrawCreases ...
         db 0Ah,00h,00h,00h,0F0h,00h,00h,00h
-str_D_UpdateFrameRate:
+str_D_UpdateFrameRate:                          ; string "d"; used by AudioLeave, InitPlatform, InstallTimer
+                                                ; ...
         db 064h,00h,00h,00h
-TimerCalibration:
+TimerCalibration:                               ; timer loop count for calibration; used by CalibrateJoystick,
+                                                ; InstallTimer
         db 09Ch,02Eh,00h,00h
-ModeSetCount:
+ModeSetCount:                                   ; graphics mode set count; used by SetGraphicsMode
         db 00h,00h,00h,00h
-FrameCounter:
+FrameCounter:                                   ; frames drawn; used by CountFrameTick, WritePaletteRange,
+                                                ; WritePaletteRegs
         db 00h,00h,00h,00h,00h,00h,00h,00h,040h,09Ch,00h,00h
-MessageBoxActive:
+MessageBoxActive:                               ; message box shown; used by AllocNetBuffer, AllocRowTable,
+                                                ; AskExitGame ...
         db 00h,00h,00h,00h,00h,00h,00h,00h
-LastLoadedSize:
+LastLoadedSize:                                 ; size of the last loaded file; used by LoadFileCore,
+                                                ; LoadFileToBlock
         db 00h,00h,00h,00h
-PresentFunc:
+PresentFunc:                                    ; routine that shows the back buffer; used by AskExitGame,
+                                                ; MouseInit, ShowKeyMessageBox
         dd PresentScreen
-PresentFuncMenu:
+PresentFuncMenu:                                ; back buffer show routine for menus; used by AskExitGame,
+                                                ; MouseInit, ShowKeyMessageBox
         dd PresentScreen
-PresentFuncGame:
+PresentFuncGame:                                ; back buffer show routine for the game; used by AskExitGame,
+                                                ; MouseInit, ShowKeyMessageBox
         dd PresentScreen
-PresentFuncInput:
-        dd PresentScreen
-        dd PresentScreen
-        dd PresentScreen
-        dd PresentScreen
+PresentFuncInput:                               ; back buffer show routine while reading input; used by
+                                                ; CreditsKeyPressed, FindCachedFile, MouseInit ...
         dd PresentScreen
         dd PresentScreen
-str_Viv:
+        dd PresentScreen
+        dd PresentScreen
+        dd PresentScreen
+        dd PresentScreen
+str_Viv:                                        ; string ".viv"; used by OpenResourceArchive
         db 02Eh,076h,069h,076h,00h,00h,00h,00h
-QuantizePalette:
+QuantizePalette:                                ; palette for colour quantising; used by BuildGamePalette,
+                                                ; ConvertRow16To15, FreeInverseTable ...
         db 00h,00h,00h
-QuantizeByte:
+QuantizeByte:                                   ; quantise scratch byte; used by QuantizeRange, TintRect
         db 00h
-QuantizeTable:
+QuantizeTable:                                  ; colour quantise table; used by FindNearestColor,
+                                                ; InverseTableSlice, QuantizeRange ...
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h

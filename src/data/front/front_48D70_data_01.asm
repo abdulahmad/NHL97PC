@@ -15,215 +15,224 @@ global F64_6p28319_BuildRinkGeometry, F64_80, F64_110, F64_40, F64_0p00138889, F
 global F64_65536_UpdateScoreboardSpin, str_Botboards, str_Center, str_CrowdD, str_EMPTYFSH, str_FatBlueLines, str_FatRedLines, str_Glass
 global str_Glassline, str_Gt002d, str_Gt102d, str_Gt202d, str_Gt302d, str_HALFFSH, str_Icelogo, str_STANDSFSH
 global str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpath, str_Punct_MakeDataPath
-str_Punct_MakeDataPath:
+str_Punct_MakeDataPath:                         ; string "\"; used by MakeDataPath, MakeDataPathJumpTable,
+                                                ; MakeDirPath ...
         db 05Ch,00h
-str_DIRECTORYS:
+str_DIRECTORYS:                                 ; string " DIRECTORY: %s --------------------------------- ";
+                                                ; used by SetArtArchive
         db 0Ah,0Ah,044h,049h,052h,045h,043h,054h,04Fh,052h,059h,03Ah,020h,025h,073h,0Ah
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,0Ah,00h
-str_S:
+str_S:                                          ; string "%s "; used by SetArtArchive
         db 025h,073h,0Ah,00h
-str_BIGFILES:
+str_BIGFILES:                                   ; string " BIGFILE: %s --------------------------------- ";
+                                                ; used by SetArtArchive
         db 0Ah,0Ah,042h,049h,047h,046h,049h,04Ch,045h,03Ah,020h,025h,073h,0Ah,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,0Ah
         db 00h,00h,00h
-str_Render:
+str_Render:                                     ; string "render"; used by InitGameGraphics
         db 072h,065h,06Eh,064h,065h,072h,00h,00h
-str_Ice:
+str_Ice:                                        ; string "ice"; used by InitGameGraphics
         db 069h,063h,065h,00h
-str_Marks:
+str_Marks:                                      ; string "marks"; used by InitGameGraphics
         db 06Dh,061h,072h,06Bh,073h,00h,00h,00h
-str_Frntend:
+str_Frntend:                                    ; string "frntend"; used by InitGameGraphics
         db 066h,072h,06Eh,074h,065h,06Eh,064h,00h
-str_Player:
+str_Player:                                     ; string "player"; used by InitGameGraphics
         db 070h,06Ch,061h,079h,065h,072h,00h,00h
-str_Puck:
+str_Puck:                                       ; string "puck"; used by InitGameGraphics
         db 070h,075h,063h,06Bh,00h,00h,00h,00h
-str_JBUG:
+str_JBUG:                                       ; string "J-BUG"; used by DrawGameFrame
         db 04Ah,02Dh,042h,055h,047h,00h
-F32_neg4264:
+F32_neg4264:                                    ; float constant -4264; used by DrawGameFrame
         db 00h,040h,085h,0C5h
-F32_neg2040:
+F32_neg2040:                                    ; float constant -2040; used by DrawGameFrame
         db 00h,00h,0FFh,0C4h,00h,00h
-str_Ice2:
+str_Ice2:                                       ; string "ice"; used by LoadArenaArt
         db 069h,063h,065h,00h
-str_Flatice:
+str_Flatice:                                    ; string "flatice"; used by LoadArenaArt
         db 066h,06Ch,061h,074h,069h,063h,065h,00h
-str_Pal:
+str_Pal:                                        ; string "!pal"; used by LoadArenaArt
         db 021h,070h,061h,06Ch,00h,00h,00h,00h
-str_Ice0:
+str_Ice0:                                       ; string "ice0"; used by LoadArenaArt
         db 069h,063h,065h,030h,00h,00h,00h,00h
-str_0ice0:
+str_0ice0:                                      ; string "0ice0"; used by LoadArenaArt
         db 030h,069h,063h,065h,030h,00h,00h,00h
-str_Ice1:
+str_Ice1:                                       ; string "ice1"; used by LoadArenaArt
         db 069h,063h,065h,031h,00h,00h,00h,00h
-str_0ice1:
+str_0ice1:                                      ; string "0ice1"; used by LoadArenaArt
         db 030h,069h,063h,065h,031h,00h,00h,00h
-str_Ice22:
+str_Ice22:                                      ; string "ice2"; used by LoadArenaArt
         db 069h,063h,065h,032h,00h,00h,00h,00h
-str_0ice2:
+str_0ice2:                                      ; string "0ice2"; used by LoadArenaArt
         db 030h,069h,063h,065h,032h,00h,00h,00h
-str_Ice3:
+str_Ice3:                                       ; string "ice3"; used by LoadArenaArt
         db 069h,063h,065h,033h,00h,00h,00h,00h
-str_0ice3:
+str_0ice3:                                      ; string "0ice3"; used by LoadArenaArt
         db 030h,069h,063h,065h,033h,00h,00h,00h
-str_Newice:
+str_Newice:                                     ; string "newice"; used by LoadArenaArt
         db 06Eh,065h,077h,069h,063h,065h,00h,00h
-str_Icepolys:
+str_Icepolys:                                   ; string "icepolys"; used by LoadArenaArt
         db 069h,063h,065h,070h,06Fh,06Ch,079h,073h,00h,00h,00h,00h
-str_Center:
+str_Center:                                     ; string "center"; used by LoadArenaArt, LoadRinkModel
         db 063h,065h,06Eh,074h,065h,072h,00h,00h
-str_Dice:
+str_Dice:                                       ; string "%dice"; used by LoadArenaArt
         db 025h,064h,069h,063h,065h,00h,00h,00h
-str_Center02dFsh:
+str_Center02dFsh:                               ; string "center%02d.fsh"; used by LoadArenaArt
         db 063h,065h,06Eh,074h,065h,072h,025h,030h,032h,064h,02Eh,066h,073h,068h,00h,00h
-str_C100:
+str_C100:                                       ; string "c100"; used by LoadArenaArt
         db 063h,031h,030h,030h,00h,00h,00h,00h
-str_C200:
+str_C200:                                       ; string "c200"; used by LoadArenaArt
         db 063h,032h,030h,030h,00h,00h,00h,00h
-str_C201:
+str_C201:                                       ; string "c201"; used by LoadArenaArt
         db 063h,032h,030h,031h,00h,00h,00h,00h
-str_C210:
+str_C210:                                       ; string "c210"; used by LoadArenaArt
         db 063h,032h,031h,030h,00h,00h,00h,00h
-str_C211:
+str_C211:                                       ; string "c211"; used by LoadArenaArt
         db 063h,032h,031h,031h,00h,00h,00h,00h
-str_C300:
+str_C300:                                       ; string "c300"; used by LoadArenaArt
         db 063h,033h,030h,030h,00h,00h,00h,00h
-str_C301:
+str_C301:                                       ; string "c301"; used by LoadArenaArt
         db 063h,033h,030h,031h,00h,00h,00h,00h
-str_C302:
+str_C302:                                       ; string "c302"; used by LoadArenaArt
         db 063h,033h,030h,032h,00h,00h,00h,00h
-str_C303:
+str_C303:                                       ; string "c303"; used by LoadArenaArt
         db 063h,033h,030h,033h,00h,00h,00h,00h
-str_C310:
+str_C310:                                       ; string "c310"; used by LoadArenaArt
         db 063h,033h,031h,030h,00h,00h,00h,00h
-str_C311:
+str_C311:                                       ; string "c311"; used by LoadArenaArt
         db 063h,033h,031h,031h,00h,00h,00h,00h
-str_C312:
+str_C312:                                       ; string "c312"; used by LoadArenaArt
         db 063h,033h,031h,032h,00h,00h,00h,00h
-str_C313:
+str_C313:                                       ; string "c313"; used by LoadArenaArt
         db 063h,033h,031h,033h,00h,00h,00h,00h
-str_C320:
+str_C320:                                       ; string "c320"; used by LoadArenaArt
         db 063h,033h,032h,030h,00h,00h,00h,00h
-str_C321:
+str_C321:                                       ; string "c321"; used by LoadArenaArt
         db 063h,033h,032h,031h,00h,00h,00h,00h
-str_C322:
+str_C322:                                       ; string "c322"; used by LoadArenaArt
         db 063h,033h,032h,032h,00h,00h,00h,00h
-str_C323:
+str_C323:                                       ; string "c323"; used by LoadArenaArt
         db 063h,033h,032h,033h,00h,00h,00h,00h
-str_C330:
+str_C330:                                       ; string "c330"; used by LoadArenaArt
         db 063h,033h,033h,030h,00h,00h,00h,00h
-str_C331:
+str_C331:                                       ; string "c331"; used by LoadArenaArt
         db 063h,033h,033h,031h,00h,00h,00h,00h
-str_C332:
+str_C332:                                       ; string "c332"; used by LoadArenaArt
         db 063h,033h,033h,032h,00h,00h,00h,00h
-str_C333:
+str_C333:                                       ; string "c333"; used by LoadArenaArt
         db 063h,033h,033h,033h,00h
-F64_0p5_ScaleLineWidth:
+F64_0p5_ScaleLineWidth:                         ; double constant 0.5; used by ScaleLineWidth
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-F32_65536_ScaleLineWidth:
+F32_65536_ScaleLineWidth:                       ; float constant 65536; used by ScaleLineWidth
         db 00h,00h,080h,047h
-F64_1p5708_InitRinkView:
+F64_1p5708_InitRinkView:                        ; double constant 1.5708; used by InitRinkView
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0F9h,03Fh
-F64_0p31831:
+F64_0p31831:                                    ; double constant 0.31831; used by InitRinkView
         db 0F5h,036h,0BDh,068h,030h,05Fh,0D4h,03Fh
-F64_65536_InitRinkView:
+F64_65536_InitRinkView:                         ; double constant 65536; used by InitRinkView
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-F32_65536_InitRinkView:
+F32_65536_InitRinkView:                         ; float constant 65536; used by InitRinkView
         db 00h,00h,080h,047h
-F64_0p04:
+F64_0p04:                                       ; double constant 0.04; used by InitRinkView
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,0A4h,03Fh
-F32_600:
+F32_600:                                        ; float constant 600; used by UpdateViewDistance
         db 00h,00h,016h,044h
-F64_6p28319_DrawCreaseArc:
+F64_6p28319_DrawCreaseArc:                      ; double constant 6.28319; used by DrawCreaseArc
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_6p28319_BuildRinkGeometry:
+F64_6p28319_BuildRinkGeometry:                  ; double constant 6.28319; used by BuildRinkGeometry
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_80:
+F64_80:                                         ; double constant 80; used by BuildRinkGeometry
         db 00h,00h,00h,00h,00h,00h,054h,040h
-F64_110:
+F64_110:                                        ; double constant 110; used by BuildRinkGeometry
         db 00h,00h,00h,00h,00h,080h,05Bh,040h
-F64_40:
+F64_40:                                         ; double constant 40; used by BuildRinkGeometry
         db 00h,00h,00h,00h,00h,00h,044h,040h
-F32_6_BuildRinkGeometry:
+F32_6_BuildRinkGeometry:                        ; float constant 6; used by BuildRinkGeometry
         db 00h,00h,0C0h,040h
-F32_10_BuildRinkGeometry:
+F32_10_BuildRinkGeometry:                       ; float constant 10; used by BuildRinkGeometry
         db 00h,00h,020h,041h
-F32_14:
+F32_14:                                         ; float constant 14; used by BuildRinkGeometry
         db 00h,00h,060h,041h
-F32_4:
+F32_4:                                          ; float constant 4; used by BuildRinkGeometry
         db 00h,00h,080h,040h
-F32_8:
+F32_8:                                          ; float constant 8; used by BuildRinkGeometry
         db 00h,00h,00h,041h,00h,00h,00h
-str_GLASS:
+str_GLASS:                                      ; string "GLASS"; used by StartCrowdReaction
         db 047h,04Ch,041h,053h,053h,00h,00h,00h
-str_ArenaViv2:
+str_ArenaViv2:                                  ; string "arena.viv"; used by LoadOpeningArt, LoadRinkModel,
+                                                ; LoadScoreboardArt ...
         db 061h,072h,065h,06Eh,061h,02Eh,076h,069h,076h,00h,00h,00h
-str_Zamboni:
+str_Zamboni:                                    ; string "zamboni"; used by LoadScoreboardArt
         db 07Ah,061h,06Dh,062h,06Fh,06Eh,069h,00h
-str_Zamtrack:
+str_Zamtrack:                                   ; string "zamtrack"; used by LoadScoreboardArt
         db 07Ah,061h,06Dh,074h,072h,061h,063h,06Bh,00h,00h,00h,00h
-str_Zambpath:
+str_Zambpath:                                   ; string "zambpath"; used by LoadScoreboardArt
         db 07Ah,061h,06Dh,062h,070h,061h,074h,068h,00h
-F64_0p00138889:
+F64_0p00138889:                                 ; double constant 0.00138889; used by DrawScoreboard
         db 016h,06Ch,0C1h,016h,06Ch,0C1h,056h,03Fh
-F64_65536_DrawScoreboard:
+F64_65536_DrawScoreboard:                       ; double constant 65536; used by DrawScoreboard
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-F64_0p31831_UpdateScoreboardSpin:
+F64_0p31831_UpdateScoreboardSpin:               ; double constant 0.31831; used by UpdateScoreboardSpin
         db 0F5h,036h,0BDh,068h,030h,05Fh,0D4h,03Fh
-F64_0p5_UpdateScoreboardSpin:
+F64_0p5_UpdateScoreboardSpin:                   ; double constant 0.5; used by UpdateScoreboardSpin
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-F64_65536_UpdateScoreboardSpin:
+F64_65536_UpdateScoreboardSpin:                 ; double constant 65536; used by UpdateScoreboardSpin
         db 00h,00h,00h,00h,00h,00h,0F0h,040h,00h,00h,00h
-str_Netback:
+str_Netback:                                    ; string "netback"; used by LoadNetArt
         db 06Eh,065h,074h,062h,061h,063h,06Bh,00h
-str_Netfrnt:
+str_Netfrnt:                                    ; string "netfrnt"; used by LoadNetArt
         db 06Eh,065h,074h,066h,072h,06Eh,074h,00h
-str_Glassline:
+str_Glassline:                                  ; string "glassline"; used by BuildRinkSides, LoadRinkLines,
+                                                ; LoadRinkModel
         db 067h,06Ch,061h,073h,073h,06Ch,069h,06Eh,065h,00h,00h,00h
-str_Glass:
+str_Glass:                                      ; string "glass"; used by BuildRinkSides, LoadRinkModel
         db 067h,06Ch,061h,073h,073h,00h,00h,00h
-str_Topboards:
+str_Topboards:                                  ; string "topboards"; used by BuildRinkSides, LoadRinkLines,
+                                                ; LoadRinkModel
         db 074h,06Fh,070h,062h,06Fh,061h,072h,064h,073h,00h,00h,00h
-str_Botboards:
+str_Botboards:                                  ; string "botboards"; used by BuildRinkSides, LoadRinkLines,
+                                                ; LoadRinkModel
         db 062h,06Fh,074h,062h,06Fh,061h,072h,064h,073h,00h,00h,00h
-str_FatRedLines:
+str_FatRedLines:                                ; string "fat_red_lines"; used by BuildRinkSides,
+                                                ; LoadRinkLines, LoadRinkModel
         db 066h,061h,074h,05Fh,072h,065h,064h,05Fh,06Ch,069h,06Eh,065h,073h,00h,00h,00h
-str_FatBlueLines:
+str_FatBlueLines:                               ; string "fat_blue_lines"; used by BuildRinkSides,
+                                                ; LoadRinkLines, LoadRinkModel
         db 066h,061h,074h,05Fh,062h,06Ch,075h,065h,05Fh,06Ch,069h,06Eh,065h,073h,00h,00h
-str_SideD:
+str_SideD:                                      ; string "side%d"; used by BuildRinkSides
         db 073h,069h,064h,065h,025h,064h,00h,00h
-str_Gt002d:
+str_Gt002d:                                     ; string "gt0%02d"; used by BuildRinkSides
         db 067h,074h,030h,025h,030h,032h,064h,00h
-str_Gt102d:
+str_Gt102d:                                     ; string "gt1%02d"; used by BuildRinkSides
         db 067h,074h,031h,025h,030h,032h,064h,00h
-str_Gt202d:
+str_Gt202d:                                     ; string "gt2%02d"; used by BuildRinkSides
         db 067h,074h,032h,025h,030h,032h,064h,00h
-str_Gt302d:
+str_Gt302d:                                     ; string "gt3%02d"; used by BuildRinkSides
         db 067h,074h,033h,025h,030h,032h,064h,00h
-str_Icelogo:
+str_Icelogo:                                    ; string "icelogo"; used by BuildRinkSides
         db 069h,063h,065h,06Ch,06Fh,067h,06Fh,00h
-str_EMPTYFSH:
+str_EMPTYFSH:                                   ; string "_EMPTY.FSH"; used by OpenArenaArchive
         db 05Fh,045h,04Dh,050h,054h,059h,02Eh,046h,053h,048h,00h,00h
-str_HALFFSH:
+str_HALFFSH:                                    ; string "_HALF.FSH"; used by OpenArenaArchive
         db 05Fh,048h,041h,04Ch,046h,02Eh,046h,053h,048h,00h,00h,00h
-str_STANDSFSH:
+str_STANDSFSH:                                  ; string "_STANDS.FSH"; used by OpenArenaArchive
         db 05Fh,053h,054h,041h,04Eh,044h,053h,02Eh,046h,053h,048h,00h
-str_Stands2:
+str_Stands2:                                    ; string "stands"; used by LoadRinkModel, OpenArenaArchive
         db 073h,074h,061h,06Eh,064h,073h,00h,00h
-str_CrowdD:
+str_CrowdD:                                     ; string "crowd%d"; used by OpenArenaArchive
         db 063h,072h,06Fh,077h,064h,025h,064h,00h
-str_WALL:
+str_WALL:                                       ; string "WALL"; used by LoadRinkModel, OpenArenaArchive
         db 057h,041h,04Ch,04Ch,00h,00h,00h,00h
-str_BlogoDC:
+str_BlogoDC:                                    ; string "blogo%d%c"; used by LoadBoardLogo
         db 062h,06Ch,06Fh,067h,06Fh,025h,064h,025h,063h,00h,00h,00h
-str_L02da:
+str_L02da:                                      ; string "L%02da"; used by LoadTeamLogoShape
         db 04Ch,025h,030h,032h,064h,061h,00h,00h
-str_L02db:
+str_L02db:                                      ; string "L%02db"; used by LoadTeamLogoShape
         db 04Ch,025h,030h,032h,064h,062h,00h,00h
-str_L02dc:
+str_L02dc:                                      ; string "L%02dc"; used by LoadTeamLogoShape
         db 04Ch,025h,030h,032h,064h,063h,00h,00h
-str_L02dC:
+str_L02dC:                                      ; string "L%02d%c"; used by LoadTeamLogoCopy
         db 04Ch,025h,030h,032h,064h,025h,063h,00h

@@ -3,5 +3,5 @@ bits 32
 %include "hockey.inc"
 section s_19CCAC nobits alloc noexec write align=1
 global FaceoffScratch
-FaceoffScratch:
+FaceoffScratch:                                 ; face-off scratch
         resb 3

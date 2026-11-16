@@ -12,151 +12,214 @@ global ThreeStarsTimer, ThreeStarsPos, GameStatsSpeechCount, PostGameArtFile, Th
 global PanelArtLarge, ClockFontSmall, GameLogoShape, ClockFontLarge, GameLogoBitmap, PanelArtSmall, ThreeStarsData, LinkSetupOrder
 global LinkSetupValues, LinkSetupItemType, LinkHomeChoice, LinkSetupItemCount, LinkAwayChoice, ThreeStarsPlayer, ThreeStarsTeam, ThreeStarsPoints
 global ScoringLogCount, PenaltyLogCount
-LinkSetupLogos:
+LinkSetupLogos:                                 ; link setup team logo bitmaps; used by LinkGameSetup,
+                                                ; LinkSetupScreen, RunLinkGameScreens
         resb 32
-LinkSetupNames:
+LinkSetupNames:                                 ; link setup team name bitmaps; used by LinkGameSetup,
+                                                ; LinkSetupScreen, RunLinkGameScreens
         resb 32
-LinkSetupArt:
+LinkSetupArt:                                   ; link setup art per slot; used by LinkGameSetup,
+                                                ; LinkSetupScreen, RunLinkGameScreens
         resb 24
-LinkSetupOrder:
+LinkSetupOrder:                                 ; link setup item order; used by RunLinkGameScreens
         resb 2
-LinkSetupCursorRow:
+LinkSetupCursorRow:                             ; link setup cursor row per item; used by LinkSetupCursor
         resb 2
-LinkSetupCursorCol:
+LinkSetupCursorCol:                             ; link setup cursor column per item; used by LinkSetupCursor
         resb 4
-LinkSetupValues:
+LinkSetupValues:                                ; link setup value per item; used by LinkSetupCursor,
+                                                ; LinkSetupScreen, ResetLinkSetup ...
         resb 32
-LinkSetupItemType:
+LinkSetupItemType:                              ; link setup item records (7 bytes each): type; used by
+                                                ; LinkSetupScreen, RunLinkGameScreens
         resb 2
-LinkSetupItemFlags:
+LinkSetupItemFlags:                             ; link setup item record: flags; used by DrawLinkSetupItem,
+                                                ; LinkSetupCursor, LinkSetupScreen ...
         resb 1
-LinkSetupItemShape:
+LinkSetupItemShape:                             ; link setup item record: shape; used by DrawLinkSetupStatus,
+                                                ; LinkSetupScreen, RunLinkGameScreens
         resb 49
-LinkSetupShapes:
+LinkSetupShapes:                                ; link setup shapes; used by RunLinkGameScreens
         resb 4
-LinkSetupSounds:
+LinkSetupSounds:                                ; link setup sound per choice; used by LinkSetupSound
         resb 12
-LinkSetupScrollUp:
+LinkSetupScrollUp:                              ; link setup scroll up count; used by LinkSetupScreen,
+                                                ; RunLinkGameScreens
         resb 4
-LinkSetupBuffer:
+LinkSetupBuffer:                                ; link setup buffer; used by ResetLinkSetup,
+                                                ; RunLinkGameScreens
         resb 4
-LinkSetupSlots:
+LinkSetupSlots:                                 ; link setup slot records; used by DrawLinkSetupStatus,
+                                                ; LinkGameSetup, LinkSetupScreen ...
         resb 4
-LinkSetupScrollDown:
+LinkSetupScrollDown:                            ; link setup scroll down count; used by LinkSetupScreen,
+                                                ; RunLinkGameScreens
         resb 4
-LinkSetupTop:
+LinkSetupTop:                                   ; link setup list top; used by LinkSetupScreen,
+                                                ; RunLinkGameScreens
         resb 4
-LinkSetupRow:
+LinkSetupRow:                                   ; link setup list row; used by LinkSetupScreen,
+                                                ; RunLinkGameScreens
         resb 4
-LinkSetupItems:
+LinkSetupItems:                                 ; link setup items; used by DrawLinkSetupItem, LinkGameSetup,
+                                                ; LinkSetupScreen ...
         resb 4
-LinkSetupShapeFile:
+LinkSetupShapeFile:                             ; link setup shape file; used by DrawLinkSetupStatus,
+                                                ; LinkGameSetup, LinkSetupScreen ...
         resb 4
-LinkSetupCount:
+LinkSetupCount:                                 ; link setup list count; used by LinkSetupScreen,
+                                                ; RunLinkGameScreens
         resb 4
-LinkSetupSettings:
+LinkSetupSettings:                              ; link settings data; used by RunLinkGameScreens
         resb 4
-LinkPlayerCount:
+LinkPlayerCount:                                ; players in the link game; used by DrawLinkSetupItem,
+                                                ; LinkGameSetup, LinkSetupSound ...
         resb 4
-LinkLogoFile:
+LinkLogoFile:                                   ; link setup logo file; used by DrawLinkSetupItem,
+                                                ; LinkGameSetup, RunLinkGameScreens
         resb 4
-LinkShapeFile:
+LinkShapeFile:                                  ; link setup screen shape file; used by LinkGameSetup,
+                                                ; RunLinkGameScreens
         resb 4
-LinkScreensDone:
+LinkScreensDone:                                ; set to leave the link game screens; used by RunGameScreens,
+                                                ; RunLinkGameScreens, RunPlayoffMenus ...
         resb 4
-LinkHomeChoice:
+LinkHomeChoice:                                 ; home choice on the link setup; used by DrawLinkSetupStatus,
+                                                ; LinkSetupScreen
         resb 2
-LinkSetupItemCount:
+LinkSetupItemCount:                             ; link setup item count; used by ResetLinkSetup,
+                                                ; RunLinkGameScreens
         resb 2
-LinkAwayChoice:
+LinkAwayChoice:                                 ; away choice on the link setup; used by DrawLinkSetupStatus,
+                                                ; LinkSetupScreen
         resb 4
-ThreeStarsData:
+ThreeStarsData:                                 ; three stars data copy; used by PostGameScreen
         resb 2
-ThreeStarsPlayer:
+ThreeStarsPlayer:                               ; three stars record: player; used by DrawThreeStarStats
         resb 2
-ThreeStarsTeam:
+ThreeStarsTeam:                                 ; three stars record: team; used by DrawThreeStarStats,
+                                                ; PostGameScreen
         resb 2
-ThreeStarsPoints:
+ThreeStarsPoints:                               ; three stars record: points; used by DrawThreeStarStats
         resb 18
-ScoringHomeLayer:
+ScoringHomeLayer:                               ; scoring summary home logo layer; used by DrawScoringLogo,
+                                                ; FreeGameStats, InitGameStatsScreen
         resb 4
-ScoringAwayLayer:
+ScoringAwayLayer:                               ; scoring summary away logo layer; used by DrawScoringLogo,
+                                                ; FreeGameStats, InitGameStatsScreen
         resb 4
-GoldStarShapes:
+GoldStarShapes:                                 ; three stars gold star shapes; used by PostGameScreen,
+                                                ; ThreeStarsSound
         resb 16
-StarFrameShapes:
+StarFrameShapes:                                ; three stars frame shapes; used by PostGameScreen,
+                                                ; ThreeStarsFlash
         resb 16
-StatsLineTotals:
+StatsLineTotals:                                ; stats table line: totals; used by BuildPlayerStatsTable,
+                                                ; FormatPlayerStatLine, GameStatsScreen
         resb 4
-StatsLineGoals:
+StatsLineGoals:                                 ; stats table line: goals; used by BuildPlayerStatsTable,
+                                                ; FormatPlayerStatLine, GameStatsScreen
         resb 4
-StatsLineAssists:
+StatsLineAssists:                               ; stats table line: assists; used by BuildPlayerStatsTable,
+                                                ; FormatPlayerStatLine, GameStatsScreen
         resb 4
-StatsLinePoints:
+StatsLinePoints:                                ; stats table line: points; used by BuildPlayerStatsTable,
+                                                ; FormatPlayerStatLine, GameStatsScreen
         resb 4
-StatsLinePenalties:
+StatsLinePenalties:                             ; stats table line: penalties; used by BuildPlayerStatsTable,
+                                                ; FormatPlayerStatLine, GameStatsScreen
         resb 4
-StatsLineNames:
+StatsLineNames:                                 ; stats table line: names; used by BuildPlayerStatsTable,
+                                                ; GameStatsScreen
         resb 4
-ThreeStarsLayers:
+ThreeStarsLayers:                               ; three stars draw layers; used by DrawThreeStarStats,
+                                                ; PostGameScreen, ThreeStarsFlash
         resb 12
-PostGameLayer:
+PostGameLayer:                                  ; post game draw layer; used by PostGameScreen,
+                                                ; ThreeStarsFlash
         resb 4
-GameStatsPage:
+GameStatsPage:                                  ; game stats page; used by GameStatsPlayersPage,
+                                                ; GameStatsScreen, GameStatsSound ...
         resb 4
-GameStatsRow:
+GameStatsRow:                                   ; game stats row; used by DrawScoringSummary, FreeGameStats,
+                                                ; GameStatsPlayersPage ...
         resb 4
-GameStatsTeam:
+GameStatsTeam:                                  ; game stats team side; used by BuildPlayerStatsTable,
+                                                ; DrawPlayerStatsPage, FormatPlayerStatLine ...
         resb 4
-GameStatsList:
+GameStatsList:                                  ; game stats list; used by BuildPlayerStatsTable,
+                                                ; DrawPlayerStatsPage, DrawScoringLogo ...
         resb 4
-GameStatsLine:
+GameStatsLine:                                  ; game stats line; used by BuildPlayerStatsTable,
+                                                ; DrawScoringSummary, FreeGameStats ...
         resb 4
-ScoringEntryCount:
+ScoringEntryCount:                              ; scoring summary entries; used by GameStatsPlayersPage,
+                                                ; ShowGameStatsPage
         resb 4
-ThreeStarsChoice:
+ThreeStarsChoice:                               ; three stars choice; used by DrawThreeStarStats,
+                                                ; PostGameScreen, ThreeStarsFlash
         resb 4
-GameStatsBackFile:
+GameStatsBackFile:                              ; game stats back art file; used by FreeGameStats,
+                                                ; GameStatsPlayersPage, GameStatsScreen ...
         resb 4
-GameStatsTable:
+GameStatsTable:                                 ; game stats table; used by FreeGameStats,
+                                                ; GameStatsPlayersPage, GameStatsScreen ...
         resb 4
-GameStatsTitleFile:
+GameStatsTitleFile:                             ; game stats title art file; used by DrawPlayerStatsPage,
+                                                ; FreeGameStats, GameStatsAnim ...
         resb 4
-GameStatsColumn:
+GameStatsColumn:                                ; game stats column; used by BuildPlayerStatsTable,
+                                                ; DrawPlayerStatsPage, GameStatsAnim ...
         resb 4
-GameStatsScroll:
+GameStatsScroll:                                ; game stats scroll; used by FreeGameStats,
+                                                ; GameStatsPlayersPage, InitGameStatsList ...
         resb 4
-GameStatsDrawn:
+GameStatsDrawn:                                 ; set once the game stats page is drawn; used by
+                                                ; BuildPlayerStatsTable, DrawPlayerStatsPage,
+                                                ; FormatPlayerStatLine ...
         resb 4
-ThreeStarsTimer:
+ThreeStarsTimer:                                ; three stars timer; used by DrawThreeStarStats,
+                                                ; PostGameScreen, ThreeStarsFlash ...
         resb 4
-ThreeStarsPos:
+ThreeStarsPos:                                  ; three stars position; used by DrawThreeStarStats,
+                                                ; PostGameScreen
         resb 4
-GameStatsSpeechCount:
+GameStatsSpeechCount:                           ; game stats speech count; used by GameStatsAnim,
+                                                ; GameStatsSound, ThreeStarsSound
         resb 4
-PostGameArtFile:
+PostGameArtFile:                                ; post game art file; used by PostGameScreen
         resb 4
-ThreeStarsSpeechCount:
+ThreeStarsSpeechCount:                          ; three stars speech count; used by ThreeStarsFlash
         resb 4
-PostGameShapeFile:
+PostGameShapeFile:                              ; post game shape file; used by PostGameScreen
         resb 4
-PostGameLastSpeech:
+PostGameLastSpeech:                             ; last post game speech picked; used by GameStatsAnim,
+                                                ; GameStatsSound, ThreeStarsFlash ...
         resb 2
-ScoringLogPad:
+ScoringLogPad:                                  ; low half of the dword read for the scoring log count; used
+                                                ; by PeriodEntryCount
         resb 2
-ScoringLogCount:
+ScoringLogCount:                                ; scoring log entries; used by ClearThreeStars, LogGoal,
+                                                ; NextPenaltyEntry ...
         resb 2
-PenaltyLogCount:
+PenaltyLogCount:                                ; penalty log entries; used by ClearThreeStars,
+                                                ; FirstScoringEntry, LogPenalty ...
         resb 2
-PanelArtLarge:
+PanelArtLarge:                                  ; panel art for high resolution; used by DrawPanelArtScaled,
+                                                ; LoadGameLogos
         resb 4
-ClockFontSmall:
+ClockFontSmall:                                 ; game clock font, low resolution; used by DrawGameClock,
+                                                ; FreeGameText, LoadGameLogos ...
         resb 4
-GameLogoShape:
+GameLogoShape:                                  ; game logo shape; used by FreeGameText, LoadGameLogos,
+                                                ; PlayMenuGame
         resb 4
-ClockFontLarge:
+ClockFontLarge:                                 ; game clock font, high resolution; used by
+                                                ; DrawPowerPlayClock, FreeGameText, LoadGameLogos ...
         resb 4
-GameLogoBitmap:
+GameLogoBitmap:                                 ; game logo bitmap; used by FreeGameText, LoadGameLogos,
+                                                ; PlayMenuGame
         resb 4
-PanelArtSmall:
+PanelArtSmall:                                  ; panel art for low resolution; used by DrawPanelArtScaled,
+                                                ; LoadGameLogos
         resb 4

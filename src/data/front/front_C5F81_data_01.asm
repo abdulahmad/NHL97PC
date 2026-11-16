@@ -7,75 +7,76 @@ global str_NA00, str_10IL, str_102L, str_103L, str_ONDL, str_OFDL, str_MADL, str
 global str_50DL, str_20DL, str_NADL, str_OFF, str_LX002, str_LC002, str_LX0D2, str_LC0D2
 global str_BALL, str_RosterMenu, str_RosterRegions, str_BACK11, str_2dSS, str_2d2, str_RosinfoAna, str_RosPlrInfo
 global str_SeasRosArray, str_DeletionIndices, str_RosterPlayerInfo
-str_00007:
+str_00007:                                      ; string "0000"; used by SeasonSetupScreen
         db 030h,030h,030h,030h,00h
-str_ON00:
+str_ON00:                                       ; string "ON00"; used by SeasonSetupScreen
         db 04Fh,04Eh,030h,030h,00h
-str_OF00:
+str_OF00:                                       ; string "OF00"; used by SeasonSetupScreen
         db 04Fh,046h,030h,030h,00h
-str_MA00:
+str_MA00:                                       ; string "MA00"; used by SeasonSetupScreen
         db 04Dh,041h,030h,030h,00h
-str_AUOO:
+str_AUOO:                                       ; string "AUOO"; used by SeasonSetupScreen
         db 041h,055h,04Fh,04Fh,00h
-str_5000:
+str_5000:                                       ; string "5000"; used by SeasonSetupScreen
         db 035h,030h,030h,030h,00h
-str_1000:
+str_1000:                                       ; string "1000"; used by SeasonSetupScreen
         db 031h,030h,030h,030h,00h
-str_2000:
+str_2000:                                       ; string "2000"; used by SeasonSetupScreen
         db 032h,030h,030h,030h,00h
-str_NA00:
+str_NA00:                                       ; string "NA00"; used by SeasonSetupScreen
         db 04Eh,041h,030h,030h,00h
-str_10IL:
+str_10IL:                                       ; string "10IL"; used by SeasonSetupScreen
         db 031h,030h,049h,04Ch,00h
-str_102L:
+str_102L:                                       ; string "102L"; used by SeasonSetupScreen
         db 031h,030h,032h,04Ch,00h
-str_103L:
+str_103L:                                       ; string "103L"; used by SeasonSetupScreen
         db 031h,030h,033h,04Ch,00h
-str_ONDL:
+str_ONDL:                                       ; string "ON%dL"; used by SeasonSetupScreen
         db 04Fh,04Eh,025h,064h,04Ch,00h
-str_OFDL:
+str_OFDL:                                       ; string "OF%dL"; used by SeasonSetupScreen
         db 04Fh,046h,025h,064h,04Ch,00h
-str_MADL:
+str_MADL:                                       ; string "MA%dL"; used by SeasonSetupScreen
         db 04Dh,041h,025h,064h,04Ch,00h
-str_AUDL:
+str_AUDL:                                       ; string "AU%dL"; used by SeasonSetupScreen
         db 041h,055h,025h,064h,04Ch,00h
-str_50DL:
+str_50DL:                                       ; string "50%dL"; used by SeasonSetupScreen
         db 035h,030h,025h,064h,04Ch,00h
-str_20DL:
+str_20DL:                                       ; string "20%dL"; used by SeasonSetupScreen
         db 032h,030h,025h,064h,04Ch,00h
-str_NADL:
+str_NADL:                                       ; string "NA%dL"; used by SeasonSetupScreen
         db 04Eh,041h,025h,064h,04Ch,00h
-str_OFF:
+str_OFF:                                        ; string "OFF "; used by SeasonSetupScreen
         db 04Fh,046h,046h,020h,00h
-str_LX002:
+str_LX002:                                      ; string "LX00"; used by SeasonSetupScreen
         db 04Ch,058h,030h,030h,00h
-str_LC002:
+str_LC002:                                      ; string "LC00"; used by SeasonSetupScreen
         db 04Ch,043h,030h,030h,00h
-str_LX0D2:
+str_LX0D2:                                      ; string "LX0%d"; used by SeasonSetupScreen
         db 04Ch,058h,030h,025h,064h,00h
-str_LC0D2:
+str_LC0D2:                                      ; string "LC0%d"; used by SeasonSetupScreen
         db 04Ch,043h,030h,025h,064h,00h
-str_BALL:
+str_BALL:                                       ; string "BALL"; used by SeasonSetupScreen
         db 042h,041h,04Ch,04Ch,00h,00h,00h
-str_RosterMenu:
+str_RosterMenu:                                 ; string "roster menu"; used by RosterScreen
         db 072h,06Fh,073h,074h,065h,072h,020h,06Dh,065h,06Eh,075h,00h
-str_RosterRegions:
+str_RosterRegions:                              ; string "roster regions"; used by RosterScreen
         db 072h,06Fh,073h,074h,065h,072h,020h,072h,065h,067h,069h,06Fh,06Eh,073h,00h
-str_BACK11:
+str_BACK11:                                     ; string "BACK"; used by InitRosterScreen, RosterScreen
         db 042h,041h,043h,04Bh,00h
-str_2dSS:
+str_2dSS:                                       ; string "#%2d %s %s"; used by PlayRosterSound
         db 023h,025h,032h,064h,020h,025h,073h,020h,025h,073h,00h
-str_2d2:
+str_2d2:                                        ; string "%2d"; used by PlayRosterSound
         db 025h,032h,064h,00h
-str_RosinfoAna:
+str_RosinfoAna:                                 ; string "rosinfo!.ana"; used by FreeRosterInfoAnim,
+                                                ; LoadRosterInfoAnim
         db 072h,06Fh,073h,069h,06Eh,066h,06Fh,021h,02Eh,061h,06Eh,061h,00h
-str_RosPlrInfo:
+str_RosPlrInfo:                                 ; string "rosPlrInfo"; used by AllocRosterInfo
         db 072h,06Fh,073h,050h,06Ch,072h,049h,06Eh,066h,06Fh,00h
-str_SeasRosArray:
+str_SeasRosArray:                               ; string "seasRosArray"; used by AllocRosterInfo
         db 073h,065h,061h,073h,052h,06Fh,073h,041h,072h,072h,061h,079h,00h
-str_DeletionIndices:
+str_DeletionIndices:                            ; string "deletion indices"; used by InitRosterData
         db 064h,065h,06Ch,065h,074h,069h,06Fh,06Eh,020h,069h,06Eh,064h,069h,063h,065h,073h
         db 00h
-str_RosterPlayerInfo:
+str_RosterPlayerInfo:                           ; string "roster player info"; used by InitRosterData
         db 072h,06Fh,073h,074h,065h,072h,020h,070h,06Ch,061h,079h,065h,072h,020h,069h,06Eh
         db 066h,06Fh,00h

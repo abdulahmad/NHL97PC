@@ -16,228 +16,230 @@ global StreamReadBuf, str_GLOBAL, str_FRONT1, str_FRONT2, str_GAME, str_AUXI, st
 global str_CentreIce, str_BlueLine, str_Point, str_OwnBlueLine, str_InFront, str_InFrontOfTheNet, str_OwnZone, str_Corner
 global str_NeutralZone, str_Slot, str_Wing, str_BehindNet, str_BesideNet, str_OffensiveZone, str_WideOfNet, str_Deep
 global str_Right, str_Left, str_PointBlank, str_NetExt, str_EndBoards, str_ERROR, str_16, str_8
-str_BACK:
+str_BACK:                                       ; string "BACK"; used by InitSeasonGameScreen
         db 042h,041h,043h,04Bh,00h
-str_TITL:
+str_TITL:                                       ; string "TITL"; used by InitSeasonGameScreen
         db 054h,049h,054h,04Ch,00h
-str_AB02:
+str_AB02:                                       ; string "AB02"; used by InitSeasonGameScreen
         db 041h,042h,030h,032h,00h
-str_AB01:
+str_AB01:                                       ; string "AB01"; used by InitSeasonGameScreen
         db 041h,042h,030h,031h,00h
-str_AB00:
+str_AB00:                                       ; string "AB00"; used by InitSeasonGameScreen
         db 041h,042h,030h,030h,00h
-str_BH00:
+str_BH00:                                       ; string "BH00"; used by InitSeasonGameScreen
         db 042h,048h,030h,030h,00h
-str_BT00:
+str_BT00:                                       ; string "BT00"; used by InitSeasonGameScreen
         db 042h,054h,030h,030h,00h
-str_AB05:
+str_AB05:                                       ; string "AB05"; used by InitSeasonGameScreen
         db 041h,042h,030h,035h,00h
-str_AB04:
+str_AB04:                                       ; string "AB04"; used by InitSeasonGameScreen
         db 041h,042h,030h,034h,00h
-str_AB03:
+str_AB03:                                       ; string "AB03"; used by InitSeasonGameScreen
         db 041h,042h,030h,033h,00h
-str_SIM0:
+str_SIM0:                                       ; string "SIM0"; used by InitSeasonGameScreen
         db 053h,049h,04Dh,030h,00h
-str_BT02d:
+str_BT02d:                                      ; string "BT%02d"; used by InitSeasonGameScreen
         db 042h,054h,025h,030h,032h,064h,00h
-str_FAN0:
+str_FAN0:                                       ; string "FAN0"; used by InitSeasonGameScreen
         db 046h,041h,04Eh,030h,00h
-str_LT00:
+str_LT00:                                       ; string "LT00"; used by InitSeasonGameScreen
         db 04Ch,054h,030h,030h,00h
-str_Logo02dFsh:
+str_Logo02dFsh:                                 ; string "logo%02d.fsh"; used by InitSeasonGameScreen
         db 06Ch,06Fh,067h,06Fh,025h,030h,032h,064h,02Eh,066h,073h,068h,00h
-str_LOGO:
+str_LOGO:                                       ; string "LOGO"; used by InitSeasonGameScreen
         db 04Ch,04Fh,047h,04Fh,00h
-str_ALST:
+str_ALST:                                       ; string "ALST"; used by DrawAllStarLogo
         db 041h,04Ch,053h,054h,00h
-str_CDD:
+str_CDD:                                        ; string "%c %d-%d"; used by DrawGameScore
         db 025h,063h,020h,025h,064h,02Dh,025h,064h,00h
-str_SDSD:
+str_SDSD:                                       ; string "%s %d-%s %d"; used by DrawGameScoreLine
         db 025h,073h,020h,025h,064h,02Dh,025h,073h,020h,025h,064h,00h
-str_LOCK:
+str_LOCK:                                       ; string "LOCK"; used by DrawLockedGame
         db 04Ch,04Fh,043h,04Bh,00h
-str_PANL:
+str_PANL:                                       ; string "PANL"; used by DrawSeasonGamePanel
         db 050h,041h,04Eh,04Ch,00h
-str_D_DrawSeasonGamePanel:
+str_D_DrawSeasonGamePanel:                      ; string "%d"; used by DrawSeasonGamePanel
         db 025h,064h,00h,00h,00h,00h
-F64_neg3p14159_GoToBoxAnim:
+F64_neg3p14159_GoToBoxAnim:                     ; double constant -3.14159; used by GoToBoxAnim
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-F32_10_RefDodgePuck:
+F32_10_RefDodgePuck:                            ; float constant 10; used by RefDodgePuck
         db 00h,00h,020h,041h
-F32_3_RefDodgePuck:
+F32_3_RefDodgePuck:                             ; float constant 3; used by RefDodgePuck
         db 00h,00h,040h,040h
-F32_15:
+F32_15:                                         ; float constant 15; used by RefDodgePuck
         db 00h,00h,070h,041h
-F32_0p0666667:
+F32_0p0666667:                                  ; float constant 0.0666667; used by RefDodgePuck
         db 089h,088h,088h,03Dh
-F32_0p5_RefDodgePuck:
+F32_0p5_RefDodgePuck:                           ; float constant 0.5; used by RefDodgePuck
         db 00h,00h,00h,03Fh
-F64_0p2_RefDodgePuck:
+F64_0p2_RefDodgePuck:                           ; double constant 0.2; used by RefDodgePuck
         db 09Ah,099h,099h,099h,099h,099h,0C9h,03Fh
-F64_6p28319_ReachForPuckAnim:
+F64_6p28319_ReachForPuckAnim:                   ; double constant 6.28319; used by ReachForPuckAnim
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_3p14159_ReachForPuckAnim:
+F64_3p14159_ReachForPuckAnim:                   ; double constant 3.14159; used by ReachForPuckAnim
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F64_neg6p28319_ReachForPuckAnim:
+F64_neg6p28319_ReachForPuckAnim:                ; double constant -6.28319; used by ReachForPuckAnim
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-F64_neg3p14159_ReachForPuckAnim:
+F64_neg3p14159_ReachForPuckAnim:                ; double constant -3.14159; used by ReachForPuckAnim
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-F64_0p785398_ReachForPuckAnim:
+F64_0p785398_ReachForPuckAnim:                  ; double constant 0.785398; used by ReachForPuckAnim
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-F64_0p0001:
+F64_0p0001:                                     ; double constant 0.0001; used by ReachForPuckAnim
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,01Ah,03Fh
-F64_0p6:
+F64_0p6:                                        ; double constant 0.6; used by ReachForPuckAnim
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh
-F64_96:
+F64_96:                                         ; double constant 96; used by PokeCheckAnim
         db 00h,00h,00h,00h,00h,00h,058h,040h
-F32_144_PokeCheckAnim:
+F32_144_PokeCheckAnim:                          ; float constant 144; used by PokeCheckAnim
         db 00h,00h,010h,043h
-F64_0p00347222:
+F64_0p00347222:                                 ; double constant 0.00347222; used by PokeCheckAnim
         db 01Dh,0C7h,071h,01Ch,0C7h,071h,06Ch,03Fh
-F64_0p8:
+F64_0p8:                                        ; double constant 0.8; used by PokeCheckAnim
         db 09Ah,099h,099h,099h,099h,099h,0E9h,03Fh
-F64_1p2_PokeCheckAnim:
+F64_1p2_PokeCheckAnim:                          ; double constant 1.2; used by PokeCheckAnim
         db 033h,033h,033h,033h,033h,033h,0F3h,03Fh
-F64_6p28319_TryBodyCheck:
+F64_6p28319_TryBodyCheck:                       ; double constant 6.28319; used by TryBodyCheck
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_3p14159_TryBodyCheck:
+F64_3p14159_TryBodyCheck:                       ; double constant 3.14159; used by TryBodyCheck
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F64_neg6p28319_TryBodyCheck:
+F64_neg6p28319_TryBodyCheck:                    ; double constant -6.28319; used by TryBodyCheck
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-F64_neg3p14159_TryBodyCheck:
+F64_neg3p14159_TryBodyCheck:                    ; double constant -3.14159; used by TryBodyCheck
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-F64_1p0472:
+F64_1p0472:                                     ; double constant 1.0472; used by TryBodyCheck
         db 0BCh,08Bh,054h,03Ch,052h,0C1h,0F0h,03Fh
-F64_1p5708:
+F64_1p5708:                                     ; double constant 1.5708; used by TryBodyCheck
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0F9h,03Fh
-F32_336:
+F32_336:                                        ; float constant 336; used by TryBodyCheck
         db 00h,00h,0A8h,043h
-F32_192_TryBodyCheck:
+F32_192_TryBodyCheck:                           ; float constant 192; used by TryBodyCheck
         db 00h,00h,040h,043h
-F64_0p349066:
+F64_0p349066:                                   ; double constant 0.349066; used by TryBodyCheck
         db 04Eh,0BAh,070h,050h,018h,057h,0D6h,03Fh
-F64_0p785398_TryBodyCheck:
+F64_0p785398_TryBodyCheck:                      ; double constant 0.785398; used by TryBodyCheck
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-F32_144_TryBodyCheck:
+F32_144_TryBodyCheck:                           ; float constant 144; used by TryBodyCheck
         db 00h,00h,010h,043h
-F64_0p7:
+F64_0p7:                                        ; double constant 0.7; used by TryBodyCheck
         db 066h,066h,066h,066h,066h,066h,0E6h,03Fh
-str_DMAN:
+str_DMAN:                                       ; string "DMAN"; used by InitDisplayViews
         db 044h,04Dh,041h,04Eh,00h
-F64_0p5_SetViewDrawTarget:
+F64_0p5_SetViewDrawTarget:                      ; double constant 0.5; used by SetViewDrawTarget
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh,00h,00h,00h
-str_HIST:
+str_HIST:                                       ; string "HIST"; used by NewColorHistogram
         db 048h,049h,053h,054h,00h,00h,00h,00h
-str_MEGAHIST:
+str_MEGAHIST:                                   ; string "MEGAHIST"; used by QuantizeRange
         db 04Dh,045h,047h,041h,048h,049h,053h,054h,00h,00h,00h,00h
-str_CDSTREAM:
+str_CDSTREAM:                                   ; string "CDSTREAM"; used by CdStreamOpen
         db 043h,044h,053h,054h,052h,045h,041h,04Dh,00h,00h,00h,00h
-str_STREAM:
+str_STREAM:                                     ; string "STREAM"; used by setstreamspeed
         db 053h,054h,052h,045h,041h,04Dh,00h,00h
-StreamReadBuf:
+StreamReadBuf:                                  ; stream read buffer; used by RequestStreamRead
         db 00h,00h,00h,00h
-str_SECCDSTREAM:
+str_SECCDSTREAM:                                ; string "SECCDSTREAM"; used by CdStreamOpenSecondary
         db 053h,045h,043h,043h,044h,053h,054h,052h,045h,041h,04Dh,00h
-str_GLOBAL:
+str_GLOBAL:                                     ; string "GLOBAL"
         db 047h,04Ch,04Fh,042h,041h,04Ch,00h,00h
-str_FRONT1:
+str_FRONT1:                                     ; string "FRONT1"
         db 046h,052h,04Fh,04Eh,054h,031h,00h,00h
-str_FRONT2:
+str_FRONT2:                                     ; string "FRONT2"
         db 046h,052h,04Fh,04Eh,054h,032h,00h,00h
-str_GAME:
+str_GAME:                                       ; string "GAME"
         db 047h,041h,04Dh,045h,00h,00h,00h,00h
-str_AUXI:
+str_AUXI:                                       ; string "AUXI"
         db 041h,055h,058h,049h,00h,00h,00h,00h
-str_CROWD:
+str_CROWD:                                      ; string "CROWD"
         db 043h,052h,04Fh,057h,044h,00h,00h,00h
-str_CentreArea:
+str_CentreArea:                                 ; string "CentreArea"
         db 043h,065h,06Eh,074h,072h,065h,041h,072h,065h,061h,00h,00h
-str_CentreIce:
+str_CentreIce:                                  ; string "CentreIce"
         db 043h,065h,06Eh,074h,072h,065h,049h,063h,065h,00h,00h,00h
-str_BlueLine:
+str_BlueLine:                                   ; string "BlueLine"
         db 042h,06Ch,075h,065h,04Ch,069h,06Eh,065h,00h,00h,00h,00h
-str_Point:
+str_Point:                                      ; string "Point"
         db 050h,06Fh,069h,06Eh,074h,00h,00h,00h
-str_OwnBlueLine:
+str_OwnBlueLine:                                ; string "OwnBlueLine"
         db 04Fh,077h,06Eh,042h,06Ch,075h,065h,04Ch,069h,06Eh,065h,00h
-str_InFront:
+str_InFront:                                    ; string "InFront"
         db 049h,06Eh,046h,072h,06Fh,06Eh,074h,00h
-str_InFrontOfTheNet:
+str_InFrontOfTheNet:                            ; string "InFrontOfTheNet"
         db 049h,06Eh,046h,072h,06Fh,06Eh,074h,04Fh,066h,054h,068h,065h,04Eh,065h,074h,00h
-str_OwnZone:
+str_OwnZone:                                    ; string "OwnZone"
         db 04Fh,077h,06Eh,05Ah,06Fh,06Eh,065h,00h
-str_Corner:
+str_Corner:                                     ; string "Corner"
         db 043h,06Fh,072h,06Eh,065h,072h,00h,00h
-str_NeutralZone:
+str_NeutralZone:                                ; string "NeutralZone"
         db 04Eh,065h,075h,074h,072h,061h,06Ch,05Ah,06Fh,06Eh,065h,00h
-str_Slot:
+str_Slot:                                       ; string "Slot"
         db 053h,06Ch,06Fh,074h,00h,00h,00h,00h
-str_Wing:
+str_Wing:                                       ; string "Wing"
         db 057h,069h,06Eh,067h,00h,00h,00h,00h
-str_BehindNet:
+str_BehindNet:                                  ; string "BehindNet"
         db 042h,065h,068h,069h,06Eh,064h,04Eh,065h,074h,00h,00h,00h
-str_BesideNet:
+str_BesideNet:                                  ; string "BesideNet"
         db 042h,065h,073h,069h,064h,065h,04Eh,065h,074h,00h,00h,00h
-str_OffensiveZone:
+str_OffensiveZone:                              ; string "OffensiveZone"
         db 04Fh,066h,066h,065h,06Eh,073h,069h,076h,065h,05Ah,06Fh,06Eh,065h,00h,00h,00h
-str_WideOfNet:
+str_WideOfNet:                                  ; string "WideOfNet"
         db 057h,069h,064h,065h,04Fh,066h,04Eh,065h,074h,00h,00h,00h
-str_Deep:
+str_Deep:                                       ; string "deep"
         db 064h,065h,065h,070h,00h,00h,00h,00h
-str_Right:
+str_Right:                                      ; string "Right"
         db 052h,069h,067h,068h,074h,00h,00h,00h
-str_Left:
+str_Left:                                       ; string "Left"
         db 04Ch,065h,066h,074h,00h,00h,00h,00h
-str_PointBlank:
+str_PointBlank:                                 ; string "PointBlank"
         db 050h,06Fh,069h,06Eh,074h,042h,06Ch,061h,06Eh,06Bh,00h,00h
-str_NetExt:
+str_NetExt:                                     ; "net" extension
         db 06Eh,065h,074h,00h
-str_EndBoards:
+str_EndBoards:                                  ; string "endBoards"
         db 065h,06Eh,064h,042h,06Fh,061h,072h,064h,073h,00h,00h,00h
-str_ERROR:
+str_ERROR:                                      ; string "ERROR"
         db 045h,052h,052h,04Fh,052h,00h,00h,00h
-str_16:
+str_16:                                         ; string "16"; used by LoadSfxBank
         db 031h,036h,00h,00h
-str_8:
+str_8:                                          ; string "8"; used by LoadSfxBank
         db 038h,00h,00h,00h
-str_BKH:
+str_BKH:                                        ; string ".BKH"; used by LoadSfxBank
         db 02Eh,042h,04Bh,048h,00h,00h,00h,00h
-str_BKD:
+str_BKD:                                        ; string ".BKD"; used by LoadSfxBank
         db 02Eh,042h,04Bh,044h,00h,00h,00h,00h
-str_SFX4S:
+str_SFX4S:                                      ; string "SFX4%s"; used by LoadSfxBank
         db 053h,046h,058h,034h,025h,073h,00h,00h
-str_AUDSTREAM:
+str_AUDSTREAM:                                  ; string "AUDSTREAM"; used by OpenAudioStream
         db 041h,055h,044h,053h,054h,052h,045h,041h,04Dh,00h,00h,00h
-str_CROWDCRD:
+str_CROWDCRD:                                   ; string "CROWD.CRD"; used by InitGameAudio
         db 043h,052h,04Fh,057h,044h,02Eh,043h,052h,044h,00h,00h,00h
-str_GAMEDATAAUDPBP3TSF:
+str_GAMEDATAAUDPBP3TSF:                         ; string "GAMEDATA\AUDPBP3.TSF"; used by InitGameAudio,
+                                                ; InitSpeechBanks
         db 047h,041h,04Dh,045h,044h,041h,054h,041h,05Ch,041h,055h,044h,050h,042h,050h,033h
         db 02Eh,054h,053h,046h,00h,00h,00h,00h
-str_MENU:
+str_MENU:                                       ; string "MENU"; used by ChkMenuMusic, StartMusicTrack
         db 04Dh,045h,04Eh,055h,00h,00h,00h,00h
-str_S02dASF:
+str_S02dASF:                                    ; string "%s%02d.ASF"; used by ArenaFileName, MusicFileName
         db 025h,073h,025h,030h,032h,064h,02Eh,041h,053h,046h,00h
-F64_3p14159_PositionSfx:
+F64_3p14159_PositionSfx:                        ; double constant 3.14159; used by PositionSfx
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F64_neg3p14159_PositionSfx:
+F64_neg3p14159_PositionSfx:                     ; double constant -3.14159; used by PositionSfx
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-F64_6p28319_PositionSfx:
+F64_6p28319_PositionSfx:                        ; double constant 6.28319; used by PositionSfx
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_neg6p28319_PositionSfx:
+F64_neg6p28319_PositionSfx:                     ; double constant -6.28319; used by PositionSfx
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-F32_98:
+F32_98:                                         ; float constant 98; used by PositionSfx
         db 00h,00h,0C4h,042h
-F32_42:
+F32_42:                                         ; float constant 42; used by PositionSfx
         db 00h,00h,028h,042h,00h
-str_TEMP:
+str_TEMP:                                       ; string "TEMP"; used by InitSpeechBanks, LoadSpeechBlock,
+                                                ; OpenSpeechBanks
         db 054h,045h,04Dh,050h,00h,00h,00h,00h
-str_SAUDPBP3TSF:
+str_SAUDPBP3TSF:                                ; string "%sAUDPBP3.TSF"; used by OpenSpeechBanks
         db 025h,073h,041h,055h,044h,050h,042h,050h,033h,02Eh,054h,053h,046h,00h,00h,00h
-str_KTSF:
+str_KTSF:                                       ; string "KTSF"; used by InitSpeechBanks, OpenSpeechBanks
         db 04Bh,054h,053h,046h,00h,00h,00h,00h
-str_SAUDPBP2VIV:
+str_SAUDPBP2VIV:                                ; string "%sAUDPBP2.VIV"; used by OpenSpeechBanks
         db 025h,073h,041h,055h,044h,050h,042h,050h,032h,02Eh,056h,049h,056h,00h,00h,00h
-str_CBANK03dDAT:
+str_CBANK03dDAT:                                ; string "CBANK%03d.DAT"; used by OpenSpeechBanks
         db 043h,042h,041h,04Eh,04Bh,025h,030h,033h,064h,02Eh,044h,041h,054h,00h,00h,00h
-str_TEAM04dDAT:
+str_TEAM04dDAT:                                 ; string "TEAM%04d.DAT"; used by LoadTeamSpeech
         db 054h,045h,041h,04Dh,025h,030h,034h,064h,02Eh,044h,041h,054h,00h,00h,00h,00h

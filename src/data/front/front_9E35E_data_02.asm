@@ -4,9 +4,9 @@ bits 32
 section s_16CFF8 progbits alloc noexec write align=1
 extern str_HAVEIT, str_WANTIT
 global TeamSelectSparkleCount, PanelTeamNameShift, PanelTeamBase, ReplayIndexSendBuf, ReplayIndexRecvBuf, TeamSelectArtBase
-TeamSelectSparkleCount:
+TeamSelectSparkleCount:                         ; team select sparkle counter; used by TeamSelectSparkle
         db 00h,00h,00h,00h
-TeamSelectArtBase:
+TeamSelectArtBase:                              ; team select art base; used by TeamSelectScreen
         db 04h,01h,00h,00h,04Ah,00h,00h,00h,07Ah,01h,00h,00h,04Ah,00h,00h,00h
         db 07Dh,01h,00h,00h,05Ch,00h,00h,00h,04h,01h,00h,00h,05Ch,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -43,12 +43,16 @@ TeamSelectArtBase:
         db 035h,02h,00h,00h,047h,01h,00h,00h,09Ch,01h,00h,00h,047h,01h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-PanelTeamNameShift:
+PanelTeamNameShift:                             ; team name shift on the team panels; used by
+                                                ; DrawAwayTeamPanel, DrawHomeTeamPanel
         db 054h,01h,00h,00h,06Ch,01h,00h,00h,082h,01h,00h,00h,099h,01h,00h,00h
         db 0AEh,01h,00h,00h
-PanelTeamBase:
+PanelTeamBase:                                  ; team panel base offset; used by DrawAwayTeamPanel,
+                                                ; DrawHomeTeamPanel
         db 0C4h,01h,00h,00h
-ReplayIndexSendBuf:
+ReplayIndexSendBuf:                             ; replay index block sent over the link; used by
+                                                ; OpenReplayIndex, PickIndexEntryScreen
         dd str_HAVEIT
-ReplayIndexRecvBuf:
+ReplayIndexRecvBuf:                             ; replay index block received over the link; used by
+                                                ; OpenReplayIndex, PickIndexEntryScreen
         dd str_WANTIT

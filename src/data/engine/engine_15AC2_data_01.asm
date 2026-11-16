@@ -27,395 +27,400 @@ global str_Punct_DrawGoalScorerPanel, str_CommaSpace, str_CloseParen, str_NONE, 
 global CamTagNet0, CamTagNet1, str_PLYR0, str_SCORE, str_USER, str_ZAMB, str_MULTI, str_PEN0
 global str_PEN1, str_BNCH0, str_BNCH1, str_CENTR, str_CIRC1, str_CIRC2, str_CIRC3, str_CIRC4
 global str_DOT1, str_DOT2, str_DOT3, str_DOT4
-F32_0p5:
+F32_0p5:                                        ; float constant 0.5; used by DrawPanelArtScaled
         db 00h,00h,00h,03Fh
-F32_65536:
+F32_65536:                                      ; float constant 65536; used by DrawPanelArtScaled
         db 00h,00h,080h,047h
-str_2d02d:
+str_2d02d:                                      ; string "%2d:%02d"; used by DrawGameClock,
+                                                ; DrawPanelPlayerCard, DrawPowerPlayClock
         db 025h,032h,064h,03Ah,025h,030h,032h,064h,00h
-str_DXD:
+str_DXD:                                        ; string "%d x %d "; used by DrawVideoModePanel
         db 025h,064h,020h,078h,020h,025h,064h,020h,00h
-str_Doubled:
+str_Doubled:                                    ; string "Doubled"; used by DrawVideoModePanel
         db 044h,06Fh,075h,062h,06Ch,065h,064h,00h
-str_Interlaced:
+str_Interlaced:                                 ; string "Interlaced"; used by DrawVideoModePanel
         db 049h,06Eh,074h,065h,072h,06Ch,061h,063h,065h,064h,00h
-str_Normal:
+str_Normal:                                     ; string "Normal"; used by DrawVideoModePanel
         db 04Eh,06Fh,072h,06Dh,061h,06Ch,00h
-str_SDSS:
+str_SDSS:                                       ; string "%s - #%d %s %s"; used by DrawGoalScorerPanel,
+                                                ; DrawPenaltyPanel
         db 025h,073h,020h,02Dh,020h,023h,025h,064h,020h,025h,073h,020h,025h,073h,00h
-str_S_DrawPenaltyPanel:
+str_S_DrawPenaltyPanel:                         ; string "%s"; used by DrawInjuryPanel, DrawPenaltyPanel,
+                                                ; DrawPenaltyShotPanel ...
         db 025h,073h,00h
-str_SS:
+str_SS:                                         ; string "%s %s"; used by DrawPenaltyPanel, DrawPeriodPanel
         db 025h,073h,020h,025h,073h,00h
-str_SSS:
+str_SSS:                                        ; string "%s %s %s"; used by DrawPenaltyPanel
         db 025h,073h,020h,025h,073h,020h,025h,073h,00h
-str_DSS:
+str_DSS:                                        ; string "#%d %s %s"; used by DrawInjuryPanel,
+                                                ; DrawPenaltyShotPanel
         db 023h,025h,064h,020h,025h,073h,020h,025h,073h,00h
-str_SDSS2:
+str_SDSS2:                                      ; string "%s #%d %s %s"; used by DrawPenaltyShotPanel
         db 025h,073h,020h,023h,025h,064h,020h,025h,073h,020h,025h,073h,00h
-str_SSD:
+str_SSD:                                        ; string "%s %s %d%%"; used by DrawSpecialTeamsPanel
         db 025h,073h,020h,025h,073h,020h,025h,064h,025h,025h,00h
-str_SSDD:
+str_SSDD:                                       ; string "%s %s %d/%d"; used by DrawSpecialTeamsPanel
         db 025h,073h,020h,025h,073h,020h,025h,064h,02Fh,025h,064h,00h
-str_SD:
+str_SD:                                         ; string "%s %d"; used by DrawPeriodPanel
         db 025h,073h,020h,020h,020h,025h,064h,00h
-str_SDCS:
+str_SDCS:                                       ; string "%s - #%d %c. %s"; used by DrawGoalScorerPanel
         db 025h,073h,020h,02Dh,020h,023h,025h,064h,020h,025h,063h,02Eh,020h,025h,073h,00h
-str_Punct:
+str_Punct:                                      ; string " - "; used by DrawGoalScorerPanel
         db 020h,02Dh,020h,00h
-str_Punct_DrawGoalScorerPanel:
+str_Punct_DrawGoalScorerPanel:                  ; string "("; used by DrawGoalScorerPanel
         db 028h,00h
-str_CommaSpace:
+str_CommaSpace:                                 ; ", " separator; used by DrawGoalScorerPanel
         db 02Ch,020h,00h
-str_CloseParen:
+str_CloseParen:                                 ; ")"; used by DrawGoalScorerPanel
         db 029h,00h
-str_2d01d:
+str_2d01d:                                      ; string "%2d.%01d"; used by DrawGameClock
         db 025h,032h,064h,02Eh,025h,030h,031h,064h,00h
-str_SD2:
+str_SD2:                                        ; string "%s %d"; used by AwayStatPanel, HomeStatPanel,
+                                                ; UpdateScoreboardPanel
         db 025h,073h,020h,025h,064h,00h,00h,00h,00h
-str_NONE:
+str_NONE:                                       ; string "NONE"
         db 04Eh,04Fh,04Eh,045h,00h,00h,00h,00h
-str_CHASE:
+str_CHASE:                                      ; string "CHASE"; used by SetCameraView
         db 043h,048h,041h,053h,045h,00h,00h,00h
-str_OFFST:
+str_OFFST:                                      ; string "OFFST"
         db 04Fh,046h,046h,053h,054h,00h,00h,00h
-str_RELTV:
+str_RELTV:                                      ; string "RELTV"
         db 052h,045h,04Ch,054h,056h,00h,00h,00h
-CamTagNone:
+CamTagNone:                                     ; "NONE" camera tag
         db 04Eh,04Fh,04Eh,045h,020h,00h,00h,00h
-str_PUCK:
+str_PUCK:                                       ; string "PUCK "
         db 050h,055h,043h,04Bh,020h,00h,00h,00h
-CamTagNet0:
+CamTagNet0:                                     ; "NET0" camera tag (first net)
         db 04Eh,045h,054h,030h,020h,00h,00h,00h
-CamTagNet1:
+CamTagNet1:                                     ; "NET1" camera tag (second net)
         db 04Eh,045h,054h,031h,020h,00h,00h,00h
-str_PLYR0:
+str_PLYR0:                                      ; string "PLYR0"
         db 050h,04Ch,059h,052h,030h,00h,00h,00h
-str_SCORE:
+str_SCORE:                                      ; string "SCORE"
         db 053h,043h,04Fh,052h,045h,00h,00h,00h
-str_USER:
+str_USER:                                       ; string "USER "
         db 055h,053h,045h,052h,020h,00h,00h,00h
-str_ZAMB:
+str_ZAMB:                                       ; string "ZAMB "
         db 05Ah,041h,04Dh,042h,020h,00h,00h,00h
-str_MULTI:
+str_MULTI:                                      ; string "MULTI"
         db 04Dh,055h,04Ch,054h,049h,00h,00h,00h
-str_PEN0:
+str_PEN0:                                       ; string "PEN0 "
         db 050h,045h,04Eh,030h,020h,00h,00h,00h
-str_PEN1:
+str_PEN1:                                       ; string "PEN1 "
         db 050h,045h,04Eh,031h,020h,00h,00h,00h
-str_BNCH0:
+str_BNCH0:                                      ; string "BNCH0"
         db 042h,04Eh,043h,048h,030h,00h,00h,00h
-str_BNCH1:
+str_BNCH1:                                      ; string "BNCH1"
         db 042h,04Eh,043h,048h,031h,00h,00h,00h
-str_CENTR:
+str_CENTR:                                      ; string "CENTR"
         db 043h,045h,04Eh,054h,052h,00h,00h,00h
-str_CIRC1:
+str_CIRC1:                                      ; string "CIRC1"
         db 043h,049h,052h,043h,031h,00h,00h,00h
-str_CIRC2:
+str_CIRC2:                                      ; string "CIRC2"
         db 043h,049h,052h,043h,032h,00h,00h,00h
-str_CIRC3:
+str_CIRC3:                                      ; string "CIRC3"
         db 043h,049h,052h,043h,033h,00h,00h,00h
-str_CIRC4:
+str_CIRC4:                                      ; string "CIRC4"
         db 043h,049h,052h,043h,034h,00h,00h,00h
-str_DOT1:
+str_DOT1:                                       ; string "DOT1 "
         db 044h,04Fh,054h,031h,020h,00h,00h,00h
-str_DOT2:
+str_DOT2:                                       ; string "DOT2 "
         db 044h,04Fh,054h,032h,020h,00h,00h,00h
-str_DOT3:
+str_DOT3:                                       ; string "DOT3 "
         db 044h,04Fh,054h,033h,020h,00h,00h,00h
-str_DOT4:
+str_DOT4:                                       ; string "DOT4 "
         db 044h,04Fh,054h,034h,020h,00h
-F32_100:
+F32_100:                                        ; float constant 100; used by GetCameraTarget
         db 00h,00h,0C8h,042h
-F32_2000:
+F32_2000:                                       ; float constant 2000; used by GetCameraTarget
         db 00h,00h,0FAh,044h
-F32_500:
+F32_500:                                        ; float constant 500; used by GetCameraTarget
         db 00h,00h,0FAh,043h
-F32_neg500:
+F32_neg500:                                     ; float constant -500; used by GetCameraTarget
         db 00h,00h,0FAh,0C3h
-F64_0p000333333:
+F64_0p000333333:                                ; double constant 0.000333333; used by GetCameraTarget
         db 0A5h,0E2h,0ECh,0C3h,067h,0D8h,035h,03Fh
-F32_neg1800:
+F32_neg1800:                                    ; float constant -1800; used by UpdateCameraView
         db 00h,00h,0E1h,0C4h
-F32_neg4000:
+F32_neg4000:                                    ; float constant -4000; used by UpdateCameraView
         db 00h,00h,07Ah,0C5h
-F64_1p2_UpdateCameraView:
+F64_1p2_UpdateCameraView:                       ; double constant 1.2; used by UpdateCameraView
         db 033h,033h,033h,033h,033h,033h,0F3h,03Fh
-F64_neg0p000454545:
+F64_neg0p000454545:                             ; double constant -0.000454545; used by UpdateCameraView
         db 0CAh,01Dh,0A0h,0DCh,01h,0CAh,03Dh,0BFh
-F32_neg1000:
+F32_neg1000:                                    ; float constant -1000; used by UpdateCameraView
         db 00h,00h,07Ah,0C4h
-F64_neg0p000357143:
+F64_neg0p000357143:                             ; double constant -0.000357143; used by UpdateCameraView
         db 0B1h,0A9h,034h,0E4h,0DCh,067h,037h,0BFh
-F32_neg500_UpdateCameraView:
+F32_neg500_UpdateCameraView:                    ; float constant -500; used by UpdateCameraView
         db 00h,00h,0FAh,0C3h
-F32_neg2000:
+F32_neg2000:                                    ; float constant -2000; used by UpdateCameraView
         db 00h,00h,0FAh,0C4h
-F32_neg0p000147059:
+F32_neg0p000147059:                             ; float constant -0.000147059; used by UpdateCameraView
         db 0CDh,033h,01Ah,0B9h
-F32_0p000232558:
+F32_0p000232558:                                ; float constant 0.000232558; used by UpdateCameraView
         db 0DAh,0DAh,073h,039h
-F32_0p000357143:
+F32_0p000357143:                                ; float constant 0.000357143; used by UpdateCameraView
         db 0E7h,03Eh,0BBh,039h
-F32_neg0p000188679:
+F32_neg0p000188679:                             ; float constant -0.000188679; used by UpdateCameraView
         db 033h,0D8h,045h,0B9h
-F32_20:
+F32_20:                                         ; float constant 20; used by UpdateCameraView
         db 00h,00h,0A0h,041h
-F32_10_UpdateCameraView:
+F32_10_UpdateCameraView:                        ; float constant 10; used by UpdateCameraView
         db 00h,00h,020h,041h
-F32_neg10:
+F32_neg10:                                      ; float constant -10; used by UpdateCameraView
         db 00h,00h,020h,0C1h
-F64_neg99p9:
+F64_neg99p9:                                    ; double constant -99.9; used by UpdateCameraView
         db 09Ah,099h,099h,099h,099h,0F9h,058h,0C0h
-F64_0p785398:
+F64_0p785398:                                   ; double constant 0.785398; used by UpdateCameraView
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-F32_neg1050:
+F32_neg1050:                                    ; float constant -1050; used by UpdateCameraZoom
         db 00h,040h,083h,0C4h
-F32_neg1000_UpdateCameraZoom:
+F32_neg1000_UpdateCameraZoom:                   ; float constant -1000; used by UpdateCameraZoom
         db 00h,00h,07Ah,0C4h
-F64_0p0004:
+F64_0p0004:                                     ; double constant 0.0004; used by UpdateCameraZoom
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,03Ah,03Fh
-F64_3:
+F64_3:                                          ; double constant 3; used by UpdateCameraZoom
         db 00h,00h,00h,00h,00h,00h,08h,040h
-F64_10:
+F64_10:                                         ; double constant 10; used by UpdateCameraZoom
         db 00h,00h,00h,00h,00h,00h,024h,040h
-F64_8:
+F64_8:                                          ; double constant 8; used by UpdateCameraZoom
         db 00h,00h,00h,00h,00h,00h,020h,040h
-F64_neg4:
+F64_neg4:                                       ; double constant -4; used by UpdateCameraZoom
         db 00h,00h,00h,00h,00h,00h,010h,0C0h
-F64_neg0p7536:
+F64_neg0p7536:                                  ; double constant -0.7536; used by UpdateCameraZoom
         db 0CCh,07Fh,048h,0BFh,07Dh,01Dh,0E8h,0BFh
-F64_1371p5:
+F64_1371p5:                                     ; double constant 1371.5; used by UpdateCameraZoom
         db 00h,00h,00h,00h,00h,06Eh,095h,040h
-F32_neg4600:
+F32_neg4600:                                    ; float constant -4600; used by UpdateCameraZoom
         db 00h,0C0h,08Fh,0C5h
-F64_4:
+F64_4:                                          ; double constant 4; used by UpdateCameraZoom
         db 00h,00h,00h,00h,00h,00h,010h,040h
-F64_0p7536:
+F64_0p7536:                                     ; double constant 0.7536; used by UpdateCameraZoom
         db 0CCh,07Fh,048h,0BFh,07Dh,01Dh,0E8h,03Fh
-F32_neg4100:
+F32_neg4100:                                    ; float constant -4100; used by UpdateCameraZoom
         db 00h,020h,080h,0C5h
-F32_1340:
+F32_1340:                                       ; float constant 1340; used by UpdateCameraZoom
         db 00h,080h,0A7h,044h
-F32_neg1340:
+F32_neg1340:                                    ; float constant -1340; used by UpdateCameraZoom
         db 00h,080h,0A7h,0C4h
-F32_4100:
+F32_4100:                                       ; float constant 4100; used by UpdateCameraZoom
         db 00h,020h,080h,045h
-F32_2040:
+F32_2040:                                       ; float constant 2040; used by UpdateCameraZoom
         db 00h,00h,0FFh,044h
-F32_4800:
+F32_4800:                                       ; float constant 4800; used by UpdateCameraZoom
         db 00h,00h,096h,045h
-F32_700:
+F32_700:                                        ; float constant 700; used by UpdateCameraZoom
         db 00h,00h,02Fh,044h
-F32_neg700:
+F32_neg700:                                     ; float constant -700; used by UpdateCameraZoom
         db 00h,00h,02Fh,0C4h
-F64_0p38:
+F64_0p38:                                       ; double constant 0.38; used by UpdateCameraZoom
         db 052h,0B8h,01Eh,085h,0EBh,051h,0D8h,03Fh
-F32_3600:
+F32_3600:                                       ; float constant 3600; used by UpdateCameraZoom
         db 00h,00h,061h,045h
-F32_neg3600:
+F32_neg3600:                                    ; float constant -3600; used by UpdateCameraZoom
         db 00h,00h,061h,0C5h
-F32_400:
+F32_400:                                        ; float constant 400; used by UpdateCameraZoom
         db 00h,00h,0C8h,043h
-F64_2p5:
+F64_2p5:                                        ; double constant 2.5; used by UpdateCameraZoom
         db 00h,00h,00h,00h,00h,00h,04h,040h
-F32_4000:
+F32_4000:                                       ; float constant 4000; used by UpdateCameraZoom
         db 00h,00h,07Ah,045h
-F32_neg4000_UpdateCameraZoom:
+F32_neg4000_UpdateCameraZoom:                   ; float constant -4000; used by UpdateCameraZoom
         db 00h,00h,07Ah,0C5h
-F64_0p45:
+F64_0p45:                                       ; double constant 0.45; used by UpdateCameraZoom
         db 0CDh,0CCh,0CCh,0CCh,0CCh,0CCh,0DCh,03Fh
-F64_0p85:
+F64_0p85:                                       ; double constant 0.85; used by UpdateCameraTrack
         db 033h,033h,033h,033h,033h,033h,0EBh,03Fh
-F64_neg0p85:
+F64_neg0p85:                                    ; double constant -0.85; used by UpdateCameraTrack
         db 033h,033h,033h,033h,033h,033h,0EBh,0BFh
-F64_6p66667:
+F64_6p66667:                                    ; double constant 6.66667; used by UpdateCameraTrack
         db 0AAh,0AAh,0AAh,0AAh,0AAh,0AAh,01Ah,040h
-F64_neg0p5:
+F64_neg0p5:                                     ; double constant -0.5; used by UpdateCameraTrack
         db 00h,00h,00h,00h,00h,00h,0E0h,0BFh
-F64_3p14159:
+F64_3p14159:                                    ; double constant 3.14159; used by EaseAngle
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F64_neg6p28319:
+F64_neg6p28319:                                 ; double constant -6.28319; used by EaseAngle
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-F64_neg3p14159:
+F64_neg3p14159:                                 ; double constant -3.14159; used by EaseAngle
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-F64_6p28319:
+F64_6p28319:                                    ; double constant 6.28319; used by EaseAngle
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h,00h,00h
-str_THRILLCAMTm:
+str_THRILLCAMTm:                                ; string "THRILL-CAM (tm)"; used by SetCameraView
         db 054h,048h,052h,049h,04Ch,04Ch,02Dh,043h,041h,04Dh,020h,028h,074h,06Dh,029h,00h
-str_USERCHASE:
+str_USERCHASE:                                  ; string "USER CHASE"; used by SetCameraView
         db 055h,053h,045h,052h,020h,043h,048h,041h,053h,045h,00h
-F32_neg1:
+F32_neg1:                                       ; float constant -1; used by DampCameraMotion
         db 00h,00h,080h,0BFh
-F64_3p14159_DampCameraMotion:
+F64_3p14159_DampCameraMotion:                   ; double constant 3.14159; used by DampCameraMotion
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F64_neg3p14159_DampCameraMotion:
+F64_neg3p14159_DampCameraMotion:                ; double constant -3.14159; used by DampCameraMotion
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-F32_2:
+F32_2:                                          ; float constant 2; used by ToggleCameraFollow
         db 00h,00h,00h,040h
-F32_20_DrawCameraDebugMarks:
+F32_20_DrawCameraDebugMarks:                    ; float constant 20; used by DrawCameraDebugMarks
         db 00h,00h,0A0h,041h
-F32_neg20:
+F32_neg20:                                      ; float constant -20; used by DrawCameraDebugMarks
         db 00h,00h,0A0h,0C1h
-F32_2040_PenaltyCameraDistance:
+F32_2040_PenaltyCameraDistance:                 ; float constant 2040; used by PenaltyCameraDistance
         db 00h,00h,0FFh,044h
-F32_2000_PenaltySceneStep:
+F32_2000_PenaltySceneStep:                      ; float constant 2000; used by PenaltySceneStep
         db 00h,00h,0FAh,044h
-F64_30:
+F64_30:                                         ; double constant 30; used by OpeningCameraStep
         db 00h,00h,00h,00h,00h,00h,03Eh,040h
-F64_0p01_OpeningCameraStep:
+F64_0p01_OpeningCameraStep:                     ; double constant 0.01; used by OpeningCameraStep
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,084h,03Fh
-F64_3p14159_OpeningCameraStep:
+F64_3p14159_OpeningCameraStep:                  ; double constant 3.14159; used by OpeningCameraStep
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F64_neg3p14159_OpeningCameraStep:
+F64_neg3p14159_OpeningCameraStep:               ; double constant -3.14159; used by OpeningCameraStep
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-F64_6p28319_OpeningCameraStep:
+F64_6p28319_OpeningCameraStep:                  ; double constant 6.28319; used by OpeningCameraStep
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_neg6p28319_OpeningCameraStep:
+F64_neg6p28319_OpeningCameraStep:               ; double constant -6.28319; used by OpeningCameraStep
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h,00h
-str_IntroD3cp:
+str_IntroD3cp:                                  ; string "intro%d.3cp"; used by LoadOpeningCamera
         db 069h,06Eh,074h,072h,06Fh,025h,064h,02Eh,033h,063h,070h,00h
-str_ArenaViv:
+str_ArenaViv:                                   ; string "arena.viv"; used by LoadOpeningCamera
         db 061h,072h,065h,06Eh,061h,02Eh,076h,069h,076h,00h
-F32_neg1000_FaceoffCloseupScene:
+F32_neg1000_FaceoffCloseupScene:                ; float constant -1000; used by FaceoffCloseupScene
         db 00h,00h,07Ah,0C4h
-F32_1500:
+F32_1500:                                       ; float constant 1500; used by FaceoffCloseupScene
         db 00h,080h,0BBh,044h
-F32_1000:
+F32_1000:                                       ; float constant 1000; used by FaceoffCloseupScene
         db 00h,00h,07Ah,044h
-F32_neg1500:
+F32_neg1500:                                    ; float constant -1500; used by FaceoffCloseupScene
         db 00h,080h,0BBh,0C4h
-F32_neg2000_FaceoffCameraScene2:
+F32_neg2000_FaceoffCameraScene2:                ; float constant -2000; used by FaceoffCameraScene2
         db 00h,00h,0FAh,0C4h
-F32_neg400:
+F32_neg400:                                     ; float constant -400; used by MenuOrbitStep
         db 00h,00h,0C8h,0C3h
-F32_neg1000_MenuOrbitScene:
+F32_neg1000_MenuOrbitScene:                     ; float constant -1000; used by MenuOrbitScene
         db 00h,00h,07Ah,0C4h
-F32_neg700_MenuOrbitScene:
+F32_neg700_MenuOrbitScene:                      ; float constant -700; used by MenuOrbitScene
         db 00h,00h,02Fh,0C4h
-F32_neg200:
+F32_neg200:                                     ; float constant -200; used by MenuOrbitScene
         db 00h,00h,048h,0C3h
-F32_neg300:
+F32_neg300:                                     ; float constant -300; used by MenuOrbitScene
         db 00h,00h,096h,0C3h
-F32_neg750:
+F32_neg750:                                     ; float constant -750; used by PenaltyCallSceneStep
         db 00h,080h,03Bh,0C4h
-F32_750:
+F32_750:                                        ; float constant 750; used by PenaltyCallSceneStep
         db 00h,080h,03Bh,044h,00h,00h
-str_DDD:
+str_DDD:                                        ; string "(%d,%d,%d)"; used by DrawCameraDebug
         db 028h,025h,064h,02Ch,025h,064h,02Ch,025h,064h,029h,00h
-F64_3_ReplayCamDrag:
+F64_3_ReplayCamDrag:                            ; double constant 3; used by ReplayCamDrag
         db 00h,00h,00h,00h,00h,00h,08h,040h
-F64_0p714286:
+F64_0p714286:                                   ; double constant 0.714286; used by ReplayCamDrag
         db 0B7h,06Dh,0DBh,0B6h,06Dh,0DBh,0E6h,03Fh
-F32_neg2000_ReplayCamDrag:
+F32_neg2000_ReplayCamDrag:                      ; float constant -2000; used by ReplayCamDrag
         db 00h,00h,0FAh,0C4h
-F64_0p2:
+F64_0p2:                                        ; double constant 0.2; used by ReplayCamDrag
         db 09Ah,099h,099h,099h,099h,099h,0C9h,03Fh
-F32_neg4800:
+F32_neg4800:                                    ; float constant -4800; used by ReplayCamDrag
         db 00h,00h,096h,0C5h
-F32_neg50:
+F32_neg50:                                      ; float constant -50; used by ReplayCamDrag
         db 00h,00h,048h,0C2h
-F32_50:
+F32_50:                                         ; float constant 50; used by ReplayCamDrag
         db 00h,00h,048h,042h
-F64_100:
+F64_100:                                        ; double constant 100; used by ReplayCamDrag
         db 00h,00h,00h,00h,00h,00h,059h,040h
-F32_0p001:
+F32_0p001:                                      ; float constant 0.001; used by ReplayCamOrbit
         db 06Fh,012h,083h,03Ah
-F64_1p05:
+F64_1p05:                                       ; double constant 1.05; used by ReplayCamOrbit
         db 0CDh,0CCh,0CCh,0CCh,0CCh,0CCh,0F0h,03Fh
-F64_0p1:
+F64_0p1:                                        ; double constant 0.1; used by ReplayCamOrbit
         db 09Ah,099h,099h,099h,099h,099h,0B9h,03Fh
-F32_80:
+F32_80:                                         ; float constant 80; used by ReplayCamOrbit
         db 00h,00h,0A0h,042h
-F32_6:
+F32_6:                                          ; float constant 6; used by ReplayCamOrbit
         db 00h,00h,0C0h,040h
-F64_0p01_ReplayCamTurn:
+F64_0p01_ReplayCamTurn:                         ; double constant 0.01; used by ReplayCamTurn
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,084h,03Fh
-F64_3p14159_ReplayCamTurn:
+F64_3p14159_ReplayCamTurn:                      ; double constant 3.14159; used by ReplayCamTurn
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F64_neg3p14159_ReplayCamTurn:
+F64_neg3p14159_ReplayCamTurn:                   ; double constant -3.14159; used by ReplayCamTurn
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-F64_6p28319_ReplayCamTurn:
+F64_6p28319_ReplayCamTurn:                      ; double constant 6.28319; used by ReplayCamTurn
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_neg6p28319_ReplayCamTurn:
+F64_neg6p28319_ReplayCamTurn:                   ; double constant -6.28319; used by ReplayCamTurn
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-F32_neg2000_ReplayCamMove:
+F32_neg2000_ReplayCamMove:                      ; float constant -2000; used by ReplayCamMove
         db 00h,00h,0FAh,0C4h
-F32_neg4800_ReplayCamMove:
+F32_neg4800_ReplayCamMove:                      ; float constant -4800; used by ReplayCamMove
         db 00h,00h,096h,0C5h,00h
-F64_576:
+F64_576:                                        ; double constant 576; used by CrowdForPuckZone
         db 00h,00h,00h,00h,00h,00h,082h,040h
-F32_4272:
+F32_4272:                                       ; float constant 4272; used by CanReachPuck
         db 00h,080h,085h,045h
-F32_1392:
+F32_1392:                                       ; float constant 1392; used by CanReachPuck
         db 00h,00h,0AEh,044h
-F32_neg4272:
+F32_neg4272:                                    ; float constant -4272; used by CanReachPuck
         db 00h,080h,085h,0C5h
-F32_neg1392:
+F32_neg1392:                                    ; float constant -1392; used by CanReachPuck
         db 00h,00h,0AEh,0C4h
-F32_10_CanReachPuck:
+F32_10_CanReachPuck:                            ; float constant 10; used by CanReachPuck
         db 00h,00h,020h,041h
-F64_768:
+F64_768:                                        ; double constant 768; used by CanReachPuck
         db 00h,00h,00h,00h,00h,00h,088h,040h
-F64_0p159155_ChkPokeOrCheck:
+F64_0p159155_ChkPokeOrCheck:                    ; double constant 0.159155; used by ChkPokeOrCheck
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-F64_65536_ChkPokeOrCheck:
+F64_65536_ChkPokeOrCheck:                       ; double constant 65536; used by ChkPokeOrCheck
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-F32_24:
+F32_24:                                         ; float constant 24; used by ChkPokeOrCheck
         db 00h,00h,0C0h,041h
-F64_0p392699_ChkPokeOrCheck:
+F64_0p392699_ChkPokeOrCheck:                    ; double constant 0.392699; used by ChkPokeOrCheck
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-F64_3p14159_GoaliePosTarget:
+F64_3p14159_GoaliePosTarget:                    ; double constant 3.14159; used by GoaliePosTarget
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F64_6p28319_GoaliePosTarget:
+F64_6p28319_GoaliePosTarget:                    ; double constant 6.28319; used by GoaliePosTarget
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_neg6p28319_GoaliePosTarget:
+F64_neg6p28319_GoaliePosTarget:                 ; double constant -6.28319; used by GoaliePosTarget
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-F64_neg3p14159_GoaliePosTarget:
+F64_neg3p14159_GoaliePosTarget:                 ; double constant -3.14159; used by GoaliePosTarget
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-F64_0p392699_GoaliePosTarget:
+F64_0p392699_GoaliePosTarget:                   ; double constant 0.392699; used by GoaliePosTarget
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-F64_neg0p392699:
+F64_neg0p392699:                                ; double constant -0.392699; used by GoaliePosTarget
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,0BFh
-F64_0p159155_GoaliePosTarget:
+F64_0p159155_GoaliePosTarget:                   ; double constant 0.159155; used by GoaliePosTarget
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-F64_65536_GoaliePosTarget:
+F64_65536_GoaliePosTarget:                      ; double constant 65536; used by GoaliePosTarget
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-F64_0p25:
+F64_0p25:                                       ; double constant 0.25; used by Endfaceoff
         db 00h,00h,00h,00h,00h,00h,0D0h,03Fh
-F64_3p14159_Endfaceoff:
+F64_3p14159_Endfaceoff:                         ; double constant 3.14159; used by Endfaceoff
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F32_neg3984:
+F32_neg3984:                                    ; float constant -3984; used by InCrease
         db 00h,00h,079h,0C5h
-F32_neg4272_InCrease:
+F32_neg4272_InCrease:                           ; float constant -4272; used by InCrease
         db 00h,080h,085h,0C5h
-F64_288:
+F64_288:                                        ; double constant 288; used by InCrease
         db 00h,00h,00h,00h,00h,00h,072h,040h
-F32_4272_InCrease:
+F32_4272_InCrease:                              ; float constant 4272; used by InCrease
         db 00h,080h,085h,045h
-F32_1272:
+F32_1272:                                       ; float constant 1272; used by KeepInsideRink
         db 00h,00h,09Fh,044h
-F32_4032:
+F32_4032:                                       ; float constant 4032; used by KeepInsideRink
         db 00h,00h,07Ch,045h
-F32_768:
+F32_768:                                        ; float constant 768; used by KeepInsideRink
         db 00h,00h,040h,044h
-F32_192:
+F32_192:                                        ; float constant 192; used by assextra4
         db 00h,00h,040h,043h
-F32_48:
+F32_48:                                         ; float constant 48; used by asstofaceoff
         db 00h,00h,040h,042h
-F64_480:
+F64_480:                                        ; double constant 480; used by assonetimer
         db 00h,00h,00h,00h,00h,00h,07Eh,040h
-F32_0p166667:
+F32_0p166667:                                   ; float constant 0.166667; used by CanReceivePass
         db 0ABh,0AAh,02Ah,03Eh
-F64_3p14159_CanReceivePass:
+F64_3p14159_CanReceivePass:                     ; double constant 3.14159; used by CanReceivePass
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F64_0p785398_CanReceivePass:
+F64_0p785398_CanReceivePass:                    ; double constant 0.785398; used by CanReceivePass
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-F64_0p785398_MakePass:
+F64_0p785398_MakePass:                          ; double constant 0.785398; used by MakePass
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-F64_1080:
+F64_1080:                                       ; double constant 1080; used by RimPuck
         db 00h,00h,00h,00h,00h,0E0h,090h,040h
-F64_4272:
+F64_4272:                                       ; double constant 4272; used by RimPuck
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-F64_576_RimPuck:
+F64_576_RimPuck:                                ; double constant 576; used by RimPuck
         db 00h,00h,00h,00h,00h,00h,082h,040h

@@ -441,7 +441,7 @@ TeamSelectSparkle:
         pop ecx
         pop ebx
         ret
-TeamSelectScreenJumpTable:
+TeamSelectScreenJumpTable:                      ; jump table for the switch cases of TeamSelectScreen
         dd TeamSelectScreen_7BE
         dd TeamSelectScreen_7CF
         dd TeamSelectScreen_7E0
@@ -1284,16 +1284,16 @@ TeamSelectScreen_B61:
         pop ebp
         jmp near DrawHomeTeamPanel_1EC
         db 00h,00h,01h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,01h,00h
-str_Punct_PickIndexEntry:
+str_Punct_PickIndexEntry:                       ; string " "; used by PickIndexEntry
         db 0Ah,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,0Ah,00h,00h,00h
         db 042h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,042h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh
-PickIndexTopBar:
+PickIndexTopBar:                                ; used by PickIndexEntry
         db 0F6h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh
         db 0BEh,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0BEh,00h,00h,00h,0Ah,00h,00h,00h
-PickIndexLeftBar:
+PickIndexLeftBar:                               ; used by PickIndexEntry
         db 042h,0FFh,0FFh,0FFh,0FBh,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,0FBh,0FFh,0FFh,0FFh
         db 0Ah,00h,00h,00h,0Fh,00h,00h,00h,042h,0FFh,0FFh,0FFh,0Fh,00h,00h,00h
-PickIndexRightBar:
+PickIndexRightBar:                              ; used by PickIndexEntry
         db 0F6h,0FFh,0FFh,0FFh,0FBh,0FFh,0FFh,0FFh,0BEh,00h,00h,00h,0FBh,0FFh,0FFh,0FFh
         db 0BEh,00h,00h,00h,0Fh,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0Fh,00h,00h,00h
 ;-----------------------------------------------------------------------------
@@ -1335,7 +1335,7 @@ IndexScreenSound:
         pop ecx
         pop ebx
         ret
-PickIndexEntryScreenJumpTable:
+PickIndexEntryScreenJumpTable:                  ; jump table for the switch cases of PickIndexEntryScreen
         dd PickIndexEntryScreen_393
         dd PickIndexEntryScreen_3A4
         dd PickIndexEntryScreen_3B5

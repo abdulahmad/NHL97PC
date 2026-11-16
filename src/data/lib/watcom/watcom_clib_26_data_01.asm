@@ -6,30 +6,36 @@ extern NoFloatSupport
 global ___env_mask, _environ, HotkeyScanTable, HotkeyModTable, DosErrnoTable, _umaskval, __NHandles, __io_mode
 global SavedBreakOffset, BreakCallFunc, HotkeyNesting, HotkeyFuncTable, ShadowFillFunc, TitleBandFunc, __nheapbeg, __amblksiz
 global __EFG_printf, __EFG_scanf, __init_mode, SavedBreakSelector, BreakDataSelector
-DosErrnoTable:
+DosErrnoTable:                                  ; DOS error to errno table; used by __set_errno_dos_
         db 00h,00h,00h,00h,09h,01h,01h,0Bh,06h,04h,05h,05h,05h,02h,03h,0FFh
         db 0FFh,07h,08h,06h,08h,01h,0FFh
-_umaskval:
+_umaskval:                                      ; file creation mask; used by sopen_
         db 00h,00h,00h,00h
-__NHandles:
+__NHandles:                                     ; number of file handles; used by __IOMode_, close_
         db 014h,00h,00h,00h
-__init_mode:
+__init_mode:                                    ; initial file handle modes
         db 01h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h,03h,00h,00h,00h
         db 02h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-__io_mode:
+__io_mode:                                      ; file handle mode table pointer; used by __IOMode_,
+                                                ; __SetIOMode_
         dd __init_mode
-SavedBreakOffset:
+SavedBreakOffset:                               ; previous ctrl-break handler offset; used by
+                                                ; InstallBreakHandler, RemoveBreakHandler
         db 00h,00h,00h,00h
-SavedBreakSelector:
+SavedBreakSelector:                             ; previous ctrl-break handler selector; used by
+                                                ; InstallBreakHandler, RemoveBreakHandler
         db 00h,00h
-BreakCallFunc:
+BreakCallFunc:                                  ; ctrl-break chain routine; used by ClearNumLock,
+                                                ; InstallBreakHandler
         db 00h,00h,00h,00h
-BreakDataSelector:
+BreakDataSelector:                              ; data selector for the ctrl-break handler; used by
+                                                ; InstallBreakHandler
         db 00h,00h
-HotkeyScanTable:
+HotkeyScanTable:                                ; scan code per registered hotkey; used by DispatchHotkey,
+                                                ; RegisterHotkey
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -38,7 +44,8 @@ HotkeyScanTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-HotkeyModTable:
+HotkeyModTable:                                 ; shift state per registered hotkey; used by DispatchHotkey,
+                                                ; RegisterHotkey
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -48,9 +55,10 @@ HotkeyModTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h
-HotkeyNesting:
+HotkeyNesting:                                  ; hotkey dispatch nesting count; used by DispatchHotkey
         db 01h,00h,00h,00h
-HotkeyFuncTable:
+HotkeyFuncTable:                                ; routine per registered hotkey; used by DispatchHotkey,
+                                                ; RegisterHotkey
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -68,19 +76,23 @@ HotkeyFuncTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-ShadowFillFunc:
+ShadowFillFunc:                                 ; shadow fill routine; used by DrawTitleBand,
+                                                ; FillBandRowsPlainJumpTable, FillShadowRect
         db 00h,00h,00h,00h
-TitleBandFunc:
+TitleBandFunc:                                  ; title band draw routine; used by DrawTitleBand,
+                                                ; FillBandRowsPlainJumpTable, FillShadowRect
         db 00h,00h,00h,00h
-_environ:
+_environ:                                       ; used by __setenvp_, getenv_
         db 00h,00h,00h,00h
-___env_mask:
+___env_mask:                                    ; used by __setenvp_
         db 00h,00h,00h,00h
-__nheapbeg:
+__nheapbeg:                                     ; near heap start; used by __CreateNewNHeap_, __ExpandDGROUP_
         db 01h,00h,00h,00h
-__amblksiz:
+__amblksiz:                                     ; heap growth amount; used by __AdjustAmount_, __CommonInit_
         db 010h,00h,00h,00h
-__EFG_printf:
+__EFG_printf:                                   ; float formatting routine for printf; used by __setEFGfmt_,
+                                                ; float_format_
         dd NoFloatSupport
-__EFG_scanf:
+__EFG_scanf:                                    ; float parsing routine for scanf; used by ScanFloatField,
+                                                ; __setEFGfmt_
         dd NoFloatSupport

@@ -253,7 +253,7 @@ LayoutMatchupRight:
         jl near .1
         mov dword [MatchupAnimDone], 0
         jmp near LayoutMatchupLeft_1E9
-PreGameMatchupScreenJumpTable:
+PreGameMatchupScreenJumpTable:                  ; jump table for the switch cases of PreGameMatchupScreen
         dd PreGameMatchupScreen_4E0
         dd PreGameMatchupScreen_4EC
         dd PreGameMatchupScreen_522
@@ -1976,11 +1976,11 @@ AnimateMatchup:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-MatchupNotesBlankRect:
+MatchupNotesBlankRect:                          ; used by DrawMatchupNotes
         db 00h,00h,00h,00h,00h,00h,00h,00h
-MatchupNotesBlankPos:
+MatchupNotesBlankPos:                           ; used by DrawMatchupNotes
         db 00h,00h,00h,00h,00h,00h,00h,00h
-MatchupNotesBlankSize:
+MatchupNotesBlankSize:                          ; used by DrawMatchupNotes
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; RostersSparkle                                  D306F  97 PC, low confidence
@@ -2033,7 +2033,7 @@ RostersSparkle:
         pop ecx
         pop ebx
         ret
-PreGameRostersScreenJumpTable:
+PreGameRostersScreenJumpTable:                  ; jump table for the switch cases of PreGameRostersScreen
         dd PreGameRostersScreen_B6A
         dd PreGameRostersScreen_BA7
         dd PreGameRostersScreen_BB5

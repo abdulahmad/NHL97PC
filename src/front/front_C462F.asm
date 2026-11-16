@@ -208,7 +208,7 @@ OptionsSound:
         pop ecx
         pop ebx
         ret
-OptionsScreenJumpTable:
+OptionsScreenJumpTable:                         ; jump table for the switch cases of OptionsScreen
         dd OptionsScreen_14BA
         dd OptionsScreen_F0A
         dd OptionsScreen_F22
@@ -1623,7 +1623,7 @@ OptionsScreen_15A6:
         pop ecx
         pop ebx
         ret
-SeasonSetupRowY:
+SeasonSetupRowY:                                ; used by SeasonSetupScreen
         db 0D4h,00h,00h,00h,0E5h,00h,00h,00h,0F8h,00h,00h,00h,0Ah,01h,00h,00h
         db 01Dh,01h,00h,00h,02Fh,01h,00h,00h,053h,08Bh,05Ah,01h,083h,0E3h,07h,080h
         db 060h,01h,0F8h,09h,058h,01h,08Bh,05Ah,01h,083h,0E3h,08h,080h,060h,01h,0F7h

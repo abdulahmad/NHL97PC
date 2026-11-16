@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_1C1403 nobits alloc noexec write align=1
 global HomeSpeechLoaded, HomeSpeechNames
-HomeSpeechNames:
+HomeSpeechNames:                                ; home team speech name clips; used by InitSpeechBanks
         resb 186
-HomeSpeechLoaded:
+HomeSpeechLoaded:                               ; home team speech clips loaded; used by InitSpeechBanks
         resb 77

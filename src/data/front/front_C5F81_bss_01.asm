@@ -13,33 +13,35 @@ global SeasonLeagueShapeLit, SeasonLeagueShapeEnd, SeasonSetupNameShapes, Season
 
 
 global SeasonSetupItems
-SeasonSetupItemKinds:
+SeasonSetupItemKinds:                           ; season setup item kind per art set; used by SeasonMenuSound,
+                                                ; SeasonSetupScreen
         resb 4
-SeasonSetupItemArt:
+SeasonSetupItemArt:                             ; season setup art per item kind; used by SeasonMenuSound
         resb 12
-SeasonModeShapes:
+SeasonModeShapes:                               ; season mode shapes; used by SeasonSetupScreen
         resb 16
-SeasonAutoShapes:
+SeasonAutoShapes:                               ; season auto shapes; used by SeasonSetupScreen
         resb 16
-SeasonLength50Shapes:
+SeasonLength50Shapes:                           ; season length 50 shapes; used by SeasonSetupScreen
         resb 16
-SeasonLength10Shapes:
+SeasonLength10Shapes:                           ; season length 10 shapes; used by SeasonSetupScreen
         resb 16
-SeasonLength20Shape:
+SeasonLength20Shape:                            ; season length 20 shape; used by SeasonSetupScreen
         resb 4
-SeasonLeagueShape:
+SeasonLeagueShape:                              ; season league shape; used by SeasonSetupScreen
         resb 4
-SeasonLeagueShapeLit:
+SeasonLeagueShapeLit:                           ; season league lit shape; used by SeasonSetupScreen
         resb 4
-SeasonLeagueShapeEnd:
+SeasonLeagueShapeEnd:                           ; season league end shape; used by SeasonSetupScreen
         resb 4
-SeasonSetupNameShapes:
+SeasonSetupNameShapes:                          ; season setup name shapes; used by SeasonSetupScreen
         resb 16
-SeasonInjuryShapes:
+SeasonInjuryShapes:                             ; season injury shapes; used by SeasonSetupScreen
         resb 16
-SeasonSetupShapeFile:
+SeasonSetupShapeFile:                           ; season setup shape file; used by SeasonSetupScreen
         resb 4
-SeasonSetupItems:
+SeasonSetupItems:                               ; season setup menu item records (82 bytes each); used by
+                                                ; SeasonMenuSound, SeasonSetupScreen
         resb 4
         resb 12
         resb 4

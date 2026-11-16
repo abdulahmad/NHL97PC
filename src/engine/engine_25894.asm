@@ -7205,7 +7205,7 @@ PuckHitsGoalie:
         pop ebx
         ret
         db 08Bh,0C0h
-PuckToStickJumpTable:
+PuckToStickJumpTable:                           ; jump table for the switch cases of PuckToStick
         dd PuckToStick_424
         dd PuckToStick_424
         dd PuckToStick_43B

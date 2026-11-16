@@ -802,7 +802,7 @@ LinkGameSetup_8CB:
         pop ecx
         pop ebx
         ret
-LinkSetupCursorJumpTable:
+LinkSetupCursorJumpTable:                       ; jump table for the switch cases of LinkSetupCursor
         dd LinkSetupCursor_29
         dd LinkSetupCursor_2BB
         dd LinkSetupCursor_CC
@@ -1976,21 +1976,21 @@ LinkSetupSound:
         call StopAllSfx
         mov word [LinkSetupSoundOn], dx
         jmp near LinkGameSetup_8CB
-LinkControlSetupJumpTable:
+LinkControlSetupJumpTable:                      ; jump table for the switch cases of RunLinkGameScreens
         dd RunLinkGameScreens_30
         dd RunLinkGameScreens_30
         dd RunLinkGameScreens_30
         dd RunLinkGameScreens_30
         dd RunLinkGameScreens_30
         dd RunLinkGameScreens_30
-LinkControlLocalJumpTable:
+LinkControlLocalJumpTable:                      ; jump table for the switch cases of RunLinkGameScreens
         dd RunLinkGameScreens_112
         dd RunLinkGameScreens_112
         dd RunLinkGameScreens_112
         dd RunLinkGameScreens_112
         dd RunLinkGameScreens_112
         dd RunLinkGameScreens_112
-LinkControlRestoreJumpTable:
+LinkControlRestoreJumpTable:                    ; jump table for the switch cases of RunLinkGameScreens
         dd RunLinkGameScreens_1971
         dd RunLinkGameScreens_1971
         dd RunLinkGameScreens_1971
@@ -3873,7 +3873,7 @@ PlayArenaAnnouncement:
         call PaEvent
         add esp, byte 18h
         jmp near LinkGameSetup_8CB
-PostGameScreenJumpTable:
+PostGameScreenJumpTable:                        ; jump table for the switch cases of PostGameScreen
         dd PostGameScreen_B39
         dd PostGameScreen_B4E
         dd PostGameScreen_B55
@@ -5656,7 +5656,7 @@ ClearThreeStars:
         pop ecx
         pop ebx
         ret
-GameStatsScreenJumpTable:
+GameStatsScreenJumpTable:                       ; jump table for the switch cases of GameStatsScreen
         dd GameStatsScreen_143
         dd GameStatsScreen_14E
         dd GameStatsScreen_19A

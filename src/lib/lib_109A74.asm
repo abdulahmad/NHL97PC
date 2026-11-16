@@ -309,7 +309,7 @@ AsyncResetRequest:
         mov dword [dword eax+097h], 0FFFFFFFFh
         ret
         db 090h
-AsyncStreamStepJumpTable:
+AsyncStreamStepJumpTable:                       ; jump table for the switch cases of AsyncStreamStep
         dd AsyncStreamStep_2E
         dd AsyncStreamStep_57B
         dd AsyncStreamStep_613

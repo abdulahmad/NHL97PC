@@ -40,7 +40,7 @@ AngleFromDelta:
 .4:
         mov eax, 80h
         jmp dword [dword cs:ebx+AngleFromDeltaJumpTable]
-AngleFromDeltaJumpTable:
+AngleFromDeltaJumpTable:                        ; jump table for the switch cases of AngleFromDelta
         dd .2
         dd .1
         dd .3

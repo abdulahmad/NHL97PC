@@ -626,7 +626,7 @@ DrawStatsCardPage_77C:
         pop ecx
         pop ebx
         ret
-PlayerStatsScreenJumpTable:
+PlayerStatsScreenJumpTable:                     ; jump table for the switch cases of PlayerStatsScreen
         dd PlayerStatsScreen_975
         dd PlayerStatsScreen_99A
         dd PlayerStatsScreen_9A6
@@ -1949,7 +1949,7 @@ PlayerStatsScreen_1114:
         lea esp, [dword ebp+082h]
         pop ebp
         jmp near DrawStatsCardPage_77C
-DrawSkaterStatLabelJumpTable:
+DrawSkaterStatLabelJumpTable:                   ; jump table for the switch cases of DrawPlayerStatsText
         dd DrawPlayerStatsText_4C
         dd DrawPlayerStatsText_53
         dd DrawPlayerStatsText_5A
@@ -1961,7 +1961,7 @@ DrawSkaterStatLabelJumpTable:
         dd DrawPlayerStatsText_84
         dd DrawPlayerStatsText_8B
         dd DrawPlayerStatsText_92
-DrawSkaterPlayoffStatJumpTable:
+DrawSkaterPlayoffStatJumpTable:                 ; jump table for the switch cases of DrawPlayerStatsText
         dd DrawPlayerStatsText_123
         dd DrawPlayerStatsText_129
         dd DrawPlayerStatsText_12F
@@ -1973,7 +1973,7 @@ DrawSkaterPlayoffStatJumpTable:
         dd DrawPlayerStatsText_1C9
         dd DrawPlayerStatsText_1F4
         dd DrawPlayerStatsText_200
-DrawSkaterSeasonStatJumpTable:
+DrawSkaterSeasonStatJumpTable:                  ; jump table for the switch cases of DrawPlayerStatsText
         dd DrawPlayerStatsText_21C
         dd DrawPlayerStatsText_225
         dd DrawPlayerStatsText_22E
@@ -1985,7 +1985,7 @@ DrawSkaterSeasonStatJumpTable:
         dd DrawPlayerStatsText_263
         dd DrawPlayerStatsText_26C
         dd DrawPlayerStatsText_275
-DrawSkaterStatJumpTable:
+DrawSkaterStatJumpTable:                        ; jump table for the switch cases of DrawPlayerStatsText
         dd DrawPlayerStatsText_2AA
         dd DrawPlayerStatsText_2B3
         dd DrawPlayerStatsText_2B9
@@ -1997,7 +1997,7 @@ DrawSkaterStatJumpTable:
         dd DrawPlayerStatsText_2E4
         dd DrawPlayerStatsText_30C
         dd DrawPlayerStatsText_312
-DrawGoalieStatLabelJumpTable:
+DrawGoalieStatLabelJumpTable:                   ; jump table for the switch cases of DrawPlayerStatsText
         dd DrawPlayerStatsText_36F
         dd DrawPlayerStatsText_376
         dd DrawPlayerStatsText_37D
@@ -2007,7 +2007,7 @@ DrawGoalieStatLabelJumpTable:
         dd DrawPlayerStatsText_399
         dd DrawPlayerStatsText_3A0
         dd DrawPlayerStatsText_3A7
-DrawGoaliePlayoffStatJumpTable:
+DrawGoaliePlayoffStatJumpTable:                 ; jump table for the switch cases of DrawPlayerStatsText
         dd DrawPlayerStatsText_430
         dd DrawPlayerStatsText_44B
         dd DrawPlayerStatsText_451
@@ -2017,7 +2017,7 @@ DrawGoaliePlayoffStatJumpTable:
         dd DrawPlayerStatsText_469
         dd DrawPlayerStatsText_46F
         dd DrawPlayerStatsText_478
-DrawGoalieSeasonStatJumpTable:
+DrawGoalieSeasonStatJumpTable:                  ; jump table for the switch cases of DrawPlayerStatsText
         dd DrawPlayerStatsText_48D
         dd DrawPlayerStatsText_493
         dd DrawPlayerStatsText_499
@@ -2027,7 +2027,7 @@ DrawGoalieSeasonStatJumpTable:
         dd DrawPlayerStatsText_4B1
         dd DrawPlayerStatsText_4BA
         dd DrawPlayerStatsText_4C3
-DrawGoalieStatJumpTable:
+DrawGoalieStatJumpTable:                        ; jump table for the switch cases of DrawPlayerStatsText
         dd DrawPlayerStatsText_53A
         dd DrawPlayerStatsText_540
         dd DrawPlayerStatsText_546
@@ -2598,7 +2598,7 @@ DrawPlayerStatsText_56A:
         pop edi
         pop esi
         ret 8
-DrawBioSkaterRatingJumpTable:
+DrawBioSkaterRatingJumpTable:                   ; jump table for the switch cases of DrawPlayerBio
         dd DrawPlayerBio_328
         dd DrawPlayerBio_32F
         dd DrawPlayerBio_336
@@ -2613,7 +2613,7 @@ DrawBioSkaterRatingJumpTable:
         dd DrawPlayerBio_375
         dd DrawPlayerBio_37C
         dd DrawPlayerBio_383
-DrawBioGoalieRatingJumpTable:
+DrawBioGoalieRatingJumpTable:                   ; jump table for the switch cases of DrawPlayerBio
         dd DrawPlayerBio_427
         dd DrawPlayerBio_42E
         dd DrawPlayerBio_435
@@ -3043,7 +3043,7 @@ DrawPlayerBio_4E2:
         pop edi
         pop esi
         ret 0Ch
-ExportSkaterRatingJumpTable:
+ExportSkaterRatingJumpTable:                    ; jump table for the switch cases of ExportPlayerCard
         dd ExportPlayerCard_2B6
         dd ExportPlayerCard_2BD
         dd ExportPlayerCard_2C4
@@ -3058,7 +3058,7 @@ ExportSkaterRatingJumpTable:
         dd ExportPlayerCard_303
         dd ExportPlayerCard_30A
         dd ExportPlayerCard_311
-ExportGoalieRatingJumpTable:
+ExportGoalieRatingJumpTable:                    ; jump table for the switch cases of ExportPlayerCard
         dd ExportPlayerCard_35D
         dd ExportPlayerCard_364
         dd ExportPlayerCard_36B
@@ -3068,7 +3068,7 @@ ExportGoalieRatingJumpTable:
         dd ExportPlayerCard_387
         dd ExportPlayerCard_38E
         dd ExportPlayerCard_395
-ExportSkaterStatLabelJumpTable:
+ExportSkaterStatLabelJumpTable:                 ; jump table for the switch cases of ExportPlayerCard
         dd ExportPlayerCard_409
         dd ExportPlayerCard_412
         dd ExportPlayerCard_41B
@@ -3080,7 +3080,7 @@ ExportSkaterStatLabelJumpTable:
         dd ExportPlayerCard_451
         dd ExportPlayerCard_45A
         dd ExportPlayerCard_463
-ExportSkaterPlayoffStatJumpTable:
+ExportSkaterPlayoffStatJumpTable:               ; jump table for the switch cases of ExportPlayerCard
         dd ExportPlayerCard_4F9
         dd ExportPlayerCard_4FF
         dd ExportPlayerCard_505
@@ -3092,7 +3092,7 @@ ExportSkaterPlayoffStatJumpTable:
         dd ExportPlayerCard_597
         dd ExportPlayerCard_5C2
         dd ExportPlayerCard_5CE
-ExportSkaterSeasonStatJumpTable:
+ExportSkaterSeasonStatJumpTable:                ; jump table for the switch cases of ExportPlayerCard
         dd ExportPlayerCard_5EA
         dd ExportPlayerCard_5F3
         dd ExportPlayerCard_5FC
@@ -3104,7 +3104,7 @@ ExportSkaterSeasonStatJumpTable:
         dd ExportPlayerCard_631
         dd ExportPlayerCard_63A
         dd ExportPlayerCard_643
-ExportSkaterStatJumpTable:
+ExportSkaterStatJumpTable:                      ; jump table for the switch cases of ExportPlayerCard
         dd ExportPlayerCard_680
         dd ExportPlayerCard_689
         dd ExportPlayerCard_68F
@@ -3116,7 +3116,7 @@ ExportSkaterStatJumpTable:
         dd ExportPlayerCard_6BA
         dd ExportPlayerCard_6E2
         dd ExportPlayerCard_6E8
-ExportGoalieStatLabelJumpTable:
+ExportGoalieStatLabelJumpTable:                 ; jump table for the switch cases of ExportPlayerCard
         dd ExportPlayerCard_746
         dd ExportPlayerCard_74F
         dd ExportPlayerCard_758
@@ -3126,7 +3126,7 @@ ExportGoalieStatLabelJumpTable:
         dd ExportPlayerCard_77C
         dd ExportPlayerCard_785
         dd ExportPlayerCard_78E
-ExportGoaliePlayoffStatJumpTable:
+ExportGoaliePlayoffStatJumpTable:               ; jump table for the switch cases of ExportPlayerCard
         dd ExportPlayerCard_81C
         dd ExportPlayerCard_837
         dd ExportPlayerCard_83D
@@ -3136,7 +3136,7 @@ ExportGoaliePlayoffStatJumpTable:
         dd ExportPlayerCard_855
         dd ExportPlayerCard_85B
         dd ExportPlayerCard_864
-ExportGoalieSeasonStatJumpTable:
+ExportGoalieSeasonStatJumpTable:                ; jump table for the switch cases of ExportPlayerCard
         dd ExportPlayerCard_879
         dd ExportPlayerCard_87F
         dd ExportPlayerCard_885
@@ -3146,7 +3146,7 @@ ExportGoalieSeasonStatJumpTable:
         dd ExportPlayerCard_89D
         dd ExportPlayerCard_8A6
         dd ExportPlayerCard_8AF
-ExportGoalieStatJumpTable:
+ExportGoalieStatJumpTable:                      ; jump table for the switch cases of ExportPlayerCard
         dd ExportPlayerCard_926
         dd ExportPlayerCard_92C
         dd ExportPlayerCard_932
@@ -4956,7 +4956,7 @@ DrawPlayerRatingsPage:
         add esp, byte 0Ch
         call PresentScreen
         jmp near DrawStatsCardPage_76D
-PlayerRatingsScreenJumpTable:
+PlayerRatingsScreenJumpTable:                   ; jump table for the switch cases of PlayerRatingsScreen
         dd PlayerRatingsScreen_D1D
         dd PlayerRatingsScreen_D42
         dd PlayerRatingsScreen_D4E
@@ -8229,7 +8229,7 @@ DrawTeamNameField:
         pop edi
         pop esi
         ret 4
-DrawRatingsSkaterJumpTable:
+DrawRatingsSkaterJumpTable:                     ; jump table for the switch cases of DrawPlayerRatings
         dd DrawPlayerRatings_243
         dd DrawPlayerRatings_272
         dd DrawPlayerRatings_2A1
@@ -8239,7 +8239,7 @@ DrawRatingsSkaterJumpTable:
         dd DrawPlayerRatings_35D
         dd DrawPlayerRatings_385
         dd DrawPlayerRatings_3AD
-DrawRatingsGoalieJumpTable:
+DrawRatingsGoalieJumpTable:                     ; jump table for the switch cases of DrawPlayerRatings
         dd DrawPlayerRatings_4D9
         dd DrawPlayerRatings_515
         dd DrawPlayerRatings_551
@@ -8254,7 +8254,7 @@ DrawRatingsGoalieJumpTable:
         dd DrawPlayerRatings_719
         dd DrawPlayerRatings_741
         dd DrawPlayerRatings_769
-DrawRatingsSkaterBarJumpTable:
+DrawRatingsSkaterBarJumpTable:                  ; jump table for the switch cases of DrawPlayerRatings
         dd DrawPlayerRatings_99B
         dd DrawPlayerRatings_A38
         dd DrawPlayerRatings_AD5
@@ -8266,7 +8266,7 @@ DrawRatingsSkaterBarJumpTable:
         dd DrawPlayerRatings_E68
         dd DrawPlayerRatings_EEB
         dd DrawPlayerRatings_F6E
-DrawRatingsGoalieBarJumpTable:
+DrawRatingsGoalieBarJumpTable:                  ; jump table for the switch cases of DrawPlayerRatings
         dd DrawPlayerRatings_111B
         dd DrawPlayerRatings_11B8
         dd DrawPlayerRatings_1255
@@ -8276,7 +8276,7 @@ DrawRatingsGoalieBarJumpTable:
         dd DrawPlayerRatings_14A9
         dd DrawPlayerRatings_152C
         dd DrawPlayerRatings_15AF
-DrawRatingsStatJumpTable:
+DrawRatingsStatJumpTable:                       ; jump table for the switch cases of DrawPlayerRatings
         dd DrawPlayerRatings_1713
         dd DrawPlayerRatings_17C0
         dd DrawPlayerRatings_17C9

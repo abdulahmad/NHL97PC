@@ -6,59 +6,77 @@ global AwayGoalieIndex, AwayCenterIndex, AwayWingIndex, AwayDefenceIndex, AwayDe
 global ScoringLogPrevType, AwayBackupGoalie, ScoringLogPeriod, ScoringLogTime, ScoringLogMinute, ScoringLogType, ScoringLogTeam, ScoringLogPlayer
 global ScoringLogAssist, ScoringLogSecondAssist, ReplayBufferSize, ReplayFileOpen, ScreenBackgrounds, AwaySlotRatings, AwayPeriodShots, AwaySimGoals
 global AwaySimShots, AwayShotTotals, AwayGoalTotals, GameLogCount
-AwaySlotRatings:
+AwaySlotRatings:                                ; away rating per roster slot; used by PreGameStatsPanel
         resb 6
-AwayPeriodShots:
+AwayPeriodShots:                                ; away shots per period; used by DrawPauseClock,
+                                                ; UpdateUserRecords
         resb 2
-AwaySimGoals:
+AwaySimGoals:                                   ; away goals in the simulated game; used by DebugKeys,
+                                                ; SimulateGame
         resb 2
-AwaySimShots:
+AwaySimShots:                                   ; away shots in the simulated game; used by DebugKeys,
+                                                ; SimulateGame
         resb 2
-AwayShotTotals:
+AwayShotTotals:                                 ; away shot totals; used by SimulateGame
         resb 14
-AwayGoalTotals:
+AwayGoalTotals:                                 ; away goal totals; used by SimulateGame
         resb 34
-AwayGoalieIndex:
+AwayGoalieIndex:                                ; away starting goalie; used by InitAllStarTeams,
+                                                ; PreGameStatsPanel
         resb 1
-AwayCenterIndex:
+AwayCenterIndex:                                ; away starting center; used by PreGameStatsPanel
         resb 1
-AwayWingIndex:
+AwayWingIndex:                                  ; away starting wing; used by PreGameStatsPanel
         resb 10
-AwayDefenceIndex:
+AwayDefenceIndex:                               ; away starting defenceman; used by PreGameStatsPanel
         resb 1
-AwayDefencePartner:
+AwayDefencePartner:                             ; away starting defence partner; used by PreGameStatsPanel
         resb 35
-ScoringLogPrevPeriod:
+ScoringLogPrevPeriod:                           ; scoring log entry before the first: period; used by
+                                                ; LogPeriodEnd
         resb 1
-ScoringLogPrevTime:
+ScoringLogPrevTime:                             ; scoring log entry before the first: time; used by
+                                                ; LogPeriodEnd
         resb 1
-ScoringLogPrevMinute:
+ScoringLogPrevMinute:                           ; scoring log entry before the first: minute; used by
+                                                ; DrawScoringSummary, ScoringEntryText
         resb 1
-ScoringLogPrevType:
+ScoringLogPrevType:                             ; scoring log entry before the first: type; used by
+                                                ; LogPeriodEnd
         resb 1
-AwayBackupGoalie:
+AwayBackupGoalie:                               ; away backup goalie; used by PreGameStatsPanel, SimulateGame
         resb 2
-GameLogCount:
+GameLogCount:                                   ; game log entries; used by ClearThreeStars,
+                                                ; DrawScoringSummary, FirstPenaltyEntry ...
         resb 2
-ScoringLogPeriod:
+ScoringLogPeriod:                               ; scoring log entries (8 bytes each): period; used by
+                                                ; FirstScoringEntry, LogGoal, LogPenalty ...
         resb 1
-ScoringLogTime:
+ScoringLogTime:                                 ; scoring log entry: time; used by LogGoal, LogPenalty,
+                                                ; LogPeriodEnd ...
         resb 1
-ScoringLogMinute:
+ScoringLogMinute:                               ; scoring log entry: minute; used by FirstPenaltyEntry,
+                                                ; FirstScoringEntry, LogGoal ...
         resb 1
-ScoringLogType:
+ScoringLogType:                                 ; scoring log entry: type; used by FirstPenaltyEntry,
+                                                ; FirstScoringEntry, LogGoal ...
         resb 1
-ScoringLogTeam:
+ScoringLogTeam:                                 ; scoring log entry: team; used by LogGoal, LogPenalty,
+                                                ; LogPeriodEnd ...
         resb 1
-ScoringLogPlayer:
+ScoringLogPlayer:                               ; scoring log entry: player; used by LogGoal, LogPenalty
         resb 1
-ScoringLogAssist:
+ScoringLogAssist:                               ; scoring log entry: assist; used by LogGoal, LogPenalty
         resb 1
-ScoringLogSecondAssist:
+ScoringLogSecondAssist:                         ; scoring log entry: second assist; used by LogGoal,
+                                                ; LogPenalty
         resb 2041
-ReplayBufferSize:
+ReplayBufferSize:                               ; replay buffer size; used by LoadReplay, OpenReplayIndex,
+                                                ; PickIndexEntryScreen
         resb 4
-ReplayFileOpen:
+ReplayFileOpen:                                 ; set while the replay file is open; used by FreeFrontEnd,
+                                                ; InitFrontEnd, SaveReplayFile
         resb 4
-ScreenBackgrounds:
+ScreenBackgrounds:                              ; screen background bitmaps; used by DrawScreenBackground,
+                                                ; FreeFrontEnd
         resb 4

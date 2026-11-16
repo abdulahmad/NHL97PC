@@ -7,68 +7,83 @@ global FrontEndExit, MainMenuSelection, MainMenuFirstShow, MainMenuAnimStop, Sta
 global MenuMouseX, MenuMouseY, MenuMouseButtons, MenuStartSelection, MenuBitmapReady, MenuMouseMode, MenuInputDelay, MenuViewCallback
 global MenuRepeatTick, MenuLinkKey, str_3_LoadLangText, LangTextFiles, ErrorTextPtr, LangTextLoaded, LangTextHandle, LinkTransferReady
 global str_F_NewSeasonScreen, NewSeasonArtOffsets, MainMenuAnimName, ConnectRetry, MenuLinkActive, MenuViewSaved, MenuClipActive
-MainMenuSelection:
+MainMenuSelection:                              ; main menu selection; used by MainMenuScreen
         db 0FFh,0FFh,0FFh,0FFh
-MainMenuAnimName:
+MainMenuAnimName:                               ; main menu animation file name; used by MainMenuAnim
         db 00h,00h,00h,00h,00h,00h,00h,00h,096h,00h,00h,00h,028h,00h,00h,00h
         db 096h,00h,00h,00h,046h,00h,00h,00h,00h,00h,00h,00h,01Eh,00h,00h,00h
-MainMenuFirstShow:
+MainMenuFirstShow:                              ; set on the first main menu show; used by MainMenuAnim
         db 01h,00h,00h,00h
-MainMenuAnimStop:
+MainMenuAnimStop:                               ; set to stop the main menu animation; used by MainMenuAnim
         db 00h,00h,00h,00h
-FrontEndExit:
+FrontEndExit:                                   ; set to leave the front end; used by AllStarScreen,
+                                                ; DrawPlayerStatsText, ExportPlayerCard ...
         db 00h
-StatsMenuMode:
+StatsMenuMode:                                  ; stats menu mode; used by PlayerRatingsScreen,
+                                                ; PlayerStatsScreen, RunStatsMenu ...
         db 00h,00h,00h,00h,00h,00h,00h
-ConnectRetry:
+ConnectRetry:                                   ; connect screen retry flag; used by ModemConnectScreen,
+                                                ; NetworkConnectScreen, RunNetworkConnect
         db 00h,00h
-ModemSettingsChanged:
+ModemSettingsChanged:                           ; set when modem settings changed; used by DrawConnectScreen,
+                                                ; ModemSettingsScreen, RunNetworkConnect
         db 00h,00h,00h,00h
-NetworkGameReady:
+NetworkGameReady:                               ; set when a network game is ready; used by NetworkConnect,
+                                                ; NetworkGamesScreen, RunNetworkConnect
         db 00h,00h,00h,00h
-MenuLinkWordPad:
+MenuLinkWordPad:                                ; low half of the dword read for the link flag; used by
+                                                ; RunMenu
         db 00h,00h
-MenuLinkActive:
+MenuLinkActive:                                 ; set when the menu is driven over a link; used by RunMenu
         db 00h,00h,00h,00h
-MenuMouseX:
+MenuMouseX:                                     ; menu mouse x; used by RunMenu, ScrollPosToValue
         db 00h,00h,00h,00h
-MenuMouseY:
+MenuMouseY:                                     ; menu mouse y; used by RunMenu, ScrollPosToValue
         db 00h,00h,00h,00h
-MenuMouseButtons:
+MenuMouseButtons:                               ; menu mouse buttons; used by RunMenu
         db 00h,00h,00h,00h
-MenuStartSelection:
+MenuStartSelection:                             ; selection the next menu starts on (-1 none); used by
+                                                ; RunMenu, SetMenuSelection
         db 0FFh,0FFh,0FFh,0FFh
-MenuBitmapReady:
+MenuBitmapReady:                                ; set once the menu bitmaps exist; used by CreateMenuBitmap,
+                                                ; FreeMenuBitmap, RunMenu
         db 00h,00h,00h,00h
-MenuMouseMode:
+MenuMouseMode:                                  ; menu mouse mode; used by ResetMouseInput, RestoreMenuView,
+                                                ; RunMenu ...
         db 00h,00h,00h,00h
-MenuViewSaved:
+MenuViewSaved:                                  ; set while the menu view is saved; used by RestoreMenuView,
+                                                ; RunMenu, SetupMenuView
         db 00h,00h
-MenuClipActive:
+MenuClipActive:                                 ; set while the menu clip rectangle is used; used by RunMenu
         db 00h,00h
-MenuInputDelay:
+MenuInputDelay:                                 ; tick before menu input is read; used by RunMenu
         db 00h,00h,00h,00h
-MenuViewCallback:
+MenuViewCallback:                               ; routine called when the menu view is restored; used by
+                                                ; RestoreMenuView, RunMenu, SetupMenuView
         db 00h,00h,00h,00h
-MenuRepeatTick:
+MenuRepeatTick:                                 ; tick of the next menu key repeat; used by RunMenu
         db 00h,00h,00h,00h
-MenuLinkKey:
+MenuLinkKey:                                    ; menu key sent over the link; used by RunMenu
         db 00h,00h,00h,00h
-str_3_LoadLangText:
+str_3_LoadLangText:                             ; string "3"; used by LoadLangText
         db 033h,00h,00h,00h,034h,00h,00h,00h,035h,00h,00h,00h
-LangTextFiles:
+LangTextFiles:                                  ; language text file per language; used by LoadLangTextB
         db 0D6h,00h,00h,00h,0D7h,00h,00h,00h,0D8h,00h,00h,00h
-ErrorTextPtr:
+ErrorTextPtr:                                   ; text returned when a language string is missing; used by
+                                                ; GetLangText, PositionAbbrev
         dd str_Error
-LangTextLoaded:
+LangTextLoaded:                                 ; set once language text is loaded; used by FreeLangText,
+                                                ; LoadLangText, LoadLangTextB ...
         db 00h,00h,00h,00h
-LangTextHandle:
+LangTextHandle:                                 ; language text data handle; used by FreeLangText,
+                                                ; GetLangText, LoadLangText ...
         db 00h,00h,00h,00h
-LinkTransferReady:
+LinkTransferReady:                              ; set once the link transfer is set up; used by
+                                                ; MainMenuScreen, RunNewPlayoffs, RunNewSeason
         db 00h,00h,00h,00h,00h,00h,00h,00h
-str_F_NewSeasonScreen:
+str_F_NewSeasonScreen:                          ; string "F"; used by NewSeasonScreen
         db 046h,00h,00h,00h
-NewSeasonArtOffsets:
+NewSeasonArtOffsets:                            ; new season screen art offsets; used by NewSeasonScreen
         db 09Bh,00h,00h,00h,0A0h,00h,00h,00h,09Bh,00h,00h,00h,0FAh,00h,00h,00h
         db 09Bh,00h,00h,00h,046h,00h,00h,00h,0F5h,00h,00h,00h,0A0h,00h,00h,00h
         db 0F5h,00h,00h,00h,0FAh,00h,00h,00h,0F5h,00h,00h,00h,0A0h,00h,00h,00h

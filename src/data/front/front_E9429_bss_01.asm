@@ -11,23 +11,32 @@ global AllStarSlotShape, AllStarSlotArea, AllStarSoundState, AllStarPickArea, Al
 global AllStarSlotLayer, AllStarLastSpeech, AllStarCandidates, AllStarItems, AllStarConference, AllStarTeamList, AllStarTeamBitmap, AllStarSide
 global AllStarPicks, AllStarListBitmap, AllStarNameBitmap, AllStarStatBitmap, AllStarListSide, AllStarShapeFile, AllStarScreenBitmap, AllStarPickOrder
 global AllStarPlayers
-AllStarListChoice:
+AllStarListChoice:                              ; all-star list choice per conference; used by AllStarScreen,
+                                                ; DrawAllStarHighlight, DrawAllStarSelection
         resb 4
-AllStarRosterBase:
+AllStarRosterBase:                              ; slot before the all-star roster pointers (indexed from 1);
+                                                ; used by AllStarScreen, AllocAllStarRosters
         resb 4
-AllStarLogoTables:
+AllStarLogoTables:                              ; all-star logo table per conference; used by AllStarScreen,
+                                                ; LoadAllStarLogo, ShowAllStarArt
         resb 8
-AllStarSlotPicked:
+AllStarSlotPicked:                              ; all-star slot picked per conference; used by
+                                                ; AllStarNextTeam, AllStarPrevTeam, AllStarScreen ...
         resb 8
-AllStarSlot:
+AllStarSlot:                                    ; all-star slot per conference; used by AllStarAddPick,
+                                                ; AllStarNextSlot, AllStarNextTeam ...
         resb 8
-AllStarSlotFirst:
+AllStarSlotFirst:                               ; first all-star slot per conference; used by AllStarNextTeam,
+                                                ; AllStarPrevTeam, AllStarScreen ...
         resb 8
-AllStarLogoData:
+AllStarLogoData:                                ; all-star logo data per conference; used by AllStarScreen,
+                                                ; LoadAllStarLogo, ShowAllStarArt
         resb 4
-AllStarForwardKeyBase:
+AllStarForwardKeyBase:                          ; slot before the all-star forward stat keys (indexed from 1);
+                                                ; used by LoadAllStarArt
         resb 4
-AllStarForwardStatKeys:
+AllStarForwardStatKeys:                         ; all-star forward stat keys; used by DrawAllStarSelection,
+                                                ; LoadAllStarArt
         resb 4
         resb 4
         resb 4
@@ -37,9 +46,11 @@ AllStarForwardStatKeys:
         resb 4
         resb 4
         resb 36
-AllStarDefenceKeyBase:
+AllStarDefenceKeyBase:                          ; slot before the all-star defence stat keys (indexed from 1);
+                                                ; used by LoadAllStarArt
         resb 4
-AllStarDefenceStatKeys:
+AllStarDefenceStatKeys:                         ; all-star defence stat keys; used by DrawAllStarSelection,
+                                                ; LoadAllStarArt
         resb 4
         resb 4
         resb 4
@@ -54,69 +65,99 @@ AllStarDefenceStatKeys:
         resb 4
         resb 4
         resb 28
-AllStarLists:
+AllStarLists:                                   ; all-star scroll list per conference; used by AllStarScreen,
+                                                ; LoadAllStarArt
         resb 4
-AllStarCandidateCount:
+AllStarCandidateCount:                          ; all-star candidate count; used by AllocAllStarRosters,
+                                                ; LoadAllStarArt
         resb 4
-AllStarLineData:
+AllStarLineData:                                ; all-star line data per conference; used by AllStarAddPick,
+                                                ; AllStarPickPlayer, AllStarPickTaken ...
         resb 4
-AllStarLineDataAway:
+AllStarLineDataAway:                            ; all-star away line data; used by AllocAllStarRosters
         resb 4
-AllStarListArea:
+AllStarListArea:                                ; all-star list area; used by AllStarScreen,
+                                                ; DrawAllStarHighlight
         resb 4
-AllStarSlotShape:
+AllStarSlotShape:                               ; all-star slot shape; used by DrawAllStarSlot,
+                                                ; InitAllStarScreen
         resb 4
-AllStarSlotArea:
+AllStarSlotArea:                                ; all-star slot area; used by AllStarScreen,
+                                                ; DrawAllStarHighlight, LoadAllStarArt
         resb 4
-AllStarSoundState:
+AllStarSoundState:                              ; all-star sound state; used by AllStarSound,
+                                                ; DrawAllStarPickList
         resb 4
-AllStarPickArea:
+AllStarPickArea:                                ; all-star pick area; used by AllStarScreen,
+                                                ; DrawAllStarHighlight, LoadAllStarArt
         resb 4
-AllStarSoundTick:
+AllStarSoundTick:                               ; tick of the next all-star sound; used by AllStarSound
         resb 4
-AllStarScrollArea:
+AllStarScrollArea:                              ; all-star scroll area; used by AllStarScreen,
+                                                ; DrawAllStarHighlight
         resb 4
-AllStarTeamArea:
+AllStarTeamArea:                                ; all-star team area; used by AllStarScreen,
+                                                ; DrawAllStarHighlight, LoadAllStarArt
         resb 4
-AllStarNameArea:
+AllStarNameArea:                                ; all-star name area; used by AllStarScreen,
+                                                ; DrawAllStarHighlight, LoadAllStarArt
         resb 4
-AllStarSlotLayer:
+AllStarSlotLayer:                               ; all-star slot layer; used by DrawAllStarSelection,
+                                                ; DrawAllStarSlot, FreeAllStarScreen ...
         resb 4
-AllStarLastSpeech:
+AllStarLastSpeech:                              ; last all-star speech picked; used by AllStarSound
         resb 4
-AllStarCandidates:
+AllStarCandidates:                              ; all-star candidates; used by AddAllStarCandidate,
+                                                ; AllStarAddPick, AllStarRemovePick ...
         resb 4
-AllStarItems:
+AllStarItems:                                   ; all-star screen items; used by AllStarScreen, AllStarSound,
+                                                ; ControlSetupScreen ...
         resb 4
-AllStarConference:
+AllStarConference:                              ; all-star conference shown; used by AllStarScreen,
+                                                ; DrawAllStarConference, DrawAllStarHighlight ...
         resb 4
-AllStarTeamList:
+AllStarTeamList:                                ; all-star team list; used by AllStarScreen,
+                                                ; DrawAllStarSelection, DrawAllStarTeam ...
         resb 4
-AllStarTeamBitmap:
+AllStarTeamBitmap:                              ; all-star team bitmap; used by DrawAllStarSelection,
+                                                ; DrawAllStarTeam, FreeAllStarScreen ...
         resb 4
-AllStarSide:
+AllStarSide:                                    ; all-star side being picked; used by AllStarAddPick,
+                                                ; AllStarNextSlot, AllStarNextTeam ...
         resb 4
-AllStarPicks:
+AllStarPicks:                                   ; all-star picks; used by AddAllStarCandidate, AllStarAddPick,
+                                                ; AllStarRemovePick ...
         resb 4
-AllStarListBitmap:
+AllStarListBitmap:                              ; all-star list bitmap; used by DrawAllStarList,
+                                                ; FreeAllStarScreen, InitAllStarScreen
         resb 4
-AllStarNameBitmap:
+AllStarNameBitmap:                              ; all-star name bitmap; used by DrawAllStarList,
+                                                ; FreeAllStarScreen, InitAllStarScreen
         resb 4
-AllStarStatBitmap:
+AllStarStatBitmap:                              ; all-star stat bitmap; used by DrawAllStarList,
+                                                ; FreeAllStarScreen, InitAllStarScreen
         resb 4
-AllStarListSide:
+AllStarListSide:                                ; all-star list side; used by AllStarNextTeam,
+                                                ; AllStarPrevTeam, AllStarScreen ...
         resb 4
-AllStarShapeFile:
+AllStarShapeFile:                               ; all-star shape file; used by AllStarSound,
+                                                ; DrawAllStarConference, DrawAllStarPickList ...
         resb 4
-AllStarScreenBitmap:
+AllStarScreenBitmap:                            ; all-star screen bitmap; used by DrawAllStarList,
+                                                ; DrawAllStarTeam, FreeAllStarScreen ...
         resb 4
-AllStarPickOrder:
+AllStarPickOrder:                               ; all-star pick order; used by AddAllStarCandidate,
+                                                ; AllStarAddPick, AllStarRemovePick ...
         resb 4
-AllStarPlayers:
+AllStarPlayers:                                 ; all-star players; used by AddAllStarCandidate,
+                                                ; AllStarAddPick, AllStarNextTeam ...
         resb 4
-AllStarSlotPlayers:
+AllStarSlotPlayers:                             ; all-star player per slot (13 per side); used by
+                                                ; AllStarScreen, AllocAllStarRosters
         resb 25
-AllStarLogoSlotsPrev:
+AllStarLogoSlotsPrev:                           ; all-star logo slots, entry before the first; used by
+                                                ; LoadAllStarLogo
         resb 1
-AllStarLogoSlots:
+AllStarLogoSlots:                               ; all-star logo slot per player; used by AllocAllStarRosters,
+                                                ; LoadAllStarLogo, ShowAllStarArt
         resb 26

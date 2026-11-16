@@ -428,7 +428,7 @@ PlayoffSetupSound:
         pop ecx
         pop ebx
         ret
-RunNewPlayoffsJumpTable:
+RunNewPlayoffsJumpTable:                        ; jump table for the switch cases of RunNewPlayoffs
         dd RunNewPlayoffs_F7
         dd RunNewPlayoffs_100
         dd RunNewPlayoffs_104
@@ -3688,7 +3688,7 @@ FillPlayoffTree:
         pop edi
         pop esi
         ret
-EditLinesScreenJumpTable:
+EditLinesScreenJumpTable:                       ; jump table for the switch cases of EditLinesScreen
         dd EditLinesScreen_17F
         dd EditLinesScreen_18C
         dd EditLinesScreen_2C7

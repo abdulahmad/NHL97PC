@@ -15847,7 +15847,7 @@ PickBackwardTurn:
         pop ebx
         ret
         db 08Dh,040h,00h
-GlideForwardMoveJumpTable:
+GlideForwardMoveJumpTable:                      ; jump table for the switch cases of GlideForwardMove
         dd GlideForwardMove_240
         dd GlideForwardMove_260
         dd GlideForwardMove_250
@@ -16420,7 +16420,7 @@ LimitSkateSpeed:
         pop ecx
         pop ebx
         ret
-SkateForwardMoveJumpTable:
+SkateForwardMoveJumpTable:                      ; jump table for the switch cases of SkateForwardMove
         dd SkateForwardMove_3E0
         dd SkateForwardMove_A9
         dd SkateForwardMove_3AE
@@ -16842,7 +16842,7 @@ SkateForwardMove_41B:
         pop ebx
         ret
         db 090h
-SkateBackwardMoveJumpTable:
+SkateBackwardMoveJumpTable:                     ; jump table for the switch cases of SkateBackwardMove
         dd SkateBackwardMove_377
         dd SkateBackwardMove_51
         dd SkateBackwardMove_345
@@ -17450,7 +17450,7 @@ TurnStickPos:
         pop ecx
         pop ebx
         ret
-TurnForwardMoveJumpTable:
+TurnForwardMoveJumpTable:                       ; jump table for the switch cases of TurnForwardMove
         dd TurnForwardMove_51
         dd TurnForwardMove_61
         dd TurnForwardMove_71
@@ -18903,7 +18903,7 @@ SlowSkateMove:
         pop ebx
         ret
         db 08Dh,040h,00h
-GlideBackwardMoveJumpTable:
+GlideBackwardMoveJumpTable:                     ; jump table for the switch cases of GlideBackwardMove
         dd GlideBackwardMove_3B
         dd GlideBackwardMove_53
         dd GlideBackwardMove_47
@@ -19000,7 +19000,7 @@ GlideBackwardMove_53:
         pop ecx
         pop ebx
         ret
-TurnBackwardMoveJumpTable:
+TurnBackwardMoveJumpTable:                      ; jump table for the switch cases of TurnBackwardMove
         dd TurnBackwardMove_51
         dd TurnBackwardMove_61
         dd TurnBackwardMove_71
@@ -19897,7 +19897,7 @@ UpdateGameDisplay:
         pop ecx
         pop ebx
         ret
-GoalieAnimBlank:
+GoalieAnimBlank:                                ; used by LoadGoalieAnimFile
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; LoadAnimData                                    65481  97 PC, low confidence
@@ -20215,7 +20215,7 @@ LoadAnimByName:
         pop edi
         pop esi
         ret 4
-ShotAnimFramesJumpTable:
+ShotAnimFramesJumpTable:                        ; jump table for the switch cases of ShotAnimFrames
         dd ShotAnimFrames_10
         dd ShotAnimFrames_1D
         dd ShotAnimFrames_25
@@ -34573,7 +34573,7 @@ SortPlayersByDepth:
         and eax, 0FFh
         ret
         db 08Dh,040h,00h
-SortPlayersByDepthJumpTable:
+SortPlayersByDepthJumpTable:                    ; jump table for the switch cases
         dd .1
         dd .2
         dd .2
@@ -34976,13 +34976,13 @@ FightHoldMove:
         pop ecx
         pop ebx
         ret
-FightPunchMoveJumpTable:
+FightPunchMoveJumpTable:                        ; jump table for the switch cases of FightPunchMove
         dd FightPunchMove_1B3
         dd FightPunchMove_1B8
         dd FightPunchMove_1B8
         dd FightPunchMove_1BE
         dd FightPunchMove_1C4
-FightPunchHitJumpTable:
+FightPunchHitJumpTable:                         ; jump table for the switch cases of FightPunchMove
         dd FightPunchMove_288
         dd FightPunchMove_28D
         dd FightPunchMove_28D
@@ -36675,13 +36675,13 @@ FightFallMove:
         pop ecx
         pop ebx
         ret
-StartFightPunchJumpTable:
+StartFightPunchJumpTable:                       ; jump table for the switch cases of StartFightPunch
         dd StartFightPunch_86
         dd StartFightPunch_8B
         dd StartFightPunch_8B
         dd StartFightPunch_91
         dd StartFightPunch_97
-StartFightPunchHitJumpTable:
+StartFightPunchHitJumpTable:                    ; jump table for the switch cases of StartFightPunch
         dd StartFightPunch_186
         dd StartFightPunch_18B
         dd StartFightPunch_18B
@@ -36893,13 +36893,13 @@ StartFightPunch_197:
         pop ebx
         ret
         db 08Bh,0C0h
-StartFightBlockJumpTable:
+StartFightBlockJumpTable:                       ; jump table for the switch cases of StartFightBlock
         dd StartFightBlock_86
         dd StartFightBlock_8B
         dd StartFightBlock_8B
         dd StartFightBlock_91
         dd StartFightBlock_97
-StartFightBlockHitJumpTable:
+StartFightBlockHitJumpTable:                    ; jump table for the switch cases of StartFightBlock
         dd StartFightBlock_186
         dd StartFightBlock_18B
         dd StartFightBlock_18B
@@ -40210,7 +40210,7 @@ KneelMove:
         pop ebx
         ret
         db 090h
-BlockShotMoveJumpTable:
+BlockShotMoveJumpTable:                         ; jump table for the switch cases of BlockShotMove
         dd BlockShotMove_671
         dd BlockShotMove_481
         dd BlockShotMove_63F
@@ -46783,7 +46783,7 @@ DoGameFrame:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-SimGameBlankPair:
+SimGameBlankPair:                               ; used by SimulateGame
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; RandomCrowdDelay                                78938  97 PC, low confidence

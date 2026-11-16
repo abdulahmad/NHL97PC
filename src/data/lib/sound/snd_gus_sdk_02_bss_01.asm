@@ -3,5 +3,5 @@ bits 32
 %include "hockey.inc"
 section s_1DF7E4 nobits alloc noexec write align=1
 global BreakHandlerStack
-BreakHandlerStack:
+BreakHandlerStack:                              ; stack used by the Ctrl-Break and Ctrl-C handlers
         resb 29724

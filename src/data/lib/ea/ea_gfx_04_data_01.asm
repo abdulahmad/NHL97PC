@@ -12,13 +12,16 @@ global MixerMasterLeft, MixerMasterRight, MixerVolLeft, MixerVolRight, MixerVolS
 global StreamBuffer, StreamBufSize, StreamReadPos, StreamWritePos, StreamFill, StreamPackets, StreamCallbackPos, StreamPacketQueue
 global StreamPacketCount, StreamPacketSlots, ResourceArchive, ResourceLookupFn, ResourceArchiveSize, ResourceArchiveData, AudioDriverOpenFns, AudioDriverCloseFns
 global AudioDriverUpdateFns, AudioDriverDetectFns, MixerRampStep, MixerRampTarget, MixerBlockSize, MixerRampLevel, MixerRampCount
-AudioDriverOpenFns:
+AudioDriverOpenFns:                             ; open function of each audio driver; used by OpenAudioDriver
         dd AudioNullFunc
-AudioDriverCloseFns:
+AudioDriverCloseFns:                            ; close function of each audio driver; used by
+                                                ; CloseAudioDriver
         dd SampleRateResults
-AudioDriverUpdateFns:
+AudioDriverUpdateFns:                           ; update function of each audio driver; used by
+                                                ; AudioDriverUpdate
         dd SampleRateResults
-AudioDriverDetectFns:
+AudioDriverDetectFns:                           ; detect function of each audio driver; used by
+                                                ; DetectAudioDriver
         dd AudioNullFunc
         dd GusDriverOpen
         dd GusDriverClose
@@ -44,98 +47,142 @@ AudioDriverDetectFns:
         dd SoundscapeDriverShutdown
         dd SoundscapeDriverStart
         dd SoundscapeDriverId
-AudioTimerOn:
+AudioTimerOn:                                   ; set while the audio timer callback is installed; used by
+                                                ; CloseAudioDriver, OpenAudioDriver
         db 00h,00h,00h,00h
-AudioDriverNum:
+AudioDriverNum:                                 ; number of the open audio driver; used by AudioDriverUpdate,
+                                                ; CloseAudioDriver, OpenAudioDriver
         db 00h,00h,00h,00h
-AudioExitHooked:
+AudioExitHooked:                                ; set once closing the audio driver is registered for exit;
+                                                ; used by OpenAudioDriver
         db 00h,00h
-MixerMasterLeft:
+MixerMasterLeft:                                ; left master volume of the sound mixer; used by
+                                                ; MixVolumeRamp, SetMasterVolume
         db 00h
-MixerMasterRight:
+MixerMasterRight:                               ; right master volume of the sound mixer; used by
+                                                ; SetChannelVolume, SetMasterVolume, SetMixerVolumes
         db 00h
-MixerMode:
+MixerMode:                                      ; output mode of the sound mixer; used by InitSoundMixer,
+                                                ; MixAudioBlock, MixChannelFormat ...
         db 00h
-MixerSpeechVolume:
+MixerSpeechVolume:                              ; volume of the speech channel; used by SetMixerVolumes,
+                                                ; SetSpeechVolume
         db 00h
-MixerChannelCount:
+MixerChannelCount:                              ; number of mixer channels; used by InitSoundMixer
         db 00h
-MixerMasterVolume:
+MixerMasterVolume:                              ; master volume of the sound mixer; used by SetMasterVolume
         db 00h
-MixerSfxVolume:
+MixerSfxVolume:                                 ; volume of the sound effect channels; used by
+                                                ; MixChannelFormat, MixVolumeRamp, SetMasterVolume ...
         db 00h,00h
-MixerRampStep:
+MixerRampStep:                                  ; step of the volume ramp; used by InitSoundMixer,
+                                                ; MixVolumeRamp
         db 00h,00h
-MixerRampTarget:
+MixerRampTarget:                                ; target of the volume ramp; used by InitSoundMixer,
+                                                ; MixVolumeRamp
         db 00h,00h
-MixerBlockSize:
+MixerBlockSize:                                 ; size of one mixed block; used by MixAudioBlock,
+                                                ; SetMixerVolumes
         db 00h,00h
-MixerVolLeft:
+MixerVolLeft:                                   ; left volume applied while mixing; used by MixChannelFormat,
+                                                ; MixVolumeRamp, SetMasterVolume ...
         db 00h,00h,00h,00h
-MixerVolRight:
+MixerVolRight:                                  ; right volume applied while mixing; used by MixChannelFormat,
+                                                ; SetMasterVolume, SetMixerVolumes
         db 00h,00h,00h,00h
-MixerVolScale:
+MixerVolScale:                                  ; volume scale applied while mixing; used by MixChannelFormat,
+                                                ; SetMasterVolume, SetMixerVolumes
         db 00h,00h,00h,00h
-MixerRampLevel:
+MixerRampLevel:                                 ; current level of the volume ramp; used by MixAudioBlock,
+                                                ; MixVolumeRamp, SetChannelVolume
         db 00h,00h
-MixerRampCount:
+MixerRampCount:                                 ; steps left in the volume ramp; used by MixVolumeRamp
         db 00h,00h
-MixerChannelVolumes:
+MixerChannelVolumes:                            ; volume of each mixer channel; used by MixVolumeRamp,
+                                                ; SetChannelVolume, SetMixerVolumes ...
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-StreamChannel:
+StreamChannel:                                  ; mixer channel the audio stream plays on; used by
+                                                ; AudioStreamCallback, CloseAudioStreamChannel,
+                                                ; FeedAudioStream ...
         db 00h,00h,00h,00h
-StreamPosition:
+StreamPosition:                                 ; play position of the audio stream; used by
+                                                ; AudioStreamPosition, OpenAudioStreamChannel
         db 00h,00h,00h,00h
-StreamBuffer:
+StreamBuffer:                                   ; ring buffer of the audio stream; used by
+                                                ; CloseAudioStreamChannel, OpenAudioStreamChannel
         db 00h,00h,00h,00h
-StreamBufSize:
+StreamBufSize:                                  ; size of the audio stream's ring buffer; used by
+                                                ; AudioStreamCallback, OpenAudioStreamChannel,
+                                                ; StartAudioStream
         db 00h,00h,00h,00h
-StreamReadPos:
+StreamReadPos:                                  ; read position in the audio stream's ring buffer; used by
+                                                ; OpenAudioStreamChannel, StartAudioStream
         db 00h,00h,00h,00h
-StreamWritePos:
+StreamWritePos:                                 ; write position in the audio stream's ring buffer; used by
+                                                ; AudioStreamCallback, AudioStreamDone, AudioStreamPosition
+                                                ; ...
         db 00h,00h,00h,00h
-StreamFill:
+StreamFill:                                     ; bytes waiting in the audio stream's ring buffer; used by
+                                                ; AudioStreamCallback, FeedAudioStream, FlushAudioStream ...
         db 00h,00h,00h,00h
-StreamPackets:
+StreamPackets:                                  ; packet queue of the audio stream; used by
+                                                ; CloseAudioStreamChannel, OpenAudioStreamChannel,
+                                                ; QueueStreamPacket
         db 00h,00h,00h,00h
-StreamClosing:
+StreamClosing:                                  ; set while the audio stream is closing; used by
+                                                ; AudioStreamCallback, CloseAudioStreamChannel
         db 00h
-StreamFeeding:
+StreamFeeding:                                  ; set while packets are being fed to the stream; used by
+                                                ; FeedAudioStream, OpenAudioStreamChannel, QueueStreamPacket
         db 00h,00h,00h
-StreamStarted:
+StreamStarted:                                  ; set once the audio stream has started; used by
+                                                ; OpenAudioStreamChannel, StartAudioStream
         db 00h
-StreamFlags:
+StreamFlags:                                    ; flags of the audio stream; used by AudioStreamPosition,
+                                                ; CloseAudioStreamChannel, FlushAudioStream ...
         db 00h
-StreamStereo:
+StreamStereo:                                   ; set for a stereo audio stream; used by
+                                                ; OpenAudioStreamChannel, StartAudioStream
         db 00h
-StreamPaused:
+StreamPaused:                                   ; set while the audio stream is paused; used by
+                                                ; CloseAudioStreamChannel, StartAudioStream
         db 00h
-StreamOpen:
+StreamOpen:                                     ; set while the audio stream channel is open; used by
+                                                ; CloseAudioStreamChannel, OpenAudioStreamChannel
         db 00h
-StreamCallbackPos:
+StreamCallbackPos:                              ; position reached by the stream callback; used by
+                                                ; AudioStreamCallback
         db 00h,00h,00h,00h
-StreamPacketQueue:
+StreamPacketQueue:                              ; queued packets of the audio stream; used by
+                                                ; AudioStreamCallback, AudioStreamDone, FeedAudioStream ...
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-StreamPacketCount:
+StreamPacketCount:                              ; number of queued stream packets; used by
+                                                ; AudioStreamCallback, AudioStreamDone, OpenAudioStreamChannel
         db 00h,00h,00h,00h
-StreamPacketSlots:
+StreamPacketSlots:                              ; free packet slots of the audio stream; used by
+                                                ; FeedAudioStream, OpenAudioStreamChannel, QueueStreamPacket
         db 00h,00h,00h,00h,00h,00h,00h,06Fh,070h,065h,06Eh,068h,061h,06Eh,064h,06Ch
         db 065h,020h,02Dh,020h,025h,073h,020h,046h,049h,04Ch,045h,020h,045h,052h,052h,04Fh
         db 052h,0Dh,00h
-ResourceArchiveName:
+ResourceArchiveName:                            ; name of the open resource archive; used by
+                                                ; CurrentArchiveName, OpenResourceArchive, openhandle
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-ResourceArchive:
+ResourceArchive:                                ; memory block of the open resource archive; used by
+                                                ; LoadNamedResource, OpenResourceArchive, openhandle
         db 00h,00h,00h,00h
-ResourceLookupFn:
+ResourceLookupFn:                               ; function that finds an entry in the open archive; used by
+                                                ; OpenResourceArchive, openhandle
         db 00h,00h,00h,00h
-ResourceArchiveSize:
+ResourceArchiveSize:                            ; size of the open resource archive; used by
+                                                ; LoadNamedResource, OpenResourceArchive, openhandle
         db 00h,00h,00h,00h
-ResourceArchiveData:
+ResourceArchiveData:                            ; data of the open resource archive; used by
+                                                ; LoadNamedResource, OpenResourceArchive, openhandle
         db 00h,00h,00h,00h

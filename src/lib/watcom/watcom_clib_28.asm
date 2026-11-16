@@ -101,7 +101,8 @@ NoFloatSupport:
 ; EmuZeroTbyte                                   132878  97 PC, low confidence
 ; X87 emulator: an 80-bit zero loaded into a stack register
 ;-----------------------------------------------------------------------------
-EmuZeroTbyte:
+EmuZeroTbyte:                                   ; x87 emulator: an 80-bit zero loaded into a stack register;
+                                                ; used by EmuFtstFxamJumpTable
         db 00h,00h,00h,00h
         db 00h,00h,00h,00h
         db 00h,00h
@@ -110,7 +111,10 @@ EmuZeroTbyte:
 ; X87 emulator: 8 ten-byte stack register records (next and previous register
 ; offsets, top-of-stack status bits)
 ;-----------------------------------------------------------------------------
-EmuRegRing:
+EmuRegRing:                                     ; x87 emulator: 8 ten-byte stack register records (next and
+                                                ; previous register offsets, top-of-stack status bits); used
+                                                ; by EmuDispatchDFRegJumpTable, EmuFaddp, EmuFcomppJumpTable
+                                                ; ...
         db 0Ah,00h
         db 046h,00h
         db 00h,00h,00h,00h,00h,00h,014h,00h,00h,00h,00h,08h,01h,00h,00h,00h
@@ -123,7 +127,9 @@ EmuRegRing:
 ; X87 emulator: 8 ten-byte tag word records per register (clear mask, then
 ; the valid, zero and empty tag bits)
 ;-----------------------------------------------------------------------------
-EmuRegTagMasks:
+EmuRegTagMasks:                                 ; x87 emulator: 8 ten-byte tag word records per register
+                                                ; (clear mask, then the valid, zero and empty tag bits); used
+                                                ; by EmuDispatchDFRegJumpTable, EmuExamine, EmuFaddp ...
         db 0FCh,0FFh
         db 01h,00h,00h,00h
         db 02h,00h
@@ -132,11 +138,11 @@ EmuRegTagMasks:
         db 0FFh,0FCh,00h,01h,00h,00h,00h,02h,00h,03h,0FFh,0F3h,00h,04h,00h,00h
         db 00h,08h,00h,0Ch,0FFh,0CFh,00h,010h,00h,00h,00h,020h,00h,030h,0FFh,03Fh
         db 00h,040h,00h,00h,00h,080h,00h,0C0h
-EmuCompareCcBits:
+EmuCompareCcBits:                               ; used by RoundToDouble
         db 01h,040h,00h,045h
-EmuFpremCcBits:
+EmuFpremCcBits:                                 ; used by EmuDispatchDFRegJumpTable, EmuRemOpsJumpTable
         db 00h,02h,040h,042h,01h,03h,041h,043h,087h,0DBh
-EmuEaModRmTable:
+EmuEaModRmTable:                                ; used by EmuTrapExit
         dd EaEax
         dd EaEcx
         dd EaEdx
@@ -161,7 +167,7 @@ EmuEaModRmTable:
         dd EaEbpDisp32
         dd EaEsiDisp32
         dd EaEdiDisp32
-EmuEaSibTable:
+EmuEaSibTable:                                  ; used by EaSib
         dd EaEax
         dd EaEcx
         dd EaEdx
@@ -186,7 +192,7 @@ EmuEaSibTable:
         dd EaEbpDisp32
         dd EaEsiDisp32
         dd EaEdiDisp32
-EmuOpcodeJumpTable:
+EmuOpcodeJumpTable:                             ; jump table for the switch cases of EmuTrapExit
         dd EmuFaddM32
         dd EmuFldM32
         dd EmuFiaddM32
@@ -251,7 +257,7 @@ EmuOpcodeJumpTable:
         dd EmuFstswM16
         dd EmuFidivrM16
         dd EmuFistpM64
-EmuModRmJumpTable:
+EmuModRmJumpTable:                              ; jump table for the switch cases of EmuTrapExit
         dd EmuFaddSt
         dd EmuFldSt
         dd EmuReservedOp
@@ -316,9 +322,6 @@ EmuModRmJumpTable:
         dd EmuReservedOp
         dd EmuFdivp
         dd EmuReservedOp
-;-----------------------------------------------------------------------------
-; NoFloatSupport_38D                                                  132BF0  
-;-----------------------------------------------------------------------------
 NoFloatSupport_38D:
         sti
         pusha
@@ -374,9 +377,6 @@ NoFloatSupport_38D:
         mov eax, dword [ss:eax]
         iret
         db 087h,0DBh
-;-----------------------------------------------------------------------------
-; NoFloatSupport_3FD                                                  132C60  
-;-----------------------------------------------------------------------------
 NoFloatSupport_3FD:
         sti
         sub esp, byte 0Ch

@@ -982,7 +982,7 @@ NetCollide2:
         pop ebx
         ret
         db 08Bh,0C0h
-ChkBodyContactJumpTable:
+ChkBodyContactJumpTable:                        ; jump table for the switch cases of ChkBodyContact
         dd ChkBodyContact_229
         dd ChkBodyContact_229
         dd ChkBodyContact_229
@@ -2064,7 +2064,7 @@ ForceShoot:
         pop edx
         ret
         db 00h
-PositionSlotJumpTable:
+PositionSlotJumpTable:                          ; jump table for the switch cases of PositionSlot
         dd PositionSlot_2D
         dd PositionSlot_29
         dd PositionSlot_31
@@ -4416,7 +4416,7 @@ AddPenalty:
         pop ecx
         ret
         db 08Bh,0C0h
-AddPenalty2JumpTable:
+AddPenalty2JumpTable:                           ; jump table for the switch cases of AddPenalty2
         dd AddPenalty2_2D2
         dd AddPenalty2_2BD
         dd AddPenalty2_2CB
@@ -12527,7 +12527,7 @@ ClosePacketLink:
         pop esi
         pop ebx
         ret
-SeasonGameMenuJumpTable:
+SeasonGameMenuJumpTable:                        ; jump table for the switch cases of SeasonGameScreen
         dd SeasonGameScreen_13F
         dd SeasonGameScreen_14D
         dd SeasonGameScreen_1EC
@@ -12535,14 +12535,14 @@ SeasonGameMenuJumpTable:
         dd SeasonGameScreen_238
         dd SeasonGameScreen_2B1
         dd SeasonGameScreen_2CF
-SeasonOpponentJumpTable:
+SeasonOpponentJumpTable:                        ; jump table for the switch cases of SeasonGameScreen
         dd SeasonGameScreen_17B
         dd SeasonGameScreen_182
         dd SeasonGameScreen_1DA
         dd SeasonGameScreen_182
         dd SeasonGameScreen_1DA
         dd SeasonGameScreen_1E3
-SeasonOpponentTextJumpTable:
+SeasonOpponentTextJumpTable:                    ; jump table for the switch cases of SeasonGameScreen
         dd SeasonGameScreen_3D3
         dd SeasonGameScreen_3DF
         dd SeasonGameScreen_3D3

@@ -12,7 +12,9 @@ global RinkPartModels
 
 
 
-RinkPartModels:
+RinkPartModels:                                 ; rink part models and art (benches, boxes, sides, logos) set
+                                                ; by LoadRinkModel; used by BenchCheerStep, BuildRinkSides,
+                                                ; DrawBenchModels ...
         resb 4
         resb 4
         resb 4

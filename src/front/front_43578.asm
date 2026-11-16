@@ -3022,7 +3022,7 @@ SpeechEventKind:
         xor eax, eax
         ret
         db 090h
-CommentaryEventJumpTable:
+CommentaryEventJumpTable:                       ; jump table for the switch cases of CommentaryEvent
         dd CommentaryEvent_135
         dd CommentaryEvent_135
         dd CommentaryEvent_2DE
@@ -3070,14 +3070,14 @@ CommentaryEventJumpTable:
         dd CommentaryEvent_1F28
         dd CommentaryEvent_1F56
         dd CommentaryEvent_1FE8
-Commentary3000JumpTable:
+Commentary3000JumpTable:                        ; jump table for the switch cases of CommentaryEvent
         dd CommentaryEvent_423
         dd CommentaryEvent_3F6
         dd CommentaryEvent_3FF
         dd CommentaryEvent_408
         dd CommentaryEvent_411
         dd CommentaryEvent_41A
-Commentary4000JumpTable:
+Commentary4000JumpTable:                        ; jump table for the switch cases of CommentaryEvent
         dd CommentaryEvent_4E4
         dd CommentaryEvent_4ED
         dd CommentaryEvent_4F6
@@ -3088,18 +3088,18 @@ Commentary4000JumpTable:
         dd CommentaryEvent_523
         dd CommentaryEvent_52C
         dd CommentaryEvent_535
-Commentary5000JumpTable:
+Commentary5000JumpTable:                        ; jump table for the switch cases of CommentaryEvent
         dd CommentaryEvent_5E2
         dd CommentaryEvent_5EB
         dd CommentaryEvent_5F4
         dd CommentaryEvent_5FD
-Commentary6000JumpTable:
+Commentary6000JumpTable:                        ; jump table for the switch cases of CommentaryEvent
         dd CommentaryEvent_6D5
         dd CommentaryEvent_6E7
         dd CommentaryEvent_6F0
         dd CommentaryEvent_6F9
         dd CommentaryEvent_702
-Commentary7000JumpTable:
+Commentary7000JumpTable:                        ; jump table for the switch cases of CommentaryEvent
         dd CommentaryEvent_831
         dd CommentaryEvent_83B
         dd CommentaryEvent_847
@@ -3115,14 +3115,14 @@ Commentary7000JumpTable:
         dd CommentaryEvent_8A7
         dd CommentaryEvent_8B0
         dd CommentaryEvent_8B9
-CommentaryA000JumpTable:
+CommentaryA000JumpTable:                        ; jump table for the switch cases of CommentaryEvent
         dd CommentaryEvent_F80
         dd CommentaryEvent_F89
         dd CommentaryEvent_F92
         dd CommentaryEvent_F9B
         dd CommentaryEvent_FB0
         dd CommentaryEvent_FB9
-CommentaryD000JumpTable:
+CommentaryD000JumpTable:                        ; jump table for the switch cases of CommentaryEvent
         dd CommentaryEvent_189C
         dd CommentaryEvent_18A1
         dd CommentaryEvent_18AA

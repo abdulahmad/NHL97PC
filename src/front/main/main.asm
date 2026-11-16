@@ -5969,7 +5969,7 @@ InchesToCm:
         pop ebx
         ret
         db 08Bh,0C0h
-PlayerBioScreenJumpTable:
+PlayerBioScreenJumpTable:                       ; jump table for the switch cases of PlayerBioScreen
         dd PlayerBioScreen_425
         dd PlayerBioScreen_438
         dd PlayerBioScreen_44A
@@ -9890,9 +9890,9 @@ ChangeMenuMusic:
         pop ecx
         pop ebx
         ret
-MainMenuItemMetrics:
+MainMenuItemMetrics:                            ; used by MainMenuScreen
         db 0Eh,00h,00h,00h,0Ah,00h,00h,00h,018h,00h,00h,00h
-MainMenuAnimJumpTable:
+MainMenuAnimJumpTable:                          ; jump table for the switch cases of MainMenuAnim
         dd MainMenuAnim_32E
         dd MainMenuAnim_344
         dd MainMenuAnim_35A

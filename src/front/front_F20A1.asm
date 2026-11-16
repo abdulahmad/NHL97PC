@@ -2682,7 +2682,7 @@ SetupPauseButtons:
         pop esi
         pop ecx
         ret
-PauseMenuJumpTable:
+PauseMenuJumpTable:                             ; jump table for the switch cases of PauseMenu
         dd PauseMenu_4BB
         dd PauseMenu_16C
         dd PauseMenu_26F
@@ -4227,7 +4227,7 @@ FillBox:
         pop edi
         pop esi
         ret 4
-RulesMenuJumpTable:
+RulesMenuJumpTable:                             ; jump table for the switch cases of RulesMenu
         dd RulesMenu_1583
         dd RulesMenu_176B
         dd RulesMenu_19CD
@@ -6978,7 +6978,7 @@ RulesMenu_2464:
         cmp si, byte 0Ah
         jl short .78
         jmp near PauseMenu_726
-DetailLevelMenuJumpTable:
+DetailLevelMenuJumpTable:                       ; jump table for the switch cases of DetailLevelMenu
         dd DetailLevelMenu_C81
         dd DetailLevelMenu_E31
         dd DetailLevelMenu_10E6

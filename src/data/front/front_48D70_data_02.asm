@@ -5,9 +5,10 @@ section s_1698A2 progbits alloc noexec write align=1
 global ArtArchiveIds, ArtArchiveSizes, DirPathTable, GameGraphicsMode, ModelCount, TextureCount, ShowFrameRate, ShowStands
 global ShowRink, ShowCenterLogo, ShowShadows, ShowOverlay, ShowCrowd, ShowBenches, CameraScenesEnabled, ArtArchivePaths
 global str_X_SetArtArchive, DisplayModes, ViewDistanceTable
-ArtArchivePaths:
+ArtArchivePaths:                                ; art archive paths; used by MakeDataPath,
+                                                ; MakeDataPathJumpTable, MakeDirPathJumpTable ...
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-ArtArchiveIds:
+ArtArchiveIds:                                  ; art archive ids; used by SetArtArchive
         db 00h,00h,00h,00h,00h,00h,00h,00h,04Dh,049h,04Eh,049h,04Dh,055h,04Dh,049h
         db 02Eh,056h,049h,056h,00h,01h,00h,00h,00h,07h,00h,00h,00h,052h,045h,043h
         db 04Fh,04Dh,04Dh,045h,049h,02Eh,056h,049h,056h,00h,01h,00h,00h,00h,06h,00h
@@ -22,9 +23,9 @@ ArtArchiveIds:
         db 049h,04Eh,053h,054h,041h,04Ch,04Ch,049h,02Eh,056h,049h,056h,00h,05h,00h,00h
         db 00h,00h,00h,00h,00h,049h,04Eh,053h,054h,041h,04Ch,04Ch,024h,02Eh,056h,049h
         db 056h,00h,05h,00h,00h,00h,00h,00h,00h,00h
-str_X_SetArtArchive:
+str_X_SetArtArchive:                            ; string "x"; used by MakeDataPath, SetArtArchive
         db 078h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-ArtArchiveSizes:
+ArtArchiveSizes:                                ; art archive sizes; used by SetArtArchive
         db 00h,00h,00h,00h,00h,00h,00h,00h,047h,04Ch,04Fh,042h,041h,04Ch,02Eh,053h
         db 045h,054h,00h,00h,00h,00h,00h,00h,00h,07h,00h,00h,00h,033h,053h,054h
         db 041h,052h,053h,024h,02Eh,046h,053h,048h,00h,00h,0FAh,0FFh,0FFh,0FFh,06h,00h
@@ -363,38 +364,50 @@ ArtArchiveSizes:
         db 00h,00h,00h,043h,048h,054h,02Eh,046h,053h,048h,00h,00h,00h,00h,00h,00h
         db 0FFh,0FFh,0FFh,0FFh,07h,00h,00h,00h,047h,053h,054h,041h,054h,053h,032h,049h
         db 02Eh,046h,053h,048h,00h,0FEh,0FFh,0FFh,0FFh,06h,00h,00h,00h,00h
-DirPathTable:
+DirPathTable:                                   ; directory path table; used by LoadStartupData, MakeDataPath,
+                                                ; MakeDataPathJumpTable ...
         db 00h,00h,00h,00h,01h,00h,00h,00h,040h,01h,00h,00h,080h,02h,00h,00h
         db 080h,02h,00h,00h,0C8h,00h,00h,00h,090h,01h,00h,00h,0E0h,01h,00h,00h
-DisplayModes:
+DisplayModes:                                   ; display mode table; used by InitGameDisplay
         db 080h,02h,00h,00h,0E0h,01h,00h,00h,080h,02h,00h,00h,0E0h,01h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,080h,02h,00h,00h,0E0h,01h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,04h,00h,00h,00h,0Dh,00h,00h,00h
         db 01h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h,00h,00h,00h,00h
-ViewDistanceTable:
+ViewDistanceTable:                              ; view distance table; used by GetCameraTarget,
+                                                ; RefreshViewDistance
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,0FAh,044h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,01h,00h,00h,00h
-GameGraphicsMode:
+GameGraphicsMode:                               ; game graphics mode (-1 not set); used by DrawGameFrame,
+                                                ; InitGameGraphics
         db 0FFh,0FFh,0FFh,0FFh
-ModelCount:
+ModelCount:                                     ; models loaded (30); used by InitGameGraphics
         db 01Eh,00h,00h,00h
-TextureCount:
+TextureCount:                                   ; textures loaded (28); used by InitGameGraphics
         db 01Ch,00h,00h,00h
-ShowFrameRate:
+ShowFrameRate:                                  ; show frame rate (function key); used by DetailLevelMenu,
+                                                ; DrawGlass, GameFunctionKeys ...
         db 01h,00h,00h,00h
-ShowStands:
+ShowStands:                                     ; draw stands; used by DetailLevelMenu, DrawRinkSurface,
+                                                ; GameFunctionKeys ...
         db 00h,00h,00h,00h
-ShowRink:
+ShowRink:                                       ; draw rink texture; used by DetailLevelMenu, DrawRinkSurface,
+                                                ; GameFunctionKeys ...
         db 01h,00h,00h,00h
-ShowCenterLogo:
+ShowCenterLogo:                                 ; draw center ice logo; used by DetailLevelMenu,
+                                                ; DrawBenchArea, DrawBenchRow ...
         db 01h,00h,00h,00h
-ShowShadows:
+ShowShadows:                                    ; draw shadows; used by DrawRinkSurface, InitGameDisplay,
+                                                ; SaveGameDisplay
         db 00h,00h,00h,00h
-ShowOverlay:
+ShowOverlay:                                    ; draw rink overlay; used by DetailLevelMenu, DrawNearSide,
+                                                ; DrawRinkOverlay ...
         db 01h,00h,00h,00h
-ShowCrowd:
+ShowCrowd:                                      ; draw crowd; used by DetailLevelMenu, DrawStandsSides,
+                                                ; InitGameDisplay ...
         db 01h,00h,00h,00h
-ShowBenches:
+ShowBenches:                                    ; draw benches; used by DetailLevelMenu, DrawBenchModels,
+                                                ; InitGameDisplay ...
         db 01h,00h,00h,00h
-CameraScenesEnabled:
+CameraScenesEnabled:                            ; camera scenes enabled; used by CloseIntermission,
+                                                ; DrawClockOverlay, DrawFarSide ...
         db 00h,00h,00h,00h

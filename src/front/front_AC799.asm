@@ -648,7 +648,7 @@ CompareStatName:
         pop ecx
         pop ebx
         ret
-SortStatTableJumpTable:
+SortStatTableJumpTable:                         ; jump table for the switch cases of SortStatTable
         dd SortStatTable_301
         dd SortStatTable_310
         dd SortStatTable_321
@@ -1004,7 +1004,7 @@ SortStatTable_323:
 SortStatTable_36B:
         mov ebx, ecx
         jmp short SortStatTable_310.40
-DrawStatTableRowsJumpTable:
+DrawStatTableRowsJumpTable:                     ; jump table for the switch cases of DrawStatTableRows
         dd DrawStatTableRows_2A9
         dd DrawStatTableRows_2A9
         dd DrawStatTableRows_2ED
@@ -1603,7 +1603,7 @@ AskExportFile:
         pop ecx
         pop ebx
         ret
-ExportStatTableJumpTable:
+ExportStatTableJumpTable:                       ; jump table for the switch cases of ExportStatTable
         dd ExportStatTable_19A
         dd ExportStatTable_19A
         dd ExportStatTable_221
@@ -1995,7 +1995,7 @@ TeamStatsSound:
         pop ecx
         pop ebx
         ret
-TeamStatsScreenJumpTable:
+TeamStatsScreenJumpTable:                       ; jump table for the switch cases of TeamStatsScreen
         dd TeamStatsScreen_FC4
         dd TeamStatsScreen_1027
         dd TeamStatsScreen_108A
@@ -3479,7 +3479,7 @@ StatsScreenSound:
         pop ecx
         pop ebx
         ret
-StatsTablesScreenJumpTable:
+StatsTablesScreenJumpTable:                     ; jump table for the switch cases of StatsTablesScreen
         dd StatsTablesScreen_B17
         dd StatsTablesScreen_BC9
         dd StatsTablesScreen_C68
@@ -7084,11 +7084,11 @@ SetTeamStatColumns:
         pop edi
         pop esi
         ret 1Ch
-UserRecordScaleSteps:
+UserRecordScaleSteps:                           ; used by UpdateUserRecords
         db 00h,00h,02h,00h,00h,00h,03h,00h,00h,00h,04h,00h
-UserRecordScaleHalf:
+UserRecordScaleHalf:                            ; used by UpdateUserRecords
         db 00h,00h,01h,00h,00h,080h,01h,00h,00h,00h,00h,00h
-UserRecordScalePair:
+UserRecordScalePair:                            ; used by UpdateUserRecords
         db 00h,00h,01h,00h,00h,080h,01h,00h
-UserRecordScaleQuarter:
+UserRecordScaleQuarter:                         ; used by UpdateUserRecords
         db 00h,00h,01h,00h,00h,040h,01h,00h,00h,080h,01h,00h

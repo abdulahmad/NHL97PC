@@ -4,7 +4,8 @@ bits 32
 section s_1C362D nobits alloc noexec write align=1
 global AwayRosterData
 
-AwayRosterData:
+AwayRosterData:                                 ; away team roster, stats and simulation data; used by
+                                                ; DrawThreeStarStats, InitSpeechBanks, PickThreeStars ...
         resb 7056
         resb 4
         resb 4

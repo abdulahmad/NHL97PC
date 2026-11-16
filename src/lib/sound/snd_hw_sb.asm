@@ -774,11 +774,11 @@ FreeDosDmaBuffer:
         pop edi
         pop esi
         ret
-SbRateConstLo:
+SbRateConstLo:                                  ; used by SbDriverInit, SbRateFromConstant, SbTimeConstant
         db 00h,00h
-SbRateConstMid:
+SbRateConstMid:                                 ; used by SbDriverInit, SbRateFromConstant, SbTimeConstant
         db 00h,00h
-SbRateConstHi:
+SbRateConstHi:                                  ; used by SbDriverInit, SbTimeConstant
         db 00h,00h
 ;-----------------------------------------------------------------------------
 ; SbTimeConstant                                 137F4C  97 PC, low confidence
@@ -858,9 +858,9 @@ SbRateFromConstant:
         pop edx
         pop eax
         iret
-SbProStereoFlag:
+SbProStereoFlag:                                ; used by SbProDriverInit, SbProRateConst
         db 00h,00h
-SbProRateConst:
+SbProRateConst:                                 ; used by SbProDriverInit
         db 00h,00h
 SbRateFromConstant_2B:
         push eax
@@ -1296,12 +1296,12 @@ FormatFloat:
 .14:
         mov edx, 0FFFF8000h
         jmp near .4
-FormatFloatJumpTable:
+FormatFloatJumpTable:                           ; jump table for the switch cases of FormatFloatClampJumpTable
         dd FormatFloat_1F3
         dd FormatFloat_203
         dd FormatFloat_213
         dd FormatFloat_223
-FormatFloatClampJumpTable:
+FormatFloatClampJumpTable:                      ; jump table for the switch cases
         dd FormatFloat_223.12
         dd FormatFloat_223.13
         dd FormatFloat_223.14
@@ -1548,7 +1548,7 @@ FormatFloat_223:
         pop edi
         pop esi
         ret 0Ch
-ScanFloatClassJumpTable:
+ScanFloatClassJumpTable:                        ; jump table for the switch cases of ScanFloat
         dd ScanFloat_24
         dd ScanFloat_34
         dd ScanFloat_44
@@ -1693,7 +1693,7 @@ ScanFloat_54:
         pop edi
         pop esi
         ret 8
-ScanFloatResultJumpTable:
+ScanFloatResultJumpTable:                       ; jump table for the switch cases
         dd .1
         dd .3
         dd .4

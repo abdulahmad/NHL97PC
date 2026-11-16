@@ -3,15 +3,21 @@ bits 32
 %include "hockey.inc"
 section s_1DCAFC nobits alloc noexec write align=1
 global SpeechEventCount, SpeechEventId, SpeechEventTime, SpeechEventQueue, SpeechEnabled, SpeechBufferTag
-SpeechEventCount:
+SpeechEventCount:                               ; queued speech event count; used by BuildSpeechEvent,
+                                                ; ClearSpeechQueue, PickNextSpeech ...
         resb 4
-SpeechEventId:
+SpeechEventId:                                  ; speech event: id; used by ClearSpeechQueue, PickNextSpeech,
+                                                ; PlayQueuedSpeech ...
         resb 4
-SpeechEventTime:
+SpeechEventTime:                                ; speech event: time; used by ClearSpeechQueue,
+                                                ; PickNextSpeech, QueueSpeechEvent ...
         resb 4
-SpeechEventQueue:
+SpeechEventQueue:                               ; speech event queue; used by ClearSpeechQueue,
+                                                ; PickNextSpeech, QueueSpeechEvent ...
         resb 952
-SpeechEnabled:
+SpeechEnabled:                                  ; speech on; used by BuildSpeechEvent, InitSpeechChannels,
+                                                ; PickNextSpeech ...
         resb 4
-SpeechBufferTag:
+SpeechBufferTag:                                ; speech buffer tag ('PATl'); used by AllocSpeechBuffers,
+                                                ; ResetGameVars
         resb 4

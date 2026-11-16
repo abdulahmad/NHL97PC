@@ -5,49 +5,65 @@ section s_1DD5B8 nobits alloc noexec write align=1
 global MbvtopLow, MbvtopHigh, MbvtopResult, RationalAllocLimit, GusEnvConfig, TexClipBottomOut, TexClipBottomIn, TexClipRightIn
 global TexClipLeftIn, TexClipRightOut, TexClipLeftOut, TexClipTopOut, PolyClipTopIn, PolyClipBottomIn, PolyClipRightIn, PolyClipLeftOut
 global PolyClipBottomOut, PolyClipLeftIn, PolyClipRightOut, PolyClipTopOut, Hook387Save, RationalAllocFlags, GusDramSize
-TexClipBottomOut:
+TexClipBottomOut:                               ; textured polygon vertices after clipping the bottom edge;
+                                                ; used by ClipTexPolyBottom
         resb 384
-TexClipBottomIn:
+TexClipBottomIn:                                ; textured polygon vertices before clipping the bottom edge;
+                                                ; used by ClipTexPolyBottom
         resb 256
-TexClipRightIn:
+TexClipRightIn:                                 ; textured polygon vertices before clipping the right edge;
+                                                ; used by ClipTexPolyRight
         resb 256
-TexClipLeftIn:
+TexClipLeftIn:                                  ; textured polygon vertices before clipping the left edge;
+                                                ; used by ClipTexPolyLeft
         resb 256
-TexClipRightOut:
+TexClipRightOut:                                ; textured polygon vertices after clipping the right edge;
+                                                ; used by ClipTexPolyRight
         resb 384
-TexClipLeftOut:
+TexClipLeftOut:                                 ; textured polygon vertices after clipping the left edge; used
+                                                ; by ClipTexPolyLeft
         resb 384
-TexClipTopOut:
+TexClipTopOut:                                  ; textured polygon vertices after clipping the top edge; used
+                                                ; by ClipTexPolyTop
         resb 384
-PolyClipTopIn:
+PolyClipTopIn:                                  ; polygon vertices before clipping the top edge; used by
+                                                ; ClipDrawPolyTop
         resb 256
-PolyClipBottomIn:
+PolyClipBottomIn:                               ; polygon vertices before clipping the bottom edge; used by
+                                                ; ClipDrawPolyBottom
         resb 256
-PolyClipRightIn:
+PolyClipRightIn:                                ; polygon vertices before clipping the right edge; used by
+                                                ; ClipDrawPolyRight
         resb 256
-PolyClipLeftOut:
+PolyClipLeftOut:                                ; polygon vertices after clipping the left edge; used by
+                                                ; ClipDrawPolyLeft
         resb 256
-PolyClipBottomOut:
+PolyClipBottomOut:                              ; polygon vertices after clipping the bottom edge; used by
+                                                ; ClipDrawPolyBottom
         resb 256
-PolyClipLeftIn:
+PolyClipLeftIn:                                 ; polygon vertices before clipping the left edge; used by
+                                                ; ClipDrawPolyLeft
         resb 256
-PolyClipRightOut:
+PolyClipRightOut:                               ; polygon vertices after clipping the right edge; used by
+                                                ; ClipDrawPolyRight
         resb 256
-PolyClipTopOut:
+PolyClipTopOut:                                 ; polygon vertices after clipping the top edge; used by
+                                                ; ClipDrawPolyTop
         resb 256
-MbvtopLow:
+MbvtopLow:                                      ; __mbvtop_ result low byte; used by __mbvtop_
         resb 1
-MbvtopHigh:
+MbvtopHigh:                                     ; __mbvtop_ result high byte; used by __mbvtop_
         resb 1
-MbvtopResult:
+MbvtopResult:                                   ; __mbvtop_ result; used by __mbvtop_
         resb 2
-RationalAllocLimit:
+RationalAllocLimit:                             ; rational allocator size limit; used by RationalAlloc_
         resb 2
-RationalAllocFlags:
+RationalAllocFlags:                             ; rational allocator flags; used by RationalAlloc_
         resb 2
-Hook387Save:
+Hook387Save:                                    ; FPU state saved by __hook387; used by __hook387
         resb 128
-GusEnvConfig:
+GusEnvConfig:                                   ; ULTRASND environment settings; used by GusGetEnvConfig
         resb 32
-GusDramSize:
+GusDramSize:                                    ; Gravis on-board memory size; used by GusMemAlloc,
+                                                ; GusSizeDram
         resb 4

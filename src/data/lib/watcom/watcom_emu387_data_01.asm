@@ -13,7 +13,7 @@ global ReciprocalRowsHead, EmuTrapFrame, ReciprocalRows
 
 
 global DefaultControlWord
-EmuTrapFrame:
+EmuTrapFrame:                                   ; x87 emulator trap frame; used by EmuTrapExit
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -22,21 +22,22 @@ EmuTrapFrame:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-Hook387Flag:
+Hook387Flag:                                    ; x87 emulator hooked; used by __hook387, __unhook387
         db 00h
-Hook387Saved:
+Hook387Saved:                                   ; x87 emulator saved state; used by __hook387, __unhook387
         db 00h,00h,00h
-DefaultControlWord:
+DefaultControlWord:                             ; default FPU control word; used by __init_8087_,
+                                                ; __sys_init_387_emulator
         db 07Fh,012h,00h,00h
-EmuInitHook:
+EmuInitHook:                                    ; x87 emulator init routine; used by __init_8087_
         dd EmuNoOp
-EmuFiniHook:
+EmuFiniHook:                                    ; x87 emulator shutdown routine; used by __init_8087_
         dd EmuNoOp
-WVideoActive:
+WVideoActive:                                   ; debugger video active; used by __EnterWVIDEO_
         db 00h,00h,00h,00h
-str_2_SetupRectFill:
+str_2_SetupRectFill:                            ; string "2"; used by SetupRectFill
         db 032h,00h,00h,00h
-ReciprocalRowTable:
+ReciprocalRowTable:                             ; row of 1/n values per divisor; used by SetupRectFill
         dd ReciprocalRowsHead
         dd ReciprocalRowsHead
         dd ReciprocalRowsHead
@@ -88,7 +89,8 @@ ReciprocalRowTable:
         dd ReciprocalRows+870h
 ReciprocalRowsHead equ $+2
         dd ReciprocalRows+8CEh
-ReciprocalRows:
+ReciprocalRows:                                 ; rows of 16-bit reciprocals 1/n, one row per divisor, used to
+                                                ; step rectangle fills
         db 00h,080h,055h,055h
         db 0AAh,0AAh,00h,040h,00h,080h
         db 00h,0C0h,033h,033h,066h,066h,099h,099h
@@ -256,7 +258,7 @@ ReciprocalRows:
         db 063h,07Dh,09Ch,082h,0D6h,087h,0Fh,08Dh,049h,092h,082h,097h,0BCh,09Ch,0F5h,0A1h
         db 02Fh,0A7h,068h,0ACh,0A1h,0B1h,0DBh,0B6h,014h,0BCh,04Eh,0C1h,087h,0C6h,0C1h,0CBh
         db 0FAh,0D0h,034h,0D6h,06Dh,0DBh,0A7h,0E0h,0E0h,0E5h,01Ah,0EBh,053h,0F0h
-MathErrTable:
+MathErrTable:                                   ; math error code table; used by __math2err_
         db 08Dh,0F5h,0C6h,0FAh
         dd str_Acos_MathErr
         dd str_Asin

@@ -4426,7 +4426,7 @@ DrawLinkStatusText:
         pop edi
         pop esi
         ret
-ResetLinkSetupJumpTable:
+ResetLinkSetupJumpTable:                        ; jump table for the switch cases of ResetLinkSetup
         dd ResetLinkSetup_20
         dd ResetLinkSetup_45
         dd ResetLinkSetup_50

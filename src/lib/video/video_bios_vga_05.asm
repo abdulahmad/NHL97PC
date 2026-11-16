@@ -185,7 +185,7 @@ SetupRectFill_165:
         mov ebx, dword [byte ebp-04h]
         je short SetupRectFill_1B2
         jmp dword [nosplit cs:ebx*4+SetupRectFillJumpTable]
-SetupRectFillJumpTable:
+SetupRectFillJumpTable:                         ; jump table for the switch cases of SetupRectFill
         dd SetupRectFill_1B2
         dd SetupRectFill_583
         dd SetupRectFill_39D
@@ -216,7 +216,7 @@ SetupRectFill_1B2:
         LD sub, ecx, eax
         mov bl, byte [byte esi+034h]
         jmp dword [nosplit cs:ebx*4+RectFillClipLeftJumpTable]
-RectFillClipLeftJumpTable:
+RectFillClipLeftJumpTable:                      ; jump table for the switch cases of SetupRectFillJumpTable
         db 00h,00h,00h,00h,00h,00h,00h,00h
         dd .1
         dd .2
@@ -297,7 +297,7 @@ SetupRectFill_2A4:
         LD sub, ecx, edx
         mov bl, byte [byte esi+034h]
         jmp dword [nosplit cs:ebx*4+RectFillClipBottomJumpTable]
-RectFillClipBottomJumpTable:
+RectFillClipBottomJumpTable:                    ; jump table for the switch cases of RectFillClipLeftJumpTable
         db 00h,00h,00h,00h,00h,00h,00h,00h
         dd .1
         dd .2
@@ -384,7 +384,8 @@ RectFillClipBottomJumpTable:
 SetupRectFill_39D:
         mov bl, byte [byte esi+034h]
         jmp dword [nosplit cs:ebx*4+RectFillClipRightJumpTable]
-RectFillClipRightJumpTable:
+RectFillClipRightJumpTable:                     ; jump table for the switch cases of
+                                                ; RectFillClipBottomJumpTable
         db 00h,00h,00h,00h,00h,00h,00h,00h
         dd .10
         dd .1
@@ -553,7 +554,8 @@ SetupRectFill_4F2:
 SetupRectFill_583:
         movzx ebx, byte [byte esi+034h]
         jmp dword [nosplit cs:ebx*4+RectFillStepJumpTable]
-RectFillStepJumpTable:
+RectFillStepJumpTable:                          ; jump table for the switch cases of
+                                                ; RectFillClipRightJumpTable
         db 00h,00h,00h,00h,00h,00h,00h,00h
         dd .1
         dd .2
@@ -868,7 +870,7 @@ SetupRectFill_80E:
         sub dword [byte esi+010h], edx
         jmp short .30
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-FillRectSpansJumpTable:
+FillRectSpansJumpTable:                         ; jump table for the switch cases of FillRectSpans
         dd FillRectSpans_7C
         dd FillRectSpans_7C
         dd FillRectSpans_A2

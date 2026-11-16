@@ -4,33 +4,39 @@ bits 32
 section s_1AC4F0 nobits alloc noexec write align=1
 global CommentaryTime, CommentaryDelay, CommentaryEventId, SpeechPlaying, CommentaryPriority, CommentarySpeaker, SfxChannelIds, SfxChannelTimes
 global SfxChannelRecords, SpeechBankHome, SpeechBankHomeSize, SpeechBankAway, SpeechBankAwaySize, SfxBankSlots, SfxBankPtrs
-CommentaryTime:
+CommentaryTime:                                 ; commentary time; used by CommentaryEvent
         resb 4
-CommentaryDelay:
+CommentaryDelay:                                ; commentary delay; used by CommentaryEvent
         resb 4
-CommentaryEventId:
+CommentaryEventId:                              ; commentary event id; used by CommentaryEvent
         resb 4
-SpeechPlaying:
+SpeechPlaying:                                  ; speech playing; used by CommentaryEvent, OpenAudioStream,
+                                                ; QueuePowerPlaySpeech
         resb 4
-CommentaryPriority:
+CommentaryPriority:                             ; commentary priority; used by CommentaryEvent
         resb 4
-CommentarySpeaker:
+CommentarySpeaker:                              ; commentary speaker; used by CommentaryEvent
         resb 4
-SfxChannelIds:
+SfxChannelIds:                                  ; sound effect id per channel; used by PlayMenuSfx, PlaySfx,
+                                                ; PlaySfxVolume ...
         resb 4
-SfxChannelTimes:
+SfxChannelTimes:                                ; sound effect time per channel; used by PlayMenuSfx, PlaySfx,
+                                                ; PlaySfxVolume ...
         resb 4
-SfxChannelRecords:
+SfxChannelRecords:                              ; sound effect channel records; used by PlayMenuSfx, PlaySfx,
+                                                ; PlaySfxVolume ...
         resb 184
-SpeechBankHome:
+SpeechBankHome:                                 ; home team speech bank; used by CommentaryEvent,
+                                                ; InitSpeechBanks, QueueSpeechChain
         resb 4
-SpeechBankHomeSize:
+SpeechBankHomeSize:                             ; home team speech bank size; used by InitSpeechBanks
         resb 4
-SpeechBankAway:
+SpeechBankAway:                                 ; away team speech bank; used by CommentaryEvent,
+                                                ; InitSpeechBanks, QueueSpeechChain
         resb 4
-SpeechBankAwaySize:
+SpeechBankAwaySize:                             ; away team speech bank size; used by InitSpeechBanks
         resb 4
-SfxBankSlots:
+SfxBankSlots:                                   ; sound effect bank slots; used by LoadSfxBank
         resb 20
-SfxBankPtrs:
+SfxBankPtrs:                                    ; sound effect bank pointers; used by PlaySfx, PlaySfxVolume
         resb 4

@@ -14,185 +14,253 @@ global CameraLag, CameraSpeed, CameraFollowObj, TargetPointObj, CameraSceneCente
 global ActiveCameraScene, CameraPathActive, CameraDebugText, TargetVecX, TargetVecY, TargetVecZ, StanleyPlayer, FaceoffPuckX
 global FaceoffPuckY, PassTargetAngle, OverlayPanelQueue, ReplayCamPos, MenuCamPos, MenuCamTarget, CameraPathPoints, SplineCoefsX
 global SplineCoefsY, CameraEye, CameraCenter
-OverlayPanelQueue:
+OverlayPanelQueue:                              ; queued overlay panels; used by ApplyDisplayFlags,
+                                                ; ClearOverlayWindows, DrawGameOverlays ...
         resb 120
-ScorePanelHome:
+ScorePanelHome:                                 ; home score shown on the score panel (-1 forces a redraw);
+                                                ; used by NextVideoModeKey, PrevVideoModeKey,
+                                                ; UpdateScoreboardPanel
         resb 4
-ScorePanelAway:
+ScorePanelAway:                                 ; away score shown on the score panel (-1 forces a redraw);
+                                                ; used by NextVideoModeKey, PrevVideoModeKey
         resb 4
-ScorePanelValues:
+ScorePanelValues:                               ; values shown on the score panel; used by HomeTeamPanel,
+                                                ; UpdateScoreboardPanel
         resb 4
-AwayPanelValue:
+AwayPanelValue:                                 ; value shown on the away team panel; used by AwayTeamPanel
         resb 4
-ClockShownSeconds:
+ClockShownSeconds:                              ; game clock seconds last drawn; used by DrawGameClock
         resb 4
-ClockShownMinutes:
+ClockShownMinutes:                              ; game clock minutes last drawn; used by DrawClockPanel,
+                                                ; DrawGameClock, DrawPowerPlayClock ...
         resb 4
-PanelNameBuf:
+PanelNameBuf:                                   ; player name buffer for panels; used by GetPlayerPanelName
         resb 4
-FightSceneTimer:
+FightSceneTimer:                                ; fight camera scene timer; used by EndPenShotScene,
+                                                ; FightCameraScene
         resb 4
-FightSceneState:
+FightSceneState:                                ; fight camera scene state; used by EndPenShotScene,
+                                                ; FightCameraScene
         resb 4
-ReplayCamPos:
+ReplayCamPos:                                   ; replay free camera position; used by ReplayCamFreeMode,
+                                                ; ReplayCamMove
         resb 12
-ReplayCamTarget:
+ReplayCamTarget:                                ; replay camera followed object (-1 none); used by
+                                                ; DrawCameraDebug, ReplayCamDrag, ReplayCamFollowMode ...
         resb 4
-ReplayCamYaw:
+ReplayCamYaw:                                   ; replay camera yaw; used by ReplayCamDrag,
+                                                ; ReplayCamFollowMode, ReplayCamOrbit ...
         resb 4
-ReplayCamPitch:
+ReplayCamPitch:                                 ; replay camera pitch; used by ReplayCamDrag,
+                                                ; ReplayCamFollowMode, ReplayCamOrbit ...
         resb 4
-PenShotSceneTimer:
+PenShotSceneTimer:                              ; penalty shot scene timer; used by EndPenShotScene,
+                                                ; PenaltyShotCameraScene
         resb 4
-PenShotSceneState:
+PenShotSceneState:                              ; penalty shot scene state; used by EndPenShotScene,
+                                                ; PenaltyShotCameraScene
         resb 4
-MenuOrbitAngle:
+MenuOrbitAngle:                                 ; menu camera orbit angle; used by MenuOrbitScene,
+                                                ; MenuOrbitStep
         resb 4
-MenuCamPos:
+MenuCamPos:                                     ; menu camera position; used by MenuCameraScene,
+                                                ; MenuOrbitScene, MenuOrbitStep
         resb 12
-SceneStepCount:
+SceneStepCount:                                 ; camera scene step counter; used by FaceoffCameraScene2,
+                                                ; FaceoffSweepStep, PenaltySceneStep
         resb 4
-MenuCamTarget:
+MenuCamTarget:                                  ; menu camera target point; used by MenuCameraScene,
+                                                ; MenuOrbitScene, MenuOrbitStep
         resb 12
-SceneSavedView:
+SceneSavedView:                                 ; view to return to after a camera scene; used by
+                                                ; SceneReturnToView
         resb 4
-OpeningCamFrame:
+OpeningCamFrame:                                ; opening camera frame; used by EndOpeningCamera,
+                                                ; LoadOpeningCamera, OpeningCameraStep
         resb 4
-OpeningCamActive:
+OpeningCamActive:                               ; opening camera running; used by EndOpeningCamera,
+                                                ; LoadOpeningCamera, OpeningCameraStep
         resb 4
-OpeningCamData:
+OpeningCamData:                                 ; opening camera path data; used by LoadOpeningCamera,
+                                                ; OpeningCameraStep
         resb 4
-OpeningCamFrames:
+OpeningCamFrames:                               ; opening camera frame count; used by LoadOpeningCamera,
+                                                ; OpeningCameraStep
         resb 4
-PenaltyCamDistance:
+PenaltyCamDistance:                             ; penalty camera distance; used by PenaltyCameraDistance,
+                                                ; PenaltyCameraScene, PenaltySceneStep
         resb 4
-PenaltyCamTimer:
+PenaltyCamTimer:                                ; penalty camera timer; used by PenaltyCameraDistance,
+                                                ; PenaltyCameraScene
         resb 4
-CameraSceneFunc:
+CameraSceneFunc:                                ; camera scene routine; used by FaceoffCloseupScene,
+                                                ; FaceoffDropCameraScene, FaceoffSweepStep ...
         resb 4
-CameraSceneStep:
+CameraSceneStep:                                ; camera scene step routine; used by FaceoffCloseupScene,
+                                                ; FaceoffDropCameraScene, FaceoffDropSceneStep ...
         resb 4
-CameraSceneArg:
+CameraSceneArg:                                 ; camera scene argument; used by FaceoffCloseupScene,
+                                                ; FaceoffDropCameraScene, FaceoffDropSceneStep ...
         resb 4
-CameraDebugMarks:
+CameraDebugMarks:                               ; draw camera debug marks; used by DrawCameraDebugMarks
         resb 4
-CameraDebugOn:
+CameraDebugOn:                                  ; camera debug display on; used by DrawCameraDebug,
+                                                ; ReplayCamClearFlag, ReplayCamFollowMode ...
         resb 4
-CameraDebugMask:
+CameraDebugMask:                                ; camera debug mark mask; used by DrawCameraDebugMarks
         resb 4
-CameraDebugLimit:
+CameraDebugLimit:                               ; camera debug mark limit; used by DrawCameraDebugMarks
         resb 8
-CameraPathPoints:
+CameraPathPoints:                               ; camera path control points; used by FaceoffCameraScene,
+                                                ; FaceoffDropCameraScene, FaceoffDropSceneStep ...
         resb 36
-CameraViewX:
+CameraViewX:                                    ; camera view X; used by FaceoffSceneStep, FaceoffSweepStep,
+                                                ; FightCameraStart ...
         resb 4
-CameraViewY:
+CameraViewY:                                    ; camera view Y; used by FaceoffSceneStep, FaceoffSweepStep,
+                                                ; FightCameraScene ...
         resb 4
-CameraViewZ:
+CameraViewZ:                                    ; camera view Z; used by ReplayCamFollowMode,
+                                                ; ReplayCamOrbitMode, SetCameraPathPoint ...
         resb 4
-CameraMode:
+CameraMode:                                     ; camera mode; used by ReplayCamFollowMode, ReplayCamFreeMode,
+                                                ; ReplayCamOrbitMode ...
         resb 4
-CameraFocus:
+CameraFocus:                                    ; camera focus object; used by FaceoffDropSceneStep,
+                                                ; LoadOpeningCamera, MenuCameraScene ...
         resb 4
-CameraViewSel:
+CameraViewSel:                                  ; selected camera view; used by ReplayCamFollowMode,
+                                                ; ReplayCamOrbitMode, ReplayCamStop ...
         resb 8
-CameraTargetObj:
+CameraTargetObj:                                ; camera target object; used by GetCameraTarget,
+                                                ; SetCameraPathPoints
         resb 4
-CameraTargetPtr:
+CameraTargetPtr:                                ; camera target pointer; used by GetCameraTarget,
+                                                ; UpdateCameraView
         resb 4
-CameraViewTable:
+CameraViewTable:                                ; camera view settings; used by UpdateCameraView
         resb 72
-CameraPathCount:
+CameraPathCount:                                ; camera path point count; used by SetCameraPathPoints
         resb 4
-CameraTargetPoints:
+CameraTargetPoints:                             ; camera target points; used by GetCameraTarget
         resb 80
-CameraPos:
+CameraPos:                                      ; camera position; used by FaceoffSweepStep, FightCameraScene,
+                                                ; FightSceneStep ...
         resb 4
-CameraOrbitBase:
+CameraOrbitBase:                                ; camera orbit base angle; used by ReplayCamOrbit
         resb 4
-CameraHeading:
+CameraHeading:                                  ; camera heading; used by FaceoffSweepStep, FightCameraScene,
+                                                ; ToggleCameraFollow
         resb 4
-CameraElevation:
+CameraElevation:                                ; camera elevation; used by MenuOrbitStep, ReplayCamOrbit,
+                                                ; UpdateGameCamera
         resb 4
-CameraOrbitSpeed:
+CameraOrbitSpeed:                               ; camera orbit speed; used by ReplayCamOrbit
         resb 4
-CameraZoom:
+CameraZoom:                                     ; camera zoom; used by FaceoffCameraScene2,
+                                                ; FaceoffCloseupScene, FaceoffSweepScene ...
         resb 4
-CameraLookAt:
+CameraLookAt:                                   ; camera look-at point; used by IntermissionCameraScene,
+                                                ; LoadOpeningCamera, MenuCameraScene ...
         resb 4
-CameraHeight:
+CameraHeight:                                   ; camera height; used by FaceoffSceneStep, FaceoffSweepStep,
+                                                ; FightCameraScene ...
         resb 4
-CameraFocusVec:
+CameraFocusVec:                                 ; camera focus vector; used by SelectCameraView,
+                                                ; SetCameraFocus, UpdateCameraView
         resb 16
-CameraPathTime:
+CameraPathTime:                                 ; camera path time; used by FaceoffSceneStep,
+                                                ; FaceoffSweepStep, FightCameraStart ...
         resb 4
-CameraPathVec:
+CameraPathVec:                                  ; camera path vector; used by FaceoffSceneStep,
+                                                ; FightCameraStart, GoalCameraScene ...
         resb 16
-CameraViewPair:
+CameraViewPair:                                 ; camera view pair; used by FaceoffSceneStep, SetCameraView,
+                                                ; StartCameraPath
         resb 8
-CameraViewNear:
+CameraViewNear:                                 ; camera near distance; used by SetCameraPathPoints,
+                                                ; SetCameraView
         resb 4
-CameraViewFar:
+CameraViewFar:                                  ; camera far distance; used by SetCameraPathPoints,
+                                                ; SetCameraView
         resb 4
-SplineIndex:
+SplineIndex:                                    ; camera spline index; used by SetCameraSpline,
+                                                ; UpdateCameraView
         resb 4
-SplineCount:
+SplineCount:                                    ; camera spline point count; used by SetCameraSpline,
+                                                ; UpdateCameraView
         resb 4
-SplineStep:
+SplineStep:                                     ; camera spline step; used by SetCameraSpline,
+                                                ; UpdateCameraView
         resb 4
-SplinePoints:
+SplinePoints:                                   ; camera spline points; used by SetCameraSpline,
+                                                ; UpdateCameraView
         resb 44
-SplineCoefsX:
+SplineCoefsX:                                   ; camera spline X coefficients; used by SetCameraSpline,
+                                                ; UpdateCameraView
         resb 132
-SplineCoefsY:
+SplineCoefsY:                                   ; camera spline Y coefficients; used by SetCameraSpline,
+                                                ; UpdateCameraView
         resb 132
-CameraEye:
+CameraEye:                                      ; camera eye point; used by FaceoffSweepStep, GoalCameraScene,
+                                                ; GoalSceneStep ...
         resb 12
-CameraCenter:
+CameraCenter:                                   ; camera center point; used by FaceoffSweepStep,
+                                                ; GoalCameraScene, GoalSceneStep ...
         resb 12
-CameraDistance:
+CameraDistance:                                 ; camera distance; used by UpdateGameCamera
         resb 4
-CameraAngles:
+CameraAngles:                                   ; camera angles; used by UpdateGameCamera
         resb 8
-CameraFov:
+CameraFov:                                      ; camera field of view; used by SelectCameraView,
+                                                ; SetCameraPathPoint, SetCameraView ...
         resb 4
-CameraFovTarget:
+CameraFovTarget:                                ; camera field of view target; used by ReplayCamTurn,
+                                                ; SelectCameraView, SetCameraPathPoint ...
         resb 4
-CameraViewParams:
+CameraViewParams:                               ; camera view parameters; used by SelectCameraView
         resb 28
-CameraLag:
+CameraLag:                                      ; camera lag; used by UpdateGameCamera
         resb 4
-CameraSpeed:
+CameraSpeed:                                    ; camera speed; used by UpdateGameCamera
         resb 4
-CameraFollowObj:
+CameraFollowObj:                                ; object the camera follows; used by FaceoffDropSceneStep,
+                                                ; LoadOpeningCamera, MenuCameraScene ...
         resb 4
-TargetPointObj:
+TargetPointObj:                                 ; target point object; used by FaceoffCloseupScene,
+                                                ; GetTargetPoint
         resb 4
-CameraSceneCenter:
+CameraSceneCenter:                              ; camera scene center; used by DrawCameraDebug,
+                                                ; FaceoffCloseupScene, FightSceneStep ...
         resb 4
-CameraSceneYaw:
+CameraSceneYaw:                                 ; camera scene yaw; used by FightSceneStep, MenuOrbitScene,
+                                                ; ReplayCamDrag ...
         resb 4
-CameraSceneDist:
+CameraSceneDist:                                ; camera scene distance; used by FightSceneStep,
+                                                ; MenuOrbitScene, ReplayCamDrag ...
         resb 4
-CameraTracking:
+CameraTracking:                                 ; camera tracking on; used by DrawCameraDebug, GetTargetPoint,
+                                                ; ReplayCamDrag ...
         resb 4
-ActiveCameraScene:
+ActiveCameraScene:                              ; camera scene being run; used by CanStartCameraScene,
+                                                ; CloseIntermission, EndOpeningCamera ...
         resb 4
-CameraPathActive:
+CameraPathActive:                               ; camera path running; used by FaceoffCameraScene,
+                                                ; FaceoffDropCameraScene, FaceoffDropSceneStep ...
         resb 4
-CameraDebugText:
+CameraDebugText:                                ; camera debug text on; used by DrawCameraDebug
         resb 4
-TargetVecX:
+TargetVecX:                                     ; camera target vector X; used by GetCameraTarget
         resb 4
-TargetVecY:
+TargetVecY:                                     ; camera target vector Y; used by GetCameraTarget
         resb 4
-TargetVecZ:
+TargetVecZ:                                     ; camera target vector Z; used by GetCameraTarget
         resb 4
-StanleyPlayer:
+StanleyPlayer:                                  ; player picked by assstanley; used by assstanley
         resb 4
-FaceoffPuckX:
+FaceoffPuckX:                                   ; face-off puck X; used by PlayerGetsPuck, puckfaceoff2
         resb 4
-FaceoffPuckY:
+FaceoffPuckY:                                   ; face-off puck Y; used by PlayerGetsPuck, puckfaceoff2
         resb 4
-PassTargetAngle:
+PassTargetAngle:                                ; pass target angle; used by AIPassDecision, TargetInAngle
         resb 4

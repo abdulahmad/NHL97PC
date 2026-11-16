@@ -5,9 +5,9 @@ section s_16862E progbits alloc noexec write align=1
 global GameEventTable, GameEventFlags, SavedCameraView, ClockShown, F32_62, F32_54, F32_0p8, F32_ReachFactor
 global PenaltyPanelIds, OpeningFrames, InGameMenuRequest, BrightnessLevel, MessagePanelIds, CameraViewKey, DebugUnlockCount, ForcePenaltyCall
 global DebugModelRefresh, DebugModelIndex, str_D_ChangeViewSize
-GameEventTable:
+GameEventTable:                                 ; game event table; used by PickGameEvents
         db 00h,00h
-GameEventFlags:
+GameEventFlags:                                 ; game event flags; used by LinkSideFlags, PickGameEvents
         db 01h,00h,039h,00h,03h,00h,03Ah,00h,05h,00h,0FFh,0FFh,07h,00h,0FFh,0FFh
         db 09h,00h,0FFh,0FFh,0Bh,00h,0FFh,0FFh,0Dh,00h,0FFh,0FFh,0Fh,00h,0FFh,0FFh
         db 013h,00h,0FFh,0FFh,015h,00h,0FFh,0FFh,017h,00h,0FFh,0FFh,019h,00h,03Bh,00h
@@ -17,39 +17,46 @@ GameEventFlags:
         db 031h,00h,03Dh,00h,033h,00h,0FFh,0FFh,035h,00h,0FFh,0FFh,011h,00h,0FFh,0FFh
         db 042h,00h,0FFh,0FFh,044h,00h,0FFh,0FFh,046h,00h,0FFh,0FFh,048h,00h,0FFh,0FFh
         db 040h,00h,0FFh,0FFh,037h,00h,0FFh,0FFh,037h,00h
-SavedCameraView:
+SavedCameraView:                                ; camera view saved for replays; used by EndInstantReplay,
+                                                ; FaceoffDropSceneStep, HandleGameKeys ...
         db 0FFh,0FFh
-CameraViewKey:
+CameraViewKey:                                  ; camera view key; used by HandleGameKeys, InitGameDisplay,
+                                                ; ShowCameraView
         db 00h,00h,00h,00h
-ClockShown:
+ClockShown:                                     ; clock shown; used by DrawGameClock, DrawPauseClock,
+                                                ; DrawPowerPlayClock ...
         db 00h,00h,00h,00h
-F32_62:
+F32_62:                                         ; float constant 62; used by SpeedScale, StickReachX
         db 00h,00h,078h,042h
-F32_54:
+F32_54:                                         ; float constant 54; used by ReachScale, StickReachY
         db 00h,00h,058h,042h
-F32_0p8:
+F32_0p8:                                        ; float constant 0.8; used by GoalieReachFactor
         db 0CDh,0CCh,04Ch,03Fh
-F32_ReachFactor:
+F32_ReachFactor:                                ; player reach factor; used by PlayerReachFactor
         db 09Ah,099h
-PenaltyPanelIds:
+PenaltyPanelIds:                                ; text id per penalty panel; used by DrawPenaltyPanel
         db 099h,03Eh
-DebugUnlockCount:
+DebugUnlockCount:                               ; debug unlock key count; used by CountDebugUnlock,
+                                                ; HandleGameKeys, ResetDebugUnlock
         db 00h,00h
-ForcePenaltyCall:
+ForcePenaltyCall:                               ; debug key: the next penalty chance is always called; used by
+                                                ; ChkPenaltyCall, DebugKeys
         db 00h,00h
-DebugModelRefresh:
+DebugModelRefresh:                              ; debug model refresh; used by DebugKeys, PlayPostSound,
+                                                ; RefreshPlayerModel
         db 00h,00h
-DebugModelIndex:
+DebugModelIndex:                                ; debug model index; used by DebugKeys, RefreshPlayerModel
         db 00h,00h
-OpeningFrames:
+OpeningFrames:                                  ; opening frames; used by HandleGameKeys, RunOpeningFrames
         db 00h,00h,00h,00h
-InGameMenuRequest:
+InGameMenuRequest:                              ; used by GameLoop, InitGameVars, PauseMenu ...
         db 00h,00h
-BrightnessLevel:
+BrightnessLevel:                                ; brightness level; used by SaveGameDisplay, SetGameBrightness
         db 00h,00h
-str_D_ChangeViewSize:
+str_D_ChangeViewSize:                           ; string "d"; used by ChangeViewSize, NextVideoModeKey,
+                                                ; PrevVideoModeKey ...
         db 064h,00h
-MessagePanelIds:
+MessagePanelIds:                                ; text id per message panel; used by DrawMessagePanel
         db 00h,00h,00h,00h,01h,00h,00h,00h,02h,00h,00h,00h,03h,00h,00h,00h
         db 04h,00h,00h,00h,05h,00h,00h,00h,06h,00h,00h,00h,07h,00h,00h,00h
         db 08h,00h,00h,00h,09h,00h,00h,00h,0Ah,00h,00h,00h,0Bh,00h,00h,00h

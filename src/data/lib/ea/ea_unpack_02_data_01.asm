@@ -9,110 +9,152 @@ global SbDriverBuffer, SbDriverRunning, SbProDriverBuffer, SbProDriverRunning, S
 global Sb16SavedIrqVector, SoundscapeBasePort, str_Punct_ReadSoundscapeIni, SoundscapeCodecType, SoundscapeDmaChannel, SoundscapeWavePort, SoundscapeIrq, SoundscapeMidiIrq
 global SoundscapeDmaBuffer, SoundscapeSavedIrq, AudioDeferredPending, AudioDeferredArg, AudioBusyCount, AudioLockCount, AudioDeferredFunc, MixerStepTable
 global Sb16DmaSetupCode, Sb16SavedIrqSelector, Sb16DmaPortPatch, str_Punct_Sb16SetupDma
-PatlDefaultPitch:
+PatlDefaultPitch:                               ; default pitch of PATl samples; used by PlayPatlSample
         db 00h,00h,00h,00h
-SoundSystemOn:
+SoundSystemOn:                                  ; set while the sound system is running; used by
+                                                ; ChannelPlaying, ChannelPosition, ChannelTimeLeftLocked ...
         db 00h,00h,00h
-SpeechQueueVolume:
+SpeechQueueVolume:                              ; volume of the speech queue; used by AudioDeferredWork,
+                                                ; OpenDigitalAudio, ShutdownSpeechQueue ...
         db 00h,00h,00h,00h
-AudioWorkHook:
+AudioWorkHook:                                  ; deferred audio work hook; used by AudioDeferredWork,
+                                                ; InitSoundMixer, OpenDigitalAudio ...
         db 00h,00h,00h,00h
-AudioStreamHook:
+AudioStreamHook:                                ; deferred audio stream hook; used by AudioDeferredWork,
+                                                ; OpenDigitalAudio
         db 00h,00h,00h,00h
-AudioSpeechHook:
+AudioSpeechHook:                                ; deferred speech hook; used by AudioDeferredWork,
+                                                ; InitSpeechChannels, OpenDigitalAudio
         db 00h,00h,00h,00h
-StreamLengthFn:
+StreamLengthFn:                                 ; function that returns the length of the next stream chunk;
+                                                ; used by MixerChunkLength, OpenAudioStreamChannel
         db 00h,00h,00h,00h
-GusDriverIsOpen:
+GusDriverIsOpen:                                ; set while the Gravis driver is open; used by GusDriverClose,
+                                                ; GusDriverStartStream, GusDriverUpdate
         db 00h,00h,00h,00h
-GusDriverStreaming:
+GusDriverStreaming:                             ; set while the Gravis driver streams; used by GusDriverClose,
+                                                ; GusDriverStartStream
         db 00h,00h,00h,00h
-GusDriverFound:
+GusDriverFound:                                 ; used by GusDetect, GusDriverClose, GusDriverOpen ...
         db 00h,00h,00h,00h
-GusDriverRunning:
+GusDriverRunning:                               ; set while the Gravis card is running; used by GusDetect,
+                                                ; GusDriverClose, GusDriverOpen ...
         db 00h,00h,00h,00h
-DacDriverBuffer:
+DacDriverBuffer:                                ; memory block of the DAC driver's buffer; used by
+                                                ; DacDriverClose, DacDriverOpen
         db 00h,00h,00h,00h
-DacDriverRunning:
+DacDriverRunning:                               ; set while the DAC driver runs; used by DacDriverClose,
+                                                ; DacDriverOpen, DacDriverUpdate
         db 00h,00h,00h,00h
-DacPortTable:
+DacPortTable:                                   ; output port settings of the DAC driver; used by
+                                                ; DacDriverOpen
         db 00h
-DacPortBits:
+DacPortBits:                                    ; bit settings of the DAC output ports; used by DacDriverOpen
         db 04h
-DacRateTable:
+DacRateTable:                                   ; sample rates of the DAC driver; used by DacDriverOpen
         db 04h,050h,03h,01h,010h,06h,02h,050h,03h,01h
-SbDriverBuffer:
+SbDriverBuffer:                                 ; memory block of the Sound Blaster driver's buffer; used by
+                                                ; SbDriverInit, SbDriverShutdown, SbDriverStart
         db 00h,00h,00h,00h
-SbDriverRunning:
+SbDriverRunning:                                ; set while the Sound Blaster driver runs; used by
+                                                ; SbDriverInit, SbDriverShutdown
         db 00h,00h,00h,00h
-SbProDriverBuffer:
+SbProDriverBuffer:                              ; memory block of the Sound Blaster Pro driver's buffer; used
+                                                ; by SbProDriverInit, SbProDriverShutdown, SbProDriverStart
         db 00h,00h,00h,00h
-SbProDriverRunning:
+SbProDriverRunning:                             ; set while the Sound Blaster Pro driver runs; used by
+                                                ; SbProDriverInit, SbProDriverShutdown
         db 00h,00h,00h,00h
-SbProChannels:
+SbProChannels:                                  ; channel count of the Sound Blaster Pro driver; used by
+                                                ; SbProDriverInit, SbProSetupDma, SbProStopDma
         db 01h,00h,00h,00h
-SbProIrqVectors:
+SbProIrqVectors:                                ; interrupt vector of each Sound Blaster Pro IRQ line; used by
+                                                ; SbProDriverInit
         db 04h
-SbProDmaChannelTable:
+SbProDmaChannelTable:                           ; DMA channel bits per Sound Blaster Pro DMA number; used by
+                                                ; SbProDriverInit
         db 02h,06h,01h,00h,00h,00h,00h,00h,00h,00h,00h
-Sb16DriverReady:
+Sb16DriverReady:                                ; set to 1 once the Sound Blaster 16 driver has started;
+                                                ; cleared on shutdown or failure; used by Sb16DriverInit,
+                                                ; Sb16DriverShutdown, Sb16DriverStart
         db 00h,00h,00h,00h
-Sb16DriverActive:
+Sb16DriverActive:                               ; Sound Blaster 16 driver open flag; used by Sb16DriverInit,
+                                                ; Sb16DriverShutdown
         db 00h,00h,00h,00h
-Sb16BufferSize:
+Sb16BufferSize:                                 ; Sound Blaster 16 DMA buffer size; used by Sb16DriverInit,
+                                                ; Sb16SetupDma
         db 08h,00h,00h,00h
-Sb16DmaPageTable:
+Sb16DmaPageTable:                               ; DMA page register port per channel; used by Sb16SetupDma
         db 0C6h
-Sb16DmaAddrTable:
+Sb16DmaAddrTable:                               ; DMA address register port per channel; used by Sb16SetupDma
         db 00h
-Sb16DmaCountTable:
+Sb16DmaCountTable:                              ; DMA count register port per channel; used by Sb16DriverInit
         db 04h
-Sb16DmaMaskTable:
+Sb16DmaMaskTable:                               ; DMA mask bits per channel; used by Sb16DriverInit
         db 04h,0B6h,030h,03h,01h,0C6h,020h,06h,02h,0B6h,030h,03h,01h,00h,00h
-Sb16SavedIrqVector:
+Sb16SavedIrqVector:                             ; previous IRQ handler offset saved by the Sound Blaster 16
+                                                ; driver; used by Sb16DriverShutdown, Sb16SetupDma,
+                                                ; Sb16StopDma
         db 00h,00h,00h,00h
-Sb16SavedIrqSelector:
+Sb16SavedIrqSelector:                           ; previous IRQ handler selector saved by the Sound Blaster 16
+                                                ; driver; used by Sb16DriverShutdown, Sb16SetupDma,
+                                                ; Sb16StopDma
         db 00h,00h
-Sb16DmaSetupCode:
+Sb16DmaSetupCode:                               ; DMA setup code bytes patched with the channel ports; used by
+                                                ; Sb16SetupDma
         db 050h,052h,090h,0BAh
-Sb16DmaPortPatch:
+Sb16DmaPortPatch:                               ; port operand patched into the DMA setup code; used by
+                                                ; Sb16SetupDma
         db 02Fh,02h,0ECh,0BAh
-str_Punct_Sb16SetupDma:
+str_Punct_Sb16SetupDma:                         ; string "\n"; used by Sb16SetupDma
         db 0Ah,00h,083h,0FAh,08h,072h,04h,0B0h,020h,0E6h,0A0h,0B0h,020h,0E6h,020h,05Ah
         db 058h,0CFh,00h,00h,00h,00h,00h,00h
-SoundscapeBasePort:
+SoundscapeBasePort:                             ; Soundscape card base I/O port (default 330h); used by
+                                                ; IniFindKey, ReadSoundscapeIni, SoundscapeCodecReady ...
         db 030h,03h,00h,00h
-str_Punct_ReadSoundscapeIni:
+str_Punct_ReadSoundscapeIni:                    ; string "\t"; used by ReadSoundscapeIni, SoundscapeSetupCodec
         db 09h,00h,00h,00h
-SoundscapeCodecType:
+SoundscapeCodecType:                            ; Soundscape codec type read from SNDSCAPE.INI; used by
+                                                ; ReadSoundscapeIni, SoundscapeSetupCodec, SoundscapeStopCodec
         db 00h,00h,00h,00h
-SoundscapeDmaChannel:
+SoundscapeDmaChannel:                           ; Soundscape DMA channel; used by ReadSoundscapeIni,
+                                                ; SoundscapeSetupCodec, SoundscapeStopCodec
         db 01h,00h,00h,00h
-SoundscapeWavePort:
+SoundscapeWavePort:                             ; Soundscape codec (wave) port; used by ReadSoundscapeIni,
+                                                ; SoundscapeStopCodec
         db 00h,00h,00h,00h
-SoundscapeIrq:
+SoundscapeIrq:                                  ; Soundscape IRQ number; used by ReadSoundscapeIni,
+                                                ; SoundscapeSetupCodec, SoundscapeStopCodec
         db 01h,00h,00h,00h
-SoundscapeMidiIrq:
+SoundscapeMidiIrq:                              ; Soundscape synth IRQ number; used by ReadSoundscapeIni,
+                                                ; SoundscapeSetupCodec
         db 00h,00h,00h,00h
-SoundscapeDmaBuffer:
+SoundscapeDmaBuffer:                            ; Soundscape DMA buffer address; used by SoundscapeDriverInit,
+                                                ; SoundscapeDriverShutdown
         db 00h,00h,00h,00h
-SoundscapeSavedIrq:
+SoundscapeSavedIrq:                             ; previous IRQ handler saved by the Soundscape driver; used by
+                                                ; SoundscapeDriverInit, SoundscapeDriverShutdown,
+                                                ; SoundscapeDriverStart
         db 00h,00h,00h,00h
-SoundscapeIrqFlags:
+SoundscapeIrqFlags:                             ; IRQ capability bits per Soundscape IRQ; used by
+                                                ; SoundscapeDriverInit
         db 04h
-SoundscapeIrqCodes:
+SoundscapeIrqCodes:                             ; codec IRQ select code per Soundscape IRQ; used by
+                                                ; SoundscapeDriverInit
         db 04h,03h,01h,06h,02h,03h,01h
-AudioDeferredPending:
+AudioDeferredPending:                           ; used by AudioLeave
         db 00h,00h,00h,00h
-AudioDeferredArg:
+AudioDeferredArg:                               ; argument of the deferred audio work; used by AudioLeave
         db 00h,00h,00h,00h
-AudioBusyCount:
+AudioBusyCount:                                 ; nesting count of AudioEnter/AudioLeave; used by AudioLeave,
+                                                ; AudioLeaveCheck
         db 00h,00h,00h,00h
-AudioLockCount:
+AudioLockCount:                                 ; audio critical section lock count; used by AudioEnter,
+                                                ; AudioLeave, AudioLeaveCheck
         db 00h,00h,00h,00h
-AudioDeferredFunc:
+AudioDeferredFunc:                              ; deferred audio work routine; used by AudioDeferredWork
         db 00h,00h,00h,00h
-MixerStepTable:
+MixerStepTable:                                 ; mixer pitch step per note; used by MixerCalcStep
         db 00h,00h,01h,00h,025h,00h,01h,00h,04Bh,00h,01h,00h,071h,00h,01h,00h
         db 097h,00h,01h,00h,0BDh,00h,01h,00h,0E3h,00h,01h,00h,09h,01h,01h,00h
         db 02Fh,01h,01h,00h,055h,01h,01h,00h,07Bh,01h,01h,00h,0A1h,01h,01h,00h

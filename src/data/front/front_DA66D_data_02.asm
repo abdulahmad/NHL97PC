@@ -13,74 +13,89 @@ global NetHostSessionName, InputRecordOn, SlotWords, JoystickUpKey, str_Punct_Re
 global JoystickFireKey, JoystickAltKey, LinkSequence, ModemPortIrqs, ModemPortCount, ModemPortBases, NetSessionActive, NetSessionPort
 global IpxSocketOpen, IpxSocketHandle, NetJoinPending, NetPlayerNameLength, NetFoundCount, OptionsAnimItemFrames, OptionsAnimItemState, OptionsAnimItem
 global OptionsAnimOn
-InputPlaybackOn:
+InputPlaybackOn:                                ; set while recorded input plays back; used by
+                                                ; InputRecordTimer, StartInputRecording
         db 00h,00h,00h,00h
-InputRecordPaused:
+InputRecordPaused:                              ; set while input recording is paused; used by
+                                                ; InputRecordTimer, StartInputRecording
         db 00h,00h,00h,00h
-LinkInputFrame:
+LinkInputFrame:                                 ; link input frame number; used by InputRecordTimer,
+                                                ; StartInputRecording
         db 00h,00h,00h,00h
-SlotTableCount:
+SlotTableCount:                                 ; slot table entries; used by InitSlotTable
         db 00h,00h,00h,00h
-InputRecordOn:
+InputRecordOn:                                  ; set while input is recorded; used by InputRecordTimer,
+                                                ; IsInputRecording, ResetInputState ...
         db 00h,00h,00h,00h
-InputRecordStopped:
+InputRecordStopped:                             ; set once input recording stops; used by InputRecordTimer,
+                                                ; StopInputRecording
         db 00h,00h,00h,00h
-PadPollTick:
+PadPollTick:                                    ; tick of the next pad poll; used by PollControllers,
+                                                ; ResetInputState
         db 00h,00h,00h,00h
-KeyPollTick:
+KeyPollTick:                                    ; tick of the next key poll; used by PollControllers,
+                                                ; ResetInputState
         db 00h,00h,00h,00h
-KeyRepeatTick:
+KeyRepeatTick:                                  ; tick of the next key repeat; used by ReadKeyboardPlayers
         db 00h,00h,00h,00h
-KeyRepeatOn:
+KeyRepeatOn:                                    ; key repeat enabled; used by ReadKeyboardPlayers,
+                                                ; ResetInputState
         db 00h,00h,00h,00h
-PadHoldTicks:
+PadHoldTicks:                                   ; hold ticks per pad; used by PollControllers
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-PadHoldCount:
+PadHoldCount:                                   ; hold count per pad; used by ResetInputState
         db 00h,00h,00h,00h
-PadRepeatTicks:
+PadRepeatTicks:                                 ; repeat ticks per pad; used by PollControllers
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-PadChanged:
+PadChanged:                                     ; changed flag per pad; used by ResetInputState
         db 00h,00h
-SlotWords:
+SlotWords:                                      ; 8 words: high byte device (bits 0-2) and team (bit 7), low
+                                                ; byte buttons; used by InitSlotTable, InputRecordTimer,
+                                                ; LinkInputTick ...
         db 00h
-PadSlotFlags:
+PadSlotFlags:                                   ; slot flags per pad; used by InitSlotTable, PollControllers
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-InputRecordTail:
+InputRecordTail:                                ; where TakeInputRecord reads the next record; used by
+                                                ; StartInputRecording, StopInputRecording, TakeInputRecord
         db 00h,00h,00h,00h
-InputRecordHead:
+InputRecordHead:                                ; used by InputRecordTimer, LinkInputTick, StartInputRecording
+                                                ; ...
         db 00h,00h,00h,00h
-InputRecordCount:
+InputRecordCount:                               ; used by InputRecordAvail, InputRecordTimer, LinkInputTick
+                                                ; ...
         db 00h,00h,00h,00h
-InputRecordTaken:
+InputRecordTaken:                               ; set once an input record is taken; used by InputRecordTimer,
+                                                ; LinkInputTick, TakeInputRecord
         db 00h,00h,00h,00h
-InputRecordStamp:
+InputRecordStamp:                               ; used by GameLoop, InputRecordTimer, LinkInputTick
         db 00h,00h,00h,00h
-JoystickUpKey:
+JoystickUpKey:                                  ; joystick up key; used by ReadJoystickPads
         db 010h,00h
-str_Punct_ReadJoystickPads:
+str_Punct_ReadJoystickPads:                     ; string " "; used by ReadJoystickPads
         db 020h,00h
-JoystickDownKey:
+JoystickDownKey:                                ; joystick down key; used by ReadJoystickPads
         db 00h,00h
-JoystickLeftKey:
+JoystickLeftKey:                                ; joystick left key; used by ReadJoystickPads
         db 00h,00h
-JoystickRightKey:
+JoystickRightKey:                               ; joystick right key; used by ReadJoystickPads
         db 00h,00h
-JoystickFireKey:
+JoystickFireKey:                                ; joystick fire key; used by ReadJoystickPads
         db 00h,00h
-JoystickAltKey:
+JoystickAltKey:                                 ; joystick second fire key; used by ReadJoystickPads
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-KeyboardControls:
+KeyboardControls:                               ; keyboard control settings; used by PlayMenuGame,
+                                                ; ReadKeyboardPad
         db 00h
-KeyboardControlOn:
+KeyboardControlOn:                              ; keyboard control enabled per side; used by ReadKeyboardPad
         db 00h,01h,00h,00h,00h,013h,00h,00h,01h,038h,00h,00h,00h,039h,00h,00h
         db 00h,047h,00h,00h,00h,048h,00h,00h,00h,049h,00h,00h,00h,04Bh,00h,00h
         db 00h,04Dh,00h,00h,00h,04Fh,00h,00h,00h,050h,00h,00h,00h,051h,00h,00h
         db 00h,03Bh,00h,00h,00h,03Ch,00h,00h,00h,03Dh,00h,00h,00h,03Eh,00h,00h
         db 00h,03Fh,00h,00h,00h,040h,00h,00h,00h,041h,00h,00h,00h,042h,00h,00h
         db 00h,043h,00h,00h,00h,044h,00h
-DefaultControls:
+DefaultControls:                                ; default control settings; used by ControlSetupScreen
         db 00h,00h,01h,00h,00h,00h,013h,00h,00h,01h,038h,00h,00h,00h,039h,00h
         db 00h,00h,047h,00h,00h,00h,048h,00h,00h,00h,049h,00h,00h,00h,04Bh,00h
         db 00h,00h,04Dh,00h,00h,00h,04Fh,00h,00h,00h,050h,00h,00h,00h,051h,00h
@@ -92,50 +107,66 @@ DefaultControls:
         db 00h,00h,02Dh,00h,00h,00h,02Eh,00h,00h,00h,03Bh,00h,00h,00h,03Ch,00h
         db 00h,00h,03Dh,00h,00h,00h,03Eh,00h,00h,00h,03Fh,00h,00h,00h,040h,00h
         db 00h,00h,041h,00h,00h,00h,042h,00h,00h,00h,043h,00h,00h,00h,044h,00h
-JoystickButtonMap:
+JoystickButtonMap:                              ; joystick button map; used by PollControllers,
+                                                ; ReadJoystickPads
         db 00h,01h,02h,00h,04h,05h,06h,00h,08h,09h,0Ah,00h,09h,06h,00h,05h
         db 01h,04h,00h,0Ah,08h,02h,00h,08h,04h,00h,01h,09h,05h,00h,02h,0Ah
         db 06h,00h,0Ah,05h,00h,09h,08h,01h,00h,06h,02h,04h,00h,02h,01h,00h
         db 08h,0Ah,09h,00h,04h,06h,05h,00h,06h,09h,00h,0Ah,02h,08h,00h,05h
         db 04h,01h,00h,04h,08h,00h,02h,06h,0Ah,00h,01h,05h,09h,00h,05h,0Ah
         db 00h,06h,04h,02h,00h,09h,01h,08h,00h,00h
-LinkGameActive:
+LinkGameActive:                                 ; set while a link or network game runs; used by
+                                                ; AllStarScreen, BuildSeasonSchedule, CreatePlayerScreen ...
         db 00h,00h,00h,00h
-NetActive:
+NetActive:                                      ; set while the network driver is up; used by LinkHandshake,
+                                                ; LinkInputTick, LinkReceiveBlock ...
         db 00h,00h,00h,00h
-NetDriverHandle:
+NetDriverHandle:                                ; network driver handle; used by NetInit, NetShutdown,
+                                                ; StartNetworkLink
         db 00h,00h,00h,00h
-LinkFrameDelay:
+LinkFrameDelay:                                 ; link frame delay; used by InputRecordTimer, LinkInputTick,
+                                                ; SyncLinkGame ...
         db 03h,00h,00h,00h
-LinkRemoteSequence:
+LinkRemoteSequence:                             ; link remote packet sequence; used by LinkHandshake,
+                                                ; ResendLinkPacket, SendLinkPacket
         db 00h,00h,00h,00h
-LinkHandshakeDone:
+LinkHandshakeDone:                              ; set once the link handshake finishes; used by LinkHandshake,
+                                                ; StartNetworkLink
         db 00h,00h,00h,00h
-LinkBlockDone:
+LinkBlockDone:                                  ; set once a link block is received; used by LinkReceiveBlock,
+                                                ; ResendLinkPacket, SendLinkPacket ...
         db 00h,00h
-LinkAbortPad:
+LinkAbortPad:                                   ; low half of the dword read for the link abort flag; used by
+                                                ; ClearLinkAbort, WaitForOtherComputer
         db 00h,00h
-LinkSequence:
+LinkSequence:                                   ; link packet sequence; used by LinkHandshake,
+                                                ; ResendLinkPacket, SendLinkPacket ...
         db 01h,00h,00h,00h
-LinkTimeout:
+LinkTimeout:                                    ; tick when the link times out; used by SyncLinkGame
         db 00h,00h,00h,00h
-str_Punct_ModemSettingsScreen:
+str_Punct_ModemSettingsScreen:                  ; string " "; used by JoinNetworkGame, LinkSendBlock,
+                                                ; ModemSettingsScreen ...
         db 020h,00h,00h,00h
-LinkServiceTick:
+LinkServiceTick:                                ; tick of the last link service; used by LinkHandshake,
+                                                ; LinkReceiveBlock, LinkSendBlock ...
         db 00h,00h,00h,00h
-LinkTimerActive:
+LinkTimerActive:                                ; set while the link timer runs; used by LinkHandshake,
+                                                ; LinkTimerOff, LinkTimerOn ...
         db 00h,00h
-ModemPortBasePad:
+ModemPortBasePad:                               ; low half of the dword read for the port base per COM port;
+                                                ; used by InitNetSession
         db 00h,00h
-ModemPortIrqs:
+ModemPortIrqs:                                  ; IRQ per COM port; used by ModemSettingsScreen,
+                                                ; OpenNetSession
         db 02h,00h
-ModemPortCount:
+ModemPortCount:                                 ; COM port count; used by OpenNetSession
         db 03h,00h
-ModemPortBases:
+ModemPortBases:                                 ; port base per COM port; used by ModemSettingsScreen,
+                                                ; OpenNetSession
         db 04h,00h
-ModemPortChoice:
+ModemPortChoice:                                ; chosen COM port; used by InitNetSession, OpenNetSession
         db 07h,00h,02h,00h,01h,00h,02h,00h,01h,00h
-str_GenericHayesCompatible:
+str_GenericHayesCompatible:                     ; string "Generic Hayes-Compatible"; used by DefaultModemName
         db 047h,065h,06Eh,065h,072h,069h,063h,020h,048h,061h,079h,065h,073h,02Dh,043h,06Fh
         db 06Dh,070h,061h,074h,069h,062h,06Ch,065h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,041h,054h,026h,046h,026h,04Bh,030h,026h,051h,030h
@@ -234,50 +265,65 @@ str_GenericHayesCompatible:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,041h,054h
         db 026h,046h,026h,04Bh,030h,026h,051h,030h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-NetSessionActive:
+NetSessionActive:                               ; set while the network session is open; used by
+                                                ; CloseNetSession, DefaultModemName, InitNetSession ...
         db 00h,00h
-NetSessionPort:
+NetSessionPort:                                 ; network session port; used by CloseNetSession,
+                                                ; OpenNetSession, ShutdownNetSession
         db 00h,00h
-IpxDriverNames:
+IpxDriverNames:                                 ; IPX driver names; used by IpxInit
         dd str_DOSCompatibleIPX
         dd str_DOSKompatibelIPX
         dd str_DOSKompatiblesIPX
-IpxSocketOpen:
+IpxSocketOpen:                                  ; set while the IPX socket is open; used by IpxCloseSocket,
+                                                ; IpxInit
         db 00h,00h
-IpxSocketHandle:
+IpxSocketHandle:                                ; IPX socket handle; used by HostNetGame, IpxCloseSocket,
+                                                ; LeaveNetGame
         db 0FFh,0FFh
-NetJoinPending:
+NetJoinPending:                                 ; set while a network join is pending; used by
+                                                ; CloseNetConnection, JoinNetworkGame
         db 00h,00h,00h,00h
-NetHostSessionName:
+NetHostSessionName:                             ; network host session name; used by HostNetGame
         db 00h,09Bh,067h,0A0h,0C2h,096h,0CFh,011h,0ADh,01Ch,00h,020h,0AFh,0D3h,0BDh,03Fh
-NetPlayerNameLength:
+NetPlayerNameLength:                            ; network player name length; used by HostNetGame, IpxInit,
+                                                ; LoadServerList ...
         db 00h,00h,00h,00h
-NetPlayerNameSet:
+NetPlayerNameSet:                               ; set once the network player name is set; used by
+                                                ; HostNetGame, IpxInit, LoadServerList ...
         db 00h,00h,00h,00h
-IpxBuffer:
+IpxBuffer:                                      ; IPX buffer; used by IpxCloseSocket, IpxInit
         db 00h,00h
-NetFoundCountPad:
+NetFoundCountPad:                               ; low half of the dword read for the found game count; used by
+                                                ; FindNetworkGames
         db 00h,00h
-NetFoundCount:
+NetFoundCount:                                  ; network games found this scan; used by AddFoundGame,
+                                                ; FindNetworkGames
         db 0E8h,03h,00h,00h
-NetGameList:
+NetGameList:                                    ; network game list; used by AddFoundGame, ChooseNetGame,
+                                                ; ChooseNetworkGameScreen ...
         db 00h,00h,00h,00h
-NetListTick:
+NetListTick:                                    ; tick of the next network list refresh; used by
+                                                ; ChooseNetGame, ChooseNetworkGameScreen
         db 00h,00h,00h,00h
-NetListChoice:
+NetListChoice:                                  ; chosen network game; used by ChooseNetGame,
+                                                ; ChooseNetworkGameScreen, DrawNetGameList
         db 0FFh,0FFh,0FFh,0FFh
-NetListFirst:
+NetListFirst:                                   ; first network game shown; used by ChooseNetGame,
+                                                ; ChooseNetworkGameScreen, DrawNetGameList
         db 00h,00h,00h,00h
-NetJoinedOk:
+NetJoinedOk:                                    ; set once a network game is joined; used by
+                                                ; CopyJoinedGameInfo, JoinNetworkGame
         db 00h,00h,00h,00h
-OptionsAnimIndex:
+OptionsAnimIndex:                               ; options animation index; used by OptionsAnimFrame,
+                                                ; OptionsAnimScreen
         db 00h,00h,00h,00h
-OptionsAnimItemFrames:
+OptionsAnimItemFrames:                          ; options animation frame per item; used by OptionsAnimFrame
         db 0FFh,0FFh,00h,00h,04h,00h,0FFh,0FFh,02h,00h,01h,00h,03h,00h,0FFh,0FFh
         db 06h,00h,07h,00h,05h,00h
-OptionsAnimItemState:
+OptionsAnimItemState:                           ; options animation state per item; used by OptionsAnimFrame
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-OptionsAnimItem:
+OptionsAnimItem:                                ; options animation item; used by OptionsAnimFrame
         db 00h,00h
-OptionsAnimOn:
+OptionsAnimOn:                                  ; options animation enabled; used by OptionsAnimFrame
         db 00h,00h,00h,00h

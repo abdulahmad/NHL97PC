@@ -714,7 +714,7 @@ VideoOptionsScreen:
         pop ecx
         pop ebx
         ret
-PlayReplayFromMenuJumpTable:
+PlayReplayFromMenuJumpTable:                    ; jump table for the switch cases of PlayReplayFromMenu
         dd PlayReplayFromMenu_45
         dd PlayReplayFromMenu_4C
         dd PlayReplayFromMenu_53
@@ -872,7 +872,7 @@ DrawReplayControls:
         pop ecx
         pop ebx
         ret
-DrawReplayControlsJumpTable:
+DrawReplayControlsJumpTable:                    ; jump table for the switch cases
         dd .1
         dd .2
         dd .3
@@ -899,7 +899,7 @@ DrawReplayControlsJumpTable:
         mov dword [edx], 0FFFFFFFFh
         pop edx
         ret
-ReplayCommandJumpTable:
+ReplayCommandJumpTable:                         ; jump table for the switch cases of ReplayScreen
         dd ReplayScreen_C7
         dd ReplayScreen_D3
         dd ReplayScreen_DA
@@ -915,7 +915,7 @@ ReplayCommandJumpTable:
         dd ReplayScreen_6A2
         dd ReplayScreen_771
         dd ReplayScreen_8F5
-ReplayCameraJumpTable:
+ReplayCameraJumpTable:                          ; jump table for the switch cases of ReplayScreen
         dd ReplayScreen_914
         dd ReplayScreen_91B
         dd ReplayScreen_922
@@ -1588,7 +1588,7 @@ ReplayScreen_929:
         jne near LoadReplay_194
         call EndInstantReplay
         jmp near LoadReplay_194
-DrawReplayMenuJumpTable:
+DrawReplayMenuJumpTable:                        ; jump table for the switch cases of DrawReplayMenu
         dd DrawReplayMenu_13F
         dd DrawReplayMenu_15A
         dd DrawReplayMenu_17A

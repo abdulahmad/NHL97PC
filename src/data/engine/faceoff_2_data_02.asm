@@ -8,11 +8,12 @@ global LineSlotPositions, LineSlotOffsets, LineReplaceTable, SlotJoyMap, LineRep
 global PenaltyTypes, PacketLinkOpen, PacketLinkMode, PacketSize, StandingsColumns, PlayoffColumns, PtrPuckTarget, PtrPuckState
 global PtrPuckOwner, PtrPuckMotion, PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, ResetPlayerSpots
 global PeriodLengths, ProgressTimes, ProgressLimit, str_Punct_InProgress, LineChangeKeys
-LineSlotPositions:
+LineSlotPositions:                              ; position per line slot; used by CanPlayLineSlot,
+                                                ; FixLineSlot, InitGameLines ...
         db 00h,00h,02h,01h,01h,00h
-LineReplaceOrder:
+LineReplaceOrder:                               ; line replacement order; used by PickLineReplacement
         db 00h,01h,00h
-LineSlotOffsets:
+LineSlotOffsets:                                ; offset per line slot; used by PickLineReplacement
         db 00h,03h,06h,09h,0FFh,01h,04h,07h,0Ah,0FFh,02h,05h,08h,0Bh,0FFh,0Ch
         db 0Eh,010h,0FFh,0Dh,0Fh,011h,0FFh,012h,017h,01Ch,020h,00h,03h,06h,09h,0FFh
         db 013h,018h,01Dh,021h,01h,04h,07h,0Ah,0FFh,014h,019h,02h,05h,08h,0Bh,0FFh
@@ -23,12 +24,12 @@ LineSlotOffsets:
         db 0Ah,0FFh,028h,02Ch,02Fh,032h,0Ch,0Eh,010h,0FFh,029h,02Dh,030h,033h,0Dh,0Fh
         db 011h,0FFh,02Eh,031h,027h,02Bh,01h,04h,07h,0Ah,0FFh,02Fh,032h,028h,02Ch,0Ch
         db 0Eh,010h,0FFh,030h,033h,029h,02Dh,0Dh,0Fh,011h,0FFh
-LineReplaceTable:
+LineReplaceTable:                               ; line replacement table; used by PickLineReplacement
         db 00h,05h,0Ah,00h,05h,0Ah,00h,05h,0Ah,00h,05h,0Ah,0Fh,013h,0Fh,013h
         db 0Fh,013h,017h,020h,029h,030h,038h,017h,020h,029h,030h,038h,040h,049h,052h,05Ah
         db 040h,049h,052h,05Ah,05h,05h,062h,069h,072h,07Ah,062h,069h,072h,07Ah,082h,08Bh
         db 093h,082h,08Bh,093h
-ResetPlayerSpots:
+ResetPlayerSpots:                               ; player spots used by ResetPlayers
         db 08h,0F8h,00h,00h,040h,0FFh,01h,00h,080h,00h,08h,0F8h,00h,00h,080h,0FEh
         db 01h,00h,080h,00h,08h,0F8h,00h,00h,0C0h,0FDh,01h,00h,080h,00h,08h,0F8h
         db 00h,00h,00h,0FDh,01h,00h,080h,00h,08h,0F8h,00h,00h,040h,0FCh,01h,00h
@@ -39,34 +40,43 @@ ResetPlayerSpots:
         db 00h,00h,080h,04h,01h,00h,040h,00h,070h,0FFh,00h,00h,00h,00h,033h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,041h,00h,01h,00h,00h,00h,00h,00h
         db 050h,0EFh,00h,00h,00h,00h,00h,00h,00h,00h,0B0h,010h,00h,00h,00h,00h
-PtrPuckTarget:
+PtrPuckTarget:                                  ; pointer to the puck target record; used by CanReachPuck,
+                                                ; ChasePuck, ChkAIShoot ...
         dd AwayTeamRecord+52Eh
         dd AwayTeamRecord+538h
-PtrPuckState:
+PtrPuckState:                                   ; pointer to the puck state record; used by Endfaceoff,
+                                                ; PeriodEndMove, PeriodEndSkateMove ...
         dd AwayTeamRecord+532h
         dd AwayTeamRecord+53Ch
-PtrPuckOwner:
+PtrPuckOwner:                                   ; pointer to the puck owner record; used by AIPassDecision,
+                                                ; BlockShotMove, CanReachPuck ...
         dd AwayTeamRecord+536h
-PtrPuckMotion:
+PtrPuckMotion:                                  ; pointer to the puck motion record; used by FaceDirFromMotion
         dd AwayTeamRecord+540h
-PtrPuckZone:
+PtrPuckZone:                                    ; pointer to the puck zone record; used by AimAtPuckTarget,
+                                                ; BlockShotMove, CanReachPuck ...
         dd AwayTeamRecord+5D0h
         dd SortCords
         dd HomeTeamRecord+420h
-PtrPuckFlags:
+PtrPuckFlags:                                   ; pointer to the puck flags; used by AIPassDecision,
+                                                ; AddPenalty2, AimAtPuckTarget ...
         dd AwayTeamRecord+528h
         db 00h,00h,00h,00h
-PtrPuckObject:
+PtrPuckObject:                                  ; pointer to the puck object; used by AddPenalty2,
+                                                ; ChkOffsides, ChkPokeOrCheck ...
         dd AwayTeamRecord+420h
-PtrHomeIce:
+PtrHomeIce:                                     ; pointer to the home players on the ice; used by
+                                                ; AIPassDecision, CheckBoardsContact, CheckPuckNets ...
         dd HomeIcePlayers
-PtrAwayIce:
+PtrAwayIce:                                     ; pointer to the away players on the ice; used by
+                                                ; AIPassDecision, CheckBoardsContact, CheckPuckNets ...
         dd AwayIcePlayers
         dd hmtmstruct
         dd hmtmstruct
-PeriodLengths:
+PeriodLengths:                                  ; period length per setting; used by DrawPauseClock,
+                                                ; PeriodLengthSetting
         db 02Ch,01h,058h,02h,0B0h,04h,0B0h,04h
-PenaltyMinutes:
+PenaltyMinutes:                                 ; minutes per penalty type; used by AddPenalty2
         db 0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh
         db 06h,00h,00h,00h,05h,00h,00h,00h,04h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh
         db 03h,00h,00h,00h,03h,00h,00h,00h,02h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh
@@ -74,38 +84,40 @@ PenaltyMinutes:
         db 07h,00h,00h,00h,07h,00h,00h,00h,07h,00h,00h,00h,07h,00h,00h,00h
         db 07h,00h,00h,00h,07h,00h,00h,00h,07h,00h,00h,00h,07h,00h,00h,00h
         db 07h,00h,00h,00h,07h,00h,00h,00h,07h,00h,00h,00h,07h,00h
-PenaltyFlags:
+PenaltyFlags:                                   ; flags per penalty type; used by AddPenalty2
         db 00h,00h,07h,00h,00h,00h,07h,00h,00h,00h,07h,00h,00h,00h,07h,00h
         db 00h,00h,07h,00h,00h,00h
-PenaltyPaCodes:
+PenaltyPaCodes:                                 ; announcer code per penalty type; used by PenaltyPaCode
         db 07h,00h,00h,00h,08h,00h,00h,00h,02h,070h,0Dh,070h,0Ch,070h,04h,070h
         db 0Ah,070h,0Eh,070h,0Bh,070h,09h,070h,07h,070h,06h,070h,00h,070h,03h,070h
         db 01h,070h,05h,070h,08h,070h,00h,00h
-PenaltyTypes:
+PenaltyTypes:                                   ; penalty type records; used by AddPenalty2
         db 01h,05h,00h,00h,05h,05h,00h,00h,07h,05h,00h,00h,0Ch,05h,00h,00h
         db 03h,00h,00h,070h,06h,00h,00h,070h,0Ah,00h,00h,070h,09h,00h,00h,070h
         db 0Fh,00h,00h,070h,0Eh,00h,00h,070h,0Dh,00h,00h,070h,010h,00h,00h,070h
         db 05h,00h,00h,070h,04h,00h,00h,070h,01h,00h,00h,070h,08h,00h,00h,070h
         db 02h,00h,00h,070h,0Bh,00h,00h,070h,011h,00h,00h,070h,0Ch,00h,00h,070h
         db 0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,010h,00h,00h,070h,07h,00h,00h,070h
-ProgressTimes:
+ProgressTimes:                                  ; progress check times; used by InProgress
         db 00h,00h
-ProgressLimit:
+ProgressLimit:                                  ; progress check limit; used by InProgress
         db 00h,00h,020h,00h,00h,00h
-str_Punct_InProgress:
+str_Punct_InProgress:                           ; string "@"; used by InProgress
         db 040h,00h,00h,00h,00h,00h,00h,00h,060h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,080h,00h,00h,00h
-SlotJoyMap:
+SlotJoyMap:                                     ; joystick per control slot; used by SlotToJoy
         db 08h,00h,04h,08h,02h,01h,03h,08h,06h,07h,05h,08h,08h,08h,08h,00h
-LineChangeKeys:
+LineChangeKeys:                                 ; key per line change choice; used by DoLineChangeInput
         db 01h,00h,02h,00h,03h,00h,00h,00h,05h,00h,04h,00h,07h,00h,06h,00h
-PacketLinkOpen:
+PacketLinkOpen:                                 ; packet link open; used by InitPacketLink, ShutdownPacketLink
         db 00h,00h,00h,00h
-PacketLinkMode:
+PacketLinkMode:                                 ; packet link mode; used by OpenPacketLink
         db 01h,00h,00h,00h,00h,00h,00h,00h
-PacketSize:
+PacketSize:                                     ; packet size (400); used by NetInit, OpenPacketLink,
+                                                ; ParsePacket
         db 090h,01h,00h,00h
-StandingsColumns:
+StandingsColumns:                               ; standings columns; used by DrawPlayoffSetup,
+                                                ; SeasonMenuScreen, SetTeamStatColumns ...
         db 01h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,01h,00h,00h,00h
         db 02h,00h,00h,00h,01h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h
         db 01h,00h,00h,00h,08h,00h,00h,00h,04h,00h,00h,00h,01h,00h,00h,00h
@@ -120,7 +132,8 @@ StandingsColumns:
         db 01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h
         db 01h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,01h,00h,00h,00h
         db 01h,00h,00h,00h,01h,00h,00h,00h
-PlayoffColumns:
+PlayoffColumns:                                 ; playoff table columns; used by CountTeamResults,
+                                                ; CupCelebration, DrawPlayoffSetup ...
         db 03h,00h,00h,00h,0Ch,00h,00h,00h,0Ch,00h,00h,00h,03h,00h,00h,00h
         db 03h,00h,00h,00h,03h,00h,00h,00h,03h,00h,00h,00h,03h,00h,00h,00h
         db 03h,00h,00h,00h,0Ch,00h,00h,00h,0Ch,00h,00h,00h,03h,00h,00h,00h

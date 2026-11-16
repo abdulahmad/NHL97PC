@@ -4,23 +4,26 @@ bits 32
 section s_16CDC8 progbits alloc noexec write align=1
 global PlayoffSeedOrder, LinesArtDigits, PlayoffTreeTimer, PlayoffFormatTeams, PlayoffDefaultTeams, PlayoffSlotTeams, PlayoffSlotLogos, PlayoffEditCursor
 global PlayoffRoundShown, str_Punct_LoadLinesArt, LinesSoundPlayed, PlayoffTreeLayout
-PlayoffTreeTimer:
+PlayoffTreeTimer:                               ; playoff tree animation timer; used by CreatePlayoffs,
+                                                ; DrawPlayoffTitle, DrawPlayoffTree ...
         db 00h,00h,00h,00h
-PlayoffSeedOrder:
+PlayoffSeedOrder:                               ; playoff seed per slot; used by DrawPlayoffTeam
         db 01h,08h,02h,07h
-PlayoffFormatTeams:
+PlayoffFormatTeams:                             ; teams per playoff format; used by SetPlayoffFormat
         db 03h,06h,04h,05h,01h,08h,02h,07h
-PlayoffDefaultTeams:
+PlayoffDefaultTeams:                            ; default team per playoff slot; used by DrawPlayoffSetup
         db 03h,06h,04h,05h
-PlayoffSlotTeams:
+PlayoffSlotTeams:                               ; team per playoff slot; used by CreatePlayoffs,
+                                                ; DrawPlayoffSetup, DrawPlayoffTeam ...
         db 07h,00h,00h,00h,012h,00h,00h,00h,05h,00h,00h,00h,018h,00h,00h,00h
         db 04h,00h,00h,00h,03h,00h,00h,00h,017h,00h,00h,00h,014h,00h,00h,00h
-PlayoffSlotLogos:
+PlayoffSlotLogos:                               ; league logo per playoff slot; used by PlayoffSetupScreen
         db 011h,00h,00h,00h,016h,00h,00h,00h,013h,00h,00h,00h,019h,00h,00h,00h
         db 0Fh,00h,00h,00h,0Ch,00h,00h,00h,09h,00h,00h,00h,01h,00h,00h,00h
-PlayoffEditCursor:
+PlayoffEditCursor:                              ; playoff team name edit cursor; used by DrawPlayoffTeam,
+                                                ; PlayoffSetupScreen
         db 05h,00h,00h,00h
-PlayoffTreeLayout:
+PlayoffTreeLayout:                              ; default playoff tree slot layout; used by PlayoffTreeScreen
         db 01Ah,00h,00h,00h,017h,00h,00h,00h,01Ah,00h,00h,00h,039h,00h,00h,00h
         db 01Ah,00h,00h,00h,06Bh,00h,00h,00h,01Ah,00h,00h,00h,08Dh,00h,00h,00h
         db 01Ah,00h,00h,00h,0BFh,00h,00h,00h,01Ah,00h,00h,00h,0E1h,00h,00h,00h
@@ -37,7 +40,8 @@ PlayoffTreeLayout:
         db 0AFh,03h,00h,00h,092h,00h,00h,00h,0AFh,03h,00h,00h,0B4h,00h,00h,00h
         db 0Ah,02h,00h,00h,09Fh,00h,00h,00h,09h,03h,00h,00h,09Fh,00h,00h,00h
         db 09Ah,02h,00h,00h,054h,01h,00h,00h
-PlayoffRoundShown:
+PlayoffRoundShown:                              ; set per playoff round when it is drawn; used by
+                                                ; PlayoffTreeScreen
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h
@@ -46,14 +50,15 @@ PlayoffRoundShown:
         db 01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h
         db 00h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h
-LinesArtDigits:
+LinesArtDigits:                                 ; digit per lines art set; used by LoadLinesArt
         db 00h,00h,00h,00h,01h,00h,00h,00h,04h,00h,00h,00h,03h,00h,00h,00h
         db 08h,00h,00h,00h,05h,00h,00h,00h,06h,00h,00h,00h,07h,00h,00h,00h
         db 02h,00h,00h,00h
-str_Punct_LoadLinesArt:
+str_Punct_LoadLinesArt:                         ; string "\r"; used by LoadLinesArt
         db 0Dh,00h,00h,00h,04h,00h,00h,00h,0Ah,00h,00h,00h,06h,00h,00h,00h
         db 07h,00h,00h,00h,03h,00h,00h,00h,0Bh,00h,00h,00h,01h,00h,00h,00h
         db 08h,00h,00h,00h,00h,00h,00h,00h,09h,00h,00h,00h,02h,00h,00h,00h
         db 0Ch,00h,00h,00h,05h,00h,00h,00h
-LinesSoundPlayed:
+LinesSoundPlayed:                               ; set once the lines intro sound plays; used by
+                                                ; LinesIntroSound
         db 00h,00h,00h,00h

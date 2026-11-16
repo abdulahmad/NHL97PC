@@ -2025,7 +2025,7 @@ SimTeamStrength:
         pop ecx
         ret
         db 08Bh,0C0h
-SimTeamStrengthJumpTable:
+SimTeamStrengthJumpTable:                       ; jump table for the switch cases
         dd .2
         dd .3
         dd .4

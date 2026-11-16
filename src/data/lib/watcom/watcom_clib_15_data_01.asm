@@ -6,56 +6,58 @@ global str_ATD2, str_EAGAME08x04x04x02x02x02x0, str_Netserv, str_IPXINTF, str_IP
 global str_GFRE, str_RESIZE, str_DMABUFFER, str_DMABUFFER2, str_DMABUFFER3, str_DMABUF, str_DMABUF2, str_DMABUFFER4
 global str_SNDSCAPE, str_SNDSCAPEINI, str_Product, str_SoundFX, str_Port, str_WSSDMA, str_Punct_ModemLinkOpen, str_IPX
 global str_Rt_ReadSoundscapeIni
-str_ATD2:
+str_ATD2:                                       ; string "ATD"; used by ModemLinkOpen
         db 041h,054h,044h,00h
-str_Punct_ModemLinkOpen:
+str_Punct_ModemLinkOpen:                        ; string "\r"; used by ModemLinkOpen
         db 0Dh,00h,00h,00h
-str_EAGAME08x04x04x02x02x02x0:
+str_EAGAME08x04x04x02x02x02x0:                  ; string
+                                                ; "EAGAME.%08x.%04x%04x.%02x%02x%02x%02x.%02x%02x%02x%02x";
+                                                ; used by NetLogf
         db 045h,041h,047h,041h,04Dh,045h,02Eh,025h,030h,038h,078h,02Eh,025h,030h,034h,078h
         db 025h,030h,034h,078h,02Eh,025h,030h,032h,078h,025h,030h,032h,078h,025h,030h,032h
         db 078h,025h,030h,032h,078h,02Eh,025h,030h,032h,078h,025h,030h,032h,078h,025h,030h
         db 032h,078h,025h,030h,032h,078h,00h,00h
-str_Netserv:
+str_Netserv:                                    ; string "netserv"; used by NetLeaveGame
         db 06Eh,065h,074h,073h,065h,072h,076h,00h
-str_IPX:
+str_IPX:                                        ; string "IPX"
         db 049h,050h,058h,00h
-str_IPXINTF:
+str_IPXINTF:                                    ; string "IPXINTF"; used by IpxHookCheck
         db 049h,050h,058h,049h,04Eh,054h,046h,00h
-str_IPXSOCK:
+str_IPXSOCK:                                    ; string "IPXSOCK"; used by IpxSetupLayer
         db 049h,050h,058h,053h,04Fh,043h,04Bh,00h
-str_Galloc:
+str_Galloc:                                     ; string "galloc"; used by AllocNetBuffer
         db 067h,061h,06Ch,06Ch,06Fh,063h,00h,00h
-str_GMEM:
+str_GMEM:                                       ; string "GMEM"; used by AllocNetBuffer, FreeNetBuffer
         db 047h,04Dh,045h,04Dh,00h,00h,00h,00h
-str_GEND:
+str_GEND:                                       ; string "GEND"; used by AllocNetBuffer, FreeNetBuffer
         db 047h,045h,04Eh,044h,00h,00h,00h,00h
-str_GFRE:
+str_GFRE:                                       ; string "GFRE"; used by FreeNetBuffer
         db 047h,046h,052h,045h,00h,00h,00h,00h
-str_RESIZE:
+str_RESIZE:                                     ; string "RESIZE"; used by CreateBitmapCore
         db 052h,045h,053h,049h,05Ah,045h,00h,00h
-str_DMABUFFER:
+str_DMABUFFER:                                  ; string "DMA BUFFER"; used by GusDriverStartStream
         db 044h,04Dh,041h,020h,042h,055h,046h,046h,045h,052h,00h,00h
-str_DMABUFFER2:
+str_DMABUFFER2:                                 ; string "DMA BUFFER"; used by DacDriverOpen
         db 044h,04Dh,041h,020h,042h,055h,046h,046h,045h,052h,00h,00h
-str_WSSDMA:
+str_WSSDMA:                                     ; string "WSSDMA"; used by ReadBlasterPort
         db 057h,053h,053h,044h,04Dh,041h,00h,00h
-str_DMABUFFER3:
+str_DMABUFFER3:                                 ; string "DMA BUFFER"; used by SbDriverInit
         db 044h,04Dh,041h,020h,042h,055h,046h,046h,045h,052h,00h,00h
-str_DMABUF:
+str_DMABUF:                                     ; string "DMABUF"; used by SbProDriverInit
         db 044h,04Dh,041h,042h,055h,046h,00h,00h
-str_DMABUF2:
+str_DMABUF2:                                    ; string "DMABUF"; used by Sb16DriverInit
         db 044h,04Dh,041h,042h,055h,046h,00h,00h
-str_DMABUFFER4:
+str_DMABUFFER4:                                 ; string "DMA BUFFER"; used by SoundscapeDriverInit
         db 044h,04Dh,041h,020h,042h,055h,046h,046h,045h,052h,00h,00h
-str_SNDSCAPE:
+str_SNDSCAPE:                                   ; string "SNDSCAPE"; used by ReadSoundscapeIni
         db 053h,04Eh,044h,053h,043h,041h,050h,045h,00h,00h,00h,00h
-str_SNDSCAPEINI:
+str_SNDSCAPEINI:                                ; string "\SNDSCAPE.INI"; used by ReadSoundscapeIni
         db 05Ch,053h,04Eh,044h,053h,043h,041h,050h,045h,02Eh,049h,04Eh,049h,00h,00h,00h
-str_Rt_ReadSoundscapeIni:
+str_Rt_ReadSoundscapeIni:                       ; string "rt"; used by ReadSoundscapeIni
         db 072h,074h,00h,00h
-str_Product:
+str_Product:                                    ; string "Product"; used by ReadSoundscapeIni
         db 050h,072h,06Fh,064h,075h,063h,074h,00h
-str_SoundFX:
+str_SoundFX:                                    ; string "SoundFX"; used by ReadSoundscapeIni
         db 053h,06Fh,075h,06Eh,064h,046h,058h,00h
-str_Port:
+str_Port:                                       ; string "Port"; used by ReadSoundscapeIni
         db 050h,06Fh,072h,074h,00h,00h,00h,00h

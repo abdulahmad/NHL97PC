@@ -3223,7 +3223,7 @@ IntrLoadRegs:
         mov ebx, dword [byte ebx+04h]
         pop ds
         ret
-IntrStubs:
+IntrStubs:                                      ; used by IntrLoadRegs, IntrLoadSegRegs
         db 0CDh,00h
         ret
         db 0CDh,01h,0C3h,0CDh,02h,0C3h,0CCh,090h,0C3h,0CDh,04h,0C3h,0CDh,05h,0C3h,0CDh

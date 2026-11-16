@@ -54,7 +54,7 @@ DebugSetLine:
         pop ebx
         ret
         db 08Bh,0C0h
-DebugShowLinesJumpTable:
+DebugShowLinesJumpTable:                        ; jump table for the switch cases of DebugShowLines
         dd DebugShowLines_BA
         dd DebugShowLines_CB
         dd DebugShowLines_11F

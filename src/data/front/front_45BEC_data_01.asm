@@ -15,55 +15,69 @@ global SpeechClipDefs
 
 
 global SpeechDataOpen, PaQueuePrev, StreamTimerOn
-CommentaryOn:
+CommentaryOn:                                   ; commentary on; used by CommentaryEvent
         db 00h,00h,00h,00h
-CommentaryClip:
+CommentaryClip:                                 ; commentary clip; used by CommentaryEvent
         db 00h,00h,00h,00h
-SpeechBanksReady:
+SpeechBanksReady:                               ; speech banks ready; used by CommentaryEvent, InitSpeechBanks
         db 00h,00h,00h,00h
-SpeechBankCountFront:
+SpeechBankCountFront:                           ; speech banks loaded; used by InitSpeechBanks
         db 00h,00h,00h,00h
-SoundCardType:
+SoundCardType:                                  ; sound card type; used by CloseSpeechFile, CommentaryEvent,
+                                                ; InitGameSounds ...
         db 00h,00h,00h,00h
-SoundDriverId:
+SoundDriverId:                                  ; sound driver id (-1 none); used by InitGameAudio,
+                                                ; InitGameSounds, InitSpeechStream ...
         db 0FFh,0FFh,0FFh,0FFh
-SpeechStreamFile:
+SpeechStreamFile:                               ; speech stream file; used by InitSpeechStream,
+                                                ; ServiceBackgroundAudio, ShutdownSound
         db 00h,00h,00h,00h
-SpeechStreamBytes:
+SpeechStreamBytes:                              ; speech stream size; used by InitSpeechStream, ShutdownSound
         db 00h,00h,00h,00h
-SpeechStreamBase:
+SpeechStreamBase:                               ; speech stream base; used by InitSpeechStream
         db 00h,00h,00h,00h
-SpeechStreamTimer:
+SpeechStreamTimer:                              ; speech stream timer handle (-1 none); used by
+                                                ; InitSpeechStream, ResetStreamAudio, ServiceSpeechStream ...
         db 0FFh,0FFh,0FFh,0FFh
-SpeechDataOpen:
+SpeechDataOpen:                                 ; speech data open; used by InitSpeechStream, OpenSpeechData
         db 00h,00h,00h,00h
-SpeechFileIds:
+SpeechFileIds:                                  ; text id per speech file; used by OpenSpeechData,
+                                                ; OpenSpeechFile
         db 0E2h,00h,00h,00h,0E3h,00h,00h,00h
-SpeechDataId:
+SpeechDataId:                                   ; speech data file text id; used by OpenSpeechData
         db 0E5h,00h,00h,00h
-PaQueueHead:
+PaQueueHead:                                    ; announcer queue head; used by InitSpeechStream, QueuePaClip,
+                                                ; ResetStreamAudio ...
         db 00h,00h
-PaQueueTail:
+PaQueueTail:                                    ; announcer queue tail; used by QueuePaClip, ResetStreamAudio,
+                                                ; ServiceSpeechStream
         db 00h,00h
-PaQueueCount:
+PaQueueCount:                                   ; announcer queue count; used by ResetStreamAudio,
+                                                ; ServiceSpeechStream
         db 00h,00h
-PaQueueClip:
+PaQueueClip:                                    ; announcer queue clip; used by ResetStreamAudio,
+                                                ; ServiceSpeechStream
         db 00h,00h
-PaQueueTime:
+PaQueueTime:                                    ; announcer queue time; used by QueuePaClip, ResetStreamAudio,
+                                                ; ServiceBackgroundAudio ...
         db 00h,00h
-PaQueuePrev:
+PaQueuePrev:                                    ; announcer queue previous clip; used by QueuePaClip,
+                                                ; ResetStreamAudio, ServiceBackgroundAudio ...
         db 00h,00h
-StreamTimerOn:
+StreamTimerOn:                                  ; stream timer on; used by QueuePaClip, ResetStreamAudio,
+                                                ; ServiceSpeechStream ...
         db 00h,00h,00h,00h
-StreamTimerHandle:
+StreamTimerHandle:                              ; stream timer handle; used by ServiceSpeechStream,
+                                                ; ShutdownSound
         db 0FFh,0FFh,0FFh,0FFh
-F32_9600:
+F32_9600:                                       ; float constant 9600; used by PositionSfx
         db 00h,00h,016h,046h
-F32_768_PositionSfx:
+F32_768_PositionSfx:                            ; float constant 768; used by PositionSfx
         db 00h,00h,040h,044h
-SpeechQueueSize:
+SpeechQueueSize:                                ; speech queue size; used by QueueSpeechRequest,
+                                                ; ResetSpeechQueue, ServiceSpeechQueue
         db 00h,00h,00h,00h
-SpeechClipDefs:
+SpeechClipDefs:                                 ; linked speech clip definitions (lengths and next-clip links)
         db 00h,00h,00h,00h,070h,02h,00h,00h,078h,00h,00h,00h,070h,02h,00h,00h
         db 078h,00h,00h,00h,010h,023h,00h,00h,00h,00h,00h,00h,010h,023h,00h,00h
         db 04h,00h,00h,00h

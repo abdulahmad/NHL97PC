@@ -14,187 +14,221 @@ global CameraDebugArt, AiIconSize, CameraDebugLoaded, AiIconCount, DepthSortKeys
 global ShotAnimPoses, ActAnimFrames, FallAnimFrames, InterferAnimFrames, GoalieAnimFrames, RefSkateAnimFrames, RefAmbiAnimFrames, RefCallAnimFrames
 global FightAnimFrames, CupAnimFrames, ShotAnimIndex, ActAnimIndex, FallAnimIndex, InterferAnimIndex, GoalieAnimIndex, RefSkateAnimIndex
 global RefAmbiAnimIndex, RefCallAnimIndex, FightAnimIndex, CupAnimIndex
-DepthSortCount:
+DepthSortCount:                                 ; players sorted by depth; used by SortPlayersByDepth
         resb 4
-DepthSortKeys:
+DepthSortKeys:                                  ; depth sort keys; used by SortPlayersByDepth
         resb 64
-PlayerStartRecords:
+PlayerStartRecords:                             ; player start records; used by LoadReplayData,
+                                                ; ReplaySetupObjects, ResetPlayers
         resb 52
-PlayerStartDist:
+PlayerStartDist:                                ; used by ResetPlayers
         resb 4
-PlayerStartScale:
+PlayerStartScale:                               ; player start scale (1.0); used by ResetPlayers
         resb 1212
-ObjectSortCount:
+ObjectSortCount:                                ; objects sorted by depth; used by SortPlayersByDepth
         resb 4
-DepthSortOrder:
+DepthSortOrder:                                 ; depth sort order; used by SortPlayersByDepth
         resb 64
-FallAnimSlots:
+FallAnimSlots:                                  ; fall animation slots; used by LoadFallAnims
         resb 96
-GoalieAnimTime:
+GoalieAnimTime:                                 ; goalie animation time; used by GoalieMoves, GoalieSave,
+                                                ; LoadGoalieAnimFile
         resb 4
-GoalieAnimFrame:
+GoalieAnimFrame:                                ; goalie animation frame; used by GoalieMoves,
+                                                ; LoadGoalieAnimFile
         resb 4
-GoalieAnimPoses:
+GoalieAnimPoses:                                ; goalie animation poses; used by GoalieMoves,
+                                                ; LoadGoalieAnimFile
         resb 400
-DepthSortList:
+DepthSortList:                                  ; depth sort list; used by SortPlayersByDepth
         resb 60
-AnimPointIds:
+AnimPointIds:                                   ; animation point ids; used by InitAnimPoints
         resb 4
-DeflectAnims:
+DeflectAnims:                                   ; deflection animations; used by GoalieRecoverMove,
+                                                ; PuckDeflect
         resb 20
-CreaseBounds:
+CreaseBounds:                                   ; crease bounds; used by InCrease, PlayerPastLine
         resb 8
-GoalLineY:
+GoalLineY:                                      ; goal line Y; used by InCrease, PlayerPastLine
         resb 4
-StickContactPts:
+StickContactPts:                                ; stick contact points; used by StickContact
         resb 72
-AnimDataBase:
+AnimDataBase:                                   ; animation data base; used by LoadAnimData, LoadSkateAnims
         resb 4
-SkateAnimSpeeds:
+SkateAnimSpeeds:                                ; skate animation speeds; used by HitKnockback,
+                                                ; SkateBackwardMove, SkateForwardMove
         resb 8
-SkateAnimAccel:
+SkateAnimAccel:                                 ; skate animation acceleration; used by BlockShotMove,
+                                                ; SkateBackwardMove, SkateForwardMove
         resb 4
-SkateStrideTable:
+SkateStrideTable:                               ; skate stride table; used by PuckOnStickFromState,
+                                                ; SkateBackwardMove, SkateForwardMove ...
         resb 16
-TurnAnimAngles:
+TurnAnimAngles:                                 ; turn animation angles; used by PickTurnAnim
         resb 8
-StrideSpeeds:
+StrideSpeeds:                                   ; stride speeds; used by HitKnockback, PickBackwardTurn,
+                                                ; PickForwardTurn ...
         resb 8
-SkateMoveTable:
+SkateMoveTable:                                 ; skate move table; used by BlockShotMove, SkateBackwardMove,
+                                                ; SkateForwardMove
         resb 808
-SkateAnimSteps:
+SkateAnimSteps:                                 ; skate animation steps; used by LoadSkateAnims
         resb 24
-SkateAnimTurns:
+SkateAnimTurns:                                 ; skate animation turns; used by LoadSkateAnims
         resb 32
-SkateAnimStops:
+SkateAnimStops:                                 ; skate animation stops; used by LoadSkateAnims
         resb 24
-SkateAnimFrames:
+SkateAnimFrames:                                ; skate animation frames; used by LoadSkateAnims
         resb 1136
-ShotAnimPoses:
+ShotAnimPoses:                                  ; shot animation frames; used by CamShot23D
         resb 1400
-ActAnimFrames:
+ActAnimFrames:                                  ; act animation frames; used by LoadActAnims
         resb 112
-PenaltyAnimPos:
+PenaltyAnimPos:                                 ; penalty animation position; used by asspenalty
         resb 8
-PenaltyAnimTime:
+PenaltyAnimTime:                                ; penalty animation time; used by asspenalty
         resb 4
-BoxAnimFrames:
+BoxAnimFrames:                                  ; go-to-box animation frames; used by GoToBoxAnim
         resb 1876
-DodgeScale:
+DodgeScale:                                     ; referee dodge scale; used by RefDodgePuck, StickContact
         resb 16
-FallAnimFrames:
+FallAnimFrames:                                 ; fall animation frames; used by LoadFallAnims
         resb 2128
-InterferAnimFrames:
+InterferAnimFrames:                             ; interference animation frames; used by LoadInterferAnims
         resb 1064
-GoalieAnimFrames:
+GoalieAnimFrames:                               ; goalie animation frames; used by LoadGoalieAnims
         resb 6048
-RefSkateAnimFrames:
+RefSkateAnimFrames:                             ; referee skate animation frames; used by LoadRefSkateAnims
         resb 3360
-RefAmbiAnimFrames:
+RefAmbiAnimFrames:                              ; referee ambient animation frames; used by LoadRefAmbiAnims
         resb 336
-RefCallAnimFrames:
+RefCallAnimFrames:                              ; referee call animation frames; used by LoadRefCallAnims
         resb 840
-FightAnimFrames:
+FightAnimFrames:                                ; fight animation frames; used by LoadFightAnims
         resb 1736
-CupAnimFrames:
+CupAnimFrames:                                  ; cup animation frames; used by LoadCupAnims
         resb 336
-GoalieTickCount:
+GoalieTickCount:                                ; goalie tick count; used by GoalieTick
         resb 4
-GoalieMoveLimit:
+GoalieMoveLimit:                                ; goalie move limit (-1.0); used by GoalieMoves,
+                                                ; LoadGoalieAnims
         resb 4
-SkateAnimScale:
+SkateAnimScale:                                 ; skate animation scale; used by LoadSkateAnims
         resb 4
-SkateAnimBase:
+SkateAnimBase:                                  ; skate animation base; used by LoadSkateAnims
         resb 4
-StickPointId:
+StickPointId:                                   ; stick animation point id; used by BodyBounce, BodyCollide,
+                                                ; CheckBoardsContact ...
         resb 4
-FistPointId:
+FistPointId:                                    ; fist animation point id; used by FightSwingMove,
+                                                ; InitAnimPoints
         resb 4
-PunchPointId:
+PunchPointId:                                   ; punch animation point id; used by FightPunchMove,
+                                                ; InitAnimPoints, PuckHitsGoalie
         resb 4
-BodyPointId:
+BodyPointId:                                    ; body animation point id; used by FightPositionMove,
+                                                ; GoalieCoverMove, InitAnimPoints ...
         resb 4
-GoalieReachLimit:
+GoalieReachLimit:                               ; used by LoadGoalieAnims
         resb 4
-SwingPointId:
+SwingPointId:                                   ; swing animation point id; used by FightSwingMove,
+                                                ; InitAnimPoints
         resb 4
-HeadPointId:
+HeadPointId:                                    ; head animation point id; used by FightPunchMove,
+                                                ; FightSwingMove, InitAnimPoints
         resb 4
-MoveFuncPair:
+MoveFuncPair:                                   ; move routine pair; used by AllocAnimStateBlocks, HookMove,
+                                                ; LoadGoalieAnimFile ...
         resb 8
-PlayerAnimSet:
+PlayerAnimSet:                                  ; player animation set; used by InitPlayerAnims
         resb 52
-SkateAnimCount:
+SkateAnimCount:                                 ; skate animations loaded; used by LoadSkateAnims
         resb 4
-SkateAnimIndex:
+SkateAnimIndex:                                 ; skate animation index; used by LoadSkateAnims
         resb 84
-ShotAnimIndex:
+ShotAnimIndex:                                  ; shot animation index; used by CamShot23D
         resb 100
-ActAnimIndex:
+ActAnimIndex:                                   ; act animation index; used by LoadActAnims
         resb 8
-BoxAnimIndex:
+BoxAnimIndex:                                   ; go-to-box animation index; used by GoToBoxAnim
         resb 56
-PlayerAnimTable:
+PlayerAnimTable:                                ; player animation table; used by InitPlayerAnims
         resb 80
-FallAnimIndex:
+FallAnimIndex:                                  ; fall animation index; used by LoadFallAnims
         resb 68
-FallAnimPtrs:
+FallAnimPtrs:                                   ; fall animation pointers; used by LoadFallAnims
         resb 84
-InterferAnimIndex:
+InterferAnimIndex:                              ; interference animation index; used by LoadInterferAnims
         resb 76
-GoalieAnimIndex:
+GoalieAnimIndex:                                ; goalie animation index; used by LoadGoalieAnims
         resb 432
-RefSkateAnimIndex:
+RefSkateAnimIndex:                              ; referee skate animation index; used by LoadRefSkateAnims
         resb 240
-RefAmbiAnimIndex:
+RefAmbiAnimIndex:                               ; referee ambient animation index; used by LoadRefAmbiAnims
         resb 24
-RefCallAnimIndex:
+RefCallAnimIndex:                               ; referee call animation index; used by LoadRefCallAnims
         resb 60
-FightAnimIndex:
+FightAnimIndex:                                 ; fight animation index; used by LoadFightAnims
         resb 124
-CupAnimIndex:
+CupAnimIndex:                                   ; cup animation index; used by LoadCupAnims
         resb 24
-MoveFlags:
+MoveFlags:                                      ; flags per move; used by BenchCheerMove, CheckMove, CheerMove
+                                                ; ...
         resb 384
-SkateAnimMem:
+SkateAnimMem:                                   ; skate animation memory; used by LoadSkateAnims
         resb 4
-SkateAnimMemSize:
+SkateAnimMemSize:                               ; skate animation memory size; used by LoadSkateAnims
         resb 4
-StopTableForward:
+StopTableForward:                               ; stop table, forwards; used by FreeAnimTables, GetStopTable,
+                                                ; LoadSkateAnims
         resb 4
-StopTableBackward:
+StopTableBackward:                              ; stop table, backwards; used by FreeAnimTables, GetStopTable,
+                                                ; LoadSkateAnims
         resb 4
-GoalieMoveTable:
+GoalieMoveTable:                                ; goalie move table; used by GoalieMoves
         resb 136
-AnimStateBlocks:
+AnimStateBlocks:                                ; animation state blocks; used by AllocAnimStateBlocks,
+                                                ; AllocAnimStates, FreeAnimStates ...
         resb 4
-AnimNodesFree:
+AnimNodesFree:                                  ; animation nodes free; used by AllocAnimNode, FreeAnimNode,
+                                                ; InitAnimNodePool
         resb 4
-AnimNodeFreeList:
+AnimNodeFreeList:                               ; animation node free list; used by AllocAnimNode,
+                                                ; AllocAnimStateBlocks, FreeAnimNode ...
         resb 4
-AnimNodePool:
+AnimNodePool:                                   ; animation node pool; used by AllocAnimStateBlocks,
+                                                ; AllocAnimStates, FreeAnimStates ...
         resb 4
-AnimStatesReady:
+AnimStatesReady:                                ; animation states ready; used by AllocAnimStateBlocks,
+                                                ; InitAnimState, ReplayRestoreObjects
         resb 4
-AnimDecodePtr:
+AnimDecodePtr:                                  ; animation decode pointer; used by DecodeAnimDelta,
+                                                ; DecodeAnimFile, DecodeAnimFrame ...
         resb 4
-AnimDecodeEnd:
+AnimDecodeEnd:                                  ; animation decode end; used by DecodeAnimDelta,
+                                                ; DecodeAnimFile, DecodeAnimFrame ...
         resb 4
-AnimDecodeFrame:
+AnimDecodeFrame:                                ; animation decode frame; used by DecodeAnimDelta,
+                                                ; DecodeAnimFile, DecodeAnimFrame ...
         resb 4
-AnimStateCount:
+AnimStateCount:                                 ; animation states; used by AllocAnimStateBlocks,
+                                                ; AllocAnimStates, InitAnimState
         resb 8
-AnimBlend:
+AnimBlend:                                      ; animation blend factor; used by DecodeAnimDelta,
+                                                ; UpdateAllPoses, UpdateMovePose ...
         resb 4
-ReplayRecordBuf:
+ReplayRecordBuf:                                ; replay record buffer; used by AddAnimClock, AnimClockTick,
+                                                ; BlendToAnim ...
         resb 5676
-AiIconArt:
+AiIconArt:                                      ; AI debug icon art; used by DrawCameraPath, LoadAiIcons
         resb 12
-CameraDebugArt:
+CameraDebugArt:                                 ; camera debug art; used by DrawCameraPath, FreeCameraDebug,
+                                                ; LoadAiIcons
         resb 4
-AiIconSize:
+AiIconSize:                                     ; AI debug icon size; used by DrawCameraPath, LoadAiIcons
         resb 8
-CameraDebugLoaded:
+CameraDebugLoaded:                              ; camera debug art loaded; used by FreeCameraDebug,
+                                                ; LoadAiIcons
         resb 4
-AiIconCount:
+AiIconCount:                                    ; AI debug icons; used by DrawCameraPath, LoadAiIcons
         resb 4

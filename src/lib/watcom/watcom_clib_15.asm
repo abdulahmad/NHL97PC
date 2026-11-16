@@ -2081,19 +2081,19 @@ OpenModemPacketLink:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h
-NetPollMsgBlank:
+NetPollMsgBlank:                                ; used by NetPollMessages
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-NetAnnounceMsgBlank:
+NetAnnounceMsgBlank:                            ; used by NetAnnounce
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-NetJoinMsgBlank:
+NetJoinMsgBlank:                                ; used by NetJoinGame
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-NetDisconnectMsgBlank:
+NetDisconnectMsgBlank:                          ; used by NetDisconnectPeer
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-NetBroadcastMsgBlank:
+NetBroadcastMsgBlank:                           ; used by NetBroadcast
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
