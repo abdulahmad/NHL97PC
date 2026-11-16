@@ -12,7 +12,7 @@ extern dword_19ECC0, dword_19ECC4, dword_1AC814, dword_1AC944, dword_1ACF46, dwo
 extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, off_168CD8
 extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, qword_160018, qword_160020, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, sub_13AF0
-extern ShowCameraView, sub_18E35, sub_1B3D8, sub_1E208, sub_1E224, sub_1FB6C, sub_1FF5C, sub_27D10
+extern ShowCameraView, sub_18E35, sub_1B3D8, assreplace, assinsert, sub_1FB6C, sub_1FF5C, sub_27D10
 extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, sub_34330, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
 extern sub_41DB8, MusicFileName, sub_41FA0, sub_424CC, sub_45BEC, PaEvent, sub_4DDB0, sub_52E28
 extern sub_57298, sub_57304, sub_57324, sub_57738, LoadGoalieMask, sub_5B558, sub_60D6C, sub_6539C
@@ -27,8 +27,8 @@ extern word_19CCB6, word_19CCBC, word_19CCBE, word_19CCC0, word_19CCC4, word_19D
 extern word_19E32A, word_19E949, word_19EA51, word_19EAB6, word_19EAC0, word_19EBC2, word_19EBCC
 global SetupTeamForIntermission, clearteams, jpt_11318, loc_10000, sub_11328_26, sub_11328_4F, sub_11328_78, sub_11328_A6
 global sub_11504_E, sub_123A0_62, sub_123A0_81, GripLinkLibrary, sub_102F4, LoadGripLibrary, sub_1046C, sub_104A8
-global sub_10A68, sub_10CC8, sub_10FAC, sub_1120C, sub_11328, sub_114C4, sub_11504, sub_11574
-global sub_116B0, sub_11808, ResetBench, sub_11984, sub_119A8, sub_11B38, reenergizeteam, sub_11F74
+global sub_10A68, sub_10CC8, sub_10FAC, sub_1120C, sub_11328, sub_114C4, forcepldata, sub_11574
+global sub_116B0, sub_11808, ResetBench, sub_11984, sub_119A8, setplayer, reenergizeteam, sub_11F74
 global sub_11FB4, sub_12024, sub_12334, sub_123A0, sub_12440, sub_124A4, setpersonel, sub_12970
 global sub_12A10, ClockTick, sub_12C2C, sub_12DE8, sub_12E50, unk_10003
 ;-----------------------------------------------------------------------------
@@ -1810,12 +1810,17 @@ sub_114C4:
         mov eax, hmtmstruct
         call setpersonel
         mov eax, hmtmstruct
-        call sub_11504
+        call forcepldata
         mov eax, awtmstruct
         call setpersonel
         mov eax, awtmstruct
         nop
-sub_11504:
+;-----------------------------------------------------------------------------
+; forcepldata                                    11504  94G, medium confidence
+; 94G forcepldata: (team) faceoffs only: puts each player straight into his
+; requested position (+0A8h -> +0A9h), assnearest for the centre, setplayer
+;-----------------------------------------------------------------------------
+forcepldata:
         push ebx
         push ecx
         push edx
@@ -1834,7 +1839,7 @@ sub_11504_E:
         jne short .1
         mov edx, 0Ah
         mov eax, ebx
-        call sub_1E224
+        call assinsert
 .1:
         mov edx, dword [dword ebx+0A4h]
         sar edx, 18h
@@ -1842,7 +1847,7 @@ sub_11504_E:
         mov edx, dword [dword ebx+0A4h]
         mov eax, ebx
         sar edx, 18h
-        call sub_11B38
+        call setplayer
         and byte [dword ebx+0C1h], 0FEh
         jmp near sub_123A0_81
         db 090h
@@ -1861,12 +1866,12 @@ sub_11574:
         mov eax, hmtmstruct
         call setpersonel
         mov eax, hmtmstruct
-        call sub_11504
+        call forcepldata
         mov eax, awtmstruct
         call setpersonel
         mov eax, awtmstruct
         xor edx, edx
-        call sub_11504
+        call forcepldata
         mov eax, dword [off_168CD8]
         mov word [word_19CBBE], dx
         mov word [eax], dx
@@ -1905,7 +1910,7 @@ sub_11574:
         add edx, byte 7
         mov eax, ebx
         movsx edx, dx
-        call sub_1E224
+        call assinsert
         cmp word [dword ebx+0A9h], byte 0
         jl short .2
         mov eax, ebx
@@ -2353,9 +2358,11 @@ sub_119A8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11B38                                                       11B38  97 PC
+; setplayer                                      11B38  94G, medium confidence
+; 94G setplayer: (player, roster index) brings a player onto the ice: pnum
+; (+0A6h), marks him in the team's line table (+50h, 8001h / 8002h)
 ;-----------------------------------------------------------------------------
-sub_11B38:
+setplayer:
         push ebx
         push ecx
         push esi
@@ -2383,7 +2390,7 @@ sub_11B38:
         mov edx, 16h
 .2:
         mov eax, ecx
-        call sub_1E224
+        call assinsert
         and byte [dword ecx+0BFh], 0DFh
 .3:
         movsx eax, bx
@@ -3093,7 +3100,7 @@ sub_123A0_62:
         je short sub_123A0_81
         mov edx, 1
         mov eax, ebx
-        call sub_1E208
+        call assreplace
 sub_123A0_81:
         add ebx, 108h
         mov byte [byte ebx-060h], 0FFh
@@ -3521,7 +3528,7 @@ setpersonel:
         mov eax, esi
         fld dword [byte ebx+028h]
         fstp dword [byte ebx+020h]
-        call sub_1E208
+        call assreplace
         mov eax, esi
         call sub_27D10
         jmp short .11
@@ -3529,7 +3536,7 @@ setpersonel:
         mov edx, 1
         mov eax, esi
         mov dword [byte esi+020h], 0C58AC000h
-        call sub_1E208
+        call assreplace
 .11:
         mov word [dword esi+0A9h], 5
 .12:
@@ -3895,7 +3902,7 @@ sub_12C2C:
         mov edx, 42h
 .8:
         mov eax, dword [off_168CFC]
-        call sub_1E208
+        call assreplace
         call sub_4DDB0
         mov bl, byte [byte_19CBCA]
         or bl, 4
@@ -4024,7 +4031,7 @@ sub_12E50:
 .6:
         mov eax, ebx
 .7:
-        call sub_1E224
+        call assinsert
 .8:
         inc ecx
         add ebx, 108h
@@ -4048,7 +4055,7 @@ sub_12E50:
         jne near .19
         mov edx, edi
         mov eax, ebx
-        call sub_1E224
+        call assinsert
         mov edx, 16h
         jmp near .18
 .11:
@@ -4101,7 +4108,7 @@ sub_12E50:
         mov edx, edi
 .18:
         mov eax, ebx
-        call sub_1E224
+        call assinsert
 .19:
         inc ecx
         add ebx, 108h

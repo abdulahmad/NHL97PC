@@ -1,8 +1,10 @@
 address,name,auto_name,source,confidence,evidence,file
 10010,GripLinkLibrary,sub_10010,96PC,medium,NHL96PC 10D66 (sem 0.87): K:8490; K:101; K:100,src/front/front_10010.asm
 10354,LoadGripLibrary,sub_10354,96PC,medium,NHL96PC 1124D (sem 1.00): S:GRIP; D:1684D5; S:GRIP.GLL; D:1684CC,src/front/front_10010.asm
+11504,forcepldata,sub_11504,94G,medium,"94G forcepldata: (team) faceoffs only: puts each player straight into his requested position (+0A8h -> +0A9h), assnearest for the centre, setplayer",src/front/front_10010.asm
 11744,clearteams,,96PC,medium,NHL96PC 4875E (similar): mnemonic similarity 0.80 over 60 instructions,
 11908,ResetBench,sub_11908,94G,medium,94G ResetBench (96 PC body): the bench and penalty box state of both teams' rosters,src/front/front_10010.asm
+11B38,setplayer,sub_11B38,94G,medium,"94G setplayer: (player, roster index) brings a player onto the ice: pnum (+0A6h), marks him in the team's line table (+50h, 8001h / 8002h)",src/front/front_10010.asm
 11ED8,reenergizeteam,sub_11ED8,94G,medium,94G reenergizeteam (96 PC body): every player's energy back to 1000h,src/front/front_10010.asm
 11F10,SetupTeamForIntermission,,96PC,medium,NHL96PC 4AF89 (similar): mnemonic similarity 0.88 over 32 instructions,
 127D4,setpersonel,sub_127D4,94G,medium,94G setpersonel (96 PC body): clears the team's 6 on-ice slots and sets the personnel,src/front/front_10010.asm
@@ -52,8 +54,16 @@ address,name,auto_name,source,confidence,evidence,file
 1B09C,StartCameraPath,sub_1B09C,new,low,"(path, ticks): starts a camera path (dword_19D380) for the game camera",src/engine/engine_15AC2.asm
 1B3F4,SelectCameraView,sub_1B3F4,new,medium,"(view, ticks): picks the game camera view (mod 10) with SetCameraView and moves the camera to it",src/engine/engine_15AC2.asm
 1BEA4,LoadOpeningCamera,sub_1BEA4,new,low,from OpeningSequence: loads the opening camera path intro%d.3cp from arena.viv,src/engine/engine_15AC2.asm
+1E208,assreplace,sub_1E208,94G,high,"94G assreplace: (player, assignment) replaces the current assignment (+0B2h list at index +0B1h) and sets the new-assignment flag (+0BFh bit 1)",src/engine/engine_15AC2.asm
+1E224,assinsert,sub_1E224,94G,medium,"94G assinsert: (player, assignment) pushes a new assignment (index - 1) unless it is already the current one, then as assreplace",src/engine/engine_15AC2.asm
+1E268,assexit,sub_1E268,94G,high,94G assexit: ends the current assignment (index + 1) and sets the new-assignment flag,src/engine/engine_15AC2.asm
+2A3F4,assstanley,sub_2A3F4,96PC,low,"96 PC assstanley: player handler 46, the Stanley Cup presentation (cuppal, LoadCupArt, fade, camera path)",src/engine/engine_25894.asm
+2CA40,pucknorm_body,sub_2CA40,96PC,medium,"96 PC pucknorm_body: the puck's handler body: the puck carrier (off_168CF0), goals and the puck physics",src/engine/engine_25894.asm
+2D308,pucknorm,sub_2D308,96PC,medium,"96 PC pucknorm: player handler 43 (off_19C3F4), the puck's normal handler: clears the new-assignment flag (+0BFh bit 1) and its counter, then pucknorm_body",src/engine/engine_25894.asm
+2D330,puckfaceoff2,sub_2D330,96PC,low,"96 PC puckfaceoff2: player handler 45, after puckfaceoff: waits for AllInPlace, resets the bench and the personnel, then drops the puck",src/engine/engine_25894.asm
 2DCC8,CPgoalie,sub_2DCC8,94G,medium,94G CPgoalie (96 PC body): pulls the computer team's goalie late in the third period,src/engine/engine_25894.asm
 2DE3C,ReturnGoalies,,96PC,medium,NHL96PC 463AE (similar): mnemonic similarity 0.81 over 33 instructions,
+2E378,CompLine,sub_2E378,94G,medium,"94G CompLine: (team, other team) picks the line for the computer team to change to (0F33h threshold, as 96 PC)",src/engine/engine_2DE3C.asm
 2E6D4,SetCoachMode,sub_2E6D4,96PC,medium,96 PC SetCoachMode: the coach mode from the score difference,src/engine/engine_2DE3C.asm
 2E8F0,UpdateCoachModes,sub_2E8F0,96PC,medium,96 PC UpdateCoachModes: from ClockTick at the same minutes of periods 2 and 3,src/engine/engine_2DE3C.asm
 2EEE8,puckfaceoff,,96PC,medium,NHL96PC 3AEBA (sem): C:306; D:19CC04; D:19EBBC; D:19EAB0,

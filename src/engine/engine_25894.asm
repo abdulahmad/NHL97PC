@@ -24,12 +24,12 @@ extern qword_1607D7, qword_1607DF, qword_1607E7, qword_1607EF, qword_1607F7, qwo
 extern qword_160817, qword_16081F, qword_160827, qword_16082F, qword_160837, qword_16083F, qword_160847, qword_16084F
 extern qword_160857, qword_16085F, qword_160867, qword_16086F, qword_16087B, qword_160883, qword_16088B, qword_16089B
 extern qword_1608A7, randomd0, regd1, slotteam, sub_100700, sub_1008CC, sub_11328, sub_114C4
-extern sub_11504, sub_116B0, ResetBench, sub_11B38, sub_123A0, setpersonel, sub_12E50, sub_13D50
+extern forcepldata, sub_116B0, ResetBench, setplayer, sub_123A0, setpersonel, sub_12E50, sub_13D50
 extern sub_13DA4, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, SelectCameraView, sub_1BB18, sub_1CBD8, sub_1D008
-extern sub_1DEE4, sub_1E184, sub_1E208, sub_1E268, sub_1E284, sub_1E8B0, sub_1EC5C, sub_1F32C
+extern sub_1DEE4, sub_1E184, assreplace, assexit, sub_1E284, sub_1E8B0, sub_1EC5C, sub_1F32C
 extern sub_1F4EC, sub_1F538, sub_1FB6C, sub_1FF5C, sub_20508, sub_20A80, sub_21B20, sub_21E98
 extern sub_22050, sub_22828, sub_22FF0, sub_23284, sub_240D0, sub_24220, sub_2471C, sub_248E8
-extern sub_25010, sub_251F0, sub_25730, sub_2E310, sub_2E378, sub_30778, sub_3085C, sub_31C14
+extern sub_25010, sub_251F0, sub_25730, sub_2E310, CompLine, sub_30778, sub_3085C, sub_31C14
 extern sub_32260, sub_32340, EndPenaltyShot, sub_34330, sub_343F8, sub_34EF8, sub_39DA4, sub_39EC0
 extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, sub_41D48
 extern sub_42098, sub_42220, sub_424CC, sub_45BEC, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
@@ -51,10 +51,10 @@ global sub_25AEC, sub_25BD0, sub_25D40, sub_25E24, sub_25F64, sub_2625C, sub_264
 global sub_27210, sub_27274, sub_27500, sub_275C0, sub_27A00, sub_27A78, sub_27AD8, sub_27D10
 global sub_27F80, sub_27FF0, sub_28110, sub_282B8, sub_2842C, sub_28698, sub_289AC, sub_28A08
 global sub_28C0C, sub_28D88, sub_29064, sub_293A8, sub_295CC, sub_298E8, sub_29A90, sub_29BFC
-global sub_29E2C, sub_29F30, sub_2A000, sub_2A1C8, sub_2A3A0, sub_2A3F4, sub_2A6B8, sub_2AA50
+global sub_29E2C, sub_29F30, sub_2A000, sub_2A1C8, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
 global sub_2AC40, sub_2AD18, sub_2AFD8, sub_2B4D4, sub_2B9EC, sub_2BAC0, sub_2BE2C, sub_2BEF0
-global sub_2BFC4, sub_2C064, sub_2C42C, sub_2C4E8, sub_2C5C8, sub_2C900, sub_2CA40, sub_2D308
-global sub_2D330, CPgoalie, sub_2DD54
+global sub_2BFC4, sub_2C064, sub_2C42C, sub_2C4E8, sub_2C5C8, sub_2C900, pucknorm_body, pucknorm
+global puckfaceoff2, CPgoalie, sub_2DD54
 ;-----------------------------------------------------------------------------
 ; sub_25894                                                       25894  97 PC
 ;-----------------------------------------------------------------------------
@@ -484,7 +484,7 @@ sub_25BD0:
         mov edx, ecx
         mov byte [dword ebx+0C0h], ah
         mov eax, esi
-        call sub_2E378
+        call CompLine
         mov eax, ecx
         call setpersonel
         mov eax, ebx
@@ -844,7 +844,7 @@ sub_25F64:
         cmp word [dword ecx+0A9h], byte 0
         jle short .11
         mov eax, ecx
-        call sub_1E268
+        call assexit
 .11:
         xor ebp, ebp
         mov dword [nosplit edi*4+dword_19CC9C], ebp
@@ -1299,7 +1299,7 @@ sub_265FC:
         mov byte [dword esi+0B1h], dl
 .7:
         movsx edx, bx
-        call sub_1E208
+        call assreplace
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -1528,7 +1528,7 @@ sub_265FC:
         mov byte [dword ebp+0B1h], dl
 .26:
         movsx edx, bx
-        call sub_1E208
+        call assreplace
         mov al, byte [dword esi+0B1h]
         mov bl, byte [dword esi+0BFh]
         inc al
@@ -2554,7 +2554,7 @@ sub_275C0:
         mov byte [dword ebx+0B1h], dl
 .3:
         movsx edx, cx
-        call sub_1E208
+        call assreplace
         add esp, byte 20h
         pop edx
         pop ecx
@@ -2762,12 +2762,12 @@ sub_275C0:
         mov byte [dword ebx+0B1h], dl
 .20:
         movsx edx, cx
-        call sub_1E208
+        call assreplace
 .21:
         mov edx, dword [dword ebx+0A4h]
         mov eax, ebx
         sar edx, 18h
-        call sub_11B38
+        call setplayer
         mov byte [dword ebx+0A8h], 0FFh
         mov al, byte [dword ebx+0A8h]
         mov byte [dword ebx+0A7h], al
@@ -2953,11 +2953,11 @@ sub_27AD8:
         mov byte [dword ebx+0B1h], dl
 .4:
         movsx edx, cx
-        call sub_1E208
+        call assreplace
         mov edx, dword [byte ebx+05Eh]
         mov eax, ebx
         sar edx, 10h
-        call sub_11B38
+        call setplayer
         mov ch, byte [dword ebx+0C1h]
         mov dword [byte ebx+060h], 0
         and ch, 0E7h
@@ -3309,7 +3309,7 @@ sub_27FF0:
         mov byte [dword ebx+0B1h], dl
 .3:
         movsx edx, cx
-        call sub_1E208
+        call assreplace
         mov ebx, dword [dword ebx+0FEh]
         mov word [byte ebx+0Ch], 0FFFFh
         mov ax, word [byte ebx+0Ch]
@@ -4218,7 +4218,7 @@ sub_28C0C:
 .3:
         movsx edx, dx
         mov eax, esi
-        call sub_1E208
+        call assreplace
 .4:
         inc ecx
         add ebx, 108h
@@ -4252,7 +4252,7 @@ sub_28C0C:
         sub eax, edx
         shl eax, 2
         add eax, hmtmstruct
-        call sub_11504
+        call forcepldata
 .6:
         pop edx
         pop ebx
@@ -5906,9 +5906,12 @@ sub_2A3A0:
         jmp short .2
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_2A3F4                                                       2A3F4  97 PC
+; assstanley                            2A3F4  94G logic94.asm, low confidence
+; Asstab slot 8; field alignment 70% of 10 known-field accesses; content rank
+; 1/34 vs other slot routines; 2 known Genesis callees present, 0 missing, 0
+; extra
 ;-----------------------------------------------------------------------------
-sub_2A3F4:
+assstanley:
         push ebx
         push ecx
         push edx
@@ -8839,9 +8842,25 @@ sub_2C900:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_2CA40                                                       2CA40  97 PC
+; pucknorm_body                      2CA40  94G logic94.asm, medium confidence
+; pucknorm_body (4D6B4; 93G logic93 / 94G pucknorm after the new-assignment
+; part, PC version; ends in ass_popx): the puck's normal assignment. Count
+; down the two line-crossing timers (puckcross) and every 5 ticks recompute
+; them (temp1, findpc). A carried puck is pulled a quarter of the way toward
+; its carrier's hot spot (a2touchpuck, GetHot into regd0 / regd1) and takes
+; his velocity. Then the ice / offside / two-line checks (PuckIChk,
+; ChkOffsides, MarkTwoLinePlayers). While the clock runs: a carried puck
+; resets temp2 (78h) and the penalty-shot send count (psendcount); a loose
+; one on a live penalty shot moving back toward the shooter's own end (puckvy
+; by penshotteam and the gmode bit 1 rink flip) for 1Eh ticks ends the shot
+; (EndPenaltyShot). A puck that has stopped (same position as last tick),
+; outside the middle (x A3h, y 10Eh) or with hmtmnear / awtmnear at 14h or
+; less, counts temp2 down and at 0 calls a delay of game (AddPenalty2 3); a
+; moving one resets temp2. A puck almost still on the ice (z speed below
+; 100h, z 0) is put flat (puckunflip); then the collisions (checkpuckcoll).
+; p: the puck. No result.
 ;-----------------------------------------------------------------------------
-sub_2CA40:
+pucknorm_body:
         push ebx
         push ecx
         push edx
@@ -9516,9 +9535,11 @@ sub_2CA40:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_2D308                                                       2D308  97 PC
+; pucknorm                           2D308  94G logic94.asm, medium confidence
+; Slot $18; head identical to 93G pucknorm: bclr pfna; clr temp1(+26h);
+; temp2(+28h)=$78; then calls the body sub_4D6B4
 ;-----------------------------------------------------------------------------
-sub_2D308:
+pucknorm:
         push edx
         mov dl, byte [dword eax+0BFh]
         test dl, 2
@@ -9528,14 +9549,17 @@ sub_2D308:
         and dh, 0FDh
         mov byte [dword eax+0BFh], dh
 .1:
-        call sub_2CA40
+        call pucknorm_body
         pop edx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_2D330                                                       2D330  97 PC
+; puckfaceoff2                          2D330  94G logic94.asm, low confidence
+; Asstab slot 28; field alignment 69% of 29 known-field accesses; content
+; rank 1/34 vs other slot routines; 3 known Genesis callees present, 0
+; missing, 0 extra
 ;-----------------------------------------------------------------------------
-sub_2D330:
+puckfaceoff2:
         push ebx
         push ecx
         push edx
@@ -9885,13 +9909,13 @@ sub_2D330:
         mov eax, hmtmstruct
         call setpersonel
         mov eax, hmtmstruct
-        call sub_11504
+        call forcepldata
         mov eax, awtmstruct
         mov ecx, SortCords
         call setpersonel
         mov eax, awtmstruct
         xor esi, esi
-        call sub_11504
+        call forcepldata
         call sub_123A0
 .21:
         mov edx, 0FFFFFFFFh
@@ -9938,7 +9962,7 @@ sub_2D330:
         mov byte [dword ecx+0B1h], dl
 .22:
         movsx edx, bx
-        call sub_1E208
+        call assreplace
         test byte [dword ecx+0BFh], 40h
         je short .23
         mov edx, dword [dword ecx+0A3h]
@@ -9974,7 +9998,7 @@ sub_2D330:
         mov byte [dword ecx+0B1h], dl
 .25:
         movsx edx, bx
-        call sub_1E208
+        call assreplace
 .26:
         mov eax, ecx
         call sub_1FF5C

@@ -9,7 +9,7 @@
 ;  10FAC  sub_10FAC                                front/front_10010.asm                        2
 ;  11328  sub_11328                                front/front_10010.asm                        4
 ;  114C4  sub_114C4                                front/front_10010.asm                        4
-;  11504  sub_11504                                front/front_10010.asm                        2
+;  11504  forcepldata                              front/front_10010.asm                        2
 ;  11574  sub_11574                                front/front_10010.asm                        1
 ;  116B0  sub_116B0                                front/front_10010.asm                        2
 ;  11744  clearteams                               front/front_10010.asm                        1
@@ -17,7 +17,7 @@
 ;  11908  ResetBench                               front/front_10010.asm                        1
 ;  11984  sub_11984                                front/front_10010.asm                        3
 ;  119A8  sub_119A8                                front/front_10010.asm                        2
-;  11B38  sub_11B38                                front/front_10010.asm                        3
+;  11B38  setplayer                                front/front_10010.asm                        3
 ;  11F10  SetupTeamForIntermission                 front/front_10010.asm                        1
 ;  11F74  sub_11F74                                front/front_10010.asm                        2
 ;  12024  sub_12024                                front/front_10010.asm                        1
@@ -119,9 +119,9 @@
 ;  1DFA0  sub_1DFA0                                engine/engine_15AC2.asm                      1
 ;  1E014  sub_1E014                                engine/engine_15AC2.asm                      1
 ;  1E184  sub_1E184                                engine/engine_15AC2.asm                      2
-;  1E208  sub_1E208                                engine/engine_15AC2.asm                      5
-;  1E224  sub_1E224                                engine/engine_15AC2.asm                      3
-;  1E268  sub_1E268                                engine/engine_15AC2.asm                      2
+;  1E208  assreplace                               engine/engine_15AC2.asm                      5
+;  1E224  assinsert                                engine/engine_15AC2.asm                      3
+;  1E268  assexit                                  engine/engine_15AC2.asm                      2
 ;  1E284  sub_1E284                                engine/engine_15AC2.asm                      1
 ;  1E354  sub_1E354                                engine/engine_15AC2.asm                      1
 ;  1E7C4  sub_1E7C4                                engine/engine_15AC2.asm                      1
@@ -192,12 +192,12 @@
 ;  29F30  sub_29F30                                engine/engine_25894.asm                      1
 ;  2A000  sub_2A000                                engine/engine_25894.asm                      1
 ;  2A1C8  sub_2A1C8                                engine/engine_25894.asm                      1
-;  2A3F4  sub_2A3F4                                engine/engine_25894.asm                      1
+;  2A3F4  assstanley                               engine/engine_25894.asm                      1
 ;  2A6B8  sub_2A6B8                                engine/engine_25894.asm                      1
 ;  2BE2C  sub_2BE2C                                engine/engine_25894.asm                      1
 ;  2C064  sub_2C064                                engine/engine_25894.asm                      1
-;  2D308  sub_2D308                                engine/engine_25894.asm                      1
-;  2D330  sub_2D330                                engine/engine_25894.asm                      1
+;  2D308  pucknorm                                 engine/engine_25894.asm                      1
+;  2D330  puckfaceoff2                             engine/engine_25894.asm                      1
 ;  2DCC8  CPgoalie                                 engine/engine_25894.asm                      1
 ;  2DD54  sub_2DD54                                engine/engine_25894.asm                      1
 ;  2DE3C  ReturnGoalies                            engine/engine_2DE3C.asm                      1
@@ -206,7 +206,7 @@
 ;  2E168  sub_2E168                                engine/engine_2DE3C.asm                      1
 ;  2E208  sub_2E208                                engine/engine_2DE3C.asm                      1
 ;  2E310  sub_2E310                                engine/engine_2DE3C.asm                      1
-;  2E378  sub_2E378                                engine/engine_2DE3C.asm                      2
+;  2E378  CompLine                                 engine/engine_2DE3C.asm                      2
 ;  2E7D8  sub_2E7D8                                engine/engine_2DE3C.asm                      1
 ;  2E8F0  UpdateCoachModes                         engine/engine_2DE3C.asm                      2
 ;  2EDB8  sub_2EDB8                                engine/engine_2DE3C.asm                      2

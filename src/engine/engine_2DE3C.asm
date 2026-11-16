@@ -9,7 +9,7 @@ extern setpersonel, RemoveOverlayPanel, QueueOverlayPanel, CPgoalie, sub_45BEC, 
 extern word_19CA96, word_19CB34, word_19CB98, gsp, gameclock, word_19CBBE, word_19CBEC, word_19CBEE
 extern word_19CC24, word_19CC26, word_19EAC0
 global ReturnGoalies, sub_2DE94_1A5, sub_2DE94_259, sub_2E12C_33, sub_2DE94, sub_2E11C, sub_2E12C, sub_2E168
-global sub_2E208, sub_2E310, sub_2E378, SetCoachMode, sub_2E7D8, UpdateCoachModes, sub_2EDB8
+global sub_2E208, sub_2E310, CompLine, SetCoachMode, sub_2E7D8, UpdateCoachModes, sub_2EDB8
 ;-----------------------------------------------------------------------------
 ; ReturnGoalies                    2DE3C  93G logic93_4.asm, medium confidence
 ; (computer returns a pulled goalie), from puckfaceoff.
@@ -508,9 +508,11 @@ sub_2E310:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_2E378                                                       2E378  97 PC
+; CompLine                                       2E378  94G, medium confidence
+; 94G CompLine: (team, other team) picks the line for the computer team to
+; change to (0F33h threshold, as 96 PC)
 ;-----------------------------------------------------------------------------
-sub_2E378:
+CompLine:
         push ebx
         push ecx
         push esi

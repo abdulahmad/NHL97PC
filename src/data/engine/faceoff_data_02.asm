@@ -8,7 +8,7 @@ extern sub_22CEC, sub_22E70, sub_238E8, sub_23A78, sub_23B88, sub_23C98, sub_23E
 extern sub_244BC, sub_25F64, sub_265FC, sub_27274, sub_275C0, sub_27AD8, sub_27D10, sub_28110
 extern sub_282B8, sub_2842C, sub_28698, sub_289AC, sub_28A08, sub_28D88, sub_29064, sub_293A8
 extern sub_295CC, sub_298E8, sub_29A90, sub_29BFC, sub_29E2C, sub_29F30, sub_2A000, sub_2A1C8
-extern sub_2A3F4, sub_2D308, sub_2D330, sub_30674, sub_36AB0, sub_36E34, sub_FC210, sub_FC215
+extern assstanley, pucknorm, puckfaceoff2, sub_30674, sub_36AB0, sub_36E34, sub_FC210, sub_FC215
 extern sub_FC238
 global byte_19C3E0, byte_19C3E6, byte_19C620, dword_19C3DD, dword_19C690, off_19C3F4, off_19C5F4, off_19C61F
 global unk_19C534, unk_19C544, unk_19C564, unk_19C574, unk_19C584, unk_19C594, unk_19C5A4, unk_19C5B4
@@ -87,10 +87,10 @@ off_19C3F4:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         dd sub_209D0
-        dd sub_2D308
+        dd pucknorm
         dd puckfaceoff
-        dd sub_2D330
-        dd sub_2A3F4
+        dd puckfaceoff2
+        dd assstanley
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h

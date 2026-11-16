@@ -97,8 +97,8 @@ global sub_1C29C, sub_1C2EC, sub_1C360, sub_1C4F4, sub_1C70C, sub_1C7B4, sub_1C8
 global sub_1C9F0, sub_1CB9C, sub_1CBD8, sub_1CCBC, sub_1CCF8, sub_1CD80, sub_1CE98, sub_1D008
 global sub_1D09C, sub_1D0BC, sub_1D16C, sub_1D1D4, sub_1D1DC, sub_1D208, sub_1D2A8, sub_1D480
 global sub_1D4FC, sub_1D828, sub_1D858, sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0
-global sub_1DD5C, sub_1DDE4, sub_1DEB8, sub_1DEE4, sub_1DFA0, sub_1E014, sub_1E184, sub_1E208
-global sub_1E224, sub_1E268, sub_1E284, sub_1E354, sub_1E4E4, sub_1E7C4, sub_1E810, sub_1E8B0
+global sub_1DD5C, sub_1DDE4, sub_1DEB8, sub_1DEE4, sub_1DFA0, sub_1E014, sub_1E184, assreplace
+global assinsert, assexit, sub_1E284, sub_1E354, sub_1E4E4, sub_1E7C4, sub_1E810, sub_1E8B0
 global sub_1EC5C, sub_1EF88, sub_1F32C, sub_1F4EC, sub_1F538, sub_1F5B4, sub_1F7D0, sub_1FB6C
 global sub_1FBF4, sub_1FF5C, sub_20508, sub_209CC, sub_209D0, sub_209E0, sub_20A80, sub_20C50
 global sub_20CB0, sub_218B8, sub_21A4C, sub_21AB4, sub_21B20, sub_21E98, sub_22050, sub_22828
@@ -11315,9 +11315,11 @@ sub_1E184:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1E208                                                       1E208  97 PC
+; assreplace                                                        1E208  94G
+; 94G assreplace: (player, assignment) replaces the current assignment (+0B2h
+; list at index +0B1h) and sets the new-assignment flag (+0BFh bit 1)
 ;-----------------------------------------------------------------------------
-sub_1E208:
+assreplace:
         push ebx
         mov ebx, dword [dword eax+0AEh]
         sar ebx, 18h
@@ -11327,9 +11329,11 @@ sub_1E208:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1E224                                                       1E224  97 PC
+; assinsert                                      1E224  94G, medium confidence
+; 94G assinsert: (player, assignment) pushes a new assignment (index - 1)
+; unless it is already the current one, then as assreplace
 ;-----------------------------------------------------------------------------
-sub_1E224:
+assinsert:
         push ebx
         mov ebx, dword [dword eax+0AEh]
         sar ebx, 18h
@@ -11349,9 +11353,11 @@ sub_1E224:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1E268                                                       1E268  97 PC
+; assexit                                                           1E268  94G
+; 94G assexit: ends the current assignment (index + 1) and sets the
+; new-assignment flag
 ;-----------------------------------------------------------------------------
-sub_1E268:
+assexit:
         push edx
         mov dl, byte [dword eax+0B1h]
         inc dl
@@ -12498,7 +12504,7 @@ sub_1EC5C:
         mov byte [dword ebx+0B1h], dl
 .19:
         movsx edx, cx
-        call sub_1E208
+        call assreplace
 .20:
         mov byte [dword ebx+0A8h], 0FFh
         mov byte [dword ebx+0A7h], 0FFh
@@ -12890,7 +12896,7 @@ sub_1F32C:
         mov byte [dword ecx+0B1h], dl
 .9:
         movsx edx, si
-        call sub_1E208
+        call assreplace
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
         mov dword [dword ebx+0ADh], eax
@@ -15411,7 +15417,7 @@ sub_20CB0:
         mov edx, dword [byte esp+012h]
         mov eax, edi
         sar edx, 10h
-        call sub_1E208
+        call assreplace
         mov edx, dword [dword ebx+0AEh]
         mov edi, 18h
         sar edx, 18h
@@ -15427,7 +15433,7 @@ sub_20CB0:
 .73:
         mov edx, dword [byte esp+016h]
         sar edx, 10h
-        call sub_1E208
+        call assreplace
         mov word [byte esp+010h], 16h
         mov edx, dword [dword ebx+0AEh]
         sar edx, 18h
@@ -15458,7 +15464,7 @@ sub_20CB0:
         mov eax, edi
 .77:
         sar edx, 10h
-        call sub_1E208
+        call assreplace
 .78:
         inc ecx
         add ebx, 108h
@@ -19530,7 +19536,7 @@ sub_249F8:
         mov byte [dword ebx+0B1h], dl
 .2:
         movsx edx, si
-        call sub_1E208
+        call assreplace
         mov eax, dword [dword ebx+0FAh]
         mov dword [byte eax+01Ch], 0
         mov eax, ebx
@@ -20433,7 +20439,7 @@ sub_251F0:
         mov byte [dword esi+0B1h], dl
 .32:
         movsx edx, bx
-        call sub_1E208
+        call assreplace
         mov eax, dword [off_168CFC]
         mov dword [byte eax+060h], 0A0h
         mov eax, 1

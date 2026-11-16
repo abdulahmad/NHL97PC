@@ -160,9 +160,9 @@ extern sub_10FD58, sub_10FE10, sub_10FE58, sub_10FE88, sub_10FFBC, sub_11002C, s
 extern sub_110414, sub_1104F0, sub_11328, sub_114C4, sub_114FD0, sub_115020, sub_1150FC, sub_115150
 extern sub_115170, sub_1151A4, sub_115220, sub_1152B0, sub_115318, sub_1153AC, sub_1153DC, sub_115810
 extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, sub_116050, sub_11984
-extern sub_119A8, sub_11B38, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
+extern sub_119A8, setplayer, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
 extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, sub_18DF7, sub_18E35, DrawGameOverlays, StartCameraPath
-extern SelectCameraView, sub_1DFA0, sub_1E014, sub_1E208, sub_1E224, sub_1E354, sub_1FBF4, sub_20CB0
+extern SelectCameraView, sub_1DFA0, sub_1E014, assreplace, assinsert, sub_1E354, sub_1FBF4, sub_20CB0
 extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, sub_2C064, sub_2DD54, sub_2E11C, sub_2E168
 extern sub_2E208, sub_2EDB8, sub_2F4B8, sub_2FED8, sub_32260, sub_32340, EndPenaltyShot, sub_34330
 extern sub_358E4, sub_365FC, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
@@ -27332,7 +27332,7 @@ sub_6A77C:
         mov edx, 0Eh
         mov word [byte eax+06Dh], 1
         mov eax, esi
-        call sub_1E224
+        call assinsert
         mov eax, dword [dword esi+0FAh]
         mov dword [byte eax+01Ch], 0
         mov eax, esi
@@ -38206,7 +38206,7 @@ sub_72C70:
         fstp dword [byte eax+024h]
         mov eax, esi
         mov ebx, 1
-        call sub_1E208
+        call assreplace
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
         call sub_56D0C
@@ -38282,7 +38282,7 @@ sub_72D74:
         fstp dword [byte eax+024h]
         mov eax, esi
         mov ebx, 1
-        call sub_1E208
+        call assreplace
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
         call sub_56D0C
@@ -45803,7 +45803,7 @@ sub_780F0:
         push ebp
         mov edx, 41h
         mov eax, dword [off_168CFC]
-        call sub_1E224
+        call assinsert
         mov dx, word [gsp]
         cmp dx, byte 2
         jge short .2
@@ -45901,7 +45901,7 @@ sub_780F0:
 .7:
         mov edx, 40h
         mov eax, dword [off_168CFC]
-        call sub_1E208
+        call assreplace
         mov edx, 3E8h
         mov eax, dword [off_168CF0]
         mov dword [dword_19CC00], edx
@@ -45943,7 +45943,7 @@ sub_780F0:
         jl short .13
         mov edx, ebp
         mov eax, ecx
-        call sub_1E224
+        call assinsert
         jmp near .17
 .13:
         mov eax, dword [dword ecx+0A7h]
@@ -45968,11 +45968,11 @@ sub_780F0:
         mov eax, ecx
         mov word [regd1], dx
         mov edx, ebp
-        call sub_1E224
+        call assinsert
         mov edx, dword [dword_19CB66]
         mov eax, ecx
         sar edx, 10h
-        call sub_11B38
+        call setplayer
         mov word [word_19CB68], 1
 .16:
         mov eax, dword [dword_19CB66]
@@ -46003,7 +46003,7 @@ sub_780F0:
         jl short .21
         mov edx, ebp
         mov eax, ecx
-        call sub_1E224
+        call assinsert
         jmp near .25
 .21:
         mov eax, dword [dword ecx+0A7h]
@@ -46028,11 +46028,11 @@ sub_780F0:
         mov edx, ebp
         mov word [regd1], ax
         mov eax, ecx
-        call sub_1E224
+        call assinsert
         mov edx, dword [dword_19CB66]
         mov eax, ecx
         sar edx, 10h
-        call sub_11B38
+        call setplayer
         mov word [word_19CB68], 1
 .24:
         mov eax, dword [dword_19CB66]
@@ -46065,7 +46065,7 @@ sub_780F0:
         mov edx, 44h
         call sub_4C0C4
         mov eax, dword [off_168CFC]
-        call sub_1E208
+        call assreplace
         mov eax, 5Ch
         call sub_41ACC
         mov eax, 0Bh

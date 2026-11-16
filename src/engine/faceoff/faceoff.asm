@@ -23,7 +23,7 @@ extern off_168D04, off_168D08, off_168D0C, qword_16002C, qword_160034, qword_160
 extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, regd1, sub_11328
 extern sub_11574, sub_116B0, sub_11808, sub_11984, sub_11F74, sub_12A10, ClockTick, sub_12C2C
 extern sub_12DE8, ChangeViewSize, sub_15C30, sub_15E4D, QueueOverlayPanel, sub_18E35, DrawGameOverlays, StartCameraPath
-extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, sub_1E208, sub_20CB0, sub_2DE94
+extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, assreplace, sub_20CB0, sub_2DE94
 extern sub_30BD8, sub_31F88, sub_32260, sub_34330, sub_34950, sub_36370, sub_36754, sub_3CA28
 extern sub_3CB70, sub_3D020, sub_3E5F0, InitGameAudio, sub_41670, sub_41CF0, sub_41DD8, sub_423B4
 extern sub_424CC, sub_45BEC, LoadDataFileLib, LoadDataFile, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928
@@ -183,7 +183,7 @@ StartGame:
         mov byte [dword eax+0BEh], 0
         mov edx, 42h
         mov eax, dword [off_168CFC]
-        call sub_1E208
+        call assreplace
         pop edx
         pop ecx
         pop ebx
@@ -481,7 +481,7 @@ RunOpeningFrames:
 .14:
         mov edx, 42h
         mov eax, dword [off_168CFC]
-        call sub_1E208
+        call assreplace
         mov eax, esi
         add esp, byte 0Ch
         pop ebp
@@ -623,7 +623,7 @@ PlaceOpeningPlayers:
         mov dword [byte eax+028h], 100h
         mov eax, ebx
         inc ecx
-        call sub_1E208
+        call assreplace
         sub ebx, 108h
         cmp ecx, byte 0Ch
         jl near .4
@@ -653,10 +653,10 @@ PlaceOpeningPlayers:
         mov dword [byte eax+024h], 0
         mov edx, 1Eh
         mov eax, dword [off_168D04]
-        call sub_1E208
+        call assreplace
         mov edx, 40h
         mov eax, dword [off_168CFC]
-        call sub_1E208
+        call assreplace
         call PeriodOver
         mov bl, byte [byte_19CBCA]
         or bl, 4

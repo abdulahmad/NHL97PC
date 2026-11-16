@@ -23,10 +23,10 @@ extern qword_16094C, qword_160954, qword_16095C, qword_160964, qword_16096C, qwo
 extern qword_16098C, qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qword_1609B4, qword_1609BC, randomd0
 extern regd1, slotteam, sub_100940, sub_100A68, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
 extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, sub_101154, sub_1011E8
-extern sub_101220, sub_101230, sub_11504, sub_11B38, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
+extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
 extern QueueOverlayPanel, sub_18E35, sub_1C108, sub_1C210, sub_1C29C, sub_1C7B4, sub_1CCBC, sub_1D16C
-extern sub_1E184, sub_1E208, sub_1E224, sub_1E268, sub_1E8B0, sub_1FB6C, sub_20CB0, sub_24220
-extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, sub_2E378, sub_2EDB8
+extern sub_1E184, assreplace, assinsert, assexit, sub_1E8B0, sub_1FB6C, sub_20CB0, sub_24220
+extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, CompLine, sub_2EDB8
 extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, sub_42098, sub_42220, sub_424CC, sub_45BEC
 extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
 extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
@@ -326,7 +326,7 @@ puckfaceoff:
 .25:
         mov edx, awtmstruct
         mov eax, hmtmstruct
-        call sub_2E378
+        call CompLine
         mov eax, awtmstruct
         call setpersonel
         mov eax, 1
@@ -369,7 +369,7 @@ puckfaceoff:
         cmp word [word_19CBBC], byte 0
         jne short .29
         mov eax, ebx
-        call sub_11504
+        call forcepldata
         jmp short .29
 .28:
         mov cx, word [dword eax+word_19CA90]
@@ -403,7 +403,7 @@ puckfaceoff:
 .30:
         mov edx, hmtmstruct
         mov eax, awtmstruct
-        call sub_2E378
+        call CompLine
         mov eax, hmtmstruct
         call setpersonel
         xor eax, eax
@@ -1652,7 +1652,7 @@ sub_30300:
         cmp edx, byte 0FFFFFFFFh
         jne near .18
         mov eax, ebx
-        call sub_1E268
+        call assexit
         pop esi
         pop ecx
         pop ebx
@@ -1895,7 +1895,7 @@ sub_30674:
         test byte [byte_19CBC8], 8
         jne short .2
         mov eax, ecx
-        call sub_1E268
+        call assexit
         add esp, byte 8
         pop esi
         pop edx
@@ -2015,7 +2015,7 @@ sub_30778:
         mov edx, 11h
         mov word [word_19CB7A], ax
         mov eax, ebx
-        call sub_1E208
+        call assreplace
 .8:
         pop edx
         pop ecx
@@ -2033,7 +2033,7 @@ sub_3085C:
         mov word [word_19CB80], dx
         mov word [word_19CB7A], dx
         mov edx, 11h
-        call sub_1E208
+        call assreplace
 .1:
         pop edx
         ret
@@ -4778,7 +4778,7 @@ sub_32340_354:
         add eax, byte 36h
         movsx edx, ax
         mov eax, dword [off_168D04]
-        call sub_1E208
+        call assreplace
 .29:
         pop edx
         ret
@@ -5149,7 +5149,7 @@ sub_32CEC:
         movsx edx, dx
         call sub_1FB6C
         mov eax, ebx
-        call sub_11B38
+        call setplayer
         or byte [dword ebx+0C0h], 4
         mov eax, 500h
         call RemoveOverlayPanel
@@ -6083,7 +6083,7 @@ EndPenaltyShot:
         mov word [word_19CBB4], ax
         mov word [word_19CB90], ax
         mov eax, dword [off_168D04]
-        call sub_1E208
+        call assreplace
         call sub_1CCBC
 .1:
         pop edi
@@ -6227,7 +6227,7 @@ InProgress:
         cmp dx, byte 43h
         je short .8
         mov edx, 42h
-        call sub_1E208
+        call assreplace
 .8:
         xor ah, ah
         mov byte [byte_19CBFC], ah
@@ -6310,7 +6310,7 @@ InProgress:
         add eax, byte 36h
         movsx edx, ax
         mov eax, dword [off_168D04]
-        call sub_1E208
+        call assreplace
 .14:
         mov eax, dword [penshottimer]
         sar eax, 10h
@@ -6436,7 +6436,7 @@ InProgress:
         mov edx, 1Ah
         mov word [byte eax+050h], 8005h
         mov eax, edi
-        call sub_1E208
+        call assreplace
         movsx edx, si
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
@@ -6459,7 +6459,7 @@ InProgress:
         add eax, byte 36h
         movsx edx, ax
         mov eax, dword [off_168D04]
-        call sub_1E208
+        call assreplace
 .25:
         movsx edx, si
         lea eax, [nosplit edx*4+00h]
@@ -6778,7 +6778,7 @@ InProgress:
         mov byte [dword eax+088h], dl
         mov edx, 12h
         mov eax, edi
-        call sub_1E208
+        call assreplace
         xor eax, eax
         mov al, byte [byte ebp-04h]
         cmp ax, 3
@@ -6793,7 +6793,7 @@ InProgress:
         add eax, byte 36h
         movsx edx, ax
         mov eax, dword [off_168D04]
-        call sub_1E208
+        call assreplace
 .56:
         mov esp, ebp
         pop ebp
@@ -6845,7 +6845,7 @@ InProgress_8B2:
         cmp byte [dword edx+eax+0B2h], 41h
         jne short .58
         mov edx, 40h
-        call sub_1E224
+        call assinsert
 .58:
         mov eax, dword [word_19CBEC]
         sar eax, 10h
@@ -8726,7 +8726,7 @@ sub_356A8:
         cmp byte [dword ecx+eax+0B2h], 0Eh
         jne short .4
         mov eax, ecx
-        call sub_1E268
+        call assexit
 .4:
         mov eax, dword [off_168CF0]
         xor edx, edx
@@ -9827,10 +9827,10 @@ sub_36524:
         call sub_32340
         mov edx, 1Ch
         mov eax, esi
-        call sub_1E224
+        call assinsert
         mov edx, 1Ch
         mov eax, ecx
-        call sub_1E224
+        call assinsert
         xor eax, eax
         mov al, byte [dword esi+0A4h]
         call GiveControl
@@ -9911,7 +9911,7 @@ sub_365FC:
         mov byte [eax], 0FFh
         mov edx, 40h
         mov eax, dword [off_168CFC]
-        call sub_1E224
+        call assinsert
         mov eax, 9
         movsx ebx, bx
         call sub_424CC
@@ -9933,7 +9933,7 @@ sub_365FC:
         jne short .6
         mov edx, 1Dh
         mov eax, ecx
-        call sub_1E224
+        call assinsert
 .6:
         inc ebx
         add ecx, 108h
@@ -10383,7 +10383,7 @@ sub_36AB0:
         and cl, 0FEh
         mov eax, ebx
         mov byte [dword ebx+0C0h], cl
-        call sub_1E268
+        call assexit
         mov eax, ebx
         call sub_60F48
         mov eax, dword [dword ebx+0EEh]
