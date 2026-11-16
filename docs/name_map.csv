@@ -2,6 +2,10 @@ address,name,auto_name,source,confidence,evidence,file
 11744,clearteams,,96PC,medium,NHL96PC 4875E (similar): mnemonic similarity 0.80 over 60 instructions,
 11F10,SetupTeamForIntermission,,96PC,medium,NHL96PC 4AF89 (similar): mnemonic similarity 0.88 over 32 instructions,
 1303C,AllInPlace,,96PC,medium,NHL96PC 3ABAE (similar): mnemonic similarity 0.87 over 21 instructions,
+14078,RunSimFrames,sub_14078,96PC,medium,96 PC RunSimFrames: runs the simulation for one input record,src/engine/faceoff/faceoff.asm
+14AC8,GameLoop,sub_14AC8,96PC,high,"96 PC GameLoop: same structure (input records, RunSimFrames, in-game menu, period over, game over)",src/engine/faceoff/faceoff.asm
+152C4,PlayGame,sub_152C4,96PC,high,"96 PC PlayGame: seeds, then calls GameLoop",src/engine/faceoff/faceoff.asm
+1583F,RunInGameMenu,sub_1583F,96PC,high,96 PC RunInGameMenu: called when InGameMenuRequest is set,src/engine/faceoff/faceoff.asm
 2DE3C,ReturnGoalies,,96PC,medium,NHL96PC 463AE (similar): mnemonic similarity 0.81 over 33 instructions,
 2EEE8,puckfaceoff,,96PC,medium,NHL96PC 3AEBA (sem): C:306; D:19CC04; D:19EBBC; D:19EAB0,
 342C4,chkprogress,,95PC,medium,NHL95PC 63C0C (similar): mnemonic similarity 0.83 over 28 instructions,
@@ -11,9 +15,15 @@ address,name,auto_name,source,confidence,evidence,file
 34980,SlotToJoy,,96PC,medium,NHL96PC 3987A (similar): mnemonic similarity 0.92 over 36 instructions,
 349E4,ReadJoy1,,96PC,medium,NHL96PC 398DB (sem): C:371,
 362E0,CountTeamSlots,,96PC,medium,NHL96PC 3A2F6 (similar): mnemonic similarity 0.82 over 32 instructions,
+4DD90,PeriodOver,sub_4DD90,96PC,medium,96 PC PeriodOver: called from GameLoop at the end of a period,src/front/front_48D70.asm
 7C600,putchar,,96PC,medium,NHL96PC 17675 (sem): S:ATZS7=60S11=55; D:164110,
 7D059,main_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 7FEC4,EditText,sub_7FEC4,96PC,medium,"NHL96PC EditText 197ED: same 394h text buffer, eax/edx/ebx/ecx + stack args, reads keys (sub_FBE40) and handles backspace/enter; called by every name entry through sub_7FE38/sub_7FE4C",src/front/main/main.asm
+E2AF4,PollControllers,sub_E2AF4,96PC,high,96 PC PollControllers: controllers and hot keys into the slot words,src/front/front_DA66D.asm
+E2E28,InputRecordTimer,sub_E2E28,96PC,high,96 PC InputRecordTimer: timer callback pushing input records into the ring of 5,src/front/front_DA66D.asm
+E2F98,InitSlotTable,sub_E2F98,96PC,medium,slot words and teams from the 8 controller set-up bytes,src/front/front_DA66D.asm
+E3208,InputRecordAvail,sub_E3208,new,high,returns InputRecordCount (GameLoop's is there a record),src/front/front_DA66D.asm
+E3218,TakeInputRecord,sub_E3218,new,high,copies the next record out of InputRecordRing,src/front/front_DA66D.asm
 E5C78,FreeRinkGfx,,95PC,medium,NHL95PC 33727 (similar): mnemonic similarity 0.81 over 30 instructions,
 E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 over 34 instructions,
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
@@ -39,9 +49,11 @@ FA489,_nfree_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FB63C,type_info__raw_name,,95PC,high,NHL95PC 8DBE4 (exact): 6 instructions,
 FBD60,__STOSB,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBD97,__STOSD,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+FBE03,GetRandState,sub_FBE03,new,high,returns the C library's rand state address,src/lib/watcom/watcom_clib_02.asm
 FBE09,rand_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBE2D,srand_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBE88,WaitKey,,96PC,high,NHL96PC DFF70 (exact): 4 instructions,
+FBF24,TimerISR,sub_FBF24,96PC,medium,timer interrupt handler: increments tickcount,src/lib/input/input_joystick_misc_02.asm
 FC078,RestoreTimer,,96PC,medium,NHL96PC AA6D0 (similar): mnemonic similarity 0.90 over 34 instructions,
 FC21A,__CHP,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FC240,__CHK,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -445,6 +457,12 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1684CC,str_GRIPGLL,,96PC,high,NHL96PC 114CB8 (string): 'GRIP.GLL',
 1684D5,str_GRIP,,96PC,high,NHL96PC 114CC1 (string): 'GRIP',
 1684DA,str_CGRIP,,96PC,high,NHL96PC 114CC6 (string): 'C:\\GRIP\\',
+1686E0,InGameMenuRequest,dword_1686E0,96PC,high,96 PC InGameMenuRequest,src/data/engine/faceoff_data_01.asm
+16D8FC,SlotWords,word_16D8FC,new,high,"8 words: high byte device (bits 0-2) and team (bit 7), low byte buttons",src/data/front/front_DA66D_data_02.asm
+16D90C,InputRecordTail,dword_16D90C,new,high,where TakeInputRecord reads the next record,src/data/front/front_DA66D_data_02.asm
+16D910,InputRecordHead,dword_16D910,96PC,high,96 PC InputRecordHead: where the timer writes the next record,src/data/front/front_DA66D_data_02.asm
+16D914,InputRecordCount,dword_16D914,96PC,high,96 PC InputRecordCount,src/data/front/front_DA66D_data_02.asm
+16D91C,InputRecordStamp,dword_16D91C,new,high,rdtsc when the last record was pushed (draw interpolation),src/data/front/front_DA66D_data_02.asm
 16E3F0,tickcount,,96PC,high,NHL96PC 11F9A4 (position): same fixup of SetTickDeadline,
 16E414,__8087,,95PC,medium,NHL95PC D4B9C (refset): referenced by the same 2 matched functions,
 16E41A,str_StackOverflow,,96PC,high,NHL96PC 14FADE (string): 'Stack Overflow!\r\n',
@@ -474,8 +492,11 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 199C44,___env_mask,,96PC,high,NHL96PC 14F0A0 (position): same fixup of __setenvp_,
 19CA28,kaufmfont,,96PC,high,NHL96PC 151598 (position): same fixup of sub_DB13C,
 19CB6C,regd1,,96PC,medium,NHL96PC 165980 (refset): referenced by the same 2 matched functions,
+19CBC4,seed,dword_19CBC4,94G,high,randomd0's state (94G seed),src/data/engine/faceoff_data_03.asm
 19CC14,slotteam,,96PC,medium,NHL96PC 1178D2 (refset): referenced by the same 4 matched functions,
 19DA30,SortCords,,96PC,medium,NHL96PC 16479C (refset): referenced by the same 3 matched functions,
 19EAB0,hmtmstruct,,96PC,medium,NHL96PC 1656D8 (refset): referenced by the same 3 matched functions,
 19EBBC,awtmstruct,,96PC,medium,NHL96PC 16580E (refset): referenced by the same 2 matched functions,
+1CD1E0,InputRecordRing,unk_1CD1E0,96PC,high,96 PC InputRecordRing (97: 5 records of 14h bytes),src/data/front/front_DA66D_bss_01.asm
+1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,

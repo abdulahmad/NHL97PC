@@ -4,7 +4,7 @@ bits 32
 section s_FC008 progbits alloc exec nowrite align=1
 extern __STOSD, _dos_getvect_, _dos_setvect_, asc_167D2C, dword_16E3FC, dword_16E402, dword_16E4B0, dword_16E4B4
 extern dword_16E4C8, dword_1CF26C, dword_1CF28C, dword_1CF290, dword_1CF294, sub_101220, sub_FAA64, sub_FAF34
-extern sub_FBF24, word_16E406
+extern TimerISR, word_16E406
 global RestoreTimer, sub_FC008, sub_FC0F0
 sub_FC008:
         push ebx
@@ -139,7 +139,7 @@ sub_FC0F0:
         xor edx, edx
         call __STOSD
         mov eax, 8
-        mov ebx, sub_FBF24
+        mov ebx, TimerISR
         call _dos_getvect_
         mov ecx, cs
         mov dword [dword_16E402], eax

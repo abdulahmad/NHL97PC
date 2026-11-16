@@ -6,7 +6,7 @@ extern SortCords, __CHP, __STOSD, asc_166A5C, asc_166A61, asc_166A66, asc_166A6F
 extern asc_166A81, asc_166AAD, asc_166AB8, asc_166AD8, asc_166AE4, asc_166AEB, asc_166AF0, asc_166AF9
 extern asc_166B07, asc_166B1B, asc_166B20, byte_19CBC2, byte_1C6040, byte_1CB004, dword_166A95, dword_166A99
 extern dword_166A9D, dword_166AA9, dword_166AC8, dword_166AD4, dword_166B0B, dword_166B17, dword_166B26, dword_166B32
-extern dword_1686C0, dword_1686E0, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, dword_16E46C
+extern dword_1686C0, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, dword_16E46C
 extern dword_16E474, dword_16E500, dword_19CD10, dword_19CD14, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C
 extern dword_19CD30, dword_19CD34, dword_19CD4C, dword_19CD54, dword_1A8E80, dword_1AC814, dword_1AC944, dword_1B1B64
 extern dword_1B8F4C, dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, dword_1C95B4
@@ -260,7 +260,7 @@ sub_BD62C:
         mov edi, dword_19CD10
         mov esi, unk_1CAEFC
         call sub_3CB70
-        mov dword [dword_1686E0], 0
+        mov dword [InGameMenuRequest], 0
         rep movsd
         call sub_1603A
         push dword [dword_1CAF94]

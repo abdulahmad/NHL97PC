@@ -8,10 +8,10 @@ extern byte_19CB71, byte_19CB74, byte_19CB75, byte_19CB7E, byte_19CB7F, byte_19C
 extern byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CBFC, byte_19CCC6, byte_19CD05, byte_19CD8C, byte_19CD9D
 extern byte_19DAF1, byte_1AC81B, byte_1AC81C, byte_1AC81D, byte_1C135A, byte_1C135B, byte_1C6040, clearteams
 extern dword_160028, dword_160044, dword_160048, dword_16862E, dword_168630, dword_1686BA, dword_1686C0, dword_1686C4
-extern dword_1686C8, dword_1686CC, dword_1686D0, dword_1686DC, dword_1686E0, dword_1686E2, dword_16AF3C, dword_16AF40
+extern dword_1686C8, dword_1686CC, dword_1686D0, dword_1686DC, InGameMenuRequest, dword_1686E2, dword_16AF3C, dword_16AF40
 extern dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF54, dword_16AF58, dword_16AF5C, dword_16C6BC
-extern dword_16D91C, dword_16DA9C, dword_16E464, dword_16E468, dword_16E500, dword_19CB30, dword_19CB38, dword_19CB3C
-extern dword_19CB40, dword_19CB44, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB58, dword_19CBAA, dword_19CBC4
+extern InputRecordStamp, dword_16DA9C, dword_16E464, dword_16E468, dword_16E500, dword_19CB30, dword_19CB38, dword_19CB3C
+extern dword_19CB40, dword_19CB44, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB58, dword_19CBAA, seed
 extern dword_19CBD0, dword_19CBE4, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC54, dword_19CC58, dword_19CC78
 extern dword_19CC9C, dword_19CCA0, dword_19CCA4, dword_19CCA8, dword_19CD08, dword_19CD0C, dword_19CD10, dword_19CD14
 extern dword_19CD18, dword_19CD1C, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C, dword_19CD30, dword_19CD34
@@ -27,13 +27,13 @@ extern sub_1B3D8, sub_1B3F4, sub_1B67C, sub_1BCA8, sub_1BEA4, sub_1E208, sub_20C
 extern sub_30BD8, sub_31F88, sub_32260, sub_34330, sub_34950, sub_36370, sub_36754, sub_3CA28
 extern sub_3CB70, sub_3D020, sub_3E5F0, sub_4123C, sub_41670, sub_41CF0, sub_41DD8, sub_423B4
 extern sub_424CC, sub_45BEC, sub_4B074, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928
-extern sub_4BA00, sub_4BCB4, sub_4C0C4, sub_4DD90, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
+extern sub_4BA00, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
 extern sub_5BDF4, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
 extern sub_65CED, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, sub_77630, sub_77F88, sub_77FA8
 extern sub_78810, sub_7F0D8, sub_81678, sub_84204, sub_842E8, sub_842F4, sub_8E740, sub_8E840
 extern sub_AA498, sub_AADEF, sub_AB0A6, sub_B2F49, sub_BD62C, sub_D68AC, sub_DA7EB, sub_DB6AC
 extern sub_E117B, sub_E12D1, sub_E13BF, sub_E1744, sub_E304C, sub_E30F4, sub_E3174, sub_E3190
-extern sub_E3208, sub_E3218, sub_E341C, sub_E4248, sub_F1FF8, sub_F207F, sub_F30A0, sub_F30D7
+extern InputRecordAvail, TakeInputRecord, sub_E341C, sub_E4248, sub_F1FF8, sub_F207F, sub_F30A0, sub_F30D7
 extern sub_F418F, sub_F9650, sub_F9789, sub_F9869, sub_FAA64, sub_FAF34, sub_FBE40, sub_FC290
 extern sub_FC330, sub_FC4BC, SetViewRect, sub_FC88C, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
 extern unk_19DC40, unk_19E270, unk_19E588, unk_1AC821, word_1684EC, word_1686BC, word_1686D4, word_1686D6
@@ -51,9 +51,9 @@ extern word_19CC2C, word_19CC50, word_19CC52, word_19CCC4, word_19CD9C, word_19C
 extern word_19E32A, word_1C3415, word_1C3417, word_1C5538, word_1C553A
 global AllInPlace, sub_1306C, sub_130C8, sub_131E0, sub_134F0, sub_136C0, sub_13920, sub_13A4C
 global sub_13ACB, sub_13AF0, sub_13B50, sub_13B98, sub_13BAC, sub_13D00, sub_13D50, sub_13DA4
-global sub_13DF8, sub_13E4C, sub_13EB4, sub_13EF0, sub_13F28, sub_13F7C, sub_14078, sub_14140
+global sub_13DF8, sub_13E4C, sub_13EB4, sub_13EF0, sub_13F28, sub_13F7C, RunSimFrames, sub_14140
 global sub_14184, sub_141AC, sub_141E8, sub_14238, sub_1426C, sub_14294, sub_14710, sub_14880
-global sub_14AC8, sub_14E60, sub_14FE0, sub_151A8, sub_152C4, sub_15578, sub_1583F, unk_158E2
+global GameLoop, sub_14E60, sub_14FE0, sub_151A8, PlayGame, sub_15578, RunInGameMenu, unk_158E2
 global unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A72
 ;-----------------------------------------------------------------------------
 ; AllInPlace                                   1303C  95 PC, medium confidence
@@ -265,7 +265,7 @@ sub_131E0:
         xor edx, edx
         mov dword [dword_19CD88], eax
         mov dword [dword_19CB58], edx
-        mov dword [dword_1686E0], edx
+        mov dword [InGameMenuRequest], edx
         xor eax, eax
         xor edx, edx
         mov word [word_19CBD4], ax
@@ -372,7 +372,7 @@ sub_134F0:
 .2:
         test esi, esi
         je short .9
-        call sub_E3208
+        call InputRecordAvail
         test eax, eax
         je short .9
         cmp ecx, 5DCh
@@ -389,7 +389,7 @@ sub_134F0:
         jmp short .7
 .5:
         mov eax, byte_19CD8C
-        call sub_E3218
+        call TakeInputRecord
         mov eax, edx
 .6:
         test esi, esi
@@ -649,7 +649,7 @@ sub_136C0:
         mov edx, 40h
         mov eax, dword [off_168CFC]
         call sub_1E208
-        call sub_4DD90
+        call PeriodOver
         mov bl, byte [byte_19CBCA]
         or bl, 4
         xor edx, edx
@@ -1353,9 +1353,9 @@ sub_13F7C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_14078                                                       14078  97 PC
+; RunSimFrames                                                       14078  97 PC
 ;-----------------------------------------------------------------------------
-sub_14078:
+RunSimFrames:
         push ecx
         push edx
         push esi
@@ -1364,7 +1364,7 @@ sub_14078:
         call sub_12A70
 .1:
         call sub_78810
-        cmp dword [dword_1686E0], byte 0
+        cmp dword [InGameMenuRequest], byte 0
         jne near .5
         cmp word [word_19CBB2], byte 0
         jne near .5
@@ -1377,7 +1377,7 @@ sub_14078:
         je short .3
         cmp eax, byte 40h
         je short .2
-        mov dword [dword_1686E0], 1
+        mov dword [InGameMenuRequest], 1
         pop esi
         pop edx
         pop ecx
@@ -1386,7 +1386,7 @@ sub_14078:
         mov esi, 2
         mov ecx, 1
         mov dword [dword_19CB58], esi
-        mov dword [dword_1686E0], ecx
+        mov dword [InGameMenuRequest], ecx
         pop esi
         pop edx
         pop ecx
@@ -1404,7 +1404,7 @@ sub_14078:
         call sub_5BE74
         test eax, eax
         je short .5
-        mov dword [dword_1686E0], 2
+        mov dword [InGameMenuRequest], 2
         pop esi
         pop edx
         pop ecx
@@ -2299,9 +2299,9 @@ sub_14880:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_14AC8                                                       14AC8  97 PC
+; GameLoop                                                       14AC8  97 PC
 ;-----------------------------------------------------------------------------
-sub_14AC8:
+GameLoop:
         push dword 28h
         call __CHK
         push ebx
@@ -2339,13 +2339,13 @@ sub_14AC8:
         call sub_E341C
         xor edi, edi
 .4:
-        call sub_E3208
+        call InputRecordAvail
         test eax, eax
         je near .9
-        cmp edi, dword [dword_1686E0]
+        cmp edi, dword [InGameMenuRequest]
         jne near .9
         mov eax, byte_19CD8C
-        call sub_E3218
+        call TakeInputRecord
         test byte [byte_19CBCA], 4
         jne short .5
         cmp edi, dword [dword_1B8FA4]
@@ -2379,7 +2379,7 @@ sub_14AC8:
         mov dword [dword_19CC00], ebx
 .6:
         mov eax, 1
-        call sub_14078
+        call RunSimFrames
         test byte [byte_19CBCA], 4
         jne short .7
         mov ecx, dword [dword_1B8FA4]
@@ -2411,7 +2411,7 @@ sub_14AC8:
         call sub_E341C
         jmp near .4
 .9:
-        cmp dword [dword_1686E0], byte 0
+        cmp dword [InGameMenuRequest], byte 0
         jne near .14
         call sub_14880
         mov eax, esi
@@ -2442,7 +2442,7 @@ sub_14AC8:
         jmp short .13
 .12:
         rdtsc
-        mov edx, dword [dword_16D91C]
+        mov edx, dword [InputRecordStamp]
         sub eax, edx
         mov dword [dword_19CDA0], eax
 .13:
@@ -2453,7 +2453,7 @@ sub_14AC8:
         call sub_E341C
         call sub_4BCB4
 .14:
-        cmp dword [dword_1686E0], byte 0
+        cmp dword [InGameMenuRequest], byte 0
         je short .15
         cmp word [word_19CBB2], byte 0
         jne short .15
@@ -2461,7 +2461,7 @@ sub_14AC8:
         and eax, byte 70h
         cmp eax, byte 40h
         je short .15
-        call sub_1583F
+        call RunInGameMenu
 .15:
         cmp word [word_19CBB2], byte 0
         je near .3
@@ -2478,15 +2478,15 @@ sub_14AC8:
         and eax, byte 70h
         cmp eax, byte 40h
         je short .20
-        call sub_4DD90
+        call PeriodOver
         test byte [byte_19CBC2], 40h
         je short .18
         mov dword [dword_19CB58], 1
         jmp near .2
 .18:
-        cmp dword [dword_1686E0], byte 3
+        cmp dword [InGameMenuRequest], byte 3
         jne near .2
-        call sub_1583F
+        call RunInGameMenu
         cmp dword [dword_19CB58], byte 2
         je short .19
         mov esi, 1
@@ -2522,8 +2522,8 @@ sub_14AC8:
         and eax, byte 70h
         cmp eax, byte 40h
         je short .23
-        mov dword [dword_1686E0], 3
-        call sub_1583F
+        mov dword [InGameMenuRequest], 3
+        call RunInGameMenu
         call sub_B2F49
 .23:
         call sub_13ACB
@@ -2875,9 +2875,9 @@ sub_151A8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_152C4                                                       152C4  97 PC
+; PlayGame                                                       152C4  97 PC
 ;-----------------------------------------------------------------------------
-sub_152C4:
+PlayGame:
         push dword 28h
         call __CHK
         push ebx
@@ -2887,11 +2887,11 @@ sub_152C4:
         push edi
         cmp dword [dword_16DA9C], byte 0
         je short .1
-        mov dword [dword_19CBC4], 12435768h
+        mov dword [seed], 12435768h
         jmp short .2
 .1:
         call rand_
-        add dword [dword_19CBC4], eax
+        add dword [seed], eax
 .2:
         mov eax, dword [dword_1AC944]
         mov edx, dword [byte eax+01h]
@@ -2901,11 +2901,11 @@ sub_152C4:
         shl eax, 6
         shl edx, 10h
         shr eax, 1Ah
-        mov esi, dword [dword_19CBC4]
+        mov esi, dword [seed]
         add eax, edx
         add esi, eax
         mov edx, 20h
-        mov dword [dword_19CBC4], esi
+        mov dword [seed], esi
         call sub_14E60
         call sub_5BD94
         mov eax, 34h
@@ -3019,7 +3019,7 @@ sub_152C4:
         mov dword [dword_19CB58], eax
         cmp eax, byte 2
         je short .11
-        call sub_14AC8
+        call GameLoop
 .11:
         call sub_5BEB0
         mov edi, dword [dword_1686C0]
@@ -3114,7 +3114,7 @@ sub_15578:
         or byte [dword_19CDA5], 48h
         mov dx, word [dword_19CDA5]
         and edx, 0C048h
-        mov dword [dword_19CBC4], eax
+        mov dword [seed], eax
         mov word [dword_19CDA5], dx
         call rand_
         mov edx, eax
@@ -3230,7 +3230,7 @@ sub_15578:
         mov eax, 37h
         call sub_842F4
         xor eax, eax
-        call sub_152C4
+        call PlayGame
         call sub_AB0A6
         xor eax, eax
         call sub_41670
@@ -3265,17 +3265,17 @@ sub_15578:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1583F                                                       1583F  97 PC
+; RunInGameMenu                                                       1583F  97 PC
 ;-----------------------------------------------------------------------------
-sub_1583F:
+RunInGameMenu:
         push ebx
         push ecx
         push edx
         push asc_1600D8
         push byte 18h
         push byte 4Fh
-        mov ebx, dword [dword_1686E0]
-        mov dword [dword_1686E0], 0
+        mov ebx, dword [InGameMenuRequest]
+        mov dword [InGameMenuRequest], 0
         call sub_FC88C
         add esp, byte 0Ch
         call sub_E3174

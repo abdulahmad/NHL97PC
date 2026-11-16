@@ -14,9 +14,9 @@ global dword_1CD544, dword_1CD548, dword_1CD54C, dword_1CD550, dword_1CD554, dwo
 global dword_1CD564, dword_1CD568, dword_1CD56C, dword_1CD574, dword_1CD578, dword_1CD57C, dword_1CD580, dword_1CD584
 global dword_1CD590, dword_1CD594, dword_1CD598, dword_1CD5B4, dword_1CD5B8, dword_1CD5BC, dword_1CD632, dword_1CD64C
 global dword_1CD650, dword_1CD654, dword_1CD6B0, dword_1CD6C6, dword_1CD6CA, dword_1CD6FE, dword_1CD750, dword_1CD754
-global dword_1CD758, dword_1CD760, dword_1CD764, unk_1CD19C, unk_1CD1E0, unk_1CD2BA, unk_1CD2FC, unk_1CD33E
+global dword_1CD758, dword_1CD760, dword_1CD764, unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E
 global unk_1CD380, unk_1CD408, unk_1CD480, unk_1CD570, unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC
-global word_1CD1C0, word_1CD1CE, word_1CD1D0, word_1CD24C, word_1CD24E, word_1CD2AC, word_1CD2B4, word_1CD2F6
+global word_1CD1C0, word_1CD1CE, word_1CD1D0, HotKeyFlags, word_1CD24E, word_1CD2AC, word_1CD2B4, word_1CD2F6
 global word_1CD2F8, word_1CD2FA, word_1CD338, word_1CD33A, word_1CD37A, word_1CD37C, word_1CD3BC, word_1CD3BE
 global word_1CD3C0, word_1CD3FE, word_1CD400, word_1CD404, word_1CD406, word_1CD634
 dword_1CD158:
@@ -57,13 +57,13 @@ word_1CD1CE:
         resb 2
 word_1CD1D0:
         resb 16
-unk_1CD1E0:
+InputRecordRing:
         resb 100
 dword_1CD244:
         resb 4
 dword_1CD248:
         resb 4
-word_1CD24C:
+HotKeyFlags:
         resb 1
 byte_1CD24D:
         resb 1

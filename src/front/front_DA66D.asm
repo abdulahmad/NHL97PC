@@ -12,8 +12,8 @@ extern asc_167646, asc_16DADC, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA4
 extern byte_1CD460, byte_1CD75C, dword_1684C0, dword_168E7C, dword_16D788, dword_16D78C, dword_16D790, dword_16D794
 extern dword_16D798, dword_16D79C, dword_16D7A0, dword_16D7A4, dword_16D7A8, dword_16D7D0, dword_16D7D4, dword_16D7D8
 extern dword_16D7F0, dword_16D894, dword_16D898, dword_16D89C, dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0
-extern dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8, dword_16D8DC, dword_16D90C, dword_16D910, dword_16D914
-extern dword_16D918, dword_16D91C, dword_16D93A, dword_16DA9C, dword_16DAA0, dword_16DAA4, dword_16DAA8, dword_16DAAC
+extern dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8, dword_16D8DC, InputRecordTail, InputRecordHead, InputRecordCount
+extern dword_16D918, InputRecordStamp, dword_16D93A, dword_16DA9C, dword_16DAA0, dword_16DAA4, dword_16DAA8, dword_16DAAC
 extern dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC, dword_16DAC0, dword_16DAC4, dword_16DAC8, dword_16DACA
 extern dword_16DAD2, dword_16E124, dword_16E128, dword_16E12A, dword_16E130, dword_16E134, dword_16E138, dword_16E13C
 extern dword_16E140, dword_16E144, mousex, mousey, dword_16E464, dword_16E468, dword_16E46C, dword_1721A8
@@ -48,12 +48,12 @@ extern sub_DA544, sub_DA57C, sub_DA654, sub_E7D6D, sub_E8660, sub_E8923, sub_F9A
 extern sub_FAAB4, sub_FAF34, sub_FB704, sub_FBE40, sub_FBFDC, sub_FC008, WaitTicks, sub_FC510
 extern sub_FCD90, sub_FCF84, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FDC68, sub_FDD1C, sub_FDE44
 extern sub_FE150, sub_FE3D0, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
-extern unk_1CD19C, unk_1CD1E0, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
+extern unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
 extern unk_1CD570, unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC, word_1684BE, word_16D7EC, word_16D7EE
-extern word_16D80C, word_16D80E, word_16D85E, word_16D860, word_16D8A4, word_16D8FC, word_16D920, word_16D922
+extern word_16D80C, word_16D80E, word_16D85E, word_16D860, word_16D8A4, SlotWords, word_16D920, word_16D922
 extern word_16D924, word_16D926, word_16D928, word_16D92A, word_16D92C, word_16DAB8, word_16DACC, word_16DACE
 extern word_16DAD0, word_16E0F8, word_16E0FA, word_16E108, word_16E10A, word_16E10C, word_16E120, word_16E12C
-extern word_16E148, word_16E15E, word_16E16E, word_16E170, word_1CD1C0, word_1CD1CE, word_1CD1D0, word_1CD24C
+extern word_16E148, word_16E15E, word_16E16E, word_16E170, word_1CD1C0, word_1CD1CE, word_1CD1D0, HotKeyFlags
 extern word_1CD24E, word_1CD2AC, word_1CD2B4, word_1CD2F6, word_1CD2F8, word_1CD2FA, word_1CD338, word_1CD33A
 extern word_1CD37A, word_1CD37C, word_1CD3BC, word_1CD3BE, word_1CD3C0, word_1CD3FE, word_1CD400, word_1CD404
 extern word_1CD406, word_1CD634
@@ -80,8 +80,8 @@ global sub_E167A, sub_E1744, sub_E19D5, sub_E1C19, sub_E1CC0, sub_E1D45, sub_E1E
 global sub_E2141, sub_E21C6, sub_E2270, sub_E22A0, sub_E22D0, sub_E22FC, sub_E2310, sub_E2334
 global sub_E2348, sub_E2378, sub_E2388, sub_E23BC, sub_E23E0, sub_E2404, sub_E2420, sub_E2444
 global sub_E2458, sub_E2494, sub_E24D0, sub_E24F0, sub_E2590, sub_E2620, sub_E2790, sub_E2838
-global sub_E2AF4, sub_E2E28, sub_E2F98, sub_E304C, sub_E30BC, sub_E30D8, sub_E30F4, sub_E3174
-global sub_E3190, sub_E3208, sub_E3218, sub_E32B4, sub_E3410, sub_E341C, sub_E34A0, sub_E3530
+global PollControllers, InputRecordTimer, InitSlotTable, sub_E304C, sub_E30BC, sub_E30D8, sub_E30F4, sub_E3174
+global sub_E3190, InputRecordAvail, TakeInputRecord, sub_E32B4, sub_E3410, sub_E341C, sub_E34A0, sub_E3530
 global sub_E3640, sub_E3700, sub_E3738, sub_E375C, sub_E3798, sub_E3A44, sub_E3AB8, sub_E3AFC
 global sub_E3E8C, sub_E3F04, sub_E4218, sub_E4230, sub_E4248, sub_E4264, sub_E4288, sub_E4638
 global sub_E4838, sub_E4908, sub_E5730, sub_E57EC, sub_E5808, sub_E59A8, sub_E59D8, sub_E5A20
@@ -11368,7 +11368,7 @@ sub_E2838:
         and ebx, eax
         cmp ebx, eax
         jne short .3
-        or byte [word_1CD24C], 40h
+        or byte [HotKeyFlags], 40h
 .3:
         mov dx, word [word_16D926]
         test dx, dx
@@ -11380,7 +11380,7 @@ sub_E2838:
         and ebx, eax
         cmp ebx, eax
         jne short .4
-        or byte [word_1CD24C], 80h
+        or byte [HotKeyFlags], 80h
 .4:
         mov bx, word [word_16D928]
         test bx, bx
@@ -11496,10 +11496,10 @@ sub_E2838:
         jne short .14
         mov ebx, 1
         mov cl, dl
-        mov di, word [word_1CD24C]
+        mov di, word [HotKeyFlags]
         shl ebx, cl
         or edi, ebx
-        mov word [word_1CD24C], di
+        mov word [HotKeyFlags], di
 .14:
         inc eax
         inc edx
@@ -11514,11 +11514,11 @@ sub_E2838:
         db 090h
         push ebx
         push edx
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov edx, 1
         xor eax, eax
         call sub_E2590
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov edx, 2
         mov eax, 1
         call sub_E2590
@@ -11560,9 +11560,9 @@ sub_E2838:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E2AF4                                                       E2AF4  97 PC
+; PollControllers                                                       E2AF4  97 PC
 ;-----------------------------------------------------------------------------
-sub_E2AF4:
+PollControllers:
         push ebx
         push ecx
         push edx
@@ -11572,20 +11572,20 @@ sub_E2AF4:
         sub esp, byte 0Ch
         xor edx, edx
         push byte 1Dh
-        mov word [word_1CD24C], dx
+        mov word [HotKeyFlags], dx
         call sub_1167AE
         add esp, byte 4
         push byte 38h
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov dword [dword_1CD248], eax
         call sub_1167AE
         mov edx, 1
         add esp, byte 4
         mov dword [dword_1CD244], eax
         xor eax, eax
-        mov esi, word_16D8FC
+        mov esi, SlotWords
         call sub_E2590
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov edx, 2
         mov eax, 1
         xor edi, edi
@@ -11596,15 +11596,15 @@ sub_E2AF4:
         mov dword [esp], edx
 .1:
         lea eax, [nosplit edi*2+00h]
-        mov dx, word [dword eax+word_16D8FC]
+        mov dx, word [dword eax+SlotWords]
         xor dl, dl
         and dh, 7
-        mov byte [dword eax+word_16D8FC], dl
+        mov byte [dword eax+SlotWords], dl
         and edx, 0FFFFh
         sar edx, 8
         test edx, edx
         je near .3
-        mov dx, word [dword eax+word_16D8FC]
+        mov dx, word [dword eax+SlotWords]
         xor dl, dl
         and dh, 7
         and edx, 0FFFFh
@@ -11623,23 +11623,23 @@ sub_E2AF4:
         mov dword [esp], ebp
         cmp eax, edx
         jle near .3
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov edx, 40h
         mov eax, 0Ch
         call sub_E2590
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov edx, 80h
         mov eax, 0Dh
         call sub_E2590
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov edx, 100h
         mov eax, 0Eh
         call sub_E2590
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov edx, 200h
         mov eax, 0Fh
         call sub_E2590
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov edx, 4000h
         mov eax, 14h
         call sub_E2590
@@ -11656,23 +11656,23 @@ sub_E2AF4:
         mov dword [byte esp+08h], edx
         cmp eax, ebx
         jle short .3
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov edx, 400h
         mov eax, 10h
         call sub_E2590
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov edx, 800h
         mov eax, 11h
         call sub_E2590
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov edx, 1000h
         mov eax, 12h
         call sub_E2590
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov edx, 2000h
         mov eax, 13h
         call sub_E2590
-        mov ebx, word_1CD24C
+        mov ebx, HotKeyFlags
         mov edx, 8000h
         mov eax, 15h
         call sub_E2590
@@ -11681,7 +11681,7 @@ sub_E2AF4:
         mov dword [dword_16D8B0], eax
 .3:
         lea edx, [nosplit edi*2+00h]
-        mov ax, word [dword edx+word_16D8FC]
+        mov ax, word [dword edx+SlotWords]
         xor al, al
         xor ebx, ebx
         and ah, 7
@@ -11689,12 +11689,12 @@ sub_E2AF4:
         sar ebx, 8
         cmp ebx, byte 2
         jl near .12
-        mov eax, word_16D8FC
+        mov eax, SlotWords
         add eax, edx
         cmp ebx, byte 5
         jne near .8
         call sub_E2838
-        mov ax, word [dword edx+word_16D8FC]
+        mov ax, word [dword edx+SlotWords]
         xor ah, ah
         xor ebx, ebx
         and al, 0Fh
@@ -11716,10 +11716,10 @@ sub_E2AF4:
         jne short .5
         cmp ebp, dword [dword ecx+dword_16D8BC]
         jge short .5
-        mov al, byte [dword edx+word_16D8FC]
+        mov al, byte [dword edx+SlotWords]
         or al, 40h
         mov dword [dword ecx+dword_16D8BC], ebp
-        mov byte [dword edx+word_16D8FC], al
+        mov byte [dword edx+SlotWords], al
 .5:
         mov edx, 1
         mov word [nosplit edi*2+word_1CD1D0], bx
@@ -11784,9 +11784,9 @@ sub_E2AF4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E2E28                                                       E2E28  97 PC
+; InputRecordTimer                                                       E2E28  97 PC
 ;-----------------------------------------------------------------------------
-sub_E2E28:
+InputRecordTimer:
         push ebx
         push ecx
         push edx
@@ -11804,7 +11804,7 @@ sub_E2E28:
 .1:
         cmp dword [dword_16D894], byte 0
         jne short .2
-        call sub_E2AF4
+        call PollControllers
 .2:
         cmp dword [dword_16DA9C], byte 0
         je short .4
@@ -11829,34 +11829,34 @@ sub_E2E28:
         mov dword [dword_16D918], 1
         cmp dword [dword_16D894], byte 0
         jne short .5
-        cmp dword [dword_16D914], byte 5
+        cmp dword [InputRecordCount], byte 5
         jge short .5
-        mov edx, dword [dword_16D910]
+        mov edx, dword [InputRecordHead]
         lea eax, [nosplit edx*4+00h]
         add eax, edx
-        mov ebx, unk_1CD1E0
+        mov ebx, InputRecordRing
         shl eax, 2
         push byte 10h
         add ebx, eax
         push ebx
-        push word_16D8FC
+        push SlotWords
         call sub_100A68
-        mov ax, word [word_1CD24C]
+        mov ax, word [HotKeyFlags]
         mov word [byte ebx+012h], 3
         mov word [byte ebx+010h], ax
-        mov edx, dword [dword_16D910]
+        mov edx, dword [InputRecordHead]
         inc edx
         mov ebx, 5
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov ecx, dword [dword_16D914]
+        mov ecx, dword [InputRecordCount]
         inc ecx
         add esp, byte 0Ch
-        mov dword [dword_16D914], ecx
-        mov dword [dword_16D910], edx
+        mov dword [InputRecordCount], ecx
+        mov dword [InputRecordHead], edx
         rdtsc
-        mov dword [dword_16D91C], eax
+        mov dword [InputRecordStamp], eax
 .5:
         xor esi, esi
         mov dword [dword_16D918], esi
@@ -11891,16 +11891,16 @@ sub_E2E28:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E2F98                                                       E2F98  97 PC
+; InitSlotTable                                                       E2F98  97 PC
 ;-----------------------------------------------------------------------------
-sub_E2F98:
+InitSlotTable:
         push ebx
         push ecx
         push edx
         push esi
         mov ebx, eax
         push byte 10h
-        push word_16D8FC
+        push SlotWords
         call sub_FB704
         add esp, byte 8
         xor edx, edx
@@ -11918,8 +11918,8 @@ sub_E2F98:
         mov cl, byte [ebx]
         shl ecx, 8
 .3:
-        mov word [dword eax+word_16D8FC], cx
-        mov cx, word [dword eax+word_16D8FC]
+        mov word [dword eax+SlotWords], cx
+        mov cx, word [dword eax+SlotWords]
         xor cl, cl
         and ch, 7
         and ecx, 0FFFFh
@@ -11936,7 +11936,7 @@ sub_E2F98:
 .5:
         mov word [dword eax+slotteam], si
 .6:
-        mov cx, word [dword eax+word_16D8FC]
+        mov cx, word [dword eax+SlotWords]
         xor cl, cl
         and ch, 7
         and ecx, 0FFFFh
@@ -11967,16 +11967,16 @@ sub_E304C:
         cmp word [word_16D8A4], byte 0
         jne short .1
         push byte 64h
-        push unk_1CD1E0
+        push InputRecordRing
         mov ebx, 1
         call sub_FB704
         xor edx, edx
         add esp, byte 8
-        mov dword [dword_16D90C], edx
-        mov dword [dword_16D910], edx
-        mov dword [dword_16D914], edx
+        mov dword [InputRecordTail], edx
+        mov dword [InputRecordHead], edx
+        mov dword [InputRecordCount], edx
         call sub_E30F4
-        push sub_E2E28
+        push InputRecordTimer
         mov dword [dword_16D894], edx
         mov dword [dword_16D898], edx
         mov dword [dword_16D89C], edx
@@ -11997,7 +11997,7 @@ sub_E30BC:
         call __CHK
         push ecx
         push edx
-        push sub_E2E28
+        push InputRecordTimer
         call sub_FC008
         add esp, byte 4
         pop edx
@@ -12011,7 +12011,7 @@ sub_E30D8:
         call __CHK
         push ecx
         push edx
-        push sub_E2E28
+        push InputRecordTimer
         call sub_FBFDC
         add esp, byte 4
         pop edx
@@ -12040,7 +12040,7 @@ sub_E30F4:
         mov eax, dword [tickcount]
         mov dword [dword_16D8B0], eax
         call sub_E4264
-        mov word [word_1CD24C], cx
+        mov word [HotKeyFlags], cx
         xor eax, eax
 .1:
         add edx, byte 4
@@ -12086,7 +12086,7 @@ sub_E3190:
 .1:
         cmp dword [dword_16D8A8], byte 0
         jne short .1
-        push sub_E2E28
+        push InputRecordTimer
         call sub_FC008
         add esp, byte 4
         cmp dword [dword_16D8A8], byte 0
@@ -12099,13 +12099,13 @@ sub_E3190:
         mov word [word_16D8A4], bx
         call sub_E30F4
         push byte 64h
-        push unk_1CD1E0
+        push InputRecordRing
         xor esi, esi
         call sub_FB704
         add esp, byte 8
-        mov dword [dword_16D90C], esi
-        mov dword [dword_16D910], esi
-        mov dword [dword_16D914], esi
+        mov dword [InputRecordTail], esi
+        mov dword [InputRecordHead], esi
+        mov dword [InputRecordCount], esi
 .4:
         pop esi
         pop edx
@@ -12114,17 +12114,17 @@ sub_E3190:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E3208                                                       E3208  97 PC
+; InputRecordAvail                                                       E3208  97 PC
 ;-----------------------------------------------------------------------------
-sub_E3208:
+InputRecordAvail:
         push dword 4
         call __CHK
-        mov eax, dword [dword_16D914]
+        mov eax, dword [InputRecordCount]
         ret
 ;-----------------------------------------------------------------------------
-; sub_E3218                                                       E3218  97 PC
+; TakeInputRecord                                                       E3218  97 PC
 ;-----------------------------------------------------------------------------
-sub_E3218:
+TakeInputRecord:
         push dword 24h
         call __CHK
         push ebx
@@ -12132,7 +12132,7 @@ sub_E3218:
         push edx
         push esi
         push edi
-        cmp dword [dword_16D914], byte 0
+        cmp dword [InputRecordCount], byte 0
         je short .2
 .1:
         cmp dword [dword_16D918], byte 0
@@ -12140,26 +12140,26 @@ sub_E3218:
         mov ecx, 1
         push byte 14h
         mov dword [dword_16D918], ecx
-        mov edx, dword [dword_16D90C]
+        mov edx, dword [InputRecordTail]
         push eax
         lea eax, [nosplit edx*4+00h]
         add eax, edx
         shl eax, 2
-        add eax, unk_1CD1E0
+        add eax, InputRecordRing
         push eax
         call sub_100A68
-        mov edx, dword [dword_16D90C]
+        mov edx, dword [InputRecordTail]
         inc edx
         mov ebx, 5
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov esi, dword [dword_16D914]
+        mov esi, dword [InputRecordCount]
         xor edi, edi
         dec esi
         add esp, byte 0Ch
-        mov dword [dword_16D914], esi
-        mov dword [dword_16D90C], edx
+        mov dword [InputRecordCount], esi
+        mov dword [InputRecordTail], edx
         mov dword [dword_16D918], edi
 .2:
         pop edi
@@ -13597,7 +13597,7 @@ sub_E4288:
 .3:
         mov ecx, dword [dword_1CD268]
         add ecx, ecx
-        mov ax, word [dword ecx+word_16D8FC]
+        mov ax, word [dword ecx+SlotWords]
         xor al, al
         and ah, 7
         and eax, 0FFFFh
@@ -13608,7 +13608,7 @@ sub_E4288:
         setne al
         and eax, 0FFh
         je short .4
-        mov ax, word [dword ecx+word_16D8FC]
+        mov ax, word [dword ecx+SlotWords]
         xor ah, ah
         and al, 7Fh
         mov ebx, dword [dword_1CD2B6]
@@ -13632,7 +13632,7 @@ sub_E4288:
         cmp ebp, byte 8
         jl near .3
         xor eax, eax
-        mov ax, word [word_1CD24C]
+        mov ax, word [HotKeyFlags]
         mov edx, eax
         mov ebx, dword [dword_1CD2B6]
         shl edx, 1Ch
@@ -13679,7 +13679,7 @@ sub_E4288:
         setne al
         and eax, 0FFh
         je near .10
-        cmp dword [dword_16D914], byte 5
+        cmp dword [InputRecordCount], byte 5
         jge near .10
         mov ebp, dword [dword_16D918]
         test ebp, ebp
@@ -13706,11 +13706,11 @@ sub_E4288:
         shl eax, 8
         and edx, 0FFh
         or eax, edx
-        mov edx, dword [dword_16D910]
+        mov edx, dword [InputRecordHead]
         mov word [word_1CD2AC], ax
         lea eax, [nosplit edx*4+00h]
         add eax, edx
-        mov edx, unk_1CD1E0
+        mov edx, InputRecordRing
         shl eax, 2
         add edx, eax
         mov eax, dword [dword_1CD2B6]
@@ -13736,13 +13736,13 @@ sub_E4288:
         mov dword [dword_1CD268], ebp
 .7:
         mov eax, dword [dword_1CD268]
-        mov cx, word [nosplit eax*2+word_16D8FC]
+        mov cx, word [nosplit eax*2+SlotWords]
         mov edx, dword [dword_1CD270]
         and cl, 80h
         mov word [edx+eax*2], cx
         mov ecx, dword [dword_1CD268]
         add ecx, ecx
-        mov ax, word [dword ecx+word_16D8FC]
+        mov ax, word [dword ecx+SlotWords]
         xor al, al
         and ah, 7
         and eax, 0FFFFh
@@ -13792,16 +13792,16 @@ sub_E4288:
         mov eax, dword [dword_1CD270]
         mov dx, word [dword_16DAA8]
         mov word [byte eax+012h], dx
-        mov edx, dword [dword_16D910]
+        mov edx, dword [InputRecordHead]
         inc edx
         mov ecx, 5
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
-        inc dword [dword_16D914]
-        mov dword [dword_16D910], edx
+        inc dword [InputRecordCount]
+        mov dword [InputRecordHead], edx
         rdtsc
-        mov dword [dword_16D91C], eax
+        mov dword [InputRecordStamp], eax
         xor eax, eax
         mov dword [dword_16D918], eax
 .10:

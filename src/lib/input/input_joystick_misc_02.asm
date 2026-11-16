@@ -4,7 +4,7 @@ bits 32
 section s_FBE40 progbits alloc exec nowrite align=1
 extern GetTicks, TickDeadlinePassed, dword_16E3EC, dword_16E3F4, dword_16E3F8, dword_16E3FC, dword_16E402, dword_16E410
 extern dword_17070C, dword_1CF26C, dword_1CF28C, dword_1CF290, dword_1CF294, sub_11641C, tickcount, word_1CF28E
-global WaitKey, sub_FBE40, sub_FBE5D, sub_FBE63, sub_FBE78, sub_FBE94, sub_FBF00, sub_FBF24
+global WaitKey, sub_FBE40, sub_FBE5D, sub_FBE63, sub_FBE78, sub_FBE94, sub_FBF00, TimerISR
 global sub_FBFDC
 sub_FBE40:
         mov ah, 1
@@ -116,7 +116,7 @@ sub_FBF00:
         pop edx
         ret
         db 08Dh,040h,00h
-sub_FBF24:
+TimerISR:
         pusha
         push ds
         push es

@@ -29,7 +29,7 @@ extern dword_1C95A8, dword_1C95AA, dword_1C95B0, dword_1C95B4, dword_1C95B8, dwo
 extern dword_1CF548, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcpy_
 extern sub_100A68, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101430, sub_101560, sub_101EAC
 extern sub_102B94, sub_102C10, sub_102C30, sub_106D80, sub_106F64, sub_106F94, sub_110D70, sub_117338
-extern sub_11A318, sub_11A350, sub_13B50, sub_13B98, sub_13C164, sub_152C4, sub_397FD, sub_39824
+extern sub_11A318, sub_11A350, sub_13B50, sub_13B98, sub_13C164, PlayGame, sub_397FD, sub_39824
 extern sub_4123C, sub_415A0, sub_415F8, sub_41670, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC
 extern sub_48D70, sub_4A280, sub_4B074, sub_4B108, sub_4B19C, sub_7CBD6, sub_7CDD8, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C
@@ -37,7 +37,7 @@ extern sub_7F29C, sub_80758, sub_80808, sub_80A38, sub_80AB8, sub_80BBC, sub_816
 extern sub_823F0, sub_83C08, sub_84204, sub_842F4, sub_8BF54, sub_8BFAC, sub_8D956, sub_8DE10
 extern sub_8DE19, sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E790, sub_8E7E0, sub_8E840, sub_8E870
 extern sub_A3136, sub_A31DE, sub_AC799, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
-extern sub_ACDAE, sub_AD151, sub_AD62E, sub_B2364, sub_CA44C, sub_D0098, sub_E2F98, sub_E32B4
+extern sub_ACDAE, sub_AD151, sub_AD62E, sub_B2364, sub_CA44C, sub_D0098, InitSlotTable, sub_E32B4
 extern sub_E3410, sub_E341C, sub_E4218, sub_E4230, sub_E4638, sub_E4838, sub_EE8AC, sub_FAA64
 extern sub_FAF34, sub_FB704, sub_FC330, sub_FC510, sub_FCC40, sub_FCD90, sub_FCEEC, sub_FCF84
 extern sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FDE44, tickcount, unk_165EA0, unk_166010
@@ -3640,7 +3640,7 @@ sub_A4B7D_112:
         call sub_100A68
         add esp, byte 0Ch
         lea eax, [byte ebp-02Ch]
-        call sub_E2F98
+        call InitSlotTable
 .92:
         call sub_1013FC
         push dword [byte ebp-08h]
@@ -9983,7 +9983,7 @@ sub_AB0E8:
         mov dword [dword_16D2B8], 1
         mov eax, dword [dword_1C5DE0]
         mov dword [dword_16D2BC], 0
-        call sub_152C4
+        call PlayGame
         mov dword [dword_1C5DE0], 0
         mov dword [dword_16D2B8], 0
         call sub_8E840

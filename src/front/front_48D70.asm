@@ -107,7 +107,7 @@ global sub_4B540, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928, sub_4B944, sub_4BA
 global sub_4BD0C, sub_4BD4C, sub_4BDC0, sub_4BE14, sub_4BF10, sub_4BF54, sub_4BF94, sub_4C0C4
 global sub_4C0CC, sub_4C164, sub_4C240, sub_4C360, sub_4C404, sub_4C48C, sub_4C5A0, sub_4CE94
 global sub_4CF18, sub_4CF74, sub_4D230, sub_4D27C, sub_4D3B4, sub_4D534, sub_4D62C, sub_4D65C
-global sub_4D75C, sub_4D800, sub_4D8A8, sub_4D948, sub_4DA84, sub_4DCF0, sub_4DD0C, sub_4DD90
+global sub_4D75C, sub_4D800, sub_4D8A8, sub_4D948, sub_4DA84, sub_4DCF0, sub_4DD0C, PeriodOver
 global sub_4DD9C, sub_4DDB0, sub_4DDBC, sub_4E3B0, sub_4E410, sub_4E500, sub_4E630, sub_4E660
 global sub_4E818, sub_4E840, sub_4E868, sub_4E894, sub_4E8C0, sub_4E8EC, sub_4E938, sub_4E9A0
 global sub_4EA44, sub_4EF68, sub_4F004, sub_4F068, sub_4F294, sub_4F404, sub_4F6AC, sub_4F7FC
@@ -7212,9 +7212,9 @@ sub_4DD0C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4DD90                                                       4DD90  97 PC
+; PeriodOver                                                       4DD90  97 PC
 ;-----------------------------------------------------------------------------
-sub_4DD90:
+PeriodOver:
         push edx
         xor edx, edx
         mov dword [dword_1B0ACC], edx

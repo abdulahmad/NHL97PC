@@ -6,7 +6,7 @@ extern SetClipWindow, asc_1676E9, asc_1676EE, asc_1676F3, asc_1676FA, asc_1676FF
 extern asc_16770E, asc_167713, asc_167718, asc_16771D, asc_167722, asc_167727, asc_167734, asc_16773C
 extern asc_167744, byte_16E264, byte_1CD7A9, byte_1CD7B3, byte_1CD7B4, byte_1CD7FC, byte_1CD7FD, byte_1CD7FE
 extern byte_1CD85E, byte_1CDA5F, byte_1CDC60, byte_1CDDFF, byte_1CDE61, dword_16E1AC, dword_16E22C, dword_16E46C
-extern dword_19CBC4, dword_1AC814, dword_1AC940, dword_1AD62F, dword_1AD6AB, dword_1AD71B, dword_1AD71F, dword_1AD723
+extern seed, dword_1AC814, dword_1AC940, dword_1AD62F, dword_1AD6AB, dword_1AD71B, dword_1AD71F, dword_1AD723
 extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778
 extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprintf_, strcpy_, sub_101390
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101430, sub_101560, sub_101584, sub_101EAC, sub_102B94
@@ -1735,7 +1735,7 @@ randomd0:
         mov dx, 0E62Dh
         mul dx
         LD mov, bx, ax
-        mov ax, word [dword_19CBC4]
+        mov ax, word [seed]
         LD mov, cx, ax
         mov dx, 0BB40h
         mul dx
@@ -1746,7 +1746,7 @@ randomd0:
         LD add, dx, bx
         add ax, byte 1
         adc dx, byte 0
-        mov word [dword_19CBC4], ax
+        mov word [seed], ax
         mov word [word_19CBC6], dx
         LD mov, al, ah
         LD mov, ah, dl

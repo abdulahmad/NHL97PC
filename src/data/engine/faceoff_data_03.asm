@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_19CB71 progbits alloc noexec write align=1
 global byte_19CB71, byte_19CB74, byte_19CB75, byte_19CB7E, byte_19CB7F, byte_19CB8A, byte_19CB8B, byte_19CBC2
-global byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CBFC, dword_19CB7B, dword_19CBAA, dword_19CBC4, dword_19CBD0
+global byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CBFC, dword_19CB7B, dword_19CBAA, seed, dword_19CBD0
 global dword_19CBE4, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC02, dword_19CC12, dword_19CC30, dword_19CC54
 global dword_19CC58, dword_19CC5C, dword_19CC78, dword_19CC7C, dword_19CC9C, dword_19CCA0, dword_19CCA4, dword_19CCA8
 global slotteam, word_19CB72, word_19CB76, word_19CB78, word_19CB7A, word_19CB7C, word_19CB80, word_19CB82
@@ -106,7 +106,7 @@ word_19CBC0:
         db 00h,00h
 byte_19CBC2:
         db 00h,00h
-dword_19CBC4:
+seed:
         db 021h,043h
 word_19CBC6:
         db 0CDh,0ABh

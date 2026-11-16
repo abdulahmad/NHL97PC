@@ -32,7 +32,7 @@ extern sub_22050, sub_22828, sub_22FF0, sub_23284, sub_240D0, sub_24220, sub_247
 extern sub_25010, sub_251F0, sub_25730, sub_2E310, sub_2E378, sub_30778, sub_3085C, sub_31C14
 extern sub_32260, sub_32340, sub_33880, sub_34330, sub_343F8, sub_34EF8, sub_39DA4, sub_39EC0
 extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, sub_41D48
-extern sub_42098, sub_42220, sub_424CC, sub_45BEC, sub_48D70, sub_4C0C4, sub_4DD90, sub_4DD9C
+extern sub_42098, sub_42220, sub_424CC, sub_45BEC, sub_48D70, sub_4C0C4, PeriodOver, sub_4DD9C
 extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, sub_5585C, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, sub_57324, sub_576EC, sub_57738, sub_5794C
 extern sub_5AC28, sub_5ED80, sub_60D6C, sub_60F48, sub_64EBC, sub_650A4, sub_650E8, sub_6619C
@@ -4978,7 +4978,7 @@ sub_295CC:
         jl short .8
         mov eax, dword [off_168CF0]
         mov byte [eax], 0Ch
-        call sub_4DD90
+        call PeriodOver
         mov eax, dword [off_168CFC]
         mov dword [byte eax+038h], 0
         mov eax, dword [off_168CE0]
@@ -5390,7 +5390,7 @@ sub_29BFC:
         call sub_650E8
         mov eax, dword [off_168CF0]
         mov byte [eax], 0Ch
-        call sub_4DD90
+        call PeriodOver
         add esp, byte 1Ch
         pop edx
         pop ecx
@@ -5490,7 +5490,7 @@ sub_29E2C:
         mov eax, ebx
         mov byte [dword ebx+0C1h], cl
         call sub_650E8
-        call sub_4DD90
+        call PeriodOver
         mov eax, dword [dword_1AC944]
         test byte [byte eax+01h], 7
         jne short .2
@@ -6137,7 +6137,7 @@ sub_2A6B8:
         mov bh, bl
         or bh, 2
         mov byte [byte eax+031h], bh
-        call sub_4DD90
+        call PeriodOver
         mov eax, dword [dword edx+0FAh]
         and byte [byte eax+031h], 0FBh
 .1:
