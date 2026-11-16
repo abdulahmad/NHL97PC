@@ -383,7 +383,7 @@ static void settings_save(void)
     fprintf(f, "; vsync: on or off\nvsync=%s\n", vsync_on ? "on" : "off");
     fprintf(f, "; frame_rate: how often the game itself draws. pentium100 (one picture per game step, about 34 a second, as on a Pentium 100:\n"
                "; the camera moves and some animation move a step per picture, so this is their real speed), 60 (smoother, those run\n"
-               "; about 1.75x fast) or unlocked (as fast as the PC can: they run many times too fast). Online play always uses pentium100.\nframe_rate=%s\n", frame_names[frames_mode % 3]);
+               "; about 1.75x fast in play; camera scenes at pentium100 pace) or unlocked (as fast as the PC can; the camera scenes still run at pentium100 pace). Online play always uses pentium100.\nframe_rate=%s\n", frame_names[frames_mode % 3]);
     fprintf(f, "; stats: on or off (frames per second, CPU and GPU use, in the top right corner)\nstats=%s\n", osd_on ? "on" : "off");
     fprintf(f, "; hires_scaling (the 640x480 menus): 1x, 2x, 3x, 4x, crt-light, crt-medium, crt-strong, crt-soft, crt-soft-grille\nhires_scaling=%s\n", hires_names[hires_mode]);
     fprintf(f, "; lores_scaling (the 320x200 game): 3x, 5x, 7x, 11x, tv-light, tv-medium, tv-strong, monitor-light, monitor-medium, monitor-strong, tv-soft, tv-soft-grille, monitor-soft, monitor-soft-grille\nlores_scaling=%s\n", lores_names[lores_mode]);
