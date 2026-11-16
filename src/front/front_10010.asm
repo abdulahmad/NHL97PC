@@ -26,7 +26,7 @@ extern word_19CBE6, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19C
 extern word_19CCB6, word_19CCBC, word_19CCBE, word_19CCC0, word_19CCC4, word_19DAD9, word_19DAEA, word_19DCFA
 extern word_19E32A, word_19E949, word_19EA51, word_19EAB6, word_19EAC0, word_19EBC2, word_19EBCC
 global SetupTeamForIntermission, clearteams, jpt_11318, loc_10000, sub_11328_26, sub_11328_4F, sub_11328_78, sub_11328_A6
-global sub_11504_E, sub_123A0_62, sub_123A0_81, sub_10010, sub_102F4, sub_10354, sub_1046C, sub_104A8
+global sub_11504_E, sub_123A0_62, sub_123A0_81, GripLinkLibrary, sub_102F4, LoadGripLibrary, sub_1046C, sub_104A8
 global sub_10A68, sub_10CC8, sub_10FAC, sub_1120C, sub_11328, sub_114C4, sub_11504, sub_11574
 global sub_116B0, sub_11808, sub_11908, sub_11984, sub_119A8, sub_11B38, sub_11ED8, sub_11F74
 global sub_11FB4, sub_12024, sub_12334, sub_123A0, sub_12440, sub_124A4, sub_127D4, sub_12970
@@ -40,9 +40,12 @@ loc_10000:
 unk_10003:
         db 090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h
 ;-----------------------------------------------------------------------------
-; sub_10010                                                       10010  97 PC
+; GripLinkLibrary                              10010  96 PC, medium confidence
+; (image, size): checks the GrIP GLL image ("DB" header, sizes, xor
+; checksum), copies it to DOS memory (DPMI 100h) and calls its init (8490h);
+; 0 on failure
 ;-----------------------------------------------------------------------------
-sub_10010:
+GripLinkLibrary:
         push ebx
         push ecx
         push esi
@@ -409,9 +412,12 @@ sub_102F4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10354                                                       10354  97 PC
+; LoadGripLibrary                              10354  96 PC, medium confidence
+; Finds GRIP.GLL on the GRIP and PATH environment variables or in C:\GRIP\,
+; reads it (at most 32 KB) and links it with GripLinkLibrary; failure clears
+; dword_114CD3
 ;-----------------------------------------------------------------------------
-sub_10354:
+LoadGripLibrary:
         push ebx
         push ecx
         push edx
@@ -490,7 +496,7 @@ sub_10354:
         call fclose_
         mov dx, word [dword esp+084h]
         mov eax, ebp
-        call sub_10010
+        call GripLinkLibrary
         test ax, ax
         je short .5
         or byte [byte_1684C8], 1

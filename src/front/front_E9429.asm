@@ -25,7 +25,7 @@ extern sub_11F9F0, sub_11FA34, sub_13C164, sub_39851, sub_415F8, sub_419B0, sub_
 extern sub_41FDC, sub_4A4F4, sub_4B108, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
 extern sub_7F0D8, sub_7F16C, sub_7F5A4, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678
 extern sub_83314, sub_834EC, sub_83558, sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068
-extern sub_84570, sub_8BF54, sub_8BFAC, sub_8D956, sub_8DE10, sub_8DE19, sub_8DE68, sub_8DE7E
+extern sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, sub_8DE19, sub_8DE68, sub_8DE7E
 extern sub_8DE9D, sub_8DEAC, sub_8DF1F, sub_8E6AF, sub_8E7E0, sub_8E870, sub_9D2D0, sub_AF074
 extern sub_B5891, sub_CA44C, sub_D0098, sub_DA7D6, sub_DAC1E, sub_DC71D, sub_DCBB0, sub_E036F
 extern sub_E0841, sub_E0D0F, sub_E341C, sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCFCC
@@ -766,7 +766,7 @@ sub_E9E9B:
         mov dword [dword_1CE1F0], eax
         mov eax, 33h
         xor esi, esi
-        call sub_8BF54
+        call InitMenuItems
 .1:
         mov eax, esi
         shl eax, 6

@@ -31,7 +31,7 @@ extern sub_4BA00, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5B
 extern sub_5BDF4, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
 extern sub_65CED, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, sub_77630, sub_77F88, sub_77FA8
 extern sub_78810, sub_7F0D8, sub_81678, sub_84204, sub_842E8, sub_842F4, sub_8E740, sub_8E840
-extern sub_AA498, sub_AADEF, sub_AB0A6, sub_B2F49, sub_BD62C, sub_D68AC, sub_DA7EB, sub_DB6AC
+extern sub_AA498, sub_AADEF, sub_AB0A6, sub_B2F49, sub_BD62C, FadeOut, sub_DA7EB, sub_DB6AC
 extern sub_E117B, sub_E12D1, sub_E13BF, sub_E1744, sub_E304C, sub_E30F4, sub_E3174, sub_E3190
 extern InputRecordAvail, TakeInputRecord, sub_E341C, sub_E4248, sub_F1FF8, sub_F207F, sub_F30A0, sub_F30D7
 extern sub_F418F, sub_F9650, sub_F9789, sub_F9869, sub_FAA64, sub_FAF34, sub_FBE40, sub_FC290
@@ -1353,7 +1353,8 @@ sub_13F7C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; RunSimFrames                                                       14078  97 PC
+; RunSimFrames                                 14078  96 PC, medium confidence
+; Runs n sim frames after HandleSlotButtons; stops on menu request
 ;-----------------------------------------------------------------------------
 RunSimFrames:
         push ecx
@@ -2299,7 +2300,9 @@ sub_14880:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; GameLoop                                                       14AC8  97 PC
+; GameLoop                                                        14AC8  96 PC
+; The game loop PlayGame runs: takes input records out of the ring, then
+; draws
 ;-----------------------------------------------------------------------------
 GameLoop:
         push dword 28h
@@ -2528,7 +2531,7 @@ GameLoop:
 .23:
         call sub_13ACB
         mov eax, 4
-        call sub_D68AC
+        call FadeOut
         mov ebx, dword [dword_1B8F4C]
         push ebx
         call sub_FAF34
@@ -2875,7 +2878,13 @@ sub_151A8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; PlayGame                                                       152C4  97 PC
+; PlayGame                                                        152C4  95 PC
+; (&savefile): without an open saved game runs the pre-game screens
+; (LoadRockMusic, LoadGameGfx, SetupGame; gameresult 2 on cancel), otherwise
+; LoadGameState from the file, rebuilds lines (SetupTeamLines) and resumes;
+; then GameLoop; in league / Play-Off mode a completed game (gameresult 1)
+; deletes <league>\game.sav; called from temp_files, import_export and
+; PlayoffModeLoop
 ;-----------------------------------------------------------------------------
 PlayGame:
         push dword 28h
@@ -3265,7 +3274,8 @@ sub_15578:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; RunInGameMenu                                                       1583F  97 PC
+; RunInGameMenu                                                   1583F  96 PC
+; Opens the menu InGameMenuRequest asks for (pre-game menu, pause)
 ;-----------------------------------------------------------------------------
 RunInGameMenu:
         push ebx

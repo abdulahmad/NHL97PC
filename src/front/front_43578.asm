@@ -25,7 +25,7 @@ extern sub_45BEC_1E49, sub_45BEC_1ECB, sub_45BEC_1F28, sub_45BEC_1F56, sub_45BEC
 extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, strcmp_, strcpy_
 extern sub_100940, sub_100A68, sub_101429, sub_106036, sub_106D08, sub_1070B0, sub_1086BF, sub_10884C
 extern sub_109775, sub_1097F0, sub_42550, sub_425CC, sub_42910, sub_42960, sub_42C38, sub_42D38
-extern sub_42D50, sub_431E8, sub_4329C, sub_4AB90, sub_4AE14, sub_4B074, sub_4B108, sub_7D539
+extern sub_42D50, sub_431E8, sub_4329C, MakeDataPath, sub_4AE14, sub_4B074, sub_4B108, sub_7D539
 extern sub_7F0D8, sub_7F5B8, sub_81678, sub_83314, sub_834EC, sub_83558, sub_842F4, sub_8BE60
 extern sub_8BEF8, sub_E2378, sub_E23E0, sub_E2404, sub_E2458, sub_E2494, sub_E24D0, sub_E24F0
 extern sub_E341C, sub_FAA64, sub_FAAB4, sub_FAF34, sub_FC330, sub_FC410, sub_FC510, tickcount
@@ -100,7 +100,7 @@ sub_43578:
 .7:
         mov edx, 57h
         mov eax, esp
-        call sub_4AB90
+        call MakeDataPath
         mov eax, esp
         push eax
         call sub_FC330
@@ -235,7 +235,7 @@ sub_43578:
         jl short .20
         mov edx, 56h
         mov eax, esp
-        call sub_4AB90
+        call MakeDataPath
         mov eax, esp
         push eax
         call sub_FC330
@@ -665,7 +665,7 @@ sub_43944:
         add esp, byte 0Ch
         add edi, eax
         lea eax, [dword esp+0104h]
-        call sub_4AB90
+        call MakeDataPath
         lea eax, [dword esp+0104h]
         push eax
         call sub_FC330
@@ -1198,7 +1198,7 @@ sub_43944:
         jl near .79
         mov edx, 56h
         lea eax, [dword esp+0104h]
-        call sub_4AB90
+        call MakeDataPath
         lea eax, [dword esp+0104h]
         push eax
         call sub_FC330

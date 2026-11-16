@@ -26,7 +26,7 @@ extern dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88, dword_1CBB8D, ran
 extern sub_1013FC, sub_101429, sub_10FAC, sub_11A318, sub_13C164, sub_414B8, sub_41550, sub_419B0
 extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, sub_41EA4, sub_41F2C, sub_41FDC
 extern sub_4B108, sub_7E860, sub_7EDF0, sub_7F028, sub_7F0D8, sub_7F16C, sub_80BBC, sub_83C08
-extern sub_8BF54, sub_8BFAC, sub_C36CA, sub_FAF34, sub_FB4D4, sub_FC510, sub_FCD90, sub_FCEEC
+extern InitMenuItems, sub_8BFAC, sub_C36CA, sub_FAF34, sub_FB4D4, sub_FC510, sub_FCD90, sub_FCEEC
 extern sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FE3D0, unk_166C97, unk_1C5F4A, unk_1CB148
 extern unk_1CB1EC, unk_1CB23E, word_1684BE
 global jpt_C4822, sub_C48A2_F0A, sub_C48A2_F22, sub_C48A2_10AA, sub_C48A2_10D0, sub_C48A2_1125, sub_C48A2_117A, sub_C48A2_11CF
@@ -291,7 +291,7 @@ sub_C48A2:
 .7:
         mov edx, unk_1CB148
         mov eax, 20h
-        call sub_8BF54
+        call InitMenuItems
         mov eax, 3
         call sub_419B0
         call sub_419B8

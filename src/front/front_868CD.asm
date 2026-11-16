@@ -40,7 +40,7 @@ global sub_8A81B_2C0, sub_8A81B_2C3, sub_8A81B_2C4, sub_8AAE5_64C, sub_8AAE5_654
 global sub_869BB, sub_86A45, sub_86A96, sub_86AFA, sub_86B73, sub_86BD0, sub_86CB1, sub_87523
 global sub_8769F, sub_8781C, sub_8793E, sub_87B57, sub_88EDC, sub_88FD8, sub_8907B, sub_89CD6
 global sub_8A81B, sub_8AAE5, sub_8B145, sub_8BA36, sub_8BDCF, sub_8BE23, sub_8BE60, sub_8BEF8
-global sub_8BF54, sub_8BFA0
+global InitMenuItems, sub_8BFA0
 ;-----------------------------------------------------------------------------
 ; sub_868CD                                                       868CD  97 PC
 ;-----------------------------------------------------------------------------
@@ -439,7 +439,7 @@ sub_86CB1:
         call sub_81678
         lea edx, [dword ebp-01000h]
         mov eax, 1Ah
-        call sub_8BF54
+        call InitMenuItems
         push byte 0
         push dword 104h
         push dword 1F4h
@@ -1528,7 +1528,7 @@ sub_87B57:
         mov dword [byte ebp-02Ch], eax
         mov eax, 18h
         lea edi, [dword ebp-0E18h]
-        call sub_8BF54
+        call InitMenuItems
         mov eax, 65h
         xor edx, edx
         mov ebx, asc_165358
@@ -2977,7 +2977,7 @@ sub_8907B:
         call sub_E5BF8
         mov dword [byte ebp-0Ch], eax
         mov eax, 15h
-        call sub_8BF54
+        call InitMenuItems
         mov eax, 3
         call sub_419B0
         call sub_419B8
@@ -6470,9 +6470,11 @@ sub_8BEF8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_8BF54                                                       8BF54  97 PC
+; InitMenuItems                                8BF54  96 PC, medium confidence
+; (count, items): clears the menu item records (66h bytes) and sets their
+; defaults
 ;-----------------------------------------------------------------------------
-sub_8BF54:
+InitMenuItems:
         push ebx
         push ecx
         push esi

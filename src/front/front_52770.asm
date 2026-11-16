@@ -45,16 +45,16 @@ extern str_Penboxz0, str_Penboxz1, str_R02d, str_Redlite, str_Rink, str_Rlite0, 
 extern str_STAND2ND, str_Score, str_Stands2, str_Strobe, str_ThinRedLines, str_Topboards, str_WALL, sub_1007C0
 extern sub_100A68, sub_101429, sub_101584, sub_102C30, sub_102C96, sub_102CDC, sub_102CF4, sub_103648
 extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_10B000, sub_10B040, sub_10B060, sub_10B084
-extern sub_10B0EC, sub_10B4E0, sub_10B580, sub_10B660, sub_10C8E8, sub_10DDE0, sub_10E284, sub_10E4B0
+extern sub_10B0EC, sub_10B4E0, sub_10B580, BuildAntiAliasTable, sub_10C8E8, sub_10DDE0, sub_10E284, sub_10E4B0
 extern sub_10E62C, sub_10E6AC, sub_10E7AC, sub_10E8F8, sub_10EE50, sub_10FB98, sub_10FBB0, sub_10FD58
 extern sub_10FE58, sub_10FEA8, sub_10FFBC, sub_11002C, sub_1100B4, sub_110414, sub_110538, sub_1105E4
 extern sub_110634, sub_112BCC, sub_112DE4, sub_11313C, sub_3D2C0, sub_3D3D0, sub_3DA80, sub_3DAC4
 extern sub_3DBCC, sub_3DDD8, sub_3E198, sub_3E1F8, sub_3E5F0, sub_4B1C4, sub_4B4C4, sub_4B540
 extern sub_4B944, sub_4BF54, sub_4BF94, sub_4C0CC, sub_4C5A0, sub_4D3B4, sub_4E818, sub_4E840
 extern sub_4E868, sub_4E894, sub_4E8C0, sub_4E8EC, sub_4E9A0, sub_4EA44, sub_4EF68, sub_4F004
-extern sub_4F068, sub_4F294, sub_4F404, sub_4FC50, sub_4FD08, sub_50740, sub_507E4, sub_509E8
-extern sub_50AF4, sub_50C90, sub_50DF4, sub_50EB8, sub_50F90, sub_510FC, sub_511AC, sub_51254
-extern sub_51B5C, sub_51BD8, sub_51C4C, sub_51CB8, sub_525E0, sub_52648, sub_526EC, sub_59174
+extern sub_4F068, sub_4F294, sub_4F404, sub_4FC50, sub_4FD08, DrawGoalLight, TransformRink, sub_509E8
+extern sub_50AF4, DrawStandsSides, sub_50DF4, sub_50EB8, sub_50F90, sub_510FC, sub_511AC, sub_51254
+extern sub_51B5C, sub_51BD8, sub_51C4C, BuildRinkSides, sub_525E0, sub_52648, sub_526EC, sub_59174
 extern sub_5AAB8, sub_5AC38, sub_5B4D4, sub_5BCCC, sub_5BD1C, sub_E341C, sub_FAA64, sub_FAF34
 extern sub_FC330, sub_FC4BC, sub_FD110, sub_FD954, sub_FDD1C, sub_FF044, sub_FF444, sub_FF600
 extern sub_FF798, sub_FFBB4, sub_FFCC4, tickcount, unk_16175C, unk_161760, unk_161764, unk_161768
@@ -64,8 +64,8 @@ extern unk_1B0850, unk_1B0970, unk_1B0AA8, unk_1B0AE8, unk_1B1068, unk_1B1090, u
 extern unk_1B8583, unk_1B92AB, unk_4BCCC
 global jpt_56DCC, sub_55670_105, sub_55670_115, sub_55670_11A, sub_56DDC_C8, sub_56DDC_E3, sub_56DDC_114, sub_56DDC_18F
 global sub_52770, sub_52A44, sub_52BEC, sub_52CA0, sub_52CE0, sub_52D4C, sub_52E14, sub_52E28
-global sub_52E8C, sub_53260, sub_53314, sub_5454C, sub_5475C, sub_54794, sub_54A8C, sub_55000
-global sub_55110, sub_55228, sub_552E0, sub_55648, sub_55670, sub_5585C, sub_5586C, sub_55894
+global sub_52E8C, sub_53260, sub_53314, FreeRinkModel, sub_5475C, sub_54794, sub_54A8C, sub_55000
+global sub_55110, sub_55228, DrawBenchSide, sub_55648, sub_55670, sub_5585C, sub_5586C, sub_55894
 global sub_55B14, sub_55FE4, sub_560AC, sub_56464, sub_56740, sub_56798, sub_567B0, sub_568CC
 global sub_56908, sub_5696C, sub_56A08, sub_56A84, sub_56AE4, sub_56B98, sub_56CD0, sub_56CE4
 global sub_56CF8, sub_56D0C, sub_56DDC, sub_57298, sub_572D4, sub_57304, unk_56790, unk_56794
@@ -865,7 +865,7 @@ sub_52E8C:
         mov al, byte [byte eax+02h]
         lea ecx, [byte esp+04h]
         and eax, 0FFh
-        call sub_10B660
+        call BuildAntiAliasTable
         mov dword [dword_1B0FE8], eax
         push str_FatBlueLines
         mov ecx, dword [dword_1B1108]
@@ -887,7 +887,7 @@ sub_52E8C:
         mov al, byte [byte eax+02h]
         lea ecx, [byte esp+04h]
         and eax, 0FFh
-        call sub_10B660
+        call BuildAntiAliasTable
         push str_Crease
         mov esi, dword [dword_1B1108]
         push esi
@@ -921,14 +921,14 @@ sub_52E8C:
         mov al, byte [byte eax+02h]
         lea ecx, [byte esp+04h]
         and eax, 0FFh
-        call sub_10B660
+        call BuildAntiAliasTable
         push byte 0
         lea ecx, [byte esp+04h]
         mov ebx, 0F0h
         mov dword [dword_1B0FFC], eax
         mov edx, ebx
         mov eax, ebx
-        call sub_10B660
+        call BuildAntiAliasTable
         push str_Topboards
         mov dword [dword_1B0FF8], eax
         mov eax, dword [dword_1B1108]
@@ -950,7 +950,7 @@ sub_52E8C:
         mov al, byte [byte eax+02h]
         lea ecx, [byte esp+04h]
         and eax, 0FFh
-        call sub_10B660
+        call BuildAntiAliasTable
         push str_Botboards
         mov edx, dword [dword_1B1108]
         push edx
@@ -972,7 +972,7 @@ sub_52E8C:
         mov al, byte [byte eax+02h]
         lea ecx, [byte esp+04h]
         and eax, 0FFh
-        call sub_10B660
+        call BuildAntiAliasTable
         mov ebx, 0E8h
         mov edx, dword [dword_1B0FB0]
         mov dword [dword_1B1024], eax
@@ -2334,7 +2334,7 @@ sub_53314:
         add esp, byte 0Ch
         xor esi, esi
         mov edi, 1
-        call sub_51CB8
+        call BuildRinkSides
         call sub_E341C
         mov dword [dword_1B0A88], esi
 .13:
@@ -2398,9 +2398,10 @@ sub_53314:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5454C                                                       5454C  97 PC
+; FreeRinkModel                                5454C  96 PC, medium confidence
+; From FreeGameView: frees the rink models and art LoadRinkModel loaded
 ;-----------------------------------------------------------------------------
-sub_5454C:
+FreeRinkModel:
         push ebx
         push ecx
         push edx
@@ -3493,9 +3494,10 @@ sub_55228:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_552E0                                                       552E0  97 PC
+; DrawBenchSide                                552E0  96 PC, medium confidence
+; Draws the bench side of the rink (DrawRinkPlayers, DrawBenchPlayers)
 ;-----------------------------------------------------------------------------
-sub_552E0:
+DrawBenchSide:
         push ebx
         push ecx
         push edx
@@ -4579,7 +4581,7 @@ sub_560AC:
         push edi
         push ebp
         sub esp, byte 18h
-        call sub_507E4
+        call TransformRink
         mov eax, dword [dword_1B10E8]
         and byte [byte eax+010h], 0FDh
         cmp dword [dword_16AF50], byte 0
@@ -4602,10 +4604,10 @@ sub_560AC:
         add esp, byte 4
 .2:
         xor eax, eax
-        call sub_50C90
+        call DrawStandsSides
         mov eax, 1
         xor edx, edx
-        call sub_50C90
+        call DrawStandsSides
 .3:
         cmp dword [dword edx+dword_1B0088], byte 0
         jne short .4
@@ -4627,7 +4629,7 @@ sub_560AC:
         mov ebx, dword [dword_1B0EF0]
         cmp ebx, dword [dword_1B105C]
         jg short .7
-        call sub_552E0
+        call DrawBenchSide
 .7:
         mov ecx, dword [dword_1B0E84]
         cmp ecx, dword [dword_1B1064]
@@ -4712,7 +4714,7 @@ sub_560AC:
         je short .10
         cmp dword [dword_1B0A74], byte 0
         jne short .10
-        call sub_50740
+        call DrawGoalLight
 .10:
         mov edx, dword [dword_1B0EF4]
         cmp edx, dword [dword_1B1064]
@@ -4797,7 +4799,7 @@ sub_560AC:
         je short .13
         cmp dword [dword_1B0A74], byte 0
         je short .13
-        call sub_50740
+        call DrawGoalLight
 .13:
         cmp dword [dword_16AF48], byte 0
         je short .14
@@ -4849,7 +4851,7 @@ sub_56464:
         mov ebx, dword [dword_1B0EF0]
         cmp ebx, dword [dword_1B105C]
         jle short .2
-        call sub_552E0
+        call DrawBenchSide
 .2:
         mov ecx, dword [dword_1B0E84]
         cmp ecx, dword [dword_1B1064]
@@ -4858,7 +4860,7 @@ sub_56464:
         je short .3
         cmp dword [dword_1B0A74], byte 0
         jne short .3
-        call sub_50740
+        call DrawGoalLight
 .3:
         cmp dword [dword_1B105C], byte 0
         jg short .4
@@ -4942,7 +4944,7 @@ sub_56464:
         je short .6
         cmp dword [dword_1B0A74], byte 0
         je short .6
-        call sub_50740
+        call DrawGoalLight
 .6:
         cmp dword [dword_1B105C], byte 0
         jg short .7

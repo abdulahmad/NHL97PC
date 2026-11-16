@@ -42,7 +42,7 @@ extern sub_37F4C, sub_37FC8, sub_419B0, sub_419B8, sub_41A28, sub_41D18, sub_41D
 extern sub_41EA4, sub_41FA0, sub_41FDC, sub_4AA78, sub_4B108, sub_7DFC0, sub_7E860, sub_7EDF0
 extern sub_7EF70, sub_7F028, sub_7F04C, sub_7F0D8, sub_7F16C, sub_7F29C, sub_7F5A4, sub_7F5B8
 extern sub_80BBC, sub_81D1C, sub_83314, sub_834EC, sub_83558, sub_835AC, sub_835BC, sub_83850
-extern sub_83C08, sub_8BF54, sub_8BFAC, sub_8DF1F, sub_8E7E0, sub_D7A70, sub_D7B64, sub_D8130
+extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_8E7E0, sub_D7A70, sub_D7B64, sub_D8130
 extern sub_D81D8, sub_D8B20, sub_D9960, sub_D9D74, sub_DA020, sub_DA02C, sub_DA48C, sub_DA498
 extern sub_DA544, sub_DA57C, sub_DA654, sub_E7D6D, sub_E8660, sub_E8923, sub_F9A88, sub_FAA64
 extern sub_FAAB4, sub_FAF34, sub_FB704, sub_FBE40, sub_FBFDC, sub_FC008, WaitTicks, sub_FC510
@@ -11560,7 +11560,9 @@ sub_E2838:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; PollControllers                                                       E2AF4  97 PC
+; PollControllers                                                 E2AF4  96 PC
+; Fills 4-entry slot table (7 bytes each) from keyboard/joystick by device
+; word and setup slot team
 ;-----------------------------------------------------------------------------
 PollControllers:
         push ebx
@@ -11784,7 +11786,9 @@ PollControllers:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; InputRecordTimer                                                       E2E28  97 PC
+; InputRecordTimer                                                E2E28  96 PC
+; Timer callback; every 4th tick pushes 0x12-byte record (4 slot dwords +
+; ticks) into ring of 5
 ;-----------------------------------------------------------------------------
 InputRecordTimer:
         push ebx
@@ -11891,7 +11895,8 @@ InputRecordTimer:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; InitSlotTable                                                       E2F98  97 PC
+; InitSlotTable                                E2F98  96 PC, medium confidence
+; Builds the controller slot table (SlotTable) from the game set-up
 ;-----------------------------------------------------------------------------
 InitSlotTable:
         push ebx
@@ -12114,7 +12119,8 @@ sub_E3190:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; InputRecordAvail                                                       E3208  97 PC
+; InputRecordAvail                                                E3208  97 PC
+; Returns InputRecordCount (GameLoop's is there a record)
 ;-----------------------------------------------------------------------------
 InputRecordAvail:
         push dword 4
@@ -12122,7 +12128,8 @@ InputRecordAvail:
         mov eax, dword [InputRecordCount]
         ret
 ;-----------------------------------------------------------------------------
-; TakeInputRecord                                                       E3218  97 PC
+; TakeInputRecord                                                 E3218  97 PC
+; Copies the next record out of InputRecordRing
 ;-----------------------------------------------------------------------------
 TakeInputRecord:
         push dword 24h
@@ -16582,7 +16589,7 @@ sub_E657C:
         jl near .1
         mov eax, 0Ah
         mov edx, dword [dword_1CD54C]
-        call sub_8BF54
+        call InitMenuItems
         mov eax, dword [esp]
         mov edx, dword [dword_1CD54C]
         mov eax, dword [byte eax+02Ch]
@@ -17775,7 +17782,7 @@ sub_E77B1:
         mov edx, unk_1CD6AC
         mov eax, 2
         mov ecx, asc_167629
-        call sub_8BF54
+        call InitMenuItems
         lea eax, [byte ebp-02Eh]
         mov edi, dword_1CD6FE
         push eax

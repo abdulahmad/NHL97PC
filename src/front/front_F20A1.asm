@@ -36,9 +36,9 @@ extern sub_3CFB0, sub_3D020, sub_3E480, sub_3E5F0, sub_4123C, sub_41670, sub_419
 extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, sub_41DD8, sub_41EA4, sub_423B4
 extern sub_48D70, sub_4A280, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00, sub_4BCB4
 extern sub_4C0C4, sub_5B4D4, sub_5BE74, sub_6539C, sub_76D3C, sub_7CBD6, sub_7CDD8, sub_7F028
-extern sub_7F0D8, sub_7F16C, sub_8BE60, sub_8BEF8, sub_8BF54, sub_8BFA0, sub_8BFAC, sub_8D6E0
+extern sub_7F0D8, sub_7F16C, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
 extern sub_8E790, sub_8E7E0, sub_8E840, sub_9623E, sub_A7D9C, sub_AADEF, sub_AB0A6, sub_BD62C
-extern sub_D67D4, sub_D68AC, sub_DA7EB, sub_DB6AC, sub_E341C, sub_E3798, sub_E4218, sub_E4230
+extern sub_D67D4, FadeOut, sub_DA7EB, sub_DB6AC, sub_E341C, sub_E3798, sub_E4218, sub_E4230
 extern sub_E4908, sub_F1FF8, sub_FAF34, sub_FC330, sub_FC4BC, sub_FCC40, sub_FCD90, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC
 extern sub_FE3D0, tickcount, unk_167A4B, word_168D18, word_19CBB0, word_19CBB2, word_19CBB8, word_19CBBA
@@ -50,7 +50,7 @@ global sub_F570D_218D, sub_F570D_22F1, sub_F570D_2464, sub_F7BD6_C81, sub_F7BD6_
 global sub_F7BD6_14F6, sub_F7BD6_165B, sub_F7BD6_17B7, sub_F20A1, sub_F22AF, sub_F22ED, sub_F23BF, sub_F2544
 global sub_F272B, sub_F27A4, sub_F2AA0, sub_F2ADB, sub_F30A0, sub_F30D7, sub_F30F1, sub_F36AC
 global sub_F3C43, sub_F3F33, sub_F3FB0, sub_F3FF5, sub_F418F, sub_F48C2, sub_F4978, sub_F4A8F
-global sub_F4B3F, sub_F5219, sub_F558C, sub_F5601, sub_F570D, sub_F7BD6, sub_F9496
+global sub_F4B3F, sub_F5219, sub_F558C, FillBox, sub_F570D, sub_F7BD6, sub_F9496
 ;-----------------------------------------------------------------------------
 ; sub_F20A1                                                       F20A1  97 PC
 ;-----------------------------------------------------------------------------
@@ -1448,7 +1448,7 @@ sub_F30F1:
         mov edi, eax
         lea edx, [dword ebp-021Ch]
         mov eax, 3
-        call sub_8BF54
+        call InitMenuItems
         fild dword [dword_16E464]
         fmul qword [qword_167AD1]
         fild dword [dword_16E468]
@@ -1881,7 +1881,7 @@ sub_F36AC:
         push eax
         lea edx, [dword ebp-021Ch]
         mov eax, 2
-        call sub_8BF54
+        call InitMenuItems
         fild dword [dword_16E464]
         fmul qword [qword_167B1D]
         fild dword [dword_16E468]
@@ -2310,7 +2310,7 @@ sub_F3C43:
         call sub_1008CC
         add esp, byte 0Ch
         mov eax, 3
-        call sub_D68AC
+        call FadeOut
         call sub_11F74
         mov dword [dword_16D2BC], 1
         mov eax, dword [dword_16AF58]
@@ -2750,7 +2750,7 @@ sub_F418F:
         mov eax, dword [tickcount]
         mov eax, 0Ah
         lea ebx, [dword ebp-0336h]
-        call sub_8BF54
+        call InitMenuItems
         lea edx, [dword ebp-066Ah]
         lea eax, [byte ebp-0Ah]
         call sub_F3FF5
@@ -4102,9 +4102,10 @@ sub_F558C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F5601                                                       F5601  97 PC
+; FillBox                                      F5601  96 PC, medium confidence
+; Fills a rectangle clipped to the draw bitmap (dword_1228FC)
 ;-----------------------------------------------------------------------------
-sub_F5601:
+FillBox:
         push esi
         push edi
         enter 10h, 0
@@ -5625,7 +5626,7 @@ sub_F570D:
         lea edx, [dword ebp-06CEh]
         mov eax, 0Ah
         xor esi, esi
-        call sub_8BF54
+        call InitMenuItems
         jmp near .39
 .37:
         cmp si, byte 3
@@ -7682,7 +7683,7 @@ sub_F7BD6:
         lea edx, [dword ebp-0526h]
         mov eax, 8
         xor esi, esi
-        call sub_8BF54
+        call InitMenuItems
         jmp near .19
 .18:
         movsx eax, si
