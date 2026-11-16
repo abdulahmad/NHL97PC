@@ -19,10 +19,10 @@ extern F32_neg700_MenuOrbitScene, F32_neg200, F32_neg300, F32_neg750, F32_750, F
 extern F32_50, F32_0p001, F32_80, F32_6, F32_neg2000_ReplayCamMove, F32_neg4800_ReplayCamMove, F32_4272, F32_1392
 extern F32_neg4272, F32_neg1392, F32_10_CanReachPuck, F32_24, F32_neg3984, F32_neg4272_InCrease, F32_4272_InCrease, F32_1272
 extern F32_4032, F32_768, F32_192, F32_48, F32_0p166667, CameraSceneId, SavedCameraView, ClockShown
-extern PenaltyPanelIds, MessagePanelIds, PenaltyNameIds, F32_CameraNear, PenaltySceneYaw, PenaltySceneDist, dword_16AF5C, dword_16B168
+extern PenaltyPanelIds, MessagePanelIds, PenaltyNameIds, F32_CameraNear, PenaltySceneYaw, PenaltySceneDist, CameraScenesEnabled, ScoreboardOn
 extern dword_16E464, dword_16E468, ScreenWidth, LastTouchPlayer, PassFrom, PassTo, DefendTarget, ShootSpotX
-extern ExtraAttacker, ZoneTargetX, ZoneFlags, GoalScorerFlags, FaceoffWinner, penshottimer, dword_19CD10, dword_19CD14
-extern dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C, dword_19CD30, dword_19CD34, ScorePanelHome, ScorePanelAway
+extern ExtraAttacker, ZoneTargetX, ZoneFlags, GoalScorerFlags, FaceoffWinner, penshottimer, VideoModePanelMode, VideoModeSel
+extern ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH, VideoModeChanged, DisplayFlags, ScorePanelHome, ScorePanelAway
 extern ScorePanelValues, AwayPanelValue, ClockShownSeconds, ClockShownMinutes, FightSceneTimer, FightSceneState, ReplayCamTarget, ReplayCamYaw
 extern ReplayCamPitch, PenShotSceneTimer, PenShotSceneState, MenuOrbitAngle, SceneStepCount, SceneSavedView, OpeningCamFrame, OpeningCamActive
 extern OpeningCamData, OpeningCamFrames, PenaltyCamDistance, PenaltyCamTimer, CameraSceneFunc, CameraSceneStep, CameraSceneArg, CameraDebugMarks
@@ -33,7 +33,7 @@ extern CameraPathVec, CameraViewPair, CameraViewNear, CameraViewFar, SplineIndex
 extern CameraDistance, CameraAngles, CameraFov, CameraFovTarget, CameraViewParams, CameraLag, CameraSpeed, CameraFollowObj
 extern TargetPointObj, CameraSceneCenter, CameraSceneYaw, CameraSceneDist, CameraTracking, ActiveCameraScene, CameraPathActive, CameraDebugText
 extern TargetVecX, TargetVecY, TargetVecZ, PassTargetAngle, PenaltyRecord, PlayerAssignPtrs, HmScore, AwScore
-extern ViewSizeIndex, GameSettings, GameOptionFlags, dword_1B10DC, dword_1B1410, dword_1B141C, dword_1B8FA0, dword_1B905F
+extern ViewSizeIndex, GameSettings, GameOptionFlags, ScoreboardAngle, dword_1B1410, dword_1B141C, dword_1B8FA0, dword_1B905F
 extern dword_1B9063, dword_1B9067, dword_1B906B, dword_1B906F, dword_1B9077, dword_1B907B, dword_1B907F, dword_1B9083
 extern dword_1B9087, dword_1B908B, dword_1B908F, dword_1B9093, dword_1B9CA4, dword_1B9CAC, dword_1C95B0, dword_1C95B4
 extern dword_1C95BC, dword_1C95C4, TextAlign, TextColorTable, TextColor, DrawGlyphFn, ProjOffsetX, ProjOffsetY
@@ -65,9 +65,9 @@ extern tickcount, unk_158E2, unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A
 extern str_Punct_DrawGoalScorerPanel, str_CommaSpace, str_CloseParen, CameraViewDefs
 extern CameraViewDefs
 extern CameraViewDefs
-extern IntermissionCamPath, IntermissionTimes, ExtraAttackerSpots, ExtraAttackerFlags, unk_16AF14, DebugTagStr, SplineCoefs, OverlayPanelQueue
+extern IntermissionCamPath, IntermissionTimes, ExtraAttackerSpots, ExtraAttackerFlags, ViewDistanceTable, DebugTagStr, SplineCoefs, OverlayPanelQueue
 extern ReplayCamPos, MenuCamPos, MenuCamTarget, CameraPathPoints, SplineCoefsX, SplineCoefsY, CameraEye, CameraCenter
-extern HomeTeamRecord, unk_1B0AD0, unk_1B0AE8, unk_1B1090, unk_1B9038, unk_1B92AB, vecdist, vtoa
+extern HomeTeamRecord, ScoreboardCorners, RinkViewPoints, RinkCameraPoints, unk_1B9038, unk_1B92AB, vecdist, vtoa
 extern str_D_ChangeViewSize, FightCameraReady, FaceoffSpotX, FaceoffSpotY, RimTargetX, RimTargetY, HomeSkaters, AwaySkaters
 extern DefendFlags, ShootSpotY, GoalieTarget, ZoneTargetY, PassPlayer, PassPending, PassTarget, LastTouchTeam
 extern PassDistX, PassDistY, PassReceiver, OneTimerPlayer, PassState, StatsPanelPlayer, AssistOne, AssistTwo
@@ -183,11 +183,11 @@ ChangeViewSize:
         sub esi, eax
 .5:
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD28], ecx
-        mov dword [dword_19CD2C], ebx
-        mov dword [dword_19CD20], edi
+        mov dword [ViewWindowW], ecx
+        mov dword [ViewWindowH], ebx
+        mov dword [ViewWindowX], edi
         mov edx, ecx
-        mov dword [dword_19CD24], esi
+        mov dword [ViewWindowY], esi
         call SetViewSize
         mov eax, dword [ViewSizeIndex]
         mov ebx, esi
@@ -215,12 +215,12 @@ SetViewWindow:
         je short .1
         sar ebx, 1
 .1:
-        mov dword [dword_19CD20], 0
-        mov dword [dword_19CD24], 0
+        mov dword [ViewWindowX], 0
+        mov dword [ViewWindowY], 0
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD28], ecx
+        mov dword [ViewWindowW], ecx
         mov edx, ecx
-        mov dword [dword_19CD2C], ebx
+        mov dword [ViewWindowH], ebx
         call SetViewSize
         mov eax, dword [ViewSizeIndex]
         xor ebx, ebx
@@ -242,9 +242,9 @@ PrevVideoModeKey:
         push esi
         push edi
         enter 18h, 0
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         jne near .9
-        cmp dword [dword_19CD34], byte 0
+        cmp dword [DisplayFlags], byte 0
         jne near .9
         call ClearOverlayWindows
         lea eax, [byte ebp-018h]
@@ -253,19 +253,19 @@ PrevVideoModeKey:
         mov eax, dword [byte ebp-018h]
         call SetVideoMode
         mov eax, dword [byte ebp-018h]
-        mov dword [dword_19CD10], eax
+        mov dword [VideoModePanelMode], eax
         mov eax, dword [byte ebp-014h]
-        mov dword [dword_19CD14], eax
+        mov dword [VideoModeSel], eax
         cmp eax, 100h
         jl short .1
         mov eax, dword [ViewSizeIndex]
         call SetViewInterlaced
-        mov dword [dword_19CD30], 1
+        mov dword [VideoModeChanged], 1
         jmp short .2
 .1:
         mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
-        mov dword [dword_19CD30], 0
+        mov dword [VideoModeChanged], 0
 .2:
         mov eax, dword [ViewSizeIndex]
         call ShowView
@@ -283,7 +283,7 @@ PrevVideoModeKey:
         idiv ebx
         mov ebx, eax
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD34], 0
+        mov dword [DisplayFlags], 0
         test byte [byte eax+04h], 2
         je short .3
         sar ebx, 1
@@ -318,11 +318,11 @@ PrevVideoModeKey:
         sub esi, eax
 .5:
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD28], ecx
-        mov dword [dword_19CD2C], ebx
-        mov dword [dword_19CD20], edi
+        mov dword [ViewWindowW], ecx
+        mov dword [ViewWindowH], ebx
+        mov dword [ViewWindowX], edi
         mov edx, ecx
-        mov dword [dword_19CD24], esi
+        mov dword [ViewWindowY], esi
         call SetViewSize
         mov eax, dword [ViewSizeIndex]
         mov ebx, esi
@@ -358,21 +358,21 @@ PrevVideoModeKey:
         add esp, byte 0Ch
         jmp short PrevVideoModeKey_20A
 .9:
-        cmp dword [dword_19CD34], byte 0
+        cmp dword [DisplayFlags], byte 0
         je short .10
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD30], 0
+        mov dword [VideoModeChanged], 0
         call ClearViewInterlaced
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD34], 0
+        mov dword [DisplayFlags], 0
         call ShowView
         jmp short PrevVideoModeKey_20A
 .10:
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD30], 1
+        mov dword [VideoModeChanged], 1
         call SetViewInterlaced
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD34], 1
+        mov dword [DisplayFlags], 1
         call HideView
 PrevVideoModeKey_20A:
         push byte 50h
@@ -401,12 +401,12 @@ NextVideoModeKey:
         push esi
         push edi
         enter 18h, 0
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         je short .1
-        cmp dword [dword_19CD34], byte 0
+        cmp dword [DisplayFlags], byte 0
         je short .2
 .1:
-        cmp dword [dword_19CD14], 100h
+        cmp dword [VideoModeSel], 100h
         jge near .9
 .2:
         call ClearOverlayWindows
@@ -416,13 +416,13 @@ NextVideoModeKey:
         mov eax, dword [byte ebp-018h]
         call SetVideoMode
         mov eax, dword [byte ebp-018h]
-        mov dword [dword_19CD10], eax
+        mov dword [VideoModePanelMode], eax
         mov eax, dword [byte ebp-014h]
-        mov dword [dword_19CD14], eax
+        mov dword [VideoModeSel], eax
         mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD30], 0
+        mov dword [VideoModeChanged], 0
         call ShowView
         movsx ebx, word [str_D_ChangeViewSize]
         mov eax, dword [dword_16E464]
@@ -438,7 +438,7 @@ NextVideoModeKey:
         idiv ebx
         mov ebx, eax
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD34], 0
+        mov dword [DisplayFlags], 0
         test byte [byte eax+04h], 2
         je short .3
         sar ebx, 1
@@ -472,12 +472,12 @@ NextVideoModeKey:
         sub esi, eax
 .5:
         mov eax, dword [byte ebp-04h]
-        mov dword [dword_19CD28], ecx
-        mov dword [dword_19CD2C], ebx
+        mov dword [ViewWindowW], ecx
+        mov dword [ViewWindowH], ebx
         mov edx, ecx
-        mov dword [dword_19CD20], eax
+        mov dword [ViewWindowX], eax
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD24], esi
+        mov dword [ViewWindowY], esi
         call SetViewSize
         mov edx, dword [byte ebp-04h]
         mov eax, dword [ViewSizeIndex]
@@ -513,27 +513,27 @@ NextVideoModeKey:
         add esp, byte 0Ch
         jmp near PrevVideoModeKey_20A
 .9:
-        cmp dword [dword_19CD34], byte 0
+        cmp dword [DisplayFlags], byte 0
         je short .10
         mov eax, dword [ViewSizeIndex]
         call ShowView
-        mov dword [dword_19CD34], 0
+        mov dword [DisplayFlags], 0
         jmp near PrevVideoModeKey_20A
 .10:
         mov eax, dword [ViewSizeIndex]
         call HideView
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD34], 1
+        mov dword [DisplayFlags], 1
         call SetViewInterlaced
-        mov dword [dword_19CD30], 1
+        mov dword [VideoModeChanged], 1
         jmp near PrevVideoModeKey_20A
 ;-----------------------------------------------------------------------------
 ; ApplyDisplayFlags                               1603A  97 PC, low confidence
-; Sets the doubled / interlaced display flags (dword_19CD30, dword_19CD34) in
+; Sets the doubled / interlaced display flags (VideoModeChanged, DisplayFlags) in
 ; the screen record
 ;-----------------------------------------------------------------------------
 ApplyDisplayFlags:
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         je short .1
         mov eax, dword [ViewSizeIndex]
         call SetViewInterlaced
@@ -542,7 +542,7 @@ ApplyDisplayFlags:
         mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
 .2:
-        cmp dword [dword_19CD34], byte 0
+        cmp dword [DisplayFlags], byte 0
         je short .3
         mov eax, dword [ViewSizeIndex]
         jmp near HideView
@@ -1636,7 +1636,7 @@ DrawMessagePanel:
         call DrawTextAt
         add esp, byte 0Ch
 .6:
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         shl eax, 4
@@ -1682,16 +1682,16 @@ DrawVideoModePanel:
 .1:
         cmp edx, byte 2
         jne short .5
-        push dword [dword_19CD14]
-        push dword [dword_19CD10]
+        push dword [VideoModeSel]
+        push dword [VideoModePanelMode]
         push str_DXD
         lea eax, [byte ebp-038h]
         push eax
         call sprintf_
         add esp, byte 10h
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         je short .3
-        cmp dword [dword_19CD34], byte 0
+        cmp dword [DisplayFlags], byte 0
         je short .2
         mov edx, str_Doubled
         jmp short .4
@@ -1770,7 +1770,7 @@ DrawVideoModePanel:
         call DrawTextAt
         add esp, byte 0Ch
 .9:
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx ecx, al
         shl ecx, 4
@@ -1960,7 +1960,7 @@ DrawPenaltyPanel:
         mov edx, esi
         mov eax, dword [eax]
         call DrawPanelPlayerCard
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
@@ -2087,7 +2087,7 @@ DrawPenaltyShotPanel:
         mov ebx, eax
         mov eax, esi
         call DrawPanelPlayerCard
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
@@ -2370,7 +2370,7 @@ DrawPenaltyShotPanel_48E:
         mov eax, dword [eax]
 DrawPenaltyShotPanel_49A:
         call DrawPanelPlayerCard
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
@@ -2755,7 +2755,7 @@ DrawGoalScorerPanel:
         lea ecx, [byte ebp+02Ah]
         mov eax, dword [eax]
         call DrawPanelPlayerCard
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
@@ -3056,7 +3056,7 @@ DrawClockPanel:
         mov dword [ClockShownMinutes], 0FFFFFFFFh
         cmp dword [dword_1B8FA0], byte 0
         je short .1
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
@@ -3065,7 +3065,7 @@ DrawClockPanel:
         imul eax, dword [dword_16E468], dword 0F0h
         jmp short .2
 .1:
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
@@ -3183,7 +3183,7 @@ PowerPlayPanel:
         mov dword [byte esi+08h], eax
         mov eax, dword [esi]
         call DrawPowerPlayClock
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
@@ -3868,7 +3868,7 @@ HomeTeamPanel:
         xor edx, edx
         mov eax, dword [esi]
         call UpdateScoreboardPanel
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
@@ -3959,7 +3959,7 @@ AwayTeamPanel:
         mov edx, 1
         mov eax, dword [esi]
         call UpdateScoreboardPanel
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
@@ -4152,7 +4152,7 @@ HomeStatPanel:
         call DrawPanelArtScaled
         mov eax, dword [byte ebp-08h]
         mov dword [byte esi+08h], eax
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         shl eax, 4
@@ -4325,7 +4325,7 @@ AwayStatPanel:
         call DrawPanelArtScaled
         mov eax, dword [byte ebp-08h]
         mov dword [byte esi+08h], eax
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
@@ -4935,7 +4935,7 @@ GetCameraTarget:
         pop ebx
         ret
 .9:
-        mov eax, unk_16AF14
+        mov eax, ViewDistanceTable
         add esp, byte 68h
         pop ebp
         pop edi
@@ -4945,10 +4945,10 @@ GetCameraTarget:
         pop ebx
         ret
 .10:
-        mov eax, dword [dword_16B168]
+        mov eax, dword [ScoreboardOn]
         test eax, eax
         je near .26
-        mov eax, dword_1B10DC
+        mov eax, ScoreboardAngle
         add esp, byte 68h
         pop ebp
         pop edi
@@ -5018,7 +5018,7 @@ GetCameraTarget:
         pop ebx
         ret
 .18:
-        mov eax, unk_1B1090
+        mov eax, RinkCameraPoints
         add eax, ebx
         sub eax, byte 54h
         add esp, byte 68h
@@ -5030,7 +5030,7 @@ GetCameraTarget:
         pop ebx
         ret
 .19:
-        mov eax, unk_1B0AE8
+        mov eax, RinkViewPoints
         add eax, ebx
         sub eax, byte 0Ch
         add esp, byte 68h
@@ -5046,7 +5046,7 @@ GetCameraTarget:
         lea eax, [nosplit ebx*4+00h]
         sub eax, ebx
         mov edi, TargetVecX
-        lea esi, [nosplit eax*4+unk_1B0AD0]
+        lea esi, [nosplit eax*4+ScoreboardCorners]
         movsd
         movsd
         movsd
@@ -8129,7 +8129,7 @@ PenaltyCameraScene:
         lea eax, [byte ebx+04h]
         mov dword [CameraPathActive], ebp
         call StartCameraPath
-        mov dword [dword_16AF5C], edi
+        mov dword [CameraScenesEnabled], edi
         call DrawClockOverlay
 .1:
         pop ebp
@@ -8497,7 +8497,7 @@ LoadOpeningCamera:
         xor eax, eax
         mov dword [CameraFocus], ecx
         call UpdateCameraMotion
-        mov dword [dword_16AF5C], ebx
+        mov dword [CameraScenesEnabled], ebx
         call DrawClockOverlay
         mov dword [CameraSceneId], ebx
         add esp, byte 14h
@@ -9177,7 +9177,7 @@ FaceoffCameraScene2:
         call CanStartCameraScene
         test eax, eax
         je near .5
-        mov dword [dword_16AF5C], 1
+        mov dword [CameraScenesEnabled], 1
         call DrawClockOverlay
         call rand_
         mov edx, eax
@@ -9810,7 +9810,7 @@ FaceoffDropSceneStep:
         xor edx, edx
         call StartCameraPath
         xor eax, eax
-        mov dword [dword_16AF5C], eax
+        mov dword [CameraScenesEnabled], eax
         pop ebp
         pop edi
         pop edx

@@ -2,12 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_1698A2 progbits alloc noexec write align=1
-global dword_1698AF, dword_169996, dword_16AEB4, dword_16AF30, dword_16AF34, dword_16AF38, dword_16AF3C, dword_16AF40
-global dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF54, dword_16AF58, dword_16AF5C, unk_1698A2
-global str_X_SetArtArchive, unk_16AED4, unk_16AF14
-unk_1698A2:
+global ArtArchiveIds, ArtArchiveSizes, DirPathTable, GameGraphicsMode, ModelCount, TextureCount, ShowFrameRate, ShowStands
+global ShowRink, ShowCenterLogo, ShowShadows, ShowOverlay, ShowCrowd, ShowBenches, CameraScenesEnabled, ArtArchivePaths
+global str_X_SetArtArchive, DisplayModes, ViewDistanceTable
+ArtArchivePaths:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_1698AF:
+ArtArchiveIds:
         db 00h,00h,00h,00h,00h,00h,00h,00h,04Dh,049h,04Eh,049h,04Dh,055h,04Dh,049h
         db 02Eh,056h,049h,056h,00h,01h,00h,00h,00h,07h,00h,00h,00h,052h,045h,043h
         db 04Fh,04Dh,04Dh,045h,049h,02Eh,056h,049h,056h,00h,01h,00h,00h,00h,06h,00h
@@ -24,7 +24,7 @@ dword_1698AF:
         db 056h,00h,05h,00h,00h,00h,00h,00h,00h,00h
 str_X_SetArtArchive:
         db 078h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_169996:
+ArtArchiveSizes:
         db 00h,00h,00h,00h,00h,00h,00h,00h,047h,04Ch,04Fh,042h,041h,04Ch,02Eh,053h
         db 045h,054h,00h,00h,00h,00h,00h,00h,00h,07h,00h,00h,00h,033h,053h,054h
         db 041h,052h,053h,024h,02Eh,046h,053h,048h,00h,00h,0FAh,0FFh,0FFh,0FFh,06h,00h
@@ -363,38 +363,38 @@ dword_169996:
         db 00h,00h,00h,043h,048h,054h,02Eh,046h,053h,048h,00h,00h,00h,00h,00h,00h
         db 0FFh,0FFh,0FFh,0FFh,07h,00h,00h,00h,047h,053h,054h,041h,054h,053h,032h,049h
         db 02Eh,046h,053h,048h,00h,0FEh,0FFh,0FFh,0FFh,06h,00h,00h,00h,00h
-dword_16AEB4:
+DirPathTable:
         db 00h,00h,00h,00h,01h,00h,00h,00h,040h,01h,00h,00h,080h,02h,00h,00h
         db 080h,02h,00h,00h,0C8h,00h,00h,00h,090h,01h,00h,00h,0E0h,01h,00h,00h
-unk_16AED4:
+DisplayModes:
         db 080h,02h,00h,00h,0E0h,01h,00h,00h,080h,02h,00h,00h,0E0h,01h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,080h,02h,00h,00h,0E0h,01h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,04h,00h,00h,00h,0Dh,00h,00h,00h
         db 01h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h,00h,00h,00h,00h
-unk_16AF14:
+ViewDistanceTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,0FAh,044h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,01h,00h,00h,00h
-dword_16AF30:
+GameGraphicsMode:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16AF34:
+ModelCount:
         db 01Eh,00h,00h,00h
-dword_16AF38:
+TextureCount:
         db 01Ch,00h,00h,00h
-dword_16AF3C:
+ShowFrameRate:
         db 01h,00h,00h,00h
-dword_16AF40:
+ShowStands:
         db 00h,00h,00h,00h
-dword_16AF44:
+ShowRink:
         db 01h,00h,00h,00h
-dword_16AF48:
+ShowCenterLogo:
         db 01h,00h,00h,00h
-dword_16AF4C:
+ShowShadows:
         db 00h,00h,00h,00h
-dword_16AF50:
+ShowOverlay:
         db 01h,00h,00h,00h
-dword_16AF54:
+ShowCrowd:
         db 01h,00h,00h,00h
-dword_16AF58:
+ShowBenches:
         db 01h,00h,00h,00h
-dword_16AF5C:
+CameraScenesEnabled:
         db 00h,00h,00h,00h

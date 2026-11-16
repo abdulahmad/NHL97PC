@@ -17,8 +17,8 @@ extern str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim
 extern StreamTimeout, CdStreamFilled, CdStreamUsed, StreamState, AudioStreamFlags, MusicState, MusicTrack, MusicRestart
 extern MusicPaused, MusicTime, MusicStreamPos, MusicVolumeLevel, MusicFeedCount, MusicStartTime, MusicLength, MusicHandle
 extern SfxBankRecords, AudioInitDone, SfxBankHandle, CrowdBankHandle, AmbientHandle, SfxReady, MusicReady, CrowdNoiseLevel
-extern AmbientVolume, SfxVolumeLevel, MusicVolumeWord, LastSfxPlayed, SpeechBankBuffer, dword_169250, dword_169254, F32_9600
-extern F32_768_PositionSfx, dword_169294, dword_16AEB4, dword_16B72C, dword_16E308, dword_16E464, dword_16E468, MenuScreenBitmap
+extern AmbientVolume, SfxVolumeLevel, MusicVolumeWord, LastSfxPlayed, SpeechBankBuffer, SoundCardType, SoundDriverId, F32_9600
+extern F32_768_PositionSfx, SpeechQueueSize, DirPathTable, dword_16B72C, dword_16E308, dword_16E464, dword_16E468, MenuScreenBitmap
 extern QuantizePalette, DrawDestBuffer, DrawDestPitch, VideoModeNumber, VideoModeIndex, ViewInterlaced, CdStreamSpeed, BenchSlotTable
 extern SparkleTable, SeasonScreenArt, SeasonOpponent, SeasonPlayedFlag, SeasonPanelArt, SeasonUserIndex, SeasonScreenState, SparkleTime
 extern MatchupLogoArt, SeasonPanelShown, WaitIconFrame, WaitIconTime, SparkleFrame, WaitIconCount, SeasonBackground, SeasonFont
@@ -28,8 +28,8 @@ extern OverlayWindowCount, ScreenRegion, OverlayWindows, GameViewBuffer, GameVie
 extern OverlayMaskDirty, RinkDetail, GameViewTop, GameViewRows, DisplayViewCount, GameViewShown, DisplayViews, OverlayWindowsOpen
 extern ViewSizeIndex, ViewPixelWidth, ViewPixelHeight, FadeFramesLeft, FadeActive, FadeFirstEntry, ArtRemapTable, PaletteRangeCount
 extern FadeEntryCount, FadeDone, RangeBlendLevel, FadeStepCount, StreamSpeed, CdStreamBuf, StreamHandle, StreamRate
-extern SpeechReqHead, SpeechReqTail, SpeechRequests, dword_1AC4FC, dword_1AC508, dword_1AC50C, dword_1AC510, dword_1AC5D8
-extern dword_1AC5EC, SfxBankNames, GameAudioState, SfxBankData, SfxBankSizes, GameSoundsOn, SpeechQueueRead, SpeechQueueWrite
+extern SpeechReqHead, SpeechReqTail, SpeechRequests, SpeechPlaying, SfxChannelIds, SfxChannelTimes, SfxChannelRecords, SfxBankSlots
+extern SfxBankPtrs, SfxBankNames, GameAudioState, SfxBankData, SfxBankSizes, GameSoundsOn, SpeechQueueRead, SpeechQueueWrite
 extern SpeechClipIndex, SpeechBankHandle, SpeechClipTable, SpeechQueueClipId, SpeechQueueDelay, SpeechQueueStage, SpeechQueuePriority, SpeechQueueTime
 extern SpeechBanksLoaded, SpeechRequestId, SpeechRequestA, SpeechRequestB, GameSettings, AudioOptions, SeasonUserTeam, GameOptionFlags
 extern SeasonPhase, SeasonActive, dword_1ACF65, dword_1AD226, dword_1AD45A, dword_1AD6AB, dword_1B8FA0, dword_1B905F
@@ -13043,7 +13043,7 @@ QueuePowerPlaySpeech:
         xor eax, eax
 .4:
         add eax, byte 0Ch
-        mov dword [dword eax+dword_1AC4FC], edx
+        mov dword [dword eax+SpeechPlaying], edx
         cmp eax, 0C0h
         jne short .4
         xor ebx, ebx
@@ -13058,10 +13058,10 @@ QueuePowerPlaySpeech:
         mov edx, dword [LastSfxPlayed]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov dword [nosplit eax*4+dword_1AC508], ecx
-        mov dword [nosplit eax*4+dword_1AC50C], esi
+        mov dword [nosplit eax*4+SfxChannelIds], ecx
+        mov dword [nosplit eax*4+SfxChannelTimes], esi
         inc edx
-        mov dword [nosplit eax*4+dword_1AC510], ebx
+        mov dword [nosplit eax*4+SfxChannelRecords], ebx
         mov ebx, 10h
         mov eax, edx
         sar edx, 1Fh
@@ -13306,7 +13306,7 @@ LoadSfxBank:
         mov edx, dword [byte esp+034h]
         mov dword [dword ebx+SfxBankSizes], eax
         add eax, edx
-        mov dword [dword ebx+dword_1AC5D8], eax
+        mov dword [dword ebx+SfxBankSlots], eax
         mov eax, 10266h
         call WaitSoundTime
         mov ecx, dword [dword ebx+SfxBankSizes]
@@ -13338,7 +13338,7 @@ LoadSfxBank:
         call WaitSoundTime
         cmp dword [byte esp+038h], byte 0
         je short .24
-        mov eax, dword [dword ebx+dword_1AC5D8]
+        mov eax, dword [dword ebx+SfxBankSlots]
         push eax
         push ebp
         call UnpackPlain
@@ -13365,7 +13365,7 @@ LoadSfxBank:
         pop ebx
         ret
 .24:
-        mov edx, dword [dword ebx+dword_1AC5D8]
+        mov edx, dword [dword ebx+SfxBankSlots]
         push edx
         lea eax, [byte esp+018h]
         push eax
@@ -13398,7 +13398,7 @@ LoadSfxBank:
 .26:
         shl edi, 2
         mov eax, SfxBankNames
-        mov ebx, dword [dword edi+dword_1AC5D8]
+        mov ebx, dword [dword edi+SfxBankSlots]
         mov edx, dword [dword edi+SfxBankSizes]
         add eax, edi
         call RegisterSoundBank
@@ -13602,7 +13602,7 @@ OpenAudioStream:
         xor eax, eax
         jmp near OpenAudioStream_D8.22
 .1:
-        mov edx, dword [dword_16AEB4]
+        mov edx, dword [DirPathTable]
         push edx
         call DriveLetterIndex
         add esp, byte 4
@@ -13612,7 +13612,7 @@ OpenAudioStream:
         test eax, eax
         je short .2
         push byte 0
-        mov ebx, dword [dword_16AEB4]
+        mov ebx, dword [DirPathTable]
         push ebx
         call DriveLetterIndex
         add esp, byte 4
@@ -13750,7 +13750,7 @@ OpenAudioStream_D8:
         cwde
         call SetMusicVolume
         call InitSpeechStream
-        cmp dword [dword_169254], byte 0FFFFFFFFh
+        cmp dword [SoundDriverId], byte 0FFFFFFFFh
         jne short .13
         call InitSpeechStream
 .13:
@@ -13764,8 +13764,8 @@ OpenAudioStream_D8:
         call OpenSpeechFile
         call ServiceIdle
         mov eax, 1
-        mov dword [dword_169250], edx
-        mov dword [dword_169254], eax
+        mov dword [SoundCardType], edx
+        mov dword [SoundDriverId], eax
         call CurrentArchiveName
         test eax, eax
         je short .14
@@ -13804,7 +13804,7 @@ OpenAudioStream_D8:
         xor eax, eax
 .18:
         add eax, byte 0Ch
-        mov dword [dword eax+dword_1AC4FC], ebx
+        mov dword [dword eax+SpeechPlaying], ebx
         cmp eax, 0C0h
         jne short .18
         xor ecx, ecx
@@ -13896,7 +13896,7 @@ InitGameAudio:
         call FreeSfxBank
         mov eax, 2
         call ShowLoadingBar
-        cmp dword [dword_169254], byte 0FFFFFFFFh
+        cmp dword [SoundDriverId], byte 0FFFFFFFFh
         jne short .3
         call InitSpeechStream
 .3:
@@ -13911,7 +13911,7 @@ InitGameAudio:
         call OpenSpeechFile
         call ServiceIdle
         mov eax, 5
-        mov dword [dword_169254], ebx
+        mov dword [SoundDriverId], ebx
         call ShowLoadingBar
         call ServiceIdle
         mov eax, 3
@@ -14067,7 +14067,7 @@ SetMusicVolume:
         sar edx, 1Fh
         idiv ebx
         add eax, byte 16h
-        mov edx, dword [dword_169250]
+        mov edx, dword [SoundCardType]
         mov word [SfxVolumeScale], ax
         test edx, edx
         je short .3
@@ -14239,7 +14239,7 @@ InitGameSounds:
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
-        mov ecx, dword [dword_169250]
+        mov ecx, dword [SoundCardType]
         mov dword [AmbientVolume], eax
         test ecx, ecx
         je short .1
@@ -14279,7 +14279,7 @@ InitGameSounds:
         mov eax, 3
         call FreeSfxBank
         call ServiceIdle
-        mov edx, dword [dword_169250]
+        mov edx, dword [SoundCardType]
         test edx, edx
         je short .7
         je short .6
@@ -14297,7 +14297,7 @@ InitGameSounds:
         call CloseSpeechChannels
 .6:
         xor eax, eax
-        mov dword [dword_169250], eax
+        mov dword [SoundCardType], eax
         call ServiceIdle
 .7:
         mov eax, dword [AudioOptions]
@@ -14306,7 +14306,7 @@ InitGameSounds:
         cwde
         call SetMusicVolume
         call ServiceIdle
-        cmp dword [dword_169254], byte 0FFFFFFFFh
+        cmp dword [SoundDriverId], byte 0FFFFFFFFh
         jne short .8
         call InitSpeechStream
 .8:
@@ -14319,7 +14319,7 @@ InitGameSounds:
         mov ecx, 1
         call OpenSpeechFile
         call ServiceIdle
-        mov dword [dword_169254], ecx
+        mov dword [SoundDriverId], ecx
         call ServiceIdle
         call CurrentArchiveName
         test eax, eax
@@ -14406,7 +14406,7 @@ ShutdownGameAudio:
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov ebx, dword [dword_169250]
+        mov ebx, dword [SoundCardType]
         mov dword [AmbientVolume], eax
         test ebx, ebx
         je short .2
@@ -14442,7 +14442,7 @@ ShutdownGameAudio:
         xor eax, eax
         mov dword [SfxReady], eax
         call ShutdownSound
-        mov edx, dword [dword_169250]
+        mov edx, dword [SoundCardType]
         test edx, edx
         je short .8
         je short .7
@@ -14460,7 +14460,7 @@ ShutdownGameAudio:
         call CloseSpeechChannels
 .7:
         xor ebp, ebp
-        mov dword [dword_169250], ebp
+        mov dword [SoundCardType], ebp
         call ServiceIdle
 .8:
         xor edx, edx
@@ -14976,11 +14976,11 @@ StopBankSounds:
         mov esi, 0FFFFFFFFh
         xor edx, edx
 .1:
-        cmp ebx, dword [dword edx+dword_1AC508]
+        cmp ebx, dword [dword edx+SfxChannelIds]
         jne short .2
-        mov eax, dword [dword edx+dword_1AC510]
+        mov eax, dword [dword edx+SfxChannelRecords]
         call StopChannel
-        mov dword [dword edx+dword_1AC508], esi
+        mov dword [dword edx+SfxChannelIds], esi
 .2:
         add edx, byte 0Ch
         cmp edx, 0C0h
@@ -15019,13 +15019,13 @@ PlayMenuSfx:
         and ebx, 0FFh
         xor edx, edx
 .1:
-        cmp ecx, dword [dword edx+dword_1AC508]
+        cmp ecx, dword [dword edx+SfxChannelIds]
         jne short .2
-        cmp ebx, dword [dword edx+dword_1AC50C]
+        cmp ebx, dword [dword edx+SfxChannelTimes]
         jne short .2
-        mov eax, dword [dword edx+dword_1AC510]
+        mov eax, dword [dword edx+SfxChannelRecords]
         call StopChannel
-        mov dword [dword edx+dword_1AC508], ebp
+        mov dword [dword edx+SfxChannelIds], ebp
 .2:
         add edx, byte 0Ch
         cmp edx, 0C0h
@@ -15039,7 +15039,7 @@ PlayMenuSfx:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; StopAllSfx                                      41FA0  97 PC, low confidence
-; Stops every voice in PlaySfx's list (dword_1AC508)
+; Stops every voice in PlaySfx's list (SfxChannelIds)
 ;-----------------------------------------------------------------------------
 StopAllSfx:
         push ecx
@@ -15049,11 +15049,11 @@ StopAllSfx:
         mov ecx, 0FFFFFFFFh
         xor edx, edx
 .1:
-        cmp dword [dword edx+dword_1AC508], byte 0FFFFFFFFh
+        cmp dword [dword edx+SfxChannelIds], byte 0FFFFFFFFh
         je short .2
-        mov eax, dword [dword edx+dword_1AC510]
+        mov eax, dword [dword edx+SfxChannelRecords]
         call StopChannel
-        mov dword [dword edx+dword_1AC508], ecx
+        mov dword [dword edx+SfxChannelIds], ecx
 .2:
         add edx, byte 0Ch
         cmp edx, 0C0h
@@ -15098,7 +15098,7 @@ PlaySfx:
         je short .1
         mov ebx, dword [SfxVolumeLevel]
         mov ecx, edx
-        mov eax, dword [dword eax+dword_1AC5EC]
+        mov eax, dword [dword eax+SfxBankPtrs]
         and ecx, 0FFh
         sar ebx, 10h
         mov edx, ecx
@@ -15107,10 +15107,10 @@ PlaySfx:
         mov ebx, eax
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov dword [nosplit eax*4+dword_1AC508], esi
-        mov dword [nosplit eax*4+dword_1AC50C], ecx
+        mov dword [nosplit eax*4+SfxChannelIds], esi
+        mov dword [nosplit eax*4+SfxChannelTimes], ecx
         inc edx
-        mov dword [nosplit eax*4+dword_1AC510], ebx
+        mov dword [nosplit eax*4+SfxChannelRecords], ebx
         mov ebx, 10h
         mov eax, edx
         sar edx, 1Fh
@@ -15347,17 +15347,17 @@ PlaySfxVolume:
         and esi, 0FFh
         mov ecx, dword [byte esp+04h]
         mov edx, esi
-        mov eax, dword [nosplit edi*4+dword_1AC5EC]
+        mov eax, dword [nosplit edi*4+SfxBankPtrs]
         call PlaySampleVolume
         mov edx, dword [LastSfxPlayed]
         mov ebx, eax
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         dec edi
-        mov dword [nosplit eax*4+dword_1AC508], edi
-        mov dword [nosplit eax*4+dword_1AC50C], esi
+        mov dword [nosplit eax*4+SfxChannelIds], edi
+        mov dword [nosplit eax*4+SfxChannelTimes], esi
         inc edx
-        mov dword [nosplit eax*4+dword_1AC510], ebx
+        mov dword [nosplit eax*4+SfxChannelRecords], ebx
         mov ebx, 10h
         mov eax, edx
         sar edx, 1Fh
@@ -15436,7 +15436,7 @@ SetAmbientVolume:
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov ebx, dword [dword_169250]
+        mov ebx, dword [SoundCardType]
         mov dword [AmbientVolume], eax
         test ebx, ebx
         je short .1
@@ -15476,7 +15476,7 @@ SetCrowdNoise:
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov ebx, dword [dword_169250]
+        mov ebx, dword [SoundCardType]
         mov dword [CrowdNoiseLevel], eax
         mov dword [AmbientVolume], eax
         test ebx, ebx
@@ -15592,12 +15592,12 @@ QueueSpeechRequest:
         mov dword [nosplit eax*4+SpeechReqHead], esi
         mov dword [nosplit eax*4+SpeechReqTail], ebx
         xor ebx, ebx
-        mov ecx, dword [dword_169294]
+        mov ecx, dword [SpeechQueueSize]
         mov dword [nosplit eax*4+SpeechRequests], ebx
         mov eax, 1
         add ecx, eax
         mov word [SpeechRequestA], dx
-        mov dword [dword_169294], ecx
+        mov dword [SpeechQueueSize], ecx
         pop edi
         pop esi
         pop ecx
@@ -15624,7 +15624,7 @@ ResetSpeechQueue:
         push dword 0C0h
         xor edx, edx
         mov ebx, 8000h
-        mov dword [dword_169294], edx
+        mov dword [SpeechQueueSize], edx
         xor edx, edx
         push SpeechReqHead
         mov word [SpeechRequestA], dx
@@ -15662,7 +15662,7 @@ ServiceSpeechQueue:
         push esi
         push edi
         push ebp
-        cmp dword [dword_169294], byte 0
+        cmp dword [SpeechQueueSize], byte 0
         je near .10
         cmp dword [SpeechQueueRead], byte 0
         jne near .3
@@ -15826,7 +15826,7 @@ ServiceSpeechQueue:
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
-        dec dword [dword_169294]
+        dec dword [SpeechQueueSize]
         mov word [SpeechQueuePrio], dx
 .10:
         pop ebp

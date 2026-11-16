@@ -2,300 +2,223 @@
 bits 32
 %include "hockey.inc"
 section s_169240 progbits alloc noexec write align=1
-global dword_169240, dword_169244, dword_169248, dword_16924C, dword_169250, dword_169254, dword_169258, dword_16925C
-global dword_169260, dword_169264, dword_16926C, dword_169274, dword_169278, dword_16927A, dword_16927C, dword_16927E
-global dword_169280, dword_169288, F32_9600, F32_768_PositionSfx, dword_169294, off_1692E8, off_1692F0, off_1692F4
-global off_169338, off_16936C, off_1693C8, off_169478, off_1694E0, off_169590, off_1695F8, off_169658
-global off_1696B8, off_169768, unk_169298, unk_1692B8, unk_1692C0, unk_1692E0, unk_1692F8, unk_169300
-global unk_169308, unk_169310, unk_169330, unk_16933C, unk_169344, unk_169364, unk_169370, unk_169378
-global unk_169398, unk_1693A0, unk_1693C0, unk_1693D0, unk_1693D8, unk_1693F8, unk_169400, unk_169420
-global unk_169428, unk_169448, unk_169450, unk_169470, unk_169488, unk_169490, unk_1694B0, unk_1694B8
-global unk_1694D8, unk_1694E8, unk_1694F0, unk_169510, unk_169518, unk_169538, unk_169540, unk_169560
-global unk_169580, unk_169588, unk_1695A0, unk_1695A8, unk_1695C8, unk_1695D0, unk_1695F0, unk_169600
-global unk_169608, unk_169628, unk_169630, unk_169650, unk_169660, unk_169668, unk_169688, unk_169690
-global unk_1696B0, unk_1696C0, unk_1696C8, unk_1696E8, unk_1696F0, unk_169710, unk_169718, unk_169738
-global unk_169740, unk_169760, unk_169778, word_169268, word_169282, word_169284
-dword_169240:
+global CommentaryOn, CommentaryClip, SpeechBanksReady, SpeechBankCountFront, SoundCardType, SoundDriverId, SpeechStreamFile, SpeechStreamBytes
+global SpeechStreamBase, SpeechStreamTimer, SpeechFileIds, SpeechDataId, PaQueueHead, PaQueueTail, PaQueueCount, PaQueueClip
+global PaQueueTime, StreamTimerHandle, F32_9600, F32_768_PositionSfx, SpeechQueueSize
+
+global SpeechClipDefs
+
+
+
+
+
+
+
+global SpeechDataOpen, PaQueuePrev, StreamTimerOn
+CommentaryOn:
         db 00h,00h,00h,00h
-dword_169244:
+CommentaryClip:
         db 00h,00h,00h,00h
-dword_169248:
+SpeechBanksReady:
         db 00h,00h,00h,00h
-dword_16924C:
+SpeechBankCountFront:
         db 00h,00h,00h,00h
-dword_169250:
+SoundCardType:
         db 00h,00h,00h,00h
-dword_169254:
+SoundDriverId:
         db 0FFh,0FFh,0FFh,0FFh
-dword_169258:
+SpeechStreamFile:
         db 00h,00h,00h,00h
-dword_16925C:
+SpeechStreamBytes:
         db 00h,00h,00h,00h
-dword_169260:
+SpeechStreamBase:
         db 00h,00h,00h,00h
-dword_169264:
+SpeechStreamTimer:
         db 0FFh,0FFh,0FFh,0FFh
-word_169268:
+SpeechDataOpen:
         db 00h,00h,00h,00h
-dword_16926C:
+SpeechFileIds:
         db 0E2h,00h,00h,00h,0E3h,00h,00h,00h
-dword_169274:
+SpeechDataId:
         db 0E5h,00h,00h,00h
-dword_169278:
+PaQueueHead:
         db 00h,00h
-dword_16927A:
+PaQueueTail:
         db 00h,00h
-dword_16927C:
+PaQueueCount:
         db 00h,00h
-dword_16927E:
+PaQueueClip:
         db 00h,00h
-dword_169280:
+PaQueueTime:
         db 00h,00h
-word_169282:
+PaQueuePrev:
         db 00h,00h
-word_169284:
+StreamTimerOn:
         db 00h,00h,00h,00h
-dword_169288:
+StreamTimerHandle:
         db 0FFh,0FFh,0FFh,0FFh
 F32_9600:
         db 00h,00h,016h,046h
 F32_768_PositionSfx:
         db 00h,00h,040h,044h
-dword_169294:
+SpeechQueueSize:
         db 00h,00h,00h,00h
-unk_169298:
+SpeechClipDefs:
         db 00h,00h,00h,00h,070h,02h,00h,00h,078h,00h,00h,00h,070h,02h,00h,00h
         db 078h,00h,00h,00h,010h,023h,00h,00h,00h,00h,00h,00h,010h,023h,00h,00h
-unk_1692B8:
         db 04h,00h,00h,00h
-        dd unk_169298
-unk_1692C0:
+        dd SpeechClipDefs
         db 078h,0Fh,00h,00h,070h,02h,00h,00h,0F0h,0Fh,00h,00h,070h,02h,00h,00h
         db 0F0h,0Fh,00h,00h,010h,023h,00h,00h,078h,0Fh,00h,00h,010h,023h,00h,00h
-unk_1692E0:
         db 04h,00h,00h,00h
-        dd unk_1692C0
-off_1692E8:
-        dd unk_1692B8
-        dd unk_1692E0
-off_1692F0:
-        dd unk_1692B8
-off_1692F4:
-        dd unk_1692E0
-unk_1692F8:
+        dd SpeechClipDefs+28h
+        dd SpeechClipDefs+20h
+        dd SpeechClipDefs+48h
+        dd SpeechClipDefs+20h
+        dd SpeechClipDefs+48h
         db 01h,00h,00h,00h
-        dd off_1692F0
-unk_169300:
+        dd SpeechClipDefs+58h
         db 01h,00h,00h,00h
-        dd off_1692F4
-unk_169308:
+        dd SpeechClipDefs+5Ch
         db 02h,00h,00h,00h
-        dd off_1692E8
-unk_169310:
+        dd SpeechClipDefs+50h
         db 00h,00h,00h,00h,010h,0Eh,00h,00h,0F0h,0Fh,00h,00h,010h,0Eh,00h,00h
         db 0F0h,0Fh,00h,00h,070h,017h,00h,00h,00h,00h,00h,00h,070h,017h,00h,00h
-unk_169330:
         db 04h,00h,00h,00h
-        dd unk_169310
-off_169338:
-        dd unk_169330
-unk_16933C:
+        dd SpeechClipDefs+78h
+        dd SpeechClipDefs+098h
         db 01h,00h,00h,00h
-        dd off_169338
-unk_169344:
+        dd SpeechClipDefs+0A0h
         db 0C8h,04h,00h,00h,070h,0Eh,00h,00h,028h,0Bh,00h,00h,070h,0Eh,00h,00h
         db 028h,0Bh,00h,00h,010h,017h,00h,00h,0C8h,04h,00h,00h,010h,017h,00h,00h
-unk_169364:
         db 04h,00h,00h,00h
-        dd unk_169344
-off_16936C:
-        dd unk_169364
-unk_169370:
+        dd SpeechClipDefs+0ACh
+        dd SpeechClipDefs+0CCh
         db 01h,00h,00h,00h
-        dd off_16936C
-unk_169378:
+        dd SpeechClipDefs+0D4h
         db 00h,00h,00h,00h,060h,0Ch,00h,00h,0F0h,0Fh,00h,00h,060h,0Ch,00h,00h
         db 0F0h,0Fh,00h,00h,040h,0Eh,00h,00h,00h,00h,00h,00h,040h,0Eh,00h,00h
-unk_169398:
         db 04h,00h,00h,00h
-        dd unk_169378
-unk_1693A0:
+        dd SpeechClipDefs+0E0h
         db 00h,00h,00h,00h,040h,017h,00h,00h,0F0h,0Fh,00h,00h,040h,017h,00h,00h
         db 0F0h,0Fh,00h,00h,020h,019h,00h,00h,00h,00h,00h,00h,020h,019h,00h,00h
-unk_1693C0:
         db 04h,00h,00h,00h
-        dd unk_1693A0
-off_1693C8:
-        dd unk_169398
-        dd unk_1693C0
-unk_1693D0:
+        dd SpeechClipDefs+108h
+        dd SpeechClipDefs+100h
+        dd SpeechClipDefs+128h
         db 02h,00h,00h,00h
-        dd off_1693C8
-unk_1693D8:
+        dd SpeechClipDefs+130h
         db 00h,00h,00h,00h,030h,09h,00h,00h,0F8h,04h,00h,00h,030h,09h,00h,00h
         db 0F8h,04h,00h,00h,050h,0Dh,00h,00h,00h,00h,00h,00h,050h,0Dh,00h,00h
-unk_1693F8:
         db 04h,00h,00h,00h
-        dd unk_1693D8
-unk_169400:
+        dd SpeechClipDefs+140h
         db 0F8h,0Ah,00h,00h,030h,09h,00h,00h,0F0h,0Fh,00h,00h,030h,09h,00h,00h
         db 0F0h,0Fh,00h,00h,050h,0Dh,00h,00h,0F8h,0Ah,00h,00h,050h,0Dh,00h,00h
-unk_169420:
         db 04h,00h,00h,00h
-        dd unk_169400
-unk_169428:
+        dd SpeechClipDefs+168h
         db 00h,00h,00h,00h,030h,018h,00h,00h,0F8h,04h,00h,00h,030h,018h,00h,00h
         db 0F8h,04h,00h,00h,050h,01Ch,00h,00h,00h,00h,00h,00h,050h,01Ch,00h,00h
-unk_169448:
         db 04h,00h,00h,00h
-        dd unk_169428
-unk_169450:
+        dd SpeechClipDefs+190h
         db 0F8h,0Ah,00h,00h,030h,018h,00h,00h,0F0h,0Fh,00h,00h,030h,018h,00h,00h
         db 0F0h,0Fh,00h,00h,050h,01Ch,00h,00h,0F8h,0Ah,00h,00h,050h,01Ch,00h,00h
-unk_169470:
         db 04h,00h,00h,00h
-        dd unk_169450
-off_169478:
-        dd unk_1693F8
-        dd unk_169420
-        dd unk_169448
-        dd unk_169470
-unk_169488:
+        dd SpeechClipDefs+1B8h
+        dd SpeechClipDefs+160h
+        dd SpeechClipDefs+188h
+        dd SpeechClipDefs+1B0h
+        dd SpeechClipDefs+1D8h
         db 04h,00h,00h,00h
-        dd off_169478
-unk_169490:
+        dd SpeechClipDefs+1E0h
         db 08h,07h,00h,00h,010h,02h,00h,00h,0E8h,08h,00h,00h,010h,02h,00h,00h
         db 0E8h,08h,00h,00h,030h,06h,00h,00h,08h,07h,00h,00h,030h,06h,00h,00h
-unk_1694B0:
         db 04h,00h,00h,00h
-        dd unk_169490
-unk_1694B8:
+        dd SpeechClipDefs+1F8h
         db 08h,07h,00h,00h,050h,01Fh,00h,00h,0E8h,08h,00h,00h,050h,01Fh,00h,00h
         db 0E8h,08h,00h,00h,070h,023h,00h,00h,08h,07h,00h,00h,070h,023h,00h,00h
-unk_1694D8:
         db 04h,00h,00h,00h
-        dd unk_1694B8
-off_1694E0:
-        dd unk_1694B0
-        dd unk_1694D8
-unk_1694E8:
+        dd SpeechClipDefs+220h
+        dd SpeechClipDefs+218h
+        dd SpeechClipDefs+240h
         db 02h,00h,00h,00h
-        dd off_1694E0
-unk_1694F0:
+        dd SpeechClipDefs+248h
         db 00h,00h,00h,00h,00h,00h,00h,00h,0E8h,05h,00h,00h,00h,00h,00h,00h
         db 078h,00h,00h,00h,070h,02h,00h,00h,00h,00h,00h,00h,070h,02h,00h,00h
-unk_169510:
         db 04h,00h,00h,00h
-        dd unk_1694F0
-unk_169518:
+        dd SpeechClipDefs+258h
         db 08h,0Ah,00h,00h,00h,00h,00h,00h,0F0h,0Fh,00h,00h,00h,00h,00h,00h
         db 0F0h,0Fh,00h,00h,070h,02h,00h,00h,078h,0Fh,00h,00h,070h,02h,00h,00h
-unk_169538:
         db 04h,00h,00h,00h
-        dd unk_169518
-unk_169540:
+        dd SpeechClipDefs+280h
         db 00h,00h,00h,00h,010h,023h,00h,00h,078h,00h,00h,00h,010h,023h,00h,00h
         db 0E8h,05h,00h,00h,080h,025h,00h,00h,00h,00h,00h,00h,080h,025h,00h,00h
-unk_169560:
         db 078h,0Fh,00h,00h,010h,023h,00h,00h,0F0h,0Fh,00h,00h,010h,023h,00h,00h
         db 0F0h,0Fh,00h,00h,080h,025h,00h,00h,08h,0Ah,00h,00h,080h,025h,00h,00h
-unk_169580:
         db 04h,00h,00h,00h
-        dd unk_169540
-unk_169588:
+        dd SpeechClipDefs+2A8h
         db 04h,00h,00h,00h
-        dd unk_169560
-off_169590:
-        dd unk_169510
-        dd unk_169538
-        dd unk_169588
-        dd unk_169580
-unk_1695A0:
+        dd SpeechClipDefs+2C8h
+        dd SpeechClipDefs+278h
+        dd SpeechClipDefs+2A0h
+        dd SpeechClipDefs+2F0h
+        dd SpeechClipDefs+2E8h
         db 04h,00h,00h,00h
-        dd off_169590
-unk_1695A8:
+        dd SpeechClipDefs+2F8h
         db 078h,06h,00h,00h,0E0h,04h,00h,00h,078h,09h,00h,00h,0E0h,04h,00h,00h
         db 078h,09h,00h,00h,080h,0Ah,00h,00h,078h,06h,00h,00h,080h,0Ah,00h,00h
-unk_1695C8:
         db 04h,00h,00h,00h
-        dd unk_1695A8
-unk_1695D0:
+        dd SpeechClipDefs+310h
         db 078h,06h,00h,00h,0A0h,020h,00h,00h,078h,09h,00h,00h,0A0h,020h,00h,00h
         db 078h,09h,00h,00h,00h,01Bh,00h,00h,078h,06h,00h,00h,00h,01Bh,00h,00h
-unk_1695F0:
         db 04h,00h,00h,00h
-        dd unk_1695D0
-off_1695F8:
-        dd unk_1695C8
-        dd unk_1695F0
-unk_169600:
+        dd SpeechClipDefs+338h
+        dd SpeechClipDefs+330h
+        dd SpeechClipDefs+358h
         db 02h,00h,00h,00h
-        dd off_1695F8
-unk_169608:
+        dd SpeechClipDefs+360h
         db 00h,00h,00h,00h,080h,0Ah,00h,00h,0C8h,04h,00h,00h,080h,0Ah,00h,00h
         db 0C8h,04h,00h,00h,00h,01Bh,00h,00h,00h,00h,00h,00h,00h,01Bh,00h,00h
-unk_169628:
         db 04h,00h,00h,00h
-        dd unk_169608
-unk_169630:
+        dd SpeechClipDefs+370h
         db 028h,0Bh,00h,00h,080h,0Ah,00h,00h,0F0h,0Fh,00h,00h,080h,0Ah,00h,00h
         db 0F0h,0Fh,00h,00h,00h,01Bh,00h,00h,028h,0Bh,00h,00h,00h,01Bh,00h,00h
-unk_169650:
         db 04h,00h,00h,00h
-        dd unk_169630
-off_169658:
-        dd unk_169628
-        dd unk_169650
-unk_169660:
+        dd SpeechClipDefs+398h
+        dd SpeechClipDefs+390h
+        dd SpeechClipDefs+3B8h
         db 02h,00h,00h,00h
-        dd off_169658
-unk_169668:
+        dd SpeechClipDefs+3C0h
         db 0A8h,06h,00h,00h,00h,00h,00h,00h,048h,09h,00h,00h,00h,00h,00h,00h
         db 0E8h,08h,00h,00h,010h,02h,00h,00h,08h,07h,00h,00h,010h,02h,00h,00h
-unk_169688:
         db 04h,00h,00h,00h
-        dd unk_169668
-unk_169690:
+        dd SpeechClipDefs+3D0h
         db 08h,07h,00h,00h,070h,023h,00h,00h,0E8h,08h,00h,00h,070h,023h,00h,00h
         db 048h,09h,00h,00h,080h,025h,00h,00h,0A8h,06h,00h,00h,080h,025h,00h,00h
-unk_1696B0:
         db 04h,00h,00h,00h
-        dd unk_169690
-off_1696B8:
-        dd unk_169688
-        dd unk_1696B0
-unk_1696C0:
+        dd SpeechClipDefs+3F8h
+        dd SpeechClipDefs+3F0h
+        dd SpeechClipDefs+418h
         db 02h,00h,00h,00h
-        dd off_1696B8
-unk_1696C8:
+        dd SpeechClipDefs+420h
         db 0E8h,05h,00h,00h,020h,01h,00h,00h,068h,07h,00h,00h,020h,01h,00h,00h
         db 068h,07h,00h,00h,070h,02h,00h,00h,0E8h,05h,00h,00h,070h,02h,00h,00h
-unk_1696E8:
         db 04h,00h,00h,00h
-        dd unk_1696C8
-unk_1696F0:
+        dd SpeechClipDefs+430h
         db 088h,08h,00h,00h,020h,01h,00h,00h,08h,0Ah,00h,00h,020h,01h,00h,00h
         db 08h,0Ah,00h,00h,070h,02h,00h,00h,088h,08h,00h,00h,070h,02h,00h,00h
-unk_169710:
         db 04h,00h,00h,00h
-        dd unk_1696F0
-unk_169718:
+        dd SpeechClipDefs+458h
         db 0E8h,05h,00h,00h,010h,023h,00h,00h,068h,07h,00h,00h,010h,023h,00h,00h
         db 068h,07h,00h,00h,060h,024h,00h,00h,0E8h,05h,00h,00h,060h,024h,00h,00h
-unk_169738:
         db 04h,00h,00h,00h
-        dd unk_169718
-unk_169740:
+        dd SpeechClipDefs+480h
         db 088h,08h,00h,00h,010h,023h,00h,00h,08h,0Ah,00h,00h,010h,023h,00h,00h
         db 08h,0Ah,00h,00h,060h,024h,00h,00h,088h,08h,00h,00h,060h,024h,00h,00h
-unk_169760:
         db 04h,00h,00h,00h
-        dd unk_169740
-off_169768:
-        dd unk_1696E8
-        dd unk_169710
-        dd unk_169738
-        dd unk_169760
-unk_169778:
+        dd SpeechClipDefs+4A8h
+        dd SpeechClipDefs+450h
+        dd SpeechClipDefs+478h
+        dd SpeechClipDefs+4A0h
+        dd SpeechClipDefs+4C8h
         db 04h,00h,00h,00h
-        dd off_169768
+        dd SpeechClipDefs+4D0h

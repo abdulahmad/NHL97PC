@@ -2,26 +2,26 @@
 bits 32
 %include "hockey.inc"
 section s_1B001C nobits alloc noexec write align=1
-global dword_1B001C, dword_1B0020, dword_1B0024, dword_1B0028, dword_1B0038, dword_1B0068, dword_1B0074, dword_1B0084
+global OpeningArt, OpeningArtPalette, OpeningArtSize, RinkTexturePtrs, RinkTextureRows, RinkTextureInfo, StandsDetailLevel, FlashSpotTime
 global dword_1B0088, dword_1B0208, dword_1B020C, dword_1B0210, dword_1B022C, dword_1B0248, dword_1B0254, dword_1B0258
-global dword_1B0264, unk_1B0078
-dword_1B001C:
+global dword_1B0264, FlashSpotPos
+OpeningArt:
         resb 4
-dword_1B0020:
+OpeningArtPalette:
         resb 4
-dword_1B0024:
+OpeningArtSize:
         resb 4
-dword_1B0028:
+RinkTexturePtrs:
         resb 16
-dword_1B0038:
+RinkTextureRows:
         resb 48
-dword_1B0068:
+RinkTextureInfo:
         resb 12
-dword_1B0074:
+StandsDetailLevel:
         resb 4
-unk_1B0078:
+FlashSpotPos:
         resb 12
-dword_1B0084:
+FlashSpotTime:
         resb 4
 dword_1B0088:
         resb 384

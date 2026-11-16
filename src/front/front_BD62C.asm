@@ -7,8 +7,8 @@ extern str_Replregs, str_REPLAYNDX, str_DATAREPLAYNDX2, str_DONTHAVEIT2, str_Rep
 extern str_S12, str_NOIS, str_ARWD, gmode, byte_1C6040, byte_1CB004, F32_0p005_ReplayScreen, F32_0p003125_ReplayScreen
 extern F32_0p005_DrawReplayTimeline, F32_0p003125_DrawReplayTimeline, F32_0p003125_PickReplayScreen, F32_0p005_PickReplayScreen, F32_0p003125_DrawReplayEntry, F32_0p005_DrawReplayEntry, F32_0p003125_ReplayMenuScreen, F32_0p005_ReplayMenuScreen
 extern ClockShown, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
-extern VideoModeCount, QuantizePalette, dword_19CD10, dword_19CD14, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C
-extern dword_19CD30, dword_19CD34, dword_19CD4C, dword_19CD54, ViewSizeIndex, GameSettings, GameOptionFlags, dword_1B1B64
+extern VideoModeCount, QuantizePalette, VideoModePanelMode, VideoModeSel, ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH
+extern VideoModeChanged, DisplayFlags, ReplayLoaded, GameObjects, ViewSizeIndex, GameSettings, GameOptionFlags, dword_1B1B64
 extern dword_1B8F4C, dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, dword_1C95B4
 extern dword_1C95BC, dword_1CAECC, dword_1CAED0, dword_1CAED4, dword_1CAED8, dword_1CAEDC, dword_1CAEE0, dword_1CAEE4
 extern dword_1CAEE8, dword_1CAEEC, dword_1CAEF0, dword_1CAEF4, dword_1CAEF8, dword_1CAF8C, dword_1CAF90, dword_1CAF94
@@ -57,7 +57,7 @@ RunReplay:
         mov ecx, 10h
         mov edx, 10000h
         mov edi, unk_1CAEFC
-        mov esi, dword_19CD10
+        mov esi, VideoModePanelMode
         mov eax, 0FFFFFFFFh
         xor ebx, ebx
         rep movsd
@@ -125,12 +125,12 @@ RunReplay:
         mov eax, dword [byte ebp-01Ch]
         call SetVideoMode
         mov eax, dword [byte ebp-01Ch]
-        mov dword [dword_19CD10], eax
+        mov dword [VideoModePanelMode], eax
         mov eax, dword [byte ebp-018h]
-        mov dword [dword_19CD14], eax
+        mov dword [VideoModeSel], eax
         mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
-        mov dword [dword_19CD30], 0
+        mov dword [VideoModeChanged], 0
         mov eax, dword [ViewSizeIndex]
         call ShowView
         movsx ebx, word [str_D_ChangeViewSize]
@@ -161,7 +161,7 @@ RunReplay:
         LD sub, eax, edx
         sar eax, 1
         mov esi, dword [ViewSizeIndex]
-        mov dword [dword_19CD34], 0
+        mov dword [DisplayFlags], 0
         mov dword [byte ebp-04h], eax
         test byte [byte esi+04h], 2
         je short .1
@@ -177,11 +177,11 @@ RunReplay:
         sub esi, eax
 .2:
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD28], ecx
-        mov dword [dword_19CD2C], ebx
-        mov dword [dword_19CD20], edi
+        mov dword [ViewWindowW], ecx
+        mov dword [ViewWindowH], ebx
+        mov dword [ViewWindowX], edi
         mov edx, ecx
-        mov dword [dword_19CD24], esi
+        mov dword [ViewWindowY], esi
         call SetViewSize
         mov eax, dword [ViewSizeIndex]
         mov ebx, esi
@@ -197,13 +197,13 @@ RunReplay:
         mov eax, dword [byte ebp-01Ch]
         call SetVideoMode
         mov eax, dword [byte ebp-01Ch]
-        mov dword [dword_19CD10], eax
+        mov dword [VideoModePanelMode], eax
         mov eax, dword [byte ebp-018h]
-        mov dword [dword_19CD14], eax
+        mov dword [VideoModeSel], eax
         mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD30], 0
+        mov dword [VideoModeChanged], 0
         call ShowView
         movsx ebx, word [str_D_ChangeViewSize]
         mov eax, dword [dword_16E464]
@@ -233,7 +233,7 @@ RunReplay:
         LD sub, eax, edx
         sar eax, 1
         mov esi, dword [ViewSizeIndex]
-        mov dword [dword_19CD34], 0
+        mov dword [DisplayFlags], 0
         mov dword [byte ebp-08h], eax
         test byte [byte esi+04h], 2
         je short .3
@@ -249,17 +249,17 @@ RunReplay:
         sub esi, eax
 .4:
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD28], ecx
-        mov dword [dword_19CD2C], ebx
-        mov dword [dword_19CD20], edi
+        mov dword [ViewWindowW], ecx
+        mov dword [ViewWindowH], ebx
+        mov dword [ViewWindowX], edi
         mov edx, ecx
-        mov dword [dword_19CD24], esi
+        mov dword [ViewWindowY], esi
         call SetViewSize
         mov ecx, 10h
         mov eax, dword [ViewSizeIndex]
         mov ebx, esi
         mov edx, edi
-        mov edi, dword_19CD10
+        mov edi, VideoModePanelMode
         mov esi, unk_1CAEFC
         call SetViewOrigin
         mov dword [InGameMenuRequest], 0
@@ -336,17 +336,17 @@ LoadReplay:
         test eax, eax
         je short .2
         mov eax, dword [dword_16E464]
-        mov dword [dword_19CD30], 0
-        mov dword [dword_19CD10], eax
+        mov dword [VideoModeChanged], 0
+        mov dword [VideoModePanelMode], eax
         mov eax, dword [dword_16E468]
-        mov dword [dword_19CD34], 0
-        mov dword [dword_19CD14], eax
+        mov dword [DisplayFlags], 0
+        mov dword [VideoModeSel], eax
         cmp byte [byte_1C6040], 0
         sete al
         movzx eax, al
-        mov dword [dword_19CD4C], eax
+        mov dword [ReplayLoaded], eax
 .2:
-        mov eax, dword_19CD10
+        mov eax, VideoModePanelMode
         call InitGameGraphics
         call InitAnimPoints
         call ResetPlayers
@@ -360,7 +360,7 @@ LoadReplay:
         call ReplayFreeFrames
         call FreeAnimStates
         mov ecx, 0Dh
-        mov eax, dword_19CD54
+        mov eax, GameObjects
         xor edx, edx
         call __STOSD
         call FreeAnimTables
@@ -1021,7 +1021,7 @@ ReplayScreen_EF:
         call ReplayFreeFrames
         call FreeAnimStates
         mov ecx, 0Dh
-        mov eax, dword_19CD54
+        mov eax, GameObjects
         xor edx, edx
         call __STOSD
         call FreeAnimTables
@@ -1558,7 +1558,7 @@ ReplayScreen_929:
         call ReplayFreeFrames
         call FreeAnimStates
         mov ecx, 0Dh
-        mov eax, dword_19CD54
+        mov eax, GameObjects
         xor edx, edx
         call __STOSD
         call FreeAnimTables

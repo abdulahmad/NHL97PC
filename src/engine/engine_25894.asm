@@ -11,7 +11,7 @@ extern F32_0p25, F32_7, F32_0p125, F32_0p125_KnockPuckAway, F32_48_PuckHitsGoali
 extern F32_3_PuckHitsGoalie, F32_0p142857, F32_7_PuckPlayerContact, F32_0p125_PuckPlayerContact, F32_0p5_pucknorm_body, F32_neg1872, F32_neg1152, F32_neg1392_pucknorm_body
 extern str_Punct_assintrostand, IntroLineX, IntroLineY, IntroLineCount, RefState, LastTouchPlayer, PuckHitFlag, ZoneTargetX
 extern ZoneFlags, FaceoffWinner, penshottimer, PuckX, RefTarget, RefPlayer, SlotPlayers, SlotPuckPlayer
-extern InputActive, PuckChasers, FaceoffCenter, ChangePlayer, dword_19CCC2, StanleyPlayer, FaceoffPuckX, FaceoffPuckY
+extern InputActive, PuckChasers, FaceoffCenter, ChangePlayer, WhistleTime, StanleyPlayer, FaceoffPuckX, FaceoffPuckY
 extern PlayerPointsTable, PlayerScoreTable, PuckStickTimers, PuckCarrierPos, PuckPathTable, HomeTeamRecord, AwayTeamRecord
 extern AwayTeamRecord, HmAssignPlayer, HmGoalieOnIce, AwAssignPlayer, AwGoalieOnIce, GameSettings, GameOptionFlags, dword_1B8FA0
 extern dword_1B9CA4, dword_1B9CAC, dword_1BAAF8, dword_1BAB00, dword_1BF060, dword_1BF068, hmtmstruct, hypot_
@@ -4868,7 +4868,7 @@ assrefwhistle:
         test byte [dword ebx+0C1h], 10h
         jne short .4
         call ReleaseBoxPlayers
-        mov eax, dword [dword_19CCC2]
+        mov eax, dword [WhistleTime]
         sar eax, 10h
         call StartCrowdMusic
         and byte [dword ebx+0C1h], 0FDh
@@ -5023,7 +5023,7 @@ assrefgoalpa:
         mov dword [RefTarget], esi
         mov dword [byte ebx+060h], 0
         call ReleaseBoxPlayers
-        mov eax, dword [dword_19CCC2]
+        mov eax, dword [WhistleTime]
         sar eax, 10h
         call StartCrowdMusic
         mov cl, byte [dword ebx+0C1h]

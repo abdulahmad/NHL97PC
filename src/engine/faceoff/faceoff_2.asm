@@ -4,7 +4,7 @@ bits 32
 section s_2EEE8 progbits alloc exec nowrite align=1
 extern IF@ATAN2, ReturnGoalies, SortCords, __CHP, str_Pktbuffer, awtmstruct, LineSlotPositions, LineSlotOffsets
 extern LineReplaceTable, SlotJoyMap, PenaltyPending, PenaltyTeam, PenaltySlots, PenaltyQueue, PenaltyBoxCount, gmode
-extern PuckFlags, PlayFlags, holdreset, RefSignal, byte_19CD8C, LineSlotTaken, LineSlotStart, DefenseByDefense
+extern PuckFlags, PlayFlags, holdreset, RefSignal, PadStates, LineSlotTaken, LineSlotStart, DefenseByDefense
 extern ForwardsByOffense, GoalieFlags, PlayerControlFlags, PlayerStateFlags, HmPlayerFlags, HmCoachGoalie, HmPlayerEnergy, AwPlayerFlags
 extern AwCoachGoalie, AwPlayerEnergy, F32_neg1392_PickShotTarget, F32_neg432, F32_neg1392_updatepentime_ut_chk, F32_144_assfwatch, F32_48_assfwatch, ShotTargetX
 extern ShotTargetY, LineReplaceOrder, PenaltyMinutes, PenaltyFlags, PenaltyPaCodes, PenaltyTypes, PacketLinkOpen, PacketLinkMode
@@ -7559,7 +7559,7 @@ SlotToJoy:
         push ebx
         push edx
         xor edx, edx
-        mov dx, word [nosplit eax*2+byte_19CD8C]
+        mov dx, word [nosplit eax*2+PadStates]
         mov ebx, eax
         mov eax, edx
         shl ebx, 4

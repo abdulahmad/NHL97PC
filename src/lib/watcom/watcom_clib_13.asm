@@ -38,7 +38,7 @@ extern InstallTimer, CurrentArchiveName, MakeColor, MouseInit, DebugSetLine, Sel
 extern FillPolygon, FillRectColor, SetTextColors, DrawTextBoxedAt, RefreshTextColors, MatTranspose, TransformVecs, VecAdd
 extern VecSub, AddVecs, VecCross, VecScale, VecNormalize, VecCrossUnit, unk_10003, DebugTagStr
 extern SerialPorts
-extern VideoOptionsText, unk_19CCB0, PartFuncTable, VideoCoefs
+extern VideoOptionsText, GripCallOffset, PartFuncTable, VideoCoefs
 extern VideoCoefs, VideoIdctTemp
 extern VideoIdctTemp
 extern VideoIdctTemp, VideoIdctOut
@@ -5736,7 +5736,7 @@ start_74:
         db 03Eh,0B9h                            ; insn: mov ecx,7EC00h
         dd StartupStack
         db 03Eh,0BFh                            ; insn: mov edi,3CCB0h
-        dd unk_19CCB0
+        dd GripCallOffset
         sub ecx, edi
         cmp byte [_Extender], 1
         jne short .19

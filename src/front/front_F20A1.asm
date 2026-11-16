@@ -19,10 +19,10 @@ extern F32_180_DetailLevelMenu, F32_130_DetailLevelMenu, F32_90_DetailLevelMenu,
 extern F32_64_DetailLevelMenu, F32_81_DetailLevelMenu, F32_98_DetailLevelMenu, F32_115_DetailLevelMenu, F32_132_DetailLevelMenu, F32_178_DetailLevelMenu, F32_5_DetailLevelMenu, F32_19_DetailLevelMenu
 extern F32_36_DetailLevelMenu, F32_53_DetailLevelMenu, F32_87_DetailLevelMenu, F32_104_DetailLevelMenu, F32_121_DetailLevelMenu, F32_37, F32_18, F32_15_DetailLevelMenu
 extern F32_63, F32_0p005_DetailLevelMenu, F32_0p003125_DetailLevelMenu, F32_55_DetailLevelMenu, F32_40_DetailLevelMenu, F32_100_DetailLevelMenu, F32_85_DetailLevelMenu, F32_25_DetailLevelMenu
-extern ClockShown, InGameMenuRequest, dword_16AF3C, dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF50, dword_16AF54
-extern dword_16AF58, dword_16AF5C, dword_16D2BC, dword_16DA9C, dword_16E30C, mousex, mousey, dword_16E464
-extern dword_16E468, QuantizePalette, DrawDestPitch, dword_19CD10, dword_19CD30, dword_19CD54, ActiveCameraScene, ViewSizeChanged
-extern FadeDone, GameSettings, AudioOptions, GameOptionFlags, dword_1ADC88, dword_1B1410, dword_1B1464, dword_1B8578
+extern ClockShown, InGameMenuRequest, ShowFrameRate, ShowStands, ShowRink, ShowCenterLogo, ShowOverlay, ShowCrowd
+extern ShowBenches, CameraScenesEnabled, dword_16D2BC, dword_16DA9C, dword_16E30C, mousex, mousey, dword_16E464
+extern dword_16E468, QuantizePalette, DrawDestPitch, VideoModePanelMode, VideoModeChanged, GameObjects, ActiveCameraScene, ViewSizeChanged
+extern FadeDone, GameSettings, AudioOptions, GameOptionFlags, ArenaArchive, dword_1B1410, dword_1B1464, dword_1B8578
 extern dword_1C5DE4, dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dword_1CEF98, dword_1CEF9C, dword_1CEFA0
 extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dword_1CEFBC, PresentFuncInput, F64_65536_LoadPauseArt
 extern F64_0p003125, F64_0p005, F64_200, F64_0p00208333, F64_320, F64_0p0015625, F64_0p003125_PickEditLinesTeam, F64_0p005_PickEditLinesTeam
@@ -950,7 +950,7 @@ DrawClockOverlay:
         push ecx
         push edx
         enter 0ACh, 0
-        cmp dword [dword_16AF5C], byte 0
+        cmp dword [CameraScenesEnabled], byte 0
         je short .1
         lea eax, [dword ebp-0ACh]
         push eax
@@ -2310,7 +2310,7 @@ RunIntermission:
         call QueueMusicRestart
         lea eax, [dword ebp-011Ch]
         push eax
-        mov dword [dword_16AF5C], 1
+        mov dword [CameraScenesEnabled], 1
         call SaveTextState
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
@@ -2329,8 +2329,8 @@ RunIntermission:
         call FadeOut
         call ResetForIntermission
         mov dword [dword_16D2BC], 1
-        mov eax, dword [dword_16AF58]
-        mov dword [dword_16AF58], 0
+        mov eax, dword [ShowBenches]
+        mov dword [ShowBenches], 0
         mov dword [byte ebp-04h], eax
         call WaitMusicEnd
         mov eax, 1
@@ -2452,7 +2452,7 @@ RunIntermission:
         call DrawTextAt
         add esp, byte 0Ch
         call PresentScreen
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         mov edx, dword [dword_16E468]
         movzx eax, al
@@ -2506,7 +2506,7 @@ RunIntermission:
         call SecondsToSamples
         call WaitSoundTime
         mov eax, dword [byte ebp-04h]
-        mov dword [dword_16AF58], eax
+        mov dword [ShowBenches], eax
         jmp near PickEditLinesTeam_5B5
 ;-----------------------------------------------------------------------------
 ; RefreshModelFromMenu                            F3F33  97 PC, low confidence
@@ -2732,7 +2732,7 @@ PauseMenu:
         jl short .2
         lea eax, [dword ebp-0B6h]
         push eax
-        mov dword [dword_16AF5C], 1
+        mov dword [CameraScenesEnabled], 1
         call SaveTextState
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
@@ -2805,7 +2805,7 @@ PauseMenu_16C:
         mov eax, dword [byte eax+02Ch]
         call RemoveOverlayWindow
         call RunReplay
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
@@ -2997,7 +2997,7 @@ PauseMenu_29A:
         lea eax, [byte ebp-0Ah]
         movsx edx, si
         call DrawIntermissionTitle
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         shl eax, 4
@@ -3094,7 +3094,7 @@ PauseMenu_4EF:
         lea eax, [byte ebp-0Ah]
         movsx edx, si
         call DrawIntermissionTitle
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
@@ -3268,7 +3268,7 @@ ReturnToGame:
         jne short .1
         call InitGameAudio
 .1:
-        mov eax, dword_19CD10
+        mov eax, VideoModePanelMode
         call InitGameGraphics
         call MenuCameraScene
         call InitGameVideo
@@ -3277,7 +3277,7 @@ ReturnToGame:
         call ChangeViewSize
         call LoadGameLogos
         call SetupPauseArt
-        mov eax, dword [dword_1ADC88]
+        mov eax, dword [ArenaArchive]
         call SetRangePalette
         mov eax, 947Ah
         xor ecx, ecx
@@ -3288,7 +3288,7 @@ ReturnToGame:
         add ebx, eax
         mov edx, dword [dword eax+dword_1B1464]
         add ebx, byte 58h
-        mov eax, dword [nosplit ecx*4+dword_19CD54]
+        mov eax, dword [nosplit ecx*4+GameObjects]
         inc ecx
         call UpdateAllPoses
         cmp ecx, byte 0Dh
@@ -3297,7 +3297,7 @@ ReturnToGame:
         call RestoreSavedPalette
         xor eax, eax
         call UpdateGameDisplay
-        cmp dword [dword_16AF5C], byte 0
+        cmp dword [CameraScenesEnabled], byte 0
         je short .3
         lea eax, [dword ebp-0ACh]
         push eax
@@ -3314,7 +3314,7 @@ ReturnToGame:
         mov eax, 0FFFFFFFFh
         xor ebx, ebx
         call FadeGamePalette
-        cmp dword [dword_16AF5C], byte 0
+        cmp dword [CameraScenesEnabled], byte 0
         je short .4
         lea eax, [dword ebp-0158h]
         push eax
@@ -3878,7 +3878,7 @@ RunPauseIntermission:
         call QueueMusicRestart
         xor eax, eax
         call SetAmbientVolume
-        cmp dword [dword_16AF5C], byte 0
+        cmp dword [CameraScenesEnabled], byte 0
         je short .1
         lea eax, [dword ebp-018Ah]
         push eax
@@ -3896,7 +3896,7 @@ RunPauseIntermission:
         call DrawIntermissionTitle
         lea eax, [byte ebp-032h]
         push eax
-        mov dword [dword_16AF5C], 1
+        mov dword [CameraScenesEnabled], 1
         call SaveTextState
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
@@ -3910,7 +3910,7 @@ RunPauseIntermission:
         add eax, 12Ch
         mov ebx, 0FFFFFFB0h
         mov dword [byte ebp+07Eh], eax
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
@@ -4019,7 +4019,7 @@ RunPauseIntermission:
         jmp near .9
 .5:
         call RestartGameAudio
-        cmp dword [dword_16AF5C], byte 0
+        cmp dword [CameraScenesEnabled], byte 0
         je short .6
         lea eax, [dword ebp-0DEh]
         push eax
@@ -4101,7 +4101,7 @@ CloseIntermission:
         mov ebx, eax
         mov esi, edx
         mov eax, dword [dword_1CEFA8]
-        mov dword [dword_16AF5C], 0
+        mov dword [CameraScenesEnabled], 0
         mov eax, dword [byte eax+02Ch]
         call RemoveOverlayWindow
         push dword [dword_1CEFA8]
@@ -7061,9 +7061,9 @@ DetailLevelMenu:
         mov edx, dword [byte ebp-0Ah]
         mov eax, dword [byte ebp-012h]
         call DrawMenuFrame
-        cmp dword [dword_16AF50], byte 0
+        cmp dword [ShowOverlay], byte 0
         jne short .3
-        cmp dword [dword_16AF54], byte 0
+        cmp dword [ShowCrowd], byte 0
         je near .4
 .3:
         push dword [byte ebp+076h]
@@ -7162,7 +7162,7 @@ DetailLevelMenu:
         fxch
         fstp dword [byte ebp-032h]
         fstp dword [byte ebp+046h]
-        cmp dword [dword_16AF44], byte 0
+        cmp dword [ShowRink], byte 0
         je short .6
         push dword [byte ebp+076h]
         movsx eax, word [word_1CEFC0]
@@ -7249,7 +7249,7 @@ DetailLevelMenu:
         fxch
         fstp dword [byte ebp-022h]
         fstp dword [byte ebp+016h]
-        cmp dword [dword_16AF40], byte 0
+        cmp dword [ShowStands], byte 0
         je short .8
         push dword [byte ebp+076h]
         movsx eax, word [word_1CEFC0]
@@ -7333,7 +7333,7 @@ DetailLevelMenu:
         fxch
         fstp dword [byte ebp+04Eh]
         fstp dword [byte ebp+042h]
-        cmp dword [dword_16AF3C], byte 0
+        cmp dword [ShowFrameRate], byte 0
         je short .10
         push dword [byte ebp+076h]
         movsx eax, word [word_1CEFC0]
@@ -7423,7 +7423,7 @@ DetailLevelMenu:
         fxch
         fstp dword [byte ebp+062h]
         fstp dword [byte ebp-02h]
-        cmp dword [dword_16AF48], byte 0
+        cmp dword [ShowCenterLogo], byte 0
         je short .12
         push dword [byte ebp+076h]
         movsx eax, word [word_1CEFC0]
@@ -7513,7 +7513,7 @@ DetailLevelMenu:
         fxch
         fstp dword [byte ebp+066h]
         fstp dword [byte ebp+0Ah]
-        cmp dword [dword_16AF58], byte 0
+        cmp dword [ShowBenches], byte 0
         je short .14
         push dword [byte ebp+076h]
         movsx eax, word [word_1CEFC0]
@@ -7964,18 +7964,18 @@ DetailLevelMenu_C81:
         push dword [dword ebp-092h]
         call FreeBitmap
         add esp, byte 4
-        cmp dword [dword_16AF50], byte 0
+        cmp dword [ShowOverlay], byte 0
         jne short .23
-        cmp dword [dword_16AF54], byte 0
+        cmp dword [ShowCrowd], byte 0
         je near .24
 .23:
         push dword [byte ebp+076h]
         push dword [byte ebp+072h]
         movsx eax, word [word_1CEFC0]
-        mov dword [dword_16AF50], 0
+        mov dword [ShowOverlay], 0
         push eax
         mov eax, 53h
-        mov dword [dword_16AF54], 0
+        mov dword [ShowCrowd], 0
         call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [F32_9_DetailLevelMenu]
@@ -8010,10 +8010,10 @@ DetailLevelMenu_C81:
         push dword [byte ebp+076h]
         push dword [byte ebp+072h]
         movsx eax, word [word_1CEFC0]
-        mov dword [dword_16AF50], 1
+        mov dword [ShowOverlay], 1
         push eax
         mov eax, 52h
-        mov dword [dword_16AF54], 1
+        mov dword [ShowCrowd], 1
         call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [F32_25_DetailLevelMenu]
@@ -8089,15 +8089,15 @@ DetailLevelMenu_E31:
         push dword [dword ebp-086h]
         call FreeBitmap
         add esp, byte 4
-        cmp dword [dword_16AF44], byte 0
+        cmp dword [ShowRink], byte 0
         je near .26
         push dword [byte ebp+076h]
         push dword [byte ebp+072h]
         movsx eax, word [word_1CEFC0]
-        mov dword [dword_16AF44], 0
+        mov dword [ShowRink], 0
         push eax
         mov eax, 53h
-        mov dword [dword_16AF40], 0
+        mov dword [ShowStands], 0
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8162,7 +8162,7 @@ DetailLevelMenu_E31:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        mov dword [dword_16AF44], 1
+        mov dword [ShowRink], 1
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8284,14 +8284,14 @@ DetailLevelMenu_10E6:
         push dword [byte ebp-07Ah]
         call FreeBitmap
         add esp, byte 4
-        cmp dword [dword_16AF40], byte 0
+        cmp dword [ShowStands], byte 0
         je short .30
         push dword [byte ebp+076h]
         movsx eax, word [word_1CEFC0]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        mov dword [dword_16AF40], 0
+        mov dword [ShowStands], 0
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8327,10 +8327,10 @@ DetailLevelMenu_10E6:
         push dword [byte ebp+076h]
         push dword [byte ebp+072h]
         movsx eax, word [word_1CEFC0]
-        mov dword [dword_16AF40], 1
+        mov dword [ShowStands], 1
         push eax
         mov eax, 52h
-        mov dword [dword_16AF44], 1
+        mov dword [ShowRink], 1
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8412,14 +8412,14 @@ DetailLevelMenu_12B8:
         fmul dword [F32_70_DetailLevelMenu]
         add esp, byte 4
         fstp dword [byte ebp+022h]
-        cmp dword [dword_16AF3C], byte 0
+        cmp dword [ShowFrameRate], byte 0
         je short .31
         push dword [byte ebp+076h]
         movsx eax, word [word_1CEFC0]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        mov dword [dword_16AF3C], 0
+        mov dword [ShowFrameRate], 0
         jmp short .32
 .31:
         push dword [byte ebp+076h]
@@ -8427,7 +8427,7 @@ DetailLevelMenu_12B8:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        mov dword [dword_16AF3C], 1
+        mov dword [ShowFrameRate], 1
 .32:
         call GetLangText
         fld dword [byte ebp+03Eh]
@@ -8494,14 +8494,14 @@ DetailLevelMenu_13D7:
         fmul dword [F32_85_DetailLevelMenu]
         add esp, byte 4
         fstp dword [byte ebp+02h]
-        cmp dword [dword_16AF48], byte 0
+        cmp dword [ShowCenterLogo], byte 0
         je short .33
         push dword [byte ebp+076h]
         movsx eax, word [word_1CEFC0]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        mov dword [dword_16AF48], 0
+        mov dword [ShowCenterLogo], 0
         jmp short .34
 .33:
         push dword [byte ebp+076h]
@@ -8509,7 +8509,7 @@ DetailLevelMenu_13D7:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        mov dword [dword_16AF48], 1
+        mov dword [ShowCenterLogo], 1
 .34:
         call GetLangText
         fld dword [byte ebp+03Eh]
@@ -8573,14 +8573,14 @@ DetailLevelMenu_14F6:
         push dword [byte ebp-056h]
         call FreeBitmap
         add esp, byte 4
-        cmp dword [dword_16AF58], byte 0
+        cmp dword [ShowBenches], byte 0
         je short .35
         push dword [byte ebp+076h]
         movsx eax, word [word_1CEFC0]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        mov dword [dword_16AF58], 0
+        mov dword [ShowBenches], 0
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8616,7 +8616,7 @@ DetailLevelMenu_14F6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        mov dword [dword_16AF58], 1
+        mov dword [ShowBenches], 1
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8764,9 +8764,9 @@ DetailLevelMenu_165B:
         mov dword [dword ebp-0318h], eax
         jmp near DetailLevelMenu_E31.29
 DetailLevelMenu_17B7:
-        cmp dword [dword_16AF50], byte 0
+        cmp dword [ShowOverlay], byte 0
         jne short .39
-        cmp dword [dword_16AF54], byte 0
+        cmp dword [ShowCrowd], byte 0
         je short .40
 .39:
         mov eax, 1
@@ -8778,22 +8778,22 @@ DetailLevelMenu_17B7:
         and byte [MusicOptions], 0DFh
         shl eax, 15h
         or dword [AudioOptions], eax
-        mov eax, dword [dword_16AF44]
+        mov eax, dword [ShowRink]
         and eax, byte 1
         and byte [MusicOptions], 0BFh
         shl eax, 16h
         or dword [AudioOptions], eax
-        mov eax, dword [dword_16AF40]
+        mov eax, dword [ShowStands]
         and eax, byte 1
         and byte [DetailLevel], 0FEh
         shl eax, 18h
         or dword [AudioOptions], eax
-        mov eax, dword [dword_16AF3C]
+        mov eax, dword [ShowFrameRate]
         and eax, byte 1
         and byte [DetailLevel], 0FDh
         shl eax, 19h
         or dword [AudioOptions], eax
-        mov eax, dword [dword_16AF48]
+        mov eax, dword [ShowCenterLogo]
         and eax, byte 1
         and byte [DetailLevel], 0FBh
         shl eax, 1Ah
@@ -8803,7 +8803,7 @@ DetailLevelMenu_17B7:
         and byte [DetailLevel], 0F7h
         shl eax, 1Bh
         or dword [AudioOptions], eax
-        mov eax, dword [dword_16AF58]
+        mov eax, dword [ShowBenches]
         and eax, byte 1
         and byte [DetailLevel], 0DFh
         shl eax, 1Dh

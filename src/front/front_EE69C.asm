@@ -6,8 +6,8 @@ extern str_LTDA, str_LTDB, str_BACK15, str_ROT0, str_BOT02, str_TITL16, str_ROTD
 extern str_BB012, str_BB02, str_BB052, str_KMB4, str_KMB5, str_KMBD, str_TOP02, str_TL0D
 extern str_MID1, str_BL0D, str_BR0D, str_BL01, str_BR012, str_TL01, str_TR012, str_Mous5
 extern str_BOX0, str_BOX1, str_BB03, str_BB042, str_KMB0, str_KMB1, str_S13, str_TB012
-extern str_TB002, str_TB032, str_TB022, str_GLWD, str_SCRB, ControlSetupFlags, byte_1C6040, dword_1B10CC
-extern dword_1B10D4, dword_1C95B4, dword_1C95BC, dword_1CE1E8, dword_1CE1EC, dword_1CE258, dword_1CE260, dword_1CE264
+extern str_TB002, str_TB032, str_TB022, str_GLWD, str_SCRB, ControlSetupFlags, byte_1C6040, RinkOverlayModel
+extern PauseArtModel, dword_1C95B4, dword_1C95BC, dword_1CE1E8, dword_1CE1EC, dword_1CE258, dword_1CE260, dword_1CE264
 extern dword_1CE2A0, dword_1CE2A4, dword_1CE2D8, dword_1CE2DC, dword_1CE308, dword_1CE318, dword_1CE31C, dword_1CE328
 extern dword_1CE32C, dword_1CE330, dword_1CE33C, dword_1CE340, dword_1CE346, dword_1CE34A, dword_1CE34E, dword_1CE352
 extern dword_1CE356, dword_1CE3EA, dword_1CE3EE, dword_1CE3F2, dword_1CE43C, dword_1CE440, dword_1CE444, dword_1CE478
@@ -4435,7 +4435,7 @@ SetupPauseArt:
         call CameraNoop
         push byte 0
         push str_SCRB
-        push dword [dword_1B10D4]
+        push dword [PauseArtModel]
         call FindShape
         add esp, byte 8
         push eax
@@ -4446,7 +4446,7 @@ SetupPauseArt:
         mov eax, dword [dword_1CEF9C]
         push dword [byte eax+02Ch]
         push byte 0
-        push dword [dword_1B10CC]
+        push dword [RinkOverlayModel]
         call SetModelShape
         add esp, byte 0Ch
         push dword 0FFFFFFh

@@ -2,35 +2,35 @@
 bits 32
 %include "hockey.inc"
 section s_1AC4F0 nobits alloc noexec write align=1
-global dword_1AC4F0, dword_1AC4F4, dword_1AC4F8, dword_1AC4FC, dword_1AC500, dword_1AC504, dword_1AC508, dword_1AC50C
-global dword_1AC510, dword_1AC5C8, dword_1AC5CC, dword_1AC5D0, dword_1AC5D4, dword_1AC5D8, dword_1AC5EC
-dword_1AC4F0:
+global CommentaryTime, CommentaryDelay, CommentaryEventId, SpeechPlaying, CommentaryPriority, CommentarySpeaker, SfxChannelIds, SfxChannelTimes
+global SfxChannelRecords, SpeechBankHome, SpeechBankHomeSize, SpeechBankAway, SpeechBankAwaySize, SfxBankSlots, SfxBankPtrs
+CommentaryTime:
         resb 4
-dword_1AC4F4:
+CommentaryDelay:
         resb 4
-dword_1AC4F8:
+CommentaryEventId:
         resb 4
-dword_1AC4FC:
+SpeechPlaying:
         resb 4
-dword_1AC500:
+CommentaryPriority:
         resb 4
-dword_1AC504:
+CommentarySpeaker:
         resb 4
-dword_1AC508:
+SfxChannelIds:
         resb 4
-dword_1AC50C:
+SfxChannelTimes:
         resb 4
-dword_1AC510:
+SfxChannelRecords:
         resb 184
-dword_1AC5C8:
+SpeechBankHome:
         resb 4
-dword_1AC5CC:
+SpeechBankHomeSize:
         resb 4
-dword_1AC5D0:
+SpeechBankAway:
         resb 4
-dword_1AC5D4:
+SpeechBankAwaySize:
         resb 4
-dword_1AC5D8:
+SfxBankSlots:
         resb 20
-dword_1AC5EC:
+SfxBankPtrs:
         resb 4

@@ -2,199 +2,180 @@
 bits 32
 %include "hockey.inc"
 section s_1B0A78 nobits alloc noexec write align=1
-global dword_1B0A78, dword_1B0A7C, dword_1B0A80, dword_1B0A84, dword_1B0A88, dword_1B0A8C, dword_1B0A90, dword_1B0A94
-global dword_1B0A98, dword_1B0A9C, dword_1B0AA0, dword_1B0AA4, dword_1B0AB4, dword_1B0AB8, dword_1B0ABC, dword_1B0AC0
-global dword_1B0AC4, dword_1B0AC8, dword_1B0ACC, dword_1B0B18, dword_1B0B1C, dword_1B0B20, dword_1B0B28, dword_1B0B2C
-global dword_1B0B34, dword_1B0B38, dword_1B0B60, dword_1B0B64, dword_1B0B68, dword_1B0B6C, dword_1B0B70, dword_1B0B74
-global dword_1B0B78, dword_1B0B7C, dword_1B0B80, dword_1B0B84, dword_1B0B88, dword_1B0B8C, dword_1B0B90, dword_1B0B94
-global dword_1B0B98, dword_1B0B9C, dword_1B0C78, dword_1B0C7C, dword_1B0C80, dword_1B0CE4, dword_1B0CE8, dword_1B0CEC
-global dword_1B0CFC, dword_1B0D5C, dword_1B0D70, dword_1B0D74, dword_1B0D78, dword_1B0D7C, dword_1B0D80, dword_1B0D84
-global dword_1B0D88, dword_1B0D8C, dword_1B0D90, dword_1B0D94, dword_1B0D98, dword_1B0D9C, dword_1B0DA0, dword_1B0DA4
-global dword_1B0DA8, dword_1B0DAC, dword_1B0DB0, dword_1B0DB4, dword_1B0DB8, dword_1B0DBC, dword_1B0DC0, dword_1B0DC4
-global dword_1B0DC8, dword_1B0DCC, dword_1B0DD0, dword_1B0DD4, dword_1B0DD8, dword_1B0DDC, dword_1B0DE0, dword_1B0DE4
-global dword_1B0DE8, dword_1B0DEC, dword_1B0DF0, unk_1B0AA8, unk_1B0AD0, unk_1B0AE8, unk_1B0B3C, unk_1B0BA0
-global unk_1B0C0C, unk_1B0C84, unk_1B0CF0, word_1B0B62
-dword_1B0A78:
+global GoalCheerState, GoalLightState, BenchModel, BenchDetail, StandsDetail, BenchCheerTeam, BenchCheerTimer, BenchCheerFrame
+global BenchCheerCount, BenchCheerFirst, BenchCheerLast, BenchCheerOn, CrowdReactStart, CrowdReactOn, CrowdReactCount, CrowdReactList
+global CrowdReactLevel, CrowdReactTime, CameraOnPuck, ScoreboardArt, ScoreboardDigits, ScoreboardSize, ScoreboardFrame, ScoreboardBounds
+global ScoreboardTime, ScoreboardScore, ScoreboardPeriod, ScoreboardBuffer, ScoreboardPitch, ScoreboardLogo, ScoreboardHome, ScoreboardAway
+global ScoreboardClock, ScoreboardLoaded, GoalLightArt, GoalLightModel, CrowdDelay, CrowdReactType, CrowdReactEnd, CrowdModel
+global CrowdFrame, CrowdFrameTime, RinkLength, RinkWidth, RinkCorner, RinkGoalLine, RinkBlueLine, RinkCenterLine
+global ModelSlotTable, RinkModelState, NetX, NetShadowX, NetShadowY, ViewDistance, NetShadowZ, NetShadowW
+global CameraModeOn, NetShadowH, NetShadowD, NetY, NetZ, BoardAdArt, ArenaArtParts
+
+
+global BenchDoorArt, CrowdReactPos, ScoreboardCorners, RinkViewPoints, ScoreboardText, IceLinePolys
+global BoardLinePolys, IceSurfacePolys, IceCenterPoly, ScoreboardTick
+GoalCheerState:
         resb 4
-dword_1B0A7C:
+GoalLightState:
         resb 4
-dword_1B0A80:
+BenchModel:
         resb 4
-dword_1B0A84:
+BenchDetail:
         resb 4
-dword_1B0A88:
+StandsDetail:
         resb 4
-dword_1B0A8C:
+BenchCheerTeam:
         resb 4
-dword_1B0A90:
+BenchCheerTimer:
         resb 4
-dword_1B0A94:
+BenchCheerFrame:
         resb 4
-dword_1B0A98:
+BenchCheerCount:
         resb 4
-dword_1B0A9C:
+BenchCheerFirst:
         resb 4
-dword_1B0AA0:
+BenchCheerLast:
         resb 4
-dword_1B0AA4:
+BenchCheerOn:
         resb 4
-unk_1B0AA8:
+CrowdReactPos:
         resb 12
-dword_1B0AB4:
+CrowdReactStart:
         resb 4
-dword_1B0AB8:
+CrowdReactOn:
         resb 4
-dword_1B0ABC:
+CrowdReactCount:
         resb 4
-dword_1B0AC0:
+CrowdReactList:
         resb 4
-dword_1B0AC4:
+CrowdReactLevel:
         resb 4
-dword_1B0AC8:
+CrowdReactTime:
         resb 4
-dword_1B0ACC:
+CameraOnPuck:
         resb 4
-unk_1B0AD0:
+ScoreboardCorners:
         resb 24
-unk_1B0AE8:
+RinkViewPoints:
         resb 48
-dword_1B0B18:
+ScoreboardArt:
         resb 4
-dword_1B0B1C:
+ScoreboardDigits:
         resb 4
-dword_1B0B20:
+ScoreboardSize:
         resb 8
-dword_1B0B28:
+ScoreboardFrame:
         resb 4
-dword_1B0B2C:
+ScoreboardBounds:
         resb 8
-dword_1B0B34:
+ScoreboardTime:
         resb 4
-dword_1B0B38:
+ScoreboardScore:
         resb 4
-unk_1B0B3C:
+ScoreboardText:
         resb 36
-dword_1B0B60:
+ScoreboardPeriod:
         resb 2
-word_1B0B62:
+ScoreboardTick:
         resb 2
-dword_1B0B64:
+ScoreboardBuffer:
         resb 4
-dword_1B0B68:
+ScoreboardPitch:
         resb 4
-dword_1B0B6C:
+ScoreboardLogo:
         resb 4
-dword_1B0B70:
+ScoreboardHome:
         resb 4
-dword_1B0B74:
+ScoreboardAway:
         resb 4
-dword_1B0B78:
+ScoreboardClock:
         resb 4
-dword_1B0B7C:
+ScoreboardLoaded:
         resb 4
-dword_1B0B80:
+GoalLightArt:
         resb 4
-dword_1B0B84:
+GoalLightModel:
         resb 4
-dword_1B0B88:
+CrowdDelay:
         resb 4
-dword_1B0B8C:
+CrowdReactType:
         resb 4
-dword_1B0B90:
+CrowdReactEnd:
         resb 4
-dword_1B0B94:
+CrowdModel:
         resb 4
-dword_1B0B98:
+CrowdFrame:
         resb 4
-dword_1B0B9C:
+CrowdFrameTime:
         resb 4
-unk_1B0BA0:
+IceLinePolys:
         resb 108
-unk_1B0C0C:
+BoardLinePolys:
         resb 108
-dword_1B0C78:
+RinkLength:
         resb 4
-dword_1B0C7C:
+RinkWidth:
         resb 4
-dword_1B0C80:
+RinkCorner:
         resb 4
-unk_1B0C84:
+IceSurfacePolys:
         resb 96
-dword_1B0CE4:
+RinkGoalLine:
         resb 4
-dword_1B0CE8:
+RinkBlueLine:
         resb 4
-dword_1B0CEC:
+RinkCenterLine:
         resb 4
-unk_1B0CF0:
+IceCenterPoly:
         resb 12
-dword_1B0CFC:
+ModelSlotTable:
         resb 96
-dword_1B0D5C:
+RinkModelState:
         resb 20
-dword_1B0D70:
+NetX:
         resb 4
-dword_1B0D74:
+NetShadowX:
         resb 4
-dword_1B0D78:
+NetShadowY:
         resb 4
-dword_1B0D7C:
+ViewDistance:
         resb 4
-dword_1B0D80:
+NetShadowZ:
         resb 4
-dword_1B0D84:
+NetShadowW:
         resb 4
-dword_1B0D88:
+CameraModeOn:
         resb 4
-dword_1B0D8C:
+NetShadowH:
         resb 4
-dword_1B0D90:
+NetShadowD:
         resb 4
-dword_1B0D94:
+NetY:
         resb 4
-dword_1B0D98:
+NetZ:
         resb 4
-dword_1B0D9C:
+BoardAdArt:
         resb 4
-dword_1B0DA0:
+ArenaArtParts:
         resb 4
-dword_1B0DA4:
         resb 4
-dword_1B0DA8:
         resb 4
-dword_1B0DAC:
         resb 4
-dword_1B0DB0:
         resb 4
-dword_1B0DB4:
         resb 4
-dword_1B0DB8:
         resb 4
-dword_1B0DBC:
         resb 4
-dword_1B0DC0:
         resb 4
-dword_1B0DC4:
         resb 4
-dword_1B0DC8:
         resb 4
-dword_1B0DCC:
         resb 4
-dword_1B0DD0:
         resb 4
-dword_1B0DD4:
         resb 4
-dword_1B0DD8:
         resb 4
-dword_1B0DDC:
         resb 4
-dword_1B0DE0:
         resb 4
-dword_1B0DE4:
         resb 4
-dword_1B0DE8:
         resb 4
-dword_1B0DEC:
         resb 4
-dword_1B0DF0:
+BenchDoorArt:
         resb 4

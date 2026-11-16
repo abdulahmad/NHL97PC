@@ -18,7 +18,7 @@ extern str_Refcalls, str_Refambi, str_Fight, str_Cup2, str_Puck3, str_Stickheel,
 extern str_Rhand, str_Lshldr, str_Rshldr, str_ANIMSVIV, str_MIRROR, str_SCALED, str_LOOP, str_MASTER
 extern str_SLAVE, str_FADING, str_4da, str_ANIMSTAT, str_AiconsViv, str_Cross, str_ANIMSVIV2, awtmstruct
 extern byte_16C429, IdentityRemap, PuckArrowColors, PenaltyPending, NearestPlayer, gmode, PuckFlags, PlayFlags
-extern holdreset, byte_19CD8C, PlayerControlFlags, byte_1AD72B, byte_1B1378, byte_1B1398, byte_1B8571, byte_1B8580
+extern holdreset, PadStates, PlayerControlFlags, byte_1AD72B, byte_1B1378, byte_1B1398, byte_1B8571, byte_1B8580
 extern byte_1B8582, byte_1B9058, byte_1BF670, chkprogress, F32_50_DrawPlayerModel, F32_200, F32_neg30, F32_20_DrawPlayerMarkers
 extern F32_neg20_DrawPlayerMarkers, F32_30, F32_65536_LoadFaceTexture, F32_4096, F32_464, F32_65536_BeginOffscreenRender, F32_65536_SetPortraitProjection, F32_2_CameraSplinePoint
 extern F32_3_CameraSplinePoint, F32_3_CameraEasePoint, F32_2_CameraEasePoint, F32_2_SetCameraTarget, F32_3_SetCameraTarget, F32_2_UpdateCameraMotion, F32_3_UpdateCameraMotion, F32_neg10_PlaySkateSounds
@@ -42,16 +42,16 @@ extern F32_neg4608, F32_4608, F32_neg1848, F32_1392_ResolveBodyCheck, F32_1848, 
 extern F32_neg3_CelebrationJumpMove, F32_0p5_SkateToBenchStep, F32_0p1_RefWhistleAnim, F32_30_PokeCheckMove, F32_96_PokeCheckMove, F32_30_SweepCheckMove, F32_30_HookMove, F32_0p5_BlockReach
 extern F32_12_BlockShotMove, F32_0p1_BlockShotMove, F32_120, F32_168, F32_10_GoalieSave, F32_96_GoalieSave, F32_240, F32_144_GoalieMoves
 extern F32_24_GoalieMoves, F32_2_GoalieMoves, F32_480_GoalieMoves, F32_neg1_GoalieMoves, F32_672, ScoreClockShown, SavedCameraView, InGameMenuRequest
-extern PlayoffColumns, dword_16AF5C, F32_2000_ScaleModelLods, F32_1, dword_16B1A4, dword_16B1A8, dword_16B3F4, dword_16B550
+extern PlayoffColumns, CameraScenesEnabled, F32_2000_ScaleModelLods, F32_1, dword_16B1A4, dword_16B1A8, dword_16B3F4, dword_16B550
 extern dword_16B724, dword_16B72C, str_Punct_LoadAnimData, dword_16C360, dword_16C364, dword_16C368, dword_16C374, dword_16C384
 extern dword_16C388, dword_16C38C, dword_16C390, dword_16C394, dword_16C398, dword_16C39C, dword_16C3A0, dword_16C3A4
 extern dword_16C3A8, dword_16C3AC, dword_16C3B0, dword_16C3F0, dword_16C54C, dword_16C550, dword_16C55C, dword_16C568
 extern dword_16C574, dword_16C580, dword_16C58C, dword_16C618, dword_16C63C, dword_16C648, F32_7p84727eneg44, F32_0
 extern dword_16C6B0, dword_16C6B4, dword_16C6B8, dword_16C6BC, dword_16E308, GoalieTickData, str_Punct_DrawRinkSurface, F32_50p0_View
 extern ViewCenterY, str_D_ProjectPointsPersp, ShotState, LastTouchPlayer, PassFrom, PassTo, PuckHitFlag, ZoneTargetX
-extern RefPlayer, SlotPlayers, bholdtimer, dword_19CD54, PlayerUpdateFlags, PlayerUpdateTable, HmSkaterCount, HmTeamData
+extern RefPlayer, SlotPlayers, bholdtimer, GameObjects, PlayerUpdateFlags, PlayerUpdateTable, HmSkaterCount, HmTeamData
 extern HmScore, AwSkaterCount, AwTeamData, AwScore, ViewPixelWidth, ViewPixelHeight, GameSettings, GameOptionFlags
-extern dword_1AD437, dword_1AD69F, dword_1AD6A3, dword_1ADC88, dword_1ADC90, dword_1B0CFC, dword_1B1258, dword_1B1260
+extern dword_1AD437, dword_1AD69F, dword_1AD6A3, ArenaArchive, RinkLineArt, ModelSlotTable, dword_1B1258, dword_1B1260
 extern dword_1B1264, dword_1B126C, dword_1B1270, dword_1B1278, dword_1B127C, dword_1B1284, dword_1B1288, dword_1B12FC
 extern dword_1B1300, dword_1B137C, dword_1B1380, dword_1B1384, dword_1B1388, dword_1B138C, dword_1B1390, dword_1B13B0
 extern dword_1B13B4, dword_1B13B8, dword_1B13BC, dword_1B13C0, dword_1B13C4, dword_1B13C8, dword_1B13E0, dword_1B13E4
@@ -177,7 +177,7 @@ extern SetTextColors, ClearIfNaN, FloatsToInts, MatRotX, MatRotY, MatTranspose, 
 extern TransformVecs, TransformTranslateVecs, VecAdd, VecSub, OffsetVecs, SubVecs, VecCross, VecDistance
 extern VecLength, VecScale, VecDot, PerspectiveScale, ProjectCoord, ProjectPoints, ProjectPointInt, ClipProjectPoints
 extern tickcount, unk_16B534, unk_16B718, unk_16B728, unk_16C338, DebugTagStr, BenchPlayerTable, HomeTeamRecord
-extern GlobalSetVersion, unk_1B1120, unk_1B13E8, unk_1B73F0, unk_1B7448, unk_1B7BA8, unk_1B85DC, unk_1B8BD0
+extern GlobalSetVersion, SeatModels, unk_1B13E8, unk_1B73F0, unk_1B7448, unk_1B7BA8, unk_1B85DC, unk_1B8BD0
 extern unk_1B8D88, unk_1B8FA8, unk_1B91AF, unk_1B92AB, unk_1B94E0, unk_1B9520, unk_1B9A58, unk_1B9CF8
 extern unk_1BA510, unk_1BAA88, unk_1BB268, unk_1BBAB8, unk_1BBEE0, unk_1BD680, unk_1BE3A0, unk_1BE4F0
 extern unk_1BE838, unk_1BEF00, unk_1BF110, unk_1BF174, unk_1BF204, unk_1BF29C, unk_1BF2E8, unk_1BF498
@@ -290,7 +290,7 @@ SetupPlayerModel:
         mov dword [dword edi+06F0h], eax
         xor ecx, ecx
         mov edx, dword [esp]
-        mov eax, dword [dword_1ADC88]
+        mov eax, dword [ArenaArchive]
         call RemapArtPixels
         mov eax, dword [dword_1B89AC]
         mov ebx, dword [dword edi+06F0h]
@@ -849,7 +849,7 @@ LoadCupArt:
         push eax
         xor ebx, ebx
         call OpenArtArchiveErr
-        mov ecx, dword [dword_1ADC88]
+        mov ecx, dword [ArenaArchive]
         add esp, byte 8
         mov dword [dword_1B84D8], eax
         mov edx, eax
@@ -968,12 +968,12 @@ LoadGoalieMask:
         mov dword [dword esi+dword_1B848C], eax
         test ebx, ebx
         je short .4
-        mov eax, dword [dword_1ADC88]
+        mov eax, dword [ArenaArchive]
         xor ebx, ebx
         call RemapBankToRange
         jmp short .5
 .4:
-        mov eax, dword [dword_1ADC88]
+        mov eax, dword [ArenaArchive]
         mov ebx, edx
         xor ecx, ecx
         mov edx, eax
@@ -1046,7 +1046,7 @@ LoadPlayerCommonArt:
         mov ecx, esi
         push byte 0
         mov ebx, dword [dword_1B84C4]
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         mov dword [dword_1B8364], eax
         mov eax, str_Fist
         call AddBankToRange
@@ -1168,7 +1168,7 @@ LoadPlayerCommonArt:
         push byte 0
         push str_Stick2Fsh
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov dword [dword_1B8468], eax
         mov edi, eax
@@ -1231,7 +1231,7 @@ LoadPlayerCommonArt:
         push byte 0
         push str_Gstick2Fsh
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov dword [dword_1B84F4], eax
         mov edi, eax
@@ -1327,7 +1327,7 @@ LoadPlayerCommonArt:
         push str_Lskate1Fsh
         mov dword [dword_1B13E4], eax
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov dword [dword_1B82F0], eax
         mov edi, eax
@@ -1464,7 +1464,7 @@ LoadUniformArt:
         push byte 0
         push str_Cuppatch
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov dword [dword_1B84C8], eax
         mov ebx, eax
@@ -1488,7 +1488,7 @@ LoadUniformArt:
         push ebx
         mov dword [nosplit esi*4+dword_1B8478], eax
         call FindShape
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         xor ecx, ecx
         mov dword [nosplit esi*4+dword_1B8444], eax
@@ -1498,7 +1498,7 @@ LoadUniformArt:
         push byte 0
         push str_Helmet0Fsh
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov edi, eax
         mov ebx, eax
@@ -1525,7 +1525,7 @@ LoadUniformArt:
         push str_Helmet2Fsh
         mov edi, 1
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov ebx, eax
         mov ebp, eax
@@ -1556,7 +1556,7 @@ LoadUniformArt:
         push esi
         push str_GllegFsh
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov edi, eax
         mov esi, dword [byte esp+02Ch]
@@ -1578,7 +1578,7 @@ LoadUniformArt:
         push byte 0
         push str_GrlegFsh
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov edi, eax
         mov ebx, eax
@@ -1601,7 +1601,7 @@ LoadUniformArt:
         add esp, byte 8
         mov edi, eax
         mov dword [dword esi+dword_1B8434], eax
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         mov ebx, eax
         xor ecx, ecx
         mov eax, str_Ori
@@ -1628,7 +1628,7 @@ LoadUniformArt:
         push byte 0
         push str_Rtrap2Fsh
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov edi, eax
         mov ebx, eax
@@ -1669,7 +1669,7 @@ LoadUniformArt:
         mov dword [dword esi+dword_1B8324], eax
         call BuildUniformArt
         push byte 0
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         mov ebx, edi
         mov dword [dword esi+dword_1B83E0], eax
         mov eax, str_Uarm
@@ -1685,7 +1685,7 @@ LoadUniformArt:
         call BuildUniformArt
         push byte 0
         mov ecx, dword [byte esp+034h]
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         mov ebx, edi
         mov dword [dword esi+dword_1B83C8], eax
         mov eax, str_Larm
@@ -1702,7 +1702,7 @@ LoadUniformArt:
         mov ecx, dword [byte esp+030h]
         call BuildUniformArt
         push byte 0
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         mov ebx, edi
         mov dword [dword esi+dword_1B834C], eax
         mov eax, str_Uleg
@@ -1718,7 +1718,7 @@ LoadUniformArt:
         call BuildUniformArt
         push byte 0
         mov ecx, dword [byte esp+034h]
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         mov ebx, edi
         mov dword [dword esi+dword_1B8330], eax
         mov eax, str_Lleg
@@ -1736,7 +1736,7 @@ LoadUniformArt:
         mov dword [dword esi+dword_1B82E4], eax
         call BuildUniformArt
         mov ecx, dword [byte esp+030h]
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         mov dword [dword esi+dword_1B8318], eax
         xor eax, eax
         mov ebx, edi
@@ -2002,7 +2002,7 @@ LoadGameModels:
         call LoadFaceArt
         push byte 0
         mov eax, str_Faces
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         call AddColorTable
         mov eax, InitPlayerModelSlots
         mov ebx, 5Ah
@@ -2295,7 +2295,7 @@ SetupTeamModels:
         xor edx, edx
         call __STOSB
         mov edx, unk_16B534
-        mov eax, dword [dword_1ADC90]
+        mov eax, dword [RinkLineArt]
         call SetRangeColors
         add esp, byte 0Ch
         pop ebp
@@ -5547,7 +5547,7 @@ ClearModelSlots:
         xor eax, eax
 .1:
         add eax, 760h
-        mov dword [dword eax+dword_1B0CFC], edx
+        mov dword [dword eax+ModelSlotTable], edx
         cmp eax, 5FE0h
         jne short .1
         pop edx
@@ -5561,12 +5561,12 @@ RestoreSavedPalette:
         push edx
         push dword 138h
         push unk_1B7448
-        push unk_1B1120
+        push SeatModels
         call bcopy
         add esp, byte 0Ch
         push dword 138h
         push unk_1B7BA8
-        push unk_1B1120
+        push SeatModels
         call bcopy
         add esp, byte 0Ch
         call MarkPaletteDirty
@@ -5581,18 +5581,18 @@ SaveGamePalette:
         push ecx
         push edx
         push dword 138h
-        push unk_1B1120
+        push SeatModels
         push eax
         call bcopy
         add esp, byte 0Ch
         push dword 138h
         push unk_1B7448
-        push unk_1B1120
+        push SeatModels
         call bcopy
         add esp, byte 0Ch
         push dword 138h
         push unk_1B7BA8
-        push unk_1B1120
+        push SeatModels
         call bcopy
         add esp, byte 0Ch
         call MarkPaletteDirty
@@ -7072,7 +7072,7 @@ ReplayPlayFrames:
         cmp eax, byte 3
         jne short .4
         mov ebx, 14h
-        mov eax, byte_19CD8C
+        mov eax, PadStates
         add edx, byte 4
         call memcpy_
         mov eax, 1
@@ -7105,7 +7105,7 @@ ReplayPlayFrames:
 .9:
         imul edx, ecx, dword 760h
         mov ebx, esi
-        mov eax, dword [dword edi+dword_19CD54]
+        mov eax, dword [dword edi+GameObjects]
         add edi, byte 4
         add esi, 760h
         mov edx, dword [dword edx+dword_1B1464]
@@ -7180,11 +7180,11 @@ StartInstantReplay:
         push edx
         mov eax, dword [tickcount]
         mov dword [dword_1B8F54], eax
-        mov eax, dword [dword_16AF5C]
+        mov eax, dword [CameraScenesEnabled]
         xor edx, edx
         mov dword [dword_1B8F58], eax
         mov eax, dword [dword_1B8FA4]
-        mov dword [dword_16AF5C], edx
+        mov dword [CameraScenesEnabled], edx
         mov dword [dword_1B8F44], eax
         mov eax, 1
         mov dword [dword_1B8FA4], edx
@@ -7221,7 +7221,7 @@ EndInstantReplay:
         mov eax, dword [dword_1B8F44]
         mov dword [dword_1B8FA4], eax
         mov eax, dword [dword_1B8F58]
-        mov dword [dword_16AF5C], eax
+        mov dword [CameraScenesEnabled], eax
         call ClearOverlayWindows
         test byte [gmode], 1
         je short .1
@@ -7287,7 +7287,7 @@ PlaySavedReplay:
         jne short .5
         lea edx, [byte eax+04h]
         mov ebx, 14h
-        mov eax, byte_19CD8C
+        mov eax, PadStates
         call memcpy_
         mov eax, edi
         call RunSimFrames
@@ -7338,7 +7338,7 @@ PlaySavedReplay:
 .11:
         imul edx, esi, dword 760h
         mov ebx, ecx
-        mov eax, dword [dword edi+dword_19CD54]
+        mov eax, dword [dword edi+GameObjects]
         add edi, byte 4
         add ecx, 760h
         mov edx, dword [dword edx+dword_1B1464]
@@ -7393,9 +7393,9 @@ ReplayRestoreObjects:
         xor ecx, ecx
 .1:
         mov edi, dword [dword_1BF898]
-        mov eax, dword [dword ecx+dword_19CD54]
+        mov eax, dword [dword ecx+GameObjects]
         add eax, edi
-        mov dword [dword ecx+dword_19CD54], eax
+        mov dword [dword ecx+GameObjects], eax
         je short .3
         mov edx, esi
 .2:
@@ -7416,7 +7416,7 @@ ReplayRestoreObjects:
 .5:
         imul edx, ecx, dword 760h
         mov ebx, esi
-        mov eax, dword [dword edi+dword_19CD54]
+        mov eax, dword [dword edi+GameObjects]
         add edi, byte 4
         add esi, 760h
         mov edx, dword [dword edx+dword_1B1464]
@@ -7520,7 +7520,7 @@ ReplaySetupObjects:
         cmp ecx, byte 2
         jl short .2
         mov ebx, 34h
-        mov eax, dword_19CD54
+        mov eax, GameObjects
         mov ecx, unk_1B9520
         mov edx, ebx
         mov edi, 3Ch
@@ -7791,7 +7791,7 @@ LoadReplayData:
         add ebp, dword_1B1410
         mov dword [dword eax+0F2h], ebp
         mov ebp, edi
-        add ebp, dword_19CD54
+        add ebp, GameObjects
         mov dword [dword eax+0F6h], ebp
         mov ebp, ebx
         jmp short .8

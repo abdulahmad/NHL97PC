@@ -4187,7 +4187,11 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 160DC0,str_PBP,asc_160DC0,new,high,"string ""PBP""",src/data/front/front_43578_data_01.asm
 160DC4,str_Mous,asc_160DC4,new,high,"string ""mous""",src/data/front/front_43578_data_01.asm
 160DCC,str_Remo,asc_160DCC,new,high,"string ""remo""",src/data/front/front_43578_data_01.asm
+160DD4,str_DerHome,unk_160DD4,new,low,"""Der..."" home speech bank text",src/data/front/front_43578_data_01.asm
+160E8C,str_PlayHome,unk_160E8C,new,low,"""Play..."" home speech bank text",src/data/front/front_43578_data_01.asm
 160F3C,str_PlayByPlayNeedsToBeInstal,asc_160F3C,new,high,"string ""Play-by-Play needs to be installed before it can be used.  There is not enough free hard disk space to install it.  You require %dk more disk space.""",src/data/front/front_43578_data_01.asm
+160FD4,str_DerAway,unk_160FD4,new,low,"""Der..."" away speech bank text",src/data/front/front_43578_data_01.asm
+161068,str_PlayAway,unk_161068,new,low,"""Play..."" away speech bank text",src/data/front/front_43578_data_01.asm
 1610DC,str_PlayByPlayNeedsToBeInstal2,asc_1610DC,new,high,"string ""Play-by-Play needs to be installed before it can be used.  This will require %dk of disk space.  Do you want to install it?""",src/data/front/front_43578_data_01.asm
 161158,str_InstallingPlayByPlay,asc_161158,new,high,"string ""Installing Play-by-Play...""",src/data/front/front_43578_data_01.asm
 161173,F64_0p5_SayShotCall,qword_161173,new,high,double constant 0.5,src/data/front/front_43578_data_01.asm
@@ -7652,9 +7656,68 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 169236,MusicVolumeScale,word_169236,new,low,music volume scale,src/data/engine/engine_3812E_data_02.asm
 169238,LastSfxPlayed,dword_169238,new,low,last sound effect played,src/data/engine/engine_3812E_data_02.asm
 16923C,SpeechBankBuffer,dword_16923C,new,low,speech bank buffer,src/data/engine/engine_3812E_data_02.asm
+169240,CommentaryOn,dword_169240,new,low,commentary on,src/data/front/front_45BEC_data_01.asm
+169244,CommentaryClip,dword_169244,new,low,commentary clip,src/data/front/front_45BEC_data_01.asm
+169248,SpeechBanksReady,dword_169248,new,low,speech banks ready,src/data/front/front_45BEC_data_01.asm
+16924C,SpeechBankCountFront,dword_16924C,new,low,speech banks loaded,src/data/front/front_45BEC_data_01.asm
+169250,SoundCardType,dword_169250,new,low,sound card type,src/data/front/front_45BEC_data_01.asm
+169254,SoundDriverId,dword_169254,new,low,sound driver id (-1 none),src/data/front/front_45BEC_data_01.asm
+169258,SpeechStreamFile,dword_169258,new,low,speech stream file,src/data/front/front_45BEC_data_01.asm
+16925C,SpeechStreamBytes,dword_16925C,new,low,speech stream size,src/data/front/front_45BEC_data_01.asm
+169260,SpeechStreamBase,dword_169260,new,low,speech stream base,src/data/front/front_45BEC_data_01.asm
+169264,SpeechStreamTimer,dword_169264,new,low,speech stream timer handle (-1 none),src/data/front/front_45BEC_data_01.asm
+169268,SpeechDataOpen,word_169268,new,low,speech data open,src/data/front/front_45BEC_data_01.asm
+16926C,SpeechFileIds,dword_16926C,new,low,text id per speech file,src/data/front/front_45BEC_data_01.asm
+169274,SpeechDataId,dword_169274,new,low,speech data file text id,src/data/front/front_45BEC_data_01.asm
+169278,PaQueueHead,dword_169278,new,low,announcer queue head,src/data/front/front_45BEC_data_01.asm
+16927A,PaQueueTail,dword_16927A,new,low,announcer queue tail,src/data/front/front_45BEC_data_01.asm
+16927C,PaQueueCount,dword_16927C,new,low,announcer queue count,src/data/front/front_45BEC_data_01.asm
+16927E,PaQueueClip,dword_16927E,new,low,announcer queue clip,src/data/front/front_45BEC_data_01.asm
+169280,PaQueueTime,dword_169280,new,low,announcer queue time,src/data/front/front_45BEC_data_01.asm
+169282,PaQueuePrev,word_169282,new,low,announcer queue previous clip,src/data/front/front_45BEC_data_01.asm
+169284,StreamTimerOn,word_169284,new,low,stream timer on,src/data/front/front_45BEC_data_01.asm
+169288,StreamTimerHandle,dword_169288,new,low,stream timer handle,src/data/front/front_45BEC_data_01.asm
 16928C,F32_9600,dword_16928C,new,high,float constant 9600,src/data/front/front_45BEC_data_01.asm
 169290,F32_768_PositionSfx,dword_169290,new,high,float constant 768,src/data/front/front_45BEC_data_01.asm
+169294,SpeechQueueSize,dword_169294,new,low,speech queue size,src/data/front/front_45BEC_data_01.asm
+169298,SpeechClipDefs,unk_169298,97PC,low,linked speech clip definitions (lengths and next-clip links),src/data/front/front_45BEC_data_01.asm
+169780,SpeechClipDefTable,off_169780,new,low,speech clip definition per clip,src/data/front/front_43578_data_02.asm
+1697B4,CommentaryLast,dword_1697B4,new,low,last commentary event,src/data/front/front_43578_data_02.asm
+1697B8,PlayerCallStart,dword_1697B8,new,low,player call start time,src/data/front/front_43578_data_02.asm
+1697BC,SpeechTableNames,off_1697BC,new,low,speech table entry names,src/data/front/front_43578_data_02.asm
+169814,SpeechTableError,off_169814,new,low,"""ERROR"" speech table entry",src/data/front/front_43578_data_02.asm
+169818,PlayerCallClip,dword_169818,new,low,player call clip,src/data/front/front_43578_data_02.asm
+16981C,CommentaryCurrent,dword_16981C,new,low,current commentary event,src/data/front/front_43578_data_02.asm
+169820,CommentaryPrev,dword_169820,new,low,previous commentary event (-2 none),src/data/front/front_43578_data_02.asm
+169824,PaNameRanges,word_169824,new,low,announcer name clip ranges,src/data/front/front_43578_data_02.asm
+169844,BackgroundAudioOn,dword_169844,new,low,background audio on,src/data/front/front_43578_data_02.asm
+169848,DataDirPath,unk_169848,new,low,data directory path,src/data/front/front_43578_data_02.asm
+1698A2,ArtArchivePaths,unk_1698A2,new,low,art archive paths,src/data/front/front_48D70_data_02.asm
+1698AF,ArtArchiveIds,dword_1698AF,new,low,art archive ids,src/data/front/front_48D70_data_02.asm
 169989,str_X_SetArtArchive,unk_169989,new,high,"string ""x""",src/data/front/front_48D70_data_02.asm
+169996,ArtArchiveSizes,dword_169996,new,low,art archive sizes,src/data/front/front_48D70_data_02.asm
+16AEB4,DirPathTable,dword_16AEB4,new,low,directory path table,src/data/front/front_48D70_data_02.asm
+16AED4,DisplayModes,unk_16AED4,new,low,display mode table,src/data/front/front_48D70_data_02.asm
+16AF14,ViewDistanceTable,unk_16AF14,new,low,view distance table,src/data/front/front_48D70_data_02.asm
+16AF30,GameGraphicsMode,dword_16AF30,new,low,game graphics mode (-1 not set),src/data/front/front_48D70_data_02.asm
+16AF34,ModelCount,dword_16AF34,new,low,models loaded (30),src/data/front/front_48D70_data_02.asm
+16AF38,TextureCount,dword_16AF38,new,low,textures loaded (28),src/data/front/front_48D70_data_02.asm
+16AF3C,ShowFrameRate,dword_16AF3C,new,low,show frame rate (function key),src/data/front/front_48D70_data_02.asm
+16AF40,ShowStands,dword_16AF40,new,low,draw stands,src/data/front/front_48D70_data_02.asm
+16AF44,ShowRink,dword_16AF44,new,low,draw rink texture,src/data/front/front_48D70_data_02.asm
+16AF48,ShowCenterLogo,dword_16AF48,new,low,draw center ice logo,src/data/front/front_48D70_data_02.asm
+16AF4C,ShowShadows,dword_16AF4C,new,low,draw shadows,src/data/front/front_48D70_data_02.asm
+16AF50,ShowOverlay,dword_16AF50,new,low,draw rink overlay,src/data/front/front_48D70_data_02.asm
+16AF54,ShowCrowd,dword_16AF54,new,low,draw crowd,src/data/front/front_48D70_data_02.asm
+16AF58,ShowBenches,dword_16AF58,new,low,draw benches,src/data/front/front_48D70_data_02.asm
+16AF5C,CameraScenesEnabled,dword_16AF5C,new,low,camera scenes enabled,src/data/front/front_48D70_data_02.asm
+16B084,IceSurfaceDef,unk_16B084,new,low,ice surface definition,src/data/front/front_48D70_data_03.asm
+16B0E4,IceGeometryDef,unk_16B0E4,new,low,ice geometry definition,src/data/front/front_48D70_data_03.asm
+16B144,RinkMarkingDefs,unk_16B144,new,low,rink marking definitions,src/data/front/front_48D70_data_03.asm
+16B164,RinkGeometryBuilt,dword_16B164,new,low,rink geometry built,src/data/front/front_48D70_data_03.asm
+16B168,ScoreboardOn,dword_16B168,new,low,scoreboard on,src/data/front/front_48D70_data_03.asm
+16B16C,NetArtDefs,unk_16B16C,new,low,net art definitions,src/data/front/front_48D70_data_03.asm
+16B174,OverlayFrame,dword_16B174,new,low,rink overlay frame,src/data/front/front_48D70_data_03.asm
 16B178,F32_2000_ScaleModelLods,dword_16B178,new,high,float constant 2000,src/data/front/front_48D70_data_03.asm
 16B1A0,F32_1,dword_16B1A0,new,high,float constant 1,src/data/front/front_57324_data_02.asm
 16C32C,str_Punct_LoadAnimData,dword_16C32C,new,high,"string "",""",src/data/front/front_57324_data_02.asm
@@ -8526,6 +8589,43 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19CCA4,ChangePlayer,dword_19CCA4,new,low,player to change to (-1 none),src/data/engine/faceoff_data_03.asm
 19CCA8,LastChangePlayer,dword_19CCA8,new,low,last player changed to (-1 none),src/data/engine/faceoff_data_03.asm
 19CCAC,FaceoffScratch,unk_19CCAC,new,low,face-off scratch,src/data/engine/faceoff_bss_01.asm
+19CCAF,GripLinkByte,byte_19CCAF,new,low,Gravis GrIP link scratch byte,src/data/front/front_10010_bss_01.asm
+19CCB0,GripCallOffset,unk_19CCB0,new,low,Gravis GrIP far call offset,src/data/front/front_10010_bss_01.asm
+19CCB2,GripDriverSeg,word_19CCB2,new,low,Gravis GrIP driver segment,src/data/front/front_10010_bss_01.asm
+19CCB6,GripDriverSel,word_19CCB6,new,low,Gravis GrIP driver selector,src/data/front/front_10010_bss_01.asm
+19CCB8,GripFarCall,unk_19CCB8,new,low,Gravis GrIP far call pointer,src/data/front/front_10010_bss_01.asm
+19CCBC,GripCodeSel,word_19CCBC,new,low,Gravis GrIP code selector,src/data/front/front_10010_bss_01.asm
+19CCBE,GripDataSeg,word_19CCBE,new,low,Gravis GrIP data segment,src/data/front/front_10010_bss_01.asm
+19CCC0,GripResult,word_19CCC0,new,low,Gravis GrIP call result,src/data/front/front_10010_bss_01.asm
+19CCC2,WhistleTime,dword_19CCC2,new,low,time of the last whistle,src/data/front/front_10010_bss_01.asm
+19CCC4,ChantIndex,word_19CCC4,new,low,crowd chant index,src/data/front/front_10010_bss_01.asm
+19CCC6,ChantPlayed,byte_19CCC6,new,low,crowd chants already played,src/data/front/front_10010_bss_01.asm
+19CD05,ChantState,byte_19CD05,new,low,crowd chant state,src/data/front/front_10010_bss_01.asm
+19CD08,LinkSides,dword_19CD08,new,low,link side flags per player,src/data/front/front_10010_bss_01.asm
+19CD0C,LinkCounter,dword_19CD0C,new,low,link counter,src/data/front/front_10010_bss_01.asm
+19CD10,VideoModePanelMode,dword_19CD10,new,low,video mode shown on the video mode panel,src/data/front/front_10010_bss_01.asm
+19CD14,VideoModeSel,dword_19CD14,new,low,video mode picked in game,src/data/front/front_10010_bss_01.asm
+19CD18,DisplayWidth,dword_19CD18,new,low,game display width,src/data/front/front_10010_bss_01.asm
+19CD1C,DisplayHeight,dword_19CD1C,new,low,game display height,src/data/front/front_10010_bss_01.asm
+19CD20,ViewWindowX,dword_19CD20,new,low,view window X,src/data/front/front_10010_bss_01.asm
+19CD24,ViewWindowY,dword_19CD24,new,low,view window Y,src/data/front/front_10010_bss_01.asm
+19CD28,ViewWindowW,dword_19CD28,new,low,view window width,src/data/front/front_10010_bss_01.asm
+19CD2C,ViewWindowH,dword_19CD2C,new,low,view window height,src/data/front/front_10010_bss_01.asm
+19CD30,VideoModeChanged,dword_19CD30,new,low,video mode change pending,src/data/front/front_10010_bss_01.asm
+19CD34,DisplayFlags,dword_19CD34,new,low,display flags,src/data/front/front_10010_bss_01.asm
+19CD40,GameEventPtr,dword_19CD40,new,low,game event pointer,src/data/front/front_10010_bss_01.asm
+19CD44,DisplayBuffer,dword_19CD44,new,low,game display buffer,src/data/front/front_10010_bss_01.asm
+19CD48,DisplayBufferSize,dword_19CD48,new,low,game display buffer size,src/data/front/front_10010_bss_01.asm
+19CD4C,ReplayLoaded,dword_19CD4C,new,low,replay loaded,src/data/front/front_10010_bss_01.asm
+19CD50,GameKeyState,dword_19CD50,new,low,game key state,src/data/front/front_10010_bss_01.asm
+19CD54,GameObjects,dword_19CD54,new,low,game object records,src/data/front/front_10010_bss_01.asm
+19CD88,GameTick,dword_19CD88,new,low,game tick,src/data/front/front_10010_bss_01.asm
+19CD8C,PadStates,byte_19CD8C,new,low,pad state per slot,src/data/front/front_10010_bss_01.asm
+19CD9D,LineChangeKeyFlags,byte_19CD9D,new,low,line change key flags,src/data/front/front_10010_bss_01.asm
+19CDA0,GameLoopTime,dword_19CDA0,new,low,game loop time,src/data/front/front_10010_bss_01.asm
+19CDA4,DemoState,unk_19CDA4,new,low,demo game state,src/data/front/front_10010_bss_01.asm
+19CDA5,DemoFrame,dword_19CDA5,new,low,demo game frame,src/data/front/front_10010_bss_01.asm
+19CDA7,DemoInput,word_19CDA7,new,low,demo game recorded input,src/data/front/front_10010_bss_01.asm
 19CF8C,OverlayPanelQueue,unk_19CF8C,new,low,queued overlay panels,src/data/engine/engine_15AC2_bss_01.asm
 19D004,ScorePanelHome,dword_19D004,new,low,home score shown on the score panel (-1 forces a redraw),src/data/engine/engine_15AC2_bss_01.asm
 19D008,ScorePanelAway,dword_19D008,new,low,away score shown on the score panel (-1 forces a redraw),src/data/engine/engine_15AC2_bss_01.asm
@@ -8790,6 +8890,21 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1AC430,SpeechReqHead,dword_1AC430,new,low,speech request queue head,src/data/engine/engine_3812E_bss_01.asm
 1AC434,SpeechReqTail,dword_1AC434,new,low,speech request queue tail,src/data/engine/engine_3812E_bss_01.asm
 1AC438,SpeechRequests,dword_1AC438,new,low,speech request queue,src/data/engine/engine_3812E_bss_01.asm
+1AC4F0,CommentaryTime,dword_1AC4F0,new,low,commentary time,src/data/front/front_45BEC_bss_01.asm
+1AC4F4,CommentaryDelay,dword_1AC4F4,new,low,commentary delay,src/data/front/front_45BEC_bss_01.asm
+1AC4F8,CommentaryEventId,dword_1AC4F8,new,low,commentary event id,src/data/front/front_45BEC_bss_01.asm
+1AC4FC,SpeechPlaying,dword_1AC4FC,new,low,speech playing,src/data/front/front_45BEC_bss_01.asm
+1AC500,CommentaryPriority,dword_1AC500,new,low,commentary priority,src/data/front/front_45BEC_bss_01.asm
+1AC504,CommentarySpeaker,dword_1AC504,new,low,commentary speaker,src/data/front/front_45BEC_bss_01.asm
+1AC508,SfxChannelIds,dword_1AC508,new,low,sound effect id per channel,src/data/front/front_45BEC_bss_01.asm
+1AC50C,SfxChannelTimes,dword_1AC50C,new,low,sound effect time per channel,src/data/front/front_45BEC_bss_01.asm
+1AC510,SfxChannelRecords,dword_1AC510,new,low,sound effect channel records,src/data/front/front_45BEC_bss_01.asm
+1AC5C8,SpeechBankHome,dword_1AC5C8,new,low,home team speech bank,src/data/front/front_45BEC_bss_01.asm
+1AC5CC,SpeechBankHomeSize,dword_1AC5CC,new,low,home team speech bank size,src/data/front/front_45BEC_bss_01.asm
+1AC5D0,SpeechBankAway,dword_1AC5D0,new,low,away team speech bank,src/data/front/front_45BEC_bss_01.asm
+1AC5D4,SpeechBankAwaySize,dword_1AC5D4,new,low,away team speech bank size,src/data/front/front_45BEC_bss_01.asm
+1AC5D8,SfxBankSlots,dword_1AC5D8,new,low,sound effect bank slots,src/data/front/front_45BEC_bss_01.asm
+1AC5EC,SfxBankPtrs,dword_1AC5EC,new,low,sound effect bank pointers,src/data/front/front_45BEC_bss_01.asm
 1AC5F0,SfxBankNames,dword_1AC5F0,new,low,sound effect bank names,src/data/engine/engine_3812E_bss_02.asm
 1AC604,GameAudioState,dword_1AC604,new,low,game audio state,src/data/engine/engine_3812E_bss_02.asm
 1AC608,SfxBankData,dword_1AC608,new,low,sound effect bank data,src/data/engine/engine_3812E_bss_02.asm
@@ -8864,6 +8979,208 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1ACF3E,SeasonPhase,dword_1ACF3E,new,low,season phase (2 = all-star break),src/data/engine/engine_3812E_bss_02.asm
 1ACF42,PlayoffRounds,dword_1ACF42,new,low,playoff rounds,src/data/engine/engine_3812E_bss_02.asm
 1ACF46,SeasonActive,dword_1ACF46,new,low,season running,src/data/engine/engine_3812E_bss_02.asm
+1AD748,ModelNamePtrs,dword_1AD748,new,low,model name pointers,src/data/front/front_48D70_bss_01.asm
+1AD7C0,ModelNames,unk_1AD7C0,new,low,model names,src/data/front/front_48D70_bss_01.asm
+1ADBF8,FrameDrawList,dword_1ADBF8,new,low,objects drawn this frame,src/data/front/front_48D70_bss_01.asm
+1ADC70,GameVideoMode,dword_1ADC70,new,low,game video mode,src/data/front/front_48D70_bss_01.asm
+1ADC74,RenderTimer,dword_1ADC74,new,low,render timer,src/data/front/front_48D70_bss_01.asm
+1ADC78,ModelNameCount,dword_1ADC78,new,low,model names stored,src/data/front/front_48D70_bss_01.asm
+1ADC7C,FrameBuffer,dword_1ADC7C,new,low,frame buffer,src/data/front/front_48D70_bss_01.asm
+1ADC80,RenderTicks,dword_1ADC80,new,low,render ticks,src/data/front/front_48D70_bss_01.asm
+1ADC84,ModelList,dword_1ADC84,new,low,model list,src/data/front/front_48D70_bss_01.asm
+1ADC88,ArenaArchive,dword_1ADC88,new,low,arena art archive,src/data/front/front_48D70_bss_01.asm
+1ADC8C,ArenaArt,dword_1ADC8C,new,low,arena art,src/data/front/front_48D70_bss_01.asm
+1ADC90,RinkLineArt,dword_1ADC90,new,low,rink line art,src/data/front/front_48D70_bss_01.asm
+1ADC94,GameGraphicsReady,dword_1ADC94,new,low,game graphics ready,src/data/front/front_48D70_bss_01.asm
+1ADC98,FlashTimer,dword_1ADC98,new,low,camera flash timer,src/data/front/front_48D70_bss_01.asm
+1ADC9C,FrameObjectCount,dword_1ADC9C,new,low,objects drawn this frame,src/data/front/front_48D70_bss_01.asm
+1ADCA0,NetArt,unk_1ADCA0,new,low,net art per end,src/data/front/front_48D70_bss_01.asm
+1ADCA8,ScoreboardPos,dword_1ADCA8,new,low,scoreboard position,src/data/front/front_48D70_bss_01.asm
+1ADCB8,NetFrames,dword_1ADCB8,new,low,net frame per end,src/data/front/front_48D70_bss_01.asm
+1ADCC0,NetArtFront,dword_1ADCC0,new,low,net front art per end,src/data/front/front_48D70_bss_01.asm
+1ADCC8,NetArtBack,dword_1ADCC8,new,low,net back art per end,src/data/front/front_48D70_bss_01.asm
+1ADCD0,NetDistance,dword_1ADCD0,new,low,net distance per end,src/data/front/front_48D70_bss_01.asm
+1ADCD8,NetFrameData,dword_1ADCD8,new,low,net frame data,src/data/front/front_48D70_bss_01.asm
+1ADCE4,GoalCheerTimer,dword_1ADCE4,new,low,goal cheer timer,src/data/front/front_48D70_bss_01.asm
+1ADCE8,GoalLightOn,dword_1ADCE8,new,low,goal light on,src/data/front/front_48D70_bss_01.asm
+1ADCEC,GoalLightModelNear,dword_1ADCEC,new,low,"goal light model, near net",src/data/front/front_48D70_bss_01.asm
+1ADCF4,GoalLightTimerNear,dword_1ADCF4,new,low,"goal light timer, near net",src/data/front/front_48D70_bss_01.asm
+1ADCF8,GoalLightModelFar,dword_1ADCF8,new,low,"goal light model, far net",src/data/front/front_48D70_bss_01.asm
+1ADD00,GoalLightTimerFar,dword_1ADD00,new,low,"goal light timer, far net",src/data/front/front_48D70_bss_01.asm
+1ADD04,GoalLightSpinNear,dword_1ADD04,new,low,"goal light spin model, near net",src/data/front/front_48D70_bss_01.asm
+1ADD0C,GoalLightFrame,dword_1ADD0C,new,low,goal light frame,src/data/front/front_48D70_bss_01.asm
+1ADD10,GoalLightSpinFar,dword_1ADD10,new,low,"goal light spin model, far net",src/data/front/front_48D70_bss_01.asm
+1ADD18,RinkMarkingGeometry,dword_1ADD18,97PC,low,"rink marking geometry: crease, goal line, face-off and ice surface polygons",src/data/front/front_48D70_bss_01.asm
+1AE688,NetGeometry,unk_1AE688,97PC,low,net and net shadow polygons,src/data/front/front_48D70_bss_01.asm
+1AEDD8,ArenaPalette,unk_1AEDD8,new,low,arena palette range,src/data/front/front_48D70_bss_01.asm
+1AEDED,ArenaColorR,byte_1AEDED,new,low,arena colour red,src/data/front/front_48D70_bss_01.asm
+1AEDEE,ArenaColorG,byte_1AEDEE,new,low,arena colour green,src/data/front/front_48D70_bss_01.asm
+1AEDEF,ArenaColorB,byte_1AEDEF,new,low,arena colour blue,src/data/front/front_48D70_bss_01.asm
+1AEDF0,ArenaPaletteRange,unk_1AEDF0,new,low,arena palette range,src/data/front/front_48D70_bss_01.asm
+1AEE04,ArenaArtSize,dword_1AEE04,new,low,arena art size,src/data/front/front_48D70_bss_01.asm
+1AEE08,IceTextures,unk_1AEE08,new,low,ice textures,src/data/front/front_48D70_bss_01.asm
+1AEEA8,RinkSideGeometry,unk_1AEEA8,97PC,low,"boards, stands, benches and penalty box geometry",src/data/front/front_48D70_bss_01.asm
+1B0004,RinkTextureCount,dword_1B0004,new,low,rink texture count,src/data/front/front_48D70_bss_01.asm
+1B0008,RinkTextures,dword_1B0008,new,low,rink textures,src/data/front/front_48D70_bss_01.asm
+1B0018,RinkTextureArt,dword_1B0018,new,low,rink texture art,src/data/front/front_48D70_bss_01.asm
+1B001C,OpeningArt,dword_1B001C,new,low,opening art,src/data/front/front_52770_bss_01.asm
+1B0020,OpeningArtPalette,dword_1B0020,new,low,opening art palette,src/data/front/front_52770_bss_01.asm
+1B0024,OpeningArtSize,dword_1B0024,new,low,opening art size,src/data/front/front_52770_bss_01.asm
+1B0028,RinkTexturePtrs,dword_1B0028,new,low,rink texture pointers,src/data/front/front_52770_bss_01.asm
+1B0038,RinkTextureRows,dword_1B0038,new,low,rink texture rows,src/data/front/front_52770_bss_01.asm
+1B0068,RinkTextureInfo,dword_1B0068,new,low,rink texture info,src/data/front/front_52770_bss_01.asm
+1B0074,StandsDetailLevel,dword_1B0074,new,low,stands detail level,src/data/front/front_52770_bss_01.asm
+1B0078,FlashSpotPos,unk_1B0078,new,low,camera flash spot,src/data/front/front_52770_bss_01.asm
+1B0084,FlashSpotTime,dword_1B0084,new,low,camera flash time,src/data/front/front_52770_bss_01.asm
+1B0268,RinkFov,dword_1B0268,new,low,rink view field of view,src/data/front/front_48D70_bss_02.asm
+1B026C,RinkAspect,dword_1B026C,new,low,rink view aspect,src/data/front/front_48D70_bss_02.asm
+1B0270,RinkViewCenter,dword_1B0270,new,low,rink view center,src/data/front/front_48D70_bss_02.asm
+1B0274,RinkModel,dword_1B0274,new,low,rink model,src/data/front/front_48D70_bss_02.asm
+1B0278,RinkViewTable,dword_1B0278,new,low,rink view table,src/data/front/front_48D70_bss_02.asm
+1B02C0,RinkModelParts,dword_1B02C0,new,low,rink model parts,src/data/front/front_48D70_bss_02.asm
+1B0300,RinkColorUsed,byte_1B0300,new,low,rink colour used flags,src/data/front/front_48D70_bss_02.asm
+1B0400,ScoreboardFrames,dword_1B0400,new,low,scoreboard frames,src/data/front/front_48D70_bss_02.asm
+1B0408,ScoreboardSpin,dword_1B0408,new,low,scoreboard spin,src/data/front/front_48D70_bss_02.asm
+1B0410,GlassRemap,unk_1B0410,new,low,glass colour remap,src/data/front/front_48D70_bss_02.asm
+1B0510,BenchRemap,unk_1B0510,new,low,bench colour remap,src/data/front/front_48D70_bss_02.asm
+1B0A78,GoalCheerState,dword_1B0A78,new,low,goal cheer state,src/data/front/front_48D70_bss_03.asm
+1B0A7C,GoalLightState,dword_1B0A7C,new,low,goal light state,src/data/front/front_48D70_bss_03.asm
+1B0A80,BenchModel,dword_1B0A80,new,low,bench model,src/data/front/front_48D70_bss_03.asm
+1B0A84,BenchDetail,dword_1B0A84,new,low,bench detail,src/data/front/front_48D70_bss_03.asm
+1B0A88,StandsDetail,dword_1B0A88,new,low,stands detail,src/data/front/front_48D70_bss_03.asm
+1B0A8C,BenchCheerTeam,dword_1B0A8C,new,low,team cheering on the bench,src/data/front/front_48D70_bss_03.asm
+1B0A90,BenchCheerTimer,dword_1B0A90,new,low,bench cheer timer,src/data/front/front_48D70_bss_03.asm
+1B0A94,BenchCheerFrame,dword_1B0A94,new,low,bench cheer frame,src/data/front/front_48D70_bss_03.asm
+1B0A98,BenchCheerCount,dword_1B0A98,new,low,bench cheerers,src/data/front/front_48D70_bss_03.asm
+1B0A9C,BenchCheerFirst,dword_1B0A9C,new,low,first bench cheerer,src/data/front/front_48D70_bss_03.asm
+1B0AA0,BenchCheerLast,dword_1B0AA0,new,low,last bench cheerer,src/data/front/front_48D70_bss_03.asm
+1B0AA4,BenchCheerOn,dword_1B0AA4,new,low,bench cheer running,src/data/front/front_48D70_bss_03.asm
+1B0AA8,CrowdReactPos,unk_1B0AA8,new,low,crowd reaction position,src/data/front/front_48D70_bss_03.asm
+1B0AB4,CrowdReactStart,dword_1B0AB4,new,low,crowd reaction start time,src/data/front/front_48D70_bss_03.asm
+1B0AB8,CrowdReactOn,dword_1B0AB8,new,low,crowd reaction running,src/data/front/front_48D70_bss_03.asm
+1B0ABC,CrowdReactCount,dword_1B0ABC,new,low,crowd members reacting,src/data/front/front_48D70_bss_03.asm
+1B0AC0,CrowdReactList,dword_1B0AC0,new,low,crowd reaction list,src/data/front/front_48D70_bss_03.asm
+1B0AC4,CrowdReactLevel,dword_1B0AC4,new,low,crowd reaction level,src/data/front/front_48D70_bss_03.asm
+1B0AC8,CrowdReactTime,dword_1B0AC8,new,low,crowd reaction time,src/data/front/front_48D70_bss_03.asm
+1B0ACC,CameraOnPuck,dword_1B0ACC,new,low,camera follows the puck,src/data/front/front_48D70_bss_03.asm
+1B0AD0,ScoreboardCorners,unk_1B0AD0,new,low,scoreboard corner points,src/data/front/front_48D70_bss_03.asm
+1B0AE8,RinkViewPoints,unk_1B0AE8,new,low,rink view points,src/data/front/front_48D70_bss_03.asm
+1B0B18,ScoreboardArt,dword_1B0B18,new,low,scoreboard art,src/data/front/front_48D70_bss_03.asm
+1B0B1C,ScoreboardDigits,dword_1B0B1C,new,low,scoreboard digit art,src/data/front/front_48D70_bss_03.asm
+1B0B20,ScoreboardSize,dword_1B0B20,new,low,scoreboard size,src/data/front/front_48D70_bss_03.asm
+1B0B28,ScoreboardFrame,dword_1B0B28,new,low,scoreboard frame,src/data/front/front_48D70_bss_03.asm
+1B0B2C,ScoreboardBounds,dword_1B0B2C,new,low,scoreboard bounds,src/data/front/front_48D70_bss_03.asm
+1B0B34,ScoreboardTime,dword_1B0B34,new,low,scoreboard time shown,src/data/front/front_48D70_bss_03.asm
+1B0B38,ScoreboardScore,dword_1B0B38,new,low,scoreboard score shown,src/data/front/front_48D70_bss_03.asm
+1B0B3C,ScoreboardText,unk_1B0B3C,new,low,scoreboard text,src/data/front/front_48D70_bss_03.asm
+1B0B60,ScoreboardPeriod,dword_1B0B60,new,low,scoreboard period,src/data/front/front_48D70_bss_03.asm
+1B0B62,ScoreboardTick,word_1B0B62,new,low,scoreboard tick,src/data/front/front_48D70_bss_03.asm
+1B0B64,ScoreboardBuffer,dword_1B0B64,new,low,scoreboard buffer,src/data/front/front_48D70_bss_03.asm
+1B0B68,ScoreboardPitch,dword_1B0B68,new,low,scoreboard buffer pitch,src/data/front/front_48D70_bss_03.asm
+1B0B6C,ScoreboardLogo,dword_1B0B6C,new,low,scoreboard logo,src/data/front/front_48D70_bss_03.asm
+1B0B70,ScoreboardHome,dword_1B0B70,new,low,scoreboard home score art,src/data/front/front_48D70_bss_03.asm
+1B0B74,ScoreboardAway,dword_1B0B74,new,low,scoreboard away score art,src/data/front/front_48D70_bss_03.asm
+1B0B78,ScoreboardClock,dword_1B0B78,new,low,scoreboard clock art,src/data/front/front_48D70_bss_03.asm
+1B0B7C,ScoreboardLoaded,dword_1B0B7C,new,low,scoreboard loaded,src/data/front/front_48D70_bss_03.asm
+1B0B80,GoalLightArt,dword_1B0B80,new,low,goal light art,src/data/front/front_48D70_bss_03.asm
+1B0B84,GoalLightModel,dword_1B0B84,new,low,goal light model,src/data/front/front_48D70_bss_03.asm
+1B0B88,CrowdDelay,dword_1B0B88,new,low,crowd reaction delay,src/data/front/front_48D70_bss_03.asm
+1B0B8C,CrowdReactType,dword_1B0B8C,new,low,crowd reaction type,src/data/front/front_48D70_bss_03.asm
+1B0B90,CrowdReactEnd,dword_1B0B90,new,low,crowd reaction end time,src/data/front/front_48D70_bss_03.asm
+1B0B94,CrowdModel,dword_1B0B94,new,low,crowd model,src/data/front/front_48D70_bss_03.asm
+1B0B98,CrowdFrame,dword_1B0B98,new,low,crowd frame,src/data/front/front_48D70_bss_03.asm
+1B0B9C,CrowdFrameTime,dword_1B0B9C,new,low,crowd frame time,src/data/front/front_48D70_bss_03.asm
+1B0BA0,IceLinePolys,unk_1B0BA0,new,low,ice line polygons,src/data/front/front_48D70_bss_03.asm
+1B0C0C,BoardLinePolys,unk_1B0C0C,new,low,board line polygons,src/data/front/front_48D70_bss_03.asm
+1B0C78,RinkLength,dword_1B0C78,new,low,rink length,src/data/front/front_48D70_bss_03.asm
+1B0C7C,RinkWidth,dword_1B0C7C,new,low,rink width,src/data/front/front_48D70_bss_03.asm
+1B0C80,RinkCorner,dword_1B0C80,new,low,rink corner radius,src/data/front/front_48D70_bss_03.asm
+1B0C84,IceSurfacePolys,unk_1B0C84,new,low,ice surface polygons,src/data/front/front_48D70_bss_03.asm
+1B0CE4,RinkGoalLine,dword_1B0CE4,new,low,goal line position,src/data/front/front_48D70_bss_03.asm
+1B0CE8,RinkBlueLine,dword_1B0CE8,new,low,blue line position,src/data/front/front_48D70_bss_03.asm
+1B0CEC,RinkCenterLine,dword_1B0CEC,new,low,center line position,src/data/front/front_48D70_bss_03.asm
+1B0CF0,IceCenterPoly,unk_1B0CF0,new,low,ice center polygon,src/data/front/front_48D70_bss_03.asm
+1B0CFC,ModelSlotTable,dword_1B0CFC,new,low,model slots,src/data/front/front_48D70_bss_03.asm
+1B0D5C,RinkModelState,dword_1B0D5C,new,low,rink model state,src/data/front/front_48D70_bss_03.asm
+1B0D70,NetX,dword_1B0D70,new,low,net X,src/data/front/front_48D70_bss_03.asm
+1B0D74,NetShadowX,dword_1B0D74,new,low,net shadow X,src/data/front/front_48D70_bss_03.asm
+1B0D78,NetShadowY,dword_1B0D78,new,low,net shadow Y,src/data/front/front_48D70_bss_03.asm
+1B0D7C,ViewDistance,dword_1B0D7C,new,low,view distance,src/data/front/front_48D70_bss_03.asm
+1B0D80,NetShadowZ,dword_1B0D80,new,low,net shadow Z,src/data/front/front_48D70_bss_03.asm
+1B0D84,NetShadowW,dword_1B0D84,new,low,net shadow width,src/data/front/front_48D70_bss_03.asm
+1B0D88,CameraModeOn,dword_1B0D88,new,low,camera mode set,src/data/front/front_48D70_bss_03.asm
+1B0D8C,NetShadowH,dword_1B0D8C,new,low,net shadow height,src/data/front/front_48D70_bss_03.asm
+1B0D90,NetShadowD,dword_1B0D90,new,low,net shadow depth,src/data/front/front_48D70_bss_03.asm
+1B0D94,NetY,dword_1B0D94,new,low,net Y,src/data/front/front_48D70_bss_03.asm
+1B0D98,NetZ,dword_1B0D98,new,low,net Z,src/data/front/front_48D70_bss_03.asm
+1B0D9C,BoardAdArt,dword_1B0D9C,new,low,board ad art,src/data/front/front_48D70_bss_03.asm
+1B0DA0,ArenaArtParts,dword_1B0DA0,97PC,low,arena art pieces loaded by LoadArenaArt (20 pointers),src/data/front/front_48D70_bss_03.asm
+1B0DF0,BenchDoorArt,dword_1B0DF0,new,low,bench door art,src/data/front/front_48D70_bss_03.asm
+1B0FA4,ProjectionNear,unk_1B0FA4,new,low,projection near plane,src/data/front/front_48D70_bss_04.asm
+1B0FA8,ProjectionFar,dword_1B0FA8,new,low,projection far plane,src/data/front/front_48D70_bss_04.asm
+1B0FB0,BoardAdModel,dword_1B0FB0,new,low,board ad model,src/data/front/front_48D70_bss_04.asm
+1B0FB4,RinkLineModel,dword_1B0FB4,new,low,rink line model,src/data/front/front_48D70_bss_04.asm
+1B0FB8,RinkModelData,dword_1B0FB8,new,low,rink model data,src/data/front/front_48D70_bss_04.asm
+1B0FBC,ArenaModel,dword_1B0FBC,new,low,arena model,src/data/front/front_48D70_bss_04.asm
+1B0FC0,NetsHookPos,unk_1B0FC0,new,low,nets hook position,src/data/front/front_48D70_bss_04.asm
+1B0FCC,BenchCheerModel,dword_1B0FCC,new,low,bench cheer model,src/data/front/front_48D70_bss_04.asm
+1B0FD0,StandsEndModel,dword_1B0FD0,new,low,end stands model,src/data/front/front_48D70_bss_04.asm
+1B0FD4,NearSideModel,dword_1B0FD4,new,low,near side model,src/data/front/front_48D70_bss_04.asm
+1B0FD8,RinkLinesLoaded,dword_1B0FD8,new,low,rink lines loaded,src/data/front/front_48D70_bss_04.asm
+1B0FDC,NearSideParts,dword_1B0FDC,new,low,near side parts,src/data/front/front_48D70_bss_04.asm
+1B0FE0,FarSideParts,dword_1B0FE0,new,low,far side parts,src/data/front/front_48D70_bss_04.asm
+1B0FE4,GlassModel,dword_1B0FE4,new,low,glass model,src/data/front/front_48D70_bss_04.asm
+1B0FE8,FaceoffSpotModel,dword_1B0FE8,new,low,face-off spot model,src/data/front/front_48D70_bss_04.asm
+1B0FEC,BenchCheerParts,dword_1B0FEC,new,low,bench cheer parts,src/data/front/front_48D70_bss_04.asm
+1B0FF0,BenchCheerFrames,dword_1B0FF0,new,low,bench cheer frames,src/data/front/front_48D70_bss_04.asm
+1B0FF4,CreaseArcModel,dword_1B0FF4,new,low,crease arc model,src/data/front/front_48D70_bss_04.asm
+1B0FF8,GlassParts,dword_1B0FF8,new,low,glass parts,src/data/front/front_48D70_bss_04.asm
+1B0FFC,BenchModelParts,dword_1B0FFC,new,low,bench model parts,src/data/front/front_48D70_bss_04.asm
+1B1000,EndSpotModels,dword_1B1000,new,low,end spot models,src/data/front/front_48D70_bss_04.asm
+1B1008,FarSideModel,dword_1B1008,new,low,far side model,src/data/front/front_48D70_bss_04.asm
+1B100C,SideParts,dword_1B100C,new,low,side parts,src/data/front/front_48D70_bss_04.asm
+1B1010,BenchCheerData,dword_1B1010,new,low,bench cheer data,src/data/front/front_48D70_bss_04.asm
+1B1014,FarSideData,dword_1B1014,new,low,far side data,src/data/front/front_48D70_bss_04.asm
+1B1018,RinkLineData,dword_1B1018,new,low,rink line data,src/data/front/front_48D70_bss_04.asm
+1B101C,StandsRowModel,dword_1B101C,new,low,stands row model,src/data/front/front_48D70_bss_04.asm
+1B1020,RinkPaletteData,dword_1B1020,new,low,rink palette data,src/data/front/front_48D70_bss_04.asm
+1B1024,AwayBlueLineModel,dword_1B1024,new,low,away blue line model,src/data/front/front_48D70_bss_04.asm
+1B1028,BenchCheerArt,dword_1B1028,new,low,bench cheer art,src/data/front/front_48D70_bss_04.asm
+1B102C,HomeBlueLineModel,dword_1B102C,new,low,home blue line model,src/data/front/front_48D70_bss_04.asm
+1B1030,NeutralSpotModel,dword_1B1030,new,low,neutral zone spot model,src/data/front/front_48D70_bss_04.asm
+1B1034,RinkMarkingModel,dword_1B1034,new,low,rink marking model,src/data/front/front_48D70_bss_04.asm
+1B1038,CreaseModel,dword_1B1038,new,low,crease model,src/data/front/front_48D70_bss_04.asm
+1B103C,RinkGeometryModel,dword_1B103C,new,low,rink geometry model,src/data/front/front_48D70_bss_04.asm
+1B1040,RinkGeometryParts,dword_1B1040,new,low,rink geometry parts,src/data/front/front_48D70_bss_04.asm
+1B1044,CenterSpotModel,dword_1B1044,new,low,center spot model,src/data/front/front_48D70_bss_04.asm
+1B1048,CreasePolyModel,dword_1B1048,new,low,crease polygon model,src/data/front/front_48D70_bss_04.asm
+1B104C,BoardsTopModel,dword_1B104C,new,low,boards top model,src/data/front/front_48D70_bss_04.asm
+1B1050,RinkGeometryData,dword_1B1050,new,low,rink geometry data,src/data/front/front_48D70_bss_04.asm
+1B1054,CenterCircleModel,dword_1B1054,new,low,center circle model,src/data/front/front_48D70_bss_04.asm
+1B1058,BenchLineModel,dword_1B1058,new,low,bench line model,src/data/front/front_48D70_bss_04.asm
+1B105C,CameraFlashOn,dword_1B105C,new,low,camera flashes on,src/data/front/front_48D70_bss_04.asm
+1B1060,SpotModelData,dword_1B1060,new,low,spot model data,src/data/front/front_48D70_bss_04.asm
+1B1064,BenchSideIndex,dword_1B1064,new,low,bench side index,src/data/front/front_48D70_bss_04.asm
+1B1068,FlashPolys,unk_1B1068,new,low,camera flash polygons,src/data/front/front_48D70_bss_04.asm
+1B108C,LogosLoaded,dword_1B108C,new,low,logos loaded,src/data/front/front_48D70_bss_04.asm
+1B1090,RinkCameraPoints,unk_1B1090,new,low,rink camera points,src/data/front/front_48D70_bss_04.asm
+1B10CC,RinkOverlayModel,dword_1B10CC,new,low,rink overlay model,src/data/front/front_48D70_bss_04.asm
+1B10D0,RinkSidesModel,dword_1B10D0,new,low,rink sides model,src/data/front/front_48D70_bss_04.asm
+1B10D4,PauseArtModel,dword_1B10D4,new,low,pause art model,src/data/front/front_48D70_bss_04.asm
+1B10D8,RinkExtraModel,dword_1B10D8,new,low,rink extra model,src/data/front/front_48D70_bss_04.asm
+1B10DC,ScoreboardAngle,dword_1B10DC,new,low,scoreboard angle,src/data/front/front_48D70_bss_04.asm
+1B10E0,ScoreboardFrameNo,dword_1B10E0,new,low,scoreboard frame number,src/data/front/front_48D70_bss_04.asm
+1B10E4,ScoreboardHeight,dword_1B10E4,new,low,scoreboard height,src/data/front/front_48D70_bss_04.asm
+1B10E8,FlashSpots,dword_1B10E8,new,low,camera flash spots,src/data/front/front_48D70_bss_04.asm
+1B10F4,RinkSidesData,dword_1B10F4,new,low,rink sides data,src/data/front/front_48D70_bss_04.asm
+1B10F8,GameGraphicsFlags,dword_1B10F8,new,low,game graphics flags,src/data/front/front_48D70_bss_04.asm
+1B10FC,ProjectionCenter,unk_1B10FC,new,low,projection center,src/data/front/front_48D70_bss_04.asm
+1B1108,CrowdCenter,dword_1B1108,new,low,crowd center,src/data/front/front_48D70_bss_04.asm
+1B110C,RinkModelPieces,dword_1B110C,new,low,rink model parts,src/data/front/front_48D70_bss_04.asm
+1B1114,RinkViewWidth,dword_1B1114,new,low,rink view width,src/data/front/front_48D70_bss_04.asm
+1B1118,RinkViewHeight,dword_1B1118,new,low,rink view height,src/data/front/front_48D70_bss_04.asm
+1B111C,RinkSurfaceDrawn,dword_1B111C,new,low,rink surface drawn,src/data/front/front_48D70_bss_04.asm
+1B1120,SeatModels,unk_1B1120,new,low,seat models,src/data/front/front_48D70_bss_04.asm
 1B93D8,BoxSeatPlayer,dword_1B93D8,new,low,penalty box seat player,src/data/engine/engine_3812E_bss_03.asm
 1B93DC,BoxSeatTeam,dword_1B93DC,new,low,penalty box seat team,src/data/engine/engine_3812E_bss_03.asm
 1B93DD,BoxSeatSlot,byte_1B93DD,new,low,penalty box seat slot,src/data/engine/engine_3812E_bss_03.asm
@@ -8871,6 +9188,10 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1B93E0,BoxSeats,unk_1B93E0,new,low,penalty box seats,src/data/engine/engine_3812E_bss_03.asm
 1B93E4,BenchSeats,dword_1B93E4,new,low,bench seats,src/data/engine/engine_3812E_bss_03.asm
 1B93E8,SeatTable,dword_1B93E8,new,low,bench and box seat table,src/data/engine/engine_3812E_bss_03.asm
+1C1403,HomeSpeechNames,dword_1C1403,new,low,home team speech name clips,src/data/front/front_43578_bss_01.asm
+1C14BD,HomeSpeechLoaded,byte_1C14BD,new,low,home team speech clips loaded,src/data/front/front_43578_bss_01.asm
+1C3526,AwaySpeechNames,dword_1C3526,new,low,away team speech name clips,src/data/front/front_43578_bss_02.asm
+1C35E0,AwaySpeechLoaded,byte_1C35E0,new,low,away team speech clips loaded,src/data/front/front_43578_bss_02.asm
 1CD1E0,InputRecordRing,unk_1CD1E0,96PC,high,96 PC InputRecordRing (97: 5 records of 14h bytes),src/data/front/front_DA66D_bss_01.asm
 1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,
