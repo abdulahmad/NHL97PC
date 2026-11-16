@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_D15FB progbits alloc exec nowrite align=1
-extern asc_166FCC, asc_166FD1, asc_166FD6, asc_166FDB, asc_166FE5, asc_166FEF, asc_166FF7, asc_166FFD
-extern asc_167002, asc_16700C, asc_167011, asc_167016, asc_167021, asc_167034, asc_16703F, asc_167049
-extern asc_167053, byte_1C3449, byte_1C344A, byte_1C344B, byte_1C3455, byte_1C3456, byte_1C347D, byte_1C556C
+extern str_PANL2, str_TITL12, str_00009, str_03dLFSH, str_03dRFSH, str_GSTS, str_DD5, str_PSTS
+extern str_002dFSH, str_FRNT, str_FART4, str_NOFACEFSH4, str_PortraitNotFound, str_DSS3, str_Homestats, str_Awaystats
+extern str_ST02d, byte_1C3449, byte_1C344A, byte_1C344B, byte_1C3455, byte_1C3456, byte_1C347D, byte_1C556C
 extern byte_1C556D, byte_1C556E, byte_1C5578, byte_1C5579, byte_1C55A0, byte_1C6040, byte_1CC8B4, dword_16D6E8
 extern dword_16D6EC, dword_16D6F0, dword_16D6F4, dword_16D6F8, dword_16D6FC, dword_16D700, dword_16D704, dword_16D708
 extern dword_16D71C, dword_16D720, dword_16D724, dword_16D728, dword_16D73C, dword_16D740, dword_16D74C, dword_16D750
@@ -304,16 +304,16 @@ PreGameMatchupScreen:
         lea edx, [dword ebp-0E6h]
         mov eax, dword [dword_1CC7CC]
         call sub_D15FB
-        push asc_166FD1
+        push str_TITL12
         push dword [dword_1CC7CC]
         call FindShape
         add esp, byte 8
-        push asc_166FCC
+        push str_PANL2
         push dword [dword_1CC7D4]
         mov ebx, eax
         call FindShape
         add esp, byte 8
-        push asc_166FCC
+        push str_PANL2
         push dword [dword_1CC7D4]
         mov esi, eax
         call FindShape
@@ -349,7 +349,7 @@ PreGameMatchupScreen:
         push byte 0
         call ClearScreen
         add esp, byte 4
-        push asc_166FD6
+        push str_00009
         push dword [dword_1CC7D4]
         call FindShape
         add esp, byte 8
@@ -360,7 +360,7 @@ PreGameMatchupScreen:
         push eax
         call DrawArt
         add esp, byte 0Ch
-        push asc_166FCC
+        push str_PANL2
         push dword [dword_1CC7D4]
         call FindShape
         add esp, byte 8
@@ -371,7 +371,7 @@ PreGameMatchupScreen:
         push eax
         call DrawArt
         add esp, byte 0Ch
-        push asc_166FD1
+        push str_TITL12
         push dword [dword_1CC7CC]
         call FindShape
         add esp, byte 8
@@ -389,7 +389,7 @@ PreGameMatchupScreen:
         shl ebx, 0Ch
         shr ebx, 1Ah
         push ebx
-        push asc_166FDB
+        push str_03dLFSH
         lea eax, [byte ebp+062h]
         push eax
         call sprintf_
@@ -422,7 +422,7 @@ PreGameMatchupScreen:
         add esp, byte 4
         shr ebx, 1Ah
         push ebx
-        push asc_166FE5
+        push str_03dRFSH
         lea eax, [byte ebp+062h]
         push eax
         call sprintf_
@@ -700,7 +700,7 @@ sub_D1F8B:
         push dword [dword_1CC5F0]
         call SetDrawTarget
         add esp, byte 4
-        push asc_166FEF
+        push str_GSTS
         push dword [dword_1CC7CC]
         call FindShape
         add esp, byte 8
@@ -747,7 +747,7 @@ sub_D1F8B:
         mov edx, ebx
         push edx
         push eax
-        push asc_166FF7
+        push str_DD5
         mov ebx, edi
         push ebx
         push esi
@@ -776,7 +776,7 @@ sub_D1F8B:
 .2:
         push edx
         push eax
-        push asc_166FF7
+        push str_DD5
         add ebx, edi
         push ebx
         push esi
@@ -812,7 +812,7 @@ sub_D1F8B:
         mov edx, ebx
         push edx
         push eax
-        push asc_166FF7
+        push str_DD5
         push edi
         push esi
         push byte 1
@@ -841,7 +841,7 @@ sub_D1F8B:
 .4:
         push edx
         push eax
-        push asc_166FF7
+        push str_DD5
         add ebx, edi
         push ebx
         push esi
@@ -858,7 +858,7 @@ sub_D1F8B:
         push dword [dword_1CC5F0]
         call SetDrawTarget
         add esp, byte 4
-        push asc_166FFD
+        push str_PSTS
         push dword [dword_1CC7CC]
         call FindShape
         add esp, byte 8
@@ -1011,12 +1011,12 @@ DrawPlayerPortrait:
         mov eax, 0F8h
         call OpenDataLibrary
         push dword [dword edx+dword_1CC328]
-        push asc_167002
+        push str_002dFSH
         lea ebx, [byte ebp-024h]
         push ebx
         call sprintf_
         add esp, byte 0Ch
-        mov edx, asc_16700C
+        mov edx, str_FRNT
         lea eax, [byte ebp-014h]
         jmp short .2
 .1:
@@ -1025,7 +1025,7 @@ DrawPlayerPortrait:
         call OpenDataLibrary
         mov eax, edi
         mov ebx, dword [dword edx+eax*4+dword_1CC638]
-        mov edx, asc_167011
+        mov edx, str_FART4
         lea eax, [byte ebp-014h]
         add ebx, byte 27h
 .2:
@@ -1033,11 +1033,11 @@ DrawPlayerPortrait:
         cmp byte [ebx], 0
         jne short .3
         mov eax, 37h
-        mov edx, asc_167016
+        mov edx, str_NOFACEFSH4
         call OpenDataLibrary
         lea eax, [byte ebp-024h]
         call strcpy_
-        mov edx, asc_167011
+        mov edx, str_FART4
         lea eax, [byte ebp-014h]
         lea ebx, [byte ebp-024h]
         call strcpy_
@@ -1096,7 +1096,7 @@ DrawPlayerPortrait:
 .7:
         cmp dword [byte ebp-04h], byte 0
         jne short .9
-        push asc_167021
+        push str_PortraitNotFound
         push byte 28h
         push byte 0
         push byte 0
@@ -1127,7 +1127,7 @@ DrawPlayerPortrait:
         movzx eax, byte [dword edx+0BCh]
         push eax
         shl esi, 4
-        push asc_167034
+        push str_DSS3
         mov eax, dword [dword esi+dword_16D724]
         push byte 0
         sar eax, 1
@@ -1399,12 +1399,12 @@ PreGameStatsPanel:
 .6:
         push byte 0
         push dword 5B8h
-        push asc_16703F
+        push str_Homestats
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 5B8h
-        push asc_167049
+        push str_Awaystats
         mov ebx, 5B8h
         mov dword [dword_1CC7D0], eax
         call AllocMemBlock
@@ -1540,7 +1540,7 @@ PreGameStatsPanel:
         mov dword [nosplit edi*4+dword_1CC78C], 6
         cmp edi, byte 2
         jl near .10
-        push asc_166FFD
+        push str_PSTS
         push dword [dword_1CC7CC]
         call FindShape
         movsx edx, word [byte eax+0Ch]
@@ -1786,7 +1786,7 @@ sub_D2D94:
 .1:
         lea ebx, [byte esi+01h]
         push ebx
-        push asc_167053
+        push str_ST02d
         lea eax, [byte ebp-010h]
         push eax
         call sprintf_

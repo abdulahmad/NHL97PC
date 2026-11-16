@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_7A9D8 progbits alloc exec nowrite align=1
-extern asc_163F00, asc_163F07, asc_163F0C, asc_163F14, asc_164120, asc_164154, asc_164164, asc_16416F
-extern asc_16417C, asc_164181, asc_164186, asc_16418B, asc_164190, asc_164195, asc_16419A, asc_16419F
+extern str_Roster, str_SS2, str_VIDEO, str_AUDSTRMHACK, str_ATE1Q0X4F1, str_Punct2, str_LogoNames, str_Logo02dQfs
+extern str_Mous2, str_Remo2, str_CHK1, str_X1, str_CB00, str_CB01, str_BACK2, str_LOGO2
 extern atoi_, byte_16C914, byte_16CCF0, byte_1ACF63, byte_1AD458, dword_16C734, dword_16C738, dword_16C75C
 extern dword_16C760, dword_16C982, dword_16C996, dword_16C9AC, dword_16C9B0, dword_16CAA8, dword_16CAAC, dword_16CB74
 extern dword_16DA9C, dword_16E4B0, dword_16E698, dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16E6BC, dword_16E6C8
@@ -51,7 +51,7 @@ sub_7A9D8:
         imul eax, dword 194Fh
         push byte 0
         push eax
-        push asc_163F00
+        push str_Roster
         mov dword [byte ebp-020h], 0
         mov dword [byte ebp-08h], 0
         call AllocMemBlock
@@ -1429,7 +1429,7 @@ sub_7B88D:
 .18:
         call GetLangText
         push eax
-        push asc_163F07
+        push str_SS2
         lea eax, [byte ebp-042h]
         push eax
         call sprintf_
@@ -1669,7 +1669,7 @@ OpenVideoStream:
         add esp, byte 10h
         push byte 0
         push dword 4E290h
-        push asc_163F0C
+        push str_VIDEO
         mov dword [dword_1C1248], eax
         call sub_FAAB4
         add esp, byte 0Ch
@@ -2256,7 +2256,7 @@ PlayMovie:
         lea eax, [dword ebx+090h]
         push eax
         mov edx, 1
-        push asc_163F14
+        push str_AUDSTRMHACK
         mov dword [byte esp+0Ch], edx
         call AllocMemBlock
         add esp, byte 0Ch
@@ -2443,7 +2443,7 @@ ModemReset:
         mov edx, eax
         test eax, eax
         jne short .4
-        mov edx, asc_164120
+        mov edx, str_ATE1Q0X4F1
         mov eax, esi
         xor ebx, ebx
         call ModemSendCommand
@@ -2890,7 +2890,7 @@ ModemAttention:
         push byte 69h
         call WaitTicks
         add esp, byte 4
-        push asc_164154
+        push str_Punct2
         push byte 3
         push esi
         call sub_11910D
@@ -2967,7 +2967,7 @@ LoadLogoNames:
         call sub_419B8
         push byte 0
         push dword 230h
-        push asc_164164
+        push str_LogoNames
         call AllocMemBlock
         add esp, byte 0Ch
         mov ebx, eax
@@ -2976,7 +2976,7 @@ LoadLogoNames:
         mov eax, edx
         push edx
         shl eax, 4
-        push asc_16416F
+        push str_Logo02dQfs
         lea ecx, [ebx+eax]
         inc edx
         push ecx
@@ -3082,11 +3082,11 @@ InitFrontEnd:
         call sub_419B0
         call sub_419B8
         call sub_81678
-        push asc_164181
+        push str_Remo2
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
-        push asc_16417C
+        push str_Mous2
         push dword [dword_1C5DE4]
         mov ebx, eax
         call FindShape
@@ -3105,13 +3105,13 @@ InitFrontEnd:
         call sub_419B8
 .4:
         push byte 0
-        push asc_164186
+        push str_CHK1
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_164186
+        push str_CHK1
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -3120,14 +3120,14 @@ InitFrontEnd:
         call CreateBitmap
         add esp, byte 0Ch
         push byte 0
-        push asc_16418B
+        push str_X1
         push dword [dword_1C5DE4]
         mov dword [nosplit ebx*4+dword_1C5EA0], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_16418B
+        push str_X1
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -3142,13 +3142,13 @@ InitFrontEnd:
         xor ebx, ebx
 .5:
         push byte 0
-        push asc_164190
+        push str_CB00
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_164190
+        push str_CB00
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -3163,13 +3163,13 @@ InitFrontEnd:
         mov ebx, 2
 .6:
         push byte 0
-        push asc_164195
+        push str_CB01
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_164195
+        push str_CB01
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -3362,14 +3362,14 @@ TitleScreen:
         mov ebx, eax
         call SetDrawTarget
         add esp, byte 4
-        push asc_16419A
+        push str_BACK2
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_16419F
+        push str_LOGO2
         push esi
         call FindShape
         add esp, byte 8

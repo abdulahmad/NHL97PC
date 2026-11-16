@@ -2,11 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_167D94 progbits alloc noexec write align=1
-global asc_167D94, asc_167DD4, asc_167DDC, asc_167DE8, asc_167E28, asc_167E30, asc_167E48, asc_167E54
-global asc_167E64, asc_167E8C, dword_167D99, dword_167D9D, dword_167DC1, dword_167DC5, dword_167E08, dword_167E1C
+global str_Acos, str_DtoD, str_VESAMEM, str_Rowtbl, str_Tube3, str_Inversetbl, str_CDROMDATA, str_CDROMBUFFER
+global str_VoxPlaybuf, str_INVMATRX, dword_167D99, dword_167D9D, dword_167DC1, dword_167DC5, dword_167E08, dword_167E1C
 global qword_167DA1, qword_167DA9, qword_167DB1, qword_167DB9, qword_167DF0, qword_167DF8, qword_167E00, qword_167E0C
 global qword_167E14, qword_167E20, str_AALIAS, str_ASYNC, str_ASYNCFILE, str_Inversetmp, unk_167DCC
-asc_167D94:
+str_Acos:
         db 061h,063h,06Fh,073h,00h
 dword_167D99:
         db 00h,00h,080h,037h
@@ -26,11 +26,11 @@ dword_167DC5:
         db 00h,00h,080h,047h,00h,00h,00h
 unk_167DCC:
         db 02Eh,066h,073h,068h,00h,00h,00h,00h
-asc_167DD4:
+str_DtoD:
         db 025h,064h,074h,06Fh,025h,064h,00h,00h
-asc_167DDC:
+str_VESAMEM:
         db 056h,045h,053h,041h,020h,04Dh,045h,04Dh,00h,00h,00h,00h
-asc_167DE8:
+str_Rowtbl:
         db 072h,06Fh,077h,074h,062h,06Ch,00h,00h
 qword_167DF0:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0D4h,03Fh
@@ -48,17 +48,17 @@ dword_167E1C:
         db 00h,00h,00h,040h
 qword_167E20:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-asc_167E28:
+str_Tube3:
         db 074h,075h,062h,065h,033h,00h,00h,00h
-asc_167E30:
+str_Inversetbl:
         db 069h,06Eh,076h,065h,072h,073h,065h,074h,062h,06Ch,00h,00h
 str_Inversetmp:
         db 069h,06Eh,076h,065h,072h,073h,065h,074h,06Dh,070h,00h,00h
-asc_167E48:
+str_CDROMDATA:
         db 043h,044h,052h,04Fh,04Dh,020h,044h,041h,054h,041h,00h,00h
-asc_167E54:
+str_CDROMBUFFER:
         db 043h,044h,052h,04Fh,04Dh,020h,042h,055h,046h,046h,045h,052h,00h,00h,00h,00h
-asc_167E64:
+str_VoxPlaybuf:
         db 076h,06Fh,078h,020h,070h,06Ch,061h,079h,062h,075h,066h,00h
 str_ASYNC:
         db 041h,053h,059h,04Eh,043h,00h,00h,00h
@@ -66,5 +66,5 @@ str_ASYNCFILE:
         db 041h,053h,059h,04Eh,043h,020h,046h,049h,04Ch,045h,00h,00h
 str_AALIAS:
         db 041h,041h,04Ch,049h,041h,053h,00h,00h
-asc_167E8C:
+str_INVMATRX:
         db 049h,04Eh,056h,04Dh,041h,054h,052h,058h,00h,00h,00h,00h

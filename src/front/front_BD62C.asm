@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_BD62C progbits alloc exec nowrite align=1
-extern SortCords, __CHP, __STOSD, asc_166A5C, asc_166A61, asc_166A66, asc_166A6F, asc_166A78
-extern asc_166A81, asc_166AAD, asc_166AB8, asc_166AD8, asc_166AE4, asc_166AEB, asc_166AF0, asc_166AF9
-extern asc_166B07, asc_166B1B, asc_166B20, byte_19CBC2, byte_1C6040, byte_1CB004, dword_166A95, dword_166A99
+extern SortCords, __CHP, __STOSD, str_Mous4, str_Remo3, str_Replload, str_RPEVENT, str_Replmenu
+extern str_Replregs, str_REPLAYNDX, str_DATAREPLAYNDX2, str_DONTHAVEIT2, str_Replay, str_SS10, str_Replbuff, str_SREPLAYNDX
+extern str_S12, str_NOIS, str_ARWD, byte_19CBC2, byte_1C6040, byte_1CB004, dword_166A95, dword_166A99
 extern dword_166A9D, dword_166AA9, dword_166AC8, dword_166AD4, dword_166B0B, dword_166B17, dword_166B26, dword_166B32
 extern dword_1686C0, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, dword_16E46C
 extern dword_16E474, dword_16E500, dword_19CD10, dword_19CD14, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C
@@ -83,14 +83,14 @@ RunReplay:
         mov dword [dword_1CAFF4], 0
         call LoadDataFile
         push byte 0
-        push asc_166A5C
+        push str_Mous4
         push eax
         mov dword [dword_1C5DE4], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -99,14 +99,14 @@ RunReplay:
         call CreateBitmap
         add esp, byte 0Ch
         push byte 0
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         mov dword [dword_1CAF94], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -307,7 +307,7 @@ LoadReplay:
         call sub_E1C19
         push byte 0
         push dword [dword_1C5DA4]
-        push asc_166A66
+        push str_Replload
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1CAF9C], eax
@@ -440,14 +440,14 @@ sub_BDB25:
         xor edx, edx
         call LoadDataFile
         push byte 0
-        push asc_166A5C
+        push str_Mous4
         push eax
         mov dword [dword_1C5DE4], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -456,14 +456,14 @@ sub_BDB25:
         call CreateBitmap
         add esp, byte 0Ch
         push byte 0
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         mov dword [dword_1CAF94], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -480,7 +480,7 @@ sub_BDB25:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -496,7 +496,7 @@ sub_BDB25:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -545,11 +545,11 @@ sub_BDB25:
         push dword [dword_1CAFA4]
         call sub_FCC40
         add esp, byte 4
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         mov ebx, eax
         call FindShape
@@ -584,11 +584,11 @@ sub_BDB25:
         add esp, byte 4
 .3:
         call InitFrontEnd
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         mov ebx, eax
         call FindShape
@@ -624,7 +624,7 @@ sub_BDB25:
 .6:
         push byte 0
         push byte 18h
-        push asc_166A6F
+        push str_RPEVENT
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1B8F4C], eax
@@ -642,11 +642,11 @@ sub_BDB25:
         call sub_103298
         add esp, byte 0Ch
         call sub_F94BC
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         mov ebx, eax
         call FindShape
@@ -938,13 +938,13 @@ ReplayScreen:
         call sub_5C75C
         push byte 0
         push dword 4CEh
-        push asc_166A78
+        push str_Replmenu
         mov dword [dword_1CB000], eax
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 3C0h
-        push asc_166A81
+        push str_Replregs
         mov dword [dword_1CAFF8], eax
         call AllocMemBlock
         mov edx, dword [dword_1CAFF8]
@@ -1039,7 +1039,7 @@ ReplayScreen_EF:
         call sub_C04BE
 .5:
         call sub_8D910
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         movsx eax, word [byte eax+06h]
@@ -1058,7 +1058,7 @@ ReplayScreen_EF:
         fistp dword [byte ebp-04h]
         sub eax, dword [byte ebp-04h]
         push eax
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         movsx eax, word [byte eax+04h]
@@ -2692,13 +2692,13 @@ PickReplayScreen:
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
-        mov edx, asc_166AAD
+        mov edx, str_REPLAYNDX
         call SetTextColor
         lea eax, [byte ebp+06h]
         call NameIndexLoad
         test eax, eax
         jne short .6
-        mov edx, asc_166AAD
+        mov edx, str_REPLAYNDX
         lea eax, [byte ebp+06h]
         call NameIndexNew
 .6:
@@ -2948,7 +2948,7 @@ PickReplayScreen:
         call sub_C037B
         cmp dword [byte ecx+066h], byte 0
         jne short .9
-        mov eax, asc_166AB8
+        mov eax, str_DATAREPLAYNDX2
         call sub_11B98E
         mov dword [byte ebp+02Eh], 0
         jmp near .9
@@ -3053,14 +3053,14 @@ OpenReplayIndex:
         lea eax, [byte ebp+03Eh]
         xor ebx, ebx
         call MakeDirPath
-        mov edx, asc_166AAD
+        mov edx, str_REPLAYNDX
         lea eax, [byte ebp+03Eh]
         mov dword [byte ebp+07Eh], 0
         call NameIndexLoad
         mov edi, eax
         test eax, eax
         jne short .1
-        mov edx, asc_166AAD
+        mov edx, str_REPLAYNDX
         lea eax, [byte ebp+03Eh]
         call NameIndexNew
         mov edi, eax
@@ -3073,7 +3073,7 @@ OpenReplayIndex:
         test eax, eax
         je near .6
         call sub_E4218
-        mov edx, asc_166AD8
+        mov edx, str_DONTHAVEIT2
         mov eax, unk_1CAF3C
         call strcmp_
         test eax, eax
@@ -3109,7 +3109,7 @@ OpenReplayIndex:
         call LinkReceiveBlock
         push byte 0
         push dword [dword_1C5DA4]
-        push asc_166AE4
+        push str_Replay
         xor ebx, ebx
         call AllocMemBlock
         add esp, byte 0Ch
@@ -3132,7 +3132,7 @@ OpenReplayIndex:
         push eax
         lea eax, [byte ebp+03Eh]
         push eax
-        push asc_166AEB
+        push str_SS10
         lea eax, [byte ebp-03Ah]
         push eax
         mov edx, esi
@@ -3162,7 +3162,7 @@ OpenReplayIndex:
         call sub_E1C19
         push byte 0
         push dword [dword_1C5DA4]
-        push asc_166AF0
+        push str_Replbuff
         call AllocMemBlock
         mov esi, eax
         add esp, byte 0Ch
@@ -3184,7 +3184,7 @@ OpenReplayIndex:
         lea eax, [byte ebp+066h]
         xor ebx, ebx
         call LinkReceiveBlock
-        mov edx, asc_166AD8
+        mov edx, str_DONTHAVEIT2
         mov eax, unk_1CAF3C
         call strcmp_
         test eax, eax
@@ -3217,7 +3217,7 @@ OpenReplayIndex:
         call sub_E1C19
         push byte 0
         push dword [dword_1C5DA4]
-        push asc_166AF0
+        push str_Replbuff
         call AllocMemBlock
         mov esi, eax
         add esp, byte 0Ch
@@ -3268,7 +3268,7 @@ SaveReplay:
         call MakeDirPath
         lea eax, [byte ebp+02Eh]
         push eax
-        push asc_166AF9
+        push str_SREPLAYNDX
         lea eax, [byte ebp-022h]
         push eax
         call sprintf_
@@ -3279,12 +3279,12 @@ SaveReplay:
         add esp, byte 4
         test eax, eax
         jne short .1
-        mov edx, asc_166AAD
+        mov edx, str_REPLAYNDX
         lea eax, [byte ebp+02Eh]
         call NameIndexNew
         jmp short .2
 .1:
-        mov edx, asc_166AAD
+        mov edx, str_REPLAYNDX
         lea eax, [byte ebp+02Eh]
         call NameIndexLoad
 .2:
@@ -3301,7 +3301,7 @@ SaveReplay:
         push eax
         lea eax, [byte ebp+02Eh]
         push eax
-        push asc_166AEB
+        push str_SS10
         lea eax, [byte ebp-022h]
         push eax
         lea ebx, [byte ebp+07Eh]
@@ -3376,7 +3376,7 @@ sub_C037B:
         add eax, dword [byte ebp-08h]
         add eax, byte 0Dh
         push eax
-        push asc_166B07
+        push str_S12
         lea eax, [byte ebp-038h]
         push eax
         call sprintf_
@@ -3454,7 +3454,7 @@ sub_C04BE:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -3470,7 +3470,7 @@ sub_C04BE:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -3484,7 +3484,7 @@ sub_C04BE:
         mov eax, dword [dword_1CAF94]
         mov eax, dword [byte eax+02Ch]
         call sub_8BE60
-        push asc_166B1B
+        push str_NOIS
         push dword [dword_1C5DE4]
         call FindShape
         mov edx, dword [eax]
@@ -3534,7 +3534,7 @@ sub_C04BE:
 .4:
         lea eax, [byte esi+01h]
         push eax
-        push asc_166B20
+        push str_ARWD
         lea eax, [byte ebp-030h]
         push eax
         call sprintf_
@@ -4082,7 +4082,7 @@ sub_C04BE:
         mov eax, dword [byte ebp-018h]
         call sub_BECB9
 .17:
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         movsx eax, word [byte eax+06h]
@@ -4101,7 +4101,7 @@ sub_C04BE:
         fistp dword [byte ebp-018h]
         sub eax, dword [byte ebp-018h]
         push eax
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         movsx eax, word [byte eax+04h]

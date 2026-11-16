@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_102F40 progbits alloc exec nowrite align=1
-extern SaveTextMode, asc_167DDC, asc_167DE8, byte_16E6C0, byte_16E6C1, byte_1DA8CF, dword_16E444, dword_16E464
+extern SaveTextMode, str_VESAMEM, str_Rowtbl, byte_16E6C0, byte_16E6C1, byte_1DA8CF, dword_16E444, dword_16E464
 extern dword_16E468, dword_16E46C, dword_16E47C, dword_16E480, dword_16E484, dword_16E488, dword_16E4B8, dword_16E4BC
 extern dword_16E4C8, dword_16E670, dword_16E6A8, dword_16E6AC, dword_16E6B0, dword_16E6B4, dword_16E6B8, dword_16E6BC
 extern dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714, dword_16F894, dword_16F898, dword_16F8A8
@@ -26,7 +26,7 @@ sub_102F40:
         mov edi, edx
         push dword 200h
         push dword 400h
-        push asc_167DDC
+        push str_VESAMEM
         mov ebx, 32h
         xor ebp, ebp
         call AllocMemBlock
@@ -688,7 +688,7 @@ sub_1036F0:
         push ebx
         shl eax, 2
         push eax
-        push asc_167DE8
+        push str_Rowtbl
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_16FA08], eax

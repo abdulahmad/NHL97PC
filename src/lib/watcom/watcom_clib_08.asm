@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_104A2C progbits alloc exec nowrite align=1
-extern asc_167E30, asc_167E48, asc_167E54, byte_16E504, byte_1CFADC, dword_16E4C8, dword_16E4D0, dword_16E500
+extern str_Inversetbl, str_CDROMDATA, str_CDROMBUFFER, byte_16E504, byte_1CFADC, dword_16E4C8, dword_16E4D0, dword_16E500
 extern dword_16FB40, dword_16FB50, dword_16FB54, dword_16FB58, dword_16FB5C, dword_16FB60, dword_16FB64, dword_16FB74
 extern dword_16FFC4, dword_172AB8, dword_172ABC, dword_1CFA10, dword_1CFA14, dword_1CFA18, dword_1CFA1C, dword_1CFA20
 extern dword_1CFA24, dword_1CFA28, dword_1CFA2C, dword_1CFA30, dword_1CFA34, dword_1CFA38, dword_1CFA3C, dword_1CFA40
@@ -695,7 +695,7 @@ sub_105258:
         mov edx, dword [dword_16E4C8]
         push edx
         push dword 8000h
-        push asc_167E30
+        push str_Inversetbl
         call sub_FAAB4
         mov ebx, eax
         add esp, byte 0Ch
@@ -1293,7 +1293,7 @@ sub_10585C:
         push dword 220h
         push dword 200h
         mov ebx, 1
-        push asc_167E48
+        push str_CDROMDATA
         mov dword [dword_1CFAA4], ebx
         call AllocMemBlock
         add esp, byte 0Ch
@@ -1301,7 +1301,7 @@ sub_10585C:
         mov dword [dword_1CFAA8], eax
         push dword 10000h
         shr eax, 4
-        push asc_167E54
+        push str_CDROMBUFFER
         mov dword [word_1CFAB8], eax
         call AllocMemBlock
         mov dword [dword_1CFAB0], eax

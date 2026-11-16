@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_165548 progbits alloc noexec write align=1
-global asc_165578, asc_16557D, asc_165582, asc_16558B, asc_165590, asc_165595, asc_1655B4, asc_1655BC
-global asc_1655C1, asc_1655C6, asc_1655D3, asc_1655E0, asc_1655E5, asc_1655EA, asc_1655EF, asc_1655F4
-global asc_16561D, asc_165622, asc_165627, asc_16562C, asc_165631, asc_16563F, dword_165548, dword_16554C
+global str_PNS, str_SLUP, str_SLDN, str_PWE, str_SLLT, str_SLRT, str_Newmenu, str_000W
+global str_TTLW, str_012R013R014R, str_12SR13SR14SR, str_WC00, str_WC01, str_011R, str_11SR, str_LBL1LBL2LBL3LBR1LBR2LTL1L
+global str_000E, str_TTLE, str_EC00, str_EC01, str_SSEASONNDX, str_SEASONNDX, dword_165548, dword_16554C
 global dword_165560, dword_165564, dword_165570, dword_165574, dword_165587, dword_16559A, dword_16559E, dword_1655A2
 global dword_1655A6, qword_165550, qword_165558, qword_165568, unk_1655AC
 dword_165548:
@@ -25,19 +25,19 @@ dword_165570:
         db 0CDh,0CCh,04Ch,03Bh
 dword_165574:
         db 0Ah,0D7h,0A3h,03Bh
-asc_165578:
+str_PNS:
         db 050h,04Eh,02Fh,053h,00h
-asc_16557D:
+str_SLUP:
         db 053h,04Ch,055h,050h,00h
-asc_165582:
+str_SLDN:
         db 053h,04Ch,044h,04Eh,00h
 dword_165587:
         db 00h,00h,00h,03Fh
-asc_16558B:
+str_PWE:
         db 050h,057h,02Fh,045h,00h
-asc_165590:
+str_SLLT:
         db 053h,04Ch,04Ch,054h,00h
-asc_165595:
+str_SLRT:
         db 053h,04Ch,052h,054h,00h
 dword_16559A:
         db 00h,00h,00h,03Fh
@@ -49,37 +49,37 @@ dword_1655A6:
         db 00h,00h,00h,03Fh,00h,00h
 unk_1655AC:
         db 045h,072h,072h,06Fh,072h,00h,00h,00h
-asc_1655B4:
+str_Newmenu:
         db 06Eh,065h,077h,06Dh,065h,06Eh,075h,00h
-asc_1655BC:
+str_000W:
         db 030h,030h,030h,057h,00h
-asc_1655C1:
+str_TTLW:
         db 054h,054h,04Ch,057h,00h
-asc_1655C6:
+str_012R013R014R:
         db 030h,031h,032h,052h,030h,031h,033h,052h,030h,031h,034h,052h,00h
-asc_1655D3:
+str_12SR13SR14SR:
         db 031h,032h,053h,052h,031h,033h,053h,052h,031h,034h,053h,052h,00h
-asc_1655E0:
+str_WC00:
         db 057h,043h,030h,030h,00h
-asc_1655E5:
+str_WC01:
         db 057h,043h,030h,031h,00h
-asc_1655EA:
+str_011R:
         db 030h,031h,031h,052h,00h
-asc_1655EF:
+str_11SR:
         db 031h,031h,053h,052h,00h
-asc_1655F4:
+str_LBL1LBL2LBL3LBR1LBR2LTL1L:
         db 04Ch,042h,04Ch,031h,04Ch,042h,04Ch,032h,04Ch,042h,04Ch,033h,04Ch,042h,052h,031h
         db 04Ch,042h,052h,032h,04Ch,054h,04Ch,031h,04Ch,054h,04Ch,032h,04Ch,054h,052h,031h
         db 04Ch,054h,052h,032h,04Ch,054h,052h,033h,00h
-asc_16561D:
+str_000E:
         db 030h,030h,030h,045h,00h
-asc_165622:
+str_TTLE:
         db 054h,054h,04Ch,045h,00h
-asc_165627:
+str_EC00:
         db 045h,043h,030h,030h,00h
-asc_16562C:
+str_EC01:
         db 045h,043h,030h,031h,00h
-asc_165631:
+str_SSEASONNDX:
         db 025h,073h,05Ch,053h,045h,041h,053h,04Fh,04Eh,02Eh,04Eh,044h,058h,00h
-asc_16563F:
+str_SEASONNDX:
         db 053h,045h,041h,053h,04Fh,04Eh,02Eh,04Eh,044h,058h,00h

@@ -4,7 +4,7 @@ bits 32
 section s_1706E0 progbits alloc noexec write align=1
 extern __null_int23_exit_, sub_1158A0_70, sub_119349_9, sub_119349_12, sub_119349_1B, _dos_getdiskfree__38, sub_11599C, sub_1159B8
 extern sub_1159D0, sub_115A10, sub_1167BD, sub_119349, sub_11A210, sub_11A220, sub_11A230, sub_11A250
-global asc_1709DC, byte_17075C, byte_170764, byte_170781, byte_17078E, byte_17079A, byte_17079C, byte_1707B7
+global str_FILESLINED, byte_17075C, byte_170764, byte_170781, byte_17078E, byte_17079A, byte_17079C, byte_1707B7
 global byte_1707FC, byte_170800, byte_170804, byte_170810, byte_17086B, byte_1708C6, byte_170921, byte_17097C
 global byte_171C90, byte_171D33, byte_171D34, dword_1706F8, dword_170704, dword_17070C, dword_170710, dword_170714
 global dword_170754, dword_170758, dword_170760, dword_1707E4, dword_1707EA, dword_1707F0, dword_1709D8, dword_1709ED
@@ -119,7 +119,7 @@ byte_17097C:
         db 0D0h,0D1h,0D2h,0D3h,00h,00h,00h,08Dh,08Eh,00h,00h,00h
 dword_1709D8:
         db 00h,00h,00h,00h
-asc_1709DC:
+str_FILESLINED:
         db 046h,049h,04Ch,045h,020h,025h,073h,020h,04Ch,049h,04Eh,045h,020h,025h,064h,0Dh
         db 00h
 dword_1709ED:

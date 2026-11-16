@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_123FEA progbits alloc exec nowrite align=1
-extern IF@ATAN2, __fpatan_chk, __math2err_, __math87_err_, asc_16801C, byte_16E688, byte_19C724, dword_16E4A8
+extern IF@ATAN2, __fpatan_chk, __math2err_, __math87_err_, str_RESIZE, byte_16E688, byte_19C724, dword_16E4A8
 extern dword_16F5B4, dword_16F5B8, dword_1702CC, dword_19C734, dword_19C738, dword_19C73C, dword_1CF260, dword_1CF528
 extern dword_1CF52C, dword_1CF548, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dword_1CF5F2, dword_1DA4D0, dword_1DC518
 extern dword_1DC51C, dword_1DC520, dword_1DC524, dword_1DC528, dword_1DC5A8, int386x_, itoa_, ltoa_
@@ -2759,7 +2759,7 @@ sub_125914:
         push esi
         mov ebp, dword [byte esp+028h]
         push ebp
-        push asc_16801C
+        push str_RESIZE
         call sub_FABB8
         mov esi, eax
         add esp, byte 10h

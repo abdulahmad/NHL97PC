@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_10000 progbits alloc exec nowrite align=1
-extern SortCords, __STOSB, _nfree_, _nmalloc_, _searchenv_, asc_160004, asc_160010, asc_1684B0
+extern SortCords, __STOSB, _nfree_, _nmalloc_, _searchenv_, str_PATH2, str_JSTICKS, str_DOSJoystick
 extern awtmstruct, byte_1684C8, byte_16E35C, byte_19C3E0, byte_19C3E6, byte_19C620, byte_19CA30, byte_19CA31
 extern byte_19CB70, byte_19CBC2, byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CCAF, byte_19CCC6, byte_19CD05
 extern byte_19D604, byte_19D636, byte_19EB38, byte_19EB5C, byte_19EC44, byte_19EC68, dword_1684C0, dword_1684C4
@@ -13,7 +13,7 @@ extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, off_16
 extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, qword_160018, qword_160020, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, sub_13AF0
 extern ShowCameraView, ClearOverlayWindows, sub_1B3D8, assreplace, assinsert, Setplass, sub_1FF5C, asspsclear
-extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, sub_34330, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
+extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
 extern sub_41DB8, MusicFileName, StopAllSfx, sub_424CC, CommentaryEvent, PaEvent, sub_4DDB0, sub_52E28
 extern sub_57298, sub_57304, sub_57324, sub_57738, LoadGoalieMask, sub_5B558, sub_60D6C, sub_6539C
 extern sub_65E3B, DoGameFrame, sub_AA650, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
@@ -434,7 +434,7 @@ LoadGripLibrary:
         cmp byte [esp], 0
         jne short .1
         mov ebx, esp
-        mov edx, asc_160004
+        mov edx, str_PATH2
         mov eax, str_GRIPGLL
         call _searchenv_
 .1:
@@ -573,7 +573,7 @@ LoadJoystickConfig:
         push byte 20h
         shl eax, 2
         push eax
-        push asc_160010
+        push str_JSTICKS
         xor ebx, ebx
         call AllocMemBlock
         mov bx, word [word_1684BE]
@@ -829,7 +829,7 @@ LoadJoystickConfig:
         mov eax, dword [dword_1684C0]
         or byte [eax], 8
         mov eax, dword [dword_1684C0]
-        mov edx, asc_1684B0
+        mov edx, str_DOSJoystick
         add eax, byte 4
         call strcpy_
         mov eax, dword [dword_1684C0]
@@ -885,7 +885,7 @@ LoadJoystickConfig:
         or ch, 8
         mov byte [byte eax+038h], ch
         mov eax, dword [dword_1684C0]
-        mov edx, asc_1684B0
+        mov edx, str_DOSJoystick
         add eax, byte 3Ch
         call strcpy_
         mov eax, dword [dword_1684C0]
@@ -978,7 +978,7 @@ sub_10A68:
         mov eax, dword [dword_1684C0]
         or byte [eax], 8
         mov eax, dword [dword_1684C0]
-        mov edx, asc_1684B0
+        mov edx, str_DOSJoystick
         add eax, byte 4
         call strcpy_
         mov eax, dword [dword_1684C0]
@@ -1043,7 +1043,7 @@ sub_10A68:
         or bh, 8
         mov byte [byte eax+038h], bh
         mov eax, dword [dword_1684C0]
-        mov edx, asc_1684B0
+        mov edx, str_DOSJoystick
         add eax, byte 3Ch
         call strcpy_
         mov eax, dword [dword_1684C0]
@@ -3869,7 +3869,7 @@ sub_12C2C:
         mov word [nosplit eax*2+word_19CC04], 2
         mov edx, 0FFFFFFFFh
         mov eax, unk_19DC40
-        call sub_34330
+        call SetPlayerTarget
         mov ax, word [word_19CC28]
         mov word [word_19DCFA], ax
 .5:
@@ -3881,7 +3881,7 @@ sub_12C2C:
         mov edx, 0FFFFFFFFh
         mov word [nosplit eax*2+word_19CC04], cx
         mov eax, unk_19E270
-        call sub_34330
+        call SetPlayerTarget
         mov ax, word [word_19CC2A]
         mov word [word_19E32A], ax
 .6:

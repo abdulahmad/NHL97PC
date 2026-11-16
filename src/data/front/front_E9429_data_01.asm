@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_1677ED progbits alloc noexec write align=1
-global asc_1677ED, asc_1677F2, asc_1677F7, asc_1677FC, asc_167801, asc_16780C, asc_167810, asc_167817
-global asc_16781E, asc_167825, asc_16783A, asc_16784F, asc_16785E, asc_16786D, asc_16787E, asc_16788E
-global asc_1678A0, asc_1678B2, asc_1678B8, asc_1678CC, asc_1678D4, asc_1678D8, asc_16795B, unk_167806
+global str_AB092, str_POWR3, str_EC002, str_EC012, str_BAK12, str_C, str_D3, str_LB02d7
+global str_AR02d3, str_AllStarPlayerInfo, str_AllStarGoalieInfo, str_WestAllStars, str_EastAllStars, str_AllStarRosters, str_AllStarAirecs, str_AllStarRawPlrs
+global str_AllStarStatrecs, str_MB044, str_FrANKGBarchard, str_100, str_REF, str_Refpack, str_F10, unk_167806
 global unk_167809, unk_167814, unk_1678E0, unk_1678E2, unk_1678E4, unk_1678E6, unk_1678E8, unk_1678EA
 global unk_1678EC, unk_1678EE, unk_1678F0, unk_1678F2, unk_1678F4, unk_1678F6, unk_1678F8, unk_1678FA
 global unk_1678FC, unk_1678FE, unk_167900, unk_167902, unk_167904, unk_167906, unk_167908, unk_16790A
@@ -13,61 +13,61 @@ global unk_16791C, unk_16791E, unk_167920, unk_167922, unk_167924, unk_167926, u
 global unk_16792C, unk_16792E, unk_167930, unk_167932, unk_167934, unk_167936, unk_167938, unk_16793A
 global unk_16793C, unk_16793E, unk_167940, unk_167943, unk_167946, unk_167949, unk_16794C, unk_16794F
 global unk_167952, unk_167955, unk_167958
-asc_1677ED:
+str_AB092:
         db 041h,042h,030h,039h,00h
-asc_1677F2:
+str_POWR3:
         db 050h,04Fh,057h,052h,00h
-asc_1677F7:
+str_EC002:
         db 045h,043h,030h,030h,00h
-asc_1677FC:
+str_EC012:
         db 045h,043h,030h,031h,00h
-asc_167801:
+str_BAK12:
         db 042h,041h,04Bh,031h,00h
 unk_167806:
         db 025h,063h,00h
 unk_167809:
         db 025h,064h,00h
-asc_16780C:
+str_C:
         db 025h,063h,02Eh,00h
-asc_167810:
+str_D3:
         db 025h,064h,02Eh,00h
 unk_167814:
         db 025h,073h,00h
-asc_167817:
+str_LB02d7:
         db 04Ch,042h,025h,030h,032h,064h,00h
-asc_16781E:
+str_AR02d3:
         db 041h,052h,025h,030h,032h,064h,00h
-asc_167825:
+str_AllStarPlayerInfo:
         db 061h,06Ch,06Ch,020h,073h,074h,061h,072h,020h,070h,06Ch,061h,079h,065h,072h,020h
         db 069h,06Eh,066h,06Fh,00h
-asc_16783A:
+str_AllStarGoalieInfo:
         db 061h,06Ch,06Ch,020h,073h,074h,061h,072h,020h,067h,06Fh,061h,06Ch,069h,065h,020h
         db 069h,06Eh,066h,06Fh,00h
-asc_16784F:
+str_WestAllStars:
         db 057h,065h,073h,074h,020h,041h,06Ch,06Ch,020h,053h,074h,061h,072h,073h,00h
-asc_16785E:
+str_EastAllStars:
         db 045h,061h,073h,074h,020h,041h,06Ch,06Ch,020h,053h,074h,061h,072h,073h,00h
-asc_16786D:
+str_AllStarRosters:
         db 061h,06Ch,06Ch,020h,073h,074h,061h,072h,020h,072h,06Fh,073h,074h,065h,072h,073h
         db 00h
-asc_16787E:
+str_AllStarAirecs:
         db 061h,06Ch,06Ch,020h,073h,074h,061h,072h,020h,061h,069h,072h,065h,063h,073h,00h
-asc_16788E:
+str_AllStarRawPlrs:
         db 061h,06Ch,06Ch,020h,073h,074h,061h,072h,020h,072h,061h,077h,020h,070h,06Ch,072h
         db 073h,00h
-asc_1678A0:
+str_AllStarStatrecs:
         db 061h,06Ch,06Ch,020h,073h,074h,061h,072h,020h,073h,074h,061h,074h,072h,065h,063h
         db 073h,00h
-asc_1678B2:
+str_MB044:
         db 04Dh,042h,030h,034h,00h,00h
-asc_1678B8:
+str_FrANKGBarchard:
         db 046h,072h,041h,04Eh,04Bh,020h,047h,02Eh,020h,042h,061h,072h,063h,068h,061h,072h
         db 064h,00h,00h,00h
-asc_1678CC:
+str_100:
         db 031h,02Eh,030h,030h,00h,00h,00h,00h
-asc_1678D4:
+str_REF:
         db 052h,045h,046h,00h
-asc_1678D8:
+str_Refpack:
         db 052h,065h,066h,070h,061h,063h,06Bh,00h
 unk_1678E0:
         db 031h,00h
@@ -183,5 +183,5 @@ unk_167955:
         db 046h,038h,00h
 unk_167958:
         db 046h,039h,00h
-asc_16795B:
+str_F10:
         db 046h,031h,030h,00h

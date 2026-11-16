@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_127D70 progbits alloc exec nowrite align=1
-extern asc_168024, asc_168030, byte_172BF4, byte_172BF5, byte_172BF6, byte_1DD38C, byte_1DD38D, dword_172BC1
+extern str_DMABUFFER, str_DMABUFFER2, byte_172BF4, byte_172BF5, byte_172BF6, byte_1DD38C, byte_1DD38D, dword_172BC1
 extern dword_172BDC, dword_172BE0, dword_172BE4, dword_172BE8, dword_172BEC, dword_172BF0, dword_19A75C, dword_1DCF24
 extern dword_1DCF28, dword_1DCF2C, dword_1DCF30, dword_1DCF34, dword_1DCF38, dword_1DD384, dword_1DD390, dword_1DD394
 extern dword_1DD398, dword_1DD39C, dword_1DD3A0, dword_1DD3A4, dword_1DD3A8, dword_1DD3AC, dword_1DD3B0, dword_1DD3B4
@@ -966,7 +966,7 @@ sub_128734:
         jl near .11
         push dword 200h
         push dword 2000h
-        push asc_168024
+        push str_DMABUFFER
         call sub_FAAB4
         add esp, byte 0Ch
         mov dword [dword_1DD394], eax
@@ -1302,7 +1302,7 @@ sub_1289B8:
         push dword 200h
         add eax, eax
         push eax
-        push asc_168030
+        push str_DMABUFFER2
         mov dword [dword_1DD398], edi
         call sub_FAAB4
         add esp, byte 0Ch

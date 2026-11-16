@@ -2,67 +2,67 @@
 bits 32
 %include "hockey.inc"
 section s_1665C8 progbits alloc noexec write align=1
-global asc_1665CE, asc_1665D3, asc_1665D8, asc_1665DE, asc_1665E4, asc_1665E9, asc_1665EE, asc_1665F3
-global asc_1665F8, asc_1665FD, asc_166602, asc_16660C, asc_166611, asc_16662D, asc_16663D, asc_166657
-global asc_166668, asc_16667B, asc_166685, asc_16668A, asc_166693, asc_1666AA, asc_1666AE, asc_1666B2
-global asc_1666B6, asc_1666BA, asc_1666C0, asc_1666C8, asc_1666CF, asc_1666D7, asc_1666FD, asc_166713
-global asc_166718, asc_16671D, asc_166724, asc_166729, asc_16672E, asc_166733, asc_166738, asc_16673D
-global asc_166742, asc_166747, asc_16674C, asc_166751, asc_166756, asc_16675B, asc_166760, asc_166765
-global asc_16676A, str_D02d2, str_Logbook, str_Logname, str_Ulstreak, str_Uname, str_Uopp, str_Upts
+global str_LX00, str_LC00, str_LX0D, str_LC0D, str_1TOP4, str_2TOP4, str_3TOP4, str_1BOT4
+global str_2BOT4, str_3BOT4, str_LOCALNDX, str_08d, str_NOUSER, str_KEINBENUTZER, str_NEWUSER, str_NEUERBENUTZER
+global str_DD02d, str_LocalNdx, str_User, str_DDD5, str_DD3, str_Ugf, str_Uga, str_Upp
+global str_Upk, str_Exrec, str_Seasrec, str_Plyrec, str_Urating, str_Uso, str_Ucups, str_BACK7
+global str_TITL8, str_UL2d, str_UL08, str_UL09, str_UL10, str_UL00, str_UL01, str_UL02
+global str_UL04, str_UL05, str_UL06, str_ULA0, str_ULA1, str_ULA2, str_ULA3, str_ULA4
+global str_ULA5, str_D02d2, str_Logbook, str_Logname, str_Ulstreak, str_Uname, str_Uopp, str_Upts
 global str_Urate, str_Usort, str_Ustreak, str_Uteam, unk_1665C8, unk_1665CB, unk_16661B, unk_166648
 unk_1665C8:
         db 025h,064h,00h
 unk_1665CB:
         db 025h,073h,00h
-asc_1665CE:
+str_LX00:
         db 04Ch,058h,030h,030h,00h
-asc_1665D3:
+str_LC00:
         db 04Ch,043h,030h,030h,00h
-asc_1665D8:
+str_LX0D:
         db 04Ch,058h,030h,025h,064h,00h
-asc_1665DE:
+str_LC0D:
         db 04Ch,043h,030h,025h,064h,00h
-asc_1665E4:
+str_1TOP4:
         db 031h,054h,04Fh,050h,00h
-asc_1665E9:
+str_2TOP4:
         db 032h,054h,04Fh,050h,00h
-asc_1665EE:
+str_3TOP4:
         db 033h,054h,04Fh,050h,00h
-asc_1665F3:
+str_1BOT4:
         db 031h,042h,04Fh,054h,00h
-asc_1665F8:
+str_2BOT4:
         db 032h,042h,04Fh,054h,00h
-asc_1665FD:
+str_3BOT4:
         db 033h,042h,04Fh,054h,00h
-asc_166602:
+str_LOCALNDX:
         db 04Ch,04Fh,043h,041h,04Ch,02Eh,04Eh,044h,058h,00h
-asc_16660C:
+str_08d:
         db 025h,030h,038h,064h,00h
-asc_166611:
+str_NOUSER:
         db 03Ch,04Eh,04Fh,020h,055h,053h,045h,052h,03Eh,00h
 unk_16661B:
         db 03Ch,049h,04Eh,047h,045h,04Eh,020h,041h,04Eh,056h,0C4h,04Eh,044h,041h,052h,045h
         db 03Eh,00h
-asc_16662D:
+str_KEINBENUTZER:
         db 03Ch,04Bh,045h,049h,04Eh,020h,042h,045h,04Eh,055h,054h,05Ah,045h,052h,03Eh,00h
-asc_16663D:
+str_NEWUSER:
         db 03Ch,04Eh,045h,057h,020h,055h,053h,045h,052h,03Eh,00h
 unk_166648:
         db 03Ch,04Eh,059h,020h,041h,04Eh,056h,0C4h,04Eh,044h,041h,052h,045h,03Eh,00h
-asc_166657:
+str_NEUERBENUTZER:
         db 03Ch,04Eh,045h,055h,045h,052h,020h,042h,045h,04Eh,055h,054h,05Ah,045h,052h,03Eh
         db 00h
-asc_166668:
+str_DD02d:
         db 025h,064h,02Dh,025h,064h,03Ah,025h,030h,032h,064h,00h
 str_D02d2:
         db 025h,064h,03Ah,025h,030h,032h,064h,00h
-asc_16667B:
+str_LocalNdx:
         db 06Ch,06Fh,063h,061h,06Ch,02Eh,06Eh,064h,078h,00h
-asc_166685:
+str_User:
         db 075h,073h,065h,072h,00h
-asc_16668A:
+str_DDD5:
         db 025h,064h,02Dh,025h,064h,02Dh,025h,064h,00h
-asc_166693:
+str_DD3:
         db 025h,064h,02Dh,025h,064h,00h
 str_Uname:
         db 075h,06Eh,061h,06Dh,065h,00h
@@ -70,23 +70,23 @@ str_Urate:
         db 075h,072h,061h,074h,065h,00h
 str_Upts:
         db 075h,070h,074h,073h,00h
-asc_1666AA:
+str_Ugf:
         db 075h,067h,066h,00h
-asc_1666AE:
+str_Uga:
         db 075h,067h,061h,00h
-asc_1666B2:
+str_Upp:
         db 075h,070h,070h,00h
-asc_1666B6:
+str_Upk:
         db 075h,070h,06Bh,00h
-asc_1666BA:
+str_Exrec:
         db 065h,078h,072h,065h,063h,00h
-asc_1666C0:
+str_Seasrec:
         db 073h,065h,061h,073h,072h,065h,063h,00h
-asc_1666C8:
+str_Plyrec:
         db 070h,06Ch,079h,072h,065h,063h,00h
-asc_1666CF:
+str_Urating:
         db 075h,072h,061h,074h,069h,06Eh,067h,00h
-asc_1666D7:
+str_Uso:
         db 075h,073h,06Fh,00h
 str_Ustreak:
         db 075h,073h,074h,072h,065h,061h,06Bh,00h
@@ -98,45 +98,45 @@ str_Uopp:
         db 075h,06Fh,070h,070h,00h
 str_Usort:
         db 075h,073h,06Fh,072h,074h,00h
-asc_1666FD:
+str_Ucups:
         db 075h,063h,075h,070h,073h,00h
 str_Logname:
         db 06Ch,06Fh,067h,06Eh,061h,06Dh,065h,00h
 str_Logbook:
         db 06Ch,06Fh,067h,062h,06Fh,06Fh,06Bh,00h
-asc_166713:
+str_BACK7:
         db 042h,041h,043h,04Bh,00h
-asc_166718:
+str_TITL8:
         db 054h,049h,054h,04Ch,00h
-asc_16671D:
+str_UL2d:
         db 055h,04Ch,025h,02Eh,032h,064h,00h
-asc_166724:
+str_UL08:
         db 055h,04Ch,030h,038h,00h
-asc_166729:
+str_UL09:
         db 055h,04Ch,030h,039h,00h
-asc_16672E:
+str_UL10:
         db 055h,04Ch,031h,030h,00h
-asc_166733:
+str_UL00:
         db 055h,04Ch,030h,030h,00h
-asc_166738:
+str_UL01:
         db 055h,04Ch,030h,031h,00h
-asc_16673D:
+str_UL02:
         db 055h,04Ch,030h,032h,00h
-asc_166742:
+str_UL04:
         db 055h,04Ch,030h,034h,00h
-asc_166747:
+str_UL05:
         db 055h,04Ch,030h,035h,00h
-asc_16674C:
+str_UL06:
         db 055h,04Ch,030h,036h,00h
-asc_166751:
+str_ULA0:
         db 055h,04Ch,041h,030h,00h
-asc_166756:
+str_ULA1:
         db 055h,04Ch,041h,031h,00h
-asc_16675B:
+str_ULA2:
         db 055h,04Ch,041h,032h,00h
-asc_166760:
+str_ULA3:
         db 055h,04Ch,041h,033h,00h
-asc_166765:
+str_ULA4:
         db 055h,04Ch,041h,034h,00h
-asc_16676A:
+str_ULA5:
         db 055h,04Ch,041h,035h,00h,00h

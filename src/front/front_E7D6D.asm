@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_E7D6D progbits alloc exec nowrite align=1
-extern SetClipWindow, asc_1676E9, asc_1676EE, asc_1676F3, asc_1676FA, asc_1676FF, asc_167704, asc_167709
-extern asc_16770E, asc_167713, asc_167718, asc_16771D, asc_167722, asc_167727, asc_167734, asc_16773C
-extern asc_167744, byte_16E264, byte_1CD7A9, byte_1CD7B3, byte_1CD7B4, byte_1CD7FC, byte_1CD7FD, byte_1CD7FE
+extern SetClipWindow, str_BACK14, str_TITL14, str_LB02d6, str_AB025, str_AB015, str_AB005, str_AB055
+extern str_AB045, str_AB035, str_FRAM, str_000011, str_FART5, str_DSS4, str_D02d4, str_D01d3
+extern str_SSDD3, byte_16E264, byte_1CD7A9, byte_1CD7B3, byte_1CD7B4, byte_1CD7FC, byte_1CD7FD, byte_1CD7FE
 extern byte_1CD85E, byte_1CDA5F, byte_1CDC60, byte_1CDDFF, byte_1CDE61, dword_16E1AC, dword_16E22C, dword_16E46C
 extern seed, dword_1AC814, dword_1AC940, dword_1AD62F, dword_1AD6AB, dword_1AD71B, dword_1AD71F, dword_1AD723
 extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778
@@ -797,14 +797,14 @@ sub_E8660:
         push dword [dword_1CD764]
         call SetDrawTarget
         add esp, byte 4
-        push asc_1676E9
+        push str_BACK14
         push dword [dword_1CD784]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_1676EE
+        push str_TITL14
         push dword [dword_1CD774]
         call FindShape
         add esp, byte 8
@@ -835,7 +835,7 @@ sub_E8660:
         mov ebx, esi
         mov eax, dword [eax+ebx*4]
         push dword [nosplit eax*4+dword_16E22C]
-        push asc_1676F3
+        push str_LB02d6
         lea eax, [byte ebp-010h]
         push eax
         call sprintf_
@@ -886,17 +886,17 @@ sub_E8660:
         mov edx, dword [esi]
         mov dword [dword eax+0C6h], edx
         mov eax, dword [dword_1CD760]
-        push asc_1676FA
-        mov ecx, asc_1676FF
+        push str_AB025
+        mov ecx, str_AB015
         mov dword [dword eax+0C2h], edx
-        mov ebx, asc_167704
+        mov ebx, str_AB005
         mov edx, dword [dword_1CD760]
         mov eax, dword [dword_1CD784]
         add edx, 0F6h
         call sub_D0098
-        push asc_167709
-        mov ecx, asc_16770E
-        mov ebx, asc_167713
+        push str_AB055
+        mov ecx, str_AB045
+        mov ebx, str_AB035
         mov edx, dword [dword_1CD760]
         mov eax, dword [dword_1CD784]
         add edx, 148h
@@ -996,21 +996,21 @@ sub_E8923:
         push dword [dword_1CD764]
         call SetDrawTarget
         add esp, byte 4
-        push asc_1676E9
+        push str_BACK14
         push dword [dword_1CD784]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_1676EE
+        push str_TITL14
         push dword [dword_1CD774]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_167718
+        push str_FRAM
         push dword [dword_1CD784]
         call FindShape
         add esp, byte 8
@@ -1060,7 +1060,7 @@ sub_E8923:
         push dword [nosplit edi*4+off_16E174]
         call sub_101584
         add esp, byte 8
-        push asc_16771D
+        push str_000011
         push eax
         mov ebx, eax
         call FindShape
@@ -1099,7 +1099,7 @@ sub_E8923:
         mov dword [byte ebp-014h], eax
         test eax, eax
         je short .4
-        push asc_167722
+        push str_FART5
         push eax
         call FindShapeQuiet
         add esp, byte 8
@@ -1153,7 +1153,7 @@ sub_E8923:
         push eax
         movzx eax, byte [dword ebx+byte_1CD7B4]
         push eax
-        push asc_167727
+        push str_DSS4
         push dword 168h
         push dword 1F6h
         push byte 1
@@ -1279,7 +1279,7 @@ sub_E8923:
         cdq
         idiv ecx
         push eax
-        push asc_167734
+        push str_D02d4
         push dword 8Ah
         push dword 240h
         push byte 0
@@ -1316,7 +1316,7 @@ sub_E8923:
         cdq
         idiv ecx
         push eax
-        push asc_16773C
+        push str_D01d3
         mov eax, dword [byte ebp-04h]
         push esi
         add eax, dword [byte ebp-08h]
@@ -1526,7 +1526,7 @@ sub_E8923:
         cdq
         idiv ecx
         push eax
-        push asc_16773C
+        push str_D01d3
         mov eax, dword [byte ebp-04h]
         push esi
         add eax, dword [byte ebp-08h]
@@ -1683,7 +1683,7 @@ sub_E8923:
         mov eax, 1A3h
         call GetLangText
         push eax
-        push asc_167744
+        push str_SSDD3
         push esi
         push dword [byte ebp-04h]
         push byte 1

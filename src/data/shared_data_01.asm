@@ -2,16 +2,16 @@
 bits 32
 %include "hockey.inc"
 section s_160000 progbits alloc noexec write align=1
-global asc_160004, asc_160010, asc_16007C, asc_160088, asc_1600BC, asc_1600D8, asc_160114, dword_160028
+global str_PATH2, str_JSTICKS, str_RPEVENT2, str_WaitingForOtherComputer2, str_WarteAufAnderenComputer, str_BREAKIN, str_BREAKOUT, dword_160028
 global dword_160044, dword_160048, qword_160018, qword_160020, qword_16002C, qword_160034, qword_16003C, qword_16004C
 global qword_160054, qword_16005C, qword_160064, qword_16006C, qword_160074, unk_160000, unk_16000C, unk_1600A4
 unk_160000:
         db 01h,01h,01h,00h
-asc_160004:
+str_PATH2:
         db 050h,041h,054h,048h,00h,00h,00h,00h
 unk_16000C:
         db 072h,062h,00h,00h
-asc_160010:
+str_JSTICKS:
         db 04Ah,053h,054h,049h,043h,04Bh,053h,00h
 qword_160018:
         db 039h,0B4h,0C8h,076h,0BEh,09Fh,08Ah,03Fh
@@ -41,23 +41,23 @@ qword_16006C:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
 qword_160074:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-asc_16007C:
+str_RPEVENT2:
         db 052h,050h,05Fh,045h,056h,045h,04Eh,054h,00h,00h,00h,00h
-asc_160088:
+str_WaitingForOtherComputer2:
         db 057h,061h,069h,074h,069h,06Eh,067h,020h,066h,06Fh,072h,020h,06Fh,074h,068h,065h
         db 072h,020h,063h,06Fh,06Dh,070h,075h,074h,065h,072h,00h,00h
 unk_1600A4:
         db 056h,0E4h,06Eh,074h,061h,072h,020h,070h,0E5h,020h,061h,06Eh,06Eh,061h,06Eh,020h
         db 064h,061h,074h,06Fh,072h,00h,00h,00h
-asc_1600BC:
+str_WarteAufAnderenComputer:
         db 057h,061h,072h,074h,065h,020h,061h,075h,066h,020h,061h,06Eh,064h,065h,072h,065h
         db 06Eh,020h,043h,06Fh,06Dh,070h,075h,074h,065h,072h,02Eh,00h
-asc_1600D8:
+str_BREAKIN:
         db 020h,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,042h,052h,045h,041h,04Bh,020h
         db 049h,04Eh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,0Ah,00h
-asc_160114:
+str_BREAKOUT:
         db 020h,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,042h,052h,045h,041h,04Bh,020h
         db 04Fh,055h,054h,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh

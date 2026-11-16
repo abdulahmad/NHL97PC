@@ -6,9 +6,9 @@ extern GetTicks, RestoreTextMode, TicksSince, _Envptr, _Envptr_w4, _Extender, _E
 extern _LpCmdLine, _STACKLOW, _STACKTOP, __CHP, __CMain, __FiniRtns, __IOMode_, __InitRtns
 extern __STOSB, __SetIOMode_, __close_, __mbvtop_, __no87, __set_EINVAL_, __set_errno_, __set_errno_dos_
 extern _curbrk, _dynend, _mbptov_, _mbsdec_, _mbsnbcnt_, _mbsnccnt_, _mbsncpy_, _nexpand_
-extern _nfree_, _nmalloc_, _nmsize_, _osmajor, _osminor, _psp, _searchenv_, asc_167EBC
-extern asc_167ED8, asc_167EE8, asc_167EF4, asc_167F00, asc_167F20, asc_167F40, asc_167F44, asc_167F4C
-extern asc_167F54, asc_167F5C, asc_167F68, asc_167F70, asc_167F84, asc_167F8C, asc_1709DC, byte_16E688
+extern _nfree_, _nmalloc_, _nmsize_, _osmajor, _osminor, _psp, _searchenv_, str_PRIMLIST
+extern str_4db, str_DxDxD, str_CmnFrateC, str_FramerateTIMERHZNOTSET, str_Rate2dDAvg2dDD, str_TGV, str_MBRAM2, str_MBDOS
+extern str_PATH, str_DOS4GWEXE, str_CS3, str_0123456789abcdef, str_Null, str_0123456789ABCDEF, str_FILESLINED, byte_16E688
 extern byte_16FA40, byte_17075C, byte_170764, byte_170781, byte_17078E, byte_17079A, byte_17079C, byte_1707B7
 extern byte_1707FC, byte_170800, byte_170804, byte_170810, byte_17086B, byte_1708C6, byte_170921, byte_17097C
 extern byte_171C90, byte_19988D, byte_19C6E4, dword_16E32C, dword_16E330, dword_16E334, dword_16E3F4, dword_16E444
@@ -2385,7 +2385,7 @@ sub_1143D4:
         push dword 2710h
         mov edi, dword [eax]
         mov eax, dword [byte eax+08h]
-        push asc_167EBC
+        push str_PRIMLIST
         mov ebx, dword [byte edi+028h]
         mov dword [byte esp+01Ch], eax
         call AllocMemBlock
@@ -3851,7 +3851,7 @@ sub_1152B0:
         cmp edx, eax
         jb short .1
 .4:
-        mov edx, asc_167ED8
+        mov edx, str_4db
         mov eax, esp
         call strcat_
         push ecx
@@ -6063,7 +6063,7 @@ sub_1167CC:
         je short .2
         push dword [dword_1709F1]
         push dword [dword_1709ED]
-        push asc_1709DC
+        push str_FILESLINED
         call sub_13005A
         add esp, byte 0Ch
 .2:
@@ -7046,7 +7046,7 @@ sub_117140:
         mov eax, dword [byte esp+034h]
         push eax
         push edi
-        push asc_167EE8
+        push str_DxDxD
         lea eax, [byte esp+010h]
         push eax
         call sprintf_
@@ -7255,9 +7255,9 @@ sub_117390:
         sub ebp, ecx
         test eax, eax
         jne short .1
-        mov edx, asc_167EF4
+        mov edx, str_CmnFrateC
         mov ecx, 62h
-        push asc_167F00
+        push str_FramerateTIMERHZNOTSET
         mov dword [dword_1709ED], edx
         mov dword [dword_1709F1], ecx
         call sub_116820
@@ -7342,7 +7342,7 @@ sub_117390:
         mov eax, esi
         sar eax, 10h
         push eax
-        push asc_167F20
+        push str_Rate2dDAvg2dDD
         mov eax, dword [byte esp+030h]
         push eax
         mov edx, dword [byte esp+030h]
@@ -8540,7 +8540,7 @@ sub_1186C0:
         push ecx
         add eax, ebp
         push eax
-        push asc_167F40
+        push str_TGV
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte esi+03Ch], eax
@@ -8812,13 +8812,13 @@ sub_118954:
         push eax
         add ebx, byte 10h
         push ebx
-        push asc_167F40
+        push str_TGV
         call AllocMemBlock
         add esp, byte 0Ch
         mov edx, dword [dword_16E4C8]
         push edx
         push ebx
-        push asc_167F40
+        push str_TGV
         mov dword [byte esi+028h], eax
         call AllocMemBlock
         mov ebx, dword [dword_16E4C8]
@@ -8828,7 +8828,7 @@ sub_118954:
         push ebx
         shl eax, 3
         push eax
-        push asc_167F40
+        push str_TGV
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte esi+034h], eax
@@ -8842,7 +8842,7 @@ sub_118954:
         push ecx
         shl eax, 2
         push eax
-        push asc_167F40
+        push str_TGV
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte esi+030h], eax
@@ -8944,7 +8944,7 @@ sub_118954:
         mov edx, dword [dword_16E4C8]
         push edx
         push dword 344h
-        push asc_167F40
+        push str_TGV
         call AllocMemBlock
         add esp, byte 0Ch
         mov ecx, eax
@@ -10443,7 +10443,7 @@ sub_119850:
         add eax, edi
         push eax
         push byte 0
-        push asc_167F44
+        push str_MBRAM2
         call sub_FA5B8
         mov edi, dword [dword_16E32C]
         mov edx, dword [dword_16E330]
@@ -10553,7 +10553,7 @@ sub_119850:
         push byte 0
         inc ebp
         mov dword [dword ebx+dword_1DA350], eax
-        push asc_167F44
+        push str_MBRAM2
         add ebx, byte 4
         mov dword [byte esp+050h], ecx
         call sub_FA734
@@ -10597,7 +10597,7 @@ sub_119850:
         push esi
         push eax
         push byte 0
-        push asc_167F44
+        push str_MBRAM2
         mov dword [nosplit ebp*4+dword_1DA350], eax
         call sub_FA734
         add esp, byte 10h
@@ -10616,7 +10616,7 @@ sub_119850:
         push eax
         push dword 200h
         push byte 0
-        push asc_167F4C
+        push str_MBDOS
         add edi, ecx
         call sub_FA6A0
         add esp, byte 24h
@@ -11042,16 +11042,16 @@ sub_119F54:
         sub esp, 100h
         mov ebx, esp
         xor ah, ah
-        mov edx, asc_167F54
+        mov edx, str_PATH
         mov byte [esp], ah
-        mov eax, asc_167F5C
+        mov eax, str_DOS4GWEXE
         call _searchenv_
         mov dl, byte [esp]
         xor esi, esi
         test dl, dl
         jne short .1
-        push asc_167F5C
-        push asc_167F68
+        push str_DOS4GWEXE
+        push str_CS3
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -11531,7 +11531,7 @@ sub_11A3E0:
         push ebp
         sub esp, 12Ch
         mov ebx, dword [dword esp+0144h]
-        mov dword [dword esp+0118h], asc_167F70
+        mov dword [dword esp+0118h], str_0123456789abcdef
 .1:
         xor eax, eax
         mov al, byte [ebx]
@@ -11985,7 +11985,7 @@ sub_11A3E0:
         mov dword [dword esp+0114h], eax
         test eax, eax
         jne short .63
-        mov dword [dword esp+0114h], asc_167F84
+        mov dword [dword esp+0114h], str_Null
 .63:
         mov eax, dword [dword esp+0120h]
         test eax, eax
@@ -12053,7 +12053,7 @@ sub_11A3E0:
         mov dword [dword esp+0124h], eax
         jmp near .79
 .74:
-        mov dword [dword esp+0118h], asc_167F8C
+        mov dword [dword esp+0118h], str_0123456789ABCDEF
 .75:
         test si, 1
         je short .76
@@ -12118,7 +12118,7 @@ sub_11A3E0:
         mov dword [dword esp+0124h], eax
         test eax, eax
         jne short .82
-        mov dword [dword esp+0118h], asc_167F70
+        mov dword [dword esp+0118h], str_0123456789abcdef
         test si, 10h
         je short .83
         cmp edi, byte 8

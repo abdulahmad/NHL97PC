@@ -2,11 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_1609D8 progbits alloc noexec write align=1
-global asc_1609D8, asc_1609DD, asc_1609E2, asc_1609E7, asc_1609EC, asc_1609F1, asc_1609F6, asc_1609FB
-global asc_160A00, asc_160A05, asc_160A0A, asc_160A0F, asc_160A16, asc_160A1B, asc_160A20, asc_160A2D
-global asc_160A32, asc_160A37, asc_160A40, asc_160A4C, asc_160A51, asc_160B30, asc_160B40, asc_160B48
-global asc_160C9C, asc_160CA4, asc_160CAC, asc_160CB4, asc_160CC0, asc_160CCC, asc_160CE4, asc_160CEC
-global asc_160D20, asc_160D28, asc_160D38, asc_160D40, asc_160D50, asc_160D60, dword_160A64, dword_160A68
+global str_BACK, str_TITL, str_AB02, str_AB01, str_AB00, str_BH00, str_BT00, str_AB05
+global str_AB04, str_AB03, str_SIM0, str_BT02d, str_FAN0, str_LT00, str_Logo02dFsh, str_LOGO
+global str_ALST, str_CDD, str_SDSD, str_LOCK, str_PANL, str_DMAN, str_HIST, str_MEGAHIST
+global str_BKH, str_BKD, str_SFX4S, str_AUDSTREAM, str_CROWDCRD, str_GAMEDATAAUDPBP3TSF, str_MENU, str_S02dASF
+global str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, dword_160A64, dword_160A68
 global dword_160A6C, dword_160A70, dword_160A74, dword_160AC0, dword_160B0C, dword_160B10, dword_160B24, dword_160D17
 global dword_160D1B, qword_160A5C, qword_160A78, qword_160A80, qword_160A88, qword_160A90, qword_160A98, qword_160AA0
 global qword_160AA8, qword_160AB0, qword_160AB8, qword_160AC4, qword_160ACC, qword_160AD4, qword_160ADC, qword_160AE4
@@ -16,47 +16,47 @@ global unk_160B68, unk_160B78, unk_160B80, unk_160B88, unk_160B90, unk_160B98, u
 global unk_160BB4, unk_160BC0, unk_160BCC, unk_160BD4, unk_160BE0, unk_160BE8, unk_160BF8, unk_160C00
 global unk_160C08, unk_160C14, unk_160C1C, unk_160C24, unk_160C30, unk_160C3C, unk_160C4C, unk_160C58
 global unk_160C60, unk_160C68, unk_160C70, unk_160C7C, unk_160C80, unk_160C8C, unk_160C94, unk_160C98
-asc_1609D8:
+str_BACK:
         db 042h,041h,043h,04Bh,00h
-asc_1609DD:
+str_TITL:
         db 054h,049h,054h,04Ch,00h
-asc_1609E2:
+str_AB02:
         db 041h,042h,030h,032h,00h
-asc_1609E7:
+str_AB01:
         db 041h,042h,030h,031h,00h
-asc_1609EC:
+str_AB00:
         db 041h,042h,030h,030h,00h
-asc_1609F1:
+str_BH00:
         db 042h,048h,030h,030h,00h
-asc_1609F6:
+str_BT00:
         db 042h,054h,030h,030h,00h
-asc_1609FB:
+str_AB05:
         db 041h,042h,030h,035h,00h
-asc_160A00:
+str_AB04:
         db 041h,042h,030h,034h,00h
-asc_160A05:
+str_AB03:
         db 041h,042h,030h,033h,00h
-asc_160A0A:
+str_SIM0:
         db 053h,049h,04Dh,030h,00h
-asc_160A0F:
+str_BT02d:
         db 042h,054h,025h,030h,032h,064h,00h
-asc_160A16:
+str_FAN0:
         db 046h,041h,04Eh,030h,00h
-asc_160A1B:
+str_LT00:
         db 04Ch,054h,030h,030h,00h
-asc_160A20:
+str_Logo02dFsh:
         db 06Ch,06Fh,067h,06Fh,025h,030h,032h,064h,02Eh,066h,073h,068h,00h
-asc_160A2D:
+str_LOGO:
         db 04Ch,04Fh,047h,04Fh,00h
-asc_160A32:
+str_ALST:
         db 041h,04Ch,053h,054h,00h
-asc_160A37:
+str_CDD:
         db 025h,063h,020h,025h,064h,02Dh,025h,064h,00h
-asc_160A40:
+str_SDSD:
         db 025h,073h,020h,025h,064h,02Dh,025h,073h,020h,025h,064h,00h
-asc_160A4C:
+str_LOCK:
         db 04Ch,04Fh,043h,04Bh,00h
-asc_160A51:
+str_PANL:
         db 050h,041h,04Eh,04Ch,00h
 unk_160A56:
         db 025h,064h,00h,00h,00h,00h
@@ -122,13 +122,13 @@ dword_160B24:
         db 00h,00h,010h,043h
 qword_160B28:
         db 066h,066h,066h,066h,066h,066h,0E6h,03Fh
-asc_160B30:
+str_DMAN:
         db 044h,04Dh,041h,04Eh,00h
 qword_160B35:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh,00h,00h,00h
-asc_160B40:
+str_HIST:
         db 048h,049h,053h,054h,00h,00h,00h,00h
-asc_160B48:
+str_MEGAHIST:
         db 04Dh,045h,047h,041h,048h,049h,053h,054h,00h,00h,00h,00h
 str_CDSTREAM:
         db 043h,044h,053h,054h,052h,045h,041h,04Dh,00h,00h,00h,00h
@@ -200,22 +200,22 @@ unk_160C94:
         db 031h,036h,00h,00h
 unk_160C98:
         db 038h,00h,00h,00h
-asc_160C9C:
+str_BKH:
         db 02Eh,042h,04Bh,048h,00h,00h,00h,00h
-asc_160CA4:
+str_BKD:
         db 02Eh,042h,04Bh,044h,00h,00h,00h,00h
-asc_160CAC:
+str_SFX4S:
         db 053h,046h,058h,034h,025h,073h,00h,00h
-asc_160CB4:
+str_AUDSTREAM:
         db 041h,055h,044h,053h,054h,052h,045h,041h,04Dh,00h,00h,00h
-asc_160CC0:
+str_CROWDCRD:
         db 043h,052h,04Fh,057h,044h,02Eh,043h,052h,044h,00h,00h,00h
-asc_160CCC:
+str_GAMEDATAAUDPBP3TSF:
         db 047h,041h,04Dh,045h,044h,041h,054h,041h,05Ch,041h,055h,044h,050h,042h,050h,033h
         db 02Eh,054h,053h,046h,00h,00h,00h,00h
-asc_160CE4:
+str_MENU:
         db 04Dh,045h,04Eh,055h,00h,00h,00h,00h
-asc_160CEC:
+str_S02dASF:
         db 025h,073h,025h,030h,032h,064h,02Eh,041h,053h,046h,00h
 qword_160CF7:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
@@ -229,15 +229,15 @@ dword_160D17:
         db 00h,00h,0C4h,042h
 dword_160D1B:
         db 00h,00h,028h,042h,00h
-asc_160D20:
+str_TEMP:
         db 054h,045h,04Dh,050h,00h,00h,00h,00h
-asc_160D28:
+str_SAUDPBP3TSF:
         db 025h,073h,041h,055h,044h,050h,042h,050h,033h,02Eh,054h,053h,046h,00h,00h,00h
-asc_160D38:
+str_KTSF:
         db 04Bh,054h,053h,046h,00h,00h,00h,00h
-asc_160D40:
+str_SAUDPBP2VIV:
         db 025h,073h,041h,055h,044h,050h,042h,050h,032h,02Eh,056h,049h,056h,00h,00h,00h
-asc_160D50:
+str_CBANK03dDAT:
         db 043h,042h,041h,04Eh,04Bh,025h,030h,033h,064h,02Eh,044h,041h,054h,00h,00h,00h
-asc_160D60:
+str_TEAM04dDAT:
         db 054h,045h,041h,04Dh,025h,030h,034h,064h,02Eh,044h,041h,054h,00h,00h,00h,00h

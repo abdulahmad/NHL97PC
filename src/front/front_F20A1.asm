@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_F20A1 progbits alloc exec nowrite align=1
-extern SortCords, __CHP, asc_167A29, asc_167A2E, asc_167A4E, asc_167A5A, asc_167A65, asc_167A6B
-extern asc_167A70, asc_167B85, asc_167BAB, byte_168930, byte_19CBC2, byte_1AC81B, byte_1AC81C, byte_1AD23E
+extern SortCords, __CHP, str_Mous6, str_Remo4, str_D02dD, str_D02dD2, str_CB0D, str_CB002
+extern str_Chat, str_SS15, str_D4, byte_168930, byte_19CBC2, byte_1AC81B, byte_1AC81C, byte_1AD23E
 extern byte_1C135A, byte_1C135B, dword_167A3B, dword_167A3F, dword_167A43, dword_167A47, dword_167A85, dword_167A89
 extern dword_167A8D, dword_167A91, dword_167A95, dword_167A99, dword_167A9D, dword_167AA1, dword_167AA5, dword_167AA9
 extern dword_167AAD, dword_167AE1, dword_167AE5, dword_167AE9, dword_167AED, dword_167AF1, dword_167AF5, dword_167AF9
@@ -68,14 +68,14 @@ sub_F20A1:
         mov eax, 2Eh
         call LoadDataFile
         push byte 20h
-        push asc_167A29
+        push str_Mous6
         push eax
         mov dword [dword_1C5DE4], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_167A29
+        push str_Mous6
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -84,14 +84,14 @@ sub_F20A1:
         call CreateBitmap
         add esp, byte 0Ch
         push byte 20h
-        push asc_167A2E
+        push str_Remo4
         push dword [dword_1C5DE4]
         mov dword [dword_1CEF88], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_167A2E
+        push str_Remo4
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -100,7 +100,7 @@ sub_F20A1:
         call CreateBitmap
         add esp, byte 0Ch
         push byte 20h
-        push asc_167A29
+        push str_Mous6
         push dword [dword_1C5DE4]
         mov dword [dword_1CEF8C], eax
         call FindShape
@@ -110,7 +110,7 @@ sub_F20A1:
         sar eax, 1
         add esp, byte 8
         push eax
-        push asc_167A29
+        push str_Mous6
         push dword [dword_1C5DE4]
         call FindShape
         movsx eax, word [byte eax+04h]
@@ -122,7 +122,7 @@ sub_F20A1:
         call CreateBitmap
         add esp, byte 0Ch
         push byte 20h
-        push asc_167A2E
+        push str_Remo4
         push dword [dword_1C5DE4]
         mov dword [dword_1CEF90], eax
         call FindShape
@@ -132,7 +132,7 @@ sub_F20A1:
         sar eax, 1
         add esp, byte 8
         push eax
-        push asc_167A2E
+        push str_Remo4
         push dword [dword_1C5DE4]
         call FindShape
         movsx eax, word [byte eax+04h]
@@ -165,11 +165,11 @@ sub_F20A1:
         test bx, bx
         jne short .3
         push byte 10h
-        push asc_167A29
+        push str_Mous6
         jmp short .4
 .3:
         push byte 10h
-        push asc_167A2E
+        push str_Remo4
 .4:
         push dword [dword_1C5DE4]
         call FindShape
@@ -797,13 +797,13 @@ DrawPauseClock:
         push byte 0
         push eax
 .9:
-        push asc_167A4E
+        push str_D02dD
         jmp short .13
 .10:
         push byte 0
         push byte 0
         push eax
-        push asc_167A5A
+        push str_D02dD2
         jmp short .13
 .11:
         movsx ecx, word [gameclock]
@@ -839,7 +839,7 @@ DrawPauseClock:
         push eax
         push ecx
         push ebx
-        push asc_167A5A
+        push str_D02dD2
 .13:
         push byte 7Ch
         push byte 46h
@@ -1306,7 +1306,7 @@ DrawPauseButtons:
 .12:
         movsx ebx, di
         push ebx
-        push asc_167A65
+        push str_CB0D
         lea eax, [byte ebp-068h]
         push eax
         call sprintf_
@@ -1363,8 +1363,8 @@ DrawPauseButtons:
         movsx edx, word [dword ebp-0118h]
         push dword [byte ebp-08h]
         push edx
-        push asc_167A70
-        push asc_167A6B
+        push str_Chat
+        push str_CB002
         push eax
         call FindShape
         fild word [byte eax+06h]
@@ -1376,7 +1376,7 @@ DrawPauseButtons:
         add esp, byte 8
         cwde
         push eax
-        push asc_167A6B
+        push str_CB002
         push dword [dword_1C5DE4]
         call FindShape
         fild word [byte eax+04h]
@@ -3656,7 +3656,7 @@ DrawIntermissionTitle:
         push eax
         lea eax, [byte ebp+02Ah]
         push eax
-        push asc_167B85
+        push str_SS15
         mov eax, 5Eh
 .14:
         call GetLangText
@@ -3712,7 +3712,7 @@ DrawIntermissionTitle:
         push eax
         lea eax, [byte ebp+02Ah]
         push eax
-        push asc_167B85
+        push str_SS15
         mov eax, 5Fh
         jmp near .14
 .18:
@@ -3722,7 +3722,7 @@ DrawIntermissionTitle:
         push eax
         lea eax, [byte ebp+02Ah]
         push eax
-        push asc_167B85
+        push str_SS15
         mov eax, 60h
         jmp near .14
 .19:
@@ -3735,7 +3735,7 @@ DrawIntermissionTitle:
         push eax
         lea eax, [byte ebp+02Ah]
         push eax
-        push asc_167B85
+        push str_SS15
         mov eax, 63h
         jmp near .14
 .20:
@@ -3743,7 +3743,7 @@ DrawIntermissionTitle:
         push eax
         lea eax, [byte ebp+02Ah]
         push eax
-        push asc_167B85
+        push str_SS15
         mov eax, 62h
         call GetLangText
         push eax
@@ -5204,7 +5204,7 @@ RulesMenu:
         and eax, byte 7
         imul eax, byte 14h
         push eax
-        push asc_167BAB
+        push str_D4
         lea eax, [dword ebp-0A2h]
         push eax
         call sprintf_
@@ -6778,7 +6778,7 @@ RulesMenu_218D:
         and eax, byte 7
         imul eax, byte 14h
         push eax
-        push asc_167BAB
+        push str_D4
         lea eax, [dword ebp-0A2h]
         push eax
         call sprintf_

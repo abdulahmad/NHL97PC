@@ -2,14 +2,14 @@
 bits 32
 %include "hockey.inc"
 section s_7D059 progbits alloc exec nowrite align=1
-extern MouseRead, SetClipWindow, WaitKey, _dos_getdiskfree_, _dos_gettime_, asc_1641A4, asc_1641F6, asc_164237
-extern asc_16427F, asc_1642B6, asc_1642FB, asc_164333, asc_164372, asc_164411, asc_16453F, asc_16457C
-extern asc_164597, asc_164746, asc_164787, asc_1647C9, asc_164855, asc_164898, asc_164957, asc_16499E
-extern asc_164A28, asc_164AA7, asc_164AEB, asc_164B0B, asc_164B89, asc_164BBB, asc_164E34, asc_164F06
-extern asc_164FBD, asc_16502F, asc_16503D, asc_1650CC, asc_16510C, asc_165114, asc_16511C, asc_165124
-extern asc_16512C, asc_165134, asc_16513C, asc_165144, asc_16514C, asc_165154, asc_16515C, asc_165164
-extern asc_16516C, asc_165174, asc_16517C, asc_165184, asc_165194, asc_1651A0, asc_1651A8, asc_1651B0
-extern asc_1651B8, asc_1651C0, asc_1651C8, asc_1651D0, byte_171C90, byte_1AC818, byte_1AC81B, byte_1C1267
+extern MouseRead, SetClipWindow, WaitKey, _dos_getdiskfree_, _dos_gettime_, str_Punct5, str_NHL97HasDetectedThatYouCo, str_RunningTheDOSVersionOfThe
+extern str_PerformanceProblemsAndSom, str_IfYouAreRunningInADOSWind, str_NowAndRunTheWindows95Nati, str_PressENTERToRunTheGameAny, str_Punct6, str_SpielsUnterWindows95Laufe, str_UmTrotzdemFortzufahrenOde, str_UmDasSpielAbzubrechen
+extern str_Punct7, str_NHL97RequiresAtLeast1MBOf, str_ToOperateYouMustFreeUpThi, str_Punct8, str_BitteMachenSieSovielPlatz, str_Punct9, str_NHL97RequiresAMouseAMouse, str_Punct10
+extern str_Punct11, str_YouMustFirstUseTheSETUPPr, str_SystemBeforeRunningHOCKEY, str_Punct12, str_KonfigurierenStartenBevor, str_Punct13, str_ThisGameRequiresAtLeastAn, str_KonnteDieNHL97CDNichtFind
+extern str_NHL97MustBeInstalledAndRu, str_CDFILEIVIV, str_BitteLegenSieDieNHL97CDIn, str_PleaseInsertTheNHL97CDROM, str_CHK12, str_X12, str_CB003, str_CHKD
+extern str_XD2, str_CB02d, str_N, str_E, str_W, str_S14, str_NW, str_NE
+extern str_SW, str_SE, str_LX02d, str_LC02d, str_UNPACKLOGO, str_LOGO8, str_LX004, str_LC004
+extern str_DisD, str_REL1, str_RELD, str_Ldn2, byte_171C90, byte_1AC818, byte_1AC81B, byte_1C1267
 extern byte_1C6040, close_, dword_16AEB4, dword_16CAB0, dword_16CAB4, dword_16CAF0, dword_16CAF4, dword_16CB78
 extern dword_16CB7C, dword_16CB80, dword_16DA9C, dword_16E464, dword_16E468, dword_16E46C, dword_16E628, dword_16E670
 extern dword_16F184, dword_170710, dword_1AC814, dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE4
@@ -61,34 +61,34 @@ main_:
         call sub_107D30
         test eax, eax
         je near .1
-        push asc_1641A4
+        push str_Punct5
         call printf_
         add esp, byte 4
-        push asc_1641F6
+        push str_NHL97HasDetectedThatYouCo
         call printf_
         add esp, byte 4
-        push asc_164237
+        push str_RunningTheDOSVersionOfThe
         call printf_
         add esp, byte 4
-        push asc_16427F
+        push str_PerformanceProblemsAndSom
         call printf_
         add esp, byte 4
-        push asc_1642B6
+        push str_IfYouAreRunningInADOSWind
         call printf_
         add esp, byte 4
-        push asc_1642FB
+        push str_NowAndRunTheWindows95Nati
         call printf_
         add esp, byte 4
-        push asc_164333
+        push str_PressENTERToRunTheGameAny
         call printf_
         add esp, byte 4
-        push asc_164372
+        push str_Punct6
         call printf_
         add esp, byte 4
         push unk_1643C2
         call printf_
         add esp, byte 4
-        push asc_164411
+        push str_SpielsUnterWindows95Laufe
         call printf_
         add esp, byte 4
         push unk_16445A
@@ -100,13 +100,13 @@ main_:
         push unk_1644EF
         call printf_
         add esp, byte 4
-        push asc_16453F
+        push str_UmTrotzdemFortzufahrenOde
         call printf_
         add esp, byte 4
-        push asc_16457C
+        push str_UmDasSpielAbzubrechen
         call printf_
         add esp, byte 4
-        push asc_164597
+        push str_Punct7
         call printf_
         add esp, byte 4
         push unk_1645E7
@@ -134,22 +134,22 @@ main_:
         call sub_7D539
         cmp eax, 400h
         jge short .2
-        push asc_164746
+        push str_NHL97RequiresAtLeast1MBOf
         call printf_
         add esp, byte 4
-        push asc_164787
+        push str_ToOperateYouMustFreeUpThi
         call printf_
         add esp, byte 4
-        push asc_1647C9
+        push str_Punct8
         call printf_
         add esp, byte 4
         push unk_16480B
         call printf_
         add esp, byte 4
-        push asc_164855
+        push str_BitteMachenSieSovielPlatz
         call printf_
         add esp, byte 4
-        push asc_164898
+        push str_Punct9
         call printf_
         add esp, byte 4
         push unk_1648DA
@@ -164,16 +164,16 @@ main_:
         call sub_FC73E
         test eax, eax
         jne short .3
-        push asc_164957
+        push str_NHL97RequiresAMouseAMouse
         call printf_
         add esp, byte 4
-        push asc_16499E
+        push str_Punct10
         call printf_
         add esp, byte 4
         push unk_1649E0
         call printf_
         add esp, byte 4
-        push asc_164A28
+        push str_Punct11
         call printf_
         add esp, byte 4
         push unk_164A6A
@@ -190,22 +190,22 @@ main_:
         call sub_4B307
         test eax, eax
         jne short .4
-        push asc_164AA7
+        push str_YouMustFirstUseTheSETUPPr
         call printf_
         add esp, byte 4
-        push asc_164AEB
+        push str_SystemBeforeRunningHOCKEY
         call printf_
         add esp, byte 4
-        push asc_164B0B
+        push str_Punct12
         call printf_
         add esp, byte 4
         push unk_164B4D
         call printf_
         add esp, byte 4
-        push asc_164B89
+        push str_KonfigurierenStartenBevor
         call printf_
         add esp, byte 4
-        push asc_164BBB
+        push str_Punct13
         call printf_
         add esp, byte 4
         push unk_164BFD
@@ -239,7 +239,7 @@ main_:
         push unk_164D67
         jmp short .7
 .6:
-        push asc_164E34
+        push str_ThisGameRequiresAtLeastAn
 .7:
         call printf_
         add esp, byte 4
@@ -259,7 +259,7 @@ main_:
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .9
-        push asc_164F06
+        push str_KonnteDieNHL97CDNichtFind
         jmp short .11
 .9:
         cmp eax, byte 4
@@ -267,7 +267,7 @@ main_:
         push unk_164F96
         jmp short .11
 .10:
-        push asc_164FBD
+        push str_NHL97MustBeInstalledAndRu
 .11:
         call printf_
         add esp, byte 4
@@ -278,7 +278,7 @@ main_:
         mov eax, unk_1C1264
         mov edx, ebx
         call MakeDirPath
-        mov edx, asc_16502F
+        mov edx, str_CDFILEIVIV
         mov eax, unk_1C1264
         call strcat_
         push byte 0
@@ -297,7 +297,7 @@ main_:
         cmp eax, byte 8
         jne short .13
         push unk_1C1264
-        push asc_16503D
+        push str_BitteLegenSieDieNHL97CDIn
         jmp short .15
 .13:
         cmp eax, byte 4
@@ -307,7 +307,7 @@ main_:
         jmp short .15
 .14:
         push unk_1C1264
-        push asc_1650CC
+        push str_PleaseInsertTheNHL97CDROM
 .15:
         call printf_
         add esp, byte 8
@@ -2135,12 +2135,12 @@ sub_7E860:
         mov edi, esp
         mov esi, dword_16E670
         rep movsd
-        push asc_16510C
+        push str_CHK12
         mov edx, dword [dword_1C5DE4]
         push edx
         call FindShape
         add esp, byte 8
-        push asc_165114
+        push str_X12
         mov ebx, dword [dword_1C5DE4]
         push ebx
         mov dword [dword esp+094h], eax
@@ -2150,7 +2150,7 @@ sub_7E860:
         mov dword [byte esp+068h], eax
         test ecx, ecx
         je short .1
-        push asc_16511C
+        push str_CB003
         mov esi, dword [dword_1C5DE4]
         push esi
         call FindShape
@@ -2161,7 +2161,7 @@ sub_7E860:
         mov ebx, 1
 .2:
         push ebx
-        push asc_165124
+        push str_CHKD
         lea eax, [dword esp+0B8h]
         push eax
         call sprintf_
@@ -2173,7 +2173,7 @@ sub_7E860:
         call FindShape
         add esp, byte 8
         push ebx
-        push asc_16512C
+        push str_XD2
         mov dword [dword esp+esi+094h], eax
         lea eax, [dword esp+0B8h]
         push eax
@@ -2196,7 +2196,7 @@ sub_7E860:
         xor esi, esi
 .3:
         push esi
-        push asc_165134
+        push str_CB02d
         lea eax, [dword esp+0B8h]
         push eax
         call sprintf_
@@ -2997,19 +2997,19 @@ sub_7F29C:
         mov dword [byte esp+024h], edx
         mov dword [byte esp+01Ch], ebx
         mov dword [byte esp+020h], ecx
-        push asc_16513C
+        push str_N
         mov edx, dword [dword_1C5DE4]
         push edx
         call FindShape
         add esp, byte 8
-        push asc_165144
+        push str_E
         mov ebx, dword [dword_1C5DE4]
         push ebx
         mov edi, eax
         mov dword [byte esp+014h], eax
         call FindShape
         add esp, byte 8
-        push asc_16514C
+        push str_W
         mov ecx, dword [dword_1C5DE4]
         push ecx
         mov esi, eax
@@ -3017,7 +3017,7 @@ sub_7F29C:
         call FindShape
         add esp, byte 8
         mov ebp, eax
-        push asc_165154
+        push str_S14
         mov dword [byte esp+018h], eax
         mov eax, dword [dword_1C5DE4]
         add edi, byte 10h
@@ -3207,7 +3207,7 @@ sub_7F29C:
         push ebx
         mov ecx, dword [byte esp+02Ch]
         push ecx
-        push asc_16515C
+        push str_NW
         mov esi, dword [dword_1C5DE4]
         push esi
         call FindShape
@@ -3218,7 +3218,7 @@ sub_7F29C:
         push ebx
         mov ebp, dword [byte esp+0Ch]
         push ebp
-        push asc_165164
+        push str_NE
         mov eax, dword [dword_1C5DE4]
         push eax
         call FindShape
@@ -3231,7 +3231,7 @@ sub_7F29C:
         push ebx
         mov ecx, dword [byte esp+02Ch]
         push ecx
-        push asc_16516C
+        push str_SW
         mov esi, dword [dword_1C5DE4]
         push esi
         call FindShape
@@ -3241,7 +3241,7 @@ sub_7F29C:
         add esp, byte 0Ch
         push ebx
         push ebp
-        push asc_165174
+        push str_SE
         mov ebp, dword [dword_1C5DE4]
         push ebp
         call FindShape
@@ -3577,11 +3577,11 @@ sub_7F5CC:
         test ebp, ebp
         je short .20
         push ebx
-        push asc_16517C
+        push str_LX02d
         jmp short .21
 .20:
         push ebx
-        push asc_165184
+        push str_LC02d
 .21:
         lea eax, [dword esp+06F0h]
         push eax
@@ -4582,7 +4582,7 @@ LoadTeamLogo:
         call sub_106F94
         add esp, byte 4
         push eax
-        push asc_165194
+        push str_UNPACKLOGO
         call AllocMemBlock
         add esp, byte 0Ch
         push eax
@@ -4591,7 +4591,7 @@ LoadTeamLogo:
         mov dword [dword_1C5EF0], eax
         call sub_106F64
         add esp, byte 8
-        push asc_1651A0
+        push str_LOGO8
         mov ebp, dword [dword_1C5EF0]
         push ebp
         call FindShape
@@ -4600,7 +4600,7 @@ LoadTeamLogo:
         call sub_815F8
         mov eax, dword [dword_16E46C]
         push eax
-        push asc_1651A0
+        push str_LOGO8
         mov edx, dword [dword_1C5EF0]
         push edx
         call FindShape
@@ -5474,12 +5474,12 @@ sub_81114:
         mov edi, esp
         mov esi, dword_16E670
         rep movsd
-        push asc_16510C
+        push str_CHK12
         mov edx, dword [dword_1C5DE4]
         push edx
         call FindShape
         add esp, byte 8
-        push asc_165114
+        push str_X12
         mov ebx, dword [dword_1C5DE4]
         push ebx
         mov esi, 4
@@ -5490,7 +5490,7 @@ sub_81114:
         mov dword [byte esp+038h], eax
 .1:
         push ebx
-        push asc_165124
+        push str_CHKD
         lea eax, [dword esp+088h]
         push eax
         call sprintf_
@@ -5502,7 +5502,7 @@ sub_81114:
         call FindShape
         add esp, byte 8
         push ebx
-        push asc_16512C
+        push str_XD2
         mov dword [byte esp+esi+064h], eax
         lea eax, [dword esp+088h]
         push eax
@@ -5705,7 +5705,7 @@ sub_81468:
         mov edi, esp
         mov esi, dword_16E670
         rep movsd
-        push asc_1651A8
+        push str_LX004
         mov edx, dword [dword_1C5DE4]
         push edx
         xor ebx, ebx
@@ -5715,7 +5715,7 @@ sub_81468:
         mov dword [byte esp+038h], eax
 .1:
         push ebx
-        push asc_16517C
+        push str_LX02d
         lea eax, [byte esp+064h]
         push eax
         call sprintf_
@@ -6010,7 +6010,7 @@ sub_816E8:
         mov edx, 8
         xor esi, esi
         call sub_7E52C
-        mov edx, asc_1651B0
+        mov edx, str_LC004
         lea eax, [dword esp+03A4h]
         mov dword [dword esp+03C8h], esi
         call strcpy_
@@ -8979,7 +8979,7 @@ sub_83C08:
 .2:
         lea eax, [byte ebx+01h]
         push eax
-        push asc_1651B8
+        push str_DisD
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -9062,7 +9062,7 @@ sub_83D4C:
         mov dword [byte esp+068h], edx
         mov dword [byte esp+064h], ebx
         xor ebx, ebx
-        mov esi, asc_1651C0
+        mov esi, str_REL1
 .1:
         push byte 0
         push esi
@@ -9088,7 +9088,7 @@ sub_83D4C:
         cmp ebx, byte 20h
         jne short .1
         push byte 0
-        push asc_1651C0
+        push str_REL1
         mov esi, dword [dword_1C5DE4]
         push esi
         call FindShape
@@ -9096,7 +9096,7 @@ sub_83D4C:
         add esp, byte 8
         sar eax, 10h
         push eax
-        push asc_1651C0
+        push str_REL1
         mov edi, dword [dword_1C5DE4]
         push edi
         call FindShape
@@ -9111,7 +9111,7 @@ sub_83D4C:
         add esp, byte 0Ch
         mov dword [dword_1C5EEC], eax
         rep movsd
-        push asc_1651C0
+        push str_REL1
         mov eax, dword [dword_1C5DE4]
         push eax
         mov ebx, 1
@@ -9121,7 +9121,7 @@ sub_83D4C:
         mov dword [byte esp+038h], eax
 .2:
         push ebx
-        push asc_1651C8
+        push str_RELD
         lea eax, [byte esp+064h]
         push eax
         call sprintf_
@@ -9514,7 +9514,7 @@ ShowLoadingScreen:
         mov eax, 0F7h
         xor edx, edx
         call LoadDataFile
-        push asc_1651D0
+        push str_Ldn2
         push eax
         mov esi, eax
         call FindShape

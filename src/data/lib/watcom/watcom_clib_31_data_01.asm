@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_16843C progbits alloc noexec write align=1
-global asc_1684B0, byte_1684C8, dword_16844C, dword_168450, dword_168454, dword_168458, dword_168462, dword_1684C0
+global str_DOSJoystick, byte_1684C8, dword_16844C, dword_168450, dword_168454, dword_168458, dword_168462, dword_1684C0
 global dword_1684C4, dword_1684E4, dword_168564, dword_168571, dword_168628, dword_16862C, qword_16843C, qword_168444
 global qword_16845E, str_CGRIP, str_GRIP, str_GRIPGLL, unk_16845C, unk_168574, word_1684BE, word_1684CA
 global word_1684E8, word_1684EC
@@ -28,7 +28,7 @@ dword_168462:
         db 089h,045h,0Eh,00h,00h,00h,090h,01Eh,0C4h,0BCh,0D6h,042h,08h,00h,00h,00h
         db 00h,00h,084h,0D7h,097h,041h,04h,00h,00h,00h,00h,00h,00h,088h,0C3h,040h
         db 01h,00h,00h,00h,00h,00h,00h,00h,024h,040h,00h,00h,00h,00h
-asc_1684B0:
+str_DOSJoystick:
         db 044h,04Fh,053h,02Dh,04Ah,06Fh,079h,073h,074h,069h,063h,06Bh,00h,00h
 word_1684BE:
         db 00h,00h

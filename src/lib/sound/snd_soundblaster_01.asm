@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_128CEC progbits alloc exec nowrite align=1
-extern ParseBlasterEnv, asc_168044, asc_168050, asc_168058, asc_168060, asc_16806C, asc_168078, asc_16808C
-extern asc_168094, asc_16809C, asc_1680A4, asc_1680A8, asc_1680AC, asc_1680B4, asc_1680C0, asc_1680C8
+extern ParseBlasterEnv, str_DMABUFFER3, str_DMABUF, str_DMABUF2, str_DMABUFFER4, str_SNDSCAPE, str_SNDSCAPEINI, str_Product
+extern str_SoundFX, str_Port, str_DMA, str_IRQ, str_SBIRQ, str_SBEnable, str_FALSE, str_WavePort
 extern atoi_, byte_172C14, byte_172C15, byte_172C2C, byte_172C2D, byte_172C2E, byte_172C2F, byte_172C88
 extern byte_172C89, dword_16E4B0, dword_172BC8, dword_172BCC, dword_172BD0, dword_172BD4, dword_172C00, dword_172C04
 extern dword_172C08, dword_172C0C, dword_172C10, dword_172C20, dword_172C24, dword_172C28, dword_172C3E, dword_172C64
@@ -262,7 +262,7 @@ sub_128E08:
         push dword 200h
         add eax, eax
         push eax
-        push asc_168044
+        push str_DMABUFFER3
         call sub_FAAB4
         add esp, byte 0Ch
         mov dword [dword_1DD3D8], eax
@@ -637,7 +637,7 @@ sub_1291F8:
         push dword 200h
         add eax, eax
         push eax
-        push asc_168050
+        push str_DMABUF
         call sub_FAAB4
         add esp, byte 0Ch
         mov dword [dword_1DD41C], eax
@@ -1124,7 +1124,7 @@ sub_129748:
         push dword 200h
         add eax, eax
         push eax
-        push asc_168058
+        push str_DMABUF2
         call sub_FAAB4
         add esp, byte 0Ch
         mov dword [dword_1DD464], eax
@@ -1590,7 +1590,7 @@ sub_129CB8:
         push dword 200h
         add eax, eax
         push eax
-        push asc_168060
+        push str_DMABUFFER4
         call sub_FAAB4
         add esp, byte 0Ch
         mov dword [dword_1DD490], eax
@@ -1763,7 +1763,7 @@ sub_129F80:
         push edi
         push ebp
         sub esp, 80h
-        mov eax, asc_16806C
+        mov eax, str_SNDSCAPE
         call getenv_
         mov dl, byte [eax]
         xor ebp, ebp
@@ -1788,7 +1788,7 @@ sub_129F80:
         jne short .2
 .3:
         pop edi
-        mov esi, asc_168078
+        mov esi, str_SNDSCAPEINI
         mov edi, esp
         mov edx, unk_168088
         push edi
@@ -1825,7 +1825,7 @@ sub_129F80:
         pop ebx
         ret
 .6:
-        mov ebx, asc_16808C
+        mov ebx, str_Product
         mov edx, esp
         call sub_12A788
         test eax, eax
@@ -1833,12 +1833,12 @@ sub_129F80:
         mov ebp, 0FFFFFFFFh
         jmp near .28
 .7:
-        mov edx, asc_168094
+        mov edx, str_SoundFX
         mov eax, esp
         call strstr_
         test eax, eax
         setne al
-        mov ebx, asc_16809C
+        mov ebx, str_Port
         and eax, 0FFh
         mov edx, esp
         mov dword [dword_172C7C], eax
@@ -1853,7 +1853,7 @@ sub_129F80:
         mov eax, esp
         xor edx, edx
         call sub_138177
-        mov ebx, asc_1680A4
+        mov ebx, str_DMA
         mov edx, esp
         mov dword [dword_172C64], eax
         mov eax, ecx
@@ -1867,7 +1867,7 @@ sub_129F80:
         mov eax, esp
         xor edx, edx
         call sub_138177
-        mov ebx, asc_1680A8
+        mov ebx, str_IRQ
         mov edx, esp
         mov dword [dword_1DD494], eax
         mov eax, ecx
@@ -1886,7 +1886,7 @@ sub_129F80:
         jne short .11
         mov dword [dword_172C68], 9
 .11:
-        mov ebx, asc_1680AC
+        mov ebx, str_SBIRQ
         mov edx, esp
         mov eax, ecx
         call sub_12A788
@@ -1904,7 +1904,7 @@ sub_129F80:
         jne short .13
         mov dword [dword_1DD480], 9
 .13:
-        mov ebx, asc_1680B4
+        mov ebx, str_SBEnable
         mov edx, esp
         mov eax, ecx
         call sub_12A788
@@ -1913,7 +1913,7 @@ sub_129F80:
         mov ebp, 0FFFFFFFFh
         jmp near .28
 .14:
-        mov edx, asc_1680C0
+        mov edx, str_FALSE
         mov eax, esp
         call strcmp_
         test eax, eax
@@ -1939,7 +1939,7 @@ sub_129F80:
 .17:
         cmp dword [dword_172C6C], byte 0
         jne short .19
-        mov ebx, asc_1680C8
+        mov ebx, str_WavePort
         mov edx, esp
         mov eax, ecx
         call sub_12A788

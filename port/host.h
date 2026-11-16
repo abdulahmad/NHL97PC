@@ -152,6 +152,7 @@ void modem_test_open(void);   /* test aid NHL97_MODEM: a room for Modem play (mo
 void modem_test_poll(void);   /* main thread, every pass */
 /* online, where the game waits on tickcount (until; one: a poll, which moves it one tick): moves the step clock there as the time
  * passes (none while it catches up). 0: not online, wait as usual */
+void host_idle_once(void);                                       /* overrides.c: one wait step of the game thread */
 int netplay_vtime_wait(uint32_t until, int one);                    /* main thread, every pass of the loop */
 int netplay_running(void);                       /* a session drives the game: its steps go on while the overlay is open */
 extern volatile int nh_quiet;                    /* a rollback plays steps again: nothing of them is shown */

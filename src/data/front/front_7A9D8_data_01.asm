@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_163F00 progbits alloc noexec write align=1
-global asc_163F00, asc_163F07, asc_163F0C, asc_163F14, asc_164120, asc_164154, asc_164164, asc_16416F
-global asc_16417C, asc_164181, asc_164186, asc_16418B, asc_164190, asc_164195, asc_16419A, asc_16419F
+global str_Roster, str_SS2, str_VIDEO, str_AUDSTRMHACK, str_ATE1Q0X4F1, str_Punct2, str_LogoNames, str_Logo02dQfs
+global str_Mous2, str_Remo2, str_CHK1, str_X1, str_CB00, str_CB01, str_BACK2, str_LOGO2
 global str_ATA, str_ATD, str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, unk_163F20, unk_163F24
 global unk_163F28, unk_163F2C, unk_163F38, unk_163F3C, unk_163F40, unk_163F48, unk_163F4C, unk_163F50
 global unk_163F5C, unk_163F60, unk_163F64, unk_163F6C, unk_163F70, unk_163F74, unk_163F84, unk_163F88
@@ -13,13 +13,13 @@ global unk_164010, unk_164024, unk_16402C, unk_164030, unk_164044, unk_16404C, u
 global unk_164070, unk_164074, unk_164084, unk_16408C, unk_164090, unk_1640A4, unk_1640AC, unk_1640B0
 global unk_1640C4, unk_1640CC, unk_1640D0, unk_1640E8, unk_1640F0, unk_1640F4, unk_164104, unk_16410C
 global unk_164138, unk_16413C, unk_164150, unk_164158
-asc_163F00:
+str_Roster:
         db 072h,06Fh,073h,074h,065h,072h,00h
-asc_163F07:
+str_SS2:
         db 025h,073h,025h,073h,00h
-asc_163F0C:
+str_VIDEO:
         db 056h,049h,044h,045h,04Fh,00h,00h,00h
-asc_163F14:
+str_AUDSTRMHACK:
         db 041h,055h,044h,053h,054h,052h,04Dh,048h,041h,043h,04Bh,00h
 unk_163F20:
         db 05Fh,04Fh,04Bh,00h
@@ -145,7 +145,7 @@ unk_16410C:
         db 031h,030h,037h,00h
 str_ATZS760S1155:
         db 041h,054h,05Ah,053h,037h,03Dh,036h,030h,053h,031h,031h,03Dh,035h,035h,00h,00h
-asc_164120:
+str_ATE1Q0X4F1:
         db 041h,054h,045h,031h,051h,030h,058h,034h,046h,031h,00h,00h
 str_ATH0:
         db 041h,054h,048h,030h,00h,00h,00h,00h
@@ -161,29 +161,29 @@ str_ATA:
         db 041h,054h,041h,0Dh,00h,00h,00h,00h
 unk_164150:
         db 0Dh,00h,00h,00h
-asc_164154:
+str_Punct2:
         db 02Bh,02Bh,02Bh,00h
 unk_164158:
         db 041h,054h,00h,00h
 str_ATM0:
         db 041h,054h,04Dh,030h,00h,00h,00h,00h
-asc_164164:
+str_LogoNames:
         db 06Ch,06Fh,067h,06Fh,020h,06Eh,061h,06Dh,065h,073h,00h
-asc_16416F:
+str_Logo02dQfs:
         db 06Ch,06Fh,067h,06Fh,025h,030h,032h,064h,02Eh,071h,066h,073h,00h
-asc_16417C:
+str_Mous2:
         db 06Dh,06Fh,075h,073h,00h
-asc_164181:
+str_Remo2:
         db 072h,065h,06Dh,06Fh,00h
-asc_164186:
+str_CHK1:
         db 043h,048h,04Bh,031h,00h
-asc_16418B:
+str_X1:
         db 058h,031h,020h,020h,00h
-asc_164190:
+str_CB00:
         db 043h,042h,030h,030h,00h
-asc_164195:
+str_CB01:
         db 043h,042h,030h,031h,00h
-asc_16419A:
+str_BACK2:
         db 042h,041h,043h,04Bh,00h
-asc_16419F:
+str_LOGO2:
         db 04Ch,04Fh,047h,04Fh,00h

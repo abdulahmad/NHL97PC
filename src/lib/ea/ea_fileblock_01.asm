@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FC88C progbits alloc exec nowrite align=1
-extern _dos_getdate_, _dos_gettime_, asc_167D74, asc_167D84, byte_16E638, byte_16E639, byte_16E63A, byte_16E688
+extern _dos_getdate_, _dos_gettime_, str_02d3s02d, str_2d02d02d, byte_16E638, byte_16E639, byte_16E63A, byte_16E688
 extern byte_171C90, dword_16E628, dword_16E630, dword_16E634, dword_16E63C, dword_16E870, dword_1CF298, dword_1CF530
 extern dword_1CF534, dword_1CF538, dword_1CF53C, dword_1CF540, dword_1CF544, dword_1CF548, dword_1CF54C, dword_1CF598
 extern dword_1CF59C, dword_1CF5A0, dword_1CF5A4, dword_1CF5A8, dword_1CF5AC, dword_1CF5C4, dword_1CF5C8, dword_1DA4D0
@@ -317,7 +317,7 @@ sub_FCACC:
         push edx
         mov al, byte [byte esp+08h]
         push eax
-        push asc_167D74
+        push str_02d3s02d
         push ebx
         call sprintf_
         add esp, byte 14h
@@ -330,7 +330,7 @@ sub_FCACC:
         xor eax, eax
         mov al, byte [byte esp+010h]
         push eax
-        push asc_167D84
+        push str_2d02d02d
         push ecx
         call sprintf_
         add esp, byte 14h

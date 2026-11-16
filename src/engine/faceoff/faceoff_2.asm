@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_2EEE8 progbits alloc exec nowrite align=1
-extern IF@ATAN2, ReturnGoalies, SortCords, __CHP, asc_1609CC, awtmstruct, byte_168B60, byte_168B69
+extern IF@ATAN2, ReturnGoalies, SortCords, __CHP, str_Pktbuffer, awtmstruct, byte_168B60, byte_168B69
 extern byte_168C04, byte_168E50, byte_19CA30, byte_19CA31, byte_19CA32, byte_19CA33, byte_19CB70, byte_19CBC2
 extern byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CBFC, byte_19CD8C, byte_19D53C, byte_19D555, byte_19D604
 extern byte_19D636, byte_19DAD6, byte_19DAEF, byte_19DAF0, byte_19EAC6, byte_19EB56, byte_19EB7F, byte_19EBD2
@@ -21,12 +21,12 @@ extern qword_1608C4, qword_1608CC, qword_1608D4, qword_1608DC, qword_1608EC, qwo
 extern qword_16090C, qword_160914, qword_16091C, qword_160924, qword_16092C, qword_160934, qword_16093C, qword_160944
 extern qword_16094C, qword_160954, qword_16095C, qword_160964, qword_16096C, qword_160974, qword_16097C, qword_160984
 extern qword_16098C, qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qword_1609B4, qword_1609BC, randomd0
-extern regd1, slotteam, sub_100940, bcopy, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
+extern regd1, slotteam, SortIndices, bcopy, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
 extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, sub_101154, sub_1011E8
 extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
 extern QueueOverlayPanel, ClearOverlayWindows, FightCameraScene, sub_1C210, FaceoffCameraScene, FaceoffCameraScene2, sub_1CCBC, sub_1D16C
 extern sub_1E184, assreplace, assinsert, assexit, sub_1E8B0, Setplass, Goal, sub_24220
-extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, CompLine, StartFaceoffLineChange
+extern sub_2471C, sub_248E8, sub_25010, checkob, AssignControlSlots, ResetFaceoffAssigns, CompLine, StartFaceoffLineChange
 extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent
 extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
 extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
@@ -46,22 +46,22 @@ extern word_19CC28, word_19CC2A, word_19CC2C, word_19CC2E, word_19CC50, word_19C
 extern word_19D69E, word_19DAEA, word_19EAB2, word_19EAB4, word_19EABE, word_19EAC0, word_19EBBE, word_19EBC0
 extern word_19EBCA, word_19EBCC
 global CountTeamSlots, GiveControl, ReadJoy1, SlotToJoy, changeplayer, chkprogress, jpt_2FB20, jpt_30890
-global jpt_32328, jpt_380E6, jpt_38102, jpt_3811A, sub_2FB40_229, sub_2FB40_2CE, sub_2FB40_2EB, sub_2FB40_30C
-global sub_2FB40_32D, sub_2FB40_370, sub_308AC_1D, sub_308AC_21, sub_308AC_25, sub_308AC_29, sub_308AC_2D, sub_308AC_31
-global sub_308AC_35, AddPenalty2_2BD, AddPenalty2_2CB, AddPenalty2_2D2, AddPenalty2_308, AddPenalty2_32E, AddPenalty2_354, InProgress_8B2
-global InProgress_96E, sub_3509C_E0, assfwatch_1EC, sub_37198_DE, sub_37744_24C, puckfaceoff, restorepl, sub_2F4B8
-global sub_2F744, sub_2F818, sub_2F8D8, sub_2FA00, sub_2FB40, checkint, sub_2FFB8, sub_30300
-global sub_305D8, sub_30674, sub_30778, sub_3085C, sub_308AC, sub_308F4, sub_30998, sub_30A34
-global sub_30BD8, sub_31070, sub_313F4, sub_31540, sub_31A2C, sub_31A5C, sub_31B6C, sub_31C14
-global sub_31F88, sub_32184, AddPenalty, AddPenalty2, Stop4Pen, updatepwrplay, chkatop, releasepl
-global PenGoalStuff, updatepentime_ut_chk, updatepentime_ut, updatepentime, checkfornewpen, sub_335CC, sub_336E4, EndPenaltyShot
-global sub_33904, InProgress, sub_34330, sub_343F8, sub_34500, sub_348DC, sub_34950, sub_34A48
-global sub_34B04, sub_34B78, sub_34C18, sub_34CF4, doplayeracc, sub_34F58, sub_34FD0, sub_3505C
-global sub_3509C, sub_35188, sub_35234, sub_353B4, sub_35464, sub_35588, sub_35690, sub_356A8
-global sub_358E4, sub_36370, CheckFightOdds, StartFight, checkfight, sub_36754, sub_36778, assfight
-global assfwatch, sub_37044, sub_3708C, sub_37134, sub_37198, sub_3727C, sub_37374, sub_373D8
-global sub_37424, sub_37470, sub_375F0, sub_376FC, sub_37704, sub_3772C, sub_37744, sub_379AC
-global sub_37A1C, sub_37AB4, sub_37F4C, sub_37FC8
+global jpt_32328, jpt_380E6, jpt_38102, jpt_3811A, ChkBodyContact_229, ChkBodyContact_2CE, ChkBodyContact_2EB, ChkBodyContact_30C
+global ChkBodyContact_32D, ChkBodyContact_370, PositionSlot_1D, PositionSlot_21, PositionSlot_25, PositionSlot_29, PositionSlot_2D, PositionSlot_31
+global PositionSlot_35, AddPenalty2_2BD, AddPenalty2_2CB, AddPenalty2_2D2, AddPenalty2_308, AddPenalty2_32E, AddPenalty2_354, InProgress_8B2
+global InProgress_96E, FindPassTarget_E0, assfwatch_1EC, SendPacket_DE, LinkPoll_24C, puckfaceoff, restorepl, ChkPenaltyCall
+global PenaltyChance, ChkNetCrash, NetCollide, NetCollide2, ChkBodyContact, checkint, PickShotTarget, UpdateShot
+global StartShot, assshoot, ChkShoot, ForceShoot, PositionSlot, SortByPosition, SortForwards, BuildTeamLines
+global SetupAutoLines, CanPlayLineSlot, FindLinePlayer, PickLineReplacement, CopyGoalieSlot, FixLineSlot, RebuildLines, UpdateLinesForAbsent
+global InitGameLines, ChkTwoInBox, AddPenalty, AddPenalty2, Stop4Pen, updatepwrplay, chkatop, releasepl
+global PenGoalStuff, updatepentime_ut_chk, updatepentime_ut, updatepentime, checkfornewpen, SumOnIceRatings, SetupPenaltyShot, EndPenaltyShot
+global PenaltyPaCode, InProgress, SetPlayerTarget, SetSlotPlayer, ChkGrabPuckOnSwitch, AutoSwitchToCarrier, InitPadSlots, RequestLineChange
+global LineChangeKey, DoLineChangeInput, FaceoffInput, FaceDirFromMotion, doplayeracc, SetSkateDir, JoySkate, JoyDirSkate
+global FindPassTarget, ChkPassTo, DoPassButton, ShotAimDir, DoShootButton, ChkOneTimerSpot, ClearLastPasser, OneTimerShot
+global doinput, DebugRestoreEnergy, CheckFightOdds, StartFight, checkfight, ResetPlayerCounters, HumanStickAction, assfight
+global assfwatch, PutChecksum, VerifyPacketChecksum, BuildPacketHeader, SendPacket, SendAckPacket, AckPackets, MarkPacketAcked
+global FreeLinkChannel, ParsePacket, ReceivePackets, LinkGetDevice, LinkCountdown, LinkResendIfDue, LinkPoll, InitPacketLink
+global ShutdownPacketLink, OpenPacketLink, PacketLinkSend, ClosePacketLink
 ;-----------------------------------------------------------------------------
 ; puckfaceoff                        2EEE8  94G logic94.asm, medium confidence
 ; (asstab 1Bh, puck assignment at a stoppage, 'this is where the action
@@ -187,7 +187,7 @@ puckfaceoff:
 .13:
         cmp word [word_19CBE0], byte 0
         je short .14
-        call sub_27F80
+        call AssignControlSlots
 .14:
         call ReturnGoalies
         mov eax, dword [dword_1AC944]
@@ -330,7 +330,7 @@ puckfaceoff:
         mov eax, awtmstruct
         call setpersonel
         mov eax, 1
-        call sub_28C0C
+        call ResetFaceoffAssigns
         mov eax, dword [awtmstruct]
         sar eax, 10h
         push eax
@@ -357,7 +357,7 @@ puckfaceoff:
         mov eax, ebx
         call setpersonel
         mov eax, edx
-        call sub_28C0C
+        call ResetFaceoffAssigns
         mov eax, dword [dword_1AC944]
         test byte [byte eax+02h], 20h
         jne short .29
@@ -382,7 +382,7 @@ puckfaceoff:
         mov edx, dword [nosplit edx*2+dword_19CB32]
         mov eax, ebx
         sar edx, 10h
-        call sub_34A48
+        call RequestLineChange
 .29:
         inc esi
         cmp si, byte 2
@@ -407,7 +407,7 @@ puckfaceoff:
         mov eax, hmtmstruct
         call setpersonel
         xor eax, eax
-        call sub_28C0C
+        call ResetFaceoffAssigns
         mov eax, dword [hmtmstruct]
         sar eax, 10h
         push eax
@@ -464,9 +464,12 @@ puckfaceoff:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2F4B8                                                       2F4B8  97 PC
+; ChkPenaltyCall                                  2F4B8  97 PC, low confidence
+; From a body check (sub_6DAB0): whether the referee calls a penalty on the
+; hit (skill and energy chance), AddPenalty2, penalty camera (priority 4),
+; overlay, line update
 ;-----------------------------------------------------------------------------
-sub_2F4B8:
+ChkPenaltyCall:
         push ebx
         push ecx
         mov ecx, eax
@@ -523,7 +526,7 @@ sub_2F4B8:
         test byte [dword ecx+0C0h], 10h
         jne near .7
         mov eax, ecx
-        call sub_32184
+        call ChkTwoInBox
         test eax, eax
         je near .7
         mov eax, 2
@@ -622,16 +625,18 @@ sub_2F4B8:
         setne al
         xor ah, ah
         cwde
-        call sub_31C14
+        call UpdateLinesForAbsent
 .7:
         pop ecx
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2F744                                                       2F744  97 PC
+; PenaltyChance                                   2F744  97 PC, low confidence
+; Chance a referee sees an infraction: by the player's discipline (+0CDh),
+; distance to the puck, period, score difference and play state
 ;-----------------------------------------------------------------------------
-sub_2F744:
+PenaltyChance:
         push ebx
         push ecx
         push edx
@@ -708,9 +713,11 @@ sub_2F744:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_2F818                                                       2F818  97 PC
+; ChkNetCrash                                     2F818  97 PC, low confidence
+; Puck carrier driving into the net: 63h when the net is empty (goal
+; awarded), 1 when the goalie is hit
 ;-----------------------------------------------------------------------------
-sub_2F818:
+ChkNetCrash:
         push ebx
         push edx
         mov edx, eax
@@ -782,9 +789,11 @@ sub_2F818:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_2F8D8                                                       2F8D8  97 PC
+; NetCollide                                      2F8D8  95 PC, low confidence
+; From checkgoal: an object hits a net: goal awarded on an empty net (Goal)
+; or goalie interference (AddPenalty 22h)
 ;-----------------------------------------------------------------------------
-sub_2F8D8:
+NetCollide:
         push ebx
         push ecx
         push edx
@@ -816,7 +825,7 @@ sub_2F8D8:
         and byte [byte_19CBC8], 0F7h
 .1:
         mov eax, ecx
-        call sub_2F818
+        call ChkNetCrash
         test eax, eax
         je short .5
         cmp eax, byte 63h
@@ -856,7 +865,7 @@ sub_2F8D8:
         ret
 .5:
         mov eax, esi
-        call sub_2F744
+        call PenaltyChance
         test ax, ax
         jg short .8
         mov eax, 2
@@ -880,9 +889,10 @@ sub_2F8D8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2FA00                                                       2FA00  97 PC
+; NetCollide2                                     2FA00  97 PC, low confidence
+; From checkgoal: the same check for the other net
 ;-----------------------------------------------------------------------------
-sub_2FA00:
+NetCollide2:
         push ebx
         push ecx
         push edx
@@ -914,7 +924,7 @@ sub_2FA00:
         and byte [byte_19CBC8], 0F7h
 .1:
         mov eax, ecx
-        call sub_2F818
+        call ChkNetCrash
         test eax, eax
         je short .5
         cmp eax, byte 63h
@@ -954,7 +964,7 @@ sub_2FA00:
         ret
 .5:
         mov eax, esi
-        call sub_2F744
+        call PenaltyChance
         test ax, ax
         jg short .6
         mov eax, 0Ah
@@ -973,18 +983,20 @@ sub_2FA00:
         ret
         db 08Bh,0C0h
 jpt_2FB20:
-        dd sub_2FB40_229
-        dd sub_2FB40_229
-        dd sub_2FB40_229
-        dd sub_2FB40_2CE
-        dd sub_2FB40_2EB
-        dd sub_2FB40_30C
-        dd sub_2FB40_32D
-        dd sub_2FB40_370
+        dd ChkBodyContact_229
+        dd ChkBodyContact_229
+        dd ChkBodyContact_229
+        dd ChkBodyContact_2CE
+        dd ChkBodyContact_2EB
+        dd ChkBodyContact_30C
+        dd ChkBodyContact_32D
+        dd ChkBodyContact_370
 ;-----------------------------------------------------------------------------
-; sub_2FB40                                                       2FB40  97 PC
+; ChkBodyContact                                  2FB40  97 PC, low confidence
+; From an animation event: body contact between two players: goalie contact
+; by strength, checkint, Goal / AddPenalty outcomes
 ;-----------------------------------------------------------------------------
-sub_2FB40:
+ChkBodyContact:
         push ebx
         push ecx
         push edx
@@ -992,11 +1004,11 @@ sub_2FB40:
         push edi
         mov ebx, eax
         cmp dword [byte eax+04h], byte 0Ah
-        jne near sub_2FB40_370.26
+        jne near ChkBodyContact_370.26
         test byte [byte_19CBC2], 1
-        jne near sub_2FB40_370.26
+        jne near ChkBodyContact_370.26
         cmp word [word_19CBF4], byte 0
-        jne near sub_2FB40_370.26
+        jne near ChkBodyContact_370.26
         mov ecx, dword [byte ebx+02Ch]
         xor edx, edx
         mov dl, byte [byte ecx+06Ch]
@@ -1007,42 +1019,42 @@ sub_2FB40:
         shl eax, 3
         add esi, eax
         cmp word [dword esi+0A9h], byte 0
-        je near sub_2FB40_370.26
+        je near ChkBodyContact_370.26
         test byte [dword ecx+0C0h], 10h
-        jne near sub_2FB40_370.26
+        jne near ChkBodyContact_370.26
         cmp byte [dword esi+0A4h], 0Ch
         jne short .4
         mov dl, byte [dword esi+0BEh]
         cmp dl, 3
-        jb near sub_2FB40_370.26
+        jb near ChkBodyContact_370.26
         jne short .1
         mov ebx, 1
         mov edx, 18h
-        jmp near sub_2FB40_370.25
+        jmp near ChkBodyContact_370.25
 .1:
         cmp dl, 6
         jne short .2
         mov ebx, 4
         mov edx, 18h
-        jmp near sub_2FB40_370.25
+        jmp near ChkBodyContact_370.25
 .2:
         cmp dl, 9
         jne short .3
         mov ebx, 10h
         mov edx, 18h
-        jmp near sub_2FB40_370.25
+        jmp near ChkBodyContact_370.25
 .3:
-        jbe near sub_2FB40_370.26
+        jbe near ChkBodyContact_370.26
         mov ebx, 14h
         mov edx, 18h
-        jmp near sub_2FB40_370.25
+        jmp near ChkBodyContact_370.25
 .4:
         mov eax, ebx
         call checkint
         test byte [dword ecx+0C0h], 10h
-        jne near sub_2FB40_370.26
+        jne near ChkBodyContact_370.26
         mov eax, esi
-        call sub_2F818
+        call ChkNetCrash
         test eax, eax
         je short .8
         cmp eax, byte 63h
@@ -1055,7 +1067,7 @@ sub_2FB40:
         mov eax, dword [off_168D08]
 .6:
         call Goal
-        jmp near sub_2FB40_370.26
+        jmp near ChkBodyContact_370.26
 .7:
         xor eax, eax
         mov al, byte [dword esi+0A4h]
@@ -1071,11 +1083,11 @@ sub_2FB40:
         mov dword [byte esi+064h], 20h
         mov eax, dword [byte esi+064h]
         mov dword [byte ecx+064h], eax
-        jmp near sub_2FB40_370.26
+        jmp near ChkBodyContact_370.26
 .8:
         mov eax, dword [dword esi+0EEh]
         test byte [byte eax+031h], 1
-        je near sub_2FB40_370.26
+        je near ChkBodyContact_370.26
         mov eax, dword [dword esi+0A3h]
         mov edx, dword [dword esi+0FEh]
         sar eax, 18h
@@ -1117,28 +1129,28 @@ sub_2FB40:
         test edx, edx
         jne short .13
         test eax, eax
-        jle near sub_2FB40_370.26
+        jle near ChkBodyContact_370.26
         cwde
         call randomd0
         movsx ebx, ax
         xor eax, eax
         mov al, byte [dword ecx+0CFh]
         cmp ebx, eax
-        jle near sub_2FB40_370.26
+        jle near ChkBodyContact_370.26
 .13:
         mov eax, ecx
-        call sub_2F744
+        call PenaltyChance
         movsx ebx, ax
         cmp ebx, byte 6
         jle short .14
         test edx, edx
-        je near sub_2FB40_370.26
+        je near ChkBodyContact_370.26
 .14:
         lea eax, [dword edi-08Ch]
         cmp eax, byte 7
-        ja near sub_2FB40_370.26
+        ja near ChkBodyContact_370.26
         jmp dword [nosplit cs:eax*4+jpt_2FB20]
-sub_2FB40_229:
+ChkBodyContact_229:
         mov eax, dword [dword esi+0F6h]
         mov eax, dword [eax]
         mov eax, dword [byte eax+028h]
@@ -1160,14 +1172,14 @@ sub_2FB40_229:
         test edx, edx
         je short .20
         mov esi, 14h
-        jmp near sub_2FB40_370.24
+        jmp near ChkBodyContact_370.24
 .18:
         mov eax, 11h
 .19:
         test edx, edx
         je short .20
         mov esi, 14h
-        jmp near sub_2FB40_370.24
+        jmp near ChkBodyContact_370.24
 .20:
         cmp word [byte esi+06Ah], byte 28h
         jle short .22
@@ -1208,7 +1220,7 @@ sub_2FB40_229:
         pop ecx
         pop ebx
         ret
-sub_2FB40_2CE:
+ChkBodyContact_2CE:
         mov esi, 14h
         mov eax, 21h
         movsx ebx, si
@@ -1221,10 +1233,10 @@ sub_2FB40_2CE:
         pop ecx
         pop ebx
         ret
-sub_2FB40_2EB:
+ChkBodyContact_2EB:
         mov eax, 0Fh
         test edx, edx
-        je short sub_2FB40_229.22
+        je short ChkBodyContact_229.22
         mov esi, 14h
         movsx ebx, si
         movsx edx, ax
@@ -1236,10 +1248,10 @@ sub_2FB40_2EB:
         pop ecx
         pop ebx
         ret
-sub_2FB40_30C:
+ChkBodyContact_30C:
         mov eax, 10h
         test edx, edx
-        je short sub_2FB40_229.22
+        je short ChkBodyContact_229.22
         mov esi, 2
         movsx ebx, si
         movsx edx, ax
@@ -1251,7 +1263,7 @@ sub_2FB40_30C:
         pop ecx
         pop ebx
         ret
-sub_2FB40_32D:
+ChkBodyContact_32D:
         mov eax, 16h
         cmp edx, byte 1
         jne short .23
@@ -1268,7 +1280,7 @@ sub_2FB40_32D:
         ret
 .23:
         cmp edx, byte 2
-        jne near sub_2FB40_229.22
+        jne near ChkBodyContact_229.22
         mov esi, 14h
         movsx ebx, si
         movsx edx, ax
@@ -1280,10 +1292,10 @@ sub_2FB40_32D:
         pop ecx
         pop ebx
         ret
-sub_2FB40_370:
+ChkBodyContact_370:
         mov eax, 17h
         test edx, edx
-        je near sub_2FB40_229.22
+        je near ChkBodyContact_229.22
         mov esi, 4
 .24:
         movsx ebx, si
@@ -1341,7 +1353,7 @@ checkint:
         cmp dword [byte eax+05Ah], byte 0FFFFFFC0h
         jge short .1
         mov eax, ecx
-        call sub_2F744
+        call PenaltyChance
         cmp ax, 5
         jg short .1
         mov ebx, 1
@@ -1370,9 +1382,11 @@ checkint:
         mov word [word_19CB92], ax
         ret
 ;-----------------------------------------------------------------------------
-; sub_2FFB8                                                       2FFB8  97 PC
+; PickShotTarget                                  2FFB8  97 PC, low confidence
+; Picks where a shot aims (word_19CB92 corner 0-8, random unless a set play)
+; and the target point at the goal (+-7F8h, +-10B0h)
 ;-----------------------------------------------------------------------------
-sub_2FFB8:
+PickShotTarget:
         push ebx
         push ecx
         push edx
@@ -1615,9 +1629,11 @@ sub_2FFB8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_30300                                                       30300  97 PC
+; UpdateShot                                      30300  97 PC, low confidence
+; Shot animation (frames 29h-2Fh): winds up, aims (PickShotTarget), releases
+; or gives up (assexit)
 ;-----------------------------------------------------------------------------
-sub_30300:
+UpdateShot:
         push ebx
         push ecx
         push esi
@@ -1650,7 +1666,7 @@ sub_30300:
         mov ax, word [byte ebx+060h]
         mov word [word_19CB8E], ax
         mov eax, ebx
-        call sub_2FFB8
+        call PickShotTarget
         cmp edx, byte 0FFFFFFFFh
         jne near .18
         mov eax, ebx
@@ -1811,7 +1827,7 @@ sub_30300:
         mov ax, word [byte ebx+060h]
         mov word [word_19CB8E], ax
         mov eax, ebx
-        call sub_2FFB8
+        call PickShotTarget
 .18:
         pop esi
         pop ecx
@@ -1819,9 +1835,11 @@ sub_30300:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_305D8                                                       305D8  97 PC
+; StartShot                                       305D8  97 PC, low confidence
+; Starts a shot: shot flag (byte_19CBC8 8), aim reset, goal line target
+; (+-10B0h), shot animation
 ;-----------------------------------------------------------------------------
-sub_305D8:
+StartShot:
         push ebx
         push ecx
         push edx
@@ -1870,9 +1888,11 @@ sub_305D8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_30674                                                       30674  97 PC
+; assshoot                                        30674  97 PC, low confidence
+; Asstab 11h: the shooting assignment (StartShot, UpdateShot, slap shot hold
+; timer)
 ;-----------------------------------------------------------------------------
-sub_30674:
+assshoot:
         push ebx
         push ecx
         push edx
@@ -1891,7 +1911,7 @@ sub_30674:
         and ah, 0FDh
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
-        call sub_305D8
+        call StartShot
         jmp near .9
 .1:
         test byte [byte_19CBC8], 8
@@ -1945,7 +1965,7 @@ sub_30674:
 .8:
         mov edx, 0FFFFFFFFh
         mov eax, ecx
-        call sub_30300
+        call UpdateShot
 .9:
         add esp, byte 8
         pop esi
@@ -1954,9 +1974,11 @@ sub_30674:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_30778                                                       30778  97 PC
+; ChkShoot                                        30778  97 PC, low confidence
+; Computer player decides to shoot from the distance to the goal line (10B0h
+; - y < 3C0h) and chance, then assignment 11h
 ;-----------------------------------------------------------------------------
-sub_30778:
+ChkShoot:
         push ebx
         push ecx
         push edx
@@ -2024,9 +2046,11 @@ sub_30778:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3085C                                                       3085C  97 PC
+; ForceShoot                                      3085C  97 PC, low confidence
+; Immediate shot: shot settings and assignment 11h unless a shot is already
+; on
 ;-----------------------------------------------------------------------------
-sub_3085C:
+ForceShoot:
         push edx
         test byte [byte_19CBC8], 8
         jne short .1
@@ -2041,49 +2065,50 @@ sub_3085C:
         ret
         db 00h
 jpt_30890:
-        dd sub_308AC_2D
-        dd sub_308AC_29
-        dd sub_308AC_31
-        dd sub_308AC_21
-        dd sub_308AC_35
-        dd sub_308AC_25
-        dd sub_308AC_1D
+        dd PositionSlot_2D
+        dd PositionSlot_29
+        dd PositionSlot_31
+        dd PositionSlot_21
+        dd PositionSlot_35
+        dd PositionSlot_25
+        dd PositionSlot_1D
 ;-----------------------------------------------------------------------------
-; sub_308AC                                                       308AC  97 PC
+; PositionSlot                                    308AC  97 PC, low confidence
+; (position word 8001h-8007h): the line slot number of a roster position code
 ;-----------------------------------------------------------------------------
-sub_308AC:
+PositionSlot:
         push edx
         mov edx, eax
         sub edx, 8001h
         cmp dx, byte 6
-        ja short sub_308AC_35.1
+        ja short PositionSlot_35.1
         and edx, 0FFFFh
         jmp dword [nosplit cs:edx*4+jpt_30890]
-sub_308AC_1D:
+PositionSlot_1D:
         xor al, al
         pop edx
         ret
-sub_308AC_21:
+PositionSlot_21:
         mov al, 1
         pop edx
         ret
-sub_308AC_25:
+PositionSlot_25:
         mov al, 2
         pop edx
         ret
-sub_308AC_29:
+PositionSlot_29:
         mov al, 3
         pop edx
         ret
-sub_308AC_2D:
+PositionSlot_2D:
         mov al, 4
         pop edx
         ret
-sub_308AC_31:
+PositionSlot_31:
         mov al, 6
         pop edx
         ret
-sub_308AC_35:
+PositionSlot_35:
         mov al, 8
         pop edx
         ret
@@ -2099,9 +2124,11 @@ sub_308AC_35:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_308F4                                                       308F4  97 PC
+; SortByPosition                                  308F4  97 PC, low confidence
+; Sorts the team's dressed players of one position letter by rating
+; (SortIndices)
 ;-----------------------------------------------------------------------------
-sub_308F4:
+SortByPosition:
         push esi
         push edi
         push ebp
@@ -2138,7 +2165,7 @@ sub_308F4:
         push dword_19D410
         push dword_19D3AC
         push byte 19h
-        call sub_100940
+        call SortIndices
         add esp, byte 0Ch
         mov edx, ebp
         xor eax, eax
@@ -2163,9 +2190,10 @@ sub_308F4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_30998                                                       30998  97 PC
+; SortForwards                                    30998  97 PC, low confidence
+; Sorts the team's dressed non-defencemen by rating (SortIndices)
 ;-----------------------------------------------------------------------------
-sub_30998:
+SortForwards:
         push ecx
         push esi
         push edi
@@ -2200,7 +2228,7 @@ sub_30998:
         push dword_19D410
         push dword_19D3AC
         push byte 19h
-        call sub_100940
+        call SortIndices
         add esp, byte 0Ch
         mov edx, ebp
         xor eax, eax
@@ -2225,9 +2253,10 @@ sub_30998:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_30A34                                                       30A34  97 PC
+; BuildTeamLines                                  30A34  97 PC, low confidence
+; Builds a team's line table (+20EDh) from the sorted player lists
 ;-----------------------------------------------------------------------------
-sub_30A34:
+BuildTeamLines:
         push esi
         push edi
         push ebp
@@ -2352,7 +2381,7 @@ sub_30A34:
         lea eax, [byte esp+04h]
         push eax
         push byte 4
-        call sub_100940
+        call SortIndices
         add esp, byte 0Ch
         xor ecx, ecx
         mov ebx, dword [byte esp+020h]
@@ -2369,9 +2398,11 @@ sub_30A34:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_30BD8                                                       30BD8  97 PC
+; SetupAutoLines                                  30BD8  97 PC, low confidence
+; From StartGame: rates both rosters and builds their lines (SortByPosition,
+; SortForwards, BuildTeamLines)
 ;-----------------------------------------------------------------------------
-sub_30BD8:
+SetupAutoLines:
         push ebx
         push ecx
         push edx
@@ -2525,25 +2556,25 @@ sub_30BD8:
         mov edx, unk_19D5D2
         mov ebx, dword [dword esp+0C8h]
         add edx, ebp
-        call sub_308F4
+        call SortByPosition
         mov edx, unk_19D5A0
         mov ecx, 52h
         mov ebx, dword [dword esp+0C8h]
         mov eax, edi
         add edx, ebp
-        call sub_308F4
+        call SortByPosition
         mov edx, unk_19D50A
         mov ecx, 4Ch
         mov ebx, dword [dword esp+0C8h]
         mov eax, edi
         add edx, ebp
-        call sub_308F4
+        call SortByPosition
         mov edx, unk_19D474
         mov ecx, 43h
         mov ebx, dword [dword esp+0C8h]
         mov eax, edi
         add edx, ebp
-        call sub_308F4
+        call SortByPosition
         lea eax, [byte esp+064h]
         mov edx, dword [dword esp+0D8h]
         add edx, eax
@@ -2553,35 +2584,35 @@ sub_30BD8:
         mov edx, byte_19D604
         mov ebx, dword [dword esp+0CCh]
         add edx, ebp
-        call sub_308F4
+        call SortByPosition
         mov edx, unk_19D4A6
         mov ecx, 52h
         mov ebx, dword [dword esp+0CCh]
         mov eax, edi
         add edx, ebp
-        call sub_308F4
+        call SortByPosition
         mov edx, unk_19D56E
         mov ecx, 4Ch
         mov ebx, dword [dword esp+0CCh]
         mov eax, edi
         add edx, ebp
-        call sub_308F4
+        call SortByPosition
         mov edx, unk_19D4D8
         mov ecx, 43h
         mov ebx, dword [dword esp+0CCh]
         mov eax, edi
         add edx, ebp
-        call sub_308F4
+        call SortByPosition
         mov edx, byte_19D636
         mov ebx, dword [dword esp+0C8h]
         mov eax, edi
         add edx, ebp
-        call sub_30998
+        call SortForwards
         mov edx, unk_19D668
         mov ebx, dword [dword esp+0CCh]
         mov eax, edi
         add edx, ebp
-        call sub_30998
+        call SortForwards
         test si, si
         je short .6
         mov eax, awtmstruct
@@ -2598,7 +2629,7 @@ sub_30BD8:
         add eax, ebp
         mov eax, dword [byte eax+04Eh]
         sar eax, 10h
-        call sub_308AC
+        call PositionSlot
         movzx ebp, al
         movsx eax, si
         imul eax, byte 19h
@@ -2631,7 +2662,7 @@ sub_30BD8:
         add ebx, eax
         mov eax, ebp
         mov edi, unk_1C347F
-        call sub_30A34
+        call BuildTeamLines
         cmp si, byte 2
         jl near .1
         add esp, 0E4h
@@ -2644,9 +2675,11 @@ sub_30BD8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_31070                                                       31070  97 PC
+; CanPlayLineSlot                                 31070  97 PC, low confidence
+; Whether a player may take a line slot (position class table byte_168B60,
+; availability byte_19D53C)
 ;-----------------------------------------------------------------------------
-sub_31070:
+CanPlayLineSlot:
         push ecx
         push esi
         push edi
@@ -2668,7 +2701,7 @@ sub_31070:
         mov edi, dword [dword edx+0108h]
         sar eax, 10h
         add edi, 20EDh
-        call sub_308AC
+        call PositionSlot
         and eax, 0FFh
         mov al, byte [dword eax+byte_168B60]
         xor ah, ah
@@ -2969,9 +3002,10 @@ sub_31070:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_313F4                                                       313F4  97 PC
+; FindLinePlayer                                  313F4  97 PC, low confidence
+; First player of a list who can play a slot (CanPlayLineSlot)
 ;-----------------------------------------------------------------------------
-sub_313F4:
+FindLinePlayer:
         push ecx
         push esi
         push edi
@@ -3016,7 +3050,7 @@ sub_313F4:
         mov edx, dword [byte esp+0Eh]
         mov ebx, ecx
         sar edx, 10h
-        call sub_31070
+        call CanPlayLineSlot
         test ax, ax
         je near .8
         cmp byte [dword ebp+byte_19D53C], 2
@@ -3075,9 +3109,11 @@ sub_313F4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_31540                                                       31540  97 PC
+; PickLineReplacement                             31540  97 PC, low confidence
+; Picks a replacement for a line slot from the position order lists
+; (byte_168B69, byte_168C04)
 ;-----------------------------------------------------------------------------
-sub_31540:
+PickLineReplacement:
         push ebx
         push ecx
         push esi
@@ -3122,7 +3158,7 @@ sub_31540:
         mov bl, dl
         movsx eax, di
         movsx edx, cx
-        call sub_31070
+        call CanPlayLineSlot
         test ax, ax
         je short .4
         mov eax, dword [byte esp+010h]
@@ -3160,7 +3196,7 @@ sub_31540:
         add eax, byte_19D604
 .7:
         mov edx, esi
-        call sub_313F4
+        call FindLinePlayer
         test ax, ax
         jl near .29
         add esp, byte 1Ch
@@ -3187,7 +3223,7 @@ sub_31540:
         add eax, unk_19D4D8
 .10:
         mov edx, esi
-        call sub_313F4
+        call FindLinePlayer
         test ax, ax
         jge near .47
         movsx esi, di
@@ -3204,7 +3240,7 @@ sub_31540:
         add eax, unk_19D56E
 .12:
         mov edx, esi
-        call sub_313F4
+        call FindLinePlayer
         test ax, ax
         jge near .47
         movsx esi, di
@@ -3221,7 +3257,7 @@ sub_31540:
         add eax, unk_19D4A6
 .14:
         mov edx, esi
-        call sub_313F4
+        call FindLinePlayer
         test ax, ax
         jl near .29
         add esp, byte 1Ch
@@ -3248,7 +3284,7 @@ sub_31540:
         add eax, unk_19D4A6
 .17:
         mov ebx, esi
-        call sub_313F4
+        call FindLinePlayer
         test ax, ax
         jge near .47
         movsx edx, di
@@ -3265,7 +3301,7 @@ sub_31540:
         add eax, unk_19D56E
 .19:
         mov ebx, esi
-        call sub_313F4
+        call FindLinePlayer
         test ax, ax
         jge near .47
         movsx edx, di
@@ -3282,7 +3318,7 @@ sub_31540:
         add eax, unk_19D4D8
 .21:
         mov ebx, esi
-        call sub_313F4
+        call FindLinePlayer
         test ax, ax
         jl near .29
         add esp, byte 1Ch
@@ -3309,7 +3345,7 @@ sub_31540:
         add eax, unk_19D56E
 .24:
         mov ebx, esi
-        call sub_313F4
+        call FindLinePlayer
         test ax, ax
         jge near .47
         movsx esi, di
@@ -3326,7 +3362,7 @@ sub_31540:
         add eax, unk_19D4A6
 .26:
         mov edx, esi
-        call sub_313F4
+        call FindLinePlayer
         test ax, ax
         jge near .47
         movsx edx, di
@@ -3343,7 +3379,7 @@ sub_31540:
         add eax, unk_19D4D8
 .28:
         mov ebx, esi
-        call sub_313F4
+        call FindLinePlayer
         test ax, ax
         jge near .47
 .29:
@@ -3362,7 +3398,7 @@ sub_31540:
         mov bl, dl
         movsx eax, di
         movsx edx, cx
-        call sub_31070
+        call CanPlayLineSlot
         test ax, ax
         je short .31
         mov eax, dword [byte esp+0Ch]
@@ -3428,7 +3464,7 @@ sub_31540:
         movsx edx, cx
         movsx eax, di
         sar ebx, 10h
-        call sub_31070
+        call CanPlayLineSlot
         test ax, ax
         je short .38
         mov eax, dword [byte esp+018h]
@@ -3495,7 +3531,7 @@ sub_31540:
         movsx edx, cx
         movsx eax, di
         sar ebx, 10h
-        call sub_31070
+        call CanPlayLineSlot
         test ax, ax
         je short .45
         mov eax, dword [byte esp+04h]
@@ -3522,9 +3558,10 @@ sub_31540:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_31A2C                                                       31A2C  97 PC
+; CopyGoalieSlot                                  31A2C  97 PC, low confidence
+; Copies the starting / backup goalie line byte (+34h / +35h) over the other
 ;-----------------------------------------------------------------------------
-sub_31A2C:
+CopyGoalieSlot:
         test ax, ax
         je short .1
         mov eax, awtmstruct
@@ -3544,9 +3581,11 @@ sub_31A2C:
         mov byte [byte eax+035h], dl
         ret
 ;-----------------------------------------------------------------------------
-; sub_31A5C                                                       31A5C  97 PC
+; FixLineSlot                                     31A5C  97 PC, low confidence
+; Repairs a line slot after a change (slot 24h special case), PositionSlot
+; checks
 ;-----------------------------------------------------------------------------
-sub_31A5C:
+FixLineSlot:
         push ebx
         push ecx
         push esi
@@ -3580,7 +3619,7 @@ sub_31A5C:
         mov al, dl
         mov eax, dword [byte esi+eax*2+04Eh]
         sar eax, 10h
-        call sub_308AC
+        call PositionSlot
         and eax, 0FFh
         cmp byte [dword eax+byte_168B60], 1
         jne short .3
@@ -3596,7 +3635,7 @@ sub_31A5C:
         movsx eax, dx
         mov eax, dword [byte ecx+eax*2+04Eh]
         sar eax, 10h
-        call sub_308AC
+        call PositionSlot
         movzx esi, al
         cmp byte [dword esi+byte_168B60], 1
         jne short .5
@@ -3624,7 +3663,7 @@ sub_31A5C:
         movsx eax, dx
         mov eax, dword [byte ecx+eax*2+04Eh]
         sar eax, 10h
-        call sub_308AC
+        call PositionSlot
         movzx esi, al
         cmp byte [dword esi+byte_168B60], 1
         jne short .8
@@ -3647,9 +3686,11 @@ sub_31A5C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_31B6C                                                       31B6C  97 PC
+; RebuildLines                                    31B6C  97 PC, low confidence
+; Refills a team's line slots from a start index (PickLineReplacement),
+; availability table byte_19D53C
 ;-----------------------------------------------------------------------------
-sub_31B6C:
+RebuildLines:
         push esi
         push edi
         push ebp
@@ -3687,7 +3728,7 @@ sub_31B6C:
         mov edx, ecx
         mov eax, ebx
         add ecx, ebp
-        call sub_31540
+        call PickLineReplacement
         mov byte [ecx], al
         cmp si, byte 12h
         jge short .4
@@ -3711,9 +3752,11 @@ sub_31B6C:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_31C14                                                       31C14  97 PC
+; UpdateLinesForAbsent                            31C14  97 PC, low confidence
+; Recounts the available players and rebuilds the lines when a player leaves
+; (penalty, injury, ice exit)
 ;-----------------------------------------------------------------------------
-sub_31C14:
+UpdateLinesForAbsent:
         push ebx
         push ecx
         push esi
@@ -3752,7 +3795,7 @@ sub_31C14:
         cwde
         mov eax, dword [byte ebx+eax*2+04Eh]
         sar eax, 10h
-        call sub_308AC
+        call PositionSlot
         and eax, 0FFh
         cmp byte [dword eax+byte_168B60], 1
         jne short .4
@@ -3777,7 +3820,7 @@ sub_31C14:
         cwde
         mov eax, dword [byte ebx+eax*2+04Eh]
         sar eax, 10h
-        call sub_308AC
+        call PositionSlot
         and eax, 0FFh
         cmp byte [dword eax+byte_168B60], 1
         jne short .7
@@ -3807,7 +3850,7 @@ sub_31C14:
         movsx edx, si
         sar ebx, 10h
         sar eax, 10h
-        call sub_31B6C
+        call RebuildLines
 .11:
         mov ecx, dword [byte esp+024h]
         inc ecx
@@ -3840,7 +3883,7 @@ sub_31C14:
         movsx edx, si
         sar ebx, 10h
         sar eax, 10h
-        call sub_31B6C
+        call RebuildLines
 .14:
         mov ebx, dword [byte esp+028h]
         inc ebx
@@ -3873,7 +3916,7 @@ sub_31C14:
         movsx edx, si
         sar ebx, 10h
         sar eax, 10h
-        call sub_31B6C
+        call RebuildLines
 .17:
         mov ebx, dword [esp]
         inc ebx
@@ -3906,7 +3949,7 @@ sub_31C14:
         movsx edx, si
         sar ebx, 10h
         sar eax, 10h
-        call sub_31B6C
+        call RebuildLines
 .20:
         mov ebx, dword [byte esp+02Ch]
         inc ebx
@@ -3930,7 +3973,7 @@ sub_31C14:
         mov eax, dword [byte esp+06h]
         movsx edx, si
         sar eax, 10h
-        call sub_31A5C
+        call FixLineSlot
 .22:
         inc ebx
         inc esi
@@ -3956,7 +3999,7 @@ sub_31C14:
         movsx edx, si
         sar ebx, 10h
         sar eax, 10h
-        call sub_31B6C
+        call RebuildLines
 .25:
         mov ecx, dword [byte esp+020h]
         inc ecx
@@ -3989,7 +4032,7 @@ sub_31C14:
         movsx edx, si
         sar ebx, 10h
         sar eax, 10h
-        call sub_31B6C
+        call RebuildLines
 .28:
         mov ebx, dword [byte esp+01Ch]
         inc ebx
@@ -4015,7 +4058,7 @@ sub_31C14:
         movsx edx, si
         mov ebx, ebp
         sar eax, 10h
-        call sub_31A2C
+        call CopyGoalieSlot
 .30:
         inc ecx
         inc esi
@@ -4029,9 +4072,10 @@ sub_31C14:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_31F88                                                       31F88  97 PC
+; InitGameLines                                   31F88  97 PC, low confidence
+; From StartGame: counts the available players per team and fills the lines
 ;-----------------------------------------------------------------------------
-sub_31F88:
+InitGameLines:
         push ebx
         push ecx
         push edx
@@ -4063,7 +4107,7 @@ sub_31F88:
         cwde
         mov eax, dword [byte esi+eax*2+04Eh]
         sar eax, 10h
-        call sub_308AC
+        call PositionSlot
         and eax, 0FFh
         cmp byte [dword eax+byte_168B60], 1
         jne short .4
@@ -4086,7 +4130,7 @@ sub_31F88:
         cwde
         mov eax, dword [byte esi+eax*2+04Eh]
         sar eax, 10h
-        call sub_308AC
+        call PositionSlot
         and eax, 0FFh
         cmp byte [dword eax+byte_168B60], 1
         jne short .7
@@ -4124,7 +4168,7 @@ sub_31F88:
         movsx edx, bx
         mov eax, dword [byte esi+edx*2+04Eh]
         sar eax, 10h
-        call sub_308AC
+        call PositionSlot
         mov ebp, dword [nosplit edx*4+dword_19D3AC]
         xor ah, ah
         cmp edi, ebp
@@ -4136,7 +4180,7 @@ sub_31F88:
 .12:
         movsx edx, bx
         movsx eax, cx
-        call sub_31C14
+        call UpdateLinesForAbsent
 .13:
         inc ebx
         cmp bx, byte 19h
@@ -4148,7 +4192,7 @@ sub_31F88:
         movsx eax, di
         mov eax, dword [dword esi+eax*2+080h]
         sar eax, 10h
-        call sub_308AC
+        call PositionSlot
         xor ah, ah
         test ax, ax
         je short .15
@@ -4159,7 +4203,7 @@ sub_31F88:
         mov ebx, 1
         movsx eax, cx
         sar edx, 10h
-        call sub_31A2C
+        call CopyGoalieSlot
 .16:
         mov eax, dword [esp]
         inc eax
@@ -4210,9 +4254,11 @@ sub_31F88:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_32184                                                       32184  97 PC
+; ChkTwoInBox                                     32184  97 PC, low confidence
+; Whether the player's team already has players serving in the box (counts
+; 8001h / 8002h entries of the box list)
 ;-----------------------------------------------------------------------------
-sub_32184:
+ChkTwoInBox:
         push ebx
         push ecx
         push edx
@@ -4346,7 +4392,7 @@ AddPenalty:
         cmp byte [dword eax+byte_19CB70], 8
         jge short .5
         mov eax, ecx
-        call sub_32184
+        call ChkTwoInBox
         test eax, eax
         je short .5
         mov eax, dword [dword_1AC944]
@@ -5857,9 +5903,10 @@ checkfornewpen:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_335CC                                                       335CC  97 PC
+; SumOnIceRatings                                 335CC  97 PC, low confidence
+; From InProgress: adds up the ratings of the team's skaters on the ice
 ;-----------------------------------------------------------------------------
-sub_335CC:
+SumOnIceRatings:
         push ebx
         push ecx
         push edx
@@ -5935,7 +5982,7 @@ sub_335CC:
         lea eax, [byte esp+04h]
         push eax
         push esi
-        call sub_100940
+        call SortIndices
         add esp, byte 0Ch
         mov edx, dword [byte esp+ebx+014h]
         mov eax, edx
@@ -5954,9 +6001,11 @@ sub_335CC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_336E4                                                       336E4  97 PC
+; SetupPenaltyShot                             336E4  95 PC, medium confidence
+; From InProgress: penalty shot setup (penshotmode on, stat +20E3h, one
+; skater a side, shooter and goalie)
 ;-----------------------------------------------------------------------------
-sub_336E4:
+SetupPenaltyShot:
         push ebx
         push ecx
         push edx
@@ -6120,9 +6169,11 @@ EndPenaltyShot:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_33904                                                       33904  97 PC
+; PenaltyPaCode                                   33904  97 PC, low confidence
+; Arena PA event code for a penalty (table dword_168DA4) with its minor /
+; major / misconduct bits
 ;-----------------------------------------------------------------------------
-sub_33904:
+PenaltyPaCode:
         and eax, 0FFh
         mov eax, dword [nosplit eax*4+dword_168DA4]
         cmp dx, byte 2
@@ -6319,7 +6370,7 @@ InProgress:
         mov dword [byte ebp-08h], eax
         cmp bh, 22h
         jne near .15
-        call sub_336E4
+        call SetupPenaltyShot
         xor al, al
         mov byte [dword edx+byte_19CA32], al
         mov byte [dword edx+byte_19CA31], al
@@ -6498,7 +6549,7 @@ InProgress:
         xor eax, eax
         sar edx, 10h
         mov al, byte [byte ebp-04h]
-        call sub_33904
+        call PenaltyPaCode
         mov ebx, eax
         test eax, eax
         jl near .56
@@ -6623,7 +6674,7 @@ InProgress:
         xor eax, eax
         mov al, byte [byte ebp-04h]
         movsx edx, cx
-        call sub_33904
+        call PenaltyPaCode
         mov ebx, eax
         test eax, eax
         jl short .39
@@ -6693,7 +6744,7 @@ InProgress:
         je short .45
 .44:
         mov eax, edi
-        call sub_335CC
+        call SumOnIceRatings
         mov edx, eax
         mov dword [byte ebp-010h], eax
         test eax, eax
@@ -6926,9 +6977,11 @@ chkprogress:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_34330                                                       34330  97 PC
+; SetPlayerTarget                                 34330  97 PC, low confidence
+; (player, object): sets the player's target object (+0BAh) and its flag
+; (+0BFh bit 3)
 ;-----------------------------------------------------------------------------
-sub_34330:
+SetPlayerTarget:
         test edx, edx
         jge short .1
         and byte [dword eax+0BFh], 0F7h
@@ -7003,9 +7056,11 @@ restorepl:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_343F8                                                       343F8  97 PC
+; SetSlotPlayer                                   343F8  97 PC, low confidence
+; (slot, player): gives a control slot a new player (restorepl) when it
+; changes
 ;-----------------------------------------------------------------------------
-sub_343F8:
+SetSlotPlayer:
         push ebx
         push ecx
         lea ecx, [nosplit eax*2+00h]
@@ -7101,9 +7156,11 @@ GiveControl:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_34500                                                       34500  97 PC
+; ChkGrabPuckOnSwitch                             34500  97 PC, low confidence
+; From changeplayer: the new controlled player close enough to the puck takes
+; it (sub_3B09C)
 ;-----------------------------------------------------------------------------
-sub_34500:
+ChkGrabPuckOnSwitch:
         push ebx
         push ecx
         push edx
@@ -7379,7 +7436,7 @@ changeplayer:
         cmp word [dword ebp+0A9h], byte 0
         je short .20
         mov eax, ebp
-        call sub_34500
+        call ChkGrabPuckOnSwitch
         add esp, byte 10h
         pop ebp
         pop edi
@@ -7429,9 +7486,11 @@ changeplayer:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_348DC                                                       348DC  97 PC
+; AutoSwitchToCarrier                             348DC  97 PC, low confidence
+; Auto-switch option (gameopts +2 bit 1): the control slot moves to the
+; team's puck carrier
 ;-----------------------------------------------------------------------------
-sub_348DC:
+AutoSwitchToCarrier:
         push ebx
         push ecx
         push esi
@@ -7471,9 +7530,10 @@ sub_348DC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_34950                                                       34950  97 PC
+; InitPadSlots                                    34950  97 PC, low confidence
+; From InitGameVars: resets the 8 joystick slot records
 ;-----------------------------------------------------------------------------
-sub_34950:
+InitPadSlots:
         push ecx
         push edx
         mov edx, 8
@@ -7571,9 +7631,11 @@ ReadJoy1:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_34A48                                                       34A48  97 PC
+; RequestLineChange                               34A48  95 PC, low confidence
+; (player, line): sets the team's next line (+2), cycles the line count, PA /
+; play-by-play event, setpersonel
 ;-----------------------------------------------------------------------------
-sub_34A48:
+RequestLineChange:
         push ebx
         push ecx
         push esi
@@ -7642,9 +7704,11 @@ sub_34A48:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_34B04                                                       34B04  97 PC
+; LineChangeKey                                   34B04  97 PC, low confidence
+; From doinput: line change key: picks the line (power play +6, penalty kill
+; +4) or StartFaceoffLineChange
 ;-----------------------------------------------------------------------------
-sub_34B04:
+LineChangeKey:
         push ebx
         push ecx
         mov ebx, dword [dword_1AC944]
@@ -7690,16 +7754,17 @@ sub_34B04:
         add edx, byte 6
 .7:
         movsx edx, dx
-        call sub_34A48
+        call RequestLineChange
         mov eax, 1
         pop ecx
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_34B78                                                       34B78  97 PC
+; DoLineChangeInput                               34B78  97 PC, low confidence
+; From doinput: line change buttons and the line select table (word_168E60)
 ;-----------------------------------------------------------------------------
-sub_34B78:
+DoLineChangeInput:
         push ebx
         push ecx
         push edx
@@ -7722,7 +7787,7 @@ sub_34B78:
         mov edx, dword [nosplit eax*2+dword_19CB32]
         sar edx, 10h
         mov eax, ebx
-        call sub_34A48
+        call RequestLineChange
         jmp short .3
 .2:
         test ch, 10h
@@ -7752,9 +7817,11 @@ sub_34B78:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_34C18                                                       34C18  97 PC
+; FaceoffInput                                    34C18  97 PC, low confidence
+; From doinput: the controlled faceoff player's joystick direction
+; (assignment 8)
 ;-----------------------------------------------------------------------------
-sub_34C18:
+FaceoffInput:
         push ebx
         push ecx
         push edx
@@ -7832,9 +7899,10 @@ sub_34C18:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_34CF4                                                       34CF4  97 PC
+; FaceDirFromMotion                               34CF4  97 PC, low confidence
+; The 8-way facing direction from the player's heading (+40h)
 ;-----------------------------------------------------------------------------
-sub_34CF4:
+FaceDirFromMotion:
         push ebx
         push ecx
         push edx
@@ -8006,7 +8074,7 @@ sub_34CF4:
 ;-----------------------------------------------------------------------------
 ; doplayeracc                                    34EF8  94G, medium confidence
 ; 94G doplayeracc: (player, direction 0-7, 8+ = none) the player accelerates
-; toward the direction (x87 heading, sub_34CF4)
+; toward the direction (x87 heading, FaceDirFromMotion)
 ;-----------------------------------------------------------------------------
 doplayeracc:
         push ebp
@@ -8034,15 +8102,17 @@ doplayeracc:
         mov edx, dword [dword eax+0EEh]
         mov dword [byte edx+024h], 42C80000h
 .2:
-        call sub_34CF4
+        call FaceDirFromMotion
         mov esp, ebp
         pop ebp
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_34F58                                                       34F58  97 PC
+; SetSkateDir                                     34F58  97 PC, low confidence
+; (player, dir 0-7): heading and speed toward a joystick direction, limited
+; by the top speed
 ;-----------------------------------------------------------------------------
-sub_34F58:
+SetSkateDir:
         push ebx
         push ebp
         mov ebp, esp
@@ -8083,9 +8153,11 @@ sub_34F58:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_34FD0                                                       34FD0  97 PC
+; JoySkate                                        34FD0  97 PC, low confidence
+; From doinput: skating from the joystick direction (SetSkateDir,
+; doplayeracc)
 ;-----------------------------------------------------------------------------
-sub_34FD0:
+JoySkate:
         push ebx
         push ecx
         push edx
@@ -8122,7 +8194,7 @@ sub_34FD0:
 .2:
         mov edx, dword [esp]
         mov eax, ebx
-        call sub_34F58
+        call SetSkateDir
         mov edx, dword [byte esp-02h]
         mov eax, ebx
         sar edx, 10h
@@ -8138,9 +8210,10 @@ sub_34FD0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3505C                                                       3505C  97 PC
+; JoyDirSkate                                     3505C  97 PC, low confidence
+; From doinput: skating from a slot's pad direction (unk_19CA98)
 ;-----------------------------------------------------------------------------
-sub_3505C:
+JoyDirSkate:
         push ebx
         push ecx
         mov ebx, eax
@@ -8155,7 +8228,7 @@ sub_3505C:
         cmp ecx, byte 8
         jge short .1
         mov edx, ecx
-        call sub_34F58
+        call SetSkateDir
         movsx edx, cx
         mov eax, ebx
         call doplayeracc
@@ -8169,9 +8242,11 @@ sub_3505C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3509C                                                       3509C  97 PC
+; FindPassTarget                                  3509C  97 PC, low confidence
+; Nearest open teammate in the pass direction from the puck (skips the
+; passer, off-ice and busy players)
 ;-----------------------------------------------------------------------------
-sub_3509C:
+FindPassTarget:
         push ebx
         push ecx
         push esi
@@ -8246,7 +8321,7 @@ sub_3509C:
         cmp ecx, byte 6
         jl near .3
         mov eax, dword [esp]
-sub_3509C_E0:
+FindPassTarget_E0:
         add esp, byte 4
         pop ebp
         pop edi
@@ -8256,9 +8331,10 @@ sub_3509C_E0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_35188                                                       35188  97 PC
+; ChkPassTo                                       35188  97 PC, low confidence
+; Pass target found and lane open (sub_248E8): pass direction
 ;-----------------------------------------------------------------------------
-sub_35188:
+ChkPassTo:
         push ebx
         push ecx
         push edi
@@ -8267,7 +8343,7 @@ sub_35188:
         mov ecx, eax
         mov ebx, edx
         mov edx, esp
-        call sub_3509C
+        call FindPassTarget
         mov dword [ebx], eax
         test eax, eax
         je near .3
@@ -8319,9 +8395,10 @@ sub_35188:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_35234                                                       35234  97 PC
+; DoPassButton                                    35234  97 PC, low confidence
+; From doinput: pass button: target, pass kind (word_19CB96), sub_25010
 ;-----------------------------------------------------------------------------
-sub_35234:
+DoPassButton:
         push ebx
         push ecx
         push esi
@@ -8336,7 +8413,7 @@ sub_35234:
 .1:
         mov edx, esp
         mov eax, ebx
-        call sub_35188
+        call ChkPassTo
         test ax, ax
         je short .2
         mov word [word_19CB96], 2
@@ -8373,12 +8450,12 @@ sub_35234:
         ret
 .6:
         test byte [word_19CB68], 8
-        jne near sub_3509C_E0
+        jne near FindPassTarget_E0
         mov ax, word [word_19CB68]
         xor ah, ah
         and al, 7
         cmp ax, 8
-        jge near sub_3509C_E0
+        jge near FindPassTarget_E0
         mov word [word_19CB92], ax
         or byte [word_19CB68], 8
         cmp word [dword ebx+0A9h], byte 0
@@ -8435,9 +8512,10 @@ sub_35234:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_353B4                                                       353B4  97 PC
+; ShotAimDir                                      353B4  97 PC, low confidence
+; Shot direction from the joystick and the shooter's hand (word_19CB92)
 ;-----------------------------------------------------------------------------
-sub_353B4:
+ShotAimDir:
         push ebx
         push ecx
         push edx
@@ -8503,9 +8581,10 @@ sub_353B4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_35464                                                       35464  97 PC
+; DoShootButton                                   35464  97 PC, low confidence
+; From doinput: shoot button: aim, power, target point, sub_25010
 ;-----------------------------------------------------------------------------
-sub_35464:
+DoShootButton:
         push ebx
         push ecx
         push edx
@@ -8514,7 +8593,7 @@ sub_35464:
         test byte [dword eax+0BFh], 8
         jne short .1
         mov eax, ebx
-        call sub_353B4
+        call ShotAimDir
 .1:
         mov word [word_19CB96], 0Ah
         call sub_13D50
@@ -8546,7 +8625,7 @@ sub_35464:
         push edx
         test byte [word_19CB64], 20h
         je short .2
-        call sub_35464
+        call DoShootButton
         pop edx
         pop ebx
         ret
@@ -8598,9 +8677,10 @@ sub_35464:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_35588                                                       35588  97 PC
+; ChkOneTimerSpot                                 35588  97 PC, low confidence
+; In the attacking zone (570h-1050h) with a teammate ready: one-timer chance
 ;-----------------------------------------------------------------------------
-sub_35588:
+ChkOneTimerSpot:
         push ebx
         push ecx
         push edx
@@ -8701,9 +8781,10 @@ sub_35588:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_35690                                                       35690  97 PC
+; ClearLastPasser                                 35690  97 PC, low confidence
+; Clears word_19CBD8
 ;-----------------------------------------------------------------------------
-sub_35690:
+ClearLastPasser:
         push ebx
         cmp word [word_19CBD8], byte 0
         je short .1
@@ -8714,9 +8795,10 @@ sub_35690:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_356A8                                                       356A8  97 PC
+; OneTimerShot                                    356A8  97 PC, low confidence
+; From assonetimer: the one-timer shot itself (sub_24220, assexit)
 ;-----------------------------------------------------------------------------
-sub_356A8:
+OneTimerShot:
         push ebx
         push ecx
         push edx
@@ -8841,7 +8923,7 @@ sub_356A8:
         mov word [word_19CB8E], ax
         mov eax, ecx
         mov word [word_19CB7A], dx
-        call sub_2FFB8
+        call PickShotTarget
         add esp, byte 8
         pop ebp
         pop edi
@@ -8857,7 +8939,7 @@ sub_356A8:
         mov edi, 2
         mov eax, ecx
         mov dword [dword_19CB44], edi
-        call sub_305D8
+        call StartShot
         mov esi, dword [dword ecx+0F6h]
         mov esi, dword [esi]
         mov ebx, esp
@@ -8895,9 +8977,11 @@ sub_356A8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_358E4                                                       358E4  97 PC
+; doinput                                        358E4  94G, medium confidence
+; 94G doinput (from updateplayers): a human player's pad: line changes,
+; skating, pass / shoot / check buttons, control switch
 ;-----------------------------------------------------------------------------
-sub_358E4:
+doinput:
         push ebx
         push ecx
         push esi
@@ -8964,7 +9048,7 @@ sub_358E4:
         mov edx, dword [nosplit esi*2+word_19CB2A]
         mov eax, ebx
         sar edx, 10h
-        call sub_34B04
+        call LineChangeKey
 .9:
         xor edi, edi
         mov word [nosplit esi*2+word_19CB28], di
@@ -8972,7 +9056,7 @@ sub_358E4:
         test byte [byte_19CBCA], 1
         je short .11
         mov eax, ebx
-        call sub_34C18
+        call FaceoffInput
         jmp near .55
 .11:
         test byte [dword ebx+0C0h], 8
@@ -8980,7 +9064,7 @@ sub_358E4:
         test byte [byte_19CBC2], 1
         je short .12
         mov eax, ebx
-        call sub_34B78
+        call DoLineChangeInput
         add esp, byte 4
         pop ebp
         pop edi
@@ -9015,7 +9099,7 @@ sub_358E4:
         je short .14
         movsx edx, cx
         mov eax, ebx
-        call sub_36778
+        call HumanStickAction
         add esp, byte 4
         pop ebp
         pop edi
@@ -9070,7 +9154,7 @@ sub_358E4:
         cmp dword [dword edi+dword_19CC7C], byte 10h
         jle short .19
         mov eax, ebx
-        call sub_348DC
+        call AutoSwitchToCarrier
         mov dword [dword edi+dword_19CC5C], 1
 .19:
         test byte [dword ebx+0BFh], 20h
@@ -9237,7 +9321,7 @@ sub_358E4:
         cmp edx, eax
         jne near .41
         mov eax, ebx
-        call sub_2596C
+        call checkob
         cmp word [dword ebx+0A9h], byte 0
         jne short .29
         test byte [dword ebx+0C0h], 2
@@ -9248,7 +9332,7 @@ sub_358E4:
         je short .30
         movsx edx, cx
         mov eax, ebx
-        call sub_35234
+        call DoPassButton
         add esp, byte 4
         pop ebp
         pop edi
@@ -9264,7 +9348,7 @@ sub_358E4:
         test byte [word_19CB64], 20h
         je short .31
         mov eax, ebx
-        call sub_35464
+        call DoShootButton
         add esp, byte 4
         pop ebp
         pop edi
@@ -9293,7 +9377,7 @@ sub_358E4:
 .32:
         movsx edx, cx
         mov eax, ebx
-        call sub_30300
+        call UpdateShot
         add esp, byte 4
         pop ebp
         pop edi
@@ -9363,7 +9447,7 @@ sub_358E4:
         mov esi, 0FFFFFFFFh
         mov eax, ebx
         mov dword [dword_19CB44], ecx
-        call sub_305D8
+        call StartShot
         mov dword [dword edx+dword_19CC30], esi
         add esp, byte 4
         pop ebp
@@ -9383,7 +9467,7 @@ sub_358E4:
         xor esi, esi
         mov eax, ebx
         mov dword [dword_19CB44], esi
-        call sub_305D8
+        call StartShot
         mov dword [dword edx+dword_19CC30], edi
         add esp, byte 4
         pop ebp
@@ -9397,7 +9481,7 @@ sub_358E4:
         mov ecx, 0FFFFFFFFh
         mov eax, ebx
         mov dword [nosplit edx*4+dword_19CC30], ecx
-        call sub_3505C
+        call JoyDirSkate
         test ax, ax
         jne near .55
         jmp near .54
@@ -9540,7 +9624,7 @@ sub_358E4:
         test byte [regd1], 20h
         je short .48
         mov eax, ebx
-        call sub_34FD0
+        call JoySkate
 .48:
         cmp word [word_19CBD6], byte 0
         je short .49
@@ -9558,7 +9642,7 @@ sub_358E4:
         jne near .55
         movsx edx, cx
         mov eax, ebx
-        call sub_3505C
+        call JoyDirSkate
         test ax, ax
         jne near .55
         jmp near .54
@@ -9610,7 +9694,7 @@ sub_358E4:
         test byte [regd1], 20h
         je short .53
         mov eax, ebx
-        call sub_34FD0
+        call JoySkate
         add esp, byte 4
         pop ebp
         pop edi
@@ -9623,7 +9707,7 @@ sub_358E4:
         jne short .55
         movsx edx, cx
         mov eax, ebx
-        call sub_3505C
+        call JoyDirSkate
         test ax, ax
         jne short .55
 .54:
@@ -9686,9 +9770,11 @@ CountTeamSlots:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_36370                                                       36370  97 PC
+; DebugRestoreEnergy                              36370  97 PC, low confidence
+; From DebugKeys: every player back to full energy (100), counter word_19CB82
+; 3E8h
 ;-----------------------------------------------------------------------------
-sub_36370:
+DebugRestoreEnergy:
         push edx
         mov edx, 3E8h
         xor eax, eax
@@ -9990,9 +10076,11 @@ checkfight:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_36754                                                       36754  97 PC
+; ResetPlayerCounters                             36754  97 PC, low confidence
+; From StartGame: clears the per-player bytes byte_19EB7F / byte_19EC8B and
+; word_19CB82
 ;-----------------------------------------------------------------------------
-sub_36754:
+ResetPlayerCounters:
         push edx
         xor edx, edx
         xor eax, eax
@@ -10008,9 +10096,11 @@ sub_36754:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_36778                                                       36778  97 PC
+; HumanStickAction                                36778  97 PC, low confidence
+; From doinput: the controlled player's stick / check move against his target
+; (puck flag, partner object +6Ch)
 ;-----------------------------------------------------------------------------
-sub_36778:
+HumanStickAction:
         push ebx
         push ecx
         push esi
@@ -10785,9 +10875,11 @@ assfwatch_1EC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_37044                                                       37044  97 PC
+; PutChecksum                                     37044  97 PC, low confidence
+; Packet link: computes a checksum with the given function and stores it
+; big-endian at the end of a buffer
 ;-----------------------------------------------------------------------------
-sub_37044:
+PutChecksum:
         push esi
         push edi
         push ebp
@@ -10826,9 +10918,10 @@ sub_37044:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_3708C                                                       3708C  97 PC
+; VerifyPacketChecksum                            3708C  97 PC, low confidence
+; Packet link: recomputes a received packet's checksum and compares it
 ;-----------------------------------------------------------------------------
-sub_3708C:
+VerifyPacketChecksum:
         push esi
         push edi
         push ebp
@@ -10854,7 +10947,7 @@ sub_3708C:
         mov eax, dword [dword eax+0C0h]
         mov edx, dword [byte esp+08h]
         mov esi, ebp
-        call sub_37044
+        call PutChecksum
         lea eax, [edi+ebp]
 .1:
         dec esi
@@ -10904,9 +10997,11 @@ sub_3708C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_37134                                                       37134  97 PC
+; BuildPacketHeader                               37134  97 PC, low confidence
+; Packet link: packet header (sequence number, 0FEh marker, kind) and payload
+; copy, interrupts off around the counter
 ;-----------------------------------------------------------------------------
-sub_37134:
+BuildPacketHeader:
         push esi
         push edi
         push ebp
@@ -10948,9 +11043,10 @@ sub_37134:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_37198                                                       37198  97 PC
+; SendPacket                                      37198  97 PC, low confidence
+; Packet link: sends a queued packet when the device has room
 ;-----------------------------------------------------------------------------
-sub_37198:
+SendPacket:
         push ebx
         push ecx
         push esi
@@ -11007,7 +11103,7 @@ sub_37198:
         mov dword [byte esp+08h], eax
         mov edx, dword [byte esp+08h]
         mov eax, dword [dword esi+0C0h]
-        call sub_37044
+        call PutChecksum
         mov ecx, dword [esp]
         push ecx
         mov eax, dword [byte esi+04h]
@@ -11033,7 +11129,7 @@ sub_37198:
         mov eax, ebp
         add esp, byte 0Ch
         pop ebp
-sub_37198_DE:
+SendPacket_DE:
         pop edi
         pop esi
         pop ecx
@@ -11041,9 +11137,10 @@ sub_37198_DE:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3727C                                                       3727C  97 PC
+; SendAckPacket                                   3727C  97 PC, low confidence
+; Packet link: sends an acknowledgement packet
 ;-----------------------------------------------------------------------------
-sub_3727C:
+SendAckPacket:
         push ecx
         push esi
         push edi
@@ -11091,7 +11188,7 @@ sub_3727C:
         mov ecx, ebp
         mov edx, dword [byte esp+04h]
         mov eax, dword [dword esi+0C0h]
-        call sub_37044
+        call PutChecksum
         push ebp
         mov ecx, dword [byte esp+04h]
         push ecx
@@ -11130,7 +11227,7 @@ sub_3727C:
         mov ebx, dword [byte eax+04h]
         and ebx, byte 7Fh
         mov eax, dword [byte edx+018h]
-        call sub_3727C
+        call SendAckPacket
         pop ecx
         pop ebx
         ret
@@ -11140,9 +11237,10 @@ sub_3727C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_37374                                                       37374  97 PC
+; AckPackets                                      37374  97 PC, low confidence
+; Packet link: moves the acknowledged window and frees acknowledged packets
 ;-----------------------------------------------------------------------------
-sub_37374:
+AckPackets:
         push ebx
         push ecx
         push esi
@@ -11172,12 +11270,12 @@ sub_37374:
         mov ecx, dword [byte esi+044h]
         add esp, byte 4
         cmp eax, ecx
-        ja near sub_37198_DE
+        ja near SendPacket_DE
         push ebx
         call sub_100C50
         add esp, byte 4
         test eax, eax
-        je near sub_37198_DE
+        je near SendPacket_DE
         push eax
         push edi
         call sub_100BCC
@@ -11185,9 +11283,10 @@ sub_37374:
         jmp short .3
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_373D8                                                       373D8  97 PC
+; MarkPacketAcked                                 373D8  97 PC, low confidence
+; Packet link: marks one sent packet acknowledged
 ;-----------------------------------------------------------------------------
-sub_373D8:
+MarkPacketAcked:
         push ebx
         push ecx
         sub esp, byte 4
@@ -11222,9 +11321,10 @@ sub_373D8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_37424                                                       37424  97 PC
+; FreeLinkChannel                                 37424  97 PC, low confidence
+; Packet link: removes a channel from the open list and closes its device
 ;-----------------------------------------------------------------------------
-sub_37424:
+FreeLinkChannel:
         push ebx
         push ecx
         push edx
@@ -11257,9 +11357,11 @@ sub_37424:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_37470                                                       37470  97 PC
+; ParsePacket                                     37470  97 PC, low confidence
+; Packet link: finds a 0FEh-framed packet in received bytes, checks it and
+; handles its kind
 ;-----------------------------------------------------------------------------
-sub_37470:
+ParsePacket:
         push esi
         push edi
         push ebp
@@ -11307,7 +11409,7 @@ sub_37470:
         sub ebp, esi
         mov eax, edi
         mov ecx, ebp
-        call sub_3708C
+        call VerifyPacketChecksum
         test eax, eax
         je near .9
         mov eax, dword [byte edi+08h]
@@ -11325,7 +11427,7 @@ sub_37470:
         xor edx, edx
         mov eax, edi
         mov dl, ch
-        call sub_37374
+        call AckPackets
 .5:
         mov eax, dword [byte esp+08h]
         mov dl, byte [byte eax+01h]
@@ -11377,13 +11479,13 @@ sub_37470:
         xor edx, edx
         mov eax, edi
         mov dl, bl
-        call sub_373D8
+        call MarkPacketAcked
         jmp short .11
 .8:
         cmp bl, 0FFh
         jne short .11
         mov eax, edi
-        call sub_37424
+        call FreeLinkChannel
         jmp short .11
 .9:
         add esi, byte 3
@@ -11412,9 +11514,10 @@ sub_37470:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_375F0                                                       375F0  97 PC
+; ReceivePackets                                  375F0  97 PC, low confidence
+; Packet link: reads the device's bytes and parses the packets
 ;-----------------------------------------------------------------------------
-sub_375F0:
+ReceivePackets:
         push ebx
         push ecx
         push edx
@@ -11469,7 +11572,7 @@ sub_375F0:
         mov ecx, esi
         add ebx, eax
         mov eax, edi
-        call sub_37470
+        call ParsePacket
         mov dl, byte [byte ebp+024h]
         mov ebx, eax
         test dl, 4
@@ -11533,16 +11636,18 @@ sub_375F0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_376FC                                                       376FC  97 PC
+; LinkGetDevice                                   376FC  97 PC, low confidence
+; Packet link: returns a channel's device (+4)
 ;-----------------------------------------------------------------------------
-sub_376FC:
+LinkGetDevice:
         mov eax, dword [byte esp+04h]
         mov eax, dword [byte eax+04h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_37704                                                       37704  97 PC
+; LinkCountdown                                   37704  97 PC, low confidence
+; Packet link: counts a channel's resend counter down, true at zero
 ;-----------------------------------------------------------------------------
-sub_37704:
+LinkCountdown:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte eax+08h]
@@ -11561,19 +11666,21 @@ sub_37704:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3772C                                                       3772C  97 PC
+; LinkResendIfDue                                 3772C  97 PC, low confidence
+; Packet link: resends when the counter has run out
 ;-----------------------------------------------------------------------------
-sub_3772C:
+LinkResendIfDue:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte esp+08h]
         cmp dword [byte eax+08h], byte 0
-        jle near sub_37198
+        jle near SendPacket
         mov eax, 1
         ret
 ;-----------------------------------------------------------------------------
-; sub_37744                                                       37744  97 PC
+; LinkPoll                                        37744  97 PC, low confidence
+; Packet link timer task: per channel resends, receives and acknowledges
 ;-----------------------------------------------------------------------------
-sub_37744:
+LinkPoll:
         push ebx
         push esi
         push edi
@@ -11615,7 +11722,7 @@ sub_37744:
         jne short .4
 .3:
         mov eax, esi
-        call sub_37424
+        call FreeLinkChannel
 .4:
         cmp dword [byte ebp+00h], byte 0
         je near .13
@@ -11705,7 +11812,7 @@ sub_37744:
         test eax, eax
         je short .11
         mov eax, esi
-        call sub_375F0
+        call ReceivePackets
         and edi, eax
         jmp short .12
 .11:
@@ -11754,18 +11861,18 @@ sub_37744:
         mov edx, esi
         and ebx, byte 7Fh
         mov eax, dword [byte esi+018h]
-        call sub_3727C
+        call SendAckPacket
 .19:
         cmp dword [esp], byte 0
         je short .20
         push esi
-        push sub_37704
+        push LinkCountdown
         lea ebx, [byte esi+064h]
         push ebx
         call sub_1011E8
         add esp, byte 0Ch
         push esi
-        push sub_3772C
+        push LinkResendIfDue
         push ebx
         call sub_101154
         mov eax, dword [byte esi+03Ch]
@@ -11777,7 +11884,7 @@ sub_37744:
         mov ebx, 0FBh
         mov edx, esi
         mov eax, dword [byte esi+018h]
-        call sub_3727C
+        call SendAckPacket
 .20:
         mov eax, 1
         mov byte [byte esi+0Ch], 0
@@ -11788,11 +11895,11 @@ sub_37744:
         pop esi
         pop ebx
         ret
-sub_37744_24C:
+LinkPoll_24C:
         push ecx
         push edx
         push byte 1
-        push sub_37744
+        push LinkPoll
         push unk_19ECE4
         call sub_101154
         add esp, byte 0Ch
@@ -11801,9 +11908,11 @@ sub_37744_24C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_379AC                                                       379AC  97 PC
+; InitPacketLink                                  379AC  97 PC, low confidence
+; Packet link: once, sets up the channel lists, the timer task (addtimer) and
+; the exit handler
 ;-----------------------------------------------------------------------------
-sub_379AC:
+InitPacketLink:
         push ebx
         mov edx, dword [dword_168E70]
         test edx, edx
@@ -11818,10 +11927,10 @@ sub_379AC:
         push unk_19ECC8
         call sub_100B88
         add esp, byte 0Ch
-        push sub_37744_24C
+        push LinkPoll_24C
         call addtimer
         add esp, byte 4
-        push sub_37A1C
+        push ShutdownPacketLink
         mov ebx, 1
         call sub_101220
         add esp, byte 4
@@ -11842,9 +11951,10 @@ sub_379AC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_37A1C                                                       37A1C  97 PC
+; ShutdownPacketLink                              37A1C  97 PC, low confidence
+; Packet link: closes every channel and removes the timer task
 ;-----------------------------------------------------------------------------
-sub_37A1C:
+ShutdownPacketLink:
         push ebx
         push ecx
         push edx
@@ -11860,7 +11970,7 @@ sub_37A1C:
         mov eax, dword [dword_19ECEC]
         mov ebx, dword [byte eax+08h]
         push ebx
-        call sub_37FC8
+        call ClosePacketLink
         add esp, byte 4
         jmp short .1
 .2:
@@ -11872,11 +11982,11 @@ sub_37A1C:
         mov eax, dword [dword_19ECD0]
         mov esi, dword [byte eax+08h]
         push esi
-        call sub_37FC8
+        call ClosePacketLink
         add esp, byte 4
         jmp short .2
 .3:
-        push sub_37744_24C
+        push LinkPoll_24C
         call sub_FC008
         add esp, byte 4
         push unk_19ECE4
@@ -11898,9 +12008,11 @@ sub_37A1C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_37AB4                                                       37AB4  97 PC
+; OpenPacketLink                                  37AB4  97 PC, low confidence
+; Packet link: opens a channel ("pktbuffer" block, window 2-7, packet size >=
+; 6)
 ;-----------------------------------------------------------------------------
-sub_37AB4:
+OpenPacketLink:
         push ebx
         push esi
         push edi
@@ -12003,7 +12115,7 @@ sub_37AB4:
         mov ecx, dword [dword esp+0100h]
         push ecx
         push eax
-        push asc_1609CC
+        push str_Pktbuffer
         mov edi, 1
         call sub_FAAB4
         add esp, byte 0Ch
@@ -12077,13 +12189,13 @@ sub_37AB4:
         call sub_100B88
         add esp, byte 0Ch
         push ebx
-        push sub_376FC
+        push LinkGetDevice
         lea eax, [byte ebx+064h]
         push eax
         call sub_100B88
         add esp, byte 0Ch
         push ebx
-        push sub_376FC
+        push LinkGetDevice
         lea eax, [dword ebx+088h]
         mov dword [dword ebx+080h], 1
         push eax
@@ -12091,7 +12203,7 @@ sub_37AB4:
         call sub_100B88
         add esp, byte 0Ch
         push ebx
-        push sub_376FC
+        push LinkGetDevice
         lea eax, [dword ebx+0A4h]
         push eax
         call sub_100B88
@@ -12244,9 +12356,11 @@ sub_37AB4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_37F4C                                                       37F4C  97 PC
+; PacketLinkSend                                  37F4C  97 PC, low confidence
+; Packet link: queues and sends a block on a channel (LinkSendBlock,
+; WaitForOtherComputer)
 ;-----------------------------------------------------------------------------
-sub_37F4C:
+PacketLinkSend:
         push ebx
         push esi
         push edi
@@ -12273,10 +12387,10 @@ sub_37F4C:
         mov ecx, dword [byte esp+018h]
         mov ebx, dword [byte esp+014h]
         mov edx, edi
-        call sub_37134
+        call BuildPacketHeader
         mov edx, edi
         mov eax, esi
-        call sub_37198
+        call SendPacket
         push esi
         add edi, byte 64h
         push edi
@@ -12301,14 +12415,15 @@ sub_37F4C:
         push byte 0
         mov eax, dword [byte eax+024h]
         push eax
-        call sub_37744
+        call LinkPoll
         add esp, byte 8
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_37FC8                                                       37FC8  97 PC
+; ClosePacketLink                                 37FC8  97 PC, low confidence
+; Packet link: flushes and closes a channel
 ;-----------------------------------------------------------------------------
-sub_37FC8:
+ClosePacketLink:
         push ebx
         push esi
         push edi
@@ -12347,7 +12462,7 @@ sub_37FC8:
         mov ebx, 0FFh
         mov edx, edi
         mov eax, dword [byte edi+018h]
-        call sub_3727C
+        call SendAckPacket
         test eax, eax
         je short .2
         xor esi, esi

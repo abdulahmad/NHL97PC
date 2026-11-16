@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_16875E progbits alloc noexec write align=1
-extern asc_160210, DrawSpecialTeamsPanel, sub_16BF9, DrawVideoModePanel, DrawPenaltyPanel, DrawPenaltyShotPanel, DrawInjuryPanel, DrawPeriodPanel
+extern str_CHASE, DrawSpecialTeamsPanel, sub_16BF9, DrawVideoModePanel, DrawPenaltyPanel, DrawPenaltyShotPanel, DrawInjuryPanel, DrawPeriodPanel
 extern DrawGoalScorerPanel, DrawClockPanel, sub_17EB6, sub_1870B, sub_1882A, sub_18958, sub_18B81, unk_160208
 extern unk_160218, unk_160220, unk_160228, unk_160230, unk_160238, unk_160240, unk_160248, unk_160250
 extern unk_160258, unk_160260, unk_160268, unk_160270, unk_160278, unk_160280, unk_160288, unk_160290
@@ -83,7 +83,7 @@ unk_1688AC:
 unk_1688B8:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         dd unk_160208
-        dd asc_160210
+        dd str_CHASE
         dd unk_160218
         dd unk_160220
         dd unk_160228

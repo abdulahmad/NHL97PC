@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FC330 progbits alloc exec nowrite align=1
-extern asc_167D38, byte_16E504, byte_16E688, byte_170124, dword_16E500, dword_17014C, dword_170150, dword_170154
+extern str_BigfileBuf, byte_16E504, byte_16E688, byte_170124, dword_16E500, dword_17014C, dword_170150, dword_170154
 extern dword_170158, dword_1DA4D0, str_Viv, sub_122068, AllocMemBlock, FreeMemBlock, unk_1DA4CC
 global sub_FC330, sub_FC410, sub_FC420, sub_FC4BC, MakeColor
 ;-----------------------------------------------------------------------------
@@ -31,7 +31,7 @@ sub_FC330:
         je near .9
         push byte 20h
         push dword 5DC0h
-        push asc_167D38
+        push str_BigfileBuf
         mov ebp, unk_1DA4CC
         mov edi, byte_170124
         call AllocMemBlock

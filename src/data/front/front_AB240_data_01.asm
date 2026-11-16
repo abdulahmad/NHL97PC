@@ -2,56 +2,56 @@
 bits 32
 %include "hockey.inc"
 section s_166120 progbits alloc noexec write align=1
-global asc_166120, asc_166129, asc_166133, asc_166139, asc_16613D, asc_16614C, asc_166158, asc_166164
-global asc_16616F, asc_16617E, asc_16618D, asc_16619D, asc_1661AE, asc_1661BF, asc_1661D5, asc_1661EA
-global asc_1661F9, asc_166202, asc_166209, asc_166210, asc_166214, asc_16621C, unk_16620D
-asc_166120:
+global str_Xferdata, str_Replaybuf2, str_Gdata, str_Ros2, str_SEXHIBITNDX, str_EXHIBITNDX2, str_Saverepl, str_Statthingy
+global str_StatthingyFlg, str_StatthingyCol, str_StatthingySort, str_StatthingyNames, str_StatthingyAlpha, str_StatthingyStringsort, str_StatthingyColNames, str_StatthingySort2
+global str_DDD4, str_DS3, str_D, str_NA, str_D02d, str_DD2, unk_16620D
+str_Xferdata:
         db 078h,066h,065h,072h,064h,061h,074h,061h,00h
-asc_166129:
+str_Replaybuf2:
         db 072h,065h,070h,06Ch,061h,079h,062h,075h,066h,00h
-asc_166133:
+str_Gdata:
         db 067h,064h,061h,074h,061h,00h
-asc_166139:
+str_Ros2:
         db 072h,06Fh,073h,00h
-asc_16613D:
+str_SEXHIBITNDX:
         db 025h,073h,05Ch,045h,058h,048h,049h,042h,049h,054h,02Eh,04Eh,044h,058h,00h
-asc_16614C:
+str_EXHIBITNDX2:
         db 045h,058h,048h,049h,042h,049h,054h,02Eh,04Eh,044h,058h,00h
-asc_166158:
+str_Saverepl:
         db 073h,061h,076h,065h,072h,065h,070h,06Ch,00h,00h,00h,00h
-asc_166164:
+str_Statthingy:
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,00h
-asc_16616F:
+str_StatthingyFlg:
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,046h,06Ch,067h,00h
-asc_16617E:
+str_StatthingyCol:
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,043h,06Fh,06Ch,00h
-asc_16618D:
+str_StatthingySort:
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,053h,06Fh,072h,074h,00h
-asc_16619D:
+str_StatthingyNames:
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,06Eh,061h,06Dh,065h,073h
         db 00h
-asc_1661AE:
+str_StatthingyAlpha:
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,061h,06Ch,070h,068h,061h
         db 00h
-asc_1661BF:
+str_StatthingyStringsort:
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,073h,074h,072h,069h,06Eh
         db 067h,073h,06Fh,072h,074h,00h
-asc_1661D5:
+str_StatthingyColNames:
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,020h,063h,06Fh,06Ch,020h,06Eh
         db 061h,06Dh,065h,073h,00h
-asc_1661EA:
+str_StatthingySort2:
         db 073h,074h,061h,074h,074h,068h,069h,06Eh,067h,079h,053h,06Fh,072h,074h,00h
-asc_1661F9:
+str_DDD4:
         db 025h,064h,02Dh,025h,064h,02Dh,025h,064h,00h
-asc_166202:
+str_DS3:
         db 025h,064h,02Eh,020h,025h,073h,00h
-asc_166209:
+str_D:
         db 025h,064h,02Eh,00h
 unk_16620D:
         db 025h,064h,00h
-asc_166210:
+str_NA:
         db 04Eh,02Fh,041h,00h
-asc_166214:
+str_D02d:
         db 025h,064h,02Eh,025h,030h,032h,064h,00h
-asc_16621C:
+str_DD2:
         db 025h,064h,02Dh,025h,064h,00h

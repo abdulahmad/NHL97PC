@@ -2,31 +2,31 @@
 bits 32
 %include "hockey.inc"
 section s_1680A4 progbits alloc noexec write align=1
-global _IsTable, asc_1680A4, asc_1680A8, asc_1680AC, asc_1680B4, asc_1680C0, asc_1680C8, asc_1680E0
-global asc_168208, asc_16822E, asc_1682DD, asc_1682F4, byte_168410, dword_1682E4, dword_1682E8, dword_16841C
+global _IsTable, str_DMA, str_IRQ, str_SBIRQ, str_SBEnable, str_FALSE, str_WavePort, str_ExitYN
+global str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_In, str_ABNORMALTERMINATION, byte_168410, dword_1682E4, dword_1682E8, dword_16841C
 global dword_168420, qword_16817C, qword_1682EC, qword_168418, str_BLASTER, str_FloatingPointSupportNot, str_NotEnoughMemoryTo, str_PAUSEPRESSANYKEY
 global str_RATIONALDOS4G, str_RMHandler, str_SaveText, unk_1680D4, unk_168184, unk_168189, unk_16818E, unk_168193
 global unk_168197, unk_16819C, unk_1681A1, unk_1681A5, unk_1681AB, unk_1681B0, unk_1681B4, unk_1681BA
 global unk_1681C0, unk_1681C6, unk_1681CB, unk_1681D1, unk_1681D5, unk_1681D9, unk_1681DD, unk_1681E0
 global unk_1681E3, unk_1681E6, unk_1681EA, unk_1681F0, unk_168258, unk_168265, unk_16827A, unk_16828F
 global unk_1682A5, unk_1682C0
-asc_1680A4:
+str_DMA:
         db 044h,04Dh,041h,00h
-asc_1680A8:
+str_IRQ:
         db 049h,052h,051h,00h
-asc_1680AC:
+str_SBIRQ:
         db 053h,042h,049h,052h,051h,00h,00h,00h
-asc_1680B4:
+str_SBEnable:
         db 053h,042h,045h,06Eh,061h,062h,06Ch,065h,00h,00h,00h,00h
-asc_1680C0:
+str_FALSE:
         db 046h,041h,04Ch,053h,045h,00h,00h,00h
-asc_1680C8:
+str_WavePort:
         db 057h,061h,076h,065h,050h,06Fh,072h,074h,00h,00h,00h,00h
 unk_1680D4:
         db 03Dh,00h,00h,00h
 str_BLASTER:
         db 042h,04Ch,041h,053h,054h,045h,052h,00h
-asc_1680E0:
+str_ExitYN:
         db 045h,078h,069h,074h,020h,028h,059h,02Fh,04Eh,029h,00h,00h
 str_PAUSEPRESSANYKEY:
         db 050h,041h,055h,053h,045h,020h,02Dh,020h,050h,052h,045h,053h,053h,020h,041h,04Eh
@@ -95,11 +95,11 @@ unk_1681F0:
         db 055h,04Ch,054h,052h,041h,053h,04Eh,044h,00h,00h,00h,00h
 str_RMHandler:
         db 052h,04Dh,048h,061h,06Eh,064h,06Ch,065h,072h,00h,00h,00h
-asc_168208:
+str_UnableToAllocateRealModeS:
         db 055h,06Eh,061h,062h,06Ch,065h,020h,074h,06Fh,020h,061h,06Ch,06Ch,06Fh,063h,061h
         db 074h,065h,020h,072h,065h,061h,06Ch,020h,06Dh,06Fh,064h,065h,020h,073h,065h,06Ch
         db 065h,063h,074h,06Fh,072h,00h
-asc_16822E:
+str_UnableToSetLimitOfRealMod:
         db 055h,06Eh,061h,062h,06Ch,065h,020h,074h,06Fh,020h,073h,065h,074h,020h,06Ch,069h
         db 06Dh,069h,074h,020h,06Fh,066h,020h,072h,065h,061h,06Ch,020h,06Dh,06Fh,064h,065h
         db 020h,073h,065h,06Ch,065h,063h,074h,06Fh,072h,00h
@@ -120,7 +120,7 @@ unk_1682A5:
 unk_1682C0:
         db 050h,061h,072h,074h,069h,061h,06Ch,020h,06Ch,06Fh,073h,073h,020h,06Fh,066h,020h
         db 073h,069h,067h,06Eh,069h,066h,069h,063h,061h,06Eh,063h,065h,00h
-asc_1682DD:
+str_In:
         db 020h,069h,06Eh,020h,00h,00h,00h
 dword_1682E4:
         db 069h,06Eh,066h,00h
@@ -128,7 +128,7 @@ dword_1682E8:
         db 06Eh,061h,06Eh,00h
 qword_1682EC:
         db 00h,00h,00h,00h,00h,00h,0F0h,0BFh
-asc_1682F4:
+str_ABNORMALTERMINATION:
         db 041h,042h,04Eh,04Fh,052h,04Dh,041h,04Ch,020h,054h,045h,052h,04Dh,049h,04Eh,041h
         db 054h,049h,04Fh,04Eh,0Dh,0Ah,00h,00h
 _IsTable:

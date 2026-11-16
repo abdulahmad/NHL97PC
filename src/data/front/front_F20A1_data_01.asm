@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_167A65 progbits alloc noexec write align=1
-global asc_167A65, asc_167A6B, asc_167A70, asc_167B85, asc_167BAB, asc_167CEC, asc_167CF5, asc_167CFC
-global asc_167D08, asc_167D10, asc_167D28, asc_167D2C, asc_167D38, asc_167D74, asc_167D84, dword_167A85
+global str_CB0D, str_CB002, str_Chat, str_SS15, str_D4, str_IgfxFix, str_IgFix, str_GFXMODES
+global str_MBRAM, str_LOW8s, str_GAP, str_TIMERSTACK, str_BigfileBuf, str_02d3s02d, str_2d02d02d, dword_167A85
 global dword_167A89, dword_167A8D, dword_167A91, dword_167A95, dword_167A99, dword_167A9D, dword_167AA1, dword_167AA5
 global dword_167AA9, dword_167AAD, dword_167AE1, dword_167AE5, dword_167AE9, dword_167AED, dword_167AF1, dword_167AF5
 global dword_167AF9, dword_167AFD, dword_167B01, dword_167B05, dword_167B09, dword_167B0D, dword_167B11, dword_167B15
@@ -23,11 +23,11 @@ global qword_167AD9, qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qwo
 global qword_167BBB, qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, str_HIGHMEM, unk_167D44, unk_167D48
 global unk_167D4C, unk_167D50, unk_167D54, unk_167D58, unk_167D5C, unk_167D60, unk_167D64, unk_167D68
 global unk_167D6C, unk_167D70
-asc_167A65:
+str_CB0D:
         db 043h,042h,030h,025h,064h,00h
-asc_167A6B:
+str_CB002:
         db 043h,042h,030h,030h,00h
-asc_167A70:
+str_Chat:
         db 043h,068h,061h,074h,00h
 qword_167A75:
         db 09Ah,099h,099h,099h,099h,099h,069h,03Fh
@@ -141,7 +141,7 @@ qword_167B79:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
 dword_167B81:
         db 0CDh,0CCh,04Ch,03Bh
-asc_167B85:
+str_SS15:
         db 025h,073h,020h,025h,073h,00h
 dword_167B8B:
         db 0Ah,0D7h,0A3h,03Bh
@@ -155,7 +155,7 @@ qword_167B9F:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
 dword_167BA7:
         db 0CDh,0CCh,04Ch,03Bh
-asc_167BAB:
+str_D4:
         db 025h,064h,020h,025h,025h,025h,025h,00h
 qword_167BB3:
         db 09Ah,099h,099h,099h,099h,099h,069h,03Fh
@@ -301,23 +301,23 @@ dword_167CE3:
         db 00h,00h,0AAh,042h
 dword_167CE7:
         db 00h,00h,0C8h,041h,00h
-asc_167CEC:
+str_IgfxFix:
         db 069h,067h,066h,078h,020h,066h,069h,078h,00h
-asc_167CF5:
+str_IgFix:
         db 069h,067h,020h,066h,069h,078h,00h
-asc_167CFC:
+str_GFXMODES:
         db 047h,046h,058h,04Dh,04Fh,044h,045h,053h,00h,00h,00h,00h
-asc_167D08:
+str_MBRAM:
         db 04Dh,042h,05Fh,052h,041h,04Dh,00h,00h
-asc_167D10:
+str_LOW8s:
         db 04Ch,04Fh,057h,020h,025h,02Dh,038h,073h,00h,00h,00h,00h
 str_HIGHMEM:
         db 048h,049h,047h,048h,020h,025h,02Dh,037h,073h,00h,00h,00h
-asc_167D28:
+str_GAP:
         db 047h,041h,050h,00h
-asc_167D2C:
+str_TIMERSTACK:
         db 054h,049h,04Dh,045h,052h,020h,053h,054h,041h,043h,04Bh,00h
-asc_167D38:
+str_BigfileBuf:
         db 062h,069h,067h,066h,069h,06Ch,065h,020h,062h,075h,066h,00h
 unk_167D44:
         db 04Ah,061h,06Eh,00h
@@ -343,7 +343,7 @@ unk_167D6C:
         db 04Eh,06Fh,076h,00h
 unk_167D70:
         db 044h,065h,063h,00h
-asc_167D74:
+str_02d3s02d:
         db 025h,030h,032h,064h,02Dh,025h,033h,073h,02Dh,025h,030h,032h,064h,00h,00h,00h
-asc_167D84:
+str_2d02d02d:
         db 025h,032h,064h,03Ah,025h,030h,032h,064h,03Ah,025h,030h,032h,064h,00h,00h,00h

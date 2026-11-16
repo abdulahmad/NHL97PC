@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_1303C progbits alloc exec nowrite align=1
 extern CountTeamSlots, SetupTeamForIntermission, SortCords, __CHK, __CHP, __STOSB, __STOSD, _dos_gettime_
-extern asc_16007C, asc_160088, asc_1600BC, asc_1600D8, asc_160114, awtmstruct, byte_19C3E0, byte_19CB70
+extern str_RPEVENT2, str_WaitingForOtherComputer2, str_WarteAufAnderenComputer, str_BREAKIN, str_BREAKOUT, awtmstruct, byte_19C3E0, byte_19CB70
 extern byte_19CB71, byte_19CB74, byte_19CB75, byte_19CB7E, byte_19CB7F, byte_19CB8A, byte_19CB8B, byte_19CBC2
 extern byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CBFC, byte_19CCC6, byte_19CD05, byte_19CD8C, byte_19CD9D
 extern byte_19DAF1, byte_1AC81B, byte_1AC81C, byte_1AC81D, byte_1C135A, byte_1C135B, byte_1C6040, clearteams
@@ -24,7 +24,7 @@ extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, 
 extern sub_11574, sub_116B0, sub_11808, IsPlayoffGame, sub_11F74, sub_12A10, ClockTick, sub_12C2C
 extern sub_12DE8, ChangeViewSize, PrevVideoModeKey, NextVideoModeKey, QueueOverlayPanel, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
 extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, assreplace, Goal, sub_2DE94
-extern sub_30BD8, sub_31F88, AddPenalty, sub_34330, sub_34950, sub_36370, sub_36754, sub_3CA28
+extern SetupAutoLines, InitGameLines, AddPenalty, SetPlayerTarget, InitPadSlots, DebugRestoreEnergy, ResetPlayerCounters, sub_3CA28
 extern sub_3CB70, sub_3D020, sub_3E5F0, InitGameAudio, sub_41670, sub_41CF0, WaitMusicEnd, sub_423B4
 extern sub_424CC, CommentaryEvent, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, sub_4B8DC, FreeGameGraphics
 extern DrawGameFrame, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
@@ -157,17 +157,17 @@ StartGame:
         mov ax, word [nosplit eax*2+word_1684EC]
         xor dh, dh
         mov word [word_19CCC4], ax
-        call sub_36754
+        call ResetPlayerCounters
         call clearteams
         mov word [word_19CB82], bx
         mov word [word_19CBB0], dx
         mov word [gsp], bx
         call sub_11808
-        call sub_30BD8
+        call SetupAutoLines
         xor eax, eax
-        call sub_31F88
+        call InitGameLines
         mov eax, 1
-        call sub_31F88
+        call InitGameLines
         mov eax, dword [off_168D04]
         mov dword [byte eax+05Ah], 0FFFFFFFFh
         cmp word [gsp], byte 4
@@ -337,7 +337,7 @@ InitGameVars:
         mov dword [dword eax+word_19CC2C], ebx
         cmp edx, byte 10h
         jne short .1
-        call sub_34950
+        call InitPadSlots
         mov ecx, 0Ch
         mov edx, 0FFFFFFFFh
         mov eax, byte_19C3E0
@@ -739,7 +739,7 @@ OpeningSequence:
         mov edx, 0FFFFFFFFh
         mov word [nosplit eax*2+word_19CC04], cx
         mov eax, unk_19DC40
-        call sub_34330
+        call SetPlayerTarget
         mov ax, word [word_19CC28]
         mov word [word_19DCFA], ax
 .4:
@@ -751,7 +751,7 @@ OpeningSequence:
         mov edx, 0FFFFFFFFh
         mov word [nosplit eax*2+word_19CC04], di
         mov eax, unk_19E270
-        call sub_34330
+        call SetPlayerTarget
         mov ax, word [word_19CC2A]
         mov word [word_19E32A], ax
 .5:
@@ -1868,7 +1868,7 @@ DebugKeys:
         pop ebx
         ret
 .24:
-        call sub_36370
+        call DebugRestoreEnergy
         mov eax, 1
         pop edi
         pop esi
@@ -2338,7 +2338,7 @@ GameLoop:
         call sub_FC290
         push byte 0
         push byte 18h
-        push asc_16007C
+        push str_RPEVENT2
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1B8F4C], eax
@@ -3013,13 +3013,13 @@ PlayGame:
 .5:
         test eax, eax
         jne short .9
-        mov eax, asc_160088
+        mov eax, str_WaitingForOtherComputer2
         jmp short .8
 .6:
         mov eax, unk_1600A4
         jmp short .8
 .7:
-        mov eax, asc_1600BC
+        mov eax, str_WarteAufAnderenComputer
 .8:
         call sub_E4248
 .9:
@@ -3310,7 +3310,7 @@ RunInGameMenu:
         push ebx
         push ecx
         push edx
-        push asc_1600D8
+        push str_BREAKIN
         push byte 18h
         push byte 4Fh
         mov ebx, dword [InGameMenuRequest]
@@ -3354,7 +3354,7 @@ RunInGameMenu:
         jne short .7
         call sub_E304C
 .7:
-        push asc_160114
+        push str_BREAKOUT
         push byte 18h
         push byte 4Fh
         call sub_FC88C

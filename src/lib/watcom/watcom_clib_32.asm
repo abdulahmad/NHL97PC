@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_13B9C2 progbits alloc exec nowrite align=1
-extern _Extender, _STACKLOW, __8087, __CHP, __fatal_runtime_error_, __sigfpe_handler_, asc_1682F4, byte_19C3D0
+extern _Extender, _STACKLOW, __8087, __CHP, __fatal_runtime_error_, __sigfpe_handler_, str_ABNORMALTERMINATION, byte_19C3D0
 extern byte_19C3D1, byte_19C3D2, byte_19C3D3, dword_16E670, dword_16E6A8, dword_1725AD, dword_19C1A4, dword_19C1AA
 extern dword_19C1AE, dword_19C1C6, dword_19C3CC, off_171C84, qword_19C1BE, sub_11641C, unk_19C1B4, unk_19C1CA
 extern word_19C1A8, word_19C3CA
@@ -256,7 +256,7 @@ abort_:
 __terminate_:
         push edx
         mov edx, 0FFh
-        mov eax, asc_1682F4
+        mov eax, str_ABNORMALTERMINATION
         call __fatal_runtime_error_
         pop edx
         ret

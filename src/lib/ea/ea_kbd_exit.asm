@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_12FB20 progbits alloc exec nowrite align=1
-extern asc_1680E0, dword_16E464, dword_16E468, dword_16E46C, dword_16E4C8, dword_16E6A8, dword_16F184, dword_199990
+extern str_ExitYN, dword_16E464, dword_16E468, dword_16E46C, dword_16E4C8, dword_16E6A8, dword_16F184, dword_199990
 extern dword_199994, dword_199998, dword_19999C, dword_1999A0, dword_1999A4, off_16E4D4, off_16E4D8, off_16E4DC
 extern off_16E4E0, str_PAUSEPRESSANYKEY, sub_101324, sub_1013FC, sub_115BB0, sub_115BD8, sub_117338, sub_11A264
 extern sub_11ADD0, sub_11ADE8, sub_138D04, sub_138E00, sub_138EB0, sub_138F00, SetScreenTarget, sub_FBE40
@@ -218,7 +218,7 @@ sub_12FDC8:
         push byte 18h
         lea edx, [byte eax-050h]
         mov ecx, 0A0h
-        mov eax, asc_1680E0
+        mov eax, str_ExitYN
         call sub_12FB20
         test eax, eax
         je short .1

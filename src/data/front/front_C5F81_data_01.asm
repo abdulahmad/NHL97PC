@@ -2,80 +2,80 @@
 bits 32
 %include "hockey.inc"
 section s_166C9C progbits alloc noexec write align=1
-global asc_166C9C, asc_166CA1, asc_166CA6, asc_166CAB, asc_166CB0, asc_166CB5, asc_166CBA, asc_166CBF
-global asc_166CC4, asc_166CC9, asc_166CCE, asc_166CD3, asc_166CD8, asc_166CDE, asc_166CE4, asc_166CEA
-global asc_166CF0, asc_166CF6, asc_166CFC, asc_166D02, asc_166D07, asc_166D0C, asc_166D11, asc_166D17
-global asc_166D1D, asc_166D24, asc_166D30, asc_166D3F, asc_166D44, asc_166D4F, asc_166D53, asc_166D60
-global asc_166D6B, asc_166D78, asc_166D89
-asc_166C9C:
+global str_00007, str_ON00, str_OF00, str_MA00, str_AUOO, str_5000, str_1000, str_2000
+global str_NA00, str_10IL, str_102L, str_103L, str_ONDL, str_OFDL, str_MADL, str_AUDL
+global str_50DL, str_20DL, str_NADL, str_OFF, str_LX002, str_LC002, str_LX0D2, str_LC0D2
+global str_BALL, str_RosterMenu, str_RosterRegions, str_BACK11, str_2dSS, str_2d2, str_RosinfoAna, str_RosPlrInfo
+global str_SeasRosArray, str_DeletionIndices, str_RosterPlayerInfo
+str_00007:
         db 030h,030h,030h,030h,00h
-asc_166CA1:
+str_ON00:
         db 04Fh,04Eh,030h,030h,00h
-asc_166CA6:
+str_OF00:
         db 04Fh,046h,030h,030h,00h
-asc_166CAB:
+str_MA00:
         db 04Dh,041h,030h,030h,00h
-asc_166CB0:
+str_AUOO:
         db 041h,055h,04Fh,04Fh,00h
-asc_166CB5:
+str_5000:
         db 035h,030h,030h,030h,00h
-asc_166CBA:
+str_1000:
         db 031h,030h,030h,030h,00h
-asc_166CBF:
+str_2000:
         db 032h,030h,030h,030h,00h
-asc_166CC4:
+str_NA00:
         db 04Eh,041h,030h,030h,00h
-asc_166CC9:
+str_10IL:
         db 031h,030h,049h,04Ch,00h
-asc_166CCE:
+str_102L:
         db 031h,030h,032h,04Ch,00h
-asc_166CD3:
+str_103L:
         db 031h,030h,033h,04Ch,00h
-asc_166CD8:
+str_ONDL:
         db 04Fh,04Eh,025h,064h,04Ch,00h
-asc_166CDE:
+str_OFDL:
         db 04Fh,046h,025h,064h,04Ch,00h
-asc_166CE4:
+str_MADL:
         db 04Dh,041h,025h,064h,04Ch,00h
-asc_166CEA:
+str_AUDL:
         db 041h,055h,025h,064h,04Ch,00h
-asc_166CF0:
+str_50DL:
         db 035h,030h,025h,064h,04Ch,00h
-asc_166CF6:
+str_20DL:
         db 032h,030h,025h,064h,04Ch,00h
-asc_166CFC:
+str_NADL:
         db 04Eh,041h,025h,064h,04Ch,00h
-asc_166D02:
+str_OFF:
         db 04Fh,046h,046h,020h,00h
-asc_166D07:
+str_LX002:
         db 04Ch,058h,030h,030h,00h
-asc_166D0C:
+str_LC002:
         db 04Ch,043h,030h,030h,00h
-asc_166D11:
+str_LX0D2:
         db 04Ch,058h,030h,025h,064h,00h
-asc_166D17:
+str_LC0D2:
         db 04Ch,043h,030h,025h,064h,00h
-asc_166D1D:
+str_BALL:
         db 042h,041h,04Ch,04Ch,00h,00h,00h
-asc_166D24:
+str_RosterMenu:
         db 072h,06Fh,073h,074h,065h,072h,020h,06Dh,065h,06Eh,075h,00h
-asc_166D30:
+str_RosterRegions:
         db 072h,06Fh,073h,074h,065h,072h,020h,072h,065h,067h,069h,06Fh,06Eh,073h,00h
-asc_166D3F:
+str_BACK11:
         db 042h,041h,043h,04Bh,00h
-asc_166D44:
+str_2dSS:
         db 023h,025h,032h,064h,020h,025h,073h,020h,025h,073h,00h
-asc_166D4F:
+str_2d2:
         db 025h,032h,064h,00h
-asc_166D53:
+str_RosinfoAna:
         db 072h,06Fh,073h,069h,06Eh,066h,06Fh,021h,02Eh,061h,06Eh,061h,00h
-asc_166D60:
+str_RosPlrInfo:
         db 072h,06Fh,073h,050h,06Ch,072h,049h,06Eh,066h,06Fh,00h
-asc_166D6B:
+str_SeasRosArray:
         db 073h,065h,061h,073h,052h,06Fh,073h,041h,072h,072h,061h,079h,00h
-asc_166D78:
+str_DeletionIndices:
         db 064h,065h,06Ch,065h,074h,069h,06Fh,06Eh,020h,069h,06Eh,064h,069h,063h,065h,073h
         db 00h
-asc_166D89:
+str_RosterPlayerInfo:
         db 072h,06Fh,073h,074h,065h,072h,020h,070h,06Ch,061h,079h,065h,072h,020h,069h,06Eh
         db 066h,06Fh,00h

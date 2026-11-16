@@ -2,94 +2,94 @@
 bits 32
 %include "hockey.inc"
 section s_16795F progbits alloc noexec write align=1
-global asc_16795F, asc_167965, asc_16796B, asc_167970, asc_167975, asc_16797A, asc_16797F, asc_167985
-global asc_16798A, asc_16798F, asc_167994, asc_167999, asc_16799E, asc_1679A3, asc_1679A9, asc_1679AE
-global asc_1679BA, asc_1679BF, asc_1679C5, asc_1679CB, asc_1679D0, asc_1679D5, asc_1679DA, asc_1679DF
-global asc_1679E4, asc_1679E9, asc_1679EE, asc_1679F3, asc_1679F8, asc_1679FD, asc_167A02, asc_167A06
-global asc_167A0B, asc_167A10, asc_167A15, asc_167A1D, asc_167A24, asc_167A29, asc_167A2E, asc_167A4E
-global asc_167A5A, dword_167A3B, dword_167A3F, dword_167A43, dword_167A47, qword_167A33, str_TR0D, unk_167A1A
+global str_LTDA, str_LTDB, str_BACK15, str_ROT0, str_BOT02, str_TITL16, str_ROTD, str_BB002
+global str_BB012, str_BB02, str_BB052, str_KMB4, str_KMB5, str_KMBD, str_TOP02, str_TL0D
+global str_MID1, str_BL0D, str_BR0D, str_BL01, str_BR012, str_TL01, str_TR012, str_Mous5
+global str_BOX0, str_BOX1, str_BB03, str_BB042, str_KMB0, str_KMB1, str_S13, str_TB012
+global str_TB002, str_TB032, str_TB022, str_GLWD, str_SCRB, str_Mous6, str_Remo4, str_D02dD
+global str_D02dD2, dword_167A3B, dword_167A3F, dword_167A43, dword_167A47, qword_167A33, str_TR0D, unk_167A1A
 global unk_167A4B
-asc_16795F:
+str_LTDA:
         db 04Ch,054h,025h,064h,041h,00h
-asc_167965:
+str_LTDB:
         db 04Ch,054h,025h,064h,042h,00h
-asc_16796B:
+str_BACK15:
         db 042h,041h,043h,04Bh,00h
-asc_167970:
+str_ROT0:
         db 052h,04Fh,054h,030h,00h
-asc_167975:
+str_BOT02:
         db 042h,04Fh,054h,030h,00h
-asc_16797A:
+str_TITL16:
         db 054h,049h,054h,04Ch,00h
-asc_16797F:
+str_ROTD:
         db 052h,04Fh,054h,025h,064h,00h
-asc_167985:
+str_BB002:
         db 042h,042h,030h,030h,00h
-asc_16798A:
+str_BB012:
         db 042h,042h,030h,031h,00h
-asc_16798F:
+str_BB02:
         db 042h,042h,030h,032h,00h
-asc_167994:
+str_BB052:
         db 042h,042h,030h,035h,00h
-asc_167999:
+str_KMB4:
         db 04Bh,04Dh,042h,034h,00h
-asc_16799E:
+str_KMB5:
         db 04Bh,04Dh,042h,035h,00h
-asc_1679A3:
+str_KMBD:
         db 04Bh,04Dh,042h,025h,064h,00h
-asc_1679A9:
+str_TOP02:
         db 054h,04Fh,050h,030h,00h
-asc_1679AE:
+str_TL0D:
         db 054h,04Ch,030h,025h,064h,00h
 str_TR0D:
         db 054h,052h,030h,025h,064h,00h
-asc_1679BA:
+str_MID1:
         db 04Dh,049h,044h,031h,00h
-asc_1679BF:
+str_BL0D:
         db 042h,04Ch,030h,025h,064h,00h
-asc_1679C5:
+str_BR0D:
         db 042h,052h,030h,025h,064h,00h
-asc_1679CB:
+str_BL01:
         db 042h,04Ch,030h,031h,00h
-asc_1679D0:
+str_BR012:
         db 042h,052h,030h,031h,00h
-asc_1679D5:
+str_TL01:
         db 054h,04Ch,030h,031h,00h
-asc_1679DA:
+str_TR012:
         db 054h,052h,030h,031h,00h
-asc_1679DF:
+str_Mous5:
         db 06Dh,06Fh,075h,073h,00h
-asc_1679E4:
+str_BOX0:
         db 042h,04Fh,058h,030h,00h
-asc_1679E9:
+str_BOX1:
         db 042h,04Fh,058h,031h,00h
-asc_1679EE:
+str_BB03:
         db 042h,042h,030h,033h,00h
-asc_1679F3:
+str_BB042:
         db 042h,042h,030h,034h,00h
-asc_1679F8:
+str_KMB0:
         db 04Bh,04Dh,042h,030h,00h
-asc_1679FD:
+str_KMB1:
         db 04Bh,04Dh,042h,031h,00h
-asc_167A02:
+str_S13:
         db 025h,073h,0Ah,00h
-asc_167A06:
+str_TB012:
         db 054h,042h,030h,031h,00h
-asc_167A0B:
+str_TB002:
         db 054h,042h,030h,030h,00h
-asc_167A10:
+str_TB032:
         db 054h,042h,030h,033h,00h
-asc_167A15:
+str_TB022:
         db 054h,042h,030h,032h,00h
 unk_167A1A:
         db 025h,073h,00h
-asc_167A1D:
+str_GLWD:
         db 047h,04Ch,057h,025h,064h,00h,00h
-asc_167A24:
+str_SCRB:
         db 053h,043h,052h,042h,00h
-asc_167A29:
+str_Mous6:
         db 06Dh,06Fh,075h,073h,00h
-asc_167A2E:
+str_Remo4:
         db 072h,065h,06Dh,06Fh,00h
 qword_167A33:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
@@ -103,7 +103,7 @@ dword_167A47:
         db 00h,00h,080h,040h
 unk_167A4B:
         db 025h,064h,00h
-asc_167A4E:
+str_D02dD:
         db 020h,025h,064h,03Ah,025h,030h,032h,064h,02Eh,025h,064h,00h
-asc_167A5A:
+str_D02dD2:
         db 025h,064h,03Ah,025h,030h,032h,064h,02Eh,025h,064h,00h

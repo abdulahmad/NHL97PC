@@ -2,19 +2,19 @@
 bits 32
 %include "hockey.inc"
 section s_C755B progbits alloc exec nowrite align=1
-extern SetClipWindow, __CHP, __STOSB, _dos_getdate_, asc_166D24, asc_166D30, asc_166D3F, asc_166D44
-extern asc_166D4F, asc_166D53, asc_166D60, asc_166D6B, asc_166D78, asc_166D89, asc_166D9C, asc_166DAE
-extern asc_166DB3, asc_166DB8, asc_166DC9, asc_166DDA, asc_166DF0, asc_166DF5, asc_166DFA, asc_166DFF
-extern asc_166E04, asc_166E09, asc_166E0E, asc_166E13, asc_166E18, asc_166E1D, asc_166E22, asc_166E27
-extern asc_166E2C, asc_166E31, asc_166E36, asc_166E3B, asc_166E40, asc_166E45, asc_166E4A, asc_166E4F
-extern asc_166E56, asc_166E5B, asc_166E60, asc_166E65, asc_166E6A, asc_166E6F, asc_166E74, asc_166E79
-extern asc_166E7E, asc_166E83, asc_166E88, asc_166E8D, asc_166E92, asc_166E97, asc_166EA0, asc_166EAC
-extern asc_166EC0, asc_166EC5, asc_166ECC, asc_166ED1, asc_166ED6, asc_166EDB, asc_166EE0, asc_166EE5
-extern asc_166EEA, asc_166EEF, asc_166EF4, asc_166EF9, asc_166EFE, asc_166F03, asc_166F08, asc_166F0D
-extern asc_166F12, asc_166F17, asc_166F1C, asc_166F21, asc_166F26, asc_166F2B, asc_166F33, asc_166F38
-extern asc_166F3D, asc_166F42, asc_166F49, asc_166F59, asc_166F6B, asc_166F70, asc_166F75, asc_166F7A
-extern asc_166F7F, asc_166F84, asc_166F89, asc_166F8E, asc_166F93, asc_166F98, asc_166F9D, asc_166FA2
-extern asc_166FAC, asc_166FB8, byte_1ACF62, byte_1ACF63, byte_1ACF69, byte_1AD23E, byte_1AD457, byte_1AD458
+extern SetClipWindow, __CHP, __STOSB, _dos_getdate_, str_RosterMenu, str_RosterRegions, str_BACK11, str_2dSS
+extern str_2d2, str_RosinfoAna, str_RosPlrInfo, str_SeasRosArray, str_DeletionIndices, str_RosterPlayerInfo, str_CDCS2, str_TITL11
+extern str_MTR2, str_TR00TR01TR02TR03, str_DF00DF01DF02DF03, str_CM00CM01CM02CM03, str_TR01, str_DF002, str_CM002, str_CM012
+extern str_GB00, str_LD002, str_LB004, str_ATL2, str_ATL1, str_ATL0, str_ATL5, str_ATL4
+extern str_ATL3, str_ATR2, str_ATR1, str_ATR0, str_ATR5, str_ATR4, str_ATR3, str_LB02d5
+extern str_LB04, str_LD04, str_LB02, str_LD02, str_GB04, str_GB02, str_LB03, str_LD03
+extern str_LB01, str_LD01, str_GB03, str_GB01, str_TR04, str_SS11, str_JerseyMenu, str_JerseyMenuRegions
+extern str_NAM1, str_CS2, str_NAOF, str_GOOF, str_GOON, str_LWOF, str_LWON, str_RWOF
+extern str_RWON, str_CEOF, str_CEON, str_DEOF, str_DEON, str_SROF, str_SRON, str_GROF
+extern str_GRON, str_SLOF, str_SLON, str_GLOF, str_GLON, str_POB1, str_PBOF, str_STSP
+extern str_STSG, str_AN02d, str_CreatePlrMenu, str_CreatePlrRegion, str_00008, str_NAON, str_JNON, str_JNOF
+extern str_PBON, str_HEON, str_HEOF, str_WEON, str_WEOF, str_AGON, str_AGOF, str_Aiplayers
+extern str_Statplayers, str_Statgoalies, byte_1ACF62, byte_1ACF63, byte_1ACF69, byte_1AD23E, byte_1AD457, byte_1AD458
 extern byte_1AD45E, byte_1AD739, byte_1C6040, byte_1CC240, dword_16D668, dword_16D66C, dword_16D670, dword_16D674
 extern dword_16D678, dword_16D67C, dword_16D680, dword_16D684, dword_16D688, dword_16D694, dword_16D698, dword_16D6A4
 extern dword_16D6A8, dword_16D6AC, dword_16D6B0, dword_16D6B4, dword_16D6B8, dword_16D6BC, dword_16D6C0, dword_16DA9C
@@ -95,13 +95,13 @@ RosterScreen:
         push dword 0CD0h
         mov dword [dword_1CC234], eax
         lea eax, [byte ebp+042h]
-        push asc_166D24
+        push str_RosterMenu
         mov dword [dword_1CC228], eax
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 0A00h
-        push asc_166D30
+        push str_RosterRegions
         mov ebx, eax
         mov edi, eax
         call AllocMemBlock
@@ -135,7 +135,7 @@ RosterScreen:
         cmp ebx, byte 28h
         jl short .2
         call InitRosterScreen
-        push asc_166D3F
+        push str_BACK11
         push dword [dword_1CC2C4]
         call FindShape
         mov dword [byte ebp+07Ah], eax
@@ -181,7 +181,7 @@ RosterScreen_172:
         mov eax, 1Ch
         call LoadDataFile
         mov dword [dword_1CC2C4], eax
-        mov eax, asc_166D3F
+        mov eax, str_BACK11
         push eax
         push dword [dword_1CC2C4]
         call FindShape
@@ -699,7 +699,7 @@ sub_C7CE8:
         push ecx
         push ebx
         push edx
-        push asc_166D44
+        push str_2dSS
         push eax
         call sprintf_
         add esp, byte 14h
@@ -717,7 +717,7 @@ sub_C7CE8:
         jmp short .6
 .7:
         push dword [byte ebp+0Ch]
-        push asc_166D4F
+        push str_2d2
         mov byte [esi+eax], 0
         lea eax, [byte ebp-014h]
         push eax
@@ -787,7 +787,7 @@ LoadRosterInfoAnim:
         cmp dword [dword_1CC238], byte 0
         jne near .5
         push ebx
-        push asc_166D53
+        push str_RosinfoAna
         call sub_106DA0
         add esp, byte 8
         mov dword [dword_1CC2AC], eax
@@ -815,7 +815,7 @@ LoadRosterInfoAnim:
 .4:
         cmp eax, dword [dword_1CC230]
         jl short .1
-        mov eax, asc_166D53
+        mov eax, str_RosinfoAna
         call sub_11B98E
 .5:
         mov eax, ebx
@@ -837,7 +837,7 @@ FreeRosterInfoAnim:
         je short FreeRosterInfoAnim_4A
         push dword [dword_1CC23C]
         push dword [dword_1CC2AC]
-        push asc_166D53
+        push str_RosinfoAna
         call sub_11B104
         add esp, byte 0Ch
         test eax, eax
@@ -871,7 +871,7 @@ AllocRosterInfo:
         push byte 0
         push ebx
         mov esi, 1
-        push asc_166D60
+        push str_RosPlrInfo
         mov dword [dword_1CC238], esi
         mov dword [dword_1CC23C], ebx
         call AllocMemBlock
@@ -884,7 +884,7 @@ AllocRosterInfo:
         imul ebx, dword 194Fh
         push byte 20h
         push ebx
-        push asc_166D6B
+        push str_SeasRosArray
         call AllocMemBlock
         add esp, byte 0Ch
         xor edx, edx
@@ -1553,7 +1553,7 @@ InitRosterData:
 .8:
         push byte 20h
         push dword 7D0h
-        push asc_166D78
+        push str_DeletionIndices
         mov dword [dword_1CC2B0], 1
         mov dword [dword_1CC2A4], 0
         call AllocMemBlock
@@ -1562,7 +1562,7 @@ InitRosterData:
         push dword 5281Ch
         mov ebx, 5281Ch
         mov dword [dword_1CC23C], 5281Ch
-        push asc_166D89
+        push str_RosterPlayerInfo
         mov dword [dword_1CC238], 1
         mov dword [dword_1CC2A8], eax
         call AllocMemBlock
@@ -2108,7 +2108,7 @@ DrawRosterList:
         call sub_8E870
         movzx eax, al
         push eax
-        push asc_166D9C
+        push str_CDCS2
         lea eax, [byte ebp-01Eh]
         push eax
         call sprintf_
@@ -2232,7 +2232,7 @@ DrawRosterList:
         call sub_8E870
         movzx eax, al
         push eax
-        push asc_166D9C
+        push str_CDCS2
         lea eax, [byte ebp-01Eh]
         push eax
         call sprintf_
@@ -2385,7 +2385,7 @@ DrawRosterList:
         call sub_8E870
         movzx eax, al
         push eax
-        push asc_166D9C
+        push str_CDCS2
         lea eax, [byte ebp-01Eh]
         push eax
         call sprintf_
@@ -2459,7 +2459,7 @@ DrawRosterList:
         call sub_8E870
         movzx eax, al
         push eax
-        push asc_166D9C
+        push str_CDCS2
         lea eax, [byte ebp-01Eh]
         push eax
         call sprintf_
@@ -2877,12 +2877,12 @@ InitRosterScreen:
         call sub_419B8
         mov eax, 1Ch
         call LoadDataFile
-        push asc_166D3F
+        push str_BACK11
         push eax
         mov dword [dword_1CC2C4], eax
         call FindShape
         add esp, byte 8
-        push asc_166DAE
+        push str_TITL11
         mov esi, eax
         mov dword [byte ebp-04h], eax
         push dword [dword_1CC2C0]
@@ -3047,7 +3047,7 @@ sub_C9DDF:
         push esi
         push edi
         enter 1Ch, 0
-        push asc_166DB3
+        push str_MTR2
         push dword [dword_1CC2C4]
         call FindShape
         add esp, byte 8
@@ -3169,37 +3169,37 @@ sub_C9F18:
         push edi
         enter 0Ch, 0
         push dword_1CC18C
-        push asc_166DB8
+        push str_TR00TR01TR02TR03
         push dword [dword_1CC2C0]
         call FindShapeList
         add esp, byte 0Ch
         push dword_1CC1AC
-        push asc_166DC9
+        push str_DF00DF01DF02DF03
         push dword [dword_1CC2C0]
         call FindShapeList
         add esp, byte 0Ch
         push dword_1CC19C
-        push asc_166DDA
+        push str_CM00CM01CM02CM03
         push dword [dword_1CC2C0]
         mov ebx, str_TR00
         call FindShapeList
         add esp, byte 0Ch
-        mov ecx, asc_166DF0
+        mov ecx, str_TR01
         mov edx, dword [dword_1CC20C]
         push str_TR00
         mov eax, dword [dword_1CC2C0]
         add edx, 0F6h
         call sub_D0098
-        push asc_166DF5
-        mov ecx, asc_166DF5
+        push str_DF002
+        mov ecx, str_DF002
         mov edx, dword [dword_1CC20C]
         mov eax, dword [dword_1CC2C0]
         add edx, 148h
         mov ebx, ecx
         call sub_D0098
-        push asc_166DFA
-        mov ecx, asc_166DFF
-        mov ebx, asc_166DFA
+        push str_CM002
+        mov ecx, str_CM012
+        mov ebx, str_CM002
         mov edx, dword [dword_1CC20C]
         mov eax, dword [dword_1CC2C0]
         add edx, 19Ah
@@ -3213,16 +3213,16 @@ sub_C9F18:
         imul eax, byte 52h
         test edx, edx
         jne short .2
-        push asc_166E04
-        mov ecx, asc_166E04
+        push str_GB00
+        mov ecx, str_GB00
         mov edx, dword [dword_1CC20C]
         mov ebx, ecx
         jmp short .3
 .2:
-        push asc_166E09
-        mov ecx, asc_166E09
+        push str_LD002
+        mov ecx, str_LD002
         mov edx, dword [dword_1CC20C]
-        mov ebx, asc_166E0E
+        mov ebx, str_LB004
 .3:
         add edx, eax
         mov eax, dword [dword_1CC2C0]
@@ -3279,32 +3279,32 @@ sub_C9F18:
         call sub_CA44C
         cmp esi, byte 2
         jl short .4
-        push asc_166E13
-        mov ecx, asc_166E18
-        mov ebx, asc_166E1D
+        push str_ATL2
+        mov ecx, str_ATL1
+        mov ebx, str_ATL0
         mov edx, dword [dword_1CC20C]
         mov eax, dword [dword_1CC2C4]
         add edx, 334h
         call sub_D0098
-        push asc_166E22
-        mov ecx, asc_166E27
-        mov ebx, asc_166E2C
+        push str_ATL5
+        mov ecx, str_ATL4
+        mov ebx, str_ATL3
         mov edx, dword [dword_1CC20C]
         mov eax, dword [dword_1CC2C4]
         add edx, 386h
         mov dword [byte ebp-0Ch], 0B4h
         call sub_D0098
-        push asc_166E31
-        mov ecx, asc_166E36
-        mov ebx, asc_166E3B
+        push str_ATR2
+        mov ecx, str_ATR1
+        mov ebx, str_ATR0
         mov edx, dword [dword_1CC20C]
         mov eax, dword [dword_1CC2C4]
         add edx, 3D8h
         mov dword [byte ebp-04h], 16h
         call sub_D0098
-        push asc_166E40
-        mov ecx, asc_166E45
-        mov ebx, asc_166E4A
+        push str_ATR5
+        mov ecx, str_ATR4
+        mov ebx, str_ATR3
         mov edx, dword [dword_1CC20C]
         mov eax, dword [dword_1CC2C4]
         add edx, 42Ah
@@ -3374,7 +3374,7 @@ sub_CA206:
 .4:
         add eax, byte 5
         push eax
-        push asc_166E4F
+        push str_LB02d5
         lea eax, [byte ebp-08h]
         push eax
         call sprintf_
@@ -3420,27 +3420,27 @@ sub_CA2A7:
         xor ebx, ebx
         test byte [byte edx+eax+06Ah], 8
         je short .1
-        push asc_166E56
+        push str_LB04
         push dword [dword_1CC2C0]
         call FindShape
         add esp, byte 8
         mov edx, eax
         mov eax, dword [dword_1CC234]
-        push asc_166E5B
+        push str_LD04
         mov dword [eax], edx
         push dword [dword_1CC2C0]
         call FindShape
         add esp, byte 8
         mov edx, eax
         mov eax, dword [dword_1CC228]
-        push asc_166E60
+        push str_LB02
         mov dword [eax], edx
         push dword [dword_1CC2C0]
         call FindShape
         add esp, byte 8
         mov edx, eax
         mov eax, dword [dword_1CC234]
-        push asc_166E65
+        push str_LD02
         mov dword [byte eax+08h], edx
         push dword [dword_1CC2C0]
         call FindShape
@@ -3449,7 +3449,7 @@ sub_CA2A7:
         mov ebx, 1
         jmp short .2
 .1:
-        push asc_166E6A
+        push str_GB04
         push dword [dword_1CC2C0]
         call FindShape
         mov edx, eax
@@ -3457,7 +3457,7 @@ sub_CA2A7:
         mov dword [eax], edx
         add esp, byte 8
         mov eax, dword [dword_1CC234]
-        push asc_166E6F
+        push str_GB02
         mov dword [eax], edx
         push dword [dword_1CC2C0]
         call FindShape
@@ -3470,27 +3470,27 @@ sub_CA2A7:
         mov dword [byte eax+08h], edx
         cmp dword [dword_1CC208], byte 0
         jne short .3
-        push asc_166E74
+        push str_LB03
         push dword [dword_1CC2C0]
         call FindShape
         add esp, byte 8
         mov edx, eax
         mov eax, dword [dword_1CC234]
-        push asc_166E79
+        push str_LD03
         mov dword [byte eax+04h], edx
         push dword [dword_1CC2C0]
         call FindShape
         add esp, byte 8
         mov edx, eax
         mov eax, dword [dword_1CC228]
-        push asc_166E7E
+        push str_LB01
         mov dword [byte eax+04h], edx
         push dword [dword_1CC2C0]
         call FindShape
         add esp, byte 8
         mov edx, eax
         mov eax, dword [dword_1CC234]
-        push asc_166E83
+        push str_LD01
         mov dword [byte eax+0Ch], edx
         push dword [dword_1CC2C0]
         call FindShape
@@ -3499,7 +3499,7 @@ sub_CA2A7:
         mov ebx, 1
         jmp short .4
 .3:
-        push asc_166E88
+        push str_GB03
         push dword [dword_1CC2C0]
         call FindShape
         mov edx, eax
@@ -3507,7 +3507,7 @@ sub_CA2A7:
         mov dword [byte eax+04h], edx
         add esp, byte 8
         mov eax, dword [dword_1CC234]
-        push asc_166E8D
+        push str_GB01
         mov dword [byte eax+04h], edx
         push dword [dword_1CC2C0]
         call FindShape
@@ -3809,7 +3809,7 @@ sub_CA758:
         call sub_8E870
         movzx eax, al
         push eax
-        push asc_166D9C
+        push str_CDCS2
         lea eax, [byte ebp-0Ah]
         push eax
         call sprintf_
@@ -3851,7 +3851,7 @@ sub_CA758:
         call sub_8E870
         movzx eax, al
         push eax
-        push asc_166D9C
+        push str_CDCS2
         lea eax, [byte ebp-0Ah]
         push eax
         call sprintf_
@@ -3884,7 +3884,7 @@ sub_CA758:
         call sub_8E870
         movzx eax, al
         push eax
-        push asc_166D9C
+        push str_CDCS2
         lea eax, [byte ebp-0Ah]
         push eax
         call sprintf_
@@ -3918,7 +3918,7 @@ sub_CA758:
         call sub_8E870
         movzx eax, al
         push eax
-        push asc_166D9C
+        push str_CDCS2
         lea eax, [byte ebp-0Ah]
         push eax
         call sprintf_
@@ -4137,14 +4137,14 @@ sub_CABF2:
         add esp, byte 8
         mov edx, eax
         mov eax, dword [dword_1CC20C]
-        push asc_166DF0
+        push str_TR01
         mov dword [dword eax+0110h], edx
         push dword [dword_1CC2C0]
         call FindShape
         add esp, byte 8
         mov edx, eax
         mov eax, dword [dword_1CC20C]
-        push asc_166DF0
+        push str_TR01
         mov dword [dword eax+0114h], edx
         push dword [dword_1CC2C0]
         call FindShape
@@ -4156,7 +4156,7 @@ sub_CABF2:
         pop ecx
         ret
 .3:
-        push asc_166E92
+        push str_TR04
         push dword [dword_1CC2C0]
         call FindShape
         mov edx, eax
@@ -4331,7 +4331,7 @@ sub_CACE0:
         call sub_CA2A7
         test eax, eax
         jne short .8
-        push asc_166E04
+        push str_GB00
         push dword [dword_1CC2C0]
         call FindShape
         mov edx, eax
@@ -4344,13 +4344,13 @@ sub_CACE0:
         mov dword [byte edi+eax+01Ah], edx
         jmp short .9
 .8:
-        push asc_166E0E
+        push str_LB004
         push dword [dword_1CC2C0]
         call FindShape
         add esp, byte 8
         mov edx, eax
         mov eax, dword [dword_1CC20C]
-        push asc_166E09
+        push str_LD002
         mov dword [byte edi+eax+01Ah], edx
         push dword [dword_1CC2C0]
         call FindShape
@@ -5252,7 +5252,7 @@ sub_CB9C9:
         push eax
         add ebx, byte 77h
         push ebx
-        push asc_166E97
+        push str_SS11
         lea eax, [byte ebp-074h]
         push eax
         mov edx, dword [byte ebp-010h]
@@ -7428,14 +7428,14 @@ JerseyScreen:
         push dword 2008h
         mov dword [dword_1CC2B4], eax
         mov eax, dword [byte ebp+05Eh]
-        push asc_166EA0
+        push str_JerseyMenu
         mov dword [dword_1CC2B8], eax
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 1900h
         mov esi, 1
-        push asc_166EAC
+        push str_JerseyMenuRegions
         mov ebx, eax
         mov edi, eax
         call AllocMemBlock
@@ -7851,7 +7851,7 @@ sub_CDBE5:
         push edx
         add eax, byte 18h
         push eax
-        push asc_166E97
+        push str_SS11
         push ecx
         call sprintf_
         add esp, byte 10h
@@ -9189,7 +9189,7 @@ DrawCreatePlayerName:
         je near .3
         cmp byte [byte edx+067h], 0
         je near .3
-        push asc_166EC0
+        push str_NAM1
         push eax
         call FindShape
         add esp, byte 8
@@ -9235,7 +9235,7 @@ DrawCreatePlayerName:
         push eax
         movzx eax, byte [byte edi+077h]
         push eax
-        push asc_166EC5
+        push str_CS2
 .1:
         push byte 4
         push byte 20h
@@ -9246,10 +9246,10 @@ DrawCreatePlayerName:
 .2:
         push eax
         push ebx
-        push asc_166E97
+        push str_SS11
         jmp short .1
 .3:
-        push asc_166ECC
+        push str_NAOF
 DrawCreatePlayerName_D4:
         push eax
         call FindShape
@@ -9372,39 +9372,39 @@ DrawCreatePlayerPosition:
         je short .6
         jmp near .8
 .2:
-        push asc_166ED1
+        push str_GOOF
         push ebx
         call FindShape
         add esp, byte 8
-        push asc_166ED6
+        push str_GOON
         jmp short .7
 .3:
-        push asc_166EDB
+        push str_LWOF
         push ebx
         call FindShape
         add esp, byte 8
-        push asc_166EE0
+        push str_LWON
         jmp short .7
 .4:
-        push asc_166EE5
+        push str_RWOF
         push ebx
         call FindShape
         add esp, byte 8
-        push asc_166EEA
+        push str_RWON
         jmp short .7
 .5:
-        push asc_166EEF
+        push str_CEOF
         push ebx
         call FindShape
         add esp, byte 8
-        push asc_166EF4
+        push str_CEON
         jmp short .7
 .6:
-        push asc_166EF9
+        push str_DEOF
         push ebx
         call FindShape
         add esp, byte 8
-        push asc_166EFE
+        push str_DEON
 .7:
         push ebx
         mov edi, eax
@@ -9440,34 +9440,34 @@ DrawCreatePlayerHand:
         jne short .2
         cmp byte [byte edx+02h], 47h
         je short .1
-        push asc_166F03
+        push str_SROF
         push ebx
         call FindShape
         add esp, byte 8
-        push asc_166F08
+        push str_SRON
         jmp short .4
 .1:
-        push asc_166F0D
+        push str_GROF
         push ebx
         call FindShape
         add esp, byte 8
-        push asc_166F12
+        push str_GRON
         jmp short .4
 .2:
         cmp byte [byte edx+02h], 47h
         je short .3
-        push asc_166F17
+        push str_SLOF
         push ebx
         call FindShape
         add esp, byte 8
-        push asc_166F1C
+        push str_SLON
         jmp short .4
 .3:
-        push asc_166F21
+        push str_GLOF
         push ebx
         call FindShape
         add esp, byte 8
-        push asc_166F26
+        push str_GLON
 .4:
         push ebx
         mov edi, eax
@@ -9491,7 +9491,7 @@ sub_CEF6E:
         mov ebx, dword [byte ebp+010h]
         cmp byte [dword edx+091h], 0
         je short .1
-        push asc_166F2B
+        push str_POB1
         push eax
         call FindShape
         add esp, byte 8
@@ -9527,7 +9527,7 @@ sub_CEF6E:
         add esp, byte 14h
         jmp near DrawCreatePlayerName_110
 .1:
-        push asc_166F33
+        push str_PBOF
         jmp near DrawCreatePlayerName_D4
 ;-----------------------------------------------------------------------------
 ; DrawCreatePlayerHeight                          CF005  97 PC, low confidence
@@ -9750,7 +9750,7 @@ sub_CF255:
         mov dword [byte ebp-014h], 3
         cmp dword [dword_1CC1E0], byte 1
         jne short .1
-        push asc_166F38
+        push str_STSP
         push eax
         call FindShape
         add esp, byte 8
@@ -9758,7 +9758,7 @@ sub_CF255:
         mov dword [byte ebp-018h], 0Eh
         jmp short .2
 .1:
-        push asc_166F3D
+        push str_STSG
         push eax
         call FindShape
         add esp, byte 8
@@ -10083,7 +10083,7 @@ sub_CF626:
 .2:
         mov eax, dword [dword_16D67C]
         push eax
-        push asc_166F42
+        push str_AN02d
         lea edx, [byte ebp-08h]
         inc eax
         push edx
@@ -10203,12 +10203,12 @@ CreatePlayerScreen:
         xor edi, edi
         push edi
         push dword 0CD0h
-        push asc_166F49
+        push str_CreatePlrMenu
         call AllocMemBlock
         add esp, byte 0Ch
         push edi
         push dword 0A00h
-        push asc_166F59
+        push str_CreatePlrRegion
         mov dword [byte ebp+072h], eax
         mov dword [dword_1CC1FC], eax
         call AllocMemBlock
@@ -10612,7 +10612,7 @@ CreatePlayerScreen:
         xor edx, edx
         mov eax, 4Ch
         call LoadDataFile
-        push asc_166F6B
+        push str_00008
         push eax
         mov dword [byte ebp+062h], eax
         mov dword [dword_1CC1F0], eax
@@ -10631,7 +10631,7 @@ CreatePlayerScreen:
         push dword [byte ebp+066h]
         call BlitShape
         add esp, byte 4
-        push asc_166DAE
+        push str_TITL11
         push dword [byte ebp+05Eh]
         call FindShape
         add esp, byte 8
@@ -11119,13 +11119,13 @@ InitCreatePlayerScreen:
         call sub_419B8
         mov eax, 4Dh
         call LoadDataFile
-        push asc_166F6B
+        push str_00008
         push edi
         mov dword [byte ebp-018h], eax
         mov dword [byte ebp-0Ch], eax
         call FindShape
         add esp, byte 8
-        push asc_166DAE
+        push str_TITL11
         mov dword [byte ebp-020h], eax
         push dword [byte ebp-018h]
         mov dword [byte ebp-01Ch], eax
@@ -11137,7 +11137,7 @@ InitCreatePlayerScreen:
         mov dword [byte ebp-028h], eax
         call CreateBitmap
         add esp, byte 0Ch
-        push asc_166ECC
+        push str_NAOF
         push dword [byte ebp-018h]
         mov dword [byte ebp-024h], eax
         call FindShape
@@ -11214,22 +11214,22 @@ InitCreatePlayerScreen:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_166F70
+        push str_NAON
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
         mov edi, dword [byte ebp-08h]
         push eax
-        mov ebx, asc_166F7A
+        mov ebx, str_JNOF
         add edi, 148h
         call BlitArt
         mov eax, dword [byte esi+04h]
         mov edx, dword [byte ebp-010h]
         add esp, byte 0Ch
         mov eax, dword [byte eax+02Ch]
-        mov ecx, asc_166F75
+        mov ecx, str_JNON
         mov dword [byte edx+022h], eax
-        push asc_166F75
+        push str_JNON
         mov dword [byte edx+01Eh], eax
         mov eax, dword [byte ebp-018h]
         mov edx, edi
@@ -11243,14 +11243,14 @@ InitCreatePlayerScreen:
         mov dword [byte eax+010h], 280h
         test byte [byte ebp+014h], 1
         je short .2
-        push asc_166EE0
-        mov ecx, asc_166EE0
-        mov ebx, asc_166EDB
+        push str_LWON
+        mov ecx, str_LWON
+        mov ebx, str_LWOF
         jmp short .3
 .2:
-        push asc_166ED6
-        mov ecx, asc_166ED6
-        mov ebx, asc_166ED1
+        push str_GOON
+        mov ecx, str_GOON
+        mov ebx, str_GOOF
 .3:
         mov eax, dword [byte ebp-018h]
         call sub_D0098
@@ -11265,14 +11265,14 @@ InitCreatePlayerScreen:
         add edx, dword [byte ebp-08h]
         test byte [byte ebp+014h], 1
         je short .4
-        push asc_166F1C
-        mov ecx, asc_166F1C
-        mov ebx, asc_166F17
+        push str_SLON
+        mov ecx, str_SLON
+        mov ebx, str_SLOF
         jmp short .5
 .4:
-        push asc_166F26
-        mov ecx, asc_166F26
-        mov ebx, asc_166F21
+        push str_GLON
+        mov ecx, str_GLON
+        mov ebx, str_GLOF
 .5:
         mov eax, dword [byte ebp-0Ch]
         call sub_D0098
@@ -11280,7 +11280,7 @@ InitCreatePlayerScreen:
         add eax, dword [byte ebp-08h]
         mov edx, dword [byte eax+014h]
         mov dword [byte edx+08h], 280h
-        push asc_166F33
+        push str_PBOF
         mov eax, dword [byte eax+014h]
         push dword [byte ebp-0Ch]
         mov dword [byte eax+010h], 280h
@@ -11361,7 +11361,7 @@ InitCreatePlayerScreen:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_166F7F
+        push str_PBON
         push dword [byte ebp-0Ch]
         call FindShape
         add esp, byte 8
@@ -11370,13 +11370,13 @@ InitCreatePlayerScreen:
         call BlitArt
         mov eax, dword [byte esi+0Ch]
         imul esi, dword [byte ebp-04h], byte 52h
-        mov ebx, asc_166F89
+        mov ebx, str_HEOF
         mov edx, dword [byte ebp-014h]
         add esp, byte 0Ch
         mov eax, dword [byte eax+02Ch]
-        mov ecx, asc_166F84
+        mov ecx, str_HEON
         mov dword [byte edx+022h], eax
-        push asc_166F84
+        push str_HEON
         mov dword [byte edx+01Eh], eax
         add esi, dword [byte ebp-08h]
         mov eax, dword [byte ebp-0Ch]
@@ -11387,9 +11387,9 @@ InitCreatePlayerScreen:
         inc dword [byte ebp-04h]
         mov eax, dword [byte esi+014h]
         imul esi, dword [byte ebp-04h], byte 52h
-        push asc_166F8E
-        mov ecx, asc_166F8E
-        mov ebx, asc_166F93
+        push str_WEON
+        mov ecx, str_WEON
+        mov ebx, str_WEOF
         mov dword [byte eax+010h], 280h
         add esi, dword [byte ebp-08h]
         mov eax, dword [byte ebp-0Ch]
@@ -11400,9 +11400,9 @@ InitCreatePlayerScreen:
         inc dword [byte ebp-04h]
         mov eax, dword [byte esi+014h]
         imul esi, dword [byte ebp-04h], byte 52h
-        push asc_166F98
-        mov ecx, asc_166F98
-        mov ebx, asc_166F9D
+        push str_AGON
+        mov ecx, str_AGON
+        mov ebx, str_AGOF
         mov dword [byte eax+010h], 280h
         add esi, dword [byte ebp-08h]
         mov eax, dword [byte ebp-0Ch]
@@ -12110,18 +12110,18 @@ BuildTradePlayerLists:
         enter 360h, 0
         push byte 0
         push dword 3CFh
-        push asc_166FA2
+        push str_Aiplayers
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 5F5h
-        push asc_166FAC
+        push str_Statplayers
         mov dword [byte ebp-08h], eax
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 0B7h
-        push asc_166FB8
+        push str_Statgoalies
         mov dword [byte ebp-04h], 0
         mov dword [byte ebp-0Ch], eax
         call AllocMemBlock

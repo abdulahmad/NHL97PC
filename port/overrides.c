@@ -82,14 +82,16 @@ void host_set_deadline(uint32_t ticks)
 __asm__(".text\n\t.globl " SYM("host_safe_spin") "\n" SYM("host_safe_spin") ":\n\t"
         "1:\n\tpause\n\tdecl %ecx\n\tjnz 1b\n\tret\n\t"
         ".globl " SYM("host_safe_spin_end") "\n" SYM("host_safe_spin_end") ":\n\tnop\n");
+void host_idle_once(void)                   /* one wait step on the game thread: interrupts can come meanwhile */
+{
+    if (irq_deliverable()) {
+        uint32_t n = 4000;                        /* a few hundred microseconds: the main thread kicks about every millisecond */
+        __asm__ volatile("call " SYM("host_safe_spin") : "+c"(n) : : "memory", "cc");
+    } else plat_sleep_ms(1);
+}
 void host_wait_until(volatile uint32_t *count, uint32_t until)
 {
-    while ((int32_t)(*count - until) < 0) {
-        if (irq_deliverable()) {
-            uint32_t n = 4000;                    /* a few hundred microseconds: the main thread kicks about every millisecond */
-            __asm__ volatile("call " SYM("host_safe_spin") : "+c"(n) : : "memory", "cc");
-        } else plat_sleep_ms(1);
-    }
+    while ((int32_t)(*count - until) < 0) host_idle_once();
 }
 
 void host_wait_ticks(uint32_t ticks)

@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_43578 progbits alloc exec nowrite align=1
-extern __CHK, __CHP, asc_160CCC, asc_160D20, asc_160D38, asc_160D70, asc_160D7C, asc_160D88
-extern asc_160D94, asc_160DA0, asc_160DB0, asc_160DC0, asc_160DC4, asc_160DCC, asc_160F3C, asc_1610DC
-extern asc_161158, byte_1AC81B, byte_1C14BD, byte_1C315C, byte_1C35E0, byte_1C527F, dword_16923C, dword_169248
+extern __CHK, __CHP, str_GAMEDATAAUDPBP3TSF, str_TEMP, str_KTSF, str_03dDAT, str_03dHDR, str_TEMPBANK
+extern str_EVENTDAT, str_CBANK03dHDR, str_TEAM04dHDR, str_PBP, str_Mous, str_Remo, str_PlayByPlayNeedsToBeInstal, str_PlayByPlayNeedsToBeInstal2
+extern str_InstallingPlayByPlay, byte_1AC81B, byte_1C14BD, byte_1C315C, byte_1C35E0, byte_1C527F, dword_16923C, dword_169248
 extern dword_16924C, dword_169250, dword_1697B8, dword_169818, dword_1AC380, dword_1AC3D8, dword_1AC5C8, dword_1AC5CC
 extern dword_1AC5D0, dword_1AC5D4, dword_1AC778, dword_1AC77C, dword_1AC780, dword_1AC7A4, dword_1AC7A8, dword_1AC7AC
 extern dword_1AC7B0, dword_1AC7C8, dword_1AC7CC, dword_1AC7D0, dword_1AC814, dword_1AC944, dword_1C13FB, dword_1C13FF
@@ -23,7 +23,7 @@ extern CommentaryEvent_1871, CommentaryEvent_189C, CommentaryEvent_18A1, Comment
 extern CommentaryEvent_1A44, CommentaryEvent_1B16, CommentaryEvent_1B57, CommentaryEvent_1B97, CommentaryEvent_1BF5, CommentaryEvent_1C3D, CommentaryEvent_1CB2, CommentaryEvent_1DD1
 extern CommentaryEvent_1E49, CommentaryEvent_1ECB, CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, off_169780, off_1697BC, off_169814
 extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, strcmp_, strcpy_
-extern sub_100940, bcopy, FindShape, sub_106036, sub_106D08, sub_1070B0, sub_1086BF, sub_10884C
+extern SortIndices, bcopy, FindShape, sub_106036, sub_106D08, sub_1070B0, sub_1086BF, sub_10884C
 extern sub_109775, sub_1097F0, sub_42550, sub_425CC, sub_42910, sub_42960, sub_42C38, sub_42D38
 extern OpenSpeechBanks, sub_431E8, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7D539
 extern SetTextColor, sub_7F5B8, sub_81678, sub_83314, sub_834EC, sub_83558, sub_842F4, sub_8BE60
@@ -110,7 +110,7 @@ LoadSpeechBank:
         add esp, byte 4
         mov edx, dword [esi+eax]
         push edx
-        push asc_160D70
+        push str_03dDAT
         lea eax, [byte esp+058h]
         push eax
         call sprintf_
@@ -245,7 +245,7 @@ LoadSpeechBank:
         add esp, byte 4
         mov ecx, dword [ebx+eax]
         push ecx
-        push asc_160D7C
+        push str_03dHDR
         lea eax, [byte esp+058h]
         push eax
         call sprintf_
@@ -530,7 +530,7 @@ InitSpeechBanks:
         push byte 20h
         lea eax, [nosplit esi*8+00h]
         push eax
-        push asc_160D20
+        push str_TEMP
         call sub_FAAB4
         add esp, byte 0Ch
         mov ebx, eax
@@ -652,12 +652,12 @@ InitSpeechBanks:
         push esi
         mov edi, dword [dword_1AC7A8]
         push edi
-        call sub_100940
+        call SortIndices
         add esp, byte 0Ch
         call sub_E341C
         push byte 20h
         push dword 578h
-        push asc_160D88
+        push str_TEMPBANK
         call AllocMemBlock
         mov dword [dword_1AC7CC], eax
         mov eax, dword [dword_1AC7A8]
@@ -674,7 +674,7 @@ InitSpeechBanks:
         push eax
         call sub_FC330
         add esp, byte 4
-        push asc_160D94
+        push str_EVENTDAT
         call sub_106D08
         add esp, byte 4
         add edi, 81Ah
@@ -687,7 +687,7 @@ InitSpeechBanks:
 .33:
         mov ecx, dword [dword esp+0164h]
         push ecx
-        push asc_160DA0
+        push str_CBANK03dHDR
         lea eax, [dword esp+015Ch]
         push eax
         call sprintf_
@@ -714,7 +714,7 @@ InitSpeechBanks:
         jl short .33
         mov eax, dword [dword esp+0170h]
         push eax
-        push asc_160DB0
+        push str_TEAM04dHDR
         lea eax, [dword esp+015Ch]
         push eax
         call sprintf_
@@ -732,7 +732,7 @@ InitSpeechBanks:
 .35:
         mov ecx, dword [dword esp+016Ch]
         push ecx
-        push asc_160DB0
+        push str_TEAM04dHDR
         lea eax, [dword esp+015Ch]
         push eax
         call sprintf_
@@ -761,7 +761,7 @@ InitSpeechBanks:
         push byte 0
         add edi, 578h
         push edi
-        push asc_160DC0
+        push str_PBP
         mov dword [dword_16924C], edi
         call AllocMemBlock
         xor edi, edi
@@ -823,7 +823,7 @@ InitSpeechBanks:
         add dword [byte eax+04h], edx
         mov eax, dword [dword esp+0164h]
         push eax
-        push asc_160DA0
+        push str_CBANK03dHDR
         lea eax, [dword esp+015Ch]
         push eax
         call sprintf_
@@ -848,7 +848,7 @@ InitSpeechBanks:
         push ecx
         mov eax, dword [dword_16923C]
         mov edx, dword [dword_1AC5CC]
-        push asc_160DB0
+        push str_TEAM04dHDR
         add edx, eax
         lea eax, [dword esp+015Ch]
         push eax
@@ -869,7 +869,7 @@ InitSpeechBanks:
         add ebp, eax
         mov eax, dword [dword esp+016Ch]
         push eax
-        push asc_160DB0
+        push str_TEAM04dHDR
         lea eax, [dword esp+015Ch]
         push eax
         mov dword [dword_1AC5D4], ebp
@@ -907,7 +907,7 @@ InitSpeechBanks:
         mov eax, 16h
         mov dword [dword_1AC7CC], ebx
         call sub_842F4
-        mov eax, asc_160CCC
+        mov eax, str_GAMEDATAAUDPBP3TSF
         call FileExists
         test eax, eax
         jne short .40
@@ -916,7 +916,7 @@ InitSpeechBanks:
 .40:
         call sub_E341C
         mov edx, dword_1AC7AC
-        mov eax, asc_160CCC
+        mov eax, str_GAMEDATAAUDPBP3TSF
         mov ecx, 1
         call FileOpen
         test eax, eax
@@ -939,7 +939,7 @@ InitSpeechBanks:
         test eax, eax
         je near .43
         xor al, al
-        mov edx, asc_160D38
+        mov edx, str_KTSF
         mov byte [dword esp+0158h], al
         lea eax, [dword esp+0154h]
         call strcmp_
@@ -986,13 +986,13 @@ InitSpeechBanks:
         xor edx, edx
         mov eax, 2Fh
         call LoadDataFileLib
-        push asc_160DCC
+        push str_Remo
         mov ebx, dword [dword_1C5DE4]
         push ebx
         mov dword [dword_1C5EF4], eax
         call FindShape
         add esp, byte 8
-        push asc_160DC4
+        push str_Mous
         mov ecx, dword [dword_1C5DE4]
         push ecx
         mov ebx, eax
@@ -1039,7 +1039,7 @@ InitSpeechBanks:
         mov edx, dword [dword esp+0164h]
         sub edx, eax
         push edx
-        push asc_160F3C
+        push str_PlayByPlayNeedsToBeInstal
 .47:
         lea eax, [byte esp+08h]
         push eax
@@ -1074,7 +1074,7 @@ InitSpeechBanks:
         mov eax, dword [dword esp+0164h]
         sub eax, 400h
         push eax
-        push asc_1610DC
+        push str_PlayByPlayNeedsToBeInstal2
 .51:
         lea eax, [byte esp+08h]
         push eax
@@ -1093,7 +1093,7 @@ InitSpeechBanks:
         add esp, byte 4
         call SetTextColor
         mov edx, esi
-        mov eax, asc_161158
+        mov eax, str_InstallingPlayByPlay
         mov ebx, 1
         call sub_83314
         mov edx, 4
@@ -1113,7 +1113,7 @@ InitSpeechBanks:
         test edx, edx
         je short .53
         mov edx, dword_1AC7AC
-        mov eax, asc_160CCC
+        mov eax, str_GAMEDATAAUDPBP3TSF
         call FileOpen
         mov esi, eax
         jmp short .53
@@ -1209,7 +1209,7 @@ InitSpeechBanks:
         add esp, byte 4
         call sub_E341C
         push edi
-        push asc_160D94
+        push str_EVENTDAT
         call sub_1070B0
         add esp, byte 8
         test eax, eax
@@ -1293,7 +1293,7 @@ InitSpeechBanks:
         cmp dword [dword esp+0164h], 0AFh
         jne near .78
         mov edx, dword_1AC780
-        mov eax, asc_160CCC
+        mov eax, str_GAMEDATAAUDPBP3TSF
         call FileOpen
         test eax, eax
         je near .78
@@ -1357,7 +1357,7 @@ InitSpeechBanks:
         push eax
         push edx
         xor edi, edi
-        call sub_100940
+        call SortIndices
         mov ebx, dword [dword_1AC7A8]
         add esp, byte 0Ch
         add ebx, 0AFh

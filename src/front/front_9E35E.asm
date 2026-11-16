@@ -2,11 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_9E35E progbits alloc exec nowrite align=1
-extern asc_165C10, asc_165C15, asc_165C1A, asc_165C1F, asc_165C24, asc_165C29, asc_165C2E, asc_165C34
-extern asc_165C3A, asc_165C3F, asc_165C44, asc_165C49, asc_165C4E, asc_165C53, asc_165C58, asc_165C5D
-extern asc_165C62, asc_165C67, asc_165C6C, asc_165C71, asc_165C76, asc_165C7B, asc_165C80, asc_165C85
-extern asc_165C8A, asc_165C8F, asc_165C94, asc_165C99, asc_165C9E, asc_165CA3, asc_165CC8, asc_165CF1
-extern asc_165CF6, asc_165CFB, dword_16CFF8, dword_16D23C, dword_16D250, dword_16D76C, dword_16DA9C, dword_1AC944
+extern str_00004, str_HOM1, str_HOM2, str_AWY1, str_AWY2, str_Menu3, str_03dB, str_03dY
+extern str_011R3, str_012R2, str_013R2, str_11SR3, str_12SR2, str_13SR2, str_SW002, str_SWL2
+extern str_SWL3, str_01LL, str_02LL, str_03LL, str_01LR, str_02LR, str_03LR, str_01RL
+extern str_02RL, str_03RL, str_01RR, str_02RR, str_03RR, str_012R013R014R12SR13SR14SRS, str_SW00SW01SW02SW03SW04SW05S, str_1
+extern str_0001, str_0002, dword_16CFF8, dword_16D23C, dword_16D250, dword_16D76C, dword_16DA9C, dword_1AC944
 extern dword_1ACB45, dword_1C1334, dword_1C86FC, dword_1C8E4C, dword_1C8E50, dword_1C8E54, dword_1C8E58, dword_1C8E5C
 extern dword_1C8E60, dword_1C8E64, dword_1C8E88, dword_1C8E8C, dword_1C8E90, dword_1C8E94, dword_1C8E98, dword_1C8E9C
 extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
@@ -39,28 +39,28 @@ DrawHomeTeamPanel:
         add esp, byte 4
         push byte 0FFFFFFB3h
         push byte 0FFFFFFC0h
-        push asc_165C10
+        push str_00004
         push dword [dword_1C8E5C]
         call FindShape
         add esp, byte 8
         push eax
         call DrawArt
         add esp, byte 0Ch
-        push asc_165C15
+        push str_HOM1
         push dword [dword_1C8E58]
         call FindShape
         movsx eax, word [byte eax+0Eh]
         add esp, byte 8
         sub eax, byte 4Dh
         push eax
-        push asc_165C15
+        push str_HOM1
         push dword [dword_1C8E58]
         call FindShape
         movsx eax, word [byte eax+0Ch]
         add esp, byte 8
         sub eax, byte 40h
         push eax
-        push asc_165C15
+        push str_HOM1
         push dword [dword_1C8E58]
         call FindShape
         add esp, byte 8
@@ -93,7 +93,7 @@ DrawHomeTeamPanel:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_165C1A
+        push str_HOM2
         push dword [dword_1C8E58]
         call FindShape
         add esp, byte 8
@@ -118,7 +118,7 @@ DrawHomeTeamPanel:
         neg eax
         push eax
         push byte 0FFFFFFB0h
-        push asc_165C10
+        push str_00004
         push dword [dword_1C8E5C]
         call FindShape
         add esp, byte 8
@@ -195,28 +195,28 @@ DrawAwayTeamPanel:
         add esp, byte 4
         push byte 0FFFFFFB3h
         push dword 0FFFFFE77h
-        push asc_165C10
+        push str_00004
         push dword [dword_1C8E5C]
         call FindShape
         add esp, byte 8
         push eax
         call DrawArt
         add esp, byte 0Ch
-        push asc_165C1F
+        push str_AWY1
         push dword [dword_1C8E58]
         call FindShape
         movsx eax, word [byte eax+0Eh]
         add esp, byte 8
         sub eax, byte 4Dh
         push eax
-        push asc_165C1F
+        push str_AWY1
         push dword [dword_1C8E58]
         call FindShape
         movsx eax, word [byte eax+0Ch]
         add esp, byte 8
         sub eax, 189h
         push eax
-        push asc_165C1F
+        push str_AWY1
         push dword [dword_1C8E58]
         call FindShape
         add esp, byte 8
@@ -249,7 +249,7 @@ DrawAwayTeamPanel:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_165C24
+        push str_AWY2
         push dword [dword_1C8E58]
         call FindShape
         add esp, byte 8
@@ -274,7 +274,7 @@ DrawAwayTeamPanel:
         neg eax
         push eax
         push dword 0FFFFFE5Eh
-        push asc_165C10
+        push str_00004
         push dword [dword_1C8E5C]
         call FindShape
         add esp, byte 8
@@ -381,7 +381,7 @@ sub_9E723:
         push byte 0
         push byte 6Ah
         push byte 57h
-        push asc_165C1A
+        push str_HOM2
         push dword [dword_1C8E58]
         call FindShape
         mov edx, 0Ch
@@ -416,7 +416,7 @@ sub_9E723:
         push byte 0
         push byte 6Ah
         push byte 5Fh
-        push asc_165C24
+        push str_AWY2
         push dword [dword_1C8E58]
         call FindShape
         mov edx, 0Ch
@@ -469,7 +469,7 @@ TeamSelectScreen:
         sub ebp, 82h
         push byte 0
         push dword 42Ah
-        push asc_165C29
+        push str_Menu3
         mov dword [byte ebp+072h], 0FFFFFFFFh
         call AllocMemBlock
         add esp, byte 0Ch
@@ -551,7 +551,7 @@ TeamSelectScreen:
         mov dword [dword_1C8E58], eax
 .6:
         push ebx
-        push asc_165C2E
+        push str_03dB
         lea eax, [byte ebp+05Eh]
         push eax
         call sprintf_
@@ -562,7 +562,7 @@ TeamSelectScreen:
         call FindShape
         add esp, byte 8
         push ebx
-        push asc_165C34
+        push str_03dY
         mov dword [dword ebp+ebx*4-014Eh], eax
         lea eax, [byte ebp+05Eh]
         push eax
@@ -580,7 +580,7 @@ TeamSelectScreen:
         mov ebx, 1Ch
 .7:
         push ebx
-        push asc_165C2E
+        push str_03dB
         lea eax, [byte ebp+05Eh]
         push eax
         call sprintf_
@@ -591,7 +591,7 @@ TeamSelectScreen:
         call FindShape
         add esp, byte 8
         push ebx
-        push asc_165C34
+        push str_03dY
         mov dword [dword ebp+ebx*4-014Eh], eax
         lea eax, [byte ebp+05Eh]
         push eax
@@ -617,13 +617,13 @@ TeamSelectScreen:
         mov dword [dword_1C8E88], eax
         call CreateBitmap
         add esp, byte 0Ch
-        push asc_165C10
+        push str_00004
         push dword [dword_1C8E5C]
         mov dword [dword_1C8E8C], eax
         call FindShape
         add esp, byte 8
         mov edi, dword [byte ebp+07Eh]
-        push asc_165C10
+        push str_00004
         mov esi, eax
         mov dword [byte ebp+06Eh], eax
         push dword [dword_1C8E58]
@@ -650,25 +650,25 @@ TeamSelectScreen:
         mov esi, unk_1C5F9C
         lea edi, [dword edi+03D8h]
         rep movsb
-        push asc_165C3A
+        push str_011R3
         mov dword [dword eax+03D8h], 0Ch
         push dword [dword_1C8E58]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C3F
+        push str_012R2
         mov dword [dword edx+0BEh], eax
         push dword [dword_1C8E58]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C44
+        push str_013R2
         mov dword [dword edx+0C2h], eax
         push dword [dword_1C8E58]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C49
+        push str_11SR3
         mov dword [dword edx+0C6h], eax
         lea eax, [dword edx+0C2h]
         push dword [dword_1C8E58]
@@ -677,18 +677,18 @@ TeamSelectScreen:
         mov edx, dword [byte ebp+07Eh]
         add esp, byte 8
         mov dword [dword edx+0110h], eax
-        push asc_165C4E
+        push str_12SR2
         push dword [dword_1C8E58]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C53
+        push str_13SR2
         mov dword [dword edx+0114h], eax
         push dword [dword_1C8E58]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C58
+        push str_SW002
         mov dword [dword edx+0118h], eax
         lea eax, [dword edx+0114h]
         push dword [dword_1C8E58]
@@ -696,19 +696,19 @@ TeamSelectScreen:
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C5D
+        push str_SWL2
         mov dword [dword edx+0162h], eax
         push dword [dword_1C8E58]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C62
+        push str_SWL3
         mov dword [dword edx+0166h], eax
         push dword [dword_1C8E58]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C67
+        push str_01LL
         mov dword [dword edx+016Ah], eax
         lea eax, [dword edx+0166h]
         push dword [dword_1C8E5C]
@@ -716,67 +716,67 @@ TeamSelectScreen:
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C6C
+        push str_02LL
         mov dword [dword edx+01B4h], eax
         push dword [dword_1C8E5C]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C71
+        push str_03LL
         mov dword [dword edx+01B8h], eax
         push dword [dword_1C8E5C]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C76
+        push str_01LR
         mov dword [dword edx+01BCh], eax
         push dword [dword_1C8E5C]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C7B
+        push str_02LR
         mov dword [dword edx+0206h], eax
         push dword [dword_1C8E5C]
         call FindShape
         mov edx, dword [byte ebp+07Eh]
         add esp, byte 8
         mov dword [dword edx+020Ah], eax
-        push asc_165C80
+        push str_03LR
         push dword [dword_1C8E5C]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C85
+        push str_01RL
         mov dword [dword edx+020Eh], eax
         push dword [dword_1C8E5C]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C8A
+        push str_02RL
         mov dword [dword edx+0258h], eax
         push dword [dword_1C8E5C]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C8F
+        push str_03RL
         mov dword [dword edx+025Ch], eax
         push dword [dword_1C8E5C]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C94
+        push str_01RR
         mov dword [dword edx+0260h], eax
         push dword [dword_1C8E5C]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C99
+        push str_02RR
         mov dword [dword edx+02AAh], eax
         push dword [dword_1C8E5C]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
-        push asc_165C9E
+        push str_03RR
         mov dword [dword edx+02AEh], eax
         push dword [dword_1C8E5C]
         call FindShape
@@ -796,14 +796,14 @@ TeamSelectScreen:
         mov eax, dword [dword ebp+eax*4-0C2h]
         push dword_1C8E64
         mov dword [dword ebx+0356h], eax
-        push asc_165CA3
+        push str_012R013R014R12SR13SR14SRS
         mov dword [dword ebx+0352h], eax
         push dword [dword_1C8E58]
         call FindShapeList
         add esp, byte 0Ch
         lea eax, [byte ebp-0Eh]
         push eax
-        push asc_165CC8
+        push str_SW00SW01SW02SW03SW04SW05S
         push dword [dword_1C8E58]
         mov ebx, 2
         call FindShapeList
@@ -845,7 +845,7 @@ TeamSelectScreen:
         push dword [byte ebp+06Ah]
         call BlitShape2
         add esp, byte 4
-        push asc_165CF1
+        push str_1
         push dword [dword_1C8E58]
         call FindShape
         add esp, byte 8
@@ -882,7 +882,7 @@ TeamSelectScreen:
         push byte 0
         push byte 6Ah
         push byte 57h
-        push asc_165CF6
+        push str_0001
         push dword [dword_1C8E5C]
         call FindShape
         mov edx, 0Ch
@@ -910,7 +910,7 @@ TeamSelectScreen:
         push byte 0
         push byte 6Ah
         push byte 5Fh
-        push asc_165CFB
+        push str_0002
         push dword [dword_1C8E5C]
         call FindShape
         mov edx, 0Ch

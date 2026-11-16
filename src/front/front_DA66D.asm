@@ -2,13 +2,13 @@
 bits 32
 %include "hockey.inc"
 section s_DA66D progbits alloc exec nowrite align=1
-extern SetTickDeadline, WaitTickDeadline, __CHK, _dos_getdate_, asc_167465, asc_167472, asc_16747D, asc_167482
-extern asc_167488, asc_167494, asc_16749D, asc_1674A6, asc_1674AF, asc_1674B7, asc_1674BE, asc_1674C8
-extern asc_1674D4, asc_1674D8, asc_1674E4, asc_1674E8, asc_1674F4, asc_167500, asc_16750C, asc_167518
-extern asc_167524, asc_167530, asc_167544, asc_16759C, asc_1675A4, asc_1675AC, asc_1675B8, asc_1675C0
-extern asc_1675CC, asc_1675D4, asc_1675DC, asc_1675E4, asc_1675EC, asc_1675F4, asc_1675FC, asc_167604
-extern asc_16760C, asc_167614, asc_167624, asc_167629, asc_16762E, asc_167633, asc_167638, asc_16763F
-extern asc_167646, asc_16DADC, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, byte_1CD24D, byte_1CD250
+extern SetTickDeadline, WaitTickDeadline, __CHK, _dos_getdate_, str_MEDIABUFFER, str_STATICBUF, str_TEMP2, str_SCHED
+extern str_S08x03x, str_SSSEA, str_SSPLY, str_SSEXH, str_EXHIBIT, str_AGENTS, str_ORIGEXH, str_FILEdelete
+extern str_WB, str_FILEcreate, str_RB, str_FILEopen, str_FILEseek, str_FILEseekend, str_FILEread, str_FILEclose
+extern str_Pktlayer, str_Disconnecting, str_WaitingForOtherComputer, str_IPXMEM, str_NETWORK, str_SERVLIST, str_NHL97, str_GAMEADDR
+extern str_PICKS2, str_REGS2, str_LX003, str_LC003, str_LX0D3, str_LC0D3, str_DTOP, str_DBOT
+extern str_08x, str_KWKJSK122691, str_BACK13, str_MB014, str_MB023, str_MB03, str_AR02d2, str_LT02d2
+extern str_MB004, str_GenericHayesCompatible, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, byte_1CD24D, byte_1CD250
 extern byte_1CD460, byte_1CD75C, dword_1684C0, dword_168E7C, dword_16D788, dword_16D78C, dword_16D790, dword_16D794
 extern dword_16D798, dword_16D79C, dword_16D7A0, dword_16D7A4, dword_16D7A8, dword_16D7D0, dword_16D7D4, dword_16D7D8
 extern dword_16D7F0, dword_16D894, dword_16D898, dword_16D89C, dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0
@@ -37,8 +37,8 @@ extern strcpy_, stricmp_, strlen_, strncpy_, bcopy, BlitShape2, BlitArt, BlitSha
 extern sub_1013FC, FindShape, sub_102B94, sub_106D08, sub_1070B0, sub_107D30, sub_10A68, sub_10AED0
 extern sub_10FAC, sub_1167AE, sub_11A318, sub_11A350, sub_11B104, sub_11B98E, sub_11BFC5, sub_11C134
 extern sub_11C41C, sub_11D2D0, sub_11D364, sub_11D508, sub_11D5C0, sub_11D690, sub_11D780, sub_11D8D8
-extern sub_11DA0C, sub_11DE04, sub_11F850, sub_11F8D0, SetScreenTarget, sub_14140, sub_379AC, sub_37A1C
-extern sub_37F4C, sub_37FC8, sub_419B0, sub_419B8, sub_41A28, sub_41D18, sub_41DB8, WaitMusicEnd
+extern sub_11DA0C, sub_11DE04, sub_11F850, sub_11F8D0, SetScreenTarget, sub_14140, InitPacketLink, ShutdownPacketLink
+extern PacketLinkSend, ClosePacketLink, sub_419B0, sub_419B8, sub_41A28, sub_41D18, sub_41DB8, WaitMusicEnd
 extern ArenaFileName, StopAllSfx, PlaySfx, sub_4AA78, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0
 extern sub_7EF70, SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7F5B8
 extern sub_80BBC, sub_81D1C, sub_83314, sub_834EC, sub_83558, sub_835AC, sub_835BC, sub_83850
@@ -99,7 +99,7 @@ AllocMediaBuffer:
         enter 28h, 0
         push dword 200h
         push byte 19h
-        push asc_167465
+        push str_MEDIABUFFER
         lea ebx, [byte ebp-028h]
         call AllocMemBlock
         lea ecx, [byte ebp-0Ch]
@@ -148,7 +148,7 @@ AllocStaticBuffer:
 .1:
         mov ebx, dword_1CD17C
         mov edx, 67h
-        mov eax, asc_167472
+        mov eax, str_STATICBUF
         call AllocClearBlock20
         test eax, eax
         je short .2
@@ -1337,7 +1337,7 @@ sub_DB508:
         ret
 .1:
         lea ebx, [byte ebp-0Ch]
-        mov eax, asc_16747D
+        mov eax, str_TEMP2
         mov edx, edi
         call AllocClearBlock20
         test eax, eax
@@ -2143,7 +2143,7 @@ sub_DBDC1:
         jle near .6
         mov edx, dword [byte ebp-08h]
         lea ebx, [byte ebp-010h]
-        mov eax, asc_16747D
+        mov eax, str_TEMP2
         shl edx, 3
         call AllocClearBlock
         test eax, eax
@@ -2227,7 +2227,7 @@ sub_DBEB3:
         jle near .6
         mov edx, dword [byte ebp-04h]
         lea ebx, [byte ebp-08h]
-        mov eax, asc_16747D
+        mov eax, str_TEMP2
         shl edx, 3
         call AllocClearBlock
         test eax, eax
@@ -2458,7 +2458,7 @@ sub_DC11A:
         jle short .5
         mov edx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+076h]
-        mov eax, asc_16747D
+        mov eax, str_TEMP2
         shl edx, 3
         call AllocClearBlock
         test eax, eax
@@ -3616,7 +3616,7 @@ sub_DCFB0:
         add eax, byte 24h
         mov ebx, dword [dword ebp+08Eh]
         add edx, eax
-        mov eax, asc_167482
+        mov eax, str_SCHED
         call AllocClearBlock20
         test eax, eax
         je near sub_DCFB0_325
@@ -3776,7 +3776,7 @@ sub_DCFB0:
         xor eax, 0AAAAAAAAh
         push eax
         push dword [off_16D7E0]
-        push asc_167488
+        push str_S08x03x
         lea eax, [byte ebp-012h]
         push eax
         mov ecx, dword [byte ebp+07Ah]
@@ -3908,7 +3908,7 @@ sub_DD2DE:
         add eax, byte 24h
         mov ebx, dword [dword ebp+08Eh]
         add edx, eax
-        mov eax, asc_167482
+        mov eax, str_SCHED
         call AllocClearBlock20
         test eax, eax
         jne short .4
@@ -4083,7 +4083,7 @@ sub_DD2DE:
         xor eax, 0AAAAAAAAh
         push eax
         push dword [off_16D7E0]
-        push asc_167488
+        push str_S08x03x
         lea eax, [byte ebp-016h]
         push eax
         mov ecx, dword [byte ebp+07Ah]
@@ -4193,7 +4193,7 @@ sub_DD61F:
         add eax, byte 24h
         mov ebx, dword [dword ebp+086h]
         add edx, eax
-        mov eax, asc_167482
+        mov eax, str_SCHED
         call AllocClearBlock20
         test eax, eax
         jne short .1
@@ -4358,7 +4358,7 @@ sub_DD61F:
         xor eax, 0AAAAAAAAh
         push eax
         push dword [off_16D7E0]
-        push asc_167488
+        push str_S08x03x
         lea eax, [byte ebp-01Eh]
         push eax
         mov ecx, dword [byte ebp+072h]
@@ -4485,7 +4485,7 @@ sub_DD970:
         shl eax, 4
         add edx, byte 24h
         add edx, eax
-        mov eax, asc_167482
+        mov eax, str_SCHED
         call AllocClearBlock20
         test eax, eax
         jne short .3
@@ -4610,7 +4610,7 @@ sub_DD970:
         xor eax, 0AAAAAAAAh
         push eax
         push dword [off_16D7E0]
-        push asc_167488
+        push str_S08x03x
         lea eax, [byte ebp-0Ah]
         push eax
         mov ecx, dword [byte ebp+07Ah]
@@ -4734,7 +4734,7 @@ sub_DDC4A:
         shl eax, 4
         add edx, byte 24h
         add edx, eax
-        mov eax, asc_167482
+        mov eax, str_SCHED
         call AllocClearBlock20
         test eax, eax
         jne short .3
@@ -4866,7 +4866,7 @@ sub_DDC4A:
         xor eax, 0AAAAAAAAh
         push eax
         push dword [off_16D7E0]
-        push asc_167488
+        push str_S08x03x
         lea eax, [byte ebp-0Eh]
         push eax
         mov ecx, dword [byte ebp+07Eh]
@@ -4995,7 +4995,7 @@ sub_DDC4A_2F0:
         add edx, byte 24h
         shl eax, 4
         add edx, eax
-        mov eax, asc_167482
+        mov eax, str_SCHED
         call AllocClearBlock20
         test eax, eax
         je short sub_DDC4A_2F0
@@ -5123,7 +5123,7 @@ sub_DDC4A_2F0:
         xor eax, 0AAAAAAAAh
         push eax
         push dword [off_16D7E0]
-        push asc_167488
+        push str_S08x03x
         lea eax, [byte ebp-0Ah]
         push eax
         mov ecx, dword [byte ebp+07Eh]
@@ -5446,7 +5446,7 @@ OpenLeagueFile:
         jne short .2
         push dword [off_16D7DC]
         push dword [off_16D7E0]
-        push asc_167494
+        push str_SSSEA
 .1:
         lea eax, [byte ebp-05Ch]
         push eax
@@ -5460,7 +5460,7 @@ OpenLeagueFile:
         jne short .3
         push dword [off_16D7DC]
         push dword [off_16D7E0]
-        push asc_16749D
+        push str_SSPLY
         jmp short .1
 .3:
         push dword [byte eax+04h]
@@ -5468,7 +5468,7 @@ OpenLeagueFile:
         xor eax, 0AAAAAAAAh
         push eax
         push dword [off_16D7E0]
-        push asc_167488
+        push str_S08x03x
         lea eax, [byte ebp-05Ch]
         push eax
         call sprintf_
@@ -5519,7 +5519,7 @@ OpenLeagueFile:
         add eax, byte 24h
         mov ebx, esi
         add edx, eax
-        mov eax, asc_167482
+        mov eax, str_SCHED
         call AllocClearBlock20
         test eax, eax
         je near .13
@@ -5616,7 +5616,7 @@ sub_DE5A3:
         xor eax, 0AAAAAAAAh
         push eax
         push dword [off_16D7E0]
-        push asc_167488
+        push str_S08x03x
         lea eax, [byte ebp-054h]
         push eax
         call sprintf_
@@ -5818,7 +5818,7 @@ sub_DE740:
         lea ebx, [byte ebp-04h]
         call sub_E2334
         mov edx, 329Eh
-        mov eax, asc_16747D
+        mov eax, str_TEMP2
         call AllocClearBlock20
         test eax, eax
         je short .5
@@ -6387,7 +6387,7 @@ sub_DEE95:
         jge short .1
         lea ebx, [byte ebp-08h]
         mov edx, 7D16h
-        mov eax, asc_16747D
+        mov eax, str_TEMP2
         call AllocClearBlock20
         test eax, eax
         je near sub_E036F_A0
@@ -6486,7 +6486,7 @@ sub_DEF96:
         call sub_E341C
         lea ebx, [byte ebp-0Ch]
         mov edx, 329Eh
-        mov eax, asc_16747D
+        mov eax, str_TEMP2
         call AllocClearBlock20
         test eax, eax
         je short .5
@@ -9182,7 +9182,7 @@ LoadExhibitionFile:
         mov ecx, eax
         push dword [off_16D7DC]
         push dword [off_16D7E0]
-        push asc_1674A6
+        push str_SSEXH
         lea eax, [byte ebp-054h]
         push eax
         call sprintf_
@@ -9193,7 +9193,7 @@ LoadExhibitionFile:
         test eax, eax
         je near .5
         mov edx, 383C5h
-        mov eax, asc_1674AF
+        mov eax, str_EXHIBIT
         mov ebx, ecx
         call AllocClearBlock
         test eax, eax
@@ -9223,7 +9223,7 @@ LoadExhibitionFile:
         movsx edx, word [eax]
         imul edx, byte 38h
         lea ebx, [dword eax+0383C1h]
-        mov eax, asc_1674B7
+        mov eax, str_AGENTS
         call AllocClearBlock
         test eax, eax
         je short .1
@@ -9258,7 +9258,7 @@ SaveExhibitionFile:
         mov ecx, eax
         push dword [off_16D7DC]
         push dword [off_16D7E0]
-        push asc_1674A6
+        push str_SSEXH
         lea eax, [byte ebp-054h]
         push eax
         call sprintf_
@@ -9334,7 +9334,7 @@ sub_E12EF:
         mov ecx, eax
         mov edx, 383C5h
         mov ebx, eax
-        mov eax, asc_1674BE
+        mov eax, str_ORIGEXH
         call AllocClearBlock
         test eax, eax
         je near sub_DA7EB_18
@@ -9454,7 +9454,7 @@ sub_E13FE:
         inc eax
         imul edx, eax, byte 38h
         lea ebx, [byte ebp-08h]
-        mov eax, asc_1674B7
+        mov eax, str_AGENTS
         call AllocClearBlock
         test eax, eax
         je near .4
@@ -9560,7 +9560,7 @@ sub_E1563:
         inc eax
         imul edx, eax, byte 38h
         lea ebx, [byte ebp-04h]
-        mov eax, asc_1674B7
+        mov eax, str_AGENTS
         call AllocClearBlock
         test eax, eax
         je near .3
@@ -9671,7 +9671,7 @@ sub_E167A:
         dec eax
         imul edx, eax, byte 38h
         lea ebx, [byte ebp-010h]
-        mov eax, asc_1674B7
+        mov eax, str_AGENTS
         call AllocClearBlock
         test eax, eax
         je near sub_E036F_A0
@@ -9990,7 +9990,7 @@ sub_E19D5:
         xor eax, 0ABCDCBAFh
         push eax
         push dword [off_16D7E0]
-        push asc_167488
+        push str_S08x03x
         lea eax, [byte ebp-0Ah]
         push eax
         call sprintf_
@@ -10074,7 +10074,7 @@ sub_E19D5:
         xor eax, 0ABCDCBAFh
         push eax
         push dword [off_16D7E0]
-        push asc_167488
+        push str_S08x03x
         lea eax, [byte ebp-0Ah]
         push eax
         call sprintf_
@@ -10187,7 +10187,7 @@ OpenReplayFile:
         xor eax, 0ABCDCBAFh
         push eax
         push dword [off_16D7E0]
-        push asc_167488
+        push str_S08x03x
         lea eax, [byte ebp-050h]
         push eax
         call sprintf_
@@ -10306,7 +10306,7 @@ sub_E1D45:
         xor eax, 0ABCDCBAFh
         push eax
         push dword [off_16D7E0]
-        push asc_167488
+        push str_S08x03x
         lea eax, [byte ebp-06h]
         push eax
         call sprintf_
@@ -10404,7 +10404,7 @@ sub_E1EC9:
         xor eax, 0ABCDCBAFh
         push eax
         push dword [off_16D7E0]
-        push asc_167488
+        push str_S08x03x
         lea eax, [byte ebp-06h]
         push eax
         call sprintf_
@@ -10824,7 +10824,7 @@ FileDelete:
         call sub_11B98E
         test eax, eax
         jne short .1
-        mov eax, asc_1674C8
+        mov eax, str_FILEdelete
         xor eax, eax
         pop edx
         pop ecx
@@ -10845,12 +10845,12 @@ FileDelete:
 FileCreate:
         push ebx
         mov ebx, edx
-        mov edx, asc_1674D4
+        mov edx, str_WB
         call fopen_
         mov dword [ebx], eax
         test eax, eax
         jne short .1
-        mov eax, asc_1674D8
+        mov eax, str_FILEcreate
         xor eax, eax
         pop ebx
         ret
@@ -10866,12 +10866,12 @@ FileCreate:
 FileOpen:
         push ebx
         mov ebx, edx
-        mov edx, asc_1674E4
+        mov edx, str_RB
         call fopen_
         mov dword [ebx], eax
         test eax, eax
         jne short .1
-        mov eax, asc_1674E8
+        mov eax, str_FILEopen
         xor eax, eax
         pop ebx
         ret
@@ -10890,7 +10890,7 @@ FileSeek:
         call fseek_
         test eax, eax
         je short .1
-        mov eax, asc_1674F4
+        mov eax, str_FILEseek
         xor eax, eax
         pop ebx
         ret
@@ -10911,7 +10911,7 @@ FileSeekEnd:
         call fseek_
         test eax, eax
         je short .1
-        mov eax, asc_167500
+        mov eax, str_FILEseekend
         xor eax, eax
         pop edx
         pop ebx
@@ -10948,7 +10948,7 @@ FileReadRecord:
         call fread_
         cmp eax, byte 1
         je short .1
-        mov eax, asc_16750C
+        mov eax, str_FILEread
         xor eax, eax
         pop esi
         pop ecx
@@ -10956,7 +10956,7 @@ FileReadRecord:
 .1:
         test byte [byte esi+0Ch], 20h
         je short .2
-        mov eax, asc_16750C
+        mov eax, str_FILEread
         xor eax, eax
         pop esi
         pop ecx
@@ -10983,7 +10983,7 @@ FileWriteRecord:
         call fwrite_
         cmp eax, byte 1
         je short .1
-        mov eax, asc_16750C
+        mov eax, str_FILEread
         xor eax, eax
         pop esi
         pop ecx
@@ -10991,7 +10991,7 @@ FileWriteRecord:
 .1:
         test byte [byte esi+0Ch], 20h
         je short .2
-        mov eax, asc_16750C
+        mov eax, str_FILEread
         xor eax, eax
         pop esi
         pop ecx
@@ -11013,7 +11013,7 @@ FileClose:
         call fclose_
         test eax, eax
         je short .1
-        mov eax, asc_167518
+        mov eax, str_FILEclose
         xor eax, eax
         pop edx
         ret
@@ -12751,7 +12751,7 @@ sub_E3798:
         push eax
         mov eax, dword [dword_1CD2A4]
         push eax
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne near .9
@@ -12917,7 +12917,7 @@ NetInit:
 .2:
         push byte 20h
         push ebx
-        push asc_167524
+        push str_Pktlayer
         call AllocMemBlock
         add esp, byte 0Ch
         push dword 14Ah
@@ -12998,7 +12998,7 @@ sub_E3AFC:
         push unk_1CD2BA
         call ZeroMem
         add esp, byte 8
-        call sub_379AC
+        call InitPacketLink
         test byte [dword esi+08Dh], 1
         je near .4
         mov ebx, 1
@@ -13022,7 +13022,7 @@ sub_E3AFC:
         test eax, eax
         jne near .12
         call sub_E5D6C
-        call sub_37A1C
+        call ShutdownPacketLink
         xor eax, eax
         add esp, 100h
         pop ebp
@@ -13033,7 +13033,7 @@ sub_E3AFC:
         pop ebx
         ret
 .3:
-        call sub_37A1C
+        call ShutdownPacketLink
         push byte 0
         mov ecx, ebx
         mov eax, 238h
@@ -13092,7 +13092,7 @@ sub_E3AFC:
         call sub_E5808
         test eax, eax
         jne short .5
-        call sub_37A1C
+        call ShutdownPacketLink
         call sub_83850
         push byte 0
         mov eax, 23Ah
@@ -13120,7 +13120,7 @@ sub_E3AFC:
         push eax
         mov edi, dword [dword_1CD2A4]
         push edi
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne short .8
@@ -13172,7 +13172,7 @@ sub_E3AFC:
         call GetLangText
         call sub_7F5A4
         call sub_E59A8
-        call sub_37A1C
+        call ShutdownPacketLink
         xor eax, eax
         add esp, 100h
         pop ebp
@@ -13258,7 +13258,7 @@ NetDisconnect:
         je short .3
         cmp dword [dword_16DA9C], byte 0
         je short .3
-        mov eax, asc_167530
+        mov eax, str_Disconnecting
         call sub_835BC
         cmp dword [dword_1CD2A8], byte 0
         je short .1
@@ -13279,7 +13279,7 @@ NetDisconnect:
         add esp, byte 4
         xor esi, esi
         call sub_83850
-        call sub_37A1C
+        call ShutdownPacketLink
         mov dword [dword_16DA9C], esi
 .3:
         pop esi
@@ -13344,7 +13344,7 @@ sub_E3F04:
         push eax
         mov edx, dword [dword_1CD2A4]
         push edx
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne near .8
@@ -13479,7 +13479,7 @@ sub_E3F04:
         push eax
         mov edi, dword [dword_1CD2A4]
         push edi
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne near .23
@@ -13699,7 +13699,7 @@ sub_E4288:
         or eax, edx
         mov dword [dword_1CD2B6], ebx
         mov word [word_1CD2B4], ax
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         je short .5
@@ -13946,7 +13946,7 @@ LinkSendBlock:
         push eax
         mov ecx, dword [dword_1CD2A4]
         push ecx
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne short .8
@@ -13989,7 +13989,7 @@ LinkSendBlock:
         push eax
         mov edx, dword [dword_1CD2A4]
         push edx
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne short .11
@@ -14781,7 +14781,7 @@ WaitForOtherComputer:
         push eax
         mov ecx, dword [dword_1CD2A4]
         push ecx
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne near .35
@@ -14805,17 +14805,17 @@ WaitForOtherComputer:
         call sub_835AC
         jmp short .33
 .31:
-        cmp edi, asc_167544
+        cmp edi, str_WaitingForOtherComputer
         je short .34
         cmp edi, dword [dword_16DAC8]
         jne short .34
         cmp ecx, ecx
         je short .32
-        mov eax, asc_167544
+        mov eax, str_WaitingForOtherComputer
         call sub_835BC
         jmp short .33
 .32:
-        mov eax, asc_167544
+        mov eax, str_WaitingForOtherComputer
         call sub_835AC
 .33:
         mov dword [dword_16DAC8], 1
@@ -15161,7 +15161,7 @@ DefaultModemName:
         ret
 .1:
         mov dword [eax], 17h
-        mov eax, asc_16DADC
+        mov eax, str_GenericHayesCompatible
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
@@ -15316,7 +15316,7 @@ sub_E59A8:
         cmp word [word_16E0FA], byte 0
         je short .1
         push unk_1CD408
-        call sub_37FC8
+        call ClosePacketLink
         xor ecx, ecx
         add esp, byte 4
         mov word [word_16E0FA], cx
@@ -15344,7 +15344,7 @@ sub_E59D8:
         test bx, bx
         je short .1
         push unk_1CD408
-        call sub_37FC8
+        call ClosePacketLink
         xor edi, edi
         add esp, byte 4
         mov word [word_16E0FA], di
@@ -15424,7 +15424,7 @@ IpxInit:
         jle short .3
         push dword 200h
         push ebx
-        push asc_16759C
+        push str_IPXMEM
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_16E128], eax
@@ -15470,7 +15470,7 @@ IpxInit:
         push byte 20h
         shl eax, 4
         push eax
-        push asc_1675A4
+        push str_NETWORK
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 2
@@ -15542,7 +15542,7 @@ LoadServerList:
         push byte 20h
         shl eax, 6
         push eax
-        push asc_1675AC
+        push str_SERVLIST
         xor esi, esi
         xor ebx, ebx
         call AllocMemBlock
@@ -15717,7 +15717,7 @@ sub_E5D98:
         xor eax, eax
         jmp near .8
 .1:
-        mov edx, asc_1675B8
+        mov edx, str_NHL97
         lea eax, [byte ebp+020h]
         call strcmp_
         test eax, eax
@@ -15872,7 +15872,7 @@ FindNetworkGames:
         shl eax, 2
         push eax
         xor esi, esi
-        push asc_1675C0
+        push str_GAMEADDR
         mov word [word_1CD634], si
         call AllocMemBlock
         add esp, byte 0Ch
@@ -16320,13 +16320,13 @@ ChooseNetworkGameScreen:
         sar eax, 1
         push dword 334h
         sub edx, eax
-        push asc_1675CC
+        push str_PICKS2
         mov dword [dword_1CD55C], edx
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 20h
         push dword 280h
-        push asc_1675D4
+        push str_REGS2
         mov dword [dword_1CD54C], eax
         call AllocMemBlock
         add esp, byte 0Ch
@@ -16415,7 +16415,7 @@ ChooseNetworkGameScreen:
         add esp, byte 10h
 .1:
         push byte 0
-        push asc_1675DC
+        push str_LX003
         mov eax, dword [dword_1C5DE4]
         push eax
         call FindShape
@@ -16423,7 +16423,7 @@ ChooseNetworkGameScreen:
         add esp, byte 8
         sar eax, 10h
         push eax
-        push asc_1675DC
+        push str_LX003
         mov edx, dword [dword_1C5DE4]
         push edx
         call FindShape
@@ -16435,7 +16435,7 @@ ChooseNetworkGameScreen:
         add esp, byte 0Ch
         push byte 0
         mov dword [byte esp+esi+04h], eax
-        push asc_1675E4
+        push str_LC003
         mov ebx, dword [dword_1C5DE4]
         push ebx
         call FindShape
@@ -16443,7 +16443,7 @@ ChooseNetworkGameScreen:
         add esp, byte 8
         sar eax, 10h
         push eax
-        push asc_1675E4
+        push str_LC003
         mov ecx, dword [dword_1C5DE4]
         push ecx
         call FindShape
@@ -16533,7 +16533,7 @@ ChooseNetworkGameScreen:
         jne short .2
         mov ebx, dword [dword_16E46C]
         push ebx
-        push asc_1675DC
+        push str_LX003
         mov ecx, dword [dword_1C5DE4]
         push ecx
         call FindShape
@@ -16559,7 +16559,7 @@ ChooseNetworkGameScreen:
         jmp short .3
 .2:
         push ebp
-        push asc_1675EC
+        push str_LX0D3
         lea eax, [byte esp+02Ch]
         push eax
         call sprintf_
@@ -16584,7 +16584,7 @@ ChooseNetworkGameScreen:
         jne short .4
         mov ebx, dword [dword_16E46C]
         push ebx
-        push asc_1675E4
+        push str_LC003
         mov ecx, dword [dword_1C5DE4]
         push ecx
         call FindShape
@@ -16610,7 +16610,7 @@ ChooseNetworkGameScreen:
         jmp short .5
 .4:
         push ebp
-        push asc_1675F4
+        push str_LC0D3
         lea eax, [byte esp+02Ch]
         push eax
         call sprintf_
@@ -16789,7 +16789,7 @@ ChooseNetworkGameScreen:
 .7:
         lea edi, [byte eax+01h]
         push edi
-        push asc_1675FC
+        push str_DTOP
         lea eax, [byte esp+02Ch]
         push eax
         call sprintf_
@@ -16834,7 +16834,7 @@ ChooseNetworkGameScreen:
         call SetDrawTarget
         add esp, byte 4
         push edi
-        push asc_167604
+        push str_DBOT
         lea eax, [byte esp+02Ch]
         push eax
         call sprintf_
@@ -17306,7 +17306,7 @@ JoinNetworkGame:
         call memset_
         mov ecx, dword [dword_16D7F0]
         push ecx
-        push asc_16760C
+        push str_08x
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -17314,11 +17314,11 @@ JoinNetworkGame:
         lea edx, [byte esi+06h]
         mov eax, esp
         call strcat_
-        mov edx, asc_1675B8
+        mov edx, str_NHL97
         lea eax, [byte esp+020h]
         call strcpy_
         push sub_E728C
-        push asc_167614
+        push str_KWKJSK122691
         lea eax, [byte esp+08h]
         push eax
         mov esi, 2
@@ -17407,7 +17407,7 @@ JoinNetworkGame:
         call ChooseNetworkGameScreen
         test eax, eax
         je near .11
-        push asc_167614
+        push str_KWKJSK122691
         lea eax, [byte esp+048h]
         push eax
         push unk_1CD480
@@ -17682,24 +17682,24 @@ sub_E77B1:
         call sub_419B8
         mov eax, 9
         call LoadDataFile
-        push asc_167624
+        push str_BACK13
         push esi
         mov ebx, eax
         mov dword [byte ebp+076h], eax
         call FindShape
         add esp, byte 8
-        push asc_167629
+        push str_MB014
         push ebx
         mov esi, eax
         mov dword [byte ebp+07Ah], eax
         call FindShape
         add esp, byte 8
-        push asc_16762E
+        push str_MB023
         push ebx
         mov dword [dword_1CD750], eax
         call FindShape
         add esp, byte 8
-        push asc_167633
+        push str_MB03
         push ebx
         mov dword [dword_1CD754], eax
         call FindShape
@@ -17719,7 +17719,7 @@ sub_E77B1:
         xor ebx, ebx
 .5:
         push ebx
-        push asc_167638
+        push str_AR02d2
         lea eax, [byte ebp+06Ah]
         push eax
         call sprintf_
@@ -17746,7 +17746,7 @@ sub_E77B1:
         mov ebx, 1
 .7:
         push ebx
-        push asc_167638
+        push str_AR02d2
         lea eax, [byte ebp+06Ah]
         push eax
         call sprintf_
@@ -17770,7 +17770,7 @@ sub_E77B1:
         lea edi, [ebx+ebx]
         imul esi, ebx, byte 0Ch
         push edi
-        push asc_16763F
+        push str_LT02d2
         lea eax, [byte ebp+06Ah]
         push eax
         call sprintf_
@@ -17782,7 +17782,7 @@ sub_E77B1:
         add esp, byte 8
         inc edi
         push edi
-        push asc_16763F
+        push str_LT02d2
         mov dword [dword esi+dword_1CD650], eax
         lea eax, [byte ebp+06Ah]
         push eax
@@ -17832,14 +17832,14 @@ sub_E77B1:
         call sub_7E860
         mov edx, unk_1CD6AC
         mov eax, 2
-        mov ecx, asc_167629
+        mov ecx, str_MB014
         call InitMenuItems
         lea eax, [byte ebp-02Eh]
         mov edi, dword_1CD6FE
         push eax
-        mov ebx, asc_167646
+        mov ebx, str_MB004
         mov edx, dword [byte ebp+076h]
-        push asc_16762E
+        push str_MB023
         mov eax, unk_1CD6AC
         mov esi, unk_1C5F4A
         call sub_81D1C

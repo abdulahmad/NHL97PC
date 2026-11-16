@@ -2,11 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_9F6F5 progbits alloc exec nowrite align=1
-extern asc_165D10, asc_165D15, asc_165D1A, asc_165D1F, asc_165D2A, asc_165D36, asc_165D42, asc_165D47
-extern asc_165D53, asc_165D64, asc_165D74, asc_165D85, asc_165D8F, asc_165D9C, asc_165DA1, asc_165DAE
-extern asc_165DBB, asc_165DC0, asc_165DC4, asc_165DD0, asc_165DDC, asc_165DE5, asc_165DEA, asc_165DEF
-extern asc_165DF4, asc_165DF9, asc_165DFE, asc_165E03, asc_165E08, asc_165E0D, asc_165E12, asc_165E19
-extern asc_165E20, asc_165E26, asc_165E2C, asc_165E30, asc_165E35, asc_165E3D, atoi_, byte_1ACC51
+extern str_DL01, str_DL02, str_DL03, str_SEASONNDX2, str_PLAYOFFNDX2, str_EXHIBITNDX, str_DL00, str_DONTHAVEIT
+extern str_DATAEXHIBITNDX2, str_DATASEASONNDX2, str_DATAPLAYOFFNDX2, str_Replaybuf, str_SEAS04dSET2, str_SS7, str_SEAS04dPLY, str_PLAY04dSET2
+extern str_PLY, str_S5, str_IdlistFfc, str_SharedFfc, str_WHATEVER, str_04d3, str_TRBL, str_TRBR
+extern str_TRLS, str_TRRS, str_TRSE, str_TRSS, str_TRSP, str_PICT, str_Roster3, str_Rosids
+extern str_Rtids, str_Games, str_Ros, str_Lros, str_CRUSHER, str_CRUSHERPack, atoi_, byte_1ACC51
 extern byte_1ACF62, byte_1ACF63, byte_1AD457, byte_1AD458, dword_16CB7C, dword_16DA9C, dword_1AC814, dword_1AC940
 extern dword_1AC944, dword_1ACB45, dword_1ACF3A, dword_1ACF46, dword_1AD244, dword_1AD248, dword_1AD24C, dword_1AD62B
 extern dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE0, dword_1C8EA4, dword_1C8EB4, dword_1C8EB8, dword_1C8EF6
@@ -96,16 +96,16 @@ PickIndexEntryScreen:
         mov dword [byte ebp+06Eh], 0
         call sub_419B0
         call sub_419B8
-        push asc_165D10
+        push str_DL01
         push esi
         call FindShape
         add esp, byte 8
-        push asc_165D15
+        push str_DL02
         push esi
         mov dword [dword_1C93D8], eax
         call FindShape
         add esp, byte 8
-        push asc_165D1A
+        push str_DL03
         push esi
         mov dword [dword_1C93DC], eax
         call FindShape
@@ -122,31 +122,31 @@ PickIndexEntryScreen:
         je short .4
         jmp short .6
 .2:
-        mov edx, asc_165D1F
+        mov edx, str_SEASONNDX2
         lea eax, [byte ebp-066h]
         call NameIndexLoad
         mov dword [byte ebp+07Ah], eax
         test eax, eax
         jne short .6
-        mov edx, asc_165D1F
+        mov edx, str_SEASONNDX2
         jmp short .5
 .3:
-        mov edx, asc_165D2A
+        mov edx, str_PLAYOFFNDX2
         lea eax, [byte ebp-066h]
         call NameIndexLoad
         mov dword [byte ebp+07Ah], eax
         test eax, eax
         jne short .6
-        mov edx, asc_165D2A
+        mov edx, str_PLAYOFFNDX2
         jmp short .5
 .4:
-        mov edx, asc_165D36
+        mov edx, str_EXHIBITNDX
         lea eax, [byte ebp-066h]
         call NameIndexLoad
         mov dword [byte ebp+07Ah], eax
         test eax, eax
         jne short .6
-        mov edx, asc_165D36
+        mov edx, str_EXHIBITNDX
 .5:
         lea eax, [byte ebp-066h]
         call NameIndexNew
@@ -232,18 +232,18 @@ PickIndexEntryScreen:
         mov edi, dword_1C8EF6
         mov esi, unk_1C5F4A
         mov dword [dword_1C8EA4], 0
-        push asc_165D42
+        push str_DL00
         rep movsb
         push dword [byte ebp+066h]
         mov dword [dword_1C8EF6], 1
         call FindShape
         add esp, byte 8
-        push asc_165D10
+        push str_DL01
         push dword [byte ebp+066h]
         mov dword [dword_1C8F62], eax
         call FindShape
         add esp, byte 8
-        push asc_165D10
+        push str_DL01
         push dword [byte ebp+066h]
         mov dword [dword_1C8F66], eax
         call FindShape
@@ -298,7 +298,7 @@ PickIndexEntryScreen_3B5:
         mov eax, dword [byte ebp+07Eh]
         mov edx, edi
         call NameIndexPath
-        mov edx, asc_165D47
+        mov edx, str_DONTHAVEIT
         lea eax, [byte ebp+02h]
         call strcmp_
         test eax, eax
@@ -338,13 +338,13 @@ PickIndexEntryScreen_3B5:
 .16:
         cmp dword [dword ebp-042Ah], byte 5
         jne near PickIndexEntryScreen_393.13
-        mov eax, asc_165D53
+        mov eax, str_DATAEXHIBITNDX2
         jmp short .19
 .17:
-        mov eax, asc_165D64
+        mov eax, str_DATASEASONNDX2
         jmp short .19
 .18:
-        mov eax, asc_165D74
+        mov eax, str_DATAPLAYOFFNDX2
 .19:
         call sub_11B98E
         jmp near PickIndexEntryScreen_393.13
@@ -410,7 +410,7 @@ PickIndexEntryScreen_4EE:
         mov eax, dword [byte ebp+07Eh]
         mov edx, edi
         call NameIndexPath
-        mov edx, asc_165D47
+        mov edx, str_DONTHAVEIT
         lea eax, [byte ebp+02h]
         call strcmp_
         test eax, eax
@@ -437,7 +437,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte edi+01h]
         cmp byte [edi], 5Ch
         jne short .26
-        mov edx, asc_165D47
+        mov edx, str_DONTHAVEIT
         mov edi, eax
         call strcmp_
         test eax, eax
@@ -474,7 +474,7 @@ PickIndexEntryScreen_4EE:
         call LinkReceiveBlock
         push byte 0
         push dword [dword_1C5DA4]
-        push asc_165D85
+        push str_Replaybuf
         xor ebx, ebx
         call AllocMemBlock
         add esp, byte 0Ch
@@ -524,7 +524,7 @@ PickIndexEntryScreen_4EE:
         mov eax, dword [byte ebp+07Ah]
         call sub_867D4
         push eax
-        push asc_165D8F
+        push str_SEAS04dSET2
         mov edi, eax
         lea eax, [byte ebp-01Eh]
         push eax
@@ -538,7 +538,7 @@ PickIndexEntryScreen_4EE:
         push eax
         lea eax, [byte ebp-066h]
         push eax
-        push asc_165D9C
+        push str_SS7
         lea eax, [byte ebp+02h]
         push eax
         call sprintf_
@@ -575,7 +575,7 @@ PickIndexEntryScreen_4EE:
         xor eax, eax
         call sub_A1961
         push edi
-        push asc_165DA1
+        push str_SEAS04dPLY
         lea eax, [byte ebp+022h]
         push eax
         mov edx, 1
@@ -588,7 +588,7 @@ PickIndexEntryScreen_4EE:
         push eax
         lea eax, [byte ebp-066h]
         push eax
-        push asc_165D9C
+        push str_SS7
         lea eax, [byte ebp-03Eh]
         push eax
         call sprintf_
@@ -622,7 +622,7 @@ PickIndexEntryScreen_4EE:
         mov eax, dword [byte ebp+07Ah]
         call sub_867D4
         push eax
-        push asc_165DAE
+        push str_PLAY04dSET2
         lea eax, [byte ebp-01Eh]
         push eax
         mov edx, 1
@@ -635,7 +635,7 @@ PickIndexEntryScreen_4EE:
         push eax
         lea eax, [byte ebp-066h]
         push eax
-        push asc_165D9C
+        push str_SS7
         lea eax, [byte ebp+02h]
         push eax
         call sprintf_
@@ -683,7 +683,7 @@ PickIndexEntryScreen_4EE:
         call sub_E1C19
         push byte 0
         push dword [dword_1C5DA4]
-        push asc_165D85
+        push str_Replaybuf
         call AllocMemBlock
         mov esi, eax
         add esp, byte 0Ch
@@ -736,7 +736,7 @@ PickIndexEntryScreen_4EE:
         cmp byte [byte esi+ebp-03Eh], 2Eh
         jne short .44
 .46:
-        mov edx, asc_165DBB
+        mov edx, str_PLY
         lea eax, [byte ebp-03Eh]
         mov byte [byte esi+ebp-03Eh], 0
         call strcat_
@@ -783,7 +783,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte edi+01h]
         cmp byte [edi], 5Ch
         jne short .49
-        mov edx, asc_165D47
+        mov edx, str_DONTHAVEIT
         mov edi, eax
         call strcmp_
         test eax, eax
@@ -816,7 +816,7 @@ PickIndexEntryScreen_4EE:
         call LinkReceiveBlock
         push byte 0
         push dword [dword_1C5DA4]
-        push asc_165D85
+        push str_Replaybuf
         xor ebx, ebx
         call AllocMemBlock
         add esp, byte 0Ch
@@ -867,7 +867,7 @@ PickIndexEntryScreen_4EE:
         mov eax, dword [byte ebp+07Ah]
         call sub_867D4
         push eax
-        push asc_165D8F
+        push str_SEAS04dSET2
         mov edi, eax
         lea eax, [byte ebp-01Eh]
         push eax
@@ -881,7 +881,7 @@ PickIndexEntryScreen_4EE:
         push eax
         lea eax, [byte ebp-066h]
         push eax
-        push asc_165D9C
+        push str_SS7
         lea eax, [byte ebp+02h]
         push eax
         call sprintf_
@@ -918,7 +918,7 @@ PickIndexEntryScreen_4EE:
         xor eax, eax
         call sub_A1961
         push edi
-        push asc_165DA1
+        push str_SEAS04dPLY
         lea eax, [byte ebp+022h]
         push eax
         mov edx, 1
@@ -931,7 +931,7 @@ PickIndexEntryScreen_4EE:
         push eax
         lea eax, [byte ebp-066h]
         push eax
-        push asc_165D9C
+        push str_SS7
         lea eax, [byte ebp-03Eh]
         push eax
         call sprintf_
@@ -965,7 +965,7 @@ PickIndexEntryScreen_4EE:
         mov eax, dword [byte ebp+07Ah]
         call sub_867D4
         push eax
-        push asc_165DAE
+        push str_PLAY04dSET2
         lea eax, [byte ebp-01Eh]
         push eax
         mov edx, 1
@@ -978,7 +978,7 @@ PickIndexEntryScreen_4EE:
         push eax
         lea eax, [byte ebp-066h]
         push eax
-        push asc_165D9C
+        push str_SS7
         lea eax, [byte ebp+02h]
         push eax
         call sprintf_
@@ -1090,7 +1090,7 @@ PickIndexEntryScreen_4EE:
 .72:
         cmp byte [byte esi+ebp+02h], 2Eh
         jne short .71
-        mov edx, asc_165DBB
+        mov edx, str_PLY
         lea eax, [byte ebp+02h]
         mov byte [byte esi+ebp+02h], 0
         call strcat_
@@ -1284,7 +1284,7 @@ sub_A0784:
         add eax, dword [byte ebp-08h]
         add eax, byte 0Dh
         push eax
-        push asc_165DC0
+        push str_S5
         lea eax, [byte ebp-034h]
         push eax
         call sprintf_
@@ -1332,7 +1332,7 @@ sub_A0867:
         push byte 0
         inc eax
         push eax
-        push asc_165DC4
+        push str_IdlistFfc
         call AllocMemBlock
         mov dword [byte ebp+07Ah], eax
         mov eax, dword [byte ebp-02Eh]
@@ -1341,7 +1341,7 @@ sub_A0867:
         push byte 0
         inc eax
         push eax
-        push asc_165DD0
+        push str_SharedFfc
         call AllocMemBlock
         mov dword [byte ebp+076h], eax
         mov eax, dword [byte ebp-02Eh]
@@ -1418,7 +1418,7 @@ sub_A0867:
         lea eax, [byte ebp-02Ah]
         xor ebx, ebx
         call MakeDirPath
-        mov edx, asc_165DDC
+        mov edx, str_WHATEVER
         lea eax, [byte ebp-02Ah]
         call NameIndexNew
         mov esi, eax
@@ -1427,7 +1427,7 @@ sub_A0867:
         je near .14
         mov eax, dword [byte ebp-02Eh]
         push dword [byte eax+066h]
-        push asc_165DE5
+        push str_04d3
         lea eax, [byte ebp+05Eh]
         push eax
         mov edx, 5
@@ -1549,7 +1549,7 @@ sub_A0867:
         cmp dword [byte ebp+06Eh], byte 0
         jne short .24
         lea ebx, [byte ebp+02h]
-        mov edx, asc_165D47
+        mov edx, str_DONTHAVEIT
         mov eax, esi
         call sub_86500
         mov esi, eax
@@ -1579,7 +1579,7 @@ sub_A0867:
         cmp eax, dword [byte edx+066h]
         jl short .27
         push edi
-        push asc_165DE5
+        push str_04d3
         lea eax, [byte ebp+05Eh]
         push eax
         mov edx, 5
@@ -1654,7 +1654,7 @@ sub_A0867:
         xor ebx, ebx
         call LinkReceiveBlock
         lea ebx, [byte ebp+02h]
-        mov edx, asc_165D47
+        mov edx, str_DONTHAVEIT
         mov eax, esi
         inc dword [byte ebp+07Eh]
         call sub_86500
@@ -1700,7 +1700,7 @@ sub_A0C74:
         lea edi, [byte ebp-03Eh]
         mov esi, unk_9F631
         rep movsd
-        push asc_165DEA
+        push str_TRBL
         mov ecx, 8
         lea edi, [byte ebp+022h]
         mov esi, unk_9F651
@@ -1708,17 +1708,17 @@ sub_A0C74:
         rep movsd
         call FindShape
         add esp, byte 8
-        push asc_165DEF
+        push str_TRBR
         push ebx
         mov dword [byte ebp+07Ah], eax
         call FindShape
         add esp, byte 8
-        push asc_165DF4
+        push str_TRLS
         push dword [dword ebp-0146h]
         mov edi, eax
         call FindShape
         add esp, byte 8
-        push asc_165DF9
+        push str_TRRS
         push dword [dword ebp-0146h]
         mov dword [byte ebp+072h], eax
         call FindShape
@@ -1736,20 +1736,20 @@ sub_A0C74:
 .1:
         test eax, eax
         jne short .5
-        push asc_165DFE
+        push str_TRSE
         jmp short .4
 .2:
-        push asc_165E03
+        push str_TRSS
         jmp short .4
 .3:
-        push asc_165E08
+        push str_TRSP
 .4:
         push ebx
         call FindShape
         add esp, byte 8
         mov dword [byte ebp+06Eh], eax
 .5:
-        push asc_165E0D
+        push str_PICT
         push dword [dword ebp-014Ah]
         call FindShape
         mov dword [byte ebp+062h], eax
@@ -2147,7 +2147,7 @@ sub_A12CD:
         call AllocCrusherBuffers
         push byte 0
         push dword 194Fh
-        push asc_165E12
+        push str_Roster3
         call AllocMemBlock
         add esp, byte 0Ch
         mov edx, 24h
@@ -2504,7 +2504,7 @@ sub_A12CD:
         je short .33
         push byte 0
         push dword [dword ebp-0140h]
-        push asc_165D85
+        push str_Replaybuf
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp-08h], eax
@@ -2553,7 +2553,7 @@ sub_A12CD:
         je short .37
         push byte 0
         push dword [dword ebp-0140h]
-        push asc_165D85
+        push str_Replaybuf
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp-08h], eax
@@ -2610,7 +2610,7 @@ sub_A1961:
         call AllocCrusherBuffers
         push byte 0
         push dword 194Fh
-        push asc_165E12
+        push str_Roster3
         call AllocMemBlock
         add esp, byte 0Ch
         mov esi, eax
@@ -2626,7 +2626,7 @@ sub_A1961:
         push byte 0
         shl eax, 3
         push eax
-        push asc_165E19
+        push str_Rosids
         add dword [dword_1C93C4], byte 24h
         call AllocMemBlock
         add esp, byte 0Ch
@@ -2635,7 +2635,7 @@ sub_A1961:
         push byte 0
         shl eax, 3
         push eax
-        push asc_165E20
+        push str_Rtids
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp+066h], eax
@@ -2643,7 +2643,7 @@ sub_A1961:
         push byte 0
         shl eax, 4
         push eax
-        push asc_165E26
+        push str_Games
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp+072h], eax
@@ -2651,7 +2651,7 @@ sub_A1961:
         push byte 0
         shl eax, 3
         push eax
-        push asc_165E26
+        push str_Games
         call AllocMemBlock
         movsx ecx, word [byte ebp+052h]
         add esp, byte 0Ch
@@ -3011,7 +3011,7 @@ sub_A1961:
         je short .33
         push byte 0
         push dword [dword ebp-0DAh]
-        push asc_165D85
+        push str_Replaybuf
         call AllocMemBlock
         mov ecx, dword [dword ebp-0DAh]
         mov edx, dword [dword_1C93CC]
@@ -3058,7 +3058,7 @@ sub_A1961:
         je short .36
         push byte 0
         push dword [dword ebp-0DAh]
-        push asc_165D85
+        push str_Replaybuf
         call AllocMemBlock
         mov ecx, dword [dword ebp-0DAh]
         mov edx, dword [dword_1C93CC]
@@ -3123,12 +3123,12 @@ sub_A219A:
         xor esi, esi
         push esi
         push dword 194Fh
-        push asc_165E2C
+        push str_Ros
         call AllocMemBlock
         add esp, byte 0Ch
         push esi
         push dword 194Fh
-        push asc_165E30
+        push str_Lros
         mov dword [byte ebp-0Ch], esi
         mov dword [byte ebp-08h], eax
         call AllocMemBlock
@@ -3666,12 +3666,12 @@ sub_A289E:
         xor esi, esi
         push esi
         push dword 194Fh
-        push asc_165E2C
+        push str_Ros
         call AllocMemBlock
         add esp, byte 0Ch
         push esi
         push dword 194Fh
-        push asc_165E30
+        push str_Lros
         mov dword [byte ebp-08h], eax
         call AllocMemBlock
         add esp, byte 0Ch
@@ -4151,12 +4151,12 @@ AllocCrusherBuffers:
         push edx
         push byte 0
         push dword 493E0h
-        push asc_165E35
+        push str_CRUSHER
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 186A0h
-        push asc_165E3D
+        push str_CRUSHERPack
         mov dword [dword_1C93CC], eax
         call AllocMemBlock
         mov dword [dword_1C93C4], 0
