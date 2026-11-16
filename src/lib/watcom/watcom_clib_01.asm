@@ -4,7 +4,7 @@ bits 32
 section s_F9C34 progbits alloc exec nowrite align=1
 extern __ExpandDGROUP_, __MemAllocator, __MemFree, __allocfp_, __chktty_, __close_, __fill_buffer_, __flush_
 extern __freefp_, __ioalloc_, __qread_, __set_errno_, str_MBRAM, __nheap_clean, HeapList, HeapRover
-extern HeapLargestFree, MemPoolEnd, MemPoolBase, _fmode, dword_1CF0D8, dword_1CF25C, dword_1CF260, dword_1CF268
+extern HeapLargestFree, MemPoolEnd, MemPoolBase, _fmode, HeapFreeList, MemDescriptorTop, MemLockHandle, MemFreeBytes
 extern __OpenStreams, __ClosedStreams, fflush_, lseek_, sopen_, UnlinkJump, GetPsp, McgaNoWindow
 extern ResetMemLock, MemLock, MemUnlock, AddMemRegion, tell_, tolower_
 global __MkTmpFile_, __doclose_, __doopen_, __hex_, __open_flags_, __shutdown_stream_, __update_buffer_, _fsopen_
@@ -1012,7 +1012,7 @@ _nfree_:
         mov esi, eax
         test eax, eax
         je near .7
-        mov ecx, dword [dword_1CF0D8]
+        mov ecx, dword [HeapFreeList]
         test ecx, ecx
         je short .1
         cmp ecx, eax
@@ -1041,7 +1041,7 @@ _nfree_:
         mov eax, esi
         call __MemFree
         mov ebp, dword [HeapRover]
-        mov dword [dword_1CF0D8], ecx
+        mov dword [HeapFreeList], ecx
         cmp ecx, ebp
         jae short .6
         mov eax, dword [HeapLargestFree]
@@ -1067,14 +1067,14 @@ _nfree_:
         mov esi, dword [byte esp+014h]
         call ResetMemLock
         push eax
-        mov dword [dword_1CF260], eax
+        mov dword [MemLockHandle], eax
         call MemLock
         add esp, byte 4
         mov dword [MemPoolBase], esi
         mov edx, ebx
         mov eax, esi
         lea ecx, [nosplit ebx*4+00h]
-        mov dword [dword_1CF25C], esi
+        mov dword [MemDescriptorTop], esi
         add ecx, ebx
         xor edx, ebx
         dec ebx
@@ -1107,10 +1107,10 @@ _nfree_:
         mov eax, dword [MemPoolEnd]
         mov ebx, dword [MemPoolBase]
         add esp, byte 20h
-        mov ecx, dword [dword_1CF260]
+        mov ecx, dword [MemLockHandle]
         sub eax, ebx
         push ecx
-        mov dword [dword_1CF268], eax
+        mov dword [MemFreeBytes], eax
         call MemUnlock
         add esp, byte 4
         pop edi

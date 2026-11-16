@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_FC008 progbits alloc exec nowrite align=1
 extern __STOSD, _dos_getvect_, _dos_setvect_, str_TIMERSTACK, TimerRate, dword_16E402, str_D_UpdateFrameRate, TimerCalibration
-extern MessageBoxActive, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, AddExitHandler, AllocMemBlock, FreeMemBlock
+extern MessageBoxActive, timercallbacks, TimerFraction, TimerStep, TimerOldCount, AddExitHandler, AllocMemBlock, FreeMemBlock
 extern TimerISR, TimerSavedSelector
 global RestoreTimer, RemoveTimerCallback, InstallTimer
 ;-----------------------------------------------------------------------------
@@ -101,11 +101,11 @@ RestoreTimer:
         in al, dx
         and al, 0FCh
         out dx, al
-        mov ecx, dword [dword_1CF294]
+        mov ecx, dword [TimerOldCount]
         push ecx
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_1CF294], ebx
+        mov dword [TimerOldCount], ebx
 .2:
         pop edx
         pop ecx
@@ -132,7 +132,7 @@ InstallTimer:
         push str_TIMERSTACK
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_1CF294], eax
+        mov dword [TimerOldCount], eax
 .1:
         mov edx, 21h
         sub eax, eax
@@ -177,7 +177,7 @@ InstallTimer:
         mov ebx, eax
         mov eax, 1234DBh
         shl ebx, 10h
-        mov dword [dword_1CF28C], ebp
+        mov dword [TimerFraction], ebp
         cdq
         idiv ebx
         mov ecx, eax
@@ -187,7 +187,7 @@ InstallTimer:
         idiv ebx
         shl ecx, 10h
         add eax, ecx
-        mov dword [dword_1CF290], eax
+        mov dword [TimerStep], eax
         mov eax, dword [TimerCalibration]
         mov edx, 40h
         and eax, 0FFh

@@ -2,142 +2,121 @@
 bits 32
 %include "hockey.inc"
 section s_1CE0E4 nobits alloc noexec write align=1
-global byte_1CE224, byte_1CE23D, byte_1CE23E, dword_1CE0E4, dword_1CE0E8, dword_1CE0EC, dword_1CE0F4, dword_1CE0FC
-global dword_1CE104, dword_1CE10C, dword_1CE110, dword_1CE114, dword_1CE118, dword_1CE11C, dword_1CE120, dword_1CE124
-global dword_1CE128, dword_1CE12C, dword_1CE130, dword_1CE134, dword_1CE158, dword_1CE15C, dword_1CE160, dword_1CE164
-global dword_1CE168, dword_1CE16C, dword_1CE170, dword_1CE174, dword_1CE178, dword_1CE17C, dword_1CE180, dword_1CE184
-global dword_1CE188, dword_1CE18C, dword_1CE190, dword_1CE1AC, dword_1CE1B0, dword_1CE1B4, dword_1CE1B8, dword_1CE1BC
-global dword_1CE1C0, dword_1CE1C4, dword_1CE1C8, dword_1CE1CC, dword_1CE1D0, dword_1CE1D4, dword_1CE1D8, dword_1CE1DC
-global dword_1CE1E0, dword_1CE1E4, dword_1CE1E8, dword_1CE1EC, dword_1CE1F0, dword_1CE1F4, dword_1CE1F8, dword_1CE1FC
-global dword_1CE200, dword_1CE204, dword_1CE208, dword_1CE20C, dword_1CE210, dword_1CE214, dword_1CE218, dword_1CE21C
-global dword_1CE220
-dword_1CE0E4:
+global AllStarSlotPlayers, AllStarLogoSlotsPrev, AllStarLogoSlots, AllStarListChoice, AllStarRosterBase, AllStarLogoTables, AllStarSlotPicked, AllStarSlot
+global AllStarSlotFirst, AllStarLogoData, AllStarForwardKeyBase, AllStarForwardStatKeys
+global AllStarDefenceKeyBase, AllStarDefenceStatKeys
+
+global AllStarLists, AllStarCandidateCount, AllStarLineData, AllStarLineDataAway, AllStarListArea
+global AllStarSlotShape, AllStarSlotArea, AllStarSoundState, AllStarPickArea, AllStarSoundTick, AllStarScrollArea, AllStarTeamArea, AllStarNameArea
+global AllStarSlotLayer, AllStarLastSpeech, AllStarCandidates, AllStarItems, AllStarConference, AllStarTeamList, AllStarTeamBitmap, AllStarSide
+global AllStarPicks, AllStarListBitmap, AllStarNameBitmap, AllStarStatBitmap, AllStarListSide, AllStarShapeFile, AllStarScreenBitmap, AllStarPickOrder
+global AllStarPlayers
+AllStarListChoice:
         resb 4
-dword_1CE0E8:
+AllStarRosterBase:
         resb 4
-dword_1CE0EC:
+AllStarLogoTables:
         resb 8
-dword_1CE0F4:
+AllStarSlotPicked:
         resb 8
-dword_1CE0FC:
+AllStarSlot:
         resb 8
-dword_1CE104:
+AllStarSlotFirst:
         resb 8
-dword_1CE10C:
+AllStarLogoData:
         resb 4
-dword_1CE110:
+AllStarForwardKeyBase:
         resb 4
-dword_1CE114:
+AllStarForwardStatKeys:
         resb 4
-dword_1CE118:
         resb 4
-dword_1CE11C:
         resb 4
-dword_1CE120:
         resb 4
-dword_1CE124:
         resb 4
-dword_1CE128:
         resb 4
-dword_1CE12C:
         resb 4
-dword_1CE130:
         resb 4
-dword_1CE134:
         resb 36
-dword_1CE158:
+AllStarDefenceKeyBase:
         resb 4
-dword_1CE15C:
+AllStarDefenceStatKeys:
         resb 4
-dword_1CE160:
         resb 4
-dword_1CE164:
         resb 4
-dword_1CE168:
         resb 4
-dword_1CE16C:
         resb 4
-dword_1CE170:
         resb 4
-dword_1CE174:
         resb 4
-dword_1CE178:
         resb 4
-dword_1CE17C:
         resb 4
-dword_1CE180:
         resb 4
-dword_1CE184:
         resb 4
-dword_1CE188:
         resb 4
-dword_1CE18C:
         resb 4
-dword_1CE190:
         resb 28
-dword_1CE1AC:
+AllStarLists:
         resb 4
-dword_1CE1B0:
+AllStarCandidateCount:
         resb 4
-dword_1CE1B4:
+AllStarLineData:
         resb 4
-dword_1CE1B8:
+AllStarLineDataAway:
         resb 4
-dword_1CE1BC:
+AllStarListArea:
         resb 4
-dword_1CE1C0:
+AllStarSlotShape:
         resb 4
-dword_1CE1C4:
+AllStarSlotArea:
         resb 4
-dword_1CE1C8:
+AllStarSoundState:
         resb 4
-dword_1CE1CC:
+AllStarPickArea:
         resb 4
-dword_1CE1D0:
+AllStarSoundTick:
         resb 4
-dword_1CE1D4:
+AllStarScrollArea:
         resb 4
-dword_1CE1D8:
+AllStarTeamArea:
         resb 4
-dword_1CE1DC:
+AllStarNameArea:
         resb 4
-dword_1CE1E0:
+AllStarSlotLayer:
         resb 4
-dword_1CE1E4:
+AllStarLastSpeech:
         resb 4
-dword_1CE1E8:
+AllStarCandidates:
         resb 4
-dword_1CE1EC:
+AllStarItems:
         resb 4
-dword_1CE1F0:
+AllStarConference:
         resb 4
-dword_1CE1F4:
+AllStarTeamList:
         resb 4
-dword_1CE1F8:
+AllStarTeamBitmap:
         resb 4
-dword_1CE1FC:
+AllStarSide:
         resb 4
-dword_1CE200:
+AllStarPicks:
         resb 4
-dword_1CE204:
+AllStarListBitmap:
         resb 4
-dword_1CE208:
+AllStarNameBitmap:
         resb 4
-dword_1CE20C:
+AllStarStatBitmap:
         resb 4
-dword_1CE210:
+AllStarListSide:
         resb 4
-dword_1CE214:
+AllStarShapeFile:
         resb 4
-dword_1CE218:
+AllStarScreenBitmap:
         resb 4
-dword_1CE21C:
+AllStarPickOrder:
         resb 4
-dword_1CE220:
+AllStarPlayers:
         resb 4
-byte_1CE224:
+AllStarSlotPlayers:
         resb 25
-byte_1CE23D:
+AllStarLogoSlotsPrev:
         resb 1
-byte_1CE23E:
+AllStarLogoSlots:
         resb 26

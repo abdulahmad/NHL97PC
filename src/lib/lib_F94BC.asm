@@ -4,9 +4,9 @@ bits 32
 section s_F94BC progbits alloc exec nowrite align=1
 extern abs_, str_IgfxFix, str_IgFix, str_GFXMODES, VesaModeCount, VideoModeChoice, VesaModeIndex, VesaModeChanged
 extern VideoModeList, AudioDriverVersion, GfxFixBuffer, IdleContext, IdleNextTick, TimerTicks, dword_16E464, dword_16E468
-extern MenuScreenBitmap, VideoModeCount, VideoModeIndex, dword_1CEFC4, dword_1CEFC8, dword_1CEFCC, dword_1CEFD4, dword_1CEFD8
-extern dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, bcopy, PresentScreen, CountVesaModes, FindModeByResolution
-extern SetModeByResolution, SetScreenTarget, AllocMemBlock, FreeMemBlock, MakeColor, ClearScreen, tickcount, unk_1CEFE8
+extern MenuScreenBitmap, VideoModeCount, VideoModeIndex, VideoModeInfo, IdleHandlers
+extern IdleHandlers, IdleHandlerCount, bcopy, PresentScreen, CountVesaModes, FindModeByResolution
+extern SetModeByResolution, SetScreenTarget, AllocMemBlock, FreeMemBlock, MakeColor, ClearScreen, tickcount, IdleHandlers
 global AllocGfxFixBuffer, ProbeVideoModes, InitVideoModeList, GetVideoModeList, FindNearestVideoMode, PickVideoMode, NextVideoMode, PrevVideoMode
 global AddIdleHandler, RemoveIdleHandler, RunIdleHandlers, SetIdleContext
 ;-----------------------------------------------------------------------------
@@ -52,22 +52,22 @@ ProbeVideoModes:
 .1:
         cmp ebx, dword [VesaModeCount]
         jge near .7
-        push dword_1CEFC4
+        push VideoModeInfo
         push ebx
         call FindModeByResolution
         add esp, byte 8
-        cmp dword [dword_1CEFC4], 280h
+        cmp dword [VideoModeInfo], 280h
         jne short .3
-        cmp dword [dword_1CEFC8], 1E0h
+        cmp dword [VideoModeInfo+4], 1E0h
         jne short .3
-        cmp dword [dword_1CEFCC], byte 10h
+        cmp dword [VideoModeInfo+8], byte 10h
         je short .2
-        cmp dword [dword_1CEFCC], byte 0Fh
+        cmp dword [VideoModeInfo+8], byte 0Fh
         jne short .3
 .2:
         mov dword [VideoModeChoice], ebx
 .3:
-        cmp dword [dword_1CEFC4], 280h
+        cmp dword [VideoModeInfo], 280h
         jge short .5
         mov dword [VideoModeCount], 1
         cmp dword [GfxFixBuffer], byte 0
@@ -81,18 +81,18 @@ ProbeVideoModes:
         call SetModeByResolution
         add esp, byte 4
         call AllocGfxFixBuffer
-        push dword_1CEFC4
+        push VideoModeInfo
         push ebx
         call FindModeByResolution
         add esp, byte 8
 .5:
-        cmp dword [dword_1CEFC4], 280h
+        cmp dword [VideoModeInfo], 280h
         jg short .6
-        cmp dword [dword_1CEFC8], 1E0h
+        cmp dword [VideoModeInfo+4], 1E0h
         jg short .6
-        cmp dword [dword_1CEFCC], byte 8
+        cmp dword [VideoModeInfo+8], byte 8
         jne short .6
-        mov eax, dword [dword_1CEFD4]
+        mov eax, dword [VideoModeInfo+10h]
         shl eax, 1Dh
         sar eax, 1Fh
         test eax, eax
@@ -163,26 +163,26 @@ InitVideoModeList:
         sub eax, dword [AudioDriverVersion]
         mov dword [AudioDriverVersion], eax
         call ProbeVideoModes
-        mov eax, dword [dword_1CEFD4]
+        mov eax, dword [VideoModeInfo+10h]
         shl eax, 1Dh
         sar eax, 1Fh
         test eax, eax
         je short .3
         mov ebx, 1
 .3:
-        push dword_1CEFC4
+        push VideoModeInfo
         push dword [VideoModeChoice]
         mov dword [VideoModeIndex], 1
         call FindModeByResolution
         mov eax, dword [dword_16E464]
         add esp, byte 8
-        cmp eax, dword [dword_1CEFC4]
+        cmp eax, dword [VideoModeInfo]
         jne short .4
         mov eax, dword [dword_16E468]
-        cmp eax, dword [dword_1CEFC8]
+        cmp eax, dword [VideoModeInfo+4]
         jne short .4
         mov eax, dword [MenuScreenBitmap]
-        cmp eax, dword [dword_1CEFCC]
+        cmp eax, dword [VideoModeInfo+8]
         je short .7
 .4:
         test ebx, ebx
@@ -239,7 +239,7 @@ GetVideoModeList:
         je short .2
         push byte 14h
         push edx
-        push dword_1CEFC4
+        push VideoModeInfo
         call bcopy
         add esp, byte 0Ch
 .2:
@@ -264,23 +264,23 @@ FindNearestVideoMode:
 .1:
         cmp ebx, dword [VesaModeCount]
         jge short .4
-        push dword_1CEFC4
+        push VideoModeInfo
         mov edx, dword [VideoModeList]
         mov eax, ebx
         push dword [edx+eax*4]
         call FindModeByResolution
-        mov eax, dword [dword_1CEFC4]
+        mov eax, dword [VideoModeInfo]
         add esp, byte 8
         cmp eax, dword [byte ebp-0Ch]
         jne short .2
-        cmp esi, dword [dword_1CEFC8]
+        cmp esi, dword [VideoModeInfo+4]
         jne short .2
         mov dword [VesaModeIndex], ebx
         mov ebx, dword [VesaModeCount]
         jmp short .3
 .2:
-        mov eax, dword [dword_1CEFC4]
-        imul eax, dword [dword_1CEFC8]
+        mov eax, dword [VideoModeInfo]
+        imul eax, dword [VideoModeInfo+4]
         mov edx, dword [byte ebp-0Ch]
         imul edx, esi
         sub eax, edx
@@ -294,7 +294,7 @@ FindNearestVideoMode:
         jmp short .1
 .4:
         jne short .5
-        push dword_1CEFC4
+        push VideoModeInfo
         mov eax, dword [VideoModeList]
         mov ebx, edi
         mov dword [VesaModeIndex], edi
@@ -304,7 +304,7 @@ FindNearestVideoMode:
 .5:
         push byte 14h
         push dword [byte ebp-08h]
-        push dword_1CEFC4
+        push VideoModeInfo
         call bcopy
         add esp, byte 0Ch
         leave
@@ -393,7 +393,7 @@ NextVideoMode:
         mov ecx, dword [VesaModeCount]
         cdq
         idiv ecx
-        push dword_1CEFC4
+        push VideoModeInfo
         mov eax, dword [VideoModeList]
         mov ecx, edx
         mov dword [VesaModeIndex], edx
@@ -402,7 +402,7 @@ NextVideoMode:
         add esp, byte 8
         push byte 14h
         push ebx
-        push dword_1CEFC4
+        push VideoModeInfo
         call bcopy
         add esp, byte 0Ch
         pop edx
@@ -439,7 +439,7 @@ PrevVideoMode:
         mov ecx, dword [VesaModeCount]
         cdq
         idiv ecx
-        push dword_1CEFC4
+        push VideoModeInfo
         mov eax, dword [VideoModeList]
         mov ecx, edx
         mov dword [VesaModeIndex], edx
@@ -448,7 +448,7 @@ PrevVideoMode:
         add esp, byte 8
         push byte 14h
         push ebx
-        push dword_1CEFC4
+        push VideoModeInfo
         call bcopy
         add esp, byte 0Ch
         pop edx
@@ -468,14 +468,14 @@ AddIdleHandler:
         xor eax, eax
         xor edx, edx
 .1:
-        cmp dword [dword edx+dword_1CEFD8], byte 0
+        cmp dword [dword edx+IdleHandlers], byte 0
         jne short .2
         test ebx, ebx
         jge short .2
         mov ebx, eax
         jmp short .3
 .2:
-        cmp ecx, dword [dword edx+dword_1CEFD8]
+        cmp ecx, dword [dword edx+IdleHandlers]
         je short .4
 .3:
         inc eax
@@ -486,14 +486,14 @@ AddIdleHandler:
         je short .4
         shl ebx, 4
         mov eax, dword [byte esp+010h]
-        mov dword [dword ebx+dword_1CEFD8], ecx
-        mov dword [dword ebx+dword_1CEFDC], eax
+        mov dword [dword ebx+IdleHandlers], ecx
+        mov dword [dword ebx+IdleHandlers+4], eax
         mov eax, dword [TimerTicks]
         mov ebp, dword [byte esp+014h]
         add eax, ebp
-        mov dword [dword ebx+dword_1CEFE0], eax
+        mov dword [dword ebx+IdleHandlers+8], eax
         xor eax, eax
-        mov dword [dword ebx+dword_1CEFE4], eax
+        mov dword [dword ebx+IdleHandlers+0Ch], eax
 .4:
         pop ebp
         pop ebx
@@ -511,20 +511,20 @@ RemoveIdleHandler:
         xor eax, eax
         xor edx, edx
 .1:
-        cmp ebx, dword [dword eax+dword_1CEFD8]
+        cmp ebx, dword [dword eax+IdleHandlers]
         jne short .6
 .2:
         cmp edx, byte 10h
         jge short .5
         mov eax, edx
         shl eax, 4
-        cmp ebx, dword [dword eax+dword_1CEFD8]
+        cmp ebx, dword [dword eax+IdleHandlers]
         jne short .5
         cmp edx, byte 0Fh
         jge short .4
 .3:
-        lea edi, [dword eax+dword_1CEFD8]
-        lea esi, [dword eax+unk_1CEFE8]
+        lea edi, [dword eax+IdleHandlers]
+        lea esi, [dword eax+IdleHandlers+10h]
         add eax, byte 10h
         movsd
         movsd
@@ -534,7 +534,7 @@ RemoveIdleHandler:
         jl short .3
 .4:
         xor edi, edi
-        mov dword [dword_1CF0C8], edi
+        mov dword [IdleHandlerCount], edi
 .5:
         pop edi
         pop esi
@@ -565,26 +565,26 @@ RunIdleHandlers:
         jmp near .5
 .1:
         mov eax, dword [IdleNextTick]
-        cmp eax, dword [dword ebx+dword_1CEFE0]
+        cmp eax, dword [dword ebx+IdleHandlers+8]
         jl short .2
-        cmp dword [dword ebx+dword_1CEFE4], byte 0
+        cmp dword [dword ebx+IdleHandlers+0Ch], byte 0
         jne short .2
         mov eax, dword [IdleNextTick]
         mov dword [esp], ecx
-        sub eax, dword [dword ebx+dword_1CEFE0]
+        sub eax, dword [dword ebx+IdleHandlers+8]
         push eax
         mov edx, 1
         push edi
         xor ebp, ebp
-        mov dword [dword ebx+dword_1CEFE4], edx
+        mov dword [dword ebx+IdleHandlers+0Ch], edx
         call dword [byte esp+08h]
-        mov edx, dword [dword ebx+dword_1CEFDC]
+        mov edx, dword [dword ebx+IdleHandlers+4]
         or esi, eax
         mov eax, dword [IdleNextTick]
-        mov dword [dword ebx+dword_1CEFE4], ebp
+        mov dword [dword ebx+IdleHandlers+0Ch], ebp
         add eax, edx
         add esp, byte 8
-        mov dword [dword ebx+dword_1CEFE0], eax
+        mov dword [dword ebx+IdleHandlers+8], eax
 .2:
         add ebx, byte 10h
         cmp ebx, 100h
@@ -595,7 +595,7 @@ RunIdleHandlers:
         mov dword [IdleNextTick], eax
         xor ebx, ebx
 .4:
-        mov ecx, dword [dword ebx+dword_1CEFD8]
+        mov ecx, dword [dword ebx+IdleHandlers]
         test ecx, ecx
         jne short .1
 .5:

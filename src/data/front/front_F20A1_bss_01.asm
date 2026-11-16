@@ -2,82 +2,75 @@
 bits 32
 %include "hockey.inc"
 section s_1CEF88 nobits alloc noexec write align=1
-global dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dword_1CEF98, dword_1CEF9C, dword_1CEFA0, dword_1CEFA4
-global dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dword_1CEFBC, dword_1CEFC4, dword_1CEFC8, dword_1CEFCC
-global dword_1CEFD4, dword_1CEFD8, dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, dword_1CF0D8, dword_1CF0E0
-global dword_1CF25C, dword_1CF260, dword_1CF264, dword_1CF268, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294
-global dword_1CF298, memlist1, unk_1CEFE8, word_1CEFC0, word_1CF28E
-dword_1CEF88:
+global PauseRemoteShape, PauseMouseShape, PauseRemoteLitShape, PauseBitmap, MenuItemHighlight, PauseClockArea, MenuFrameColour, PauseResumeTick
+global IntermissionOverlay, MenuFontSmall, MenuFontLarge, MenuTextColour, PauseFrameMode, VideoModeInfo
+global IdleHandlers, IdleHandlerCount, HeapFreeList, MemBlockGuards
+global MemDescriptorTop, MemLockHandle, MemFreeStart, MemFreeBytes, timercallbacks, TimerFraction, TimerStep, TimerOldCount
+global ShapeDrawDest, memlist1, PauseMenuMode, TimerFractionHigh
+PauseRemoteShape:
         resb 4
-dword_1CEF8C:
+PauseMouseShape:
         resb 4
-dword_1CEF90:
+PauseRemoteLitShape:
         resb 4
-dword_1CEF94:
+PauseBitmap:
         resb 4
-dword_1CEF98:
+MenuItemHighlight:
         resb 4
-dword_1CEF9C:
+PauseClockArea:
         resb 4
-dword_1CEFA0:
+MenuFrameColour:
         resb 4
-dword_1CEFA4:
+PauseResumeTick:
         resb 4
-dword_1CEFA8:
+IntermissionOverlay:
         resb 8
-dword_1CEFB0:
+MenuFontSmall:
         resb 4
-dword_1CEFB4:
+MenuFontLarge:
         resb 4
-dword_1CEFB8:
+MenuTextColour:
         resb 4
-dword_1CEFBC:
+PauseFrameMode:
         resb 4
-word_1CEFC0:
+PauseMenuMode:
         resb 4
-dword_1CEFC4:
+VideoModeInfo:
         resb 4
-dword_1CEFC8:
         resb 4
-dword_1CEFCC:
         resb 8
-dword_1CEFD4:
         resb 4
-dword_1CEFD8:
+IdleHandlers:
         resb 4
-dword_1CEFDC:
         resb 4
-dword_1CEFE0:
         resb 4
-dword_1CEFE4:
         resb 4
-unk_1CEFE8:
         resb 224
-dword_1CF0C8:
+IdleHandlerCount:
         resb 16
-dword_1CF0D8:
+HeapFreeList:
         resb 4
 memlist1:
         resb 4
-dword_1CF0E0:
+MemBlockGuards:
         resb 380
-dword_1CF25C:
+MemDescriptorTop:
         resb 4
-dword_1CF260:
+MemLockHandle:
         resb 4
-dword_1CF264:
+MemFreeStart:
         resb 4
-dword_1CF268:
+MemFreeBytes:
         resb 4
 timercallbacks:
         resb 32
-dword_1CF28C:
+TimerFraction:
         resb 2
-word_1CF28E:
+TimerFractionHigh:
         resb 2
-dword_1CF290:
+TimerStep:
         resb 4
-dword_1CF294:
+TimerOldCount:
         resb 4
-dword_1CF298:
+ShapeDrawDest:
         resb 4

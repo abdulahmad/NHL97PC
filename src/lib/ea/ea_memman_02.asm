@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_1216B0 progbits alloc exec nowrite align=1
-extern GetTicks, TicksSince, CachedFileRetries, FileCacheList, FreeSpaceList, CachedFileTable, CachedFileFind, dword_1CF260
+extern GetTicks, TicksSince, CachedFileRetries, FileCacheList, FreeSpaceList, CachedFileTable, CachedFileFind, MemLockHandle
 extern memlist1, PresentFuncInput, strncmp_, bcopy, MemLock, MemUnlock, PathBaseName, DispatchHotkey
 extern AllocMemBlockEx, UnlinkMemBlockLocked, UnlinkMemBlock, MergeFreeSpace, ReadJoystickPorts, KbdGetKey, CachedFileDate, CachedFileTime
 extern CachedFileDrive
@@ -64,7 +64,7 @@ FindMemBlockNamed:
         add esp, byte 8
         ret
         push ebx
-        mov edx, dword [dword_1CF260]
+        mov edx, dword [MemLockHandle]
         push edx
         call MemLock
         add esp, byte 4
@@ -72,7 +72,7 @@ FindMemBlockNamed:
         push ebx
         call FindFreeSpace
         add esp, byte 4
-        mov ecx, dword [dword_1CF260]
+        mov ecx, dword [MemLockHandle]
         push ecx
         mov ebx, eax
         call MemUnlock

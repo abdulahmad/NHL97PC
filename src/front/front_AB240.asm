@@ -6,7 +6,7 @@ extern str_Xferdata, str_Replaybuf2, str_Gdata, str_Ros2, str_SEXHIBITNDX, str_E
 extern PlayoffUserActive, PlayoffRound, PlayoffStarted, PlayoffUserIndex, PlayoffColumns, HomeUserSlot, AwayUserSlot, PlayoffRoundSlots
 extern PlayoffRoundGames, PlayoffWinsNeeded, PlayoffPairings, LinkGameActive, dword_16E464, GameSettings, SeasonUserTeam, PlayoffRounds
 extern SeasonActive, SeasonUserReplay, SeasonDefaultUser, SeasonRandomSeed, PlayoffRoundBits, PlayoffUserReplay, PlayoffTeamNames, PlayoffTeams
-extern PlayoffOpponents, PlayoffGameCount, PlayoffRandomSeed, SeasonFileName, ReplayIndexHandle, ReplayFileOpen, dword_1CEFB0, dword_1CEFB4
+extern PlayoffOpponents, PlayoffGameCount, PlayoffRandomSeed, SeasonFileName, ReplayIndexHandle, ReplayFileOpen, MenuFontSmall, MenuFontLarge
 extern memcpy_, sprintf_, DosFileInfo, MakeDirPath, SaveReplayHeader, SimulateGame, UpdateTeamLines, CheckLeagueInjuries
 extern EditFileName, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, NameIndexNew, NameIndexLoad, NameIndexFree, LoadNameIndex
 extern GetLangText, SortStandings, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, FreeTransferBuffers, CopyToTransfer, LinkSendData
@@ -1475,10 +1475,10 @@ SaveReplayFile:
         jne near .18
         cmp dword [dword_16E464], 140h
         je short .11
-        push dword [dword_1CEFB0]
+        push dword [MenuFontSmall]
         jmp short .12
 .11:
-        push dword [dword_1CEFB4]
+        push dword [MenuFontLarge]
 .12:
         call SelectFont
         add esp, byte 4

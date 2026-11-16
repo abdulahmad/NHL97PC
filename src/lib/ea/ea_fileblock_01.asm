@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_FC88C progbits alloc exec nowrite align=1
 extern _dos_getdate_, _dos_gettime_, str_02d3s02d, str_2d02d02d, DebugTextColor, DebugBackColor, byte_16E63A, ScreenBitsPerPixel
-extern ShadeTable, DebugMode, DebugLineY, DebugLineWidth, DebugLineTable, ShapeRowFunc, dword_1CF298, FontAscent
+extern ShadeTable, DebugMode, DebugLineY, DebugLineWidth, DebugLineTable, ShapeRowFunc, ShapeDrawDest, FontAscent
 extern FontDescent, TextAlign, CurrentFont, FontHeight, FontWidth, LinkTextFont, FontFirstChar, FontLastChar
 extern FontGlyphTable, FontFlags, TextColor, FontGlyphCount, FontKernTable, TextNextCharFn, FontSpacing, PaletteWords
 extern ShapeRowFuncTable, removewindow, sprintf_, bcopy, ConvertArtPalette16, NextTextByte, NextTextChar, BlitCore
@@ -628,7 +628,7 @@ CopyRowKeyed32_1C:
         push ecx
         push esi
         push edi
-        mov edi, dword [dword_1CF298]
+        mov edi, dword [ShapeDrawDest]
         mov esi, edi
 .3:
         mov cl, byte [eax]
@@ -642,7 +642,7 @@ CopyRowKeyed32_1C:
         add edx, byte 2
         dec ebx
         jne short .3
-        mov dword [dword_1CF298], edi
+        mov dword [ShapeDrawDest], edi
         pop edi
         pop esi
         pop ecx
@@ -681,7 +681,7 @@ DrawShapeCore:
         mov edx, esp
         mov eax, esi
         call ConvertArtPalette16
-        mov dword [dword_1CF298], eax
+        mov dword [ShapeDrawDest], eax
         mov dword [ShapeRowFunc], CopyRowKeyed32_1C
 .3:
         mov ecx, ShapeRowFuncTable

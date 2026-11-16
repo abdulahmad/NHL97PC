@@ -10605,10 +10605,94 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1CD784,SeasonIntroBackFile,dword_1CD784,new,low,season intro back art file,src/data/front/front_E7D6D_bss_01.asm
 1CD788,SeasonIntroLeaders,word_1CD788,97PC,low,"season intro leader entries (171 bytes each), up to the stat words",src/data/front/front_E7D6D_bss_01.asm
 1CD7EB,SeasonIntroLeaderStats,word_1CD7EB,97PC,low,season intro leader entries from the stat words on,src/data/front/front_E7D6D_bss_01.asm
+1CE0E4,AllStarListChoice,dword_1CE0E4,new,low,all-star list choice per conference,src/data/front/front_E9429_bss_01.asm
+1CE0E8,AllStarRosterBase,dword_1CE0E8,new,low,slot before the all-star roster pointers (indexed from 1),src/data/front/front_E9429_bss_01.asm
+1CE0EC,AllStarLogoTables,dword_1CE0EC,new,low,all-star logo table per conference,src/data/front/front_E9429_bss_01.asm
+1CE0F4,AllStarSlotPicked,dword_1CE0F4,new,low,all-star slot picked per conference,src/data/front/front_E9429_bss_01.asm
+1CE0FC,AllStarSlot,dword_1CE0FC,new,low,all-star slot per conference,src/data/front/front_E9429_bss_01.asm
+1CE104,AllStarSlotFirst,dword_1CE104,new,low,first all-star slot per conference,src/data/front/front_E9429_bss_01.asm
+1CE10C,AllStarLogoData,dword_1CE10C,new,low,all-star logo data per conference,src/data/front/front_E9429_bss_01.asm
+1CE110,AllStarForwardKeyBase,dword_1CE110,new,low,slot before the all-star forward stat keys (indexed from 1),src/data/front/front_E9429_bss_01.asm
+1CE114,AllStarForwardStatKeys,dword_1CE114,97PC,low,all-star forward stat keys,src/data/front/front_E9429_bss_01.asm
+1CE158,AllStarDefenceKeyBase,dword_1CE158,new,low,slot before the all-star defence stat keys (indexed from 1),src/data/front/front_E9429_bss_01.asm
+1CE15C,AllStarDefenceStatKeys,dword_1CE15C,97PC,low,all-star defence stat keys,src/data/front/front_E9429_bss_01.asm
+1CE1AC,AllStarLists,dword_1CE1AC,new,low,all-star scroll list per conference,src/data/front/front_E9429_bss_01.asm
+1CE1B0,AllStarCandidateCount,dword_1CE1B0,new,low,all-star candidate count,src/data/front/front_E9429_bss_01.asm
+1CE1B4,AllStarLineData,dword_1CE1B4,new,low,all-star line data per conference,src/data/front/front_E9429_bss_01.asm
+1CE1B8,AllStarLineDataAway,dword_1CE1B8,new,low,all-star away line data,src/data/front/front_E9429_bss_01.asm
+1CE1BC,AllStarListArea,dword_1CE1BC,new,low,all-star list area,src/data/front/front_E9429_bss_01.asm
+1CE1C0,AllStarSlotShape,dword_1CE1C0,new,low,all-star slot shape,src/data/front/front_E9429_bss_01.asm
+1CE1C4,AllStarSlotArea,dword_1CE1C4,new,low,all-star slot area,src/data/front/front_E9429_bss_01.asm
+1CE1C8,AllStarSoundState,dword_1CE1C8,new,low,all-star sound state,src/data/front/front_E9429_bss_01.asm
+1CE1CC,AllStarPickArea,dword_1CE1CC,new,low,all-star pick area,src/data/front/front_E9429_bss_01.asm
+1CE1D0,AllStarSoundTick,dword_1CE1D0,new,low,tick of the next all-star sound,src/data/front/front_E9429_bss_01.asm
+1CE1D4,AllStarScrollArea,dword_1CE1D4,new,low,all-star scroll area,src/data/front/front_E9429_bss_01.asm
+1CE1D8,AllStarTeamArea,dword_1CE1D8,new,low,all-star team area,src/data/front/front_E9429_bss_01.asm
+1CE1DC,AllStarNameArea,dword_1CE1DC,new,low,all-star name area,src/data/front/front_E9429_bss_01.asm
+1CE1E0,AllStarSlotLayer,dword_1CE1E0,new,low,all-star slot layer,src/data/front/front_E9429_bss_01.asm
+1CE1E4,AllStarLastSpeech,dword_1CE1E4,new,low,last all-star speech picked,src/data/front/front_E9429_bss_01.asm
+1CE1E8,AllStarCandidates,dword_1CE1E8,new,low,all-star candidates,src/data/front/front_E9429_bss_01.asm
+1CE1EC,AllStarItems,dword_1CE1EC,new,low,all-star screen items,src/data/front/front_E9429_bss_01.asm
+1CE1F0,AllStarConference,dword_1CE1F0,new,low,all-star conference shown,src/data/front/front_E9429_bss_01.asm
+1CE1F4,AllStarTeamList,dword_1CE1F4,new,low,all-star team list,src/data/front/front_E9429_bss_01.asm
+1CE1F8,AllStarTeamBitmap,dword_1CE1F8,new,low,all-star team bitmap,src/data/front/front_E9429_bss_01.asm
+1CE1FC,AllStarSide,dword_1CE1FC,new,low,all-star side being picked,src/data/front/front_E9429_bss_01.asm
+1CE200,AllStarPicks,dword_1CE200,new,low,all-star picks,src/data/front/front_E9429_bss_01.asm
+1CE204,AllStarListBitmap,dword_1CE204,new,low,all-star list bitmap,src/data/front/front_E9429_bss_01.asm
+1CE208,AllStarNameBitmap,dword_1CE208,new,low,all-star name bitmap,src/data/front/front_E9429_bss_01.asm
+1CE20C,AllStarStatBitmap,dword_1CE20C,new,low,all-star stat bitmap,src/data/front/front_E9429_bss_01.asm
+1CE210,AllStarListSide,dword_1CE210,new,low,all-star list side,src/data/front/front_E9429_bss_01.asm
+1CE214,AllStarShapeFile,dword_1CE214,new,low,all-star shape file,src/data/front/front_E9429_bss_01.asm
+1CE218,AllStarScreenBitmap,dword_1CE218,new,low,all-star screen bitmap,src/data/front/front_E9429_bss_01.asm
+1CE21C,AllStarPickOrder,dword_1CE21C,new,low,all-star pick order,src/data/front/front_E9429_bss_01.asm
+1CE220,AllStarPlayers,dword_1CE220,new,low,all-star players,src/data/front/front_E9429_bss_01.asm
+1CE224,AllStarSlotPlayers,byte_1CE224,new,low,all-star player per slot (13 per side),src/data/front/front_E9429_bss_01.asm
+1CE23D,AllStarLogoSlotsPrev,byte_1CE23D,new,low,"all-star logo slots, entry before the first",src/data/front/front_E9429_bss_01.asm
+1CE23E,AllStarLogoSlots,byte_1CE23E,new,low,all-star logo slot per player,src/data/front/front_E9429_bss_01.asm
+1CE258,ControlBitmaps,dword_1CE258,new,low,control setup bitmaps (16 bytes each),src/data/front/front_EE69C_bss_01.asm
+1CE260,ControlKeyArt,dword_1CE260,new,low,control key art per row (8 bytes each),src/data/front/front_EE69C_bss_01.asm
+1CE264,ControlKeyLitArt,dword_1CE264,new,low,control key lit art per row,src/data/front/front_EE69C_bss_01.asm
+1CE2A0,ControlPadArt,dword_1CE2A0,new,low,control pad art per item (8 bytes each),src/data/front/front_EE69C_bss_01.asm
+1CE2A4,ControlPadLitArt,dword_1CE2A4,new,low,control pad lit art per item,src/data/front/front_EE69C_bss_01.asm
+1CE2D8,ControlLabelLayers,dword_1CE2D8,new,low,control label layers (8 bytes each),src/data/front/front_EE69C_bss_01.asm
+1CE2DC,ControlLabelLitLayers,dword_1CE2DC,new,low,control label lit layers,src/data/front/front_EE69C_bss_01.asm
+1CE308,ControlKeyShapes,dword_1CE308,new,low,control key shapes,src/data/front/front_EE69C_bss_01.asm
+1CE318,ControlPadShapes,dword_1CE318,new,low,control pad shapes,src/data/front/front_EE69C_bss_01.asm
+1CE31C,ControlPadShapesNext,dword_1CE31C,new,low,control pad shapes from the second,src/data/front/front_EE69C_bss_01.asm
+1CE328,ControlShapeFile,dword_1CE328,new,low,control setup shape file,src/data/front/front_EE69C_bss_01.asm
+1CE32C,ControlSetupItems,dword_1CE32C,97PC,low,control setup menu item records (82 bytes each),src/data/front/front_EE69C_bss_01.asm
 1CEA8A,KeyNames,unk_1CEA8A,new,low,key name strings per scan code (15 bytes each),src/data/front/front_EE69C_bss_01.asm
 1CEA99,KeyNameSlots,unk_1CEA99,97PC,low,key name strings from scan code 1 on (15 bytes each); KeyNames is entry 0,src/data/front/front_E9429_bss_02.asm
+1CEF88,PauseRemoteShape,dword_1CEF88,new,low,pause menu remote shape,src/data/front/front_F20A1_bss_01.asm
+1CEF8C,PauseMouseShape,dword_1CEF8C,new,low,pause menu mouse shape,src/data/front/front_F20A1_bss_01.asm
+1CEF90,PauseRemoteLitShape,dword_1CEF90,new,low,pause menu lit remote shape,src/data/front/front_F20A1_bss_01.asm
+1CEF94,PauseBitmap,dword_1CEF94,new,low,pause menu bitmap,src/data/front/front_F20A1_bss_01.asm
+1CEF98,MenuItemHighlight,dword_1CEF98,new,low,menu item highlight,src/data/front/front_F20A1_bss_01.asm
+1CEF9C,PauseClockArea,dword_1CEF9C,new,low,pause clock area,src/data/front/front_F20A1_bss_01.asm
+1CEFA0,MenuFrameColour,dword_1CEFA0,new,low,menu frame colour,src/data/front/front_F20A1_bss_01.asm
+1CEFA4,PauseResumeTick,dword_1CEFA4,new,low,tick when play resumes after the pause,src/data/front/front_F20A1_bss_01.asm
+1CEFA8,IntermissionOverlay,dword_1CEFA8,new,low,intermission overlay,src/data/front/front_F20A1_bss_01.asm
+1CEFB0,MenuFontSmall,dword_1CEFB0,new,low,"menu font, low resolution",src/data/front/front_F20A1_bss_01.asm
+1CEFB4,MenuFontLarge,dword_1CEFB4,new,low,"menu font, high resolution",src/data/front/front_F20A1_bss_01.asm
+1CEFB8,MenuTextColour,dword_1CEFB8,new,low,menu text colour,src/data/front/front_F20A1_bss_01.asm
+1CEFBC,PauseFrameMode,dword_1CEFBC,new,low,pause frame mode,src/data/front/front_F20A1_bss_01.asm
+1CEFC0,PauseMenuMode,word_1CEFC0,new,low,pause menu mode,src/data/front/front_F20A1_bss_01.asm
+1CEFC4,VideoModeInfo,dword_1CEFC4,97PC,low,"video mode info: width, height, bits per pixel, flags",src/data/front/front_F20A1_bss_01.asm
+1CEFD8,IdleHandlers,dword_1CEFD8,97PC,low,"idle handler table (16 bytes each: routine, context, period, next tick)",src/data/front/front_F20A1_bss_01.asm
+1CF0C8,IdleHandlerCount,dword_1CF0C8,new,low,idle handler count,src/data/front/front_F20A1_bss_01.asm
+1CF0D8,HeapFreeList,dword_1CF0D8,new,low,near heap free list,src/data/front/front_F20A1_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,
+1CF0E0,MemBlockGuards,dword_1CF0E0,new,low,memory block guards,src/data/front/front_F20A1_bss_01.asm
+1CF25C,MemDescriptorTop,dword_1CF25C,new,low,memory descriptor top,src/data/front/front_F20A1_bss_01.asm
+1CF260,MemLockHandle,dword_1CF260,new,low,memory lock handle,src/data/front/front_F20A1_bss_01.asm
+1CF264,MemFreeStart,dword_1CF264,new,low,memory free start,src/data/front/front_F20A1_bss_01.asm
+1CF268,MemFreeBytes,dword_1CF268,new,low,memory free size,src/data/front/front_F20A1_bss_01.asm
 1CF26C,timercallbacks,dword_1CF26C,96PC,medium,96 PC timercallbacks: the 8 timer callbacks (addtimer),src/data/front/front_F20A1_bss_01.asm
+1CF28C,TimerFraction,dword_1CF28C,new,low,timer tick fraction,src/data/front/front_F20A1_bss_01.asm
+1CF28E,TimerFractionHigh,word_1CF28E,new,low,timer tick fraction high word,src/data/front/front_F20A1_bss_01.asm
+1CF290,TimerStep,dword_1CF290,new,low,timer tick step,src/data/front/front_F20A1_bss_01.asm
+1CF294,TimerOldCount,dword_1CF294,new,low,old timer count,src/data/front/front_F20A1_bss_01.asm
+1CF298,ShapeDrawDest,dword_1CF298,new,low,shape draw destination,src/data/front/front_F20A1_bss_01.asm
 1CF29C,PolyTopRow,dword_1CF29C,new,low,top row of the polygon being filled,src/data/lib/ea/ea_gfx_02_bss_01.asm
 1CF2A0,PolyRowCount,dword_1CF2A0,new,low,number of rows of the polygon being filled,src/data/lib/ea/ea_gfx_02_bss_01.asm
 1CF2A4,PolySpanEdges,unk_1CF2A4,new,low,left and right edge of each row of the polygon being filled,src/data/lib/ea/ea_gfx_02_bss_01.asm

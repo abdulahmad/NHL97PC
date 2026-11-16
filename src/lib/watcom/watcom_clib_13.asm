@@ -20,7 +20,7 @@ extern SavedKbdVecOffset, SavedInt16Offset, SavedRealKbdOffset, AssertLine, Asse
 extern FrameRateCount, FrameRateStart, FrameRateTicks, FrameRateValue, FrameRateMin, FrameRateMax, PlatformState, PlatformFirstInit
 extern _fmode, StackLow, LoadFileHook, __MBCSFlag, _umaskval, __NHandles, VideoCodePtr, VideoBitCount
 extern VideoBitBuffer, VideoOutPtr, VideoBlockX, VideoBlockY, VideoBlockTemp, VideoBlockSum, VideoIdctScale, F32_0p541196
-extern F32_1p30656, F32_0p382683, F32_6p7554e15, dword_1CF260, dword_1CF264, dword_1CF268, TextOriginX, ModelSetupMode
+extern F32_1p30656, F32_0p382683, F32_6p7554e15, MemLockHandle, MemFreeStart, MemFreeBytes, TextOriginX, ModelSetupMode
 extern PrimColor, ModelFileCount, BitReaderPtr, BitReaderBits, VideoCodeTableA, VideoDecoderA, VideoCodeTableB, VideoGammaTable
 extern VideoDecoderB, VideoCodeTableC, FrameRateState, FrameRateSamples, FrameRateLast, VideoCoefs, MemPoolSizes, MemPoolTable
 extern MemPoolCount, PaletteWords, int386_, isatty_, memcpy_, KeyedRowFuncs, KeyDownTable, SerialPortTable
@@ -10531,7 +10531,7 @@ InitMemoryPool:
         call ResetMemLock
         push eax
         mov ebx, 40h
-        mov dword [dword_1CF260], eax
+        mov dword [MemLockHandle], eax
         call MemLock
         add esp, byte 4
         mov eax, MemPoolTable
@@ -10796,11 +10796,11 @@ InitMemoryPool:
         mov word [byte esp+01Ch], cx
         call int386_
 .20:
-        mov ecx, dword [dword_1CF260]
+        mov ecx, dword [MemLockHandle]
         mov ebx, 0A0000h
         push ecx
-        mov dword [dword_1CF268], edi
-        mov dword [dword_1CF264], ebx
+        mov dword [MemFreeBytes], edi
+        mov dword [MemFreeStart], ebx
         call MemUnlock
         add esp, byte 4
         mov eax, edi

@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_FBE40 progbits alloc exec nowrite align=1
 extern GetTicks, TickDeadlinePassed, KbdIdleHook, TimerTicks, TimerTickStep, TimerRate, dword_16E402, dword_16E410
-extern BiosKeyFunc, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, RestoreDS, tickcount, word_1CF28E
+extern BiosKeyFunc, timercallbacks, TimerFraction, TimerStep, TimerOldCount, RestoreDS, tickcount, TimerFractionHigh
 global WaitKey, KbdGetKey, KbdIdleCall, KbdPeekKey, SetKbdIdleHook, KbdFlush, RunTimerCallbacks, TimerISR
 global addtimer
 ;-----------------------------------------------------------------------------
@@ -158,14 +158,14 @@ TimerISR:
         call RestoreDS
         inc dword [tickcount]
         inc dword [TimerTicks]
-        mov eax, dword [dword_1CF290]
-        mov ecx, dword [dword_1CF28C]
+        mov eax, dword [TimerStep]
+        mov ecx, dword [TimerFraction]
         add ecx, eax
         xor edx, edx
         mov eax, ecx
-        mov dword [dword_1CF28C], ecx
+        mov dword [TimerFraction], ecx
         sar eax, 10h
-        mov word [word_1CF28E], dx
+        mov word [TimerFractionHigh], dx
         test eax, eax
         je short .1
         add dword [TimerTickStep], eax
@@ -185,7 +185,7 @@ TimerISR:
         mov dword [dword_16E410], edx
         test eax, eax
         je short .3
-        mov eax, dword [dword_1CF294]
+        mov eax, dword [TimerOldCount]
         add eax, dword [TimerRate]
         push es
         pop ebx

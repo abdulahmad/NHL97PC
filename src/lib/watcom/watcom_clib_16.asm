@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_12075C progbits alloc exec nowrite align=1
 extern __SetIOMode_, __qwrite_, __set_errno_dos_, _dosret0_, _environ, _nfree_, _nmalloc_, _psp
-extern HeapList, HeapRover, dword_1CF0D8, __OpenStreams, __ClosedStreams, flushall_, isatty_, memset_
+extern HeapList, HeapRover, HeapFreeList, __OpenStreams, __ClosedStreams, flushall_, isatty_, memset_
 extern strnicmp_, __iob, __NFiles, errno, _doserrno
 global __MemAllocator, __MemFree, __allocfp_, __chktty_, __close_, __flush_, __freefp_, __set_EDOM_
 global __set_EINVAL_, __set_ERANGE_, __set_doserrno_, __set_errno_, __unlink_, abs_, access_, fflush_
@@ -731,10 +731,10 @@ __unlink_:
         mov edx, dword [byte edx+08h]
         mov dword [HeapRover], edx
 .1:
-        cmp eax, dword [dword_1CF0D8]
+        cmp eax, dword [HeapFreeList]
         jne short .2
         xor ecx, ecx
-        mov dword [dword_1CF0D8], ecx
+        mov dword [HeapFreeList], ecx
 .2:
         mov esi, dword [HeapList]
         cmp eax, esi

@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_123FEA progbits alloc exec nowrite align=1
 extern IF@ATAN2, __fpatan_chk, __math2err_, __math87_err_, str_RESIZE, ScreenBitsPerPixel, FdivShiftTable, str_Punct_DrawRinkSurface
-extern ConvertPalette, ColorKeyEnabled, SinTable, F32_0p9375, F32_1p0625, F32_9p22337e18, dword_1CF260, TextOriginX
+extern ConvertPalette, ColorKeyEnabled, SinTable, F32_0p9375, F32_1p0625, F32_9p22337e18, MemLockHandle, TextOriginX
 extern TextOriginY, LinkTextFont, DrawGlyphFn, TextCharFn, TextEndFn, IndexTo16Table, PaletteWords, TextLimitPtr
 extern TextLimitCount, TextLimitWidth, AtexitCount, AtexitTable, SpeechBankCount, int386x_, itoa_, ltoa_
 extern memlist1, ConvertDestBuffer, ExitHook, __EFG_printf, FdivJumpTable, F64_709p783, F64_neg709p783, segread_
@@ -2669,7 +2669,7 @@ CreateBitmapCore:
         mov eax, dword [byte edi+018h]
         and eax, 0F00h
         shr eax, 8
-        mov edx, dword [dword_1CF260]
+        mov edx, dword [MemLockHandle]
         mov dword [esp], eax
         mov esi, eax
         shl eax, 2
@@ -2701,7 +2701,7 @@ CreateBitmapCore:
         mov ebp, eax
         cmp eax, byte 0FFFFFFFFh
         je short .1
-        mov esi, dword [dword_1CF260]
+        mov esi, dword [MemLockHandle]
         push esi
         call MemUnlock
         add esp, byte 4
@@ -2723,7 +2723,7 @@ CreateBitmapCore:
         call SetBlockGuard
         add esp, byte 4
 .3:
-        mov esi, dword [dword_1CF260]
+        mov esi, dword [MemLockHandle]
         push esi
         call MemUnlock
         add esp, byte 4
@@ -2806,7 +2806,7 @@ CreateBitmapCore:
         mov dword [byte ebx+010h], eax
         call PushMemDescriptor
         add esp, byte 4
-        mov eax, dword [dword_1CF260]
+        mov eax, dword [MemLockHandle]
         push eax
         call MemUnlock
         add esp, byte 4
@@ -2818,7 +2818,7 @@ CreateBitmapCore:
         pop ebx
         ret
 .8:
-        mov eax, dword [dword_1CF260]
+        mov eax, dword [MemLockHandle]
         push eax
         call MemUnlock
         add esp, byte 4

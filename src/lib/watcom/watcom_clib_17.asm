@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_121264 progbits alloc exec nowrite align=1
-extern __chktty_, __flushall_, __set_errno_, __set_errno_dos_, _nmalloc_, dword_1CF0E0, dword_1CF260, MemLockState
+extern __chktty_, __flushall_, __set_errno_, __set_errno_dos_, _nmalloc_, MemBlockGuards, MemLockHandle, MemLockState
 extern getche_, memlist1, StoreBigEndian, findmemblock
 global __filbuf_, __fill_buffer_, __ioalloc_, __qread_, fgetc_, ResetMemLock, MemLock, MemUnlock
 global PathBaseName, SetBlockGuard, CheckBlockGuards
@@ -371,10 +371,10 @@ CheckBlockGuards:
         pop ebx
         ret
 .2:
-        cmp ebp, dword [dword edi+dword_1CF0E0]
+        cmp ebp, dword [dword edi+MemBlockGuards]
         je short .5
         mov edx, dword [dword edi+memlist1]
-        mov esi, dword [dword edi+dword_1CF0E0]
+        mov esi, dword [dword edi+MemBlockGuards]
 .3:
         mov edx, dword [byte edx+020h]
         mov ah, byte [byte edx+019h]
@@ -424,14 +424,14 @@ CheckBlockGuards:
         push edx
         call findmemblock
         add esp, byte 4
-        mov ecx, dword [dword_1CF260]
+        mov ecx, dword [MemLockHandle]
         push ecx
         mov ebx, eax
         call MemLock
         mov eax, dword [byte ebx+018h]
         add esp, byte 4
         and al, 0F8h
-        mov esi, dword [dword_1CF260]
+        mov esi, dword [MemLockHandle]
         or al, 9
         push esi
         mov dword [byte ebx+018h], eax
@@ -444,13 +444,13 @@ CheckBlockGuards:
         db 08Bh,0C0h
         push ebx
         mov ebx, dword [byte esp+08h]
-        mov edx, dword [dword_1CF260]
+        mov edx, dword [MemLockHandle]
         push edx
         call MemLock
         mov eax, dword [byte ebx+018h]
         add esp, byte 4
         and al, 0F8h
-        mov ecx, dword [dword_1CF260]
+        mov ecx, dword [MemLockHandle]
         or al, 9
         push ecx
         mov dword [byte ebx+018h], eax
@@ -466,7 +466,7 @@ CheckBlockGuards:
         push edx
         call findmemblock
         add esp, byte 4
-        mov ecx, dword [dword_1CF260]
+        mov ecx, dword [MemLockHandle]
         push ecx
         mov ebx, eax
         call MemLock
@@ -475,7 +475,7 @@ CheckBlockGuards:
         and al, 0F8h
         mov edx, dword [byte esp+010h]
         or al, 8
-        mov esi, dword [dword_1CF260]
+        mov esi, dword [MemLockHandle]
         or edx, eax
         push esi
         mov dword [byte ebx+018h], edx
@@ -487,7 +487,7 @@ CheckBlockGuards:
         ret
         push ebx
         mov ebx, dword [byte esp+08h]
-        mov edx, dword [dword_1CF260]
+        mov edx, dword [MemLockHandle]
         push edx
         call MemLock
         mov eax, dword [byte ebx+018h]
@@ -495,7 +495,7 @@ CheckBlockGuards:
         and al, 0F8h
         mov edx, dword [byte esp+0Ch]
         or al, 8
-        mov ecx, dword [dword_1CF260]
+        mov ecx, dword [MemLockHandle]
         or edx, eax
         push ecx
         mov dword [byte ebx+018h], edx
