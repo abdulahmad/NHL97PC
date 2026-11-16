@@ -2,18 +2,18 @@
 bits 32
 %include "hockey.inc"
 section s_1DA8D0 nobits alloc noexec write align=1
-global dword_1DA8D0, dword_1DA8D4, dword_1DA8D8, unk_1DC118, unk_1DC218, unk_1DC318, unk_1DC418
-dword_1DA8D0:
+global TextCharFunc, TextCharFuncNext, ScaledRowBuffer, PolyClipBottomBuf, PolyClipLeftBuf, PolyClipRightBuf, PolyClipTopBuf
+TextCharFunc:
         resb 4
-dword_1DA8D4:
+TextCharFuncNext:
         resb 4
-dword_1DA8D8:
+ScaledRowBuffer:
         resb 6208
-unk_1DC118:
+PolyClipBottomBuf:
         resb 256
-unk_1DC218:
+PolyClipLeftBuf:
         resb 256
-unk_1DC318:
+PolyClipRightBuf:
         resb 256
-unk_1DC418:
+PolyClipTopBuf:
         resb 256

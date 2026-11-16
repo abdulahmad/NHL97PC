@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_11FAAC progbits alloc exec nowrite align=1
 extern SelectedVideoMode, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, ModeTableWidth, ModeTableHeight, ModeTableBpp
-extern ModeTableNumber, dword_199C38, dword_199C3C, CurrentFont, VesaQueryMode, SetGraphicsMode, BytesPerPixelForDepth, SetupRectFillShaded
+extern ModeTableNumber, ShadowFillFunc, TitleBandFunc, CurrentFont, VesaQueryMode, SetGraphicsMode, BytesPerPixelForDepth, SetupRectFillShaded
 extern SetupRectFill, FillRectSpans, FillRectList, ZeroMem, FillRectColor, PrepareTextDraw
 global jpt_11FDFD, jpt_11FF3D, jpt_120116, FillShadowRect_10, DrawTitleBand_10, DrawTitleBand_27, jpt_11FDFD_38, jpt_11FF3D_3B
 global jpt_120116_22F, SetTextFont, FillShadowRect, DrawTitleBand, FillBandEdges, FillBandRows, FillBandRowsBlend, CountVesaModes
@@ -43,9 +43,9 @@ FillShadowRect:
         mov byte [byte ebp-011h], 0
 FillShadowRect_10:
         mov eax, FillRectList
-        mov dword [dword_199C38], eax
+        mov dword [ShadowFillFunc], eax
         mov eax, FillRectColor
-        mov dword [dword_199C3C], eax
+        mov dword [TitleBandFunc], eax
         mov esi, dword [byte ebp+010h]
         jmp short DrawTitleBand_27
         push ebp
@@ -70,9 +70,9 @@ DrawTitleBand:
         mov byte [byte ebp-011h], 0
 DrawTitleBand_10:
         mov eax, FillRectList
-        mov dword [dword_199C38], eax
+        mov dword [ShadowFillFunc], eax
         mov eax, FillRectColor
-        mov dword [dword_199C3C], eax
+        mov dword [TitleBandFunc], eax
         lea esi, [byte ebp+010h]
 DrawTitleBand_27:
         mov dword [byte ebp-0Ch], esi
@@ -105,7 +105,7 @@ DrawTitleBand_27:
         push dword [esi]
         push dword [byte esi+04h]
         push dword [esi]
-        call dword [dword_199C3C]
+        call dword [TitleBandFunc]
         add esp, byte 14h
         pop edi
         pop esi
@@ -173,7 +173,7 @@ DrawTitleBand_27:
         push edx
         push ecx
         push ebx
-        call dword [dword_199C3C]
+        call dword [TitleBandFunc]
         add esp, byte 14h
 .9:
         pop edi
@@ -271,7 +271,7 @@ DrawTitleBand_27:
         lea eax, [dword ebp-0282Ch]
         LD add, eax, ebx
         push eax
-        call dword [dword_199C38]
+        call dword [ShadowFillFunc]
         add esp, byte 14h
 .23:
         pop edi
@@ -1036,9 +1036,9 @@ jpt_120116_22F:
         push edi
         mov byte [byte ebp-011h], 1
         mov eax, FillRectList
-        mov dword [dword_199C38], eax
+        mov dword [ShadowFillFunc], eax
         mov eax, FillRectSpans
-        mov dword [dword_199C3C], eax
+        mov dword [TitleBandFunc], eax
         jmp short .51
         push ebp
         LD mov, ebp, esp
@@ -1048,9 +1048,9 @@ jpt_120116_22F:
         push edi
         mov byte [byte ebp-011h], 0
         mov eax, FillRectList
-        mov dword [dword_199C38], eax
+        mov dword [ShadowFillFunc], eax
         mov eax, FillRectSpans
-        mov dword [dword_199C3C], eax
+        mov dword [TitleBandFunc], eax
 .51:
         lea esi, [byte ebp+010h]
         mov dword [byte ebp-0Ch], esi
@@ -1092,7 +1092,7 @@ jpt_120116_22F:
         mov eax, dword [byte ebp+08h]
         mov dword [byte ebp+edi+08h], eax
         push edi
-        call dword [dword_199C3C]
+        call dword [TitleBandFunc]
         add esp, byte 4
         pop edi
         pop esi
@@ -1184,7 +1184,7 @@ jpt_120116_22F:
         mov esi, dword [byte ebp-0Ch]
         mov edi, dword [esi]
         push edi
-        call dword [dword_199C3C]
+        call dword [TitleBandFunc]
         add esp, byte 4
 .67:
         pop edi
@@ -1257,7 +1257,7 @@ jpt_120116_22F:
         lea eax, [dword ebp-0282Ch]
         LD add, eax, ebx
         push eax
-        call dword [dword_199C38]
+        call dword [ShadowFillFunc]
         add esp, byte 14h
 .79:
         pop edi

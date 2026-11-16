@@ -3,9 +3,9 @@ bits 32
 %include "hockey.inc"
 section s_13B0C9 progbits alloc exec nowrite align=1
 extern __Bin2String, __CmpBigInt, __Rnd2Int, __doserror_, __fdiv_m64, __flush_, __ioalloc_, __log87_err_
-extern MathErrorFlags, str_Inf, str_Nan, dword_16844C, dword_168450, dword_168454, dword_168458, dword_168462
-extern fputc_, frexp_, modf_, F64_neg1_floor_, qword_16843C, qword_168444, qword_16845E, matherr
-extern unk_16845C, unk_1722C0
+extern MathErrorFlags, str_Inf, str_Nan, DblMaxLow, DblMaxHigh, DblMinusMaxLow, DblMinusMaxHigh, Pow10TableHigh
+extern fputc_, frexp_, modf_, F64_neg1_floor_, F64_Scale10Max, F64_Scale10Min, Pow10Table, matherr
+extern Scale10Count, __iob
 global IF@LOG, IF@LOG10, IF@LOG2, _Scale10V_, _Scale_, __Nan_Inf_, __cvt_, __get_std_stream_
 global _dos_read_, floor_, fputs_, IF@LOG_2, ModfCore, DecimalToInt64, NormalizeDouble, CallMatherr
 ;-----------------------------------------------------------------------------
@@ -208,27 +208,27 @@ _Scale10V_:
         sub esp, byte 8
         mov ecx, dword [byte esp+028h]
         fld qword [byte esp+020h]
-        fcomp qword [qword_16843C]
+        fcomp qword [F64_Scale10Max]
         fnstsw ax
         sahf
         jne short .1
-        mov eax, dword [dword_16844C]
+        mov eax, dword [DblMaxLow]
         mov dword [byte esp+020h], eax
-        mov eax, dword [dword_168450]
+        mov eax, dword [DblMaxHigh]
         jmp short .2
 .1:
         fld qword [byte esp+020h]
-        fcomp qword [qword_168444]
+        fcomp qword [F64_Scale10Min]
         fnstsw ax
         sahf
         jne short .3
-        mov eax, dword [dword_168454]
+        mov eax, dword [DblMinusMaxLow]
         mov dword [byte esp+020h], eax
-        mov eax, dword [dword_168458]
+        mov eax, dword [DblMinusMaxHigh]
 .2:
         mov dword [byte esp+024h], eax
 .3:
-        mov eax, unk_16845C
+        mov eax, Scale10Count
         test ecx, ecx
         jge short .6
         mov edx, ecx
@@ -238,12 +238,12 @@ _Scale10V_:
         fld qword [byte esp+020h]
         test byte [MathErrorFlags], 1
         je short .4
-        push dword [dword_168462]
-        push dword [qword_16845E]
+        push dword [Pow10TableHigh]
+        push dword [Pow10Table]
         call __fdiv_m64
         jmp short .5
 .4:
-        fdiv qword [qword_16845E]
+        fdiv qword [Pow10Table]
 .5:
         sub edx, 0D8h
         jmp short .7
@@ -252,7 +252,7 @@ _Scale10V_:
         cmp ecx, 134h
         jle short .8
         fld qword [byte esp+020h]
-        fmul qword [qword_16845E]
+        fmul qword [Pow10Table]
         lea edx, [dword ecx-0D8h]
 .7:
         fstp qword [byte esp+020h]
@@ -695,7 +695,7 @@ __get_std_stream_:
         shl eax, 2
         add eax, edx
         add eax, eax
-        add eax, unk_1722C0
+        add eax, __iob
         pop edx
         ret
 ;-----------------------------------------------------------------------------

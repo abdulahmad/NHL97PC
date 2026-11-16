@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_132C84 progbits alloc exec nowrite align=1
-extern _dos_setvect_, byte_199CD4, byte_199CD5, byte_199CE4, FpuInitHook, jpt_1329F0, jpt_132AF0, jpt_132AF0_170
+extern _dos_setvect_, Hook387Flag, Hook387Saved, WVideoActive, FpuInitHook, jpt_1329F0, jpt_132AF0, jpt_132AF0_170
 extern str_RATIONALDOS4G, RestoreDS, unk_132878, unk_13287C, unk_132880, str_Punct_jpt, str_F, unk_132886
 extern unk_1328D2, unk_1328D4, unk_1328D8, unk_1328DA, unk_132922, unk_132926, unk_132930, unk_132990
-extern unk_199C58, Hook387Save
+extern EmuTrapFrame, Hook387Save
 global __EnterWVIDEO_, __hook387, __init_80x87, __unhook387, jpt_1337C5, jpt_133904, jpt_133985, jpt_133BA0
 global jpt_133CAA, jpt_133DC2, jpt_133E4B, jpt_134054, jpt_134209, RoundToDouble_32, RoundToDouble_49, RoundToDouble_84
 global jpt_133E4B_2C, jpt_134209_20, jpt_134209_69, jpt_134209_CE, jpt_134209_F8, jpt_134209_110, EmuAdd_7, StoreIntBits_3
@@ -68,7 +68,7 @@ EmuTrapExit:
         and ebx, byte 38h
         LD or, bl, al
         call RestoreDS
-        lea ebp, [unk_199C58]
+        lea ebp, [EmuTrapFrame]
         mov edi, dword [byte ds:ebp+04h]
         and edi, 3800h
         shr edi, 0Bh
@@ -133,7 +133,7 @@ EmuTrapExit:
 .11:
         mov dword [byte ebp+038h], esi
         call RestoreDS
-        lea ebp, [unk_199C58]
+        lea ebp, [EmuTrapFrame]
         LD mov, dl, ah
         and edx, byte 38h
         LD or, dl, al
@@ -4659,7 +4659,7 @@ __hook387:
         mov al, 1Eh
         xor ebx, ebx
         xor ecx, ecx
-        mov byte [byte_199CD5], dh
+        mov byte [Hook387Saved], dh
         xor edx, edx
         mov ah, 0FAh
         int 2Fh
@@ -4703,7 +4703,7 @@ __hook387:
         mov cr0, eax
         mov ah, 30h
         int 21h
-        mov byte [byte_199CD4], dl
+        mov byte [Hook387Flag], dl
 .3:
         xor al, al
 .4:
@@ -4723,7 +4723,7 @@ __unhook387:
         push ecx
         push es
         mov es, edx
-        mov dl, byte [byte_199CD5]
+        mov dl, byte [Hook387Saved]
         test dl, dl
         je short .1
         mov eax, cs
@@ -4745,7 +4745,7 @@ __unhook387:
         pop ebx
         ret
 .1:
-        cmp byte [byte_199CD4], 0
+        cmp byte [Hook387Flag], 0
         je short .2
         mov bl, byte [byte es:eax+040h]
         mov byte [byte es:eax+03Eh], dl
@@ -4797,7 +4797,7 @@ __init_80x87:
 ; __EnterWVIDEO_                                               135BF3  library
 ;-----------------------------------------------------------------------------
 __EnterWVIDEO_:
-        cmp byte [byte_199CE4], 0
+        cmp byte [WVideoActive], 0
         je short .2
         and edx, 0FFFFh
         push edx

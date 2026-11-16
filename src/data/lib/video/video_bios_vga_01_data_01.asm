@@ -5,7 +5,7 @@ section s_16F77C progbits alloc noexec write align=1
 extern bcopy_, BuildUniformArt_3CC, CopyPalette16, CopyPalette24, CopyPalette32
 global RemapTable, VesaBankShift, RemapByte, IdentityRemap, PuckArrowColors, RandState0, RandState1, RandState2
 global RandState3, RandState4, RandIndex, VesaBank, VesaBankFunc, PaletteReadFunc, VideoModeIndex, ModeTableWidth
-global ModeTableHeight, ModeTableBpp, ModeTableNumber, VesaModeInfo, VesaWindowActive, dword_16FA04, RowTable, LimbShadeEnabled
+global ModeTableHeight, ModeTableBpp, ModeTableNumber, VesaModeInfo, VesaWindowActive, RowTableBytes, RowTable, LimbShadeEnabled
 global ViewInterlaced, FrameBlitFuncs
 RandState0:
         db 056h,0Eh,02Dh,0F2h
@@ -78,7 +78,7 @@ VesaModeInfo:
         db 00h,00h,00h,00h
 VesaWindowActive:
         db 00h,00h,00h,00h
-dword_16FA04:
+RowTableBytes:
         db 00h,038h,00h,00h
 RowTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h

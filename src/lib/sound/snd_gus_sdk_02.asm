@@ -7,7 +7,7 @@ extern _dos_setvect_, GusDmaLatchBits, GusDmaPageTable, GusDmaReady, GusPlayDmaC
 extern GusDmaControl, BreakSaveStack, GusIrqOldHandler, GusMidiPending, GusMidiIrqCount, GusTimerCallback, GusDmaDoneCallback, GusRecordDoneCallback
 extern GusWaveCallback, GusVolumeCallback, GusTimer1Callback, GusTimer2Callback, GusWaveIrqCallback, GusVolumeIrqCallback, GusMidiXmitCallback, GusMidiRecvCallback
 extern GusDmaBusy, OldInt23Offset, OldCtrlBreakOffset, OldInt23RealOffset, OldCtrlBreakRealOffset, DpmiHostedFlag, GusVoiceIrqBits, GusDmaLeft
-extern GusDmaChunkSize, GusDmaDone, inp_, kaufmfont, lseek_, off_171C80, outp_, raise_
+extern GusDmaChunkSize, GusDmaDone, inp_, kaufmfont, lseek_, Int23Hook, outp_, raise_
 extern RestoreDS, GusConvertAddr16, GusInitTable, GusDmaChannels, BreakHandlerRegs, BreakHandlerStack, GusBasePort, GusIrqStatusPort
 extern GusMidiControlPort, GusMidiDataPort, GusRegSelectPort, GusDataLowPort, GusDataHighPort, GusDramPort, GusIrqVectorTable, GusIrqOldSelector
 extern GusIrqPending, OldInt23Selector, OldCtrlBreakSelector, OldInt23RealSegment, OldCtrlBreakRealSegment, GusDosResult, GusIrqFlags, GusCriticalDepth
@@ -2174,7 +2174,7 @@ __int23_handler_:
         mov dword [_STACKLOW], edx
         test edi, edi
         jne short .1
-        mov eax, dword [off_171C80]
+        mov eax, dword [Int23Hook]
         cmp eax, __null_int23_exit_
         je short .1
         cmp eax, __restore_int_ctrl_break_
@@ -2233,7 +2233,7 @@ __int_ctrl_break_handler_:
         mov dword [_STACKLOW], edx
         test edi, edi
         jne short .1
-        mov eax, dword [off_171C80]
+        mov eax, dword [Int23Hook]
         cmp eax, __null_int23_exit_
         je short .1
         cmp eax, __restore_int23_
@@ -2318,15 +2318,15 @@ __restore_int23_:
         cmp word [OldInt23Selector], byte 0
         je near .7
 .1:
-        mov ebx, dword [off_171C80]
+        mov ebx, dword [Int23Hook]
         cmp ebx, __restore_int_
         jne short .2
-        mov dword [off_171C80], __restore_int_ctrl_break_
+        mov dword [Int23Hook], __restore_int_ctrl_break_
         jmp short .3
 .2:
         cmp ebx, __restore_int23_
         jne short .3
-        mov dword [off_171C80], __null_int23_exit_
+        mov dword [Int23Hook], __null_int23_exit_
 .3:
         xor eax, eax
         mov al, byte [_Extender]
@@ -2386,7 +2386,7 @@ __restore_int23_:
 __restore_int23__F3:
         cmp ebx, __restore_int_ctrl_break_
         jne short __restore_int23__105
-        mov dword [off_171C80], __null_int23_exit_
+        mov dword [Int23Hook], __null_int23_exit_
 __restore_int23__105:
         xor eax, eax
         mov al, byte [_Extender]
@@ -2461,10 +2461,10 @@ __restore_int_ctrl_break_:
         cmp word [OldCtrlBreakSelector], byte 0
         je short __restore_int23__1AC
 .1:
-        mov ebx, dword [off_171C80]
+        mov ebx, dword [Int23Hook]
         cmp ebx, __restore_int_
         jne near __restore_int23__F3
-        mov dword [off_171C80], __restore_int23_
+        mov dword [Int23Hook], __restore_int23_
         jmp near __restore_int23__105
 ;-----------------------------------------------------------------------------
 ; __grab_int23_                                                13AE93  library
@@ -2540,10 +2540,10 @@ __grab_int23_:
         mov word [OldInt23Selector], dx
         call _dos_setvect_
 .3:
-        mov ebx, dword [off_171C80]
+        mov ebx, dword [Int23Hook]
         cmp ebx, __null_int23_exit_
         jne short .4
-        mov dword [off_171C80], __restore_int23_
+        mov dword [Int23Hook], __restore_int23_
         pop edx
         pop ecx
         pop ebx
@@ -2551,7 +2551,7 @@ __grab_int23_:
 .4:
         cmp ebx, __restore_int_ctrl_break_
         jne short .5
-        mov dword [off_171C80], __restore_int_
+        mov dword [Int23Hook], __restore_int_
 .5:
         pop edx
         pop ecx
@@ -2631,10 +2631,10 @@ __grab_int_ctrl_break_:
         mov word [OldCtrlBreakSelector], dx
         call _dos_setvect_
 .3:
-        mov ebx, dword [off_171C80]
+        mov ebx, dword [Int23Hook]
         cmp ebx, __null_int23_exit_
         jne short .4
-        mov dword [off_171C80], __restore_int_ctrl_break_
+        mov dword [Int23Hook], __restore_int_ctrl_break_
         pop edx
         pop ecx
         pop ebx
@@ -2642,7 +2642,7 @@ __grab_int_ctrl_break_:
 .4:
         cmp ebx, __restore_int23_
         jne short .5
-        mov dword [off_171C80], __restore_int_
+        mov dword [Int23Hook], __restore_int_
 .5:
         pop edx
         pop ecx

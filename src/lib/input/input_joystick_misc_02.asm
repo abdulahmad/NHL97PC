@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_FBE40 progbits alloc exec nowrite align=1
 extern GetTicks, TickDeadlinePassed, KbdIdleHook, TimerTicks, TimerTickStep, TimerRate, dword_16E402, dword_16E410
-extern dword_17070C, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, RestoreDS, tickcount, word_1CF28E
+extern BiosKeyFunc, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, RestoreDS, tickcount, word_1CF28E
 global WaitKey, KbdGetKey, KbdIdleCall, KbdPeekKey, SetKbdIdleHook, KbdFlush, RunTimerCallbacks, TimerISR
 global addtimer
 ;-----------------------------------------------------------------------------
@@ -12,13 +12,13 @@ global addtimer
 ;-----------------------------------------------------------------------------
 KbdGetKey:
         mov ah, 1
-        call dword [dword_17070C]
+        call dword [BiosKeyFunc]
         jne short .1
         LD xor, ax, ax
         ret
 .1:
         LD xor, ah, ah
-        call dword [dword_17070C]
+        call dword [BiosKeyFunc]
         LD or, al, al
         je short .2
         LD xor, ah, ah
@@ -36,7 +36,7 @@ KbdIdleCall:
 ;-----------------------------------------------------------------------------
 KbdPeekKey:
         mov ah, 1
-        call dword [dword_17070C]
+        call dword [BiosKeyFunc]
         jne short .1
         LD xor, ax, ax
         ret

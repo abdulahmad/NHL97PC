@@ -18,7 +18,7 @@ extern F32_2000_PenaltySceneStep, F32_neg1000_FaceoffCloseupScene, F32_1500, F32
 extern F32_neg700_MenuOrbitScene, F32_neg200, F32_neg300, F32_neg750, F32_750, F32_neg2000_ReplayCamDrag, F32_neg4800, F32_neg50
 extern F32_50, F32_0p001, F32_80, F32_6, F32_neg2000_ReplayCamMove, F32_neg4800_ReplayCamMove, F32_4272, F32_1392
 extern F32_neg4272, F32_neg1392, F32_10_CanReachPuck, F32_24, F32_neg3984, F32_neg4272_InCrease, F32_4272_InCrease, F32_1272
-extern F32_4032, F32_768, F32_192, F32_48, F32_0p166667, dword_168628, dword_1686BA, dword_1686C0
+extern F32_4032, F32_768, F32_192, F32_48, F32_0p166667, CameraSceneId, dword_1686BA, dword_1686C0
 extern dword_1686D2, dword_1686E6, dword_16875E, dword_1687B8, dword_168934, dword_16893C, dword_16AF5C, dword_16B168
 extern dword_16E464, dword_16E468, ScreenWidth, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB5A, dword_19CB5E
 extern dword_19CB62, dword_19CB66, dword_19CB6A, dword_19CB7B, dword_19CBAA, penshottimer, dword_19CD10, dword_19CD14
@@ -8499,7 +8499,7 @@ LoadOpeningCamera:
         call UpdateCameraMotion
         mov dword [dword_16AF5C], ebx
         call DrawClockOverlay
-        mov dword [dword_168628], ebx
+        mov dword [CameraSceneId], ebx
         add esp, byte 14h
         pop ebp
         pop edi
@@ -8763,7 +8763,7 @@ FaceoffCameraScene:
         mov edx, 0C8h
         mov ebx, 1
         call StartCameraPath
-        mov dword [dword_168628], ebx
+        mov dword [CameraSceneId], ebx
 .1:
         pop edx
         pop ebx
@@ -9212,7 +9212,7 @@ FaceoffCameraScene2:
 .3:
         call FaceoffSweepScene
 .4:
-        mov dword [dword_168628], 1
+        mov dword [CameraSceneId], 1
 .5:
         pop edx
         pop ecx
@@ -9585,7 +9585,7 @@ PenaltyShotCameraScene:
         mov dword [dword_19D0CC], ecx
         mov dword [dword_19D1A4], esi
         call SetCameraTarget
-        mov dword [dword_168628], edi
+        mov dword [CameraSceneId], edi
 .2:
         add esp, byte 8
         pop ebp
@@ -9867,7 +9867,7 @@ FaceoffDropSceneStep:
         call SelectCameraView
         mov edx, 0FFFFFFFFh
         xor ebx, ebx
-        mov dword [dword_168628], edx
+        mov dword [CameraSceneId], edx
         xor dl, dl
         mov dword [dword_19D384], ebx
         mov byte [byte_16892E], dl

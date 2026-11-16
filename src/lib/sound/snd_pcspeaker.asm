@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_138C90 progbits alloc exec nowrite align=1
 extern _Extender, _STACKLOW, __DPMI_hosted_, TimerTickStep, dword_16E464, ClipTopRow, ClipLeftCol, ClipRight
-extern ScreenHeight, DrawDestPitch, dword_199C4C, DebugLineStart, TextOriginX, TextOriginY, RestoreDS, SetTextOrigin
+extern ScreenHeight, DrawDestPitch, __amblksiz, DebugLineStart, TextOriginX, TextOriginY, RestoreDS, SetTextOrigin
 extern MeasureText, DrawTextRun, unk_116427, vsprintf_
 global __CommonInit_, CMainHook, DebugPrintf, DebugPrintAt, DebugPrintLine, DebugLineCount
 ;-----------------------------------------------------------------------------
@@ -26,7 +26,7 @@ __CommonInit_:
         xor eax, eax
         mov edx, 8000h
         mov al, byte [_Extender]
-        mov dword [dword_199C4C], edx
+        mov dword [__amblksiz], edx
         cmp eax, byte 2
         jl short .1
         cmp eax, byte 8

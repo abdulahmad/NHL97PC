@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_102D3C progbits alloc exec nowrite align=1
-extern VesaBankShift, MenuScreenBitmap, VesaBank, VesaBankFunc, PaletteReadFunc, dword_1DA4D0
+extern VesaBankShift, MenuScreenBitmap, VesaBank, VesaBankFunc, PaletteReadFunc, PaletteWords
 global jpt_102D5C, jpt_102D5C_27, VesaSetBank, VesaSetModeCall, VgaSetModeNoClear, CopyMemFpu, GetPaletteEntries
 ;-----------------------------------------------------------------------------
 ; VesaSetBank                                    102D3C  97 PC, low confidence
@@ -254,7 +254,7 @@ GetPaletteEntries:
 .3:
         mov edi, dword [byte ebp+010h]
         mov eax, dword [byte ebp+08h]
-        lea ebx, [nosplit eax*4+dword_1DA4D0]
+        lea ebx, [nosplit eax*4+PaletteWords]
         mov ecx, dword [byte ebp+0Ch]
 .4:
         mov al, byte [byte ebx+02h]

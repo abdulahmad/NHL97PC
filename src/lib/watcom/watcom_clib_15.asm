@@ -4,23 +4,23 @@ bits 32
 section s_11B20A progbits alloc exec nowrite align=1
 extern SetClipWindow, __flush_, __fprtf_, __int386x_, __ioalloc_, __qwrite_, __set_errno_, str_ATD2
 extern str_EAGAME08x04x04x02x02x02x0, str_Netserv, str_IPXINTF, str_IPXSOCK, str_Galloc, str_GMEM, str_GEND, str_GFRE
-extern str_Punct_FreeArtArchive, byte_172250, byte_172251, byte_1DA8CF, TimerTicks, MenuScreenBitmap, str_D_UpdateFrameRate, FrameCounter
-extern MessageBoxActive, SinTable, str_Punct_CountFrameTick, dword_17213C, dword_172168, dword_172194, dword_172198, str_D_NetHandleMessage
-extern dword_1721A0, str_Punct_NetLeaveGame, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4, dword_1721E0, dword_1721E4
-extern dword_172244, str_Punct_IpxHookCheck, dword_17224C, dword_172254, dword_172258, dword_17225C, dword_172260, dword_1722BC
+extern str_Punct_FreeArtArchive, IpxPacketType, IpxPacketFlags, PaletteDirty, TimerTicks, MenuScreenBitmap, str_D_UpdateFrameRate, FrameCounter
+extern MessageBoxActive, SinTable, str_Punct_CountFrameTick, FrameTickCount, ModemConnected, NetSessionName, NetMaxPeers, str_D_NetHandleMessage
+extern NetSessionHandle, str_Punct_NetLeaveGame, IpxPresent, NetSendRetries, NetLastTime, NetRxCount, NetSessionOpen, NetProtocolName
+extern IpxStartupState, str_Punct_IpxHookCheck, IpxPacketBuffer, IpxHookBase, IpxHookInstalled, IpxListening, IpxListenEcb, NetBufferPool
 extern TextOriginX, TextOriginY, LinkTextFont, NetLocalName, NetPollState, NetSendFn, NetDisconnectFn, NetOpenFn
 extern NetLeaveFn, NetJoinFn, NetAnnounceFn, NetLinkOpenFn, NetListStartFn, NetListNextFn, NetDropFn, NetPeerSendFn
-extern NetNameFn, NetCloseFn, NetPeerDropFn, dword_1DA4D0, fgetc_, int386_, off_172140, off_17216C
-extern off_1721B8, putchar, sprintf_, strncmp_, strncpy_, bcopy, QueueInit, QueueNoOp
+extern NetNameFn, NetCloseFn, NetPeerDropFn, PaletteWords, fgetc_, int386_, SerialLinkFuncs, ModemLinkFuncs
+extern NetLinkFuncs, putchar, sprintf_, strncmp_, strncpy_, bcopy, QueueInit, QueueNoOp
 extern QueuePeek, QueueTakeTail, QueueTakeHead, QueueFreeAll, QueueCount, QueueFind, QueueAppend, QueuePostBuffer
 extern AddExitHandler, ConvertArtSame, AngleFromDelta, SerialConfigure, SerialOpen, SerialIsOpen, SerialSetBaud, SerialProgramUart
 extern SerialCarrier, SerialWriteIfRoom, SerialWrite, SerialRxCount, SerialTxFree, SerialFlushTx, SerialRead, SerialFlushRx
 extern FillShadowRect, ErrnoPtr, StoreBigEndian, SinCosLookup, DrawShapeTriangleMapped, ScanFormat, OpenPacketLink, ModemReset
 extern ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemSpeakerOff, AddIdleHandler, RemoveIdleHandler, RunIdleHandlers
 extern AllocMemBlock, AllocMemData, FreeMemBlock, ZeroMem, FillMem, addtimer, RemoveTimerCallback, WaitTicks
-extern str_Punct_ModemLinkOpen, unk_172264, unk_17226C, unk_172274, NetMessageBuf, IpxTargetAddr, IpxRealRegs, IpxSocketNum
-extern IpxSocketResult, IpxLocalAddr, unk_1DA498, unk_1DA4A4, unlink_, word_1DA4A6, word_1DA4A8, word_1DA4AA
-extern word_1DA4AC, word_1DA4AE, word_1DA4B0, word_1DA4B2
+extern str_Punct_ModemLinkOpen, IpxHookCodeA, IpxHookCodeB, IpxHookCodeC, NetMessageBuf, IpxTargetAddr, IpxRealRegs, IpxSocketNum
+extern IpxSocketResult, IpxLocalAddr, IpxEcb, IpxSocket, unlink_, IpxRealSegment, IpxCallSegment, IpxCallOffset
+extern IpxSavedVecOffset, IpxBufferSegment, IpxBufferOffset, IpxSavedVecSegment
 global byteswap_, cget_string_, fgets_, fprintf_, fputc_, fwrite_, int386x_, med3__4F
 global NetPollMessages_168, NetPollMessages_184, IpxResolveTarget_8C, med3_, memcmp_, memmove_, qsort_, segread_
 global sscanf_, UnlinkJump, GetFileTimes, FileDateText, FreeArtArchive, SetFullClip, DrawShadowRect, CountFrameTick
@@ -1414,7 +1414,7 @@ CountFrameTick:
         mov edx, 3C8h
         mov eax, dword [byte esp+014h]
         out dx, al
-        lea edi, [nosplit eax*4+dword_1DA4D0]
+        lea edi, [nosplit eax*4+PaletteWords]
         mov ebx, dword [byte esp+018h]
         inc edx
         push eax
@@ -1426,7 +1426,7 @@ CountFrameTick:
         mov dword [edi], eax
         mov eax, dword [byte ebp+00h]
         and eax, dword [str_Punct_CountFrameTick]
-        mov ecx, dword [dword_17213C]
+        mov ecx, dword [FrameTickCount]
         shl eax, cl
         mov dword [esp], eax
         lea esi, [esp]
@@ -1437,7 +1437,7 @@ CountFrameTick:
         lea edi, [byte edi+04h]
         jne short .1
         pop eax
-        mov byte [byte_1DA8CF], 0
+        mov byte [PaletteDirty], 0
         pop ebp
         pop edi
         pop esi
@@ -1446,7 +1446,7 @@ CountFrameTick:
 .2:
         mov ebp, dword [byte esp+01Ch]
         mov eax, dword [byte esp+014h]
-        lea edi, [nosplit eax*4+dword_1DA4D0]
+        lea edi, [nosplit eax*4+PaletteWords]
         mov ebx, dword [byte esp+018h]
 .3:
         mov eax, dword [byte ebp-01h]
@@ -1458,7 +1458,7 @@ CountFrameTick:
         lea ebp, [byte ebp+03h]
         lea edi, [byte edi+04h]
         jne short .3
-        mov byte [byte_1DA8CF], 0
+        mov byte [PaletteDirty], 0
         pop ebp
         pop edi
         pop esi
@@ -1720,7 +1720,7 @@ OpenSerialPacketLink:
         push ecx
         mov esi, dword [byte esp+020h]
         push esi
-        push off_172140
+        push SerialLinkFuncs
         mov edi, dword [byte esp+024h]
         push edi
         call OpenPacketLink
@@ -1739,11 +1739,11 @@ ModemLinkClose:
         push esi
         xor ebx, ebx
 .1:
-        mov edx, dword [dword_172168]
+        mov edx, dword [ModemConnected]
         test edx, edx
         jne short .4
 .2:
-        cmp dword [dword_172168], byte 0
+        cmp dword [ModemConnected], byte 0
         jne short .3
         db 068h                                 ; insn: push 10C170h
         dd ModemLinkClose
@@ -1764,7 +1764,7 @@ ModemLinkClose:
         mov esi, edx
         and esi, eax
         push ebx
-        mov dword [dword_172168], esi
+        mov dword [ModemConnected], esi
         call ModemHangup
         add esp, byte 4
         push ebx
@@ -1956,10 +1956,10 @@ ModemLinkHangup:
         mov eax, 1
         mov cl, byte [byte ebx+02Ch]
         shl eax, cl
-        mov ecx, dword [dword_172168]
+        mov ecx, dword [ModemConnected]
         or ecx, eax
         add esp, byte 0Ch
-        mov dword [dword_172168], ecx
+        mov dword [ModemConnected], ecx
         mov dword [byte ebx+028h], 0
 .1:
         mov eax, 1
@@ -2071,7 +2071,7 @@ OpenModemPacketLink:
         push ecx
         mov esi, dword [byte esp+020h]
         push esi
-        push off_17216C
+        push ModemLinkFuncs
         mov edi, dword [byte esp+024h]
         push edi
         call OpenPacketLink
@@ -2217,7 +2217,7 @@ SameNetAddress:
         push edx
         mov edx, dword [TimerTicks]
         add eax, edx
-        mov dword [dword_1721B4], eax
+        mov dword [NetLastTime], eax
         pop edx
         ret
 ;-----------------------------------------------------------------------------
@@ -2226,7 +2226,7 @@ SameNetAddress:
 ;-----------------------------------------------------------------------------
 NetTimeoutPassed:
         mov eax, dword [TimerTicks]
-        sub eax, dword [dword_1721B4]
+        sub eax, dword [NetLastTime]
         test eax, eax
         setge al
         and eax, 0FFh
@@ -2360,13 +2360,13 @@ NetSendWait:
         mov edi, ecx
         push byte 4
         mov dword [byte edx+0Ch], eax
-        mov eax, dword [dword_1721B0]
+        mov eax, dword [NetSendRetries]
         push eax
         mov dword [edx], eax
         push ecx
         inc eax
         mov dword [byte edx+04h], 0
-        mov dword [dword_1721B0], eax
+        mov dword [NetSendRetries], eax
         call StoreBigEndian
         mov eax, dword [byte esi+08h]
         mov ecx, dword [byte eax+048h]
@@ -2383,7 +2383,7 @@ NetSendWait:
         mov eax, dword [TimerTicks]
         mov ebp, dword [byte esp+020h]
         add eax, ebp
-        mov dword [dword_1721B4], eax
+        mov dword [NetLastTime], eax
         mov eax, dword [byte esp+08h]
         cmp dword [byte eax+04h], byte 0
         jne short .5
@@ -2403,7 +2403,7 @@ NetSendWait:
         call dword [byte ebp+054h]
         test eax, eax
         je short .3
-        mov ebp, dword [dword_1721A0]
+        mov ebp, dword [NetSessionHandle]
         push ebp
         jmp short .4
 .3:
@@ -2454,7 +2454,7 @@ NetFindPeer:
         test eax, eax
         je short .2
         add edi, dword [esp]
-        mov eax, dword [dword_172198]
+        mov eax, dword [NetMaxPeers]
         mov dword [dword edi+0F0h], eax
         mov eax, esi
         jmp short .3
@@ -2504,7 +2504,7 @@ NetFreeSlot:
         add ebx, edx
         mov ecx, 17h
         lea edi, [dword ebx+094h]
-        mov edx, dword [dword_172198]
+        mov edx, dword [NetMaxPeers]
         rep movsd
         mov dword [dword ebx+0F0h], edx
         mov dword [dword ebx+0F4h], eax
@@ -3117,7 +3117,7 @@ NetHandleMessage:
         mov dword [edi], 0
         cmp esi, byte 1
         jne near .41
-        mov eax, dword [dword_172198]
+        mov eax, dword [NetMaxPeers]
         mov dword [dword ebp+098h], eax
         mov eax, dword [str_D_NetHandleMessage]
         mov dword [dword ebp+09Ch], eax
@@ -3164,7 +3164,7 @@ NetHandleMessage:
         je near .41
         mov ebx, 0EA61636Bh
         push byte 0
-        mov eax, dword [dword_172198]
+        mov eax, dword [NetMaxPeers]
         lea edx, [byte ebp+014h]
         mov esi, dword [byte ebp+08h]
         mov dword [dword ebp+098h], eax
@@ -3410,7 +3410,7 @@ NetCopyName:
         sub esp, byte 8
         cmp dword [byte esp+028h], byte 20h
         ja short .3
-        mov ebx, dword [dword_172194]
+        mov ebx, dword [NetSessionName]
         xor esi, esi
         test ebx, ebx
         jle short .3
@@ -3436,7 +3436,7 @@ NetCopyName:
         test eax, eax
         je short .5
 .2:
-        mov ecx, dword [dword_172194]
+        mov ecx, dword [NetSessionName]
         inc esi
         add ebx, byte 4
         cmp esi, ecx
@@ -3476,7 +3476,7 @@ NetOpenSession:
         push ebp
         mov edi, dword [byte esp+014h]
         mov esi, dword [byte esp+01Ch]
-        mov edx, dword [dword_1721E0]
+        mov edx, dword [NetSessionOpen]
         xor ebp, ebp
         test edx, edx
         jne short .2
@@ -3488,7 +3488,7 @@ NetOpenSession:
         db 068h                                 ; insn: push 10D29Ch
         dd NetPollMessages_184
         call AddExitHandler
-        mov ebx, dword [dword_1721A0]
+        mov ebx, dword [NetSessionHandle]
         add esp, byte 4
         test ebx, ebx
         jne short .1
@@ -3498,9 +3498,9 @@ NetOpenSession:
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_1721A0], eax
+        mov dword [NetSessionHandle], eax
 .1:
-        mov dword [dword_1721E0], 1
+        mov dword [NetSessionOpen], 1
 .2:
         push edi
         push NetMessageBuf
@@ -3534,7 +3534,7 @@ NetOpenSession:
         mov ebp, 1
         jmp near .8
 .4:
-        mov eax, dword [dword_172194]
+        mov eax, dword [NetSessionName]
         xor ebx, ebx
         test eax, eax
         jle short .6
@@ -3546,13 +3546,13 @@ NetOpenSession:
         call SameNetAddress
         test eax, eax
         jne short .6
-        mov edx, dword [dword_172194]
+        mov edx, dword [NetSessionName]
         inc ebx
         add ecx, byte 4
         cmp ebx, edx
         jl short .5
 .6:
-        cmp ebx, dword [dword_172194]
+        cmp ebx, dword [NetSessionName]
         jge short .8
         mov eax, dword [nosplit ebx*4+NetLocalName]
         mov dword [byte edi+08h], eax
@@ -3729,7 +3729,7 @@ NetAnnounce:
         mov eax, dword [TimerTicks]
         mov esi, dword [byte esp+064h]
         add eax, esi
-        mov dword [dword_1721B4], eax
+        mov dword [NetLastTime], eax
         xor esi, esi
 .2:
         test ebp, ebp
@@ -3744,7 +3744,7 @@ NetAnnounce:
         call WaitTicks
         add esp, byte 4
         mov eax, dword [TimerTicks]
-        sub eax, dword [dword_1721B4]
+        sub eax, dword [NetLastTime]
         test eax, eax
         setge al
         and eax, 0FFh
@@ -3923,7 +3923,7 @@ NetLeaveGame:
         mov dword [byte eax+08h], 0
         mov eax, dword [byte ebp+0Ch]
         mov dword [byte eax+04Ch], 0
-        mov eax, dword [dword_172198]
+        mov eax, dword [NetMaxPeers]
         mov dword [dword ebp+098h], eax
         mov eax, dword [byte esp+024h]
         lea edi, [byte ebp+014h]
@@ -4037,7 +4037,7 @@ NetListGames:
         push ebx
         push esi
         push edi
-        mov edi, dword [dword_172198]
+        mov edi, dword [NetMaxPeers]
         mov esi, dword [byte esp+010h]
         cmp dword [byte esi+04h], byte 0
         je short .5
@@ -4065,7 +4065,7 @@ NetListGames:
         call dword [byte ebx+02Ch]
         test eax, eax
         je short .8
-        mov edi, dword [dword_172198]
+        mov edi, dword [NetMaxPeers]
         mov dword [dword esi+09Ch], 1
         xor eax, eax
         xor edx, edx
@@ -4079,8 +4079,8 @@ NetListGames:
         cmp eax, dword [dword ebx+090h]
         jb short .6
         mov eax, 1
-        mov dword [dword_172198], edi
-        mov edi, dword [dword_172198]
+        mov dword [NetMaxPeers], edi
+        mov edi, dword [NetMaxPeers]
         pop edi
         pop esi
         pop ebx
@@ -4091,7 +4091,7 @@ NetListGames:
 .9:
         xor eax, eax
 .10:
-        mov edi, dword [dword_172198]
+        mov edi, dword [NetMaxPeers]
         pop edi
         pop esi
         pop ebx
@@ -4485,7 +4485,7 @@ OpenNetPacketLink:
         push edi
         mov ebp, dword [byte esp+024h]
         push ebp
-        push off_1721B8
+        push NetLinkFuncs
         push eax
         call OpenPacketLink
         add esp, byte 18h
@@ -4678,7 +4678,7 @@ NetLinkRxCount:
         call dword [byte edx+04Ch]
         test eax, eax
         je short .1
-        mov eax, dword [dword_1721D4]
+        mov eax, dword [NetRxCount]
 .1:
         ret
         db 08Bh,0C0h
@@ -4883,10 +4883,10 @@ IpxCloseSocketCall:
         mov ax, word [ebx]
         lea ecx, [byte esp+050h]
         mov dword [byte esp+014h], eax
-        mov ax, word [word_1DA4A8]
+        mov ax, word [IpxCallSegment]
         lea edx, [byte esp+034h]
         mov word [byte esp+030h], ax
-        mov ax, word [word_1DA4AA]
+        mov ax, word [IpxCallOffset]
         lea ebx, [byte esp+034h]
         mov word [byte esp+02Eh], ax
         mov eax, 31h
@@ -4934,10 +4934,10 @@ IpxGetAddressCall:
         sar eax, 4
         and ebx, byte 0Fh
         mov word [byte esp+022h], ax
-        mov ax, word [word_1DA4A8]
+        mov ax, word [IpxCallSegment]
         mov dword [byte esp+04h], ebx
         mov word [byte esp+030h], ax
-        mov ax, word [word_1DA4AA]
+        mov ax, word [IpxCallOffset]
         lea ebx, [byte esp+034h]
         mov word [byte esp+02Eh], ax
         mov eax, 31h
@@ -4989,10 +4989,10 @@ IpxGetTargetCall:
         and eax, byte 0Fh
         and bl, 0F0h
         mov dword [byte esp+04h], eax
-        mov ax, word [word_1DA4A8]
+        mov ax, word [IpxCallSegment]
         sub esi, ebx
         mov word [byte esp+030h], ax
-        mov ax, word [word_1DA4AA]
+        mov ax, word [IpxCallOffset]
         lea ebx, [byte esp+034h]
         mov word [byte esp+02Eh], ax
         mov eax, 31h
@@ -5041,10 +5041,10 @@ IpxRelinquishCall:
         mov eax, esp
         lea edx, [byte esp+034h]
         mov dword [byte esp+048h], eax
-        mov ax, word [word_1DA4A8]
+        mov ax, word [IpxCallSegment]
         mov dword [byte esp+010h], ebx
         mov word [byte esp+030h], ax
-        mov ax, word [word_1DA4AA]
+        mov ax, word [IpxCallOffset]
         lea ebx, [byte esp+034h]
         mov word [byte esp+02Eh], ax
         mov eax, 31h
@@ -5098,10 +5098,10 @@ IpxOpenSocketCall:
         mov ax, word [esi]
         lea ecx, [byte esp+050h]
         mov dword [byte esp+014h], eax
-        mov ax, word [word_1DA4A8]
+        mov ax, word [IpxCallSegment]
         lea ebx, [byte esp+034h]
         mov word [byte esp+030h], ax
-        mov ax, word [word_1DA4AA]
+        mov ax, word [IpxCallOffset]
         lea edx, [byte esp+034h]
         mov word [byte esp+02Eh], ax
         mov eax, 31h
@@ -5178,7 +5178,7 @@ IpxSetupPacket:
         mov edi, eax
         mov ebp, edx
         mov esi, ebx
-        mov eax, dword [dword_17225C]
+        mov eax, dword [IpxListening]
         add eax, 8Ch
         push eax
         call QueueTakeHead
@@ -5219,12 +5219,12 @@ IpxSetupPacket:
         push byte 0Ch
         lea eax, [byte ebx+044h]
         push eax
-        mov eax, dword [dword_17225C]
+        mov eax, dword [IpxListening]
         add eax, byte 8
         push eax
         call bcopy
         add esp, byte 0Ch
-        mov eax, dword [dword_17225C]
+        mov eax, dword [IpxListening]
         push ebx
         add eax, byte 1Ch
         mov word [byte ebx+030h], 0
@@ -5319,7 +5319,7 @@ IpxSendPacket:
         push ebp
         sub esp, byte 1Ch
         mov ebp, dword [byte esp+030h]
-        mov ebx, dword [dword_17224C]
+        mov ebx, dword [IpxPacketBuffer]
         mov esi, ebp
         xor edi, edi
         lea eax, [dword ebp+08Ch]
@@ -5344,10 +5344,10 @@ IpxSendPacket:
         je near .2
         mov dword [byte eax+04h], 0
         mov byte [byte eax+0Ch], 1
-        mov dx, word [word_1DA4A6]
+        mov dx, word [IpxRealSegment]
         mov byte [byte eax+0Dh], 0
         mov word [byte eax+08h], dx
-        mov dx, word [word_1DA4AE]
+        mov dx, word [IpxBufferSegment]
         mov word [byte eax+0Ah], dx
         mov dl, byte [byte esi+04h]
         mov byte [byte eax+0Eh], dl
@@ -5393,10 +5393,10 @@ IpxSendPacket:
         je near .4
         mov dword [byte eax+04h], 0
         mov byte [byte edx+0Ch], 1
-        mov ax, word [word_1DA4B0]
+        mov ax, word [IpxBufferOffset]
         mov byte [byte edx+0Dh], 0
         mov word [byte edx+08h], ax
-        mov ax, word [word_1DA4AE]
+        mov ax, word [IpxBufferSegment]
         mov word [byte edx+0Ah], ax
         mov al, byte [byte esi+04h]
         mov byte [byte edx+0Eh], al
@@ -5440,11 +5440,11 @@ IpxSendPacket:
 .4:
         mov eax, edi
         call IpxRelinquishCall
-        mov eax, dword [dword_17224C]
+        mov eax, dword [IpxPacketBuffer]
         mov al, byte [byte eax+05Dh]
-        mov ah, byte [byte_172251]
+        mov ah, byte [IpxPacketFlags]
         or ah, al
-        mov byte [byte_172251], ah
+        mov byte [IpxPacketFlags], ah
         je near .11
         lea ebp, [dword esi+08Ch]
         lea eax, [byte esi+054h]
@@ -5541,11 +5541,11 @@ IpxSendPacket:
         add esp, byte 8
         jmp near .5
 .11:
-        mov eax, dword [dword_17224C]
-        mov cl, byte [byte_172250]
+        mov eax, dword [IpxPacketBuffer]
+        mov cl, byte [IpxPacketType]
         mov al, byte [byte eax+05Ch]
         or cl, al
-        mov byte [byte_172250], cl
+        mov byte [IpxPacketType], cl
         je short .14
         lea ebx, [byte esi+01Ch]
         lea edi, [dword esi+08Ch]
@@ -5597,9 +5597,9 @@ IpxPostListen:
         push esi
         push edi
         sub esp, byte 0Ch
-        cmp dword [dword_17225C], byte 0
+        cmp dword [IpxListening], byte 0
         je near .7
-        mov eax, dword [dword_172260]
+        mov eax, dword [IpxListenEcb]
         cmp eax, dword [TimerTicks]
         jge short .1
         push byte 0
@@ -5635,9 +5635,9 @@ IpxPostListen:
         shl eax, 2
         mov edx, dword [TimerTicks]
         add eax, edx
-        mov dword [dword_172260], eax
+        mov dword [IpxListenEcb], eax
 .1:
-        mov eax, dword [dword_17225C]
+        mov eax, dword [IpxListening]
         add eax, byte 54h
         push eax
         call QueueCount
@@ -5646,7 +5646,7 @@ IpxPostListen:
         jbe near .7
         mov edi, 2
 .2:
-        mov eax, dword [dword_17225C]
+        mov eax, dword [IpxListening]
         add eax, byte 54h
         push eax
         call QueueTakeHead
@@ -5689,7 +5689,7 @@ IpxPostListen:
         lea eax, [byte esi+044h]
         call IpxSetupPacket
 .6:
-        mov eax, dword [dword_17225C]
+        mov eax, dword [IpxListening]
         push esi
         add eax, 8Ch
         push eax
@@ -5698,12 +5698,12 @@ IpxPostListen:
         jmp near .2
 .7:
         cli
-        mov eax, dword [dword_17224C]
+        mov eax, dword [IpxPacketBuffer]
         mov dl, byte [byte eax+05Ch]
-        mov byte [byte_172250], dl
+        mov byte [IpxPacketType], dl
         mov dl, byte [byte eax+05Dh]
         mov byte [byte eax+05Ch], 0
-        mov byte [byte_172251], dl
+        mov byte [IpxPacketFlags], dl
         mov byte [byte eax+05Dh], 0
         sti
         cld
@@ -5765,7 +5765,7 @@ IpxDetect:
         mov word [byte esp+02Eh], dx
         lea edx, [byte esp+034h]
         call int386x_
-        mov esi, dword [dword_17224C]
+        mov esi, dword [IpxPacketBuffer]
         test esi, esi
         je short .1
         mov eax, dword [esp]
@@ -5796,30 +5796,30 @@ IpxHookCheck:
         push edi
         push ebp
         sub esp, byte 1Ch
-        cmp dword [dword_17224C], byte 0
+        cmp dword [IpxPacketBuffer], byte 0
         jne near .10
-        mov ebx, dword [dword_172258]
+        mov ebx, dword [IpxHookInstalled]
         test ebx, ebx
         je short .1
-        mov ecx, dword [dword_172254]
+        mov ecx, dword [IpxHookBase]
         add ecx, 9E0h
-        mov dword [dword_17224C], ebx
-        mov dword [dword_172254], ecx
+        mov dword [IpxPacketBuffer], ebx
+        mov dword [IpxHookBase], ecx
         jmp short .2
 .1:
-        mov eax, dword [dword_1721A8]
+        mov eax, dword [IpxPresent]
         or ah, 2
         push eax
         push dword 9E0h
         push str_IPXINTF
         call AllocMemData
         add esp, byte 0Ch
-        mov dword [dword_17224C], eax
+        mov dword [IpxPacketBuffer], eax
         test eax, eax
         je near .11
 .2:
         push dword 9E0h
-        mov esi, dword [dword_17224C]
+        mov esi, dword [IpxPacketBuffer]
         push esi
         call ZeroMem
         add esp, byte 8
@@ -5827,19 +5827,19 @@ IpxHookCheck:
         push byte 0
         push IpxRealRegs
         call QueueInit
-        mov eax, dword [dword_17224C]
+        mov eax, dword [IpxPacketBuffer]
         add eax, 1EFh
         sar eax, 4
         mov edi, 5Fh
-        mov word [word_1DA4A8], ax
-        mov ax, word [dword_17224C]
-        mov dx, word [word_1DA4A8]
+        mov word [IpxCallSegment], ax
+        mov ax, word [IpxPacketBuffer]
+        mov dx, word [IpxCallSegment]
         add eax, 9E0h
         shl edx, 4
         add esp, byte 0Ch
         sub eax, edx
         mov dword [str_Punct_IpxHookCheck], edi
-        mov word [word_1DA4AA], ax
+        mov word [IpxCallOffset], ax
         xor ecx, ecx
 .3:
         mov ebp, dword [str_Punct_IpxHookCheck]
@@ -5898,46 +5898,46 @@ IpxHookCheck:
         call int386_
 .9:
         push byte 8
-        mov ebx, dword [dword_17224C]
+        mov ebx, dword [IpxPacketBuffer]
         mov eax, dword [byte esp+0Ch]
         push ebx
-        mov word [word_1DA4AC], ax
+        mov word [IpxSavedVecOffset], ax
         mov eax, dword [byte esp+014h]
-        push unk_172264
-        mov word [word_1DA4B2], ax
+        push IpxHookCodeA
+        mov word [IpxSavedVecSegment], ax
         call bcopy
         add esp, byte 0Ch
-        mov eax, dword [dword_17224C]
+        mov eax, dword [IpxPacketBuffer]
         push byte 8
         add eax, byte 8
         push eax
-        push unk_17226C
+        push IpxHookCodeB
         call bcopy
         add esp, byte 0Ch
-        mov eax, dword [dword_17224C]
+        mov eax, dword [IpxPacketBuffer]
         push byte 48h
         add eax, byte 10h
         push eax
-        push unk_172274
+        push IpxHookCodeC
         call bcopy
-        mov eax, dword [dword_17224C]
+        mov eax, dword [IpxPacketBuffer]
         sar eax, 4
-        mov dx, word [dword_17224C]
-        mov word [word_1DA4AE], ax
+        mov dx, word [IpxPacketBuffer]
+        mov word [IpxBufferSegment], ax
         shl eax, 4
         sub edx, eax
-        mov word [word_1DA4B0], dx
-        mov dx, word [dword_17224C]
+        mov word [IpxBufferOffset], dx
+        mov dx, word [IpxPacketBuffer]
         add edx, byte 8
         add esp, byte 0Ch
         sub edx, eax
         mov word [esp], 201h
         mov al, byte [str_Punct_IpxHookCheck]
         mov byte [byte esp+04h], al
-        mov ax, word [word_1DA4AE]
-        mov word [word_1DA4A6], dx
+        mov ax, word [IpxBufferSegment]
+        mov word [IpxRealSegment], dx
         mov word [byte esp+08h], ax
-        mov ax, word [dword_17224C]
+        mov ax, word [IpxPacketBuffer]
         mov edx, dword [byte esp+08h]
         add eax, 10h
         shl edx, 4
@@ -5971,7 +5971,7 @@ IpxRestoreVector:
         push edx
         push edi
         sub esp, byte 1Ch
-        cmp dword [dword_17224C], byte 0
+        cmp dword [IpxPacketBuffer], byte 0
         je near .5
         mov ebx, IpxRealRegs
 .1:
@@ -5993,26 +5993,26 @@ IpxRestoreVector:
         add esp, byte 4
         mov edx, 201h
         mov byte [byte esp+04h], al
-        mov ax, word [word_1DA4AC]
+        mov ax, word [IpxSavedVecOffset]
         mov word [esp], dx
         mov word [byte esp+08h], ax
-        mov ax, word [word_1DA4B2]
+        mov ax, word [IpxSavedVecSegment]
         mov edx, esp
         mov word [byte esp+0Ch], ax
         mov eax, 31h
         call int386_
-        cmp dword [dword_172258], byte 0
+        cmp dword [IpxHookInstalled], byte 0
         je short .3
-        sub dword [dword_172254], 9E0h
+        sub dword [IpxHookBase], 9E0h
         jmp short .4
 .3:
-        mov ecx, dword [dword_17224C]
+        mov ecx, dword [IpxPacketBuffer]
         push ecx
         call FreeMemBlock
         add esp, byte 4
 .4:
         xor edi, edi
-        mov dword [dword_17224C], edi
+        mov dword [IpxPacketBuffer], edi
 .5:
         mov eax, 1
         add esp, byte 1Ch
@@ -6034,13 +6034,13 @@ IpxSetupLayer:
         sub esp, byte 0Ch
         mov dword [esp], eax
         mov ebx, edx
-        mov edx, dword [dword_172258]
+        mov edx, dword [IpxHookInstalled]
         test edx, edx
         je short .1
-        mov ecx, dword [dword_172254]
+        mov ecx, dword [IpxHookBase]
         lea esi, [edx+ecx]
         lea edi, [dword ecx+08628h]
-        mov dword [dword_172254], edi
+        mov dword [IpxHookBase], edi
         jmp short .2
 .1:
         mov eax, dword [str_Punct_NetLeaveGame]
@@ -6070,9 +6070,9 @@ IpxSetupLayer:
         call IpxOpenSocketCall
         test eax, eax
         jne short .5
-        cmp dword [dword_172258], byte 0
+        cmp dword [IpxHookInstalled], byte 0
         je short .3
-        sub dword [dword_172254], 8628h
+        sub dword [IpxHookBase], 8628h
         jmp short .4
 .3:
         push esi
@@ -6281,11 +6281,11 @@ IpxShutdown:
         lea eax, [byte ebx+054h]
         push eax
         call QueueNoOp
-        mov edx, dword [dword_172258]
+        mov edx, dword [IpxHookInstalled]
         add esp, byte 4
         test edx, edx
         je short .2
-        sub dword [dword_172254], 8628h
+        sub dword [IpxHookBase], 8628h
         jmp short .3
 .2:
         push ebx
@@ -6325,7 +6325,7 @@ IpxStart:
         push edi
         mov ebx, eax
         mov esi, edx
-        mov edx, dword [dword_17225C]
+        mov edx, dword [IpxListening]
         test edx, edx
         je short .1
         mov eax, 1
@@ -6338,8 +6338,8 @@ IpxStart:
         mov eax, 452h
         call IpxSetupLayer
         xor ecx, ecx
-        mov dword [dword_17225C], eax
-        mov dword [dword_172260], ecx
+        mov dword [IpxListening], eax
+        mov dword [IpxListenEcb], ecx
         test eax, eax
         je short .4
         mov edi, IpxLocalAddr
@@ -6360,7 +6360,7 @@ IpxStart:
         pop edi
         push byte 2
         push byte 1
-        push unk_1DA4A4
+        push IpxSocket
         call StoreBigEndian
         add esp, byte 0Ch
         push byte 2
@@ -6369,7 +6369,7 @@ IpxStart:
         call StoreBigEndian
         add esp, byte 0Ch
         push byte 0Ch
-        push unk_1DA498
+        push IpxEcb
         add ebx, byte 8
         push ebx
         call bcopy
@@ -6388,24 +6388,24 @@ IpxStart:
 IpxStop:
         push ebx
         push ecx
-        cmp dword [dword_17225C], byte 0
+        cmp dword [IpxListening], byte 0
         je short .1
         push byte 2
         push byte 10h
-        push unk_1DA4A4
+        push IpxSocket
         call StoreBigEndian
         add esp, byte 0Ch
         xor ebx, ebx
         push ebx
-        mov dword [dword_172260], ebx
+        mov dword [IpxListenEcb], ebx
         call RunIdleHandlers
         add esp, byte 4
         push byte 1
         call WaitTicks
         add esp, byte 4
-        mov eax, dword [dword_17225C]
+        mov eax, dword [IpxListening]
         call IpxShutdown
-        mov dword [dword_17225C], ebx
+        mov dword [IpxListening], ebx
 .1:
         mov eax, 1
         pop ecx
@@ -6565,7 +6565,7 @@ IpxLookupTarget:
         push esi
         push edi
         mov esi, edx
-        mov ebx, dword [dword_17224C]
+        mov ebx, dword [IpxPacketBuffer]
         push byte 14h
         add ebx, 1E0h
         push ebx
@@ -7005,11 +7005,11 @@ IpxLinkStartup:
         push ecx
         push edx
         mov ebx, eax
-        mov edx, dword [dword_172244]
+        mov edx, dword [IpxStartupState]
         test edx, edx
         jne short .5
         mov ecx, 1
-        mov dword [dword_172244], ecx
+        mov dword [IpxStartupState], ecx
         call IpxHookCheck
         test eax, eax
         je short .4
@@ -7018,26 +7018,26 @@ IpxLinkStartup:
         mov edx, eax
         test eax, eax
         je short .2
-        mov eax, dword [dword_172194]
-        mov dword [nosplit eax*4+NetLocalName], dword_1721E4
+        mov eax, dword [NetSessionName]
+        mov dword [nosplit eax*4+NetLocalName], NetProtocolName
         add eax, ecx
-        mov dword [dword_172194], eax
+        mov dword [NetSessionName], eax
         test ebx, ebx
         je short .1
-        mov dword [dword_1721E4], ebx
+        mov dword [NetProtocolName], ebx
 .1:
         mov eax, edx
         call IpxShutdown
         jmp short .3
 .2:
-        mov dword [dword_172244], eax
+        mov dword [IpxStartupState], eax
 .3:
         call IpxRestoreVector
         jmp short .5
 .4:
-        mov dword [dword_172244], edx
+        mov dword [IpxStartupState], edx
 .5:
-        mov eax, dword [dword_172244]
+        mov eax, dword [IpxStartupState]
         test eax, eax
         je short .6
         mov eax, 11630h
@@ -7052,7 +7052,7 @@ IpxLinkStartup:
 ; Sets the network callback
 ;-----------------------------------------------------------------------------
 SetNetCallback:
-        mov dword [dword_172258], eax
+        mov dword [IpxHookInstalled], eax
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
@@ -7096,11 +7096,11 @@ AllocNetBuffer:
         push esi
         push str_GEND
         call bcopy
-        mov ecx, dword [dword_1722BC]
+        mov ecx, dword [NetBufferPool]
         add esp, byte 0Ch
         inc ecx
         mov eax, ebx
-        mov dword [dword_1722BC], ecx
+        mov dword [NetBufferPool], ecx
 .2:
         pop esi
         pop edx
@@ -7170,10 +7170,10 @@ FreeNetBuffer:
         add esp, byte 0Ch
         push esi
         call FreeMemBlock
-        mov edx, dword [dword_1722BC]
+        mov edx, dword [NetBufferPool]
         dec edx
         add esp, byte 4
-        mov dword [dword_1722BC], edx
+        mov dword [NetBufferPool], edx
 .6:
         mov eax, ebx
         pop ebp

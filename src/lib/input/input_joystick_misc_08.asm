@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_12D6C4 progbits alloc exec nowrite align=1
-extern ScreenBitsPerPixel, RemapTable, byte_171C90, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, BlendShapeRows
+extern ScreenBitsPerPixel, RemapTable, ShadeTable, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, BlendShapeRows
 extern ConvertArtNew, FixedLerp, SinCosLookup, DrawCharMono, DrawCharShadow, DrawCharOutline, DrawCharBold, FreeMemBlock
 extern ClipTexVertsTop, TexClipBottomOut, TexClipBottomIn, TexClipRightIn, TexClipLeftIn, TexClipRightOut, TexClipLeftOut, TexClipTopOut
 extern PolyClipTopIn, PolyClipBottomIn, PolyClipRightIn, PolyClipLeftOut, PolyClipBottomOut, PolyClipLeftIn, PolyClipRightOut, PolyClipTopOut
@@ -1323,7 +1323,7 @@ DrawShapeTransformed:
         xor edx, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         mov dword [dword esp+0480Ch], edx
         cmp eax, byte 20h
         je short .1

@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_107000 progbits alloc exec nowrite align=1
-extern SoundSystemOn, SampleBitsTable, SampleChannelsTable, byte_1DCF44, byte_1DCF67, byte_1DCF68, LastLoadedSize, AudioTimerOn
-extern AudioDriverNum, AudioExitHooked, SoundBankTable, SoundBankSamples, SampleInfoTable, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
-extern dword_1DCF62, AudioDriverOpenFns, AudioDriverCloseFns, AudioDriverUpdateFns, AudioDriverDetectFns, bcopy, AddExitHandler, DetectSoundCard
+extern SoundSystemOn, SampleBitsTable, SampleChannelsTable, ChannelVolumeTable, ChannelRampTable, ChannelTimeTable, LastLoadedSize, AudioTimerOn
+extern AudioDriverNum, AudioExitHooked, SoundBankTable, SoundBankSamples, SampleInfoTable, ChannelSampleTable, ChannelPitchTable, ChannelBankTable
+extern ChannelHandleTable, AudioDriverOpenFns, AudioDriverCloseFns, AudioDriverUpdateFns, AudioDriverDetectFns, bcopy, AddExitHandler, DetectSoundCard
 extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, DosOpenFile, DosCloseFile, DosReadFile, ReleaseBankSample, FindCachedFileData
 extern LoadSampleHeader, GusDetect, ReadSoundscapeIni, SoundscapeCodecReady, AudioLeave, SampleFormatSize, MixerStartSample, MixerFadeChannel
 extern MixerSetPanVolume, MixerSetPitch, MixerSamplesLeft, ReadLittleEndian, FreeMemBlock, MemPtrSize, addtimer, RemoveTimerCallback
@@ -246,11 +246,11 @@ UnregisterSoundBank:
 .8:
         xor edx, edx
 .9:
-        mov eax, dword [dword edx+dword_1DCF3F]
+        mov eax, dword [dword edx+ChannelBankTable]
         sar eax, 18h
         cmp eax, ebx
         jne short .10
-        mov eax, dword [dword edx+dword_1DCF38]
+        mov eax, dword [dword edx+ChannelSampleTable]
         call StopChannel
 .10:
         add edx, byte 44h
@@ -846,7 +846,7 @@ AudioDriverUpdate:
         mov ecx, edx
         shl eax, 4
         add eax, ebx
-        mov eax, dword [nosplit eax*4+dword_1DCF62]
+        mov eax, dword [nosplit eax*4+ChannelHandleTable]
         sar eax, 18h
         push eax
         push edx
@@ -869,7 +869,7 @@ ApplyChannelVolume:
         shl eax, 4
         add eax, ebx
         push edx
-        mov al, byte [nosplit eax*4+byte_1DCF44]
+        mov al, byte [nosplit eax*4+ChannelVolumeTable]
         and eax, 0FFh
         push eax
         push ebx
@@ -925,10 +925,10 @@ ChannelTimeLeft:
         shl eax, 4
         add eax, ebx
         xor edx, edx
-        mov ebx, dword [nosplit eax*4+dword_1DCF3E]
-        mov dl, byte [nosplit eax*4+byte_1DCF68]
+        mov ebx, dword [nosplit eax*4+ChannelPitchTable]
+        mov dl, byte [nosplit eax*4+ChannelTimeTable]
         sar ebx, 10h
-        mov al, byte [nosplit eax*4+byte_1DCF67]
+        mov al, byte [nosplit eax*4+ChannelRampTable]
         and eax, 0FFh
         call SampleFormatSize
         mov ebx, eax
@@ -972,8 +972,8 @@ SetChannelPitch:
         shl eax, 4
         add eax, ecx
         xor edx, ecx
-        mov ebx, dword [nosplit eax*4+dword_1DCF3E]
-        mov dl, byte [nosplit eax*4+byte_1DCF68]
+        mov ebx, dword [nosplit eax*4+ChannelPitchTable]
+        mov dl, byte [nosplit eax*4+ChannelTimeTable]
         sar ebx, 10h
         mov eax, esi
         call SampleFormatSize

@@ -15,7 +15,7 @@ extern str_GS13, str_CDCS, str_GS02d, str_S6, str_S7, str_DSSDSSSSD02d, str_SSSS
 extern str_UnpackLogo, str_LOGO5, str_DEBUG, byte_16D27A, byte_16D2A2, byte_1AC8C6, byte_1AC93C, byte_1AD742
 extern byte_1C135A, byte_1C135B, byte_1C559C, byte_1C559D, byte_1C559E, byte_1C559F, byte_1C55A4, byte_1C55A5
 extern byte_1C55A6, byte_1C55A7, byte_1C55A8, byte_1C55A9, byte_1C55AA, byte_1C55AB, byte_1C6040, byte_1C944A
-extern byte_1C944C, byte_1C9472, dword_1684C0, dword_16D29E, dword_16D2A8, dword_16D2B8, dword_16D2BC, dword_16D93A
+extern byte_1C944C, byte_1C9472, GripDriverPtr, dword_16D29E, dword_16D2A8, dword_16D2B8, dword_16D2BC, dword_16D93A
 extern dword_16DA9C, dword_16E464, dword_16E468, dword_19CB58, dword_1AC814, dword_1AC944, dword_1ACF46, dword_1AD62F
 extern dword_1AD6AB, dword_1C1334, dword_1C13FB, dword_1C13FF, dword_1C309A, dword_1C309E, dword_1C351E, dword_1C3522
 extern dword_1C51BD, dword_1C51C1, dword_1C5DE0, dword_1C5DE4, dword_1C5E74, dword_1C93F0, dword_1C9410, dword_1C9430
@@ -42,7 +42,7 @@ extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock,
 extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, str_D_RunLinkGameScreens, str_D_DrawTeamStatLine
 extern str_Punct_GoalTypeSuffix, unk_16D262, str_S_RunLinkGameScreens, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
-extern unk_1C5F9C, unk_1C94F4, word_1684BE, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
+extern unk_1C5F9C, unk_1C94F4, GripPortWord, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
 extern word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2, word_16D2B4, word_19CB96, gameover
 extern word_1C1348, word_1C55A2, word_1C9448, word_1C9450, word_1C9470, word_1C94EC, word_1C94EE, word_1C94F0
 extern word_1C94F6, word_1C94F8, word_1C94FA, word_1C95AC, word_1C95AE
@@ -2144,7 +2144,7 @@ RunLinkGameScreens_112:
         jmp short .12
 .10:
         imul edx, esi, byte 38h
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         test byte [edx+eax], 1
         je short .11
         movsx eax, word [word_1C94EE]
@@ -2153,7 +2153,7 @@ RunLinkGameScreens_112:
 .11:
         inc esi
 .12:
-        movzx eax, word [word_1684BE]
+        movzx eax, word [GripPortWord]
         cmp esi, eax
         jl short .10
         movsx eax, word [word_1C94EE]

@@ -3,10 +3,10 @@ bits 32
 %include "hockey.inc"
 section s_10000 progbits alloc exec nowrite align=1
 extern SortCords, __STOSB, _nfree_, _nmalloc_, _searchenv_, str_PATH2, str_JSTICKS, str_DOSJoystick
-extern awtmstruct, byte_1684C8, byte_16E35C, byte_19C3E0, byte_19C3E6, byte_19C620, byte_19CA30, byte_19CA31
+extern awtmstruct, GripFlags, byte_16E35C, byte_19C3E0, byte_19C3E6, byte_19C620, byte_19CA30, byte_19CA31
 extern byte_19CB70, byte_19CBC2, byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CCAF, byte_19CCC6, byte_19CD05
-extern byte_19D604, byte_19D636, byte_19EB38, byte_19EB5C, byte_19EC44, byte_19EC68, dword_1684C0, dword_1684C4
-extern dword_1684E4, dword_168564, dword_168571, dword_16E344, dword_16E348, dword_16E34C, dword_16E350, dword_19C3DD
+extern byte_19D604, byte_19D636, byte_19EB38, byte_19EB5C, byte_19EC44, byte_19EC68, GripDriverPtr, GripDriverData
+extern GripLinked, LinePlayerSlots, LinePlayerOffsets, dword_16E344, dword_16E348, dword_16E34C, dword_16E350, dword_19C3DD
 extern dword_19CB48, penshottimer, dword_19CBE8, dword_19CD54, dword_19CD88, dword_19DA50, dword_19EBB4, dword_19EBB8
 extern dword_19ECC0, dword_19ECC4, dword_1AC814, dword_1AC944, dword_1ACF46, dword_1B1410, dword_1B8FA0, dword_1B9554
 extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, off_168CD8
@@ -17,8 +17,8 @@ extern ResetCoachModes, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, PickB
 extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEvent, PaEvent, SetCameraMode, UpdateRinkPalette
 extern RefreshFaceTextures, SetModelSlotValue, SetupPlayerModel, DrawJerseyLettering, LoadGoalieMask, UpdateFaceTextures, ResetAnimTimer, UpdateGameDisplay
 extern InitPlayerAnims, DoGameFrame, LogPeriodEnd, AllocMemBlock, ZeroMem, CalibrateJoystick, ResetJoystickRange, str_Rb
-extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
-extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, word_1684BE, word_1684CA, word_1684E8, word_1684EC
+extern LinePlayerOrder, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
+extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, GripPortWord, GripSlot, GripReady, CrowdChantTable
 extern word_1686D8, word_1686DA, word_168D18, word_19CB28, word_19CB2A, word_19CB5C, word_19CB60, word_19CB64
 extern word_19CB68, word_19CB96, word_19CB98, word_19CBAE, word_19CBB6, gsp, gameclock, word_19CBBC
 extern word_19CBBE, word_19CBC0, word_19CBD4, word_19CBDA, word_19CBDC, penshotmode, word_19CBE0, penshotlive
@@ -53,7 +53,7 @@ GripLinkLibrary:
         push ebp
         sub esp, byte 8
         mov ebx, eax
-        cmp dword [dword_1684E4], byte 0
+        cmp dword [GripLinked], byte 0
         je short .1
         xor ebx, eax
         jmp near .25
@@ -354,7 +354,7 @@ GripLinkLibrary:
 .24:
         mov esi, 1
         mov ebx, 1
-        mov dword [dword_1684E4], esi
+        mov dword [GripLinked], esi
 .25:
         mov eax, ebx
         add esp, byte 8
@@ -372,7 +372,7 @@ GripLinkLibrary:
 CallGripDriver:
         push ebx
         push edx
-        cmp dword [dword_1684E4], byte 0
+        cmp dword [GripLinked], byte 0
         jne short .1
         xor eax, eax
         pop edx
@@ -407,7 +407,7 @@ CallGripDriver:
 .4:
         xor ebx, ebx
         mov eax, 1
-        mov dword [dword_1684E4], ebx
+        mov dword [GripLinked], ebx
         pop edx
         pop ebx
         ret
@@ -500,7 +500,7 @@ LoadGripLibrary:
         call GripLinkLibrary
         test ax, ax
         je short .5
-        or byte [byte_1684C8], 1
+        or byte [GripFlags], 1
 .5:
         mov eax, dword [dword esp+080h]
         call _nfree_
@@ -519,18 +519,18 @@ LoadGripLibrary:
 ; Starts the gamepad driver
 ;-----------------------------------------------------------------------------
 InitGripDriver:
-        cmp word [word_1684E8], byte 0
+        cmp word [GripReady], byte 0
         je short .2
-        test byte [byte_1684C8], 2
+        test byte [GripFlags], 2
         je short .1
         mov ax, 84A2h
         call far [unk_19CCB8]
-        and byte [byte_1684C8], 0FDh
+        and byte [GripFlags], 0FDh
 .1:
-        test byte [byte_1684C8], 1
+        test byte [GripFlags], 1
         je short .2
         call CallGripDriver
-        and byte [byte_1684C8], 0FEh
+        and byte [GripFlags], 0FEh
 .2:
         ret
         db 08Bh,0C0h
@@ -546,24 +546,24 @@ LoadJoystickConfig:
         push edi
         push ebp
         sub esp, byte 6Ch
-        cmp word [word_1684E8], byte 0
+        cmp word [GripReady], byte 0
         jne near .20
-        test byte [byte_1684C8], 1
+        test byte [GripFlags], 1
         je short .1
         mov ax, 84A1h
         call far [unk_19CCB8]
         test ax, ax
         je short .1
-        or byte [byte_1684C8], 2
+        or byte [GripFlags], 2
 .1:
-        test byte [byte_1684C8], 2
+        test byte [GripFlags], 2
         je short .2
-        mov word [word_1684BE], 4
+        mov word [GripPortWord], 4
         jmp short .3
 .2:
-        mov word [word_1684BE], 2
+        mov word [GripPortWord], 2
 .3:
-        mov si, word [word_1684BE]
+        mov si, word [GripPortWord]
         test si, si
         jbe near .19
         xor edx, edx
@@ -578,9 +578,9 @@ LoadJoystickConfig:
         push str_JSTICKS
         xor ebx, ebx
         call AllocMemBlock
-        mov bx, word [word_1684BE]
+        mov bx, word [GripPortWord]
         mov edx, eax
-        mov dword [dword_1684C0], eax
+        mov dword [GripDriverPtr], eax
         lea eax, [nosplit ebx*8+00h]
         sub eax, ebx
         add esp, byte 0Ch
@@ -589,10 +589,10 @@ LoadJoystickConfig:
         push eax
         add ebx, eax
         push edx
-        mov dword [dword_1684C4], ebx
+        mov dword [GripDriverData], ebx
         call ZeroMem
         xor edx, edx
-        mov dx, word [word_1684BE]
+        mov dx, word [GripPortWord]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         shl eax, 2
@@ -600,10 +600,10 @@ LoadJoystickConfig:
         add esp, byte 8
         shl eax, 2
         push eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         push edx
         call ZeroMem
-        mov bl, byte [byte_1684C8]
+        mov bl, byte [GripFlags]
         add esp, byte 8
         test bl, 2
         je near .14
@@ -622,7 +622,7 @@ LoadJoystickConfig:
         mov ebx, 1
         xor edi, edi
         xor ecx, ecx
-        mov word [word_1684CA], di
+        mov word [GripSlot], di
         mov ax, 84B0h
         call far [unk_19CCB8]
         mov dword [byte esp+050h], ebx
@@ -708,15 +708,15 @@ LoadJoystickConfig:
         je near .13
         mov cl, byte [byte esp+064h]
         mov eax, 1
-        mov dx, word [word_1684CA]
+        mov dx, word [GripSlot]
         shl eax, cl
         or edx, eax
-        mov eax, dword [dword_1684C0]
-        mov word [word_1684CA], dx
+        mov eax, dword [GripDriverPtr]
+        mov word [GripSlot], dx
         or byte [eax+ebp], 1
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         and byte [eax+ebp], 0FDh
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         xor edx, edx
         mov ch, byte [eax+ebp]
         mov dl, byte [byte esp+068h]
@@ -725,13 +725,13 @@ LoadJoystickConfig:
         mov byte [eax+ebp], ch
         shl edx, 2
         or dword [eax+ebp], edx
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         xor ebx, ebx
         mov esi, dword [byte esp+058h]
         mov word [byte eax+ebp+036h], 0
         jmp short .12
 .11:
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov cl, bl
         add eax, edx
         mov edx, 1
@@ -746,26 +746,26 @@ LoadJoystickConfig:
         mov al, byte [byte esp+068h]
         cmp ebx, eax
         jl short .11
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov word [byte edx+eax+02Ah], 0Fh
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov dword [edx+eax], 0
         xor esi, esi
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov si, word [byte esp+060h]
         mov dword [byte edx+eax+08h], esi
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov bl, 2
         xor edi, edi
         mov dword [byte edx+eax+04h], 0
         xor ch, ch
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov di, word [byte esp+05Ch]
         mov bh, byte [byte esp+050h]
         mov dword [byte edx+eax+0Ch], edi
         mov ax, 84C0h
         call far [unk_19CCB8]
-        mov ebx, dword [dword_1684C4]
+        mov ebx, dword [GripDriverData]
         and eax, 0FFFFh
         mov dword [byte edx+ebx+010h], eax
         mov bl, 2
@@ -775,20 +775,20 @@ LoadJoystickConfig:
         call far [unk_19CCB8]
         xor ebx, ebx
         mov bx, ax
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov dword [byte edx+eax+014h], ebx
         mov ebx, esi
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         sar ebx, 1
         mov dword [byte edx+eax+018h], ebx
         mov ebx, edi
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         sar ebx, 1
         mov dword [byte edx+eax+01Ch], ebx
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         sar esi, 2
         mov dword [byte edx+eax+020h], esi
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         sar edi, 2
         mov dword [byte edx+eax+024h], edi
 .13:
@@ -824,51 +824,51 @@ LoadJoystickConfig:
         cmp dword [dword_16E348], byte 0
         je near .16
 .15:
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [eax], 1
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         and byte [eax], 0C3h
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [eax], 8
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         mov edx, str_DOSJoystick
         add eax, byte 4
         call strcpy_
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         mov word [byte eax+036h], 0
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov word [byte eax+028h], 3
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov word [byte eax+02Ah], 0
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov edx, dword [dword_16E344]
         mov dword [eax], edx
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E344]
         mov dword [byte edx+08h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E348]
         mov dword [byte edx+04h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov dword [byte edx+0Ch], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E344]
         mov dword [byte edx+010h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E348]
         mov dword [byte edx+014h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E344]
         mov dword [byte edx+018h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E348]
         mov dword [byte edx+01Ch], eax
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov dword [byte eax+020h], 0F8h
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov dword [byte eax+024h], 0F8h
 .16:
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [eax], 2
         test byte [byte_16E35C], 0Ch
         je near .18
@@ -877,56 +877,56 @@ LoadJoystickConfig:
         cmp dword [dword_16E350], byte 0
         je near .18
 .17:
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [byte eax+038h], 1
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         mov cl, byte [byte eax+038h]
         and cl, 0C3h
         mov byte [byte eax+038h], cl
         mov ch, cl
         or ch, 8
         mov byte [byte eax+038h], ch
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         mov edx, str_DOSJoystick
         add eax, byte 3Ch
         call strcpy_
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         mov word [byte eax+06Eh], 0
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov word [byte eax+054h], 3
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov word [byte eax+056h], 0
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E34C]
         mov dword [byte edx+02Ch], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov dword [byte edx+034h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E350]
         mov dword [byte edx+030h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov dword [byte edx+038h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E34C]
         mov dword [byte edx+03Ch], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E350]
         mov dword [byte edx+040h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E34C]
         mov dword [byte edx+044h], eax
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov edx, dword [dword_16E350]
         mov dword [byte eax+048h], edx
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov dword [byte eax+04Ch], 0F8h
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov dword [byte eax+050h], 0F8h
 .18:
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [byte eax+038h], 2
 .19:
-        mov word [word_1684E8], 1
+        mov word [GripReady], 1
 .20:
         add esp, byte 6Ch
         pop ebp
@@ -946,13 +946,13 @@ SetupOptionsAnim:
         push ecx
         push edx
         mov ebx, eax
-        cmp ax, word [word_1684BE]
+        cmp ax, word [GripPortWord]
         jae near .6
         xor edx, edx
         mov dx, ax
         lea eax, [nosplit edx*8+00h]
         sub eax, edx
-        mov edx, dword [dword_1684C0]
+        mov edx, dword [GripDriverPtr]
         test byte [edx+eax*8], 2
         je near .6
         call CalibrateJoystick
@@ -974,55 +974,55 @@ SetupOptionsAnim:
         cmp dword [dword_16E348], byte 0
         je near .2
 .1:
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [eax], 1
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         and byte [eax], 0C3h
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [eax], 8
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         mov edx, str_DOSJoystick
         add eax, byte 4
         call strcpy_
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         mov word [byte eax+036h], 0
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov word [byte eax+028h], 3
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov word [byte eax+02Ah], 0
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E344]
         mov dword [edx], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov dword [byte edx+08h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E348]
         mov dword [byte edx+04h], eax
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov edx, dword [dword_16E348]
         mov dword [byte eax+0Ch], edx
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov edx, dword [dword_16E344]
         mov dword [byte eax+010h], edx
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov edx, dword [dword_16E348]
         mov dword [byte eax+014h], edx
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov edx, dword [dword_16E344]
         mov dword [byte eax+018h], edx
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E348]
         mov dword [byte edx+01Ch], eax
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov dword [byte eax+020h], 0F8h
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov dword [byte eax+024h], 0F8h
         pop edx
         pop ecx
         pop ebx
         ret
 .2:
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         and byte [eax], 0FEh
         pop edx
         pop ecx
@@ -1036,57 +1036,57 @@ SetupOptionsAnim:
         cmp dword [dword_16E350], byte 0
         je near .5
 .4:
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [byte eax+038h], 1
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         mov bl, byte [byte eax+038h]
         and bl, 0C3h
         mov byte [byte eax+038h], bl
         mov bh, bl
         or bh, 8
         mov byte [byte eax+038h], bh
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         mov edx, str_DOSJoystick
         add eax, byte 3Ch
         call strcpy_
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         mov word [byte eax+06Eh], 0
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov word [byte eax+054h], 3
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov word [byte eax+056h], 0
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E34C]
         mov dword [byte edx+02Ch], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov dword [byte edx+034h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E350]
         mov dword [byte edx+030h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov dword [byte edx+038h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E34C]
         mov dword [byte edx+03Ch], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E350]
         mov dword [byte edx+040h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E34C]
         mov dword [byte edx+044h], eax
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E350]
         mov dword [byte edx+048h], eax
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov dword [byte eax+04Ch], 0F8h
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov dword [byte eax+050h], 0F8h
         pop edx
         pop ecx
         pop ebx
         ret
 .5:
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         and byte [byte eax+038h], 0FEh
 .6:
         pop edx
@@ -1110,17 +1110,17 @@ DrawOptionsAnimFrame:
         sub esi, eax
         shl esi, 2
         sub esi, eax
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         shl esi, 2
         and cx, word [byte esi+eax+028h]
         mov edx, ebx
         lea eax, [nosplit edx*8+00h]
         sub eax, edx
         lea edx, [nosplit eax*8+00h]
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         shl ecx, 4
         mov word [byte edx+eax+036h], cx
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         add eax, esi
         mov si, word [byte eax+02Ah]
         and esi, byte 3
@@ -1148,7 +1148,7 @@ DrawOptionsAnimFrame:
         sub esi, edi
         cmp esi, ebp
         jle near .8
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [byte edx+eax+036h], 8
         jmp near .8
 .3:
@@ -1179,7 +1179,7 @@ DrawOptionsAnimFrame:
         cmp esi, ebp
         jle short .6
         or byte [byte eax+02Ah], 1
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [byte edx+eax+036h], 8
         jmp short .8
 .6:
@@ -1189,7 +1189,7 @@ DrawOptionsAnimFrame:
         jge short .8
         or byte [byte eax+02Ah], 2
 .7:
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [byte edx+eax+036h], 4
 .8:
         test ecx, ecx
@@ -1198,7 +1198,7 @@ DrawOptionsAnimFrame:
         sub eax, ebx
         shl eax, 2
         sub eax, ebx
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         shl eax, 2
         add eax, edx
         mov edx, dword [byte eax+08h]
@@ -1222,7 +1222,7 @@ DrawOptionsAnimFrame:
         shl edx, 3
         cmp edi, ebp
         jl short .9
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [byte edx+eax+036h], 8
         jmp short .10
 .9:
@@ -1231,7 +1231,7 @@ DrawOptionsAnimFrame:
         add ecx, esi
         cmp ecx, ebp
         jge short .10
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [byte edx+eax+036h], 4
 .10:
         lea eax, [nosplit ebx*4+00h]
@@ -1239,7 +1239,7 @@ DrawOptionsAnimFrame:
         shl eax, 2
         sub eax, ebx
         lea edx, [nosplit eax*4+00h]
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         add eax, edx
         mov si, word [byte eax+02Ah]
         and esi, byte 0Ch
@@ -1270,7 +1270,7 @@ DrawOptionsAnimFrame:
         sub esi, edi
         cmp esi, ebp
         jle near .18
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [byte edx+eax+036h], 1
         jmp near .18
 .13:
@@ -1301,7 +1301,7 @@ DrawOptionsAnimFrame:
         cmp esi, ebp
         jle short .16
         or byte [byte eax+02Ah], 4
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [byte edx+eax+036h], 1
         jmp short .18
 .16:
@@ -1311,7 +1311,7 @@ DrawOptionsAnimFrame:
         jge short .18
         or byte [byte eax+02Ah], 8
 .17:
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         or byte [byte edx+eax+036h], 2
 .18:
         test ecx, ecx
@@ -1320,7 +1320,7 @@ DrawOptionsAnimFrame:
         sub eax, ebx
         shl eax, 2
         sub eax, ebx
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         shl eax, 2
         add edx, eax
         mov eax, dword [byte edx+0Ch]
@@ -1342,7 +1342,7 @@ DrawOptionsAnimFrame:
         shl eax, 3
         cmp esi, edi
         jl short .19
-        mov edx, dword [dword_1684C0]
+        mov edx, dword [GripDriverPtr]
         or byte [byte edx+eax+036h], 1
         jmp short .20
 .19:
@@ -1351,7 +1351,7 @@ DrawOptionsAnimFrame:
         add ecx, ebx
         cmp ecx, edi
         jge short .20
-        mov edx, dword [dword_1684C0]
+        mov edx, dword [GripDriverPtr]
         or byte [byte edx+eax+036h], 2
 .20:
         pop ebp
@@ -1373,9 +1373,9 @@ UpdateOptionsAnim:
         push edi
         push ebp
         sub esp, byte 10h
-        cmp word [word_1684E8], byte 0
+        cmp word [GripReady], byte 0
         je near .16
-        test byte [byte_1684C8], 2
+        test byte [GripFlags], 2
         jne short .1
         call CalibrateJoystick
 .1:
@@ -1391,15 +1391,15 @@ UpdateOptionsAnim:
         mov dword [byte esp+04h], eax
         jmp near .15
 .2:
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         test byte [eax+ebp], 1
         je near .14
-        test byte [byte_1684C8], 2
+        test byte [GripFlags], 2
         je near .3
         mov edx, 1
         mov ax, 84A0h
         call far [unk_19CCB8]
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         mov eax, dword [eax+ebp]
         mov bl, 1
         shl eax, 1Ah
@@ -1419,10 +1419,10 @@ UpdateOptionsAnim:
         call far [unk_19CCB8]
         xor ebx, ebx
         mov bx, ax
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov dword [byte esi+eax+010h], ebx
         mov ch, 1
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov bl, 2
         add eax, esi
         mov bh, dl
@@ -1435,76 +1435,76 @@ UpdateOptionsAnim:
         mov eax, dword [byte eax+0Ch]
         sub eax, edx
         mov edx, eax
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         and edi, 0FFFh
         mov dword [byte esi+eax+014h], edx
         jmp near .13
 .3:
         cmp dword [byte esp+0Ch], byte 0
         jne near .8
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov ebx, dword [dword_16E344]
         cmp ebx, dword [eax]
         jge short .4
         mov dword [eax], ebx
 .4:
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov ecx, dword [dword_16E344]
         cmp ecx, dword [byte eax+08h]
         jle short .5
         mov dword [byte eax+08h], ecx
 .5:
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov edi, dword [dword_16E348]
         cmp edi, dword [byte eax+04h]
         jge short .6
         mov dword [byte eax+04h], edi
 .6:
-        mov edi, dword [dword_1684C4]
+        mov edi, dword [GripDriverData]
         mov edx, dword [dword_16E348]
         cmp edx, dword [byte edi+0Ch]
         jle short .7
         mov dword [byte edi+0Ch], edx
 .7:
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E344]
         mov dword [byte edx+010h], eax
         mov edi, dword [byte esp+08h]
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E348]
         not edi
         mov dword [byte edx+014h], eax
         jmp near .13
 .8:
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov edx, dword [dword_16E34C]
         cmp edx, dword [byte eax+02Ch]
         jge short .9
         mov dword [byte eax+02Ch], edx
 .9:
-        mov edi, dword [dword_1684C4]
+        mov edi, dword [GripDriverData]
         mov ebx, dword [dword_16E34C]
         cmp ebx, dword [byte edi+034h]
         jle short .10
         mov dword [byte edi+034h], ebx
 .10:
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov ecx, dword [dword_16E350]
         cmp ecx, dword [byte eax+030h]
         jge short .11
         mov dword [byte eax+030h], ecx
 .11:
-        mov eax, dword [dword_1684C4]
+        mov eax, dword [GripDriverData]
         mov edx, dword [dword_16E350]
         cmp edx, dword [byte eax+038h]
         jle short .12
         mov dword [byte eax+038h], edx
 .12:
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E34C]
         mov dword [byte edx+03Ch], eax
         mov edi, dword [byte esp+04h]
-        mov edx, dword [dword_1684C4]
+        mov edx, dword [GripDriverData]
         mov eax, dword [dword_16E350]
         not edi
         mov dword [byte edx+040h], eax
@@ -1521,7 +1521,7 @@ UpdateOptionsAnim:
 .15:
         xor eax, eax
         mov ebx, dword [byte esp+0Ch]
-        mov ax, word [word_1684BE]
+        mov ax, word [GripPortWord]
         cmp eax, ebx
         jg near .2
 .16:
@@ -1546,7 +1546,7 @@ UpdateOptionsAnim:
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
-        mov ax, word [nosplit eax*2+word_1684EC]
+        mov ax, word [nosplit eax*2+CrowdChantTable]
         mov word [word_19CCC4], ax
         pop edx
         pop ecx
@@ -1634,7 +1634,7 @@ PickCrowdChant:
         mov edx, dword [byte edx+01h]
         shl edx, 0Ch
         shr edx, 1Ah
-        mov dx, word [nosplit edx*2+word_1684EC]
+        mov dx, word [nosplit edx*2+CrowdChantTable]
         mov word [word_19CCC4], dx
         jmp near .1
 .6:
@@ -3241,11 +3241,11 @@ PickLinePlayers:
         movsx ebx, ax
         mov ax, word [byte esi+010h]
         xor ah, ah
-        mov ebx, dword [nosplit ebx*2+dword_168564]
+        mov ebx, dword [nosplit ebx*2+LinePlayerSlots]
         and al, 1
         sar ebx, 10h
         cwde
-        mov eax, dword [dword ebx+eax+dword_168571]
+        mov eax, dword [dword ebx+eax+LinePlayerOffsets]
         sar eax, 18h
         mov al, byte [eax+ebp]
         mov bh, al
@@ -3265,11 +3265,11 @@ PickLinePlayers:
         cmp ax, 2
         jg short .8
         cwde
-        mov ebx, dword [nosplit eax*2+dword_168564]
+        mov ebx, dword [nosplit eax*2+LinePlayerSlots]
         mov eax, dword [byte esi+02h]
         sar ebx, 10h
         sar eax, 10h
-        mov eax, dword [dword ebx+eax+dword_168571]
+        mov eax, dword [dword ebx+eax+LinePlayerOffsets]
         sar eax, 18h
         mov al, byte [eax+ebp]
         mov byte [dword edx+byte_19C3E0], al
@@ -3315,10 +3315,10 @@ PickLinePlayers:
         add edx, byte 2
 .12:
         cwde
-        mov ebx, dword [nosplit eax*2+dword_168564]
+        mov ebx, dword [nosplit eax*2+LinePlayerSlots]
         sar ebx, 10h
         movsx eax, dx
-        mov eax, dword [dword ebx+eax+dword_168571]
+        mov eax, dword [dword ebx+eax+LinePlayerOffsets]
         sar eax, 18h
         movsx edx, di
         mov al, byte [eax+ebp]
@@ -3342,9 +3342,9 @@ PickLinePlayers:
         jne near .28
         mov eax, dword [byte esp+02h]
         sar eax, 10h
-        mov ecx, dword [nosplit eax*2+dword_168564]
+        mov ecx, dword [nosplit eax*2+LinePlayerSlots]
         sar ecx, 10h
-        add ecx, unk_168574
+        add ecx, LinePlayerOrder
 .15:
         mov al, byte [ecx]
         inc ecx

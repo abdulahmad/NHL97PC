@@ -10,7 +10,7 @@ extern CameraCosYaw, TextOriginX, TextOriginY, FontAscent, FontDescent, TextAlig
 extern FontWidth, TextColorIndex, TextColorTable, FontGlyphColors, FontLastChar, FontGlyphTable, FontGlyphCount, FontKernTable
 extern TextShadowColor, TextBuffer, DrawGlyphFn, TextCharFn, TextEndFn, TextNextCharFn, FontSpacing, FontKernCount
 extern FontKernPairs, ProjScaleX, ProjCenterX, ProjCenterY, ProjScaleY, ProjOffsetX, ProjOffsetY, ProjDetailScale
-extern ProjAspect, dword_1DA4D0, mem_putc_, F64_1p5259eneg05, F64_0p9_SetFocalLength, F64_1p1_SetFocalLength, F64_0p5_SetProjectionCenter, strcmp_
+extern ProjAspect, PaletteWords, mem_putc_, F64_1p5259eneg05, F64_0p9_SetFocalLength, F64_1p1_SetFocalLength, F64_0p5_SetProjectionCenter, strcmp_
 extern Random32, PlotPixelRGB, PlotPixel, SaveTextState, RestoreTextState, AllocNetBuffer, FreeNetBuffer, SetTextOrigin
 extern SetTextFont, DrawTextLimited, DrawTextString, ConvertColor555, DrawGlyphScaled, SetTextScale, MakeColor, FillRect
 global IF@ATAN, IF@ATAN2, IF@DPOW, hypot_, DrawGlyph_494, DrawGlyph_590, PrepareTextDraw_72, FloatsToInts_47
@@ -1357,14 +1357,14 @@ BuildTextColorTable:
         xor edx, edx
         xor eax, eax
 .1:
-        mov ebx, dword [dword eax+dword_1DA4D0]
+        mov ebx, dword [dword eax+PaletteWords]
         shr ebx, 10h
         mov byte [esp+edx], bl
-        mov ebx, dword [dword eax+dword_1DA4D0]
+        mov ebx, dword [dword eax+PaletteWords]
         add edx, byte 3
         shr ebx, 8
         mov byte [byte esp+edx-02h], bl
-        mov bl, byte [dword eax+dword_1DA4D0]
+        mov bl, byte [dword eax+PaletteWords]
         add eax, byte 4
         mov byte [byte esp+edx-01h], bl
         cmp eax, 400h

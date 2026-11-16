@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_10C8B0 progbits alloc exec nowrite align=1
 extern ScreenBitsPerPixel, str_Punct_FreeArtArchive, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, ScreenPitch, ScreenBuffer
-extern DrawDestBuffer, DrawDestOffset, dword_1DA8D8, ConvertArtSame, VesaSetBank, SetBlitSource, CopyMappedSpan, ShapeRowBytes
+extern DrawDestBuffer, DrawDestOffset, ScaledRowBuffer, ConvertArtSame, VesaSetBank, SetBlitSource, CopyMappedSpan, ShapeRowBytes
 extern BuildSpanOffsets, VecLengthOf, FreeMemBlock
 global AddVec3, SubVec3, ScaleVec3, DrawSpriteRow, DrawSpriteScaledCore, DrawSpriteScaledFit, DrawSpriteScaledBy, DrawSpriteScaledFlip
 global DrawSpriteScaled
@@ -182,7 +182,7 @@ DrawSpriteRow:
         mov eax, dword [byte esp+01Ch]
         sub eax, ebx
         push eax
-        mov eax, dword [nosplit ebx*4+dword_1DA8D8]
+        mov eax, dword [nosplit ebx*4+ScaledRowBuffer]
         imul eax, esi
         add eax, ebp
         push eax
@@ -377,11 +377,11 @@ DrawSpriteScaledCore:
         push ecx
         push byte 0
         push eax
-        push dword_1DA8D8
+        push ScaledRowBuffer
         call BuildSpanOffsets
         add esp, byte 1Ch
         mov eax, dword [byte esp+034h]
-        push dword_1DA8D8
+        push ScaledRowBuffer
         add eax, byte 10h
         push eax
         call SetBlitSource

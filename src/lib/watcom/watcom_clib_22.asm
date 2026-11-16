@@ -2,12 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_12AB6C progbits alloc exec nowrite align=1
-extern StreamLengthFn, MixerStepTable, dword_173F64, dword_19469C, dword_1946A0, dword_1946A4, dword_1946A8, dword_1996A4
-extern dword_1996A8, dword_1996AC, dword_1996B0, dword_1996B4, dword_1996B8, dword_1996BC, dword_1996C0, dword_1996C4
-extern dword_1996C8, dword_1996D0, dword_1996D4, dword_1996D8, dword_1996DC, dword_1996E0, dword_1996E4, dword_1996E8
-extern dword_1DCF38, PatchRegionParams, off_1996EC, StartPatchSample, ParsePatchTags, AudioEnter, AudioLeaveCheck, SbReadData
-extern SbWaitRead, StartChannel, MixNoise, UpdateChannels, SetChannelCount, InitFloatFormat, FormatFloat, unk_1956A4
-extern unk_19972C, SbBasePort, SbIrq, SbMixerAddrPort, SbMixerDataPort, SbResetPort, SbWritePort, SbReadPort
+extern StreamLengthFn, MixerStepTable, MixerVolumeLookup, MixerAccumLeft, MixerAccumRight, MixerAccumMono, MixerAccumBuffer, MixerReady
+extern MixerStereo, MixerOutputRate, MixerOutPtr, Mixer16Bit, MixerOutEnd, MixerChunkSamples, MixerChunkLeft, MixerSamplePtr
+extern MixerSampleStep, MixerLoopLength, MixerLoopLimit, MixerLoopStart, MixerFracPos, MixerFracStep, MixerOutputFunc, MixerStopFunc
+extern ChannelSampleTable, PatchRegionParams, MixerChannelTable, StartPatchSample, ParsePatchTags, AudioEnter, AudioLeaveCheck, SbReadData
+extern SbWaitRead, StartChannel, MixNoise, UpdateChannels, SetChannelCount, InitFloatFormat, FormatFloat, MixerChunkBuffer
+extern PatchDefaultHandle, SbBasePort, SbIrq, SbMixerAddrPort, SbMixerDataPort, SbResetPort, SbWritePort, SbReadPort
 global jpt_12C300, MixerChunkLength_4A, MixerChunkLength_8F, MixerChunkLength_10C, MixerChunkLength_21B, MixerChunkLength_341, MixSample16_7B, MixSample16_102
 global MixSample16_184, MixSample16_20B, MixSample16_291, MixSample16_2B4, MixSample16_330, MixSample16_3AD, MixOutStereo16_46, MixOutStereo16_8A
 global jpt_12C300_24, MixerInit, MixerFillBuffer, MixerMixChunk, MixerStartSample, MixerFadeChannel, MixerSetPanVolume, MixerSetPitch
@@ -24,22 +24,22 @@ MixerInit:
         LD mov, ebp, esp
         push esi
         call MixerBuildVolumeTables
-        cmp dword [dword_1996A4], byte 0
+        cmp dword [MixerReady], byte 0
         jne short .2
-        mov dword [dword_1996A4], 1
+        mov dword [MixerReady], 1
         call MixerClearAccumulator
         mov eax, 10h
 .1:
         dec eax
-        mov esi, dword [nosplit eax*4+off_1996EC]
+        mov esi, dword [nosplit eax*4+MixerChannelTable]
         mov byte [esi], 0
         cmp eax, byte 0
         jne short .1
 .2:
         mov eax, dword [byte ebp+0Ch]
-        mov dword [dword_1996AC], eax
+        mov dword [MixerOutputRate], eax
         mov eax, dword [byte ebp+010h]
-        mov dword [dword_1996E8], eax
+        mov dword [MixerStopFunc], eax
         mov eax, dword [byte ebp+08h]
         and eax, byte 7
         cmp eax, byte 7
@@ -57,73 +57,73 @@ MixerInit:
         je near .8
         cmp eax, byte 1
         je near .9
-        mov dword [dword_1996A8], 1
+        mov dword [MixerStereo], 1
         lea eax, [MixOutMono8Signed]
-        mov dword [dword_1996E4], eax
-        mov dword [dword_1996B4], 0
+        mov dword [MixerOutputFunc], eax
+        mov dword [Mixer16Bit], 0
         mov eax, 10h
         pop esi
         leave
         ret
 .3:
-        mov dword [dword_1996A8], 0
+        mov dword [MixerStereo], 0
         lea eax, [MixOutStereo16Unsigned]
-        mov dword [dword_1996E4], eax
-        mov dword [dword_1996B4], 2
+        mov dword [MixerOutputFunc], eax
+        mov dword [Mixer16Bit], 2
         mov eax, 10h
         pop esi
         leave
         ret
 .4:
-        mov dword [dword_1996A8], 1
+        mov dword [MixerStereo], 1
         lea eax, [MixOutStereo16_46]
-        mov dword [dword_1996E4], eax
-        mov dword [dword_1996B4], 1
+        mov dword [MixerOutputFunc], eax
+        mov dword [Mixer16Bit], 1
         mov eax, 10h
         pop esi
         leave
         ret
 .5:
-        mov dword [dword_1996A8], 0
+        mov dword [MixerStereo], 0
         lea eax, [MixOutStereo8Signed]
-        mov dword [dword_1996E4], eax
-        mov dword [dword_1996B4], 1
+        mov dword [MixerOutputFunc], eax
+        mov dword [Mixer16Bit], 1
         mov eax, 10h
         pop esi
         leave
         ret
 .6:
-        mov dword [dword_1996A8], 1
+        mov dword [MixerStereo], 1
         lea eax, [MixOutStereo16_8A]
-        mov dword [dword_1996E4], eax
-        mov dword [dword_1996B4], 0
+        mov dword [MixerOutputFunc], eax
+        mov dword [Mixer16Bit], 0
         mov eax, 10h
         pop esi
         leave
         ret
 .7:
-        mov dword [dword_1996A8], 0
+        mov dword [MixerStereo], 0
         lea eax, [MixOutStereo16]
-        mov dword [dword_1996E4], eax
-        mov dword [dword_1996B4], 2
+        mov dword [MixerOutputFunc], eax
+        mov dword [Mixer16Bit], 2
         mov eax, 10h
         pop esi
         leave
         ret
 .8:
-        mov dword [dword_1996A8], 1
+        mov dword [MixerStereo], 1
         lea eax, [MixOutMono16Unsigned]
-        mov dword [dword_1996E4], eax
-        mov dword [dword_1996B4], 1
+        mov dword [MixerOutputFunc], eax
+        mov dword [Mixer16Bit], 1
         mov eax, 10h
         pop esi
         leave
         ret
 .9:
-        mov dword [dword_1996A8], 0
+        mov dword [MixerStereo], 0
         lea eax, [MixOutMono16]
-        mov dword [dword_1996E4], eax
-        mov dword [dword_1996B4], 1
+        mov dword [MixerOutputFunc], eax
+        mov dword [Mixer16Bit], 1
         mov eax, 10h
         pop esi
         leave
@@ -152,7 +152,7 @@ MixerFillBuffer:
         add esp, byte 8
         sub edx, 200h
         mov eax, 200h
-        mov ecx, dword [dword_1996B4]
+        mov ecx, dword [Mixer16Bit]
         shl eax, cl
         LD add, ebx, eax
         cmp edx, byte 0
@@ -177,36 +177,36 @@ MixerMixChunk:
         push ecx
         push edx
         mov eax, dword [byte ebp+0Ch]
-        mov dword [dword_1996B0], eax
+        mov dword [MixerOutPtr], eax
         mov eax, dword [byte ebp+08h]
-        mov dword [dword_1996B8], eax
-        mov dword [dword_1996BC], 0FFFFFFFFh
+        mov dword [MixerOutEnd], eax
+        mov dword [MixerChunkSamples], 0FFFFFFFFh
 .1:
-        inc dword [dword_1996BC]
-        mov esi, dword [dword_1996BC]
+        inc dword [MixerChunkSamples]
+        mov esi, dword [MixerChunkSamples]
         cmp esi, byte 10h
         je short .3
-        mov esi, dword [nosplit esi*4+off_1996EC]
+        mov esi, dword [nosplit esi*4+MixerChannelTable]
         cmp byte [esi], 1
         jne short .1
-        mov eax, dword [dword_1996B0]
-        mov dword [dword_1996C0], eax
-        mov dword [dword_1996C4], 0
+        mov eax, dword [MixerOutPtr]
+        mov dword [MixerChunkLeft], eax
+        mov dword [MixerSamplePtr], 0
 .2:
         call dword [byte esi+068h]
-        mov dword [dword_1996C8], eax
+        mov dword [MixerSampleStep], eax
         cmp eax, byte 0
         jle short .1
-        mov eax, dword [dword_1996C8]
-        sub dword [dword_1996C0], eax
+        mov eax, dword [MixerSampleStep]
+        sub dword [MixerChunkLeft], eax
         call dword [byte esi+060h]
-        mov eax, dword [dword_1996C8]
-        add dword [dword_1996C4], eax
-        cmp dword [dword_1996C0], byte 0
+        mov eax, dword [MixerSampleStep]
+        add dword [MixerSamplePtr], eax
+        cmp dword [MixerChunkLeft], byte 0
         jg short .2
         jmp short .1
 .3:
-        call dword [dword_1996E4]
+        call dword [MixerOutputFunc]
         call MixerClearAccumulator
         pop edx
         pop ecx
@@ -228,7 +228,7 @@ MixerStartSample:
         push edx
         push esi
         mov esi, dword [byte ebp+08h]
-        mov esi, dword [nosplit esi*4+off_1996EC]
+        mov esi, dword [nosplit esi*4+MixerChannelTable]
         mov byte [esi], 0
         mov dword [byte esi+08h], 0
         mov eax, dword [byte ebp+028h]
@@ -319,17 +319,17 @@ MixerFadeChannel:
         push ecx
         push edx
         mov eax, dword [byte ebp+08h]
-        mov dword [dword_1996BC], eax
-        mov esi, dword [nosplit eax*4+off_1996EC]
-        mov dword [dword_1996C0], 200h
-        mov dword [dword_1996C4], 0
+        mov dword [MixerChunkSamples], eax
+        mov esi, dword [nosplit eax*4+MixerChannelTable]
+        mov dword [MixerChunkLeft], 200h
+        mov dword [MixerSamplePtr], 0
         call dword [byte esi+068h]
-        mov dword [dword_1996C8], eax
+        mov dword [MixerSampleStep], eax
         cmp eax, byte 0
         jle short .5
-        mov eax, dword [dword_1996C8]
-        sub dword [dword_1996C0], eax
-        and dword [dword_1996C0], byte 7Fh
+        mov eax, dword [MixerSampleStep]
+        sub dword [MixerChunkLeft], eax
+        and dword [MixerChunkLeft], byte 7Fh
         mov byte [esi], 0
         mov eax, dword [byte esi+04h]
         and eax, byte 3
@@ -351,9 +351,9 @@ MixerFadeChannel:
         lea eax, [MixSample16_330]
 .4:
         call eax
-        mov eax, dword [dword_1996BC]
+        mov eax, dword [MixerChunkSamples]
         push eax
-        call dword [dword_1996E8]
+        call dword [MixerStopFunc]
         add esp, byte 4
 .5:
         pop edx
@@ -379,7 +379,7 @@ MixerSetPanVolume:
         push edx
         push esi
         mov esi, dword [byte ebp+08h]
-        mov esi, dword [nosplit esi*4+off_1996EC]
+        mov esi, dword [nosplit esi*4+MixerChannelTable]
         mov eax, dword [byte ebp+0Ch]
         cmp eax, byte 40h
         jne short .1
@@ -441,7 +441,7 @@ MixerSetPitch:
         push edi
         push esi
         mov esi, dword [byte ebp+08h]
-        mov esi, dword [nosplit esi*4+off_1996EC]
+        mov esi, dword [nosplit esi*4+MixerChannelTable]
         mov eax, dword [byte esi+0Ch]
         mov ebx, dword [byte ebp+0Ch]
         call MixerCalcStep
@@ -461,10 +461,10 @@ MixerSamplesLeft:
         push ebp
         LD mov, ebp, esp
         push esi
-        cmp dword [dword_1996A4], byte 0
+        cmp dword [MixerReady], byte 0
         je short .3
         mov esi, dword [byte ebp+08h]
-        mov esi, dword [nosplit esi*4+off_1996EC]
+        mov esi, dword [nosplit esi*4+MixerChannelTable]
         cmp byte [esi], 1
         je short .1
         mov eax, 0
@@ -503,10 +503,10 @@ MixerSamplePosition:
         push ebp
         LD mov, ebp, esp
         push esi
-        cmp dword [dword_1996A4], byte 0
+        cmp dword [MixerReady], byte 0
         je short .2
         mov esi, dword [byte ebp+08h]
-        mov esi, dword [nosplit esi*4+off_1996EC]
+        mov esi, dword [nosplit esi*4+MixerChannelTable]
         cmp byte [esi], 1
         je short .1
         mov eax, 0
@@ -537,10 +537,10 @@ MixerStopChannel:
         LD mov, ebp, esp
         push esi
         mov eax, dword [byte ebp+08h]
-        mov esi, dword [nosplit eax*4+off_1996EC]
+        mov esi, dword [nosplit eax*4+MixerChannelTable]
         mov byte [esi], 0
         push eax
-        call dword [dword_1996E8]
+        call dword [MixerStopFunc]
         add esp, byte 4
         pop esi
         leave
@@ -555,7 +555,7 @@ MixerPickMixRoutine:
         LD mov, ebp, esp
         push esi
         mov esi, dword [byte ebp+08h]
-        mov esi, dword [nosplit esi*4+off_1996EC]
+        mov esi, dword [nosplit esi*4+MixerChannelTable]
         mov eax, dword [byte esi+04h]
         and eax, byte 3
         cmp eax, byte 3
@@ -569,7 +569,7 @@ MixerPickMixRoutine:
         mov dword [byte esi+064h], eax
         jmp short .8
 .1:
-        cmp dword [dword_1996A8], byte 1
+        cmp dword [MixerStereo], byte 1
         je short .2
         lea eax, [MixSample16_102]
         jmp short .3
@@ -585,7 +585,7 @@ MixerPickMixRoutine:
         mov dword [byte esi+064h], eax
         jmp short .8
 .5:
-        cmp dword [dword_1996A8], byte 1
+        cmp dword [MixerStereo], byte 1
         je short .6
         lea eax, [MixSample16]
         jmp short .7
@@ -671,17 +671,17 @@ MixerChunkLength:
         div dword [byte esi+030h]
         cmp eax, byte 0
         jne short .2
-        push dword [dword_1996BC]
+        push dword [MixerChunkSamples]
         call MixerStopChannel
         add esp, byte 4
         mov eax, 0
         ret
 .2:
-        cmp eax, dword [dword_1996C0]
+        cmp eax, dword [MixerChunkLeft]
         jge short .3
         ret
 .3:
-        mov eax, dword [dword_1996C0]
+        mov eax, dword [MixerChunkLeft]
         ret
 MixerChunkLength_4A:
         mov edx, dword [byte esi+024h]
@@ -701,11 +701,11 @@ MixerChunkLength_4A:
         mov dword [byte esi+01Ch], 0
         jmp short MixerChunkLength_4A
 .5:
-        cmp eax, dword [dword_1996C0]
+        cmp eax, dword [MixerChunkLeft]
         jge short .6
         ret
 .6:
-        mov eax, dword [dword_1996C0]
+        mov eax, dword [MixerChunkLeft]
         ret
 MixerChunkLength_8F:
         mov edx, dword [byte esi+014h]
@@ -718,7 +718,7 @@ MixerChunkLength_8F:
         shrd eax, edx, 8
         shr edx, 8
         div dword [byte esi+030h]
-        mov dword [dword_1996D0], eax
+        mov dword [MixerLoopLength], eax
         cmp eax, byte 0
         jne short .8
         lea eax, [byte esi+014h]
@@ -735,22 +735,22 @@ MixerChunkLength_8F:
         add dword [byte esi+014h], eax
         jmp short MixerChunkLength_8F
 .8:
-        cmp dword [dword_1996D0], byte 0
+        cmp dword [MixerLoopLength], byte 0
         jne short .9
-        push dword [dword_1996BC]
+        push dword [MixerChunkSamples]
         call MixerStopChannel
         add esp, byte 4
         mov eax, 0
         ret
 .9:
-        cmp eax, dword [dword_1996C0]
+        cmp eax, dword [MixerChunkLeft]
         jge short .10
         ret
 .10:
-        mov eax, dword [dword_1996C0]
+        mov eax, dword [MixerChunkLeft]
         ret
 MixerChunkLength_10C:
-        mov dword [dword_1996D4], 0FFFFh
+        mov dword [MixerLoopLimit], 0FFFFh
         mov edx, dword [byte esi+048h]
         sub edx, dword [byte esi+03Ch]
         test edx, 0FFFFFFFFh
@@ -767,7 +767,7 @@ MixerChunkLength_10C:
         mov dword [byte esi+058h], edx
         jmp short .12
 .11:
-        mov dword [dword_1996D4], eax
+        mov dword [MixerLoopLimit], eax
 .12:
         mov edx, dword [byte esi+04Ch]
         sub edx, dword [byte esi+03Ch]
@@ -791,13 +791,13 @@ MixerChunkLength_10C:
         mov dword [byte esi+034h], eax
         jmp short .12
 .14:
-        cmp eax, dword [dword_1996C0]
+        cmp eax, dword [MixerChunkLeft]
         jl short .15
-        mov eax, dword [dword_1996C0]
+        mov eax, dword [MixerChunkLeft]
 .15:
-        cmp eax, dword [dword_1996D4]
+        cmp eax, dword [MixerLoopLimit]
         jl short .16
-        mov eax, dword [dword_1996D4]
+        mov eax, dword [MixerLoopLimit]
 .16:
         push eax
         lea ebx, [byte esi+034h]
@@ -814,9 +814,9 @@ MixerChunkLength_10C:
         je short .17
         add edx, byte 1
 .17:
-        mov dword [dword_1996D8], edx
-        push dword [dword_1996D8]
-        lea ebx, [unk_1956A4]
+        mov dword [MixerLoopStart], edx
+        push dword [MixerLoopStart]
+        lea ebx, [MixerChunkBuffer]
         push ebx
         mov ebx, dword [byte esi+03Ch]
         test dword [byte esi+04h], 2
@@ -830,9 +830,9 @@ MixerChunkLength_10C:
         push edx
         call dword [byte esi+05Ch]
         add esp, byte 18h
-        mov eax, dword [dword_1996D8]
+        mov eax, dword [MixerLoopStart]
         add dword [byte esi+03Ch], eax
-        lea ebx, [unk_1956A4]
+        lea ebx, [MixerChunkBuffer]
         mov ecx, dword [byte esi+08h]
         shr ebx, cl
         mov dword [byte esi+018h], ebx
@@ -849,7 +849,7 @@ MixerChunkLength_21B:
         shrd eax, edx, 8
         shr edx, 8
         div dword [byte esi+030h]
-        mov dword [dword_1996D0], eax
+        mov dword [MixerLoopLength], eax
         cmp eax, byte 0
         jne short .21
         lea eax, [byte esi+050h]
@@ -883,18 +883,18 @@ MixerChunkLength_21B:
         pop edi
         jmp near MixerChunkLength_21B
 .20:
-        cmp dword [dword_1996D0], byte 0
+        cmp dword [MixerLoopLength], byte 0
         jne short .21
-        push dword [dword_1996BC]
+        push dword [MixerChunkSamples]
         call MixerStopChannel
         add esp, byte 4
         mov eax, 0
         ret
 .21:
-        mov eax, dword [dword_1996D0]
-        cmp eax, dword [dword_1996C0]
+        mov eax, dword [MixerLoopLength]
+        cmp eax, dword [MixerChunkLeft]
         jl short .22
-        mov eax, dword [dword_1996C0]
+        mov eax, dword [MixerChunkLeft]
 .22:
         push eax
         lea ebx, [byte esi+034h]
@@ -911,9 +911,9 @@ MixerChunkLength_21B:
         je short .23
         add edx, byte 1
 .23:
-        mov dword [dword_1996D8], edx
-        push dword [dword_1996D8]
-        lea ebx, [unk_1956A4]
+        mov dword [MixerLoopStart], edx
+        push dword [MixerLoopStart]
+        lea ebx, [MixerChunkBuffer]
         push ebx
         mov ebx, dword [byte esi+03Ch]
         test dword [byte esi+04h], 2
@@ -927,9 +927,9 @@ MixerChunkLength_21B:
         push edx
         call dword [byte esi+05Ch]
         add esp, byte 18h
-        mov eax, dword [dword_1996D8]
+        mov eax, dword [MixerLoopStart]
         add dword [byte esi+03Ch], eax
-        lea ebx, [unk_1956A4]
+        lea ebx, [MixerChunkBuffer]
         mov ecx, dword [byte esi+08h]
         shr ebx, cl
         mov dword [byte esi+018h], ebx
@@ -946,18 +946,18 @@ MixerChunkLength_341:
         shrd eax, edx, 8
         shr edx, 8
         div dword [byte esi+030h]
-        mov dword [dword_1996D0], eax
+        mov dword [MixerLoopLength], eax
         cmp eax, byte 0
         jne short .26
-        push dword [dword_1996BC]
+        push dword [MixerChunkSamples]
         call MixerStopChannel
         add esp, byte 4
         mov eax, 0
         ret
 .26:
-        cmp eax, dword [dword_1996C0]
+        cmp eax, dword [MixerChunkLeft]
         jl short .27
-        mov eax, dword [dword_1996C0]
+        mov eax, dword [MixerChunkLeft]
 .27:
         push eax
         lea ebx, [byte esi+034h]
@@ -974,9 +974,9 @@ MixerChunkLength_341:
         je short .28
         add edx, byte 1
 .28:
-        mov dword [dword_1996D8], edx
-        push dword [dword_1996D8]
-        lea ebx, [unk_1956A4]
+        mov dword [MixerLoopStart], edx
+        push dword [MixerLoopStart]
+        lea ebx, [MixerChunkBuffer]
         push ebx
         mov ebx, dword [byte esi+03Ch]
         test dword [byte esi+04h], 2
@@ -990,9 +990,9 @@ MixerChunkLength_341:
         push edx
         call dword [byte esi+05Ch]
         add esp, byte 18h
-        mov eax, dword [dword_1996D8]
+        mov eax, dword [MixerLoopStart]
         add dword [byte esi+03Ch], eax
-        lea ebx, [unk_1956A4]
+        lea ebx, [MixerChunkBuffer]
         mov ecx, dword [byte esi+08h]
         shr ebx, cl
         mov dword [byte esi+018h], ebx
@@ -1020,17 +1020,17 @@ MixerCalcStep:
         shrd eax, edx, cl
         LD mov, edi, eax
         mov edx, 0
-        div dword [dword_1996AC]
+        div dword [MixerOutputRate]
         and eax, 0FFh
         mov dword [byte esi+028h], eax
         mov dword [byte esi+02Ch], 0
         mov eax, dword [byte esi+028h]
-        mul dword [dword_1996AC]
+        mul dword [MixerOutputRate]
         LD sub, edi, eax
         LD mov, eax, edi
         mov edx, 1000000h
         mul edx
-        div dword [dword_1996AC]
+        div dword [MixerOutputRate]
         shl eax, 8
         mov dword [byte esi+02Ch], eax
         mov eax, dword [byte esi+028h]
@@ -1055,7 +1055,7 @@ MixerBuildVolumeTables:
 .1:
         LD mov, esi, ecx
         shl esi, 0Ah
-        add esi, dword_173F64
+        add esi, MixerVolumeLookup
         mov edx, 0
 .2:
         LD mov, eax, edx
@@ -1091,35 +1091,35 @@ MixerBuildVolumeTables:
 ; Mixes an 8-bit mono sample into both accumulator channels
 ;-----------------------------------------------------------------------------
 MixMono8:
-        mov ebp, dword [dword_1996C4]
+        mov ebp, dword [MixerSamplePtr]
         lea ebp, [nosplit ebp*8+00h]
-        mov ecx, dword [dword_1996C8]
+        mov ecx, dword [MixerSampleStep]
         mov edi, dword [byte esi+018h]
         mov ebx, dword [byte esi+01Ch]
         mov edx, dword [byte esi+028h]
-        mov dword [dword_1996E0], edx
+        mov dword [MixerFracStep], edx
         mov eax, dword [byte esi+02Ch]
-        mov dword [dword_1996DC], eax
+        mov dword [MixerFracPos], eax
         mov edx, dword [byte esi+06Ch]
         mov esi, dword [byte esi+070h]
         LD xor, eax, eax
 .1:
         mov al, byte [edi]
         dec ecx
-        mov eax, dword [dword edx+eax*4+dword_173F64]
-        add dword [dword ebp+dword_1946A4], eax
+        mov eax, dword [dword edx+eax*4+MixerVolumeLookup]
+        add dword [dword ebp+MixerAccumMono], eax
         LD xor, eax, eax
         add ebp, byte 8
         mov al, byte [edi]
-        add ebx, dword [dword_1996DC]
-        mov eax, dword [dword esi+eax*4+dword_173F64]
-        adc edi, dword [dword_1996E0]
-        add dword [dword ebp+dword_1946A0], eax
+        add ebx, dword [MixerFracPos]
+        mov eax, dword [dword esi+eax*4+MixerVolumeLookup]
+        adc edi, dword [MixerFracStep]
+        add dword [dword ebp+MixerAccumRight], eax
         LD xor, eax, eax
         cmp ecx, byte 0
         jg short .1
-        mov esi, dword [dword_1996BC]
-        mov esi, dword [nosplit esi*4+off_1996EC]
+        mov esi, dword [MixerChunkSamples]
+        mov esi, dword [nosplit esi*4+MixerChannelTable]
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
@@ -1129,15 +1129,15 @@ MixMono8:
 ; format loops
 ;-----------------------------------------------------------------------------
 MixSample16:
-        mov ebp, dword [dword_1996C4]
+        mov ebp, dword [MixerSamplePtr]
         lea ebp, [nosplit ebp*8+00h]
-        mov ecx, dword [dword_1996C8]
+        mov ecx, dword [MixerSampleStep]
         mov edi, dword [byte esi+018h]
         mov ebx, dword [byte esi+01Ch]
         mov edx, dword [byte esi+028h]
-        mov dword [dword_1996E0], edx
+        mov dword [MixerFracStep], edx
         mov eax, dword [byte esi+02Ch]
-        mov dword [dword_1996DC], eax
+        mov dword [MixerFracPos], eax
         mov edx, dword [byte esi+06Ch]
         shr edx, 0Ah
         mov esi, dword [byte esi+070h]
@@ -1147,63 +1147,63 @@ MixSample16:
         dec ecx
         push eax
         imul eax, edx
-        add dword [dword ebp+dword_1946A4], eax
+        add dword [dword ebp+MixerAccumMono], eax
         pop eax
         imul eax, esi
-        add dword [dword ebp+dword_1946A8], eax
-        add ebx, dword [dword_1996DC]
-        adc edi, dword [dword_1996E0]
+        add dword [dword ebp+MixerAccumBuffer], eax
+        add ebx, dword [MixerFracPos]
+        adc edi, dword [MixerFracStep]
         add ebp, byte 8
         cmp ecx, byte 0
         jg short .1
-        mov esi, dword [dword_1996BC]
-        mov esi, dword [nosplit esi*4+off_1996EC]
+        mov esi, dword [MixerChunkSamples]
+        mov esi, dword [nosplit esi*4+MixerChannelTable]
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
 MixSample16_7B:
-        mov ebp, dword [dword_1996C4]
+        mov ebp, dword [MixerSamplePtr]
         lea ebp, [nosplit ebp*8+00h]
-        mov ecx, dword [dword_1996C8]
+        mov ecx, dword [MixerSampleStep]
         mov edi, dword [byte esi+018h]
         mov ebx, dword [byte esi+01Ch]
         mov edx, dword [byte esi+028h]
-        mov dword [dword_1996E0], edx
+        mov dword [MixerFracStep], edx
         mov eax, dword [byte esi+02Ch]
-        mov dword [dword_1996DC], eax
+        mov dword [MixerFracPos], eax
         mov edx, dword [byte esi+06Ch]
         mov esi, dword [byte esi+070h]
         LD xor, eax, eax
 .2:
         mov al, byte [nosplit edi*2+00h]
         dec ecx
-        mov eax, dword [dword edx+eax*4+dword_173F64]
-        add dword [dword ebp+dword_1946A4], eax
+        mov eax, dword [dword edx+eax*4+MixerVolumeLookup]
+        add dword [dword ebp+MixerAccumMono], eax
         LD xor, eax, eax
         add ebp, byte 8
         mov al, byte [nosplit edi*2+01h]
-        add ebx, dword [dword_1996DC]
-        mov eax, dword [dword esi+eax*4+dword_173F64]
-        adc edi, dword [dword_1996E0]
-        add dword [dword ebp+dword_1946A0], eax
+        add ebx, dword [MixerFracPos]
+        mov eax, dword [dword esi+eax*4+MixerVolumeLookup]
+        adc edi, dword [MixerFracStep]
+        add dword [dword ebp+MixerAccumRight], eax
         LD xor, eax, eax
         cmp ecx, byte 0
         jg short .2
-        mov esi, dword [dword_1996BC]
-        mov esi, dword [nosplit esi*4+off_1996EC]
+        mov esi, dword [MixerChunkSamples]
+        mov esi, dword [nosplit esi*4+MixerChannelTable]
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
 MixSample16_102:
-        mov ebp, dword [dword_1996C4]
+        mov ebp, dword [MixerSamplePtr]
         lea ebp, [nosplit ebp*8+00h]
-        mov ecx, dword [dword_1996C8]
+        mov ecx, dword [MixerSampleStep]
         mov edi, dword [byte esi+018h]
         mov ebx, dword [byte esi+01Ch]
         mov eax, dword [byte esi+02Ch]
-        mov dword [dword_1996DC], eax
+        mov dword [MixerFracPos], eax
         mov eax, dword [byte esi+028h]
-        mov dword [dword_1996E0], eax
+        mov dword [MixerFracStep], eax
         mov edx, dword [byte esi+06Ch]
         shr edx, 0Ah
         mov esi, dword [byte esi+070h]
@@ -1216,88 +1216,88 @@ MixSample16_102:
         shl eax, 10h
         sar eax, 10h
         imul eax, edx
-        add dword [dword ebp+dword_19469C], eax
+        add dword [dword ebp+MixerAccumLeft], eax
         pop eax
         sar eax, 10h
         imul eax, esi
-        add dword [dword ebp+dword_1946A0], eax
-        add ebx, dword [dword_1996DC]
-        adc edi, dword [dword_1996E0]
+        add dword [dword ebp+MixerAccumRight], eax
+        add ebx, dword [MixerFracPos]
+        adc edi, dword [MixerFracStep]
         cmp ecx, byte 0
         jg short .3
-        mov esi, dword [dword_1996BC]
-        mov esi, dword [nosplit esi*4+off_1996EC]
+        mov esi, dword [MixerChunkSamples]
+        mov esi, dword [nosplit esi*4+MixerChannelTable]
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
 MixSample16_184:
-        mov ebp, dword [dword_1996C4]
+        mov ebp, dword [MixerSamplePtr]
         lea ebp, [nosplit ebp*8+00h]
-        mov ecx, dword [dword_1996C8]
+        mov ecx, dword [MixerSampleStep]
         mov edi, dword [byte esi+018h]
         mov ebx, dword [byte esi+01Ch]
         mov edx, dword [byte esi+028h]
-        mov dword [dword_1996E0], edx
+        mov dword [MixerFracStep], edx
         mov eax, dword [byte esi+02Ch]
-        mov dword [dword_1996DC], eax
+        mov dword [MixerFracPos], eax
         mov edx, dword [byte esi+06Ch]
         mov esi, dword [byte esi+070h]
         LD xor, eax, eax
 .4:
         mov al, byte [nosplit edi*2+01h]
         dec ecx
-        mov eax, dword [dword edx+eax*4+dword_173F64]
-        add dword [dword ebp+dword_1946A4], eax
+        mov eax, dword [dword edx+eax*4+MixerVolumeLookup]
+        add dword [dword ebp+MixerAccumMono], eax
         LD xor, eax, eax
         add ebp, byte 8
         mov al, byte [nosplit edi*2+01h]
-        add ebx, dword [dword_1996DC]
-        mov eax, dword [dword esi+eax*4+dword_173F64]
-        adc edi, dword [dword_1996E0]
-        add dword [dword ebp+dword_1946A0], eax
+        add ebx, dword [MixerFracPos]
+        mov eax, dword [dword esi+eax*4+MixerVolumeLookup]
+        adc edi, dword [MixerFracStep]
+        add dword [dword ebp+MixerAccumRight], eax
         LD xor, eax, eax
         cmp ecx, byte 0
         jg short .4
-        mov esi, dword [dword_1996BC]
-        mov esi, dword [nosplit esi*4+off_1996EC]
+        mov esi, dword [MixerChunkSamples]
+        mov esi, dword [nosplit esi*4+MixerChannelTable]
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
 MixSample16_20B:
-        mov ebp, dword [dword_1996C4]
+        mov ebp, dword [MixerSamplePtr]
         lea ebp, [nosplit ebp*8+00h]
-        mov ecx, dword [dword_1996C8]
+        mov ecx, dword [MixerSampleStep]
         mov edi, dword [byte esi+018h]
         mov ebx, dword [byte esi+01Ch]
         mov eax, dword [byte esi+02Ch]
-        mov dword [dword_1996DC], eax
+        mov dword [MixerFracPos], eax
         mov eax, dword [byte esi+028h]
-        mov dword [dword_1996E0], eax
+        mov dword [MixerFracStep], eax
         mov edx, dword [byte esi+06Ch]
         mov esi, dword [byte esi+070h]
         LD xor, eax, eax
 .5:
         mov al, byte [nosplit edi*4+01h]
         dec ecx
-        mov eax, dword [dword edx+eax*4+dword_173F64]
-        add dword [dword ebp+dword_1946A4], eax
+        mov eax, dword [dword edx+eax*4+MixerVolumeLookup]
+        add dword [dword ebp+MixerAccumMono], eax
         LD xor, eax, eax
         add ebp, byte 8
         mov al, byte [nosplit edi*4+03h]
-        add ebx, dword [dword_1996DC]
-        mov eax, dword [dword esi+eax*4+dword_173F64]
-        adc edi, dword [dword_1996E0]
-        add dword [dword ebp+dword_1946A0], eax
+        add ebx, dword [MixerFracPos]
+        mov eax, dword [dword esi+eax*4+MixerVolumeLookup]
+        adc edi, dword [MixerFracStep]
+        add dword [dword ebp+MixerAccumRight], eax
         LD xor, eax, eax
         cmp ecx, byte 0
         jg short .5
-        mov esi, dword [dword_1996BC]
-        mov esi, dword [nosplit esi*4+off_1996EC]
+        mov esi, dword [MixerChunkSamples]
+        mov esi, dword [nosplit esi*4+MixerChannelTable]
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
 MixSample16_291:
-        mov ecx, dword [dword_1996C8]
+        mov ecx, dword [MixerSampleStep]
         mov edi, dword [byte esi+018h]
         mov ebx, dword [byte esi+01Ch]
         mov eax, dword [byte esi+02Ch]
@@ -1312,15 +1312,15 @@ MixSample16_291:
         mov dword [byte esi+01Ch], ebx
         ret
 MixSample16_2B4:
-        mov ebp, dword [dword_1996C4]
+        mov ebp, dword [MixerSamplePtr]
         lea ebp, [nosplit ebp*8+00h]
-        mov ecx, dword [dword_1996C8]
+        mov ecx, dword [MixerSampleStep]
         mov edi, dword [byte esi+018h]
         mov ebx, dword [byte esi+01Ch]
         mov eax, dword [byte esi+02Ch]
-        mov dword [dword_1996DC], eax
+        mov dword [MixerFracPos], eax
         mov eax, dword [byte esi+028h]
-        mov dword [dword_1996E0], eax
+        mov dword [MixerFracStep], eax
         mov edx, dword [byte esi+06Ch]
         shr edx, 0Ah
         mov esi, dword [byte esi+070h]
@@ -1331,32 +1331,32 @@ MixSample16_2B4:
         dec edx
         movsx eax, word [nosplit edi*4+00h]
         imul eax, edx
-        add dword [dword ebp+dword_1946A4], eax
+        add dword [dword ebp+MixerAccumMono], eax
 .8:
         cmp esi, byte 0
         je short .9
         dec esi
         movsx eax, word [nosplit edi*4+02h]
         imul eax, esi
-        add dword [dword ebp+dword_1946A8], eax
+        add dword [dword ebp+MixerAccumBuffer], eax
 .9:
-        add ebx, dword [dword_1996DC]
-        adc edi, dword [dword_1996E0]
+        add ebx, dword [MixerFracPos]
+        adc edi, dword [MixerFracStep]
         add ebp, byte 8
         dec ecx
         test ecx, 0FFFFFFFFh
         jne short .7
         ret
 MixSample16_330:
-        mov ebp, dword [dword_1996C4]
+        mov ebp, dword [MixerSamplePtr]
         lea ebp, [nosplit ebp*8+00h]
-        mov ecx, dword [dword_1996C8]
+        mov ecx, dword [MixerSampleStep]
         mov edi, dword [byte esi+018h]
         mov ebx, dword [byte esi+01Ch]
         mov edx, dword [byte esi+028h]
-        mov dword [dword_1996E0], edx
+        mov dword [MixerFracStep], edx
         mov eax, dword [byte esi+02Ch]
-        mov dword [dword_1996DC], eax
+        mov dword [MixerFracPos], eax
         mov edx, dword [byte esi+06Ch]
         shr edx, 0Ah
         mov esi, dword [byte esi+070h]
@@ -1367,32 +1367,32 @@ MixSample16_330:
         dec edx
         movsx eax, word [nosplit edi*2+00h]
         imul eax, edx
-        add dword [dword ebp+dword_1946A4], eax
+        add dword [dword ebp+MixerAccumMono], eax
 .11:
         cmp esi, byte 0
         je short .12
         dec esi
         movsx eax, word [nosplit edi*2+00h]
         imul eax, esi
-        add dword [dword ebp+dword_1946A8], eax
+        add dword [dword ebp+MixerAccumBuffer], eax
 .12:
-        add ebx, dword [dword_1996DC]
-        adc edi, dword [dword_1996E0]
+        add ebx, dword [MixerFracPos]
+        adc edi, dword [MixerFracStep]
         add ebp, byte 8
         dec ecx
         test ecx, 0FFFFFFFFh
         jne short .10
         ret
 MixSample16_3AD:
-        mov ebp, dword [dword_1996C4]
+        mov ebp, dword [MixerSamplePtr]
         lea ebp, [nosplit ebp*8+00h]
-        mov ecx, dword [dword_1996C8]
+        mov ecx, dword [MixerSampleStep]
         mov edi, dword [byte esi+018h]
         mov ebx, dword [byte esi+01Ch]
         mov edx, dword [byte esi+028h]
-        mov dword [dword_1996E0], edx
+        mov dword [MixerFracStep], edx
         mov eax, dword [byte esi+02Ch]
-        mov dword [dword_1996DC], eax
+        mov dword [MixerFracPos], eax
         mov edx, dword [byte esi+06Ch]
         mov esi, dword [byte esi+070h]
 .13:
@@ -1401,19 +1401,19 @@ MixSample16_3AD:
         sub edx, 400h
         LD xor, eax, eax
         mov al, byte [nosplit edi*2+00h]
-        mov eax, dword [dword edx+eax*4+dword_173F64]
-        add dword [dword ebp+dword_1946A4], eax
+        mov eax, dword [dword edx+eax*4+MixerVolumeLookup]
+        add dword [dword ebp+MixerAccumMono], eax
 .14:
         cmp esi, byte 0
         je short .15
         sub esi, 400h
         LD xor, eax, eax
         mov al, byte [nosplit edi*2+01h]
-        mov eax, dword [dword esi+eax*4+dword_173F64]
-        add dword [dword ebp+dword_1946A8], eax
+        mov eax, dword [dword esi+eax*4+MixerVolumeLookup]
+        add dword [dword ebp+MixerAccumBuffer], eax
 .15:
-        add ebx, dword [dword_1996DC]
-        adc edi, dword [dword_1996E0]
+        add ebx, dword [MixerFracPos]
+        adc edi, dword [MixerFracStep]
         add ebp, byte 8
         dec ecx
         test ecx, 0FFFFFFFFh
@@ -1424,15 +1424,15 @@ MixSample16_3AD:
 ; Mixes an 8-bit sample while ramping both volumes down to silence
 ;-----------------------------------------------------------------------------
 MixFadeOut8:
-        mov ebp, dword [dword_1996C4]
+        mov ebp, dword [MixerSamplePtr]
         lea ebp, [nosplit ebp*8+00h]
-        mov ecx, dword [dword_1996C8]
+        mov ecx, dword [MixerSampleStep]
         mov edi, dword [byte esi+018h]
         mov ebx, dword [byte esi+01Ch]
         mov edx, dword [byte esi+028h]
-        mov dword [dword_1996E0], edx
+        mov dword [MixerFracStep], edx
         mov eax, dword [byte esi+02Ch]
-        mov dword [dword_1996DC], eax
+        mov dword [MixerFracPos], eax
         mov edx, dword [byte esi+06Ch]
         mov esi, dword [byte esi+070h]
 .1:
@@ -1441,19 +1441,19 @@ MixFadeOut8:
         sub edx, 400h
         LD xor, eax, eax
         mov al, byte [edi]
-        mov eax, dword [dword edx+eax*4+dword_173F64]
-        add dword [dword ebp+dword_1946A4], eax
+        mov eax, dword [dword edx+eax*4+MixerVolumeLookup]
+        add dword [dword ebp+MixerAccumMono], eax
 .2:
         cmp esi, byte 0
         je short .3
         sub esi, 400h
         LD xor, eax, eax
         mov al, byte [edi]
-        mov eax, dword [dword esi+eax*4+dword_173F64]
-        add dword [dword ebp+dword_1946A8], eax
+        mov eax, dword [dword esi+eax*4+MixerVolumeLookup]
+        add dword [dword ebp+MixerAccumBuffer], eax
 .3:
-        add ebx, dword [dword_1996DC]
-        adc edi, dword [dword_1996E0]
+        add ebx, dword [MixerFracPos]
+        adc edi, dword [MixerFracStep]
         add ebp, byte 8
         dec ecx
         test ecx, 0FFFFFFFFh
@@ -1465,13 +1465,13 @@ MixFadeOut8:
 ; mono variants
 ;-----------------------------------------------------------------------------
 MixOutStereo16:
-        mov edi, dword [dword_1996B8]
-        mov ecx, dword [dword_1996B0]
+        mov edi, dword [MixerOutEnd]
+        mov ecx, dword [MixerOutPtr]
         LD add, ecx, ecx
         mov ebx, 3FFF80h
         mov edx, 0FFC00000h
 .1:
-        mov eax, dword [nosplit ecx*4+dword_1946A0]
+        mov eax, dword [nosplit ecx*4+MixerAccumRight]
         LD cmp, eax, ebx
         jg short .2
         LD cmp, eax, edx
@@ -1489,13 +1489,13 @@ MixOutStereo16:
         loop .1
         ret
 MixOutStereo16_46:
-        mov edi, dword [dword_1996B8]
-        mov ecx, dword [dword_1996B0]
+        mov edi, dword [MixerOutEnd]
+        mov ecx, dword [MixerOutPtr]
         LD add, ecx, ecx
         mov ebx, 3FFF80h
         mov edx, 0FFC00000h
 .4:
-        mov eax, dword [nosplit ecx*4+dword_1946A0]
+        mov eax, dword [nosplit ecx*4+MixerAccumRight]
         LD cmp, eax, ebx
         jg short .5
         LD cmp, eax, edx
@@ -1514,13 +1514,13 @@ MixOutStereo16_46:
         loop .4
         ret
 MixOutStereo16_8A:
-        mov edi, dword [dword_1996B8]
-        mov ecx, dword [dword_1996B0]
+        mov edi, dword [MixerOutEnd]
+        mov ecx, dword [MixerOutPtr]
         mov ebx, 3FFF80h
         mov edx, 0FFC00000h
 .7:
-        mov eax, dword [nosplit ecx*8+dword_19469C]
-        add eax, dword [nosplit ecx*8+dword_1946A0]
+        mov eax, dword [nosplit ecx*8+MixerAccumLeft]
+        add eax, dword [nosplit ecx*8+MixerAccumRight]
         sar eax, 1
         LD cmp, eax, ebx
         jg short .8
@@ -1556,13 +1556,13 @@ MixOutStereo8Signed:
 ; Averages the two accumulator channels and clips them to 16-bit mono output
 ;-----------------------------------------------------------------------------
 MixOutMono16:
-        mov edi, dword [dword_1996B8]
-        mov ecx, dword [dword_1996B0]
+        mov edi, dword [MixerOutEnd]
+        mov ecx, dword [MixerOutPtr]
         mov ebx, 3FFF80h
         mov edx, 0FFC00000h
 .1:
-        mov eax, dword [nosplit ecx*8+dword_19469C]
-        add eax, dword [nosplit ecx*8+dword_1946A0]
+        mov eax, dword [nosplit ecx*8+MixerAccumLeft]
+        add eax, dword [nosplit ecx*8+MixerAccumRight]
         sar eax, 1
         LD cmp, eax, ebx
         jg short .2
@@ -1603,7 +1603,7 @@ MixerClearAccumulator:
         mov ecx, 200h
         LD add, ecx, ecx
         LD xor, eax, eax
-        lea edi, [dword_1946A4]
+        lea edi, [MixerAccumMono]
         cld
         rep stosd
         pop es
@@ -1670,7 +1670,7 @@ InitPatchParams:
         mov dword [byte eax+050h], 0
         mov dword [byte eax+058h], 0
         mov dword [byte eax+060h], 0
-        mov dword [byte eax+068h], unk_19972C
+        mov dword [byte eax+068h], PatchDefaultHandle
         ret
         db 090h
 ;-----------------------------------------------------------------------------
@@ -1951,7 +1951,7 @@ PlayPatchNote:
 .36:
         shl eax, 4
         add eax, edx
-        mov ebx, dword_1DCF38
+        mov ebx, ChannelSampleTable
         shl eax, 2
         add ebx, eax
         mov eax, dword [byte esp+050h]
@@ -2098,7 +2098,7 @@ jpt_12C300_24:
         mov dword [byte esp+020h], edx
         mov dword [byte esp+02Ch], edx
         mov dword [byte esp+024h], edx
-        mov dword [byte esp+028h], unk_19972C
+        mov dword [byte esp+028h], PatchDefaultHandle
         test byte [byte eax+03h], 1
         je short .1
         mov eax, 0FFFFFFFFh
@@ -2145,14 +2145,14 @@ jpt_12C300_24:
         mov dword [edi], edx
 .6:
         mov ecx, dword [byte esp+028h]
-        cmp ecx, unk_19972C
+        cmp ecx, PatchDefaultHandle
         je short .7
         mov esi, dword [byte esp+010h]
         lea edx, [ecx+esi]
         mov dword [ecx], edx
 .7:
         xor edi, edi
-        mov eax, unk_19972C
+        mov eax, PatchDefaultHandle
         mov dword [byte esp+014h], edi
         mov dword [byte esp+0Ch], edi
         mov dword [byte esp+018h], edi
@@ -2310,7 +2310,7 @@ jpt_12C300_24:
         mov dword [eax], edx
 .32:
         mov ecx, dword [byte esp+028h]
-        cmp ecx, unk_19972C
+        cmp ecx, PatchDefaultHandle
         je short .33
         mov esi, dword [byte esp+010h]
         lea edx, [ecx+esi]

@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_11313C progbits alloc exec nowrite align=1
-extern byte_199784
+extern AngleOctantTable
 global AngleFromDelta, unk_113189
 ;-----------------------------------------------------------------------------
 ; AngleFromDelta                                 11313C  97 PC, low confidence
@@ -35,7 +35,7 @@ AngleFromDelta:
         div ecx
         shr eax, 18h
         adc eax, byte 0
-        movzx eax, byte [dword eax+byte_199784]
+        movzx eax, byte [dword eax+AngleOctantTable]
         jmp dword [dword cs:ebx+unk_113189]
 .4:
         mov eax, 80h

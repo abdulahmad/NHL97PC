@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_127D70 progbits alloc exec nowrite align=1
 extern str_DMABUFFER, str_DMABUFFER2, DacPortTable, DacPortBits, DacRateTable, GusDriverDma, GusDriverIrq, PatlDefaultPitch
-extern GusDriverIsOpen, GusDriverStreaming, GusDriverFound, GusDriverRunning, DacDriverBuffer, DacDriverRunning, GusStreamRefillB, dword_1DCF24
-extern dword_1DCF28, dword_1DCF2C, dword_1DCF30, dword_1DCF34, dword_1DCF38, PatlChannelParams, GusDriverCardMem, GusDriverDmaBuf
+extern GusDriverIsOpen, GusDriverStreaming, GusDriverFound, GusDriverRunning, DacDriverBuffer, DacDriverRunning, GusStreamRefillB, UnpackSrcPtr
+extern UnpackDestPtr, UnpackCount, UnpackStackPtr, UnpackPairTable, ChannelSampleTable, PatlChannelParams, GusDriverCardMem, GusDriverDmaBuf
 extern DacTimerRate, DacBuffer, DacIrq, DacPort, DacTimerDivisor, DacBufPos, DacBufSize, DacState
 extern jpt_12C300_24, memset_, AdvanceStreamOffset, AudioNullFunc, StartTmplSample, PickSampleRate, ReadBlasterPort, AudioEnter
 extern AudioLeaveCheck, MixerInit, MixerFillBuffer, PlayPatchNote, StartChannel, MixNoise, UpdateChannels, SetChannelCount
@@ -24,22 +24,22 @@ ExpandBytePair:
         push edx
 .1:
         xor edx, edx
-        mov ebx, dword [dword_1DCF34]
+        mov ebx, dword [UnpackPairTable]
         mov dl, al
         cmp byte [edx+ebx], 0
         je short .2
-        mov eax, dword [dword_1DCF28]
+        mov eax, dword [UnpackDestPtr]
         mov al, byte [edx+eax]
         and eax, 0FFh
         call ExpandBytePair
-        mov eax, dword [dword_1DCF30]
+        mov eax, dword [UnpackStackPtr]
         mov al, byte [edx+eax]
         jmp short .1
 .2:
-        mov edx, dword [dword_1DCF24]
+        mov edx, dword [UnpackSrcPtr]
         inc edx
         mov byte [byte edx-01h], al
-        mov dword [dword_1DCF24], edx
+        mov dword [UnpackSrcPtr], edx
         pop edx
         pop ebx
         ret
@@ -59,13 +59,13 @@ UnpackBytePairs:
         mov ecx, dword [dword esp+0324h]
         mov eax, esp
         mov ebx, edx
-        mov dword [dword_1DCF34], eax
+        mov dword [UnpackPairTable], eax
         lea eax, [dword esp+0200h]
         xor esi, esi
-        mov dword [dword_1DCF28], eax
+        mov dword [UnpackDestPtr], eax
         lea eax, [dword esp+0100h]
         mov dword [dword esp+0308h], esi
-        mov dword [dword_1DCF30], eax
+        mov dword [UnpackStackPtr], eax
         test edx, edx
         je near .11
         xor eax, eax
@@ -99,7 +99,7 @@ UnpackBytePairs:
         mov dword [dword esp+0308h], edx
         xor eax, eax
 .2:
-        mov esi, dword [dword_1DCF34]
+        mov esi, dword [UnpackPairTable]
         mov byte [esi+eax], 0
         inc eax
         cmp eax, 100h
@@ -118,7 +118,7 @@ UnpackBytePairs:
         mov ebp, dword [dword esp+0300h]
 .3:
         xor edx, edx
-        mov eax, dword [dword_1DCF28]
+        mov eax, dword [UnpackDestPtr]
         mov dl, byte [ebx]
         lea edi, [byte ebx+01h]
         add eax, edx
@@ -127,14 +127,14 @@ UnpackBytePairs:
         mov al, byte [edi]
         mov edi, dword [dword esp+0304h]
         mov byte [edi], al
-        mov eax, dword [dword_1DCF30]
+        mov eax, dword [UnpackStackPtr]
         add eax, edx
         mov edi, ebx
         mov dword [dword esp+0304h], eax
         mov al, byte [edi]
         mov edi, dword [dword esp+0304h]
         mov byte [edi], al
-        mov eax, dword [dword_1DCF34]
+        mov eax, dword [UnpackPairTable]
         inc esi
         inc ebx
         mov byte [edx+eax], 0FFh
@@ -142,7 +142,7 @@ UnpackBytePairs:
         jl short .3
 .4:
         xor edx, edx
-        mov eax, dword [dword_1DCF34]
+        mov eax, dword [UnpackPairTable]
         mov dl, byte [ebx]
         mov al, byte [edx+eax]
         inc ebx
@@ -153,45 +153,45 @@ UnpackBytePairs:
         jmp short .4
 .5:
         jge near .10
-        mov eax, dword [dword_1DCF28]
-        mov dword [dword_1DCF2C], ebx
-        mov dword [dword_1DCF24], ecx
+        mov eax, dword [UnpackDestPtr]
+        mov dword [UnpackCount], ebx
+        mov dword [UnpackSrcPtr], ecx
         mov al, byte [edx+eax]
 .6:
-        mov edi, dword [dword_1DCF34]
+        mov edi, dword [UnpackPairTable]
         movzx esi, al
         cmp byte [edi+esi], 0
         je short .7
-        mov eax, dword [dword_1DCF28]
+        mov eax, dword [UnpackDestPtr]
         mov al, byte [esi+eax]
         and eax, 0FFh
         call ExpandBytePair
-        mov eax, dword [dword_1DCF30]
+        mov eax, dword [UnpackStackPtr]
         mov al, byte [esi+eax]
         jmp short .6
 .7:
-        mov ecx, dword [dword_1DCF24]
+        mov ecx, dword [UnpackSrcPtr]
         mov byte [ecx], al
         inc ecx
-        mov eax, dword [dword_1DCF30]
-        mov dword [dword_1DCF24], ecx
+        mov eax, dword [UnpackStackPtr]
+        mov dword [UnpackSrcPtr], ecx
 .8:
         mov al, byte [edx+eax]
         xor edx, edx
-        mov esi, dword [dword_1DCF34]
+        mov esi, dword [UnpackPairTable]
         mov dl, al
         cmp byte [edx+esi], 0
         je short .9
-        mov eax, dword [dword_1DCF28]
+        mov eax, dword [UnpackDestPtr]
         mov al, byte [edx+eax]
         and eax, 0FFh
         call ExpandBytePair
-        mov eax, dword [dword_1DCF30]
+        mov eax, dword [UnpackStackPtr]
         jmp short .8
 .9:
-        mov ecx, dword [dword_1DCF24]
+        mov ecx, dword [UnpackSrcPtr]
         inc ecx
-        mov ebx, dword [dword_1DCF2C]
+        mov ebx, dword [UnpackCount]
         mov byte [byte ecx-01h], al
         jmp near .4
 .10:
@@ -205,8 +205,8 @@ UnpackBytePairs:
         jmp near .4
 .11:
         mov eax, dword [dword esp+0308h]
-        mov dword [dword_1DCF24], ecx
-        mov dword [dword_1DCF2C], ebx
+        mov dword [UnpackSrcPtr], ecx
+        mov dword [UnpackCount], ebx
         add esp, 30Ch
         pop ebp
         pop edi
@@ -766,7 +766,7 @@ PlayPatlSample:
 .32:
         shl eax, 4
         add eax, edx
-        mov ebx, dword_1DCF38
+        mov ebx, ChannelSampleTable
         shl eax, 2
         add ebx, eax
         mov eax, dword [byte esi+018h]

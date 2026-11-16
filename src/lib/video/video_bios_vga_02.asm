@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_1048BC progbits alloc exec nowrite align=1
-extern RemapByte, MenuScreenBitmap, dword_1DA4D0, MatchColor
+extern RemapByte, MenuScreenBitmap, PaletteWords, MatchColor
 global ReadPaletteRange, TranslatePixels, ArtBankCount, ArtBankEntry, ArtBankEntryInfo, RemapPixelRange, BytesPerPixelForDepth
 ;-----------------------------------------------------------------------------
 ; ReadPaletteRange                               1048BC  97 PC, low confidence
@@ -41,7 +41,7 @@ ReadPaletteRange:
 .2:
         mov edi, dword [byte ebp+010h]
         mov eax, dword [byte ebp+08h]
-        lea ebx, [nosplit eax*4+dword_1DA4D0]
+        lea ebx, [nosplit eax*4+PaletteWords]
         mov ecx, dword [byte ebp+0Ch]
 .3:
         mov eax, dword [ebx]

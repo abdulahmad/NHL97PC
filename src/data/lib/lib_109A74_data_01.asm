@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_17015C progbits alloc noexec write align=1
-global SpeechQueueBank, SpeechQueueFlags, SpeechQueueActive, SpeechQueueData, SpeechQueueHead, SpeechQueueTail, SpeechQueueCount, dword_17020C
+global SpeechQueueBank, SpeechQueueFlags, SpeechQueueActive, SpeechQueueData, SpeechQueueHead, SpeechQueueTail, SpeechQueueCount, SpeechQueueLevel
 global SpeechQueueChannel, SpeechQueueHandle, str_Punct_SetScreenScale, ViewCenterX, str_D_SetCameraAngles, CameraYaw, CameraPitch, ViewCenterY
-global str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, dword_17026C, dword_170270, CameraFlags, RinkMatrix, RinkTranslation
+global str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, CameraOriginX, CameraOriginY, CameraFlags, RinkMatrix, RinkTranslation
 global SpeechQueueClip
 SpeechQueueActive:
         db 00h,00h,00h,00h
@@ -31,7 +31,7 @@ SpeechQueueTail:
         db 00h,00h,00h,00h
 SpeechQueueCount:
         db 00h,00h,00h,00h
-dword_17020C:
+SpeechQueueLevel:
         db 07Fh,00h,00h,00h
 SpeechQueueChannel:
         db 0FFh,0FFh,0FFh,0FFh
@@ -61,9 +61,9 @@ CameraSinYaw:
         db 00h,00h,00h,00h
 CameraCosYaw:
         db 00h,00h,00h,00h
-dword_17026C:
+CameraOriginX:
         db 00h,00h,00h,00h
-dword_170270:
+CameraOriginY:
         db 00h,00h,00h,00h
 CameraFlags:
         db 00h,00h,00h,00h

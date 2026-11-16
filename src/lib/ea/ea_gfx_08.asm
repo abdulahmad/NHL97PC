@@ -14,7 +14,7 @@ extern ClipPolyCount, ClipPolyOutCount, ClipEdgePrev, ClipEdgeOutPtr, ClipPolyDr
 extern F64_1p25_InitModelInstance, str_ORIINST, strcat_, strcpy_, strlen_, strnicmp_, LoadResourceData, SetModelFrame
 extern TransformVecFull, UpdateModelInstance, ClipTexPolyToNear, DrawPrimList, ResetMorphVerts, FixedSinCos, TexSpanCopy, ClipTexPolyLeft
 extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MakeRotationZ, DrawShapeTransformed, ClipDrawPolyLeft, ClipDrawPolyRight, ClipDrawPolyTop
-extern ClipDrawPolyBottom, AllocMemBlock, FreeMemBlock, FillMem, VecScale, unk_199738, ModelSlots, ModelPartName
+extern ClipDrawPolyBottom, AllocMemBlock, FreeMemBlock, FillMem, VecScale, ModelInstanceTemplate, ModelSlots, ModelPartName
 extern NetFrontPoints, NetBackPoints, TexEdgeTable, ClipPolyVerts
 global DrawTexturedEdgeLeft_31B, AllocModelHeader, LoadModelByName, FreeModelFile, InitModelInstance, CreateModelInstance, FreeModelInstance, SetModelMatrix
 global SetModelPosition, FindModelPartByName, FindInstancePart, FindModelGroupByName, FindInstanceGroup, GetModelGroupEntry, GetInstanceGroupEntry, GetModelPartEntry
@@ -422,7 +422,7 @@ CreateModelInstance:
         lea edi, [byte ebp+028h]
         shl edx, 2
         mov eax, dword [byte ebp+014h]
-        mov esi, unk_199738
+        mov esi, ModelInstanceTemplate
         add eax, edx
         mov ecx, 9
         mov dword [dword ebp+08Ch], eax

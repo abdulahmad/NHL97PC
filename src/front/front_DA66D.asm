@@ -9,14 +9,14 @@ extern str_Pktlayer, str_Disconnecting, str_WaitingForOtherComputer, str_IPXMEM,
 extern str_PICKS2, str_REGS2, str_LX003, str_LC003, str_LX0D3, str_LC0D3, str_DTOP, str_DBOT
 extern str_08x, str_KWKJSK122691, str_BACK13, str_MB014, str_MB023, str_MB03, str_AR02d2, str_LT02d2
 extern str_MB004, str_GenericHayesCompatible, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, byte_1CD24D, byte_1CD250
-extern byte_1CD460, byte_1CD75C, dword_1684C0, dword_168E7C, dword_16D788, dword_16D78C, dword_16D790, dword_16D794
+extern byte_1CD460, byte_1CD75C, GripDriverPtr, dword_168E7C, dword_16D788, dword_16D78C, dword_16D790, dword_16D794
 extern dword_16D798, dword_16D79C, dword_16D7A0, dword_16D7A4, dword_16D7A8, dword_16D7D0, dword_16D7D4, dword_16D7D8
 extern dword_16D7F0, dword_16D894, dword_16D898, dword_16D89C, dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0
 extern dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8, dword_16D8DC, InputRecordTail, InputRecordHead, InputRecordCount
 extern dword_16D918, InputRecordStamp, dword_16D93A, dword_16DA9C, dword_16DAA0, dword_16DAA4, dword_16DAA8, dword_16DAAC
 extern dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC, str_Punct_ModemSettingsScreen, dword_16DAC4, dword_16DAC8, dword_16DACA
 extern dword_16DAD2, dword_16E124, dword_16E128, dword_16E12A, dword_16E130, dword_16E134, dword_16E138, dword_16E13C
-extern dword_16E140, dword_16E144, mousex, mousey, dword_16E464, dword_16E468, MenuScreenBitmap, dword_1721A8
+extern dword_16E140, dword_16E144, mousex, mousey, dword_16E464, dword_16E468, MenuScreenBitmap, IpxPresent
 extern dword_1AC814, dword_1C5DE4, dword_1CD158, dword_1CD15C, dword_1CD160, dword_1CD17C, dword_1CD180, dword_1CD184
 extern dword_1CD188, dword_1CD18C, dword_1CD190, dword_1CD194, dword_1CD198, dword_1CD1AC, dword_1CD1B0, dword_1CD1B4
 extern dword_1CD1B8, dword_1CD244, dword_1CD248, dword_1CD264, dword_1CD268, dword_1CD26C, dword_1CD270, dword_1CD274
@@ -49,7 +49,7 @@ extern AllocMemData, FreeMemBlock, ZeroMem, KbdGetKey, addtimer, RemoveTimerCall
 extern FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, FillRectColor, FillRect, MeasureText
 extern DrawTextAt, FillRectCorners, tickcount, str_X_WaitForOtherComputer, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
 extern unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
-extern unk_1CD570, unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC, word_1684BE, word_16D7EC, word_16D7EE
+extern unk_1CD570, unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC, GripPortWord, word_16D7EC, word_16D7EE
 extern str_Punct_SetMatchupTeams, word_16D80E, str_Punct_DaysToYear, word_16D860, word_16D8A4, SlotWords, word_16D920, str_Punct_ReadJoystickPads
 extern word_16D924, word_16D926, word_16D928, word_16D92A, word_16D92C, word_16DAB8, word_16DACC, word_16DACE
 extern word_16DAD0, word_16E0F8, word_16E0FA, word_16E108, word_16E10A, word_16E10C, word_16E120, word_16E12C
@@ -11445,7 +11445,7 @@ ReadJoystickPads:
         mov ecx, ebx
         shl ebx, 3
         sub ebx, ecx
-        mov ecx, dword [dword_1684C0]
+        mov ecx, dword [GripDriverPtr]
         mov si, word [byte ecx+ebx*8+036h]
         mov edx, esi
         xor dh, dh
@@ -12334,7 +12334,7 @@ InitLinkSettings:
         xor edx, edx
         jmp short .3
 .1:
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         test byte [ebx+eax], 1
         je short .2
         inc esi
@@ -12343,7 +12343,7 @@ InitLinkSettings:
         add ebx, byte 38h
 .3:
         xor eax, eax
-        mov ax, word [word_1684BE]
+        mov ax, word [GripPortWord]
         cmp edx, eax
         jl short .1
         mov edx, edi
@@ -12432,12 +12432,12 @@ InitLinkSettings_11D:
         and al, 78h
         xor ecx, ecx
         and eax, 0FFh
-        mov cx, word [word_1684BE]
+        mov cx, word [GripPortWord]
         sar eax, 3
         cmp eax, ecx
         jge short InitLinkSettings_D6.8
         imul ecx, eax, byte 38h
-        mov edi, dword [dword_1684C0]
+        mov edi, dword [GripDriverPtr]
         test byte [ecx+edi], 1
         je short InitLinkSettings_D6.8
         shl eax, 2
@@ -15526,7 +15526,7 @@ IpxInit:
         xor eax, eax
         jmp near .8
 .1:
-        mov dword [dword_1721A8], ebx
+        mov dword [IpxPresent], ebx
         call DetectWindows
         test eax, eax
         jne short .2
@@ -17633,7 +17633,7 @@ OptionsAnimFrame:
         call UpdateOptionsAnim
         imul eax, dword [dword_16E144], byte 38h
         mov ecx, 0Eh
-        mov esi, dword [dword_1684C0]
+        mov esi, dword [GripDriverPtr]
         lea edi, [byte ebp-038h]
         add esi, eax
         rep movsd
@@ -17767,7 +17767,7 @@ OptionsAnimScreen:
         push edi
         enter 0B0h, 0
         sub ebp, 82h
-        movzx edx, word [word_1684BE]
+        movzx edx, word [GripPortWord]
         cmp edx, eax
         jge short .2
 .1:
@@ -17776,7 +17776,7 @@ OptionsAnimScreen:
 .2:
         imul esi, eax, byte 38h
         mov ecx, 0Eh
-        mov edx, dword [dword_1684C0]
+        mov edx, dword [GripDriverPtr]
         lea edi, [byte ebp+012h]
         add esi, edx
         rep movsd

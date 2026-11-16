@@ -2,18 +2,24 @@
 bits 32
 %include "hockey.inc"
 section s_121AB5 progbits alloc exec nowrite align=1
-extern InitFpuFlags, _EFG_Format_, __cnvs2d_, off_199C50, off_199C54, word_199CD8
+extern InitFpuFlags, _EFG_Format_, __cnvs2d_, __EFG_printf, __EFG_scanf, DefaultControlWord
 global __setEFGfmt_, __sys_init_387_emulator
+;-----------------------------------------------------------------------------
+; __setEFGfmt_                                                 121AB5  library
+;-----------------------------------------------------------------------------
 __setEFGfmt_:
         push ebx
         push edx
         mov edx, _EFG_Format_
         mov ebx, __cnvs2d_
-        mov dword [off_199C50], edx
-        mov dword [off_199C54], ebx
+        mov dword [__EFG_printf], edx
+        mov dword [__EFG_scanf], ebx
         pop edx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __sys_init_387_emulator                                      121AD0  library
+;-----------------------------------------------------------------------------
 __sys_init_387_emulator:
         push es
         push ecx
@@ -33,7 +39,7 @@ __sys_init_387_emulator:
 .2:
         wait
         fninit
-        fldcw word [word_199CD8]
+        fldcw word [DefaultControlWord]
         fldz
         fldz
         fldz

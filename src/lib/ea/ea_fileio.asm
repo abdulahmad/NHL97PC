@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_1093E8 progbits alloc exec nowrite align=1
-extern ResourceArchiveName, ResourceArchive, ResourceLookupFn, ResourceArchiveSize, ResourceArchiveData, dword_1DC5A8, dword_1DC5AC
+extern ResourceArchiveName, ResourceArchive, ResourceLookupFn, ResourceArchiveSize, ResourceArchiveData, SpeechBankCount, SpeechBankTable
 global openhandle_2C, DosReadFile_2, RelocateBankGroups_5C, openhandle, DosCallSplitDx, DosOpenFile, DosOpenReadOnly, DosCloseFile
 global DosWriteFile, DosReadFile, DosSeekFile, ClearSpeechBankTable, FindSpeechBank, RelocateBankOffsets, RelocateBankGroups, RelocateBankEntries
 global RegisterSpeechBank
@@ -245,7 +245,7 @@ ClearSpeechBankTable:
         xor eax, eax
 .1:
         add eax, byte 4
-        mov dword [dword eax+dword_1DC5A8], 0
+        mov dword [dword eax+SpeechBankCount], 0
         cmp eax, 3E8h
         jne short .1
         ret
@@ -256,7 +256,7 @@ ClearSpeechBankTable:
         xor eax, eax
         jmp short .4
 .2:
-        cmp dword [dword eax+dword_1DC5AC], byte 0
+        cmp dword [dword eax+SpeechBankTable], byte 0
         jne short .3
         mov ebx, edx
         mov eax, ebx
@@ -286,9 +286,9 @@ FindSpeechBank:
         xor edx, edx
         jmp short .3
 .1:
-        cmp dword [dword eax+dword_1DC5AC], byte 0
+        cmp dword [dword eax+SpeechBankTable], byte 0
         je short .2
-        mov ebx, dword [dword eax+dword_1DC5AC]
+        mov ebx, dword [dword eax+SpeechBankTable]
         cmp ecx, dword [byte ebx+04h]
         jne short .2
         mov eax, edx
@@ -353,7 +353,7 @@ RelocateBankOffsets:
         pop ecx
         pop ebx
         ret
-        mov dword [nosplit eax*4+dword_1DC5AC], 0
+        mov dword [nosplit eax*4+SpeechBankTable], 0
         ret
 ;-----------------------------------------------------------------------------
 ; RelocateBankGroups                             10968F  97 PC, low confidence
@@ -480,7 +480,7 @@ RegisterSpeechBank:
         xor eax, eax
         jmp short .3
 .1:
-        cmp dword [dword eax+dword_1DC5AC], byte 0
+        cmp dword [dword eax+SpeechBankTable], byte 0
         jne short .2
         mov ebx, ecx
         jmp short .4
@@ -502,12 +502,12 @@ RegisterSpeechBank:
         call RelocateBankEntries
         test eax, eax
         je short .5
-        mov dword [nosplit ebx*4+dword_1DC5AC], esi
+        mov dword [nosplit ebx*4+SpeechBankTable], esi
         jmp short .6
 .5:
         test ecx, ecx
         jl short .6
-        mov dword [nosplit ecx*4+dword_1DC5AC], 0
+        mov dword [nosplit ecx*4+SpeechBankTable], 0
         mov ecx, 0FFFFFFFFh
 .6:
         mov eax, ecx

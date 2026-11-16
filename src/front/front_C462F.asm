@@ -4,7 +4,7 @@ bits 32
 section s_C462F progbits alloc exec nowrite align=1
 extern str_BAK0, str_BAK1, str_BOTM3, str_TTL02, str_BAL1, str_ON0D, str_OF0D, str_MB0D
 extern str_MB003, str_MB013, str_MB043, str_MB052, str_CENT, str_LFT02, str_LFT2, str_RIT02
-extern str_RIT2, byte_1AC81A, byte_1AC81B, byte_1C6040, dword_1684C0, dword_1AC819, dword_1CB108, dword_1CB10C
+extern str_RIT2, byte_1AC81A, byte_1AC81B, byte_1C6040, GripDriverPtr, dword_1AC819, dword_1CB108, dword_1CB10C
 extern dword_1CB11C, dword_1CB128, dword_1CB12C, dword_1CB130, dword_1CB138, dword_1CB13C, dword_1CB140, dword_1CB14C
 extern dword_1CB162, dword_1CB166, dword_1CB16A, dword_1CB16E, dword_1CB172, dword_1CB19A, dword_1CB1F0, dword_1CB1FC
 extern dword_1CB200, dword_1CB206, dword_1CB20A, dword_1CB20E, dword_1CB212, dword_1CB216, dword_1CB242, dword_1CB24E
@@ -28,7 +28,7 @@ extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, 
 extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextColor, DrawTextAligned, WipeScreen, ShowPopupScreen
 extern InitMenuItems, RunMenu, DetailLevelScreen, FreeMemBlock, MemFreeSize, MakeColor, FreeBitmap, DrawShapeCore
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, str_D_OptionsScreen, unk_1C5F4A, unk_1CB148
-extern unk_1CB1EC, unk_1CB23E, word_1684BE
+extern unk_1CB1EC, unk_1CB23E, GripPortWord
 global jpt_C4822, OptionsScreen_F0A, OptionsScreen_F22, OptionsScreen_10AA, OptionsScreen_10D0, OptionsScreen_1125, OptionsScreen_117A, OptionsScreen_11CF
 global OptionsScreen_1285, OptionsScreen_12DA, OptionsScreen_1359, OptionsScreen_136C, OptionsScreen_137F, OptionsScreen_13A6, OptionsScreen_140D, OptionsScreen_1431
 global OptionsScreen_1435, OptionsScreen_1439, OptionsScreen_143D, OptionsScreen_1441, OptionsScreen_1447, OptionsScreen_144D, OptionsScreen_1451, OptionsScreen_147B
@@ -270,7 +270,7 @@ OptionsScreen:
         jmp short .6
 .3:
         imul eax, byte 38h
-        mov edx, dword [dword_1684C0]
+        mov edx, dword [GripDriverPtr]
         test byte [edx+eax], 1
         je short .5
         movsx eax, word [byte ebp+07Eh]
@@ -285,7 +285,7 @@ OptionsScreen:
 .5:
         inc ebx
 .6:
-        movzx edx, word [word_1684BE]
+        movzx edx, word [GripPortWord]
         movsx eax, bx
         cmp eax, edx
         jge short .7

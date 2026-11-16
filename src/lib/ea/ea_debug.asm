@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_11AE10 progbits alloc exec nowrite align=1
-extern QuantizeByte, QuantizeTable, byte_171D33, byte_171D34, TintMulGreen, TintMulBlue, TintRowCount, TintPixelGreen
+extern QuantizeByte, QuantizeTable, TintByte, TintTable, TintMulGreen, TintMulBlue, TintRowCount, TintPixelGreen
 extern TintPixelBlue, TintMulRed, TintRemapTable, TintPixelRed, FindShape, FindShapeQuiet
 global TintRowPixels, TintRows, TintRect, FindShapeList
 ;-----------------------------------------------------------------------------
@@ -168,7 +168,7 @@ TintRows:
         mov dword [TintMulGreen], ebx
         xor ebx, ebx
 .1:
-        cmp byte [dword ebx+byte_171D34], 0
+        cmp byte [dword ebx+TintTable], 0
         je short .2
         mov edx, esi
         mov eax, ebx
@@ -213,7 +213,7 @@ TintRect:
         inc eax
         mov bl, byte [edx]
         inc edx
-        mov byte [dword eax+byte_171D33], bl
+        mov byte [dword eax+TintByte], bl
         cmp eax, 100h
         jl short .1
 .2:

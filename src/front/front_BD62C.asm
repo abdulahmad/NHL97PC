@@ -33,7 +33,7 @@ extern AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile, IsInputRecordi
 extern LinkReceiveBlock, WaitForOtherComputer, DrawMenuFrame, FreeVideoBuffer, AllocGfxFixBuffer, GetVideoModeList, PickVideoMode, AllocMemBlock
 extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillPolygon, FillRectColor, FillRect, SetTextColors, FillRectCorners, str_S_ReplayScreen
-extern unk_171E38, unk_1ACB44, unk_1CAEFC, unk_1CAF3C, str_D_ChangeViewSize
+extern VideoOptionsText, unk_1ACB44, unk_1CAEFC, unk_1CAF3C, str_D_ChangeViewSize
 global jpt_BE037, jpt_BE213, jpt_BE25A, jpt_BE296, jpt_BEC7D, RunReplay_358, RunReplay_359, LoadReplay_194
 global PlayReplayFromMenu_45, PlayReplayFromMenu_4C, PlayReplayFromMenu_53, PlayReplayFromMenu_5A, ReplayScreen_C7, ReplayScreen_D3, ReplayScreen_DA, ReplayScreen_E1
 global ReplayScreen_E8, ReplayScreen_EF, ReplayScreen_294, ReplayScreen_37D, ReplayScreen_399, ReplayScreen_3D5, ReplayScreen_4D2, ReplayScreen_6A2
@@ -426,7 +426,7 @@ VideoOptionsScreen:
         call SetGraphicsMode
         add esp, byte 0Ch
         call AllocGfxFixBuffer
-        push unk_171E38
+        push VideoOptionsText
         push dword 100h
         push byte 0
         call WritePaletteRegs

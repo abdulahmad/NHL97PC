@@ -4,13 +4,13 @@ bits 32
 section s_107A2C progbits alloc exec nowrite align=1
 extern ParseBlasterEnv, ResetGameVars, str_VoxPlaybuf, MixerMode, MixerSpeechVolume, MixerChannelCount, MixerMasterVolume, MixerSfxVolume
 extern StreamClosing, StreamFeeding, StreamStarted, StreamFlags, StreamStereo, StreamPaused, StreamOpen, SoundSystemOn
-extern byte_1DCF01, byte_1DCF45, byte_1DD381, MixerMasterLeft, MixerMasterRight, MixerVolLeft, MixerVolRight, MixerVolScale
+extern SpeechPatchBits, ChannelActiveFlags, DigitalAudioVolume, MixerMasterLeft, MixerMasterRight, MixerVolLeft, MixerVolRight, MixerVolScale
 extern MixerChannelVolumes, StreamChannel, StreamPosition, StreamBuffer, StreamBufSize, StreamReadPos, StreamWritePos, StreamFill
 extern StreamPackets, StreamCallbackPos, StreamPacketQueue, StreamPacketCount, StreamPacketSlots, SpeechChannelFunc, SoundBankTable, SpeechQueueVolume
-extern AudioWorkHook, AudioStreamHook, AudioSpeechHook, StreamLengthFn, MixerVolumeTable, dword_1DC994, dword_1DC998, dword_1DC99C
-extern dword_1DC9A0, dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dword_1DC9B4, dword_1DC9B8, dword_1DCAD0
-extern dword_1DCAD4, dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC, dword_1DCAF0
-extern SpeechEnabled, SpeechBufferTag, dword_1DCF38, dword_1DCF62, dword_1DD378, dword_1DD37C, int386_, ClearSpeechQueue
+extern AudioWorkHook, AudioStreamHook, AudioSpeechHook, StreamLengthFn, MixerVolumeTable, SpeechChannelA, SpeechChannelB, SpeechRingBusy
+extern SpeechRingHead, SpeechRingTail, SpeechSampleBufA, SpeechSampleBufB, SpeechRingUsed, SpeechRingBytes, SpeechRingEntries, SpeechStreamOpen
+extern SpeechStreamHeader, SpeechStreamBuffer, SpeechStreamSize, SpeechStreamChannel, SpeechStreamData, SpeechStreamActive, SpeechStreamHandle, SpeechStreamPos
+extern SpeechEnabled, SpeechBufferTag, ChannelSampleTable, ChannelHandleTable, DigitalAudioHandle, DigitalAudioRate, int386_, ClearSpeechQueue
 extern UnregisterSoundBank, CheckBankIndex, DetectAudioDriver, OpenAudioDriver, CloseAudioDriver, ApplyChannelVolume, FadeOutChannel, InitStreamHeader
 extern ClearSpeechBankTable, SpeechBufferSize, RegisterStreamBank, AddStreamSample, SetChannelVolumeChecked, LoadSampleHeader, PlaySoundEntry, ProbeDspReset
 extern AudioEnter, AudioLeaveCheck, SbDetectDsp, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, IsChannelActive
@@ -136,20 +136,20 @@ OpenDigitalAudio:
 .2:
         add eax, byte 44h
         xor dl, dl
-        mov byte [dword eax+byte_1DCF01], dl
+        mov byte [dword eax+SpeechPatchBits], dl
         cmp eax, 440h
         jne short .2
         mov eax, ecx
         xor edx, edx
         xor esi, esi
         xor edi, edi
-        mov dword [dword_1DD378], edx
-        mov dword [dword_1DD37C], edx
+        mov dword [DigitalAudioHandle], edx
+        mov dword [DigitalAudioRate], edx
         mov dword [SpeechQueueVolume], edi
         mov dword [AudioWorkHook], esi
         mov dh, 7Fh
         mov dword [AudioSpeechHook], esi
-        mov byte [byte_1DD381], dh
+        mov byte [DigitalAudioVolume], dh
         mov edx, ebx
         mov dword [AudioStreamHook], esi
         call SetAudioDmaChannel
@@ -209,13 +209,13 @@ CloseDigitalAudio:
 .3:
         add eax, byte 44h
         xor dl, dl
-        mov byte [dword eax+byte_1DCF01], dl
+        mov byte [dword eax+SpeechPatchBits], dl
         cmp eax, 440h
         jne short .3
         xor edx, edx
-        mov dword [dword_1DD378], edx
-        mov dword [dword_1DD37C], edx
-        mov byte [byte_1DD381], 7Fh
+        mov dword [DigitalAudioHandle], edx
+        mov dword [DigitalAudioRate], edx
+        mov byte [DigitalAudioVolume], 7Fh
         pop edx
         ret
 ;-----------------------------------------------------------------------------
@@ -366,17 +366,17 @@ StartDigitalAudio:
         ret
 .3:
         call AudioEnter
-        mov byte [byte_1DD381], dl
+        mov byte [DigitalAudioVolume], dl
         xor ebx, ebx
         xor ecx, ecx
 .4:
-        cmp byte [dword ecx+byte_1DCF45], 1
+        cmp byte [dword ecx+ChannelActiveFlags], 1
         jne short .5
-        cmp dword [dword ecx+dword_1DCF38], byte 0
+        cmp dword [dword ecx+ChannelSampleTable], byte 0
         jl short .5
         mov eax, ebx
         call StartChannel
-        mov edx, dword [dword ecx+dword_1DCF62]
+        mov edx, dword [dword ecx+ChannelHandleTable]
         mov eax, ebx
         sar edx, 18h
         call ApplyChannelVolume
@@ -1276,7 +1276,7 @@ SetMusicStreamVolume:
 .4:
         shl eax, 4
         add eax, ebx
-        mov ecx, dword_1DCF38
+        mov ecx, ChannelSampleTable
         shl eax, 2
         add ecx, eax
         shl edx, 10h
@@ -1300,19 +1300,19 @@ SetMusicStreamVolume:
 CloseSpeechChannels:
         push ecx
         push edx
-        cmp dword [dword_1DCAE8], byte 0
+        cmp dword [SpeechStreamActive], byte 0
         jl short .1
-        mov eax, dword [dword_1DCAE8]
+        mov eax, dword [SpeechStreamActive]
         call StopChannel
 .1:
-        cmp dword [dword_1DCAE0], byte 0
+        cmp dword [SpeechStreamChannel], byte 0
         jl short .2
-        mov eax, dword [dword_1DCAE0]
+        mov eax, dword [SpeechStreamChannel]
         call UnregisterSoundBank
 .2:
-        cmp dword [dword_1DCAD8], byte 0
+        cmp dword [SpeechStreamBuffer], byte 0
         je short .3
-        push dword [dword_1DCAD8]
+        push dword [SpeechStreamBuffer]
         call FreeMemBlock
         add esp, byte 4
 .3:
@@ -1321,8 +1321,8 @@ CloseSpeechChannels:
         pop edx
         pop ecx
         ret
-        mov dword [dword_1DC998], 0
-        mov dword [dword_1DC994], 0FFFFFFFFh
+        mov dword [SpeechChannelB], 0
+        mov dword [SpeechChannelA], 0FFFFFFFFh
         ret
 ;-----------------------------------------------------------------------------
 ; AllocSpeechBuffers                             108725  97 PC, low confidence
@@ -1333,60 +1333,60 @@ AllocSpeechBuffers:
         push ecx
         push edx
         call ResetGameVars
-        mov dword [dword_1DCAD4], SpeechBufferTag
+        mov dword [SpeechStreamHeader], SpeechBufferTag
         call SpeechBufferSize
         push byte 0
         add eax, 3480h
         push eax
         push str_VoxPlaybuf
-        mov dword [dword_1DCAEC], 3480h
+        mov dword [SpeechStreamHandle], 3480h
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_1DCAD8], eax
+        mov dword [SpeechStreamBuffer], eax
         test eax, eax
         je near .3
         xor eax, eax
         jmp short .2
 .1:
-        mov edx, dword [dword_1DCAD8]
+        mov edx, dword [SpeechStreamBuffer]
         mov byte [edx+eax], 0
         inc eax
 .2:
-        cmp eax, dword [dword_1DCAEC]
+        cmp eax, dword [SpeechStreamHandle]
         jl short .1
-        mov edx, dword [dword_1DCAD8]
-        mov eax, dword [dword_1DCAEC]
+        mov edx, dword [SpeechStreamBuffer]
+        mov eax, dword [SpeechStreamHandle]
         add edx, eax
         mov eax, edx
-        mov dword [dword_1DCADC], edx
+        mov dword [SpeechStreamSize], edx
         call RegisterStreamBank
-        mov dword [dword_1DCAE0], eax
+        mov dword [SpeechStreamChannel], eax
         test eax, eax
         jl near .3
-        mov edx, dword_1DCAE4
-        mov ecx, dword [dword_1DCAD8]
-        mov ebx, dword [dword_1DCAD4]
+        mov edx, SpeechStreamData
+        mov ecx, dword [SpeechStreamBuffer]
+        mov ebx, dword [SpeechStreamHeader]
         call AddStreamSample
-        mov eax, dword [dword_1DCAD4]
+        mov eax, dword [SpeechStreamHeader]
         mov eax, dword [byte eax+0Ch]
         mov byte [byte eax+08h], 64h
-        mov eax, dword [dword_1DCAEC]
+        mov eax, dword [SpeechStreamHandle]
         cdq
         LD sub, eax, edx
         sar eax, 1
         mov edx, eax
-        mov eax, dword [dword_1DCAD4]
+        mov eax, dword [SpeechStreamHeader]
         mov eax, dword [byte eax+0Ch]
         mov dword [byte eax+034h], edx
-        mov eax, dword [dword_1DCAD4]
+        mov eax, dword [SpeechStreamHeader]
         mov eax, dword [byte eax+0Ch]
         mov dword [byte eax+038h], 0
-        mov eax, dword [dword_1DCAEC]
+        mov eax, dword [SpeechStreamHandle]
         cdq
         LD sub, eax, edx
         sar eax, 1
         mov edx, eax
-        mov eax, dword [dword_1DCAD4]
+        mov eax, dword [SpeechStreamHeader]
         push byte 40h
         mov ecx, 7Fh
         mov eax, dword [byte eax+0Ch]
@@ -1394,13 +1394,13 @@ AllocSpeechBuffers:
         mov ebx, 3Ch
         mov dword [byte eax+03Ch], edx
         push byte 40h
-        mov edx, dword [dword_1DCAE4]
-        mov eax, dword [dword_1DCAE0]
+        mov edx, dword [SpeechStreamData]
+        mov eax, dword [SpeechStreamChannel]
         call PlayBankSample
-        mov dword [dword_1DCAE8], eax
+        mov dword [SpeechStreamActive], eax
         test eax, eax
         je short .3
-        mov dword [dword_1DCAF0], 0
+        mov dword [SpeechStreamPos], 0
         call ClearSpeechRing
         mov eax, 1
         pop edx
@@ -1423,9 +1423,9 @@ InitSpeechChannels:
         mov dword [SpeechEnabled], 0
         mov dword [SpeechChannelFunc], eax
         call ResetSpeechStreamState
-        mov dword [dword_1DCAD0], 1
-        mov dword [dword_1DC994], 0FFFFFFFFh
-        mov dword [dword_1DC998], 0
+        mov dword [SpeechStreamOpen], 1
+        mov dword [SpeechChannelA], 0FFFFFFFFh
+        mov dword [SpeechChannelB], 0
         call ClearSpeechBankTable
         call AllocSpeechBuffers
         test eax, eax
@@ -1437,19 +1437,19 @@ InitSpeechChannels:
         pop ecx
         ret
 .1:
-        cmp dword [dword_1DCAE8], byte 0
+        cmp dword [SpeechStreamActive], byte 0
         jl short .2
-        mov eax, dword [dword_1DCAE8]
+        mov eax, dword [SpeechStreamActive]
         call StopChannel
 .2:
-        cmp dword [dword_1DCAE0], byte 0
+        cmp dword [SpeechStreamChannel], byte 0
         jl short .3
-        mov eax, dword [dword_1DCAE0]
+        mov eax, dword [SpeechStreamChannel]
         call UnregisterSoundBank
 .3:
-        cmp dword [dword_1DCAD8], byte 0
+        cmp dword [SpeechStreamBuffer], byte 0
         je short .4
-        push dword [dword_1DCAD8]
+        push dword [SpeechStreamBuffer]
         call FreeMemBlock
         add esp, byte 4
 .4:
@@ -1508,7 +1508,7 @@ OpenAudioStreamChannel:
         pop esi
         ret 4
 .2:
-        mov edx, dword [dword_1DD37C]
+        mov edx, dword [DigitalAudioRate]
         mov ah, byte [SoundSystemOn]
         add edi, edx
         test ah, ah
@@ -1543,7 +1543,7 @@ OpenAudioStreamChannel:
         cmp eax, byte 5Fh
         jge short .10
 .6:
-        cmp edi, dword [dword_1DD37C]
+        cmp edi, dword [DigitalAudioRate]
         ja short .3
         jmp short .10
 .7:
@@ -1571,7 +1571,7 @@ OpenAudioStreamChannel:
         cmp ebx, esi
         jge short .10
 .9:
-        cmp edi, dword [dword_1DD37C]
+        cmp edi, dword [DigitalAudioRate]
         ja short .7
 .10:
         mov eax, ebx
@@ -1959,13 +1959,13 @@ StartAudioStream:
         jne short .3
 .2:
         mov bh, 1
-        mov eax, dword [dword_1DD37C]
+        mov eax, dword [DigitalAudioRate]
         mov byte [StreamStarted], bh
         mov dword [StreamReadPos], eax
 .3:
         cmp byte [StreamStarted], 0
         je short .4
-        mov ebx, dword [dword_1DD37C]
+        mov ebx, dword [DigitalAudioRate]
         xor eax, eax
         mov edx, dword [StreamReadPos]
         mov al, byte [StreamPaused]
@@ -2535,15 +2535,15 @@ PlaySampleVolume:
 ; Clears the speech ring
 ;-----------------------------------------------------------------------------
 ClearSpeechRing:
-        mov dword [dword_1DC9A0], 0
-        mov dword [dword_1DC9A4], 0
-        mov dword [dword_1DC99C], 0
+        mov dword [SpeechRingHead], 0
+        mov dword [SpeechRingTail], 0
+        mov dword [SpeechRingBusy], 0
         xor eax, eax
 .1:
         add eax, byte 0Ch
-        mov dword [dword eax+dword_1DC9A8], 0
-        mov dword [dword eax+dword_1DC9AC], 0
-        mov dword [dword eax+dword_1DC9A4], 0
+        mov dword [dword eax+SpeechSampleBufA], 0
+        mov dword [dword eax+SpeechSampleBufB], 0
+        mov dword [dword eax+SpeechRingTail], 0
         cmp eax, 120h
         jne short .1
         ret
@@ -2556,17 +2556,17 @@ PushSpeechRing:
         push ecx
         mov ebx, eax
         mov ecx, edx
-        mov edx, dword [dword_1DC9A0]
+        mov edx, dword [SpeechRingHead]
         imul eax, edx, byte 0Ch
-        mov dword [dword eax+dword_1DC9B0], ebx
-        mov dword [dword eax+dword_1DC9B4], ebx
+        mov dword [dword eax+SpeechRingUsed], ebx
+        mov dword [dword eax+SpeechRingBytes], ebx
         inc edx
-        mov dword [dword eax+dword_1DC9B8], ecx
+        mov dword [dword eax+SpeechRingEntries], ecx
         cmp edx, byte 18h
         jl short .1
         xor edx, edx
 .1:
-        mov dword [dword_1DC9A0], edx
+        mov dword [SpeechRingHead], edx
         pop ecx
         pop ebx
         ret
@@ -2579,8 +2579,8 @@ SpeechRingCount:
         push ecx
         push edx
         mov ecx, eax
-        mov edx, dword [dword_1DC9A0]
-        sub edx, dword [dword_1DC9A4]
+        mov edx, dword [SpeechRingHead]
+        sub edx, dword [SpeechRingTail]
         test edx, edx
         jge short .1
         add edx, byte 18h
@@ -2588,14 +2588,14 @@ SpeechRingCount:
         xor eax, eax
         jmp short .5
 .2:
-        mov ebx, dword [dword_1DC9A4]
+        mov ebx, dword [SpeechRingTail]
         add ebx, eax
         cmp ebx, byte 18h
         jl short .3
         sub ebx, byte 18h
 .3:
         imul ebx, byte 0Ch
-        cmp ecx, dword [dword ebx+dword_1DC9B0]
+        cmp ecx, dword [dword ebx+SpeechRingUsed]
         jne short .4
         mov eax, 1
         pop edx
@@ -2617,7 +2617,7 @@ SpeechRingCount:
 ; Returns whether speech is playing
 ;-----------------------------------------------------------------------------
 SpeechBusy:
-        cmp dword [dword_1DC99C], byte 0
+        cmp dword [SpeechRingBusy], byte 0
         jle short .2
 .1:
         mov eax, 1

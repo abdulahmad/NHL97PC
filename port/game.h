@@ -55,7 +55,7 @@
 #define LOW_DOS_POOL       0x24000u
 #define DBCS_TABLE         0x23F00u     /* an empty DBCS lead-byte table (int 21h 6300h), between the environment and the pool */
 /* NHL 97: WaitRetrace has no mode switch (96: dword_1248C8); its loop count is dword_171E34 (96: dword_123AC4). */
-#define ORIG_RETRACE_COUNT SYM_dword_171E34
+#define ORIG_RETRACE_COUNT SYM_RetraceTimeout
 #define ORIG_GETDS_SEL     SYM___saved_DS   /* __GETDS: mov ds, cs:[this word] (interrupt handlers) */
 
 extern uint8_t *game_image;            /* mapped bytes for orig OBJ1_BASE .. end */

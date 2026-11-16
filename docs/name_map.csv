@@ -7481,10 +7481,32 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 168418,HugeValLo,qword_168418,new,low,low half of HUGE_VAL,src/data/lib/sound/snd_soundblaster_01_data_01.asm
 16841C,HugeValHi,dword_16841C,new,low,high half of HUGE_VAL,src/data/lib/sound/snd_soundblaster_01_data_01.asm
 168420,RunTimeErrorMessages,dword_168420,new,low,messages of the run-time errors,src/data/lib/sound/snd_soundblaster_01_data_01.asm
+16843C,F64_Scale10Max,qword_16843C,new,low,largest power of ten scale for _Scale10V_,src/data/lib/watcom/watcom_clib_31_data_01.asm
+168444,F64_Scale10Min,qword_168444,new,low,smallest power of ten scale for _Scale10V_,src/data/lib/watcom/watcom_clib_31_data_01.asm
+16844C,DblMaxLow,dword_16844C,new,low,DBL_MAX low dword,src/data/lib/watcom/watcom_clib_31_data_01.asm
+168450,DblMaxHigh,dword_168450,new,low,DBL_MAX high dword,src/data/lib/watcom/watcom_clib_31_data_01.asm
+168454,DblMinusMaxLow,dword_168454,new,low,-DBL_MAX low dword,src/data/lib/watcom/watcom_clib_31_data_01.asm
+168458,DblMinusMaxHigh,dword_168458,new,low,-DBL_MAX high dword,src/data/lib/watcom/watcom_clib_31_data_01.asm
+16845C,Scale10Count,unk_16845C,new,low,power of ten table length,src/data/lib/watcom/watcom_clib_31_data_01.asm
+16845E,Pow10Table,qword_16845E,new,low,powers of ten,src/data/lib/watcom/watcom_clib_31_data_01.asm
+168462,Pow10TableHigh,dword_168462,new,low,"powers of ten, high dwords",src/data/lib/watcom/watcom_clib_31_data_01.asm
 1684B0,str_DOSJoystick,asc_1684B0,new,high,"string ""DOS-Joystick""",src/data/lib/watcom/watcom_clib_31_data_01.asm
+1684BE,GripPortWord,word_1684BE,new,low,Gravis GrIP port,src/data/lib/watcom/watcom_clib_31_data_01.asm
+1684C0,GripDriverPtr,dword_1684C0,new,low,Gravis GrIP driver,src/data/lib/watcom/watcom_clib_31_data_01.asm
+1684C4,GripDriverData,dword_1684C4,new,low,Gravis GrIP driver data,src/data/lib/watcom/watcom_clib_31_data_01.asm
+1684C8,GripFlags,byte_1684C8,new,low,Gravis GrIP flags,src/data/lib/watcom/watcom_clib_31_data_01.asm
+1684CA,GripSlot,word_1684CA,new,low,Gravis GrIP slot,src/data/lib/watcom/watcom_clib_31_data_01.asm
 1684CC,str_GRIPGLL,,96PC,high,NHL96PC 114CB8 (string): 'GRIP.GLL',
 1684D5,str_GRIP,,96PC,high,NHL96PC 114CC1 (string): 'GRIP',
 1684DA,str_CGRIP,,96PC,high,NHL96PC 114CC6 (string): 'C:\\GRIP\\',
+1684E4,GripLinked,dword_1684E4,new,low,Gravis GrIP library linked,src/data/lib/watcom/watcom_clib_31_data_01.asm
+1684E8,GripReady,word_1684E8,new,low,Gravis GrIP pad ready,src/data/lib/watcom/watcom_clib_31_data_01.asm
+1684EC,CrowdChantTable,word_1684EC,new,low,crowd chant per situation,src/data/lib/watcom/watcom_clib_31_data_01.asm
+168564,LinePlayerSlots,dword_168564,new,low,player slot per line position,src/data/lib/watcom/watcom_clib_31_data_01.asm
+168571,LinePlayerOffsets,dword_168571,new,low,offsets per line position,src/data/lib/watcom/watcom_clib_31_data_01.asm
+168574,LinePlayerOrder,unk_168574,new,low,line player order,src/data/lib/watcom/watcom_clib_31_data_01.asm
+168628,CameraSceneId,dword_168628,new,low,camera scene being played (-1 none),src/data/lib/watcom/watcom_clib_31_data_01.asm
+16862C,ScoreClockShown,dword_16862C,new,low,score clock visible,src/data/lib/watcom/watcom_clib_31_data_01.asm
 1686C4,F32_62,dword_1686C4,new,high,float constant 62,src/data/engine/faceoff_data_01.asm
 1686C8,F32_54,dword_1686C8,new,high,float constant 54,src/data/engine/faceoff_data_01.asm
 1686CC,F32_0p8,dword_1686CC,new,high,float constant 0.8000000119,src/data/engine/faceoff_data_01.asm
@@ -7699,6 +7721,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16F8B8,ModeTableNumber,dword_16F8B8,new,low,video mode table: mode number,src/data/lib/video/video_bios_vga_01_data_01.asm
 16F9FC,VesaModeInfo,dword_16F9FC,new,low,VESA mode information block pointer,src/data/lib/video/video_bios_vga_01_data_01.asm
 16FA00,VesaWindowActive,dword_16FA00,new,low,VESA window set,src/data/lib/video/video_bios_vga_01_data_01.asm
+16FA04,RowTableBytes,dword_16FA04,new,low,row table size in bytes,src/data/lib/video/video_bios_vga_01_data_01.asm
 16FA08,RowTable,dword_16FA08,new,low,screen row address table,src/data/lib/video/video_bios_vga_01_data_01.asm
 16FA10,LimbShadeEnabled,dword_16FA10,new,low,limb segments are shaded,src/data/lib/video/video_bios_vga_01_data_01.asm
 16FA14,ViewInterlaced,dword_16FA14,new,low,view drawn interlaced,src/data/lib/video/video_bios_vga_01_data_01.asm
@@ -7772,6 +7795,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 170200,SpeechQueueHead,dword_170200,new,low,first queued speech clip,src/data/lib/lib_109A74_data_01.asm
 170204,SpeechQueueTail,dword_170204,new,low,last queued speech clip,src/data/lib/lib_109A74_data_01.asm
 170208,SpeechQueueCount,dword_170208,new,low,number of queued speech clips,src/data/lib/lib_109A74_data_01.asm
+17020C,SpeechQueueLevel,dword_17020C,new,low,speech queue volume,src/data/lib/lib_109A74_data_01.asm
 170210,SpeechQueueChannel,dword_170210,new,low,channel playing the speech queue,src/data/lib/lib_109A74_data_01.asm
 170214,SpeechQueueHandle,dword_170214,new,low,handle of the playing speech clip,src/data/lib/lib_109A74_data_01.asm
 170218,str_Punct_SetScreenScale,dword_170218,new,high,"string ""\n""",src/data/lib/lib_109A74_data_01.asm
@@ -7785,6 +7809,8 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 170260,str_D_ProjectPointsPersp,dword_170260,new,high,"string ""d""",src/data/lib/lib_109A74_data_01.asm
 170264,CameraSinYaw,dword_170264,new,low,sine of the camera yaw,src/data/lib/lib_109A74_data_01.asm
 170268,CameraCosYaw,dword_170268,new,low,cosine of the camera yaw,src/data/lib/lib_109A74_data_01.asm
+17026C,CameraOriginX,dword_17026C,new,low,view origin X used by the camera,src/data/lib/lib_109A74_data_01.asm
+170270,CameraOriginY,dword_170270,new,low,view origin Y used by the camera,src/data/lib/lib_109A74_data_01.asm
 170274,CameraFlags,dword_170274,new,low,camera state flags,src/data/lib/lib_109A74_data_01.asm
 170278,RinkPrimNoOpFns,off_170278,new,low,rink primitive functions that draw nothing,src/data/lib/ea/ea_gfx_06_data_01.asm
 170284,RinkPrimFlatFns,off_170284,new,low,rink primitive functions for flat polygons,src/data/lib/ea/ea_gfx_06_data_01.asm
@@ -7799,13 +7825,106 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1702CC,SinTable,dword_1702CC,new,low,quarter-wave sine table in 16.16 fixed point,src/data/lib/ea/ea_gfx_06_data_01.asm
 1706CC,CosTable,dword_1706CC,new,low,quarter-wave cosine table in 16.16 fixed point,src/data/lib/ea/ea_gfx_06_data_01.asm
 1706D0,PolySpanFns,off_1706D0,new,low,span drawing routine of each polygon fill mode,src/data/lib/ea/ea_gfx_06_data_01.asm
+1706E0,KeyedRowFuncs,off_1706E0,new,low,keyed blit row routine table,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1706E4,KeyDownTable,off_1706E4,new,low,key down flag per scan code,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1706F8,KeyedBlitState,dword_1706F8,new,low,keyed blit state,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170704,FpuFlags,dword_170704,new,low,FPU flags set at start up,src/data/lib/watcom/watcom_clib_13_data_01.asm
 170708,str_Punct_InitFpuFlags,word_170708,new,high,"string "" """,src/data/lib/watcom/watcom_clib_13_data_01.asm
+17070A,SavedEsSelector,word_17070A,new,low,ES selector saved at start up,src/data/lib/watcom/watcom_clib_13_data_01.asm
+17070C,BiosKeyFunc,dword_17070C,new,low,routine that calls the BIOS keyboard service,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170710,KbdHandlerInstalled,dword_170710,new,low,game keyboard handler installed,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170714,KeyBuffer,dword_170714,new,low,keyboard buffer ring,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170754,KeyBufferHead,dword_170754,new,low,keyboard buffer read position,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170758,KeyBufferTail,dword_170758,new,low,keyboard buffer write position,src/data/lib/watcom/watcom_clib_13_data_01.asm
+17075C,KbdCapsLock,byte_17075C,new,low,caps lock toggle,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170760,KeyBufferMask,dword_170760,new,low,keyboard buffer index mask,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170764,KeyStateTable,byte_170764,new,low,key down state per scan code,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170781,KbdShiftDown,byte_170781,new,low,shift held,src/data/lib/watcom/watcom_clib_13_data_01.asm
+17078E,KbdCtrlDown,byte_17078E,new,low,control held,src/data/lib/watcom/watcom_clib_13_data_01.asm
+17079A,KbdAltDown,byte_17079A,new,low,alt held,src/data/lib/watcom/watcom_clib_13_data_01.asm
+17079C,KbdNumLock,byte_17079C,new,low,num lock toggle,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1707B7,KbdScrollLock,byte_1707B7,new,low,scroll lock toggle,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1707E4,SavedKbdVecOffset,dword_1707E4,new,low,previous keyboard interrupt offset,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1707E8,SavedKbdVecSelector,word_1707E8,new,low,previous keyboard interrupt selector,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1707EA,SavedInt16Offset,dword_1707EA,new,low,previous INT 16h offset,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1707EE,SavedInt16Selector,word_1707EE,new,low,previous INT 16h selector,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1707F0,SavedRealKbdOffset,dword_1707F0,new,low,previous real mode keyboard handler offset,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1707F4,SavedRealKbdSegment,word_1707F4,new,low,previous real mode keyboard handler segment,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1707F6,KbdDataSelector,word_1707F6,new,low,data selector used by the keyboard handler,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1707FC,KbdPrefixByte,byte_1707FC,new,low,extended (E0h) scan code prefix seen,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170800,KbdInsertMode,byte_170800,new,low,insert toggle,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170804,KbdPauseState,byte_170804,new,low,pause key state,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170810,ScanToAscii,byte_170810,new,low,"scan code to ASCII, no shift",src/data/lib/watcom/watcom_clib_13_data_01.asm
+17086B,ScanToAsciiShift,byte_17086B,new,low,scan code to ASCII with shift,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1708C6,ScanToAsciiCaps,byte_1708C6,new,low,scan code to ASCII with caps lock,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170921,ScanToAsciiCtrl,byte_170921,new,low,scan code to ASCII with control,src/data/lib/watcom/watcom_clib_13_data_01.asm
+17097C,ScanToAsciiCapsShift,byte_17097C,new,low,scan code to ASCII with caps lock and shift,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1709D8,AssertLine,dword_1709D8,new,low,line number of the failed assertion,src/data/lib/watcom/watcom_clib_13_data_01.asm
 1709DC,str_FILESLINED,asc_1709DC,new,high,"string ""FILE %s LINE %d """,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1709ED,AssertFileName,dword_1709ED,new,low,file name of the failed assertion,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1709F1,AssertMessage,dword_1709F1,new,low,message of the failed assertion,src/data/lib/watcom/watcom_clib_13_data_01.asm
+1709F8,VideoGammaSource,dword_1709F8,new,low,source curve for the video gamma table,src/data/lib/watcom/watcom_clib_13_data_01.asm
 170ACC,str_BK,dword_170ACC,new,high,"string ""BK""",src/data/lib/watcom/watcom_clib_13_data_01.asm
+170AF8,VideoDecoderReady,dword_170AF8,new,low,video decoder initialised,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170AFC,FrameRateCount,dword_170AFC,new,low,frames counted for the frame rate,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170B00,FrameRateStart,dword_170B00,new,low,tick count when frame counting began,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170B04,FrameRateTicks,dword_170B04,new,low,ticks counted for the frame rate,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170B08,FrameRateValue,dword_170B08,new,low,measured frame rate,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170B0C,FrameRateMin,dword_170B0C,new,low,lowest frame rate seen,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170B10,FrameRateMax,dword_170B10,new,low,highest frame rate seen,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170B14,SerialPortTable,off_170B14,new,low,serial port record per COM port,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170B18,SerialIsrPort1,off_170B18,new,low,serial port record used by the first interrupt handler,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170B1C,SerialIsrPort2,off_170B1C,new,low,serial port record used by the second interrupt handler,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170B24,SerialIrqMask,word_170B24,new,low,serial IRQ mask,src/data/lib/watcom/watcom_clib_13_data_01.asm
+170B26,SerialPorts,unk_170B26,97PC,low,"serial port records, one per COM port (44Ch bytes each)",src/data/lib/watcom/watcom_clib_13_data_01.asm
+171C56,SerialBaudDivisors,word_171C56,new,low,baud rate divisor table,src/data/lib/watcom/watcom_clib_13_data_01.asm
+171C7C,ExitHook,off_171C7C,new,low,routine called by exit,src/data/lib/watcom/watcom_clib_13_data_01.asm
+171C80,Int23Hook,off_171C80,new,low,ctrl-C handler,src/data/lib/watcom/watcom_clib_13_data_01.asm
+171C84,FpuExitHook,off_171C84,new,low,FPU shutdown routine called at exit,src/data/lib/watcom/watcom_clib_13_data_01.asm
+171C88,PlatformState,dword_171C88,new,low,platform layer state,src/data/lib/watcom/watcom_clib_13_data_01.asm
+171C8C,PlatformFirstInit,dword_171C8C,new,low,set until the platform layer is first set up,src/data/lib/watcom/watcom_clib_13_data_01.asm
+171C90,ShadeTable,byte_171C90,new,low,colour shade table,src/data/lib/watcom/watcom_clib_13_data_01.asm
+171D10,ArtConvertFuncs,off_171D10,new,low,art conversion routine table,src/data/lib/watcom/watcom_clib_13_data_01.asm
+171D33,TintByte,byte_171D33,new,low,tint scratch byte,src/data/lib/watcom/watcom_clib_13_data_01.asm
+171D34,TintTable,byte_171D34,new,low,tint colour table,src/data/lib/watcom/watcom_clib_13_data_01.asm
+171E34,RetraceTimeout,dword_171E34,new,low,loop count before giving up on vertical retrace,src/data/lib/watcom/watcom_clib_13_data_01.asm
+171E38,VideoOptionsText,unk_171E38,new,low,video options screen text,src/data/lib/watcom/watcom_clib_13_data_01.asm
 172138,str_Punct_CountFrameTick,dword_172138,new,high,"string ""???""",src/data/lib/watcom/watcom_clib_15_data_02.asm
+17213C,FrameTickCount,dword_17213C,new,low,frames counted since the last tick,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172140,SerialLinkFuncs,off_172140,new,low,serial link routine table,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172168,ModemConnected,dword_172168,new,low,modem link connected,src/data/lib/watcom/watcom_clib_15_data_02.asm
+17216C,ModemLinkFuncs,off_17216C,new,low,modem link routine table,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172194,NetSessionName,dword_172194,new,low,network session name,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172198,NetMaxPeers,dword_172198,new,low,network peer limit,src/data/lib/watcom/watcom_clib_15_data_02.asm
 17219C,str_D_NetHandleMessage,dword_17219C,new,high,"string ""d""",src/data/lib/watcom/watcom_clib_15_data_02.asm
+1721A0,NetSessionHandle,dword_1721A0,new,low,network session handle,src/data/lib/watcom/watcom_clib_15_data_02.asm
 1721A4,str_Punct_NetLeaveGame,dword_1721A4,new,high,"string "" """,src/data/lib/watcom/watcom_clib_15_data_02.asm
+1721A8,IpxPresent,dword_1721A8,new,low,IPX driver found,src/data/lib/watcom/watcom_clib_15_data_02.asm
+1721B0,NetSendRetries,dword_1721B0,new,low,network send retries,src/data/lib/watcom/watcom_clib_15_data_02.asm
+1721B4,NetLastTime,dword_1721B4,new,low,time of the last network message,src/data/lib/watcom/watcom_clib_15_data_02.asm
+1721B8,NetLinkFuncs,off_1721B8,new,low,network link routine table,src/data/lib/watcom/watcom_clib_15_data_02.asm
+1721D4,NetRxCount,dword_1721D4,new,low,network packets received,src/data/lib/watcom/watcom_clib_15_data_02.asm
+1721E0,NetSessionOpen,dword_1721E0,new,low,network session open,src/data/lib/watcom/watcom_clib_15_data_02.asm
+1721E4,NetProtocolName,dword_1721E4,new,low,network protocol name pointer,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172244,IpxStartupState,dword_172244,new,low,IPX start up state,src/data/lib/watcom/watcom_clib_15_data_02.asm
 172248,str_Punct_IpxHookCheck,dword_172248,new,high,"string ""`""",src/data/lib/watcom/watcom_clib_15_data_02.asm
+17224C,IpxPacketBuffer,dword_17224C,new,low,IPX packet buffer,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172250,IpxPacketType,byte_172250,new,low,IPX packet type,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172251,IpxPacketFlags,byte_172251,new,low,IPX packet flags,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172254,IpxHookBase,dword_172254,new,low,IPX real mode hook base,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172258,IpxHookInstalled,dword_172258,new,low,IPX real mode hook installed,src/data/lib/watcom/watcom_clib_15_data_02.asm
+17225C,IpxListening,dword_17225C,new,low,IPX listen posted,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172260,IpxListenEcb,dword_172260,new,low,IPX listen event control block,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172264,IpxHookCodeA,unk_172264,new,low,real mode IPX hook code,src/data/lib/watcom/watcom_clib_15_data_02.asm
+17226C,IpxHookCodeB,unk_17226C,new,low,real mode IPX hook code continued,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172274,IpxHookCodeC,unk_172274,new,low,real mode IPX hook code end,src/data/lib/watcom/watcom_clib_15_data_02.asm
+1722BC,NetBufferPool,dword_1722BC,new,low,network buffer pool,src/data/lib/watcom/watcom_clib_15_data_02.asm
+1722C0,__iob,unk_1722C0,new,low,stdio stream table,src/data/lib/watcom/watcom_clib_15_data_02.asm
+1722DA,__stdout_buf,unk_1722DA,new,low,stdout buffer,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172301,__iob_flags,byte_172301,new,low,stdio stream flags,src/data/lib/watcom/watcom_clib_15_data_02.asm
+172342,__iob_end,unk_172342,new,low,end of the stdio stream table,src/data/lib/watcom/watcom_clib_15_data_02.asm
+1724C8,__NFiles,unk_1724C8,new,low,number of stdio streams,src/data/lib/watcom/watcom_clib_15_data_02.asm
+1724C9,_fmode,dword_1724C9,new,low,default file translation mode,src/data/lib/watcom/watcom_clib_15_data_02.asm
 1724D4,CachedFileTable,dword_1724D4,new,low,"files held in memory, by drive and directory",src/data/lib/ea/ea_memman_02_data_01.asm
 172514,CachedFileDate,word_172514,new,low,date of the cached file being checked,src/data/lib/ea/ea_memman_02_data_01.asm
 172516,CachedFileTime,word_172516,new,low,time of the cached file being checked,src/data/lib/ea/ea_memman_02_data_01.asm
@@ -7906,9 +8025,75 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 172C9C,AudioLockCount,dword_172C9C,new,low,audio critical section lock count,src/data/lib/ea/ea_unpack_02_data_01.asm
 172CA0,AudioDeferredFunc,dword_172CA0,new,low,deferred audio work routine,src/data/lib/ea/ea_unpack_02_data_01.asm
 172CA4,MixerStepTable,dword_172CA4,new,low,mixer pitch step per note,src/data/lib/ea/ea_unpack_02_data_01.asm
+173F64,MixerVolumeLookup,dword_173F64,new,low,mixer volume lookup table,src/data/lib/watcom/watcom_clib_22_data_01.asm
+193F64,MixerChannels,unk_193F64,97PC,low,mixer channel records (74h bytes each),src/data/lib/watcom/watcom_clib_22_data_01.asm
+19469C,MixerAccumLeft,dword_19469C,new,low,mixer left accumulator,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1946A0,MixerAccumRight,dword_1946A0,new,low,mixer right accumulator,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1946A4,MixerAccumMono,dword_1946A4,new,low,mixer mono accumulator,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1946A8,MixerAccumBuffer,dword_1946A8,new,low,mixer accumulation buffer,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1956A4,MixerChunkBuffer,unk_1956A4,new,low,mixer chunk buffer,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996A4,MixerReady,dword_1996A4,new,low,mixer initialised,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996A8,MixerStereo,dword_1996A8,new,low,mixer output is stereo,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996AC,MixerOutputRate,dword_1996AC,new,low,mixer output rate,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996B0,MixerOutPtr,dword_1996B0,new,low,mixer output pointer,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996B4,Mixer16Bit,dword_1996B4,new,low,mixer output is 16-bit,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996B8,MixerOutEnd,dword_1996B8,new,low,end of the mixer output,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996BC,MixerChunkSamples,dword_1996BC,new,low,samples in this mixer chunk,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996C0,MixerChunkLeft,dword_1996C0,new,low,samples left in this mixer chunk,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996C4,MixerSamplePtr,dword_1996C4,new,low,mixer sample pointer,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996C8,MixerSampleStep,dword_1996C8,new,low,mixer sample step,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996D0,MixerLoopLength,dword_1996D0,new,low,mixer loop length,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996D4,MixerLoopLimit,dword_1996D4,new,low,mixer loop limit,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996D8,MixerLoopStart,dword_1996D8,new,low,mixer loop start,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996DC,MixerFracPos,dword_1996DC,new,low,mixer fractional position,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996E0,MixerFracStep,dword_1996E0,new,low,mixer fractional step,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996E4,MixerOutputFunc,dword_1996E4,new,low,mixer output routine,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996E8,MixerStopFunc,dword_1996E8,new,low,mixer channel stop routine,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1996EC,MixerChannelTable,off_1996EC,new,low,mixer channel record per channel,src/data/lib/watcom/watcom_clib_22_data_01.asm
+19972C,PatchDefaultHandle,unk_19972C,new,low,default patch handle (-1),src/data/lib/watcom/watcom_clib_22_data_01.asm
+199734,ChannelUpdateTick,dword_199734,new,low,channel update tick,src/data/lib/watcom/watcom_clib_22_data_01.asm
+199738,ModelInstanceTemplate,unk_199738,new,low,model instance template,src/data/lib/watcom/watcom_clib_22_data_01.asm
+199784,AngleOctantTable,byte_199784,new,low,octant per delta slope for AngleFromDelta,src/data/lib/watcom/watcom_clib_22_data_01.asm
+199888,__MBCSFlag,dword_199888,new,low,multibyte character set active,src/data/lib/watcom/watcom_clib_22_data_01.asm
+19988D,__MBCSTable,byte_19988D,new,low,multibyte lead byte table,src/data/lib/watcom/watcom_clib_22_data_01.asm
+199990,SavedEbx,dword_199990,new,low,EBX saved by CallPreservingRegs,src/data/lib/watcom/watcom_clib_22_data_01.asm
+199994,SavedEcx,dword_199994,new,low,ECX saved by CallPreservingRegs,src/data/lib/watcom/watcom_clib_22_data_01.asm
+199998,SavedEdx,dword_199998,new,low,EDX saved by CallPreservingRegs,src/data/lib/watcom/watcom_clib_22_data_01.asm
+19999C,SavedEsi,dword_19999C,new,low,ESI saved by CallPreservingRegs,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1999A0,SavedEdi,dword_1999A0,new,low,EDI saved by CallPreservingRegs,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1999A4,SavedRetAddr,dword_1999A4,new,low,return address saved by CallPreservingRegs,src/data/lib/watcom/watcom_clib_22_data_01.asm
+1999A5,DosErrnoTable,dword_1999A5,new,low,DOS error to errno table,src/data/lib/watcom/watcom_clib_26_data_01.asm
+1999BC,_umaskval,dword_1999BC,new,low,file creation mask,src/data/lib/watcom/watcom_clib_26_data_01.asm
+1999C0,__NHandles,dword_1999C0,new,low,number of file handles,src/data/lib/watcom/watcom_clib_26_data_01.asm
+1999C4,__init_mode,unk_1999C4,new,low,initial file handle modes,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199A14,__io_mode,dword_199A14,new,low,file handle mode table pointer,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199A18,SavedBreakOffset,dword_199A18,new,low,previous ctrl-break handler offset,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199A1C,SavedBreakSelector,word_199A1C,new,low,previous ctrl-break handler selector,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199A1E,BreakCallFunc,dword_199A1E,new,low,ctrl-break chain routine,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199A22,BreakDataSelector,word_199A22,new,low,data selector for the ctrl-break handler,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199A24,HotkeyScanTable,byte_199A24,new,low,scan code per registered hotkey,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199AA4,HotkeyModTable,byte_199AA4,new,low,shift state per registered hotkey,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199B2A,HotkeyNesting,dword_199B2A,new,low,hotkey dispatch nesting count,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199B2E,HotkeyFuncTable,dword_199B2E,new,low,routine per registered hotkey,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199C38,ShadowFillFunc,dword_199C38,new,low,shadow fill routine,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199C3C,TitleBandFunc,dword_199C3C,new,low,title band draw routine,src/data/lib/watcom/watcom_clib_26_data_01.asm
 199C40,_environ,,96PC,high,NHL96PC 14F09C (position): same fixup of __setenvp_,
 199C44,___env_mask,,96PC,high,NHL96PC 14F0A0 (position): same fixup of __setenvp_,
+199C48,__nheapbeg,dword_199C48,new,low,near heap start,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199C4C,__amblksiz,dword_199C4C,new,low,heap growth amount,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199C50,__EFG_printf,off_199C50,new,low,float formatting routine for printf,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199C54,__EFG_scanf,off_199C54,new,low,float parsing routine for scanf,src/data/lib/watcom/watcom_clib_26_data_01.asm
+199C58,EmuTrapFrame,unk_199C58,new,low,x87 emulator trap frame,src/data/lib/watcom/watcom_emu387_data_01.asm
+199CD4,Hook387Flag,byte_199CD4,new,low,x87 emulator hooked,src/data/lib/watcom/watcom_emu387_data_01.asm
+199CD5,Hook387Saved,byte_199CD5,new,low,x87 emulator saved state,src/data/lib/watcom/watcom_emu387_data_01.asm
+199CD8,DefaultControlWord,word_199CD8,new,low,default FPU control word,src/data/lib/watcom/watcom_emu387_data_01.asm
+199CDC,EmuInitHook,off_199CDC,new,low,x87 emulator init routine,src/data/lib/watcom/watcom_emu387_data_01.asm
+199CE0,EmuFiniHook,off_199CE0,new,low,x87 emulator shutdown routine,src/data/lib/watcom/watcom_emu387_data_01.asm
+199CE4,WVideoActive,byte_199CE4,new,low,debugger video active,src/data/lib/watcom/watcom_emu387_data_01.asm
 199CE8,str_2_SetupRectFill,dword_199CE8,new,high,"string ""2""",src/data/lib/watcom/watcom_emu387_data_01.asm
+199CEC,ReciprocalRowTable,off_199CEC,new,low,row of 1/n values per divisor,src/data/lib/watcom/watcom_emu387_data_01.asm
+199DB4,ReciprocalRows,unk_199DB4,97PC,low,"rows of 16-bit reciprocals 1/n, one row per divisor, used to step rectangle fills",src/data/lib/watcom/watcom_emu387_data_01.asm
+19A6E0,MathErrTable,dword_19A6E0,new,low,math error code table,src/data/lib/watcom/watcom_emu387_data_01.asm
 19A740,GusEnvVarName,off_19A740,new,low,points to the name of the environment variable that holds the card settings,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
 19A744,GusOpenCount,dword_19A744,new,low,number of times the card has been opened without a matching close,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
 19A748,GusIrqLatchBits,byte_19A748,new,low,latch register bits for each IRQ line the card can use,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
@@ -8003,15 +8188,38 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19C170,SignalTable,dword_19C170,new,low,handler and flags of each C signal,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
 19C178,SigFpeHandler,dword_19C178,new,low,handler slot of the floating-point signal,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
 19C1A4,AbortHandler,dword_19C1A4,new,low,function abort() calls to end the program,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C1A8,SavedFpuEs,word_19C1A8,new,low,ES saved by the FPU exception hook,src/data/lib/watcom/watcom_clib_32_data_01.asm
+19C1AA,SavedFpuVecOffset,dword_19C1AA,new,low,previous FPU exception handler offset,src/data/lib/watcom/watcom_clib_32_data_01.asm
+19C1AE,SavedFpuVecSelector,dword_19C1AE,new,low,previous FPU exception handler selector,src/data/lib/watcom/watcom_clib_32_data_01.asm
+19C1B4,FpuFixupBuffer,unk_19C1B4,new,low,FPU fix up scratch,src/data/lib/watcom/watcom_clib_32_data_01.asm
 19C1BE,F64_1p79769e308,qword_19C1BE,new,high,double constant 1.797693135e+308,src/data/lib/watcom/watcom_clib_32_data_01.asm
 19C1C6,F32_3p40282e38,dword_19C1C6,new,high,float constant 3.402823466e+38,src/data/lib/watcom/watcom_clib_32_data_01.asm
+19C1CA,FpuHandlerStack,unk_19C1CA,new,low,stack used by the FPU exception handler,src/data/lib/watcom/watcom_clib_32_data_01.asm
+19C3CA,FpuSavedSs,word_19C3CA,new,low,SS saved by the FPU exception handler,src/data/lib/watcom/watcom_clib_32_data_01.asm
+19C3CC,FpuSavedEsp,dword_19C3CC,new,low,ESP saved by the FPU exception handler,src/data/lib/watcom/watcom_clib_32_data_01.asm
+19C3D0,DosExtenderType,byte_19C3D0,new,low,DOS extender type,src/data/lib/watcom/watcom_clib_32_data_01.asm
+19C3D1,PharLapVersion,byte_19C3D1,new,low,Phar Lap version,src/data/lib/watcom/watcom_clib_32_data_01.asm
+19C3D2,ErgoVersion,byte_19C3D2,new,low,Ergo extender version,src/data/lib/watcom/watcom_clib_32_data_01.asm
+19C3D3,IntelExtenderVersion,byte_19C3D3,new,low,Intel extender version,src/data/lib/watcom/watcom_clib_32_data_01.asm
+19C694,VideoBitCount,dword_19C694,new,low,video bit reader bits left,src/data/lib/watcom/watcom_clib_13_data_02.asm
+19C698,VideoBitBuffer,dword_19C698,new,low,video bit reader buffer,src/data/lib/watcom/watcom_clib_13_data_02.asm
+19C69C,VideoOutPtr,dword_19C69C,new,low,output pointer for the video block transform,src/data/lib/watcom/watcom_clib_13_data_02.asm
+19C6A0,VideoBlockX,dword_19C6A0,new,low,video block transform: input value,src/data/lib/watcom/watcom_clib_13_data_02.asm
+19C6A4,VideoBlockY,dword_19C6A4,new,low,video block transform: second input value,src/data/lib/watcom/watcom_clib_13_data_02.asm
+19C6A8,VideoBlockTemp,dword_19C6A8,new,low,video block transform: temporary,src/data/lib/watcom/watcom_clib_13_data_02.asm
+19C6AC,VideoBlockSum,dword_19C6AC,new,low,video block transform: sum,src/data/lib/watcom/watcom_clib_13_data_02.asm
+19C6B0,VideoIdctScale,dword_19C6B0,new,low,video block transform scale constant,src/data/lib/watcom/watcom_clib_13_data_02.asm
 19C6B4,F32_0p541196,dword_19C6B4,new,high,float constant 0.5411961079,src/data/lib/watcom/watcom_clib_13_data_02.asm
 19C6B8,F32_1p30656,dword_19C6B8,new,high,float constant 1.30656302,src/data/lib/watcom/watcom_clib_13_data_02.asm
 19C6BC,F32_0p382683,dword_19C6BC,new,high,float constant 0.3826834261,src/data/lib/watcom/watcom_clib_13_data_02.asm
 19C6C0,F32_6p7554e15,dword_19C6C0,new,high,float constant 6.755399441e+15,src/data/lib/watcom/watcom_clib_13_data_02.asm
+19C6C4,VideoCodeJumpTable,off_19C6C4,new,low,video code case table,src/data/lib/watcom/watcom_clib_13_data_02.asm
+19C6E4,VideoCodeLengths,byte_19C6E4,new,low,video code lengths,src/data/lib/watcom/watcom_clib_13_data_02.asm
+19C724,FdivShiftTable,byte_19C724,new,low,fdiv bug check quotient bit table,src/data/lib/watcom/watcom_clib_13_data_02.asm
 19C734,F32_0p9375,dword_19C734,new,high,float constant 0.9375,src/data/lib/watcom/watcom_clib_13_data_02.asm
 19C738,F32_1p0625,dword_19C738,new,high,float constant 1.0625,src/data/lib/watcom/watcom_clib_13_data_02.asm
 19C73C,F32_9p22337e18,dword_19C73C,new,high,float constant 9.223372037e+18,src/data/lib/watcom/watcom_clib_13_data_02.asm
+19C740,FdivJumpTable,off_19C740,new,low,fdiv bug check case table,src/data/lib/watcom/watcom_clib_13_data_02.asm
 19C840,FpremShiftTable,byte_19C840,new,low,fprem quotient bit table,src/data/lib/video/video_bios_vga_09_data_01.asm
 19C858,FpremScale,qword_19C858,new,low,fprem scale constant,src/data/lib/video/video_bios_vga_09_data_01.asm
 19C860,F64_5p42101eneg20,qword_19C860,new,high,double constant 5.421010862e-20,src/data/lib/video/video_bios_vga_09_data_01.asm
@@ -8326,11 +8534,12 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1D9B0C,FrameRateState,dword_1D9B0C,new,low,frame rate state,src/data/lib/watcom/watcom_clib_13_bss_01.asm
 1D9B10,FrameRateSamples,dword_1D9B10,new,low,frame rate samples,src/data/lib/watcom/watcom_clib_13_bss_01.asm
 1D9B2C,FrameRateLast,dword_1D9B2C,new,low,last frame rate,src/data/lib/watcom/watcom_clib_13_bss_01.asm
-1D9B30,VideoBlock0,dword_1D9B30,new,low,video block buffer 0,src/data/lib/watcom/watcom_clib_13_bss_01.asm
-1D9B50,VideoBlock1,unk_1D9B50,new,low,video block buffer 1,src/data/lib/watcom/watcom_clib_13_bss_01.asm
-1D9B70,VideoBlock2,unk_1D9B70,new,low,video block buffer 2,src/data/lib/watcom/watcom_clib_13_bss_01.asm
-1D9B90,VideoBlock3,unk_1D9B90,new,low,video block buffer 3,src/data/lib/watcom/watcom_clib_13_bss_01.asm
-1D9BB0,VideoBlock4,unk_1D9BB0,new,low,video block buffer 4,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9B30,VideoCoefs,dword_1D9B30,new,low,8x8 block of video coefficients (8 rows of 8 dwords) read from the stream,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9C30,VideoIdctTemp,unk_1D9C30,97PC,low,first pass result of the video block transform (8 rows of 9 dwords),src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9D50,VideoIdctOut,unk_1D9D50,97PC,low,second pass result of the video block transform,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1DA34C,MemPoolSizes,dword_1DA34C,new,low,size per memory pool,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1DA350,MemPoolTable,dword_1DA350,new,low,memory pool records,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1DA390,MemPoolCount,dword_1DA390,new,low,number of memory pools,src/data/lib/watcom/watcom_clib_13_bss_01.asm
 1DA394,TintMulGreen,dword_1DA394,new,low,green multiplier of the screen tint,src/data/lib/ea/ea_debug_bss_01.asm
 1DA398,TintMulBlue,dword_1DA398,new,low,blue multiplier of the screen tint,src/data/lib/ea/ea_debug_bss_01.asm
 1DA39C,TintRowCount,dword_1DA39C,new,low,rows of the tint rectangle left to do,src/data/lib/ea/ea_debug_bss_01.asm
@@ -8361,12 +8570,133 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1DA464,IpxSocketNum,unk_1DA464,new,low,IPX socket number the game listens on,src/data/lib/ea/ea_debug_bss_01.asm
 1DA466,IpxSocketResult,unk_1DA466,new,low,result of opening the IPX socket,src/data/lib/ea/ea_debug_bss_01.asm
 1DA468,IpxLocalAddr,unk_1DA468,new,low,this computer's IPX network and node address,src/data/lib/ea/ea_debug_bss_01.asm
+1DA498,IpxEcb,unk_1DA498,new,low,IPX event control block,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4A4,IpxSocket,unk_1DA4A4,new,low,IPX socket number,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4A6,IpxRealSegment,word_1DA4A6,new,low,real mode segment of the IPX buffers,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4A8,IpxCallSegment,word_1DA4A8,new,low,real mode segment for IPX calls,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4AA,IpxCallOffset,word_1DA4AA,new,low,real mode offset for IPX calls,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4AC,IpxSavedVecOffset,word_1DA4AC,new,low,previous IPX interrupt offset,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4AE,IpxBufferSegment,word_1DA4AE,new,low,real mode segment of the IPX packet buffer,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4B0,IpxBufferOffset,word_1DA4B0,new,low,real mode offset of the IPX packet buffer,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4B2,IpxSavedVecSegment,word_1DA4B2,new,low,previous IPX interrupt segment,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4B4,errno,unk_1DA4B4,new,low,C library errno,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4B8,_doserrno,unk_1DA4B8,new,low,C library DOS error code,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4BC,__OpenStreams,dword_1DA4BC,new,low,list of open stdio streams,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4C0,__ClosedStreams,dword_1DA4C0,new,low,list of closed stdio streams,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4C4,__nheap_clean,byte_1DA4C4,new,low,near heap clean flag,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4C5,__HeapFlags,byte_1DA4C5,new,low,heap manager flags,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4C8,MemLockState,dword_1DA4C8,new,low,memory lock state,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4CC,ArchiveHeader,unk_1DA4CC,new,low,resource archive header,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA4D0,PaletteWords,dword_1DA4D0,new,low,palette as 32-bit entries,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA8CF,PaletteDirty,byte_1DA8CF,new,low,palette changed since the last write,src/data/lib/watcom/watcom_clib_15_bss_01.asm
+1DA8D0,TextCharFunc,dword_1DA8D0,new,low,text character routine,src/data/lib/watcom/watcom_clib_19_bss_01.asm
+1DA8D4,TextCharFuncNext,dword_1DA8D4,new,low,next text character routine,src/data/lib/watcom/watcom_clib_19_bss_01.asm
+1DA8D8,ScaledRowBuffer,dword_1DA8D8,new,low,scaled shape row buffer,src/data/lib/watcom/watcom_clib_19_bss_01.asm
+1DC118,PolyClipBottomBuf,unk_1DC118,new,low,polygon vertices after clipping the bottom edge,src/data/lib/watcom/watcom_clib_19_bss_01.asm
+1DC218,PolyClipLeftBuf,unk_1DC218,new,low,polygon vertices after clipping the left edge,src/data/lib/watcom/watcom_clib_19_bss_01.asm
+1DC318,PolyClipRightBuf,unk_1DC318,new,low,polygon vertices after clipping the right edge,src/data/lib/watcom/watcom_clib_19_bss_01.asm
+1DC418,PolyClipTopBuf,unk_1DC418,new,low,polygon vertices after clipping the top edge,src/data/lib/watcom/watcom_clib_19_bss_01.asm
+1DC518,TextLimitPtr,dword_1DC518,new,low,text drawing limit pointer,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC51C,TextLimitCount,dword_1DC51C,new,low,text drawing characters left,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC520,TextLimitWidth,dword_1DC520,new,low,text drawing width left,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC524,AtexitCount,dword_1DC524,new,low,number of registered atexit routines,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC528,AtexitTable,dword_1DC528,new,low,atexit routines,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC5A8,SpeechBankCount,dword_1DC5A8,new,low,number of registered speech banks,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC5AC,SpeechBankTable,dword_1DC5AC,new,low,registered speech banks,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC994,SpeechChannelA,dword_1DC994,new,low,first speech channel handle,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC998,SpeechChannelB,dword_1DC998,new,low,second speech channel handle,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC99C,SpeechRingBusy,dword_1DC99C,new,low,speech ring buffer busy,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC9A0,SpeechRingHead,dword_1DC9A0,new,low,speech ring buffer head,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC9A4,SpeechRingTail,dword_1DC9A4,new,low,speech ring buffer tail,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC9A8,SpeechSampleBufA,dword_1DC9A8,new,low,first speech sample buffer,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC9AC,SpeechSampleBufB,dword_1DC9AC,new,low,second speech sample buffer,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC9B0,SpeechRingUsed,dword_1DC9B0,new,low,speech ring entries in use,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC9B4,SpeechRingBytes,dword_1DC9B4,new,low,speech ring bytes in use,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DC9B8,SpeechRingEntries,dword_1DC9B8,new,low,speech ring entries,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DCAD0,SpeechStreamOpen,dword_1DCAD0,new,low,speech stream open,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DCAD4,SpeechStreamHeader,dword_1DCAD4,new,low,speech stream header pointer,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DCAD8,SpeechStreamBuffer,dword_1DCAD8,new,low,speech stream buffer,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DCADC,SpeechStreamSize,dword_1DCADC,new,low,speech stream buffer size,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DCAE0,SpeechStreamChannel,dword_1DCAE0,new,low,speech stream channel,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DCAE4,SpeechStreamData,dword_1DCAE4,new,low,speech stream data pointer,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DCAE8,SpeechStreamActive,dword_1DCAE8,new,low,speech stream playing,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DCAEC,SpeechStreamHandle,dword_1DCAEC,new,low,speech stream handle,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DCAF0,SpeechStreamPos,dword_1DCAF0,new,low,speech stream position,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DCAF4,SpeechStreamBlock,dword_1DCAF4,new,low,speech stream block number,src/data/lib/watcom/watcom_clib_20_bss_01.asm
+1DCAF8,SpeechStreamFlagCount,dword_1DCAF8,new,low,speech stream flag count,src/data/lib/watcom/watcom_clib_20_bss_01.asm
 1DCAFC,SpeechEventCount,dword_1DCAFC,new,low,queued speech event count,src/data/lib/watcom/watcom_clib_08_bss_02.asm
 1DCB00,SpeechEventId,dword_1DCB00,new,low,speech event: id,src/data/lib/watcom/watcom_clib_08_bss_02.asm
 1DCB04,SpeechEventTime,dword_1DCB04,new,low,speech event: time,src/data/lib/watcom/watcom_clib_08_bss_02.asm
 1DCB08,SpeechEventQueue,dword_1DCB08,new,low,speech event queue,src/data/lib/watcom/watcom_clib_08_bss_02.asm
 1DCEC0,SpeechEnabled,dword_1DCEC0,new,low,speech on,src/data/lib/watcom/watcom_clib_08_bss_02.asm
 1DCEC4,SpeechBufferTag,dword_1DCEC4,new,low,speech buffer tag ('PATl'),src/data/lib/watcom/watcom_clib_08_bss_02.asm
+1DCEC8,SpeechPatchOn,byte_1DCEC8,new,low,speech patch header: on (set to 1 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEC9,SpeechPatchLooped,byte_1DCEC9,new,low,speech patch header: looped (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCECA,SpeechPatchMono,byte_1DCECA,new,low,speech patch header: mono (set to 1 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCECB,SpeechPatchSigned,byte_1DCECB,new,low,speech patch header: signed (set to 1 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCECC,SpeechPatchFlags,word_1DCECC,new,low,speech patch header: flags (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCECE,SpeechPatchPan,byte_1DCECE,new,low,speech patch header: pan (set to 64 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCECF,SpeechPatchVolume,byte_1DCECF,new,low,speech patch header: volume (set to 127 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCED0,SpeechPatchVoices,dword_1DCED0,new,low,speech patch header: voices (set to 4 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCED4,SpeechPatchVolMin,byte_1DCED4,new,low,speech patch header: volMin (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCED5,SpeechPatchVolMax,byte_1DCED5,new,low,speech patch header: volMax (set to 127 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCED6,SpeechPatchPanMin,byte_1DCED6,new,low,speech patch header: panMin (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCED7,SpeechPatchPanMax,byte_1DCED7,new,low,speech patch header: panMax (set to 127 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCED8,SpeechPatchChannel,dword_1DCED8,new,low,speech patch header: channel (set to -1 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEDC,SpeechPatchPercent,byte_1DCEDC,new,low,speech patch header: percent (set to 100 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEDD,SpeechPatchRate,byte_1DCEDD,new,low,speech patch header: rate (set to 60 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEDE,SpeechPatchRepeat,byte_1DCEDE,new,low,speech patch header: repeat (set to 1 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEDF,SpeechPatchPriority,byte_1DCEDF,new,low,speech patch header: priority (set to 255 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEE0,SpeechPatchPanStart,byte_1DCEE0,new,low,speech patch header: panStart (set to 64 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEE1,SpeechPatchAttack,byte_1DCEE1,new,low,speech patch header: attack (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEE2,SpeechPatchDecay,byte_1DCEE2,new,low,speech patch header: decay (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEE3,SpeechPatchSustain,byte_1DCEE3,new,low,speech patch header: sustain (set to 1 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEE4,SpeechPatchPanEnd,byte_1DCEE4,new,low,speech patch header: panEnd (set to 64 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEE5,SpeechPatchRelease,byte_1DCEE5,new,low,speech patch header: release (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEE6,SpeechPatchVolStart,byte_1DCEE6,new,low,speech patch header: volStart (set to 127 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEE7,SpeechPatchDetune,byte_1DCEE7,new,low,speech patch header: detune (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEE8,SpeechPatchLoopStart,word_1DCEE8,new,low,speech patch header: loopStart (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEEA,SpeechPatchLoopEnd,word_1DCEEA,new,low,speech patch header: loopEnd (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEEC,SpeechPatchDataOffset,dword_1DCEEC,new,low,speech patch header: dataOffset (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEF0,SpeechPatchDataSize,dword_1DCEF0,new,low,speech patch header: dataSize (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEF4,SpeechPatchPosition,dword_1DCEF4,new,low,speech patch header: position (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEF8,SpeechPatchHeaderSize,dword_1DCEF8,new,low,speech patch header: headerSize (set to 32 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCEFC,SpeechPatchTemplateTag,dword_1DCEFC,new,low,speech patch header: templateTag (set to 'TMpl' at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF00,SpeechPatchFormat,byte_1DCF00,new,low,speech patch header: format (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF01,SpeechPatchBits,byte_1DCF01,new,low,speech patch header: bits (set to 16 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF02,SpeechPatchChannels,byte_1DCF02,new,low,speech patch header: channels (set to 1 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF03,SpeechPatchCompression,byte_1DCF03,new,low,speech patch header: compression (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF04,SpeechPatchBytesPerSample,byte_1DCF04,new,low,speech patch header: bytesPerSample (set to 2 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF05,SpeechPatchReserved,byte_1DCF05,new,low,speech patch header: reserved (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF06,SpeechPatchSampleRate,word_1DCF06,new,low,speech patch header: sampleRate (set to 22050 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF08,SpeechPatchLength,dword_1DCF08,new,low,speech patch header: length (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF0C,SpeechPatchLoopFrom,dword_1DCF0C,new,low,speech patch header: loopFrom (set to -1 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF10,SpeechPatchLoopTo,dword_1DCF10,new,low,speech patch header: loopTo (set to -1 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF14,SpeechPatchNext,dword_1DCF14,new,low,speech patch header: next (set to 0 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF18,SpeechPatchHandle,dword_1DCF18,new,low,speech patch header: handle (set to -1 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF1C,SpeechPatchMaxVolume,dword_1DCF1C,new,low,speech patch header: maxVolume (set to 127 at start up),src/data/lib/lib_12CD6C_bss_01.asm
+1DCF20,SpeechBankBase,dword_1DCF20,new,low,base address of the loaded speech bank,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF24,UnpackSrcPtr,dword_1DCF24,new,low,byte pair unpacker source pointer,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF28,UnpackDestPtr,dword_1DCF28,new,low,byte pair unpacker destination pointer,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF2C,UnpackCount,dword_1DCF2C,new,low,byte pair unpacker bytes left,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF30,UnpackStackPtr,dword_1DCF30,new,low,byte pair unpacker expansion stack pointer,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF34,UnpackPairTable,dword_1DCF34,new,low,byte pair unpacker pair table,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF38,ChannelSampleTable,dword_1DCF38,new,low,sample pointer per channel,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF3B,ChannelStateBytes,byte_1DCF3B,new,low,state bytes per channel,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF3E,ChannelPitchTable,dword_1DCF3E,new,low,pitch per channel,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF3F,ChannelBankTable,dword_1DCF3F,new,low,sound bank per channel,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF44,ChannelVolumeTable,byte_1DCF44,new,low,volume per channel,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF45,ChannelActiveFlags,byte_1DCF45,new,low,active flag per channel,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF47,ChannelPriorityTable,byte_1DCF47,new,low,priority per channel,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF48,ChannelRecords,dword_1DCF48,new,low,channel playback records,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF62,ChannelHandleTable,dword_1DCF62,new,low,driver handle per channel,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF67,ChannelRampTable,byte_1DCF67,new,low,volume ramp per channel,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF68,ChannelTimeTable,byte_1DCF68,new,low,time left per channel,src/data/lib/lib_12CD6C_bss_01.asm
+1DCF78,VolumeRampTable,dword_1DCF78,new,low,volume ramp steps,src/data/lib/lib_12CD6C_bss_01.asm
+1DD378,DigitalAudioHandle,dword_1DD378,new,low,digital audio driver handle,src/data/lib/lib_12CD6C_bss_01.asm
+1DD37C,DigitalAudioRate,dword_1DD37C,new,low,digital audio playback rate,src/data/lib/lib_12CD6C_bss_01.asm
+1DD37E,ChannelCount,dword_1DD37E,new,low,number of mixer channels,src/data/lib/lib_12CD6C_bss_01.asm
+1DD381,DigitalAudioVolume,byte_1DD381,new,low,digital audio master volume,src/data/lib/lib_12CD6C_bss_01.asm
 1DD384,PatlChannelParams,dword_1DD384,new,low,parameters of the PATl sample being started,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD388,GusDriverConfig,word_1DD388,new,low,card settings read by the Gravis driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD38A,GusDriverBasePort,word_1DD38A,new,low,base port of the Gravis card,src/data/lib/ea/ea_unpack_02_bss_01.asm

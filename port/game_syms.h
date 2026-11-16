@@ -45,7 +45,7 @@
 #define SYM_mouseminy          0x16E608u   /* data/lib/input/input_mouse_data_01.asm */
 #define SYM_mousemaxx          0x16E60Cu   /* data/lib/input/input_mouse_data_01.asm */
 #define SYM_mousemaxy          0x16E610u   /* data/lib/input/input_mouse_data_01.asm */
-#define SYM_dword_171E34       0x171E34u   /* data/lib/watcom/watcom_clib_13_data_01.asm */
+#define SYM_RetraceTimeout     0x171E34u   /* data/lib/watcom/watcom_clib_13_data_01.asm */
 #define SYM__dynend            0x172570u   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__curbrk            0x172574u   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__LpCmdLine         0x172578u   /* data/lib/ea/ea_memman_02_data_01.asm */

@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_12C604 progbits alloc exec nowrite align=1
-extern SoundSystemOn, byte_1DCF3B, byte_1DCF45, byte_1DCF47, byte_1DCF67, SbChannelVoice, SbChannelFlags, dword_199734
-extern dword_1DCF38, dword_1DCF48, dword_1DCF78, dword_1DD37C, dword_1DD37E, SbChannelSlots, SbChannelCount, getenv_
+extern SoundSystemOn, ChannelStateBytes, ChannelActiveFlags, ChannelPriorityTable, ChannelRampTable, SbChannelVoice, SbChannelFlags, ChannelUpdateTick
+extern ChannelSampleTable, ChannelRecords, VolumeRampTable, DigitalAudioRate, ChannelCount, SbChannelSlots, SbChannelCount, getenv_
 extern str_BLASTER, Random32, SetChannelPitch, StopChannel, AudioEnter, AudioLeaveCheck, ReturnArg, SbBasePort
 extern SbIrq, SbMixerAddrPort, SbMixerDataPort, SbResetPort, SbWritePort, SbReadPort
 global ParseBlasterEnv, ParseHexValue, SbReadData, SbWaitRead, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp
@@ -434,7 +434,7 @@ StopAllSoundChannels:
         push edx
         xor edx, edx
 .1:
-        mov eax, dword [dword edx+dword_1DCF38]
+        mov eax, dword [dword edx+ChannelSampleTable]
         add edx, byte 44h
         call StopChannel
         cmp edx, 440h
@@ -454,7 +454,7 @@ StartChannel:
         shl ebx, 4
         add ebx, eax
         shl ebx, 2
-        add ebx, dword_1DCF38
+        add ebx, ChannelSampleTable
         mov edx, dword [byte ebx+01Ch]
         mov eax, dword [byte ebx+029h]
         sar edx, 10h
@@ -463,7 +463,7 @@ StartChannel:
         mov edx, dword [byte ebx+024h]
         sar edx, 10h
         imul eax, edx
-        mov edx, dword [dword_1DD37E]
+        mov edx, dword [ChannelCount]
         sar edx, 18h
         imul edx, eax
         mov ecx, 1F417Fh
@@ -562,7 +562,7 @@ RampChannelVolume:
         shl eax, 4
         add eax, ecx
         shl eax, 2
-        mov edx, dword [dword eax+dword_1DCF78]
+        mov edx, dword [dword eax+VolumeRampTable]
         test edx, edx
         je short .5
         mov eax, edx
@@ -574,7 +574,7 @@ RampChannelVolume:
         mov eax, ecx
         shl eax, 4
         add eax, ecx
-        mov byte [nosplit eax*4+byte_1DCF67], bl
+        mov byte [nosplit eax*4+ChannelRampTable], bl
         call AudioLeaveCheck
         xor eax, eax
         pop ecx
@@ -643,13 +643,13 @@ UpdateChannels:
         cmp eax, esi
         jl short .1
 .2:
-        mov edi, dword [dword_199734]
+        mov edi, dword [ChannelUpdateTick]
         add edi, byte 20h
-        mov dword [dword_199734], edi
+        mov dword [ChannelUpdateTick], edi
         test edi, edi
         jge short .3
         xor edx, edx
-        mov dword [dword_199734], edx
+        mov dword [ChannelUpdateTick], edx
 .3:
         mov esi, dword [byte esp+018h]
         xor edx, edx
@@ -660,7 +660,7 @@ UpdateChannels:
         shl eax, cl
         test ebp, eax
         je short .5
-        cmp byte [dword ebx+byte_1DCF45], 0
+        cmp byte [dword ebx+ChannelActiveFlags], 0
         jne short .5
         mov eax, edx
         call ChannelSlotOf
@@ -699,16 +699,16 @@ UpdateChannels:
         call ChannelSlotOf
         test eax, eax
         jne short .10
-        mov al, byte [dword ebx+byte_1DCF47]
+        mov al, byte [dword ebx+ChannelPriorityTable]
         cmp eax, esi
         jge short .9
         mov esi, eax
         mov dword [byte esp+014h], edx
-        mov edi, dword [dword ebx+dword_1DCF48]
+        mov edi, dword [dword ebx+ChannelRecords]
         jmp short .10
 .9:
         jne short .10
-        mov ecx, dword [dword ebx+dword_1DCF48]
+        mov ecx, dword [dword ebx+ChannelRecords]
         cmp edi, ecx
         jle short .10
         mov edi, ecx
@@ -740,7 +740,7 @@ UpdateChannels:
         cmp eax, dword [byte esp+018h]
         jne near .17
         mov edx, dword [SbChannelSlots]
-        mov eax, dword [dword_199734]
+        mov eax, dword [ChannelUpdateTick]
         sar edx, 18h
         or eax, edx
         mov edx, dword [byte esp+08h]
@@ -749,13 +749,13 @@ UpdateChannels:
         sar edx, 18h
         mov ecx, dword [byte esp+04h]
         mov eax, edx
-        mov esi, dword [dword_199734]
+        mov esi, dword [ChannelUpdateTick]
         shl eax, 4
         mov dword [byte esp+0Ch], edx
         add eax, edx
         or esi, edx
         xor edx, edx
-        mov dword [nosplit eax*4+dword_1DCF38], esi
+        mov dword [nosplit eax*4+ChannelSampleTable], esi
         test ecx, ecx
         jle short .15
         mov ch, 1
@@ -764,20 +764,20 @@ UpdateChannels:
         mov eax, dword [dword edx+SbChannelSlots]
         sar eax, 18h
         imul eax, byte 44h
-        cmp byte [dword eax+byte_1DCF45], 1
+        cmp byte [dword eax+ChannelActiveFlags], 1
         jne short .14
-        mov eax, dword [dword eax+dword_1DCF38]
+        mov eax, dword [dword eax+ChannelSampleTable]
         call StopChannel
 .14:
         mov eax, dword [dword edx+SbChannelSlots]
         sar eax, 18h
         imul eax, byte 44h
-        mov ebx, dword [dword_1DD37C]
-        mov byte [dword eax+byte_1DCF45], ch
-        mov dword [dword eax+dword_1DCF48], ebx
+        mov ebx, dword [DigitalAudioRate]
+        mov byte [dword eax+ChannelActiveFlags], ch
+        mov dword [dword eax+ChannelRecords], ebx
         mov bl, byte [byte esp+010h]
         inc edx
-        mov byte [dword eax+byte_1DCF47], bl
+        mov byte [dword eax+ChannelPriorityTable], bl
         cmp edx, esi
         jl short .13
 .15:
@@ -790,12 +790,12 @@ UpdateChannels:
         sar edx, 18h
         imul edx, byte 44h
         mov bl, byte [dword eax+SbChannelFlags]
-        mov byte [dword edx+eax+byte_1DCF3B], bl
+        mov byte [dword edx+eax+ChannelStateBytes], bl
         mov edx, dword [dword eax+SbChannelSlots]
         sar edx, 18h
         imul edx, byte 44h
         inc eax
-        mov dword [dword edx+dword_1DCF38], ebp
+        mov dword [dword edx+ChannelSampleTable], ebp
         cmp eax, dword [byte esp+04h]
         jl short .16
 .17:
@@ -817,7 +817,7 @@ SetChannelCount:
         shl eax, 4
         add eax, edx
         xor dl, dl
-        mov byte [nosplit eax*4+byte_1DCF45], dl
+        mov byte [nosplit eax*4+ChannelActiveFlags], dl
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
@@ -835,9 +835,9 @@ IsChannelActive:
         shl eax, 4
         add eax, edx
         shl eax, 2
-        cmp byte [dword eax+byte_1DCF45], 1
+        cmp byte [dword eax+ChannelActiveFlags], 1
         jne short .1
-        cmp ebx, dword [dword eax+dword_1DCF38]
+        cmp ebx, dword [dword eax+ChannelSampleTable]
         je short .2
 .1:
         mov edx, 0FFFFFFF8h

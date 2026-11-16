@@ -2,22 +2,22 @@
 bits 32
 %include "hockey.inc"
 section s_172138 progbits alloc noexec write align=1
-extern dword_1DA4C0, SerialLinkOpen, SerialLinkClose, SerialLinkIsOpen, SerialLinkTxFree, SerialLinkRxCount, SerialLinkRead, SerialLinkWrite
+extern __ClosedStreams, SerialLinkOpen, SerialLinkClose, SerialLinkIsOpen, SerialLinkTxFree, SerialLinkRxCount, SerialLinkRead, SerialLinkWrite
 extern ModemLinkOpen, ModemLinkHangup, ModemLinkCarrier, ModemLinkTxFree, ModemLinkRxCount, ModemLinkRead, ModemLinkWrite, NetLinkRead
 extern NetLinkWrite, NetLinkConnected, NetLinkRxCount, NetLinkTxFree, NetBroadcast, NetHashName, SetPairOneZero, IpxHookCheck
 extern IpxRestoreVector, IpxSetupLayer, IpxShutdown, IpxSocketNumber, IpxStart, IpxStop, IpxBuildHeader, IpxClearName
 extern IpxSameNode, IpxCopyAddress, IpxLookupTarget, IpxLockSend, IpxLockListen, IpxQueueSend, IpxReceive, IpxPeek
 extern str_IPX
-global byte_172250, byte_172251, byte_172301, str_Punct_CountFrameTick, dword_17213C, dword_172168, dword_172194, dword_172198
-global str_D_NetHandleMessage, dword_1721A0, str_Punct_NetLeaveGame, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4, dword_1721E0
-global dword_1721E4, dword_172244, str_Punct_IpxHookCheck, dword_17224C, dword_172254, dword_172258, dword_17225C, dword_172260
-global dword_1722BC, dword_1724C9, off_172140, off_17216C, off_1721B8, unk_172264, unk_17226C, unk_172274
-global unk_1722C0, unk_1722DA, unk_172342, unk_1724C8
+global IpxPacketType, IpxPacketFlags, __iob_flags, str_Punct_CountFrameTick, FrameTickCount, ModemConnected, NetSessionName, NetMaxPeers
+global str_D_NetHandleMessage, NetSessionHandle, str_Punct_NetLeaveGame, IpxPresent, NetSendRetries, NetLastTime, NetRxCount, NetSessionOpen
+global NetProtocolName, IpxStartupState, str_Punct_IpxHookCheck, IpxPacketBuffer, IpxHookBase, IpxHookInstalled, IpxListening, IpxListenEcb
+global NetBufferPool, _fmode, SerialLinkFuncs, ModemLinkFuncs, NetLinkFuncs, IpxHookCodeA, IpxHookCodeB, IpxHookCodeC
+global __iob, __stdout_buf, __iob_end, __NFiles
 str_Punct_CountFrameTick:
         db 03Fh,03Fh,03Fh,00h
-dword_17213C:
+FrameTickCount:
         db 00h,00h,00h,00h
-off_172140:
+SerialLinkFuncs:
         dd SerialLinkOpen
         dd SerialLinkClose
         dd SerialLinkIsOpen
@@ -26,9 +26,9 @@ off_172140:
         dd SerialLinkRead
         dd SerialLinkWrite
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_172168:
+ModemConnected:
         db 00h,00h,00h,00h
-off_17216C:
+ModemLinkFuncs:
         dd ModemLinkOpen
         dd ModemLinkHangup
         dd ModemLinkCarrier
@@ -37,23 +37,23 @@ off_17216C:
         dd ModemLinkRead
         dd ModemLinkWrite
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_172194:
+NetSessionName:
         db 00h,00h,00h,00h
-dword_172198:
+NetMaxPeers:
         db 0C2h,01h,00h,00h
 str_D_NetHandleMessage:
         db 064h,00h,00h,00h
-dword_1721A0:
+NetSessionHandle:
         db 00h,00h,00h,00h
 str_Punct_NetLeaveGame:
         db 020h,00h,00h,00h
-dword_1721A8:
+IpxPresent:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-dword_1721B0:
+NetSendRetries:
         db 01h,00h,00h,00h
-dword_1721B4:
+NetLastTime:
         db 00h,00h,00h,00h
-off_1721B8:
+NetLinkFuncs:
         dd NetLinkRead
         dd NetLinkWrite
         dd NetLinkConnected
@@ -61,11 +61,11 @@ off_1721B8:
         dd NetLinkTxFree
         dd NetBroadcast
         dd NetHashName
-dword_1721D4:
+NetRxCount:
         db 02h,01h,00h,00h,074h,00h,00h,00h,04h,00h,00h,00h
-dword_1721E0:
+NetSessionOpen:
         db 00h,00h,00h,00h
-dword_1721E4:
+NetProtocolName:
         dd str_IPX
         db 0E0h,0C2h,01Eh,012h,09Eh,049h,0CFh,011h,0ADh,01Ch,00h,020h,0AFh,0D3h,0BDh,03Fh
         dd SetPairOneZero
@@ -87,50 +87,50 @@ dword_1721E4:
         dd IpxQueueSend
         dd IpxReceive
         dd IpxPeek
-dword_172244:
+IpxStartupState:
         db 00h,00h,00h,00h
 str_Punct_IpxHookCheck:
         db 060h,00h,00h,00h
-dword_17224C:
+IpxPacketBuffer:
         db 00h,00h,00h,00h
-byte_172250:
+IpxPacketType:
         db 00h
-byte_172251:
+IpxPacketFlags:
         db 00h,00h,00h
-dword_172254:
+IpxHookBase:
         db 00h,00h,00h,00h
-dword_172258:
+IpxHookInstalled:
         db 00h,00h,00h,00h
-dword_17225C:
+IpxListening:
         db 00h,00h,00h,00h
-dword_172260:
+IpxListenEcb:
         db 00h,00h,00h,00h
-unk_172264:
+IpxHookCodeA:
         db 02Eh,080h,06h,05Ch,00h,01h,0CBh,00h
-unk_17226C:
+IpxHookCodeB:
         db 02Eh,080h,06h,05Dh,00h,01h,0CBh,00h
-unk_172274:
+IpxHookCodeC:
         db 0FBh,083h,0FBh,0FFh,053h,051h,06h,01Eh,056h,057h,055h,075h,029h,083h,0F8h,00h
         db 08Dh,02Eh,060h,00h,0EBh,01Bh,050h,055h,02Eh,08Bh,05Eh,00h,02Eh,08Bh,076h,02h
         db 02Eh,08Eh,046h,04h,02Eh,0FFh,01Eh,058h,00h,05Dh,058h,083h,0C5h,06h,083h,0E8h
         db 01h,075h,0E3h,0BBh,0Ah,00h,02Eh,0FFh,01Eh,058h,00h,05Dh,05Fh,05Eh,01Fh,07h
         db 059h,05Bh,0CFh,00h,00h,00h,00h,00h
-dword_1722BC:
+NetBufferPool:
         db 00h,00h,00h,00h
-unk_1722C0:
+__iob:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,01h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_1722DA:
+__stdout_buf:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,02h,00h,00h,00h
         db 01h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,02h
-byte_172301:
+__iob_flags:
         db 00h,00h,00h,02h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,03h,00h,00h,00h,03h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,02h,00h,00h,00h,04h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h
-unk_172342:
+__iob_end:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -156,9 +156,9 @@ unk_172342:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h
-unk_1724C8:
+__NFiles:
         db 061h
-dword_1724C9:
+_fmode:
         db 00h,01h,00h,00h
-        dd dword_1DA4C0
+        dd __ClosedStreams
         db 00h,00h,00h

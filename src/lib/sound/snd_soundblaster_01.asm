@@ -8,7 +8,7 @@ extern atoi_, SbProIrqVectors, SbProDmaChannelTable, Sb16DmaPageTable, Sb16DmaAd
 extern SoundscapeIrqCodes, str_D_UpdateFrameRate, SpeechQueueVolume, AudioWorkHook, AudioStreamHook, AudioSpeechHook, SbDriverBuffer, SbDriverRunning
 extern SbProDriverBuffer, SbProDriverRunning, SbProChannels, dword_172C20, Sb16DriverActive, Sb16BufferSize, Sb16SavedIrqVector, SoundscapeBasePort
 extern str_Punct_ReadSoundscapeIni, SoundscapeCodecType, SoundscapeDmaChannel, SoundscapeWavePort, SoundscapeIrq, SoundscapeMidiIrq, SoundscapeDmaBuffer, SoundscapeSavedIrq
-extern AudioDeferredPending, AudioDeferredArg, AudioBusyCount, AudioLockCount, AudioDeferredFunc, dword_1DCF38, dword_1DD378, dword_1DD37C
+extern AudioDeferredPending, AudioDeferredArg, AudioBusyCount, AudioLockCount, AudioDeferredFunc, ChannelSampleTable, DigitalAudioHandle, DigitalAudioRate
 extern SbDmaBuffer, SbRate, SbDmaChannel, SbDmaBufSize, SbIrqLine, SbBlockSize, SbHalfSize, SbOldIrqHandler
 extern SbStartTime, SbProDmaBuffer, SbProOldIrq, SbProIrqVector, SbProRate, SbProIrqMask, SbProDmaBufSize, SbProBlockSize
 extern SbProDmaChannel, SbProIrqLine, SbProIrqNum, SbProHalfSize, SbProOldMask, SbProStereo, SbProBasePort, SbProOldHandler
@@ -2736,12 +2736,12 @@ AudioLeave:
         cmp eax, dword [AudioDeferredArg]
         je short .2
         mov dword [AudioDeferredArg], eax
-        mov dword [dword_1DD37C], edx
-        mov dword [dword_1DD378], edx
+        mov dword [DigitalAudioRate], edx
+        mov dword [DigitalAudioHandle], edx
 .2:
-        mov eax, dword [dword_1DD378]
+        mov eax, dword [DigitalAudioHandle]
         inc eax
-        mov dword [dword_1DD378], eax
+        mov dword [DigitalAudioHandle], eax
         lea edx, [nosplit eax*4+00h]
         sub edx, eax
         shl edx, 3
@@ -2750,13 +2750,13 @@ AudioLeave:
         shl eax, 2
         xor edx, edx
         div ebx
-        mov ecx, dword [dword_1DD37C]
+        mov ecx, dword [DigitalAudioRate]
         mov edx, eax
         cmp eax, ecx
         jb short .4
 .3:
         call AudioDeferredWork
-        cmp edx, dword [dword_1DD37C]
+        cmp edx, dword [DigitalAudioRate]
         jae short .3
 .4:
         xor ebp, ebp
@@ -2779,11 +2779,11 @@ AudioDeferredWork:
         push esi
         push edi
         push ebp
-        mov edx, dword [dword_1DD37C]
+        mov edx, dword [DigitalAudioRate]
         mov ebx, dword [AudioDeferredFunc]
         inc edx
         inc ebx
-        mov dword [dword_1DD37C], edx
+        mov dword [DigitalAudioRate], edx
         mov dword [AudioDeferredFunc], ebx
         call AudioDriverUpdate
         cmp dword [AudioSpeechHook], byte 0
@@ -2809,7 +2809,7 @@ AudioDeferredWork:
         je short .4
         call dword [AudioStreamHook]
 .4:
-        mov ecx, dword_1DCF38
+        mov ecx, ChannelSampleTable
         xor esi, esi
 .5:
         mov ah, byte [byte ecx+0Dh]

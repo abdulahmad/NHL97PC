@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_10376C progbits alloc exec nowrite align=1
-extern IF@ATAN2, str_Tube3, F32_2_DrawLimbSegment, F32_2_DrawLimbSegmentFlat, MenuScreenBitmap, str_Punct_DrawRinkSurface, FrameCounter, dword_16FA04
-extern RowTable, LimbShadeEnabled, ViewInterlaced, RowTableSize, UniformArtBuf, LimbVerts, dword_1DA4D0, hypot_
+extern IF@ATAN2, str_Tube3, F32_2_DrawLimbSegment, F32_2_DrawLimbSegmentFlat, MenuScreenBitmap, str_Punct_DrawRinkSurface, FrameCounter, RowTableBytes
+extern RowTable, LimbShadeEnabled, ViewInterlaced, RowTableSize, UniformArtBuf, LimbVerts, PaletteWords, hypot_
 extern FrameBlitFuncs, F64_0p31831_DrawLimbSegment, F64_65536_DrawLimbSegment, F64_0p5_DrawLimbSegment, F64_0p31831_DrawLimbSegmentFlat, F64_65536_DrawLimbSegmentFlat, F64_0p5_DrawLimbSegmentFlat, SortIndices
 extern ArtBankCount, ArtBankEntry, ArtBankEntryInfo, BytesPerPixelForDepth, DrawPolyList, BlitCore, PrefetchMemory, PrefetchShape
 extern CopyMemFast, AllocMemBlock, FloatsToInts, VecSub, VecAngle, ProjectCoord
@@ -169,7 +169,7 @@ removewindow:
         mov eax, dword [byte esp+04h]
         mov dword [RowTable], eax
         mov eax, dword [byte esp+08h]
-        mov dword [dword_16FA04], eax
+        mov dword [RowTableBytes], eax
         ret
         db 00h
 ;-----------------------------------------------------------------------------
@@ -1625,7 +1625,7 @@ WritePaletteRange:
         mov edx, 3C8h
         mov eax, dword [byte esp+014h]
         out dx, al
-        lea edi, [nosplit eax*4+dword_1DA4D0]
+        lea edi, [nosplit eax*4+PaletteWords]
         mov ebx, dword [byte esp+018h]
         inc edx
         push edx
@@ -1652,7 +1652,7 @@ WritePaletteRange:
 .2:
         mov ebp, dword [byte esp+01Ch]
         mov eax, dword [byte esp+014h]
-        lea edi, [nosplit eax*4+dword_1DA4D0]
+        lea edi, [nosplit eax*4+PaletteWords]
         mov ebx, dword [byte esp+018h]
 .3:
         mov eax, dword [byte ebp+00h]

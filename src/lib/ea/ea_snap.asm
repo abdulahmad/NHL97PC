@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_121B00 progbits alloc exec nowrite align=1
-extern _Extender, __8087, __hook387, __real87, Is8087, dword_170704, FpuSystemFlags, OldFpuVectorOffset
-extern jpt_132AF0_100, jpt_132AF0_170, str_Punct_InitFpuFlags, word_17070A, OldFpuVectorSelector, FpuCr0Bits
+extern _Extender, __8087, __hook387, __real87, Is8087, FpuFlags, FpuSystemFlags, OldFpuVectorOffset
+extern jpt_132AF0_100, jpt_132AF0_170, str_Punct_InitFpuFlags, SavedEsSelector, OldFpuVectorSelector, FpuCr0Bits
 global InitFpuFlags, MakeFpuGate, HookCoprocessorVector, SetSystemFpuFlag
 ;-----------------------------------------------------------------------------
 ; InitFpuFlags                                                   121B00  95 PC
@@ -22,7 +22,7 @@ InitFpuFlags:
         cmp byte [Is8087], 0
         je short .1
         call MakeFpuGate
-        o16 mov es, word [word_17070A]
+        o16 mov es, word [SavedEsSelector]
         mov dword [es:ebx], edx
         mov dword [byte es:ebx+04h], ecx
         call SetSystemFpuFlag
@@ -49,7 +49,7 @@ InitFpuFlags:
         mov dword [byte ebx+04h], ecx
         mov eax, 0E02h
         mov ebx, 4
-        mov ecx, dword [dword_170704]
+        mov ecx, dword [FpuFlags]
         call dword [byte ecx+030h]
         jmp short .5
 .3:

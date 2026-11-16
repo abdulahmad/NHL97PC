@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_12FB20 progbits alloc exec nowrite align=1
-extern str_ExitYN, dword_16E464, dword_16E468, MenuScreenBitmap, MessageBoxActive, BackBufferWidth, ExitHandler, dword_199990
-extern dword_199994, dword_199998, dword_19999C, dword_1999A0, dword_1999A4, PresentFunc, PresentFuncMenu, PresentFuncGame
+extern str_ExitYN, dword_16E464, dword_16E468, MenuScreenBitmap, MessageBoxActive, BackBufferWidth, ExitHandler, SavedEbx
+extern SavedEcx, SavedEdx, SavedEsi, SavedEdi, SavedRetAddr, PresentFunc, PresentFuncMenu, PresentFuncGame
 extern PresentFuncInput, str_PAUSEPRESSANYKEY, BlitConverted, PresentScreen, SaveDrawContext, RestoreDrawContext, CreateBitmapDefault, ConvertArtAt
 extern SaveTextState, RestoreTextState, DebugPrintf, DebugPrintAt, DebugPrintLine, DebugLineCount, SetScreenTarget, KbdGetKey
 extern MakeColor, SelectFont, FreeBitmap, SetDrawTarget, FillRect, SetTextColors, FillRectCorners, DebugTagStr
@@ -431,17 +431,17 @@ DosSetVector:
 ; Saves the registers, calls the routine and restores them
 ;-----------------------------------------------------------------------------
 CallPreservingRegs:
-        mov dword [dword_199990], ebx
-        mov dword [dword_199994], ecx
-        mov dword [dword_199998], edx
-        mov dword [dword_19999C], esi
-        mov dword [dword_1999A0], edi
-        pop dword [dword_1999A4]
+        mov dword [SavedEbx], ebx
+        mov dword [SavedEcx], ecx
+        mov dword [SavedEdx], edx
+        mov dword [SavedEsi], esi
+        mov dword [SavedEdi], edi
+        pop dword [SavedRetAddr]
         call CallPreservingRegs
-        push dword [dword_1999A4]
-        mov ebx, dword [dword_199990]
-        mov ecx, dword [dword_199994]
-        mov edx, dword [dword_199998]
-        mov esi, dword [dword_19999C]
-        mov edi, dword [dword_1999A0]
+        push dword [SavedRetAddr]
+        mov ebx, dword [SavedEbx]
+        mov ecx, dword [SavedEcx]
+        mov edx, dword [SavedEdx]
+        mov esi, dword [SavedEsi]
+        mov edi, dword [SavedEdi]
         ret

@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_120CF8 progbits alloc exec nowrite align=1
 extern _Extender, _ExtenderSubtype, __brk_, __unlink_, _curbrk, _nfree_, Is8087, dword_16E318
-extern dword_199C48, dword_199C4C, RationalAllocLimit, RationalAllocFlags
+extern __nheapbeg, __amblksiz, RationalAllocLimit, RationalAllocFlags
 global RationalAlloc_, __AdjustAmount_, __CreateNewNHeap_, __ExpandDGROUP_, __FreeDPMIBlocks_, __LastFree_, __LinkUpNewMHeap_, __ReAllocDPMIBlock_
 global RationalAlloc__C8, RationalAlloc__CB
 ;-----------------------------------------------------------------------------
@@ -345,7 +345,7 @@ __CreateNewNHeap_:
         push esi
         push edi
         push eax
-        cmp dword [dword_199C48], byte 0
+        cmp dword [__nheapbeg], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -433,7 +433,7 @@ __ExpandDGROUP_:
         call __CreateNewNHeap_
         jmp near .14
 .3:
-        cmp dword [dword_199C48], byte 0
+        cmp dword [__nheapbeg], byte 0
         jne short .5
 .4:
         xor eax, eax
@@ -583,7 +583,7 @@ __AdjustAmount_:
         add edx, byte 3Ch
         cmp edx, dword [ebx]
         jb short .1
-        mov esi, dword [dword_199C4C]
+        mov esi, dword [__amblksiz]
         cmp edx, esi
         jae short .7
         mov edx, esi

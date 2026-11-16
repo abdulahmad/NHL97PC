@@ -4,129 +4,129 @@ bits 32
 section s_1706E0 progbits alloc noexec write align=1
 extern __null_int23_exit_, FixedSinCos_70, SerialISR_9, SerialISR_12, SerialISR_1B, _dos_getdiskfree__38, BlitRowRemap8, BlitRowKey16
 extern BlitRowKey24, BlitRowKey32, BiosKeyCall, SerialISR, CopyPixels8, CopyPixels16, CopyPixels24, CopyPixels32
-global str_FILESLINED, byte_17075C, byte_170764, byte_170781, byte_17078E, byte_17079A, byte_17079C, byte_1707B7
-global byte_1707FC, byte_170800, byte_170804, byte_170810, byte_17086B, byte_1708C6, byte_170921, byte_17097C
-global byte_171C90, byte_171D33, byte_171D34, dword_1706F8, dword_170704, dword_17070C, dword_170710, dword_170714
-global dword_170754, dword_170758, dword_170760, dword_1707E4, dword_1707EA, dword_1707F0, dword_1709D8, dword_1709ED
-global dword_1709F1, dword_1709F8, str_BK, dword_170AF8, dword_170AFC, dword_170B00, dword_170B04, dword_170B08
-global dword_170B0C, dword_170B10, dword_1712CC, dword_171C88, dword_171C8C, dword_171E34, off_1706E0, off_1706E4
-global off_170B14, off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, off_171D10, unk_170B26
-global unk_170B30, unk_170F72, unk_170F7C, unk_1713BE, unk_1713C8, unk_17180A, unk_171814, unk_171E38
-global str_Punct_InitFpuFlags, word_17070A, word_1707E8, word_1707EE, word_1707F4, word_1707F6, word_170B24, word_171C56
-off_1706E0:
+global str_FILESLINED, KbdCapsLock, KeyStateTable, KbdShiftDown, KbdCtrlDown, KbdAltDown, KbdNumLock, KbdScrollLock
+global KbdPrefixByte, KbdInsertMode, KbdPauseState, ScanToAscii, ScanToAsciiShift, ScanToAsciiCaps, ScanToAsciiCtrl, ScanToAsciiCapsShift
+global ShadeTable, TintByte, TintTable, KeyedBlitState, FpuFlags, BiosKeyFunc, KbdHandlerInstalled, KeyBuffer
+global KeyBufferHead, KeyBufferTail, KeyBufferMask, SavedKbdVecOffset, SavedInt16Offset, SavedRealKbdOffset, AssertLine, AssertFileName
+global AssertMessage, VideoGammaSource, str_BK, VideoDecoderReady, FrameRateCount, FrameRateStart, FrameRateTicks, FrameRateValue
+global FrameRateMin, FrameRateMax, PlatformState, PlatformFirstInit, RetraceTimeout, KeyedRowFuncs, KeyDownTable
+global SerialPortTable, SerialIsrPort1, SerialIsrPort2, ExitHook, Int23Hook, FpuExitHook, ArtConvertFuncs, SerialPorts
+global VideoOptionsText
+global str_Punct_InitFpuFlags, SavedEsSelector, SavedKbdVecSelector, SavedInt16Selector, SavedRealKbdSegment, KbdDataSelector, SerialIrqMask, SerialBaudDivisors
+KeyedRowFuncs:
         dd FixedSinCos_70
-off_1706E4:
+KeyDownTable:
         dd BlitRowRemap8
         dd BlitRowKey16
         dd BlitRowKey16
         dd BlitRowKey24
         dd BlitRowKey32
-dword_1706F8:
+KeyedBlitState:
         db 00h,00h,00h,00h,01h,00h,00h,00h,00h,00h,00h,00h
-dword_170704:
+FpuFlags:
         db 00h,00h,00h,00h
 str_Punct_InitFpuFlags:
         db 020h,00h
-word_17070A:
+SavedEsSelector:
         db 00h,00h
-dword_17070C:
+BiosKeyFunc:
         dd BiosKeyCall
-dword_170710:
+KbdHandlerInstalled:
         db 00h,00h,00h,00h
-dword_170714:
+KeyBuffer:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_170754:
+KeyBufferHead:
         db 00h,00h,00h,00h
-dword_170758:
+KeyBufferTail:
         db 00h,00h,00h,00h
-byte_17075C:
+KbdCapsLock:
         db 00h,00h,00h,00h
-dword_170760:
+KeyBufferMask:
         db 01h,00h,00h,00h
-byte_170764:
+KeyStateTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-byte_170781:
+KbdShiftDown:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-byte_17078E:
+KbdCtrlDown:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-byte_17079A:
+KbdAltDown:
         db 00h,00h
-byte_17079C:
+KbdNumLock:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-byte_1707B7:
+KbdScrollLock:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_1707E4:
+SavedKbdVecOffset:
         db 00h,00h,00h,00h
-word_1707E8:
+SavedKbdVecSelector:
         db 00h,00h
-dword_1707EA:
+SavedInt16Offset:
         db 00h,00h,00h,00h
-word_1707EE:
+SavedInt16Selector:
         db 00h,00h
-dword_1707F0:
+SavedRealKbdOffset:
         db 00h,00h,00h,00h
-word_1707F4:
+SavedRealKbdSegment:
         db 00h,00h
-word_1707F6:
+KbdDataSelector:
         db 00h,00h,00h,00h,00h,00h
-byte_1707FC:
+KbdPrefixByte:
         db 00h,00h,00h,00h
-byte_170800:
+KbdInsertMode:
         db 00h,00h,00h,00h
-byte_170804:
+KbdPauseState:
         db 00h,00h,00h,00h,00h,00h,00h,00h,0FFh,0FFh,00h,00h
-byte_170810:
+ScanToAscii:
         db 00h,01Bh,031h,032h,033h,034h,035h,036h,037h,038h,039h,030h,02Dh,03Dh,08h,09h
         db 071h,077h,065h,072h,074h,079h,075h,069h,06Fh,070h,05Bh,05Dh,0Dh,00h,061h,073h
         db 064h,066h,067h,068h,06Ah,06Bh,06Ch,03Bh,027h,060h,00h,05Ch,07Ah,078h,063h,076h
         db 062h,06Eh,06Dh,02Ch,02Eh,02Fh,00h,02Ah,00h,020h,00h,0BBh,0BCh,0BDh,0BEh,0BFh
         db 0C0h,0C1h,0C2h,0C3h,0C4h,00h,00h,0C7h,0C8h,0C9h,02Dh,0CBh,0CCh,0CDh,02Bh,0CFh
         db 0D0h,0D1h,0D2h,0D3h,00h,00h,00h,087h,088h,00h,00h
-byte_17086B:
+ScanToAsciiShift:
         db 00h,01Bh,021h,040h,023h,024h,025h,05Eh,026h,02Ah,028h,029h,05Fh,02Bh,08h,08Fh
         db 051h,057h,045h,052h,054h,059h,055h,049h,04Fh,050h,07Bh,07Dh,0Dh,00h,041h,053h
         db 044h,046h,047h,048h,04Ah,04Bh,04Ch,03Ah,022h,07Eh,00h,07Ch,05Ah,058h,043h,056h
         db 042h,04Eh,04Dh,03Ch,03Eh,03Fh,00h,00h,00h,020h,00h,0D4h,0D5h,0D6h,0D7h,0D8h
         db 0D9h,0DAh,0DBh,0DCh,0DDh,00h,00h,0C7h,0C8h,0C9h,02Dh,0CBh,0CCh,0CDh,02Bh,0CFh
         db 0D0h,0D1h,0D2h,0D3h,00h,00h,00h,089h,08Ah,00h,00h
-byte_1708C6:
+ScanToAsciiCaps:
         db 00h,01Bh,031h,032h,033h,034h,035h,036h,037h,038h,039h,030h,02Dh,03Dh,08h,08Fh
         db 051h,057h,045h,052h,054h,059h,055h,049h,04Fh,050h,05Bh,05Dh,0Dh,00h,041h,053h
         db 044h,046h,047h,048h,04Ah,04Bh,04Ch,03Bh,027h,060h,00h,05Ch,05Ah,058h,043h,056h
         db 042h,04Eh,04Dh,02Ch,02Eh,02Fh,00h,00h,00h,020h,00h,0D4h,0D5h,0D6h,0D7h,0D8h
         db 0D9h,0DAh,0DBh,0DCh,0DDh,00h,00h,0C7h,0C8h,0C9h,02Dh,0CBh,0CCh,0CDh,02Bh,0CFh
         db 0D0h,0D1h,0D2h,0D3h,00h,00h,00h,089h,08Ah,00h,00h
-byte_170921:
+ScanToAsciiCtrl:
         db 00h,01Bh,021h,00h,023h,024h,025h,01Eh,026h,02Ah,028h,029h,01Fh,0B3h,07Fh,09h
         db 011h,017h,05h,012h,014h,019h,015h,09h,0Fh,010h,01Bh,01Dh,0Dh,00h,01h,013h
         db 04h,06h,07h,08h,0Ah,0Bh,0Ch,03Bh,02Ch,060h,00h,01Ch,01Ah,018h,03h,016h
         db 02h,0Eh,0B2h,03Ch,03Eh,03Fh,00h,00h,00h,020h,00h,0DEh,0DFh,0E0h,0E1h,0E2h
         db 0E3h,0E4h,0E5h,0E6h,0E7h,00h,00h,0C7h,0C8h,0C9h,02Dh,0CBh,0CCh,0CDh,02Bh,0CFh
         db 0D0h,0D1h,0D2h,0D3h,00h,00h,00h,08Bh,08Ch,00h,00h
-byte_17097C:
+ScanToAsciiCapsShift:
         db 00h,01Bh,021h,040h,023h,024h,025h,05Eh,026h,02Ah,028h,029h,05Fh,02Bh,08h,08Fh
         db 090h,091h,092h,093h,094h,095h,096h,097h,098h,099h,07Bh,07Dh,0Dh,00h,09Eh,09Fh
         db 0A0h,0A1h,0A2h,0A3h,0A4h,0A5h,0A6h,03Ah,022h,07Eh,00h,07Ch,0ACh,0ADh,0AEh,0AFh
         db 0B0h,0B1h,0B2h,03Ch,03Eh,03Fh,00h,00h,00h,020h,00h,0F8h,0F9h,0FAh,0FBh,0FCh
         db 0FDh,0FEh,0FFh,080h,081h,00h,00h,0C7h,0C8h,0C9h,02Dh,0CBh,0CCh,0CDh,02Bh,0CFh
         db 0D0h,0D1h,0D2h,0D3h,00h,00h,00h,08Dh,08Eh,00h,00h,00h
-dword_1709D8:
+AssertLine:
         db 00h,00h,00h,00h
 str_FILESLINED:
         db 046h,049h,04Ch,045h,020h,025h,073h,020h,04Ch,049h,04Eh,045h,020h,025h,064h,0Dh
         db 00h
-dword_1709ED:
+AssertFileName:
         db 00h,00h,00h,00h
-dword_1709F1:
+AssertMessage:
         db 00h,00h,00h,00h,00h,00h,00h
-dword_1709F8:
+VideoGammaSource:
         db 00h,020h,00h,00h,012h,017h,00h,00h,07Eh,018h,00h,00h,037h,01Bh,00h,00h
         db 00h,020h,00h,00h,0BAh,028h,00h,00h,021h,03Bh,00h,00h,0FCh,073h,00h,00h
         db 012h,017h,00h,00h,0A2h,010h,00h,00h,0A8h,011h,00h,00h,09Fh,013h,00h,00h
@@ -145,32 +145,31 @@ str_BK:
         db 042h,04Bh,00h,00h,041h,06Dh,00h,00h,050h,0D6h,00h,00h,0FCh,073h,00h,00h
         db 09Fh,053h,00h,00h,0C5h,058h,00h,00h,0A3h,062h,00h,00h,0FCh,073h,00h,00h
         db 09Fh,093h,00h,00h,050h,0D6h,00h,00h,063h,0A4h,01h,00h
-dword_170AF8:
+VideoDecoderReady:
         db 00h,00h,00h,00h
-dword_170AFC:
+FrameRateCount:
         db 00h,00h,00h,00h
-dword_170B00:
+FrameRateStart:
         db 00h,00h,00h,00h
-dword_170B04:
+FrameRateTicks:
         db 00h,00h,00h,00h
-dword_170B08:
+FrameRateValue:
         db 00h,00h,00h,00h
-dword_170B0C:
+FrameRateMin:
         db 00h,00h,00h,00h
-dword_170B10:
+FrameRateMax:
         db 00h,00h,00h,00h
-off_170B14:
-        dd unk_170B26
-off_170B18:
-        dd unk_170F72
-off_170B1C:
-        dd unk_1713BE
-        dd unk_17180A
-word_170B24:
+SerialPortTable:
+        dd SerialPorts
+SerialIsrPort1:
+        dd SerialPorts+44Ch
+SerialIsrPort2:
+        dd SerialPorts+898h
+        dd SerialPorts+0CE4h
+SerialIrqMask:
         db 00h,00h
-unk_170B26:
+SerialPorts:
         db 02h,00h,00h,03h,0Ch,00h,010h,00h,0F8h,03h
-unk_170B30:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         dd SerialISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -241,9 +240,7 @@ unk_170B30:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_170F72:
         db 02h,00h,00h,03h,0Bh,00h,08h,00h,0F8h,02h
-unk_170F7C:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         dd SerialISR_9
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -299,7 +296,6 @@ unk_170F7C:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h
-dword_1712CC:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -316,9 +312,7 @@ dword_1712CC:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h
-unk_1713BE:
         db 02h,00h,00h,03h,0Ch,00h,010h,00h,0E8h,03h
-unk_1713C8:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         dd SerialISR_12
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -389,9 +383,7 @@ unk_1713C8:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_17180A:
         db 02h,00h,00h,03h,0Bh,00h,08h,00h,0E8h,02h
-unk_171814:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         dd SerialISR_1B
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -462,21 +454,21 @@ unk_171814:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-word_171C56:
+SerialBaudDivisors:
         db 080h,01h,0C0h,00h,060h,00h,040h,00h,03Ah,00h,030h,00h,020h,00h,018h,00h
         db 010h,00h,0Ch,00h,08h,00h,06h,00h,04h,00h,02h,00h,01h,00h,043h,04Fh
         db 04Dh,04Dh,00h,00h,00h,00h
-off_171C7C:
+ExitHook:
         dd __null_int23_exit_
-off_171C80:
+Int23Hook:
         dd __null_int23_exit_
-off_171C84:
+FpuExitHook:
         dd __null_int23_exit_
-dword_171C88:
+PlatformState:
         db 00h,00h,00h,00h
-dword_171C8C:
+PlatformFirstInit:
         db 01h,00h,00h,00h
-byte_171C90:
+ShadeTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,018h,00h,018h,00h,00h,00h,00h,010h,020h,00h,00h,00h,00h,00h
@@ -485,7 +477,7 @@ byte_171C90:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,010h,01h,04h,08h,00h,020h,0Fh,018h
         db 00h,00h,00h,00h,00h,00h,00h,00h,010h,01h,04h,08h,00h,020h,0Fh,018h
-off_171D10:
+ArtConvertFuncs:
         dd _dos_getdiskfree__38
         dd CopyPixels8
         dd CopyPixels16
@@ -493,9 +485,9 @@ off_171D10:
         dd CopyPixels24
         dd CopyPixels32
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-byte_171D33:
+TintByte:
         db 00h
-byte_171D34:
+TintTable:
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
@@ -512,9 +504,9 @@ byte_171D34:
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
-dword_171E34:
+RetraceTimeout:
         db 0A0h,086h,01h,00h
-unk_171E38:
+VideoOptionsText:
         db 00h,00h,00h,00h,00h,0A8h,00h,0A8h,00h,00h,0A8h,0A8h,0A8h,00h,00h,0A8h
         db 00h,0A8h,0A8h,054h,00h,0A8h,0A8h,0A8h,054h,054h,054h,054h,054h,0FCh,054h,0FCh
         db 054h,054h,0FCh,0FCh,0FCh,054h,054h,0FCh,054h,0FCh,0FCh,0FCh,054h,0FCh,0FCh,0FCh

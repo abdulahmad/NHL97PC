@@ -3,12 +3,12 @@ bits 32
 %include "hockey.inc"
 section s_121C55 progbits alloc exec nowrite align=1
 extern _Extender, __8087, __EnterWVIDEO_, __init_80x87, __no87, __prtf_, __real87, __unhook387
-extern _curbrk, FpuType, ScreenBitsPerPixel, str_Punct_FreeArtArchive, RemapTable, IdentityRemap, byte_171C90, Is8087
+extern _curbrk, FpuType, ScreenBitsPerPixel, str_Punct_FreeArtArchive, RemapTable, IdentityRemap, ShadeTable, Is8087
 extern ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, ScreenPitch, ScreenBuffer, DrawDestBuffer, DrawDestPitch
-extern DrawDestOffset, str_F_BlitCore, dword_170704, FpuSystemFlags, OldFpuVectorOffset, BlitDestOffsets, BlitColumnOffsets, BlitSourcePtr
-extern dword_1DA8D0, dword_1DA8D4, off_199CDC, off_199CE0, strchr_, strcpy_, stricmp_, strlen_
-extern bcopy, ConvertArtRows, ConvertArtShape, VesaSetBank, FixedLerp, WriteConsoleMessage, FreeMemBlock, unk_1DA4CC
-extern unk_1DC118, unk_1DC218, unk_1DC318, unk_1DC418, str_Punct_InitFpuFlags, OldFpuVectorSelector, FpuCr0Bits, word_199CD8
+extern DrawDestOffset, str_F_BlitCore, FpuFlags, FpuSystemFlags, OldFpuVectorOffset, BlitDestOffsets, BlitColumnOffsets, BlitSourcePtr
+extern TextCharFunc, TextCharFuncNext, EmuInitHook, EmuFiniHook, strchr_, strcpy_, stricmp_, strlen_
+extern bcopy, ConvertArtRows, ConvertArtShape, VesaSetBank, FixedLerp, WriteConsoleMessage, FreeMemBlock, ArchiveHeader
+extern PolyClipBottomBuf, PolyClipLeftBuf, PolyClipRightBuf, PolyClipTopBuf, str_Punct_InitFpuFlags, OldFpuVectorSelector, FpuCr0Bits, DefaultControlWord
 global __chk8087_, __exit_with_msg_, __fatal_runtime_error_, __init_8087_, __rest_8087_, __save_8087_, __sys_fini_387_emulator, _fpreset_
 global NextTextChar_54, ClipPolyLeft_B8, mem_putc__0, EmuRestoreFpuVector, EmuRestoreRealVector, EmuNoHook, GetArchiveType, GetArchiveHeaderSize
 global FindArchiveEntry, ArchiveEntryOffset, ArchiveEntryOffsetAt, LocateArchiveEntry, LocateArchiveEntries, NextTextByte, NextTextChar, BlitCore
@@ -35,7 +35,7 @@ __sys_fini_387_emulator:
         jne short .3
         mov eax, 0E02h
         mov ebx, 0
-        mov ecx, dword [dword_170704]
+        mov ecx, dword [FpuFlags]
         call dword [byte ecx+030h]
         jmp short .6
 .3:
@@ -129,11 +129,11 @@ __init_8087_:
         je short .1
         mov edx, __save_8087_
         mov ebx, __rest_8087_
-        mov dword [off_199CDC], edx
-        mov dword [off_199CE0], ebx
+        mov dword [EmuInitHook], edx
+        mov dword [EmuFiniHook], ebx
 .1:
         xor eax, eax
-        mov ax, word [word_199CD8]
+        mov ax, word [DefaultControlWord]
         call __init_80x87
         pop edx
         pop ebx
@@ -463,7 +463,7 @@ ArchiveEntryOffset:
         sub esp, byte 4
         mov edx, dword [byte esp+014h]
         push edx
-        push unk_1DA4CC
+        push ArchiveHeader
         lea eax, [byte esp+08h]
         push eax
         push byte 0
@@ -481,7 +481,7 @@ ArchiveEntryOffset:
         push ebx
         sub esp, byte 4
         push byte 1
-        push unk_1DA4CC
+        push ArchiveHeader
         lea eax, [byte esp+08h]
         push eax
         push byte 0
@@ -503,7 +503,7 @@ ArchiveEntryOffsetAt:
         push ebx
         sub esp, byte 4
         push byte 0
-        push unk_1DA4CC
+        push ArchiveHeader
         lea eax, [byte esp+08h]
         push eax
         push byte 0
@@ -528,7 +528,7 @@ LocateArchiveEntry:
         sub esp, byte 4
         mov edx, dword [byte esp+01Ch]
         push edx
-        push unk_1DA4CC
+        push ArchiveHeader
         lea eax, [byte esp+08h]
         push eax
         xor ebx, ebx
@@ -693,7 +693,7 @@ LocateArchiveEntries:
         push ebx
         sub esp, byte 4
         push byte 0
-        push unk_1DA4CC
+        push ArchiveHeader
         lea eax, [byte esp+08h]
         push eax
         mov edx, dword [byte esp+01Ch]
@@ -839,11 +839,11 @@ NextTextChar_54:
         mov esi, edx
         mov ecx, ebx
         mov edx, esp
-        call dword [dword_1DA8D4]
+        call dword [TextCharFuncNext]
         mov eax, esp
         mov ebx, ecx
         mov edx, esi
-        call dword [dword_1DA8D0]
+        call dword [TextCharFunc]
         add esp, 1400h
         pop esi
         pop ecx
@@ -870,7 +870,7 @@ BlitCore:
         mov dword [byte ebp-058h], edx
         mov dword [byte ebp-054h], eax
         xor ecx, ecx
-        mov dword [dword_1DA8D4], edx
+        mov dword [TextCharFuncNext], edx
         mov cl, byte [str_Punct_FreeArtArchive]
         test esi, esi
         je short .1
@@ -897,7 +897,7 @@ BlitCore:
         cmp byte [byte edi+01Ch], 2
         je short .3
         xor ebx, ebx
-        mov dword [dword_1DA8D4], eax
+        mov dword [TextCharFuncNext], eax
         mov dword [byte ebp-054h], ebx
         jmp short .3
 .2:
@@ -927,7 +927,7 @@ BlitCore:
         mov ebx, dword [byte ebx+04h]
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         inc eax
         and al, 0FEh
         mov dword [byte ebp-034h], eax
@@ -1086,10 +1086,10 @@ BlitCore:
 .17:
         mov dword [byte ebp-04h], eax
 .18:
-        cmp dword [dword_1DA8D4], byte 0
+        cmp dword [TextCharFuncNext], byte 0
         je short .19
         mov eax, dword [byte ebp-04h]
-        mov dword [dword_1DA8D0], eax
+        mov dword [TextCharFunc], eax
         mov dword [byte ebp-04h], NextTextChar_54
 .19:
         cmp dword [ScreenBuffer], byte 0
@@ -1930,7 +1930,7 @@ ShapeRowBytes:
         mov eax, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         mov ebx, eax
         cmp eax, byte 0Fh
         jne short .2
@@ -2341,7 +2341,7 @@ ClipPolyLeft:
         mov eax, dword [ebx]
         xor ebp, ebp
         mov dword [esp], eax
-        mov dword [ebx], unk_1DC218
+        mov dword [ebx], PolyClipLeftBuf
         lea edx, [byte eax+08h]
         mov ebx, dword [ebx]
 .1:
@@ -2434,7 +2434,7 @@ ClipPolyRight:
         mov eax, dword [ebx]
         mov dword [esp], eax
         lea edx, [byte eax+08h]
-        mov dword [ebx], unk_1DC318
+        mov dword [ebx], PolyClipRightBuf
         mov dword [byte esp+04h], edx
         mov edx, dword [ClipRight]
         xor ebp, ebp
@@ -2532,7 +2532,7 @@ ClipPolyTop:
         mov eax, dword [ebx]
         xor ebp, ebp
         mov dword [esp], eax
-        mov dword [ebx], unk_1DC418
+        mov dword [ebx], PolyClipTopBuf
         lea edx, [byte eax+08h]
         mov ebx, dword [ebx]
 .1:
@@ -2619,7 +2619,7 @@ ClipPolyBottom:
         mov eax, dword [ebx]
         xor ebp, ebp
         mov dword [esp], eax
-        mov dword [ebx], unk_1DC118
+        mov dword [ebx], PolyClipBottomBuf
         lea edx, [byte eax+08h]
         mov ebx, dword [ebx]
 .1:

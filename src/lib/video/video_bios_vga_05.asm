@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_123414 progbits alloc exec nowrite align=1
-extern ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, str_2_SetupRectFill, off_199CEC, PlotPixel, FillRect
+extern ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, str_2_SetupRectFill, ReciprocalRowTable, PlotPixel, FillRect
 global jpt_123595, jpt_1235F5, jpt_1236E1, jpt_1237CB, jpt_1239B2, jpt_123D10, SetupRectFill_D, SetupRectFill_5B
 global SetupRectFill_165, jpt_123595_40, jpt_1235F5_D2, jpt_1236E1_DF, jpt_1237CB_14A, jpt_1237CB_1DB, jpt_1239B2_145, jpt_1239B2_153
 global jpt_1239B2_1AC, jpt_1239B2_1BF, jpt_1239B2_27F, FillRectSpans_7C, FillRectSpans_A2, FillRectSpans_C7, FillRectSpans_E7, FillRectSpans_107
@@ -142,7 +142,7 @@ SetupRectFill_5B:
         cmp ecx, dword [str_2_SetupRectFill]
         jge short .17
         LD mov, ebx, ecx
-        mov ebx, dword [nosplit ebx*4+off_199CEC]
+        mov ebx, dword [nosplit ebx*4+ReciprocalRowTable]
         mov ax, word [ebx+edx*2]
         shl eax, 10h
         jmp short .18

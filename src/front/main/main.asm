@@ -9,10 +9,10 @@ extern str_Punct11, str_YouMustFirstUseTheSETUPPr, str_SystemBeforeRunningHOCKEY
 extern str_NHL97MustBeInstalledAndRu, str_CDFILEIVIV, str_BitteLegenSieDieNHL97CDIn, str_PleaseInsertTheNHL97CDROM, str_CHK12, str_X12, str_CB003, str_CHKD
 extern str_XD2, str_CB02d, str_N, str_E, str_W, str_S14, str_NW, str_NE
 extern str_SW, str_SE, str_LX02d, str_LC02d, str_UNPACKLOGO, str_LOGO8, str_LX004, str_LC004
-extern str_DisD, str_REL1, str_RELD, str_Ldn2, byte_171C90, byte_1AC818, byte_1AC81B, byte_1C1267
+extern str_DisD, str_REL1, str_RELD, str_Ldn2, ShadeTable, byte_1AC818, byte_1AC81B, byte_1C1267
 extern byte_1C6040, close_, dword_16AEB4, dword_16CAB0, dword_16CAB4, str_Punct_DrawScreenBackground, dword_16CAF4, dword_16CB78
 extern dword_16CB7C, dword_16CB80, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap, DebugMode, ScreenWidth
-extern ExitHandler, dword_170710, dword_1AC814, dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE4
+extern ExitHandler, KbdHandlerInstalled, dword_1AC814, dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE4
 extern dword_1C5DE8, dword_1C5E74, dword_1C5E78, dword_1C5E7C, dword_1C5E80, dword_1C5E84, dword_1C5EA0, dword_1C5EA4
 extern dword_1C5EA8, dword_1C5EC4, dword_1C5EC8, dword_1C5ECC, dword_1C5ED0, dword_1C5EEC, dword_1C5EF0, dword_1C5EF4
 extern dword_1C5F08, dword_1C5F0C, dword_1C5F12, dword_1C5F16, dword_1C5F1A, dword_1C5F1E, dword_1C5F22, dword_1C5F26
@@ -355,7 +355,7 @@ main_:
         imul eax, ebx
         call srand_
         mov dword [DebugMode], 0
-        mov dword [dword_170710], 0
+        mov dword [KbdHandlerInstalled], 0
         call InstallErrorHandlers
         call NetInit
         call InitVideoModeList
@@ -855,7 +855,7 @@ ShadeShape:
         mov ebp, ecx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .29
         cmp eax, byte 10h
@@ -863,7 +863,7 @@ ShadeShape:
         mov eax, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .29
         cmp eax, byte 10h
@@ -1357,7 +1357,7 @@ DrawShadedLogo:
         mov dword [byte esp+024h], ecx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .36
         cmp eax, byte 10h
@@ -1365,7 +1365,7 @@ DrawShadedLogo:
         mov eax, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .36
         cmp eax, byte 10h
@@ -1837,7 +1837,7 @@ DrawShadowBox:
         mov dword [byte esp+0Ch], ecx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .21
         cmp eax, byte 10h
@@ -6460,13 +6460,13 @@ DrawStatTable:
         mov dword [byte esp+0Ch], edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 10h
         jne near .10
         mov eax, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 10h
         jne near .10
         mov eax, dword [byte esp+018h]
@@ -6610,13 +6610,13 @@ DrawStatTable:
         mov dword [esp], edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 10h
         jne near .21
         mov eax, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 10h
         jne near .21
         mov eax, dword [byte esp+018h]
@@ -7020,7 +7020,7 @@ DrawPortrait:
         mov eax, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .19
         cmp eax, byte 10h
@@ -7028,7 +7028,7 @@ DrawPortrait:
         mov eax, esi
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 8
         je short .1
         cmp eax, byte 0Fh
@@ -7135,7 +7135,7 @@ DrawPortrait:
         mov ebx, dword [byte esp+064h]
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         sub ebx, byte 2
         lea edx, [byte esi+010h]
         mov dword [byte esp+054h], ebx
@@ -7964,7 +7964,7 @@ DrawStatHeader:
         mov esi, ecx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         test ebp, ebp
         je near .19
         cmp eax, byte 0Fh
@@ -8680,7 +8680,7 @@ DrawHighlightBar:
         mov dword [byte esp+0Ch], ecx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         test ebp, ebp
         je near .17
         cmp eax, byte 0Fh
@@ -9676,7 +9676,7 @@ TintPortrait:
         mov dword [byte esp+0Ch], edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .8
         cmp eax, byte 10h
@@ -9684,7 +9684,7 @@ TintPortrait:
         mov eax, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .8
         cmp eax, byte 10h

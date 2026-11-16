@@ -2,27 +2,27 @@
 bits 32
 %include "hockey.inc"
 section s_16843C progbits alloc noexec write align=1
-global str_DOSJoystick, byte_1684C8, dword_16844C, dword_168450, dword_168454, dword_168458, dword_168462, dword_1684C0
-global dword_1684C4, dword_1684E4, dword_168564, dword_168571, dword_168628, dword_16862C, qword_16843C, qword_168444
-global qword_16845E, str_CGRIP, str_GRIP, str_GRIPGLL, unk_16845C, unk_168574, word_1684BE, word_1684CA
-global word_1684E8, word_1684EC
-qword_16843C:
+global str_DOSJoystick, GripFlags, DblMaxLow, DblMaxHigh, DblMinusMaxLow, DblMinusMaxHigh, Pow10TableHigh, GripDriverPtr
+global GripDriverData, GripLinked, LinePlayerSlots, LinePlayerOffsets, CameraSceneId, ScoreClockShown, F64_Scale10Max, F64_Scale10Min
+global Pow10Table, str_CGRIP, str_GRIP, str_GRIPGLL, Scale10Count, LinePlayerOrder, GripPortWord, GripSlot
+global GripReady, CrowdChantTable
+F64_Scale10Max:
         db 00h,00h,00h,00h,00h,00h,0F0h,07Fh
-qword_168444:
+F64_Scale10Min:
         db 00h,00h,00h,00h,00h,00h,0F0h,0FFh
-dword_16844C:
+DblMaxLow:
         db 0FFh,0FFh,0FFh,0FFh
-dword_168450:
+DblMaxHigh:
         db 0FFh,0FFh,0EFh,07Fh
-dword_168454:
+DblMinusMaxLow:
         db 0FFh,0FFh,0FFh,0FFh
-dword_168458:
+DblMinusMaxHigh:
         db 0FFh,0FFh,0EFh,0FFh
-unk_16845C:
+Scale10Count:
         db 0D8h,00h
-qword_16845E:
+Pow10Table:
         db 0C6h,0F9h,0C6h,040h
-dword_168462:
+Pow10TableHigh:
         db 0E9h,034h,0C7h,06Ch,06Ch,00h,012h,04Eh,083h,0CCh,03Dh,040h,05Bh,056h,036h,00h
         db 0CEh,0C9h,014h,088h,087h,0E1h,024h,04Bh,01Bh,00h,02h,084h,0FEh,0E4h,071h,0D9h
         db 089h,045h,0Eh,00h,00h,00h,090h,01Eh,0C4h,0BCh,0D6h,042h,08h,00h,00h,00h
@@ -30,15 +30,15 @@ dword_168462:
         db 01h,00h,00h,00h,00h,00h,00h,00h,024h,040h,00h,00h,00h,00h
 str_DOSJoystick:
         db 044h,04Fh,053h,02Dh,04Ah,06Fh,079h,073h,074h,069h,063h,06Bh,00h,00h
-word_1684BE:
+GripPortWord:
         db 00h,00h
-dword_1684C0:
+GripDriverPtr:
         db 00h,00h,00h,00h
-dword_1684C4:
+GripDriverData:
         db 00h,00h,00h,00h
-byte_1684C8:
+GripFlags:
         db 00h,00h
-word_1684CA:
+GripSlot:
         db 00h,00h
 str_GRIPGLL:
         db 047h,052h,049h,050h,02Eh,047h,04Ch,04Ch,00h
@@ -46,11 +46,11 @@ str_GRIP:
         db 047h,052h,049h,050h,00h
 str_CGRIP:
         db 043h,03Ah,05Ch,047h,052h,049h,050h,05Ch,00h,00h
-dword_1684E4:
+GripLinked:
         db 00h,00h,00h,00h
-word_1684E8:
+GripReady:
         db 00h,00h,00h,00h
-word_1684EC:
+CrowdChantTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,040h,00h,03Fh,00h,00h,00h,00h,00h
@@ -59,11 +59,11 @@ word_1684EC:
         db 01h,00h,03h,00h,00h,00h,03h,00h,01h,00h,00h,00h,02h,00h,01h,00h
         db 00h,00h,02h,00h,01h,00h,01h,00h,00h,00h,02h,00h,01h,00h,01h,00h
         db 02h,00h,03h,00h,01h,00h,00h,00h
-dword_168564:
+LinePlayerSlots:
         db 01h,00h,00h,00h,03h,00h,01Ch,00h,035h,00h,073h,00h,054h
-dword_168571:
+LinePlayerOffsets:
         db 00h,092h,00h
-unk_168574:
+LinePlayerOrder:
         db 034h,035h,0FFh,0Ch,0Eh,010h,0Ch,015h,01Ah,01Eh,022h,028h,02Ch,02Fh,032h,0Dh
         db 0Fh,011h,0Dh,016h,01Bh,01Fh,023h,029h,02Dh,030h,033h,0FFh,0Dh,0Fh,011h,0Dh
         db 016h,01Bh,01Fh,023h,029h,02Dh,030h,033h,0Ch,0Eh,010h,0Ch,015h,01Ah,01Eh,022h
@@ -76,7 +76,7 @@ unk_168574:
         db 025h,0FFh,024h,025h,01h,04h,07h,0Ah,013h,018h,01Dh,021h,027h,02Bh,02Eh,031h
         db 00h,03h,06h,09h,012h,017h,01Ch,020h,026h,02Ah,02h,05h,08h,0Bh,014h,019h
         db 0FFh,00h,00h,00h
-dword_168628:
+CameraSceneId:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16862C:
+ScoreClockShown:
         db 01h,00h

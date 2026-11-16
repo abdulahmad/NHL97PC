@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_FC330 progbits alloc exec nowrite align=1
 extern str_BigfileBuf, QuantizeTable, ScreenBitsPerPixel, ResourceArchiveName, QuantizePalette, ResourceArchive, ResourceLookupFn, ResourceArchiveSize
-extern ResourceArchiveData, dword_1DA4D0, str_Viv, ArchiveEntryOffsetAt, AllocMemBlock, FreeMemBlock, unk_1DA4CC
+extern ResourceArchiveData, PaletteWords, str_Viv, ArchiveEntryOffsetAt, AllocMemBlock, FreeMemBlock, ArchiveHeader
 global OpenResourceArchive, CurrentArchiveName, FindNearestColor, MatchColor, MakeColor
 ;-----------------------------------------------------------------------------
 ; OpenResourceArchive                             FC330  97 PC, low confidence
@@ -34,7 +34,7 @@ OpenResourceArchive:
         push byte 20h
         push dword 5DC0h
         push str_BigfileBuf
-        mov ebp, unk_1DA4CC
+        mov ebp, ArchiveHeader
         mov edi, ResourceArchiveName
         call AllocMemBlock
         mov edx, 5DC0h
@@ -126,7 +126,7 @@ FindNearestColor:
         mov ebx, edx
         shr ebx, 10h
         and ebx, 0FFh
-        mov eax, dword_1DA4D0
+        mov eax, PaletteWords
         mov dword [byte esp+04h], ebx
         mov ebx, edx
         mov ecx, 1869Fh
@@ -204,7 +204,7 @@ MatchColor:
         ret
 .1:
         push eax
-        push dword_1DA4D0
+        push PaletteWords
         call FindNearestColor
         add esp, byte 8
         pop ebx

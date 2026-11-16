@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_100700 progbits alloc exec nowrite align=1
 extern __fprem_chk, MathErrorFlags, MenuScreenBitmap, SortStride, SortKeyOffset, SinTable, AtanTable, str_Punct_AngleOfVector
-extern dword_1DA4D0, jpt_1006E0, Div64By32, Shl64
+extern PaletteWords, jpt_1006E0, Div64By32, Shl64
 global IF@DFMOD, AngleOfVector_91, AngleOfVector_93, AngleOfVector_9A, AngleOfVector_A3, AngleOfVector_A7, AngleOfVector_AE, AngleOfVector_B0
 global AngleOfVector_B5, AngleOfVector, SinInterp, CosInterp, GetPaletteRange, SortIndices
 ;-----------------------------------------------------------------------------
@@ -231,7 +231,7 @@ GetPaletteRange:
 .2:
         mov edi, dword [byte ebp+010h]
         mov eax, dword [byte ebp+08h]
-        lea ebx, [nosplit eax*4+dword_1DA4D0]
+        lea ebx, [nosplit eax*4+PaletteWords]
         mov ecx, dword [byte ebp+0Ch]
 .3:
         mov al, byte [byte ebx+02h]

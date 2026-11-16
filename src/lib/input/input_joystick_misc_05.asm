@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_100A68 progbits alloc exec nowrite align=1
-extern str_DtoD, atexit_, ScreenBitsPerPixel, ArtFormatCodes, IdentityRemap, byte_171C90, MessageBoxActive, QuantizePalette
+extern str_DtoD, atexit_, ScreenBitsPerPixel, ArtFormatCodes, IdentityRemap, ShadeTable, MessageBoxActive, QuantizePalette
 extern ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, DrawDestBuffer, DrawDestPitch, DrawDestOffset, PacketCrcTable
-extern FshExtension, ConvertPalette, ProjAspect, dword_1DA4D0, exit_, BlitRowFuncTable, ConvertDestBuffer, ArtRowFuncs8
+extern FshExtension, ConvertPalette, ProjAspect, PaletteWords, exit_, BlitRowFuncTable, ConvertDestBuffer, ArtRowFuncs8
 extern ArtRowFuncs16, sprintf_, strrchr_, LoadResourceFile, BytesPerPixelForDepth, PlotPixelRGB, FindCachedFile, BlitCore
 extern ShapeRowBytes, StoreBigEndian, Convert32To565Keyed, Convert32To555Keyed, SwapRedBlue555, Convert32To565, FindPaletteChunk, ExpandPalette6To8
 extern CopyPaletteRGB, AllocMemBlock, FreeMemBlock, MakeColor, IndexTo16Entries
@@ -2141,7 +2141,7 @@ BlendShapeRows:
         add eax, edx
         xor edx, edx
         mov dl, byte [eax]
-        mov edx, dword [nosplit edx*4+dword_1DA4D0]
+        mov edx, dword [nosplit edx*4+PaletteWords]
         mov dword [byte esp+08h], edx
         xor edx, edx
         mov ecx, edi
@@ -2150,9 +2150,9 @@ BlendShapeRows:
         and ecx, 0FFFFh
         mov ebx, dword [eax]
         mov eax, dword [byte eax+04h]
-        mov edx, dword [nosplit edx*4+dword_1DA4D0]
-        mov ebx, dword [nosplit ebx*4+dword_1DA4D0]
-        mov eax, dword [nosplit eax*4+dword_1DA4D0]
+        mov edx, dword [nosplit edx*4+PaletteWords]
+        mov ebx, dword [nosplit ebx*4+PaletteWords]
+        mov eax, dword [nosplit eax*4+PaletteWords]
         mov dword [byte esp+04h], ebx
         mov dword [esp], eax
         mov ebx, ecx
@@ -2231,7 +2231,7 @@ BlendShapeRows:
         add eax, edx
         xor edx, edx
         mov dl, byte [eax]
-        mov edx, dword [nosplit edx*4+dword_1DA4D0]
+        mov edx, dword [nosplit edx*4+PaletteWords]
         mov dword [byte esp+08h], edx
         xor edx, edx
         mov ecx, edi
@@ -2240,9 +2240,9 @@ BlendShapeRows:
         and ecx, 0FFFFh
         mov ebx, dword [eax]
         mov eax, dword [byte eax+04h]
-        mov edx, dword [nosplit edx*4+dword_1DA4D0]
-        mov ebx, dword [nosplit ebx*4+dword_1DA4D0]
-        mov eax, dword [nosplit eax*4+dword_1DA4D0]
+        mov edx, dword [nosplit edx*4+PaletteWords]
+        mov ebx, dword [nosplit ebx*4+PaletteWords]
+        mov eax, dword [nosplit eax*4+PaletteWords]
         mov dword [byte esp+04h], ebx
         mov dword [esp], eax
         mov ebx, ecx
@@ -2299,7 +2299,7 @@ DrawShapeBlended:
         xor edx, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         mov dword [byte esp+08h], edx
         cmp eax, byte 20h
         je short .1
@@ -3183,7 +3183,7 @@ ConvertArtPalette:
         sub esp, 200h
         mov esi, edx
         push eax
-        mov ebx, dword_1DA4D0
+        mov ebx, PaletteWords
         call FindPaletteChunk
         add esp, byte 4
         test eax, eax
@@ -3311,7 +3311,7 @@ ConvertArtPalette16:
         jmp short .7
 .5:
         mov ebx, 100h
-        mov eax, dword_1DA4D0
+        mov eax, PaletteWords
 .6:
         mov edx, esi
         call Convert32To565Keyed
@@ -3382,12 +3382,12 @@ ConvertArtRows:
         mov eax, esi
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         mov ecx, eax
         mov eax, esp
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         mov edi, eax
         cmp ecx, byte 8
         jg near .6
@@ -3493,13 +3493,13 @@ ConvertArtShape:
         mov eax, edi
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         mov ebx, eax
         mov dword [byte esp+028h], eax
         lea eax, [byte esp+020h]
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         mov esi, eax
         mov dword [byte esp+038h], eax
         inc eax
@@ -3538,7 +3538,7 @@ ConvertArtShape:
 .4:
         movzx esi, byte [dword eax+IdentityRemap]
         add ecx, byte 4
-        mov esi, dword [nosplit esi*4+dword_1DA4D0]
+        mov esi, dword [nosplit esi*4+PaletteWords]
         inc eax
         mov dword [dword ecx+ProjAspect], esi
         cmp eax, ebx

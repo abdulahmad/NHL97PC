@@ -3,9 +3,9 @@ bits 32
 %include "hockey.inc"
 section s_F9C34 progbits alloc exec nowrite align=1
 extern __ExpandDGROUP_, __MemAllocator, __MemFree, __allocfp_, __chktty_, __close_, __fill_buffer_, __flush_
-extern __freefp_, __ioalloc_, __qread_, __set_errno_, str_MBRAM, byte_1DA4C4, dword_16E318, dword_16E31C
-extern dword_16E320, dword_16E32C, dword_16E330, dword_1724C9, dword_1CF0D8, dword_1CF25C, dword_1CF260, dword_1CF268
-extern dword_1DA4BC, dword_1DA4C0, fflush_, lseek_, sopen_, UnlinkJump, GetPsp, McgaNoWindow
+extern __freefp_, __ioalloc_, __qread_, __set_errno_, str_MBRAM, __nheap_clean, dword_16E318, dword_16E31C
+extern dword_16E320, dword_16E32C, dword_16E330, _fmode, dword_1CF0D8, dword_1CF25C, dword_1CF260, dword_1CF268
+extern __OpenStreams, __ClosedStreams, fflush_, lseek_, sopen_, UnlinkJump, GetPsp, McgaNoWindow
 extern ResetMemLock, MemLock, MemUnlock, AddMemRegion, tell_, tolower_
 global __MkTmpFile_, __doclose_, __doopen_, __hex_, __open_flags_, __shutdown_stream_, __update_buffer_, _fsopen_
 global _nfree_, _nmalloc_, close_file_, fclose_, fopen_, fread_, fseek_, ftell_
@@ -109,7 +109,7 @@ __open_flags_:
         je short .3
         cmp eax, byte 74h
         je short .8
-        cmp dword [dword_1724C9], 200h
+        cmp dword [_fmode], 200h
 .2:
         jne short .8
 .3:
@@ -135,7 +135,7 @@ __open_flags_:
         cmp eax, byte 2Bh
         jmp short .2
 .6:
-        cmp dword [dword_1724C9], 200h
+        cmp dword [_fmode], 200h
         jne short .8
 .7:
         mov edx, eax
@@ -291,7 +291,7 @@ close_file_:
         push ecx
         push edx
         mov ebx, eax
-        mov eax, dword [dword_1DA4C0]
+        mov eax, dword [__ClosedStreams]
 .1:
         test eax, eax
         je short .4
@@ -313,7 +313,7 @@ close_file_:
         mov eax, dword [eax]
         jmp short .1
 .4:
-        mov edx, dword_1DA4BC
+        mov edx, __OpenStreams
 .5:
         mov eax, dword [edx]
         test eax, eax
@@ -322,8 +322,8 @@ close_file_:
         jne short .6
         mov ecx, dword [eax]
         mov dword [edx], ecx
-        mov edx, dword [dword_1DA4C0]
-        mov dword [dword_1DA4C0], eax
+        mov edx, dword [__ClosedStreams]
+        mov dword [__ClosedStreams], eax
         mov dword [eax], edx
         jmp short .2
 .6:
@@ -563,7 +563,7 @@ fclose_:
         push ebx
         push edx
         mov ebx, eax
-        mov eax, dword [dword_1DA4C0]
+        mov eax, dword [__ClosedStreams]
 .1:
         test eax, eax
         jne short .2
@@ -803,7 +803,7 @@ _nmalloc_:
 .12:
         xor ch, ch
         mov eax, edx
-        mov byte [byte_1DA4C4], ch
+        mov byte [__nheap_clean], ch
 .13:
         add esp, byte 4
         pop ebp
@@ -1051,7 +1051,7 @@ _nfree_:
         mov dword [dword_16E320], edx
 .6:
         xor ah, ah
-        mov byte [byte_1DA4C4], ah
+        mov byte [__nheap_clean], ah
 .7:
         pop ebp
         pop esi

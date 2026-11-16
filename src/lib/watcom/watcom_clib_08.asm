@@ -10,8 +10,8 @@ extern InvTabGMax, InvTabBMin, InvTabBMax, InvTabGCenter, InvTabBCenter, InvTabR
 extern InvTabPass, InvTabGLo, InvTabGHi, InvTabBLo, InvTabBHi, InvTabGInc, InvTabBInc, InvTabDistInc
 extern InvTabDistStart, InvTabFillPtr, InvTabFillCount, InvTabFillStep, InvTabFillDist, CdBufferSelector, CdBufferAddr, CdBufferAllocated
 extern CdDriveLetter, CdReadResult, CdRequestSegment, CdReadSector, CdRegs, CdDirEntryBuf, CdRegEbx, CdRegEdi
-extern CdRegEax, CdRegEdx, dword_1DC5AC, dword_1DC994, dword_1DC998, dword_1DC99C, SpeechEventCount, SpeechEventId
-extern SpeechEventTime, SpeechEventQueue, SpeechEnabled, dword_1DCF20, int386_, int386x_, memset_, segread_
+extern CdRegEax, CdRegEdx, SpeechBankTable, SpeechChannelA, SpeechChannelB, SpeechRingBusy, SpeechEventCount, SpeechEventId
+extern SpeechEventTime, SpeechEventQueue, SpeechEnabled, SpeechBankBase, int386_, int386x_, memset_, segread_
 extern str_Inversetmp, bcopy, Random32, ReadPaletteRange, SpeechBusy, DosOpenFile, DosCloseFile, DosReadFile
 extern DosSeekFile, FindSpeechBank, FindCachedFile, ExpandPalette6To8, CopyPaletteRGB, CdDirSearch, AllocMemBlock, AllocMemData
 extern AllocMemBlockFull, FreeMemBlock, WaitTicks, tickcount, toupper_, CdFileTable, SpeechEventBuf, CdBufferSegment
@@ -1938,14 +1938,14 @@ InitSpeechBank:
         push esi
         enter 4, 0
         mov ebx, eax
-        mov dword [dword_1DCF20], eax
+        mov dword [SpeechBankBase], eax
         xor edx, edx
         cmp dword [eax], 76646174h
         jne short .3
         mov eax, dword [byte eax+010h]
         add eax, ebx
         mov dword [byte ebx+010h], eax
-        mov eax, dword [dword_1DCF20]
+        mov eax, dword [SpeechBankBase]
         mov esi, dword [byte eax+014h]
         mov ecx, dword [byte eax+018h]
         shl esi, 2
@@ -1955,7 +1955,7 @@ InitSpeechBank:
         xor ecx, ecx
         jmp short .2
 .1:
-        mov eax, dword [dword_1DCF20]
+        mov eax, dword [SpeechBankBase]
         mov eax, dword [byte eax+018h]
         mov esi, dword [ecx+eax]
         add esi, ebx
@@ -1965,7 +1965,7 @@ InitSpeechBank:
         mov edx, eax
         test eax, eax
         je short .3
-        mov eax, dword [dword_1DCF20]
+        mov eax, dword [SpeechBankBase]
         mov eax, dword [byte eax+018h]
         mov dword [ecx+eax], esi
         add ecx, byte 4
@@ -2059,7 +2059,7 @@ PickClipVariant:
         test eax, eax
         jl near .4
         mov eax, dword [byte ebp-020h]
-        mov eax, dword [dword eax+dword_1DC5AC]
+        mov eax, dword [dword eax+SpeechBankTable]
         mov eax, dword [byte eax+018h]
         mov eax, dword [edx+eax]
         mov dword [byte ebp-08h], 1
@@ -2166,7 +2166,7 @@ PickEventClip:
         push ecx
         mov edi, ebx
         shl edi, 2
-        mov eax, dword [dword edi+dword_1DC5AC]
+        mov eax, dword [dword edi+SpeechBankTable]
         xor esi, esi
         mov eax, dword [byte eax+0Ch]
         mov dword [byte ebp-04h], esi
@@ -2176,7 +2176,7 @@ PickEventClip:
         jmp short .5
 .1:
         mov edi, dword [byte ebp-01Ch]
-        mov edi, dword [dword edi+dword_1DC5AC]
+        mov edi, dword [dword edi+SpeechBankTable]
         mov edi, dword [byte edi+010h]
         add edi, eax
         mov edi, dword [edi]
@@ -2317,7 +2317,7 @@ MatchPhraseRule:
         movzx edx, byte [byte ebx+011h]
         cmp edx, byte 2
         jne short .2
-        mov edx, dword [dword_1DCF20]
+        mov edx, dword [SpeechBankBase]
         mov edi, dword [byte edx+0Ch]
         mov dword [byte ebp-08h], edi
         mov edi, dword [byte eax+04h]
@@ -2412,7 +2412,7 @@ CheckValueCondition:
         enter 8, 0
         push edx
         mov ecx, ebx
-        mov edx, dword [dword_1DCF20]
+        mov edx, dword [SpeechBankBase]
         mov esi, dword [byte edx+0Ch]
         mov dword [byte ebp-08h], esi
         mov esi, dword [byte eax+04h]
@@ -2470,7 +2470,7 @@ CheckFlagCondition:
         push edi
         enter 4, 0
         mov ecx, ebx
-        mov edx, dword [dword_1DCF20]
+        mov edx, dword [SpeechBankBase]
         mov esi, dword [byte edx+0Ch]
         mov edi, dword [byte eax+08h]
         mov dword [byte ebp-04h], esi
@@ -2620,7 +2620,7 @@ BuildSpeechEvent:
         sub ebp, 82h
         mov eax, dword [eax]
         mov dword [byte ebp+072h], eax
-        mov eax, dword [dword_1DCF20]
+        mov eax, dword [SpeechBankBase]
         mov edx, dword [byte ebp+072h]
         mov esi, dword [byte eax+018h]
         mov dword [byte ebp+07Eh], 0
@@ -2632,12 +2632,12 @@ BuildSpeechEvent:
         movsx eax, word [byte esi+04h]
         cmp eax, edx
         jne near .33
-        cmp edx, dword [dword_1DC994]
+        cmp edx, dword [SpeechChannelA]
         jne short .1
         cmp byte [byte esi+06h], 0
         jle short .1
         movsx eax, byte [byte esi+06h]
-        cmp eax, dword [dword_1DC998]
+        cmp eax, dword [SpeechChannelB]
         jle near .33
 .1:
         cmp dword [SpeechEventCount], byte 1
@@ -2820,7 +2820,7 @@ BuildSpeechEvent:
         cdq
         idiv ebx
         mov edx, eax
-        mov eax, dword [dword_1DCF20]
+        mov eax, dword [SpeechBankBase]
         cmp edx, dword [byte eax+04h]
         jge short .20
         mov dword [byte ebp+05Eh], 1
@@ -2890,20 +2890,20 @@ BuildSpeechEvent:
         call dword [SpeechChannelFunc]
         test eax, eax
         je short .29
-        inc dword [dword_1DC99C]
+        inc dword [SpeechRingBusy]
 .29:
         add edi, byte 14h
 .30:
         cmp edi, ecx
         jl short .28
         mov eax, dword [byte ebp+072h]
-        cmp eax, dword [dword_1DC994]
+        cmp eax, dword [SpeechChannelA]
         jne short .31
-        inc dword [dword_1DC998]
+        inc dword [SpeechChannelB]
         jmp short .32
 .31:
-        mov dword [dword_1DC998], 1
-        mov dword [dword_1DC994], eax
+        mov dword [SpeechChannelB], 1
+        mov dword [SpeechChannelA], eax
 .32:
         mov ebx, dword [dword ebp-0166h]
         mov edx, dword [byte ebp+06Ah]
@@ -3036,7 +3036,7 @@ RequestSpeechEvent:
         push edi
         mov esi, eax
         mov edx, dword [eax]
-        mov eax, dword [dword_1DCF20]
+        mov eax, dword [SpeechBankBase]
         mov ebx, dword [byte eax+018h]
         mov ebx, dword [ebx+edx*4]
         cmp dword [ebx], 76657674h
@@ -3053,7 +3053,7 @@ RequestSpeechEvent:
         je short .1
         cmp byte [byte ebx+09h], 0
         je short .1
-        mov edx, dword [dword_1DCF20]
+        mov edx, dword [SpeechBankBase]
         cmp eax, dword [byte edx+08h]
         jb short QueueSpeechEvent_AE
 .1:
@@ -3118,7 +3118,7 @@ PickNextSpeech:
         je short .3
         movzx ecx, word [byte edx+0Eh]
         mov dword [byte ebp-01Ch], ecx
-        mov ecx, dword [dword_1DCF20]
+        mov ecx, dword [SpeechBankBase]
         mov edi, dword [byte ebp-01Ch]
         cmp edi, dword [byte ecx+08h]
         jge short .3

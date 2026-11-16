@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_135C52 progbits alloc exec nowrite align=1
-extern __fdiv_fpr, _matherr_, FpuType, MathErrorFlags, HugeValHi, dword_19A6E0, F32_16___fpatan_chk, F32_0p0625
+extern __fdiv_fpr, _matherr_, FpuType, MathErrorFlags, HugeValHi, MathErrTable, F32_16___fpatan_chk, F32_0p0625
 extern FpatanJumpTable, F64_1eneg08, HugeValLo, F64_1, F80_3p14159, F80_1p5708___fpatan_chk, F80_neg0p333333, F80_0p2
 extern F80_neg0p142857, F80_0p111111, F80_neg0p0909076, F80_0p0764169, F80_0, str_0123456789abcdefghijklmnopqr
 global __fpatan_chk, __math1err_, __math2err_, __math87_err_, itoa_, __fpatan_chk_160, __fpatan_chk_16B, __fpatan_chk_178
@@ -478,7 +478,7 @@ __math2err_:
 .6:
         mov eax, ecx
         and eax, byte 1Fh
-        mov eax, dword [nosplit eax*4+dword_19A6E0]
+        mov eax, dword [nosplit eax*4+MathErrTable]
         mov dword [byte ebp-028h], esi
         mov dword [byte ebp-024h], eax
         test ch, 10h

@@ -4,7 +4,7 @@ bits 32
 section s_FCF84 progbits alloc exec nowrite align=1
 extern ScreenBitsPerPixel, str_Punct_FreeArtArchive, MenuScreenBitmap, ScreenWidth, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight
 extern ScreenPitch, ScreenBuffer, DrawDestBuffer, DrawDestPitch, DrawDestOffset, PolyTopRow, PolyRowCount, FillColor
-extern ReciprocalTable, dword_1DA8D8, FillRowFuncTable, ConvertArtSame, VesaSetBank, CreateBitmapEx, BlitCore, SetBlitSource
+extern ReciprocalTable, ScaledRowBuffer, FillRowFuncTable, ConvertArtSame, VesaSetBank, CreateBitmapEx, BlitCore, SetBlitSource
 extern CopyScaledSpan, ShapeRowBytes, BuildSpanOffsets, FillMemFast, RemapPixels, ClipPolyLeft, ClipPolyRight, ClipPolyTop
 extern ClipPolyBottom, SetupRectFill, FillRectSpans, StoreLittleEndian, FreeMemBlock, FillMemPattern, DrawShapeCore, PolySpanEdges
 global FillRectColor_48, FillRectColor_5C, FillRectColor_6C, FillRectColor_80, mem_putc_, DrawShapeAtOwnPos, DrawArt, DrawShape
@@ -288,7 +288,7 @@ DrawScaledRow:
         mov eax, dword [byte esp+01Ch]
         sub eax, ebx
         push eax
-        mov eax, dword [nosplit ebx*4+dword_1DA8D8]
+        mov eax, dword [nosplit ebx*4+ScaledRowBuffer]
         imul eax, esi
         add eax, ebp
         push eax
@@ -483,11 +483,11 @@ DrawShapeScaledCore:
         push ecx
         push byte 0
         push eax
-        push dword_1DA8D8
+        push ScaledRowBuffer
         call BuildSpanOffsets
         add esp, byte 1Ch
         mov eax, dword [byte esp+034h]
-        push dword_1DA8D8
+        push ScaledRowBuffer
         add eax, byte 10h
         push eax
         call SetBlitSource

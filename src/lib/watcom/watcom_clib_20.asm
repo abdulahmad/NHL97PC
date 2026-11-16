@@ -2,11 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_123FEA progbits alloc exec nowrite align=1
-extern IF@ATAN2, __fpatan_chk, __math2err_, __math87_err_, str_RESIZE, ScreenBitsPerPixel, byte_19C724, str_Punct_DrawRinkSurface
+extern IF@ATAN2, __fpatan_chk, __math2err_, __math87_err_, str_RESIZE, ScreenBitsPerPixel, FdivShiftTable, str_Punct_DrawRinkSurface
 extern ConvertPalette, ColorKeyEnabled, SinTable, F32_0p9375, F32_1p0625, F32_9p22337e18, dword_1CF260, TextOriginX
-extern TextOriginY, LinkTextFont, DrawGlyphFn, TextCharFn, TextEndFn, IndexTo16Table, dword_1DA4D0, dword_1DC518
-extern dword_1DC51C, dword_1DC520, dword_1DC524, dword_1DC528, dword_1DC5A8, int386x_, itoa_, ltoa_
-extern memlist1, ConvertDestBuffer, off_171C7C, off_199C50, off_19C740, F64_709p783, F64_neg709p783, segread_
+extern TextOriginY, LinkTextFont, DrawGlyphFn, TextCharFn, TextEndFn, IndexTo16Table, PaletteWords, TextLimitPtr
+extern TextLimitCount, TextLimitWidth, AtexitCount, AtexitTable, SpeechBankCount, int386x_, itoa_, ltoa_
+extern memlist1, ConvertDestBuffer, ExitHook, __EFG_printf, FdivJumpTable, F64_709p783, F64_neg709p783, segread_
 extern strncpy_, bcopy, SetTextOrigin, MemLock, MemUnlock, SetBlockGuard, AllocMemBlockEx, findmemblock
 extern CompactMemListDown, CompactMemListUp, PushMemDescriptor, DrawTextRun, F80_1p5708, toupper_, ultoa_, IndexTo16Entries
 global FixedPoint_Format_, IF@DACOS, IF@EXP, IF@SQRT, _Full_at_exit_rtn_, __@DEXP, __@DEXP1, __@DSQRT
@@ -744,7 +744,7 @@ FixedPoint_Format_:
 ; float_format_                                                1246C0  library
 ;-----------------------------------------------------------------------------
 float_format_:
-        call dword [off_199C50]
+        call dword [__EFG_printf]
         ret
 ;-----------------------------------------------------------------------------
 ; formstring_                                                  1246C7  library
@@ -1241,13 +1241,13 @@ zupstr__20:
         push esi
         push edi
         push ebp
-        mov ebx, dword [dword_1DC524]
+        mov ebx, dword [AtexitCount]
         cmp eax, ebx
         jg short .3
         mov ebx, eax
 .3:
-        mov ecx, dword [dword_1DC520]
-        mov dword [dword_1DC524], ebx
+        mov ecx, dword [TextLimitWidth]
+        mov dword [AtexitCount], ebx
         cmp edx, ecx
         jle short .4
         mov ebx, ecx
@@ -1256,22 +1256,22 @@ zupstr__20:
         mov ebx, edx
 .5:
         mov esi, dword [byte esp+014h]
-        mov edi, dword [dword_1DC518]
+        mov edi, dword [TextLimitPtr]
         add eax, esi
-        mov dword [dword_1DC520], ebx
+        mov dword [TextLimitWidth], ebx
         cmp eax, edi
         jge short .6
         mov eax, edi
 .6:
         mov ebp, dword [byte esp+018h]
-        mov dword [dword_1DC518], eax
-        mov eax, dword [dword_1DC51C]
+        mov dword [TextLimitPtr], eax
+        mov eax, dword [TextLimitCount]
         add edx, ebp
         cmp edx, eax
         jge short .7
         mov edx, eax
 .7:
-        mov dword [dword_1DC51C], edx
+        mov dword [TextLimitCount], edx
         pop ebp
         pop edi
         pop esi
@@ -1292,10 +1292,10 @@ DrawTextLimited:
         mov ebx, dword [dword esp+0124h]
         mov edi, dword [TextOriginX]
         mov esi, dword [TextOriginY]
-        mov dword [dword_1DC524], edi
-        mov dword [dword_1DC520], esi
-        mov dword [dword_1DC518], edi
-        mov dword [dword_1DC51C], esi
+        mov dword [AtexitCount], edi
+        mov dword [TextLimitWidth], esi
+        mov dword [TextLimitPtr], edi
+        mov dword [TextLimitCount], esi
         cmp ebx, 100h
         jle short .1
         mov ebx, 100h
@@ -1322,14 +1322,14 @@ DrawTextLimited:
         call DrawTextRun
         add esp, byte 4
 .2:
-        mov eax, dword [dword_1DC524]
+        mov eax, dword [AtexitCount]
         cmp edi, eax
         jg short .3
         mov eax, edi
 .3:
         mov edx, dword [dword esp+0128h]
         mov dword [edx], eax
-        mov edx, dword [dword_1DC520]
+        mov edx, dword [TextLimitWidth]
         cmp esi, edx
         jle short .4
         mov eax, edx
@@ -1340,7 +1340,7 @@ DrawTextLimited:
         mov edx, dword [dword esp+012Ch]
         mov ebx, dword [TextOriginX]
         mov dword [edx], eax
-        mov eax, dword [dword_1DC518]
+        mov eax, dword [TextLimitPtr]
         cmp eax, ebx
         jg short .6
         mov eax, ebx
@@ -1351,7 +1351,7 @@ DrawTextLimited:
         sub eax, ebx
         mov ecx, dword [LinkTextFont]
         mov dword [edx], eax
-        mov eax, dword [dword_1DC51C]
+        mov eax, dword [TextLimitCount]
         cmp eax, ecx
         jg short .7
         mov eax, ecx
@@ -1456,7 +1456,7 @@ ConvertColor555:
         pop ebx
         ret
 .5:
-        mov eax, dword [nosplit edx*4+dword_1DA4D0]
+        mov eax, dword [nosplit edx*4+PaletteWords]
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
@@ -1879,7 +1879,7 @@ fdiv_main_routine:
         ret
 .2:
         shr eax, 1Ch
-        cmp byte [dword eax+byte_19C724], 0
+        cmp byte [dword eax+FdivShiftTable], 0
         jne short .3
         fdivp
         ret
@@ -1964,7 +1964,7 @@ fdiv_main_routine:
 ;-----------------------------------------------------------------------------
 __fdiv_fpr:
         sub esp, byte 2Ch
-        jmp dword [nosplit eax*4+off_19C740]
+        jmp dword [nosplit eax*4+FdivJumpTable]
 __fdiv_fpr_A:
         fdiv st0
         add esp, byte 2Ch
@@ -3038,16 +3038,16 @@ _Full_at_exit_rtn_:
         push ebx
         push edx
         sub esp, byte 4
-        mov ebx, dword [dword_1DC5A8]
+        mov ebx, dword [SpeechBankCount]
         cmp ebx, byte 21h
         je short .2
-        mov dword [dword_1DC5A8], 21h
+        mov dword [SpeechBankCount], 21h
         mov edx, ebx
         shl edx, 2
 .1:
         test edx, edx
         je short .2
-        mov eax, dword [dword edx+dword_1DC524]
+        mov eax, dword [dword edx+AtexitCount]
         sub edx, byte 4
         mov dword [esp], eax
         dec ebx
@@ -3067,15 +3067,15 @@ atexit_:
         push edx
         mov ebx, eax
         mov edx, _Full_at_exit_rtn_
-        mov ecx, dword [dword_1DC5A8]
-        mov dword [off_171C7C], edx
+        mov ecx, dword [SpeechBankCount]
+        mov dword [ExitHook], edx
         cmp ecx, byte 20h
         jge short .1
         mov eax, ecx
         xor eax, ecx
         lea edx, [byte ecx+01h]
-        mov dword [nosplit ecx*4+dword_1DC528], ebx
-        mov dword [dword_1DC5A8], edx
+        mov dword [nosplit ecx*4+AtexitTable], ebx
+        mov dword [SpeechBankCount], edx
         pop edx
         pop ecx
         pop ebx

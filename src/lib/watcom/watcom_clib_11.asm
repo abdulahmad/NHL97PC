@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_10AED0 progbits alloc exec nowrite align=1
 extern __doserror_, __fprtf_, CpuIs386, CpuIs486, CpuType, CpuIsPentium, CpuHasCpuid, CpuFeatures
-extern CpuSignature, ReciprocalBase, ReciprocalTable, DosOpenReadOnly, DosCloseFile, unk_1722DA
+extern CpuSignature, ReciprocalBase, ReciprocalTable, DosOpenReadOnly, DosCloseFile, __stdout_buf
 global DetectCPU, _dos_close_, _dos_commit_, _dos_open_, printf_, DosFileInfo, BuildReciprocalTable
 ;-----------------------------------------------------------------------------
 ; DosFileInfo                                    10AED0  97 PC, low confidence
@@ -45,7 +45,7 @@ printf_:
         mov ebx, esp
         mov edx, dword [byte esp+010h]
         mov dword [esp], eax
-        mov eax, unk_1722DA
+        mov eax, __stdout_buf
         call __fprtf_
         add esp, byte 4
         pop edx

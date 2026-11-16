@@ -3,14 +3,14 @@ bits 32
 %include "hockey.inc"
 section s_1301FF progbits alloc exec nowrite align=1
 extern _Extender, _ExtenderSubtype, _IsTable, __ExpandDGROUP_, __FDFS, __fatal_runtime_error_, __flush_, __set_doserrno_
-extern __set_errno_, __shutdown_stream_, _nfree_, _nmalloc_, _osmajor, ScanBitMasks, byte_171C90, byte_172301
-extern byte_199A24, byte_199AA4, byte_1DA4C5, dword_16E318, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight
-extern DrawDestBuffer, DrawDestOffset, dword_1999A5, dword_1999C0, dword_199A14, dword_199A18, dword_199A1E, dword_199B2A
-extern dword_199B2E, TextOriginX, dword_1DA4BC, dword_1DA4C0, dword_1DA8D8, __freefp__39, memset_, off_199C54
+extern __set_errno_, __shutdown_stream_, _nfree_, _nmalloc_, _osmajor, ScanBitMasks, ShadeTable, __iob_flags
+extern HotkeyScanTable, HotkeyModTable, __HeapFlags, dword_16E318, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight
+extern DrawDestBuffer, DrawDestOffset, DosErrnoTable, __NHandles, __io_mode, SavedBreakOffset, BreakCallFunc, HotkeyNesting
+extern HotkeyFuncTable, TextOriginX, __OpenStreams, __ClosedStreams, ScaledRowBuffer, __freefp__39, memset_, __EFG_scanf
 extern str_NotEnoughMemoryTo, str_SaveText, bcopy, AddExitHandler, RestoreDS, SetBlitSource, CopyMappedSpan, BuildSpanOffsets
 extern DosGetVector, DosSetVector, SaveVideoState, RestoreVideoState, AllocMemBlockFixed, UnlinkMemBlockLocked, MemDescPtr, ZeroMem
 extern KbdPeekKey, MakeColor, SelectFont, FillRect, SetTextColors, FreeTextBuffers, tolower_, DebugTagStr
-extern unk_1722C0, unk_172342, word_199A1C, word_199A22
+extern __iob, __iob_end, SavedBreakSelector, BreakDataSelector
 global _DoINTR_, __HeapManager_expand_, __IOMode_, __InitFiles_, __SetIOMode_, __flushall_, __full_io_exit_, __int386x_
 global __qwrite_, __set_errno_dos_, _dosret0_, _nexpand_, _nmsize_, docloseall_, flushall_, isatty_
 global _nexpand__10, __HeapManager_expand__18F, __HeapManager_expand__1F0, ClearNumLock_F, ScanStoreCount_8F, IsTextModeWidth, SaveTextScreen, RestoreTextScreen
@@ -131,7 +131,7 @@ __HeapManager_expand_:
         dec eax
         xor dl, dl
         mov dword [byte esi+01Ch], eax
-        mov byte [byte_1DA4C5], dl
+        mov byte [__HeapFlags], dl
         mov edx, dword [ecx]
         cmp ebp, edx
         jb short .12
@@ -154,7 +154,7 @@ __HeapManager_expand_:
         add edi, eax
         xor ah, ah
         mov dword [edx], edi
-        mov byte [byte_1DA4C5], ah
+        mov byte [__HeapFlags], ah
         jmp near .20
 .12:
         mov eax, edx
@@ -337,7 +337,7 @@ __set_errno_dos_:
 .4:
         xor ebx, ebx
         mov bl, dl
-        mov eax, dword [dword ebx+dword_1999A5]
+        mov eax, dword [dword ebx+DosErrnoTable]
         sar eax, 18h
         jmp short .6
 .5:
@@ -358,7 +358,7 @@ __IOMode_:
         push ecx
         push edx
         mov edx, eax
-        cmp eax, dword [dword_1999C0]
+        cmp eax, dword [__NHandles]
         jb short .1
         xor eax, eax
         pop edx
@@ -369,7 +369,7 @@ __IOMode_:
         cmp eax, byte 5
         jg short .2
         mov ebx, eax
-        mov eax, dword [dword_199A14]
+        mov eax, dword [__io_mode]
         shl ebx, 2
         add eax, ebx
         mov cl, byte [byte eax+01h]
@@ -382,10 +382,10 @@ __IOMode_:
         call isatty_
         test eax, eax
         je short .2
-        mov eax, dword [dword_199A14]
+        mov eax, dword [__io_mode]
         or byte [byte ebx+eax+01h], 20h
 .2:
-        mov eax, dword [dword_199A14]
+        mov eax, dword [__io_mode]
         mov eax, dword [eax+edx*4]
         pop edx
         pop ecx
@@ -399,7 +399,7 @@ __SetIOMode_:
         or dh, 40h
         mov ebx, edx
         mov edx, eax
-        mov eax, dword [dword_199A14]
+        mov eax, dword [__io_mode]
         shl edx, 2
         mov dword [edx+eax], ebx
         pop ebx
@@ -618,7 +618,7 @@ ClearNumLock_F:
         push fs
         push gs
         call RestoreDS
-        call dword [cs:dword_199A1E]
+        call dword [cs:BreakCallFunc]
         pop gs
         pop fs
         pop es
@@ -640,15 +640,15 @@ InstallBreakHandler:
         LD mov, ebp, esp
         push ebx
         mov eax, dword [byte ebp+08h]
-        mov dword [dword_199A1E], eax
+        mov dword [BreakCallFunc], eax
         mov ax, cs
-        mov word [word_199A22], ax
-        cmp word [word_199A1C], byte 0
+        mov word [BreakDataSelector], ax
+        cmp word [SavedBreakSelector], byte 0
         jne short .1
         mov ebx, 24h
         call DosGetVector
-        mov dword [dword_199A18], eax
-        mov word [word_199A1C], dx
+        mov dword [SavedBreakOffset], eax
+        mov word [SavedBreakSelector], dx
         mov ebx, 24h
         mov dx, cs
         mov eax, ClearNumLock_F
@@ -667,12 +667,12 @@ InstallBreakHandler:
 RemoveBreakHandler:
         pusha
         mov ebx, 24h
-        mov dx, word [word_199A1C]
-        mov eax, dword [dword_199A18]
+        mov dx, word [SavedBreakSelector]
+        mov eax, dword [SavedBreakOffset]
         LD or, dx, dx
         je short .1
         call DosSetVector
-        mov word [word_199A1C], 0
+        mov word [SavedBreakSelector], 0
 .1:
         popa
         ret
@@ -684,24 +684,24 @@ RemoveBreakHandler:
 DispatchHotkey:
         push ebp
         LD mov, ebp, esp
-        dec dword [dword_199B2A]
+        dec dword [HotkeyNesting]
         jne short .4
         mov edx, dword [byte ebp+08h]
         LD or, dl, dl
         je short .2
         and edx, byte 7Fh
         mov dword [byte ebp+08h], edx
-        mov dl, byte [dword edx+byte_199A24]
+        mov dl, byte [dword edx+HotkeyScanTable]
 .1:
         dec edx
         jl short .4
         push edi
         push esi
-        call dword [nosplit edx*4+dword_199B2E]
+        call dword [nosplit edx*4+HotkeyFuncTable]
         pop esi
         pop edi
         LD xor, eax, eax
-        inc dword [dword_199B2A]
+        inc dword [HotkeyNesting]
         leave
         ret
 .2:
@@ -710,11 +710,11 @@ DispatchHotkey:
         jl short .3
         mov edx, 84h
 .3:
-        mov dl, byte [dword edx+byte_199AA4]
+        mov dl, byte [dword edx+HotkeyModTable]
         jmp short .1
 .4:
         mov eax, dword [byte ebp+08h]
-        inc dword [dword_199B2A]
+        inc dword [HotkeyNesting]
         leave
         ret
 ;-----------------------------------------------------------------------------
@@ -726,7 +726,7 @@ RegisterHotkey:
         LD mov, ebp, esp
         mov eax, dword [byte ebp+0Ch]
         mov ecx, 40h
-        mov edx, dword_199B2E
+        mov edx, HotkeyFuncTable
 .1:
         cmp dword [edx], eax
         je short .3
@@ -748,7 +748,7 @@ RegisterHotkey:
         je short .6
         cmp edx, byte 7Fh
         jg short .5
-        mov byte [dword edx+byte_199A24], al
+        mov byte [dword edx+HotkeyScanTable], al
 .5:
         leave
         ret
@@ -756,7 +756,7 @@ RegisterHotkey:
         movzx edx, dh
         cmp edx, 84h
         jg short .5
-        mov byte [dword edx+byte_199AA4], al
+        mov byte [dword edx+HotkeyModTable], al
         leave
         ret
         push ebp
@@ -873,7 +873,7 @@ RasterShapeTriangle:
         mov ebx, dword [dword esp+088h]
         mov eax, dword [byte ebx+02h]
         sar eax, 10h
-        push dword_1DA8D8
+        push ScaledRowBuffer
         mov dword [byte esp+060h], eax
         lea eax, [byte ebx+010h]
         push eax
@@ -883,7 +883,7 @@ RasterShapeTriangle:
         xor edx, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         mov dword [byte esp+068h], edx
         cmp eax, byte 20h
         jne short .1
@@ -892,7 +892,7 @@ RasterShapeTriangle:
         mov eax, ebx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         inc eax
         and al, 0FEh
         cmp eax, byte 10h
@@ -1069,7 +1069,7 @@ RasterShapeTriangle:
         push esi
         push dword 8000h
         push dword 8000h
-        push dword_1DA8D8
+        push ScaledRowBuffer
         call BuildSpanOffsets
         add esp, byte 1Ch
         mov edx, dword [byte esp+028h]
@@ -1373,7 +1373,7 @@ RasterShapeTriangle:
         mov eax, edi
         sar eax, 10h
         add eax, ecx
-        add eax, dword [nosplit ebx*4+dword_1DA8D8]
+        add eax, dword [nosplit ebx*4+ScaledRowBuffer]
         mov cl, byte [byte esp+06Ch]
         shl eax, cl
         mov ebx, dword [byte esp+058h]
@@ -1661,7 +1661,7 @@ RasterShapeTriangle:
         mov ecx, edi
         sar ecx, 10h
         add eax, ecx
-        add eax, dword [nosplit ebx*4+dword_1DA8D8]
+        add eax, dword [nosplit ebx*4+ScaledRowBuffer]
         mov cl, byte [byte esp+06Ch]
         shl eax, cl
         mov ebx, dword [byte esp+05Ch]
@@ -2803,7 +2803,7 @@ ScanFloatField:
 .22:
         lea edx, [byte esp+050h]
         mov eax, esp
-        call dword [off_199C54]
+        call dword [__EFG_scanf]
 .23:
         mov bl, byte [byte esi+010h]
         test bl, 4
@@ -3323,13 +3323,13 @@ __InitFiles_:
         push ebx
         push ecx
         push edx
-        mov ah, byte [byte_172301]
+        mov ah, byte [__iob_flags]
         and ah, 0F8h
         mov dl, ah
-        mov byte [byte_172301], ah
+        mov byte [__iob_flags], ah
         or dl, 4
-        mov ecx, unk_1722C0
-        mov byte [byte_172301], dl
+        mov ecx, __iob
+        mov byte [__iob_flags], dl
         jmp short .3
 .1:
         mov eax, 8
@@ -3346,16 +3346,16 @@ __InitFiles_:
         mov eax, str_NotEnoughMemoryTo
         call __fatal_runtime_error_
 .2:
-        mov eax, dword [dword_1DA4C0]
+        mov eax, dword [__ClosedStreams]
         mov dword [byte ebx+04h], ecx
-        mov dword [dword_1DA4C0], ebx
+        mov dword [__ClosedStreams], ebx
         add ecx, byte 1Ah
         mov dword [ebx], eax
 .3:
         mov edx, dword [byte ecx+0Ch]
         test edx, edx
         jne short .1
-        mov dword [dword_1DA4BC], edx
+        mov dword [__OpenStreams], edx
         pop edx
         pop ecx
         pop ebx
@@ -3381,11 +3381,11 @@ docloseall_:
         sub eax, edx
         shl eax, 2
         add eax, edx
-        mov esi, unk_1722C0
+        mov esi, __iob
         add eax, eax
         xor ebx, ebx
         add esi, eax
-        mov eax, dword [dword_1DA4C0]
+        mov eax, dword [__ClosedStreams]
         jmp short .4
 .1:
         mov ecx, dword [eax]
@@ -3397,7 +3397,7 @@ docloseall_:
         jne short .2
         cmp eax, esi
         jb short .3
-        cmp eax, unk_172342
+        cmp eax, __iob_end
         jae short .2
         xor edx, edx
 .2:
@@ -3427,7 +3427,7 @@ __flushall_:
         push ecx
         push edx
         mov ecx, eax
-        mov edx, dword [dword_1DA4C0]
+        mov edx, dword [__ClosedStreams]
         xor ebx, ebx
         jmp short .3
 .1:

@@ -8,7 +8,7 @@ extern byte_150010, byte_150014, Is8087, DmaPagePorts, DmaMaskPorts, DmaModePort
 extern DmaCountPorts, TimerIrqMask, TimerChainFlag, TimerPitMode, TimerInstalled, ClipLeftCol, ScreenHeight, StrToLongLimits
 extern IrqAckLast, FloatPow10Table, FloatPow10Exponents, FloatFormatDigits, FloatFormatExponent, FloatFormatMantissaLo, FloatFormatMantissaHi, DacTimerRate
 extern DacTimerDivisor, TimerOldHandler, TimerOldRealHandler, TimerDivisor, TimerChainCount, int386_, str_RMHandler, AllocMemData
-extern FreeMemBlock, tolower_, word_17070A, TimerOldOffsetLo, TimerOldSelector, DbcsLeadTable
+extern FreeMemBlock, tolower_, SavedEsSelector, TimerOldOffsetLo, TimerOldSelector, DbcsLeadTable
 global fini_, init_, jpt_138417, jpt_1386D1, jpt_138859, unk_137FE1_2, StrToLong_166, jpt_138417_64
 global jpt_138417_74, jpt_138417_84, jpt_138417_94, ScanFloat_24, ScanFloat_34, ScanFloat_44, ScanFloat_54, TimerCalibrate
 global TimerRestore, TimerSetRate, TimerWritePit, TimerReadCount, TimerTicksForRate, TimerMeasure, TimerSetDivisor, TimerReset
@@ -2097,7 +2097,7 @@ init_:
         jne short .2
         cmp byte [Is8087], 0
         je short .2
-        mov ax, word [word_17070A]
+        mov ax, word [SavedEsSelector]
 .1:
         mov word [DbcsLeadTable], ax
         pop edx

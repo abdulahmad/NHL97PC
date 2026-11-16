@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_10CFB4 progbits alloc exec nowrite align=1
 extern OverlayModels, OverlaySprites, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, ViewCenterX, str_D_SetCameraAngles, CameraYaw
-extern CameraPitch, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, dword_17026C, dword_170270, CameraFlags
+extern CameraPitch, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, CameraOriginX, CameraOriginY, CameraFlags
 extern OverlayViewMatrix, OverlayCamera, memcpy_, AngleOfVector, SubVec3, TransformVecFull, FixedLerp, DrawClippedPoly
 extern RotatePoint2D, RotateModelPoint, AngleFromDelta, SinLookup, CosLookup, ProjectPointsPersp, MultiplyMatrix, TransposeMatrix
 extern FreeMemBlock, MakeColor, FillRectColor, ModelSlots, vecdist
@@ -34,9 +34,9 @@ SetViewScreenOrigin:
         push esi
         push edi
         mov eax, dword [byte ebp+08h]
-        mov dword [dword_17026C], eax
+        mov dword [CameraOriginX], eax
         mov eax, dword [byte ebp+0Ch]
-        mov dword [dword_170270], eax
+        mov dword [CameraOriginY], eax
         jmp short SetCameraAngles_2E
 ;-----------------------------------------------------------------------------
 ; SetCameraAngles                                10CFF7  97 PC, low confidence
@@ -54,13 +54,13 @@ SetCameraAngles:
         LD xor, edx, edx
         mov ecx, 168h
         div ecx
-        mov dword [dword_17026C], eax
+        mov dword [CameraOriginX], eax
         mov eax, dword [byte ebp+0Ch]
         shl eax, 0Ah
         LD xor, edx, edx
         mov ecx, 168h
         div ecx
-        mov dword [dword_170270], eax
+        mov dword [CameraOriginY], eax
 SetCameraAngles_2E:
         mov eax, dword [byte ebp+010h]
         shr eax, 1
@@ -74,27 +74,27 @@ SetCameraAngles_2E:
         db 0A3h                                 ; insn: mov [10260h],eax
         dd str_D_ProjectPointsPersp
         db 0FFh,035h                            ; insn: push dword [1026Ch]
-        dd dword_17026C
+        dd CameraOriginX
         call CosLookup
         add esp, byte 4
         mul dword [ViewCenterX]
         LD mov, esi, eax
-        push dword [dword_17026C]
+        push dword [CameraOriginX]
         call SinLookup
         add esp, byte 4
         LD mov, ecx, eax
         LD mov, eax, esi
         div ecx
         mov dword [CameraSinYaw], eax
-        mov ebx, dword [dword_170270]
+        mov ebx, dword [CameraOriginY]
         LD or, ebx, ebx
         je short .1
-        push dword [dword_170270]
+        push dword [CameraOriginY]
         call CosLookup
         add esp, byte 4
         mul dword [str_D_SetCameraAngles]
         LD mov, esi, eax
-        push dword [dword_170270]
+        push dword [CameraOriginY]
         call SinLookup
         add esp, byte 4
         LD mov, ecx, eax
@@ -120,7 +120,7 @@ SetCameraAngles_2E:
         push eax
         call AngleFromDelta
         add esp, byte 8
-        mov dword [dword_170270], eax
+        mov dword [CameraOriginY], eax
         pop edi
         pop esi
         pop ebx

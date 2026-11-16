@@ -3,9 +3,9 @@ bits 32
 %include "hockey.inc"
 section s_FC88C progbits alloc exec nowrite align=1
 extern _dos_getdate_, _dos_gettime_, str_02d3s02d, str_2d02d02d, DebugTextColor, DebugBackColor, byte_16E63A, ScreenBitsPerPixel
-extern byte_171C90, DebugMode, DebugLineY, DebugLineWidth, DebugLineTable, ShapeRowFunc, dword_1CF298, FontAscent
+extern ShadeTable, DebugMode, DebugLineY, DebugLineWidth, DebugLineTable, ShapeRowFunc, dword_1CF298, FontAscent
 extern FontDescent, TextAlign, CurrentFont, FontHeight, FontWidth, LinkTextFont, FontFirstChar, FontLastChar
-extern FontGlyphTable, FontFlags, TextColor, FontGlyphCount, FontKernTable, TextNextCharFn, FontSpacing, dword_1DA4D0
+extern FontGlyphTable, FontFlags, TextColor, FontGlyphCount, FontKernTable, TextNextCharFn, FontSpacing, PaletteWords
 extern ShapeRowFuncTable, removewindow, sprintf_, bcopy, ConvertArtPalette16, NextTextByte, NextTextChar, BlitCore
 extern FreeMemBlock, ZeroMem, PrepareTextDraw, vsprintf_
 global jpt_FC910, DebugShowLines_BA, DebugShowLines_CB, DebugShowLines_11F, DebugShowLines_149, DebugShowLines_153, FreeBitmap_30, CopyRowKeyed32_1C
@@ -387,14 +387,14 @@ SelectFont:
         mov dword [FontGlyphCount], ecx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         mov dword [TextAlign], eax
         mov ecx, dword [byte ebx+02h]
         mov eax, ebx
         sar ecx, 10h
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         imul eax, ecx
         add eax, byte 7
         and al, 0F8h
@@ -661,7 +661,7 @@ DrawShapeCore:
         mov eax, esi
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         mov edx, eax
         cmp eax, byte 4
         jne short .1
@@ -671,9 +671,9 @@ DrawShapeCore:
         mov edi, 0FFh
 .2:
         xor ebx, ebx
-        mov ebp, dword [nosplit edi*4+dword_1DA4D0]
+        mov ebp, dword [nosplit edi*4+PaletteWords]
         mov dword [ShapeRowFunc], ebx
-        mov dword [nosplit edi*4+dword_1DA4D0], ebx
+        mov dword [nosplit edi*4+PaletteWords], ebx
         cmp edx, byte 8
         jne short .3
         cmp byte [ScreenBitsPerPixel], 10h
@@ -689,7 +689,7 @@ DrawShapeCore:
         mov edx, dword [dword esp+0418h]
         mov eax, esi
         call BlitCore
-        mov dword [nosplit edi*4+dword_1DA4D0], ebp
+        mov dword [nosplit edi*4+PaletteWords], ebp
         add esp, 400h
         pop ebp
         pop edi

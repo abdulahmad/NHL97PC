@@ -2,12 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_102F40 progbits alloc exec nowrite align=1
-extern SaveTextMode, str_VESAMEM, str_Rowtbl, ModeBitsPerPixel, str_Punct_SetGraphicsMode, byte_1DA8CF, GraphicsModeSet, dword_16E464
+extern SaveTextMode, str_VESAMEM, str_Rowtbl, ModeBitsPerPixel, str_Punct_SetGraphicsMode, PaletteDirty, GraphicsModeSet, dword_16E464
 extern dword_16E468, MenuScreenBitmap, ScreenModeWidth, ScreenModeHeight, DefaultModeWidth, DefaultModeHeight, ModeSetCount, FrameCounter
 extern MessageBoxActive, ScreenWidth, BackBufferWidth, ModeHeight, ModeFrameBuffer, ModeBankSize, ModeWidth, BackBufferHeight
 extern VideoModeNumber, VideoWindowHandle, ModePitch, ModeLinear, VideoWindowTable, VesaBank, VesaBankFunc, VideoModeIndex
-extern ModeTableWidth, ModeTableHeight, ModeTableBpp, ModeTableNumber, VesaModeInfo, VesaWindowActive, dword_16FA04, RowTable
-extern VideoModeHook, CurrentDrawContext, RowTableSize, dword_1DA4D0, int386_, int386x_, memset_, removewindow
+extern ModeTableWidth, ModeTableHeight, ModeTableBpp, ModeTableNumber, VesaModeInfo, VesaWindowActive, RowTableBytes, RowTable
+extern VideoModeHook, CurrentDrawContext, RowTableSize, PaletteWords, int386_, int386x_, memset_, removewindow
 extern segread_, VesaSetBank, VesaSetModeCall, VgaSetModeNoClear, FillRowTable, BytesPerPixelForDepth, SetScreenTarget, AllocMemBlock
 extern FreeMemBlock, FreeBitmap
 global VesaGetModeInfo, VesaQueryMode, FindClosestMode, VesaSetMode, VesaSetWindow, CloseVideoWindow, SetGraphicsMode, WritePaletteRegs
@@ -636,7 +636,7 @@ WritePaletteRegs:
         mov edx, 3C8h
         mov eax, dword [byte esp+014h]
         out dx, al
-        lea edi, [nosplit eax*4+dword_1DA4D0]
+        lea edi, [nosplit eax*4+PaletteWords]
         mov ebx, dword [byte esp+018h]
         inc edx
         push edx
@@ -656,7 +656,7 @@ WritePaletteRegs:
         lea ebp, [byte ebp+03h]
         lea edi, [byte edi+04h]
         jne short .1
-        mov byte [byte_1DA8CF], 0
+        mov byte [PaletteDirty], 0
         pop edx
         pop ebp
         pop edi
@@ -666,7 +666,7 @@ WritePaletteRegs:
 .2:
         mov ebp, dword [byte esp+01Ch]
         mov eax, dword [byte esp+014h]
-        lea edi, [nosplit eax*4+dword_1DA4D0]
+        lea edi, [nosplit eax*4+PaletteWords]
         mov ebx, dword [byte esp+018h]
 .3:
         mov eax, dword [byte ebp-01h]
@@ -677,7 +677,7 @@ WritePaletteRegs:
         lea ebp, [byte ebp+03h]
         lea edi, [byte edi+04h]
         jne short .3
-        mov byte [byte_1DA8CF], 0
+        mov byte [PaletteDirty], 0
         pop ebp
         pop edi
         pop esi
@@ -695,7 +695,7 @@ AllocRowTable:
         cmp dword [RowTable], byte 0
         jne short .1
         mov ebx, dword [MessageBoxActive]
-        mov eax, dword [dword_16FA04]
+        mov eax, dword [RowTableBytes]
         push ebx
         shl eax, 2
         push eax
@@ -704,11 +704,11 @@ AllocRowTable:
         add esp, byte 0Ch
         mov dword [RowTable], eax
 .1:
-        mov edx, dword [dword_16FA04]
+        mov edx, dword [RowTableBytes]
         mov eax, dword [RowTable]
         shl edx, 2
         lea ebx, [eax+edx]
-        mov edx, dword [dword_16FA04]
+        mov edx, dword [RowTableBytes]
         mov dword [byte eax+04h], 0
         sub edx, byte 2
         mov dword [RowTableSize], ebx

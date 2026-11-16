@@ -41,7 +41,7 @@ extern F32_neg88_CheckPlayerVsBoards, F32_0p5_HitKnockback, F32_0p1_HitKnockback
 extern F32_neg4608, F32_4608, F32_neg1848, F32_1392_ResolveBodyCheck, F32_1848, F32_10_ResolvePlayerContact, F32_16, F32_neg3
 extern F32_neg3_CelebrationJumpMove, F32_0p5_SkateToBenchStep, F32_0p1_RefWhistleAnim, F32_30_PokeCheckMove, F32_96_PokeCheckMove, F32_30_SweepCheckMove, F32_30_HookMove, F32_0p5_BlockReach
 extern F32_12_BlockShotMove, F32_0p1_BlockShotMove, F32_120, F32_168, F32_10_GoalieSave, F32_96_GoalieSave, F32_240, F32_144_GoalieMoves
-extern F32_24_GoalieMoves, F32_2_GoalieMoves, F32_480_GoalieMoves, F32_neg1_GoalieMoves, F32_672, dword_16862C, dword_1686BA, InGameMenuRequest
+extern F32_24_GoalieMoves, F32_2_GoalieMoves, F32_480_GoalieMoves, F32_neg1_GoalieMoves, F32_672, ScoreClockShown, dword_1686BA, InGameMenuRequest
 extern dword_168F58, dword_16AF5C, F32_2000_ScaleModelLods, F32_1, dword_16B1A4, dword_16B1A8, dword_16B3F4, dword_16B550
 extern dword_16B724, dword_16B72C, str_Punct_LoadAnimData, dword_16C360, dword_16C364, dword_16C368, dword_16C374, dword_16C384
 extern dword_16C388, dword_16C38C, dword_16C390, dword_16C394, dword_16C398, dword_16C39C, dword_16C3A0, dword_16C3A4
@@ -19642,7 +19642,7 @@ UpdateScoreClockData:
         mov ebx, dword [byte eax+08h]
         mov dword [byte eax+028h], ebx
 .1:
-        cmp dword [dword_16862C], byte 0
+        cmp dword [ScoreClockShown], byte 0
         je near .7
         cmp byte [dword esi+0A4h], 0Dh
         jae short .3

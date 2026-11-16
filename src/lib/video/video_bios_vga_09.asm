@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_13C180 progbits alloc exec nowrite align=1
-extern FpremShiftTable, dword_171E34, FpremScale, F64_5p42101eneg20, F64_0p5_fprem_common, FpremTwoPi
+extern FpremShiftTable, RetraceTimeout, FpremScale, F64_5p42101eneg20, F64_0p5_fprem_common, FpremTwoPi
 global WaitDisplayRetrace, WaitRetrace, __fprem_chk, fprem1_common, fprem_common, WaitRetrace_2D, ReadPortStable, WaitRetraceEdges
 ;-----------------------------------------------------------------------------
 ; ReadPortStable                                 13C180  97 PC, low confidence
@@ -19,7 +19,7 @@ ReadPortStable:
 ;-----------------------------------------------------------------------------
 WaitRetrace:
         mov dx, 3DAh
-        mov ecx, dword [dword_171E34]
+        mov ecx, dword [RetraceTimeout]
         jmp short .2
 .1:
         call ReadPortStable
@@ -31,17 +31,17 @@ WaitRetrace:
         test al, 8
         loope .2
         jecxz WaitRetrace_2D
-        mov dword [dword_171E34], 186A0h
+        mov dword [RetraceTimeout], 186A0h
         ret
 WaitRetrace_2D:
-        mov dword [dword_171E34], 2710h
+        mov dword [RetraceTimeout], 2710h
         ret
 ;-----------------------------------------------------------------------------
 ; WaitRetraceEdges                                               13C1BF  96 PC
 ;-----------------------------------------------------------------------------
 WaitRetraceEdges:
         mov dx, 3DAh
-        mov ecx, dword [dword_171E34]
+        mov ecx, dword [RetraceTimeout]
 .1:
         call ReadPortStable
         test al, 8
@@ -52,14 +52,14 @@ WaitRetraceEdges:
         test al, 8
         loope .2
         jecxz WaitRetrace_2D
-        mov dword [dword_171E34], 186A0h
+        mov dword [RetraceTimeout], 186A0h
         ret
 ;-----------------------------------------------------------------------------
 ; WaitDisplayRetrace                                             13C1EA  96 PC
 ;-----------------------------------------------------------------------------
 WaitDisplayRetrace:
         mov dx, 3DAh
-        mov ecx, dword [dword_171E34]
+        mov ecx, dword [RetraceTimeout]
 .3:
         call ReadPortStable
         test al, 8
@@ -70,7 +70,7 @@ WaitDisplayRetrace:
         test al, 8
         loopne .4
         jecxz WaitRetrace_2D
-        mov dword [dword_171E34], 186A0h
+        mov dword [RetraceTimeout], 186A0h
         ret
         mov dx, 3DAh
         call ReadPortStable

@@ -3,16 +3,16 @@ bits 32
 %include "hockey.inc"
 section s_1D91C8 nobits alloc noexec write align=1
 global PrimColor, ModelFileCount, BitReaderPtr, BitReaderBits, VideoCodeTableA, VideoDecoderA, VideoCodeTableB, VideoGammaTable
-global VideoDecoderB, VideoCodeTableC, FrameRateState, FrameRateSamples, FrameRateLast, VideoBlock0, dword_1DA34C, dword_1DA350
-global dword_1DA390, PartFuncTable, VideoBlock1, VideoBlock2, VideoBlock3, VideoBlock4, unk_1D9BD0, unk_1D9BF0
-global unk_1D9C10, unk_1D9C30, unk_1D9C34, unk_1D9C38, unk_1D9C3C, unk_1D9C40, unk_1D9C44, unk_1D9C48
-global unk_1D9C4C, unk_1D9C54, unk_1D9C78, unk_1D9C9C, unk_1D9CC0, unk_1D9CE4, unk_1D9D08, unk_1D9D2C
-global unk_1D9D50, unk_1D9D70, unk_1D9D90, unk_1D9DB0, unk_1D9DD0, unk_1D9DF0, unk_1D9E10, unk_1D9E30
-global unk_1D9E50, unk_1D9E70, unk_1D9E90, unk_1D9EB0, unk_1D9ED0, unk_1D9EF0, unk_1D9F10, unk_1D9F30
-global unk_1D9F50, unk_1D9F70, unk_1D9F90, unk_1D9FB0, unk_1D9FD0, unk_1D9FF0, unk_1DA010, unk_1DA030
-global unk_1DA050, unk_1DA070, unk_1DA090, unk_1DA0B0, unk_1DA0D0, unk_1DA0F0, unk_1DA110, unk_1DA130
-global unk_1DA150, unk_1DA170, unk_1DA190, unk_1DA1B0, unk_1DA1D0, unk_1DA1F0, unk_1DA210, unk_1DA230
-global unk_1DA250, unk_1DA270, unk_1DA290, unk_1DA2B0, unk_1DA2D0, unk_1DA2F0, unk_1DA310, unk_1DA330
+global VideoDecoderB, VideoCodeTableC, FrameRateState, FrameRateSamples, FrameRateLast, VideoCoefs, MemPoolSizes, MemPoolTable
+global MemPoolCount, PartFuncTable
+global VideoIdctTemp
+
+global VideoIdctOut
+
+
+
+
+
 global KeyRowTable
 PrimColor:
         resb 4
@@ -44,151 +44,83 @@ FrameRateSamples:
         resb 28
 FrameRateLast:
         resb 4
-VideoBlock0:
+VideoCoefs:
         resb 32
-VideoBlock1:
         resb 32
-VideoBlock2:
         resb 32
-VideoBlock3:
         resb 32
-VideoBlock4:
         resb 32
-unk_1D9BD0:
         resb 32
-unk_1D9BF0:
         resb 32
-unk_1D9C10:
         resb 32
-unk_1D9C30:
+VideoIdctTemp:
         resb 4
-unk_1D9C34:
         resb 4
-unk_1D9C38:
         resb 4
-unk_1D9C3C:
         resb 4
-unk_1D9C40:
         resb 4
-unk_1D9C44:
         resb 4
-unk_1D9C48:
         resb 4
-unk_1D9C4C:
         resb 8
-unk_1D9C54:
         resb 36
-unk_1D9C78:
         resb 36
-unk_1D9C9C:
         resb 36
-unk_1D9CC0:
         resb 36
-unk_1D9CE4:
         resb 36
-unk_1D9D08:
         resb 36
-unk_1D9D2C:
         resb 36
-unk_1D9D50:
+VideoIdctOut:
         resb 32
-unk_1D9D70:
         resb 32
-unk_1D9D90:
         resb 32
-unk_1D9DB0:
         resb 32
-unk_1D9DD0:
         resb 32
-unk_1D9DF0:
         resb 32
-unk_1D9E10:
         resb 32
-unk_1D9E30:
         resb 32
-unk_1D9E50:
         resb 32
-unk_1D9E70:
         resb 32
-unk_1D9E90:
         resb 32
-unk_1D9EB0:
         resb 32
-unk_1D9ED0:
         resb 32
-unk_1D9EF0:
         resb 32
-unk_1D9F10:
         resb 32
-unk_1D9F30:
         resb 32
-unk_1D9F50:
         resb 32
-unk_1D9F70:
         resb 32
-unk_1D9F90:
         resb 32
-unk_1D9FB0:
         resb 32
-unk_1D9FD0:
         resb 32
-unk_1D9FF0:
         resb 32
-unk_1DA010:
         resb 32
-unk_1DA030:
         resb 32
-unk_1DA050:
         resb 32
-unk_1DA070:
         resb 32
-unk_1DA090:
         resb 32
-unk_1DA0B0:
         resb 32
-unk_1DA0D0:
         resb 32
-unk_1DA0F0:
         resb 32
-unk_1DA110:
         resb 32
-unk_1DA130:
         resb 32
-unk_1DA150:
         resb 32
-unk_1DA170:
         resb 32
-unk_1DA190:
         resb 32
-unk_1DA1B0:
         resb 32
-unk_1DA1D0:
         resb 32
-unk_1DA1F0:
         resb 32
-unk_1DA210:
         resb 32
-unk_1DA230:
         resb 32
-unk_1DA250:
         resb 32
-unk_1DA270:
         resb 32
-unk_1DA290:
         resb 32
-unk_1DA2B0:
         resb 32
-unk_1DA2D0:
         resb 32
-unk_1DA2F0:
         resb 32
-unk_1DA310:
         resb 32
-unk_1DA330:
         resb 28
-dword_1DA34C:
+MemPoolSizes:
         resb 4
-dword_1DA350:
+MemPoolTable:
         resb 64
-dword_1DA390:
+MemPoolCount:
         resb 4

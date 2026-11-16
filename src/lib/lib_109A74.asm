@@ -3,11 +3,11 @@ bits 32
 %include "hockey.inc"
 section s_109A74 progbits alloc exec nowrite align=1
 extern SpeechQueueBank, SpeechQueueFlags, SoundSystemOn, SpeechQueueActive, SpeechQueueData, SpeechQueueHead, SpeechQueueTail, SpeechQueueCount
-extern dword_17020C, SpeechQueueChannel, SpeechQueueHandle, SoundBankTable, SpeechQueueVolume, AsyncRequests, AsyncCurFile, AsyncCurOffset
+extern SpeechQueueLevel, SpeechQueueChannel, SpeechQueueHandle, SoundBankTable, SpeechQueueVolume, AsyncRequests, AsyncCurFile, AsyncCurOffset
 extern AsyncFreeList, AsyncCurBuffer, AsyncQueueHead, AsyncQueueTail, AsyncReadLength, AsyncState, AsyncFileHandle, AsyncError
 extern AsyncDosRegs, AsyncDosResult, AsyncSector, AsyncSectorCount, AsyncBytesLeft, AsyncDest, AsyncCallback, AsyncWaitTimer
 extern AsyncStreamFile, AsyncStreamBase, AsyncStreamSize, AsyncTickCount, AsyncLastSector, AsyncStreamPos, AsyncChunkSize, AsyncChunkDest
-extern AsyncStreamEnd, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, CdOpenStream, CdHandleEntry, CdCloseFile
+extern AsyncStreamEnd, ChannelSampleTable, str_ASYNCFILE, strcmp_, strncpy_, CdOpenStream, CdHandleEntry, CdCloseFile
 extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, CheckBankIndex, SetMusicStreamVolume, ChannelPlaying
 extern StopChannel, PlaySample, LoadSampleHeader, AudioEnter, AudioLeaveCheck, IsChannelActive, ChannelPosition, ChannelTimeLeftLocked
 extern AllocMemBlockFixed, AllocMemBlock, FreeMemBlock, UnlinkMemBlockLocked, addtimer, RemoveTimerCallback, AsyncSeekRegs, SpeechQueueClip
@@ -1201,7 +1201,7 @@ StartSpeechQueue:
 .3:
         mov edi, AdvanceSpeechQueue
         mov ebp, 1
-        mov dword [dword_17020C], edx
+        mov dword [SpeechQueueLevel], edx
         xor eax, eax
         mov dword [SpeechQueueVolume], edi
         mov dword [SpeechQueueActive], ebp
@@ -1231,7 +1231,7 @@ StartSpeechQueue:
         ret
 .6:
         mov edx, dword [SpeechQueueActive]
-        mov dword [dword_17020C], eax
+        mov dword [SpeechQueueLevel], eax
         test edx, edx
         je short .7
         mov ebx, dword [SpeechQueueHandle]
@@ -1479,7 +1479,7 @@ AdvanceSpeechQueue:
         mov dword [SpeechQueueTail], ebp
 .1:
         mov eax, dword [SpeechQueueHandle]
-        mov ebx, dword [dword_17020C]
+        mov ebx, dword [SpeechQueueLevel]
         mov dword [SpeechQueueChannel], eax
         xor eax, eax
         movzx esi, byte [byte edx+01h]
@@ -1561,7 +1561,7 @@ SetChannelVolumeChecked:
         mov ebx, eax
         shl eax, 4
         add eax, ebx
-        mov ebx, dword_1DCF38
+        mov ebx, ChannelSampleTable
         shl eax, 2
         add ebx, eax
         test ecx, ecx
