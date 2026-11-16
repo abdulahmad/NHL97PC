@@ -28,7 +28,7 @@ extern dword_1C8E1C, dword_1C8E20, dword_1C8E24, dword_1C8E28, dword_1C8E2C, dwo
 extern dword_1C8E3C, dword_1C8E40, dword_1C8E44, dword_1C8E48, dword_1CC2AC, dword_1CF548, jpt_9621A, memset_
 extern qsort_, sprintf_, strcat_, strcpy_, BlitArt, BlitShape, sub_1013FC, FindShape
 extern FindShapeQuiet, sub_101560, sub_102B94, sub_102C10, Random32, sub_106F64, sub_106F94, sub_11A318
-extern SetScreenTarget, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, StopAllSfx, PlaySfx
+extern SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx
 extern LoadDataFile, LoadDataFileFlag0, OpenDataLibrary, sub_7B84B, LoadLogoNames, sub_7CB8C, sub_7DFC0, sub_7E52C
 extern sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4
 extern sub_80BBC, sub_81678, sub_823F0, sub_830D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
@@ -71,7 +71,7 @@ EditLinesScreen:
         je short .1
         test eax, eax
         jl short .1
-        call sub_415A0
+        call MusicEnabled
 .1:
         push byte 0
         push dword 99Ch
@@ -103,15 +103,15 @@ EditLinesScreen:
         call SetTextColor
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 11h
         call LoadDataFile
         mov dword [dword_1C8E2C], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 10h
         call LoadDataFile
         mov edx, dword [byte ebp+07Ah]
@@ -138,8 +138,8 @@ EditLinesScreen:
         cmp byte [byte_1C6040], 0
         jne short .2
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 51h
         call LoadDataFileFlag0
@@ -285,8 +285,8 @@ EditLinesScreen_2C7:
         cmp dword [dword_1C8E44], byte 0
         jne near .21
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 10h
         call LoadDataFile
@@ -343,8 +343,8 @@ EditLinesScreen_2C7:
         cmp dword [dword_1C8E40], byte 0
         jne short .22
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 51h
         call LoadDataFileFlag0
@@ -575,8 +575,8 @@ EditLinesScreen_69D:
         call FreeBitmap
         add esp, byte 4
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 10h
         call LoadDataFile
@@ -639,7 +639,7 @@ EditLinesScreen_69D:
         je short .41
         test edi, edi
         jl short .40
-        call sub_415F8
+        call LoadFrontEndSfx
 .40:
         call LoadLogoNames
 .41:
@@ -1318,8 +1318,8 @@ sub_9732A:
         call sprintf_
         add esp, byte 0Ch
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 0FFh
         call LoadDataFile
@@ -1409,8 +1409,8 @@ sub_9732A:
         add esp, byte 8
         mov eax, 3
         mov dword [byte ebp+026h], 5Eh
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 50h
         mov dword [byte ebp+022h], 4Bh
@@ -8137,8 +8137,8 @@ LoadEditLinesArt:
         cmp byte [ebx], 0
         je near .3
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push ebx
         call sub_101560
@@ -8241,8 +8241,8 @@ LoadEditLinesArt:
         cmp byte [ebx], 0
         je near .9
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push ebx
         call sub_101560
@@ -8307,8 +8307,8 @@ sub_9C7B7:
         jmp short .2
 .1:
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 0FEh
         call LoadDataFileFlag0
@@ -8734,7 +8734,7 @@ sub_9CCB1:
         cmp dword [dword_16CFF4], byte 0
         je short .4
         mov eax, 309h
-        call sub_41F2C
+        call PlayMenuSfx
         mov dword [dword_16CFF4], 0
 .4:
         pop edx

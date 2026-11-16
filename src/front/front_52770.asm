@@ -48,8 +48,8 @@ extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_10B000, sub_10B040, s
 extern sub_10B0EC, sub_10B4E0, sub_10B580, BuildAntiAliasTable, sub_10C8E8, sub_10DDE0, sub_10E284, sub_10E4B0
 extern sub_10E62C, sub_10E6AC, sub_10E7AC, sub_10E8F8, sub_10EE50, sub_10FB98, sub_10FBB0, sub_10FD58
 extern sub_10FE58, sub_10FEA8, sub_10FFBC, sub_11002C, sub_1100B4, sub_110414, sub_110538, sub_1105E4
-extern sub_110634, sub_112BCC, sub_112DE4, sub_11313C, sub_3D2C0, sub_3D3D0, sub_3DA80, sub_3DAC4
-extern sub_3DBCC, sub_3DDD8, sub_3E198, sub_3E1F8, sub_3E5F0, SetArtArchive, sub_4B4C4, sub_4B540
+extern sub_110634, sub_112BCC, sub_112DE4, sub_11313C, BuildRangePalette, BlendRangePalette, AddBankToRange, RemapArtBank
+extern SetRangeColors, RemapRangeColors, CopyRangePalette, BuildRangePaletteBuf, FadeGamePalette, SetArtArchive, sub_4B4C4, sub_4B540
 extern sub_4B944, sub_4BF54, sub_4BF94, sub_4C0CC, sub_4C5A0, sub_4D3B4, sub_4E818, sub_4E840
 extern sub_4E868, sub_4E894, sub_4E8C0, sub_4E8EC, sub_4E9A0, sub_4EA44, sub_4EF68, sub_4F004
 extern sub_4F068, sub_4F294, sub_4F404, sub_4FC50, sub_4FD08, DrawGoalLight, TransformRink, sub_509E8
@@ -295,7 +295,7 @@ LoadLogos:
         mov eax, str_Blogos
         mov ebx, dword [dword_1B0F38]
         mov edx, dword [dword_1ADC88]
-        call sub_3DA80
+        call AddBankToRange
         add esp, 0E8h
         pop ebp
         pop edi
@@ -658,15 +658,15 @@ sub_52D4C:
         sub esp, 300h
         mov edx, esp
         mov eax, dword [dword_1ADC88]
-        call sub_3E1F8
+        call BuildRangePaletteBuf
         mov edx, esp
         mov eax, dword [dword_1ADC8C]
         mov ecx, 8000h
-        call sub_3E198
+        call CopyRangePalette
         mov edx, esp
         mov eax, dword [dword_1ADC90]
         mov ebx, 13333h
-        call sub_3E198
+        call CopyRangePalette
         push dword 9999h
         mov edx, unk_1B0410
         lea eax, [byte esp+04h]
@@ -736,7 +736,7 @@ sub_52E28:
         mov esi, dword [dword_1ADC8C]
         mov ecx, eax
         mov eax, esi
-        call sub_3D2C0
+        call BuildRangePalette
         jmp short .2
 .1:
         mov ecx, unk_1AEDD8
@@ -744,7 +744,7 @@ sub_52E28:
         push eax
         mov edx, 3
         mov eax, dword [dword_1ADC8C]
-        call sub_3D3D0
+        call BlendRangePalette
 .2:
         test edi, edi
         je short .3
@@ -814,13 +814,13 @@ LoadRinkLines:
         mov edx, esp
         mov dword [dword_1B1018], eax
         mov eax, dword [dword_1ADC88]
-        call sub_3E1F8
+        call BuildRangePaletteBuf
         mov edx, esp
         mov eax, dword [dword_1ADC8C]
-        call sub_3E198
+        call CopyRangePalette
         mov edx, esp
         mov eax, dword [dword_1ADC90]
-        call sub_3E198
+        call CopyRangePalette
         push str_Crease
         mov edx, dword [dword_1B1108]
         push edx
@@ -983,14 +983,14 @@ LoadRinkLines:
         mov eax, dword [dword_1ADC8C]
         mov dword [dword_1B0FB4], ebx
         xor ebx, ebx
-        call sub_3DDD8
+        call RemapRangeColors
         mov ecx, dword [dword_1B0FBC]
         test ecx, ecx
         je short .2
         mov eax, dword [dword_1ADC8C]
         mov edx, ecx
         xor ebx, ebx
-        call sub_3DDD8
+        call RemapRangeColors
 .2:
         xor ebp, ebp
         jmp near .9
@@ -1235,7 +1235,7 @@ LoadRinkModel:
         mov dword [dword_1B110C], eax
         mov ebx, eax
         mov eax, str_Rink
-        call sub_3DAC4
+        call RemapArtBank
         mov ebx, 4
         mov eax, dword [dword_1B10F4]
         xor edx, edx
@@ -1286,7 +1286,7 @@ LoadRinkModel:
         mov ebx, eax
         xor ecx, ecx
         mov eax, str_Score
-        call sub_3DAC4
+        call RemapArtBank
         mov ebx, 4
         mov eax, dword [dword_1B10D8]
         xor edx, edx
@@ -1348,7 +1348,7 @@ LoadRinkModel:
         xor ecx, ecx
         mov eax, str_Net
         xor esi, esi
-        call sub_3DAC4
+        call RemapArtBank
         xor ebp, ebp
 .2:
         mov eax, dword [dword_1B0F98]
@@ -2368,7 +2368,7 @@ LoadRinkModel:
         mov dword [dword_1B020C], eax
         xor ecx, ecx
         mov eax, unk_1617BC
-        call sub_3DAC4
+        call RemapArtBank
         call sub_E341C
         call sub_4C0CC
         mov ecx, 0FFFFFFFFh
@@ -3278,7 +3278,7 @@ sub_55000:
 .3:
         mov ebx, eax
         mov eax, 0FFh
-        call sub_3E5F0
+        call FadeGamePalette
         cmp dword [dword_1B0E2C], byte 0
         je near .4
         mov edi, esp
@@ -5487,7 +5487,7 @@ sub_56AE4:
         call __STOSB
         mov edx, unk_16B534
         mov eax, dword [dword_1ADC90]
-        call sub_3DBCC
+        call SetRangeColors
         pop edx
         pop ecx
         ret

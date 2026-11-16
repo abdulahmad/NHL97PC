@@ -161,12 +161,12 @@ extern sub_110414, sub_1104F0, sub_11328, sub_114C4, sub_114FD0, sub_115020, sub
 extern sub_115170, sub_1151A4, sub_115220, sub_1152B0, sub_115318, sub_1153AC, sub_1153DC, sub_115810
 extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, sub_116050, IsPlayoffGame
 extern sub_119A8, setplayer, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
-extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, sub_18DF7, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
-extern SelectCameraView, sub_1DFA0, sub_1E014, assreplace, assinsert, sub_1E354, sub_1FBF4, Goal
-extern sub_218B8, sub_21A4C, PlayerGetsPuck, ChkPuckContacts, a2touchpuck, ChkGoalies, sub_2E11C, RestoreBenchEnergy
-extern sub_2E208, StartFaceoffLineChange, ChkPenaltyCall, checkint, AddPenalty, AddPenalty2, EndPenaltyShot, SetPlayerTarget
-extern doinput, checkfight, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
-extern sub_41ACC, StopAllSfx, PlaySfxOr, PlaySfxVolume, sub_42354, sub_4241C, sub_424CC, CommentaryEvent
+extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, OpenFreeOverlay, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
+extern SelectCameraView, CrowdForPlayer, ShotChanceCommentary, assreplace, assinsert, SetZoneFlags, GoaliePosTarget, Goal
+extern InCrease, UpdateCreaseFlag, PlayerGetsPuck, ChkPuckContacts, a2touchpuck, ChkGoalies, TeamLineSlots, RestoreBenchEnergy
+extern ChkTiredPlayer, StartFaceoffLineChange, ChkPenaltyCall, checkint, AddPenalty, AddPenalty2, EndPenaltyShot, SetPlayerTarget
+extern doinput, checkfight, AddBankToRange, RemapArtBank, SetRangeColors, AddColorTable, RemapBankToRange, RemapArtPixels
+extern StartMusicTrack, StopAllSfx, PlaySfxOr, PlaySfxVolume, PlaySfxAt, SetCrowdNoise, SetCrowdMood, CommentaryEvent
 extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, DrawGameFrame, sub_4BCB4
 extern sub_4C0C4, sub_4DA84, PeriodOver, sub_4DD9C, sub_4DDB0, sub_4FC50, sub_50050, sub_51B5C
 extern sub_51BD8, sub_56798, sub_567B0, sub_568CC, sub_56908, sub_56A84, sub_56AE4, sub_56CD0
@@ -289,7 +289,7 @@ sub_57324:
         xor ecx, ecx
         mov edx, dword [esp]
         mov eax, dword [dword_1ADC88]
-        call sub_3DE08
+        call RemapArtPixels
         mov eax, dword [dword_1B89AC]
         mov ebx, dword [dword edi+06F0h]
         mov dword [dword edi+06D4h], eax
@@ -848,7 +848,7 @@ LoadCupArt:
         mov dword [dword_1B84D8], eax
         mov edx, eax
         mov eax, ecx
-        call sub_3DCBC
+        call RemapBankToRange
         mov ebx, 0Ah
         mov eax, dword [dword_1B84F8]
         xor edx, edx
@@ -964,7 +964,7 @@ LoadGoalieMask:
         je short .4
         mov eax, dword [dword_1ADC88]
         xor ebx, ebx
-        call sub_3DCBC
+        call RemapBankToRange
         jmp short .5
 .4:
         mov eax, dword [dword_1ADC88]
@@ -972,7 +972,7 @@ LoadGoalieMask:
         xor ecx, ecx
         mov edx, eax
         mov eax, str_Gmask
-        call sub_3DAC4
+        call RemapArtBank
 .5:
         mov ebx, 0Ah
         mov eax, dword [dword edi+dword_1B84FC]
@@ -1043,7 +1043,7 @@ LoadPlayerCommonArt:
         mov edx, dword [dword_1ADC88]
         mov dword [dword_1B8364], eax
         mov eax, str_Fist
-        call sub_3DA80
+        call AddBankToRange
         call sub_E341C
         mov eax, str_Torso0
         xor edx, edx
@@ -1170,7 +1170,7 @@ LoadPlayerCommonArt:
         xor ecx, ecx
         mov eax, str_Ori
         xor esi, esi
-        call sub_3DAC4
+        call RemapArtBank
 .5:
         mov ebx, 0Ah
         mov eax, dword [dword esi+dword_1B13B0]
@@ -1233,7 +1233,7 @@ LoadPlayerCommonArt:
         xor ecx, ecx
         mov eax, str_Ori
         xor esi, esi
-        call sub_3DAC4
+        call RemapArtBank
 .7:
         mov ebx, 0Ah
         mov eax, dword [dword esi+dword_1B8554]
@@ -1329,7 +1329,7 @@ LoadPlayerCommonArt:
         xor ecx, ecx
         mov eax, str_Ori
         xor esi, esi
-        call sub_3DAC4
+        call RemapArtBank
 .8:
         mov ebx, dword [dword esi+dword_1B13E0]
         push ebx
@@ -1465,7 +1465,7 @@ LoadUniformArt:
         push byte 0
         mov ecx, dword [byte esp+034h]
         mov eax, str_Cupp
-        call sub_3DA80
+        call AddBankToRange
 .2:
         push byte 0
         push str_Torso2Fsh
@@ -1487,7 +1487,7 @@ LoadUniformArt:
         xor ecx, ecx
         mov dword [nosplit esi*4+dword_1B8444], eax
         mov eax, str_Ori
-        call sub_3DAC4
+        call RemapArtBank
         call sub_E341C
         push byte 0
         push str_Helmet0Fsh
@@ -1499,7 +1499,7 @@ LoadUniformArt:
         xor ecx, ecx
         mov dword [nosplit esi*4+dword_1B84B4], eax
         mov eax, str_Ori
-        call sub_3DAC4
+        call RemapArtBank
         mov ebx, 0Ah
         mov eax, dword [dword_1B8530]
         xor edx, edx
@@ -1527,7 +1527,7 @@ LoadUniformArt:
         mov dword [nosplit esi*4+dword_1B84DC], eax
         mov eax, str_Ori
         mov esi, dword [byte esp+020h]
-        call sub_3DAC4
+        call RemapArtBank
         add esi, byte 4
 .3:
         mov ebx, 0Ah
@@ -1559,7 +1559,7 @@ LoadUniformArt:
         xor ecx, ecx
         mov dword [dword esi+dword_1B84E8], eax
         mov eax, str_Ori
-        call sub_3DAC4
+        call RemapArtBank
         mov ebx, 0Ah
         mov eax, dword [dword_1B8548]
         xor edx, edx
@@ -1579,7 +1579,7 @@ LoadUniformArt:
         xor ecx, ecx
         mov dword [dword esi+dword_1B84CC], eax
         mov eax, str_Ori
-        call sub_3DAC4
+        call RemapArtBank
         mov ebx, 0Ah
         mov eax, dword [dword_1B84B0]
         xor edx, edx
@@ -1599,7 +1599,7 @@ LoadUniformArt:
         mov ebx, eax
         xor ecx, ecx
         mov eax, str_Ori
-        call sub_3DAC4
+        call RemapArtBank
         call sub_E341C
         mov ebx, 0Ah
         mov eax, dword [dword_1B8488]
@@ -1629,7 +1629,7 @@ LoadUniformArt:
         xor ecx, ecx
         mov dword [dword esi+dword_1B845C], eax
         mov eax, str_Ori
-        call sub_3DAC4
+        call RemapArtBank
         mov ebx, 0Ah
         mov eax, dword [dword_1B8440]
         xor edx, edx
@@ -1667,7 +1667,7 @@ LoadUniformArt:
         mov ebx, edi
         mov dword [dword esi+dword_1B83E0], eax
         mov eax, str_Uarm
-        call sub_3DA80
+        call AddBankToRange
         push byte 0
         push str_Larm
         mov ebx, dword_1B82E0
@@ -1683,7 +1683,7 @@ LoadUniformArt:
         mov ebx, edi
         mov dword [dword esi+dword_1B83C8], eax
         mov eax, str_Larm
-        call sub_3DA80
+        call AddBankToRange
         call sub_E341C
         push byte 0
         push str_Uleg
@@ -1700,7 +1700,7 @@ LoadUniformArt:
         mov ebx, edi
         mov dword [dword esi+dword_1B834C], eax
         mov eax, str_Uleg
-        call sub_3DA80
+        call AddBankToRange
         push byte 0
         push str_Lleg
         mov ebx, dword_1B82E0
@@ -1716,7 +1716,7 @@ LoadUniformArt:
         mov ebx, edi
         mov dword [dword esi+dword_1B8330], eax
         mov eax, str_Lleg
-        call sub_3DA80
+        call AddBankToRange
         call sub_E341C
         push byte 0
         push str_Glove
@@ -1737,7 +1737,7 @@ LoadUniformArt:
         push eax
         mov dword [dword_1CF9FC], eax
         mov eax, str_Glove
-        call sub_3DA80
+        call AddBankToRange
         mov edx, dword [byte esp+024h]
         call sub_E341C
         push edx
@@ -1993,7 +1993,7 @@ sub_5881C:
         push byte 0
         mov eax, str_Faces
         mov edx, dword [dword_1ADC88]
-        call sub_3DC2C
+        call AddColorTable
         mov eax, sub_5876C
         mov ebx, 5Ah
         call sub_5BD1C
@@ -2285,7 +2285,7 @@ sub_58B80:
         call __STOSB
         mov edx, unk_16B534
         mov eax, dword [dword_1ADC90]
-        call sub_3DBCC
+        call SetRangeColors
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -6895,7 +6895,7 @@ sub_5C1F8:
 ;-----------------------------------------------------------------------------
 sub_5C2CC:
         xor eax, eax
-        call sub_4241C
+        call SetCrowdNoise
         call StopAllSfx
         call sub_114C4
         cmp dword [dword_1B8F48], byte 0
@@ -6911,7 +6911,7 @@ sub_5C2F4:
         push edx
         mov eax, 64h
         mov edx, 258h
-        call sub_4241C
+        call SetCrowdNoise
         mov dword [dword_1B8F48], edx
         pop edx
         ret
@@ -6922,7 +6922,7 @@ sub_5C30C:
         push edx
         xor eax, eax
         mov edx, 12Ch
-        call sub_4241C
+        call SetCrowdNoise
         call StopAllSfx
         call sub_114C4
         mov dword [dword_1B8F48], edx
@@ -6936,7 +6936,7 @@ sub_5C32C:
         push edx
         xor eax, eax
         mov edx, 4B0h
-        call sub_4241C
+        call SetCrowdNoise
         call StopAllSfx
         call sub_114C4
         mov dword [dword_1B8F48], edx
@@ -6956,7 +6956,7 @@ sub_5C34C:
         mov esi, eax
         xor eax, eax
         mov edx, 12Ch
-        call sub_4241C
+        call SetCrowdNoise
         call sub_4A280
         call StopAllSfx
         call sub_114C4
@@ -7106,7 +7106,7 @@ sub_5C500:
         mov dword [dword_1B8FA4], edx
         call SetReplayRecording
         call ClearOverlayWindows
-        call sub_18DF7
+        call OpenFreeOverlay
         mov eax, 2
         call sub_4B8DC
         mov eax, 3
@@ -24141,7 +24141,7 @@ sub_68378:
         test ah, 1
         jne short .12
         mov eax, 4
-        call sub_424CC
+        call SetCrowdMood
         mov eax, edi
         call sub_67BD0
 .12:
@@ -24619,7 +24619,7 @@ sub_6889C:
         test ah, 1
         jne short .12
         mov eax, 4
-        call sub_424CC
+        call SetCrowdMood
         xor eax, eax
         call sub_67BD0
 .12:
@@ -25202,7 +25202,7 @@ sub_68DBC:
         test byte [byte_19CBC2], 1
         jne short .17
         mov eax, 4
-        call sub_424CC
+        call SetCrowdMood
         xor eax, eax
         call sub_67BD0
 .17:
@@ -31016,7 +31016,7 @@ sub_6D678:
         cmp byte [dword edx+0A4h], 0Ch
         jne short .1
         mov eax, edx
-        call sub_1DFA0
+        call CrowdForPlayer
         pop edi
         pop esi
         pop ecx
@@ -31041,7 +31041,7 @@ sub_6D678:
         jne short .5
 .3:
         mov eax, edx
-        call sub_1DFA0
+        call CrowdForPlayer
         mov di, word [byte ecx+06Ah]
         cmp di, byte 23h
         jle short .4
@@ -34830,7 +34830,7 @@ sub_704D4:
         test byte [dword ecx+0BFh], 40h
         je short .5
         mov eax, 8
-        call sub_424CC
+        call SetCrowdMood
 .5:
         push dword [byte ecx+028h]
         mov eax, 2
@@ -34886,7 +34886,7 @@ sub_704D4_1C4:
 .7:
         mov eax, 1
 .8:
-        call sub_424CC
+        call SetCrowdMood
         mov eax, dword [dword ecx+0EEh]
         mov dl, byte [byte eax+031h]
         or dl, 1
@@ -34900,7 +34900,7 @@ sub_704D4_1C4:
         test byte [dword ecx+0BFh], 40h
         je short .11
         mov eax, 9
-        call sub_424CC
+        call SetCrowdMood
 .11:
         push dword [byte ecx+028h]
         mov eax, 2
@@ -34947,7 +34947,7 @@ sub_704D4_299:
 .13:
         mov eax, 1
 .14:
-        call sub_424CC
+        call SetCrowdMood
         mov edx, 2
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -36481,7 +36481,7 @@ sub_71808_97:
 .2:
         mov eax, 1
 .3:
-        call sub_424CC
+        call SetCrowdMood
         mov dl, byte [dword ecx+0BFh]
         mov eax, ecx
         or dl, 20h
@@ -36555,7 +36555,7 @@ sub_71808_197:
 .7:
         mov eax, 1
 .8:
-        call sub_424CC
+        call SetCrowdMood
         mov dl, byte [dword ecx+0BFh]
         mov eax, ecx
         or dl, 20h
@@ -36698,7 +36698,7 @@ sub_71ABC_97:
 .2:
         mov eax, 1
 .3:
-        call sub_424CC
+        call SetCrowdMood
         mov dl, byte [dword ecx+0BFh]
         mov eax, ecx
         or dl, 20h
@@ -36772,7 +36772,7 @@ sub_71ABC_197:
 .7:
         mov eax, 1
 .8:
-        call sub_424CC
+        call SetCrowdMood
         mov dl, byte [dword ecx+0BFh]
         mov eax, ecx
         or dl, 20h
@@ -38944,7 +38944,7 @@ sub_73464:
         cwde
         xor edx, edx
         add eax, 520h
-        call sub_42354
+        call PlaySfxAt
 .4:
         test byte [byte esi+01Ch], 80h
         je near .7
@@ -41809,7 +41809,7 @@ sub_75500:
         mov dword [byte ebp+046h], eax
         mov eax, dword [byte ebp+07Ah]
         fstp dword [byte ebp+04Ah]
-        call sub_1FBF4
+        call GoaliePosTarget
         mov eax, dword [byte ebp+07Ah]
         test byte [dword eax+0BFh], 20h
         jne near .26
@@ -45345,7 +45345,7 @@ updateplayers:
         mov eax, 12Ch
         call sub_76E28
         call sub_7002C
-        call sub_1E014
+        call ShotChanceCommentary
         mov eax, dword [off_168D04]
         mov edx, dword [dword eax+0AEh]
         sar edx, 18h
@@ -45424,7 +45424,7 @@ updateplayers:
         test ah, 80h
         setne dl
         mov eax, ebx
-        call sub_218B8
+        call InCrease
         mov byte [dword ebx+0A5h], al
         test byte [byte_19CBCC], 40h
         je near .15
@@ -45477,7 +45477,7 @@ updateplayers:
         test byte [dword ebx+0C0h], 1
         jne short .11
         mov eax, ebx
-        call sub_21A4C
+        call UpdateCreaseFlag
 .11:
         test byte [byte_19CBCC], 40h
         je short .15
@@ -45553,7 +45553,7 @@ updateplayers:
         cmp word [dword ebx+0A9h], byte 0
         jle short .21
         mov eax, ebx
-        call sub_1E354
+        call SetZoneFlags
 .21:
         mov eax, dword [dword ebx+0EEh]
         and byte [byte eax+029h], 0FEh
@@ -45647,7 +45647,7 @@ updateplayers:
         call sub_6FF1C
 .30:
         mov eax, ebx
-        call sub_2E208
+        call ChkTiredPlayer
         mov eax, dword [dword ebx+0AEh]
         sar eax, 18h
         mov al, byte [dword ebx+eax+0B2h]
@@ -46098,10 +46098,10 @@ clockcont_0:
         mov eax, dword [off_168CFC]
         call assreplace
         mov eax, 5Ch
-        call sub_41ACC
+        call StartMusicTrack
         mov eax, 0Bh
         mov ecx, 0FFFFFFFEh
-        call sub_424CC
+        call SetCrowdMood
         mov word [word_19CB84], cx
         jmp short .29
 .26:
@@ -46117,7 +46117,7 @@ clockcont_0:
         sete al
         and eax, 0FFh
 .28:
-        call sub_424CC
+        call SetCrowdMood
 .29:
         mov edx, 64h
         mov eax, 4
@@ -46219,7 +46219,7 @@ periodicevents:
         mov edx, dword [hmtmstruct]
         xor eax, eax
         sar edx, 10h
-        call sub_2E11C
+        call TeamLineSlots
         cmp ax, 900h
         jge short .3
         cmp word [word_19CC24], byte 0
@@ -46241,7 +46241,7 @@ periodicevents:
         mov edx, dword [awtmstruct]
         mov eax, 1
         sar edx, 10h
-        call sub_2E11C
+        call TeamLineSlots
         cmp ax, 900h
         jge short .4
         cmp word [word_19CC26], byte 0
@@ -46330,7 +46330,7 @@ sub_78730:
         cwde
         xor edx, edx
         add eax, 510h
-        call sub_42354
+        call PlaySfxAt
 .6:
         pop edx
         pop ebx

@@ -14,8 +14,8 @@ extern dword_1CD0F8, dword_1CD0FE, dword_1CD102, dword_1CD106, dword_1CD10A, dwo
 extern fopen_, memcpy_, memset_, off_16E4E0, rand_, sprintf_, sscanf_, str_CRD1
 extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, BlitShape2
 extern BlitArt, BlitShape, sub_1013FC, FindShape, sub_101584, sub_103298, sub_1167AE, sub_11A318
-extern sub_11BED4, SetScreenTarget, WaitRetraceEdges, RunDemoGame, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern MusicPlaying, sub_41DB8, WaitMusicEnd, ArenaFileName, StopAllSfx, PlaySfx, PlayScreenMovie, MakeDataPath
+extern sub_11BED4, SetScreenTarget, WaitRetraceEdges, RunDemoGame, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
+extern MusicPlaying, RequestMusicStop, WaitMusicEnd, ArenaFileName, StopAllSfx, PlaySfx, PlayScreenMovie, MakeDataPath
 extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, SetTextColor, DrawTextAligned, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, AllocClearBlock
 extern FreePtr, sub_E22FC, sub_E2310, sub_E2334, sub_E2348, FileCreate, FileOpen, FileSeek
@@ -606,8 +606,8 @@ GoalieMaskScreen:
         mov dword [dword esp+0578h], edx
         mov word [dword esp+057Ch], dx
         rep movsd
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 0DEh
         xor edx, edx
         call LoadDataFile
@@ -615,15 +615,15 @@ GoalieMaskScreen:
         mov dword [dword esp+0560h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 0DFh
         call LoadDataFile
         mov ebp, eax
         mov dword [dword esp+056Ch], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push str_BACK12
         push ebx
@@ -2239,11 +2239,11 @@ RunIntro:
         call ArenaFileName
         mov eax, esp
         mov ebx, 300h
-        call sub_41A28
+        call ChkMenuMusic
         mov eax, 2
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, dword [byte esp+064h]
         xor esi, esi
         call memset_
@@ -2303,7 +2303,7 @@ RunIntro:
         mov edi, eax
         call sub_11BED4
         add esp, byte 0Ch
-        call sub_41DB8
+        call RequestMusicStop
         call sub_E341C
         push byte 14h
         call SetTickDeadline
@@ -2783,7 +2783,7 @@ sub_D705C:
         push edx
         sub esp, byte 50h
         call WaitMusicEnd
-        call sub_41D18
+        call PauseMusic
         call rand_
         mov edx, eax
         mov ebx, 2
@@ -2795,7 +2795,7 @@ sub_D705C:
         call ArenaFileName
         mov eax, esp
         lea edx, [byte ebx+01h]
-        call sub_41A28
+        call ChkMenuMusic
         mov ebx, 2
         mov eax, edx
         sar edx, 1Fh
@@ -2804,11 +2804,11 @@ sub_D705C:
         mov edx, esp
         call ArenaFileName
         mov eax, esp
-        call sub_41A28
+        call ChkMenuMusic
         mov eax, ebx
-        call sub_419B0
-        call sub_419B8
-        call sub_41DB8
+        call SecondsToSamples
+        call WaitSoundTime
+        call RequestMusicStop
         add esp, byte 50h
         pop edx
         pop ebx
@@ -2831,17 +2831,17 @@ CreditsScreen:
         mov dword [dword esp+06B70h], edx
         mov byte [dword esp+06B74h], ah
         call WaitMusicEnd
-        call sub_41D18
+        call PauseMusic
         lea edx, [dword esp+06AF8h]
         mov eax, 7
         call ArenaFileName
         lea eax, [dword esp+06AF8h]
-        call sub_41A28
+        call ChkMenuMusic
         mov eax, 2
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
-        call sub_41DB8
+        call SecondsToSamples
+        call WaitSoundTime
+        call RequestMusicStop
         mov eax, 0FAh
         call LoadDataFile
         push byte 0

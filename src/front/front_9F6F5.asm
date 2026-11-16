@@ -14,8 +14,8 @@ extern dword_1C8F58, dword_1C8F5C, dword_1C8F62, dword_1C8F66, dword_1C8F6A, dwo
 extern dword_1C93C8, dword_1C93CC, dword_1C93D8, dword_1C93DC, dword_1C93E0, dword_1C94B8, jpt_9F6DD, memcpy_
 extern off_16D254, off_16D258, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
 extern sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_106D80, sub_107098
-extern sub_11A318, sub_11B0D0, sub_11B98E, sub_11B9A0, sub_11BA08, sub_11BA50, SetScreenTarget, sub_419B0
-extern sub_419B8, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, sub_7EDF0, sub_7EEB0, SetRegionRect
+extern sub_11A318, sub_11B0D0, sub_11B98E, sub_11B9A0, sub_11BA08, sub_11BA50, SetScreenTarget, SecondsToSamples
+extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, sub_7EDF0, sub_7EEB0, SetRegionRect
 extern sub_7F04C, SetTextColor, DrawTextAligned, sub_7F5A4, sub_81114, sub_81650, sub_83314, sub_834EC
 extern sub_83558, sub_835BC, sub_83850, NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500
 extern NameIndexRemove, NameIndexPath, sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar
@@ -66,24 +66,24 @@ PickIndexEntryScreen:
         lea eax, [byte ebp-066h]
         call MakeDirPath
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 3Eh
         call LoadDataFile
         mov dword [byte ebp+05Eh], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 3Fh
         call LoadDataFile
         mov esi, eax
         mov dword [byte ebp+066h], eax
         mov eax, 3
         mov ebx, 6
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         call rand_
         cdq
         idiv ebx
@@ -94,8 +94,8 @@ PickIndexEntryScreen:
         mov dword [byte ebp+05Ah], eax
         mov eax, 3
         mov dword [byte ebp+06Eh], 0
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_DL01
         push esi
         call FindShape

@@ -14,9 +14,9 @@ extern PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_
 extern rand_, sprintf_, strcat_, sub_106AA6, sub_106C74, sub_106CBB, sub_107154, sub_109417
 extern sub_109545, sub_10955B, sub_1095AD, sub_109870, AsyncInit, AsyncClose, AsyncRequestOpen, AsyncRequestSection
 extern sub_109E74, sub_10A7D0, sub_10A860, sub_10A868, sub_10A8C4, sub_10A930, sub_10A980, sub_10AA38
-extern sub_10AB1C, sub_10ABC8, sub_3FE54, sub_3FEE8, sub_3FF4C, sub_3FF9C, sub_4006C, sub_400E8
-extern sub_401A0, sub_40258, sub_40298, sub_40380, sub_403C0, sub_40400, sub_40440, sub_404C4
-extern sub_40574, sub_405F8, sub_40640, sub_40680, sub_40850, sub_44A50, sub_4518C, sub_45628
+extern sub_10AB1C, sub_10ABC8, RingBufferSpace, QueuePassSpeech, QueueShotSpeech, QueuePositionSpeech, QueueHitSpeech, QueuePenaltySpeech
+extern QueueReceiveSpeech, QueueLoosePuckSpeech, QueueCarrySpeech, QueueTeamSpeech, QueueDeflectSpeech, QueuePickupSpeech, QueueFaceoffSpeech, QueuePenaltyEndSpeech
+extern QueueFinalSpeech, QueueTouchPuckSpeech, QueuePenaltyCallSpeech, QueueStoppageSpeech, QueuePowerPlaySpeech, sub_44A50, sub_4518C, sub_45628
 extern sub_4564C, sub_45954, sub_45A00, MakeDataPath, sub_E341C, AllocMemBlock, FreeMemBlock, ZeroMem
 extern tickcount, word_1691A4, word_169268, word_169282, word_169284, word_169824
 global jpt_48D20, jpt_48D50, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D, CommentaryEvent_3F6, CommentaryEvent_3FF
@@ -138,7 +138,7 @@ CommentaryEvent_66:
         push ebx
         mov edx, dword [byte ebp+03Eh]
         mov ebx, dword [byte ebp+042h]
-        call sub_3FF9C
+        call QueuePositionSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_135:
         add ebx, byte 4
@@ -279,7 +279,7 @@ CommentaryEvent_135:
         push edi
         mov edx, dword [byte ebp+03Eh]
         mov ecx, dword [byte ebp+046h]
-        call sub_3FEE8
+        call QueuePassSpeech
 .18:
         mov eax, dword [tickcount]
         add eax, 96h
@@ -334,7 +334,7 @@ CommentaryEvent_2DE:
         push ecx
         mov ecx, dword [byte ebp+046h]
         mov dword [byte ebp+042h], ebx
-        call sub_3FF4C
+        call QueueShotSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_36D:
         add ebx, byte 4
@@ -433,7 +433,7 @@ CommentaryEvent_423:
         push edx
         mov edx, dword [byte ebp+03Eh]
         mov dword [byte ebp+042h], ebx
-        call sub_3FF4C
+        call QueueShotSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_48A:
         mov eax, dword [ebx]
@@ -652,7 +652,7 @@ CommentaryEvent_702:
         mov ebx, dword [byte ebp+046h]
         mov edx, dword [byte ebp+03Eh]
         mov eax, dword [byte ebp+03Ah]
-        call sub_4006C
+        call QueueHitSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_726:
         mov eax, dword [ebx]
@@ -794,7 +794,7 @@ CommentaryEvent_8B9:
         mov ebx, dword [byte ebp+046h]
         mov edx, dword [byte ebp+03Eh]
         mov eax, dword [byte ebp+03Ah]
-        call sub_400E8
+        call QueuePenaltySpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_8D6:
         mov eax, dword [ebx]
@@ -938,7 +938,7 @@ CommentaryEvent_A08:
         mov edx, dword [byte ebp+03Ah]
         mov eax, dword [byte ebp+03Eh]
         mov dword [byte ebp+042h], ebx
-        call sub_401A0
+        call QueueReceiveSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_A84:
         mov eax, dword [ebx]
@@ -1096,14 +1096,14 @@ CommentaryEvent_BB6:
         mov ecx, eax
         mov ebx, edi
         mov eax, dword [byte ebp+03Eh]
-        call sub_40258
+        call QueueLoosePuckSpeech
         jmp near CommentaryEvent_1FE8.272
 .99:
         mov ecx, 5
         mov edx, dword [byte ebp+03Ah]
         mov ebx, eax
         mov eax, dword [byte ebp+03Eh]
-        call sub_40380
+        call QueueTeamSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_C68:
         mov eax, dword [ebx]
@@ -1167,14 +1167,14 @@ CommentaryEvent_C68:
         mov edx, dword [byte ebp+03Ah]
         mov ecx, eax
         mov eax, dword [byte ebp+03Eh]
-        call sub_40298
+        call QueueCarrySpeech
         jmp near CommentaryEvent_1FE8.272
 .110:
         mov ecx, 6
         mov edx, dword [byte ebp+03Ah]
         mov ebx, eax
         mov eax, dword [byte ebp+03Eh]
-        call sub_40380
+        call QueueTeamSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_D2A:
         mov eax, dword [ebx]
@@ -1398,7 +1398,7 @@ CommentaryEvent_FB9:
         mov ebx, dword [byte ebp+046h]
         mov edx, dword [byte ebp+042h]
         mov eax, dword [byte ebp+03Eh]
-        call sub_40380
+        call QueueTeamSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_FDD:
         mov edi, 0FFFFFFFFh
@@ -1460,7 +1460,7 @@ CommentaryEvent_FDD:
         mov edx, dword [byte ebp+03Ah]
         mov eax, dword [byte ebp+03Eh]
         mov dword [byte ebp+046h], ebx
-        call sub_403C0
+        call QueueDeflectSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1084:
         mov eax, dword [ebx]
@@ -1513,7 +1513,7 @@ CommentaryEvent_1084:
         mov edx, dword [byte ebp+03Ah]
         mov eax, dword [byte ebp+03Eh]
         mov dword [byte ebp+046h], ebx
-        call sub_403C0
+        call QueueDeflectSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_111C:
         mov eax, dword [ebx]
@@ -1572,7 +1572,7 @@ CommentaryEvent_111C:
         mov edx, dword [byte ebp+03Eh]
         mov cl, al
         mov eax, dword [byte ebp+03Ah]
-        call sub_40440
+        call QueueFaceoffSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_11C5:
         mov eax, dword [ebx]
@@ -1634,7 +1634,7 @@ CommentaryEvent_11C5:
 .162:
         mov eax, dword [dword_1AC5C8]
 .163:
-        call sub_40400
+        call QueuePickupSpeech
         jmp near CommentaryEvent_1FE8.272
 .164:
         mov ebx, dword [byte ebp+04Ah]
@@ -1648,7 +1648,7 @@ CommentaryEvent_11C5:
 .165:
         mov eax, dword [dword_1AC5D0]
 .166:
-        call sub_40400
+        call QueuePickupSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1293:
         mov eax, dword [ebx]
@@ -1888,7 +1888,7 @@ CommentaryEvent_1500:
         mov edx, dword [byte ebp+03Ah]
         mov eax, dword [byte ebp+03Eh]
         xor ecx, ecx
-        call sub_404C4
+        call QueuePenaltyEndSpeech
 .190:
         inc esi
         mov dword [dword_169244], esi
@@ -1906,7 +1906,7 @@ CommentaryEvent_1500:
         mov ebx, dword [byte ebp+046h]
         mov edx, dword [byte ebp+03Ah]
         mov eax, dword [byte ebp+03Eh]
-        call sub_404C4
+        call QueuePenaltyEndSpeech
 .192:
         add esi, byte 2
         mov dword [dword_169244], esi
@@ -1925,7 +1925,7 @@ CommentaryEvent_1500:
         mov ebx, dword [byte ebp+046h]
         mov edx, dword [byte ebp+03Ah]
         mov eax, dword [byte ebp+03Eh]
-        call sub_404C4
+        call QueuePenaltyEndSpeech
 .194:
         add esi, byte 3
         mov dword [dword_169244], esi
@@ -1944,7 +1944,7 @@ CommentaryEvent_1500:
         mov ebx, dword [byte ebp+046h]
         mov edx, dword [byte ebp+03Ah]
         mov eax, dword [byte ebp+03Eh]
-        call sub_404C4
+        call QueuePenaltyEndSpeech
 .196:
         add esi, byte 4
         mov dword [dword_169244], esi
@@ -1963,7 +1963,7 @@ CommentaryEvent_1500:
         mov ebx, dword [byte ebp+046h]
         mov edx, dword [byte ebp+03Ah]
         mov eax, dword [byte ebp+03Eh]
-        call sub_404C4
+        call QueuePenaltyEndSpeech
 .198:
         xor ecx, ecx
         mov dword [dword_169244], ecx
@@ -2103,7 +2103,7 @@ CommentaryEvent_17E6:
         push edi
         mov edx, dword [dword_1AC5D0]
         mov eax, dword [dword_1AC5C8]
-        call sub_40574
+        call QueueFinalSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1871:
         mov eax, dword [ebx]
@@ -2216,7 +2216,7 @@ CommentaryEvent_1931:
         push edi
         mov eax, dword [byte ebp+03Eh]
         mov dword [byte ebp+04Ah], ecx
-        call sub_405F8
+        call QueueTouchPuckSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_19C8:
         mov eax, dword [ebx]
@@ -2260,7 +2260,7 @@ CommentaryEvent_19C8:
         mov edx, dword [byte ebp+03Ah]
         mov eax, dword [byte ebp+03Eh]
         mov dword [byte ebp+046h], ebx
-        call sub_40640
+        call QueuePenaltyCallSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1A44:
         cmp dword [dword_169248], byte 0
@@ -2321,7 +2321,7 @@ CommentaryEvent_1A44:
         push eax
         mov eax, dword [dword_1AC4F8]
         mov dword [dword_169248], edi
-        call sub_40680
+        call QueueStoppageSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1B16:
         cmp dword [dword_169248], byte 0
@@ -2335,7 +2335,7 @@ CommentaryEvent_1B16:
         push esi
         mov dword [dword_1AC504], ebx
         mov ebx, dword [dword_1AC4F0]
-        call sub_40680
+        call QueueStoppageSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1B57:
         cmp dword [dword_169248], byte 0
@@ -2349,7 +2349,7 @@ CommentaryEvent_1B57:
         push eax
         mov eax, dword [dword_1AC4F8]
         mov dword [dword_1AC504], esi
-        call sub_40680
+        call QueueStoppageSpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1B97:
         cmp dword [dword_169248], byte 0
@@ -2591,7 +2591,7 @@ CommentaryEvent_1E49:
         mov ebx, dword [byte ebp+03Eh]
         mov eax, dword [byte ebp+03Ah]
         mov dword [byte ebp+046h], edx
-        call sub_40850
+        call QueuePowerPlaySpeech
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1ECB:
         lea eax, [byte ebx+04h]
@@ -3194,7 +3194,7 @@ sub_480CC:
         jl near .7
         mov eax, dword_1AC790
         mov edx, ebp
-        call sub_3FE54
+        call RingBufferSpace
         mov edx, dword [dword_16927E]
         sar edx, 10h
         mov ebx, eax

@@ -29,8 +29,8 @@ extern dword_1C95A8, dword_1C95AA, dword_1C95B0, dword_1C95B4, dword_1C95B8, dwo
 extern dword_1CF548, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcpy_
 extern bcopy, BlitArt, BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101EAC
 extern sub_102B94, sub_102C10, Random32, sub_106D80, sub_106F64, sub_106F94, sub_110D70, sub_117338
-extern sub_11A318, sub_11A350, sub_13B50, sub_13B98, SetScreenTarget, PlayGame, sub_397FD, sub_39824
-extern InitGameAudio, sub_415A0, sub_415F8, sub_41670, sub_419B0, sub_419B8, StopAllSfx, PlaySfx
+extern sub_11A318, sub_11A350, sub_13B50, sub_13B98, SetScreenTarget, PlayGame, SetPlayedTeams, IsAllStarDay
+extern InitGameAudio, MusicEnabled, LoadFrontEndSfx, InitGameSounds, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
 extern PaEvent, sub_4A280, LoadDataFileLib, LoadDataFile, OpenDataLibrary, InitFrontEnd, FreeFrontEnd, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned
 extern sub_7F29C, LoadTeamLogo, sub_80808, sub_80A38, sub_80AB8, sub_80BBC, sub_81650, sub_81678
@@ -2017,7 +2017,7 @@ sub_A4B7D_30:
         jl short sub_A4B7D.1
         cmp byte [byte_1C6040], 0
         je short .2
-        call sub_415A0
+        call MusicEnabled
 .2:
         test byte [dword_1AC814], 70h
         jne short .3
@@ -2100,16 +2100,16 @@ sub_A4B7D_112:
         call LinkSendBlock
 .8:
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 0Ah
         call LoadDataFile
         mov dword [dword_1C94E4], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 0Bh
         xor esi, esi
         call LoadDataFile
@@ -3496,15 +3496,15 @@ sub_A4B7D_112:
         add esp, byte 0Ch
 .75:
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, dword [byte ebp-08h]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
         call sub_80BBC
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         cmp dword [dword_1C94E8], byte 0
         je short .76
         mov dword [dword_1C94E8], 0
@@ -3701,7 +3701,7 @@ sub_A4B7D_112:
         call sub_4A280
         cmp byte [byte_1C6040], 0
         je short .98
-        call sub_415F8
+        call LoadFrontEndSfx
 .98:
         xor esi, esi
 .99:
@@ -3912,22 +3912,22 @@ PostGameScreen:
         lea eax, [dword esp+0510h]
         mov word [dword esp+0256h], dx
         mov dword [dword esp+0252h], eax
-        call sub_39824
+        call IsAllStarDay
         test eax, eax
         je short .1
-        call sub_397FD
+        call SetPlayedTeams
 .1:
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 3
         call LoadDataFile
         mov dword [dword_1C95A4], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 2
         call LoadDataFile
         mov dword [dword_1C959C], eax
@@ -4166,8 +4166,8 @@ PostGameScreen:
         cmp byte [ebx], 0
         je near .20
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push ebx
         call sub_101560
@@ -6076,15 +6076,15 @@ InitGameStatsScreen:
         mov dword [dword_1C9568], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 0Fh
         call LoadDataFile
         mov dword [dword_1C9580], eax
         mov eax, 3
         mov edx, 20h
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 0Eh
         xor esi, esi
         call LoadDataFile
@@ -6467,8 +6467,8 @@ GameStatsPlayersPage:
         jne short .11
         mov eax, 3
         mov edx, 20h
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 0Eh
         call LoadDataFile
         mov dword [dword_1C9578], eax
@@ -6571,8 +6571,8 @@ GameStatsPlayersPage:
 .15:
         mov eax, 3
         mov edx, 20h
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 101h
         call LoadDataFile
         push str_BAK2
@@ -6626,8 +6626,8 @@ GameStatsPlayersPage:
 .17:
         mov eax, 3
         mov edx, 20h
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 0Eh
         call LoadDataFile
         push str_BACK6
@@ -9728,8 +9728,8 @@ LoadGameLogos:
         mov eax, 32h
         call OpenDataLibrary
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, dword [dword_1AC944]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
@@ -9819,8 +9819,8 @@ LoadGameLogos:
         call FreeMemBlock
         add esp, byte 4
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, dword [dword_1AC944]
         mov eax, dword [byte eax+01h]
         shl eax, 6
@@ -10028,7 +10028,7 @@ PlayMenuGame:
         setne al
         movzx edx, al
         xor eax, eax
-        call sub_41670
+        call InitGameSounds
         call InitFrontEnd
         mov eax, edx
         pop esi

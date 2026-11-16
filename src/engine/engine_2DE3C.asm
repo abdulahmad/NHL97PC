@@ -8,8 +8,8 @@ extern dword_19CB32, dword_19CB48, dword_19EB58, dword_19EC64, dword_1AC944, hmt
 extern setpersonel, RemoveOverlayPanel, QueueOverlayPanel, CPgoalie, CommentaryEvent, word_19CA90, word_19CA92, word_19CA94
 extern word_19CA96, word_19CB34, word_19CB98, gsp, gameclock, word_19CBBE, word_19CBEC, word_19CBEE
 extern word_19CC24, word_19CC26, word_19EAC0
-global ReturnGoalies, sub_2DE94_1A5, sub_2DE94_259, sub_2E12C_33, sub_2DE94, sub_2E11C, sub_2E12C, RestoreBenchEnergy
-global sub_2E208, sub_2E310, CompLine, SetCoachMode, sub_2E7D8, UpdateCoachModes, StartFaceoffLineChange
+global ReturnGoalies, CoachLineChange_1A5, CoachLineChange_259, LineSlotsPtr_33, CoachLineChange, TeamLineSlots, LineSlotsPtr, RestoreBenchEnergy
+global ChkTiredPlayer, AvgLineEnergy, CompLine, SetCoachMode, ResetCoachModes, UpdateCoachModes, StartFaceoffLineChange
 ;-----------------------------------------------------------------------------
 ; ReturnGoalies                    2DE3C  93G logic93_4.asm, medium confidence
 ; (computer returns a pulled goalie), from puckfaceoff.
@@ -49,9 +49,11 @@ ReturnGoalies:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_2DE94                                                       2DE94  97 PC
+; CoachLineChange                                 2DE94  97 PC, low confidence
+; Computer coach changes a team's line when the line is tired or the
+; situation changes (power play, empty net)
 ;-----------------------------------------------------------------------------
-sub_2DE94:
+CoachLineChange:
         push ebx
         push ecx
         push edx
@@ -196,7 +198,7 @@ sub_2DE94:
         sar eax, 1
         pop ebx
         ret
-sub_2DE94_1A5:
+CoachLineChange_1A5:
         cmp dx, byte 6
         jge short .9
         cmp word [byte eax+010h], byte 0
@@ -222,7 +224,7 @@ sub_2DE94_1A5:
         add eax, edx
         mov edi, 5
         add eax, ecx
-        jmp short sub_2DE94_259.12
+        jmp short CoachLineChange_259.12
 .9:
         cmp word [byte eax+010h], byte 0
         setge al
@@ -239,7 +241,7 @@ sub_2DE94_1A5:
         sub eax, edx
         lea edx, [dword ecx+0211Bh]
         mov edi, 3
-        jmp short sub_2DE94_259
+        jmp short CoachLineChange_259
 .10:
         movsx eax, di
         mov edx, dword [dword esi+0108h]
@@ -248,7 +250,7 @@ sub_2DE94_1A5:
         sub eax, byte 18h
 .11:
         mov edi, 4
-sub_2DE94_259:
+CoachLineChange_259:
         add eax, edx
 .12:
         xor edx, edx
@@ -276,15 +278,21 @@ sub_2DE94_259:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_2E11C                                                       2E11C  97 PC
+; TeamLineSlots                                   2E11C  97 PC, low confidence
+; Picks the team (away when the argument is positive, else home) and falls
+; into LineSlotsPtr
 ;-----------------------------------------------------------------------------
-sub_2E11C:
+TeamLineSlots:
         movsx edx, dx
         test ax, ax
-        jle short sub_2E12C_33
+        jle short LineSlotsPtr_33
         mov eax, awtmstruct
         lea eax, [byte eax+00h]
-sub_2E12C:
+;-----------------------------------------------------------------------------
+; LineSlotsPtr                                    2E12C  97 PC, low confidence
+; Returns a pointer to the player slots of a team's line
+;-----------------------------------------------------------------------------
+LineSlotsPtr:
         push ebx
         push ecx
         push esi
@@ -292,7 +300,7 @@ sub_2E12C:
         mov esi, eax
         mov edi, edx
         cmp dx, byte 4
-        jge near sub_2DE94_1A5
+        jge near CoachLineChange_1A5
         movsx edx, dx
         mov ecx, dword [dword eax+0108h]
         lea eax, [nosplit edx*4+00h]
@@ -300,13 +308,10 @@ sub_2E12C:
         mov edx, eax
         lea eax, [dword ecx+020EDh]
         mov edi, 3
-        jmp short sub_2DE94_259
-;-----------------------------------------------------------------------------
-; sub_2E12C_33                                                    2E15F  97 PC
-;-----------------------------------------------------------------------------
-sub_2E12C_33:
+        jmp short CoachLineChange_259
+LineSlotsPtr_33:
         mov eax, hmtmstruct
-        jmp short sub_2E12C
+        jmp short LineSlotsPtr
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; RestoreBenchEnergy                             2E168  94G, medium confidence
@@ -378,9 +383,10 @@ RestoreBenchEnergy:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2E208                                                       2E208  97 PC
+; ChkTiredPlayer                                  2E208  97 PC, low confidence
+; With line changes on: now and then a tired skater loses speed
 ;-----------------------------------------------------------------------------
-sub_2E208:
+ChkTiredPlayer:
         push ebx
         push ecx
         push edx
@@ -460,9 +466,10 @@ sub_2E208:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_2E310                                                       2E310  97 PC
+; AvgLineEnergy                                   2E310  97 PC, low confidence
+; Returns the average energy of a team's skaters on the ice
 ;-----------------------------------------------------------------------------
-sub_2E310:
+AvgLineEnergy:
         push ebx
         push edx
         push esi
@@ -549,7 +556,7 @@ CompLine:
 .5:
         movsx edx, cx
         mov eax, ebx
-        call sub_2E12C
+        call LineSlotsPtr
         add ebp, 0F33h
         mov esi, eax
         cwde
@@ -559,7 +566,7 @@ CompLine:
         inc edi
         mov eax, ebx
         movsx edx, di
-        call sub_2E12C
+        call LineSlotsPtr
         cmp si, ax
         jge short .6
         mov ecx, edi
@@ -582,7 +589,7 @@ CompLine:
         test ah, 40h
         jne short .12
         mov eax, ebx
-        call sub_2E310
+        call AvgLineEnergy
         mov edi, eax
         mov dx, word [byte esi+0Eh]
         cmp dx, word [byte ebx+0Eh]
@@ -654,7 +661,7 @@ CompLine:
         mov eax, ebx
         sar edx, 10h
         xor edi, edi
-        call sub_2E12C
+        call LineSlotsPtr
         mov dword [byte esp+08h], eax
 .20:
         xor ecx, ecx
@@ -676,7 +683,7 @@ CompLine:
         movsx edx, cx
         add ebp, eax
         mov eax, ebx
-        call sub_2E12C
+        call LineSlotsPtr
         movsx edx, ax
         cmp ebp, edx
         jb short .24
@@ -904,9 +911,10 @@ SetCoachMode:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2E7D8                                                       2E7D8  97 PC
+; ResetCoachModes                                 2E7D8  97 PC, low confidence
+; Sets the coach modes of both teams to their defaults for the game type
 ;-----------------------------------------------------------------------------
-sub_2E7D8:
+ResetCoachModes:
         push ebx
         push ecx
         push edx

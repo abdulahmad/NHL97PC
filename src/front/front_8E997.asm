@@ -20,7 +20,7 @@ extern dword_1C85D0, dword_1C8618, dword_1C8680, dword_1C86E8, dword_1C86EC, dwo
 extern dword_1C86FC, dword_1C8A8C, dword_1C8A90, dword_1C94E8, jpt_8E977, jpt_8E987, memcpy_, memset_
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, BlitShape2
 extern BlitArt, BlitShape, sub_1013CC, sub_1013FC, FindShape, Random32, sub_10AED0, FindShapeList
-extern sub_11B0D0, SetScreenTarget, SeasonGameScreen, sub_415A0, sub_419B0, sub_419B8, StopAllSfx, PlaySfx
+extern sub_11B0D0, SetScreenTarget, SeasonGameScreen, MusicEnabled, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
 extern MakeDirPath, LoadDataFile, sub_7A9D8, sub_7BB27, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
 extern SetRegionRect, SetTextColor, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80AB8, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad, NameIndexFree
@@ -289,7 +289,7 @@ NewSeasonScreen:
         mov dword [byte ebp-02Ch], 0FFFFFFFFh
         cmp byte [byte_1C6040], 0
         je short .1
-        call sub_415A0
+        call MusicEnabled
 .1:
         push byte 0
         push dword 616h
@@ -303,8 +303,8 @@ NewSeasonScreen:
         mov eax, 13h
         call InitMenuItems
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 3Bh
         call LoadDataFile
@@ -312,15 +312,15 @@ NewSeasonScreen:
         mov dword [byte ebp-020h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 3Ah
         call LoadDataFile
         mov edx, eax
         mov dword [byte ebp-034h], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_000W
         push edx
         call FindShape
@@ -1221,7 +1221,7 @@ NewSeasonScreen:
         add esp, byte 4
         cmp byte [byte_1C6040], 0
         je short NewSeasonScreen_DCB
-        call sub_415A0
+        call MusicEnabled
 NewSeasonScreen_DCB:
         mov eax, dword [byte ebp-02Ch]
 NewSeasonScreen_DCE:
@@ -1817,23 +1817,23 @@ SeasonMenuScreen:
         mov dword [dword_1C86F0], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 47h
         call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp-018h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 46h
         call LoadDataFile
         mov esi, eax
         mov dword [byte ebp-020h], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push dword_1C85D0
         push str_SD00SD01SD02SD03
         push ebx
@@ -3093,8 +3093,8 @@ StandingsScreen:
         lea eax, [dword ebp-08Eh]
         call BuildStandingsFactoids
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 48h
         call LoadDataFile
@@ -3102,15 +3102,15 @@ StandingsScreen:
         mov dword [byte ebp+04Eh], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 49h
         call LoadDataFile
         mov dword [byte ebp+06Ah], eax
         mov dword [byte ebp+076h], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_BGWS
         push ebx
         call FindShape

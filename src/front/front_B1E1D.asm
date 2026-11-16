@@ -22,7 +22,7 @@ extern dword_1CA9B8, dword_1CA9BC, dword_1CA9C0, dword_1CA9C4, dword_1CA9C8, dwo
 extern dword_1CAEA8, dword_1CAEB8, rand_, sprintf_, sscanf_, str_D02d2, str_Logbook, str_Logname
 extern str_Ulstreak, str_Uname, str_Uopp, str_Upts, str_Urate, str_Usort, str_Ustreak, str_Uteam
 extern strcmp_, strcpy_, strlen_, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape
-extern sub_102B94, sub_11A318, SetScreenTarget, sub_419B0, sub_419B8, StopAllSfx, PlaySfx, MakeDirPath
+extern sub_102B94, sub_11A318, SetScreenTarget, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath
 extern LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, SetTextColor, DrawTextAligned
 extern sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_823F0, sub_82FB8, sub_83C08
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath
@@ -2996,8 +2996,8 @@ UserRecordsScreen:
         mov eax, 3Ch
         call InitMenuItems
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 2Ah
         call LoadDataFile
@@ -3005,15 +3005,15 @@ UserRecordsScreen:
         mov dword [byte ebp-08h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 2Bh
         call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp-04h], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_BACK7
         push esi
         call FindShape

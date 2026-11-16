@@ -48,7 +48,7 @@ extern sub_10578C, sub_1057E8, sub_105808, sub_10585C, sub_105904, sub_106AA6, s
 extern sub_106F7C, sub_106F94, sub_1070B0, sub_1070D0, sub_107154, sub_1072F0, sub_1079E4, sub_107AE0
 extern sub_107B70, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48, sub_108040, sub_108144
 extern sub_10815C, sub_1081B0, sub_108640, sub_1086BF, sub_108CE8, sub_1091E0, sub_109210, sub_109250
-extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, SetScreenTarget, sub_1E7C4
+extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, SetScreenTarget, TryPokePuck
 extern NetCollide, NetCollide2, ChkBodyContact, InitSpeechBanks, OpenSpeechFile, sub_47D70, sub_47EA4, ShutdownSound
 extern sub_4AA78, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_52D4C, sub_55648, sub_5696C, sub_56A08
 extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, sub_5AC30, sub_5B4B8, sub_5C1CC, sub_5CD68
@@ -69,36 +69,36 @@ extern word_19ED76, word_1A928A, word_1A928C, word_1A928E, word_1ABD46, word_1AB
 extern word_1ABD4E, word_1ABD50, word_1AC7D8, word_1AD240, word_1AD242, word_1C1344
 global jpt_3EF24, jpt_40D68, jpt_40DCC, jpt_40E30, jpt_40EA4, SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B
 global SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3, SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF
-global SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, InitSeasonGameScreen_472, sub_38E26_14D, sub_38E26_14E, sub_39BB6_6B, sub_3D030_FC
-global sub_3DE08_70, CdStreamService_20, CdStreamService_5B, CdStreamService_D6, CdStreamService_14C, CdStreamService_1A3, CdStreamService_1E3, CdStreamService_47A
-global CdStreamService_595, CdStreamService_74E, CdStreamService_81D, CdStreamService_956, CdStreamService_AC2, CdStreamService_BB8, sub_40D80_11, sub_40D80_19
-global sub_40D80_21, sub_40D80_29, sub_40D80_31, sub_40D80_39, OpenAudioStream_97, OpenAudioStream_A4, OpenAudioStream_B1, OpenAudioStream_BE
-global OpenAudioStream_CB, OpenAudioStream_D8, SeasonGameScreen, sub_385C3, InitSeasonGameScreen, sub_38B1A, sub_38B77, sub_38BAB
-global sub_38BFC, sub_38C79, sub_38D84, sub_38E26, sub_38F7A, DrawSeasonGamePanel, sub_397FD, sub_39824
-global sub_39851, sub_39882, sub_39B20, sub_39BB6, sub_39CE0, sub_39D1C, sub_39DA4, sub_39EC0
-global sub_3A06C, sub_3A164, sub_3A2E8, sub_3A3C8, sub_3A404, sub_3A440, sub_3A564, sub_3A65C
-global sub_3A75C, sub_3A814, sub_3A884, sub_3A920, sub_3A9D0, sub_3AA48, sub_3AAE8, sub_3AB28
-global sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, checkgoal, sub_3AFDC, sub_3B05C
-global sub_3B09C, sub_3B1EC, sub_3B334, sub_3B690, sub_3B738, sub_3B75B, sub_3B760, sub_3B8AC
-global sub_3B900, sub_3B954, sub_3C0B4, sub_3C544, sub_3C580, sub_3C5D4, SetVideoMode, sub_3C880
-global sub_3C8DC, sub_3C944, sub_3C9C8, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
-global sub_3CB70, sub_3CB98, sub_3CCA8, AddOverlayWindow, RemoveOverlayWindow, sub_3CF68, RefreshOverlayWindow, sub_3D020
-global sub_3D030, sub_3D134, sub_3D180, sub_3D2C0, sub_3D3D0, sub_3D4C4, sub_3D548, sub_3D5EC
-global sub_3D660, sub_3D764, sub_3D898, sub_3D930, sub_3D95C, sub_3D988, sub_3D9E4, sub_3DA18
-global sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DDD8, sub_3DE08, sub_3DE94
-global sub_3DF14, sub_3DF54, sub_3E064, sub_3E140, sub_3E198, sub_3E1F8, sub_3E21C, sub_3E458
-global sub_3E480, sub_3E4B8, sub_3E590, sub_3E5F0, sub_3E6D0, sub_3E818, CdStreamOpen, setstreamspeed
-global delstream, CdStreamRequest, CdStreamStart, CdStreamQueue, sub_3ED60, sub_3EE4C, CdStreamOpenSecondary, CdStreamService
-global CdStreamSkipMarks, CdStreamContigData, CdStreamSpaceLeft, CdStreamNextPacket, CdStreamFreePacket, sub_3FC88, sub_3FD0C, sub_3FDCC
-global sub_3FE54, sub_3FEE8, sub_3FF4C, sub_3FF9C, sub_4006C, sub_400E8, sub_401A0, sub_40258
-global sub_40298, sub_40380, sub_403C0, sub_40400, sub_40440, sub_404C4, sub_40574, sub_405F8
-global sub_40640, sub_40680, sub_40850, sub_4095C, LoadSfxBank, sub_40D80, OpenAudioStream, InitGameAudio
-global sub_414B8, sub_41550, sub_415A0, sub_415A8, sub_415F8, sub_41670, sub_41870, sub_419B0
-global sub_419B8, sub_41A28, sub_41ACC, sub_41CF0, sub_41D18, sub_41D30, MusicPlaying, sub_41D94
-global sub_41DB8, WaitMusicEnd, MusicFileName, ArenaFileName, sub_41EE4, sub_41F2C, StopAllSfx, PlaySfx
-global PlaySfxOr, sub_420E4, PlaySfxVolume, sub_42354, sub_423B4, sub_4241C, sub_424CC, sub_42550
-global sub_425CC, sub_42650, sub_42910, sub_42960, sub_42A98, sub_42AD0, sub_42C38, sub_42D38
-global OpenSpeechBanks, sub_431E8, LoadTeamSpeech
+global SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, InitSeasonGameScreen_472, FindUserOpponent_14D, FindUserOpponent_14E, AnimateSparkle_6B, FadePaletteStep_FC
+global RemapArtPixels_70, CdStreamService_20, CdStreamService_5B, CdStreamService_D6, CdStreamService_14C, CdStreamService_1A3, CdStreamService_1E3, CdStreamService_47A
+global CdStreamService_595, CdStreamService_74E, CdStreamService_81D, CdStreamService_956, CdStreamService_AC2, CdStreamService_BB8, AdvanceStreamState_11, AdvanceStreamState_19
+global AdvanceStreamState_21, AdvanceStreamState_29, AdvanceStreamState_31, AdvanceStreamState_39, OpenAudioStream_97, OpenAudioStream_A4, OpenAudioStream_B1, OpenAudioStream_BE
+global OpenAudioStream_CB, OpenAudioStream_D8, SeasonGameScreen, SetSeasonUserTeam, InitSeasonGameScreen, TeamHasGamesLeft, FindTeamGame, DrawMatchupLogo
+global DrawAllStarLogo, DrawGameScore, DrawGameScoreLine, FindUserOpponent, DrawLockedGame, DrawSeasonGamePanel, SetPlayedTeams, IsAllStarDay
+global GetAllStarDate, StartNextSeasonGame, AnimateWaitIcon, AnimateSparkle, FindBenchSlot, GetSeatPosition, PickBoxSeat, FreeBoxSeat
+global PickBenchSeat, MoveBoxToBenchSeat, FaceoffStanceMove, RunSimpleMove, FaceoffMoveResult, FaceoffMove, MoveWithSfx, RandomFollowMove
+global ShoutMove, BodyMove, TakePositionMove, SkateStrideMove, CoastMove, BackStrideMove, FaceoffSwipeAnim, FaceoffDrawAnim
+global SitDownAnim, StandUpAnim, GoToBoxAnim, LeaveBoxAnim, RefDodgePuck, checkgoal, CheckMove, SteerMove
+global ReachForPuckAnim, PokeCheckAnim, TryBodyCheck, DoCheckButton, AIBodyCheck, DrawFrameNoop, AddDirtySpans, InsertSpanSlot
+global RemoveSpanSlot, MergeDirtySpans, RebuildOverlayMask, BlendOverlayRow, ShadeOverlayRow, DrawOverlayRows, SetVideoMode, InitDisplayViews
+global FreeDisplayViews, AddDisplayView, SetViewDrawTarget, SetViewSize, SetViewInterlaced, ClearViewInterlaced, HideView, ShowView
+global SetViewOrigin, ClearViewBorders, PresentGameView, AddOverlayWindow, RemoveOverlayWindow, UpdateScreenRegion, RefreshOverlayWindow, SetRinkDetail
+global FadePaletteStep, PaletteFadeTick, StartPaletteFade, BuildRangePalette, BlendRangePalette, CountArtPixels, RemapArtColors, RemapArtToRange
+global RemapArtRange, NewColorHistogram, ArtBankHistogram, InitPaletteManager, ShutdownPaletteManager, AddPaletteRange, LinkRangeHistogram, AddArtToRange
+global AddBankToRange, RemapArtBank, SetRangeColors, AddColorTable, RemapBankToRange, RemapRangeColors, RemapArtPixels, FillQuantBoxes
+global ColorMomentTables, SplitColorBox, MergeColorBoxes, FindSmallestBox, CopyRangePalette, BuildRangePaletteBuf, QuantizeRange, QuantizeAllRanges
+global SetRangePalette, MergeRangePalettes, BuildGamePalette, FadeGamePalette, InitStreamBuffer, OpenStreamBuffer, CdStreamOpen, setstreamspeed
+global delstream, CdStreamRequest, CdStreamStart, CdStreamQueue, RequestStreamRead, UpdateMusicStream, CdStreamOpenSecondary, CdStreamService
+global CdStreamSkipMarks, CdStreamContigData, CdStreamSpaceLeft, CdStreamNextPacket, CdStreamFreePacket, StreamBufferFree, StreamReady, StreamQueueBlock
+global RingBufferSpace, QueuePassSpeech, QueueShotSpeech, QueuePositionSpeech, QueueHitSpeech, QueuePenaltySpeech, QueueReceiveSpeech, QueueLoosePuckSpeech
+global QueueCarrySpeech, QueueTeamSpeech, QueueDeflectSpeech, QueuePickupSpeech, QueueFaceoffSpeech, QueuePenaltyEndSpeech, QueueFinalSpeech, QueueTouchPuckSpeech
+global QueuePenaltyCallSpeech, QueueStoppageSpeech, QueuePowerPlaySpeech, LoadMainSfxBank, LoadSfxBank, AdvanceStreamState, OpenAudioStream, InitGameAudio
+global SetMusicVolume, SetSfxVolume, MusicEnabled, FreeSfxBank, LoadFrontEndSfx, InitGameSounds, ShutdownGameAudio, SecondsToSamples
+global WaitSoundTime, ChkMenuMusic, StartMusicTrack, QueueMusicRestart, PauseMusic, ResumeMusic, MusicPlaying, MusicStreamTick
+global RequestMusicStop, WaitMusicEnd, MusicFileName, ArenaFileName, StopBankSounds, PlayMenuSfx, StopAllSfx, PlaySfx
+global PlaySfxOr, PositionSfx, PlaySfxVolume, PlaySfxAt, SetAmbientVolume, SetCrowdNoise, SetCrowdMood, QueueSpeechRequest
+global ResetSpeechQueue, ServiceSpeechQueue, FindSpeechClip, LoadSpeechBlock, IsClipLoaded, LoadSpeechClips, LoadClipIfMissing, SpeechFileHeader
+global OpenSpeechBanks, ResolveSpeechClips, LoadTeamSpeech
 ;-----------------------------------------------------------------------------
 ; SeasonGameScreen                                3812E  97 PC, low confidence
 ; From RunSeasonMenus / RunPlayoffMenus: the next-game screen (HOME / AWAY
@@ -115,7 +115,7 @@ SeasonGameScreen:
         sub ebp, 82h
         cmp byte [byte_1C6040], 0
         je short .1
-        call sub_415A0
+        call MusicEnabled
 .1:
         lea eax, [dword ebp-0472h]
         mov dword [dword_19ED6C], eax
@@ -134,22 +134,22 @@ SeasonGameScreen:
         lea eax, [byte ebp-072h]
         mov dword [dword_19ED60], 1
         mov dword [dword_19ED2C], eax
-        call sub_39851
+        call GetAllStarDate
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
         call SetTextColor
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 53h
         call LoadDataFile
         mov dword [dword_19ED70], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 54h
         call LoadDataFile
         push byte 0
@@ -159,10 +159,10 @@ SeasonGameScreen:
         call CreateBitmap
         add esp, byte 0Ch
         mov dword [dword_19ED10], eax
-        call sub_385C3
+        call SetSeasonUserTeam
         test eax, eax
         je short .2
-        call sub_39882
+        call StartNextSeasonGame
         mov word [word_19ED76], ax
         jmp short .3
 .2:
@@ -213,7 +213,7 @@ SeasonGameScreen_182:
         jne near SeasonGameScreen_3EB.17
         lea eax, [byte ebp+07Eh]
         push edi
-        mov ecx, sub_39BB6_6B
+        mov ecx, AnimateSparkle_6B
         mov ebx, 0FFFFFFFFh
         push eax
         lea edx, [dword ebp-0472h]
@@ -337,7 +337,7 @@ SeasonGameScreen_2CF:
         inc edi
         jmp near SeasonGameScreen_182.6
 .15:
-        call sub_39882
+        call StartNextSeasonGame
         push dword [dword_19ED10]
         mov word [word_19ED76], ax
         call SetDrawTarget
@@ -403,16 +403,18 @@ SeasonGameScreen_3EB:
         je short .21
         cmp dword [dword_19ED18], byte 0
         jne short .21
-        call sub_415F8
+        call LoadFrontEndSfx
 .21:
         mov eax, esi
         lea esp, [dword ebp+082h]
         pop ebp
-        jmp near sub_38E26_14E
+        jmp near FindUserOpponent_14E
 ;-----------------------------------------------------------------------------
-; sub_385C3                                                       385C3  97 PC
+; SetSeasonUserTeam                               385C3  97 PC, low confidence
+; Season schedule screen: works out which team the user follows (playoff pick
+; or the season's user team)
 ;-----------------------------------------------------------------------------
-sub_385C3:
+SetSeasonUserTeam:
         push ebx
         push edx
         mov eax, dword [dword_1AC814]
@@ -675,8 +677,8 @@ InitSeasonGameScreen:
         add esp, byte 0Ch
         mov eax, 3
         mov dword [dword_19ED54], 0
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         lea eax, [byte ebp-014h]
         push eax
@@ -812,9 +814,10 @@ InitSeasonGameScreen_472:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_38B1A                                                       38B1A  97 PC
+; TeamHasGamesLeft                                38B1A  97 PC, low confidence
+; Whether a team still has a game in the schedule list; returns 1 if so
 ;-----------------------------------------------------------------------------
-sub_38B1A:
+TeamHasGamesLeft:
         push ebx
         push ecx
         push esi
@@ -861,9 +864,11 @@ sub_38B1A:
         jl short .1
         jmp short .4
 ;-----------------------------------------------------------------------------
-; sub_38B77                                                       38B77  97 PC
+; FindTeamGame                                    38B77  97 PC, low confidence
+; Returns the index of the last scheduled game that involves the given team,
+; -1 if none
 ;-----------------------------------------------------------------------------
-sub_38B77:
+FindTeamGame:
         push ebx
         push ecx
         push esi
@@ -893,9 +898,10 @@ sub_38B77:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_38BAB                                                       38BAB  97 PC
+; DrawMatchupLogo                                 38BAB  97 PC, low confidence
+; Draws a team logo in a slot of the season game panel
 ;-----------------------------------------------------------------------------
-sub_38BAB:
+DrawMatchupLogo:
         push ecx
         mov ecx, eax
         mov eax, edx
@@ -921,9 +927,10 @@ sub_38BAB:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_38BFC                                                       38BFC  97 PC
+; DrawAllStarLogo                                 38BFC  97 PC, low confidence
+; Draws the All-Star logo in a slot of the season game panel
 ;-----------------------------------------------------------------------------
-sub_38BFC:
+DrawAllStarLogo:
         push ebx
         push ecx
         push esi
@@ -968,9 +975,10 @@ sub_38BFC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_38C79                                                       38C79  97 PC
+; DrawGameScore                                   38C79  97 PC, low confidence
+; Draws a game result in a slot of the season game panel ("W 3-2" style)
 ;-----------------------------------------------------------------------------
-sub_38C79:
+DrawGameScore:
         push esi
         push edi
         enter 14h, 0
@@ -1066,9 +1074,10 @@ sub_38C79:
         pop esi
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_38D84                                                       38D84  97 PC
+; DrawGameScoreLine                               38D84  97 PC, low confidence
+; Draws a game result with both team names in a slot of the season game panel
 ;-----------------------------------------------------------------------------
-sub_38D84:
+DrawGameScoreLine:
         push ecx
         push esi
         push edi
@@ -1124,9 +1133,10 @@ sub_38D84:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_38E26                                                       38E26  97 PC
+; FindUserOpponent                                38E26  97 PC, low confidence
+; Finds the opponent of the user's team in the current scheduled game
 ;-----------------------------------------------------------------------------
-sub_38E26:
+FindUserOpponent:
         push ebx
         push ecx
         push edx
@@ -1211,15 +1221,15 @@ sub_38E26:
         je short .10
 .9:
         mov dword [dword_19ED14], 1
-        jmp near sub_38E26_14D
+        jmp near FindUserOpponent_14D
 .10:
         movsx ebx, word [word_19ED76]
         cmp edx, ebx
-        jge short sub_38E26_14D
+        jge short FindUserOpponent_14D
         test byte [dword eax+byte_1ACF63], 1
-        je short sub_38E26_14D
+        je short FindUserOpponent_14D
         mov dword [dword_19ED14], 2
-        jmp short sub_38E26_14D
+        jmp short FindUserOpponent_14D
 .11:
         imul eax, dword [dword_19ED20], byte 1Ch
         test byte [dword eax+byte_1AD457], 1
@@ -1229,17 +1239,17 @@ sub_38E26:
         je short .13
 .12:
         mov dword [dword_19ED14], 3
-        jmp short sub_38E26_14D
+        jmp short FindUserOpponent_14D
 .13:
         movsx ebx, word [word_19ED76]
         cmp edx, ebx
-        jge short sub_38E26_14D
+        jge short FindUserOpponent_14D
         test byte [dword eax+byte_1AD458], 1
-        je short sub_38E26_14D
+        je short FindUserOpponent_14D
         mov dword [dword_19ED14], 4
-sub_38E26_14D:
+FindUserOpponent_14D:
         leave
-sub_38E26_14E:
+FindUserOpponent_14E:
         pop edi
         pop esi
         pop edx
@@ -1247,9 +1257,10 @@ sub_38E26_14E:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_38F7A                                                       38F7A  97 PC
+; DrawLockedGame                                  38F7A  97 PC, low confidence
+; Draws the lock symbol over a game slot that cannot be played yet
 ;-----------------------------------------------------------------------------
-sub_38F7A:
+DrawLockedGame:
         push ebx
         push ecx
         push esi
@@ -1369,7 +1380,7 @@ DrawSeasonGamePanel:
         jge short .4
         mov edx, dword [dword_19ED20]
         mov eax, dword [dword_1AC940]
-        call sub_38B77
+        call FindTeamGame
         mov word [word_19ED76], ax
 .4:
         test ebx, ebx
@@ -1518,7 +1529,7 @@ DrawSeasonGamePanel:
 .23:
         cmp dword [dword_19ED18], byte 0
         jne short .25
-        call sub_38E26
+        call FindUserOpponent
         jmp short .25
 .24:
         cmp dword [dword_19ED14], byte 0
@@ -1743,7 +1754,7 @@ DrawSeasonGamePanel:
         mov dword [byte ebp-014h], eax
         mov edx, dword [byte ebp-0Ch]
         mov eax, dword [byte ebp-028h]
-        call sub_38BAB
+        call DrawMatchupLogo
         mov ebx, edi
         mov eax, dword [dword_1AC940]
         shl ebx, 4
@@ -1755,7 +1766,7 @@ DrawSeasonGamePanel:
         mov ebx, dword [byte ebp-028h]
         push dword [byte ebp-01Ch]
         mov edx, edi
-        call sub_38C79
+        call DrawGameScore
 .38:
         mov edx, dword [dword_19ED20]
         mov eax, dword [dword_1AC940]
@@ -1801,7 +1812,7 @@ DrawSeasonGamePanel:
 .43:
         mov edx, dword [byte ebp-0Ch]
         mov eax, dword [byte ebp-028h]
-        call sub_38F7A
+        call DrawLockedGame
 .44:
         cmp dword [dword_19ED30], byte 0
         je near .51
@@ -1832,7 +1843,7 @@ DrawSeasonGamePanel:
         mov dword [byte ebp-014h], eax
         mov edx, dword [byte ebp-0Ch]
         mov eax, dword [byte ebp-028h]
-        call sub_38BAB
+        call DrawMatchupLogo
         mov edx, dword [byte ebp-08h]
         mov eax, dword [dword_19ED30]
         shl edx, 4
@@ -1844,7 +1855,7 @@ DrawSeasonGamePanel:
         mov ebx, dword [byte ebp-028h]
         push dword [byte ebp-01Ch]
         mov edx, dword [byte ebp-08h]
-        call sub_38C79
+        call DrawGameScore
 .47:
         mov edx, dword [byte ebp-08h]
         mov ebx, dword [byte ebp-018h]
@@ -1882,13 +1893,13 @@ DrawSeasonGamePanel:
         je short .52
         mov edx, dword [byte ebp-0Ch]
         mov eax, dword [byte ebp-028h]
-        call sub_38BFC
+        call DrawAllStarLogo
         cmp word [word_1AD240], byte 0
         jl short .52
         mov ebx, dword [byte ebp-01Ch]
         mov edx, dword [byte ebp-0Ch]
         mov eax, dword [byte ebp-028h]
-        call sub_38D84
+        call DrawGameScoreLine
 .52:
         mov eax, dword [byte ebp-014h]
         call SetTextColor
@@ -1927,11 +1938,12 @@ DrawSeasonGamePanel:
         call BlitShape
         add esp, byte 4
         call sub_102C10
-        jmp near sub_38E26_14D
+        jmp near FindUserOpponent_14D
 ;-----------------------------------------------------------------------------
-; sub_397FD                                                       397FD  97 PC
+; SetPlayedTeams                                  397FD  97 PC, low confidence
+; Copies the two teams of the game just played into the season state
 ;-----------------------------------------------------------------------------
-sub_397FD:
+SetPlayedTeams:
         movzx ax, byte [byte_1C135A]
         mov word [word_1AD240], ax
         movzx ax, byte [byte_1C135B]
@@ -1939,16 +1951,17 @@ sub_397FD:
         mov word [word_1AD242], ax
         ret
 ;-----------------------------------------------------------------------------
-; sub_39824                                                       39824  97 PC
+; IsAllStarDay                                    39824  97 PC, low confidence
+; In a season: whether today is the All-Star game day; returns 1 if so
 ;-----------------------------------------------------------------------------
-sub_39824:
+IsAllStarDay:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .1
         cmp dword [dword_1ACF46], byte 0
         jne short .1
-        call sub_39851
+        call GetAllStarDate
         cmp ax, word [word_1C1344]
         jne short .1
         mov eax, 1
@@ -1957,9 +1970,10 @@ sub_39824:
         xor eax, eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_39851                                                       39851  97 PC
+; GetAllStarDate                                  39851  97 PC, low confidence
+; Returns the day number of the All-Star game (earlier in a short season)
 ;-----------------------------------------------------------------------------
-sub_39851:
+GetAllStarDate:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 10h
@@ -1974,9 +1988,11 @@ sub_39851:
         mov ax, word [word_19ED74]
         ret
 ;-----------------------------------------------------------------------------
-; sub_39882                                                       39882  97 PC
+; StartNextSeasonGame                             39882  97 PC, low confidence
+; Season: finds the next game to play, builds the All-Star teams on that day
+; and sets up the matchup
 ;-----------------------------------------------------------------------------
-sub_39882:
+StartNextSeasonGame:
         push ebx
         push edx
         push esi
@@ -1984,7 +2000,7 @@ sub_39882:
         enter 195Ch, 0
         mov edx, dword [dword_19ED20]
         mov eax, dword [dword_1AC940]
-        call sub_38B1A
+        call TeamHasGamesLeft
         test eax, eax
         jne short .1
         mov eax, 0FFFFFFFFh
@@ -2152,9 +2168,11 @@ sub_39882:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_39B20                                                       39B20  97 PC
+; AnimateWaitIcon                                 39B20  97 PC, low confidence
+; Draws the next frame of the waiting animation on the season screen every
+; few ticks
 ;-----------------------------------------------------------------------------
-sub_39B20:
+AnimateWaitIcon:
         push ebx
         push ecx
         push edx
@@ -2200,9 +2218,10 @@ sub_39B20:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_39BB6                                                       39BB6  97 PC
+; AnimateSparkle                                  39BB6  97 PC, low confidence
+; Draws a random sparkle shape on the screen every few ticks
 ;-----------------------------------------------------------------------------
-sub_39BB6:
+AnimateSparkle:
         push ebx
         push ecx
         push edx
@@ -2238,9 +2257,9 @@ sub_39BB6:
         pop ecx
         pop ebx
         ret
-sub_39BB6_6B:
-        call sub_39B20
-        call sub_39BB6
+AnimateSparkle_6B:
+        call AnimateWaitIcon
+        call AnimateSparkle
         push ebx
         push ecx
         push edx
@@ -2294,9 +2313,11 @@ sub_39BB6_6B:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_39CE0                                                       39CE0  97 PC
+; FindBenchSlot                                   39CE0  97 PC, low confidence
+; Returns the bench or penalty box seat a player has on his team's list, -1
+; if none
 ;-----------------------------------------------------------------------------
-sub_39CE0:
+FindBenchSlot:
         push ebx
         push ecx
         push esi
@@ -2329,9 +2350,10 @@ sub_39CE0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_39D1C                                                       39D1C  97 PC
+; GetSeatPosition                                 39D1C  97 PC, low confidence
+; Fills a vector with the rink position of a bench or box seat
 ;-----------------------------------------------------------------------------
-sub_39D1C:
+GetSeatPosition:
         push ecx
         sub esp, byte 8
         mov ecx, edx
@@ -2390,9 +2412,10 @@ sub_39D1C:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_39DA4                                                       39DA4  97 PC
+; PickBoxSeat                                     39DA4  97 PC, low confidence
+; A penalized player takes the first free seat in his team's penalty box
 ;-----------------------------------------------------------------------------
-sub_39DA4:
+PickBoxSeat:
         push ebx
         push ecx
         push edx
@@ -2432,7 +2455,7 @@ sub_39DA4:
         mov edx, dword [ecx]
         mov eax, ebp
         sar edx, 18h
-        call sub_39D1C
+        call GetSeatPosition
         mov eax, esp
         mov edx, ebp
         call sub_5696C
@@ -2491,9 +2514,11 @@ sub_39DA4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_39EC0                                                       39EC0  97 PC
+; FreeBoxSeat                                     39EC0  97 PC, low confidence
+; A player leaving the penalty box gives up his seat and gets the gate
+; position
 ;-----------------------------------------------------------------------------
-sub_39EC0:
+FreeBoxSeat:
         push ebx
         push ecx
         push edx
@@ -2512,7 +2537,7 @@ sub_39EC0:
         sar edx, 18h
         mov eax, ebx
         mov esi, ebx
-        call sub_39CE0
+        call FindBenchSlot
         mov edi, eax
         test eax, eax
         jl near .10
@@ -2554,7 +2579,7 @@ sub_39EC0:
         mov edx, dword [ecx]
         mov eax, esi
         sar edx, 18h
-        call sub_39D1C
+        call GetSeatPosition
         movsx eax, byte [ecx]
         imul eax, dword 108h
         mov edx, SortCords
@@ -2567,7 +2592,7 @@ sub_39EC0:
         mov edx, dword [ecx]
         mov eax, esi
         sar edx, 18h
-        call sub_39D1C
+        call GetSeatPosition
         mov eax, esp
         mov edx, esi
         call sub_5696C
@@ -2583,7 +2608,7 @@ sub_39EC0:
         mov edx, dword [ecx]
         mov eax, esi
         sar edx, 18h
-        call sub_39D1C
+        call GetSeatPosition
         mov eax, esp
         mov edx, esi
         call sub_5696C
@@ -2640,9 +2665,10 @@ sub_39EC0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3A06C                                                       3A06C  97 PC
+; PickBenchSeat                                   3A06C  97 PC, low confidence
+; A player going to the bench takes a free seat on his team's bench
 ;-----------------------------------------------------------------------------
-sub_3A06C:
+PickBenchSeat:
         push ebx
         push ecx
         push esi
@@ -2660,7 +2686,7 @@ sub_3A06C:
         sar edx, 18h
         mov eax, ecx
         mov ebp, ecx
-        call sub_39CE0
+        call FindBenchSlot
         test eax, eax
         jl short .1
         mov ebx, dword [byte esp+0Ch]
@@ -2678,7 +2704,7 @@ sub_3A06C:
         mov edx, dword [edi]
         mov eax, ecx
         sar edx, 18h
-        call sub_39D1C
+        call GetSeatPosition
         mov eax, esp
         mov edx, ecx
         call sub_5696C
@@ -2688,7 +2714,7 @@ sub_3A06C:
         mov edx, dword [byte esp+0Ah]
         mov eax, ebp
         sar edx, 10h
-        call sub_39CE0
+        call FindBenchSlot
         test eax, eax
         jl short .3
         mov edx, unk_1B93E0
@@ -2731,9 +2757,10 @@ sub_3A06C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3A164                                                       3A164  97 PC
+; MoveBoxToBenchSeat                              3A164  97 PC, low confidence
+; Moves a player from his penalty box seat to a bench seat
 ;-----------------------------------------------------------------------------
-sub_3A164:
+MoveBoxToBenchSeat:
         push ebx
         push ecx
         push esi
@@ -2743,7 +2770,7 @@ sub_3A164:
         mov esi, eax
         movsx edx, dx
         mov ecx, unk_1B93E0
-        call sub_39CE0
+        call FindBenchSlot
         mov ebx, esi
         mov edi, eax
         shl ebx, 7
@@ -2781,7 +2808,7 @@ sub_3A164:
         mov edx, dword [ecx]
         mov eax, esi
         sar edx, 18h
-        call sub_39D1C
+        call GetSeatPosition
         movsx edx, byte [ecx]
         imul edx, dword 108h
         add edx, SortCords
@@ -2793,7 +2820,7 @@ sub_3A164:
         mov edx, dword [ecx]
         mov eax, esi
         sar edx, 18h
-        call sub_39D1C
+        call GetSeatPosition
         mov eax, esp
         mov edx, esi
         call sub_5696C
@@ -2809,7 +2836,7 @@ sub_3A164:
         mov edx, dword [ecx]
         mov eax, esi
         sar edx, 18h
-        call sub_39D1C
+        call GetSeatPosition
         mov eax, esp
         mov edx, esi
         call sub_5696C
@@ -2865,9 +2892,11 @@ sub_3A164:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3A2E8                                                       3A2E8  97 PC
+; FaceoffStanceMove                               3A2E8  97 PC, low confidence
+; Move handler for the faceoff stance moves: stick down, random stance
+; animation, face morphs
 ;-----------------------------------------------------------------------------
-sub_3A2E8:
+FaceoffStanceMove:
         push ebx
         push ecx
         push edx
@@ -2944,9 +2973,11 @@ sub_3A2E8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3A3C8                                                       3A3C8  97 PC
+; RunSimpleMove                                   3A3C8  97 PC, low confidence
+; Move handler for plain moves: plays the animation and picks the next move
+; when it ends
 ;-----------------------------------------------------------------------------
-sub_3A3C8:
+RunSimpleMove:
         push ebx
         push edx
         sub esp, byte 0Ch
@@ -2973,9 +3004,11 @@ sub_3A3C8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3A404                                                       3A404  97 PC
+; FaceoffMoveResult                               3A404  97 PC, low confidence
+; Returns the faceoff result code of a faceoff move (win forward, win back,
+; tie), -1 for others
 ;-----------------------------------------------------------------------------
-sub_3A404:
+FaceoffMoveResult:
         cmp eax, byte 42h
         jb short .1
         jbe short .2
@@ -3004,9 +3037,11 @@ sub_3A404:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3A440                                                       3A440  97 PC
+; FaceoffMove                                     3A440  97 PC, low confidence
+; Move handler for the faceoff draw moves; at the end starts the follow
+; animation
 ;-----------------------------------------------------------------------------
-sub_3A440:
+FaceoffMove:
         push ebx
         push ecx
         push edx
@@ -3104,9 +3139,11 @@ sub_3A440:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3A564                                                       3A564  97 PC
+; MoveWithSfx                                     3A564  97 PC, low confidence
+; Move handler for moves that play a sound at a set frame (stick and body
+; sounds)
 ;-----------------------------------------------------------------------------
-sub_3A564:
+MoveWithSfx:
         push ebx
         push ecx
         push edx
@@ -3176,7 +3213,7 @@ sub_3A564:
         cwde
         xor edx, edx
         add eax, 520h
-        call sub_42354
+        call PlaySfxAt
 .8:
         mov edx, esp
         mov eax, esi
@@ -3193,9 +3230,10 @@ sub_3A564:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3A65C                                                       3A65C  97 PC
+; RandomFollowMove                                3A65C  97 PC, low confidence
+; Move handler that starts a random follow-up animation when the move ends
 ;-----------------------------------------------------------------------------
-sub_3A65C:
+RandomFollowMove:
         push ebx
         push ecx
         push edx
@@ -3279,9 +3317,11 @@ sub_3A65C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3A75C                                                       3A75C  97 PC
+; ShoutMove                                       3A75C  97 PC, low confidence
+; Move handler for moves with face morphs (open mouth, expression) chosen at
+; random
 ;-----------------------------------------------------------------------------
-sub_3A75C:
+ShoutMove:
         push ebx
         push ecx
         push edx
@@ -3353,9 +3393,10 @@ sub_3A75C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3A814                                                       3A814  97 PC
+; BodyMove                                        3A814  97 PC, low confidence
+; Move handler for body moves that clear the busy flags when they end
 ;-----------------------------------------------------------------------------
-sub_3A814:
+BodyMove:
         push ebx
         push ecx
         push edx
@@ -3398,9 +3439,11 @@ sub_3A814:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3A884                                                       3A884  97 PC
+; TakePositionMove                                3A884  97 PC, low confidence
+; Move handler that ends in the stand animation when the player is taking his
+; position
 ;-----------------------------------------------------------------------------
-sub_3A884:
+TakePositionMove:
         push ebx
         push ecx
         push edx
@@ -3455,9 +3498,11 @@ sub_3A884:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3A920                                                       3A920  97 PC
+; SkateStrideMove                                 3A920  97 PC, low confidence
+; Move handler for forward skating strides: alternates the two stride
+; animations
 ;-----------------------------------------------------------------------------
-sub_3A920:
+SkateStrideMove:
         push ebx
         push ecx
         push edx
@@ -3523,9 +3568,11 @@ sub_3A920:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3A9D0                                                       3A9D0  97 PC
+; CoastMove                                       3A9D0  97 PC, low confidence
+; Move handler for coasting: steers and keeps the speed under the coasting
+; limit
 ;-----------------------------------------------------------------------------
-sub_3A9D0:
+CoastMove:
         push ebx
         push ecx
         push edx
@@ -3566,9 +3613,11 @@ sub_3A9D0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3AA48                                                       3AA48  97 PC
+; BackStrideMove                                  3AA48  97 PC, low confidence
+; Move handler for backward skating strides: alternates the two backward
+; stride animations
 ;-----------------------------------------------------------------------------
-sub_3AA48:
+BackStrideMove:
         push ebx
         push ecx
         push edx
@@ -3631,9 +3680,10 @@ sub_3AA48:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3AAE8                                                       3AAE8  97 PC
+; FaceoffSwipeAnim                                3AAE8  97 PC, low confidence
+; Starts the faceoff swipe animation in the given direction
 ;-----------------------------------------------------------------------------
-sub_3AAE8:
+FaceoffSwipeAnim:
         push ebx
         push ecx
         mov ecx, eax
@@ -3653,9 +3703,10 @@ sub_3AAE8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3AB28                                                       3AB28  97 PC
+; FaceoffDrawAnim                                 3AB28  97 PC, low confidence
+; Starts the slower faceoff draw animation in the given direction
 ;-----------------------------------------------------------------------------
-sub_3AB28:
+FaceoffDrawAnim:
         push ebx
         push ecx
         mov ecx, eax
@@ -3675,9 +3726,11 @@ sub_3AB28:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3AB68                                                       3AB68  97 PC
+; SitDownAnim                                     3AB68  97 PC, low confidence
+; Stops the player and starts the sit-down animation on the bench or in the
+; box
 ;-----------------------------------------------------------------------------
-sub_3AB68:
+SitDownAnim:
         push ebx
         push ecx
         push edx
@@ -3707,9 +3760,10 @@ sub_3AB68:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3ABD8                                                       3ABD8  97 PC
+; StandUpAnim                                     3ABD8  97 PC, low confidence
+; Starts the stand-up animation of a player leaving the bench
 ;-----------------------------------------------------------------------------
-sub_3ABD8:
+StandUpAnim:
         push ebx
         push ecx
         push edx
@@ -3738,9 +3792,11 @@ sub_3ABD8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3AC3C                                                       3AC3C  97 PC
+; GoToBoxAnim                                     3AC3C  97 PC, low confidence
+; Starts the skate-to-penalty-box animation with a turn rate from the box
+; distance
 ;-----------------------------------------------------------------------------
-sub_3AC3C:
+GoToBoxAnim:
         push ebx
         push ecx
         push edx
@@ -3807,9 +3863,10 @@ sub_3AC3C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3AD34                                                       3AD34  97 PC
+; LeaveBoxAnim                                    3AD34  97 PC, low confidence
+; Starts the animation of a player stepping out of the penalty box
 ;-----------------------------------------------------------------------------
-sub_3AD34:
+LeaveBoxAnim:
         push ebx
         push ecx
         push edx
@@ -3839,9 +3896,10 @@ sub_3AD34:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3AD9C                                                       3AD9C  97 PC
+; RefDodgePuck                                    3AD9C  97 PC, low confidence
+; The referee steps out of the way of a slow loose puck heading at him
 ;-----------------------------------------------------------------------------
-sub_3AD9C:
+RefDodgePuck:
         push ebx
         push ecx
         push edx
@@ -4042,9 +4100,11 @@ checkgoal:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3AFDC                                                       3AFDC  97 PC
+; CheckMove                                       3AFDC  97 PC, low confidence
+; Move handler for a body check: tests contact each frame, ends when the hit
+; is done
 ;-----------------------------------------------------------------------------
-sub_3AFDC:
+CheckMove:
         push ebx
         push ecx
         push edx
@@ -4098,9 +4158,10 @@ sub_3AFDC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3B05C                                                       3B05C  97 PC
+; SteerMove                                       3B05C  97 PC, low confidence
+; Move handler that steers the player until the move ends
 ;-----------------------------------------------------------------------------
-sub_3B05C:
+SteerMove:
         push ebx
         push edx
         sub esp, byte 0Ch
@@ -4127,9 +4188,11 @@ sub_3B05C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3B09C                                                       3B09C  97 PC
+; ReachForPuckAnim                                3B09C  97 PC, low confidence
+; Turns a player toward the puck and starts the reach animation when the
+; control switches to him
 ;-----------------------------------------------------------------------------
-sub_3B09C:
+ReachForPuckAnim:
         push ebx
         push ecx
         push edx
@@ -4245,9 +4308,10 @@ sub_3B09C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3B1EC                                                       3B1EC  97 PC
+; PokeCheckAnim                                   3B1EC  97 PC, low confidence
+; Starts the poke check animation (left, right or straight) toward the puck
 ;-----------------------------------------------------------------------------
-sub_3B1EC:
+PokeCheckAnim:
         push ebx
         push ecx
         push edx
@@ -4354,9 +4418,11 @@ sub_3B1EC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3B334                                                       3B334  97 PC
+; TryBodyCheck                                    3B334  97 PC, low confidence
+; One player tries to body check another: range, angle and speed checks, then
+; the check animation; returns nonzero if started
 ;-----------------------------------------------------------------------------
-sub_3B334:
+TryBodyCheck:
         push ebx
         push ecx
         push esi
@@ -4658,15 +4724,17 @@ sub_3B334:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3B690                                                       3B690  97 PC
+; DoCheckButton                                   3B690  97 PC, low confidence
+; The human player presses check: poke check, or body check the carrier, or
+; the nearest opponent
 ;-----------------------------------------------------------------------------
-sub_3B690:
+DoCheckButton:
         push ebx
         push ecx
         push edx
         push esi
         mov esi, eax
-        call sub_1E7C4
+        call TryPokePuck
         test eax, eax
         jne near .5
         mov eax, dword [off_168CF0]
@@ -4691,7 +4759,7 @@ sub_3B690:
         shl eax, 3
         add edx, eax
         mov eax, esi
-        call sub_3B334
+        call TryBodyCheck
         test eax, eax
         jne short .5
 .1:
@@ -4712,7 +4780,7 @@ sub_3B690:
 .4:
         mov edx, ebx
         mov eax, esi
-        call sub_3B334
+        call TryBodyCheck
         test eax, eax
         jne short .5
         inc ecx
@@ -4727,9 +4795,10 @@ sub_3B690:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3B738                                                       3B738  97 PC
+; AIBodyCheck                                     3B738  97 PC, low confidence
+; A computer player body checks the given opponent
 ;-----------------------------------------------------------------------------
-sub_3B738:
+AIBodyCheck:
         push ebx
         push ecx
         mov ebx, dword [dword eax+0EEh]
@@ -4737,20 +4806,23 @@ sub_3B738:
         mov ecx, dword [dword eax+0EEh]
         mov bl, byte [dword edx+0A4h]
         mov byte [byte ecx+02Ch], bl
-        call sub_3B334
+        call TryBodyCheck
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3B75B                                                       3B75B  97 PC
+; DrawFrameNoop                                   3B75B  97 PC, low confidence
+; Empty step of the game frame drawing
 ;-----------------------------------------------------------------------------
-sub_3B75B:
+DrawFrameNoop:
         ret
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_3B760                                                       3B760  97 PC
+; AddDirtySpans                                   3B760  97 PC, low confidence
+; Adds the row spans of an overlay window to the list of screen spans to
+; redraw
 ;-----------------------------------------------------------------------------
-sub_3B760:
+AddDirtySpans:
         push ebx
         push ecx
         push esi
@@ -4893,9 +4965,10 @@ sub_3B760:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3B8AC                                                       3B8AC  97 PC
+; InsertSpanSlot                                  3B8AC  97 PC, low confidence
+; Opens a slot in the span list by moving the later entries up
 ;-----------------------------------------------------------------------------
-sub_3B8AC:
+InsertSpanSlot:
         push ecx
         push esi
         push edi
@@ -4937,9 +5010,10 @@ sub_3B8AC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3B900                                                       3B900  97 PC
+; RemoveSpanSlot                                  3B900  97 PC, low confidence
+; Closes a slot in the span list by moving the later entries down
 ;-----------------------------------------------------------------------------
-sub_3B900:
+RemoveSpanSlot:
         push ecx
         push esi
         push edi
@@ -4980,9 +5054,10 @@ sub_3B900:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3B954                                                       3B954  97 PC
+; MergeDirtySpans                                 3B954  97 PC, low confidence
+; Merges a row's spans into the dirty span list, splitting and joining runs
 ;-----------------------------------------------------------------------------
-sub_3B954:
+MergeDirtySpans:
         push esi
         push edi
         push ebp
@@ -5099,7 +5174,7 @@ sub_3B954:
         mov ebx, edi
         mov eax, esi
         xor edx, edx
-        call sub_3B8AC
+        call InsertSpanSlot
         mov byte [byte esi+08h], 0
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte esi+08h]
@@ -5265,7 +5340,7 @@ sub_3B954:
         mov ebx, edi
         mov edx, ecx
         mov eax, esi
-        call sub_3B8AC
+        call InsertSpanSlot
         mov eax, dword [byte esp+01Ch]
         mov edx, dword [byte ebp+04h]
         mov ebx, dword [byte ebp+08h]
@@ -5335,7 +5410,7 @@ sub_3B954:
         imul ebp, ecx, byte 0Ch
         mov ebx, edi
         mov eax, esi
-        call sub_3B8AC
+        call InsertSpanSlot
         mov eax, dword [byte esp+01Ch]
         mov edx, dword [byte esi+ebp+04h]
         mov ebx, dword [byte esi+ebp+08h]
@@ -5392,7 +5467,7 @@ sub_3B954:
         mov edx, ecx
         mov eax, esi
         mov ebx, edi
-        call sub_3B900
+        call RemoveSpanSlot
         jmp near .13
 .18:
         imul eax, ecx, byte 0Ch
@@ -5466,7 +5541,7 @@ sub_3B954:
         mov ebx, edi
         mov edx, ecx
         mov eax, esi
-        call sub_3B8AC
+        call InsertSpanSlot
         lea eax, [nosplit ecx*4+00h]
         sub eax, ecx
         shl eax, 2
@@ -5568,7 +5643,7 @@ sub_3B954:
         mov ebx, edi
         mov edx, ecx
         mov eax, esi
-        call sub_3B8AC
+        call InsertSpanSlot
         lea eax, [nosplit ecx*4+00h]
         sub eax, ecx
         shl eax, 2
@@ -5615,9 +5690,11 @@ sub_3B954:
         ret 10h
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3C0B4                                                       3C0B4  97 PC
+; RebuildOverlayMask                              3C0B4  97 PC, low confidence
+; Rebuilds the list of screen areas covered by overlay windows after one
+; closes
 ;-----------------------------------------------------------------------------
-sub_3C0B4:
+RebuildOverlayMask:
         push ebx
         push ecx
         push edx
@@ -5788,7 +5865,7 @@ sub_3C0B4:
         mov eax, ebp
         mov ecx, dword [byte esp+ecx+010h]
         mov ebx, dword [byte esp+ebx+018h]
-        call sub_3B954
+        call MergeDirtySpans
         mov edx, eax
 .14:
         mov eax, dword [byte esp+048h]
@@ -5849,7 +5926,7 @@ sub_3C0B4:
         mov ecx, dword [byte esp+ecx+010h]
         mov eax, ebp
         mov ebx, dword [byte esp+ebx+018h]
-        call sub_3B954
+        call MergeDirtySpans
         mov ecx, dword [byte esp+044h]
         mov edx, eax
         cmp ecx, dword [byte esp+048h]
@@ -6003,9 +6080,11 @@ sub_3C0B4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3C544                                                       3C544  97 PC
+; BlendOverlayRow                                 3C544  97 PC, low confidence
+; Copies a row of an overlay window: transparent pixels show the screen,
+; shade pixels darken it
 ;-----------------------------------------------------------------------------
-sub_3C544:
+BlendOverlayRow:
         push esi
         push edi
         push ebp
@@ -6043,9 +6122,11 @@ sub_3C544:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3C580                                                       3C580  97 PC
+; ShadeOverlayRow                                 3C580  97 PC, low confidence
+; Copies a row of an overlay window, darkening the shade pixels through the
+; shade table
 ;-----------------------------------------------------------------------------
-sub_3C580:
+ShadeOverlayRow:
         push esi
         push edi
         mov esi, eax
@@ -6101,9 +6182,10 @@ sub_3C580:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_3C5D4                                                       3C5D4  97 PC
+; DrawOverlayRows                                 3C5D4  97 PC, low confidence
+; Draws the rows of an overlay window onto the screen
 ;-----------------------------------------------------------------------------
-sub_3C5D4:
+DrawOverlayRows:
         push ebx
         push ecx
         push edx
@@ -6138,7 +6220,7 @@ sub_3C5D4:
         shr ecx, 16h
         mov eax, dword [ebx]
         mov ebx, esi
-        call sub_3C544
+        call BlendOverlayRow
         pop edi
         pop esi
         pop edx
@@ -6160,7 +6242,7 @@ sub_3C5D4:
         mov esi, dword [ebx]
         mov ebx, eax
         mov eax, esi
-        call sub_3C580
+        call ShadeOverlayRow
         pop edi
         pop esi
         pop edx
@@ -6249,7 +6331,7 @@ sub_3C5D4:
         mov edx, unk_1A0CB8
 .9:
         mov eax, edx
-        call sub_3C5D4
+        call DrawOverlayRows
         inc ebx
         mov esi, dword [dword_1A8E68]
         add edx, byte 0Ch
@@ -6350,9 +6432,10 @@ SetVideoMode:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3C880                                                       3C880  97 PC
+; InitDisplayViews                                3C880  97 PC, low confidence
+; Allocates the display view table ("DMAN") for the given number of views
 ;-----------------------------------------------------------------------------
-sub_3C880:
+InitDisplayViews:
         push ebx
         push ecx
         mov ebx, eax
@@ -6386,9 +6469,10 @@ sub_3C880:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3C8DC                                                       3C8DC  97 PC
+; FreeDisplayViews                                3C8DC  97 PC, low confidence
+; Frees the bitmaps of the display views and the view table
 ;-----------------------------------------------------------------------------
-sub_3C8DC:
+FreeDisplayViews:
         push ebx
         push ecx
         push edx
@@ -6433,9 +6517,10 @@ sub_3C8DC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3C944                                                       3C944  97 PC
+; AddDisplayView                                  3C944  97 PC, low confidence
+; Takes a free display view and creates its bitmap of the given size
 ;-----------------------------------------------------------------------------
-sub_3C944:
+AddDisplayView:
         push ecx
         push esi
         push edi
@@ -6476,7 +6561,7 @@ sub_3C944:
         mov dword [byte esi+010h], eax
         mov eax, esi
         mov edi, 1
-        call sub_3CA28
+        call SetViewSize
         mov dword [dword_1A8E6C], edi
         mov eax, esi
         pop ebp
@@ -6486,9 +6571,10 @@ sub_3C944:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3C9C8                                                       3C9C8  97 PC
+; SetViewDrawTarget                               3C9C8  97 PC, low confidence
+; Makes a display view the drawing target and sets its projection
 ;-----------------------------------------------------------------------------
-sub_3C9C8:
+SetViewDrawTarget:
         push ebx
         push ecx
         push edx
@@ -6526,9 +6612,10 @@ sub_3C9C8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3CA28                                                       3CA28  97 PC
+; SetViewSize                                     3CA28  97 PC, low confidence
+; Sets the width and height of a display view's bitmap
 ;-----------------------------------------------------------------------------
-sub_3CA28:
+SetViewSize:
         push ecx
         push esi
         push edi
@@ -6583,9 +6670,10 @@ sub_3CA28:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3CAB8                                                       3CAB8  97 PC
+; SetViewInterlaced                               3CAB8  97 PC, low confidence
+; Switches a display view to half height (interlaced display)
 ;-----------------------------------------------------------------------------
-sub_3CAB8:
+SetViewInterlaced:
         push ebx
         push ecx
         push edx
@@ -6602,7 +6690,7 @@ sub_3CAB8:
         mov edx, dword [ebx]
         mov ebx, eax
         mov eax, ecx
-        call sub_3CA28
+        call SetViewSize
         mov edx, 1
         mov dword [dword_16FA14], edx
         mov dword [dword_1A8E6C], edx
@@ -6614,9 +6702,10 @@ sub_3CAB8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3CB00                                                       3CB00  97 PC
+; ClearViewInterlaced                             3CB00  97 PC, low confidence
+; Switches a display view back to full height
 ;-----------------------------------------------------------------------------
-sub_3CB00:
+ClearViewInterlaced:
         push ebx
         push edx
         mov bl, byte [byte eax+04h]
@@ -6629,7 +6718,7 @@ sub_3CB00:
         mov ebx, dword [byte edx+04h]
         mov edx, dword [edx]
         add ebx, ebx
-        call sub_3CA28
+        call SetViewSize
         xor edx, edx
         mov ebx, 1
         mov dword [dword_16FA14], edx
@@ -6640,17 +6729,19 @@ sub_3CB00:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3CB38                                                       3CB38  97 PC
+; HideView                                        3CB38  97 PC, low confidence
+; Marks a display view hidden and asks for a redraw
 ;-----------------------------------------------------------------------------
-sub_3CB38:
+HideView:
         or byte [byte eax+04h], 4
         mov dword [dword_1A8E6C], 1
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3CB48                                                       3CB48  97 PC
+; ShowView                                        3CB48  97 PC, low confidence
+; Marks a display view shown and asks for a redraw
 ;-----------------------------------------------------------------------------
-sub_3CB48:
+ShowView:
         push edx
         mov dl, byte [byte eax+04h]
         and dl, 0FBh
@@ -6664,9 +6755,10 @@ sub_3CB48:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3CB70                                                       3CB70  97 PC
+; SetViewOrigin                                   3CB70  97 PC, low confidence
+; Sets where a display view sits on the screen
 ;-----------------------------------------------------------------------------
-sub_3CB70:
+SetViewOrigin:
         push ecx
         mov ecx, dword [eax]
         mov dword [byte eax+010h], edx
@@ -6682,9 +6774,10 @@ sub_3CB70:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3CB98                                                       3CB98  97 PC
+; ClearViewBorders                                3CB98  97 PC, low confidence
+; Clears the screen rows around the game view
 ;-----------------------------------------------------------------------------
-sub_3CB98:
+ClearViewBorders:
         push ebx
         push ecx
         push edx
@@ -6798,9 +6891,10 @@ sub_3CB98:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3CCA8                                                       3CCA8  97 PC
+; PresentGameView                                 3CCA8  97 PC, low confidence
+; Copies the game view and the overlay windows to the screen
 ;-----------------------------------------------------------------------------
-sub_3CCA8:
+PresentGameView:
         push ebx
         push ecx
         push edx
@@ -6810,7 +6904,7 @@ sub_3CCA8:
         cmp dword [dword_1A8E50], byte 0
         je short .1
         xor ebx, ebx
-        call sub_3CB98
+        call ClearViewBorders
         mov dword [dword_1A8E50], ebx
 .1:
         cmp dword [dword_1A8E7C], byte 0
@@ -6835,7 +6929,7 @@ sub_3CCA8:
         cmp dword [dword_1A8E6C], byte 0
         je short .3
         mov eax, dword [dword_169180]
-        call sub_3C0B4
+        call RebuildOverlayMask
 .3:
         mov edi, 1
         push unk_1A8D48
@@ -6852,7 +6946,7 @@ sub_3CCA8:
         mov edx, unk_1A0CB8
 .4:
         mov eax, edx
-        call sub_3C5D4
+        call DrawOverlayRows
         inc ebx
         mov edi, dword [dword_1A8E68]
         add edx, byte 0Ch
@@ -6893,7 +6987,7 @@ AddOverlayWindow:
 .1:
         mov edx, ecx
         mov eax, ebx
-        call sub_3B760
+        call AddDirtySpans
         test eax, eax
         je short .2
         mov eax, dword [dword_1A8B48]
@@ -7044,7 +7138,7 @@ RemoveOverlayWindow:
         dec ebp
         mov eax, dword [dword_169180]
         mov dword [dword_1A8E7C], ebp
-        call sub_3C0B4
+        call RebuildOverlayMask
         pop ebp
         pop edi
         pop esi
@@ -7067,9 +7161,10 @@ RemoveOverlayWindow:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3CF68                                                       3CF68  97 PC
+; UpdateScreenRegion                              3CF68  97 PC, low confidence
+; Sets the size of a screen region by its id and asks for a redraw
 ;-----------------------------------------------------------------------------
-sub_3CF68:
+UpdateScreenRegion:
         push ecx
         push esi
         push edi
@@ -7163,16 +7258,18 @@ RefreshOverlayWindow:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3D020                                                       3D020  97 PC
+; SetRinkDetail                                   3D020  97 PC, low confidence
+; Stores the rink detail level and reloads the rink palette
 ;-----------------------------------------------------------------------------
-sub_3D020:
+SetRinkDetail:
         mov dword [dword_1A8E60], eax
         jmp near sub_52D4C
         db 00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_3D030                                                       3D030  97 PC
+; FadePaletteStep                                 3D030  97 PC, low confidence
+; One step of a palette fade: moves each colour toward its target
 ;-----------------------------------------------------------------------------
-sub_3D030:
+FadePaletteStep:
         push ebx
         push ecx
         push edx
@@ -7246,7 +7343,7 @@ sub_3D030:
         add esp, byte 0Ch
         pop ebp
         pop edi
-sub_3D030_FC:
+FadePaletteStep_FC:
         pop esi
         pop edx
         pop ecx
@@ -7254,9 +7351,10 @@ sub_3D030_FC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3D134                                                       3D134  97 PC
+; PaletteFadeTick                                 3D134  97 PC, low confidence
+; Timer routine: runs a palette fade step every few ticks
 ;-----------------------------------------------------------------------------
-sub_3D134:
+PaletteFadeTick:
         push ebx
         push ecx
         push edx
@@ -7273,7 +7371,7 @@ sub_3D134:
         lea edi, [byte edx-01h]
         mov ebp, 5
         mov dword [dword_1AC350], edi
-        call sub_3D030
+        call FadePaletteStep
         mov dword [dword_1AC34C], ebp
         jmp short .2
 .1:
@@ -7288,9 +7386,11 @@ sub_3D134:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3D180                                                       3D180  97 PC
+; StartPaletteFade                                3D180  97 PC, low confidence
+; Starts a fade from the current palette to the given one over a number of
+; steps
 ;-----------------------------------------------------------------------------
-sub_3D180:
+StartPaletteFade:
         push esi
         push edi
         push ebp
@@ -7392,9 +7492,10 @@ sub_3D180:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3D2C0                                                       3D2C0  97 PC
+; BuildRangePalette                               3D2C0  97 PC, low confidence
+; Fills a palette range from its colour table
 ;-----------------------------------------------------------------------------
-sub_3D2C0:
+BuildRangePalette:
         push esi
         push edi
         push ebp
@@ -7500,9 +7601,10 @@ sub_3D2C0:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_3D3D0                                                       3D3D0  97 PC
+; BlendRangePalette                               3D3D0  97 PC, low confidence
+; Fills a palette range blended toward a colour
 ;-----------------------------------------------------------------------------
-sub_3D3D0:
+BlendRangePalette:
         push esi
         push edi
         push ebp
@@ -7604,9 +7706,10 @@ sub_3D3D0:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3D4C4                                                       3D4C4  97 PC
+; CountArtPixels                                  3D4C4  97 PC, low confidence
+; Adds the pixels of an art to the colour use table
 ;-----------------------------------------------------------------------------
-sub_3D4C4:
+CountArtPixels:
         push ebx
         push ecx
         push edx
@@ -7637,7 +7740,7 @@ sub_3D4C4:
 .1:
         dec ebx
         cmp ebx, byte 0FFFFFFFFh
-        je near sub_3D030_FC
+        je near FadePaletteStep_FC
         push ebx
         push esi
         call sub_104948
@@ -7661,9 +7764,10 @@ sub_3D4C4:
         jmp short .1
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3D548                                                       3D548  97 PC
+; RemapArtColors                                  3D548  97 PC, low confidence
+; Remaps the pixels of a bank's art through a colour table
 ;-----------------------------------------------------------------------------
-sub_3D548:
+RemapArtColors:
         push esi
         push edi
         push ebp
@@ -7714,7 +7818,7 @@ sub_3D548:
         add esp, byte 8
         cmp edx, ecx
         jne short .4
-        call sub_3D4C4
+        call CountArtPixels
         jmp short .4
 .5:
         mov edx, esp
@@ -7728,9 +7832,10 @@ sub_3D548:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3D5EC                                                       3D5EC  97 PC
+; RemapArtToRange                                 3D5EC  97 PC, low confidence
+; Remaps an art bank into a palette range
 ;-----------------------------------------------------------------------------
-sub_3D5EC:
+RemapArtToRange:
         push ecx
         push esi
         push edi
@@ -7760,7 +7865,7 @@ sub_3D5EC:
 .1:
         dec ebx
         cmp ebx, byte 0FFFFFFFFh
-        je near sub_3DE08_70
+        je near RemapArtPixels_70
         push ebx
         push esi
         call sub_104948
@@ -7770,13 +7875,15 @@ sub_3D5EC:
         add esp, byte 8
         cmp edx, ecx
         jne short .1
-        call sub_3D4C4
+        call CountArtPixels
         jmp short .1
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3D660                                                       3D660  97 PC
+; RemapArtRange                                   3D660  97 PC, low confidence
+; Remaps an art bank to the colours of a palette range, keeping the reserved
+; colours
 ;-----------------------------------------------------------------------------
-sub_3D660:
+RemapArtRange:
         push esi
         push edi
         push ebp
@@ -7852,7 +7959,7 @@ sub_3D660:
         add esp, byte 8
         cmp edx, edi
         jne short .6
-        call sub_3D4C4
+        call CountArtPixels
         jmp short .6
 .7:
         mov ebx, 100h
@@ -7866,9 +7973,10 @@ sub_3D660:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3D764                                                       3D764  97 PC
+; NewColorHistogram                               3D764  97 PC, low confidence
+; Allocates and clears a colour histogram ("HIST")
 ;-----------------------------------------------------------------------------
-sub_3D764:
+NewColorHistogram:
         push ecx
         push esi
         push edi
@@ -7978,9 +8086,10 @@ sub_3D764:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3D898                                                       3D898  97 PC
+; ArtBankHistogram                                3D898  97 PC, low confidence
+; Builds the colour histogram of an art bank
 ;-----------------------------------------------------------------------------
-sub_3D898:
+ArtBankHistogram:
         push esi
         push edi
         push ebp
@@ -7996,7 +8105,7 @@ sub_3D898:
         mov edx, ebp
         mov dword [esp], eax
         mov eax, esi
-        call sub_3D764
+        call NewColorHistogram
         mov dword [byte esp+04h], eax
         xor esi, esi
         mov dword [dword eax+0C08h], edi
@@ -8045,9 +8154,10 @@ sub_3D898:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3D930                                                       3D930  97 PC
+; InitPaletteManager                              3D930  97 PC, low confidence
+; Sets up the palette ranges and installs the palette fade timer
 ;-----------------------------------------------------------------------------
-sub_3D930:
+InitPaletteManager:
         push ecx
         push edx
         xor edx, edx
@@ -8055,7 +8165,7 @@ sub_3D930:
         mov dword [dword_1AC35C], edx
         call sub_1049D0
         add esp, byte 4
-        push sub_3D134
+        push PaletteFadeTick
         mov dword [dword_1AC358], eax
         call addtimer
         add esp, byte 4
@@ -8064,12 +8174,13 @@ sub_3D930:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3D95C                                                       3D95C  97 PC
+; ShutdownPaletteManager                          3D95C  97 PC, low confidence
+; Removes the palette fade timer
 ;-----------------------------------------------------------------------------
-sub_3D95C:
+ShutdownPaletteManager:
         push ecx
         push edx
-        push sub_3D134
+        push PaletteFadeTick
         call sub_FC008
         add esp, byte 4
         pop edx
@@ -8091,9 +8202,10 @@ sub_3D95C:
         mov eax, 1
         ret
 ;-----------------------------------------------------------------------------
-; sub_3D988                                                       3D988  97 PC
+; AddPaletteRange                                 3D988  97 PC, low confidence
+; Adds a named palette range of the given first and last colour
 ;-----------------------------------------------------------------------------
-sub_3D988:
+AddPaletteRange:
         push ecx
         push esi
         push edi
@@ -8128,9 +8240,10 @@ sub_3D988:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3D9E4                                                       3D9E4  97 PC
+; LinkRangeHistogram                              3D9E4  97 PC, low confidence
+; Attaches a colour histogram to a palette range
 ;-----------------------------------------------------------------------------
-sub_3D9E4:
+LinkRangeHistogram:
         push ebx
         mov ebx, edx
         mov edx, eax
@@ -8148,9 +8261,10 @@ sub_3D9E4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3DA18                                                       3DA18  97 PC
+; AddArtToRange                                   3DA18  97 PC, low confidence
+; Adds an art bank's colours to a palette range
 ;-----------------------------------------------------------------------------
-sub_3DA18:
+AddArtToRange:
         push esi
         push edi
         mov esi, eax
@@ -8159,7 +8273,7 @@ sub_3DA18:
         mov edx, ecx
         mov ebx, dword [byte esp+0Ch]
         mov ecx, dword [byte esp+010h]
-        call sub_3D898
+        call ArtBankHistogram
         mov ebx, 8
         mov edx, esi
         mov ecx, eax
@@ -8183,9 +8297,10 @@ sub_3DA18:
         pop esi
         ret 0Ch
 ;-----------------------------------------------------------------------------
-; sub_3DA80                                                       3DA80  97 PC
+; AddBankToRange                                  3DA80  97 PC, low confidence
+; Adds a whole art bank's colours to a palette range
 ;-----------------------------------------------------------------------------
-sub_3DA80:
+AddBankToRange:
         push esi
         push edi
         mov edi, eax
@@ -8194,7 +8309,7 @@ sub_3DA80:
         mov edx, ecx
         mov ecx, 100h
         xor ebx, ebx
-        call sub_3D898
+        call ArtBankHistogram
         mov ebx, 8
         mov edx, edi
         mov ecx, eax
@@ -8203,16 +8318,17 @@ sub_3DA80:
         mov edx, ecx
         mov dword [dword ecx+0C10h], eax
         mov eax, esi
-        call sub_3D9E4
+        call LinkRangeHistogram
         call sub_E341C
         pop edi
         pop esi
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3DAC4                                                       3DAC4  97 PC
+; RemapArtBank                                    3DAC4  97 PC, low confidence
+; After the palette is built: remaps each art of a bank to its palette range
 ;-----------------------------------------------------------------------------
-sub_3DAC4:
+RemapArtBank:
         push esi
         push edi
         push ebp
@@ -8304,7 +8420,7 @@ sub_3DAC4:
         push byte 0
         mov eax, dword [dword esp+0310h]
         mov ebx, ebp
-        call sub_3DA18
+        call AddArtToRange
 .9:
         add esp, 30Ch
         pop ebp
@@ -8313,9 +8429,10 @@ sub_3DAC4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3DBCC                                                       3DBCC  97 PC
+; SetRangeColors                                  3DBCC  97 PC, low confidence
+; Copies a colour list into a palette range
 ;-----------------------------------------------------------------------------
-sub_3DBCC:
+SetRangeColors:
         push ebx
         push ecx
         push esi
@@ -8361,9 +8478,10 @@ sub_3DBCC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3DC2C                                                       3DC2C  97 PC
+; AddColorTable                                   3DC2C  97 PC, low confidence
+; Adds a colour table (no art) to a palette range
 ;-----------------------------------------------------------------------------
-sub_3DC2C:
+AddColorTable:
         push esi
         push edi
         push ebp
@@ -8373,7 +8491,7 @@ sub_3DC2C:
         mov esi, ebx
         mov eax, ecx
         xor edx, edx
-        call sub_3D764
+        call NewColorHistogram
         mov ebx, 8
         mov ecx, eax
         mov ebp, eax
@@ -8413,9 +8531,10 @@ sub_3DC2C:
         ret 4
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3DCBC                                                       3DCBC  97 PC
+; RemapBankToRange                                3DCBC  97 PC, low confidence
+; Remaps the arts of a bank into a palette range
 ;-----------------------------------------------------------------------------
-sub_3DCBC:
+RemapBankToRange:
         push ecx
         push esi
         push edi
@@ -8504,7 +8623,7 @@ sub_3DCBC:
         mov ebx, dword [dword esp+0300h]
         mov eax, esp
         mov edx, esi
-        call sub_3D5EC
+        call RemapArtToRange
         add esp, 304h
         pop ebp
         pop edi
@@ -8533,9 +8652,10 @@ sub_3DCBC:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3DDD8                                                       3DDD8  97 PC
+; RemapRangeColors                                3DDD8  97 PC, low confidence
+; Remaps an art through the colour table of a palette range
 ;-----------------------------------------------------------------------------
-sub_3DDD8:
+RemapRangeColors:
         push ecx
         push esi
         push edi
@@ -8551,16 +8671,17 @@ sub_3DDD8:
         mov ecx, dword [byte ebx+eax*8+0Ch]
         mov ebx, dword [byte ebx+eax*8+08h]
         mov eax, esi
-        call sub_3D548
+        call RemapArtColors
         pop edi
         pop esi
         pop ecx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3DE08                                                       3DE08  97 PC
+; RemapArtPixels                                  3DE08  97 PC, low confidence
+; Remaps the pixels of an art into a palette range
 ;-----------------------------------------------------------------------------
-sub_3DE08:
+RemapArtPixels:
         mov eax, ebx
         mov ebx, ecx
         push ecx
@@ -8589,7 +8710,7 @@ sub_3DE08:
         and eax, 0FFh
         add esp, byte 0Ch
         cmp eax, edx
-        jne short sub_3DE08_70
+        jne short RemapArtPixels_70
         mov edx, dword [byte esi+02h]
         mov eax, dword [byte esi+04h]
         sar edx, 10h
@@ -8601,7 +8722,7 @@ sub_3DE08:
         push esi
         call sub_10491C
         add esp, byte 0Ch
-sub_3DE08_70:
+RemapArtPixels_70:
         mov edx, esp
         mov eax, byte_16FA40
         mov ebx, ebp
@@ -8614,9 +8735,10 @@ sub_3DE08_70:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3DE94                                                       3DE94  97 PC
+; FillQuantBoxes                                  3DE94  97 PC, low confidence
+; Colour quantizer: sorts the histogram colours into boxes
 ;-----------------------------------------------------------------------------
-sub_3DE94:
+FillQuantBoxes:
         push ebx
         push ecx
         push esi
@@ -8672,9 +8794,10 @@ sub_3DE94:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3DF14                                                       3DF14  97 PC
+; ColorMomentTables                               3DF14  97 PC, low confidence
+; Colour quantizer: builds the running sum tables of a box
 ;-----------------------------------------------------------------------------
-sub_3DF14:
+ColorMomentTables:
         push ecx
         push esi
         push edi
@@ -8708,9 +8831,10 @@ sub_3DF14:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3DF54                                                       3DF54  97 PC
+; SplitColorBox                                   3DF54  97 PC, low confidence
+; Colour quantizer: splits a colour box where the variance drops most
 ;-----------------------------------------------------------------------------
-sub_3DF54:
+SplitColorBox:
         push ebx
         push ecx
         push esi
@@ -8725,7 +8849,7 @@ sub_3DF54:
         mov edx, esp
         mov dword [dword esp+0C08h], eax
         lea eax, [dword esp+0400h]
-        call sub_3DF14
+        call ColorMomentTables
         mov eax, ebp
         mov ecx, 0F423Fh
         mov edx, dword [eax]
@@ -8800,7 +8924,7 @@ sub_3DF54:
         call sub_E341C
         mov edx, ebx
         mov eax, ecx
-        call sub_3DF54
+        call SplitColorBox
         inc ebx
         cmp ebx, dword [ecx]
         jl short .7
@@ -8810,9 +8934,10 @@ sub_3DF54:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3E064                                                       3E064  97 PC
+; MergeColorBoxes                                 3E064  97 PC, low confidence
+; Colour quantizer: joins two colour boxes
 ;-----------------------------------------------------------------------------
-sub_3E064:
+MergeColorBoxes:
         push ebx
         push ecx
         push esi
@@ -8883,7 +9008,7 @@ sub_3E064:
         jne short .2
         mov edx, ecx
         mov eax, esi
-        call sub_3DF54
+        call SplitColorBox
         jmp short .3
 .2:
         jge short .3
@@ -8904,9 +9029,10 @@ sub_3E064:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3E140                                                       3E140  97 PC
+; FindSmallestBox                                 3E140  97 PC, low confidence
+; Colour quantizer: returns the box with the smallest error
 ;-----------------------------------------------------------------------------
-sub_3E140:
+FindSmallestBox:
         push ebx
         push ecx
         push edx
@@ -8935,7 +9061,7 @@ sub_3E140:
 .3:
         mov edx, esi
         mov eax, ecx
-        call sub_3E064
+        call MergeColorBoxes
         pop ebp
         pop edi
         pop esi
@@ -8952,7 +9078,7 @@ sub_3E140:
         jge short .5
 .4:
         mov eax, ebx
-        call sub_3E140
+        call FindSmallestBox
         cmp edx, dword [ebx]
         jl short .4
 .5:
@@ -8960,9 +9086,10 @@ sub_3E140:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3E198                                                       3E198  97 PC
+; CopyRangePalette                                3E198  97 PC, low confidence
+; Copies a palette range's colours into a palette buffer
 ;-----------------------------------------------------------------------------
-sub_3E198:
+CopyRangePalette:
         push ebx
         push ecx
         push esi
@@ -9006,9 +9133,10 @@ sub_3E198:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3E1F8                                                       3E1F8  97 PC
+; BuildRangePaletteBuf                            3E1F8  97 PC, low confidence
+; Clears a palette buffer and copies a range's colours into it
 ;-----------------------------------------------------------------------------
-sub_3E1F8:
+BuildRangePaletteBuf:
         push ebx
         push esi
         mov esi, eax
@@ -9022,15 +9150,16 @@ sub_3E1F8:
         jne short .1
         mov edx, ebx
         mov eax, esi
-        call sub_3E198
+        call CopyRangePalette
         pop esi
         pop ebx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3E21C                                                       3E21C  97 PC
+; QuantizeRange                                   3E21C  97 PC, low confidence
+; Builds the colours of a palette range from its histograms ("MEGAHIST")
 ;-----------------------------------------------------------------------------
-sub_3E21C:
+QuantizeRange:
         push ebx
         push ecx
         push edx
@@ -9062,7 +9191,7 @@ sub_3E21C:
 .1:
         mov edx, edi
         mov eax, ebx
-        call sub_3DE94
+        call FillQuantBoxes
         mov ebx, dword [dword ebx+0C0Ch]
         test ebx, ebx
         jne short .1
@@ -9090,7 +9219,7 @@ sub_3E21C:
         call sub_E341C
         mov edx, ebx
         mov eax, ecx
-        call sub_3DF54
+        call SplitColorBox
         inc ebx
         cmp ebx, dword [ecx]
         jl short .5
@@ -9103,7 +9232,7 @@ sub_3E21C:
         jge short .8
 .7:
         mov eax, ebx
-        call sub_3E140
+        call FindSmallestBox
         cmp edx, dword [ebx]
         jl short .7
 .8:
@@ -9224,7 +9353,7 @@ sub_3E21C:
         push ecx
         mov edx, dword [dword esi+0C08h]
         mov ecx, dword [dword esi+0C18h]
-        call sub_3D660
+        call RemapArtRange
 .22:
         call sub_E341C
         push esi
@@ -9253,9 +9382,10 @@ sub_3E21C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3E458                                                       3E458  97 PC
+; QuantizeAllRanges                               3E458  97 PC, low confidence
+; Builds the colours of every palette range
 ;-----------------------------------------------------------------------------
-sub_3E458:
+QuantizeAllRanges:
         push ebx
         push ecx
         push edx
@@ -9265,7 +9395,7 @@ sub_3E458:
         jle short .2
 .1:
         mov eax, edx
-        call sub_3E21C
+        call QuantizeRange
         mov ecx, dword [dword_1AC35C]
         inc edx
         cmp edx, ecx
@@ -9277,9 +9407,10 @@ sub_3E458:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3E480                                                       3E480  97 PC
+; SetRangePalette                                 3E480  97 PC, low confidence
+; Loads a palette range's colours into the VGA palette
 ;-----------------------------------------------------------------------------
-sub_3E480:
+SetRangePalette:
         push ebx
         push ecx
         push edx
@@ -9307,9 +9438,10 @@ sub_3E480:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3E4B8                                                       3E4B8  97 PC
+; MergeRangePalettes                              3E4B8  97 PC, low confidence
+; Joins the palette ranges into one 256-colour palette
 ;-----------------------------------------------------------------------------
-sub_3E4B8:
+MergeRangePalettes:
         push esi
         push edi
         push ebp
@@ -9390,9 +9522,10 @@ sub_3E4B8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3E590                                                       3E590  97 PC
+; BuildGamePalette                                3E590  97 PC, low confidence
+; Builds the game palette from all ranges and loads it
 ;-----------------------------------------------------------------------------
-sub_3E590:
+BuildGamePalette:
         push ebx
         push ecx
         push edx
@@ -9407,7 +9540,7 @@ sub_3E590:
         mov ecx, esp
         lea edx, [dword esp+0404h]
         mov eax, esi
-        call sub_3E4B8
+        call MergeRangePalettes
         mov edx, dword [dword_16E500]
         test edx, edx
         je short .1
@@ -9428,9 +9561,10 @@ sub_3E590:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3E5F0                                                       3E5F0  97 PC
+; FadeGamePalette                                 3E5F0  97 PC, low confidence
+; Fades the screen to the game palette (camera scenes, replays, pause menu)
 ;-----------------------------------------------------------------------------
-sub_3E5F0:
+FadeGamePalette:
         push ecx
         push esi
         push edi
@@ -9443,7 +9577,7 @@ sub_3E5F0:
         lea ebx, [dword esp+0400h]
         mov dword [dword_1AC350], edx
         lea edx, [dword esp+0404h]
-        call sub_3E4B8
+        call MergeRangePalettes
         test eax, eax
         je near .3
         mov ebx, dword [dword esp+0400h]
@@ -9491,7 +9625,7 @@ sub_3E5F0:
         mov edx, dword [dword esp+0400h]
         mov ecx, eax
         mov eax, dword [dword esp+0404h]
-        call sub_3D180
+        call StartPaletteFade
 .3:
         mov dword [dword_1AC368], esi
         add esp, 408h
@@ -9509,9 +9643,10 @@ sub_3E5F0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3E6D0                                                       3E6D0  97 PC
+; InitStreamBuffer                                3E6D0  97 PC, low confidence
+; Sets up a CD stream buffer and its timer
 ;-----------------------------------------------------------------------------
-sub_3E6D0:
+InitStreamBuffer:
         push ebx
         push esi
         push edi
@@ -9604,9 +9739,10 @@ sub_3E6D0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3E818                                                       3E818  97 PC
+; OpenStreamBuffer                                3E818  97 PC, low confidence
+; Opens a CD stream buffer for reading
 ;-----------------------------------------------------------------------------
-sub_3E818:
+OpenStreamBuffer:
         push ebx
         push byte 0
         mov edx, dword [byte esp+014h]
@@ -9615,7 +9751,7 @@ sub_3E818:
         push ebx
         mov ecx, dword [byte esp+014h]
         push ecx
-        call sub_3E6D0
+        call InitStreamBuffer
         add esp, byte 10h
         pop ebx
         ret
@@ -9627,7 +9763,7 @@ sub_3E818:
         push ebx
         mov ecx, dword [byte esp+014h]
         push ecx
-        call sub_3E6D0
+        call InitStreamBuffer
         add esp, byte 10h
         pop ebx
         ret
@@ -9672,7 +9808,7 @@ CdStreamOpen:
         add eax, ebx
         push eax
         push ecx
-        call sub_3E6D0
+        call InitStreamBuffer
         add esp, byte 10h
         pop edi
         pop esi
@@ -9978,7 +10114,7 @@ CdStreamRequest:
         mov esi, dword [byte esp+0Ch]
         mov edx, dword [byte esp+020h]
         push edx
-        call sub_3FDCC
+        call StreamQueueBlock
         mov ecx, eax
         add esp, byte 4
         test eax, eax
@@ -10098,7 +10234,7 @@ CdStreamQueue:
         jne short .1
 .2:
         push byte 1
-        call sub_3FDCC
+        call StreamQueueBlock
         add esp, byte 4
         mov ebx, 8Fh
         mov edx, dword [byte esp+010h]
@@ -10120,9 +10256,10 @@ CdStreamQueue:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3ED60                                                       3ED60  97 PC
+; RequestStreamRead                               3ED60  97 PC, low confidence
+; Asks the CD stream for the next block
 ;-----------------------------------------------------------------------------
-sub_3ED60:
+RequestStreamRead:
         push ebx
         push byte 1
         push byte 1
@@ -10194,7 +10331,7 @@ sub_3ED60:
         jne short .1
 .2:
         push byte 1
-        call sub_3FDCC
+        call StreamQueueBlock
         add esp, byte 4
         mov dword [dword eax+093h], 0Bh
         mov edx, dword [byte esp+010h]
@@ -10210,9 +10347,10 @@ sub_3ED60:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3EE4C                                                       3EE4C  97 PC
+; UpdateMusicStream                               3EE4C  97 PC, low confidence
+; Feeds the music stream position to the sound driver
 ;-----------------------------------------------------------------------------
-sub_3EE4C:
+UpdateMusicStream:
         push ebx
         mov eax, dword [dword_1AC378]
         mov edx, dword [byte eax+058h]
@@ -11472,9 +11610,10 @@ CdStreamFreePacket:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3FC88                                                       3FC88  97 PC
+; StreamBufferFree                                3FC88  97 PC, low confidence
+; Counts the free blocks of a stream buffer
 ;-----------------------------------------------------------------------------
-sub_3FC88:
+StreamBufferFree:
         push ebx
         push ebp
         mov ebx, dword [byte esp+0Ch]
@@ -11543,9 +11682,10 @@ sub_3FC88:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3FD0C                                                       3FD0C  97 PC
+; StreamReady                                     3FD0C  97 PC, low confidence
+; Whether the CD stream can take a request; returns 1 if so
 ;-----------------------------------------------------------------------------
-sub_3FD0C:
+StreamReady:
         push esi
         cmp dword [byte esp+0Ch], byte 0FFFFFFFFh
         jne short .1
@@ -11567,7 +11707,7 @@ sub_3FD0C:
         je short .4
         mov esi, dword [byte esp+08h]
         push esi
-        call sub_3FC88
+        call StreamBufferFree
         add esp, byte 4
         test eax, eax
         jne short .4
@@ -11616,9 +11756,10 @@ sub_3FD0C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3FDCC                                                       3FDCC  97 PC
+; StreamQueueBlock                                3FDCC  97 PC, low confidence
+; Queues a block on the CD stream
 ;-----------------------------------------------------------------------------
-sub_3FDCC:
+StreamQueueBlock:
         push ebx
         mov eax, dword [dword_1AC378]
         cmp dword [byte eax+070h], byte 0
@@ -11674,9 +11815,10 @@ sub_3FDCC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3FE54                                                       3FE54  97 PC
+; RingBufferSpace                                 3FE54  97 PC, low confidence
+; Returns how much of a ring buffer is free from the write position
 ;-----------------------------------------------------------------------------
-sub_3FE54:
+RingBufferSpace:
         push ebx
         push ecx
         push esi
@@ -11760,9 +11902,10 @@ sub_3FE54:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3FEE8                                                       3FEE8  97 PC
+; QueuePassSpeech                                 3FEE8  97 PC, low confidence
+; Play-by-play: queues the phrase for a pass made or completed
 ;-----------------------------------------------------------------------------
-sub_3FEE8:
+QueuePassSpeech:
         push esi
         push edi
         sub esp, byte 30h
@@ -11797,9 +11940,10 @@ sub_3FEE8:
         ret 14h
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3FF4C                                                       3FF4C  97 PC
+; QueueShotSpeech                                 3FF4C  97 PC, low confidence
+; Play-by-play: queues the phrase for a shot
 ;-----------------------------------------------------------------------------
-sub_3FF4C:
+QueueShotSpeech:
         push esi
         push edi
         push ebp
@@ -11830,9 +11974,10 @@ sub_3FF4C:
         pop esi
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_3FF9C                                                       3FF9C  97 PC
+; QueuePositionSpeech                             3FF9C  97 PC, low confidence
+; Play-by-play: queues a phrase about where the play is on the rink
 ;-----------------------------------------------------------------------------
-sub_3FF9C:
+QueuePositionSpeech:
         push esi
         push edi
         push ebp
@@ -11915,9 +12060,10 @@ sub_3FF9C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_4006C                                                       4006C  97 PC
+; QueueHitSpeech                                  4006C  97 PC, low confidence
+; Play-by-play: queues the phrase for a collision
 ;-----------------------------------------------------------------------------
-sub_4006C:
+QueueHitSpeech:
         push esi
         push edi
         push ebp
@@ -11970,9 +12116,10 @@ sub_4006C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_400E8                                                       400E8  97 PC
+; QueuePenaltySpeech                              400E8  97 PC, low confidence
+; Play-by-play: queues the phrase for a penalty
 ;-----------------------------------------------------------------------------
-sub_400E8:
+QueuePenaltySpeech:
         push esi
         push edi
         push ebp
@@ -12050,9 +12197,10 @@ sub_400E8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_401A0                                                       401A0  97 PC
+; QueueReceiveSpeech                              401A0  97 PC, low confidence
+; Play-by-play: queues the phrase for a pass taken
 ;-----------------------------------------------------------------------------
-sub_401A0:
+QueueReceiveSpeech:
         push esi
         push edi
         push ebp
@@ -12130,9 +12278,10 @@ sub_401A0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_40258                                                       40258  97 PC
+; QueueLoosePuckSpeech                            40258  97 PC, low confidence
+; Play-by-play: queues the phrase for a loose puck
 ;-----------------------------------------------------------------------------
-sub_40258:
+QueueLoosePuckSpeech:
         push esi
         push edi
         push ebp
@@ -12160,9 +12309,10 @@ sub_40258:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_40298                                                       40298  97 PC
+; QueueCarrySpeech                                40298  97 PC, low confidence
+; Play-by-play: queues the phrase for a player carrying the puck
 ;-----------------------------------------------------------------------------
-sub_40298:
+QueueCarrySpeech:
         push esi
         push edi
         push ebp
@@ -12262,9 +12412,10 @@ sub_40298:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_40380                                                       40380  97 PC
+; QueueTeamSpeech                                 40380  97 PC, low confidence
+; Play-by-play: queues a phrase naming a team
 ;-----------------------------------------------------------------------------
-sub_40380:
+QueueTeamSpeech:
         push esi
         push edi
         push ebp
@@ -12292,9 +12443,10 @@ sub_40380:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_403C0                                                       403C0  97 PC
+; QueueDeflectSpeech                              403C0  97 PC, low confidence
+; Play-by-play: queues the phrase for a deflection or a save
 ;-----------------------------------------------------------------------------
-sub_403C0:
+QueueDeflectSpeech:
         push esi
         push edi
         push ebp
@@ -12322,9 +12474,10 @@ sub_403C0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_40400                                                       40400  97 PC
+; QueuePickupSpeech                               40400  97 PC, low confidence
+; Play-by-play: queues the phrase for a player picking up the puck
 ;-----------------------------------------------------------------------------
-sub_40400:
+QueuePickupSpeech:
         push esi
         push edi
         push ebp
@@ -12352,9 +12505,10 @@ sub_40400:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_40440                                                       40440  97 PC
+; QueueFaceoffSpeech                              40440  97 PC, low confidence
+; Play-by-play: queues the phrase for a faceoff
 ;-----------------------------------------------------------------------------
-sub_40440:
+QueueFaceoffSpeech:
         push esi
         push edi
         push ebp
@@ -12408,9 +12562,10 @@ sub_40440:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_404C4                                                       404C4  97 PC
+; QueuePenaltyEndSpeech                           404C4  97 PC, low confidence
+; Play-by-play: queues the phrase for a penalty that ends
 ;-----------------------------------------------------------------------------
-sub_404C4:
+QueuePenaltyEndSpeech:
         push esi
         push edi
         push ebp
@@ -12486,9 +12641,10 @@ sub_404C4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_40574                                                       40574  97 PC
+; QueueFinalSpeech                                40574  97 PC, low confidence
+; Play-by-play: queues the phrase at the end of the game
 ;-----------------------------------------------------------------------------
-sub_40574:
+QueueFinalSpeech:
         push esi
         push edi
         push ebp
@@ -12542,9 +12698,11 @@ sub_40574:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_405F8                                                       405F8  97 PC
+; QueueTouchPuckSpeech                            405F8  97 PC, low confidence
+; Play-by-play: queues the phrase for a touch that stops play (icing,
+; offside)
 ;-----------------------------------------------------------------------------
-sub_405F8:
+QueueTouchPuckSpeech:
         push esi
         push edi
         push ebp
@@ -12573,9 +12731,10 @@ sub_405F8:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_40640                                                       40640  97 PC
+; QueuePenaltyCallSpeech                          40640  97 PC, low confidence
+; Play-by-play: queues the phrase for a called penalty
 ;-----------------------------------------------------------------------------
-sub_40640:
+QueuePenaltyCallSpeech:
         push esi
         push edi
         push ebp
@@ -12603,9 +12762,11 @@ sub_40640:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_40680                                                       40680  97 PC
+; QueueStoppageSpeech                             40680  97 PC, low confidence
+; Play-by-play: queues the phrases at a stoppage (new penalty, goalies, line
+; change)
 ;-----------------------------------------------------------------------------
-sub_40680:
+QueueStoppageSpeech:
         push esi
         push edi
         push ebp
@@ -12802,9 +12963,10 @@ sub_40680:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_40850                                                       40850  97 PC
+; QueuePowerPlaySpeech                            40850  97 PC, low confidence
+; Play-by-play: queues the phrase for a power play
 ;-----------------------------------------------------------------------------
-sub_40850:
+QueuePowerPlaySpeech:
         push esi
         push edi
         push ebp
@@ -12909,9 +13071,10 @@ sub_40850:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4095C                                                       4095C  97 PC
+; LoadMainSfxBank                                 4095C  97 PC, low confidence
+; At start-up: builds the path of the main sound effect bank and loads it
 ;-----------------------------------------------------------------------------
-sub_4095C:
+LoadMainSfxBank:
         push ecx
         push edx
         sub esp, 0A0h
@@ -13145,7 +13308,7 @@ LoadSfxBank:
         add eax, edx
         mov dword [dword ebx+dword_1AC5D8], eax
         mov eax, 10266h
-        call sub_419B8
+        call WaitSoundTime
         mov ecx, dword [dword ebx+dword_1AC620]
         push ecx
         lea eax, [byte esp+028h]
@@ -13172,7 +13335,7 @@ LoadSfxBank:
         ret
 .23:
         mov eax, 10266h
-        call sub_419B8
+        call WaitSoundTime
         cmp dword [byte esp+038h], byte 0
         je short .24
         mov eax, dword [dword ebx+dword_1AC5D8]
@@ -13274,43 +13437,44 @@ LoadSfxBank:
         ret
         db 08Dh,040h,00h
 jpt_40D68:
-        dd sub_40D80_11
-        dd sub_40D80_19
-        dd sub_40D80_21
-        dd sub_40D80_29
-        dd sub_40D80_31
-        dd sub_40D80_39
+        dd AdvanceStreamState_11
+        dd AdvanceStreamState_19
+        dd AdvanceStreamState_21
+        dd AdvanceStreamState_29
+        dd AdvanceStreamState_31
+        dd AdvanceStreamState_39
 ;-----------------------------------------------------------------------------
-; sub_40D80                                                       40D80  97 PC
+; AdvanceStreamState                              40D80  97 PC, low confidence
+; Moves an audio stream to its next state
 ;-----------------------------------------------------------------------------
-sub_40D80:
+AdvanceStreamState:
         push edx
         mov edx, dword [eax]
         dec edx
         cmp edx, byte 5
-        ja short sub_40D80_39.1
+        ja short AdvanceStreamState_39.1
         jmp dword [nosplit cs:edx*4+jpt_40D68]
-sub_40D80_11:
+AdvanceStreamState_11:
         mov dword [eax], 4
         pop edx
         ret
-sub_40D80_19:
+AdvanceStreamState_19:
         mov dword [eax], 5
         pop edx
         ret
-sub_40D80_21:
+AdvanceStreamState_21:
         mov dword [eax], 1
         pop edx
         ret
-sub_40D80_29:
+AdvanceStreamState_29:
         mov dword [eax], 2
         pop edx
         ret
-sub_40D80_31:
+AdvanceStreamState_31:
         mov dword [eax], 3
         pop edx
         ret
-sub_40D80_39:
+AdvanceStreamState_39:
         mov dword [eax], 6
         pop edx
         ret
@@ -13461,7 +13625,7 @@ OpenAudioStream:
         call sub_1079E4
         mov dword [dword esp+0F0h], eax
         lea eax, [dword esp+0F0h]
-        call sub_40D80
+        call AdvanceStreamState
 .3:
         mov eax, dword [dword esp+0F0h]
         dec eax
@@ -13584,7 +13748,7 @@ OpenAudioStream_D8:
         shl eax, 17h
         shr eax, 19h
         cwde
-        call sub_414B8
+        call SetMusicVolume
         call sub_47EA4
         cmp dword [dword_169254], byte 0FFFFFFFFh
         jne short .13
@@ -13727,9 +13891,9 @@ InitGameAudio:
         call sub_FC330
         add esp, byte 4
         mov eax, 2
-        call sub_415A8
+        call FreeSfxBank
         mov eax, 1
-        call sub_415A8
+        call FreeSfxBank
         mov eax, 2
         call sub_842F4
         cmp dword [dword_169254], byte 0FFFFFFFFh
@@ -13792,7 +13956,7 @@ InitGameAudio:
         cmp dword [dword_169210], byte 0
         je near .11
         mov eax, 10266h
-        call sub_419B8
+        call WaitSoundTime
         push byte 0
         push str_CROWDCRD
         call sub_106DA0
@@ -13828,7 +13992,7 @@ InitGameAudio:
 .9:
         mov eax, 5
 .10:
-        call sub_415A8
+        call FreeSfxBank
 .11:
         call sub_E341C
         mov eax, 12h
@@ -13860,7 +14024,7 @@ InitGameAudio:
         shl eax, 17h
         shr eax, 19h
         cwde
-        call sub_414B8
+        call SetMusicVolume
         call sub_E341C
         mov eax, 32h
         call sub_842F4
@@ -13875,9 +14039,10 @@ InitGameAudio:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_414B8                                                       414B8  97 PC
+; SetMusicVolume                                  414B8  97 PC, low confidence
+; Sets the music volume (0 to 100) and passes it to the driver
 ;-----------------------------------------------------------------------------
-sub_414B8:
+SetMusicVolume:
         push ebx
         push edx
         cmp word [word_1691A4], byte 0
@@ -13929,9 +14094,10 @@ sub_414B8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_41550                                                       41550  97 PC
+; SetSfxVolume                                    41550  97 PC, low confidence
+; Sets the sound effect volume (0 to 100)
 ;-----------------------------------------------------------------------------
-sub_41550:
+SetSfxVolume:
         push ebx
         push edx
         cmp word [word_1691A4], byte 0
@@ -13963,12 +14129,17 @@ sub_41550:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_415A0                                                       415A0  97 PC
+; MusicEnabled                                    415A0  97 PC, low confidence
+; Returns 1: music may play on this screen
 ;-----------------------------------------------------------------------------
-sub_415A0:
+MusicEnabled:
         mov eax, 1
         lea eax, [byte eax+00h]
-sub_415A8:
+;-----------------------------------------------------------------------------
+; FreeSfxBank                                     415A8  97 PC, low confidence
+; Stops the sounds of a sound effect bank and frees it
+;-----------------------------------------------------------------------------
+FreeSfxBank:
         push ebx
         push ecx
         push edx
@@ -13978,7 +14149,7 @@ sub_415A8:
         lea ebx, [nosplit eax*4+00h]
         cmp dword [dword ebx+dword_1691FC], byte 0
         je short .1
-        call sub_41EE4
+        call StopBankSounds
         mov eax, dword [dword ebx+dword_1AC5F0]
         call sub_107154
         mov ecx, dword [dword ebx+dword_1691FC]
@@ -13995,9 +14166,10 @@ sub_415A8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_415F8                                                       415F8  97 PC
+; LoadFrontEndSfx                                 415F8  97 PC, low confidence
+; Loads the sound effect bank of the front-end screens
 ;-----------------------------------------------------------------------------
-sub_415F8:
+LoadFrontEndSfx:
         push ecx
         push edx
         sub esp, 0A0h
@@ -14041,9 +14213,10 @@ sub_415F8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_41670                                                       41670  97 PC
+; InitGameSounds                                  41670  97 PC, low confidence
+; Before a game: loads the game sound banks and the speech, starts the crowd
 ;-----------------------------------------------------------------------------
-sub_41670:
+InitGameSounds:
         push ebx
         push ecx
         push edx
@@ -14100,11 +14273,11 @@ sub_41670:
         mov dword [dword_169224], eax
 .4:
         mov eax, 4
-        call sub_415A8
+        call FreeSfxBank
         mov eax, 5
-        call sub_415A8
+        call FreeSfxBank
         mov eax, 3
-        call sub_415A8
+        call FreeSfxBank
         call sub_E341C
         mov edx, dword [dword_169250]
         test edx, edx
@@ -14131,7 +14304,7 @@ sub_41670:
         shl eax, 17h
         shr eax, 19h
         cwde
-        call sub_414B8
+        call SetMusicVolume
         call sub_E341C
         cmp dword [dword_169254], byte 0FFFFFFFFh
         jne short .8
@@ -14201,9 +14374,11 @@ sub_41670:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_41870                                                       41870  97 PC
+; ShutdownGameAudio                               41870  97 PC, low confidence
+; At exit: stops the music, frees the sound banks and shuts the sound driver
+; down
 ;-----------------------------------------------------------------------------
-sub_41870:
+ShutdownGameAudio:
         push ebx
         push ecx
         push edx
@@ -14292,7 +14467,7 @@ sub_41870:
 .9:
         mov eax, edx
         inc edx
-        call sub_415A8
+        call FreeSfxBank
         cmp edx, byte 6
         jl short .9
         xor ecx, ecx
@@ -14307,16 +14482,18 @@ sub_41870:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_419B0                                                       419B0  97 PC
+; SecondsToSamples                                419B0  97 PC, low confidence
+; Converts seconds to samples at 22050 Hz
 ;-----------------------------------------------------------------------------
-sub_419B0:
+SecondsToSamples:
         imul eax, dword 5622h
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_419B8                                                       419B8  97 PC
+; WaitSoundTime                                   419B8  97 PC, low confidence
+; Waits while the given amount of sound plays, keeping the sound serviced
 ;-----------------------------------------------------------------------------
-sub_419B8:
+WaitSoundTime:
         push ebx
         push edx
         cmp word [word_1691A4], byte 0
@@ -14359,9 +14536,10 @@ sub_419B8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_41A28                                                       41A28  97 PC
+; ChkMenuMusic                                    41A28  97 PC, low confidence
+; Starts the menu music when the screen asks for it and music is on
 ;-----------------------------------------------------------------------------
-sub_41A28:
+ChkMenuMusic:
         push ebx
         push ecx
         push edx
@@ -14410,9 +14588,10 @@ sub_41A28:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_41ACC                                                       41ACC  97 PC
+; StartMusicTrack                                 41ACC  97 PC, low confidence
+; Builds the path of a music track and starts it
 ;-----------------------------------------------------------------------------
-sub_41ACC:
+StartMusicTrack:
         push ebx
         push edx
         mov edx, eax
@@ -14561,9 +14740,10 @@ sub_41ACC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_41CF0                                                       41CF0  97 PC
+; QueueMusicRestart                               41CF0  97 PC, low confidence
+; Asks for the current music track to start again
 ;-----------------------------------------------------------------------------
-sub_41CF0:
+QueueMusicRestart:
         push edx
         cmp word [word_1691A4], byte 0
         je short .1
@@ -14577,9 +14757,10 @@ sub_41CF0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_41D18                                                       41D18  97 PC
+; PauseMusic                                      41D18  97 PC, low confidence
+; Asks the music to pause
 ;-----------------------------------------------------------------------------
-sub_41D18:
+PauseMusic:
         cmp word [word_1691A4], byte 0
         je short .1
         mov dword [dword_1691B8], 1
@@ -14587,9 +14768,10 @@ sub_41D18:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_41D30                                                       41D30  97 PC
+; ResumeMusic                                     41D30  97 PC, low confidence
+; Lets the paused music play on
 ;-----------------------------------------------------------------------------
-sub_41D30:
+ResumeMusic:
         push edx
         cmp word [word_1691A4], byte 0
         je short .1
@@ -14627,9 +14809,10 @@ MusicPlaying:
         xor eax, eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_41D94                                                       41D94  97 PC
+; MusicStreamTick                                 41D94  97 PC, low confidence
+; Keeps the music stream fed when one is open
 ;-----------------------------------------------------------------------------
-sub_41D94:
+MusicStreamTick:
         push ecx
         push edx
         cmp word [word_1691A4], byte 0
@@ -14638,7 +14821,7 @@ sub_41D94:
         test edx, edx
         je short .1
         push edx
-        call sub_3EE4C
+        call UpdateMusicStream
         add esp, byte 4
 .1:
         pop edx
@@ -14646,9 +14829,10 @@ sub_41D94:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_41DB8                                                       41DB8  97 PC
+; RequestMusicStop                                41DB8  97 PC, low confidence
+; Asks the music to stop
 ;-----------------------------------------------------------------------------
-sub_41DB8:
+RequestMusicStop:
         cmp word [word_1691A4], byte 0
         je short .1
         cmp dword [dword_1691A8], byte 0
@@ -14775,9 +14959,10 @@ ArenaFileName:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_41EE4                                                       41EE4  97 PC
+; StopBankSounds                                  41EE4  97 PC, low confidence
+; Stops every sound playing from a sound bank
 ;-----------------------------------------------------------------------------
-sub_41EE4:
+StopBankSounds:
         push ebx
         push edx
         push esi
@@ -14807,9 +14992,10 @@ sub_41EE4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_41F2C                                                       41F2C  97 PC
+; PlayMenuSfx                                     41F2C  97 PC, low confidence
+; Plays a sound effect by number (bank in the high byte)
 ;-----------------------------------------------------------------------------
-sub_41F2C:
+PlayMenuSfx:
         push ebx
         push ecx
         push edx
@@ -14977,9 +15163,10 @@ PlaySfxOr:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_420E4                                                       420E4  97 PC
+; PositionSfx                                     420E4  97 PC, low confidence
+; Works out a sound's volume and pan from its rink position and the camera
 ;-----------------------------------------------------------------------------
-sub_420E4:
+PositionSfx:
         push ebx
         push edx
         push esi
@@ -15128,7 +15315,7 @@ PlaySfxVolume:
         push eax
         push dword [byte esp+028h]
         push dword [byte esp+028h]
-        call sub_420E4
+        call PositionSfx
         imul edx, dword [byte esp+04h]
         mov esi, 64h
         mov eax, edx
@@ -15185,9 +15372,10 @@ PlaySfxVolume:
         ret 8
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_42354                                                       42354  97 PC
+; PlaySfxAt                                       42354  97 PC, low confidence
+; Plays a sound effect at an object's position
 ;-----------------------------------------------------------------------------
-sub_42354:
+PlaySfxAt:
         push ecx
         push esi
         push edi
@@ -15229,9 +15417,10 @@ sub_42354:
         ret 8
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_423B4                                                       423B4  97 PC
+; SetAmbientVolume                                423B4  97 PC, low confidence
+; Sets the arena ambience volume in percent of the effect volume
 ;-----------------------------------------------------------------------------
-sub_423B4:
+SetAmbientVolume:
         push ebx
         push edx
         cmp word [word_1691A4], byte 0
@@ -15268,9 +15457,10 @@ sub_423B4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_4241C                                                       4241C  97 PC
+; SetCrowdNoise                                   4241C  97 PC, low confidence
+; Sets the crowd noise level in percent
 ;-----------------------------------------------------------------------------
-sub_4241C:
+SetCrowdNoise:
         push ebx
         push edx
         cmp word [word_1691A4], byte 0
@@ -15325,9 +15515,10 @@ sub_4241C:
         mov eax, 32h
         jmp near sub_108040
 ;-----------------------------------------------------------------------------
-; sub_424CC                                                       424CC  97 PC
+; SetCrowdMood                                    424CC  97 PC, low confidence
+; Sets the crowd mood (0 to 13) when crowd sound is on
 ;-----------------------------------------------------------------------------
-sub_424CC:
+SetCrowdMood:
         push edx
         mov edx, eax
         cmp word [word_1691A4], byte 0
@@ -15373,9 +15564,10 @@ sub_424CC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_42550                                                       42550  97 PC
+; QueueSpeechRequest                              42550  97 PC, low confidence
+; Adds a speech clip request to the 16-entry speech queue
 ;-----------------------------------------------------------------------------
-sub_42550:
+QueueSpeechRequest:
         push ebx
         push ecx
         push esi
@@ -15420,9 +15612,10 @@ sub_42550:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_425CC                                                       425CC  97 PC
+; ResetSpeechQueue                                425CC  97 PC, low confidence
+; Clears the speech queue and the speech buffers
 ;-----------------------------------------------------------------------------
-sub_425CC:
+ResetSpeechQueue:
         push dword 18h
         call __CHK
         push ebx
@@ -15457,9 +15650,10 @@ sub_425CC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_42650                                                       42650  97 PC
+; ServiceSpeechQueue                              42650  97 PC, low confidence
+; Reads the next queued speech clip from the speech file and plays it
 ;-----------------------------------------------------------------------------
-sub_42650:
+ServiceSpeechQueue:
         push dword 1Ch
         call __CHK
         push ebx
@@ -15504,7 +15698,7 @@ sub_42650:
         jl short .3
         mov eax, dword_1AC7B4
         mov edx, ebp
-        call sub_3FE54
+        call RingBufferSpace
         mov ecx, dword [dword_1AC7D4]
         sar ecx, 10h
         mov edx, eax
@@ -15644,9 +15838,11 @@ sub_42650:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_42910                                                       42910  97 PC
+; FindSpeechClip                                  42910  97 PC, low confidence
+; Binary search of a clip number in the speech directory; returns its index,
+; -1 if missing
 ;-----------------------------------------------------------------------------
-sub_42910:
+FindSpeechClip:
         push dword 18h
         call __CHK
         push ebx
@@ -15689,9 +15885,10 @@ sub_42910:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_42960                                                       42960  97 PC
+; LoadSpeechBlock                                 42960  97 PC, low confidence
+; Reads a block of speech clips into a work buffer ("TEMP")
 ;-----------------------------------------------------------------------------
-sub_42960:
+LoadSpeechBlock:
         push dword 38h
         call __CHK
         push ebx
@@ -15817,9 +16014,10 @@ sub_42960:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_42A98                                                       42A98  97 PC
+; IsClipLoaded                                    42A98  97 PC, low confidence
+; Whether a speech clip is in memory; returns 1 if so
 ;-----------------------------------------------------------------------------
-sub_42A98:
+IsClipLoaded:
         push dword 0Ch
         call __CHK
         push ebx
@@ -15844,9 +16042,10 @@ sub_42A98:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_42AD0                                                       42AD0  97 PC
+; LoadSpeechClips                                 42AD0  97 PC, low confidence
+; Loads the speech clips of a bank into memory
 ;-----------------------------------------------------------------------------
-sub_42AD0:
+LoadSpeechClips:
         push dword 24h
         call __CHK
         push ebx
@@ -15946,9 +16145,10 @@ sub_42AD0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_42C38                                                       42C38  97 PC
+; LoadClipIfMissing                               42C38  97 PC, low confidence
+; Loads a speech clip unless it is already in memory
 ;-----------------------------------------------------------------------------
-sub_42C38:
+LoadClipIfMissing:
         push dword 20h
         call __CHK
         push ebx
@@ -16043,9 +16243,10 @@ sub_42C38:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_42D38                                                       42D38  97 PC
+; SpeechFileHeader                                42D38  97 PC, low confidence
+; Returns the speech file's header size and id
 ;-----------------------------------------------------------------------------
-sub_42D38:
+SpeechFileHeader:
         push dword 4
         call __CHK
         mov dword [eax], 0CCh
@@ -16244,7 +16445,7 @@ OpenSpeechBanks:
         call sub_E341C
         lea eax, [dword esp+0F0h]
         mov edx, dword [dword_1AC7AC]
-        call sub_42960
+        call LoadSpeechBlock
         mov edx, eax
         cmp ecx, ebp
         je short .13
@@ -16322,7 +16523,7 @@ OpenSpeechBanks:
         add esp, byte 4
         mov edx, 3405C0h
         mov eax, edi
-        call sub_42AD0
+        call LoadSpeechClips
         mov eax, dword [dword_1AC7B0]
         mov dword [dword eax+02C8h], 0FFFFFFFFh
         mov edx, dword [dword_1AC7B0]
@@ -16377,9 +16578,10 @@ OpenSpeechBanks:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_431E8                                                       431E8  97 PC
+; ResolveSpeechClips                              431E8  97 PC, low confidence
+; Looks up the directory entry of each clip a bank uses
 ;-----------------------------------------------------------------------------
-sub_431E8:
+ResolveSpeechClips:
         push dword 10h
         call __CHK
         push ebx
@@ -16394,13 +16596,13 @@ sub_431E8:
         test edx, edx
         jl short .2
         mov eax, edx
-        call sub_42910
+        call FindSpeechClip
         test eax, eax
         jge short .2
         mov eax, dword [dword_1AC7B0]
         mov edx, dword [dword ebx+eax+02E0h]
         mov eax, dword [dword ebx+eax+02DCh]
-        call sub_42AD0
+        call LoadSpeechClips
         mov eax, dword [dword_1AC7B0]
         mov dword [dword ebx+eax+02D8h], 0FFFFFFFFh
         mov eax, dword [dword_1AC7B0]
@@ -16458,7 +16660,7 @@ LoadTeamSpeech:
         je short .1
         mov edx, dword [dword eax+02C4h]
         mov eax, dword [dword eax+02C0h]
-        call sub_42AD0
+        call LoadSpeechClips
         mov eax, dword [dword_1AC7B0]
         mov dword [dword eax+02BCh], 0FFFFFFFFh
         mov eax, dword [dword_1AC7B0]
@@ -16477,7 +16679,7 @@ LoadTeamSpeech:
         je short .2
         mov edx, dword [dword eax+02D0h]
         mov eax, dword [dword eax+02CCh]
-        call sub_42AD0
+        call LoadSpeechClips
         mov eax, dword [dword_1AC7B0]
         mov dword [dword eax+02C8h], 0FFFFFFFFh
 .2:
@@ -16538,11 +16740,11 @@ LoadTeamSpeech:
 .9:
         test eax, eax
         jne short .10
-        call sub_431E8
+        call ResolveSpeechClips
         jmp short .6
 .10:
         mov eax, ecx
-        call sub_42C38
+        call LoadClipIfMissing
         mov ebx, dword [dword_1AC7AC]
         mov dword [byte esp+054h], eax
         mov edx, eax
@@ -16563,7 +16765,7 @@ LoadTeamSpeech:
 .11:
         lea eax, [byte esp+068h]
         mov edx, dword [dword_1AC7AC]
-        call sub_42960
+        call LoadSpeechBlock
 .12:
         mov dword [byte esp+058h], eax
         mov eax, 19h
@@ -16628,11 +16830,11 @@ LoadTeamSpeech:
 .19:
         test eax, eax
         jne short .20
-        call sub_431E8
+        call ResolveSpeechClips
         jmp short .16
 .20:
         mov eax, ecx
-        call sub_42C38
+        call LoadClipIfMissing
         mov ebx, dword [dword_1AC7AC]
         mov dword [byte esp+060h], eax
         mov edx, eax
@@ -16653,7 +16855,7 @@ LoadTeamSpeech:
 .21:
         lea eax, [byte esp+068h]
         mov edx, dword [dword_1AC7AC]
-        call sub_42960
+        call LoadSpeechBlock
 .22:
         mov dword [byte esp+064h], eax
         mov esi, dword [dword_1AC7B0]

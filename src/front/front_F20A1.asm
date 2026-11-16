@@ -30,10 +30,10 @@ extern qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qwo
 extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, sscanf_, sub_1008CC
 extern BlitArt, sub_1013FC, FindShape, sub_101EAC, sub_102B94, sub_10491C, sub_1169F0, IsPlayoffGame
 extern sub_119A8, sub_11A318, sub_11ADD0, sub_11ADE8, sub_11BDC0, sub_11F74, sub_11FA90, sub_11FAAC
-extern sub_11FB11, sub_12A10, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, sub_160E2, sub_18E76
-extern sub_18F67, sub_1BC18, sub_1C854, sub_1C9F0, sub_1D09C, AddOverlayWindow, RemoveOverlayWindow, sub_3CF68
-extern RefreshOverlayWindow, sub_3D020, sub_3E480, sub_3E5F0, InitGameAudio, sub_41670, sub_419B0, sub_419B8
-extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, WaitMusicEnd, ArenaFileName, sub_423B4
+extern sub_11FB11, sub_12A10, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, DrawPanelArtScaled, RefreshOverlayWindows
+extern SetOverlayFont, IntermissionCameraScene, MenuCameraScene, MenuOrbitScene, RestoreGameCamera, AddOverlayWindow, RemoveOverlayWindow, UpdateScreenRegion
+extern RefreshOverlayWindow, SetRinkDetail, SetRangePalette, FadeGamePalette, InitGameAudio, InitGameSounds, SecondsToSamples, WaitSoundTime
+extern ChkMenuMusic, QueueMusicRestart, PauseMusic, ResumeMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, SetAmbientVolume
 extern PaEvent, sub_4A280, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, sub_4BCB4
 extern sub_4C0C4, sub_5B4D4, sub_5BE74, sub_6539C, sub_76D3C, InitFrontEnd, FreeFrontEnd, SetRegionRect
 extern SetTextColor, DrawTextAligned, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
@@ -63,8 +63,8 @@ sub_F20A1:
         enter 8, 0
         mov eax, 3
         mov edx, 20h
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 2Eh
         call LoadDataFile
         push byte 20h
@@ -710,12 +710,12 @@ DrawPauseClock:
         push byte 19h
         mov eax, 1
         push dword 3E3851ECh
-        call sub_160E2
+        call DrawPanelArtScaled
         push dword 0E4h
         push dword 0E7h
         xor eax, eax
         push dword 3E3851ECh
-        call sub_160E2
+        call DrawPanelArtScaled
         push ebx
         push dword 0F8h
         call sub_FE180
@@ -1294,8 +1294,8 @@ DrawPauseButtons:
 .11:
         mov eax, 3
         mov edx, 20h
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 100h
         call LoadDataFile
         mov dword [dword_1C5DE4], eax
@@ -2298,7 +2298,7 @@ RunIntermission:
         push edi
         enter 41Ch, 0
         call sub_4A280
-        call sub_41CF0
+        call QueueMusicRestart
         lea eax, [dword ebp-011Ch]
         push eax
         mov dword [dword_16AF5C], 1
@@ -2325,7 +2325,7 @@ RunIntermission:
         mov dword [byte ebp-04h], eax
         call WaitMusicEnd
         mov eax, 1
-        call sub_41670
+        call InitGameSounds
         movzx eax, byte [byte_1C135B]
         push eax
         mov eax, dword [dword_1AC944]
@@ -2363,7 +2363,7 @@ RunIntermission:
         inc esi
         cmp esi, byte 8
         jl short .1
-        call sub_41D18
+        call PauseMusic
         lea edx, [byte ebp-070h]
         mov eax, 2
         call ArenaFileName
@@ -2392,19 +2392,19 @@ RunIntermission:
         call ArenaFileName
 .7:
         lea eax, [byte ebp-070h]
-        call sub_41A28
+        call ChkMenuMusic
         mov eax, 3
         mov ebx, 3
-        call sub_419B0
-        call sub_419B8
-        call sub_41DB8
+        call SecondsToSamples
+        call WaitSoundTime
+        call RequestMusicStop
         xor eax, eax
         lea edx, [dword ebp-041Ch]
         call sub_4C0C4
         mov eax, dword [tickcount]
         call DrawGameFrame
         call sub_4BCB4
-        call sub_1BC18
+        call IntermissionCameraScene
         xor eax, eax
         call FadePalette
         push byte 0
@@ -2423,7 +2423,7 @@ RunIntermission:
         push dword 0FEh
         call ClearScreen
         add esp, byte 4
-        call sub_18F67
+        call SetOverlayFont
         push byte 4
         mov eax, 74h
         call GetLangText
@@ -2494,8 +2494,8 @@ RunIntermission:
         call FreeBitmap
         add esp, byte 4
         mov eax, 4
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, dword [byte ebp-04h]
         mov dword [dword_16AF58], eax
         jmp near PickEditLinesTeam_5B5
@@ -2699,7 +2699,7 @@ PauseMenu:
         mov eax, 0FFFFFFFFh
         xor ebx, ebx
         mov dword [byte ebp+07Ah], 0FFFFFFFFh
-        call sub_3E5F0
+        call FadeGamePalette
         test byte [byte_19CBC2], 40h
         je short .1
         call RunIntermission
@@ -2826,7 +2826,7 @@ PauseMenu_16C:
         call DrawPauseClock
         lea eax, [byte ebp-0Ah]
         call sub_F3FF5
-        call sub_1C854
+        call MenuCameraScene
         call sub_8BEF8
         cmp word [word_1CEFC0], byte 2
         jne short .11
@@ -2847,10 +2847,10 @@ PauseMenu_16C:
         jmp near PauseMenu_29A.30
 PauseMenu_26F:
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         call RulesMenu
-        call sub_18E76
+        call RefreshOverlayWindows
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
@@ -2914,7 +2914,7 @@ PauseMenu_29A:
         call sub_F48C2
         call sub_AB0A6
         call InitFrontEnd
-        call sub_41DB8
+        call RequestMusicStop
         test bx, bx
         je short .21
         test di, di
@@ -3052,7 +3052,7 @@ PauseMenu_4EF:
         call sub_F48C2
         call sub_AB0A6
         call InitFrontEnd
-        call sub_41DB8
+        call RequestMusicStop
         call GameStatsScreen
         call FreeFrontEnd
         mov eax, edx
@@ -3116,9 +3116,9 @@ PauseMenu_62A:
 PauseMenu_640:
         call WaitForOtherComputer
         xor eax, eax
-        call sub_1C9F0
+        call MenuOrbitScene
         mov dword [dword_1A8E50], 1
-        call sub_18E76
+        call RefreshOverlayWindows
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
@@ -3136,11 +3136,11 @@ PauseMenu_66D:
         cmp ebx, byte 2
         jne short .35
         mov eax, ebx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         call DetailLevelMenu
         mov dword [dword_1A8E50], 1
-        call sub_18E76
+        call RefreshOverlayWindows
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
@@ -3210,8 +3210,8 @@ sub_F48C2:
         jne short .2
         mov eax, 1
         mov ebx, 2
-        call sub_41670
-        call sub_41D18
+        call InitGameSounds
+        call PauseMusic
         call rand_
         cdq
         idiv ebx
@@ -3220,7 +3220,7 @@ sub_F48C2:
         mov eax, ebx
         call ArenaFileName
         lea eax, [byte ebp-050h]
-        call sub_41A28
+        call ChkMenuMusic
         lea eax, [byte ebx+01h]
         mov ebx, 2
         cdq
@@ -3229,11 +3229,11 @@ sub_F48C2:
         lea edx, [byte ebp-050h]
         call ArenaFileName
         lea eax, [byte ebp-050h]
-        call sub_41A28
+        call ChkMenuMusic
 .2:
         mov eax, 2
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         call sub_DA7EB
         leave
         pop edx
@@ -3256,7 +3256,7 @@ sub_F4978:
 .1:
         mov eax, dword_19CD10
         call InitGameGraphics
-        call sub_1C854
+        call MenuCameraScene
         call InitGameVideo
         call ApplyDisplayFlags
         xor eax, eax
@@ -3264,10 +3264,10 @@ sub_F4978:
         call LoadGameLogos
         call sub_F1FF8
         mov eax, dword [dword_1ADC88]
-        call sub_3E480
+        call SetRangePalette
         mov eax, 947Ah
         xor ecx, ecx
-        call sub_3D020
+        call SetRinkDetail
 .2:
         imul eax, ecx, dword 760h
         mov ebx, dword_1B1410
@@ -3299,7 +3299,7 @@ sub_F4978:
         mov edx, 10000h
         mov eax, 0FFFFFFFFh
         xor ebx, ebx
-        call sub_3E5F0
+        call FadeGamePalette
         cmp dword [dword_16AF5C], byte 0
         je short .4
         lea eax, [dword ebp-0158h]
@@ -3331,7 +3331,7 @@ sub_F4A8F:
         mov eax, dword [tickcount]
         call WaitMusicEnd
         mov eax, 1
-        call sub_41670
+        call InitGameSounds
         movzx eax, byte [byte_1C135B]
         push eax
         mov eax, dword [dword_1AC944]
@@ -3351,7 +3351,7 @@ sub_F4A8F:
         call PaEvent
         add esp, byte 18h
         mov ebx, 2
-        call sub_41D18
+        call PauseMusic
         call rand_
         cdq
         idiv ebx
@@ -3360,7 +3360,7 @@ sub_F4A8F:
         lea edx, [byte ebp-050h]
         call ArenaFileName
         lea eax, [byte ebp-050h]
-        call sub_41A28
+        call ChkMenuMusic
         lea eax, [byte ebx+01h]
         mov ebx, 2
         cdq
@@ -3369,13 +3369,13 @@ sub_F4A8F:
         lea edx, [byte ebp-050h]
         call ArenaFileName
         lea eax, [byte ebp-050h]
-        call sub_41A28
-        call sub_41DB8
+        call ChkMenuMusic
+        call RequestMusicStop
         leave
         pop edx
         pop ebx
         ret
-        call sub_41D30
+        call ResumeMusic
         jmp near WaitMusicEnd
 ;-----------------------------------------------------------------------------
 ; DrawIntermissionTitle                           F4B3F  97 PC, low confidence
@@ -3859,9 +3859,9 @@ sub_F5219:
         mov eax, 700h
         call RemoveOverlayPanel
         call sub_4A280
-        call sub_41CF0
+        call QueueMusicRestart
         xor eax, eax
-        call sub_423B4
+        call SetAmbientVolume
         cmp dword [dword_16AF5C], byte 0
         je short .1
         lea eax, [dword ebp-018Ah]
@@ -3925,7 +3925,7 @@ sub_F5219:
         test si, si
         jne near .5
         mov eax, 12Ch
-        call sub_1C9F0
+        call MenuOrbitScene
         mov ebx, edi
         jmp near .4
 .2:
@@ -3966,7 +3966,7 @@ sub_F5219:
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov edx, dword [byte ebp+07Ah]
-        call sub_3CF68
+        call UpdateScreenRegion
         call sub_E341C
         mov eax, dword [tickcount]
         mov ebx, eax
@@ -3996,7 +3996,7 @@ sub_F5219:
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov edx, dword [byte ebp+07Ah]
-        call sub_3CF68
+        call UpdateScreenRegion
         mov eax, dword [tickcount]
         call DrawGameFrame
         call sub_4BCB4
@@ -4019,7 +4019,7 @@ sub_F5219:
         mov ebx, 64h
         mov eax, 0FFFFFFFFh
         xor edx, edx
-        call sub_3E5F0
+        call FadeGamePalette
         mov eax, dword [tickcount]
         mov ebx, eax
 .7:
@@ -4029,7 +4029,7 @@ sub_F5219:
         cmp eax, edx
         jl short .7
         xor eax, eax
-        call sub_1C9F0
+        call MenuOrbitScene
         imul eax, dword [dword_16E468], byte 52h
         mov dword [byte ebp+07Ah], eax
         mov eax, dword [dword_16E464]
@@ -4050,7 +4050,7 @@ sub_F5219:
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov edx, dword [byte ebp+07Ah]
-        call sub_3CF68
+        call UpdateScreenRegion
 .8:
         cmp dword [dword_1AC364], byte 0
         jne short .8
@@ -4063,7 +4063,7 @@ sub_F5219:
         call DrawGameFrame
         call sub_4BCB4
         mov eax, 0FFFFFFFFh
-        call sub_3E5F0
+        call FadeGamePalette
 .9:
         mov eax, dword [tickcount]
         mov dword [dword_1CEFBC], eax
@@ -4091,10 +4091,10 @@ sub_F558C:
         call FreeBitmap
         add esp, byte 4
         mov dword [dword_19D384], 0
-        call sub_1D09C
+        call RestoreGameCamera
         test bx, bx
         je short .1
-        call sub_41D30
+        call ResumeMusic
         call WaitMusicEnd
         mov byte [byte_168930], 1
 .1:
@@ -4106,7 +4106,7 @@ sub_F558C:
         test eax, eax
         je short .2
         mov eax, 64h
-        call sub_423B4
+        call SetAmbientVolume
 .2:
         pop esi
         pop ecx

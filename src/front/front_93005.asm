@@ -20,8 +20,8 @@ extern dword_1C8A88, dword_1C8A90, dword_1C8A94, dword_1C8A98, dword_1C8A9C, dwo
 extern EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA, EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D
 extern memcpy_, memset_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_
 extern sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013CC, sub_1013FC, FindShape, sub_10AED0
-extern sub_11A318, FindShapeList, sub_11B0D0, SetScreenTarget, SeasonGameScreen, sub_415A0, sub_415F8, sub_419B0
-extern sub_419B8, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0
+extern sub_11A318, FindShapeList, sub_11B0D0, SetScreenTarget, SeasonGameScreen, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
+extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, SetRegionRect, SetTextColor, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80B28
 extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad
 extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, StandingsScreen
@@ -586,8 +586,8 @@ PlayoffSetupScreen:
         mov eax, unk_16D7FC
         call OpenLeagueFile
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 4Ah
         call LoadDataFile
@@ -595,15 +595,15 @@ PlayoffSetupScreen:
         mov dword [byte ebp+062h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 4Bh
         call LoadDataFile
         mov dword [byte ebp+07Eh], eax
         mov dword [byte ebp+05Eh], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         lea eax, [byte ebp+0Eh]
         push eax
         push str_SCOFDEOFCHOFGOOFPOOFOVOFS
@@ -2102,7 +2102,7 @@ PlayoffTreeScreen:
         mov dword [byte ebp+06Eh], 0FFFFFFFFh
         cmp byte [byte_1C6040], 0
         je short .1
-        call sub_415A0
+        call MusicEnabled
 .1:
         mov ebx, 0F8h
         mov edx, unk_16CE20
@@ -2180,8 +2180,8 @@ PlayoffTreeScreen:
         cmp esi, byte 10h
         jl short .5
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 4Eh
         call LoadDataFile
@@ -2189,15 +2189,15 @@ PlayoffTreeScreen:
         mov dword [byte ebp+07Ah], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 4Fh
         call LoadDataFile
         mov dword [byte ebp+072h], eax
         mov dword [byte ebp+076h], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_TITL4
         push dword [byte ebp+072h]
         call FindShape
@@ -3481,7 +3481,7 @@ PlayoffTreeScreen:
         add esp, byte 4
         cmp byte [byte_1C6040], 0
         je short .99
-        call sub_415F8
+        call LoadFrontEndSfx
 .99:
         mov eax, dword [byte ebp+06Eh]
         jmp near PlayoffSetupScreen_952

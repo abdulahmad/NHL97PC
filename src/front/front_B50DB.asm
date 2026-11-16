@@ -25,8 +25,8 @@ extern dword_1CAE9C, dword_1CAEA0, dword_1CAEA4, dword_1CAEA8, dword_1CAEAC, dwo
 extern dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, dword_1CAFF4, fclose_, fopen_, fprintf_, qsort_
 extern qword_16695B, rand_, sprintf_, strcat_, strcpy_, sub_101324, BlitShape2, BlitArt
 extern sub_1013FC, FindShape, sub_101560, sub_101584, sub_101EAC, sub_102B94, sub_102C10, sub_10CD98
-extern sub_11A294, sub_11A318, FindShapeList, sub_11BD90, SetScreenTarget, sub_415A0, sub_415F8, sub_419B0
-extern sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, sub_7E860
+extern sub_11A294, sub_11A318, FindShapeList, sub_11BD90, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
+extern WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, sub_7E860
 extern sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F5A4, sub_80AB8
 extern sub_80B28, sub_80BBC, sub_815F8, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_81D1C
 extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_84330, sub_84570
@@ -193,7 +193,7 @@ sub_B50DB:
         cmp dword [dword_1CAE24], byte 0
         je short .9
         mov eax, 309h
-        call sub_41F2C
+        call PlayMenuSfx
         mov dword [dword_1CAE24], esi
 .9:
         mov edx, dword [dword_1CAE84]
@@ -333,8 +333,8 @@ sub_B50DB:
         add esp, byte 4
 .14:
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         imul eax, dword [dword_1CAEC4], dword 0BCh
         mov edx, dword [dword_1CAEB8]
         add eax, edx
@@ -659,7 +659,7 @@ PlayerStatsScreen:
         mov dword [byte ebp+056h], 0FFFFFFFFh
         cmp byte [byte_1C6040], 0
         je short .1
-        call sub_415A0
+        call MusicEnabled
 .1:
         push byte 0
         push dword 1E0h
@@ -829,23 +829,23 @@ PlayerStatsScreen:
         mov edx, dword [dword_1CAEAC]
         call InitMenuItems
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 18h
         call LoadDataFile
         mov dword [dword_1CAE6C], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 19h
         call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp+07Ah], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_BACK8
         push dword [dword_1CAE6C]
         call FindShape
@@ -1941,7 +1941,7 @@ PlayerStatsScreen_1114:
         je short .84
         cmp byte [byte_1C8338], 0
         je short .84
-        call sub_415F8
+        call LoadFrontEndSfx
 .84:
         call sub_84024
         mov eax, dword [byte ebp+056h]
@@ -4257,8 +4257,8 @@ sub_B829B:
         cmp dword [dword_1CAEA0], byte 0
         jne near .31
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         imul eax, dword [dword_1CAE70], dword 0BCh
         mov edx, dword [dword_1CAEB8]
         add eax, edx
@@ -4612,8 +4612,8 @@ sub_B829B:
         cmp dword [dword_1CAEA0], byte 0
         jne near .47
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         imul edx, dword [dword_1CAEB0], dword 0BCh
         mov eax, dword [dword_1CAEB8]
         add eax, edx
@@ -5002,7 +5002,7 @@ PlayerRatingsScreen:
         mov dword [byte ebp+052h], 0FFFFFFFFh
         cmp byte [byte_1C6040], 0
         je short .1
-        call sub_415A0
+        call MusicEnabled
 .1:
         call sub_81650
         push byte 0FFFFFFFFh
@@ -5227,23 +5227,23 @@ PlayerRatingsScreen:
         mov edx, dword [dword_1CAEAC]
         call InitMenuItems
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 7
         call LoadDataFile
         mov dword [dword_1CAE6C], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 6
         call LoadDataFile
         mov dword [byte ebp+062h], eax
         mov dword [byte ebp+06Eh], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_BACK8
         push dword [dword_1CAE6C]
         call FindShape
@@ -7451,7 +7451,7 @@ PlayerRatingsScreen_21FD:
         je short .195
         cmp byte [byte_1C8338], 0
         je short .195
-        call sub_415F8
+        call LoadFrontEndSfx
 .195:
         mov eax, dword [byte ebp+052h]
         lea esp, [dword ebp+082h]

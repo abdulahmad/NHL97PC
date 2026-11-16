@@ -28,7 +28,7 @@ extern dword_1C95EC, dword_1C95F0, dword_1C95F4, dword_1C95F8, dword_1C95FC, dwo
 extern dword_1C9618, dword_1C961C, dword_1C9620, dword_1C9624, dword_1C9628, fclose_, fopen_, fprintf_
 extern memset_, qsort_, rand_, sprintf_, sscanf_, strcmp_, strlen_, BlitShape2
 extern BlitArt, sub_1013CC, sub_1013FC, FindShape, sub_101584, sub_101EAC, sub_102B94, sub_10CD98
-extern FindShapeList, SetScreenTarget, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, PlaySfx
+extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, PlaySfx
 extern PlayScreenMovie, LoadDataFile, OpenDataLibrary, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect
 extern SetTextColor, DrawTextAligned, sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_81D1C
 extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_840F8, sub_84138
@@ -1970,7 +1970,7 @@ sub_ADB4F:
         cmp dword [dword_1C9618], byte 0
         je short .4
         mov eax, 309h
-        call sub_41F2C
+        call PlayMenuSfx
         mov dword [dword_1C9618], edx
 .4:
         pop edx
@@ -2094,8 +2094,8 @@ TeamStatsScreen:
         mov eax, 71h
         call InitMenuItems
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 28h
         call LoadDataFile
@@ -2103,15 +2103,15 @@ TeamStatsScreen:
         mov dword [byte ebp+022h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 29h
         call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp+07Eh], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push str_00006
         push ecx
         call FindShape
@@ -3453,7 +3453,7 @@ sub_AEFAF:
         cmp dword [dword_1C9618], byte 0
         je short .5
         mov eax, 309h
-        call sub_41F2C
+        call PlayMenuSfx
         mov dword [dword_1C9618], edx
 .5:
         pop edx
@@ -3488,7 +3488,7 @@ sub_AF074:
         mov dword [byte ebp+04Eh], 0
         cmp byte [byte_1C6040], 0
         je short .1
-        call sub_415A0
+        call MusicEnabled
 .1:
         push byte 0
         push byte 14h
@@ -3650,8 +3650,8 @@ sub_AF074:
         call GetLangText
         call sub_835BC
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         cmp dword [byte ebp+042h], byte 0
         je short .8
         cmp dword [dword_16D404], byte 0
@@ -3676,8 +3676,8 @@ sub_AF074:
         mov dword [byte ebp+016h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 1Fh
         call LoadDataFile
         mov dword [byte ebp+07Ah], eax
@@ -3726,8 +3726,8 @@ sub_AF074:
         add esp, byte 8
         mov dword [byte ebp+066h], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         cmp byte [byte_1C6040], 0
         jne short .16
         push byte 0
@@ -5209,7 +5209,7 @@ sub_AF074_D0E:
         call sub_81678
         cmp byte [byte_1C6040], 0
         je short .116
-        call sub_415F8
+        call LoadFrontEndSfx
 .116:
         mov eax, dword [byte ebp+032h]
         jmp near TeamStatsScreen_13BC

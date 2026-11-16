@@ -15,8 +15,8 @@ extern dword_1CB0C0, dword_1CB0C4, dword_1CB0C8, dword_1CB0CC, dword_1CB0D0, dwo
 extern dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dword_1CB0F4, dword_1CB0F8, dword_1CB0FC
 extern dword_1CB100, dword_1CB104, dword_1CBB88, off_16D5F7, sprintf_, strcat_, strcpy_, strlen_
 extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32
-extern sub_106D80, sub_106F64, sub_106F94, sub_11A318, sub_11A350, sub_11BDC0, SetScreenTarget, sub_415A0
-extern sub_415F8, sub_419B0, sub_419B8, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, sub_7DA28
+extern sub_106D80, sub_106F64, sub_106F94, sub_11A318, sub_11A350, sub_11BDC0, SetScreenTarget, MusicEnabled
+extern LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, SetTextColor
 extern DrawTextAligned, sub_7F29C, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC
@@ -41,7 +41,7 @@ sub_C0F5D:
         sub ebp, 82h
         cmp byte [byte_1C6040], 0
         je short .1
-        call sub_415A0
+        call MusicEnabled
 .1:
         lea eax, [dword ebp-019E6h]
         mov dword [dword_1CB0E0], eax
@@ -73,15 +73,15 @@ sub_C0F5D:
         call SetTextColor
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 26h
         call LoadDataFile
         mov dword [dword_1CB104], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 27h
         call LoadDataFile
         push byte 0
@@ -390,7 +390,7 @@ sub_C0F5D:
         add esp, byte 4
         cmp byte [byte_1C6040], 0
         je short .30
-        call sub_415F8
+        call LoadFrontEndSfx
 .30:
         mov eax, edi
 sub_C0F5D_60E:
@@ -3163,14 +3163,14 @@ DetailLevelScreen:
         mov dword [byte ebp-0Ch], edx
         call sub_81678
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push str_BAK0
         push edx

@@ -11,7 +11,7 @@ extern dword_1ACB45, dword_1C1334, dword_1C86FC, dword_1C8E4C, dword_1C8E50, dwo
 extern dword_1C8E60, dword_1C8E64, dword_1C8E88, dword_1C8E8C, dword_1C8E90, dword_1C8E94, dword_1C8E98, dword_1C8E9C
 extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
 extern PickIndexEntryScreen_4EE, rand_, sprintf_, BlitShape2, BlitArt, sub_1013FC, FindShape, FindShapeList
-extern SetScreenTarget, sub_419B0, sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, LoadDataFile, sub_7E860
+extern SetScreenTarget, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFile, sub_7E860
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, sub_80AB8, sub_80B28, sub_80BBC, sub_835BC
 extern sub_83850, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, LinkTransferSetup, sub_C6064
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E1744, sub_E3410, sub_E341C, LinkSendBlock, LinkReceiveBlock
@@ -361,7 +361,7 @@ sub_9E723:
         cmp dword [dword_1C8E50], byte 0
         je short .4
         mov eax, 309h
-        call sub_41F2C
+        call PlayMenuSfx
         mov dword [dword_1C8E50], esi
 .4:
         movsx eax, word [word_1C8EA2]
@@ -535,16 +535,16 @@ TeamSelectScreen:
         lea eax, [byte ebp+01Eh]
         mov dword [dword edx+039Ah], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 2Ch
         call LoadDataFile
         mov dword [dword_1C8E5C], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 2Dh
         xor ebx, ebx
         call LoadDataFile
