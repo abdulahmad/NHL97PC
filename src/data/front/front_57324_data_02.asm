@@ -1022,7 +1022,7 @@ AnimPointNames:                                 ; animation point names; used by
         dd str_Relbow
         dd str_lshldr
         dd str_rshldr
-MoveAnimIds:                                    ; animation id per move; used by GoalieMoves, GoalieSave,
+MoveAnimIds:                                    ; animation id per move; used by GoalieMoves, goaliesave,
                                                 ; LoadAnimData ...
         db 0D6h,00h,00h,00h,0D7h,00h,00h,00h,0D8h,00h,00h,00h,0D9h,00h,00h,00h
         db 0DAh,00h,00h,00h,0DBh,00h,00h,00h,0DCh,00h,00h,00h,0DDh,00h,00h,00h

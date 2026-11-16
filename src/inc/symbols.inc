@@ -237,7 +237,7 @@
 ;  34EF8  doplayeracc                              engine/faceoff/faceoff_2.asm                 2
 ;  35588  ChkOneTimerSpot                          engine/faceoff/faceoff_2.asm                 1
 ;  35690  ClearLastPasser                          engine/faceoff/faceoff_2.asm                 1
-;  356A8  OneTimerShot                             engine/faceoff/faceoff_2.asm                 1
+;  356A8  onetimershot                             engine/faceoff/faceoff_2.asm                 1
 ;  358E4  doinput                                  engine/faceoff/faceoff_2.asm                 1
 ;  362E0  CountTeamSlots                           engine/faceoff/faceoff_2.asm                 1
 ;  36370  DebugRestoreEnergy                       engine/faceoff/faceoff_2.asm                 1
@@ -6488,7 +6488,7 @@
 ;  169194  StreamTimeout                            data/engine/engine_3812E_data_02.asm         1
 ;  169198  CdStreamFilled                           data/engine/engine_3812E_data_02.asm         1
 ;  16919C  CdStreamUsed                             data/engine/engine_3812E_data_02.asm         1
-;  1691A0  StreamState                              data/engine/engine_3812E_data_02.asm         1
+;  1691A0  streamstate                              data/engine/engine_3812E_data_02.asm         1
 ;  1691A2  AudioStreamFlags                         data/engine/engine_3812E_data_02.asm         1
 ;  1691A4  SfxBankLoaded                            data/engine/engine_3812E_data_02.asm         3
 ;  1691A8  MusicState                               data/engine/engine_3812E_data_02.asm         2
@@ -7735,7 +7735,7 @@
 ;  19CB8E  PassDistX                                data/engine/faceoff_data_03.asm              4
 ;  19CB90  PassDistY                                data/engine/faceoff_data_03.asm              4
 ;  19CB92  PassReceiver                             data/engine/faceoff_data_03.asm              5
-;  19CB94  OneTimerPlayer                           data/engine/faceoff_data_03.asm              4
+;  19CB94  onetimerplayer                           data/engine/faceoff_data_03.asm              4
 ;  19CB96  PassState                                data/engine/faceoff_data_03.asm              6
 ;  19CB98  StatsPanelPlayer                         data/engine/faceoff_data_03.asm              6
 ;  19CB9A  AssistOne                                data/engine/faceoff_data_03.asm              3
@@ -7774,8 +7774,8 @@
 ;  19CBE2  penshotlive                              data/engine/faceoff_data_03.asm              5
 ;  19CBE4  penshottimer                             data/engine/faceoff_data_03.asm              5
 ;  19CBE6  FaceoffRequest                           data/engine/faceoff_data_03.asm              5
-;  19CBE8  PuckX                                    data/engine/faceoff_data_03.asm              4
-;  19CBEA  PuckY                                    data/engine/faceoff_data_03.asm              4
+;  19CBE8  puckx                                    data/engine/faceoff_data_03.asm              4
+;  19CBEA  pucky                                    data/engine/faceoff_data_03.asm              4
 ;  19CBEC  DelayedPen                               data/engine/faceoff_data_03.asm              4
 ;  19CBEE  MessagePanel                             data/engine/faceoff_data_03.asm              5
 ;  19CBF0  PenCntDwn                                data/engine/faceoff_data_03.asm              3
@@ -7963,7 +7963,7 @@
 ;  19DAD3  PenaltyRecord                            data/engine/faceoff_2_bss_01.asm             2
 ;  19DAD4  StanleyFlag                              data/engine/faceoff_2_bss_01.asm             1
 ;  19DAD5  GoalFlags                                data/engine/faceoff_2_bss_01.asm             1
-;  19DAD6  GoalieFlags                              data/engine/faceoff_2_bss_01.asm             3
+;  19DAD6  goalieflags                              data/engine/faceoff_2_bss_01.asm             3
 ;  19DAD9  PlayerAssignWords                        data/engine/faceoff_2_bss_01.asm             4
 ;  19DADD  PlayerAssignPtrs                         data/engine/faceoff_2_bss_01.asm             1
 ;  19DADE  PuckCarrierPos                           data/engine/engine_25894_bss_01.asm          1
@@ -8177,7 +8177,7 @@
 ;  1AC81C  DetailLevel                              data/engine/engine_3812E_bss_02.asm          3
 ;  1AC81D  DisplayOptions                           data/engine/engine_3812E_bss_02.asm          1
 ;  1AC821  DisplaySettings                          data/engine/engine_3812E_bss_02.asm          1
-;  1AC835  Brightness                               data/engine/engine_3812E_bss_02.asm          1
+;  1AC835  brightness                               data/engine/engine_3812E_bss_02.asm          1
 ;  1AC839  ModemSettings                            data/engine/engine_3812E_bss_02.asm          1
 ;  1AC8AD  NetworkGameIndex                         data/engine/engine_3812E_bss_02.asm          1
 ;  1AC8B1  NetworkSettings                          data/engine/engine_3812E_bss_02.asm          1
@@ -8392,7 +8392,7 @@
 ;  1B0B8C  CrowdReactType                           data/front/front_48D70_bss_03.asm            1
 ;  1B0B90  CrowdReactEnd                            data/front/front_48D70_bss_03.asm            1
 ;  1B0B94  CrowdModel                               data/front/front_48D70_bss_03.asm            2
-;  1B0B98  CrowdFrame                               data/front/front_48D70_bss_03.asm            1
+;  1B0B98  Crowdframe                               data/front/front_48D70_bss_03.asm            1
 ;  1B0B9C  CrowdFrameTime                           data/front/front_48D70_bss_03.asm            1
 ;  1B0BA0  IceLinePolys                             data/front/front_48D70_bss_03.asm            1
 ;  1B0C0C  BoardLinePolys                           data/front/front_48D70_bss_03.asm            1
@@ -8757,7 +8757,7 @@
 ;  1C3455  HomeDefenceIndex                         data/front/front_D15FB_bss_01.asm            1
 ;  1C3456  HomeDefencePartner                       data/front/front_D15FB_bss_01.asm            1
 ;  1C347D  HomeBackupGoalie                         data/front/front_D15FB_bss_01.asm            2
-;  1C347F  HomeLines                                data/front/front_D15FB_bss_01.asm            9
+;  1C347F  homelines                                data/front/front_D15FB_bss_01.asm            9
 ;  1C3487  HomeTeamName                             data/front/front_D15FB_bss_01.asm            1
 ;  1C34A5  HomeCityName                             data/front/front_D15FB_bss_01.asm            1
 ;  1C34E3  HomeTeamRating                           data/front/front_D15FB_bss_01.asm            2

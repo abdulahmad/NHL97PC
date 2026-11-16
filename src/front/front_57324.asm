@@ -183,9 +183,9 @@ extern GlobalSetVersion, SeatModels, PlayerDrawParams, PortraitModels, SavedPale
 extern ReplayStatesCamera, OffscreenState, CameraStateRecords, DepthSortKeys, PlayerStartRecords, FallAnimSlots, AnimDataBase
 extern ShotAnimPoses, ActAnimFrames, FallAnimFrames, InterferAnimFrames, GoalieAnimFrames, RefSkateAnimFrames, RefAmbiAnimFrames, RefCallAnimFrames
 extern FightAnimFrames, CupAnimFrames, ShotAnimIndex, ActAnimIndex, FallAnimIndex, InterferAnimIndex, GoalieAnimIndex, RefSkateAnimIndex
-extern RefAmbiAnimIndex, RefCallAnimIndex, FightAnimIndex, CupAnimIndex, AutoLineData, HomeLines, UniformFontColors, UniformFontShadow
+extern RefAmbiAnimIndex, RefCallAnimIndex, FightAnimIndex, CupAnimIndex, AutoLineData, homelines, UniformFontColors, UniformFontShadow
 extern vecdist, DebugModelRefresh, GoalieTarget, ZoneTargetY, ShotTarget, ShotTimer, ShotType, ShotSpeed
-extern PassPending, PassReceiver, OneTimerPlayer, StatsPanelPlayer, gameover, PuckOwner, PuckOwnerTeam, Period
+extern PassPending, PassReceiver, onetimerplayer, StatsPanelPlayer, gameover, PuckOwner, PuckOwnerTeam, Period
 extern SimFrames, gsp, gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, OneTimerReady, OneTimerPasser
 extern OneTimerTarget, PenCntDwn, GoalLineFlag, BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeControlSlot
 extern HmActiveCount, HmLineCount, AwActiveCount, AwLineCount
@@ -243,7 +243,7 @@ global SimpleAnimMove, SkateToSpotStep, SkateToSpotMove, PuckRetrieveMove, Perio
 global RefGoalPaAnim, RefWhistleAnim, RefSignalAnim, RefGoalLineAnim, SkateMoveStep, StartPokeAnim, PokeCheckMove, StickSlashMove
 global SweepCheckMove, HookMove, DiveMove, HoldPoseMoveJump, GoalieFreezeMove, StartBlockAnim, BlockReach, KneelMove
 global BlockShotMove, BlockSlideMove, GoalieCoverMove, GoalieRecoverMove, GoalieIdleMove, StartGoalieSave, StartGoalieStance, PickSaveAnim
-global SaveDirection, GoalieSave, GoalieMoves, PuckDeflectAngle, PuckDeflect, AllocAnimNode, InsertAnimNode, AddAnimNode
+global SaveDirection, goaliesave, GoalieMoves, PuckDeflectAngle, PuckDeflect, AllocAnimNode, InsertAnimNode, AddAnimNode
 global FreeAnimNode, ResetAnimBlend, LoadAnimFile, FindAnimByName, GetAnimEntry, DecodeAnimTree, DecodeAnimChild, DecodeAnimFile
 global ReadAnimValue, DecodeAnimFrame, DecodeAnimDelta, GetAnimId, UpdateObjectPose, UpdateMovePose, UpdateAllPoses, ScaleAnimTime
 global SetAnimClock, AddAnimClock, UpdateAnimBlends, AnimClockTick, SetAnimFrame, SetAnimFlags, ClearAnimFlags, InitAnimState
@@ -7814,7 +7814,7 @@ LoadReplayData:
         jl near .2
         mov esi, AutoLineData
         mov edi, HomeTeamRecord+420h
-        mov ebp, HomeLines
+        mov ebp, homelines
         mov ecx, SortCords
         mov eax, 1
         mov dword [HmScore], esi
@@ -21431,7 +21431,7 @@ PuckBounceOffPlayer:
         sahf
         jbe short .8
         xor eax, eax
-        mov dx, word [OneTimerPlayer]
+        mov dx, word [onetimerplayer]
         mov al, byte [dword ecx+0A4h]
         cmp ax, dx
         je short .5
@@ -27460,7 +27460,7 @@ PassMove:
         mov eax, dword [dword ebx+0FAh]
         mov dword [byte ebx+064h], 10h
         or byte [byte eax+031h], 1
-        cmp word [OneTimerPlayer], byte 0
+        cmp word [onetimerplayer], byte 0
         jl short .7
         mov edx, dword [PassReceiver]
         sar edx, 10h
@@ -27564,7 +27564,7 @@ PassMove:
         push dword [byte edx+020h]
         mov edx, 64h
         call PlaySfxVolume
-        cmp word [OneTimerPlayer], byte 0
+        cmp word [onetimerplayer], byte 0
         jl near .27
         mov eax, dword [PtrPuckFlags]
         mov edx, 0Eh
@@ -41710,10 +41710,10 @@ SaveDirection:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; GoalieSave                                      75068  97 PC, low confidence
+; goaliesave                                      75068  97 PC, low confidence
 ; Goalie save: picks the save and starts it
 ;-----------------------------------------------------------------------------
-GoalieSave:
+goaliesave:
         push ebx
         push ecx
         push edx
@@ -41734,7 +41734,7 @@ GoalieSave:
         fnstsw ax
         sahf
         jae near .1
-        cmp word [OneTimerPlayer], byte 0
+        cmp word [onetimerplayer], byte 0
         jl near .1
         mov edx, dword [PassReceiver]
         sar edx, 10h
@@ -41758,7 +41758,7 @@ GoalieSave:
         mov dword [byte esp+064h], eax
         test bx, bx
         je near .1
-        cmp word [OneTimerPlayer], byte 0
+        cmp word [onetimerplayer], byte 0
         jl near .1
         mov edx, dword [byte ecx+060h]
         test edx, edx
@@ -41768,7 +41768,7 @@ GoalieSave:
         cmp byte [dword esi+0A4h], 6
         setb al
         xor edx, edx
-        mov bx, word [OneTimerPlayer]
+        mov bx, word [onetimerplayer]
         mov dl, al
         cmp bx, byte 6
         setl al
@@ -42186,7 +42186,7 @@ GoalieMoves:
         xor eax, edx
         jne near .26
         mov eax, dword [byte ebp+07Ah]
-        call GoalieSave
+        call goaliesave
         test eax, eax
         jne near .26
         fldz

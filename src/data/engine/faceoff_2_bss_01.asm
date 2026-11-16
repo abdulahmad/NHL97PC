@@ -4,7 +4,7 @@
 bits 32
 %include "hockey.inc"
 section s_19D3AC nobits alloc noexec write align=1
-global SortCords, LineSlotTaken, LineSlotStart, DefenseByDefense, ForwardsByOffense, StanleyFlag, GoalFlags, GoalieFlags
+global SortCords, LineSlotTaken, LineSlotStart, DefenseByDefense, ForwardsByOffense, StanleyFlag, GoalFlags, goalieflags
 global LineSortKeys, LineSortIndex, LineSortOrder, PlayerPointsTable, PlayerScoreTable, PlayerUpdateFlags, PlayerUpdateTable, PuckStickTimers
 global PenaltyRecord, PlayerAssignPtrs, CentersByOffense, RightWingsByDefense, CentersByDefense, LeftWingsByOffense, LeftWingsByDefense, RightWingsByOffense
 global DefenseByOffense, ForwardsByDefense, BenchPlayerTable, LineBuildLine, LineBuildSlot, LineBuildPlayer, PlayerAssignWords
@@ -71,7 +71,7 @@ StanleyFlag:                                    ; flag read by assstanley; used 
         resb 1
 GoalFlags:                                      ; goal flags per player; used by Goal
         resb 1
-GoalieFlags:                                    ; goalie flags per player; used by CPgoalie, ChkGoalies, Goal
+goalieflags:                                    ; goalie flags per player; used by CPgoalie, ChkGoalies, Goal
                                                 ; ...
         resb 3
 PlayerAssignWords:                              ; assignment word per player; used by DebugKeys, Endfaceoff,

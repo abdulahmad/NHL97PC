@@ -43,7 +43,7 @@ extern SortStatTable, DrawStatTableRows, DrawStatTableArt, UserLogScreen, InitLi
 extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, CopyControlSettings, AllocMemBlock
 extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, str_D_RunLinkGameScreens, str_D_DrawTeamStatLine
-extern str_Punct_GoalTypeSuffix, LinkSetupShapeName, str_S_RunLinkGameScreens, ControlSetup, AutoLineData, HomeLines, ScreenTitleItem, BlankMenuItem
+extern str_Punct_GoalTypeSuffix, LinkSetupShapeName, str_S_RunLinkGameScreens, ControlSetup, AutoLineData, homelines, ScreenTitleItem, BlankMenuItem
 extern ScreenFrameItem, ThreeStarsData, GripPortWord, LinkSetupItemX, LinkSetupSlotY, LinkSetupStatusX, LinkButtonX, LinkButtonY
 extern LinkSetupTitleY, LinkSetupSoundIndex, LinkSetupSoundOn, ThreeStarsSoundOn, GameStatsSoundOn, GameStatsAnimSoundOn, PassState, gameover
 extern AllStarArena, GameLogCount, LinkSetupOrder, LinkSetupValues, LinkSetupItemType, LinkHomeChoice, LinkSetupItemCount, LinkAwayChoice
@@ -4148,7 +4148,7 @@ PostGameScreen:
         mov eax, AutoLineData
         jmp short .8
 .7:
-        mov eax, HomeLines
+        mov eax, homelines
 .8:
         cmp word [dword esp+edi+0296h], byte 0
         jne short .9
@@ -5603,7 +5603,7 @@ ClearThreeStars:
         mov ebp, AutoLineData
         jmp short .3
 .2:
-        mov ebp, HomeLines
+        mov ebp, homelines
 .3:
         mov ebx, 36h
         lea eax, [dword ebp+020B7h]
@@ -6795,7 +6795,7 @@ DrawTeamGameStats:
         jmp short .3
 .2:
         mov edx, 21Ch
-        mov eax, HomeLines
+        mov eax, homelines
 .3:
         mov ecx, 13h
         mov ebx, 5Ah
@@ -7694,7 +7694,7 @@ FormatPlayerStatLine:
         mov dword [esp], AutoLineData
         jmp short .2
 .1:
-        mov dword [esp], HomeLines
+        mov dword [esp], homelines
 .2:
         cmp dword [GameStatsDrawn], byte 0
         jne near .6
@@ -7998,7 +7998,7 @@ BuildPlayerStatsTable:
         mov dword [byte esp+04h], AutoLineData
         jmp short .2
 .1:
-        mov dword [byte esp+04h], HomeLines
+        mov dword [byte esp+04h], homelines
 .2:
         mov esi, dword [GameStatsDrawn]
         test esi, esi
@@ -9419,7 +9419,7 @@ GoalTypeSuffix:
         mov edx, AutoLineData
         jmp short .2
 .1:
-        mov edx, HomeLines
+        mov edx, homelines
 .2:
         mov bl, byte [byte ecx+03h]
         test bl, 1
@@ -9625,7 +9625,7 @@ FormatGoalLine:
         mov eax, AutoLineData
         jmp short .2
 .1:
-        mov eax, HomeLines
+        mov eax, homelines
 .2:
         lea edi, [byte eax+026h]
         mov dword [byte esp+08h], edi

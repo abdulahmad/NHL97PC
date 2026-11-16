@@ -33,7 +33,7 @@ DepthSortOrder:                                 ; depth sort order; used by Sort
         resb 64
 FallAnimSlots:                                  ; fall animation slots; used by LoadFallAnims
         resb 96
-GoalieAnimTime:                                 ; goalie animation time; used by GoalieMoves, GoalieSave,
+GoalieAnimTime:                                 ; goalie animation time; used by GoalieMoves, goaliesave,
                                                 ; LoadGoalieAnimFile
         resb 4
 GoalieAnimFrame:                                ; goalie animation frame; used by GoalieMoves,

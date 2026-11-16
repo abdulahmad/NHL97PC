@@ -11,7 +11,7 @@ global SeasonFlags, SfxBankNames, GameAudioState, SfxBankData, SfxBankSizes, Pla
 global SpeechQueueRead, SpeechQueueWrite, SpeechFileHandle, SpeechStreamBuf, SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd, SpeechStreamClip
 global SpeechChainCount, SpeechClipIndex, SpeechBankHandle, SpeechClipTable, SpeechQueueClipId, SpeechQueueDelay, SpeechQueueStage, SpeechQueuePriority
 global SpeechQueueTime, SpeechBanksLoaded, SpeechBankList, SpeechChainLen, SpeechRequestId, SpeechRequestA, SpeechRequestB, GlobalSetData
-global GameSettings, AudioOptions, Brightness, NetworkGameIndex, SeasonUserTeam, GameOptionFlags, TeamSelectFlags, SeasonSlot
+global GameSettings, AudioOptions, brightness, NetworkGameIndex, SeasonUserTeam, GameOptionFlags, TeamSelectFlags, SeasonSlot
 global SeasonPhase, PlayoffRounds, SeasonActive, DataFilePath, DisplaySettings, ModemSettings, ControlSetup, LinkSettings
 global LinkSettingsData, GlobalSetVersion, IndexEntrySettings, SeasonName, SeasonPath, SeasonIndexPath, MatchupNote, SpeechQueuePrio
 global NetworkSettings, TeamSelectMode
@@ -131,7 +131,7 @@ DisplayOptions:                                 ; display options; used by InitG
 DisplaySettings:                                ; saved display settings; used by InitGameDisplay,
                                                 ; SaveGameDisplay
         resb 20
-Brightness:                                     ; game brightness; used by InitGameDisplay, SaveGameDisplay,
+brightness:                                     ; game brightness; used by InitGameDisplay, SaveGameDisplay,
                                                 ; SetGameBrightness
         resb 4
 ModemSettings:                                  ; modem settings; used by DrawConnectScreen,

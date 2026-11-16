@@ -39,7 +39,7 @@ extern BenchCheerFrame, BenchCheerCount, BenchCheerFirst, BenchCheerLast, BenchC
 extern CrowdReactList, CrowdReactLevel, CrowdReactTime, CameraOnPuck, ScoreboardArt, ScoreboardDigits, ScoreboardSize, ScoreboardFrame
 extern ScoreboardBounds, ScoreboardTime, ScoreboardScore, ScoreboardPeriod, ScoreboardBuffer, ScoreboardPitch, ScoreboardLogo, ScoreboardHome
 extern ScoreboardAway, ScoreboardClock, ScoreboardLoaded, GoalLightArt, GoalLightModel, CrowdDelay, CrowdReactType, CrowdReactEnd
-extern CrowdModel, CrowdFrame, CrowdFrameTime, RinkLength, RinkWidth, RinkCorner, RinkGoalLine, RinkBlueLine
+extern CrowdModel, Crowdframe, CrowdFrameTime, RinkLength, RinkWidth, RinkCorner, RinkGoalLine, RinkBlueLine
 extern RinkCenterLine, NetX, NetShadowX, NetShadowY, ViewDistance, NetShadowZ, NetShadowW, CameraModeOn
 extern NetShadowH, NetShadowD, NetY, NetZ, BoardAdArt, ArenaArtParts
 extern ArenaArtParts
@@ -4006,7 +4006,7 @@ DrawModelList:
         db 090h
 ;-----------------------------------------------------------------------------
 ; DrawGameFrame                                   4BA00  97 PC, low confidence
-; Draws one frame of the game view (rink, objects, overlays); from GameLoop,
+; Draws one frame of the game view (rink, objects, overlays); from Gameloop,
 ; the pause menu, RunIntermission, RunOpeningFrames and the replay
 ;-----------------------------------------------------------------------------
 DrawGameFrame:
@@ -9983,7 +9983,7 @@ StartCrowdReaction:
         mov dword [CrowdModel], eax
         mov dword [CrowdReactEnd], eax
         add eax, 0F30h
-        mov dword [CrowdFrame], eax
+        mov dword [Crowdframe], eax
         add eax, 0F30h
         mov dword [CrowdFrameTime], eax
         add eax, 0F30h
@@ -10062,7 +10062,7 @@ EndCrowdReaction:
         ret
 EndCrowdReaction_59:
         mov eax, dword [CrowdReactEnd]
-        mov edx, dword [CrowdFrame]
+        mov edx, dword [Crowdframe]
         xor ebx, ebx
         mov ecx, dword [CrowdReactType]
         mov dword [byte esp+018h], ebx
@@ -11849,7 +11849,7 @@ DrawBenchPlayers:
         mov edx, dword [CrowdFrameTime]
         push edx
         push FlashPolys
-        mov ebx, dword [CrowdFrame]
+        mov ebx, dword [Crowdframe]
         push ebx
         mov ebx, dword [CrowdReactType]
         lea edx, [nosplit ebx*4+00h]

@@ -6,13 +6,13 @@ bits 32
 section s_25894 progbits alloc exec nowrite align=1
 extern AllInPlace, GiveControl, IF@ATAN2, IF@DFMOD, SortCords, __CHP, str_Cuppal, awtmstruct
 extern PenaltyBoxCount, NearestPlayer, GoalieOut, iflags, IcingTeam, gmode, PuckFlags, PlayFlags
-extern holdreset, RefSignal, StanleyFlag, GoalieFlags, PlayerControlFlags, HmPlayerFlags, AwPlayerFlags, changeplayer
+extern holdreset, RefSignal, StanleyFlag, goalieflags, PlayerControlFlags, HmPlayerFlags, AwPlayerFlags, changeplayer
 extern F32_144, F32_96, F32_144_assleavebox, F32_48_assleavebox, F32_144_asspsclear, F32_96_asspsclear, F32_96_assleaveice, F32_144_asspenalty
 extern F32_96_asspenalty, F32_40, F32_96_assrefpenshot, F32_96_assrefsignal, F32_96_assrefwhistle, F32_96_assrefgoalline, F32_96_assrefdrop, F32_3
 extern F32_0p25, F32_7, F32_0p125, F32_0p125_KnockPuckAway, F32_48_PuckHitsGoalie, F32_0p25_PuckHitsGoalie, F32_0p166667_PuckHitsGoalie, F32_0p333333
 extern F32_3_PuckHitsGoalie, F32_0p142857, F32_7_PuckPlayerContact, F32_0p125_PuckPlayerContact, F32_0p5_pucknorm_body, F32_neg1872, F32_neg1152, F32_neg1392_pucknorm_body
 extern str_Punct_assintrostand, IntroLineX, IntroLineY, IntroLineCount, RefState, LastTouchPlayer, PuckHitFlag, ZoneTargetX
-extern ZoneFlags, FaceoffWinner, penshottimer, PuckX, RefTarget, RefPlayer, SlotPlayers, SlotPuckPlayer
+extern ZoneFlags, FaceoffWinner, penshottimer, puckx, RefTarget, RefPlayer, SlotPlayers, SlotPuckPlayer
 extern InputActive, PuckChasers, FaceoffCenter, ChangePlayer, WhistleTime, StanleyPlayer, FaceoffPuckX, FaceoffPuckY
 extern PlayerPointsTable, PlayerScoreTable, PuckStickTimers, PuckCarrierPos, PuckPathTable, HomeTeamRecord, AwayTeamRecord
 extern AwayTeamRecord, HmAssignPlayer, HmGoalieOnIce, AwAssignPlayer, AwGoalieOnIce, GameSettings, GameOptionFlags, ReplayPlaying
@@ -42,10 +42,10 @@ extern PuckBounceOffPlayer, GoalLinePuckTest, UpdatePuckCarrier, GoalJudgeTest, 
 extern RefAtDotAnim, RefFaceoffAnim, RefGoalPaAnim, RefWhistleAnim, RefSignalAnim, RefGoalLineAnim, PuckDeflect, CupCelebration
 extern FadePalette, FadeOut, AllocMemBlock, FreeMemBlock, KbdIdleCall, HomeTeamRecord, vtoa, OnsideOffsetX
 extern OnsideOffsetY, PuckChaseOffsetX, PuckChaseOffsetY, ShootSpotY, GoalieTarget, ZoneTargetY, PassPlayer, PassPending
-extern LastTouchTeam, PassDistX, PassDistY, PassReceiver, OneTimerPlayer, PassState, StatsPanelPlayer, AssistOne
+extern LastTouchTeam, PassDistX, PassDistY, PassReceiver, onetimerplayer, PassState, StatsPanelPlayer, AssistOne
 extern AssistTwo, GoalScorer, gameover, PuckOwner, PuckOwnerTeam, StoppageFlag, LastPlayerTouch, gsp
 extern gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, OneTimerReady, OneTimerPasser, OneTimerTarget, PuckZone
-extern penshotmode, BenchRequest, penshotlive, FaceoffRequest, PuckY, DelayedPen, MessagePanel, GoalLineFlag
+extern penshotmode, BenchRequest, penshotlive, FaceoffRequest, pucky, DelayedPen, MessagePanel, GoalLineFlag
 extern BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeEbenPlayer, AwayEbenPlayer, PlayerAssignWords, HmPlayersInBox
 extern AwPlayersInBox
 global PuckToStickJumpTable, PlayerPastLine_D1, PuckToStick_424, PuckToStick_43B, PuckToStick_452, PuckToStick_469, PlayerPastLine, checkob
@@ -1265,7 +1265,7 @@ assnearest:
         mov byte [dword esi+0BFh], dl
 .1:
         xor eax, eax
-        mov dx, word [OneTimerPlayer]
+        mov dx, word [onetimerplayer]
         mov al, byte [dword esi+0A4h]
         cmp ax, dx
         jne short .3
@@ -1595,7 +1595,7 @@ assnearest:
 .28:
         test bh, 8
         jne near .87
-        mov di, word [OneTimerPlayer]
+        mov di, word [onetimerplayer]
         test di, di
         jl short .30
         mov ah, byte [dword esi+0A4h]
@@ -6321,7 +6321,7 @@ PlayerGetsPuck:
         jne near .13
         cmp word [BreakawayFlag], byte 0
         jne near .13
-        cmp word [OneTimerPlayer], byte 0
+        cmp word [onetimerplayer], byte 0
         jl short .10
         mov eax, dword [PtrPuckFlags]
         cmp word [byte eax+06Dh], byte 1
@@ -6842,7 +6842,7 @@ PuckHitsPlayer:
         cmp word [OneTimerReady], byte 0
         je short .14
         xor eax, eax
-        mov cx, word [OneTimerPlayer]
+        mov cx, word [onetimerplayer]
         mov al, byte [dword ebx+0A4h]
         cmp ax, cx
         je short .12
@@ -6920,10 +6920,10 @@ PuckHitsGoalie:
         jl near .6
         test byte [PlayFlags], 10h
         jne short .2
-        cmp word [OneTimerPlayer], byte 0
+        cmp word [onetimerplayer], byte 0
         jl near .6
         xor eax, eax
-        mov dx, word [OneTimerPlayer]
+        mov dx, word [onetimerplayer]
         mov al, bh
         cmp ax, dx
         je near .6
@@ -7787,7 +7787,7 @@ PuckPlayerContact:
 .3:
         cmp dword [byte esi+05Ah], byte 0FFFFFFF1h
         jg near .12
-        mov di, word [OneTimerPlayer]
+        mov di, word [onetimerplayer]
         test di, di
         jl near .10
         cmp byte [dword ecx+0A4h], 6
@@ -7900,7 +7900,7 @@ PuckPlayerContact:
         sahf
         ja short .12
         xor eax, eax
-        mov dx, word [OneTimerPlayer]
+        mov dx, word [onetimerplayer]
         mov al, byte [dword ecx+0A4h]
         cmp ax, dx
         jne short .11
@@ -9557,7 +9557,7 @@ pucknorm_body:
         je near .55
         test byte [gmode], 2
         sete al
-        mov edx, dword [PuckX]
+        mov edx, dword [puckx]
         and eax, 0FFh
         sar edx, 10h
         xor edx, eax
@@ -9758,7 +9758,7 @@ puckfaceoff2:
         and al, 7Ah
         and dl, 0EFh
         mov byte [PlayFlags], al
-        mov word [OneTimerPlayer], cx
+        mov word [onetimerplayer], cx
         mov byte [AwPlayerFlags], dl
         xor eax, eax
         mov dh, byte [PlayFlags]
@@ -9919,7 +9919,7 @@ puckfaceoff2:
         xor eax, eax
         xor esi, esi
 .11:
-        mov edx, dword [PuckX]
+        mov edx, dword [puckx]
         mov ebx, dword [dword eax+SlotPuckPlayer]
         sar edx, 10h
         sar ebx, 10h
@@ -9947,7 +9947,7 @@ puckfaceoff2:
         xor ebx, ebx
         test dh, 40h
         setne bl
-        mov edx, dword [PuckX]
+        mov edx, dword [puckx]
         sar edx, 10h
         xor edx, ebx
         jne short .16
@@ -9966,7 +9966,7 @@ puckfaceoff2:
 .17:
         mov edx, dword [dword ebx+SlotPuckPlayer]
         sar edx, 10h
-        cmp word [PuckY], byte 0
+        cmp word [pucky], byte 0
         sete al
         and eax, 0FFh
         inc eax
@@ -10353,7 +10353,7 @@ CPgoalie:
         cmp eax, awtmstruct
         sete bl
         and ebx, 0FFh
-        mov dl, byte [nosplit edx*8+GoalieFlags]
+        mov dl, byte [nosplit edx*8+goalieflags]
         mov byte [dword ebx+GoalieOut], dl
         call setpersonel
 .2:
@@ -10403,7 +10403,7 @@ ChkGoalies:
         cmp eax, awtmstruct
         sete dl
         and edx, 0FFh
-        mov bl, byte [dword ebx+GoalieFlags]
+        mov bl, byte [dword ebx+goalieflags]
         mov byte [dword edx+GoalieOut], bl
         call setpersonel
         push dword 0A0000024h

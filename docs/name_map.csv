@@ -67,7 +67,7 @@ address,name,auto_name,source,confidence,evidence,file
 14294,DebugKeys,sub_14294,new,low,"(key): the debug keys, active once the unlock count (word_1686D4) reaches 4",src/engine/faceoff/faceoff.asm
 14710,GameFunctionKeys,sub_14710,new,low,"(key): Ctrl+F1-F9 toggles (dword_16AF3C), +, - and =",src/engine/faceoff/faceoff.asm
 14880,HandleGameKeys,sub_14880,new,medium,"from GameLoop: the in-game keyboard: the unlocked debug keys (DebugKeys), the function keys (GameFunctionKeys)",src/engine/faceoff/faceoff.asm
-14AC8,GameLoop,sub_14AC8,96PC,high,"96 PC GameLoop: same structure (input records, RunSimFrames, in-game menu, period over, game over)",src/engine/faceoff/faceoff.asm
+14AC8,Gameloop,sub_14AC8,94G,medium,the game's main loop (94G hockey94 Gameloop),src/engine/faceoff/faceoff.asm
 14E60,InitGameDisplay,sub_14E60,new,low,from PlayGame: copies the display options (unk_16AED4) and sets the 640x480 game screen,src/engine/faceoff/faceoff.asm
 14FE0,SaveGameDisplay,sub_14FE0,new,low,writes the game's display options back (dword_1AC835) after the game,src/engine/faceoff/faceoff.asm
 151A8,SetGameBrightness,sub_151A8,new,low,the brightness (28h-64h) from the display options,src/engine/faceoff/faceoff.asm
@@ -376,7 +376,7 @@ address,name,auto_name,source,confidence,evidence,file
 34A48,RequestLineChange,sub_34A48,95PC,low,"(player, line): sets the team's next line (+2), cycles the line count, PA / play-by-play event, setpersonel",src/engine/faceoff/faceoff_2.asm
 34B04,LineChangeKey,sub_34B04,new,low,"from doinput: line change key: picks the line (power play +6, penalty kill +4) or StartFaceoffLineChange",src/engine/faceoff/faceoff_2.asm
 34B78,DoLineChangeInput,sub_34B78,new,low,from doinput: line change buttons and the line select table (word_168E60),src/engine/faceoff/faceoff_2.asm
-34C18,FaceoffInput,sub_34C18,new,low,from doinput: the controlled faceoff player's joystick direction (assignment 8),src/engine/faceoff/faceoff_2.asm
+34C18,faceoffinput,sub_34C18,94G,medium,controller processing for the faceoff (94G logic94 faceoffinput),src/engine/faceoff/faceoff_2.asm
 34CF4,FaceDirFromMotion,sub_34CF4,new,low,the 8-way facing direction from the player's heading (+40h),src/engine/faceoff/faceoff_2.asm
 34EF8,doplayeracc,sub_34EF8,94G,medium,"94G doplayeracc: (player, direction 0-7, 8+ = none) the player accelerates toward the direction (x87 heading, sub_34CF4)",src/engine/faceoff/faceoff_2.asm
 34F58,SetSkateDir,sub_34F58,new,low,"(player, dir 0-7): heading and speed toward a joystick direction, limited by the top speed",src/engine/faceoff/faceoff_2.asm
@@ -389,7 +389,7 @@ address,name,auto_name,source,confidence,evidence,file
 35464,DoShootButton,sub_35464,new,low,"from doinput: shoot button: aim, power, target point, sub_25010",src/engine/faceoff/faceoff_2.asm
 35588,ChkOneTimerSpot,sub_35588,new,low,in the attacking zone (570h-1050h) with a teammate ready: one-timer chance,src/engine/faceoff/faceoff_2.asm
 35690,ClearLastPasser,sub_35690,new,low,clears word_19CBD8,src/engine/faceoff/faceoff_2.asm
-356A8,OneTimerShot,sub_356A8,new,low,"from assonetimer: the one-timer shot itself (sub_24220, assexit)",src/engine/faceoff/faceoff_2.asm
+356A8,onetimershot,sub_356A8,94G,medium,the one-timer shot (94G onetimer94 onetimershot),src/engine/faceoff/faceoff_2.asm
 358E4,doinput,sub_358E4,94G,medium,"94G doinput (from updateplayers): a human player's pad: line changes, skating, pass / shoot / check buttons, control switch",src/engine/faceoff/faceoff_2.asm
 362E0,CountTeamSlots,,96PC,medium,NHL96PC 3A2F6 (similar): mnemonic similarity 0.82 over 32 instructions,
 36370,DebugRestoreEnergy,sub_36370,new,low,"from DebugKeys: every player back to full energy (100), counter word_19CB82 3E8h",src/engine/faceoff/faceoff_2.asm
@@ -1157,7 +1157,7 @@ address,name,auto_name,source,confidence,evidence,file
 74C64,StartGoalieStance,sub_74C64,new,low,starts a goalie stance animation,src/front/front_57324.asm
 74CEC,PickSaveAnim,sub_74CEC,new,low,picks the goalie save animation from the shot,src/front/front_57324.asm
 74FA4,SaveDirection,sub_74FA4,new,low,works out the direction of a save,src/front/front_57324.asm
-75068,GoalieSave,sub_75068,new,low,goalie save: picks the save and starts it,src/front/front_57324.asm
+75068,goaliesave,sub_75068,94G,medium,picks the goalie save and starts it (94G logic94 goaliesave),src/front/front_57324.asm
 75500,GoalieMoves,sub_75500,new,low,goalie movement and saves,src/front/front_57324.asm
 75AE8,PuckDeflectAngle,sub_75AE8,new,low,works out the angle of a deflection,src/front/front_57324.asm
 75B94,PuckDeflect,sub_75B94,new,low,deflects the puck off a player,src/front/front_57324.asm
@@ -7675,7 +7675,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 169194,StreamTimeout,dword_169194,new,low,stream timeout,src/data/engine/engine_3812E_data_02.asm
 169198,CdStreamFilled,dword_169198,new,low,CD stream bytes filled,src/data/engine/engine_3812E_data_02.asm
 16919C,CdStreamUsed,dword_16919C,new,low,CD stream bytes used,src/data/engine/engine_3812E_data_02.asm
-1691A0,StreamState,dword_1691A0,new,low,stream state,src/data/engine/engine_3812E_data_02.asm
+1691A0,streamstate,dword_1691A0,94S,medium,audio stream state (94 SNES ram94s streamstate),src/data/engine/engine_3812E_data_02.asm
 1691A2,AudioStreamFlags,dword_1691A2,new,low,audio stream flags,src/data/engine/engine_3812E_data_02.asm
 1691A4,SfxBankLoaded,word_1691A4,new,low,sound effect bank loaded,src/data/engine/engine_3812E_data_02.asm
 1691A8,MusicState,dword_1691A8,new,low,music state,src/data/engine/engine_3812E_data_02.asm
@@ -8924,7 +8924,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19CB8E,PassDistX,word_19CB8E,new,low,pass distance X,src/data/engine/faceoff_data_03.asm
 19CB90,PassDistY,word_19CB90,new,low,pass distance Y,src/data/engine/faceoff_data_03.asm
 19CB92,PassReceiver,word_19CB92,new,low,pass receiver,src/data/engine/faceoff_data_03.asm
-19CB94,OneTimerPlayer,word_19CB94,new,low,one-timer player,src/data/engine/faceoff_data_03.asm
+19CB94,onetimerplayer,word_19CB94,94G,medium,player set up for a one-timer (94G ram94 onetimerplayer),src/data/engine/faceoff_data_03.asm
 19CB96,PassState,word_19CB96,new,low,pass state,src/data/engine/faceoff_data_03.asm
 19CB98,StatsPanelPlayer,word_19CB98,new,low,player shown on the stats panel,src/data/engine/faceoff_data_03.asm
 19CB9A,AssistOne,word_19CB9A,new,low,first assist player,src/data/engine/faceoff_data_03.asm
@@ -8963,8 +8963,8 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19CBE2,penshotlive,word_19CBE2,96PC,medium,96 PC penshotlive: a penalty shot is running (ClockTick),src/data/engine/faceoff_data_03.asm
 19CBE4,penshottimer,dword_19CBE4,96PC,medium,96 PC penshottimer: ticks left of the penalty shot,src/data/engine/faceoff_data_03.asm
 19CBE6,FaceoffRequest,word_19CBE6,new,low,face-off request,src/data/engine/faceoff_data_03.asm
-19CBE8,PuckX,dword_19CBE8,new,low,puck X,src/data/engine/faceoff_data_03.asm
-19CBEA,PuckY,word_19CBEA,new,low,puck Y,src/data/engine/faceoff_data_03.asm
+19CBE8,puckx,dword_19CBE8,94G,medium,puck x position (94G ram94 puckx),src/data/engine/faceoff_data_03.asm
+19CBEA,pucky,word_19CBEA,94G,medium,puck y position (94G ram94 pucky),src/data/engine/faceoff_data_03.asm
 19CBEC,DelayedPen,word_19CBEC,new,low,delayed penalty team,src/data/engine/faceoff_data_03.asm
 19CBEE,MessagePanel,word_19CBEE,new,low,message panel showing (-1 none),src/data/engine/faceoff_data_03.asm
 19CBF0,PenCntDwn,word_19CBF0,new,low,penalty countdown,src/data/engine/faceoff_data_03.asm
@@ -9141,7 +9141,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19DAD3,PenaltyRecord,dword_19DAD3,new,low,penalty record per player (8 bytes each),src/data/engine/faceoff_2_bss_01.asm
 19DAD4,StanleyFlag,byte_19DAD4,new,low,flag read by assstanley,src/data/engine/faceoff_2_bss_01.asm
 19DAD5,GoalFlags,byte_19DAD5,new,low,goal flags per player,src/data/engine/faceoff_2_bss_01.asm
-19DAD6,GoalieFlags,byte_19DAD6,new,low,goalie flags per player,src/data/engine/faceoff_2_bss_01.asm
+19DAD6,goalieflags,byte_19DAD6,94S,medium,per-player goalie flags set by the goalie assignments (94 SNES ram94s goalieflags),src/data/engine/faceoff_2_bss_01.asm
 19DAD9,PlayerAssignWords,word_19DAD9,new,low,assignment word per player,src/data/engine/faceoff_2_bss_01.asm
 19DADD,PlayerAssignPtrs,dword_19DADD,new,low,assignment pointer per player,src/data/engine/faceoff_2_bss_01.asm
 19DADE,PuckCarrierPos,dword_19DADE,new,low,puck carrier position read by assstanley,src/data/engine/engine_25894_bss_01.asm
@@ -9355,7 +9355,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1AC81C,DetailLevel,byte_1AC81C,new,low,graphics detail level,src/data/engine/engine_3812E_bss_02.asm
 1AC81D,DisplayOptions,byte_1AC81D,new,low,display options,src/data/engine/engine_3812E_bss_02.asm
 1AC821,DisplaySettings,unk_1AC821,new,low,saved display settings,src/data/engine/engine_3812E_bss_02.asm
-1AC835,Brightness,dword_1AC835,new,low,game brightness,src/data/engine/engine_3812E_bss_02.asm
+1AC835,brightness,dword_1AC835,94S,medium,screen brightness the fades set (94 SNES ram94s brightness),src/data/engine/engine_3812E_bss_02.asm
 1AC839,ModemSettings,unk_1AC839,new,low,modem settings,src/data/engine/engine_3812E_bss_02.asm
 1AC8AD,NetworkGameIndex,dword_1AC8AD,new,low,network game picked,src/data/engine/engine_3812E_bss_02.asm
 1AC8B1,NetworkSettings,word_1AC8B1,new,low,network settings,src/data/engine/engine_3812E_bss_02.asm
@@ -9570,7 +9570,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1B0B8C,CrowdReactType,dword_1B0B8C,new,low,crowd reaction type,src/data/front/front_48D70_bss_03.asm
 1B0B90,CrowdReactEnd,dword_1B0B90,new,low,crowd reaction end time,src/data/front/front_48D70_bss_03.asm
 1B0B94,CrowdModel,dword_1B0B94,new,low,crowd model,src/data/front/front_48D70_bss_03.asm
-1B0B98,CrowdFrame,dword_1B0B98,new,low,crowd frame,src/data/front/front_48D70_bss_03.asm
+1B0B98,Crowdframe,dword_1B0B98,94G,medium,crowd animation frame (94G ram94 Crowdframe),src/data/front/front_48D70_bss_03.asm
 1B0B9C,CrowdFrameTime,dword_1B0B9C,new,low,crowd frame time,src/data/front/front_48D70_bss_03.asm
 1B0BA0,IceLinePolys,unk_1B0BA0,new,low,ice line polygons,src/data/front/front_48D70_bss_03.asm
 1B0C0C,BoardLinePolys,unk_1B0C0C,new,low,board line polygons,src/data/front/front_48D70_bss_03.asm
@@ -9935,7 +9935,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1C3455,HomeDefenceIndex,byte_1C3455,new,low,home starting defenceman,src/data/front/front_D15FB_bss_01.asm
 1C3456,HomeDefencePartner,byte_1C3456,new,low,home starting defence partner,src/data/front/front_D15FB_bss_01.asm
 1C347D,HomeBackupGoalie,byte_1C347D,new,low,home backup goalie,src/data/front/front_D15FB_bss_01.asm
-1C347F,HomeLines,unk_1C347F,new,low,home team lines,src/data/front/front_D15FB_bss_01.asm
+1C347F,homelines,unk_1C347F,94S,medium,home team lines (94 SNES ram94s homelines),src/data/front/front_D15FB_bss_01.asm
 1C3487,HomeTeamName,unk_1C3487,new,low,home team name,src/data/front/front_D15FB_bss_01.asm
 1C34A5,HomeCityName,unk_1C34A5,new,low,home city name,src/data/front/front_D15FB_bss_01.asm
 1C34E3,HomeTeamRating,dword_1C34E3,new,low,home team rating,src/data/front/front_D15FB_bss_01.asm

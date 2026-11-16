@@ -38,7 +38,7 @@ extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList
 extern SkaterOverall, GoalieOverall, InitListBox, InitShapeListBox, KeysEqual, FindGameRecord, FindPlayerStat, ServiceIdle
 extern AllocMemBlock, FreeMemBlock, KbdIdleCall, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, str_D_DrawLinesCardDetails, str_C_DrawForwardLines, DbKeyBuffer
-extern AllStarHomeLines, AllStarAwayLines, AutoLineData, HomeLines, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, AllStarDay
+extern AllStarHomeLines, AllStarAwayLines, AutoLineData, homelines, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, AllStarDay
 extern LinesSlotPositions, LinesGridSlotIds
 global EditLinesGridScreenJumpTable, DrawLinesScreenJumpTable, EditLinesScreen_17F, EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA
 global EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D, EditLinesScreen_8E8, LayoutLinesCard_39D, CopyTeamRoster_203, EditLinesGridScreen_A49, EditLinesGridScreen_C5B
@@ -1941,7 +1941,7 @@ AllocTempGameTeam:
         jmp short .4
 .2:
         mov ecx, 2123h
-        mov esi, HomeLines
+        mov esi, homelines
         jmp short .1
 .3:
         test esi, esi
@@ -2460,7 +2460,7 @@ LoadLinesForTeam:
         mov eax, AutoLineData
         jmp short .2
 .1:
-        mov eax, HomeLines
+        mov eax, homelines
 .2:
         mov esi, dword [EditLinesTeam]
         mov ecx, 36h
@@ -9241,10 +9241,10 @@ ClearAndBuildLines:
         xor eax, eax
         mov ebx, 36h
         call BuildAutoLines
-        mov eax, HomeLines
+        mov eax, homelines
         mov edx, 0FFh
         add eax, 20EDh
-        mov dword [EditLinesTeam], HomeLines
+        mov dword [EditLinesTeam], homelines
         call memset_
         xor eax, eax
         call BuildAutoLines

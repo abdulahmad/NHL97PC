@@ -51,7 +51,7 @@ DebugModelIndex:                                ; debug model index; used by Deb
         db 00h,00h
 OpeningFrames:                                  ; opening frames; used by HandleGameKeys, RunOpeningFrames
         db 00h,00h,00h,00h
-InGameMenuRequest:                              ; used by GameLoop, InitGameVars, PauseMenu ...
+InGameMenuRequest:                              ; used by Gameloop, InitGameVars, PauseMenu ...
         db 00h,00h
 BrightnessLevel:                                ; brightness level; used by SaveGameDisplay, SetGameBrightness
         db 00h,00h
