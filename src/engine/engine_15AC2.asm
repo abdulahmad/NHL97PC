@@ -99,7 +99,7 @@ global sub_1D09C, sub_1D0BC, sub_1D16C, sub_1D1D4, sub_1D1DC, sub_1D208, sub_1D2
 global sub_1D4FC, sub_1D828, sub_1D858, sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0
 global sub_1DD5C, sub_1DDE4, sub_1DEB8, sub_1DEE4, sub_1DFA0, sub_1E014, sub_1E184, assreplace
 global assinsert, assexit, sub_1E284, sub_1E354, sub_1E4E4, sub_1E7C4, sub_1E810, sub_1E8B0
-global sub_1EC5C, sub_1EF88, sub_1F32C, sub_1F4EC, sub_1F538, sub_1F5B4, sub_1F7D0, sub_1FB6C
+global check4bench, sub_1EF88, sub_1F32C, sub_1F4EC, sub_1F538, sub_1F5B4, sub_1F7D0, sub_1FB6C
 global sub_1FBF4, sub_1FF5C, sub_20508, sub_209CC, sub_209D0, sub_209E0, sub_20A80, sub_20C50
 global sub_20CB0, sub_218B8, sub_21A4C, sub_21AB4, sub_21B20, sub_21E98, sub_22050, sub_22828
 global sub_22B8C, sub_22CEC, sub_22E70, sub_22FF0, sub_23284, sub_238E8, sub_23A78, sub_23B88
@@ -12262,9 +12262,12 @@ sub_1E8B0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1EC5C                                                       1EC5C  97 PC
+; check4bench                                    1EC5C  94G, medium confidence
+; 94G check4bench: whether player a3 should go to the bench; if so assreplace
+; with assbench (17h); 0 when he stays (joystick-controlled, penalty shot,
+; ...)
 ;-----------------------------------------------------------------------------
-sub_1EC5C:
+check4bench:
         push ebx
         push ecx
         push edx
@@ -13061,7 +13064,7 @@ sub_1F5B4:
         test byte [dword eax+0BFh], 20h
         jne near .8
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .8
         test byte [byte_19CBC2], 1
@@ -13221,7 +13224,7 @@ sub_1F7D0:
         test byte [dword eax+0BFh], 20h
         jne near .17
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .17
         test byte [byte_19CBC2], 1
@@ -14569,7 +14572,7 @@ sub_209E0:
         mov dword [byte ebx+020h], 0C50B8000h
 .3:
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         je short .4
         mov al, byte [dword ebx+0C1h]
@@ -15827,7 +15830,7 @@ sub_21B20:
         push ebp
         sub esp, byte 8
         mov ecx, eax
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .19
         mov ah, byte [dword ecx+0BFh]
@@ -17046,7 +17049,7 @@ sub_22B8C:
         test byte [dword eax+0BFh], 20h
         jne near .6
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .6
         test byte [byte_19CBC2], 1
@@ -17163,7 +17166,7 @@ sub_22CEC:
         test byte [dword eax+0BFh], 20h
         jne near .5
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .5
         test byte [byte_19CBC2], 1
@@ -17285,7 +17288,7 @@ sub_22E70:
         test byte [dword eax+0BFh], 20h
         jne near .5
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .5
         test byte [byte_19CBC2], 1
@@ -18022,7 +18025,7 @@ sub_238E8:
         test byte [dword eax+0BFh], 20h
         jne near .7
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .7
         test byte [byte_19CBC2], 1
@@ -18154,7 +18157,7 @@ sub_23A78:
         test byte [dword eax+0BFh], 20h
         jne near .4
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .4
         test byte [byte_19CBC2], 1
@@ -18247,7 +18250,7 @@ sub_23B88:
         test byte [dword eax+0BFh], 20h
         jne near .4
         mov eax, ebx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .4
         test byte [byte_19CBC2], 1
@@ -18341,7 +18344,7 @@ sub_23C98:
         test byte [dword eax+0BFh], 20h
         jne near .11
         mov eax, edx
-        call sub_1EC5C
+        call check4bench
         test ax, ax
         jne near .11
         mov bl, byte [dword edx+0BFh]

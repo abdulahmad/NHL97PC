@@ -27,7 +27,7 @@ extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, s
 extern QueueOverlayPanel, sub_18E35, sub_1C108, sub_1C210, sub_1C29C, sub_1C7B4, sub_1CCBC, sub_1D16C
 extern sub_1E184, assreplace, assinsert, assexit, sub_1E8B0, sub_1FB6C, sub_20CB0, sub_24220
 extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, CompLine, sub_2EDB8
-extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, sub_42098, sub_42220, sub_424CC, sub_45BEC
+extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, sub_42098, PlaySfx, sub_424CC, sub_45BEC
 extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
 extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
 extern sub_71D48, sub_71E58, sub_71F4C, sub_76FE8, sub_77F94, sub_780F0, sub_AA588, sub_F9A88
@@ -4973,7 +4973,7 @@ sub_32888:
         mov edx, 64h
         push dword [byte eax+020h]
         mov eax, 461h
-        call sub_42220
+        call PlaySfx
         jmp short .26
 .25:
         call sub_18E35
@@ -5463,7 +5463,7 @@ sub_32FF8:
         mov eax, 409h
         push dword [byte edx+020h]
         mov edx, 64h
-        call sub_42220
+        call PlaySfx
 .7:
         movsx edx, cx
         test word [byte ebx+edx*2+050h], 7FFh

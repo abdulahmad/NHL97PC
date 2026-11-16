@@ -65,7 +65,7 @@ extern unk_1B8583, unk_1B92AB, unk_4BCCC
 global jpt_56DCC, sub_55670_105, sub_55670_115, sub_55670_11A, sub_56DDC_C8, sub_56DDC_E3, sub_56DDC_114, sub_56DDC_18F
 global sub_52770, sub_52A44, sub_52BEC, sub_52CA0, sub_52CE0, sub_52D4C, sub_52E14, sub_52E28
 global sub_52E8C, sub_53260, sub_53314, FreeRinkModel, sub_5475C, sub_54794, sub_54A8C, sub_55000
-global sub_55110, sub_55228, DrawBenchSide, sub_55648, sub_55670, sub_5585C, sub_5586C, sub_55894
+global sub_55110, sub_55228, DrawBenchSide, sub_55648, sub_55670, SetPenaltyBoxDoor, sub_5586C, sub_55894
 global sub_55B14, sub_55FE4, sub_560AC, sub_56464, sub_56740, sub_56798, sub_567B0, sub_568CC
 global sub_56908, sub_5696C, sub_56A08, sub_56A84, sub_56AE4, sub_56B98, sub_56CD0, sub_56CE4
 global sub_56CF8, sub_56D0C, sub_56DDC, sub_57298, sub_572D4, sub_57304, unk_56790, unk_56794
@@ -3907,9 +3907,11 @@ sub_55670_11A:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5585C                                                       5585C  97 PC
+; SetPenaltyBoxDoor                            5585C  96 PC, medium confidence
+; (team, open): from asspenalty, assdopen, assepen and puckfaceoff2: opens or
+; closes a penalty box door
 ;-----------------------------------------------------------------------------
-sub_5585C:
+SetPenaltyBoxDoor:
         mov dword [nosplit eax*4+dword_1B0A80], edx
         test edx, edx
         jne near sub_55670

@@ -96,7 +96,7 @@ global sub_40640, sub_40680, sub_40850, sub_4095C, LoadSfxBank, sub_40D80, OpenA
 global sub_414B8, sub_41550, sub_415A0, sub_415A8, sub_415F8, sub_41670, sub_41870, sub_419B0
 global sub_419B8, sub_41A28, sub_41ACC, sub_41CF0, sub_41D18, sub_41D30, sub_41D48, sub_41D94
 global sub_41DB8, sub_41DD8, MusicFileName, ArenaFileName, sub_41EE4, sub_41F2C, sub_41FA0, sub_41FDC
-global sub_42098, sub_420E4, sub_42220, sub_42354, sub_423B4, sub_4241C, sub_424CC, sub_42550
+global sub_42098, sub_420E4, PlaySfx, sub_42354, sub_423B4, sub_4241C, sub_424CC, sub_42550
 global sub_425CC, sub_42650, sub_42910, sub_42960, sub_42A98, sub_42AD0, sub_42C38, sub_42D38
 global OpenSpeechBanks, sub_431E8, LoadTeamSpeech
 ;-----------------------------------------------------------------------------
@@ -3077,7 +3077,7 @@ sub_3A440:
         mov edx, 64h
         add eax, 402h
 .9:
-        call sub_42220
+        call PlaySfx
 .10:
         mov eax, dword [off_168CFC]
         cmp dword [byte eax+024h], 42400000h
@@ -3157,7 +3157,7 @@ sub_3A564:
         mov eax, 420h
 .6:
         push dword [byte ecx+020h]
-        call sub_42220
+        call PlaySfx
 .7:
         test bl, 2
         je short .8
@@ -15061,9 +15061,12 @@ sub_420E4:
         ret 10h
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_42220                                                       42220  97 PC
+; PlaySfx                                      42220  96 PC, medium confidence
+; (id 1-48h): plays a digital sound effect from the loaded banks on a free
+; voice at the globalset volume; called from checkcheck, FallDown, CompPass,
+; the faceoff and the menus
 ;-----------------------------------------------------------------------------
-sub_42220:
+PlaySfx:
         push ebx
         push ecx
         push esi
@@ -15196,7 +15199,7 @@ sub_42354:
         push dword [byte esp+014h]
 .3:
         push dword [byte esp+014h]
-        call sub_42220
+        call PlaySfx
 .4:
         pop edi
         pop esi

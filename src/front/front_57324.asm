@@ -166,7 +166,7 @@ extern SelectCameraView, sub_1DFA0, sub_1E014, assreplace, assinsert, sub_1E354,
 extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, sub_2C064, sub_2DD54, sub_2E11C, sub_2E168
 extern sub_2E208, sub_2EDB8, sub_2F4B8, sub_2FED8, sub_32260, sub_32340, EndPenaltyShot, sub_34330
 extern sub_358E4, sub_365FC, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
-extern sub_41ACC, sub_41FA0, sub_42098, sub_42220, sub_42354, sub_4241C, sub_424CC, sub_45BEC
+extern sub_41ACC, sub_41FA0, sub_42098, PlaySfx, sub_42354, sub_4241C, sub_424CC, sub_45BEC
 extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, sub_4BA00, sub_4BCB4
 extern sub_4C0C4, sub_4DA84, PeriodOver, sub_4DD9C, sub_4DDB0, sub_4FC50, sub_50050, sub_51B5C
 extern sub_51BD8, sub_56798, sub_567B0, sub_568CC, sub_56908, sub_56A84, sub_56AE4, sub_56CD0
@@ -9615,7 +9615,7 @@ sub_5DF90:
         mov edx, 64h
         mov eax, 410h
         push dword [byte ebx+020h]
-        call sub_42220
+        call PlaySfx
 .10:
         fld dword [byte ebx+030h]
         fchs
@@ -17821,7 +17821,7 @@ sub_63E8C:
         cwde
         add eax, 431h
 .14:
-        call sub_42220
+        call PlaySfx
 .15:
         lea edx, [byte ebp-024h]
         mov eax, esi
@@ -19201,7 +19201,7 @@ sub_64D54:
         cwde
         add eax, 431h
 .11:
-        call sub_42220
+        call PlaySfx
 .12:
         lea edx, [byte ebp-010h]
         mov eax, esi
@@ -21328,7 +21328,7 @@ sub_666CC:
         mov edx, 64h
         mov eax, 460h
         push dword [byte ebx+020h]
-        call sub_42220
+        call PlaySfx
         mov eax, dword [byte ebx+04h]
         xor ecx, ecx
         sar eax, 10h
@@ -22200,7 +22200,7 @@ sub_66E38:
         mov eax, 411h
 .18:
         push dword [byte ebx+020h]
-        call sub_42220
+        call PlaySfx
 .19:
         fld dword [dword_1631D0]
         fsub dword [byte ebx+050h]
@@ -22471,7 +22471,7 @@ sub_67248:
         mov eax, 411h
 .14:
         push dword [byte ebx+020h]
-        call sub_42220
+        call PlaySfx
 .15:
         fld dword [dword_1631D8]
         fsub dword [byte ebx+050h]
@@ -23219,7 +23219,7 @@ sub_67B10:
         mov eax, 41Bh
         push dword [byte edx+020h]
         mov edx, 64h
-        call sub_42220
+        call PlaySfx
 .3:
         mov esp, ebp
         pop ebp
@@ -24123,7 +24123,7 @@ sub_68378:
         push dword [byte ebp-010h]
         mov eax, 414h
         push dword [byte ebp-018h]
-        call sub_42220
+        call PlaySfx
         mov ah, byte [byte_19CBC2]
         mov edi, 1
         test ah, 1
@@ -24601,7 +24601,7 @@ sub_6889C:
         push dword [byte ebp-010h]
         mov eax, 414h
         push dword [byte ebp-018h]
-        call sub_42220
+        call PlaySfx
         mov ah, byte [byte_19CBC2]
         mov edi, 1
         test ah, 1
@@ -25186,7 +25186,7 @@ sub_68DBC:
         push dword [byte ebx+028h]
         mov eax, 414h
         push dword [byte ebx+020h]
-        call sub_42220
+        call PlaySfx
         test byte [byte_19CBC2], 1
         jne short .17
         mov eax, 4
@@ -27325,7 +27325,7 @@ sub_6A77C:
         push dword [byte edx+028h]
         push dword [byte edx+020h]
         mov edx, 64h
-        call sub_42220
+        call PlaySfx
         cmp word [word_19CB94], byte 0
         jl near .27
         mov eax, dword [off_168CFC]
@@ -27719,7 +27719,7 @@ sub_6ABEC:
         push dword [byte edx+028h]
         push dword [byte edx+020h]
         mov edx, 64h
-        call sub_42220
+        call PlaySfx
         test byte [byte_19CBC2], 1
         jne near .34
         cmp word [word_19CBF4], byte 0
@@ -29802,7 +29802,7 @@ sub_6C73C:
         mov eax, 420h
         push dword [byte ecx+020h]
 .13:
-        call sub_42220
+        call PlaySfx
         mov eax, dword [dword ecx+0FAh]
         mov dword [eax], 41400000h
 .14:
@@ -30130,7 +30130,7 @@ sub_6CA24:
         mov eax, 420h
         push dword [byte ecx+020h]
 .21:
-        call sub_42220
+        call PlaySfx
         mov eax, dword [dword ecx+0FAh]
         mov dword [eax], 41400000h
 .22:
@@ -32346,7 +32346,7 @@ sub_6E290:
         mov eax, 425h
         push dword [byte esi+020h]
         mov ecx, 83h
-        call sub_42220
+        call PlaySfx
         jmp short .27
 .24:
         fld dword [byte esp+04Ch]
@@ -32810,7 +32810,7 @@ sub_6E9A4:
         mov edx, 64h
         mov eax, 425h
         push dword [byte esi+020h]
-        call sub_42220
+        call PlaySfx
         jmp near .45
 .22:
         fld dword [byte esi+020h]
@@ -34825,7 +34825,7 @@ sub_704D4:
         sete al
         and eax, 0FFh
         add eax, 440h
-        call sub_42220
+        call PlaySfx
         mov edx, 1
         mov eax, dword [dword esi+0F2h]
         call sub_56CE4
@@ -34895,7 +34895,7 @@ sub_704D4_1C4:
         sete al
         and eax, 0FFh
         add eax, 440h
-        call sub_42220
+        call PlaySfx
         mov edx, 1
         mov eax, dword [dword esi+0F2h]
         call sub_56CE4
@@ -34988,7 +34988,7 @@ sub_704D4_299:
         mov edx, 64h
         mov eax, 443h
         push dword [byte esi+020h]
-        call sub_42220
+        call PlaySfx
         and byte [byte edi+030h], 7Fh
 .20:
         mov eax, dword [byte ebp-010h]
@@ -35223,7 +35223,7 @@ sub_70A58:
         mov edx, 64h
         mov eax, 423h
         push dword [byte ecx+020h]
-        call sub_42220
+        call PlaySfx
         mov edx, 2
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -35324,7 +35324,7 @@ sub_70B74:
         mov edx, 64h
         mov eax, 423h
         push dword [byte ecx+020h]
-        call sub_42220
+        call PlaySfx
 .3:
         test byte [byte ebx+01Ch], 80h
         je short .4
@@ -35822,7 +35822,7 @@ sub_71108:
         mov edx, 64h
         mov eax, 442h
         push dword [byte ecx+020h]
-        call sub_42220
+        call PlaySfx
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -36217,7 +36217,7 @@ sub_71574:
         mov edx, 64h
         mov eax, 442h
         push dword [byte ecx+020h]
-        call sub_42220
+        call PlaySfx
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
@@ -37052,7 +37052,7 @@ sub_71FD0:
         and eax, 0FFh
         add eax, 426h
         inc ecx
-        call sub_42220
+        call PlaySfx
 .2:
         test byte [byte ebp-04h], 2
         je short .3
@@ -37060,7 +37060,7 @@ sub_71FD0:
         mov edx, 64h
         mov eax, 423h
         push dword [byte ebx+020h]
-        call sub_42220
+        call PlaySfx
         inc ecx
 .3:
         mov eax, ecx
@@ -37542,7 +37542,7 @@ sub_72564:
         setne al
         and eax, 0FFh
         add eax, 421h
-        call sub_42220
+        call PlaySfx
 .2:
         mov al, byte [byte ebx+01Ch]
         test al, 80h
@@ -37624,7 +37624,7 @@ sub_72648:
         setne al
         and eax, 0FFh
         add eax, 421h
-        call sub_42220
+        call PlaySfx
         mov eax, dword [byte esi+04h]
         xor edx, edx
         sar eax, 10h
@@ -37880,7 +37880,7 @@ sub_7291C:
         mov edx, 64h
         mov eax, 425h
         push dword [byte ecx+020h]
-        call sub_42220
+        call PlaySfx
 .1:
         mov dl, byte [byte ebx+01Ch]
         test dl, 80h
@@ -38899,7 +38899,7 @@ sub_73464:
         mov edx, 64h
         mov eax, 409h
         push dword [byte ecx+020h]
-        call sub_42220
+        call PlaySfx
         jmp short .4
 .1:
         cmp edi, 0F7h
@@ -39141,7 +39141,7 @@ sub_7370C:
         mov edx, 64h
         mov eax, 423h
         push dword [byte ecx+020h]
-        call sub_42220
+        call PlaySfx
 .1:
         test byte [byte edi+01Ch], 80h
         je near .11
@@ -40633,7 +40633,7 @@ sub_747E8:
         mov edx, 25h
         mov eax, 430h
         push dword [byte esi+020h]
-        call sub_42220
+        call PlaySfx
         jmp short .7
 .2:
         cmp edi, 0CCh
@@ -40644,7 +40644,7 @@ sub_747E8:
         mov edx, 64h
         mov eax, 409h
         push dword [byte esi+020h]
-        call sub_42220
+        call PlaySfx
         jmp short .7
 .3:
         cmp edi, 0CAh
