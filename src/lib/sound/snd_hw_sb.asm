@@ -8,16 +8,16 @@ extern _DoINTR_, _Extender, _ExtenderSubtype, _IsTable, __fatal_runtime_error_, 
 extern str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_NoErrorInXACODECFunctionL, str_InvalidErrorCodeInXACODEC, SbDmaPagePorts, SbDmaMaskPorts, SbDmaModePorts, SbDmaFlipFlopPorts
 extern SbDmaAddressPorts, SbDmaCountPorts, Is8087, DmaPagePorts, DmaMaskPorts, DmaModePorts, DmaClearPorts, DmaAddressPorts
 extern DmaCountPorts, TimerIrqMask, TimerChainFlag, TimerPitMode, TimerInstalled, ClipLeftCol, ScreenHeight, StrToLongLimits
-extern IrqAckLast, FloatPow10Table, FloatPow10Exponents, FloatFormatDigits, FloatFormatExponent, FloatFormatMantissaLo, FloatFormatMantissaHi, DacTimerRate
+extern IrqAckLast, AdpcmDeltaTable, AdpcmIndexAdjust, AdpcmLeftSample, AdpcmRightSample, AdpcmLeftIndex, AdpcmRightIndex, DacTimerRate
 extern DacTimerDivisor, TimerOldHandler, TimerOldRealHandler, TimerDivisor, TimerChainCount, int386_, str_RMHandler, AllocMemData
 extern FreeMemBlock, tolower_, SavedEsSelector, TimerOldOffsetLo, TimerOldSelector, DbcsLeadTable
-global fini_, init_, FormatFloatClampJumpTable, ScanFloatClassJumpTable, ScanFloatResultJumpTable, SbRateFromConstant_2B, StrToLong_166, FormatFloat_1F3
-global FormatFloat_203, FormatFloat_213, FormatFloat_223, ScanFloat_24, ScanFloat_34, ScanFloat_44, ScanFloat_54, TimerCalibrate
+global fini_, init_, XaEncodeClampJumpTable, XaDecodeFilterJumpTable, XaFilterCoefsJumpTable, SbRateFromConstant_2B, StrToLong_166, XaEncodeFilterFlat
+global XaEncodeFilterLinear, XaEncodeFilterSteep, XaEncodeFilterSmooth, XaDecodeFilterFlat, XaDecodeFilterLinear, XaDecodeFilterSteep, XaDecodeFilterSmooth, TimerCalibrate
 global TimerRestore, TimerSetRate, TimerWritePit, TimerReadCount, TimerTicksForRate, TimerMeasure, TimerSetDivisor, TimerReset
 global TimerInstall, TimerChainOld, DmaMaskChannel, DmaProgram, IrqEoi, IrqAck, IrqVector, IrqUnmask
 global IrqMask, IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, StrToLong, ReturnArg
-global DigitValue, InitFloatFormat, FormatFloat, ScanFloat, RoundDigits, DrawCharMono, DrawCharShadow, DrawCharOutline
-global DrawCharBold, NoDbcsTable, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, FormatFloatJumpTable
+global DigitValue, AdpcmDecodeMono, AdpcmDecodeStereo, XaDecodeBlock, XaReadSample, DrawCharMono, DrawCharShadow, DrawCharOutline
+global DrawCharBold, NoDbcsTable, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, XaEncodeFilterJumpTable
 ;-----------------------------------------------------------------------------
 ; TimerCalibrate                                 13794C  97 PC, low confidence
 ; Calibrates the timer
@@ -1114,10 +1114,10 @@ DigitValue:
         ret
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
-; InitFloatFormat                                1381E0  97 PC, low confidence
-; Sets up the number formatting tables
+; AdpcmDecodeMono                                1381E0  97 PC, medium confidence
+; Decodes 4-bit ADPCM samples for one channel to 16-bit samples
 ;-----------------------------------------------------------------------------
-InitFloatFormat:
+AdpcmDecodeMono:
         push ebp
         LD mov, ebp, esp
         pusha
@@ -1143,7 +1143,7 @@ InitFloatFormat:
         and bl, 0Fh
         inc esi
 .3:
-        add edx, dword [dword eax+ebx*4+FloatPow10Table]
+        add edx, dword [dword eax+ebx*4+AdpcmDeltaTable]
         cmp edx, 7FFFh
         jg short .8
         cmp edx, 0FFFF8000h
@@ -1153,7 +1153,7 @@ InitFloatFormat:
         add edi, byte 2
         inc ecx
         and bl, 7
-        add eax, dword [nosplit ebx*4+FloatPow10Exponents]
+        add eax, dword [nosplit ebx*4+AdpcmIndexAdjust]
         cmp eax, 1600h
         jg short .6
         cmp eax, byte 0
@@ -1186,10 +1186,10 @@ InitFloatFormat:
         mov edx, 0FFFF8000h
         jmp short .4
 ;-----------------------------------------------------------------------------
-; FormatFloat                                    138288  97 PC, low confidence
-; Formats a floating-point number
+; AdpcmDecodeStereo                              138288  97 PC, medium confidence
+; Decodes 4-bit ADPCM samples for two channels to 16-bit samples
 ;-----------------------------------------------------------------------------
-FormatFloat:
+AdpcmDecodeStereo:
         push ebp
         LD mov, ebp, esp
         pusha
@@ -1198,76 +1198,76 @@ FormatFloat:
         mov edx, dword [byte ebp+01Ch]
         mov edx, dword [edx]
         movsx eax, dx
-        mov dword [FloatFormatMantissaLo], eax
+        mov dword [AdpcmLeftIndex], eax
         shr edx, 10h
         movsx eax, dx
-        mov dword [FloatFormatMantissaHi], eax
+        mov dword [AdpcmRightIndex], eax
         mov edx, dword [byte ebp+018h]
         mov edx, dword [edx]
         movsx eax, dx
-        mov dword [FloatFormatDigits], eax
+        mov dword [AdpcmLeftSample], eax
         shr edx, 10h
         movsx eax, dx
-        mov dword [FloatFormatExponent], eax
+        mov dword [AdpcmRightSample], eax
         mov esi, dword [byte ebp+0Ch]
         mov edi, dword [byte ebp+010h]
         LD xor, ebx, ebx
 .1:
         mov bl, byte [esi]
         shr bl, 4
-        mov eax, dword [FloatFormatMantissaLo]
-        mov edx, dword [FloatFormatDigits]
-        add edx, dword [dword eax+ebx*4+FloatPow10Table]
+        mov eax, dword [AdpcmLeftIndex]
+        mov edx, dword [AdpcmLeftSample]
+        add edx, dword [dword eax+ebx*4+AdpcmDeltaTable]
         cmp edx, 7FFFh
         jg near .9
         cmp edx, 0FFFF8000h
         jl near .10
 .2:
         mov word [edi+ecx*4], dx
-        mov dword [FloatFormatDigits], edx
+        mov dword [AdpcmLeftSample], edx
         and bl, 7
-        add eax, dword [nosplit ebx*4+FloatPow10Exponents]
+        add eax, dword [nosplit ebx*4+AdpcmIndexAdjust]
         cmp eax, 1600h
         jg near .7
         cmp eax, byte 0
         jl near .8
 .3:
-        mov dword [FloatFormatMantissaLo], eax
+        mov dword [AdpcmLeftIndex], eax
         mov bl, byte [esi]
         and bl, 0Fh
-        mov eax, dword [FloatFormatMantissaHi]
-        mov edx, dword [FloatFormatExponent]
-        add edx, dword [dword eax+ebx*4+FloatPow10Table]
+        mov eax, dword [AdpcmRightIndex]
+        mov edx, dword [AdpcmRightSample]
+        add edx, dword [dword eax+ebx*4+AdpcmDeltaTable]
         cmp edx, 7FFFh
         jg near .13
         cmp edx, 0FFFF8000h
         jl near .14
 .4:
         mov word [byte edi+ecx*4+02h], dx
-        mov dword [FloatFormatExponent], edx
+        mov dword [AdpcmRightSample], edx
         and bl, 7
-        add eax, dword [nosplit ebx*4+FloatPow10Exponents]
+        add eax, dword [nosplit ebx*4+AdpcmIndexAdjust]
         cmp eax, 1600h
         jg short .11
         cmp eax, byte 0
         jl short .12
 .5:
-        mov dword [FloatFormatMantissaHi], eax
+        mov dword [AdpcmRightIndex], eax
         add ecx, byte 1
         inc esi
         cmp ecx, dword [byte ebp+014h]
         jl near .1
         jmp short .6
 .6:
-        mov edx, dword [FloatFormatExponent]
+        mov edx, dword [AdpcmRightSample]
         shl edx, 10h
-        mov ecx, dword [FloatFormatDigits]
+        mov ecx, dword [AdpcmLeftSample]
         LD mov, dx, cx
         mov ecx, dword [byte ebp+018h]
         mov dword [ecx], edx
-        mov edx, dword [FloatFormatMantissaHi]
+        mov edx, dword [AdpcmRightIndex]
         shl edx, 10h
-        mov ecx, dword [FloatFormatMantissaLo]
+        mov ecx, dword [AdpcmLeftIndex]
         LD mov, dx, cx
         mov ecx, dword [byte ebp+01Ch]
         mov dword [ecx], edx
@@ -1298,16 +1298,16 @@ FormatFloat:
 .14:
         mov edx, 0FFFF8000h
         jmp near .4
-FormatFloatJumpTable:                           ; jump table for the switch cases of FormatFloatClampJumpTable
-        dd FormatFloat_1F3
-        dd FormatFloat_203
-        dd FormatFloat_213
-        dd FormatFloat_223
-FormatFloatClampJumpTable:                      ; jump table for the switch cases
-        dd FormatFloat_223.12
-        dd FormatFloat_223.13
-        dd FormatFloat_223.14
-        dd FormatFloat_223.15
+XaEncodeFilterJumpTable:                        ; jump table for the filter cases of the XA encoder
+        dd XaEncodeFilterFlat
+        dd XaEncodeFilterLinear
+        dd XaEncodeFilterSteep
+        dd XaEncodeFilterSmooth
+XaEncodeClampJumpTable:                         ; jump table for the clamp cases of the XA encoder
+        dd XaEncodeFilterSmooth.12
+        dd XaEncodeFilterSmooth.13
+        dd XaEncodeFilterSmooth.14
+        dd XaEncodeFilterSmooth.15
         push esi
         push edi
         enter 48h, 0
@@ -1318,7 +1318,7 @@ FormatFloatClampJumpTable:                      ; jump table for the switch case
         cmp dword [byte ebp+010h], byte 0
         jne short .1
         mov edx, 1
-        jmp near FormatFloat_223.29
+        jmp near XaEncodeFilterSmooth.29
 .1:
         mov dword [byte ebp-08h], 0
         xor edi, edi
@@ -1328,24 +1328,40 @@ FormatFloatClampJumpTable:                      ; jump table for the switch case
         shl eax, cl
         mov dword [byte edi+ebp-048h], 7FFFFFFFh
         test dword [byte ebp+010h], eax
-        je near FormatFloat_223.9
+        je near XaEncodeFilterSmooth.9
         mov dword [byte edi+ebp-048h], 0
         cmp dword [byte ebp-08h], byte 3
-        ja short FormatFloat_223.3
-        jmp dword [dword cs:edi+FormatFloatJumpTable]
-FormatFloat_1F3:
+        ja short XaEncodeFilterSmooth.3
+        jmp dword [dword cs:edi+XaEncodeFilterJumpTable]
+;-----------------------------------------------------------------------------
+; XaEncodeFilterFlat                             13847B  97 PC, low confidence
+; XA encoder case: filter with no prediction
+;-----------------------------------------------------------------------------
+XaEncodeFilterFlat:
         mov dword [byte ebp-0Ch], 0
         mov dword [byte ebp-04h], 0
-        jmp short FormatFloat_223.3
-FormatFloat_203:
+        jmp short XaEncodeFilterSmooth.3
+;-----------------------------------------------------------------------------
+; XaEncodeFilterLinear                           13848B  97 PC, low confidence
+; XA encoder case: filter with one coefficient
+;-----------------------------------------------------------------------------
+XaEncodeFilterLinear:
         mov dword [byte ebp-0Ch], 0
         mov dword [byte ebp-04h], 0F0h
-        jmp short FormatFloat_223.3
-FormatFloat_213:
+        jmp short XaEncodeFilterSmooth.3
+;-----------------------------------------------------------------------------
+; XaEncodeFilterSteep                            13849B  97 PC, low confidence
+; XA encoder case: filter with coefficients 460 and -208
+;-----------------------------------------------------------------------------
+XaEncodeFilterSteep:
         mov dword [byte ebp-0Ch], 0FFFFFF30h
         mov dword [byte ebp-04h], 1CCh
-        jmp short FormatFloat_223.3
-FormatFloat_223:
+        jmp short XaEncodeFilterSmooth.3
+;-----------------------------------------------------------------------------
+; XaEncodeFilterSmooth                           1384AB  97 PC, low confidence
+; XA encoder case: filter with coefficients 392 and -220, then the loop that tries each filter on the block
+;-----------------------------------------------------------------------------
+XaEncodeFilterSmooth:
         mov dword [byte ebp-0Ch], 0FFFFFF24h
         mov dword [byte ebp-04h], 188h
 .3:
@@ -1363,7 +1379,7 @@ FormatFloat_223:
         mov ebx, dword [byte ebp+018h]
         mov edx, dword [byte ebp+014h]
         mov eax, dword [byte ebp-014h]
-        call RoundDigits
+        call XaReadSample
         mov ebx, dword [byte ebp-018h]
         imul ebx, dword [byte ebp-04h]
         mov edx, eax
@@ -1399,7 +1415,7 @@ FormatFloat_223:
         inc dword [byte ebp-08h]
         add edi, byte 4
         cmp dword [byte ebp-08h], byte 4
-        jl near FormatFloatClampJumpTable.2
+        jl near XaEncodeClampJumpTable.2
         mov ebx, 7FFFFFFFh
         xor ecx, ecx
         xor edx, edx
@@ -1417,7 +1433,7 @@ FormatFloat_223:
         cmp ecx, byte 3
         ja short .16
         mov eax, ecx
-        jmp dword [nosplit cs:eax*4+FormatFloatClampJumpTable]
+        jmp dword [nosplit cs:eax*4+XaEncodeClampJumpTable]
 .12:
         mov dword [byte ebp-0Ch], 0
         mov dword [byte ebp-04h], 0
@@ -1469,7 +1485,7 @@ FormatFloat_223:
         mov ebx, dword [byte ebp+018h]
         mov edx, dword [byte ebp+014h]
         mov eax, dword [byte ebp-054h]
-        call RoundDigits
+        call XaReadSample
         mov ebx, eax
         mov eax, dword [byte ebp-020h]
         imul eax, dword [byte ebp-04h]
@@ -1550,16 +1566,16 @@ FormatFloat_223:
         pop edi
         pop esi
         ret 0Ch
-ScanFloatClassJumpTable:                        ; jump table for the switch cases of ScanFloat
-        dd ScanFloat_24
-        dd ScanFloat_34
-        dd ScanFloat_44
-        dd ScanFloat_54
+XaDecodeFilterJumpTable:                        ; jump table for the switch cases of XaDecodeBlock
+        dd XaDecodeFilterFlat
+        dd XaDecodeFilterLinear
+        dd XaDecodeFilterSteep
+        dd XaDecodeFilterSmooth
 ;-----------------------------------------------------------------------------
-; ScanFloat                                      1386E1  97 PC, low confidence
-; Reads a floating-point number
+; XaDecodeBlock                                  1386E1  97 PC, medium confidence
+; Decodes one XA (BRR) block: the header picks the filter and the shift
 ;-----------------------------------------------------------------------------
-ScanFloat:
+XaDecodeBlock:
         push esi
         push edi
         enter 1Ch, 0
@@ -1571,21 +1587,37 @@ ScanFloat:
         sar eax, 4
         and eax, byte 0Fh
         cmp eax, byte 3
-        ja short ScanFloat_54.1
-        jmp dword [nosplit cs:eax*4+ScanFloatClassJumpTable]
-ScanFloat_24:
+        ja short XaDecodeFilterSmooth.1
+        jmp dword [nosplit cs:eax*4+XaDecodeFilterJumpTable]
+;-----------------------------------------------------------------------------
+; XaDecodeFilterFlat                             138705  97 PC, medium confidence
+; XA decoder case: filter with no prediction
+;-----------------------------------------------------------------------------
+XaDecodeFilterFlat:
         mov dword [byte ebp-04h], 0
         mov dword [byte ebp-0Ch], 0
-        jmp short ScanFloat_54.2
-ScanFloat_34:
+        jmp short XaDecodeFilterSmooth.2
+;-----------------------------------------------------------------------------
+; XaDecodeFilterLinear                           138715  97 PC, medium confidence
+; XA decoder case: filter with one coefficient
+;-----------------------------------------------------------------------------
+XaDecodeFilterLinear:
         mov dword [byte ebp-04h], 0
         mov dword [byte ebp-0Ch], 0F0h
-        jmp short ScanFloat_54.2
-ScanFloat_44:
+        jmp short XaDecodeFilterSmooth.2
+;-----------------------------------------------------------------------------
+; XaDecodeFilterSteep                            138725  97 PC, medium confidence
+; XA decoder case: filter with coefficients 460 and -208
+;-----------------------------------------------------------------------------
+XaDecodeFilterSteep:
         mov dword [byte ebp-04h], 0FFFFFF30h
         mov dword [byte ebp-0Ch], 1CCh
-        jmp short ScanFloat_54.2
-ScanFloat_54:
+        jmp short XaDecodeFilterSmooth.2
+;-----------------------------------------------------------------------------
+; XaDecodeFilterSmooth                           138735  97 PC, medium confidence
+; XA decoder case: filter with coefficients 392 and -220
+;-----------------------------------------------------------------------------
+XaDecodeFilterSmooth:
         mov dword [byte ebp-04h], 0FFFFFF24h
         mov dword [byte ebp-0Ch], 188h
         jmp short .2
@@ -1695,14 +1727,14 @@ ScanFloat_54:
         pop edi
         pop esi
         ret 8
-ScanFloatResultJumpTable:                       ; jump table for the switch cases
+XaFilterCoefsJumpTable:                         ; jump table for the filter coefficient cases
         dd .1
         dd .3
         dd .4
         dd .5
         cmp eax, byte 3
         ja short .6
-        jmp dword [nosplit cs:eax*4+ScanFloatResultJumpTable]
+        jmp dword [nosplit cs:eax*4+XaFilterCoefsJumpTable]
 .1:
         mov dword [edx], 0
 .2:
@@ -1726,10 +1758,10 @@ ScanFloatResultJumpTable:                       ; jump table for the switch case
         mov eax, 1
         ret
 ;-----------------------------------------------------------------------------
-; RoundDigits                                    1388B1  97 PC, low confidence
-; Rounds the digits of a formatted number
+; XaReadSample                                   1388B1  97 PC, medium confidence
+; Reads a 16-bit sample in either byte order, signed or unsigned
 ;-----------------------------------------------------------------------------
-RoundDigits:
+XaReadSample:
         push ecx
         mov ecx, edx
         lea edx, [byte eax+01h]

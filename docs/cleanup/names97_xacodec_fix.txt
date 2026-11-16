@@ -1,0 +1,23 @@
+InitFloatFormat AdpcmDecodeMono {confidence=medium,source=new} decodes 4-bit ADPCM samples for one channel to 16-bit samples
+FormatFloat AdpcmDecodeStereo {confidence=medium,source=new} decodes 4-bit ADPCM samples for two channels to 16-bit samples
+FormatFloatJumpTable XaEncodeFilterJumpTable {confidence=low,source=new} jump table for the filter cases of the XA block encoder
+FormatFloatClampJumpTable XaEncodeClampJumpTable {confidence=low,source=new} jump table for the clamp cases of the XA block encoder
+FormatFloat_1F3 XaEncodeFilterFlat {confidence=low,source=new} XA encoder case: filter with no prediction
+FormatFloat_203 XaEncodeFilterLinear {confidence=low,source=new} XA encoder case: filter with one coefficient
+FormatFloat_213 XaEncodeFilterSteep {confidence=low,source=new} XA encoder case: filter with coefficients 460 and -208
+FormatFloat_223 XaEncodeBlock {confidence=low,source=new} XA encoder: tries each filter on a block and keeps the one with the least error
+ScanFloat XaDecodeBlock {confidence=medium,source=new} decodes one XA (BRR) block: the header picks the filter and the shift
+ScanFloatClassJumpTable XaDecodeFilterJumpTable {confidence=medium,source=new} jump table for the filter cases of XaDecodeBlock
+ScanFloat_24 XaDecodeFilterFlat {confidence=medium,source=new} XA decoder case: filter with no prediction
+ScanFloat_34 XaDecodeFilterLinear {confidence=medium,source=new} XA decoder case: filter with one coefficient
+ScanFloat_44 XaDecodeFilterSteep {confidence=medium,source=new} XA decoder case: filter with coefficients 460 and -208
+ScanFloat_54 XaDecodeFilterSmooth {confidence=medium,source=new} XA decoder case: filter with coefficients 392 and -220
+ScanFloatResultJumpTable XaFilterCoefsJumpTable {confidence=medium,source=new} jump table for the filter coefficient cases
+RoundDigits XaReadSample {confidence=medium,source=new} reads a 16-bit sample in either byte order, signed or unsigned
+FloatPow10Table AdpcmDeltaTable {confidence=medium,source=new} ADPCM sample change for each step and code
+FloatPow10Exponents AdpcmIndexAdjust {confidence=medium,source=new} ADPCM step index change for each code
+FloatFormatDigits AdpcmLeftSample {confidence=medium,source=new} last decoded sample, first channel
+FloatFormatExponent AdpcmRightSample {confidence=medium,source=new} last decoded sample, second channel
+FloatFormatMantissaLo AdpcmLeftIndex {confidence=medium,source=new} ADPCM step index, first channel
+FloatFormatMantissaHi AdpcmRightIndex {confidence=medium,source=new} ADPCM step index, second channel
+XaEncodeBlock XaEncodeFilterSmooth {confidence=low,source=new} XA encoder case: filter with coefficients 392 and -220, then the loop that tries each filter on the block

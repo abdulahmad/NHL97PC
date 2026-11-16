@@ -3586,10 +3586,22 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 13800A,StrToLong,sub_13800A,new,low,converts a string to a number (strtol),src/lib/sound/snd_hw_sb.asm
 138177,ReturnArg,sub_138177,new,low,returns its argument,src/lib/sound/snd_hw_sb.asm
 13817F,DigitValue,sub_13817F,new,low,returns the value of a digit character,src/lib/sound/snd_hw_sb.asm
-1381E0,InitFloatFormat,sub_1381E0,new,low,sets up the number formatting tables,src/lib/sound/snd_hw_sb.asm
-138288,FormatFloat,sub_138288,new,low,formats a floating-point number,src/lib/sound/snd_hw_sb.asm
-1386E1,ScanFloat,sub_1386E1,new,low,reads a floating-point number,src/lib/sound/snd_hw_sb.asm
-1388B1,RoundDigits,sub_1388B1,new,low,rounds the digits of a formatted number,src/lib/sound/snd_hw_sb.asm
+1381E0,AdpcmDecodeMono,sub_1381E0,new,medium,decodes 4-bit ADPCM samples for one channel to 16-bit samples,src/lib/sound/snd_hw_sb.asm
+138288,AdpcmDecodeStereo,sub_138288,new,medium,decodes 4-bit ADPCM samples for two channels to 16-bit samples,src/lib/sound/snd_hw_sb.asm
+138407,XaEncodeFilterJumpTable,,new,low,jump table for the filter cases of the XA block encoder,src/lib/sound/snd_hw_sb.asm
+138417,XaEncodeClampJumpTable,,new,low,jump table for the clamp cases of the XA block encoder,src/lib/sound/snd_hw_sb.asm
+13847B,XaEncodeFilterFlat,,new,low,XA encoder case: filter with no prediction,src/lib/sound/snd_hw_sb.asm
+13848B,XaEncodeFilterLinear,,new,low,XA encoder case: filter with one coefficient,src/lib/sound/snd_hw_sb.asm
+13849B,XaEncodeFilterSteep,,new,low,XA encoder case: filter with coefficients 460 and -208,src/lib/sound/snd_hw_sb.asm
+1384AB,XaEncodeFilterSmooth,,new,low,"XA encoder case: filter with coefficients 392 and -220, then the loop that tries each filter on the block",src/lib/sound/snd_hw_sb.asm
+1386D1,XaDecodeFilterJumpTable,,new,medium,jump table for the filter cases of XaDecodeBlock,src/lib/sound/snd_hw_sb.asm
+1386E1,XaDecodeBlock,sub_1386E1,new,medium,decodes one XA (BRR) block: the header picks the filter and the shift,src/lib/sound/snd_hw_sb.asm
+138705,XaDecodeFilterFlat,,new,medium,XA decoder case: filter with no prediction,src/lib/sound/snd_hw_sb.asm
+138715,XaDecodeFilterLinear,,new,medium,XA decoder case: filter with one coefficient,src/lib/sound/snd_hw_sb.asm
+138725,XaDecodeFilterSteep,,new,medium,XA decoder case: filter with coefficients 460 and -208,src/lib/sound/snd_hw_sb.asm
+138735,XaDecodeFilterSmooth,,new,medium,XA decoder case: filter with coefficients 392 and -220,src/lib/sound/snd_hw_sb.asm
+138859,XaFilterCoefsJumpTable,,new,medium,jump table for the filter coefficient cases,src/lib/sound/snd_hw_sb.asm
+1388B1,XaReadSample,sub_1388B1,new,medium,"reads a 16-bit sample in either byte order, signed or unsigned",src/lib/sound/snd_hw_sb.asm
 138910,DrawCharMono,sub_138910,new,low,draws a character in one colour,src/lib/sound/snd_hw_sb.asm
 1389B0,DrawCharShadow,sub_1389B0,new,low,draws a character with a shadow,src/lib/sound/snd_hw_sb.asm
 138A50,DrawCharOutline,sub_138A50,new,low,draws a character with an outline,src/lib/sound/snd_hw_sb.asm
@@ -8723,12 +8735,12 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19A7E0,DmaCountPorts,byte_19A7E0,new,low,ISA DMA count register port of each channel (also the EOI table base),src/data/lib/sound/snd_gus_sdk_01_data_01.asm
 19A7E4,StrToLongLimits,dword_19A7E4,new,low,overflow limits used by the string to number conversion,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
 19A7E8,IrqAckLast,dword_19A7E8,new,low,last IRQ status read by the interrupt acknowledge,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
-19A878,FloatPow10Table,dword_19A878,new,low,powers of ten used to format floating-point numbers,src/data/lib/sound/snd_hw_sb_data_01.asm
-19BEB8,FloatPow10Exponents,dword_19BEB8,new,low,binary exponents of the powers of ten used to format numbers,src/data/lib/sound/snd_hw_sb_data_01.asm
-19BED8,FloatFormatDigits,dword_19BED8,new,low,digit count of the number being formatted,src/data/lib/sound/snd_hw_sb_data_01.asm
-19BEDC,FloatFormatExponent,dword_19BEDC,new,low,decimal exponent of the number being formatted,src/data/lib/sound/snd_hw_sb_data_01.asm
-19BEE0,FloatFormatMantissaLo,dword_19BEE0,new,low,low half of the mantissa being formatted,src/data/lib/sound/snd_hw_sb_data_01.asm
-19BEE4,FloatFormatMantissaHi,dword_19BEE4,new,low,high half of the mantissa being formatted,src/data/lib/sound/snd_hw_sb_data_01.asm
+19A878,AdpcmDeltaTable,dword_19A878,new,medium,ADPCM sample change for each step and code,src/data/lib/sound/snd_hw_sb_data_01.asm
+19BEB8,AdpcmIndexAdjust,dword_19BEB8,new,medium,ADPCM step index change for each code,src/data/lib/sound/snd_hw_sb_data_01.asm
+19BED8,AdpcmLeftSample,dword_19BED8,new,medium,"last decoded sample, first channel",src/data/lib/sound/snd_hw_sb_data_01.asm
+19BEDC,AdpcmRightSample,dword_19BEDC,new,medium,"last decoded sample, second channel",src/data/lib/sound/snd_hw_sb_data_01.asm
+19BEE0,AdpcmLeftIndex,dword_19BEE0,new,medium,"ADPCM step index, first channel",src/data/lib/sound/snd_hw_sb_data_01.asm
+19BEE4,AdpcmRightIndex,dword_19BEE4,new,medium,"ADPCM step index, second channel",src/data/lib/sound/snd_hw_sb_data_01.asm
 19BEE8,str_NoErrorInXACODECFunctionL,asc_19BEE8,new,high,"string ""No Error In XACODEC Function Library!""",src/data/lib/sound/snd_hw_sb_data_01.asm
 19BFD8,str_InvalidErrorCodeInXACODEC,asc_19BFD8,new,high,"string ""Invalid Error Code In XACODEC Function Library!""",src/data/lib/sound/snd_hw_sb_data_01.asm
 19C008,DebugLineStart,dword_19C008,new,low,start time of the current debug line,src/data/lib/sound/snd_hw_sb_data_01.asm
