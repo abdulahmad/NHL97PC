@@ -2239,7 +2239,7 @@ PlayMovieFrames:
         ret
 ;-----------------------------------------------------------------------------
 ; PlayMovie                                       7C3EC  97 PC, low confidence
-; Plays a movie file ("AUDSTRMHACK" audio, OpenVideoStream), from sub_4A4F4
+; Plays a movie file ("AUDSTRMHACK" audio, OpenVideoStream), from PlayScreenMovie
 ;-----------------------------------------------------------------------------
 PlayMovie:
         push esi

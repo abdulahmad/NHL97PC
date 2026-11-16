@@ -12177,7 +12177,7 @@ ComparePlayerDefence:
 ;-----------------------------------------------------------------------------
 ; BuildTradePlayerLists                           D0F07  97 PC, low confidence
 ; From the roster screen (SaveTrades): allocates and sorts "aiplayers",
-; "statplayers" and "statgoalies" (qsort with sub_D0D56-ComparePlayerDefence)
+; "statplayers" and "statgoalies" (qsort with CompareFirstDword-ComparePlayerDefence)
 ;-----------------------------------------------------------------------------
 BuildTradePlayerLists:
         push ebx

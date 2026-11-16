@@ -3247,7 +3247,7 @@ asspsclear:
 ;-----------------------------------------------------------------------------
 ; AssignControlSlots                              27F80  97 PC, low confidence
 ; From puckfaceoff: for each of the 8 control slots, the team's first free
-; skater becomes the controlled player (restorepl via sub_343F8)
+; skater becomes the controlled player (restorepl via SetSlotPlayer)
 ;-----------------------------------------------------------------------------
 AssignControlSlots:
         push ebx
@@ -9663,7 +9663,7 @@ pucknorm_body:
 ;-----------------------------------------------------------------------------
 ; pucknorm                           2D308  94G logic94.asm, medium confidence
 ; Slot $18; head identical to 93G pucknorm: bclr pfna; clr temp1(+26h);
-; temp2(+28h)=$78; then calls the body sub_4D6B4
+; temp2(+28h)=$78; then calls pucknorm_body
 ;-----------------------------------------------------------------------------
 pucknorm:
         push edx

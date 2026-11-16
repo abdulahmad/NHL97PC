@@ -3060,8 +3060,7 @@ jpt_4AE54_137:
         ret
 ;-----------------------------------------------------------------------------
 ; LoadDataFileHandle                           4AF9F  96 PC, medium confidence
-; LoadDataFile returning the loader's handle (sub_B2140), for the sound banks
-; (sub_C04C3)
+; LoadDataFile returning the loader's handle, for the sound banks
 ;-----------------------------------------------------------------------------
 LoadDataFileHandle:
         push ebx
@@ -3132,7 +3131,7 @@ LoadDataFileHandle:
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
 ; LoadDataFileLib                                 4B074  96 PC, low confidence
-; LoadDataFile through the other library loader (sub_B0494 -> sub_C4DE0, flag
+; LoadDataFile through the other library loader (flag
 ; 1)
 ;-----------------------------------------------------------------------------
 LoadDataFileLib:
@@ -3199,7 +3198,7 @@ LoadDataFile:
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
 ; LoadDataFileFlag0                            4B12D  96 PC, medium confidence
-; LoadDataFile through the same loader with flag 0 (sub_B20EC)
+; LoadDataFile through the same loader with flag 0
 ;-----------------------------------------------------------------------------
 LoadDataFileFlag0:
         push ebx
@@ -13573,7 +13572,7 @@ jpt_52484:
         dd OpenArenaArchive_7D
 ;-----------------------------------------------------------------------------
 ; OpenArenaArchive                             52494  97 PC, medium confidence
-; SetArtArchive "arena.viv", from the game graphics set-up (sub_4B5C4)
+; SetArtArchive "arena.viv", from the game graphics set-up (InitGameGraphics)
 ;-----------------------------------------------------------------------------
 OpenArenaArchive:
         push ebx

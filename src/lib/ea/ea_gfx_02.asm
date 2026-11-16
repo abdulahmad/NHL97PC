@@ -214,7 +214,7 @@ SetDrawTarget:
 ;-----------------------------------------------------------------------------
 ; ClearScreen                                  FD110  95 PC, medium confidence
 ; Graphics library: fills the whole current draw target (ClipTopRow..684)
-; with a colour (sub_FDD1C)
+; with a colour (FillRect)
 ;-----------------------------------------------------------------------------
 ClearScreen:
         push ebx
