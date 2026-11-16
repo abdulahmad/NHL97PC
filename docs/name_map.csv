@@ -286,6 +286,11 @@ E5A98,IpxInit,sub_E5A98,new,low,"looks for the IPX driver and allocates the ""IP
 E5C78,IpxCloseSocket,,new,low,closes the open IPX socket (sub_11D508) and frees its buffer (dword_16E128); the earlier 95 PC FreeRinkGfx match was wrong (only a mnemonic similarity),src/front/front_DA66D.asm
 E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 over 34 instructions,
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
+E9429,BuildAllStarTeams,sub_E9429,new,low,"from the season code: sets up the two All-Star teams (InitAllStarTeams, AllocAllStarRosters, PickAllStarPlayers)",src/front/front_E9429.asm
+E947A,AllStarScreen,sub_E947A,new,low,"from RunSeasonMenus: the All-Star screen (conference pages WC00 / EC00, player lists, BAK0 / BAK1)",src/front/front_E9429.asm
+ECA57,PickAllStarPlayers,sub_ECA57,new,low,"allocates ""all star player info"" / ""all star goalie info"", sorts the season's players and goalies (qsort) and picks the All-Stars",src/front/front_E9429.asm
+ECF20,InitAllStarTeams,sub_ECF20,new,low,"names the two teams ""West All Stars"" / ""East All Stars"" and clears them",src/front/front_E9429.asm
+ED01F,AllocAllStarRosters,sub_ED01F,new,low,"allocates the ""all star rosters"", ""all star airecs"", ""all star raw plrs"" and ""all star statrecs"" blocks and fills them from the season database",src/front/front_E9429.asm
 F0339,ControlSetupScreen,sub_F0339,96PC,low,"96 PC ControlSetupScreen: (mode) the control set-up screen (KMB%d keyboard / mouse buttons, TB00-TB03, GLW%d)",src/front/front_EE69C.asm
 F5601,FillBox,sub_F5601,96PC,medium,NHL96PC 64103 (similar 0.92): mnemonic similarity 0.92 over 78 instructions,src/front/front_F20A1.asm
 F9B40,_searchenv_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

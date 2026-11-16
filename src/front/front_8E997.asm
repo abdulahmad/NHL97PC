@@ -30,7 +30,7 @@ extern sub_A3048, sub_A3116, sub_C6064, RosterScreen, sub_D49BE, sub_DA7D6, sub_
 extern sub_DC653, sub_DCA6C, sub_DCBB0, sub_DCFA4, sub_DD970, sub_DDC4A, sub_DE3CF, sub_DE5A3
 extern sub_E036F, sub_E0415, sub_E0691, sub_E069E, sub_E076B, sub_E0841, sub_E0B75, sub_E0D0F
 extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E13FE, sub_E1563, sub_E167A, sub_E1C19
-extern AllocClearBlock, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, sub_E947A, sub_FAA64, sub_FAF34
+extern AllocClearBlock, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, AllStarScreen, sub_FAA64, sub_FAF34
 extern sub_FC510, sub_FCD90, sub_FCEEC, sub_FCF84, sub_FCFCC, sub_FD08C, sub_FD0F8, unk_165779
 extern unk_1657CD, unk_1657CF, unk_16D7F4, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF12, unk_1ACF4E
 extern unk_1AD22E, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C85DC, unk_1C85E8, unk_1C85F4, unk_1C8600
@@ -1720,7 +1720,7 @@ RunSeasonMenus:
         jne short .7
         jmp short .4
 .13:
-        call sub_E947A
+        call AllStarScreen
         jmp short .6
 .14:
         cmp edx, byte 0Eh

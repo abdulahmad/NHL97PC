@@ -1249,8 +1249,8 @@
 ;  E8923  sub_E8923                                front/front_E7D6D.asm                        1
 ;  E9370  randomd0                                 front/front_E7D6D.asm                        8
 ;  E93D0  vtoa                                     front/front_E7D6D.asm                        3
-;  E9429  sub_E9429                                front/front_E9429.asm                        1
-;  E947A  sub_E947A                                front/front_E9429.asm                        1
+;  E9429  BuildAllStarTeams                        front/front_E9429.asm                        1
+;  E947A  AllStarScreen                            front/front_E9429.asm                        1
 ;  ED6C8  sub_ED6C8                                front/front_E9429.asm                        1
 ;  EDDAC  sub_EDDAC                                front/front_E9429.asm                        1
 ;  EDDEF  unk_EDDEF                                front/front_E9429.asm                        1

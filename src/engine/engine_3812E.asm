@@ -58,7 +58,7 @@ extern sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, DrawTex
 extern sub_7F5A4, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMenuItems, sub_8BFAC
 extern sub_8DF1F, GetLangText, sub_99DAC, sub_AC369, sub_D0098, sub_DB75E, sub_DB763, sub_DE25F
 extern sub_DE3CF, sub_DE740, sub_E036F, sub_E0415, FileExists, FileCreate, FileSeek, FileReadRecord
-extern FileWriteRecord, FileClose, sub_E341C, sub_E9429, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
+extern FileWriteRecord, FileClose, sub_E341C, BuildAllStarTeams, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
 extern sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB71C, addtimer, sub_FC008, sub_FC290
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8
 extern sub_FD110, sub_FDC68, sub_FE180, sub_FFA44, sub_FFA9C, tickcount, unk_160A56, unk_160B68
@@ -2027,7 +2027,7 @@ sub_39882:
         mov ax, word [byte edx+eax+04h]
         cmp ax, word [word_19ED74]
         jbe short .5
-        call sub_E9429
+        call BuildAllStarTeams
         mov eax, dword [dword_1AC944]
         and dword [byte eax+01h], 0FFF03FFFh
         or dword [byte eax+01h], 68000h

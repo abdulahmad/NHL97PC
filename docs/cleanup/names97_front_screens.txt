@@ -36,3 +36,8 @@ sub_87B57 ModemSettingsScreen {source=96PC,confidence=low} 96 PC ModemSettingsSc
 sub_8907B NetworkGamesScreen {confidence=low} the network game list screen (TPB0-TPB5, SERVLIST)
 sub_B5891 PlayerStatsScreen {source=96PC,confidence=low} 96 PC PlayerStatsScreen: the player stats screen ("pl menu" / "pl reg", sortable "pl sort" columns, cursor, team filter), from RunStatsMenu
 sub_B8FDF PlayerRatingsScreen {source=96PC,confidence=low} 96 PC PlayerRatingsScreen: the player ratings screen, from RunStatsMenu and RosterScreen (as in 96 PC), same list tables as PlayerStatsScreen
+sub_E9429 BuildAllStarTeams {confidence=low} from the season code: sets up the two All-Star teams (InitAllStarTeams, AllocAllStarRosters, PickAllStarPlayers)
+sub_ECF20 InitAllStarTeams {confidence=low} names the two teams "West All Stars" / "East All Stars" and clears them
+sub_ED01F AllocAllStarRosters {confidence=low} allocates the "all star rosters", "all star airecs", "all star raw plrs" and "all star statrecs" blocks and fills them from the season database
+sub_ECA57 PickAllStarPlayers {confidence=low} allocates "all star player info" / "all star goalie info", sorts the season's players and goalies (qsort) and picks the All-Stars
+sub_E947A AllStarScreen {confidence=low} from RunSeasonMenus: the All-Star screen (conference pages WC00 / EC00, player lists, BAK0 / BAK1)

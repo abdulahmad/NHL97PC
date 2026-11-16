@@ -50,22 +50,24 @@ extern unk_1CEDF0, unk_1CEDFF, unk_1CEE0E, unk_1CEE1D, unk_1CEE2C, unk_1CEE3B, u
 extern unk_1CEE68, unk_1CEE77, unk_1CEE86, unk_1CEE95, unk_1CEEA4, unk_1CEEB3, unk_1CEEC2, unk_1CEED1
 extern unk_1CEEE0, unk_1CEEEF, unk_1CEEFE, unk_1CEF0D, unk_1CEF1C, unk_1CEF2B, unk_1CEF3A, unk_1CEF49
 extern unk_1CEF58, unk_1CEF67, word_16E2EA, word_1C1344, word_1C1348, word_1C13C2, word_1C34E5, word_1C55A2
-global sub_E9429_4B, sub_E9CB5_1E0, sub_EA7CF_68E, sub_EA7CF_6C5, sub_EBD8C_31, sub_ECA57_4C2, sub_ECA57_4C3, sub_E9429
-global sub_E947A, sub_E9CB5, sub_E9E9B, sub_EA52D, sub_EA5B1, sub_EA64E, sub_EA6EB, sub_EA7CF
+global sub_E9429_4B, sub_E9CB5_1E0, sub_EA7CF_68E, sub_EA7CF_6C5, sub_EBD8C_31, sub_ECA57_4C2, sub_ECA57_4C3, BuildAllStarTeams
+global AllStarScreen, sub_E9CB5, sub_E9E9B, sub_EA52D, sub_EA5B1, sub_EA64E, sub_EA6EB, sub_EA7CF
 global sub_EAE9A, sub_EAF08, sub_EB175, sub_EB840, sub_EB8DA, sub_EBA9B, sub_EBB68, sub_EBC19
 global sub_EBC45, sub_EBC70, sub_EBCFA, sub_EBD54, sub_EBD8C, sub_EBDC3, sub_EBEDA, sub_EBFCE
-global sub_EC19E, sub_EC34D, sub_EC4DB, sub_EC588, sub_EC60D, sub_EC671, sub_EC82C, sub_ECA57
-global sub_ECF20, sub_ED01F, sub_ED3C1, sub_ED6C8, sub_ED8E8, sub_EDDAC, sub_EE0F7, unk_EDDEF
+global sub_EC19E, sub_EC34D, sub_EC4DB, sub_EC588, sub_EC60D, sub_EC671, sub_EC82C, PickAllStarPlayers
+global InitAllStarTeams, AllocAllStarRosters, sub_ED3C1, sub_ED6C8, sub_ED8E8, sub_EDDAC, sub_EE0F7, unk_EDDEF
 global unk_EDE3F, unk_EDE53, unk_EE053, unk_EE093, unk_EE0E3
 ;-----------------------------------------------------------------------------
-; sub_E9429                                                       E9429  97 PC
+; BuildAllStarTeams                               E9429  97 PC, low confidence
+; From the season code: sets up the two All-Star teams (InitAllStarTeams,
+; AllocAllStarRosters, PickAllStarPlayers)
 ;-----------------------------------------------------------------------------
-sub_E9429:
+BuildAllStarTeams:
         push ecx
         push edx
-        call sub_ECF20
-        call sub_ED01F
-        call sub_ECA57
+        call InitAllStarTeams
+        call AllocAllStarRosters
+        call PickAllStarPlayers
         push dword [dword_1CE1E8]
         call sub_FAF34
         add esp, byte 4
@@ -84,9 +86,11 @@ sub_E9429_4B:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E947A                                                       E947A  97 PC
+; AllStarScreen                                   E947A  97 PC, low confidence
+; From RunSeasonMenus: the All-Star screen (conference pages WC00 / EC00,
+; player lists, BAK0 / BAK1)
 ;-----------------------------------------------------------------------------
-sub_E947A:
+AllStarScreen:
         push ebx
         push ecx
         push edx
@@ -128,7 +132,7 @@ sub_E947A:
         lea edx, [dword ebp-0F4Eh]
         call sub_419B0
         call sub_419B8
-        call sub_ED01F
+        call AllocAllStarRosters
         lea eax, [dword ebp-01FA6h]
         call sub_E9E9B
         xor eax, eax
@@ -183,7 +187,7 @@ sub_E947A:
         mov esi, eax
         test eax, eax
         je short .7
-        call sub_ECA57
+        call PickAllStarPlayers
         jmp short .7
 .6:
         call sub_9D2D0
@@ -206,7 +210,7 @@ sub_E947A:
         mov esi, eax
         test eax, eax
         je short .10
-        call sub_ECA57
+        call PickAllStarPlayers
         jmp short .10
 .9:
         call sub_9D2D0
@@ -346,7 +350,7 @@ sub_E947A:
         mov edx, 0FFFFFFFEh
         mov dword [nosplit eax*4+dword_1CE104], 0FFFFFFFFh
         mov dword [nosplit eax*4+dword_1CE0F4], esi
-        call sub_ECA57
+        call PickAllStarPlayers
         mov eax, 1
         call sub_EA7CF
         jmp short .18
@@ -4067,9 +4071,11 @@ sub_EC82C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_ECA57                                                       ECA57  97 PC
+; PickAllStarPlayers                              ECA57  97 PC, low confidence
+; Allocates "all star player info" / "all star goalie info", sorts the
+; season's players and goalies (qsort) and picks the All-Stars
 ;-----------------------------------------------------------------------------
-sub_ECA57:
+PickAllStarPlayers:
         push ebx
         push ecx
         push edx
@@ -4427,9 +4433,10 @@ sub_ECA57_4C3:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_ECF20                                                       ECF20  97 PC
+; InitAllStarTeams                                ECF20  97 PC, low confidence
+; Names the two teams "West All Stars" / "East All Stars" and clears them
 ;-----------------------------------------------------------------------------
-sub_ECF20:
+InitAllStarTeams:
         push ebx
         push edx
         push esi
@@ -4492,9 +4499,11 @@ sub_ECF20:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_ED01F                                                       ED01F  97 PC
+; AllocAllStarRosters                             ED01F  97 PC, low confidence
+; Allocates the "all star rosters", "all star airecs", "all star raw plrs"
+; and "all star statrecs" blocks and fills them from the season database
 ;-----------------------------------------------------------------------------
-sub_ED01F:
+AllocAllStarRosters:
         push ebx
         push ecx
         push edx
