@@ -160,6 +160,7 @@ address,name,auto_name,source,confidence,evidence,file
 5BDF4,InitReplayBuffer,sub_5BDF4,new,medium,"allocates the ""REPLAY"" buffer when free memory exceeds the request by 200000 bytes, at most 0EA60h bytes",src/front/front_57324.asm
 5BEDC,SetReplayRecording,sub_5BEDC,new,low,"(on/off): starts or stops replay recording (dword_1B8FA0), allocating the ""RP_GAME"" block on start",src/front/front_57324.asm
 5CCE0,AllocSpriteBuffers,sub_5CCE0,new,low,"allocates the ""RSPRITE"" block (0C240h): 12 sprite buffers of 1010h bytes",src/front/front_57324.asm
+5ED80,SetSPA,sub_5ED80,94G,medium,"94G SetSPA: (player, animation 0-17Ch, flags, speed) sets the player's animation; restarts it unless it is already playing",src/front/front_57324.asm
 6590A,CamShot23D,sub_6590A,96PC,medium,NHL96PC 603FF (similar 0.81): mnemonic similarity 0.81 over 16 instructions,src/front/front_57324.asm
 65CED,InitAnimPoints,sub_65CED,new,low,"looks up the animation attachment points (puck, stickheel, origin, chin, rhand, lshldr, rshldr) and loads ANIMS.VIV",src/front/front_57324.asm
 77630,AllocAnimStates,sub_77630,new,low,"(count): allocates the ""ANIMSTAT"" block (count x 358h) and clears it",src/front/front_57324.asm

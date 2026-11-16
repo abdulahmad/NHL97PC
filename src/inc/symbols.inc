@@ -719,7 +719,7 @@
 ;  5DD74  sub_5DD74                                front/front_57324.asm                        1
 ;  5DE74  sub_5DE74                                front/front_57324.asm                        1
 ;  5DF50  sub_5DF50                                front/front_57324.asm                        1
-;  5ED80  sub_5ED80                                front/front_57324.asm                        3
+;  5ED80  SetSPA                                   front/front_57324.asm                        3
 ;  5EEEC  sub_5EEEC                                front/front_57324.asm                        1
 ;  60D6C  sub_60D6C                                front/front_57324.asm                        4
 ;  60F48  sub_60F48                                front/front_57324.asm                        4

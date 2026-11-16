@@ -35,7 +35,7 @@ extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41C
 extern PlaySfxOr, PlaySfxVolume, sub_424CC, sub_45BEC, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
 extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, sub_57324, sub_576EC, sub_57738, LoadCupArt
-extern sub_5AC28, sub_5ED80, sub_60D6C, sub_60F48, sub_64EBC, sub_650A4, sub_650E8, sub_6619C
+extern sub_5AC28, SetSPA, sub_60D6C, sub_60F48, sub_64EBC, sub_650A4, sub_650E8, sub_6619C
 extern sub_66524, sub_6947C, sub_69654, sub_69A44, sub_69B08, sub_69B78, sub_6A0BC, sub_6A244
 extern sub_72E58, sub_72E94, sub_72EF4, sub_72F34, sub_72FE8, sub_73028, sub_75B94, sub_78044
 extern FadePalette, FadeOut, sub_FAA64, sub_FAF34, sub_FBE5D, unk_19E060, vtoa, word_168A4C
@@ -2166,7 +2166,7 @@ sub_27210:
         mov byte [dword ecx+0BFh], bh
         xor ebx, ebx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
         call sub_56CE4
@@ -5608,7 +5608,7 @@ sub_29F30:
         mov eax, ecx
         mov edx, dword [nosplit edx*4+dword_168A84]
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .3:
         pop edx
         pop ecx
@@ -5643,7 +5643,7 @@ sub_2A000:
         mov byte [dword esi+0BFh], dh
         mov edx, 17Bh
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .1:
         test byte [dword esi+0BFh], 20h
         jne near .5
@@ -5665,7 +5665,7 @@ sub_2A000:
         mov byte [dword esi+0BFh], bh
         xor ebx, ebx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .2:
         mov eax, dword [dword esi+0FAh]
         cmp dword [byte eax+018h], 43700000h
@@ -5770,7 +5770,7 @@ sub_2A1C8:
         mov byte [dword esi+0BFh], bl
         xor ebx, ebx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .1:
         mov eax, 14h
         call randomd0
@@ -5793,7 +5793,7 @@ sub_2A1C8:
         mov byte [dword esi+0BFh], bh
         xor ebx, ebx
         push dword 3F800000h
-        call sub_5ED80
+        call SetSPA
 .4:
         xor eax, eax
 .5:
