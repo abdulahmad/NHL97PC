@@ -6,7 +6,7 @@ extern _dos_getdate_, _dos_gettime_, str_02d3s02d, str_2d02d02d, byte_16E638, by
 extern byte_171C90, dword_16E628, dword_16E630, dword_16E634, dword_16E63C, dword_16E870, dword_1CF298, dword_1CF530
 extern dword_1CF534, dword_1CF538, dword_1CF53C, dword_1CF540, dword_1CF544, dword_1CF548, dword_1CF54C, dword_1CF598
 extern dword_1CF59C, dword_1CF5A0, dword_1CF5A4, dword_1CF5A8, dword_1CF5AC, dword_1CF5C4, dword_1CF5C8, dword_1DA4D0
-extern off_16E858, removewindow, sprintf_, bcopy, sub_102698, sub_122290, sub_1222BC, sub_12233C
+extern off_16E858, removewindow, sprintf_, bcopy, ConvertArtPalette16, sub_122290, sub_1222BC, sub_12233C
 extern FreeMemBlock, ZeroMem, PrepareTextDraw, vsprintf_
 global jpt_FC910, sub_FC924_BA, sub_FC924_CB, sub_FC924_11F, sub_FC924_149, sub_FC924_153, FreeBitmap_30, sub_FCEA0_1C
 global sub_FC88C, sub_FC924, sub_FCACC, sub_FCC40, FreeBitmap, sub_FCE34, sub_FCE48, sub_FCE60
@@ -670,7 +670,7 @@ sub_FCEEC:
         jne short .3
         mov edx, esp
         mov eax, esi
-        call sub_102698
+        call ConvertArtPalette16
         mov dword [dword_1CF298], eax
         mov dword [dword_16E870], sub_FCEA0_1C
 .3:

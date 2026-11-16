@@ -11,9 +11,9 @@ extern dword_172244, dword_172248, dword_17224C, dword_172254, dword_172258, dwo
 extern dword_1CF528, dword_1CF52C, dword_1CF548, dword_1DA3B4, dword_1DA3CC, dword_1DA3E0, dword_1DA3E4, dword_1DA3E8
 extern dword_1DA3EC, dword_1DA3F0, dword_1DA3F4, dword_1DA3F8, dword_1DA3FC, dword_1DA400, dword_1DA404, dword_1DA408
 extern dword_1DA40C, dword_1DA410, dword_1DA414, dword_1DA4D0, fgetc_, int386_, off_172140, off_17216C
-extern off_1721B8, putchar, sprintf_, strncmp_, strncpy_, bcopy, sub_100B88, sub_100BC8
-extern sub_100BCC, sub_100C08, sub_100C50, sub_100D8C, sub_100DC4, sub_100DCC, sub_100FCC, sub_101154
-extern sub_101220, sub_102B78, sub_11313C, SerialConfigure, SerialOpen, SerialIsOpen, SerialSetBaud, SerialProgramUart
+extern off_1721B8, putchar, sprintf_, strncmp_, strncpy_, bcopy, QueueInit, QueueNoOp
+extern QueuePeek, QueueTakeTail, QueueTakeHead, QueueFreeAll, QueueCount, QueueFind, QueueAppend, QueuePostBuffer
+extern AddExitHandler, ConvertArtSame, sub_11313C, SerialConfigure, SerialOpen, SerialIsOpen, SerialSetBaud, SerialProgramUart
 extern SerialCarrier, SerialWriteIfRoom, SerialWrite, SerialRxCount, SerialTxFree, SerialFlushTx, SerialRead, SerialFlushRx
 extern sub_11FAD6, sub_120763, sub_123FA8, sub_12F270, sub_13130C, sub_1313FD, OpenPacketLink, ModemReset
 extern ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemSpeakerOff, sub_F99C0, sub_F9A28, sub_F9A88
@@ -928,7 +928,7 @@ FreeArtArchive:
         mov al, byte [byte_16E689]
         push eax
         push ebx
-        call sub_102B78
+        call ConvertArtSame
         add esp, byte 8
         mov ebp, eax
         mov ebx, eax
@@ -1014,7 +1014,7 @@ FreeArtArchive:
         mov al, byte [byte_16E689]
         push eax
         push edi
-        call sub_102B78
+        call ConvertArtSame
         add esp, byte 8
         mov ebp, eax
         mov edi, eax
@@ -3371,7 +3371,7 @@ NetPollMessages_168:
         db 068h                                 ; insn: push 10D118h
         dd NetPollMessages
         push unk_1DA3C4
-        call sub_101154
+        call QueuePostBuffer
         add esp, byte 0Ch
         pop edx
         pop ecx
@@ -3382,7 +3382,7 @@ NetPollMessages_184:
         push edx
 .9:
         push unk_1DA3C4
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         test eax, eax
         je short .10
@@ -3393,7 +3393,7 @@ NetPollMessages_184:
         jmp short .9
 .10:
         push unk_1DA3C4
-        call sub_100BC8
+        call QueueNoOp
         add esp, byte 4
         pop edx
         pop ecx
@@ -3483,11 +3483,11 @@ NetOpenSession:
         push ebp
         push ebp
         push unk_1DA3C4
-        call sub_100B88
+        call QueueInit
         add esp, byte 0Ch
         db 068h                                 ; insn: push 10D29Ch
         dd NetPollMessages_184
-        call sub_101220
+        call AddExitHandler
         mov ebx, dword [dword_1721A0]
         add esp, byte 4
         test ebx, ebx
@@ -3504,7 +3504,7 @@ NetOpenSession:
 .2:
         push edi
         push unk_1DA3C4
-        call sub_100DCC
+        call QueueFind
         add esp, byte 8
         cmp eax, byte 0FFFFFFFFh
         je short .3
@@ -3595,7 +3595,7 @@ NetOpenSession:
         lea eax, [byte edi+070h]
         call strncpy_
         push unk_1DA3C4
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         test eax, eax
         jne short .9
@@ -3606,7 +3606,7 @@ NetOpenSession:
 .9:
         push edi
         push unk_1DA3C4
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
 .10:
         mov eax, ebp
@@ -3628,7 +3628,7 @@ NetCloseSession:
         push ebx
         push unk_1DA3C4
         xor esi, esi
-        call sub_100DCC
+        call QueueFind
         add esp, byte 8
         cmp eax, byte 0FFFFFFFFh
         je near .7
@@ -3670,10 +3670,10 @@ NetCloseSession:
         mov esi, eax
         push ebx
         push unk_1DA3C4
-        call sub_100D8C
+        call QueueFreeAll
         add esp, byte 8
         push unk_1DA3C4
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         test eax, eax
         jne short .7
@@ -4109,7 +4109,7 @@ NetDisconnectPeer:
         mov esi, dword [byte esp+01Ch]
         push esi
         push unk_1DA3C4
-        call sub_100DCC
+        call QueueFind
         add esp, byte 8
         cmp eax, byte 0FFFFFFFFh
         je near .9
@@ -5181,7 +5181,7 @@ IpxSetupPacket:
         mov eax, dword [dword_17225C]
         add eax, 8Ch
         push eax
-        call sub_100C50
+        call QueueTakeHead
         mov ebx, eax
         add esp, byte 4
         test eax, eax
@@ -5230,7 +5230,7 @@ IpxSetupPacket:
         mov word [byte ebx+030h], 0
         push eax
         mov word [byte ebx+02Eh], 3
-        call sub_100C08
+        call QueueTakeTail
         mov eax, 1
         add esp, byte 8
 .1:
@@ -5331,13 +5331,13 @@ IpxSendPacket:
         mov al, byte [byte esi+07h]
         push ebp
         mov dword [byte esp+014h], eax
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         cmp eax, dword [byte esp+010h]
         jae near .2
         mov ecx, dword [byte esp+04h]
         push ecx
-        call sub_100C50
+        call QueueTakeHead
         add esp, byte 4
         mov dword [byte esp+0Ch], eax
         test eax, eax
@@ -5376,7 +5376,7 @@ IpxSendPacket:
         push ebp
         inc edi
         mov word [byte ebx-02h], dx
-        call sub_100C08
+        call QueueTakeTail
         add esp, byte 8
         jmp near .1
 .2:
@@ -5385,7 +5385,7 @@ IpxSendPacket:
         lea ebp, [byte esi+01Ch]
 .3:
         push ebp
-        call sub_100C50
+        call QueueTakeHead
         add esp, byte 4
         mov edx, eax
         mov dword [byte esp+0Ch], eax
@@ -5434,7 +5434,7 @@ IpxSendPacket:
         push eax
         inc edi
         add ebx, byte 6
-        call sub_100C08
+        call QueueTakeTail
         add esp, byte 8
         jmp near .3
 .4:
@@ -5457,7 +5457,7 @@ IpxSendPacket:
         dd IpxResolveTarget_8C
         mov edx, dword [byte esp+020h]
         push edx
-        call sub_100FCC
+        call QueueAppend
         add esp, byte 0Ch
         mov edx, eax
         mov dword [byte esp+0Ch], eax
@@ -5523,7 +5523,7 @@ IpxSendPacket:
         mov ebx, dword [byte esp+0Ch]
         push ebx
         push ebp
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
         jmp near .5
 .9:
@@ -5531,13 +5531,13 @@ IpxSendPacket:
         push ebx
         mov ecx, dword [byte esp+0Ch]
         push ecx
-        call sub_100C08
+        call QueueTakeTail
         add esp, byte 8
         jmp near .5
 .10:
         push eax
         push ebp
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
         jmp near .5
 .11:
@@ -5555,7 +5555,7 @@ IpxSendPacket:
         db 068h                                 ; insn: push 10E674h
         dd IpxResolveTarget_8C
         push esi
-        call sub_100FCC
+        call QueueAppend
         add esp, byte 0Ch
         mov dword [byte esp+0Ch], eax
         test eax, eax
@@ -5570,14 +5570,14 @@ IpxSendPacket:
         je short .13
         push eax
         push ebx
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
         jmp short .12
 .13:
         mov ecx, dword [byte esp+0Ch]
         push ecx
         push edi
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
         jmp short .12
 .14:
@@ -5640,7 +5640,7 @@ IpxPostListen:
         mov eax, dword [dword_17225C]
         add eax, byte 54h
         push eax
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         test eax, eax
         jbe near .7
@@ -5649,7 +5649,7 @@ IpxPostListen:
         mov eax, dword [dword_17225C]
         add eax, byte 54h
         push eax
-        call sub_100C50
+        call QueueTakeHead
         add esp, byte 4
         mov esi, eax
         test eax, eax
@@ -5693,7 +5693,7 @@ IpxPostListen:
         push esi
         add eax, 8Ch
         push eax
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
         jmp near .2
 .7:
@@ -5711,7 +5711,7 @@ IpxPostListen:
         db 068h                                 ; insn: push 10E688h
         dd IpxSendPacket
         push unk_1DA448
-        call sub_101154
+        call QueuePostBuffer
         add esp, byte 0Ch
         xor eax, eax
         add esp, byte 0Ch
@@ -5826,7 +5826,7 @@ IpxHookCheck:
         push byte 0
         push byte 0
         push unk_1DA448
-        call sub_100B88
+        call QueueInit
         mov eax, dword [dword_17224C]
         add eax, 1EFh
         sar eax, 4
@@ -5976,19 +5976,19 @@ IpxRestoreVector:
         mov ebx, unk_1DA448
 .1:
         push ebx
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         test eax, eax
         je short .2
         push ebx
-        call sub_100C50
+        call QueueTakeHead
         add esp, byte 4
         call IpxShutdown
         jmp short .1
 .2:
         push unk_1DA448
         lea ebx, [byte esp+04h]
-        call sub_100BC8
+        call QueueNoOp
         mov al, byte [dword_172248]
         add esp, byte 4
         mov edx, 201h
@@ -6094,25 +6094,25 @@ IpxSetupLayer:
         mov byte [byte ebx+0Bh], al
         push ebp
         mov byte [byte esi+07h], 20h
-        call sub_100B88
+        call QueueInit
         add esp, byte 0Ch
         push byte 0
         push byte 0
         lea eax, [byte esi+01Ch]
         push eax
-        call sub_100B88
+        call QueueInit
         add esp, byte 0Ch
         push byte 0
         push byte 0
         lea eax, [byte esi+038h]
         push eax
-        call sub_100B88
+        call QueueInit
         add esp, byte 0Ch
         push byte 0
         push byte 0
         lea eax, [byte esi+070h]
         push eax
-        call sub_100B88
+        call QueueInit
         add esp, byte 0Ch
         push byte 0
         lea eax, [byte esi+054h]
@@ -6120,19 +6120,19 @@ IpxSetupLayer:
         lea ebx, [dword esi+0A8h]
         push eax
         mov edi, ebx
-        call sub_100B88
+        call QueueInit
         add ebx, 8580h
         add esp, byte 0Ch
 .6:
         push edi
         push ebp
-        call sub_100BCC
+        call QueuePeek
         add edi, 216h
         add esp, byte 8
         cmp edi, ebx
         jne short .6
         push unk_1DA448
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         test eax, eax
         jne short .7
@@ -6145,7 +6145,7 @@ IpxSetupLayer:
 .7:
         push esi
         push unk_1DA448
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
         cmp dword [esp], byte 0
         je short .11
@@ -6164,7 +6164,7 @@ IpxSetupLayer:
         xor ebx, ebx
 .9:
         push ebp
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         test eax, eax
         jne short .10
@@ -6189,14 +6189,14 @@ IpxSetupLayer:
         mov dword [byte esp+04h], eax
 .12:
         push ebp
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         test eax, eax
         je short .8
 .13:
         lea edi, [byte esi+054h]
         push edi
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         test eax, eax
         jne short .14
@@ -6215,13 +6215,13 @@ IpxSetupLayer:
         lea ebp, [dword esi+08Ch]
 .15:
         push edi
-        call sub_100C50
+        call QueueTakeHead
         add esp, byte 4
         test eax, eax
         je short .16
         push eax
         push ebp
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
         jmp short .15
 .16:
@@ -6250,10 +6250,10 @@ IpxShutdown:
         call IpxCloseSocketCall
         push ebx
         push unk_1DA448
-        call sub_100D8C
+        call QueueFreeAll
         add esp, byte 8
         push unk_1DA448
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         test eax, eax
         jne short .1
@@ -6264,23 +6264,23 @@ IpxShutdown:
 .1:
         lea eax, [dword ebx+08Ch]
         push eax
-        call sub_100BC8
+        call QueueNoOp
         add esp, byte 4
         lea eax, [byte ebx+01Ch]
         push eax
-        call sub_100BC8
+        call QueueNoOp
         add esp, byte 4
         lea eax, [byte ebx+038h]
         push eax
-        call sub_100BC8
+        call QueueNoOp
         add esp, byte 4
         lea eax, [byte ebx+070h]
         push eax
-        call sub_100BC8
+        call QueueNoOp
         add esp, byte 4
         lea eax, [byte ebx+054h]
         push eax
-        call sub_100BC8
+        call QueueNoOp
         mov edx, dword [dword_172258]
         add esp, byte 4
         test edx, edx
@@ -6426,7 +6426,7 @@ IpxBuildHeader:
         mov ebp, edx
         add eax, 8Ch
         push eax
-        call sub_100C50
+        call QueueTakeHead
         mov ebx, eax
         add esp, byte 4
         test eax, eax
@@ -6488,7 +6488,7 @@ IpxBuildHeader:
         push eax
         mov word [byte ebx+02Eh], 3
         mov ebx, 30h
-        call sub_100C08
+        call QueueTakeTail
         add esp, byte 8
         mov eax, unk_1DA418
         mov edx, ebp
@@ -6597,7 +6597,7 @@ IpxLockSend:
         push edx
         add eax, 8Ch
         push eax
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         pop edx
         pop ecx
@@ -6612,7 +6612,7 @@ IpxLockListen:
         push edx
         add eax, byte 54h
         push eax
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         pop edx
         pop ecx
@@ -6633,7 +6633,7 @@ IpxQueueSend:
         mov dword [esp], ecx
         add eax, 8Ch
         push eax
-        call sub_100C50
+        call QueueTakeHead
         add esp, byte 4
         mov edx, dword [byte esp+014h]
         mov ebx, eax
@@ -6726,7 +6726,7 @@ IpxQueueSend:
         mov word [byte ebx+030h], 3
         push ebp
         mov word [byte ebx+02Eh], 3
-        call sub_100C08
+        call QueueTakeTail
         mov eax, 1
         add esp, byte 8
         add esp, byte 4
@@ -6773,7 +6773,7 @@ IpxReceive:
         je near .9
         mov ecx, dword [byte esp+02Ch]
         push ecx
-        call sub_100C50
+        call QueueTakeHead
         mov esi, eax
         add esp, byte 4
         mov ebp, eax
@@ -6830,7 +6830,7 @@ IpxReceive:
         push ebp
         mov edx, dword [byte esp+030h]
         push edx
-        call sub_100C08
+        call QueueTakeTail
         jmp short .8
 .3:
         mov edi, dword [byte esp+028h]
@@ -6870,7 +6870,7 @@ IpxReceive:
         push ebp
         mov esi, dword [byte esp+034h]
         push esi
-        call sub_100BCC
+        call QueuePeek
 .8:
         add esp, byte 8
         test edi, edi
@@ -6887,7 +6887,7 @@ IpxReceive:
         mov al, byte [byte ebx+07h]
         push esi
         mov ebx, eax
-        call sub_100DC4
+        call QueueCount
         sar ebx, 1
         add esp, byte 4
         cmp eax, ebx
@@ -6896,13 +6896,13 @@ IpxReceive:
         add ebx, 8Ch
 .10:
         push esi
-        call sub_100C50
+        call QueueTakeHead
         add esp, byte 4
         test eax, eax
         je short .11
         push eax
         push ebx
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
         jmp short .10
 .11:
@@ -6938,7 +6938,7 @@ IpxPeek:
 .1:
         mov esi, dword [byte esp+08h]
         push esi
-        call sub_100C50
+        call QueueTakeHead
         mov edx, eax
         add esp, byte 4
         mov esi, eax
@@ -6972,7 +6972,7 @@ IpxPeek:
         push esi
         mov esi, dword [byte esp+0Ch]
         push esi
-        call sub_100C08
+        call QueueTakeTail
         jmp short .6
 .4:
         test esi, esi
@@ -6981,7 +6981,7 @@ IpxPeek:
         push esi
         mov eax, dword [byte esp+010h]
         push eax
-        call sub_100BCC
+        call QueuePeek
 .6:
         add esp, byte 8
 .7:

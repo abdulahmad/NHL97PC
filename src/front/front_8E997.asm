@@ -19,7 +19,7 @@ extern dword_1AD22A, dword_1AD244, dword_1C1334, dword_1C5DE0, dword_1C8334, dwo
 extern dword_1C85D0, dword_1C8618, dword_1C8680, dword_1C86E8, dword_1C86EC, dword_1C86F0, dword_1C86F4, dword_1C86F8
 extern dword_1C86FC, dword_1C8A8C, dword_1C8A90, dword_1C94E8, jpt_8E977, jpt_8E987, memcpy_, memset_
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, BlitShape2
-extern BlitArt, BlitShape, sub_1013CC, sub_1013FC, FindShape, Random32, sub_10AED0, FindShapeList
+extern BlitArt, BlitShape, BlitClippedY, PresentScreen, FindShape, Random32, sub_10AED0, FindShapeList
 extern sub_11B0D0, SetScreenTarget, SeasonGameScreen, MusicEnabled, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
 extern MakeDirPath, LoadDataFile, BuildSeasonSchedule, ClearTeamInjuries, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen
 extern SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBox, EditTextField, DrawTeamLogoBanner, WipeScreen, SetHighlightText
@@ -1075,7 +1075,7 @@ NewSeasonScreen:
         add esp, byte 4
         cmp esi, byte 8
         jl short .32
-        call sub_1013FC
+        call PresentScreen
         jmp near .12
 .33:
         mov esi, dword [byte ebp-048h]
@@ -2108,7 +2108,7 @@ SeasonMenuScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_1013CC
+        call BlitClippedY
         add esp, byte 0Ch
         push esi
         push str_LG02d
@@ -2173,7 +2173,7 @@ SeasonMenuScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_1013CC
+        call BlitClippedY
         add esp, byte 0Ch
         push esi
         push str_LG02d
@@ -2821,7 +2821,7 @@ SeasonMenuScreen:
         call BlitArt
         add esp, byte 0Ch
         xor esi, esi
-        call sub_1013FC
+        call PresentScreen
 .72:
         mov eax, esi
         lea ebx, [byte esi+08h]
@@ -3612,7 +3612,7 @@ StandingsScreen_718:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .36:
         push byte 3
         lea eax, [byte ebp+01Eh]
@@ -4661,7 +4661,7 @@ DrawSeasonTitle:
         push dword [byte esi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push esi
         call FreeBitmap
         add esp, byte 4

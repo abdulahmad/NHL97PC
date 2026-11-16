@@ -7,7 +7,7 @@ extern _curbrk, byte_16E415, byte_16E688, byte_16E689, byte_16F794, byte_16FA40,
 extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694, dword_16E698, dword_16E69C
 extern dword_16E6A0, dword_16E718, dword_170704, dword_172524, dword_172564, dword_172674, dword_172678, dword_17267C
 extern dword_1DA8D0, dword_1DA8D4, off_199CDC, off_199CE0, strchr_, strcpy_, stricmp_, strlen_
-extern bcopy, sub_102748, sub_102878, sub_102D3C, sub_112190, WriteConsoleMessage, FreeMemBlock, unk_1DA4CC
+extern bcopy, ConvertArtRows, ConvertArtShape, sub_102D3C, sub_112190, WriteConsoleMessage, FreeMemBlock, unk_1DA4CC
 extern unk_1DC118, unk_1DC218, unk_1DC318, unk_1DC418, word_170708, word_172568, word_17256A, word_199CD8
 global __chk8087_, __exit_with_msg_, __fatal_runtime_error_, __init_8087_, __rest_8087_, __save_8087_, __sys_fini_387_emulator, _fpreset_
 global sub_1222BC_54, sub_1230E8_B8, mem_putc__0, sub_121CCF, sub_121D0A, sub_121DB9, sub_121DE0, sub_121E38
@@ -871,7 +871,7 @@ sub_12233C:
         mov edx, ecx
         mov bl, al
         mov eax, dword [byte ebp-04Ch]
-        call sub_102748
+        call ConvertArtRows
         mov dword [byte ebp-054h], eax
         test eax, eax
         je short .2
@@ -894,7 +894,7 @@ sub_12233C:
         push ecx
         mov edx, dword [byte ebp-04Ch]
         push edx
-        call sub_102878
+        call ConvertArtShape
         add esp, byte 10h
         mov dword [byte ebp-058h], eax
         mov dword [byte ebp-04Ch], eax

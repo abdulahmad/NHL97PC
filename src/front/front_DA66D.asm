@@ -34,7 +34,7 @@ extern fclose_, fopen_, fread_, fseek_, ftell_, fwrite_, int386x_, memcmp_
 extern memcpy_, memset_, off_16D7AC, off_16D7B4, off_16D7DC, off_16D7E0, off_16D7E4, off_16D7E8
 extern off_16E0FC, off_16E4E0, rand_, segread_, slotteam, sprintf_, strcat_, strcmp_
 extern strcpy_, stricmp_, strlen_, strncpy_, bcopy, BlitShape2, BlitArt, BlitShape
-extern sub_1013FC, FindShape, sub_102B94, sub_106D08, sub_1070B0, sub_107D30, SetupOptionsAnim, sub_10AED0
+extern PresentScreen, FindShape, ConvertArtNew, FileSizePath, sub_1070B0, sub_107D30, SetupOptionsAnim, sub_10AED0
 extern UpdateOptionsAnim, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11B104, UnlinkJump, StrCopyEnd, OpenSerialPacketLink
 extern OpenModemPacketLink, NetCopyName, NetOpenSession, NetCloseSession, NetAnnounce, NetJoinGame, NetLeaveGame, NetListGames
 extern NetDisconnectPeer, OpenNetPacketLink, IpxLinkStartup, SetNetCallback, SetScreenTarget, JoystickAxisScale, InitPacketLink, ShutdownPacketLink
@@ -10276,7 +10276,7 @@ OpenReplayFile:
         je short .3
         lea eax, [byte ebp-050h]
         push eax
-        call sub_106D08
+        call FileSizePath
         add esp, byte 4
         cmp eax, dword [dword ebx+04A70h]
         je short .1
@@ -12828,7 +12828,7 @@ SyncLinkGame:
         jle near .11
         cmp word [dword_1CD402], byte 1
         jge near .10
-        call sub_1013FC
+        call PresentScreen
         mov dword [esi], 1
         xor ah, ah
         mov byte [esp], ah
@@ -14310,7 +14310,7 @@ WaitForOtherComputer:
         push ecx
         call ConvertArtKeepPos
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         jmp short .2
 .1:
         xor eax, eax
@@ -14461,7 +14461,7 @@ WaitForOtherComputer:
         push ebx
         call sub_FDC68
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -14579,7 +14579,7 @@ WaitForOtherComputer:
         push edx
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         cmp eax, dword [dword_16DAC4]
         je short .13
@@ -14807,7 +14807,7 @@ WaitForOtherComputer:
         push eax
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         jmp short .24
 .23:
         cmp dword [dword esp+0188h], byte 1Bh
@@ -15146,7 +15146,7 @@ WaitForOtherComputer:
         push eax
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
 .46:
         inc dword [dword esp+0198h]
         jmp near .39
@@ -15180,7 +15180,7 @@ WaitForOtherComputer:
         push ebx
         call BlitShape2
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov ecx, dword [dword esp+016Ch]
         push ecx
         call FreeBitmap
@@ -16178,7 +16178,7 @@ ChooseNetGame:
         mov eax, dword [tickcount]
         cmp eax, dword [dword_16E134]
         jle near .20
-        call sub_1013FC
+        call PresentScreen
         call FindNetworkGames
         cmp word [word_1CD634], byte 0
         jle near .13
@@ -16486,7 +16486,7 @@ ChooseNetworkGameScreen:
         push ebp
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [dword_1CD540]
         push eax
         call SetDrawTarget
@@ -16661,7 +16661,7 @@ ChooseNetworkGameScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         mov edx, dword [byte eax+04h]
         add esp, byte 8
         sar edx, 10h
@@ -16712,7 +16712,7 @@ ChooseNetworkGameScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         mov edx, dword [byte eax+04h]
         add esp, byte 8
         sar edx, 10h
@@ -17108,7 +17108,7 @@ ChooseNetworkGameScreen:
         mov byte [byte_1CD460], ah
         call SetScreenTarget
         call ChooseNetGame
-        call sub_1013FC
+        call PresentScreen
         mov ebp, 2
         mov edi, 9
         mov esi, 3
@@ -17147,7 +17147,7 @@ ChooseNetworkGameScreen_A51:
         push edx
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         lea edx, [byte eax+05h]
 .12:
@@ -17174,7 +17174,7 @@ ChooseNetworkGameScreen_A99:
         push ecx
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         lea edx, [byte eax+05h]
 .16:
@@ -17202,7 +17202,7 @@ ChooseNetworkGameScreen_AE5:
 .18:
         call SetScreenTarget
         call DrawNetGameList
-        call sub_1013FC
+        call PresentScreen
         jmp near ChooseNetworkGameScreen_BA2
 ChooseNetworkGameScreen_B21:
         mov eax, dword [dword_1CD632]
@@ -17220,7 +17220,7 @@ ChooseNetworkGameScreen_B21:
 .19:
         call SetScreenTarget
         call DrawNetGameList
-        call sub_1013FC
+        call PresentScreen
         jmp short ChooseNetworkGameScreen_BA2
 .20:
         lea ebx, [byte eax-02h]
@@ -17239,7 +17239,7 @@ ChooseNetworkGameScreen_B21:
         call SetScreenTarget
         call DrawNetGameList
         mov ebx, 0FFFFFFFFh
-        call sub_1013FC
+        call PresentScreen
         mov dword [byte esp+02Ch], ebx
 ChooseNetworkGameScreen_BA2:
         mov ebx, dword [byte esp+02Ch]
@@ -17257,7 +17257,7 @@ ChooseNetworkGameScreen_BA2:
         push ebp
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp word [word_1CD634], byte 0
         jle short .22
         mov eax, dword [dword_16E138]
@@ -17669,7 +17669,7 @@ OptionsAnimFrame:
         push dword [dword_1CD6CA]
         call DrawArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .2:
         call SetScreenTarget
         cmp ebx, byte 0FFFFFFFFh
@@ -17745,7 +17745,7 @@ OptionsAnimFrame:
         mov word [word_16E170], 1
         add esp, byte 4
 .10:
-        call sub_1013FC
+        call PresentScreen
 .11:
         leave
 OptionsAnimFrame_20C:
@@ -17889,7 +17889,7 @@ OptionsAnimScreen:
         add esp, byte 4
         cmp ebx, byte 0Fh
         jle short .7
-        call sub_1013FC
+        call PresentScreen
         call SetScreenTarget
         xor ebx, ebx
 .8:
@@ -17952,7 +17952,7 @@ OptionsAnimScreen:
         cmp ebx, byte 8
         jl near .8
         mov ebx, dword [byte ebp+07Ah]
-        call sub_1013FC
+        call PresentScreen
         mov edx, ebx
         mov eax, ebx
         call DrawScreenBackground

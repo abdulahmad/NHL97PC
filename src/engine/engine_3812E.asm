@@ -40,11 +40,11 @@ extern qword_160A88, qword_160A90, qword_160A98, qword_160AA0, qword_160AA8, qwo
 extern qword_160ACC, qword_160AD4, qword_160ADC, qword_160AE4, qword_160AEC, qword_160AF4, qword_160AFC, qword_160B04
 extern qword_160B14, qword_160B1C, qword_160B28, qword_160B35, qword_160CF7, qword_160CFF, qword_160D07, qword_160D0F
 extern randomd0, removewindow, sprintf_, str_CDSTREAM, str_SECCDSTREAM, str_STREAM, strcat_, strcmp_
-extern strcpy_, strncpy_, strstr_, bcopy, BlitArt, BlitShape, sub_1013FC, FindShape
-extern FindShapeQuiet, sub_101560, sub_101EAC, sub_102B94, sub_102C10, Random32, sub_102CDC, sub_102D3C
+extern strcpy_, strncpy_, strstr_, bcopy, BlitArt, BlitShape, PresentScreen, FindShape
+extern FindShapeQuiet, OpenArtArchive, DrawShapeBlended, ConvertArtNew, sub_102C10, Random32, sub_102CDC, sub_102D3C
 extern sub_102E0C, sub_102EBC, sub_103298, sub_103648, sub_1047D0, sub_10483C, sub_1048BC, sub_10491C
-extern sub_104940, sub_104948, sub_104980, sub_1049D0, sub_105258, sub_1055D4, sub_105644, sub_1056F0
-extern sub_10578C, sub_1057E8, sub_105808, sub_10585C, sub_105904, sub_106AA6, sub_106D08, sub_106DA0
+extern sub_104940, sub_104948, sub_104980, sub_1049D0, BuildInverseTable, CdOpenStream, CdCloseFile, CdRead
+extern CdSeek, DriveLetterIndex, IsCdDrive, AllocCdBuffer, DetectMscdex, RequestSpeechEvent, FileSizePath, LoadFileAllocQuiet
 extern sub_106F7C, sub_106F94, sub_1070B0, sub_1070D0, sub_107154, sub_1072F0, sub_1079E4, sub_107AE0
 extern sub_107B70, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48, sub_108040, sub_108144
 extern sub_10815C, sub_1081B0, sub_108640, sub_1086BF, sub_108CE8, sub_1091E0, sub_109210, sub_109250
@@ -254,7 +254,7 @@ SeasonGameScreen_1F3:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         jmp near SeasonGameScreen_182.6
 SeasonGameScreen_238:
         mov ebx, dword [dword eax+ebp-0458h]
@@ -682,7 +682,7 @@ InitSeasonGameScreen:
         push byte 0
         lea eax, [byte ebp-014h]
         push eax
-        call sub_101560
+        call OpenArtArchive
         add esp, byte 8
         mov dword [dword_19ED48], eax
         test eax, eax
@@ -770,7 +770,7 @@ InitSeasonGameScreen:
         push byte 0FFFFFFF4h
         push dword [dword_1C5E74]
         push dword 6666h
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         inc dword [byte ebp-04h]
         call FreeLogoArt
@@ -943,7 +943,7 @@ DrawAllStarLogo:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         mov edx, ebx
         mov esi, eax
         mov eax, dword [nosplit edx*4+dword_16913A]
@@ -5727,7 +5727,7 @@ RebuildOverlayMask:
         mov eax, dword [dword_16E69C]
         mov esi, dword [dword_16E698]
         mov dword [byte esp+038h], eax
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [dword_1A8E80]
         mov ecx, dword [dword_1A8E74]
         xor edx, edx
@@ -6376,7 +6376,7 @@ SetVideoMode:
         push ebp
         call ClearScreen
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         call FreeVideoBuffer
         push byte 8
         push esi
@@ -6881,7 +6881,7 @@ ClearViewBorders:
         cmp ebx, ecx
         jl short .8
 .9:
-        call sub_1013FC
+        call PresentScreen
         pop ebp
         pop edi
         pop esi
@@ -6923,7 +6923,7 @@ PresentGameView:
         push esi
         call sub_1047D0
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         jmp short .5
 .2:
         cmp dword [dword_1A8E6C], byte 0
@@ -7046,7 +7046,7 @@ AddOverlayWindow:
         cmp esi, ecx
         jl short .3
 .6:
-        call sub_1013FC
+        call PresentScreen
 .7:
         pop ebp
         pop edi
@@ -9337,7 +9337,7 @@ QuantizeRange:
 .20:
         lea eax, [byte esi+014h]
         push eax
-        call sub_105258
+        call BuildInverseTable
         add esp, byte 4
         mov dword [dword_16E500], eax
         call ServiceIdle
@@ -9550,7 +9550,7 @@ BuildGamePalette:
 .1:
         mov eax, esp
         push eax
-        call sub_105258
+        call BuildInverseTable
         add esp, byte 4
         mov dword [dword_16E500], eax
         add esp, 408h
@@ -9866,7 +9866,7 @@ setstreamspeed:
         lea eax, [byte esp+024h]
         push eax
         push edi
-        call sub_1055D4
+        call CdOpenStream
         add esp, byte 14h
         test ebx, ebx
         je short .1
@@ -9879,7 +9879,7 @@ setstreamspeed:
         lea eax, [byte esp+020h]
         push eax
         push esi
-        call sub_1055D4
+        call CdOpenStream
         add esp, byte 14h
         jmp short .2
 .1:
@@ -9910,7 +9910,7 @@ setstreamspeed:
         mov eax, dword [byte esp+020h]
         push eax
         mov dword [byte esp+02Ch], ecx
-        call sub_1056F0
+        call CdRead
         add esp, byte 0Ch
         call sub_FC290
         mov ebx, dword [byte esp+010h]
@@ -9922,7 +9922,7 @@ setstreamspeed:
         mov ecx, dword [byte esp+020h]
         push ecx
         sub ebx, 2000h
-        call sub_1056F0
+        call CdRead
         add esp, byte 0Ch
         test ebx, ebx
         jg short .4
@@ -9934,19 +9934,19 @@ setstreamspeed:
         push esi
         mov edx, dword [byte esp+01Ch]
         push edx
-        call sub_1056F0
+        call CdRead
         add esp, byte 0Ch
         call sub_FC290
         mov ecx, dword [byte esp+018h]
         push ecx
         mov dword [byte esp+020h], eax
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
         test ebp, ebp
         je short .6
         mov ebp, dword [byte esp+014h]
         push ebp
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .6:
         push esi
@@ -9996,14 +9996,14 @@ setstreamspeed:
         cmp dword [dword_16FFC4], byte 0
         jne short .10
         push edi
-        call sub_1057E8
+        call DriveLetterIndex
         add esp, byte 4
         push eax
-        call sub_105808
+        call IsCdDrive
         add esp, byte 4
         test eax, eax
         je short .10
-        call sub_105904
+        call DetectMscdex
         test eax, eax
         jne short .10
         mov dword [dword_169190], 1
@@ -10045,7 +10045,7 @@ delstream:
         test ecx, ecx
         je short .1
         push ecx
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .1:
         pop ebx
@@ -10066,7 +10066,7 @@ delstream:
         test edi, edi
         je short .2
         push edi
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .2:
         mov ebx, esi
@@ -10357,7 +10357,7 @@ UpdateMusicStream:
         push edx
         mov ebx, dword [byte eax+018h]
         push ebx
-        call sub_10578C
+        call CdSeek
         add esp, byte 8
         mov edx, dword [byte esp+08h]
         mov eax, dword [dword_169194]
@@ -10523,7 +10523,7 @@ CdStreamService_D6:
         cmp edi, esi
         je short .5
         push esi
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .5:
         mov eax, esp
@@ -10537,7 +10537,7 @@ CdStreamService_D6:
         push edx
         mov ebx, dword [byte eax+07Ch]
         push ebx
-        call sub_1055D4
+        call CdOpenStream
         mov edx, dword [dword_1AC378]
         mov eax, dword [byte edx+04Ch]
         mov ecx, dword [byte edx+054h]
@@ -10561,7 +10561,7 @@ CdStreamService_14C:
         test esi, esi
         je short .7
         push esi
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .7:
         mov eax, esp
@@ -10575,7 +10575,7 @@ CdStreamService_14C:
         push edx
         mov ebp, dword [byte eax+07Ch]
         push ebp
-        call sub_1055D4
+        call CdOpenStream
         mov eax, dword [dword_1AC378]
         mov edx, dword [byte eax+04Ch]
         mov ebx, dword [byte eax+054h]
@@ -10703,7 +10703,7 @@ CdStreamService_1E3:
         push edi
         mov ebp, dword [byte eax+018h]
         push ebp
-        call sub_10578C
+        call CdSeek
         mov edx, dword [dword_1AC378]
         mov dword [byte edx+060h], eax
         mov eax, dword [dword_1AC378]
@@ -10790,7 +10790,7 @@ CdStreamService_1E3:
         push edx
         mov ecx, dword [byte eax+018h]
         push ecx
-        call sub_1056F0
+        call CdRead
         mov eax, dword [dword_1691A0]
         mov edx, dword [dword_169198]
         mov ecx, dword [dword_16919C]
@@ -11157,7 +11157,7 @@ CdStreamService_81D:
         push ecx
         mov edx, dword [byte eax+018h]
         push edx
-        call sub_1056F0
+        call CdRead
         mov eax, dword [dword_1691A0]
         mov ecx, dword [dword_169198]
         add ecx, eax
@@ -11933,7 +11933,7 @@ QueuePassSpeech:
         mov dword [byte esp+024h], eax
         mov eax, esp
         mov dword [byte esp+010h], ecx
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -11967,7 +11967,7 @@ QueueShotSpeech:
         mov dword [byte esp+018h], eax
         mov eax, esp
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12003,7 +12003,7 @@ QueuePositionSpeech:
         mov dword [byte esp+01Ch], eax
         mov eax, esp
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12027,7 +12027,7 @@ QueuePositionSpeech:
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
         mov dword [esp], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -12052,7 +12052,7 @@ QueuePositionSpeech:
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
         mov dword [esp], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -12083,7 +12083,7 @@ QueueHitSpeech:
         mov dword [byte esp+0Ch], ebx
         mov dword [byte esp+010h], ecx
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12108,7 +12108,7 @@ QueueHitSpeech:
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
         mov dword [esp], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -12139,7 +12139,7 @@ QueuePenaltySpeech:
         mov dword [byte esp+0Ch], ebx
         mov dword [byte esp+010h], ecx
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12164,7 +12164,7 @@ QueuePenaltySpeech:
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
         mov dword [esp], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -12189,7 +12189,7 @@ QueuePenaltySpeech:
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
         mov dword [esp], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -12220,7 +12220,7 @@ QueueReceiveSpeech:
         mov dword [byte esp+0Ch], ebx
         mov dword [byte esp+010h], ecx
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12245,7 +12245,7 @@ QueueReceiveSpeech:
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
         mov dword [esp], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -12270,7 +12270,7 @@ QueueReceiveSpeech:
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
         mov dword [esp], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -12301,7 +12301,7 @@ QueueLoosePuckSpeech:
         mov dword [byte esp+0Ch], ebx
         mov dword [byte esp+010h], ecx
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12332,7 +12332,7 @@ QueueCarrySpeech:
         mov dword [byte esp+0Ch], ebx
         mov dword [byte esp+010h], ecx
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12355,7 +12355,7 @@ QueueCarrySpeech:
         mov eax, esp
         mov dword [byte esp+04h], edx
         mov dword [esp], ecx
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edx
         pop ecx
@@ -12379,7 +12379,7 @@ QueueCarrySpeech:
         mov dword [byte esp+04h], ebx
         mov dword [byte esp+08h], edx
         mov dword [esp], esi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop esi
         pop ecx
@@ -12404,7 +12404,7 @@ QueueCarrySpeech:
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
         mov dword [esp], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -12435,7 +12435,7 @@ QueueTeamSpeech:
         mov dword [byte esp+0Ch], ebx
         mov dword [byte esp+010h], ecx
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12466,7 +12466,7 @@ QueueDeflectSpeech:
         mov dword [byte esp+0Ch], ebx
         mov dword [byte esp+010h], ecx
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12497,7 +12497,7 @@ QueuePickupSpeech:
         mov dword [byte esp+0Ch], ebx
         mov dword [byte esp+010h], ecx
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12530,7 +12530,7 @@ QueueFaceoffSpeech:
         mov dword [byte esp+014h], eax
         mov eax, esp
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12554,7 +12554,7 @@ QueueFaceoffSpeech:
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
         mov dword [esp], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -12585,7 +12585,7 @@ QueuePenaltyEndSpeech:
         mov dword [byte esp+0Ch], ebx
         mov dword [byte esp+010h], ecx
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12610,7 +12610,7 @@ QueuePenaltyEndSpeech:
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
         mov dword [esp], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -12633,7 +12633,7 @@ QueuePenaltyEndSpeech:
         mov eax, esp
         mov dword [byte esp+04h], edx
         mov dword [esp], ecx
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edx
         pop ecx
@@ -12666,7 +12666,7 @@ QueueFinalSpeech:
         mov dword [byte esp+014h], eax
         mov eax, esp
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12690,7 +12690,7 @@ QueueFinalSpeech:
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
         mov dword [esp], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -12724,7 +12724,7 @@ QueueTouchPuckSpeech:
         mov dword [byte esp+014h], eax
         mov eax, esp
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12754,7 +12754,7 @@ QueuePenaltyCallSpeech:
         mov dword [byte esp+0Ch], ebx
         mov dword [byte esp+010h], ecx
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12790,7 +12790,7 @@ QueueStoppageSpeech:
         mov dword [byte esp+018h], eax
         mov eax, esp
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -12813,7 +12813,7 @@ QueueStoppageSpeech:
         mov dword [byte esp+04h], ebx
         mov dword [byte esp+08h], edx
         mov dword [esp], esi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop esi
         pop ecx
@@ -12836,7 +12836,7 @@ QueueStoppageSpeech:
         mov eax, esp
         mov dword [byte esp+04h], edx
         mov dword [esp], ecx
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edx
         pop ecx
@@ -12860,7 +12860,7 @@ QueueStoppageSpeech:
         mov dword [byte esp+04h], ebx
         mov dword [byte esp+08h], edx
         mov dword [esp], esi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop esi
         pop ecx
@@ -12884,7 +12884,7 @@ QueueStoppageSpeech:
         mov dword [byte esp+04h], ebx
         mov dword [byte esp+08h], edx
         mov dword [esp], esi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop esi
         pop ecx
@@ -12909,7 +12909,7 @@ QueueStoppageSpeech:
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
         mov dword [esp], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -12932,7 +12932,7 @@ QueueStoppageSpeech:
         mov eax, esp
         mov dword [byte esp+04h], edx
         mov dword [esp], ecx
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edx
         pop ecx
@@ -12955,7 +12955,7 @@ QueueStoppageSpeech:
         mov eax, esp
         mov dword [byte esp+04h], edx
         mov dword [esp], ecx
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edx
         pop ecx
@@ -12986,7 +12986,7 @@ QueuePowerPlaySpeech:
         mov dword [byte esp+0Ch], ebx
         mov dword [byte esp+010h], ecx
         mov dword [esp], ebp
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop ebp
         pop edi
@@ -13006,7 +13006,7 @@ QueuePowerPlaySpeech:
         mov ebx, 27h
         mov eax, esp
         mov dword [esp], ebx
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edx
         pop ebx
@@ -13030,7 +13030,7 @@ QueuePowerPlaySpeech:
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
         mov dword [esp], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         add esp, byte 30h
         pop edi
         pop esi
@@ -13208,7 +13208,7 @@ LoadSfxBank:
         call strcat_
         lea eax, [byte esp+024h]
         push eax
-        call sub_106D08
+        call FileSizePath
         add esp, byte 4
         mov dword [byte esp+034h], eax
         test eax, eax
@@ -13261,7 +13261,7 @@ LoadSfxBank:
         push byte 20h
         lea eax, [byte esp+018h]
         push eax
-        call sub_106DA0
+        call LoadFileAllocQuiet
         add esp, byte 8
         mov ebp, eax
         test eax, eax
@@ -13272,7 +13272,7 @@ LoadSfxBank:
 .20:
         lea eax, [byte esp+014h]
         push eax
-        call sub_106D08
+        call FileSizePath
 .21:
         add esp, byte 4
         mov edx, eax
@@ -13604,20 +13604,20 @@ OpenAudioStream:
 .1:
         mov edx, dword [dword_16AEB4]
         push edx
-        call sub_1057E8
+        call DriveLetterIndex
         add esp, byte 4
         push eax
-        call sub_105808
+        call IsCdDrive
         add esp, byte 4
         test eax, eax
         je short .2
         push byte 0
         mov ebx, dword [dword_16AEB4]
         push ebx
-        call sub_1057E8
+        call DriveLetterIndex
         add esp, byte 4
         push eax
-        call sub_10585C
+        call AllocCdBuffer
         add esp, byte 8
 .2:
         cmp dword [dword esp+0F0h], byte 0FFFFFFFFh
@@ -13959,7 +13959,7 @@ InitGameAudio:
         call WaitSoundTime
         push byte 0
         push str_CROWDCRD
-        call sub_106DA0
+        call LoadFileAllocQuiet
         add esp, byte 8
         mov dword [dword_169224], eax
         test eax, eax
@@ -16698,7 +16698,7 @@ LoadTeamSpeech:
         add esp, byte 0Ch
         lea eax, [byte esp+068h]
         push eax
-        call sub_106D08
+        call FileSizePath
         add esp, byte 4
         mov ecx, eax
         test eax, eax
@@ -16778,7 +16778,7 @@ LoadTeamSpeech:
         add esp, byte 0Ch
         lea eax, [byte esp+068h]
         push eax
-        call sub_106D08
+        call FileSizePath
         add esp, byte 4
         mov ecx, eax
         test eax, eax

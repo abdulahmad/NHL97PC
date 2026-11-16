@@ -4,7 +4,7 @@ bits 32
 section s_12FB20 progbits alloc exec nowrite align=1
 extern str_ExitYN, dword_16E464, dword_16E468, dword_16E46C, dword_16E4C8, dword_16E6A8, dword_16F184, dword_199990
 extern dword_199994, dword_199998, dword_19999C, dword_1999A0, dword_1999A4, off_16E4D4, off_16E4D8, off_16E4DC
-extern off_16E4E0, str_PAUSEPRESSANYKEY, sub_101324, sub_1013FC, SaveDrawContext, RestoreDrawContext, CreateBitmapDefault, ConvertArtAt
+extern off_16E4E0, str_PAUSEPRESSANYKEY, BlitConverted, PresentScreen, SaveDrawContext, RestoreDrawContext, CreateBitmapDefault, ConvertArtAt
 extern SaveTextState, RestoreTextState, sub_138D04, sub_138E00, sub_138EB0, sub_138F00, SetScreenTarget, sub_FBE40
 extern MakeColor, sub_FCC40, FreeBitmap, SetDrawTarget, FillRect, SetTextColors, FillRectCorners, unk_16E8A0
 global sub_12FB20, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0, sub_13000C
@@ -22,11 +22,11 @@ sub_12FB20:
         mov dword [dword esp+0130h], ebx
         mov dword [dword esp+0128h], ecx
         push byte 0FFFFFFFFh
-        call sub_1013FC
+        call PresentScreen
         add esp, byte 4
         push byte 0
         mov dword [dword esp+0120h], eax
-        call sub_1013FC
+        call PresentScreen
         add esp, byte 4
         mov edx, dword [dword_16E4C8]
         push edx
@@ -172,7 +172,7 @@ sub_12FB20:
         push ebp
         mov ebx, dword [byte eax+02Ch]
         push ebx
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         call dword [off_16E4DC]
         mov eax, esp
@@ -189,7 +189,7 @@ sub_12FB20:
         add esp, byte 4
         mov edi, dword [dword esp+011Ch]
         push edi
-        call sub_1013FC
+        call PresentScreen
         add esp, byte 4
         mov eax, esi
         add esp, 134h
@@ -233,11 +233,11 @@ sub_12FDC8:
         push ebp
         sub esp, 11Ch
         push byte 0FFFFFFFFh
-        call sub_1013FC
+        call PresentScreen
         add esp, byte 4
         push byte 0
         mov esi, eax
-        call sub_1013FC
+        call PresentScreen
         add esp, byte 4
         mov edx, dword [dword_16E4C8]
         push edx
@@ -313,7 +313,7 @@ sub_12FDC8:
         add esp, byte 8
         call dword [off_16E4DC]
         mov edi, dword [dword esp+0134h]
-        call sub_1013FC
+        call PresentScreen
         push edi
         call sub_138F00
         add esp, byte 4
@@ -325,7 +325,7 @@ sub_12FDC8:
         push byte 0
         mov ebp, dword [byte ebx+02Ch]
         push ebp
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         call dword [off_16E4DC]
         mov eax, esp
@@ -340,7 +340,7 @@ sub_12FDC8:
         call FreeBitmap
         add esp, byte 4
         push esi
-        call sub_1013FC
+        call PresentScreen
         add esp, byte 4
         add esp, 11Ch
         pop ebp

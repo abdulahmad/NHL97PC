@@ -2,8 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_126480 progbits alloc exec nowrite align=1
-extern byte_172AB0, byte_172AB1, byte_172AB4, sub_101220, sub_122D90, word_172AB2
+extern byte_172AB0, byte_172AB1, byte_172AB4, AddExitHandler, sub_122D90, word_172AB2
 global RestoreTextMode, SaveTextMode, sub_1265D0, sub_126624, sub_12664C
+;-----------------------------------------------------------------------------
+; SaveTextMode                                126480  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 SaveTextMode:
         push ebx
         cmp byte [byte_172AB0], 0
@@ -18,11 +21,14 @@ SaveTextMode:
         mov al, byte [0484h]
         mov byte [byte_172AB4], al
         push RestoreTextMode
-        call sub_101220
+        call AddExitHandler
         add esp, byte 4
 .1:
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; RestoreTextMode                             1264C2  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 RestoreTextMode:
         pusha
         cmp byte [byte_172AB0], 0
@@ -87,6 +93,9 @@ RestoreTextMode:
         popa
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_1265D0                                                          1265D0  
+;-----------------------------------------------------------------------------
 sub_1265D0:
         push ebx
         mov ecx, dword [byte esp+08h]
@@ -120,6 +129,9 @@ sub_1265D0:
         pop ebx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_126624                                                          126624  
+;-----------------------------------------------------------------------------
 sub_126624:
         push ebx
         push esi
@@ -138,6 +150,9 @@ sub_126624:
         pop esi
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_12664C                                                          12664C  
+;-----------------------------------------------------------------------------
 sub_12664C:
         test eax, 7
         jne short .8

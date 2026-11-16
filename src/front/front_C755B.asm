@@ -26,7 +26,7 @@ extern dword_1CC214, dword_1CC218, dword_1CC21C, dword_1CC220, dword_1CC224, dwo
 extern dword_1CC234, dword_1CC238, dword_1CC23C, dword_1CC2A4, dword_1CC2A8, dword_1CC2AC, dword_1CC2B0, dword_1CC2B4
 extern dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4, jpt_C750B, memmove_, memset_, qsort_
 extern qword_166FC4, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, BlitArt
-extern BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, sub_106DA0, ConvertArtXY
+extern BlitShape, PresentScreen, FindShape, DrawShapeBlended, sub_102C10, Random32, LoadFileAllocQuiet, ConvertArtXY
 extern FindShapeList, sub_11B104, UnlinkJump, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime
 extern PlayMenuSfx, PlaySfx, PlayScreenMovie, LoadDataFile, BuildRosterLines, DrawShadedLogo, DrawShadowBox, DrawScreenBackground
 extern FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox, EditTextField
@@ -791,7 +791,7 @@ LoadRosterInfoAnim:
         jne near .5
         push ebx
         push str_RosinfoAna
-        call sub_106DA0
+        call LoadFileAllocQuiet
         add esp, byte 8
         mov dword [dword_1CC2AC], eax
         test eax, eax
@@ -2547,7 +2547,7 @@ DrawRosterList:
         call BlitArt
         add esp, byte 0Ch
         call sub_102C10
-        call sub_1013FC
+        call PresentScreen
 .34:
         imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
@@ -2603,7 +2603,7 @@ DrawRosterLogo:
         push byte 0
         push dword [dword_1C5E74]
         push dword 0B333h
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         call FreeLogoArt
         push dword [byte ebp-04h]
@@ -3726,7 +3726,7 @@ DrawPlayerCard:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp dword [byte ebp-014h], byte 0
         jl near .12
         mov ebx, esi
@@ -3782,7 +3782,7 @@ DrawPlayerCard:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .12:
         call sub_102C10
         mov eax, dword [byte ebp-020h]
@@ -4128,7 +4128,7 @@ DrawRosterDetails:
         call BlitArt
         add esp, byte 0Ch
         call sub_102C10
-        call sub_1013FC
+        call PresentScreen
         jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
 ; SetRosterArrows                                 CABF2  97 PC, low confidence
@@ -4423,7 +4423,7 @@ RedrawRosterScreen:
         call BlitArt
         add esp, byte 0Ch
         call sub_102C10
-        call sub_1013FC
+        call PresentScreen
 .12:
         leave
         pop edi
@@ -7158,7 +7158,7 @@ JerseyScreen:
         push dword [byte esi+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push edi
         call SetDrawTarget
         add esp, byte 4
@@ -7522,7 +7522,7 @@ JerseyScreen:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .30:
         cmp dword [byte ebp+07Ah], byte 0
         jne short .31
@@ -7556,7 +7556,7 @@ JerseyScreen:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp+052h]
         call FreeBitmap
         add esp, byte 4
@@ -9330,7 +9330,7 @@ DrawCreatePlayerName_110:
         push dword [byte esi+01Ah]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 DrawCreatePlayerName_12B:
         leave
         pop edi
@@ -9390,7 +9390,7 @@ DrawCreatePlayerPanel_83:
         call DrawTextAligned
         add esp, byte 14h
 DrawCreatePlayerPanel_8D:
-        call sub_1013FC
+        call PresentScreen
         leave
         pop edi
         pop esi
@@ -9472,7 +9472,7 @@ DrawCreatePlayerPosition_B1:
         push dword [byte esi+01Ah]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         pop edi
         pop esi
         pop ecx
@@ -10548,7 +10548,7 @@ CreatePlayerScreen:
         call SetScreenTarget
         mov eax, dword [byte ebp+05Eh]
         call DrawRatingBars
-        call sub_1013FC
+        call PresentScreen
         jmp near .33
 .26:
         cmp byte [dword ebp-0EEh], 0

@@ -20,7 +20,7 @@ extern dword_1CE1C0, dword_1CE1C4, dword_1CE1C8, dword_1CE1CC, dword_1CE1D0, dwo
 extern dword_1CE1E0, dword_1CE1E4, dword_1CE1E8, dword_1CE1EC, dword_1CE1F0, dword_1CE1F4, dword_1CE1F8, dword_1CE1FC
 extern dword_1CE200, dword_1CE204, dword_1CE208, dword_1CE20C, dword_1CE210, dword_1CE214, dword_1CE218, dword_1CE21C
 extern dword_1CE220, memcpy_, memset_, qsort_, sprintf_, strcpy_, BlitArt, BlitShape
-extern sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, ConvertArtXY, AllocNetBuffer, FreeNetBuffer
+extern PresentScreen, FindShape, DrawShapeBlended, sub_102C10, Random32, ConvertArtXY, AllocNetBuffer, FreeNetBuffer
 extern ReadBigEndian, WriteBigEndian, SetScreenTarget, GetAllStarDate, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
 extern PlaySfx, PlayScreenMovie, LoadDataFile, DrawShadedLogo, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen
 extern SetTextColor, DrawTextAligned, ShowMessageBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText
@@ -1298,7 +1298,7 @@ ShowAllStarArt:
         add esp, byte 0Ch
         test ebx, ebx
         je short .2
-        call sub_1013FC
+        call PresentScreen
 .2:
         pop edx
         pop ecx
@@ -1355,7 +1355,7 @@ DrawAllStarHighlight:
         add esp, byte 0Ch
         test ebx, ebx
         je short .4
-        call sub_1013FC
+        call PresentScreen
 .4:
         pop edx
         pop ecx
@@ -1483,7 +1483,7 @@ DrawAllStarTeam:
         call BlitArt
         add esp, byte 0Ch
         call sub_102C10
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         lea edx, [byte eax+014h]
 .2:
@@ -1574,7 +1574,7 @@ DrawAllStarTeam:
         push byte 0
         push dword [dword_1C5E74]
         push dword [byte ebp-028h]
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         call FreeLogoArt
         push ebx
@@ -1838,7 +1838,7 @@ DrawAllStarTeam_68E:
         push byte 0
         call SetClipWindow
         add esp, byte 10h
-        call sub_1013FC
+        call PresentScreen
 DrawAllStarTeam_6C5:
         leave
         pop edi
@@ -2074,7 +2074,7 @@ DrawAllStarSelection:
         call BlitArt
         add esp, byte 0Ch
         call sub_102C10
-        call sub_1013FC
+        call PresentScreen
 .14:
         leave
         pop edi
@@ -2142,7 +2142,7 @@ DrawAllStarList:
         call BlitArt
         add esp, byte 0Ch
         call sub_102C10
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         lea edx, [byte eax+014h]
 .2:
@@ -2199,7 +2199,7 @@ DrawAllStarList:
         push byte 0
         push dword [dword_1C5E74]
         push edi
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         call FreeLogoArt
         push ebx
@@ -4841,7 +4841,7 @@ DrawAllStarPickList:
         push dword [dword eax+02AAh]
         call DrawArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         pop edx
         pop ecx
         pop ebx
@@ -4898,7 +4898,7 @@ DrawAllStarPickList:
         push dword [dword eax+02B6h]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
 .4:
         mov eax, dword [dword_1CE1EC]
         add eax, 290h

@@ -59,9 +59,9 @@ extern sprintf_, str_Botboards, str_Center, str_CrowdD, str_EMPTYFSH, str_FatBlu
 extern str_Glassline, str_Gt002d, str_Gt102d, str_Gt202d, str_Gt302d, str_HALFFSH, str_Icelogo, str_STANDSFSH
 extern str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpath, strcat_, stricmp_
 extern strlen_, strncpy_, ProjectPointFloat, sub_100498, sub_1004B8, sub_1004F8, sub_100510, sub_100700
-extern sub_1007C0, sub_100830, SortIndices, FindShape, sub_10150C, sub_101524, sub_101560, sub_101584
-extern Random32, sub_102CDC, sub_102CF4, sub_103648, sub_104948, sub_106C74, sub_106D80, sub_106DA0
-extern sub_106DE0, sub_106DF8, sub_107098, sub_1070B0, sub_108144, sub_108640, sub_108900, sub_108A60
+extern sub_1007C0, sub_100830, SortIndices, FindShape, LoadDataFileNoErr, LoadDataFileErr, OpenArtArchive, OpenArtArchiveErr
+extern Random32, sub_102CDC, sub_102CF4, sub_103648, sub_104948, PlayQueuedSpeech, LoadFileAlloc, LoadFileAllocQuiet
+extern LoadFileInto, LoadFileIntoQuiet, sub_107098, sub_1070B0, sub_108144, sub_108640, sub_108900, sub_108A60
 extern sub_108BA0, sub_108E74, sub_1091E0, sub_109210, sub_109545, sub_109557, sub_109E54, sub_109E74
 extern sub_10A7D0, sub_10A930, sub_10AB2C, sub_10AB94, sub_10AD20, sub_10AE10, sub_10AED0, sub_10B000
 extern sub_10B074, sub_10B084, sub_10B0EC, sub_10B2CC, sub_10B580, sub_10B59C, DrawFixedLine, sub_10C434
@@ -2608,7 +2608,7 @@ ServiceBackgroundAudio:
         mov dword [dword_1691C8], eax
         cmp dword [dword_169250], byte 0
         je short .7
-        call sub_106C74
+        call PlayQueuedSpeech
 .7:
         cmp dword [dword_169224], byte 0
         je short .10
@@ -3048,7 +3048,7 @@ jpt_4AE54:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_106D80
+        call LoadFileAlloc
 jpt_4AE54_137:
         add esp, byte 8
         mov edx, eax
@@ -3073,7 +3073,7 @@ LoadDataFileHandle:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_106DA0
+        call LoadFileAllocQuiet
         jmp short jpt_4AE54_137
         push ebx
         push ecx
@@ -3084,7 +3084,7 @@ LoadDataFileHandle:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_106DE0
+        call LoadFileInto
         jmp short jpt_4AE54_137
         push ebx
         push ecx
@@ -3095,7 +3095,7 @@ LoadDataFileHandle:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_106DF8
+        call LoadFileIntoQuiet
         jmp short jpt_4AE54_137
         push ebx
         push ecx
@@ -3195,7 +3195,7 @@ LoadDataFile:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_101584
+        call OpenArtArchiveErr
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
 ; LoadDataFileFlag0                            4B12D  96 PC, medium confidence
@@ -3211,7 +3211,7 @@ LoadDataFileFlag0:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_101560
+        call OpenArtArchive
         jmp near jpt_4AE54_137
         push ebx
         push ecx
@@ -3222,7 +3222,7 @@ LoadDataFileFlag0:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_101524
+        call LoadDataFileErr
         jmp near jpt_4AE54_137
         push ebx
         push ecx
@@ -3233,7 +3233,7 @@ LoadDataFileFlag0:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_10150C
+        call LoadDataFileNoErr
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
 ; OpenDataLibrary                                 4B19C  97 PC, low confidence
@@ -5169,7 +5169,7 @@ LoadArenaArt:
         call ServiceIdle
         push byte 0
         push str_Ice2
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov dword [dword_1B0FB0], eax
         call ServiceIdle
@@ -5392,7 +5392,7 @@ LoadArenaArt:
         push byte 0
         lea eax, [byte esp+04h]
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push byte 0
         push byte 20h
@@ -12314,7 +12314,7 @@ LoadScoreboardArt:
         push byte 0
         add eax, byte 2Ch
         push eax
-        call sub_101560
+        call OpenArtArchive
         add esp, byte 8
         xor ebx, ebx
         mov dword [dword_1B0B18], eax
@@ -13608,7 +13608,7 @@ OpenArenaArchive_42:
 OpenArenaArchive_58:
         push byte 0
         push str_STANDSFSH
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov dword [dword_16AF68], eax

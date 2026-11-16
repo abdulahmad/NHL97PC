@@ -9,7 +9,7 @@ extern byte_1CD85E, byte_1CDA5F, byte_1CDC60, byte_1CDDFF, byte_1CDE61, dword_16
 extern seed, dword_1AC814, dword_1AC940, dword_1AD62F, dword_1AD6AB, dword_1AD71B, dword_1AD71F, dword_1AD723
 extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778
 extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprintf_, strcpy_, BlitArt
-extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, sub_101EAC, sub_102B94
+extern BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew
 extern SetScreenTarget, SecondsToSamples, WaitSoundTime, OpenDataLibrary, DrawShadowBox, DrawScreenBackground, SetTextColor, DrawTextAligned
 extern LoadTeamLogo, FreeLogoArt, InitMenuItems, GetLangText, InitListBox, InitShapeListBox, FreeDbBlock, FindTeamRecord
 extern FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindTeamStat, ServiceIdle, FreeMemBlock, FillMem, MakeColor
@@ -1067,7 +1067,7 @@ DrawSeasonIntro:
         call WaitSoundTime
         push byte 0
         push dword [nosplit edi*4+off_16E174]
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push str_000011
         push eax
@@ -1103,7 +1103,7 @@ DrawSeasonIntro:
         push byte 0
         add eax, byte 21h
         push eax
-        call sub_101560
+        call OpenArtArchive
         add esp, byte 8
         mov dword [byte ebp-014h], eax
         test eax, eax
@@ -1116,7 +1116,7 @@ DrawSeasonIntro:
         je short .3
         push dword [dword_16E46C]
         push eax
-        call sub_102B94
+        call ConvertArtNew
         mov ebx, eax
         movsx eax, word [byte eax+04h]
         imul eax, dword 0C000h
@@ -1134,7 +1134,7 @@ DrawSeasonIntro:
         push ebx
         push dword 0C000h
         mov dword [byte ebp-04h], edx
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         push ebx
         call FreeMemBlock
@@ -1563,7 +1563,7 @@ DrawSeasonIntro:
         push dword [byte ebp-04h]
         push dword [dword_1C5E74]
         push dword 0CCCCh
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         mov ebx, 17Dh
         call FreeLogoArt
@@ -1723,7 +1723,7 @@ DrawSeasonIntro:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .22:
         leave
         jmp near BuildSeasonIntro_61F

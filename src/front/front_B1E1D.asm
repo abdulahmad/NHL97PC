@@ -21,8 +21,8 @@ extern dword_1CA998, dword_1CA99C, dword_1CA9A0, dword_1CA9A4, dword_1CA9A8, dwo
 extern dword_1CA9B8, dword_1CA9BC, dword_1CA9C0, dword_1CA9C4, dword_1CA9C8, dword_1CA9CC, dword_1CA9D0, dword_1CA9D4
 extern dword_1CAEA8, dword_1CAEB8, rand_, sprintf_, sscanf_, str_D02d2, str_Logbook, str_Logname
 extern str_Ulstreak, str_Uname, str_Uopp, str_Upts, str_Urate, str_Usort, str_Ustreak, str_Uteam
-extern strcmp_, strcpy_, strlen_, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape
-extern sub_102B94, ConvertArtXY, SetScreenTarget, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath
+extern strcmp_, strcpy_, strlen_, BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape
+extern ConvertArtNew, ConvertArtXY, SetScreenTarget, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath
 extern LoadDataFile, DrawShadedLogo, DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned
 extern ShowMessageBoxNoWait, EditTextField, WipeScreen, SetHighlightText, SetNormalText, DrawPortrait, ShowStatScreen, ShowPopupScreen
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, LoadNameIndex, NameIndexRemove, NameIndexCount, NameIndexPath
@@ -601,7 +601,7 @@ UserLogScreen:
         push dword [byte ebx+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push byte 0
         movsx eax, word [byte esi+06h]
         push eax
@@ -622,7 +622,7 @@ UserLogScreen:
         add esp, byte 0Ch
         mov dword [byte ebp+07Eh], 0
         mov dword [byte ebp+072h], 0B5h
-        call sub_1013FC
+        call PresentScreen
         jmp near .6
 .1:
         push byte 0
@@ -715,7 +715,7 @@ UserLogScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         mov dword [byte ebp+0Eh], eax
         add esp, byte 8
         movsx edx, word [byte eax+06h]
@@ -747,7 +747,7 @@ UserLogScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         push byte 0
         push byte 0
@@ -777,7 +777,7 @@ UserLogScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         mov dword [byte ebp-016h], eax
         add esp, byte 8
         movsx edx, word [byte eax+06h]
@@ -809,7 +809,7 @@ UserLogScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         push byte 0
         push byte 0
@@ -824,7 +824,7 @@ UserLogScreen:
         xor ebx, ebx
         call DrawPortrait
 .5:
-        call sub_1013FC
+        call PresentScreen
         inc dword [byte ebp+07Eh]
 .6:
         cmp word [byte ebp+07Eh], byte 9
@@ -1025,7 +1025,7 @@ UserLogScreen:
         xor edx, edx
         mov dword [byte ebp+06Ah], 0
         call DrawScrollBar
-        call sub_1013FC
+        call PresentScreen
         mov dword [byte ebp+046h], 1
 .9:
         mov dword [byte ebp+046h], 0FFFFFFFFh
@@ -1076,7 +1076,7 @@ UserLogScreen_71B:
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov ebx, eax
 .16:
@@ -1105,7 +1105,7 @@ UserLogScreen_77D:
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov ebx, eax
 .20:
@@ -1289,7 +1289,7 @@ UserLogScreen_8CA:
         lea eax, [dword ebp-015Eh]
         xor edx, edx
         call DrawScrollBar
-        call sub_1013FC
+        call PresentScreen
         jmp short .33
 .32:
         push byte 1
@@ -1321,7 +1321,7 @@ UserLogScreen_8CA:
         lea eax, [dword ebp-015Eh]
         xor edx, edx
         call DrawScrollBar
-        call sub_1013FC
+        call PresentScreen
 .35:
         cmp dword [byte ebp+06Ah], byte 0
         je near UserLogScreen.9
@@ -3116,7 +3116,7 @@ UserRecordsScreen:
         mov eax, dword [byte ebx+02Ch]
         call WipeScreen
 .4:
-        call sub_1013FC
+        call PresentScreen
         push edi
         call FreeBitmap
         mov ebx, esi
@@ -3424,7 +3424,7 @@ UserRecordsScreen:
         call SetScreenTarget
         lea eax, [dword ebp-02A0h]
         call DrawStatTableArt
-        call sub_1013FC
+        call PresentScreen
         mov dword [byte ebp-040h], 0FFFFFFFFh
         mov dword [byte ebp-03Ch], 0FFFFFFFFh
 .7:
@@ -3517,7 +3517,7 @@ UserRecordsScreen_9B4:
         call SetScreenTarget
         lea eax, [dword ebp-02A0h]
         call DrawStatTableArt
-        call sub_1013FC
+        call PresentScreen
         mov dword [byte ebp-040h], 0FFFFFFFFh
         jmp short UserRecordsScreen_AA5.15
 UserRecordsScreen_A7F:
@@ -3549,7 +3549,7 @@ UserRecordsScreen_AA5:
         call SetScreenTarget
         lea eax, [dword ebp-02A0h]
         call DrawStatTableArt
-        call sub_1013FC
+        call PresentScreen
 .15:
         call SetNormalText
         jmp near UserRecordsScreen.7

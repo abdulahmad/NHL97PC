@@ -14,7 +14,7 @@ extern dword_1C1244, dword_1C1248, dword_1C124C, dword_1C1250, dword_1C1254, dwo
 extern dword_1C5DA8, dword_1C5DAC, dword_1C5DE4, dword_1C5DE8, dword_1C5E78, dword_1C5E9C, dword_1C5EA0, dword_1C5EF4
 extern memcpy_, off_16C9B8, off_16C9C0, rand_, sprintf_, srand_, str_ATA, str_ATD
 extern str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, strcat_, strcpy_, strlen_, strncmp_
-extern strstr_, bcopy, BlitShape, sub_1013FC, FindShape, sub_103234, sub_1047D0, sub_108900
+extern strstr_, bcopy, BlitShape, PresentScreen, FindShape, sub_103234, sub_1047D0, sub_108900
 extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, sub_109210, InitVideoDecoder
 extern BuildVideoGammaTable, DecodeVideoChunk, CreateBitmapDefault, ResetFrameRate, DecodeVideoFrame, DecodeTgvChunk, SerialRaiseDtr, SerialWrite
 extern SerialFlushTx, SerialWaitTxEmpty, LoadNameFile, SetScreenTarget, OpenStreamBuffer, delstream, CdStreamStart, CdStreamOpenSecondary
@@ -1557,7 +1557,7 @@ FadeMovieOut:
         push eax
         call ClearScreen
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         pop edx
         pop ecx
         ret
@@ -2232,7 +2232,7 @@ PlayMovieFrames:
         push ebx
         call sub_1047D0
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         pop edx
         pop ecx
         pop ebx
@@ -2282,7 +2282,7 @@ PlayMovie:
         push eax
         call ClearScreen
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [dword_16E6C8]
         add eax, eax
         push eax
@@ -2338,7 +2338,7 @@ PlayMovie:
         push ebx
         call sub_1047D0
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         xor byte [dword_1C123C], 1
         mov eax, dword [dword_1C122C]
         cmp ebp, eax
@@ -2390,7 +2390,7 @@ PlayMovie:
         push eax
         call ClearScreen
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         cmp dword [esp], byte 0
         je short .15
         push edi

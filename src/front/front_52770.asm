@@ -43,7 +43,7 @@ extern str_Gt004, str_Gt007, str_Gt302, str_IceLine, str_Lites, str_Maxx, str_Ma
 extern str_Minz, str_Pbench0D, str_Pbench1D, str_Penback, str_Penbox0D, str_Penbox1D, str_Penboxt0, str_Penboxt1
 extern str_Penboxz0, str_Penboxz1, str_R02d, str_Redlite, str_Rink, str_Rlite0, str_Rlite1, str_STAND
 extern str_STAND2ND, str_Score, str_Stands2, str_Strobe, str_ThinRedLines, str_Topboards, str_WALL, sub_1007C0
-extern bcopy, FindShape, sub_101584, Random32, sub_102C96, sub_102CDC, sub_102CF4, sub_103648
+extern bcopy, FindShape, OpenArtArchiveErr, Random32, sub_102C96, sub_102CDC, sub_102CF4, sub_103648
 extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_10B000, sub_10B040, sub_10B060, sub_10B084
 extern sub_10B0EC, sub_10B4E0, sub_10B580, BuildAntiAliasTable, sub_10C8E8, sub_10DDE0, sub_10E284, sub_10E4B0
 extern sub_10E62C, sub_10E6AC, sub_10E7AC, sub_10E8F8, sub_10EE50, sub_10FB98, sub_10FBB0, sub_10FD58
@@ -94,7 +94,7 @@ LoadLogos:
         call ServiceIdle
         push byte 0
         push str_LogosFsh
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push eax
         mov ebp, eax
@@ -1236,7 +1236,7 @@ LoadRinkModel:
         mov dword [dword_1B10F4], eax
         add eax, byte 2Ch
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         mov ecx, 1
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
@@ -1287,7 +1287,7 @@ LoadRinkModel:
         mov dword [dword_1B10D8], eax
         add eax, byte 2Ch
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov dword [dword_1B10D4], eax
@@ -1314,7 +1314,7 @@ LoadRinkModel:
         push str_Puck2
         xor edi, edi
         xor esi, esi
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov dword [dword_1B0FB8], eax
 .1:
@@ -1348,7 +1348,7 @@ LoadRinkModel:
         add eax, byte 2Ch
         push eax
         mov edi, 8
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov dword [dword_1B0F20], eax
@@ -2358,7 +2358,7 @@ LoadRinkModel:
         jne short .13
         push byte 0
         push str_Flash
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push str_Fla0
         push eax
@@ -3308,13 +3308,13 @@ LoadOpeningArt:
         push byte 20h
         lea eax, [byte esp+04h]
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov dword [dword_1B0E28], eax
         call ServiceIdle
         push byte 20h
         push str_Light6
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov dword [dword_1B0E24], eax
         call ServiceIdle

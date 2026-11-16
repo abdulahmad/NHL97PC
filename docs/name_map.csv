@@ -2201,17 +2201,125 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 100940,SortIndices,sub_100940,95PC,medium,"sort library: sort n indices by their keys (n, keys, indices)",src/lib/ea/ea_gfx_03.asm
 100A68,bcopy,sub_100A68,new,medium,"(src, dst, n): copies n bytes, backwards when they overlap (BSD order)",src/lib/input/input_joystick_misc_05.asm
 100AD0,_os_handle,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+100AF4,QueueFreeChain,sub_100AF4,new,low,frees a chain of queue entries,src/lib/input/input_joystick_misc_05.asm
+100B88,QueueInit,sub_100B88,new,low,clears a queue header,src/lib/input/input_joystick_misc_05.asm
+100BC8,QueueNoOp,sub_100BC8,new,low,does nothing (empty queue hook),src/lib/input/input_joystick_misc_05.asm
+100BCC,QueuePeek,sub_100BCC,new,low,returns the head of a queue with interrupts off,src/lib/input/input_joystick_misc_05.asm
+100C08,QueueTakeTail,sub_100C08,new,low,takes the last entry of a queue with interrupts off,src/lib/input/input_joystick_misc_05.asm
+100C50,QueueTakeHead,sub_100C50,new,low,takes the first entry of a queue with interrupts off,src/lib/input/input_joystick_misc_05.asm
+100D04,QueueInsert,sub_100D04,new,low,inserts an entry into a queue with interrupts off,src/lib/input/input_joystick_misc_05.asm
+100D8C,QueueFreeAll,sub_100D8C,new,low,frees every entry of a queue,src/lib/input/input_joystick_misc_05.asm
+100DC4,QueueCount,sub_100DC4,new,low,returns the count of a queue,src/lib/input/input_joystick_misc_05.asm
+100DCC,QueueFind,sub_100DCC,new,low,finds an entry in a queue,src/lib/input/input_joystick_misc_05.asm
+100E54,QueueFindPacket,sub_100E54,new,low,finds a packet in a queue by number,src/lib/input/input_joystick_misc_05.asm
+100F70,QueueRemoveEntry,sub_100F70,new,low,removes an entry from a queue,src/lib/input/input_joystick_misc_05.asm
+100FCC,QueueAppend,sub_100FCC,new,low,appends an entry to a queue,src/lib/input/input_joystick_misc_05.asm
+1010E8,QueuePrepend,sub_1010E8,new,low,puts an entry at the front of a queue,src/lib/input/input_joystick_misc_05.asm
+101154,QueuePostBuffer,sub_101154,new,low,posts a buffer to a queue,src/lib/input/input_joystick_misc_05.asm
+1011E8,QueueRepost,sub_1011E8,new,low,reposts a buffer to a queue,src/lib/input/input_joystick_misc_05.asm
+101220,AddExitHandler,sub_101220,new,low,registers an exit handler,src/lib/input/input_joystick_misc_05.asm
+101229,ExitProgram,sub_101229,new,low,exits the program,src/lib/input/input_joystick_misc_05.asm
+101230,PacketChecksum,sub_101230,new,low,works out the checksum of a packet,src/lib/input/input_joystick_misc_05.asm
+1012D0,CopyRow8,sub_1012D0,new,low,copies a row of 8-bit pixels,src/lib/input/input_joystick_misc_05.asm
+1012E0,CopyRow16,sub_1012E0,new,low,copies a row of 16-bit pixels,src/lib/input/input_joystick_misc_05.asm
+1012F0,CopyRow24,sub_1012F0,new,low,copies a row of 24-bit pixels,src/lib/input/input_joystick_misc_05.asm
+101310,CopyRow32,sub_101310,new,low,copies a row of 32-bit pixels,src/lib/input/input_joystick_misc_05.asm
+101324,BlitConverted,sub_101324,new,low,blits a shape through the pixel converter,src/lib/input/input_joystick_misc_05.asm
 101340,BlitShape2,sub_101340,new,low,same body as BlitShape (a second copy in the library),src/lib/input/input_joystick_misc_05.asm
 101390,BlitArt,sub_101390,new,low,"graphics library: draws art at x, y (art, x, y) straight through the blitter table off_16F588, no colour conversion (next to FindShape)",src/lib/input/input_joystick_misc_05.asm
 1013AC,BlitShape,sub_1013AC,new,low,graphics library: BlitArt at the art's own position (+0Ah / +0Ch),src/lib/input/input_joystick_misc_05.asm
+1013CC,BlitClippedY,sub_1013CC,new,low,blits a shape clipped vertically,src/lib/input/input_joystick_misc_05.asm
+1013FC,PresentScreen,sub_1013FC,new,low,presents the screen (returns 0 here),src/lib/input/input_joystick_misc_05.asm
 101429,FindShape,sub_101429,95PC,high,"graphics library: find the named art in a bank (bank, name), returns its pointer; error text ""locateshape - '%-4.4s' SHAPE NOT FOUND"" (unk_101400); 1500+ calls",src/lib/input/input_joystick_misc_05.asm
 101430,FindShapeQuiet,sub_101430,new,medium,FindShape without the not-found message: 0 when the art is missing,src/lib/input/input_joystick_misc_05.asm
+101470,LoadDataFileExt,sub_101470,new,low,"loads a data file, trying its extension",src/lib/input/input_joystick_misc_05.asm
+10150C,LoadDataFileNoErr,sub_10150C,new,low,loads a data file without the error message,src/lib/input/input_joystick_misc_05.asm
+101524,LoadDataFileErr,sub_101524,new,low,loads a data file with the error message,src/lib/input/input_joystick_misc_05.asm
+101560,OpenArtArchive,sub_101560,new,low,opens an art archive file,src/lib/input/input_joystick_misc_05.asm
+101584,OpenArtArchiveErr,sub_101584,new,low,opens an art archive file with the error message,src/lib/input/input_joystick_misc_05.asm
+1015F0,BlendPixelMode,sub_1015F0,new,low,picks the blend mode for a pixel,src/lib/input/input_joystick_misc_05.asm
+1019A0,BlendPixels,sub_1019A0,new,low,blends two packed pixels by mode,src/lib/input/input_joystick_misc_05.asm
+101A7C,BlendShapeRows,sub_101A7C,new,low,blends the rows of a shape,src/lib/input/input_joystick_misc_05.asm
+101EAC,DrawShapeBlended,sub_101EAC,new,low,draws a shape blended with the screen,src/lib/input/input_joystick_misc_05.asm
+1020B4,ConvertRow4To8,sub_1020B4,new,low,converts a row of 4-bit pixels to 8-bit,src/lib/input/input_joystick_misc_05.asm
+1020F0,ConvertRow4To16,sub_1020F0,new,low,converts a row of 4-bit pixels to 16-bit,src/lib/input/input_joystick_misc_05.asm
+102148,ConvertRow8To8,sub_102148,new,low,copies a row of 8-bit pixels,src/lib/input/input_joystick_misc_05.asm
+102158,ConvertRow8To16,sub_102158,new,low,converts a row of 8-bit pixels to 16-bit,src/lib/input/input_joystick_misc_05.asm
+1021A0,ConvertRow16To16,sub_1021A0,new,low,copies a row of 16-bit pixels,src/lib/input/input_joystick_misc_05.asm
+1021B0,ConvertRow16To8,sub_1021B0,new,low,converts a row of 16-bit pixels to 8-bit,src/lib/input/input_joystick_misc_05.asm
+102220,ConvertRow16To15,sub_102220,new,low,converts a row of 16-bit pixels to 15-bit,src/lib/input/input_joystick_misc_05.asm
+1022F0,ConvertRow15To15,sub_1022F0,new,low,copies a row of 15-bit pixels,src/lib/input/input_joystick_misc_05.asm
+102300,ConvertRow15To16,sub_102300,new,low,converts a row of 15-bit pixels to 16-bit,src/lib/input/input_joystick_misc_05.asm
+102368,ConvertRow15To8,sub_102368,new,low,converts a row of 15-bit pixels to 8-bit,src/lib/input/input_joystick_misc_05.asm
+1023E0,ConvertRow24To24,sub_1023E0,new,low,copies a row of 24-bit pixels,src/lib/input/input_joystick_misc_05.asm
+102400,ConvertRow32To16,sub_102400,new,low,converts a row of 32-bit pixels to 16-bit,src/lib/input/input_joystick_misc_05.asm
+10244C,ConvertRow24To16,sub_10244C,new,low,converts a row of 24-bit pixels to 16-bit,src/lib/input/input_joystick_misc_05.asm
+102498,ConvertRow32To32,sub_102498,new,low,copies a row of 32-bit pixels,src/lib/input/input_joystick_misc_05.asm
+1024AC,ConvertRowPalTo16,sub_1024AC,new,low,converts a row of palette pixels to 16-bit,src/lib/input/input_joystick_misc_05.asm
+102558,MapArtType,sub_102558,new,low,maps an art type to its pixel format,src/lib/input/input_joystick_misc_05.asm
+1025DC,ConvertArtPalette,sub_1025DC,new,low,converts a shape's palette for the screen,src/lib/input/input_joystick_misc_05.asm
+102698,ConvertArtPalette16,sub_102698,new,low,converts a shape's palette for a 16-bit screen,src/lib/input/input_joystick_misc_05.asm
+102748,ConvertArtRows,sub_102748,new,low,converts the rows of a shape,src/lib/input/input_joystick_misc_05.asm
+102878,ConvertArtShape,sub_102878,new,low,converts a shape to the screen format,src/lib/input/input_joystick_misc_05.asm
+102B78,ConvertArtSame,sub_102B78,new,low,converts a shape in place,src/lib/input/input_joystick_misc_05.asm
+102B94,ConvertArtNew,sub_102B94,new,low,converts a shape into a new block,src/lib/input/input_joystick_misc_05.asm
 102BB8,SetClipWindow,,96PC,medium,NHL96PC DD760 (similar): mnemonic similarity 0.84 over 21 instructions,
 102C30,Random32,sub_102C30,new,medium,"returns a pseudo-random dword (multi-word add-with-carry generator, dword_16F77C-790)",src/lib/video/video_bios_vga_01.asm
 10382C,removewindow,,96PC,medium,NHL96PC C3D80 (similar): mnemonic similarity 0.81 over 65 instructions,
 104780,bcopy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 104A2C,strncpy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+104A60,InverseTableSlice,sub_104A60,new,low,builds one slice of the inverse colour table,src/lib/watcom/watcom_clib_08.asm
+104C78,InverseTablePass,sub_104C78,new,low,runs one pass of the inverse colour table,src/lib/watcom/watcom_clib_08.asm
+104DFC,InverseTableScan,sub_104DFC,new,low,scans the colours for the inverse table,src/lib/watcom/watcom_clib_08.asm
+1050A0,InverseTableFill,sub_1050A0,new,low,fills the inverse colour table,src/lib/watcom/watcom_clib_08.asm
+105258,BuildInverseTable,sub_105258,new,low,builds the inverse colour table for the palette,src/lib/watcom/watcom_clib_08.asm
+105324,FreeInverseTable,sub_105324,new,low,frees and rebuilds the inverse colour table,src/lib/watcom/watcom_clib_08.asm
 105380,strcmp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+105430,CdOpenFile,sub_105430,new,low,opens a file on the CD,src/lib/watcom/watcom_clib_08.asm
+1055D4,CdOpenStream,sub_1055D4,new,low,opens a stream on the CD,src/lib/watcom/watcom_clib_08.asm
+10562C,CdHandleEntry,sub_10562C,new,low,returns the entry of a CD file handle,src/lib/watcom/watcom_clib_08.asm
+105644,CdCloseFile,sub_105644,new,low,closes a CD file,src/lib/watcom/watcom_clib_08.asm
+105688,CdReadSectors,sub_105688,new,low,reads sectors of a CD file,src/lib/watcom/watcom_clib_08.asm
+1056F0,CdRead,sub_1056F0,new,low,reads from a CD file,src/lib/watcom/watcom_clib_08.asm
+105728,CdSeekSectors,sub_105728,new,low,seeks in a CD file,src/lib/watcom/watcom_clib_08.asm
+10578C,CdSeek,sub_10578C,new,low,seeks in a CD file and waits,src/lib/watcom/watcom_clib_08.asm
+1057C0,CdFindFile,sub_1057C0,new,low,finds a file on the CD,src/lib/watcom/watcom_clib_08.asm
+1057E8,DriveLetterIndex,sub_1057E8,new,low,returns the drive number of a path's drive letter,src/lib/watcom/watcom_clib_08.asm
+105808,IsCdDrive,sub_105808,new,low,returns whether a drive is a CD drive (MSCDEX),src/lib/watcom/watcom_clib_08.asm
+10585C,AllocCdBuffer,sub_10585C,new,low,allocates the CD transfer buffer,src/lib/watcom/watcom_clib_08.asm
+105904,DetectMscdex,sub_105904,new,low,finds MSCDEX and the CD drives,src/lib/watcom/watcom_clib_08.asm
+105B08,CdDeviceStatus,sub_105B08,new,low,asks the CD driver for the device status,src/lib/watcom/watcom_clib_08.asm
+105BDC,CdReadLong,sub_105BDC,new,low,reads sectors with the CD driver,src/lib/watcom/watcom_clib_08.asm
+105D5C,CdSeekCmd,sub_105D5C,new,low,sends a seek to the CD driver,src/lib/watcom/watcom_clib_08.asm
+105E64,CdDirEntry,sub_105E64,new,low,reads the directory entry of a CD file,src/lib/watcom/watcom_clib_08.asm
+105F6C,FindSpeechEvent,sub_105F6C,new,low,finds an event in the speech bank,src/lib/watcom/watcom_clib_08.asm
+105FAA,ParseSpeechEvents,sub_105FAA,new,low,parses the events of the speech bank,src/lib/watcom/watcom_clib_08.asm
+106036,InitSpeechBank,sub_106036,new,low,sets up a speech bank,src/lib/watcom/watcom_clib_08.asm
+1060A8,PickRandomClip,sub_1060A8,new,low,picks a random clip from a list,src/lib/watcom/watcom_clib_08.asm
+106108,PickClipVariant,sub_106108,new,low,picks a variant of a clip,src/lib/watcom/watcom_clib_08.asm
+106223,ClipValue,sub_106223,new,low,returns a clip value or variable,src/lib/watcom/watcom_clib_08.asm
+10623B,PickEventClip,sub_10623B,new,low,picks the clip for an event,src/lib/watcom/watcom_clib_08.asm
+1062DB,BuildSpeechPhrase,sub_1062DB,new,low,builds a spoken phrase,src/lib/watcom/watcom_clib_08.asm
+106390,MatchPhraseRule,sub_106390,new,low,matches a phrase rule,src/lib/watcom/watcom_clib_08.asm
+106416,CheckRangeCondition,sub_106416,new,low,checks a range condition of a phrase rule,src/lib/watcom/watcom_clib_08.asm
+106467,CheckValueCondition,sub_106467,new,low,checks a value condition of a phrase rule,src/lib/watcom/watcom_clib_08.asm
+1064D7,CheckFlagCondition,sub_1064D7,new,low,checks a flag condition of a phrase rule,src/lib/watcom/watcom_clib_08.asm
+106530,CheckPhraseConditions,sub_106530,new,low,checks the conditions of a phrase rule,src/lib/watcom/watcom_clib_08.asm
+1065F0,BuildSpeechEvent,sub_1065F0,new,low,builds the speech for an event,src/lib/watcom/watcom_clib_08.asm
+10699D,ClearSpeechQueue,sub_10699D,new,low,clears the speech queue,src/lib/watcom/watcom_clib_08.asm
+1069F2,QueueSpeechEvent,sub_1069F2,new,low,adds an event to the speech queue,src/lib/watcom/watcom_clib_08.asm
+106AA6,RequestSpeechEvent,sub_106AA6,new,low,requests the speech for an event,src/lib/watcom/watcom_clib_08.asm
+106B45,PickNextSpeech,sub_106B45,new,low,picks the next speech to play,src/lib/watcom/watcom_clib_08.asm
+106C28,SpeechAge,sub_106C28,new,low,returns how long a speech has waited,src/lib/watcom/watcom_clib_08.asm
+106C74,PlayQueuedSpeech,sub_106C74,new,low,plays the next queued speech,src/lib/watcom/watcom_clib_08.asm
+106CBB,SetSpeechEnabled,sub_106CBB,new,low,turns speech on or off,src/lib/watcom/watcom_clib_08.asm
+106CD0,FileExistsPath,sub_106CD0,new,low,returns whether a file exists,src/lib/watcom/watcom_clib_08.asm
+106D08,FileSizePath,sub_106D08,new,low,returns the size of a file,src/lib/watcom/watcom_clib_08.asm
+106D80,LoadFileAlloc,sub_106D80,new,low,loads a file into a new block,src/lib/watcom/watcom_clib_08.asm
+106DA0,LoadFileAllocQuiet,sub_106DA0,new,low,loads a file into a new block without the error message,src/lib/watcom/watcom_clib_08.asm
+106DE0,LoadFileInto,sub_106DE0,new,low,loads a file into a buffer,src/lib/watcom/watcom_clib_08.asm
+106DF8,LoadFileIntoQuiet,sub_106DF8,new,low,loads a file into a buffer without the error message,src/lib/watcom/watcom_clib_08.asm
+106E10,LoadFileCore,sub_106E10,new,low,loads a file,src/lib/watcom/watcom_clib_08.asm
 106EC0,unpack,,96PC,medium,NHL96PC AFB88 (sem): C:3143; C:3144; C:3146; R:2562,
 10911D,strstr_,,96PC,medium,NHL96PC B16C9 (similar): mnemonic similarity 0.99 over 102 instructions,
 10942E,openhandle,,96PC,medium,NHL96PC E06B2 (similar): mnemonic similarity 0.91 over 87 instructions,

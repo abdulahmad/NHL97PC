@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_12F9E3 progbits alloc exec nowrite align=1
 extern __CommonInit_, dword_17258C, dword_172590, dword_19C690, dword_1DE784, dword_1DE788, exit_, main_
-extern sub_101324, ConvertArtAt, sub_138C90, SetScreenTarget, unk_19C648, unk_19C67E
+extern BlitConverted, ConvertArtAt, sub_138C90, SetScreenTarget, unk_19C648, unk_19C67E
 global __CMain, __FiniRtns, __InitRtns, sub_12FACC
 ;-----------------------------------------------------------------------------
 ; __CMain                                                      12F9E3  library
@@ -171,7 +171,7 @@ sub_12FACC:
         push edi
         mov edx, dword [byte esi+02Ch]
         push edx
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         pop edi
         pop esi

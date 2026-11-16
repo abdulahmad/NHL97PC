@@ -7,8 +7,8 @@ extern dword_17020C, dword_170210, dword_170214, dword_172AC0, dword_172BC8, dwo
 extern dword_1CFC80, dword_1CFC84, dword_1CFC88, dword_1CFC8C, dword_1CFC90, dword_1CFC94, dword_1CFC9C, dword_1CFCA0
 extern dword_1CFCA4, dword_1CFCA8, dword_1CFCAC, dword_1CFCB0, dword_1CFCB4, dword_1CFCB8, dword_1CFCC0, dword_1CFCC4
 extern dword_1CFCC8, dword_1CFCCC, dword_1CFCD0, dword_1CFCD4, dword_1CFCD8, dword_1CFCDC, dword_1CFCE0, dword_1CFCE4
-extern dword_1CFCE8, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, sub_1055D4, sub_10562C, sub_105644
-extern sub_1056F0, sub_10578C, sub_1057C0, sub_1057E8, sub_105808, sub_1072B4, sub_108640, sub_1091E0
+extern dword_1CFCE8, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, CdOpenStream, CdHandleEntry, CdCloseFile
+extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, sub_1072B4, sub_108640, sub_1091E0
 extern sub_109210, sub_109250, sub_128280, sub_12AB04, sub_12AB0C, sub_12CD34, sub_12D1C0, sub_12D210
 extern sub_FA9C4, AllocMemBlock, FreeMemBlock, sub_FAF70, addtimer, sub_FC008, unk_1CFCBC, word_170162
 global jpt_109E64, sub_109E74_2E, sub_109E74_57B, sub_109E74_613, sub_109E74_78F, AsyncInit, AsyncClose, AsyncRequestOpen
@@ -101,14 +101,14 @@ AsyncClose:
         test edx, edx
         jl short .1
         push edx
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .1:
         mov ecx, dword [dword_1CFC88]
         test ecx, ecx
         jl short .2
         push ecx
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .2:
         mov edi, dword [dword_1CFC74]
@@ -360,7 +360,7 @@ sub_109E74_2E:
         test eax, eax
         jl short .4
         push eax
-        call sub_10562C
+        call CdHandleEntry
         add esp, byte 4
         mov edx, eax
         mov eax, ebx
@@ -370,7 +370,7 @@ sub_109E74_2E:
         mov ecx, dword [dword_1CFC8C]
         push ecx
         mov esi, 0FFFFFFFFh
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
         mov dword [dword_1CFC8C], esi
 .4:
@@ -382,20 +382,20 @@ sub_109E74_2E:
         push dword_1CFCA4
         push dword_1CFC88
         push ebx
-        call sub_1055D4
+        call CdOpenStream
         add esp, byte 14h
         push dword 8Fh
         push ebx
         lea eax, [byte esp+08h]
         push eax
-        call sub_1057C0
+        call CdFindFile
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        call sub_1057E8
+        call DriveLetterIndex
         add esp, byte 4
         push eax
-        call sub_105808
+        call IsCdDrive
         add esp, byte 4
         test eax, eax
         je short .6
@@ -450,20 +450,20 @@ sub_109E74_2E:
         push dword_1CFCA4
         push dword_1CFC88
         push ebx
-        call sub_1055D4
+        call CdOpenStream
         add esp, byte 14h
         push dword 8Fh
         push ebx
         lea eax, [byte esp+08h]
         push eax
-        call sub_1057C0
+        call CdFindFile
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        call sub_1057E8
+        call DriveLetterIndex
         add esp, byte 4
         push eax
-        call sub_105808
+        call IsCdDrive
         add esp, byte 4
         test eax, eax
         je short .10
@@ -509,7 +509,7 @@ sub_109E74_2E:
         push edi
         mov edx, dword [dword_1CFC88]
         push edx
-        call sub_10578C
+        call CdSeek
         add esp, byte 8
         mov dword [dword_1CFCB4], eax
         jmp short .13
@@ -547,7 +547,7 @@ sub_109E74_2E:
         push eax
         mov esi, dword [dword_1CFC8C]
         push esi
-        call sub_10578C
+        call CdSeek
         mov dword [dword_1CFCB4], eax
         mov eax, dword [dword_1CFC8C]
         mov edi, 2
@@ -575,20 +575,20 @@ sub_109E74_2E:
         push dword_1CFCA4
         push dword_1CFC88
         push ebx
-        call sub_1055D4
+        call CdOpenStream
         add esp, byte 14h
         push dword 8Fh
         push ebx
         lea eax, [byte esp+08h]
         push eax
-        call sub_1057C0
+        call CdFindFile
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        call sub_1057E8
+        call DriveLetterIndex
         add esp, byte 4
         push eax
-        call sub_105808
+        call IsCdDrive
         add esp, byte 4
         test eax, eax
         je short .17
@@ -634,7 +634,7 @@ sub_109E74_2E:
         push esi
         mov eax, dword [dword_1CFC88]
         push eax
-        call sub_10578C
+        call CdSeek
         add esp, byte 8
         mov dword [dword_1CFCB4], eax
         jmp short .20
@@ -668,7 +668,7 @@ sub_109E74_2E:
         push eax
         mov ecx, dword [dword_1CFC8C]
         push ecx
-        call sub_10578C
+        call CdSeek
         mov dword [dword_1CFCB4], eax
         mov eax, dword [dword ebx+09Fh]
         mov dword [dword_1CFCB0], eax
@@ -725,7 +725,7 @@ sub_109E74_57B:
         xor edi, edi
         push ebp
         mov dword [dword_1CFCD4], edi
-        call sub_1056F0
+        call CdRead
         mov eax, dword [dword_1CFCD4]
         mov dword [dword_1CFCD8], eax
         mov eax, dword [dword_1CFCC0]
@@ -754,7 +754,7 @@ sub_109E74_613:
         jne short .26
         mov esi, dword [dword_1CFC88]
         push esi
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .26:
         mov ebp, dword [dword_1CFCAC]
@@ -796,7 +796,7 @@ sub_109E74_613:
         push edx
         mov dword [dword_1CFCB4], ebp
         mov dword [dword_1CFCD4], ebp
-        call sub_1056F0
+        call CdRead
         mov eax, dword [dword_1CFCD4]
         mov ecx, dword [dword_1CFCE0]
         mov edi, dword [dword_1CFCE4]
@@ -826,7 +826,7 @@ sub_109E74_613:
         jne short .31
         mov ebx, dword [dword_1CFC88]
         push ebx
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .31:
         mov ecx, 0FFFFFFFFh
@@ -848,7 +848,7 @@ sub_109E74_78F:
         jne short .33
         mov eax, dword [dword_1CFC88]
         push eax
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .33:
         mov edx, 0FFFFFFFFh
@@ -887,7 +887,7 @@ sub_109E74_78F:
         xor ecx, ecx
         push edi
         mov dword [dword_1CFCD4], ecx
-        call sub_1056F0
+        call CdRead
         mov eax, dword [dword_1CFCD4]
         mov ebp, dword [dword_1CFCE0]
         mov edx, dword [dword_1CFCB8]
@@ -919,7 +919,7 @@ sub_109E74_78F:
         jne short .39
         mov esi, dword [dword_1CFC88]
         push esi
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .39:
         mov edi, 0FFFFFFFFh

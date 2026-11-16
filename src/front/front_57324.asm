@@ -154,8 +154,8 @@ extern qword_163CEC, qword_163CF4, qword_163CFC, qword_163D04, qword_163D0C, qwo
 extern qword_163D2C, qword_163D34, qword_163D44, qword_163D54, qword_163D64, qword_163DA1, qword_163DA9, qword_163DB1
 extern qword_163EF8, rand_, randomd0, regd1, sprintf_, str_Back, str_Uarm, strcpy_
 extern strncmp_, strncpy_, strnicmp_, strupr_, sub_100498, sub_100700, SortIndices, bcopy
-extern BlitShape2, FindShape, sub_101560, sub_101584, Random32, sub_1038B0, sub_103E14, sub_1043A4
-extern sub_1049D0, sub_106D80, sub_10B0D4, sub_10B580, sub_10CDE0, sub_10FB50, sub_10FB98, sub_10FBB0
+extern BlitShape2, FindShape, OpenArtArchive, OpenArtArchiveErr, Random32, sub_1038B0, sub_103E14, sub_1043A4
+extern sub_1049D0, LoadFileAlloc, sub_10B0D4, sub_10B580, sub_10CDE0, sub_10FB50, sub_10FB98, sub_10FBB0
 extern sub_10FD58, sub_10FE10, sub_10FE58, sub_10FE88, sub_10FFBC, sub_11002C, sub_11004C, sub_1100B4
 extern sub_110414, sub_1104F0, StartCrowdMusic, RestartGameMusic, TransformBoneVerts, SkinModelVerts, AttachModelFrame, AttachModel
 extern UpdateModelFrame, SkinModel, ScaleModelVerts, LoadModelFile, FindModelPart, ResetMorphVerts, ApplyMorphTarget, PlotPixelRGBAt
@@ -848,7 +848,7 @@ LoadCupArt:
         add eax, byte 2Ch
         push eax
         xor ebx, ebx
-        call sub_101584
+        call OpenArtArchiveErr
         mov ecx, dword [dword_1ADC88]
         add esp, byte 8
         mov dword [dword_1B84D8], eax
@@ -960,7 +960,7 @@ LoadGoalieMask:
         push byte 0
         add eax, byte 2Ch
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov edx, eax
         mov ebp, eax
@@ -1026,7 +1026,7 @@ LoadPlayerCommonArt:
         call SetArtArchive
         push byte 20h
         push str_TeampalFsh
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push str_PAL2
         push eax
@@ -1038,7 +1038,7 @@ LoadPlayerCommonArt:
         push byte 0
         push str_HndfistFsh
         mov ebx, dword_1B82E0
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov edx, dword_1B82DC
         mov dword [dword_1B84C4], eax
@@ -1167,7 +1167,7 @@ LoadPlayerCommonArt:
         call ServiceIdle
         push byte 0
         push str_Stick2Fsh
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov dword [dword_1B8468], eax
@@ -1230,7 +1230,7 @@ LoadPlayerCommonArt:
         call ServiceIdle
         push byte 0
         push str_Gstick2Fsh
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov dword [dword_1B84F4], eax
@@ -1326,7 +1326,7 @@ LoadPlayerCommonArt:
         push byte 0
         push str_Lskate1Fsh
         mov dword [dword_1B13E4], eax
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov dword [dword_1B82F0], eax
@@ -1426,7 +1426,7 @@ LoadUniformArt:
         call SetArtArchive
         push byte 0
         push str_TeampalFsh
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push str_PAL2
         push eax
@@ -1463,7 +1463,7 @@ LoadUniformArt:
 .1:
         push byte 0
         push str_Cuppatch
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov dword [dword_1B84C8], eax
@@ -1475,7 +1475,7 @@ LoadUniformArt:
 .2:
         push byte 0
         push str_Torso2Fsh
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push str_Back
         mov esi, dword [byte esp+030h]
@@ -1497,7 +1497,7 @@ LoadUniformArt:
         call ServiceIdle
         push byte 0
         push str_Helmet0Fsh
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov edi, eax
@@ -1524,7 +1524,7 @@ LoadUniformArt:
         push byte 0
         push str_Helmet2Fsh
         mov edi, 1
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov ebx, eax
@@ -1555,7 +1555,7 @@ LoadUniformArt:
         jne near .4
         push esi
         push str_GllegFsh
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov edi, eax
@@ -1577,7 +1577,7 @@ LoadUniformArt:
         add esp, byte 8
         push byte 0
         push str_GrlegFsh
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov edi, eax
@@ -1597,7 +1597,7 @@ LoadUniformArt:
         add esp, byte 8
         push byte 0
         push str_LblkrFsh
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov edi, eax
         mov dword [dword esi+dword_1B8434], eax
@@ -1627,7 +1627,7 @@ LoadUniformArt:
         add esp, byte 8
         push byte 0
         push str_Rtrap2Fsh
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov edi, eax
@@ -1659,7 +1659,7 @@ LoadUniformArt:
         push byte 0
         push str_Uarm
         mov ebx, dword_1B82E0
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov edx, dword_1B82DC
         mov esi, dword [byte esp+02Ch]
@@ -1677,7 +1677,7 @@ LoadUniformArt:
         push byte 0
         push str_Larm
         mov ebx, dword_1B82E0
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword_1B82DC
         add esp, byte 8
         mov edi, eax
@@ -1693,7 +1693,7 @@ LoadUniformArt:
         call ServiceIdle
         push byte 0
         push str_Uleg
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov edi, eax
         mov dword [dword esi+dword_1B8410], eax
@@ -1710,7 +1710,7 @@ LoadUniformArt:
         push byte 0
         push str_Lleg
         mov ebx, dword_1B82E0
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword_1B82DC
         add esp, byte 8
         mov edi, eax
@@ -1728,7 +1728,7 @@ LoadUniformArt:
         push str_Glove
         mov ebp, 1
         mov ebx, dword_1B82E0
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword_1B82DC
         add esp, byte 8
         mov edi, eax
@@ -1957,7 +1957,7 @@ LoadGameModels:
         push ebx
         push str_Marks2
         mov bl, 1
-        call sub_101584
+        call OpenArtArchiveErr
         mov ecx, 0FFFFFFFFh
         add esp, byte 8
         mov dword [dword_1B8544], eax
@@ -5754,7 +5754,7 @@ LoadFaceArt:
         call SetArtArchive
         push byte 0
         push str_Facepal
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov edi, eax
         call ServiceIdle
@@ -5921,14 +5921,14 @@ LoadPlayerFace:
         push byte 0
         lea eax, [byte esp+04h]
         push eax
-        call sub_101560
+        call OpenArtArchive
         add esp, byte 8
         mov dword [byte esp+01Ch], eax
         test eax, eax
         jne short .2
         push eax
         push str_Fac00000
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov dword [byte esp+01Ch], eax
 .2:
@@ -43098,7 +43098,7 @@ LoadAnimFile:
         push esi
         lea eax, [dword esp+0104h]
         push eax
-        call sub_106D80
+        call LoadFileAlloc
         add esp, byte 8
         mov ecx, eax
         mov edx, eax

@@ -14,7 +14,7 @@ extern dword_1CE356, dword_1CE3EA, dword_1CE3EE, dword_1CE3F2, dword_1CE43C, dwo
 extern dword_1CE48E, dword_1CE492, dword_1CE496, dword_1CE4D6, dword_1CE4DA, dword_1CE4E0, dword_1CE4E4, dword_1CE4E8
 extern dword_1CE4EC, dword_1CE4F0, dword_1CE528, dword_1CE52C, dword_1CE532, dword_1CE536, dword_1CE53A, dword_1CE53E
 extern dword_1CE542, dword_1CEF9C, dword_1CEFA0, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, rand_, sprintf_
-extern str_TR0D, strlen_, bcopy, sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC
+extern str_TR0D, strlen_, bcopy, BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen
 extern FindShape, sub_10FE58, CreateBitmapForArt, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, DrawShadowRect, sub_11FAAC
 extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFileLib
 extern DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, WipeScreen
@@ -95,14 +95,14 @@ ShowReservedKey:
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .2:
         test si, si
         jne near .9
         mov ebx, 1
         jmp short .5
 .3:
-        call sub_1013FC
+        call PresentScreen
         movsx eax, bx
         push eax
         call IsKeyDown
@@ -158,7 +158,7 @@ ShowReservedKey:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .10:
         cmp si, byte 1
         jl short .11
@@ -474,7 +474,7 @@ ControlSetupMain:
         push dword [byte ebx+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov esi, eax
         lea edx, [byte esi+04h]
@@ -548,7 +548,7 @@ ControlSetupMain:
         call BlitShape
 ControlSetupMain_3F3:
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
 ControlSetupMain_3FB:
         leave
         pop edi
@@ -649,7 +649,7 @@ ControlSetupKeys:
         call BlitShape
         add esp, byte 4
         mov edi, 5
-        call sub_1013FC
+        call PresentScreen
         jmp near .8
 .3:
         push ebx
@@ -752,7 +752,7 @@ ControlSetupKeys:
         push dword [byte ebx+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov dword [byte ebp-01Ch], eax
 .6:
@@ -1016,7 +1016,7 @@ ControlSetupKeys:
         call BlitShape2
         add esp, byte 4
         inc edi
-        call sub_1013FC
+        call PresentScreen
 .13:
         cmp di, byte 0Ah
         jle near .9
@@ -1242,7 +1242,7 @@ ControlSetupKeys:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push dword 8Ch
         push dword 15Eh
@@ -1256,7 +1256,7 @@ ControlSetupKeys:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push dword 8Ch
         push dword 15Eh
@@ -1266,7 +1266,7 @@ ControlSetupKeys:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push ebx
         call FreeBitmap
@@ -1365,7 +1365,7 @@ ControlSetupPads:
         push dword [dword_1CE48E]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         push byte 0
         push str_Mous5
         push esi
@@ -1387,7 +1387,7 @@ ControlSetupPads:
 .4:
         cmp word [byte ebp-04h], byte 14h
         jle short .3
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-020h]
         mov dword [byte ebp-0Ch], 0
         mov dword [byte ebp-04h], 0Ah
@@ -1707,7 +1707,7 @@ ControlSetupPads:
         call BlitShape2
         add esp, byte 4
         dec dword [byte ebp-04h]
-        call sub_1013FC
+        call PresentScreen
 .11:
         cmp word [byte ebp-04h], byte 0
         jge near .5
@@ -1801,7 +1801,7 @@ ControlSetupPads:
         push dword [byte ebx+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov edx, eax
         lea ecx, [byte edx+04h]
@@ -1854,7 +1854,7 @@ ControlSetupPads:
         push dword [byte ebp+010h]
         call DrawArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         call StopAllSfx
         mov eax, 203h
         call PlaySfx
@@ -2677,7 +2677,7 @@ ControlSetupScreen:
         call DrawTextAligned
         add esp, byte 10h
         xor esi, esi
-        call sub_1013FC
+        call PresentScreen
         jmp near .8
 .3:
         xor ebx, ebx
@@ -3019,7 +3019,7 @@ ControlSetupScreen:
 .18:
         cmp si, byte 8
         jl near .13
-        call sub_1013FC
+        call PresentScreen
         push byte 0
         push byte 64h
         push byte 64h
@@ -3033,7 +3033,7 @@ ControlSetupScreen:
         push dword [byte ebx+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte ebx+02Ch]
         mov word [byte eax+0Ch], 21Ch
         mov eax, dword [byte ebx+02Ch]
@@ -3365,7 +3365,7 @@ ControlSetupScreen_C3A:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push dword 8Ch
         push dword 15Eh
@@ -3375,7 +3375,7 @@ ControlSetupScreen_C3A:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
 .38:
         add esp, byte 0Ch
         jmp near ControlSetupScreen_F11.42
@@ -3387,7 +3387,7 @@ ControlSetupScreen_C3A:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push dword 8Ch
         push dword 15Eh
@@ -3462,7 +3462,7 @@ ControlSetupScreen_F11:
 .40:
         call DrawControlLabel
 .41:
-        call sub_1013FC
+        call PresentScreen
 .42:
         cmp dword [byte ebp+072h], byte 0
         jne near ControlSetupScreen_1064.46
@@ -4084,7 +4084,7 @@ ControlSetupPlayers:
         call BlitShape2
         add esp, byte 4
         inc dword [byte ebp-08h]
-        call sub_1013FC
+        call PresentScreen
 .7:
         cmp word [byte ebp-08h], byte 0Ah
         jle near .3
@@ -4280,7 +4280,7 @@ ControlSetupPlayers:
         push dword [dword_1CE48E]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         call StopAllSfx
         mov eax, 201h
         mov dword [byte ebp-08h], 0
@@ -4324,7 +4324,7 @@ ControlSetupPlayers:
         call BlitShape2
         add esp, byte 4
         inc dword [byte ebp-08h]
-        call sub_1013FC
+        call PresentScreen
 .9:
         cmp word [byte ebp-08h], byte 14h
         jle near .8
@@ -4389,7 +4389,7 @@ ControlSetupPlayers:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push dword 8Ch
         push dword 15Eh
@@ -4403,7 +4403,7 @@ ControlSetupPlayers:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push dword 8Ch
         push dword 15Eh
@@ -4413,9 +4413,9 @@ ControlSetupPlayers:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-018h]
         call FreeBitmap
         add esp, byte 4

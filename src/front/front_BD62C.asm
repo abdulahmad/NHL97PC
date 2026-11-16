@@ -15,8 +15,8 @@ extern dword_1CAEE8, dword_1CAEEC, dword_1CAEF0, dword_1CAEF4, dword_1CAEF8, dwo
 extern dword_1CAF98, dword_1CAF9C, dword_1CAFA0, dword_1CAFA4, dword_1CAFA8, dword_1CAFAC, dword_1CAFDC, dword_1CAFE0
 extern dword_1CAFE4, dword_1CAFE8, dword_1CAFEC, dword_1CAFF0, dword_1CAFF4, dword_1CAFF8, dword_1CAFFC, dword_1CB000
 extern off_16D254, off_16D258, qword_166A8D, qword_166AA1, qword_166ACC, qword_166B0F, qword_166B2A, rand_
-extern sprintf_, strcmp_, strcpy_, BlitArt, sub_1013FC, FindShape, sub_101EAC, sub_103298
-extern sub_103648, sub_105324, sub_10AED0, RestartGameMusic, UnlinkJump, ResetPlayers, SetScreenTarget, InitGameDisplay
+extern sprintf_, strcmp_, strcpy_, BlitArt, PresentScreen, FindShape, DrawShapeBlended, sub_103298
+extern sub_103648, FreeInverseTable, sub_10AED0, RestartGameMusic, UnlinkJump, ResetPlayers, SetScreenTarget, InitGameDisplay
 extern ApplyDisplayFlags, ClearOverlayWindows, ReplayCameraOn, ReplayCameraOff, ReplayCamFollowMode, ReplayCamDrag, ReplayCamRestorePath, ReplayCamOrbitMode
 extern ReplayCamOrbit, ReplayCamStop, ReplayCamFreeMode, ReplayCamTurn, ReplayCamMove, ReplayCamZoomMode, ReplayCamZoom, ReplayCamClearFlag
 extern SetVideoMode, SetViewSize, ClearViewInterlaced, ShowView, SetViewOrigin, SetRinkDetail, FadeGamePalette, ChkMenuMusic
@@ -407,7 +407,7 @@ VideoOptionsScreen:
         push byte 0
         call ClearScreen
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         call SetHighlightText
         call FreeFrontEnd
         cmp dword [dword_16CCF1], byte 0
@@ -431,12 +431,12 @@ VideoOptionsScreen:
         push byte 0
         call sub_103648
         add esp, byte 0Ch
-        call sub_105324
+        call FreeInverseTable
         call SetScreenTarget
         push byte 0
         call ClearScreen
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, 0FDh
         xor edx, edx
         call LoadDataFile
@@ -487,7 +487,7 @@ VideoOptionsScreen:
         add esp, byte 8
         push eax
         push dword 10000h
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         push dword [dword_1CAF98]
         call SetDrawTarget
@@ -503,7 +503,7 @@ VideoOptionsScreen:
         add esp, byte 8
         push eax
         push dword 10000h
-        call sub_101EAC
+        call DrawShapeBlended
         mov eax, dword [dword_1CAF98]
         mov edx, dword [byte eax+02Ch]
         mov eax, dword [dword_1CAF94]
@@ -728,7 +728,7 @@ PlayReplayFromMenu:
         push ecx
         push edx
         mov ebx, eax
-        call sub_1013FC
+        call PresentScreen
         call PlaySavedReplay
         mov dword [dword_1CAF90], eax
         call ReplayStatusText
@@ -1669,7 +1669,7 @@ DrawReplayMenu:
         push eax
         call FillRectCorners
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         imul eax, dword [byte ebp+010h], byte 52h
         mov edx, dword [dword_1CAFF8]
         mov dword [byte edx+eax+026h], esi
@@ -1765,7 +1765,7 @@ DrawReplayMenu_1D0:
         push dword [dword_1CAEF0]
 .6:
         push dword 6666h
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         jmp near DrawReplayMenu_271
 .7:
@@ -1863,7 +1863,7 @@ DrawReplayMenu_271:
         call DrawTextAligned
         add esp, byte 14h
 .17:
-        call sub_1013FC
+        call PresentScreen
 DrawReplayMenu_301:
         leave
         pop edi
@@ -2211,7 +2211,7 @@ DrawReplayTimeline:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-0Ch]
         call FreeBitmap
         add esp, byte 4
@@ -2682,7 +2682,7 @@ PickReplayScreen:
         call FillRect
         add esp, byte 14h
 .5:
-        call sub_1013FC
+        call PresentScreen
         push dword 0FF00AAAAh
         call MakeColor
         add esp, byte 4
@@ -3421,7 +3421,7 @@ DrawReplayEntry:
         push dword [byte edi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push edi
         call FreeBitmap
         add esp, byte 4
@@ -3468,7 +3468,7 @@ ReplayMenuScreen:
         add esp, byte 8
         push eax
         push dword 10000h
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         push dword [dword_1CAF98]
         call SetDrawTarget
@@ -3484,7 +3484,7 @@ ReplayMenuScreen:
         add esp, byte 8
         push eax
         push dword 10000h
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         call FreeMenuBitmap
         mov eax, dword [dword_1CAF98]
@@ -3652,7 +3652,7 @@ ReplayMenuScreen:
         fistp dword [byte ebp-020h]
         cmp ebx, dword [byte ebp-020h]
         jl near .9
-        call sub_1013FC
+        call PresentScreen
         push dword [dword_1CAFA4]
         call sub_FCC40
         add esp, byte 4

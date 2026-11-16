@@ -4,9 +4,12 @@ bits 32
 section s_FC590 progbits alloc exec nowrite align=1
 extern dword_16E448, mousex, mousey, dword_16E454, dword_16E458, dword_16E45C, dword_16E464, dword_16E468
 extern mouseminx, mouseminy, mousemaxx, mousemaxy, dword_16E614, dword_16E618, dword_16E61C, dword_16E620
-extern dword_16E624, off_16E4D4, off_16E4D8, off_16E4DC, off_16E4E0, sub_101220
+extern dword_16E624, off_16E4D4, off_16E4D8, off_16E4DC, off_16E4E0, AddExitHandler
 global MouseRead, MouseReadMotion, sub_FC590, sub_FC5B6, SetViewRect, sub_FC714, sub_FC71B, sub_FC722
 global sub_FC73E
+;-----------------------------------------------------------------------------
+; sub_FC590                                                            FC590  
+;-----------------------------------------------------------------------------
 sub_FC590:
         push ebx
         LD xor, eax, eax
@@ -21,6 +24,9 @@ sub_FC590:
         inc dword [dword_16E618]
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_FC5B6                                                            FC5B6  
+;-----------------------------------------------------------------------------
 sub_FC5B6:
         push ebp
         LD mov, ebp, esp
@@ -50,6 +56,9 @@ sub_FC5B6:
         pop ebx
         leave
         ret
+;-----------------------------------------------------------------------------
+; MouseRead                                    FC5F8  95 PC, medium confidence
+;-----------------------------------------------------------------------------
 MouseRead:
         push ebp
         LD mov, ebp, esp
@@ -75,6 +84,9 @@ MouseRead:
         pop ebx
         leave
         ret
+;-----------------------------------------------------------------------------
+; SetViewRect                                                     FC635  96 PC
+;-----------------------------------------------------------------------------
 SetViewRect:
         push ebp
         LD mov, ebp, esp
@@ -90,6 +102,9 @@ SetViewRect:
         pop ebx
         leave
         ret
+;-----------------------------------------------------------------------------
+; MouseReadMotion                              FC65F  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 MouseReadMotion:
         pusha
         dec dword [dword_16E618]
@@ -141,12 +156,21 @@ MouseReadMotion:
         mov eax, dword [dword_16E454]
         inc dword [dword_16E618]
         ret
+;-----------------------------------------------------------------------------
+; sub_FC714                                                            FC714  
+;-----------------------------------------------------------------------------
 sub_FC714:
         inc dword [dword_16E458]
         ret
+;-----------------------------------------------------------------------------
+; sub_FC71B                                                            FC71B  
+;-----------------------------------------------------------------------------
 sub_FC71B:
         dec dword [dword_16E458]
         ret
+;-----------------------------------------------------------------------------
+; sub_FC722                                                            FC722  
+;-----------------------------------------------------------------------------
 sub_FC722:
         pusha
         mov eax, 1Ah
@@ -156,6 +180,9 @@ sub_FC722:
         int 33h
         popa
         ret
+;-----------------------------------------------------------------------------
+; sub_FC73E                                                            FC73E  
+;-----------------------------------------------------------------------------
 sub_FC73E:
         pusha
         mov dword [dword_16E448], 0
@@ -197,7 +224,7 @@ sub_FC73E:
         lea eax, [MouseReadMotion]
         mov dword [off_16E4E0], eax
         push sub_FC722
-        call sub_101220
+        call AddExitHandler
         add esp, byte 20h
 .1:
         popa

@@ -28,7 +28,7 @@ extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dwo
 extern qword_167A75, qword_167A7D, qword_167AB1, qword_167AB9, qword_167AC1, qword_167AC9, qword_167AD1, qword_167AD9
 extern qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qword_167B9F, qword_167BB3, qword_167BBB
 extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, sscanf_, sub_1008CC
-extern BlitArt, sub_1013FC, FindShape, sub_101EAC, sub_102B94, sub_10491C, PrintBoxedText, IsPlayoffGame
+extern BlitArt, PresentScreen, FindShape, DrawShapeBlended, ConvertArtNew, sub_10491C, PrintBoxedText, IsPlayoffGame
 extern RefreshPlayerModel, ConvertArtXY, SaveTextState, RestoreTextState, DrawShadowRect, ResetForIntermission, GetCurrentFont, sub_11FAAC
 extern sub_11FB11, RefreshRinkPalette, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, DrawPanelArtScaled, RefreshOverlayWindows
 extern SetOverlayFont, IntermissionCameraScene, MenuCameraScene, MenuOrbitScene, RestoreGameCamera, AddOverlayWindow, RemoveOverlayWindow, UpdateScreenRegion
@@ -176,7 +176,7 @@ LoadPauseArt:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         fild dword [byte ebp-04h]
         fld1
         fdivrp
@@ -189,7 +189,7 @@ LoadPauseArt:
         fistp dword [byte ebp-08h]
         push dword [byte ebp-08h]
         mov edi, eax
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         push edi
         call FreeMemBlock
@@ -202,7 +202,7 @@ LoadPauseArt:
 .6:
         cmp si, byte 2
         jl near .1
-        call sub_1013FC
+        call PresentScreen
         mov eax, 1
         call SetMenuMode
         push dword [dword_1C5DE4]
@@ -466,7 +466,7 @@ DrawPauseButton:
         push byte 0
         call DrawTextAligned
         add esp, byte 10h
-        call sub_1013FC
+        call PresentScreen
         leave
         pop edi
         pop esi
@@ -632,7 +632,7 @@ DrawMenuItem:
         jl near .1
         mov eax, dword [byte esi+04h]
         mov dword [byte esi+08h], eax
-        call sub_1013FC
+        call PresentScreen
         leave
         pop edi
         pop esi
@@ -927,7 +927,7 @@ DrawPauseClock:
         push eax
         call DrawTextBoxedAt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         lea eax, [byte ebp-02Eh]
         push eax
         call RestoreTextState
@@ -1363,7 +1363,7 @@ DrawPauseButtons:
         jl near .12
         mov eax, dword [byte esi+070h]
         mov dword [byte esi+074h], eax
-        call sub_1013FC
+        call PresentScreen
         jmp near .15
 .14:
         push dword [byte ebp-050h]
@@ -1686,7 +1686,7 @@ PickEditLinesTeam:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-018h]
         movsx eax, di
         push dword [byte ebp-02Ch]
@@ -1847,7 +1847,7 @@ PickEditLinesTeam:
         push dword [byte esi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-01Ch]
         call FreeBitmap
         add esp, byte 4
@@ -2113,7 +2113,7 @@ ConfirmQuitGame:
         push dword [byte edi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-02Ch]
         movsx eax, word [dword ebp-0220h]
         push dword [byte ebp-018h]
@@ -2264,7 +2264,7 @@ ConfirmQuitGame:
         push dword [byte esi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push edi
         call FreeBitmap
         add esp, byte 4
@@ -2451,7 +2451,7 @@ RunIntermission:
         push eax
         call DrawTextAt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp dword [dword_19CD30], byte 0
         sete al
         mov edx, dword [dword_16E468]
@@ -3844,7 +3844,7 @@ DrawIntermissionTitle:
         inc ebx
         cmp ebx, byte 9
         jl short .22
-        call sub_1013FC
+        call PresentScreen
         lea esp, [dword ebp+082h]
         pop ebp
         pop esi
@@ -5652,7 +5652,7 @@ RulesMenu:
         movsx edx, ax
         lea eax, [dword ebp-0AEh]
         call DrawMenuItem
-        call sub_1013FC
+        call PresentScreen
         lea edx, [dword ebp-06CEh]
         mov eax, 0Ah
         xor esi, esi
@@ -5873,7 +5873,7 @@ RulesMenu:
         push byte 0
         call DrawTextAligned
         add esp, byte 10h
-        call sub_1013FC
+        call PresentScreen
         push dword 0FF000000h
         call sub_FC4BC
         add esp, byte 4
@@ -5920,7 +5920,7 @@ RulesMenu_1583:
         push dword [dword ebp-06A8h]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [dword ebp-011Ah]
         call FreeBitmap
         add esp, byte 4
@@ -6054,7 +6054,7 @@ RulesMenu_176B:
         push dword [dword ebp-0656h]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [dword ebp-010Eh]
         call FreeBitmap
         add esp, byte 4
@@ -6223,7 +6223,7 @@ RulesMenu_19CD:
         push dword [dword ebp-0604h]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [dword ebp-0102h]
         call FreeBitmap
         add esp, byte 4
@@ -6378,7 +6378,7 @@ RulesMenu_1C04:
         push dword [dword ebp-05B2h]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [dword ebp-0F6h]
         call FreeBitmap
         add esp, byte 4
@@ -6482,7 +6482,7 @@ RulesMenu_1D78:
         push dword [dword ebp-0560h]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [dword ebp-0EAh]
         call FreeBitmap
         add esp, byte 4
@@ -6599,7 +6599,7 @@ RulesMenu_1F1F:
         push dword [dword ebp-050Eh]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [dword ebp-0DEh]
         call FreeBitmap
         add esp, byte 4
@@ -6684,7 +6684,7 @@ RulesMenu_2056:
         push dword [dword ebp-04BCh]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [dword ebp-0D2h]
         call FreeBitmap
         add esp, byte 4
@@ -6769,7 +6769,7 @@ RulesMenu_218D:
         push dword [dword ebp-046Ah]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [dword ebp-0C6h]
         call FreeBitmap
         add esp, byte 4
@@ -6863,7 +6863,7 @@ RulesMenu_22F1:
         push dword [dword ebp-0418h]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [dword ebp-0BAh]
         call FreeBitmap
         add esp, byte 4
@@ -7711,7 +7711,7 @@ DetailLevelMenu:
         movsx edx, ax
         lea eax, [byte ebp-042h]
         call DrawMenuItem
-        call sub_1013FC
+        call PresentScreen
         lea edx, [dword ebp-0526h]
         mov eax, 8
         xor esi, esi
@@ -7937,7 +7937,7 @@ DetailLevelMenu:
         push dword [byte ebp+07Ah]
         call DrawShadowRect
         add esp, byte 18h
-        call sub_1013FC
+        call PresentScreen
         push dword 0FF000000h
         call sub_FC4BC
         add esp, byte 4
@@ -7957,7 +7957,7 @@ DetailLevelMenu_C81:
         push dword [dword ebp-0500h]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [dword ebp-096h]
         call FreeBitmap
         add esp, byte 4
@@ -8082,7 +8082,7 @@ DetailLevelMenu_E31:
         push dword [dword ebp-045Ch]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [dword ebp-08Ah]
         call FreeBitmap
         add esp, byte 4
@@ -8277,7 +8277,7 @@ DetailLevelMenu_10E6:
         push dword [dword ebp-04AEh]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-07Eh]
         call FreeBitmap
         add esp, byte 4
@@ -8402,7 +8402,7 @@ DetailLevelMenu_12B8:
         push dword [dword ebp-040Ah]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-072h]
         call FreeBitmap
         add esp, byte 4
@@ -8484,7 +8484,7 @@ DetailLevelMenu_13D7:
         push dword [dword ebp-03B8h]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-066h]
         call FreeBitmap
         add esp, byte 4
@@ -8566,7 +8566,7 @@ DetailLevelMenu_14F6:
         push dword [dword ebp-0366h]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-05Ah]
         call FreeBitmap
         add esp, byte 4
@@ -8673,7 +8673,7 @@ DetailLevelMenu_165B:
         push dword [dword ebp-0314h]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-04Eh]
         call FreeBitmap
         add esp, byte 4

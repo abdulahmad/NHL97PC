@@ -8,18 +8,18 @@ extern dword_16F5AC, dword_16F5B4, dword_1CF5F0, dword_1DA4D0, exit_, off_16F588
 extern off_16F684, sprintf_, strrchr_, sub_100528, sub_1049D0, PlotPixelRGB, sub_12189C, sub_12233C
 extern sub_122D90, sub_123FA8, sub_125DDE, sub_125E68, sub_125FE1, sub_126052, sub_1261A4, sub_126264
 extern sub_126364, AllocMemBlock, FreeMemBlock, MakeColor, word_1CF5F4
-global _os_handle, jpt_1015B0, jpt_101980, sub_101230_90, FindShapeQuiet_2, sub_1015F0_30, sub_1015F0_54, sub_1015F0_6E
-global sub_1015F0_94, sub_1015F0_B9, sub_1015F0_10C, sub_1015F0_153, sub_1015F0_1A6, sub_1015F0_1BC, sub_1015F0_204, sub_1015F0_232
-global sub_1015F0_27B, sub_1015F0_2A1, sub_1015F0_2F4, sub_1015F0_33A, sub_1015F0_38A, sub_1019A0_14, sub_1019A0_2D, sub_1019A0_46
-global sub_1019A0_6F, sub_1019A0_81, sub_1019A0_AC, sub_1019A0_C4, sub_1019A0_DB, sub_101EAC_1F4, bcopy, sub_100AF4
-global sub_100B88, sub_100BC8, sub_100BCC, sub_100C08, sub_100C50, sub_100D04, sub_100D8C, sub_100DC4
-global sub_100DCC, sub_100E54, sub_100F70, sub_100FCC, sub_1010E8, sub_101154, sub_1011E8, sub_101220
-global sub_101229, sub_101230, sub_1012D0, sub_1012E0, sub_1012F0, sub_101310, sub_101324, BlitShape2
-global BlitArt, BlitShape, sub_1013CC, sub_1013FC, FindShape, FindShapeQuiet, sub_101470, sub_10150C
-global sub_101524, sub_101560, sub_101584, sub_1015F0, sub_1019A0, sub_101A7C, sub_101EAC, sub_1020B4
-global sub_1020F0, sub_102148, sub_102158, sub_1021A0, sub_1021B0, sub_102220, sub_1022F0, sub_102300
-global sub_102368, sub_1023E0, sub_102400, sub_10244C, sub_102498, sub_1024AC, sub_102558, sub_1025DC
-global sub_102698, sub_102748, sub_102878, sub_102B78, sub_102B94, unk_101400
+global _os_handle, jpt_1015B0, jpt_101980, PacketChecksum_90, FindShapeQuiet_2, BlendPixelMode_30, BlendPixelMode_54, BlendPixelMode_6E
+global BlendPixelMode_94, BlendPixelMode_B9, BlendPixelMode_10C, BlendPixelMode_153, BlendPixelMode_1A6, BlendPixelMode_1BC, BlendPixelMode_204, BlendPixelMode_232
+global BlendPixelMode_27B, BlendPixelMode_2A1, BlendPixelMode_2F4, BlendPixelMode_33A, BlendPixelMode_38A, BlendPixels_14, BlendPixels_2D, BlendPixels_46
+global BlendPixels_6F, BlendPixels_81, BlendPixels_AC, BlendPixels_C4, BlendPixels_DB, DrawShapeBlended_1F4, bcopy, QueueFreeChain
+global QueueInit, QueueNoOp, QueuePeek, QueueTakeTail, QueueTakeHead, QueueInsert, QueueFreeAll, QueueCount
+global QueueFind, QueueFindPacket, QueueRemoveEntry, QueueAppend, QueuePrepend, QueuePostBuffer, QueueRepost, AddExitHandler
+global ExitProgram, PacketChecksum, CopyRow8, CopyRow16, CopyRow24, CopyRow32, BlitConverted, BlitShape2
+global BlitArt, BlitShape, BlitClippedY, PresentScreen, FindShape, FindShapeQuiet, LoadDataFileExt, LoadDataFileNoErr
+global LoadDataFileErr, OpenArtArchive, OpenArtArchiveErr, BlendPixelMode, BlendPixels, BlendShapeRows, DrawShapeBlended, ConvertRow4To8
+global ConvertRow4To16, ConvertRow8To8, ConvertRow8To16, ConvertRow16To16, ConvertRow16To8, ConvertRow16To15, ConvertRow15To15, ConvertRow15To16
+global ConvertRow15To8, ConvertRow24To24, ConvertRow32To16, ConvertRow24To16, ConvertRow32To32, ConvertRowPalTo16, MapArtType, ConvertArtPalette
+global ConvertArtPalette16, ConvertArtRows, ConvertArtShape, ConvertArtSame, ConvertArtNew, unk_101400
 ;-----------------------------------------------------------------------------
 ; bcopy                                       100A68  97 PC, medium confidence
 ; (src, dst, n): copies n bytes, backwards when they overlap (BSD order)
@@ -104,9 +104,10 @@ _os_handle:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_100AF4                                                          100AF4  
+; QueueFreeChain                                 100AF4  97 PC, low confidence
+; Frees a chain of queue entries
 ;-----------------------------------------------------------------------------
-sub_100AF4:
+QueueFreeChain:
         push ebx
         push esi
         push edi
@@ -175,9 +176,10 @@ sub_100AF4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_100B88                                                          100B88  
+; QueueInit                                      100B88  97 PC, low confidence
+; Clears a queue header
 ;-----------------------------------------------------------------------------
-sub_100B88:
+QueueInit:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte esp+08h]
         mov dword [byte eax+018h], 0
@@ -193,13 +195,18 @@ sub_100B88:
         mov edx, dword [byte esp+0Ch]
         mov dword [byte eax+014h], edx
         lea eax, [byte eax+00h]
-sub_100BC8:
+;-----------------------------------------------------------------------------
+; QueueNoOp                                      100BC8  97 PC, low confidence
+; Does nothing (empty queue hook)
+;-----------------------------------------------------------------------------
+QueueNoOp:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_100BCC                                                          100BCC  
+; QueuePeek                                      100BCC  97 PC, low confidence
+; Returns the head of a queue with interrupts off
 ;-----------------------------------------------------------------------------
-sub_100BCC:
+QueuePeek:
         push ebx
         mov edx, dword [byte esp+08h]
         mov ebx, dword [byte esp+0Ch]
@@ -228,9 +235,10 @@ sub_100BCC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_100C08                                                          100C08  
+; QueueTakeTail                                  100C08  97 PC, low confidence
+; Takes the last entry of a queue with interrupts off
 ;-----------------------------------------------------------------------------
-sub_100C08:
+QueueTakeTail:
         push ebx
         push esi
         mov edx, dword [byte esp+0Ch]
@@ -265,9 +273,10 @@ sub_100C08:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_100C50                                                          100C50  
+; QueueTakeHead                                  100C50  97 PC, low confidence
+; Takes the first entry of a queue with interrupts off
 ;-----------------------------------------------------------------------------
-sub_100C50:
+QueueTakeHead:
         push ebx
         mov edx, dword [byte esp+08h]
         pushf
@@ -349,9 +358,10 @@ sub_100C50:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_100D04                                                          100D04  
+; QueueInsert                                    100D04  97 PC, low confidence
+; Inserts an entry into a queue with interrupts off
 ;-----------------------------------------------------------------------------
-sub_100D04:
+QueueInsert:
         push ebx
         push esi
         push edi
@@ -421,9 +431,10 @@ sub_100D04:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_100D8C                                                          100D8C  
+; QueueFreeAll                                   100D8C  97 PC, low confidence
+; Frees every entry of a queue
 ;-----------------------------------------------------------------------------
-sub_100D8C:
+QueueFreeAll:
         push ebx
         mov ecx, dword [byte esp+0Ch]
         pushf
@@ -436,7 +447,7 @@ sub_100D8C:
         push ecx
         mov edx, dword [byte esp+0Ch]
         push edx
-        call sub_100AF4
+        call QueueFreeChain
         add esp, byte 8
         mov edx, eax
 .1:
@@ -450,17 +461,19 @@ sub_100D8C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_100DC4                                                          100DC4  
+; QueueCount                                     100DC4  97 PC, low confidence
+; Returns the count of a queue
 ;-----------------------------------------------------------------------------
-sub_100DC4:
+QueueCount:
         mov eax, dword [byte esp+04h]
         mov eax, dword [eax]
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_100DCC                                                          100DCC  
+; QueueFind                                      100DCC  97 PC, low confidence
+; Finds an entry in a queue
 ;-----------------------------------------------------------------------------
-sub_100DCC:
+QueueFind:
         push ebx
         push esi
         push edi
@@ -526,9 +539,10 @@ sub_100DCC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_100E54                                                          100E54  
+; QueueFindPacket                                100E54  97 PC, low confidence
+; Finds a packet in a queue by number
 ;-----------------------------------------------------------------------------
-sub_100E54:
+QueueFindPacket:
         push ebx
         push esi
         push edi
@@ -673,9 +687,10 @@ sub_100E54:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_100F70                                                          100F70  
+; QueueRemoveEntry                               100F70  97 PC, low confidence
+; Removes an entry from a queue
 ;-----------------------------------------------------------------------------
-sub_100F70:
+QueueRemoveEntry:
         push ebx
         push esi
         push edi
@@ -725,9 +740,10 @@ sub_100F70:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_100FCC                                                          100FCC  
+; QueueAppend                                    100FCC  97 PC, low confidence
+; Appends an entry to a queue
 ;-----------------------------------------------------------------------------
-sub_100FCC:
+QueueAppend:
         push ebx
         push esi
         push edi
@@ -759,7 +775,7 @@ sub_100FCC:
         push ebx
         mov ecx, dword [byte esp+014h]
         push ecx
-        call sub_100AF4
+        call QueueFreeChain
         add esp, byte 8
         test eax, eax
         jne short .3
@@ -812,7 +828,7 @@ sub_100FCC:
         je short .9
         push ebx
         push ecx
-        call sub_100AF4
+        call QueueFreeChain
         add esp, byte 8
         test eax, eax
         jne short .9
@@ -855,7 +871,7 @@ sub_100FCC:
         push eax
         mov edx, dword [byte esp+010h]
         push edx
-        call sub_100AF4
+        call QueueFreeChain
         add esp, byte 8
         test eax, eax
         jne short .12
@@ -872,9 +888,10 @@ sub_100FCC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1010E8                                                          1010E8  
+; QueuePrepend                                   1010E8  97 PC, low confidence
+; Puts an entry at the front of a queue
 ;-----------------------------------------------------------------------------
-sub_1010E8:
+QueuePrepend:
         push ebx
         push esi
         push edi
@@ -912,7 +929,7 @@ sub_1010E8:
         jne short .3
         push ebx
         push esi
-        call sub_100AF4
+        call QueueFreeChain
         add esp, byte 8
         test eax, eax
         jne short .4
@@ -932,9 +949,10 @@ sub_1010E8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_101154                                                          101154  
+; QueuePostBuffer                                101154  97 PC, low confidence
+; Posts a buffer to a queue
 ;-----------------------------------------------------------------------------
-sub_101154:
+QueuePostBuffer:
         push ebx
         push esi
         push edi
@@ -1003,9 +1021,10 @@ sub_101154:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1011E8                                                          1011E8  
+; QueueRepost                                    1011E8  97 PC, low confidence
+; Reposts a buffer to a queue
 ;-----------------------------------------------------------------------------
-sub_1011E8:
+QueueRepost:
         push ebx
         push esi
         mov edx, dword [byte esp+014h]
@@ -1019,7 +1038,7 @@ sub_1011E8:
         mov esi, dword [byte esp+014h]
         push esi
         mov ebx, eax
-        call sub_101154
+        call QueuePostBuffer
         add esp, byte 0Ch
         mov edx, eax
         mov eax, ebx
@@ -1032,18 +1051,24 @@ sub_1011E8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_101220                                                          101220  
+; AddExitHandler                                 101220  97 PC, low confidence
+; Registers an exit handler
 ;-----------------------------------------------------------------------------
-sub_101220:
+AddExitHandler:
         mov eax, dword [byte esp+04h]
         jmp near atexit_
 ;-----------------------------------------------------------------------------
-; sub_101229                                                          101229  
+; ExitProgram                                    101229  97 PC, low confidence
+; Exits the program
 ;-----------------------------------------------------------------------------
-sub_101229:
+ExitProgram:
         LD xor, eax, eax
         call exit_
-sub_101230:
+;-----------------------------------------------------------------------------
+; PacketChecksum                                 101230  97 PC, low confidence
+; Works out the checksum of a packet
+;-----------------------------------------------------------------------------
+PacketChecksum:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -1098,10 +1123,7 @@ sub_101230:
         leave
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-;-----------------------------------------------------------------------------
-; sub_101230_90                                                       1012C0  
-;-----------------------------------------------------------------------------
-sub_101230_90:
+PacketChecksum_90:
         push ecx
         sar ebx, 1
         push ebx
@@ -1112,9 +1134,10 @@ sub_101230_90:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1012D0                                                          1012D0  
+; CopyRow8                                       1012D0  97 PC, low confidence
+; Copies a row of 8-bit pixels
 ;-----------------------------------------------------------------------------
-sub_1012D0:
+CopyRow8:
         push ecx
         push ebx
         push edx
@@ -1125,9 +1148,10 @@ sub_1012D0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1012E0                                                          1012E0  
+; CopyRow16                                      1012E0  97 PC, low confidence
+; Copies a row of 16-bit pixels
 ;-----------------------------------------------------------------------------
-sub_1012E0:
+CopyRow16:
         push ecx
         add ebx, ebx
         push ebx
@@ -1138,9 +1162,10 @@ sub_1012E0:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1012F0                                                          1012F0  
+; CopyRow24                                      1012F0  97 PC, low confidence
+; Copies a row of 24-bit pixels
 ;-----------------------------------------------------------------------------
-sub_1012F0:
+CopyRow24:
         push ecx
         push esi
         mov ecx, eax
@@ -1158,9 +1183,10 @@ sub_1012F0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_101310                                                          101310  
+; CopyRow32                                      101310  97 PC, low confidence
+; Copies a row of 32-bit pixels
 ;-----------------------------------------------------------------------------
-sub_101310:
+CopyRow32:
         push ecx
         shl ebx, 2
         push ebx
@@ -1172,9 +1198,10 @@ sub_101310:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_101324                                                          101324  
+; BlitConverted                                  101324  97 PC, low confidence
+; Blits a shape through the pixel converter
 ;-----------------------------------------------------------------------------
-sub_101324:
+BlitConverted:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
@@ -1249,9 +1276,10 @@ BlitShape:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1013CC                                                          1013CC  
+; BlitClippedY                                   1013CC  97 PC, low confidence
+; Blits a shape clipped vertically
 ;-----------------------------------------------------------------------------
-sub_1013CC:
+BlitClippedY:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte eax+06h]
@@ -1270,9 +1298,10 @@ sub_1013CC:
         ret
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1013FC                                                          1013FC  
+; PresentScreen                                  1013FC  97 PC, low confidence
+; Presents the screen (returns 0 here)
 ;-----------------------------------------------------------------------------
-sub_1013FC:
+PresentScreen:
         LD xor, eax, eax
         ret
         db 00h
@@ -1324,9 +1353,10 @@ FindShapeQuiet_2:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_101470                                                          101470  
+; LoadDataFileExt                                101470  97 PC, low confidence
+; Loads a data file, trying its extension
 ;-----------------------------------------------------------------------------
-sub_101470:
+LoadDataFileExt:
         push ebx
         push esi
         push edi
@@ -1395,31 +1425,33 @@ sub_101470:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_10150C                                                          10150C  
+; LoadDataFileNoErr                              10150C  97 PC, low confidence
+; Loads a data file without the error message
 ;-----------------------------------------------------------------------------
-sub_10150C:
+LoadDataFileNoErr:
         push ebx
         push byte 0
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_101470
+        call LoadDataFileExt
         add esp, byte 0Ch
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_101524                                                          101524  
+; LoadDataFileErr                                101524  97 PC, low confidence
+; Loads a data file with the error message
 ;-----------------------------------------------------------------------------
-sub_101524:
+LoadDataFileErr:
         push ebx
         push byte 1
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_101470
+        call LoadDataFileExt
         add esp, byte 0Ch
         pop ebx
         ret
@@ -1431,7 +1463,7 @@ sub_101524:
         push ebx
         mov ecx, dword [byte esp+010h]
         push ecx
-        call sub_101470
+        call LoadDataFileExt
         add esp, byte 0Ch
         xor edx, edx
         test eax, eax
@@ -1442,16 +1474,17 @@ sub_101524:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_101560                                                          101560  
+; OpenArtArchive                                 101560  97 PC, low confidence
+; Opens an art archive file
 ;-----------------------------------------------------------------------------
-sub_101560:
+OpenArtArchive:
         push ebx
         push byte 0
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_101470
+        call LoadDataFileExt
         mov edx, eax
         add esp, byte 0Ch
         xor eax, eax
@@ -1463,16 +1496,17 @@ sub_101560:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_101584                                                          101584  
+; OpenArtArchiveErr                              101584  97 PC, low confidence
+; Opens an art archive file with the error message
 ;-----------------------------------------------------------------------------
-sub_101584:
+OpenArtArchiveErr:
         push ebx
         push byte 1
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_101470
+        call LoadDataFileExt
         mov edx, eax
         add esp, byte 0Ch
         xor eax, eax
@@ -1484,26 +1518,27 @@ sub_101584:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 jpt_1015B0:
-        dd sub_1015F0_38A
-        dd sub_1015F0_30
-        dd sub_1015F0_54
-        dd sub_1015F0_6E
-        dd sub_1015F0_94
-        dd sub_1015F0_B9
-        dd sub_1015F0_10C
-        dd sub_1015F0_153
-        dd sub_1015F0_1A6
-        dd sub_1015F0_1BC
-        dd sub_1015F0_204
-        dd sub_1015F0_232
-        dd sub_1015F0_27B
-        dd sub_1015F0_2A1
-        dd sub_1015F0_2F4
-        dd sub_1015F0_33A
+        dd BlendPixelMode_38A
+        dd BlendPixelMode_30
+        dd BlendPixelMode_54
+        dd BlendPixelMode_6E
+        dd BlendPixelMode_94
+        dd BlendPixelMode_B9
+        dd BlendPixelMode_10C
+        dd BlendPixelMode_153
+        dd BlendPixelMode_1A6
+        dd BlendPixelMode_1BC
+        dd BlendPixelMode_204
+        dd BlendPixelMode_232
+        dd BlendPixelMode_27B
+        dd BlendPixelMode_2A1
+        dd BlendPixelMode_2F4
+        dd BlendPixelMode_33A
 ;-----------------------------------------------------------------------------
-; sub_1015F0                                                          1015F0  
+; BlendPixelMode                                 1015F0  97 PC, low confidence
+; Picks the blend mode for a pixel
 ;-----------------------------------------------------------------------------
-sub_1015F0:
+BlendPixelMode:
         push esi
         push edi
         mov esi, dword [byte esp+010h]
@@ -1515,9 +1550,9 @@ sub_1015F0:
         and esi, byte 3
         add esi, edi
         cmp esi, byte 0Fh
-        ja near sub_1015F0_38A
+        ja near BlendPixelMode_38A
         jmp dword [nosplit cs:esi*4+jpt_1015B0]
-sub_1015F0_30:
+BlendPixelMode_30:
         mov ebx, eax
         shr edx, 2
         shr ebx, 1
@@ -1530,7 +1565,7 @@ sub_1015F0_30:
         pop edi
         pop esi
         ret 8
-sub_1015F0_54:
+BlendPixelMode_54:
         mov ebx, eax
         mov eax, edx
         shr ebx, 1
@@ -1541,7 +1576,7 @@ sub_1015F0_54:
         pop edi
         pop esi
         ret 8
-sub_1015F0_6E:
+BlendPixelMode_6E:
         mov ebx, eax
         shr ebx, 2
         mov eax, edx
@@ -1555,7 +1590,7 @@ sub_1015F0_6E:
         pop edi
         pop esi
         ret 8
-sub_1015F0_94:
+BlendPixelMode_94:
         mov edx, eax
         shr edx, 1
         shr eax, 2
@@ -1569,7 +1604,7 @@ sub_1015F0_94:
         pop edi
         pop esi
         ret 8
-sub_1015F0_B9:
+BlendPixelMode_B9:
         mov esi, eax
         shr esi, 1
         shr eax, 4
@@ -1597,7 +1632,7 @@ sub_1015F0_B9:
         pop edi
         pop esi
         ret 8
-sub_1015F0_10C:
+BlendPixelMode_10C:
         mov esi, eax
         shr esi, 2
         shr eax, 3
@@ -1620,7 +1655,7 @@ sub_1015F0_10C:
         pop edi
         pop esi
         ret 8
-sub_1015F0_153:
+BlendPixelMode_153:
         mov esi, eax
         shr esi, 3
         shr eax, 4
@@ -1648,7 +1683,7 @@ sub_1015F0_153:
         pop edi
         pop esi
         ret 8
-sub_1015F0_1A6:
+BlendPixelMode_1A6:
         shr eax, 1
         shr ebx, 1
         and eax, 7F7F7F7Fh
@@ -1657,7 +1692,7 @@ sub_1015F0_1A6:
         pop edi
         pop esi
         ret 8
-sub_1015F0_1BC:
+BlendPixelMode_1BC:
         mov esi, eax
         shr edx, 3
         shr esi, 2
@@ -1681,7 +1716,7 @@ sub_1015F0_1BC:
         pop edi
         pop esi
         ret 8
-sub_1015F0_204:
+BlendPixelMode_204:
         shr eax, 2
         shr edx, 2
         shr ebx, 2
@@ -1696,7 +1731,7 @@ sub_1015F0_204:
         pop edi
         pop esi
         ret 8
-sub_1015F0_232:
+BlendPixelMode_232:
         mov esi, eax
         shr ebx, 3
         shr esi, 3
@@ -1720,7 +1755,7 @@ sub_1015F0_232:
         pop edi
         pop esi
         ret 8
-sub_1015F0_27B:
+BlendPixelMode_27B:
         mov edx, eax
         shr edx, 2
         mov eax, ebx
@@ -1734,7 +1769,7 @@ sub_1015F0_27B:
         pop edi
         pop esi
         ret 8
-sub_1015F0_2A1:
+BlendPixelMode_2A1:
         mov esi, eax
         shr edx, 4
         shr esi, 3
@@ -1762,7 +1797,7 @@ sub_1015F0_2A1:
         pop edi
         pop esi
         ret 8
-sub_1015F0_2F4:
+BlendPixelMode_2F4:
         shr eax, 3
         shr edx, 3
         and eax, 1F1F1F1Fh
@@ -1785,7 +1820,7 @@ sub_1015F0_2F4:
         pop edi
         pop esi
         ret 8
-sub_1015F0_33A:
+BlendPixelMode_33A:
         mov esi, eax
         shr esi, 4
         mov eax, edx
@@ -1811,29 +1846,30 @@ sub_1015F0_33A:
         shr eax, 4
         and eax, 0F0F0F0Fh
         add eax, ebx
-sub_1015F0_38A:
+BlendPixelMode_38A:
         pop edi
         pop esi
         ret 8
         db 090h
 jpt_101980:
-        dd sub_1019A0_DB
-        dd sub_1019A0_14
-        dd sub_1019A0_2D
-        dd sub_1019A0_46
-        dd sub_1019A0_6F
-        dd sub_1019A0_81
-        dd sub_1019A0_AC
-        dd sub_1019A0_C4
+        dd BlendPixels_DB
+        dd BlendPixels_14
+        dd BlendPixels_2D
+        dd BlendPixels_46
+        dd BlendPixels_6F
+        dd BlendPixels_81
+        dd BlendPixels_AC
+        dd BlendPixels_C4
 ;-----------------------------------------------------------------------------
-; sub_1019A0                                                          1019A0  
+; BlendPixels                                    1019A0  97 PC, low confidence
+; Blends two packed pixels by mode
 ;-----------------------------------------------------------------------------
-sub_1019A0:
+BlendPixels:
         sar ebx, 0Dh
         cmp ebx, byte 7
-        ja near sub_1019A0_DB
+        ja near BlendPixels_DB
         jmp dword [nosplit cs:ebx*4+jpt_101980]
-sub_1019A0_14:
+BlendPixels_14:
         mov ebx, eax
         shr ebx, 3
         shr edx, 3
@@ -1842,7 +1878,7 @@ sub_1019A0_14:
         sub eax, ebx
         add eax, edx
         ret
-sub_1019A0_2D:
+BlendPixels_2D:
         mov ebx, eax
         shr ebx, 2
         shr edx, 2
@@ -1851,7 +1887,7 @@ sub_1019A0_2D:
         sub eax, ebx
         add eax, edx
         ret
-sub_1019A0_46:
+BlendPixels_46:
         mov ebx, eax
         shr ebx, 3
         and ebx, 1F1F1F1Fh
@@ -1863,14 +1899,14 @@ sub_1019A0_46:
         sub eax, edx
         add eax, ebx
         ret
-sub_1019A0_6F:
+BlendPixels_6F:
         shr eax, 1
         shr edx, 1
         and eax, 7F7F7F7Fh
         and edx, 7F7F7F7Fh
         add eax, edx
         ret
-sub_1019A0_81:
+BlendPixels_81:
         mov ebx, eax
         shr ebx, 3
         and ebx, 1F1F1F1Fh
@@ -1883,7 +1919,7 @@ sub_1019A0_81:
         add eax, edx
         add eax, ebx
         ret
-sub_1019A0_AC:
+BlendPixels_AC:
         shr eax, 2
         shr edx, 2
         and eax, 3F3F3F3Fh
@@ -1892,7 +1928,7 @@ sub_1019A0_AC:
         add eax, edx
         add eax, edx
         ret
-sub_1019A0_C4:
+BlendPixels_C4:
         mov ebx, edx
         shr ebx, 3
         shr eax, 3
@@ -1900,12 +1936,13 @@ sub_1019A0_C4:
         and eax, 1F1F1F1Fh
         sub edx, ebx
         add eax, edx
-sub_1019A0_DB:
+BlendPixels_DB:
         ret
 ;-----------------------------------------------------------------------------
-; sub_101A7C                                                          101A7C  
+; BlendShapeRows                                 101A7C  97 PC, low confidence
+; Blends the rows of a shape
 ;-----------------------------------------------------------------------------
-sub_101A7C:
+BlendShapeRows:
         push ebx
         push esi
         push edi
@@ -1953,7 +1990,7 @@ sub_101A7C:
         push ebp
         mov ebx, dword [ecx]
         mov ecx, dword [byte ecx+04h]
-        call sub_1015F0
+        call BlendPixelMode
         mov ebx, eax
         cmp ebx, 10000000h
         jb short .3
@@ -2026,17 +2063,17 @@ sub_101A7C:
         and ecx, 0FFFFh
         mov dword [esp], ebx
         mov ebx, ecx
-        call sub_1019A0
+        call BlendPixels
         mov edx, dword [esp]
         mov dword [byte esp+08h], eax
         mov ebx, ecx
         mov eax, dword [byte esp+04h]
-        call sub_1019A0
+        call BlendPixels
         mov ebx, edi
         mov edx, eax
         mov eax, dword [byte esp+08h]
         and ebx, 0FFFFh
-        call sub_1019A0
+        call BlendPixels
         push eax
         mov ecx, dword [byte esp+048h]
         push ecx
@@ -2120,17 +2157,17 @@ sub_101A7C:
         mov dword [esp], eax
         mov ebx, ecx
         mov eax, dword [byte esp+08h]
-        call sub_1019A0
+        call BlendPixels
         mov edx, dword [esp]
         mov dword [byte esp+0Ch], eax
         mov ebx, ecx
         mov eax, dword [byte esp+04h]
-        call sub_1019A0
+        call BlendPixels
         mov ebx, ebp
         mov edx, eax
         mov eax, dword [byte esp+0Ch]
         and ebx, 0FFFFh
-        call sub_1019A0
+        call BlendPixels
         mov ebx, eax
         cmp ebx, 10000000h
         jb short .9
@@ -2210,17 +2247,17 @@ sub_101A7C:
         mov dword [esp], eax
         mov ebx, ecx
         mov eax, dword [byte esp+08h]
-        call sub_1019A0
+        call BlendPixels
         mov edx, dword [esp]
         mov dword [byte esp+0Ch], eax
         mov ebx, ecx
         mov eax, dword [byte esp+04h]
-        call sub_1019A0
+        call BlendPixels
         mov ebx, ebp
         mov edx, eax
         mov eax, dword [byte esp+0Ch]
         and ebx, 0FFFFh
-        call sub_1019A0
+        call BlendPixels
         push eax
         mov ecx, dword [byte esp+04Ch]
         push ecx
@@ -2248,9 +2285,10 @@ sub_101A7C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_101EAC                                                          101EAC  
+; DrawShapeBlended                               101EAC  97 PC, low confidence
+; Draws a shape blended with the screen
 ;-----------------------------------------------------------------------------
-sub_101EAC:
+DrawShapeBlended:
         push ebx
         push esi
         push edi
@@ -2268,7 +2306,7 @@ sub_101EAC:
         push byte 20h
         mov ebx, dword [byte esp+038h]
         push ebx
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         mov dword [byte esp+08h], eax
         mov dword [byte esp+034h], eax
@@ -2416,7 +2454,7 @@ sub_101EAC:
         push eax
         mov edx, dword [byte esp+050h]
         push edx
-        call sub_101A7C
+        call BlendShapeRows
         add esp, byte 20h
         inc edi
         mov ecx, dword [byte esp+010h]
@@ -2439,7 +2477,7 @@ sub_101EAC:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-sub_101EAC_1F4:
+DrawShapeBlended_1F4:
         push ecx
         inc ebx
         sar ebx, 1
@@ -2452,9 +2490,10 @@ sub_101EAC_1F4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1020B4                                                          1020B4  
+; ConvertRow4To8                                 1020B4  97 PC, low confidence
+; Converts a row of 4-bit pixels to 8-bit
 ;-----------------------------------------------------------------------------
-sub_1020B4:
+ConvertRow4To8:
         push esi
         push edi
         mov edi, eax
@@ -2488,9 +2527,10 @@ sub_1020B4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1020F0                                                          1020F0  
+; ConvertRow4To16                                1020F0  97 PC, low confidence
+; Converts a row of 4-bit pixels to 16-bit
 ;-----------------------------------------------------------------------------
-sub_1020F0:
+ConvertRow4To16:
         push ecx
         push esi
         push edi
@@ -2540,9 +2580,10 @@ sub_1020F0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_102148                                                          102148  
+; ConvertRow8To8                                 102148  97 PC, low confidence
+; Copies a row of 8-bit pixels
 ;-----------------------------------------------------------------------------
-sub_102148:
+ConvertRow8To8:
         push ecx
         push ebx
         push edx
@@ -2553,9 +2594,10 @@ sub_102148:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_102158                                                          102158  
+; ConvertRow8To16                                102158  97 PC, low confidence
+; Converts a row of 8-bit pixels to 16-bit
 ;-----------------------------------------------------------------------------
-sub_102158:
+ConvertRow8To16:
         push ecx
         push esi
         push edi
@@ -2591,9 +2633,10 @@ sub_102158:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1021A0                                                          1021A0  
+; ConvertRow16To16                               1021A0  97 PC, low confidence
+; Copies a row of 16-bit pixels
 ;-----------------------------------------------------------------------------
-sub_1021A0:
+ConvertRow16To16:
         push ecx
         add ebx, ebx
         push ebx
@@ -2604,9 +2647,10 @@ sub_1021A0:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1021B0                                                          1021B0  
+; ConvertRow16To8                                1021B0  97 PC, low confidence
+; Converts a row of 16-bit pixels to 8-bit
 ;-----------------------------------------------------------------------------
-sub_1021B0:
+ConvertRow16To8:
         push ecx
         push esi
         push edi
@@ -2657,9 +2701,10 @@ sub_1021B0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_102220                                                          102220  
+; ConvertRow16To15                               102220  97 PC, low confidence
+; Converts a row of 16-bit pixels to 15-bit
 ;-----------------------------------------------------------------------------
-sub_102220:
+ConvertRow16To15:
         push ecx
         push esi
         push edi
@@ -2743,9 +2788,10 @@ sub_102220:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1022F0                                                          1022F0  
+; ConvertRow15To15                               1022F0  97 PC, low confidence
+; Copies a row of 15-bit pixels
 ;-----------------------------------------------------------------------------
-sub_1022F0:
+ConvertRow15To15:
         push ecx
         add ebx, ebx
         push ebx
@@ -2756,9 +2802,10 @@ sub_1022F0:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_102300                                                          102300  
+; ConvertRow15To16                               102300  97 PC, low confidence
+; Converts a row of 15-bit pixels to 16-bit
 ;-----------------------------------------------------------------------------
-sub_102300:
+ConvertRow15To16:
         push ecx
         push esi
         push edi
@@ -2803,9 +2850,10 @@ sub_102300:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_102368                                                          102368  
+; ConvertRow15To8                                102368  97 PC, low confidence
+; Converts a row of 15-bit pixels to 8-bit
 ;-----------------------------------------------------------------------------
-sub_102368:
+ConvertRow15To8:
         push ecx
         push esi
         push edi
@@ -2859,9 +2907,10 @@ sub_102368:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1023E0                                                          1023E0  
+; ConvertRow24To24                               1023E0  97 PC, low confidence
+; Copies a row of 24-bit pixels
 ;-----------------------------------------------------------------------------
-sub_1023E0:
+ConvertRow24To24:
         push ecx
         push esi
         mov ecx, eax
@@ -2879,9 +2928,10 @@ sub_1023E0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_102400                                                          102400  
+; ConvertRow32To16                               102400  97 PC, low confidence
+; Converts a row of 32-bit pixels to 16-bit
 ;-----------------------------------------------------------------------------
-sub_102400:
+ConvertRow32To16:
         push ecx
         push esi
         push edi
@@ -2919,9 +2969,10 @@ sub_102400:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_10244C                                                          10244C  
+; ConvertRow24To16                               10244C  97 PC, low confidence
+; Converts a row of 24-bit pixels to 16-bit
 ;-----------------------------------------------------------------------------
-sub_10244C:
+ConvertRow24To16:
         push ecx
         push esi
         sub esp, byte 0Ch
@@ -2957,9 +3008,10 @@ sub_10244C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_102498                                                          102498  
+; ConvertRow32To32                               102498  97 PC, low confidence
+; Copies a row of 32-bit pixels
 ;-----------------------------------------------------------------------------
-sub_102498:
+ConvertRow32To32:
         push ecx
         shl ebx, 2
         push ebx
@@ -2971,9 +3023,10 @@ sub_102498:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1024AC                                                          1024AC  
+; ConvertRowPalTo16                              1024AC  97 PC, low confidence
+; Converts a row of palette pixels to 16-bit
 ;-----------------------------------------------------------------------------
-sub_1024AC:
+ConvertRowPalTo16:
         push ecx
         push esi
         push edi
@@ -3054,9 +3107,10 @@ sub_1024AC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_102558                                                          102558  
+; MapArtType                                     102558  97 PC, low confidence
+; Maps an art type to its pixel format
 ;-----------------------------------------------------------------------------
-sub_102558:
+MapArtType:
         cmp eax, byte 68h
         jl short .1
         cmp eax, byte 70h
@@ -3119,9 +3173,10 @@ sub_102558:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1025DC                                                          1025DC  
+; ConvertArtPalette                              1025DC  97 PC, low confidence
+; Converts a shape's palette for the screen
 ;-----------------------------------------------------------------------------
-sub_1025DC:
+ConvertArtPalette:
         push ebx
         push ecx
         push esi
@@ -3160,7 +3215,7 @@ sub_1025DC:
         jne short .3
         mov ebx, 100h
         mov edx, esi
-        call sub_102368
+        call ConvertRow15To8
         jmp short .5
 .3:
         cmp edx, byte 22h
@@ -3186,7 +3241,7 @@ sub_1025DC:
         mov ebx, 100h
         mov eax, esp
         mov edx, esi
-        call sub_1021B0
+        call ConvertRow16To8
 .5:
         mov ebx, esi
 .6:
@@ -3197,9 +3252,10 @@ sub_1025DC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_102698                                                          102698  
+; ConvertArtPalette16                            102698  97 PC, low confidence
+; Converts a shape's palette for a 16-bit screen
 ;-----------------------------------------------------------------------------
-sub_102698:
+ConvertArtPalette16:
         push ebx
         push ecx
         push esi
@@ -3270,9 +3326,10 @@ sub_102698:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_102748                                                          102748  
+; ConvertArtRows                                 102748  97 PC, low confidence
+; Converts the rows of a shape
 ;-----------------------------------------------------------------------------
-sub_102748:
+ConvertArtRows:
         push ecx
         push esi
         push edi
@@ -3283,13 +3340,13 @@ sub_102748:
         mov ebx, dword [eax]
         and ebx, 0FFh
         mov eax, ebx
-        call sub_102558
+        call MapArtType
         mov ecx, eax
         shl eax, 3
         sub eax, ecx
         mov ecx, eax
         mov eax, edx
-        call sub_102558
+        call MapArtType
         add ecx, eax
         xor eax, eax
         mov al, byte [dword ecx+byte_16F748]
@@ -3300,25 +3357,25 @@ sub_102748:
         cmp dword [byte esp+04h], byte 0
         je short .1
         mov eax, ebx
-        call sub_102558
+        call MapArtType
         mov ebx, eax
         shl eax, 3
         sub eax, ebx
         mov ebx, eax
         mov eax, edx
-        call sub_102558
+        call MapArtType
         add eax, ebx
         mov ebp, dword [nosplit eax*4+off_16F5C0]
         jmp short .2
 .1:
         mov eax, ebx
-        call sub_102558
+        call MapArtType
         mov ebx, eax
         shl eax, 3
         sub eax, ebx
         mov ebx, eax
         mov eax, edx
-        call sub_102558
+        call MapArtType
         add eax, ebx
         mov ebp, dword [nosplit eax*4+off_16F684]
 .2:
@@ -3339,7 +3396,7 @@ sub_102748:
         mov edx, word_1CF5F4
         mov eax, esi
         mov ebx, 1
-        call sub_1025DC
+        call ConvertArtPalette
         mov edx, dword [byte esp+04h]
         mov dword [off_16F5BC], eax
         shl ebx, cl
@@ -3360,7 +3417,7 @@ sub_102748:
         cmp edi, byte 0Fh
         jne short .5
         mov edx, word_1CF5F4
-        call sub_1024AC
+        call ConvertRowPalTo16
         mov eax, ebp
         add esp, byte 8
         pop ebp
@@ -3382,9 +3439,10 @@ sub_102748:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_102878                                                          102878  
+; ConvertArtShape                                102878  97 PC, low confidence
+; Converts a shape to the screen format
 ;-----------------------------------------------------------------------------
-sub_102878:
+ConvertArtShape:
         push ebx
         push esi
         push edi
@@ -3404,30 +3462,30 @@ sub_102878:
         je short .2
         mov eax, dword [edi]
         and eax, 0FFh
-        call sub_102558
+        call MapArtType
         imul ebx, eax, byte 7
         mov eax, dword [byte esp+064h]
-        call sub_102558
+        call MapArtType
         add eax, ebx
         mov eax, dword [nosplit eax*4+off_16F5C0]
         jmp short .3
 .2:
         mov eax, dword [edi]
         and eax, 0FFh
-        call sub_102558
+        call MapArtType
         imul ebx, eax, byte 7
         mov eax, dword [byte esp+064h]
-        call sub_102558
+        call MapArtType
         add eax, ebx
         mov eax, dword [nosplit eax*4+off_16F684]
 .3:
         mov dword [byte esp+040h], eax
         mov eax, dword [edi]
         and eax, 0FFh
-        call sub_102558
+        call MapArtType
         imul ebx, eax, byte 7
         mov eax, dword [byte esp+064h]
-        call sub_102558
+        call MapArtType
         add ebx, eax
         xor eax, eax
         mov al, byte [dword ebx+byte_16F748]
@@ -3491,7 +3549,7 @@ sub_102878:
 .6:
         mov edx, word_1CF5F4
         mov eax, dword [byte esp+024h]
-        call sub_1025DC
+        call ConvertArtPalette
         mov dword [off_16F5BC], eax
 .7:
         cmp dword [byte esp+06Ch], byte 0
@@ -3516,7 +3574,7 @@ sub_102878:
         jne short .10
         mov edx, word_1CF5F4
         mov eax, dword [off_16F5BC]
-        call sub_1024AC
+        call ConvertRowPalTo16
         jmp short .11
 .10:
         cmp ecx, byte 10h
@@ -3635,9 +3693,10 @@ sub_102878:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_102B78                                                          102B78  
+; ConvertArtSame                                 102B78  97 PC, low confidence
+; Converts a shape in place
 ;-----------------------------------------------------------------------------
-sub_102B78:
+ConvertArtSame:
         push ebx
         push byte 1
         push byte 0
@@ -3645,15 +3704,16 @@ sub_102B78:
         push edx
         mov ebx, dword [byte esp+014h]
         push ebx
-        call sub_102878
+        call ConvertArtShape
         add esp, byte 10h
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_102B94                                                          102B94  
+; ConvertArtNew                                  102B94  97 PC, low confidence
+; Converts a shape into a new block
 ;-----------------------------------------------------------------------------
-sub_102B94:
+ConvertArtNew:
         push ebx
         push byte 1
         push byte 0
@@ -3664,7 +3724,7 @@ sub_102B94:
         push eax
         mov ebx, dword [byte esp+014h]
         push ebx
-        call sub_102878
+        call ConvertArtShape
         add esp, byte 10h
         pop ebx
         ret

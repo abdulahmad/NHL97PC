@@ -23,7 +23,7 @@ extern dword_1CB720, dword_1CB76E, dword_1CB772, dword_1CB7C0, dword_1CB7C4, dwo
 extern dword_1CB868, dword_1CB8B6, dword_1CB8BA, dword_1CB908, dword_1CB90C, dword_1CB95A, dword_1CB95E, dword_1CB9AC
 extern dword_1CB9B0, dword_1CB9FE, dword_1CBA02, dword_1CBA50, dword_1CBA54, dword_1CBAA2, dword_1CBAA6, dword_1CBAF4
 extern dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88, dword_1CBB8D, rand_, sprintf_, BlitShape2
-extern sub_1013FC, FindShape, UpdateOptionsAnim, ConvertArtXY, SetScreenTarget, SetMusicVolume, SetSfxVolume, SecondsToSamples
+extern PresentScreen, FindShape, UpdateOptionsAnim, ConvertArtXY, SetScreenTarget, SetMusicVolume, SetSfxVolume, SecondsToSamples
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, PlaySfx
 extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextColor, DrawTextAligned, WipeScreen, ShowPopupScreen
 extern InitMenuItems, RunMenu, DetailLevelScreen, FreeMemBlock, sub_FB4D4, MakeColor, FreeBitmap, sub_FCEEC
@@ -429,7 +429,7 @@ OptionsScreen:
         add esp, byte 14h
         mov edi, dword_1CB19A
         mov esi, unk_1C5F4A
-        call sub_1013FC
+        call PresentScreen
         mov edx, ebx
         mov eax, ebx
         mov ecx, 52h
@@ -991,7 +991,7 @@ OptionsScreen:
         push eax
         call ClearScreen
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         push byte 0
         push dword 1E0h
         push dword 280h
@@ -1103,7 +1103,7 @@ OptionsScreen:
         mov ebx, esi
         shr eax, 19h
         call DrawOptionsSlider
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte ebp+05Eh]
         mov edx, 1
         mov eax, dword [byte eax+02Ch]
@@ -1148,7 +1148,7 @@ OptionsScreen:
         push byte 1
         call DrawTextAligned
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         movsx eax, word [byte ebp+ebx*2+01Eh]
 .28:
         mov dword [dword_1CBB88], eax
@@ -1529,7 +1529,7 @@ OptionsScreen_147B:
         shr eax, 19h
         call DrawOptionsSlider
 .52:
-        call sub_1013FC
+        call PresentScreen
 OptionsScreen_14BA:
         cmp word [byte ebp+07Ah], byte 0
         jne near OptionsScreen_15A6.53

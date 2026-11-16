@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_10C8B0 progbits alloc exec nowrite align=1
 extern byte_16E688, byte_16E689, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694
-extern dword_16E698, dword_16E6A0, dword_1DA8D8, sub_102B78, sub_102D3C, sub_122838, sub_12285A, sub_122D90
+extern dword_16E698, dword_16E6A0, dword_1DA8D8, ConvertArtSame, sub_102D3C, sub_122838, sub_12285A, sub_122D90
 extern sub_122DF0, sub_12D6A0, FreeMemBlock
 global sub_10C8B0, sub_10C8E8, sub_10C920, sub_10C9B0, sub_10CA48, sub_10CCB0, sub_10CD98, sub_10CDE0
 global sub_10CE9C
@@ -228,7 +228,7 @@ sub_10CA48:
         push eax
         mov ecx, dword [byte esp+038h]
         push ecx
-        call sub_102B78
+        call ConvertArtSame
         add esp, byte 8
         mov dword [esp], eax
         mov dword [byte esp+034h], eax

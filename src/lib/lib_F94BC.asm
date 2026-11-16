@@ -5,7 +5,7 @@ section s_F94BC progbits alloc exec nowrite align=1
 extern abs_, str_IgfxFix, str_IgFix, str_GFXMODES, dword_16E2F4, dword_16E2F8, dword_16E2FC, dword_16E300
 extern dword_16E304, dword_16E308, dword_16E30C, dword_16E310, dword_16E314, dword_16E3F4, dword_16E464, dword_16E468
 extern dword_16E46C, dword_16E474, dword_16F8A8, dword_1CEFC4, dword_1CEFC8, dword_1CEFCC, dword_1CEFD4, dword_1CEFD8
-extern dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, bcopy, sub_1013FC, sub_120650, sub_120680
+extern dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, bcopy, PresentScreen, sub_120650, sub_120680
 extern sub_12071C, SetScreenTarget, AllocMemBlock, FreeMemBlock, MakeColor, ClearScreen, tickcount, unk_1CEFE8
 global sub_F94BC, sub_F94E6, sub_F9650, sub_F9789, sub_F97B2, sub_F9869, NextVideoMode, PrevVideoMode
 global sub_F99C0, sub_F9A28, sub_F9A88, sub_F9B30
@@ -191,7 +191,7 @@ sub_F9650:
         push eax
         call ClearScreen
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
 .5:
         cmp dword [dword_16E30C], byte 0
         je short .6
@@ -213,7 +213,7 @@ sub_F9650:
         push eax
         call ClearScreen
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov dword [dword_16E300], 0
         leave
         pop edx

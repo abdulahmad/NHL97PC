@@ -27,7 +27,7 @@ extern dword_1C95CC, dword_1C95D0, dword_1C95D4, dword_1C95D8, dword_1C95DC, dwo
 extern dword_1C95EC, dword_1C95F0, dword_1C95F4, dword_1C95F8, dword_1C95FC, dword_1C9600, dword_1C9610, dword_1C9614
 extern dword_1C9618, dword_1C961C, dword_1C9620, dword_1C9624, dword_1C9628, fclose_, fopen_, fprintf_
 extern memset_, qsort_, rand_, sprintf_, sscanf_, strcmp_, strlen_, BlitShape2
-extern BlitArt, sub_1013CC, sub_1013FC, FindShape, sub_101584, sub_101EAC, sub_102B94, sub_10CD98
+extern BlitArt, BlitClippedY, PresentScreen, FindShape, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, sub_10CD98
 extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, PlaySfx
 extern PlayScreenMovie, LoadDataFile, OpenDataLibrary, DrawShadedLogo, DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect
 extern SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, EditTextField, WipeScreen, SetHighlightText, SetNormalText, DrawStatTable
@@ -173,7 +173,7 @@ AllocStatTable:
         sub eax, dword [byte ebp+01Ch]
         push eax
         push dword [byte ebp+030h]
-        call sub_1013CC
+        call BlitClippedY
         add esp, byte 0Ch
         push dword [byte ebp+020h]
         push dword [byte ebp+01Ch]
@@ -2764,7 +2764,7 @@ TeamStatsScreen:
         push dword [byte eax+02Ch]
         call BlitShape2
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte ebp+076h]
         add eax, byte 40h
         push eax
@@ -3060,7 +3060,7 @@ TeamStatsScreen:
         call BlitArt
         add esp, byte 0Ch
         mov ebx, 0FFFFFFFFh
-        call sub_1013FC
+        call PresentScreen
         push byte 3
         lea eax, [byte ebp+016h]
         mov ecx, TeamStatsSound
@@ -3338,7 +3338,7 @@ TeamStatsScreen_10ED:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         jmp near TeamStatsScreen.72
 .83:
         lea eax, [dword ebp-0276h]
@@ -3727,7 +3727,7 @@ StatsTablesScreen:
         push byte 0
         lea eax, [byte ebp-036h]
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push dword [dword_16E46C]
         push str_LOGO6
@@ -3742,7 +3742,7 @@ StatsTablesScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         mov dword [byte ebp+066h], eax
         mov eax, 3
@@ -3766,10 +3766,10 @@ StatsTablesScreen:
         push byte 0
         push dword [byte ebp+066h]
         push dword 14CCCh
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
 .16:
-        call sub_1013FC
+        call PresentScreen
         push str_00006
         push dword [byte ebp+016h]
         call FindShape
@@ -3819,7 +3819,7 @@ StatsTablesScreen:
         mov eax, dword [byte eax+02Ch]
         call DrawShadedLogo
 .18:
-        call sub_1013FC
+        call PresentScreen
         mov eax, 0ABh
         mov edx, dword [dword_1C9610]
         call InitMenuItems
@@ -4041,7 +4041,7 @@ StatsTablesScreen:
         call BlitArt
         add esp, byte 0Ch
         xor esi, esi
-        call sub_1013FC
+        call PresentScreen
         cmp byte [byte_16CCF0], 0
         je short .26
         cmp dword [byte ebp+012h], byte 0
@@ -4982,7 +4982,7 @@ StatsTablesScreen_D0E:
         call BlitArt
         add esp, byte 0Ch
 .99:
-        call sub_1013FC
+        call PresentScreen
 .100:
         cmp byte [byte ebp+07Eh], 0
         je near StatsTablesScreen.24
@@ -4995,7 +4995,7 @@ StatsTablesScreen_D0E:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp+066h]
         call FreeMemBlock
         add esp, byte 4
@@ -5025,7 +5025,7 @@ StatsTablesScreen_D0E:
         push byte 0
         lea eax, [byte ebp-036h]
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push dword [dword_16E46C]
         push str_LOGO6
@@ -5040,7 +5040,7 @@ StatsTablesScreen_D0E:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         mov dword [byte ebp+066h], eax
         cmp byte [byte_1C6040], 0
@@ -5055,7 +5055,7 @@ StatsTablesScreen_D0E:
         push byte 0
         push dword [byte ebp+066h]
         push dword 14CCCh
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
 .106:
         push dword [byte ebp+076h]
@@ -5128,7 +5128,7 @@ StatsTablesScreen_D0E:
         push eax
         mov eax, dword [byte ebp+076h]
         push dword [byte eax+02Ch]
-        call sub_1013CC
+        call BlitClippedY
         add esp, byte 0Ch
         lea eax, [dword ebp-035Eh]
         call DrawStatTableRows
@@ -5146,7 +5146,7 @@ StatsTablesScreen_D0E:
         call BlitArt
         add esp, byte 0Ch
         mov byte [byte ebp+07Eh], 0
-        call sub_1013FC
+        call PresentScreen
         jmp near StatsTablesScreen.24
 .113:
         lea eax, [dword ebp-035Eh]

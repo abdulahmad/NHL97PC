@@ -10,7 +10,7 @@ extern dword_17009C, dword_1700A9, dword_1700AD, dword_1700FD, dword_170101, dwo
 extern dword_172BCC, dword_172BD0, dword_172BD4, dword_172BD8, dword_1CFC70, dword_1DC994, dword_1DC998, dword_1DC99C
 extern dword_1DC9A0, dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dword_1DC9B4, dword_1DC9B8, dword_1DCAD0
 extern dword_1DCAD4, dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC, dword_1DCAF0
-extern dword_1DCEC0, dword_1DCEC4, dword_1DCF38, dword_1DCF62, dword_1DD378, dword_1DD37C, int386_, sub_10699D
+extern dword_1DCEC0, dword_1DCEC4, dword_1DCF38, dword_1DCF62, dword_1DD378, dword_1DD37C, int386_, ClearSpeechQueue
 extern sub_107154, sub_1072B4, sub_1072F0, sub_107308, sub_107370, sub_1077D0, sub_1077F8, sub_1078E4
 extern sub_1095C4, sub_10A860, sub_10A868, sub_10A8C4, sub_10AD20, sub_128280, sub_128680, sub_128D84
 extern sub_12AB04, sub_12AB0C, sub_12C8BC, sub_12C950, sub_12C970, sub_12C9D0, sub_12CA20, sub_12CD34
@@ -1409,7 +1409,7 @@ sub_10884C:
         call sub_108725
         test eax, eax
         je short .1
-        call sub_10699D
+        call ClearSpeechQueue
         mov dword [dword_172BD4], sub_12D141
         mov eax, 1
         pop edx
