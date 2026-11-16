@@ -5,9 +5,9 @@ section s_12AB6C progbits alloc exec nowrite align=1
 extern dword_172BD8, dword_172CA4, dword_173F64, dword_19469C, dword_1946A0, dword_1946A4, dword_1946A8, dword_1996A4
 extern dword_1996A8, dword_1996AC, dword_1996B0, dword_1996B4, dword_1996B8, dword_1996BC, dword_1996C0, dword_1996C4
 extern dword_1996C8, dword_1996D0, dword_1996D4, dword_1996D8, dword_1996DC, dword_1996E0, dword_1996E4, dword_1996E8
-extern dword_1DCF38, dword_1DD49C, off_1996EC, StartPatchSample, ParsePatchTags, AudioEnter, AudioLeaveCheck, SbReadData
+extern dword_1DCF38, PatchRegionParams, off_1996EC, StartPatchSample, ParsePatchTags, AudioEnter, AudioLeaveCheck, SbReadData
 extern SbWaitRead, StartChannel, MixNoise, UpdateChannels, SetChannelCount, InitFloatFormat, FormatFloat, unk_1956A4
-extern unk_19972C, word_1DD4A0, word_1DD4A2, word_1DD4A4, word_1DD4A6, word_1DD4A8, word_1DD4AA, word_1DD4AC
+extern unk_19972C, SbBasePort, SbIrq, SbMixerAddrPort, SbMixerDataPort, SbResetPort, SbWritePort, SbReadPort
 global jpt_12C300, MixerChunkLength_4A, MixerChunkLength_8F, MixerChunkLength_10C, MixerChunkLength_21B, MixerChunkLength_341, MixSample16_7B, MixSample16_102
 global MixSample16_184, MixSample16_20B, MixSample16_291, MixSample16_2B4, MixSample16_330, MixSample16_3AD, MixOutStereo16_46, MixOutStereo16_8A
 global jpt_12C300_24, MixerInit, MixerFillBuffer, MixerMixChunk, MixerStartSample, MixerFadeChannel, MixerSetPanVolume, MixerSetPitch
@@ -1933,7 +1933,7 @@ PlayPatchNote:
         mov ebx, dword [byte esp+018h]
 .35:
         call AudioEnter
-        mov ecx, dword_1DD49C
+        mov ecx, PatchRegionParams
         mov edx, dword [byte esp+02Ch]
         mov eax, edi
         call UpdateChannels
@@ -2057,10 +2057,10 @@ PlayPatchNote:
         call SetChannelCount
         mov eax, 0FFFFFFFFh
         add esp, byte 4
-        mov dword [dword_1DD49C], eax
+        mov dword [PatchRegionParams], eax
 .42:
         call AudioLeaveCheck
-        mov eax, dword [dword_1DD49C]
+        mov eax, dword [PatchRegionParams]
 .43:
         add esp, 8Ch
         pop ebp
@@ -2330,30 +2330,30 @@ jpt_12C300_24:
         push edx
         mov edx, eax
         add edx, byte 4
-        mov word [word_1DD4A4], dx
+        mov word [SbMixerAddrPort], dx
         mov edx, eax
         add edx, byte 5
-        mov word [word_1DD4A6], dx
+        mov word [SbMixerDataPort], dx
         mov edx, eax
         add edx, byte 6
-        mov word [word_1DD4A8], dx
+        mov word [SbResetPort], dx
         mov edx, eax
         add edx, byte 0Ah
-        mov word [word_1DD4A0], dx
+        mov word [SbBasePort], dx
         mov edx, eax
-        mov word [word_1DD4A2], ax
+        mov word [SbIrq], ax
         add edx, byte 0Ch
         add eax, 0Eh
-        mov word [word_1DD4AA], dx
-        mov word [word_1DD4AC], ax
+        mov word [SbWritePort], dx
+        mov word [SbReadPort], ax
         xor edx, edx
         mov al, 1
-        mov dx, word [word_1DD4A8]
+        mov dx, word [SbResetPort]
         out dx, al
         call SbReadData
         xor edx, edx
         xor al, al
-        mov dx, word [word_1DD4A8]
+        mov dx, word [SbResetPort]
         out dx, al
         call SbWaitRead
         pop edx

@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_12F9E3 progbits alloc exec nowrite align=1
-extern __CommonInit_, dword_17258C, dword_172590, dword_19C690, dword_1DE784, dword_1DE788, exit_, main_
+extern __CommonInit_, dword_17258C, dword_172590, dword_19C690, CMainArgc, CMainArgv, exit_, main_
 extern BlitConverted, ConvertArtAt, CMainHook, SetScreenTarget, unk_19C648, unk_19C67E
 global __CMain, __FiniRtns, __InitRtns, PrintScreen
 ;-----------------------------------------------------------------------------
@@ -29,8 +29,8 @@ __CMain:
         add eax, edx
         mov dword [dword_172590], eax
         call __CommonInit_
-        mov edx, dword [dword_1DE788]
-        mov eax, dword [dword_1DE784]
+        mov edx, dword [CMainArgv]
+        mov eax, dword [CMainArgc]
         call main_
         call exit_
         db 089h,0ECh,05Dh,05Ah,0C3h

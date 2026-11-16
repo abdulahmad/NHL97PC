@@ -4,7 +4,7 @@ bits 32
 section s_12F270 progbits alloc exec nowrite align=1
 extern _Extender, _nmalloc_, byte_19988D, byte_1DE6B8, byte_1DE6B9, byte_1DE6BA, dword_16FECC, dword_1702CC
 extern dword_1706CC, str_BK, dword_1712CC, dword_199888, memset_, strncpy_, StrCopyEnd, NoDbcsTable
-extern word_1DE780
+extern DbcsLeadTable
 global __checkIsDBCS_, __mbsninc_, __mbvtop_, _mbgetcode_, _mbptov_, _mbscat_, _mbscpy_, _mbsdec_
 global _mbsinc_, _mbsnbcnt_, _mbsnbcpy_, _mbsnccnt_, _mbsncpy_, _mbsnextc_, _mbsninc_, _mbvtop_
 global dos_get_dbcs_lead_table_, _mbscat__34, _mbscpy__B6, SinCosLookup
@@ -701,7 +701,7 @@ dos_get_dbcs_lead_table_:
         shl eax, 4
 .1:
         add eax, edx
-        mov dx, word [word_1DE780]
+        mov dx, word [DbcsLeadTable]
         jmp short .4
 .2:
         xor eax, eax

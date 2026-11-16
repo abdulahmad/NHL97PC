@@ -47,7 +47,7 @@ extern unk_1D9F30, unk_1D9F50, unk_1D9F70, unk_1D9F90, unk_1D9FB0, unk_1D9FD0, u
 extern unk_1DA030, unk_1DA050, unk_1DA070, unk_1DA090, unk_1DA0B0, unk_1DA0D0, unk_1DA0F0, unk_1DA110
 extern unk_1DA130, unk_1DA150, unk_1DA170, unk_1DA190, unk_1DA1B0, unk_1DA1D0, unk_1DA1F0, unk_1DA210
 extern unk_1DA230, unk_1DA250, unk_1DA270, unk_1DA290, unk_1DA2B0, unk_1DA2D0, unk_1DA2F0, unk_1DA310
-extern unk_1DA330, unk_1DEC00, vsprintf_, str_Punct_InitFpuFlags, word_1707E8, word_1707EE, word_1707F4, word_1707F6
+extern unk_1DA330, StartupStack, vsprintf_, str_Punct_InitFpuFlags, word_1707E8, word_1707EE, word_1707F4, word_1707F6
 extern word_170B24, word_171C56, word_1D91FC
 global __null_int23_exit_, __set_binary_, _dos_getdiskfree_, _exit_, _makepath_, _splitpath_, atoi_, close_
 global copypart_, exit_, getcwd_, jpt_114394, jpt_114B90, jpt_114CB4, PrimRectDebug_30, PrimTriTexCcw_6C
@@ -5679,7 +5679,7 @@ start_74:
         push esi
         o16 mov es, word [_psp]
         db 03Eh,0BAh                            ; insn: mov edx,7EC00h
-        dd unk_1DEC00
+        dd StartupStack
         add edx, byte 0Fh
         and dl, 0F0h
         sub ecx, ecx
@@ -5734,7 +5734,7 @@ start_74:
         mov dword [_STACKLOW], edi
         mov dword [_dynend], ebx
         db 03Eh,0B9h                            ; insn: mov ecx,7EC00h
-        dd unk_1DEC00
+        dd StartupStack
         db 03Eh,0BFh                            ; insn: mov edi,3CCB0h
         dd unk_19CCB0
         sub ecx, edi
@@ -5752,7 +5752,7 @@ start_74:
         and cl, 3
         rep stosb
         db 03Eh,0B8h                            ; insn: mov eax,7EC00h
-        dd unk_1DEC00
+        dd StartupStack
         add eax, byte 0Fh
         and al, 0F0h
         mov dword [_LpCmdLine], eax

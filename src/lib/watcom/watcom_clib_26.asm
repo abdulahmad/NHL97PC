@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_1301FF progbits alloc exec nowrite align=1
 extern _Extender, _ExtenderSubtype, _IsTable, __ExpandDGROUP_, __FDFS, __fatal_runtime_error_, __flush_, __set_doserrno_
-extern __set_errno_, __shutdown_stream_, _nfree_, _nmalloc_, _osmajor, byte_168410, byte_171C90, byte_172301
+extern __set_errno_, __shutdown_stream_, _nfree_, _nmalloc_, _osmajor, ScanBitMasks, byte_171C90, byte_172301
 extern byte_199A24, byte_199AA4, byte_1DA4C5, dword_16E318, dword_16E678, dword_16E67C, dword_16E680, dword_16E684
 extern dword_16E698, dword_16E6A0, dword_1999A5, dword_1999C0, dword_199A14, dword_199A18, dword_199A1E, dword_199B2A
 extern dword_199B2E, dword_1CF528, dword_1DA4BC, dword_1DA4C0, dword_1DA8D8, __freefp__39, memset_, off_199C54
@@ -2439,7 +2439,7 @@ ScanBuildCharSet:
         mov edx, eax
         and eax, byte 7
         sar edx, 3
-        mov al, byte [dword eax+byte_168410]
+        mov al, byte [dword eax+ScanBitMasks]
         or byte [edx+esi], al
         xor eax, eax
         mov al, byte [ecx]
@@ -2528,7 +2528,7 @@ ScanCharSet:
         mov dword [byte esp+020h], ebx
         mov ebx, eax
         and ebx, byte 7
-        mov bl, byte [dword ebx+byte_168410]
+        mov bl, byte [dword ebx+ScanBitMasks]
         mov ebp, dword [byte esp+020h]
         and ebx, 0FFh
         test ebx, ebp

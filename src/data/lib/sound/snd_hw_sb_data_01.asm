@@ -3,9 +3,9 @@ bits 32
 %include "hockey.inc"
 section s_19A878 progbits alloc noexec write align=1
 extern CallMatherr
-global str_NoErrorInXACODECFunctionL, str_InvalidErrorCodeInXACODEC, dword_19A878, dword_19BEB8, dword_19BED8, dword_19BEDC, dword_19BEE0, dword_19BEE4
-global dword_19C008, dword_19C00C, dword_19C010, word_19C018, word_19C01A, word_19C020, word_19C022
-dword_19A878:
+global str_NoErrorInXACODECFunctionL, str_InvalidErrorCodeInXACODEC, FloatPow10Table, FloatPow10Exponents, FloatFormatDigits, FloatFormatExponent, FloatFormatMantissaLo, FloatFormatMantissaHi
+global DebugLineStart, MaxPrecision, MatherrHook, GusBasePort, GusIrqStatusPort, GusIrqLatchPort, GusDmaLatchPort
+FloatPow10Table:
         db 00h,00h,00h,00h,01h,00h,00h,00h,03h,00h,00h,00h,04h,00h,00h,00h
         db 07h,00h,00h,00h,08h,00h,00h,00h,0Ah,00h,00h,00h,0Bh,00h,00h,00h
         db 00h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh,0FDh,0FFh,0FFh,0FFh,0FCh,0FFh,0FFh,0FFh
@@ -362,16 +362,16 @@ dword_19A878:
         db 0FEh,08Fh,00h,00h,0FDh,0AFh,00h,00h,0FDh,0CFh,00h,00h,0FCh,0EFh,00h,00h
         db 01h,0F0h,0FFh,0FFh,02h,0D0h,0FFh,0FFh,02h,0B0h,0FFh,0FFh,03h,090h,0FFh,0FFh
         db 02h,070h,0FFh,0FFh,03h,050h,0FFh,0FFh,03h,030h,0FFh,0FFh,04h,010h,0FFh,0FFh
-dword_19BEB8:
+FloatPow10Exponents:
         db 0C0h,0FFh,0FFh,0FFh,0C0h,0FFh,0FFh,0FFh,0C0h,0FFh,0FFh,0FFh,0C0h,0FFh,0FFh,0FFh
         db 080h,00h,00h,00h,00h,01h,00h,00h,080h,01h,00h,00h,00h,02h,00h,00h
-dword_19BED8:
+FloatFormatDigits:
         db 00h,00h,00h,00h
-dword_19BEDC:
+FloatFormatExponent:
         db 00h,00h,00h,00h
-dword_19BEE0:
+FloatFormatMantissaLo:
         db 00h,00h,00h,00h
-dword_19BEE4:
+FloatFormatMantissaHi:
         db 00h,00h,00h,00h
 str_NoErrorInXACODECFunctionL:
         db 04Eh,06Fh,020h,045h,072h,072h,06Fh,072h,020h,049h,06Eh,020h,058h,041h,043h,04Fh
@@ -393,18 +393,18 @@ str_InvalidErrorCodeInXACODEC:
         db 049h,06Eh,076h,061h,06Ch,069h,064h,020h,045h,072h,072h,06Fh,072h,020h,043h,06Fh
         db 064h,065h,020h,049h,06Eh,020h,058h,041h,043h,04Fh,044h,045h,043h,020h,046h,075h
         db 06Eh,063h,074h,069h,06Fh,06Eh,020h,04Ch,069h,062h,072h,061h,072h,079h,021h,00h
-dword_19C008:
+DebugLineStart:
         db 00h,00h,00h,00h
-dword_19C00C:
+MaxPrecision:
         db 011h,00h,00h,00h
-dword_19C010:
+MatherrHook:
         dd CallMatherr
         db 00h,00h,00h,00h
-word_19C018:
+GusBasePort:
         db 020h,02h
-word_19C01A:
+GusIrqStatusPort:
         db 026h,02h,028h,02h,029h,02h
-word_19C020:
+GusIrqLatchPort:
         db 02Bh,02h
-word_19C022:
+GusDmaLatchPort:
         db 02Fh,02h

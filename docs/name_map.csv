@@ -7463,6 +7463,10 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1682EC,F64_neg1_floor_,qword_1682EC,new,high,double constant -1,src/data/lib/sound/snd_soundblaster_01_data_01.asm
 1682F4,str_ABNORMALTERMINATION,asc_1682F4,new,high,"string ""ABNORMAL TERMINATION  """,src/data/lib/sound/snd_soundblaster_01_data_01.asm
 16830C,_IsTable,,96PC,medium,NHL96PC 1149C4 (refset): referenced by the same 3 matched functions,
+168410,ScanBitMasks,byte_168410,new,low,bit masks used to build scanf character sets,src/data/lib/sound/snd_soundblaster_01_data_01.asm
+168418,HugeValLo,qword_168418,new,low,low half of HUGE_VAL,src/data/lib/sound/snd_soundblaster_01_data_01.asm
+16841C,HugeValHi,dword_16841C,new,low,high half of HUGE_VAL,src/data/lib/sound/snd_soundblaster_01_data_01.asm
+168420,RunTimeErrorMessages,dword_168420,new,low,messages of the run-time errors,src/data/lib/sound/snd_soundblaster_01_data_01.asm
 1684B0,str_DOSJoystick,asc_1684B0,new,high,"string ""DOS-Joystick""",src/data/lib/watcom/watcom_clib_31_data_01.asm
 1684CC,str_GRIPGLL,,96PC,high,NHL96PC 114CB8 (string): 'GRIP.GLL',
 1684D5,str_GRIP,,96PC,high,NHL96PC 114CC1 (string): 'GRIP',
@@ -7568,8 +7572,100 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 199C40,_environ,,96PC,high,NHL96PC 14F09C (position): same fixup of __setenvp_,
 199C44,___env_mask,,96PC,high,NHL96PC 14F0A0 (position): same fixup of __setenvp_,
 199CE8,str_2_SetupRectFill,dword_199CE8,new,high,"string ""2""",src/data/lib/watcom/watcom_emu387_data_01.asm
+19A740,GusEnvVarName,off_19A740,new,low,points to the name of the environment variable that holds the card settings,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A744,GusOpenCount,dword_19A744,new,low,number of times the card has been opened without a matching close,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A748,GusIrqLatchBits,byte_19A748,new,low,latch register bits for each IRQ line the card can use,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A758,GusStreamRefillA,dword_19A758,new,low,set when the first streaming channel needs its next half buffer,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A75C,GusStreamRefillB,dword_19A75C,new,low,set when the second streaming channel needs its next half buffer,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A760,GusStreamSrcA,dword_19A760,new,low,source pointer of the first streaming channel,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A764,GusStreamHalfA,dword_19A764,new,low,which half buffer of the first streaming channel is being filled,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A768,GusStreamBusyA,dword_19A768,new,low,set while the first streaming channel is playing,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A76C,GusStreamSrcB,dword_19A76C,new,low,source pointer of the second streaming channel,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A770,GusStreamHalfB,dword_19A770,new,low,which half buffer of the second streaming channel is being filled,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A774,GusStreamBusyB,dword_19A774,new,low,set while the second streaming channel is playing,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A778,GusStreamActive,dword_19A778,new,low,set while the stream voices are running,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A77C,GusStreamVoiceA,byte_19A77C,new,low,voice number of the first streaming channel,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A780,GusStreamVoiceStereo,byte_19A780,new,low,set when the stream uses a second (stereo) voice,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A784,GusStreamVoiceB,byte_19A784,new,low,voice number of the second streaming channel,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A788,GusStreamBufSize,dword_19A788,new,low,size of the stream buffer in card memory,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A78C,GusStreamHalfSize,dword_19A78C,new,low,size of one half of the stream buffer,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A790,GusStreamQuarterSize,dword_19A790,new,low,quarter of the stream buffer size,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A794,GusRefillSrc,dword_19A794,new,low,source pointer of the half buffer being copied,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A798,GusRefillDest,dword_19A798,new,low,card address the half buffer is copied to,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A79C,GusRefillLength,dword_19A79C,new,low,length of the half buffer being copied,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7A0,GusStreamCardA,dword_19A7A0,new,low,card memory address of the first streaming channel's buffer,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7A4,GusStreamCardB,dword_19A7A4,new,low,card memory address of the second streaming channel's buffer,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7A8,GusStreamCardEnd,dword_19A7A8,new,low,end of the stream buffers in card memory,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7AC,GusStreamLoopLo,word_19A7AC,new,low,low word of the stream voices' loop point,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7AE,GusStreamLoopHi,word_19A7AE,new,low,high word of the stream voices' loop point,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7B0,GusStreamStartLo,dword_19A7B0,new,low,low word of the stream voices' start address,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7B2,GusStreamStartHi,word_19A7B2,new,low,high word of the stream voices' start address,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7B4,GusStreamEndLo,dword_19A7B4,new,low,low word of the stream voices' end address,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7B6,GusStreamEndHi,word_19A7B6,new,low,high word of the stream voices' end address,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7B8,DmaPagePorts,byte_19A7B8,new,low,ISA DMA page register port of each channel,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7C0,DmaMaskPorts,byte_19A7C0,new,low,ISA DMA mask register port of each channel,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7C8,DmaModePorts,byte_19A7C8,new,low,ISA DMA mode register port of each channel,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7D0,DmaClearPorts,byte_19A7D0,new,low,ISA DMA flip-flop clear port of each channel,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7D8,DmaAddressPorts,byte_19A7D8,new,low,ISA DMA address register port of each channel,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7E0,DmaCountPorts,byte_19A7E0,new,low,ISA DMA count register port of each channel (also the EOI table base),src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7E4,StrToLongLimits,dword_19A7E4,new,low,overflow limits used by the string to number conversion,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7E8,IrqAckLast,dword_19A7E8,new,low,last IRQ status read by the interrupt acknowledge,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A878,FloatPow10Table,dword_19A878,new,low,powers of ten used to format floating-point numbers,src/data/lib/sound/snd_hw_sb_data_01.asm
+19BEB8,FloatPow10Exponents,dword_19BEB8,new,low,binary exponents of the powers of ten used to format numbers,src/data/lib/sound/snd_hw_sb_data_01.asm
+19BED8,FloatFormatDigits,dword_19BED8,new,low,digit count of the number being formatted,src/data/lib/sound/snd_hw_sb_data_01.asm
+19BEDC,FloatFormatExponent,dword_19BEDC,new,low,decimal exponent of the number being formatted,src/data/lib/sound/snd_hw_sb_data_01.asm
+19BEE0,FloatFormatMantissaLo,dword_19BEE0,new,low,low half of the mantissa being formatted,src/data/lib/sound/snd_hw_sb_data_01.asm
+19BEE4,FloatFormatMantissaHi,dword_19BEE4,new,low,high half of the mantissa being formatted,src/data/lib/sound/snd_hw_sb_data_01.asm
 19BEE8,str_NoErrorInXACODECFunctionL,asc_19BEE8,new,high,"string ""No Error In XACODEC Function Library!""",src/data/lib/sound/snd_hw_sb_data_01.asm
 19BFD8,str_InvalidErrorCodeInXACODEC,asc_19BFD8,new,high,"string ""Invalid Error Code In XACODEC Function Library!""",src/data/lib/sound/snd_hw_sb_data_01.asm
+19C008,DebugLineStart,dword_19C008,new,low,start time of the current debug line,src/data/lib/sound/snd_hw_sb_data_01.asm
+19C00C,MaxPrecision,dword_19C00C,new,low,maximum number of digits printed for a floating-point number,src/data/lib/sound/snd_hw_sb_data_01.asm
+19C010,MatherrHook,dword_19C010,new,low,function called on a maths error,src/data/lib/sound/snd_hw_sb_data_01.asm
+19C018,GusBasePort,word_19C018,new,low,base port of the card; the other port words follow,src/data/lib/sound/snd_hw_sb_data_01.asm
+19C01A,GusIrqStatusPort,word_19C01A,new,low,card port of the IRQ status register,src/data/lib/sound/snd_hw_sb_data_01.asm
+19C020,GusIrqLatchPort,word_19C020,new,low,card port of the IRQ latch register,src/data/lib/sound/snd_hw_sb_data_01.asm
+19C022,GusDmaLatchPort,word_19C022,new,low,card port of the DMA latch register,src/data/lib/sound/snd_hw_sb_data_01.asm
+19C024,GusMidiControlPort,word_19C024,new,low,card port of the MIDI control register,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C026,GusMidiDataPort,word_19C026,new,low,card port of the MIDI data register,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C028,GusVoiceSelectPort,word_19C028,new,low,card port that selects the active voice,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C02A,GusRegSelectPort,word_19C02A,new,low,card port that selects a synthesizer register,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C02C,GusDataLowPort,word_19C02C,new,low,card port of the 16-bit register data,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C02E,GusDataHighPort,word_19C02E,new,low,card port of the 8-bit register data,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C030,GusDramPort,word_19C030,new,low,card port of the card memory data byte,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C032,GusDmaLatchBits,byte_19C032,new,low,latch register bits for each DMA channel the card can use,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C040,GusDmaPageTable,byte_19C040,new,low,ISA DMA page port and channel bits for each DMA channel,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C052,GusIrqVectorTable,word_19C052,new,low,interrupt vector and saved old handler of each card IRQ line,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C054,GusIrqOldHandler,dword_19C054,new,low,saved old handler offset in the IRQ table,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C058,GusIrqOldSelector,word_19C058,new,low,saved old handler selector in the IRQ table,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C0D4,GusMidiPending,dword_19C0D4,new,low,set when a MIDI interrupt arrived while the card was busy,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C0DC,GusIrqPending,word_19C0DC,new,low,pending interrupt flags of the card,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C0F4,GusMidiIrqCount,dword_19C0F4,new,low,number of MIDI interrupts serviced,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C0F8,GusTimerCallback,dword_19C0F8,new,low,callback for the card timers,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C0FC,GusDmaDoneCallback,dword_19C0FC,new,low,callback when a DMA transfer to card memory ends,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C100,GusRecordDoneCallback,dword_19C100,new,low,callback when a DMA record transfer ends,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C104,GusWaveCallback,dword_19C104,new,low,callback when a voice reaches its end,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C108,GusVolumeCallback,dword_19C108,new,low,callback when a voice volume ramp ends,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C10C,GusTimer1Callback,dword_19C10C,new,low,callback for the first card timer,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C110,GusTimer2Callback,dword_19C110,new,low,callback for the second card timer,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C114,GusWaveIrqCallback,dword_19C114,new,low,callback for voice wave interrupts,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C118,GusVolumeIrqCallback,dword_19C118,new,low,callback for voice volume interrupts,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C11C,GusMidiXmitCallback,dword_19C11C,new,low,callback when the MIDI port can send,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C120,GusMidiRecvCallback,dword_19C120,new,low,callback when the MIDI port has received a byte,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C124,GusDramSized,byte_19C124,new,low,set once the card memory size has been measured,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C128,GusDmaBusy,dword_19C128,new,low,set while a DMA transfer to card memory runs,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C12C,OldInt23Offset,dword_19C12C,new,low,saved offset of the old Ctrl-C handler,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C130,OldInt23Selector,word_19C130,new,low,saved selector of the old Ctrl-C handler,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C132,OldCtrlBreakOffset,dword_19C132,new,low,saved offset of the old Ctrl-Break handler,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C136,OldCtrlBreakSelector,word_19C136,new,low,saved selector of the old Ctrl-Break handler,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C138,OldInt23RealOffset,dword_19C138,new,low,saved real-mode offset of the old Ctrl-C handler,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C13C,OldInt23RealSegment,word_19C13C,new,low,saved real-mode segment of the old Ctrl-C handler,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C13E,OldCtrlBreakRealOffset,dword_19C13E,new,low,saved real-mode offset of the old Ctrl-Break handler,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C142,OldCtrlBreakRealSegment,word_19C142,new,low,saved real-mode segment of the old Ctrl-Break handler,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C144,DpmiHostedFlag,dword_19C144,new,low,set when the program runs under a DPMI host,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C16E,GusDmaReady,byte_19C16E,new,low,set once the DMA channels have been set up,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C170,SignalTable,dword_19C170,new,low,handler and flags of each C signal,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C178,SigFpeHandler,dword_19C178,new,low,handler slot of the floating-point signal,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
+19C1A4,AbortHandler,dword_19C1A4,new,low,function abort() calls to end the program,src/data/lib/sound/snd_gus_sdk_02_data_01.asm
 19C1BE,F64_1p79769e308,qword_19C1BE,new,high,double constant 1.797693135e+308,src/data/lib/watcom/watcom_clib_32_data_01.asm
 19C1C6,F32_3p40282e38,dword_19C1C6,new,high,float constant 3.402823466e+38,src/data/lib/watcom/watcom_clib_32_data_01.asm
 19C6B4,F32_0p541196,dword_19C6B4,new,high,float constant 0.5411961079,src/data/lib/watcom/watcom_clib_13_data_02.asm
@@ -7610,3 +7706,56 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,
 1CF26C,timercallbacks,dword_1CF26C,96PC,medium,96 PC timercallbacks: the 8 timer callbacks (addtimer),src/data/front/front_F20A1_bss_01.asm
+1DD484,ScapeBasePort,dword_1DD484,new,low,base port of the Soundscape card,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD488,ScapeIrq,dword_1DD488,new,low,IRQ line of the Soundscape card,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD48C,ScapeDmaChannel,dword_1DD48C,new,low,DMA channel of the Soundscape card,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD490,ScapeDmaBuffer,dword_1DD490,new,low,DMA buffer of the Soundscape card,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD494,ScapeCodecPort,dword_1DD494,new,low,codec port of the Soundscape card,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD498,ScapeRate,dword_1DD498,new,low,sample rate the Soundscape driver runs at,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD49C,PatchRegionParams,dword_1DD49C,new,low,parameters of the patch region picked for a note,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD4A0,SbBasePort,word_1DD4A0,new,low,base port of the Sound Blaster,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD4A2,SbIrq,word_1DD4A2,new,low,IRQ line of the Sound Blaster,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD4A4,SbMixerAddrPort,word_1DD4A4,new,low,Sound Blaster mixer address port,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD4A6,SbMixerDataPort,word_1DD4A6,new,low,Sound Blaster mixer data port,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD4A8,SbResetPort,word_1DD4A8,new,low,Sound Blaster DSP reset port,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD4AA,SbWritePort,word_1DD4AA,new,low,Sound Blaster DSP write port,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD4AC,SbReadPort,word_1DD4AC,new,low,Sound Blaster DSP read port,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD4AD,SbChannelSlots,dword_1DD4AD,new,low,channel slot table of the Sound Blaster mixer,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD4AF,SbChannelVoice,byte_1DD4AF,new,low,voice byte of the channel slot table,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD4B0,SbChannelFlags,byte_1DD4B0,new,low,flags of the channel slot table,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD4B4,SbChannelCount,dword_1DD4B4,new,low,number of channel slots in use,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD4B8,ClipTexVertsTop,unk_1DD4B8,new,low,vertex buffer of textured polygons clipped against the top edge,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DE764,TimerOldOffsetLo,word_1DE764,new,low,low word of the saved timer interrupt offset,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE766,TimerOldSelector,word_1DE766,new,low,selector of the saved timer interrupt handler,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE768,TimerOldHandler,dword_1DE768,new,low,saved protected-mode timer interrupt handler,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE76C,TimerOldRealHandler,dword_1DE76C,new,low,saved real-mode timer interrupt handler,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE770,TimerIrqMask,byte_1DE770,new,low,saved interrupt controller mask bit of the timer,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE771,TimerChainFlag,byte_1DE771,new,low,set when the old timer handler must still be called,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE772,TimerPitMode,byte_1DE772,new,low,timer chip mode bits used when writing the counter,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE773,TimerInstalled,byte_1DE773,new,low,set while the game's timer handler is installed,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE774,TimerDivisor,dword_1DE774,new,low,current timer chip divisor,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE778,TimerChainCount,dword_1DE778,new,low,tick accumulator that decides when to chain to the old timer handler,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE780,DbcsLeadTable,word_1DE780,new,low,DOS double-byte character lead table pointer,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE784,CMainArgc,dword_1DE784,new,low,argument count passed to main,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE788,CMainArgv,dword_1DE788,new,low,argument vector passed to main,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE78C,GusDosResult,word_1DE78C,new,low,result of the last DOS file call of the toolkit,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE78E,GusIrqFlags,word_1DE78E,new,low,interrupt state flags of the card driver,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE790,GusActiveVoices,word_1DE790,new,low,number of active voices on the card,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE792,GusCriticalDepth,word_1DE792,new,low,critical-section depth that defers card interrupts,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE794,GusPlayDmaChannel,byte_1DE794,new,low,DMA channel used for playback,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE795,GusIrqLatch,byte_1DE795,new,low,IRQ latch value written to the card,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE796,GusRecordDmaChannel,byte_1DE796,new,low,DMA channel used for recording,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE797,GusMidiIrq,byte_1DE797,new,low,IRQ line of the card's MIDI port,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE798,GusWaveIrq,byte_1DE798,new,low,IRQ line of the card's wave interrupts,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE7A0,GusDmaChannels,unk_1DE7A0,new,low,port tables of the two ISA DMA channels the card uses,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE7D0,GusVoiceIrqBits,dword_1DE7D0,new,low,per-voice bits of pending wave and volume interrupts,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE7E0,GusDmaChunkLo,word_1DE7E0,new,low,low word of the current DMA chunk's card address,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE7E2,GusDmaChunkHi,word_1DE7E2,new,low,high word of the current DMA chunk's card address,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE7E4,GusDmaLeft,dword_1DE7E4,new,low,bytes of the download still to transfer,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE7E8,GusDmaChunkSize,dword_1DE7E8,new,low,size of the current DMA chunk,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE7EC,GusDmaDone,dword_1DE7EC,new,low,bytes of the download transferred so far,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE7F0,GusDmaControl,byte_1DE7F0,new,low,DMA control register value for the download,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE7F1,GusDmaFlags,word_1DE7F1,new,low,flags of the current download,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE7F4,BreakHandlerRegs,unk_1DE7F4,new,low,register save area of the Ctrl-Break and Ctrl-C handlers,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DEC00,StartupStack,unk_1DEC00,new,low,stack the program starts on,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DF7E4,BreakHandlerStack,unk_1DF7E4,new,low,stack used by the Ctrl-Break and Ctrl-C handlers,src/data/lib/sound/snd_gus_sdk_02_bss_01.asm

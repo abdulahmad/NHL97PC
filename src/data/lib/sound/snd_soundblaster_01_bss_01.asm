@@ -2,44 +2,44 @@
 bits 32
 %include "hockey.inc"
 section s_1DD484 nobits alloc noexec write align=1
-global byte_1DD4AF, byte_1DD4B0, dword_1DD484, dword_1DD488, dword_1DD48C, dword_1DD490, dword_1DD494, dword_1DD498
-global dword_1DD49C, dword_1DD4AD, dword_1DD4B4, unk_1DD4B8, word_1DD4A0, word_1DD4A2, word_1DD4A4, word_1DD4A6
-global word_1DD4A8, word_1DD4AA, word_1DD4AC
-dword_1DD484:
+global SbChannelVoice, SbChannelFlags, ScapeBasePort, ScapeIrq, ScapeDmaChannel, ScapeDmaBuffer, ScapeCodecPort, ScapeRate
+global PatchRegionParams, SbChannelSlots, SbChannelCount, ClipTexVertsTop, SbBasePort, SbIrq, SbMixerAddrPort, SbMixerDataPort
+global SbResetPort, SbWritePort, SbReadPort
+ScapeBasePort:
         resb 4
-dword_1DD488:
+ScapeIrq:
         resb 4
-dword_1DD48C:
+ScapeDmaChannel:
         resb 4
-dword_1DD490:
+ScapeDmaBuffer:
         resb 4
-dword_1DD494:
+ScapeCodecPort:
         resb 4
-dword_1DD498:
+ScapeRate:
         resb 4
-dword_1DD49C:
+PatchRegionParams:
         resb 4
-word_1DD4A0:
+SbBasePort:
         resb 2
-word_1DD4A2:
+SbIrq:
         resb 2
-word_1DD4A4:
+SbMixerAddrPort:
         resb 2
-word_1DD4A6:
+SbMixerDataPort:
         resb 2
-word_1DD4A8:
+SbResetPort:
         resb 2
-word_1DD4AA:
+SbWritePort:
         resb 2
-word_1DD4AC:
+SbReadPort:
         resb 1
-dword_1DD4AD:
+SbChannelSlots:
         resb 2
-byte_1DD4AF:
+SbChannelVoice:
         resb 1
-byte_1DD4B0:
+SbChannelFlags:
         resb 4
-dword_1DD4B4:
+SbChannelCount:
         resb 4
-unk_1DD4B8:
+ClipTexVertsTop:
         resb 256

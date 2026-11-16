@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_138FCE progbits alloc exec nowrite align=1
 extern IF@LOG10, _Envptr, _Envptr_w4, _Scale10V_, __CHP, __Nan_Inf_, ___env_mask, __cvt_
-extern __get_std_stream_, __set_EDOM_, __set_ERANGE_, _environ, _nfree_, _nmalloc_, str_In, dword_16841C
-extern dword_168420, dword_19C00C, dword_19C010, floor_, fputc_, fputs_, memset_, qword_168418
+extern __get_std_stream_, __set_EDOM_, __set_ERANGE_, _environ, _nfree_, _nmalloc_, str_In, HugeValHi
+extern RunTimeErrorMessages, MaxPrecision, MatherrHook, floor_, fputc_, fputs_, memset_, HugeValLo
 extern DecimalToInt64
 global AdjField_, DoEFormat_, DoFFormat_, _FtoS_, _SetMaxPrec_, __rterrmsg_, __setenvp_, _matherr_
 global _set_matherr_, inp_, DoEFormat__A1, outp_, strtod_
@@ -107,7 +107,7 @@ __setenvp_:
 ; _SetMaxPrec_                                                 1390A2  library
 ;-----------------------------------------------------------------------------
 _SetMaxPrec_:
-        mov dword [dword_19C00C], eax
+        mov dword [MaxPrecision], eax
         ret
 ;-----------------------------------------------------------------------------
 ; DoEFormat_                                                   1390A8  library
@@ -750,12 +750,12 @@ strtod_:
         and al, 1
         and eax, 0FFh
         je short .25
-        fld qword [qword_168418]
+        fld qword [HugeValLo]
         jmp short .29
 .25:
-        mov eax, dword [qword_168418]
+        mov eax, dword [HugeValLo]
         mov dword [byte ebp-024h], eax
-        mov eax, dword [dword_16841C]
+        mov eax, dword [HugeValHi]
         mov dword [byte ebp-020h], eax
         jmp short .30
 .26:
@@ -804,7 +804,7 @@ strtod_:
 ; _set_matherr_                                                13964C  library
 ;-----------------------------------------------------------------------------
 _set_matherr_:
-        mov dword [dword_19C010], eax
+        mov dword [MatherrHook], eax
         ret
 ;-----------------------------------------------------------------------------
 ; __rterrmsg_                                                  139652  library
@@ -820,7 +820,7 @@ __rterrmsg_:
         mov ebx, eax
         mov eax, esi
         mov edx, ebx
-        mov eax, dword [nosplit eax*4+dword_168420]
+        mov eax, dword [nosplit eax*4+RunTimeErrorMessages]
         call fputs_
         mov eax, str_In
         mov edx, ebx
@@ -842,7 +842,7 @@ _matherr_:
         push ebx
         push edx
         mov ebx, eax
-        call dword [dword_19C010]
+        call dword [MatherrHook]
         test eax, eax
         jne short .2
         mov edx, dword [byte ebx+04h]

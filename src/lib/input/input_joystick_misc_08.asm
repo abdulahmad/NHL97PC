@@ -4,7 +4,7 @@ bits 32
 section s_12D6C4 progbits alloc exec nowrite align=1
 extern byte_16E688, byte_16F794, byte_171C90, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, BlendShapeRows
 extern ConvertArtNew, FixedLerp, SinCosLookup, DrawCharMono, DrawCharShadow, DrawCharOutline, DrawCharBold, FreeMemBlock
-extern unk_1DD4B8, unk_1DD5B8, unk_1DD738, unk_1DD838, unk_1DD938, unk_1DDA38, unk_1DDBB8, unk_1DDD38
+extern ClipTexVertsTop, unk_1DD5B8, unk_1DD738, unk_1DD838, unk_1DD938, unk_1DDA38, unk_1DDBB8, unk_1DDD38
 extern unk_1DDEB8, unk_1DDFB8, unk_1DE0B8, unk_1DE1B8, unk_1DE2B8, unk_1DE3B8, unk_1DE4B8, unk_1DE5B8
 global ClipTexPolyLeft_13C, ClipDrawPolyLeft_137, TransposeMatrix, PolyCrossProduct, TexSpanCopy, ClipTexEdgeAtX, ClipTexEdgeAtY, ClipTexPolyLeft
 global ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MakeRotationZ, DrawShapeTransformed, TexSpanKeyed, TexSpanShadow, ClipDrawEdgeAtX
@@ -978,7 +978,7 @@ ClipTexPolyTop:
         mov dword [ebx], unk_1DDD38
         lea ecx, [byte edx+08h]
         mov ebx, dword [ebx]
-        mov dword [byte ebp+00h], unk_1DD4B8
+        mov dword [byte ebp+00h], ClipTexVertsTop
         mov dword [byte esp+08h], ecx
         mov ebp, dword [byte ebp+00h]
 .1:

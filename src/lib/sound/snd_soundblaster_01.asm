@@ -14,13 +14,13 @@ extern dword_1DD3EC, dword_1DD3F0, dword_1DD3F4, dword_1DD3F8, dword_1DD3FC, dwo
 extern dword_1DD410, dword_1DD414, dword_1DD418, dword_1DD41C, dword_1DD420, dword_1DD424, dword_1DD428, dword_1DD42C
 extern dword_1DD434, dword_1DD438, dword_1DD43C, dword_1DD440, dword_1DD444, dword_1DD448, dword_1DD44C, dword_1DD450
 extern dword_1DD454, dword_1DD458, dword_1DD45C, dword_1DD460, dword_1DD464, dword_1DD468, dword_1DD474, dword_1DD478
-extern dword_1DD47C, dword_1DD480, dword_1DD484, dword_1DD488, dword_1DD48C, dword_1DD490, dword_1DD494, dword_1DD498
+extern dword_1DD47C, dword_1DD480, ScapeBasePort, ScapeIrq, ScapeDmaChannel, ScapeDmaBuffer, ScapeCodecPort, ScapeRate
 extern fclose_, fgets_, fopen_, fseek_, getenv_, unk_137FE1_2, str_WSSDMA, strcmp_
 extern strstr_, strupr_, AudioDriverUpdate, ApplyChannelVolume, PickSampleRate, StopChannel, RestoreDS, MixerInit
 extern MixerFillBuffer, SbReadData, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp, SbDetectDsp, SbSetRate
 extern StartChannel, SetChannelCount, DmaMaskChannel, DmaProgram, IrqAck, IrqVector, IrqUnmask, IrqMask
 extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, ReturnArg, AllocMemData, FreeMemBlock
-extern unk_128990, unk_1289A0, unk_137F46, unk_137F48, unk_137F4A, unk_137FDF, unk_137FE1, unk_140000
+extern unk_128990, unk_1289A0, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, unk_140000
 extern unk_14000D, unk_14001A, unk_14002B, str_Rt_ReadSoundscapeIni, str_Punct_IniFindKey, unk_172C44, unk_1DD3C4, unk_1DD40C
 extern word_172C42, word_172C48, word_172C4C, word_1DD3E0, word_1DD3E8, word_1DD430, word_1DD46C, word_1DD470
 extern word_1DD472
@@ -243,13 +243,13 @@ SbDriverInit:
         test eax, eax
         jl near .9
         mov ax, word [dword_1DD3D4]
-        mov word [unk_137F46], ax
+        mov word [SbRateConstLo], ax
         mov ax, word [word_1DD3E0]
         add eax, 0Eh
-        mov word [unk_137F48], ax
+        mov word [SbRateConstMid], ax
         mov ax, word [word_1DD3E0]
         add eax, 0Ch
-        mov word [unk_137F4A], ax
+        mov word [SbRateConstHi], ax
         call SbDetectDsp
         mov dword [dword_1DD3DC], eax
         test eax, eax
@@ -613,10 +613,10 @@ SbProDriverInit:
         test eax, eax
         jl near .14
         mov ax, word [dword_1DD418]
-        mov word [unk_137FDF], ax
+        mov word [SbProStereoFlag], ax
         mov ax, word [dword_1DD428]
         add eax, 0Eh
-        mov word [unk_137FE1], ax
+        mov word [SbProRateConst], ax
         call SbResetDsp
         test eax, eax
         jge short .6
@@ -1555,7 +1555,7 @@ SoundscapeDriverInit:
         mov ebp, 1
 .6:
         call PickSampleRate
-        mov dword [dword_1DD484], eax
+        mov dword [ScapeBasePort], eax
         cmp eax, 3E80h
         jb short .8
         jbe short .11
@@ -1594,7 +1594,7 @@ SoundscapeDriverInit:
         mov edx, eax
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_1DD488], eax
+        mov dword [ScapeIrq], eax
         mov al, byte [nosplit esi*2+byte_172C89]
         and eax, 0FFh
         imul ebx, eax
@@ -1607,7 +1607,7 @@ SoundscapeDriverInit:
         mov dword [dword_1DD478], eax
         LD sub, eax, edx
         sar eax, 1
-        mov dword [dword_1DD48C], eax
+        mov dword [ScapeDmaChannel], eax
         mov eax, dword [dword_1DD478]
         push dword 200h
         add eax, eax
@@ -1615,7 +1615,7 @@ SoundscapeDriverInit:
         push str_DMABUFFER4
         call AllocMemData
         add esp, byte 0Ch
-        mov dword [dword_1DD490], eax
+        mov dword [ScapeDmaBuffer], eax
         test eax, eax
         jne short .14
         mov dword [dword_172C80], eax
@@ -1638,7 +1638,7 @@ SoundscapeDriverInit:
         jle short .15
         and eax, 0F0000h
         add eax, 10000h
-        mov dword [dword_1DD490], eax
+        mov dword [ScapeDmaBuffer], eax
 .15:
         call ReadSoundscapeIni
         test eax, eax
@@ -1677,23 +1677,23 @@ SoundscapeDriverInit:
         ret
 .17:
         push SetChannelCount
-        mov eax, dword [dword_1DD484]
+        mov eax, dword [ScapeBasePort]
         push eax
         mov al, byte [nosplit esi*2+byte_172C88]
         and eax, 0FFh
         push eax
         call MixerInit
         add esp, byte 0Ch
-        mov edx, dword [dword_1DD488]
+        mov edx, dword [ScapeIrq]
         push edx
-        mov ebx, dword [dword_1DD490]
+        mov ebx, dword [ScapeDmaBuffer]
         push ebx
         mov esi, eax
         call MixerFillBuffer
-        mov ecx, dword [dword_1DD488]
+        mov ecx, dword [ScapeIrq]
         add esp, byte 8
-        mov eax, dword [dword_1DD490]
-        mov edx, dword [dword_1DD48C]
+        mov eax, dword [ScapeDmaBuffer]
+        mov edx, dword [ScapeDmaChannel]
         push ecx
         add eax, edx
         push eax
@@ -1702,8 +1702,8 @@ SoundscapeDriverInit:
         mov ebx, edi
         call SoundscapeSetupCodec
         mov edx, ebp
-        mov ecx, dword [dword_1DD488]
-        mov eax, dword [dword_1DD484]
+        mov ecx, dword [ScapeIrq]
+        mov eax, dword [ScapeBasePort]
         call SoundscapeSetupDma
         mov eax, esi
         mov ebx, 1
@@ -1755,16 +1755,16 @@ SoundscapeDriverStart:
         push ebx
         push ecx
         push edx
-        mov edx, dword [dword_1DD494]
-        mov eax, dword [dword_1DD48C]
+        mov edx, dword [ScapeCodecPort]
+        mov eax, dword [ScapeDmaChannel]
         call IrqAck
-        mov dword [dword_1DD498], eax
+        mov dword [ScapeRate], eax
         test eax, eax
         jl short .1
         cmp dword [dword_172C84], byte 0
         je short .1
-        mov ebx, dword [dword_1DD488]
-        mov edx, dword [dword_1DD490]
+        mov ebx, dword [ScapeIrq]
+        mov edx, dword [ScapeDmaBuffer]
         push ebx
         add eax, edx
         push eax
@@ -1894,7 +1894,7 @@ ReadSoundscapeIni:
         call ReturnArg
         mov ebx, str_IRQ
         mov edx, esp
-        mov dword [dword_1DD494], eax
+        mov dword [ScapeCodecPort], eax
         mov eax, ecx
         call IniFindKey
         test eax, eax
@@ -2209,7 +2209,7 @@ SoundscapeSetupCodec:
         mov al, 50h
         add edx, byte 5
         out dx, al
-        mov eax, dword [dword_1DD494]
+        mov eax, dword [ScapeCodecPort]
         mov ebx, dword [dword_172C78]
         mov edx, dword [dword_172C64]
         shl eax, 4
@@ -2281,8 +2281,8 @@ SoundscapeSetupDma:
         mov dword [esp], ecx
         mov ecx, 58h
         mov ebx, dword [dword_1DD478]
-        mov edx, dword [dword_1DD490]
-        mov eax, dword [dword_1DD494]
+        mov edx, dword [ScapeDmaBuffer]
+        mov eax, dword [ScapeCodecPort]
         call DmaProgram
         mov ebx, edi
         mov edx, esi
@@ -2358,7 +2358,7 @@ SoundscapeWriteReg:
         inc edx
         out dx, al
 .1:
-        mov eax, dword [dword_1DD494]
+        mov eax, dword [ScapeCodecPort]
         mov edx, 21h
         call DmaMaskChannel
         xor ebx, ebx
@@ -2448,7 +2448,7 @@ SoundscapeStopCodec:
 .3:
         mov al, 3
         mov edx, dword [dword_172C64]
-        mov ebx, dword [dword_1DD494]
+        mov ebx, dword [ScapeCodecPort]
         add edx, byte 4
         shl ebx, 4
         out dx, al

@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_1680A4 progbits alloc noexec write align=1
 global _IsTable, str_DMA, str_IRQ, str_SBIRQ, str_SBEnable, str_FALSE, str_WavePort, str_ExitYN
-global str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_In, str_ABNORMALTERMINATION, byte_168410, str_Inf, str_Nan, dword_16841C
-global dword_168420, F64_1eneg08, F64_neg1_floor_, qword_168418, str_BLASTER, str_FloatingPointSupportNot, str_NotEnoughMemoryTo, str_PAUSEPRESSANYKEY
+global str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_In, str_ABNORMALTERMINATION, ScanBitMasks, str_Inf, str_Nan, HugeValHi
+global RunTimeErrorMessages, F64_1eneg08, F64_neg1_floor_, HugeValLo, str_BLASTER, str_FloatingPointSupportNot, str_NotEnoughMemoryTo, str_PAUSEPRESSANYKEY
 global str_RATIONALDOS4G, str_RMHandler, str_SaveText, str_Punct_IniFindKey, unk_168184, str_Asin, str_Sqrt, str_Exp
 global str_Cosh, str_Sinh, str_Pow, str_Acosh, str_Log2, str_Log, str_Log10, str_Atanh
 global str_Atan2, str_Ipow, str_Dpowi, str_Cos, str_Sin, str_Tan, str_Y0, str_Y1
@@ -149,13 +149,13 @@ _IsTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-byte_168410:
+ScanBitMasks:
         db 01h,02h,04h,08h,010h,020h,040h,080h
-qword_168418:
+HugeValLo:
         db 00h,00h,00h,00h
-dword_16841C:
+HugeValHi:
         db 00h,00h,0F0h,07Fh
-dword_168420:
+RunTimeErrorMessages:
         db 00h,00h,00h,00h
         dd str_DomainError
         dd unk_168265

@@ -3,15 +3,15 @@ bits 32
 %include "hockey.inc"
 section s_1396E0 progbits alloc exec nowrite align=1
 extern _Extender, _STACKLOW, __null_int23_exit_, _chain_intr_, _dos_close_, _dos_getvect_, _dos_open_, _dos_read_
-extern _dos_setvect_, byte_19C032, byte_19C040, byte_19C16E, byte_1DE794, byte_1DE796, byte_1DE797, byte_1DE798
-extern byte_1DE7F0, dword_17259C, dword_19C054, dword_19C0D4, dword_19C0F4, dword_19C0F8, dword_19C0FC, dword_19C100
-extern dword_19C104, dword_19C108, dword_19C10C, dword_19C110, dword_19C114, dword_19C118, dword_19C11C, dword_19C120
-extern dword_19C128, dword_19C12C, dword_19C132, dword_19C138, dword_19C13E, dword_19C144, dword_1DE7D0, dword_1DE7E4
-extern dword_1DE7E8, dword_1DE7EC, inp_, kaufmfont, lseek_, off_171C80, outp_, raise_
-extern RestoreDS, GusConvertAddr16, unk_19CA1C, unk_1DE7A0, unk_1DE7F4, unk_1DF7E4, word_19C018, word_19C01A
-extern word_19C024, word_19C026, word_19C02A, word_19C02C, word_19C02E, word_19C030, word_19C052, word_19C058
-extern word_19C0DC, word_19C130, word_19C136, word_19C13C, word_19C142, word_1DE78C, word_1DE78E, word_1DE792
-extern word_1DE7E0, word_1DE7E2, word_1DE7F1
+extern _dos_setvect_, GusDmaLatchBits, GusDmaPageTable, GusDmaReady, GusPlayDmaChannel, GusRecordDmaChannel, GusMidiIrq, GusWaveIrq
+extern GusDmaControl, dword_17259C, GusIrqOldHandler, GusMidiPending, GusMidiIrqCount, GusTimerCallback, GusDmaDoneCallback, GusRecordDoneCallback
+extern GusWaveCallback, GusVolumeCallback, GusTimer1Callback, GusTimer2Callback, GusWaveIrqCallback, GusVolumeIrqCallback, GusMidiXmitCallback, GusMidiRecvCallback
+extern GusDmaBusy, OldInt23Offset, OldCtrlBreakOffset, OldInt23RealOffset, OldCtrlBreakRealOffset, DpmiHostedFlag, GusVoiceIrqBits, GusDmaLeft
+extern GusDmaChunkSize, GusDmaDone, inp_, kaufmfont, lseek_, off_171C80, outp_, raise_
+extern RestoreDS, GusConvertAddr16, unk_19CA1C, GusDmaChannels, BreakHandlerRegs, BreakHandlerStack, GusBasePort, GusIrqStatusPort
+extern GusMidiControlPort, GusMidiDataPort, GusRegSelectPort, GusDataLowPort, GusDataHighPort, GusDramPort, GusIrqVectorTable, GusIrqOldSelector
+extern GusIrqPending, OldInt23Selector, OldCtrlBreakSelector, OldInt23RealSegment, OldCtrlBreakRealSegment, GusDosResult, GusIrqFlags, GusCriticalDepth
+extern GusDmaChunkLo, GusDmaChunkHi, GusDmaFlags
 global __DPMI_hosted_, __grab_int23_, __grab_int_ctrl_break_, __int23_handler_, __int_ctrl_break_handler_, __restore_int23_, __restore_int_, __restore_int_ctrl_break_
 global inpw_, __int23_handler__70, __int23_handler__75, __restore_int23__F3, __restore_int23__105, __restore_int23__1AC, outpw_, GusSetupDmaChannel
 global GusProgramDma, GusMaskDma, GusSetVect, GusGetVect, GusHookIrq, GusUnhookIrq, GusSendEoi, GusWaveIrqHandler
@@ -33,7 +33,7 @@ GusSetupDmaChannel:
         mov ebx, eax
         shl eax, 4
         add eax, ebx
-        add eax, unk_1DE7A0
+        add eax, GusDmaChannels
         mov word [byte eax+0Fh], dx
         mov ebx, edx
         and bl, 3
@@ -64,7 +64,7 @@ GusSetupDmaChannel:
         mov byte [byte eax+01h], bl
         or bl, 4
         mov byte [eax], bl
-        mov dl, byte [nosplit edx*2+byte_19C040]
+        mov dl, byte [nosplit edx*2+GusDmaPageTable]
         mov byte [byte eax+02h], dl
         lea esp, [byte ebp-0Ch]
         pop esi
@@ -87,7 +87,7 @@ GusProgramDma:
         mov ebx, eax
         shl ebx, 4
         add ebx, eax
-        add ebx, unk_1DE7A0
+        add ebx, GusDmaChannels
         mov ax, word [byte ebx+0Fh]
         and al, 3
         xor ah, ah
@@ -194,7 +194,7 @@ GusMaskDma:
         mov edx, eax
         shl eax, 4
         add eax, edx
-        add eax, unk_1DE7A0
+        add eax, GusDmaChannels
         xor edx, edx
         mov dl, byte [eax]
         mov ax, word [byte eax+09h]
@@ -212,7 +212,7 @@ GusMaskDma:
         mov ebx, eax
         shl eax, 4
         add eax, ebx
-        mov ebx, unk_1DE7A0
+        mov ebx, GusDmaChannels
         add ebx, eax
         pushfw
         cli
@@ -262,7 +262,7 @@ GusMaskDma:
         mov ebx, edx
         mov edx, esi
         call _dos_read_
-        mov word [word_1DE78C], ax
+        mov word [GusDosResult], ax
         mov eax, dword [byte ebp-0Ch]
         lea esp, [byte ebp-08h]
         pop esi
@@ -272,7 +272,7 @@ GusMaskDma:
         push ebp
         mov ebp, esp
         call _dos_close_
-        mov word [word_1DE78C], ax
+        mov word [GusDosResult], ax
         test ax, ax
         je short .2
         mov eax, 10h
@@ -303,7 +303,7 @@ GusMaskDma:
         lea ebx, [byte ebp-0Ch]
         xor edx, edx
         call _dos_open_
-        mov word [word_1DE78C], ax
+        mov word [GusDosResult], ax
         test ax, ax
         jne short .4
         mov eax, dword [byte ebp-0Ch]
@@ -358,11 +358,11 @@ GusHookIrq:
         xor ebx, ebx
         pushfw
         cli
-        mov bx, word [nosplit ecx*8+word_19C052]
+        mov bx, word [nosplit ecx*8+GusIrqVectorTable]
         mov eax, ebx
         call GusGetVect
-        mov word [nosplit ecx*8+word_19C058], dx
-        mov dword [nosplit ecx*8+dword_19C054], eax
+        mov word [nosplit ecx*8+GusIrqOldSelector], dx
+        mov dword [nosplit ecx*8+GusIrqOldHandler], eax
         mov eax, ebx
         mov ecx, edi
         mov ebx, esi
@@ -438,9 +438,9 @@ GusUnhookIrq:
         call outp_
 .3:
         xor eax, eax
-        mov cx, word [nosplit ebx*8+word_19C058]
-        mov ax, word [nosplit ebx*8+word_19C052]
-        mov ebx, dword [nosplit ebx*8+dword_19C054]
+        mov cx, word [nosplit ebx*8+GusIrqOldSelector]
+        mov ax, word [nosplit ebx*8+GusIrqVectorTable]
+        mov ebx, dword [nosplit ebx*8+GusIrqOldHandler]
         call GusSetVect
         popfw
         lea esp, [byte ebp-0Ch]
@@ -487,27 +487,27 @@ GusWaveIrqHandler:
         cld
         call RestoreDS
         xor ah, ah
-        mov al, byte [byte_1DE798]
+        mov al, byte [GusWaveIrq]
         and eax, 0FFFFh
         call GusSendEoi
-        cmp word [word_1DE792], byte 0
+        cmp word [GusCriticalDepth], byte 0
         je short .1
-        mov bx, word [word_1DE78E]
+        mov bx, word [GusIrqFlags]
         or bl, 2
-        mov word [word_1DE78E], bx
+        mov word [GusIrqFlags], bx
         jmp short .3
 .1:
-        mov ax, word [word_1DE792]
-        inc word [word_1DE792]
+        mov ax, word [GusCriticalDepth]
+        inc word [GusCriticalDepth]
         push ds
         pop es
 .2:
-        and word [word_1DE78E], byte 0FFFDh
+        and word [GusIrqFlags], byte 0FFFDh
         call GusServiceIrq
-        test word [word_1DE78E], 2
+        test word [GusIrqFlags], 2
         jne short .2
-        mov ax, word [word_1DE792]
-        dec word [word_1DE792]
+        mov ax, word [GusCriticalDepth]
+        dec word [GusCriticalDepth]
 .3:
         pop gs
         pop fs
@@ -530,30 +530,30 @@ GusMidiIrqHandler:
         cld
         call RestoreDS
         xor ah, ah
-        mov al, byte [byte_1DE797]
+        mov al, byte [GusMidiIrq]
         and eax, 0FFFFh
         call GusSendEoi
-        cmp dword [dword_19C0D4], byte 0
+        cmp dword [GusMidiPending], byte 0
         je short .1
-        mov dx, word [word_1DE78E]
+        mov dx, word [GusIrqFlags]
         or dl, 8
-        mov word [word_1DE78E], dx
+        mov word [GusIrqFlags], dx
         jmp short .3
 .1:
-        mov eax, dword [dword_19C0D4]
-        inc dword [dword_19C0D4]
+        mov eax, dword [GusMidiPending]
+        inc dword [GusMidiPending]
         push ds
         pop es
 .2:
-        mov bx, word [word_1DE78E]
+        mov bx, word [GusIrqFlags]
         and bl, 0F7h
-        mov word [word_1DE78E], bx
+        mov word [GusIrqFlags], bx
         call GusMidiIrqService
-        mov cx, word [word_1DE78E]
+        mov cx, word [GusIrqFlags]
         test cl, 8
         jne short .2
-        mov eax, dword [dword_19C0D4]
-        dec dword [dword_19C0D4]
+        mov eax, dword [GusMidiPending]
+        dec dword [GusMidiPending]
 .3:
         pop gs
         pop fs
@@ -570,7 +570,7 @@ GusDelay:
         push ecx
         push edx
         mov ecx, 0Ah
-        mov dx, word [word_19C030]
+        mov dx, word [GusDramPort]
 .1:
         in al, dx
         loopne .1
@@ -597,14 +597,14 @@ GusSetBasePort:
         nop
         nop
         nop
-        movzx ebx, word [word_19C018]
+        movzx ebx, word [GusBasePort]
         LD sub, eax, ebx
         je short .2
         nop
         nop
         nop
         nop
-        mov esi, word_19C018
+        mov esi, GusBasePort
         mov ecx, 0Dh
 .1:
         add word [esi], ax
@@ -627,19 +627,19 @@ GusSetBasePort:
 ; Clears the pending IRQ flags and the critical-section depth
 ;-----------------------------------------------------------------------------
 GusClearIrqState:
-        mov word [word_19C0DC], 0
-        mov word [word_1DE792], 0
+        mov word [GusIrqPending], 0
+        mov word [GusCriticalDepth], 0
         ret
 ;-----------------------------------------------------------------------------
 ; GusEnterCritical                               139C93  97 PC, low confidence
 ; Raises the critical-section depth so card interrupts are deferred
 ;-----------------------------------------------------------------------------
 GusEnterCritical:
-        inc word [word_1DE792]
+        inc word [GusCriticalDepth]
         ret
         pushfw
         cli
-        cmp word [word_1DE792], byte 0
+        cmp word [GusCriticalDepth], byte 0
         jne short .1
         call GusEnterCritical
         mov eax, 1
@@ -658,21 +658,21 @@ GusEnterCritical:
 GusLeaveCritical:
         pushfw
         cli
-        dec word [word_1DE792]
-        cmp word [word_1DE792], byte 0
+        dec word [GusCriticalDepth]
+        cmp word [GusCriticalDepth], byte 0
         jne short .2
         nop
         nop
         nop
         nop
 .1:
-        test byte [word_1DE78E], 6
+        test byte [GusIrqFlags], 6
         je short .2
         nop
         nop
         nop
         nop
-        and byte [word_1DE78E], 0FDh
+        and byte [GusIrqFlags], 0FDh
         call GusServiceIrq
         jmp short .1
 .2:
@@ -687,19 +687,19 @@ GusClearCallbacks:
         mov ebp, esp
         push edx
         xor edx, edx
-        mov dword [dword_19C0F8], edx
-        mov dword [dword_19C0FC], edx
-        mov dword [dword_19C100], edx
-        mov dword [dword_19C104], edx
-        mov dword [dword_19C108], edx
-        mov dword [dword_19C10C], edx
-        mov dword [dword_19C110], edx
-        mov dword [dword_19C114], edx
-        mov dword [dword_19C118], edx
-        mov dword [dword_19C11C], edx
-        mov dword [dword_19C120], edx
-        mov dword [dword_1DE7D0], edx
-        mov dword [dword_19C0F4], edx
+        mov dword [GusTimerCallback], edx
+        mov dword [GusDmaDoneCallback], edx
+        mov dword [GusRecordDoneCallback], edx
+        mov dword [GusWaveCallback], edx
+        mov dword [GusVolumeCallback], edx
+        mov dword [GusTimer1Callback], edx
+        mov dword [GusTimer2Callback], edx
+        mov dword [GusWaveIrqCallback], edx
+        mov dword [GusVolumeIrqCallback], edx
+        mov dword [GusMidiXmitCallback], edx
+        mov dword [GusMidiRecvCallback], edx
+        mov dword [GusVoiceIrqBits], edx
+        mov dword [GusMidiIrqCount], edx
         lea esp, [byte ebp-04h]
         pop edx
         pop ebp
@@ -773,12 +773,12 @@ GusSetDmaCallbacks:
         push ebx
         push edx
         mov ebx, eax
-        mov eax, dword_19C0FC
+        mov eax, GusDmaDoneCallback
         mov edx, ebx
         call GusClaimCallback
         test eax, eax
         je short .1
-        mov eax, dword_19C100
+        mov eax, GusRecordDoneCallback
         mov edx, ebx
         call GusClaimCallback
         test eax, eax
@@ -805,12 +805,12 @@ GusSetVoiceCallbacks:
         push ebx
         push edx
         mov ebx, eax
-        mov eax, dword_19C104
+        mov eax, GusWaveCallback
         mov edx, ebx
         call GusClaimCallback
         test eax, eax
         je short .1
-        mov eax, dword_19C108
+        mov eax, GusVolumeCallback
         mov edx, ebx
         call GusClaimCallback
         test eax, eax
@@ -831,12 +831,12 @@ GusSetVoiceCallbacks:
         push ebx
         push edx
         mov ebx, eax
-        mov eax, dword_19C10C
+        mov eax, GusTimer1Callback
         mov edx, ebx
         call GusClaimCallback
         test eax, eax
         je short .3
-        mov eax, dword_19C110
+        mov eax, GusTimer2Callback
         mov edx, ebx
         call GusClaimCallback
         test eax, eax
@@ -856,7 +856,7 @@ GusSetVoiceCallbacks:
         mov ebp, esp
         cmp eax, byte 1
         jne short .5
-        mov eax, dword_19C114
+        mov eax, GusWaveIrqCallback
         call GusClaimVoiceCallback
         test eax, eax
         je short .7
@@ -867,7 +867,7 @@ GusSetVoiceCallbacks:
 .5:
         cmp eax, byte 2
         jne short .6
-        mov eax, dword_19C118
+        mov eax, GusVolumeIrqCallback
         call GusClaimVoiceCallback
         test eax, eax
         je short .7
@@ -885,7 +885,7 @@ GusSetVoiceCallbacks:
         mov ebp, esp
         push edx
         mov edx, eax
-        mov eax, dword_19C120
+        mov eax, GusMidiRecvCallback
         call GusClaimVoiceCallback
         test eax, eax
         je short .8
@@ -900,7 +900,7 @@ GusSetVoiceCallbacks:
         mov ebp, esp
         push edx
         mov edx, eax
-        mov eax, dword_19C11C
+        mov eax, GusMidiXmitCallback
         call GusClaimVoiceCallback
         test eax, eax
         je short .9
@@ -915,7 +915,7 @@ GusSetVoiceCallbacks:
         mov ebp, esp
         push edx
         mov edx, eax
-        mov eax, dword_19C0F8
+        mov eax, GusTimerCallback
         call GusClaimVoiceCallback
         test eax, eax
         je short .10
@@ -940,38 +940,38 @@ GusMidiIrqService:
         sub esp, byte 4
         pushfw
         cli
-        inc dword [dword_19C0F4]
+        inc dword [GusMidiIrqCount]
         xor eax, eax
-        mov ax, word [word_19C01A]
+        mov ax, word [GusIrqStatusPort]
         call inp_
         mov edx, eax
         mov dword [byte ebp-014h], eax
         test al, 3
         je short .2
         xor eax, eax
-        mov ax, word [word_19C024]
+        mov ax, word [GusMidiControlPort]
         call inp_
         mov ebx, eax
         mov ecx, eax
         test dl, 1
         je short .1
-        cmp dword [dword_19C11C], byte 0
+        cmp dword [GusMidiXmitCallback], byte 0
         je short .1
-        call dword [dword_19C11C]
+        call dword [GusMidiXmitCallback]
 .1:
         test byte [byte ebp-014h], 2
         je short .2
         xor eax, eax
-        mov ax, word [word_19C026]
+        mov ax, word [GusMidiDataPort]
         call inp_
-        mov edi, dword [dword_19C120]
+        mov edi, dword [GusMidiRecvCallback]
         mov edx, eax
         test edi, edi
         je short .2
         mov eax, ecx
-        call dword [dword_19C120]
+        call dword [GusMidiRecvCallback]
 .2:
-        dec dword [dword_19C0F4]
+        dec dword [GusMidiIrqCount]
         popfw
         lea esp, [byte ebp-010h]
         pop edi
@@ -993,12 +993,12 @@ GusReadIrqSource:
         push edx
         xor eax, eax
         cli
-        mov ax, word [word_19C01A]
+        mov ax, word [GusIrqStatusPort]
         call inp_
         mov ebx, eax
         mov edx, eax
-        mov al, byte [byte_1DE797]
-        cmp al, byte [byte_1DE798]
+        mov al, byte [GusMidiIrq]
+        cmp al, byte [GusWaveIrq]
         je short .1
         and bl, 0FCh
         mov edx, ebx
@@ -1028,8 +1028,8 @@ GusServiceIrq:
         push edi
         pushfw
         cli
-        mov ax, word [word_1DE792]
-        inc word [word_1DE792]
+        mov ax, word [GusCriticalDepth]
+        inc word [GusCriticalDepth]
         xor edi, edi
         xor esi, esi
 .1:
@@ -1037,107 +1037,107 @@ GusServiceIrq:
         mov ebx, eax
         test eax, eax
         jne short .2
-        mov cx, word [word_1DE78E]
+        mov cx, word [GusIrqFlags]
         test cl, 4
         je near .18
 .2:
         test bl, 80h
         jne short .3
-        mov ax, word [word_1DE78E]
+        mov ax, word [GusIrqFlags]
         test al, 4
         je near .6
 .3:
         xor eax, eax
         mov edx, 41h
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         call outp_
         xor eax, eax
-        mov ax, word [word_19C02E]
+        mov ax, word [GusDataHighPort]
         call inp_
         test al, 40h
         jne short .4
-        mov dx, word [word_1DE78E]
+        mov dx, word [GusIrqFlags]
         test dl, 4
         je short .5
 .4:
-        mov cx, word [word_1DE78E]
+        mov cx, word [GusIrqFlags]
         and cl, 0FBh
-        mov word [word_1DE78E], cx
-        cmp dword [dword_19C0FC], byte 0
+        mov word [GusIrqFlags], cx
+        cmp dword [GusDmaDoneCallback], byte 0
         je short .5
         mov eax, 1
-        call dword [dword_19C0FC]
+        call dword [GusDmaDoneCallback]
         test eax, eax
         jne short .5
-        cmp dword [dword_19C100], byte 0
+        cmp dword [GusRecordDoneCallback], byte 0
         je short .5
         mov eax, 1
-        call dword [dword_19C100]
+        call dword [GusRecordDoneCallback]
 .5:
         xor eax, eax
         mov edx, 49h
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         call outp_
         xor eax, eax
-        mov ax, word [word_19C02E]
+        mov ax, word [GusDataHighPort]
         call inp_
         test al, 40h
         je short .6
-        cmp dword [dword_19C0FC], byte 0
+        cmp dword [GusDmaDoneCallback], byte 0
         je short .6
         xor eax, eax
-        call dword [dword_19C0FC]
+        call dword [GusDmaDoneCallback]
         test eax, eax
         jne short .6
-        cmp dword [dword_19C100], byte 0
+        cmp dword [GusRecordDoneCallback], byte 0
         je short .6
-        call dword [dword_19C100]
+        call dword [GusRecordDoneCallback]
 .6:
         test bl, 4
         je short .7
         xor eax, eax
         mov edx, 45h
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         call outp_
         xor eax, eax
-        mov edx, dword [dword_1DE7D0]
-        mov ax, word [word_19C02E]
+        mov edx, dword [GusVoiceIrqBits]
+        mov ax, word [GusDataHighPort]
         and dl, 0FBh
         call outp_
         xor eax, eax
-        mov edx, dword [dword_1DE7D0]
-        mov ax, word [word_19C02E]
+        mov edx, dword [GusVoiceIrqBits]
+        mov ax, word [GusDataHighPort]
         call outp_
-        cmp dword [dword_19C114], byte 0
+        cmp dword [GusWaveIrqCallback], byte 0
         je short .7
-        call dword [dword_19C114]
+        call dword [GusWaveIrqCallback]
         test eax, eax
         je short .7
         xor eax, eax
-        mov dword [dword_19C114], eax
+        mov dword [GusWaveIrqCallback], eax
 .7:
         test bl, 8
         je short .8
         xor eax, eax
         mov edx, 45h
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         call outp_
         xor eax, eax
-        mov edx, dword [dword_1DE7D0]
-        mov ax, word [word_19C02E]
+        mov edx, dword [GusVoiceIrqBits]
+        mov ax, word [GusDataHighPort]
         and dl, 0F7h
         call outp_
         xor eax, eax
-        mov edx, dword [dword_1DE7D0]
-        mov ax, word [word_19C02E]
+        mov edx, dword [GusVoiceIrqBits]
+        mov ax, word [GusDataHighPort]
         call outp_
-        cmp dword [dword_19C118], byte 0
+        cmp dword [GusVolumeIrqCallback], byte 0
         je short .8
-        call dword [dword_19C118]
+        call dword [GusVolumeIrqCallback]
         test eax, eax
         je short .8
         xor ecx, ecx
-        mov dword [dword_19C118], ecx
+        mov dword [GusVolumeIrqCallback], ecx
 .8:
         test bl, 60h
         je near .1
@@ -1145,10 +1145,10 @@ GusServiceIrq:
         cli
         xor eax, eax
         mov edx, 8Fh
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         call outp_
         xor eax, eax
-        mov ax, word [word_19C02E]
+        mov ax, word [GusDataHighPort]
         call inp_
         mov ch, al
         mov al, ch
@@ -1171,17 +1171,17 @@ GusServiceIrq:
         and edi, eax
         jmp short .13
 .10:
-        cmp dword [dword_19C104], byte 0
+        cmp dword [GusWaveCallback], byte 0
         je short .11
         mov eax, edx
-        call dword [dword_19C104]
+        call dword [GusWaveCallback]
         test eax, eax
         jne short .12
 .11:
-        cmp dword [dword_19C108], byte 0
+        cmp dword [GusVolumeCallback], byte 0
         je short .13
         mov eax, edx
-        call dword [dword_19C108]
+        call dword [GusVolumeCallback]
         test eax, eax
         je short .13
 .12:
@@ -1195,17 +1195,17 @@ GusServiceIrq:
         and esi, ebx
         jmp short .17
 .14:
-        cmp dword [dword_19C10C], byte 0
+        cmp dword [GusTimer1Callback], byte 0
         je short .15
         mov eax, edx
-        call dword [dword_19C10C]
+        call dword [GusTimer1Callback]
         test eax, eax
         jne short .16
 .15:
-        cmp dword [dword_19C110], byte 0
+        cmp dword [GusTimer2Callback], byte 0
         je short .17
         mov eax, edx
-        call dword [dword_19C110]
+        call dword [GusTimer2Callback]
         test eax, eax
         je short .17
 .16:
@@ -1214,8 +1214,8 @@ GusServiceIrq:
         call GusReadIrqSource
         jmp near .9
 .18:
-        mov ax, word [word_1DE792]
-        dec word [word_1DE792]
+        mov ax, word [GusCriticalDepth]
+        dec word [GusCriticalDepth]
         popfw
         lea esp, [byte ebp-014h]
         pop edi
@@ -1334,25 +1334,25 @@ GusPeek:
         call GusEnterCritical
         xor eax, eax
         mov edx, 43h
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         call outp_
         xor eax, eax
         mov edx, ebx
-        mov ax, word [word_19C02C]
+        mov ax, word [GusDataLowPort]
         call outpw_
         shr ebx, 10h
         xor eax, eax
         mov edx, 44h
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         and ebx, 0FFh
         call outp_
         xor eax, eax
         xor edx, edx
-        mov ax, word [word_19C02E]
+        mov ax, word [GusDataHighPort]
         mov dl, bl
         call outp_
         xor eax, eax
-        mov ax, word [word_19C030]
+        mov ax, word [GusDramPort]
         call inp_
         mov ebx, eax
         call GusLeaveCritical
@@ -1380,26 +1380,26 @@ GusPoke:
         call GusEnterCritical
         xor eax, eax
         mov edx, 43h
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         call outp_
         xor eax, eax
         mov edx, ebx
-        mov ax, word [word_19C02C]
+        mov ax, word [GusDataLowPort]
         call outpw_
         shr ebx, 10h
         xor eax, eax
         mov edx, 44h
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         and ebx, 0FFh
         call outp_
         xor eax, eax
         xor edx, edx
-        mov ax, word [word_19C02E]
+        mov ax, word [GusDataHighPort]
         mov dl, bl
         call outp_
         xor eax, eax
         xor edx, edx
-        mov ax, word [word_19C030]
+        mov ax, word [GusDramPort]
         mov dl, cl
         call outp_
         call GusLeaveCritical
@@ -1446,22 +1446,22 @@ GusPokeFill:
         je near .8
         xor eax, eax
         mov edx, 44h
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         call outp_
         xor edx, edx
         xor eax, eax
         mov dl, byte [byte ebp-014h]
-        mov ax, word [word_19C02E]
+        mov ax, word [GusDataHighPort]
         call outp_
         inc byte [byte ebp-014h]
 .4:
         xor eax, eax
         mov edx, 43h
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         call outp_
         xor eax, eax
         xor edx, edx
-        mov ax, word [word_19C02C]
+        mov ax, word [GusDataLowPort]
         mov dx, cx
         inc esi
         call outpw_
@@ -1484,7 +1484,7 @@ GusPokeFill:
         xor edx, edx
         mov dl, al
         xor eax, eax
-        mov ax, word [word_19C030]
+        mov ax, word [GusDramPort]
         call outp_
         dec ebx
         je near .3
@@ -1697,7 +1697,7 @@ GusInitPlayDma:
         mov ebp, esp
         push edx
         mov edx, eax
-        cmp byte [dword eax+byte_19C032], 0
+        cmp byte [dword eax+GusDmaLatchBits], 0
         jne short .1
         mov al, 3
         jmp short .2
@@ -1720,7 +1720,7 @@ GusInitRecordDma:
         mov ebp, esp
         push edx
         mov edx, eax
-        cmp byte [dword eax+byte_19C032], 0
+        cmp byte [dword eax+GusDmaLatchBits], 0
         jne short .1
         mov al, 3
         jmp short .2
@@ -1742,9 +1742,9 @@ GusInitRecordDma:
 GusInitDma:
         push ebp
         mov ebp, esp
-        mov byte [byte_19C16E], 1
+        mov byte [GusDmaReady], 1
         xor eax, eax
-        mov al, byte [byte_1DE794]
+        mov al, byte [GusPlayDmaChannel]
         call GusInitPlayDma
         test al, al
         je short .1
@@ -1754,7 +1754,7 @@ GusInitDma:
         ret
 .1:
         xor eax, eax
-        mov al, byte [byte_1DE796]
+        mov al, byte [GusRecordDmaChannel]
         call GusInitRecordDma
         test al, al
         je short .2
@@ -1772,7 +1772,7 @@ GusInitDma:
         pop ebp
         ret
 .3:
-        mov dword [dword_19C128], eax
+        mov dword [GusDmaBusy], eax
         mov esp, ebp
         pop ebp
         ret
@@ -1787,14 +1787,14 @@ GusStartDramDma:
         mov esi, eax
         xor si, ax
         shr esi, 10h
-        mov word [word_1DE7E2], si
-        mov word [word_1DE7E0], ax
-        mov dword [dword_1DE7E4], edx
+        mov word [GusDmaChunkHi], si
+        mov word [GusDmaChunkLo], ax
+        mov dword [GusDmaLeft], edx
         mov eax, dword [byte ebp+08h]
-        mov word [word_1DE7F1], ax
+        mov word [GusDmaFlags], ax
         xor edx, edx
-        mov dword [dword_1DE7E8], edx
-        mov dword [dword_1DE7EC], edx
+        mov dword [GusDmaChunkSize], edx
+        mov dword [GusDmaDone], edx
         mov dl, cl
         mov ah, byte [byte ebp+08h]
         or dl, 4
@@ -1802,7 +1802,7 @@ GusStartDramDma:
         je short .2
         test cl, 4
         jne short .1
-        cmp byte [byte_1DE794], 4
+        cmp byte [GusPlayDmaChannel], 4
         jb short .1
         mov eax, ebx
         call GusConvertAddr16
@@ -1811,24 +1811,24 @@ GusStartDramDma:
 .1:
         xor eax, eax
         mov edx, 42h
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         shr ebx, 4
         call outp_
         xor eax, eax
         xor edx, edx
-        mov ax, word [word_19C02C]
+        mov ax, word [GusDataLowPort]
         mov dx, bx
         call outpw_
         jmp short .3
 .2:
-        cmp byte [byte_1DE796], 4
+        cmp byte [GusRecordDmaChannel], 4
         jb short .3
         mov eax, ebx
         call GusConvertAddr16
         mov cl, dl
 .3:
         or cl, 21h
-        mov byte [byte_1DE7F0], cl
+        mov byte [GusDmaControl], cl
         xor eax, eax
         mov ax, word [byte ebp+08h]
         call GusDramDmaDone
@@ -1855,14 +1855,14 @@ GusDownload:
         pushfw
         cli
         call GusEnterCritical
-        cmp dword [dword_19C128], byte 0
+        cmp dword [GusDmaBusy], byte 0
         je short .1
         call GusLeaveCritical
         popfw
         mov eax, 7
         jmp near .9
 .1:
-        mov dword [dword_19C128], 1
+        mov dword [GusDmaBusy], 1
         mov eax, dword [byte ebp-01Ch]
         mov eax, dword [byte eax+04h]
         mov edi, dword [byte ebp-01Ch]
@@ -1871,7 +1871,7 @@ GusDownload:
         mov edi, dword [edi]
         test ah, 1
         je near .7
-        cmp byte [byte_1DE794], 4
+        cmp byte [GusPlayDmaChannel], 4
         jb short .4
         test byte [byte ebp-014h], 1
         je short .4
@@ -1887,9 +1887,9 @@ GusDownload:
         mov cl, byte [byte ebp-0Ch]
         call GusPokeFill
 .3:
-        mov dx, word [word_1DE78E]
+        mov dx, word [GusIrqFlags]
         or dl, 4
-        mov word [word_1DE78E], dx
+        mov word [GusIrqFlags], dx
         jmp short .8
 .4:
         mov eax, dword [byte ebp-010h]
@@ -1956,17 +1956,17 @@ GusDramDmaDone:
         push edx
         push esi
         mov edx, eax
-        cmp dword [dword_19C128], byte 0
+        cmp dword [GusDmaBusy], byte 0
         jne short .1
         xor eax, eax
         jmp near .8
 .1:
-        mov eax, dword [dword_1DE7E8]
-        add dword [dword_1DE7EC], eax
-        mov esi, dword [dword_1DE7E4]
+        mov eax, dword [GusDmaChunkSize]
+        add dword [GusDmaDone], eax
+        mov esi, dword [GusDmaLeft]
         test esi, esi
         jne short .2
-        mov dword [dword_19C128], esi
+        mov dword [GusDmaBusy], esi
         xor eax, eax
         lea esp, [byte ebp-010h]
         pop esi
@@ -1977,25 +1977,25 @@ GusDramDmaDone:
         ret
 .2:
         xor esi, esi
-        mov si, word [word_1DE7E0]
+        mov si, word [GusDmaChunkLo]
         mov eax, 10000h
         sub eax, esi
         mov esi, eax
-        cmp esi, dword [dword_1DE7E4]
+        cmp esi, dword [GusDmaLeft]
         jbe short .3
-        mov esi, dword [dword_1DE7E4]
+        mov esi, dword [GusDmaLeft]
 .3:
-        mov dword [dword_1DE7E8], esi
+        mov dword [GusDmaChunkSize], esi
         pushfw
         cli
         test dl, 1
         je short .6
         xor eax, eax
-        mov ax, word [word_1DE7E0]
+        mov ax, word [GusDmaChunkLo]
         xor ecx, ecx
-        mov cx, word [word_1DE7E2]
+        mov cx, word [GusDmaChunkHi]
         push eax
-        test byte [byte_1DE7F0], 2
+        test byte [GusDmaControl], 2
         je short .4
         mov eax, 44h
         jmp short .5
@@ -2004,7 +2004,7 @@ GusDramDmaDone:
 .5:
         xor ebx, ebx
         mov bx, ax
-        mov edx, dword [dword_1DE7E8]
+        mov edx, dword [GusDmaChunkSize]
         xor eax, eax
         call GusProgramDma
         xor eax, eax
@@ -2012,30 +2012,30 @@ GusDramDmaDone:
         jmp short .7
 .6:
         xor eax, eax
-        mov ax, word [word_1DE7E0]
+        mov ax, word [GusDmaChunkLo]
         xor ecx, ecx
-        mov cx, word [word_1DE7E2]
+        mov cx, word [GusDmaChunkHi]
         push eax
-        mov edx, dword [dword_1DE7E8]
+        mov edx, dword [GusDmaChunkSize]
         mov eax, 1
         mov ebx, 44h
         call GusProgramDma
         xor eax, eax
         mov edx, 49h
 .7:
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         call outp_
         xor edx, edx
-        mov dl, byte [byte_1DE7F0]
+        mov dl, byte [GusDmaControl]
         xor eax, eax
-        mov ax, word [word_19C02E]
+        mov ax, word [GusDataHighPort]
         call outp_
         call GusDelay
         popfw
-        sub dword [dword_1DE7E4], esi
-        add word [word_1DE7E0], si
-        mov ax, word [word_1DE7E2]
-        inc word [word_1DE7E2]
+        sub dword [GusDmaLeft], esi
+        add word [GusDmaChunkLo], si
+        mov ax, word [GusDmaChunkHi]
+        inc word [GusDmaChunkHi]
         mov eax, 1
 .8:
         lea esp, [byte ebp-010h]
@@ -2054,34 +2054,34 @@ GusDramDmaDone:
         cli
         mov edx, 1D4C0h
 .9:
-        cmp dword [dword_19C128], byte 0
+        cmp dword [GusDmaBusy], byte 0
         je short .13
         dec edx
         je short .13
         xor eax, eax
         cli
-        mov ax, word [word_19C01A]
+        mov ax, word [GusIrqStatusPort]
         call inp_
         test al, 80h
         jne short .10
-        mov bx, word [word_1DE78E]
+        mov bx, word [GusIrqFlags]
         test bl, 4
         je short .11
 .10:
         call GusServiceIrq
         cli
 .11:
-        mov cx, word [word_1DE78E]
+        mov cx, word [GusIrqFlags]
         test cl, 2
         je short .12
-        and word [word_1DE78E], byte 0FFFDh
+        and word [GusIrqFlags], byte 0FFFDh
         jmp short .10
 .12:
         call GusDelay
         jmp short .9
 .13:
         popfw
-        cmp dword [dword_19C128], byte 0
+        cmp dword [GusDmaBusy], byte 0
         je short .14
         test edx, edx
         jne short .14
@@ -2099,7 +2099,7 @@ GusDramDmaDone:
         db 090h
         push ebp
         mov ebp, esp
-        cmp dword [dword_19C128], byte 0
+        cmp dword [GusDmaBusy], byte 0
         sete al
         and eax, 0FFh
         mov esp, ebp
@@ -2112,32 +2112,32 @@ GusDramDmaDone:
         push edx
         pushfw
         cli
-        cmp dword [dword_19C128], byte 0
+        cmp dword [GusDmaBusy], byte 0
         je short .16
         xor ebx, ebx
-        mov dword [dword_19C128], ebx
+        mov dword [GusDmaBusy], ebx
         xor eax, eax
         call GusMaskDma
         mov eax, 1
         call GusMaskDma
-        and byte [byte_1DE7F0], 0DEh
+        and byte [GusDmaControl], 0DEh
         xor eax, eax
         mov edx, 41h
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         call outp_
         xor edx, edx
-        mov dl, byte [byte_1DE7F0]
+        mov dl, byte [GusDmaControl]
         xor eax, eax
-        mov ax, word [word_19C02E]
+        mov ax, word [GusDataHighPort]
         call outp_
         xor eax, eax
         mov edx, 49h
-        mov ax, word [word_19C02A]
+        mov ax, word [GusRegSelectPort]
         call outp_
         xor edx, edx
-        mov dl, byte [byte_1DE7F0]
+        mov dl, byte [GusDmaControl]
         xor eax, eax
-        mov ax, word [word_19C02E]
+        mov ax, word [GusDataHighPort]
         call outp_
 .16:
         popfw
@@ -2158,7 +2158,7 @@ __int23_handler_:
         mov ebp, esp
         cld
         call RestoreDS
-        mov eax, unk_1DF7E4
+        mov eax, BreakHandlerStack
         mov edx, ds
         mov bx, ss
         mov ecx, esp
@@ -2169,7 +2169,7 @@ __int23_handler_:
         mov esi, dword [_STACKLOW]
         mov edi, dword [dword_17259C]
         mov ecx, edx
-        mov edx, unk_1DE7F4
+        mov edx, BreakHandlerRegs
         mov ebx, eax
         mov dword [_STACKLOW], edx
         test edi, edi
@@ -2185,8 +2185,8 @@ __int23_handler_:
         call raise_
         jmp short __int23_handler__75
 .1:
-        mov dx, word [word_19C130]
-        mov eax, dword [dword_19C12C]
+        mov dx, word [OldInt23Selector]
+        mov eax, dword [OldInt23Offset]
 __int23_handler__70:
         call _chain_intr_
 __int23_handler__75:
@@ -2217,7 +2217,7 @@ __int_ctrl_break_handler_:
         mov ebp, esp
         cld
         call RestoreDS
-        mov eax, unk_1DF7E4
+        mov eax, BreakHandlerStack
         mov edx, ds
         mov bx, ss
         mov ecx, esp
@@ -2228,7 +2228,7 @@ __int_ctrl_break_handler_:
         mov esi, dword [_STACKLOW]
         mov edi, dword [dword_17259C]
         mov ecx, edx
-        mov edx, unk_1DE7F4
+        mov edx, BreakHandlerRegs
         mov ebx, eax
         mov dword [_STACKLOW], edx
         test edi, edi
@@ -2244,8 +2244,8 @@ __int_ctrl_break_handler_:
         call raise_
         jmp near __int23_handler__75
 .1:
-        mov dx, word [word_19C136]
-        mov eax, dword [dword_19C132]
+        mov dx, word [OldCtrlBreakSelector]
+        mov eax, dword [OldCtrlBreakOffset]
         jmp near __int23_handler__70
 ;-----------------------------------------------------------------------------
 ; __DPMI_hosted_                                               13AC11  library
@@ -2256,7 +2256,7 @@ __DPMI_hosted_:
         push edx
         push esi
         sub esp, byte 8
-        cmp dword [dword_19C144], byte 0
+        cmp dword [DpmiHostedFlag], byte 0
         jne near .3
         xor eax, eax
         mov al, byte [_Extender]
@@ -2293,12 +2293,12 @@ __DPMI_hosted_:
         add eax, esi
         test eax, eax
         jle short .2
-        mov dword [dword_19C144], 1
+        mov dword [DpmiHostedFlag], 1
         jmp short .3
 .2:
-        mov dword [dword_19C144], 0FFFFFFFFh
+        mov dword [DpmiHostedFlag], 0FFFFFFFFh
 .3:
-        mov eax, dword [dword_19C144]
+        mov eax, dword [DpmiHostedFlag]
         add esp, byte 8
         pop esi
         pop edx
@@ -2313,9 +2313,9 @@ __restore_int23_:
         push ecx
         push edx
         push ebp
-        cmp dword [dword_19C12C], byte 0
+        cmp dword [OldInt23Offset], byte 0
         jne short .1
-        cmp word [word_19C130], byte 0
+        cmp word [OldInt23Selector], byte 0
         je near .7
 .1:
         mov ebx, dword [off_171C80]
@@ -2335,16 +2335,16 @@ __restore_int23_:
         cmp eax, byte 8
         jg short .4
         mov cl, 23h
-        mov dx, word [word_19C130]
-        mov eax, dword [dword_19C12C]
+        mov dx, word [OldInt23Selector]
+        mov eax, dword [OldInt23Offset]
         mov ebx, eax
         shl ebx, 10h
         mov bx, dx
         mov ax, 2505h
         int 21h
         mov cl, 23h
-        mov dx, word [word_19C13C]
-        mov eax, dword [dword_19C138]
+        mov dx, word [OldInt23RealSegment]
+        mov eax, dword [OldInt23RealOffset]
         push ds
         mov ds, edx
         mov edx, eax
@@ -2357,26 +2357,26 @@ __restore_int23_:
         cmp eax, byte 1
         jne short .5
         mov bl, 23h
-        mov cx, word [word_19C130]
-        mov edx, dword [dword_19C12C]
+        mov cx, word [OldInt23Selector]
+        mov edx, dword [OldInt23Offset]
         mov ax, 201h
         int 31h
         mov bl, 23h
-        mov cx, word [word_19C13C]
-        mov edx, dword [dword_19C138]
+        mov cx, word [OldInt23RealSegment]
+        mov edx, dword [OldInt23RealOffset]
         mov ax, 205h
         int 31h
         jmp short .6
 .5:
         mov eax, 23h
-        mov cx, word [word_19C130]
-        mov ebx, dword [dword_19C12C]
+        mov cx, word [OldInt23Selector]
+        mov ebx, dword [OldInt23Offset]
         call _dos_setvect_
 .6:
         xor ebx, ebx
         xor ebp, ebp
-        mov word [word_19C130], bx
-        mov dword [dword_19C12C], ebp
+        mov word [OldInt23Selector], bx
+        mov dword [OldInt23Offset], ebp
 .7:
         pop ebp
         pop edx
@@ -2395,16 +2395,16 @@ __restore_int23__105:
         cmp eax, byte 8
         jg short .8
         mov cl, 1Bh
-        mov dx, word [word_19C136]
-        mov eax, dword [dword_19C132]
+        mov dx, word [OldCtrlBreakSelector]
+        mov eax, dword [OldCtrlBreakOffset]
         mov ebx, eax
         shl ebx, 10h
         mov bx, dx
         mov ax, 2505h
         int 21h
         mov cl, 1Bh
-        mov dx, word [word_19C142]
-        mov eax, dword [dword_19C13E]
+        mov dx, word [OldCtrlBreakRealSegment]
+        mov eax, dword [OldCtrlBreakRealOffset]
         push ds
         mov ds, edx
         mov edx, eax
@@ -2417,26 +2417,26 @@ __restore_int23__105:
         cmp eax, byte 1
         jne short .9
         mov bl, 1Bh
-        mov cx, word [word_19C136]
-        mov edx, dword [dword_19C132]
+        mov cx, word [OldCtrlBreakSelector]
+        mov edx, dword [OldCtrlBreakOffset]
         mov ax, 201h
         int 31h
         mov bl, 1Bh
-        mov cx, word [word_19C142]
-        mov edx, dword [dword_19C13E]
+        mov cx, word [OldCtrlBreakRealSegment]
+        mov edx, dword [OldCtrlBreakRealOffset]
         mov ax, 205h
         int 31h
         jmp short .10
 .9:
         mov eax, 1Bh
-        mov cx, word [word_19C136]
-        mov ebx, dword [dword_19C132]
+        mov cx, word [OldCtrlBreakSelector]
+        mov ebx, dword [OldCtrlBreakOffset]
         call _dos_setvect_
 .10:
         xor ebx, ebx
         xor ebp, ebp
-        mov word [word_19C136], bx
-        mov dword [dword_19C132], ebp
+        mov word [OldCtrlBreakSelector], bx
+        mov dword [OldCtrlBreakOffset], ebp
 __restore_int23__1AC:
         pop ebp
         pop edx
@@ -2456,9 +2456,9 @@ __restore_int_ctrl_break_:
         push ecx
         push edx
         push ebp
-        cmp dword [dword_19C132], byte 0
+        cmp dword [OldCtrlBreakOffset], byte 0
         jne short .1
-        cmp word [word_19C136], byte 0
+        cmp word [OldCtrlBreakSelector], byte 0
         je short __restore_int23__1AC
 .1:
         mov ebx, dword [off_171C80]
@@ -2473,9 +2473,9 @@ __grab_int23_:
         push ebx
         push ecx
         push edx
-        cmp dword [dword_19C12C], byte 0
+        cmp dword [OldInt23Offset], byte 0
         jne near .5
-        cmp word [word_19C130], byte 0
+        cmp word [OldInt23Selector], byte 0
         jne near .5
         xor eax, eax
         mov al, byte [_Extender]
@@ -2489,8 +2489,8 @@ __grab_int23_:
         mov cx, bx
         shr ebx, 10h
         mov edx, ebx
-        mov word [word_19C130], cx
-        mov dword [dword_19C12C], edx
+        mov word [OldInt23Selector], cx
+        mov dword [OldInt23Offset], edx
         mov cl, 23h
         mov edx, __int23_handler_
         push es
@@ -2499,9 +2499,9 @@ __grab_int23_:
         mov cx, es
         pop es
         mov al, 23h
-        mov word [word_19C13C], cx
+        mov word [OldInt23RealSegment], cx
         mov ecx, cs
-        mov dword [dword_19C138], ebx
+        mov dword [OldInt23RealOffset], ebx
         push ds
         mov ds, ecx
         mov cl, al
@@ -2518,13 +2518,13 @@ __grab_int23_:
         mov ax, 200h
         int 31h
         mov bl, 23h
-        mov word [word_19C130], cx
-        mov dword [dword_19C12C], edx
+        mov word [OldInt23Selector], cx
+        mov dword [OldInt23Offset], edx
         mov ax, 204h
         int 31h
         mov bl, 23h
-        mov word [word_19C13C], cx
-        mov dword [dword_19C138], edx
+        mov word [OldInt23RealSegment], cx
+        mov dword [OldInt23RealOffset], edx
         mov edx, __int23_handler_
         mov ecx, cs
         mov ax, 205h
@@ -2535,9 +2535,9 @@ __grab_int23_:
         mov ebx, __int23_handler_
         call _dos_getvect_
         mov ecx, cs
-        mov dword [dword_19C12C], eax
+        mov dword [OldInt23Offset], eax
         mov eax, 23h
-        mov word [word_19C130], dx
+        mov word [OldInt23Selector], dx
         call _dos_setvect_
 .3:
         mov ebx, dword [off_171C80]
@@ -2564,9 +2564,9 @@ __grab_int_ctrl_break_:
         push ebx
         push ecx
         push edx
-        cmp dword [dword_19C132], byte 0
+        cmp dword [OldCtrlBreakOffset], byte 0
         jne near .5
-        cmp word [word_19C136], byte 0
+        cmp word [OldCtrlBreakSelector], byte 0
         jne near .5
         xor eax, eax
         mov al, byte [_Extender]
@@ -2580,8 +2580,8 @@ __grab_int_ctrl_break_:
         mov cx, bx
         shr ebx, 10h
         mov edx, ebx
-        mov word [word_19C136], cx
-        mov dword [dword_19C132], edx
+        mov word [OldCtrlBreakSelector], cx
+        mov dword [OldCtrlBreakOffset], edx
         mov cl, 1Bh
         mov edx, __int_ctrl_break_handler_
         push es
@@ -2590,9 +2590,9 @@ __grab_int_ctrl_break_:
         mov cx, es
         pop es
         mov al, 1Bh
-        mov word [word_19C142], cx
+        mov word [OldCtrlBreakRealSegment], cx
         mov ecx, cs
-        mov dword [dword_19C13E], ebx
+        mov dword [OldCtrlBreakRealOffset], ebx
         push ds
         mov ds, ecx
         mov cl, al
@@ -2609,13 +2609,13 @@ __grab_int_ctrl_break_:
         mov ax, 200h
         int 31h
         mov bl, 1Bh
-        mov word [word_19C136], cx
-        mov dword [dword_19C132], edx
+        mov word [OldCtrlBreakSelector], cx
+        mov dword [OldCtrlBreakOffset], edx
         mov ax, 204h
         int 31h
         mov bl, 1Bh
-        mov word [word_19C142], cx
-        mov dword [dword_19C13E], edx
+        mov word [OldCtrlBreakRealSegment], cx
+        mov dword [OldCtrlBreakRealOffset], edx
         mov edx, __int_ctrl_break_handler_
         mov ecx, cs
         mov ax, 205h
@@ -2626,9 +2626,9 @@ __grab_int_ctrl_break_:
         mov ebx, __int_ctrl_break_handler_
         call _dos_getvect_
         mov ecx, cs
-        mov dword [dword_19C132], eax
+        mov dword [OldCtrlBreakOffset], eax
         mov eax, 1Bh
-        mov word [word_19C136], dx
+        mov word [OldCtrlBreakSelector], dx
         call _dos_setvect_
 .3:
         mov ebx, dword [off_171C80]

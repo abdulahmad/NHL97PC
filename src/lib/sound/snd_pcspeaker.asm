@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_138C90 progbits alloc exec nowrite align=1
 extern _Extender, _STACKLOW, __DPMI_hosted_, dword_16E3F8, dword_16E464, dword_16E678, dword_16E67C, dword_16E680
-extern dword_16E684, dword_16E69C, dword_199C4C, dword_19C008, dword_1CF528, dword_1CF52C, RestoreDS, SetTextOrigin
+extern dword_16E684, dword_16E69C, dword_199C4C, DebugLineStart, dword_1CF528, dword_1CF52C, RestoreDS, SetTextOrigin
 extern MeasureText, DrawTextRun, unk_116427, vsprintf_
 global __CommonInit_, CMainHook, DebugPrintf, DebugPrintAt, DebugPrintLine, DebugLineCount
 ;-----------------------------------------------------------------------------
@@ -236,15 +236,15 @@ DebugPrintLine:
         ret
         mov eax, dword [byte esp+04h]
         add eax, dword [dword_16E3F8]
-        mov dword [dword_19C008], eax
+        mov dword [DebugLineStart], eax
         ret
 .1:
         mov eax, dword [dword_16E3F8]
-        sub eax, dword [dword_19C008]
+        sub eax, dword [DebugLineStart]
         js short .1
         ret
         mov edx, dword [dword_16E3F8]
-        sub edx, dword [dword_19C008]
+        sub edx, dword [DebugLineStart]
         LD sbb, eax, eax
         inc eax
         ret

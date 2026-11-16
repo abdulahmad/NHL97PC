@@ -2,6 +2,6 @@
 bits 32
 %include "hockey.inc"
 section s_1DF7E4 nobits alloc noexec write align=1
-global unk_1DF7E4
-unk_1DF7E4:
+global BreakHandlerStack
+BreakHandlerStack:
         resb 29724
