@@ -7,7 +7,7 @@ extern str_EVENTDAT, str_CBANK03dHDR, str_TEAM04dHDR, str_PBP, str_Mous, str_Rem
 extern str_InstallingPlayByPlay, MusicOptions, HomeSpeechLoaded, HomeRosterData, AwaySpeechLoaded, AwayRosterData, SpeechBankBuffer, SpeechBanksReady
 extern SpeechBankCountFront, SoundCardType, PlayerCallStart, PlayerCallClip, PlayerCallClips, PlayerCallTimes, SpeechBankHome, SpeechBankHomeSize
 extern SpeechBankAway, SpeechBankAwaySize, PlayerCallLast, PlayerCallTime, GameSoundsOn, SpeechChainCount, SpeechClipIndex, SpeechBankHandle
-extern SpeechClipTable, SpeechBanksLoaded, SpeechBankList, SpeechChainLen, GameSettings, GameOptionFlags, dword_1C13FB, dword_1C13FF
+extern SpeechClipTable, SpeechBanksLoaded, SpeechBankList, SpeechChainLen, GameSettings, GameOptionFlags, ThreeStarsCount, ThreeStarsList
 extern HomeSpeechNames, HomeRosterData, dword_1C351E, dword_1C3522, AwaySpeechNames, AwayRosterData
 extern AwayRosterData, dword_1C5DE4, dword_1C5EF4, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D
 extern CommentaryEvent_3F6, CommentaryEvent_3FF, CommentaryEvent_408, CommentaryEvent_411, CommentaryEvent_41A, CommentaryEvent_423, CommentaryEvent_48A, CommentaryEvent_4E4
@@ -450,7 +450,7 @@ InitSpeechBanks:
 .9:
         cmp byte [dword ebx+HomeSpeechLoaded], 1
         ja short .10
-        cmp dword [dword ebx+dword_1C13FF], byte 0
+        cmp dword [dword ebx+ThreeStarsList], byte 0
         jne short .10
         inc edx
 .10:
@@ -459,7 +459,7 @@ InitSpeechBanks:
         add ebx, 125h
         mov dword [dword esp+0164h], ebp
 .11:
-        mov esi, dword [dword_1C13FB]
+        mov esi, dword [ThreeStarsCount]
         mov ecx, dword [dword esp+0164h]
         sar esi, 10h
         cmp esi, ecx
@@ -548,7 +548,7 @@ InitSpeechBanks:
         imul edx, ebp, dword 125h
         cmp byte [dword edx+HomeSpeechLoaded], 1
         ja short .22
-        cmp dword [dword edx+dword_1C13FF], byte 0
+        cmp dword [dword edx+ThreeStarsList], byte 0
         jne short .22
         mov edx, dword [dword edx+HomeSpeechNames]
         add esi, byte 4
@@ -559,7 +559,7 @@ InitSpeechBanks:
 .22:
         inc dword [dword esp+0164h]
 .23:
-        mov edx, dword [dword_1C13FB]
+        mov edx, dword [ThreeStarsCount]
         mov ebp, dword [dword esp+0164h]
         sar edx, 10h
         cmp edx, ebp

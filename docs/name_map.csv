@@ -5592,6 +5592,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 163F14,str_AUDSTRMHACK,asc_163F14,new,high,"string ""AUDSTRMHACK""",src/data/front/front_7A9D8_data_01.asm
 163F20,str_OK,unk_163F20,new,high,"string ""_OK""",src/data/front/front_7A9D8_data_01.asm
 163F24,str_0,unk_163F24,new,high,"string ""_0_""",src/data/front/front_7A9D8_data_01.asm
+163F28,ModemResultStrings,unk_163F28,97PC,low,modem result code strings (numeric and text forms),src/data/front/front_7A9D8_data_01.asm
 164110,str_ATZS760S1155,,96PC,high,NHL96PC 11029C (string): 'ATZS7=60S11=55',
 164120,str_ATE1Q0X4F1,asc_164120,new,high,"string ""ATE1Q0X4F1""",src/data/front/front_7A9D8_data_01.asm
 16412C,str_ATH0,,96PC,high,NHL96PC 1102BF (string): 'ATH0',
@@ -7760,11 +7761,39 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16C580,CollideAnimsBack,dword_16C580,new,low,collision animations from behind,src/data/front/front_57324_data_02.asm
 16C58C,RefGoalLineAnims,dword_16C58C,new,low,referee goal line animations,src/data/front/front_57324_data_02.asm
 16C618,BlockShotAnims,dword_16C618,new,low,block shot animations,src/data/front/front_57324_data_02.asm
+16C63C,BlockShotMoveLeft,dword_16C63C,new,low,"block shot move per direction, left side",src/data/front/front_57324_data_02.asm
+16C648,BlockShotMoveRight,dword_16C648,new,low,"block shot move per direction, right side",src/data/front/front_57324_data_02.asm
 16C654,F32_7p84727eneg44,dword_16C654,new,high,float constant 7.8472714e-44,src/data/front/front_57324_data_02.asm
 16C664,F32_0,dword_16C664,new,high,float constant 0,src/data/front/front_57324_data_02.asm
+16C6B0,ClockDataTicks,dword_16C6B0,new,low,saved clock data tick count,src/data/front/front_57324_data_02.asm
+16C6B4,ClockDataRate,dword_16C6B4,new,low,clock data rate (20.0),src/data/front/front_57324_data_02.asm
+16C6B8,ClockDataBase,dword_16C6B8,new,low,clock data base value,src/data/front/front_57324_data_02.asm
+16C6BC,CupCelebrationActive,dword_16C6BC,new,low,set while the cup celebration runs,src/data/front/front_57324_data_02.asm
 16C6C0,str_D_SimulateGame,dword_16C6C0,new,high,"string ""d""",src/data/front/front_57324_data_02.asm
+16C730,SimGameResult,dword_16C730,new,low,result value saved by the game simulation,src/data/front/front_57324_data_02.asm
+16C734,ScheduleWeekDays,dword_16C734,new,low,season schedule days per week,src/data/front/front_7A9D8_data_02.asm
+16C738,ScheduleMonthDays,dword_16C738,new,low,season schedule days per month,src/data/front/front_7A9D8_data_02.asm
 16C75C,str_1_BuildSeasonSchedule,dword_16C75C,new,high,"string ""1""",src/data/front/front_7A9D8_data_02.asm
+16C760,ScheduleMonthLengths,dword_16C760,new,low,season schedule month lengths,src/data/front/front_7A9D8_data_02.asm
+16C914,ScheduleDivisionFlags,byte_16C914,new,low,season schedule division pairing flags,src/data/front/front_7A9D8_data_02.asm
+16C982,ScheduleGameCounts,dword_16C982,new,low,season schedule games per pairing,src/data/front/front_7A9D8_data_02.asm
+16C996,ScheduleHomeCounts,dword_16C996,new,low,season schedule home games per pairing,src/data/front/front_7A9D8_data_02.asm
+16C9AC,MovieFileHandle,dword_16C9AC,new,low,movie file handle,src/data/front/front_7A9D8_data_02.asm
+16C9B0,MovieFileOffset,dword_16C9B0,new,low,movie file offset,src/data/front/front_7A9D8_data_02.asm
+16C9B8,ModemResultTextTable,off_16C9B8,new,low,modem result text string table,src/data/front/front_7A9D8_data_02.asm
+16C9C0,ModemResultCodeTable,off_16C9C0,new,low,modem result code string table,src/data/front/front_7A9D8_data_02.asm
+16CAA8,ModemResultCount,dword_16CAA8,new,low,number of modem result codes,src/data/front/front_7A9D8_data_02.asm
+16CAAC,ModemLastResult,dword_16CAAC,new,low,last modem result code,src/data/front/front_7A9D8_data_02.asm
 16CAF0,str_Punct_DrawScreenBackground,dword_16CAF0,new,high,"string ""\t""",src/data/front/main_data_02.asm
+16CCC4,MainMenuSelection,dword_16CCC4,new,low,main menu selection,src/data/front/front_845E4_data_02.asm
+16CCC8,MainMenuAnimName,unk_16CCC8,new,low,main menu animation file name,src/data/front/front_845E4_data_02.asm
+16CCE8,MainMenuFirstShow,dword_16CCE8,new,low,set on the first main menu show,src/data/front/front_845E4_data_02.asm
+16CCEC,MainMenuAnimStop,dword_16CCEC,new,low,set to stop the main menu animation,src/data/front/front_845E4_data_02.asm
+16CCF0,FrontEndExit,byte_16CCF0,new,low,set to leave the front end,src/data/front/front_845E4_data_02.asm
+16CCF1,StatsMenuMode,dword_16CCF1,new,low,stats menu mode,src/data/front/front_845E4_data_02.asm
+16CCF8,ConnectRetry,word_16CCF8,new,low,connect screen retry flag,src/data/front/front_845E4_data_02.asm
+16CCFA,ModemSettingsChanged,dword_16CCFA,new,low,set when modem settings changed,src/data/front/front_845E4_data_02.asm
+16CCFE,NetworkGameReady,dword_16CCFE,new,low,set when a network game is ready,src/data/front/front_845E4_data_02.asm
 16CD34,str_3_LoadLangText,dword_16CD34,new,high,"string ""3""",src/data/front/front_845E4_data_02.asm
 16CD60,str_F_NewSeasonScreen,dword_16CD60,new,high,"string ""F""",src/data/front/front_845E4_data_02.asm
 16CFBC,str_Punct_LoadLinesArt,dword_16CFBC,new,high,"string ""\r""",src/data/front/front_93005_data_02.asm
@@ -9458,10 +9487,99 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1C0EF0,AiIconSize,dword_1C0EF0,new,low,AI debug icon size,src/data/front/front_57324_bss_02.asm
 1C0EF8,CameraDebugLoaded,dword_1C0EF8,new,low,camera debug art loaded,src/data/front/front_57324_bss_02.asm
 1C0EFC,AiIconCount,dword_1C0EFC,new,low,AI debug icons,src/data/front/front_57324_bss_02.asm
+1C0F00,MoviePalette,unk_1C0F00,new,low,movie palette (256 RGB entries),src/data/front/front_7A9D8_bss_01.asm
+1C1200,MovieFrameCount,dword_1C1200,new,low,frames shown so far in the movie,src/data/front/front_7A9D8_bss_01.asm
+1C1204,MovieFrameShown,dword_1C1204,new,low,movie frame now on screen,src/data/front/front_7A9D8_bss_01.asm
+1C1208,MovieAudioStream,dword_1C1208,new,low,movie audio stream handle,src/data/front/front_7A9D8_bss_01.asm
+1C120C,MovieLastFrame,dword_1C120C,new,low,last movie frame decoded,src/data/front/front_7A9D8_bss_01.asm
+1C1210,MovieEndReached,dword_1C1210,new,low,set when the movie stream ends,src/data/front/front_7A9D8_bss_01.asm
+1C1214,MovieFlags,dword_1C1214,new,low,movie playback flags,src/data/front/front_7A9D8_bss_01.asm
+1C1218,MovieFrameIndex,dword_1C1218,new,low,movie frame index read from the stream,src/data/front/front_7A9D8_bss_01.asm
+1C121C,MovieAudioDone,dword_1C121C,new,low,set when the movie audio has finished,src/data/front/front_7A9D8_bss_01.asm
+1C1220,MovieFramesAhead,dword_1C1220,new,low,frames decoded ahead of the clock,src/data/front/front_7A9D8_bss_01.asm
+1C1224,MovieSkippable,dword_1C1224,new,low,set when a key press can skip the movie,src/data/front/front_7A9D8_bss_01.asm
+1C1228,MovieState,dword_1C1228,new,low,movie playback state,src/data/front/front_7A9D8_bss_01.asm
+1C122C,MovieSkipped,dword_1C122C,new,low,set when a key skipped the movie,src/data/front/front_7A9D8_bss_01.asm
+1C1230,MovieNextFrame,dword_1C1230,new,low,next movie frame to show,src/data/front/front_7A9D8_bss_01.asm
+1C1234,MovieVideoDone,dword_1C1234,new,low,set when the movie video has finished,src/data/front/front_7A9D8_bss_01.asm
+1C1238,MovieStartTick,dword_1C1238,new,low,tick count when the movie started,src/data/front/front_7A9D8_bss_01.asm
+1C123C,MoviePageFlip,dword_1C123C,new,low,movie double buffer page toggle,src/data/front/front_7A9D8_bss_01.asm
+1C1240,MovieSoundChannel,dword_1C1240,new,low,sound channel playing the movie audio,src/data/front/front_7A9D8_bss_01.asm
+1C1244,MovieChunkTag,dword_1C1244,new,low,tag of the movie chunk being read,src/data/front/front_7A9D8_bss_01.asm
+1C1248,MovieVideoBuffer,dword_1C1248,new,low,movie video buffer,src/data/front/front_7A9D8_bss_01.asm
+1C124C,MovieDropCount,dword_1C124C,new,low,movie frames dropped,src/data/front/front_7A9D8_bss_01.asm
+1C1250,MovieHasAudio,dword_1C1250,new,low,set when the movie has an audio track,src/data/front/front_7A9D8_bss_01.asm
+1C1254,MovieStreamBuffer,dword_1C1254,new,low,movie stream buffer handle,src/data/front/front_7A9D8_bss_01.asm
+1C1258,MovieChunkSize,dword_1C1258,new,low,size of the movie chunk being read,src/data/front/front_7A9D8_bss_01.asm
+1C125C,MovieChunkData,dword_1C125C,new,low,movie chunk data pointer,src/data/front/front_7A9D8_bss_01.asm
+1C1260,MovieCdStream,dword_1C1260,new,low,movie CD stream handle,src/data/front/front_7A9D8_bss_01.asm
+1C1264,MainArgFlag,unk_1C1264,new,low,main argument flag text,src/data/front/front_7A9D8_bss_01.asm
+1C1267,MainCmdLine,byte_1C1267,new,low,main command line copy,src/data/front/front_7A9D8_bss_01.asm
+1C12B4,MainPathBuffer,unk_1C12B4,new,low,main path buffer,src/data/front/front_7A9D8_bss_01.asm
+1C1334,SeasonFileName,dword_1C1334,new,low,season file name pointer,src/data/front/front_7A9D8_bss_01.asm
+1C1338,ReplayIndexHandle,dword_1C1338,new,low,replay index file handle,src/data/front/front_7A9D8_bss_01.asm
+1C133C,AllStarTeamIds,unk_1C133C,new,low,all-star team ids,src/data/front/front_7A9D8_bss_01.asm
+1C1344,AllStarDay,word_1C1344,new,low,day of the all-star game,src/data/front/front_7A9D8_bss_01.asm
+1C1346,AllStarTeamCode,dword_1C1346,new,low,all-star team code,src/data/front/front_7A9D8_bss_01.asm
+1C1348,AllStarArena,word_1C1348,new,low,all-star game arena,src/data/front/front_7A9D8_bss_01.asm
+1C134A,AllStarHomeLines,unk_1C134A,new,low,all-star home team lines,src/data/front/front_7A9D8_bss_01.asm
+1C1352,AllStarAwayLines,unk_1C1352,new,low,all-star away team lines,src/data/front/front_7A9D8_bss_01.asm
+1C135A,PeriodHomeTeam,byte_1C135A,new,low,home team shown on the period panel,src/data/front/front_7A9D8_bss_01.asm
+1C135B,PeriodAwayTeam,byte_1C135B,new,low,away team shown on the period panel,src/data/front/front_7A9D8_bss_01.asm
+1C135C,AutoLineData,unk_1C135C,new,low,auto line data,src/data/front/front_7A9D8_bss_01.asm
+1C1364,AllStarRoster,unk_1C1364,new,low,all-star roster,src/data/front/front_7A9D8_bss_01.asm
+1C1382,MatchupNoteText,unk_1C1382,new,low,matchup note text,src/data/front/front_7A9D8_bss_01.asm
+1C139A,MatchupNoteLine,unk_1C139A,new,low,matchup note line buffer,src/data/front/front_7A9D8_bss_01.asm
+1C13C0,PaEventValue,dword_1C13C0,new,low,PA event value,src/data/front/front_7A9D8_bss_01.asm
+1C13C2,IndexEntryList,word_1C13C2,new,low,index entry list,src/data/front/front_7A9D8_bss_01.asm
+1C13FB,ThreeStarsCount,dword_1C13FB,new,low,three stars count,src/data/front/front_7A9D8_bss_01.asm
+1C13FF,ThreeStarsList,dword_1C13FF,new,low,three stars list,src/data/front/front_7A9D8_bss_01.asm
 1C1403,HomeSpeechNames,dword_1C1403,new,low,home team speech name clips,src/data/front/front_43578_bss_01.asm
 1C14BD,HomeSpeechLoaded,byte_1C14BD,new,low,home team speech clips loaded,src/data/front/front_43578_bss_01.asm
+1C150A,HomeRosterData,word_1C150A,97PC,low,"home team roster, stats and simulation data",src/data/front/front_789F0_bss_01.asm
 1C3526,AwaySpeechNames,dword_1C3526,new,low,away team speech name clips,src/data/front/front_43578_bss_02.asm
 1C35E0,AwaySpeechLoaded,byte_1C35E0,new,low,away team speech clips loaded,src/data/front/front_43578_bss_02.asm
+1C362D,AwayRosterData,word_1C362D,97PC,low,"away team roster, stats and simulation data",src/data/front/front_789F0_bss_02.asm
+1C826C,MainMenuAnimFrames,dword_1C826C,new,low,main menu animation frames,src/data/front/front_845E4_bss_01.asm
+1C829C,MainMenuAnimTimer,dword_1C829C,new,low,main menu animation timer,src/data/front/front_845E4_bss_01.asm
+1C82A0,MainMenuAnimFrame,dword_1C82A0,new,low,main menu animation frame,src/data/front/front_845E4_bss_01.asm
+1C82A4,MainMenuAnimStart,dword_1C82A4,new,low,main menu animation start tick,src/data/front/front_845E4_bss_01.asm
+1C82A8,MainMenuAnimRate,dword_1C82A8,new,low,main menu animation rate,src/data/front/front_845E4_bss_01.asm
+1C82AC,MainMenuAnimShape,dword_1C82AC,new,low,main menu animation shape,src/data/front/front_845E4_bss_01.asm
+1C82B0,MainMenuAnimMode,dword_1C82B0,new,low,main menu animation mode,src/data/front/front_845E4_bss_01.asm
+1C82B3,MainMenuAnimEnd,byte_1C82B3,new,low,main menu animation end marker,src/data/front/front_845E4_bss_01.asm
+1C82B4,MainMenuAnimDone,byte_1C82B4,new,low,main menu animation done flags,src/data/front/front_845E4_bss_01.asm
+1C82C0,MainMenuAnimX,dword_1C82C0,new,low,main menu animation x,src/data/front/front_845E4_bss_01.asm
+1C82C4,MainMenuAnimY,dword_1C82C4,new,low,main menu animation y,src/data/front/front_845E4_bss_01.asm
+1C82C8,MainMenuAnimArt,dword_1C82C8,new,low,main menu animation art,src/data/front/front_845E4_bss_01.asm
+1C82CC,MainMenuAnimBack,dword_1C82CC,new,low,main menu animation back art,src/data/front/front_845E4_bss_01.asm
+1C82D0,MainMenuAnimLogo,dword_1C82D0,new,low,main menu animation logo art,src/data/front/front_845E4_bss_01.asm
+1C82D4,MainMenuAnimTitle,dword_1C82D4,new,low,main menu animation title art,src/data/front/front_845E4_bss_01.asm
+1C82D8,MainMenuAnimCursor,dword_1C82D8,new,low,main menu animation cursor art,src/data/front/front_845E4_bss_01.asm
+1C82DC,MainMenuAnimItems,dword_1C82DC,new,low,main menu animation item art,src/data/front/front_845E4_bss_01.asm
+1C82E0,MainMenuAnimPanel,dword_1C82E0,new,low,main menu animation panel art,src/data/front/front_845E4_bss_01.asm
+1C82E4,MainMenuAnimSprites,dword_1C82E4,new,low,main menu animation sprites,src/data/front/front_845E4_bss_01.asm
+1C82F4,MainMenuButtons,dword_1C82F4,new,low,main menu button art,src/data/front/front_845E4_bss_01.asm
+1C8300,MainMenuButtonRect,unk_1C8300,new,low,main menu button rectangle,src/data/front/front_845E4_bss_01.asm
+1C830C,MainMenuTextRect,unk_1C830C,new,low,main menu text rectangle,src/data/front/front_845E4_bss_01.asm
+1C8318,MainMenuChoice,dword_1C8318,new,low,main menu choice,src/data/front/front_845E4_bss_01.asm
+1C831C,MainMenuAnimTick,dword_1C831C,new,low,main menu animation tick,src/data/front/front_845E4_bss_01.asm
+1C8320,MainMenuCursor,dword_1C8320,new,low,main menu cursor,src/data/front/front_845E4_bss_01.asm
+1C8324,MainMenuWindow,dword_1C8324,new,low,main menu window,src/data/front/front_845E4_bss_01.asm
+1C8328,MainMenuAnimRunning,dword_1C8328,new,low,set while the main menu animation runs,src/data/front/front_845E4_bss_01.asm
+1C832C,MainMenuResult,dword_1C832C,new,low,main menu result,src/data/front/front_845E4_bss_01.asm
+1C8330,MainMenuScreenArt,dword_1C8330,new,low,main menu screen art,src/data/front/front_845E4_bss_01.asm
+1C8334,SeasonMenuExit,dword_1C8334,new,low,set to leave the season menus,src/data/front/front_845E4_bss_01.asm
+1C8338,StatsMenuDrawn,byte_1C8338,new,low,set once the stats menu is drawn,src/data/front/front_845E4_bss_01.asm
+1C833C,ModemFlags,byte_1C833C,new,low,modem settings flags,src/data/front/front_845E4_bss_01.asm
+1C8340,ModemPort,word_1C8340,new,low,modem COM port,src/data/front/front_845E4_bss_01.asm
+1C8342,ModemIrq,word_1C8342,new,low,modem IRQ,src/data/front/front_845E4_bss_01.asm
+1C8344,ModemBaudRate,word_1C8344,new,low,modem baud rate,src/data/front/front_845E4_bss_01.asm
+1C8346,ModemDialMode,word_1C8346,new,low,modem dial mode (tone or pulse),src/data/front/front_845E4_bss_01.asm
+1C8348,ModemAnswer,word_1C8348,new,low,modem answer mode,src/data/front/front_845E4_bss_01.asm
+1C834A,ModemSpeed,word_1C834A,new,low,modem speed choice,src/data/front/front_845E4_bss_01.asm
+1C834C,ModemInitString,unk_1C834C,new,low,modem init string,src/data/front/front_845E4_bss_01.asm
+1C8360,ModemPhoneNumber,unk_1C8360,new,low,modem phone number,src/data/front/front_845E4_bss_01.asm
 1CD1E0,InputRecordRing,unk_1CD1E0,96PC,high,96 PC InputRecordRing (97: 5 records of 14h bytes),src/data/front/front_DA66D_bss_01.asm
 1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,
@@ -10048,6 +10166,3 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1DE7F4,BreakHandlerRegs,unk_1DE7F4,new,low,register save area of the Ctrl-Break and Ctrl-C handlers,src/data/lib/sound/snd_hw_sb_bss_01.asm
 1DEC00,StartupStack,unk_1DEC00,new,low,stack the program starts on,src/data/lib/sound/snd_hw_sb_bss_01.asm
 1DF7E4,BreakHandlerStack,unk_1DF7E4,new,low,stack used by the Ctrl-Break and Ctrl-C handlers,src/data/lib/sound/snd_gus_sdk_02_bss_01.asm
-1C150A,HomeRosterData,word_1C150A,97PC,low,"home team roster, stats and simulation data",src/data/front/front_789F0_bss_01.asm
-1C362D,AwayRosterData,word_1C362D,97PC,low,"away team roster, stats and simulation data",src/data/front/front_789F0_bss_02.asm
-163F28,ModemResultStrings,unk_163F28,97PC,low,modem result code strings (numeric and text forms),src/data/front/front_7A9D8_data_01.asm

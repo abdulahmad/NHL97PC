@@ -10,17 +10,17 @@ extern ModemResultStrings
 extern ModemResultStrings
 extern ModemResultStrings
 extern ModemResultStrings
-global byte_16C914, dword_16C734, dword_16C738, str_1_BuildSeasonSchedule, dword_16C760, dword_16C982, dword_16C996, dword_16C9AC
-global dword_16C9B0, dword_16CAA8, dword_16CAAC, off_16C9B8, off_16C9C0
-dword_16C734:
+global ScheduleDivisionFlags, ScheduleWeekDays, ScheduleMonthDays, str_1_BuildSeasonSchedule, ScheduleMonthLengths, ScheduleGameCounts, ScheduleHomeCounts, MovieFileHandle
+global MovieFileOffset, ModemResultCount, ModemLastResult, ModemResultTextTable, ModemResultCodeTable
+ScheduleWeekDays:
         db 081h,00h,00h,00h
-dword_16C738:
+ScheduleMonthDays:
         db 081h,00h,00h,00h,082h,00h,00h,00h,082h,00h,00h,00h,083h,00h,00h,00h
         db 084h,00h,00h,00h,085h,00h,00h,00h,086h,00h,00h,00h,087h,00h,00h,00h
         db 088h,00h,00h,00h
 str_1_BuildSeasonSchedule:
         db 031h,00h,00h,00h
-dword_16C760:
+ScheduleMonthLengths:
         db 031h,00h,00h,00h,032h,00h,00h,00h,034h,00h,00h,00h,033h,00h,00h,00h
         db 035h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,036h,00h,00h,00h,038h,00h,00h,00h,036h,00h,00h,00h
@@ -49,7 +49,7 @@ dword_16C760:
         db 00h,00h,00h,00h,05Bh,00h,00h,00h,05Bh,00h,00h,00h,05Bh,00h,00h,00h
         db 05Ch,00h,00h,00h,05Ch,00h,00h,00h,05Ch,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-byte_16C914:
+ScheduleDivisionFlags:
         db 00h,00h,01h,01h,01h,01h,02h,02h,02h,02h,00h,00h,00h,01h,01h,01h
         db 01h,02h,02h,02h,01h,01h,02h,02h,02h,03h,03h,03h,04h,04h,02h,02h
         db 02h,03h,03h,03h,03h,04h,04h,04h,00h,01h,01h,01h,02h,02h,03h,03h
@@ -57,20 +57,20 @@ byte_16C914:
         db 01h,01h,02h,02h,03h,04h,00h,00h,00h,00h,00h,01h,01h,01h,01h,01h
         db 00h,00h,00h,01h,01h,01h,01h,02h,03h,04h,00h,00h,00h,01h,01h,01h
         db 01h,02h,02h,00h,01h,01h,01h,02h,02h,02h,02h,03h,03h,03h
-dword_16C982:
+ScheduleGameCounts:
         db 05h,00h,00h,00h,0Eh,00h,00h,00h,01Eh,00h,00h,00h,05Ah,00h,00h,00h
         db 0B4h,00h,00h,00h
-dword_16C996:
+ScheduleHomeCounts:
         db 01h,00h,00h,00h,03h,00h,00h,00h,05h,00h,00h,00h,0Ah,00h,00h,00h
         db 014h,00h,00h,00h,00h,00h
-dword_16C9AC:
+MovieFileHandle:
         db 00h,00h,00h,00h
-dword_16C9B0:
+MovieFileOffset:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-off_16C9B8:
+ModemResultTextTable:
         dd str_OK
         dd str_0
-off_16C9C0:
+ModemResultCodeTable:
         dd ModemResultStrings
         dd ModemResultStrings+4
         dd ModemResultStrings+10h
@@ -129,7 +129,7 @@ off_16C9C0:
         dd ModemResultStrings+1CCh
         dd ModemResultStrings+1DCh
         dd ModemResultStrings+1E4h
-dword_16CAA8:
+ModemResultCount:
         db 014h,00h,00h,00h
-dword_16CAAC:
+ModemLastResult:
         db 00h,00h,00h,00h

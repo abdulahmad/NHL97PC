@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_789F0 progbits alloc exec nowrite align=1
-extern byte_1C135A, byte_1C135B, HomeRosterData, byte_1C347D, AwayRosterData, byte_1C55A0, str_D_SimulateGame, dword_16C730
-extern SeasonUserTeam, GameOptionFlags, dword_1AD22A, dword_1AD743, dword_1C13C0, dword_1C13FB, dword_1C34E3, dword_1C351E
+extern PeriodHomeTeam, PeriodAwayTeam, HomeRosterData, byte_1C347D, AwayRosterData, byte_1C55A0, str_D_SimulateGame, SimGameResult
+extern SeasonUserTeam, GameOptionFlags, dword_1AD22A, dword_1AD743, PaEventValue, ThreeStarsCount, dword_1C34E3, dword_1C351E
 extern memset_, rand_, srand_, RandomCrowdDelay, PlayerOverall, FindPlayerRecord, FindGameRecord, FindPlayerStat
-extern ReadTeamStats, ServiceIdle, ZeroMem, unk_16D7FC, unk_16D804, unk_1C135C, unk_1C347F, unk_78930
+extern ReadTeamStats, ServiceIdle, ZeroMem, unk_16D7FC, unk_16D804, AutoLineData, unk_1C347F, unk_78930
 extern HomeRosterData, word_1C3415, word_1C3417, word_1C3419, word_1C3427
 extern AwayRosterData, word_1C5538, word_1C553A, word_1C553C, word_1C554A
 global SimulateGame, SimPlayerRating, SimTeamStrength, unk_7A788
@@ -46,7 +46,7 @@ SimulateGame:
 .3:
         cmp dword [dword esp+0152Ch], byte 0
         jne short .4
-        mov dword [dword esp+01524h], unk_1C135C
+        mov dword [dword esp+01524h], AutoLineData
         jmp short .5
 .4:
         mov dword [dword esp+01524h], unk_1C347F
@@ -364,7 +364,7 @@ SimulateGame:
         add edx, eax
         mov esi, dword [dword esp+014CCh]
         add edx, edx
-        mov eax, dword [dword_1C13C0]
+        mov eax, dword [PaEventValue]
         add edx, esi
         sar eax, 10h
         sar edx, 1
@@ -673,13 +673,13 @@ SimulateGame:
         cmp dword [dword esp+01628h], byte 0
         jne short .41
         mov ebx, unk_1C347F
-        mov edx, unk_1C135C
+        mov edx, AutoLineData
         mov dword [dword esp+01604h], ebx
         mov dword [dword esp+01608h], edx
         jmp short .42
 .41:
         mov eax, unk_1C347F
-        mov ebp, unk_1C135C
+        mov ebp, AutoLineData
         mov dword [dword esp+01608h], eax
         mov dword [dword esp+01604h], ebp
 .42:
@@ -819,7 +819,7 @@ SimulateGame:
         sete dl
         and edx, 0FFh
         xor ebx, ebx
-        mov dword [dword_16C730], edx
+        mov dword [SimGameResult], edx
         test eax, eax
         jle short .61
         mov edx, dword [dword esp+01574h]
@@ -1551,13 +1551,13 @@ SimulateGame:
         cmp eax, byte 2
         jl near .40
         mov al, byte [dword esp+014E4h]
-        mov byte [byte_1C135A], al
+        mov byte [PeriodHomeTeam], al
         mov eax, dword [dword esp+014E4h]
         mov word [word_1C3415], ax
         mov eax, dword [dword esp+014E8h]
         mov word [word_1C3417], ax
         mov al, byte [dword esp+014E8h]
-        mov byte [byte_1C135B], al
+        mov byte [PeriodAwayTeam], al
         mov eax, dword [dword esp+014E8h]
         mov word [word_1C5538], ax
         mov eax, dword [dword esp+014E4h]
@@ -1646,7 +1646,7 @@ SimulateGame:
         inc ebx
         mov word [dword ecx+AwayRosterData+1C93h], si
 .130:
-        mov eax, dword [dword_1C13FB]
+        mov eax, dword [ThreeStarsCount]
         sar eax, 10h
         cmp ebx, eax
         jge near .141
@@ -1661,7 +1661,7 @@ SimulateGame:
 .132:
         cmp dword [dword esp+0160Ch], byte 0
         jne short .133
-        mov esi, unk_1C135C
+        mov esi, AutoLineData
         jmp short .134
 .133:
         mov esi, unk_1C347F

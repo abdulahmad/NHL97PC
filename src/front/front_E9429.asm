@@ -8,10 +8,10 @@ extern str_2TOP6, str_3TOP6, str_1BOT6, str_2BOT6, str_3BOT6, str_AB026, str_AB0
 extern str_AB056, str_AB046, str_AB036, str_AB082, str_AB072, str_AB062, str_AB112, str_AB102
 extern str_AB092, str_POWR3, str_EC002, str_EC012, str_BAK12, str_C, str_D3, str_LB02d7
 extern str_AR02d3, str_AllStarPlayerInfo, str_AllStarGoalieInfo, str_WestAllStars, str_EastAllStars, str_AllStarRosters, str_AllStarAirecs, str_AllStarRawPlrs
-extern str_AllStarStatrecs, str_MB044, str_FrANKGBarchard, str_100, str_REF, str_Refpack, str_F10, byte_16CCF0
-extern byte_16E273, byte_16E274, byte_16E275, byte_16E28E, byte_1C135A, byte_1C135B, byte_1C3449, byte_1C556C
-extern byte_1C6040, byte_1CE224, byte_1CE23D, byte_1CE23E, dword_16DA9C, str_Punct_LoadAllStarArt, SeasonUserTeam, dword_1C1334
-extern dword_1C1346, dword_1C5DE4, dword_1C5E74, dword_1CE0E4, dword_1CE0E8, dword_1CE0EC, dword_1CE0F4, dword_1CE0FC
+extern str_AllStarStatrecs, str_MB044, str_FrANKGBarchard, str_100, str_REF, str_Refpack, str_F10, FrontEndExit
+extern byte_16E273, byte_16E274, byte_16E275, byte_16E28E, PeriodHomeTeam, PeriodAwayTeam, byte_1C3449, byte_1C556C
+extern byte_1C6040, byte_1CE224, byte_1CE23D, byte_1CE23E, dword_16DA9C, str_Punct_LoadAllStarArt, SeasonUserTeam, SeasonFileName
+extern AllStarTeamCode, dword_1C5DE4, dword_1C5E74, dword_1CE0E4, dword_1CE0E8, dword_1CE0EC, dword_1CE0F4, dword_1CE0FC
 extern dword_1CE104, dword_1CE10C, dword_1CE110, dword_1CE114, dword_1CE118, dword_1CE11C, dword_1CE120, dword_1CE124
 extern dword_1CE128, dword_1CE12C, dword_1CE130, dword_1CE134, dword_1CE158, dword_1CE15C, dword_1CE160, dword_1CE164
 extern dword_1CE168, dword_1CE16C, dword_1CE170, dword_1CE174, dword_1CE178, dword_1CE17C, dword_1CE180, dword_1CE184
@@ -37,7 +37,7 @@ extern unk_16790E, str_A, str_S_GetKeyName, str_D_GetKeyName, str_F_GetKeyName, 
 extern str_K, str_L, unk_167922, unk_167924, unk_167926, unk_167928, str_Z, str_X_GetKeyName
 extern str_C_GetKeyName, str_V, str_B, str_N_GetKeyName, str_M, unk_167938, unk_16793A, unk_16793C
 extern unk_16793E, str_F1, str_F2, str_F3, str_F4, str_F5, str_F6, str_F7
-extern str_F8, str_F9, unk_16D7F4, unk_1C133C, unk_1C134A, unk_1C1352, unk_1C135C, unk_1C1364
+extern str_F8, str_F9, unk_16D7F4, AllStarTeamIds, AllStarHomeLines, AllStarAwayLines, AutoLineData, AllStarRoster
 extern unk_1C347F, unk_1C3487, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1CEA8A, unk_1CEA99
 extern unk_1CEAA8, unk_1CEAB7, unk_1CEAC6, unk_1CEAD5, unk_1CEAE4, unk_1CEAF3, unk_1CEB02, unk_1CEB11
 extern unk_1CEB20, unk_1CEB2F, unk_1CEB3E, unk_1CEB4D, unk_1CEB5C, unk_1CEB6B, unk_1CEB7A, unk_1CEB89
@@ -49,7 +49,7 @@ extern unk_1CED78, unk_1CED87, unk_1CED96, unk_1CEDA5, unk_1CEDB4, unk_1CEDC3, u
 extern unk_1CEDF0, unk_1CEDFF, unk_1CEE0E, unk_1CEE1D, unk_1CEE2C, unk_1CEE3B, unk_1CEE4A, unk_1CEE59
 extern unk_1CEE68, unk_1CEE77, unk_1CEE86, unk_1CEE95, unk_1CEEA4, unk_1CEEB3, unk_1CEEC2, unk_1CEED1
 extern unk_1CEEE0, unk_1CEEEF, unk_1CEEFE, unk_1CEF0D, unk_1CEF1C, unk_1CEF2B, unk_1CEF3A, unk_1CEF49
-extern unk_1CEF58, unk_1CEF67, word_16E2EA, word_1C1344, word_1C1348, word_1C13C2, word_1C34E5, word_1C55A2
+extern unk_1CEF58, unk_1CEF67, word_16E2EA, AllStarDay, AllStarArena, IndexEntryList, word_1C34E5, word_1C55A2
 global BuildAllStarTeams_4B, AllStarSound_1E0, DrawAllStarTeam_68E, DrawAllStarTeam_6C5, FindFreeAllStarSlot_31, PickAllStarPlayers_4C2, PickAllStarPlayers_4C3, BuildAllStarTeams
 global AllStarScreen, AllStarSound, InitAllStarScreen, FreeAllStarScreen, DrawAllStarConference, ShowAllStarArt, DrawAllStarHighlight, DrawAllStarTeam
 global DrawAllStarSlot, DrawAllStarSelection, DrawAllStarList, LoadAllStarLogo, LoadAllStarArt, AllStarNextTeam, AllStarPrevTeam, AllStarNextSlot
@@ -407,7 +407,7 @@ AllStarScreen:
         lea eax, [dword ebp-01CC4h]
         call ShowPopupScreen
         call FreeAllStarScreen
-        mov byte [byte_16CCF0], 0
+        mov byte [FrontEndExit], 0
         call PlayerStatsScreen
 .24:
         call SetHighlightText
@@ -4357,7 +4357,7 @@ PickAllStarPlayers:
 .13:
         cmp dword [byte ebp-010h], byte 0
         jne short .14
-        mov esi, unk_1C135C
+        mov esi, AutoLineData
         jmp short .15
 .14:
         mov esi, unk_1C347F
@@ -4473,31 +4473,31 @@ InitAllStarTeams:
         push edx
         push esi
         push edi
-        mov edi, dword_1C1334
+        mov edi, SeasonFileName
         mov esi, unk_16D7F4
         movsd
         movsd
         mov esi, dword [SeasonUserTeam]
-        mov edi, unk_1C133C
+        mov edi, AllStarTeamIds
         lea esi, [byte esi+04h]
         movsd
         movsd
         call GetAllStarDate
-        mov edi, unk_1C134A
+        mov edi, AllStarHomeLines
         mov esi, unk_16D7F4
-        mov word [dword_1C1346], 131Eh
-        mov word [word_1C1344], ax
+        mov word [AllStarTeamCode], 131Eh
+        mov word [AllStarDay], ax
         movsd
         movsd
-        mov edi, unk_1C1352
+        mov edi, AllStarAwayLines
         mov esi, unk_16D7F4
         mov ebx, 2123h
         xor edx, edx
         movsd
         movsd
-        mov eax, unk_1C135C
-        mov byte [byte_1C135B], 0
-        mov byte [byte_1C135A], 0
+        mov eax, AutoLineData
+        mov byte [PeriodAwayTeam], 0
+        mov byte [PeriodHomeTeam], 0
         call memset_
         mov ebx, 2123h
         mov eax, unk_1C347F
@@ -4512,18 +4512,18 @@ InitAllStarTeams:
         mov eax, byte_1C556C
         call memset_
         mov edx, str_WestAllStars
-        mov eax, unk_1C1364
+        mov eax, AllStarRoster
         call strcpy_
         mov edx, str_EastAllStars
         mov eax, unk_1C3487
         call strcpy_
-        mov eax, unk_1C135C
+        mov eax, AutoLineData
         call BuildAllStarRecords
         mov eax, unk_1C347F
         call BuildAllStarRecords
-        mov word [word_1C13C2], 1Ah
+        mov word [IndexEntryList], 1Ah
         mov word [word_1C34E5], 1Bh
-        mov word [word_1C1348], 15h
+        mov word [AllStarArena], 15h
         mov word [word_1C55A2], 0
         pop edi
         pop esi
@@ -4587,7 +4587,7 @@ AllocAllStarRosters:
         test ebx, ebx
         jge short .4
         mov esi, dword [SeasonUserTeam]
-        mov dword [dword_1CE1B4], unk_1C135C
+        mov dword [dword_1CE1B4], AutoLineData
         mov dword [dword_1CE1B8], unk_1C347F
         movsx esi, word [esi]
         imul eax, esi, dword 194Fh

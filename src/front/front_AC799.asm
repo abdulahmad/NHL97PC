@@ -21,7 +21,7 @@ extern str_RS06, str_RS05, str_RS04, str_RS05RS06RS07, str_LAHL, str_LABL, str_R
 extern str_RS09RS11RS11, str_RS22, str_RS21, str_RS20, str_RS21RS22RS23, str_RS26, str_RS25, str_RS24
 extern str_RS25RS26RS27, str_RS30, str_RS29, str_RS28, str_RS29RS30RS31, str_RS38, str_RS37, str_RS36
 extern str_RS37RS38RS39, str_LB02d2, str_LH02d, str_LH26, str_TTL0, str_SDDSDD, str_SD02dSD02d, str_SD02dSDD
-extern str_SDDSD2, str_CSS, byte_16CCF0, byte_1C6040, byte_1C8338, StandingsColumns, dword_16CCF1, dword_16D400
+extern str_SDDSD2, str_CSS, FrontEndExit, byte_1C6040, StatsMenuDrawn, StandingsColumns, StatsMenuMode, dword_16D400
 extern dword_16D404, dword_16DA9C, MenuScreenBitmap, GameSettings, SeasonActive, dword_1AD6AB, dword_1C5EEC, dword_1C95C8
 extern dword_1C95CC, dword_1C95D0, dword_1C95D4, dword_1C95D8, dword_1C95DC, dword_1C95E0, dword_1C95E4, dword_1C95E8
 extern dword_1C95EC, dword_1C95F0, dword_1C95F4, dword_1C95F8, dword_1C95FC, dword_1C9600, dword_1C9610, dword_1C9614
@@ -2141,7 +2141,7 @@ TeamStatsScreen:
         add esp, byte 8
         mov dword [byte ebp+026h], eax
         call SetHighlightText
-        cmp byte [byte_16CCF0], 0
+        cmp byte [FrontEndExit], 0
         je short .1
         mov dword [byte ebp+066h], unk_16D804
         mov dword [byte ebp+06Ah], unk_16D7FC
@@ -2627,9 +2627,9 @@ TeamStatsScreen:
         push dword [byte ebp+026h]
         call BlitShape2
         add esp, byte 4
-        cmp dword [dword_16CCF1], byte 0
+        cmp dword [StatsMenuMode], byte 0
         je short .35
-        mov edx, dword [dword_16CCF1]
+        mov edx, dword [StatsMenuMode]
         mov eax, dword [byte ebx+02Ch]
         mov ebx, 10h
         call ShowStatScreen
@@ -3068,7 +3068,7 @@ TeamStatsScreen:
         push eax
         cmp dword [dword_16D404], byte 0
         je near .37
-        cmp byte [byte_16CCF0], 0
+        cmp byte [FrontEndExit], 0
         je near .37
         mov eax, 1
         jmp near .38
@@ -3644,7 +3644,7 @@ StatsTablesScreen:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        cmp byte [byte_16CCF0], 0
+        cmp byte [FrontEndExit], 0
         je short .4
         mov dword [byte ebp+04Ah], unk_16D804
         mov dword [byte ebp+042h], unk_16D7FC
@@ -4015,11 +4015,11 @@ StatsTablesScreen:
         add eax, 290h
         call DrawStatTable
         call HideLinkBox
-        cmp dword [dword_16CCF1], byte 0
+        cmp dword [StatsMenuMode], byte 0
         je short .23
         mov eax, dword [byte ebp+076h]
         mov ebx, 10h
-        mov edx, dword [dword_16CCF1]
+        mov edx, dword [StatsMenuMode]
         mov eax, dword [byte eax+02Ch]
         call ShowStatScreen
         jmp short .24
@@ -4042,7 +4042,7 @@ StatsTablesScreen:
         add esp, byte 0Ch
         xor esi, esi
         call PresentScreen
-        cmp byte [byte_16CCF0], 0
+        cmp byte [FrontEndExit], 0
         je short .26
         cmp dword [byte ebp+012h], byte 0
         jne short .25
@@ -4063,7 +4063,7 @@ StatsTablesScreen:
         call BlitShape2
         add esp, byte 4
 .27:
-        cmp byte [byte_1C8338], 0
+        cmp byte [StatsMenuDrawn], 0
         jne short .28
         mov edx, dword [dword_1C9610]
         mov eax, 1

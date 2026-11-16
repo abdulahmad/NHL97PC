@@ -10,11 +10,11 @@ extern str_01DE, str_01TR, str_01SD, str_Pan5, str_Pan3, str_01AW, str_03ST, str
 extern str_02ST03ST04ST, str_03DE, str_02DE, str_02DE03DE04DE, str_03RU, str_02RU, str_02RU03RU04RU, str_03TR
 extern str_02TR, str_02TR03TR04TR, str_03SR, str_02SR, str_02SR03SR04SR, str_03SD, str_02SD, str_02SD03SD04SD
 extern str_03AW, str_02AW, str_02AW03AW04AW, str_BG012, str_BG022, str_BG03, str_NHL0, str_SD3
-extern str_LG27, str_LG28, str_SSEASDPLY, str_SPLAYDSET, byte_16CCF0, byte_16CDCC, byte_1AD457, byte_1AD458
+extern str_LG27, str_LG28, str_SSEASDPLY, str_SPLAYDSET, FrontEndExit, byte_16CDCC, byte_1AD457, byte_1AD458
 extern byte_1AD72B, byte_1AD739, byte_1AD742, byte_1C6040, byte_1C87FC, byte_1C8804, byte_1C880C, StandingsColumns
 extern PlayoffColumns, dword_16CD58, dword_16CDC8, dword_16CDD8, dword_16CDDC, dword_16CDFC, dword_16CE1C, dword_16CF18
 extern dword_16DA9C, GameSettings, SeasonUserTeam, GameOptionFlags, SeasonSlot, dword_1AD226, dword_1AD437, dword_1AD62B
-extern dword_1AD62F, dword_1AD6AB, dword_1AD743, dword_1C5DE0, dword_1C8334, dword_1C86FC, dword_1C8704, dword_1C8708
+extern dword_1AD62F, dword_1AD6AB, dword_1AD743, dword_1C5DE0, SeasonMenuExit, dword_1C86FC, dword_1C8704, dword_1C8708
 extern dword_1C89EC, dword_1C8A34, dword_1C8A54, dword_1C8A74, dword_1C8A78, dword_1C8A7C, dword_1C8A80, dword_1C8A84
 extern dword_1C8A88, dword_1C8A90, dword_1C8A94, dword_1C8A98, dword_1C8A9C, dword_1C8AA0, dword_1C94E8, EditLinesScreen_17F
 extern EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA, EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D
@@ -2038,10 +2038,10 @@ DrawPlayoffTree:
 ;-----------------------------------------------------------------------------
 RunPlayoffMenus:
         mov eax, 0Dh
-        cmp dword [dword_1C8334], byte 0
+        cmp dword [SeasonMenuExit], byte 0
         je short .5
         mov eax, 1Ch
-        mov dword [dword_1C8334], 0
+        mov dword [SeasonMenuExit], 0
         jmp short .5
 .1:
         cmp eax, byte 1Ch
@@ -2082,7 +2082,7 @@ RunPlayoffMenus:
         mov eax, 0Eh
         jmp short .5
 .7:
-        mov byte [byte_16CCF0], 0
+        mov byte [FrontEndExit], 0
         call RunStatsMenu
         jmp short .4
 .8:

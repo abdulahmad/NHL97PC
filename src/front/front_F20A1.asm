@@ -4,7 +4,7 @@ bits 32
 section s_F20A1 progbits alloc exec nowrite align=1
 extern SortCords, __CHP, str_Mous6, str_Remo4, str_D02dD, str_D02dD2, str_CB0D, str_CB002
 extern str_Chat, str_SS15, str_D4, IntermissionActive, gmode, MusicOptions, DetailLevel, byte_1AD23E
-extern byte_1C135A, byte_1C135B, F32_3_DrawPauseButton, F32_4_DrawPauseButton, F32_3_DrawMenuItem, F32_4_DrawMenuItem, F32_12_DrawPauseButtons, F32_100_DrawPauseButtons
+extern PeriodHomeTeam, PeriodAwayTeam, F32_3_DrawPauseButton, F32_4_DrawPauseButton, F32_3_DrawMenuItem, F32_4_DrawMenuItem, F32_12_DrawPauseButtons, F32_100_DrawPauseButtons
 extern F32_155, F32_10_DrawPauseButtons, F32_165, F32_129, F32_117, F32_105, F32_141, F32_153
 extern F32_178, F32_40_PickEditLinesTeam, F32_130, F32_0p5_PickEditLinesTeam, F32_55, F32_150, F32_50_PickEditLinesTeam, F32_10_PickEditLinesTeam
 extern F32_5, F32_75, F32_65, F32_7_PickEditLinesTeam, F32_90, F32_20_PickEditLinesTeam, F32_28, F32_36
@@ -851,7 +851,7 @@ DrawPauseClock:
         push byte 46h
         call PrintBoxedText
         add esp, byte 18h
-        movzx eax, byte [byte_1C135A]
+        movzx eax, byte [PeriodHomeTeam]
         push eax
         push str_D_DrawPauseClock
         lea eax, [byte ebp+07Eh]
@@ -870,7 +870,7 @@ DrawPauseClock:
         push eax
         call DrawTextBoxedAt
         add esp, byte 0Ch
-        movzx eax, byte [byte_1C135B]
+        movzx eax, byte [PeriodAwayTeam]
         push eax
         push str_D_DrawPauseClock
         lea eax, [byte ebp+07Eh]
@@ -2335,7 +2335,7 @@ RunIntermission:
         call WaitMusicEnd
         mov eax, 1
         call InitGameSounds
-        movzx eax, byte [byte_1C135B]
+        movzx eax, byte [PeriodAwayTeam]
         push eax
         mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
@@ -2343,7 +2343,7 @@ RunIntermission:
         shr edx, 1Ah
         mov eax, dword [byte eax+01h]
         push edx
-        movzx edx, byte [byte_1C135A]
+        movzx edx, byte [PeriodHomeTeam]
         shl eax, 0Ch
         push edx
         shr eax, 1Ah
@@ -2378,14 +2378,14 @@ RunIntermission:
         call ArenaFileName
         test di, di
         je short .4
-        mov al, byte [byte_1C135A]
-        cmp al, byte [byte_1C135B]
+        mov al, byte [PeriodHomeTeam]
+        cmp al, byte [PeriodAwayTeam]
         jb short .5
 .4:
         test bx, bx
         je short .6
-        mov al, byte [byte_1C135B]
-        cmp al, byte [byte_1C135A]
+        mov al, byte [PeriodAwayTeam]
+        cmp al, byte [PeriodHomeTeam]
         jae short .6
 .5:
         lea edx, [byte ebp-070h]
@@ -3347,7 +3347,7 @@ RestartGameAudio:
         call WaitMusicEnd
         mov eax, 1
         call InitGameSounds
-        movzx eax, byte [byte_1C135B]
+        movzx eax, byte [PeriodAwayTeam]
         push eax
         mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
@@ -3355,7 +3355,7 @@ RestartGameAudio:
         shr edx, 1Ah
         mov eax, dword [byte eax+01h]
         push edx
-        movzx edx, byte [byte_1C135A]
+        movzx edx, byte [PeriodHomeTeam]
         shl eax, 0Ch
         push edx
         shr eax, 1Ah
@@ -3608,8 +3608,8 @@ DrawIntermissionTitle:
 .9:
         cmp word [gsp], byte 2
         jl short .10
-        mov al, byte [byte_1C135A]
-        cmp al, byte [byte_1C135B]
+        mov al, byte [PeriodHomeTeam]
+        cmp al, byte [PeriodAwayTeam]
         je short .10
         mov eax, 63h
         call GetLangText
@@ -3743,8 +3743,8 @@ DrawIntermissionTitle:
 .19:
         cmp word [gsp], byte 2
         jl short .20
-        mov al, byte [byte_1C135A]
-        cmp al, byte [byte_1C135B]
+        mov al, byte [PeriodHomeTeam]
+        cmp al, byte [PeriodAwayTeam]
         je short .20
         lea eax, [byte ebp-026h]
         push eax

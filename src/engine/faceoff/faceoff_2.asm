@@ -13,7 +13,7 @@ extern InputButtons, InputDir, ShotState, LastTouchPlayer, PuckHitFlag, ExtraAtt
 extern GoalScorerFlags, FaceoffWinner, penshottimer, PuckX, RefTarget, RefPlayer, SlotPlayers, InputSlotPlayers
 extern bholdtimer, InputActive, PassButtonTimes, PassButtonHeld, PuckChasers, ChangePlayer, LineSortKeys, LineSortIndex
 extern LineSortOrder, PenaltyRecord, HmPenaltyPlayer, HmScore, AwPenaltyPlayer, AwScore, LinkChannelAData, LinkChannelBData
-extern GameSettings, GameOptionFlags, ReplayPlaying, StickPointId, dword_1C13FF, dword_1C3522, hmtmstruct, hypot_
+extern GameSettings, GameOptionFlags, ReplayPlaying, StickPointId, ThreeStarsList, dword_1C3522, hmtmstruct, hypot_
 extern SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B, SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3
 extern SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF, SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, PtrPuckTarget, PtrPuckOwner
 extern PtrPuckMotion, PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, off_19C61F, F64_480_PenaltyChance
@@ -33,7 +33,7 @@ extern ShotAnimFrames, ObjectFramePos, StopObject, StartShotAnim, StartOneTimerA
 extern StartFightGrab, StartFightPull, StartFightAnim, SetAnimFrame, RequestPauseMenu, clockcont_0, LogPenalty, RunIdleHandlers
 extern AllocMemData, FreeMemBlock, FillMem, addtimer, RemoveTimerCallback, WaitTicks, JoyStateTable, CentersByOffense
 extern RightWingsByDefense, CentersByDefense, LeftWingsByOffense, LeftWingsByDefense, RightWingsByOffense, DefenseByOffense, ForwardsByDefense, HomeTeamRecord
-extern LinkChannelA, LinkChannelB, unk_1C135C, unk_1C347F, vecdist, vtoa, ForcePenaltyCall, ProgressTimes
+extern LinkChannelA, LinkChannelB, AutoLineData, unk_1C347F, vecdist, vtoa, ForcePenaltyCall, ProgressTimes
 extern ProgressLimit, str_Punct_InProgress, LineChangeKeys, FaceoffHomePlayer, FaceoffAwayPlayer, RimTargetX, RimTargetY, FaceoffX
 extern FaceoffDropX, FaceoffY, FaceoffDropY, JoyButtonsTable, LineChangeHome, LineChangeAway, HomeSkaters, DefendFlags
 extern GoalieTarget, ZoneTargetY, ProgressTimer, ShotTarget, ShotTimer, ShotType, ShotSpeed, ShotPending
@@ -2410,7 +2410,7 @@ SetupAutoLines:
         push edi
         push ebp
         sub esp, 0E4h
-        mov edi, unk_1C135C
+        mov edi, AutoLineData
         xor esi, esi
 .1:
         lea eax, [dword edi+0A3h]
@@ -4544,7 +4544,7 @@ AddPenalty2:
         mov eax, dword [nosplit eax*8+PenaltyRecord]
         sar eax, 18h
         imul eax, dword 125h
-        add eax, dword_1C13FF
+        add eax, ThreeStarsList
 .12:
         push eax
         push dword 0A0000027h

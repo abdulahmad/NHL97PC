@@ -36,7 +36,7 @@ extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList
 extern SkaterOverall, GoalieOverall, InitListBox, InitShapeListBox, KeysEqual, FindGameRecord, FindPlayerStat, ServiceIdle
 extern AllocMemBlock, FreeMemBlock, KbdIdleCall, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, str_D_DrawLinesCardDetails, str_C_DrawForwardLines, unk_16D7F4
-extern unk_1C134A, unk_1C1352, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1C1344
+extern AllStarHomeLines, AllStarAwayLines, AutoLineData, unk_1C347F, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, AllStarDay
 extern word_1C8CD4, word_1C8CEC
 global jpt_9861E, jpt_9AC47, EditLinesScreen_17F, EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA
 global EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D, EditLinesScreen_8E8, LayoutLinesCard_39D, CopyTeamRoster_203, EditLinesGridScreen_A49, EditLinesGridScreen_C5B
@@ -1933,7 +1933,7 @@ AllocTempGameTeam:
         jl short .3
         jne short .2
         mov ecx, 2123h
-        mov esi, unk_1C135C
+        mov esi, AutoLineData
 .1:
         mov edi, eax
         rep movsb
@@ -2456,7 +2456,7 @@ LoadLinesForTeam:
         test eax, eax
         jl near .7
         jne short .1
-        mov eax, unk_1C135C
+        mov eax, AutoLineData
         jmp short .2
 .1:
         mov eax, unk_1C347F
@@ -2619,10 +2619,10 @@ LoadEditLinesRoster:
         test eax, eax
         jl short .4
         jne short .1
-        mov ebx, unk_1C134A
+        mov ebx, AllStarHomeLines
         jmp short .2
 .1:
-        mov ebx, unk_1C1352
+        mov ebx, AllStarAwayLines
 .2:
         mov edx, unk_16D7F4
         mov eax, ebx
@@ -5786,7 +5786,7 @@ DrawPlayerLines:
         add eax, edx
         movzx edx, byte [dword eax+01B7h]
         add edx, dword [dword eax+01B2h]
-        movzx eax, word [word_1C1344]
+        movzx eax, word [AllStarDay]
         sub edx, eax
         mov eax, edx
         cmp edx, byte 3Ch
@@ -5973,7 +5973,7 @@ DrawPlayerHealth:
         movzx edx, byte [dword edi+eax+01E56h]
         mov eax, dword [dword edi+eax+01E51h]
         add eax, edx
-        movzx edx, word [word_1C1344]
+        movzx edx, word [AllStarDay]
         sub eax, edx
         cmp eax, byte 3Ch
         jle short .2
@@ -9231,11 +9231,11 @@ SortRosterByRating:
 ClearAndBuildLines:
         push ebx
         push edx
-        mov eax, unk_1C135C
+        mov eax, AutoLineData
         mov ebx, 36h
         mov edx, 0FFh
         add eax, 20EDh
-        mov dword [dword_1C8E24], unk_1C135C
+        mov dword [dword_1C8E24], AutoLineData
         call memset_
         xor eax, eax
         mov ebx, 36h

@@ -15,8 +15,8 @@ extern str_SC02, str_SC01, str_SC00, str_SC01SC02SC03, str_SC10, str_SC09, str_S
 extern str_SC06, str_SC05, str_SC04, str_SC05SC06SC07, str_SC14, str_SC13, str_SC12, str_SC13SC14SC15
 extern str_SC18, str_SC17, str_SC16, str_SC17SC18SC19, str_SC30, str_SC29, str_SC28, str_SC29SC30SC31
 extern str_AB08, str_AB07, str_AB06, str_AB11, str_AB10, str_AB09, str_SC09SC10SC11, str_Rroster
-extern str_Lroster, str_POWR2, str_01d02d, byte_16CCF0, byte_1AD739, byte_1C6040, byte_1C8338, byte_1CAEC8
-extern dword_16CCF1, dword_16D400, dword_16D404, dword_16D454, dword_16D458, dword_16D45C, dword_16D470, dword_16D484
+extern str_Lroster, str_POWR2, str_01d02d, FrontEndExit, byte_1AD739, byte_1C6040, StatsMenuDrawn, byte_1CAEC8
+extern StatsMenuMode, dword_16D400, dword_16D404, dword_16D454, dword_16D458, dword_16D45C, dword_16D470, dword_16D484
 extern dword_16D4B0, dword_16D4D4, dword_16DA9C, MenuScreenBitmap, GameSettings, SeasonActive, dword_1AD6AB, dword_1C5EEC
 extern dword_1CAA00, dword_1CAB00, dword_1CAC00, dword_1CACDC, dword_1CAD28, dword_1CAD2C, dword_1CAD38, dword_1CAD48
 extern dword_1CAE24, dword_1CAE28, dword_1CAE2C, dword_1CAE34, dword_1CAE6C, dword_1CAE70, dword_1CAE74, dword_1CAE78
@@ -700,7 +700,7 @@ PlayerStatsScreen:
         call GetLangText
         call ShowLinkMessage
         call SetHighlightText
-        cmp byte [byte_16CCF0], 0
+        cmp byte [FrontEndExit], 0
         je short .2
         lea edx, [byte ebp+032h]
         mov eax, unk_16D7FC
@@ -1105,11 +1105,11 @@ PlayerStatsScreen:
         add esp, byte 4
         call PresentScreen
         call HideLinkBox
-        cmp dword [dword_16CCF1], byte 0
+        cmp dword [StatsMenuMode], byte 0
         je short .22
         mov eax, dword [byte ebp+04Eh]
         mov ebx, 10h
-        mov edx, dword [dword_16CCF1]
+        mov edx, dword [StatsMenuMode]
         mov eax, dword [byte eax+02Ch]
         call ShowStatScreen
         jmp short .23
@@ -1288,7 +1288,7 @@ PlayerStatsScreen:
         xor edx, edx
         call DrawScrollBar
         call PresentScreen
-        cmp byte [byte_1C8338], 0
+        cmp byte [StatsMenuDrawn], 0
         jne short .33
         mov edx, dword [dword_1CAEAC]
         mov eax, 1
@@ -1704,7 +1704,7 @@ PlayerStatsScreen_DC7:
         cmp dword [byte ebp+056h], byte 0FFFFFFFFh
         jne near PlayerStatsScreen_1114.79
         mov dword [byte ebp+072h], 0
-        cmp byte [byte_16CCF0], 0
+        cmp byte [FrontEndExit], 0
         je near .71
         mov edx, dword [dword_1CAE84]
         mov eax, dword [dword_1CAD48]
@@ -1940,7 +1940,7 @@ PlayerStatsScreen_1114:
         call SetNormalText
         cmp byte [byte_1C6040], 0
         je short .84
-        cmp byte [byte_1C8338], 0
+        cmp byte [StatsMenuDrawn], 0
         je short .84
         call LoadFrontEndSfx
 .84:
@@ -2118,7 +2118,7 @@ DrawPlayerStatsText_92:
         add eax, byte 9
         cmp esi, eax
         jl near DrawPlayerStatsText.1
-        cmp byte [byte_16CCF0], 0
+        cmp byte [FrontEndExit], 0
         je near DrawPlayerStatsText_275.12
         xor edi, edi
 .4:
@@ -2411,7 +2411,7 @@ DrawPlayerStatsText_3A7:
         add eax, byte 9
         cmp esi, eax
         jl short DrawPlayerStatsText_312.18
-        cmp byte [byte_16CCF0], 0
+        cmp byte [FrontEndExit], 0
         je near DrawPlayerStatsText_4C3.27
         xor edi, edi
 .21:
@@ -3556,7 +3556,7 @@ ExportPlayerCard_463:
         push dword [byte ebp+05Ah]
         call fprintf_
         add esp, byte 8
-        cmp byte [byte_16CCF0], 0
+        cmp byte [FrontEndExit], 0
         je near ExportPlayerCard_643.30
         xor ecx, ecx
 .22:
@@ -3832,7 +3832,7 @@ ExportPlayerCard_78E:
         push dword [byte ebp+05Ah]
         call fprintf_
         add esp, byte 8
-        cmp byte [byte_16CCF0], 0
+        cmp byte [FrontEndExit], 0
         je near ExportPlayerCard_8AF.45
         xor ecx, ecx
 .39:
@@ -5080,7 +5080,7 @@ PlayerRatingsScreen:
         movsx eax, word [eax]
         cmp ebx, eax
         jl short .6
-        cmp byte [byte_1C8338], 0
+        cmp byte [StatsMenuDrawn], 0
         jne short .8
         mov dword [dword_16D454], 0FFFFFFFFh
         mov dword [dword_16D400], 0FFFFFFFFh
@@ -5657,11 +5657,11 @@ PlayerRatingsScreen:
         push dword [byte ebp+03Eh]
         call BlitShape2
         add esp, byte 4
-        cmp dword [dword_16CCF1], byte 0
+        cmp dword [StatsMenuMode], byte 0
         je short .40
         mov eax, dword [byte ebp+04Eh]
         mov ebx, 10h
-        mov edx, dword [dword_16CCF1]
+        mov edx, dword [StatsMenuMode]
         mov eax, dword [byte eax+02Ch]
         call ShowStatScreen
         jmp short .41
@@ -5872,7 +5872,7 @@ PlayerRatingsScreen:
         push dword [byte ebp+07Ah]
         mov eax, edi
         call DrawPlayerRatings
-        cmp byte [byte_1C8338], 0
+        cmp byte [StatsMenuDrawn], 0
         jne short .50
         mov edx, dword [dword_1CAEAC]
         mov eax, 1
@@ -5907,7 +5907,7 @@ PlayerRatingsScreen_D42:
 PlayerRatingsScreen_D4E:
         cmp byte [byte_1C6040], 0
         je short .51
-        cmp byte [byte_1C8338], 0
+        cmp byte [StatsMenuDrawn], 0
         je short .52
 .51:
         xor byte [dword_1CAEA0], 1
@@ -7452,7 +7452,7 @@ PlayerRatingsScreen_21FD:
         call SetNormalText
         cmp byte [byte_1C6040], 0
         je short .195
-        cmp byte [byte_1C8338], 0
+        cmp byte [StatsMenuDrawn], 0
         je short .195
         call LoadFrontEndSfx
 .195:

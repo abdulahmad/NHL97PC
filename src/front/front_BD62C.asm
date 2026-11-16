@@ -6,10 +6,10 @@ extern SortCords, __CHP, __STOSD, str_Mous4, str_Remo3, str_Replload, str_RPEVEN
 extern str_Replregs, str_REPLAYNDX, str_DATAREPLAYNDX2, str_DONTHAVEIT2, str_Replay, str_SS10, str_Replbuff, str_SREPLAYNDX
 extern str_S12, str_NOIS, str_ARWD, gmode, byte_1C6040, byte_1CB004, F32_0p005_ReplayScreen, F32_0p003125_ReplayScreen
 extern F32_0p005_DrawReplayTimeline, F32_0p003125_DrawReplayTimeline, F32_0p003125_PickReplayScreen, F32_0p005_PickReplayScreen, F32_0p003125_DrawReplayEntry, F32_0p005_DrawReplayEntry, F32_0p003125_ReplayMenuScreen, F32_0p005_ReplayMenuScreen
-extern ClockShown, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
+extern ClockShown, InGameMenuRequest, StatsMenuMode, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
 extern VideoModeCount, QuantizePalette, VideoModePanelMode, VideoModeSel, ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH
 extern VideoModeChanged, DisplayFlags, ReplayLoaded, GameObjects, ViewSizeIndex, GameSettings, GameOptionFlags, ReplayData
-extern ReplayMode, dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, dword_1C95B4
+extern ReplayMode, SeasonFileName, ReplayIndexHandle, dword_1C5DA4, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, dword_1C95B4
 extern dword_1C95BC, dword_1CAECC, dword_1CAED0, dword_1CAED4, dword_1CAED8, dword_1CAEDC, dword_1CAEE0, dword_1CAEE4
 extern dword_1CAEE8, dword_1CAEEC, dword_1CAEF0, dword_1CAEF4, dword_1CAEF8, dword_1CAF8C, dword_1CAF90, dword_1CAF94
 extern dword_1CAF98, dword_1CAF9C, dword_1CAFA0, dword_1CAFA4, dword_1CAFA8, dword_1CAFAC, dword_1CAFDC, dword_1CAFE0
@@ -301,7 +301,7 @@ LoadReplay:
         call OpenReplayIndex
         mov eax, unk_1CAF3C
         lea esi, [byte ebp-08h]
-        mov edx, dword_1C1334
+        mov edx, SeasonFileName
         call ReplayNameToKey
         lea eax, [byte ebp-08h]
         call FindReplayIndexEntry
@@ -312,7 +312,7 @@ LoadReplay:
         add esp, byte 0Ch
         mov dword [dword_1CAF9C], eax
         mov edx, eax
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         call OpenReplayFile
         call CloseGameDatabase
         mov eax, dword [dword_1CAF9C]
@@ -410,11 +410,11 @@ VideoOptionsScreen:
         call PresentScreen
         call SetHighlightText
         call FreeFrontEnd
-        cmp dword [dword_16CCF1], byte 0
+        cmp dword [StatsMenuMode], byte 0
         je short .1
-        push dword [dword_16CCF1]
+        push dword [StatsMenuMode]
         call FreeBitmap
-        mov dword [dword_16CCF1], 0
+        mov dword [StatsMenuMode], 0
         add esp, byte 4
 .1:
         call FreeMenuBitmap
@@ -3110,7 +3110,7 @@ OpenReplayIndex:
         test esi, esi
         je near PickReplayScreen_AA8
         mov edx, 4A78h
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         xor ebx, ebx
         call LinkReceiveBlock
         push byte 0
@@ -3124,8 +3124,8 @@ OpenReplayIndex:
         call LinkReceiveBlock
         lea eax, [byte ebp+016h]
         push eax
-        push dword [dword_1C1338]
-        push dword [dword_1C1334]
+        push dword [ReplayIndexHandle]
+        push dword [SeasonFileName]
         lea edx, [byte ebp+016h]
         call ClearReplayEntry
         mov eax, unk_1CAF3C
@@ -3144,7 +3144,7 @@ OpenReplayIndex:
         mov edx, esi
         call sprintf_
         add esp, byte 10h
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         mov ebx, dword [dword_1C5DA4]
         call AddReplayIndexEntry
         imul eax, dword [byte ebp+07Eh], byte 36h
@@ -3162,7 +3162,7 @@ OpenReplayIndex:
         jne near PickReplayScreen_AA8
         mov eax, unk_1CAF3C
         lea esi, [byte ebp+072h]
-        mov edx, dword_1C1334
+        mov edx, SeasonFileName
         call ReplayNameToKey
         lea eax, [byte ebp+072h]
         call FindReplayIndexEntry
@@ -3173,11 +3173,11 @@ OpenReplayIndex:
         mov esi, eax
         add esp, byte 0Ch
         mov edx, eax
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         xor ebx, ebx
         call OpenReplayFile
         mov edx, 4A78h
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         call LinkSendBlock
         mov edx, dword [dword_1C5DA4]
         mov eax, esi
@@ -3217,7 +3217,7 @@ OpenReplayIndex:
         jne near PickReplayScreen_AA8
         mov eax, unk_1CAF3C
         lea esi, [byte ebp+072h]
-        mov edx, dword_1C1334
+        mov edx, SeasonFileName
         call ReplayNameToKey
         lea eax, [byte ebp+072h]
         call FindReplayIndexEntry
@@ -3228,11 +3228,11 @@ OpenReplayIndex:
         mov esi, eax
         add esp, byte 0Ch
         mov edx, eax
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         xor ebx, ebx
         call OpenReplayFile
         mov edx, 4A78h
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         call LinkSendBlock
         mov edx, dword [dword_1C5DA4]
         mov eax, esi
@@ -3300,8 +3300,8 @@ SaveReplay:
         call CloseGameDatabase
         lea eax, [byte ebp+056h]
         push eax
-        push dword [dword_1C1338]
-        push dword [dword_1C1334]
+        push dword [ReplayIndexHandle]
+        push dword [SeasonFileName]
         call ClearReplayEntry
         lea eax, [byte ebp+056h]
         push eax

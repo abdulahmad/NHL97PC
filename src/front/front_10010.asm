@@ -18,7 +18,7 @@ extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEven
 extern RefreshFaceTextures, SetModelSlotValue, SetupPlayerModel, DrawJerseyLettering, LoadGoalieMask, UpdateFaceTextures, ResetAnimTimer, UpdateGameDisplay
 extern InitPlayerAnims, DoGameFrame, LogPeriodEnd, AllocMemBlock, ZeroMem, CalibrateJoystick, ResetJoystickRange, str_Rb
 extern LinePlayerOrder, ResetPlayerSpots, GripFarCall, DefenseByOffense, ForwardsByDefense, BenchPlayerTable, HomeTeamRecord
-extern AwayTeamRecord, PlayerStartRecords, unk_1C135C, unk_1C347F, GripPortWord, GripSlot, GripReady, CrowdChantTable
+extern AwayTeamRecord, PlayerStartRecords, AutoLineData, unk_1C347F, GripPortWord, GripSlot, GripReady, CrowdChantTable
 extern DebugModelRefresh, DebugModelIndex, PeriodLengths, LineChangeHome, LineChangeAway, DefendFlags, ShootSpotY, GoalieTarget
 extern ZoneTargetY, PassState, StatsPanelPlayer, PuckOwnerTeam, LastPlayerTouch, gsp, gameclock, StatsPanelOn
 extern FaceoffSpot, FaceoffZone, PeriodLength, OneTimerTarget, PuckZone, penshotmode, BenchRequest, penshotlive
@@ -2037,7 +2037,7 @@ clearteams:
         cmp ebx, 218h
         jb short .2
         mov edx, SortCords
-        mov ebx, unk_1C135C
+        mov ebx, AutoLineData
         mov ah, 0FFh
         mov ecx, HomeTeamRecord+420h
         mov esi, unk_1C347F

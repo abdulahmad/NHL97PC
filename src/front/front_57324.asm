@@ -46,8 +46,8 @@ extern PlayoffColumns, CameraScenesEnabled, F32_2000_ScaleModelLods, F32_1, Lett
 extern ReplayStatesSet, F32_ViewAngle, str_Punct_LoadAnimData, MoveState, PlayerAnimBase, PlayerAnimSize, PlayerAnimScale, PlayerAnimMove
 extern SkateAnimData, ShotAnimData, ActAnimData, FallAnimData, InterferAnimData, GoalieAnimDataPtr, RefSkateAnimData, RefAmbiAnimData
 extern RefCallAnimData, FightAnimData, CupAnimData, MoveAnimIds, SpaEnabled, IdleAnims, AnimPointUnset, CollideAnimsFront
-extern CollideAnimsSide, CollideAnimsBack, RefGoalLineAnims, BlockShotAnims, dword_16C63C, dword_16C648, F32_7p84727eneg44, F32_0
-extern dword_16C6B0, dword_16C6B4, dword_16C6B8, dword_16C6BC, dword_16E308, GoalieTickData, str_Punct_DrawRinkSurface, F32_50p0_View
+extern CollideAnimsSide, CollideAnimsBack, RefGoalLineAnims, BlockShotAnims, BlockShotMoveLeft, BlockShotMoveRight, F32_7p84727eneg44, F32_0
+extern ClockDataTicks, ClockDataRate, ClockDataBase, CupCelebrationActive, dword_16E308, GoalieTickData, str_Punct_DrawRinkSurface, F32_50p0_View
 extern ViewCenterY, str_D_ProjectPointsPersp, ShotState, LastTouchPlayer, PassFrom, PassTo, PuckHitFlag, ZoneTargetX
 extern RefPlayer, SlotPlayers, bholdtimer, GameObjects, PlayerUpdateFlags, PlayerUpdateTable, HmSkaterCount, HmTeamData
 extern HmScore, AwSkaterCount, AwTeamData, AwScore, ViewPixelWidth, ViewPixelHeight, GameSettings, GameOptionFlags
@@ -181,7 +181,7 @@ extern GlobalSetVersion, SeatModels, PlayerDrawParams, PortraitModels, SavedPale
 extern ReplayStatesCamera, OffscreenState, CameraStateRecords, DepthSortKeys, PlayerStartRecords, FallAnimSlots, AnimDataBase
 extern ShotAnimPoses, ActAnimFrames, FallAnimFrames, InterferAnimFrames, GoalieAnimFrames, RefSkateAnimFrames, RefAmbiAnimFrames, RefCallAnimFrames
 extern FightAnimFrames, CupAnimFrames, ShotAnimIndex, ActAnimIndex, FallAnimIndex, InterferAnimIndex, GoalieAnimIndex, RefSkateAnimIndex
-extern RefAmbiAnimIndex, RefCallAnimIndex, FightAnimIndex, CupAnimIndex, unk_1C135C, unk_1C347F, unk_56790, unk_56794
+extern RefAmbiAnimIndex, RefCallAnimIndex, FightAnimIndex, CupAnimIndex, AutoLineData, unk_1C347F, unk_56790, unk_56794
 extern vecdist, DebugModelRefresh, GoalieTarget, ZoneTargetY, ShotTarget, ShotTimer, ShotType, ShotSpeed
 extern PassPending, PassReceiver, OneTimerPlayer, StatsPanelPlayer, gameover, PuckOwner, PuckOwnerTeam, Period
 extern SimFrames, gsp, gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, OneTimerReady, OneTimerPasser
@@ -6954,7 +6954,7 @@ ReplayDrawFrame:
         mov eax, dword [byte edx+024h]
         mov dword [byte esp+04h], eax
         mov eax, dword [byte edx+028h]
-        mov edx, dword_16C6B0
+        mov edx, ClockDataTicks
         mov dword [byte esp+08h], eax
         mov eax, esp
         call RefreshViewDistance
@@ -7121,7 +7121,7 @@ ReplayPlayFrames:
         mov eax, dword [byte edx+024h]
         mov dword [byte esp+04h], eax
         mov eax, dword [byte edx+028h]
-        mov edx, dword_16C6B0
+        mov edx, ClockDataTicks
         mov dword [byte esp+08h], eax
         mov eax, esp
         call RefreshViewDistance
@@ -7312,7 +7312,7 @@ PlaySavedReplay:
         mov eax, dword [byte ecx+024h]
         mov dword [byte esp+04h], eax
         mov eax, dword [byte ecx+028h]
-        mov edx, dword_16C6B0
+        mov edx, ClockDataTicks
         mov dword [byte esp+08h], eax
         mov eax, esp
         call RefreshViewDistance
@@ -7810,7 +7810,7 @@ LoadReplayData:
         add ecx, byte 39h
         cmp edx, byte 10h
         jl near .2
-        mov esi, unk_1C135C
+        mov esi, AutoLineData
         mov edi, HomeTeamRecord+420h
         mov ebp, unk_1C347F
         mov ecx, SortCords
@@ -19783,13 +19783,13 @@ ResetClockData:
         push edi
         sub esp, byte 8
         mov edx, eax
-        mov ebx, dword [dword_16C6B0]
+        mov ebx, dword [ClockDataTicks]
         mov dword [eax], ebx
         test dword [byte esp+01Ch], 7FFFFFFFh
         jne short .1
-        mov edx, dword [dword_16C6B4]
+        mov edx, dword [ClockDataRate]
         mov dword [byte eax+04h], edx
-        mov edx, dword [dword_16C6B8]
+        mov edx, dword [ClockDataBase]
         mov dword [byte eax+08h], edx
         jmp short .2
 .1:
@@ -19800,10 +19800,10 @@ ResetClockData:
         fsincos
         fstp dword [edi]
         fstp dword [esi]
-        fld dword [dword_16C6B4]
+        fld dword [ClockDataRate]
         fmul dword [byte esp+04h]
         fstp dword [byte edx+04h]
-        fld dword [dword_16C6B4]
+        fld dword [ClockDataRate]
         fmul dword [esp]
         fstp dword [byte edx+08h]
 .2:
@@ -40447,7 +40447,7 @@ BlockShotMove:
         call randomd0
         movsx esi, ax
         mov eax, edx
-        mov esi, dword [nosplit esi*4+dword_16C648]
+        mov esi, dword [nosplit esi*4+BlockShotMoveRight]
         call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         xor ebx, ebx
@@ -40498,7 +40498,7 @@ BlockShotMove:
         mov eax, 3
         call randomd0
         cwde
-        mov esi, dword [nosplit eax*4+dword_16C63C]
+        mov esi, dword [nosplit eax*4+BlockShotMoveLeft]
         mov eax, edx
         call ResetAnimTimer
         mov dl, byte [dword ecx+0BFh]
@@ -40781,7 +40781,7 @@ BlockShotMove_671:
         mov eax, 3
         call randomd0
         cwde
-        mov esi, dword [nosplit eax*4+dword_16C63C]
+        mov esi, dword [nosplit eax*4+BlockShotMoveLeft]
         jmp short .33
 .32:
         mov eax, 9
@@ -46115,7 +46115,7 @@ CupCelebration:
         push ecx
         push edx
         mov edx, eax
-        cmp dword [dword_16C6BC], byte 0
+        cmp dword [CupCelebrationActive], byte 0
         je short .1
         cwde
         pop edx

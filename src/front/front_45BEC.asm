@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_45BEC progbits alloc exec nowrite align=1
-extern __CHK, str_CarrySS, str_GKSF, str_SPEECH, byte_1C135A, byte_1C135B, SfxVolumeLevel, CommentaryOn
+extern __CHK, str_CarrySS, str_GKSF, str_SPEECH, PeriodHomeTeam, PeriodAwayTeam, SfxVolumeLevel, CommentaryOn
 extern CommentaryClip, SpeechBanksReady, SoundCardType, SoundDriverId, SpeechStreamFile, SpeechStreamBytes, SpeechStreamBase, SpeechStreamTimer
 extern SpeechFileIds, SpeechDataId, PaQueueHead, PaQueueTail, PaQueueCount, PaQueueClip, PaQueueTime, StreamTimerHandle
 extern CommentaryLast, CommentaryCurrent, CommentaryPrev, CommentaryTime, CommentaryDelay, CommentaryEventId, SpeechPlaying, CommentaryPriority
@@ -2082,8 +2082,8 @@ CommentaryEvent_17E6:
         setne al
         and eax, 0FFh
         mov dword [byte ebp+03Ah], eax
-        mov al, byte [byte_1C135A]
-        mov ah, byte [byte_1C135B]
+        mov al, byte [PeriodHomeTeam]
+        mov ah, byte [PeriodAwayTeam]
         cmp al, ah
         jne short .212
         mov dword [byte ebp+042h], 2

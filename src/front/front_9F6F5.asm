@@ -9,7 +9,7 @@ extern str_TRLS, str_TRRS, str_TRSE, str_TRSS, str_TRSP, str_PICT, str_Roster3, 
 extern str_Rtids, str_Games, str_Ros, str_Lros, str_CRUSHER, str_CRUSHERPack, atoi_, IndexFlags
 extern byte_1ACF62, byte_1ACF63, byte_1AD457, byte_1AD458, dword_16CB7C, dword_16DA9C, GameSettings, SeasonUserTeam
 extern GameOptionFlags, TeamSelectFlags, SeasonSlot, SeasonActive, dword_1AD244, dword_1AD248, dword_1AD24C, dword_1AD62B
-extern dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE0, dword_1C8EA4, dword_1C8EB4, dword_1C8EB8, dword_1C8EF6
+extern SeasonFileName, ReplayIndexHandle, dword_1C5DA4, dword_1C5DE0, dword_1C8EA4, dword_1C8EB4, dword_1C8EB8, dword_1C8EF6
 extern dword_1C8F58, dword_1C8F5C, dword_1C8F62, dword_1C8F66, dword_1C8F6A, dword_1C8F6E, dword_1C8F72, dword_1C93C4
 extern dword_1C93C8, dword_1C93CC, dword_1C93D8, dword_1C93DC, dword_1C93E0, dword_1C94B8, jpt_9F6DD, memcpy_
 extern off_16D254, off_16D258, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
@@ -27,7 +27,7 @@ extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawShapeAtOwnPos, Dr
 extern FillRectColor, DrawTextAt, SetTextColors, tickcount, str_D_LinkSendData, unk_16D7F4, GlobalSetVersion, IndexEntrySettings
 extern SeasonName, SeasonPath, SeasonIndexPath, unk_1AD22E, unk_1AD236, unk_1AD250, unk_1AD255, unk_1AD35D
 extern unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C8F9A, unk_1C93D0, str_Punct_PickIndexEntry, unk_9F611, unk_9F631
-extern unk_9F651, TeamSelectMode, word_1AD240, word_1AD242, word_1C13C2, word_1C34E5, word_1C9450, word_1C94EE
+extern unk_9F651, TeamSelectMode, word_1AD240, word_1AD242, IndexEntryList, word_1C34E5, word_1C9450, word_1C94EE
 global jpt_A31C6, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9, PickIndexEntryScreen_4EE, PickIndexEntryScreen_1080
 global SendLeagueFile_6F3, SendLeagueFile_6FD, SendLeagueFile_6FE, LinkSendData_BB, ResetLinkSetup_20, ResetLinkSetup_45, ResetLinkSetup_50, ResetLinkSetup_57
 global ResetLinkSetup_5E, PickIndexEntryScreen, DrawIndexEntry, LoadIndexFile, PickIndexEntry, SendLeagueData, ReceiveLeagueData, SendLeagueFile
@@ -469,7 +469,7 @@ PickIndexEntryScreen_4EE:
         cmp dword [dword ebp-042Ah], byte 5
         jne short .30
         mov edx, 4A78h
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         xor ebx, ebx
         call LinkReceiveBlock
         push byte 0
@@ -481,7 +481,7 @@ PickIndexEntryScreen_4EE:
         mov edx, dword [dword_1C5DA4]
         mov esi, eax
         call LinkReceiveBlock
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         mov ebx, dword [dword_1C5DA4]
         mov edx, esi
         call AddReplayIndexEntry
@@ -489,9 +489,9 @@ PickIndexEntryScreen_4EE:
         call FreeMemBlock
         add esp, byte 4
         push edi
-        push dword [dword_1C1338]
+        push dword [ReplayIndexHandle]
         mov ebx, 0Dh
-        push dword [dword_1C1334]
+        push dword [SeasonFileName]
         mov edx, edi
         call ClearReplayEntry
         lea eax, [byte ebp-01Eh]
@@ -678,7 +678,7 @@ PickIndexEntryScreen_4EE:
         mov edx, edi
         lea eax, [byte ebp-01Eh]
         call memcpy_
-        mov edx, dword_1C1334
+        mov edx, SeasonFileName
         lea eax, [byte ebp+04Eh]
         call FindReplayIndexEntry
         push byte 0
@@ -688,11 +688,11 @@ PickIndexEntryScreen_4EE:
         mov esi, eax
         add esp, byte 0Ch
         mov edx, eax
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         xor ebx, ebx
         call OpenReplayFile
         mov edx, 4A78h
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         call LinkSendBlock
         mov edx, dword [dword_1C5DA4]
         mov eax, esi
@@ -811,7 +811,7 @@ PickIndexEntryScreen_4EE:
         cmp dword [dword ebp-042Ah], byte 5
         jne short .53
         mov edx, 4A78h
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         xor ebx, ebx
         call LinkReceiveBlock
         push byte 0
@@ -823,7 +823,7 @@ PickIndexEntryScreen_4EE:
         mov edx, dword [dword_1C5DA4]
         mov esi, eax
         call LinkReceiveBlock
-        mov edx, dword_1C1334
+        mov edx, SeasonFileName
         mov ecx, dword [dword_1C5DA4]
         mov ebx, esi
         mov eax, edx
@@ -832,9 +832,9 @@ PickIndexEntryScreen_4EE:
         call FreeMemBlock
         add esp, byte 4
         push edi
-        push dword [dword_1C1338]
+        push dword [ReplayIndexHandle]
         mov ebx, 0Dh
-        push dword [dword_1C1334]
+        push dword [SeasonFileName]
         mov edx, edi
         call ClearReplayEntry
         lea eax, [byte ebp-01Eh]
@@ -1166,11 +1166,11 @@ PickIndexEntryScreen_4EE:
         cmp byte [edi], 5Ch
         jne short .84
         lea esi, [byte ebp+04Eh]
-        mov edx, dword_1C1334
+        mov edx, SeasonFileName
         call ReplayNameToKey
         lea eax, [byte ebp+04Eh]
         call FindReplayIndexEntry
-        movsx eax, word [word_1C13C2]
+        movsx eax, word [IndexEntryList]
         and eax, byte 3Fh
         and dword [TeamSelectFlags], 0FFF03FFFh
         shl eax, 0Eh

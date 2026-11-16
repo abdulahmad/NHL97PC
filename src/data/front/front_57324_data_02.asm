@@ -65,8 +65,8 @@ global MoveContactFlags, F32_1, LetterOffsets, LetterMasks, LetterColors, SeatMo
 global str_Punct_LoadAnimData, MoveState, PlayerAnimBase, PlayerAnimSize, PlayerAnimScale, PlayerAnimMove, SkateAnimData, ShotAnimData
 global ActAnimData, FallAnimData, InterferAnimData, GoalieAnimDataPtr, RefSkateAnimData, RefAmbiAnimData, RefCallAnimData, FightAnimData
 global CupAnimData, MoveAnimIds, SpaEnabled, IdleAnims, AnimPointUnset, CollideAnimsFront, CollideAnimsSide, CollideAnimsBack
-global RefGoalLineAnims, BlockShotAnims, dword_16C63C, dword_16C648, F32_7p84727eneg44, F32_0, dword_16C6B0, dword_16C6B4
-global dword_16C6B8, dword_16C6BC, str_D_SimulateGame, dword_16C730, ModelPartLinksLeft, ModelPartLinksRight, SkateAnimNames, ShotAnimNames
+global RefGoalLineAnims, BlockShotAnims, BlockShotMoveLeft, BlockShotMoveRight, F32_7p84727eneg44, F32_0, ClockDataTicks, ClockDataRate
+global ClockDataBase, CupCelebrationActive, str_D_SimulateGame, SimGameResult, ModelPartLinksLeft, ModelPartLinksRight, SkateAnimNames, ShotAnimNames
 global ActAnimNames, FallAnimNames, InterferAnimNames, GoalieAnimNames, RefSkateAnimNames, RefAmbiAnimNames, RefCallAnimNames, FightAnimNames
 global CupAnimNames, MoveFuncTable, AnimPointNames, TeamColorTable, TeamColorRanges, ModelPartLinkRows
 global MarkerColors, ReplayFrameMarker, AnimPointTable
@@ -1067,9 +1067,9 @@ BlockShotAnims:
         db 0CBh,00h,00h,00h,0CCh,00h,00h,00h,0CDh,00h,00h,00h,0D1h,00h,00h,00h
         db 0D0h,00h,00h,00h,0D3h,00h,00h,00h,0D2h,00h,00h,00h,0D5h,00h,00h,00h
         db 01h,01h,00h,00h
-dword_16C63C:
+BlockShotMoveLeft:
         db 0C8h,00h,00h,00h,0C9h,00h,00h,00h,0CAh,00h,00h,00h
-dword_16C648:
+BlockShotMoveRight:
         db 0D4h,00h,00h,00h,0CFh,00h,00h,00h,0CEh,00h,00h,00h
 F32_7p84727eneg44:
         db 038h,00h,00h,00h,03Ch,00h,00h,00h,044h,00h,00h,00h,00h,00h,00h,00h
@@ -1079,13 +1079,13 @@ F32_0:
         db 081h,080h,080h,03Bh,020h,040h,00h,03Bh,08h,020h,080h,03Ah,02h,010h,00h,03Ah
         db 01h,08h,080h,039h,00h,04h,00h,039h,00h,02h,080h,038h,00h,01h,00h,038h
         db 01h,00h,00h,00h,01h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh
-dword_16C6B0:
+ClockDataTicks:
         db 00h,00h,00h,00h
-dword_16C6B4:
+ClockDataRate:
         db 00h,00h,0A0h,041h
-dword_16C6B8:
+ClockDataBase:
         db 00h,00h,00h,00h
-dword_16C6BC:
+CupCelebrationActive:
         db 00h,00h,00h,00h
 str_D_SimulateGame:
         db 064h,00h,00h,00h,064h,00h,00h,00h,04Bh,00h,00h,00h,064h,00h,00h,00h
@@ -1095,5 +1095,5 @@ str_D_SimulateGame:
         db 04Bh,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h
         db 064h,00h,00h,00h,064h,00h,00h,00h,05Ah,00h,00h,00h,064h,00h,00h,00h
         db 05Ah,00h,00h,00h,055h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h
-dword_16C730:
+SimGameResult:
         db 00h,00h,00h,00h

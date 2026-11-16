@@ -9,7 +9,7 @@ extern str_Upp, str_Upk, str_Exrec, str_Seasrec, str_Plyrec, str_Urating, str_Us
 extern str_BACK7, str_TITL8, str_UL2d, str_UL08, str_UL09, str_UL10, str_UL00, str_UL01
 extern str_UL02, str_UL04, str_UL05, str_UL06, str_ULA0, str_ULA1, str_ULA2, str_ULA3
 extern str_ULA4, str_ULA5, byte_1AD72B, byte_1C55A4, byte_1C55A5, byte_1C55A6, byte_1C55A7, byte_1C55A8
-extern byte_1CA9D8, PlayoffColumns, dword_16CCF1, dword_16D400, dword_16D440, dword_16D444, dword_16D448, dword_16D44C
+extern byte_1CA9D8, PlayoffColumns, StatsMenuMode, dword_16D400, dword_16D440, dword_16D444, dword_16D448, dword_16D44C
 extern dword_16D454, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags, SeasonActive, dword_1AD251, dword_1AD437
 extern dword_1AD69F, dword_1AD6A3, dword_1AD70F, dword_1AD71B, dword_1C5DE4, dword_1C9630, dword_1C9634, dword_1C9660
 extern dword_1C9664, dword_1C967A, dword_1C967E, dword_1C9686, dword_1C968A, dword_1C96C2, dword_1C96C6, dword_1C96CC
@@ -3104,9 +3104,9 @@ UserRecordsScreen:
         call ConvertArtXY
         add esp, byte 0Ch
         call SetScreenTarget
-        cmp dword [dword_16CCF1], byte 0
+        cmp dword [StatsMenuMode], byte 0
         je short .3
-        mov edx, dword [dword_16CCF1]
+        mov edx, dword [StatsMenuMode]
         mov eax, dword [byte ebx+02Ch]
         mov ebx, 10h
         call ShowStatScreen

@@ -4,15 +4,15 @@ bits 32
 section s_7A9D8 progbits alloc exec nowrite align=1
 extern str_Roster, str_SS2, str_VIDEO, str_AUDSTRMHACK, str_ATE1Q0X4F1, str_Punct2, str_LogoNames, str_Logo02dQfs
 extern str_Mous2, str_Remo2, str_CHK1, str_X1, str_CB00, str_CB01, str_BACK2, str_LOGO2
-extern atoi_, byte_16C914, byte_16CCF0, byte_1ACF63, byte_1AD458, dword_16C734, dword_16C738, str_1_BuildSeasonSchedule
-extern dword_16C760, dword_16C982, dword_16C996, dword_16C9AC, dword_16C9B0, dword_16CAA8, dword_16CAAC, dword_16CB74
+extern atoi_, ScheduleDivisionFlags, FrontEndExit, byte_1ACF63, byte_1AD458, ScheduleWeekDays, ScheduleMonthDays, str_1_BuildSeasonSchedule
+extern ScheduleMonthLengths, ScheduleGameCounts, ScheduleHomeCounts, MovieFileHandle, MovieFileOffset, ModemResultCount, ModemLastResult, dword_16CB74
 extern dword_16DA9C, str_D_UpdateFrameRate, DrawDestBuffer, DrawDestPitch, DrawDestOffset, BackBufferWidth, BackBufferHeight, MovieWidth
-extern GameSettings, SeasonUserTeam, SeasonActive, dword_1AD22A, dword_1AD244, dword_1AD248, dword_1AD24C, dword_1C1200
-extern dword_1C1204, dword_1C1208, dword_1C120C, dword_1C1210, dword_1C1214, dword_1C1218, dword_1C121C, dword_1C1220
-extern dword_1C1224, dword_1C1228, dword_1C122C, dword_1C1230, dword_1C1234, dword_1C1238, dword_1C123C, dword_1C1240
-extern dword_1C1244, dword_1C1248, dword_1C124C, dword_1C1250, dword_1C1254, dword_1C1258, dword_1C125C, dword_1C1260
+extern GameSettings, SeasonUserTeam, SeasonActive, dword_1AD22A, dword_1AD244, dword_1AD248, dword_1AD24C, MovieFrameCount
+extern MovieFrameShown, MovieAudioStream, MovieLastFrame, MovieEndReached, MovieFlags, MovieFrameIndex, MovieAudioDone, MovieFramesAhead
+extern MovieSkippable, MovieState, MovieSkipped, MovieNextFrame, MovieVideoDone, MovieStartTick, MoviePageFlip, MovieSoundChannel
+extern MovieChunkTag, MovieVideoBuffer, MovieDropCount, MovieHasAudio, MovieStreamBuffer, MovieChunkSize, MovieChunkData, MovieCdStream
 extern dword_1C5DA8, dword_1C5DAC, dword_1C5DE4, dword_1C5DE8, dword_1C5E78, dword_1C5E9C, dword_1C5EA0, dword_1C5EF4
-extern memcpy_, off_16C9B8, off_16C9C0, rand_, sprintf_, srand_, str_ATA, str_ATD
+extern memcpy_, ModemResultTextTable, ModemResultCodeTable, rand_, sprintf_, srand_, str_ATA, str_ATD
 extern str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, strcat_, strcpy_, strlen_, strncmp_
 extern strstr_, bcopy, BlitShape, PresentScreen, FindShape, CloseVideoWindow, BlitFrameToScreen, OpenAudioStreamChannel
 extern CloseAudioStreamChannel, FeedAudioStream, AudioStreamDone, StartAudioStream, FlushAudioStream, ChannelPlaying, StopChannel, InitVideoDecoder
@@ -26,7 +26,7 @@ extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, KeysEqual, OpenGameDa
 extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, InitVideoModeList
 extern AllocMemBlock, AllocMemData, FreeMemBlock, KbdGetKey, WaitTicks, OpenResourceArchive, MakeColor, FreeBitmap
 extern CreateBitmap, SetDrawTarget, ClearScreen, tickcount, str_T, str_P, str_Punct_ModemSendCommand, str_AT
-extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
+extern MoviePalette, AutoLineData, unk_1C347F, AllStarDay
 global BuildSeasonSchedule_77E, FreeTempArt_45, putchar, BuildSeasonSchedule, UpdateTeamLines, BuildRosterLines, PlayerInjuryDays, FindInjuryEntry
 global CheckLeagueInjuries, ClearTeamInjuries, FadeMovieOut, MovieKeyPressed, OpenMovieStream, OpenVideoStream, CloseMovie, DecodeMovieFrame
 global PlayMovieFrames, PlayMovie, ModemReset, ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemReadResult
@@ -108,13 +108,13 @@ BuildSeasonSchedule:
         call rand_
         cdq
         idiv ecx
-        movzx eax, byte [dword edx+esi+byte_16C914]
+        movzx eax, byte [dword edx+esi+ScheduleDivisionFlags]
         mov dword [byte ebp-01Ch], eax
         imul eax, ebx, byte 28h
         mov ebx, dword [byte ebp-01Ch]
         shl ebx, 3
         add ebx, eax
-        mov ecx, dword [dword ebx+dword_16C760]
+        mov ecx, dword [dword ebx+ScheduleMonthLengths]
         sub ecx, dword [dword ebx+str_1_BuildSeasonSchedule]
         je short .6
         call rand_
@@ -238,11 +238,11 @@ BuildSeasonSchedule:
         mov eax, dword [byte ebp-030h]
         mov dword [dword edi+0D0Ch], eax
         mov eax, dword [byte ebp-01Ch]
-        mov edx, dword [nosplit eax*4+dword_16C982]
+        mov edx, dword [nosplit eax*4+ScheduleGameCounts]
         mov dword [byte ebp-028h], edx
-        mov edx, dword [nosplit eax*4+dword_16C996]
+        mov edx, dword [nosplit eax*4+ScheduleHomeCounts]
         sub dword [byte ebp-028h], edx
-        mov eax, dword [nosplit eax*4+dword_16C996]
+        mov eax, dword [nosplit eax*4+ScheduleHomeCounts]
         mov edx, dword [byte ebp-028h]
         add eax, eax
         mov dword [byte ebp-028h], edx
@@ -377,18 +377,18 @@ BuildSeasonSchedule:
         idiv ecx
         shl ebx, 3
         inc edx
-        mov ecx, dword [dword ebx+dword_16C738]
+        mov ecx, dword [dword ebx+ScheduleMonthDays]
         mov dword [byte ebp-01Ch], edx
-        sub ecx, dword [dword ebx+dword_16C734]
+        sub ecx, dword [dword ebx+ScheduleWeekDays]
         je short .34
         call rand_
         cdq
         idiv ecx
-        mov eax, dword [dword ebx+dword_16C734]
+        mov eax, dword [dword ebx+ScheduleWeekDays]
         add eax, edx
         jmp short .35
 .34:
-        mov eax, dword [dword ebx+dword_16C734]
+        mov eax, dword [dword ebx+ScheduleWeekDays]
 .35:
         mov dword [byte ebp-018h], eax
         call rand_
@@ -669,7 +669,7 @@ UpdateTeamLines:
         push eax
         mov dword [byte ebp-010h], 0
         mov dword [byte ebp-0Ch], 0
-        movzx eax, word [word_1C1344]
+        movzx eax, word [AllStarDay]
         xor ecx, ecx
         mov dword [byte ebp-014h], eax
         jmp near .11
@@ -1223,7 +1223,7 @@ BuildRosterLines:
 ;-----------------------------------------------------------------------------
 PlayerInjuryDays:
         push edx
-        movzx edx, word [word_1C1344]
+        movzx edx, word [AllStarDay]
         call FindInjuryEntry
         pop edx
         ret
@@ -1291,7 +1291,7 @@ CheckLeagueInjuries:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-01A4Eh]
-        mov dword [byte ebp+07Ah], unk_1C135C
+        mov dword [byte ebp+07Ah], AutoLineData
         jmp short .3
 .2:
         mov eax, dword [SeasonUserTeam]
@@ -1331,7 +1331,7 @@ CheckLeagueInjuries:
         imul ebx, edi, byte 7
         imul eax, esi, byte 38h
         add ebx, eax
-        movzx edx, word [word_1C1344]
+        movzx edx, word [AllStarDay]
         cmp edx, dword [dword ebx+ebp-0D42h]
         jne near .19
         cmp byte [dword ebx+ebp-0D3Ch], 0
@@ -1355,7 +1355,7 @@ CheckLeagueInjuries:
         mov eax, 7Dh
         jmp short .13
 .9:
-        movzx eax, word [word_1C1344]
+        movzx eax, word [AllStarDay]
         sub edx, eax
         mov eax, edx
         cmp edx, byte 3Ch
@@ -1487,7 +1487,7 @@ ClearTeamInjuries:
 .1:
         test ecx, ecx
         je short .2
-        mov eax, unk_1C135C
+        mov eax, AutoLineData
         jmp short .3
 .2:
         mov eax, unk_1C347F
@@ -1504,7 +1504,7 @@ ClearTeamInjuries:
         imul edx, esi, byte 7
         mov dword [byte ebp-04h], edi
         add edx, edi
-        movzx edi, word [word_1C1344]
+        movzx edi, word [AllStarDay]
         mov dword [byte ebp-08h], edi
         mov edi, dword [dword edx+01B2h]
         cmp edi, dword [byte ebp-08h]
@@ -1532,7 +1532,7 @@ ClearTeamInjuries:
 ; Fades out the movie
 ;-----------------------------------------------------------------------------
 FadeMovieOut:
-        mov eax, dword [dword_1C1240]
+        mov eax, dword [MovieSoundChannel]
         call ChannelPlaying
         test eax, eax
         je near AudioStreamDone
@@ -1587,17 +1587,17 @@ FadeMovieOut:
 MovieKeyPressed:
         push ecx
         push edx
-        cmp dword [dword_1C122C], byte 0
+        cmp dword [MovieSkipped], byte 0
         jne short .1
-        cmp dword [dword_1C1224], byte 0
+        cmp dword [MovieSkippable], byte 0
         je short .1
         call KbdGetKey
         cmp eax, byte 1Bh
         sete al
         and eax, 0FFh
-        mov dword [dword_1C122C], eax
+        mov dword [MovieSkipped], eax
 .1:
-        mov eax, dword [dword_1C122C]
+        mov eax, dword [MovieSkipped]
         pop edx
         pop ecx
         ret
@@ -1610,26 +1610,26 @@ OpenMovieStream:
         push ebx
         push edx
         push esi
-        cmp dword [dword_1C1250], byte 0
+        cmp dword [MovieHasAudio], byte 0
         je short .2
-        cmp dword [dword_1C1228], byte 0
+        cmp dword [MovieState], byte 0
         je short .1
-        cmp dword [dword_1C121C], byte 0
+        cmp dword [MovieAudioDone], byte 0
         jne short .1
         call FadeMovieOut
         test eax, eax
         je short .1
         mov eax, dword [tickcount]
-        mov dword [dword_16C9B0], eax
+        mov dword [MovieFileOffset], eax
         call StartAudioStream
-        mov dword [dword_16C9AC], eax
+        mov dword [MovieFileHandle], eax
         pop esi
         pop edx
         pop ebx
         ret
 .1:
         mov eax, dword [tickcount]
-        mov esi, dword [dword_16C9B0]
+        mov esi, dword [MovieFileOffset]
         sub eax, esi
         mov edx, eax
         shl eax, 4
@@ -1638,7 +1638,7 @@ OpenMovieStream:
         mov ebx, 64h
         sar edx, 1Fh
         idiv ebx
-        add eax, dword [dword_16C9AC]
+        add eax, dword [MovieFileHandle]
         pop esi
         pop edx
         pop ebx
@@ -1680,10 +1680,10 @@ OpenVideoStream:
         push byte 0
         push dword 4E290h
         push str_VIDEO
-        mov dword [dword_1C1248], eax
+        mov dword [MovieVideoBuffer], eax
         call AllocMemData
         add esp, byte 0Ch
-        mov dword [dword_1C1208], eax
+        mov dword [MovieAudioStream], eax
         test eax, eax
         je near .2
         push dword 2000h
@@ -1691,7 +1691,7 @@ OpenVideoStream:
         push eax
         call OpenStreamBuffer
         add esp, byte 0Ch
-        mov dword [dword_1C1254], eax
+        mov dword [MovieStreamBuffer], eax
         test eax, eax
         je near .2
         lea eax, [dword ebx+090h]
@@ -1702,33 +1702,33 @@ OpenVideoStream:
         call CdStreamOpenSecondary
         add esp, byte 10h
         push edi
-        mov edx, dword [dword_1C1254]
+        mov edx, dword [MovieStreamBuffer]
         push edx
-        mov dword [dword_1C1260], eax
+        mov dword [MovieCdStream], eax
         call CdStreamStart
-        mov ecx, dword [dword_1C1250]
+        mov ecx, dword [MovieHasAudio]
         add esp, byte 8
         test ecx, ecx
         je short .1
         push byte 0
         mov edx, 0Fh
-        mov eax, dword [dword_1C1260]
+        mov eax, dword [MovieCdStream]
         mov ecx, ebx
         mov ebx, 64h
         call OpenAudioStreamChannel
 .1:
         xor esi, esi
-        mov dword [dword_1C124C], esi
-        mov dword [dword_1C1234], esi
-        mov dword [dword_1C121C], esi
-        mov dword [dword_1C1210], esi
-        mov dword [dword_1C1218], esi
-        mov dword [dword_1C1228], esi
-        mov dword [dword_1C120C], esi
-        mov dword [dword_1C1200], esi
-        mov dword [dword_1C1214], esi
+        mov dword [MovieDropCount], esi
+        mov dword [MovieVideoDone], esi
+        mov dword [MovieAudioDone], esi
+        mov dword [MovieEndReached], esi
+        mov dword [MovieFrameIndex], esi
+        mov dword [MovieState], esi
+        mov dword [MovieLastFrame], esi
+        mov dword [MovieFrameCount], esi
+        mov dword [MovieFlags], esi
         call OpenMovieStream
-        mov dword [dword_1C1238], eax
+        mov dword [MovieStartTick], eax
         call ResetFrameRate
         mov eax, 1
 .2:
@@ -1749,22 +1749,22 @@ CloseMovie:
         push edi
         push ebp
         mov esi, eax
-        mov edx, dword [dword_1C1200]
-        mov ecx, dword [dword_1C1250]
+        mov edx, dword [MovieFrameCount]
+        mov ecx, dword [MovieHasAudio]
         add edx, edx
         xor ebx, ebx
-        mov dword [dword_1C1200], edx
+        mov dword [MovieFrameCount], edx
         test ecx, ecx
         je near .8
-        cmp dword [dword_1C1228], byte 0
+        cmp dword [MovieState], byte 0
         je near .8
-        cmp dword [dword_1C121C], byte 0
+        cmp dword [MovieAudioDone], byte 0
         je short .1
         call MovieKeyPressed
         test eax, eax
         je short .2
 .1:
-        mov eax, dword [dword_1C1240]
+        mov eax, dword [MovieSoundChannel]
         call StopChannel
         push byte 1
         call WaitTicks
@@ -1775,7 +1775,7 @@ CloseMovie:
 .2:
         mov eax, dword [tickcount]
         mov edx, eax
-        cmp dword [dword_1C1228], byte 1
+        cmp dword [MovieState], byte 1
         jne short .6
         xor ecx, ecx
 .3:
@@ -1784,7 +1784,7 @@ CloseMovie:
         cmp eax, 640h
         setge al
         mov ebx, eax
-        mov eax, dword [dword_1C1240]
+        mov eax, dword [MovieSoundChannel]
         and ebx, 0FFh
         call ChannelPlaying
         test eax, eax
@@ -1804,9 +1804,9 @@ CloseMovie:
 .6:
         test ebx, ebx
         je short .7
-        or byte [dword_1C1214], 4
+        or byte [MovieFlags], 4
 .7:
-        mov eax, dword [dword_1C1240]
+        mov eax, dword [MovieSoundChannel]
         call StopChannel
         push byte 1
         call WaitTicks
@@ -1815,7 +1815,7 @@ CloseMovie:
         call WaitTicks
         add esp, byte 4
 .8:
-        cmp dword [dword_1C1250], byte 0
+        cmp dword [MovieHasAudio], byte 0
         je short .9
         call FlushAudioStream
 .9:
@@ -1825,18 +1825,18 @@ CloseMovie:
         push esi
         call delstream
         add esp, byte 4
-        mov ebx, dword [dword_1C1208]
+        mov ebx, dword [MovieAudioStream]
         push ebx
         call delstream
         add esp, byte 4
-        mov ecx, dword [dword_1C1208]
+        mov ecx, dword [MovieAudioStream]
         push ecx
         call FreeMemBlock
         add esp, byte 4
-        mov edi, dword [dword_1C1248]
+        mov edi, dword [MovieVideoBuffer]
         xor esi, esi
         push edi
-        mov dword [dword_1C1208], esi
+        mov dword [MovieAudioStream], esi
         call FreeBitmap
         mov eax, dword [MovieWidth]
         add esp, byte 4
@@ -1874,7 +1874,7 @@ DecodeMovieFrame:
         push eax
         call BuildVideoGammaTable
         add esp, byte 4
-        mov edx, dword [dword_1C1248]
+        mov edx, dword [MovieVideoBuffer]
         push edx
         xor ebx, ebx
         call SetDrawTarget
@@ -1929,7 +1929,7 @@ DecodeMovieFrame:
         mov dword [esp], ebx
         cmp ebx, 0D0h
         jne near .1
-        mov eax, dword [dword_1C1248]
+        mov eax, dword [MovieVideoBuffer]
         mov eax, dword [byte eax+02Ch]
         add esp, byte 8
         pop ebp
@@ -1955,37 +1955,37 @@ PlayMovieFrames:
         mov ebp, 1
         xor edi, edi
 .1:
-        mov dword [dword_1C124C], edi
+        mov dword [MovieDropCount], edi
         mov eax, dword [tickcount]
         mov ebx, eax
 .2:
         call CdStreamService
-        mov edx, dword [dword_1C1254]
+        mov edx, dword [MovieStreamBuffer]
         push edx
         call CdStreamNextPacket
         add esp, byte 4
         push eax
-        mov ecx, dword [dword_1C1254]
+        mov ecx, dword [MovieStreamBuffer]
         push ecx
-        mov dword [dword_1C1258], eax
+        mov dword [MovieChunkSize], eax
         call StreamReady
         add esp, byte 8
         test eax, eax
         je short .3
-        mov dword [dword_1C1210], ebp
+        mov dword [MovieEndReached], ebp
         jmp near .8
 .3:
-        cmp edi, dword [dword_1C1258]
+        cmp edi, dword [MovieChunkSize]
         je near .8
         mov eax, dword [tickcount]
         mov ecx, 4
         mov ebx, eax
-        mov eax, dword [dword_1C1258]
+        mov eax, dword [MovieChunkSize]
         mov eax, dword [byte ecx+eax-04h]
         neg ecx
         lea ecx, [nosplit ecx*8+020h]
         shr eax, cl
-        mov dword [dword_1C1244], eax
+        mov dword [MovieChunkTag], eax
         cmp eax, 54475666h
         jb short .4
         jbe short .6
@@ -1995,34 +1995,34 @@ PlayMovieFrames:
 .4:
         cmp eax, 54475170h
         jne short .7
-        mov eax, dword [dword_1C1258]
+        mov eax, dword [MovieChunkSize]
         call DecodeMovieFrame
-        mov dword [dword_1C124C], eax
+        mov dword [MovieDropCount], eax
         jmp short .7
 .5:
-        mov dword [dword_1C1234], ebp
+        mov dword [MovieVideoDone], ebp
 .6:
-        mov edx, dword [dword_1C1258]
+        mov edx, dword [MovieChunkSize]
         push edx
-        mov ecx, dword [dword_1C125C]
+        mov ecx, dword [MovieChunkData]
         push ecx
         call DecodeTgvChunk
-        mov dword [dword_1C124C], eax
-        mov eax, dword [dword_1C1234]
+        mov dword [MovieDropCount], eax
+        mov eax, dword [MovieVideoDone]
         add esp, byte 8
         cmp edi, eax
         je short .7
         push dword 300h
-        mov eax, dword [dword_1C125C]
-        push unk_1C0F00
+        mov eax, dword [MovieChunkData]
+        push MoviePalette
         add eax, byte 44h
         push eax
         call bcopy
         add esp, byte 0Ch
 .7:
-        mov edx, dword [dword_1C1258]
+        mov edx, dword [MovieChunkSize]
         push edx
-        mov ecx, dword [dword_1C1254]
+        mov ecx, dword [MovieStreamBuffer]
         push ecx
         call CdStreamFreePacket
         add esp, byte 8
@@ -2033,23 +2033,23 @@ PlayMovieFrames:
         cmp eax, 190h
         setge al
         mov dl, al
-        cmp edi, dword [dword_1C1250]
+        cmp edi, dword [MovieHasAudio]
         je short .9
-        cmp edi, dword [dword_1C1228]
+        cmp edi, dword [MovieState]
         je short .9
-        cmp edi, dword [dword_1C121C]
+        cmp edi, dword [MovieAudioDone]
         jne short .9
         call AudioStreamDone
         cmp eax, byte 8
         jge short .9
         mov edx, ebp
 .9:
-        mov ecx, dword [dword_1C124C]
+        mov ecx, dword [MovieDropCount]
         cmp edi, ecx
         jne short .10
         test edx, edx
         jne short .10
-        cmp ecx, dword [dword_1C1210]
+        cmp ecx, dword [MovieEndReached]
         jne short .10
         call MovieKeyPressed
         test eax, eax
@@ -2057,111 +2057,111 @@ PlayMovieFrames:
 .10:
         test edx, edx
         je short .11
-        mov ebx, dword [dword_1C1214]
+        mov ebx, dword [MovieFlags]
         mov edx, 0FFFFFFFFh
         or ebx, ebp
-        mov dword [dword_1C1210], edx
-        mov dword [dword_1C1214], ebx
+        mov dword [MovieEndReached], edx
+        mov dword [MovieFlags], ebx
 .11:
-        mov eax, dword [dword_1C1218]
-        mov dword [dword_1C1204], eax
+        mov eax, dword [MovieFrameIndex]
+        mov dword [MovieFrameShown], eax
         add eax, byte 2
-        mov dword [dword_1C1230], eax
+        mov dword [MovieNextFrame], eax
         mov eax, dword [tickcount]
         mov ebx, eax
 .12:
         call CdStreamService
         call CdStreamService
-        mov ecx, dword [dword_1C1260]
+        mov ecx, dword [MovieCdStream]
         push ecx
         call CdStreamNextPacket
         add esp, byte 4
         push eax
-        mov dword [dword_1C1258], eax
-        mov eax, dword [dword_1C1260]
+        mov dword [MovieChunkSize], eax
+        mov eax, dword [MovieCdStream]
         push eax
         call StreamReady
         add esp, byte 8
         test eax, eax
         je short .13
-        mov dword [dword_1C121C], ebp
+        mov dword [MovieAudioDone], ebp
         jmp near .17
 .13:
-        cmp edi, dword [dword_1C1258]
+        cmp edi, dword [MovieChunkSize]
         jne short .14
-        mov ecx, dword [dword_1C1210]
+        mov ecx, dword [MovieEndReached]
         cmp ebp, ecx
         jne near .17
-        mov dword [dword_1C121C], ecx
+        mov dword [MovieAudioDone], ecx
         jmp near .17
 .14:
         mov eax, dword [tickcount]
-        mov ecx, dword [dword_1C1250]
+        mov ecx, dword [MovieHasAudio]
         mov ebx, eax
-        mov dword [dword_1C120C], ebp
+        mov dword [MovieLastFrame], ebp
         cmp edi, ecx
         je short .15
-        mov eax, dword [dword_1C1258]
+        mov eax, dword [MovieChunkSize]
         call FeedAudioStream
-        cmp edi, dword [dword_1C1228]
+        cmp edi, dword [MovieState]
         jne short .17
         call AudioStreamDone
         cmp eax, byte 0Fh
         jle short .17
         mov eax, 0Fh
         call CloseAudioStreamChannel
-        mov dword [dword_1C1240], eax
-        mov dword [dword_1C1228], ebp
+        mov dword [MovieSoundChannel], eax
+        mov dword [MovieState], ebp
         jmp short .16
 .15:
-        mov eax, dword [dword_1C1258]
+        mov eax, dword [MovieChunkSize]
         push eax
-        mov edx, dword [dword_1C1260]
+        mov edx, dword [MovieCdStream]
         push edx
         call CdStreamFreePacket
-        mov ecx, dword [dword_1C1228]
+        mov ecx, dword [MovieState]
         add esp, byte 8
         cmp edi, ecx
         jne short .17
-        mov dword [dword_1C1228], 2
+        mov dword [MovieState], 2
 .16:
         call OpenMovieStream
-        mov dword [dword_1C1238], eax
+        mov dword [MovieStartTick], eax
 .17:
         call OpenMovieStream
-        mov edx, dword [dword_1C1238]
+        mov edx, dword [MovieStartTick]
         sub eax, edx
-        mov dword [dword_1C1220], eax
-        mov eax, dword [dword_1C1228]
+        mov dword [MovieFramesAhead], eax
+        mov eax, dword [MovieState]
         cmp edi, eax
         jne short .18
-        cmp eax, dword [dword_1C120C]
+        cmp eax, dword [MovieLastFrame]
         jne short .18
-        cmp dword [dword_1C1220], byte 0Fh
+        cmp dword [MovieFramesAhead], byte 0Fh
         jle short .18
-        mov dword [dword_1C1228], 2
+        mov dword [MovieState], 2
         call OpenMovieStream
-        mov dword [dword_1C1238], eax
+        mov dword [MovieStartTick], eax
 .18:
         mov eax, dword [tickcount]
         sub eax, ebx
         cmp eax, 190h
         setge al
-        mov ecx, dword [dword_1C1204]
+        mov ecx, dword [MovieFrameShown]
         mov edx, eax
-        mov eax, dword [dword_1C1220]
+        mov eax, dword [MovieFramesAhead]
         and edx, 0FFh
         cmp eax, ecx
         jl short .19
-        cmp edi, dword [dword_1C1228]
+        cmp edi, dword [MovieState]
         je short .19
-        cmp ebp, dword [dword_1C1210]
+        cmp ebp, dword [MovieEndReached]
         jne short .23
 .19:
-        mov ecx, dword [dword_1C1204]
-        cmp ecx, dword [dword_1C1220]
+        mov ecx, dword [MovieFrameShown]
+        cmp ecx, dword [MovieFramesAhead]
         jge short .20
-        cmp edi, dword [dword_1C121C]
+        cmp edi, dword [MovieAudioDone]
         jne short .21
 .20:
         mov eax, ebp
@@ -2179,27 +2179,27 @@ PlayMovieFrames:
 .23:
         test edx, edx
         je short .24
-        mov ah, byte [dword_1C1214]
+        mov ah, byte [MovieFlags]
         or ah, 2
-        mov dword [dword_1C121C], ebp
-        mov byte [dword_1C1214], ah
+        mov dword [MovieAudioDone], ebp
+        mov byte [MovieFlags], ah
 .24:
-        cmp edi, dword [dword_1C124C]
+        cmp edi, dword [MovieDropCount]
         je short .25
-        inc dword [dword_1C1218]
+        inc dword [MovieFrameIndex]
 .25:
-        cmp edi, dword [dword_1C1210]
+        cmp edi, dword [MovieEndReached]
         jne short .26
         inc esi
 .26:
-        mov edx, dword [dword_1C1230]
-        cmp edx, dword [dword_1C1220]
+        mov edx, dword [MovieNextFrame]
+        cmp edx, dword [MovieFramesAhead]
         jg short .30
         cmp esi, byte 0Ah
         jge short .30
-        cmp edi, dword [dword_1C1210]
+        cmp edi, dword [MovieEndReached]
         je short .27
-        cmp edi, dword [dword_1C121C]
+        cmp edi, dword [MovieAudioDone]
         jne short .28
 .27:
         mov eax, ebp
@@ -2213,7 +2213,7 @@ PlayMovieFrames:
         test eax, eax
         je near .1
 .30:
-        mov eax, dword [dword_1C124C]
+        mov eax, dword [MovieDropCount]
         pop ebp
         pop edi
         pop esi
@@ -2250,19 +2250,19 @@ PlayMovie:
         mov edi, edx
         mov esi, 1
         xor edx, edx
-        mov dword [dword_1C1224], ecx
+        mov dword [MovieSkippable], ecx
         mov dword [esp], edx
-        mov dword [dword_1C123C], edx
-        mov dword [dword_1C122C], edx
+        mov dword [MoviePageFlip], edx
+        mov dword [MovieSkipped], edx
         test edi, edi
         je short .1
         cmp dword [byte esp+014h], byte 0
         je short .1
-        mov dword [dword_1C1250], esi
+        mov dword [MovieHasAudio], esi
         jmp short .2
 .1:
         xor eax, eax
-        mov dword [dword_1C1250], eax
+        mov dword [MovieHasAudio], eax
         test edi, edi
         jne short .2
         push eax
@@ -2300,17 +2300,17 @@ PlayMovie:
         je short .3
         call ServiceIdle
 .3:
-        cmp dword [dword_1C122C], byte 0
+        cmp dword [MovieSkipped], byte 0
         jne short .4
-        cmp dword [dword_1C1224], byte 0
+        cmp dword [MovieSkippable], byte 0
         je short .4
         call KbdGetKey
         cmp eax, byte 1Bh
         sete al
         and eax, 0FFh
-        mov dword [dword_1C122C], eax
+        mov dword [MovieSkipped], eax
 .4:
-        mov eax, dword [dword_1C122C]
+        mov eax, dword [MovieSkipped]
         test eax, eax
         je short .5
         mov esi, 0FFFFFFFFh
@@ -2339,19 +2339,19 @@ PlayMovie:
         call BlitFrameToScreen
         add esp, byte 0Ch
         call PresentScreen
-        xor byte [dword_1C123C], 1
-        mov eax, dword [dword_1C122C]
+        xor byte [MoviePageFlip], 1
+        mov eax, dword [MovieSkipped]
         cmp ebp, eax
         jne short .8
-        cmp eax, dword [dword_1C1224]
+        cmp eax, dword [MovieSkippable]
         je short .8
         call KbdGetKey
         cmp eax, byte 1Bh
         sete al
         and eax, 0FFh
-        mov dword [dword_1C122C], eax
+        mov dword [MovieSkipped], eax
 .8:
-        mov eax, dword [dword_1C122C]
+        mov eax, dword [MovieSkipped]
         test eax, eax
         je short .10
         mov esi, 0FFFFFFFFh
@@ -2368,17 +2368,17 @@ PlayMovie:
         mov eax, edi
         call CloseMovie
 .12:
-        cmp dword [dword_1C122C], byte 0
+        cmp dword [MovieSkipped], byte 0
         jne short .13
-        cmp dword [dword_1C1224], byte 0
+        cmp dword [MovieSkippable], byte 0
         je short .13
         call KbdGetKey
         cmp eax, byte 1Bh
         sete al
         and eax, 0FFh
-        mov dword [dword_1C122C], eax
+        mov dword [MovieSkipped], eax
 .13:
-        mov eax, dword [dword_1C122C]
+        mov eax, dword [MovieSkipped]
         test al, 4
         je short .14
         xor esi, esi
@@ -2732,7 +2732,7 @@ ModemReadResult:
         xor edi, edi
         mov byte [esp+eax], cl
 .6:
-        mov ebx, dword [dword_16CAA8]
+        mov ebx, dword [ModemResultCount]
         dec ebx
         test ebx, ebx
         jl short .9
@@ -2741,17 +2741,17 @@ ModemReadResult:
 .7:
         imul esi, ebx, byte 0Ch
         mov eax, esp
-        mov edx, dword [dword ecx+off_16C9B8]
+        mov edx, dword [dword ecx+ModemResultTextTable]
         call strstr_
         test eax, eax
         je short .8
         test ebp, ebp
         setg al
-        mov ebx, dword [dword_16CAAC]
+        mov ebx, dword [ModemLastResult]
         and eax, 0FFh
         or ebx, eax
-        mov eax, dword [dword esi+off_16C9C0]
-        mov dword [dword_16CAAC], ebx
+        mov eax, dword [dword esi+ModemResultCodeTable]
+        mov dword [ModemLastResult], ebx
         call atoi_
         jmp near .15
 .8:
@@ -2769,7 +2769,7 @@ ModemReadResult:
         je short .10
         cmp dword [byte esp+030h], byte 0
         jne short .10
-        cmp dword [dword_16CAAC], byte 0
+        cmp dword [ModemLastResult], byte 0
         jne short .11
 .10:
         cmp dword [byte esp+02Ch], byte 29h
@@ -3303,7 +3303,7 @@ RunFrontEnd:
         mov ebx, eax
         jmp short .7
 .4:
-        mov byte [byte_16CCF0], 1
+        mov byte [FrontEndExit], 1
         mov ebx, 1
         call RunStatsMenu
         jmp short .7

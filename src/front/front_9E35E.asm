@@ -7,7 +7,7 @@ extern str_011R3, str_012R2, str_013R2, str_11SR3, str_12SR2, str_13SR2, str_SW0
 extern str_SWL3, str_01LL, str_02LL, str_03LL, str_01LR, str_02LR, str_03LR, str_01RL
 extern str_02RL, str_03RL, str_01RR, str_02RR, str_03RR, str_012R013R014R12SR13SR14SRS, str_SW00SW01SW02SW03SW04SW05S, str_1
 extern str_0001, str_0002, dword_16CFF8, dword_16D23C, dword_16D250, dword_16D76C, dword_16DA9C, GameOptionFlags
-extern TeamSelectFlags, dword_1C1334, dword_1C86FC, dword_1C8E4C, dword_1C8E50, dword_1C8E54, dword_1C8E58, dword_1C8E5C
+extern TeamSelectFlags, SeasonFileName, dword_1C86FC, dword_1C8E4C, dword_1C8E50, dword_1C8E54, dword_1C8E58, dword_1C8E5C
 extern dword_1C8E60, dword_1C8E64, dword_1C8E88, dword_1C8E8C, dword_1C8E90, dword_1C8E94, dword_1C8E98, dword_1C8E9C
 extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
 extern PickIndexEntryScreen_4EE, rand_, sprintf_, BlitShape2, BlitArt, PresentScreen, FindShape, FindShapeList
@@ -1227,7 +1227,7 @@ TeamSelectScreen_B61:
 .35:
         movsx ebx, word [byte ebp+076h]
         movsx edx, word [byte ebp+07Ah]
-        mov ecx, dword_1C1334
+        mov ecx, SeasonFileName
         mov eax, dword [dword_1C86FC]
         call PickDemoTeams
 .36:
@@ -1241,7 +1241,7 @@ TeamSelectScreen_B61:
         call GetLangText
         call ShowLinkMessage
         xor ebx, ebx
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         call LinkSendBlock
         call HideLinkBox
 .37:
@@ -1255,7 +1255,7 @@ TeamSelectScreen_B61:
         call GetLangText
         call ShowLinkMessage
         xor ebx, ebx
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         call LinkReceiveBlock
         call HideLinkBox
 .38:

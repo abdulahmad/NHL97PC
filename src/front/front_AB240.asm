@@ -6,14 +6,14 @@ extern str_Xferdata, str_Replaybuf2, str_Gdata, str_Ros2, str_SEXHIBITNDX, str_E
 extern byte_1AD458, byte_1AD72B, byte_1AD739, byte_1AD742, PlayoffColumns, dword_16D2CC, dword_16D2EC, dword_16D30C
 extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, GameSettings, SeasonUserTeam, PlayoffRounds
 extern SeasonActive, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dword_1AD45A, dword_1AD62F, dword_1AD6AB
-extern dword_1AD6AF, dword_1AD727, dword_1AD743, dword_1C1334, dword_1C1338, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
+extern dword_1AD6AF, dword_1AD727, dword_1AD743, SeasonFileName, ReplayIndexHandle, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
 extern memcpy_, sprintf_, DosFileInfo, MakeDirPath, SaveReplayHeader, SimulateGame, UpdateTeamLines, CheckLeagueInjuries
 extern EditFileName, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, NameIndexNew, NameIndexLoad, NameIndexFree, LoadNameIndex
 extern GetLangText, SortStandings, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, FreeTransferBuffers, CopyToTransfer, LinkSendData
 extern LinkReceiveData, AppendToTransfer, KeysEqual, OpenGameDatabase, CloseGameDatabase, DaysToYear, CreateExhibitionFile, WriteLeagueHeader
 extern StartSeasonGame, SaveExhibitionResult, SaveSeasonResult, FindGameRecord, UpdateGameRecord, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile
 extern ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem, SelectFont, unk_16D7F4
-extern unk_1ACF4E, unk_1AD236, unk_1AD443, word_1C1344
+extern unk_1ACF4E, unk_1AD236, unk_1AD443, AllStarDay
 global SendGameResult_32D, SaveGameResults_B2F, SaveGameResults_B30, SendGameResult, SaveGameResults, AdvanceSeasonDate, FinishLeagueGame, SaveReplayFile
 global WriteReplayFile, ReplayNameToKey, ClearReplayEntry
 ;-----------------------------------------------------------------------------
@@ -217,7 +217,7 @@ SendGameResult:
 .18:
         mov ebx, 4A78h
         mov edx, dword [byte ebp-04h]
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         mov esi, dword [byte ebp-08h]
         call memcpy_
         mov eax, dword [SeasonUserTeam]
@@ -325,7 +325,7 @@ SaveGameResults:
         mov eax, dword [SeasonUserTeam]
         mov esi, dword [byte eax+020h]
         mov dx, word [byte ecx+esi+04h]
-        mov word [word_1C1344], dx
+        mov word [AllStarDay], dx
         mov esi, dword [byte eax+020h]
         movsx edx, byte [ecx+esi]
         mov eax, dword [byte eax+01Ch]
@@ -557,7 +557,7 @@ SaveGameResults:
         shl esi, 4
         mov ecx, dword [byte eax+020h]
         mov dx, word [byte ecx+esi+04h]
-        mov word [word_1C1344], dx
+        mov word [AllStarDay], dx
         mov ecx, dword [byte eax+020h]
         movsx edx, byte [ecx+esi]
         mov eax, dword [byte eax+01Ch]
@@ -578,7 +578,7 @@ SaveGameResults:
         mov edx, dword [byte ebp+06Ah]
         call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
-        mov ebx, dword_1C1334
+        mov ebx, SeasonFileName
         call UpdateTeamLines
         mov eax, dword [byte ebp+06Ah]
         movsx edx, word [byte ebp+07Ah]
@@ -587,7 +587,7 @@ SaveGameResults:
         call StartSeasonGame
         mov eax, dword [byte ebp+07Ah]
         xor edx, edx
-        mov ebx, dword_1C1334
+        mov ebx, SeasonFileName
         call SimulateGame
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [SeasonUserTeam]
@@ -632,7 +632,7 @@ SaveGameResults:
         shl esi, 4
         mov ecx, dword [byte eax+020h]
         mov dx, word [byte ecx+esi+04h]
-        mov word [word_1C1344], dx
+        mov word [AllStarDay], dx
         mov ecx, dword [byte eax+020h]
         movsx edx, byte [ecx+esi]
         mov eax, dword [byte eax+01Ch]
@@ -653,7 +653,7 @@ SaveGameResults:
         mov edx, dword [byte ebp+06Ah]
         call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
-        mov ebx, dword_1C1334
+        mov ebx, SeasonFileName
         call UpdateTeamLines
         mov eax, dword [byte ebp+06Ah]
         movsx edx, word [byte ebp+07Ah]
@@ -662,7 +662,7 @@ SaveGameResults:
         call StartSeasonGame
         mov edx, 1
         mov eax, dword [byte ebp+07Ah]
-        mov ebx, dword_1C1334
+        mov ebx, SeasonFileName
         call SimulateGame
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [SeasonUserTeam]
@@ -995,12 +995,12 @@ SaveGameResults:
         call UpdateWorkingBox
 .52:
         movsx edx, word [byte ebp+07Ah]
-        mov ebx, dword_1C1334
+        mov ebx, SeasonFileName
         mov eax, dword [SeasonUserTeam]
         call StartSeasonGame
         mov edx, 1
         mov eax, dword [byte ebp+07Ah]
-        mov ebx, dword_1C1334
+        mov ebx, SeasonFileName
         call SimulateGame
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [SeasonUserTeam]
@@ -1336,12 +1336,12 @@ FinishLeagueGame:
         cmp dword [SeasonActive], byte 0
         jne short .1
         imul eax, dword [dword_1AD226], byte 1Ch
-        mov edi, dword_1C1334
+        mov edi, SeasonFileName
         mov esi, unk_16D7F4
         xor ebx, ebx
         xor edx, edx
         mov ecx, dword [dword eax+dword_1ACF65]
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         movsd
         movsd
         call AddReplayIndexEntry
@@ -1350,7 +1350,7 @@ FinishLeagueGame:
         shl esi, 4
         mov eax, dword [byte eax+020h]
         lea edi, [byte esi+eax+08h]
-        mov esi, dword_1C1334
+        mov esi, SeasonFileName
         mov edx, dword [byte ebp-04h]
         mov eax, ecx
         movsd
@@ -1363,13 +1363,13 @@ FinishLeagueGame:
         xor ebx, ebx
         xor edx, edx
         mov ecx, dword [dword eax+dword_1AD45A]
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         call AddReplayIndexEntry
         mov eax, dword [SeasonUserTeam]
         shl ecx, 4
         mov esi, dword [byte eax+020h]
         lea edi, [byte ecx+esi+08h]
-        mov esi, dword_1C1334
+        mov esi, SeasonFileName
         movsd
         movsd
 .2:
@@ -1541,7 +1541,7 @@ SaveReplayFile:
         call NameIndexLoad
 .17:
         mov ecx, eax
-        mov edi, dword_1C1334
+        mov edi, SeasonFileName
         mov esi, unk_16D7F4
         movsd
         movsd
@@ -1549,9 +1549,9 @@ SaveReplayFile:
         call WriteReplayFile
         lea eax, [byte ebp+07Eh]
         push eax
-        push dword [dword_1C1338]
+        push dword [ReplayIndexHandle]
         lea ebx, [byte ebp+05Eh]
-        push dword [dword_1C1334]
+        push dword [SeasonFileName]
         lea edx, [byte ebp+07Eh]
         call ClearReplayEntry
         mov eax, ecx
@@ -1580,7 +1580,7 @@ SaveReplayFile:
         shl edx, 4
         mov esi, dword [byte eax+020h]
         lea edi, [byte edx+esi+08h]
-        mov esi, dword_1C1334
+        mov esi, SeasonFileName
         movsd
         movsd
         mov eax, dword [SeasonUserTeam]
@@ -1604,7 +1604,7 @@ WriteReplayFile:
         call SaveReplayHeader
         push byte 0
         push eax
-        mov edi, dword_1C1334
+        mov edi, SeasonFileName
         push str_Saverepl
         mov esi, unk_16D7F4
         mov ebx, eax
@@ -1613,7 +1613,7 @@ WriteReplayFile:
         mov edx, ebx
         mov ecx, eax
         call SaveReplayHeader
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         mov edx, ecx
         movsd
         movsd

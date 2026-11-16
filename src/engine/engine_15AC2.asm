@@ -8,8 +8,8 @@ extern str_SSDD, str_SD, str_SDCS, str_Punct, str_2d01d, str_SD2, str_CHASE, str
 extern str_USERCHASE, str_IntroD3cp, str_ArenaViv, str_DDD, awtmstruct, CameraFlagsByte, GoalSceneActive, ReplayCameraActive
 extern FaceoffDropScene, CameraScenesOn, IntermissionActive, FightSceneActive, PlayerAssignOrder, FaceoffSpotIndex, PenaltyPending, PenaltyTeam
 extern GoalieOut, gmode, PuckFlags, PlayFlags, holdreset, PanelNameBuf, GoalFlags, GoalieFlags
-extern PlayerControlFlags, HmPlayerFlags, HmCoachOffense, HmCoachDefense, AwPlayerFlags, AwCoachOffense, AwCoachDefense, byte_1C135A
-extern byte_1C135B, F32_0p5, F32_65536, F32_100, F32_2000, F32_500, F32_neg500, F32_neg1800
+extern PlayerControlFlags, HmPlayerFlags, HmCoachOffense, HmCoachDefense, AwPlayerFlags, AwCoachOffense, AwCoachDefense, PeriodHomeTeam
+extern PeriodAwayTeam, F32_0p5, F32_65536, F32_100, F32_2000, F32_500, F32_neg500, F32_neg1800
 extern F32_neg4000, F32_neg1000, F32_neg500_UpdateCameraView, F32_neg2000, F32_neg0p000147059, F32_0p000232558, F32_0p000357143, F32_neg0p000188679
 extern F32_20, F32_10_UpdateCameraView, F32_neg10, F32_neg1050, F32_neg1000_UpdateCameraZoom, F32_neg4600, F32_neg4100, F32_1340
 extern F32_neg1340, F32_4100, F32_2040, F32_4800, F32_700, F32_neg700, F32_3600, F32_neg3600
@@ -2518,7 +2518,7 @@ DrawPeriodPanel:
         push eax
         call sprintf_
         add esp, byte 10h
-        movzx eax, byte [byte_1C135B]
+        movzx eax, byte [PeriodAwayTeam]
         push eax
         mov eax, dword [AwScore]
         call TeamNameField
@@ -2528,7 +2528,7 @@ DrawPeriodPanel:
         push eax
         call sprintf_
         add esp, byte 10h
-        movzx eax, byte [byte_1C135A]
+        movzx eax, byte [PeriodHomeTeam]
         push eax
         mov eax, dword [HmScore]
         call TeamNameField
@@ -15179,8 +15179,8 @@ Goal:
         mov eax, dword [PassPlayer]
         sar eax, 10h
         call GoalCameraScene
-        mov al, byte [byte_1C135A]
-        cmp al, byte [byte_1C135B]
+        mov al, byte [PeriodHomeTeam]
+        cmp al, byte [PeriodAwayTeam]
         jne near .30
         cmp dword [ReplayPlaying], byte 0
         jne near .30
@@ -15261,7 +15261,7 @@ Goal:
         jne short .32
         cmp dword [ReplayPlaying], byte 0
         jne short .31
-        inc byte [byte_1C135A]
+        inc byte [PeriodHomeTeam]
 .31:
         mov eax, 102h
         call StartCrowdMusic
@@ -15270,7 +15270,7 @@ Goal:
 .32:
         cmp dword [ReplayPlaying], byte 0
         jne short .33
-        inc byte [byte_1C135B]
+        inc byte [PeriodAwayTeam]
 .33:
         mov eax, 2
         call randomd0
@@ -15279,8 +15279,8 @@ Goal:
         and eax, 0FFh
 .34:
         call SetCrowdMood
-        mov al, byte [byte_1C135A]
-        cmp al, byte [byte_1C135B]
+        mov al, byte [PeriodHomeTeam]
+        cmp al, byte [PeriodAwayTeam]
         jne near .39
         cmp dword [ReplayPlaying], byte 0
         jne near .39

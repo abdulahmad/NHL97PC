@@ -3,28 +3,28 @@ bits 32
 %include "hockey.inc"
 section s_16CCC4 progbits alloc noexec write align=1
 extern str_Error
-global byte_16CCF0, dword_16CCC4, dword_16CCE8, dword_16CCEC, dword_16CCF1, dword_16CCFA, dword_16CCFE, dword_16CD02
+global FrontEndExit, MainMenuSelection, MainMenuFirstShow, MainMenuAnimStop, StatsMenuMode, ModemSettingsChanged, NetworkGameReady, dword_16CD02
 global dword_16CD08, dword_16CD0C, dword_16CD10, dword_16CD14, dword_16CD18, dword_16CD1C, dword_16CD24, dword_16CD28
 global dword_16CD2C, dword_16CD30, str_3_LoadLangText, dword_16CD40, dword_16CD4C, dword_16CD50, dword_16CD54, dword_16CD58
-global str_F_NewSeasonScreen, dword_16CD64, unk_16CCC8, word_16CCF8, word_16CD04, word_16CD20, word_16CD22
-dword_16CCC4:
+global str_F_NewSeasonScreen, dword_16CD64, MainMenuAnimName, ConnectRetry, word_16CD04, word_16CD20, word_16CD22
+MainMenuSelection:
         db 0FFh,0FFh,0FFh,0FFh
-unk_16CCC8:
+MainMenuAnimName:
         db 00h,00h,00h,00h,00h,00h,00h,00h,096h,00h,00h,00h,028h,00h,00h,00h
         db 096h,00h,00h,00h,046h,00h,00h,00h,00h,00h,00h,00h,01Eh,00h,00h,00h
-dword_16CCE8:
+MainMenuFirstShow:
         db 01h,00h,00h,00h
-dword_16CCEC:
+MainMenuAnimStop:
         db 00h,00h,00h,00h
-byte_16CCF0:
+FrontEndExit:
         db 00h
-dword_16CCF1:
+StatsMenuMode:
         db 00h,00h,00h,00h,00h,00h,00h
-word_16CCF8:
+ConnectRetry:
         db 00h,00h
-dword_16CCFA:
+ModemSettingsChanged:
         db 00h,00h,00h,00h
-dword_16CCFE:
+NetworkGameReady:
         db 00h,00h,00h,00h
 dword_16CD02:
         db 00h,00h

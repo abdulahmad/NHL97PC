@@ -16,7 +16,7 @@ extern str_TPB5, str_TPB2, str_TPB1, str_TPB0, str_TPB4, str_TPB3, str_MOD1, str
 extern str_BG00, str_BG01, str_BACK5, str_TITL3, str_LT002, str_LB002, str_RB00, str_RT00
 extern str_TOP0, str_BOT0, str_LFTD, str_RITD, str_LT0D, str_LB0D, str_RT0D, str_RB0D
 extern str_LFT0, str_RIT0, str_BTTM, MenuOptionFlags, LinkFlags, LinkSettingsRest, IndexFlags, IndexSettingsRest
-extern byte_1C833C, byte_1C83B4, dword_16CCFA, dword_16CCFE, dword_16CD14, dword_16CD18, str_Punct_ModemSettingsScreen, dword_16E464
+extern ModemFlags, byte_1C83B4, ModemSettingsChanged, NetworkGameReady, dword_16CD14, dword_16CD18, str_Punct_ModemSettingsScreen, dword_16E464
 extern dword_16E468, MenuScreenBitmap, GameSettings, NetworkGameIndex, dword_1C5DE4, dword_1C5F12, dword_1C5F1E, dword_1C5F22
 extern dword_1C5F64, dword_1C5F70, dword_1C5F74, dword_1C83B0, dword_1C8440, dword_1C8444, dword_1C8448, dword_1C844C
 extern dword_1C8450, dword_1C8454, fclose_, fgets_, fread_, fseek_, fwrite_, memcpy_
@@ -29,8 +29,8 @@ extern ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse, GetLa
 extern ServiceIdle, StartNetworkLink, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, AllocMemBlock, FreeMemBlock
 extern MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect
 extern MeasureText, str_S_ModemSettingsScreen, ModemSettings, LinkSettings, LinkSettingsData, GlobalSetVersion, IndexEntrySettings, unk_1C5EF8
-extern unk_1C5F4A, unk_1C834C, unk_1C8360, unk_1C8388, unk_1C83BA, word_16CCF8, word_16DACC, word_16DAD0
-extern NetworkSettings, word_1C8340, word_1C8342, word_1C8344, word_1C8346, word_1C8348, word_1C834A, word_1C83B8
+extern unk_1C5F4A, ModemInitString, ModemPhoneNumber, unk_1C8388, unk_1C83BA, ConnectRetry, word_16DACC, word_16DAD0
+extern NetworkSettings, ModemPort, ModemIrq, ModemBaudRate, ModemDialMode, ModemAnswer, ModemSpeed, word_1C83B8
 global jpt_86C99, jpt_87AF7, jpt_89053, SavePhonebook_5F, PhonebookEntryScreen_4B8, PhonebookEntryScreen_4C9, PhonebookEntryScreen_5DB, PhonebookEntryScreen_60C
 global PhonebookEntryScreen_6C5, PhonebookEntryScreen_752, ModemSettingsScreen_AE3, ModemSettingsScreen_AF4, ModemSettingsScreen_CC6, ModemSettingsScreen_D31, ModemSettingsScreen_D5E, ModemSettingsScreen_E4D
 global ModemSettingsScreen_E6E, ModemSettingsScreen_F7C, ModemSettingsScreen_FCE, ModemSettingsScreen_1020, ModemSettingsScreen_112C, ModemSettingsScreen_1184, ModemSettingsScreen_11E3, ModemSettingsScreen_121D
@@ -1529,12 +1529,12 @@ ModemSettingsScreen:
         mov dword [byte ebp-028h], 0FFFFFFFFh
         mov dword [byte ebp-03Ch], eax
         call LoadPhonebook
-        cmp dword [dword_16CCFA], byte 0
+        cmp dword [ModemSettingsChanged], byte 0
         jne short .1
         mov edx, ModemSettings
-        mov eax, byte_1C833C
+        mov eax, ModemFlags
         call CopyModemString
-        mov dword [dword_16CCFA], 1
+        mov dword [ModemSettingsChanged], 1
 .1:
         lea eax, [byte ebp-044h]
         lea edx, [dword ebp-0E18h]
@@ -1720,7 +1720,7 @@ ModemSettingsScreen:
         mov edx, edi
         mov dword [dword ebp-0A78h], eax
         mov dword [dword ebp-0A70h], eax
-        mov ebx, unk_1C834C
+        mov ebx, ModemInitString
         mov eax, dword [byte edi+02Ch]
         mov dword [dword ebp-0A6Ch], 78h
         mov dword [dword ebp-0A68h], 8Ch
@@ -1773,7 +1773,7 @@ ModemSettingsScreen:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        movsx eax, word [word_1C834A]
+        movsx eax, word [ModemSpeed]
         imul eax, byte 44h
         add eax, dword [byte ebp-010h]
         call strlen_
@@ -1782,7 +1782,7 @@ ModemSettingsScreen:
         xor eax, eax
         jmp short .3
 .2:
-        movsx edx, word [word_1C834A]
+        movsx edx, word [ModemSpeed]
         imul edx, byte 44h
         mov ebx, dword [byte ebp-02Ch]
         add ebx, edx
@@ -1799,7 +1799,7 @@ ModemSettingsScreen:
         lea eax, [byte ebp-068h]
         jmp short .5
 .4:
-        movsx eax, word [word_1C834A]
+        movsx eax, word [ModemSpeed]
         imul eax, byte 44h
         add eax, dword [byte ebp-010h]
 .5:
@@ -1907,7 +1907,7 @@ ModemSettingsScreen:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        push unk_1C8360
+        push ModemPhoneNumber
         push str_S_ModemSettingsScreen
         push dword 14Bh
         push dword 11Dh
@@ -1959,7 +1959,7 @@ ModemSettingsScreen:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        cmp word [word_1C8348], byte 0
+        cmp word [ModemAnswer], byte 0
         je short .6
         mov eax, 167h
         jmp short .7
@@ -1974,7 +1974,7 @@ ModemSettingsScreen:
         call DrawTextAligned
         add esp, byte 10h
         call PresentScreen
-        cmp word [word_1C8346], byte 0
+        cmp word [ModemDialMode], byte 0
         je short .8
         lea eax, [dword ebp-02E8h]
         push eax
@@ -1992,7 +1992,7 @@ ModemSettingsScreen:
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-08F8h]
         call SetModemButton
-        test byte [byte_1C833C], 1
+        test byte [ModemFlags], 1
         jne short .10
         lea eax, [dword ebp-02A8h]
         push eax
@@ -2067,7 +2067,7 @@ ModemSettingsScreen:
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-06BAh]
         call SetModemButton
-        cmp word [word_1C8340], byte 0
+        cmp word [ModemPort], byte 0
         jne short .12
         push str_CP02
         push dword [byte ebp-018h]
@@ -2080,7 +2080,7 @@ ModemSettingsScreen:
         add esp, byte 8
         mov dword [dword ebp-0D56h], eax
 .12:
-        cmp word [word_1C8340], byte 1
+        cmp word [ModemPort], byte 1
         jne short .13
         push str_CP05
         push dword [byte ebp-018h]
@@ -2093,7 +2093,7 @@ ModemSettingsScreen:
         add esp, byte 8
         mov dword [dword ebp-0D04h], eax
 .13:
-        cmp word [word_1C8340], byte 2
+        cmp word [ModemPort], byte 2
         jne short .14
         push str_CP08
         push dword [byte ebp-018h]
@@ -2106,7 +2106,7 @@ ModemSettingsScreen:
         add esp, byte 8
         mov dword [dword ebp-0CB2h], eax
 .14:
-        cmp word [word_1C8340], byte 3
+        cmp word [ModemPort], byte 3
         jne short .15
         push str_CP11
         push dword [byte ebp-018h]
@@ -2119,7 +2119,7 @@ ModemSettingsScreen:
         add esp, byte 8
         mov dword [dword ebp-0C60h], eax
 .15:
-        cmp word [word_1C8342], byte 2
+        cmp word [ModemIrq], byte 2
         jne short .16
         push str_IR02
         push dword [byte ebp-018h]
@@ -2132,7 +2132,7 @@ ModemSettingsScreen:
         add esp, byte 8
         mov dword [dword ebp-0C0Eh], eax
 .16:
-        cmp word [word_1C8342], byte 3
+        cmp word [ModemIrq], byte 3
         jne short .17
         push str_IR05
         push dword [byte ebp-018h]
@@ -2145,7 +2145,7 @@ ModemSettingsScreen:
         add esp, byte 8
         mov dword [dword ebp-0BBCh], eax
 .17:
-        cmp word [word_1C8342], byte 4
+        cmp word [ModemIrq], byte 4
         jne short .18
         push str_IR08
         push dword [byte ebp-018h]
@@ -2158,7 +2158,7 @@ ModemSettingsScreen:
         add esp, byte 8
         mov dword [dword ebp-0B6Ah], eax
 .18:
-        cmp word [word_1C8342], byte 7
+        cmp word [ModemIrq], byte 7
         jne short .19
         push str_IR11
         push dword [byte ebp-018h]
@@ -2171,7 +2171,7 @@ ModemSettingsScreen:
         add esp, byte 8
         mov dword [dword ebp-0B18h], eax
 .19:
-        cmp word [word_1C8344], byte 9
+        cmp word [ModemBaudRate], byte 9
         jne short .20
         push str_BR02
         push dword [byte ebp-018h]
@@ -2184,7 +2184,7 @@ ModemSettingsScreen:
         add esp, byte 8
         mov dword [dword ebp-07E4h], eax
 .20:
-        cmp word [word_1C8344], byte 0Ah
+        cmp word [ModemBaudRate], byte 0Ah
         jne short .21
         push str_BR05
         push dword [byte ebp-018h]
@@ -2197,7 +2197,7 @@ ModemSettingsScreen:
         add esp, byte 8
         mov dword [dword ebp-0792h], eax
 .21:
-        cmp word [word_1C8344], byte 0Ch
+        cmp word [ModemBaudRate], byte 0Ch
         jne near ModemSettingsScreen_11E3
         push str_BR08
         push dword [byte ebp-018h]
@@ -2217,11 +2217,11 @@ ModemSettingsScreen_AE3:
         jmp near ModemSettingsScreen_11E3
 ModemSettingsScreen_AF4:
         call FadeInScreen
-        mov edx, byte_1C833C
+        mov edx, ModemFlags
         mov eax, ModemSettings
         call CopyModemString
         lea edx, [byte ebp-03Ch]
-        mov eax, unk_1C834C
+        mov eax, ModemInitString
         call AddPhonebookEntry
         mov edx, dword [GameSettings]
         mov eax, dword [GameSettings]
@@ -2344,18 +2344,18 @@ ModemSettingsScreen_CC6:
         mov ecx, dword [byte ebp-038h]
         lea edx, [dword ebp-0E18h]
         mov eax, dword [byte ebp-018h]
-        movsx ebx, word [word_1C8340]
+        movsx ebx, word [ModemPort]
         dec ecx
         dec ecx
         call LayoutModemList
         mov eax, dword [byte ebp-038h]
         dec eax
         dec eax
-        mov word [word_1C8340], ax
+        mov word [ModemPort], ax
         mov eax, dword [byte ebp-038h]
         lea edx, [dword ebp-0E18h]
         movsx eax, word [nosplit eax*2+word_16DAD0]
-        movsx ebx, word [word_1C8342]
+        movsx ebx, word [ModemIrq]
         movsx ecx, word [nosplit eax*2+word_16DACC]
         mov eax, dword [byte ebp-018h]
         call LayoutPortList
@@ -2363,12 +2363,12 @@ ModemSettingsScreen_CC6:
         movsx eax, word [nosplit eax*2+word_16DAD0]
         mov ax, word [nosplit eax*2+word_16DACC]
 .33:
-        mov word [word_1C8342], ax
+        mov word [ModemIrq], ax
         jmp near ModemSettingsScreen_11E3
 ModemSettingsScreen_D31:
         mov eax, dword [byte ebp-038h]
         lea edx, [dword ebp-0E18h]
-        movsx ebx, word [word_1C8342]
+        movsx ebx, word [ModemIrq]
         movsx ecx, word [nosplit eax*2+str_Punct_ModemSettingsScreen]
         mov eax, dword [byte ebp-018h]
         call LayoutPortList
@@ -2388,7 +2388,7 @@ ModemSettingsScreen_D5E:
         jmp near ModemSettingsScreen_11E3
 .34:
         lea edx, [byte ebp-03Ch]
-        mov eax, unk_1C834C
+        mov eax, ModemInitString
         call PhonebookEntryScreen
         push byte 0
         push dword 1E0h
@@ -2439,7 +2439,7 @@ ModemSettingsScreen_D5E:
         call SetScreenTarget
         mov eax, dword [byte ebp-024h]
         push dword [byte eax+02Ch]
-        mov ebx, unk_1C834C
+        mov ebx, ModemInitString
         call BlitShape2
         add esp, byte 4
         mov edx, dword [byte ebp-0Ch]
@@ -2453,21 +2453,21 @@ ModemSettingsScreen_E4D:
         mov ecx, edx
         mov edx, 14h
         mov ebx, eax
-        mov eax, unk_1C834C
+        mov eax, ModemInitString
         call EditTextField
         jmp short ModemSettingsScreen_D5E.35
 ModemSettingsScreen_E6E:
-        inc word [word_1C834A]
-        movsx eax, word [word_1C834A]
+        inc word [ModemSpeed]
+        movsx eax, word [ModemSpeed]
         cmp eax, dword [byte ebp-044h]
         jl short .36
-        mov word [word_1C834A], 0
+        mov word [ModemSpeed], 0
 .36:
-        movsx eax, word [word_1C834A]
+        movsx eax, word [ModemSpeed]
         imul eax, byte 44h
         add eax, dword [byte ebp-02Ch]
         lea edx, [byte eax+026h]
-        mov eax, unk_1C8360
+        mov eax, ModemPhoneNumber
         call strcpy_
         call SetScreenTarget
         push dword [byte edi+02Ch]
@@ -2477,7 +2477,7 @@ ModemSettingsScreen_E6E:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        push unk_1C8360
+        push ModemPhoneNumber
         push str_S_ModemSettingsScreen
         push dword 14Bh
         push dword 11Dh
@@ -2492,7 +2492,7 @@ ModemSettingsScreen_E6E:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        movsx eax, word [word_1C834A]
+        movsx eax, word [ModemSpeed]
         imul eax, byte 44h
         add eax, dword [byte ebp-02Ch]
         call strlen_
@@ -2501,7 +2501,7 @@ ModemSettingsScreen_E6E:
         xor eax, eax
         jmp short .38
 .37:
-        movsx edx, word [word_1C834A]
+        movsx edx, word [ModemSpeed]
         imul edx, byte 44h
         mov ebx, dword [byte ebp-02Ch]
         add ebx, edx
@@ -2518,7 +2518,7 @@ ModemSettingsScreen_E6E:
         lea eax, [byte ebp-068h]
         jmp short .40
 .39:
-        movsx eax, word [word_1C834A]
+        movsx eax, word [ModemSpeed]
         imul eax, byte 44h
         add eax, dword [byte ebp-02Ch]
 .40:
@@ -2562,7 +2562,7 @@ ModemSettingsScreen_FCE:
         mov ecx, edx
         mov edx, 1Eh
         mov ebx, eax
-        mov eax, unk_1C8360
+        mov eax, ModemPhoneNumber
         call EditTextField
         call SetScreenTarget
         push dword [byte edi+02Ch]
@@ -2572,16 +2572,16 @@ ModemSettingsScreen_FCE:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        push unk_1C8360
+        push ModemPhoneNumber
         push str_S_ModemSettingsScreen
         push dword 14Bh
         jmp near ModemSettingsScreen_E6E.41
 ModemSettingsScreen_1020:
-        cmp word [word_1C8348], byte 0
+        cmp word [ModemAnswer], byte 0
         je short .44
         mov edx, str_ATDT
         mov eax, unk_1C8388
-        mov word [word_1C8348], 0
+        mov word [ModemAnswer], 0
         call strstr_
         test eax, eax
         je short .43
@@ -2597,7 +2597,7 @@ ModemSettingsScreen_1020:
 .44:
         mov edx, str_ATDP
         mov eax, unk_1C8388
-        mov word [word_1C8348], 1
+        mov word [ModemAnswer], 1
         call strstr_
         test eax, eax
         je short .45
@@ -2634,7 +2634,7 @@ ModemSettingsScreen_1020:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        cmp word [word_1C8348], byte 0
+        cmp word [ModemAnswer], byte 0
         je short .47
         mov eax, 167h
         jmp short .48
@@ -2650,10 +2650,10 @@ ModemSettingsScreen_1020:
         add esp, byte 10h
         jmp near ModemSettingsScreen_E6E.42
 ModemSettingsScreen_112C:
-        cmp word [word_1C8346], byte 0
+        cmp word [ModemDialMode], byte 0
         sete al
         movzx ax, al
-        mov word [word_1C8346], ax
+        mov word [ModemDialMode], ax
         test ax, ax
         je short .50
         lea eax, [dword ebp-02E8h]
@@ -2676,7 +2676,7 @@ ModemSettingsScreen_112C:
 ModemSettingsScreen_1184:
         push str_CM02
         push dword [byte ebp-018h]
-        and byte [byte_1C833C], 0FEh
+        and byte [ModemFlags], 0FEh
         call FindShape
         add esp, byte 8
         push str_CM02
@@ -2715,7 +2715,7 @@ ModemSettingsScreen_11E3:
 ModemSettingsScreen_121D:
         push str_CM00
         push dword [byte ebp-018h]
-        or byte [byte_1C833C], 1
+        or byte [ModemFlags], 1
         call FindShape
         add esp, byte 8
         push str_CM01
@@ -2734,25 +2734,25 @@ ModemSettingsScreen_126A:
         mov ecx, 9
         lea edx, [dword ebp-0E18h]
         mov eax, dword [byte ebp-018h]
-        movsx ebx, word [word_1C8344]
+        movsx ebx, word [ModemBaudRate]
         call LayoutSpeedList
-        mov word [word_1C8344], 9
+        mov word [ModemBaudRate], 9
         jmp near ModemSettingsScreen_11E3
 ModemSettingsScreen_1292:
         mov ecx, 0Ah
         lea edx, [dword ebp-0E18h]
         mov eax, dword [byte ebp-018h]
-        movsx ebx, word [word_1C8344]
+        movsx ebx, word [ModemBaudRate]
         call LayoutSpeedList
-        mov word [word_1C8344], 0Ah
+        mov word [ModemBaudRate], 0Ah
         jmp near ModemSettingsScreen_11E3
 ModemSettingsScreen_12BA:
         mov ecx, 0Ch
         lea edx, [dword ebp-0E18h]
         mov eax, dword [byte ebp-018h]
-        movsx ebx, word [word_1C8344]
+        movsx ebx, word [ModemBaudRate]
         call LayoutSpeedList
-        mov word [word_1C8344], 0Ch
+        mov word [ModemBaudRate], 0Ch
         jmp near ModemSettingsScreen_11E3
 ModemSettingsScreen_12E2:
         mov dword [byte ebp-028h], 0
@@ -2974,7 +2974,7 @@ NetworkGamesScreen:
         enter 0D64h, 0
         mov dword [byte ebp-08h], 0
         mov dword [byte ebp-04h], 0FFFFFFFFh
-        cmp dword [dword_16CCFE], byte 0
+        cmp dword [NetworkGameReady], byte 0
         jne short .1
         mov ax, word [NetworkSettings]
         mov edx, NetworkGameIndex
@@ -2988,7 +2988,7 @@ NetworkGamesScreen:
         and eax, byte 1
         or dword [byte_1C83B4], eax
         movsx eax, word [word_1C83B8]
-        mov dword [dword_16CCFE], 1
+        mov dword [NetworkGameReady], 1
         mov dword [byte ebp-08h], eax
 .1:
         lea eax, [byte ebp-03Ch]
@@ -3797,12 +3797,12 @@ DrawConnectScreen:
         mov dword [byte ebp-04h], edx
         mov dword [byte ebp-08h], ebx
         mov edi, ecx
-        cmp dword [dword_16CCFA], byte 0
+        cmp dword [ModemSettingsChanged], byte 0
         jne short .1
         mov edx, ModemSettings
-        mov eax, byte_1C833C
+        mov eax, ModemFlags
         call CopyModemString
-        mov dword [dword_16CCFA], 1
+        mov dword [ModemSettingsChanged], 1
 .1:
         push byte 0
         push byte 14h
@@ -3852,7 +3852,7 @@ DrawConnectScreen:
         push dword [byte ebx+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        test byte [byte_1C833C], 1
+        test byte [ModemFlags], 1
         je near .2
         push str_CM00
         mov eax, dword [byte esi+02Ch]
@@ -3961,7 +3961,7 @@ DrawConnectScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        cmp word [word_1C8346], byte 0
+        cmp word [ModemDialMode], byte 0
         je short .4
         push str_DC00
         mov eax, dword [byte esi+02Ch]
@@ -4004,7 +4004,7 @@ DrawConnectScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        cmp word [word_1C8344], byte 9
+        cmp word [ModemBaudRate], byte 9
         jne short .6
         push str_BR00
         mov eax, dword [byte esi+02Ch]
@@ -4047,7 +4047,7 @@ DrawConnectScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        cmp word [word_1C8344], byte 0Ah
+        cmp word [ModemBaudRate], byte 0Ah
         jne short .8
         push str_BR03
         mov eax, dword [byte esi+02Ch]
@@ -4090,7 +4090,7 @@ DrawConnectScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        cmp word [word_1C8344], byte 0Ch
+        cmp word [ModemBaudRate], byte 0Ch
         jne short .10
         push str_BR06
         mov eax, dword [byte esi+02Ch]
@@ -4133,7 +4133,7 @@ DrawConnectScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        cmp word [word_1C8340], byte 0
+        cmp word [ModemPort], byte 0
         jne short .12
         push str_CP02
         mov eax, dword [byte esi+02Ch]
@@ -4176,7 +4176,7 @@ DrawConnectScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        cmp word [word_1C8340], byte 1
+        cmp word [ModemPort], byte 1
         jne short .14
         push str_CP05
         mov eax, dword [byte esi+02Ch]
@@ -4219,7 +4219,7 @@ DrawConnectScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        cmp word [word_1C8340], byte 2
+        cmp word [ModemPort], byte 2
         jne short .16
         push str_CP08
         mov eax, dword [byte esi+02Ch]
@@ -4262,7 +4262,7 @@ DrawConnectScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        cmp word [word_1C8340], byte 3
+        cmp word [ModemPort], byte 3
         jne short .18
         push str_CP11
         mov eax, dword [byte esi+02Ch]
@@ -4305,7 +4305,7 @@ DrawConnectScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        cmp word [word_1C8342], byte 2
+        cmp word [ModemIrq], byte 2
         jne short .20
         push str_IR02
         mov eax, dword [byte esi+02Ch]
@@ -4348,7 +4348,7 @@ DrawConnectScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        cmp word [word_1C8342], byte 3
+        cmp word [ModemIrq], byte 3
         jne short .22
         push str_IR05
         mov eax, dword [byte esi+02Ch]
@@ -4391,7 +4391,7 @@ DrawConnectScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        cmp word [word_1C8342], byte 4
+        cmp word [ModemIrq], byte 4
         jne short .24
         push str_IR08
         mov eax, dword [byte esi+02Ch]
@@ -4434,7 +4434,7 @@ DrawConnectScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        cmp word [word_1C8342], byte 7
+        cmp word [ModemIrq], byte 7
         jne short .26
         push str_IR11
         mov eax, dword [byte esi+02Ch]
@@ -4477,7 +4477,7 @@ DrawConnectScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        mov ebx, unk_1C834C
+        mov ebx, ModemInitString
         mov eax, dword [byte ebp-0Ch]
         xor edx, edx
         call DrawModemField
@@ -4606,7 +4606,7 @@ DrawConnectScreen:
         call DefaultModemName
         mov ebx, eax
         mov edx, eax
-        movsx eax, word [word_1C834A]
+        movsx eax, word [ModemSpeed]
         imul eax, byte 44h
         add eax, ebx
         call strlen_
@@ -4614,7 +4614,7 @@ DrawConnectScreen:
         jbe short .29
         xor esi, esi
 .28:
-        movsx eax, word [word_1C834A]
+        movsx eax, word [ModemSpeed]
         imul eax, byte 44h
         add eax, edx
         mov al, byte [esi+eax]
@@ -4632,7 +4632,7 @@ DrawConnectScreen:
         mov edx, 109h
         jmp short .30
 .29:
-        movsx eax, word [word_1C834A]
+        movsx eax, word [ModemSpeed]
         imul eax, byte 44h
         add ebx, eax
         mov eax, dword [byte ebp-04h]
@@ -4663,7 +4663,7 @@ DrawConnectScreen:
         add esp, byte 14h
         mov eax, dword [byte eax+02Ch]
         mov edx, 14Bh
-        push unk_1C8360
+        push ModemPhoneNumber
         movsx eax, word [byte eax+0Eh]
         push str_S_ModemSettingsScreen
         sub edx, eax
@@ -4672,7 +4672,7 @@ DrawConnectScreen:
         push byte 0
         call DrawTextAligned
         add esp, byte 14h
-        cmp word [word_1C8348], byte 0
+        cmp word [ModemAnswer], byte 0
         je short .31
         mov eax, 167h
         jmp short .32
@@ -4859,13 +4859,13 @@ ModemConnectScreen:
         push eax
         call BlitShape2
         add esp, byte 4
-        cmp word [word_16CCF8], byte 0
+        cmp word [ConnectRetry], byte 0
         jne short .1
         mov eax, dword [byte ebx+02Ch]
         mov ebx, eax
         mov edx, eax
         call DrawScreenBackground
-        mov word [word_16CCF8], 1
+        mov word [ConnectRetry], 1
 .1:
         push dword [dword_1C5F22]
         push dword [dword_1C5F1E]
@@ -5424,7 +5424,7 @@ NetworkConnect:
         mov dword [byte ebp+07Ah], 0
         call SecondsToSamples
         call WaitSoundTime
-        cmp dword [dword_16CCFE], byte 0
+        cmp dword [NetworkGameReady], byte 0
         jne short .1
         mov ax, word [NetworkSettings]
         mov edx, NetworkGameIndex
@@ -5436,7 +5436,7 @@ NetworkConnect:
         mov eax, dword [NetworkGameIndex]
         and byte [byte_1C83B4], 0FEh
         and eax, byte 1
-        mov dword [dword_16CCFE], 1
+        mov dword [NetworkGameReady], 1
         or dword [byte_1C83B4], eax
 .1:
         mov eax, 3
@@ -6302,13 +6302,13 @@ NetworkConnectScreen:
         push eax
         call BlitShape2
         add esp, byte 4
-        cmp word [word_16CCF8], byte 0
+        cmp word [ConnectRetry], byte 0
         jne short .3
         mov eax, dword [byte edi+02Ch]
         mov ebx, eax
         mov edx, eax
         call DrawScreenBackground
-        mov word [word_16CCF8], 1
+        mov word [ConnectRetry], 1
 .3:
         push dword [dword_1C5F74]
         push dword [dword_1C5F70]
@@ -6372,9 +6372,9 @@ RunNetworkConnect:
         call NetworkConnect
         jmp short .1
 RunNetworkConnect_35:
-        mov dword [dword_16CCFA], 0
-        mov dword [dword_16CCFE], 0
-        mov word [word_16CCF8], 0
+        mov dword [ModemSettingsChanged], 0
+        mov dword [NetworkGameReady], 0
+        mov word [ConnectRetry], 0
         pop edx
         ret
 ;-----------------------------------------------------------------------------

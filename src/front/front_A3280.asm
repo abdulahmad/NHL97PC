@@ -13,11 +13,11 @@ extern str_GS08, str_GS09, str_PlayerStats, str_GS04, str_GS05, str_D01d, str_00
 extern str_SD4, str_GS24, str_GS25, str_GS20, str_GS21, str_GS16, str_GS17, str_GS12
 extern str_GS13, str_CDCS, str_GS02d, str_S6, str_S7, str_DSSDSSSSD02d, str_SSSSSSSD02d, str_Logo02dQfs2
 extern str_UnpackLogo, str_LOGO5, str_DEBUG, byte_16D27A, byte_16D2A2, MenuOptionFlags, ControlSetupFlags, byte_1AD742
-extern byte_1C135A, byte_1C135B, byte_1C559C, byte_1C559D, byte_1C559E, byte_1C559F, byte_1C55A4, byte_1C55A5
+extern PeriodHomeTeam, PeriodAwayTeam, byte_1C559C, byte_1C559D, byte_1C559E, byte_1C559F, byte_1C55A4, byte_1C55A5
 extern byte_1C55A6, byte_1C55A7, byte_1C55A8, byte_1C55A9, byte_1C55AA, byte_1C55AB, byte_1C6040, byte_1C944A
 extern byte_1C944C, byte_1C9472, GripDriverPtr, dword_16D29E, dword_16D2A8, dword_16D2B8, dword_16D2BC, dword_16D93A
 extern dword_16DA9C, dword_16E464, dword_16E468, GameRunning, GameSettings, GameOptionFlags, SeasonActive, dword_1AD62F
-extern dword_1AD6AB, dword_1C1334, dword_1C13FB, dword_1C13FF, HomeRosterData, dword_1C351E, dword_1C3522
+extern dword_1AD6AB, SeasonFileName, ThreeStarsCount, ThreeStarsList, HomeRosterData, dword_1C351E, dword_1C3522
 extern AwayRosterData, dword_1C5DE0, dword_1C5DE4, dword_1C5E74, dword_1C93F0, dword_1C9410, dword_1C9430
 extern dword_1C9473, dword_1C94A4, dword_1C94A8, dword_1C94B4, dword_1C94B8, dword_1C94BC, dword_1C94C0, dword_1C94C4
 extern dword_1C94C8, dword_1C94CC, dword_1C94D0, dword_1C94D4, dword_1C94D8, dword_1C94DC, dword_1C94E0, dword_1C94E4
@@ -41,10 +41,10 @@ extern SortStatTable, DrawStatTableRows, DrawStatTableArt, UserLogScreen, InitLi
 extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, CopyControlSettings, AllocMemBlock
 extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, str_D_RunLinkGameScreens, str_D_DrawTeamStatLine
-extern str_Punct_GoalTypeSuffix, unk_16D262, str_S_RunLinkGameScreens, ControlSetup, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
+extern str_Punct_GoalTypeSuffix, unk_16D262, str_S_RunLinkGameScreens, ControlSetup, AutoLineData, unk_1C347F, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_1C94F4, GripPortWord, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
 extern word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2, word_16D2B4, PassState, gameover
-extern word_1C1348, word_1C55A2, word_1C9448, word_1C9450, word_1C9470, word_1C94EC, word_1C94EE, word_1C94F0
+extern AllStarArena, word_1C55A2, word_1C9448, word_1C9450, word_1C9470, word_1C94EC, word_1C94EE, word_1C94F0
 extern word_1C94F6, word_1C94F8, word_1C94FA, word_1C95AC, word_1C95AE
 global jpt_A3B51, jpt_A4B35, jpt_A4B4D, jpt_A4B65, jpt_A6680, jpt_A7D7C, LinkGameSetup_8CA, LinkGameSetup_8CB
 global LinkSetupCursor_29, LinkSetupCursor_CC, LinkSetupCursor_166, LinkSetupCursor_1EE, LinkSetupCursor_2BB, RunLinkGameScreens_30, RunLinkGameScreens_112, RunLinkGameScreens_1971
@@ -3738,7 +3738,7 @@ PlayArenaAnnouncement:
         mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, 0FC000h
-        movsx esi, word [word_1C1348]
+        movsx esi, word [AllStarArena]
         cmp eax, 68000h
         je short .1
         cmp eax, 6C000h
@@ -4143,7 +4143,7 @@ PostGameScreen:
 .6:
         cmp word [dword esp+edi+0294h], byte 0
         jne short .7
-        mov eax, unk_1C135C
+        mov eax, AutoLineData
         jmp short .8
 .7:
         mov eax, unk_1C347F
@@ -4788,7 +4788,7 @@ PickThreeStars:
         push esi
         push edi
         mov edi, eax
-        mov esi, dword_1C13FF
+        mov esi, ThreeStarsList
         mov ecx, eax
         xor edx, edx
         xor ebx, ebx
@@ -4806,7 +4806,7 @@ PickThreeStars:
         mov word [byte ecx-06h], dx
         inc edx
 .2:
-        mov eax, dword [dword_1C13FB]
+        mov eax, dword [ThreeStarsCount]
         sar eax, 10h
         cmp edx, eax
         jl short .1
@@ -4966,7 +4966,7 @@ DrawThreeStarStats:
         xor esi, esi
         mov si, word [dword eax+word_1C94F6]
         imul esi, dword 125h
-        add esi, dword_1C13FF
+        add esi, ThreeStarsList
         jmp short .7
 .6:
         mov ax, word [dword eax+word_1C94F6]
@@ -5591,14 +5591,14 @@ ClearThreeStars:
         mov word [word_1C55A2], dx
         mov word [word_1C95AE], bx
         mov word [word_1C95AC], bx
-        mov byte [byte_1C135A], ah
+        mov byte [PeriodHomeTeam], ah
         xor edx, edx
-        mov byte [byte_1C135B], ah
+        mov byte [PeriodAwayTeam], ah
         mov dword [esp], edx
 .1:
         cmp dword [esp], byte 0
         jne short .2
-        mov ebp, unk_1C135C
+        mov ebp, AutoLineData
         jmp short .3
 .2:
         mov ebp, unk_1C347F
@@ -6790,7 +6790,7 @@ DrawTeamGameStats:
         test esi, esi
         jne short .2
         mov edx, 64h
-        mov eax, unk_1C135C
+        mov eax, AutoLineData
         jmp short .3
 .2:
         mov edx, 21Ch
@@ -7690,7 +7690,7 @@ FormatPlayerStatLine:
         sub esp, byte 4
         cmp dword [dword_1C9564], byte 0
         jne short .1
-        mov dword [esp], unk_1C135C
+        mov dword [esp], AutoLineData
         jmp short .2
 .1:
         mov dword [esp], unk_1C347F
@@ -7994,7 +7994,7 @@ BuildPlayerStatsTable:
         call FormatPlayerStatLine
         cmp dword [dword_1C9564], byte 0
         jne short .1
-        mov dword [byte esp+04h], unk_1C135C
+        mov dword [byte esp+04h], AutoLineData
         jmp short .2
 .1:
         mov dword [byte esp+04h], unk_1C347F
@@ -9415,7 +9415,7 @@ GoalTypeSuffix:
         mov byte [byte esp+03Ch], dl
         cmp byte [byte ecx+04h], 0
         jne short .1
-        mov edx, unk_1C135C
+        mov edx, AutoLineData
         jmp short .2
 .1:
         mov edx, unk_1C347F
@@ -9621,7 +9621,7 @@ FormatGoalLine:
         lea ecx, [byte esp+014h]
         test ah, ah
         jne short .1
-        mov eax, unk_1C135C
+        mov eax, AutoLineData
         jmp short .2
 .1:
         mov eax, unk_1C347F
@@ -9995,7 +9995,7 @@ PlayMenuGame:
         test eax, eax
         je short .1
         mov edx, 4A78h
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         xor ebx, ebx
         call LinkSendBlock
         call LinkSyncMenu
@@ -10012,20 +10012,20 @@ PlayMenuGame:
         mov esi, eax
         call LinkReceiveBlock
         mov ebx, 16h
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         mov edx, ecx
         call memcmp_
         test eax, eax
         jne short .2
         mov ebx, 4A52h
-        mov eax, byte_1C135A
+        mov eax, PeriodHomeTeam
         lea edx, [byte ecx+026h]
         call memcmp_
         test eax, eax
         je short .3
 .2:
         push dword 4A78h
-        push dword_1C1334
+        push SeasonFileName
         push esi
         call bcopy
         add esp, byte 0Ch

@@ -6,10 +6,10 @@ extern CountTeamSlots, SetupTeamForIntermission, SortCords, __CHK, __CHP, __STOS
 extern str_RPEVENT2, str_WaitingForOtherComputer2, str_WarteAufAnderenComputer, str_BREAKIN, str_BREAKOUT, awtmstruct, LinePlayersHome, PenaltyBoxCount
 extern ShotFlagsReset, NearestPlayer, NearestTeam, GoalieOut, OneTimerFlag, iflags, IcingTeam, gmode
 extern PuckFlags, PlayFlags, holdreset, RefSignal, ChantPlayed, ChantState, PadStates, LineChangeKeyFlags
-extern PlayerControlRest, MusicOptions, DetailLevel, DisplayOptions, byte_1C135A, byte_1C135B, byte_1C6040, clearteams
+extern PlayerControlRest, MusicOptions, DetailLevel, DisplayOptions, PeriodHomeTeam, PeriodAwayTeam, byte_1C6040, clearteams
 extern F32_10, F32_neg8, F32_neg8_StickReachZ, GameEventTable, GameEventFlags, SavedCameraView, ClockShown, F32_62
 extern F32_54, F32_0p8, F32_ReachFactor, OpeningFrames, InGameMenuRequest, BrightnessLevel, ShowFrameRate, ShowStands
-extern ShowRink, ShowCenterLogo, ShowShadows, ShowOverlay, ShowCrowd, ShowBenches, CameraScenesEnabled, dword_16C6BC
+extern ShowRink, ShowCenterLogo, ShowShadows, ShowOverlay, ShowCrowd, ShowBenches, CameraScenesEnabled, CupCelebrationActive
 extern InputRecordStamp, dword_16DA9C, dword_16E464, dword_16E468, QuantizePalette, ProgressCount, RefState, InputState
 extern InputDir, ShotState, LastTouchPlayer, PassFrom, PassTo, GameRunning, FaceoffWinner, seed
 extern GameFrame, penshottimer, PuckX, RefTarget, RefPlayer, bholdtimer, InputActive, InputSlotState
@@ -17,8 +17,8 @@ extern PuckChasers, FaceoffCenter, ChangePlayer, LastChangePlayer, LinkSides, Li
 extern DisplayWidth, DisplayHeight, ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH, VideoModeChanged, DisplayFlags
 extern GameEventPtr, DisplayBuffer, DisplayBufferSize, ReplayLoaded, GameKeyState, GameObjects, GameTick, GameLoopTime
 extern DemoFrame, PlayerPointsTable, ViewSizeIndex, GameSettings, AudioOptions, Brightness, GameOptionFlags, GameRecord
-extern ObjectPositions, ReplayFrames, PlayerNamesOn, ReplayMode, ReplayPlaying, ReplayTick, CameraStateRecords, dword_1C1334
-extern dword_1C1346, dword_1C5DE4, dword_1C5EF4, hmtmstruct, memcpy_, PtrPuckOwner, PtrPuckZone, PtrPuckFlags
+extern ObjectPositions, ReplayFrames, PlayerNamesOn, ReplayMode, ReplayPlaying, ReplayTick, CameraStateRecords, SeasonFileName
+extern AllStarTeamCode, dword_1C5DE4, dword_1C5EF4, hmtmstruct, memcpy_, PtrPuckOwner, PtrPuckZone, PtrPuckFlags
 extern PtrPuckObject, PtrHomeIce, PtrAwayIce, F64_0p000244141, F64_1p2, F64_neg8, F64_0p5, F64_50
 extern F64_0p01_StickReachZ, F64_0p392699, F64_0p159155, F64_65536, rand_, randomd0, regd1, StartCrowdMusic
 extern SetupFaceoffPlayers, ClearPlayerFlags, ResetTeamStats, IsPlayoffGame, ResetForIntermission, RefreshRinkPalette, ClockTick, StartPeriod
@@ -1026,7 +1026,7 @@ PickGameEvents:
         pop ebx
         ret
         push edx
-        mov eax, dword [dword_1C1346]
+        mov eax, dword [AllStarTeamCode]
         sar eax, 10h
         cmp eax, byte 15h
         jne short .11
@@ -1736,12 +1736,12 @@ DebugKeys:
         mov ecx, 1
         xor dl, dl
         xor esi, esi
-        mov byte [byte_1C135A], ah
-        mov byte [byte_1C135B], dl
+        mov byte [PeriodHomeTeam], ah
+        mov byte [PeriodAwayTeam], dl
         mov word [word_1C3415], cx
         xor eax, eax
         mov word [word_1C5538], si
-        mov al, byte [byte_1C135A]
+        mov al, byte [PeriodHomeTeam]
         mov word [word_1C3417], si
         mov word [hmtmstruct], ax
         xor eax, eax
@@ -1768,7 +1768,7 @@ DebugKeys:
         xor cl, cl
         xor esi, esi
         xor eax, eax
-        mov byte [byte_1C135A], cl
+        mov byte [PeriodHomeTeam], cl
         mov word [hmtmstruct], si
         mov word [awtmstruct], di
         mov word [word_1C3415], ax
@@ -1779,7 +1779,7 @@ DebugKeys:
         mov ch, 1
         mov esi, 2
         mov al, byte [gmode]
-        mov byte [byte_1C135B], ch
+        mov byte [PeriodAwayTeam], ch
         mov word [Period], si
         mov word [gsp], si
         or al, 40h
@@ -1797,7 +1797,7 @@ DebugKeys:
         xor dl, dl
         xor esi, esi
         xor eax, eax
-        mov byte [byte_1C135A], dl
+        mov byte [PeriodHomeTeam], dl
         mov word [hmtmstruct], si
         mov word [awtmstruct], si
         mov word [word_1C3415], si
@@ -1806,7 +1806,7 @@ DebugKeys:
         mov word [StatsPanelOn], ax
         xor dh, dh
         mov esi, 2
-        mov byte [byte_1C135B], dh
+        mov byte [PeriodAwayTeam], dh
         mov word [word_1C5538], dx
         mov word [Period], si
         mov word [gsp], si
@@ -1857,7 +1857,7 @@ DebugKeys:
         pop ebx
         ret
 .21:
-        mov dword [dword_16C6BC], 1
+        mov dword [CupCelebrationActive], 1
         mov eax, 1
         pop edi
         pop esi
@@ -2632,7 +2632,7 @@ InitGameDisplay:
         mov eax, 1
         call PickGameEvents
         mov dword [DisplayBuffer], eax
-        mov eax, dword [dword_1C1346]
+        mov eax, dword [AllStarTeamCode]
         sar eax, 10h
         cmp eax, byte 15h
         jne short .1
@@ -3251,7 +3251,7 @@ RunDemoGame:
         mov eax, dword [DemoFrame]
         shl eax, 0Ch
         shr eax, 1Ah
-        mov ecx, dword_1C1334
+        mov ecx, SeasonFileName
         movsx edx, ax
         mov eax, dword [byte esp+04h]
         call PickDemoTeams

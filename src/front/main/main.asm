@@ -9,7 +9,7 @@ extern str_Punct11, str_YouMustFirstUseTheSETUPPr, str_SystemBeforeRunningHOCKEY
 extern str_NHL97MustBeInstalledAndRu, str_CDFILEIVIV, str_BitteLegenSieDieNHL97CDIn, str_PleaseInsertTheNHL97CDROM, str_CHK12, str_X12, str_CB003, str_CHKD
 extern str_XD2, str_CB02d, str_N, str_E, str_W, str_S14, str_NW, str_NE
 extern str_SW, str_SE, str_LX02d, str_LC02d, str_UNPACKLOGO, str_LOGO8, str_LX004, str_LC004
-extern str_DisD, str_REL1, str_RELD, str_Ldn2, ShadeTable, StartupFlag, MusicOptions, byte_1C1267
+extern str_DisD, str_REL1, str_RELD, str_Ldn2, ShadeTable, StartupFlag, MusicOptions, MainCmdLine
 extern byte_1C6040, close_, DirPathTable, dword_16CAB0, dword_16CAB4, str_Punct_DrawScreenBackground, dword_16CAF4, dword_16CB78
 extern dword_16CB7C, dword_16CB80, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap, DebugMode, ScreenWidth
 extern ExitHandler, KbdHandlerInstalled, GameSettings, dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE4
@@ -38,7 +38,7 @@ extern CreateBitmap, SetDrawTarget, ClearScreen, FillRectColor, FillRect, Measur
 extern FillRectCorners, DrawGlyph, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
 extern unk_164636, unk_164686, unk_1646D4, unk_164724, unk_16480B, unk_1648DA, unk_16491D, unk_1649E0
 extern unk_164A6A, unk_164B4D, unk_164BFD, unk_164C3F, unk_164C6C, unk_164D67, unk_164F96, str_Punct_main_
-extern unk_16508B, str_X, str_S_EditText, unk_16CB30, DebugTagStr, unk_1C1264, unk_1C12B4, unk_1C5EF8
+extern unk_16508B, str_X, str_S_EditText, unk_16CB30, DebugTagStr, MainArgFlag, MainPathBuffer, unk_1C5EF8
 extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1C6044, unk_1C6104, unk_1C7144, unk_1C81BC
 global jpt_816D8, jpt_845CC, PlayerBioScreen_425, PlayerBioScreen_438, PlayerBioScreen_44A, PlayerBioScreen_45A, main_, CheckDiskSpace
 global DrawShadedButton, DrawShadedField, ShadeShape, DrawShadedLogo, DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen
@@ -275,43 +275,43 @@ main_:
         call exit_
 .12:
         mov ebx, 1
-        mov eax, unk_1C1264
+        mov eax, MainArgFlag
         mov edx, ebx
         call MakeDirPath
         mov edx, str_CDFILEIVIV
-        mov eax, unk_1C1264
+        mov eax, MainArgFlag
         call strcat_
         push byte 0
-        push unk_1C1264
+        push MainArgFlag
         call open_
         add esp, byte 8
         mov dword [dword_1C5DDC], eax
         cmp eax, byte 0FFFFFFFFh
         jne short .16
         push str_Punct_main_
-        mov byte [byte_1C1267], 0
+        mov byte [MainCmdLine], 0
         call printf_
         mov eax, dword [GameSettings]
         and eax, byte 0Ch
         add esp, byte 4
         cmp eax, byte 8
         jne short .13
-        push unk_1C1264
+        push MainArgFlag
         push str_BitteLegenSieDieNHL97CDIn
         jmp short .15
 .13:
         cmp eax, byte 4
         jne short .14
-        push unk_1C1264
+        push MainArgFlag
         push unk_16508B
         jmp short .15
 .14:
-        push unk_1C1264
+        push MainArgFlag
         push str_PleaseInsertTheNHL97CDROM
 .15:
         call printf_
         add esp, byte 8
-        push unk_1C12B4
+        push MainPathBuffer
         call printf_
         add esp, byte 4
         mov eax, 1

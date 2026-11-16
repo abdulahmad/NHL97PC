@@ -8,7 +8,7 @@ extern str_ST02d, byte_1C3449, byte_1C344A, byte_1C344B, byte_1C3455, byte_1C345
 extern byte_1C556D, byte_1C556E, byte_1C5578, byte_1C5579, byte_1C55A0, byte_1C6040, byte_1CC8B4, dword_16D6E8
 extern dword_16D6EC, dword_16D6F0, dword_16D6F4, dword_16D6F8, dword_16D6FC, dword_16D700, dword_16D704, dword_16D708
 extern dword_16D71C, dword_16D720, dword_16D724, dword_16D728, dword_16D73C, dword_16D740, dword_16D74C, dword_16D750
-extern GameSettings, GameOptionFlags, SeasonActive, dword_1C13FF, HomeRosterData, dword_1C3522, AwayRosterData, dword_1CC2C8
+extern GameSettings, GameOptionFlags, SeasonActive, ThreeStarsList, HomeRosterData, dword_1C3522, AwayRosterData, dword_1CC2C8
 extern dword_1CC328, dword_1CC32C, dword_1CC330, dword_1CC334, dword_1CC338, dword_1CC33C, dword_1CC340, dword_1CC344
 extern dword_1CC348, dword_1CC34C, dword_1CC4B0, dword_1CC4B4, dword_1CC4B8, dword_1CC4BC, dword_1CC4C0, dword_1CC4C4
 extern dword_1CC4C8, dword_1CC4CC, dword_1CC5B0, dword_1CC5C8, dword_1CC5CC, dword_1CC5D0, dword_1CC5EC, dword_1CC5F0
@@ -1313,28 +1313,28 @@ PreGameStatsPanel:
         movzx eax, byte [byte_1C3449]
         imul eax, dword 125h
         mov dword [dword_1CC7C4], edx
-        mov edx, dword_1C13FF
+        mov edx, ThreeStarsList
         add edx, eax
         movzx eax, byte [byte_1C344A]
         imul eax, dword 125h
         mov dword [dword_1CC63C], edx
-        mov edx, dword_1C13FF
+        mov edx, ThreeStarsList
         add edx, eax
         movzx eax, byte [byte_1C344B]
         imul eax, dword 125h
         mov dword [dword_1CC640], edx
-        mov edx, dword_1C13FF
+        mov edx, ThreeStarsList
         add edx, eax
         movzx eax, byte [byte_1C3455]
         imul eax, dword 125h
         mov dword [dword_1CC644], edx
-        mov edx, dword_1C13FF
+        mov edx, ThreeStarsList
         add edx, eax
         movzx eax, byte [byte_1C3456]
         imul eax, dword 125h
         add esp, byte 4
         mov dword [dword_1CC648], edx
-        mov edx, dword_1C13FF
+        mov edx, ThreeStarsList
         mov dword [dword_1CC7B8], ebx
         add edx, eax
         movzx eax, byte [byte_1C347D]

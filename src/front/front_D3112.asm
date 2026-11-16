@@ -22,8 +22,8 @@ extern str_Hextall, str_PHI, str_QUE, str_199293, str_Heyward, str_Hirsch, str_V
 extern unk_1671E0, str_Jablonski, unk_1671F0, str_Joseph, str_EDM, str_Kidd, str_CAL, str_Kolzig
 extern str_Lacher, str_BOS, str_Moog, str_DAL, str_Richter, unk_167234, str_Roy, str_COL
 extern str_MTL, str_Thibault, str_Vanbiesbrouck, str_FLA, str_Vernon, str_DET, str_EA, unk_16D7FC
-extern MatchupNote, unk_1C135C, unk_1C1382, unk_1C139A, unk_1C347F, unk_1C34A5, unk_1C5EF8, unk_1C5F4A
-extern unk_1C5F9C, unk_D3057, unk_D305F, unk_D3067, word_1C1344
+extern MatchupNote, AutoLineData, MatchupNoteText, MatchupNoteLine, unk_1C347F, unk_1C34A5, unk_1C5EF8, unk_1C5F4A
+extern unk_1C5F9C, unk_D3057, unk_D305F, unk_D3067, AllStarDay
 global jpt_D4215, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7, PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, PreGameRostersScreen_C3F, DrawMatchupHistory_FB, DrawMatchupHistory_FC
 global DrawMatchupNotes_86, DrawMatchupNotes_C5, DrawMatchupNotes_10F, DrawMatchupNotes_14B, PreGameRostersScreen, FormatMatchupNote, DrawRosterPlayerInfo, DrawMatchupHistory
 global DrawRosterLabel, DrawMatchupNotes, FindMatchupNotes, CountTeamResults, MatchupAnnouncement, unk_D4CB0
@@ -1043,7 +1043,7 @@ DrawRosterPlayerInfo:
         lea ecx, [byte ebp+076h]
         lea ebx, [byte ebp+07Eh]
         lea edx, [byte ebp+07Ah]
-        movzx eax, word [word_1C1344]
+        movzx eax, word [AllStarDay]
         call AgeFromBirthDate
         push byte 0FFFFFFFFh
         call MakeColor
@@ -1180,7 +1180,7 @@ DrawRosterPlayerInfo:
         mov eax, 7Dh
         jmp short .14
 .10:
-        movzx eax, word [word_1C1344]
+        movzx eax, word [AllStarDay]
         sub edx, eax
         mov eax, edx
         cmp edx, byte 3Ch
@@ -1261,7 +1261,7 @@ DrawMatchupHistory:
 .1:
         test ebx, ebx
         je short .2
-        mov eax, unk_1C135C
+        mov eax, AutoLineData
         jmp short .3
 .2:
         mov eax, unk_1C347F
@@ -1407,12 +1407,12 @@ DrawMatchupNotes:
         je short .2
         mov eax, edi
         and eax, 0F0h
-        mov ebx, unk_1C139A
+        mov ebx, MatchupNoteLine
         sar eax, 4
         jmp short .3
 .2:
         mov eax, edi
-        mov ebx, unk_1C139A
+        mov ebx, MatchupNoteLine
         and eax, byte 0Fh
 .3:
         dec eax
@@ -1510,7 +1510,7 @@ DrawMatchupNotes_14B:
 .7:
         test esi, esi
         je short .8
-        mov edi, unk_1C135C
+        mov edi, AutoLineData
         jmp short .9
 .8:
         mov edi, unk_1C347F
@@ -1673,7 +1673,7 @@ DrawMatchupNotes_14B:
 .33:
         test esi, esi
         je short .34
-        mov edi, unk_1C135C
+        mov edi, AutoLineData
         jmp short .35
 .34:
         mov edi, unk_1C347F
@@ -1725,7 +1725,7 @@ DrawMatchupNotes_14B:
         push dword [byte ebp-0Ch]
         push dword [byte ebp-08h]
         push unk_1C34A5
-        push unk_1C1382
+        push MatchupNoteText
         mov ebx, eax
         mov eax, dword [dword_16D744]
         push str_SVsSDDD
@@ -1758,7 +1758,7 @@ DrawMatchupNotes_14B:
         push unk_1C34A5
         push dword [byte ebp-018h]
         mov ebx, eax
-        push unk_1C1382
+        push MatchupNoteText
         mov eax, dword [dword_16D744]
         mov esi, 1
         push str_SDSD2

@@ -10,7 +10,7 @@ extern str_BKH, str_BKD, str_SFX4S, str_AUDSTREAM, str_CROWDCRD, str_GAMEDATAAUD
 extern str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, AudioStreamChannel, QuantizeByte
 extern QuantizeTable, RemapTable, IdentityRemap, gmode, OverlayMask, FadePalCurrent, FadePalBytes, FadePalTarget
 extern FadePalTargetG, FadePalTargetBytes, MusicTrackTable, SfxOptions, MusicOptions, byte_1ACF62, byte_1ACF63, byte_1AD457
-extern byte_1AD458, byte_1AD742, BoxSeatSlot, BoxSeatFlags, MoveFlags, byte_1C135A, byte_1C135B, byte_1C6040
+extern byte_1AD458, byte_1AD742, BoxSeatSlot, BoxSeatFlags, MoveFlags, PeriodHomeTeam, PeriodAwayTeam, byte_1C6040
 extern F32_10_RefDodgePuck, F32_3_RefDodgePuck, F32_15, F32_0p0666667, F32_0p5_RefDodgePuck, F32_144_PokeCheckAnim, F32_336, F32_192_TryBodyCheck
 extern F32_144_TryBodyCheck, F32_98, F32_42, dword_16908A, SeasonPanelText, MatchupLogoIds, str_G_DrawLockedGame, MatchupLogoPos
 extern str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim, str_U_FaceoffDrawAnim, ViewBorderColor, ViewBorderRows, StreamBlockCount, StreamBlockSize
@@ -34,7 +34,7 @@ extern SpeechClipIndex, SpeechBankHandle, SpeechClipTable, SpeechQueueClipId, Sp
 extern SpeechBanksLoaded, SpeechRequestId, SpeechRequestA, SpeechRequestB, GameSettings, AudioOptions, SeasonUserTeam, GameOptionFlags
 extern SeasonPhase, SeasonActive, dword_1ACF65, dword_1AD226, dword_1AD45A, dword_1AD6AB, ReplayPlaying, CameraStateRecords
 extern CameraStateRecords, BoxSeatPlayer, BoxSeatTeam, BenchSeats, SeatTable, StrideSpeeds, BoxAnimFrames
-extern DodgeScale, BoxAnimIndex, dword_1C1334, dword_1C5E74, hypot_, jpt_380E6, jpt_38102, jpt_3811A
+extern DodgeScale, BoxAnimIndex, SeasonFileName, dword_1C5E74, hypot_, jpt_380E6, jpt_38102, jpt_3811A
 extern memcpy_, PtrPuckZone, PtrPuckFlags, SfxBankNameTable, SfxGroupTable, F64_neg3p14159_GoToBoxAnim, F64_0p2_RefDodgePuck, F64_6p28319_ReachForPuckAnim
 extern F64_3p14159_ReachForPuckAnim, F64_neg6p28319_ReachForPuckAnim, F64_neg3p14159_ReachForPuckAnim, F64_0p785398_ReachForPuckAnim, F64_0p0001, F64_0p6, F64_96, F64_0p00347222
 extern F64_0p8, F64_1p2_PokeCheckAnim, F64_6p28319_TryBodyCheck, F64_3p14159_TryBodyCheck, F64_neg6p28319_TryBodyCheck, F64_neg3p14159_TryBodyCheck, F64_1p0472, F64_1p5708
@@ -66,7 +66,7 @@ extern str_16, str_8, DisplayViewRecords, DirtySpans, OverlayMaskBase, RinkPalet
 extern unk_1AD22E, BoxSeats, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_169054, word_169066, str_Punct_DrawSeasonGamePanel
 extern SparkleTimer, SfxBankLoaded, MusicBlock, MusicStopRequest, SfxVolumeScale, SfxVolumeWord, MusicVolumeScale, SeasonDate
 extern SeasonLastGame, FadePalStepR, FadePalStepG, FadePalSteps, FadeAccumR, FadeAccumG, FadeAccumB, FadeAccumNext
-extern FadeAccumLast, FadeAccums, SpeechQueuePrio, word_1AD240, word_1AD242, word_1C1344
+extern FadeAccumLast, FadeAccums, SpeechQueuePrio, word_1AD240, word_1AD242, AllStarDay
 global jpt_3EF24, jpt_40D68, jpt_40DCC, jpt_40E30, jpt_40EA4, SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B
 global SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3, SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF
 global SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, InitSeasonGameScreen_472, FindUserOpponent_14D, FindUserOpponent_14E, AnimateSparkle_6B, FadePaletteStep_FC
@@ -314,9 +314,9 @@ SeasonGameScreen_2CF:
         call SimulateGame
         cmp dword [SeasonPlayedFlag], byte 0
         je short .12
-        movzx ax, byte [byte_1C135A]
+        movzx ax, byte [PeriodHomeTeam]
         mov word [word_1AD240], ax
-        movzx ax, byte [byte_1C135B]
+        movzx ax, byte [PeriodAwayTeam]
         mov dword [SeasonPlayedFlag], 0
         mov word [word_1AD242], ax
         jmp short .13
@@ -1944,9 +1944,9 @@ DrawSeasonGamePanel:
 ; Copies the two teams of the game just played into the season state
 ;-----------------------------------------------------------------------------
 SetPlayedTeams:
-        movzx ax, byte [byte_1C135A]
+        movzx ax, byte [PeriodHomeTeam]
         mov word [word_1AD240], ax
-        movzx ax, byte [byte_1C135B]
+        movzx ax, byte [PeriodAwayTeam]
         mov dword [SeasonPlayedFlag], 0
         mov word [word_1AD242], ax
         ret
@@ -1962,7 +1962,7 @@ IsAllStarDay:
         cmp dword [SeasonActive], byte 0
         jne short .1
         call GetAllStarDate
-        cmp ax, word [word_1C1344]
+        cmp ax, word [AllStarDay]
         jne short .1
         mov eax, 1
         ret
@@ -2066,7 +2066,7 @@ StartNextSeasonGame:
         shl ebx, 4
         mov eax, dword [byte edx+020h]
         mov ax, word [byte ebx+eax+04h]
-        mov word [word_1C1344], ax
+        mov word [AllStarDay], ax
         mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
@@ -2153,7 +2153,7 @@ StartNextSeasonGame:
         lea eax, [dword ebp-0195Ch]
         call UpdateTeamLines
         lea eax, [dword ebp-0195Ch]
-        mov ebx, dword_1C1334
+        mov ebx, SeasonFileName
         call UpdateGameRecord
         movsx edx, word [byte ebp-04h]
         mov eax, dword [SeasonUserTeam]

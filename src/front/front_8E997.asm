@@ -11,11 +11,11 @@ extern str_SR01, str_SR00, str_SG02, str_SG01, str_SG00, str_DT02, str_DT01, str
 extern str_LG02d, str_DIV3, str_DIV4, str_DIV1, str_DIV2, str_Factoid, str_Rts, str_Ross
 extern str_Standmenu, str_FACT, str_LBL1LBL2LBL3LBR1LBR2LTL1L3, str_DDD3, str_Ptlist, str_Idlist, str_List, str_SSSDSS
 extern str_SSDSS, str_SSDSS2, str_SSD02dSS, str_S3, str_S4, str_SSEASDSET, str_Importagents, str_FakeEXHIBIT
-extern str_FakeAGENTS, str_Agents, byte_169038, byte_16CCF0, SeasonFlags, byte_1ACF62, byte_1ACF63, byte_1ACF69
+extern str_FakeAGENTS, str_Agents, byte_169038, FrontEndExit, SeasonFlags, byte_1ACF62, byte_1ACF63, byte_1ACF69
 extern byte_1AD23E, byte_1C6040, byte_1C8700, StandingsColumns, PlayoffColumns, dword_168FB8, dword_168FD0, dword_169004
 extern dword_16CB7C, dword_16CD50, dword_16CD54, dword_16CD58, str_F_NewSeasonScreen, dword_16CD64, dword_16CDD0, dword_16DA9C
 extern SeasonUserTeam, GameOptionFlags, SeasonSlot, SeasonPhase, PlayoffRounds, SeasonActive, dword_1ACF4A, dword_1AD226
-extern dword_1AD22A, dword_1AD244, dword_1C1334, dword_1C5DE0, dword_1C8334, dword_1C84D8, dword_1C8540, dword_1C8568
+extern dword_1AD22A, dword_1AD244, SeasonFileName, dword_1C5DE0, SeasonMenuExit, dword_1C84D8, dword_1C8540, dword_1C8568
 extern dword_1C85D0, dword_1C8618, dword_1C8680, dword_1C86E8, dword_1C86EC, dword_1C86F0, dword_1C86F4, dword_1C86F8
 extern dword_1C86FC, dword_1C8A8C, dword_1C8A90, dword_1C94E8, jpt_8E977, jpt_8E987, memcpy_, memset_
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, BlitShape2
@@ -1633,10 +1633,10 @@ CreateSeason_562:
 RunSeasonMenus:
         push edx
         mov edx, 0Ch
-        cmp dword [dword_1C8334], byte 0
+        cmp dword [SeasonMenuExit], byte 0
         je short .7
         mov edx, 1Ch
-        mov dword [dword_1C8334], 0
+        mov dword [SeasonMenuExit], 0
         jmp short .7
 .1:
         cmp edx, byte 0Ch
@@ -1687,7 +1687,7 @@ RunSeasonMenus:
         jmp short .4
 .11:
         mov edx, 0Ch
-        mov byte [byte_16CCF0], 0
+        mov byte [FrontEndExit], 0
         call RunStatsMenu
         jmp short .7
 .12:
@@ -4710,7 +4710,7 @@ FindSeasonReplay:
         mov eax, dword [SeasonUserTeam]
         mov eax, dword [byte eax+020h]
         add eax, esi
-        mov edx, dword_1C1334
+        mov edx, SeasonFileName
         add eax, byte 8
         call FindReplayIndexEntry
         mov eax, 1
