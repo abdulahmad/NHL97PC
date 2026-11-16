@@ -415,8 +415,8 @@ CallGripDriver:
 ;-----------------------------------------------------------------------------
 ; LoadGripLibrary                              10354  96 PC, medium confidence
 ; Finds GRIP.GLL on the GRIP and PATH environment variables or in C:\GRIP\,
-; reads it (at most 32 KB) and links it with GripLinkLibrary; failure clears
-; dword_114CD3
+; reads it (at most 32 KB) and links it with GripLinkLibrary; the result is kept
+; in GripFlags
 ;-----------------------------------------------------------------------------
 LoadGripLibrary:
         push ebx

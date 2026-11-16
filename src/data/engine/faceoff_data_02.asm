@@ -10,7 +10,7 @@ extern asseben, assleaveice, asspenalty, assdopen, assepen, assrefpenshot, assre
 extern assrefgoalpa, assrefgoalline, assreffollow, assrefdrop, assrefatdot, assintrostand, assintroline, asstakeposition
 extern assstanley, pucknorm, puckfaceoff2, assshoot, assfight, assfwatch, InitFpuEmulatorEntry, FiniFpuEmulatorEntry
 extern SaveStackSegment
-global LinePlayersHome, LinePlayersAway, LinePickOrder, PersonnelTable, VideoCodePtr, AssignFuncTable, CompLineTable, off_19C61F
+global LinePlayersHome, LinePlayersAway, LinePickOrder, PersonnelTable, VideoCodePtr, AssignFuncTable, CompLineTable, LinePickOrderFrom1
 global CompLineRows
 global InitRtnsEntry, FiniRtnsEntry, SpareGameWord, SpareGameFlag, HomeSpareCount
 global HomeSpareFlag, FaceoffHomePlayer, FaceoffAwayPlayer, AwaySpareCount, AwaySpareFlag, RimTargetX, RimTargetY
@@ -118,7 +118,7 @@ CompLineTable:
         dd CompLineRows+80h
         dd CompLineRows+090h
         dd CompLineRows+0A0h
-off_19C61F equ $+3
+LinePickOrderFrom1 equ $+3
         dd CompLineRows+0B0h
 LinePickOrder:
         db 00h,01h,02h,04h,03h,05h,06h,00h

@@ -4131,7 +4131,7 @@ CloseIntermission:
         ret
 ;-----------------------------------------------------------------------------
 ; FillBox                                      F5601  96 PC, medium confidence
-; Fills a rectangle clipped to the draw bitmap (dword_1228FC)
+; Fills a rectangle clipped to the draw bitmap (DrawDestPitch)
 ;-----------------------------------------------------------------------------
 FillBox:
         push esi

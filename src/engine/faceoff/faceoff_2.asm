@@ -16,7 +16,7 @@ extern LineSortOrder, PenaltyRecord, HmPenaltyPlayer, HmScore, AwPenaltyPlayer, 
 extern GameSettings, GameOptionFlags, ReplayPlaying, StickPointId, HomePlayerRecords, AwayPlayerRecords, hmtmstruct, hypot_
 extern SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B, SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3
 extern SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF, SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, PtrPuckTarget, PtrPuckOwner
-extern PtrPuckMotion, PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, off_19C61F, F64_480_PenaltyChance
+extern PtrPuckMotion, PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, LinePickOrderFrom1, F64_480_PenaltyChance
 extern F64_105, F64_130, F64_10_PickShotTarget, F64_20_PickShotTarget, F64_240_ChkGrabPuckOnSwitch, F64_0p392699_FaceDirFromMotion, F64_0p159155_FaceDirFromMotion, F64_65536_FaceDirFromMotion
 extern F64_0p785398_doplayeracc, F64_0p785398_SetSkateDir, F64_0p75, F64_0p392699_JoySkate, F64_0p159155_JoySkate, F64_65536_JoySkate, F64_0p392699_ChkPassTo, F64_0p159155_ChkPassTo
 extern F64_65536_ChkPassTo, F64_0p392699_DoPassButton, F64_0p159155_DoPassButton, F64_65536_DoPassButton, F64_0p392699_DoShootButton, F64_0p159155_DoShootButton, F64_65536_DoShootButton, F64_0p392699_doinput
@@ -5183,7 +5183,7 @@ chkatop:
 ; releasepl                                                         32CEC  94G
 ; 94G releasepl (player's penalty time is up, let him out): first sort object
 ; off the ice, one more on the ice (+0Eh), line-change flags, position from
-; the priority list (off_19C61F), Setplass, setplayer
+; the priority list (LinePickOrderFrom1), Setplass, setplayer
 ;-----------------------------------------------------------------------------
 releasepl:
         push ebx
@@ -5208,7 +5208,7 @@ releasepl:
         mov eax, dword [byte eax+0Ch]
         and ecx, 0FFh
         sar eax, 10h
-        movsx ax, byte [dword ecx+eax+off_19C61F]
+        movsx ax, byte [dword ecx+eax+LinePickOrderFrom1]
         mov word [dword ebx+0A9h], ax
         mov eax, ebx
         movsx edx, dx

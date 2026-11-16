@@ -2654,8 +2654,8 @@ MakeDataPathKindJumpTable:
 ;-----------------------------------------------------------------------------
 ; MakeDataPath                                 4AB90  96 PC, medium confidence
 ; (out, file id): the path of a game data file: the language prefix (optflags
-; & 3) where the file has one, its directory (table unk_115120) and name
-; (table unk_115333, 16h-byte entries)
+; & 3) where the file has one, its directory (DirPathTable) and name
+; (the name table at str_X_SetArtArchive, 15h-byte entries)
 ;-----------------------------------------------------------------------------
 MakeDataPath:
         push ebx
@@ -2911,7 +2911,7 @@ MakeDataPathJumpTable:
 ;-----------------------------------------------------------------------------
 ; MakeDirPath                                                     4AE14  96 PC
 ; (out, dir, language): a game directory path (language prefix, directory
-; from unk_115120, backslash)
+; from DirPathTable, backslash)
 ;-----------------------------------------------------------------------------
 MakeDirPath:
         push ecx
@@ -11020,7 +11020,7 @@ UpdateGoalLight:
         db 090h
 ;-----------------------------------------------------------------------------
 ; DrawGoalLight                                50740  96 PC, medium confidence
-; Draws the lit goal light (4 points at dword_158D78)
+; Draws the lit goal light (4 points in FlashPolys)
 ;-----------------------------------------------------------------------------
 DrawGoalLight:
         push ebx

@@ -6,7 +6,7 @@ extern EmuNoOp, str_Acos_MathErr, str_Asin, str_Sqrt, str_Exp, str_Cosh, str_Sin
 extern str_Acosh, str_Log2, str_Log, str_Log10, str_Atanh, str_Atan2, str_Ipow, str_Dpowi
 extern str_Cos, str_Sin, str_Tan, str_Y0, str_Y1, str_Yn, str_Mod, str_Cotan
 global Hook387Flag, Hook387Saved, WVideoActive, str_2_SetupRectFill, MathErrTable, EmuInitHook, EmuFiniHook, ReciprocalRowTable
-global off_199DB2, EmuTrapFrame, ReciprocalRows
+global ReciprocalRowsHead, EmuTrapFrame, ReciprocalRows
 
 
 
@@ -37,9 +37,9 @@ WVideoActive:
 str_2_SetupRectFill:
         db 032h,00h,00h,00h
 ReciprocalRowTable:
-        dd off_199DB2
-        dd off_199DB2
-        dd off_199DB2
+        dd ReciprocalRowsHead
+        dd ReciprocalRowsHead
+        dd ReciprocalRowsHead
         dd ReciprocalRows
         dd ReciprocalRows+4
         dd ReciprocalRows+0Ah
@@ -86,7 +86,7 @@ ReciprocalRowTable:
         dd ReciprocalRows+7BAh
         dd ReciprocalRows+814h
         dd ReciprocalRows+870h
-off_199DB2 equ $+2
+ReciprocalRowsHead equ $+2
         dd ReciprocalRows+8CEh
 ReciprocalRows:
         db 00h,080h,055h,055h

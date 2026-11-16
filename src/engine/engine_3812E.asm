@@ -15126,7 +15126,7 @@ PlaySfx:
 ;-----------------------------------------------------------------------------
 ; PlaySfxOr                                    42098  96 PC, medium confidence
 ; (id, other): plays other instead of id when id is 40h+ and the extra bank
-; (dword_11D1F2) is not loaded
+; (SfxBankLoaded) is not loaded
 ;-----------------------------------------------------------------------------
 PlaySfxOr:
         push ebx

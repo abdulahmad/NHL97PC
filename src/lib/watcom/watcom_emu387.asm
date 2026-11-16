@@ -29,8 +29,8 @@ global EmuAdd, AddExtRaw, AddMantissas, EmuCompare, EmuDiv, DivideMantissas, Emu
 global StoreM32Int, StoreIntBits, LoadM32Int, LoadM64Int, LoadM64Real, StoreM32Real, StoreM64Real, LoadM32Real
 global ExtToInt, EmuRemainder, RemainderStep, EmuRoundInt, RoundMantissa, EmuExamine, AddOne, EmuLog2
 global Log2Core, SinCosCore, EmuSin, EmuCos, EmuTan, EmuAtan, EmuExp2, PolyEval
-global PolyEvalOdd, EmuNoOp, unk_134C17, unk_134DCA, unk_1351C6, unk_1351E4, unk_13543A, unk_135494
-global unk_1354EE, str_0123456789abcdefghijklmnopqr
+global PolyEvalOdd, EmuNoOp, EmuMantissaMasks, EmuRemPolyCoefs, EmuLog2PolyNum, EmuLog2PolyDen, EmuSinPolyCoefs, EmuCosPolyCoefs
+global EmuSinCosTermCounts, str_0123456789abcdefghijklmnopqr
 ;-----------------------------------------------------------------------------
 ; EmuTrapExit                                    132C84  97 PC, low confidence
 ; X87 emulator: restores the registers and returns from the trap
@@ -3228,7 +3228,7 @@ LoadM32Real:
         pop ebx
         pop ecx
         ret
-unk_134C17:
+EmuMantissaMasks:
         db 0FFh,0FFh,0FFh,07Fh,0FFh,0FFh,0FFh,03Fh,0FFh,0FFh,0FFh,01Fh,0FFh,0FFh,0FFh,0Fh
         db 0FFh,0FFh,0FFh,07h,0FFh,0FFh,0FFh,03h,0FFh,0FFh,0FFh,01h,0FFh,0FFh,0FFh,00h
         db 0FFh,0FFh,07Fh,00h,0FFh,0FFh,03Fh,00h,0FFh,0FFh,01Fh,00h,0FFh,0FFh,0Fh,00h
@@ -3268,7 +3268,7 @@ ExtToInt:
         mov ecx, dword [edi]
         add bx, byte 20h
         jl short .9
-        mov eax, dword [nosplit cs:ebx*4+unk_134C17]
+        mov eax, dword [nosplit cs:ebx*4+EmuMantissaMasks]
         LD and, ecx, eax
         xor dword [edi], ecx
         inc eax
@@ -3306,7 +3306,7 @@ ExtToInt:
         mov esi, dword [byte edi+04h]
         add bx, byte 20h
         jl short .14
-        mov eax, dword [nosplit cs:ebx*4+unk_134C17]
+        mov eax, dword [nosplit cs:ebx*4+EmuMantissaMasks]
         LD and, esi, eax
         xor dword [byte edi+04h], esi
         inc eax
@@ -3363,7 +3363,7 @@ ExtToInt:
         pop esi
         pop edi
         ret
-unk_134DCA:
+EmuRemPolyCoefs:
         db 04Eh,018h,0E6h,0C0h,0E4h,0C7h,0D1h,0B5h,0FAh,03Fh,029h,0Bh,01h,08h,08h,09Bh
         db 0C6h,084h,0FBh,0BFh,01Ah,026h,0C5h,06Ch,02Eh,02h,046h,09Dh,0FBh,03Fh,02Ah,098h
         db 06Bh,0Ah,09Dh,0B9h,02Bh,0BAh,0FBh,0BFh,071h,01h,02Bh,095h,027h,027h,08Eh,0E3h
@@ -3531,7 +3531,7 @@ RemainderStep:
         or ch, 1
 .4:
         LD mov, eax, edi
-        lea edx, [unk_134DCA]
+        lea edx, [EmuRemPolyCoefs]
         mov ebx, 8
         call PolyEvalOdd
         shr ch, 1
@@ -3754,10 +3754,10 @@ EmuExamine:
         pop ebx
         ret
         db 090h
-unk_1351C6:
+EmuLog2PolyNum:
         db 0E9h,046h,0E9h,0B5h,09Ah,0ADh,020h,0CAh,0FEh,0BFh,09h,065h,07Fh,0B5h,00h,051h
         db 012h,083h,03h,040h,028h,0D2h,0ACh,09Dh,095h,0F8h,03Fh,080h,05h,0C0h
-unk_1351E4:
+EmuLog2PolyDen:
         db 00h,00h,00h,00h,00h,00h,00h,080h,0FFh,03Fh,0BBh,076h,070h,03Eh,05Bh,02h
         db 0ACh,08Eh,04h,0C0h,060h,0EFh,033h,0A9h,0D0h,01Fh,04h,09Ch,07h,040h,096h,0BBh
         db 083h,06Ch,0E0h,0F4h,05Fh,0C0h,08h,0C0h
@@ -3890,7 +3890,7 @@ Log2Core:
         mov dword [byte edi+04h], edx
         mov word [byte edi+08h], si
         mov ebx, 3
-        lea ecx, [unk_1351E4]
+        lea ecx, [EmuLog2PolyDen]
         call PolyEval
         push eax
         push edx
@@ -3898,7 +3898,7 @@ Log2Core:
         mov eax, dword [edi]
         mov edx, dword [byte edi+04h]
         mov si, word [byte edi+08h]
-        lea ecx, [unk_1351C6]
+        lea ecx, [EmuLog2PolyNum]
         mov ebx, 2
         call PolyEval
         pop ecx
@@ -3980,21 +3980,21 @@ Log2Core:
         pop edi
         ret
         db 090h
-unk_13543A:
+EmuSinPolyCoefs:
         db 059h,053h,06Ah,085h,081h,03Bh,096h,0CAh,0CEh,03Fh,08Fh,0F8h,0C0h,09Dh,039h,09Fh
         db 03Fh,0D7h,0D6h,0BFh,0E5h,04Bh,068h,043h,09Dh,030h,092h,0B0h,0DEh,03Fh,07Fh,01Ch
         db 027h,0AAh,03Fh,02Bh,032h,0D7h,0E5h,0BFh,07Dh,09Ch,039h,0B6h,02Ah,01Dh,0EFh,0B8h
         db 0ECh,03Fh,0Ch,0D0h,00h,0Dh,0D0h,00h,0Dh,0D0h,0F2h,0BFh,088h,088h,088h,088h
         db 088h,088h,088h,088h,0F8h,03Fh,0AAh,0AAh,0AAh,0AAh,0AAh,0AAh,0AAh,0AAh,0FCh,0BFh
         db 00h,00h,00h,00h,00h,00h,00h,080h,0FFh,03Fh
-unk_135494:
+EmuCosPolyCoefs:
         db 08Fh,0F8h,0C0h,09Dh,039h,09Fh,03Fh,0D7h,0D2h,03Fh,05h,0E9h,0E4h,03h,046h,0A5h
         db 0CBh,0C9h,0DAh,0BFh,0AAh,0BDh,0C4h,0C6h,07Fh,0C7h,076h,08Fh,0E2h,03Fh,097h,0E3h
         db 0FAh,0C4h,0BBh,07Dh,0F2h,093h,0E9h,0BFh,0Dh,0D0h,00h,0Dh,0D0h,00h,0Dh,0D0h
         db 0EFh,03Fh,0Bh,0B6h,060h,0Bh,0B6h,060h,0Bh,0B6h,0F5h,0BFh,0AAh,0AAh,0AAh,0AAh
         db 0AAh,0AAh,0AAh,0AAh,0FAh,03Fh,00h,00h,00h,00h,00h,00h,00h,080h,0FEh,0BFh
         db 00h,00h,00h,00h,00h,00h,00h,080h,0FFh,03Fh
-unk_1354EE:
+EmuSinCosTermCounts:
         db 00h,00h,01h,00h,02h,00h,03h,00h,04h,00h,04h,00h,05h,00h,05h,00h
         db 06h,00h
 ;-----------------------------------------------------------------------------
@@ -4081,7 +4081,7 @@ SinCosCore:
         jle short .6
         mov cx, 8
 .6:
-        mov cx, word [nosplit cs:ecx*2+unk_1354EE]
+        mov cx, word [nosplit cs:ecx*2+EmuSinCosTermCounts]
         push ecx
         mov eax, dword [byte ebp-014h]
         inc al
@@ -4104,7 +4104,7 @@ SinCosCore:
         mov ebx, 8
         LD sub, ebx, ecx
         lea ecx, [ecx+ecx*4]
-        lea ecx, [nosplit ecx*2+unk_135494]
+        lea ecx, [nosplit ecx*2+EmuCosPolyCoefs]
         call PolyEval
         mov dword [byte ebp-0Ch], eax
         mov dword [byte ebp-08h], edx
@@ -4123,7 +4123,7 @@ SinCosCore:
         LD sub, ebx, ecx
         lea ecx, [ecx+ecx*4]
         LD add, ecx, ecx
-        lea edx, [unk_13543A]
+        lea edx, [EmuSinPolyCoefs]
         LD add, edx, ecx
         call PolyEvalOdd
 .10:

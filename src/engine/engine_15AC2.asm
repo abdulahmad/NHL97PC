@@ -4639,8 +4639,8 @@ SetOverlayFont:
         ret
 ;-----------------------------------------------------------------------------
 ; DrawGameOverlays                             1900F  96 PC, medium confidence
-; (ticks): per frame draws the overlay for the view state (byte_179DC1 9,
-; 0Dh, 11h), the queued panels, the clock, time-left and score panels
+; (ticks): per frame draws the overlay for the view state,
+; the queued panels, the clock, time-left and score panels
 ;-----------------------------------------------------------------------------
 DrawGameOverlays:
         push ebx

@@ -7626,7 +7626,7 @@
 ;  19C3F2  AwaySpareFlag                            data/engine/faceoff_data_02.asm              1
 ;  19C3F4  AssignFuncTable                          data/engine/faceoff_data_02.asm              1
 ;  19C5F4  CompLineTable                            data/engine/faceoff_data_02.asm              1
-;  19C61F  off_19C61F                               data/engine/faceoff_data_02.asm              1
+;  19C61F  LinePickOrderFrom1                       data/engine/faceoff_data_02.asm              1
 ;  19C620  LinePickOrder                            data/engine/faceoff_data_02.asm              1
 ;  19C628  RimTargetX                               data/engine/faceoff_data_02.asm              2
 ;  19C62A  RimTargetY                               data/engine/faceoff_data_02.asm              2
@@ -7646,8 +7646,8 @@
 ;  19C6BC  F32_0p382683                             data/lib/watcom/watcom_clib_13_data_02.asm   1
 ;  19C6C0  F32_6p7554e15                            data/lib/watcom/watcom_clib_13_data_02.asm   1
 ;  19C6C4  VideoCodeJumpTable                       data/lib/watcom/watcom_clib_13_data_02.asm   1
-;  19C6E2  off_19C6E2                               data/lib/watcom/watcom_clib_13_data_02.asm   1
-;  19C6E3  off_19C6E3                               data/lib/watcom/watcom_clib_13_data_02.asm   1
+;  19C6E2  VideoCodeLengthsFrom2                    data/lib/watcom/watcom_clib_13_data_02.asm   1
+;  19C6E3  VideoCodeLengthsFrom1                    data/lib/watcom/watcom_clib_13_data_02.asm   1
 ;  19C6E4  VideoCodeLengths                         data/lib/watcom/watcom_clib_13_data_02.asm   1
 ;  19C724  FdivShiftTable                           data/lib/watcom/watcom_clib_13_data_02.asm   1
 ;  19C734  F32_0p9375                               data/lib/watcom/watcom_clib_13_data_02.asm   1

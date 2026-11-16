@@ -2667,7 +2667,7 @@ ModemWaitConnect:
 ;-----------------------------------------------------------------------------
 ; ModemReadResult                              7C834  96 PC, medium confidence
 ; (port, timeout): reads a line from the modem (at most 41 characters) and
-; matches it against the result string table off_114F1C; returns its code, -1
+; matches it against ModemResultTextTable; returns its code, -1
 ; for none
 ;-----------------------------------------------------------------------------
 ModemReadResult:

@@ -24,8 +24,8 @@ extern F32_1p30656, F32_0p382683, F32_6p7554e15, MemLockHandle, MemFreeStart, Me
 extern PrimColor, ModelFileCount, BitReaderPtr, BitReaderBits, VideoCodeTableA, VideoDecoderA, VideoCodeTableB, VideoGammaTable
 extern VideoDecoderB, VideoCodeTableC, FrameRateState, FrameRateSamples, FrameRateLast, VideoCoefs, MemPoolSizes, MemPoolTable
 extern MemPoolCount, PaletteWords, int386_, isatty_, memcpy_, KeyedRowFuncs, KeyDownTable, SerialPortTable
-extern SerialIsrPort1, SerialIsrPort2, ExitHook, Int23Hook, FpuExitHook, ArtConvertFuncs, VideoCodeJumpTable, off_19C6E2
-extern off_19C6E3, F64_0p1_ScaleModelVerts, F64_1p25_ScaleModelVerts, F64_0p5_ReadBits, sprintf_, strcat_, strcpy_, strlen_
+extern SerialIsrPort1, SerialIsrPort2, ExitHook, Int23Hook, FpuExitHook, ArtConvertFuncs, VideoCodeJumpTable, VideoCodeLengthsFrom2
+extern VideoCodeLengthsFrom1, F64_0p1_ScaleModelVerts, F64_1p25_ScaleModelVerts, F64_0p5_ReadBits, sprintf_, strcat_, strcpy_, strlen_
 extern strncpy_, LoadResourceData, bcopy, AddExitHandler, PresentScreen, ConvertArtPalette, Random32, VesaSetBank
 extern SetGraphicsMode, WritePaletteRegs, FreeRowTable, FillRowTable, BytesPerPixelForDepth, FileExistsPath, UnpackShared, DosOpenFile
 extern DosCloseFile, DosReadFile, DosSeekFile, SetViewScreenOrigin, SetCameraAngles, DrawPolyArray, ResetMemLock, MemLock
@@ -7588,7 +7588,7 @@ ReadVideoCodes_7D:
         jmp short ReadVideoCodes_8A.2
 ReadVideoCodes_8A:
         mov dword [nosplit ebx*4+VideoCoefs], 0
-        mov bl, byte [dword edi+off_19C6E3]
+        mov bl, byte [dword edi+VideoCodeLengthsFrom1]
         dec edi
         mov dword [nosplit ebx*4+VideoCoefs], 0
 .2:
@@ -7611,7 +7611,7 @@ ReadVideoCodes_8A:
         ret
 ReadVideoCodes_D4:
         mov dword [nosplit ebx*4+VideoCoefs], 0
-        mov bl, byte [dword edi+off_19C6E3]
+        mov bl, byte [dword edi+VideoCodeLengthsFrom1]
         dec edi
 ReadVideoCodes_E6:
         LD mov, eax, ebp
@@ -7620,9 +7620,9 @@ ReadVideoCodes_E6:
         shr eax, 3
 .4:
         mov dword [nosplit ebx*4+VideoCoefs], edx
-        mov bl, byte [dword edi+off_19C6E3]
+        mov bl, byte [dword edi+VideoCodeLengthsFrom1]
         mov dword [nosplit ebx*4+VideoCoefs], edx
-        mov bl, byte [dword edi+off_19C6E2]
+        mov bl, byte [dword edi+VideoCodeLengthsFrom2]
         sub edi, byte 2
         dec eax
         jne short .4

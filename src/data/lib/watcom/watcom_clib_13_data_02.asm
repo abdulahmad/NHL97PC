@@ -13,7 +13,7 @@ extern __fdiv_fpr_374, __fdiv_fpr_379, __fdiv_fpr_393, __fdiv_fpr_398, __fdiv_fp
 extern __fdiv_fpr_418, __fdiv_fpr_41D, __fdiv_fpr_437, __fdiv_fpr_43C, __fdiv_fpr_45C, __fdiv_fpr_470, __fdiv_fpr_488
 global VideoCodeLengths, FdivShiftTable, VideoBitCount, VideoBitBuffer, VideoOutPtr, VideoBlockX, VideoBlockY, VideoBlockTemp
 global VideoBlockSum, VideoIdctScale, F32_0p541196, F32_1p30656, F32_0p382683, F32_6p7554e15, F32_0p9375, F32_1p0625
-global F32_9p22337e18, VideoCodeJumpTable, off_19C6E2, off_19C6E3, FdivJumpTable
+global F32_9p22337e18, VideoCodeJumpTable, VideoCodeLengthsFrom2, VideoCodeLengthsFrom1, FdivJumpTable
 VideoBitCount:
         db 00h,00h,00h,00h
 VideoBitBuffer:
@@ -46,8 +46,8 @@ VideoCodeJumpTable:
         dd ReadVideoCodes_8A
         dd ReadVideoCodes_D4
         dd ReadVideoCodes_6B
-off_19C6E2 equ $+2
-off_19C6E3 equ $+3
+VideoCodeLengthsFrom2 equ $+2
+VideoCodeLengthsFrom1 equ $+3
         dd ReadVideoCodes_115
 VideoCodeLengths:
         db 00h,03Fh,037h,03Eh,03Dh,036h,02Fh,027h,02Eh,035h,03Ch,03Bh,034h,02Dh,026h,01Fh
