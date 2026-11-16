@@ -17,7 +17,7 @@ static uint8_t vram[0x800000];
 static uint8_t dac[256][3], dac_latched[256][3];
 static unsigned dac_wr, dac_rd, dac_comp, dac_rcomp;
 static int cur_bank;
-static int mode_w = 640, mode_h = 480, mode_num = 0x101;
+static int mode_w = 640, mode_h = 480, mode_num = 0x101, mode_bpp = 8;
 static int disp_x, disp_y;
 static SDL_mutex *lock;
 static volatile int resize_pending = 1;
@@ -638,13 +638,13 @@ int video_changed(void)
     static uint32_t last;
     static int64_t at;
     uint32_t hash = 0;
-    size_t i, n = (size_t)mode_w * mode_h;
+    size_t i, pitch = (size_t)mode_w * mode_bpp / 8, n = pitch * mode_h;
     int64_t now = plat_now_ns();
     if (now - at < 2000000) return 0;           /* the game is writing this memory: look at it sparingly */
     at = now;
     SDL_LockMutex(lock);
     window_save();                              /* a mode 13h screen lives in the window until it is saved to vram */
-    for (i = (size_t)disp_y * mode_w + disp_x; i < (size_t)disp_y * mode_w + disp_x + n; i += 3) hash = hash * 31 + vram[i];
+    for (i = (size_t)disp_y * pitch + disp_x; i < (size_t)disp_y * pitch + disp_x + n; i += 3) hash = hash * 31 + vram[i];
     for (i = 0; i < 256 * 3; i += 7) hash = hash * 31 + dac[i / 3][i % 3];
     SDL_UnlockMutex(lock);
     if (hash == last) return 0;
@@ -666,9 +666,14 @@ static void title_refresh(void)
     }
 }
 
-static struct { int mode, w, h; } modes[] = {
-    { 0x100, 640, 400 }, { 0x101, 640, 480 }, { 0x103, 800, 600 }, { 0x105, 1024, 768 }, { 0x107, 1280, 1024 }, { 0x13, 320, 200 }
+/* NHL 97 asks for 640x480 with 16-bit colour (0x111, 5:6:5) first: its TGQ movies and its front end are drawn in it. Without it the
+ * game falls back to 0x101 and turns the true-colour movie frames into palette indices against a black palette (all black).
+ * NHL97_NOHICOLOR=1 hides it. */
+static struct { int mode, w, h, bpp; } modes[] = {
+    { 0x100, 640, 400, 8 }, { 0x101, 640, 480, 8 }, { 0x103, 800, 600, 8 }, { 0x105, 1024, 768, 8 }, { 0x107, 1280, 1024, 8 }, { 0x13, 320, 200, 8 },
+    { 0x111, 640, 480, 16 }
 };
+static int hicolor_off(void) { static int v = -1; if (v < 0) { const char *e = getenv("NHL97_NOHICOLOR"); v = e && *e && *e != '0'; } return v; }
 
 /* ---- unchained 256-colour mode ("mode X") ----
  * The intro movies (TGV) and the mode-2 screens start in mode 13h, then ClearChain4 clears Chain-4 (sequencer reg 4 bit 3), sub_DE01A
@@ -753,7 +758,7 @@ static void set_mode(int mode, int clear)
     size_t i;
     SDL_LockMutex(lock);
     for (i = 0; i < sizeof modes / sizeof *modes; i++)
-        if (modes[i].mode == (mode & 0x1FF)) { mode_w = modes[i].w; mode_h = modes[i].h; mode_num = modes[i].mode; }
+        if (modes[i].mode == (mode & 0x1FF)) { mode_w = modes[i].w; mode_h = modes[i].h; mode_num = modes[i].mode; mode_bpp = modes[i].bpp; }
     if (planar) { planar = 0; planar_mask = 0x0F; }
     seq[2] = 0x0F; seq[4] = 0x0E;
     crtc[7] = 0x1F; crtc[9] = 0x41; crtc[0x12] = 0x8F; crtc[0x0C] = crtc[0x0D] = 0;
@@ -909,14 +914,16 @@ int video_int10(ctx_t *c)
             size_t i;
             memset(b, 0, 256);
             for (i = 0; i < sizeof modes / sizeof *modes; i++) if (modes[i].mode == (int)m) break;
+            if (i < sizeof modes / sizeof *modes && modes[i].bpp == 16 && hicolor_off()) i = sizeof modes / sizeof *modes;
             if (i == sizeof modes / sizeof *modes) { R(c, EAX) = (R(c, EAX) & ~0xFFFFu) | 0x014F; return 1; }
             *(uint16_t *)b = 0x1B;              /* supported, colour, graphics, banked */
             b[2] = 7; b[3] = 0;
             *(uint16_t *)(b + 4) = 64; *(uint16_t *)(b + 6) = 64;
             *(uint16_t *)(b + 8) = 0xA000;
-            *(uint16_t *)(b + 0x10) = modes[i].w;
+            *(uint16_t *)(b + 0x10) = modes[i].w * modes[i].bpp / 8;   /* bytes per line */
             *(uint16_t *)(b + 0x12) = modes[i].w; *(uint16_t *)(b + 0x14) = modes[i].h;
-            b[0x16] = 8; b[0x17] = 16; b[0x18] = 1; b[0x19] = 8; b[0x1A] = 1; b[0x1B] = 4;
+            b[0x16] = 8; b[0x17] = 16; b[0x18] = 1; b[0x19] = modes[i].bpp; b[0x1A] = 1; b[0x1B] = modes[i].bpp == 16 ? 6 : 4;
+            if (modes[i].bpp == 16) { b[0x1F] = 5; b[0x20] = 11; b[0x21] = 6; b[0x22] = 5; b[0x23] = 5; b[0x24] = 0; }   /* direct colour 5:6:5 */
             return 1;
         }
         case 0x02: set_mode(R(c, EBX), !(R(c, EBX) & 0x8000)); return 1;
@@ -925,7 +932,7 @@ int video_int10(ctx_t *c)
             if ((R(c, EBX) >> 8 & 0xFF) == 0) set_bank(R(c, EDX) & 0xFFFF);
             else R(c, EDX) = (R(c, EDX) & ~0xFFFFu) | cur_bank;
             return 1;
-        case 0x06: R(c, ECX) = (R(c, ECX) & ~0xFFFFu) | mode_w; R(c, EBX) = (R(c, EBX) & ~0xFFFFu) | mode_w; R(c, EDX) = (R(c, EDX) & ~0xFFFFu) | mode_h; return 1;
+        case 0x06: R(c, ECX) = (R(c, ECX) & ~0xFFFFu) | mode_w; R(c, EBX) = (R(c, EBX) & ~0xFFFFu) | (mode_w * mode_bpp / 8); R(c, EDX) = (R(c, EDX) & ~0xFFFFu) | mode_h; return 1;
         case 0x07:
             vl_4f07++;
             if ((R(c, EBX) & 0xFF) == 0) { disp_x = R(c, ECX) & 0xFFFF; disp_y = R(c, EDX) & 0xFFFF; }
@@ -1121,6 +1128,16 @@ void video_present(void)
         unsigned r = dac_latched[x][0] << 2 | dac_latched[x][0] >> 4, g = dac_latched[x][1] << 2 | dac_latched[x][1] >> 4, b = dac_latched[x][2] << 2 | dac_latched[x][2] >> 4;
         pal[x] = 0xFF000000u | r << 16 | g << 8 | b;
     }
+    if (mode_bpp == 16) {                       /* 5:6:5 direct colour */
+        for (y = 0; y < h; y++) {
+            const uint16_t *src = (const uint16_t *)(vram + (size_t)(y + disp_y) * w * 2) + disp_x;
+            uint32_t *dst = argb + y * w;
+            for (x = 0; x < w; x++) {
+                unsigned v = src[x], r = v >> 11, g = (v >> 5) & 63, b = v & 31;
+                dst[x] = 0xFF000000u | (r << 3 | r >> 2) << 16 | (g << 2 | g >> 4) << 8 | (b << 3 | b >> 2);
+            }
+        }
+    } else
     for (y = 0; y < h; y++) {
         const uint8_t *src = vram + (size_t)(y + disp_y) * w + disp_x;
         uint32_t *dst = argb + y * w;

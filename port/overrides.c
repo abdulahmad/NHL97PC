@@ -154,7 +154,8 @@ __attribute__((naked)) static void wait_ticks_entry(void)
 void host_wait_retrace(void)
 {
     int64_t now, ph;
-    host_allow_irq = 1;
+    /* host_allow_irq stays 0: a timer interrupt put into the host while it sleeps here froze the game now and then (the wait is at
+     * most two frames; ticks that come meanwhile are queued and taken right after) */
     {                                            /* leave retrace first (the original's loopne; NHL 97 has no mode switch) */
         for (;;) {
             now = intro_skip ? plat_now_ns() * 40 : plat_now_ns();
@@ -172,7 +173,6 @@ void host_wait_retrace(void)
     }
     video_on_retrace();                     /* apply pending page flip when no TGV palette chunk follows */
     *(uint32_t *)GAME_ADDR(ORIG_RETRACE_COUNT) = 0x186A0;
-    host_allow_irq = 0;
 }
 
 __attribute__((naked)) static void wait_retrace_entry(void)
@@ -205,8 +205,8 @@ void install_overrides(void)
     if (GAME_ADDR(ORIG_DEADLINEPASSED)[0] == 0x8B && (GAME_ADDR(ORIG_DEADLINEPASSED)[1] == 0x1D || GAME_ADDR(ORIG_DEADLINEPASSED)[1] == 0x15))   /* 97: mov edx */
         patch_jmp(GAME_ADDR(ORIG_DEADLINEPASSED), deadline_passed_entry);
     else fprintf(stderr, "overrides: TickDeadlinePassed starts %02X %02X, not patched\n", GAME_ADDR(ORIG_DEADLINEPASSED)[0], GAME_ADDR(ORIG_DEADLINEPASSED)[1]);
-    if (GAME_ADDR(ORIG_WAITRETRACE)[0] == 0xBA) patch_jmp(GAME_ADDR(ORIG_WAITRETRACE), wait_retrace_entry);
-    if (GAME_ADDR(ORIG_WAITRETRACE2)[0] == 0xBA) patch_jmp(GAME_ADDR(ORIG_WAITRETRACE2), wait_retrace_entry);
-    if (GAME_ADDR(ORIG_WAITRETRACE3)[0] == 0xBA) patch_jmp(GAME_ADDR(ORIG_WAITRETRACE3), wait_retrace_entry);
+    if (GAME_ADDR(ORIG_WAITRETRACE)[0] == 0xBA || (GAME_ADDR(ORIG_WAITRETRACE)[0] == 0x66 && GAME_ADDR(ORIG_WAITRETRACE)[1] == 0xBA))   /* 97: 66 BA DA 03, mov dx */ patch_jmp(GAME_ADDR(ORIG_WAITRETRACE), wait_retrace_entry);
+    if (GAME_ADDR(ORIG_WAITRETRACE2)[0] == 0xBA || (GAME_ADDR(ORIG_WAITRETRACE2)[0] == 0x66 && GAME_ADDR(ORIG_WAITRETRACE2)[1] == 0xBA))   /* 97: 66 BA DA 03, mov dx */ patch_jmp(GAME_ADDR(ORIG_WAITRETRACE2), wait_retrace_entry);
+    if (GAME_ADDR(ORIG_WAITRETRACE3)[0] == 0xBA || (GAME_ADDR(ORIG_WAITRETRACE3)[0] == 0x66 && GAME_ADDR(ORIG_WAITRETRACE3)[1] == 0xBA))   /* 97: 66 BA DA 03, mov dx */ patch_jmp(GAME_ADDR(ORIG_WAITRETRACE3), wait_retrace_entry);
     install_flag_traps();
 }
