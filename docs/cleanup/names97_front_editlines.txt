@@ -1,0 +1,6 @@
+sub_98642 EditLinesGridScreen {confidence=low} from EditLinesScreen: the line grid (Player Status, ESD, PP, PK, L1-L4, D1-D3, 5PP1 ... 3PK2 columns)
+sub_99992 DrawScoringLines {confidence=low} edit lines grid: the "Scoring Line %d" rows (SL%02d)
+sub_9AADF DrawPlayerHealth {confidence=low} edit lines grid: the player's health ("Healthy" or days out, "%s %s -")
+sub_98274 LoadEditLinesRoster {confidence=low} edit lines: allocates and fills the "roster" table for the team
+sub_97AE7 AllocTempGameTeam {confidence=low} edit lines: allocates the "temp game team" block and draws the arena button (SW00, AR%02d)
+sub_9C573 LoadEditLinesArt {confidence=low} edit lines: opens the art library and loads the FART / LOGO pictures

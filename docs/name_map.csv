@@ -293,7 +293,13 @@ address,name,auto_name,source,confidence,evidence,file
 94B30,RunPlayoffMenus,sub_94B30,96PC,low,"96 PC RunPlayoffMenus: screen 0Dh, runs the play-off screens (play-off tree, standings, roster) until they leave",src/front/front_93005.asm
 94BDA,PlayoffTreeScreen,sub_94BDA,96PC,low,"96 PC PlayoffTreeScreen: the play-off tree screen (""playoffmenu"", ""pieces"", pan2 / pan6, 01RU, 01SR ...)",src/front/front_93005.asm
 9623E,EditLinesScreen,sub_9623E,96PC,medium,"96 PC EditLinesScreen: (team, line) the edit lines screen (""edit lines menu"" / ""edit lines regions"")",src/front/front_9623E.asm
+97AE7,AllocTempGameTeam,sub_97AE7,new,low,"edit lines: allocates the ""temp game team"" block and draws the arena button (SW00, AR%02d)",src/front/front_9623E.asm
+98274,LoadEditLinesRoster,sub_98274,new,low,"edit lines: allocates and fills the ""roster"" table for the team",src/front/front_9623E.asm
+98642,EditLinesGridScreen,sub_98642,new,low,"from EditLinesScreen: the line grid (Player Status, ESD, PP, PK, L1-L4, D1-D3, 5PP1 ... 3PK2 columns)",src/front/front_9623E.asm
+99992,DrawScoringLines,sub_99992,new,low,"edit lines grid: the ""Scoring Line %d"" rows (SL%02d)",src/front/front_9623E.asm
 9A89E,DrawPlayerLines,sub_9A89E,new,low,"edit lines: ""%s %s is currently on these lines:"" for the highlighted player",src/front/front_9623E.asm
+9AADF,DrawPlayerHealth,sub_9AADF,new,low,"edit lines grid: the player's health (""Healthy"" or days out, ""%s %s -"")",src/front/front_9623E.asm
+9C573,LoadEditLinesArt,sub_9C573,new,low,edit lines: opens the art library and loads the FART / LOGO pictures,src/front/front_9623E.asm
 9E35E,DrawHomeTeamPanel,sub_9E35E,96PC,low,96 PC DrawHomeTeamPanel: the home team's panel on the team select screen (HOM1 / HOM2),src/front/front_9E35E.asm
 9E550,DrawAwayTeamPanel,sub_9E550,new,low,"the away team's panel on the team select screen (AWY1 / AWY2), as DrawHomeTeamPanel",src/front/front_9E35E.asm
 9E91C,TeamSelectScreen,sub_9E91C,96PC,medium,"96 PC TeamSelectScreen: the exhibition team select screen (HOM1/HOM2, AWY1/AWY2, team ranks); returns the next screen",src/front/front_9E35E.asm
