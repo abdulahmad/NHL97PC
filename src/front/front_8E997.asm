@@ -19,7 +19,7 @@ extern dword_1AD22A, dword_1AD244, dword_1C1334, dword_1C5DE0, dword_1C8334, dwo
 extern dword_1C85D0, dword_1C8618, dword_1C8680, dword_1C86E8, dword_1C86EC, dword_1C86F0, dword_1C86F4, dword_1C86F8
 extern dword_1C86FC, dword_1C8A8C, dword_1C8A90, dword_1C94E8, jpt_8E977, jpt_8E987, memcpy_, memset_
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, BlitShape2
-extern BlitArt, BlitShape, sub_1013CC, sub_1013FC, FindShape, sub_102C30, sub_10AED0, sub_11B094
+extern BlitArt, BlitShape, sub_1013CC, sub_1013FC, FindShape, Random32, sub_10AED0, FindShapeList
 extern sub_11B0D0, SetScreenTarget, SeasonGameScreen, sub_415A0, sub_419B0, sub_419B8, StopAllSfx, PlaySfx
 extern MakeDirPath, LoadDataFile, sub_7A9D8, sub_7BB27, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
 extern SetRegionRect, SetTextColor, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80AB8, sub_80BBC, sub_81650
@@ -216,14 +216,14 @@ sub_8EBDF:
         push ecx
         push edx
         push esi
-        call sub_102C30
+        call Random32
         mov ebx, 32h
         xor edx, edx
         div ebx
         xor esi, esi
         test edx, edx
         jne short .1
-        call sub_102C30
+        call Random32
         mov ebx, 0Ah
         xor edx, edx
         div ebx
@@ -238,7 +238,7 @@ sub_8EBDF:
         mov eax, dword [dword_1C86F8]
         cmp dword [byte edx+eax+04h], byte 1
         jne short .3
-        call sub_102C30
+        call Random32
         mov esi, 3
         xor edx, edx
         div esi
@@ -337,12 +337,12 @@ NewSeasonScreen:
         push asc_1655C6
         push dword [byte ebp-01Ch]
         mov dword [byte ebp-030h], eax
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push unk_1C85DC
         push asc_1655D3
         push dword [byte ebp-01Ch]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push byte 0
         push dword 1E0h
@@ -459,7 +459,7 @@ NewSeasonScreen:
         push dword_1C8540
         push asc_1655F4
         push dword [byte ebp-034h]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push dword [byte ebp-03Ch]
         call SetDrawTarget
@@ -1715,14 +1715,14 @@ sub_900AE:
         push ecx
         push edx
         push esi
-        call sub_102C30
+        call Random32
         mov ebx, 32h
         xor edx, edx
         div ebx
         xor esi, esi
         test edx, edx
         jne short .1
-        call sub_102C30
+        call Random32
         mov ebx, 0Ah
         xor edx, edx
         div ebx
@@ -1737,7 +1737,7 @@ sub_900AE:
         mov eax, dword [dword_1C86F0]
         cmp dword [byte edx+eax+04h], byte 1
         jne short .3
-        call sub_102C30
+        call Random32
         mov esi, 3
         xor edx, edx
         div esi
@@ -1837,37 +1837,37 @@ SeasonMenuScreen:
         push dword_1C85D0
         push asc_16566B
         push ebx
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push unk_1C85DC
         push asc_16567C
         push ebx
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push unk_1C85E8
         push asc_16568D
         push ebx
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push unk_1C85F4
         push asc_16569E
         push ebx
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push unk_1C8600
         push asc_1656AF
         push ebx
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push unk_1C860C
         push asc_1656C0
         push ebx
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push dword_1C8540
         push asc_1656D1
         push esi
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         mov eax, 24h
         mov edx, dword [dword_1C86F0]
@@ -3001,13 +3001,13 @@ sub_91289:
         push ebx
         push ecx
         push edx
-        call sub_102C30
+        call Random32
         mov ebx, 32h
         xor edx, edx
         div ebx
         test edx, edx
         jne short .1
-        call sub_102C30
+        call Random32
         mov ebx, 0Ah
         xor edx, edx
         div ebx
@@ -3130,7 +3130,7 @@ StandingsScreen:
         push asc_16579B
         push ebx
         mov dword [byte ebp+02Ah], eax
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push byte 0
         push dword 1E0h

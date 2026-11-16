@@ -60,7 +60,7 @@ extern str_Glassline, str_Gt002d, str_Gt102d, str_Gt202d, str_Gt302d, str_HALFFS
 extern str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpath, strcat_, stricmp_
 extern strlen_, strncpy_, sub_1001F8, sub_100498, sub_1004B8, sub_1004F8, sub_100510, sub_100700
 extern sub_1007C0, sub_100830, sub_100940, FindShape, sub_10150C, sub_101524, sub_101560, sub_101584
-extern sub_102C30, sub_102CDC, sub_102CF4, sub_103648, sub_104948, sub_106C74, sub_106D80, sub_106DA0
+extern Random32, sub_102CDC, sub_102CF4, sub_103648, sub_104948, sub_106C74, sub_106D80, sub_106DA0
 extern sub_106DE0, sub_106DF8, sub_107098, sub_1070B0, sub_108144, sub_108640, sub_108900, sub_108A60
 extern sub_108BA0, sub_108E74, sub_1091E0, sub_109210, sub_109545, sub_109557, sub_109E54, sub_109E74
 extern sub_10A7D0, sub_10A930, sub_10AB2C, sub_10AB94, sub_10AD20, sub_10AE10, sub_10AED0, sub_10B000
@@ -79,7 +79,7 @@ extern sub_41D94, WaitMusicEnd, sub_42650, sub_480CC, sub_4880C, sub_48864, Reco
 extern LoadRinkLines, LoadRinkModel, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
 extern sub_56740, LoadGoalieMask, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
 extern sub_5AAB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450, sub_5C1CC, sub_5DD74, LoadAiIcons
-extern sub_77A30, PlayMovie, sub_842F4, sub_E3410, sub_E341C, AllocMemBlock, FreeMemBlock, sub_FB704
+extern sub_77A30, PlayMovie, sub_842F4, sub_E3410, sub_E341C, AllocMemBlock, FreeMemBlock, ZeroMem
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, sub_FE150, sub_FE180
 extern sub_FF044, sub_FF128, sub_FF174, sub_FF444, sub_FF48C, sub_FF5E0, sub_FF690, sub_FF798
 extern sub_FFA14, sub_FFBB4, sub_FFBC8, sub_FFBE0, sub_FFCC4, sub_FFDAC, tickcount, unk_1611B4
@@ -2098,7 +2098,7 @@ sub_4A280:
         mov edx, dword [dword_169278]
         push edx
         xor esi, esi
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov word [word_169282], si
         mov word [dword_16927E], si
@@ -4025,7 +4025,7 @@ DrawGameFrame:
         call sub_FCC40
         add esp, byte 4
         push byte 0
-        call sub_102C30
+        call Random32
         push eax
         call sub_FC4BC
         add esp, byte 4
@@ -4383,7 +4383,7 @@ sub_4BE14:
         movsd
         cmp eax, byte 30h
         jne short .1
-        call sub_102C30
+        call Random32
         mov ebx, 9999h
         xor edx, edx
         div ebx
@@ -4429,7 +4429,7 @@ sub_4BE14:
         call sub_10C8B0
         add esp, byte 0Ch
         mov ebx, 9999h
-        call sub_102C30
+        call Random32
         xor edx, edx
         div ebx
         push ebp
@@ -4473,7 +4473,7 @@ sub_4BF10:
         je short .1
         cmp dword [dword_1ADC98], byte 0
         jne short .1
-        call sub_102C30
+        call Random32
         mov esi, dword [dword_1B0A88]
         and eax, 0FFFFh
         cmp eax, esi
@@ -9493,7 +9493,7 @@ sub_4F7FC:
         mov dword [byte esp+010h], edx
         mov ebp, ebx
         mov dword [byte esp+0Ch], ecx
-        call sub_102C30
+        call Random32
         mov ebx, 0Bh
         xor edx, edx
         div ebx
@@ -9512,7 +9512,7 @@ sub_4F7FC:
         mov ebx, 0Bh
         mov dword [byte esp+08h], eax
         mov esi, eax
-        call sub_102C30
+        call Random32
         xor edx, edx
         div ebx
         mov eax, edx
@@ -9657,7 +9657,7 @@ sub_4F978:
         movsd
         movsd
         movsd
-        call sub_102C30
+        call Random32
         and eax, byte 3
         mov edx, dword [dword_1B0B8C]
         lea ebx, [byte eax-02h]
@@ -9665,7 +9665,7 @@ sub_4F978:
         sub eax, edx
         mov edx, dword [dword_1B0B88]
         mov dword [edx+eax*4], ebx
-        call sub_102C30
+        call Random32
         and eax, byte 3
         mov edx, dword [dword_1B0B8C]
         lea ebx, [byte eax-02h]
@@ -9673,7 +9673,7 @@ sub_4F978:
         sub eax, edx
         mov edx, dword [dword_1B0B88]
         mov dword [byte edx+eax*4+08h], ebx
-        call sub_102C30
+        call Random32
         and eax, byte 3Fh
         mov edx, dword [dword_1B0B8C]
         lea ebx, [byte eax-020h]

@@ -25,7 +25,7 @@ extern dword_1CAE9C, dword_1CAEA0, dword_1CAEA4, dword_1CAEA8, dword_1CAEAC, dwo
 extern dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, dword_1CAFF4, fclose_, fopen_, fprintf_, qsort_
 extern qword_16695B, rand_, sprintf_, strcat_, strcpy_, sub_101324, BlitShape2, BlitArt
 extern sub_1013FC, FindShape, sub_101560, sub_101584, sub_101EAC, sub_102B94, sub_102C10, sub_10CD98
-extern sub_11A294, sub_11A318, sub_11B094, sub_11BD90, SetScreenTarget, sub_415A0, sub_415F8, sub_419B0
+extern sub_11A294, sub_11A318, FindShapeList, sub_11BD90, SetScreenTarget, sub_415A0, sub_415F8, sub_419B0
 extern sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, sub_7E860
 extern sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F5A4, sub_80AB8
 extern sub_80B28, sub_80BBC, sub_815F8, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_81D1C
@@ -940,7 +940,7 @@ PlayerStatsScreen:
         push dword_1CACDC
         push asc_1667DC
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         mov eax, dword [byte ebp+06Eh]
         add esp, byte 0Ch
         add eax, byte 40h
@@ -1015,7 +1015,7 @@ PlayerStatsScreen:
         push unk_1CACE8
         push asc_166810
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         mov eax, dword [byte ebp+06Eh]
         add esp, byte 0Ch
         add eax, 0C0h
@@ -1030,7 +1030,7 @@ PlayerStatsScreen:
         push unk_1CACF4
         push asc_16682C
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         mov eax, dword [byte ebp+06Eh]
         add esp, byte 0Ch
         add eax, 100h
@@ -1045,7 +1045,7 @@ PlayerStatsScreen:
         push unk_1CAD00
         push asc_166848
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         mov eax, dword [byte ebp+06Eh]
         add esp, byte 0Ch
         add eax, 140h
@@ -1497,7 +1497,7 @@ PlayerStatsScreen_B94:
         push asc_166899
 .47:
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         jmp near PlayerStatsScreen_DC7.64
 .48:
@@ -5314,7 +5314,7 @@ PlayerRatingsScreen:
         push dword_1CACDC
         push asc_166977
         push dword [byte ebp+062h]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         cmp dword [dword_1CAEA0], byte 0
         je short .25
@@ -5344,7 +5344,7 @@ PlayerRatingsScreen:
         push asc_1669AF
 .26:
         push dword [byte ebp+062h]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         cmp dword [dword_16D458], byte 0
         je short .27
@@ -5389,7 +5389,7 @@ PlayerRatingsScreen:
         push asc_166A03
 .29:
         push dword [byte ebp+06Eh]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         lea eax, [dword ebp-026Ah]
         push eax
@@ -5923,7 +5923,7 @@ PlayerRatingsScreen_D4E:
         push unk_1CACE8
         push asc_1669AF
         push dword [byte ebp+06Eh]
-        call sub_11B094
+        call FindShapeList
         mov edx, dword [byte ebp+076h]
         add esp, byte 0Ch
         mov eax, unk_1CAADC
@@ -6130,7 +6130,7 @@ PlayerRatingsScreen_D4E:
         push unk_1CACE8
         push asc_166A2E
         push dword [byte ebp+06Eh]
-        call sub_11B094
+        call FindShapeList
         mov eax, dword [byte ebp+01Ah]
         add esp, byte 0Ch
         movsx edx, word [eax]
@@ -6268,7 +6268,7 @@ PlayerRatingsScreen_11E4:
         push unk_1CACF4
         push asc_1669CB
         push dword [byte ebp+06Eh]
-        call sub_11B094
+        call FindShapeList
         mov dword [dword_16D458], 1
 .77:
         mov dword [dword_16D404], 0
@@ -6286,7 +6286,7 @@ PlayerRatingsScreen_11E4:
         push unk_1CACF4
         push asc_1669E7
         push dword [byte ebp+06Eh]
-        call sub_11B094
+        call FindShapeList
         mov dword [dword_16D458], 0
         jmp short .77
 .79:
@@ -6302,7 +6302,7 @@ PlayerRatingsScreen_11E4:
         push unk_1CACF4
         push asc_166A03
         push dword [byte ebp+06Eh]
-        call sub_11B094
+        call FindShapeList
         mov dword [dword_16D458], 0
         mov dword [dword_16D404], 1
 .80:

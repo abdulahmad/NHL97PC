@@ -28,18 +28,18 @@ extern dword_1C9588, dword_1C958C, dword_1C9590, dword_1C9594, dword_1C9598, dwo
 extern dword_1C95A8, dword_1C95AA, dword_1C95B0, dword_1C95B4, dword_1C95B8, dword_1C95BC, dword_1C95C0, dword_1C95C4
 extern dword_1CF548, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcpy_
 extern bcopy, BlitArt, BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101EAC
-extern sub_102B94, sub_102C10, sub_102C30, sub_106D80, sub_106F64, sub_106F94, sub_110D70, sub_117338
+extern sub_102B94, sub_102C10, Random32, sub_106D80, sub_106F64, sub_106F94, sub_110D70, sub_117338
 extern sub_11A318, sub_11A350, sub_13B50, sub_13B98, SetScreenTarget, PlayGame, sub_397FD, sub_39824
 extern InitGameAudio, sub_415A0, sub_415F8, sub_41670, sub_419B0, sub_419B8, StopAllSfx, PlaySfx
 extern PaEvent, sub_4A280, LoadDataFileLib, LoadDataFile, OpenDataLibrary, InitFrontEnd, FreeFrontEnd, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned
-extern sub_7F29C, sub_80758, sub_80808, sub_80A38, sub_80AB8, sub_80BBC, sub_81650, sub_81678
+extern sub_7F29C, LoadTeamLogo, sub_80808, sub_80A38, sub_80AB8, sub_80BBC, sub_81650, sub_81678
 extern sub_823F0, sub_83C08, ShowLoadingScreen, sub_842F4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
 extern DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, LoadLangTextB, GetLangText, FreeLangText, sub_8E870
 extern sub_A3136, sub_A31DE, AllocStatTable, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
 extern sub_ACDAE, sub_AD151, sub_AD62E, UserLogScreen, sub_CA44C, sub_D0098, InitSlotTable, sub_E32B4
 extern sub_E3410, sub_E341C, sub_E4218, sub_E4230, LinkSendBlock, LinkReceiveBlock, sub_EE8AC, AllocMemBlock
-extern FreeMemBlock, sub_FB704, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, sub_FCEEC, sub_FCF84
+extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, sub_FCEEC, sub_FCF84
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, sub_FDE44, tickcount, unk_165EA0, unk_166010
 extern unk_16609C, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_1C94F4, word_1684BE, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
@@ -52,7 +52,7 @@ global PostGameScreen_B39, PostGameScreen_B4E, PostGameScreen_B55, PostGameScree
 global GameStatsScreen_143, GameStatsScreen_14E, GameStatsScreen_19A, GameStatsScreen_205, GameStatsScreen_24A, GameStatsScreen_294, GameStatsScreen_2D9, GameStatsScreen_39D
 global sub_A3280, sub_A3B69, sub_A3E2B, sub_A405E, sub_A4164, sub_A4A5C, sub_A4B7D, sub_A64FC
 global PostGameScreen, sub_A728C, sub_A72C8, sub_A7380, DrawThreeStarStats, sub_A79EC, sub_A7AD0, sub_A7C40
-global sub_A7C90, GameStatsScreen, sub_A8204, sub_A8480, sub_A8524, GameStatsPlayersPage, DrawTeamGameStats, sub_A8E84
+global sub_A7C90, GameStatsScreen, InitGameStatsScreen, sub_A8480, sub_A8524, GameStatsPlayersPage, DrawTeamGameStats, sub_A8E84
 global sub_A91AC, DrawScoringSummary, sub_A9504, sub_A9640, sub_A9800, sub_A9A10, sub_AA170, sub_AA274
 global sub_AA498, sub_AA4BC, sub_AA588, sub_AA650, sub_AA710, sub_AA774, sub_AA7EC, sub_AA850
 global sub_AA8B4, sub_AA92C, sub_AAA51, GoalTypeSuffix, FormatGoalLine, LoadGameLogos, sub_AB0A6, PlayMenuGame
@@ -2211,7 +2211,7 @@ sub_A4B7D_112:
         push eax
         xor esi, esi
         mov dword [dword_1C94B8], eax
-        call sub_FB704
+        call ZeroMem
         mov dword [dword_1C94C4], 0
         mov dword [dword_1C94B4], 0
         mov dword [dword_1C94C8], 0
@@ -3931,7 +3931,7 @@ PostGameScreen:
         mov eax, 2
         call LoadDataFile
         mov dword [dword_1C959C], eax
-        call sub_102C30
+        call Random32
         test al, 1
         je short .2
         push asc_165EDC
@@ -4541,7 +4541,7 @@ PostGameScreen:
         shl eax, 6
 .25:
         shr eax, 1Ah
-        call sub_80758
+        call LoadTeamLogo
         push byte 76h
         mov eax, dword [dword_1C5E74]
         mov ebx, 0Ch
@@ -5353,7 +5353,7 @@ sub_A79EC:
 .2:
         cmp ebx, dword [dword_1C9598]
         jle near .5
-        call sub_102C30
+        call Random32
         mov ecx, 3
         xor edx, edx
         div ecx
@@ -5426,7 +5426,7 @@ sub_A7AD0:
 .2:
         cmp ebx, dword [dword_1C95A0]
         jle near .5
-        call sub_102C30
+        call Random32
         mov ecx, 3
         xor edx, edx
         div ecx
@@ -5692,7 +5692,7 @@ GameStatsScreen:
         lea edx, [dword esp+03F4h]
         mov dword [dword esp+0400h], eax
         mov dword [dword_1C9544], edx
-        call sub_A8204
+        call InitGameStatsScreen
         call GameStatsPlayersPage
         mov eax, dword [dword_1C9568]
         xor edi, edi
@@ -5976,9 +5976,11 @@ GameStatsScreen_39D:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_A8204                                                       A8204  97 PC
+; InitGameStatsScreen                             A8204  97 PC, low confidence
+; From GameStatsScreen: creates its bitmap and menu items and loads its art
+; (LoadDataFile; BACK, BOTM)
 ;-----------------------------------------------------------------------------
-sub_A8204:
+InitGameStatsScreen:
         push ebx
         push ecx
         push edx
@@ -5990,7 +5992,7 @@ sub_A8204:
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
-        call sub_80758
+        call LoadTeamLogo
         mov edx, dword [dword_1C5E74]
         mov eax, dword [byte edx+02h]
         sar eax, 10h
@@ -6024,7 +6026,7 @@ sub_A8204:
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
-        call sub_80758
+        call LoadTeamLogo
         mov edx, dword [dword_1C5E74]
         mov eax, dword [byte edx+02h]
         sar eax, 10h
@@ -7845,7 +7847,7 @@ sub_A9800:
         call sub_D0098
         shr esi, 1Ah
         mov eax, esi
-        call sub_80758
+        call LoadTeamLogo
         mov eax, dword [dword_1C5E74]
         mov edx, dword [byte eax+04h]
         sar edx, 10h
@@ -8500,7 +8502,7 @@ sub_AA170:
         call PlaySfx
         mov word [word_16D2B2], si
 .1:
-        call sub_102C30
+        call Random32
         mov ecx, 3
         xor edx, edx
         div ecx
@@ -8583,7 +8585,7 @@ sub_AA274:
         mov eax, dword [dword_1C9584]
         cmp dword [dword eax+0A8h], byte 1
         jne short .2
-        call sub_102C30
+        call Random32
         mov ecx, 3
         xor edx, edx
         div ecx
@@ -8620,7 +8622,7 @@ sub_AA274:
 .2:
         cmp dword [dword eax+01F0h], byte 1
         jne near .6
-        call sub_102C30
+        call Random32
         mov ecx, 3
         xor edx, edx
         div ecx
@@ -8665,7 +8667,7 @@ sub_AA274:
         mov ebp, dword [dword eax+0242h]
         cmp ebp, byte 1
         jne near .11
-        call sub_102C30
+        call Random32
         mov ecx, 3
         xor edx, edx
         div ecx

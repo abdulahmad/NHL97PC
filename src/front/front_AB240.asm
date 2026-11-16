@@ -12,7 +12,7 @@ extern sub_7FE4C, sub_83314, sub_834EC, sub_83558, NameIndexNew, NameIndexLoad, 
 extern GetLangText, sub_91D7F, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData
 extern LinkReceiveData, sub_A3116, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DB763, sub_DCFB0, sub_DE5A3
 extern sub_DE740, sub_DEE95, sub_DEF96, sub_E036F, sub_E0415, sub_E19D5, sub_E1C19, sub_E1CC0
-extern sub_E3410, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, sub_FB704, sub_FCC40, unk_16D7F4
+extern sub_E3410, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem, sub_FCC40, unk_16D7F4
 extern unk_1ACF4E, unk_1AD236, unk_1AD443, word_1C1344
 global sub_AB240_32D, sub_AB573_B2F, sub_AB573_B30, sub_AB240, sub_AB573, sub_AC0A9, sub_AC369, sub_AC41B
 global sub_AC69C, sub_AC6EB, sub_AC73E
@@ -1676,7 +1676,7 @@ sub_AC73E:
         push byte 0Dh
         push dword [byte ebp+020h]
         lea esi, [byte ebp+018h]
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         xor edx, edx
 .1:

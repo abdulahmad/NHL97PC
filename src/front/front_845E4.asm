@@ -16,8 +16,8 @@ extern dword_1C82D0, dword_1C82D4, dword_1C82D8, dword_1C82DC, dword_1C82E0, dwo
 extern dword_1C831C, dword_1C8320, dword_1C8324, dword_1C8328, dword_1C832C, dword_1C8330, dword_1C8334, dword_1C94E8
 extern fclose_, fopen_, fputc_, jpt_845CC, memcpy_, memset_, rand_, sprintf_
 extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, bcopy, sub_101324
-extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101584, sub_102B94, sub_102C30
-extern sub_106DA0, sub_10AED0, sub_110D70, sub_11A318, sub_11B094, sub_11B104, SetScreenTarget, sub_419B0
+extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101584, sub_102B94, Random32
+extern sub_106DA0, sub_10AED0, sub_110D70, sub_11A318, FindShapeList, sub_11B104, SetScreenTarget, sub_419B0
 extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, WaitMusicEnd, ArenaFileName, sub_41F2C, StopAllSfx
 extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
@@ -25,7 +25,7 @@ extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, R
 extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, sub_A4B7D, PostGameScreen
 extern GameStatsScreen, PlayMenuGame, sub_AC369, TeamStatsScreen, sub_AF074, sub_B418C, PlayerStatsScreen, PlayerRatingsScreen
 extern sub_BD621, sub_C0F5D, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, sub_DB75E, OpenLeagueFile, sub_E036F
-extern sub_E3410, sub_E341C, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, sub_FB704
+extern sub_E3410, sub_E341C, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
 extern sub_FC330, FreeBitmap, sub_FCEEC, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
 extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C8300, unk_1C830C, unk_845C0
@@ -55,7 +55,7 @@ sub_845E4:
         mov esi, dword [dword_1C8320]
         cmp dword [byte esi+eax+04h], byte 1
         jne short .2
-        call sub_102C30
+        call Random32
         mov esi, 3
         xor edx, edx
         div esi
@@ -579,7 +579,7 @@ MainMenuScreen:
         push byte 18h
         lea eax, [byte ebp-0Eh]
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov eax, 3
         xor ebx, ebx
@@ -693,18 +693,18 @@ MainMenuScreen:
         push dword_1C82F4
         push asc_16524B
         push dword [byte ebp+076h]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push unk_1C8300
         push asc_165258
         push dword [byte ebp+076h]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push unk_1C830C
         push asc_165265
         push dword [byte ebp+076h]
         xor ebx, ebx
-        call sub_11B094
+        call FindShapeList
         mov eax, 8
         add esp, byte 0Ch
         mov edx, dword [dword_1C8320]

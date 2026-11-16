@@ -31,7 +31,7 @@ extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, PlaySfxOr, PlaySfxVolume, sub
 extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
 extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
 extern sub_71D48, sub_71E58, StartFightAnim, sub_76FE8, sub_77F94, clockcont_0, sub_AA588, sub_F9A88
-extern sub_FAAB4, FreeMemBlock, sub_FB71C, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
+extern sub_FAAB4, FreeMemBlock, FillMem, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
 extern unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E, unk_19D5A0, unk_19D5D2, unk_19D668, unk_19E060
 extern unk_19ECC8, unk_19ECE4, unk_1C135C, unk_1C347F, vecdist, vtoa, word_1686D6, word_168E2C
 extern word_168E2E, word_168E34, word_168E60, word_19C3EC, word_19C3EE, word_19C628, word_19C62A, word_19CA90
@@ -10782,7 +10782,7 @@ sub_37044:
         push byte 0
         push ebx
         push esi
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
         push edi
         push ebp

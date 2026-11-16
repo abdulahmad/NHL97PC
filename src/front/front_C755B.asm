@@ -26,11 +26,11 @@ extern dword_1CC214, dword_1CC218, dword_1CC21C, dword_1CC220, dword_1CC224, dwo
 extern dword_1CC234, dword_1CC238, dword_1CC23C, dword_1CC2A4, dword_1CC2A8, dword_1CC2AC, dword_1CC2B0, dword_1CC2B4
 extern dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4, jpt_C750B, memmove_, memset_, qsort_
 extern qword_166FC4, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, BlitArt
-extern BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, sub_102C30, sub_106DA0, sub_11A318
-extern sub_11B094, sub_11B104, sub_11B98E, SetScreenTarget, sub_415A0, sub_415F8, sub_419B0, sub_419B8
+extern BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, sub_106DA0, sub_11A318
+extern FindShapeList, sub_11B104, sub_11B98E, SetScreenTarget, sub_415A0, sub_415F8, sub_419B0, sub_419B8
 extern sub_41F2C, PlaySfx, PlayScreenMovie, LoadDataFile, sub_7B4E4, sub_7DFC0, sub_7E52C, sub_7E860
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7FE38
-extern sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_816E8
+extern LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_816E8
 extern sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068, sub_84570, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F
 extern sub_8E6AF, GetLangText, sub_8E870, LoadFakeExhibition, SaveAgents, sub_92EE2, sub_92F25, EditLinesScreen
@@ -620,7 +620,7 @@ sub_C7CE8:
         xor esi, esi
         cmp eax, dword [dword_16D674]
         jle near sub_CF255_158
-        call sub_102C30
+        call Random32
         mov ebx, 3
         xor edx, edx
         div ebx
@@ -2569,7 +2569,7 @@ sub_C9757:
         enter 4, 0
         push eax
         mov eax, edx
-        call sub_80758
+        call LoadTeamLogo
         mov eax, dword [dword_1C5E74]
         movsx edi, word [byte eax+04h]
         imul edi, dword 0B333h
@@ -3171,18 +3171,18 @@ sub_C9F18:
         push dword_1CC18C
         push asc_166DB8
         push dword [dword_1CC2C0]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push dword_1CC1AC
         push asc_166DC9
         push dword [dword_1CC2C0]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push dword_1CC19C
         push asc_166DDA
         push dword [dword_1CC2C0]
         mov ebx, str_TR00
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         mov ecx, asc_166DF0
         mov edx, dword [dword_1CC20C]

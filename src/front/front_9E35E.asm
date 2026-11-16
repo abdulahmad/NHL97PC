@@ -10,7 +10,7 @@ extern asc_165CF6, asc_165CFB, dword_16CFF8, dword_16D23C, dword_16D250, dword_1
 extern dword_1ACB45, dword_1C1334, dword_1C86FC, dword_1C8E4C, dword_1C8E50, dword_1C8E54, dword_1C8E58, dword_1C8E5C
 extern dword_1C8E60, dword_1C8E64, dword_1C8E88, dword_1C8E8C, dword_1C8E90, dword_1C8E94, dword_1C8E98, dword_1C8E9C
 extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
-extern PickIndexEntryScreen_4EE, rand_, sprintf_, BlitShape2, BlitArt, sub_1013FC, FindShape, sub_11B094
+extern PickIndexEntryScreen_4EE, rand_, sprintf_, BlitShape2, BlitArt, sub_1013FC, FindShape, FindShapeList
 extern SetScreenTarget, sub_419B0, sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, LoadDataFile, sub_7E860
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, sub_80AB8, sub_80B28, sub_80BBC, sub_835BC
 extern sub_83850, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, LinkTransferSetup, sub_C6064
@@ -799,14 +799,14 @@ TeamSelectScreen:
         push asc_165CA3
         mov dword [dword ebx+0352h], eax
         push dword [dword_1C8E58]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         lea eax, [byte ebp-0Eh]
         push eax
         push asc_165CC8
         push dword [dword_1C8E58]
         mov ebx, 2
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
 .8:
         imul eax, ebx, byte 52h

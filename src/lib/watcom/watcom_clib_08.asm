@@ -12,7 +12,7 @@ extern dword_1CFA84, dword_1CFA88, dword_1CFA8C, dword_1CFA90, dword_1CFA94, dwo
 extern dword_1CFAA8, dword_1CFAAC, dword_1CFAB0, dword_1CFAB4, dword_1CFABC, dword_1CFAC0, dword_1CFACC, dword_1CFAD0
 extern dword_1CFAD4, dword_1CFAD8, dword_1DC5AC, dword_1DC994, dword_1DC998, dword_1DC99C, dword_1DCAFC, dword_1DCB00
 extern dword_1DCB04, dword_1DCB08, dword_1DCEC0, dword_1DCF20, int386_, int386x_, memset_, segread_
-extern str_Inversetmp, bcopy, sub_102C30, sub_1048BC, sub_1093CF, sub_109401, sub_109545, sub_10955B
+extern str_Inversetmp, bcopy, Random32, sub_1048BC, sub_1093CF, sub_109401, sub_109545, sub_10955B
 extern sub_1095AD, sub_109608, sub_12189C, sub_126264, sub_126364, sub_1266FC, AllocMemBlock, sub_FAAB4
 extern sub_FAB68, FreeMemBlock, WaitTicks, tickcount, toupper_, unk_16FB44, unk_1CFAF0, word_1CFA98
 extern word_1CFAB8, word_1CFADE, word_1CFAE0
@@ -1977,7 +1977,7 @@ sub_1060A8:
 .1:
         movzx eax, byte [byte ebx+01h]
         mov dword [byte ebp-08h], eax
-        call sub_102C30
+        call Random32
         mov ecx, 64h
         xor edx, edx
         div ecx
@@ -2225,7 +2225,7 @@ sub_1062DB:
 .4:
         cmp dword [byte ebp-010h], byte 0
         jne short .3
-        call sub_102C30
+        call Random32
         xor edx, edx
         div edi
         mov ecx, dword [byte esi+01Ch]
@@ -2234,7 +2234,7 @@ sub_1062DB:
         mov eax, dword [byte eax+04h]
         mov ebx, edx
         mov dword [byte ebp-018h], eax
-        call sub_102C30
+        call Random32
         xor edx, edx
         div dword [byte ebp-04h]
         mov eax, dword [byte ebp-04h]
@@ -2710,7 +2710,7 @@ sub_1065F0:
         mov dword [byte ebp+052h], eax
         jmp short .13
 .12:
-        call sub_102C30
+        call Random32
         xor edx, edx
         div dword [byte ebp+046h]
         mov eax, dword [byte edi+ebp-056h]
@@ -2823,7 +2823,7 @@ sub_1065F0:
         imul ebx, dword [byte ebp+07Ah], byte 14h
         jmp short .25
 .24:
-        call sub_102C30
+        call Random32
         xor edx, edx
         div dword [byte edi+ebp-05Eh]
         mov eax, edx
@@ -3002,7 +3002,7 @@ sub_106AA6:
         cmp dword [ebx], 76657674h
         jne short sub_1069F2_AE
         movsx edi, byte [byte ebx+07h]
-        call sub_102C30
+        call Random32
         mov ecx, 64h
         xor edx, edx
         div ecx

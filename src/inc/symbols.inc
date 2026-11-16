@@ -887,7 +887,7 @@
 ;  7F5B8  sub_7F5B8                                front/main/main.asm                          6
 ;  7FE38  sub_7FE38                                front/main/main.asm                          6
 ;  7FE4C  sub_7FE4C                                front/main/main.asm                          2
-;  80758  sub_80758                                front/main/main.asm                          6
+;  80758  LoadTeamLogo                             front/main/main.asm                          6
 ;  80808  sub_80808                                front/main/main.asm                          6
 ;  80A38  sub_80A38                                front/main/main.asm                          1
 ;  80AB8  sub_80AB8                                front/main/main.asm                          4
@@ -1139,8 +1139,8 @@
 ;  D70C4  CreditsScreen                            front/front_D4E24.asm                        1
 ;  D7A70  AllocPageStack                           front/front_D4E24.asm                        1
 ;  D7B64  sub_D7B64                                front/front_D4E24.asm                        1
-;  D8130  sub_D8130                                front/front_D4E24.asm                        1
-;  D81D8  sub_D81D8                                front/front_D4E24.asm                        1
+;  D8130  OpenDbFile                               front/front_D4E24.asm                        1
+;  D81D8  CloseDbFile                              front/front_D4E24.asm                        1
 ;  D8B20  sub_D8B20                                front/front_D4E24.asm                        1
 ;  D9960  sub_D9960                                front/front_D4E24.asm                        1
 ;  D9D74  sub_D9D74                                front/front_D4E24.asm                        1
@@ -1323,8 +1323,8 @@
 ;  FB634  sub_FB634                                lib/ea/ea_memman_01.asm                      2
 ;  FB64C  sub_FB64C                                lib/ea/ea_memman_01.asm                      1
 ;  FB658  sub_FB658                                lib/ea/ea_memman_01.asm                      1
-;  FB704  sub_FB704                                lib/ea/ea_memman_01.asm                      17
-;  FB71C  sub_FB71C                                lib/ea/ea_memman_01.asm                      6
+;  FB704  ZeroMem                                  lib/ea/ea_memman_01.asm                      17
+;  FB71C  FillMem                                  lib/ea/ea_memman_01.asm                      6
 ;  FB73D  sub_FB73D                                lib/ea/ea_memman_01.asm                      2
 ;  FB8AE  sub_FB8AE                                lib/input/input_joystick_misc_01.asm         1
 ;  FB9D8  sub_FB9D8                                lib/input/input_joystick_misc_01.asm         1
@@ -1530,7 +1530,7 @@
 ;  102B94  sub_102B94                               lib/input/input_joystick_misc_05.asm         15
 ;  102BB8  SetClipWindow                            lib/video/video_bios_vga_01.asm              11
 ;  102C10  sub_102C10                               lib/video/video_bios_vga_01.asm              8
-;  102C30  sub_102C30                               lib/video/video_bios_vga_01.asm              18
+;  102C30  Random32                                 lib/video/video_bios_vga_01.asm              18
 ;  102C96  sub_102C96                               lib/video/video_bios_vga_01.asm              1
 ;  102CDC  sub_102CDC                               lib/video/video_bios_vga_01.asm              3
 ;  102CF4  sub_102CF4                               lib/video/video_bios_vga_01.asm              2
@@ -1885,7 +1885,7 @@
 ;  11ADD0  sub_11ADD0                               lib/watcom/watcom_clib_13.asm                4
 ;  11ADE8  sub_11ADE8                               lib/watcom/watcom_clib_13.asm                4
 ;  11B008  sub_11B008                               lib/ea/ea_debug.asm                          1
-;  11B094  sub_11B094                               lib/ea/ea_debug.asm                          8
+;  11B094  FindShapeList                            lib/ea/ea_debug.asm                          8
 ;  11B0D0  sub_11B0D0                               lib/watcom/watcom_clib_14.asm                3
 ;  11B104  sub_11B104                               lib/ea/ea_fileblock_02.asm                   3
 ;  11B1A0  savefileblocka                           lib/ea/ea_fileblock_02.asm                   1

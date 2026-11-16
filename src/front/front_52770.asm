@@ -43,7 +43,7 @@ extern str_Gt004, str_Gt007, str_Gt302, str_IceLine, str_Lites, str_Maxx, str_Ma
 extern str_Minz, str_Pbench0D, str_Pbench1D, str_Penback, str_Penbox0D, str_Penbox1D, str_Penboxt0, str_Penboxt1
 extern str_Penboxz0, str_Penboxz1, str_R02d, str_Redlite, str_Rink, str_Rlite0, str_Rlite1, str_STAND
 extern str_STAND2ND, str_Score, str_Stands2, str_Strobe, str_ThinRedLines, str_Topboards, str_WALL, sub_1007C0
-extern bcopy, FindShape, sub_101584, sub_102C30, sub_102C96, sub_102CDC, sub_102CF4, sub_103648
+extern bcopy, FindShape, sub_101584, Random32, sub_102C96, sub_102CDC, sub_102CF4, sub_103648
 extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_10B000, sub_10B040, sub_10B060, sub_10B084
 extern sub_10B0EC, sub_10B4E0, sub_10B580, BuildAntiAliasTable, sub_10C8E8, sub_10DDE0, sub_10E284, sub_10E4B0
 extern sub_10E62C, sub_10E6AC, sub_10E7AC, sub_10E8F8, sub_10EE50, sub_10FB98, sub_10FBB0, sub_10FD58
@@ -135,7 +135,7 @@ LoadLogos:
         xor edi, edi
         mov dword [dword esp+0DCh], eax
 .6:
-        call sub_102C30
+        call Random32
         xor edx, edx
         div esi
         mov ecx, edx
@@ -3286,7 +3286,7 @@ sub_55000:
         mov ebx, 6
         movsd
         movsd
-        call sub_102C30
+        call Random32
         xor edx, edx
         div ebx
         add edx, byte 30h

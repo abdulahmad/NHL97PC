@@ -4,7 +4,7 @@ bits 32
 section s_11AE10 progbits alloc exec nowrite align=1
 extern byte_16E503, byte_16E504, byte_171D33, byte_171D34, dword_1DA394, dword_1DA398, dword_1DA39C, dword_1DA3A0
 extern dword_1DA3A4, dword_1DA3A8, dword_1DA3AC, dword_1DA3B0, FindShape, FindShapeQuiet
-global sub_11AE10, sub_11AFAC, sub_11B008, sub_11B094
+global sub_11AE10, sub_11AFAC, sub_11B008, FindShapeList
 ;-----------------------------------------------------------------------------
 ; sub_11AE10                                                          11AE10  
 ;-----------------------------------------------------------------------------
@@ -256,9 +256,11 @@ sub_11B008:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11B094                                                          11B094  
+; FindShapeList                               11B094  97 PC, medium confidence
+; (bank, names, out): FindShape for each 4-character name of a list, storing
+; the pointers
 ;-----------------------------------------------------------------------------
-sub_11B094:
+FindShapeList:
         push ebx
         push esi
         push edi

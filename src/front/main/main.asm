@@ -25,14 +25,14 @@ extern dword_1C81B4, dword_1C81B8, dword_1C8268, dword_1CF538, dword_1CF548, dwo
 extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, exit_, getcwd_, sub_845E4_32E, sub_845E4_344, sub_845E4_35A
 extern sub_845E4_370, memcpy_, open_, printf_, sprintf_, srand_, strcat_, strcpy_
 extern strlen_, sub_1008CC, bcopy, sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC
-extern FindShape, sub_101EAC, sub_102B94, sub_102C10, sub_102C30, LoadGripLibrary, sub_1046C, LoadJoystickConfig
+extern FindShape, sub_101EAC, sub_102B94, sub_102C10, Random32, LoadGripLibrary, sub_1046C, LoadJoystickConfig
 extern sub_105808, sub_106F64, sub_106F94, sub_107D30, sub_116428, sub_1164E8, sub_1167AE, sub_1169D4
 extern sub_119BE4, sub_119FDC, sub_11A120, sub_11A318, sub_11A3E0, sub_11ADD0, sub_11ADE8, sub_11B008
 extern SetScreenTarget, sub_4095C, OpenAudioStream, sub_41870, sub_41A28, sub_41D18, sub_41DB8, ArenaFileName
 extern StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, sub_4B307, RunFrontEnd, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, GetLangText, FreeLangText
 extern RunIntro, AllocStaticBuffer, sub_DB747, sub_E341C, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
-extern WaitForOtherComputer, FillBox, sub_F9650, AllocMemBlock, FreeMemBlock, sub_FB4D4, sub_FB704, sub_FB73D
+extern WaitForOtherComputer, FillBox, sub_F9650, AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, sub_FB73D
 extern sub_FBE40, sub_FBE94, MakeColor, sub_FC73E, sub_FCC40, FreeBitmap, sub_FCF84, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, sub_FDC68, FillRect, sub_FDE44, sub_FE150, sub_FE180
 extern sub_FE3D0, sub_FE470, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
@@ -43,7 +43,7 @@ extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1C6044, unk_1C6104, unk_1C7144, u
 global jpt_816D8, jpt_845CC, sub_816E8_425, sub_816E8_438, sub_816E8_44A, sub_816E8_45A, main_, sub_7D539
 global sub_7D830, sub_7D92C, sub_7DA28, sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0
 global sub_7EF70, SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7F5B8
-global sub_7F5CC, sub_7FE38, sub_7FE4C, sub_7FE60, EditText, sub_80758, sub_80808, sub_80828
+global sub_7F5CC, sub_7FE38, sub_7FE4C, sub_7FE60, EditText, LoadTeamLogo, sub_80808, sub_80828
 global sub_80A38, sub_80AB8, sub_80B28, sub_80BBC, sub_80F48, sub_81114, sub_81468, sub_815F8
 global sub_81650, sub_81678, sub_816A4, sub_816BC, sub_816E8, sub_81D1C, sub_821CC, sub_823F0
 global sub_82FB8, sub_830D4, sub_83314, sub_83334, sub_834EC, sub_83558, sub_835AC, sub_835BC
@@ -1921,7 +1921,7 @@ sub_7E52C:
         jne short .7
         push eax
         push ebx
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         jmp near .21
 .7:
@@ -2039,7 +2039,7 @@ sub_7E52C:
 .14:
         push esi
         push ebx
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         inc edi
         mov eax, dword [byte esp+03Ch]
@@ -4557,9 +4557,11 @@ EditText:
         ret 8
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_80758                                                       80758  97 PC
+; LoadTeamLogo                                    80758  97 PC, low confidence
+; (team): frees the last one and loads a team's logo art (LOGO, unpacked into
+; an "UNPACKLOGO" block)
 ;-----------------------------------------------------------------------------
-sub_80758:
+LoadTeamLogo:
         push ebx
         push ecx
         push edx
@@ -4901,7 +4903,7 @@ sub_80AB8:
         mov esi, dword_16E670
         rep movsd
         mov ecx, dword [byte esp+058h]
-        call sub_80758
+        call LoadTeamLogo
         push ecx
         mov esi, dword [byte esp+058h]
         push esi
@@ -9805,7 +9807,7 @@ sub_84570:
         push edx
         sub esp, byte 50h
         call sub_41D18
-        call sub_102C30
+        call Random32
         mov ebx, eax
         and ebx, byte 1
         mov edx, esp

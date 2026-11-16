@@ -14,11 +14,11 @@ extern dword_1CB0A0, dword_1CB0A4, dword_1CB0A8, dword_1CB0AC, dword_1CB0B0, dwo
 extern dword_1CB0C0, dword_1CB0C4, dword_1CB0C8, dword_1CB0CC, dword_1CB0D0, dword_1CB0D4, dword_1CB0D8, dword_1CB0DC
 extern dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dword_1CB0F4, dword_1CB0F8, dword_1CB0FC
 extern dword_1CB100, dword_1CB104, dword_1CBB88, off_16D5F7, sprintf_, strcat_, strcpy_, strlen_
-extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, sub_102C30
+extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32
 extern sub_106D80, sub_106F64, sub_106F94, sub_11A318, sub_11A350, sub_11BDC0, SetScreenTarget, sub_415A0
 extern sub_415F8, sub_419B0, sub_419B8, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, SetTextColor
-extern DrawTextAligned, sub_7F29C, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_83C08
+extern DrawTextAligned, sub_7F29C, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC
 extern sub_8DF1F, GetLangText, OptionsScreen, sub_CA44C, sub_D0098, sub_E341C, sub_E4218, sub_E4230
 extern sub_E77B1, ControlSetupScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, sub_FCEEC, DrawArt
@@ -430,7 +430,7 @@ sub_C1577:
         call ClearScreen
         add esp, byte 4
         mov eax, ebx
-        call sub_80758
+        call LoadTeamLogo
         mov eax, 500000h
         mov ebx, dword [dword_1C5E74]
         cdq
@@ -2637,7 +2637,7 @@ sub_C2F86:
         mov edx, dword [dword_1CB0E0]
         cmp dword [dword edx+0A8h], byte 1
         jne short .2
-        call sub_102C30
+        call Random32
         mov ebx, 3
         xor edx, edx
         div ebx
@@ -2703,7 +2703,7 @@ sub_C3088:
         mov eax, dword [dword_1CB0E0]
         cmp dword [dword eax+0FAh], byte 1
         jne short .2
-        call sub_102C30
+        call Random32
         mov ebx, 3
         xor edx, edx
         div ebx
@@ -2814,7 +2814,7 @@ sub_C31FE:
         push byte 0
         call SetClipWindow
         add esp, byte 10h
-        call sub_102C30
+        call Random32
         mov ecx, 6
         xor edx, edx
         div ecx
@@ -2824,7 +2824,7 @@ sub_C31FE:
         call BlitShape
         add esp, byte 4
         call sub_102C10
-        call sub_102C30
+        call Random32
         mov ecx, 0C8h
         xor edx, edx
         div ecx
@@ -2834,7 +2834,7 @@ sub_C31FE:
 .1:
         cmp esi, dword [dword_1CB07C]
         jbe short .2
-        call sub_102C30
+        call Random32
         mov ebx, 6
         xor edx, edx
         div ebx
@@ -2844,7 +2844,7 @@ sub_C31FE:
         call BlitShape
         add esp, byte 4
         mov ebx, 0C8h
-        call sub_102C30
+        call Random32
         xor edx, edx
         div ebx
         add edx, esi

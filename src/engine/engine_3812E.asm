@@ -41,7 +41,7 @@ extern qword_160ACC, qword_160AD4, qword_160ADC, qword_160AE4, qword_160AEC, qwo
 extern qword_160B14, qword_160B1C, qword_160B28, qword_160B35, qword_160CF7, qword_160CFF, qword_160D07, qword_160D0F
 extern randomd0, removewindow, sprintf_, str_CDSTREAM, str_SECCDSTREAM, str_STREAM, strcat_, strcmp_
 extern strcpy_, strncpy_, strstr_, bcopy, BlitArt, BlitShape, sub_1013FC, FindShape
-extern FindShapeQuiet, sub_101560, sub_101EAC, sub_102B94, sub_102C10, sub_102C30, sub_102CDC, sub_102D3C
+extern FindShapeQuiet, sub_101560, sub_101EAC, sub_102B94, sub_102C10, Random32, sub_102CDC, sub_102D3C
 extern sub_102E0C, sub_102EBC, sub_103298, sub_103648, sub_1047D0, sub_10483C, sub_1048BC, sub_10491C
 extern sub_104940, sub_104948, sub_104980, sub_1049D0, sub_105258, sub_1055D4, sub_105644, sub_1056F0
 extern sub_10578C, sub_1057E8, sub_105808, sub_10585C, sub_105904, sub_106AA6, sub_106D08, sub_106DA0
@@ -55,11 +55,11 @@ extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, sub_5AC30, sub_5B4B8, sub_5C1
 extern sub_5DF50, SetSPA, sub_5EEEC, sub_60D6C, sub_60F48, sub_612E4, sub_613AC, sub_6152C
 extern sub_617EC, sub_62C14, sub_74CEC, sub_74FA4, sub_76944, sub_789F0, sub_7B15D, sub_7DFC0
 extern sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C
-extern sub_7F5A4, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMenuItems, sub_8BFAC
+extern sub_7F5A4, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMenuItems, sub_8BFAC
 extern sub_8DF1F, GetLangText, sub_99DAC, sub_AC369, sub_D0098, sub_DB75E, sub_DB763, sub_DE25F
 extern OpenLeagueFile, sub_DE740, sub_E036F, sub_E0415, FileExists, FileCreate, FileSeek, FileReadRecord
 extern FileWriteRecord, FileClose, sub_E341C, BuildAllStarTeams, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
-extern AllocMemBlock, FreeMemBlock, sub_FB4D4, sub_FB704, sub_FB71C, addtimer, sub_FC008, sub_FC290
+extern AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, FillMem, addtimer, sub_FC008, sub_FC290
 extern WaitTicks, sub_FC330, sub_FC410, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
 extern ClearScreen, sub_FDC68, sub_FE180, sub_FFA44, sub_FFA9C, tickcount, unk_160A56, unk_160B68
 extern unk_160C94, unk_160C98, unk_19ED78, unk_19F548, unk_1A0CB8, unk_1A8D48, unk_1A8E8C, unk_1A9C8C
@@ -756,7 +756,7 @@ InitSeasonGameScreen:
         add esp, byte 0Ch
         mov dword [eax+edx*4], ebx
         mov eax, edx
-        call sub_80758
+        call LoadTeamLogo
         mov eax, dword [dword_19ED2C]
         push dword [eax+edx*4]
         call SetDrawTarget
@@ -2216,7 +2216,7 @@ sub_39BB6:
         push byte 0
         call SetClipWindow
         add esp, byte 10h
-        call sub_102C30
+        call Random32
         mov ecx, 6
         xor edx, edx
         div ecx
@@ -2226,7 +2226,7 @@ sub_39BB6:
         call BlitShape
         add esp, byte 4
         call sub_102C10
-        call sub_102C30
+        call Random32
         mov ecx, 12Ch
         xor edx, edx
         div ecx
@@ -2253,7 +2253,7 @@ sub_39BB6_6B:
         mov eax, dword [dword_19ED6C]
         cmp dword [dword eax+01F0h], byte 1
         jne short .3
-        call sub_102C30
+        call Random32
         mov ecx, 3
         xor edx, edx
         div ecx
@@ -6943,7 +6943,7 @@ AddOverlayWindow:
         push eax
         mov ecx, dword [dword ebx+dword_1A0CBC]
         push ecx
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
 .5:
         mov ecx, dword [dword_1A8E68]
@@ -15437,7 +15437,7 @@ sub_425CC:
         mov word [dword_1AC7D4], dx
         mov word [word_1AC7D8], dx
         mov word [dword_1AC7D6], dx
-        call sub_FB704
+        call ZeroMem
         mov eax, dword [dword_1AC7C8]
         add esp, byte 8
         mov dword [dword_1AC7C4], ebx
@@ -16131,7 +16131,7 @@ OpenSpeechBanks:
         push dword 81Ah
         mov ecx, dword [dword_1AC7B0]
         push ecx
-        call sub_FB704
+        call ZeroMem
         mov eax, dword [dword_1AC7B0]
         mov word [dword eax+02D4h], 0
         mov eax, dword [dword_1AC7B0]
@@ -16280,7 +16280,7 @@ OpenSpeechBanks:
         push eax
         mov ebx, 3405C0h
         mov ebp, eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov dword [dword esp+0100h], ebx
 .15:

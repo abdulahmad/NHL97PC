@@ -8,7 +8,7 @@ extern memlist1, strncmp_, strncpy_, bcopy, sub_121470, sub_121494, sub_1214A0, 
 extern sub_12175C
 global sub_FABB8, findmemblock, FreeMemBlock, sub_FAF70, sub_FAFB0, sub_FB0BC, sub_FB168, sub_FB1DC
 global sub_FB214, sub_FB338, sub_FB370, sub_FB4A4, sub_FB4D4, sub_FB508, sub_FB5C8, sub_FB5F4
-global sub_FB618, sub_FB62C, sub_FB634, sub_FB64C, sub_FB658, sub_FB6E4, sub_FB704, sub_FB71C
+global sub_FB618, sub_FB62C, sub_FB634, sub_FB64C, sub_FB658, sub_FB6E4, ZeroMem, FillMem
 global sub_FB731, sub_FB73D, type_info__raw_name
 ;-----------------------------------------------------------------------------
 ; sub_FABB8                                                            FABB8  
@@ -1266,9 +1266,11 @@ sub_FB6E4:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_FB704                                                            FB704  
+; ZeroMem                                      FB704  97 PC, medium confidence
+; (ptr, n): fills n bytes with zero (sub_FB73D, 8 bytes at a time through the
+; FPU)
 ;-----------------------------------------------------------------------------
-sub_FB704:
+ZeroMem:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -1281,9 +1283,11 @@ sub_FB704:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FB71C                                                            FB71C  
+; FillMem                                      FB71C  97 PC, medium confidence
+; (ptr, n, byte): fills n bytes with a byte value (sub_FB731 spreads it over
+; a dword)
 ;-----------------------------------------------------------------------------
-sub_FB71C:
+FillMem:
         push ebp
         LD mov, ebp, esp
         push ebx

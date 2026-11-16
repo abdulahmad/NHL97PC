@@ -285,6 +285,7 @@ address,name,auto_name,source,confidence,evidence,file
 7F0D8,SetTextColor,sub_7F0D8,new,low,(pixel colour): builds the font colour tables (sub_FE180) for text drawn next with DrawTextAligned; cached on the last colour,src/front/main/main.asm
 7F16C,DrawTextAligned,sub_7F16C,new,low,"(align, x, y, ..., format, ...): sprintf-style text drawn left (0), centred (1) or right (2) of x",src/front/main/main.asm
 7FEC4,EditText,sub_7FEC4,96PC,medium,"NHL96PC EditText 197ED: same 394h text buffer, eax/edx/ebx/ecx + stack args, reads keys (sub_FBE40) and handles backspace/enter; called by every name entry through sub_7FE38/sub_7FE4C",src/front/main/main.asm
+80758,LoadTeamLogo,sub_80758,new,low,"(team): frees the last one and loads a team's logo art (LOGO, unpacked into an ""UNPACKLOGO"" block)",src/front/main/main.asm
 84204,ShowLoadingScreen,sub_84204,new,medium,"from PlayMenuGame and RunDemoGame: loads a picture and draws ""Loading..."" before the game",src/front/main/main.asm
 84B55,MainMenuScreen,sub_84B55,96PC,medium,"96 PC MainMenuScreen: the main menu (""menu"", MB01-MB11 buttons, PIC%d%c pictures); checks which of EXHIBIT / SEASON / PLAYOFF.NDX exist; returns the next screen",src/front/front_845E4.asm
 85A15,RunGameScreens,sub_85A15,new,low,"(screen): from RunFrontEnd, runs the game set-up screens by number (team select 4, pick saves 5/7/9, new season 6, new play-offs 8, season 0Ch, play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h, roster 19h) until one returns to the main menu",src/front/front_845E4.asm
@@ -329,7 +330,9 @@ address,name,auto_name,source,confidence,evidence,file
 94BDA,PlayoffTreeScreen,sub_94BDA,96PC,low,"96 PC PlayoffTreeScreen: the play-off tree screen (""playoffmenu"", ""pieces"", pan2 / pan6, 01RU, 01SR ...)",src/front/front_93005.asm
 96019,PlayoffSettingsPath,sub_96019,new,low,"(n, buf): the play-off file names ""%sSEAS%d.PLY"" / ""%sPLAY%d.SET""",src/front/front_93005.asm
 9623E,EditLinesScreen,sub_9623E,96PC,medium,"96 PC EditLinesScreen: (team, line) the edit lines screen (""edit lines menu"" / ""edit lines regions"")",src/front/front_9623E.asm
+96B32,InitEditLinesScreen,sub_96B32,new,low,"from EditLinesScreen: creates its bitmap and menu items and draws the title and line art (TITL, STKL, STCR, ...)",src/front/front_9623E.asm
 97AE7,AllocTempGameTeam,sub_97AE7,new,low,"edit lines: allocates the ""temp game team"" block and draws the arena button (SW00, AR%02d)",src/front/front_9623E.asm
+97C32,FreeEditLinesScreen,sub_97C32,new,low,from EditLinesScreen when it leaves: frees its bitmaps and blocks,src/front/front_9623E.asm
 98274,LoadEditLinesRoster,sub_98274,new,low,"edit lines: allocates and fills the ""roster"" table for the team",src/front/front_9623E.asm
 98642,EditLinesGridScreen,sub_98642,new,low,"from EditLinesScreen: the line grid (Player Status, ESD, PP, PK, L1-L4, D1-D3, 5PP1 ... 3PK2 columns)",src/front/front_9623E.asm
 99992,DrawScoringLines,sub_99992,new,low,"edit lines grid: the ""Scoring Line %d"" rows (SL%02d)",src/front/front_9623E.asm
@@ -346,6 +349,7 @@ A3048,LinkReceiveData,sub_A3048,new,low,"link games: ""Please wait... / Transfer
 A6690,PostGameScreen,sub_A6690,new,low,"the post-game screen (NHL0 / NHLP, FLR1/2, T3S2, GS00/GS01, RM00/RM01), alternating with GameStatsScreen",src/front/front_A3280.asm
 A74F4,DrawThreeStarStats,sub_A74F4,new,low,"post-game: one star's stat lines (goals, assists, shots, +/-, hits, penalty minutes; goalie saves and save percentage; three star points)",src/front/front_A3280.asm
 A7D9C,GameStatsScreen,sub_A7D9C,96PC,medium,"96 PC GameStatsScreen: the game statistics screen (""gameStatMenu"" / ""gameStatRegn"")",src/front/front_A3280.asm
+A8204,InitGameStatsScreen,sub_A8204,new,low,"from GameStatsScreen: creates its bitmap and menu items and loads its art (LoadDataFile; BACK, BOTM)",src/front/front_A3280.asm
 A8694,GameStatsPlayersPage,sub_A8694,new,low,"from GameStatsScreen: the ""player stats"" page (GS buttons, the three stars' tops 1TOP-3BOT)",src/front/front_A3280.asm
 A8C5C,DrawTeamGameStats,sub_A8C5C,new,low,"game stats: the team comparison rows (score, shots, power play, breakaways, one timers, faceoffs, body checks, passing...)",src/front/front_A3280.asm
 A9240,DrawScoringSummary,sub_A9240,new,low,"game stats: the scoring and penalty summary by period (""No scoring."", ""Penalties - none"")",src/front/front_A3280.asm
@@ -412,6 +416,13 @@ D68AC,FadeOut,sub_D68AC,96PC,medium,NHL96PC 63A5B (similar 0.91): mnemonic simil
 D6930,RunIntro,sub_D6930,96PC,medium,"96 PC RunIntro: from main_, the intro screens (scr1, scr2, !pl0, !pl1, nhll, nhlp, bkgd) with music",src/front/front_D4E24.asm
 D70C4,CreditsScreen,sub_D70C4,new,low,"from RunFrontEnd: the credits (reads the credits text file, EAC1/EAC2, CRD1/CRD2, QCRD) with the arena music",src/front/front_D4E24.asm
 D7A70,AllocPageStack,sub_D7A70,new,low,"allocates the front end's ""PAGESTACK"" block",src/front/front_D4E24.asm
+D7BB0,OldestDbPageSlot,sub_D7BB0,new,low,"database page cache: the slot to reuse (a free one, else the least recently used by the counters at dword_16D77C)",src/front/front_D4E24.asm
+D7C14,ReadDbPage,sub_D7C14,new,medium,"database page cache: (db, page, slot) seeks to page * 1000h and reads the 1000h-byte page into cache slot (dword_16D774)",src/front/front_D4E24.asm
+D7C74,WriteDbPage,sub_D7C74,new,medium,"database page cache: (db, page, slot) seeks to page * 1000h and writes the cache slot back",src/front/front_D4E24.asm
+D7CD4,GetDbPage,sub_D7CD4,new,low,"database page cache: finds a db file's page in the cache slots (dword_16D778) or reads it in (ReadDbPage), bumps its use counter, returns the slot",src/front/front_D4E24.asm
+D7EC8,CreateDbFile,sub_D7EC8,new,low,database: creates a db file (FileCreate) with its header and first pages,src/front/front_D4E24.asm
+D8130,OpenDbFile,sub_D8130,new,low,database: opens a db file and reads its 1FEh-byte header into a new block,src/front/front_D4E24.asm
+D81D8,CloseDbFile,sub_D81D8,new,low,"database: writes the header back into page 0 (WriteDbPage), closes the file and frees the header",src/front/front_D4E24.asm
 DA66D,AllocMediaBuffer,sub_DA66D,new,medium,"allocates the ""MEDIA BUFFER"" (200h paragraphs of DOS memory)",src/front/front_DA66D.asm
 DA713,AllocStaticBuffer,sub_DA713,new,medium,"allocates the ""STATIC BUF"" once (flag word_16D7EC)",src/front/front_DA66D.asm
 DE3CF,OpenLeagueFile,sub_DE3CF,new,low,"(league id, ...): opens a season / playoff file (""%s%s.SEA"", ""%s%s.PLY"" or ""%s%08x.%03x"") and reads its header; from the season, playoff and stats screens",src/front/front_DA66D.asm
@@ -455,6 +466,8 @@ E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 ov
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
 E9429,BuildAllStarTeams,sub_E9429,new,low,"from the season code: sets up the two All-Star teams (InitAllStarTeams, AllocAllStarRosters, PickAllStarPlayers)",src/front/front_E9429.asm
 E947A,AllStarScreen,sub_E947A,new,low,"from RunSeasonMenus: the All-Star screen (conference pages WC00 / EC00, player lists, BAK0 / BAK1)",src/front/front_E9429.asm
+E9E9B,InitAllStarScreen,sub_E9E9B,new,low,"from AllStarScreen: loads its art and sets up the menu items (BAK0, TITL, LB%02d, AR%02d)",src/front/front_E9429.asm
+EA5B1,DrawAllStarConference,sub_EA5B1,new,low,from AllStarScreen: draws the conference page (WC00 / WC01 or EC00 / EC01 art) and its player list (DrawAllStarList),src/front/front_E9429.asm
 EB175,DrawAllStarList,sub_EB175,new,low,"all-star screen: the ""Forwards"" / ""Defence"" / ""Goalies"" lists",src/front/front_E9429.asm
 ECA57,PickAllStarPlayers,sub_ECA57,new,low,"allocates ""all star player info"" / ""all star goalie info"", sorts the season's players and goalies (qsort) and picks the All-Stars",src/front/front_E9429.asm
 ECF20,InitAllStarTeams,sub_ECF20,new,low,"names the two teams ""West All Stars"" / ""East All Stars"" and clears them",src/front/front_E9429.asm
@@ -497,6 +510,8 @@ FAA64,AllocMemBlock,sub_FAA64,95PC,high,"memory manager: allocate a named block 
 FAEF8,findmemblock,sub_FAEF8,96PC,high,NHL96PC ABEEC (callsite 0.90): called at the same place of sub_AC9B8,src/lib/ea/ea_memman_01.asm
 FAF34,FreeMemBlock,sub_FAF34,95PC,high,memory manager: findmemblock on the pointer and frees the block (under the memory lock dword_1CF260); 600+ calls,src/lib/ea/ea_memman_01.asm
 FB63C,type_info__raw_name,,95PC,high,NHL95PC 8DBE4 (exact): 6 instructions,
+FB704,ZeroMem,sub_FB704,new,medium,"(ptr, n): fills n bytes with zero (sub_FB73D, 8 bytes at a time through the FPU)",src/lib/ea/ea_memman_01.asm
+FB71C,FillMem,sub_FB71C,new,medium,"(ptr, n, byte): fills n bytes with a byte value (sub_FB731 spreads it over a dword)",src/lib/ea/ea_memman_01.asm
 FBD60,__STOSB,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBD97,__STOSD,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBE03,GetRandState,sub_FBE03,new,high,returns the C library's rand state address,src/lib/watcom/watcom_clib_02.asm
@@ -546,6 +561,7 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 101429,FindShape,sub_101429,95PC,high,"graphics library: find the named art in a bank (bank, name), returns its pointer; error text ""locateshape - '%-4.4s' SHAPE NOT FOUND"" (unk_101400); 1500+ calls",src/lib/input/input_joystick_misc_05.asm
 101430,FindShapeQuiet,sub_101430,new,medium,FindShape without the not-found message: 0 when the art is missing,src/lib/input/input_joystick_misc_05.asm
 102BB8,SetClipWindow,,96PC,medium,NHL96PC DD760 (similar): mnemonic similarity 0.84 over 21 instructions,
+102C30,Random32,sub_102C30,new,medium,"returns a pseudo-random dword (multi-word add-with-carry generator, dword_16F77C-790)",src/lib/video/video_bios_vga_01.asm
 10382C,removewindow,,96PC,medium,NHL96PC C3D80 (similar): mnemonic similarity 0.81 over 65 instructions,
 104780,bcopy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 104A2C,strncpy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -591,6 +607,7 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 119EFF,close_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 11A13F,getcwd_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 11A1C8,_dos_getdiskfree_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+11B094,FindShapeList,sub_11B094,new,medium,"(bank, names, out): FindShape for each 4-character name of a list, storing the pointers",src/lib/ea/ea_debug.asm
 11B1A0,savefileblocka,,96PC,medium,NHL96PC B2374 (similar): mnemonic similarity 0.88 over 55 instructions,
 11B20A,fputc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 11B2AE,fwrite_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

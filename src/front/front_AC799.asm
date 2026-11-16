@@ -28,7 +28,7 @@ extern dword_1C95EC, dword_1C95F0, dword_1C95F4, dword_1C95F8, dword_1C95FC, dwo
 extern dword_1C9618, dword_1C961C, dword_1C9620, dword_1C9624, dword_1C9628, fclose_, fopen_, fprintf_
 extern memset_, qsort_, rand_, sprintf_, sscanf_, strcmp_, strlen_, BlitShape2
 extern BlitArt, sub_1013CC, sub_1013FC, FindShape, sub_101584, sub_101EAC, sub_102B94, sub_10CD98
-extern sub_11B094, SetScreenTarget, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, PlaySfx
+extern FindShapeList, SetScreenTarget, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, PlaySfx
 extern PlayScreenMovie, LoadDataFile, OpenDataLibrary, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect
 extern SetTextColor, DrawTextAligned, sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_81D1C
 extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_840F8, sub_84138
@@ -3887,7 +3887,7 @@ sub_AF074:
         push dword_1C95C8
         push asc_166422
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         mov eax, dword [byte ebp+072h]
         add esp, byte 0Ch
         add eax, byte 40h
@@ -3917,7 +3917,7 @@ sub_AF074:
         push asc_16645A
 .22:
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         mov eax, dword [byte ebp+072h]
         add eax, 80h
@@ -3932,7 +3932,7 @@ sub_AF074:
         push dword_1C95E0
         push asc_166476
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         mov eax, dword [byte ebp+072h]
         add esp, byte 0Ch
         add eax, 0C0h
@@ -3947,7 +3947,7 @@ sub_AF074:
         push dword_1C95EC
         push asc_166492
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         mov eax, dword [byte ebp+072h]
         add esp, byte 0Ch
         add eax, 100h
@@ -3972,7 +3972,7 @@ sub_AF074:
         push dword_1C95F8
         push asc_1664B3
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         mov eax, dword [byte ebp+072h]
         add esp, byte 0Ch
         add eax, 180h
@@ -4186,7 +4186,7 @@ sub_AF074:
         push asc_16643E
 .43:
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push dword [byte ebp+03Eh]
         mov byte [byte ebp+07Eh], 1
@@ -4231,7 +4231,7 @@ sub_AF074_B17:
         push dword_1C95E0
         push asc_166476
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         lea eax, [dword ebp-035Eh]
         call sub_ACA49
@@ -4279,7 +4279,7 @@ sub_AF074_BC9:
         push dword_1C95E0
         push asc_1664F0
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         lea eax, [dword ebp-035Eh]
         call sub_ACA49
@@ -4319,7 +4319,7 @@ sub_AF074_C68:
         push dword_1C95E0
         push asc_16650C
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         lea eax, [dword ebp-035Eh]
         call sub_ACA49
@@ -4361,7 +4361,7 @@ sub_AF074_D0E:
         push dword_1C95E0
         push asc_166528
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         lea eax, [dword ebp-035Eh]
         call sub_ACA49
@@ -4415,7 +4415,7 @@ sub_AF074_D0E:
         push asc_166492
 .55:
         push dword [byte ebp+07Ah]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         jmp near .100
 .56:

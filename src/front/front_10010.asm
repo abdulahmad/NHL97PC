@@ -16,7 +16,7 @@ extern ShowCameraView, ClearOverlayWindows, sub_1B3D8, assreplace, assinsert, Se
 extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, sub_34330, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
 extern sub_41DB8, MusicFileName, StopAllSfx, sub_424CC, CommentaryEvent, PaEvent, sub_4DDB0, sub_52E28
 extern sub_57298, sub_57304, sub_57324, sub_57738, LoadGoalieMask, sub_5B558, sub_60D6C, sub_6539C
-extern sub_65E3B, DoGameFrame, sub_AA650, AllocMemBlock, sub_FB704, sub_FB8AE, sub_FBCD8, unk_16000C
+extern sub_65E3B, DoGameFrame, sub_AA650, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
 extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
 extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, word_1684BE, word_1684CA, word_1684E8, word_1684EC
 extern word_1686D8, word_1686DA, word_168D18, word_19CB28, word_19CB2A, word_19CB5C, word_19CB60, word_19CB64
@@ -588,7 +588,7 @@ LoadJoystickConfig:
         add ebx, eax
         push edx
         mov dword [dword_1684C4], ebx
-        call sub_FB704
+        call ZeroMem
         xor edx, edx
         mov dx, word [word_1684BE]
         lea eax, [nosplit edx*4+00h]
@@ -600,7 +600,7 @@ LoadJoystickConfig:
         push eax
         mov edx, dword [dword_1684C4]
         push edx
-        call sub_FB704
+        call ZeroMem
         mov bl, byte [byte_1684C8]
         add esp, byte 8
         test bl, 2

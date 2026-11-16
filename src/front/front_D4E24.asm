@@ -25,8 +25,8 @@ extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1673CC
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
 global jpt_D5460, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
 global GoalieMaskIntro, sub_D53A4, GoalieMaskScreen, FadePalette, FadeOut, sub_D68E0, RunIntro, sub_D6D38
-global sub_D6E20, sub_D6FD8, sub_D705C, CreditsScreen, AllocPageStack, sub_D7B64, sub_D7BB0, sub_D7C14
-global sub_D7C74, sub_D7CD4, sub_D7E08, sub_D7EC8, sub_D8130, sub_D81D8, sub_D8270, sub_D8358
+global sub_D6E20, sub_D6FD8, sub_D705C, CreditsScreen, AllocPageStack, sub_D7B64, OldestDbPageSlot, ReadDbPage
+global WriteDbPage, GetDbPage, sub_D7E08, CreateDbFile, OpenDbFile, CloseDbFile, sub_D8270, sub_D8358
 global sub_D83C0, sub_D8614, sub_D8860, sub_D8944, sub_D8B20, sub_D8CAC, sub_D9614, sub_D9708
 global sub_D9960, sub_D9AB4, sub_D9D74, sub_D9E18, sub_D9ED8, sub_D9FDC, sub_DA020, sub_DA02C
 global sub_DA038, sub_DA158, sub_DA274, sub_DA48C, sub_DA498, sub_DA4A4, sub_DA544, sub_DA57C
@@ -3551,9 +3551,11 @@ sub_D7B64:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_D7BB0                                                       D7BB0  97 PC
+; OldestDbPageSlot                                D7BB0  97 PC, low confidence
+; Database page cache: the slot to reuse (a free one, else the least recently
+; used by the counters at dword_16D77C)
 ;-----------------------------------------------------------------------------
-sub_D7BB0:
+OldestDbPageSlot:
         push ebx
         push ecx
         push edx
@@ -3600,9 +3602,11 @@ sub_D7BB0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_D7C14                                                       D7C14  97 PC
+; ReadDbPage                                   D7C14  97 PC, medium confidence
+; Database page cache: (db, page, slot) seeks to page * 1000h and reads the
+; 1000h-byte page into cache slot (dword_16D774)
 ;-----------------------------------------------------------------------------
-sub_D7C14:
+ReadDbPage:
         push ecx
         push esi
         mov ecx, eax
@@ -3649,9 +3653,11 @@ sub_D7C14:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_D7C74                                                       D7C74  97 PC
+; WriteDbPage                                  D7C74  97 PC, medium confidence
+; Database page cache: (db, page, slot) seeks to page * 1000h and writes the
+; cache slot back
 ;-----------------------------------------------------------------------------
-sub_D7C74:
+WriteDbPage:
         push ecx
         push esi
         mov ecx, eax
@@ -3698,9 +3704,12 @@ sub_D7C74:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_D7CD4                                                       D7CD4  97 PC
+; GetDbPage                                       D7CD4  97 PC, low confidence
+; Database page cache: finds a db file's page in the cache slots
+; (dword_16D778) or reads it in (ReadDbPage), bumps its use counter, returns
+; the slot
 ;-----------------------------------------------------------------------------
-sub_D7CD4:
+GetDbPage:
         push ecx
         push esi
         push edi
@@ -3745,7 +3754,7 @@ sub_D7CD4:
         mov dword [edx], eax
         mov edx, esi
         mov eax, ecx
-        call sub_D7C14
+        call ReadDbPage
         test eax, eax
         je near .8
         mov eax, dword [dword_16D778]
@@ -3768,12 +3777,12 @@ sub_D7CD4:
 .5:
         cmp eax, dword [dword_16D770]
         jne short .6
-        call sub_D7BB0
+        call OldestDbPageSlot
         mov edi, eax
         mov ebx, eax
         mov edx, esi
         mov eax, ecx
-        call sub_D7C14
+        call ReadDbPage
         test eax, eax
         je short .8
         mov edx, dword [dword_16D778]
@@ -3815,7 +3824,7 @@ sub_D7E08:
         sub esp, byte 4
         mov ecx, eax
         mov edi, edx
-        call sub_D7BB0
+        call OldestDbPageSlot
         mov dword [ebx], eax
         mov ax, word [dword ecx+01F3h]
         mov edx, eax
@@ -3846,7 +3855,7 @@ sub_D7E08:
         mov ebx, esp
         mov eax, ecx
         xor edx, edx
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         jne short .1
         dec word [dword ecx+01F3h]
@@ -3862,7 +3871,7 @@ sub_D7E08:
         mov ebx, dword [esp]
         mov eax, ecx
         xor edx, edx
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         jne short .2
         dec word [dword ecx+01F3h]
@@ -3877,9 +3886,10 @@ sub_D7E08:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_D7EC8                                                       D7EC8  97 PC
+; CreateDbFile                                    D7EC8  97 PC, low confidence
+; Database: creates a db file (FileCreate) with its header and first pages
 ;-----------------------------------------------------------------------------
-sub_D7EC8:
+CreateDbFile:
         push esi
         push edi
         push ebp
@@ -3907,7 +3917,7 @@ sub_D7EC8:
         mov edx, dword [dword edi+01F5h]
         mov eax, edi
         shl edx, 3
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je near .7
         mov eax, dword [byte ebp+00h]
@@ -3945,7 +3955,7 @@ sub_D7EC8:
         mov eax, edi
         mov ebx, dword [byte ebp+00h]
         mov edx, dword [dword edi+01F5h]
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         je near .7
         mov eax, dword [esi]
@@ -3961,7 +3971,7 @@ sub_D7EC8:
         mov ebx, esp
         mov eax, edi
         xor edx, edx
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je short .7
         mov eax, dword [esp]
@@ -3974,7 +3984,7 @@ sub_D7EC8:
         mov ebx, dword [esp]
         mov eax, edi
         xor edx, edx
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         je short .7
 .6:
@@ -4052,7 +4062,7 @@ sub_D7EC8:
         mov ebx, dword [byte esp+04h]
         mov eax, dword [byte esp+08h]
         xor edx, edx
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         jne short .10
         mov eax, dword [byte esp+08h]
@@ -4078,9 +4088,10 @@ sub_D7EC8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D8130                                                       D8130  97 PC
+; OpenDbFile                                      D8130  97 PC, low confidence
+; Database: opens a db file and reads its 1FEh-byte header into a new block
 ;-----------------------------------------------------------------------------
-sub_D8130:
+OpenDbFile:
         push ebx
         push ecx
         push esi
@@ -4145,9 +4156,11 @@ sub_D8130:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_D81D8                                                       D81D8  97 PC
+; CloseDbFile                                     D81D8  97 PC, low confidence
+; Database: writes the header back into page 0 (WriteDbPage), closes the file
+; and frees the header
 ;-----------------------------------------------------------------------------
-sub_D81D8:
+CloseDbFile:
         push ebx
         push ecx
         push edx
@@ -4169,13 +4182,13 @@ sub_D81D8:
         call sub_E2334
         mov eax, dword [ecx]
         xor edx, edx
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je short .2
         mov ebx, dword [esp]
         mov eax, dword [ecx]
         xor edx, edx
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         je short .2
         mov eax, dword [ecx]
@@ -4306,7 +4319,7 @@ sub_D8358:
         je short .2
         mov ebx, esp
         mov eax, edi
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je short .3
         mov edx, dword [esp]
@@ -4321,7 +4334,7 @@ sub_D8358:
         mov edx, dword [esi]
         mov eax, edi
         sar edx, 3
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         je short .3
         add esi, byte 4
@@ -4353,7 +4366,7 @@ sub_D83C0:
         mov ebx, dword [byte esp+064h]
         push esi
         mov ecx, dword [byte esp+06Ch]
-        call sub_D7EC8
+        call CreateDbFile
         test eax, eax
         je near .6
         mov edx, dword [byte esp+034h]
@@ -4535,7 +4548,7 @@ sub_D8614:
         lea ebx, [byte esp+02Ch]
         mov eax, esi
         mov edx, dword [byte ebp+031h]
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je near .6
         mov edx, dword [byte esp+02Ch]
@@ -4596,7 +4609,7 @@ sub_D8614:
         push eax
         lea edx, [byte esp+024h]
         mov eax, esi
-        call sub_D7EC8
+        call CreateDbFile
         test eax, eax
         je near .6
         mov edx, dword [byte esp+04h]
@@ -4626,7 +4639,7 @@ sub_D8614:
         mov dword [byte edx+031h], eax
         mov eax, esi
         xor edx, edx
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je near .6
         mov edx, dword [byte esp+018h]
@@ -4640,7 +4653,7 @@ sub_D8614:
         mov ebx, dword [byte esp+020h]
         mov eax, esi
         sar edx, 3
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         je near .6
         mov eax, dword [byte esp+01Ch]
@@ -4651,7 +4664,7 @@ sub_D8614:
         mov ebx, dword [byte esp+02Ch]
         mov edx, dword [byte esp+038h]
         mov eax, esi
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         je near .6
 .2:
@@ -4667,7 +4680,7 @@ sub_D8614:
         je short .3
         mov ebx, dword [byte esp+024h]
         mov eax, esi
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         je short .6
 .3:
@@ -4685,7 +4698,7 @@ sub_D8614:
         mov ebx, dword [byte esp+018h]
         mov eax, esi
         xor edx, edx
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         jne short .5
         add esp, byte 40h
@@ -4702,7 +4715,7 @@ sub_D8614:
         mov ebx, dword [byte esp+02Ch]
         mov edx, dword [byte esp+038h]
         mov eax, esi
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         je short .6
 .5:
@@ -4827,7 +4840,7 @@ sub_D8944:
         mov ebp, ecx
         lea ebx, [byte esp+018h]
         mov edx, ecx
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je near .4
         mov edx, dword [byte esp+018h]
@@ -4933,7 +4946,7 @@ sub_D8944:
         mov ebx, dword [byte esp+018h]
         mov edx, dword [byte esp+020h]
         mov eax, esi
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         je short .4
         mov edx, dword [byte esp+038h]
@@ -4944,7 +4957,7 @@ sub_D8944:
         je short .3
         mov ebx, dword [byte esp+010h]
         mov eax, esi
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         jne short .3
         jmp short .4
@@ -4959,7 +4972,7 @@ sub_D8944:
         mov ebx, dword [byte esp+018h]
         mov edx, dword [byte esp+020h]
         mov eax, esi
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         je short .4
         mov eax, dword [byte esp+038h]
@@ -5003,13 +5016,13 @@ sub_D8B20:
         add ecx, eax
         lea edx, [byte esp+06Ch]
         mov eax, esi
-        call sub_D7EC8
+        call CreateDbFile
         test eax, eax
         je near .5
         lea ebx, [byte esp+060h]
         mov eax, esi
         xor edx, edx
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je near .5
         mov edx, dword [byte esp+060h]
@@ -5022,14 +5035,14 @@ sub_D8B20:
         mov ebx, dword [byte esp+060h]
         mov eax, esi
         xor edx, edx
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         jne short .2
         jmp near .5
 .1:
         lea ebx, [byte esp+068h]
         mov eax, esi
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je near .5
         mov eax, dword [byte esp+068h]
@@ -5147,7 +5160,7 @@ sub_D8CAC:
         mov dword [byte esp+034h], eax
         mov eax, dword [byte esp+040h]
         mov dword [byte esp+03Ch], edx
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         jne short .3
         xor edi, edi
@@ -5156,7 +5169,7 @@ sub_D8CAC:
         lea ebx, [byte esp+08h]
         mov edx, dword [byte esp+034h]
         mov eax, dword [byte esp+040h]
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         jne short .4
         xor edi, edi
@@ -5414,7 +5427,7 @@ sub_D8CAC:
         mov ebx, esp
         mov eax, dword [byte esp+040h]
         xor edx, edx
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         jne short .18
         xor edi, edi
@@ -5435,7 +5448,7 @@ sub_D8CAC:
         mov ebx, dword [esp]
         mov eax, dword [byte esp+040h]
         xor edx, edx
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         jne near .31
         xor edi, edi
@@ -5799,7 +5812,7 @@ sub_D8CAC:
         mov edx, dword [edx]
         mov ebx, dword [ebx]
         sar edx, 3
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         jne short .32
         xor edi, edi
@@ -5819,7 +5832,7 @@ sub_D8CAC:
         je short .33
         mov ebx, dword [byte esp+04h]
         mov eax, dword [byte esp+040h]
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         jne short .33
         xor edi, edi
@@ -5843,7 +5856,7 @@ sub_D8CAC:
         je short .34
         mov ebx, dword [byte esp+08h]
         mov eax, dword [byte esp+040h]
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         jne short .34
         xor edi, edi
@@ -5914,7 +5927,7 @@ sub_D9614:
         lea ebx, [byte esp+030h]
         mov edx, dword [byte esp+034h]
         mov eax, esi
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je near .2
         mov eax, dword [byte esp+030h]
@@ -5949,7 +5962,7 @@ sub_D9614:
         mov ebx, dword [byte esp+030h]
         mov eax, esi
         sar edx, 3
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         je short .2
         mov eax, 1
@@ -5977,7 +5990,7 @@ sub_D9708:
         test edx, edx
         je near .9
         lea ebx, [byte esp+048h]
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je near .10
         mov eax, dword [byte esp+048h]
@@ -6059,7 +6072,7 @@ sub_D9708:
         lea ebx, [byte esp+03Ch]
         mov edx, ecx
         mov eax, esi
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je near .10
         mov edx, dword [byte esp+03Ch]
@@ -6110,7 +6123,7 @@ sub_D9708:
         mov ebx, dword [byte esp+048h]
         mov eax, esi
         sar edx, 3
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         jne short .8
         add esp, byte 50h
@@ -6204,7 +6217,7 @@ sub_D9960:
         lea ebx, [byte esp+030h]
         mov eax, edi
         mov edx, dword [byte ebp+031h]
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je near .4
         mov edx, dword [byte esp+030h]
@@ -6237,14 +6250,14 @@ sub_D9960:
         mov edx, dword [byte ecx+031h]
         mov eax, esi
         sar edx, 3
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         je short .4
         lea ebx, [byte esp+030h]
         mov eax, esi
         xor edx, edx
         mov dword [byte ecx+031h], 0
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je short .4
         mov edx, dword [byte esp+030h]
@@ -6257,7 +6270,7 @@ sub_D9960:
         mov ebx, dword [byte esp+030h]
         mov eax, esi
         xor edx, edx
-        call sub_D7C74
+        call WriteDbPage
         test eax, eax
         jne short .3
         jmp short .4
@@ -6301,7 +6314,7 @@ sub_D9AB4:
         lea ebx, [byte esp+04h]
         mov edx, esi
         mov eax, edi
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         je near .8
         mov ecx, esi
@@ -6573,7 +6586,7 @@ sub_D9E18:
         mov ebp, ecx
         mov ebx, esp
         mov edx, dword [byte esp+018h]
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         jne short .1
         mov eax, dword [byte esp+02h]
@@ -6642,7 +6655,7 @@ sub_D9ED8:
         mov ebp, ecx
         mov ebx, esp
         mov edx, dword [byte esp+018h]
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         jne short .1
         mov eax, dword [byte esp+02h]
@@ -6776,7 +6789,7 @@ sub_DA038:
         mov ebp, ecx
         lea ebx, [byte esp+04h]
         mov edx, dword [byte esp+01Ch]
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         jne short .1
         mov eax, dword [byte esp+06h]
@@ -6879,7 +6892,7 @@ sub_DA158:
         mov ebp, ecx
         lea ebx, [byte esp+04h]
         mov edx, dword [byte esp+01Ch]
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         jne short .1
         mov eax, dword [byte esp+06h]
@@ -6992,7 +7005,7 @@ sub_DA274:
         mov ebx, esp
         mov edx, ecx
         mov eax, edi
-        call sub_D7CD4
+        call GetDbPage
         test eax, eax
         jne short .1
         mov eax, dword [byte esp+08h]

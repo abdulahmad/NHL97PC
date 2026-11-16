@@ -19,8 +19,8 @@ extern dword_1CC700, dword_1CC78C, dword_1CC790, dword_1CC794, dword_1CC798, dwo
 extern dword_1CC7A8, dword_1CC7AC, dword_1CC7B0, dword_1CC7B4, dword_1CC7B8, dword_1CC7BC, dword_1CC7C0, dword_1CC7C4
 extern dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dword_1CC8A0, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7
 extern PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, memset_, rand_, sprintf_, strcpy_, BlitShape2, BlitArt
-extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, sub_102C30, sub_11A318
-extern sub_11B094, SetScreenTarget, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, PlaySfx
+extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, Random32, sub_11A318
+extern FindShapeList, SetScreenTarget, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, PlaySfx
 extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, sub_7CB8C, sub_7E860, sub_7EDF0, sub_7EEB0
 extern sub_7EF70, SetTextColor, DrawTextAligned, sub_80BBC, sub_823F0, sub_84330, InitMenuItems, sub_8BFAC
 extern sub_E0DB7, sub_E341C, AllocMemBlock, FreeMemBlock, sub_FC330, MakeColor, FreeBitmap, DrawArt
@@ -111,7 +111,7 @@ sub_D15FB:
         push eax
         push edi
         inc esi
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         cmp esi, byte 4
         jl short .8
@@ -206,7 +206,7 @@ sub_D17EA:
         lea eax, [byte ebp-030h]
         push eax
         push dword [byte ebp-034h]
-        call sub_11B094
+        call FindShapeList
         imul edx, esi, byte 52h
         add edx, dword [byte ebp-038h]
         mov eax, dword [dword ebx+dword_1CC6E8]
@@ -1839,10 +1839,10 @@ sub_D2E1A:
 .1:
         cmp dword [dword_1CC7A8], byte 17h
         jb short .2
-        call sub_102C30
+        call Random32
         and eax, byte 1
         mov dword [dword_1CC7A8], eax
-        call sub_102C30
+        call Random32
         and eax, byte 1
         inc eax
         mov dword [dword_1CC7AC], eax
@@ -1855,7 +1855,7 @@ sub_D2E1A:
         cmp dword [dword_1CC7AC], byte 2
         jne short .4
 .3:
-        call sub_102C30
+        call Random32
         and eax, byte 0Fh
         imul eax, byte 0Ah
         mov dword [dword_1CC7A8], 16h
@@ -1889,7 +1889,7 @@ sub_D2ED6:
         jne short .3
         cmp ebx, dword [dword_1CC7C8]
         je short .3
-        call sub_102C30
+        call Random32
         mov ecx, 3
         xor edx, edx
         div ecx
@@ -1919,7 +1919,7 @@ sub_D2ED6:
         mov edx, dword [dword_1CC798]
         cmp dword [dword edx+01F0h], byte 1
         jne short .5
-        call sub_102C30
+        call Random32
         mov ebx, 3
         xor edx, edx
         div ebx

@@ -26,14 +26,14 @@ extern dword_1D990C, dword_1D9910, dword_1D9B0C, dword_1D9B10, dword_1D9B2C, dwo
 extern dword_1DA390, dword_1DA4D0, int386_, isatty_, memcpy_, off_1706E0, off_1706E4, off_170B14
 extern off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, off_171D10, off_19C6C4, off_19C6E2
 extern off_19C6E3, qword_167EC8, qword_167ED0, qword_167EE0, sprintf_, strcat_, strcpy_, strlen_
-extern strncpy_, sub_1004B8, bcopy, sub_101220, sub_1013FC, sub_1025DC, sub_102C30, sub_102D3C
+extern strncpy_, sub_1004B8, bcopy, sub_101220, sub_1013FC, sub_1025DC, Random32, sub_102D3C
 extern sub_103298, sub_103648, sub_10374C, sub_10376C, sub_1049D0, sub_106CD0, sub_106F64, sub_109401
 extern sub_109545, sub_10955B, sub_1095AD, sub_10CFB4, sub_10CFF7, sub_1128F8, sub_121460, sub_121470
 extern sub_121494, sub_12189C, sub_121A43, sub_12200C, sub_12233C, sub_123FCB, sub_124DB0, sub_1258A4
 extern sub_125DDE, sub_12D520, sub_12F270, sub_12FACC, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0
 extern sub_13005A, sub_1300A8, sub_13014C, sub_13059C, sub_13061C, sub_1306A0, sub_130709, sub_13073E
 extern sub_130815, SetScreenTarget, sub_4B4AC, sub_FA5B8, sub_FA6A0, sub_FA734, sub_FA8AC, sub_FA954
-extern sub_FAA14, AllocMemBlock, sub_FAB68, FreeMemBlock, sub_FB5C8, sub_FB62C, sub_FB704, sub_FBE78
+extern sub_FAA14, AllocMemBlock, sub_FAB68, FreeMemBlock, sub_FB5C8, sub_FB62C, ZeroMem, sub_FBE78
 extern sub_FC0F0, sub_FC410, MakeColor, sub_FC73E, sub_FC88C, sub_FCC40, sub_FD0DC, ClearScreen
 extern sub_FD954, sub_FDC68, sub_FE180, sub_FE3AC, sub_FEE60, sub_FF320, sub_FF48C, sub_FF5E0
 extern sub_FF600, sub_FF690, sub_FF710, sub_FF7F4, sub_FF874, sub_FF8CC, unk_10003, unk_16E8A0
@@ -151,7 +151,7 @@ sub_11323C:
         push esi
         push edi
         mov ebx, eax
-        call sub_102C30
+        call Random32
         push eax
         mov eax, dword [byte ebx+018h]
         mov edx, dword [byte eax+04h]
@@ -511,7 +511,7 @@ sub_1134D8:
         push byte 3
         movsd
         movsd
-        call sub_102C30
+        call Random32
         push eax
         call sub_FD954
         add esp, byte 14h
@@ -1293,7 +1293,7 @@ sub_113AFC:
         push byte 3
         movsd
         movsd
-        call sub_102C30
+        call Random32
         push eax
         call sub_FD954
         add esp, byte 14h
@@ -1352,7 +1352,7 @@ sub_113B38:
         push byte 3
         movsd
         movsd
-        call sub_102C30
+        call Random32
         push eax
         call sub_FD954
         add esp, byte 14h
@@ -1414,7 +1414,7 @@ sub_113BB8:
         push byte 3
         movsd
         movsd
-        call sub_102C30
+        call Random32
         push eax
         call sub_FD954
         add esp, byte 14h
@@ -1794,7 +1794,7 @@ sub_113ED4:
         push byte 4
         movsd
         movsd
-        call sub_102C30
+        call Random32
         push eax
         call sub_FD954
         add esp, byte 14h
@@ -2263,7 +2263,7 @@ sub_1142A8:
         push byte 4
         movsd
         movsd
-        call sub_102C30
+        call Random32
         push eax
         call sub_FD954
         add esp, byte 14h
@@ -7075,7 +7075,7 @@ sub_117140:
 .6:
         push byte 48h
         push esi
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov eax, dword [byte esp+034h]
         push eax

@@ -11,8 +11,8 @@ extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dwo
 extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprintf_, strcpy_, BlitArt
 extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, sub_101EAC, sub_102B94
 extern SetScreenTarget, sub_419B0, sub_419B8, OpenDataLibrary, sub_7E52C, sub_7E860, SetTextColor, DrawTextAligned
-extern sub_80758, sub_80808, InitMenuItems, GetLangText, sub_CA44C, sub_D0098, sub_DB75E, sub_DC653
-extern sub_DCBB0, OpenLeagueFile, sub_E036F, sub_E0D0F, sub_E341C, FreeMemBlock, sub_FB71C, MakeColor
+extern LoadTeamLogo, sub_80808, InitMenuItems, GetLangText, sub_CA44C, sub_D0098, sub_DB75E, sub_DC653
+extern sub_DCBB0, OpenLeagueFile, sub_E036F, sub_E0D0F, sub_E341C, FreeMemBlock, FillMem, MakeColor
 extern DrawArt, SetDrawTarget, unk_167731, unk_16E1E4, unk_16E21C, unk_1AD22E, unk_1AD443, unk_1C5F4A
 extern unk_1C5F9C, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE, unk_1CD989, unk_1CDA34, unk_1CDADF
 extern unk_1CDB8A, unk_1CDC35, unk_1CDCE0, unk_1CDD8F, unk_1CDDFD, unk_1CDE36, unk_1CE03B, unk_1CE0A9
@@ -37,7 +37,7 @@ sub_E7D6D:
         push dword 95Ah
         push word_1CD788
         mov dword [byte ebp+076h], 0
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
 .1:
         mov eax, dword [byte ebp+076h]
@@ -1544,7 +1544,7 @@ sub_E8923:
         add esp, byte 10h
         movsx eax, word [dword esi+word_1CD788]
         mov dword [byte ebp-04h], 1C2h
-        call sub_80758
+        call LoadTeamLogo
         mov esi, 0DAh
         cmp edi, byte 0Dh
         jne short .16

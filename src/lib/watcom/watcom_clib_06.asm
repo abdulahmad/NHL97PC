@@ -11,7 +11,7 @@ extern dword_1CF544, dword_1CF550, dword_1CF554, dword_1CF558, dword_1CF598, dwo
 extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dword_1CF5C4, dword_1CF5C8, dword_1CF5CC
 extern dword_1CF5D0, dword_1CF5D4, dword_1CF5D8, dword_1CF5DC, dword_1CF5E0, dword_1CF5E4, dword_1CF5E8, dword_1CF5EC
 extern dword_1CF5F0, dword_1DA4D0, mem_putc_, qword_167DA1, qword_167DA9, qword_167DB1, qword_167DB9, strcmp_
-extern sub_102C30, sub_1155B0, sub_116830, sub_11ADD0, sub_11ADE8, sub_11F8E0, sub_11F94C, sub_11FA98
+extern Random32, sub_1155B0, sub_116830, sub_11ADD0, sub_11ADE8, sub_11F8E0, sub_11F94C, sub_11FA98
 extern sub_11FAAC, sub_124C30, sub_124D78, sub_124DB0, sub_124E1C, sub_124FB9, MakeColor, FillRect
 global IF@ATAN, IF@ATAN2, IF@DPOW, hypot_, sub_FE470_494, sub_FE470_590, sub_FEDEC_72, sub_FF128_47
 global sub_FFCC4_DF, sprintf_, sub_1001F8, sub_1003CD, sub_FDE44, sub_FDE80, sub_FDED0, sub_FDF28
@@ -2767,7 +2767,7 @@ sub_FF958:
         push ecx
         push edx
         sub esp, byte 8
-        call sub_102C30
+        call Random32
         and eax, 0FFFFh
         xor edx, edx
         mov dword [esp], eax

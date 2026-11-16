@@ -42,10 +42,10 @@ extern sub_37F4C, sub_37FC8, sub_419B0, sub_419B8, sub_41A28, sub_41D18, sub_41D
 extern ArenaFileName, StopAllSfx, PlaySfx, sub_4AA78, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0
 extern sub_7EF70, SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7F5B8
 extern sub_80BBC, sub_81D1C, sub_83314, sub_834EC, sub_83558, sub_835AC, sub_835BC, sub_83850
-extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, AllocPageStack, sub_D7B64, sub_D8130
-extern sub_D81D8, sub_D8B20, sub_D9960, sub_D9D74, sub_DA020, sub_DA02C, sub_DA48C, sub_DA498
+extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, AllocPageStack, sub_D7B64, OpenDbFile
+extern CloseDbFile, sub_D8B20, sub_D9960, sub_D9D74, sub_DA020, sub_DA02C, sub_DA48C, sub_DA498
 extern sub_DA544, sub_DA57C, sub_DA654, sub_E7D6D, sub_E8660, sub_E8923, sub_F9A88, AllocMemBlock
-extern sub_FAAB4, FreeMemBlock, sub_FB704, sub_FBE40, addtimer, sub_FC008, WaitTicks, MakeColor
+extern sub_FAAB4, FreeMemBlock, ZeroMem, sub_FBE40, addtimer, sub_FC008, WaitTicks, MakeColor
 extern FreeBitmap, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, sub_FDC68, FillRect, sub_FDE44
 extern sub_FE150, sub_FE3D0, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
 extern unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
@@ -269,7 +269,7 @@ sub_DA7EB_18:
         call strcat_
         lea edx, [byte ebp-054h]
         mov eax, esi
-        call sub_D8130
+        call OpenDbFile
         mov edx, ebx
         mov edi, ebx
         add edx, dword_1CD158
@@ -284,7 +284,7 @@ sub_DA7EB_18:
         test ecx, ecx
         jl short .4
         mov eax, edx
-        call sub_D81D8
+        call CloseDbFile
         mov eax, edi
         call FileClose
         jmp short .3
@@ -311,7 +311,7 @@ sub_DA7EB_18:
         jne short .7
         mov eax, esi
         mov edx, dword [byte ebp-04h]
-        call sub_D81D8
+        call CloseDbFile
         mov ebx, edi
 .6:
         sub edx, byte 4
@@ -320,7 +320,7 @@ sub_DA7EB_18:
         test ecx, ecx
         jl short .4
         mov eax, edx
-        call sub_D81D8
+        call CloseDbFile
         mov eax, ebx
         call FileClose
         jmp short .6
@@ -341,7 +341,7 @@ sub_DA7EB_18:
         test eax, eax
         jl near .4
         mov eax, edx
-        call sub_D81D8
+        call CloseDbFile
         mov eax, edi
         call FileClose
         jmp short .8
@@ -399,7 +399,7 @@ sub_DA7EB_18:
         test eax, eax
         jl near .4
         mov eax, ebx
-        call sub_D81D8
+        call CloseDbFile
         mov eax, edx
         call FileClose
         jmp short .13
@@ -435,7 +435,7 @@ sub_DA7EB_18:
         test ecx, ecx
         jl near .4
         mov eax, ebx
-        call sub_D81D8
+        call CloseDbFile
         mov eax, edx
         call FileClose
         jmp short .17
@@ -1504,7 +1504,7 @@ sub_DB6AC:
         add ebx, byte 4
 .3:
         mov eax, edx
-        call sub_D81D8
+        call CloseDbFile
         mov eax, ebx
         call FileClose
         sub edx, byte 4
@@ -10642,7 +10642,7 @@ AllocClearBlock:
         je short .1
         push esi
         push eax
-        call sub_FB704
+        call ZeroMem
         mov eax, 1
         add esp, byte 8
 .1:
@@ -10669,7 +10669,7 @@ AllocClearBlock20:
         je short .1
         push esi
         push eax
-        call sub_FB704
+        call ZeroMem
         mov eax, 1
         add esp, byte 8
 .1:
@@ -10734,7 +10734,7 @@ sub_E2310:
         add esp, byte 0Ch
         push ebx
         push esi
-        call sub_FB704
+        call ZeroMem
         mov eax, 1
         add esp, byte 8
         pop esi
@@ -10748,7 +10748,7 @@ sub_E2334:
         push ecx
         push edx
         push eax
-        call sub_FB704
+        call ZeroMem
         mov eax, 1
         add esp, byte 8
         pop ecx
@@ -11935,7 +11935,7 @@ InitSlotTable:
         mov ebx, eax
         push byte 10h
         push SlotWords
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         xor edx, edx
         xor eax, eax
@@ -12003,7 +12003,7 @@ sub_E304C:
         push byte 64h
         push InputRecordRing
         mov ebx, 1
-        call sub_FB704
+        call ZeroMem
         xor edx, edx
         add esp, byte 8
         mov dword [InputRecordTail], edx
@@ -12135,7 +12135,7 @@ sub_E3190:
         push byte 64h
         push InputRecordRing
         xor esi, esi
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov dword [InputRecordTail], esi
         mov dword [InputRecordHead], esi
@@ -12231,7 +12231,7 @@ sub_E32B4:
         push eax
         mov esi, 2
         xor ebx, ebx
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         xor edx, edx
         jmp short .3
@@ -12401,7 +12401,7 @@ sub_E341C_34:
         push edx
         push dword 14Ah
         push unk_1CD2BA
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         pop edx
         pop ecx
@@ -12923,7 +12923,7 @@ NetInit:
         push unk_1CD2BA
         mov dword [dword_16DAA4], eax
         mov dword [dword_168E7C], ebx
-        call sub_FB704
+        call ZeroMem
         mov ecx, 1
         add esp, byte 8
         mov dword [dword_16DAA0], ecx
@@ -12994,7 +12994,7 @@ sub_E3AFC:
 .2:
         push dword 14Ah
         push unk_1CD2BA
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         call sub_379AC
         test byte [dword esi+08Dh], 1
@@ -13056,7 +13056,7 @@ sub_E3AFC:
         mov word [word_16DAB8], ax
         lea eax, [byte esp+04h]
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov al, byte [esp]
         and al, 1Fh
@@ -13584,11 +13584,11 @@ sub_E4264:
         push edx
         push byte 42h
         push unk_1CD2FC
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         push byte 42h
         push unk_1CD380
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         pop edx
         pop ecx
@@ -13920,7 +13920,7 @@ LinkSendBlock:
         push dword 0FAh
         lea eax, [byte esp+04h]
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov al, byte [esp]
         and al, 1Fh
@@ -13972,7 +13972,7 @@ LinkSendBlock:
         push dword 0FAh
         lea eax, [byte esp+04h]
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov al, byte [esp]
         and al, 1Fh
@@ -14042,7 +14042,7 @@ LinkReceiveBlock:
         je near .6
         push edi
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov dword [dword_1CD288], esi
         mov dword [dword_1CD29C], ebx
@@ -14360,7 +14360,7 @@ WaitForOtherComputer:
         push unk_1CD33E
         mov word [word_1CD404], dx
         mov word [word_1CD406], dx
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         xor ebx, ebx
 .7:
@@ -15101,7 +15101,7 @@ sub_E5730:
         push unk_1CD408
         mov edi, 3
         mov ebp, 1
-        call sub_FB704
+        call ZeroMem
         mov eax, dword [dword_16DAD2]
         add esp, byte 8
         mov dword [dword_1CD43C], ebx
@@ -15252,7 +15252,7 @@ sub_E5808:
 .8:
         push byte 28h
         push unk_1CD408
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         xor eax, eax
         mov dword [dword_1CD428], edi
@@ -15654,7 +15654,7 @@ sub_E5CD8:
 .2:
         push dword 0C0h
         push unk_1CD480
-        call sub_FB704
+        call ZeroMem
         mov edx, esi
         lea eax, [nosplit edx*4+00h]
         add esp, byte 8
@@ -17276,7 +17276,7 @@ JoinNetworkGame:
         call WaitTickDeadline
         push byte 28h
         push unk_1CD570
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         push byte 32h
         call SetTickDeadline

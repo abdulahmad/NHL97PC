@@ -20,7 +20,7 @@ extern dword_1C8A88, dword_1C8A90, dword_1C8A94, dword_1C8A98, dword_1C8A9C, dwo
 extern EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA, EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D
 extern memcpy_, memset_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_
 extern sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013CC, sub_1013FC, FindShape, sub_10AED0
-extern sub_11A318, sub_11B094, sub_11B0D0, SetScreenTarget, SeasonGameScreen, sub_415A0, sub_415F8, sub_419B0
+extern sub_11A318, FindShapeList, sub_11B0D0, SetScreenTarget, SeasonGameScreen, sub_415A0, sub_415F8, sub_419B0
 extern sub_419B8, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, SetRegionRect, SetTextColor, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80B28
 extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad
@@ -609,17 +609,17 @@ PlayoffSetupScreen:
         push asc_16587F
         push dword [byte ebp+07Eh]
         mov dword [dword_1C8A88], esi
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push unk_1C89F8
         push asc_1658B0
         push dword [byte ebp+07Eh]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push dword_1C89EC
         push asc_1658BD
         push dword [byte ebp+07Eh]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         push asc_1658CA
         push esi
@@ -2359,7 +2359,7 @@ PlayoffTreeScreen:
         push unk_1C8A04
         push asc_1659A0
         push dword [byte ebp+076h]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         cmp byte [byte_1AD72B], 4
         je near .12
@@ -2375,7 +2375,7 @@ PlayoffTreeScreen:
         push dword_1C89EC
         push asc_1659B7
         push dword [byte ebp+076h]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         lea eax, [dword ebp-071Eh]
         push eax
@@ -2389,7 +2389,7 @@ PlayoffTreeScreen:
         push unk_1C89F8
         push asc_1659CE
         push dword [byte ebp+076h]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         lea eax, [dword ebp-069Eh]
         push eax
@@ -2403,7 +2403,7 @@ PlayoffTreeScreen:
         push unk_1C8A10
         push asc_1659E5
         push dword [byte ebp+076h]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
         lea eax, [dword ebp-065Eh]
         push eax
@@ -2417,7 +2417,7 @@ PlayoffTreeScreen:
         push unk_1C8A1C
         push asc_1659FC
         push dword [byte ebp+076h]
-        call sub_11B094
+        call FindShapeList
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         add esp, byte 0Ch
@@ -2437,7 +2437,7 @@ PlayoffTreeScreen:
         push dword_1C89EC
         push asc_165A2A
         push dword [byte ebp+076h]
-        call sub_11B094
+        call FindShapeList
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         add esp, byte 0Ch
@@ -2456,7 +2456,7 @@ PlayoffTreeScreen:
         push unk_1C8A28
         push asc_165A13
         push dword [byte ebp+076h]
-        call sub_11B094
+        call FindShapeList
         add esp, byte 0Ch
 .14:
         mov eax, dword [dword_1C8A7C]

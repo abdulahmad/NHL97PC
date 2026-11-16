@@ -154,7 +154,7 @@ extern qword_163CEC, qword_163CF4, qword_163CFC, qword_163D04, qword_163D0C, qwo
 extern qword_163D2C, qword_163D34, qword_163D44, qword_163D54, qword_163D64, qword_163DA1, qword_163DA9, qword_163DB1
 extern qword_163EF8, rand_, randomd0, regd1, sprintf_, str_Back, str_Uarm, strcpy_
 extern strncmp_, strncpy_, strnicmp_, strupr_, sub_100498, sub_100700, sub_100940, bcopy
-extern BlitShape2, FindShape, sub_101560, sub_101584, sub_102C30, sub_1038B0, sub_103E14, sub_1043A4
+extern BlitShape2, FindShape, sub_101560, sub_101584, Random32, sub_1038B0, sub_103E14, sub_1043A4
 extern sub_1049D0, sub_106D80, sub_10B0D4, sub_10B580, sub_10CDE0, sub_10FB50, sub_10FB98, sub_10FBB0
 extern sub_10FD58, sub_10FE10, sub_10FE58, sub_10FE88, sub_10FFBC, sub_11002C, sub_11004C, sub_1100B4
 extern sub_110414, sub_1104F0, sub_11328, sub_114C4, sub_114FD0, sub_115020, sub_1150FC, sub_115150
@@ -171,7 +171,7 @@ extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, Dra
 extern sub_4C0C4, sub_4DA84, PeriodOver, sub_4DD9C, sub_4DDB0, sub_4FC50, sub_50050, sub_51B5C
 extern sub_51BD8, sub_56798, sub_567B0, sub_568CC, sub_56908, sub_56A84, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_56D0C, sub_56DDC, sub_AA650, sub_BD61B, sub_E341C, AllocMemBlock
-extern sub_FAAB4, FreeMemBlock, sub_FB4A4, sub_FB704, sub_FB71C, sub_FC330, sub_FC4BC, sub_FCC40
+extern sub_FAAB4, FreeMemBlock, sub_FB4A4, ZeroMem, FillMem, sub_FC330, sub_FC4BC, sub_FCC40
 extern FreeBitmap, SetDrawTarget, sub_FD954, sub_FDC0C, sub_FDC68, FillRect, sub_FDE44, sub_FE150
 extern sub_FE180, sub_FEFA0, sub_FF128, sub_FF198, sub_FF1FC, sub_FF320, sub_FF368, sub_FF444
 extern sub_FF48C, sub_FF580, sub_FF5E0, sub_FF600, sub_FF620, sub_FF6D0, sub_FF710, sub_FF798
@@ -2269,7 +2269,7 @@ sub_58B80:
         mov eax, esi
         mov ebx, 63h
         call sub_57324
-        call sub_102C30
+        call Random32
         xor edx, edx
         div ebx
         lea ebx, [byte edx+01h]
@@ -3743,7 +3743,7 @@ sub_5A048:
         movzx edi, al
         mov eax, dword [tickcount]
         mov ebp, eax
-        call sub_102C30
+        call Random32
         mov edx, 190h
         and eax, 0FFFFh
         add ebp, byte 64h
@@ -8099,7 +8099,7 @@ sub_5CD90:
         mov eax, dword [byte esi+01Ch]
         add eax, byte 10h
         push eax
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
         fild dword [byte esp+014h]
         fdivr dword [dword_161B34]
@@ -19742,7 +19742,7 @@ sub_65481:
         push ecx
         push ebx
         mov dword [byte ebp-04h], eax
-        call sub_FB704
+        call ZeroMem
         imul eax, dword [byte ebp-01Ch], byte 0Ch
         add esp, byte 8
         push byte 20h
@@ -20622,7 +20622,7 @@ sub_65E3B:
         mov eax, dword [dword eax+0F6h]
         push dword [dword esi+0FAh]
         mov dword [byte ebp-04h], eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov eax, dword [dword esi+0FAh]
         call sub_60D6C

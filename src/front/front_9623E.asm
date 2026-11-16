@@ -27,7 +27,7 @@ extern dword_1C8DFC, dword_1C8E00, dword_1C8E04, dword_1C8E08, dword_1C8E0C, dwo
 extern dword_1C8E1C, dword_1C8E20, dword_1C8E24, dword_1C8E28, dword_1C8E2C, dword_1C8E30, dword_1C8E34, dword_1C8E38
 extern dword_1C8E3C, dword_1C8E40, dword_1C8E44, dword_1C8E48, dword_1CC2AC, dword_1CF548, jpt_9621A, memset_
 extern qsort_, sprintf_, strcat_, strcpy_, BlitArt, BlitShape, sub_1013FC, FindShape
-extern FindShapeQuiet, sub_101560, sub_102B94, sub_102C10, sub_102C30, sub_106F64, sub_106F94, sub_11A318
+extern FindShapeQuiet, sub_101560, sub_102B94, sub_102C10, Random32, sub_106F64, sub_106F94, sub_11A318
 extern SetScreenTarget, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, StopAllSfx, PlaySfx
 extern LoadDataFile, LoadDataFileFlag0, OpenDataLibrary, sub_7B84B, LoadLogoNames, sub_7CB8C, sub_7DFC0, sub_7E52C
 extern sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4
@@ -43,7 +43,7 @@ global EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D, EditLinesS
 global EditLinesGridScreen_E82, EditLinesGridScreen_FA7, EditLinesGridScreen_1010, EditLinesGridScreen_1087, EditLinesGridScreen_10B1, EditLinesGridScreen_10DB, sub_9A0EC_28A, DrawPlayerLines_214
 global DrawPlayerLines_21E, DrawPlayerLines_234, DrawPlayerLines_23B, sub_9AC57_2E6, sub_9AC57_309, sub_9AC57_31A, sub_9AC57_32B, sub_9B4AA_16C
 global sub_9B4AA_41B, sub_9B4AA_517, sub_9BAC1_59, sub_9C7B7_FE, sub_9CD63_82, sub_9CD63_88, sub_9CD63_B6, sub_9DACE_66
-global sub_9DACE_68, EditLinesScreen, sub_96B32, sub_96E85, sub_97228, sub_9732A, AllocTempGameTeam, sub_97C32
+global sub_9DACE_68, EditLinesScreen, InitEditLinesScreen, sub_96E85, sub_97228, sub_9732A, AllocTempGameTeam, FreeEditLinesScreen
 global sub_97D16, sub_97F7F, sub_980B3, sub_981EE, sub_98231, LoadEditLinesRoster, sub_984D3, EditLinesGridScreen
 global DrawScoringLines, sub_99CC5, sub_99D40, sub_99DAC, sub_99E41, sub_9A0EC, sub_9A389, sub_9A603
 global DrawPlayerLines, DrawPlayerHealth, sub_9AC57, sub_9B25A, sub_9B2A8, sub_9B39F, sub_9B418, sub_9B45C
@@ -121,7 +121,7 @@ EditLinesScreen:
         call AllocTempGameTeam
         mov edx, dword [byte ebp+06Ah]
         mov eax, esi
-        call sub_96B32
+        call InitEditLinesScreen
         mov edx, dword [byte ebp+07Ah]
         mov eax, edi
         call sub_9732A
@@ -604,7 +604,7 @@ EditLinesScreen_69D:
         push dword [dword_1C8DA4]
         call FreeBitmap
         add esp, byte 4
-        call sub_97C32
+        call FreeEditLinesScreen
         push dword [dword_1C8E30]
         call FreeBitmap
         add esp, byte 4
@@ -653,9 +653,11 @@ EditLinesScreen_8E8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_96B32                                                       96B32  97 PC
+; InitEditLinesScreen                             96B32  97 PC, low confidence
+; From EditLinesScreen: creates its bitmap and menu items and draws the title
+; and line art (TITL, STKL, STCR, ...)
 ;-----------------------------------------------------------------------------
-sub_96B32:
+InitEditLinesScreen:
         push ecx
         push esi
         push edi
@@ -1556,7 +1558,7 @@ sub_9732A:
         add dword [byte ebp+07Eh], eax
         mov eax, dword [byte ebp+066h]
         add dword [byte ebp+07Ah], eax
-        call sub_102C30
+        call Random32
         test al, 7
         jne short .16
         sar eax, 4
@@ -1573,7 +1575,7 @@ sub_9732A:
         jle short .16
         sub dword [byte ebp+06Ah], edx
 .16:
-        call sub_102C30
+        call Random32
         test al, 7
         jne short .18
         sar eax, 4
@@ -2033,9 +2035,10 @@ AllocTempGameTeam:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_97C32                                                       97C32  97 PC
+; FreeEditLinesScreen                             97C32  97 PC, low confidence
+; From EditLinesScreen when it leaves: frees its bitmaps and blocks
 ;-----------------------------------------------------------------------------
-sub_97C32:
+FreeEditLinesScreen:
         push ebx
         push ecx
         push edx
@@ -8705,7 +8708,7 @@ sub_9CCB1:
 .1:
         cmp ebx, dword [dword_1C8DDC]
         jle short .4
-        call sub_102C30
+        call Random32
         mov ecx, 3
         xor edx, edx
         div ecx
@@ -8752,7 +8755,7 @@ sub_9CD63:
         jle short .4
         cmp dword [dword_1C8E20], byte 0
         je short .3
-        call sub_102C30
+        call Random32
         mov ebx, 5
         xor edx, edx
         div ebx
@@ -8765,7 +8768,7 @@ sub_9CD63:
         call DrawShape
         add esp, byte 4
         mov ebx, 5
-        call sub_102C30
+        call Random32
         xor edx, edx
         div ebx
         cmp edx, dword [dword_1C8DEC]

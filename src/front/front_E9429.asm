@@ -20,10 +20,10 @@ extern dword_1CE1C0, dword_1CE1C4, dword_1CE1C8, dword_1CE1CC, dword_1CE1D0, dwo
 extern dword_1CE1E0, dword_1CE1E4, dword_1CE1E8, dword_1CE1EC, dword_1CE1F0, dword_1CE1F4, dword_1CE1F8, dword_1CE1FC
 extern dword_1CE200, dword_1CE204, dword_1CE208, dword_1CE20C, dword_1CE210, dword_1CE214, dword_1CE218, dword_1CE21C
 extern dword_1CE220, memcpy_, memset_, qsort_, sprintf_, strcpy_, BlitArt, BlitShape
-extern sub_1013FC, FindShape, sub_101EAC, sub_102C10, sub_102C30, sub_11A318, sub_11F8E0, sub_11F94C
+extern sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, sub_11A318, sub_11F8E0, sub_11F94C
 extern sub_11F9F0, sub_11FA34, SetScreenTarget, sub_39851, sub_415F8, sub_419B0, sub_419B8, StopAllSfx
 extern PlaySfx, PlayScreenMovie, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
-extern SetTextColor, DrawTextAligned, sub_7F5A4, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678
+extern SetTextColor, DrawTextAligned, sub_7F5A4, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_81678
 extern sub_83314, sub_834EC, sub_83558, sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068
 extern sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E
 extern SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, sub_8E870, sub_9D2D0, sub_AF074
@@ -51,7 +51,7 @@ extern unk_1CEE68, unk_1CEE77, unk_1CEE86, unk_1CEE95, unk_1CEEA4, unk_1CEEB3, u
 extern unk_1CEEE0, unk_1CEEEF, unk_1CEEFE, unk_1CEF0D, unk_1CEF1C, unk_1CEF2B, unk_1CEF3A, unk_1CEF49
 extern unk_1CEF58, unk_1CEF67, word_16E2EA, word_1C1344, word_1C1348, word_1C13C2, word_1C34E5, word_1C55A2
 global BuildAllStarTeams_4B, sub_E9CB5_1E0, sub_EA7CF_68E, sub_EA7CF_6C5, sub_EBD8C_31, PickAllStarPlayers_4C2, PickAllStarPlayers_4C3, BuildAllStarTeams
-global AllStarScreen, sub_E9CB5, sub_E9E9B, sub_EA52D, sub_EA5B1, sub_EA64E, sub_EA6EB, sub_EA7CF
+global AllStarScreen, sub_E9CB5, InitAllStarScreen, sub_EA52D, DrawAllStarConference, sub_EA64E, sub_EA6EB, sub_EA7CF
 global sub_EAE9A, sub_EAF08, DrawAllStarList, sub_EB840, sub_EB8DA, sub_EBA9B, sub_EBB68, sub_EBC19
 global sub_EBC45, sub_EBC70, sub_EBCFA, sub_EBD54, sub_EBD8C, sub_EBDC3, sub_EBEDA, sub_EBFCE
 global sub_EC19E, sub_EC34D, sub_EC4DB, sub_EC588, sub_EC60D, sub_EC671, sub_EC82C, PickAllStarPlayers
@@ -134,9 +134,9 @@ AllStarScreen:
         call sub_419B8
         call AllocAllStarRosters
         lea eax, [dword ebp-01FA6h]
-        call sub_E9E9B
+        call InitAllStarScreen
         xor eax, eax
-        call sub_EA5B1
+        call DrawAllStarConference
         mov eax, dword [dword_1CE1F0]
         mov dword [byte ebp+07Ah], 0
         mov edx, 0FFFFFFFFh
@@ -232,7 +232,7 @@ AllStarScreen:
         movzx eax, al
         mov dword [dword_1CE1FC], eax
         mov eax, 2
-        call sub_EA5B1
+        call DrawAllStarConference
         jmp near .34
 .13:
         imul eax, dword [byte ebp+072h], byte 52h
@@ -417,9 +417,9 @@ AllStarScreen:
         lea edx, [dword ebp-0F4Eh]
         call SetTextColor
         lea eax, [dword ebp-01FA6h]
-        call sub_E9E9B
+        call InitAllStarScreen
         xor eax, eax
-        call sub_EA5B1
+        call DrawAllStarConference
         mov eax, dword [dword_1CE1F0]
         mov edx, 0FFFFFFFFh
 .25:
@@ -543,9 +543,9 @@ AllStarScreen:
         lea edx, [dword ebp-0F4Eh]
         call SetTextColor
         lea eax, [dword ebp-01FA6h]
-        call sub_E9E9B
+        call InitAllStarScreen
         xor eax, eax
-        call sub_EA5B1
+        call DrawAllStarConference
         mov eax, dword [dword_1CE1F0]
         xor edx, edx
         jmp near .25
@@ -605,7 +605,7 @@ sub_E9CB5:
         xor ebx, ebx
         cmp eax, dword [dword_1CE1D0]
         jle near sub_E9CB5_1E0
-        call sub_102C30
+        call Random32
         mov ecx, 3
         xor edx, edx
         div ecx
@@ -737,9 +737,11 @@ sub_E9CB5_1E0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E9E9B                                                       E9E9B  97 PC
+; InitAllStarScreen                               E9E9B  97 PC, low confidence
+; From AllStarScreen: loads its art and sets up the menu items (BAK0, TITL,
+; LB%02d, AR%02d)
 ;-----------------------------------------------------------------------------
-sub_E9E9B:
+InitAllStarScreen:
         push ebx
         push ecx
         push esi
@@ -1205,9 +1207,11 @@ sub_EA52D:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EA5B1                                                       EA5B1  97 PC
+; DrawAllStarConference                           EA5B1  97 PC, low confidence
+; From AllStarScreen: draws the conference page (WC00 / WC01 or EC00 / EC01
+; art) and its player list (DrawAllStarList)
 ;-----------------------------------------------------------------------------
-sub_EA5B1:
+DrawAllStarConference:
         push ebx
         push ecx
         push edx
@@ -1539,7 +1543,7 @@ sub_EA7CF:
         call sub_102C10
         mov eax, dword [dword_1CE1FC]
         mov eax, dword [nosplit eax*4+dword_1CE0FC]
-        call sub_80758
+        call LoadTeamLogo
         mov eax, 960000h
         mov ebx, dword [dword_1C5E74]
         cdq
@@ -2162,7 +2166,7 @@ DrawAllStarList:
         call sub_102C10
         mov eax, dword [dword_1CE1FC]
         add eax, byte 1Ah
-        call sub_80758
+        call LoadTeamLogo
         mov eax, 8C0000h
         mov esi, dword [dword_1C5E74]
         cdq

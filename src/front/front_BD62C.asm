@@ -31,7 +31,7 @@ extern sub_8BEF8, InitMenuItems, sub_8BFAC, sub_8D5C0, sub_8D6B4, sub_8D6E8, sub
 extern GetLangText, FreeLangText, sub_A0867, sub_AC69C, sub_AC6EB, sub_AC73E, sub_DA7EB, sub_DB6AC
 extern sub_E19D5, sub_E1C19, sub_E1CC0, sub_E3174, sub_E3190, sub_E3410, sub_E4218, LinkSendBlock
 extern LinkReceiveBlock, WaitForOtherComputer, sub_F22ED, sub_F9496, sub_F94BC, sub_F9789, sub_F9869, AllocMemBlock
-extern FreeMemBlock, sub_FB704, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, DrawArt, CreateBitmap
+extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, sub_FD954, sub_FDC68, FillRect, sub_FE180, sub_FE3D0, unk_166A8A
 extern unk_171E38, unk_1ACB44, unk_1CAEFC, unk_1CAF3C, word_1686E4
 global jpt_BE037, jpt_BE213, jpt_BE25A, jpt_BE296, jpt_BEC7D, RunReplay_358, RunReplay_359, LoadReplay_194
@@ -65,7 +65,7 @@ RunReplay:
         push byte 14h
         lea eax, [byte ebp-030h]
         push eax
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov dword [byte ebp-030h], 280h
         mov dword [byte ebp-02Ch], 1E0h
@@ -3824,7 +3824,7 @@ sub_C04BE:
         call sub_BECB9
         push byte 40h
         push dword_1CAFAC
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         call sub_BF417
         imul eax, dword [dword_16E468], dword 0BBh

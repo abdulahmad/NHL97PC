@@ -14,7 +14,7 @@ extern dword_1D8AB4, dword_1D8AB8, dword_1D8ABC, dword_1D8AC0, dword_1D8AC4, mem
 extern qword_167EA5, str_ORIINST, strcat_, strcpy_, strlen_, strnicmp_, sub_1004B8, sub_10B18C
 extern sub_10CF34, sub_10FD58, sub_112F3C, sub_1143D4, sub_1153AC, sub_1158A0, sub_12D784, sub_12DD3C
 extern sub_12DE84, sub_12DFC4, sub_12E108, sub_12E2B8, sub_12E390, sub_12ED68, sub_12EEAC, sub_12EFE8
-extern sub_12F12C, AllocMemBlock, FreeMemBlock, sub_FB71C, sub_FF7F4, unk_199738, unk_1D1D20, unk_1D3D6C
+extern sub_12F12C, AllocMemBlock, FreeMemBlock, FillMem, sub_FF7F4, unk_199738, unk_1D1D20, unk_1D3D6C
 extern unk_1D3D94, unk_1D5B94, unk_1D7994, unk_1D80B4
 global sub_1115CC_31B, sub_10FEE8, sub_10FFBC, sub_11002C, sub_11004C, sub_1100B4, sub_110414, sub_110440
 global sub_1104CC, sub_1104F0, sub_110538, sub_11059C, sub_1105E4, sub_1105FC, sub_110634, sub_110658
@@ -1314,7 +1314,7 @@ sub_110680:
         push ebx
         mov eax, dword [dword esp+088h]
         push eax
-        call sub_FB71C
+        call FillMem
         add esp, byte 0Ch
         mov edx, dword [dword esp+080h]
         add edx, ebx

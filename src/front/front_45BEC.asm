@@ -17,7 +17,7 @@ extern sub_109E74, sub_10A7D0, sub_10A860, sub_10A868, sub_10A8C4, sub_10A930, s
 extern sub_10AB1C, sub_10ABC8, sub_3FE54, sub_3FEE8, sub_3FF4C, sub_3FF9C, sub_4006C, sub_400E8
 extern sub_401A0, sub_40258, sub_40298, sub_40380, sub_403C0, sub_40400, sub_40440, sub_404C4
 extern sub_40574, sub_405F8, sub_40640, sub_40680, sub_40850, sub_44A50, sub_4518C, sub_45628
-extern sub_4564C, sub_45954, sub_45A00, MakeDataPath, sub_E341C, AllocMemBlock, FreeMemBlock, sub_FB704
+extern sub_4564C, sub_45954, sub_45A00, MakeDataPath, sub_E341C, AllocMemBlock, FreeMemBlock, ZeroMem
 extern tickcount, word_1691A4, word_169268, word_169282, word_169284, word_169824
 global jpt_48D20, jpt_48D50, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D, CommentaryEvent_3F6, CommentaryEvent_3FF
 global CommentaryEvent_408, CommentaryEvent_411, CommentaryEvent_41A, CommentaryEvent_423, CommentaryEvent_48A, CommentaryEvent_4E4, CommentaryEvent_4ED, CommentaryEvent_4F6
@@ -2998,7 +2998,7 @@ sub_47EA4:
         push eax
         mov dword [dword_169258], eax
         mov ebx, 39CD8h
-        call sub_FB704
+        call ZeroMem
         mov eax, dword [dword_169258]
         add esp, byte 8
         mov dword [dword_1AC7A0], ebx
@@ -3072,7 +3072,7 @@ ShutdownSound:
         push dword_1AC790
         mov dword [dword_169278], esi
         mov dword [dword_169264], ebx
-        call sub_FB704
+        call ZeroMem
         add esp, byte 8
         mov dword [dword_169254], ebx
         call sub_E341C
@@ -3641,7 +3641,7 @@ sub_486E8:
         push byte 22h
         add eax, edx
         push eax
-        call sub_FB704
+        call ZeroMem
         mov edx, dword [dword_169280]
         sar edx, 10h
         mov eax, edx
