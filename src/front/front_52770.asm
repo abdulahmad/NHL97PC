@@ -34,7 +34,7 @@ extern dword_1B10D0, dword_1B10D4, dword_1B10D8, dword_1B10E8, dword_1B10F4, dwo
 extern dword_1B13C8, dword_1B1410, dword_1B82DC, dword_1B82E0, dword_1B8300, dword_1B8318, dword_1B8330, dword_1B833C
 extern dword_1B834C, dword_1B8358, dword_1B8364, dword_1B8368, dword_1B8374, dword_1B838C, dword_1B8398, dword_1B83A4
 extern dword_1B83C8, dword_1B83D4, dword_1B83E0, dword_1B83EC, dword_1B841C, dword_1B8444, dword_1B8478, dword_1B853C
-extern dword_1B8550, dword_1B857F, dword_1B905F, dword_1D1D30, dword_1D1D38, dword_1D1D5C, dword_1D1D60, dword_1D205C
+extern dword_1B8550, dword_1B857F, dword_1B905F, ViewOriginX, ViewOriginY, ViewWidth, ViewHeight, dword_1D205C
 extern DrawCenterCircle_30, F64_3p14159_DrawPortraitModels, F64_neg3p14159_DrawPortraitModels, F64_0p6_FaceDistance, qword_1617EE, F64_0p6_SetModelHeading, sprintf_, str_Benchbk
 extern str_Benchdiv, str_Benchx, str_Benchz0, str_Benchz1, str_Boardback, str_Botboards, str_Center, str_Crease
 extern str_Door00, str_Door01, str_Door02, str_Door10, str_Door11, str_Door12, str_DoorZ0, str_DoorZ1
@@ -5078,19 +5078,19 @@ SaveViewOrigin:
         mov eax, dword [dword_16E676]
         sar eax, 10h
         shl eax, 10h
-        mov dword [dword_1D1D60], eax
+        mov dword [ViewHeight], eax
         mov eax, dword [dword_16E67E]
         sar eax, 10h
         shl eax, 10h
-        mov dword [dword_1D1D30], eax
+        mov dword [ViewOriginX], eax
         mov eax, dword [dword_16E67A]
         sar eax, 10h
         shl eax, 10h
-        mov dword [dword_1D1D5C], eax
+        mov dword [ViewWidth], eax
         mov eax, dword [dword_16E682]
         sar eax, 10h
         shl eax, 10h
-        mov dword [dword_1D1D38], eax
+        mov dword [ViewOriginY], eax
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 unk_56790:

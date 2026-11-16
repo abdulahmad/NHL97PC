@@ -26,7 +26,7 @@ extern dword_1C9540, dword_1C9544, dword_1C9548, dword_1C954C, dword_1C9558, dwo
 extern dword_1C9568, dword_1C956C, dword_1C9570, dword_1C9574, dword_1C9578, dword_1C957C, dword_1C9580, dword_1C9584
 extern dword_1C9588, dword_1C958C, dword_1C9590, dword_1C9594, dword_1C9598, dword_1C959C, dword_1C95A0, dword_1C95A4
 extern dword_1C95A8, dword_1C95AA, dword_1C95B0, dword_1C95B4, dword_1C95B8, dword_1C95BC, dword_1C95C0, dword_1C95C4
-extern dword_1CF548, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcpy_
+extern LinkTextFont, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcpy_
 extern bcopy, BlitArt, BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, DrawShapeBlended
 extern ConvertArtNew, ResetClipWindow, Random32, LoadFileAlloc, UnpackShared, UnpackedSize, ProjectModelBounds, CreateBitmapDefault
 extern ConvertArtXY, ConvertArtKeepPos, LinkSideFlags, ClearLinkCounters, SetScreenTarget, PlayGame, SetPlayedTeams, IsAllStarDay
@@ -446,7 +446,7 @@ LinkGameSetup:
         call MeasureText
         add esp, byte 4
         mov edi, eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push byte 20h
         inc eax
         inc eax
@@ -473,7 +473,7 @@ LinkGameSetup:
         movsx eax, word [byte eax+06h]
         sar eax, 1
         add eax, edx
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         sar edx, 1
         sub eax, edx
         mov edx, eax
@@ -485,7 +485,7 @@ LinkGameSetup:
         push dword [byte eax+02Ch]
         call ConvertArtKeepPos
         add esp, byte 4
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push byte 20h
         inc eax
         inc eax
@@ -503,7 +503,7 @@ LinkGameSetup:
         movsx eax, word [byte eax+06h]
         sar eax, 1
         add edx, eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sar eax, 1
         sub edx, eax
         mov eax, dword [dword ebx+dword_1C9410]
@@ -514,7 +514,7 @@ LinkGameSetup:
         push dword [byte eax+02Ch]
         call ConvertArtKeepPos
         add esp, byte 4
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push byte 20h
         inc eax
         inc eax
@@ -533,7 +533,7 @@ LinkGameSetup:
         movsx eax, word [byte eax+06h]
         sar eax, 1
         add edx, eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sar eax, 1
         sub edx, eax
         mov eax, dword [dword ebx+dword_1C93F0]
@@ -708,7 +708,7 @@ LinkGameSetup:
         movsx eax, word [edx+eax*2]
         mov edx, dword [byte ebp-034h]
         movsx edx, word [byte edx+06h]
-        mov ebx, dword [dword_1CF548]
+        mov ebx, dword [LinkTextFont]
         sar edx, 1
         sar ebx, 1
         add eax, edx
@@ -2380,7 +2380,7 @@ RunLinkGameScreens_112:
         call sprintf_
         mov eax, dword [byte ebp-08h]
         mov eax, dword [byte eax+02Ch]
-        mov ebx, dword [dword_1CF548]
+        mov ebx, dword [LinkTextFont]
         movsx edx, word [byte eax+06h]
         sar ebx, 1
         sar edx, 1
@@ -2406,7 +2406,7 @@ RunLinkGameScreens_112:
         lea eax, [byte ebp-040h]
         call strcpy_
         movsx edx, word [byte ebx+06h]
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sar edx, 1
         sar eax, 1
         sub edx, eax
@@ -2682,7 +2682,7 @@ RunLinkGameScreens_112:
         call MeasureText
         add esp, byte 4
         mov edi, eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push byte 20h
         inc eax
         inc eax
@@ -2709,7 +2709,7 @@ RunLinkGameScreens_112:
         movsx eax, word [byte eax+06h]
         sar eax, 1
         add eax, edx
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         sar edx, 1
         sub eax, edx
         mov edx, eax
@@ -2721,7 +2721,7 @@ RunLinkGameScreens_112:
         push dword [byte eax+02Ch]
         call ConvertArtKeepPos
         add esp, byte 4
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push byte 20h
         inc eax
         inc eax
@@ -2739,7 +2739,7 @@ RunLinkGameScreens_112:
         movsx eax, word [eax]
         sar edx, 1
         add edx, eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sar eax, 1
         sub edx, eax
         mov eax, dword [dword ebx+dword_1C9410]
@@ -2750,7 +2750,7 @@ RunLinkGameScreens_112:
         push dword [byte eax+02Ch]
         call ConvertArtKeepPos
         add esp, byte 4
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push byte 20h
         inc eax
         inc eax
@@ -2769,7 +2769,7 @@ RunLinkGameScreens_112:
         movsx eax, word [byte eax+06h]
         sar eax, 1
         add eax, edx
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         sar edx, 1
         sub eax, edx
         mov edx, eax

@@ -29,7 +29,7 @@ extern dword_1CD54C, dword_1CD550, dword_1CD554, dword_1CD558, dword_1CD55C, dwo
 extern dword_1CD56C, dword_1CD574, dword_1CD578, dword_1CD57C, dword_1CD580, dword_1CD584, dword_1CD590, dword_1CD594
 extern dword_1CD598, dword_1CD5B4, dword_1CD5B8, dword_1CD5BC, dword_1CD632, dword_1CD64C, dword_1CD650, dword_1CD654
 extern dword_1CD6B0, dword_1CD6C6, dword_1CD6CA, dword_1CD6FE, dword_1CD750, dword_1CD754, dword_1CD758, dword_1CD760
-extern dword_1CD764, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CF548
+extern dword_1CD764, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD77C, dword_1CD780, dword_1CD784, LinkTextFont
 extern fclose_, fopen_, fread_, fseek_, ftell_, fwrite_, int386x_, memcmp_
 extern memcpy_, memset_, off_16D7AC, off_16D7B4, off_16D7DC, off_16D7E0, off_16D7E4, off_16D7E8
 extern off_16E0FC, off_16E4E0, rand_, segread_, slotteam, sprintf_, strcat_, strcmp_
@@ -14247,8 +14247,8 @@ WaitForOtherComputer:
         lea eax, [nosplit ebp*2+00h]
         sar edi, 1
         sub edx, eax
-        sub edi, dword [dword_1CF548]
-        mov ecx, dword [dword_1CF548]
+        sub edi, dword [LinkTextFont]
+        mov ecx, dword [LinkTextFont]
         sub edi, byte 7
         mov dword [dword esp+0194h], edx
         mov edx, edi
@@ -14274,7 +14274,7 @@ WaitForOtherComputer:
         mov edi, ecx
         mov dword [dword esp+015Ch], edx
         lea eax, [edx+edi]
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         add eax, byte 5
         mov ebx, dword [dword_16E464]
         add eax, edx
@@ -14411,7 +14411,7 @@ WaitForOtherComputer:
         call FillRectColor
         add esp, byte 14h
         mov eax, dword [dword esp+0174h]
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         sub eax, byte 4
         mov ecx, dword [dword_16E46C]
         sub eax, edx
@@ -14544,7 +14544,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sub eax, byte 2
         push eax
         push str_X_WaitForOtherComputer
@@ -14565,7 +14565,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sub eax, byte 2
         push eax
         push str_X_WaitForOtherComputer
@@ -14639,7 +14639,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sub eax, byte 2
         push eax
         push str_X_WaitForOtherComputer
@@ -14705,7 +14705,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov edi, dword [dword_1CF548]
+        mov edi, dword [LinkTextFont]
         push edi
         lea eax, [dword esp+01A4h]
         push eax
@@ -14735,10 +14735,10 @@ WaitForOtherComputer:
         jle near .22
 .19:
         xor dh, dh
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         mov byte [esp], dh
         mov edx, dword [dword esp+0180h]
-        mov ecx, dword [dword_1CF548]
+        mov ecx, dword [LinkTextFont]
         add edx, eax
         mov eax, dword [dword esp+0158h]
         mov dword [dword esp+0184h], ebp
@@ -14753,7 +14753,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push eax
         mov edx, dword [dword esp+019Ch]
         push edx
@@ -14763,9 +14763,9 @@ WaitForOtherComputer:
         push edi
         call FillRect
         add esp, byte 14h
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         mov edi, dword [dword esp+0180h]
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         add edi, eax
         mov eax, dword [dword esp+0158h]
         sub eax, edx
@@ -14777,7 +14777,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov ecx, dword [dword_1CF548]
+        mov ecx, dword [LinkTextFont]
         push ecx
         mov eax, dword [dword esp+019Ch]
         push eax
@@ -14791,7 +14791,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sub eax, byte 2
         push eax
         push str_X_WaitForOtherComputer
@@ -14998,7 +14998,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sub eax, byte 2
         push eax
         push str_X_WaitForOtherComputer
@@ -15057,7 +15057,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov edi, dword [dword_1CF548]
+        mov edi, dword [LinkTextFont]
         push edi
         lea eax, [dword esp+01A4h]
         push eax
@@ -15085,7 +15085,7 @@ WaitForOtherComputer:
 .42:
         xor dh, dh
         mov byte [dword esp+0A0h], dh
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         mov eax, dword [dword esp+0190h]
         add esi, edx
         sub eax, edx
@@ -15098,16 +15098,16 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov edi, dword [dword_1CF548]
+        mov edi, dword [LinkTextFont]
         push edi
         mov eax, dword [dword esp+019Ch]
         push eax
         push esi
         push ebx
         call FillRect
-        mov edi, dword [dword_1CF548]
+        mov edi, dword [LinkTextFont]
         add esp, byte 14h
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         mov eax, dword [dword esp+0190h]
         add edi, esi
         sub eax, edx
@@ -15119,7 +15119,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov ecx, dword [dword_1CF548]
+        mov ecx, dword [LinkTextFont]
         push ecx
         mov eax, dword [dword esp+019Ch]
         push eax
@@ -15132,7 +15132,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sub eax, byte 2
         push eax
         push str_X_WaitForOtherComputer
@@ -16098,7 +16098,7 @@ DrawNetGameList:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push eax
         imul eax, ebx
         push dword 14Ah
@@ -16115,7 +16115,7 @@ DrawNetGameList:
         add eax, edi
         add eax, byte 8
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         imul eax, ebx
         push eax
         push byte 19h
@@ -16135,7 +16135,7 @@ DrawNetGameList:
         call SetTextColor
         mov eax, 22Ah
         call GetLangText
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         push eax
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
@@ -16423,7 +16423,7 @@ ChooseNetworkGameScreen:
         push ebp
         sub esp, byte 44h
         mov dword [byte esp+030h], eax
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         shl eax, 2
@@ -16504,7 +16504,7 @@ ChooseNetworkGameScreen:
         mov eax, 3
         xor edx, edx
         call DrawEditBox
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*8+00h]
         add eax, edx
         mov ecx, 15Eh
@@ -16526,7 +16526,7 @@ ChooseNetworkGameScreen:
         mov eax, 22Bh
         call GetLangText
         push eax
-        mov ecx, dword [dword_1CF548]
+        mov ecx, dword [LinkTextFont]
         push ecx
         push dword 0C8h
         mov ebp, 0FFFFFFFFh
@@ -16885,13 +16885,13 @@ ChooseNetworkGameScreen:
         mov dword [byte esi+eax+02Eh], 0
         mov eax, dword [dword_1CD54C]
         mov word [byte esi+eax+018h], 3
-        mov eax, dword [dword_1CF548]
-        mov ebx, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
+        mov ebx, dword [LinkTextFont]
         dec eax
         lea ebx, [ebx+ebx*2]
         push eax
         add ebx, dword [dword_1CD55C]
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         imul eax, ebp
         mov ecx, 14Ah
         mov edx, dword [dword_1CD560]
@@ -16932,7 +16932,7 @@ ChooseNetworkGameScreen:
         push eax
         call CreateBitmap
         mov dword [dword ebx+dword_1CD564], eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         add esp, byte 0Ch
         lea eax, [eax+eax*2]
         push eax
@@ -16977,7 +16977,7 @@ ChooseNetworkGameScreen:
         push eax
         call CreateBitmap
         mov dword [dword ebx+dword_1CD550], eax
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         mov eax, dword [byte esi+04h]
         lea edx, [edx+edx*8]
         sar eax, 10h
@@ -17021,7 +17021,7 @@ ChooseNetworkGameScreen:
         mov edx, dword [dword_1CD54C]
         add eax, 16Eh
         mov dword [dword edx+02B6h], eax
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
         mov edi, dword [dword_1CD55C]
         sub eax, edx
@@ -17064,7 +17064,7 @@ ChooseNetworkGameScreen:
         mov edx, dword [dword_1CD54C]
         add eax, 16Eh
         mov dword [dword edx+0308h], eax
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*8+00h]
         add eax, edx
         mov edx, dword [dword_1CD55C]

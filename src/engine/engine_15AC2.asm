@@ -36,7 +36,7 @@ extern dword_19D390, dword_19D394, dword_19D398, dword_19D3A8, dword_19DAD3, dwo
 extern dword_1A8E80, dword_1AC814, dword_1AC944, dword_1B10DC, dword_1B1410, dword_1B141C, dword_1B8FA0, dword_1B905F
 extern dword_1B9063, dword_1B9067, dword_1B906B, dword_1B906F, dword_1B9077, dword_1B907B, dword_1B907F, dword_1B9083
 extern dword_1B9087, dword_1B908B, dword_1B908F, dword_1B9093, dword_1B9CA4, dword_1B9CAC, dword_1C95B0, dword_1C95B4
-extern dword_1C95BC, dword_1C95C4, dword_1CF538, dword_1CF554, dword_1CF5A4, dword_1CF5B8, dword_1CF5E4, dword_1CF5E8
+extern dword_1C95BC, dword_1C95C4, TextAlign, TextColorTable, TextColor, DrawGlyphFn, ProjOffsetX, ProjOffsetY
 extern hmtmstruct, hypot_, DrawGlyph_494, off_168772, off_16877E, off_168CD8, off_168CE0, off_168CE8
 extern off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C, F64_0p000333333, F64_1p2_UpdateCameraView, F64_neg0p000454545
 extern F64_neg0p000357143, F64_neg99p9, F64_0p785398, F64_0p0004, F64_3, F64_10, F64_8, F64_neg4
@@ -4587,13 +4587,13 @@ SetOverlayFont:
 .1:
         mov eax, dword [dword_1C95BC]
 .2:
-        cmp eax, dword [dword_1CF5A4]
+        cmp eax, dword [TextColor]
         je short .3
         push eax
         call SelectFont
         add esp, byte 4
 .3:
-        cmp dword [dword_1CF538], byte 1
+        cmp dword [TextAlign], byte 1
         jne short .4
         push byte 0FFFFFFFFh
         call MatchColor
@@ -4629,10 +4629,10 @@ SetOverlayFont:
         inc ebx
         call MatchColor
         add esp, byte 4
-        mov dword [nosplit ebx*4+dword_1CF554], eax
+        mov dword [nosplit ebx*4+TextColorTable], eax
         cmp ebx, byte 10h
         jl short .5
-        mov dword [dword_1CF5B8], DrawGlyph_494
+        mov dword [DrawGlyphFn], DrawGlyph_494
         pop edx
         pop ecx
         pop ebx
@@ -7731,8 +7731,8 @@ DrawCameraDebugMarks:
         je near .1
         push dword 0FF00AA00h
         call MatchColor
-        fld dword [dword_1CF5E4]
-        fld dword [dword_1CF5E8]
+        fld dword [ProjOffsetX]
+        fld dword [ProjOffsetY]
         fld st0
         add esp, byte 4
         fxch st2
@@ -7756,9 +7756,9 @@ DrawCameraDebugMarks:
         add esp, byte 14h
         push dword 0FF00AA00h
         call MatchColor
-        fld dword [dword_1CF5E4]
-        fld dword [dword_1CF5E8]
-        fld dword [dword_1CF5E4]
+        fld dword [ProjOffsetX]
+        fld dword [ProjOffsetY]
+        fld dword [ProjOffsetX]
         add esp, byte 4
         fxch
         call __CHP

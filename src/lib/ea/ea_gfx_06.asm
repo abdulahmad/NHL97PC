@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_10B040 progbits alloc exec nowrite align=1
-extern str_Punct_DrawRinkSurface, str_Punct_SetScreenScale, dword_1D1CF8, dword_1D1CFC, dword_1D1D00, dword_1D1D04, dword_1D1D08, dword_1D1D0C
-extern dword_1D1D10, dword_1D1D14, dword_1D1D2C, off_170278, off_170284, off_170290, off_17029C, off_1702A8
+extern str_Punct_DrawRinkSurface, str_Punct_SetScreenScale, ModelPartCount, ModelPartTable, ModelFrame, ModelPoints, ModelFlags, ModelInstance
+extern ModelSetupMode, RinkViewChanged, ModelPartIndex, off_170278, off_170284, off_170290, off_17029C, off_1702A8
 extern SortIndices, SubVec3, TransformVecFull, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip
 extern DrawFlatPoly, DrawPolyOutline, CallModelPartFuncs, CallAllPartFuncs, ProjectPointsPersp, MultiplyMatrix, ProjectPoints, unk_17021C
 extern unk_170240
@@ -20,7 +20,7 @@ SetRinkMatrix:
         mov ecx, 9
         mov esi, dword [byte esp+0Ch]
         mov edi, unk_17021C
-        mov dword [dword_1D1D14], edx
+        mov dword [RinkViewChanged], edx
         rep movsd
         pop edi
         pop esi
@@ -115,7 +115,7 @@ DrawRinkObjectPolys:
         mov ebx, dword [byte esp+02Ch]
         test byte [byte ebx+010h], 4
         jne short .1
-        cmp dword [dword_1D1D14], byte 0
+        cmp dword [RinkViewChanged], byte 0
         je short .2
 .1:
         lea eax, [byte ebx+04Ch]
@@ -365,7 +365,7 @@ DrawModelPartPolys:
         mov eax, dword [byte esp+01Ch]
 .1:
         mov ebp, eax
-        mov eax, dword [dword_1D1CFC]
+        mov eax, dword [ModelPartTable]
         shl ebp, 4
         add ebp, eax
         mov edi, esp
@@ -374,7 +374,7 @@ DrawModelPartPolys:
         movsd
         movsd
         mov esi, dword [esp]
-        mov edx, dword [dword_1D1D2C]
+        mov edx, dword [ModelPartIndex]
         and esi, byte 7
         test edx, edx
         je short .2
@@ -408,11 +408,11 @@ DrawModelPartPolys:
         shl eax, 8
         shr eax, 18h
         imul eax, byte 14h
-        mov ecx, dword [dword_1D1CF8]
+        mov ecx, dword [ModelPartCount]
         add ecx, eax
         cmp dword [byte ecx+010h], byte 0
         je short .4
-        mov eax, dword [dword_1D1D0C]
+        mov eax, dword [ModelInstance]
         mov edx, ebp
         call dword [byte ecx+010h]
         test eax, eax
@@ -440,7 +440,7 @@ DrawModelPartPolys:
         mov dl, byte [byte esp+01h]
         test dl, 10h
         je short .8
-        cmp dword [dword_1D1D08], byte 0
+        cmp dword [ModelFlags], byte 0
         jne short .6
         test byte [byte esp+01h], 20h
         je short .7
@@ -462,7 +462,7 @@ DrawModelPartPolys:
         call dword [dword ecx+off_170284]
         jmp short .12
 .8:
-        cmp dword [dword_1D1D08], byte 0
+        cmp dword [ModelFlags], byte 0
         jne short .9
         test dl, 20h
         je short .10
@@ -532,23 +532,23 @@ DrawModelInstance:
         ret
 .1:
         mov edx, dword [eax]
-        mov dword [dword_1D1D00], edx
+        mov dword [ModelFrame], edx
         mov ecx, dword [byte edx+028h]
-        mov dword [dword_1D1CFC], ecx
+        mov dword [ModelPartTable], ecx
         mov edx, dword [byte edx+020h]
-        mov dword [dword_1D1D04], edx
+        mov dword [ModelPoints], edx
         mov edx, dword [byte eax+014h]
-        mov dword [dword_1D1CF8], edx
-        mov dword [dword_1D1D0C], eax
+        mov dword [ModelPartCount], edx
+        mov dword [ModelInstance], eax
         mov edx, dword [byte eax+010h]
         shl edx, 1Eh
         shr edx, 1Fh
-        mov dword [dword_1D1D2C], edx
+        mov dword [ModelPartIndex], edx
         mov edx, dword [byte eax+010h]
         shl edx, 18h
         shr edx, 1Fh
-        mov dword [dword_1D1D08], edx
-        mov edx, dword [dword_1D1D04]
+        mov dword [ModelFlags], edx
+        mov edx, dword [ModelPoints]
         push edx
         mov ecx, dword [dword eax+080h]
         push ecx
@@ -595,9 +595,9 @@ InitModelParts:
         mov eax, dword [byte esp+08h]
         mov edx, 1
         xor ebx, ebx
-        mov dword [dword_1D1D10], edx
+        mov dword [ModelSetupMode], edx
         call CallAllPartFuncs
-        mov dword [dword_1D1D10], ebx
+        mov dword [ModelSetupMode], ebx
         pop ebx
         ret
         db 090h

@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_11FAAC progbits alloc exec nowrite align=1
 extern dword_16E478, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16F8AC, dword_16F8B0, dword_16F8B4
-extern dword_16F8B8, dword_199C38, dword_199C3C, dword_1CF53C, VesaQueryMode, SetGraphicsMode, BytesPerPixelForDepth, SetupRectFillShaded
+extern dword_16F8B8, dword_199C38, dword_199C3C, CurrentFont, VesaQueryMode, SetGraphicsMode, BytesPerPixelForDepth, SetupRectFillShaded
 extern SetupRectFill, FillRectSpans, FillRectList, ZeroMem, FillRectColor, PrepareTextDraw
 global jpt_11FDFD, jpt_11FF3D, jpt_120116, FillShadowRect_10, DrawTitleBand_10, DrawTitleBand_27, jpt_11FDFD_38, jpt_11FF3D_3B
 global jpt_120116_22F, SetTextFont, FillShadowRect, DrawTitleBand, FillBandEdges, FillBandRows, FillBandRowsBlend, CountVesaModes
@@ -15,10 +15,10 @@ global FindModeByResolution, SetModeByResolution
 ;-----------------------------------------------------------------------------
 SetTextFont:
         mov eax, dword [byte esp+04h]
-        mov dword [dword_1CF53C], eax
+        mov dword [CurrentFont], eax
         jmp near PrepareTextDraw
         db 08Bh,0C0h
-        mov eax, dword [dword_1CF53C]
+        mov eax, dword [CurrentFont]
         ret
         db 00h,00h
         push ebp

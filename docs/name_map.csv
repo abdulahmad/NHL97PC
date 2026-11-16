@@ -7552,6 +7552,53 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16E689,str_Punct_FreeArtArchive,byte_16E689,new,high,"string ""{""",src/data/lib/input/input_mouse_data_01.asm
 16E6C1,str_Punct_SetGraphicsMode,byte_16E6C1,new,high,"string ""{""",src/data/lib/input/input_mouse_data_01.asm
 16E718,str_F_BlitCore,dword_16E718,new,high,"string ""f""",src/data/lib/input/input_mouse_data_01.asm
+16FFC8,AudioDriverOpenFns,off_16FFC8,new,low,open function of each audio driver,src/data/lib/ea/ea_gfx_04_data_01.asm
+16FFCC,AudioDriverCloseFns,off_16FFCC,new,low,close function of each audio driver,src/data/lib/ea/ea_gfx_04_data_01.asm
+16FFD0,AudioDriverUpdateFns,off_16FFD0,new,low,update function of each audio driver,src/data/lib/ea/ea_gfx_04_data_01.asm
+16FFD4,AudioDriverDetectFns,off_16FFD4,new,low,detect function of each audio driver,src/data/lib/ea/ea_gfx_04_data_01.asm
+170038,AudioTimerOn,dword_170038,new,low,set while the audio timer callback is installed,src/data/lib/ea/ea_gfx_04_data_01.asm
+17003C,AudioDriverNum,dword_17003C,new,low,number of the open audio driver,src/data/lib/ea/ea_gfx_04_data_01.asm
+170040,AudioExitHooked,dword_170040,new,low,set once closing the audio driver is registered for exit,src/data/lib/ea/ea_gfx_04_data_01.asm
+170042,MixerMasterLeft,dword_170042,new,low,left master volume of the sound mixer,src/data/lib/ea/ea_gfx_04_data_01.asm
+170043,MixerMasterRight,dword_170043,new,low,right master volume of the sound mixer,src/data/lib/ea/ea_gfx_04_data_01.asm
+170044,MixerMode,byte_170044,new,low,output mode of the sound mixer,src/data/lib/ea/ea_gfx_04_data_01.asm
+170045,MixerSpeechVolume,byte_170045,new,low,volume of the speech channel,src/data/lib/ea/ea_gfx_04_data_01.asm
+170046,MixerChannelCount,byte_170046,new,low,number of mixer channels,src/data/lib/ea/ea_gfx_04_data_01.asm
+170047,MixerMasterVolume,byte_170047,new,low,master volume of the sound mixer,src/data/lib/ea/ea_gfx_04_data_01.asm
+170048,MixerSfxVolume,byte_170048,new,low,volume of the sound effect channels,src/data/lib/ea/ea_gfx_04_data_01.asm
+17004A,MixerRampStep,word_17004A,new,low,step of the volume ramp,src/data/lib/ea/ea_gfx_04_data_01.asm
+17004C,MixerRampTarget,word_17004C,new,low,target of the volume ramp,src/data/lib/ea/ea_gfx_04_data_01.asm
+17004E,MixerBlockSize,word_17004E,new,low,size of one mixed block,src/data/lib/ea/ea_gfx_04_data_01.asm
+170050,MixerVolLeft,dword_170050,new,low,left volume applied while mixing,src/data/lib/ea/ea_gfx_04_data_01.asm
+170054,MixerVolRight,dword_170054,new,low,right volume applied while mixing,src/data/lib/ea/ea_gfx_04_data_01.asm
+170058,MixerVolScale,dword_170058,new,low,volume scale applied while mixing,src/data/lib/ea/ea_gfx_04_data_01.asm
+17005C,MixerRampLevel,word_17005C,new,low,current level of the volume ramp,src/data/lib/ea/ea_gfx_04_data_01.asm
+17005E,MixerRampCount,word_17005E,new,low,steps left in the volume ramp,src/data/lib/ea/ea_gfx_04_data_01.asm
+170060,MixerChannelVolumes,dword_170060,new,low,volume of each mixer channel,src/data/lib/ea/ea_gfx_04_data_01.asm
+170080,StreamChannel,dword_170080,new,low,mixer channel the audio stream plays on,src/data/lib/ea/ea_gfx_04_data_01.asm
+170084,StreamPosition,dword_170084,new,low,play position of the audio stream,src/data/lib/ea/ea_gfx_04_data_01.asm
+170088,StreamBuffer,dword_170088,new,low,ring buffer of the audio stream,src/data/lib/ea/ea_gfx_04_data_01.asm
+17008C,StreamBufSize,dword_17008C,new,low,size of the audio stream's ring buffer,src/data/lib/ea/ea_gfx_04_data_01.asm
+170090,StreamReadPos,dword_170090,new,low,read position in the audio stream's ring buffer,src/data/lib/ea/ea_gfx_04_data_01.asm
+170094,StreamWritePos,dword_170094,new,low,write position in the audio stream's ring buffer,src/data/lib/ea/ea_gfx_04_data_01.asm
+170098,StreamFill,dword_170098,new,low,bytes waiting in the audio stream's ring buffer,src/data/lib/ea/ea_gfx_04_data_01.asm
+17009C,StreamPackets,dword_17009C,new,low,packet queue of the audio stream,src/data/lib/ea/ea_gfx_04_data_01.asm
+1700A0,StreamClosing,byte_1700A0,new,low,set while the audio stream is closing,src/data/lib/ea/ea_gfx_04_data_01.asm
+1700A1,StreamFeeding,byte_1700A1,new,low,set while packets are being fed to the stream,src/data/lib/ea/ea_gfx_04_data_01.asm
+1700A4,StreamStarted,byte_1700A4,new,low,set once the audio stream has started,src/data/lib/ea/ea_gfx_04_data_01.asm
+1700A5,StreamFlags,byte_1700A5,new,low,flags of the audio stream,src/data/lib/ea/ea_gfx_04_data_01.asm
+1700A6,StreamStereo,byte_1700A6,new,low,set for a stereo audio stream,src/data/lib/ea/ea_gfx_04_data_01.asm
+1700A7,StreamPaused,byte_1700A7,new,low,set while the audio stream is paused,src/data/lib/ea/ea_gfx_04_data_01.asm
+1700A8,StreamOpen,byte_1700A8,new,low,set while the audio stream channel is open,src/data/lib/ea/ea_gfx_04_data_01.asm
+1700A9,StreamCallbackPos,dword_1700A9,new,low,position reached by the stream callback,src/data/lib/ea/ea_gfx_04_data_01.asm
+1700AD,StreamPacketQueue,dword_1700AD,new,low,queued packets of the audio stream,src/data/lib/ea/ea_gfx_04_data_01.asm
+1700FD,StreamPacketCount,dword_1700FD,new,low,number of queued stream packets,src/data/lib/ea/ea_gfx_04_data_01.asm
+170101,StreamPacketSlots,dword_170101,new,low,free packet slots of the audio stream,src/data/lib/ea/ea_gfx_04_data_01.asm
+170124,ResourceArchiveName,byte_170124,new,low,name of the open resource archive,src/data/lib/ea/ea_gfx_04_data_01.asm
+17014C,ResourceArchive,dword_17014C,new,low,memory block of the open resource archive,src/data/lib/ea/ea_gfx_04_data_01.asm
+170150,ResourceLookupFn,dword_170150,new,low,function that finds an entry in the open archive,src/data/lib/ea/ea_gfx_04_data_01.asm
+170154,ResourceArchiveSize,dword_170154,new,low,size of the open resource archive,src/data/lib/ea/ea_gfx_04_data_01.asm
+170158,ResourceArchiveData,dword_170158,new,low,data of the open resource archive,src/data/lib/ea/ea_gfx_04_data_01.asm
 170218,str_Punct_SetScreenScale,dword_170218,new,high,"string ""\n""",src/data/lib/lib_109A74_data_01.asm
 170250,str_D_SetCameraAngles,dword_170250,new,high,"string ""d""",src/data/lib/lib_109A74_data_01.asm
 170260,str_D_ProjectPointsPersp,dword_170260,new,high,"string ""d""",src/data/lib/lib_109A74_data_01.asm
@@ -7722,6 +7769,143 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,
 1CF26C,timercallbacks,dword_1CF26C,96PC,medium,96 PC timercallbacks: the 8 timer callbacks (addtimer),src/data/front/front_F20A1_bss_01.asm
+1CF29C,PolyTopRow,dword_1CF29C,new,low,top row of the polygon being filled,src/data/lib/ea/ea_gfx_02_bss_01.asm
+1CF2A0,PolyRowCount,dword_1CF2A0,new,low,number of rows of the polygon being filled,src/data/lib/ea/ea_gfx_02_bss_01.asm
+1CF2A4,PolySpanEdges,unk_1CF2A4,new,low,left and right edge of each row of the polygon being filled,src/data/lib/ea/ea_gfx_02_bss_01.asm
+1CF524,FillColor,dword_1CF524,new,low,colour used by the rectangle and row fillers,src/data/lib/ea/ea_gfx_02_bss_01.asm
+1CF528,TextOriginX,dword_1CF528,new,low,x of the text drawing position,src/data/lib/ea/ea_gfx_02_bss_01.asm
+1CF52C,TextOriginY,dword_1CF52C,new,low,y of the text drawing position,src/data/lib/ea/ea_gfx_02_bss_01.asm
+1CF530,FontAscent,dword_1CF530,new,low,height of the current font above the baseline,src/data/lib/ea/ea_gfx_02_bss_01.asm
+1CF534,FontDescent,dword_1CF534,new,low,depth of the current font below the baseline,src/data/lib/ea/ea_gfx_02_bss_01.asm
+1CF538,TextAlign,dword_1CF538,new,low,alignment of drawn text,src/data/lib/ea/ea_gfx_02_bss_01.asm
+1CF53C,CurrentFont,dword_1CF53C,new,low,pointer to the current font,src/data/lib/ea/ea_gfx_02_bss_01.asm
+1CF540,FontHeight,dword_1CF540,new,low,line height of the current font,src/data/lib/ea/ea_gfx_02_bss_01.asm
+1CF544,FontWidth,dword_1CF544,new,low,widest glyph of the current font,src/data/lib/ea/ea_gfx_02_bss_01.asm
+1CF548,LinkTextFont,dword_1CF548,new,low,font used on the link game screens,src/data/lib/ea/ea_gfx_02_bss_01.asm
+1CF54C,FontFirstChar,dword_1CF54C,new,low,first character code of the current font,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF550,TextColorIndex,dword_1CF550,new,low,index of the current text colour,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF554,TextColorTable,dword_1CF554,new,low,colour of each text colour index,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF558,FontGlyphColors,dword_1CF558,new,low,colours used to draw glyphs of the current font,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF598,FontLastChar,dword_1CF598,new,low,last character code of the current font,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF59C,FontGlyphTable,dword_1CF59C,new,low,glyph offset table of the current font,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5A0,FontFlags,dword_1CF5A0,new,low,flags of the current font,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5A4,TextColor,dword_1CF5A4,new,low,current text colour,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5A8,FontGlyphCount,dword_1CF5A8,new,low,number of glyphs in the current font,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5AC,FontKernTable,dword_1CF5AC,new,low,kerning table of the current font,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5B0,TextShadowColor,dword_1CF5B0,new,low,colour of the text shadow,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5B4,TextBuffer,dword_1CF5B4,new,low,buffer text is prepared in before drawing,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5B8,DrawGlyphFn,dword_1CF5B8,new,low,function that draws one glyph,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5BC,TextCharFn,dword_1CF5BC,new,low,function that returns the next character of a string,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5C0,TextEndFn,dword_1CF5C0,new,low,function called at the end of a drawn string,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5C4,TextNextCharFn,dword_1CF5C4,new,low,function that reads the next character code,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5C8,FontSpacing,dword_1CF5C8,new,low,extra spacing between characters of the current font,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5CC,FontKernCount,dword_1CF5CC,new,low,number of kerning pairs of the current font,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5D0,FontKernPairs,dword_1CF5D0,new,low,kerning pairs of the current font,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5D4,ProjScaleX,dword_1CF5D4,new,low,horizontal projection scale,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5D8,ProjCenterX,dword_1CF5D8,new,low,horizontal screen centre of the projection,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5DC,ProjCenterY,dword_1CF5DC,new,low,vertical screen centre of the projection,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5E0,ProjScaleY,dword_1CF5E0,new,low,vertical projection scale,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5E4,ProjOffsetX,dword_1CF5E4,new,low,horizontal offset added after projection,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5E8,ProjOffsetY,dword_1CF5E8,new,low,vertical offset added after projection,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5EC,ProjDetailScale,dword_1CF5EC,new,low,detail scale applied to line widths and model detail levels,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5F0,ProjAspect,dword_1CF5F0,new,low,pixel aspect used by the projection,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5F2,IndexTo16Table,dword_1CF5F2,new,low,16-bit colour of each palette index,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF5F4,IndexTo16Entries,word_1CF5F4,new,low,entries of the 16-bit colour lookup table,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF9F4,CurrentDrawContext,dword_1CF9F4,new,low,pointer to the current drawing context,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF9F8,RowTableSize,dword_1CF9F8,new,low,number of rows in the screen row address table,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CF9FC,UniformArtBuf,dword_1CF9FC,new,low,buffer and size of the uniform art being built,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CFA04,LimbVerts,dword_1CFA04,new,low,projected corner points of the limb segment being drawn,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CFBF0,SampleRateTable,word_1CFBF0,new,low,playback rate of each mixer channel's sample,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFBF2,SampleBitsTable,byte_1CFBF2,new,low,bits per sample of each mixer channel's sample,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFBF3,SampleChannelsTable,byte_1CFBF3,new,low,channel count of each mixer channel's sample,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFBF4,SampleInfoTable,dword_1CFBF4,new,low,length and loop of each mixer channel's sample,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFC70,MixerVolumeTable,dword_1CFC70,new,low,volume table of the sound mixer,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFC74,AsyncRequests,dword_1CFC74,new,low,pool of async file requests,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFC78,AsyncCurFile,dword_1CFC78,new,low,file of the request being serviced,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFC7C,AsyncCurOffset,dword_1CFC7C,new,low,file offset of the request being serviced,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFC80,AsyncFreeList,dword_1CFC80,new,low,free list of async file requests,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFC84,AsyncCurBuffer,dword_1CFC84,new,low,buffer of the request being serviced,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFC88,AsyncQueueHead,dword_1CFC88,new,low,first request in the async queue,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFC8C,AsyncQueueTail,dword_1CFC8C,new,low,last request in the async queue,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFC90,AsyncReadLength,dword_1CFC90,new,low,length of the read being serviced,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFC94,AsyncState,dword_1CFC94,new,low,state of the async CD reader,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFC9C,AsyncFileHandle,dword_1CFC9C,new,low,DOS handle of the file being streamed,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCA0,AsyncError,dword_1CFCA0,new,low,error of the last async request,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCA4,AsyncDosRegs,dword_1CFCA4,new,low,register block of the async DOS read,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCA8,AsyncDosResult,dword_1CFCA8,new,low,result of the async DOS read,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCAC,AsyncSector,dword_1CFCAC,new,low,CD sector being read,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCB0,AsyncSectorCount,dword_1CFCB0,new,low,number of CD sectors still to read,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCB4,AsyncBytesLeft,dword_1CFCB4,new,low,bytes still to read for the current request,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCB8,AsyncDest,dword_1CFCB8,new,low,destination of the current read,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCBC,AsyncSeekRegs,unk_1CFCBC,new,low,register block of the async seek,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCC0,AsyncCallback,dword_1CFCC0,new,low,callback of the request being serviced,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCC4,AsyncWaitTimer,dword_1CFCC4,new,low,countdown before the next async step,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCC8,AsyncStreamFile,dword_1CFCC8,new,low,file the speech stream reads from,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCCC,AsyncStreamBase,dword_1CFCCC,new,low,start offset of the speech stream in its file,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCD0,AsyncStreamSize,dword_1CFCD0,new,low,size of the speech stream,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCD4,AsyncTickCount,dword_1CFCD4,new,low,async ticks counted while waiting,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCD8,AsyncLastSector,dword_1CFCD8,new,low,last CD sector read,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCDC,AsyncStreamPos,dword_1CFCDC,new,low,read position in the speech stream,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCE0,AsyncChunkSize,dword_1CFCE0,new,low,size of the chunk being read,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCE4,AsyncChunkDest,dword_1CFCE4,new,low,destination of the chunk being read,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCE8,AsyncStreamEnd,dword_1CFCE8,new,low,end offset of the speech stream,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCEC,ReciprocalBase,dword_1CFCEC,new,low,base of the fixed-point reciprocal table,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1CFCF0,ReciprocalTable,dword_1CFCF0,new,low,fixed-point reciprocals 1/n used by the polygon fillers,src/data/lib/ea/ea_gfx_04_bss_01.asm
+1D1CF8,ModelPartCount,dword_1D1CF8,new,low,number of parts of the model being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1CFC,ModelPartTable,dword_1D1CFC,new,low,part table of the model being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D00,ModelFrame,dword_1D1D00,new,low,animation frame of the model being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D04,ModelPoints,dword_1D1D04,new,low,point list of the model being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D08,ModelFlags,dword_1D1D08,new,low,flags of the model being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D0C,ModelInstance,dword_1D1D0C,new,low,model instance being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D10,ModelSetupMode,dword_1D1D10,new,low,set while model part functions run in set-up mode,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D14,RinkViewChanged,dword_1D1D14,new,low,set when the rink view matrix changes,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D20,ModelSlots,unk_1D1D20,new,low,model instance slots,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D2C,ModelPartIndex,dword_1D1D2C,new,low,index of the part being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D30,ViewOriginX,dword_1D1D30,new,low,x of the view origin,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D34,LineDeltaX,dword_1D1D34,new,low,x distance of the line being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D38,ViewOriginY,dword_1D1D38,new,low,y of the view origin,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D3C,LineDeltaY,dword_1D1D3C,new,low,y distance of the line being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D40,LineX,dword_1D1D40,new,low,current x of the line being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D44,LineSteep,dword_1D1D44,new,low,set when the line is steeper than 45 degrees,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D48,LineY,dword_1D1D48,new,low,current y of the line being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D4C,LineEndX,dword_1D1D4C,new,low,end x of the line being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D50,LineStepX,dword_1D1D50,new,low,x step of the line being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D54,LineEndY,dword_1D1D54,new,low,end y of the line being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D58,LineStepY,dword_1D1D58,new,low,y step of the line being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D5C,ViewWidth,dword_1D1D5C,new,low,width of the view,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D60,ViewHeight,dword_1D1D60,new,low,height of the view,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D64,LineErrY,dword_1D1D64,new,low,error term of a steep line,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D68,LineErrX,dword_1D1D68,new,low,error term of a shallow line,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1DA394,TintMulGreen,dword_1DA394,new,low,green multiplier of the screen tint,src/data/lib/ea/ea_debug_bss_01.asm
+1DA398,TintMulBlue,dword_1DA398,new,low,blue multiplier of the screen tint,src/data/lib/ea/ea_debug_bss_01.asm
+1DA39C,TintRowCount,dword_1DA39C,new,low,rows of the tint rectangle left to do,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3A0,TintPixelGreen,dword_1DA3A0,new,low,green component of the pixel being tinted,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3A4,TintPixelBlue,dword_1DA3A4,new,low,blue component of the pixel being tinted,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3A8,TintMulRed,dword_1DA3A8,new,low,red multiplier of the screen tint,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3AC,TintRemapTable,dword_1DA3AC,new,low,colour table the tinted pixels are matched against,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3B0,TintPixelRed,dword_1DA3B0,new,low,red component of the pixel being tinted,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3B4,NetLocalName,dword_1DA3B4,new,low,local player name sent to the network session,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3C4,NetMessageBuf,unk_1DA3C4,new,low,buffer of the network message being received,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3CC,NetPollState,dword_1DA3CC,new,low,state of the network message poll,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3E0,NetSendFn,dword_1DA3E0,new,low,network layer function: send a packet to a peer,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3E4,NetDisconnectFn,dword_1DA3E4,new,low,network layer function: drop a peer,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3E8,NetOpenFn,dword_1DA3E8,new,low,network layer function: open a session,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3EC,NetLeaveFn,dword_1DA3EC,new,low,network layer function: leave a game,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3F0,NetJoinFn,dword_1DA3F0,new,low,network layer function: join a game,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3F4,NetAnnounceFn,dword_1DA3F4,new,low,network layer function: announce a game,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3F8,NetLinkOpenFn,dword_1DA3F8,new,low,network layer function: open the packet link,src/data/lib/ea/ea_debug_bss_01.asm
+1DA3FC,NetListStartFn,dword_1DA3FC,new,low,network layer function: start listing games,src/data/lib/ea/ea_debug_bss_01.asm
+1DA400,NetListNextFn,dword_1DA400,new,low,network layer function: next listed game,src/data/lib/ea/ea_debug_bss_01.asm
+1DA404,NetDropFn,dword_1DA404,new,low,network layer function: drop the connection,src/data/lib/ea/ea_debug_bss_01.asm
+1DA408,NetPeerSendFn,dword_1DA408,new,low,network layer function: send to one peer,src/data/lib/ea/ea_debug_bss_01.asm
+1DA40C,NetNameFn,dword_1DA40C,new,low,network layer function: copy the player name,src/data/lib/ea/ea_debug_bss_01.asm
+1DA410,NetCloseFn,dword_1DA410,new,low,network layer function: close the session,src/data/lib/ea/ea_debug_bss_01.asm
+1DA414,NetPeerDropFn,dword_1DA414,new,low,network layer function: remove a peer,src/data/lib/ea/ea_debug_bss_01.asm
+1DA418,IpxTargetAddr,unk_1DA418,new,low,IPX network and node address of the packet target,src/data/lib/ea/ea_debug_bss_01.asm
+1DA448,IpxRealRegs,unk_1DA448,new,low,real-mode register block for IPX driver calls,src/data/lib/ea/ea_debug_bss_01.asm
+1DA464,IpxSocketNum,unk_1DA464,new,low,IPX socket number the game listens on,src/data/lib/ea/ea_debug_bss_01.asm
+1DA466,IpxSocketResult,unk_1DA466,new,low,result of opening the IPX socket,src/data/lib/ea/ea_debug_bss_01.asm
+1DA468,IpxLocalAddr,unk_1DA468,new,low,this computer's IPX network and node address,src/data/lib/ea/ea_debug_bss_01.asm
 1DD484,ScapeBasePort,dword_1DD484,new,low,base port of the Soundscape card,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
 1DD488,ScapeIrq,dword_1DD488,new,low,IRQ line of the Soundscape card,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
 1DD48C,ScapeDmaChannel,dword_1DD48C,new,low,DMA channel of the Soundscape card,src/data/lib/sound/snd_soundblaster_01_bss_01.asm

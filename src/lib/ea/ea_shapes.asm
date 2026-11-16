@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_10376C progbits alloc exec nowrite align=1
 extern IF@ATAN2, str_Tube3, F32_2_DrawLimbSegment, F32_2_DrawLimbSegmentFlat, dword_16E46C, str_Punct_DrawRinkSurface, dword_16E4BC, dword_16FA04
-extern dword_16FA08, dword_16FA10, dword_16FA14, dword_1CF9F8, dword_1CF9FC, dword_1CFA04, dword_1DA4D0, hypot_
+extern dword_16FA08, dword_16FA10, dword_16FA14, RowTableSize, UniformArtBuf, LimbVerts, dword_1DA4D0, hypot_
 extern off_16FA1C, F64_0p31831_DrawLimbSegment, F64_65536_DrawLimbSegment, F64_0p5_DrawLimbSegment, F64_0p31831_DrawLimbSegmentFlat, F64_65536_DrawLimbSegmentFlat, F64_0p5_DrawLimbSegmentFlat, SortIndices
 extern ArtBankCount, ArtBankEntry, ArtBankEntryInfo, BytesPerPixelForDepth, DrawPolyList, BlitCore, PrefetchMemory, PrefetchShape
 extern CopyMemFast, AllocMemBlock, FloatsToInts, VecSub, VecAngle, ProjectCoord
@@ -24,7 +24,7 @@ FillRowTable:
         mov edi, edx
         mov esi, ebx
         mov eax, dword [dword_16FA08]
-        mov edx, dword [dword_1CF9F8]
+        mov edx, dword [RowTableSize]
         xor ebx, ebx
         cmp eax, edx
         jae short .4
@@ -54,7 +54,7 @@ FillRowTable:
 .3:
         shl edx, 2
         add edx, byte 8
-        mov ebp, dword [dword_1CF9F8]
+        mov ebp, dword [RowTableSize]
         add eax, edx
         cmp eax, ebp
         jb short .1
@@ -138,7 +138,7 @@ removewindow:
         mov edx, dword [eax]
         add edx, byte 2
         shl edx, 2
-        mov esi, dword [dword_1CF9F8]
+        mov esi, dword [RowTableSize]
         add edx, eax
         cmp edx, esi
         jae short .3
@@ -302,7 +302,7 @@ DrawLimbSegment:
         neg esi
 .4:
         mov eax, dword [byte ebp+07Eh]
-        mov ecx, dword [dword_1CFA04]
+        mov ecx, dword [LimbVerts]
         mov eax, dword [byte eax+024h]
         add eax, ecx
         mov edx, dword [byte ebp+07Eh]
@@ -1470,7 +1470,7 @@ BuildUniformArt:
         fild dword [dword esp+04E8h]
         fdivp
         fstp dword [byte eax+04h]
-        cmp dword [dword_1CF9FC], byte 0
+        cmp dword [UniformArtBuf], byte 0
         je short .25
         mov dword [byte eax+08h], 3F000000h
         jmp short .26

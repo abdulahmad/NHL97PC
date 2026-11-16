@@ -14,13 +14,13 @@ extern byte_1707FC, byte_170800, byte_170804, byte_170810, byte_17086B, byte_170
 extern byte_171C90, byte_19988D, byte_19C6E4, dword_16E32C, dword_16E330, dword_16E334, dword_16E3F4, dword_16E444
 extern dword_16E448, dword_16E464, dword_16E468, dword_16E46C, dword_16E47C, dword_16E480, str_D_UpdateFrameRate, dword_16E4C8
 extern dword_16E628, dword_16E670, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E694, dword_16E698
-extern dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16F184, dword_16FA08, dword_17014C, dword_170154, dword_170158
+extern dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16F184, dword_16FA08, ResourceArchive, ResourceArchiveSize, ResourceArchiveData
 extern dword_1706F8, dword_170704, dword_17070C, dword_170710, dword_170714, dword_170754, dword_170758, dword_170760
 extern dword_1707E4, dword_1707EA, dword_1707F0, dword_1709D8, dword_1709ED, dword_1709F1, dword_1709F8, dword_170AF8
 extern dword_170AFC, dword_170B00, dword_170B04, dword_170B08, dword_170B0C, dword_170B10, dword_171C88, dword_171C8C
 extern dword_1724C9, dword_17257C, dword_172ABC, dword_199888, dword_1999BC, dword_1999C0, dword_19C690, dword_19C694
 extern dword_19C698, dword_19C69C, dword_19C6A0, dword_19C6A4, dword_19C6A8, dword_19C6AC, dword_19C6B0, F32_0p541196
-extern F32_1p30656, F32_0p382683, F32_6p7554e15, dword_1CF260, dword_1CF264, dword_1CF268, dword_1CF528, dword_1D1D10
+extern F32_1p30656, F32_0p382683, F32_6p7554e15, dword_1CF260, dword_1CF264, dword_1CF268, TextOriginX, ModelSetupMode
 extern dword_1D91C8, dword_1D91CC, dword_1D9404, dword_1D940C, dword_1D9410, dword_1D960C, dword_1D9610, dword_1D9810
 extern dword_1D990C, dword_1D9910, dword_1D9B0C, dword_1D9B10, dword_1D9B2C, dword_1D9B30, dword_1DA34C, dword_1DA350
 extern dword_1DA390, dword_1DA4D0, int386_, isatty_, memcpy_, off_1706E0, off_1706E4, off_170B14
@@ -235,7 +235,7 @@ PrimTriFlat:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -299,7 +299,7 @@ PrimTriLitCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -397,7 +397,7 @@ PrimTriShadeBlend:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -460,7 +460,7 @@ PrimTriShadeCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -558,7 +558,7 @@ PrimTriDebugCw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -599,7 +599,7 @@ PrimTriDebugCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -664,7 +664,7 @@ TriVertsIfCw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -706,7 +706,7 @@ TriVertsIfCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -771,7 +771,7 @@ TriTexVertsIfCw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -813,7 +813,7 @@ TriTexVertsIfCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -878,7 +878,7 @@ TriShadeVertsIfCw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -920,7 +920,7 @@ TriShadeVertsIfCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -983,7 +983,7 @@ PrimTriTexCw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -1034,7 +1034,7 @@ PrimTriTexCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -1105,7 +1105,7 @@ PrimTriTexClearCw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -1157,7 +1157,7 @@ PrimTriTexClearCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -1230,7 +1230,7 @@ PrimTriTexShadeCw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -1282,7 +1282,7 @@ PrimTriTexShadeCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -1370,7 +1370,7 @@ PrimQuadDebugCw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl al
-        mov edx, dword [dword_1D1D10]
+        mov edx, dword [ModelSetupMode]
         and eax, 0FFh
         xor eax, edx
         je short .1
@@ -1433,7 +1433,7 @@ PrimQuadDebugCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl al
-        mov edx, dword [dword_1D1D10]
+        mov edx, dword [ModelSetupMode]
         and eax, 0FFh
         xor eax, edx
         jne short .1
@@ -1532,7 +1532,7 @@ PrimQuadFlat:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -1599,7 +1599,7 @@ PrimQuadLitCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -1705,7 +1705,7 @@ PrimQuadShadeCw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -1772,7 +1772,7 @@ PrimQuadShadeBlendCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -1873,7 +1873,7 @@ PrimQuadSplit:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -1909,7 +1909,7 @@ PrimQuadSplit:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .2
@@ -1968,7 +1968,7 @@ PrimQuadTexCw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -2019,7 +2019,7 @@ PrimQuadTexCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -2089,7 +2089,7 @@ PrimQuadTexShadeCw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -2140,7 +2140,7 @@ PrimQuadTexShadeCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -2215,7 +2215,7 @@ PrimQuadTexClearCw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -2267,7 +2267,7 @@ PrimQuadTexClearCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -2358,7 +2358,7 @@ PrimQuadRandomFillCw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         je short .1
@@ -2399,7 +2399,7 @@ PrimQuadRandomFillCcw:
         mov dword [dword_1D91C8], ebx
         test ebx, ebx
         setl dl
-        mov ebx, dword [dword_1D1D10]
+        mov ebx, dword [ModelSetupMode]
         and edx, 0FFh
         xor edx, ebx
         jne short .1
@@ -10213,16 +10213,16 @@ LoadNamedResource:
         xor eax, eax
         jmp near .13
 .3:
-        mov ecx, dword [dword_170158]
+        mov ecx, dword [ResourceArchiveData]
         push ecx
-        mov esi, dword [dword_17014C]
+        mov esi, dword [ResourceArchive]
         push esi
         mov edi, dword [byte esp+08h]
         push edi
         mov ebp, 1
         call DosReadFile
         add esp, byte 0Ch
-        mov edi, dword [dword_170158]
+        mov edi, dword [ResourceArchiveData]
         mov eax, dword [byte esp+02Ch]
         mov dword [byte esp+0Ch], ebp
         xor ebp, ebp
@@ -10247,7 +10247,7 @@ LoadNamedResource:
         push edx
         mov ecx, dword [ebx]
         push ecx
-        mov esi, dword [dword_17014C]
+        mov esi, dword [ResourceArchive]
         push esi
         call ArchiveEntryOffset
         mov esi, eax
@@ -10257,7 +10257,7 @@ LoadNamedResource:
         mov dword [byte esp+0Ch], eax
         jmp short .8
 .6:
-        mov eax, dword [dword_170154]
+        mov eax, dword [ResourceArchiveSize]
         mov eax, dword [eax]
         mov dword [byte esp+014h], eax
         cmp esi, edi
@@ -12469,7 +12469,7 @@ SaveTextState:
         push edi
         mov ecx, 2Bh
         mov edi, dword [byte esp+0Ch]
-        mov esi, dword_1CF528
+        mov esi, TextOriginX
         rep movsd
         pop edi
         pop esi
@@ -12484,7 +12484,7 @@ RestoreTextState:
         push edi
         mov ecx, 2Bh
         mov esi, dword [byte esp+0Ch]
-        mov edi, dword_1CF528
+        mov edi, TextOriginX
         rep movsd
         call RefreshTextColors
         pop edi

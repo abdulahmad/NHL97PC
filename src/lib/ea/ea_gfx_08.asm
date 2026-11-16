@@ -4,8 +4,8 @@ bits 32
 section s_10FEE8 progbits alloc exec nowrite align=1
 extern str_INVMATRX, str_Ori2, byte_1D8018, byte_1D8088, str_Punct_DrawRinkSurface, dword_16E670, dword_16E678, dword_16E67C
 extern dword_16E680, dword_16E684, dword_16E698, dword_16E69C, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268
-extern dword_170274, dword_1702B8, str_Punct_DrawTexturedPoly, str_Punct_DrawTexturedSpan, F32_7p00649eneg41, dword_1CFCF0, dword_1D1D30, dword_1D1D38
-extern dword_1D1D5C, dword_1D1D60, dword_1D7FD4, dword_1D7FD8, dword_1D7FDC, dword_1D7FE0, dword_1D7FE4, dword_1D7FE8
+extern dword_170274, dword_1702B8, str_Punct_DrawTexturedPoly, str_Punct_DrawTexturedSpan, F32_7p00649eneg41, ReciprocalTable, ViewOriginX, ViewOriginY
+extern ViewWidth, ViewHeight, dword_1D7FD4, dword_1D7FD8, dword_1D7FDC, dword_1D7FE0, dword_1D7FE4, dword_1D7FE8
 extern dword_1D7FEC, dword_1D7FF8, dword_1D7FFC, dword_1D8000, dword_1D800C, dword_1D801C, dword_1D8020, dword_1D8024
 extern dword_1D8028, dword_1D802C, dword_1D8030, dword_1D8034, dword_1D8044, dword_1D8048, dword_1D804C, dword_1D8050
 extern dword_1D8054, dword_1D8058, dword_1D805C, dword_1D8068, dword_1D806C, dword_1D8070, dword_1D807C, dword_1D808C
@@ -14,7 +14,7 @@ extern dword_1D8AB4, dword_1D8AB8, dword_1D8ABC, dword_1D8AC0, dword_1D8AC4, mem
 extern F64_1p25_InitModelInstance, str_ORIINST, strcat_, strcpy_, strlen_, strnicmp_, LoadResourceData, SetModelFrame
 extern TransformVecFull, UpdateModelInstance, ClipTexPolyToNear, DrawPrimList, ResetMorphVerts, FixedSinCos, TexSpanCopy, ClipTexPolyLeft
 extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MakeRotationZ, DrawShapeTransformed, ClipDrawPolyLeft, ClipDrawPolyRight, ClipDrawPolyTop
-extern ClipDrawPolyBottom, AllocMemBlock, FreeMemBlock, FillMem, VecScale, unk_199738, unk_1D1D20, unk_1D3D6C
+extern ClipDrawPolyBottom, AllocMemBlock, FreeMemBlock, FillMem, VecScale, unk_199738, ModelSlots, unk_1D3D6C
 extern unk_1D3D94, unk_1D5B94, unk_1D7994, unk_1D80B4
 global DrawTexturedEdgeLeft_31B, AllocModelHeader, LoadModelByName, FreeModelFile, InitModelInstance, CreateModelInstance, FreeModelInstance, SetModelMatrix
 global SetModelPosition, FindModelPartByName, FindInstancePart, FindModelGroupByName, FindInstanceGroup, GetModelGroupEntry, GetInstanceGroupEntry, GetModelPartEntry
@@ -428,7 +428,7 @@ CreateModelInstance:
         mov dword [dword ebp+08Ch], eax
         rep movsd
         mov bl, byte [byte ebp+010h]
-        mov esi, unk_1D1D20
+        mov esi, ModelSlots
         or bl, 4
         lea edi, [byte ebp+01Ch]
         mov byte [byte ebp+010h], bl
@@ -915,22 +915,22 @@ BuildNetGeometry:
         cmp esi, edx
         jl short .1
 .6:
-        cmp ebx, dword [dword_1D1D60]
+        cmp ebx, dword [ViewHeight]
         jl near .58
         mov eax, dword [byte esp+0Ch]
-        cmp eax, dword [dword_1D1D30]
+        cmp eax, dword [ViewOriginX]
         jg near .58
-        mov edi, dword [dword_1D1D5C]
+        mov edi, dword [ViewWidth]
         cmp ebp, edi
         jl near .58
         mov eax, dword [byte esp+01Ch]
-        cmp eax, dword [dword_1D1D38]
+        cmp eax, dword [ViewOriginY]
         jg near .58
         cmp eax, edi
         jge short .7
         mov dword [byte esp+01Ch], edi
 .7:
-        cmp ebp, dword [dword_1D1D38]
+        cmp ebp, dword [ViewOriginY]
         mov eax, dword [byte esp+08h]
         mov esi, dword [byte esp+018h]
         mov dword [byte esp+044h], eax
@@ -993,18 +993,18 @@ BuildNetGeometry:
         cmp ebp, eax
         jge short .15
 .10:
-        cmp ebp, dword [dword_1D1D5C]
+        cmp ebp, dword [ViewWidth]
         jle short .14
-        cmp ebp, dword [dword_1D1D38]
+        cmp ebp, dword [ViewOriginY]
         jge short .16
-        mov edx, dword [dword_1D1D60]
+        mov edx, dword [ViewHeight]
         lea eax, [byte esi+04h]
         cmp edi, edx
         jge short .11
         mov dword [esi], edx
         jmp short .13
 .11:
-        mov ecx, dword [dword_1D1D30]
+        mov ecx, dword [ViewOriginX]
         cmp edi, ecx
         jl short .12
         lea edx, [byte ecx-01h]
@@ -1095,18 +1095,18 @@ BuildNetGeometry:
         cmp edi, eax
         jge short .24
 .19:
-        cmp edi, dword [dword_1D1D5C]
+        cmp edi, dword [ViewWidth]
         jle short .23
-        cmp edi, dword [dword_1D1D38]
+        cmp edi, dword [ViewOriginY]
         jge short .25
-        mov edx, dword [dword_1D1D60]
+        mov edx, dword [ViewHeight]
         lea eax, [byte esi+04h]
         cmp ebp, edx
         jge short .20
         mov dword [esi], edx
         jmp short .22
 .20:
-        mov ecx, dword [dword_1D1D30]
+        mov ecx, dword [ViewOriginX]
         cmp ebp, ecx
         jl short .21
         lea edx, [byte ecx-01h]
@@ -2055,7 +2055,7 @@ DrawTexturedSpan:
         imul eax, ecx
         mov edx, dword [byte esp+034h]
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov dword [byte esp+0Ch], edx
         xor eax, eax
         mov edx, dword [str_Punct_DrawTexturedSpan]
@@ -2101,13 +2101,13 @@ DrawTexturedSpan:
         mov edx, dword [str_Punct_DrawTexturedSpan]
         sub eax, esi
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, dword [byte esp+024h]
         mov ebx, edx
         mov edx, dword [str_Punct_DrawTexturedSpan]
         sub eax, edi
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, edx
         mov ecx, dword [dword_1D7FD4]
         sar eax, 10h
@@ -2169,13 +2169,13 @@ DrawTexturedSpan:
         sub eax, esi
         mov ecx, dword [dword_1D807C]
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov ebx, edx
         mov eax, ecx
         mov edx, dword [byte esp+034h]
         sub eax, edi
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, edx
         mov ecx, dword [dword_1D7FD4]
         sar eax, 10h
@@ -2352,7 +2352,7 @@ DrawTexturedEdgeLeft:
         mov edx, dword [dword_1D7FE8]
         mov ebx, dword [dword_1D8034]
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, dword [dword_1D8024]
         add eax, edx
         mov edx, ebx
@@ -2369,7 +2369,7 @@ DrawTexturedEdgeLeft:
         mov edx, dword [dword_1D7FE8]
         mov ebx, dword [dword_1D8034]
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, dword [dword_1D802C]
         add eax, edx
         mov edx, ebx
@@ -2419,7 +2419,7 @@ DrawTexturedEdgeLeft:
         mov edx, dword [dword_1D8058]
         mov ebx, dword [dword_1D80A4]
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, dword [dword_1D8094]
         add eax, edx
         mov edx, ebx
@@ -2436,7 +2436,7 @@ DrawTexturedEdgeLeft:
         mov edx, dword [dword_1D8058]
         mov ebx, dword [dword_1D80A4]
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, dword [dword_1D809C]
         add eax, edx
         mov edx, ebx
@@ -2579,7 +2579,7 @@ DrawTexturedEdgeRight:
         mov edx, dword [dword_1D7FE8]
         mov ebx, dword [dword_1D8034]
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, dword [dword_1D8024]
         add eax, edx
         mov edx, ebx
@@ -2596,7 +2596,7 @@ DrawTexturedEdgeRight:
         mov edx, dword [dword_1D7FE8]
         mov ebx, dword [dword_1D8034]
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, dword [dword_1D802C]
         add eax, edx
         mov edx, ebx
@@ -2646,7 +2646,7 @@ DrawTexturedEdgeRight:
         mov edx, dword [dword_1D8058]
         mov ebx, dword [dword_1D80A4]
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, dword [dword_1D8094]
         add eax, edx
         mov edx, ebx
@@ -2663,7 +2663,7 @@ DrawTexturedEdgeRight:
         mov edx, dword [dword_1D8058]
         mov ebx, dword [dword_1D80A4]
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, dword [dword_1D809C]
         add eax, edx
         mov edx, ebx
@@ -3453,7 +3453,7 @@ ClipEdgeSide:
         sub eax, edx
         mov edx, edi
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov dword [byte esi+020h], edx
         mov eax, dword [byte ecx+04h]
         mov dword [byte esi+01Ch], eax
@@ -3462,7 +3462,7 @@ ClipEdgeSide:
         mov edx, edi
         sub eax, ebx
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov dword [byte esi+024h], edx
 .11:
         add esp, byte 4
@@ -3586,7 +3586,7 @@ ClipPolygon:
         mov edx, ebx
         sub eax, ecx
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, dword [esp]
         mov dword [byte esp+018h], edx
         mov edx, dword [byte esp+04h]
@@ -3595,7 +3595,7 @@ ClipPolygon:
         mov edx, ebx
         sub eax, ecx
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, edx
         sar eax, 10h
         mov dword [byte esp+010h], edx

@@ -6,7 +6,7 @@ extern _Extender, _ExtenderSubtype, _IsTable, __ExpandDGROUP_, __FDFS, __fatal_r
 extern __set_errno_, __shutdown_stream_, _nfree_, _nmalloc_, _osmajor, ScanBitMasks, byte_171C90, byte_172301
 extern byte_199A24, byte_199AA4, byte_1DA4C5, dword_16E318, dword_16E678, dword_16E67C, dword_16E680, dword_16E684
 extern dword_16E698, dword_16E6A0, dword_1999A5, dword_1999C0, dword_199A14, dword_199A18, dword_199A1E, dword_199B2A
-extern dword_199B2E, dword_1CF528, dword_1DA4BC, dword_1DA4C0, dword_1DA8D8, __freefp__39, memset_, off_199C54
+extern dword_199B2E, TextOriginX, dword_1DA4BC, dword_1DA4C0, dword_1DA8D8, __freefp__39, memset_, off_199C54
 extern str_NotEnoughMemoryTo, str_SaveText, bcopy, AddExitHandler, RestoreDS, SetBlitSource, CopyMappedSpan, BuildSpanOffsets
 extern DosGetVector, DosSetVector, SaveVideoState, RestoreVideoState, AllocMemBlockFixed, UnlinkMemBlockLocked, MemDescPtr, ZeroMem
 extern KbdPeekKey, MakeColor, SelectFont, FillRect, SetTextColors, FreeTextBuffers, tolower_, unk_16E8A0
@@ -568,7 +568,7 @@ RestoreTextScreen:
 ;-----------------------------------------------------------------------------
 InitTextOutput:
         push dword 0ACh
-        push dword_1CF528
+        push TextOriginX
         call ZeroMem
         add esp, byte 8
         push unk_16E8A0
@@ -588,7 +588,7 @@ InitTextOutput:
         db 08Dh,040h,00h
         call FreeTextBuffers
         push dword 0ACh
-        push dword_1CF528
+        push TextOriginX
         call ZeroMem
         add esp, byte 8
         ret

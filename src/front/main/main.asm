@@ -21,8 +21,8 @@ extern dword_1C5FAC, dword_1C5FB0, dword_1C5FB6, dword_1C5FBA, dword_1C5FBE, dwo
 extern dword_1C5FFE, dword_1C6002, dword_1C6008, dword_1C600C, dword_1C6010, dword_1C6014, dword_1C6018, dword_1C601C
 extern dword_1C6080, dword_1C6084, dword_1C60C0, dword_1C60C4, dword_1C8184, dword_1C8188, dword_1C818C, dword_1C8190
 extern dword_1C8194, dword_1C8198, dword_1C819C, dword_1C81A0, dword_1C81A4, dword_1C81A8, dword_1C81AC, dword_1C81B0
-extern dword_1C81B4, dword_1C81B8, dword_1C8268, dword_1CF538, dword_1CF548, dword_1CF550, dword_1CF554, dword_1CF5A4
-extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, exit_, getcwd_, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
+extern dword_1C81B4, dword_1C81B8, dword_1C8268, TextAlign, LinkTextFont, TextColorIndex, TextColorTable, TextColor
+extern TextShadowColor, TextBuffer, DrawGlyphFn, exit_, getcwd_, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
 extern MainMenuAnim_370, memcpy_, open_, printf_, sprintf_, srand_, strcat_, strcpy_
 extern strlen_, GetPaletteRange, bcopy, BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen
 extern FindShape, DrawShapeBlended, ConvertArtNew, ResetClipWindow, Random32, LoadGripLibrary, InitGripDriver, LoadJoystickConfig
@@ -455,7 +455,7 @@ CheckDiskSpace:
         mov dword [byte esp+018h], eax
         test si, 80h
         je short .3
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         push edx
         mov eax, dword [byte esp+024h]
         push edi
@@ -464,7 +464,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -475,7 +475,7 @@ CheckDiskSpace:
 .3:
         test si, 40h
         je short .4
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -485,7 +485,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -496,7 +496,7 @@ CheckDiskSpace:
 .4:
         test si, 20h
         je short .5
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -506,7 +506,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -517,7 +517,7 @@ CheckDiskSpace:
 .5:
         test si, 10h
         je short .6
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -527,7 +527,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -538,7 +538,7 @@ CheckDiskSpace:
 .6:
         test si, 8
         je short .7
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -548,7 +548,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -559,7 +559,7 @@ CheckDiskSpace:
 .7:
         test si, 4
         je short .8
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -569,7 +569,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -580,7 +580,7 @@ CheckDiskSpace:
 .8:
         test si, 2
         je short .9
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -590,7 +590,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -601,7 +601,7 @@ CheckDiskSpace:
 .9:
         test si, 1
         je short .10
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -610,7 +610,7 @@ CheckDiskSpace:
         push eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov ecx, dword [dword_1CF554]
+        mov ecx, dword [TextColorTable]
         push ecx
         push ebp
         mov esi, dword [byte esp+024h]
@@ -2852,10 +2852,10 @@ SetTextColor:
         cmp eax, dword [dword_1C8268]
         jne short .1
         mov ebx, dword [dword_1C81B8]
-        cmp ebx, dword [dword_1CF5A4]
+        cmp ebx, dword [TextColor]
         je short .4
 .1:
-        mov edx, dword [dword_1CF5B4]
+        mov edx, dword [TextBuffer]
         mov ecx, dword [dword_16E46C]
         mov dword [dword_1C8268], esi
         mov dword [dword_1C81B4], edx
@@ -2872,7 +2872,7 @@ SetTextColor:
         add esp, byte 8
         mov eax, unk_1C6104
         mov ebx, dword [dword_1C81B4]
-        mov edx, dword [dword_1CF5B0]
+        mov edx, dword [TextShadowColor]
         call memcpy_
         push byte 0
         push esi
@@ -2880,9 +2880,9 @@ SetTextColor:
         mov eax, unk_1C7144
         add esp, byte 8
         mov ebx, dword [dword_1C81B4]
-        mov edx, dword [dword_1CF5B0]
+        mov edx, dword [TextShadowColor]
         call memcpy_
-        mov edx, dword [dword_1CF5A4]
+        mov edx, dword [TextColor]
         mov dword [dword_1C81B8], edx
 .4:
         pop esi
@@ -2938,7 +2938,7 @@ DrawTextAligned:
         sub esi, eax
 .3:
         mov edi, dword [dword esp+0120h]
-        mov ebx, dword [dword_1CF538]
+        mov ebx, dword [TextAlign]
         lea ebp, [byte esi+01h]
         inc edi
         cmp ebx, byte 1
@@ -2967,7 +2967,7 @@ DrawTextAligned:
 .4:
         mov edx, unk_1C6104
         mov ebx, dword [dword_1C81B4]
-        mov eax, dword [dword_1CF5B0]
+        mov eax, dword [TextShadowColor]
         call memcpy_
         push edi
         push ebp
@@ -2977,7 +2977,7 @@ DrawTextAligned:
         mov edx, unk_1C7144
         mov ebx, dword [dword_1C81B4]
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF5B0]
+        mov eax, dword [TextShadowColor]
         mov ecx, dword [dword esp+0120h]
         call memcpy_
         push ecx
@@ -3321,7 +3321,7 @@ MessageBox:
         mov ecx, DrawGlyph
         mov eax, dword [dword_1C8268]
         add esp, byte 4
-        mov dword [dword_1CF5B8], ecx
+        mov dword [DrawGlyphFn], ecx
         mov ecx, 0Eh
         call SetTextColor
         rep movsd
@@ -3992,7 +3992,7 @@ EditText:
         call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
-        mov dword [dword_1CF5B8], edi
+        mov dword [DrawGlyphFn], edi
         call SetTextColor
 .1:
         mov eax, dword [dword_1AC814]
@@ -5927,7 +5927,7 @@ SetNormalText:
         call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
-        mov dword [dword_1CF5B8], ebx
+        mov dword [DrawGlyphFn], ebx
         call SetTextColor
         pop edx
         pop ecx
@@ -8463,7 +8463,7 @@ DrawLinkBox:
         add esp, byte 4
         mov dword [dword_1C8198], eax
 .1:
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
         push byte 0
         sub eax, edx
@@ -8471,7 +8471,7 @@ DrawLinkBox:
         mov ecx, dword [dword_1C8198]
         push ecx
         call CreateBitmap
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         add esp, byte 0Ch
         mov dword [dword_1C8194], eax
         lea eax, [nosplit edx*4+00h]
@@ -8489,7 +8489,7 @@ DrawLinkBox:
         sar eax, 1
         sub edx, eax
         mov dword [dword_1C818C], edx
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         mov edx, dword [dword_16E468]
@@ -8519,7 +8519,7 @@ DrawLinkBox:
         call PresentScreen
         cmp edi, byte 10h
         jne short .2
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         xor ecx, ecx
@@ -8567,7 +8567,7 @@ DrawLinkBox:
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
-        mov ebx, dword [dword_1CF548]
+        mov ebx, dword [LinkTextFont]
         push eax
         lea eax, [nosplit ebx*4+00h]
         sub eax, ebx
@@ -8582,7 +8582,7 @@ DrawLinkBox:
         add esp, byte 14h
         jmp short .5
 .4:
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         mov ebx, dword [dword_1C8198]
         lea ecx, [nosplit edx*4+00h]
         xor eax, eax
@@ -8595,7 +8595,7 @@ DrawLinkBox:
         add esp, byte 4
         call SetTextColor
         push esi
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         mov eax, dword [dword_1C8198]
         push edx
         sar eax, 1
@@ -9581,7 +9581,7 @@ ShowLoadingScreen:
         call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
-        mov dword [dword_1CF5B8], edi
+        mov dword [DrawGlyphFn], edi
         call SetTextColor
         push byte 0FFFFFFFFh
         call MakeColor

@@ -6,19 +6,19 @@ extern AudioNullFunc, SampleRateResults, GusDriverCaps, GusDriverOpen, GusDriver
 extern DacDriverClose, DacDriverUpdate, SbDriverId, SbDriverInit, SbDriverShutdown, SbDriverStart, SbProDriverId, SbProDriverInit
 extern SbProDriverShutdown, SbProDriverStart, Sb16DriverId, Sb16DriverInit, Sb16DriverShutdown, Sb16DriverStart, SoundscapeDriverId, SoundscapeDriverInit
 extern SoundscapeDriverShutdown, SoundscapeDriverStart
-global byte_170044, byte_170045, byte_170046, byte_170047, byte_170048, byte_1700A0, byte_1700A1, byte_1700A4
-global byte_1700A5, byte_1700A6, byte_1700A7, byte_1700A8, byte_170124, dword_170038, dword_17003C, dword_170040
-global dword_170042, dword_170043, dword_170050, dword_170054, dword_170058, dword_170060, dword_170080, dword_170084
-global dword_170088, dword_17008C, dword_170090, dword_170094, dword_170098, dword_17009C, dword_1700A9, dword_1700AD
-global dword_1700FD, dword_170101, dword_17014C, dword_170150, dword_170154, dword_170158, off_16FFC8, off_16FFCC
-global off_16FFD0, off_16FFD4, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E
-off_16FFC8:
+global MixerMode, MixerSpeechVolume, MixerChannelCount, MixerMasterVolume, MixerSfxVolume, StreamClosing, StreamFeeding, StreamStarted
+global StreamFlags, StreamStereo, StreamPaused, StreamOpen, ResourceArchiveName, AudioTimerOn, AudioDriverNum, AudioExitHooked
+global MixerMasterLeft, MixerMasterRight, MixerVolLeft, MixerVolRight, MixerVolScale, MixerChannelVolumes, StreamChannel, StreamPosition
+global StreamBuffer, StreamBufSize, StreamReadPos, StreamWritePos, StreamFill, StreamPackets, StreamCallbackPos, StreamPacketQueue
+global StreamPacketCount, StreamPacketSlots, ResourceArchive, ResourceLookupFn, ResourceArchiveSize, ResourceArchiveData, AudioDriverOpenFns, AudioDriverCloseFns
+global AudioDriverUpdateFns, AudioDriverDetectFns, MixerRampStep, MixerRampTarget, MixerBlockSize, MixerRampLevel, MixerRampCount
+AudioDriverOpenFns:
         dd AudioNullFunc
-off_16FFCC:
+AudioDriverCloseFns:
         dd SampleRateResults
-off_16FFD0:
+AudioDriverUpdateFns:
         dd SampleRateResults
-off_16FFD4:
+AudioDriverDetectFns:
         dd AudioNullFunc
         dd GusDriverOpen
         dd GusDriverClose
@@ -44,98 +44,98 @@ off_16FFD4:
         dd SoundscapeDriverShutdown
         dd SoundscapeDriverStart
         dd SoundscapeDriverId
-dword_170038:
+AudioTimerOn:
         db 00h,00h,00h,00h
-dword_17003C:
+AudioDriverNum:
         db 00h,00h,00h,00h
-dword_170040:
+AudioExitHooked:
         db 00h,00h
-dword_170042:
+MixerMasterLeft:
         db 00h
-dword_170043:
+MixerMasterRight:
         db 00h
-byte_170044:
+MixerMode:
         db 00h
-byte_170045:
+MixerSpeechVolume:
         db 00h
-byte_170046:
+MixerChannelCount:
         db 00h
-byte_170047:
+MixerMasterVolume:
         db 00h
-byte_170048:
+MixerSfxVolume:
         db 00h,00h
-word_17004A:
+MixerRampStep:
         db 00h,00h
-word_17004C:
+MixerRampTarget:
         db 00h,00h
-word_17004E:
+MixerBlockSize:
         db 00h,00h
-dword_170050:
+MixerVolLeft:
         db 00h,00h,00h,00h
-dword_170054:
+MixerVolRight:
         db 00h,00h,00h,00h
-dword_170058:
+MixerVolScale:
         db 00h,00h,00h,00h
-word_17005C:
+MixerRampLevel:
         db 00h,00h
-word_17005E:
+MixerRampCount:
         db 00h,00h
-dword_170060:
+MixerChannelVolumes:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_170080:
+StreamChannel:
         db 00h,00h,00h,00h
-dword_170084:
+StreamPosition:
         db 00h,00h,00h,00h
-dword_170088:
+StreamBuffer:
         db 00h,00h,00h,00h
-dword_17008C:
+StreamBufSize:
         db 00h,00h,00h,00h
-dword_170090:
+StreamReadPos:
         db 00h,00h,00h,00h
-dword_170094:
+StreamWritePos:
         db 00h,00h,00h,00h
-dword_170098:
+StreamFill:
         db 00h,00h,00h,00h
-dword_17009C:
+StreamPackets:
         db 00h,00h,00h,00h
-byte_1700A0:
+StreamClosing:
         db 00h
-byte_1700A1:
+StreamFeeding:
         db 00h,00h,00h
-byte_1700A4:
+StreamStarted:
         db 00h
-byte_1700A5:
+StreamFlags:
         db 00h
-byte_1700A6:
+StreamStereo:
         db 00h
-byte_1700A7:
+StreamPaused:
         db 00h
-byte_1700A8:
+StreamOpen:
         db 00h
-dword_1700A9:
+StreamCallbackPos:
         db 00h,00h,00h,00h
-dword_1700AD:
+StreamPacketQueue:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_1700FD:
+StreamPacketCount:
         db 00h,00h,00h,00h
-dword_170101:
+StreamPacketSlots:
         db 00h,00h,00h,00h,00h,00h,00h,06Fh,070h,065h,06Eh,068h,061h,06Eh,064h,06Ch
         db 065h,020h,02Dh,020h,025h,073h,020h,046h,049h,04Ch,045h,020h,045h,052h,052h,04Fh
         db 052h,0Dh,00h
-byte_170124:
+ResourceArchiveName:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-dword_17014C:
+ResourceArchive:
         db 00h,00h,00h,00h
-dword_170150:
+ResourceLookupFn:
         db 00h,00h,00h,00h
-dword_170154:
+ResourceArchiveSize:
         db 00h,00h,00h,00h
-dword_170158:
+ResourceArchiveData:
         db 00h,00h,00h,00h

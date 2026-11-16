@@ -2,74 +2,74 @@
 bits 32
 %include "hockey.inc"
 section s_1CF54C nobits alloc noexec write align=1
-global dword_1CF54C, dword_1CF550, dword_1CF554, dword_1CF558, dword_1CF598, dword_1CF59C, dword_1CF5A0, dword_1CF5A4
-global dword_1CF5A8, dword_1CF5AC, dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dword_1CF5C4
-global dword_1CF5C8, dword_1CF5CC, dword_1CF5D0, dword_1CF5D4, dword_1CF5D8, dword_1CF5DC, dword_1CF5E0, dword_1CF5E4
-global dword_1CF5E8, dword_1CF5EC, dword_1CF5F0, dword_1CF5F2, dword_1CF9F4, dword_1CF9F8, dword_1CF9FC, dword_1CFA04
-global word_1CF5F4
-dword_1CF54C:
+global FontFirstChar, TextColorIndex, TextColorTable, FontGlyphColors, FontLastChar, FontGlyphTable, FontFlags, TextColor
+global FontGlyphCount, FontKernTable, TextShadowColor, TextBuffer, DrawGlyphFn, TextCharFn, TextEndFn, TextNextCharFn
+global FontSpacing, FontKernCount, FontKernPairs, ProjScaleX, ProjCenterX, ProjCenterY, ProjScaleY, ProjOffsetX
+global ProjOffsetY, ProjDetailScale, ProjAspect, IndexTo16Table, CurrentDrawContext, RowTableSize, UniformArtBuf, LimbVerts
+global IndexTo16Entries
+FontFirstChar:
         resb 4
-dword_1CF550:
+TextColorIndex:
         resb 4
-dword_1CF554:
+TextColorTable:
         resb 4
-dword_1CF558:
+FontGlyphColors:
         resb 64
-dword_1CF598:
+FontLastChar:
         resb 4
-dword_1CF59C:
+FontGlyphTable:
         resb 4
-dword_1CF5A0:
+FontFlags:
         resb 4
-dword_1CF5A4:
+TextColor:
         resb 4
-dword_1CF5A8:
+FontGlyphCount:
         resb 4
-dword_1CF5AC:
+FontKernTable:
         resb 4
-dword_1CF5B0:
+TextShadowColor:
         resb 4
-dword_1CF5B4:
+TextBuffer:
         resb 4
-dword_1CF5B8:
+DrawGlyphFn:
         resb 4
-dword_1CF5BC:
+TextCharFn:
         resb 4
-dword_1CF5C0:
+TextEndFn:
         resb 4
-dword_1CF5C4:
+TextNextCharFn:
         resb 4
-dword_1CF5C8:
+FontSpacing:
         resb 4
-dword_1CF5CC:
+FontKernCount:
         resb 4
-dword_1CF5D0:
+FontKernPairs:
         resb 4
-dword_1CF5D4:
+ProjScaleX:
         resb 4
-dword_1CF5D8:
+ProjCenterX:
         resb 4
-dword_1CF5DC:
+ProjCenterY:
         resb 4
-dword_1CF5E0:
+ProjScaleY:
         resb 4
-dword_1CF5E4:
+ProjOffsetX:
         resb 4
-dword_1CF5E8:
+ProjOffsetY:
         resb 4
-dword_1CF5EC:
+ProjDetailScale:
         resb 4
-dword_1CF5F0:
+ProjAspect:
         resb 2
-dword_1CF5F2:
+IndexTo16Table:
         resb 2
-word_1CF5F4:
+IndexTo16Entries:
         resb 1024
-dword_1CF9F4:
+CurrentDrawContext:
         resb 4
-dword_1CF9F8:
+RowTableSize:
         resb 4
-dword_1CF9FC:
+UniformArtBuf:
         resb 8
-dword_1CFA04:
+LimbVerts:
         resb 12

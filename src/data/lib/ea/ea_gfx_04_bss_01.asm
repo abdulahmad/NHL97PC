@@ -2,80 +2,80 @@
 bits 32
 %include "hockey.inc"
 section s_1CFBF0 nobits alloc noexec write align=1
-global byte_1CFBF2, byte_1CFBF3, dword_1CFBF4, dword_1CFC70, dword_1CFC74, dword_1CFC78, dword_1CFC7C, dword_1CFC80
-global dword_1CFC84, dword_1CFC88, dword_1CFC8C, dword_1CFC90, dword_1CFC94, dword_1CFC9C, dword_1CFCA0, dword_1CFCA4
-global dword_1CFCA8, dword_1CFCAC, dword_1CFCB0, dword_1CFCB4, dword_1CFCB8, dword_1CFCC0, dword_1CFCC4, dword_1CFCC8
-global dword_1CFCCC, dword_1CFCD0, dword_1CFCD4, dword_1CFCD8, dword_1CFCDC, dword_1CFCE0, dword_1CFCE4, dword_1CFCE8
-global dword_1CFCEC, dword_1CFCF0, unk_1CFCBC, word_1CFBF0
-word_1CFBF0:
+global SampleBitsTable, SampleChannelsTable, SampleInfoTable, MixerVolumeTable, AsyncRequests, AsyncCurFile, AsyncCurOffset, AsyncFreeList
+global AsyncCurBuffer, AsyncQueueHead, AsyncQueueTail, AsyncReadLength, AsyncState, AsyncFileHandle, AsyncError, AsyncDosRegs
+global AsyncDosResult, AsyncSector, AsyncSectorCount, AsyncBytesLeft, AsyncDest, AsyncCallback, AsyncWaitTimer, AsyncStreamFile
+global AsyncStreamBase, AsyncStreamSize, AsyncTickCount, AsyncLastSector, AsyncStreamPos, AsyncChunkSize, AsyncChunkDest, AsyncStreamEnd
+global ReciprocalBase, ReciprocalTable, AsyncSeekRegs, SampleRateTable
+SampleRateTable:
         resb 2
-byte_1CFBF2:
+SampleBitsTable:
         resb 1
-byte_1CFBF3:
+SampleChannelsTable:
         resb 1
-dword_1CFBF4:
+SampleInfoTable:
         resb 124
-dword_1CFC70:
+MixerVolumeTable:
         resb 4
-dword_1CFC74:
+AsyncRequests:
         resb 4
-dword_1CFC78:
+AsyncCurFile:
         resb 4
-dword_1CFC7C:
+AsyncCurOffset:
         resb 4
-dword_1CFC80:
+AsyncFreeList:
         resb 4
-dword_1CFC84:
+AsyncCurBuffer:
         resb 4
-dword_1CFC88:
+AsyncQueueHead:
         resb 4
-dword_1CFC8C:
+AsyncQueueTail:
         resb 4
-dword_1CFC90:
+AsyncReadLength:
         resb 4
-dword_1CFC94:
+AsyncState:
         resb 8
-dword_1CFC9C:
+AsyncFileHandle:
         resb 4
-dword_1CFCA0:
+AsyncError:
         resb 4
-dword_1CFCA4:
+AsyncDosRegs:
         resb 4
-dword_1CFCA8:
+AsyncDosResult:
         resb 4
-dword_1CFCAC:
+AsyncSector:
         resb 4
-dword_1CFCB0:
+AsyncSectorCount:
         resb 4
-dword_1CFCB4:
+AsyncBytesLeft:
         resb 4
-dword_1CFCB8:
+AsyncDest:
         resb 4
-unk_1CFCBC:
+AsyncSeekRegs:
         resb 4
-dword_1CFCC0:
+AsyncCallback:
         resb 4
-dword_1CFCC4:
+AsyncWaitTimer:
         resb 4
-dword_1CFCC8:
+AsyncStreamFile:
         resb 4
-dword_1CFCCC:
+AsyncStreamBase:
         resb 4
-dword_1CFCD0:
+AsyncStreamSize:
         resb 4
-dword_1CFCD4:
+AsyncTickCount:
         resb 4
-dword_1CFCD8:
+AsyncLastSector:
         resb 4
-dword_1CFCDC:
+AsyncStreamPos:
         resb 4
-dword_1CFCE0:
+AsyncChunkSize:
         resb 4
-dword_1CFCE4:
+AsyncChunkDest:
         resb 4
-dword_1CFCE8:
+AsyncStreamEnd:
         resb 4
-dword_1CFCEC:
+ReciprocalBase:
         resb 4
-dword_1CFCF0:
+ReciprocalTable:
         resb 8200

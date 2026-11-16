@@ -3,10 +3,10 @@ bits 32
 %include "hockey.inc"
 section s_FCF84 progbits alloc exec nowrite align=1
 extern byte_16E688, str_Punct_FreeArtArchive, dword_16E46C, dword_16E670, dword_16E678, dword_16E67C, dword_16E680, dword_16E684
-extern dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0, dword_1CF29C, dword_1CF2A0, dword_1CF524
-extern dword_1CFCF0, dword_1DA8D8, off_16E87C, ConvertArtSame, VesaSetBank, CreateBitmapEx, BlitCore, SetBlitSource
+extern dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0, PolyTopRow, PolyRowCount, FillColor
+extern ReciprocalTable, dword_1DA8D8, off_16E87C, ConvertArtSame, VesaSetBank, CreateBitmapEx, BlitCore, SetBlitSource
 extern CopyScaledSpan, ShapeRowBytes, BuildSpanOffsets, FillMemFast, RemapPixels, ClipPolyLeft, ClipPolyRight, ClipPolyTop
-extern ClipPolyBottom, SetupRectFill, FillRectSpans, StoreLittleEndian, FreeMemBlock, FillMemPattern, DrawShapeCore, unk_1CF2A4
+extern ClipPolyBottom, SetupRectFill, FillRectSpans, StoreLittleEndian, FreeMemBlock, FillMemPattern, DrawShapeCore, PolySpanEdges
 global FillRectColor_48, FillRectColor_5C, FillRectColor_6C, FillRectColor_80, mem_putc_, DrawShapeAtOwnPos, DrawArt, DrawShape
 global CreateBitmap, LoadDrawContext, SetDrawTarget, ClearScreen, DrawScaledRow, DrawShapeScaledCore, DrawShapeScaledFit, DrawShapeScaledBy
 global DrawShapeScaledFlip, BuildPolyEdge, FillPolySpans, FillPolygon, FillPolygonPoints, FillRectColor, FillRowColor, FillRect
@@ -872,7 +872,7 @@ BuildPolyEdge:
         shl eax, 10h
         mov dword [ebx], edi
         shl eax, 2
-        imul dword [nosplit edx*4+dword_1CFCF0]
+        imul dword [nosplit edx*4+ReciprocalTable]
         mov dword [byte ebx+0Ch], edx
         mov eax, dword [dword_16E670]
         sar edx, 10h
@@ -911,14 +911,14 @@ FillPolySpans:
         mov dword [byte esp+010h], eax
         lea eax, [nosplit edi*4+00h]
         add eax, edi
-        mov edx, unk_1CF2A4
+        mov edx, PolySpanEdges
         shl eax, 2
         add edx, eax
         mov eax, dword [byte esp+0Ch]
         mov dword [eax], edx
         lea eax, [nosplit ebp*4+00h]
         add eax, ebp
-        mov edx, unk_1CF2A4
+        mov edx, PolySpanEdges
         shl eax, 2
         add edx, eax
         mov eax, dword [byte esp+010h]
@@ -936,7 +936,7 @@ FillPolySpans:
         jge short .4
         mov edi, dword [byte esp+08h]
         imul eax, edi, byte 14h
-        mov ebx, unk_1CF2A4
+        mov ebx, PolySpanEdges
         mov edx, dword [byte esp+0Ch]
         add ebx, eax
         mov dword [edx], ebx
@@ -961,7 +961,7 @@ FillPolySpans:
         jl short .8
         mov eax, dword [byte esp+010h]
         xor ebp, ebp
-        mov dword [eax], unk_1CF2A4
+        mov dword [eax], PolySpanEdges
         jmp short .7
 .8:
         mov eax, dword [byte esp+010h]
@@ -999,7 +999,7 @@ FillPolySpans:
         mov eax, dword [eax]
         mov edx, dword [edx]
         sub edx, eax
-        mov ebx, dword_1CF29C
+        mov ebx, PolyTopRow
         inc edx
         call FillMemFast
         mov edx, dword [byte esp+04h]
@@ -1305,16 +1305,16 @@ FillPolygon:
         or edx, eax
         mov eax, edx
         shl eax, 10h
-        mov dword [dword_1CF29C], edx
+        mov dword [PolyTopRow], edx
         or edx, eax
-        mov dword [dword_1CF29C], edx
-        mov dword [dword_1CF2A0], edx
+        mov dword [PolyTopRow], edx
+        mov dword [PolyRowCount], edx
 .24:
         lea eax, [byte edi-01h]
         xor ebx, ebx
         test edi, edi
         jle short .26
-        mov esi, unk_1CF2A4
+        mov esi, PolySpanEdges
 .25:
         push eax
         push ebx
@@ -1474,20 +1474,20 @@ FillRectColor:
 FillRectColor_48:
         mov eax, edx
         mov edx, ebx
-        mov ebx, dword [dword_1CF524]
+        mov ebx, dword [FillColor]
         sar edx, 1
         jmp near FillMemPattern
         db 08Dh,040h,00h
 FillRectColor_5C:
         mov eax, edx
         mov edx, ebx
-        mov ebx, dword [dword_1CF524]
+        mov ebx, dword [FillColor]
         jmp near FillMemPattern
         db 090h
 FillRectColor_6C:
         mov eax, edx
         mov edx, ebx
-        mov ebx, dword [dword_1CF524]
+        mov ebx, dword [FillColor]
         add edx, edx
         jmp near FillMemPattern
         db 08Dh,040h,00h
@@ -1497,7 +1497,7 @@ FillRectColor_80:
         mov esi, edx
 .2:
         push byte 3
-        mov edx, dword [dword_1CF524]
+        mov edx, dword [FillColor]
         push edx
         push esi
         call StoreLittleEndian
@@ -1516,7 +1516,7 @@ FillRectColor_80:
 FillRowColor:
         mov eax, edx
         mov edx, ebx
-        mov ebx, dword [dword_1CF524]
+        mov ebx, dword [FillColor]
         shl edx, 2
         jmp near FillMemPattern
         db 08Bh,0C0h
@@ -1562,7 +1562,7 @@ FillRect:
 .5:
         or eax, edx
 .6:
-        mov dword [dword_1CF524], eax
+        mov dword [FillColor], eax
         xor dl, dl
         xor eax, eax
         mov byte [esp], dl

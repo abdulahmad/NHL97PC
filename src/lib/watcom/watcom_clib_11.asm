@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_10AED0 progbits alloc exec nowrite align=1
 extern __doserror_, __fprtf_, dword_16E48C, dword_16E490, dword_16E494, dword_16E498, dword_16E49C, dword_16E4A0
-extern dword_16E4A4, dword_1CFCEC, dword_1CFCF0, DosOpenReadOnly, DosCloseFile, unk_1722DA
+extern dword_16E4A4, ReciprocalBase, ReciprocalTable, DosOpenReadOnly, DosCloseFile, unk_1722DA
 global DetectCPU, _dos_close_, _dos_commit_, _dos_open_, printf_, DosFileInfo, BuildReciprocalTable
 ;-----------------------------------------------------------------------------
 ; DosFileInfo                                    10AED0  97 PC, low confidence
@@ -155,7 +155,7 @@ BuildReciprocalTable:
         push edx
         xor edx, edx
         mov ecx, 4
-        mov dword [dword_1CFCF0], edx
+        mov dword [ReciprocalTable], edx
 .1:
         mov edx, 1
         mov ebx, ecx
@@ -163,7 +163,7 @@ BuildReciprocalTable:
         mov eax, 0
         div ebx
         inc eax
-        mov dword [dword ecx+dword_1CFCEC], eax
+        mov dword [dword ecx+ReciprocalBase], eax
         cmp ecx, 1004h
         jne short .1
         pop edx

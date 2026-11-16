@@ -6,7 +6,7 @@ extern byte_1D1D8C, byte_1D1FBC, dword_16E464, dword_16E468, str_Punct_DrawRinkS
 extern dword_170258, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274
 extern dword_1D204C, dword_1D2050, memcpy_, AngleOfVector, SubVec3, TransformVecFull, FixedLerp, DrawClippedPoly
 extern RotatePoint2D, RotateModelPoint, AngleFromDelta, SinLookup, CosLookup, ProjectPointsPersp, MultiplyMatrix, TransposeMatrix
-extern FreeMemBlock, MakeColor, FillRectColor, unk_1D1D20, vecdist
+extern FreeMemBlock, MakeColor, FillRectColor, ModelSlots, vecdist
 global SetCameraAngles_2E, ClipSurfPolyLeft_292, ClipSurfPolyRight_2A6, SetViewScreenOrigin, SetCameraAngles, ClipSurfEdgeAtX, ClipSurfEdgeAtY, ClipSurfPolyLeft
 global ClipSurfPolyRight, ClipSurfPolyTop, ClipSurfPolyBottom, DrawSurfacePolys, DrawOverlayModels, AllocOverlaySlot, SetOverlayCentre, ProjectOverlayPoint
 global AimOverlayModel, SetOverlayPosition, AllocOverlayModel, FreeOverlaySlots
@@ -1829,7 +1829,7 @@ AllocOverlayModel:
         push eax
         lea eax, [byte esp+02Ch]
         push eax
-        mov esi, unk_1D1D20
+        mov esi, ModelSlots
         call MultiplyMatrix
         lea edi, [byte ebx+04h]
         add esp, byte 0Ch

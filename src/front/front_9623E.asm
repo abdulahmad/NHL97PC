@@ -25,7 +25,7 @@ extern dword_1C8DBC, dword_1C8DC0, dword_1C8DC4, dword_1C8DC8, dword_1C8DCC, dwo
 extern dword_1C8DDC, dword_1C8DE0, dword_1C8DE4, dword_1C8DE8, dword_1C8DEC, dword_1C8DF0, dword_1C8DF4, dword_1C8DF8
 extern dword_1C8DFC, dword_1C8E00, dword_1C8E04, dword_1C8E08, dword_1C8E0C, dword_1C8E10, dword_1C8E14, dword_1C8E18
 extern dword_1C8E1C, dword_1C8E20, dword_1C8E24, dword_1C8E28, dword_1C8E2C, dword_1C8E30, dword_1C8E34, dword_1C8E38
-extern dword_1C8E3C, dword_1C8E40, dword_1C8E44, dword_1C8E48, dword_1CC2AC, dword_1CF548, jpt_9621A, memset_
+extern dword_1C8E3C, dword_1C8E40, dword_1C8E44, dword_1C8E48, dword_1CC2AC, LinkTextFont, jpt_9621A, memset_
 extern qsort_, sprintf_, strcat_, strcpy_, BlitArt, BlitShape, PresentScreen, FindShape
 extern FindShapeQuiet, OpenArtArchive, ConvertArtNew, ResetClipWindow, Random32, UnpackShared, UnpackedSize, ConvertArtXY
 extern SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx
@@ -8518,7 +8518,7 @@ DrawLinesIntroText:
         call MeasureText
         sar eax, 1
         lea edx, [byte eax+01h]
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         inc eax
         mov ebx, dword [byte ebp-04h]
         mov dword [byte ebp-010h], eax

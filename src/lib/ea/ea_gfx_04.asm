@@ -2,13 +2,13 @@
 bits 32
 %include "hockey.inc"
 section s_107000 progbits alloc exec nowrite align=1
-extern byte_172BC5, byte_1CFBF2, byte_1CFBF3, byte_1DCF44, byte_1DCF67, byte_1DCF68, dword_16E4D0, dword_170038
-extern dword_17003C, dword_170040, dword_172AC0, dword_172AC4, dword_1CFBF4, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
-extern dword_1DCF62, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, bcopy, AddExitHandler, DetectSoundCard
+extern byte_172BC5, SampleBitsTable, SampleChannelsTable, byte_1DCF44, byte_1DCF67, byte_1DCF68, dword_16E4D0, AudioTimerOn
+extern AudioDriverNum, AudioExitHooked, dword_172AC0, dword_172AC4, SampleInfoTable, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
+extern dword_1DCF62, AudioDriverOpenFns, AudioDriverCloseFns, AudioDriverUpdateFns, AudioDriverDetectFns, bcopy, AddExitHandler, DetectSoundCard
 extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, DosOpenFile, DosCloseFile, DosReadFile, ReleaseBankSample, FindCachedFileData
 extern LoadSampleHeader, GusDetect, ReadSoundscapeIni, SoundscapeCodecReady, AudioLeave, SampleFormatSize, MixerStartSample, MixerFadeChannel
 extern MixerSetPanVolume, MixerSetPitch, MixerSamplesLeft, ReadLittleEndian, FreeMemBlock, MemPtrSize, addtimer, RemoveTimerCallback
-extern word_1CFBF0
+extern SampleRateTable
 global jpt_1074C0, StartPatchSample_B1, StartPatchSample_C2, StartPatchSample_D3, StartPatchSample_E7, StartPatchSample_FB, StartPatchSample_10F, StartPatchSample_123
 global StartPatchSample_135, StartPatchSample_140, SampleRateResults_1, SampleRateResults_7, SampleRateResults_D, SampleRateResults_13, SampleRateResults_19, LoadFileToBlock
 global LoadFileToBlockShared, LoadFileToBlockPlain, RegisterSoundBank, UnregisterSoundBank, PrepareBankSamples, CheckBankIndex, DetectAudioDriver, OpenAudioDriver
@@ -372,7 +372,7 @@ DetectAudioDriver:
         ret
 .2:
         shl eax, 4
-        call dword [dword eax+off_16FFD4]
+        call dword [dword eax+AudioDriverDetectFns]
         ret
         db 090h
 ;-----------------------------------------------------------------------------
@@ -387,28 +387,28 @@ OpenAudioDriver:
         push ebp
         mov ebx, edx
         shl ebx, 4
-        call dword [dword ebx+off_16FFC8]
+        call dword [dword ebx+AudioDriverOpenFns]
         mov ebx, eax
         test eax, eax
         jge short .1
         xor edx, edx
 .1:
-        mov dword [dword_17003C], edx
-        cmp dword [dword_170038], byte 0
+        mov dword [AudioDriverNum], edx
+        cmp dword [AudioTimerOn], byte 0
         jne short .2
         mov esi, 1
         push AudioLeave
-        mov dword [dword_170038], esi
+        mov dword [AudioTimerOn], esi
         call addtimer
         add esp, byte 4
 .2:
-        cmp dword [dword_170040], byte 0
+        cmp dword [AudioExitHooked], byte 0
         jne short .3
         push CloseDigitalAudio
         mov ebp, 1
         call AddExitHandler
         add esp, byte 4
-        mov dword [dword_170040], ebp
+        mov dword [AudioExitHooked], ebp
 .3:
         mov eax, ebx
         pop ebp
@@ -425,19 +425,19 @@ CloseAudioDriver:
         push ebx
         push ecx
         push edx
-        cmp dword [dword_170038], byte 0
+        cmp dword [AudioTimerOn], byte 0
         je short .1
         push AudioLeave
         call RemoveTimerCallback
         xor ebx, ebx
         add esp, byte 4
-        mov dword [dword_170038], ebx
+        mov dword [AudioTimerOn], ebx
 .1:
-        mov eax, dword [dword_17003C]
+        mov eax, dword [AudioDriverNum]
         shl eax, 4
         xor ecx, ecx
-        call dword [dword eax+off_16FFCC]
-        mov dword [dword_17003C], ecx
+        call dword [dword eax+AudioDriverCloseFns]
+        mov dword [AudioDriverNum], ecx
         xor eax, eax
         pop edx
         pop ecx
@@ -523,15 +523,15 @@ StartTmplSample:
 .7:
         mov dword [byte esp+04h], eax
         mov dx, word [byte ecx+0Ah]
-        mov word [nosplit edi*8+word_1CFBF0], dx
+        mov word [nosplit edi*8+SampleRateTable], dx
         mov dl, byte [byte ecx+05h]
-        mov byte [nosplit edi*8+byte_1CFBF2], dl
+        mov byte [nosplit edi*8+SampleBitsTable], dl
         mov dl, byte [byte ecx+06h]
-        mov byte [nosplit edi*8+byte_1CFBF3], dl
+        mov byte [nosplit edi*8+SampleChannelsTable], dl
         xor edx, edx
         mov dl, byte [byte ecx+07h]
         mov eax, dword [byte esp+020h]
-        mov dword [nosplit edi*8+dword_1CFBF4], edx
+        mov dword [nosplit edi*8+SampleInfoTable], edx
         mov edx, dword [byte esp+024h]
         call SampleFormatSize
         push eax
@@ -724,14 +724,14 @@ StartPatchSample_140:
 .10:
         mov eax, dword [byte esp+08h]
         mov ebx, dword [byte esp+014h]
-        mov word [nosplit eax*8+word_1CFBF0], bx
+        mov word [nosplit eax*8+SampleRateTable], bx
         mov bl, byte [byte esp+01Ch]
-        mov byte [nosplit eax*8+byte_1CFBF2], bl
+        mov byte [nosplit eax*8+SampleBitsTable], bl
         mov bl, byte [byte esp+020h]
-        mov byte [nosplit eax*8+byte_1CFBF3], bl
+        mov byte [nosplit eax*8+SampleChannelsTable], bl
         mov ebx, dword [byte esp+010h]
         mov edx, dword [byte esp+040h]
-        mov dword [nosplit eax*8+dword_1CFBF4], ebx
+        mov dword [nosplit eax*8+SampleInfoTable], ebx
         mov ebx, dword [byte esp+044h]
         mov eax, dword [byte esp+03Ch]
         call SampleFormatSize
@@ -835,9 +835,9 @@ ParsePatchTags:
 ; channel pan update
 ;-----------------------------------------------------------------------------
 AudioDriverUpdate:
-        mov eax, dword [dword_17003C]
+        mov eax, dword [AudioDriverNum]
         shl eax, 4
-        call dword [dword eax+off_16FFD0]
+        call dword [dword eax+AudioDriverUpdateFns]
         ret
         db 090h
         push ebx
@@ -916,7 +916,7 @@ ChannelTimeLeft:
         add edx, eax
         xor ecx, ecx
         shl edx, 2
-        mov cx, word [nosplit ebx*8+word_1CFBF0]
+        mov cx, word [nosplit ebx*8+SampleRateTable]
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
@@ -995,7 +995,7 @@ InitStreamHeader:
         push esi
         mov ecx, edx
         lea edx, [nosplit ebx*8+00h]
-        add edx, word_1CFBF0
+        add edx, SampleRateTable
         mov ebx, dword [byte edx+04h]
         cmp ebx, byte 2
         jne short .4

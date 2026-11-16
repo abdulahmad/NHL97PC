@@ -82,8 +82,8 @@ extern dword_1BB258, dword_1BF050, dword_1BF054, dword_1BF058, dword_1BF05C, dwo
 extern dword_1BF06C, dword_1BF070, dword_1BF074, dword_1BF078, dword_1BF07C, dword_1BF084, dword_1BF0B8, dword_1BF0BC
 extern dword_1BF1B4, dword_1BF248, dword_1BF7F0, dword_1BF7F4, dword_1BF7F8, dword_1BF7FC, dword_1BF800, dword_1BF888
 extern dword_1BF88C, dword_1BF890, dword_1BF894, dword_1BF898, dword_1BF89C, dword_1BF8A0, dword_1BF8A4, dword_1BF8A8
-extern dword_1BF8B0, dword_1BF8B4, dword_1C0EE0, dword_1C0EEC, dword_1C0EF0, dword_1C0EF8, dword_1C0EFC, dword_1CF558
-extern dword_1CF5B8, dword_1CF5E4, dword_1CF5E8, dword_1CF5EC, dword_1CF5F0, dword_1CF9FC, dword_1D91CC, dword_1D940C
+extern dword_1BF8B0, dword_1BF8B4, dword_1C0EE0, dword_1C0EEC, dword_1C0EF0, dword_1C0EF8, dword_1C0EFC, FontGlyphColors
+extern DrawGlyphFn, ProjOffsetX, ProjOffsetY, ProjDetailScale, ProjAspect, UniformArtBuf, dword_1D91CC, dword_1D940C
 extern hmtmstruct, hypot_, kaufmfont, memcpy_, off_168CD8, off_168CE0, off_168CE8, off_168CF0
 extern off_168CFC, off_168D04, off_168D08, off_168D0C, off_16B6F8, off_16B708, off_16B738, off_16B7CC
 extern off_16B830, off_16B8C0, off_16B958, off_16B9A4, off_16BB54, off_16BC44, off_16BC5C, off_16BC98
@@ -377,7 +377,7 @@ SetupPlayerModel_D8:
         test edx, edx
         je short .4
         shl edx, 2
-        add edx, dword_1CF558
+        add edx, FontGlyphColors
         mov ecx, dword [edx]
         push ecx
         mov eax, dword [byte esp+01Ch]
@@ -391,7 +391,7 @@ SetupPlayerModel_D8:
         test ebp, ebp
         je short .5
         shl ebp, 2
-        add ebp, dword_1CF558
+        add ebp, FontGlyphColors
         mov edx, dword [byte ebp+00h]
         push edx
         mov ecx, dword [byte esp+01Ch]
@@ -436,11 +436,11 @@ LayoutJerseyNumber:
         sub esp, byte 0Ch
         mov dword [byte esp+04h], eax
         mov dword [byte esp+08h], edx
-        mov ebp, dword_1CF558
+        mov ebp, FontGlyphColors
         mov ebx, 1
         xor edx, edx
         mov esi, 5
-        mov dword [dword_1CF558], edx
+        mov dword [FontGlyphColors], edx
         lea ecx, [byte ebp+04h]
 .1:
         xor edx, edx
@@ -732,7 +732,7 @@ DrawJerseyLettering:
         mov ebx, SetupPlayerModel_D8
         push str_2d
         lea eax, [byte esp+08h]
-        mov dword [dword_1CF5B8], ebx
+        mov dword [DrawGlyphFn], ebx
         push eax
         mov dword [byte esi+010h], ebp
         call sprintf_
@@ -1455,7 +1455,7 @@ LoadUniformArt:
         push byte 0
         mov ecx, SetupPlayerModel_D8
         push str_A2zFfn
-        mov dword [dword_1CF5B8], ecx
+        mov dword [DrawGlyphFn], ecx
         call LoadResourceDataShared
         add esp, byte 8
         mov dword [dword ebx+dword_1B830C], eax
@@ -1732,7 +1732,7 @@ LoadUniformArt:
         mov edx, dword_1B82DC
         add esp, byte 8
         mov edi, eax
-        mov dword [dword_1CF9FC], ebp
+        mov dword [UniformArtBuf], ebp
         mov dword [dword esi+dword_1B82E4], eax
         call BuildUniformArt
         mov ecx, dword [byte esp+030h]
@@ -1741,7 +1741,7 @@ LoadUniformArt:
         xor eax, eax
         mov ebx, edi
         push eax
-        mov dword [dword_1CF9FC], eax
+        mov dword [UniformArtBuf], eax
         mov eax, str_Glove
         call AddBankToRange
         mov edx, dword [byte esp+024h]
@@ -4341,7 +4341,7 @@ DrawRightHandModel:
 ; Scales the model detail distances by the view scale and detail setting
 ;-----------------------------------------------------------------------------
 ScaleModelLods:
-        fld dword [dword_1CF5EC]
+        fld dword [ProjDetailScale]
         fmul qword [F64_0p002]
         fmul dword [F32_1]
         xor eax, eax
@@ -7928,11 +7928,11 @@ BeginOffscreenRender:
         mov ebx, dword [byte esp+04Ch]
         mov edi, dword [byte esp+050h]
         mov esi, eax
-        fld dword [dword_1CF5E8]
-        fld dword [dword_1CF5E4]
-        fld dword [dword_1CF5EC]
+        fld dword [ProjOffsetY]
+        fld dword [ProjOffsetX]
+        fld dword [ProjDetailScale]
         mov eax, dword [edx]
-        fld dword [dword_1CF5F0]
+        fld dword [ProjAspect]
         mov dword [byte esp+08h], eax
         mov eax, dword [byte edx+04h]
         fxch st3
@@ -8074,8 +8074,8 @@ BeginOffscreenRender:
 .10:
         fild dword [byte esp+08h]
         fild dword [byte esp+0Ch]
-        fld dword [dword_1CF5E8]
-        fld dword [dword_1CF5E4]
+        fld dword [ProjOffsetY]
+        fld dword [ProjOffsetX]
         fld st3
         fld st3
         fxch st3
@@ -8085,9 +8085,9 @@ BeginOffscreenRender:
         fxch st3
         fsub dword [byte esp+024h]
         fxch st3
-        fstp dword [dword_1CF5E8]
+        fstp dword [ProjOffsetY]
         fxch st2
-        fstp dword [dword_1CF5E4]
+        fstp dword [ProjOffsetX]
         fsubrp
         fxch
         fsub dword [byte esp+024h]
@@ -8104,21 +8104,21 @@ BeginOffscreenRender:
         test ecx, ecx
         je near .13
         fld dword [byte esp+020h]
-        fld dword [dword_1CF5EC]
+        fld dword [ProjDetailScale]
         fmul st1
-        fld dword [dword_1CF5F0]
+        fld dword [ProjAspect]
         fmul st2
-        fld dword [dword_1CF5E8]
+        fld dword [ProjOffsetY]
         fmul st3
-        fld dword [dword_1CF5E4]
+        fld dword [ProjOffsetX]
         fmulp st4
         xor edx, edx
         fxch
-        fstp dword [dword_1CF5F0]
-        fstp dword [dword_1CF5E8]
+        fstp dword [ProjAspect]
+        fstp dword [ProjOffsetY]
         fxch
-        fstp dword [dword_1CF5E4]
-        fstp dword [dword_1CF5EC]
+        fstp dword [ProjOffsetX]
+        fstp dword [ProjDetailScale]
         test ebx, ebx
         jle short .12
         fld dword [byte esp+020h]
@@ -8380,12 +8380,12 @@ EndOffscreenRender:
         fld dword [dword_1B9024]
         mov edx, dword [dword_1B9034]
         fxch st3
-        fstp dword [dword_1CF5E8]
+        fstp dword [ProjOffsetY]
         fxch
-        fstp dword [dword_1CF5E4]
-        fstp dword [dword_1CF5EC]
+        fstp dword [ProjOffsetX]
+        fstp dword [ProjDetailScale]
         push edx
-        fstp dword [dword_1CF5F0]
+        fstp dword [ProjAspect]
         call FreeBitmap
         add esp, byte 4
         push unk_1B8FA8

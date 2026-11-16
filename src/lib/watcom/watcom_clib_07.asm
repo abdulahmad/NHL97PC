@@ -7,7 +7,7 @@ extern dword_16E468, dword_16E46C, dword_16E47C, dword_16E480, dword_16E484, dwo
 extern dword_16E4C8, dword_16E670, dword_16E6A8, dword_16E6AC, dword_16E6B0, dword_16E6B4, dword_16E6B8, dword_16E6BC
 extern dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714, dword_16F894, dword_16F898, dword_16F8A8
 extern dword_16F8AC, dword_16F8B0, dword_16F8B4, dword_16F8B8, dword_16F9FC, dword_16FA00, dword_16FA04, dword_16FA08
-extern dword_172AAC, dword_1CF9F4, dword_1CF9F8, dword_1DA4D0, int386_, int386x_, memset_, removewindow
+extern dword_172AAC, CurrentDrawContext, RowTableSize, dword_1DA4D0, int386_, int386x_, memset_, removewindow
 extern segread_, VesaSetBank, VesaSetModeCall, VgaSetModeNoClear, FillRowTable, BytesPerPixelForDepth, SetScreenTarget, AllocMemBlock
 extern FreeMemBlock, FreeBitmap
 global VesaGetModeInfo, VesaQueryMode, FindClosestMode, VesaSetMode, VesaSetWindow, CloseVideoWindow, SetGraphicsMode, WritePaletteRegs
@@ -611,7 +611,7 @@ SetGraphicsMode:
         mov dword [dword_16E4B8], eax
 .25:
         call SetScreenTarget
-        mov dword [dword_1CF9F4], dword_16E670
+        mov dword [CurrentDrawContext], dword_16E670
 .26:
         add esp, 15Ch
         pop ebp
@@ -711,7 +711,7 @@ AllocRowTable:
         mov edx, dword [dword_16FA04]
         mov dword [byte eax+04h], 0
         sub edx, byte 2
-        mov dword [dword_1CF9F8], ebx
+        mov dword [RowTableSize], ebx
         mov dword [eax], edx
         pop edx
         pop ecx

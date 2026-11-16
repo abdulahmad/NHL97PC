@@ -51,7 +51,7 @@ extern dword_1B1010, dword_1B101C, dword_1B1024, dword_1B1028, dword_1B102C, dwo
 extern dword_1B103C, dword_1B1040, dword_1B1044, dword_1B1048, dword_1B104C, dword_1B1050, dword_1B1054, dword_1B1058
 extern dword_1B105C, dword_1B1060, dword_1B1064, dword_1B108C, dword_1B10D0, dword_1B10DC, dword_1B10E0, dword_1B10E4
 extern dword_1B10E8, dword_1B10F4, dword_1B10F8, dword_1B1108, dword_1B1114, dword_1B1118, dword_1B1410, dword_1B857C
-extern dword_1B905F, dword_1B9067, dword_1C13C0, dword_1C34E3, dword_1CF5EC, dword_1D1D38, dword_1D1D5C, dword_1D2054
+extern dword_1B905F, dword_1B9067, dword_1C13C0, dword_1C34E3, ProjDetailScale, ViewOriginY, ViewWidth, dword_1D2054
 extern dword_1D2058, dword_1D205C, hypot_, jpt_48D20, jpt_48D50, memcpy_, openhandle, printf_
 extern F64_0p5_ScaleLineWidth, F64_1p5708_InitRinkView, F64_0p31831, F64_65536_InitRinkView, F64_0p04, F64_6p28319_DrawCreaseArc, F64_6p28319_BuildRinkGeometry, F64_80
 extern F64_110, F64_40, F64_0p00138889, F64_65536_DrawScoreboard, F64_0p31831_UpdateScoreboardSpin, F64_0p5_UpdateScoreboardSpin, F64_65536_UpdateScoreboardSpin, rand_
@@ -92,7 +92,7 @@ extern unk_1AEA30, unk_1AEA60, unk_1AEB08, unk_1AEB50, unk_1AEB98, unk_1AEC40, u
 extern unk_1AEDD8, unk_1AEDF0, unk_1AEE08, unk_1AEEA8, unk_1AF340, unk_1AF450, unk_1B0078, unk_1B0410
 extern unk_1B0510, unk_1B0970, unk_1B0AA8, unk_1B0AD0, unk_1B0B3C, unk_1B0BA0, unk_1B0C0C, unk_1B0C84
 extern unk_1B0CF0, unk_1B0F14, unk_1B0F28, unk_1B0FA4, unk_1B0FC0, unk_1B1068, unk_1B10FC, unk_1B92AB
-extern unk_1D1D20, vecdist, word_1691A4, word_1691B2, word_1691B4, word_1691B6, word_169282, word_169284
+extern ModelSlots, vecdist, word_1691A4, word_1691B2, word_1691B4, word_1691B6, word_169282, word_169284
 extern word_1B0B62
 global jpt_4A73C, jpt_4AD42, jpt_4AE54, jpt_4B8CC, jpt_52484, PaEvent_4D6, PaEvent_4EC, PaEvent_502
 global PaEvent_518, PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E
@@ -4290,7 +4290,7 @@ SetStandsDetail:
         xor edx, edx
         test esi, esi
         jle short .3
-        mov ebp, dword [dword_1D1D38]
+        mov ebp, dword [ViewOriginY]
         mov ebx, ecx
 .1:
         mov edi, dword [str_Punct_DrawRinkSurface]
@@ -4299,7 +4299,7 @@ SetStandsDetail:
         mov ecx, dword [byte eax+04h]
         cmp ecx, ebp
         jge short .2
-        cmp ecx, dword [dword_1D1D5C]
+        cmp ecx, dword [ViewWidth]
         jl short .2
         xor ecx, ecx
         jmp short .4
@@ -4679,7 +4679,7 @@ LoadRinkTextures:
         mov edx, esi
         mov dword [dword ecx+dword_1B0068], eax
         call SetOverlayPosition
-        mov edx, unk_1D1D20
+        mov edx, ModelSlots
         mov eax, dword [dword ecx+dword_1B0068]
         call AimOverlayModel
         mov eax, dword [dword ecx+dword_1B0068]
@@ -6578,7 +6578,7 @@ ScaleLineWidth:
         fsin
         fabs
         fild dword [byte ebp+0Ch]
-        fmul dword [dword_1CF5EC]
+        fmul dword [ProjDetailScale]
         fmul dword [byte esp+014h]
         fld1
         fld dword [byte esp+020h]
@@ -11860,7 +11860,7 @@ DrawBenchPlayers:
         lea edx, [dword esp+0118h]
         push edx
         push edx
-        push unk_1D1D20
+        push ModelSlots
         call SubVec3
         add esp, byte 0Ch
         mov ecx, dword [dword_1B0B9C]

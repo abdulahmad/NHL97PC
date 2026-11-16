@@ -3,9 +3,9 @@ bits 32
 %include "hockey.inc"
 section s_FC88C progbits alloc exec nowrite align=1
 extern _dos_getdate_, _dos_gettime_, str_02d3s02d, str_2d02d02d, byte_16E638, byte_16E639, byte_16E63A, byte_16E688
-extern byte_171C90, dword_16E628, dword_16E630, dword_16E634, dword_16E63C, dword_16E870, dword_1CF298, dword_1CF530
-extern dword_1CF534, dword_1CF538, dword_1CF53C, dword_1CF540, dword_1CF544, dword_1CF548, dword_1CF54C, dword_1CF598
-extern dword_1CF59C, dword_1CF5A0, dword_1CF5A4, dword_1CF5A8, dword_1CF5AC, dword_1CF5C4, dword_1CF5C8, dword_1DA4D0
+extern byte_171C90, dword_16E628, dword_16E630, dword_16E634, dword_16E63C, dword_16E870, dword_1CF298, FontAscent
+extern FontDescent, TextAlign, CurrentFont, FontHeight, FontWidth, LinkTextFont, FontFirstChar, FontLastChar
+extern FontGlyphTable, FontFlags, TextColor, FontGlyphCount, FontKernTable, TextNextCharFn, FontSpacing, dword_1DA4D0
 extern off_16E858, removewindow, sprintf_, bcopy, ConvertArtPalette16, NextTextByte, NextTextChar, BlitCore
 extern FreeMemBlock, ZeroMem, PrepareTextDraw, vsprintf_
 global jpt_FC910, DebugShowLines_BA, DebugShowLines_CB, DebugShowLines_11F, DebugShowLines_149, DebugShowLines_153, FreeBitmap_30, CopyRowKeyed32_1C
@@ -354,41 +354,41 @@ SelectFont:
         mov edx, dword [byte esp+0Ch]
         mov eax, dword [byte edx+0Dh]
         sar eax, 18h
-        mov dword [dword_1CF530], eax
+        mov dword [FontAscent], eax
         mov eax, dword [byte edx+0Eh]
         sar eax, 18h
-        mov dword [dword_1CF534], eax
+        mov dword [FontDescent], eax
         mov eax, dword [byte edx+0Fh]
         mov ecx, 64h
         sar eax, 18h
         mov esi, 1
-        mov dword [dword_1CF540], eax
+        mov dword [FontHeight], eax
         mov eax, dword [byte edx+010h]
-        mov dword [dword_1CF5A4], edx
+        mov dword [TextColor], edx
         sar eax, 18h
-        mov dword [dword_1CF5A0], ecx
-        mov dword [dword_1CF544], eax
+        mov dword [FontFlags], ecx
+        mov dword [FontWidth], eax
         mov ecx, eax
-        mov eax, dword [dword_1CF540]
+        mov eax, dword [FontHeight]
         mov ebx, dword [byte edx+01Ch]
         add ecx, eax
-        mov dword [dword_1CF53C], esi
+        mov dword [CurrentFont], esi
         mov eax, ecx
         add ebx, edx
         xor eax, ecx
-        mov dword [dword_1CF5AC], ebx
+        mov dword [FontKernTable], ebx
         mov ax, word [byte edx+0Ah]
-        mov dword [dword_1CF548], ecx
-        mov dword [dword_1CF598], eax
+        mov dword [LinkTextFont], ecx
+        mov dword [FontLastChar], eax
         mov eax, dword [byte edx+014h]
-        mov dword [dword_1CF54C], ecx
+        mov dword [FontFirstChar], ecx
         lea ecx, [edx+eax]
         mov eax, ebx
-        mov dword [dword_1CF5A8], ecx
+        mov dword [FontGlyphCount], ecx
         mov eax, dword [eax]
         and eax, byte 7Fh
         mov al, byte [dword eax+byte_171C90]
-        mov dword [dword_1CF538], eax
+        mov dword [TextAlign], eax
         mov ecx, dword [byte ebx+02h]
         mov eax, ebx
         sar ecx, 10h
@@ -399,21 +399,21 @@ SelectFont:
         add eax, byte 7
         and al, 0F8h
         sar eax, 3
-        mov dword [dword_1CF59C], eax
+        mov dword [FontGlyphTable], eax
         mov eax, dword [byte edx+0Ch]
         sar eax, 10h
         and eax, byte 3
         cmp eax, byte 2
         jne short .1
-        mov dword [dword_1CF5C4], NextTextChar
+        mov dword [TextNextCharFn], NextTextChar
         jmp short .4
 .1:
-        cmp dword [dword_1CF598], 0FFh
+        cmp dword [FontLastChar], 0FFh
         jle short .2
-        mov dword [dword_1CF5C4], NextTextChar
+        mov dword [TextNextCharFn], NextTextChar
         xor ecx, ecx
         call PrepareTextDraw
-        mov dword [dword_1CF5C8], ecx
+        mov dword [FontSpacing], ecx
         pop esi
         pop ebx
         ret
@@ -426,19 +426,19 @@ SelectFont:
         shr eax, cl
         cmp eax, 0FFh
         jbe short .3
-        mov dword [dword_1CF5C4], NextTextChar
+        mov dword [TextNextCharFn], NextTextChar
         xor ecx, ecx
         call PrepareTextDraw
-        mov dword [dword_1CF5C8], ecx
+        mov dword [FontSpacing], ecx
         pop esi
         pop ebx
         ret
 .3:
-        mov dword [dword_1CF5C4], NextTextByte
+        mov dword [TextNextCharFn], NextTextByte
 .4:
         xor ecx, ecx
         call PrepareTextDraw
-        mov dword [dword_1CF5C8], ecx
+        mov dword [FontSpacing], ecx
         pop esi
         pop ebx
         ret

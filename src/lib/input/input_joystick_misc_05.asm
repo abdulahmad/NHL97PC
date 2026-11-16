@@ -4,10 +4,10 @@ bits 32
 section s_100A68 progbits alloc exec nowrite align=1
 extern str_DtoD, atexit_, byte_16E688, byte_16F748, byte_16FA40, byte_171C90, dword_16E4C8, dword_16E500
 extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E698, dword_16E69C, dword_16E6A0, dword_16F188
-extern dword_16F5AC, dword_16F5B4, dword_1CF5F0, dword_1DA4D0, exit_, off_16F588, off_16F5BC, off_16F5C0
+extern dword_16F5AC, dword_16F5B4, ProjAspect, dword_1DA4D0, exit_, off_16F588, off_16F5BC, off_16F5C0
 extern off_16F684, sprintf_, strrchr_, LoadResourceFile, BytesPerPixelForDepth, PlotPixelRGB, FindCachedFile, BlitCore
 extern ShapeRowBytes, StoreBigEndian, Convert32To565Keyed, Convert32To555Keyed, SwapRedBlue555, Convert32To565, FindPaletteChunk, ExpandPalette6To8
-extern CopyPaletteRGB, AllocMemBlock, FreeMemBlock, MakeColor, word_1CF5F4
+extern CopyPaletteRGB, AllocMemBlock, FreeMemBlock, MakeColor, IndexTo16Entries
 global _os_handle, jpt_1015B0, jpt_101980, PacketChecksum_90, FindShapeQuiet_2, BlendPixelMode_30, BlendPixelMode_54, BlendPixelMode_6E
 global BlendPixelMode_94, BlendPixelMode_B9, BlendPixelMode_10C, BlendPixelMode_153, BlendPixelMode_1A6, BlendPixelMode_1BC, BlendPixelMode_204, BlendPixelMode_232
 global BlendPixelMode_27B, BlendPixelMode_2A1, BlendPixelMode_2F4, BlendPixelMode_33A, BlendPixelMode_38A, BlendPixels_14, BlendPixels_2D, BlendPixels_46
@@ -3393,7 +3393,7 @@ ConvertArtRows:
         jg near .6
         cmp eax, byte 8
         jle near .6
-        mov edx, word_1CF5F4
+        mov edx, IndexTo16Entries
         mov eax, esi
         mov ebx, 1
         call ConvertArtPalette
@@ -3404,19 +3404,19 @@ ConvertArtRows:
         je short .4
         cmp edi, byte 0Fh
         jne short .3
-        mov edx, word_1CF5F4
+        mov edx, IndexTo16Entries
         call Convert32To555Keyed
         jmp short .6
 .3:
         cmp edi, byte 10h
         jne short .6
-        mov edx, word_1CF5F4
+        mov edx, IndexTo16Entries
         call Convert32To565Keyed
         jmp short .6
 .4:
         cmp edi, byte 0Fh
         jne short .5
-        mov edx, word_1CF5F4
+        mov edx, IndexTo16Entries
         call ConvertRowPalTo16
         mov eax, ebp
         add esp, byte 8
@@ -3428,7 +3428,7 @@ ConvertArtRows:
 .5:
         cmp edi, byte 10h
         jne short .6
-        mov edx, word_1CF5F4
+        mov edx, IndexTo16Entries
         call Convert32To565
 .6:
         mov eax, ebp
@@ -3540,14 +3540,14 @@ ConvertArtShape:
         add ecx, byte 4
         mov esi, dword [nosplit esi*4+dword_1DA4D0]
         inc eax
-        mov dword [dword ecx+dword_1CF5F0], esi
+        mov dword [dword ecx+ProjAspect], esi
         cmp eax, ebx
         jl short .4
 .5:
-        mov dword [off_16F5BC], word_1CF5F4
+        mov dword [off_16F5BC], IndexTo16Entries
         jmp short .7
 .6:
-        mov edx, word_1CF5F4
+        mov edx, IndexTo16Entries
         mov eax, dword [byte esp+024h]
         call ConvertArtPalette
         mov dword [off_16F5BC], eax
@@ -3557,14 +3557,14 @@ ConvertArtShape:
         mov eax, dword [byte esp+038h]
         cmp eax, byte 0Fh
         jne short .8
-        mov edx, word_1CF5F4
+        mov edx, IndexTo16Entries
         mov eax, dword [off_16F5BC]
         call Convert32To555Keyed
         jmp short .11
 .8:
         cmp eax, byte 10h
         jne short .11
-        mov edx, word_1CF5F4
+        mov edx, IndexTo16Entries
         mov eax, dword [off_16F5BC]
         call Convert32To565Keyed
         jmp short .11
@@ -3572,14 +3572,14 @@ ConvertArtShape:
         mov ecx, dword [byte esp+038h]
         cmp ecx, byte 0Fh
         jne short .10
-        mov edx, word_1CF5F4
+        mov edx, IndexTo16Entries
         mov eax, dword [off_16F5BC]
         call ConvertRowPalTo16
         jmp short .11
 .10:
         cmp ecx, byte 10h
         jne short .11
-        mov edx, word_1CF5F4
+        mov edx, IndexTo16Entries
         mov eax, dword [off_16F5BC]
         call Convert32To565
 .11:

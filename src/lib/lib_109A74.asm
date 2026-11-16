@@ -3,14 +3,14 @@ bits 32
 %include "hockey.inc"
 section s_109A74 progbits alloc exec nowrite align=1
 extern byte_170160, byte_170161, byte_172BC5, dword_17015C, dword_170164, dword_170200, dword_170204, dword_170208
-extern dword_17020C, dword_170210, dword_170214, dword_172AC0, dword_172BC8, dword_1CFC74, dword_1CFC78, dword_1CFC7C
-extern dword_1CFC80, dword_1CFC84, dword_1CFC88, dword_1CFC8C, dword_1CFC90, dword_1CFC94, dword_1CFC9C, dword_1CFCA0
-extern dword_1CFCA4, dword_1CFCA8, dword_1CFCAC, dword_1CFCB0, dword_1CFCB4, dword_1CFCB8, dword_1CFCC0, dword_1CFCC4
-extern dword_1CFCC8, dword_1CFCCC, dword_1CFCD0, dword_1CFCD4, dword_1CFCD8, dword_1CFCDC, dword_1CFCE0, dword_1CFCE4
-extern dword_1CFCE8, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, CdOpenStream, CdHandleEntry, CdCloseFile
+extern dword_17020C, dword_170210, dword_170214, dword_172AC0, dword_172BC8, AsyncRequests, AsyncCurFile, AsyncCurOffset
+extern AsyncFreeList, AsyncCurBuffer, AsyncQueueHead, AsyncQueueTail, AsyncReadLength, AsyncState, AsyncFileHandle, AsyncError
+extern AsyncDosRegs, AsyncDosResult, AsyncSector, AsyncSectorCount, AsyncBytesLeft, AsyncDest, AsyncCallback, AsyncWaitTimer
+extern AsyncStreamFile, AsyncStreamBase, AsyncStreamSize, AsyncTickCount, AsyncLastSector, AsyncStreamPos, AsyncChunkSize, AsyncChunkDest
+extern AsyncStreamEnd, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, CdOpenStream, CdHandleEntry, CdCloseFile
 extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, CheckBankIndex, SetMusicStreamVolume, ChannelPlaying
 extern StopChannel, PlaySample, LoadSampleHeader, AudioEnter, AudioLeaveCheck, IsChannelActive, ChannelPosition, ChannelTimeLeftLocked
-extern AllocMemBlockFixed, AllocMemBlock, FreeMemBlock, UnlinkMemBlockLocked, addtimer, RemoveTimerCallback, unk_1CFCBC, word_170162
+extern AllocMemBlockFixed, AllocMemBlock, FreeMemBlock, UnlinkMemBlockLocked, addtimer, RemoveTimerCallback, AsyncSeekRegs, word_170162
 global jpt_109E64, AsyncStreamStep_2E, AsyncStreamStep_57B, AsyncStreamStep_613, AsyncStreamStep_78F, AsyncInit, AsyncClose, AsyncRequestOpen
 global AsyncRequestSection, AsyncResetRequest, AsyncStreamStep, AsyncTick, AsyncFreeRequest, AsyncPopRequest, SpeechBufferSize, RegisterStreamBank
 global AddStreamSample, ReleaseBankSample, StartSpeechQueue, QueueSpeechClip, SpeechQueueGo, StopSpeechQueue, SpeechQueueState, ShutdownSpeechQueue
@@ -41,8 +41,8 @@ AsyncInit:
         call AllocMemBlock
         mov edx, eax
         add esp, byte 0Ch
-        mov dword [dword_1CFC74], eax
-        mov dword [dword_1CFC80], eax
+        mov dword [AsyncRequests], eax
+        mov dword [AsyncFreeList], eax
         xor edx, eax
         test ebx, ebx
         jle short .2
@@ -56,30 +56,30 @@ AsyncInit:
 .2:
         mov ebx, 1
         mov ecx, 0FFFFFFFFh
-        mov ebp, dword [dword_1CFCC8]
+        mov ebp, dword [AsyncStreamFile]
         mov dword [dword eax+0A7h], 0
-        mov dword [dword_1CFC94], ebx
+        mov dword [AsyncState], ebx
         mov eax, esi
-        mov dword [dword_1CFC88], ecx
+        mov dword [AsyncQueueHead], ecx
         and eax, 0FFFF800h
-        mov dword [dword_1CFC8C], ecx
-        mov dword [dword_1CFC9C], eax
+        mov dword [AsyncQueueTail], ecx
+        mov dword [AsyncFileHandle], eax
         test ebp, ebp
         jne short .3
         mov eax, 0DAh
         mov edx, 12Ch
-        mov dword [dword_1CFCC8], eax
-        mov dword [dword_1CFCD0], edx
+        mov dword [AsyncStreamFile], eax
+        mov dword [AsyncStreamSize], edx
 .3:
-        mov edx, dword [dword_1CFCC8]
+        mov edx, dword [AsyncStreamFile]
         mov eax, esi
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
         xor ebx, ebx
         push AsyncTick
-        mov dword [dword_1CFCCC], eax
-        mov dword [dword_1CFCC4], ebx
+        mov dword [AsyncStreamBase], eax
+        mov dword [AsyncWaitTimer], ebx
         call addtimer
         add esp, byte 4
         pop ebp
@@ -96,7 +96,7 @@ AsyncClose:
         push edi
         push AsyncTick
         call RemoveTimerCallback
-        mov edx, dword [dword_1CFC8C]
+        mov edx, dword [AsyncQueueTail]
         add esp, byte 4
         test edx, edx
         jl short .1
@@ -104,14 +104,14 @@ AsyncClose:
         call CdCloseFile
         add esp, byte 4
 .1:
-        mov ecx, dword [dword_1CFC88]
+        mov ecx, dword [AsyncQueueHead]
         test ecx, ecx
         jl short .2
         push ecx
         call CdCloseFile
         add esp, byte 4
 .2:
-        mov edi, dword [dword_1CFC74]
+        mov edi, dword [AsyncRequests]
         push edi
         call FreeMemBlock
         add esp, byte 4
@@ -131,19 +131,19 @@ AsyncClose:
         mov dword [dword ecx+0A7h], 0
         mov eax, dword [byte esp+010h]
         mov dword [dword ecx+093h], 2
-        mov edx, dword [dword_1CFC7C]
+        mov edx, dword [AsyncCurOffset]
         mov dword [dword ecx+097h], eax
         test edx, edx
         je short .3
-        mov dword [dword_1CFC7C], ecx
+        mov dword [AsyncCurOffset], ecx
         mov dword [dword edx+0A7h], ecx
         mov eax, esi
         pop esi
         pop ebx
         ret
 .3:
-        mov dword [dword_1CFC7C], ecx
-        mov dword [dword_1CFC78], ecx
+        mov dword [AsyncCurOffset], ecx
+        mov dword [AsyncCurFile], ecx
         mov eax, esi
         pop esi
         pop ebx
@@ -163,19 +163,19 @@ AsyncClose:
         mov dword [dword ecx+0A7h], 0
         mov eax, dword [byte esp+010h]
         mov dword [dword ecx+093h], 4
-        mov edx, dword [dword_1CFC7C]
+        mov edx, dword [AsyncCurOffset]
         mov dword [dword ecx+09Fh], eax
         test edx, edx
         je short .4
-        mov dword [dword_1CFC7C], ecx
+        mov dword [AsyncCurOffset], ecx
         mov dword [dword edx+0A7h], ecx
         mov eax, esi
         pop esi
         pop ebx
         ret
 .4:
-        mov dword [dword_1CFC7C], ecx
-        mov dword [dword_1CFC78], ecx
+        mov dword [AsyncCurOffset], ecx
+        mov dword [AsyncCurFile], ecx
         mov eax, esi
         pop esi
         pop ebx
@@ -195,17 +195,17 @@ AsyncRequestOpen:
         mov dword [dword ecx+08Fh], 0FFFFFFFFh
         mov dword [dword ecx+093h], 3
         mov dword [dword ecx+0A3h], 0
-        mov edx, dword [dword_1CFC7C]
+        mov edx, dword [AsyncCurOffset]
         mov dword [dword ecx+0A7h], 0
         test edx, edx
         je short .1
-        mov dword [dword_1CFC7C], ecx
+        mov dword [AsyncCurOffset], ecx
         mov dword [dword edx+0A7h], ecx
         pop ebx
         ret
 .1:
-        mov dword [dword_1CFC7C], ecx
-        mov dword [dword_1CFC78], ecx
+        mov dword [AsyncCurOffset], ecx
+        mov dword [AsyncCurFile], ecx
         pop ebx
         ret
         push ebx
@@ -222,19 +222,19 @@ AsyncRequestOpen:
         mov dword [dword ecx+0A7h], 0
         mov dword [dword ecx+097h], eax
         mov eax, dword [byte esp+010h]
-        mov edx, dword [dword_1CFC7C]
+        mov edx, dword [AsyncCurOffset]
         mov dword [dword ecx+08Fh], eax
         test edx, edx
         je short .2
-        mov dword [dword_1CFC7C], ecx
+        mov dword [AsyncCurOffset], ecx
         mov dword [dword edx+0A7h], ecx
         mov eax, esi
         pop esi
         pop ebx
         ret
 .2:
-        mov dword [dword_1CFC7C], ecx
-        mov dword [dword_1CFC78], ecx
+        mov dword [AsyncCurOffset], ecx
+        mov dword [AsyncCurFile], ecx
         mov eax, esi
         pop esi
         pop ebx
@@ -258,18 +258,18 @@ AsyncRequestSection:
         mov ebx, dword [byte esp+010h]
         mov edx, eax
         mov dword [dword eax+09Bh], ebx
-        mov ebx, dword [dword_1CFC7C]
+        mov ebx, dword [AsyncCurOffset]
         mov dword [dword eax+0A7h], 0
         test ebx, ebx
         je short .1
-        mov dword [dword_1CFC7C], eax
+        mov dword [AsyncCurOffset], eax
         mov dword [dword ebx+0A7h], eax
         mov eax, edx
         pop ebx
         ret
 .1:
-        mov dword [dword_1CFC7C], eax
-        mov dword [dword_1CFC78], eax
+        mov dword [AsyncCurOffset], eax
+        mov dword [AsyncCurFile], eax
         mov eax, edx
         pop ebx
         ret
@@ -284,18 +284,18 @@ AsyncRequestSection:
         mov ebx, dword [byte esp+0Ch]
         mov edx, eax
         mov dword [dword eax+09Bh], ebx
-        mov ebx, dword [dword_1CFC7C]
+        mov ebx, dword [AsyncCurOffset]
         mov dword [dword eax+0A7h], 0
         test ebx, ebx
         je short .2
-        mov dword [dword_1CFC7C], eax
+        mov dword [AsyncCurOffset], eax
         mov dword [dword ebx+0A7h], eax
         mov eax, edx
         pop ebx
         ret
 .2:
-        mov dword [dword_1CFC7C], eax
-        mov dword [dword_1CFC78], eax
+        mov dword [AsyncCurOffset], eax
+        mov dword [AsyncCurFile], eax
         mov eax, edx
         pop ebx
         ret
@@ -325,41 +325,41 @@ AsyncStreamStep:
         push edi
         push ebp
         sub esp, 94h
-        cmp dword [dword_1CFCC4], byte 0
+        cmp dword [AsyncWaitTimer], byte 0
         jg near AsyncStreamStep_78F.42
 .1:
-        mov eax, dword [dword_1CFC94]
+        mov eax, dword [AsyncState]
         dec eax
         cmp eax, byte 3
         ja near AsyncStreamStep_78F.41
         jmp dword [nosplit cs:eax*4+jpt_109E64]
 AsyncStreamStep_2E:
         xor eax, eax
-        mov edx, dword [dword_1CFC78]
-        mov dword [dword_1CFCC4], eax
+        mov edx, dword [AsyncCurFile]
+        mov dword [AsyncWaitTimer], eax
         test edx, edx
         je near AsyncStreamStep_78F.42
         mov ebx, edx
         mov eax, dword [dword edx+0A7h]
-        mov dword [dword_1CFC84], edx
-        mov dword [dword_1CFC78], eax
+        mov dword [AsyncCurBuffer], edx
+        mov dword [AsyncCurFile], eax
         test eax, eax
         jne short .2
-        mov dword [dword_1CFC7C], eax
+        mov dword [AsyncCurOffset], eax
 .2:
         mov edi, dword [dword ebx+097h]
         cmp edi, byte 0FFFFFFFFh
         jne short .3
-        mov eax, dword [dword_1CFC80]
+        mov eax, dword [AsyncFreeList]
         mov dword [dword ebx+0A7h], eax
-        mov dword [dword_1CFC80], ebx
+        mov dword [AsyncFreeList], ebx
         jmp near AsyncStreamStep_78F.41
 .3:
         mov ebp, dword [dword ebx+093h]
         cmp ebp, byte 3
         jne near .8
-        mov eax, dword [dword_1CFC8C]
-        mov dword [dword_1CFC88], eax
+        mov eax, dword [AsyncQueueTail]
+        mov dword [AsyncQueueHead], eax
         test eax, eax
         jl short .4
         push eax
@@ -370,20 +370,20 @@ AsyncStreamStep_2E:
         call strcmp_
         test eax, eax
         je short .4
-        mov ecx, dword [dword_1CFC8C]
+        mov ecx, dword [AsyncQueueTail]
         push ecx
         mov esi, 0FFFFFFFFh
         call CdCloseFile
         add esp, byte 4
-        mov dword [dword_1CFC8C], esi
+        mov dword [AsyncQueueTail], esi
 .4:
-        cmp dword [dword_1CFC8C], byte 0
+        cmp dword [AsyncQueueTail], byte 0
         jge near .7
         lea eax, [dword esp+090h]
         push eax
-        push dword_1CFCA8
-        push dword_1CFCA4
-        push dword_1CFC88
+        push AsyncDosResult
+        push AsyncDosRegs
+        push AsyncQueueHead
         push ebx
         call CdOpenStream
         add esp, byte 14h
@@ -402,56 +402,56 @@ AsyncStreamStep_2E:
         add esp, byte 4
         test eax, eax
         je short .6
-        mov edx, dword [dword_1CFCDC]
+        mov edx, dword [AsyncStreamPos]
         test edx, edx
         je short .5
-        mov esi, dword [dword_1CFCE8]
-        mov eax, dword [dword_1CFC9C]
-        mov dword [dword_1CFCC8], edx
+        mov esi, dword [AsyncStreamEnd]
+        mov eax, dword [AsyncFileHandle]
+        mov dword [AsyncStreamFile], edx
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1CFCCC], eax
-        mov dword [dword_1CFCD0], esi
+        mov dword [AsyncStreamBase], eax
+        mov dword [AsyncStreamSize], esi
         jmp short .7
 .5:
         mov ecx, 0DAh
         mov esi, 12Ch
-        mov eax, dword [dword_1CFC9C]
+        mov eax, dword [AsyncFileHandle]
         mov edx, ecx
-        mov dword [dword_1CFCC8], ecx
+        mov dword [AsyncStreamFile], ecx
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1CFCCC], eax
-        mov dword [dword_1CFCD0], esi
+        mov dword [AsyncStreamBase], eax
+        mov dword [AsyncStreamSize], esi
         jmp short .7
 .6:
         mov ebp, 1
-        mov eax, dword [dword_1CFC9C]
+        mov eax, dword [AsyncFileHandle]
         mov edx, ebp
-        mov dword [dword_1CFCC8], ebp
+        mov dword [AsyncStreamFile], ebp
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1CFCCC], eax
+        mov dword [AsyncStreamBase], eax
         xor eax, eax
-        mov dword [dword_1CFCD0], eax
+        mov dword [AsyncStreamSize], eax
 .7:
-        mov eax, dword [dword_1CFC88]
-        mov dword [dword_1CFC8C], eax
-        mov eax, dword [dword_1CFC80]
+        mov eax, dword [AsyncQueueHead]
+        mov dword [AsyncQueueTail], eax
+        mov eax, dword [AsyncFreeList]
         mov dword [dword ebx+0A7h], eax
-        mov dword [dword_1CFC80], ebx
+        mov dword [AsyncFreeList], ebx
         jmp near AsyncStreamStep_78F.41
 .8:
         cmp ebp, byte 2
         jne near .14
         lea eax, [dword esp+090h]
         push eax
-        push dword_1CFCA8
-        push dword_1CFCA4
-        push dword_1CFC88
+        push AsyncDosResult
+        push AsyncDosRegs
+        push AsyncQueueHead
         push ebx
         call CdOpenStream
         add esp, byte 14h
@@ -470,71 +470,71 @@ AsyncStreamStep_2E:
         add esp, byte 4
         test eax, eax
         je short .10
-        mov edx, dword [dword_1CFCDC]
+        mov edx, dword [AsyncStreamPos]
         test edx, edx
         je short .9
-        mov esi, dword [dword_1CFCE8]
-        mov eax, dword [dword_1CFC9C]
-        mov dword [dword_1CFCC8], edx
+        mov esi, dword [AsyncStreamEnd]
+        mov eax, dword [AsyncFileHandle]
+        mov dword [AsyncStreamFile], edx
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1CFCCC], eax
-        mov dword [dword_1CFCD0], esi
+        mov dword [AsyncStreamBase], eax
+        mov dword [AsyncStreamSize], esi
         jmp short .11
 .9:
         mov ecx, 0DAh
         mov esi, 12Ch
-        mov eax, dword [dword_1CFC9C]
+        mov eax, dword [AsyncFileHandle]
         mov edx, ecx
-        mov dword [dword_1CFCC8], ecx
+        mov dword [AsyncStreamFile], ecx
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1CFCCC], eax
-        mov dword [dword_1CFCD0], esi
+        mov dword [AsyncStreamBase], eax
+        mov dword [AsyncStreamSize], esi
         jmp short .11
 .10:
         mov ebp, 1
-        mov eax, dword [dword_1CFC9C]
+        mov eax, dword [AsyncFileHandle]
         mov edx, ebp
-        mov dword [dword_1CFCC8], ebp
+        mov dword [AsyncStreamFile], ebp
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1CFCCC], eax
+        mov dword [AsyncStreamBase], eax
         xor eax, eax
-        mov dword [dword_1CFCD0], eax
+        mov dword [AsyncStreamSize], eax
 .11:
-        mov edi, dword [dword_1CFCA4]
+        mov edi, dword [AsyncDosRegs]
         test edi, edi
         je short .12
         push edi
-        mov edx, dword [dword_1CFC88]
+        mov edx, dword [AsyncQueueHead]
         push edx
         call CdSeek
         add esp, byte 8
-        mov dword [dword_1CFCB4], eax
+        mov dword [AsyncBytesLeft], eax
         jmp short .13
 .12:
-        mov dword [dword_1CFCB4], edi
+        mov dword [AsyncBytesLeft], edi
 .13:
         mov ecx, dword [dword ebx+097h]
         push ecx
-        mov esi, dword [dword_1CFCA8]
+        mov esi, dword [AsyncDosResult]
         push esi
         push ebx
         mov edi, 3
         call AllocMemBlockFixed
-        mov dword [dword_1CFCAC], eax
-        mov eax, dword [dword_1CFCA8]
+        mov dword [AsyncSector], eax
+        mov eax, dword [AsyncDosResult]
         add esp, byte 0Ch
-        mov dword [dword_1CFCA0], eax
-        mov eax, dword [dword_1CFCD0]
-        mov dword [dword_1CFC94], edi
-        mov dword [dword_1CFCC4], eax
+        mov dword [AsyncError], eax
+        mov eax, dword [AsyncStreamSize]
+        mov dword [AsyncState], edi
+        mov dword [AsyncWaitTimer], eax
         xor ebp, ebp
-        mov dword [dword_1CFCB8], ebp
+        mov dword [AsyncDest], ebp
         add esp, 94h
         pop ebp
         pop edi
@@ -544,25 +544,25 @@ AsyncStreamStep_2E:
 .14:
         cmp ebp, byte 1
         jne short .15
-        mov ecx, dword [dword_1CFCA4]
+        mov ecx, dword [AsyncDosRegs]
         mov eax, dword [dword ebx+08Fh]
         add eax, ecx
         push eax
-        mov esi, dword [dword_1CFC8C]
+        mov esi, dword [AsyncQueueTail]
         push esi
         call CdSeek
-        mov dword [dword_1CFCB4], eax
-        mov eax, dword [dword_1CFC8C]
+        mov dword [AsyncBytesLeft], eax
+        mov eax, dword [AsyncQueueTail]
         mov edi, 2
-        mov dword [dword_1CFC88], eax
-        mov eax, dword [dword_1CFCD0]
+        mov dword [AsyncQueueHead], eax
+        mov eax, dword [AsyncStreamSize]
         add esp, byte 8
-        mov dword [dword_1CFCC4], eax
+        mov dword [AsyncWaitTimer], eax
         mov eax, dword [dword ebx+097h]
-        mov dword [dword_1CFC94], edi
-        mov dword [dword_1CFC90], eax
+        mov dword [AsyncState], edi
+        mov dword [AsyncReadLength], eax
         xor ebp, ebp
-        mov dword [dword_1CFCB8], ebp
+        mov dword [AsyncDest], ebp
         add esp, 94h
         pop ebp
         pop edi
@@ -574,9 +574,9 @@ AsyncStreamStep_2E:
         jne near .21
         lea eax, [dword esp+090h]
         push eax
-        push dword_1CFCA8
-        push dword_1CFCA4
-        push dword_1CFC88
+        push AsyncDosResult
+        push AsyncDosRegs
+        push AsyncQueueHead
         push ebx
         call CdOpenStream
         add esp, byte 14h
@@ -595,67 +595,67 @@ AsyncStreamStep_2E:
         add esp, byte 4
         test eax, eax
         je short .17
-        mov eax, dword [dword_1CFCDC]
+        mov eax, dword [AsyncStreamPos]
         test eax, eax
         je short .16
         mov edx, eax
-        mov dword [dword_1CFCC8], eax
-        mov eax, dword [dword_1CFC9C]
-        mov esi, dword [dword_1CFCE8]
+        mov dword [AsyncStreamFile], eax
+        mov eax, dword [AsyncFileHandle]
+        mov esi, dword [AsyncStreamEnd]
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1CFCCC], eax
-        mov dword [dword_1CFCD0], esi
+        mov dword [AsyncStreamBase], eax
+        mov dword [AsyncStreamSize], esi
         jmp short .18
 .16:
         mov edx, 0DAh
         mov ecx, 12Ch
-        mov eax, dword [dword_1CFC9C]
-        mov dword [dword_1CFCC8], edx
+        mov eax, dword [AsyncFileHandle]
+        mov dword [AsyncStreamFile], edx
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1CFCCC], eax
-        mov dword [dword_1CFCD0], ecx
+        mov dword [AsyncStreamBase], eax
+        mov dword [AsyncStreamSize], ecx
         jmp short .18
 .17:
         mov edi, 1
-        mov eax, dword [dword_1CFC9C]
+        mov eax, dword [AsyncFileHandle]
         xor ebp, ebp
         mov edx, edi
-        mov dword [dword_1CFCC8], edi
+        mov dword [AsyncStreamFile], edi
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1CFCCC], eax
-        mov dword [dword_1CFCD0], ebp
+        mov dword [AsyncStreamBase], eax
+        mov dword [AsyncStreamSize], ebp
 .18:
-        mov esi, dword [dword_1CFCA4]
+        mov esi, dword [AsyncDosRegs]
         test esi, esi
         je short .19
         push esi
-        mov eax, dword [dword_1CFC88]
+        mov eax, dword [AsyncQueueHead]
         push eax
         call CdSeek
         add esp, byte 8
-        mov dword [dword_1CFCB4], eax
+        mov dword [AsyncBytesLeft], eax
         jmp short .20
 .19:
-        mov dword [dword_1CFCB4], esi
+        mov dword [AsyncBytesLeft], esi
 .20:
         mov eax, dword [dword ebx+09Fh]
-        mov dword [dword_1CFCB0], eax
-        mov eax, dword [dword_1CFCA8]
-        mov dword [dword_1CFCA0], eax
-        mov eax, dword [dword_1CFCD0]
+        mov dword [AsyncSectorCount], eax
+        mov eax, dword [AsyncDosResult]
+        mov dword [AsyncError], eax
+        mov eax, dword [AsyncStreamSize]
         mov edx, 4
-        mov dword [dword_1CFCC4], eax
+        mov dword [AsyncWaitTimer], eax
         mov eax, dword [dword ebx+097h]
-        mov dword [dword_1CFC94], edx
-        mov dword [dword_1CFC90], eax
+        mov dword [AsyncState], edx
+        mov dword [AsyncReadLength], eax
         xor ebp, ebp
-        mov dword [dword_1CFCB8], ebp
+        mov dword [AsyncDest], ebp
         add esp, 94h
         pop ebp
         pop edi
@@ -665,45 +665,45 @@ AsyncStreamStep_2E:
 .21:
         cmp ebp, byte 5
         jne short .22
-        mov edx, dword [dword_1CFCA4]
+        mov edx, dword [AsyncDosRegs]
         mov eax, dword [dword ebx+08Fh]
         add eax, edx
         push eax
-        mov ecx, dword [dword_1CFC8C]
+        mov ecx, dword [AsyncQueueTail]
         push ecx
         call CdSeek
-        mov dword [dword_1CFCB4], eax
+        mov dword [AsyncBytesLeft], eax
         mov eax, dword [dword ebx+09Fh]
-        mov dword [dword_1CFCB0], eax
-        mov eax, dword [dword_1CFC8C]
-        mov dword [dword_1CFC88], eax
-        mov eax, dword [dword_1CFCD0]
+        mov dword [AsyncSectorCount], eax
+        mov eax, dword [AsyncQueueTail]
+        mov dword [AsyncQueueHead], eax
+        mov eax, dword [AsyncStreamSize]
         mov esi, 4
-        mov dword [dword_1CFCC4], eax
+        mov dword [AsyncWaitTimer], eax
         mov eax, dword [dword ebx+097h]
         add esp, byte 8
-        mov dword [dword_1CFC90], eax
+        mov dword [AsyncReadLength], eax
         mov eax, dword [dword ebx+09Bh]
-        mov dword [dword_1CFC94], esi
+        mov dword [AsyncState], esi
         jmp short .23
 .22:
         cmp ebp, byte 6
         jne short .24
         mov eax, dword [dword ebx+09Fh]
-        mov dword [dword_1CFCB0], eax
-        mov eax, dword [dword_1CFC8C]
+        mov dword [AsyncSectorCount], eax
+        mov eax, dword [AsyncQueueTail]
         mov ebp, 4
-        mov dword [dword_1CFC88], eax
-        mov eax, dword [dword_1CFCD0]
-        mov dword [dword_1CFC90], edi
-        mov dword [dword_1CFCC4], eax
+        mov dword [AsyncQueueHead], eax
+        mov eax, dword [AsyncStreamSize]
+        mov dword [AsyncReadLength], edi
+        mov dword [AsyncWaitTimer], eax
         mov eax, dword [dword ebx+09Bh]
-        mov dword [dword_1CFC94], ebp
+        mov dword [AsyncState], ebp
 .23:
-        mov dword [dword_1CFCA0], eax
+        mov dword [AsyncError], eax
 .24:
         xor ebp, ebp
-        mov dword [dword_1CFCB8], ebp
+        mov dword [AsyncDest], ebp
         add esp, 94h
         pop ebp
         pop edi
@@ -711,230 +711,230 @@ AsyncStreamStep_2E:
         pop ebx
         ret
 AsyncStreamStep_57B:
-        mov eax, dword [dword_1CFC84]
+        mov eax, dword [AsyncCurBuffer]
         mov esi, dword [dword eax+097h]
         cmp esi, byte 0FFFFFFFFh
         jne short .25
-        mov edx, dword [dword_1CFC80]
-        mov dword [dword_1CFC88], esi
+        mov edx, dword [AsyncFreeList]
+        mov dword [AsyncQueueHead], esi
         mov dword [dword eax+0A7h], edx
         mov ebp, 1
-        mov dword [dword_1CFC80], eax
+        mov dword [AsyncFreeList], eax
         jmp near AsyncStreamStep_78F.40
 .25:
         push byte 8
-        push unk_1CFCBC
-        mov ebp, dword [dword_1CFC8C]
+        push AsyncSeekRegs
+        mov ebp, dword [AsyncQueueTail]
         xor edi, edi
         push ebp
-        mov dword [dword_1CFCD4], edi
+        mov dword [AsyncTickCount], edi
         call CdRead
-        mov eax, dword [dword_1CFCD4]
-        mov dword [dword_1CFCD8], eax
-        mov eax, dword [dword_1CFCC0]
+        mov eax, dword [AsyncTickCount]
+        mov dword [AsyncLastSector], eax
+        mov eax, dword [AsyncCallback]
         sub eax, byte 8
         add esp, byte 0Ch
-        mov dword [dword_1CFCA0], eax
-        mov eax, dword [dword_1CFC90]
+        mov dword [AsyncError], eax
+        mov eax, dword [AsyncReadLength]
         push eax
-        mov edx, dword [dword_1CFCA0]
+        mov edx, dword [AsyncError]
         push edx
-        mov ebx, dword [dword_1CFC84]
+        mov ebx, dword [AsyncCurBuffer]
         push ebx
         mov esi, 3
         call AllocMemBlockFixed
         add esp, byte 0Ch
-        mov dword [dword_1CFCAC], eax
-        mov dword [dword_1CFCB8], edi
-        mov dword [dword_1CFC94], esi
+        mov dword [AsyncSector], eax
+        mov dword [AsyncDest], edi
+        mov dword [AsyncState], esi
 AsyncStreamStep_613:
-        cmp dword [dword_1CFCA0], byte 0
+        cmp dword [AsyncError], byte 0
         jle near .30
-        mov ebx, dword [dword_1CFC84]
+        mov ebx, dword [AsyncCurBuffer]
         cmp dword [dword ebx+097h], byte 0FFFFFFFFh
         jne short .27
         cmp dword [dword ebx+093h], byte 2
         jne short .26
-        mov esi, dword [dword_1CFC88]
+        mov esi, dword [AsyncQueueHead]
         push esi
         call CdCloseFile
         add esp, byte 4
 .26:
-        mov ebp, dword [dword_1CFCAC]
+        mov ebp, dword [AsyncSector]
         mov edi, 0FFFFFFFFh
         push ebp
-        mov dword [dword_1CFC88], edi
+        mov dword [AsyncQueueHead], edi
         call UnlinkMemBlockLocked
-        mov eax, dword [dword_1CFC84]
-        mov edx, dword [dword_1CFC80]
+        mov eax, dword [AsyncCurBuffer]
+        mov edx, dword [AsyncFreeList]
         mov dword [dword eax+0A7h], edx
-        mov dword [dword_1CFC80], eax
+        mov dword [AsyncFreeList], eax
         mov eax, 1
         add esp, byte 4
-        mov dword [dword_1CFC94], eax
+        mov dword [AsyncState], eax
         jmp near .30
 .27:
-        mov eax, dword [dword_1CFCAC]
-        mov edx, dword [dword_1CFCB8]
+        mov eax, dword [AsyncSector]
+        mov edx, dword [AsyncDest]
         mov eax, dword [eax]
-        mov ebx, dword [dword_1CFCB4]
+        mov ebx, dword [AsyncBytesLeft]
         add edx, eax
-        mov eax, dword [dword_1CFCA0]
-        mov ecx, dword [dword_1CFC9C]
+        mov eax, dword [AsyncError]
+        mov ecx, dword [AsyncFileHandle]
         add eax, ebx
-        mov esi, dword [dword_1CFCC4]
+        mov esi, dword [AsyncWaitTimer]
         cmp eax, ecx
         jle short .28
-        mov edi, dword [dword_1CFCB4]
+        mov edi, dword [AsyncBytesLeft]
         mov ebx, ecx
         sub ebx, edi
         jmp short .29
 .28:
-        mov ebx, dword [dword_1CFCA0]
+        mov ebx, dword [AsyncError]
 .29:
         push ebx
         push edx
-        mov edx, dword [dword_1CFC88]
+        mov edx, dword [AsyncQueueHead]
         xor ebp, ebp
         push edx
-        mov dword [dword_1CFCB4], ebp
-        mov dword [dword_1CFCD4], ebp
+        mov dword [AsyncBytesLeft], ebp
+        mov dword [AsyncTickCount], ebp
         call CdRead
-        mov eax, dword [dword_1CFCD4]
-        mov ecx, dword [dword_1CFCE0]
-        mov edi, dword [dword_1CFCE4]
-        mov ebp, dword [dword_1CFCB8]
+        mov eax, dword [AsyncTickCount]
+        mov ecx, dword [AsyncChunkSize]
+        mov edi, dword [AsyncChunkDest]
+        mov ebp, dword [AsyncDest]
         add esp, byte 0Ch
-        mov dword [dword_1CFCC4], esi
+        mov dword [AsyncWaitTimer], esi
         add ecx, eax
         add edi, ebx
         add ebp, ebx
-        mov eax, dword [dword_1CFCCC]
-        mov dword [dword_1CFCE0], ecx
-        mov dword [dword_1CFCE4], edi
+        mov eax, dword [AsyncStreamBase]
+        mov dword [AsyncChunkSize], ecx
+        mov dword [AsyncChunkDest], edi
         add esi, eax
-        mov eax, dword [dword_1CFCA0]
-        mov dword [dword_1CFCB8], ebp
+        mov eax, dword [AsyncError]
+        mov dword [AsyncDest], ebp
         sub eax, ebx
-        mov dword [dword_1CFCC4], esi
-        mov dword [dword_1CFCA0], eax
+        mov dword [AsyncWaitTimer], esi
+        mov dword [AsyncError], eax
         test esi, esi
         jle near AsyncStreamStep_613
         test eax, eax
         jg near AsyncStreamStep_78F.42
         jmp near AsyncStreamStep_613
 .30:
-        mov eax, dword [dword_1CFC84]
+        mov eax, dword [AsyncCurBuffer]
         cmp dword [dword eax+093h], byte 2
         jne short .31
-        mov ebx, dword [dword_1CFC88]
+        mov ebx, dword [AsyncQueueHead]
         push ebx
         call CdCloseFile
         add esp, byte 4
 .31:
         mov ecx, 0FFFFFFFFh
         mov esi, 1
-        mov edx, dword [dword_1CFC84]
-        mov eax, dword [dword_1CFCAC]
-        mov dword [dword_1CFC88], ecx
+        mov edx, dword [AsyncCurBuffer]
+        mov eax, dword [AsyncSector]
+        mov dword [AsyncQueueHead], ecx
         mov dword [dword edx+0A3h], eax
-        mov dword [dword_1CFC94], esi
+        mov dword [AsyncState], esi
         jmp near AsyncStreamStep_78F.41
 AsyncStreamStep_78F:
-        cmp dword [dword_1CFCA0], byte 0
+        cmp dword [AsyncError], byte 0
         jle near .38
 .32:
-        mov ebx, dword [dword_1CFC84]
+        mov ebx, dword [AsyncCurBuffer]
         cmp dword [dword ebx+097h], byte 0FFFFFFFFh
         jne short .34
         cmp dword [dword ebx+093h], byte 4
         jne short .33
-        mov eax, dword [dword_1CFC88]
+        mov eax, dword [AsyncQueueHead]
         push eax
         call CdCloseFile
         add esp, byte 4
 .33:
         mov edx, 0FFFFFFFFh
-        mov eax, dword [dword_1CFC84]
-        mov dword [dword_1CFC88], edx
-        mov edx, dword [dword_1CFC80]
+        mov eax, dword [AsyncCurBuffer]
+        mov dword [AsyncQueueHead], edx
+        mov edx, dword [AsyncFreeList]
         mov dword [dword eax+0A7h], edx
         mov ebx, 1
-        mov dword [dword_1CFC80], eax
-        mov dword [dword_1CFC94], ebx
+        mov dword [AsyncFreeList], eax
+        mov dword [AsyncState], ebx
         jmp near .38
 .34:
-        mov eax, dword [dword_1CFCB0]
-        mov edx, dword [dword_1CFCB8]
-        mov ebx, dword [dword_1CFCB4]
+        mov eax, dword [AsyncSectorCount]
+        mov edx, dword [AsyncDest]
+        mov ebx, dword [AsyncBytesLeft]
         add edx, eax
-        mov eax, dword [dword_1CFCA0]
-        mov ecx, dword [dword_1CFC9C]
+        mov eax, dword [AsyncError]
+        mov ecx, dword [AsyncFileHandle]
         add eax, ebx
-        mov esi, dword [dword_1CFCC4]
+        mov esi, dword [AsyncWaitTimer]
         cmp eax, ecx
         jl short .35
-        mov ebp, dword [dword_1CFCB4]
+        mov ebp, dword [AsyncBytesLeft]
         xor eax, eax
         mov ebx, ecx
-        mov dword [dword_1CFCB4], eax
+        mov dword [AsyncBytesLeft], eax
         sub ebx, ebp
         jmp short .36
 .35:
-        mov ebx, dword [dword_1CFCA0]
-        add dword [dword_1CFCB4], ebx
+        mov ebx, dword [AsyncError]
+        add dword [AsyncBytesLeft], ebx
 .36:
         push ebx
         push edx
-        mov edi, dword [dword_1CFC88]
+        mov edi, dword [AsyncQueueHead]
         xor ecx, ecx
         push edi
-        mov dword [dword_1CFCD4], ecx
+        mov dword [AsyncTickCount], ecx
         call CdRead
-        mov eax, dword [dword_1CFCD4]
-        mov ebp, dword [dword_1CFCE0]
-        mov edx, dword [dword_1CFCB8]
-        mov ecx, dword [dword_1CFCA0]
+        mov eax, dword [AsyncTickCount]
+        mov ebp, dword [AsyncChunkSize]
+        mov edx, dword [AsyncDest]
+        mov ecx, dword [AsyncError]
         add esp, byte 0Ch
-        mov dword [dword_1CFCC4], esi
+        mov dword [AsyncWaitTimer], esi
         add ebp, eax
         add edx, ebx
-        mov eax, dword [dword_1CFCE4]
+        mov eax, dword [AsyncChunkDest]
         sub ecx, ebx
         add eax, ebx
-        mov dword [dword_1CFCE0], ebp
-        mov dword [dword_1CFCE4], eax
-        mov eax, dword [dword_1CFCCC]
-        mov dword [dword_1CFCB8], edx
+        mov dword [AsyncChunkSize], ebp
+        mov dword [AsyncChunkDest], eax
+        mov eax, dword [AsyncStreamBase]
+        mov dword [AsyncDest], edx
         add esi, eax
-        mov dword [dword_1CFCA0], ecx
-        mov dword [dword_1CFCC4], esi
+        mov dword [AsyncError], ecx
+        mov dword [AsyncWaitTimer], esi
         test esi, esi
         jle short .37
         test ecx, ecx
         jg short .42
 .37:
-        cmp dword [dword_1CFCA0], byte 0
+        cmp dword [AsyncError], byte 0
         jg near .32
 .38:
-        mov eax, dword [dword_1CFC84]
+        mov eax, dword [AsyncCurBuffer]
         cmp dword [dword eax+093h], byte 4
         jne short .39
-        mov esi, dword [dword_1CFC88]
+        mov esi, dword [AsyncQueueHead]
         push esi
         call CdCloseFile
         add esp, byte 4
 .39:
         mov edi, 0FFFFFFFFh
         mov ebp, 1
-        mov edx, dword [dword_1CFC84]
-        mov eax, dword [dword_1CFCB0]
-        mov dword [dword_1CFC88], edi
+        mov edx, dword [AsyncCurBuffer]
+        mov eax, dword [AsyncSectorCount]
+        mov dword [AsyncQueueHead], edi
         mov dword [dword edx+0A3h], eax
 .40:
-        mov dword [dword_1CFC94], ebp
+        mov dword [AsyncState], ebp
 .41:
-        cmp dword [dword_1CFCC4], byte 0
+        cmp dword [AsyncWaitTimer], byte 0
         jle near AsyncStreamStep.1
 .42:
         add esp, 94h
@@ -951,12 +951,12 @@ AsyncStreamStep_78F:
 AsyncTick:
         push ebx
         push edx
-        mov edx, dword [dword_1CFCC4]
-        mov ebx, dword [dword_1CFCD4]
+        mov edx, dword [AsyncWaitTimer]
+        mov ebx, dword [AsyncTickCount]
         sub edx, byte 0Ah
         inc ebx
-        mov dword [dword_1CFCC4], edx
-        mov dword [dword_1CFCD4], ebx
+        mov dword [AsyncWaitTimer], edx
+        mov dword [AsyncTickCount], ebx
         pop edx
         pop ebx
         ret
@@ -966,8 +966,8 @@ AsyncTick:
         mov eax, dword [dword ebx+0A3h]
         test eax, eax
         je short .1
-        mov edx, dword [dword_1CFC80]
-        mov dword [dword_1CFC80], ebx
+        mov edx, dword [AsyncFreeList]
+        mov dword [AsyncFreeList], ebx
         mov dword [dword ebx+0A7h], edx
 .1:
         pop ebx
@@ -983,8 +983,8 @@ AsyncFreeRequest:
         mov eax, dword [dword edx+0A3h]
         test eax, eax
         je short .1
-        mov eax, dword [dword_1CFC80]
-        mov dword [dword_1CFC80], edx
+        mov eax, dword [AsyncFreeList]
+        mov dword [AsyncFreeList], edx
         mov dword [dword edx+0A7h], eax
         mov eax, 1
 .1:
@@ -993,7 +993,7 @@ AsyncFreeRequest:
         push ebx
         mov eax, dword [byte esp+08h]
         mov ebx, dword [byte esp+0Ch]
-        mov dword [dword_1CFC80], eax
+        mov dword [AsyncFreeList], eax
         dec ebx
         xor edx, edx
         test ebx, ebx
@@ -1010,8 +1010,8 @@ AsyncFreeRequest:
         pop ebx
         ret
         mov edx, dword [byte esp+04h]
-        mov eax, dword [dword_1CFC80]
-        mov dword [dword_1CFC80], edx
+        mov eax, dword [AsyncFreeList]
+        mov dword [AsyncFreeList], edx
         mov dword [dword edx+0A7h], eax
         ret
         db 08Bh,0C0h
@@ -1020,9 +1020,9 @@ AsyncFreeRequest:
 ; Takes the next request off the async free list
 ;-----------------------------------------------------------------------------
 AsyncPopRequest:
-        mov eax, dword [dword_1CFC80]
+        mov eax, dword [AsyncFreeList]
         mov edx, dword [dword eax+0A7h]
-        mov dword [dword_1CFC80], edx
+        mov dword [AsyncFreeList], edx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------

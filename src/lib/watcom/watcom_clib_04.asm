@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_FC330 progbits alloc exec nowrite align=1
-extern str_BigfileBuf, byte_16E504, byte_16E688, byte_170124, dword_16E500, dword_17014C, dword_170150, dword_170154
-extern dword_170158, dword_1DA4D0, str_Viv, ArchiveEntryOffsetAt, AllocMemBlock, FreeMemBlock, unk_1DA4CC
+extern str_BigfileBuf, byte_16E504, byte_16E688, ResourceArchiveName, dword_16E500, ResourceArchive, ResourceLookupFn, ResourceArchiveSize
+extern ResourceArchiveData, dword_1DA4D0, str_Viv, ArchiveEntryOffsetAt, AllocMemBlock, FreeMemBlock, unk_1DA4CC
 global OpenResourceArchive, CurrentArchiveName, FindNearestColor, MatchColor, MakeColor
 ;-----------------------------------------------------------------------------
 ; OpenResourceArchive                             FC330  97 PC, low confidence
@@ -17,8 +17,8 @@ OpenResourceArchive:
         push ebp
         mov esi, dword [byte esp+014h]
         mov edx, ArchiveEntryOffsetAt
-        mov ebx, dword [dword_17014C]
-        mov dword [dword_170150], edx
+        mov ebx, dword [ResourceArchive]
+        mov dword [ResourceLookupFn], edx
         test ebx, ebx
         je short .1
         push ebx
@@ -27,22 +27,22 @@ OpenResourceArchive:
 .1:
         xor edi, edi
         xor ah, ah
-        mov dword [dword_17014C], edi
-        mov byte [byte_170124], ah
+        mov dword [ResourceArchive], edi
+        mov byte [ResourceArchiveName], ah
         test esi, esi
         je near .9
         push byte 20h
         push dword 5DC0h
         push str_BigfileBuf
         mov ebp, unk_1DA4CC
-        mov edi, byte_170124
+        mov edi, ResourceArchiveName
         call AllocMemBlock
         mov edx, 5DC0h
         add esp, byte 0Ch
-        mov dword [dword_17014C], eax
-        mov dword [dword_170154], ebp
+        mov dword [ResourceArchive], eax
+        mov dword [ResourceArchiveSize], ebp
         mov byte [eax], 0
-        mov dword [dword_170158], edx
+        mov dword [ResourceArchiveData], edx
         push edi
 .2:
         mov al, byte [esi]
@@ -98,7 +98,7 @@ OpenResourceArchive:
 .8:
         pop edi
 .9:
-        mov eax, byte_170124
+        mov eax, ResourceArchiveName
         pop ebp
         pop edi
         pop esi
@@ -109,7 +109,7 @@ OpenResourceArchive:
 ; Returns the name of the open resource archive
 ;-----------------------------------------------------------------------------
 CurrentArchiveName:
-        mov eax, byte_170124
+        mov eax, ResourceArchiveName
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------

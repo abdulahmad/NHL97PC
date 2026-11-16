@@ -8,9 +8,9 @@ extern str_Punct_FreeArtArchive, byte_172250, byte_172251, byte_1DA8CF, dword_16
 extern dword_16E4C8, dword_1702CC, str_Punct_CountFrameTick, dword_17213C, dword_172168, dword_172194, dword_172198, str_D_NetHandleMessage
 extern dword_1721A0, str_Punct_NetLeaveGame, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4, dword_1721E0, dword_1721E4
 extern dword_172244, str_Punct_IpxHookCheck, dword_17224C, dword_172254, dword_172258, dword_17225C, dword_172260, dword_1722BC
-extern dword_1CF528, dword_1CF52C, dword_1CF548, dword_1DA3B4, dword_1DA3CC, dword_1DA3E0, dword_1DA3E4, dword_1DA3E8
-extern dword_1DA3EC, dword_1DA3F0, dword_1DA3F4, dword_1DA3F8, dword_1DA3FC, dword_1DA400, dword_1DA404, dword_1DA408
-extern dword_1DA40C, dword_1DA410, dword_1DA414, dword_1DA4D0, fgetc_, int386_, off_172140, off_17216C
+extern TextOriginX, TextOriginY, LinkTextFont, NetLocalName, NetPollState, NetSendFn, NetDisconnectFn, NetOpenFn
+extern NetLeaveFn, NetJoinFn, NetAnnounceFn, NetLinkOpenFn, NetListStartFn, NetListNextFn, NetDropFn, NetPeerSendFn
+extern NetNameFn, NetCloseFn, NetPeerDropFn, dword_1DA4D0, fgetc_, int386_, off_172140, off_17216C
 extern off_1721B8, putchar, sprintf_, strncmp_, strncpy_, bcopy, QueueInit, QueueNoOp
 extern QueuePeek, QueueTakeTail, QueueTakeHead, QueueFreeAll, QueueCount, QueueFind, QueueAppend, QueuePostBuffer
 extern AddExitHandler, ConvertArtSame, AngleFromDelta, SerialConfigure, SerialOpen, SerialIsOpen, SerialSetBaud, SerialProgramUart
@@ -18,8 +18,8 @@ extern SerialCarrier, SerialWriteIfRoom, SerialWrite, SerialRxCount, SerialTxFre
 extern FillShadowRect, ErrnoPtr, StoreBigEndian, SinCosLookup, DrawShapeTriangleMapped, ScanFormat, OpenPacketLink, ModemReset
 extern ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemSpeakerOff, AddIdleHandler, RemoveIdleHandler, RunIdleHandlers
 extern AllocMemBlock, AllocMemData, FreeMemBlock, ZeroMem, FillMem, addtimer, RemoveTimerCallback, WaitTicks
-extern str_Punct_ModemLinkOpen, unk_172264, unk_17226C, unk_172274, unk_1DA3C4, unk_1DA418, unk_1DA448, unk_1DA464
-extern unk_1DA466, unk_1DA468, unk_1DA498, unk_1DA4A4, unlink_, word_1DA4A6, word_1DA4A8, word_1DA4AA
+extern str_Punct_ModemLinkOpen, unk_172264, unk_17226C, unk_172274, NetMessageBuf, IpxTargetAddr, IpxRealRegs, IpxSocketNum
+extern IpxSocketResult, IpxLocalAddr, unk_1DA498, unk_1DA4A4, unlink_, word_1DA4A6, word_1DA4A8, word_1DA4AA
 extern word_1DA4AC, word_1DA4AE, word_1DA4B0, word_1DA4B2
 global byteswap_, cget_string_, fgets_, fprintf_, fputc_, fwrite_, int386x_, med3__4F
 global NetPollMessages_168, NetPollMessages_184, IpxResolveTarget_8C, med3_, memcmp_, memmove_, qsort_, segread_
@@ -3370,7 +3370,7 @@ NetPollMessages_168:
         push byte 1
         db 068h                                 ; insn: push 10D118h
         dd NetPollMessages
-        push unk_1DA3C4
+        push NetMessageBuf
         call QueuePostBuffer
         add esp, byte 0Ch
         pop edx
@@ -3381,18 +3381,18 @@ NetPollMessages_184:
         push ecx
         push edx
 .9:
-        push unk_1DA3C4
+        push NetMessageBuf
         call QueueCount
         add esp, byte 4
         test eax, eax
         je short .10
-        mov edx, dword [dword_1DA3CC]
+        mov edx, dword [NetPollState]
         push edx
         call NetCloseSession
         add esp, byte 4
         jmp short .9
 .10:
-        push unk_1DA3C4
+        push NetMessageBuf
         call QueueNoOp
         add esp, byte 4
         pop edx
@@ -3416,7 +3416,7 @@ NetCopyName:
         jle short .3
         xor ebx, ebx
 .1:
-        mov ecx, dword [dword ebx+dword_1DA3B4]
+        mov ecx, dword [dword ebx+NetLocalName]
         mov edx, esp
         lea eax, [byte esp+04h]
         call dword [byte ecx+014h]
@@ -3425,7 +3425,7 @@ NetCopyName:
         mov edi, dword [esp]
         push edi
         mov ebp, dword [byte esp+08h]
-        mov eax, dword [dword ebx+dword_1DA3B4]
+        mov eax, dword [dword ebx+NetLocalName]
         push ebp
         mov edx, dword [eax]
         push edx
@@ -3442,7 +3442,7 @@ NetCopyName:
         cmp esi, ecx
         jl short .1
 .3:
-        cmp dword [dword_1DA40C], byte 0
+        cmp dword [NetNameFn], byte 0
         je short .4
         mov ecx, dword [byte esp+028h]
         push ecx
@@ -3452,7 +3452,7 @@ NetCopyName:
         push edi
         mov ebp, dword [byte esp+028h]
         push ebp
-        call dword [dword_1DA40C]
+        call dword [NetNameFn]
         add esp, byte 10h
         jmp short .5
 .4:
@@ -3482,7 +3482,7 @@ NetOpenSession:
         jne short .2
         push ebp
         push ebp
-        push unk_1DA3C4
+        push NetMessageBuf
         call QueueInit
         add esp, byte 0Ch
         db 068h                                 ; insn: push 10D29Ch
@@ -3503,7 +3503,7 @@ NetOpenSession:
         mov dword [dword_1721E0], 1
 .2:
         push edi
-        push unk_1DA3C4
+        push NetMessageBuf
         call QueueFind
         add esp, byte 8
         cmp eax, byte 0FFFFFFFFh
@@ -3515,7 +3515,7 @@ NetOpenSession:
         push dword 0C0h
         push edi
         call ZeroMem
-        mov eax, dword [dword_1DA3E8]
+        mov eax, dword [NetOpenFn]
         add esp, byte 8
         test eax, eax
         je short .4
@@ -3527,7 +3527,7 @@ NetOpenSession:
         mov ecx, dword [byte esp+024h]
         push ecx
         push edi
-        call dword [dword_1DA3E8]
+        call dword [NetOpenFn]
         add esp, byte 14h
         test eax, eax
         je short .4
@@ -3540,7 +3540,7 @@ NetOpenSession:
         jle short .6
         xor ecx, ecx
 .5:
-        mov eax, dword [dword ecx+dword_1DA3B4]
+        mov eax, dword [dword ecx+NetLocalName]
         mov edx, esi
         add eax, byte 4
         call SameNetAddress
@@ -3554,7 +3554,7 @@ NetOpenSession:
 .6:
         cmp ebx, dword [dword_172194]
         jge short .8
-        mov eax, dword [nosplit ebx*4+dword_1DA3B4]
+        mov eax, dword [nosplit ebx*4+NetLocalName]
         mov dword [byte edi+08h], eax
         call dword [byte eax+018h]
         mov ebp, eax
@@ -3594,7 +3594,7 @@ NetOpenSession:
         mov edx, dword [byte esp+024h]
         lea eax, [byte edi+070h]
         call strncpy_
-        push unk_1DA3C4
+        push NetMessageBuf
         call QueueCount
         add esp, byte 4
         test eax, eax
@@ -3605,7 +3605,7 @@ NetOpenSession:
         add esp, byte 4
 .9:
         push edi
-        push unk_1DA3C4
+        push NetMessageBuf
         call QueuePeek
         add esp, byte 8
 .10:
@@ -3626,7 +3626,7 @@ NetCloseSession:
         push ebp
         mov ebx, dword [byte esp+014h]
         push ebx
-        push unk_1DA3C4
+        push NetMessageBuf
         xor esi, esi
         call QueueFind
         add esp, byte 8
@@ -3635,7 +3635,7 @@ NetCloseSession:
         cmp dword [byte ebx+04h], byte 0
         je short .1
         push ebx
-        call dword [dword_1DA410]
+        call dword [NetCloseFn]
         add esp, byte 4
         jmp short .6
 .1:
@@ -3669,10 +3669,10 @@ NetCloseSession:
 .6:
         mov esi, eax
         push ebx
-        push unk_1DA3C4
+        push NetMessageBuf
         call QueueFreeAll
         add esp, byte 8
-        push unk_1DA3C4
+        push NetMessageBuf
         call QueueCount
         add esp, byte 4
         test eax, eax
@@ -3708,7 +3708,7 @@ NetAnnounce:
         mov ebp, dword [byte esp+064h]
         push ebp
         push ebx
-        call dword [dword_1DA3F4]
+        call dword [NetAnnounceFn]
         add esp, byte 0Ch
         jmp near .6
 .1:
@@ -3786,7 +3786,7 @@ NetJoinGame:
         push edi
         push ebx
         push ebp
-        call dword [dword_1DA3F0]
+        call dword [NetJoinFn]
         add esp, byte 0Ch
         jmp near .6
 .1:
@@ -3882,7 +3882,7 @@ NetLeaveGame:
         push eax
         push esi
         push ebp
-        call dword [dword_1DA3EC]
+        call dword [NetLeaveFn]
         add esp, byte 10h
         jmp near .8
 .1:
@@ -3991,7 +3991,7 @@ NetListGames:
         mov eax, dword [byte esp+014h]
         push eax
         push ebx
-        call dword [dword_1DA400]
+        call dword [NetListNextFn]
         add esp, byte 8
         pop ebp
         pop esi
@@ -4042,7 +4042,7 @@ NetListGames:
         cmp dword [byte esi+04h], byte 0
         je short .5
         push esi
-        call dword [dword_1DA3FC]
+        call dword [NetListStartFn]
         add esp, byte 4
         jmp near .10
 .5:
@@ -4108,7 +4108,7 @@ NetDisconnectPeer:
         sub esp, byte 8
         mov esi, dword [byte esp+01Ch]
         push esi
-        push unk_1DA3C4
+        push NetMessageBuf
         call QueueFind
         add esp, byte 8
         cmp eax, byte 0FFFFFFFFh
@@ -4117,7 +4117,7 @@ NetDisconnectPeer:
         test edx, edx
         je short .1
         push esi
-        call dword [dword_1DA414]
+        call dword [NetPeerDropFn]
         add esp, byte 4
         jmp near .10
 .1:
@@ -4215,7 +4215,7 @@ NetDisconnectPeer:
         push edi
         push eax
         push ebp
-        call dword [dword_1DA404]
+        call dword [NetDropFn]
         add esp, byte 0Ch
         mov dword [dword esp+088h], eax
         jmp near .22
@@ -4400,7 +4400,7 @@ NetDisconnectPeer:
         je short .24
         push edx
         push esi
-        call dword [dword_1DA3E4]
+        call dword [NetDisconnectFn]
         add esp, byte 8
         jmp short .26
 .24:
@@ -4469,7 +4469,7 @@ OpenNetPacketLink:
         mov esi, dword [byte esp+024h]
         push esi
         push eax
-        call dword [dword_1DA3F8]
+        call dword [NetLinkOpenFn]
         add esp, byte 14h
         pop ebp
         pop edi
@@ -4509,7 +4509,7 @@ NetPeerSend:
         push ebx
         push edx
         push eax
-        call dword [dword_1DA408]
+        call dword [NetPeerSendFn]
         add esp, byte 0Ch
         pop ebx
         ret
@@ -4529,7 +4529,7 @@ NetPeerSend:
         push ebx
         push esi
         push eax
-        call dword [dword_1DA3E0]
+        call dword [NetSendFn]
         add esp, byte 0Ch
         pop esi
         pop ebx
@@ -5195,7 +5195,7 @@ IpxSetupPacket:
         add esp, byte 0Ch
         push byte 2
         push esi
-        push unk_1DA464
+        push IpxSocketNum
         call StoreBigEndian
         add esp, byte 0Ch
         push byte 6
@@ -5213,7 +5213,7 @@ IpxSetupPacket:
         push byte 42h
         lea eax, [byte ebx+050h]
         push eax
-        push unk_1DA464
+        push IpxSocketNum
         call bcopy
         add esp, byte 0Ch
         push byte 0Ch
@@ -5253,7 +5253,7 @@ IpxResolveTarget:
         mov esi, eax
         mov edi, edx
         mov ebx, 30h
-        mov eax, unk_1DA418
+        mov eax, IpxTargetAddr
         add edx, byte 2
         call strncmp_
         test eax, eax
@@ -5279,7 +5279,7 @@ IpxResolveTarget:
         call IpxLookupTarget
         test eax, eax
         je short .1
-        mov edi, unk_1DA418
+        mov edi, IpxTargetAddr
         mov ebx, 0EA737276h
         sub ecx, ecx
         dec ecx
@@ -5291,7 +5291,7 @@ IpxResolveTarget:
         mov edx, esp
         push ecx
         mov eax, esi
-        mov ecx, unk_1DA418
+        mov ecx, IpxTargetAddr
         call IpxQueueSend
 .1:
         add esp, byte 14h
@@ -5710,7 +5710,7 @@ IpxPostListen:
         push byte 0
         db 068h                                 ; insn: push 10E688h
         dd IpxSendPacket
-        push unk_1DA448
+        push IpxRealRegs
         call QueuePostBuffer
         add esp, byte 0Ch
         xor eax, eax
@@ -5825,7 +5825,7 @@ IpxHookCheck:
         add esp, byte 8
         push byte 0
         push byte 0
-        push unk_1DA448
+        push IpxRealRegs
         call QueueInit
         mov eax, dword [dword_17224C]
         add eax, 1EFh
@@ -5973,7 +5973,7 @@ IpxRestoreVector:
         sub esp, byte 1Ch
         cmp dword [dword_17224C], byte 0
         je near .5
-        mov ebx, unk_1DA448
+        mov ebx, IpxRealRegs
 .1:
         push ebx
         call QueueCount
@@ -5986,7 +5986,7 @@ IpxRestoreVector:
         call IpxShutdown
         jmp short .1
 .2:
-        push unk_1DA448
+        push IpxRealRegs
         lea ebx, [byte esp+04h]
         call QueueNoOp
         mov al, byte [str_Punct_IpxHookCheck]
@@ -6131,7 +6131,7 @@ IpxSetupLayer:
         add esp, byte 8
         cmp edi, ebx
         jne short .6
-        push unk_1DA448
+        push IpxRealRegs
         call QueueCount
         add esp, byte 4
         test eax, eax
@@ -6144,7 +6144,7 @@ IpxSetupLayer:
         add esp, byte 0Ch
 .7:
         push esi
-        push unk_1DA448
+        push IpxRealRegs
         call QueuePeek
         add esp, byte 8
         cmp dword [esp], byte 0
@@ -6249,10 +6249,10 @@ IpxShutdown:
         lea eax, [byte ebx+04h]
         call IpxCloseSocketCall
         push ebx
-        push unk_1DA448
+        push IpxRealRegs
         call QueueFreeAll
         add esp, byte 8
-        push unk_1DA448
+        push IpxRealRegs
         call QueueCount
         add esp, byte 4
         test eax, eax
@@ -6342,7 +6342,7 @@ IpxStart:
         mov dword [dword_172260], ecx
         test eax, eax
         je short .4
-        mov edi, unk_1DA468
+        mov edi, IpxLocalAddr
         mov byte [byte eax+07h], 30h
         push edi
 .2:
@@ -6365,7 +6365,7 @@ IpxStart:
         add esp, byte 0Ch
         push byte 2
         push dword 8BEh
-        push unk_1DA466
+        push IpxSocketResult
         call StoreBigEndian
         add esp, byte 0Ch
         push byte 0Ch
@@ -6490,7 +6490,7 @@ IpxBuildHeader:
         mov ebx, 30h
         call QueueTakeTail
         add esp, byte 8
-        mov eax, unk_1DA418
+        mov eax, IpxTargetAddr
         mov edx, ebp
         call strncpy_
         mov eax, 1
@@ -7019,7 +7019,7 @@ IpxLinkStartup:
         test eax, eax
         je short .2
         mov eax, dword [dword_172194]
-        mov dword [nosplit eax*4+dword_1DA3B4], dword_1721E4
+        mov dword [nosplit eax*4+NetLocalName], dword_1721E4
         add eax, ecx
         mov dword [dword_172194], eax
         test ebx, ebx
@@ -7284,7 +7284,7 @@ WriteBigEndian:
 ; Returns the current font
 ;-----------------------------------------------------------------------------
 GetCurrentFont:
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
@@ -7293,8 +7293,8 @@ GetCurrentFont:
 ;-----------------------------------------------------------------------------
 SetTextOrigin:
         mov eax, dword [byte esp+04h]
-        mov dword [dword_1CF528], eax
+        mov dword [TextOriginX], eax
         mov eax, dword [byte esp+08h]
-        mov dword [dword_1CF52C], eax
+        mov dword [TextOriginY], eax
         ret
         db 090h

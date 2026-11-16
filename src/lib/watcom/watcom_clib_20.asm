@@ -3,12 +3,12 @@ bits 32
 %include "hockey.inc"
 section s_123FEA progbits alloc exec nowrite align=1
 extern IF@ATAN2, __fpatan_chk, __math2err_, __math87_err_, str_RESIZE, byte_16E688, byte_19C724, str_Punct_DrawRinkSurface
-extern dword_16F5B4, dword_16F5B8, dword_1702CC, F32_0p9375, F32_1p0625, F32_9p22337e18, dword_1CF260, dword_1CF528
-extern dword_1CF52C, dword_1CF548, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dword_1CF5F2, dword_1DA4D0, dword_1DC518
+extern dword_16F5B4, dword_16F5B8, dword_1702CC, F32_0p9375, F32_1p0625, F32_9p22337e18, dword_1CF260, TextOriginX
+extern TextOriginY, LinkTextFont, DrawGlyphFn, TextCharFn, TextEndFn, IndexTo16Table, dword_1DA4D0, dword_1DC518
 extern dword_1DC51C, dword_1DC520, dword_1DC524, dword_1DC528, dword_1DC5A8, int386x_, itoa_, ltoa_
 extern memlist1, off_16F5BC, off_171C7C, off_199C50, off_19C740, F64_709p783, F64_neg709p783, segread_
 extern strncpy_, bcopy, SetTextOrigin, MemLock, MemUnlock, SetBlockGuard, AllocMemBlockEx, findmemblock
-extern CompactMemListDown, CompactMemListUp, PushMemDescriptor, DrawTextRun, F80_1p5708, toupper_, ultoa_, word_1CF5F4
+extern CompactMemListDown, CompactMemListUp, PushMemDescriptor, DrawTextRun, F80_1p5708, toupper_, ultoa_, IndexTo16Entries
 global FixedPoint_Format_, IF@DACOS, IF@EXP, IF@SQRT, _Full_at_exit_rtn_, __@DEXP, __@DEXP1, __@DSQRT
 global __fdiv_chk, __fdiv_fpr, __fdiv_m64, __fdivp_sti_st, __fdivrp_sti_st, __fpatan_wrap, __pow87_err_, __prtf_
 global atexit_, evalflags_, far_other_strlen_, far_strlen_, fdiv_main_routine, float_format_, fmt4hex_, formstring_
@@ -1290,8 +1290,8 @@ DrawTextLimited:
         sub esp, 10Ch
         mov edx, dword [dword esp+0120h]
         mov ebx, dword [dword esp+0124h]
-        mov edi, dword [dword_1CF528]
-        mov esi, dword [dword_1CF52C]
+        mov edi, dword [TextOriginX]
+        mov esi, dword [TextOriginY]
         mov dword [dword_1DC524], edi
         mov dword [dword_1DC520], esi
         mov dword [dword_1DC518], edi
@@ -1305,16 +1305,16 @@ DrawTextLimited:
         mov eax, esp
         call strncpy_
         mov edx, zupstr__20
-        mov eax, dword [dword_1CF5B8]
-        mov ebp, dword [dword_1CF5C0]
+        mov eax, dword [DrawGlyphFn]
+        mov ebp, dword [TextEndFn]
         xor ebx, ebx
         mov dword [dword esp+0108h], eax
-        mov dword [dword_1CF5B8], edx
-        mov dword [dword_1CF5C0], ebx
-        mov eax, dword [dword_1CF5BC]
+        mov dword [DrawGlyphFn], edx
+        mov dword [TextEndFn], ebx
+        mov eax, dword [TextCharFn]
         mov dl, byte [esp]
         mov dword [dword esp+0104h], eax
-        mov dword [dword_1CF5BC], ebx
+        mov dword [TextCharFn], ebx
         test dl, dl
         je short .2
         mov eax, esp
@@ -1338,7 +1338,7 @@ DrawTextLimited:
         mov eax, esi
 .5:
         mov edx, dword [dword esp+012Ch]
-        mov ebx, dword [dword_1CF528]
+        mov ebx, dword [TextOriginX]
         mov dword [edx], eax
         mov eax, dword [dword_1DC518]
         cmp eax, ebx
@@ -1349,7 +1349,7 @@ DrawTextLimited:
         mov ebx, dword [ebx]
         mov edx, dword [dword esp+0130h]
         sub eax, ebx
-        mov ecx, dword [dword_1CF548]
+        mov ecx, dword [LinkTextFont]
         mov dword [edx], eax
         mov eax, dword [dword_1DC51C]
         cmp eax, ecx
@@ -1366,10 +1366,10 @@ DrawTextLimited:
         call SetTextOrigin
         add esp, byte 8
         mov eax, dword [dword esp+0108h]
-        mov dword [dword_1CF5B8], eax
+        mov dword [DrawGlyphFn], eax
         mov eax, dword [dword esp+0104h]
-        mov dword [dword_1CF5C0], ebp
-        mov dword [dword_1CF5BC], eax
+        mov dword [TextEndFn], ebp
+        mov dword [TextCharFn], eax
         add esp, 10Ch
         pop ebp
         pop edi
@@ -3360,13 +3360,13 @@ ConvertIndexedTo16:
         mov cl, byte [byte esi+03h]
         mov dl, byte [byte esi+02h]
 .1:
-        mov eax, dword [nosplit eax*2+dword_1CF5F2]
+        mov eax, dword [nosplit eax*2+IndexTo16Table]
         lea esi, [byte esi+04h]
-        mov ecx, dword [nosplit ecx*2+dword_1CF5F2]
+        mov ecx, dword [nosplit ecx*2+IndexTo16Table]
         lea edi, [byte edi+08h]
-        mov ax, word [nosplit ebx*2+word_1CF5F4]
+        mov ax, word [nosplit ebx*2+IndexTo16Entries]
         mov bl, byte [esi]
-        mov cx, word [nosplit edx*2+word_1CF5F4]
+        mov cx, word [nosplit edx*2+IndexTo16Entries]
         mov dl, byte [byte esi+02h]
         mov dword [byte edi-08h], eax
         mov dword [byte edi-04h], ecx
@@ -3382,7 +3382,7 @@ ConvertIndexedTo16:
 .3:
         mov dl, byte [esi]
         lea esi, [byte esi+01h]
-        mov ax, word [nosplit edx*2+word_1CF5F4]
+        mov ax, word [nosplit edx*2+IndexTo16Entries]
         mov word [edi], ax
         lea edi, [byte edi+02h]
         sub ebp, byte 1
@@ -3562,17 +3562,17 @@ ConvertNibbleTo16:
 .1:
         LD mov, ecx, eax
         shr ecx, 4
-        mov edx, dword [nosplit ecx*2+dword_1CF5F2]
+        mov edx, dword [nosplit ecx*2+IndexTo16Table]
         lea esi, [byte esi+02h]
         LD mov, ecx, ebx
         shr ecx, 4
-        mov ecx, dword [nosplit ecx*2+dword_1CF5F2]
+        mov ecx, dword [nosplit ecx*2+IndexTo16Table]
         lea edi, [byte edi+08h]
         and eax, byte 0Fh
-        mov dx, word [nosplit eax*2+word_1CF5F4]
+        mov dx, word [nosplit eax*2+IndexTo16Entries]
         mov al, byte [esi]
         and ebx, byte 0Fh
-        mov cx, word [nosplit ebx*2+word_1CF5F4]
+        mov cx, word [nosplit ebx*2+IndexTo16Entries]
         mov bl, byte [byte esi+01h]
         mov dword [byte edi-08h], edx
         mov dword [byte edi-04h], ecx
@@ -3584,11 +3584,11 @@ ConvertNibbleTo16:
 .3:
         LD mov, ecx, eax
         shr ecx, 4
-        mov edx, dword [nosplit ecx*2+dword_1CF5F2]
+        mov edx, dword [nosplit ecx*2+IndexTo16Table]
         lea esi, [byte esi+01h]
         lea edi, [byte edi+04h]
         and eax, byte 0Fh
-        mov dx, word [nosplit eax*2+word_1CF5F4]
+        mov dx, word [nosplit eax*2+IndexTo16Entries]
         mov al, byte [esi]
         mov dword [byte edi-04h], edx
         sub ebp, byte 2
@@ -3597,7 +3597,7 @@ ConvertNibbleTo16:
         add ebp, byte 1
         js short .5
         and eax, byte 0Fh
-        mov dx, word [nosplit eax*2+word_1CF5F4]
+        mov dx, word [nosplit eax*2+IndexTo16Entries]
         mov word [edi], dx
 .5:
         pop ebp
