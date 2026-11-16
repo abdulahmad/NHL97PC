@@ -50,7 +50,7 @@ global jpt_32328, jpt_380E6, jpt_38102, jpt_3811A, sub_2FB40_229, sub_2FB40_2CE,
 global sub_2FB40_32D, sub_2FB40_370, sub_308AC_1D, sub_308AC_21, sub_308AC_25, sub_308AC_29, sub_308AC_2D, sub_308AC_31
 global sub_308AC_35, sub_32340_2BD, sub_32340_2CB, sub_32340_2D2, sub_32340_308, sub_32340_32E, sub_32340_354, InProgress_8B2
 global InProgress_96E, sub_3509C_E0, sub_36E34_1EC, sub_37198_DE, sub_37744_24C, puckfaceoff, restorepl, sub_2F4B8
-global sub_2F744, sub_2F818, sub_2F8D8, sub_2FA00, sub_2FB40, sub_2FED8, sub_2FFB8, sub_30300
+global sub_2F744, sub_2F818, sub_2F8D8, sub_2FA00, sub_2FB40, checkint, sub_2FFB8, sub_30300
 global sub_305D8, sub_30674, sub_30778, sub_3085C, sub_308AC, sub_308F4, sub_30998, sub_30A34
 global sub_30BD8, sub_31070, sub_313F4, sub_31540, sub_31A2C, sub_31A5C, sub_31B6C, sub_31C14
 global sub_31F88, sub_32184, AddPenalty, AddPenalty2, sub_32888, sub_32B68, sub_32C04, sub_32CEC
@@ -58,8 +58,8 @@ global sub_32D88, sub_32FF8, sub_3319C, updatepentime, checkfornewpen, sub_335CC
 global sub_33904, InProgress, sub_34330, sub_343F8, sub_34500, sub_348DC, sub_34950, sub_34A48
 global sub_34B04, sub_34B78, sub_34C18, sub_34CF4, doplayeracc, sub_34F58, sub_34FD0, sub_3505C
 global sub_3509C, sub_35188, sub_35234, sub_353B4, sub_35464, sub_35588, sub_35690, sub_356A8
-global sub_358E4, sub_36370, sub_363EC, sub_36524, sub_365FC, sub_36754, sub_36778, sub_36AB0
-global sub_36E34, sub_37044, sub_3708C, sub_37134, sub_37198, sub_3727C, sub_37374, sub_373D8
+global sub_358E4, sub_36370, CheckFightOdds, StartFight, checkfight, sub_36754, sub_36778, assfight
+global assfwatch, sub_37044, sub_3708C, sub_37134, sub_37198, sub_3727C, sub_37374, sub_373D8
 global sub_37424, sub_37470, sub_375F0, sub_376FC, sub_37704, sub_3772C, sub_37744, sub_379AC
 global sub_37A1C, sub_37AB4, sub_37F4C, sub_37FC8
 ;-----------------------------------------------------------------------------
@@ -1038,7 +1038,7 @@ sub_2FB40:
         jmp near sub_2FB40_370.25
 .4:
         mov eax, ebx
-        call sub_2FED8
+        call checkint
         test byte [dword ecx+0C0h], 10h
         jne near sub_2FB40_370.26
         mov eax, esi
@@ -1300,9 +1300,11 @@ sub_2FB40_370:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_2FED8                                                       2FED8  97 PC
+; checkint                                          2FED8  94G, low confidence
+; 94G checkint: interference: the hit player has no puck and is not the
+; goalie; AddPenalty 14h by chance
 ;-----------------------------------------------------------------------------
-sub_2FED8:
+checkint:
         push ebx
         push ecx
         push edx
@@ -9722,9 +9724,11 @@ sub_36370:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_363EC                                                       363EC  97 PC
+; CheckFightOdds                                  363EC  97 PC, low confidence
+; (player, other) from checkfight: both skaters on the ice, play live, enough
+; hits (word_19CB82 >= 50h): rolls the fight chance
 ;-----------------------------------------------------------------------------
-sub_363EC:
+CheckFightOdds:
         push ebx
         push ecx
         push esi
@@ -9820,9 +9824,11 @@ sub_363EC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_36524                                                       36524  97 PC
+; StartFight                                   36524  97 PC, medium confidence
+; (player, other): marks both fighters, gives each a fighting penalty
+; (AddPenalty2 1Ch) and assfight (1Ch), user control, commentary
 ;-----------------------------------------------------------------------------
-sub_36524:
+StartFight:
         push ecx
         push esi
         mov esi, eax
@@ -9878,9 +9884,12 @@ sub_36524:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_365FC                                                       365FC  97 PC
+; checkfight                                     365FC  93G, medium confidence
+; NHLPA 93 checkfight: (player a3, player a2) after a hit, with fighting on
+; in the options: counts the hits and may start a fight (StartFight); the
+; others get assfwatch (1Dh)
 ;-----------------------------------------------------------------------------
-sub_365FC:
+checkfight:
         push ebx
         push ecx
         push esi
@@ -9919,7 +9928,7 @@ sub_365FC:
 .2:
         mov edx, esi
         mov eax, ecx
-        call sub_363EC
+        call CheckFightOdds
         mov ebx, eax
         test ax, ax
         jle near .7
@@ -9939,7 +9948,7 @@ sub_365FC:
         call sub_424CC
         mov edx, esi
         mov eax, ecx
-        call sub_36524
+        call StartFight
         mov ecx, SortCords
         xor ebx, ebx
         xor esi, esi
@@ -10297,9 +10306,11 @@ sub_36778:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_36AB0                                                       36AB0  97 PC
+; assfight                                       36AB0  93G, medium confidence
+; NHLPA 93 assfight: assignment 1Ch (StartFight gives it to both fighters),
+; the fighting logic
 ;-----------------------------------------------------------------------------
-sub_36AB0:
+assfight:
         push ebx
         push ecx
         push edx
@@ -10607,9 +10618,11 @@ sub_36AB0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_36E34                                                       36E34  97 PC
+; assfwatch                                      36E34  93G, medium confidence
+; NHLPA 93 assfwatch: assignment 1Dh (checkfight gives it to the others),
+; players watching the fight
 ;-----------------------------------------------------------------------------
-sub_36E34:
+assfwatch:
         push ebx
         push edx
         sub esp, byte 18h
@@ -10746,6 +10759,9 @@ sub_36E34:
         pop ebx
         ret
         db 00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_36E34_1EC                                                   37020  97 PC
+;-----------------------------------------------------------------------------
 sub_36E34_1EC:
         xor eax, eax
         ret

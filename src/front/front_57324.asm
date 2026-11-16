@@ -164,8 +164,8 @@ extern sub_119A8, setplayer, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_
 extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, sub_18DF7, sub_18E35, DrawGameOverlays, StartCameraPath
 extern SelectCameraView, sub_1DFA0, sub_1E014, assreplace, assinsert, sub_1E354, sub_1FBF4, sub_20CB0
 extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, a2touchpuck, sub_2DD54, sub_2E11C, sub_2E168
-extern sub_2E208, StartFaceoffLineChange, sub_2F4B8, sub_2FED8, AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330
-extern sub_358E4, sub_365FC, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
+extern sub_2E208, StartFaceoffLineChange, sub_2F4B8, checkint, AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330
+extern sub_358E4, checkfight, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
 extern sub_41ACC, StopAllSfx, PlaySfxOr, PlaySfxVolume, sub_42354, sub_4241C, sub_424CC, CommentaryEvent
 extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, sub_4BA00, sub_4BCB4
 extern sub_4C0C4, sub_4DA84, PeriodOver, sub_4DD9C, sub_4DDB0, sub_4FC50, sub_50050, sub_51B5C
@@ -231,7 +231,7 @@ global sub_699D4, sub_69A44, sub_69B08, sub_69B78, sub_69BA0, sub_69D98, sub_69D
 global sub_6A0BC, sub_6A13C, sub_6A244, sub_6A604, sub_6A6D8, sub_6A77C, sub_6AB88, sub_6ABEC
 global sub_6B140, sub_6B28C, sub_6B380, sub_6BC94, sub_6C0FC, sub_6C73C, sub_6CA24, sub_6CD58
 global sub_6CED0, sub_6D3E4, sub_6D4AC, sub_6D59C, sub_6D678, sub_6D7F8, sub_6D980, sub_6DAB0
-global sub_6E170, sub_6E290, sub_6E9A4, sub_6F104, sub_6F300, sub_6F55C, sub_6F604, sub_6FF1C
+global sub_6E170, checkcx, sub_6E9A4, sub_6F104, sub_6F300, sub_6F55C, checkplcoll, sub_6FF1C
 global sub_7002C, sub_700D8, sub_701B8, sub_70260, sub_70324, sub_70378, sub_70424, sub_704D4
 global sub_708B0, sub_708F4, sub_709D0, sub_70A14, sub_70A58, sub_70B38, sub_70B74, sub_70C24
 global sub_70D60, sub_70E48, sub_71108, sub_71298, sub_71380, sub_713E0, sub_7147C, sub_71574
@@ -9698,7 +9698,7 @@ sub_5E1B0:
 .3:
         mov edx, ecx
         mov eax, ebx
-        call sub_6F604
+        call checkplcoll
 .4:
         inc esi
         add ecx, 108h
@@ -31973,9 +31973,11 @@ sub_6E170:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_6E290                                                       6E290  97 PC
+; checkcx                                           6E290  94G, low confidence
+; 94G checkcx: (player a3, player a2, ...) a collision between two players
+; (x87): bounces, checking animations, interference (checkint), checkfight
 ;-----------------------------------------------------------------------------
-sub_6E290:
+checkcx:
         push ecx
         push esi
         push edi
@@ -32312,7 +32314,7 @@ sub_6E290:
         mov dword [byte eax+034h], 461C4000h
         mov eax, dword [dword edi+0F6h]
         mov eax, dword [eax]
-        call sub_2FED8
+        call checkint
         or byte [dword esi+0BFh], 20h
         mov eax, 1
         mov esp, ebp
@@ -32429,7 +32431,7 @@ sub_6E290:
 .31:
         mov edx, esi
         mov eax, edi
-        call sub_365FC
+        call checkfight
         test eax, eax
         jne near .39
         cmp dword [byte esi+038h], 40C00000h
@@ -33516,9 +33518,11 @@ sub_6F55C:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_6F604                                                       6F604  97 PC
+; checkplcoll                                       6F604  94G, low confidence
+; 94G checkplcoll: a player's collisions with the other players (checkcx,
+; sub_6E9A4) and the rest
 ;-----------------------------------------------------------------------------
-sub_6F604:
+checkplcoll:
         push ebx
         push ecx
         push esi
@@ -34140,7 +34144,7 @@ sub_6F604:
         mov ebx, dword [byte esp+07Ch]
         mov edx, dword [dword esp+080h]
         mov eax, dword [dword esp+084h]
-        call sub_6E290
+        call checkcx
         jmp short .31
 .30:
         mov ebx, dword [byte esp+07Ch]
