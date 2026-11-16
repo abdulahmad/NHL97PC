@@ -26,14 +26,14 @@ extern dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, dword_1CAFF4, fclose_, fopen_, 
 extern qword_16695B, rand_, sprintf_, strcat_, strcpy_, sub_101324, BlitShape2, BlitArt
 extern sub_1013FC, FindShape, sub_101560, sub_101584, sub_101EAC, sub_102B94, sub_102C10, sub_10CD98
 extern ConvertArtInPlace, ConvertArtXY, FindShapeList, sub_11BD90, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
-extern WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, sub_7E860
-extern sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F5A4, sub_80AB8
-extern sub_80B28, sub_80BBC, sub_815F8, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_81D1C
-extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_84330, sub_84570
-extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPos
-extern sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, sub_AD678, sub_AD6D6, sub_B4F87, sub_B5031
-extern sub_BDB25, sub_DA7D6, sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, OpenLeagueFile, sub_E036F
-extern sub_E0841, sub_E0D0F, sub_E341C, sub_E4218, sub_E4230, AllocMemBlock, FreeMemBlock, MakeColor
+extern WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, DrawScreenBackground
+extern FadeInScreen, ExitScreen, SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, ShowMessageBox, DrawTeamLogoBanner
+extern DrawProgressBar, WipeScreen, FindColorRange, SetHighlightText, SetNormalText, PoundsToKg, InchesToCm, DrawStatTable
+extern ShowStatScreen, ShowLinkMessage, HideLinkBox, DrawStatsBackground, FreeStatsBitmap, ShowStatsScreen, TintPortrait, ChangeMenuMusic
+extern InitMenuItems, RunMenu, InitScrollList, ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, SetScrollBarPos
+extern ScrollToMouse, RunScrollList, SetListSelection, GetLangText, WriteCsvLine, AskExportFile, CompareStatColumn, CompareRatingColumn
+extern VideoOptionsScreen, KeysEqual, FreeDbBlock, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord
+extern FindPlayerStat, FindTeamStat, ServiceIdle, LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor
 extern FreeBitmap, sub_FCEEC, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern unk_1667A4, unk_1667A7, unk_1668C2, unk_1668C5, unk_1668F8, unk_166915, unk_166946, unk_166948
 extern unk_16D7FC, unk_16D804, unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE
@@ -41,19 +41,19 @@ extern unk_1CA9DC, unk_1CAADC, unk_1CABDC, unk_1CACE8, unk_1CACF4, unk_1CAD00, u
 global jpt_B585D, jpt_B6B27, jpt_B6B53, jpt_B6B7F, jpt_B6BAB, jpt_B6BD7, jpt_B6BFB, jpt_B6C1F
 global jpt_B6C43, jpt_B7214, jpt_B724C, jpt_B7758, jpt_B7790, jpt_B77B4, jpt_B77E0, jpt_B780C
 global jpt_B7838, jpt_B7864, jpt_B7888, jpt_B78AC, jpt_B78D0, jpt_B8F8B, jpt_BBD29, jpt_BBD4D
-global jpt_BBD85, jpt_BBDB1, jpt_BBDD5, sub_B50DB_76D, sub_B50DB_776, sub_B50DB_77C, PlayerStatsScreen_975, PlayerStatsScreen_986
+global jpt_BBD85, jpt_BBDB1, jpt_BBDD5, DrawStatsCardPage_76D, DrawStatsCardPage_776, DrawStatsCardPage_77C, PlayerStatsScreen_975, PlayerStatsScreen_986
 global PlayerStatsScreen_99A, PlayerStatsScreen_9A6, PlayerStatsScreen_9B7, PlayerStatsScreen_9CA, PlayerStatsScreen_9DB, PlayerStatsScreen_B94, PlayerStatsScreen_C43, PlayerStatsScreen_CB4
-global PlayerStatsScreen_DC7, PlayerStatsScreen_10AA, PlayerStatsScreen_1114, sub_B6C67_4C, sub_B6C67_53, sub_B6C67_5A, sub_B6C67_61, sub_B6C67_68
-global sub_B6C67_6F, sub_B6C67_76, sub_B6C67_7D, sub_B6C67_84, sub_B6C67_8B, sub_B6C67_92, sub_B6C67_123, sub_B6C67_129
-global sub_B6C67_12F, sub_B6C67_135, sub_B6C67_14B, sub_B6C67_151, sub_B6C67_15A, sub_B6C67_1C0, sub_B6C67_1C9, sub_B6C67_1F4
-global sub_B6C67_200, sub_B6C67_21C, sub_B6C67_225, sub_B6C67_22E, sub_B6C67_237, sub_B6C67_240, sub_B6C67_249, sub_B6C67_252
-global sub_B6C67_25A, sub_B6C67_263, sub_B6C67_26C, sub_B6C67_275, sub_B6C67_2AA, sub_B6C67_2B3, sub_B6C67_2B9, sub_B6C67_2BF
-global sub_B6C67_2C5, sub_B6C67_2CB, sub_B6C67_2D1, sub_B6C67_2DE, sub_B6C67_2E4, sub_B6C67_30C, sub_B6C67_312, sub_B6C67_36F
-global sub_B6C67_376, sub_B6C67_37D, sub_B6C67_384, sub_B6C67_38B, sub_B6C67_392, sub_B6C67_399, sub_B6C67_3A0, sub_B6C67_3A7
-global sub_B6C67_430, sub_B6C67_44B, sub_B6C67_451, sub_B6C67_457, sub_B6C67_45D, sub_B6C67_463, sub_B6C67_469, sub_B6C67_46F
-global sub_B6C67_478, sub_B6C67_48D, sub_B6C67_493, sub_B6C67_499, sub_B6C67_49F, sub_B6C67_4A5, sub_B6C67_4AB, sub_B6C67_4B1
-global sub_B6C67_4BA, sub_B6C67_4C3, sub_B6C67_53A, sub_B6C67_540, sub_B6C67_546, sub_B6C67_54C, sub_B6C67_552, sub_B6C67_558
-global sub_B6C67_55E, sub_B6C67_564, sub_B6C67_56A, DrawPlayerBio_328, DrawPlayerBio_32F, DrawPlayerBio_336, DrawPlayerBio_33D, DrawPlayerBio_344
+global PlayerStatsScreen_DC7, PlayerStatsScreen_10AA, PlayerStatsScreen_1114, DrawPlayerStatsText_4C, DrawPlayerStatsText_53, DrawPlayerStatsText_5A, DrawPlayerStatsText_61, DrawPlayerStatsText_68
+global DrawPlayerStatsText_6F, DrawPlayerStatsText_76, DrawPlayerStatsText_7D, DrawPlayerStatsText_84, DrawPlayerStatsText_8B, DrawPlayerStatsText_92, DrawPlayerStatsText_123, DrawPlayerStatsText_129
+global DrawPlayerStatsText_12F, DrawPlayerStatsText_135, DrawPlayerStatsText_14B, DrawPlayerStatsText_151, DrawPlayerStatsText_15A, DrawPlayerStatsText_1C0, DrawPlayerStatsText_1C9, DrawPlayerStatsText_1F4
+global DrawPlayerStatsText_200, DrawPlayerStatsText_21C, DrawPlayerStatsText_225, DrawPlayerStatsText_22E, DrawPlayerStatsText_237, DrawPlayerStatsText_240, DrawPlayerStatsText_249, DrawPlayerStatsText_252
+global DrawPlayerStatsText_25A, DrawPlayerStatsText_263, DrawPlayerStatsText_26C, DrawPlayerStatsText_275, DrawPlayerStatsText_2AA, DrawPlayerStatsText_2B3, DrawPlayerStatsText_2B9, DrawPlayerStatsText_2BF
+global DrawPlayerStatsText_2C5, DrawPlayerStatsText_2CB, DrawPlayerStatsText_2D1, DrawPlayerStatsText_2DE, DrawPlayerStatsText_2E4, DrawPlayerStatsText_30C, DrawPlayerStatsText_312, DrawPlayerStatsText_36F
+global DrawPlayerStatsText_376, DrawPlayerStatsText_37D, DrawPlayerStatsText_384, DrawPlayerStatsText_38B, DrawPlayerStatsText_392, DrawPlayerStatsText_399, DrawPlayerStatsText_3A0, DrawPlayerStatsText_3A7
+global DrawPlayerStatsText_430, DrawPlayerStatsText_44B, DrawPlayerStatsText_451, DrawPlayerStatsText_457, DrawPlayerStatsText_45D, DrawPlayerStatsText_463, DrawPlayerStatsText_469, DrawPlayerStatsText_46F
+global DrawPlayerStatsText_478, DrawPlayerStatsText_48D, DrawPlayerStatsText_493, DrawPlayerStatsText_499, DrawPlayerStatsText_49F, DrawPlayerStatsText_4A5, DrawPlayerStatsText_4AB, DrawPlayerStatsText_4B1
+global DrawPlayerStatsText_4BA, DrawPlayerStatsText_4C3, DrawPlayerStatsText_53A, DrawPlayerStatsText_540, DrawPlayerStatsText_546, DrawPlayerStatsText_54C, DrawPlayerStatsText_552, DrawPlayerStatsText_558
+global DrawPlayerStatsText_55E, DrawPlayerStatsText_564, DrawPlayerStatsText_56A, DrawPlayerBio_328, DrawPlayerBio_32F, DrawPlayerBio_336, DrawPlayerBio_33D, DrawPlayerBio_344
 global DrawPlayerBio_34B, DrawPlayerBio_352, DrawPlayerBio_359, DrawPlayerBio_360, DrawPlayerBio_367, DrawPlayerBio_36E, DrawPlayerBio_375, DrawPlayerBio_37C
 global DrawPlayerBio_383, DrawPlayerBio_427, DrawPlayerBio_42E, DrawPlayerBio_435, DrawPlayerBio_43C, DrawPlayerBio_443, DrawPlayerBio_44A, DrawPlayerBio_451
 global DrawPlayerBio_458, DrawPlayerBio_45F, DrawPlayerBio_4E2, ExportPlayerCard_2B6, ExportPlayerCard_2BD, ExportPlayerCard_2C4, ExportPlayerCard_2CB, ExportPlayerCard_2D2
@@ -71,20 +71,21 @@ global ExportPlayerCard_879, ExportPlayerCard_87F, ExportPlayerCard_885, ExportP
 global ExportPlayerCard_8AF, ExportPlayerCard_926, ExportPlayerCard_92C, ExportPlayerCard_932, ExportPlayerCard_938, ExportPlayerCard_93E, ExportPlayerCard_944, ExportPlayerCard_94A
 global ExportPlayerCard_950, ExportPlayerCard_956, PlayerRatingsScreen_D1D, PlayerRatingsScreen_D2E, PlayerRatingsScreen_D42, PlayerRatingsScreen_D4E, PlayerRatingsScreen_11E4, PlayerRatingsScreen_13C2
 global PlayerRatingsScreen_13F5, PlayerRatingsScreen_15C2, PlayerRatingsScreen_180D, PlayerRatingsScreen_1964, PlayerRatingsScreen_1B34, PlayerRatingsScreen_1D11, PlayerRatingsScreen_1E94, PlayerRatingsScreen_1EA5
-global PlayerRatingsScreen_1EB8, PlayerRatingsScreen_1EC9, PlayerRatingsScreen_1F8C, PlayerRatingsScreen_2014, PlayerRatingsScreen_2040, PlayerRatingsScreen_21EA, PlayerRatingsScreen_21FD, sub_BBE01_243
-global sub_BBE01_272, sub_BBE01_2A1, sub_BBE01_2D0, sub_BBE01_2FF, sub_BBE01_32E, sub_BBE01_35D, sub_BBE01_385, sub_BBE01_3AD
-global sub_BBE01_4D9, sub_BBE01_515, sub_BBE01_551, sub_BBE01_58D, sub_BBE01_5C9, sub_BBE01_5FF, sub_BBE01_62E, sub_BBE01_65D
-global sub_BBE01_68C, sub_BBE01_6BB, sub_BBE01_6EA, sub_BBE01_719, sub_BBE01_741, sub_BBE01_769, sub_BBE01_99B, sub_BBE01_A38
-global sub_BBE01_AD5, sub_BBE01_B72, sub_BBE01_BFC, sub_BBE01_C99, sub_BBE01_D42, sub_BBE01_DE5, sub_BBE01_E68, sub_BBE01_EEB
-global sub_BBE01_F6E, sub_BBE01_111B, sub_BBE01_11B8, sub_BBE01_1255, sub_BBE01_12F2, sub_BBE01_138F, sub_BBE01_1426, sub_BBE01_14A9
-global sub_BBE01_152C, sub_BBE01_15AF, sub_BBE01_1713, sub_BBE01_17C0, sub_BBE01_17C9, sub_BBE01_17D2, sub_BBE01_17DB, sub_BBE01_17E4
-global sub_BBE01_17ED, sub_BBE01_17F6, sub_BBE01_17FF, sub_BBE01_1808, sub_BBE01_1811, sub_B50DB, PlayerStatsScreen, sub_B6C67
-global DrawPlayerBio, ExportPlayerCard, sub_B829B, PlayerRatingsScreen, sub_BB365, sub_BBC3A, sub_BBE01, sub_BD61B
-global sub_BD621
+global PlayerRatingsScreen_1EB8, PlayerRatingsScreen_1EC9, PlayerRatingsScreen_1F8C, PlayerRatingsScreen_2014, PlayerRatingsScreen_2040, PlayerRatingsScreen_21EA, PlayerRatingsScreen_21FD, DrawPlayerRatings_243
+global DrawPlayerRatings_272, DrawPlayerRatings_2A1, DrawPlayerRatings_2D0, DrawPlayerRatings_2FF, DrawPlayerRatings_32E, DrawPlayerRatings_35D, DrawPlayerRatings_385, DrawPlayerRatings_3AD
+global DrawPlayerRatings_4D9, DrawPlayerRatings_515, DrawPlayerRatings_551, DrawPlayerRatings_58D, DrawPlayerRatings_5C9, DrawPlayerRatings_5FF, DrawPlayerRatings_62E, DrawPlayerRatings_65D
+global DrawPlayerRatings_68C, DrawPlayerRatings_6BB, DrawPlayerRatings_6EA, DrawPlayerRatings_719, DrawPlayerRatings_741, DrawPlayerRatings_769, DrawPlayerRatings_99B, DrawPlayerRatings_A38
+global DrawPlayerRatings_AD5, DrawPlayerRatings_B72, DrawPlayerRatings_BFC, DrawPlayerRatings_C99, DrawPlayerRatings_D42, DrawPlayerRatings_DE5, DrawPlayerRatings_E68, DrawPlayerRatings_EEB
+global DrawPlayerRatings_F6E, DrawPlayerRatings_111B, DrawPlayerRatings_11B8, DrawPlayerRatings_1255, DrawPlayerRatings_12F2, DrawPlayerRatings_138F, DrawPlayerRatings_1426, DrawPlayerRatings_14A9
+global DrawPlayerRatings_152C, DrawPlayerRatings_15AF, DrawPlayerRatings_1713, DrawPlayerRatings_17C0, DrawPlayerRatings_17C9, DrawPlayerRatings_17D2, DrawPlayerRatings_17DB, DrawPlayerRatings_17E4
+global DrawPlayerRatings_17ED, DrawPlayerRatings_17F6, DrawPlayerRatings_17FF, DrawPlayerRatings_1808, DrawPlayerRatings_1811, DrawStatsCardPage, PlayerStatsScreen, DrawPlayerStatsText
+global DrawPlayerBio, ExportPlayerCard, DrawPlayerRatingsPage, PlayerRatingsScreen, BuildPlayerStats, DrawTeamNameField, DrawPlayerRatings, IsReplayRecordingOn
+global RunVideoOptions
 ;-----------------------------------------------------------------------------
-; sub_B50DB                                                       B50DB  97 PC
+; DrawStatsCardPage                               B50DB  97 PC, low confidence
+; Draws the player stats page
 ;-----------------------------------------------------------------------------
-sub_B50DB:
+DrawStatsCardPage:
         push ebx
         push ecx
         push edx
@@ -317,11 +318,11 @@ sub_B50DB:
         add eax, edx
         mov edx, dword [eax]
         cmp edx, dword [dword_1CAEC4]
-        je near sub_B50DB_776
+        je near DrawStatsCardPage_776
         cmp edi, dword [dword_1CAE98]
-        jle near sub_B50DB_776
+        jle near DrawStatsCardPage_776
         cmp dword [dword_1CAEBC], byte 0
-        je near sub_B50DB_776
+        je near DrawStatsCardPage_776
         mov dword [dword_1CAEBC], 0
         mov eax, dword [eax]
         mov dword [dword_1CAEC4], eax
@@ -353,14 +354,14 @@ sub_B50DB:
         mov dword [dword_1CAE78], eax
 .15:
         cmp dword [dword_1CAE78], byte 0
-        je near sub_B50DB_776
+        je near DrawStatsCardPage_776
         push str_FART3
         push dword [dword_1CAE78]
         call FindShape
         add esp, byte 8
         mov edx, 8
         mov ebx, eax
-        call sub_815F8
+        call FindColorRange
         call SetScreenTarget
         push dword [dword_16E46C]
         push ebx
@@ -454,7 +455,7 @@ sub_B50DB:
         mov edx, dword [byte edi+02Ch]
         mov eax, dword [byte eax+02Ch]
         xor ebx, ebx
-        call sub_84330
+        call TintPortrait
         call SetScreenTarget
 .16:
         mov eax, ebx
@@ -584,7 +585,7 @@ sub_B50DB:
         push byte 4Bh
         movzx eax, byte [eax]
 .19:
-        call sub_80AB8
+        call DrawTeamLogoBanner
         call SetScreenTarget
         push str_MTR1
         push dword [dword_1CAE6C]
@@ -611,14 +612,14 @@ sub_B50DB:
         push dword [byte ebp-010h]
         call FreeBitmap
         add esp, byte 4
-sub_B50DB_76D:
+DrawStatsCardPage_76D:
         push esi
         call FreeBitmap
         add esp, byte 4
-sub_B50DB_776:
+DrawStatsCardPage_776:
         call SetScreenTarget
         leave
-sub_B50DB_77C:
+DrawStatsCardPage_77C:
         pop edi
         pop esi
         pop edx
@@ -677,7 +678,7 @@ PlayerStatsScreen:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        call sub_81650
+        call SetHighlightText
         push byte 0
         push dword 42Ah
         mov dword [dword_1CAEBC], 0
@@ -694,11 +695,11 @@ PlayerStatsScreen:
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp+06Eh], eax
-        call sub_81678
+        call SetNormalText
         mov eax, 1E4h
         call GetLangText
-        call sub_835BC
-        call sub_81650
+        call ShowLinkMessage
+        call SetHighlightText
         cmp byte [byte_16CCF0], 0
         je short .2
         lea edx, [byte ebp+032h]
@@ -737,7 +738,7 @@ PlayerStatsScreen:
         mov eax, dword [byte eax+01Ch]
         add eax, edx
         lea edx, [dword ebp-01A16h]
-        call sub_E036F
+        call FindGameRecord
         movsx eax, word [dword ebp-0D11h]
         add dword [byte ebp+07Eh], eax
         movsx eax, word [dword ebp-06EBh]
@@ -801,7 +802,7 @@ PlayerStatsScreen:
         push edi
         mov eax, dword [byte ebp+032h]
         mov ebx, esi
-        call sub_BB365
+        call BuildPlayerStats
         mov eax, dword [byte ebp+07Eh]
         push byte 0
         shl eax, 2
@@ -820,7 +821,7 @@ PlayerStatsScreen:
 .9:
         cmp ebx, dword [byte ebp+07Eh]
         jl short .8
-        mov ecx, sub_B4F87
+        mov ecx, CompareStatColumn
         mov ebx, 4
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [dword_1CAE84]
@@ -888,7 +889,7 @@ PlayerStatsScreen:
         push byte 0
         mov eax, unk_1CAD24
         add edx, 0A4h
-        call sub_8D956
+        call InitScrollList
         push byte 0
         push dword 104h
         push dword 136h
@@ -905,12 +906,12 @@ PlayerStatsScreen:
         mov edx, ebx
         mov eax, ebx
         mov esi, unk_1C5F4A
-        call sub_7E860
+        call DrawScreenBackground
         mov ebx, 1A9h
         mov edx, 1F4h
         mov eax, dword [byte ebp+076h]
         mov ecx, 52h
-        call sub_83D4C
+        call DrawStatsBackground
         mov edi, dword [dword_1CAEAC]
         rep movsb
         mov eax, dword [dword_1CAEAC]
@@ -936,7 +937,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov ecx, str_PP13
         add eax, byte 52h
-        call sub_81D1C
+        call DrawStatTable
         push dword_1CACDC
         push str_PP13PP14PP15
         push dword [byte ebp+07Ah]
@@ -951,7 +952,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov ebx, ecx
         add eax, 19Ah
-        call sub_81D1C
+        call DrawStatTable
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         jne short .15
         push str_LB262
@@ -1011,7 +1012,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_PP05PP06PP07
         push dword [byte ebp+07Ah]
@@ -1026,7 +1027,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 23Eh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_PP21PP22PP23
         push dword [byte ebp+07Ah]
@@ -1041,7 +1042,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 290h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CAD00
         push str_PP01PP02PP03
         push dword [byte ebp+07Ah]
@@ -1056,7 +1057,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 2E2h
-        call sub_81D1C
+        call DrawStatTable
         mov eax, dword [byte ebp+06Eh]
         add eax, 180h
         push eax
@@ -1066,7 +1067,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 334h
-        call sub_81D1C
+        call DrawStatTable
         push dword [byte ebp+04Eh]
         call SetDrawTarget
         add esp, byte 4
@@ -1103,20 +1104,20 @@ PlayerStatsScreen:
         call BlitShape2
         add esp, byte 4
         call sub_1013FC
-        call sub_83850
+        call HideLinkBox
         cmp dword [dword_16CCF1], byte 0
         je short .22
         mov eax, dword [byte ebp+04Eh]
         mov ebx, 10h
         mov edx, dword [dword_16CCF1]
         mov eax, dword [byte eax+02Ch]
-        call sub_82FB8
+        call ShowStatScreen
         jmp short .23
 .22:
         mov eax, dword [byte ebp+04Eh]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
 .23:
         push dword [byte ebp+04Eh]
         call FreeBitmap
@@ -1269,7 +1270,7 @@ PlayerStatsScreen:
 .32:
         add ebx, eax
         mov eax, dword [byte ebp+052h]
-        call sub_B6C67
+        call DrawPlayerStatsText
         call SetScreenTarget
         push byte 78h
         mov eax, dword [byte ebp+046h]
@@ -1296,7 +1297,7 @@ PlayerStatsScreen:
 .33:
         push byte 3
         lea eax, [byte ebp+036h]
-        mov ecx, sub_B50DB
+        mov ecx, DrawStatsCardPage
         mov ebx, 0FFFFFFFFh
         mov edx, dword [dword_1CAEAC]
         push eax
@@ -1304,19 +1305,19 @@ PlayerStatsScreen:
         setg al
         movzx eax, al
         add eax, byte 0Ch
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+036h], byte 0Ch
         ja near PlayerStatsScreen_DC7.64
         mov ebx, dword [byte ebp+036h]
         jmp dword [nosplit cs:ebx*4+jpt_B585D]
 PlayerStatsScreen_975:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp+056h], 1Ah
         jmp near PlayerStatsScreen_DC7.64
 PlayerStatsScreen_986:
-        call sub_81678
-        call sub_7EF70
-        call sub_81650
+        call SetNormalText
+        call ExitScreen
+        call SetHighlightText
         jmp near PlayerStatsScreen_DC7.64
 PlayerStatsScreen_99A:
         mov dword [byte ebp+056h], 64h
@@ -1324,18 +1325,18 @@ PlayerStatsScreen_99A:
 PlayerStatsScreen_9A6:
         mov eax, unk_1CAD24
         xor edx, edx
-        call sub_8DE10
+        call ScrollUp
         jmp near PlayerStatsScreen_DC7.64
 PlayerStatsScreen_9B7:
         mov ebx, eax
         xor edx, edx
         mov eax, unk_1CAD24
-        call sub_8DEAC
+        call ScrollToMouse
         jmp near PlayerStatsScreen_DC7.64
 PlayerStatsScreen_9CA:
         mov eax, unk_1CAD24
         xor edx, edx
-        call sub_8DE68
+        call ScrollDown
         jmp near PlayerStatsScreen_DC7.64
 PlayerStatsScreen_9DB:
         xor ebx, ebx
@@ -1417,7 +1418,7 @@ PlayerStatsScreen_9DB:
         push edx
         inc eax
         mov edx, 5
-        call sub_8DF1F
+        call RunScrollList
         mov dword [byte ebp+036h], eax
         cmp eax, byte 0FFFFFFFFh
         je near PlayerStatsScreen_DC7.64
@@ -1431,7 +1432,7 @@ PlayerStatsScreen_9DB:
         mov edx, dword [byte ebp+ebx*4-05Ah]
         mov dword [dword eax+01B8h], edx
         mov eax, dword [byte ebp+036h]
-        mov ecx, sub_B4F87
+        mov ecx, CompareStatColumn
         mov ebx, dword [dword_1CAEAC]
         mov eax, dword [byte ebp+eax*4-05Ah]
         mov edx, dword [byte ebp+07Eh]
@@ -1462,7 +1463,7 @@ PlayerStatsScreen_9DB:
         mov edx, eax
         mov eax, unk_1CAD24
         xor ebx, ebx
-        call sub_8E6AF
+        call SetListSelection
         mov eax, unk_1CAD24
         xor edx, edx
         call SetScrollBarPos
@@ -1492,7 +1493,7 @@ PlayerStatsScreen_B94:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_PP09PP10PP11
 .47:
@@ -1508,7 +1509,7 @@ PlayerStatsScreen_B94:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_PP05PP06PP07
         jmp short .47
@@ -1525,7 +1526,7 @@ PlayerStatsScreen_C43:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 23Eh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_PP21PP22PP23
         jmp short PlayerStatsScreen_B94.47
@@ -1537,7 +1538,7 @@ PlayerStatsScreen_C43:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 23Eh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_PP17PP18PP19
         jmp near PlayerStatsScreen_B94.47
@@ -1622,12 +1623,12 @@ PlayerStatsScreen_CB4:
         add eax, ecx
         xor ecx, ecx
         call ExportPlayerCard
-        call sub_E4218
+        call LinkSyncMenu
         jmp near PlayerStatsScreen_DC7.64
 .55:
         mov eax, 237h
         call GetLangText
-        call sub_E4230
+        call LinkSyncScreen
         jmp near PlayerStatsScreen_DC7.64
 PlayerStatsScreen_DC7:
         dec dword [dword_16D400]
@@ -1635,7 +1636,7 @@ PlayerStatsScreen_DC7:
         jne short .56
         mov dword [dword_16D400], 19h
 .56:
-        mov ecx, sub_B4F87
+        mov ecx, CompareStatColumn
         mov ebx, 4
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [dword_1CAE84]
@@ -1662,7 +1663,7 @@ PlayerStatsScreen_DC7:
 .61:
         mov edx, eax
         mov eax, unk_1CAD24
-        call sub_8E6AF
+        call SetListSelection
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         je near .72
         push dword [dword_16D400]
@@ -1823,7 +1824,7 @@ PlayerStatsScreen_10AA:
         jne short .74
         mov dword [dword_16D400], 0FFFFFFFFh
 .74:
-        mov ecx, sub_B4F87
+        mov ecx, CompareStatColumn
         mov ebx, 4
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [dword_1CAE84]
@@ -1849,13 +1850,13 @@ PlayerStatsScreen_10AA:
         jl short .76
         jmp near PlayerStatsScreen_DC7.61
 PlayerStatsScreen_1114:
-        call sub_84068
+        call ShowStatsScreen
         cmp dword [dword_16DA9C], byte 0
         sete al
         movzx edx, al
         mov eax, dword [byte ebp+072h]
         call PlayScreenMovie
-        call sub_84570
+        call ChangeMenuMusic
         call SetScreenTarget
         push dword [byte ebp+042h]
         call BlitShape2
@@ -1920,12 +1921,12 @@ PlayerStatsScreen_1114:
         cmp dword [byte ebp+032h], byte 0
         je short .81
         lea eax, [byte ebp+032h]
-        call sub_DB75E
+        call FreeDbBlock
 .81:
         cmp dword [byte ebp+02Eh], byte 0
         je short .82
         lea eax, [byte ebp+02Eh]
-        call sub_DB75E
+        call FreeDbBlock
 .82:
         cmp dword [dword_1CAE78], byte 0
         je short .83
@@ -1935,111 +1936,112 @@ PlayerStatsScreen_1114:
         add esp, byte 4
 .83:
         mov eax, unk_1CAD24
-        call sub_8DE7E
-        call sub_81678
+        call FreeScrollList
+        call SetNormalText
         cmp byte [byte_1C6040], 0
         je short .84
         cmp byte [byte_1C8338], 0
         je short .84
         call LoadFrontEndSfx
 .84:
-        call sub_84024
+        call FreeStatsBitmap
         mov eax, dword [byte ebp+056h]
         lea esp, [dword ebp+082h]
         pop ebp
-        jmp near sub_B50DB_77C
+        jmp near DrawStatsCardPage_77C
 jpt_B6B27:
-        dd sub_B6C67_4C
-        dd sub_B6C67_53
-        dd sub_B6C67_5A
-        dd sub_B6C67_61
-        dd sub_B6C67_68
-        dd sub_B6C67_6F
-        dd sub_B6C67_76
-        dd sub_B6C67_7D
-        dd sub_B6C67_84
-        dd sub_B6C67_8B
-        dd sub_B6C67_92
+        dd DrawPlayerStatsText_4C
+        dd DrawPlayerStatsText_53
+        dd DrawPlayerStatsText_5A
+        dd DrawPlayerStatsText_61
+        dd DrawPlayerStatsText_68
+        dd DrawPlayerStatsText_6F
+        dd DrawPlayerStatsText_76
+        dd DrawPlayerStatsText_7D
+        dd DrawPlayerStatsText_84
+        dd DrawPlayerStatsText_8B
+        dd DrawPlayerStatsText_92
 jpt_B6B53:
-        dd sub_B6C67_123
-        dd sub_B6C67_129
-        dd sub_B6C67_12F
-        dd sub_B6C67_135
-        dd sub_B6C67_14B
-        dd sub_B6C67_151
-        dd sub_B6C67_15A
-        dd sub_B6C67_1C0
-        dd sub_B6C67_1C9
-        dd sub_B6C67_1F4
-        dd sub_B6C67_200
+        dd DrawPlayerStatsText_123
+        dd DrawPlayerStatsText_129
+        dd DrawPlayerStatsText_12F
+        dd DrawPlayerStatsText_135
+        dd DrawPlayerStatsText_14B
+        dd DrawPlayerStatsText_151
+        dd DrawPlayerStatsText_15A
+        dd DrawPlayerStatsText_1C0
+        dd DrawPlayerStatsText_1C9
+        dd DrawPlayerStatsText_1F4
+        dd DrawPlayerStatsText_200
 jpt_B6B7F:
-        dd sub_B6C67_21C
-        dd sub_B6C67_225
-        dd sub_B6C67_22E
-        dd sub_B6C67_237
-        dd sub_B6C67_240
-        dd sub_B6C67_249
-        dd sub_B6C67_252
-        dd sub_B6C67_25A
-        dd sub_B6C67_263
-        dd sub_B6C67_26C
-        dd sub_B6C67_275
+        dd DrawPlayerStatsText_21C
+        dd DrawPlayerStatsText_225
+        dd DrawPlayerStatsText_22E
+        dd DrawPlayerStatsText_237
+        dd DrawPlayerStatsText_240
+        dd DrawPlayerStatsText_249
+        dd DrawPlayerStatsText_252
+        dd DrawPlayerStatsText_25A
+        dd DrawPlayerStatsText_263
+        dd DrawPlayerStatsText_26C
+        dd DrawPlayerStatsText_275
 jpt_B6BAB:
-        dd sub_B6C67_2AA
-        dd sub_B6C67_2B3
-        dd sub_B6C67_2B9
-        dd sub_B6C67_2BF
-        dd sub_B6C67_2C5
-        dd sub_B6C67_2CB
-        dd sub_B6C67_2D1
-        dd sub_B6C67_2DE
-        dd sub_B6C67_2E4
-        dd sub_B6C67_30C
-        dd sub_B6C67_312
+        dd DrawPlayerStatsText_2AA
+        dd DrawPlayerStatsText_2B3
+        dd DrawPlayerStatsText_2B9
+        dd DrawPlayerStatsText_2BF
+        dd DrawPlayerStatsText_2C5
+        dd DrawPlayerStatsText_2CB
+        dd DrawPlayerStatsText_2D1
+        dd DrawPlayerStatsText_2DE
+        dd DrawPlayerStatsText_2E4
+        dd DrawPlayerStatsText_30C
+        dd DrawPlayerStatsText_312
 jpt_B6BD7:
-        dd sub_B6C67_36F
-        dd sub_B6C67_376
-        dd sub_B6C67_37D
-        dd sub_B6C67_384
-        dd sub_B6C67_38B
-        dd sub_B6C67_392
-        dd sub_B6C67_399
-        dd sub_B6C67_3A0
-        dd sub_B6C67_3A7
+        dd DrawPlayerStatsText_36F
+        dd DrawPlayerStatsText_376
+        dd DrawPlayerStatsText_37D
+        dd DrawPlayerStatsText_384
+        dd DrawPlayerStatsText_38B
+        dd DrawPlayerStatsText_392
+        dd DrawPlayerStatsText_399
+        dd DrawPlayerStatsText_3A0
+        dd DrawPlayerStatsText_3A7
 jpt_B6BFB:
-        dd sub_B6C67_430
-        dd sub_B6C67_44B
-        dd sub_B6C67_451
-        dd sub_B6C67_457
-        dd sub_B6C67_45D
-        dd sub_B6C67_463
-        dd sub_B6C67_469
-        dd sub_B6C67_46F
-        dd sub_B6C67_478
+        dd DrawPlayerStatsText_430
+        dd DrawPlayerStatsText_44B
+        dd DrawPlayerStatsText_451
+        dd DrawPlayerStatsText_457
+        dd DrawPlayerStatsText_45D
+        dd DrawPlayerStatsText_463
+        dd DrawPlayerStatsText_469
+        dd DrawPlayerStatsText_46F
+        dd DrawPlayerStatsText_478
 jpt_B6C1F:
-        dd sub_B6C67_48D
-        dd sub_B6C67_493
-        dd sub_B6C67_499
-        dd sub_B6C67_49F
-        dd sub_B6C67_4A5
-        dd sub_B6C67_4AB
-        dd sub_B6C67_4B1
-        dd sub_B6C67_4BA
-        dd sub_B6C67_4C3
+        dd DrawPlayerStatsText_48D
+        dd DrawPlayerStatsText_493
+        dd DrawPlayerStatsText_499
+        dd DrawPlayerStatsText_49F
+        dd DrawPlayerStatsText_4A5
+        dd DrawPlayerStatsText_4AB
+        dd DrawPlayerStatsText_4B1
+        dd DrawPlayerStatsText_4BA
+        dd DrawPlayerStatsText_4C3
 jpt_B6C43:
-        dd sub_B6C67_53A
-        dd sub_B6C67_540
-        dd sub_B6C67_546
-        dd sub_B6C67_54C
-        dd sub_B6C67_552
-        dd sub_B6C67_558
-        dd sub_B6C67_55E
-        dd sub_B6C67_564
-        dd sub_B6C67_56A
+        dd DrawPlayerStatsText_53A
+        dd DrawPlayerStatsText_540
+        dd DrawPlayerStatsText_546
+        dd DrawPlayerStatsText_54C
+        dd DrawPlayerStatsText_552
+        dd DrawPlayerStatsText_558
+        dd DrawPlayerStatsText_55E
+        dd DrawPlayerStatsText_564
+        dd DrawPlayerStatsText_56A
 ;-----------------------------------------------------------------------------
-; sub_B6C67                                                       B6C67  97 PC
+; DrawPlayerStatsText                             B6C67  97 PC, low confidence
+; Draws the player stats text
 ;-----------------------------------------------------------------------------
-sub_B6C67:
+DrawPlayerStatsText:
         push esi
         push edi
         enter 18h, 0
@@ -2057,45 +2059,45 @@ sub_B6C67:
         call BlitArt
         add esp, byte 0Ch
         cmp byte [byte ebp+010h], 47h
-        jne near sub_B6C67_312.17
+        jne near DrawPlayerStatsText_312.17
         mov esi, dword [byte ebp+014h]
-        jmp near sub_B6C67_92.3
+        jmp near DrawPlayerStatsText_92.3
 .1:
         cmp esi, byte 0Ah
-        ja short sub_B6C67_92.2
+        ja short DrawPlayerStatsText_92.2
         mov eax, esi
         jmp dword [nosplit cs:eax*4+jpt_B6B27]
-sub_B6C67_4C:
+DrawPlayerStatsText_4C:
         mov edi, 140h
-        jmp short sub_B6C67_92.2
-sub_B6C67_53:
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_53:
         mov edi, 19Bh
-        jmp short sub_B6C67_92.2
-sub_B6C67_5A:
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_5A:
         mov edi, 19Ch
-        jmp short sub_B6C67_92.2
-sub_B6C67_61:
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_61:
         mov edi, 19Dh
-        jmp short sub_B6C67_92.2
-sub_B6C67_68:
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_68:
         mov edi, 149h
-        jmp short sub_B6C67_92.2
-sub_B6C67_6F:
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_6F:
         mov edi, 14Ah
-        jmp short sub_B6C67_92.2
-sub_B6C67_76:
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_76:
         mov edi, 147h
-        jmp short sub_B6C67_92.2
-sub_B6C67_7D:
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_7D:
         mov edi, 148h
-        jmp short sub_B6C67_92.2
-sub_B6C67_84:
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_84:
         mov edi, 6Eh
-        jmp short sub_B6C67_92.2
-sub_B6C67_8B:
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_8B:
         mov edi, 12Bh
-        jmp short sub_B6C67_92.2
-sub_B6C67_92:
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_92:
         mov edi, 0A0h
 .2:
         mov eax, edi
@@ -2115,9 +2117,9 @@ sub_B6C67_92:
         mov eax, dword [byte ebp+014h]
         add eax, byte 9
         cmp esi, eax
-        jl near sub_B6C67.1
+        jl near DrawPlayerStatsText.1
         cmp byte [byte_16CCF0], 0
-        je near sub_B6C67_275.12
+        je near DrawPlayerStatsText_275.12
         xor edi, edi
 .4:
         lea eax, [dword edi+0171h]
@@ -2131,40 +2133,40 @@ sub_B6C67_92:
         push byte 0
         push byte 0
         mov esi, dword [byte ebp+014h]
-        jmp near sub_B6C67_15A.9
+        jmp near DrawPlayerStatsText_15A.9
 .5:
         imul eax, edi, byte 2Eh
         mov edx, esi
         shl edx, 2
         add eax, dword [byte ebp-04h]
         cmp dword [dword_16D404], byte 0
-        je near sub_B6C67_200.11
+        je near DrawPlayerStatsText_200.11
         cmp esi, byte 0Ah
-        ja near sub_B6C67_15A.8
+        ja near DrawPlayerStatsText_15A.8
         jmp dword [dword cs:edx+jpt_B6B53]
-sub_B6C67_123:
+DrawPlayerStatsText_123:
         movsx eax, word [byte eax+078h]
-        jmp short sub_B6C67_15A.7
-sub_B6C67_129:
+        jmp short DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_129:
         movsx eax, word [byte eax+07Ah]
-        jmp short sub_B6C67_15A.7
-sub_B6C67_12F:
+        jmp short DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_12F:
         movsx eax, word [byte eax+07Ch]
-        jmp short sub_B6C67_15A.7
-sub_B6C67_135:
+        jmp short DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_135:
         push unk_1668C5
         lea eax, [byte ebp-018h]
         push eax
         call sprintf_
         add esp, byte 8
-        jmp near sub_B6C67_15A.8
-sub_B6C67_14B:
+        jmp near DrawPlayerStatsText_15A.8
+DrawPlayerStatsText_14B:
         movsx eax, word [byte eax+07Eh]
-        jmp short sub_B6C67_15A.7
-sub_B6C67_151:
+        jmp short DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_151:
         movsx eax, word [dword eax+080h]
-        jmp short sub_B6C67_15A.7
-sub_B6C67_15A:
+        jmp short DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_15A:
         mov eax, dword [dword eax+082h]
 .6:
         mov ebx, 3Ch
@@ -2198,15 +2200,15 @@ sub_B6C67_15A:
         mov eax, dword [byte ebp+014h]
         add eax, byte 9
         cmp esi, eax
-        jl near sub_B6C67_92.5
+        jl near DrawPlayerStatsText_92.5
         inc edi
         cmp edi, byte 2
-        jl near sub_B6C67_92.4
-        jmp near sub_B6C67_56A.32
-sub_B6C67_1C0:
+        jl near DrawPlayerStatsText_92.4
+        jmp near DrawPlayerStatsText_56A.32
+DrawPlayerStatsText_1C0:
         movsx eax, word [dword eax+086h]
-        jmp short sub_B6C67_15A.7
-sub_B6C67_1C9:
+        jmp short DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_1C9:
         movsx ebx, word [dword eax+088h]
 .10:
         mov eax, ebx
@@ -2223,50 +2225,50 @@ sub_B6C67_1C9:
         push eax
         call sprintf_
         add esp, byte 10h
-        jmp short sub_B6C67_15A.8
-sub_B6C67_1F4:
+        jmp short DrawPlayerStatsText_15A.8
+DrawPlayerStatsText_1F4:
         movsx eax, word [dword eax+08Ah]
-        jmp near sub_B6C67_15A.7
-sub_B6C67_200:
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_200:
         movsx eax, word [dword eax+08Ch]
-        jmp near sub_B6C67_15A.7
+        jmp near DrawPlayerStatsText_15A.7
 .11:
         cmp esi, byte 0Ah
-        ja near sub_B6C67_15A.8
+        ja near DrawPlayerStatsText_15A.8
         jmp dword [dword cs:edx+jpt_B6B7F]
-sub_B6C67_21C:
+DrawPlayerStatsText_21C:
         movsx eax, word [byte eax+060h]
-        jmp near sub_B6C67_15A.7
-sub_B6C67_225:
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_225:
         movsx eax, word [byte eax+062h]
-        jmp near sub_B6C67_15A.7
-sub_B6C67_22E:
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_22E:
         movsx eax, word [byte eax+064h]
-        jmp near sub_B6C67_15A.7
-sub_B6C67_237:
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_237:
         movsx eax, word [byte eax+066h]
-        jmp near sub_B6C67_15A.7
-sub_B6C67_240:
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_240:
         movsx eax, word [byte eax+068h]
-        jmp near sub_B6C67_15A.7
-sub_B6C67_249:
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_249:
         movsx eax, word [byte eax+06Ah]
-        jmp near sub_B6C67_15A.7
-sub_B6C67_252:
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_252:
         mov eax, dword [byte eax+06Ch]
-        jmp near sub_B6C67_15A.6
-sub_B6C67_25A:
+        jmp near DrawPlayerStatsText_15A.6
+DrawPlayerStatsText_25A:
         movsx eax, word [byte eax+070h]
-        jmp near sub_B6C67_15A.7
-sub_B6C67_263:
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_263:
         movsx ebx, word [byte eax+072h]
-        jmp near sub_B6C67_1C9.10
-sub_B6C67_26C:
+        jmp near DrawPlayerStatsText_1C9.10
+DrawPlayerStatsText_26C:
         movsx eax, word [byte eax+074h]
-        jmp near sub_B6C67_15A.7
-sub_B6C67_275:
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_275:
         movsx eax, word [byte eax+076h]
-        jmp near sub_B6C67_15A.7
+        jmp near DrawPlayerStatsText_15A.7
 .12:
         mov eax, 172h
         call GetLangText
@@ -2275,40 +2277,40 @@ sub_B6C67_275:
         push byte 0
         push byte 0
         mov esi, dword [byte ebp+014h]
-        jmp near sub_B6C67_312.16
+        jmp near DrawPlayerStatsText_312.16
 .13:
         cmp esi, byte 0Ah
-        ja near sub_B6C67_312.15
+        ja near DrawPlayerStatsText_312.15
         mov eax, esi
         jmp dword [nosplit cs:eax*4+jpt_B6BAB]
-sub_B6C67_2AA:
+DrawPlayerStatsText_2AA:
         movsx eax, word [byte ebx+018h]
-        jmp near sub_B6C67_312.14
-sub_B6C67_2B3:
+        jmp near DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2B3:
         movsx eax, word [byte ebx+01Ah]
-        jmp short sub_B6C67_312.14
-sub_B6C67_2B9:
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2B9:
         movsx eax, word [byte ebx+01Ch]
-        jmp short sub_B6C67_312.14
-sub_B6C67_2BF:
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2BF:
         movsx eax, word [byte ebx+01Eh]
-        jmp short sub_B6C67_312.14
-sub_B6C67_2C5:
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2C5:
         movsx eax, word [byte ebx+020h]
-        jmp short sub_B6C67_312.14
-sub_B6C67_2CB:
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2CB:
         movsx eax, word [byte ebx+028h]
-        jmp short sub_B6C67_312.14
-sub_B6C67_2D1:
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2D1:
         mov eax, dword [byte ebx+02Ah]
         mov ecx, 3Ch
         cdq
         idiv ecx
-        jmp short sub_B6C67_312.14
-sub_B6C67_2DE:
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2DE:
         movsx eax, word [byte ebx+02Eh]
-        jmp short sub_B6C67_312.14
-sub_B6C67_2E4:
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2E4:
         movsx edi, word [byte ebx+030h]
         mov eax, edi
         mov ecx, 64h
@@ -2324,11 +2326,11 @@ sub_B6C67_2E4:
         push eax
         call sprintf_
         add esp, byte 10h
-        jmp short sub_B6C67_312.15
-sub_B6C67_30C:
+        jmp short DrawPlayerStatsText_312.15
+DrawPlayerStatsText_30C:
         movsx eax, word [byte ebx+032h]
-        jmp short sub_B6C67_312.14
-sub_B6C67_312:
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_312:
         movsx eax, word [byte ebx+034h]
 .14:
         push eax
@@ -2354,41 +2356,41 @@ sub_B6C67_312:
         mov eax, dword [byte ebp+014h]
         add eax, byte 9
         cmp esi, eax
-        jl near sub_B6C67_275.13
-        jmp near sub_B6C67_56A.32
+        jl near DrawPlayerStatsText_275.13
+        jmp near DrawPlayerStatsText_56A.32
 .17:
         mov esi, dword [byte ebp+014h]
-        jmp near sub_B6C67_3A7.20
+        jmp near DrawPlayerStatsText_3A7.20
 .18:
         cmp esi, byte 8
-        ja short sub_B6C67_3A7.19
+        ja short DrawPlayerStatsText_3A7.19
         mov eax, esi
         jmp dword [nosplit cs:eax*4+jpt_B6BD7]
-sub_B6C67_36F:
+DrawPlayerStatsText_36F:
         mov edi, 140h
-        jmp short sub_B6C67_3A7.19
-sub_B6C67_376:
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_376:
         mov edi, 141h
-        jmp short sub_B6C67_3A7.19
-sub_B6C67_37D:
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_37D:
         mov edi, 142h
-        jmp short sub_B6C67_3A7.19
-sub_B6C67_384:
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_384:
         mov edi, 143h
-        jmp short sub_B6C67_3A7.19
-sub_B6C67_38B:
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_38B:
         mov edi, 145h
-        jmp short sub_B6C67_3A7.19
-sub_B6C67_392:
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_392:
         mov edi, 146h
-        jmp short sub_B6C67_3A7.19
-sub_B6C67_399:
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_399:
         mov edi, 144h
-        jmp short sub_B6C67_3A7.19
-sub_B6C67_3A0:
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_3A0:
         mov edi, 12Bh
-        jmp short sub_B6C67_3A7.19
-sub_B6C67_3A7:
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_3A7:
         mov edi, 159h
 .19:
         mov eax, edi
@@ -2408,9 +2410,9 @@ sub_B6C67_3A7:
         mov eax, dword [byte ebp+014h]
         add eax, byte 9
         cmp esi, eax
-        jl short sub_B6C67_312.18
+        jl short DrawPlayerStatsText_312.18
         cmp byte [byte_16CCF0], 0
-        je near sub_B6C67_4C3.27
+        je near DrawPlayerStatsText_4C3.27
         xor edi, edi
 .21:
         lea eax, [dword edi+0171h]
@@ -2424,18 +2426,18 @@ sub_B6C67_3A7:
         push byte 0
         push byte 0
         mov esi, dword [byte ebp+014h]
-        jmp near sub_B6C67_4C3.26
+        jmp near DrawPlayerStatsText_4C3.26
 .22:
         imul eax, edi, byte 2Eh
         mov ebx, esi
         shl ebx, 2
         add eax, dword [byte ebp-04h]
         cmp dword [dword_16D404], byte 0
-        je short sub_B6C67_478.24
+        je short DrawPlayerStatsText_478.24
         cmp esi, byte 8
-        ja near sub_B6C67_4C3.25
+        ja near DrawPlayerStatsText_4C3.25
         jmp dword [dword cs:ebx+jpt_B6BFB]
-sub_B6C67_430:
+DrawPlayerStatsText_430:
         movsx eax, word [byte eax+072h]
 .23:
         push eax
@@ -2444,62 +2446,62 @@ sub_B6C67_430:
         push eax
         call sprintf_
         add esp, byte 0Ch
-        jmp near sub_B6C67_4C3.25
-sub_B6C67_44B:
+        jmp near DrawPlayerStatsText_4C3.25
+DrawPlayerStatsText_44B:
         movsx eax, word [byte eax+074h]
-        jmp short sub_B6C67_430.23
-sub_B6C67_451:
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_451:
         movsx eax, word [byte eax+076h]
-        jmp short sub_B6C67_430.23
-sub_B6C67_457:
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_457:
         movsx eax, word [byte eax+078h]
-        jmp short sub_B6C67_430.23
-sub_B6C67_45D:
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_45D:
         movsx eax, word [byte eax+07Ah]
-        jmp short sub_B6C67_430.23
-sub_B6C67_463:
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_463:
         movsx eax, word [byte eax+07Ch]
-        jmp short sub_B6C67_430.23
-sub_B6C67_469:
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_469:
         movsx eax, word [byte eax+07Eh]
-        jmp short sub_B6C67_430.23
-sub_B6C67_46F:
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_46F:
         movsx eax, word [dword eax+080h]
-        jmp short sub_B6C67_430.23
-sub_B6C67_478:
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_478:
         movsx eax, word [dword eax+082h]
-        jmp short sub_B6C67_430.23
+        jmp short DrawPlayerStatsText_430.23
 .24:
         cmp esi, byte 8
-        ja short sub_B6C67_4C3.25
+        ja short DrawPlayerStatsText_4C3.25
         jmp dword [dword cs:ebx+jpt_B6C1F]
-sub_B6C67_48D:
+DrawPlayerStatsText_48D:
         movsx eax, word [byte eax+060h]
-        jmp short sub_B6C67_430.23
-sub_B6C67_493:
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_493:
         movsx eax, word [byte eax+062h]
-        jmp short sub_B6C67_430.23
-sub_B6C67_499:
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_499:
         movsx eax, word [byte eax+064h]
-        jmp short sub_B6C67_430.23
-sub_B6C67_49F:
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_49F:
         movsx eax, word [byte eax+066h]
-        jmp short sub_B6C67_430.23
-sub_B6C67_4A5:
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_4A5:
         movsx eax, word [byte eax+068h]
-        jmp short sub_B6C67_430.23
-sub_B6C67_4AB:
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_4AB:
         movsx eax, word [byte eax+06Ah]
-        jmp short sub_B6C67_430.23
-sub_B6C67_4B1:
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_4B1:
         movsx eax, word [byte eax+06Ch]
-        jmp near sub_B6C67_430.23
-sub_B6C67_4BA:
+        jmp near DrawPlayerStatsText_430.23
+DrawPlayerStatsText_4BA:
         movsx eax, word [byte eax+06Eh]
-        jmp near sub_B6C67_430.23
-sub_B6C67_4C3:
+        jmp near DrawPlayerStatsText_430.23
+DrawPlayerStatsText_4C3:
         movsx eax, word [byte eax+070h]
-        jmp near sub_B6C67_430.23
+        jmp near DrawPlayerStatsText_430.23
 .25:
         lea eax, [byte ebp-018h]
         push eax
@@ -2521,11 +2523,11 @@ sub_B6C67_4C3:
         mov eax, dword [byte ebp+014h]
         add eax, byte 9
         cmp esi, eax
-        jl near sub_B6C67_3A7.22
+        jl near DrawPlayerStatsText_3A7.22
         inc edi
         cmp edi, byte 2
-        jl near sub_B6C67_3A7.21
-        jmp near sub_B6C67_56A.32
+        jl near DrawPlayerStatsText_3A7.21
+        jmp near DrawPlayerStatsText_56A.32
 .27:
         mov eax, 172h
         call GetLangText
@@ -2534,37 +2536,37 @@ sub_B6C67_4C3:
         push byte 0
         push byte 0
         mov esi, dword [byte ebp+014h]
-        jmp near sub_B6C67_56A.31
+        jmp near DrawPlayerStatsText_56A.31
 .28:
         cmp esi, byte 8
-        ja short sub_B6C67_56A.30
+        ja short DrawPlayerStatsText_56A.30
         mov eax, esi
         jmp dword [nosplit cs:eax*4+jpt_B6C43]
-sub_B6C67_53A:
+DrawPlayerStatsText_53A:
         movsx eax, word [byte ebx+018h]
-        jmp short sub_B6C67_56A.29
-sub_B6C67_540:
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_540:
         movsx eax, word [byte ebx+01Ah]
-        jmp short sub_B6C67_56A.29
-sub_B6C67_546:
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_546:
         movsx eax, word [byte ebx+01Ch]
-        jmp short sub_B6C67_56A.29
-sub_B6C67_54C:
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_54C:
         movsx eax, word [byte ebx+01Eh]
-        jmp short sub_B6C67_56A.29
-sub_B6C67_552:
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_552:
         movsx eax, word [byte ebx+020h]
-        jmp short sub_B6C67_56A.29
-sub_B6C67_558:
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_558:
         movsx eax, word [byte ebx+022h]
-        jmp short sub_B6C67_56A.29
-sub_B6C67_55E:
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_55E:
         movsx eax, word [byte ebx+024h]
-        jmp short sub_B6C67_56A.29
-sub_B6C67_564:
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_564:
         movsx eax, word [byte ebx+026h]
-        jmp short sub_B6C67_56A.29
-sub_B6C67_56A:
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_56A:
         movsx eax, word [byte ebx+028h]
 .29:
         push eax
@@ -2590,7 +2592,7 @@ sub_B6C67_56A:
         mov eax, dword [byte ebp+014h]
         add eax, byte 9
         cmp esi, eax
-        jl short sub_B6C67_4C3.28
+        jl short DrawPlayerStatsText_4C3.28
 .32:
         leave
         pop edi
@@ -2696,11 +2698,11 @@ DrawPlayerBio:
         add esp, byte 1Ch
         jmp near .4
 .3:
-        call sub_816A4
+        call PoundsToKg
         mov ecx, eax
         mov eax, ebx
         mov edi, 64h
-        call sub_816BC
+        call InchesToCm
         mov ebx, eax
         cdq
         idiv edi
@@ -2793,7 +2795,7 @@ DrawPlayerBio:
         lea edx, [byte ebp+066h]
         add esp, byte 10h
         movzx eax, word [byte eax+05Ah]
-        call sub_DB7B1
+        call AgeFromBirthDate
         movsx eax, word [byte ebp+066h]
         push eax
         movsx eax, word [byte ebp+06Eh]
@@ -2946,7 +2948,7 @@ DrawPlayerBio_383:
         push eax
         add edx, byte 1Ah
         mov eax, 0CCh
-        call sub_80B28
+        call DrawProgressBar
         mov eax, dword [byte ebp+062h]
         add eax, 174h
         call GetLangText
@@ -3018,7 +3020,7 @@ DrawPlayerBio_45F:
         push eax
         add edx, byte 1Ah
         mov eax, 0CCh
-        call sub_80B28
+        call DrawProgressBar
         mov eax, dword [byte ebp+05Eh]
         add eax, 1A4h
         call GetLangText
@@ -3180,7 +3182,7 @@ ExportPlayerCard:
         jl short .1
         lea edx, [byte ebp+03Ah]
         mov eax, 1Eh
-        call sub_AD6D6
+        call AskExportFile
         test eax, eax
         je near ExportPlayerCard_956.52
         mov edx, unk_166915
@@ -3196,7 +3198,7 @@ ExportPlayerCard:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         jmp near ExportPlayerCard_956.52
 .3:
         mov eax, dword [byte ebp+05Eh]
@@ -3290,7 +3292,7 @@ ExportPlayerCard:
         lea edx, [byte ebp+076h]
         add esp, byte 0Ch
         movzx eax, word [byte eax+05Ah]
-        call sub_DB7B1
+        call AgeFromBirthDate
         movsx eax, word [byte ebp+076h]
         push eax
         movsx eax, word [byte ebp+06Eh]
@@ -3545,7 +3547,7 @@ ExportPlayerCard_463:
         mov eax, dword [byte ebp+05Ah]
         inc esi
 .21:
-        call sub_AD678
+        call WriteCsvLine
         mov eax, dword [byte ebp+062h]
         add eax, byte 9
         cmp esi, eax
@@ -3564,7 +3566,7 @@ ExportPlayerCard_463:
         mov edx, eax
         mov eax, dword [byte ebp+05Ah]
         mov esi, dword [byte ebp+062h]
-        call sub_AD678
+        call WriteCsvLine
         jmp near ExportPlayerCard_530.27
 .23:
         imul eax, ecx, byte 2Eh
@@ -3615,7 +3617,7 @@ ExportPlayerCard_530:
         mov ebx, 0Dh
         lea edx, [byte ebp-016h]
         mov eax, dword [byte ebp+05Ah]
-        call sub_AD678
+        call WriteCsvLine
         inc esi
 .27:
         mov eax, dword [byte ebp+062h]
@@ -3701,7 +3703,7 @@ ExportPlayerCard_643:
         mov edx, eax
         mov eax, dword [byte ebp+05Ah]
         mov esi, dword [byte ebp+062h]
-        call sub_AD678
+        call WriteCsvLine
         jmp near ExportPlayerCard_6E8.34
 .31:
         cmp esi, byte 0Ah
@@ -3768,7 +3770,7 @@ ExportPlayerCard_6E8:
         mov ebx, 0Dh
         lea edx, [byte ebp-016h]
         mov eax, dword [byte ebp+05Ah]
-        call sub_AD678
+        call WriteCsvLine
         inc esi
 .34:
         mov eax, dword [byte ebp+062h]
@@ -3821,7 +3823,7 @@ ExportPlayerCard_78E:
         mov eax, dword [byte ebp+05Ah]
         inc esi
 .38:
-        call sub_AD678
+        call WriteCsvLine
         mov eax, dword [byte ebp+062h]
         add eax, byte 9
         cmp esi, eax
@@ -3840,7 +3842,7 @@ ExportPlayerCard_78E:
         mov edx, eax
         mov eax, dword [byte ebp+05Ah]
         mov esi, dword [byte ebp+062h]
-        call sub_AD678
+        call WriteCsvLine
         jmp near ExportPlayerCard_8AF.44
 .40:
         imul eax, ecx, byte 2Eh
@@ -3921,7 +3923,7 @@ ExportPlayerCard_8AF:
         mov ebx, 0Dh
         lea edx, [byte ebp-016h]
         mov eax, dword [byte ebp+05Ah]
-        call sub_AD678
+        call WriteCsvLine
         inc esi
 .44:
         mov eax, dword [byte ebp+062h]
@@ -3943,7 +3945,7 @@ ExportPlayerCard_8AF:
         mov edx, eax
         mov eax, dword [byte ebp+05Ah]
         mov esi, dword [byte ebp+062h]
-        call sub_AD678
+        call WriteCsvLine
         jmp near ExportPlayerCard_956.49
 .46:
         cmp esi, byte 8
@@ -3987,7 +3989,7 @@ ExportPlayerCard_956:
         mov ebx, 0Dh
         lea edx, [byte ebp-016h]
         mov eax, dword [byte ebp+05Ah]
-        call sub_AD678
+        call WriteCsvLine
         inc esi
 .49:
         mov eax, dword [byte ebp+062h]
@@ -4006,9 +4008,10 @@ ExportPlayerCard_956:
         lea esp, [byte ebp+07Eh]
         jmp near DrawPlayerBio_4E2
 ;-----------------------------------------------------------------------------
-; sub_B829B                                                       B829B  97 PC
+; DrawPlayerRatingsPage                           B829B  97 PC, low confidence
+; Draws the player ratings page
 ;-----------------------------------------------------------------------------
-sub_B829B:
+DrawPlayerRatingsPage:
         push ebx
         push ecx
         push edx
@@ -4284,7 +4287,7 @@ sub_B829B:
         add esp, byte 8
         mov edx, 10h
         mov edi, eax
-        call sub_815F8
+        call FindColorRange
         cmp byte [byte_1C6040], 0
         jne short .21
         push dword [dword_16E46C]
@@ -4367,7 +4370,7 @@ sub_B829B:
         add esp, byte 10h
         mov edx, dword [byte edx+02Ch]
         mov eax, dword [byte eax+02Ch]
-        call sub_84330
+        call TintPortrait
 .23:
         call SetScreenTarget
         xor ebx, ebx
@@ -4476,7 +4479,7 @@ sub_B829B:
         push byte 41h
         movzx eax, byte [eax]
 .29:
-        call sub_80AB8
+        call DrawTeamLogoBanner
         call SetScreenTarget
         push str_MN00
         push dword [dword_1CAE6C]
@@ -4570,7 +4573,7 @@ sub_B829B:
         mov ebx, esi
         mov ecx, dword [byte esi+02Ch]
 .33:
-        call sub_80AB8
+        call DrawTeamLogoBanner
         call SetScreenTarget
         push str_MN00
         push dword [dword_1CAE6C]
@@ -4594,9 +4597,9 @@ sub_B829B:
 .34:
         mov eax, dword [dword_1CAE74]
         cmp eax, dword [byte ebp-04h]
-        jge near sub_B50DB_776
+        jge near DrawStatsCardPage_776
         cmp dword [dword_1CAEA4], byte 0
-        je near sub_B50DB_776
+        je near DrawStatsCardPage_776
         mov edx, dword [dword_1CAC00]
         mov eax, dword [dword_1CAE80]
         mov dword [dword_1CAEA4], 0
@@ -4632,14 +4635,14 @@ sub_B829B:
         mov dword [dword_1CAE8C], eax
 .36:
         cmp dword [dword_1CAE8C], byte 0
-        je near sub_B50DB_776
+        je near DrawStatsCardPage_776
         push str_FART3
         push dword [dword_1CAE8C]
         call FindShape
         add esp, byte 8
         mov edx, 10h
         mov edi, eax
-        call sub_815F8
+        call FindColorRange
         cmp byte [byte_1C6040], 0
         jne short .37
         push dword [dword_16E46C]
@@ -4722,7 +4725,7 @@ sub_B829B:
         add esp, byte 10h
         mov edx, dword [byte edx+02Ch]
         mov eax, dword [byte eax+02Ch]
-        call sub_84330
+        call TintPortrait
 .39:
         call SetScreenTarget
         xor ebx, ebx
@@ -4840,7 +4843,7 @@ sub_B829B:
         push dword 0B9h
         movzx eax, byte [eax]
 .45:
-        call sub_80AB8
+        call DrawTeamLogoBanner
         call SetScreenTarget
         push str_MN04
         push dword [dword_1CAE6C]
@@ -4873,7 +4876,7 @@ sub_B829B:
         push esi
         call FreeBitmap
         add esp, byte 4
-        jmp near sub_B50DB_776
+        jmp near DrawStatsCardPage_776
 .47:
         push byte 0
         push str_MN04
@@ -4934,7 +4937,7 @@ sub_B829B:
         mov ebx, esi
         mov ecx, dword [byte esi+02Ch]
 .49:
-        call sub_80AB8
+        call DrawTeamLogoBanner
         call SetScreenTarget
         push str_MN04
         push dword [dword_1CAE6C]
@@ -4952,7 +4955,7 @@ sub_B829B:
         call sub_FCEEC
         add esp, byte 0Ch
         call sub_1013FC
-        jmp near sub_B50DB_76D
+        jmp near DrawStatsCardPage_76D
 jpt_B8F8B:
         dd PlayerRatingsScreen_D1D
         dd PlayerRatingsScreen_D42
@@ -5004,7 +5007,7 @@ PlayerRatingsScreen:
         je short .1
         call MusicEnabled
 .1:
-        call sub_81650
+        call SetHighlightText
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -5021,11 +5024,11 @@ PlayerRatingsScreen:
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1CAEAC], eax
-        call sub_81678
+        call SetNormalText
         mov eax, 1E4h
         call GetLangText
-        call sub_835BC
-        call sub_81650
+        call ShowLinkMessage
+        call SetHighlightText
         cmp dword [dword ebp-01CBEh], byte 0
         je short .2
         lea edx, [byte ebp+01Ah]
@@ -5062,7 +5065,7 @@ PlayerRatingsScreen:
         mov eax, dword [byte eax+01Ch]
         add eax, edx
         lea edx, [dword ebp-01CBAh]
-        call sub_E036F
+        call FindGameRecord
         movsx eax, word [dword ebp-0FB5h]
         add dword [byte ebp+07Eh], eax
         movsx eax, word [dword ebp-098Fh]
@@ -5130,7 +5133,7 @@ PlayerRatingsScreen:
         mov ecx, esi
         push dword [byte ebp+022h]
         mov eax, dword [byte ebp+01Ah]
-        call sub_BB365
+        call BuildPlayerStats
         mov ebx, dword [byte ebp+07Eh]
         push byte 0
         shl ebx, 2
@@ -5157,12 +5160,12 @@ PlayerRatingsScreen:
 .10:
         cmp ebx, dword [byte ebp+07Eh]
         jl short .9
-        mov ecx, sub_B4F87
+        mov ecx, CompareStatColumn
         mov ebx, 4
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [dword_1CAE84]
         call qsort_
-        mov ecx, sub_B5031
+        mov ecx, CompareRatingColumn
         mov ebx, 4
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [dword_1CAE80]
@@ -5290,7 +5293,7 @@ PlayerRatingsScreen:
         mov edx, edi
         mov eax, edi
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         mov edi, dword [dword_1CAEAC]
         rep movsb
         mov eax, dword [dword_1CAEAC]
@@ -5310,7 +5313,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov ecx, str_SC01
         add eax, byte 52h
-        call sub_81D1C
+        call DrawStatTable
         push dword_1CACDC
         push str_SC01SC02SC03
         push dword [byte ebp+062h]
@@ -5326,7 +5329,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+062h]
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_SC08SC09SC10
         jmp short .26
@@ -5339,7 +5342,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+062h]
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_SC05SC06SC07
 .26:
@@ -5356,7 +5359,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_SC13SC14SC15
         jmp short .29
@@ -5371,7 +5374,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_SC17SC18SC19
         jmp short .29
@@ -5384,7 +5387,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_SC29SC30SC31
 .29:
@@ -5399,7 +5402,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 19Ah
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-022Ah]
         push eax
         mov ecx, str_LH262
@@ -5408,7 +5411,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-01EAh]
         push eax
         mov ecx, str_AB043
@@ -5417,7 +5420,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 23Eh
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-01AAh]
         push eax
         mov ecx, str_AB07
@@ -5426,7 +5429,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 290h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-016Ah]
         push eax
         mov ecx, str_LH262
@@ -5435,7 +5438,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 2E2h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-012Ah]
         push eax
         mov ecx, str_AB10
@@ -5444,7 +5447,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 334h
-        call sub_81D1C
+        call DrawStatTable
         mov eax, dword [dword_1CAEAC]
         mov eax, dword [dword eax+0206h]
         push byte 0
@@ -5609,7 +5612,7 @@ PlayerRatingsScreen:
         push byte 0
         mov eax, unk_1CA9DC
         add edx, 386h
-        call sub_8D956
+        call InitScrollList
         push byte 0
         push byte 0
         push dword 96h
@@ -5622,7 +5625,7 @@ PlayerRatingsScreen:
         push byte 0
         mov eax, unk_1CAADC
         add edx, 47Ch
-        call sub_8D956
+        call InitScrollList
         mov edx, dword [byte ebp+042h]
         mov eax, unk_1CAADC
         xor ebx, ebx
@@ -5639,12 +5642,12 @@ PlayerRatingsScreen:
         push byte 0
         mov eax, unk_1CABDC
         add edx, 572h
-        call sub_8D956
+        call InitScrollList
         mov edx, dword [byte ebp+03Ah]
         mov eax, unk_1CABDC
         xor ebx, ebx
         call SetScrollBarPos
-        call sub_83850
+        call HideLinkBox
         push dword [byte ebp+04Eh]
         call SetDrawTarget
         add esp, byte 4
@@ -5660,13 +5663,13 @@ PlayerRatingsScreen:
         mov ebx, 10h
         mov edx, dword [dword_16CCF1]
         mov eax, dword [byte eax+02Ch]
-        call sub_82FB8
+        call ShowStatScreen
         jmp short .41
 .40:
         mov eax, dword [byte ebp+04Eh]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
 .41:
         push dword [byte ebp+04Eh]
         call FreeBitmap
@@ -5868,7 +5871,7 @@ PlayerRatingsScreen:
         mov ebx, dword [dword_1CAA00]
         push dword [byte ebp+07Ah]
         mov eax, edi
-        call sub_BBE01
+        call DrawPlayerRatings
         cmp byte [byte_1C8338], 0
         jne short .50
         mov edx, dword [dword_1CAEAC]
@@ -5878,25 +5881,25 @@ PlayerRatingsScreen:
 .50:
         push byte 3
         lea eax, [byte ebp+01Eh]
-        mov ecx, sub_B829B
+        mov ecx, DrawPlayerRatingsPage
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, dword [dword_1CAEAC]
         mov eax, 14h
-        call sub_8BFAC
+        call RunMenu
         mov edx, eax
         cmp dword [byte ebp+01Eh], byte 14h
         ja near PlayerRatingsScreen_2040.186
         mov ebx, dword [byte ebp+01Eh]
         jmp dword [nosplit cs:ebx*4+jpt_B8F8B]
 PlayerRatingsScreen_D1D:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp+052h], 1Ah
         jmp near PlayerRatingsScreen_2040.186
 PlayerRatingsScreen_D2E:
-        call sub_81678
-        call sub_7EF70
-        call sub_81650
+        call SetNormalText
+        call ExitScreen
+        call SetHighlightText
         jmp near PlayerRatingsScreen_2040.186
 PlayerRatingsScreen_D42:
         mov dword [byte ebp+052h], 64h
@@ -5919,7 +5922,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_SC05SC06SC07
         push dword [byte ebp+06Eh]
@@ -5928,13 +5931,13 @@ PlayerRatingsScreen_D4E:
         add esp, byte 0Ch
         mov eax, unk_1CAADC
         xor ebx, ebx
-        call sub_8E6AF
+        call SetListSelection
         mov eax, unk_1CAADC
         xor edx, edx
         call SetScrollBarPos
         mov edx, dword [byte ebp+072h]
         mov eax, unk_1CABDC
-        call sub_8E6AF
+        call SetListSelection
         xor ebx, ebx
         mov eax, unk_1CABDC
         xor edx, edx
@@ -5958,7 +5961,7 @@ PlayerRatingsScreen_D4E:
         push str_AB023
         add eax, 19Ah
         mov dword [dword_1CAEB0], 0FFFFFFFFh
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-022Ah]
         push eax
         mov ecx, str_LH262
@@ -5967,7 +5970,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-01EAh]
         push eax
         mov ecx, str_AB043
@@ -5976,7 +5979,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 23Eh
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-01AAh]
         push eax
         mov ecx, str_AB07
@@ -5985,7 +5988,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 290h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-016Ah]
         push eax
         mov ecx, str_LH262
@@ -5994,7 +5997,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 2E2h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-012Ah]
         push eax
         mov ecx, str_AB10
@@ -6003,7 +6006,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 334h
-        call sub_81D1C
+        call DrawStatTable
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         jne short .53
         push str_LB262
@@ -6126,7 +6129,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_SC09SC10SC11
         push dword [byte ebp+06Eh]
@@ -6135,7 +6138,7 @@ PlayerRatingsScreen_D4E:
         add esp, byte 0Ch
         movsx edx, word [eax]
         mov eax, unk_1CAADC
-        call sub_8E6AF
+        call SetListSelection
         cmp dword [dword_1CAE70], byte 0FFFFFFFFh
         je short .62
         mov eax, dword [dword_1CAEA8]
@@ -6153,7 +6156,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [byte ebp+01Ah]
         movsx edx, word [eax]
         mov eax, unk_1CABDC
-        call sub_8E6AF
+        call SetListSelection
         cmp dword [dword_1CAEB0], byte 0FFFFFFFFh
         je short .64
         mov eax, dword [dword_1CAEA8]
@@ -6264,7 +6267,7 @@ PlayerRatingsScreen_11E4:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_SC13SC14SC15
         push dword [byte ebp+06Eh]
@@ -6282,7 +6285,7 @@ PlayerRatingsScreen_11E4:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_SC17SC18SC19
         push dword [byte ebp+06Eh]
@@ -6298,7 +6301,7 @@ PlayerRatingsScreen_11E4:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_SC29SC30SC31
         push dword [byte ebp+06Eh]
@@ -6321,7 +6324,7 @@ PlayerRatingsScreen_11E4:
         mov edx, 9
 .84:
         mov eax, unk_1CA9DC
-        call sub_8E6AF
+        call SetListSelection
         mov eax, unk_1CA9DC
         xor ebx, ebx
         jmp near PlayerRatingsScreen_2040.185
@@ -6346,7 +6349,7 @@ PlayerRatingsScreen_13F5:
         dec eax
         mov dword [dword_16D400], eax
 .86:
-        mov ecx, sub_B4F87
+        mov ecx, CompareStatColumn
         mov ebx, 4
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [dword_1CAE84]
@@ -6374,7 +6377,7 @@ PlayerRatingsScreen_13F5:
 .91:
         mov edx, dword [byte ebp+076h]
         mov eax, unk_1CAADC
-        call sub_8E6AF
+        call SetListSelection
         xor ebx, ebx
         mov eax, unk_1CAADC
         xor edx, edx
@@ -6457,7 +6460,7 @@ PlayerRatingsScreen_13F5:
         mov edx, 0Eh
 .99:
         mov eax, unk_1CA9DC
-        call sub_8E6AF
+        call SetListSelection
         mov eax, unk_1CA9DC
         xor ebx, ebx
         xor edx, edx
@@ -6555,7 +6558,7 @@ PlayerRatingsScreen_15C2:
         movsx eax, word [eax]
         mov ebx, dword [dword ebx+0212h]
         inc eax
-        call sub_8DF1F
+        call RunScrollList
         mov dword [byte ebp+01Eh], eax
         cmp eax, byte 0FFFFFFFFh
         je near .113
@@ -6569,7 +6572,7 @@ PlayerRatingsScreen_15C2:
         mov eax, dword [dword ebp+eax*4-0EAh]
         mov dword [dword ebx+020Ah], eax
         mov ebx, dword [byte ebp+01Eh]
-        mov ecx, sub_B4F87
+        mov ecx, CompareStatColumn
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword ebp+ebx*4-0EAh]
         mov ebx, 4
@@ -6600,7 +6603,7 @@ PlayerRatingsScreen_15C2:
 .112:
         mov edx, dword [byte ebp+076h]
         mov eax, unk_1CAADC
-        call sub_8E6AF
+        call SetListSelection
         xor ebx, ebx
         mov eax, unk_1CAADC
         xor edx, edx
@@ -6625,7 +6628,7 @@ PlayerRatingsScreen_15C2:
         mov edx, 9
 .115:
         mov eax, unk_1CA9DC
-        call sub_8E6AF
+        call SetListSelection
         mov eax, unk_1CA9DC
         xor ebx, ebx
         xor edx, edx
@@ -6644,7 +6647,7 @@ PlayerRatingsScreen_180D:
         jne short .117
         mov dword [dword_16D400], 0FFFFFFFFh
 .117:
-        mov ecx, sub_B4F87
+        mov ecx, CompareStatColumn
         mov ebx, 4
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [dword_1CAE84]
@@ -6672,7 +6675,7 @@ PlayerRatingsScreen_180D:
 .122:
         mov edx, dword [byte ebp+076h]
         mov eax, unk_1CAADC
-        call sub_8E6AF
+        call SetListSelection
         xor ebx, ebx
         mov eax, unk_1CAADC
         xor edx, edx
@@ -6747,7 +6750,7 @@ PlayerRatingsScreen_1964:
         dec eax
         mov dword [dword_16D454], eax
 .129:
-        mov ecx, sub_B5031
+        mov ecx, CompareRatingColumn
         mov ebx, 4
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [dword_1CAE80]
@@ -6775,7 +6778,7 @@ PlayerRatingsScreen_1964:
 .134:
         mov edx, dword [byte ebp+072h]
         mov eax, unk_1CABDC
-        call sub_8E6AF
+        call SetListSelection
         xor ebx, ebx
         mov eax, unk_1CABDC
         xor edx, edx
@@ -6858,7 +6861,7 @@ PlayerRatingsScreen_1964:
         mov edx, 0Eh
 .142:
         mov eax, unk_1CA9DC
-        call sub_8E6AF
+        call SetListSelection
         mov eax, unk_1CA9DC
         xor ebx, ebx
         xor edx, edx
@@ -6958,7 +6961,7 @@ PlayerRatingsScreen_1B34:
         movsx eax, word [eax]
         mov ebx, dword [dword ebx+0308h]
         inc eax
-        call sub_8DF1F
+        call RunScrollList
         mov dword [byte ebp+01Eh], eax
         cmp eax, byte 0FFFFFFFFh
         je near PlayerRatingsScreen_1964.141
@@ -6974,7 +6977,7 @@ PlayerRatingsScreen_1B34:
         mov edx, dword [dword ebp+ebx*4-0EAh]
         mov dword [dword eax+0300h], edx
         mov eax, dword [byte ebp+01Eh]
-        mov ecx, sub_B5031
+        mov ecx, CompareRatingColumn
         mov ebx, dword [dword_1CAEAC]
         mov eax, dword [dword ebp+eax*4-0EAh]
         mov edx, dword [byte ebp+07Eh]
@@ -7005,7 +7008,7 @@ PlayerRatingsScreen_1B34:
 .156:
         mov edx, dword [byte ebp+072h]
         mov eax, unk_1CABDC
-        call sub_8E6AF
+        call SetListSelection
         xor ebx, ebx
         mov eax, unk_1CABDC
         xor edx, edx
@@ -7019,7 +7022,7 @@ PlayerRatingsScreen_1D11:
         jne short .157
         mov dword [dword_16D454], 0FFFFFFFFh
 .157:
-        mov ecx, sub_B5031
+        mov ecx, CompareRatingColumn
         mov ebx, 4
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [dword_1CAE80]
@@ -7047,7 +7050,7 @@ PlayerRatingsScreen_1D11:
 .162:
         mov edx, dword [byte ebp+072h]
         mov eax, unk_1CABDC
-        call sub_8E6AF
+        call SetListSelection
         xor ebx, ebx
         mov eax, unk_1CABDC
         xor edx, edx
@@ -7125,23 +7128,23 @@ PlayerRatingsScreen_1D11:
 PlayerRatingsScreen_1E94:
         xor edx, eax
         mov eax, unk_1CA9DC
-        call sub_8DE10
+        call ScrollUp
         jmp near PlayerRatingsScreen_2040.186
 PlayerRatingsScreen_1EA5:
         mov ebx, eax
         xor edx, eax
         mov eax, unk_1CA9DC
-        call sub_8DEAC
+        call ScrollToMouse
         jmp near PlayerRatingsScreen_2040.186
 PlayerRatingsScreen_1EB8:
         xor edx, eax
         mov eax, unk_1CA9DC
-        call sub_8DE68
+        call ScrollDown
         jmp near PlayerRatingsScreen_2040.186
 PlayerRatingsScreen_1EC9:
         xor edx, eax
         mov eax, unk_1CAADC
-        call sub_8DE10
+        call ScrollUp
         cmp dword [dword_1CAEB4], byte 0
         je short .172
         mov edx, dword [dword_1CAB00]
@@ -7159,7 +7162,7 @@ PlayerRatingsScreen_1EC9:
         mov edx, 0Eh
 .171:
         mov eax, unk_1CA9DC
-        call sub_8E6AF
+        call SetListSelection
         mov eax, unk_1CA9DC
         xor ebx, ebx
         xor edx, edx
@@ -7179,7 +7182,7 @@ PlayerRatingsScreen_1EC9:
         mov edx, 9
         mov eax, unk_1CA9DC
         mov dword [dword_1CAEB4], 1
-        call sub_8E6AF
+        call SetListSelection
         xor ebx, ebx
         mov eax, unk_1CA9DC
         xor edx, edx
@@ -7194,7 +7197,7 @@ PlayerRatingsScreen_1F8C:
         mov ebx, eax
         xor edx, eax
         mov eax, unk_1CAADC
-        call sub_8DEAC
+        call ScrollToMouse
         cmp dword [dword_1CAEB4], byte 0
         je short .178
         mov edx, dword [dword_1CAB00]
@@ -7214,7 +7217,7 @@ PlayerRatingsScreen_1F8C:
         mov edx, 9
 .177:
         mov eax, unk_1CA9DC
-        call sub_8E6AF
+        call SetListSelection
         mov eax, unk_1CA9DC
         xor ebx, ebx
         xor edx, edx
@@ -7229,7 +7232,7 @@ PlayerRatingsScreen_1F8C:
 PlayerRatingsScreen_2014:
         xor edx, eax
         mov eax, unk_1CAADC
-        call sub_8DE68
+        call ScrollDown
         cmp dword [dword_1CAEB4], byte 0
         je near PlayerRatingsScreen_1EC9.172
         mov eax, dword [dword_1CAB00]
@@ -7239,7 +7242,7 @@ PlayerRatingsScreen_2014:
 PlayerRatingsScreen_2040:
         xor edx, eax
         mov eax, unk_1CABDC
-        call sub_8DE10
+        call ScrollUp
 .179:
         cmp dword [dword_1CAEB4], byte 0
         je short .182
@@ -7258,7 +7261,7 @@ PlayerRatingsScreen_2040:
         mov edx, 0Eh
 .181:
         mov eax, unk_1CA9DC
-        call sub_8E6AF
+        call SetListSelection
         mov eax, unk_1CA9DC
         xor ebx, ebx
         xor edx, edx
@@ -7279,7 +7282,7 @@ PlayerRatingsScreen_2040:
         mov edx, 9
         mov eax, unk_1CA9DC
         mov dword [dword_1CAEB4], 1
-        call sub_8E6AF
+        call SetListSelection
         xor ebx, ebx
         mov eax, unk_1CA9DC
 .185:
@@ -7297,7 +7300,7 @@ PlayerRatingsScreen_2040:
         mov edx, dword [byte ebp+06Ah]
         add ecx, eax
         mov eax, esi
-        call sub_BBC3A
+        call DrawTeamNameField
         call SetScreenTarget
         push dword 140h
         push byte 5Ah
@@ -7313,7 +7316,7 @@ PlayerRatingsScreen_2040:
         mov edx, dword [byte ebp+06Ah]
         add ecx, eax
         mov eax, esi
-        call sub_BBC3A
+        call DrawTeamNameField
         call SetScreenTarget
         push dword 140h
         push dword 17Ch
@@ -7352,12 +7355,12 @@ PlayerRatingsScreen_21EA:
         mov ebx, eax
         xor edx, eax
         mov eax, unk_1CABDC
-        call sub_8DEAC
+        call ScrollToMouse
         jmp near PlayerRatingsScreen_1964.141
 PlayerRatingsScreen_21FD:
         xor edx, eax
         mov eax, unk_1CABDC
-        call sub_8DE68
+        call ScrollDown
         jmp near PlayerRatingsScreen_2040.179
 .189:
         push dword [dword_1CAE6C]
@@ -7397,20 +7400,20 @@ PlayerRatingsScreen_21FD:
         call FreeBitmap
         add esp, byte 4
         mov eax, unk_1CA9DC
-        call sub_8DE7E
+        call FreeScrollList
         mov eax, unk_1CAADC
-        call sub_8DE7E
+        call FreeScrollList
         mov eax, unk_1CABDC
-        call sub_8DE7E
+        call FreeScrollList
         cmp dword [byte ebp+01Ah], byte 0
         je short .190
         lea eax, [byte ebp+01Ah]
-        call sub_DB75E
+        call FreeDbBlock
 .190:
         cmp dword [byte ebp+016h], byte 0
         je short .191
         lea eax, [byte ebp+016h]
-        call sub_DB75E
+        call FreeDbBlock
 .191:
         cmp dword [dword_1CAE88], byte 0
         je short .192
@@ -7446,7 +7449,7 @@ PlayerRatingsScreen_21FD:
         push edi
         call FreeBitmap
         add esp, byte 4
-        call sub_81678
+        call SetNormalText
         cmp byte [byte_1C6040], 0
         je short .195
         cmp byte [byte_1C8338], 0
@@ -7461,9 +7464,10 @@ PlayerRatingsScreen_21FD:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_BB365                                                       BB365  97 PC
+; BuildPlayerStats                                BB365  97 PC, low confidence
+; Builds the player stats lists
 ;-----------------------------------------------------------------------------
-sub_BB365:
+BuildPlayerStats:
         push esi
         push edi
         enter 32ECh, 0
@@ -7477,14 +7481,14 @@ sub_BB365:
         mov dword [byte ebp+072h], ebx
         jmp near .74
 .1:
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+072h]
         mov edx, dword [dword ebp-03276h]
         shl eax, 3
         mov edx, dword [byte edx+01Ch]
         add eax, edx
         lea edx, [dword ebp-01922h]
-        call sub_E036F
+        call FindGameRecord
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 10h
@@ -7495,7 +7499,7 @@ sub_BB365:
         mov dword [byte ebp+06Eh], 0
         jmp short .4
 .2:
-        call sub_E341C
+        call ServiceIdle
         mov ecx, dword [byte ebp+076h]
         mov edx, dword [dword ebp-0327Ah]
         mov eax, dword [byte ebp+072h]
@@ -7506,7 +7510,7 @@ sub_BB365:
         mov esi, dword [byte esi+01Ch]
         add edx, ecx
         add eax, esi
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .3
         mov eax, dword [dword ebp-0327Ah]
@@ -7514,7 +7518,7 @@ sub_BB365:
         lea edx, [dword ebp-03272h]
         add eax, ecx
         mov dword [byte ebp+06Eh], 1
-        call sub_E036F
+        call FindGameRecord
 .3:
         inc dword [byte ebp+076h]
 .4:
@@ -7531,18 +7535,18 @@ sub_BB365:
         imul ecx, dword [byte ebp+076h], byte 38h
         imul edx, ebx, byte 27h
         lea edi, [dword ebp-0C19h]
-        call sub_E341C
+        call ServiceIdle
         add edi, ecx
         add edx, dword [dword ebp+08Ah]
         lea eax, [byte edi+028h]
-        call sub_E0841
+        call FindPlayerStat
         imul edx, ebx, dword 0BCh
         mov eax, dword [dword_1CAEB8]
         add edx, eax
         lea eax, [byte edi+018h]
         mov esi, dword [dword ebp+08Eh]
-        call sub_DCBB0
-        call sub_E341C
+        call FindPlayerRecord
+        call ServiceIdle
         mov al, byte [dword ecx+ebp-0C17h]
         mov byte [esi+ebx], al
         mov eax, dword [dword_1AC814]
@@ -7552,7 +7556,7 @@ sub_BB365:
         cmp byte [byte_1AD739], 0
         je short .7
         imul ecx, ebx, byte 3Dh
-        call sub_E341C
+        call ServiceIdle
         mov edx, dword [dword ebp-0327Eh]
         lea eax, [byte edi+020h]
         lea esi, [byte ebp+02Eh]
@@ -7560,7 +7564,7 @@ sub_BB365:
         add edx, ecx
         add edi, ecx
         mov ecx, 3Dh
-        call sub_E0D0F
+        call FindTeamStat
         jmp near .20
 .7:
         mov eax, dword [dword_1AC814]
@@ -7575,14 +7579,14 @@ sub_BB365:
         test byte [dword_1AC814], 70h
         jne near .19
 .9:
-        call sub_E341C
+        call ServiceIdle
         imul eax, dword [byte ebp+076h], byte 38h
         imul edx, ebx, byte 3Dh
         lea ecx, [dword ebp-0C19h]
         add eax, ecx
         add edx, dword [dword ebp-0327Eh]
         add eax, byte 20h
-        call sub_E0D0F
+        call FindTeamStat
         cmp dword [dword_1ACF46], byte 0
         je short .10
         cmp dword [byte ebp+06Eh], byte 0
@@ -7608,14 +7612,14 @@ sub_BB365:
         lea edi, [dword ebp-02569h]
         add edi, eax
         lea eax, [byte edi+018h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .13
         imul edx, ebx, byte 3Dh
         lea eax, [byte edi+020h]
         add edx, dword [dword ebp-03282h]
         mov esi, 1
-        call sub_E0D0F
+        call FindTeamStat
 .13:
         inc ecx
 .14:
@@ -7636,14 +7640,14 @@ sub_BB365:
         add edx, byte 18h
         add edi, eax
         lea eax, [byte edi+018h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .17
         imul edx, ebx, byte 3Dh
         lea eax, [byte edi+020h]
         add edx, dword [dword ebp-03282h]
         mov esi, 1
-        call sub_E0D0F
+        call FindTeamStat
 .17:
         inc ecx
 .18:
@@ -7682,17 +7686,17 @@ sub_BB365:
         imul ecx, dword [byte ebp+076h], byte 38h
         imul edx, ebx, byte 27h
         lea esi, [dword ebp-05F5h]
-        call sub_E341C
+        call ServiceIdle
         add esi, ecx
         add edx, dword [dword ebp+08Ah]
         lea eax, [byte esi+028h]
-        call sub_E0841
-        call sub_E341C
+        call FindPlayerStat
+        call ServiceIdle
         imul eax, ebx, dword 0BCh
         mov edx, dword [dword_1CAEB8]
         add edx, eax
         lea eax, [byte esi+018h]
-        call sub_DCBB0
+        call FindPlayerRecord
         mov eax, dword [dword ebp+08Eh]
         mov dl, byte [dword ecx+ebp-0C17h]
         mov byte [ebx+eax], dl
@@ -7703,14 +7707,14 @@ sub_BB365:
         cmp byte [byte_1AD739], 0
         je short .24
         imul edi, ebx, byte 3Dh
-        call sub_E341C
+        call ServiceIdle
         mov edx, dword [dword ebp-0327Eh]
         lea eax, [byte esi+020h]
         mov ecx, 3Dh
         lea esi, [byte ebp+02Eh]
         add edx, edi
         add edi, dword [dword ebp-03282h]
-        call sub_E0D0F
+        call FindTeamStat
         jmp near .37
 .24:
         mov eax, dword [dword_1AC814]
@@ -7725,14 +7729,14 @@ sub_BB365:
         test byte [dword_1AC814], 70h
         jne near .36
 .26:
-        call sub_E341C
+        call ServiceIdle
         imul eax, dword [byte ebp+076h], byte 38h
         imul edx, ebx, byte 3Dh
         lea ecx, [dword ebp-05F5h]
         add eax, ecx
         add edx, dword [dword ebp-0327Eh]
         add eax, byte 20h
-        call sub_E0D0F
+        call FindTeamStat
         cmp dword [dword_1ACF46], byte 0
         je short .27
         cmp dword [byte ebp+06Eh], byte 0
@@ -7757,14 +7761,14 @@ sub_BB365:
         lea eax, [dword ebp-02569h]
         add edi, eax
         lea eax, [byte edi+018h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .30
         imul edx, ebx, byte 3Dh
         lea eax, [byte edi+020h]
         add edx, dword [dword ebp-03282h]
         mov esi, 1
-        call sub_E0D0F
+        call FindTeamStat
 .30:
         inc ecx
 .31:
@@ -7785,14 +7789,14 @@ sub_BB365:
         add edx, byte 18h
         add edi, eax
         lea eax, [byte edi+018h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .34
         imul edx, ebx, byte 3Dh
         lea eax, [byte edi+020h]
         add edx, dword [dword ebp-03282h]
         mov esi, 1
-        call sub_E0D0F
+        call FindTeamStat
 .34:
         inc ecx
 .35:
@@ -7831,17 +7835,17 @@ sub_BB365:
         imul ecx, dword [byte ebp+076h], byte 38h
         imul edx, ebx, byte 27h
         lea esi, [dword ebp-069Fh]
-        call sub_E341C
+        call ServiceIdle
         add esi, ecx
         add edx, dword [dword ebp+08Ah]
         lea eax, [byte esi+028h]
-        call sub_E0841
-        call sub_E341C
+        call FindPlayerStat
+        call ServiceIdle
         imul eax, ebx, dword 0BCh
         mov edx, dword [dword_1CAEB8]
         add edx, eax
         lea eax, [byte esi+018h]
-        call sub_DCBB0
+        call FindPlayerRecord
         mov eax, dword [dword ebp+08Eh]
         mov dl, byte [dword ecx+ebp-069Dh]
         mov byte [ebx+eax], dl
@@ -7852,14 +7856,14 @@ sub_BB365:
         cmp byte [byte_1AD739], 0
         je short .41
         imul edi, ebx, byte 3Dh
-        call sub_E341C
+        call ServiceIdle
         mov edx, dword [dword ebp-0327Eh]
         lea eax, [byte esi+020h]
         mov ecx, 3Dh
         lea esi, [byte ebp+02Eh]
         add edx, edi
         add edi, dword [dword ebp-03282h]
-        call sub_E0D0F
+        call FindTeamStat
         jmp near .54
 .41:
         mov eax, dword [dword_1AC814]
@@ -7880,7 +7884,7 @@ sub_BB365:
         add eax, ecx
         add edx, dword [dword ebp-0327Eh]
         add eax, byte 20h
-        call sub_E0D0F
+        call FindTeamStat
         cmp dword [dword_1ACF46], byte 0
         je short .44
         cmp dword [byte ebp+06Eh], byte 0
@@ -7906,14 +7910,14 @@ sub_BB365:
         add edx, byte 18h
         add edi, eax
         lea eax, [byte edi+018h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .47
         imul edx, ebx, byte 3Dh
         lea eax, [byte edi+020h]
         add edx, dword [dword ebp-03282h]
         mov esi, 1
-        call sub_E0D0F
+        call FindTeamStat
 .47:
         inc ecx
 .48:
@@ -7934,14 +7938,14 @@ sub_BB365:
         add edx, byte 18h
         add edi, eax
         lea eax, [byte edi+018h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .51
         imul edx, ebx, byte 3Dh
         lea eax, [byte edi+020h]
         add edx, dword [dword ebp-03282h]
         mov esi, 1
-        call sub_E0D0F
+        call FindTeamStat
 .51:
         inc ecx
 .52:
@@ -7980,17 +7984,17 @@ sub_BB365:
         imul ecx, dword [byte ebp+076h], byte 38h
         imul edx, ebx, byte 27h
         lea esi, [byte ebp-07Bh]
-        call sub_E341C
+        call ServiceIdle
         add esi, ecx
         add edx, dword [dword ebp+08Ah]
         lea eax, [byte esi+028h]
-        call sub_E0841
-        call sub_E341C
+        call FindPlayerStat
+        call ServiceIdle
         imul eax, ebx, dword 0BCh
         mov edx, dword [dword_1CAEB8]
         add edx, eax
         lea eax, [byte esi+018h]
-        call sub_DCBB0
+        call FindPlayerRecord
         mov eax, dword [dword ebp+08Eh]
         mov dl, byte [dword ecx+ebp-069Dh]
         mov byte [ebx+eax], dl
@@ -8001,7 +8005,7 @@ sub_BB365:
         cmp byte [byte_1AD739], 0
         je short .58
         imul ecx, ebx, byte 3Dh
-        call sub_E341C
+        call ServiceIdle
         mov edx, dword [dword ebp-0327Eh]
         lea eax, [byte esi+020h]
         mov edi, dword [dword ebp-03282h]
@@ -8009,7 +8013,7 @@ sub_BB365:
         add edx, ecx
         add edi, ecx
         mov ecx, 3Dh
-        call sub_E0D0F
+        call FindTeamStat
         jmp near .71
 .58:
         mov eax, dword [dword_1AC814]
@@ -8024,14 +8028,14 @@ sub_BB365:
         test byte [dword_1AC814], 70h
         jne near .70
 .60:
-        call sub_E341C
+        call ServiceIdle
         imul eax, dword [byte ebp+076h], byte 38h
         imul edx, ebx, byte 3Dh
         lea ecx, [byte ebp-07Bh]
         add eax, ecx
         add edx, dword [dword ebp-0327Eh]
         add eax, byte 20h
-        call sub_E0D0F
+        call FindTeamStat
         cmp dword [dword_1ACF46], byte 0
         je short .61
         cmp dword [byte ebp+06Eh], byte 0
@@ -8056,14 +8060,14 @@ sub_BB365:
         lea edi, [dword ebp-01FEFh]
         add edi, eax
         lea eax, [byte edi+018h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .64
         imul edx, ebx, byte 3Dh
         lea eax, [byte edi+020h]
         add edx, dword [dword ebp-03282h]
         mov esi, 1
-        call sub_E0D0F
+        call FindTeamStat
 .64:
         inc ecx
 .65:
@@ -8084,14 +8088,14 @@ sub_BB365:
         lea edi, [dword ebp-019CBh]
         add edi, eax
         lea eax, [byte edi+018h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .68
         imul edx, ebx, byte 3Dh
         lea eax, [byte edi+020h]
         add edx, dword [dword ebp-03282h]
         mov esi, 1
-        call sub_E0D0F
+        call FindTeamStat
 .68:
         inc ecx
 .69:
@@ -8136,9 +8140,10 @@ sub_BB365:
         pop esi
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_BBC3A                                                       BBC3A  97 PC
+; DrawTeamNameField                               BBC3A  97 PC, low confidence
+; Draws the team name field
 ;-----------------------------------------------------------------------------
-sub_BBC3A:
+DrawTeamNameField:
         push esi
         push edi
         enter 0A4h, 0
@@ -8176,7 +8181,7 @@ sub_BBC3A:
         push eax
         movsx ecx, word [byte esi+04h]
         mov eax, 8
-        call sub_7F04C
+        call DrawEditBox
         cmp dword [dword_1CAEA0], byte 0
         je short .5
         cmp dword [byte ebp+076h], byte 0
@@ -8194,7 +8199,7 @@ sub_BBC3A:
 .4:
         add eax, edx
         lea edx, [byte ebp-026h]
-        call sub_DC653
+        call FindTeamRecord
         lea edx, [byte ebp+018h]
         lea eax, [byte ebp+042h]
         call strcpy_
@@ -8225,68 +8230,69 @@ sub_BBC3A:
         pop esi
         ret 4
 jpt_BBD29:
-        dd sub_BBE01_243
-        dd sub_BBE01_272
-        dd sub_BBE01_2A1
-        dd sub_BBE01_2D0
-        dd sub_BBE01_2FF
-        dd sub_BBE01_32E
-        dd sub_BBE01_35D
-        dd sub_BBE01_385
-        dd sub_BBE01_3AD
+        dd DrawPlayerRatings_243
+        dd DrawPlayerRatings_272
+        dd DrawPlayerRatings_2A1
+        dd DrawPlayerRatings_2D0
+        dd DrawPlayerRatings_2FF
+        dd DrawPlayerRatings_32E
+        dd DrawPlayerRatings_35D
+        dd DrawPlayerRatings_385
+        dd DrawPlayerRatings_3AD
 jpt_BBD4D:
-        dd sub_BBE01_4D9
-        dd sub_BBE01_515
-        dd sub_BBE01_551
-        dd sub_BBE01_58D
-        dd sub_BBE01_5C9
-        dd sub_BBE01_5FF
-        dd sub_BBE01_62E
-        dd sub_BBE01_65D
-        dd sub_BBE01_68C
-        dd sub_BBE01_6BB
-        dd sub_BBE01_6EA
-        dd sub_BBE01_719
-        dd sub_BBE01_741
-        dd sub_BBE01_769
+        dd DrawPlayerRatings_4D9
+        dd DrawPlayerRatings_515
+        dd DrawPlayerRatings_551
+        dd DrawPlayerRatings_58D
+        dd DrawPlayerRatings_5C9
+        dd DrawPlayerRatings_5FF
+        dd DrawPlayerRatings_62E
+        dd DrawPlayerRatings_65D
+        dd DrawPlayerRatings_68C
+        dd DrawPlayerRatings_6BB
+        dd DrawPlayerRatings_6EA
+        dd DrawPlayerRatings_719
+        dd DrawPlayerRatings_741
+        dd DrawPlayerRatings_769
 jpt_BBD85:
-        dd sub_BBE01_99B
-        dd sub_BBE01_A38
-        dd sub_BBE01_AD5
-        dd sub_BBE01_B72
-        dd sub_BBE01_BFC
-        dd sub_BBE01_C99
-        dd sub_BBE01_D42
-        dd sub_BBE01_DE5
-        dd sub_BBE01_E68
-        dd sub_BBE01_EEB
-        dd sub_BBE01_F6E
+        dd DrawPlayerRatings_99B
+        dd DrawPlayerRatings_A38
+        dd DrawPlayerRatings_AD5
+        dd DrawPlayerRatings_B72
+        dd DrawPlayerRatings_BFC
+        dd DrawPlayerRatings_C99
+        dd DrawPlayerRatings_D42
+        dd DrawPlayerRatings_DE5
+        dd DrawPlayerRatings_E68
+        dd DrawPlayerRatings_EEB
+        dd DrawPlayerRatings_F6E
 jpt_BBDB1:
-        dd sub_BBE01_111B
-        dd sub_BBE01_11B8
-        dd sub_BBE01_1255
-        dd sub_BBE01_12F2
-        dd sub_BBE01_138F
-        dd sub_BBE01_1426
-        dd sub_BBE01_14A9
-        dd sub_BBE01_152C
-        dd sub_BBE01_15AF
+        dd DrawPlayerRatings_111B
+        dd DrawPlayerRatings_11B8
+        dd DrawPlayerRatings_1255
+        dd DrawPlayerRatings_12F2
+        dd DrawPlayerRatings_138F
+        dd DrawPlayerRatings_1426
+        dd DrawPlayerRatings_14A9
+        dd DrawPlayerRatings_152C
+        dd DrawPlayerRatings_15AF
 jpt_BBDD5:
-        dd sub_BBE01_1713
-        dd sub_BBE01_17C0
-        dd sub_BBE01_17C9
-        dd sub_BBE01_17D2
-        dd sub_BBE01_17DB
-        dd sub_BBE01_17E4
-        dd sub_BBE01_17ED
-        dd sub_BBE01_17F6
-        dd sub_BBE01_17FF
-        dd sub_BBE01_1808
-        dd sub_BBE01_1811
+        dd DrawPlayerRatings_1713
+        dd DrawPlayerRatings_17C0
+        dd DrawPlayerRatings_17C9
+        dd DrawPlayerRatings_17D2
+        dd DrawPlayerRatings_17DB
+        dd DrawPlayerRatings_17E4
+        dd DrawPlayerRatings_17ED
+        dd DrawPlayerRatings_17F6
+        dd DrawPlayerRatings_17FF
+        dd DrawPlayerRatings_1808
+        dd DrawPlayerRatings_1811
 ;-----------------------------------------------------------------------------
-; sub_BBE01                                                       BBE01  97 PC
+; DrawPlayerRatings                               BBE01  97 PC, low confidence
+; Draws the player ratings
 ;-----------------------------------------------------------------------------
-sub_BBE01:
+DrawPlayerRatings:
         push esi
         push edi
         enter 54h, 0
@@ -8379,7 +8385,7 @@ sub_BBE01:
         mov eax, dword [byte eax+01Ch]
         add eax, edx
         mov edx, dword [byte ebp-018h]
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
         jne short .7
         mov dword [byte ebp-024h], 1
@@ -8392,7 +8398,7 @@ sub_BBE01:
         mov edx, dword [byte edx+01Ch]
         add eax, edx
         mov edx, dword [byte ebp-01Ch]
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
         jne short .11
         jmp short .10
@@ -8405,7 +8411,7 @@ sub_BBE01:
         mov eax, dword [byte eax+01Ch]
         add eax, edx
         mov edx, dword [byte ebp-018h]
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
         jne short .9
         mov dword [byte ebp-024h], 1
@@ -8416,22 +8422,22 @@ sub_BBE01:
         mov edx, dword [byte edx+01Ch]
         add eax, edx
         mov edx, dword [byte ebp-01Ch]
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
         jne short .11
 .10:
         mov dword [byte ebp-020h], 1
 .11:
         cmp dword [dword_16D458], byte 0
-        je near sub_BBE01_769.73
+        je near DrawPlayerRatings_769.73
         cmp dword [dword_1CAEA0], byte 0
-        jne near sub_BBE01_769.71
+        jne near DrawPlayerRatings_769.71
         cmp dword [dword_1CAEB4], byte 0
-        je near sub_BBE01_3AD.36
+        je near DrawPlayerRatings_3AD.36
         mov eax, dword [byte ebp-060h]
         mov dword [byte ebp-010h], 0
         mov dword [byte ebp-0Ch], eax
-        jmp near sub_BBE01_3AD.35
+        jmp near DrawPlayerRatings_3AD.35
 .12:
         mov eax, dword [byte ebp-0Ch]
         add eax, 1A4h
@@ -8443,14 +8449,14 @@ sub_BBE01:
         call DrawTextAligned
         add esp, byte 10h
         cmp dword [byte ebp-0Ch], byte 8
-        ja near sub_BBE01_3AD.32
+        ja near DrawPlayerRatings_3AD.32
         imul ebx, dword [byte ebp-08h], byte 27h
         mov eax, dword [byte ebp+010h]
         mov edx, dword [byte ebp-0Ch]
         add eax, dword [byte ebp-08h]
         add ebx, dword [byte ebp-064h]
         jmp dword [nosplit cs:edx*4+jpt_BBD29]
-sub_BBE01_243:
+DrawPlayerRatings_243:
         cmp byte [eax], 47h
         jne short .13
         movzx edi, byte [byte ebx+011h]
@@ -8461,12 +8467,12 @@ sub_BBE01_243:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_3AD.31
+        jne near DrawPlayerRatings_3AD.31
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+011h]
-        jmp near sub_BBE01_3AD.32
-sub_BBE01_272:
+        jmp near DrawPlayerRatings_3AD.32
+DrawPlayerRatings_272:
         cmp byte [eax], 47h
         jne short .15
         movzx edi, byte [byte ebx+012h]
@@ -8477,12 +8483,12 @@ sub_BBE01_272:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_3AD.31
+        jne near DrawPlayerRatings_3AD.31
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+012h]
-        jmp near sub_BBE01_3AD.32
-sub_BBE01_2A1:
+        jmp near DrawPlayerRatings_3AD.32
+DrawPlayerRatings_2A1:
         cmp byte [eax], 47h
         jne short .17
         movzx edi, byte [byte ebx+013h]
@@ -8493,12 +8499,12 @@ sub_BBE01_2A1:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_3AD.31
+        jne near DrawPlayerRatings_3AD.31
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+013h]
-        jmp near sub_BBE01_3AD.32
-sub_BBE01_2D0:
+        jmp near DrawPlayerRatings_3AD.32
+DrawPlayerRatings_2D0:
         cmp byte [eax], 47h
         jne short .19
         movzx edi, byte [byte ebx+014h]
@@ -8509,12 +8515,12 @@ sub_BBE01_2D0:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_3AD.31
+        jne near DrawPlayerRatings_3AD.31
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+014h]
-        jmp near sub_BBE01_3AD.32
-sub_BBE01_2FF:
+        jmp near DrawPlayerRatings_3AD.32
+DrawPlayerRatings_2FF:
         cmp byte [eax], 47h
         jne short .21
         movzx edi, byte [byte ebx+015h]
@@ -8525,12 +8531,12 @@ sub_BBE01_2FF:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_3AD.31
+        jne near DrawPlayerRatings_3AD.31
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+015h]
-        jmp near sub_BBE01_3AD.32
-sub_BBE01_32E:
+        jmp near DrawPlayerRatings_3AD.32
+DrawPlayerRatings_32E:
         cmp byte [eax], 47h
         jne short .23
         movzx edi, byte [byte ebx+016h]
@@ -8541,12 +8547,12 @@ sub_BBE01_32E:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_3AD.31
+        jne near DrawPlayerRatings_3AD.31
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+016h]
-        jmp near sub_BBE01_3AD.32
-sub_BBE01_35D:
+        jmp near DrawPlayerRatings_3AD.32
+DrawPlayerRatings_35D:
         cmp byte [eax], 47h
         jne short .25
         movzx edi, byte [byte ebx+018h]
@@ -8557,12 +8563,12 @@ sub_BBE01_35D:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne short sub_BBE01_3AD.31
+        jne short DrawPlayerRatings_3AD.31
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+018h]
-        jmp short sub_BBE01_3AD.32
-sub_BBE01_385:
+        jmp short DrawPlayerRatings_3AD.32
+DrawPlayerRatings_385:
         cmp byte [eax], 47h
         jne short .27
         movzx edi, byte [byte ebx+019h]
@@ -8573,12 +8579,12 @@ sub_BBE01_385:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne short sub_BBE01_3AD.31
+        jne short DrawPlayerRatings_3AD.31
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+019h]
-        jmp short sub_BBE01_3AD.32
-sub_BBE01_3AD:
+        jmp short DrawPlayerRatings_3AD.32
+DrawPlayerRatings_3AD:
         cmp byte [eax], 47h
         jne short .29
         movzx edi, byte [byte ebx+01Ah]
@@ -8617,7 +8623,7 @@ sub_BBE01_3AD:
         push eax
         add edx, byte 5
         mov eax, ebx
-        call sub_80B28
+        call DrawProgressBar
 .33:
         cmp esi, byte 0FFFFFFFFh
         je short .34
@@ -8639,7 +8645,7 @@ sub_BBE01_3AD:
         push eax
         add edx, byte 5
         mov eax, 127h
-        call sub_80B28
+        call DrawProgressBar
 .34:
         inc dword [byte ebp-0Ch]
         add dword [byte ebp-010h], byte 0Fh
@@ -8647,13 +8653,13 @@ sub_BBE01_3AD:
         mov eax, dword [byte ebp-060h]
         add eax, byte 6
         cmp eax, dword [byte ebp-0Ch]
-        jg near sub_BBE01.12
-        jmp near sub_BBE01_1713.229
+        jg near DrawPlayerRatings.12
+        jmp near DrawPlayerRatings_1713.229
 .36:
         mov eax, dword [byte ebp-060h]
         mov dword [byte ebp-010h], 0
         mov dword [byte ebp-0Ch], eax
-        jmp near sub_BBE01_769.70
+        jmp near DrawPlayerRatings_769.70
 .37:
         mov eax, dword [byte ebp-0Ch]
         add eax, 174h
@@ -8665,14 +8671,14 @@ sub_BBE01_3AD:
         call DrawTextAligned
         add esp, byte 10h
         cmp dword [byte ebp-0Ch], byte 0Dh
-        ja near sub_BBE01_769.67
+        ja near DrawPlayerRatings_769.67
         imul ebx, dword [byte ebp-08h], byte 27h
         mov eax, dword [byte ebp+010h]
         mov edx, dword [byte ebp-0Ch]
         add eax, dword [byte ebp-08h]
         add ebx, dword [byte ebp-064h]
         jmp dword [nosplit cs:edx*4+jpt_BBD4D]
-sub_BBE01_4D9:
+DrawPlayerRatings_4D9:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -8687,12 +8693,12 @@ sub_BBE01_4D9:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_769.66
+        je near DrawPlayerRatings_769.66
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+011h]
-        jmp near sub_BBE01_769.67
-sub_BBE01_515:
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_515:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -8707,12 +8713,12 @@ sub_BBE01_515:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_769.66
+        je near DrawPlayerRatings_769.66
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+012h]
-        jmp near sub_BBE01_769.67
-sub_BBE01_551:
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_551:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -8727,12 +8733,12 @@ sub_BBE01_551:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_769.66
+        je near DrawPlayerRatings_769.66
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+014h]
-        jmp near sub_BBE01_769.67
-sub_BBE01_58D:
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_58D:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -8747,12 +8753,12 @@ sub_BBE01_58D:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_769.66
+        je near DrawPlayerRatings_769.66
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+015h]
-        jmp near sub_BBE01_769.67
-sub_BBE01_5C9:
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_5C9:
         cmp byte [eax], 47h
         je short .46
         imul edi, dword [byte ebp-08h], byte 27h
@@ -8765,12 +8771,12 @@ sub_BBE01_5C9:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_769.66
+        je near DrawPlayerRatings_769.66
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+016h]
-        jmp near sub_BBE01_769.67
-sub_BBE01_5FF:
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_5FF:
         cmp byte [eax], 47h
         je short .48
         movzx edi, byte [byte ebx+018h]
@@ -8781,12 +8787,12 @@ sub_BBE01_5FF:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_769.66
+        je near DrawPlayerRatings_769.66
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+018h]
-        jmp near sub_BBE01_769.67
-sub_BBE01_62E:
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_62E:
         cmp byte [eax], 47h
         je short .50
         movzx edi, byte [byte ebx+017h]
@@ -8797,12 +8803,12 @@ sub_BBE01_62E:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_769.66
+        je near DrawPlayerRatings_769.66
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+017h]
-        jmp near sub_BBE01_769.67
-sub_BBE01_65D:
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_65D:
         cmp byte [eax], 47h
         je short .52
         movzx edi, byte [byte ebx+019h]
@@ -8813,12 +8819,12 @@ sub_BBE01_65D:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_769.66
+        je near DrawPlayerRatings_769.66
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+019h]
-        jmp near sub_BBE01_769.67
-sub_BBE01_68C:
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_68C:
         cmp byte [eax], 47h
         je short .54
         movzx edi, byte [byte ebx+01Ah]
@@ -8829,12 +8835,12 @@ sub_BBE01_68C:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_769.66
+        je near DrawPlayerRatings_769.66
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+01Ah]
-        jmp near sub_BBE01_769.67
-sub_BBE01_6BB:
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_6BB:
         cmp byte [eax], 47h
         je short .56
         movzx edi, byte [byte ebx+01Bh]
@@ -8845,12 +8851,12 @@ sub_BBE01_6BB:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_769.66
+        je near DrawPlayerRatings_769.66
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+01Bh]
-        jmp near sub_BBE01_769.67
-sub_BBE01_6EA:
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_6EA:
         cmp byte [eax], 47h
         je short .58
         movzx edi, byte [byte ebx+01Ch]
@@ -8861,12 +8867,12 @@ sub_BBE01_6EA:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_769.66
+        je near DrawPlayerRatings_769.66
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+01Ch]
-        jmp near sub_BBE01_769.67
-sub_BBE01_719:
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_719:
         cmp byte [eax], 47h
         je short .60
         movzx edi, byte [byte ebx+01Dh]
@@ -8877,12 +8883,12 @@ sub_BBE01_719:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je short sub_BBE01_769.66
+        je short DrawPlayerRatings_769.66
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+01Dh]
-        jmp short sub_BBE01_769.67
-sub_BBE01_741:
+        jmp short DrawPlayerRatings_769.67
+DrawPlayerRatings_741:
         cmp byte [eax], 47h
         je short .62
         movzx edi, byte [byte ebx+01Fh]
@@ -8893,12 +8899,12 @@ sub_BBE01_741:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je short sub_BBE01_769.66
+        je short DrawPlayerRatings_769.66
         imul esi, dword [byte ebp-04h], byte 27h
         add esi, dword [byte ebp-064h]
         movzx esi, byte [byte esi+01Fh]
-        jmp short sub_BBE01_769.67
-sub_BBE01_769:
+        jmp short DrawPlayerRatings_769.67
+DrawPlayerRatings_769:
         cmp byte [eax], 47h
         je short .64
         movzx edi, byte [byte ebx+020h]
@@ -8937,7 +8943,7 @@ sub_BBE01_769:
         push eax
         add edx, byte 5
         mov eax, ebx
-        call sub_80B28
+        call DrawProgressBar
 .68:
         cmp esi, byte 0FFFFFFFFh
         je short .69
@@ -8959,7 +8965,7 @@ sub_BBE01_769:
         push eax
         add edx, byte 5
         mov eax, 127h
-        call sub_80B28
+        call DrawProgressBar
 .69:
         inc dword [byte ebp-0Ch]
         add dword [byte ebp-010h], byte 0Fh
@@ -8967,8 +8973,8 @@ sub_BBE01_769:
         mov eax, dword [byte ebp-060h]
         add eax, byte 6
         cmp eax, dword [byte ebp-0Ch]
-        jg near sub_BBE01_3AD.37
-        jmp near sub_BBE01_1713.229
+        jg near DrawPlayerRatings_3AD.37
+        jmp near DrawPlayerRatings_1713.229
 .71:
         mov edi, dword [byte ebp-01Ch]
         mov esi, dword [byte ebp-018h]
@@ -8998,7 +9004,7 @@ sub_BBE01_769:
         mov dword [byte ebp-044h], eax
         mov edx, eax
         mov eax, ebx
-        call sub_80B28
+        call DrawProgressBar
         push dword [byte ebp-048h]
         push dword 122h
         push str_POWR2
@@ -9016,7 +9022,7 @@ sub_BBE01_769:
         push eax
         mov edx, dword [byte ebp-044h]
         mov eax, 127h
-        call sub_80B28
+        call DrawProgressBar
         mov eax, dword [byte ebp-0Ch]
         add eax, 1FBh
         call GetLangText
@@ -9031,16 +9037,16 @@ sub_BBE01_769:
         add esp, byte 10h
         cmp dword [byte ebp-0Ch], byte 6
         jl near .72
-        jmp near sub_BBE01_1713.229
+        jmp near DrawPlayerRatings_1713.229
 .73:
         cmp dword [dword_1CAEA0], byte 0
-        jne near sub_BBE01_15AF.216
+        jne near DrawPlayerRatings_15AF.216
         cmp dword [dword_1CAEB4], byte 0
-        je near sub_BBE01_F6E.155
+        je near DrawPlayerRatings_F6E.155
         mov eax, dword [byte ebp-060h]
         mov dword [byte ebp-010h], 0
         mov dword [byte ebp-0Ch], eax
-        jmp near sub_BBE01_F6E.154
+        jmp near DrawPlayerRatings_F6E.154
 .74:
         mov eax, dword [byte ebp-0Ch]
         shl eax, 2
@@ -9054,7 +9060,7 @@ sub_BBE01_769:
         call DrawTextAligned
         add esp, byte 10h
         cmp dword [byte ebp-0Ch], byte 0Ah
-        ja near sub_BBE01_F6E.147
+        ja near DrawPlayerRatings_F6E.147
         imul eax, dword [byte ebp-08h], dword 0BCh
         imul ecx, dword [byte ebp-08h], byte 3Dh
         mov dword [byte ebp-03Ch], ecx
@@ -9066,7 +9072,7 @@ sub_BBE01_769:
         add edx, dword [byte ebp-08h]
         add eax, ebx
         jmp dword [dword cs:ecx+jpt_BBD85]
-sub_BBE01_99B:
+DrawPlayerRatings_99B:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -9093,7 +9099,7 @@ sub_BBE01_99B:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_F6E.146
+        jne near DrawPlayerRatings_F6E.146
         cmp dword [byte ebp+020h], byte 0
         je short .80
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9101,16 +9107,16 @@ sub_BBE01_99B:
         cmp dword [dword_16D404], byte 0
         je short .79
         movsx esi, word [dword esi+0A6h]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .79:
         movsx esi, word [dword esi+08Eh]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .80:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+018h]
-        jmp near sub_BBE01_F6E.147
-sub_BBE01_A38:
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_A38:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -9137,7 +9143,7 @@ sub_BBE01_A38:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_F6E.146
+        jne near DrawPlayerRatings_F6E.146
         cmp dword [byte ebp+020h], byte 0
         je short .86
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9145,16 +9151,16 @@ sub_BBE01_A38:
         cmp dword [dword_16D404], byte 0
         je short .85
         movsx esi, word [dword esi+0A8h]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .85:
         movsx esi, word [dword esi+090h]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .86:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+01Ah]
-        jmp near sub_BBE01_F6E.147
-sub_BBE01_AD5:
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_AD5:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -9181,7 +9187,7 @@ sub_BBE01_AD5:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_F6E.146
+        jne near DrawPlayerRatings_F6E.146
         cmp dword [byte ebp+020h], byte 0
         je short .92
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9189,16 +9195,16 @@ sub_BBE01_AD5:
         cmp dword [dword_16D404], byte 0
         je short .91
         movsx esi, word [dword esi+0AAh]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .91:
         movsx esi, word [dword esi+092h]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .92:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+01Ch]
-        jmp near sub_BBE01_F6E.147
-sub_BBE01_B72:
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_B72:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -9224,23 +9230,23 @@ sub_BBE01_B72:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_F6E.146
+        jne near DrawPlayerRatings_F6E.146
         cmp dword [byte ebp+020h], byte 0
         je short .98
         cmp dword [dword_16D404], byte 0
         je short .97
         xor esi, esi
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .97:
         imul esi, dword [byte ebp-04h], dword 0BCh
         movsx esi, word [dword esi+ebx+094h]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .98:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+01Eh]
-        jmp near sub_BBE01_F6E.147
-sub_BBE01_BFC:
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_BFC:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -9267,7 +9273,7 @@ sub_BBE01_BFC:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_F6E.146
+        jne near DrawPlayerRatings_F6E.146
         cmp dword [byte ebp+020h], byte 0
         je short .104
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9275,16 +9281,16 @@ sub_BBE01_BFC:
         cmp dword [dword_16D404], byte 0
         je short .103
         movsx esi, word [dword esi+0ACh]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .103:
         movsx esi, word [dword esi+096h]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .104:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+020h]
-        jmp near sub_BBE01_F6E.147
-sub_BBE01_C99:
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_C99:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -9311,7 +9317,7 @@ sub_BBE01_C99:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_F6E.146
+        jne near DrawPlayerRatings_F6E.146
         cmp dword [byte ebp+020h], byte 0
         je short .111
         imul eax, dword [byte ebp-04h], dword 0BCh
@@ -9337,8 +9343,8 @@ sub_BBE01_C99:
         idiv esi
 .113:
         mov esi, eax
-        jmp near sub_BBE01_F6E.147
-sub_BBE01_D42:
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_D42:
         cmp byte [edx], 47h
         jne short .118
         cmp dword [byte ebp+020h], byte 0
@@ -9372,7 +9378,7 @@ sub_BBE01_D42:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_F6E.146
+        jne near DrawPlayerRatings_F6E.146
         cmp dword [byte ebp+020h], byte 0
         je short .121
         imul eax, dword [byte ebp-04h], dword 0BCh
@@ -9380,16 +9386,16 @@ sub_BBE01_D42:
         cmp dword [dword_16D404], byte 0
         je short .120
         mov eax, dword [dword eax+0B0h]
-        jmp near sub_BBE01_C99.112
+        jmp near DrawPlayerRatings_C99.112
 .120:
         mov eax, dword [dword eax+09Ah]
-        jmp near sub_BBE01_C99.109
+        jmp near DrawPlayerRatings_C99.109
 .121:
         imul eax, dword [byte ebp-04h], byte 3Dh
         add eax, dword [byte ebp+014h]
         mov eax, dword [byte eax+02Ah]
-        jmp near sub_BBE01_C99.112
-sub_BBE01_DE5:
+        jmp near DrawPlayerRatings_C99.112
+DrawPlayerRatings_DE5:
         cmp byte [edx], 47h
         jne short .124
         cmp dword [byte ebp+020h], byte 0
@@ -9411,7 +9417,7 @@ sub_BBE01_DE5:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_F6E.146
+        jne near DrawPlayerRatings_F6E.146
         cmp dword [byte ebp+020h], byte 0
         je short .127
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9419,16 +9425,16 @@ sub_BBE01_DE5:
         cmp dword [dword_16D404], byte 0
         je short .126
         movsx esi, word [dword esi+0B4h]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .126:
         movsx esi, word [dword esi+09Eh]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .127:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+02Eh]
-        jmp near sub_BBE01_F6E.147
-sub_BBE01_E68:
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_E68:
         cmp byte [edx], 47h
         jne short .130
         cmp dword [byte ebp+020h], byte 0
@@ -9450,7 +9456,7 @@ sub_BBE01_E68:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_F6E.146
+        jne near DrawPlayerRatings_F6E.146
         cmp dword [byte ebp+020h], byte 0
         je short .133
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9458,16 +9464,16 @@ sub_BBE01_E68:
         cmp dword [dword_16D404], byte 0
         je short .132
         movsx esi, word [dword esi+0B6h]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .132:
         movsx esi, word [dword esi+0A0h]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .133:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+030h]
-        jmp near sub_BBE01_F6E.147
-sub_BBE01_EEB:
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_EEB:
         cmp byte [edx], 47h
         jne short .136
         cmp dword [byte ebp+020h], byte 0
@@ -9489,7 +9495,7 @@ sub_BBE01_EEB:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        jne near sub_BBE01_F6E.146
+        jne near DrawPlayerRatings_F6E.146
         cmp dword [byte ebp+020h], byte 0
         je short .139
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9497,16 +9503,16 @@ sub_BBE01_EEB:
         cmp dword [dword_16D404], byte 0
         je short .138
         movsx esi, word [dword esi+0B8h]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .138:
         movsx esi, word [dword esi+0A2h]
-        jmp near sub_BBE01_F6E.147
+        jmp near DrawPlayerRatings_F6E.147
 .139:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+032h]
-        jmp near sub_BBE01_F6E.147
-sub_BBE01_F6E:
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_F6E:
         cmp byte [edx], 47h
         jne short .142
         cmp dword [byte ebp+020h], byte 0
@@ -9624,13 +9630,13 @@ sub_BBE01_F6E:
         mov eax, dword [byte ebp-060h]
         add eax, byte 6
         cmp eax, dword [byte ebp-0Ch]
-        jg near sub_BBE01_769.74
-        jmp near sub_BBE01_1713.229
+        jg near DrawPlayerRatings_769.74
+        jmp near DrawPlayerRatings_1713.229
 .155:
         mov eax, dword [byte ebp-060h]
         mov dword [byte ebp-010h], 0
         mov dword [byte ebp-0Ch], eax
-        jmp near sub_BBE01_15AF.215
+        jmp near DrawPlayerRatings_15AF.215
 .156:
         mov eax, dword [byte ebp-0Ch]
         shl eax, 2
@@ -9644,7 +9650,7 @@ sub_BBE01_F6E:
         call DrawTextAligned
         add esp, byte 10h
         cmp dword [byte ebp-0Ch], byte 8
-        ja near sub_BBE01_15AF.212
+        ja near DrawPlayerRatings_15AF.212
         imul eax, dword [byte ebp-08h], dword 0BCh
         imul ecx, dword [byte ebp-08h], byte 3Dh
         mov dword [byte ebp-040h], ecx
@@ -9656,7 +9662,7 @@ sub_BBE01_F6E:
         add edx, dword [byte ebp-08h]
         add eax, ebx
         jmp dword [dword cs:ecx+jpt_BBDB1]
-sub_BBE01_111B:
+DrawPlayerRatings_111B:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -9683,7 +9689,7 @@ sub_BBE01_111B:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_15AF.211
+        je near DrawPlayerRatings_15AF.211
         cmp dword [byte ebp+020h], byte 0
         je short .162
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9691,16 +9697,16 @@ sub_BBE01_111B:
         cmp dword [dword_16D404], byte 0
         je short .161
         movsx esi, word [dword esi+0A0h]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .161:
         movsx esi, word [dword esi+08Eh]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .162:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+018h]
-        jmp near sub_BBE01_15AF.212
-sub_BBE01_11B8:
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_11B8:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -9727,7 +9733,7 @@ sub_BBE01_11B8:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_15AF.211
+        je near DrawPlayerRatings_15AF.211
         cmp dword [byte ebp+020h], byte 0
         je short .168
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9735,16 +9741,16 @@ sub_BBE01_11B8:
         cmp dword [dword_16D404], byte 0
         je short .167
         movsx esi, word [dword esi+0A2h]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .167:
         movsx esi, word [dword esi+090h]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .168:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+01Ah]
-        jmp near sub_BBE01_15AF.212
-sub_BBE01_1255:
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_1255:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -9771,7 +9777,7 @@ sub_BBE01_1255:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_15AF.211
+        je near DrawPlayerRatings_15AF.211
         cmp dword [byte ebp+020h], byte 0
         je short .174
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9779,16 +9785,16 @@ sub_BBE01_1255:
         cmp dword [dword_16D404], byte 0
         je short .173
         movsx esi, word [dword esi+0A4h]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .173:
         movsx esi, word [dword esi+092h]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .174:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+01Ch]
-        jmp near sub_BBE01_15AF.212
-sub_BBE01_12F2:
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_12F2:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-08h]
         cmp byte [eax], 47h
@@ -9815,7 +9821,7 @@ sub_BBE01_12F2:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_15AF.211
+        je near DrawPlayerRatings_15AF.211
         cmp dword [byte ebp+020h], byte 0
         je short .180
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9823,16 +9829,16 @@ sub_BBE01_12F2:
         cmp dword [dword_16D404], byte 0
         je short .179
         movsx esi, word [dword esi+0A6h]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .179:
         movsx esi, word [dword esi+094h]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .180:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+01Eh]
-        jmp near sub_BBE01_15AF.212
-sub_BBE01_138F:
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_138F:
         cmp byte [edx], 47h
         je short .183
         cmp dword [byte ebp+020h], byte 0
@@ -9857,7 +9863,7 @@ sub_BBE01_138F:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_15AF.211
+        je near DrawPlayerRatings_15AF.211
         cmp dword [byte ebp+020h], byte 0
         je short .186
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9865,16 +9871,16 @@ sub_BBE01_138F:
         cmp dword [dword_16D404], byte 0
         je short .185
         movsx esi, word [dword esi+0A8h]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .185:
         movsx esi, word [dword esi+096h]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .186:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+020h]
-        jmp near sub_BBE01_15AF.212
-sub_BBE01_1426:
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_1426:
         cmp byte [edx], 47h
         je short .189
         cmp dword [byte ebp+020h], byte 0
@@ -9896,7 +9902,7 @@ sub_BBE01_1426:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_15AF.211
+        je near DrawPlayerRatings_15AF.211
         cmp dword [byte ebp+020h], byte 0
         je short .192
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9904,16 +9910,16 @@ sub_BBE01_1426:
         cmp dword [dword_16D404], byte 0
         je short .191
         movsx esi, word [dword esi+0AAh]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .191:
         movsx esi, word [dword esi+098h]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .192:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+022h]
-        jmp near sub_BBE01_15AF.212
-sub_BBE01_14A9:
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_14A9:
         cmp byte [edx], 47h
         je short .195
         cmp dword [byte ebp+020h], byte 0
@@ -9935,7 +9941,7 @@ sub_BBE01_14A9:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_15AF.211
+        je near DrawPlayerRatings_15AF.211
         cmp dword [byte ebp+020h], byte 0
         je short .198
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9943,16 +9949,16 @@ sub_BBE01_14A9:
         cmp dword [dword_16D404], byte 0
         je short .197
         movsx esi, word [dword esi+0ACh]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .197:
         movsx esi, word [dword esi+09Ah]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .198:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+024h]
-        jmp near sub_BBE01_15AF.212
-sub_BBE01_152C:
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_152C:
         cmp byte [edx], 47h
         je short .201
         cmp dword [byte ebp+020h], byte 0
@@ -9974,7 +9980,7 @@ sub_BBE01_152C:
         mov eax, dword [byte ebp+010h]
         add eax, dword [byte ebp-04h]
         cmp byte [eax], 47h
-        je near sub_BBE01_15AF.211
+        je near DrawPlayerRatings_15AF.211
         cmp dword [byte ebp+020h], byte 0
         je short .204
         imul esi, dword [byte ebp-04h], dword 0BCh
@@ -9982,16 +9988,16 @@ sub_BBE01_152C:
         cmp dword [dword_16D404], byte 0
         je short .203
         movsx esi, word [dword esi+0AEh]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .203:
         movsx esi, word [dword esi+09Ch]
-        jmp near sub_BBE01_15AF.212
+        jmp near DrawPlayerRatings_15AF.212
 .204:
         imul esi, dword [byte ebp-04h], byte 3Dh
         add esi, dword [byte ebp+014h]
         movsx esi, word [byte esi+026h]
-        jmp near sub_BBE01_15AF.212
-sub_BBE01_15AF:
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_15AF:
         cmp byte [edx], 47h
         je short .207
         cmp dword [byte ebp+020h], byte 0
@@ -10071,13 +10077,13 @@ sub_BBE01_15AF:
         mov eax, dword [byte ebp-060h]
         add eax, byte 6
         cmp eax, dword [byte ebp-0Ch]
-        jg near sub_BBE01_F6E.156
-        jmp near sub_BBE01_1713.229
+        jg near DrawPlayerRatings_F6E.156
+        jmp near DrawPlayerRatings_1713.229
 .216:
         mov eax, dword [byte ebp-060h]
         mov dword [byte ebp-010h], 0
         mov dword [byte ebp-0Ch], eax
-        jmp near sub_BBE01_1713.228
+        jmp near DrawPlayerRatings_1713.228
 .217:
         mov eax, dword [byte ebp-0Ch]
         mov eax, dword [nosplit eax*4+dword_16D4D4]
@@ -10101,7 +10107,7 @@ sub_BBE01_15AF:
         je short .221
 .220:
         mov dword [byte ebp-014h], 0
-        jmp near sub_BBE01_1713.225
+        jmp near DrawPlayerRatings_1713.225
 .221:
         test ebx, ebx
         jne short .222
@@ -10112,10 +10118,10 @@ sub_BBE01_15AF:
 .223:
         add eax, byte 4Eh
         cmp dword [byte ebp-0Ch], byte 0Ah
-        ja short sub_BBE01_1713.225
+        ja short DrawPlayerRatings_1713.225
         mov edx, dword [byte ebp-0Ch]
         jmp dword [nosplit cs:edx*4+jpt_BBDD5]
-sub_BBE01_1713:
+DrawPlayerRatings_1713:
         movsx eax, word [eax]
 .224:
         mov dword [byte ebp-014h], eax
@@ -10148,14 +10154,14 @@ sub_BBE01_1713:
 .227:
         inc ebx
         cmp ebx, byte 2
-        jl near sub_BBE01_15AF.218
+        jl near DrawPlayerRatings_15AF.218
         inc dword [byte ebp-0Ch]
         add dword [byte ebp-010h], byte 0Fh
 .228:
         mov eax, dword [byte ebp-060h]
         add eax, byte 6
         cmp eax, dword [byte ebp-0Ch]
-        jg near sub_BBE01_15AF.217
+        jg near DrawPlayerRatings_15AF.217
 .229:
         call SetScreenTarget
         push dword 154h
@@ -10178,46 +10184,48 @@ sub_BBE01_1713:
         pop edi
         pop esi
         ret 14h
-sub_BBE01_17C0:
+DrawPlayerRatings_17C0:
         movzx eax, byte [byte eax+02h]
-        jmp near sub_BBE01_1713.224
-sub_BBE01_17C9:
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17C9:
         movzx eax, byte [byte eax+03h]
-        jmp near sub_BBE01_1713.224
-sub_BBE01_17D2:
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17D2:
         movzx eax, byte [byte eax+04h]
-        jmp near sub_BBE01_1713.224
-sub_BBE01_17DB:
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17DB:
         movsx eax, word [byte eax+013h]
-        jmp near sub_BBE01_1713.224
-sub_BBE01_17E4:
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17E4:
         movsx eax, word [byte eax+015h]
-        jmp near sub_BBE01_1713.224
-sub_BBE01_17ED:
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17ED:
         movsx eax, word [byte eax+017h]
-        jmp near sub_BBE01_1713.224
-sub_BBE01_17F6:
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17F6:
         movsx eax, word [byte eax+01Bh]
-        jmp near sub_BBE01_1713.224
-sub_BBE01_17FF:
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17FF:
         movsx eax, word [byte eax+01Dh]
-        jmp near sub_BBE01_1713.224
-sub_BBE01_1808:
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_1808:
         movsx eax, word [byte eax+021h]
-        jmp near sub_BBE01_1713.224
-sub_BBE01_1811:
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_1811:
         movsx eax, word [byte eax+023h]
-        jmp near sub_BBE01_1713.224
+        jmp near DrawPlayerRatings_1713.224
 ;-----------------------------------------------------------------------------
-; sub_BD61B                                                       BD61B  97 PC
+; IsReplayRecordingOn                             BD61B  97 PC, low confidence
+; Returns whether replay recording is on
 ;-----------------------------------------------------------------------------
-sub_BD61B:
+IsReplayRecordingOn:
         mov eax, dword [dword_1CAFF4]
         ret
 ;-----------------------------------------------------------------------------
-; sub_BD621                                                       BD621  97 PC
+; RunVideoOptions                                 BD621  97 PC, low confidence
+; Runs the video options
 ;-----------------------------------------------------------------------------
-sub_BD621:
-        call sub_BDB25
+RunVideoOptions:
+        call VideoOptionsScreen
         mov eax, 1Ah
         ret

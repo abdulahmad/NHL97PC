@@ -20,20 +20,20 @@ extern dword_19CDA5, dword_19DA50, dword_1A8E80, dword_1AC814, dword_1AC819, dwo
 extern dword_1B1410, dword_1B1464, dword_1B8578, dword_1B8F4C, dword_1B8FA0, dword_1B8FA4, dword_1B906F, dword_1C1334
 extern dword_1C1346, dword_1C5DE4, dword_1C5EF4, hmtmstruct, memcpy_, off_168CE8, off_168CF0, off_168CFC
 extern off_168D04, off_168D08, off_168D0C, qword_16002C, qword_160034, qword_16003C, qword_16004C, qword_160054
-extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, regd1, sub_11328
-extern sub_11574, sub_116B0, sub_11808, IsPlayoffGame, sub_11F74, sub_12A10, ClockTick, sub_12C2C
-extern sub_12DE8, ChangeViewSize, PrevVideoModeKey, NextVideoModeKey, QueueOverlayPanel, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
+extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, regd1, StartCrowdMusic
+extern SetupFaceoffPlayers, ClearPlayerFlags, ResetTeamStats, IsPlayoffGame, ResetForIntermission, RefreshRinkPalette, ClockTick, StartPeriod
+extern FindStartingGoalies, ChangeViewSize, PrevVideoModeKey, NextVideoModeKey, QueueOverlayPanel, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
 extern ResetSceneCamera, SelectCameraView, ToggleCameraFollow, EndOpeningCamera, LoadOpeningCamera, assreplace, Goal, CoachLineChange
 extern SetupAutoLines, InitGameLines, AddPenalty, SetPlayerTarget, InitPadSlots, DebugRestoreEnergy, ResetPlayerCounters, SetViewSize
 extern SetViewOrigin, SetRinkDetail, FadeGamePalette, InitGameAudio, InitGameSounds, QueueMusicRestart, WaitMusicEnd, SetAmbientVolume
-extern SetCrowdMood, CommentaryEvent, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, sub_4B8DC, FreeGameGraphics
-extern DrawGameFrame, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
-extern InitReplayBuffer, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
-extern InitAnimPoints, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, AllocAnimStates, GameOver, sub_77FA8
-extern DoGameFrame, SetTextColor, sub_81678, ShowLoadingScreen, sub_842E8, sub_842F4, LoadLangText, FreeLangText
-extern sub_AA498, LoadGameLogos, sub_AB0A6, sub_B2F49, RunReplay, FadeOut, sub_DA7EB, sub_DB6AC
-extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E1744, sub_E304C, sub_E30F4, sub_E3174, sub_E3190
-extern InputRecordAvail, TakeInputRecord, sub_E341C, sub_E4248, sub_F1FF8, sub_F207F, sub_F30A0, sub_F30D7
+extern SetCrowdMood, CommentaryEvent, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, ResetRenderTimers, FreeGameGraphics
+extern DrawGameFrame, RedrawGameView, TriggerCameraFlashes, PeriodOver, UpdateRinkPalette, LoadOpeningArt, FreeReplayBuffer, ResetReplayBuffer
+extern InitReplayBuffer, ReplayHasFrames, ReplayFreeFrames, ReplayRecordTick, ReplayPauseRecording, ReplayRecordFinal, ReplaySetupObjects, UpdateGameDisplay
+extern InitAnimPoints, FreeAnimTables, UpdateAllPoses, SetAnimClock, FreeAnimStates, AllocAnimStates, GameOver, CheckIntermission
+extern DoGameFrame, SetTextColor, SetNormalText, ShowLoadingScreen, ClearMenuGameFlag, ShowLoadingBar, LoadLangText, FreeLangText
+extern ResetScoringLog, LoadGameLogos, FreeGameText, UpdateUserRecords, RunReplay, FadeOut, OpenGameDatabase, CloseGameDatabase
+extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, StartInputRecording, ResetInputState, IsInputRecording, StopInputRecording
+extern InputRecordAvail, TakeInputRecord, ServiceIdle, LinkSyncGame, SetupPauseArt, CleanupPauseArt, OpenInGameMenu, LoadGameMenuText
 extern PauseMenu, sub_F9650, sub_F9789, sub_F9869, AllocMemBlock, FreeMemBlock, sub_FBE40, sub_FC290
 extern sub_FC330, sub_FC4BC, SetViewRect, sub_FC88C, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
 extern unk_19DC40, unk_19E270, unk_19E588, unk_1AC821, word_1684EC, word_1686BC, word_1686D4, word_1686D6
@@ -50,9 +50,9 @@ extern word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19C
 extern word_19CC2C, word_19CC50, word_19CC52, word_19CCC4, word_19CD9C, word_19CDA7, word_19DAD9, word_19DCFA
 extern word_19E32A, word_1C3415, word_1C3417, word_1C5538, word_1C553A
 global AllInPlace, Intermission, StartGame, InitGameVars, RunOpeningFrames, PlaceOpeningPlayers, OpeningSequence, BeginGame
-global sub_13ACB, sub_13AF0, sub_13B50, sub_13B98, sub_13BAC, sub_13D00, sub_13D50, sub_13DA4
-global sub_13DF8, sub_13E4C, sub_13EB4, sub_13EF0, sub_13F28, sub_13F7C, RunSimFrames, sub_14140
-global ToggleFKeyFlag, ShowCameraView, sub_141E8, CountDebugUnlock, ResetDebugUnlock, DebugKeys, GameFunctionKeys, HandleGameKeys
+global EndGameCleanup, GetPlayerJerseyNumber, LinkSideFlags, ClearLinkCounters, PickGameEvents, SpeedScaleAligned, SpeedScale, ReachScale
+global GoalieReachFactor, PlayerReachFactor, StickReachX, StickReachY, StickReachZ, CheckLineChangeKeys, RunSimFrames, JoystickAxisScale
+global ToggleFKeyFlag, ShowCameraView, RandomDiceRoll, CountDebugUnlock, ResetDebugUnlock, DebugKeys, GameFunctionKeys, HandleGameKeys
 global GameLoop, InitGameDisplay, SaveGameDisplay, SetGameBrightness, PlayGame, RunDemoGame, RunInGameMenu, unk_158E2
 global unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A72
 ;-----------------------------------------------------------------------------
@@ -111,10 +111,10 @@ Intermission:
         cmp dword [byte edx+05Ah], byte 0FFFFFFFFh
         je short .3
         xor eax, eax
-        call sub_6539C
+        call UpdateGameDisplay
 .3:
-        call sub_12C2C
-        call sub_12DE8
+        call StartPeriod
+        call FindStartingGoalies
         pop edx
         pop ebx
         ret
@@ -143,7 +143,7 @@ StartGame:
         mov word [byte_19CBCC], dx
         mov word [byte_19CBCA], dx
         mov word [byte_19CBC8], dx
-        call sub_116B0
+        call ClearPlayerFlags
         mov eax, byte_19CCC6
         xor edx, edx
         call __STOSB
@@ -162,7 +162,7 @@ StartGame:
         mov word [word_19CB82], bx
         mov word [word_19CBB0], dx
         mov word [gsp], bx
-        call sub_11808
+        call ResetTeamStats
         call SetupAutoLines
         xor eax, eax
         call InitGameLines
@@ -175,9 +175,9 @@ StartGame:
         call GameOver
         jmp short .2
 .1:
-        call sub_11F74
-        call sub_12C2C
-        call sub_12DE8
+        call ResetForIntermission
+        call StartPeriod
+        call FindStartingGoalies
 .2:
         mov eax, dword [off_168D04]
         mov byte [dword eax+0BEh], 0
@@ -407,7 +407,7 @@ RunOpeningFrames:
         call DoGameFrame
 .8:
         mov ebx, dword [byte esp+08h]
-        call sub_E341C
+        call ServiceIdle
         inc ebx
         add ecx, byte 3
         mov dword [byte esp+08h], ebx
@@ -439,15 +439,15 @@ RunOpeningFrames:
         add edi, 760h
         mov edx, dword [dword edx+dword_1B1464]
         inc ecx
-        call sub_76D3C
+        call UpdateAllPoses
         cmp ecx, byte 0Dh
         jl short .11
         xor eax, eax
-        call sub_6539C
+        call UpdateGameDisplay
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_E341C
-        call sub_4BCB4
+        call ServiceIdle
+        call RedrawGameView
         mov eax, dword [byte esp+08h]
         lea eax, [eax+eax*2]
         cmp eax, 5DCh
@@ -560,7 +560,7 @@ PlaceOpeningPlayers:
         mov ebx, unk_19E588
         cwde
         xor ecx, ecx
-        call sub_11328
+        call StartCrowdMusic
 .4:
         mov dx, word [dword ebx+0A9h]
         test dx, dx
@@ -712,7 +712,7 @@ OpeningSequence:
         mov eax, 1
         call LoadOpeningCamera
         mov eax, 0F5Ch
-        call sub_4C0C4
+        call TriggerCameraFlashes
         call PlaceOpeningPlayers
         call RunOpeningFrames
         mov ebx, eax
@@ -728,9 +728,9 @@ OpeningSequence:
 .3:
         call EndOpeningCamera
         mov eax, 7AEh
-        call sub_4C0C4
+        call TriggerCameraFlashes
         xor eax, eax
-        call sub_55000
+        call LoadOpeningArt
         cmp word [word_19CC24], byte 0
         je short .4
         mov eax, dword [word_19CC26]
@@ -800,8 +800,8 @@ BeginGame:
         shl ecx, 10h
         add eax, ecx
         mov edx, esi
-        call sub_52E28
-        call sub_11574
+        call UpdateRinkPalette
+        call SetupFaceoffPlayers
         call OpeningSequence
         test eax, eax
         jge short .3
@@ -819,9 +819,10 @@ BeginGame:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_13ACB                                                       13ACB  97 PC
+; EndGameCleanup                                  13ACB  97 PC, low confidence
+; Ends the game and clears the player flags
 ;-----------------------------------------------------------------------------
-sub_13ACB:
+EndGameCleanup:
         push edx
         call GameOver
         and byte [byte_19CBC2], 7Fh
@@ -836,9 +837,10 @@ sub_13ACB:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_13AF0                                                       13AF0  97 PC
+; GetPlayerJerseyNumber                           13AF0  97 PC, low confidence
+; Returns a player's jersey number
 ;-----------------------------------------------------------------------------
-sub_13AF0:
+GetPlayerJerseyNumber:
         push edx
         mov edx, dword [dword eax+0FEh]
         mov eax, dword [dword eax+0A3h]
@@ -878,9 +880,10 @@ sub_13AF0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_13B50                                                       13B50  97 PC
+; LinkSideFlags                                   13B50  97 PC, low confidence
+; Returns the link side flags
 ;-----------------------------------------------------------------------------
-sub_13B50:
+LinkSideFlags:
         push edx
         test eax, eax
         je short .1
@@ -908,9 +911,10 @@ sub_13B50:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_13B98                                                       13B98  97 PC
+; ClearLinkCounters                               13B98  97 PC, low confidence
+; Clears the link counters
 ;-----------------------------------------------------------------------------
-sub_13B98:
+ClearLinkCounters:
         push edx
         xor edx, edx
         mov dword [dword_19CD08], edx
@@ -919,9 +923,10 @@ sub_13B98:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_13BAC                                                       13BAC  97 PC
+; PickGameEvents                                  13BAC  97 PC, low confidence
+; Picks the random events for a game
 ;-----------------------------------------------------------------------------
-sub_13BAC:
+PickGameEvents:
         push ebx
         push ecx
         push edx
@@ -1047,9 +1052,10 @@ sub_13BAC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_13D00                                                       13D00  97 PC
+; SpeedScaleAligned                               13D00  97 PC, low confidence
+; Returns the speed scale for the skill setting (aligned stack)
 ;-----------------------------------------------------------------------------
-sub_13D00:
+SpeedScaleAligned:
         push eax
         push ebp
         mov ebp, esp
@@ -1080,9 +1086,10 @@ sub_13D00:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_13D50                                                       13D50  97 PC
+; SpeedScale                                      13D50  97 PC, low confidence
+; Returns the speed scale for the skill setting
 ;-----------------------------------------------------------------------------
-sub_13D50:
+SpeedScale:
         push eax
         sub esp, byte 4
         test word [dword_1AC814], 180h
@@ -1110,9 +1117,10 @@ sub_13D50:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_13DA4                                                       13DA4  97 PC
+; ReachScale                                      13DA4  97 PC, low confidence
+; Returns the reach scale for the skill setting
 ;-----------------------------------------------------------------------------
-sub_13DA4:
+ReachScale:
         push eax
         sub esp, byte 4
         test word [dword_1AC814], 180h
@@ -1140,9 +1148,10 @@ sub_13DA4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_13DF8                                                       13DF8  97 PC
+; GoalieReachFactor                               13DF8  97 PC, low confidence
+; Returns the reach factor of a goalie or skater
 ;-----------------------------------------------------------------------------
-sub_13DF8:
+GoalieReachFactor:
         push edx
         push ebp
         mov ebp, esp
@@ -1162,7 +1171,7 @@ sub_13DF8:
         fmul dword [dword_1686CC]
 .2:
         fstp dword [esp]
-        call sub_13D00
+        call SpeedScaleAligned
         fmul dword [esp]
         fstp dword [byte esp+08h]
         fld dword [byte esp+08h]
@@ -1172,9 +1181,10 @@ sub_13DF8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_13E4C                                                       13E4C  97 PC
+; PlayerReachFactor                               13E4C  97 PC, low confidence
+; Returns the reach factor of a player
 ;-----------------------------------------------------------------------------
-sub_13E4C:
+PlayerReachFactor:
         push edx
         push ebp
         mov ebp, esp
@@ -1209,66 +1219,69 @@ sub_13E4C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_13EB4                                                       13EB4  97 PC
+; StickReachX                                     13EB4  97 PC, low confidence
+; Returns the stick reach along X
 ;-----------------------------------------------------------------------------
-sub_13EB4:
+StickReachX:
         push edx
         sub esp, byte 8
         mov edx, eax
-        call sub_13D00
+        call SpeedScaleAligned
         fmul dword [dword_1686C4]
         fmul qword [qword_160034]
         fadd qword [qword_16003C]
         mov eax, edx
         fstp qword [esp]
-        call sub_13DF8
+        call GoalieReachFactor
         fadd qword [esp]
         mov eax, edx
         fstp qword [esp]
-        call sub_13E4C
+        call PlayerReachFactor
         fmul qword [esp]
         add esp, byte 8
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_13EF0                                                       13EF0  97 PC
+; StickReachY                                     13EF0  97 PC, low confidence
+; Returns the stick reach along Y
 ;-----------------------------------------------------------------------------
-sub_13EF0:
+StickReachY:
         push edx
         sub esp, byte 4
         mov edx, eax
-        call sub_13D00
+        call SpeedScaleAligned
         fmul dword [dword_1686C8]
         mov eax, edx
         fstp dword [esp]
-        call sub_13DF8
+        call GoalieReachFactor
         fld dword [esp]
         fadd dword [dword_160044]
         faddp
         mov eax, edx
         fstp dword [esp]
-        call sub_13E4C
+        call PlayerReachFactor
         fmul dword [esp]
         add esp, byte 4
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_13F28                                                       13F28  97 PC
+; StickReachZ                                     13F28  97 PC, low confidence
+; Returns the stick reach along Z
 ;-----------------------------------------------------------------------------
-sub_13F28:
+StickReachZ:
         push edx
         sub esp, byte 4
         mov edx, eax
-        call sub_13DA4
+        call ReachScale
         mov eax, edx
         fstp dword [esp]
-        call sub_13DF8
+        call GoalieReachFactor
         fld dword [esp]
         fadd dword [dword_160048]
         faddp
         mov eax, edx
         fstp dword [esp]
-        call sub_13E4C
+        call PlayerReachFactor
         mov edx, dword [dword edx+0EEh]
         fld dword [byte edx+024h]
         fmul qword [qword_16004C]
@@ -1282,9 +1295,10 @@ sub_13F28:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_13F7C                                                       13F7C  97 PC
+; CheckLineChangeKeys                             13F7C  97 PC, low confidence
+; Checks the line change keys
 ;-----------------------------------------------------------------------------
-sub_13F7C:
+CheckLineChangeKeys:
         push ebx
         push edx
         push edi
@@ -1415,7 +1429,7 @@ RunSimFrames:
         je short .5
         test byte [word_19CD9C], 2
         je short .4
-        call sub_5BE74
+        call ReplayHasFrames
         test eax, eax
         je short .5
         mov dword [InGameMenuRequest], 2
@@ -1424,7 +1438,7 @@ RunSimFrames:
         pop ecx
         ret
 .4:
-        call sub_13F7C
+        call CheckLineChangeKeys
 .5:
         pop esi
         pop edx
@@ -1432,9 +1446,10 @@ RunSimFrames:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_14140                                                       14140  97 PC
+; JoystickAxisScale                               14140  97 PC, low confidence
+; Scales a joystick axis
 ;-----------------------------------------------------------------------------
-sub_14140:
+JoystickAxisScale:
         push ebx
         push edx
         sub esp, byte 4
@@ -1504,9 +1519,10 @@ ShowCameraView:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_141E8                                                       141E8  97 PC
+; RandomDiceRoll                                  141E8  97 PC, low confidence
+; Rolls random dice (debug)
 ;-----------------------------------------------------------------------------
-sub_141E8:
+RandomDiceRoll:
         push dword 0Ch
         call __CHK
         push ebx
@@ -1938,7 +1954,7 @@ DebugKeys:
         xor ah, ah
         cwde
         xor edx, edx
-        call sub_141E8
+        call RandomDiceRoll
         mov dl, byte [dword eax+0A4h]
         mov word [word_19CBE6], dx
         mov ax, word [dword eax+0BAh]
@@ -1952,7 +1968,7 @@ DebugKeys:
         setl al
         xor ah, ah
         cwde
-        call sub_141E8
+        call RandomDiceRoll
         call AddPenalty
 .32:
         mov eax, 1
@@ -2063,7 +2079,7 @@ GameFunctionKeys:
         xor edx, edx
         mov eax, 1
         mov dword [dword_16AF40], edx
-        call sub_12A10
+        call RefreshRinkPalette
         pop ebp
         pop edx
         pop ecx
@@ -2342,10 +2358,10 @@ GameLoop:
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1B8F4C], eax
-        call sub_E3174
+        call IsInputRecording
         test eax, eax
         je short .1
-        call sub_E304C
+        call StartInputRecording
 .1:
         mov ebp, dword_1B1410
         add ebp, byte 58h
@@ -2354,14 +2370,14 @@ GameLoop:
         jne near .21
         cmp dword [dword_19CB58], byte 0
         jne near .21
-        call sub_5BD3C
+        call FreeReplayBuffer
         cmp word [word_19CBB2], byte 0
         jne near .16
 .3:
         mov esi, dword [dword_19CB58]
         test esi, esi
         jne near .16
-        call sub_E341C
+        call ServiceIdle
         xor edi, edi
 .4:
         call InputRecordAvail
@@ -2391,7 +2407,7 @@ GameLoop:
         add eax, byte 4
         call memcpy_
         mov eax, dword [dword_1B8F4C]
-        call sub_5C134
+        call ReplayRecordTick
 .5:
         mov eax, dword [word_19CD9C]
         sar eax, 10h
@@ -2412,7 +2428,7 @@ GameLoop:
         jne short .7
         cmp ecx, dword [dword_1B8FA0]
         jne short .7
-        call sub_5C160
+        call ReplayPauseRecording
         jmp short .8
 .7:
         test byte [byte_19CBCA], 4
@@ -2430,10 +2446,10 @@ GameLoop:
         mov eax, dword [dword_1B8F4C]
         or byte [byte eax+02h], 4
         mov eax, dword [dword_1B8F4C]
-        call sub_5C134
-        call sub_5C180
+        call ReplayRecordTick
+        call ReplayRecordFinal
 .8:
-        call sub_E341C
+        call ServiceIdle
         jmp near .4
 .9:
         cmp dword [InGameMenuRequest], byte 0
@@ -2452,10 +2468,10 @@ GameLoop:
         add ecx, 760h
         mov edx, dword [dword edx+dword_1B1464]
         inc esi
-        call sub_76D3C
+        call UpdateAllPoses
         cmp esi, byte 0Dh
         jl short .10
-        call sub_E341C
+        call ServiceIdle
         cmp dword [dword_16DA9C], byte 0
         jne short .11
         cmp dword [dword_19CD88], byte 0
@@ -2472,11 +2488,11 @@ GameLoop:
         mov dword [dword_19CDA0], eax
 .13:
         mov eax, dword [dword_19CDA0]
-        call sub_6539C
+        call UpdateGameDisplay
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_E341C
-        call sub_4BCB4
+        call ServiceIdle
+        call RedrawGameView
 .14:
         cmp dword [InGameMenuRequest], byte 0
         je short .15
@@ -2491,10 +2507,10 @@ GameLoop:
         cmp word [word_19CBB2], byte 0
         je near .3
 .16:
-        call sub_E3174
+        call IsInputRecording
         test eax, eax
         jne short .17
-        call sub_E3190
+        call StopInputRecording
 .17:
         mov edi, dword [dword_19CB58]
         test edi, edi
@@ -2515,16 +2531,16 @@ GameLoop:
         cmp dword [dword_19CB58], byte 2
         je short .19
         mov esi, 1
-        call sub_77FA8
+        call CheckIntermission
         mov dword [dword_19CD88], esi
         xor esi, esi
         mov dword [dword_19CBD0], edi
         mov word [word_19CBB2], si
 .19:
-        call sub_E3174
+        call IsInputRecording
         test eax, eax
         je near .2
-        call sub_E304C
+        call StartInputRecording
         jmp near .2
 .20:
         mov eax, dword [dword_1AC814]
@@ -2536,10 +2552,10 @@ GameLoop:
         mov dword [dword_19CB58], 1
         jmp near .2
 .21:
-        call sub_E3174
+        call IsInputRecording
         test eax, eax
         jne short .22
-        call sub_E3190
+        call StopInputRecording
 .22:
         cmp dword [dword_19CB58], byte 1
         jne short .23
@@ -2549,9 +2565,9 @@ GameLoop:
         je short .23
         mov dword [InGameMenuRequest], 3
         call RunInGameMenu
-        call sub_B2F49
+        call UpdateUserRecords
 .23:
-        call sub_13ACB
+        call EndGameCleanup
         mov eax, 4
         call FadeOut
         mov ebx, dword [dword_1B8F4C]
@@ -2611,10 +2627,10 @@ InitGameDisplay:
         and eax, byte 0Fh
         mov word [word_1686BC], ax
         xor eax, eax
-        call sub_13BAC
+        call PickGameEvents
         mov dword [dword_19CD40], eax
         mov eax, 1
-        call sub_13BAC
+        call PickGameEvents
         mov dword [dword_19CD44], eax
         mov eax, dword [dword_1C1346]
         sar eax, 10h
@@ -2942,13 +2958,13 @@ PlayGame:
         mov edx, 20h
         mov dword [seed], esi
         call InitGameDisplay
-        call sub_5BD94
+        call ResetReplayBuffer
         mov eax, 34h
         call AllocAnimStates
         mov eax, 3Ch
-        call sub_842F4
+        call ShowLoadingBar
         xor eax, eax
-        call sub_76E20
+        call SetAnimClock
         xor eax, eax
 .3:
         add eax, 760h
@@ -2963,7 +2979,7 @@ PlayGame:
         mov eax, dword_19CD10
         call InitGameGraphics
         call InitAnimPoints
-        call sub_5C894
+        call ReplaySetupObjects
         mov eax, dword [dword_1686BA]
         xor edx, edx
         sar eax, 10h
@@ -2981,11 +2997,11 @@ PlayGame:
         push byte 0
         call sub_FC330
         add esp, byte 4
-        call sub_AA498
+        call ResetScoringLog
         mov eax, 0C350h
         call InitReplayBuffer
         mov eax, 64h
-        call sub_842F4
+        call ShowLoadingBar
         cmp dword [dword_16DA9C], byte 0
         je near .10
         mov eax, 2Eh
@@ -2996,7 +3012,7 @@ PlayGame:
         mov eax, 2Fh
         call LoadDataFileLib
         mov dword [dword_1C5EF4], eax
-        call sub_81678
+        call SetNormalText
         push byte 0FFFFFFFFh
         call sub_FC4BC
         add esp, byte 4
@@ -3021,7 +3037,7 @@ PlayGame:
 .7:
         mov eax, str_WarteAufAnderenComputer
 .8:
-        call sub_E4248
+        call LinkSyncGame
 .9:
         mov edx, dword [dword_1C5DE4]
         push edx
@@ -3035,11 +3051,11 @@ PlayGame:
         add esp, byte 4
         mov dword [dword_1C5EF4], ebx
 .10:
-        call sub_842E8
+        call ClearMenuGameFlag
         call InitGameVideo
         call LoadGameLogos
         call SetGameBrightness
-        call sub_F1FF8
+        call SetupPauseArt
         mov eax, 947Ah
         call SetRinkDetail
         xor ebx, ebx
@@ -3047,16 +3063,16 @@ PlayGame:
         mov eax, 0FFFFFFFFh
         call FadeGamePalette
         mov eax, 1
-        call sub_4B8DC
-        call sub_E30F4
-        call sub_E304C
+        call ResetRenderTimers
+        call ResetInputState
+        call StartInputRecording
         call BeginGame
         mov dword [dword_19CB58], eax
         cmp eax, byte 2
         je short .11
         call GameLoop
 .11:
-        call sub_5BEB0
+        call ReplayFreeFrames
         mov edi, dword [dword_1686C0]
         test edi, edi
         je short .12
@@ -3067,12 +3083,12 @@ PlayGame:
         mov dword [dword_1686C0], eax
 .12:
         call ClearOverlayWindows
-        call sub_77610
+        call FreeAnimStates
         mov ecx, 0Dh
         mov eax, dword_19CD54
         xor edx, edx
         call __STOSD
-        call sub_65DE8
+        call FreeAnimTables
         call FreeGameGraphics
         mov edx, dword [dword_16E500]
         test edx, edx
@@ -3083,12 +3099,12 @@ PlayGame:
         add esp, byte 4
         mov dword [dword_16E500], ecx
 .13:
-        call sub_E3174
+        call IsInputRecording
         test eax, eax
         jne short .14
-        call sub_E3190
+        call StopInputRecording
 .14:
-        call sub_F207F
+        call CleanupPauseArt
         push dword 1E0h
         push dword 280h
         push byte 0
@@ -3123,7 +3139,7 @@ RunDemoGame:
         mov esi, dword [dword_1AC814]
         mov edi, dword [byte_1AC81D]
         call WaitMusicEnd
-        call sub_DA7EB
+        call OpenGameDatabase
         mov ah, byte [dword_1AC814]
         and ah, 8Fh
         mov dl, ah
@@ -3238,7 +3254,7 @@ RunDemoGame:
         mov ecx, dword_1C1334
         movsx edx, ax
         mov eax, dword [byte esp+04h]
-        call sub_E1744
+        call PickDemoTeams
         lea eax, [byte esp+04h]
         mov ecx, unk_19CDA4
         call FreeExhibitionFile
@@ -3263,13 +3279,13 @@ RunDemoGame:
         xor eax, eax
         add esp, byte 4
         mov dword [dword_1C5EF4], eax
-        call sub_DB6AC
+        call CloseGameDatabase
         call InitGameAudio
         mov eax, 37h
-        call sub_842F4
+        call ShowLoadingBar
         xor eax, eax
         call PlayGame
-        call sub_AB0A6
+        call FreeGameText
         xor eax, eax
         call InitGameSounds
         call sub_F9650
@@ -3317,13 +3333,13 @@ RunInGameMenu:
         mov dword [InGameMenuRequest], 0
         call sub_FC88C
         add esp, byte 0Ch
-        call sub_E3174
+        call IsInputRecording
         mov edx, eax
         test eax, eax
         jne short .1
-        call sub_E3190
+        call StopInputRecording
 .1:
-        call sub_E30F4
+        call ResetInputState
         cmp ebx, byte 2
         jb short .2
         jbe short .3
@@ -3339,9 +3355,9 @@ RunInGameMenu:
         cmp dword [dword_16E464], 140h
         sete al
         movzx eax, al
-        call sub_F30A0
+        call OpenInGameMenu
         call RunReplay
-        call sub_F30D7
+        call LoadGameMenuText
         jmp short .6
 .4:
         mov eax, 1
@@ -3349,10 +3365,10 @@ RunInGameMenu:
         call PauseMenu
         mov dword [dword_19CB58], eax
 .6:
-        call sub_E30F4
+        call ResetInputState
         test edx, edx
         jne short .7
-        call sub_E304C
+        call StartInputRecording
 .7:
         push str_BREAKOUT
         push byte 18h

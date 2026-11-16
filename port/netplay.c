@@ -314,21 +314,31 @@ static int make_step(void)
 }
 
 /* InputRecordAvail (GameLoop's "is there a record?", and the line-up loop's): in a session, one step a pass */
-/* Offline: one drawn frame per input record. The game draws whenever no record is waiting, and much of what moves on the screen
- * (the camera's moves between plays, some animation) moves a step per drawn frame, not per record: on a Pentium 75-100 the drawing
- * took about as long as a record (3 ticks, about 34 a second), on a modern CPU the loop drew hundreds of frames a second and those
- * ran 10x too fast (and the busy loop stuttered). So after a frame the loop waits here for the next record (at most 100 ms, in case
- * the records stop). NHL97_FRAMES=free draws as fast as it can, as before. */
-static int frames_free = -1, nh_drew;
+/* Offline frame pacing (Video page, Frame rate; video.c frames_mode). The game draws whenever no input record is waiting, and much
+ * of what moves on the screen (the camera's moves between plays, some animation) moves a step per drawn frame, not per record. On
+ * a Pentium 75-100 the drawing took about as long as a record (3 ticks, about 34 a second); a modern CPU drew hundreds of frames a
+ * second and those ran 10x too fast (and the busy loop stuttered).
+ *   Pentium 100: after a frame the loop waits for the next record (at most 100 ms, in case the records stop): one frame a record.
+ *   60 fps: no frame sooner than 1/60 s after the last one; a record that comes meanwhile is run first.
+ *   Unlocked: as fast as it can (the original on a fast CPU). NHL97_FRAMES=pentium100 / 60 / free overrides the setting. */
+extern volatile int frames_mode;
+static int nh_drew;
+static int64_t nh_drew_ns;
 static uint32_t paced_avail(uint32_t c)
 {
-    if (frames_free < 0) { const char *e = getenv("NHL97_FRAMES"); frames_free = e && !strcmp(e, "free"); }
-    if (frames_free) return c;
-    if (!c && nh_drew) {
-        int64_t until = plat_now_ns() + 100000000;
+    static int env = -2;
+    int mode;
+    if (env == -2) {
+        const char *e = getenv("NHL97_FRAMES");
+        env = !e ? -1 : !strcmp(e, "free") || !strcmp(e, "unlocked") ? 2 : !strcmp(e, "60") ? 1 : 0;
+    }
+    mode = env >= 0 ? env : frames_mode;
+    if (!c && (mode == 0 ? nh_drew : mode == 1)) {
+        int64_t until = mode == 1 ? nh_drew_ns + 1000000000 / 60 : plat_now_ns() + 100000000;
         while (!(c = G32(D_QCOUNT)) && plat_now_ns() < until) host_idle_once();
     }
     nh_drew = !c;                                   /* no record: the loop draws a frame now */
+    if (!c) nh_drew_ns = plat_now_ns();
     return c;
 }
 

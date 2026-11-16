@@ -14,17 +14,18 @@ extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dwo
 extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8
 extern RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187, RunNewSeason_193, off_16E4E0, qword_165550, qword_165558, qword_165568
 extern BlitArt, sub_1013CC, sub_1013FC, FindShape, sub_1097F0, ConvertArtXY, SetScreenTarget, PlaySfx
-extern LoadDataFileHandle, SetRegionRect, sub_835AC, sub_835BC, sub_83850, InitMenuItems, sub_E3410, sub_E341C
-extern sub_E375C, sub_E3798, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
+extern LoadDataFileHandle, SetRegionRect, ShowLinkWait, ShowLinkMessage, HideLinkBox, InitMenuItems, ClearLinkAbort, ServiceIdle
+extern ResetLinkStats, SyncLinkGame, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, sub_FDC68, tickcount, word_16CD04, word_16CD20, word_16CD22
-global jpt_8E977, jpt_8E987, sub_8D956_223, sub_8DBAC_1F5, sub_8DBAC_220, sub_8BFAC, sub_8D5C0, sub_8D6B4
-global sub_8D6E0, sub_8D6E8, sub_8D910, sub_8D956, sub_8DBAC, sub_8DE0F, sub_8DE10, DrawScrollBar
-global sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E2EE, sub_8E6AF, LoadLangText
-global LoadLangTextB, GetLangText, FreeLangText, sub_8E870
+global jpt_8E977, jpt_8E987, InitScrollList_223, InitScrollTable_1F5, InitScrollTable_220, RunMenu, ScrollPosToValue, ResetMouseInput
+global SetMenuMode, SetupMenuView, RestoreMenuView, InitScrollList, InitScrollTable, NoOpReturn, ScrollUp, DrawScrollBar
+global ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList, RunScrollMenu, SetListSelection, LoadLangText
+global LoadLangTextB, GetLangText, FreeLangText, PositionAbbrev
 ;-----------------------------------------------------------------------------
-; sub_8BFAC                                                       8BFAC  97 PC
+; RunMenu                                         8BFAC  97 PC, low confidence
+; Runs a menu: input, highlight, sounds and link sync
 ;-----------------------------------------------------------------------------
-sub_8BFAC:
+RunMenu:
         push esi
         push edi
         push ebp
@@ -216,7 +217,7 @@ sub_8BFAC:
         jl near .10
 .22:
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov ebx, 0FFFFFFFFh
@@ -237,7 +238,7 @@ sub_8BFAC:
         cmp eax, dword [dword_16CD24]
         jle short .24
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov dword [dword_16CD24], eax
@@ -252,7 +253,7 @@ sub_8BFAC:
         cmp dword [byte esp+034h], byte 0
         jne short .26
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov ebx, 1
@@ -330,7 +331,7 @@ sub_8BFAC:
         push dword_1C83F0
         mov edx, dword_16CD08
         mov eax, dword_16CD30
-        call sub_E3798
+        call SyncLinkGame
         mov ebx, dword [byte esp+034h]
         mov dword [byte esp+014h], eax
         test ebx, ebx
@@ -354,12 +355,12 @@ sub_8BFAC:
         je short .34
         mov eax, 237h
         call GetLangText
-        call sub_835BC
+        call ShowLinkMessage
         jmp short .35
 .34:
         mov eax, 76h
         call GetLangText
-        call sub_835AC
+        call ShowLinkWait
 .35:
         push dword_1C83E0
         push dword_1C83F4
@@ -368,10 +369,10 @@ sub_8BFAC:
         push dword_1C83F0
         mov edx, dword_16CD08
         mov eax, dword_16CD30
-        call sub_E3798
+        call SyncLinkGame
         test eax, eax
         jne short .36
-        call sub_E341C
+        call ServiceIdle
         jmp short .35
 .36:
         mov edx, 1
@@ -379,7 +380,7 @@ sub_8BFAC:
         mov dword [byte esp+014h], edx
         test bx, bx
         jne short .37
-        call sub_83850
+        call HideLinkBox
 .37:
         mov eax, dword [tickcount]
         add eax, byte 1Eh
@@ -483,7 +484,7 @@ sub_8BFAC:
         mov dword [esp], eax
         test ecx, ecx
         je short .48
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov dword [dword_16CD24], eax
@@ -540,7 +541,7 @@ sub_8BFAC:
 .54:
         cmp dword [byte esp+034h], byte 0
         je short .55
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov dword [dword_16CD24], eax
@@ -1525,7 +1526,7 @@ sub_8BFAC:
         mov ecx, dword [byte esp+048h]
         test ecx, ecx
         jl short .152
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .151
         mov dword [dword esp+084h], ebx
@@ -1806,9 +1807,10 @@ sub_8BFAC:
         ret 8
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_8D5C0                                                       8D5C0  97 PC
+; ScrollPosToValue                                8D5C0  97 PC, low confidence
+; Converts a scroll bar position to a value
 ;-----------------------------------------------------------------------------
-sub_8D5C0:
+ScrollPosToValue:
         push ecx
         push edi
         push ebp
@@ -1884,9 +1886,10 @@ sub_8D5C0:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_8D6B4                                                       8D6B4  97 PC
+; ResetMouseInput                                 8D6B4  97 PC, low confidence
+; Resets the mouse input
 ;-----------------------------------------------------------------------------
-sub_8D6B4:
+ResetMouseInput:
         push ebx
         push ecx
         push esi
@@ -1899,7 +1902,7 @@ sub_8D6B4:
         add esp, byte 8
         mov edx, esi
         xor ecx, ecx
-        call sub_E375C
+        call ResetLinkStats
         pop esi
         pop ecx
         pop ebx
@@ -1909,16 +1912,18 @@ sub_8D6B4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_8D6E0                                                       8D6E0  97 PC
+; SetMenuMode                                     8D6E0  97 PC, low confidence
+; Sets the menu mode
 ;-----------------------------------------------------------------------------
-sub_8D6E0:
+SetMenuMode:
         mov dword [dword_16CD1C], eax
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_8D6E8                                                       8D6E8  97 PC
+; SetupMenuView                                   8D6E8  97 PC, low confidence
+; Sets up the menu view
 ;-----------------------------------------------------------------------------
-sub_8D6E8:
+SetupMenuView:
         push esi
         push edi
         push ebp
@@ -2039,7 +2044,7 @@ sub_8D6E8:
         sar ebx, 1
         sar edx, 1
         xor ecx, ecx
-        call sub_E375C
+        call ResetLinkStats
         mov ebp, dword [dword_1C8424]
         push ebp
         mov eax, dword [dword_1C8430]
@@ -2065,9 +2070,10 @@ sub_8D6E8:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_8D910                                                       8D910  97 PC
+; RestoreMenuView                                 8D910  97 PC, low confidence
+; Restores the menu view
 ;-----------------------------------------------------------------------------
-sub_8D910:
+RestoreMenuView:
         push ebx
         push ecx
         push edx
@@ -2095,9 +2101,10 @@ sub_8D910:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_8D956                                                       8D956  97 PC
+; InitScrollList                                  8D956  97 PC, low confidence
+; Sets up a scrolling list
 ;-----------------------------------------------------------------------------
-sub_8D956:
+InitScrollList:
         push esi
         push edi
         enter 10h, 0
@@ -2275,7 +2282,7 @@ sub_8D956:
         mov dword [byte edi+ebx+014h], edx
         cmp eax, byte 3
         jl short .7
-sub_8D956_223:
+InitScrollList_223:
         mov eax, dword [byte esi+030h]
         and byte [byte eax+032h], 0FEh
         mov eax, dword [byte esi+030h]
@@ -2291,9 +2298,10 @@ sub_8D956_223:
         pop esi
         ret 1Ch
 ;-----------------------------------------------------------------------------
-; sub_8DBAC                                                       8DBAC  97 PC
+; InitScrollTable                                 8DBAC  97 PC, low confidence
+; Sets up a scrolling table
 ;-----------------------------------------------------------------------------
-sub_8DBAC:
+InitScrollTable:
         push esi
         push edi
         enter 10h, 0
@@ -2454,8 +2462,8 @@ sub_8DBAC:
         mov dword [byte edx+ebx+014h], ecx
         cmp eax, byte 3
         jl short .5
-        jmp near sub_8D956_223
-sub_8DBAC_1F5:
+        jmp near InitScrollList_223
+InitScrollTable_1F5:
         push byte 0
         mov eax, dword [byte ebx+018h]
         push byte 0
@@ -2469,7 +2477,7 @@ sub_8DBAC_1F5:
         call __CHP
         fistp dword [byte ebp-04h]
         push dword [byte ebp-04h]
-sub_8DBAC_220:
+InitScrollTable_220:
         push dword [dword ebx+0F4h]
         call DrawArt
         add esp, byte 0Ch
@@ -2496,14 +2504,19 @@ sub_8DBAC_220:
         pop esi
         pop ecx
         pop ebx
-sub_8DE0F:
+;-----------------------------------------------------------------------------
+; NoOpReturn                                      8DE0F  97 PC, low confidence
+; Returns at once
+;-----------------------------------------------------------------------------
+NoOpReturn:
         ret
 ;-----------------------------------------------------------------------------
-; sub_8DE10                                                       8DE10  97 PC
+; ScrollUp                                        8DE10  97 PC, low confidence
+; Scrolls a list up one line
 ;-----------------------------------------------------------------------------
-sub_8DE10:
+ScrollUp:
         cmp dword [byte eax+024h], byte 0
-        jle short sub_8DE0F
+        jle short NoOpReturn
         dec dword [byte eax+024h]
 ;-----------------------------------------------------------------------------
 ; DrawScrollBar                                8DE19  96 PC, medium confidence
@@ -2520,7 +2533,7 @@ DrawScrollBar:
         call SetDrawTarget
         add esp, byte 4
         cmp dword [ebx], byte 1
-        jne near sub_8DBAC_1F5
+        jne near InitScrollTable_1F5
         push byte 0
         mov eax, dword [byte ebx+018h]
         push byte 0
@@ -2534,11 +2547,12 @@ DrawScrollBar:
         fistp dword [byte ebp-04h]
         push dword [byte ebp-04h]
         push byte 2
-        jmp near sub_8DBAC_220
+        jmp near InitScrollTable_220
 ;-----------------------------------------------------------------------------
-; sub_8DE68                                                       8DE68  97 PC
+; ScrollDown                                      8DE68  97 PC, low confidence
+; Scrolls a list down one line
 ;-----------------------------------------------------------------------------
-sub_8DE68:
+ScrollDown:
         push ebx
         mov ebx, dword [byte eax+028h]
         sub ebx, dword [byte eax+02Ch]
@@ -2550,9 +2564,10 @@ sub_8DE68:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_8DE7E                                                       8DE7E  97 PC
+; FreeScrollList                                  8DE7E  97 PC, low confidence
+; Frees a scrolling list
 ;-----------------------------------------------------------------------------
-sub_8DE7E:
+FreeScrollList:
         push ebx
         push ecx
         push edx
@@ -2580,9 +2595,10 @@ SetScrollBarPos:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_8DEAC                                                       8DEAC  97 PC
+; ScrollToMouse                                   8DEAC  97 PC, low confidence
+; Scrolls a list to the mouse position
 ;-----------------------------------------------------------------------------
-sub_8DEAC:
+ScrollToMouse:
         push ecx
         push esi
         enter 0Ch, 0
@@ -2591,7 +2607,7 @@ sub_8DEAC:
         mov eax, ebx
         lea ebx, [byte ebp-0Ch]
         lea edx, [byte ebp-08h]
-        call sub_8D5C0
+        call ScrollPosToValue
         mov eax, dword [byte ecx+028h]
         cmp eax, dword [byte ecx+02Ch]
         jle short .3
@@ -2627,9 +2643,10 @@ sub_8DEAC:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_8DF1F                                                       8DF1F  97 PC
+; RunScrollList                                   8DF1F  97 PC, low confidence
+; Runs a scrolling list
 ;-----------------------------------------------------------------------------
-sub_8DF1F:
+RunScrollList:
         push esi
         push edi
         enter 0F64h, 0
@@ -2753,7 +2770,7 @@ sub_8DF1F:
         push byte 0
         add edx, eax
         lea eax, [dword ebp-0120h]
-        call sub_8D956
+        call InitScrollList
         cmp esi, dword [dword ebp-0F68h]
         je short .6
         lea eax, [dword ebp-0120h]
@@ -2814,7 +2831,7 @@ sub_8DF1F:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .9
-        call sub_E341C
+        call ServiceIdle
         jmp short .8
 .9:
         dec dword [byte ebp-04h]
@@ -2843,7 +2860,7 @@ sub_8DF1F:
         xor ecx, ecx
         lea eax, [byte esi+04h]
 .13:
-        call sub_8BFAC
+        call RunMenu
         lea edx, [byte esi+01h]
         cmp edx, dword [byte ebp-020h]
         jne short .14
@@ -2860,7 +2877,7 @@ sub_8DF1F:
         mov ebx, eax
         xor edx, edx
         lea eax, [dword ebp-0120h]
-        call sub_8DEAC
+        call ScrollToMouse
         jmp short .17
 .15:
         lea eax, [byte esi+03h]
@@ -2937,9 +2954,10 @@ sub_8DF1F:
         pop esi
         ret 14h
 ;-----------------------------------------------------------------------------
-; sub_8E2EE                                                       8E2EE  97 PC
+; RunScrollMenu                                   8E2EE  97 PC, low confidence
+; Runs a scrolling menu
 ;-----------------------------------------------------------------------------
-sub_8E2EE:
+RunScrollMenu:
         push esi
         push edi
         enter 0F68h, 0
@@ -3066,7 +3084,7 @@ sub_8E2EE:
         push byte 0
         add edx, eax
         lea eax, [dword ebp-0124h]
-        call sub_8D956
+        call InitScrollList
         cmp esi, dword [dword ebp-0F6Ch]
         je short .6
         lea eax, [dword ebp-0124h]
@@ -3127,7 +3145,7 @@ sub_8E2EE:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .9
-        call sub_E341C
+        call ServiceIdle
         jmp short .8
 .9:
         dec edi
@@ -3156,7 +3174,7 @@ sub_8E2EE:
         lea edx, [dword ebp-0F68h]
         lea eax, [byte esi+04h]
 .13:
-        call sub_8BFAC
+        call RunMenu
         lea edx, [byte esi+01h]
         cmp edx, dword [byte ebp-024h]
         jne short .14
@@ -3173,7 +3191,7 @@ sub_8E2EE:
         mov ebx, eax
         xor edx, edx
         lea eax, [dword ebp-0124h]
-        call sub_8DEAC
+        call ScrollToMouse
         jmp short .17
 .15:
         lea eax, [byte esi+03h]
@@ -3247,9 +3265,10 @@ sub_8E2EE:
         pop esi
         ret 18h
 ;-----------------------------------------------------------------------------
-; sub_8E6AF                                                       8E6AF  97 PC
+; SetListSelection                                8E6AF  97 PC, low confidence
+; Sets the selection of a list
 ;-----------------------------------------------------------------------------
-sub_8E6AF:
+SetListSelection:
         push ebx
         enter 8, 0
         mov ebx, eax
@@ -3446,9 +3465,10 @@ FreeLangText:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_8E870                                                       8E870  97 PC
+; PositionAbbrev                                  8E870  97 PC, low confidence
+; Returns the abbreviation of a position
 ;-----------------------------------------------------------------------------
-sub_8E870:
+PositionAbbrev:
         push ebx
         push ecx
         push edx

@@ -22,36 +22,37 @@ extern dword_1C5F64, dword_1C5F70, dword_1C5F74, dword_1C83B0, dword_1C8440, dwo
 extern dword_1C8450, dword_1C8454, fclose_, fgets_, fread_, fseek_, fwrite_, memcpy_
 extern memset_, sprintf_, strcmp_, strcpy_, strlen_, strstr_, bcopy, sub_101324
 extern BlitShape2, BlitArt, sub_1013FC, FindShape, sub_102B94, ConvertArtXY, SetScreenTarget, SecondsToSamples
-extern WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0, sub_7EEB0
-extern SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5B8, sub_7FE38, sub_80BBC
-extern sub_81114, sub_81678, sub_835BC, sub_83850, sub_867F0, sub_86878, sub_8BFAC, sub_8D956
-extern sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, GetLangText, sub_E32B4, sub_E3410
-extern sub_E341C, sub_E3AFC, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, AllocMemBlock, FreeMemBlock
+extern WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFileLib, LoadDataFile, DrawScreenBackground, FadeInScreen, ShowScreen
+extern SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBoxNoWait, EditTextField, WipeScreen
+extern DrawEntryList, SetNormalText, ShowLinkMessage, HideLinkBox, WritePhonebookFile, OpenPhonebookFile, RunMenu, InitScrollList
+extern ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse, GetLangText, InitLinkSettings, ClearLinkAbort
+extern ServiceIdle, StartNetworkLink, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, AllocMemBlock, FreeMemBlock
 extern MakeColor, FreeBitmap, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect
 extern MeasureText, unk_165330, unk_1AC839, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1C5EF8
 extern unk_1C5F4A, unk_1C834C, unk_1C8360, unk_1C8388, unk_1C83BA, word_16CCF8, word_16DACC, word_16DAD0
 extern word_1AC8B1, word_1C8340, word_1C8342, word_1C8344, word_1C8346, word_1C8348, word_1C834A, word_1C83B8
-global jpt_86C99, jpt_87AF7, jpt_89053, sub_868CD_5F, PhonebookEntryScreen_4B8, PhonebookEntryScreen_4C9, PhonebookEntryScreen_5DB, PhonebookEntryScreen_60C
+global jpt_86C99, jpt_87AF7, jpt_89053, SavePhonebook_5F, PhonebookEntryScreen_4B8, PhonebookEntryScreen_4C9, PhonebookEntryScreen_5DB, PhonebookEntryScreen_60C
 global PhonebookEntryScreen_6C5, PhonebookEntryScreen_752, ModemSettingsScreen_AE3, ModemSettingsScreen_AF4, ModemSettingsScreen_CC6, ModemSettingsScreen_D31, ModemSettingsScreen_D5E, ModemSettingsScreen_E4D
 global ModemSettingsScreen_E6E, ModemSettingsScreen_F7C, ModemSettingsScreen_FCE, ModemSettingsScreen_1020, ModemSettingsScreen_112C, ModemSettingsScreen_1184, ModemSettingsScreen_11E3, ModemSettingsScreen_121D
 global ModemSettingsScreen_126A, ModemSettingsScreen_1292, ModemSettingsScreen_12BA, ModemSettingsScreen_12E2, DrawNoNetworkServices_F6, NetworkGamesScreen_646, NetworkGamesScreen_657, NetworkGamesScreen_880
 global NetworkGamesScreen_8F6, NetworkGamesScreen_92B, NetworkGamesScreen_9BB, NetworkGamesScreen_A1E, NetworkGamesScreen_A96, NetworkGamesScreen_B19, NetworkGamesScreen_B3D, ModemConnectScreen_2BB
-global ModemConnectScreen_2C0, ModemConnectScreen_2C3, ModemConnectScreen_2C4, sub_8AAE5_64C, sub_8AAE5_654, RunNetworkConnect_35, sub_868CD, sub_86936
-global LoadPhonebook, sub_86A45, sub_86A96, sub_86AFA, sub_86B73, sub_86BD0, PhonebookEntryScreen, sub_87523
-global sub_8769F, sub_8781C, sub_8793E, ModemSettingsScreen, DrawNoNetworkServices, sub_88FD8, NetworkGamesScreen, sub_89CD6
-global ModemConnectScreen, sub_8AAE5, sub_8B145, NetworkConnectScreen, RunNetworkConnect, RunModemConnect, sub_8BE60, sub_8BEF8
-global InitMenuItems, sub_8BFA0
+global ModemConnectScreen_2C0, ModemConnectScreen_2C3, ModemConnectScreen_2C4, ModemConnect_64C, ModemConnect_654, RunNetworkConnect_35, SavePhonebook, AddPhonebookEntry
+global LoadPhonebook, ReadPhonebook, CopyModemString, SetModemButton, SetModemArrow, DrawPhonebookField, PhonebookEntryScreen, LayoutModemList
+global LayoutPortList, LayoutSpeedList, DrawModemField, ModemSettingsScreen, DrawNoNetworkServices, DrawNetworkStatus, NetworkGamesScreen, DrawConnectScreen
+global ModemConnectScreen, ModemConnect, NetworkConnect, NetworkConnectScreen, RunNetworkConnect, RunModemConnect, CreateMenuBitmap, FreeMenuBitmap
+global InitMenuItems, SetMenuSelection
 ;-----------------------------------------------------------------------------
-; sub_868CD                                                       868CD  97 PC
+; SavePhonebook                                   868CD  97 PC, low confidence
+; Saves the phonebook
 ;-----------------------------------------------------------------------------
-sub_868CD:
+SavePhonebook:
         push ebx
         push ecx
         push edx
         push esi
         push edi
         mov esi, eax
-        call sub_86878
+        call OpenPhonebookFile
         mov edi, eax
         test eax, eax
         jne short .1
@@ -61,7 +62,7 @@ sub_868CD:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         xor eax, eax
         jmp near ModemConnectScreen_2C4
 .1:
@@ -73,17 +74,18 @@ sub_868CD:
         mov eax, edi
         call fclose_
         test esi, esi
-        jle short sub_868CD_5F
+        jle short SavePhonebook_5F
         push dword [dword_1C83B0]
         call FreeMemBlock
         add esp, byte 4
-sub_868CD_5F:
+SavePhonebook_5F:
         mov eax, 1
         jmp near ModemConnectScreen_2C4
 ;-----------------------------------------------------------------------------
-; sub_86936                                                       86936  97 PC
+; AddPhonebookEntry                               86936  97 PC, low confidence
+; Adds an entry to the phonebook
 ;-----------------------------------------------------------------------------
-sub_86936:
+AddPhonebookEntry:
         push ebx
         push ecx
         push esi
@@ -126,7 +128,7 @@ sub_86936:
         call strcpy_
         inc dword [ebx]
         mov eax, dword [ebx]
-        call sub_868CD
+        call SavePhonebook
         call LoadPhonebook
 .4:
         pop edi
@@ -144,7 +146,7 @@ LoadPhonebook:
         push edx
         push esi
         push edi
-        call sub_86A45
+        call ReadPhonebook
         mov edi, eax
         inc eax
         imul eax, dword 0A0h
@@ -160,7 +162,7 @@ LoadPhonebook:
         xor eax, eax
         jmp near ModemConnectScreen_2C4
 .2:
-        call sub_867F0
+        call WritePhonebookFile
         mov esi, eax
         test eax, eax
         jne short .3
@@ -170,7 +172,7 @@ LoadPhonebook:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         jmp short .1
 .3:
         mov edx, 4
@@ -183,18 +185,19 @@ LoadPhonebook:
         call fread_
         mov eax, esi
         call fclose_
-        jmp near sub_868CD_5F
+        jmp near SavePhonebook_5F
         jmp near fclose_
 ;-----------------------------------------------------------------------------
-; sub_86A45                                                       86A45  97 PC
+; ReadPhonebook                                   86A45  97 PC, low confidence
+; Reads the phonebook
 ;-----------------------------------------------------------------------------
-sub_86A45:
+ReadPhonebook:
         push ebx
         push ecx
         push edx
         push esi
         enter 4, 0
-        call sub_867F0
+        call WritePhonebookFile
         mov esi, eax
         test eax, eax
         jne short .1
@@ -204,7 +207,7 @@ sub_86A45:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         mov dword [byte ebp-04h], esi
         jmp short .2
 .1:
@@ -223,9 +226,10 @@ sub_86A45:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_86A96                                                       86A96  97 PC
+; CopyModemString                                 86A96  97 PC, low confidence
+; Copies a modem setting string
 ;-----------------------------------------------------------------------------
-sub_86A96:
+CopyModemString:
         push ebx
         push ecx
         mov ebx, eax
@@ -259,9 +263,10 @@ sub_86A96:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_86AFA                                                       86AFA  97 PC
+; SetModemButton                                  86AFA  97 PC, low confidence
+; Sets up a modem screen button
 ;-----------------------------------------------------------------------------
-sub_86AFA:
+SetModemButton:
         push esi
         push edi
         enter 4, 0
@@ -305,9 +310,10 @@ sub_86AFA:
         pop esi
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_86B73                                                       86B73  97 PC
+; SetModemArrow                                   86B73  97 PC, low confidence
+; Sets up a modem screen arrow
 ;-----------------------------------------------------------------------------
-sub_86B73:
+SetModemArrow:
         push esi
         push edi
         push ebp
@@ -345,9 +351,10 @@ sub_86B73:
         pop esi
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_86BD0                                                       86BD0  97 PC
+; DrawPhonebookField                              86BD0  97 PC, low confidence
+; Draws a phonebook field
 ;-----------------------------------------------------------------------------
-sub_86BD0:
+DrawPhonebookField:
         push esi
         push edi
         enter 0Ch, 0
@@ -384,7 +391,7 @@ sub_86BD0:
         push eax
         add ebx, byte 2Dh
         mov eax, 6
-        call sub_7F04C
+        call DrawEditBox
 .4:
         lea ebx, [esi+edi]
         imul ebx, dword 0A0h
@@ -439,7 +446,7 @@ PhonebookEntryScreen:
         enter 1000h, 0
         push eax
         push edx
-        call sub_81678
+        call SetNormalText
         lea edx, [dword ebp-01000h]
         mov eax, 1Ah
         call InitMenuItems
@@ -505,7 +512,7 @@ PhonebookEntryScreen:
         add esp, byte 4
         xor edx, edx
         xor eax, eax
-        call sub_7F29C
+        call DrawFrameBox
         test esi, esi
         jle short .2
         push dword 0FFFFFF50h
@@ -647,7 +654,7 @@ PhonebookEntryScreen:
         add esp, byte 14h
         xor edx, edx
         xor eax, eax
-        call sub_7F29C
+        call DrawFrameBox
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -686,7 +693,7 @@ PhonebookEntryScreen:
         push byte 0
         mov ebx, dword [ebx]
         lea eax, [dword ebp-012Ch]
-        call sub_8D956
+        call InitScrollList
         push dword [byte ebp-08h]
         call SetDrawTarget
         add esp, byte 4
@@ -702,7 +709,7 @@ PhonebookEntryScreen:
         mov edx, dword [dword ebp-0108h]
         mov eax, dword [byte ebp-08h]
         mov ecx, dword [ecx]
-        call sub_86BD0
+        call DrawPhonebookField
         call SetScreenTarget
         push byte 6Eh
         mov eax, dword [byte ebp-08h]
@@ -724,7 +731,7 @@ PhonebookEntryScreen:
         push byte 50h
         mov edx, eax
         mov esi, unk_1C5EF8
-        call sub_81114
+        call DrawEntryList
         mov ecx, 52h
         rep movsb
         mov ecx, 52h
@@ -735,7 +742,7 @@ PhonebookEntryScreen:
         mov dword [dword ebp-0F5Ch], 2
         jmp near PhonebookEntryScreen_60C.11
 PhonebookEntryScreen_4B8:
-        call sub_7EEB0
+        call ShowScreen
 .6:
         mov dword [byte ebp-014h], 1
         jmp near PhonebookEntryScreen_60C.11
@@ -767,7 +774,7 @@ PhonebookEntryScreen_4C9:
 .9:
         dec dword [edx]
         lea eax, [dword ebp-012Ch]
-        call sub_8DE7E
+        call FreeScrollList
         push byte 0
         push byte 0
         push dword 96h
@@ -781,7 +788,7 @@ PhonebookEntryScreen_4C9:
         push byte 0
         mov ebx, dword [ebx]
         lea eax, [dword ebp-012Ch]
-        call sub_8D956
+        call InitScrollList
         push dword [byte ebp-08h]
         call SetDrawTarget
         add esp, byte 4
@@ -797,7 +804,7 @@ PhonebookEntryScreen_4C9:
         mov edx, dword [dword ebp-0108h]
         mov eax, dword [byte ebp-08h]
         mov ecx, dword [ecx]
-        call sub_86BD0
+        call DrawPhonebookField
         call SetScreenTarget
         push byte 6Eh
         mov eax, dword [byte ebp-08h]
@@ -823,14 +830,14 @@ PhonebookEntryScreen_5DB:
         add edx, byte 50h
         mov dword [byte ebp-014h], 1
         call strcpy_
-        call sub_7EDF0
+        call FadeInScreen
         jmp near PhonebookEntryScreen_60C.11
 PhonebookEntryScreen_60C:
         cmp dword [dword ebp-0108h], byte 0
         jle short .11
         lea eax, [dword ebp-012Ch]
         xor edx, edx
-        call sub_8DE10
+        call ScrollUp
 .10:
         push dword [byte ebp-08h]
         call SetDrawTarget
@@ -847,7 +854,7 @@ PhonebookEntryScreen_60C:
         mov edx, dword [dword ebp-0108h]
         mov eax, dword [byte ebp-08h]
         mov ecx, dword [ecx]
-        call sub_86BD0
+        call DrawPhonebookField
         call SetScreenTarget
         push byte 6Eh
         mov eax, dword [byte ebp-08h]
@@ -869,7 +876,7 @@ PhonebookEntryScreen_60C:
         push eax
         xor ecx, ecx
         mov eax, 1Ah
-        call sub_8BFAC
+        call RunMenu
         mov ecx, eax
         cmp dword [byte ebp-020h], byte 5
         ja near PhonebookEntryScreen_752.12
@@ -879,7 +886,7 @@ PhonebookEntryScreen_6C5:
         mov ebx, eax
         xor edx, edx
         lea eax, [dword ebp-012Ch]
-        call sub_8DEAC
+        call ScrollToMouse
         mov eax, dword [byte ebp-01Ch]
         cmp eax, dword [dword ebp-0108h]
         je short PhonebookEntryScreen_60C.11
@@ -898,7 +905,7 @@ PhonebookEntryScreen_6C5:
         mov edx, dword [dword ebp-0108h]
         mov eax, dword [byte ebp-08h]
         mov ecx, dword [ecx]
-        call sub_86BD0
+        call DrawPhonebookField
         call SetScreenTarget
         push byte 6Eh
         mov eax, dword [byte ebp-08h]
@@ -921,7 +928,7 @@ PhonebookEntryScreen_752:
         jle near PhonebookEntryScreen_60C.11
         lea eax, [dword ebp-012Ch]
         xor edx, edx
-        call sub_8DE68
+        call ScrollDown
         jmp near PhonebookEntryScreen_60C.10
 .12:
         sub dword [byte ebp-020h], byte 6
@@ -945,7 +952,7 @@ PhonebookEntryScreen_752:
         add esi, edx
         mov edx, 14h
         mov eax, esi
-        call sub_7FE38
+        call EditTextField
         jmp near PhonebookEntryScreen_60C.10
 .13:
         sub dword [byte ebp-020h], byte 0Ah
@@ -988,7 +995,7 @@ PhonebookEntryScreen_752:
         cmp esi, byte 3
         jl short .15
         lea eax, [dword ebp-012Ch]
-        call sub_8DE7E
+        call FreeScrollList
         leave
         pop edi
         pop esi
@@ -996,9 +1003,10 @@ PhonebookEntryScreen_752:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_87523                                                       87523  97 PC
+; LayoutModemList                                 87523  97 PC, low confidence
+; Lays out the modem list
 ;-----------------------------------------------------------------------------
-sub_87523:
+LayoutModemList:
         push esi
         push edi
         enter 4, 0
@@ -1114,9 +1122,10 @@ sub_87523:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_8769F                                                       8769F  97 PC
+; LayoutPortList                                  8769F  97 PC, low confidence
+; Lays out the port list
 ;-----------------------------------------------------------------------------
-sub_8769F:
+LayoutPortList:
         push esi
         push edi
         enter 4, 0
@@ -1232,9 +1241,10 @@ sub_8769F:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_8781C                                                       8781C  97 PC
+; LayoutSpeedList                                 8781C  97 PC, low confidence
+; Lays out the speed list
 ;-----------------------------------------------------------------------------
-sub_8781C:
+LayoutSpeedList:
         push esi
         push edi
         enter 4, 0
@@ -1324,9 +1334,10 @@ sub_8781C:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_8793E                                                       8793E  97 PC
+; DrawModemField                                  8793E  97 PC, low confidence
+; Draws a modem field
 ;-----------------------------------------------------------------------------
-sub_8793E:
+DrawModemField:
         push ecx
         push esi
         push edi
@@ -1514,7 +1525,7 @@ ModemSettingsScreen:
         push esi
         push edi
         enter 0E18h, 0
-        call sub_86A45
+        call ReadPhonebook
         mov dword [byte ebp-028h], 0FFFFFFFFh
         mov dword [byte ebp-03Ch], eax
         call LoadPhonebook
@@ -1522,7 +1533,7 @@ ModemSettingsScreen:
         jne short .1
         mov edx, unk_1AC839
         mov eax, byte_1C833C
-        call sub_86A96
+        call CopyModemString
         mov dword [dword_16CCFA], 1
 .1:
         lea eax, [byte ebp-044h]
@@ -1559,7 +1570,7 @@ ModemSettingsScreen:
         mov ecx, str_CP01
         lea eax, [dword ebp-0D74h]
         mov dword [dword ebp-0DC6h], 1
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-0628h]
         push eax
         mov ecx, str_CP04
@@ -1567,7 +1578,7 @@ ModemSettingsScreen:
         push str_CP05
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0D22h]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-05E8h]
         push eax
         mov ecx, str_CP07
@@ -1575,7 +1586,7 @@ ModemSettingsScreen:
         push str_CP08
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0CD0h]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-05A8h]
         push eax
         mov ecx, str_CP10
@@ -1583,7 +1594,7 @@ ModemSettingsScreen:
         push str_CP11
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0C7Eh]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-0568h]
         push eax
         mov ecx, str_IR01
@@ -1591,7 +1602,7 @@ ModemSettingsScreen:
         push str_IR02
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0C2Ch]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-0528h]
         push eax
         mov ecx, str_IR04
@@ -1599,7 +1610,7 @@ ModemSettingsScreen:
         push str_IR05
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0BDAh]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-04E8h]
         push eax
         mov ecx, str_IR07
@@ -1607,7 +1618,7 @@ ModemSettingsScreen:
         push str_IR08
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0B88h]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-04A8h]
         push eax
         mov ecx, str_IR10
@@ -1615,7 +1626,7 @@ ModemSettingsScreen:
         push str_IR11
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0B36h]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-0468h]
         push eax
         mov ecx, str_PB01
@@ -1623,7 +1634,7 @@ ModemSettingsScreen:
         push str_PB02
         mov edx, dword [byte ebp-08h]
         lea eax, [dword ebp-0AE4h]
-        call sub_86AFA
+        call SetModemButton
         mov dword [dword ebp-0A82h], 4
         lea eax, [dword ebp-0428h]
         push byte 14h
@@ -1714,10 +1725,10 @@ ModemSettingsScreen:
         mov dword [dword ebp-0A6Ch], 78h
         mov dword [dword ebp-0A68h], 8Ch
         mov dword [dword ebp-0A74h], eax
-        call sub_81678
+        call SetNormalText
         mov eax, esi
         mov ecx, 0AFh
-        call sub_8793E
+        call DrawModemField
         push byte 19h
         mov ebx, 103h
         mov edx, 35h
@@ -1730,7 +1741,7 @@ ModemSettingsScreen:
         push str_MT02
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0A40h]
-        call sub_86B73
+        call SetModemArrow
         push byte 0
         push byte 14h
         push dword 118h
@@ -1756,7 +1767,7 @@ ModemSettingsScreen:
         mov word [byte eax+0Ch], 11Dh
         mov eax, dword [byte ebx+02Ch]
         mov word [byte eax+0Eh], 106h
-        call sub_81678
+        call SetNormalText
         call SetScreenTarget
         push byte 0FFFFFFFFh
         call MakeColor
@@ -1813,7 +1824,7 @@ ModemSettingsScreen:
         push str_DS02
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-09EEh]
-        call sub_86B73
+        call SetModemArrow
         push byte 0
         push byte 14h
         push dword 118h
@@ -1865,7 +1876,7 @@ ModemSettingsScreen:
         push str_IS02
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-099Ch]
-        call sub_86B73
+        call SetModemArrow
         push byte 0
         push byte 14h
         push dword 118h
@@ -1917,7 +1928,7 @@ ModemSettingsScreen:
         push str_PT02
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-094Ah]
-        call sub_86B73
+        call SetModemArrow
         push byte 0
         push byte 14h
         push dword 118h
@@ -1980,7 +1991,7 @@ ModemSettingsScreen:
 .9:
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-08F8h]
-        call sub_86AFA
+        call SetModemButton
         test byte [byte_1C833C], 1
         jne short .10
         lea eax, [dword ebp-02A8h]
@@ -1990,7 +2001,7 @@ ModemSettingsScreen:
         push str_CM02
         mov ebx, ecx
         lea eax, [dword ebp-08A6h]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-0268h]
         push eax
         mov ecx, str_CM04
@@ -2006,7 +2017,7 @@ ModemSettingsScreen:
         push str_CM02
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-08A6h]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-0268h]
         push eax
         mov ecx, str_CM05
@@ -2015,7 +2026,7 @@ ModemSettingsScreen:
         mov ebx, ecx
 .11:
         lea eax, [dword ebp-0854h]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-0228h]
         push eax
         mov ecx, str_BR01
@@ -2023,7 +2034,7 @@ ModemSettingsScreen:
         push str_BR02
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-0802h]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-01E8h]
         push eax
         mov ecx, str_BR04
@@ -2031,7 +2042,7 @@ ModemSettingsScreen:
         push str_BR05
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-07B0h]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-01A8h]
         push eax
         mov ecx, str_BR07
@@ -2039,7 +2050,7 @@ ModemSettingsScreen:
         push str_BR08
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-075Eh]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-0168h]
         push eax
         mov ecx, str_MOD2
@@ -2047,7 +2058,7 @@ ModemSettingsScreen:
         push str_MOD2
         mov ebx, ecx
         lea eax, [dword ebp-070Ch]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-0128h]
         push eax
         mov ecx, str_NET1
@@ -2055,7 +2066,7 @@ ModemSettingsScreen:
         push str_NET2
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-06BAh]
-        call sub_86AFA
+        call SetModemButton
         cmp word [word_1C8340], byte 0
         jne short .12
         push str_CP02
@@ -2200,18 +2211,18 @@ ModemSettingsScreen:
         mov dword [dword ebp-0740h], eax
         jmp near ModemSettingsScreen_11E3
 ModemSettingsScreen_AE3:
-        call sub_7EEB0
+        call ShowScreen
 .22:
         mov dword [byte ebp-028h], 1
         jmp near ModemSettingsScreen_11E3
 ModemSettingsScreen_AF4:
-        call sub_7EDF0
+        call FadeInScreen
         mov edx, byte_1C833C
         mov eax, unk_1AC839
-        call sub_86A96
+        call CopyModemString
         lea edx, [byte ebp-03Ch]
         mov eax, unk_1C834C
-        call sub_86936
+        call AddPhonebookEntry
         mov edx, dword [dword_1AC814]
         mov eax, dword [dword_1AC814]
         shl edx, 19h
@@ -2223,15 +2234,15 @@ ModemSettingsScreen_AF4:
         or edx, eax
         mov eax, byte_1ACC51
         mov dword [byte ebp-040h], edx
-        call sub_E32B4
+        call InitLinkSettings
         mov eax, unk_1AC839
-        call sub_E3AFC
+        call StartNetworkLink
         test eax, eax
         je near ModemSettingsScreen_11E3
         mov eax, 235h
         call GetLangText
-        call sub_835BC
-        call sub_E3410
+        call ShowLinkMessage
+        call ClearLinkAbort
         test eax, eax
         je near .27
         mov edx, 1E7h
@@ -2302,7 +2313,7 @@ ModemSettingsScreen_AF4:
         cmp ebx, byte 4
         jl short .28
 .30:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .31
         mov edx, 4
@@ -2327,7 +2338,7 @@ ModemSettingsScreen_AF4:
         shl eax, 7
         or dword [dword_1AC814], eax
 .32:
-        call sub_83850
+        call HideLinkBox
         jmp near ModemSettingsScreen_AE3.22
 ModemSettingsScreen_CC6:
         mov ecx, dword [byte ebp-038h]
@@ -2336,7 +2347,7 @@ ModemSettingsScreen_CC6:
         movsx ebx, word [word_1C8340]
         dec ecx
         dec ecx
-        call sub_87523
+        call LayoutModemList
         mov eax, dword [byte ebp-038h]
         dec eax
         dec eax
@@ -2347,7 +2358,7 @@ ModemSettingsScreen_CC6:
         movsx ebx, word [word_1C8342]
         movsx ecx, word [nosplit eax*2+word_16DACC]
         mov eax, dword [byte ebp-018h]
-        call sub_8769F
+        call LayoutPortList
         mov eax, dword [byte ebp-038h]
         movsx eax, word [nosplit eax*2+word_16DAD0]
         mov ax, word [nosplit eax*2+word_16DACC]
@@ -2360,7 +2371,7 @@ ModemSettingsScreen_D31:
         movsx ebx, word [word_1C8342]
         movsx ecx, word [nosplit eax*2+dword_16DAC0]
         mov eax, dword [byte ebp-018h]
-        call sub_8769F
+        call LayoutPortList
         mov eax, dword [byte ebp-038h]
         mov ax, word [nosplit eax*2+dword_16DAC0]
         jmp short ModemSettingsScreen_CC6.33
@@ -2373,7 +2384,7 @@ ModemSettingsScreen_D5E:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         jmp near ModemSettingsScreen_11E3
 .34:
         lea edx, [byte ebp-03Ch]
@@ -2405,7 +2416,7 @@ ModemSettingsScreen_D5E:
         mov eax, dword [byte esi+02Ch]
         mov ebx, eax
         mov edx, eax
-        call sub_7E860
+        call DrawScreenBackground
         push esi
         call FreeBitmap
         add esp, byte 4
@@ -2433,7 +2444,7 @@ ModemSettingsScreen_D5E:
         add esp, byte 4
         mov edx, dword [byte ebp-0Ch]
         mov eax, dword [byte ebp-04h]
-        call sub_8793E
+        call DrawModemField
         jmp near ModemSettingsScreen_E6E.42
 ModemSettingsScreen_E4D:
         push byte 0
@@ -2443,7 +2454,7 @@ ModemSettingsScreen_E4D:
         mov edx, 14h
         mov ebx, eax
         mov eax, unk_1C834C
-        call sub_7FE38
+        call EditTextField
         jmp short ModemSettingsScreen_D5E.35
 ModemSettingsScreen_E6E:
         inc word [word_1C834A]
@@ -2530,7 +2541,7 @@ ModemSettingsScreen_F7C:
         mov edx, 1Eh
         mov ebx, eax
         mov eax, unk_1C8388
-        call sub_7FE38
+        call EditTextField
         call SetScreenTarget
         mov eax, dword [byte ebp-030h]
         push dword [byte eax+02Ch]
@@ -2552,7 +2563,7 @@ ModemSettingsScreen_FCE:
         mov edx, 1Eh
         mov ebx, eax
         mov eax, unk_1C8360
-        call sub_7FE38
+        call EditTextField
         call SetScreenTarget
         push dword [byte edi+02Ch]
         call BlitShape2
@@ -2653,7 +2664,7 @@ ModemSettingsScreen_112C:
 .49:
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-08F8h]
-        call sub_86AFA
+        call SetModemButton
         jmp short ModemSettingsScreen_11E3
 .50:
         lea eax, [dword ebp-02E8h]
@@ -2695,7 +2706,7 @@ ModemSettingsScreen_11E3:
         push eax
         xor ecx, ecx
         mov eax, 18h
-        call sub_8BFAC
+        call RunMenu
         mov edx, eax
         cmp dword [byte ebp-038h], byte 17h
         ja short ModemSettingsScreen_11E3
@@ -2724,7 +2735,7 @@ ModemSettingsScreen_126A:
         lea edx, [dword ebp-0E18h]
         mov eax, dword [byte ebp-018h]
         movsx ebx, word [word_1C8344]
-        call sub_8781C
+        call LayoutSpeedList
         mov word [word_1C8344], 9
         jmp near ModemSettingsScreen_11E3
 ModemSettingsScreen_1292:
@@ -2732,7 +2743,7 @@ ModemSettingsScreen_1292:
         lea edx, [dword ebp-0E18h]
         mov eax, dword [byte ebp-018h]
         movsx ebx, word [word_1C8344]
-        call sub_8781C
+        call LayoutSpeedList
         mov word [word_1C8344], 0Ah
         jmp near ModemSettingsScreen_11E3
 ModemSettingsScreen_12BA:
@@ -2740,7 +2751,7 @@ ModemSettingsScreen_12BA:
         lea edx, [dword ebp-0E18h]
         mov eax, dword [byte ebp-018h]
         movsx ebx, word [word_1C8344]
-        call sub_8781C
+        call LayoutSpeedList
         mov word [word_1C8344], 0Ch
         jmp near ModemSettingsScreen_11E3
 ModemSettingsScreen_12E2:
@@ -2775,7 +2786,7 @@ ModemSettingsScreen_12E2:
         call FreeBitmap
         add esp, byte 4
         mov eax, dword [byte ebp-03Ch]
-        call sub_868CD
+        call SavePhonebook
         mov eax, dword [byte ebp-028h]
         jmp near ModemConnectScreen_2C3
         push ebx
@@ -2891,9 +2902,10 @@ DrawNoNetworkServices_F6:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_88FD8                                                       88FD8  97 PC
+; DrawNetworkStatus                               88FD8  97 PC, low confidence
+; Draws the network status line
 ;-----------------------------------------------------------------------------
-sub_88FD8:
+DrawNetworkStatus:
         push ecx
         push esi
         push edi
@@ -3146,7 +3158,7 @@ NetworkGamesScreen:
         add esp, byte 0Ch
         mov word [byte eax+0Eh], 0DCh
         call sub_1013FC
-        call sub_81678
+        call SetNormalText
         mov eax, dword [byte ebp-08h]
         cmp eax, dword [byte ebp-03Ch]
         jl short .2
@@ -3167,7 +3179,7 @@ NetworkGamesScreen:
         mov edx, dword [byte ebp-018h]
         call SetTextColor
         mov eax, dword [byte ebp-010h]
-        call sub_88FD8
+        call DrawNetworkStatus
         call SetScreenTarget
         mov eax, dword [byte ebp-034h]
         push dword [byte eax+02Ch]
@@ -3213,7 +3225,7 @@ NetworkGamesScreen:
         push str_TPB5
         mov ebx, ecx
         lea eax, [dword ebp-0C6Eh]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-0628h]
         push eax
         mov ecx, str_TPB1
@@ -3229,7 +3241,7 @@ NetworkGamesScreen:
         push str_TPB5
         mov edx, dword [byte ebp-030h]
         lea eax, [dword ebp-0C6Eh]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-0628h]
         push eax
         mov ecx, str_TPB2
@@ -3238,7 +3250,7 @@ NetworkGamesScreen:
         mov ebx, ecx
 .4:
         lea eax, [dword ebp-0C1Ch]
-        call sub_86AFA
+        call SetModemButton
         cmp dword [byte ebp-03Ch], byte 0Ah
         jle near .5
         push str_1TOP
@@ -3287,7 +3299,7 @@ NetworkGamesScreen:
         push str_MOD2
         mov edx, dword [byte ebp-01Ch]
         lea eax, [dword ebp-0AD4h]
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-04E8h]
         mov ecx, str_NET2
         push eax
@@ -3296,7 +3308,7 @@ NetworkGamesScreen:
         push str_NET2
         lea eax, [dword ebp-0A82h]
         mov esi, 0Bh
-        call sub_86AFA
+        call SetModemButton
 .6:
         imul eax, esi, byte 52h
         mov edx, esi
@@ -3331,7 +3343,7 @@ NetworkGamesScreen:
         push byte 0
         lea edx, [dword ebp-0BCAh]
         lea eax, [dword ebp-0168h]
-        call sub_8D956
+        call InitScrollList
         jmp near NetworkGamesScreen_A1E.24
 .7:
         push byte 3
@@ -3342,19 +3354,19 @@ NetworkGamesScreen:
         xor ecx, ecx
         mov eax, 15h
 .8:
-        call sub_8BFAC
+        call RunMenu
         mov ebx, eax
         cmp dword [byte ebp-038h], byte 9
         ja near NetworkGamesScreen_B3D.25
         mov eax, dword [byte ebp-038h]
         jmp dword [nosplit cs:eax*4+jpt_89053]
 NetworkGamesScreen_646:
-        call sub_7EEB0
+        call ShowScreen
 .9:
         mov dword [byte ebp-04h], 1
         jmp near NetworkGamesScreen_8F6
 NetworkGamesScreen_657:
-        call sub_7EDF0
+        call FadeInScreen
         cmp dword [byte ebp-03Ch], byte 0
         jne short .10
         mov eax, 1A2h
@@ -3370,7 +3382,7 @@ NetworkGamesScreen_657:
         push byte 1
         xor ebx, ebx
         lea eax, [byte ebp-068h]
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         jmp near NetworkGamesScreen_8F6
 .10:
         mov eax, dword [byte ebp-08h]
@@ -3396,15 +3408,15 @@ NetworkGamesScreen_657:
         add edx, eax
         mov eax, byte_1ACC51
         mov dword [byte ebp-040h], edx
-        call sub_E32B4
+        call InitLinkSettings
         mov eax, unk_1AC839
-        call sub_E3AFC
+        call StartNetworkLink
         test eax, eax
         je near NetworkGamesScreen_8F6
         mov eax, 235h
         call GetLangText
-        call sub_835BC
-        call sub_E3410
+        call ShowLinkMessage
+        call ClearLinkAbort
         test eax, eax
         je near .15
         mov edx, 1E7h
@@ -3475,7 +3487,7 @@ NetworkGamesScreen_657:
         cmp ebx, byte 4
         jl short .16
 .18:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .19
         mov edx, 4
@@ -3500,7 +3512,7 @@ NetworkGamesScreen_657:
         shl eax, 7
         or dword [dword_1AC814], eax
 .20:
-        call sub_83850
+        call HideLinkBox
         jmp near NetworkGamesScreen_646.9
 NetworkGamesScreen_880:
         push byte 0
@@ -3510,7 +3522,7 @@ NetworkGamesScreen_880:
         mov ecx, ebx
         mov ebx, eax
         mov eax, unk_1C83BA
-        call sub_7FE38
+        call EditTextField
         push dword [byte ebp-020h]
         call SetDrawTarget
         add esp, byte 4
@@ -3534,7 +3546,7 @@ NetworkGamesScreen_880:
         add esp, byte 4
         mov edx, dword [byte ebp-018h]
         mov eax, dword [byte ebp-010h]
-        call sub_88FD8
+        call DrawNetworkStatus
 .21:
         call sub_1013FC
 NetworkGamesScreen_8F6:
@@ -3614,7 +3626,7 @@ NetworkGamesScreen_A1E:
         jle near NetworkGamesScreen_8F6
         lea eax, [dword ebp-0168h]
         xor edx, edx
-        call sub_8DE10
+        call ScrollUp
 .23:
         push dword [byte ebp-034h]
         call SetDrawTarget
@@ -3645,7 +3657,7 @@ NetworkGamesScreen_A1E:
 NetworkGamesScreen_A96:
         lea eax, [dword ebp-0168h]
         xor edx, edx
-        call sub_8DEAC
+        call ScrollToMouse
         mov eax, dword [byte ebp-028h]
         cmp eax, dword [dword ebp-0144h]
         je near NetworkGamesScreen_8F6
@@ -3683,7 +3695,7 @@ NetworkGamesScreen_B19:
         jle near NetworkGamesScreen_8F6
         lea eax, [dword ebp-0168h]
         xor edx, edx
-        call sub_8DE68
+        call ScrollDown
         jmp near NetworkGamesScreen_A1E.23
 NetworkGamesScreen_B3D:
         mov dword [byte ebp-04h], 0
@@ -3761,7 +3773,7 @@ NetworkGamesScreen_B3D:
         cmp dword [byte ebp-03Ch], byte 0Ah
         jle short .32
         lea eax, [dword ebp-0168h]
-        call sub_8DE7E
+        call FreeScrollList
 .32:
         push dword [byte ebp-02Ch]
         call FreeMemBlock
@@ -3774,9 +3786,10 @@ NetworkGamesScreen_B3D:
         movsx eax, word [byte ebp-04h]
         jmp near ModemConnectScreen_2C0
 ;-----------------------------------------------------------------------------
-; sub_89CD6                                                       89CD6  97 PC
+; DrawConnectScreen                               89CD6  97 PC, low confidence
+; Draws the connect screen
 ;-----------------------------------------------------------------------------
-sub_89CD6:
+DrawConnectScreen:
         push esi
         push edi
         enter 60h, 0
@@ -3788,7 +3801,7 @@ sub_89CD6:
         jne short .1
         mov edx, unk_1AC839
         mov eax, byte_1C833C
-        call sub_86A96
+        call CopyModemString
         mov dword [dword_16CCFA], 1
 .1:
         push byte 0
@@ -4467,7 +4480,7 @@ sub_89CD6:
         mov ebx, unk_1C834C
         mov eax, dword [byte ebp-0Ch]
         xor edx, edx
-        call sub_8793E
+        call DrawModemField
         push esi
         call SetDrawTarget
         mov eax, dword [byte esi+02Ch]
@@ -4694,7 +4707,7 @@ ModemConnectScreen:
         push esi
         push edi
         enter 24h, 0
-        call sub_81678
+        call SetNormalText
         mov eax, 2
         call SecondsToSamples
         call WaitSoundTime
@@ -4764,7 +4777,7 @@ ModemConnectScreen:
         mov edx, eax
         push dword [byte ebp-04h]
         mov eax, dword [byte ebp-08h]
-        call sub_89CD6
+        call DrawConnectScreen
         push byte 0
         push dword 1E0h
         push dword 280h
@@ -4851,7 +4864,7 @@ ModemConnectScreen:
         mov eax, dword [byte ebx+02Ch]
         mov ebx, eax
         mov edx, eax
-        call sub_7E860
+        call DrawScreenBackground
         mov word [word_16CCF8], 1
 .1:
         push dword [dword_1C5F22]
@@ -4868,7 +4881,7 @@ ModemConnectScreen:
         mov eax, dword [byte ebp-0Ch]
         mov edx, 1
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push dword [byte ebp-0Ch]
         call FreeBitmap
         add esp, byte 4
@@ -4899,9 +4912,10 @@ ModemConnectScreen_2C4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_8AAE5                                                       8AAE5  97 PC
+; ModemConnect                                    8AAE5  97 PC, low confidence
+; Connects by modem
 ;-----------------------------------------------------------------------------
-sub_8AAE5:
+ModemConnect:
         push ebx
         push ecx
         push edx
@@ -4909,7 +4923,7 @@ sub_8AAE5:
         push edi
         enter 0DCh, 0
         sub ebp, 82h
-        call sub_81678
+        call SetNormalText
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
@@ -4986,7 +5000,7 @@ sub_8AAE5:
         push dword [byte ebp+042h]
         mov eax, dword [byte ebp+03Eh]
         mov ebx, esi
-        call sub_89CD6
+        call DrawConnectScreen
         push str_TOP0
         push edi
         call FindShape
@@ -5353,7 +5367,7 @@ sub_8AAE5:
         mov dword [byte ebp+07Ah], 0
 .5:
         sub esi, byte 0Ah
-        call sub_E341C
+        call ServiceIdle
         test esi, esi
         jg near .2
         call StopAllSfx
@@ -5384,19 +5398,20 @@ sub_8AAE5:
         call FreeMemBlock
         add esp, byte 4
         cmp dword [byte ebp+02Ah], byte 0
-        jle short sub_8AAE5_654
+        jle short ModemConnect_654
         push dword [byte ebp+02Eh]
-sub_8AAE5_64C:
+ModemConnect_64C:
         call FreeMemBlock
         add esp, byte 4
-sub_8AAE5_654:
+ModemConnect_654:
         lea esp, [dword ebp+082h]
         pop ebp
         jmp near ModemConnectScreen_2C4
 ;-----------------------------------------------------------------------------
-; sub_8B145                                                       8B145  97 PC
+; NetworkConnect                                  8B145  97 PC, low confidence
+; Connects by network
 ;-----------------------------------------------------------------------------
-sub_8B145:
+NetworkConnect:
         push ebx
         push ecx
         push edx
@@ -5404,7 +5419,7 @@ sub_8B145:
         push edi
         enter 0DCh, 0
         sub ebp, 82h
-        call sub_81678
+        call SetNormalText
         mov eax, 3
         mov dword [byte ebp+07Ah], 0
         call SecondsToSamples
@@ -5495,7 +5510,7 @@ sub_8B145:
         mov edx, eax
         push dword [byte ebp+052h]
         mov eax, dword [byte ebp+03Ah]
-        call sub_89CD6
+        call DrawConnectScreen
         push str_TOP0
         push esi
         call FindShape
@@ -5870,7 +5885,7 @@ sub_8B145:
         mov dword [byte ebp+07Ah], 0
 .6:
         add edi, byte 0Ah
-        call sub_E341C
+        call ServiceIdle
         cmp edi, 0B4h
         jl near .3
         call StopAllSfx
@@ -6077,9 +6092,9 @@ sub_8B145:
         call FreeMemBlock
         add esp, byte 4
         cmp dword [byte ebp+02Ah], byte 0
-        jle near sub_8AAE5_654
+        jle near ModemConnect_654
         push dword [byte ebp+036h]
-        jmp near sub_8AAE5_64C
+        jmp near ModemConnect_64C
 ;-----------------------------------------------------------------------------
 ; NetworkConnectScreen                            8BA36  97 PC, low confidence
 ; From RunNetworkConnect: the network connect screen (NET2, LoadServerList,
@@ -6092,7 +6107,7 @@ NetworkConnectScreen:
         push esi
         push edi
         enter 28h, 0
-        call sub_81678
+        call SetNormalText
         mov eax, 2
         call SecondsToSamples
         call WaitSoundTime
@@ -6292,7 +6307,7 @@ NetworkConnectScreen:
         mov eax, dword [byte edi+02Ch]
         mov ebx, eax
         mov edx, eax
-        call sub_7E860
+        call DrawScreenBackground
         mov word [word_16CCF8], 1
 .3:
         push dword [dword_1C5F74]
@@ -6308,7 +6323,7 @@ NetworkConnectScreen:
         call sub_1013FC
         mov edx, 1
         mov eax, dword [byte edi+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push edi
         call FreeBitmap
         add esp, byte 4
@@ -6347,14 +6362,14 @@ RunNetworkConnect:
         mov edx, eax
         test eax, eax
         jne short .2
-        call sub_8AAE5
+        call ModemConnect
         and byte [byte_1AC8C6], 0FEh
         call ModemSettingsScreen
         mov edx, eax
 .2:
         test edx, edx
         jne short .1
-        call sub_8B145
+        call NetworkConnect
         jmp short .1
 RunNetworkConnect_35:
         mov dword [dword_16CCFA], 0
@@ -6378,20 +6393,21 @@ RunModemConnect:
         mov edx, eax
         test eax, eax
         jne short .2
-        call sub_8B145
+        call NetworkConnect
         or byte [byte_1AC8C6], 1
         call NetworkGamesScreen
         mov edx, eax
 .2:
         test edx, edx
         jne short .1
-        call sub_8AAE5
+        call ModemConnect
         jmp short .1
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_8BE60                                                       8BE60  97 PC
+; CreateMenuBitmap                                8BE60  97 PC, low confidence
+; Creates the menu work bitmap
 ;-----------------------------------------------------------------------------
-sub_8BE60:
+CreateMenuBitmap:
         push ebx
         push ecx
         push esi
@@ -6445,9 +6461,10 @@ sub_8BE60:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_8BEF8                                                       8BEF8  97 PC
+; FreeMenuBitmap                                  8BEF8  97 PC, low confidence
+; Frees the menu work bitmap
 ;-----------------------------------------------------------------------------
-sub_8BEF8:
+FreeMenuBitmap:
         push ebx
         push ecx
         push edx
@@ -6522,9 +6539,10 @@ InitMenuItems:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_8BFA0                                                       8BFA0  97 PC
+; SetMenuSelection                                8BFA0  97 PC, low confidence
+; Sets the menu selection
 ;-----------------------------------------------------------------------------
-sub_8BFA0:
+SetMenuSelection:
         cmp eax, byte 0FFFFFFFFh
         jl short .1
         mov dword [dword_16CD14], eax

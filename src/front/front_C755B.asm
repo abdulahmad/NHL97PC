@@ -28,36 +28,36 @@ extern dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4, jpt_C750B, memmov
 extern qword_166FC4, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, BlitArt
 extern BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, sub_106DA0, ConvertArtXY
 extern FindShapeList, sub_11B104, sub_11B98E, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime
-extern PlayMenuSfx, PlaySfx, PlayScreenMovie, LoadDataFile, sub_7B4E4, sub_7DFC0, sub_7E52C, sub_7E860
-extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7FE38
-extern LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_816E8
-extern sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068, sub_84570, InitMenuItems, sub_8BFAC
-extern sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F
-extern sub_8E6AF, GetLangText, sub_8E870, LoadFakeExhibition, SaveAgents, sub_92EE2, sub_92F25, EditLinesScreen
-extern sub_9D333, PlayerRatingsScreen, sub_DA7D6, sub_DB763, sub_DB7B1, sub_DC653, sub_DCBB0, sub_E036F
-extern sub_E0415, sub_E0841, sub_E0D0F, FreeExhibitionFile, sub_E12EF, AllocMemBlock, FreeMemBlock, MakeColor
+extern PlayMenuSfx, PlaySfx, PlayScreenMovie, LoadDataFile, BuildRosterLines, DrawShadedLogo, DrawShadowBox, DrawScreenBackground
+extern FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox, EditTextField
+extern LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText, PoundsToKg, InchesToCm, PlayerBioScreen
+extern DrawHighlightBar, ShowPopupScreen, DrawStatsBackground, FreeStatsBitmap, ShowStatsScreen, ChangeMenuMusic, InitMenuItems, RunMenu
+extern InitScrollList, ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList
+extern SetListSelection, GetLangText, PositionAbbrev, LoadFakeExhibition, SaveAgents, SaveAgentsOnly, SaveTradesLink, EditLinesScreen
+extern BuildAutoLines, PlayerRatingsScreen, KeysEqual, DaysToYear, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, FindGameRecord
+extern UpdateGameRecord, FindPlayerStat, FindTeamStat, FreeExhibitionFile, ResetExhibitionStats, AllocMemBlock, FreeMemBlock, MakeColor
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount
 extern unk_166E9D, unk_166F30, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D6C4
 extern word_16D6D2, word_16D6E4
 global jpt_CBFAA, jpt_CD7E3, RosterScreen_11C, RosterScreen_157, RosterScreen_172, RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9
 global RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596, RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF
 global RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B, RosterScreen_66C, FreeRosterInfoAnim_4A, DrawRosterList_86F
-global sub_CA49A_2B8, ShowTradeRejected_F7, ShowTradeRejected_100, ShowTradeRejected_102, ShowTradeRejected_108, sub_CB9C9_306, sub_CBCD9_EE, sub_CBFBA_59
-global sub_CBFBA_D9, sub_CBFBA_133, sub_CBFBA_17B, sub_CD7F3_24, sub_CD7F3_AD, sub_CD7F3_1BD, sub_CD7F3_25B, sub_CE111_61
-global DrawCreatePlayerName_D4, DrawCreatePlayerName_110, DrawCreatePlayerName_12B, sub_CED89_83, sub_CED89_8D, DrawCreatePlayerPosition_B1, sub_CF255_152, sub_CF255_157
-global sub_CF255_158, sub_CF70F_20, sub_D096D_146, RosterScreen, sub_C7CA4, sub_C7CE8, sub_C7EAE, LoadRosterInfoAnim
-global FreeRosterInfoAnim, AllocRosterInfo, sub_C80C8, sub_C8127, sub_C817F, InitRosterData, sub_C8BEE, sub_C8C90
-global DrawRosterList, sub_C9757, sub_C97FF, sub_C98B1, sub_C9A45, sub_C9AEE, InitRosterScreen, FreeRosterScreen
-global sub_C9DDF, sub_C9F18, sub_CA206, sub_CA2A7, sub_CA44C, sub_CA49A, sub_CA758, sub_CAA0F
-global sub_CABF2, sub_CACE0, CheckRosterInjuries, sub_CB192, ShowTradeRejected, CheckRosterLimits, CheckRegularRosterLimits, sub_CB9C9
-global sub_CBCD9, sub_CBDD0, sub_CBECB, sub_CBFBA, sub_CC1CA, sub_CC3AD, sub_CCB24, sub_CCC30
-global sub_CCF2E, sub_CD037, sub_CD13A, JerseyScreen, sub_CD7B7, sub_CD7F3, sub_CDBE5, sub_CDC8B
-global sub_CDD99, sub_CDEEA, sub_CDF39, sub_CE111, sub_CE178, sub_CE3F2, sub_CE53C, sub_CE730
-global sub_CE73B, sub_CEBC0, sub_CEC15, DrawCreatePlayerName, sub_CED89, DrawCreatePlayerPosition, DrawCreatePlayerHand, sub_CEF6E
-global DrawCreatePlayerHeight, DrawCreatePlayerWeight, sub_CF162, sub_CF1FF, sub_CF255, sub_CF3B3, sub_CF626, sub_CF6A3
-global sub_CF70F, sub_CF73D, CreatePlayerScreen, sub_CFFAB, sub_D0098, sub_D00F1, InitCreatePlayerScreen, sub_D096D
-global sub_D0ABE, sub_D0BD8, sub_D0C88, CompareFirstDword, sub_D0D71, sub_D0D8E, sub_D0DAB, sub_D0DC8
-global sub_D0DE5, sub_D0E02, sub_D0E21, sub_D0E40, sub_D0E81, sub_D0EBE, BuildTradePlayerLists, unk_D15D1
+global DrawPlayerCard_2B8, ShowTradeRejected_F7, ShowTradeRejected_100, ShowTradeRejected_102, ShowTradeRejected_108, RosterTradeScreen_306, FindFreeRosterSlot_EE, ComparePlayersForTrade_59
+global ComparePlayersForTrade_D9, ComparePlayersForTrade_133, ComparePlayersForTrade_17B, RosterEditScreen_24, RosterEditScreen_AD, RosterEditScreen_1BD, RosterEditScreen_25B, RemoveFromLines_61
+global DrawCreatePlayerName_D4, DrawCreatePlayerName_110, DrawCreatePlayerName_12B, DrawCreatePlayerPanel_83, DrawCreatePlayerPanel_8D, DrawCreatePlayerPosition_B1, DrawRatingBars_152, DrawRatingBars_157
+global DrawRatingBars_158, DrawCreatePlayerText_20, NewSkaterRecord_146, RosterScreen, GetRosterPlayerNumber, PlayRosterSound, SetRosterMode, LoadRosterInfoAnim
+global FreeRosterInfoAnim, AllocRosterInfo, SkaterOverall, GoalieOverall, LoadRosterData, InitRosterData, FreeRosterData, DrawRosterRow
+global DrawRosterList, DrawRosterLogo, ShowRosterLogo, DrawRosterTitle, CreateRosterPanel, FreeRosterPanel, InitRosterScreen, FreeRosterScreen
+global DrawRosterPanel, SetupRosterLists, LoadRosterArt, SetRosterButtons, InitListBox, DrawPlayerCard, DrawPlayerCardText, DrawRosterDetails
+global SetRosterArrows, RedrawRosterScreen, CheckRosterInjuries, GetPlayerStatLine, ShowTradeRejected, CheckRosterLimits, CheckRegularRosterLimits, RosterTradeScreen
+global FindFreeRosterSlot, FindRosterSlot, SwapRosterPlayers, ComparePlayersForTrade, RateTrade, TradeValue, TradeNeedBonus, ApplyTrade
+global CountRosterPositions, ClearPlayerRecord, DrawJerseyPreview, JerseyScreen, ClampRosterScroll, RosterEditScreen, FormatTradeMessage, FindTradedPlayer
+global RebuildLinesAfterTrade, FindLineSlot, FixLinesAfterTrade, RemoveFromLines, UpdateRosterCounts, RosterCreatePlayer, ReleasePlayer, CompareShorts
+global SaveTrades, ResetExhibitionRosters, ShowCreatePlayerHelp, DrawCreatePlayerName, DrawCreatePlayerPanel, DrawCreatePlayerPosition, DrawCreatePlayerHand, DrawCreatePlayerLabel
+global DrawCreatePlayerHeight, DrawCreatePlayerWeight, DrawCreatePlayerAge, DrawRatingBarSlot, DrawRatingBars, DrawRatingValues, DrawRatingPanel, DrawCreatePlayerField
+global DrawCreatePlayerText, DrawCreatePlayerNameLine, CreatePlayerScreen, DrawRatingBar, InitShapeListBox, SetupCreatePlayerLists, InitCreatePlayerScreen, NewSkaterRecord
+global NewGoalieRecord, PlayerOverall, RemoveListEntry, CompareFirstDword, CompareTeamGoalsFor, CompareTeamGoalsAgainst, CompareTeamPowerPlay, CompareTeamPenaltyKill
+global CompareTeamShots, ComparePlayerGoals, ComparePlayerAssists, CompareGoalieAverage, ComparePlayerOffence, ComparePlayerDefence, BuildTradePlayerLists, unk_D15D1
 global unk_D15EE
 ;-----------------------------------------------------------------------------
 ; RosterScreen                                    C755B  96 PC, low confidence
@@ -116,7 +116,7 @@ RosterScreen:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        call sub_C7EAE
+        call SetRosterMode
         mov edx, ebx
         mov dword [dword_1CC208], eax
         mov esi, eax
@@ -144,10 +144,10 @@ RosterScreen:
 .3:
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         jmp near RosterScreen_66C.29
 RosterScreen_11C:
-        call sub_7EEB0
+        call ShowScreen
         cmp dword [dword_1CC2BC], byte 0
         je short .4
         push byte 1
@@ -156,24 +156,24 @@ RosterScreen_11C:
         mov eax, 0D4h
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         mov dword [byte ebp+07Eh], eax
         jmp near RosterScreen_66C.29
 .4:
         inc dword [byte ebp+07Eh]
         jmp near RosterScreen_66C.29
 RosterScreen_157:
-        call sub_7EDF0
+        call FadeInScreen
         call FreeRosterScreen
-        call sub_CE73B
+        call SaveTrades
         mov dword [byte ebp+07Eh], 1
         jmp near RosterScreen_66C.29
 RosterScreen_172:
-        call sub_C9AEE
+        call FreeRosterPanel
         push dword [dword_1CC2C4]
         call FreeMemBlock
         add esp, byte 4
-        call sub_7EF70
+        call ExitScreen
         mov eax, 3
         xor edx, edx
         call SecondsToSamples
@@ -187,16 +187,16 @@ RosterScreen_172:
         call FindShape
         add esp, byte 8
         mov dword [dword_1CC218], eax
-        call sub_CA206
+        call LoadRosterArt
         push dword [dword_1CC214]
         call SetDrawTarget
         add esp, byte 4
         push dword [dword_1CC218]
         call BlitShape
         add esp, byte 4
-        call sub_C98B1
-        call sub_C97FF
-        call sub_C9A45
+        call DrawRosterTitle
+        call ShowRosterLogo
+        call CreateRosterPanel
         push dword [dword_1CC214]
         call SetDrawTarget
         add esp, byte 4
@@ -208,7 +208,7 @@ RosterScreen_172:
         call DrawRosterList
         xor eax, eax
         xor ebx, ebx
-        call sub_CAA0F
+        call DrawRosterDetails
 .5:
         imul eax, ebx, byte 52h
         add eax, edi
@@ -238,7 +238,7 @@ RosterScreen_246:
         call CheckRosterLimits
         test eax, eax
         jne near RosterScreen_66C.29
-        call sub_CB9C9
+        call RosterTradeScreen
         mov edx, 1
         xor eax, eax
         call DrawRosterList
@@ -267,18 +267,18 @@ RosterScreen_2EC:
         mov edx, 2
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         cmp eax, byte 1
         jne near RosterScreen_66C.29
-        call sub_CEBC0
+        call ResetExhibitionRosters
         mov ebx, 1
         mov edx, esi
         xor eax, eax
-        call sub_C817F
+        call LoadRosterData
         mov ebx, 1
         mov edx, esi
         mov eax, ebx
-        call sub_C817F
+        call LoadRosterData
         imul eax, dword [dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         xor ebx, ebx
@@ -297,19 +297,19 @@ RosterScreen_2EC:
         mov edx, 1
         mov eax, edx
         call DrawRosterList
-        call sub_CABF2
+        call SetRosterArrows
         mov eax, 1
-        call sub_CAA0F
+        call DrawRosterDetails
         mov dword [dword_1CC2BC], 1
         jmp near RosterScreen_66C.29
 RosterScreen_3B9:
-        call sub_83C08
+        call ShowPopupScreen
         lea edx, [byte ebp+062h]
         xor eax, eax
-        call sub_C7CA4
+        call GetRosterPlayerNumber
         lea edx, [byte ebp+06Ah]
         mov eax, 1
-        call sub_C7CA4
+        call GetRosterPlayerNumber
         cmp byte [byte_1C6040], 0
         je short .7
         call FreeRosterInfoAnim
@@ -336,7 +336,7 @@ RosterScreen_3B9:
         jmp near RosterScreen.3
 RosterScreen_42C:
         xor eax, eax
-        call sub_CA2A7
+        call SetRosterButtons
         test eax, eax
         je near RosterScreen_66C.29
         imul eax, dword [byte ebp+072h], byte 52h
@@ -354,21 +354,21 @@ RosterScreen_42C:
         mov edx, 4
         push dword [dword_1CC234]
         mov eax, edx
-        call sub_8DF1F
+        call RunScrollList
         xor edx, edx
 .11:
         mov ebx, eax
-        call sub_CD7F3
+        call RosterEditScreen
         test ebx, ebx
         jne short .12
         mov eax, dword [dword_1CC218]
         mov dword [byte ebp+07Ah], eax
 .12:
-        call sub_CABF2
+        call SetRosterArrows
         jmp near RosterScreen_66C.29
 RosterScreen_49B:
         mov eax, 1
-        call sub_CA2A7
+        call SetRosterButtons
         test eax, eax
         je near RosterScreen_66C.29
         imul eax, dword [byte ebp+072h], byte 52h
@@ -384,7 +384,7 @@ RosterScreen_49B:
         mov edx, 4
         push dword [dword_1CC234]
         mov eax, edx
-        call sub_8DF1F
+        call RunScrollList
         mov edx, 1
         jmp short RosterScreen_42C.11
 RosterScreen_4ED:
@@ -403,7 +403,7 @@ RosterScreen_4ED:
         mov edx, 0Ah
         push dword [dword_1CC210]
         mov eax, dword [dword_1CC230]
-        call sub_8DF1F
+        call RunScrollList
         xor ebx, ebx
         jmp short .14
 .13:
@@ -431,7 +431,7 @@ RosterScreen_53E:
         mov eax, dword [dword_1CC230]
         push dword [dword_1CC210]
         mov edx, 0Ah
-        call sub_8DF1F
+        call RunScrollList
         xor ebx, ebx
         jmp short .16
 .15:
@@ -466,7 +466,7 @@ RosterScreen_5AF:
         push dword [byte ebp+07Ah]
         mov ecx, esi
 .21:
-        call sub_CACE0
+        call RedrawRosterScreen
         jmp near RosterScreen_66C.29
 RosterScreen_5CF:
         push byte 1
@@ -474,7 +474,7 @@ RosterScreen_5CF:
 RosterScreen_5D3:
         lea eax, [dword ebp-028Eh]
         xor edx, edx
-        call sub_8DE10
+        call ScrollUp
 .22:
         imul edx, dword [dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
@@ -488,17 +488,17 @@ RosterScreen_604:
         lea eax, [dword ebp-028Eh]
         mov ebx, edx
         xor edx, edx
-        call sub_8DEAC
+        call ScrollToMouse
         jmp short RosterScreen_5D3.22
 RosterScreen_615:
         lea eax, [dword ebp-028Eh]
         xor edx, edx
-        call sub_8DE68
+        call ScrollDown
         jmp short RosterScreen_5D3.22
 RosterScreen_624:
         lea eax, [dword ebp-018Eh]
         xor edx, edx
-        call sub_8DE10
+        call ScrollUp
 .23:
         imul eax, dword [dword_1CC1C8], dword 32C6h
         mov edx, dword [dword_1CC2AC]
@@ -515,12 +515,12 @@ RosterScreen_65B:
         lea eax, [dword ebp-018Eh]
         mov ebx, edx
         xor edx, edx
-        call sub_8DEAC
+        call ScrollToMouse
         jmp short RosterScreen_624.23
 RosterScreen_66C:
         lea eax, [dword ebp-018Eh]
         xor edx, edx
-        call sub_8DE68
+        call ScrollDown
         imul edx, dword [dword_1CC1C8], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         jmp short RosterScreen_624.24
@@ -533,22 +533,22 @@ RosterScreen_66C:
         xor edx, edx
         sub eax, byte 14h
 .27:
-        call sub_CA49A
-        call sub_CABF2
+        call DrawPlayerCard
+        call SetRosterArrows
 .28:
         mov eax, 1
-        call sub_CAA0F
+        call DrawRosterDetails
 .29:
         cmp dword [byte ebp+07Eh], byte 0
         jne short .31
         push byte 3
         lea eax, [byte ebp+072h]
-        mov ecx, sub_C7CE8
+        mov ecx, PlayRosterSound
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, edi
         mov eax, 28h
-        call sub_8BFAC
+        call RunMenu
         mov edx, eax
         cmp dword [byte ebp+072h], byte 13h
         ja short .26
@@ -568,7 +568,7 @@ RosterScreen_66C:
 .31:
         call FreeRosterScreen
         mov eax, esi
-        call sub_C8BEE
+        call FreeRosterData
         push dword [byte ebp+076h]
         call FreeMemBlock
         add esp, byte 4
@@ -582,9 +582,10 @@ RosterScreen_66C:
         call LoadFrontEndSfx
         jmp near ShowTradeRejected_102
 ;-----------------------------------------------------------------------------
-; sub_C7CA4                                                       C7CA4  97 PC
+; GetRosterPlayerNumber                           C7CA4  97 PC, low confidence
+; Returns the jersey number of a roster slot
 ;-----------------------------------------------------------------------------
-sub_C7CA4:
+GetRosterPlayerNumber:
         push ebx
         imul edx, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
@@ -607,9 +608,10 @@ sub_C7CA4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C7CE8                                                       C7CE8  97 PC
+; PlayRosterSound                                 C7CE8  97 PC, low confidence
+; Plays a roster screen sound and builds its message
 ;-----------------------------------------------------------------------------
-sub_C7CE8:
+PlayRosterSound:
         push ebx
         push ecx
         push edx
@@ -619,7 +621,7 @@ sub_C7CE8:
         mov edi, eax
         xor esi, esi
         cmp eax, dword [dword_16D674]
-        jle near sub_CF255_158
+        jle near DrawRatingBars_158
         call Random32
         mov ebx, 3
         xor edx, edx
@@ -686,13 +688,13 @@ sub_C7CE8:
         mov word [word_16D6E4], si
 .5:
         test si, si
-        je near sub_CF255_158
+        je near DrawRatingBars_158
         cmp word [word_16D6E4], byte 0
-        jne near sub_CF255_158
+        jne near DrawRatingBars_158
         mov eax, 309h
         call PlaySfx
         mov word [word_16D6E4], 1
-        jmp near sub_CF255_158
+        jmp near DrawRatingBars_158
         push esi
         enter 14h, 0
         mov esi, eax
@@ -730,9 +732,10 @@ sub_C7CE8:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_C7EAE                                                       C7EAE  97 PC
+; SetRosterMode                                   C7EAE  97 PC, low confidence
+; Sets the roster screen mode from the game mode flags
 ;-----------------------------------------------------------------------------
-sub_C7EAE:
+SetRosterMode:
         push edx
         test byte [dword_1AC814], 70h
         jne short .1
@@ -901,7 +904,7 @@ AllocRosterInfo:
         mov eax, dword [byte ebx+01Ch]
         add edx, edi
         add eax, dword [byte ebp-04h]
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
         jne short .2
         xor esi, esi
@@ -909,7 +912,7 @@ AllocRosterInfo:
 .2:
         mov eax, dword [dword_16D670]
         add eax, edi
-        call sub_7B4E4
+        call BuildRosterLines
 .3:
         inc ecx
 .4:
@@ -918,11 +921,12 @@ AllocRosterInfo:
         cmp ecx, eax
         jl short .1
         mov eax, esi
-        jmp near sub_CF255_157
+        jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
-; sub_C80C8                                                       C80C8  97 PC
+; SkaterOverall                                   C80C8  97 PC, low confidence
+; Works out a skater's overall rating from the rating bytes
 ;-----------------------------------------------------------------------------
-sub_C80C8:
+SkaterOverall:
         push ebx
         push edx
         xor edx, edx
@@ -957,9 +961,10 @@ sub_C80C8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C8127                                                       C8127  97 PC
+; GoalieOverall                                   C8127  97 PC, low confidence
+; Works out a goalie's overall rating from the rating bytes
 ;-----------------------------------------------------------------------------
-sub_C8127:
+GoalieOverall:
         push ebx
         push edx
         xor edx, edx
@@ -992,9 +997,10 @@ sub_C8127:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C817F                                                       C817F  97 PC
+; LoadRosterData                                  C817F  97 PC, low confidence
+; Loads a team's roster, players and stats
 ;-----------------------------------------------------------------------------
-sub_C817F:
+LoadRosterData:
         push ecx
         push esi
         push edi
@@ -1082,7 +1088,7 @@ sub_C817F:
         add eax, ebx
         lea edx, [byte eax+04h]
         lea eax, [byte ecx+010h]
-        call sub_DC653
+        call FindTeamRecord
         imul edx, esi, dword 32C6h
         mov eax, dword [dword_1CC2AC]
         or byte [byte ebx+eax+06Ah], 1
@@ -1121,7 +1127,7 @@ sub_C817F:
         add eax, dword [byte ebp-010h]
         mov dword [byte ebp-010h], eax
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         imul edx, ebx, dword 0BCh
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1129,13 +1135,13 @@ sub_C817F:
         add edx, eax
         mov eax, dword [byte ebp-010h]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         mov eax, dword [dword_1CC2AC]
         add eax, edi
         add eax, byte 76h
         mov edx, 1
         add eax, dword [byte ebp-0Ch]
-        call sub_D0BD8
+        call PlayerOverall
         mov dword [byte ebp-010h], eax
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1147,7 +1153,7 @@ sub_C817F:
         add eax, byte 76h
         add eax, dword [byte ebp-0Ch]
         add eax, byte 10h
-        call sub_C80C8
+        call SkaterOverall
         mov edx, eax
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1183,7 +1189,7 @@ sub_C817F:
         add eax, dword [byte ebp-0Ch]
         mov dword [byte ebp-08h], eax
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         imul edx, ebx, dword 0BCh
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1192,13 +1198,13 @@ sub_C817F:
         mov eax, dword [byte ebp-08h]
         add eax, byte 18h
         add edx, dword [byte ebp-0Ch]
-        call sub_DCBB0
+        call FindPlayerRecord
         mov eax, dword [dword_1CC2AC]
         add eax, edi
         add eax, 445h
         xor edx, edx
         add eax, dword [byte ebp-010h]
-        call sub_D0BD8
+        call PlayerOverall
         mov dword [byte ebp-0Ch], eax
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1210,7 +1216,7 @@ sub_C817F:
         add eax, 445h
         add eax, dword [byte ebp-010h]
         add eax, byte 10h
-        call sub_C8127
+        call GoalieOverall
         mov edx, eax
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1244,7 +1250,7 @@ sub_C817F:
         add eax, dword [byte ebp-0Ch]
         mov dword [byte ebp-0Ch], eax
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         imul edx, ebx, dword 0BCh
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1252,13 +1258,13 @@ sub_C817F:
         add edx, eax
         mov eax, dword [byte ebp-0Ch]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         mov eax, dword [dword_1CC2AC]
         add eax, edi
         add eax, 4BAh
         mov edx, 1
         add eax, dword [byte ebp-08h]
-        call sub_D0BD8
+        call PlayerOverall
         mov dword [byte ebp-0Ch], eax
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1270,7 +1276,7 @@ sub_C817F:
         add eax, 4BAh
         add eax, dword [byte ebp-08h]
         add eax, byte 10h
-        call sub_C80C8
+        call SkaterOverall
         mov edx, eax
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1306,7 +1312,7 @@ sub_C817F:
         add eax, dword [byte ebp-0Ch]
         mov dword [byte ebp-0Ch], eax
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         imul eax, ebx, dword 0BCh
         mov edx, dword [dword_1CC2AC]
         add edx, edi
@@ -1314,13 +1320,13 @@ sub_C817F:
         add edx, eax
         mov eax, dword [byte ebp-0Ch]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         mov eax, dword [dword_1CC2AC]
         add eax, edi
         add eax, 889h
         xor edx, edx
         add eax, dword [byte ebp-08h]
-        call sub_D0BD8
+        call PlayerOverall
         mov dword [byte ebp-0Ch], eax
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1332,7 +1338,7 @@ sub_C817F:
         add eax, 889h
         add eax, dword [byte ebp-08h]
         add eax, byte 10h
-        call sub_C8127
+        call GoalieOverall
         mov edx, eax
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1372,7 +1378,7 @@ sub_C817F:
         add edx, dword [byte ebp-08h]
         add eax, byte 18h
         add edx, byte 18h
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .22
         imul eax, esi, dword 32C6h
@@ -1399,7 +1405,7 @@ sub_C817F:
         lea eax, [dword ecx+01283h]
         add eax, dword [byte ebp-0Ch]
         add eax, byte 18h
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .25
         imul eax, esi, dword 32C6h
@@ -1425,7 +1431,7 @@ sub_C817F:
         lea eax, [dword ecx+0132Dh]
         add eax, dword [byte ebp-0Ch]
         add eax, byte 18h
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .28
         imul eax, esi, dword 32C6h
@@ -1452,7 +1458,7 @@ sub_C817F:
         add edx, dword [byte ebp-0Ch]
         add eax, byte 18h
         add edx, byte 18h
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .31
         imul eax, esi, dword 32C6h
@@ -1473,7 +1479,7 @@ sub_C817F:
         jl near .20
 .34:
         mov eax, dword [byte ebp-014h]
-        call sub_CC1CA
+        call RateTrade
 .35:
         mov eax, dword [byte ebp-04h]
         leave
@@ -1484,7 +1490,7 @@ sub_C817F:
 ;-----------------------------------------------------------------------------
 ; InitRosterData                                  C885D  97 PC, low confidence
 ; Roster screen: allocates "deletion indices" and "roster player info" and
-; fills them (sub_C817F)
+; fills them (LoadRosterData)
 ;-----------------------------------------------------------------------------
 InitRosterData:
         push ebx
@@ -1574,7 +1580,7 @@ InitRosterData:
         call LoadFakeExhibition
         test eax, eax
         jne near .20
-        jmp near sub_CF255_158
+        jmp near DrawRatingBars_158
 .9:
         mov dword [dword_1CC1C8], 0FFFFFFFFh
         mov eax, dword [dword_1AD226]
@@ -1637,14 +1643,14 @@ InitRosterData:
         mov ebx, 1
         mov edx, edi
         xor eax, eax
-        call sub_C817F
+        call LoadRosterData
         mov ebx, 1
         mov edx, edi
         and esi, eax
         mov eax, ebx
-        call sub_C817F
+        call LoadRosterData
         and eax, esi
-        jmp near sub_CF255_158
+        jmp near DrawRatingBars_158
 .21:
         mov dword [dword_1CC1C4], 0FFFFFFFFh
         mov dword [dword_1CC1C8], 0FFFFFFFFh
@@ -1727,11 +1733,12 @@ InitRosterData:
         jmp near .19
 .35:
         xor eax, eax
-        jmp near sub_CF255_158
+        jmp near DrawRatingBars_158
 ;-----------------------------------------------------------------------------
-; sub_C8BEE                                                       C8BEE  97 PC
+; FreeRosterData                                  C8BEE  97 PC, low confidence
+; Frees the roster data
 ;-----------------------------------------------------------------------------
-sub_C8BEE:
+FreeRosterData:
         push ebx
         push ecx
         push edx
@@ -1774,9 +1781,10 @@ sub_C8BEE:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C8C90                                                       C8C90  97 PC
+; DrawRosterRow                                   C8C90  97 PC, low confidence
+; Draws one row of the roster list
 ;-----------------------------------------------------------------------------
-sub_C8C90:
+DrawRosterRow:
         push ebx
         push ecx
         push edx
@@ -1812,7 +1820,7 @@ sub_C8C90:
         add eax, edx
         mov edx, dword [byte ebp-010h]
         inc esi
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [byte ebp-0Ch]
         inc dword [byte ebp-04h]
         add dword [byte ebp-08h], eax
@@ -1844,7 +1852,7 @@ sub_C8C90:
         add eax, edx
         mov edx, dword [byte ebp-010h]
         inc esi
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [byte ebp-0Ch]
         inc dword [byte ebp-04h]
         add dword [byte ebp-08h], eax
@@ -1885,7 +1893,7 @@ sub_C8C90:
         add eax, edx
         mov edx, dword [byte ebp-010h]
         inc esi
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [byte ebp-0Ch]
         inc dword [byte ebp-04h]
         add dword [byte ebp-08h], eax
@@ -1917,7 +1925,7 @@ sub_C8C90:
         add eax, edx
         mov edx, dword [byte ebp-010h]
         inc esi
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [byte ebp-0Ch]
         inc dword [byte ebp-04h]
         add dword [byte ebp-08h], eax
@@ -1942,13 +1950,13 @@ sub_C8C90:
         add eax, edx
         mov edx, 280h
         inc dword [byte ebp-04h]
-        call sub_CA44C
+        call InitListBox
 .15:
         mov eax, esi
         sub eax, dword [byte ebp-014h]
         cmp eax, byte 0Ah
         jl short .14
-        jmp near sub_CF255_157
+        jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
 ; DrawRosterList                                  C8EDC  97 PC, low confidence
 ; Roster screen: the "Team Roster" / "Additional Players" lists
@@ -1985,7 +1993,7 @@ DrawRosterList:
         mov eax, dword [dword_1CC2AC]
         movsx esi, word [byte esi+eax+072h]
         mov eax, edi
-        call sub_C8C90
+        call DrawRosterRow
         push dword [dword_1CC214]
         call SetDrawTarget
         add esp, byte 4
@@ -2024,7 +2032,7 @@ DrawRosterList:
         mov ecx, ebx
         mov ebx, 10h
         mov eax, dword [byte eax+02Ch]
-        call sub_838A8
+        call DrawHighlightBar
 .3:
         inc dword [byte ebp+06Ah]
 .4:
@@ -2035,7 +2043,7 @@ DrawRosterList:
         cmp eax, dword [byte ebp+06Ah]
         jg short .2
 .5:
-        call sub_81650
+        call SetHighlightText
         xor ebx, ebx
         jmp near .11
 .6:
@@ -2105,7 +2113,7 @@ DrawRosterList:
         movzx ecx, byte [dword eax+0D0Ah]
         push ecx
         movzx eax, byte [dword eax+0D0Bh]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -2229,7 +2237,7 @@ DrawRosterList:
         movzx ecx, byte [dword eax+01284h]
         push ecx
         movzx eax, byte [dword eax+01285h]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -2382,7 +2390,7 @@ DrawRosterList:
         movzx ecx, byte [dword eax+0132Eh]
         push ecx
         movzx eax, byte [dword eax+0132Fh]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -2456,7 +2464,7 @@ DrawRosterList:
         movzx ecx, byte [dword eax+018A8h]
         push ecx
         movzx eax, byte [dword eax+018A9h]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -2513,7 +2521,7 @@ DrawRosterList:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        call sub_81678
+        call SetNormalText
         cmp dword [byte ebp+036h], byte 0
         je short .34
         call SetScreenTarget
@@ -2546,7 +2554,7 @@ DrawRosterList:
         movsx edx, word [byte edx+eax+074h]
         inc edx
         mov eax, dword [nosplit edi*4+dword_1CC1BC]
-        call sub_8E6AF
+        call SetListSelection
         mov edx, dword [dword_1CC214]
         mov eax, dword [nosplit edi*4+dword_1CC1BC]
         call DrawScrollBar
@@ -2560,9 +2568,10 @@ DrawRosterList_86F:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C9757                                                       C9757  97 PC
+; DrawRosterLogo                                  C9757  97 PC, low confidence
+; Draws the team logo on the roster screen
 ;-----------------------------------------------------------------------------
-sub_C9757:
+DrawRosterLogo:
         push ecx
         push esi
         push edi
@@ -2596,7 +2605,7 @@ sub_C9757:
         push dword 0B333h
         call sub_101EAC
         add esp, byte 10h
-        call sub_80808
+        call FreeLogoArt
         push dword [byte ebp-04h]
         mov eax, dword [byte ebp-04h]
         mov edx, dword [byte ebx+04h]
@@ -2614,7 +2623,7 @@ sub_C9757:
         push byte 0
         mov eax, dword [byte esi+02Ch]
         mov edx, dword [byte ebp-08h]
-        call sub_7DFC0
+        call DrawShadedLogo
         push esi
         call FreeBitmap
         add esp, byte 4
@@ -2624,9 +2633,10 @@ sub_C9757:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C97FF                                                       C97FF  97 PC
+; ShowRosterLogo                                  C97FF  97 PC, low confidence
+; Shows the team logo panel
 ;-----------------------------------------------------------------------------
-sub_C97FF:
+ShowRosterLogo:
         push ebx
         push ecx
         push edx
@@ -2641,7 +2651,7 @@ sub_C97FF:
         mov eax, dword [dword_1CC214]
         lea ebx, [byte ebp-020h]
         mov eax, dword [byte eax+02Ch]
-        call sub_C9757
+        call DrawRosterLogo
         mov dword [byte ebp-020h], 1EAh
         mov dword [byte ebp-01Ch], 0BEh
         mov edx, dword [dword_1CC1C8]
@@ -2652,7 +2662,7 @@ sub_C97FF:
         mov eax, dword [dword_1CC214]
         lea ebx, [byte ebp-020h]
         mov eax, dword [byte eax+02Ch]
-        call sub_C9757
+        call DrawRosterLogo
         mov eax, dword [dword_16D6C0]
         sub eax, dword [dword_16D6B8]
         push eax
@@ -2666,22 +2676,23 @@ sub_C97FF:
         mov ebx, dword [dword_16D6A4]
         sub ecx, byte 6
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         leave
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C98B1                                                       C98B1  97 PC
+; DrawRosterTitle                                 C98B1  97 PC, low confidence
+; Draws the roster screen title
 ;-----------------------------------------------------------------------------
-sub_C98B1:
+DrawRosterTitle:
         push ebx
         push ecx
         push edx
         push esi
         push edi
-        call sub_81678
+        call SetNormalText
         push byte 32h
         mov ecx, 1AAh
         mov ebx, 58h
@@ -2689,7 +2700,7 @@ sub_C98B1:
         push dword 8Ch
         mov edx, 14h
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -2718,7 +2729,7 @@ sub_C98B1:
         add esp, byte 10h
         mov edx, 1AAh
         mov eax, 58h
-        call sub_7F29C
+        call DrawFrameBox
         push byte 32h
         mov ecx, 1AAh
         mov ebx, 1A2h
@@ -2726,7 +2737,7 @@ sub_C98B1:
         push dword 8Ch
         mov edx, 14h
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         push dword 0FFFF80h
         call MakeColor
         add esp, byte 4
@@ -2755,8 +2766,8 @@ sub_C98B1:
         add esp, byte 10h
         mov edx, 1AAh
         mov eax, 1A2h
-        call sub_7F29C
-        call sub_81650
+        call DrawFrameBox
+        call SetHighlightText
         mov eax, dword [dword_16D6B4]
         mov esi, dword [dword_16D6B8]
         mov ebx, dword [dword_16D6BC]
@@ -2766,7 +2777,7 @@ sub_C98B1:
         sub ebx, eax
         mov ecx, edi
         mov edx, esi
-        call sub_7F29C
+        call DrawFrameBox
         mov eax, dword [dword_16D6A4]
         mov ebx, dword [dword_16D6AC]
         sub eax, byte 6
@@ -2775,12 +2786,13 @@ sub_C98B1:
         sub ebx, eax
         mov edx, esi
         add ebx, byte 6
-        call sub_7F29C
-        jmp near sub_CF255_158
+        call DrawFrameBox
+        jmp near DrawRatingBars_158
 ;-----------------------------------------------------------------------------
-; sub_C9A45                                                       C9A45  97 PC
+; CreateRosterPanel                               C9A45  97 PC, low confidence
+; Creates the roster panel bitmap
 ;-----------------------------------------------------------------------------
-sub_C9A45:
+CreateRosterPanel:
         push ebx
         push ecx
         push edx
@@ -2825,12 +2837,13 @@ sub_C9A45:
         push dword [dword_1CC224]
         call SetDrawTarget
         add esp, byte 4
-        call sub_C9DDF
-        jmp near sub_CF255_158
+        call DrawRosterPanel
+        jmp near DrawRatingBars_158
 ;-----------------------------------------------------------------------------
-; sub_C9AEE                                                       C9AEE  97 PC
+; FreeRosterPanel                                 C9AEE  97 PC, low confidence
+; Frees the roster panel bitmap
 ;-----------------------------------------------------------------------------
-sub_C9AEE:
+FreeRosterPanel:
         push ebx
         push ecx
         push edx
@@ -2905,14 +2918,14 @@ InitRosterScreen:
         push ebx
         call BlitShape
         add esp, byte 4
-        call sub_C97FF
+        call ShowRosterLogo
         mov eax, dword [dword_1CC214]
         mov eax, dword [byte eax+02Ch]
         mov esi, unk_1C5EF8
         mov ebx, eax
         mov edx, eax
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         mov edi, dword [dword_1CC20C]
         rep movsb
         mov eax, dword [dword_1CC20C]
@@ -2934,15 +2947,15 @@ InitRosterScreen:
         push dword [dword_1CC214]
         call SetDrawTarget
         add esp, byte 4
-        call sub_C98B1
-        call sub_C9A45
+        call DrawRosterTitle
+        call CreateRosterPanel
         push dword [dword_1CC214]
         call SetDrawTarget
         add esp, byte 4
         mov dword [byte ebp-08h], 0DCh
         xor edi, edi
-        call sub_CA206
-        call sub_C9F18
+        call LoadRosterArt
+        call SetupRosterLists
 .1:
         lea eax, [edi+edi*2]
         lea edx, [byte eax+0Eh]
@@ -2962,7 +2975,7 @@ InitRosterScreen:
         inc ebx
         add edx, eax
         mov eax, dword [nosplit edi*4+dword_1CC1BC]
-        call sub_8D956
+        call InitScrollList
         imul edx, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov ebx, dword [dword_1CC214]
@@ -2978,7 +2991,7 @@ InitRosterScreen:
         push dword [dword_1CC214]
         call SetDrawTarget
         add esp, byte 4
-        call sub_CABF2
+        call SetRosterArrows
         xor edx, edx
         xor eax, eax
         call DrawRosterList
@@ -2987,7 +3000,7 @@ InitRosterScreen:
         call DrawRosterList
         xor eax, eax
         xor edi, edi
-        call sub_CAA0F
+        call DrawRosterDetails
 .2:
         imul esi, edi, byte 52h
         mov eax, dword [dword_1CC20C]
@@ -3005,7 +3018,7 @@ InitRosterScreen:
         jl short .2
         mov eax, 1
         mov dword [dword_16D680], 0
-        jmp near sub_CF255_157
+        jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
 ; FreeRosterScreen                                C9D84  97 PC, low confidence
 ; From RosterScreen: frees the roster screen art once (dword_16D680 guard)
@@ -3019,10 +3032,10 @@ FreeRosterScreen:
 .1:
         mov eax, dword [nosplit edx*4+dword_1CC1BC]
         inc edx
-        call sub_8DE7E
+        call FreeScrollList
         cmp edx, byte 2
         jl short .1
-        call sub_C9AEE
+        call FreeRosterPanel
         push dword [dword_1CC214]
         call FreeBitmap
         add esp, byte 4
@@ -3038,9 +3051,10 @@ FreeRosterScreen:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C9DDF                                                       C9DDF  97 PC
+; DrawRosterPanel                                 C9DDF  97 PC, low confidence
+; Draws the roster panel
 ;-----------------------------------------------------------------------------
-sub_C9DDF:
+DrawRosterPanel:
         push ebx
         push ecx
         push edx
@@ -3157,11 +3171,12 @@ sub_C9DDF:
 .4:
         cmp ebx, esi
         jl short .3
-        jmp near sub_CF255_157
+        jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
-; sub_C9F18                                                       C9F18  97 PC
+; SetupRosterLists                                C9F18  97 PC, low confidence
+; Sets up the roster list boxes
 ;-----------------------------------------------------------------------------
-sub_C9F18:
+SetupRosterLists:
         push ebx
         push ecx
         push edx
@@ -3189,14 +3204,14 @@ sub_C9F18:
         push str_TR00
         mov eax, dword [dword_1CC2C0]
         add edx, 0F6h
-        call sub_D0098
+        call InitShapeListBox
         push str_DF002
         mov ecx, str_DF002
         mov edx, dword [dword_1CC20C]
         mov eax, dword [dword_1CC2C0]
         add edx, 148h
         mov ebx, ecx
-        call sub_D0098
+        call InitShapeListBox
         push str_CM002
         mov ecx, str_CM012
         mov ebx, str_CM002
@@ -3204,10 +3219,10 @@ sub_C9F18:
         mov eax, dword [dword_1CC2C0]
         add edx, 19Ah
         xor esi, esi
-        call sub_D0098
+        call InitShapeListBox
 .1:
         mov eax, esi
-        call sub_CA2A7
+        call SetRosterButtons
         mov edx, eax
         lea eax, [byte esi+06h]
         imul eax, byte 52h
@@ -3226,7 +3241,7 @@ sub_C9F18:
 .3:
         add edx, eax
         mov eax, dword [dword_1CC2C0]
-        call sub_D0098
+        call InitShapeListBox
         inc esi
         cmp esi, byte 2
         jl short .1
@@ -3238,7 +3253,7 @@ sub_C9F18:
         push edx
         movsx ecx, word [byte esi+04h]
         mov edx, 37h
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [dword_1CC20C]
         mov esi, dword [dword eax+0258h]
         mov ebx, 178h
@@ -3248,7 +3263,7 @@ sub_C9F18:
         push edx
         mov edx, 1C2h
         xor esi, esi
-        call sub_CA44C
+        call InitListBox
 .4:
         mov eax, dword [nosplit esi*4+dword_1CC1C4]
         mov edx, dword [dword_1CC210]
@@ -3276,7 +3291,7 @@ sub_C9F18:
         push edx
         mov edx, dword [nosplit esi*8+dword_16D694]
         inc esi
-        call sub_CA44C
+        call InitListBox
         cmp esi, byte 2
         jl short .4
         push str_ATL2
@@ -3285,7 +3300,7 @@ sub_C9F18:
         mov edx, dword [dword_1CC20C]
         mov eax, dword [dword_1CC2C4]
         add edx, 334h
-        call sub_D0098
+        call InitShapeListBox
         push str_ATL5
         mov ecx, str_ATL4
         mov ebx, str_ATL3
@@ -3293,7 +3308,7 @@ sub_C9F18:
         mov eax, dword [dword_1CC2C4]
         add edx, 386h
         mov dword [byte ebp-0Ch], 0B4h
-        call sub_D0098
+        call InitShapeListBox
         push str_ATR2
         mov ecx, str_ATR1
         mov ebx, str_ATR0
@@ -3301,7 +3316,7 @@ sub_C9F18:
         mov eax, dword [dword_1CC2C4]
         add edx, 3D8h
         mov dword [byte ebp-04h], 16h
-        call sub_D0098
+        call InitShapeListBox
         push str_ATR5
         mov ecx, str_ATR4
         mov ebx, str_ATR3
@@ -3309,7 +3324,7 @@ sub_C9F18:
         mov eax, dword [dword_1CC2C4]
         add edx, 42Ah
         mov esi, 14h
-        call sub_D0098
+        call InitShapeListBox
         mov eax, dword [dword_16D6A4]
         mov edi, dword [dword_16D6A8]
         mov dword [byte ebp-08h], eax
@@ -3323,7 +3338,7 @@ sub_C9F18:
         add eax, edx
         mov edx, dword [byte ebp-08h]
         inc esi
-        call sub_CA44C
+        call InitListBox
         cmp esi, byte 1Eh
         jl short .5
         mov esi, 1Eh
@@ -3340,15 +3355,16 @@ sub_C9F18:
         add eax, edx
         mov edx, dword [byte ebp-08h]
         inc esi
-        call sub_CA44C
+        call InitListBox
         cmp esi, byte 28h
         jl short .6
         mov eax, 1
-        jmp near sub_CF255_157
+        jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
-; sub_CA206                                                       CA206  97 PC
+; LoadRosterArt                                   CA206  97 PC, low confidence
+; Loads the roster screen art
 ;-----------------------------------------------------------------------------
-sub_CA206:
+LoadRosterArt:
         push ebx
         push ecx
         push edx
@@ -3409,9 +3425,10 @@ sub_CA206:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CA2A7                                                       CA2A7  97 PC
+; SetRosterButtons                                CA2A7  97 PC, low confidence
+; Sets up the roster buttons
 ;-----------------------------------------------------------------------------
-sub_CA2A7:
+SetRosterButtons:
         push ebx
         push ecx
         push edx
@@ -3520,9 +3537,10 @@ sub_CA2A7:
         mov dword [byte eax+0Ch], edx
         jmp near FreeRosterInfoAnim_4A
 ;-----------------------------------------------------------------------------
-; sub_CA44C                                                       CA44C  97 PC
+; InitListBox                                     CA44C  97 PC, low confidence
+; Sets up a list box
 ;-----------------------------------------------------------------------------
-sub_CA44C:
+InitListBox:
         push esi
         push ebp
         mov ebp, esp
@@ -3553,9 +3571,10 @@ sub_CA44C:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_CA49A                                                       CA49A  97 PC
+; DrawPlayerCard                                  CA49A  97 PC, low confidence
+; Draws the player card
 ;-----------------------------------------------------------------------------
-sub_CA49A:
+DrawPlayerCard:
         push ebx
         push ecx
         push esi
@@ -3678,7 +3697,7 @@ sub_CA49A:
         add esp, byte 4
         mov ecx, dword [byte ebp-08h]
         mov eax, dword [byte eax+02Ch]
-        call sub_838A8
+        call DrawHighlightBar
 .11:
         push byte 0
         mov eax, dword [byte ebp-08h]
@@ -3688,7 +3707,7 @@ sub_CA49A:
         mov dword [byte ebp-01Ch], eax
         mov ebx, eax
         mov eax, esi
-        call sub_CA758
+        call DrawPlayerCardText
         call SetScreenTarget
         mov eax, dword [byte ebp-010h]
         add eax, edi
@@ -3749,7 +3768,7 @@ sub_CA49A:
         push byte 0
         lea ecx, [byte edi+06h]
         mov eax, esi
-        call sub_CA758
+        call DrawPlayerCardText
         call SetScreenTarget
         push dword [byte ebp-024h]
         push edi
@@ -3767,7 +3786,7 @@ sub_CA49A:
 .12:
         call sub_102C10
         mov eax, dword [byte ebp-020h]
-sub_CA49A_2B8:
+DrawPlayerCard_2B8:
         leave
         pop edi
         pop esi
@@ -3775,9 +3794,10 @@ sub_CA49A_2B8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CA758                                                       CA758  97 PC
+; DrawPlayerCardText                              CA758  97 PC, low confidence
+; Draws the text of the player card
 ;-----------------------------------------------------------------------------
-sub_CA758:
+DrawPlayerCardText:
         push esi
         push edi
         enter 88h, 0
@@ -3806,7 +3826,7 @@ sub_CA758:
         movzx eax, byte [dword ecx+edx+0D0Ah]
         push eax
         movzx eax, byte [dword ecx+edx+0D0Bh]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -3848,7 +3868,7 @@ sub_CA758:
         movzx eax, byte [dword ecx+edx+01284h]
         push eax
         movzx eax, byte [dword ecx+edx+01285h]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -3881,7 +3901,7 @@ sub_CA758:
         movzx eax, byte [dword ecx+edx+0132Eh]
         push eax
         movzx eax, byte [dword ecx+edx+0132Fh]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -3915,7 +3935,7 @@ sub_CA758:
         movzx eax, byte [dword ecx+edx+018A8h]
         push eax
         movzx eax, byte [dword ecx+edx+018A9h]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -3937,7 +3957,7 @@ sub_CA758:
         add esp, byte 4
         call SetTextColor
 .9:
-        call sub_81650
+        call SetHighlightText
         lea eax, [byte ebp-0Ah]
         push eax
         push dword [byte ebp+076h]
@@ -3949,16 +3969,17 @@ sub_CA758:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        call sub_81678
+        call SetNormalText
         lea esp, [byte ebp+07Eh]
         pop ebp
         pop edi
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_CAA0F                                                       CAA0F  97 PC
+; DrawRosterDetails                               CAA0F  97 PC, low confidence
+; Draws the details of the selected player
 ;-----------------------------------------------------------------------------
-sub_CAA0F:
+DrawRosterDetails:
         push ebx
         push ecx
         push edx
@@ -3985,7 +4006,7 @@ sub_CAA0F:
         movzx edx, byte [byte esi+eax+06Eh]
         mov eax, edi
         inc esi
-        call sub_CB192
+        call GetPlayerStatLine
         add dword [byte ebx+ebp-014h], eax
 .3:
         mov ebx, edi
@@ -4069,7 +4090,7 @@ sub_CAA0F:
         mov ebx, dword [byte ebp-08h]
         movzx edx, byte [byte edi+eax+06Eh]
         mov eax, esi
-        call sub_CA758
+        call DrawPlayerCardText
         mov eax, dword [byte ebp-0Ch]
         inc edi
 .9:
@@ -4084,7 +4105,7 @@ sub_CAA0F:
         cmp esi, byte 2
         jl near .5
         cmp dword [byte ebp-018h], byte 0
-        je near sub_CF255_157
+        je near DrawRatingBars_157
         call SetScreenTarget
         mov eax, dword [dword_1CC224]
         mov ebx, dword [byte eax+02Ch]
@@ -4108,11 +4129,12 @@ sub_CAA0F:
         add esp, byte 0Ch
         call sub_102C10
         call sub_1013FC
-        jmp near sub_CF255_157
+        jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
-; sub_CABF2                                                       CABF2  97 PC
+; SetRosterArrows                                 CABF2  97 PC, low confidence
+; Sets up the roster scroll arrows
 ;-----------------------------------------------------------------------------
-sub_CABF2:
+SetRosterArrows:
         push ecx
         push edx
         imul eax, dword [dword_1CC1C4], dword 32C6h
@@ -4171,9 +4193,10 @@ sub_CABF2:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CACE0                                                       CACE0  97 PC
+; RedrawRosterScreen                              CACE0  97 PC, low confidence
+; Redraws the whole roster screen
 ;-----------------------------------------------------------------------------
-sub_CACE0:
+RedrawRosterScreen:
         push esi
         push edi
         enter 10h, 0
@@ -4225,15 +4248,15 @@ sub_CACE0:
         mov dword [byte edi+eax+022h], edx
         mov edx, dword [byte ebp-04h]
         mov eax, esi
-        call sub_C817F
+        call LoadRosterData
         push dword [dword_1CC214]
         call SetDrawTarget
         add esp, byte 4
         push dword [byte ebp+010h]
         call BlitShape
         add esp, byte 4
-        call sub_C98B1
-        call sub_C97FF
+        call DrawRosterTitle
+        call ShowRosterLogo
         push dword [dword_1CC214]
         call SetDrawTarget
         mov eax, dword [dword_1CC224]
@@ -4254,12 +4277,12 @@ sub_CACE0:
         push edx
         mov edx, 14h
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         mov ecx, dword [byte ebp-0Ch]
         mov ebx, dword [byte ebp-010h]
         mov edx, dword [byte ebp-08h]
         mov eax, edi
-        call sub_7F29C
+        call DrawFrameBox
         mov eax, dword [dword_1CC21C]
         mov eax, dword [byte eax+02Ch]
         movsx edi, word [byte eax+0Ch]
@@ -4277,7 +4300,7 @@ sub_CACE0:
         mov ebx, edx
         mov edx, dword [byte ebp-08h]
         xor edi, edi
-        call sub_7F29C
+        call DrawFrameBox
 .3:
         mov eax, dword [nosplit edi*4+dword_1CC21C]
         mov eax, dword [byte eax+02Ch]
@@ -4294,7 +4317,7 @@ sub_CACE0:
         push dword [dword_1CC224]
         call SetDrawTarget
         add esp, byte 4
-        call sub_C9DDF
+        call DrawRosterPanel
         push dword [dword_1CC214]
         call SetDrawTarget
         add esp, byte 4
@@ -4322,13 +4345,13 @@ sub_CACE0:
 .6:
         mov dword [dword_1CC2B0], 0
 .7:
-        call sub_CABF2
+        call SetRosterArrows
         xor eax, eax
-        call sub_CAA0F
+        call DrawRosterDetails
         mov eax, esi
         lea edi, [byte esi+06h]
         imul edi, byte 52h
-        call sub_CA2A7
+        call SetRosterButtons
         test eax, eax
         jne short .8
         push str_GB00
@@ -4367,7 +4390,7 @@ sub_CACE0:
         movsx edx, word [byte edx+eax+074h]
         inc edx
         mov eax, dword [nosplit esi*4+dword_1CC1BC]
-        call sub_8E6AF
+        call SetListSelection
         imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         xor ebx, ebx
@@ -4494,7 +4517,7 @@ CheckRosterInjuries:
         push byte 1
         xor ebx, ebx
         lea eax, [byte ebp-06h]
-        call sub_7F5A4
+        call ShowMessageBox
         jmp short .10
 .8:
         inc dword [byte ebp+07Eh]
@@ -4514,9 +4537,10 @@ CheckRosterInjuries:
         jl near .1
         jmp near ShowTradeRejected_100
 ;-----------------------------------------------------------------------------
-; sub_CB192                                                       CB192  97 PC
+; GetPlayerStatLine                               CB192  97 PC, low confidence
+; Returns a player's stat line
 ;-----------------------------------------------------------------------------
-sub_CB192:
+GetPlayerStatLine:
         push ebx
         push ecx
         push esi
@@ -4599,7 +4623,7 @@ ShowTradeRejected:
         mov edx, eax
         mov eax, ecx
         inc edi
-        call sub_CB192
+        call GetPlayerStatLine
         add dword [byte ebx+ebp+076h], eax
 .5:
         mov ebx, ecx
@@ -4647,14 +4671,14 @@ ShowTradeRejected:
 ShowTradeRejected_F7:
         xor ecx, ecx
         xor ebx, ebx
-        call sub_7F5A4
+        call ShowMessageBox
 ShowTradeRejected_100:
         mov eax, esi
 ShowTradeRejected_102:
         lea esp, [dword ebp+082h]
 ShowTradeRejected_108:
         pop ebp
-        jmp near sub_CF255_158
+        jmp near DrawRatingBars_158
 ;-----------------------------------------------------------------------------
 ; CheckRosterLimits                               CB324  97 PC, low confidence
 ; Roster: the minimum / maximum roster and goalie count checks ("Roster
@@ -4941,7 +4965,7 @@ CheckRosterLimits:
         lea eax, [byte ebp-042h]
         xor ecx, ecx
         xor ebx, ebx
-        call sub_7F5A4
+        call ShowMessageBox
 .28:
         mov eax, dword [byte ebp+07Eh]
         jmp near ShowTradeRejected_102
@@ -5179,9 +5203,10 @@ CheckRegularRosterLimits:
         lea eax, [byte ebp-026h]
         jmp near ShowTradeRejected_F7
 ;-----------------------------------------------------------------------------
-; sub_CB9C9                                                       CB9C9  97 PC
+; RosterTradeScreen                               CB9C9  97 PC, low confidence
+; Runs the trade part of the roster screen
 ;-----------------------------------------------------------------------------
-sub_CB9C9:
+RosterTradeScreen:
         push ebx
         push ecx
         push edx
@@ -5208,7 +5233,7 @@ sub_CB9C9:
         xor edx, edx
         add ebx, eax
         mov eax, esi
-        call sub_CCC30
+        call ApplyTrade
         mov edx, eax
         imul eax, esi, byte 0Ch
         mov ebx, edi
@@ -5222,7 +5247,7 @@ sub_CB9C9:
         inc esi
         cmp esi, byte 2
         jl short .1
-        call sub_C9AEE
+        call FreeRosterPanel
         xor esi, esi
 .4:
         xor edi, edi
@@ -5240,11 +5265,11 @@ sub_CB9C9:
         mov dword [byte ebp-010h], eax
         mov edx, eax
         mov eax, ecx
-        call sub_CCF2E
+        call CountRosterPositions
         test eax, eax
         je short .6
         mov eax, ecx
-        call sub_CD037
+        call ClearPlayerRecord
         lea eax, [dword ebp-071Ch]
         add eax, dword [byte ebp-0Ch]
         add ebx, eax
@@ -5304,7 +5329,7 @@ sub_CB9C9:
         movsx ebx, word [dword edx+0132Bh]
         mov edx, 2
 .10:
-        call sub_CE178
+        call UpdateRosterCounts
         mov dword [byte ebp-04h], eax
         imul edx, esi, byte 0Ch
         mov eax, edi
@@ -5341,19 +5366,19 @@ sub_CB9C9:
         push dword [dword_1CC218]
         call BlitShape
         add esp, byte 4
-        call sub_C98B1
-        call sub_C97FF
-        call sub_C9A45
+        call DrawRosterTitle
+        call ShowRosterLogo
+        call CreateRosterPanel
         xor eax, eax
         mov dword [dword_1CC2BC], 1
-        call sub_CBECB
+        call SwapRosterPlayers
         mov eax, 1
-        call sub_CBECB
+        call SwapRosterPlayers
         xor eax, eax
-        call sub_CC1CA
+        call RateTrade
         mov eax, 1
         xor esi, esi
-        call sub_CC1CA
+        call RateTrade
 .13:
         mov eax, 64h
         xor edi, edi
@@ -5375,31 +5400,32 @@ sub_CB9C9:
         mov edx, eax
         mov eax, esi
         inc esi
-        call sub_CD7B7
+        call ClampRosterScroll
         cmp esi, byte 2
         jl short .13
         imul eax, dword [dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
-        call sub_9D333
+        call BuildAutoLines
         imul edx, dword [dword_1CC1C8], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
-        call sub_9D333
+        call BuildAutoLines
         imul edx, dword [dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
-        call sub_D0C88
+        call RemoveListEntry
         imul eax, dword [dword_1CC1C8], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
-sub_CB9C9_306:
-        call sub_D0C88
-        jmp near sub_CF255_157
+RosterTradeScreen_306:
+        call RemoveListEntry
+        jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
-; sub_CBCD9                                                       CBCD9  97 PC
+; FindFreeRosterSlot                              CBCD9  97 PC, low confidence
+; Finds a free slot in the roster
 ;-----------------------------------------------------------------------------
-sub_CBCD9:
+FindFreeRosterSlot:
         push ebx
         push ecx
         push edx
@@ -5482,14 +5508,15 @@ sub_CBCD9:
         mov eax, dword [ebx+eax]
         movsx ebx, word [dword eax+0D05h]
         movsx eax, word [dword eax+01281h]
-sub_CBCD9_EE:
+FindFreeRosterSlot_EE:
         add eax, ebx
         add eax, edx
-        jmp near sub_CF255_158
+        jmp near DrawRatingBars_158
 ;-----------------------------------------------------------------------------
-; sub_CBDD0                                                       CBDD0  97 PC
+; FindRosterSlot                                  CBDD0  97 PC, low confidence
+; Finds a player's slot in the roster
 ;-----------------------------------------------------------------------------
-sub_CBDD0:
+FindRosterSlot:
         push ebx
         push ecx
         push edx
@@ -5574,11 +5601,12 @@ sub_CBDD0:
         movsx ecx, word [dword eax+01281h]
         movsx eax, word [dword eax+0132Bh]
         add ebx, ecx
-        jmp near sub_CBCD9_EE
+        jmp near FindFreeRosterSlot_EE
 ;-----------------------------------------------------------------------------
-; sub_CBECB                                                       CBECB  97 PC
+; SwapRosterPlayers                               CBECB  97 PC, low confidence
+; Swaps two players between rosters
 ;-----------------------------------------------------------------------------
-sub_CBECB:
+SwapRosterPlayers:
         push ebx
         push ecx
         push edx
@@ -5599,11 +5627,11 @@ sub_CBECB:
         jle short .2
         mov eax, edi
         lea ebx, [dword ebp-0124h]
-        call sub_CBCD9
+        call FindFreeRosterSlot
         xor edx, edx
         mov ecx, eax
         mov eax, esi
-        call sub_CCC30
+        call ApplyTrade
         mov eax, dword [dword_1CC2AC]
         add eax, dword [byte ebp-04h]
         mov eax, dword [eax]
@@ -5611,7 +5639,7 @@ sub_CBECB:
         xor edx, edx
         movsx ebx, word [dword eax+0D05h]
         mov eax, esi
-        call sub_CE178
+        call UpdateRosterCounts
         jmp short .1
 .2:
         imul eax, edi, dword 32C6h
@@ -5620,16 +5648,16 @@ sub_CBECB:
         add eax, dword [byte ebp-08h]
         mov eax, dword [eax]
         cmp word [dword eax+01281h], byte 3
-        jge near sub_CF255_157
+        jge near DrawRatingBars_157
         cmp word [dword eax+018A5h], byte 0
-        jle near sub_CF255_157
+        jle near DrawRatingBars_157
         mov eax, edi
         lea ebx, [dword ebp-0124h]
-        call sub_CBDD0
+        call FindRosterSlot
         xor edx, edx
         mov ecx, eax
         mov eax, esi
-        call sub_CCC30
+        call ApplyTrade
         mov eax, dword [dword_1CC2AC]
         add eax, dword [byte ebp-08h]
         mov eax, dword [eax]
@@ -5637,17 +5665,18 @@ sub_CBECB:
         mov edx, 1
         movsx ebx, word [dword eax+01281h]
         mov eax, esi
-        call sub_CE178
+        call UpdateRosterCounts
         jmp short .2
 jpt_CBFAA:
-        dd sub_CBFBA_59
-        dd sub_CBFBA_D9
-        dd sub_CBFBA_133
-        dd sub_CBFBA_17B
+        dd ComparePlayersForTrade_59
+        dd ComparePlayersForTrade_D9
+        dd ComparePlayersForTrade_133
+        dd ComparePlayersForTrade_17B
 ;-----------------------------------------------------------------------------
-; sub_CBFBA                                                       CBFBA  97 PC
+; ComparePlayersForTrade                          CBFBA  97 PC, low confidence
+; Compares two players for a trade
 ;-----------------------------------------------------------------------------
-sub_CBFBA:
+ComparePlayersForTrade:
         push esi
         push edi
         enter 34h, 0
@@ -5658,11 +5687,11 @@ sub_CBFBA:
         xor eax, eax
         xor dl, dl
         test edi, edi
-        jl near sub_CBFBA_59.2
+        jl near ComparePlayersForTrade_59.2
         test esi, esi
-        jl near sub_CBFBA_59.2
+        jl near ComparePlayersForTrade_59.2
         cmp ecx, byte 3
-        ja near sub_CBFBA_59.2
+        ja near ComparePlayersForTrade_59.2
         imul ebx, esi, dword 0BCh
         mov dword [byte ebp-01Ch], ebx
         imul ebx, edi, dword 0BCh
@@ -5673,7 +5702,7 @@ sub_CBFBA:
         mov dword [byte ebp-04h], ebx
         imul ebx, dword [byte ebp-034h], dword 32C6h
         jmp dword [nosplit cs:ecx*4+jpt_CBFAA]
-sub_CBFBA_59:
+ComparePlayersForTrade_59:
         mov ecx, dword [dword_1CC2AC]
         add ecx, ebx
         mov ebx, dword [ecx]
@@ -5703,24 +5732,24 @@ sub_CBFBA_59:
         mov dword [byte ebp-014h], ebx
 .2:
         cmp dh, dl
-        je near sub_CBFBA_17B.7
+        je near ComparePlayersForTrade_17B.7
         cmp dh, 43h
         je short .3
         cmp dl, 44h
-        jne near sub_CBFBA_17B.4
+        jne near ComparePlayersForTrade_17B.4
 .3:
         mov eax, 1
-        jmp near sub_CBFBA_17B.7
-sub_CBFBA_D9:
+        jmp near ComparePlayersForTrade_17B.7
+ComparePlayersForTrade_D9:
         mov ecx, dword [dword_1CC2AC]
         add ecx, ebx
         mov ebx, dword [ecx]
         mov dword [byte ebp-02Ch], ecx
         movsx ecx, word [dword ebx+01281h]
         cmp edi, ecx
-        jge short sub_CBFBA_59.2
+        jge short ComparePlayersForTrade_59.2
         cmp esi, ecx
-        jge short sub_CBFBA_59.2
+        jge short ComparePlayersForTrade_59.2
         mov edx, dword [byte ebp-04h]
         mov ecx, dword [byte ebp-02Ch]
         mov dh, byte [dword edx+ebx+01285h]
@@ -5738,17 +5767,17 @@ sub_CBFBA_D9:
         add ecx, byte 8
         mov dword [byte ebp-0Ch], esi
         mov dword [byte ebp-014h], ecx
-        jmp short sub_CBFBA_59.2
-sub_CBFBA_133:
+        jmp short ComparePlayersForTrade_59.2
+ComparePlayersForTrade_133:
         mov ecx, dword [dword_1CC2AC]
         add ecx, ebx
         mov ebx, dword [ecx]
         mov dword [byte ebp-024h], ecx
         movsx ecx, word [dword ebx+0132Bh]
         cmp edi, ecx
-        jge near sub_CBFBA_59.2
+        jge near ComparePlayersForTrade_59.2
         cmp esi, ecx
-        jge near sub_CBFBA_59.2
+        jge near ComparePlayersForTrade_59.2
         mov edx, dword [byte ebp-04h]
         mov dh, byte [dword edx+ebx+0132Fh]
         add ebx, dword [byte ebp-08h]
@@ -5756,17 +5785,17 @@ sub_CBFBA_133:
         mov ebx, dword [byte ebp-024h]
         mov ecx, dword [byte ebp-018h]
         add ebx, 1D8Eh
-        jmp near sub_CBFBA_59.1
-sub_CBFBA_17B:
+        jmp near ComparePlayersForTrade_59.1
+ComparePlayersForTrade_17B:
         mov ecx, dword [dword_1CC2AC]
         add ecx, ebx
         mov ebx, dword [ecx]
         mov dword [byte ebp-028h], ecx
         movsx ecx, word [dword ebx+018A5h]
         cmp edi, ecx
-        jge near sub_CBFBA_59.2
+        jge near ComparePlayersForTrade_59.2
         cmp esi, ecx
-        jge near sub_CBFBA_59.2
+        jge near ComparePlayersForTrade_59.2
         mov edx, dword [byte ebp-04h]
         mov dh, byte [dword edx+ebx+018A9h]
         add ebx, dword [byte ebp-08h]
@@ -5774,20 +5803,20 @@ sub_CBFBA_17B:
         mov ebx, dword [byte ebp-028h]
         mov ecx, dword [byte ebp-018h]
         add ebx, 2FEAh
-        jmp near sub_CBFBA_59.1
+        jmp near ComparePlayersForTrade_59.1
 .4:
         cmp dh, 4Ch
         jne short .5
         cmp dl, 43h
-        jne near sub_CBFBA_59.3
+        jne near ComparePlayersForTrade_59.3
         jmp short .6
 .5:
         cmp dh, 52h
         jne short .6
         cmp dl, dh
-        je near sub_CBFBA_59.3
+        je near ComparePlayersForTrade_59.3
         cmp dl, 44h
-        je near sub_CBFBA_59.3
+        je near ComparePlayersForTrade_59.3
 .6:
         mov eax, 0FFFFFFFFh
 .7:
@@ -5807,9 +5836,10 @@ sub_CBFBA_17B:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_CC1CA                                                       CC1CA  97 PC
+; RateTrade                                       CC1CA  97 PC, low confidence
+; Rates a proposed trade
 ;-----------------------------------------------------------------------------
-sub_CC1CA:
+RateTrade:
         push ebx
         push ecx
         push edx
@@ -5830,7 +5860,7 @@ sub_CC1CA:
         mov eax, dword [byte ebp-04h]
         mov edx, edi
         xor ecx, ecx
-        call sub_CBFBA
+        call ComparePlayersForTrade
         test eax, eax
         jge short .3
         mov dword [byte ebp-04h], edi
@@ -5849,7 +5879,7 @@ sub_CC1CA:
         mov eax, dword [byte ebp-0Ch]
         mov ecx, esi
         xor edx, edx
-        call sub_CC3AD
+        call TradeValue
 .5:
         inc esi
 .6:
@@ -5871,7 +5901,7 @@ sub_CC1CA:
         mov ebx, dword [byte ebp-08h]
         mov eax, dword [byte ebp-04h]
         mov edx, edi
-        call sub_CBFBA
+        call ComparePlayersForTrade
         test eax, eax
         jge short .9
         mov dword [byte ebp-04h], edi
@@ -5890,7 +5920,7 @@ sub_CC1CA:
         mov edx, 1
         mov eax, dword [byte ebp-0Ch]
         mov ecx, esi
-        call sub_CC3AD
+        call TradeValue
 .11:
         inc esi
 .12:
@@ -5912,7 +5942,7 @@ sub_CC1CA:
         mov ebx, dword [byte ebp-08h]
         mov eax, dword [byte ebp-04h]
         mov edx, edi
-        call sub_CBFBA
+        call ComparePlayersForTrade
         test eax, eax
         jge short .15
         mov dword [byte ebp-04h], edi
@@ -5931,7 +5961,7 @@ sub_CC1CA:
         mov edx, 2
         mov eax, dword [byte ebp-0Ch]
         mov ecx, esi
-        call sub_CC3AD
+        call TradeValue
 .17:
         inc esi
 .18:
@@ -5953,7 +5983,7 @@ sub_CC1CA:
         mov ebx, dword [byte ebp-08h]
         mov eax, dword [byte ebp-04h]
         mov edx, edi
-        call sub_CBFBA
+        call ComparePlayersForTrade
         test eax, eax
         jge short .21
         mov dword [byte ebp-04h], edi
@@ -5972,7 +6002,7 @@ sub_CC1CA:
         mov edx, 3
         mov eax, dword [byte ebp-0Ch]
         mov ecx, esi
-        call sub_CC3AD
+        call TradeValue
 .23:
         inc esi
 .24:
@@ -5983,11 +6013,12 @@ sub_CC1CA:
         dec edi
         cmp esi, edi
         jl short .19
-        jmp near sub_CB9C9_306
+        jmp near RosterTradeScreen_306
 ;-----------------------------------------------------------------------------
-; sub_CC3AD                                                       CC3AD  97 PC
+; TradeValue                                      CC3AD  97 PC, low confidence
+; Works out a player's trade value
 ;-----------------------------------------------------------------------------
-sub_CC3AD:
+TradeValue:
         push esi
         push edi
         enter 13Ch, 0
@@ -6095,21 +6126,21 @@ sub_CC3AD:
         mov eax, dword [eax]
         mov edx, dword [dword ebp-0BEh]
         add eax, byte 18h
-        call sub_CCB24
+        call TradeNeedBonus
         mov eax, dword [dword_1CC2AC]
         add eax, dword [byte ebp+07Eh]
         mov ebx, dword [dword ebp-0BEh]
         mov eax, dword [eax]
         mov edx, dword [dword ebp-0C2h]
         add eax, byte 18h
-        call sub_CCB24
+        call TradeNeedBonus
         mov eax, dword [dword_1CC2AC]
         add eax, dword [byte ebp+07Eh]
         mov ebx, dword [dword ebp-0C2h]
         mov eax, dword [eax]
         mov edx, 63h
         add eax, byte 18h
-        call sub_CCB24
+        call TradeNeedBonus
         jmp near .5
 .1:
         cmp edx, byte 1
@@ -6468,9 +6499,10 @@ sub_CC3AD:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_CCB24                                                       CCB24  97 PC
+; TradeNeedBonus                                  CCB24  97 PC, low confidence
+; Adds the bonus for a position the team needs
 ;-----------------------------------------------------------------------------
-sub_CCB24:
+TradeNeedBonus:
         push ecx
         push esi
         push edi
@@ -6612,9 +6644,10 @@ sub_CCB24:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CCC30                                                       CCC30  97 PC
+; ApplyTrade                                      CCC30  97 PC, low confidence
+; Applies a trade to both rosters
 ;-----------------------------------------------------------------------------
-sub_CCC30:
+ApplyTrade:
         push esi
         push edi
         push ebp
@@ -6807,16 +6840,17 @@ sub_CCC30:
 .12:
         mov ebx, 0FFFFFFFFh
         mov eax, dword [byte ebp-04h]
-        call sub_CDF39
+        call FixLinesAfterTrade
         mov eax, ecx
         leave
         pop edi
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_CCF2E                                                       CCF2E  97 PC
+; CountRosterPositions                            CCF2E  97 PC, low confidence
+; Counts the players by position
 ;-----------------------------------------------------------------------------
-sub_CCF2E:
+CountRosterPositions:
         push ebx
         push ecx
         push esi
@@ -6913,11 +6947,12 @@ sub_CCF2E:
         jl short .13
 .16:
         mov eax, edx
-        jmp near sub_CA49A_2B8
+        jmp near DrawPlayerCard_2B8
 ;-----------------------------------------------------------------------------
-; sub_CD037                                                       CD037  97 PC
+; ClearPlayerRecord                               CD037  97 PC, low confidence
+; Clears a player record
 ;-----------------------------------------------------------------------------
-sub_CD037:
+ClearPlayerRecord:
         push ebx
         push ecx
         push edx
@@ -6989,9 +7024,10 @@ sub_CD037:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CD13A                                                       CD13A  97 PC
+; DrawJerseyPreview                               CD13A  97 PC, low confidence
+; Draws the jersey preview
 ;-----------------------------------------------------------------------------
-sub_CD13A:
+DrawJerseyPreview:
         push ebx
         push ecx
         push edx
@@ -7058,9 +7094,9 @@ sub_CD13A:
         cmp ebx, byte 64h
         jl near .1
         test esi, esi
-        jne near sub_CF255_158
+        jne near DrawRatingBars_158
         cmp dword [dword_1CC1F8], byte 0
-        je near sub_CF255_158
+        je near DrawRatingBars_158
         imul edx, dword [dword_1CC1F8], byte 52h
         mov eax, dword [dword_1CC1EC]
         mov ebx, dword [byte edx+eax+02Ah]
@@ -7081,7 +7117,7 @@ sub_CD13A:
         add esp, byte 0Ch
         call sub_102C10
         mov dword [dword_1CC1F8], esi
-        jmp near sub_CF255_158
+        jmp near DrawRatingBars_158
 ;-----------------------------------------------------------------------------
 ; JerseyScreen                                    CD272  97 PC, low confidence
 ; The jersey screen ("jersey menu" / "jersey menu regions")
@@ -7150,8 +7186,8 @@ JerseyScreen:
         push dword 19Ah
         mov eax, dword [byte esi+02Ch]
         xor ecx, ecx
-        call sub_7E52C
-        call sub_81650
+        call DrawShadowBox
+        call SetHighlightText
         push byte 0FFFFFFFFh
         mov dword [byte ebp+06Ah], 78h
         call MakeColor
@@ -7239,8 +7275,8 @@ JerseyScreen:
         movsx ebx, word [byte eax+04h]
         xor eax, eax
         mov dword [byte ebp+07Ah], 0
-        call sub_7F29C
-        call sub_81678
+        call DrawFrameBox
+        call SetNormalText
         cmp byte [byte ebp+07Eh], 64h
         jae near .17
         mov eax, dword [byte ebp-036h]
@@ -7381,7 +7417,7 @@ JerseyScreen:
         add esp, byte 10h
         jmp short .18
 .23:
-        call sub_81650
+        call SetHighlightText
         push dword 0FFFFFF50h
         mov dword [byte ebp+07Ah], 0
         call MakeColor
@@ -7422,7 +7458,7 @@ JerseyScreen:
         add dword [byte ebp+076h], byte 14h
         cmp esi, byte 0Ah
         jl short .24
-        call sub_81678
+        call SetNormalText
         push byte 0
         mov eax, dword [byte ebp+06Eh]
         push dword 2008h
@@ -7476,7 +7512,7 @@ JerseyScreen:
         add ebx, dword [byte ebp+076h]
         add edx, dword [byte ebp+072h]
         inc esi
-        call sub_CA44C
+        call InitListBox
         cmp esi, byte 64h
         jl short .29
         call SetScreenTarget
@@ -7492,12 +7528,12 @@ JerseyScreen:
         jne short .31
         push byte 3
         lea eax, [byte ebp+04Eh]
-        mov ecx, sub_CD13A
+        mov ecx, DrawJerseyPreview
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, edi
         mov eax, 64h
-        call sub_8BFAC
+        call RunMenu
         mov eax, dword [byte ebp+04Eh]
         cmp byte [dword eax+byte_1CC240], 0
         jne short .30
@@ -7538,9 +7574,10 @@ JerseyScreen:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CD7B7                                                       CD7B7  97 PC
+; ClampRosterScroll                               CD7B7  97 PC, low confidence
+; Keeps the roster scroll position in range
 ;-----------------------------------------------------------------------------
-sub_CD7B7:
+ClampRosterScroll:
         push ebx
         imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
         mov ebx, dword [dword_1CC2AC]
@@ -7556,14 +7593,15 @@ sub_CD7B7:
         pop ebx
         ret
 jpt_CD7E3:
-        dd sub_CD7F3_24
-        dd sub_CD7F3_AD
-        dd sub_CD7F3_1BD
-        dd sub_CD7F3_25B
+        dd RosterEditScreen_24
+        dd RosterEditScreen_AD
+        dd RosterEditScreen_1BD
+        dd RosterEditScreen_25B
 ;-----------------------------------------------------------------------------
-; sub_CD7F3                                                       CD7F3  97 PC
+; RosterEditScreen                                CD7F3  97 PC, low confidence
+; Runs the roster editing screen
 ;-----------------------------------------------------------------------------
-sub_CD7F3:
+RosterEditScreen:
         push ebx
         push ecx
         push esi
@@ -7575,7 +7613,7 @@ sub_CD7F3:
         ja near DrawRosterList_86F
         shl edx, 2
         jmp dword [nosplit cs:eax*4+jpt_CD7E3]
-sub_CD7F3_24:
+RosterEditScreen_24:
         imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         test byte [byte edx+eax+06Ah], 8
@@ -7595,7 +7633,7 @@ sub_CD7F3_24:
         mov eax, dword [dword_1CC214]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         test edi, edi
         je near DrawRosterList_86F
         imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
@@ -7604,26 +7642,26 @@ sub_CD7F3_24:
         or byte [byte edx+eax+06Ah], 2
         mov dword [dword_1CC2BC], 1
         jmp near DrawRosterList_86F
-sub_CD7F3_AD:
+RosterEditScreen_AD:
         cmp dword [dword_1CC208], byte 0
         jne near DrawRosterList_86F
         mov eax, esi
-        call sub_CE3F2
+        call RosterCreatePlayer
         mov ebx, eax
         mov edi, eax
         mov eax, esi
-        call sub_CC1CA
+        call RateTrade
         imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
         mov dword [byte ebp+07Ah], eax
         mov eax, dword [dword_1CC2AC]
         add eax, dword [byte ebp+07Ah]
         mov eax, dword [eax]
-        call sub_9D333
+        call BuildAutoLines
         imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
         mov ecx, dword [dword_1CC2AC]
         add eax, ecx
         mov eax, dword [eax]
-        call sub_D0C88
+        call RemoveListEntry
         test ebx, ebx
         je short .4
         imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
@@ -7632,7 +7670,7 @@ sub_CD7F3_AD:
         movzx edx, byte [byte eax+071h]
         movzx edx, byte [byte edx+eax+06Dh]
         mov eax, esi
-        call sub_CD7B7
+        call ClampRosterScroll
 .4:
         shl esi, 2
         imul eax, dword [dword esi+dword_1CC1C4], dword 32C6h
@@ -7640,7 +7678,7 @@ sub_CD7F3_AD:
         movsx edx, word [byte edx+eax+074h]
         inc edx
         mov eax, dword [dword esi+dword_1CC1BC]
-        call sub_8E6AF
+        call SetListSelection
         imul edx, dword [dword esi+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         xor ebx, ebx
@@ -7660,12 +7698,12 @@ sub_CD7F3_AD:
         xor edx, edx
         call DrawScrollBar
         mov eax, 1
-        call sub_CAA0F
+        call DrawRosterDetails
         test edi, edi
         je near DrawRosterList_86F
         imul eax, dword [dword esi+dword_1CC1C4], dword 32C6h
-        jmp near sub_CD7F3_24.3
-sub_CD7F3_1BD:
+        jmp near RosterEditScreen_24.3
+RosterEditScreen_1BD:
         imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
         mov ebx, dword [dword_1CC2AC]
         test byte [byte ebx+eax+06Ah], 8
@@ -7675,15 +7713,15 @@ sub_CD7F3_1BD:
         test eax, eax
         jne near DrawRosterList_86F
         mov eax, esi
-        call sub_CE53C
+        call ReleasePlayer
         imul ebx, dword [dword edx+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov eax, dword [ebx+eax]
-        call sub_9D333
+        call BuildAutoLines
         imul ebx, dword [dword edx+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov eax, dword [ebx+eax]
-        call sub_D0C88
+        call RemoveListEntry
         imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
         mov ebx, dword [dword_1CC2AC]
         movsx edi, word [byte ebx+eax+072h]
@@ -7695,9 +7733,9 @@ sub_CD7F3_1BD:
         mov eax, esi
         call DrawRosterList
         mov eax, 1
-        call sub_CAA0F
+        call DrawRosterDetails
         jmp near DrawRosterList_86F
-sub_CD7F3_25B:
+RosterEditScreen_25B:
         cmp dword [dword_1CC208], byte 0
         jne near DrawRosterList_86F
         xor edi, edi
@@ -7708,13 +7746,13 @@ sub_CD7F3_25B:
         mov dword [byte ebp+07Eh], eax
         mov edx, eax
         mov eax, esi
-        call sub_CDC8B
+        call FindTradedPlayer
         test eax, eax
         je short .6
         lea ebx, [byte ebp+026h]
         mov edx, dword [byte ebp+07Eh]
         mov eax, esi
-        call sub_CDBE5
+        call FormatTradeMessage
         lea eax, [byte ebp+026h]
         push eax
         mov eax, 0E8h
@@ -7729,13 +7767,13 @@ sub_CD7F3_25B:
         push byte 1
         xor ebx, ebx
         lea eax, [byte ebp-05Ah]
-        call sub_7F5A4
+        call ShowMessageBox
         cmp eax, byte 1
         jne short .7
         mov ebx, dword [byte ebp+076h]
         mov edx, dword [byte ebp+07Eh]
         mov eax, esi
-        call sub_CDF39
+        call FixLinesAfterTrade
         dec edi
         jmp short .7
 .6:
@@ -7745,7 +7783,7 @@ sub_CD7F3_25B:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
 .7:
         inc edi
 .8:
@@ -7761,9 +7799,9 @@ sub_CD7F3_25B:
         je near DrawRosterList_86F
         mov eax, esi
         mov dword [dword_1CC2BC], 1
-        call sub_CBECB
+        call SwapRosterPlayers
         mov eax, esi
-        call sub_CC1CA
+        call RateTrade
         imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
         mov ebx, dword [dword_1CC2AC]
         add ebx, eax
@@ -7781,7 +7819,7 @@ sub_CD7F3_25B:
         movsx edx, word [byte edx+eax+074h]
         inc edx
         mov eax, dword [nosplit esi*4+dword_1CC1BC]
-        call sub_8E6AF
+        call SetListSelection
         mov edx, 1
         mov eax, esi
         call DrawRosterList
@@ -7789,20 +7827,21 @@ sub_CD7F3_25B:
         xor edx, edx
         call DrawScrollBar
         mov eax, 1
-        call sub_CAA0F
+        call DrawRosterDetails
         imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
-        call sub_9D333
+        call BuildAutoLines
         imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
-        call sub_D0C88
+        call RemoveListEntry
         jmp near DrawRosterList_86F
 ;-----------------------------------------------------------------------------
-; sub_CDBE5                                                       CDBE5  97 PC
+; FormatTradeMessage                              CDBE5  97 PC, low confidence
+; Formats the trade message
 ;-----------------------------------------------------------------------------
-sub_CDBE5:
+FormatTradeMessage:
         push ecx
         push esi
         mov esi, eax
@@ -7860,9 +7899,10 @@ sub_CDBE5:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CDC8B                                                       CDC8B  97 PC
+; FindTradedPlayer                                CDC8B  97 PC, low confidence
+; Finds a traded player
 ;-----------------------------------------------------------------------------
-sub_CDC8B:
+FindTradedPlayer:
         push ecx
         push esi
         push edi
@@ -7935,7 +7975,7 @@ sub_CDC8B:
         add eax, esi
         add edx, byte 18h
         add eax, byte 18h
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .8
         mov dword [byte ebp-0Ch], 1
@@ -7956,9 +7996,10 @@ sub_CDC8B:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CDD99                                                       CDD99  97 PC
+; RebuildLinesAfterTrade                          CDD99  97 PC, low confidence
+; Rebuilds the lines after a roster change
 ;-----------------------------------------------------------------------------
-sub_CDD99:
+RebuildLinesAfterTrade:
         push ebx
         push ecx
         push esi
@@ -8134,9 +8175,10 @@ sub_CDD99:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CDEEA                                                       CDEEA  97 PC
+; FindLineSlot                                    CDEEA  97 PC, low confidence
+; Finds a slot in the lines
 ;-----------------------------------------------------------------------------
-sub_CDEEA:
+FindLineSlot:
         push ebx
         push ecx
         push esi
@@ -8171,11 +8213,12 @@ sub_CDEEA:
         inc edx
         cmp edx, byte 2
         jl short .1
-        jmp near sub_CA49A_2B8
+        jmp near DrawPlayerCard_2B8
 ;-----------------------------------------------------------------------------
-; sub_CDF39                                                       CDF39  97 PC
+; FixLinesAfterTrade                              CDF39  97 PC, low confidence
+; Fixes the lines after a trade
 ;-----------------------------------------------------------------------------
-sub_CDF39:
+FixLinesAfterTrade:
         push ecx
         push esi
         push edi
@@ -8251,7 +8294,7 @@ sub_CDF39:
         jge short .11
         mov edx, esi
         mov eax, ecx
-        call sub_CDD99
+        call RebuildLinesAfterTrade
         imul edx, dword [dword ebx+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         add eax, edx
@@ -8274,7 +8317,7 @@ sub_CDF39:
         jge short .12
         mov edx, esi
         mov eax, ecx
-        call sub_CDEEA
+        call FindLineSlot
         imul eax, dword [dword ebx+dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         add eax, edx
@@ -8320,7 +8363,7 @@ sub_CDF39:
         mov edx, edi
 .14:
         mov eax, esi
-        call sub_CE111
+        call RemoveFromLines
 .15:
         leave
         pop edi
@@ -8328,9 +8371,10 @@ sub_CDF39:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CE111                                                       CE111  97 PC
+; RemoveFromLines                                 CE111  97 PC, low confidence
+; Removes a player from the lines
 ;-----------------------------------------------------------------------------
-sub_CE111:
+RemoveFromLines:
         push esi
         push edi
         push ebp
@@ -8367,15 +8411,16 @@ sub_CE111:
         movsx edx, word [ebx]
         cmp eax, edx
         jl short .1
-sub_CE111_61:
+RemoveFromLines_61:
         leave
         pop edi
         pop esi
         ret 0Ch
 ;-----------------------------------------------------------------------------
-; sub_CE178                                                       CE178  97 PC
+; UpdateRosterCounts                              CE178  97 PC, low confidence
+; Updates the roster counts
 ;-----------------------------------------------------------------------------
-sub_CE178:
+UpdateRosterCounts:
         push esi
         push edi
         enter 20h, 0
@@ -8560,9 +8605,10 @@ sub_CE178:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_CE3F2                                                       CE3F2  97 PC
+; RosterCreatePlayer                              CE3F2  97 PC, low confidence
+; Opens the create player screen from the roster screen
 ;-----------------------------------------------------------------------------
-sub_CE3F2:
+RosterCreatePlayer:
         push ebx
         push ecx
         push edx
@@ -8613,7 +8659,7 @@ sub_CE3F2:
         xor edx, edx
 .7:
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         test edi, edi
         je near .13
         cmp byte [dword ebp-0122h], 47h
@@ -8627,7 +8673,7 @@ sub_CE3F2:
         mov edx, 2
 .9:
         mov eax, esi
-        call sub_CE178
+        call UpdateRosterCounts
         mov dword [byte ebp-08h], eax
         shl esi, 2
         imul eax, dword [dword esi+dword_1CC1C4], dword 32C6h
@@ -8658,14 +8704,15 @@ sub_CE3F2:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
 .13:
         mov eax, edi
-        jmp near sub_CF255_157
+        jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
-; sub_CE53C                                                       CE53C  97 PC
+; ReleasePlayer                                   CE53C  97 PC, low confidence
+; Releases a player from the roster
 ;-----------------------------------------------------------------------------
-sub_CE53C:
+ReleasePlayer:
         push ebx
         push ecx
         push edx
@@ -8722,7 +8769,7 @@ sub_CE53C:
         add ebx, eax
         mov eax, dword [byte ebp+07Ah]
         inc esi
-        call sub_CCC30
+        call ApplyTrade
 .6:
         cmp esi, dword [dword ebp+03DEh]
         jl near .1
@@ -8735,7 +8782,7 @@ sub_CE53C:
         xor ebx, ebx
         add ecx, eax
         mov eax, dword [byte ebp+07Ah]
-        call sub_CE178
+        call UpdateRosterCounts
         mov ebx, eax
         imul eax, dword [dword edi+dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
@@ -8757,16 +8804,16 @@ sub_CE53C:
         or byte [byte edx+eax+06Ah], 2
         mov eax, dword [byte ebp+07Ah]
         mov dword [dword_1CC2BC], 1
-        call sub_CC1CA
+        call RateTrade
         imul edx, dword [dword edi+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
-        call sub_9D333
+        call BuildAutoLines
         imul edx, dword [dword edi+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
         xor esi, esi
-        call sub_D0C88
+        call RemoveListEntry
         mov edx, dword [dword_1CC2AC]
         jmp short .11
 .9:
@@ -8784,14 +8831,15 @@ sub_CE53C:
         jl short .9
         mov edx, dword [dword ebp+03E2h]
         mov eax, dword [byte ebp+07Ah]
-        call sub_CD7B7
+        call ClampRosterScroll
 .12:
         lea esp, [dword ebp+03E6h]
         jmp near ShowTradeRejected_108
 ;-----------------------------------------------------------------------------
-; sub_CE730                                                       CE730  97 PC
+; CompareShorts                                   CE730  97 PC, low confidence
+; Compares two 16-bit values (sort helper)
 ;-----------------------------------------------------------------------------
-sub_CE730:
+CompareShorts:
         push ebx
         movsx ebx, word [eax]
         movsx eax, word [edx]
@@ -8799,9 +8847,10 @@ sub_CE730:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CE73B                                                       CE73B  97 PC
+; SaveTrades                                      CE73B  97 PC, low confidence
+; Saves the trades to the league
 ;-----------------------------------------------------------------------------
-sub_CE73B:
+SaveTrades:
         push ebx
         push ecx
         push edx
@@ -8837,7 +8886,7 @@ sub_CE73B:
         add edx, 8FEh
         add edx, eax
         mov eax, dword [dword_16D66C]
-        call sub_92F25
+        call SaveTradesLink
         movsx edx, word [byte ebp-04h]
         imul edx, byte 38h
         mov eax, dword [dword_16D66C]
@@ -8896,7 +8945,7 @@ sub_CE73B:
         add edx, 1B5Ah
         add edx, eax
         mov eax, dword [dword_16D66C]
-        call sub_92F25
+        call SaveTradesLink
         movsx edx, word [byte ebp-04h]
         imul edx, byte 38h
         mov eax, dword [dword_16D66C]
@@ -8955,7 +9004,7 @@ sub_CE73B:
         add eax, 1D8Eh
         add edx, eax
         mov eax, dword [dword_16D66C]
-        call sub_92F25
+        call SaveTradesLink
         movsx ebx, word [byte ebp-04h]
         imul ebx, byte 38h
         mov eax, dword [dword_16D66C]
@@ -9014,7 +9063,7 @@ sub_CE73B:
         add edx, 2FEAh
         add edx, eax
         mov eax, dword [dword_16D66C]
-        call sub_92F25
+        call SaveTradesLink
         movsx edx, word [byte ebp-04h]
         imul edx, byte 38h
         mov eax, dword [dword_16D66C]
@@ -9075,7 +9124,7 @@ sub_CE73B:
 .17:
         cmp dword [dword_1CC2A4], byte 0
         jle short .20
-        mov ecx, sub_CE730
+        mov ecx, CompareShorts
         mov ebx, 2
         mov edx, dword [dword_1CC2A4]
         mov eax, dword [dword_1CC2A8]
@@ -9087,14 +9136,14 @@ sub_CE73B:
         movsx edx, word [edx+eax*2]
         mov eax, dword [dword_16D66C]
         inc dword [byte ebp-0Ch]
-        call sub_92EE2
+        call SaveAgentsOnly
 .19:
         mov eax, dword [byte ebp-0Ch]
         cmp eax, dword [dword_1CC2A4]
         jl short .18
 .20:
         test esi, esi
-        je near sub_CF255_157
+        je near DrawRatingBars_157
         mov dword [byte ebp-0Ch], 0
         jmp short .23
 .21:
@@ -9103,18 +9152,19 @@ sub_CE73B:
         imul eax, dword 194Fh
         mov edx, dword [dword_16D670]
         add eax, edx
-        call sub_E0415
+        call UpdateGameRecord
 .22:
         inc dword [byte ebp-0Ch]
 .23:
         mov eax, dword [byte ebp-0Ch]
         cmp eax, dword [dword_1CC230]
         jl short .21
-        jmp near sub_CF255_157
+        jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
-; sub_CEBC0                                                       CEBC0  97 PC
+; ResetExhibitionRosters                          CEBC0  97 PC, low confidence
+; Resets the exhibition rosters
 ;-----------------------------------------------------------------------------
-sub_CEBC0:
+ResetExhibitionRosters:
         push ebx
         push edx
         xor edx, edx
@@ -9134,16 +9184,17 @@ sub_CEBC0:
         mov eax, dword_16D66C
         call FreeExhibitionFile
         mov eax, dword_16D66C
-        call sub_E12EF
+        call ResetExhibitionStats
         mov dword [dword_1CC2A4], 0
 .3:
         pop edx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CEC15                                                       CEC15  97 PC
+; ShowCreatePlayerHelp                            CEC15  97 PC, low confidence
+; Shows the create player help line
 ;-----------------------------------------------------------------------------
-sub_CEC15:
+ShowCreatePlayerHelp:
         push ebx
         push ecx
         push edx
@@ -9164,7 +9215,7 @@ sub_CEC15:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
 .2:
         mov eax, esi
         pop esi
@@ -9286,9 +9337,10 @@ DrawCreatePlayerName_12B:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_CED89                                                       CED89  97 PC
+; DrawCreatePlayerPanel                           CED89  97 PC, low confidence
+; Draws the create player panel
 ;-----------------------------------------------------------------------------
-sub_CED89:
+DrawCreatePlayerPanel:
         push ecx
         push esi
         push edi
@@ -9333,11 +9385,11 @@ sub_CED89:
         push unk_166E9D
         push ebx
         push dword [byte ebp-0Ch]
-sub_CED89_83:
+DrawCreatePlayerPanel_83:
         push byte 0
         call DrawTextAligned
         add esp, byte 14h
-sub_CED89_8D:
+DrawCreatePlayerPanel_8D:
         call sub_1013FC
         leave
         pop edi
@@ -9478,9 +9530,10 @@ DrawCreatePlayerHand:
         mov dword [byte esi+01Eh], eax
         jmp near DrawCreatePlayerPosition_B1
 ;-----------------------------------------------------------------------------
-; sub_CEF6E                                                       CEF6E  97 PC
+; DrawCreatePlayerLabel                           CEF6E  97 PC, low confidence
+; Draws a create player label
 ;-----------------------------------------------------------------------------
-sub_CEF6E:
+DrawCreatePlayerLabel:
         push esi
         push edi
         enter 8, 0
@@ -9582,7 +9635,7 @@ DrawCreatePlayerHeight:
 .1:
         mov eax, esi
         mov edi, 64h
-        call sub_816BC
+        call InchesToCm
         mov esi, eax
         cdq
         idiv edi
@@ -9602,7 +9655,7 @@ DrawCreatePlayerHeight:
         push byte 0
         call DrawTextAligned
         add esp, byte 18h
-        jmp near sub_CED89_8D
+        jmp near DrawCreatePlayerPanel_8D
 ;-----------------------------------------------------------------------------
 ; DrawCreatePlayerWeight                          CF0CD  97 PC, low confidence
 ; Create player screen: the weight field ("%d pounds")
@@ -9646,7 +9699,7 @@ DrawCreatePlayerWeight:
         movsx eax, word [byte edi+05Bh]
         test byte [dword_1AC814], 0Ch
         je short .1
-        call sub_816A4
+        call PoundsToKg
 .1:
         push eax
         mov eax, 0EDh
@@ -9654,11 +9707,12 @@ DrawCreatePlayerWeight:
         push eax
         push ebx
         push dword [byte ebp-04h]
-        jmp near sub_CED89_83
+        jmp near DrawCreatePlayerPanel_83
 ;-----------------------------------------------------------------------------
-; sub_CF162                                                       CF162  97 PC
+; DrawCreatePlayerAge                             CF162  97 PC, low confidence
+; Draws the created player's age
 ;-----------------------------------------------------------------------------
-sub_CF162:
+DrawCreatePlayerAge:
         push ecx
         push esi
         push edi
@@ -9669,7 +9723,7 @@ sub_CF162:
         lea ebx, [byte ebp-08h]
         movzx eax, word [dword edx+0B9h]
         lea edx, [byte ebp-04h]
-        call sub_DB7B1
+        call AgeFromBirthDate
         movsx eax, word [byte ebp-04h]
         mov edx, 7CDh
         sub edx, eax
@@ -9706,11 +9760,12 @@ sub_CF162:
         push unk_166E9D
         push ebx
         push dword [byte ebp-014h]
-        jmp near sub_CED89_83
+        jmp near DrawCreatePlayerPanel_83
 ;-----------------------------------------------------------------------------
-; sub_CF1FF                                                       CF1FF  97 PC
+; DrawRatingBarSlot                               CF1FF  97 PC, low confidence
+; Draws one rating bar slot
 ;-----------------------------------------------------------------------------
-sub_CF1FF:
+DrawRatingBarSlot:
         push ebx
         push ecx
         push edx
@@ -9732,15 +9787,16 @@ sub_CF1FF:
         push dword [dword_1CC1D0]
 .2:
         mov eax, 70h
-        call sub_CFFAB
+        call DrawRatingBar
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CF255                                                       CF255  97 PC
+; DrawRatingBars                                  CF255  97 PC, low confidence
+; Draws the rating bars
 ;-----------------------------------------------------------------------------
-sub_CF255:
+DrawRatingBars:
         push ebx
         push ecx
         push edx
@@ -9808,7 +9864,7 @@ sub_CF255:
         mov edx, dword [byte eax+026h]
         mov ebx, esi
         mov dword [byte ebp-08h], edx
-        call sub_CA44C
+        call InitListBox
         push byte 6
         mov edx, dword [byte ebp-08h]
         mov ecx, dword [byte ebp-01Ch]
@@ -9825,7 +9881,7 @@ sub_CF255:
         mov ebx, esi
         add edx, dword [byte ebp-014h]
         mov dword [byte ebp-010h], 0FFFFFFFFh
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [dword_1CC1FC]
         push byte 6
         add eax, dword [byte ebp-0Ch]
@@ -9834,7 +9890,7 @@ sub_CF255:
         mov edx, dword [byte eax+026h]
         mov dword [byte ebp-08h], 1B1h
 .7:
-        call sub_CA44C
+        call InitListBox
         push dword [byte ebp-010h]
         mov ecx, dword [byte ebp-020h]
         push byte 5Fh
@@ -9843,16 +9899,16 @@ sub_CF255:
         push edi
         mov edx, esi
         inc dword [byte ebp-04h]
-        call sub_CFFAB
+        call DrawRatingBar
 .8:
         mov eax, dword [byte ebp-04h]
         cmp eax, dword [byte ebp-018h]
         jl near .3
-sub_CF255_152:
-        call sub_CF1FF
-sub_CF255_157:
+DrawRatingBars_152:
+        call DrawRatingBarSlot
+DrawRatingBars_157:
         leave
-sub_CF255_158:
+DrawRatingBars_158:
         pop edi
         pop esi
         pop edx
@@ -9860,9 +9916,10 @@ sub_CF255_158:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CF3B3                                                       CF3B3  97 PC
+; DrawRatingValues                                CF3B3  97 PC, low confidence
+; Draws the rating values
 ;-----------------------------------------------------------------------------
-sub_CF3B3:
+DrawRatingValues:
         push ebx
         push ecx
         push edx
@@ -9874,7 +9931,7 @@ sub_CF3B3:
         mov dword [byte ebp-030h], eax
         xor esi, esi
         cmp eax, dword [dword_1CC1F4]
-        jle short sub_CF255_157
+        jle short DrawRatingBars_157
         mov eax, 1
         mov ebx, 0Bh
         mov dword [byte ebp-024h], 4
@@ -9996,7 +10053,7 @@ sub_CF3B3:
         inc eax
         mov dword [dword_1CC1F4], eax
         test esi, esi
-        je near sub_CF255_157
+        je near DrawRatingBars_157
         add edi, byte 0Ah
         imul eax, edi, byte 5Fh
         mov ecx, 19h
@@ -10024,7 +10081,7 @@ sub_CF3B3:
         mov edx, dword [byte eax+026h]
         mov ebx, esi
         mov dword [byte ebp-08h], edx
-        call sub_CA44C
+        call InitListBox
         push byte 6
         mov edx, dword [byte ebp-08h]
         mov ecx, dword [byte ebp-014h]
@@ -10042,7 +10099,7 @@ sub_CF3B3:
         mov ebx, esi
         inc edx
         mov dword [byte ebp-020h], 0FFFFFFFFh
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [dword_1CC1FC]
         push byte 6
         add eax, dword [byte ebp-028h]
@@ -10051,7 +10108,7 @@ sub_CF3B3:
         mov edx, dword [byte eax+026h]
         mov dword [byte ebp-08h], 1B1h
 .13:
-        call sub_CA44C
+        call InitListBox
         push dword [byte ebp-020h]
         push byte 5Fh
         mov ecx, dword [byte ebp-034h]
@@ -10059,17 +10116,18 @@ sub_CF3B3:
         push edi
         mov eax, dword [byte ebp-08h]
         mov edx, esi
-        call sub_CFFAB
-        jmp near sub_CF255_152
+        call DrawRatingBar
+        jmp near DrawRatingBars_152
 ;-----------------------------------------------------------------------------
-; sub_CF626                                                       CF626  97 PC
+; DrawRatingPanel                                 CF626  97 PC, low confidence
+; Draws the rating panel
 ;-----------------------------------------------------------------------------
-sub_CF626:
+DrawRatingPanel:
         push ebx
         push ecx
         push edx
         enter 8, 0
-        call sub_CF3B3
+        call DrawRatingValues
         mov eax, dword [tickcount]
         mov ebx, eax
         cmp eax, dword [dword_16D678]
@@ -10107,9 +10165,10 @@ sub_CF626:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CF6A3                                                       CF6A3  97 PC
+; DrawCreatePlayerField                           CF6A3  97 PC, low confidence
+; Draws a create player field
 ;-----------------------------------------------------------------------------
-sub_CF6A3:
+DrawCreatePlayerField:
         push ecx
         push esi
         push edi
@@ -10130,7 +10189,7 @@ sub_CF6A3:
 .1:
         mov eax, ebx
         mov ecx, 64h
-        call sub_816BC
+        call InchesToCm
         mov ebx, eax
         cdq
         idiv ecx
@@ -10156,20 +10215,21 @@ sub_CF6A3:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CF70F                                                       CF70F  97 PC
+; DrawCreatePlayerText                            CF70F  97 PC, low confidence
+; Draws a create player text line
 ;-----------------------------------------------------------------------------
-sub_CF70F:
+DrawCreatePlayerText:
         push ecx
         add eax, 96h
         test byte [dword_1AC814], 0Ch
         je short .1
-        call sub_816A4
+        call PoundsToKg
 .1:
         push eax
         mov eax, 0EDh
         call GetLangText
         push eax
-sub_CF70F_20:
+DrawCreatePlayerText_20:
         push ebx
         push edx
         push byte 1
@@ -10178,14 +10238,15 @@ sub_CF70F_20:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_CF73D                                                       CF73D  97 PC
+; DrawCreatePlayerNameLine                        CF73D  97 PC, low confidence
+; Draws the created player's name
 ;-----------------------------------------------------------------------------
-sub_CF73D:
+DrawCreatePlayerNameLine:
         push ecx
         add eax, byte 12h
         push eax
         push unk_166E9D
-        jmp short sub_CF70F_20
+        jmp short DrawCreatePlayerText_20
 ;-----------------------------------------------------------------------------
 ; CreatePlayerScreen                           CF749  96 PC, medium confidence
 ; The create player screen (GOL0, NME0-2 name, NUM0-2 number buttons, random
@@ -10223,7 +10284,7 @@ CreatePlayerScreen:
         call _dos_getdate_
         mov eax, dword [dword_1CC1D4]
         mov dword [byte ebp+06Eh], 1
-        call sub_CD037
+        call ClearPlayerRecord
         mov dword [dword_1CC1E4], 0A8h
         mov dword [dword_1CC1DC], 0A8h
         mov dword [dword_1CC1D0], 6Ch
@@ -10235,10 +10296,10 @@ CreatePlayerScreen:
         lea edx, [byte ebp-01Ah]
         mov dword [dword_1CC1E0], eax
         lea eax, [dword ebp-0136h]
-        call sub_D096D
+        call NewSkaterRecord
         lea edx, [byte ebp+01Eh]
         lea eax, [dword ebp-0252h]
-        call sub_D0ABE
+        call NewGoalieRecord
         test byte [dword ebp-025Ah], 1
         je short .1
         mov byte [dword ebp-0134h], 4Ch
@@ -10264,7 +10325,7 @@ CreatePlayerScreen:
         mov eax, dword [byte ebp+072h]
         lea edx, [dword ebp-0136h]
         add eax, 148h
-        call sub_CED89
+        call DrawCreatePlayerPanel
         mov eax, dword [byte ebp+072h]
         mov ebx, dword [byte ebp+066h]
         lea edx, [dword ebp-0136h]
@@ -10279,7 +10340,7 @@ CreatePlayerScreen:
         mov ebx, dword [byte ebp+066h]
         lea edx, [dword ebp-0136h]
         add eax, 334h
-        call sub_CF162
+        call DrawCreatePlayerAge
         mov eax, dword [tickcount]
         mov dword [dword_1CC1F4], eax
         jmp near .33
@@ -10293,7 +10354,7 @@ CreatePlayerScreen:
         mov edx, 14h
         mov ebx, eax
         lea eax, [dword ebp-0A5h]
-        call sub_7FE38
+        call EditTextField
         lea edx, [dword ebp-0A5h]
         lea eax, [dword ebp-01C1h]
         call strcpy_
@@ -10303,7 +10364,7 @@ CreatePlayerScreen:
         mov ebx, dword [byte ebp+05Eh]
         lea edx, [dword ebp-0136h]
         add eax, dword [byte ebp+072h]
-        call sub_CEF6E
+        call DrawCreatePlayerLabel
         jmp near .33
 .4:
         cmp dword [byte ebp+05Ah], byte 2
@@ -10315,21 +10376,21 @@ CreatePlayerScreen:
 .5:
         cmp dword [byte ebp+05Ah], byte 0
         ja short .6
-        call sub_7EEB0
+        call ShowScreen
         push byte 1
         mov ecx, 1
         mov edx, 2
         mov eax, 0EEh
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         mov edi, eax
         test eax, eax
         je near .33
         mov dword [byte ebp+06Eh], 0
         jmp near .33
 .6:
-        call sub_7EDF0
+        call FadeInScreen
         movsx eax, word [dword ebp-0DBh]
         sar eax, 4
         mov byte [dword ebp-0EBh], al
@@ -10349,11 +10410,11 @@ CreatePlayerScreen:
 .8:
         rep movsd
         mov eax, dword [dword ebp-0256h]
-        call sub_CEC15
+        call ShowCreatePlayerHelp
         mov edi, eax
         jmp near .33
 .9:
-        call sub_7EF70
+        call ExitScreen
         jmp near .33
 .10:
         push byte 1
@@ -10363,7 +10424,7 @@ CreatePlayerScreen:
         call GetLangText
         mov ebx, eax
         lea eax, [dword ebp-0BFh]
-        call sub_7FE38
+        call EditTextField
         cmp byte [dword ebp-0BFh], 0
         je short .12
         push byte 1
@@ -10374,7 +10435,7 @@ CreatePlayerScreen:
         lea esi, [dword ebp-0CFh]
         mov ebx, eax
         mov eax, esi
-        call sub_7FE38
+        call EditTextField
         cmp byte [dword ebp-0CFh], 0
         je short .11
         lea edx, [dword ebp-0BFh]
@@ -10422,7 +10483,7 @@ CreatePlayerScreen:
         mov ebx, dword [byte ebp+066h]
         lea edx, [dword ebp-0136h]
         add eax, dword [byte ebp+072h]
-        call sub_CED89
+        call DrawCreatePlayerPanel
         jmp near .33
 .17:
         xor esi, eax
@@ -10483,10 +10544,10 @@ CreatePlayerScreen:
         call DrawCreatePlayerHand
         mov eax, dword [byte ebp+072h]
         add eax, 386h
-        call sub_D00F1
+        call SetupCreatePlayerLists
         call SetScreenTarget
         mov eax, dword [byte ebp+05Eh]
-        call sub_CF255
+        call DrawRatingBars
         call sub_1013FC
         jmp near .33
 .26:
@@ -10509,10 +10570,10 @@ CreatePlayerScreen:
         movsx esi, word [dword ebp-0DDh]
         mov eax, 0F2h
         mov ecx, 0Dh
-        mov edx, sub_CF6A3
+        mov edx, DrawCreatePlayerField
         lea ebx, [byte esi-042h]
         call GetLangText
-        call sub_816E8
+        call PlayerBioScreen
         lea esi, [byte eax+042h]
         imul eax, dword [byte ebp+05Ah], byte 52h
         mov ebx, dword [byte ebp+066h]
@@ -10526,10 +10587,10 @@ CreatePlayerScreen:
         movsx esi, word [dword ebp-0DBh]
         mov eax, 15Bh
         mov ecx, 6Ah
-        mov edx, sub_CF70F
+        mov edx, DrawCreatePlayerText
         lea ebx, [dword esi-096h]
         call GetLangText
-        call sub_816E8
+        call PlayerBioScreen
         lea esi, [dword eax+096h]
         imul eax, dword [byte ebp+05Ah], byte 52h
         mov ebx, dword [byte ebp+066h]
@@ -10544,16 +10605,16 @@ CreatePlayerScreen:
         lea ecx, [byte ebp+076h]
         lea ebx, [byte ebp+07Ah]
         lea edx, [byte ebp+07Eh]
-        call sub_DB7B1
+        call AgeFromBirthDate
         movsx esi, word [byte ebp+07Eh]
         mov eax, 7CDh
         sub eax, esi
         lea ebx, [byte eax-012h]
         mov ecx, 17h
         mov eax, 0F4h
-        mov edx, sub_CF73D
+        mov edx, DrawCreatePlayerNameLine
         call GetLangText
-        call sub_816E8
+        call PlayerBioScreen
         lea esi, [byte eax+012h]
         mov eax, 7CDh
         movsx ebx, word [byte ebp+076h]
@@ -10561,7 +10622,7 @@ CreatePlayerScreen:
         movsx edx, word [byte ebp+07Ah]
         mov dword [byte ebp+07Eh], eax
         cwde
-        call sub_DB763
+        call DaysToYear
         mov word [byte ebp-07Dh], ax
         mov word [dword ebp-0199h], ax
         imul eax, dword [byte ebp+05Ah], byte 52h
@@ -10569,18 +10630,18 @@ CreatePlayerScreen:
         lea edx, [dword ebp-0136h]
         add eax, dword [byte ebp+072h]
 .32:
-        call sub_CF162
+        call DrawCreatePlayerAge
 .33:
         test edi, edi
         jne near .37
         push byte 3
         lea eax, [byte ebp+05Ah]
-        mov ecx, sub_CF626
+        mov ecx, DrawRatingPanel
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, dword [byte ebp+072h]
         mov eax, 28h
-        call sub_8BFAC
+        call RunMenu
         mov edx, eax
         mov esi, eax
         cmp dword [byte ebp+05Ah], byte 5
@@ -10599,13 +10660,13 @@ CreatePlayerScreen:
         push dword [dword_1CC1F0]
         call FreeMemBlock
         add esp, byte 4
-        call sub_84068
+        call ShowStatsScreen
         cmp dword [dword_16DA9C], byte 0
         sete al
         movzx edx, al
         mov eax, 0EAh
         call PlayScreenMovie
-        call sub_84570
+        call ChangeMenuMusic
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
@@ -10654,10 +10715,10 @@ CreatePlayerScreen:
         cmp esi, byte 0Bh
         jl short .35
         mov eax, dword [byte ebp+05Eh]
-        call sub_CF255
+        call DrawRatingBars
         xor edx, edx
         mov eax, dword [byte ebx+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push ebx
         call FreeBitmap
         mov eax, dword [byte ebp+072h]
@@ -10672,7 +10733,7 @@ CreatePlayerScreen:
         mov ebx, dword [byte ebp+066h]
         lea edx, [dword ebp-0136h]
         add eax, 148h
-        call sub_CED89
+        call DrawCreatePlayerPanel
         mov eax, dword [byte ebp+072h]
         mov ebx, dword [byte ebp+05Eh]
         lea edx, [dword ebp-0136h]
@@ -10689,7 +10750,7 @@ CreatePlayerScreen:
         mov ebx, dword [byte ebp+05Eh]
         lea edx, [dword ebp-0136h]
         add eax, 23Eh
-        call sub_CEF6E
+        call DrawCreatePlayerLabel
         mov eax, dword [byte ebp+072h]
         mov ebx, dword [byte ebp+066h]
         lea edx, [dword ebp-0136h]
@@ -10727,7 +10788,7 @@ CreatePlayerScreen:
         call FreeMemBlock
         add esp, byte 4
 .40:
-        call sub_84024
+        call FreeStatsBitmap
         push dword [byte ebp+06Ah]
         call FreeMemBlock
         add esp, byte 4
@@ -10737,9 +10798,10 @@ CreatePlayerScreen:
         add esp, byte 4
         jmp near DrawRosterList_86F
 ;-----------------------------------------------------------------------------
-; sub_CFFAB                                                       CFFAB  97 PC
+; DrawRatingBar                                   CFFAB  97 PC, low confidence
+; Draws one rating bar
 ;-----------------------------------------------------------------------------
-sub_CFFAB:
+DrawRatingBar:
         push esi
         push edi
         enter 14h, 0
@@ -10835,11 +10897,12 @@ sub_CFFAB:
 .6:
         call FillRect
         add esp, byte 14h
-        jmp near sub_CE111_61
+        jmp near RemoveFromLines_61
 ;-----------------------------------------------------------------------------
-; sub_D0098                                                       D0098  97 PC
+; InitShapeListBox                                D0098  97 PC, low confidence
+; Sets up a list box with its shapes
 ;-----------------------------------------------------------------------------
-sub_D0098:
+InitShapeListBox:
         push esi
         push edi
         enter 4, 0
@@ -10869,12 +10932,13 @@ sub_D0098:
         movsx edx, word [byte ebx+0Ch]
         mov ebx, eax
         mov eax, esi
-        call sub_CA44C
+        call InitListBox
         jmp near DrawCreatePlayerName_12B
 ;-----------------------------------------------------------------------------
-; sub_D00F1                                                       D00F1  97 PC
+; SetupCreatePlayerLists                          D00F1  97 PC, low confidence
+; Sets up the create player list boxes
 ;-----------------------------------------------------------------------------
-sub_D00F1:
+SetupCreatePlayerLists:
         push ebx
         push ecx
         push edx
@@ -10904,7 +10968,7 @@ sub_D00F1:
         add edi, dword [byte ebp-020h]
         mov edx, dword [byte ebp-010h]
         mov eax, edi
-        call sub_CA44C
+        call InitListBox
         mov dword [byte edi+022h], 0
         mov edx, dword [byte edi+022h]
         mov dword [byte edi+01Eh], edx
@@ -10919,7 +10983,7 @@ sub_D00F1:
         add edi, dword [byte ebp-020h]
         sub edx, dword [byte ebp-01Ch]
         mov eax, edi
-        call sub_CA44C
+        call InitListBox
         mov dword [byte edi+022h], 0
         mov edx, dword [byte edi+022h]
         inc dword [byte ebp-04h]
@@ -10944,7 +11008,7 @@ sub_D00F1:
         mov edx, dword [byte ebp-010h]
         mov eax, edi
         add edx, dword [byte ebp-01Ch]
-        call sub_CA44C
+        call InitListBox
         mov dword [byte edi+022h], 0
         mov edx, dword [byte edi+022h]
         mov dword [byte edi+01Eh], edx
@@ -10959,7 +11023,7 @@ sub_D00F1:
         add edi, dword [byte ebp-020h]
         sub edx, dword [byte ebp-0Ch]
         mov eax, edi
-        call sub_CA44C
+        call InitListBox
         mov dword [byte edi+022h], 0
         mov edx, dword [byte edi+022h]
         inc dword [byte ebp-04h]
@@ -10968,7 +11032,7 @@ sub_D00F1:
         mov dword [byte edi+01Ah], edx
         cmp dword [byte ebp-04h], byte 7
         jl short .2
-        jmp near sub_CF255_157
+        jmp near DrawRatingBars_157
 .3:
         mov edx, dword [byte ebp-0Ch]
         sar edx, 1
@@ -10982,7 +11046,7 @@ sub_D00F1:
         add edi, dword [byte ebp-020h]
         mov edx, dword [byte ebp-010h]
         mov eax, edi
-        call sub_CA44C
+        call InitListBox
         mov dword [byte edi+022h], 0
         mov edx, dword [byte edi+022h]
         mov dword [byte edi+01Eh], edx
@@ -10997,7 +11061,7 @@ sub_D00F1:
         add edi, dword [byte ebp-020h]
         add edx, dword [byte ebp-01Ch]
         mov eax, edi
-        call sub_CA44C
+        call InitListBox
         mov dword [byte edi+022h], 0
         mov edx, dword [byte edi+022h]
         mov dword [byte edi+01Eh], edx
@@ -11021,7 +11085,7 @@ sub_D00F1:
         add edi, dword [byte ebp-020h]
         sub edx, dword [byte ebp-018h]
         mov eax, edi
-        call sub_CA44C
+        call InitListBox
         mov dword [byte edi+022h], 0
         mov edx, dword [byte edi+022h]
         mov dword [byte edi+01Eh], edx
@@ -11036,7 +11100,7 @@ sub_D00F1:
         add edi, dword [byte ebp-020h]
         sub edx, dword [byte ebp-0Ch]
         mov eax, edi
-        call sub_CA44C
+        call InitListBox
         mov dword [byte edi+022h], 0
         mov edx, dword [byte edi+022h]
         mov dword [byte edi+01Eh], edx
@@ -11054,7 +11118,7 @@ sub_D00F1:
         add edi, dword [byte ebp-020h]
         mov edx, 280h
         mov eax, edi
-        call sub_CA44C
+        call InitListBox
         mov dword [byte edi+022h], 0
         mov edx, dword [byte edi+022h]
         mov dword [byte edi+01Eh], edx
@@ -11068,7 +11132,7 @@ sub_D00F1:
         add edi, edx
         mov edx, 280h
         mov eax, edi
-        call sub_CA44C
+        call InitListBox
         mov dword [byte edi+022h], 0
         mov edx, dword [byte edi+022h]
         mov dword [byte edi+01Eh], edx
@@ -11076,7 +11140,7 @@ sub_D00F1:
         mov dword [byte edi+01Ah], edx
         cmp esi, byte 0Eh
         jl short .5
-        jmp near sub_CF255_157
+        jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
 ; InitCreatePlayerScreen                          D0397  97 PC, low confidence
 ; From CreatePlayerScreen: menu items and art (TITL, NA / JN name and jersey
@@ -11171,7 +11235,7 @@ InitCreatePlayerScreen:
         add eax, 0F6h
         movsx edx, word [byte edi+0Ch]
         mov dword [byte ebp-010h], eax
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [byte ebp-010h]
         mov eax, dword [byte eax+014h]
         mov dword [byte eax+08h], 280h
@@ -11233,7 +11297,7 @@ InitCreatePlayerScreen:
         mov dword [byte edx+01Eh], eax
         mov eax, dword [byte ebp-018h]
         mov edx, edi
-        call sub_D0098
+        call InitShapeListBox
         mov eax, dword [byte edi+014h]
         mov dword [byte eax+08h], 280h
         mov edx, dword [byte ebp-08h]
@@ -11253,7 +11317,7 @@ InitCreatePlayerScreen:
         mov ebx, str_GOOF
 .3:
         mov eax, dword [byte ebp-018h]
-        call sub_D0098
+        call InitShapeListBox
         imul eax, dword [byte ebp-04h], byte 52h
         add eax, dword [byte ebp-08h]
         mov edx, dword [byte eax+014h]
@@ -11275,7 +11339,7 @@ InitCreatePlayerScreen:
         mov ebx, str_GLOF
 .5:
         mov eax, dword [byte ebp-0Ch]
-        call sub_D0098
+        call InitShapeListBox
         imul eax, dword [byte ebp-04h], byte 52h
         add eax, dword [byte ebp-08h]
         mov edx, dword [byte eax+014h]
@@ -11318,7 +11382,7 @@ InitCreatePlayerScreen:
         add eax, dword [byte ebp-038h]
         movsx edx, word [byte edi+0Ch]
         mov dword [byte ebp-014h], eax
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [byte ebp-014h]
         mov eax, dword [byte eax+014h]
         mov dword [byte eax+08h], 280h
@@ -11381,7 +11445,7 @@ InitCreatePlayerScreen:
         add esi, dword [byte ebp-08h]
         mov eax, dword [byte ebp-0Ch]
         mov edx, esi
-        call sub_D0098
+        call InitShapeListBox
         mov eax, dword [byte esi+014h]
         mov dword [byte eax+08h], 280h
         inc dword [byte ebp-04h]
@@ -11394,7 +11458,7 @@ InitCreatePlayerScreen:
         add esi, dword [byte ebp-08h]
         mov eax, dword [byte ebp-0Ch]
         mov edx, esi
-        call sub_D0098
+        call InitShapeListBox
         mov eax, dword [byte esi+014h]
         mov dword [byte eax+08h], 280h
         inc dword [byte ebp-04h]
@@ -11407,7 +11471,7 @@ InitCreatePlayerScreen:
         add esi, dword [byte ebp-08h]
         mov eax, dword [byte ebp-0Ch]
         mov edx, esi
-        call sub_D0098
+        call InitShapeListBox
         mov eax, dword [byte esi+014h]
         mov dword [byte eax+08h], 280h
         mov eax, dword [byte esi+014h]
@@ -11427,12 +11491,12 @@ InitCreatePlayerScreen:
         mov ebx, eax
         mov edx, eax
         mov esi, unk_1C5EF8
-        call sub_7E860
+        call DrawScreenBackground
         mov ebx, 64h
         mov edx, 0Ah
         mov eax, dword [byte ebp-01Ch]
         mov ecx, 52h
-        call sub_83D4C
+        call DrawStatsBackground
         rep movsb
         mov eax, dword [byte ebp-08h]
         mov ecx, 52h
@@ -11458,7 +11522,7 @@ InitCreatePlayerScreen:
         imul eax, dword [byte ebp-04h], byte 52h
         add eax, dword [byte ebp-08h]
         mov dword [byte ebp-04h], 0
-        call sub_D00F1
+        call SetupCreatePlayerLists
 .6:
         imul esi, dword [byte ebp-04h], byte 52h
         add esi, dword [byte ebp-08h]
@@ -11474,11 +11538,11 @@ InitCreatePlayerScreen:
         cmp dword [byte ebp-04h], byte 0Bh
         jl short .6
         mov eax, dword [byte ebp-0Ch]
-        call sub_CF255
+        call DrawRatingBars
         mov eax, dword [byte ebp-024h]
         xor edx, edx
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push dword [byte ebp-024h]
         call FreeBitmap
         mov edx, dword [byte ebp-02Ch]
@@ -11491,7 +11555,7 @@ InitCreatePlayerScreen:
         mov edx, dword [byte ebp-01Ch]
         add esp, byte 4
         mov dword [eax], edx
-        jmp near sub_CE111_61
+        jmp near RemoveFromLines_61
         push ebx
         push ecx
         mov ebx, edx
@@ -11507,14 +11571,15 @@ InitCreatePlayerScreen:
         call FreeMemBlock
         add esp, byte 4
 .9:
-        call sub_84024
+        call FreeStatsBitmap
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D096D                                                       D096D  97 PC
+; NewSkaterRecord                                 D096D  97 PC, low confidence
+; Fills a new skater record
 ;-----------------------------------------------------------------------------
-sub_D096D:
+NewSkaterRecord:
         push ebx
         push ecx
         push esi
@@ -11558,7 +11623,7 @@ sub_D096D:
         mov word [byte ecx+059h], 4Ah
         lea eax, [byte ecx+038h]
         mov word [byte ecx+05Bh], 0C8h
-        call sub_D0BD8
+        call PlayerOverall
         mov byte [byte ecx+05Eh], 0
         mov byte [byte ecx+067h], 0
         mov byte [byte ecx+077h], 0
@@ -11569,7 +11634,7 @@ sub_D096D:
         mov byte [byte ecx+05Dh], al
         mov eax, 7B2h
         mov byte [dword ecx+091h], 0
-        call sub_DB763
+        call DaysToYear
         mov ebx, 2Eh
         mov word [dword ecx+0BBh], 7C6h
         xor edx, edx
@@ -11605,16 +11670,17 @@ sub_D096D:
         mov dword [byte esi+030h], eax
         lea eax, [byte ecx+04Dh]
         mov dword [byte esi+034h], eax
-sub_D096D_146:
+NewSkaterRecord_146:
         mov byte [dword ecx+011Bh], 60h
         pop esi
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D0ABE                                                       D0ABE  97 PC
+; NewGoalieRecord                                 D0ABE  97 PC, low confidence
+; Fills a new goalie record
 ;-----------------------------------------------------------------------------
-sub_D0ABE:
+NewGoalieRecord:
         push ebx
         push ecx
         push esi
@@ -11654,7 +11720,7 @@ sub_D0ABE:
         mov word [byte ecx+055h], 4Ah
         xor edx, edx
         mov word [byte ecx+057h], 0C8h
-        call sub_D0BD8
+        call PlayerOverall
         mov byte [byte ecx+05Ah], 0
         mov byte [byte ecx+067h], 0
         mov byte [byte ecx+077h], 0
@@ -11665,7 +11731,7 @@ sub_D0ABE:
         mov byte [byte ecx+059h], al
         mov eax, 7B2h
         mov byte [dword ecx+091h], 0
-        call sub_DB763
+        call DaysToYear
         mov ebx, 2Eh
         mov word [dword ecx+0BBh], 7C6h
         xor edx, edx
@@ -11691,11 +11757,12 @@ sub_D0ABE:
         mov dword [byte esi+01Ch], eax
         lea eax, [byte ecx+04Dh]
         mov dword [byte esi+020h], eax
-        jmp near sub_D096D_146
+        jmp near NewSkaterRecord_146
 ;-----------------------------------------------------------------------------
-; sub_D0BD8                                                       D0BD8  97 PC
+; PlayerOverall                                   D0BD8  97 PC, low confidence
+; Works out a player's overall rating
 ;-----------------------------------------------------------------------------
-sub_D0BD8:
+PlayerOverall:
         push ebx
         push ecx
         test edx, edx
@@ -11777,9 +11844,10 @@ sub_D0BD8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D0C88                                                       D0C88  97 PC
+; RemoveListEntry                                 D0C88  97 PC, low confidence
+; Removes an entry from a list
 ;-----------------------------------------------------------------------------
-sub_D0C88:
+RemoveListEntry:
         push ebx
         push ecx
         push edx
@@ -11789,7 +11857,7 @@ sub_D0C88:
         mov ebp, esp
         push eax
         test eax, eax
-        je near sub_CF255_157
+        je near DrawRatingBars_157
         mov edi, eax
         mov esi, eax
         mov ecx, 36h
@@ -11828,7 +11896,7 @@ sub_D0C88:
         add edx, 18A7h
         add eax, 0C5Dh
         call memmove_
-        jmp near sub_CF255_157
+        jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
 ; CompareFirstDword                            D0D56  97 PC, medium confidence
 ; Qsort compare: the first dword of the two entries, ascending
@@ -11851,9 +11919,10 @@ CompareFirstDword:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D0D71                                                       D0D71  97 PC
+; CompareTeamGoalsFor                             D0D71  97 PC, low confidence
+; Sort helper: compares the first team stat (goals for, probably)
 ;-----------------------------------------------------------------------------
-sub_D0D71:
+CompareTeamGoalsFor:
         push ebx
         mov ebx, dword [byte eax+04h]
         cmp ebx, dword [byte edx+04h]
@@ -11871,9 +11940,10 @@ sub_D0D71:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D0D8E                                                       D0D8E  97 PC
+; CompareTeamGoalsAgainst                         D0D8E  97 PC, low confidence
+; Sort helper: compares the second team stat (goals against, probably)
 ;-----------------------------------------------------------------------------
-sub_D0D8E:
+CompareTeamGoalsAgainst:
         push ebx
         mov ebx, dword [byte eax+08h]
         cmp ebx, dword [byte edx+08h]
@@ -11891,9 +11961,10 @@ sub_D0D8E:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D0DAB                                                       D0DAB  97 PC
+; CompareTeamPowerPlay                            D0DAB  97 PC, low confidence
+; Sort helper: compares the third team stat (power play, probably)
 ;-----------------------------------------------------------------------------
-sub_D0DAB:
+CompareTeamPowerPlay:
         push ebx
         mov ebx, dword [byte eax+0Ch]
         cmp ebx, dword [byte edx+0Ch]
@@ -11911,9 +11982,10 @@ sub_D0DAB:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D0DC8                                                       D0DC8  97 PC
+; CompareTeamPenaltyKill                          D0DC8  97 PC, low confidence
+; Sort helper: compares the fourth team stat (penalty kill, probably)
 ;-----------------------------------------------------------------------------
-sub_D0DC8:
+CompareTeamPenaltyKill:
         push ebx
         mov ebx, dword [byte eax+010h]
         cmp ebx, dword [byte edx+010h]
@@ -11931,9 +12003,10 @@ sub_D0DC8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D0DE5                                                       D0DE5  97 PC
+; CompareTeamShots                                D0DE5  97 PC, low confidence
+; Sort helper: compares the fifth team stat (shots, probably)
 ;-----------------------------------------------------------------------------
-sub_D0DE5:
+CompareTeamShots:
         push ebx
         mov ebx, dword [byte eax+014h]
         cmp ebx, dword [byte edx+014h]
@@ -11951,9 +12024,10 @@ sub_D0DE5:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D0E02                                                       D0E02  97 PC
+; ComparePlayerGoals                              D0E02  97 PC, low confidence
+; Sort helper: compares players by goals (probably)
 ;-----------------------------------------------------------------------------
-sub_D0E02:
+ComparePlayerGoals:
         push ebx
         mov bx, word [byte eax+01Eh]
         cmp bx, word [byte edx+01Eh]
@@ -11971,9 +12045,10 @@ sub_D0E02:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D0E21                                                       D0E21  97 PC
+; ComparePlayerAssists                            D0E21  97 PC, low confidence
+; Sort helper: compares players by assists (probably)
 ;-----------------------------------------------------------------------------
-sub_D0E21:
+ComparePlayerAssists:
         push ebx
         mov bx, word [byte eax+020h]
         cmp bx, word [byte edx+020h]
@@ -11991,9 +12066,10 @@ sub_D0E21:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D0E40                                                       D0E40  97 PC
+; CompareGoalieAverage                            D0E40  97 PC, low confidence
+; Sort helper: compares goalies by games and save rate
 ;-----------------------------------------------------------------------------
-sub_D0E40:
+CompareGoalieAverage:
         push ebx
         push ecx
         mov ecx, 3E8h
@@ -12024,9 +12100,10 @@ sub_D0E40:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D0E81                                                       D0E81  97 PC
+; ComparePlayerOffence                            D0E81  97 PC, low confidence
+; Sort helper: compares players by their offence ratings
 ;-----------------------------------------------------------------------------
-sub_D0E81:
+ComparePlayerOffence:
         push ebx
         push ecx
         movzx ecx, byte [byte eax+01Ah]
@@ -12057,9 +12134,10 @@ sub_D0E81:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D0EBE                                                       D0EBE  97 PC
+; ComparePlayerDefence                            D0EBE  97 PC, low confidence
+; Sort helper: compares players by their defence ratings
 ;-----------------------------------------------------------------------------
-sub_D0EBE:
+ComparePlayerDefence:
         push ebx
         push ecx
         push esi
@@ -12098,8 +12176,8 @@ sub_D0EBE:
         ret
 ;-----------------------------------------------------------------------------
 ; BuildTradePlayerLists                           D0F07  97 PC, low confidence
-; From the roster screen (sub_CE73B): allocates and sorts "aiplayers",
-; "statplayers" and "statgoalies" (qsort with sub_D0D56-sub_D0EBE)
+; From the roster screen (SaveTrades): allocates and sorts "aiplayers",
+; "statplayers" and "statgoalies" (qsort with sub_D0D56-ComparePlayerDefence)
 ;-----------------------------------------------------------------------------
 BuildTradePlayerLists:
         push ebx
@@ -12165,11 +12243,11 @@ BuildTradePlayerLists:
         add edi, eax
         add edx, dword [byte ebp-08h]
         lea eax, [byte edi+028h]
-        call sub_E0841
+        call FindPlayerStat
         imul edx, ebx, byte 3Dh
         lea eax, [byte edi+020h]
         add edx, dword [byte ebp-0Ch]
-        call sub_E0D0F
+        call FindTeamStat
         inc ebx
 .8:
         movsx eax, word [dword esi+0D05h]
@@ -12185,13 +12263,13 @@ BuildTradePlayerLists:
         add edx, dword [byte ebp-010h]
         add eax, byte 20h
         inc ebx
-        call sub_E0D0F
+        call FindTeamStat
 .10:
         movsx eax, word [dword esi+01281h]
         cmp ebx, eax
         jl short .9
         imul eax, dword [byte ebp-04h], byte 1Ch
-        mov ecx, sub_D0E02
+        mov ecx, ComparePlayerGoals
         mov ebx, 3Dh
         mov dword [dword eax+ebp-0360h], 0
         mov eax, dword [byte ebp-0Ch]
@@ -12232,7 +12310,7 @@ BuildTradePlayerLists:
         movsx edx, word [dword esi+0D05h]
         cmp eax, edx
         jl short .13
-        mov ecx, sub_D0EBE
+        mov ecx, ComparePlayerDefence
         mov eax, dword [byte ebp-08h]
         mov dword [dword ebx+ebp-035Ch], 0
         mov ebx, 27h
@@ -12296,7 +12374,7 @@ BuildTradePlayerLists:
         movsx edx, word [dword esi+0D05h]
         cmp eax, edx
         jl short .17
-        mov ecx, sub_D0E81
+        mov ecx, ComparePlayerOffence
         mov eax, dword [byte ebp-08h]
         mov dword [dword ebx+ebp-0358h], 0
         mov ebx, 27h
@@ -12355,7 +12433,7 @@ BuildTradePlayerLists:
         movsx edx, word [dword esi+0D05h]
         cmp eax, edx
         jl short .21
-        mov ecx, sub_D0E40
+        mov ecx, CompareGoalieAverage
         mov ebx, 3Dh
         mov dword [dword edi+ebp-0354h], 0
         mov eax, dword [byte ebp-010h]
@@ -12401,7 +12479,7 @@ BuildTradePlayerLists:
         mov dword [dword edi+ebp-0354h], 0
 .24:
         imul eax, dword [byte ebp-04h], byte 1Ch
-        mov ecx, sub_D0E21
+        mov ecx, ComparePlayerAssists
         mov ebx, 3Dh
         mov dword [dword eax+ebp-0350h], 0
         mov eax, dword [byte ebp-0Ch]
@@ -12472,7 +12550,7 @@ BuildTradePlayerLists:
         mov eax, dword [byte ebp-04h]
         cmp eax, dword [dword_1CC230]
         jl short .30
-        mov ecx, sub_D0D71
+        mov ecx, CompareTeamGoalsFor
         mov ebx, 1Ch
         lea eax, [dword ebp-0360h]
         mov edx, dword [dword_1CC230]
@@ -12491,7 +12569,7 @@ BuildTradePlayerLists:
         mov eax, dword [byte ebp-04h]
         cmp eax, dword [dword_1CC230]
         jl short .32
-        mov ecx, sub_D0D8E
+        mov ecx, CompareTeamGoalsAgainst
         mov ebx, 1Ch
         lea eax, [dword ebp-0360h]
         mov edx, dword [dword_1CC230]
@@ -12510,7 +12588,7 @@ BuildTradePlayerLists:
         mov eax, dword [byte ebp-04h]
         cmp eax, dword [dword_1CC230]
         jl short .34
-        mov ecx, sub_D0DAB
+        mov ecx, CompareTeamPowerPlay
         mov ebx, 1Ch
         lea eax, [dword ebp-0360h]
         mov edx, dword [dword_1CC230]
@@ -12529,7 +12607,7 @@ BuildTradePlayerLists:
         mov eax, dword [byte ebp-04h]
         cmp eax, dword [dword_1CC230]
         jl short .36
-        mov ecx, sub_D0DC8
+        mov ecx, CompareTeamPenaltyKill
         mov ebx, 1Ch
         lea eax, [dword ebp-0360h]
         mov edx, dword [dword_1CC230]
@@ -12548,7 +12626,7 @@ BuildTradePlayerLists:
         mov eax, dword [byte ebp-04h]
         cmp eax, dword [dword_1CC230]
         jl short .38
-        mov ecx, sub_D0DE5
+        mov ecx, CompareTeamShots
         mov ebx, 1Ch
         lea eax, [dword ebp-0360h]
         mov edx, dword [dword_1CC230]
@@ -12584,7 +12662,7 @@ BuildTradePlayerLists:
         push dword [byte ebp-010h]
         call FreeMemBlock
         add esp, byte 4
-        jmp near sub_CF255_157
+        jmp near DrawRatingBars_157
 unk_D15D1:
         db 078h,078h,030h,030h,078h,078h,030h,031h,078h,078h,030h,032h,078h,078h,030h,033h
         db 078h,078h,031h,030h,078h,078h,031h,031h,078h,078h,031h,032h,00h

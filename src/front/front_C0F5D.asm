@@ -16,22 +16,23 @@ extern dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dwo
 extern dword_1CB100, dword_1CB104, dword_1CBB88, off_16D5F7, sprintf_, strcat_, strcpy_, strlen_
 extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32
 extern sub_106D80, sub_106F64, sub_106F94, ConvertArtXY, ConvertArtKeepPos, sub_11BDC0, SetScreenTarget, MusicEnabled
-extern LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, sub_7DA28
-extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, SetTextColor
-extern DrawTextAligned, sub_7F29C, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_83C08
-extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC
-extern sub_8DF1F, GetLangText, OptionsScreen, sub_CA44C, sub_D0098, sub_E341C, sub_E4218, sub_E4230
-extern sub_E77B1, ControlSetupScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, sub_FCEEC, DrawArt
+extern LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, ShadeShape
+extern DrawShadedLogo, DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetRegionRect, SetTextColor
+extern DrawTextAligned, DrawFrameBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText, ShowPopupScreen
+extern InitMenuItems, RunMenu, InitScrollList, ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse
+extern RunScrollList, GetLangText, OptionsScreen, InitListBox, InitShapeListBox, ServiceIdle, LinkSyncMenu, LinkSyncScreen
+extern OptionsAnimScreen, ControlSetupScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, sub_FCEEC, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C
-global jpt_C36A2, sub_C0F5D_60E, sub_C1577_73D, sub_C1577_73E, sub_C2633_42, DetailLevelScreen_A25, DetailLevelScreen_A36, DetailLevelScreen_A93
-global DetailLevelScreen_B18, DetailLevelScreen_B7E, DetailLevelScreen_C26, DetailLevelScreen_C86, DetailLevelScreen_CE6, DetailLevelScreen_D46, sub_C0F5D, sub_C1577
-global sub_C1CBB, sub_C1D5B, sub_C23E6, sub_C248B, ExportHistoryCsv, sub_C2633, sub_C267B, sub_C271D
-global sub_C27D8, sub_C2A49, sub_C2BB2, sub_C2D94, sub_C2F86, sub_C3088, sub_C3142, sub_C31FE
-global sub_C32B0, RunOptionsScreens, DetailLevelScreen
+global jpt_C36A2, HistoryScreen_60E, DrawHistoryScreen_73D, DrawHistoryScreen_73E, HistoryLineWidth_42, DetailLevelScreen_A25, DetailLevelScreen_A36, DetailLevelScreen_A93
+global DetailLevelScreen_B18, DetailLevelScreen_B7E, DetailLevelScreen_C26, DetailLevelScreen_C86, DetailLevelScreen_CE6, DetailLevelScreen_D46, HistoryScreen, DrawHistoryScreen
+global FindHistoryTeam, BuildHistoryList, HistoryEntryText, ShowHistoryArt, ExportHistoryCsv, HistoryLineWidth, WrapHistoryText, HistoryLabel
+global DrawHistoryText, DrawHistoryPopup, DrawHistoryList, DrawHistoryTrophy, HistoryTrophySound, AnimateHistoryTrophy, DrawTrophyShine, DrawTrophySparkle
+global ShowHistoryDetails, RunOptionsScreens, DetailLevelScreen
 ;-----------------------------------------------------------------------------
-; sub_C0F5D                                                       C0F5D  97 PC
+; HistoryScreen                                   C0F5D  97 PC, low confidence
+; Runs the league history screen
 ;-----------------------------------------------------------------------------
-sub_C0F5D:
+HistoryScreen:
         push ebx
         push ecx
         push edx
@@ -66,7 +67,7 @@ sub_C0F5D:
         lea eax, [byte ebp+026h]
         mov dword [dword_1CB0F8], 0
         mov dword [dword_1CB074], eax
-        call sub_81650
+        call SetHighlightText
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -92,23 +93,23 @@ sub_C0F5D:
         add esp, byte 0Ch
         mov dword [dword_1CB0E8], eax
         lea eax, [dword ebp-0D66h]
-        call sub_C1577
+        call DrawHistoryScreen
         mov eax, dword [dword_1CB0E8]
         xor edx, edx
         mov eax, dword [byte eax+02Ch]
         xor esi, esi
-        call sub_80BBC
+        call WipeScreen
         jmp near .9
 .2:
         push byte 3
         lea eax, [byte ebp+07Eh]
-        mov ecx, sub_C3088
+        mov ecx, AnimateHistoryTrophy
         mov ebx, 0FFFFFFFFh
         push eax
         lea edx, [dword ebp-019E6h]
         mov eax, 0Ch
 .3:
-        call sub_8BFAC
+        call RunMenu
         lea ebx, [byte esi+01h]
         cmp dword [byte ebp+07Eh], byte 5
         jb short .5
@@ -144,7 +145,7 @@ sub_C0F5D:
         je short .9
         lea eax, [dword ebp-0160Eh]
         mov dword [dword_1CB088], 0
-        call sub_C1CBB
+        call FindHistoryTeam
         call SetScreenTarget
         mov eax, dword [dword_1CB0C8]
         movsx edx, word [byte eax+0Eh]
@@ -181,33 +182,33 @@ sub_C0F5D:
         jne near .2
         push byte 3
         lea eax, [byte ebp+07Eh]
-        mov ecx, sub_C2D94
+        mov ecx, DrawHistoryTrophy
         mov ebx, 0FFFFFFFFh
         push eax
         lea edx, [dword ebp-019E6h]
         mov eax, 27h
         jmp near .3
 .10:
-        call sub_7EEB0
+        call ShowScreen
         mov edi, 1Ah
         mov esi, ebx
         jmp short .9
 .11:
-        call sub_81678
-        call sub_7EF70
-        call sub_81650
+        call SetNormalText
+        call ExitScreen
+        call SetHighlightText
         jmp short .9
 .12:
         lea edx, [dword ebp-019E6h]
         mov edi, 64h
         add eax, edx
         mov esi, ebx
-        call sub_83C08
+        call ShowPopupScreen
         jmp short .9
 .13:
         cmp dword [dword_1CB0C4], byte 0
         je short .9
-        call sub_C2BB2
+        call DrawHistoryList
         push dword [dword_1CB0E8]
         mov dword [dword_1CB0C4], 0
         call SetDrawTarget
@@ -218,11 +219,11 @@ sub_C0F5D:
         add esp, byte 4
         xor edx, edx
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         cmp dword [dword_1CB0F8], byte 0
         je short .14
         lea eax, [dword ebp-0216h]
-        call sub_8DE7E
+        call FreeScrollList
         mov dword [dword_1CB0F8], 0
 .14:
         push dword [dword_1CB098]
@@ -235,7 +236,7 @@ sub_C0F5D:
         add esp, byte 4
         lea eax, [dword ebp-0160Eh]
         mov dword [dword_1CB088], 0
-        call sub_C1CBB
+        call FindHistoryTeam
         jmp near .9
 .15:
         mov ebx, dword [dword eax+ebp-019CCh]
@@ -253,7 +254,7 @@ sub_C0F5D:
         mov ebx, dword [dword eax+ebp-019C0h]
         push dword [dword_1CB0E4]
         mov eax, 1Ah
-        call sub_8DF1F
+        call RunScrollList
         mov ebx, eax
         cmp eax, dword [dword_1CB0F4]
         je near .9
@@ -263,9 +264,9 @@ sub_C0F5D:
         jge near .9
         mov edx, 1
 .16:
-        call sub_C248B
+        call ShowHistoryArt
         mov eax, ebx
-        call sub_C32B0
+        call ShowHistoryDetails
         jmp near .9
 .17:
         cmp dword [dword_1CB0C4], byte 0
@@ -274,11 +275,11 @@ sub_C0F5D:
         je near .9
         lea eax, [dword ebp-0216h]
         xor edx, edx
-        call sub_8DE10
+        call ScrollUp
 .18:
         mov eax, dword [dword ebp-01F2h]
 .19:
-        call sub_C27D8
+        call DrawHistoryText
         jmp near .9
 .20:
         cmp dword [dword_1CB0C4], byte 0
@@ -288,7 +289,7 @@ sub_C0F5D:
         mov ebx, eax
         xor edx, edx
         lea eax, [dword ebp-0216h]
-        call sub_8DEAC
+        call ScrollToMouse
         mov eax, dword [dword_1CB100]
         cmp eax, dword [dword ebp-01F2h]
         je near .9
@@ -302,14 +303,14 @@ sub_C0F5D:
         je near .9
         lea eax, [dword ebp-0216h]
         xor edx, edx
-        call sub_8DE68
+        call ScrollDown
         jmp short .18
 .22:
         cmp dword [dword_1CB0C4], byte 0
         jne near .9
         lea eax, [dword ebp-0160Eh]
         mov dword [dword_1CB088], 1
-        call sub_C1CBB
+        call FindHistoryTeam
         call SetScreenTarget
         push dword [dword_1CB0C8]
         call BlitShape
@@ -332,7 +333,7 @@ sub_C0F5D:
         je near .9
         lea eax, [dword ebp-0160Eh]
         mov dword [dword_1CB088], 0
-        call sub_C1CBB
+        call FindHistoryTeam
         call SetScreenTarget
         mov eax, dword [dword_1CB0C8]
         movsx edx, word [byte eax+0Eh]
@@ -347,7 +348,7 @@ sub_C0F5D:
         push edx
         jmp near .7
 .25:
-        call sub_81678
+        call SetNormalText
         cmp dword [dword_1CB08C], byte 0
         je short .26
         mov dword [dword_1CB08C], 0
@@ -357,7 +358,7 @@ sub_C0F5D:
         cmp dword [dword_1CB0F8], byte 0
         je short .27
         lea eax, [dword ebp-0216h]
-        call sub_8DE7E
+        call FreeScrollList
         mov dword [dword_1CB0F8], 0
 .27:
         cmp dword [dword_1CB098], byte 0
@@ -393,14 +394,15 @@ sub_C0F5D:
         call LoadFrontEndSfx
 .30:
         mov eax, edi
-sub_C0F5D_60E:
+HistoryScreen_60E:
         lea esp, [dword ebp+082h]
         pop ebp
-        jmp near sub_C1577_73E
+        jmp near DrawHistoryScreen_73E
 ;-----------------------------------------------------------------------------
-; sub_C1577                                                       C1577  97 PC
+; DrawHistoryScreen                               C1577  97 PC, low confidence
+; Draws the league history screen
 ;-----------------------------------------------------------------------------
-sub_C1577:
+DrawHistoryScreen:
         push ebx
         push ecx
         push edx
@@ -443,7 +445,7 @@ sub_C1577:
         call sub_101EAC
         add esp, byte 10h
         inc dword [byte ebp-04h]
-        call sub_80808
+        call FreeLogoArt
         cmp dword [byte ebp-04h], byte 1Ah
         jl short .1
         push str_POPM
@@ -514,7 +516,7 @@ sub_C1577:
         xor ebx, ebx
         mov eax, dword [dword_1CB0E0]
         xor edx, edx
-        call sub_CA44C
+        call InitListBox
         push dword [dword_1CB0E8]
         call SetDrawTarget
         add esp, byte 4
@@ -570,7 +572,7 @@ sub_C1577:
         add esp, byte 8
         mov ebx, eax
         mov edx, eax
-        call sub_7E860
+        call DrawScreenBackground
         mov esi, dword [dword_1CB0E0]
         mov ecx, 52h
         lea edi, [dword esi+0334h]
@@ -591,7 +593,7 @@ sub_C1577:
         mov edx, dword [dword_1CB0E0]
         mov eax, dword [dword_1CB0FC]
         add edx, 0A4h
-        call sub_D0098
+        call InitShapeListBox
         push str_LB003
         mov ecx, str_LD00
         mov ebx, str_LB003
@@ -599,7 +601,7 @@ sub_C1577:
         mov eax, dword [dword_1CB104]
         add edx, 148h
         mov dword [byte ebp-04h], 0
-        call sub_D0098
+        call InitShapeListBox
 .3:
         push dword [byte ebp-04h]
         push str_LB02d4
@@ -631,7 +633,7 @@ sub_C1577:
         mov eax, dword [dword_1CB0E0]
         add eax, 3D8h
         mov dword [byte ebp-04h], 0
-        call sub_C1D5B
+        call BuildHistoryList
         mov dword [dword_1CB0A8], 0FFFFFFFFh
         mov dword [dword_1CB080], 0FFFFFFFFh
 .4:
@@ -701,7 +703,7 @@ sub_C1577:
         push byte 0
         xor ecx, ecx
         mov eax, dword [byte eax+02Ch]
-        call sub_7DFC0
+        call DrawShadedLogo
         mov eax, dword [dword_1CB0BC]
         push dword [eax+esi*4]
         call SetDrawTarget
@@ -741,7 +743,7 @@ sub_C1577:
         mov eax, dword [dword_1CB0E8]
         mov ebx, 8
         mov eax, dword [byte eax+02Ch]
-        call sub_7DA28
+        call ShadeShape
         mov eax, dword [dword_1CB0BC]
         mov eax, dword [eax+esi*4]
         mov edx, dword [dword_1CB0C8]
@@ -883,9 +885,9 @@ sub_C1577:
         push dword [byte eax+024h]
         call BlitShape
         add esp, byte 4
-sub_C1577_73D:
+DrawHistoryScreen_73D:
         leave
-sub_C1577_73E:
+DrawHistoryScreen_73E:
         pop edi
         pop esi
         pop edx
@@ -893,9 +895,10 @@ sub_C1577_73E:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C1CBB                                                       C1CBB  97 PC
+; FindHistoryTeam                                 C1CBB  97 PC, low confidence
+; Finds a team in the history list
 ;-----------------------------------------------------------------------------
-sub_C1CBB:
+FindHistoryTeam:
         push ebx
         push ecx
         push edx
@@ -964,9 +967,10 @@ sub_C1CBB:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C1D5B                                                       C1D5B  97 PC
+; BuildHistoryList                                C1D5B  97 PC, low confidence
+; Builds the history list
 ;-----------------------------------------------------------------------------
-sub_C1D5B:
+BuildHistoryList:
         push ebx
         push ecx
         push edx
@@ -1278,7 +1282,7 @@ sub_C1D5B:
         lea ebx, [byte ebp+036h]
         mov eax, dword [byte edx+014h]
         lea edx, [byte ebp-02Ah]
-        call sub_C23E6
+        call HistoryEntryText
 .17:
         inc edi
         inc ecx
@@ -1352,7 +1356,7 @@ sub_C1D5B:
         mov eax, dword [byte edx+014h]
         lea edx, [byte ebp+036h]
         add eax, dword [byte ebp+076h]
-        call sub_C23E6
+        call HistoryEntryText
 .26:
         inc edi
         inc ecx
@@ -1429,7 +1433,7 @@ sub_C1D5B:
         mov eax, dword [byte edx+014h]
         lea edx, [byte ebp+016h]
         add eax, dword [byte ebp+072h]
-        call sub_C23E6
+        call HistoryEntryText
 .35:
         inc edi
         inc ecx
@@ -1504,7 +1508,7 @@ sub_C1D5B:
         mov eax, dword [byte edx+014h]
         lea edx, [byte ebp-0Ah]
         add eax, dword [byte ebp+06Eh]
-        call sub_C23E6
+        call HistoryEntryText
 .44:
         inc edi
         inc ecx
@@ -1566,12 +1570,13 @@ sub_C1D5B:
         cmp esi, byte 1Bh
         jl near .1
         mov eax, dword [byte ebp-03Eh]
-        call sub_C1CBB
-        jmp near sub_C0F5D_60E
+        call FindHistoryTeam
+        jmp near HistoryScreen_60E
 ;-----------------------------------------------------------------------------
-; sub_C23E6                                                       C23E6  97 PC
+; HistoryEntryText                                C23E6  97 PC, low confidence
+; Formats a history entry
 ;-----------------------------------------------------------------------------
-sub_C23E6:
+HistoryEntryText:
         push ecx
         push esi
         push edi
@@ -1640,9 +1645,10 @@ sub_C23E6:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C248B                                                       C248B  97 PC
+; ShowHistoryArt                                  C248B  97 PC, low confidence
+; Shows the history art
 ;-----------------------------------------------------------------------------
-sub_C248B:
+ShowHistoryArt:
         push ebx
         push ecx
         mov ebx, edx
@@ -1701,7 +1707,7 @@ ExportHistoryCsv:
         mov edx, str_CSV
         lea eax, [byte ebp-050h]
         call strcat_
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         lea eax, [byte ebp-050h]
         push eax
@@ -1788,11 +1794,12 @@ ExportHistoryCsv:
         mov ebx, edx
         mov dword [eax+ebx*4], 0
         mov eax, edx
-        jmp near sub_C1577_73D
+        jmp near DrawHistoryScreen_73D
 ;-----------------------------------------------------------------------------
-; sub_C2633                                                       C2633  97 PC
+; HistoryLineWidth                                C2633  97 PC, low confidence
+; Returns the width of a history line
 ;-----------------------------------------------------------------------------
-sub_C2633:
+HistoryLineWidth:
         push ebx
         push ecx
         push edx
@@ -1810,14 +1817,14 @@ sub_C2633:
         xor ebx, ebx
         mov eax, dword [eax+edx*4]
         lea edx, [byte ebp-040h]
-        call sub_C267B
+        call WrapHistoryText
         cmp byte [byte ebp-040h], 48h
         je short .2
         cmp esi, dword [dword_1CB094]
         jl short .1
 .2:
         lea eax, [byte esi+01h]
-sub_C2633_42:
+HistoryLineWidth_42:
         leave
         pop esi
         pop edx
@@ -1825,9 +1832,10 @@ sub_C2633_42:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C267B                                                       C267B  97 PC
+; WrapHistoryText                                 C267B  97 PC, low confidence
+; Wraps a history text line
 ;-----------------------------------------------------------------------------
-sub_C267B:
+WrapHistoryText:
         push esi
         push edi
         enter 8, 0
@@ -1910,9 +1918,10 @@ sub_C267B:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_C271D                                                       C271D  97 PC
+; HistoryLabel                                    C271D  97 PC, low confidence
+; Returns a history label text
 ;-----------------------------------------------------------------------------
-sub_C271D:
+HistoryLabel:
         push edx
         mov edx, eax
         movzx eax, byte [eax]
@@ -1989,9 +1998,10 @@ sub_C271D:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C27D8                                                       C27D8  97 PC
+; DrawHistoryText                                 C27D8  97 PC, low confidence
+; Draws the history text
 ;-----------------------------------------------------------------------------
-sub_C27D8:
+DrawHistoryText:
         push ebx
         push ecx
         push edx
@@ -2031,7 +2041,7 @@ sub_C27D8:
         xor ebx, edi
         lea edx, [byte ebp-060h]
         mov eax, dword [byte ebp-020h]
-        call sub_C267B
+        call WrapHistoryText
         mov ebx, eax
         cmp byte [byte ebp-060h], 48h
         je short .2
@@ -2046,7 +2056,7 @@ sub_C27D8:
         mov eax, dword [eax+edx*4]
         lea edx, [byte ebp-060h]
         mov dword [byte ebp-04h], 0
-        call sub_C267B
+        call WrapHistoryText
         mov ebx, eax
         jmp short .6
 .3:
@@ -2055,10 +2065,10 @@ sub_C27D8:
         mov ecx, dword [byte ebp-0Ch]
         mov eax, dword [edx+eax*4]
         lea edx, [byte ebp-060h]
-        call sub_C267B
+        call WrapHistoryText
         mov ebx, eax
         lea eax, [byte ebp-060h]
-        call sub_C271D
+        call HistoryLabel
         mov edx, eax
         mov eax, dword [byte ebp-04h]
         shl eax, 2
@@ -2122,7 +2132,7 @@ sub_C27D8:
         xor ebx, ebx
         mov ecx, dword [byte ebp-010h]
         mov eax, dword [eax]
-        call sub_C267B
+        call WrapHistoryText
         mov ebx, eax
         cmp byte [byte ebp-060h], 49h
         jne near .13
@@ -2132,7 +2142,7 @@ sub_C27D8:
         lea edx, [byte ebp-060h]
         mov eax, dword [eax]
         mov dword [byte ebp-04h], 0
-        call sub_C267B
+        call WrapHistoryText
         mov ebx, eax
         jmp short .12
 .9:
@@ -2143,7 +2153,7 @@ sub_C27D8:
         mov ecx, dword [byte ebp-0Ch]
         mov eax, dword [edx+eax*4]
         lea edx, [byte ebp-060h]
-        call sub_C267B
+        call WrapHistoryText
         mov ebx, eax
         mov eax, dword [byte ebp-04h]
         shl eax, 2
@@ -2190,15 +2200,16 @@ sub_C27D8:
         add esp, byte 0Ch
         call sub_1013FC
         cmp dword [dword_1CB0F8], byte 0
-        je near sub_C1577_73D
+        je near DrawHistoryScreen_73D
         mov eax, dword [dword_1CB0F0]
         xor edx, edx
         call DrawScrollBar
-        jmp near sub_C1577_73D
+        jmp near DrawHistoryScreen_73D
 ;-----------------------------------------------------------------------------
-; sub_C2A49                                                       C2A49  97 PC
+; DrawHistoryPopup                                C2A49  97 PC, low confidence
+; Draws the history popup
 ;-----------------------------------------------------------------------------
-sub_C2A49:
+DrawHistoryPopup:
         push ebx
         push ecx
         push edx
@@ -2294,7 +2305,7 @@ sub_C2A49:
         mov eax, dword [tickcount]
         cmp eax, dword [byte ebp-0Ch]
         jge short .3
-        call sub_E341C
+        call ServiceIdle
         jmp short .2
 .3:
         dec ebx
@@ -2313,12 +2324,13 @@ sub_C2A49:
         push str_MB042
         add edx, 0F6h
         mov ebx, ecx
-        call sub_D0098
-        jmp near sub_C1577_73D
+        call InitShapeListBox
+        jmp near DrawHistoryScreen_73D
 ;-----------------------------------------------------------------------------
-; sub_C2BB2                                                       C2BB2  97 PC
+; DrawHistoryList                                 C2BB2  97 PC, low confidence
+; Draws the history list
 ;-----------------------------------------------------------------------------
-sub_C2BB2:
+DrawHistoryList:
         push ebx
         push ecx
         push edx
@@ -2414,7 +2426,7 @@ sub_C2BB2:
         mov eax, dword [tickcount]
         cmp eax, dword [byte ebp-0Ch]
         jge short .3
-        call sub_E341C
+        call ServiceIdle
         jmp short .2
 .3:
         inc edi
@@ -2442,7 +2454,7 @@ sub_C2BB2:
         xor ebx, ebx
         add eax, 0F6h
         mov edi, 7
-        call sub_CA44C
+        call InitListBox
 .5:
         imul esi, edi, byte 52h
         mov ebx, dword [dword_1CB0E0]
@@ -2459,14 +2471,15 @@ sub_C2BB2:
         xor ebx, ebx
         add eax, esi
         inc edi
-        call sub_CA44C
+        call InitListBox
         cmp edi, byte 9
         jle short .5
-        jmp near sub_C1577_73D
+        jmp near DrawHistoryScreen_73D
 ;-----------------------------------------------------------------------------
-; sub_C2D94                                                       C2D94  97 PC
+; DrawHistoryTrophy                               C2D94  97 PC, low confidence
+; Draws the history trophy
 ;-----------------------------------------------------------------------------
-sub_C2D94:
+DrawHistoryTrophy:
         push ebx
         push ecx
         push edx
@@ -2543,7 +2556,7 @@ sub_C2D94:
         jge short .8
         mov eax, dword [dword_1CB080]
         xor edx, edx
-        call sub_C248B
+        call ShowHistoryArt
 .8:
         mov eax, dword [dword_1CB0C0]
         movsx edx, word [byte eax+0Eh]
@@ -2613,18 +2626,19 @@ sub_C2D94:
         add esi, byte 1Eh
         mov dword [dword_1CB084], esi
 .13:
-        call sub_C2F86
-        call sub_C3142
-        call sub_C31FE
+        call HistoryTrophySound
+        call DrawTrophyShine
+        call DrawTrophySparkle
         pop esi
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C2F86                                                       C2F86  97 PC
+; HistoryTrophySound                              C2F86  97 PC, low confidence
+; Plays a history trophy sound
 ;-----------------------------------------------------------------------------
-sub_C2F86:
+HistoryTrophySound:
         push ebx
         push ecx
         push edx
@@ -2680,17 +2694,18 @@ sub_C2F86:
         mov dword [dword_1CB090], 0
 .4:
         cmp dword [dword_1CB090], byte 0
-        jne near sub_C2633_42
+        jne near HistoryLineWidth_42
         cmp dword [dword_1CB0D4], byte 0
-        je near sub_C2633_42
+        je near HistoryLineWidth_42
         mov eax, 309h
         call PlaySfx
         mov dword [dword_1CB090], 1
-        jmp near sub_C2633_42
+        jmp near HistoryLineWidth_42
 ;-----------------------------------------------------------------------------
-; sub_C3088                                                       C3088  97 PC
+; AnimateHistoryTrophy                            C3088  97 PC, low confidence
+; Animates the history trophy
 ;-----------------------------------------------------------------------------
-sub_C3088:
+AnimateHistoryTrophy:
         push ebx
         push ecx
         push edx
@@ -2737,14 +2752,15 @@ sub_C3088:
 .2:
         mov dword [dword_1CB0D4], 0
 .3:
-        call sub_C2F86
-        call sub_C3142
-        call sub_C31FE
-        jmp near sub_C2633_42
+        call HistoryTrophySound
+        call DrawTrophyShine
+        call DrawTrophySparkle
+        jmp near HistoryLineWidth_42
 ;-----------------------------------------------------------------------------
-; sub_C3142                                                       C3142  97 PC
+; DrawTrophyShine                                 C3142  97 PC, low confidence
+; Draws the trophy shine
 ;-----------------------------------------------------------------------------
-sub_C3142:
+DrawTrophyShine:
         push ebx
         push ecx
         push edx
@@ -2796,9 +2812,10 @@ sub_C3142:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C31FE                                                       C31FE  97 PC
+; DrawTrophySparkle                               C31FE  97 PC, low confidence
+; Draws a random trophy sparkle
 ;-----------------------------------------------------------------------------
-sub_C31FE:
+DrawTrophySparkle:
         push ebx
         push ecx
         push edx
@@ -2857,9 +2874,10 @@ sub_C31FE:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C32B0                                                       C32B0  97 PC
+; ShowHistoryDetails                              C32B0  97 PC, low confidence
+; Shows the details of a history entry
 ;-----------------------------------------------------------------------------
-sub_C32B0:
+ShowHistoryDetails:
         push ebx
         push ecx
         push edx
@@ -2872,7 +2890,7 @@ sub_C32B0:
         je short .2
         mov eax, dword [dword_1CB0F0]
         mov esi, 7
-        call sub_8DE7E
+        call FreeScrollList
 .1:
         imul edx, esi, byte 52h
         mov eax, dword [dword_1CB0E0]
@@ -2889,7 +2907,7 @@ sub_C32B0:
         add eax, edx
         mov edx, 2BCh
         inc esi
-        call sub_CA44C
+        call InitListBox
         cmp esi, byte 0Ah
         jl short .1
         mov dword [dword_1CB0F8], 0
@@ -2913,7 +2931,7 @@ sub_C32B0:
         push edx
         mov edx, 0Ch
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         mov eax, dword [dword_1CB0C0]
         push byte 0
         movsx edx, word [byte eax+06h]
@@ -2927,7 +2945,7 @@ sub_C32B0:
         mov eax, edi
         call ExportHistoryCsv
         mov dword [dword_1CB094], eax
-        call sub_C2633
+        call HistoryLineWidth
         mov edx, dword [dword_1CB094]
         sub edx, eax
         mov dword [dword_1CB09C], edx
@@ -2955,7 +2973,7 @@ sub_C32B0:
         push byte 0
         add edx, 23Eh
         mov eax, dword [dword_1CB0F0]
-        call sub_8D956
+        call InitScrollList
         mov eax, dword [dword_1CB0C0]
         movsx edx, word [byte eax+0Ch]
         movsx eax, word [byte eax+04h]
@@ -3033,13 +3051,13 @@ sub_C32B0:
 .7:
         cmp dword [dword_1CB0C4], byte 0
         jne short .8
-        call sub_C2A49
+        call DrawHistoryPopup
 .8:
         mov eax, dword [dword_1CB0F0]
         mov eax, dword [byte eax+024h]
-        call sub_C27D8
+        call DrawHistoryText
         mov dword [dword_1CB0C4], 1
-        jmp near sub_C1577_73E
+        jmp near DrawHistoryScreen_73E
 ;-----------------------------------------------------------------------------
 ; RunOptionsScreens                               C3594  97 PC, low confidence
 ; From RunFrontEnd (0Ah): runs the options screen and its control set-up
@@ -3067,13 +3085,13 @@ RunOptionsScreens:
         mov edx, eax
         cmp eax, byte 1Ah
         jne short .8
-        call sub_E4218
+        call LinkSyncMenu
         jmp short .8
 .4:
         mov eax, 252h
         mov edx, 1Ah
         call GetLangText
-        call sub_E4230
+        call LinkSyncScreen
         jmp short .8
 .5:
         xor eax, eax
@@ -3097,7 +3115,7 @@ RunOptionsScreens:
         jmp short .6
 .10:
         mov eax, dword [dword_1CBB88]
-        call sub_E77B1
+        call OptionsAnimScreen
         jmp short .7
 .11:
         pop edx
@@ -3161,7 +3179,7 @@ DetailLevelScreen:
         enter 5B4h, 0
         mov edi, eax
         mov dword [byte ebp-0Ch], edx
-        call sub_81678
+        call SetNormalText
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
@@ -3321,7 +3339,7 @@ DetailLevelScreen:
         add esp, byte 4
         xor edx, edx
         xor eax, eax
-        call sub_7F29C
+        call DrawFrameBox
         mov eax, 1F9h
         call GetLangText
         push eax
@@ -3344,7 +3362,7 @@ DetailLevelScreen:
         add esp, byte 4
         xor edx, edx
         xor eax, eax
-        call sub_7F29C
+        call DrawFrameBox
         mov eax, 1FAh
         call GetLangText
         push eax
@@ -3785,7 +3803,7 @@ DetailLevelScreen:
         call PlaySfx
         jmp near .25
 .24:
-        call sub_E341C
+        call ServiceIdle
         push dword [byte ebp-010h]
         call SetDrawTarget
         add esp, byte 4
@@ -3897,7 +3915,7 @@ DetailLevelScreen:
         add esp, byte 8
         mov edx, esi
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         push byte 0
         lea edi, [dword ebp-05B4h]
         mov esi, unk_1C5F4A
@@ -3917,7 +3935,7 @@ DetailLevelScreen:
         add esp, byte 0Ch
         jmp near DetailLevelScreen_A93.31
 DetailLevelScreen_A25:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp-08h], 1
         jmp near DetailLevelScreen_B18
 DetailLevelScreen_A36:
@@ -3991,7 +4009,7 @@ DetailLevelScreen_B18:
         push eax
         xor ecx, ecx
         mov eax, 0Ah
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp-030h], byte 9
         ja short DetailLevelScreen_B18
         mov eax, dword [byte ebp-030h]
@@ -4188,7 +4206,7 @@ DetailLevelScreen_D46:
         call PlaySfx
         jmp near .48
 .47:
-        call sub_E341C
+        call ServiceIdle
         push dword [byte ebp-010h]
         call SetDrawTarget
         add esp, byte 4

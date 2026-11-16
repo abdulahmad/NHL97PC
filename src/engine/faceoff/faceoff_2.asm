@@ -23,14 +23,14 @@ extern qword_16094C, qword_160954, qword_16095C, qword_160964, qword_16096C, qwo
 extern qword_16098C, qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qword_1609B4, qword_1609BC, randomd0
 extern regd1, slotteam, SortIndices, bcopy, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
 extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, sub_101154, sub_1011E8
-extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
+extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, SpeedScale, StickReachX, RemoveOverlayPanel
 extern QueueOverlayPanel, ClearOverlayWindows, FightCameraScene, SetFightCameraReady, FaceoffCameraScene, FaceoffCameraScene2, EndPenShotScene, PenaltyCallCameraScene
 extern LineChangeCommentary, assreplace, assinsert, assexit, ChkPokeOrCheck, Setplass, Goal, CreditPass
 extern CarrierInShotArea, CanReceivePass, StartPass, checkob, AssignControlSlots, ResetFaceoffAssigns, CompLine, StartFaceoffLineChange
 extern FaceoffSwipeAnim, FaceoffDrawAnim, ReachForPuckAnim, DoCheckButton, PlaySfxOr, PlaySfxVolume, SetCrowdMood, CommentaryEvent
-extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
-extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
-extern sub_71D48, sub_71E58, StartFightAnim, sub_76FE8, sub_77F94, clockcont_0, sub_AA588, sub_F9A88
+extern PaEvent, ResetRenderTimers, SetFaceMouth, SetFaceExpression, SetFaceBlink, PickSkateAnim, SetSkateSpeedFromRating, StartWhistleStop
+extern ShotAnimFrames, ObjectFramePos, StopObject, StartShotAnim, StartOneTimerAnim, StartWristShotAnim, StartFightPunch, StartFightBlock
+extern StartFightGrab, StartFightPull, StartFightAnim, SetAnimFrame, RequestPauseMenu, clockcont_0, LogPenalty, sub_F9A88
 extern sub_FAAB4, FreeMemBlock, FillMem, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
 extern unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E, unk_19D5A0, unk_19D5D2, unk_19D668, unk_19E060
 extern unk_19ECC8, unk_19ECE4, unk_1C135C, unk_1C347F, vecdist, vtoa, word_1686D6, word_168E2C
@@ -101,7 +101,7 @@ puckfaceoff:
         cmp byte [eax], 0
         jl short .2
         mov eax, dword [off_168CFC]
-        call sub_69B78
+        call StopObject
 .2:
         mov eax, dword [off_168CF0]
         mov byte [eax], 0FFh
@@ -117,7 +117,7 @@ puckfaceoff:
         test byte [byte_19CBC2], 40h
         je short .6
 .5:
-        call sub_77F94
+        call RequestPauseMenu
         jmp near .33
 .6:
         cmp word [gsp], byte 3
@@ -465,7 +465,7 @@ puckfaceoff:
         db 090h
 ;-----------------------------------------------------------------------------
 ; ChkPenaltyCall                                  2F4B8  97 PC, low confidence
-; From a body check (sub_6DAB0): whether the referee calls a penalty on the
+; From a body check (ResolveBodyCheck): whether the referee calls a penalty on the
 ; hit (skill and energy chance), AddPenalty2, penalty camera (priority 4),
 ; overlay, line update
 ;-----------------------------------------------------------------------------
@@ -591,13 +591,13 @@ ChkPenaltyCall:
         add esp, byte 10h
         mov edx, 2
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CF8
+        call SetFaceBlink
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
         xor ebx, ebx
@@ -1617,7 +1617,7 @@ PickShotTarget:
         mov word [word_19CBDA], ax
 .31:
         mov eax, ebx
-        call sub_6A13C
+        call StartWristShotAnim
         and byte [byte_19CBC8], 0F7h
         add esp, byte 10h
         pop ebp
@@ -1702,7 +1702,7 @@ UpdateShot:
         mov dword [nosplit edx*4+dword_19CC5C], 1
 .7:
         mov eax, ebx
-        call sub_6A0BC
+        call StartOneTimerAnim
         xor edx, edx
         mov eax, dword [off_168CF0]
         mov dl, byte [dword ebx+0A4h]
@@ -1881,7 +1881,7 @@ StartShot:
 .5:
         mov word [word_19CB7C], ax
         mov eax, edx
-        call sub_69F3C
+        call StartShotAnim
         pop edx
         pop ecx
         pop ebx
@@ -1951,7 +1951,7 @@ assshoot:
         mov eax, dword [byte esi+028h]
         lea edx, [byte esp+04h]
         and eax, 0FFFFh
-        call sub_657BF
+        call ShotAnimFrames
         cmp word [word_19CB80], byte 0
         je short .6
         cmp dword [byte esi+04h], byte 4
@@ -4852,7 +4852,7 @@ Stop4Pen:
         cmp dword [dword_1B8FA0], byte 0
         jne short .1
         mov eax, 1
-        call sub_4B8DC
+        call ResetRenderTimers
 .1:
         movsx edx, dx
         lea eax, [nosplit edx*4+00h]
@@ -5847,7 +5847,7 @@ checkfornewpen:
         mov eax, dword [off_168D04]
         or byte [dword eax+0C1h], 2
         mov eax, dword [off_168D04]
-        call sub_650E8
+        call StartWhistleStop
         jmp near .15
 .9:
         push byte 7
@@ -5860,7 +5860,7 @@ checkfornewpen:
         or byte [dword eax+0C1h], 2
         add esp, byte 0Ch
         mov eax, dword [off_168D04]
-        call sub_650E8
+        call StartWhistleStop
 .10:
         movsx eax, dx
         call Stop4Pen
@@ -6453,7 +6453,7 @@ InProgress:
         mov eax, dword [gsp]
         sar edx, 10h
         sar eax, 10h
-        call sub_AA588
+        call LogPenalty
 .19:
         movsx eax, si
         lea eax, [eax+eax*2]
@@ -7170,7 +7170,7 @@ ChkGrabPuckOnSwitch:
         jle short .1
         mov ebx, esp
         mov edx, dword [dword_1BF060]
-        call sub_6619C
+        call ObjectFramePos
         mov ebx, dword [off_168CFC]
         fld dword [byte esp+08h]
         fsub dword [byte ebx+028h]
@@ -8135,7 +8135,7 @@ SetSkateDir:
         faddp
         mov eax, ebx
         fstp dword [byte ebx+038h]
-        call sub_13EB4
+        call StickReachX
         fstp dword [byte esp+08h]
         fld dword [byte ebx+038h]
         fcomp dword [byte esp+08h]
@@ -8596,7 +8596,7 @@ DoShootButton:
         call ShotAimDir
 .1:
         mov word [word_19CB96], 0Ah
-        call sub_13D50
+        call SpeedScale
         call __CHP
         fistp dword [esp]
         mov eax, dword [esp]
@@ -8862,7 +8862,7 @@ OneTimerShot:
         cmp eax, byte 2Dh
         jg short .6
         mov eax, ecx
-        call sub_6A0BC
+        call StartOneTimerAnim
 .6:
         xor edi, edi
         mov word [word_19CBD6], di
@@ -8884,7 +8884,7 @@ OneTimerShot:
         jg near .11
         mov ebx, esp
         lea edx, [byte esp+04h]
-        call sub_657BF
+        call ShotAnimFrames
         mov eax, dword [off_168CFC]
         mov edx, dword [esp]
         mov ebx, dword [byte esp+04h]
@@ -8946,7 +8946,7 @@ OneTimerShot:
         mov eax, dword [byte esi+028h]
         lea edx, [byte esp+04h]
         and eax, 0FFFFh
-        call sub_657BF
+        call ShotAnimFrames
         mov ebp, dword [byte esp+04h]
         test ebp, ebp
         jle short .12
@@ -8959,7 +8959,7 @@ OneTimerShot:
         mov edx, dword [esp]
         mov eax, esi
         dec edx
-        call sub_76FE8
+        call SetAnimFrame
 .12:
         cmp dword [dword_1B8FA0], byte 0
         jne short .13
@@ -10195,7 +10195,7 @@ HumanStickAction:
         cmp dword [byte edx+056h], byte 5
         jge near .20
         mov eax, ebx
-        call sub_71D48
+        call StartFightGrab
         jmp near .20
 .4:
         mov eax, dword [byte esp+08h]
@@ -10204,7 +10204,7 @@ HumanStickAction:
         cmp eax, edi
         jne short .5
         mov eax, edx
-        call sub_71E58
+        call StartFightPull
         mov esp, ebp
         pop ebp
         pop edi
@@ -10217,7 +10217,7 @@ HumanStickAction:
         test al, 10h
         je short .6
         mov eax, ebx
-        call sub_71808
+        call StartFightPunch
         mov esp, ebp
         pop ebp
         pop edi
@@ -10229,7 +10229,7 @@ HumanStickAction:
         test al, 20h
         je near .20
         mov eax, ebx
-        call sub_71ABC
+        call StartFightBlock
         mov esp, ebp
         pop ebp
         pop edi
@@ -10243,7 +10243,7 @@ HumanStickAction:
         cmp dword [byte ebx+05Ah], byte 0
         jl short .8
         mov eax, ebx
-        call sub_71E58
+        call StartFightPull
         mov esp, ebp
         pop ebp
         pop edi
@@ -10267,7 +10267,7 @@ HumanStickAction:
         jge short .10
 .9:
         mov eax, ebx
-        call sub_71E58
+        call StartFightPull
         mov esp, ebp
         pop ebp
         pop edi
@@ -10323,7 +10323,7 @@ HumanStickAction:
         mov eax, dword [off_168CFC]
         mov dword [byte eax+05Ah], 3E8h
         mov eax, ebx
-        call sub_71D48
+        call StartFightGrab
         mov esp, ebp
         pop ebp
         pop edi
@@ -10367,7 +10367,7 @@ HumanStickAction:
         mov eax, dword [off_168CFC]
         mov dword [byte eax+05Ah], 3E8h
         mov eax, ebx
-        call sub_71808
+        call StartFightPunch
         mov esp, ebp
         pop ebp
         pop edi
@@ -10381,7 +10381,7 @@ HumanStickAction:
         mov eax, dword [off_168CFC]
         mov dword [byte eax+05Ah], 3E8h
         mov eax, ebx
-        call sub_71ABC
+        call StartFightBlock
         mov esp, ebp
         pop ebp
         pop edi
@@ -10513,7 +10513,7 @@ assfight:
         mov byte [dword ebx+0C0h], cl
         call assexit
         mov eax, ebx
-        call sub_60F48
+        call PickSkateAnim
         mov eax, dword [dword ebx+0EEh]
         mov dword [byte eax+028h], 0
         test byte [dword esi+0C0h], 1
@@ -10541,7 +10541,7 @@ assfight:
         test byte [byte eax+030h], 4
         jne short .9
         mov eax, ebx
-        call sub_71D48
+        call StartFightGrab
         mov esp, ebp
         pop ebp
         pop edi
@@ -10566,7 +10566,7 @@ assfight:
         test ax, ax
         jne near .22
         mov eax, ebx
-        call sub_71ABC
+        call StartFightBlock
         mov esp, ebp
         pop ebp
         pop edi
@@ -10598,7 +10598,7 @@ assfight:
         jl near .25
 .15:
         mov eax, ebx
-        call sub_71E58
+        call StartFightPull
         mov esp, ebp
         pop ebp
         pop edi
@@ -10660,7 +10660,7 @@ assfight:
         cmp edx, byte 0Ah
         jge short .21
         mov eax, ebx
-        call sub_71D48
+        call StartFightGrab
         mov esp, ebp
         pop ebp
         pop edi
@@ -10674,7 +10674,7 @@ assfight:
         jge short .23
 .22:
         mov eax, ebx
-        call sub_71808
+        call StartFightPunch
         mov esp, ebp
         pop ebp
         pop edi
@@ -10687,7 +10687,7 @@ assfight:
         cmp edx, byte 28h
         jge short .24
         mov eax, ebx
-        call sub_71ABC
+        call StartFightBlock
         mov esp, ebp
         pop ebp
         pop edi
@@ -10786,7 +10786,7 @@ assfwatch:
         mov eax, dword [dword edx+0EEh]
         mov dword [byte eax+018h], 0
         mov eax, edx
-        call sub_650A4
+        call SetSkateSpeedFromRating
         mov eax, dword [dword edx+0EEh]
         and byte [byte eax+028h], 7Fh
         and byte [dword edx+0C1h], 0EFh

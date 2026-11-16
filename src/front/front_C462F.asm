@@ -23,21 +23,22 @@ extern dword_1CB720, dword_1CB76E, dword_1CB772, dword_1CB7C0, dword_1CB7C4, dwo
 extern dword_1CB868, dword_1CB8B6, dword_1CB8BA, dword_1CB908, dword_1CB90C, dword_1CB95A, dword_1CB95E, dword_1CB9AC
 extern dword_1CB9B0, dword_1CB9FE, dword_1CBA02, dword_1CBA50, dword_1CBA54, dword_1CBAA2, dword_1CBAA6, dword_1CBAF4
 extern dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88, dword_1CBB8D, rand_, sprintf_, BlitShape2
-extern sub_1013FC, FindShape, sub_10FAC, ConvertArtXY, SetScreenTarget, SetMusicVolume, SetSfxVolume, SecondsToSamples
+extern sub_1013FC, FindShape, UpdateOptionsAnim, ConvertArtXY, SetScreenTarget, SetMusicVolume, SetSfxVolume, SecondsToSamples
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, PlaySfx
-extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, SetTextColor, DrawTextAligned, sub_80BBC, sub_83C08
-extern InitMenuItems, sub_8BFAC, DetailLevelScreen, FreeMemBlock, sub_FB4D4, MakeColor, FreeBitmap, sub_FCEEC
+extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextColor, DrawTextAligned, WipeScreen, ShowPopupScreen
+extern InitMenuItems, RunMenu, DetailLevelScreen, FreeMemBlock, sub_FB4D4, MakeColor, FreeBitmap, sub_FCEEC
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, unk_166C97, unk_1C5F4A, unk_1CB148
 extern unk_1CB1EC, unk_1CB23E, word_1684BE
 global jpt_C4822, OptionsScreen_F0A, OptionsScreen_F22, OptionsScreen_10AA, OptionsScreen_10D0, OptionsScreen_1125, OptionsScreen_117A, OptionsScreen_11CF
 global OptionsScreen_1285, OptionsScreen_12DA, OptionsScreen_1359, OptionsScreen_136C, OptionsScreen_137F, OptionsScreen_13A6, OptionsScreen_140D, OptionsScreen_1431
 global OptionsScreen_1435, OptionsScreen_1439, OptionsScreen_143D, OptionsScreen_1441, OptionsScreen_1447, OptionsScreen_144D, OptionsScreen_1451, OptionsScreen_147B
 global OptionsScreen_14BA, OptionsScreen_14FE, OptionsScreen_1519, OptionsScreen_1534, OptionsScreen_154F, OptionsScreen_156A, OptionsScreen_1588, OptionsScreen_15A6
-global sub_C462F, sub_C46EA, OptionsScreen, unk_C5ED2
+global DrawOptionsSlider, OptionsSound, OptionsScreen, unk_C5ED2
 ;-----------------------------------------------------------------------------
-; sub_C462F                                                       C462F  97 PC
+; DrawOptionsSlider                               C462F  97 PC, low confidence
+; Draws an options slider
 ;-----------------------------------------------------------------------------
-sub_C462F:
+DrawOptionsSlider:
         push esi
         push edi
         push ebp
@@ -114,9 +115,10 @@ sub_C462F:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_C46EA                                                       C46EA  97 PC
+; OptionsSound                                    C46EA  97 PC, low confidence
+; Plays an options sound
 ;-----------------------------------------------------------------------------
-sub_C46EA:
+OptionsSound:
         push ebx
         push ecx
         push edx
@@ -251,7 +253,7 @@ OptionsScreen:
         push edi
         enter 80Ch, 0
         sub ebp, 82h
-        call sub_10FAC
+        call UpdateOptionsAnim
         mov dword [byte ebp+076h], 0FFFFFFFFh
         mov dword [byte ebp+07Ah], 0
         xor ebx, ebx
@@ -431,7 +433,7 @@ OptionsScreen:
         mov edx, ebx
         mov eax, ebx
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         push str_MB003
         rep movsb
         push dword [byte ebp+06Eh]
@@ -1093,19 +1095,19 @@ OptionsScreen:
         shl eax, 17h
         add esp, byte 0Ch
         shr eax, 19h
-        call sub_C462F
+        call DrawOptionsSlider
         mov ecx, 55h
         mov eax, dword [dword_1AC819]
         mov edx, dword [byte ebp+072h]
         shl eax, 0Fh
         mov ebx, esi
         shr eax, 19h
-        call sub_C462F
+        call DrawOptionsSlider
         call sub_1013FC
         mov eax, dword [byte ebp+05Eh]
         mov edx, 1
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push dword [byte ebp+05Eh]
         call FreeBitmap
         add esp, byte 4
@@ -1152,13 +1154,13 @@ OptionsScreen:
         mov dword [dword_1CBB88], eax
         jmp near OptionsScreen_14BA
 OptionsScreen_F0A:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp+07Ah], 1
         mov dword [byte ebp+066h], 1Ah
         jmp near OptionsScreen_14BA
 OptionsScreen_F22:
         mov eax, unk_1CB1EC
-        call sub_83C08
+        call ShowPopupScreen
         or byte [byte_1AC81A], 2
         and dword [dword_1AC819], 0FFFE03FFh
         or dword [dword_1AC819], 19000h
@@ -1249,19 +1251,19 @@ OptionsScreen_F22:
         shl eax, 17h
         mov ebx, edi
         shr eax, 19h
-        call sub_C462F
+        call DrawOptionsSlider
         mov ecx, 55h
         jmp near OptionsScreen_147B.50
 OptionsScreen_10AA:
         mov eax, unk_1CB23E
         mov edx, dword [byte ebp+06Eh]
-        call sub_83C08
+        call ShowPopupScreen
         mov eax, dword [byte ebp+072h]
         mov ebx, dword [byte ebp+06Ah]
         call DetailLevelScreen
         mov edx, ebx
         mov eax, ebx
-        call sub_7E860
+        call DrawScreenBackground
         jmp near OptionsScreen_14BA
 OptionsScreen_10D0:
         test byte [byte_1AC81A], 2
@@ -1525,7 +1527,7 @@ OptionsScreen_147B:
         mov ebx, esi
 .51:
         shr eax, 19h
-        call sub_C462F
+        call DrawOptionsSlider
 .52:
         call sub_1013FC
 OptionsScreen_14BA:
@@ -1533,12 +1535,12 @@ OptionsScreen_14BA:
         jne near OptionsScreen_15A6.53
         push byte 2
         lea eax, [byte ebp+056h]
-        mov ecx, sub_C46EA
+        mov ecx, OptionsSound
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, unk_1CB148
         mov eax, 20h
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+056h], byte 1Fh
         ja short OptionsScreen_14BA
         mov eax, dword [dword_1AC819]

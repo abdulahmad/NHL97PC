@@ -49,16 +49,16 @@ extern sub_106F7C, sub_106F94, sub_1070B0, sub_1070D0, sub_107154, sub_1072F0, s
 extern sub_107B70, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48, sub_108040, sub_108144
 extern sub_10815C, sub_1081B0, sub_108640, sub_1086BF, sub_108CE8, sub_1091E0, sub_109210, sub_109250
 extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, SetScreenTarget, TryPokePuck
-extern NetCollide, NetCollide2, ChkBodyContact, InitSpeechBanks, OpenSpeechFile, sub_47D70, sub_47EA4, ShutdownSound
-extern sub_4AA78, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_52D4C, sub_55648, sub_5696C, sub_56A08
-extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, sub_5AC30, sub_5B4B8, sub_5C1CC, sub_5CD68
-extern sub_5DF50, SetSPA, sub_5EEEC, sub_60D6C, sub_60F48, sub_612E4, sub_613AC, sub_6152C
-extern sub_617EC, sub_62C14, sub_74CEC, sub_74FA4, sub_76944, sub_789F0, sub_7B15D, sub_7DFC0
-extern sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C
-extern sub_7F5A4, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMenuItems, sub_8BFAC
-extern sub_8DF1F, GetLangText, sub_99DAC, sub_AC369, sub_D0098, sub_DB75E, sub_DB763, sub_DE25F
-extern OpenLeagueFile, sub_DE740, sub_E036F, sub_E0415, FileExists, FileCreate, FileSeek, FileReadRecord
-extern FileWriteRecord, FileClose, sub_E341C, BuildAllStarTeams, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
+extern NetCollide, NetCollide2, ChkBodyContact, InitSpeechBanks, OpenSpeechFile, FreeSpeechBuffers, InitSpeechStream, ShutdownSound
+extern ServiceBackgroundAudio, MakeDataPath, LoadDataFile, OpenDataLibrary, BuildRinkPalette, GetSeatPos, AddSeatModel, FindSeatModel
+extern SetFaceMouth, SetFaceExpression, SetFaceBlink, SetModelHeading, SetObjectHidden, ClearModelSlots, ReplaySoundAllowed, MarkPaletteDirty
+extern GetStickBladePos, SetSPA, SetSPAInPlace, ResetAnimTimer, PickSkateAnim, EndMove, AdvanceMoveAnim, StepMove
+extern SteerAndAccel, LimitSkateSpeed, PickSaveAnim, SaveDirection, GetAnimId, SimulateGame, UpdateTeamLines, DrawShadedLogo
+extern DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned, DrawFrameBox
+extern ShowMessageBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, ShowLoadingBar, InitMenuItems, RunMenu
+extern RunScrollList, GetLangText, FillStatBar, FinishLeagueGame, InitShapeListBox, FreeDbBlock, DaysToYear, FindNextSeasonGame
+extern OpenLeagueFile, StartSeasonGame, FindGameRecord, UpdateGameRecord, FileExists, FileCreate, FileSeek, FileReadRecord
+extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, FreeVideoBuffer, sub_F94BC, sub_F99C0, sub_F9A28
 extern AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, FillMem, addtimer, sub_FC008, sub_FC290
 extern WaitTicks, sub_FC330, sub_FC410, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
 extern ClearScreen, sub_FDC68, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, unk_160A56, unk_160B68
@@ -176,15 +176,15 @@ SeasonGameScreen:
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
         xor edi, edi
-        call sub_80BBC
+        call WipeScreen
         jmp short SeasonGameScreen_182.6
 SeasonGameScreen_13F:
-        call sub_7EEB0
+        call ShowScreen
         mov esi, 1Ah
         mov edi, ecx
         jmp short SeasonGameScreen_182.6
 SeasonGameScreen_14D:
-        call sub_7EDF0
+        call FadeInScreen
         mov edi, ecx
         cmp dword [dword_19ED18], byte 0
         je short .4
@@ -207,7 +207,7 @@ SeasonGameScreen_182:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
 .6:
         test edi, edi
         jne near SeasonGameScreen_3EB.17
@@ -218,7 +218,7 @@ SeasonGameScreen_182:
         push eax
         lea edx, [dword ebp-0472h]
         mov eax, 7
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+07Eh], byte 6
         ja short .6
         mov ebx, dword [byte ebp+07Eh]
@@ -234,7 +234,7 @@ SeasonGameScreen_1E3:
         mov eax, 24Eh
         jmp short SeasonGameScreen_182.5
 SeasonGameScreen_1EC:
-        call sub_7EF70
+        call ExitScreen
         jmp short SeasonGameScreen_182.6
 SeasonGameScreen_1F3:
         cmp dword [dword_19ED4C], byte 0
@@ -273,7 +273,7 @@ SeasonGameScreen_238:
         mov ebx, dword [dword eax+ebp-044Ch]
         push dword [dword_19ED58]
         mov eax, edx
-        call sub_8DF1F
+        call RunScrollList
         cmp eax, dword [dword_19ED4C]
         je near SeasonGameScreen_182.6
         test eax, eax
@@ -311,7 +311,7 @@ SeasonGameScreen_2CF:
 .11:
         movsx eax, word [word_19ED76]
         mov edx, ebx
-        call sub_789F0
+        call SimulateGame
         cmp dword [dword_19ED18], byte 0
         je short .12
         movzx ax, byte [byte_1C135A]
@@ -322,7 +322,7 @@ SeasonGameScreen_2CF:
         jmp short .13
 .12:
         mov eax, 1
-        call sub_AC369
+        call FinishLeagueGame
 .13:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
@@ -381,7 +381,7 @@ SeasonGameScreen_3EB:
         cmp dword [dword_19ED30], byte 0
         je short .19
         mov eax, dword_19ED30
-        call sub_DB75E
+        call FreeDbBlock
 .19:
         mov dword [dword_19ED30], 0
         cmp dword [dword_19ED48], byte 0
@@ -521,7 +521,7 @@ InitSeasonGameScreen:
         mov ebx, eax
         mov edx, eax
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         rep movsb
         mov eax, dword [byte ebp-018h]
         mov ecx, 52h
@@ -542,28 +542,28 @@ InitSeasonGameScreen:
         mov dword [dword eax+0A4h], 2
         mov ecx, str_AB01
         mov eax, dword [dword_19ED70]
-        call sub_D0098
+        call InitShapeListBox
         push str_BH00
         mov edx, dword [byte ebp-018h]
         mov ecx, str_BH00
         mov ebx, str_BT00
         mov eax, dword [dword_19ED44]
         add edx, 148h
-        call sub_D0098
+        call InitShapeListBox
         push str_AB05
         mov edx, dword [byte ebp-018h]
         mov ecx, str_AB04
         mov ebx, str_AB03
         mov eax, dword [dword_19ED70]
         add edx, 19Ah
-        call sub_D0098
+        call InitShapeListBox
         push str_SIM0
         mov edx, dword [byte ebp-018h]
         mov ecx, str_SIM0
         mov eax, dword [dword_19ED44]
         add edx, 1ECh
         mov ebx, ecx
-        call sub_D0098
+        call InitShapeListBox
         push str_SIM0
         lea eax, [byte ebp-014h]
         push eax
@@ -700,7 +700,7 @@ InitSeasonGameScreen:
         push byte 5Ah
         mov edx, 14h
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         push dword 40FF80h
         call MakeColor
         add esp, byte 4
@@ -730,8 +730,8 @@ InitSeasonGameScreen:
         add esp, byte 10h
         mov eax, 6Ch
         mov dword [byte ebp-04h], 0
-        call sub_7F29C
-        call sub_81650
+        call DrawFrameBox
+        call SetHighlightText
 .7:
         imul eax, dword [byte ebp-04h], byte 52h
         add eax, dword [byte ebp-018h]
@@ -773,7 +773,7 @@ InitSeasonGameScreen:
         call sub_101EAC
         add esp, byte 10h
         inc dword [byte ebp-04h]
-        call sub_80808
+        call FreeLogoArt
         cmp dword [byte ebp-04h], byte 1Ah
         jl short .9
         push dword [dword_19ED10]
@@ -923,7 +923,7 @@ DrawMatchupLogo:
         push byte 0
         mov ebx, 10h
         mov eax, dword [byte eax+02Ch]
-        call sub_7DFC0
+        call DrawShadedLogo
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
@@ -965,7 +965,7 @@ DrawAllStarLogo:
         push byte 2
         mov edx, dword [byte eax+02Ch]
         mov eax, esi
-        call sub_7DFC0
+        call DrawShadedLogo
         push esi
         call FreeMemBlock
         add esp, byte 4
@@ -1289,7 +1289,7 @@ DrawLockedGame:
         mov eax, dword [byte ebp-04h]
         sub edx, byte 3
         sub eax, byte 3
-        call sub_99DAC
+        call FillStatBar
         cmp dword [dword_19ED14], byte 0
         je near InitSeasonGameScreen_472
         push str_LOCK
@@ -1394,7 +1394,7 @@ DrawSeasonGamePanel:
         mov ebx, 1
         movsx edx, ax
         movsx eax, word [nosplit esi*2+word_169054]
-        call sub_DB763
+        call DaysToYear
         mov bx, word [nosplit esi*4+word_169066]
         mov edx, eax
         add ebx, eax
@@ -1430,7 +1430,7 @@ DrawSeasonGamePanel:
         mov ebx, 1
         movsx eax, word [nosplit eax*2+word_169054]
         xor edi, edi
-        call sub_DB763
+        call DaysToYear
         mov dword [byte ebp-04h], eax
         jmp short .11
 .10:
@@ -1690,7 +1690,7 @@ DrawSeasonGamePanel:
         xor esi, esi
         jmp near .53
 .31:
-        call sub_E341C
+        call ServiceIdle
         mov eax, esi
         mov ebx, 7
         cdq
@@ -2029,7 +2029,7 @@ StartNextSeasonGame:
         lea ebx, [byte ebp-04h]
         lea edx, [byte ebp-0Ch]
         mov eax, dword [dword_1AC940]
-        call sub_DE25F
+        call FindNextSeasonGame
         test eax, eax
         jne short .4
         mov eax, dword [dword_1AC940]
@@ -2135,11 +2135,11 @@ StartNextSeasonGame:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-0195Ch]
-        call sub_E036F
+        call FindGameRecord
         lea eax, [dword ebp-0195Ch]
-        call sub_7B15D
+        call UpdateTeamLines
         lea eax, [dword ebp-0195Ch]
-        call sub_E0415
+        call UpdateGameRecord
         movsx edx, word [byte ebp-04h]
         mov eax, dword [dword_1AC940]
         shl edx, 4
@@ -2149,15 +2149,15 @@ StartNextSeasonGame:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-0195Ch]
-        call sub_E036F
+        call FindGameRecord
         lea eax, [dword ebp-0195Ch]
-        call sub_7B15D
+        call UpdateTeamLines
         lea eax, [dword ebp-0195Ch]
         mov ebx, dword_1C1334
-        call sub_E0415
+        call UpdateGameRecord
         movsx edx, word [byte ebp-04h]
         mov eax, dword [dword_1AC940]
-        call sub_DE740
+        call StartSeasonGame
 .10:
         mov eax, dword [byte ebp-04h]
 .11:
@@ -2357,7 +2357,7 @@ GetSeatPosition:
         push ecx
         sub esp, byte 8
         mov ecx, edx
-        call sub_55648
+        call GetSeatPos
         fild dword [eax]
         fstp dword [ebx]
         fild dword [byte eax+04h]
@@ -2445,7 +2445,7 @@ PickBoxSeat:
         movsx eax, byte [byte ecx+02h]
         test eax, eax
         jl short .3
-        call sub_56A08
+        call FindSeatModel
         cmp esi, byte 2
         jne short .2
         mov byte [byte ecx+02h], 0FFh
@@ -2458,7 +2458,7 @@ PickBoxSeat:
         call GetSeatPosition
         mov eax, esp
         mov edx, ebp
-        call sub_5696C
+        call AddSeatModel
         mov byte [byte ecx+02h], al
 .3:
         movsx eax, byte [ecx]
@@ -2551,7 +2551,7 @@ FreeBoxSeat:
         test bl, bl
         jl short .1
         movsx eax, bl
-        call sub_56A08
+        call FindSeatModel
 .1:
         mov eax, esi
         shl eax, 7
@@ -2595,7 +2595,7 @@ FreeBoxSeat:
         call GetSeatPosition
         mov eax, esp
         mov edx, esi
-        call sub_5696C
+        call AddSeatModel
         mov byte [byte ecx+02h], al
         jmp near .8
 .4:
@@ -2603,7 +2603,7 @@ FreeBoxSeat:
         movsx eax, byte [byte ecx+02h]
         test eax, eax
         jl short .5
-        call sub_56A08
+        call FindSeatModel
         mov ebx, esp
         mov edx, dword [ecx]
         mov eax, esi
@@ -2611,7 +2611,7 @@ FreeBoxSeat:
         call GetSeatPosition
         mov eax, esp
         mov edx, esi
-        call sub_5696C
+        call AddSeatModel
         mov byte [byte ecx+02h], al
 .5:
         mov eax, dword [byte esp+014h]
@@ -2707,7 +2707,7 @@ PickBenchSeat:
         call GetSeatPosition
         mov eax, esp
         mov edx, ecx
-        call sub_5696C
+        call AddSeatModel
         mov byte [edi], 0FFh
         mov byte [byte edi+02h], al
 .1:
@@ -2745,7 +2745,7 @@ PickBenchSeat:
         test ch, ch
         jl short .3
         movsx eax, ch
-        call sub_56A08
+        call FindSeatModel
         mov byte [byte edx+02h], 0FFh
 .3:
         add esp, byte 10h
@@ -2781,7 +2781,7 @@ MoveBoxToBenchSeat:
         test ah, ah
         jl near .9
         movsx eax, ah
-        call sub_56A08
+        call FindSeatModel
         mov byte [byte edx+02h], 0FFh
         mov eax, dword [dword esi+dword_19CB6D]
         sar eax, 18h
@@ -2823,7 +2823,7 @@ MoveBoxToBenchSeat:
         call GetSeatPosition
         mov eax, esp
         mov edx, esi
-        call sub_5696C
+        call AddSeatModel
         mov byte [byte ecx+02h], al
         jmp near .7
 .3:
@@ -2831,7 +2831,7 @@ MoveBoxToBenchSeat:
         movsx eax, byte [byte ecx+02h]
         test eax, eax
         jl short .4
-        call sub_56A08
+        call FindSeatModel
         mov ebx, esp
         mov edx, dword [ecx]
         mov eax, esi
@@ -2839,7 +2839,7 @@ MoveBoxToBenchSeat:
         call GetSeatPosition
         mov eax, esp
         mov edx, esi
-        call sub_5696C
+        call AddSeatModel
         mov byte [byte ecx+02h], al
 .4:
         mov eax, dword [byte esp+0Ch]
@@ -2917,7 +2917,7 @@ FaceoffStanceMove:
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
 .2:
-        call sub_56CD0
+        call SetFaceMouth
 .3:
         test byte [byte ebx+01Ch], 80h
         je short .5
@@ -2930,9 +2930,9 @@ FaceoffStanceMove:
         and byte [dword ecx+0BFh], 0DFh
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, ebx
-        call sub_60D6C
+        call ResetAnimTimer
         and byte [dword ecx+0BFh], 0DFh
         mov eax, 6
         push dword 3F800000h
@@ -2945,7 +2945,7 @@ FaceoffStanceMove:
         jmp short .7
 .4:
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .7
 .5:
         test byte [byte ebx+01Dh], 8
@@ -2960,10 +2960,10 @@ FaceoffStanceMove:
 .6:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .7:
         add esp, byte 0Ch
         pop esi
@@ -2988,15 +2988,15 @@ RunSimpleMove:
         je short .1
         and byte [dword eax+0BFh], 0FBh
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .2
 .1:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .2:
         add esp, byte 0Ch
         pop edx
@@ -3058,7 +3058,7 @@ FaceoffMove:
         and dh, 0DFh
         mov eax, dword [dword ecx+0FAh]
         mov byte [dword ecx+0BFh], dh
-        call sub_60D6C
+        call ResetAnimTimer
         mov bl, byte [dword ecx+0BFh]
         mov edx, 0Ch
         and bl, 0DFh
@@ -3126,10 +3126,10 @@ FaceoffMove:
         jg short .11
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .11:
         add esp, byte 10h
         pop ebp
@@ -3160,7 +3160,7 @@ MoveWithSfx:
         and bl, 0DFh
         mov eax, dword [dword ecx+0FAh]
         mov byte [dword ecx+0BFh], bl
-        call sub_60D6C
+        call ResetAnimTimer
         cmp edx, byte 5Eh
         jne short .1
         mov edx, 59h
@@ -3183,7 +3183,7 @@ MoveWithSfx:
         jmp near .9
 .4:
         mov eax, esi
-        call sub_76944
+        call GetAnimId
         mov ebx, eax
         test al, 1
         je short .7
@@ -3217,10 +3217,10 @@ MoveWithSfx:
 .8:
         mov edx, esp
         mov eax, esi
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, esi
-        call sub_6152C
+        call StepMove
 .9:
         add esp, byte 0Ch
         pop esi
@@ -3244,7 +3244,7 @@ RandomFollowMove:
         test bl, 80h
         je short .1
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
         pop edx
         pop ecx
         pop ebx
@@ -3257,7 +3257,7 @@ RandomFollowMove:
         test ax, ax
         jne near .7
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov edx, 5Dh
         and ah, 0DFh
@@ -3274,7 +3274,7 @@ RandomFollowMove:
         test ax, ax
         jne near .7
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov al, byte [dword ecx+0BFh]
         mov edx, 5Bh
         and al, 0DFh
@@ -3294,7 +3294,7 @@ RandomFollowMove:
         cmp edx, byte 2
         jge short .7
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword ecx+0BFh]
         and bh, 0DFh
         push dword 3F800000h
@@ -3334,16 +3334,16 @@ ShoutMove:
         test edx, edx
         jne short .1
         mov eax, ebx
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, ebx
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, ebx
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov edx, 1
         mov eax, ebx
-        call sub_56CF8
+        call SetFaceBlink
 .1:
         test byte [byte ecx+04h], 3
         jne short .4
@@ -3358,33 +3358,33 @@ ShoutMove:
         mov edx, 1
         mov eax, ebx
 .3:
-        call sub_56CD0
+        call SetFaceMouth
 .4:
         test byte [byte ecx+01Ch], 80h
         je short .5
         mov eax, ebx
         xor edx, edx
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, ebx
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, ebx
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov edx, dword [dword esi+0EEh]
         mov bl, byte [byte edx+031h]
         and bl, 0FEh
         mov eax, ecx
         mov byte [byte edx+031h], bl
-        call sub_612E4
+        call EndMove
         jmp short .6
 .5:
         mov edx, esp
         mov eax, ecx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ecx
-        call sub_6152C
+        call StepMove
 .6:
         add esp, byte 0Ch
         pop esi
@@ -3422,15 +3422,15 @@ BodyMove:
         and byte [byte edx+031h], 0FEh
         and byte [dword eax+0BFh], 0DFh
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .4
 .3:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .4:
         add esp, byte 0Ch
         pop edx
@@ -3462,7 +3462,7 @@ TakePositionMove:
         cmp byte [dword ecx+eax+0B2h], 21h
         jne short .1
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         mov ebx, 20h
         and dh, 0DFh
@@ -3474,23 +3474,23 @@ TakePositionMove:
         jmp short .5
 .1:
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .5
 .2:
         cmp eax, byte 48h
         jne short .3
         mov edx, esp
         mov eax, ecx
-        call sub_62C14
+        call LimitSkateSpeed
         jmp short .4
 .3:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
 .4:
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .5:
         add esp, byte 0Ch
         pop edx
@@ -3518,7 +3518,7 @@ SkateStrideMove:
         test byte [byte ebx+01Ch], 80h
         je short .1
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
         jmp near .5
 .1:
         mov esi, dword [byte eax+01Ch]
@@ -3527,7 +3527,7 @@ SkateStrideMove:
         cmp esi, byte 6
         jne short .3
 .2:
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         push dword 3F800000h
         and ah, 0DFh
@@ -3551,14 +3551,14 @@ SkateStrideMove:
         lea edx, [byte ebp-0Ch]
         mov dword [byte eax+01Ch], 0
         mov eax, ecx
-        call sub_62C14
+        call LimitSkateSpeed
         cmp dword [byte ebp-04h], 41400000h
         jle short .4
         mov dword [byte ebp-04h], 41400000h
 .4:
         lea edx, [byte ebp-0Ch]
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .5:
         mov esp, ebp
         pop ebp
@@ -3583,7 +3583,7 @@ CoastMove:
         mov eax, dword [dword ecx+0FAh]
         test dl, 80h
         je short .1
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         mov ebx, 20h
         and dh, 0DFh
@@ -3597,14 +3597,14 @@ CoastMove:
         mov edx, esp
         mov dword [byte eax+01Ch], 0
         mov eax, ecx
-        call sub_62C14
+        call LimitSkateSpeed
         cmp dword [byte esp+08h], 41400000h
         jle short .2
         mov dword [byte esp+08h], 41400000h
 .2:
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .3:
         add esp, byte 0Ch
         pop edx
@@ -3633,7 +3633,7 @@ BackStrideMove:
         test byte [byte ebx+01Ch], 80h
         je short .1
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
         jmp short .3
 .1:
         mov esi, dword [byte eax+01Ch]
@@ -3641,7 +3641,7 @@ BackStrideMove:
         je short .2
         cmp esi, byte 6
         je short .2
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         push dword 3F800000h
         and ah, 0DFh
@@ -3664,13 +3664,13 @@ BackStrideMove:
 .2:
         lea edx, [byte ebp-0Ch]
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         lea edx, [byte ebp-0Ch]
         mov eax, ecx
-        call sub_617EC
+        call SteerAndAccel
         lea edx, [byte ebp-0Ch]
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .3:
         mov esp, ebp
         pop ebp
@@ -3688,7 +3688,7 @@ FaceoffSwipeAnim:
         push ecx
         mov ecx, eax
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         or ah, 20h
         xor ebx, ebx
@@ -3711,7 +3711,7 @@ FaceoffDrawAnim:
         push ecx
         mov ecx, eax
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         or ah, 20h
         xor ebx, ebx
@@ -3737,7 +3737,7 @@ SitDownAnim:
         mov ecx, eax
         mov dword [byte eax+038h], 0
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov eax, dword [dword ecx+0FAh]
         mov dword [byte eax+04h], 3F4CCCCDh
         mov ah, byte [dword ecx+0BFh]
@@ -3769,7 +3769,7 @@ StandUpAnim:
         push edx
         mov ecx, eax
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov eax, dword [dword ecx+0FAh]
         mov dword [byte eax+04h], 3F4CCCCDh
         mov ah, byte [dword ecx+0BFh]
@@ -3779,7 +3779,7 @@ StandUpAnim:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F19999Ah
-        call sub_5EEEC
+        call SetSPAInPlace
         or byte [dword ecx+0BFh], 20h
         mov dh, byte [dword ecx+0C1h]
         and dh, 0FEh
@@ -3813,7 +3813,7 @@ GoToBoxAnim:
         mov eax, dword [dword ecx+0FAh]
         mov dword [byte ecx+038h], 0
         fstp dword [esp]
-        call sub_60D6C
+        call ResetAnimTimer
         cmp byte [dword ecx+0D0h], 0
         je short .1
         fld dword [esp]
@@ -3844,18 +3844,18 @@ GoToBoxAnim:
         or byte [byte eax+031h], 1
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_5AC30
+        call SetObjectHidden
         xor ebx, ebx
         mov eax, dword [dword ecx+0F2h]
-        call sub_56D0C
+        call SetModelHeading
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         xor ebx, ebx
-        call sub_56D0C
+        call SetModelHeading
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
-        call sub_5B4B8
+        call SetFaceExpression
+        call ClearModelSlots
         add esp, byte 8
         pop edx
         pop ecx
@@ -3876,7 +3876,7 @@ LeaveBoxAnim:
         mov edx, dword [byte ecx+028h]
         mov dword [dword eax+0DAh], edx
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov edx, 58h
         or ah, 20h
@@ -3884,7 +3884,7 @@ LeaveBoxAnim:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F19999Ah
-        call sub_5EEEC
+        call SetSPAInPlace
         or byte [dword ecx+0BFh], 20h
         mov dh, byte [dword ecx+0C1h]
         and dh, 0FEh
@@ -3944,7 +3944,7 @@ RefDodgePuck:
         lea edx, [byte esp+0Ch]
         mov dword [byte esp+014h], eax
         mov eax, esp
-        call sub_74FA4
+        call SaveDirection
         fst dword [byte esp+038h]
         fcomp dword [dword_160A68]
         fnstsw ax
@@ -3970,7 +3970,7 @@ RefDodgePuck:
         jae near .4
         mov edx, dword [dword esi+0FAh]
         mov eax, edx
-        call sub_60D6C
+        call ResetAnimTimer
         fld dword [byte esp+038h]
         fmul dword [dword_160A70]
         fst dword [byte esp+038h]
@@ -4050,7 +4050,7 @@ checkgoal:
         jne short .2
 .1:
         mov eax, edx
-        call sub_612E4
+        call EndMove
         jmp short .6
 .2:
         test byte [byte edx+01Ch], 80h
@@ -4068,7 +4068,7 @@ checkgoal:
         mov eax, dword [dword ebx+0FAh]
         and byte [byte eax+031h], 0EFh
         mov eax, edx
-        call sub_612E4
+        call EndMove
         pop edi
         pop esi
         pop edx
@@ -4139,16 +4139,16 @@ CheckMove:
         je short .3
 .2:
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .4
 .3:
         mov eax, ecx
         mov dword [byte edx+01Ch], 0
         mov edx, esp
-        call sub_62C14
+        call LimitSkateSpeed
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .4:
         add esp, byte 0Ch
         pop ebp
@@ -4171,16 +4171,16 @@ SteerMove:
         test dl, 80h
         je short .1
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .2
 .1:
         mov edx, dword [dword eax+0FAh]
         mov dword [byte edx+01Ch], 0
         mov edx, esp
-        call sub_62C14
+        call LimitSkateSpeed
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .2:
         add esp, byte 0Ch
         pop edx
@@ -4264,7 +4264,7 @@ ReachForPuckAnim:
         fadd dword [byte esp+024h]
         mov eax, ecx
         fstp dword [byte ecx+01Ch]
-        call sub_5DF50
+        call GetStickBladePos
         fstp dword [byte esp+08h]
         fld dword [byte edx+038h]
         fcomp qword [qword_160AA8]
@@ -4289,7 +4289,7 @@ ReachForPuckAnim:
         mov eax, edx
         fstp st1
         fstp dword [byte ecx+038h]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         xor ebx, ebx
         and ah, 0DFh
@@ -4324,7 +4324,7 @@ PokeCheckAnim:
         lea ebx, [byte esp+08h]
         mov edx, esp
         mov esi, dword [dword eax+0FAh]
-        call sub_74CEC
+        call PickSaveAnim
         fldz
         fxch
         fstp dword [byte esp+04h]
@@ -4333,7 +4333,7 @@ PokeCheckAnim:
         sahf
         ja near .7
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         fld dword [byte esp+08h]
         fabs
         fcomp qword [qword_160AB8]
@@ -4660,7 +4660,7 @@ TryBodyCheck:
         mov bl, byte [dword esi+0A4h]
         mov dword [byte eax+020h], ebx
         mov eax, edx
-        call sub_60D6C
+        call ResetAnimTimer
         mov al, byte [dword esi+0BFh]
         xor ebx, ebx
         or al, 20h
@@ -4671,7 +4671,7 @@ TryBodyCheck:
         call SetSPA
         mov eax, dword [dword ecx+0FAh]
         xor edx, edx
-        call sub_60D6C
+        call ResetAnimTimer
         mov dl, byte [dword esi+0C2h]
         lea eax, [nosplit edx*4+00h]
         add eax, edx
@@ -6377,7 +6377,7 @@ SetVideoMode:
         call ClearScreen
         add esp, byte 4
         call sub_1013FC
-        call sub_F9496
+        call FreeVideoBuffer
         push byte 8
         push esi
         push ebx
@@ -6695,7 +6695,7 @@ SetViewInterlaced:
         mov dword [dword_16FA14], edx
         mov dword [dword_1A8E6C], edx
         mov dword [dword_1A8E50], edx
-        call sub_5CD68
+        call MarkPaletteDirty
 .1:
         pop edx
         pop ecx
@@ -7263,7 +7263,7 @@ RefreshOverlayWindow:
 ;-----------------------------------------------------------------------------
 SetRinkDetail:
         mov dword [dword_1A8E60], eax
-        jmp near sub_52D4C
+        jmp near BuildRinkPalette
         db 00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; FadePaletteStep                                 3D030  97 PC, low confidence
@@ -8292,7 +8292,7 @@ AddArtToRange:
         mov edx, dword [dword eax+0414h]
         mov dword [dword ecx+0C0Ch], edx
         mov dword [dword eax+0414h], ecx
-        call sub_E341C
+        call ServiceIdle
         pop edi
         pop esi
         ret 0Ch
@@ -8319,7 +8319,7 @@ AddBankToRange:
         mov dword [dword ecx+0C10h], eax
         mov eax, esi
         call LinkRangeHistogram
-        call sub_E341C
+        call ServiceIdle
         pop edi
         pop esi
         ret 4
@@ -8644,7 +8644,7 @@ RemapBankToRange:
         xor ebx, ebx
         jmp short .10
 .11:
-        call sub_E341C
+        call ServiceIdle
         add esp, 304h
         pop ebp
         pop edi
@@ -8921,7 +8921,7 @@ SplitColorBox:
         test edx, edx
         jle short .8
 .7:
-        call sub_E341C
+        call ServiceIdle
         mov edx, ebx
         mov eax, ecx
         call SplitColorBox
@@ -8996,7 +8996,7 @@ MergeColorBoxes:
         dec ebx
         add esp, byte 0Ch
         mov dword [esi], ebx
-        call sub_E341C
+        call ServiceIdle
         mov ebp, dword [esi]
         xor ecx, ecx
         test ebp, ebp
@@ -9176,7 +9176,7 @@ QuantizeRange:
         shl eax, 3
         add esi, eax
         mov ebx, dword [dword esi+0414h]
-        call sub_E341C
+        call ServiceIdle
         cmp dword [byte esi+010h], byte 0
         je near .24
         push byte 20h
@@ -9216,7 +9216,7 @@ QuantizeRange:
         test ebp, ebp
         jle short .6
 .5:
-        call sub_E341C
+        call ServiceIdle
         mov edx, ebx
         mov eax, ecx
         call SplitColorBox
@@ -9340,7 +9340,7 @@ QuantizeRange:
         call sub_105258
         add esp, byte 4
         mov dword [dword_16E500], eax
-        call sub_E341C
+        call ServiceIdle
         mov esi, dword [dword esi+0414h]
         test esi, esi
         je short .23
@@ -9355,7 +9355,7 @@ QuantizeRange:
         mov ecx, dword [dword esi+0C18h]
         call RemapArtRange
 .22:
-        call sub_E341C
+        call ServiceIdle
         push esi
         mov ebx, dword [dword esi+0C0Ch]
         call FreeMemBlock
@@ -13749,20 +13749,20 @@ OpenAudioStream_D8:
         shr eax, 19h
         cwde
         call SetMusicVolume
-        call sub_47EA4
+        call InitSpeechStream
         cmp dword [dword_169254], byte 0FFFFFFFFh
         jne short .13
-        call sub_47EA4
+        call InitSpeechStream
 .13:
         mov eax, 2
-        call sub_47D70
+        call FreeSpeechBuffers
         mov eax, 1
-        call sub_47D70
-        call sub_E341C
+        call FreeSpeechBuffers
+        call ServiceIdle
         xor eax, eax
         xor edx, edx
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
         mov dword [dword_169250], edx
         mov dword [dword_169254], eax
@@ -13834,7 +13834,7 @@ OpenAudioStream_D8:
         jne short .21
         push esi
         push byte 2
-        push sub_4AA78
+        push ServiceBackgroundAudio
         call sub_F99C0
         add esp, byte 0Ch
         jmp short .21
@@ -13895,34 +13895,34 @@ InitGameAudio:
         mov eax, 1
         call FreeSfxBank
         mov eax, 2
-        call sub_842F4
+        call ShowLoadingBar
         cmp dword [dword_169254], byte 0FFFFFFFFh
         jne short .3
-        call sub_47EA4
+        call InitSpeechStream
 .3:
         xor eax, eax
-        call sub_47D70
-        call sub_E341C
+        call FreeSpeechBuffers
+        call ServiceIdle
         mov eax, 1
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov eax, 2
         mov ebx, 2
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov eax, 5
         mov dword [dword_169254], ebx
-        call sub_842F4
-        call sub_E341C
+        call ShowLoadingBar
+        call ServiceIdle
         mov eax, 3
         call LoadSfxBank
         test eax, eax
         setne al
         and eax, 0FFh
         mov dword [dword_169214], eax
-        call sub_E341C
+        call ServiceIdle
         mov eax, 0Ch
-        call sub_842F4
+        call ShowLoadingBar
         cmp dword [dword_169220], byte 0
         je short .4
         cmp dword [dword_16921C], byte 0
@@ -13943,16 +13943,16 @@ InitGameAudio:
         xor edi, edi
         mov dword [dword_16921C], edi
 .7:
-        call sub_E341C
+        call ServiceIdle
         mov eax, 0Fh
-        call sub_842F4
+        call ShowLoadingBar
         mov eax, 5
         call LoadSfxBank
         test eax, eax
         setne al
         and eax, 0FFh
         mov dword [dword_169218], eax
-        call sub_E341C
+        call ServiceIdle
         cmp dword [dword_169210], byte 0
         je near .11
         mov eax, 10266h
@@ -13994,9 +13994,9 @@ InitGameAudio:
 .10:
         call FreeSfxBank
 .11:
-        call sub_E341C
+        call ServiceIdle
         mov eax, 12h
-        call sub_842F4
+        call ShowLoadingBar
         cmp byte [byte esp+050h], 0
         je short .12
         lea eax, [byte esp+050h]
@@ -14025,9 +14025,9 @@ InitGameAudio:
         shr eax, 19h
         cwde
         call SetMusicVolume
-        call sub_E341C
+        call ServiceIdle
         mov eax, 32h
-        call sub_842F4
+        call ShowLoadingBar
 .16:
         add esp, 0A0h
         pop ebp
@@ -14260,7 +14260,7 @@ InitGameSounds:
 .2:
         cmp dword [dword_169228], byte 0
         jle short .3
-        call sub_E341C
+        call ServiceIdle
         jmp short .2
 .3:
         call sub_10815C
@@ -14278,7 +14278,7 @@ InitGameSounds:
         call FreeSfxBank
         mov eax, 3
         call FreeSfxBank
-        call sub_E341C
+        call ServiceIdle
         mov edx, dword [dword_169250]
         test edx, edx
         je short .7
@@ -14298,29 +14298,29 @@ InitGameSounds:
 .6:
         xor eax, eax
         mov dword [dword_169250], eax
-        call sub_E341C
+        call ServiceIdle
 .7:
         mov eax, dword [dword_1AC819]
         shl eax, 17h
         shr eax, 19h
         cwde
         call SetMusicVolume
-        call sub_E341C
+        call ServiceIdle
         cmp dword [dword_169254], byte 0FFFFFFFFh
         jne short .8
-        call sub_47EA4
+        call InitSpeechStream
 .8:
         mov eax, 2
-        call sub_47D70
+        call FreeSpeechBuffers
         mov eax, 1
-        call sub_47D70
-        call sub_E341C
+        call FreeSpeechBuffers
+        call ServiceIdle
         xor eax, eax
         mov ecx, 1
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov dword [dword_169254], ecx
-        call sub_E341C
+        call ServiceIdle
         call sub_FC410
         test eax, eax
         je short .9
@@ -14364,7 +14364,7 @@ InitGameSounds:
 .14:
         call sub_FC330
         add esp, byte 4
-        call sub_E341C
+        call ServiceIdle
 .15:
         add esp, 0A0h
         pop ebp
@@ -14389,7 +14389,7 @@ ShutdownGameAudio:
         call sub_107D30
         test eax, eax
         jne short .1
-        push sub_4AA78
+        push ServiceBackgroundAudio
         call sub_F9A28
         add esp, byte 4
 .1:
@@ -14427,7 +14427,7 @@ ShutdownGameAudio:
 .3:
         cmp dword [dword_169228], byte 0
         jle short .4
-        call sub_E341C
+        call ServiceIdle
         jmp short .3
 .4:
         call sub_10815C
@@ -14461,7 +14461,7 @@ ShutdownGameAudio:
 .7:
         xor ebp, ebp
         mov dword [dword_169250], ebp
-        call sub_E341C
+        call ServiceIdle
 .8:
         xor edx, edx
 .9:
@@ -14521,7 +14521,7 @@ WaitSoundTime:
 .1:
         xor ebx, ebx
 .2:
-        call sub_E341C
+        call ServiceIdle
         cmp bx, word [word_1691B6]
         jge short .3
         call sub_108CE8
@@ -14843,7 +14843,7 @@ RequestMusicStop:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; WaitMusicEnd                                    41DD8  97 PC, low confidence
-; With music on, restarts the current track request and idles (sub_E341C)
+; With music on, restarts the current track request and idles (ServiceIdle)
 ; until MusicPlaying is 0
 ;-----------------------------------------------------------------------------
 WaitMusicEnd:
@@ -14871,7 +14871,7 @@ WaitMusicEnd:
         call MusicPlaying
         test eax, eax
         je short .3
-        call sub_E341C
+        call ServiceIdle
         jmp short .2
 .3:
         push byte 2
@@ -15077,7 +15077,7 @@ PlaySfx:
         mov edx, eax
         cmp word [word_1691A4], byte 0
         je near .1
-        call sub_5C1CC
+        call ReplaySoundAllowed
         test eax, eax
         je near .1
         test byte [byte_1AC81A], 2
@@ -15285,7 +15285,7 @@ PlaySfxVolume:
         test byte [byte_1AC81A], 2
         je near .3
         mov eax, ebx
-        call sub_5C1CC
+        call ReplaySoundAllowed
         test eax, eax
         je near .3
         test ebx, ebx
@@ -15505,7 +15505,7 @@ SetCrowdNoise:
         cmp word [word_1691A4], byte 0
         je short .3
         mov eax, 525h
-        call sub_5C1CC
+        call ReplaySoundAllowed
         test eax, eax
         je short .3
         cmp dword [dword_169224], byte 0
@@ -15524,7 +15524,7 @@ SetCrowdMood:
         cmp word [word_1691A4], byte 0
         je short .1
         mov eax, 525h
-        call sub_5C1CC
+        call ReplaySoundAllowed
         test eax, eax
         je short .1
         cmp dword [dword_169224], byte 0
@@ -15546,7 +15546,7 @@ SetCrowdMood:
         cmp word [word_1691A4], byte 0
         je short .2
         mov eax, 525h
-        call sub_5C1CC
+        call ReplaySoundAllowed
         test eax, eax
         je short .2
         cmp dword [dword_169224], byte 0
@@ -16275,7 +16275,7 @@ OpenSpeechBanks:
         call sprintf_
         add esp, byte 0Ch
         mov edx, dword_1AC7AC
-        call sub_E341C
+        call ServiceIdle
         lea eax, [byte esp+078h]
         xor esi, esi
         call FileCreate
@@ -16328,7 +16328,7 @@ OpenSpeechBanks:
         pop ecx
         ret
 .3:
-        call sub_E341C
+        call ServiceIdle
         push dword 81Ah
         mov ecx, dword [dword_1AC7B0]
         push ecx
@@ -16392,7 +16392,7 @@ OpenSpeechBanks:
         mov dword [dword esp+0100h], ecx
         cmp ecx, byte 54h
         jl short .7
-        call sub_E341C
+        call ServiceIdle
         mov ebx, 81Ah
         mov edx, dword [dword_1AC7B0]
         mov eax, dword [dword_1AC7AC]
@@ -16409,7 +16409,7 @@ OpenSpeechBanks:
         pop ecx
         ret
 .10:
-        call sub_E341C
+        call ServiceIdle
         cmp dword [dword esp+0104h], byte 0
         je short .11
         inc esi
@@ -16442,7 +16442,7 @@ OpenSpeechBanks:
         push eax
         call sprintf_
         add esp, byte 0Ch
-        call sub_E341C
+        call ServiceIdle
         lea eax, [dword esp+0F0h]
         mov edx, dword [dword_1AC7AC]
         call LoadSpeechBlock
@@ -16453,7 +16453,7 @@ OpenSpeechBanks:
         mov eax, esi
         call dword [dword esp+0104h]
 .13:
-        call sub_E341C
+        call ServiceIdle
         test edx, edx
         jne short .14
         mov eax, dword_1AC7AC
@@ -16490,7 +16490,7 @@ OpenSpeechBanks:
         jle short .16
         mov ecx, 20000h
 .16:
-        call sub_E341C
+        call ServiceIdle
         cmp dword [dword esp+0104h], byte 0
         je short .17
         inc esi
@@ -16529,7 +16529,7 @@ OpenSpeechBanks:
         mov edx, dword [dword_1AC7B0]
         mov eax, dword [dword eax+02C8h]
         mov dword [dword edx+02BCh], eax
-        call sub_E341C
+        call ServiceIdle
         mov edx, 0Ch
         mov eax, dword [dword_1AC7AC]
         call FileSeek
@@ -16769,7 +16769,7 @@ LoadTeamSpeech:
 .12:
         mov dword [byte esp+058h], eax
         mov eax, 19h
-        call sub_842F4
+        call ShowLoadingBar
         push esi
         push str_TEAM04dDAT
         lea eax, [byte esp+070h]

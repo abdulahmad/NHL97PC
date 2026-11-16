@@ -21,20 +21,21 @@ extern dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dwo
 extern PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, memset_, rand_, sprintf_, strcpy_, BlitShape2, BlitArt
 extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, Random32, ConvertArtXY
 extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, PlaySfx
-extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, sub_7CB8C, sub_7E860, sub_7EDF0, sub_7EEB0
-extern sub_7EF70, SetTextColor, DrawTextAligned, sub_80BBC, sub_823F0, sub_84330, InitMenuItems, sub_8BFAC
-extern sub_E0DB7, sub_E341C, AllocMemBlock, FreeMemBlock, sub_FC330, MakeColor, FreeBitmap, DrawArt
+extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, FreeTempArt, DrawScreenBackground, FadeInScreen, ShowScreen
+extern ExitScreen, SetTextColor, DrawTextAligned, WipeScreen, DrawPortrait, TintPortrait, InitMenuItems, RunMenu
+extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, sub_FC330, MakeColor, FreeBitmap, DrawArt
 extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_166FF4, unk_16D7FC, unk_16D804
 extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_D15D1, unk_D15EE
 extern word_1C340D, word_1C5530
-global jpt_D1917, jpt_D3102, sub_D15FB_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
-global PreGameStatsPanel_4DF, PreGameStatsPanel_4E0, sub_D15FB, sub_D17EA, PreGameMatchupScreen, sub_D1F8B, DrawPlayerPortrait, sub_D24F8
-global PreGameStatsPanel, sub_D2BD4, sub_D2C78, sub_D2CCA, sub_D2D94, sub_D2E1A, sub_D2ED6, sub_D306F
+global jpt_D1917, jpt_D3102, LayoutMatchupLeft_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
+global PreGameStatsPanel_4DF, PreGameStatsPanel_4E0, LayoutMatchupLeft, LayoutMatchupRight, PreGameMatchupScreen, DrawMatchupStats, DrawPlayerPortrait, DrawMatchupPlayer
+global PreGameStatsPanel, FreeMatchupScreen, ReadMatchupStats, MatchupBarLength, LoadMatchupArt, MatchupSparkle, AnimateMatchup, RostersSparkle
 global unk_D3057, unk_D305F, unk_D3067
 ;-----------------------------------------------------------------------------
-; sub_D15FB                                                       D15FB  97 PC
+; LayoutMatchupLeft                               D15FB  97 PC, low confidence
+; Lays out the left side of the matchup screen
 ;-----------------------------------------------------------------------------
-sub_D15FB:
+LayoutMatchupLeft:
         push ebx
         push ecx
         push esi
@@ -160,7 +161,7 @@ sub_D15FB:
         mov dword [dword_1CC4C4], eax
         mov dword [dword_1CC4CC], eax
         mov dword [byte ebx+014h], dword_1CC4B0
-sub_D15FB_1E9:
+LayoutMatchupLeft_1E9:
         leave
         pop edi
         pop esi
@@ -168,9 +169,10 @@ sub_D15FB_1E9:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D17EA                                                       D17EA  97 PC
+; LayoutMatchupRight                              D17EA  97 PC, low confidence
+; Lays out the right side of the matchup screen
 ;-----------------------------------------------------------------------------
-sub_D17EA:
+LayoutMatchupRight:
         push ebx
         push ecx
         push esi
@@ -250,7 +252,7 @@ sub_D17EA:
         cmp esi, byte 6
         jl near .1
         mov dword [dword_1CC7C0], 0
-        jmp near sub_D15FB_1E9
+        jmp near LayoutMatchupLeft_1E9
 jpt_D1917:
         dd PreGameMatchupScreen_4E0
         dd PreGameMatchupScreen_4EC
@@ -274,7 +276,7 @@ PreGameMatchupScreen:
         mov dword [byte ebp+072h], 0
         cmp byte [byte_1C6040], 0
         je short .1
-        call sub_7CB8C
+        call FreeTempArt
         call MusicEnabled
 .1:
         mov dword [dword_1CC79C], 0
@@ -295,15 +297,15 @@ PreGameMatchupScreen:
         mov dword [dword_1CC7CC], eax
         mov eax, dword [dword_1CC7D4]
         lea edx, [dword ebp-02D2h]
-        call sub_D2D94
+        call LoadMatchupArt
         mov eax, 0Ah
         call InitMenuItems
         lea edx, [dword ebp-02D2h]
         mov eax, dword [dword_1CC7CC]
-        call sub_D17EA
+        call LayoutMatchupRight
         lea edx, [dword ebp-0E6h]
         mov eax, dword [dword_1CC7CC]
-        call sub_D15FB
+        call LayoutMatchupLeft
         push str_TITL12
         push dword [dword_1CC7CC]
         call FindShape
@@ -319,7 +321,7 @@ PreGameMatchupScreen:
         call FindShape
         add esp, byte 8
         mov edx, esi
-        call sub_7E860
+        call DrawScreenBackground
         mov ecx, 52h
         lea edi, [dword ebp-094h]
         mov esi, unk_1C5EF8
@@ -476,7 +478,7 @@ PreGameMatchupScreen:
         mov eax, dword [dword_1CC7BC]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push dword [dword_1CC7BC]
         call FreeBitmap
         add esp, byte 4
@@ -488,7 +490,7 @@ PreGameMatchupScreen:
         xor edx, edx
         mov eax, dword [dword_1CC7C8]
 .4:
-        call sub_D24F8
+        call DrawMatchupPlayer
         jmp near PreGameMatchupScreen_522.16
 .5:
         cmp dword [byte ebp+072h], byte 5
@@ -543,9 +545,9 @@ PreGameMatchupScreen:
         cmp eax, dword [dword_1CC7C0]
         jge short .8
         call SetScreenTarget
-        call sub_D2E1A
+        call MatchupSparkle
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         jmp short .7
 .8:
         inc ebx
@@ -613,7 +615,7 @@ PreGameMatchupScreen_522:
         xor edx, edx
         jmp near PreGameMatchupScreen.4
 .14:
-        call sub_7EEB0
+        call ShowScreen
         mov dword [byte ebp+07Ah], 13h
         mov dword [byte ebp+076h], 1
 .15:
@@ -623,13 +625,13 @@ PreGameMatchupScreen_522:
         jne short .19
         push byte 3
         lea eax, [byte ebp+072h]
-        mov ecx, sub_D2ED6
+        mov ecx, AnimateMatchup
         mov ebx, 0FFFFFFFFh
         lea edx, [dword ebp-02D2h]
         push eax
         mov eax, 0Ah
         mov dword [byte ebp+07Ah], 4
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+072h], byte 7
         jb near PreGameMatchupScreen.5
         mov edx, dword [byte ebp+07Eh]
@@ -642,17 +644,17 @@ PreGameMatchupScreen_522:
         je short .18
         jmp short .16
 .17:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp+07Ah], 15h
         jmp short .15
 .18:
-        call sub_7EF70
+        call ExitScreen
         jmp short .16
 .19:
         push byte 0
         call sub_FC330
         add esp, byte 4
-        call sub_D2BD4
+        call FreeMatchupScreen
         push dword [dword_1CC7CC]
         call FreeMemBlock
         add esp, byte 4
@@ -672,9 +674,10 @@ PreGameMatchupScreen_658:
         pop ebp
         jmp near PreGameStatsPanel_4E0
 ;-----------------------------------------------------------------------------
-; sub_D1F8B                                                       D1F8B  97 PC
+; DrawMatchupStats                                D1F8B  97 PC, low confidence
+; Draws the matchup stats
 ;-----------------------------------------------------------------------------
-sub_D1F8B:
+DrawMatchupStats:
         push ebx
         push ecx
         push edx
@@ -1076,13 +1079,13 @@ DrawPlayerPortrait:
         add esp, byte 0Ch
         mov edx, dword [byte edx+02Ch]
         mov eax, dword [byte eax+02Ch]
-        call sub_84330
+        call TintPortrait
         mov eax, dword [dword ebx+dword_1CC5B0]
         xor ecx, ecx
         mov edx, dword [byte eax+02Ch]
         xor ebx, ebx
         mov eax, dword [byte ebp-08h]
-        call sub_823F0
+        call DrawPortrait
         jmp short .5
 .4:
         mov dword [byte ebp-04h], eax
@@ -1137,11 +1140,12 @@ DrawPlayerPortrait:
         add esp, byte 1Ch
 .11:
         mov eax, dword [byte ebp-04h]
-        jmp near sub_D15FB_1E9
+        jmp near LayoutMatchupLeft_1E9
 ;-----------------------------------------------------------------------------
-; sub_D24F8                                                       D24F8  97 PC
+; DrawMatchupPlayer                               D24F8  97 PC, low confidence
+; Draws a matchup player
 ;-----------------------------------------------------------------------------
-sub_D24F8:
+DrawMatchupPlayer:
         push ecx
         push esi
         push edi
@@ -1161,7 +1165,7 @@ sub_D24F8:
         test byte [byte ebp-08h], 4
         je short .2
         mov eax, edi
-        call sub_D1F8B
+        call DrawMatchupStats
 .2:
         mov edx, dword [byte ebp-010h]
         mov eax, dword [tickcount]
@@ -1181,7 +1185,7 @@ sub_D24F8:
         mov eax, dword [nosplit eax*4+dword_1CC5B0]
         mov ecx, dword [byte ebp-04h]
         mov eax, dword [byte eax+02Ch]
-        call sub_D2CCA
+        call MatchupBarLength
         mov eax, dword [dword_1CC5EC]
         mov ebx, dword [byte eax+02Ch]
         mov eax, dword [dword esi+dword_1CC5D0]
@@ -1190,10 +1194,10 @@ sub_D24F8:
         mov eax, dword [nosplit eax*4+dword_1CC5D0]
         mov ecx, dword [byte ebp-04h]
         mov eax, dword [byte eax+02Ch]
-        call sub_D2CCA
+        call MatchupBarLength
         test byte [byte ebp-04h], 2
         je short .4
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [dword_1CC684]
         mov ebx, dword [byte eax+02Ch]
         mov eax, dword [dword esi+dword_1CC668]
@@ -1202,7 +1206,7 @@ sub_D24F8:
         mov eax, dword [nosplit eax*4+dword_1CC668]
         mov ecx, dword [byte ebp-04h]
         mov eax, dword [byte eax+02Ch]
-        call sub_D2CCA
+        call MatchupBarLength
         mov eax, dword [dword_1CC6A4]
         mov ebx, dword [byte eax+02Ch]
         mov eax, dword [dword esi+dword_1CC688]
@@ -1211,9 +1215,9 @@ sub_D24F8:
         mov eax, dword [nosplit eax*4+dword_1CC688]
         mov ecx, dword [byte ebp-04h]
         mov eax, dword [byte eax+02Ch]
-        call sub_D2CCA
+        call MatchupBarLength
 .4:
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         cmp eax, dword [byte ebp-0Ch]
         jl short .4
@@ -1230,7 +1234,7 @@ sub_D24F8:
         add esp, byte 4
         test byte [byte ebp-04h], 2
         je short .5
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [dword_1CC684]
         push dword [byte eax+02Ch]
         call BlitShape
@@ -1240,7 +1244,7 @@ sub_D24F8:
         call BlitShape
         add esp, byte 4
 .5:
-        call sub_D2E1A
+        call MatchupSparkle
         add dword [byte ebp-04h], byte 2
         call sub_1013FC
         cmp dword [byte ebp-04h], byte 20h
@@ -1420,13 +1424,13 @@ PreGameStatsPanel:
         mov ebx, unk_16D7FC
         mov edx, dword [dword_1CC7A4]
         mov eax, dword [dword_1CC7D0]
-        call sub_D2C78
+        call ReadMatchupStats
         mov ebx, unk_16D804
         mov edx, dword [dword_1CC7A4]
         mov eax, dword [dword_1CC7D0]
         add edx, 16Eh
         add eax, 16Eh
-        call sub_D2C78
+        call ReadMatchupStats
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 10h
@@ -1436,7 +1440,7 @@ PreGameStatsPanel:
         mov eax, dword [dword_1CC7D0]
         add edx, 2DCh
         add eax, 2DCh
-        call sub_D2C78
+        call ReadMatchupStats
         cmp dword [dword_1ACF46], byte 0
         je short .9
         mov ebx, unk_1AD236
@@ -1450,7 +1454,7 @@ PreGameStatsPanel:
         mov eax, dword [dword_1CC7D0]
         add edx, 44Ah
         add eax, 44Ah
-        call sub_D2C78
+        call ReadMatchupStats
 .9:
         xor edi, edi
 .10:
@@ -1533,7 +1537,7 @@ PreGameStatsPanel:
         mov word [byte eax+0Eh], dx
 .13:
         inc dword [byte ebp-04h]
-        call sub_E341C
+        call ServiceIdle
         cmp dword [byte ebp-04h], byte 8
         jl near .11
         inc edi
@@ -1592,9 +1596,10 @@ PreGameStatsPanel_4E0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D2BD4                                                       D2BD4  97 PC
+; FreeMatchupScreen                               D2BD4  97 PC, low confidence
+; Frees the matchup screen
 ;-----------------------------------------------------------------------------
-sub_D2BD4:
+FreeMatchupScreen:
         push ebx
         push ecx
         push edx
@@ -1649,9 +1654,10 @@ sub_D2BD4:
         add esp, byte 4
         jmp near PreGameStatsPanel_4E0
 ;-----------------------------------------------------------------------------
-; sub_D2C78                                                       D2C78  97 PC
+; ReadMatchupStats                                D2C78  97 PC, low confidence
+; Reads the matchup team stats
 ;-----------------------------------------------------------------------------
-sub_D2C78:
+ReadMatchupStats:
         push ecx
         push esi
         push edi
@@ -1667,7 +1673,7 @@ sub_D2C78:
         mov eax, esi
         mov edx, dword [nosplit ecx*4+dword_1CC638]
         add ebx, dword [byte ebp-04h]
-        call sub_E0DB7
+        call ReadTeamStats
         test eax, eax
         jne short .2
         xor edi, edi
@@ -1676,7 +1682,7 @@ sub_D2C78:
         mov eax, esi
         mov edx, dword [nosplit ecx*4+dword_1CC650]
         add ebx, dword [byte ebp-08h]
-        call sub_E0DB7
+        call ReadTeamStats
         test eax, eax
         jne short .3
         xor edi, edi
@@ -1691,9 +1697,10 @@ sub_D2C78:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D2CCA                                                       D2CCA  97 PC
+; MatchupBarLength                                D2CCA  97 PC, low confidence
+; Works out the length of a matchup bar
 ;-----------------------------------------------------------------------------
-sub_D2CCA:
+MatchupBarLength:
         push esi
         push edi
         enter 28h, 0
@@ -1770,9 +1777,10 @@ sub_D2CCA:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_D2D94                                                       D2D94  97 PC
+; LoadMatchupArt                                  D2D94  97 PC, low confidence
+; Loads the matchup art
 ;-----------------------------------------------------------------------------
-sub_D2D94:
+LoadMatchupArt:
         push ebx
         push ecx
         push edx
@@ -1816,9 +1824,10 @@ sub_D2D94:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D2E1A                                                       D2E1A  97 PC
+; MatchupSparkle                                  D2E1A  97 PC, low confidence
+; Draws a random matchup sparkle with a sound
 ;-----------------------------------------------------------------------------
-sub_D2E1A:
+MatchupSparkle:
         push ecx
         push edx
         mov eax, dword [tickcount]
@@ -1870,13 +1879,14 @@ sub_D2E1A:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D2ED6                                                       D2ED6  97 PC
+; AnimateMatchup                                  D2ED6  97 PC, low confidence
+; Animates the matchup screen
 ;-----------------------------------------------------------------------------
-sub_D2ED6:
+AnimateMatchup:
         push ebx
         push ecx
         push edx
-        call sub_D2E1A
+        call MatchupSparkle
         mov eax, dword [tickcount]
         cmp eax, dword [dword_1CC7C0]
         jle near .6
@@ -1973,9 +1983,10 @@ unk_D305F:
 unk_D3067:
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_D306F                                                       D306F  97 PC
+; RostersSparkle                                  D306F  97 PC, low confidence
+; Draws a random sparkle on the rosters screen
 ;-----------------------------------------------------------------------------
-sub_D306F:
+RostersSparkle:
         push ebx
         push ecx
         push edx

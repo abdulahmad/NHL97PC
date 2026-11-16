@@ -21,15 +21,16 @@ extern RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9, RosterScreen_42C, R
 extern RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF, RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B
 extern RosterScreen_66C, rand_, sprintf_, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape
 extern sub_102B94, ConvertArtXY, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
-extern PlaySfx, LoadDataFile, sub_7DFC0, SetRegionRect, InitMenuItems, sub_8BFAC, sub_E341C, FreeMemBlock
+extern PlaySfx, LoadDataFile, DrawShadedLogo, SetRegionRect, InitMenuItems, RunMenu, ServiceIdle, FreeMemBlock
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, unk_1ACB44, unk_1ACD2B, unk_1CBC18
 extern unk_C5ED2
-global jpt_C6038, jpt_C750B, sub_C5F81_B1, sub_C6064_E65, sub_C6064_EB8, sub_C6064_F19, sub_C6064_1135, sub_C6064_115B
-global sub_C6064_1181, sub_C6064_11A7, sub_C6064_1264, sub_C6064_12B6, sub_C6064_1308, sub_C6064_139E, sub_C5F81, sub_C6064
+global jpt_C6038, jpt_C750B, SeasonMenuSound_B1, SeasonSetupScreen_E65, SeasonSetupScreen_EB8, SeasonSetupScreen_F19, SeasonSetupScreen_1135, SeasonSetupScreen_115B
+global SeasonSetupScreen_1181, SeasonSetupScreen_11A7, SeasonSetupScreen_1264, SeasonSetupScreen_12B6, SeasonSetupScreen_1308, SeasonSetupScreen_139E, SeasonMenuSound, SeasonSetupScreen
 ;-----------------------------------------------------------------------------
-; sub_C5F81                                                       C5F81  97 PC
+; SeasonMenuSound                                 C5F81  97 PC, low confidence
+; Plays a season menu sound
 ;-----------------------------------------------------------------------------
-sub_C5F81:
+SeasonMenuSound:
         push ebx
         push ecx
         push edx
@@ -86,7 +87,7 @@ sub_C5F81:
         call StopAllSfx
 .6:
         leave
-sub_C5F81_B1:
+SeasonMenuSound_B1:
         pop edi
         pop esi
         pop edx
@@ -94,21 +95,22 @@ sub_C5F81_B1:
         pop ebx
         ret
 jpt_C6038:
-        dd sub_C6064_F19
-        dd sub_C6064_EB8
-        dd sub_C6064_1135
-        dd sub_C6064_115B
-        dd sub_C6064_1181
-        dd sub_C6064_E65
-        dd sub_C6064_11A7
-        dd sub_C6064_1264
-        dd sub_C6064_12B6
-        dd sub_C6064_1308
-        dd sub_C6064_139E
+        dd SeasonSetupScreen_F19
+        dd SeasonSetupScreen_EB8
+        dd SeasonSetupScreen_1135
+        dd SeasonSetupScreen_115B
+        dd SeasonSetupScreen_1181
+        dd SeasonSetupScreen_E65
+        dd SeasonSetupScreen_11A7
+        dd SeasonSetupScreen_1264
+        dd SeasonSetupScreen_12B6
+        dd SeasonSetupScreen_1308
+        dd SeasonSetupScreen_139E
 ;-----------------------------------------------------------------------------
-; sub_C6064                                                       C6064  97 PC
+; SeasonSetupScreen                               C6064  97 PC, low confidence
+; Runs the season setup screens
 ;-----------------------------------------------------------------------------
-sub_C6064:
+SeasonSetupScreen:
         push ebx
         push ecx
         push edx
@@ -524,7 +526,7 @@ sub_C6064:
         push byte 0
         mov edx, dword [byte edx+02Ch]
         mov dword [dword ebp+02E8h], eax
-        call sub_7DFC0
+        call DrawShadedLogo
         jmp short .6
 .5:
         mov eax, dword [dword ebp+02F0h]
@@ -572,7 +574,7 @@ sub_C6064:
         push byte 0
         mov edx, dword [byte edx+02Ch]
         mov dword [dword ebp+02ECh], eax
-        call sub_7DFC0
+        call DrawShadedLogo
         jmp short .8
 .7:
         dec ebx
@@ -1003,24 +1005,24 @@ sub_C6064:
         call DrawArt
         add esp, byte 0Ch
         call sub_1013FC
-sub_C6064_E65:
+SeasonSetupScreen_E65:
         cmp word [dword ebp+0314h], byte 0
-        jne near sub_C6064_139E.80
+        jne near SeasonSetupScreen_139E.80
         push byte 3
         lea eax, [dword ebp+02D8h]
-        mov ecx, sub_C5F81
+        mov ecx, SeasonMenuSound
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, unk_1CBC18
         mov eax, 11h
-        call sub_8BFAC
+        call RunMenu
         cmp dword [dword ebp+02D8h], byte 0Ah
-        ja near sub_C6064_139E.79
+        ja near SeasonSetupScreen_139E.79
         mov eax, dword [dword_1AC814]
         mov edx, dword [dword ebp+02D8h]
         and eax, byte 70h
         jmp dword [nosplit cs:edx*4+jpt_C6038]
-sub_C6064_EB8:
+SeasonSetupScreen_EB8:
         mov edi, 1
         mov dword [dword ebp+0314h], 1
         jmp short .37
@@ -1043,15 +1045,15 @@ sub_C6064_EB8:
         mov eax, dword [tickcount]
         cmp eax, ebx
         jge short .36
-        call sub_E341C
+        call ServiceIdle
         jmp short .35
 .36:
         inc edi
 .37:
         cmp di, byte 9
         jl short .33
-        jmp near sub_C6064_E65
-sub_C6064_F19:
+        jmp near SeasonSetupScreen_E65
+SeasonSetupScreen_F19:
         cmp word [dword ebp-03C8h], byte 0
         jne near .39
         lea edx, [byte ebp+07Ch]
@@ -1177,7 +1179,7 @@ sub_C6064_F19:
         mov eax, dword [tickcount]
         cmp eax, ebx
         jge short .46
-        call sub_E341C
+        call ServiceIdle
         jmp short .45
 .46:
         inc edi
@@ -1185,57 +1187,57 @@ sub_C6064_F19:
         cmp di, byte 9
         jl short .43
         mov dword [dword ebp+0314h], 1
-        jmp near sub_C6064_E65
-sub_C6064_1135:
+        jmp near SeasonSetupScreen_E65
+SeasonSetupScreen_1135:
         test byte [byte ebp+07Dh], 8
         je short .49
         mov eax, dword [dword ebp+0310h]
         and byte [byte ebp+07Dh], 0F7h
 .48:
         mov dword [dword_1CBCD6], eax
-        jmp near sub_C6064_E65
+        jmp near SeasonSetupScreen_E65
 .49:
         mov eax, dword [dword ebp+030Ch]
         or byte [byte ebp+07Dh], 8
         jmp short .48
-sub_C6064_115B:
+SeasonSetupScreen_115B:
         test byte [byte ebp+07Dh], 20h
         je short .51
         mov eax, dword [dword ebp+0310h]
         and byte [byte ebp+07Dh], 0DFh
 .50:
         mov dword [dword_1CBD28], eax
-        jmp near sub_C6064_E65
+        jmp near SeasonSetupScreen_E65
 .51:
         mov eax, dword [dword ebp+030Ch]
         or byte [byte ebp+07Dh], 20h
         jmp short .50
-sub_C6064_1181:
+SeasonSetupScreen_1181:
         test byte [byte ebp+07Dh], 10h
         je short .53
         mov eax, dword [dword ebp+0310h]
         and byte [byte ebp+07Dh], 0EFh
 .52:
         mov dword [dword_1CBD7A], eax
-        jmp near sub_C6064_E65
+        jmp near SeasonSetupScreen_E65
 .53:
         mov eax, dword [dword ebp+030Ch]
         or byte [byte ebp+07Dh], 10h
         jmp short .52
-sub_C6064_11A7:
+SeasonSetupScreen_11A7:
         test byte [byte ebp+07Dh], 0C0h
         jne short .55
         cmp eax, byte 10h
         jne short .54
         cmp byte [byte_1AD23E], 0
-        jne near sub_C6064_E65
+        jne near SeasonSetupScreen_E65
 .54:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .55
         cmp byte [byte_1AD739], 0
-        jne near sub_C6064_E65
+        jne near SeasonSetupScreen_E65
 .55:
         mov eax, dword [byte ebp+07Dh]
         shl eax, 18h
@@ -1273,7 +1275,7 @@ sub_C6064_11A7:
         mov eax, dword [dword ebp+0310h]
 .60:
         mov dword [dword_1CBE1E], eax
-        jmp near sub_C6064_E65
+        jmp near SeasonSetupScreen_E65
 .61:
         mov eax, dword [byte ebp+07Dh]
         and eax, 0C0h
@@ -1284,18 +1286,18 @@ sub_C6064_11A7:
 .62:
         mov eax, dword [dword ebp+02FCh]
         jmp short .60
-sub_C6064_1264:
+SeasonSetupScreen_1264:
         cmp eax, byte 10h
         jne short .63
         cmp byte [byte_1AD23E], 0
-        jne near sub_C6064_E65
+        jne near SeasonSetupScreen_E65
 .63:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .64
         cmp byte [byte_1AD739], 0
-        jne near sub_C6064_E65
+        jne near SeasonSetupScreen_E65
 .64:
         test byte [byte ebp+07Eh], 1
         je short .66
@@ -1303,23 +1305,23 @@ sub_C6064_1264:
         and byte [byte ebp+07Eh], 0FEh
 .65:
         mov dword [dword_1CBE70], eax
-        jmp near sub_C6064_E65
+        jmp near SeasonSetupScreen_E65
 .66:
         mov eax, dword [dword ebp+030Ch]
         or byte [byte ebp+07Eh], 1
         jmp short .65
-sub_C6064_12B6:
+SeasonSetupScreen_12B6:
         cmp eax, byte 10h
         jne short .67
         cmp byte [byte_1AD23E], 0
-        jne near sub_C6064_E65
+        jne near SeasonSetupScreen_E65
 .67:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .68
         cmp byte [byte_1AD739], 0
-        jne near sub_C6064_E65
+        jne near SeasonSetupScreen_E65
 .68:
         test byte [byte ebp+07Eh], 4
         je short .70
@@ -1327,23 +1329,23 @@ sub_C6064_12B6:
         and byte [byte ebp+07Eh], 0FBh
 .69:
         mov dword [dword_1CBEC2], eax
-        jmp near sub_C6064_E65
+        jmp near SeasonSetupScreen_E65
 .70:
         mov eax, dword [dword ebp+030Ch]
         or byte [byte ebp+07Eh], 4
         jmp short .69
-sub_C6064_1308:
+SeasonSetupScreen_1308:
         cmp eax, byte 10h
         jne short .71
         cmp byte [byte_1AD23E], 0
-        jne near sub_C6064_E65
+        jne near SeasonSetupScreen_E65
 .71:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .72
         cmp byte [byte_1AD739], 0
-        jne near sub_C6064_E65
+        jne near SeasonSetupScreen_E65
 .72:
         mov eax, dword [byte ebp+07Dh]
         shl eax, 13h
@@ -1367,7 +1369,7 @@ sub_C6064_1308:
         call FindShape
         add esp, byte 8
         mov dword [dword_1CBF14], eax
-        jmp near sub_C6064_E65
+        jmp near SeasonSetupScreen_E65
 .75:
         mov eax, dword [byte ebp+07Dh]
         and eax, 1800h
@@ -1378,14 +1380,14 @@ sub_C6064_1308:
 .76:
         push str_2000
         jmp short .74
-sub_C6064_139E:
+SeasonSetupScreen_139E:
         test byte [byte ebp+07Eh], 20h
         je short .78
         mov eax, dword [dword ebp+0310h]
         and byte [byte ebp+07Eh], 0DFh
 .77:
         mov dword [dword_1CBF66], eax
-        jmp near sub_C6064_E65
+        jmp near SeasonSetupScreen_E65
 .78:
         mov eax, dword [dword ebp+030Ch]
         or byte [byte ebp+07Eh], 20h
@@ -1401,7 +1403,7 @@ sub_C6064_139E:
         push dword [byte eax+02Ch]
         call BlitShape2
         add esp, byte 4
-        jmp near sub_C6064.32
+        jmp near SeasonSetupScreen.32
 .80:
         push dword [dword_1CBC14]
         call FreeMemBlock
@@ -1448,7 +1450,7 @@ sub_C6064_139E:
 .83:
         lea esp, [dword ebp+0318h]
         pop ebp
-        jmp near sub_C5F81_B1
+        jmp near SeasonMenuSound_B1
 jpt_C750B:
         dd RosterScreen_11C
         dd RosterScreen_157

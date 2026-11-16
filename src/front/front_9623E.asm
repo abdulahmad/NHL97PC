@@ -29,28 +29,28 @@ extern dword_1C8E3C, dword_1C8E40, dword_1C8E44, dword_1C8E48, dword_1CC2AC, dwo
 extern qsort_, sprintf_, strcat_, strcpy_, BlitArt, BlitShape, sub_1013FC, FindShape
 extern FindShapeQuiet, sub_101560, sub_102B94, sub_102C10, Random32, sub_106F64, sub_106F94, ConvertArtXY
 extern SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx
-extern LoadDataFile, LoadDataFileFlag0, OpenDataLibrary, sub_7B84B, LoadLogoNames, sub_7CB8C, sub_7DFC0, sub_7E52C
-extern sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4
-extern sub_80BBC, sub_81678, sub_823F0, sub_830D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
-extern sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, GetLangText, sub_8E870, sub_C7EAE
-extern sub_C80C8, sub_C8127, sub_CA44C, sub_D0098, sub_DA7D6, sub_E036F, sub_E0841, sub_E341C
+extern LoadDataFile, LoadDataFileFlag0, OpenDataLibrary, PlayerInjuryDays, LoadLogoNames, FreeTempArt, DrawShadedLogo, DrawShadowBox
+extern DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox
+extern WipeScreen, SetNormalText, DrawPortrait, DrawStatHeader, InitMenuItems, RunMenu, InitScrollList, ScrollUp
+extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList, GetLangText, PositionAbbrev, SetRosterMode
+extern SkaterOverall, GoalieOverall, InitListBox, InitShapeListBox, KeysEqual, FindGameRecord, FindPlayerStat, ServiceIdle
 extern AllocMemBlock, FreeMemBlock, sub_FBE5D, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, unk_165BAB, unk_165BAE, unk_16D7F4
 extern unk_1C134A, unk_1C1352, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1C1344
 extern word_1C8CD4, word_1C8CEC
 global jpt_9861E, jpt_9AC47, EditLinesScreen_17F, EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA
-global EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D, EditLinesScreen_8E8, sub_96E85_39D, sub_97D16_203, EditLinesGridScreen_A49, EditLinesGridScreen_C5B
-global EditLinesGridScreen_E82, EditLinesGridScreen_FA7, EditLinesGridScreen_1010, EditLinesGridScreen_1087, EditLinesGridScreen_10B1, EditLinesGridScreen_10DB, sub_9A0EC_28A, DrawPlayerLines_214
-global DrawPlayerLines_21E, DrawPlayerLines_234, DrawPlayerLines_23B, sub_9AC57_2E6, sub_9AC57_309, sub_9AC57_31A, sub_9AC57_32B, sub_9B4AA_16C
-global sub_9B4AA_41B, sub_9B4AA_517, sub_9BAC1_59, sub_9C7B7_FE, sub_9CD63_82, sub_9CD63_88, sub_9CD63_B6, sub_9DACE_66
-global sub_9DACE_68, EditLinesScreen, InitEditLinesScreen, sub_96E85, sub_97228, sub_9732A, AllocTempGameTeam, FreeEditLinesScreen
-global sub_97D16, sub_97F7F, sub_980B3, sub_981EE, sub_98231, LoadEditLinesRoster, sub_984D3, EditLinesGridScreen
-global DrawScoringLines, sub_99CC5, sub_99D40, sub_99DAC, sub_99E41, sub_9A0EC, sub_9A389, sub_9A603
-global DrawPlayerLines, DrawPlayerHealth, sub_9AC57, sub_9B25A, sub_9B2A8, sub_9B39F, sub_9B418, sub_9B45C
-global sub_9B4AA, sub_9BAC1, sub_9BB40, sub_9BBDF, sub_9BC01, sub_9BDA1, sub_9C3BF, LoadEditLinesArt
-global sub_9C7B7, sub_9C924, sub_9CCB1, sub_9CD63, sub_9CE1D, sub_9CF95, sub_9CFA2, sub_9CFD3
-global sub_9D2D0, sub_9D333, sub_9D822, sub_9D903, sub_9DA9D, sub_9DACE, sub_9DB3C, sub_9DBD5
-global sub_9DC7B, sub_9DD65, sub_9DEC2
+global EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D, EditLinesScreen_8E8, LayoutLinesCard_39D, CopyTeamRoster_203, EditLinesGridScreen_A49, EditLinesGridScreen_C5B
+global EditLinesGridScreen_E82, EditLinesGridScreen_FA7, EditLinesGridScreen_1010, EditLinesGridScreen_1087, EditLinesGridScreen_10B1, EditLinesGridScreen_10DB, DrawForwardLines_28A, DrawPlayerLines_214
+global DrawPlayerLines_21E, DrawPlayerLines_234, DrawPlayerLines_23B, DrawLinesScreen_2E6, DrawLinesScreen_309, DrawLinesScreen_31A, DrawLinesScreen_32B, DrawLinesCardDetails_16C
+global DrawLinesCardDetails_41B, DrawLinesCardDetails_517, DrawRatingMeter_59, ShowLinesIntro_FE, LinesIntroSparkle_82, LinesIntroSparkle_88, LinesIntroSparkle_B6, FindBestForSlot_66
+global FindBestForSlot_68, EditLinesScreen, InitEditLinesScreen, LayoutLinesCard, DrawLinesCardLogo, EditLinesSetup, AllocTempGameTeam, FreeEditLinesScreen
+global CopyTeamRoster, CountHealthyPlayers, LoadLinesForTeam, HomePlayerRecord, AwayPlayerRecord, LoadEditLinesRoster, FindPlayerInLines, EditLinesGridScreen
+global DrawScoringLines, DrawLinesCell, DrawLinesGridArt, FillStatBar, DrawLinesGridHeader, DrawForwardLines, DrawDefenceLines, DrawSpecialLines
+global DrawPlayerLines, DrawPlayerHealth, DrawLinesScreen, SetLinesListPos, DrawLinesLabel, InitLinesLabelList, InitLinesList, DrawLinesPlayerCard
+global DrawLinesCardDetails, DrawRatingMeter, DrawRatingMeterArt, RatingMeterColour, DrawRatingMeters, DrawCardRatings, LoadLinesArt, LoadEditLinesArt
+global ShowLinesIntro, DrawLinesIntroText, LinesIntroSound, LinesIntroSparkle, ShowLinesPopup, CompareByRating, CompareGoalieFirst, SortRosterByRating
+global ClearAndBuildLines, BuildAutoLines, SortLinesCandidates, ClearLineSlots, IsInLines, FindBestForSlot, FindBestCenter, FindBestWinger
+global FindBestDefence, FillLineSlots, FillAllLines
 ;-----------------------------------------------------------------------------
 ; EditLinesScreen                              9623E  96 PC, medium confidence
 ; The edit lines screen (bt09 / bh09, slid / slup / sldw scroll, power play
@@ -96,7 +96,7 @@ EditLinesScreen:
         lea eax, [byte ebp+05Ah]
         mov dword [dword_1C8E00], 0
         mov dword [dword_1C8DE4], eax
-        call sub_81678
+        call SetNormalText
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -124,11 +124,11 @@ EditLinesScreen:
         call InitEditLinesScreen
         mov edx, dword [byte ebp+07Ah]
         mov eax, edi
-        call sub_9732A
+        call EditLinesSetup
         call LoadEditLinesArt
         mov edx, 1
         mov eax, esi
-        call sub_9AC57
+        call DrawLinesScreen
         push byte 0
         push byte 12h
         push dword 0C8h
@@ -148,15 +148,15 @@ EditLinesScreen:
 .2:
         mov dword [dword_1C8E40], 0
 .3:
-        call sub_9C7B7
+        call ShowLinesIntro
         mov dword [byte ebp+07Eh], 0
         jmp near EditLinesScreen_2C7.23
 EditLinesScreen_17F:
-        call sub_7EEB0
+        call ShowScreen
         inc dword [byte ebp+07Eh]
         jmp near EditLinesScreen_2C7.23
 EditLinesScreen_18C:
-        call sub_7EDF0
+        call FadeInScreen
         xor edx, edx
         xor ecx, ecx
         jmp short .6
@@ -198,7 +198,7 @@ EditLinesScreen_18C:
         lea eax, [dword ebp-08Ah]
         xor ebx, ebx
         mov dword [byte ebp+07Eh], 0
-        call sub_7F5A4
+        call ShowMessageBox
         cmp eax, byte 1
         jne near .16
         jmp near .15
@@ -234,7 +234,7 @@ EditLinesScreen_18C:
         mov eax, 0BFh
         jmp near .8
 .14:
-        call sub_97F7F
+        call CountHealthyPlayers
         mov dword [byte ebp+076h], eax
         mov dword [byte ebp+07Eh], eax
         test eax, eax
@@ -244,7 +244,7 @@ EditLinesScreen_18C:
         mov ecx, 1
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         cmp eax, byte 1
         jne short .16
         mov eax, dword [byte ebp+076h]
@@ -252,14 +252,14 @@ EditLinesScreen_18C:
 .15:
         mov dword [byte ebp+07Eh], eax
         xor eax, eax
-        call sub_9D333
+        call BuildAutoLines
 .16:
         cmp dword [byte ebp+07Eh], byte 0
         je near EditLinesScreen_2C7.23
         mov edx, dword [byte ebp+07Ah]
         mov eax, edi
         mov dword [byte ebp+072h], 1
-        call sub_980B3
+        call LoadLinesForTeam
         jmp near EditLinesScreen_2C7.23
 EditLinesScreen_2C7:
         cmp dword [dword_1C8E20], byte 0
@@ -281,7 +281,7 @@ EditLinesScreen_2C7:
         mov dword [dword_1C8E44], 0
 .19:
         add esp, byte 4
-        call sub_7EF70
+        call ExitScreen
         cmp dword [dword_1C8E44], byte 0
         jne near .21
         mov eax, 3
@@ -313,7 +313,7 @@ EditLinesScreen_2C7:
         mov ebx, str_SW06
         mov eax, dword [dword_1C8E44]
         lea edx, [dword esi+01ECh]
-        call sub_D0098
+        call InitShapeListBox
         push str_HLLF
         push dword [dword_1C8E44]
         call FindShape
@@ -330,13 +330,13 @@ EditLinesScreen_2C7:
         mov ebx, str_AB002
         mov eax, dword [dword_1C8E44]
         lea edx, [dword esi+023Eh]
-        call sub_D0098
+        call InitShapeListBox
         push str_AB052
         mov ecx, str_AB042
         mov ebx, str_AB032
         mov eax, dword [dword_1C8E44]
         lea edx, [dword esi+0290h]
-        call sub_D0098
+        call InitShapeListBox
 .21:
         cmp byte [byte_1C6040], 0
         jne short .22
@@ -350,18 +350,18 @@ EditLinesScreen_2C7:
         call LoadDataFileFlag0
         mov dword [dword_1C8E40], eax
 .22:
-        call sub_9C7B7
+        call ShowLinesIntro
 .23:
         cmp dword [byte ebp+07Eh], byte 0
         jne near EditLinesScreen_69D.37
         push byte 0
         lea eax, [byte ebp+066h]
-        mov ecx, sub_9C7B7_FE
+        mov ecx, ShowLinesIntro_FE
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, esi
         mov eax, 1Eh
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+066h], byte 8
         ja near EditLinesScreen_69D.33
         mov eax, dword [byte ebp+066h]
@@ -374,7 +374,7 @@ EditLinesScreen_49D:
 .24:
         mov edx, 1
         mov eax, esi
-        call sub_9AC57
+        call DrawLinesScreen
         jmp short EditLinesScreen_2C7.23
 EditLinesScreen_4C4:
         imul eax, byte 52h
@@ -397,7 +397,7 @@ EditLinesScreen_4C4:
         mov eax, dword [dword_1C8DF8]
         push dword_1C8B44
         mov edx, eax
-        call sub_8DF1F
+        call RunScrollList
         cmp eax, dword [dword_1C8E14]
         je near .27
         test eax, eax
@@ -426,7 +426,7 @@ EditLinesScreen_4C4:
         mov eax, dword [dword_1C8DF4]
         push dword_1C8AB4
         mov edx, eax
-        call sub_8DF1F
+        call RunScrollList
         cmp eax, dword [dword_1C8E18]
         je short .27
         test eax, eax
@@ -442,7 +442,7 @@ EditLinesScreen_4C4:
         je near EditLinesScreen_2C7.23
         imul eax, dword [byte ebp+066h], byte 52h
         add eax, esi
-        call sub_9B25A
+        call SetLinesListPos
         call SetScreenTarget
         imul eax, dword [byte ebp+066h], byte 52h
         push dword [byte esi+eax+02Ah]
@@ -456,7 +456,7 @@ EditLinesScreen_5BA:
         mov edx, 2
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         cmp eax, byte 1
         jne near EditLinesScreen_49D.24
         mov edx, dword [byte ebp+07Ah]
@@ -464,7 +464,7 @@ EditLinesScreen_5BA:
         call LoadEditLinesRoster
         jmp near EditLinesScreen_49D.24
 EditLinesScreen_5EF:
-        call sub_9CE1D
+        call ShowLinesPopup
         mov eax, dword [dword_1C8E24]
         mov dl, byte [dword eax+02121h]
         mov dh, byte [dword eax+02122h]
@@ -491,7 +491,7 @@ EditLinesScreen_61B:
         mov dword [dword_1C8E14], eax
 .30:
         lea eax, [dword esi+0148h]
-        call sub_9B25A
+        call SetLinesListPos
         call SetScreenTarget
         push dword [dword esi+0172h]
         push dword [dword esi+016Eh]
@@ -499,9 +499,9 @@ EditLinesScreen_61B:
 .31:
         call DrawArt
         add esp, byte 0Ch
-        mov edx, sub_9B4AA_517
-        mov eax, sub_9B4AA_41B
-        call sub_9BC01
+        mov edx, DrawLinesCardDetails_517
+        mov eax, DrawLinesCardDetails_41B
+        call DrawRatingMeters
         call sub_1013FC
         jmp near EditLinesScreen_2C7.23
 EditLinesScreen_69D:
@@ -529,7 +529,7 @@ EditLinesScreen_69D:
         jne short .34
         cmp dword [byte ebp+066h], byte 0Ch
         jne short .34
-        call sub_9CE1D
+        call ShowLinesPopup
         mov eax, dword [dword_1C8E24]
         mov dh, byte [dword eax+02121h]
         mov dl, byte [dword eax+02122h]
@@ -598,7 +598,7 @@ EditLinesScreen_69D:
         add esp, byte 8
         mov dword [dword_1C8E3C], eax
         mov eax, esi
-        call sub_9AC57
+        call DrawLinesScreen
         jmp near EditLinesScreen_2C7.22
 .37:
         push dword [dword_1C8DA4]
@@ -730,7 +730,7 @@ InitEditLinesScreen:
         mov ebx, eax
         mov edx, eax
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         rep movsb
         mov eax, dword [byte ebp-024h]
         mov ecx, 52h
@@ -767,17 +767,17 @@ InitEditLinesScreen:
         sub edx, byte 3
         mov eax, esi
         mov ebx, str_TB06
-        call sub_9B418
+        call InitLinesList
         push str_TB07
         mov eax, dword [dword_1C8E2C]
         mov edx, esi
         mov esi, dword [byte ebp-024h]
-        call sub_D0098
+        call InitShapeListBox
         add esi, 148h
         mov dword [dword_1C8E14], 0
         mov eax, esi
         mov dword [dword_1C8E18], 0
-        call sub_9B25A
+        call SetLinesListPos
         mov eax, dword [byte ebp-024h]
         mov eax, dword [dword eax+0162h]
         movsx edx, word [byte eax+06h]
@@ -786,7 +786,7 @@ InitEditLinesScreen:
         push edx
         movsx edx, word [byte eax+0Ch]
         mov eax, esi
-        call sub_CA44C
+        call InitListBox
         xor ebx, ebx
 .3:
         push ebx
@@ -811,21 +811,21 @@ InitEditLinesScreen:
         mov eax, dword [dword_1C8E2C]
         add edx, 19Ah
         mov dword [dword_1C8DDC], 0
-        call sub_D0098
+        call InitShapeListBox
         push str_AB022
         mov edx, dword [byte ebp-024h]
         mov ecx, str_AB012
         mov ebx, str_AB002
         mov eax, dword [dword_1C8E44]
         add edx, 23Eh
-        call sub_D0098
+        call InitShapeListBox
         push str_AB052
         mov edx, dword [byte ebp-024h]
         mov ecx, str_AB042
         mov ebx, str_AB032
         mov eax, dword [dword_1C8E44]
         add edx, 290h
-        call sub_D0098
+        call InitShapeListBox
         push dword [dword_1C8E1C]
         call SetDrawTarget
         xor ebx, ebx
@@ -880,7 +880,7 @@ InitEditLinesScreen:
         mov eax, dword [dword_1C8E1C]
         xor edx, edx
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         cmp byte [byte_1C6040], 0
         je short .9
         push dword [dword_1C8E1C]
@@ -893,9 +893,10 @@ InitEditLinesScreen:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_96E85                                                       96E85  97 PC
+; LayoutLinesCard                                 96E85  97 PC, low confidence
+; Lays out the player card of the lines screen
 ;-----------------------------------------------------------------------------
-sub_96E85:
+LayoutLinesCard:
         push ebx
         push ecx
         push edx
@@ -968,7 +969,7 @@ sub_96E85:
         mov dword [dword eax+dword_1C8D18], 1E0h
         cmp edx, byte 5
         jl short .5
-        jmp near sub_96E85_39D
+        jmp near LayoutLinesCard_39D
 .6:
         cmp dword [dword_1C8E48], byte 1
         jne near .14
@@ -1067,7 +1068,7 @@ sub_96E85:
         mov dword [nosplit eax*8+dword_1C8D78], edi
         cmp eax, byte 4
         jl short .13
-        jmp near sub_96E85_39D
+        jmp near LayoutLinesCard_39D
 .14:
         cmp dword [dword_1C8E48], byte 2
         jne near .21
@@ -1139,10 +1140,10 @@ sub_96E85:
         mov dword [nosplit eax*8+dword_1C8D78], 1E0h
         cmp eax, byte 4
         jl short .20
-        jmp near sub_96E85_39D
+        jmp near LayoutLinesCard_39D
 .21:
         cmp dword [dword_1C8E48], byte 3
-        jne near sub_96E85_39D
+        jne near LayoutLinesCard_39D
         xor edx, edx
 .22:
         xor eax, eax
@@ -1176,13 +1177,14 @@ sub_96E85:
         add eax, byte 12h
         mov dword [dword_1C8CD0], 106h
         mov dword [dword_1C8D08], eax
-sub_96E85_39D:
+LayoutLinesCard_39D:
         leave
         jmp near DrawPlayerLines_23B
 ;-----------------------------------------------------------------------------
-; sub_97228                                                       97228  97 PC
+; DrawLinesCardLogo                               97228  97 PC, low confidence
+; Draws the team logo on the lines player card
 ;-----------------------------------------------------------------------------
-sub_97228:
+DrawLinesCardLogo:
         push ebx
         push ecx
         push edx
@@ -1219,7 +1221,7 @@ sub_97228:
         call sub_1013FC
 .4:
         inc esi
-        call sub_E341C
+        call ServiceIdle
         cmp esi, byte 5
         jl short .1
         jmp near DrawPlayerLines_23B
@@ -1262,12 +1264,13 @@ sub_97228:
         push byte 0
         mov edx, dword [byte ebx+02Ch]
         mov ebx, 10h
-        call sub_7DFC0
+        call DrawShadedLogo
         jmp near DrawPlayerLines_23B
 ;-----------------------------------------------------------------------------
-; sub_9732A                                                       9732A  97 PC
+; EditLinesSetup                                  9732A  97 PC, low confidence
+; Loads the art and data of the edit lines screen
 ;-----------------------------------------------------------------------------
-sub_9732A:
+EditLinesSetup:
         push ebx
         push ecx
         push esi
@@ -1291,7 +1294,7 @@ sub_9732A:
         shl eax, 6
         jmp short .1
 .3:
-        call sub_C7EAE
+        call SetRosterMode
         cmp eax, byte 2
         je short .4
         mov dword [dword_1C8DB0], edx
@@ -1303,7 +1306,7 @@ sub_9732A:
 .6:
         cmp byte [byte_1C6040], 0
         je short .7
-        call sub_7CB8C
+        call FreeTempArt
 .7:
         cmp dword [dword_1C8DB0], byte 22h
         jne short .8
@@ -1670,7 +1673,7 @@ sub_9732A:
         inc ebx
         cmp ebx, byte 3
         jl near .23
-        call sub_E341C
+        call ServiceIdle
         test edi, edi
         jle near .27
         cmp edi, byte 3
@@ -1722,7 +1725,7 @@ sub_9732A:
 .28:
         mov esi, dword [byte eax+02Ch]
         add esi, byte 10h
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+016h]
         mov eax, dword [byte eax+02Ch]
         add eax, byte 10h
@@ -1886,7 +1889,7 @@ sub_9732A:
         je short .40
         mov edi, 0Ah
 .43:
-        call sub_E341C
+        call ServiceIdle
         call SetScreenTarget
         mov eax, dword [byte ebp+016h]
         push dword [byte eax+02Ch]
@@ -1945,9 +1948,9 @@ AllocTempGameTeam:
         imul edx, esi, dword 32C6h
         mov ebx, dword [dword_1CC2AC]
         add edx, ebx
-        call sub_97D16
+        call CopyTeamRoster
 .4:
-        call sub_9C3BF
+        call LoadLinesArt
         push byte 20h
         push byte 5
         push byte 6Ah
@@ -2111,9 +2114,10 @@ FreeEditLinesScreen:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_97D16                                                       97D16  97 PC
+; CopyTeamRoster                                  97D16  97 PC, low confidence
+; Copies a team roster into the temporary game team
 ;-----------------------------------------------------------------------------
-sub_97D16:
+CopyTeamRoster:
         push ebx
         push ecx
         push esi
@@ -2262,7 +2266,7 @@ sub_97D16:
         mov dword [byte ebp-08h], 0
 .8:
         mov eax, dword [byte ebp-08h]
-sub_97D16_203:
+CopyTeamRoster_203:
         leave
         pop edi
         pop esi
@@ -2313,9 +2317,10 @@ sub_97D16_203:
         jl short .13
         jmp short .12
 ;-----------------------------------------------------------------------------
-; sub_97F7F                                                       97F7F  97 PC
+; CountHealthyPlayers                             97F7F  97 PC, low confidence
+; Counts the healthy players in the lines
 ;-----------------------------------------------------------------------------
-sub_97F7F:
+CountHealthyPlayers:
         push ebx
         push ecx
         push edx
@@ -2440,9 +2445,10 @@ sub_97F7F:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_980B3                                                       980B3  97 PC
+; LoadLinesForTeam                                980B3  97 PC, low confidence
+; Loads the lines of one team
 ;-----------------------------------------------------------------------------
-sub_980B3:
+LoadLinesForTeam:
         push ebx
         push ecx
         push esi
@@ -2541,9 +2547,10 @@ sub_980B3:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_981EE                                                       981EE  97 PC
+; HomePlayerRecord                                981EE  97 PC, low confidence
+; Returns the home team record of a roster slot
 ;-----------------------------------------------------------------------------
-sub_981EE:
+HomePlayerRecord:
         push ebx
         push ecx
         push edx
@@ -2569,9 +2576,10 @@ sub_981EE:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_98231                                                       98231  97 PC
+; AwayPlayerRecord                                98231  97 PC, low confidence
+; Returns the away team record of a roster slot
 ;-----------------------------------------------------------------------------
-sub_98231:
+AwayPlayerRecord:
         push ebx
         push ecx
         push edx
@@ -2618,7 +2626,7 @@ LoadEditLinesRoster:
 .2:
         mov edx, unk_16D7F4
         mov eax, ebx
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .3
         mov ebx, 36h
@@ -2627,8 +2635,8 @@ LoadEditLinesRoster:
         add eax, 20EDh
         call memset_
         xor eax, eax
-        call sub_9D333
-        jmp near sub_97D16_203
+        call BuildAutoLines
+        jmp near CopyTeamRoster_203
 .3:
         push eax
         push dword 194Fh
@@ -2638,7 +2646,7 @@ LoadEditLinesRoster:
         add esp, byte 0Ch
         mov dword [byte ebp-04h], eax
         mov eax, ebx
-        call sub_E036F
+        call FindGameRecord
         jmp short .5
 .4:
         cmp dword [dword_1CC2AC], byte 0
@@ -2686,7 +2694,7 @@ LoadEditLinesRoster:
         add eax, esi
         add eax, ebx
         inc ebx
-        call sub_981EE
+        call HomePlayerRecord
         cmp ebx, byte 3
         jl short .11
         inc edx
@@ -2702,7 +2710,7 @@ LoadEditLinesRoster:
         add eax, esi
         add eax, ebx
         inc ebx
-        call sub_981EE
+        call HomePlayerRecord
         cmp ebx, byte 2
         jl short .13
         inc edx
@@ -2718,7 +2726,7 @@ LoadEditLinesRoster:
         add eax, esi
         add eax, ebx
         inc ebx
-        call sub_981EE
+        call HomePlayerRecord
         cmp ebx, byte 5
         jl short .15
         inc edx
@@ -2735,7 +2743,7 @@ LoadEditLinesRoster:
         add eax, esi
         add eax, ebx
         inc ebx
-        call sub_981EE
+        call HomePlayerRecord
         cmp ebx, byte 4
         jl short .17
         inc edx
@@ -2752,7 +2760,7 @@ LoadEditLinesRoster:
         add eax, esi
         add eax, ebx
         inc ebx
-        call sub_981EE
+        call HomePlayerRecord
         cmp ebx, byte 4
         jl short .19
         inc edx
@@ -2768,7 +2776,7 @@ LoadEditLinesRoster:
         add eax, esi
         add eax, ebx
         inc ebx
-        call sub_981EE
+        call HomePlayerRecord
         cmp ebx, byte 3
         jl short .21
         inc edx
@@ -2780,7 +2788,7 @@ LoadEditLinesRoster:
         add eax, 2111h
         add eax, edx
         inc edx
-        call sub_981EE
+        call HomePlayerRecord
         cmp edx, byte 2
         jl short .22
         xor edx, edx
@@ -2789,17 +2797,17 @@ LoadEditLinesRoster:
         add eax, 2121h
         add eax, edx
         inc edx
-        call sub_98231
+        call AwayPlayerRecord
         cmp edx, byte 2
         jl short .23
         xor eax, eax
-        call sub_9D333
+        call BuildAutoLines
         cmp dword [byte ebp-08h], byte 0
-        jl near sub_97D16_203
+        jl near CopyTeamRoster_203
         push dword [byte ebp-04h]
         call FreeMemBlock
         add esp, byte 4
-        jmp near sub_97D16_203
+        jmp near CopyTeamRoster_203
         push ebx
         push ecx
         push edx
@@ -2821,9 +2829,10 @@ LoadEditLinesRoster:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_984D3                                                       984D3  97 PC
+; FindPlayerInLines                               984D3  97 PC, low confidence
+; Finds a player in the lines
 ;-----------------------------------------------------------------------------
-sub_984D3:
+FindPlayerInLines:
         push ebx
         push ecx
         push edx
@@ -3012,7 +3021,7 @@ EditLinesGridScreen:
         push edx
         xor ebx, ebx
         mov edx, 0Ah
-        call sub_7E52C
+        call DrawShadowBox
         push dword [dword_1C8E1C]
         call SetDrawTarget
         mov eax, esi
@@ -3397,7 +3406,7 @@ EditLinesGridScreen:
         jl short .9
         mov edx, 14h
         mov eax, dword [byte ebp+076h]
-        call sub_9B418
+        call InitLinesList
         mov eax, dword [dword_1C8E1C]
         mov ecx, 52h
         mov eax, dword [byte eax+02Ch]
@@ -3405,7 +3414,7 @@ EditLinesGridScreen:
         mov ebx, eax
         mov edx, eax
         mov esi, unk_1C5EF8
-        call sub_7E860
+        call DrawScreenBackground
         rep movsb
         mov eax, dword [byte ebp+076h]
         mov ecx, 52h
@@ -3421,7 +3430,7 @@ EditLinesGridScreen:
         add esi, 148h
         add esp, byte 4
         mov eax, esi
-        call sub_9B25A
+        call SetLinesListPos
         mov eax, dword [byte ebp+076h]
         mov ebx, dword [byte ebp+06Eh]
         mov eax, dword [dword eax+0162h]
@@ -3432,11 +3441,11 @@ EditLinesGridScreen:
         push edx
         mov eax, esi
         mov edx, 164h
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [byte ebp+076h]
         mov edx, dword [byte ebp+07Eh]
         add eax, 19Ah
-        call sub_9B2A8
+        call DrawLinesLabel
         cmp dword [dword_1C8E48], byte 3
         je near .12
         push byte 0
@@ -3453,7 +3462,7 @@ EditLinesGridScreen:
         push byte 0
         movsx ebx, word [dword eax+0A1h]
         lea eax, [dword ebp-0156h]
-        call sub_8D956
+        call InitScrollList
         mov eax, dword [byte ebp+076h]
         mov dword [dword eax+0212h], 266h
         push str_1TOP2
@@ -3538,7 +3547,7 @@ EditLinesGridScreen:
         mov ecx, 258h
         mov edx, 3
         add eax, dword [byte ebp+076h]
-        call sub_CA44C
+        call InitListBox
         inc esi
 .16:
         cmp esi, edi
@@ -3546,7 +3555,7 @@ EditLinesGridScreen:
         push dword [dword_1C8E1C]
         call SetDrawTarget
         add esp, byte 4
-        call sub_99D40
+        call DrawLinesGridArt
         push byte 0
         push dword 0BEh
         push dword 258h
@@ -3565,13 +3574,13 @@ EditLinesGridScreen:
         mov eax, dword [dword ebp-0132h]
         mov ebx, esi
         xor ecx, ecx
-        call sub_9A0EC
+        call DrawForwardLines
         jmp short .18
 .17:
         mov eax, dword [byte ebp+07Eh]
         mov edx, esi
         xor ebx, ebx
-        call sub_9A603
+        call DrawSpecialLines
 .18:
         mov eax, dword [byte ebp+072h]
         mov edx, dword [byte ebp+07Ah]
@@ -3665,7 +3674,7 @@ EditLinesGridScreen:
         add esp, byte 0Ch
         mov dword [byte ebp+066h], esi
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+052h]
         mov dword [byte ebp+05Eh], ebx
         sub dword [byte ebp+06Eh], eax
@@ -3685,7 +3694,7 @@ EditLinesGridScreen:
         mov eax, dword [byte ebp+07Eh]
         call DrawPlayerLines
         mov eax, dword [byte ebp+07Eh]
-        call sub_99E41
+        call DrawLinesGridHeader
         jmp short .22
 .21:
         mov eax, dword [byte ebp+07Eh]
@@ -3731,7 +3740,7 @@ EditLinesGridScreen_A49:
         push byte 1
         xor ebx, ebx
         lea eax, [byte ebp-056h]
-        call sub_7F5A4
+        call ShowMessageBox
         jmp near EditLinesGridScreen_1010
 .27:
         xor esi, esi
@@ -3810,7 +3819,7 @@ EditLinesGridScreen_A49:
         je short .39
         or byte [dword eax+0161h], 2
         mov eax, esi
-        call sub_984D3
+        call FindPlayerInLines
         jmp short .40
 .39:
         and byte [dword eax+0161h], 0FDh
@@ -4044,7 +4053,7 @@ EditLinesGridScreen_E82:
         mov eax, dword [dword_1C8DF8]
         push dword_1C8B44
         mov edx, eax
-        call sub_8DF1F
+        call RunScrollList
         test eax, eax
         jl near .62
         cmp eax, dword [dword_1C8DF8]
@@ -4071,7 +4080,7 @@ EditLinesGridScreen_E82:
         mov eax, dword [dword_1C8DF4]
         push dword_1C8AB4
         mov edx, eax
-        call sub_8DF1F
+        call RunScrollList
         test eax, eax
         jl short .62
         cmp eax, dword [dword_1C8DF4]
@@ -4087,7 +4096,7 @@ EditLinesGridScreen_E82:
         je near EditLinesGridScreen_1010
         imul eax, dword [byte ebp+046h], byte 52h
         add eax, dword [byte ebp+076h]
-        call sub_9B25A
+        call SetLinesListPos
         call SetScreenTarget
         imul eax, dword [byte ebp+046h], byte 52h
         add eax, dword [byte ebp+076h]
@@ -4101,14 +4110,14 @@ EditLinesGridScreen_E82:
         mov ebx, 1
         mov eax, dword [byte ebp+07Eh]
         mov edx, edi
-        call sub_9A603
+        call DrawSpecialLines
         jmp near EditLinesGridScreen_FA7.70
 .64:
         mov ecx, 1
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [dword ebp-0132h]
         mov ebx, edi
-        call sub_9A0EC
+        call DrawForwardLines
         jmp short EditLinesGridScreen_FA7.70
 EditLinesGridScreen_FA7:
         cmp dword [dword_16D2B8], byte 0
@@ -4134,14 +4143,14 @@ EditLinesGridScreen_FA7:
         mov ebx, 1
         mov eax, dword [byte ebp+07Eh]
         mov edx, edi
-        call sub_9A603
+        call DrawSpecialLines
 .68:
         call SetScreenTarget
         mov eax, dword [byte ebp+076h]
         mov edx, dword [byte ebp+07Eh]
         add eax, 19Ah
 .69:
-        call sub_9B2A8
+        call DrawLinesLabel
 .70:
         call sub_1013FC
 EditLinesGridScreen_1010:
@@ -4154,7 +4163,7 @@ EditLinesGridScreen_1010:
         push eax
         xor ecx, ecx
         mov eax, 14h
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+046h], byte 8
         ja near EditLinesGridScreen_10DB.77
         mov edx, dword [byte ebp+046h]
@@ -4178,26 +4187,26 @@ EditLinesGridScreen_1010:
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [dword ebp-0132h]
         mov ebx, edi
-        call sub_9A389
+        call DrawDefenceLines
         jmp near EditLinesGridScreen_FA7.68
 EditLinesGridScreen_1087:
         lea eax, [dword ebp-0156h]
         xor edx, edx
         mov ecx, 1
-        call sub_8DE10
+        call ScrollUp
 .75:
         mov ebx, edi
         mov eax, dword [dword ebp-0132h]
         mov edx, dword [byte ebp+07Eh]
 .76:
         mov dword [byte ebp+056h], eax
-        call sub_9A0EC
+        call DrawForwardLines
         jmp near EditLinesGridScreen_1010
 EditLinesGridScreen_10B1:
         mov ebx, eax
         xor edx, edx
         lea eax, [dword ebp-0156h]
-        call sub_8DEAC
+        call ScrollToMouse
         mov eax, dword [dword ebp-0132h]
         cmp eax, dword [byte ebp+056h]
         je near EditLinesGridScreen_1010
@@ -4209,7 +4218,7 @@ EditLinesGridScreen_10DB:
         lea eax, [dword ebp-0156h]
         xor edx, edx
         mov ecx, 1
-        call sub_8DE68
+        call ScrollDown
         jmp short EditLinesGridScreen_1087.75
 .77:
         mov eax, dword [byte ebp+076h]
@@ -4231,7 +4240,7 @@ EditLinesGridScreen_10DB:
         mov ebx, 1
         mov edx, edi
         mov eax, esi
-        call sub_9A603
+        call DrawSpecialLines
         call SetScreenTarget
         mov eax, esi
         call DrawPlayerHealth
@@ -4252,7 +4261,7 @@ EditLinesGridScreen_10DB:
         mov eax, dword [dword ebp-0132h]
         mov ebx, edi
         xor ecx, ecx
-        call sub_9A389
+        call DrawDefenceLines
         mov eax, dword [byte ebp+046h]
         mov edx, dword [dword ebp-0132h]
         mov ecx, 1
@@ -4261,13 +4270,13 @@ EditLinesGridScreen_10DB:
         add edx, eax
         mov eax, dword [dword ebp-0132h]
         mov dword [byte ebp+07Eh], edx
-        call sub_9A389
+        call DrawDefenceLines
         call SetScreenTarget
         mov eax, dword [byte ebp+07Eh]
         call DrawPlayerLines
         mov eax, dword [byte ebp+07Eh]
         mov edx, dword [byte ebp+07Eh]
-        call sub_99E41
+        call DrawLinesGridHeader
         mov eax, dword [byte ebp+04Eh]
         jmp near EditLinesGridScreen_FA7.69
 .79:
@@ -4277,7 +4286,7 @@ EditLinesGridScreen_10DB:
         cmp dword [dword_1C8E48], byte 3
         je short .80
         lea eax, [dword ebp-0156h]
-        call sub_8DE7E
+        call FreeScrollList
 .80:
         push dword [byte ebp+04Ah]
         call FreeMemBlock
@@ -4289,7 +4298,7 @@ EditLinesGridScreen_10DB:
         jne near EditLinesScreen_8E8
         mov eax, dword [dword ebp-015Ah]
         xor edx, edx
-        call sub_9AC57
+        call DrawLinesScreen
         jmp near .82
 .81:
         call SetScreenTarget
@@ -4350,7 +4359,7 @@ EditLinesGridScreen_10DB:
         call BlitArt
         add esp, byte 0Ch
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+062h]
         add dword [byte ebp+066h], eax
         sub dword [byte ebp+05Eh], eax
@@ -4444,13 +4453,13 @@ DrawScoringLines:
         add esp, byte 14h
         xor edx, edx
         xor eax, eax
-        call sub_7F29C
+        call DrawFrameBox
         mov ecx, 2Ah
         mov ebx, 280h
         mov edx, 1B6h
         xor eax, eax
         lea esi, [byte ebp-06h]
-        call sub_7F29C
+        call DrawFrameBox
         cmp dword [dword_1C8E48], byte 3
         jne short .3
         mov eax, dword [byte ebp-0Eh]
@@ -4653,7 +4662,7 @@ DrawScoringLines:
         push eax
         mov edx, 2Dh
         xor eax, eax
-        call sub_99DAC
+        call FillStatBar
         mov eax, esi
         lea esp, [dword ebp+082h]
         pop ebp
@@ -4662,9 +4671,10 @@ DrawScoringLines:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_99CC5                                                       99CC5  97 PC
+; DrawLinesCell                                   99CC5  97 PC, low confidence
+; Draws one cell of the lines grid
 ;-----------------------------------------------------------------------------
-sub_99CC5:
+DrawLinesCell:
         push esi
         push edi
         enter 8, 0
@@ -4708,11 +4718,12 @@ sub_99CC5:
         push dword [byte ebp-08h]
         call FillRect
         add esp, byte 14h
-        jmp near sub_9DACE_68
+        jmp near FindBestForSlot_68
 ;-----------------------------------------------------------------------------
-; sub_99D40                                                       99D40  97 PC
+; DrawLinesGridArt                                99D40  97 PC, low confidence
+; Draws the art of the lines grid
 ;-----------------------------------------------------------------------------
-sub_99D40:
+DrawLinesGridArt:
         push ebx
         push ecx
         push edx
@@ -4747,11 +4758,12 @@ sub_99D40:
 .4:
         cmp ebx, edi
         jl short .3
-        jmp near sub_96E85_39D
+        jmp near LayoutLinesCard_39D
 ;-----------------------------------------------------------------------------
-; sub_99DAC                                                       99DAC  97 PC
+; FillStatBar                                     99DAC  97 PC, low confidence
+; Fills a stat bar
 ;-----------------------------------------------------------------------------
-sub_99DAC:
+FillStatBar:
         push esi
         push edi
         enter 0Ch, 0
@@ -4821,9 +4833,10 @@ sub_99DAC:
         pop esi
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_99E41                                                       99E41  97 PC
+; DrawLinesGridHeader                             99E41  97 PC, low confidence
+; Draws the header of the lines grid
 ;-----------------------------------------------------------------------------
-sub_99E41:
+DrawLinesGridHeader:
         push ebx
         push ecx
         push edx
@@ -5080,18 +5093,19 @@ sub_99E41:
         inc ebx
         cmp ebx, byte 2
         jl short .31
-        jmp near sub_96E85_39D
+        jmp near LayoutLinesCard_39D
         push ebp
         mov ebp, esp
         push byte 6
         push dword [byte ebp+08h]
-        call sub_830D4
+        call DrawStatHeader
         pop ebp
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_9A0EC                                                       9A0EC  97 PC
+; DrawForwardLines                                9A0EC  97 PC, low confidence
+; Draws the forward lines grid
 ;-----------------------------------------------------------------------------
-sub_9A0EC:
+DrawForwardLines:
         push esi
         push edi
         enter 58h, 0
@@ -5127,7 +5141,7 @@ sub_9A0EC:
         push byte 13h
         mov edx, dword [byte ebp-04h]
         mov eax, dword [byte eax+02Ch]
-        call sub_830D4
+        call DrawStatHeader
         lea eax, [byte esi+03h]
         push eax
         push dword 16Ch
@@ -5162,7 +5176,7 @@ sub_9A0EC:
         mov edx, dword [byte ebp-08h]
         mov ebx, eax
         mov eax, 172h
-        call sub_99CC5
+        call DrawLinesCell
         mov eax, dword [dword_1C8DA0]
         add eax, edi
         add esi, byte 3
@@ -5226,7 +5240,7 @@ sub_9A0EC:
         mov eax, dword [dword_1C8E24]
         add esp, byte 10h
         movzx eax, byte [dword ebx+eax+0160h]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push unk_165BAE
@@ -5269,7 +5283,7 @@ sub_9A0EC:
         cmp edi, eax
         jl near .1
         cmp dword [byte ebp-068h], byte 0
-        je short sub_9A0EC_28A
+        je short DrawForwardLines_28A
         call SetScreenTarget
         mov eax, dword [byte ebp-064h]
         mov eax, dword [byte eax+02Ch]
@@ -5291,7 +5305,7 @@ sub_9A0EC:
         add esp, byte 4
         call sub_102C10
         call sub_1013FC
-sub_9A0EC_28A:
+DrawForwardLines_28A:
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -5301,19 +5315,20 @@ sub_9A0EC_28A:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_9A389                                                       9A389  97 PC
+; DrawDefenceLines                                9A389  97 PC, low confidence
+; Draws the defence pairs grid
 ;-----------------------------------------------------------------------------
-sub_9A389:
+DrawDefenceLines:
         push esi
         push edi
         enter 60h, 0
         mov edi, edx
         mov dword [byte ebp-0Ch], ecx
         cmp edx, eax
-        jl short sub_9A0EC_28A
+        jl short DrawForwardLines_28A
         lea esi, [byte eax+0Ah]
         cmp edx, esi
-        jge short sub_9A0EC_28A
+        jge short DrawForwardLines_28A
         mov esi, edx
         sub esi, eax
         imul eax, esi, byte 13h
@@ -5348,7 +5363,7 @@ sub_9A389:
         push byte 13h
         mov edx, 3
         mov eax, dword [byte eax+02Ch]
-        call sub_830D4
+        call DrawStatHeader
         jmp short .2
 .1:
         push byte 0FFFFFFFFh
@@ -5376,7 +5391,7 @@ sub_9A389:
         mov ebx, eax
         mov edx, edi
         mov eax, 172h
-        call sub_99CC5
+        call DrawLinesCell
         mov eax, dword [dword_1C8DA0]
         add eax, dword [byte ebp-04h]
         add esi, byte 3
@@ -5440,7 +5455,7 @@ sub_9A389:
         mov eax, dword [dword_1C8E24]
         add esp, byte 10h
         movzx eax, byte [dword ebx+eax+0160h]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push unk_165BAE
@@ -5497,11 +5512,12 @@ sub_9A389:
         push byte 0
         call SetClipWindow
         add esp, byte 10h
-        jmp near sub_9A0EC_28A
+        jmp near DrawForwardLines_28A
 ;-----------------------------------------------------------------------------
-; sub_9A603                                                       9A603  97 PC
+; DrawSpecialLines                                9A603  97 PC, low confidence
+; Draws the special teams lines grid
 ;-----------------------------------------------------------------------------
-sub_9A603:
+DrawSpecialLines:
         push ecx
         push esi
         push edi
@@ -5534,7 +5550,7 @@ sub_9A603:
         push byte 13h
         mov edx, dword [byte ebp-04h]
         mov eax, dword [byte eax+02Ch]
-        call sub_830D4
+        call DrawStatHeader
         lea eax, [byte esi+03h]
         push eax
         push dword 16Ch
@@ -5569,7 +5585,7 @@ sub_9A603:
         mov edx, dword [byte ebp-08h]
         mov ebx, eax
         mov eax, 172h
-        call sub_99CC5
+        call DrawLinesCell
         mov eax, dword [dword_1C8DA0]
         add eax, edi
         add esi, byte 3
@@ -5632,7 +5648,7 @@ sub_9A603:
         call DrawTextAligned
         add esp, byte 10h
         mov eax, 47h
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push unk_165BAE
@@ -5758,7 +5774,7 @@ DrawPlayerLines:
         add esp, byte 18h
         add eax, 10Fh
         add esi, byte 12h
-        call sub_7B84B
+        call PlayerInjuryDays
         mov dword [byte ebp+07Ah], eax
         test eax, eax
         jl near .5
@@ -5945,7 +5961,7 @@ DrawPlayerHealth:
         add esp, byte 18h
         add eax, 10Fh
         add ebx, byte 12h
-        call sub_7B84B
+        call PlayerInjuryDays
         mov dword [byte ebp+07Ah], eax
         test eax, eax
         jl near .5
@@ -6013,14 +6029,15 @@ DrawPlayerHealth:
         push dword [byte ebp+07Eh]
         jmp near DrawPlayerLines_214
 jpt_9AC47:
-        dd sub_9AC57_2E6
-        dd sub_9AC57_309
-        dd sub_9AC57_31A
-        dd sub_9AC57_32B
+        dd DrawLinesScreen_2E6
+        dd DrawLinesScreen_309
+        dd DrawLinesScreen_31A
+        dd DrawLinesScreen_32B
 ;-----------------------------------------------------------------------------
-; sub_9AC57                                                       9AC57  97 PC
+; DrawLinesScreen                                 9AC57  97 PC, low confidence
+; Draws the edit lines screen
 ;-----------------------------------------------------------------------------
-sub_9AC57:
+DrawLinesScreen:
         push ebx
         push ecx
         push esi
@@ -6198,7 +6215,7 @@ sub_9AC57:
         mov eax, dword [byte ebp-014h]
         mov eax, dword [byte eax+02Ch]
         xor esi, esi
-        call sub_7E860
+        call DrawScreenBackground
 .4:
         push dword [byte ebp+esi*4-018h]
         call FreeBitmap
@@ -6212,7 +6229,7 @@ sub_9AC57:
         mov eax, dword [byte eax+02Ch]
         mov ebx, eax
         mov edx, eax
-        call sub_7E860
+        call DrawScreenBackground
 .6:
         mov ecx, 52h
         mov edi, dword [byte ebp-01Ch]
@@ -6229,14 +6246,14 @@ sub_9AC57:
         lea esi, [dword eax+01ECh]
         mov dword [byte eax+052h], 1
         mov eax, esi
-        call sub_9B418
+        call InitLinesList
         mov ebx, dword [dword_1C8E48]
         cmp ebx, byte 3
-        ja near sub_9AC57_32B.8
+        ja near DrawLinesScreen_32B.8
         mov eax, dword [byte ebp-01Ch]
         add eax, 0F6h
         jmp dword [nosplit cs:ebx*4+jpt_9AC47]
-sub_9AC57_2E6:
+DrawLinesScreen_2E6:
         push str_TB07
         mov ecx, str_TB07
         mov ebx, str_TB06
@@ -6244,32 +6261,32 @@ sub_9AC57_2E6:
         mov esi, dword [dword_1C8E2C]
         mov edx, eax
         mov eax, esi
-        call sub_D0098
-        jmp near sub_9AC57_32B.8
-sub_9AC57_309:
+        call InitShapeListBox
+        jmp near DrawLinesScreen_32B.8
+DrawLinesScreen_309:
         push str_TB05
         mov ecx, str_TB05
         mov ebx, str_TB04
-        jmp short sub_9AC57_2E6.7
-sub_9AC57_31A:
+        jmp short DrawLinesScreen_2E6.7
+DrawLinesScreen_31A:
         push str_TB03
         mov ecx, str_TB03
         mov ebx, str_TB02
-        jmp short sub_9AC57_2E6.7
-sub_9AC57_32B:
+        jmp short DrawLinesScreen_2E6.7
+DrawLinesScreen_32B:
         push str_TB01
         mov ecx, str_TB01
         mov ebx, str_TB00
         mov edi, dword [dword_1C8E2C]
         mov edx, eax
         mov eax, edi
-        call sub_D0098
+        call InitShapeListBox
         push str_SW06
         mov ecx, str_HLRT
         mov ebx, str_SW06
         mov eax, dword [dword_1C8E44]
         mov edx, esi
-        call sub_D0098
+        call InitShapeListBox
         push str_HLLF
         push dword [dword_1C8E44]
         call FindShape
@@ -6289,32 +6306,32 @@ sub_9AC57_32B:
         mov ecx, str_DF01
         add eax, 148h
         mov ebx, str_DF00
-        call sub_9B25A
+        call SetLinesListPos
         push str_DF00
         add edx, 19Ah
         mov eax, dword [dword_1C8E2C]
-        call sub_D0098
+        call InitShapeListBox
         push str_AB022
         mov edx, dword [byte ebp-01Ch]
         mov ecx, str_AB012
         mov ebx, str_AB002
         mov eax, dword [dword_1C8E44]
         add edx, 23Eh
-        call sub_D0098
+        call InitShapeListBox
         push str_AB052
         mov edx, dword [byte ebp-01Ch]
         mov ecx, str_AB042
         mov ebx, str_AB032
         mov eax, dword [dword_1C8E44]
         add edx, 290h
-        call sub_D0098
+        call InitShapeListBox
         cmp byte [byte_1C6040], 0
         jne short .9
         push dword [dword_1C8E1C]
         call SetDrawTarget
         add esp, byte 4
 .9:
-        call sub_9B45C
+        call DrawLinesPlayerCard
         mov esi, 0Ah
         xor edi, edi
 .10:
@@ -6335,7 +6352,7 @@ sub_9AC57_32B:
         add edx, byte 0Ah
         add eax, dword [byte ebp-0Ch]
         inc esi
-        call sub_CA44C
+        call InitListBox
         cmp dword [byte ebp-04h], byte 4
         jl short .11
         inc edi
@@ -6353,7 +6370,7 @@ sub_9AC57_32B:
         mov edx, dword [nosplit esi*8+dword_1C8CFC]
         add eax, dword [byte ebp-01Ch]
         inc esi
-        call sub_CA44C
+        call InitListBox
         cmp esi, byte 2
         jl short .12
         mov eax, dword [byte ebp-01Ch]
@@ -6369,7 +6386,7 @@ sub_9AC57_32B:
         sub ebx, byte 0Ah
         add eax, 1ECh
         mov edx, dword [dword edx+0212h]
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [byte ebp-01Ch]
         mov eax, dword [dword eax+0206h]
         movsx edx, word [byte eax+06h]
@@ -6382,7 +6399,7 @@ sub_9AC57_32B:
         mov ebx, dword [dword ebx+0216h]
         mov edx, dword [dword edx+0212h]
         add eax, dword [byte ebp-01Ch]
-        call sub_CA44C
+        call InitListBox
 .13:
         cmp byte [byte_1C6040], 0
         je short .14
@@ -6425,20 +6442,21 @@ sub_9AC57_32B:
         mov dword [dword_1C8E08], 0
         mov dword [dword_1C8E0C], 0
         cmp byte [byte_1C6040], 0
-        jne near sub_97D16_203
+        jne near CopyTeamRoster_203
         cmp dword [byte ebp-020h], byte 0
-        je near sub_97D16_203
+        je near CopyTeamRoster_203
         call SetScreenTarget
         mov eax, dword [dword_1C8E1C]
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
         call sub_1013FC
-        jmp near sub_97D16_203
+        jmp near CopyTeamRoster_203
 ;-----------------------------------------------------------------------------
-; sub_9B25A                                                       9B25A  97 PC
+; SetLinesListPos                                 9B25A  97 PC, low confidence
+; Sets the lines list position
 ;-----------------------------------------------------------------------------
-sub_9B25A:
+SetLinesListPos:
         push edx
         cmp dword [dword_1C8E48], byte 3
         jne short .1
@@ -6460,9 +6478,10 @@ sub_9B25A:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9B2A8                                                       9B2A8  97 PC
+; DrawLinesLabel                                  9B2A8  97 PC, low confidence
+; Draws a label of the lines screen
 ;-----------------------------------------------------------------------------
-sub_9B2A8:
+DrawLinesLabel:
         push ebx
         push ecx
         push esi
@@ -6554,16 +6573,17 @@ sub_9B2A8:
         mov edx, dword [byte ebp-04h]
 .12:
         mov eax, ebx
-        call sub_9B39F
+        call InitLinesLabelList
         leave
         pop esi
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9B39F                                                       9B39F  97 PC
+; InitLinesLabelList                              9B39F  97 PC, low confidence
+; Sets up the list box of a lines label
 ;-----------------------------------------------------------------------------
-sub_9B39F:
+InitLinesLabelList:
         push ebx
         push ecx
         push esi
@@ -6593,7 +6613,7 @@ sub_9B39F:
         mov edx, esi
         mov ebx, ecx
 .4:
-        call sub_D0098
+        call InitShapeListBox
         mov eax, dword [byte esi+01Ah]
         mov ebx, 30h
         movsx ecx, word [byte eax+06h]
@@ -6601,15 +6621,16 @@ sub_9B39F:
         push ecx
         movsx ecx, word [byte eax+04h]
         mov eax, esi
-        call sub_CA44C
+        call InitListBox
         pop esi
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9B418                                                       9B418  97 PC
+; InitLinesList                                   9B418  97 PC, low confidence
+; Sets up the lines list box
 ;-----------------------------------------------------------------------------
-sub_9B418:
+InitLinesList:
         push ebx
         push ecx
         push esi
@@ -6632,41 +6653,43 @@ sub_9B418:
         mov dword [byte eax+01Ah], edx
         mov edx, 280h
         inc esi
-        call sub_CA44C
+        call InitListBox
 .2:
         cmp esi, edi
         jl short .1
-        jmp near sub_97D16_203
+        jmp near CopyTeamRoster_203
 ;-----------------------------------------------------------------------------
-; sub_9B45C                                                       9B45C  97 PC
+; DrawLinesPlayerCard                             9B45C  97 PC, low confidence
+; Draws the lines screen player card
 ;-----------------------------------------------------------------------------
-sub_9B45C:
+DrawLinesPlayerCard:
         push ecx
         push edx
-        call sub_96E85
-        call sub_97228
-        mov edx, sub_9B4AA_16C
-        mov eax, sub_9B4AA
-        call sub_9BC01
+        call LayoutLinesCard
+        call DrawLinesCardLogo
+        mov edx, DrawLinesCardDetails_16C
+        mov eax, DrawLinesCardDetails
+        call DrawRatingMeters
         cmp byte [byte_1C6040], 0
         je short .1
         call SetScreenTarget
 .1:
-        mov edx, sub_9B4AA_517
-        mov eax, sub_9B4AA_41B
-        call sub_9BC01
+        mov edx, DrawLinesCardDetails_517
+        mov eax, DrawLinesCardDetails_41B
+        call DrawRatingMeters
         cmp byte [byte_1C6040], 0
         je short .2
         call sub_1013FC
 .2:
-        call sub_9BDA1
+        call DrawCardRatings
         pop edx
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9B4AA                                                       9B4AA  97 PC
+; DrawLinesCardDetails                            9B4AA  97 PC, low confidence
+; Draws the details on the lines player card
 ;-----------------------------------------------------------------------------
-sub_9B4AA:
+DrawLinesCardDetails:
         push ecx
         push esi
         push edi
@@ -6784,7 +6807,7 @@ sub_9B4AA:
         pop esi
         pop ecx
         ret
-sub_9B4AA_16C:
+DrawLinesCardDetails_16C:
         push ecx
         push esi
         push edi
@@ -6895,7 +6918,7 @@ sub_9B4AA_16C:
         push byte 0
         mov ebx, dword [byte ebp-018h]
         mov eax, dword [byte eax+02Ch]
-        call sub_7DFC0
+        call DrawShadedLogo
         mov eax, dword [byte ebp-010h]
         push dword [byte ebp-020h]
         add eax, esi
@@ -6915,7 +6938,7 @@ sub_9B4AA_16C:
         push byte 0
         dec ecx
         mov eax, dword [byte eax+02Ch]
-        call sub_7DFC0
+        call DrawShadedLogo
         mov edx, dword [byte ebp-010h]
         lea eax, [edi+edi]
         sub edx, eax
@@ -6937,7 +6960,7 @@ sub_9B4AA_16C:
         push dword [byte ebp-020h]
         mov eax, dword [byte eax+02Ch]
         inc edi
-        call sub_7DFC0
+        call DrawShadedLogo
         cmp edi, byte 8
         jl near .9
         mov eax, dword [dword_1C8E1C]
@@ -6948,7 +6971,7 @@ sub_9B4AA_16C:
         mov ecx, dword [byte ebp-08h]
         mov ebx, esi
         mov eax, dword [byte eax+02Ch]
-        call sub_823F0
+        call DrawPortrait
 .10:
         call sub_102C10
 .11:
@@ -7011,7 +7034,7 @@ sub_9B4AA_16C:
         pop esi
         pop ecx
         ret
-sub_9B4AA_41B:
+DrawLinesCardDetails_41B:
         push ecx
         push esi
         push edi
@@ -7096,7 +7119,7 @@ sub_9B4AA_41B:
         pop esi
         pop ecx
         ret
-sub_9B4AA_517:
+DrawLinesCardDetails_517:
         push ecx
         push esi
         push edi
@@ -7181,11 +7204,12 @@ sub_9B4AA_517:
         push eax
         add edi, dword [dword_1C8CFC]
         push edi
-        jmp near sub_9B4AA_41B.18
+        jmp near DrawLinesCardDetails_41B.18
 ;-----------------------------------------------------------------------------
-; sub_9BAC1                                                       9BAC1  97 PC
+; DrawRatingMeter                                 9BAC1  97 PC, low confidence
+; Draws a rating meter
 ;-----------------------------------------------------------------------------
-sub_9BAC1:
+DrawRatingMeter:
         push ecx
         push esi
         push edi
@@ -7218,7 +7242,7 @@ sub_9BAC1:
         mov eax, edi
         shl esi, 3
         shl eax, 5
-sub_9BAC1_59:
+DrawRatingMeter_59:
         add eax, esi
         push byte 4
         mov esi, dword [dword eax+dword_1C8D00]
@@ -7235,9 +7259,10 @@ sub_9BAC1_59:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9BB40                                                       9BB40  97 PC
+; DrawRatingMeterArt                              9BB40  97 PC, low confidence
+; Draws the art of a rating meter
 ;-----------------------------------------------------------------------------
-sub_9BB40:
+DrawRatingMeterArt:
         push ecx
         enter 8, 0
         cmp bl, 3
@@ -7290,9 +7315,10 @@ sub_9BB40:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9BBDF                                                       9BBDF  97 PC
+; RatingMeterColour                               9BBDF  97 PC, low confidence
+; Picks the colour of a rating meter
 ;-----------------------------------------------------------------------------
-sub_9BBDF:
+RatingMeterColour:
         push ecx
         push esi
         push edi
@@ -7305,11 +7331,12 @@ sub_9BBDF:
         mov eax, edi
         shl esi, 5
         shl eax, 3
-        jmp near sub_9BAC1_59
+        jmp near DrawRatingMeter_59
 ;-----------------------------------------------------------------------------
-; sub_9BC01                                                       9BC01  97 PC
+; DrawRatingMeters                                9BC01  97 PC, low confidence
+; Draws the rating meters
 ;-----------------------------------------------------------------------------
-sub_9BC01:
+DrawRatingMeters:
         push ebx
         push ecx
         push esi
@@ -7469,9 +7496,10 @@ sub_9BC01:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9BDA1                                                       9BDA1  97 PC
+; DrawCardRatings                                 9BDA1  97 PC, low confidence
+; Draws the ratings on the lines player card
 ;-----------------------------------------------------------------------------
-sub_9BDA1:
+DrawCardRatings:
         push ebx
         push ecx
         push edx
@@ -7972,13 +8000,14 @@ sub_9BDA1:
         add esp, byte 0Ch
 .15:
         cmp byte [byte_1C6040], 0
-        je near sub_96E85_39D
+        je near LayoutLinesCard_39D
         call sub_1013FC
-        jmp near sub_96E85_39D
+        jmp near LayoutLinesCard_39D
 ;-----------------------------------------------------------------------------
-; sub_9C3BF                                                       9C3BF  97 PC
+; LoadLinesArt                                    9C3BF  97 PC, low confidence
+; Loads the lines screen art
 ;-----------------------------------------------------------------------------
-sub_9C3BF:
+LoadLinesArt:
         push ebx
         push ecx
         push edx
@@ -8211,7 +8240,7 @@ LoadEditLinesArt:
         call DrawArt
         add esp, byte 0Ch
 .4:
-        call sub_E341C
+        call ServiceIdle
         inc esi
 .5:
         mov eax, dword [dword_1C8E24]
@@ -8285,18 +8314,19 @@ LoadEditLinesArt:
         call FreeMemBlock
         add esp, byte 4
 .9:
-        call sub_E341C
+        call ServiceIdle
         inc esi
 .10:
         mov eax, dword [dword_1C8E24]
         movsx eax, word [dword eax+01D40h]
         cmp esi, eax
         jl near .6
-        jmp near sub_96E85_39D
+        jmp near LayoutLinesCard_39D
 ;-----------------------------------------------------------------------------
-; sub_9C7B7                                                       9C7B7  97 PC
+; ShowLinesIntro                                  9C7B7  97 PC, low confidence
+; Shows the lines screen intro
 ;-----------------------------------------------------------------------------
-sub_9C7B7:
+ShowLinesIntro:
         push ebx
         push ecx
         push edx
@@ -8367,34 +8397,35 @@ sub_9C7B7:
         pop ecx
 .6:
         ret
-sub_9C7B7_FE:
-        call sub_9C924
-        call sub_9CCB1
-        call sub_9CD63
+ShowLinesIntro_FE:
+        call DrawLinesIntroText
+        call LinesIntroSound
+        call LinesIntroSparkle
         cmp dword [dword_1C8E48], byte 3
-        jne short sub_9C7B7.6
+        jne short ShowLinesIntro.6
         push ebx
         push ecx
         push edx
         mov eax, dword [dword_1C8DD0]
         cmp dword [dword eax+01F0h], byte 2
-        je near sub_9CD63_B6
+        je near LinesIntroSparkle_B6
         mov eax, dword [tickcount]
         mov ebx, eax
         cmp eax, dword [dword_1C8DD8]
-        jbe near sub_9CD63_B6
+        jbe near LinesIntroSparkle_B6
         mov eax, dword [dword_1C8DD0]
         cmp dword [dword eax+01F0h], byte 1
-        jne near sub_9CD63_B6
+        jne near LinesIntroSparkle_B6
         mov edx, dword [dword eax+020Ah]
         cmp edx, dword [dword_1C8BE4]
-        jne near sub_9CD63_82
+        jne near LinesIntroSparkle_82
         mov edx, dword [dword_1C8BE8]
-        jmp near sub_9CD63_88
+        jmp near LinesIntroSparkle_88
 ;-----------------------------------------------------------------------------
-; sub_9C924                                                       9C924  97 PC
+; DrawLinesIntroText                              9C924  97 PC, low confidence
+; Draws the lines intro text
 ;-----------------------------------------------------------------------------
-sub_9C924:
+DrawLinesIntroText:
         push ebx
         push ecx
         push edx
@@ -8659,7 +8690,7 @@ sub_9C924:
         mov eax, dword [tickcount]
         mov ebx, eax
         cmp eax, dword [dword_1C8E00]
-        jle near sub_96E85_39D
+        jle near LayoutLinesCard_39D
         cmp dword [dword_1C8E04], byte 0
         sete al
         movzx eax, al
@@ -8667,31 +8698,32 @@ sub_9C924:
         mov dword [dword_1C8E04], eax
         test eax, eax
         je short .31
-        mov edx, sub_9BB40
-        mov eax, sub_9BAC1
-        call sub_9BC01
+        mov edx, DrawRatingMeterArt
+        mov eax, DrawRatingMeter
+        call DrawRatingMeters
         cmp dword [dword_1C8E48], byte 3
         jne short .30
 .29:
         mov dword [dword_1C8E00], esi
-        jmp near sub_96E85_39D
+        jmp near LayoutLinesCard_39D
 .30:
         add ebx, byte 50h
         jmp short .32
 .31:
-        mov edx, sub_9BB40
-        mov eax, sub_9BBDF
-        call sub_9BC01
+        mov edx, DrawRatingMeterArt
+        mov eax, RatingMeterColour
+        call DrawRatingMeters
         cmp dword [dword_1C8E48], byte 3
         je short .29
         add ebx, byte 28h
 .32:
         mov dword [dword_1C8E00], ebx
-        jmp near sub_96E85_39D
+        jmp near LayoutLinesCard_39D
 ;-----------------------------------------------------------------------------
-; sub_9CCB1                                                       9CCB1  97 PC
+; LinesIntroSound                                 9CCB1  97 PC, low confidence
+; Plays a random lines intro sound
 ;-----------------------------------------------------------------------------
-sub_9CCB1:
+LinesIntroSound:
         push ebx
         push ecx
         push edx
@@ -8742,9 +8774,10 @@ sub_9CCB1:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9CD63                                                       9CD63  97 PC
+; LinesIntroSparkle                               9CD63  97 PC, low confidence
+; Draws a random sparkle on the lines intro
 ;-----------------------------------------------------------------------------
-sub_9CD63:
+LinesIntroSparkle:
         push ebx
         push ecx
         push edx
@@ -8788,9 +8821,9 @@ sub_9CD63:
         pop ecx
         pop ebx
         ret
-sub_9CD63_82:
+LinesIntroSparkle_82:
         mov edx, dword [dword_1C8BE4]
-sub_9CD63_88:
+LinesIntroSparkle_88:
         mov dword [dword eax+020Ah], edx
         add ebx, byte 1Eh
         mov eax, dword [dword_1C8DD0]
@@ -8800,15 +8833,16 @@ sub_9CD63_88:
         push dword [dword eax+020Ah]
         call DrawArt
         add esp, byte 0Ch
-sub_9CD63_B6:
+LinesIntroSparkle_B6:
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9CE1D                                                       9CE1D  97 PC
+; ShowLinesPopup                                  9CE1D  97 PC, low confidence
+; Shows a lines screen popup
 ;-----------------------------------------------------------------------------
-sub_9CE1D:
+ShowLinesPopup:
         push ebx
         push ecx
         push edx
@@ -8897,7 +8931,7 @@ sub_9CE1D:
         add eax, byte 6
         dec ebx
         mov dword [byte ebp-0Ch], eax
-        call sub_E341C
+        call ServiceIdle
 .5:
         test ebx, ebx
         jge short .2
@@ -8930,20 +8964,22 @@ sub_9CE1D:
         push esi
         call FreeBitmap
         add esp, byte 4
-        jmp near sub_96E85_39D
+        jmp near LayoutLinesCard_39D
 ;-----------------------------------------------------------------------------
-; sub_9CF95                                                       9CF95  97 PC
+; CompareByRating                                 9CF95  97 PC, low confidence
+; Sort helper: compares two entries by rating
 ;-----------------------------------------------------------------------------
-sub_9CF95:
+CompareByRating:
         movsx eax, word [byte eax+02h]
         movsx edx, word [byte edx+02h]
         sub edx, eax
         mov eax, edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9CFA2                                                       9CFA2  97 PC
+; CompareGoalieFirst                              9CFA2  97 PC, low confidence
+; Sort helper: puts goalies first
 ;-----------------------------------------------------------------------------
-sub_9CFA2:
+CompareGoalieFirst:
         push ebx
         mov bl, byte [byte eax+05h]
         cmp bl, byte [byte edx+05h]
@@ -8970,9 +9006,10 @@ sub_9CFA2:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9CFD3                                                       9CFD3  97 PC
+; SortRosterByRating                              9CFD3  97 PC, low confidence
+; Sorts a roster by rating
 ;-----------------------------------------------------------------------------
-sub_9CFD3:
+SortRosterByRating:
         push ebx
         push ecx
         push edx
@@ -9001,10 +9038,10 @@ sub_9CFD3:
         add eax, edx
         lea edx, [byte ebp+052h]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         lea eax, [byte ebp+062h]
         inc dword [byte ebp+07Ah]
-        call sub_C80C8
+        call SkaterOverall
         mov word [byte esi+ebp-044h], ax
 .2:
         inc dword [byte ebp+07Eh]
@@ -9013,7 +9050,7 @@ sub_9CFD3:
         movsx eax, word [dword eax+0132Bh]
         cmp eax, dword [byte ebp+07Eh]
         jg short .1
-        mov ecx, sub_9CF95
+        mov ecx, CompareByRating
         mov ebx, 6
         mov edx, dword [byte ebp+07Ah]
         lea eax, [byte ebp-046h]
@@ -9104,10 +9141,10 @@ sub_9CFD3:
         add eax, edx
         lea edx, [byte ebp+052h]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         lea eax, [byte ebp+062h]
         inc dword [byte ebp+07Ah]
-        call sub_C8127
+        call GoalieOverall
         mov word [byte esi+ebp-044h], ax
 .14:
         inc dword [byte ebp+07Eh]
@@ -9116,7 +9153,7 @@ sub_9CFD3:
         movsx eax, word [dword eax+018A5h]
         cmp eax, dword [byte ebp+07Eh]
         jg short .13
-        mov ecx, sub_9CF95
+        mov ecx, CompareByRating
         mov ebx, 6
         mov edx, dword [byte ebp+07Ah]
         lea eax, [byte ebp-046h]
@@ -9188,9 +9225,10 @@ sub_9CFD3:
         jg short .19
         jmp near DrawPlayerLines_234
 ;-----------------------------------------------------------------------------
-; sub_9D2D0                                                       9D2D0  97 PC
+; ClearAndBuildLines                              9D2D0  97 PC, low confidence
+; Clears and builds the lines
 ;-----------------------------------------------------------------------------
-sub_9D2D0:
+ClearAndBuildLines:
         push ebx
         push edx
         mov eax, unk_1C135C
@@ -9201,22 +9239,23 @@ sub_9D2D0:
         call memset_
         xor eax, eax
         mov ebx, 36h
-        call sub_9D333
+        call BuildAutoLines
         mov eax, unk_1C347F
         mov edx, 0FFh
         add eax, 20EDh
         mov dword [dword_1C8E24], unk_1C347F
         call memset_
         xor eax, eax
-        call sub_9D333
+        call BuildAutoLines
         mov dword [dword_1C8E24], 0
         pop edx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9D333                                                       9D333  97 PC
+; BuildAutoLines                                  9D333  97 PC, low confidence
+; Builds the lines automatically from the ratings
 ;-----------------------------------------------------------------------------
-sub_9D333:
+BuildAutoLines:
         push ebx
         push ecx
         push edx
@@ -9248,9 +9287,9 @@ sub_9D333:
         lea edx, [byte ebp+03Ah]
         add eax, byte 28h
         mov word [byte ebx+ebp-05Eh], si
-        call sub_E0841
+        call FindPlayerStat
         lea eax, [byte ebp+04Ah]
-        call sub_C80C8
+        call SkaterOverall
         mov word [byte ebx+ebp-05Ch], ax
         mov al, byte [dword ecx+0D0Bh]
         inc edi
@@ -9265,7 +9304,7 @@ sub_9D333:
         movsx eax, word [dword eax+0D05h]
         cmp esi, eax
         jl short .1
-        mov ecx, sub_9CF95
+        mov ecx, CompareByRating
         mov ebx, 6
         lea eax, [byte ebp-05Eh]
         mov edx, edi
@@ -9281,7 +9320,7 @@ sub_9D333:
         cmp esi, byte 12h
         jl short .4
         lea eax, [byte ebp-05Eh]
-        call sub_9D822
+        call SortLinesCandidates
         xor esi, esi
         xor edi, edi
         jmp short .7
@@ -9296,9 +9335,9 @@ sub_9D333:
         lea edx, [byte ebp+03Ah]
         add eax, byte 28h
         mov word [byte ebx+ebp+062h], si
-        call sub_E0841
+        call FindPlayerStat
         lea eax, [byte ebp+04Ah]
-        call sub_C8127
+        call GoalieOverall
         mov byte [byte ebx+ebp+067h], 47h
         inc edi
         mov word [byte ebx+ebp+064h], ax
@@ -9314,7 +9353,7 @@ sub_9D333:
         jl short .5
         cmp edi, byte 1
         jle short .8
-        mov ecx, sub_9CF95
+        mov ecx, CompareByRating
         mov ebx, 6
         lea eax, [byte ebp+062h]
         mov edx, edi
@@ -9356,7 +9395,7 @@ sub_9D333:
         add ebx, 0A3h
         add eax, ebx
         add eax, 0E6h
-        call sub_C80C8
+        call SkaterOverall
         mov word [byte edx+ebp-05Ch], ax
 .13:
         imul ebx, esi, dword 125h
@@ -9372,7 +9411,7 @@ sub_9D333:
         movsx eax, word [dword eax+0A1h]
         cmp esi, eax
         jl short .11
-        mov ecx, sub_9CF95
+        mov ecx, CompareByRating
         mov ebx, 6
         lea eax, [byte ebp-05Eh]
         mov edx, edi
@@ -9424,7 +9463,7 @@ sub_9D333:
         add eax, dword [byte ebp+076h]
         add eax, 0E6h
         mov word [byte ebx+ebp-05Eh], si
-        call sub_C80C8
+        call SkaterOverall
         mov word [byte ebx+ebp-05Ch], ax
         mov al, byte [dword ecx+0160h]
         inc edx
@@ -9441,7 +9480,7 @@ sub_9D333:
         jle short .24
         imul ebx, edi, byte 6
         lea eax, [byte ebp-05Eh]
-        mov ecx, sub_9CF95
+        mov ecx, CompareByRating
         add eax, ebx
         mov ebx, 6
         call qsort_
@@ -9467,7 +9506,7 @@ sub_9D333:
         test byte [dword edx+0161h], 2
         je short .29
         mov eax, esi
-        call sub_984D3
+        call FindPlayerInLines
 .29:
         inc esi
 .30:
@@ -9477,7 +9516,7 @@ sub_9D333:
         jl short .28
 .31:
         lea eax, [byte ebp-05Eh]
-        call sub_9D822
+        call SortLinesCandidates
         xor esi, esi
         xor edi, edi
         jmp short .36
@@ -9498,7 +9537,7 @@ sub_9D333:
         add ebx, 1D42h
         add eax, ebx
         add eax, 0E6h
-        call sub_C8127
+        call GoalieOverall
         mov word [byte edx+ebp+064h], ax
 .34:
         imul edx, edi, byte 6
@@ -9513,7 +9552,7 @@ sub_9D333:
         jl short .32
         cmp edi, byte 1
         jle short .37
-        mov ecx, sub_9CF95
+        mov ecx, CompareByRating
         mov ebx, 6
         lea eax, [byte ebp+062h]
         mov edx, edi
@@ -9565,7 +9604,7 @@ sub_9D333:
         add eax, ecx
         add eax, 0E6h
         mov word [byte ebx+ebp+062h], si
-        call sub_C8127
+        call GoalieOverall
         mov byte [byte ebx+ebp+067h], 47h
         inc edx
         mov word [byte ebx+ebp+064h], ax
@@ -9581,7 +9620,7 @@ sub_9D333:
         jle short .46
         imul eax, edi, byte 6
         lea ebx, [byte ebp+062h]
-        mov ecx, sub_9CF95
+        mov ecx, CompareByRating
         add eax, ebx
         mov ebx, 6
         call qsort_
@@ -9630,19 +9669,20 @@ sub_9D333:
         lea ebx, [byte ebp+062h]
         lea edx, [byte ebp-05Eh]
         mov eax, dword [byte ebp+07Ah]
-        call sub_9DEC2
+        call FillAllLines
         jmp near DrawPlayerLines_234
 ;-----------------------------------------------------------------------------
-; sub_9D822                                                       9D822  97 PC
+; SortLinesCandidates                             9D822  97 PC, low confidence
+; Sorts the candidates for the lines
 ;-----------------------------------------------------------------------------
-sub_9D822:
+SortLinesCandidates:
         push ebx
         push ecx
         push edx
         push esi
         push edi
         mov edi, eax
-        mov ecx, sub_9CFA2
+        mov ecx, CompareGoalieFirst
         mov ebx, 6
         mov edx, 12h
         call qsort_
@@ -9657,7 +9697,7 @@ sub_9D822:
 .2:
         cmp esi, byte 1
         jle short .3
-        mov ecx, sub_9CF95
+        mov ecx, CompareByRating
         mov ebx, 6
         mov edx, esi
         mov eax, edi
@@ -9679,7 +9719,7 @@ sub_9D822:
         cmp edx, byte 1
         jle short .7
         imul eax, byte 6
-        mov ecx, sub_9CF95
+        mov ecx, CompareByRating
         mov ebx, 6
         add eax, edi
         call qsort_
@@ -9700,7 +9740,7 @@ sub_9D822:
         cmp edx, byte 1
         jle short .11
         imul eax, byte 6
-        mov ecx, sub_9CF95
+        mov ecx, CompareByRating
         mov ebx, 6
         add eax, edi
         call qsort_
@@ -9721,15 +9761,16 @@ sub_9D822:
         cmp edx, byte 1
         jle near DrawPlayerLines_23B
         imul eax, byte 6
-        mov ecx, sub_9CF95
+        mov ecx, CompareByRating
         mov ebx, 6
         add eax, edi
         call qsort_
         jmp near DrawPlayerLines_23B
 ;-----------------------------------------------------------------------------
-; sub_9D903                                                       9D903  97 PC
+; ClearLineSlots                                  9D903  97 PC, low confidence
+; Clears the line slots
 ;-----------------------------------------------------------------------------
-sub_9D903:
+ClearLineSlots:
         push ebx
         push ecx
         push esi
@@ -9920,11 +9961,12 @@ sub_9D903:
         inc eax
         cmp eax, byte 2
         jl short .25
-        jmp near sub_97D16_203
+        jmp near CopyTeamRoster_203
 ;-----------------------------------------------------------------------------
-; sub_9DA9D                                                       9DA9D  97 PC
+; IsInLines                                       9DA9D  97 PC, low confidence
+; Returns whether a player is already in the lines
 ;-----------------------------------------------------------------------------
-sub_9DA9D:
+IsInLines:
         push ebx
         push ecx
         push esi
@@ -9957,9 +9999,10 @@ sub_9DA9D:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9DACE                                                       9DACE  97 PC
+; FindBestForSlot                                 9DACE  97 PC, low confidence
+; Finds the best player for a line slot
 ;-----------------------------------------------------------------------------
-sub_9DACE:
+FindBestForSlot:
         push esi
         push edi
         enter 4, 0
@@ -9978,7 +10021,7 @@ sub_9DACE:
         mov al, byte [byte ebp-04h]
         or byte [byte edx+04h], al
         mov al, byte [edx]
-        jmp short sub_9DACE_68
+        jmp short FindBestForSlot_68
 .3:
         inc eax
 .4:
@@ -10010,17 +10053,18 @@ sub_9DACE:
 .8:
         cmp eax, byte 12h
         jl short .7
-sub_9DACE_66:
+FindBestForSlot_66:
         mov al, 0FFh
-sub_9DACE_68:
+FindBestForSlot_68:
         leave
         pop edi
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_9DB3C                                                       9DB3C  97 PC
+; FindBestCenter                                  9DB3C  97 PC, low confidence
+; Finds the best centre for a line
 ;-----------------------------------------------------------------------------
-sub_9DB3C:
+FindBestCenter:
         push esi
         push edi
         enter 0Ch, 0
@@ -10042,7 +10086,7 @@ sub_9DB3C:
         mov al, byte [byte ebp-04h]
         or byte [byte edx+04h], al
         mov al, byte [edx]
-        jmp short sub_9DACE_68
+        jmp short FindBestForSlot_68
 .3:
         inc eax
 .4:
@@ -10090,11 +10134,12 @@ sub_9DB3C:
 .10:
         cmp eax, byte 12h
         jl short .9
-        jmp near sub_9DACE_66
+        jmp near FindBestForSlot_66
 ;-----------------------------------------------------------------------------
-; sub_9DBD5                                                       9DBD5  97 PC
+; FindBestWinger                                  9DBD5  97 PC, low confidence
+; Finds the best winger for a line
 ;-----------------------------------------------------------------------------
-sub_9DBD5:
+FindBestWinger:
         push esi
         push edi
         enter 0Ch, 0
@@ -10116,7 +10161,7 @@ sub_9DBD5:
         mov al, byte [byte ebp-04h]
         or byte [byte edx+04h], al
         mov al, byte [edx]
-        jmp near sub_9DACE_68
+        jmp near FindBestForSlot_68
 .3:
         inc eax
 .4:
@@ -10167,11 +10212,12 @@ sub_9DBD5:
 .10:
         cmp eax, ebx
         jl short .9
-        jmp near sub_9DACE_66
+        jmp near FindBestForSlot_66
 ;-----------------------------------------------------------------------------
-; sub_9DC7B                                                       9DC7B  97 PC
+; FindBestDefence                                 9DC7B  97 PC, low confidence
+; Finds the best defenceman for a pair
 ;-----------------------------------------------------------------------------
-sub_9DC7B:
+FindBestDefence:
         push esi
         push edi
         enter 10h, 0
@@ -10272,16 +10318,17 @@ sub_9DC7B:
         jl short .15
 .19:
         test edx, edx
-        jl near sub_9DACE_66
+        jl near FindBestForSlot_66
         imul eax, edx, byte 6
         mov dl, byte [byte ebp-04h]
         or byte [byte esi+eax+04h], dl
         mov al, byte [esi+eax]
-        jmp near sub_9DACE_68
+        jmp near FindBestForSlot_68
 ;-----------------------------------------------------------------------------
-; sub_9DD65                                                       9DD65  97 PC
+; FillLineSlots                                   9DD65  97 PC, low confidence
+; Fills the line slots
 ;-----------------------------------------------------------------------------
-sub_9DD65:
+FillLineSlots:
         push ecx
         push esi
         push edi
@@ -10464,9 +10511,10 @@ sub_9DD65:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9DEC2                                                       9DEC2  97 PC
+; FillAllLines                                    9DEC2  97 PC, low confidence
+; Fills all the lines
 ;-----------------------------------------------------------------------------
-sub_9DEC2:
+FillAllLines:
         push ecx
         push esi
         push edi
@@ -10511,7 +10559,7 @@ sub_9DEC2:
         mov edx, dword [byte ebp-054h]
         mov eax, esi
         mov dword [byte ebp-08h], edi
-        call sub_9D903
+        call ClearLineSlots
         xor edi, edi
 .9:
         lea ebx, [edi+edi*2]
@@ -10520,7 +10568,7 @@ sub_9DEC2:
         jbe short .10
         mov edx, 3
         mov eax, dword [byte ebp-054h]
-        call sub_9DA9D
+        call IsInLines
         mov byte [byte ebx+01h], al
 .10:
         lea eax, [edi+edi*2]
@@ -10533,7 +10581,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 3
         mov eax, dword [byte ebp-054h]
-        call sub_9DACE
+        call FindBestForSlot
         mov edx, dword [byte ebp-018h]
         mov byte [edx], al
 .11:
@@ -10547,7 +10595,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 3
         mov eax, dword [byte ebp-054h]
-        call sub_9DB3C
+        call FindBestCenter
         mov edx, dword [byte ebp-03Ch]
         mov byte [byte edx+02h], al
 .12:
@@ -10567,7 +10615,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 3
         mov eax, dword [byte ebp-054h]
-        call sub_9DBD5
+        call FindBestWinger
         mov edx, dword [byte ebp-048h]
         mov byte [byte edx+0Ch], al
 .14:
@@ -10588,7 +10636,7 @@ sub_9DEC2:
         jbe short .18
         mov edx, 4
         mov eax, dword [byte ebp-054h]
-        call sub_9DA9D
+        call IsInLines
         mov byte [byte ebx+013h], al
 .18:
         lea eax, [edi+edi*4]
@@ -10601,7 +10649,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 4
         mov eax, dword [byte ebp-054h]
-        call sub_9DACE
+        call FindBestForSlot
         mov edx, dword [byte ebp-038h]
         mov byte [byte edx+012h], al
 .19:
@@ -10615,7 +10663,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 4
         mov eax, dword [byte ebp-054h]
-        call sub_9DB3C
+        call FindBestCenter
         mov edx, dword [byte ebp-030h]
         mov byte [byte edx+014h], al
 .20:
@@ -10629,7 +10677,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 4
         mov eax, dword [byte ebp-054h]
-        call sub_9DBD5
+        call FindBestWinger
         mov edx, dword [byte ebp-02Ch]
         mov byte [byte edx+015h], al
 .21:
@@ -10643,7 +10691,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 4
         mov eax, dword [byte ebp-054h]
-        call sub_9DC7B
+        call FindBestDefence
         mov edx, dword [byte ebp-01Ch]
         mov byte [byte edx+016h], al
 .22:
@@ -10664,7 +10712,7 @@ sub_9DEC2:
         jbe short .25
         mov edx, 8
         mov eax, dword [byte ebp-054h]
-        call sub_9DA9D
+        call IsInLines
         mov byte [byte ebx+01Dh], al
 .25:
         mov eax, edi
@@ -10678,7 +10726,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 8
         mov eax, dword [byte ebp-054h]
-        call sub_9DACE
+        call FindBestForSlot
         mov edx, dword [byte ebp-040h]
         mov byte [byte edx+01Ch], al
 .26:
@@ -10693,7 +10741,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 8
         mov eax, dword [byte ebp-054h]
-        call sub_9DBD5
+        call FindBestWinger
         mov edx, dword [byte ebp-044h]
         mov byte [byte edx+01Eh], al
 .27:
@@ -10708,7 +10756,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 8
         mov eax, dword [byte ebp-054h]
-        call sub_9DC7B
+        call FindBestDefence
         mov edx, dword [byte ebp-050h]
         mov byte [byte edx+01Fh], al
 .28:
@@ -10729,7 +10777,7 @@ sub_9DEC2:
         jbe short .31
         mov edx, 40h
         mov eax, dword [byte ebp-054h]
-        call sub_9DA9D
+        call IsInLines
         mov byte [byte ebx+027h], al
 .31:
         mov eax, edi
@@ -10743,7 +10791,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 40h
         mov eax, dword [byte ebp-054h]
-        call sub_9DACE
+        call FindBestForSlot
         mov edx, dword [byte ebp-028h]
         mov byte [byte edx+026h], al
 .32:
@@ -10758,7 +10806,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 40h
         mov eax, dword [byte ebp-054h]
-        call sub_9DBD5
+        call FindBestWinger
         mov edx, dword [byte ebp-020h]
         mov byte [byte edx+028h], al
 .33:
@@ -10773,7 +10821,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 40h
         mov eax, dword [byte ebp-054h]
-        call sub_9DBD5
+        call FindBestWinger
         mov edx, dword [byte ebp-04Ch]
         mov byte [byte edx+029h], al
 .34:
@@ -10793,7 +10841,7 @@ sub_9DEC2:
         jbe short .37
         mov edx, 80h
         mov eax, dword [byte ebp-054h]
-        call sub_9DA9D
+        call IsInLines
         mov byte [byte ebx+02Eh], al
 .37:
         lea eax, [edi+edi*2]
@@ -10806,7 +10854,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 80h
         mov eax, dword [byte ebp-054h]
-        call sub_9DBD5
+        call FindBestWinger
         mov edx, dword [byte ebp-024h]
         mov byte [byte edx+02Fh], al
 .38:
@@ -10820,7 +10868,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 80h
         mov eax, dword [byte ebp-054h]
-        call sub_9DBD5
+        call FindBestWinger
         mov edx, dword [byte ebp-034h]
         mov byte [byte edx+030h], al
 .39:
@@ -10835,7 +10883,7 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 10h
         mov eax, dword [byte ebp-054h]
-        call sub_9DC7B
+        call FindBestDefence
         mov byte [byte esi+024h], al
 .40:
         push dword [byte ebp-08h]
@@ -10843,12 +10891,12 @@ sub_9DEC2:
         mov ebx, dword [byte ebp-0Ch]
         mov edx, 10h
         mov eax, dword [byte ebp-054h]
-        call sub_9DC7B
+        call FindBestDefence
         movzx ebx, al
         movzx edx, byte [byte esi+024h]
         mov byte [byte esi+025h], al
         mov eax, esi
-        call sub_9DD65
+        call FillLineSlots
         test eax, eax
         je short .40
         cmp byte [byte esi+034h], 3

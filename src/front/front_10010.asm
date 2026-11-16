@@ -11,12 +11,12 @@ extern dword_19CB48, penshottimer, dword_19CBE8, dword_19CD54, dword_19CD88, dwo
 extern dword_19ECC0, dword_19ECC4, dword_1AC814, dword_1AC944, dword_1ACF46, dword_1B1410, dword_1B8FA0, dword_1B9554
 extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, off_168CD8
 extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, qword_160018, qword_160020, rand_
-extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, sub_13AF0
+extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, GetPlayerJerseyNumber
 extern ShowCameraView, ClearOverlayWindows, ResetSceneCamera, assreplace, assinsert, Setplass, FaceoffSpotPosition, asspsclear
 extern ResetCoachModes, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, PickBenchSeat, ChkMenuMusic, StartMusicTrack, QueueMusicRestart
-extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEvent, PaEvent, sub_4DDB0, sub_52E28
-extern sub_57298, sub_57304, sub_57324, sub_57738, LoadGoalieMask, sub_5B558, sub_60D6C, sub_6539C
-extern sub_65E3B, DoGameFrame, sub_AA650, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
+extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEvent, PaEvent, SetCameraMode, UpdateRinkPalette
+extern RefreshFaceTextures, SetModelSlotValue, SetupPlayerModel, DrawJerseyLettering, LoadGoalieMask, UpdateFaceTextures, ResetAnimTimer, UpdateGameDisplay
+extern InitPlayerAnims, DoGameFrame, LogPeriodEnd, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
 extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
 extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, word_1684BE, word_1684CA, word_1684E8, word_1684EC
 extern word_1686D8, word_1686DA, word_168D18, word_19CB28, word_19CB2A, word_19CB5C, word_19CB60, word_19CB64
@@ -25,12 +25,12 @@ extern word_19CBBE, word_19CBC0, word_19CBD4, word_19CBDA, word_19CBDC, penshotm
 extern word_19CBE6, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28, word_19CC2A, word_19CCB2
 extern word_19CCB6, word_19CCBC, word_19CCBE, word_19CCC0, word_19CCC4, word_19DAD9, word_19DAEA, word_19DCFA
 extern word_19E32A, word_19E949, word_19EA51, word_19EAB6, word_19EAC0, word_19EBC2, word_19EBCC
-global SetupTeamForIntermission, clearteams, jpt_11318, loc_10000, sub_11328_26, sub_11328_4F, sub_11328_78, sub_11328_A6
-global forcepldata_E, sub_123A0_62, sub_123A0_81, GripLinkLibrary, sub_102F4, LoadGripLibrary, sub_1046C, LoadJoystickConfig
-global sub_10A68, sub_10CC8, sub_10FAC, sub_1120C, sub_11328, sub_114C4, forcepldata, sub_11574
-global sub_116B0, sub_11808, ResetBench, IsPlayoffGame, sub_119A8, setplayer, reenergizeteam, sub_11F74
-global sub_11FB4, sub_12024, sub_12334, sub_123A0, sub_12440, sub_124A4, setpersonel, sub_12970
-global sub_12A10, ClockTick, sub_12C2C, sub_12DE8, ReleaseBoxPlayers, unk_10003
+global SetupTeamForIntermission, clearteams, jpt_11318, loc_10000, StartCrowdMusic_26, StartCrowdMusic_4F, StartCrowdMusic_78, StartCrowdMusic_A6
+global forcepldata_E, ReplaceFaceoffPlayers_62, ReplaceFaceoffPlayers_81, GripLinkLibrary, CallGripDriver, LoadGripLibrary, InitGripDriver, LoadJoystickConfig
+global SetupOptionsAnim, DrawOptionsAnimFrame, UpdateOptionsAnim, PickCrowdChant, StartCrowdMusic, RestartGameMusic, forcepldata, SetupFaceoffPlayers
+global ClearPlayerFlags, ResetTeamStats, ResetBench, IsPlayoffGame, RefreshPlayerModel, setplayer, reenergizeteam, ResetForIntermission
+global SeatBenchPlayer, ResetPlayers, ResetPlayersForPeriod, ReplaceFaceoffPlayers, PlayerInLine, PickLinePlayers, setpersonel, PeriodLengthSetting
+global RefreshRinkPalette, ClockTick, StartPeriod, FindStartingGoalies, ReleaseBoxPlayers, unk_10003
 ;-----------------------------------------------------------------------------
 ; loc_10000                                                       10000  97 PC
 ;-----------------------------------------------------------------------------
@@ -366,9 +366,10 @@ GripLinkLibrary:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_102F4                                                       102F4  97 PC
+; CallGripDriver                                  102F4  97 PC, low confidence
+; Calls the gamepad driver
 ;-----------------------------------------------------------------------------
-sub_102F4:
+CallGripDriver:
         push ebx
         push edx
         cmp dword [dword_1684E4], byte 0
@@ -514,9 +515,10 @@ LoadGripLibrary:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1046C                                                       1046C  97 PC
+; InitGripDriver                                  1046C  97 PC, low confidence
+; Starts the gamepad driver
 ;-----------------------------------------------------------------------------
-sub_1046C:
+InitGripDriver:
         cmp word [word_1684E8], byte 0
         je short .2
         test byte [byte_1684C8], 2
@@ -527,7 +529,7 @@ sub_1046C:
 .1:
         test byte [byte_1684C8], 1
         je short .2
-        call sub_102F4
+        call CallGripDriver
         and byte [byte_1684C8], 0FEh
 .2:
         ret
@@ -936,9 +938,10 @@ LoadJoystickConfig:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10A68                                                       10A68  97 PC
+; SetupOptionsAnim                                10A68  97 PC, low confidence
+; Sets up the options animation
 ;-----------------------------------------------------------------------------
-sub_10A68:
+SetupOptionsAnim:
         push ebx
         push ecx
         push edx
@@ -1092,9 +1095,10 @@ sub_10A68:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10CC8                                                       10CC8  97 PC
+; DrawOptionsAnimFrame                            10CC8  97 PC, low confidence
+; Draws one frame of the options animation
 ;-----------------------------------------------------------------------------
-sub_10CC8:
+DrawOptionsAnimFrame:
         push ebx
         push ecx
         push esi
@@ -1358,9 +1362,10 @@ sub_10CC8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10FAC                                                       10FAC  97 PC
+; UpdateOptionsAnim                               10FAC  97 PC, low confidence
+; Updates the options animation
 ;-----------------------------------------------------------------------------
-sub_10FAC:
+UpdateOptionsAnim:
         push ebx
         push ecx
         push edx
@@ -1506,7 +1511,7 @@ sub_10FAC:
 .13:
         mov eax, dword [byte esp+0Ch]
         mov edx, edi
-        call sub_10CC8
+        call DrawOptionsAnimFrame
 .14:
         mov ebx, dword [byte esp+0Ch]
         add esi, byte 2Ch
@@ -1548,9 +1553,10 @@ sub_10FAC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1120C                                                       1120C  97 PC
+; PickCrowdChant                                  1120C  97 PC, low confidence
+; Picks a crowd chant
 ;-----------------------------------------------------------------------------
-sub_1120C:
+PickCrowdChant:
         push ebx
         push ecx
         push esi
@@ -1648,14 +1654,15 @@ sub_1120C:
         ret
         db 090h
 jpt_11318:
-        dd sub_11328_26
-        dd sub_11328_4F
-        dd sub_11328_78
-        dd sub_11328_A6
+        dd StartCrowdMusic_26
+        dd StartCrowdMusic_4F
+        dd StartCrowdMusic_78
+        dd StartCrowdMusic_A6
 ;-----------------------------------------------------------------------------
-; sub_11328                                                       11328  97 PC
+; StartCrowdMusic                                 11328  97 PC, low confidence
+; Starts the crowd music or chant
 ;-----------------------------------------------------------------------------
-sub_11328:
+StartCrowdMusic:
         push ebx
         push ecx
         push edx
@@ -1664,10 +1671,10 @@ sub_11328:
         mov ecx, eax
         db 081h,0E8h,00h,01h,00h,00h            ; insn: sub eax,100h
         cmp ax, 3
-        ja near sub_11328_A6.1
+        ja near StartCrowdMusic_A6.1
         and eax, 0FFFFh
         jmp dword [nosplit cs:eax*4+jpt_11318]
-sub_11328_26:
+StartCrowdMusic_26:
         mov eax, 0Dh
         call SetCrowdMood
         mov eax, 5Bh
@@ -1681,7 +1688,7 @@ sub_11328_26:
         pop ecx
         pop ebx
         ret
-sub_11328_4F:
+StartCrowdMusic_4F:
         mov eax, 0Dh
         call SetCrowdMood
         mov eax, 5Ah
@@ -1695,7 +1702,7 @@ sub_11328_4F:
         pop ecx
         pop ebx
         ret
-sub_11328_78:
+StartCrowdMusic_78:
         call rand_
         mov edx, eax
         mov ebx, 4
@@ -1712,7 +1719,7 @@ sub_11328_78:
         pop ecx
         pop ebx
         ret
-sub_11328_A6:
+StartCrowdMusic_A6:
         mov eax, 61h
         mov bl, 1
         call StartMusicTrack
@@ -1776,7 +1783,7 @@ sub_11328_A6:
         xor edx, edx
         lea eax, [byte esp+050h]
         mov dx, cx
-        call sub_1120C
+        call PickCrowdChant
         xor eax, eax
         mov edx, esp
         mov ax, word [byte esp+050h]
@@ -1795,9 +1802,10 @@ sub_11328_A6:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_114C4                                                       114C4  97 PC
+; RestartGameMusic                                114C4  97 PC, low confidence
+; Restarts the game music and refreshes the players
 ;-----------------------------------------------------------------------------
-sub_114C4:
+RestartGameMusic:
         push edx
         cmp byte [byte_19CD05], 0
         je short .1
@@ -1833,7 +1841,7 @@ forcepldata_E:
         movsx dx, byte [dword ebx+0A8h]
         mov word [dword ebx+0A9h], dx
         test dx, dx
-        jl near sub_123A0_62
+        jl near ReplaceFaceoffPlayers_62
         mov eax, ebx
         call Setplass
         cmp word [dword ebx+0A9h], byte 4
@@ -1850,12 +1858,13 @@ forcepldata_E:
         sar edx, 18h
         call setplayer
         and byte [dword ebx+0C1h], 0FEh
-        jmp near sub_123A0_81
+        jmp near ReplaceFaceoffPlayers_81
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11574                                                       11574  97 PC
+; SetupFaceoffPlayers                             11574  97 PC, low confidence
+; Places the players for the opening faceoff
 ;-----------------------------------------------------------------------------
-sub_11574:
+SetupFaceoffPlayers:
         push ebx
         push ecx
         push edx
@@ -1946,9 +1955,10 @@ sub_11574:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_116B0                                                       116B0  97 PC
+; ClearPlayerFlags                                116B0  97 PC, low confidence
+; Clears the player flags
 ;-----------------------------------------------------------------------------
-sub_116B0:
+ClearPlayerFlags:
         push ebx
         push edx
         xor eax, eax
@@ -2060,9 +2070,10 @@ clearteams:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11808                                                       11808  97 PC
+; ResetTeamStats                                  11808  97 PC, low confidence
+; Resets the team game stats
 ;-----------------------------------------------------------------------------
-sub_11808:
+ResetTeamStats:
         push ebx
         push ecx
         push edx
@@ -2240,9 +2251,10 @@ IsPlayoffGame:
         xor eax, eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_119A8                                                       119A8  97 PC
+; RefreshPlayerModel                              119A8  97 PC, low confidence
+; Refreshes a player's model and textures
 ;-----------------------------------------------------------------------------
-sub_119A8:
+RefreshPlayerModel:
         push ecx
         push esi
         push ebp
@@ -2257,7 +2269,7 @@ sub_119A8:
         xor eax, eax
         mov edx, 1
         mov al, byte [dword ecx+0A4h]
-        call sub_57298
+        call RefreshFaceTextures
         cmp byte [dword ecx+0D0h], 0
         sete al
         xor edx, edx
@@ -2265,14 +2277,14 @@ sub_119A8:
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
         xor ebx, ebx
-        call sub_5B558
+        call UpdateFaceTextures
         lea edx, [byte esi+08h]
         xor eax, eax
         mov bl, byte [dword esi+0BCh]
         mov al, byte [dword ecx+0A4h]
-        call sub_57738
+        call DrawJerseyLettering
         mov eax, ecx
-        call sub_13AF0
+        call GetPlayerJerseyNumber
         mov bl, byte [dword ecx+0BFh]
         mov edx, eax
         test bl, 40h
@@ -2284,18 +2296,18 @@ sub_119A8:
         xor eax, eax
         xor edx, edx
         mov al, byte [dword ecx+0A4h]
-        call sub_57298
+        call RefreshFaceTextures
         xor edx, edx
         xor eax, eax
         mov dl, byte [dword ecx+0D0h]
         mov al, byte [dword ecx+0A4h]
         xor ebx, ebx
-        call sub_5B558
+        call UpdateFaceTextures
         lea edx, [byte esi+08h]
         xor eax, eax
         mov bl, byte [dword esi+0BCh]
         mov al, byte [dword ecx+0A4h]
-        call sub_57738
+        call DrawJerseyLettering
         test byte [byte_19CBC2], 1
         jne short .2
         cmp dword [dword_1B8FA0], byte 0
@@ -2304,7 +2316,7 @@ sub_119A8:
         xor eax, eax
         lea edx, [byte esi+027h]
         mov al, byte [dword ecx+0A4h]
-        call sub_57324
+        call SetupPlayerModel
 .3:
         mov eax, 48h
         mov ebx, dword [byte esp+04h]
@@ -2352,7 +2364,7 @@ sub_119A8:
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
         push dword [esp]
-        call sub_57304
+        call SetModelSlotValue
 .9:
         mov esp, ebp
         pop ebp
@@ -2531,7 +2543,7 @@ setplayer:
         mov eax, ecx
         sar ebx, 10h
         mov edx, esi
-        call sub_119A8
+        call RefreshPlayerModel
         add esp, byte 4
         pop edi
         pop esi
@@ -2655,7 +2667,7 @@ setplayer:
         mov edx, eax
         xor ebx, ebx
         mov eax, ecx
-        call sub_119A8
+        call RefreshPlayerModel
         add esp, byte 4
         pop edi
         pop esi
@@ -2739,9 +2751,10 @@ SetupTeamForIntermission:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11F74                                                       11F74  97 PC
+; ResetForIntermission                            11F74  97 PC, low confidence
+; Resets the scene for the intermission
 ;-----------------------------------------------------------------------------
-sub_11F74:
+ResetForIntermission:
         push ebx
         push edx
         call SetupTeamForIntermission
@@ -2759,16 +2772,17 @@ sub_11F74:
         cmp dword [byte edx+05Ah], byte 0FFFFFFFFh
         je short .2
         xor eax, eax
-        call sub_6539C
+        call UpdateGameDisplay
 .2:
         pop edx
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11FB4                                                       11FB4  97 PC
+; SeatBenchPlayer                                 11FB4  97 PC, low confidence
+; Seats a player on the bench
 ;-----------------------------------------------------------------------------
-sub_11FB4:
+SeatBenchPlayer:
         push ebx
         push edx
         push esi
@@ -2817,9 +2831,10 @@ sub_11FB4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_12024                                                       12024  97 PC
+; ResetPlayers                                    12024  97 PC, low confidence
+; Resets the players and their animations
 ;-----------------------------------------------------------------------------
-sub_12024:
+ResetPlayers:
         push ebx
         push ecx
         push edx
@@ -2829,7 +2844,7 @@ sub_12024:
         mov ebp, esp
         sub esp, byte 10h
         and esp, byte 0FFFFFFF8h
-        call sub_11FB4
+        call SeatBenchPlayer
         mov ebx, unk_168C38
         mov edx, SortCords
         xor ecx, ecx
@@ -2920,11 +2935,11 @@ sub_12024:
         mov eax, unk_1B9520
         add eax, esi
         mov dword [dword edx+0FAh], eax
-        call sub_60D6C
+        call ResetAnimTimer
         mov dword [dword esi+dword_1B9558], 3F800000h
         mov dword [dword esi+dword_1B9554], 461C4000h
         mov eax, edx
-        call sub_65E3B
+        call InitPlayerAnims
         jmp near .13
 .9:
         mov dword [dword edx+0F2h], 0
@@ -2932,7 +2947,7 @@ sub_12024:
         mov dword [dword edx+0F6h], 0
         add eax, esi
         mov dword [dword edx+0FAh], eax
-        call sub_60D6C
+        call ResetAnimTimer
         mov dword [dword esi+dword_1B9558], 3F800000h
         mov dword [dword esi+dword_1B9554], 461C4000h
         cmp ecx, byte 0Fh
@@ -3014,13 +3029,14 @@ sub_12024:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_12334                                                       12334  97 PC
+; ResetPlayersForPeriod                           12334  97 PC, low confidence
+; Resets the players for a new period
 ;-----------------------------------------------------------------------------
-sub_12334:
+ResetPlayersForPeriod:
         push ebx
         push ecx
         push edx
-        call sub_12024
+        call ResetPlayers
         test byte [byte_19CBC2], 2
         je short .2
         mov eax, SortCords
@@ -3057,9 +3073,10 @@ sub_12334:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_123A0                                                       123A0  97 PC
+; ReplaceFaceoffPlayers                           123A0  97 PC, low confidence
+; Replaces the faceoff players
 ;-----------------------------------------------------------------------------
-sub_123A0:
+ReplaceFaceoffPlayers:
         push ebx
         push ecx
         push edx
@@ -3096,15 +3113,15 @@ sub_123A0:
         pop ecx
         pop ebx
         ret
-sub_123A0_62:
+ReplaceFaceoffPlayers_62:
         mov edx, dword [dword ebx+0AEh]
         sar edx, 18h
         cmp byte [dword edx+ebx+0B2h], 13h
-        je short sub_123A0_81
+        je short ReplaceFaceoffPlayers_81
         mov edx, 1
         mov eax, ebx
         call assreplace
-sub_123A0_81:
+ReplaceFaceoffPlayers_81:
         add ebx, 108h
         mov byte [byte ebx-060h], 0FFh
         inc ecx
@@ -3118,9 +3135,10 @@ sub_123A0_81:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_12440                                                       12440  97 PC
+; PlayerInLine                                    12440  97 PC, low confidence
+; Returns whether a player is in a line
 ;-----------------------------------------------------------------------------
-sub_12440:
+PlayerInLine:
         push ecx
         mov ecx, edx
         movsx edx, dx
@@ -3164,9 +3182,10 @@ sub_12440:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_124A4                                                       124A4  97 PC
+; PickLinePlayers                                 124A4  97 PC, low confidence
+; Picks the players of the current line
 ;-----------------------------------------------------------------------------
-sub_124A4:
+PickLinePlayers:
         push ebx
         push ecx
         push edx
@@ -3318,7 +3337,7 @@ sub_124A4:
         movsx edx, cx
         mov word [byte esp+04h], ax
         mov eax, esi
-        call sub_12440
+        call PlayerInLine
         test ax, ax
         jne near .28
         mov eax, dword [byte esp+02h]
@@ -3394,7 +3413,7 @@ sub_124A4:
         movsx ebx, di
         mov eax, esi
         sar edx, 18h
-        call sub_12440
+        call PlayerInLine
         test ax, ax
         je short .25
 .26:
@@ -3402,7 +3421,7 @@ sub_124A4:
         movsx ebx, di
         mov eax, esi
         sar edx, 18h
-        call sub_12440
+        call PlayerInLine
         test ax, ax
         je short .24
         jmp short .28
@@ -3412,7 +3431,7 @@ sub_124A4:
         movsx ebx, di
         movsx edx, al
         mov eax, esi
-        call sub_12440
+        call PlayerInLine
         test ax, ax
         je near .15
 .28:
@@ -3463,7 +3482,7 @@ setpersonel:
         call __STOSB
         mov eax, ebp
         mov edi, 5
-        call sub_124A4
+        call PickLinePlayers
 .2:
         mov ecx, dword [dword edi+dword_19C3DD]
         sar ecx, 18h
@@ -3566,9 +3585,10 @@ setpersonel:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_12970                                                       12970  97 PC
+; PeriodLengthSetting                             12970  97 PC, low confidence
+; Returns the period length setting
 ;-----------------------------------------------------------------------------
-sub_12970:
+PeriodLengthSetting:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 20h
@@ -3605,7 +3625,7 @@ sub_12970:
         mov eax, 12Ch
         jmp short .6
 .5:
-        call sub_12970
+        call PeriodLengthSetting
         cwde
 .6:
         mov ebx, 0Fh
@@ -3622,9 +3642,10 @@ sub_12970:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12A10                                                       12A10  97 PC
+; RefreshRinkPalette                              12A10  97 PC, low confidence
+; Refreshes the rink palette
 ;-----------------------------------------------------------------------------
-sub_12A10:
+RefreshRinkPalette:
         push ebx
         push ecx
         push edx
@@ -3657,7 +3678,7 @@ sub_12A10:
         shl ecx, 10h
         add eax, ecx
         mov edx, esi
-        call sub_52E28
+        call UpdateRinkPalette
         pop esi
         pop edx
         pop ecx
@@ -3752,7 +3773,7 @@ ClockTick:
         shl ecx, 10h
         add eax, ecx
         xor edx, edx
-        call sub_52E28
+        call UpdateRinkPalette
         mov edx, dword [gsp]
         sar edx, 10h
         mov ebx, 3Ch
@@ -3808,9 +3829,10 @@ ClockTick:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_12C2C                                                       12C2C  97 PC
+; StartPeriod                                     12C2C  97 PC, low confidence
+; Starts a period
 ;-----------------------------------------------------------------------------
-sub_12C2C:
+StartPeriod:
         push ebx
         push ecx
         push edx
@@ -3827,7 +3849,7 @@ sub_12C2C:
         mov word [word_19CB2A], dx
         mov word [word_19CB28], dx
         call ResetCoachModes
-        call sub_12334
+        call ResetPlayersForPeriod
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 40h
@@ -3835,7 +3857,7 @@ sub_12C2C:
         mov eax, 12Ch
         jmp short .3
 .2:
-        call sub_12970
+        call PeriodLengthSetting
         cwde
 .3:
         mov esi, 0Fh
@@ -3861,7 +3883,7 @@ sub_12C2C:
         mov eax, dword [word_19CBAE]
         xor edx, edx
         sar eax, 10h
-        call sub_AA650
+        call LogPeriodEnd
         cmp word [word_19CC24], byte 0
         je short .5
         mov eax, dword [word_19CC26]
@@ -3906,7 +3928,7 @@ sub_12C2C:
 .8:
         mov eax, dword [off_168CFC]
         call assreplace
-        call sub_4DDB0
+        call SetCameraMode
         mov bl, byte [byte_19CBCA]
         or bl, 4
         mov edx, 1
@@ -3922,9 +3944,10 @@ sub_12C2C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12DE8                                                       12DE8  97 PC
+; FindStartingGoalies                             12DE8  97 PC, low confidence
+; Finds the starting goalies
 ;-----------------------------------------------------------------------------
-sub_12DE8:
+FindStartingGoalies:
         push ebx
         push ecx
         push edx

@@ -23,26 +23,27 @@ extern dword_1CAEA8, dword_1CAEB8, rand_, sprintf_, sscanf_, str_D02d2, str_Logb
 extern str_Ulstreak, str_Uname, str_Uopp, str_Upts, str_Urate, str_Usort, str_Ustreak, str_Uteam
 extern strcmp_, strcpy_, strlen_, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape
 extern sub_102B94, ConvertArtXY, SetScreenTarget, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath
-extern LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, SetTextColor, DrawTextAligned
-extern sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_823F0, sub_82FB8, sub_83C08
-extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath
-extern sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E
-extern SetScrollBarPos, sub_8DEAC, GetLangText, AllocStatTable, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E
-extern sub_ACDAE, sub_AD151, sub_AD62E, sub_AD79F, sub_DA7EB, sub_DB6AC, LoadExhibitionFile, FreeExhibitionFile
-extern sub_E2041, sub_E2141, sub_E21C6, sub_E341C, sub_E4218, sub_E4230, WaitForOtherComputer, AllocMemBlock
+extern LoadDataFile, DrawShadedLogo, DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned
+extern ShowMessageBoxNoWait, EditTextField, WipeScreen, SetHighlightText, SetNormalText, DrawPortrait, ShowStatScreen, ShowPopupScreen
+extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, LoadNameIndex, NameIndexRemove, NameIndexCount, NameIndexPath
+extern NameIndexLimit, InitMenuItems, RunMenu, InitScrollList, ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList
+extern SetScrollBarPos, ScrollToMouse, GetLangText, AllocStatTable, FreeStatTable, SetStatCell, SetStatCellFlag, SetStatColumn
+extern SortStatTable, DrawStatTableRows, DrawStatTableArt, ExportStatTable, OpenGameDatabase, CloseGameDatabase, LoadExhibitionFile, FreeExhibitionFile
+extern SaveUserRecord, LoadUserRecord, DeleteUserRecord, ServiceIdle, LinkSyncMenu, LinkSyncScreen, WaitForOtherComputer, AllocMemBlock
 extern FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, MeasureText, tickcount
 extern unk_1665C8, unk_1665CB, unk_16661B, unk_166648, unk_1C5F4A, unk_1C9704, unk_1C9756, unk_1C989E
 extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, word_16D450, word_1AD68F, word_1AD693, word_1C3413
 extern word_1C5536, word_1C55A2
-global jpt_B234C, jpt_B41D3, sub_B211C_C7, sub_B211C_C8, UserLogScreen_71B, UserLogScreen_77D, UserLogScreen_884, UserLogScreen_89E
+global jpt_B234C, jpt_B41D3, NewUser_C7, NewUser_C8, UserLogScreen_71B, UserLogScreen_77D, UserLogScreen_884, UserLogScreen_89E
 global UserLogScreen_8BB, UserLogScreen_8CA, UserRecordsScreen_95C, UserRecordsScreen_96D, UserRecordsScreen_9B4, UserRecordsScreen_A7F, UserRecordsScreen_A92, UserRecordsScreen_A9E
-global UserRecordsScreen_AA5, sub_B1E1D, sub_B1E9C, sub_B1F4D, DeleteUser, sub_B211C, sub_B21EA, ScrollUserList
-global sub_B228A, UserLogScreen, LoadUserList, sub_B2F49, LoadUserRecords, sub_B3A9C, sub_B3B5D, sub_B3F21
-global sub_B418C, UserRecordsScreen, sub_B4F87, sub_B5031
+global UserRecordsScreen_AA5, ParseUserName, AddUserGame, UserRecordTotals, DeleteUser, NewUser, CopyUserName, ScrollUserList
+global DrawUserName, UserLogScreen, LoadUserList, UpdateUserRecords, LoadUserRecords, UserRecordsSound, BuildUserRecordsTable, BuildUserGamesTable
+global RunUserRecords, UserRecordsScreen, CompareStatColumn, CompareRatingColumn
 ;-----------------------------------------------------------------------------
-; sub_B1E1D                                                       B1E1D  97 PC
+; ParseUserName                                   B1E1D  97 PC, low confidence
+; Parses a user name
 ;-----------------------------------------------------------------------------
-sub_B1E1D:
+ParseUserName:
         push ebx
         push edx
         enter 8, 0
@@ -88,9 +89,10 @@ sub_B1E1D:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_B1E9C                                                       B1E9C  97 PC
+; AddUserGame                                     B1E9C  97 PC, low confidence
+; Adds a game to a user record
 ;-----------------------------------------------------------------------------
-sub_B1E9C:
+AddUserGame:
         push ebx
         push edx
         mov edx, eax
@@ -130,15 +132,16 @@ sub_B1E9C:
         cmp ebx, byte 2
         jl short .3
         mov eax, edx
-        call sub_B1F4D
+        call UserRecordTotals
         mov dword [dword edx+0171h], eax
         pop edx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_B1F4D                                                       B1F4D  97 PC
+; UserRecordTotals                                B1F4D  97 PC, low confidence
+; Works out the totals of a user record
 ;-----------------------------------------------------------------------------
-sub_B1F4D:
+UserRecordTotals:
         push ebx
         push ecx
         push edx
@@ -216,11 +219,11 @@ DeleteUser:
         mov eax, dword [eax]
         mov edx, edi
         lea ebx, [byte ebp-022h]
-        call sub_86718
+        call NameIndexCount
         mov ecx, dword [esi]
         mov edx, eax
         mov eax, ecx
-        call sub_B21EA
+        call CopyUserName
         lea eax, [byte ebp-022h]
         push eax
         mov eax, 102h
@@ -235,25 +238,25 @@ DeleteUser:
         push byte 1
         xor ebx, ebx
         lea eax, [byte ebp+02Eh]
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         test eax, eax
         je near .5
         mov edx, edi
         mov eax, dword [esi]
         lea ebx, [byte ebp-022h]
-        call sub_86718
+        call NameIndexCount
         mov ecx, dword [esi]
         mov edx, eax
         mov eax, ecx
         call NameIndexPath
         lea eax, [byte ebp-022h]
-        call sub_B1E1D
-        call sub_E21C6
+        call ParseUserName
+        call DeleteUserRecord
         test eax, eax
         je near .4
         mov edx, edi
         mov eax, dword [esi]
-        call sub_86718
+        call NameIndexCount
         mov ebx, dword [esi]
         mov edx, eax
         mov eax, ebx
@@ -301,7 +304,7 @@ DeleteUser:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
 .5:
         xor eax, eax
 .6:
@@ -313,9 +316,10 @@ DeleteUser:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_B211C                                                       B211C  97 PC
+; NewUser                                         B211C  97 PC, low confidence
+; Creates a new user
 ;-----------------------------------------------------------------------------
-sub_B211C:
+NewUser:
         push ebx
         push ecx
         push edx
@@ -332,7 +336,7 @@ sub_B211C:
         mov ebx, eax
         lea eax, [byte ebp-02Ch]
         mov edi, 1
-        call sub_7FE38
+        call EditTextField
         test eax, eax
         je near .3
         lea eax, [byte ebp-02Ch]
@@ -340,13 +344,13 @@ sub_B211C:
         test eax, eax
         jbe short .2
         mov eax, dword [esi]
-        call sub_867D4
+        call NameIndexLimit
         mov ebx, eax
         lea eax, [dword ebp-01A4h]
-        call sub_B1E9C
+        call AddUserGame
         mov edx, ebx
         lea eax, [dword ebp-01A4h]
-        call sub_E2041
+        call SaveUserRecord
         test eax, eax
         jne short .1
         mov eax, 0FBh
@@ -355,7 +359,7 @@ sub_B211C:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         xor edi, edi
         jmp short .3
 .1:
@@ -368,7 +372,7 @@ sub_B211C:
         add esp, byte 0Ch
         lea ebx, [byte ebp-02Ch]
         mov eax, dword [esi]
-        call sub_86500
+        call LoadNameIndex
         mov dword [esi], eax
         call NameIndexSave
         jmp short .3
@@ -379,12 +383,12 @@ sub_B211C:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
 .3:
         mov eax, edi
-sub_B211C_C7:
+NewUser_C7:
         leave
-sub_B211C_C8:
+NewUser_C8:
         pop edi
         pop esi
         pop edx
@@ -392,9 +396,10 @@ sub_B211C_C8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_B21EA                                                       B21EA  97 PC
+; CopyUserName                                    B21EA  97 PC, low confidence
+; Copies a user name
 ;-----------------------------------------------------------------------------
-sub_B21EA:
+CopyUserName:
         push ecx
         test eax, eax
         je short .3
@@ -481,9 +486,10 @@ ScrollUserList:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_B228A                                                       B228A  97 PC
+; DrawUserName                                    B228A  97 PC, low confidence
+; Draws a user name
 ;-----------------------------------------------------------------------------
-sub_B228A:
+DrawUserName:
         push esi
         push edi
         enter 2Ch, 0
@@ -569,7 +575,7 @@ jpt_B234C:
         dd UserLogScreen_8BB
 ;-----------------------------------------------------------------------------
 ; UserLogScreen                                   B2364  97 PC, low confidence
-; The "User Log" list (LoadUserList), from the remote user screen sub_A3280
+; The "User Log" list (LoadUserList), from the remote user screen LinkGameSetup
 ;-----------------------------------------------------------------------------
 UserLogScreen:
         push esi
@@ -723,7 +729,7 @@ UserLogScreen:
         push byte 0
         mov edx, dword [byte ebx+02Ch]
         mov ebx, 10h
-        call sub_7DFC0
+        call DrawShadedLogo
         jmp short .3
 .2:
         mov eax, dword [byte ebp+05Eh]
@@ -754,7 +760,7 @@ UserLogScreen:
         mov edx, dword [byte eax+02Ch]
         mov eax, dword [byte ebx+ebp+0Eh]
         xor ebx, ebx
-        call sub_823F0
+        call DrawPortrait
 .3:
         movsx eax, word [byte ebp+07Eh]
         mov ebx, eax
@@ -785,7 +791,7 @@ UserLogScreen:
         push byte 0
         mov edx, dword [byte ebx+02Ch]
         mov ebx, 10h
-        call sub_7DFC0
+        call DrawShadedLogo
         jmp short .5
 .4:
         mov eax, dword [byte ebp+056h]
@@ -816,7 +822,7 @@ UserLogScreen:
         mov edx, dword [byte eax+02Ch]
         mov eax, dword [byte ebx+ebp-016h]
         xor ebx, ebx
-        call sub_823F0
+        call DrawPortrait
 .5:
         call sub_1013FC
         inc dword [byte ebp+07Eh]
@@ -963,7 +969,7 @@ UserLogScreen:
         mov ebx, dword [byte eax+066h]
         lea eax, [dword ebp-015Eh]
         mov dword [byte ebp+07Ah], 0
-        call sub_8D956
+        call InitScrollList
 .7:
         imul eax, dword [byte ebp+07Ah], byte 0Dh
         add eax, dword [byte ebp+072h]
@@ -1008,7 +1014,7 @@ UserLogScreen:
         mov eax, dword [byte ebp+04Ah]
         push dword [byte ebp+076h]
         mov edx, edi
-        call sub_B228A
+        call DrawUserName
         call SetScreenTarget
         push dword [byte ebp+072h]
         push dword [byte ebp+06Eh]
@@ -1037,7 +1043,7 @@ UserLogScreen:
         xor ecx, ecx
         mov eax, 15h
 .11:
-        call sub_8BFAC
+        call RunMenu
         mov dword [byte ebp+05Ah], eax
         jmp short .10
 .12:
@@ -1079,7 +1085,7 @@ UserLogScreen_71B:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .17
-        call sub_E341C
+        call ServiceIdle
         jmp short .16
 .17:
         inc dword [byte ebp+07Ah]
@@ -1108,7 +1114,7 @@ UserLogScreen_77D:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .21
-        call sub_E341C
+        call ServiceIdle
         jmp short .20
 .21:
         inc dword [byte ebp+07Ah]
@@ -1148,7 +1154,7 @@ UserLogScreen_77D:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         jmp near UserLogScreen_8CA.35
 .25:
         imul edx, dword [byte ebp+066h], byte 21h
@@ -1161,16 +1167,16 @@ UserLogScreen_77D:
         lea ebx, [byte eax+02h]
         mov edx, dword [byte ebp+076h]
         mov eax, dword [byte ebp+04Ah]
-        call sub_86718
+        call NameIndexCount
         mov edx, eax
         mov eax, dword [byte ebp+04Ah]
         mov dword [byte ebp+06Ah], 1
-        call sub_B21EA
+        call CopyUserName
         jmp near UserLogScreen_8CA.35
 UserLogScreen_884:
         lea eax, [dword ebp-015Eh]
         xor edx, edx
-        call sub_8DE10
+        call ScrollUp
 .26:
         push edi
         mov ebx, esi
@@ -1180,7 +1186,7 @@ UserLogScreen_89E:
         mov ebx, dword [byte ebp+05Ah]
         lea eax, [dword ebp-015Eh]
         xor edx, edx
-        call sub_8DEAC
+        call ScrollToMouse
         push edi
         call SetDrawTarget
         mov ebx, esi
@@ -1188,7 +1194,7 @@ UserLogScreen_89E:
 UserLogScreen_8BB:
         lea eax, [dword ebp-015Eh]
         xor edx, edx
-        call sub_8DE68
+        call ScrollDown
         jmp short UserLogScreen_884.26
 UserLogScreen_8CA:
         mov eax, dword [dword ebp-013Ah]
@@ -1219,7 +1225,7 @@ UserLogScreen_8CA:
         cmp dword [byte eax+066h], byte 34h
         jge near .32
         lea eax, [byte ebp+04Ah]
-        call sub_B211C
+        call NewUser
         test eax, eax
         sete al
         movzx eax, al
@@ -1237,17 +1243,17 @@ UserLogScreen_8CA:
         movsx edx, word [byte ebx+eax+05h]
         mov eax, dword [byte ebp+04Ah]
         add ecx, ebx
-        call sub_86718
+        call NameIndexCount
         inc ecx
         inc ecx
         mov edx, eax
         mov eax, dword [byte ebp+04Ah]
         mov ebx, ecx
-        call sub_B21EA
+        call CopyUserName
         jmp near .33
 .30:
         lea eax, [dword ebp-015Eh]
-        call sub_8DE7E
+        call FreeScrollList
         push byte 0
         push byte 0
         movsx eax, word [byte esi+06h]
@@ -1265,7 +1271,7 @@ UserLogScreen_8CA:
         push byte 0
         mov ebx, dword [byte eax+066h]
         lea eax, [dword ebp-015Eh]
-        call sub_8D956
+        call InitScrollList
         mov eax, dword [byte ebp+04Ah]
         mov eax, dword [byte eax+066h]
         dec eax
@@ -1292,7 +1298,7 @@ UserLogScreen_8CA:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
 .33:
         cmp dword [byte ebp+06Ah], byte 0
         jne short .35
@@ -1305,7 +1311,7 @@ UserLogScreen_8CA:
         mov eax, dword [byte ebp+04Ah]
         push dword [byte ebp+076h]
         mov edx, edi
-        call sub_B228A
+        call DrawUserName
         call SetScreenTarget
         push dword [byte ebp+072h]
         push dword [byte ebp+06Eh]
@@ -1349,7 +1355,7 @@ UserLogScreen_8CA:
         call FreeBitmap
         add esp, byte 4
         lea eax, [dword ebp-015Eh]
-        call sub_8DE7E
+        call FreeScrollList
         lea esp, [dword ebp+082h]
         pop ebp
         pop edi
@@ -1380,7 +1386,7 @@ LoadUserList:
         lea eax, [byte ebp-040h]
         call NameIndexNew
         mov dword [ecx], eax
-        call sub_867D4
+        call NameIndexLimit
         push eax
         push str_08d
         lea eax, [byte ebp-0Ch]
@@ -1405,11 +1411,11 @@ LoadUserList:
 .3:
         lea edx, [byte ebp-0Ch]
         mov eax, dword [ecx]
-        call sub_86500
+        call LoadNameIndex
         mov dword [ecx], eax
 .4:
         mov eax, dword [ecx]
-        call sub_867D4
+        call NameIndexLimit
         push eax
         push str_08d
         lea eax, [byte ebp-0Ch]
@@ -1434,7 +1440,7 @@ LoadUserList:
 .7:
         lea edx, [byte ebp-0Ch]
         mov eax, dword [ecx]
-        call sub_86500
+        call LoadNameIndex
         mov dword [ecx], eax
 .8:
         mov eax, dword [ecx]
@@ -1446,9 +1452,10 @@ LoadUserList:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_B2F49                                                       B2F49  97 PC
+; UpdateUserRecords                               B2F49  97 PC, low confidence
+; Updates the user records after a game
 ;-----------------------------------------------------------------------------
-sub_B2F49:
+UpdateUserRecords:
         push ebx
         push ecx
         push edx
@@ -1476,7 +1483,7 @@ sub_B2F49:
         movsd
         movsd
         movsd
-        call sub_DA7EB
+        call OpenGameDatabase
         lea eax, [byte ebp+052h]
         mov dword [byte ebp+06Ah], 0
         call LoadUserList
@@ -1488,7 +1495,7 @@ sub_B2F49:
         je near .55
         mov eax, dword [byte ebp+052h]
         lea ebx, [byte ebp-016h]
-        call sub_86718
+        call NameIndexCount
         mov edx, eax
         mov eax, dword [byte ebp+052h]
         call NameIndexPath
@@ -1496,8 +1503,8 @@ sub_B2F49:
         je near .55
         lea eax, [byte ebp-016h]
         lea edx, [dword ebp-0256h]
-        call sub_B1E1D
-        call sub_E2141
+        call ParseUserName
+        call LoadUserRecord
         test eax, eax
         je near .55
         mov ebx, dword [dword_1AC814]
@@ -1986,13 +1993,13 @@ sub_B2F49:
         inc word [dword ebp-0102h]
 .54:
         lea eax, [dword ebp-0256h]
-        call sub_B1F4D
+        call UserRecordTotals
         mov dword [dword ebp-0E5h], eax
         lea eax, [byte ebp-016h]
-        call sub_B1E1D
+        call ParseUserName
         mov edx, eax
         lea eax, [dword ebp-0256h]
-        call sub_E2041
+        call SaveUserRecord
 .55:
         inc dword [byte ebp+06Ah]
         cmp dword [byte ebp+06Ah], byte 8
@@ -2000,11 +2007,11 @@ sub_B2F49:
         mov edx, dword [byte ebp+052h]
         mov eax, 1
         call NameIndexFree
-        call sub_DB6AC
+        call CloseGameDatabase
         movsx eax, word [byte ebp+076h]
         lea esp, [dword ebp+082h]
         pop ebp
-        jmp near sub_B211C_C8
+        jmp near NewUser_C8
 ;-----------------------------------------------------------------------------
 ; LoadUserRecords                                 B36D6  96 PC, low confidence
 ; Reads every user's record file into the tables of the user records screen
@@ -2022,7 +2029,7 @@ LoadUserRecords:
 .1:
         mov edx, esi
         lea ebx, [byte ebp-050h]
-        call sub_86718
+        call NameIndexCount
         mov ecx, dword [dword_16D440]
         mov edx, eax
         mov eax, ecx
@@ -2035,8 +2042,8 @@ LoadUserRecords:
         mov dword [byte ebp-010h], eax
         add edx, eax
         lea eax, [byte ebp-050h]
-        call sub_B1E1D
-        call sub_E2141
+        call ParseUserName
+        call LoadUserRecord
         test eax, eax
         jne short .2
         push byte 1
@@ -2045,20 +2052,20 @@ LoadUserRecords:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         xor eax, eax
-        jmp near sub_B211C_C7
+        jmp near NewUser_C7
 .2:
         imul edi, byte 28h
         mov eax, dword [dword_16D440]
         mov edx, esi
         mov ebx, dword [dword_1CA9C0]
-        call sub_86718
+        call NameIndexCount
         mov ecx, dword [dword_16D440]
         mov edx, eax
         mov eax, ecx
         add ebx, edi
-        call sub_B21EA
+        call CopyUserName
         mov eax, dword [dword_1CA9C0]
         lea edx, [eax+edi]
         mov edi, esi
@@ -2260,20 +2267,21 @@ LoadUserRecords:
         je near .1
 .12:
         mov eax, 1
-        jmp near sub_B211C_C7
+        jmp near NewUser_C7
         push edx
         mov edx, str_LocalNdx
         mov eax, str_User
         call NameIndexLoad
         mov dword [dword_16D440], eax
         mov eax, dword_16D440
-        call sub_B211C
+        call NewUser
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_B3A9C                                                       B3A9C  97 PC
+; UserRecordsSound                                B3A9C  97 PC, low confidence
+; Plays a user records sound
 ;-----------------------------------------------------------------------------
-sub_B3A9C:
+UserRecordsSound:
         push ebx
         push ecx
         push edx
@@ -2323,16 +2331,17 @@ sub_B3A9C:
         call PlaySfx
 .5:
         test edi, edi
-        jne near sub_B211C_C7
+        jne near NewUser_C7
         cmp word [word_16D450], byte 0
-        je near sub_B211C_C7
+        je near NewUser_C7
         mov word [word_16D450], 0
         call StopAllSfx
-        jmp near sub_B211C_C7
+        jmp near NewUser_C7
 ;-----------------------------------------------------------------------------
-; sub_B3B5D                                                       B3B5D  97 PC
+; BuildUserRecordsTable                           B3B5D  97 PC, low confidence
+; Builds the user records table
 ;-----------------------------------------------------------------------------
-sub_B3B5D:
+BuildUserRecordsTable:
         push esi
         push edi
         enter 1Ch, 0
@@ -2349,7 +2358,7 @@ sub_B3B5D:
         mov edx, esi
         add ebx, eax
         mov eax, edi
-        call sub_ACB0E
+        call SetStatColumn
         mov ebx, dword [dword_1CA9D0]
         mov eax, esi
         movsx eax, word [ebx+eax*2]
@@ -2372,7 +2381,7 @@ sub_B3B5D:
         mov ecx, eax
 .3:
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         imul eax, esi, dword 176h
         mov dword [byte ebp-04h], eax
         mov eax, dword [dword_1CA998]
@@ -2394,7 +2403,7 @@ sub_B3B5D:
         add esp, byte 14h
         mov edx, esi
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         mov eax, dword [dword_1CA998]
         add eax, dword [byte ebp-04h]
         movsx ebx, word [byte eax+016h]
@@ -2412,7 +2421,7 @@ sub_B3B5D:
         add esp, byte 14h
         mov ebx, 2
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         mov eax, dword [dword_1CA998]
         add eax, dword [byte ebp-04h]
         movsx ebx, word [byte eax+012h]
@@ -2428,7 +2437,7 @@ sub_B3B5D:
         add esp, byte 10h
         mov ebx, 3
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 6
         lea eax, [esi+esi]
         mov ecx, dword [dword_1CA9B4]
@@ -2436,33 +2445,33 @@ sub_B3B5D:
         mov edx, esi
         add ecx, eax
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 7
         mov ecx, dword [dword_1CA9AC]
         mov edx, esi
         mov eax, edi
         add ecx, dword [byte ebp-01Ch]
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 8
         mov ecx, dword [dword_1CA9A8]
         mov edx, esi
         mov eax, edi
         add ecx, dword [byte ebp-01Ch]
-        call sub_ACAE5
+        call SetStatCell
         mov eax, dword [dword_1CA998]
         add eax, dword [byte ebp-04h]
         mov ebx, 0Bh
         lea ecx, [byte eax+02Ch]
         mov edx, esi
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         mov eax, dword [dword_1CA998]
         add eax, dword [byte ebp-04h]
         mov ebx, 0Ch
         lea ecx, [byte eax+02Eh]
         mov edx, esi
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         mov eax, dword [dword_1CA9C8]
         add eax, dword [byte ebp-01Ch]
         movsx eax, word [eax]
@@ -2485,7 +2494,7 @@ sub_B3B5D:
         mov ecx, eax
 .5:
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, esi
         mov eax, dword [dword_1CA9A4]
         shl ebx, 2
@@ -2532,13 +2541,13 @@ sub_B3B5D:
         mov dword [byte ebp-018h], eax
         add ecx, eax
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         mov ecx, dword [byte ebp+018h]
         mov ebx, 0Ah
         mov edx, esi
         mov eax, edi
         add ecx, dword [byte ebp-018h]
-        call sub_ACAE5
+        call SetStatCell
         mov eax, dword [dword_1CA9BC]
         add eax, dword [byte ebp-018h]
         mov ecx, dword [byte ebp+010h]
@@ -2549,14 +2558,14 @@ sub_B3B5D:
         xor ebx, ebx
         mov dword [ecx], eax
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         imul eax, esi, byte 6
         mov ebx, 10h
         mov ecx, dword [dword_1CA9CC]
         mov edx, esi
         add ecx, eax
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         lea eax, [esi+esi*2]
         add eax, eax
         mov dword [byte ebp-018h], eax
@@ -2568,7 +2577,7 @@ sub_B3B5D:
         mov edx, esi
         add ecx, eax
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         mov eax, dword [byte ebp-018h]
         mov ebx, 12h
         mov ecx, dword [dword_1CA9CC]
@@ -2576,7 +2585,7 @@ sub_B3B5D:
         mov edx, esi
         add ecx, eax
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         imul eax, esi, dword 176h
         mov dword [byte ebp-08h], eax
         mov eax, dword [dword_1CA998]
@@ -2591,14 +2600,14 @@ sub_B3B5D:
         mov edx, esi
         mov ecx, eax
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         mov eax, 1BDh
         mov ebx, 0Eh
         call GetLangText
         mov edx, esi
         mov ecx, eax
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         mov eax, 1BDh
         mov ebx, 0Fh
         call GetLangText
@@ -2612,14 +2621,14 @@ sub_B3B5D:
         lea ecx, [dword eax+0156h]
         mov edx, esi
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         mov eax, dword [dword_1CA998]
         add eax, dword [byte ebp-08h]
         mov ebx, 0Eh
         lea ecx, [dword eax+015Fh]
         mov edx, esi
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         mov eax, dword [dword_1CA998]
         add eax, dword [byte ebp-08h]
         mov ebx, 0Fh
@@ -2627,7 +2636,7 @@ sub_B3B5D:
         mov edx, esi
 .11:
         mov eax, edi
-        call sub_ACAE5
+        call SetStatCell
         inc esi
 .12:
         mov eax, dword [dword_16D440]
@@ -2641,9 +2650,10 @@ sub_B3B5D:
         pop esi
         ret 10h
 ;-----------------------------------------------------------------------------
-; sub_B3F21                                                       B3F21  97 PC
+; BuildUserGamesTable                             B3F21  97 PC, low confidence
+; Builds the user games table
 ;-----------------------------------------------------------------------------
-sub_B3F21:
+BuildUserGamesTable:
         push esi
         push ebp
         mov ebp, esp
@@ -2673,140 +2683,141 @@ sub_B3F21:
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1B1h
         mov ebx, 0Ch
         mov edx, 1
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1B2h
         mov ebx, 0Ch
         mov edx, 2
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1B3h
         mov ebx, 0Ch
         mov edx, 3
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1B4h
         mov ebx, 4
         mov edx, 6
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1B5h
         mov ebx, 0Bh
         mov edx, 7
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1B6h
         mov ebx, 4
         mov edx, 8
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1B7h
         mov ebx, 4
         mov edx, 0Bh
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1B8h
         mov ebx, 4
         mov edx, 0Ch
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1B9h
         mov ebx, 8
         mov edx, 5
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1BAh
         mov ebx, 6
         mov edx, 9
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1BBh
         mov ebx, 6
         mov edx, 0Ah
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1BCh
         mov ebx, 1
         call GetLangText
         xor edx, edx
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1BFh
         mov ebx, 4
         mov edx, 10h
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1C0h
         mov ebx, 4
         mov edx, 11h
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1C1h
         mov ebx, 4
         mov edx, 12h
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1C6h
         mov ebx, 8
         mov edx, 0Dh
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1C7h
         mov ebx, 8
         mov edx, 0Eh
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 1C8h
         mov ebx, 8
         mov edx, 0Fh
         call GetLangText
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         pop ebp
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_B418C                                                       B418C  97 PC
+; RunUserRecords                                  B418C  97 PC, low confidence
+; Runs the user records screen over the link
 ;-----------------------------------------------------------------------------
-sub_B418C:
+RunUserRecords:
         push edx
         cmp dword [dword_16DA9C], byte 0
         jne short .1
@@ -2818,7 +2829,7 @@ sub_B418C:
         cmp byte [byte_1CA9D8], 2
         jne short .2
         call UserRecordsScreen
-        call sub_E4218
+        call LinkSyncMenu
         mov edx, 1Ah
         mov eax, edx
         pop edx
@@ -2827,7 +2838,7 @@ sub_B418C:
         mov eax, 237h
         mov edx, 1Ah
         call GetLangText
-        call sub_E4230
+        call LinkSyncScreen
         mov eax, edx
         pop edx
         ret
@@ -3098,12 +3109,12 @@ UserRecordsScreen:
         mov edx, dword [dword_16CCF1]
         mov eax, dword [byte ebx+02Ch]
         mov ebx, 10h
-        call sub_82FB8
+        call ShowStatScreen
         jmp short .4
 .3:
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte ebx+02Ch]
-        call sub_80BBC
+        call WipeScreen
 .4:
         call sub_1013FC
         push edi
@@ -3112,7 +3123,7 @@ UserRecordsScreen:
         add esp, byte 4
         mov edx, esi
         mov eax, esi
-        call sub_7E860
+        call DrawScreenBackground
         mov eax, dword [byte ebp-0Ch]
         mov eax, dword [byte eax+02Ch]
         mov word [byte eax+0Ch], 0Ah
@@ -3288,7 +3299,7 @@ UserRecordsScreen:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         mov eax, 1
         mov edx, dword [dword_16D440]
         call NameIndexFree
@@ -3373,13 +3384,13 @@ UserRecordsScreen:
         call FreeBitmap
         mov eax, 1Ah
         add esp, byte 4
-        jmp near sub_B211C_C7
+        jmp near NewUser_C7
 .5:
         call LoadUserRecords
         test eax, eax
         jne short .6
         mov eax, 1Ah
-        jmp near sub_B211C_C7
+        jmp near NewUser_C7
 .6:
         lea eax, [dword ebp-011A0h]
         mov edx, dword [byte ebp-010h]
@@ -3388,7 +3399,7 @@ UserRecordsScreen:
         push eax
         mov edx, dword [byte edx+02Ch]
         lea eax, [dword ebp-02A0h]
-        call sub_B3F21
+        call BuildUserGamesTable
         push dword [byte ebp-024h]
         mov ecx, dword [byte ebp-02Ch]
         push dword [byte ebp-01Ch]
@@ -3397,7 +3408,7 @@ UserRecordsScreen:
         mov edx, dword [byte ebp-020h]
         push dword [byte ebp-028h]
         lea eax, [dword ebp-02A0h]
-        call sub_B3B5D
+        call BuildUserRecordsTable
         mov eax, dword [dword_1CA9D4]
         mov dword [dword_16D444], 0
         mov dword [dword_16D44C], 0
@@ -3407,12 +3418,12 @@ UserRecordsScreen:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        call sub_81650
+        call SetHighlightText
         lea eax, [dword ebp-02A0h]
-        call sub_AD151
+        call DrawStatTableRows
         call SetScreenTarget
         lea eax, [dword ebp-02A0h]
-        call sub_AD62E
+        call DrawStatTableArt
         call sub_1013FC
         mov dword [byte ebp-040h], 0FFFFFFFFh
         mov dword [byte ebp-03Ch], 0FFFFFFFFh
@@ -3421,19 +3432,19 @@ UserRecordsScreen:
         jne near UserRecordsScreen_AA5.16
         push byte 2
         lea eax, [byte ebp-038h]
-        mov ecx, sub_B3A9C
+        mov ecx, UserRecordsSound
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, dword_1C9660
         mov eax, 3Ch
-        call sub_8BFAC
+        call RunMenu
         mov edx, eax
         cmp dword [byte ebp-038h], byte 6
         ja near UserRecordsScreen_AA5.14
         mov ebx, dword [byte ebp-038h]
         jmp dword [nosplit cs:ebx*4+jpt_B41D3]
 UserRecordsScreen_95C:
-        call sub_7EDF0
+        call FadeInScreen
 .8:
         mov dword [byte ebp-014h], 1Ah
         jmp near UserRecordsScreen_AA5.15
@@ -3441,23 +3452,23 @@ UserRecordsScreen_96D:
         cmp dword [dword_16DA9C], byte 0
         jne short .9
         lea eax, [dword ebp-02A0h]
-        call sub_AD79F
+        call ExportStatTable
         jmp near UserRecordsScreen_AA5.15
 .9:
         cmp eax, byte 2
         jne short .10
         lea eax, [dword ebp-02A0h]
-        call sub_AD79F
-        call sub_E4218
+        call ExportStatTable
+        call LinkSyncMenu
         jmp near UserRecordsScreen_AA5.15
 .10:
         mov eax, 237h
         call GetLangText
-        call sub_E4230
+        call LinkSyncScreen
         jmp near UserRecordsScreen_AA5.15
 UserRecordsScreen_9B4:
         mov eax, unk_1C9704
-        call sub_83C08
+        call ShowPopupScreen
         cmp dword [byte ebp-040h], byte 0FFFFFFFFh
         jne short .11
         mov eax, dword_16D440
@@ -3477,20 +3488,20 @@ UserRecordsScreen_9B4:
         mov eax, dword [dword_1CA998]
         add eax, edx
         inc ebx
-        call sub_B1E9C
+        call AddUserGame
         cmp ebx, byte 32h
         jl short .13
         call LoadUserRecords
         lea eax, [dword ebp-02A0h]
         mov edx, dword [byte ebp-010h]
         mov ecx, dword [byte ebp-04h]
-        call sub_ACA49
+        call FreeStatTable
         lea eax, [dword ebp-011A0h]
         mov ebx, dword [byte ebp-08h]
         push eax
         mov edx, dword [byte edx+02Ch]
         lea eax, [dword ebp-02A0h]
-        call sub_B3F21
+        call BuildUserGamesTable
         push dword [byte ebp-024h]
         mov ecx, dword [byte ebp-02Ch]
         push dword [byte ebp-01Ch]
@@ -3499,23 +3510,23 @@ UserRecordsScreen_9B4:
         mov edx, dword [byte ebp-020h]
         push dword [byte ebp-028h]
         lea eax, [dword ebp-02A0h]
-        call sub_B3B5D
-        call sub_81650
+        call BuildUserRecordsTable
+        call SetHighlightText
         lea eax, [dword ebp-02A0h]
-        call sub_AD151
+        call DrawStatTableRows
         call SetScreenTarget
         lea eax, [dword ebp-02A0h]
-        call sub_AD62E
+        call DrawStatTableArt
         call sub_1013FC
         mov dword [byte ebp-040h], 0FFFFFFFFh
         jmp short UserRecordsScreen_AA5.15
 UserRecordsScreen_A7F:
         mov eax, unk_1C9756
         mov dword [byte ebp-014h], 64h
-        call sub_83C08
+        call ShowPopupScreen
         jmp short UserRecordsScreen_AA5.15
 UserRecordsScreen_A92:
-        call sub_7EF70
+        call ExitScreen
         call WaitForOtherComputer
         jmp short UserRecordsScreen_AA5.15
 UserRecordsScreen_A9E:
@@ -3531,20 +3542,20 @@ UserRecordsScreen_AA5:
         mov edx, dword [byte ebp-038h]
         lea eax, [dword ebp-02A0h]
         sub edx, byte 7
-        call sub_ACDAE
-        call sub_81650
+        call SortStatTable
+        call SetHighlightText
         lea eax, [dword ebp-02A0h]
-        call sub_AD151
+        call DrawStatTableRows
         call SetScreenTarget
         lea eax, [dword ebp-02A0h]
-        call sub_AD62E
+        call DrawStatTableArt
         call sub_1013FC
 .15:
-        call sub_81678
+        call SetNormalText
         jmp near UserRecordsScreen.7
 .16:
         lea eax, [dword ebp-02A0h]
-        call sub_ACA49
+        call FreeStatTable
         push dword [dword_1CA998]
         call FreeMemBlock
         add esp, byte 4
@@ -3629,7 +3640,7 @@ UserRecordsScreen_AA5:
         mov edx, dword [dword_16D440]
         call NameIndexFree
         mov eax, dword [byte ebp-014h]
-        jmp near sub_B211C_C7
+        jmp near NewUser_C7
         push esi
         push edi
         enter 1B4h, 0
@@ -3643,7 +3654,7 @@ UserRecordsScreen_AA5:
         movsx edx, word [byte edx+eax+05h]
         mov eax, dword [byte ebp-08h]
         lea ebx, [byte ebp-03Ch]
-        call sub_86718
+        call NameIndexCount
         mov edx, eax
         mov eax, dword [byte ebp-08h]
         call NameIndexPath
@@ -3652,7 +3663,7 @@ UserRecordsScreen_AA5:
         lea ebx, [dword esi+03EAh]
         lea edx, [dword ebp-01B4h]
         mov eax, ebx
-        call sub_E2141
+        call LoadUserRecord
         test eax, eax
         je near .17
         mov eax, dword [byte ebp-04h]
@@ -3694,19 +3705,20 @@ UserRecordsScreen_AA5:
         mov dword [dword ebp-01B4h], eax
         lea eax, [dword ebp-01B4h]
         mov edx, ebx
-        call sub_B1F4D
+        call UserRecordTotals
         mov dword [byte ebp-043h], eax
         lea eax, [dword ebp-01B4h]
-        call sub_E2041
+        call SaveUserRecord
 .17:
         leave
         pop edi
         pop esi
         ret 44h
 ;-----------------------------------------------------------------------------
-; sub_B4F87                                                       B4F87  97 PC
+; CompareStatColumn                               B4F87  97 PC, low confidence
+; Compares two stats screen columns
 ;-----------------------------------------------------------------------------
-sub_B4F87:
+CompareStatColumn:
         push ebx
         push ecx
         push esi
@@ -3769,9 +3781,10 @@ sub_B4F87:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_B5031                                                       B5031  97 PC
+; CompareRatingColumn                             B5031  97 PC, low confidence
+; Compares two ratings screen columns
 ;-----------------------------------------------------------------------------
-sub_B5031:
+CompareRatingColumn:
         push ebx
         push ecx
         push esi

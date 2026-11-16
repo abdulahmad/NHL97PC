@@ -16,8 +16,8 @@ extern sub_109545, sub_10955B, sub_1095AD, sub_109870, AsyncInit, AsyncClose, As
 extern sub_109E74, sub_10A7D0, sub_10A860, sub_10A868, sub_10A8C4, sub_10A930, sub_10A980, sub_10AA38
 extern sub_10AB1C, sub_10ABC8, RingBufferSpace, QueuePassSpeech, QueueShotSpeech, QueuePositionSpeech, QueueHitSpeech, QueuePenaltySpeech
 extern QueueReceiveSpeech, QueueLoosePuckSpeech, QueueCarrySpeech, QueueTeamSpeech, QueueDeflectSpeech, QueuePickupSpeech, QueueFaceoffSpeech, QueuePenaltyEndSpeech
-extern QueueFinalSpeech, QueueTouchPuckSpeech, QueuePenaltyCallSpeech, QueueStoppageSpeech, QueuePowerPlaySpeech, sub_44A50, sub_4518C, sub_45628
-extern sub_4564C, sub_45954, sub_45A00, MakeDataPath, sub_E341C, AllocMemBlock, FreeMemBlock, ZeroMem
+extern QueueFinalSpeech, QueueTouchPuckSpeech, QueuePenaltyCallSpeech, QueueStoppageSpeech, QueuePowerPlaySpeech, SayShotCall, SaySaveCall, SpeechTableEntry
+extern SayPlayerCall, SayRandomFiller, SpeechClipExists, MakeDataPath, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
 extern tickcount, word_1691A4, word_169268, word_169282, word_169284, word_169824
 global jpt_48D20, jpt_48D50, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D, CommentaryEvent_3F6, CommentaryEvent_3FF
 global CommentaryEvent_408, CommentaryEvent_411, CommentaryEvent_41A, CommentaryEvent_423, CommentaryEvent_48A, CommentaryEvent_4E4, CommentaryEvent_4ED, CommentaryEvent_4F6
@@ -31,8 +31,8 @@ global CommentaryEvent_F92, CommentaryEvent_F9B, CommentaryEvent_FB0, Commentary
 global CommentaryEvent_1293, CommentaryEvent_1500, CommentaryEvent_16BA, CommentaryEvent_1771, CommentaryEvent_17AA, CommentaryEvent_17E6, CommentaryEvent_1871, CommentaryEvent_189C
 global CommentaryEvent_18A1, CommentaryEvent_18AA, CommentaryEvent_18B3, CommentaryEvent_18BC, CommentaryEvent_1931, CommentaryEvent_19C8, CommentaryEvent_1A44, CommentaryEvent_1B16
 global CommentaryEvent_1B57, CommentaryEvent_1B97, CommentaryEvent_1BF5, CommentaryEvent_1C3D, CommentaryEvent_1CB2, CommentaryEvent_1DD1, CommentaryEvent_1E49, CommentaryEvent_1ECB
-global CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, CommentaryEvent, OpenSpeechFile, sub_47D70, sub_47DC8, sub_47E38
-global sub_47EA4, ShutdownSound, sub_48030, sub_48080, sub_480CC, sub_486E8, sub_4880C, sub_48864
+global CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, CommentaryEvent, OpenSpeechFile, FreeSpeechBuffers, PickPaClip, OpenSpeechData
+global InitSpeechStream, ShutdownSound, OpenPlayByPlay, OpenArenaSpeech, ServiceSpeechStream, QueuePaClip, SayPaClip, PaPlayerName
 global CountRecordGame, RecordPctClip, RecordStreakClips
 ;-----------------------------------------------------------------------------
 ; CommentaryEvent                                 45BEC  97 PC, low confidence
@@ -111,17 +111,17 @@ CommentaryEvent_66:
         mov edx, dword [byte ebp+06Eh]
         push dword [eax]
         mov eax, ecx
-        call sub_4564C
+        call SayPlayerCall
         test eax, eax
         je near CommentaryEvent_1FE8.272
         mov eax, dword [byte ebp+06Eh]
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [byte ebp+042h]
-        call sub_45628
+        call SpeechTableEntry
         push eax
         mov eax, dword [byte ebp+03Eh]
-        call sub_45628
+        call SpeechTableEntry
         push eax
         push str_CarrySS
         lea eax, [dword ebp-05B6h]
@@ -169,7 +169,7 @@ CommentaryEvent_135:
 .7:
         mov eax, dword [byte edx+ebp+06Eh]
         add edx, byte 4
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte edx+ebp+036h], eax
         cmp edx, byte 8
         jne short .7
@@ -210,7 +210,7 @@ CommentaryEvent_135:
         mov eax, dword [byte ebp+05Eh]
         push dword [eax]
         mov eax, ecx
-        call sub_44A50
+        call SayShotCall
         cmp dword [byte ebp+052h], byte 1
         jne short .9
         mov dword [byte ebp+042h], 0FFFFFFFFh
@@ -294,7 +294,7 @@ CommentaryEvent_2DE:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov dword [byte ebp+03Eh], edx
         mov dword [byte ebp+046h], edi
@@ -312,7 +312,7 @@ CommentaryEvent_2DE:
         push dword [eax]
         mov eax, ecx
         add ebx, byte 4
-        call sub_4518C
+        call SaySaveCall
         mov dword [byte ebp+04Ah], eax
         mov ebx, dword [byte ebx-04h]
         cmp ebx, 1000h
@@ -342,7 +342,7 @@ CommentaryEvent_36D:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         lea eax, [nosplit edx*4+00h]
 .23:
@@ -357,7 +357,7 @@ CommentaryEvent_36D:
         mov eax, dword [byte ebp+05Eh]
         push dword [eax]
         mov eax, ecx
-        call sub_4518C
+        call SaySaveCall
         mov dword [byte ebp+04Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -458,7 +458,7 @@ CommentaryEvent_48A:
 .34:
         mov dword [byte ebp+042h], eax
         mov eax, dword [byte ebp+06Eh]
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [byte ebp+03Eh]
         sub eax, 4001h
@@ -540,7 +540,7 @@ CommentaryEvent_58C:
 .40:
         mov dword [byte ebp+042h], eax
         mov eax, dword [byte ebp+06Eh]
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [byte ebp+03Eh]
         sub eax, 5001h
@@ -615,10 +615,10 @@ CommentaryEvent_654:
 .47:
         mov dword [byte ebp+046h], eax
         mov eax, dword [byte ebp+06Eh]
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [byte ebp+072h]
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Eh], eax
         mov eax, dword [byte ebp+042h]
         sub eax, 6001h
@@ -630,7 +630,7 @@ CommentaryEvent_6D5:
         push dword [eax]
         mov eax, dword [byte ebp+05Eh]
         push dword [eax]
-        call sub_45954
+        call SayRandomFiller
         mov dword [byte ebp+042h], eax
 CommentaryEvent_6E7:
         mov dword [byte ebp+042h], 4
@@ -658,7 +658,7 @@ CommentaryEvent_726:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -708,7 +708,7 @@ CommentaryEvent_7BF:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -800,7 +800,7 @@ CommentaryEvent_8D6:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -850,7 +850,7 @@ CommentaryEvent_96F:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -900,7 +900,7 @@ CommentaryEvent_A08:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -944,7 +944,7 @@ CommentaryEvent_A84:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -994,7 +994,7 @@ CommentaryEvent_B1D:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -1044,7 +1044,7 @@ CommentaryEvent_BB6:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -1109,7 +1109,7 @@ CommentaryEvent_C68:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -1282,7 +1282,7 @@ CommentaryEvent_E79:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -1381,7 +1381,7 @@ CommentaryEvent_F9B:
         mov ebx, 4
         mov eax, dword [byte ebp+06Eh]
         mov dword [byte ebp+03Ah], ebx
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+042h], eax
         jmp short CommentaryEvent_FB9.133
 CommentaryEvent_FB0:
@@ -1439,7 +1439,7 @@ CommentaryEvent_FDD:
         mov eax, dword [byte ebp+06Eh]
         mov dword [byte ebp+042h], edx
 .139:
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
 .140:
         add ebx, byte 4
@@ -1466,7 +1466,7 @@ CommentaryEvent_1084:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -1519,12 +1519,12 @@ CommentaryEvent_111C:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+072h], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Eh], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -1581,12 +1581,12 @@ CommentaryEvent_11C5:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Eh], eax
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+072h], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+042h], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -1866,7 +1866,7 @@ CommentaryEvent_1500:
         cmp edi, byte 78h
         jge near CommentaryEvent_1FE8.272
         mov eax, dword [byte ebp+06Eh]
-        call sub_45A00
+        call SpeechClipExists
         mov edx, dword [dword_169244]
         mov dword [byte ebp+03Ah], eax
         lea esi, [nosplit eax*8+00h]
@@ -2108,7 +2108,7 @@ CommentaryEvent_17E6:
 CommentaryEvent_1871:
         mov eax, dword [ebx]
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [byte ebx+04h]
         add ebx, byte 4
@@ -2171,7 +2171,7 @@ CommentaryEvent_1931:
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
         add ebx, byte 4
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [byte ebx-04h]
         add ebx, byte 4
@@ -2222,7 +2222,7 @@ CommentaryEvent_19C8:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -2268,14 +2268,14 @@ CommentaryEvent_1A44:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [dword_1AC4F0], eax
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+072h], eax
         test eax, eax
         je short .230
-        call sub_45A00
+        call SpeechClipExists
         mov dword [dword_1AC4F4], eax
         jmp short .231
 .230:
@@ -2376,7 +2376,7 @@ CommentaryEvent_1B97:
 CommentaryEvent_1BF5:
         mov eax, dword [ebx]
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov edx, eax
         xor eax, eax
@@ -2397,7 +2397,7 @@ CommentaryEvent_1C3D:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -2640,7 +2640,7 @@ CommentaryEvent_1F56:
         lea edx, [byte ebx+04h]
         mov eax, dword [byte edx-04h]
         mov dword [byte ebp+06Eh], eax
-        call sub_45A00
+        call SpeechClipExists
         mov dword [byte ebp+03Ah], eax
         mov eax, dword [edx]
         add edx, byte 4
@@ -2761,7 +2761,7 @@ OpenSpeechFile:
         add eax, byte 8
         call strcat_
 .3:
-        call sub_E341C
+        call ServiceIdle
         mov eax, esp
         push eax
         lea eax, [byte esp+08h]
@@ -2836,9 +2836,10 @@ OpenSpeechFile:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_47D70                                                       47D70  97 PC
+; FreeSpeechBuffers                               47D70  97 PC, low confidence
+; Frees the speech buffers
 ;-----------------------------------------------------------------------------
-sub_47D70:
+FreeSpeechBuffers:
         push dword 14h
         call __CHK
         push ebx
@@ -2871,9 +2872,10 @@ sub_47D70:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_47DC8                                                       47DC8  97 PC
+; PickPaClip                                      47DC8  97 PC, low confidence
+; Picks an arena announcer clip
 ;-----------------------------------------------------------------------------
-sub_47DC8:
+PickPaClip:
         push dword 10h
         call __CHK
         push esi
@@ -2934,9 +2936,10 @@ sub_47DC8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_47E38                                                       47E38  97 PC
+; OpenSpeechData                                  47E38  97 PC, low confidence
+; Opens the speech data file
 ;-----------------------------------------------------------------------------
-sub_47E38:
+OpenSpeechData:
         push dword 0B8h
         call __CHK
         push ebx
@@ -2945,7 +2948,7 @@ sub_47E38:
         sub esp, 0A0h
         cmp word [word_169268], byte 0
         jne short .1
-        call sub_E341C
+        call ServiceIdle
         lea eax, [byte esp+050h]
         mov edx, dword [dword_16926C]
         call MakeDataPath
@@ -2959,7 +2962,7 @@ sub_47E38:
         call sub_109870
         add esp, byte 8
         mov ebx, 1
-        call sub_E341C
+        call ServiceIdle
         mov word [word_169268], bx
 .1:
         add esp, 0A0h
@@ -2969,9 +2972,10 @@ sub_47E38:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_47EA4                                                       47EA4  97 PC
+; InitSpeechStream                                47EA4  97 PC, low confidence
+; Sets up the speech stream
 ;-----------------------------------------------------------------------------
-sub_47EA4:
+InitSpeechStream:
         push dword 20h
         call __CHK
         push ebx
@@ -3023,10 +3027,10 @@ sub_47EA4:
         call sub_10A980
         cmp word [word_169268], byte 0
         jne short .1
-        call sub_47E38
+        call OpenSpeechData
 .1:
         xor esi, esi
-        call sub_E341C
+        call ServiceIdle
         mov dword [dword_169254], esi
 .2:
         pop esi
@@ -3054,11 +3058,11 @@ ShutdownSound:
         mov dword [dword_169288], ebx
         call sub_10ABC8
         xor eax, eax
-        call sub_47D70
+        call FreeSpeechBuffers
         mov eax, 1
-        call sub_47D70
+        call FreeSpeechBuffers
         mov eax, 2
-        call sub_47D70
+        call FreeSpeechBuffers
         mov eax, dword [dword_169264]
         call sub_107154
         mov ecx, dword [dword_169258]
@@ -3075,7 +3079,7 @@ ShutdownSound:
         call ZeroMem
         add esp, byte 8
         mov dword [dword_169254], ebx
-        call sub_E341C
+        call ServiceIdle
 .1:
         pop esi
         pop edx
@@ -3084,57 +3088,60 @@ ShutdownSound:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_48030                                                       48030  97 PC
+; OpenPlayByPlay                                  48030  97 PC, low confidence
+; Opens the play-by-play speech
 ;-----------------------------------------------------------------------------
-sub_48030:
+OpenPlayByPlay:
         push dword 8
         call __CHK
         push ebx
         cmp dword [dword_169254], byte 0FFFFFFFFh
         jne short .1
-        call sub_47EA4
+        call InitSpeechStream
 .1:
         xor eax, eax
-        call sub_47D70
-        call sub_E341C
+        call FreeSpeechBuffers
+        call ServiceIdle
         mov eax, 1
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov eax, 2
         mov ebx, 2
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov dword [dword_169254], ebx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_48080                                                       48080  97 PC
+; OpenArenaSpeech                                 48080  97 PC, low confidence
+; Opens the arena announcer speech
 ;-----------------------------------------------------------------------------
-sub_48080:
+OpenArenaSpeech:
         push dword 8
         call __CHK
         push ebx
         cmp dword [dword_169254], byte 0FFFFFFFFh
         jne short .1
-        call sub_47EA4
+        call InitSpeechStream
 .1:
         mov eax, 2
-        call sub_47D70
+        call FreeSpeechBuffers
         mov eax, 1
-        call sub_47D70
-        call sub_E341C
+        call FreeSpeechBuffers
+        call ServiceIdle
         xor eax, eax
         mov ebx, 1
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov dword [dword_169254], ebx
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_480CC                                                       480CC  97 PC
+; ServiceSpeechStream                             480CC  97 PC, low confidence
+; Feeds the speech stream
 ;-----------------------------------------------------------------------------
-sub_480CC:
+ServiceSpeechStream:
         push dword 28h
         call __CHK
         push ebx
@@ -3609,9 +3616,10 @@ sub_480CC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_486E8                                                       486E8  97 PC
+; QueuePaClip                                     486E8  97 PC, low confidence
+; Queues an arena announcer clip
 ;-----------------------------------------------------------------------------
-sub_486E8:
+QueuePaClip:
         push dword 1Ch
         call __CHK
         push ecx
@@ -3702,9 +3710,10 @@ sub_486E8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4880C                                                       4880C  97 PC
+; SayPaClip                                       4880C  97 PC, low confidence
+; Plays an arena announcer clip
 ;-----------------------------------------------------------------------------
-sub_4880C:
+SayPaClip:
         push dword 18h
         call __CHK
         push ebx
@@ -3719,7 +3728,7 @@ sub_4880C:
 .1:
         mov ecx, esp
         lea ebx, [byte esp+04h]
-        call sub_47DC8
+        call PickPaClip
         test eax, eax
         je short .3
         mov ecx, dword [esp]
@@ -3735,7 +3744,7 @@ sub_4880C:
         mov edx, dword [byte esp+04h]
         mov ebx, ecx
         mov eax, esi
-        call sub_486E8
+        call QueuePaClip
         mov eax, 1
 .3:
         add esp, byte 8
@@ -3744,9 +3753,10 @@ sub_4880C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_48864                                                       48864  97 PC
+; PaPlayerName                                    48864  97 PC, low confidence
+; Says a player's name over the arena speakers
 ;-----------------------------------------------------------------------------
-sub_48864:
+PaPlayerName:
         push dword 28h
         call __CHK
         push ebx

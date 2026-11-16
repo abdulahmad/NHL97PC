@@ -4,15 +4,16 @@ bits 32
 section s_789F0 progbits alloc exec nowrite align=1
 extern byte_1C135A, byte_1C135B, byte_1C31A7, byte_1C347D, byte_1C52CA, byte_1C55A0, dword_16C6C0, dword_16C730
 extern dword_1AC940, dword_1AC944, dword_1AD22A, dword_1AD743, dword_1C13C0, dword_1C13FB, dword_1C34E3, dword_1C351E
-extern memset_, rand_, srand_, sub_78938, sub_D0BD8, sub_DCBB0, sub_E036F, sub_E0841
-extern sub_E0DB7, sub_E341C, ZeroMem, unk_16D7FC, unk_16D804, unk_1C135C, unk_1C347F, unk_78930
+extern memset_, rand_, srand_, RandomCrowdDelay, PlayerOverall, FindPlayerRecord, FindGameRecord, FindPlayerStat
+extern ReadTeamStats, ServiceIdle, ZeroMem, unk_16D7FC, unk_16D804, unk_1C135C, unk_1C347F, unk_78930
 extern word_1C150A, word_1C319B, word_1C319D, word_1C31A3, word_1C3415, word_1C3417, word_1C3419, word_1C3427
 extern word_1C362D, word_1C52BE, word_1C52C0, word_1C52C6, word_1C5538, word_1C553A, word_1C553C, word_1C554A
-global sub_789F0, sub_7A4D4, sub_7A6D8, unk_7A788
+global SimulateGame, SimPlayerRating, SimTeamStrength, unk_7A788
 ;-----------------------------------------------------------------------------
-; sub_789F0                                                       789F0  97 PC
+; SimulateGame                                    789F0  97 PC, low confidence
+; Simulates a game without playing it
 ;-----------------------------------------------------------------------------
-sub_789F0:
+SimulateGame:
         push ebx
         push ecx
         push esi
@@ -32,7 +33,7 @@ sub_789F0:
         add eax, dword [dword_1AD743]
 .2:
         call srand_
-        call sub_E341C
+        call ServiceIdle
         xor esi, esi
         lea eax, [dword esp+013D0h]
         mov dword [dword esp+0152Ch], esi
@@ -117,14 +118,14 @@ sub_789F0:
         je short .9
         mov eax, unk_16D804
         mov ebx, ecx
-        call sub_E0DB7
+        call ReadTeamStats
         test eax, eax
         jne short .11
         jmp short .10
 .9:
         mov eax, unk_16D7FC
         mov ebx, ecx
-        call sub_E0DB7
+        call ReadTeamStats
         test eax, eax
         jne short .11
 .10:
@@ -170,7 +171,7 @@ sub_789F0:
         push ecx
         xor ecx, ecx
         mov edi, dword [dword esp+01540h]
-        call sub_7A4D4
+        call SimPlayerRating
         mov ecx, 8
         lea esi, [dword esp+01444h]
         lea edi, [dword esp+edi+0BECh]
@@ -196,7 +197,7 @@ sub_789F0:
         push eax
         mov eax, dword [dword esp+01548h]
         mov edi, dword [dword esp+0154Ch]
-        call sub_7A4D4
+        call SimPlayerRating
         mov ecx, 8
         lea esi, [dword esp+01468h]
         lea edi, [dword esp+edi+0BECh]
@@ -221,7 +222,7 @@ sub_789F0:
         push esi
         lea esi, [dword esp+01490h]
         mov edi, dword [dword esp+01594h]
-        call sub_7A4D4
+        call SimPlayerRating
         mov ecx, 8
         lea esi, [dword esp+0148Ch]
         lea edi, [dword esp+edi+0BECh]
@@ -300,7 +301,7 @@ sub_789F0:
         add ecx, eax
         mov eax, unk_16D7FC
         mov ebx, ecx
-        call sub_E0DB7
+        call ReadTeamStats
         mov eax, dword [dword esp+01558h]
         mov edx, dword [dword esp+01524h]
         mov esi, dword [dword esp+eax+014F4h]
@@ -316,7 +317,7 @@ sub_789F0:
         sar ebx, 10h
         lea edx, [byte ecx+018h]
         mov edi, dword [dword esp+0155Ch]
-        call sub_7A6D8
+        call SimTeamStrength
         mov ecx, 9
         lea esi, [dword esp+0141Ch]
         lea edi, [dword esp+edi+013D0h]
@@ -515,7 +516,7 @@ sub_789F0:
         jne short .31
         mov edx, 4
         mov eax, 1
-        call sub_78938
+        call RandomCrowdDelay
         cmp eax, byte 3
         jge short .31
         call rand_
@@ -568,7 +569,7 @@ sub_789F0:
         jl near .35
         mov edx, 4
         mov eax, 1
-        call sub_78938
+        call RandomCrowdDelay
         cmp eax, byte 2
         jl short .35
         call rand_
@@ -776,7 +777,7 @@ sub_789F0:
         add eax, eax
         lea edx, [byte eax+02h]
         mov eax, edi
-        call sub_78938
+        call RandomCrowdDelay
         mov edx, eax
         mov ebp, 12Ch
         sar edx, 1Fh
@@ -1752,9 +1753,10 @@ sub_789F0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7A4D4                                                       7A4D4  97 PC
+; SimPlayerRating                                 7A4D4  97 PC, low confidence
+; Works out a player's rating for the simulation
 ;-----------------------------------------------------------------------------
-sub_7A4D4:
+SimPlayerRating:
         push edi
         push ebp
         sub esp, byte 34h
@@ -1943,9 +1945,10 @@ sub_7A4D4:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7A6D8                                                       7A6D8  97 PC
+; SimTeamStrength                                 7A6D8  97 PC, low confidence
+; Works out a team's strength for the simulation
 ;-----------------------------------------------------------------------------
-sub_7A6D8:
+SimTeamStrength:
         push ecx
         push edi
         push ebp
@@ -2066,15 +2069,15 @@ unk_7A788:
         mov edx, esp
         add eax, edi
         lea ebx, [dword esp+0D09h]
-        call sub_E036F
+        call FindGameRecord
 .9:
         mov eax, ebx
-        call sub_D0BD8
+        call PlayerOverall
         cmp eax, ecx
         jne short .10
         lea edx, [dword esp+01950h]
         lea eax, [byte ebx+018h]
-        call sub_DCBB0
+        call FindPlayerRecord
 .10:
         add ebx, byte 38h
         cmp ebx, esi
@@ -2117,7 +2120,7 @@ unk_7A788:
         mov dword [byte ebp+066h], ecx
         add eax, ebx
         mov dword [byte ebp+06Eh], esi
-        call sub_E036F
+        call FindGameRecord
 .12:
         mov edi, dword [byte ebp+066h]
         mov eax, dword [byte ebp+066h]
@@ -2134,23 +2137,23 @@ unk_7A788:
         add ebx, eax
         lea edx, [dword ebp-010Ah]
         lea eax, [byte ebx+018h]
-        call sub_DCBB0
+        call FindPlayerRecord
         lea edx, [byte ebp-0Eh]
         lea eax, [byte ebx+028h]
         lea esi, [byte ebp+03Eh]
-        call sub_E0841
+        call FindPlayerStat
         lea ebx, [byte ebp-04Eh]
         lea edx, [dword ebp-010Ah]
         mov eax, unk_16D7FC
         xor ecx, ecx
-        call sub_E0DB7
+        call ReadTeamStats
         push byte 0
         lea edx, [byte ebp-036h]
         xor ebx, ebx
         lea eax, [byte ebp+02h]
         mov bl, byte [byte ebp+07Eh]
         inc edi
-        call sub_7A4D4
+        call SimPlayerRating
         mov edx, dword [byte ebp+076h]
         cmp edi, edx
         jne short .13
@@ -2179,22 +2182,22 @@ unk_7A788:
         add ebx, eax
         lea edx, [dword ebp-010Ah]
         lea eax, [byte ebx+018h]
-        call sub_DCBB0
+        call FindPlayerRecord
         lea edx, [byte ebp-0Eh]
         lea eax, [byte ebx+028h]
         mov ecx, 1
-        call sub_E0841
+        call FindPlayerStat
         lea ebx, [byte ebp-04Eh]
         lea edx, [dword ebp-010Ah]
         mov eax, unk_16D7FC
         lea esi, [byte ebp+01Ah]
-        call sub_E0DB7
+        call ReadTeamStats
         push byte 0
         lea edx, [byte ebp-036h]
         lea eax, [byte ebp+02h]
         xor ebx, ebx
         inc edi
-        call sub_7A4D4
+        call SimPlayerRating
         cmp edi, dword [byte ebp+07Ah]
         jne short .15
         mov ecx, dword [byte ebp+062h]

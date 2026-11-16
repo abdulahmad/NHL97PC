@@ -10,9 +10,9 @@ extern seed, dword_1AC814, dword_1AC940, dword_1AD62F, dword_1AD6AB, dword_1AD71
 extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778
 extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprintf_, strcpy_, BlitArt
 extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, sub_101EAC, sub_102B94
-extern SetScreenTarget, SecondsToSamples, WaitSoundTime, OpenDataLibrary, sub_7E52C, sub_7E860, SetTextColor, DrawTextAligned
-extern LoadTeamLogo, sub_80808, InitMenuItems, GetLangText, sub_CA44C, sub_D0098, sub_DB75E, sub_DC653
-extern sub_DCBB0, OpenLeagueFile, sub_E036F, sub_E0D0F, sub_E341C, FreeMemBlock, FillMem, MakeColor
+extern SetScreenTarget, SecondsToSamples, WaitSoundTime, OpenDataLibrary, DrawShadowBox, DrawScreenBackground, SetTextColor, DrawTextAligned
+extern LoadTeamLogo, FreeLogoArt, InitMenuItems, GetLangText, InitListBox, InitShapeListBox, FreeDbBlock, FindTeamRecord
+extern FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindTeamStat, ServiceIdle, FreeMemBlock, FillMem, MakeColor
 extern DrawArt, SetDrawTarget, unk_167731, unk_16E1E4, unk_16E21C, unk_1AD22E, unk_1AD443, unk_1C5F4A
 extern unk_1C5F9C, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE, unk_1CD989, unk_1CDA34, unk_1CDADF
 extern unk_1CDB8A, unk_1CDC35, unk_1CDCE0, unk_1CDD8F, unk_1CDDFD, unk_1CDE36, unk_1CE03B, unk_1CE0A9
@@ -20,12 +20,13 @@ extern word_19CBC6, word_1CD788, word_1CD78A, word_1CD7CD, word_1CD7CF, word_1CD
 extern word_1CD7D7, word_1CD7D9, word_1CD7DB, word_1CD7DD, word_1CD7E5, word_1CD7E7, word_1CD7E9, word_1CD7EB
 extern word_1CD878, word_1CD87E, word_1CDA7B, word_1CDA95, word_1CDC7A, word_1CDC7C, word_1CDD8B, word_1CDD8D
 extern word_1CDE7B, word_1CDE81, word_1CE037, word_1CE039
-global sub_E7D6D_61F, randomd0, sub_E7D6D, sub_E8418, sub_E8461, sub_E84AA, sub_E84F3, sub_E85ED
-global sub_E8660, sub_E88B4, sub_E8923, vtoa
+global BuildSeasonIntro_61F, randomd0, BuildSeasonIntro, IsTopScorer, IsTopAssister, IsTopGoalie, CompareLeader, TeamRankValue
+global SetupSeasonIntro, SeasonIntroPage, DrawSeasonIntro, vtoa
 ;-----------------------------------------------------------------------------
-; sub_E7D6D                                                       E7D6D  97 PC
+; BuildSeasonIntro                                E7D6D  97 PC, low confidence
+; Builds the data of the season intro
 ;-----------------------------------------------------------------------------
-sub_E7D6D:
+BuildSeasonIntro:
         push ebx
         push ecx
         push edx
@@ -62,7 +63,7 @@ sub_E7D6D:
         mov eax, unk_1AD22E
         mov dword [byte ebp+076h], 0
         call OpenLeagueFile
-        call sub_E341C
+        call ServiceIdle
         jmp near .22
 .3:
         mov edx, dword [byte ebp+076h]
@@ -70,10 +71,10 @@ sub_E7D6D:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-019DEh]
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
         je near .21
-        call sub_E341C
+        call ServiceIdle
         movzx eax, byte [dword ebp-0198Eh]
         movzx ebx, byte [dword ebp-0198Ch]
         add eax, eax
@@ -135,8 +136,8 @@ sub_E7D6D:
         mov esi, word_1CD788
         lea eax, [byte edi+020h]
         mov ebx, dword [byte ebp+076h]
-        call sub_E0D0F
-        call sub_E341C
+        call FindTeamStat
+        call ServiceIdle
         lea edx, [byte ebp+02Eh]
         cmp word [byte ebp+046h], byte 0
         jle short .11
@@ -195,23 +196,23 @@ sub_E7D6D:
         add edi, eax
         mov eax, unk_1CD8DE
         mov ebx, edi
-        call sub_E8418
+        call IsTopScorer
         mov ecx, dword [byte ebp+076h]
         lea edx, [byte ebp+02Eh]
         mov eax, unk_1CD989
         mov ebx, edi
-        call sub_E8461
+        call IsTopAssister
         mov ecx, dword [byte ebp+076h]
         lea edx, [byte ebp+02Eh]
         mov eax, unk_1CDB8A
         mov ebx, edi
-        call sub_E84AA
+        call IsTopGoalie
         mov ecx, dword [byte ebp+076h]
         lea edx, [byte ebp+02Eh]
         mov eax, unk_1CDCE0
         mov ebx, edi
         mov esi, unk_1CDC35
-        call sub_E84F3
+        call CompareLeader
         lea edx, [byte ebp+02Eh]
         mov ebx, dword [byte ebp+076h]
         cmp word [byte ebp+046h], byte 0
@@ -250,8 +251,8 @@ sub_E7D6D:
         lea edx, [byte ebp+02Eh]
         lea eax, [byte ebx+020h]
         mov esi, unk_1CDA34
-        call sub_E0D0F
-        call sub_E341C
+        call FindTeamStat
+        call ServiceIdle
         lea eax, [byte ebp+02Eh]
         mov edx, ebx
         mov ebx, dword [byte ebp+076h]
@@ -284,13 +285,13 @@ sub_E7D6D:
         add esi, eax
         mov eax, unk_1CDADF
         mov ebx, esi
-        call sub_E85ED
+        call TeamRankValue
         mov ecx, dword [byte ebp+076h]
         lea edx, [byte ebp+02Eh]
         mov eax, unk_1CDCE0
         mov ebx, esi
         inc dword [byte ebp+07Eh]
-        call sub_E84F3
+        call CompareLeader
 .20:
         movsx eax, word [dword ebp-075Dh]
         cmp eax, dword [byte ebp+07Eh]
@@ -303,7 +304,7 @@ sub_E7D6D:
         cmp edx, dword [byte ebp+076h]
         jg near .3
         mov eax, dword_1CD778
-        call sub_DB75E
+        call FreeDbBlock
         mov dword [dword_1CD76C], 0Eh
         mov dword [dword_1CD768], unk_16E1E4
 .23:
@@ -315,10 +316,10 @@ sub_E7D6D:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-019DEh]
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
         je near .32
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+076h]
         mov edx, dword [dword_1AD71B]
         shl eax, 2
@@ -377,8 +378,8 @@ sub_E7D6D:
         mov ebx, dword [byte ebp+076h]
         lea eax, [byte edi+020h]
         mov esi, unk_1CDE36
-        call sub_E0D0F
-        call sub_E341C
+        call FindTeamStat
+        call ServiceIdle
         lea edx, [byte ebp+02Eh]
         mov ebx, dword [nosplit ebx*4+dword_1AD6AB]
         cmp word [byte ebp+046h], byte 0
@@ -427,7 +428,7 @@ sub_E7D6D:
         jbe short .37
         lea edx, [dword ebp-08Eh]
         lea eax, [byte esi+03Dh]
-        call sub_DCBB0
+        call FindPlayerRecord
         lea edx, [byte ebp-076h]
         lea eax, [byte esi+02h]
         call strcpy_
@@ -443,16 +444,16 @@ sub_E7D6D:
         jl short .37
         lea edx, [byte esi+0Ch]
         lea eax, [byte esi+04h]
-        call sub_DC653
+        call FindTeamRecord
 .36:
-        call sub_E341C
+        call ServiceIdle
 .37:
         inc dword [byte ebp+076h]
         cmp dword [byte ebp+076h], byte 0Eh
         jl short .34
         lea esp, [dword ebp+082h]
         pop ebp
-sub_E7D6D_61F:
+BuildSeasonIntro_61F:
         pop edi
         pop esi
         pop edx
@@ -514,9 +515,10 @@ sub_E7D6D_61F:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_E8418                                                       E8418  97 PC
+; IsTopScorer                                     E8418  97 PC, low confidence
+; Returns whether a player is the top scorer
 ;-----------------------------------------------------------------------------
-sub_E8418:
+IsTopScorer:
         push esi
         push edi
         cmp word [byte edx+018h], byte 0
@@ -547,9 +549,10 @@ sub_E8418:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_E8461                                                       E8461  97 PC
+; IsTopAssister                                   E8461  97 PC, low confidence
+; Returns whether a player leads in assists
 ;-----------------------------------------------------------------------------
-sub_E8461:
+IsTopAssister:
         push esi
         push edi
         cmp word [byte edx+018h], byte 0
@@ -580,9 +583,10 @@ sub_E8461:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_E84AA                                                       E84AA  97 PC
+; IsTopGoalie                                     E84AA  97 PC, low confidence
+; Returns whether a goalie leads
 ;-----------------------------------------------------------------------------
-sub_E84AA:
+IsTopGoalie:
         push esi
         push edi
         cmp word [byte edx+018h], byte 0
@@ -613,9 +617,10 @@ sub_E84AA:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_E84F3                                                       E84F3  97 PC
+; CompareLeader                                   E84F3  97 PC, low confidence
+; Compares a player with the current leader
 ;-----------------------------------------------------------------------------
-sub_E84F3:
+CompareLeader:
         push esi
         push edi
         enter 4, 0
@@ -714,9 +719,10 @@ sub_E84F3:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_E85ED                                                       E85ED  97 PC
+; TeamRankValue                                   E85ED  97 PC, low confidence
+; Returns a team's rank value
 ;-----------------------------------------------------------------------------
-sub_E85ED:
+TeamRankValue:
         push esi
         push edi
         enter 4, 0
@@ -761,9 +767,10 @@ sub_E85ED:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_E8660                                                       E8660  97 PC
+; SetupSeasonIntro                                E8660  97 PC, low confidence
+; Sets up the season intro screen
 ;-----------------------------------------------------------------------------
-sub_E8660:
+SetupSeasonIntro:
         push ebx
         push ecx
         push esi
@@ -791,7 +798,7 @@ sub_E8660:
         mov dword [byte eax+01Ah], edx
         mov edx, 280h
         inc esi
-        call sub_CA44C
+        call InitListBox
         cmp esi, byte 5
         jl short .1
         push dword [dword_1CD764]
@@ -818,7 +825,7 @@ sub_E8660:
         mov ebx, eax
         mov edx, eax
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         rep movsb
         mov eax, dword [byte ebp-014h]
         mov ecx, 52h
@@ -870,7 +877,7 @@ sub_E8660:
         movsx edx, word [byte eax+0Ch]
         mov eax, dword [dword_1CD760]
         add eax, 0A4h
-        call sub_CA44C
+        call InitListBox
         mov esi, dword [dword_1CD770]
         mov eax, dword [dword_1CD780]
         shl esi, 2
@@ -893,16 +900,16 @@ sub_E8660:
         mov edx, dword [dword_1CD760]
         mov eax, dword [dword_1CD784]
         add edx, 0F6h
-        call sub_D0098
+        call InitShapeListBox
         push str_AB055
         mov ecx, str_AB045
         mov ebx, str_AB035
         mov edx, dword [dword_1CD760]
         mov eax, dword [dword_1CD784]
         add edx, 148h
-        call sub_D0098
+        call InitShapeListBox
         xor eax, eax
-        call sub_E8923
+        call DrawSeasonIntro
         leave
         pop edi
         pop esi
@@ -929,9 +936,10 @@ sub_E8660:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E88B4                                                       E88B4  97 PC
+; SeasonIntroPage                                 E88B4  97 PC, low confidence
+; Picks the page of the season intro
 ;-----------------------------------------------------------------------------
-sub_E88B4:
+SeasonIntroPage:
         push ebx
         push ecx
         push esi
@@ -983,9 +991,10 @@ sub_E88B4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E8923                                                       E8923  97 PC
+; DrawSeasonIntro                                 E8923  97 PC, low confidence
+; Draws the season intro
 ;-----------------------------------------------------------------------------
-sub_E8923:
+DrawSeasonIntro:
         push ebx
         push ecx
         push edx
@@ -1142,7 +1151,7 @@ sub_E8923:
         push dword 0F2h
         mov edx, 18h
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         imul ebx, edi, dword 0ABh
         mov eax, word_1CD788
         add eax, ebx
@@ -1557,14 +1566,14 @@ sub_E8923:
         call sub_101EAC
         add esp, byte 10h
         mov ebx, 17Dh
-        call sub_80808
+        call FreeLogoArt
         push dword 115h
         mov ecx, 64h
         mov eax, dword [dword_1CD764]
         push dword 0F2h
         mov edx, 18h
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         imul ebx, edi, dword 0ABh
         mov esi, 68h
         cmp edi, byte 9
@@ -1644,13 +1653,13 @@ sub_E8923:
 .18:
         movsx eax, word [byte ebp-0Ch]
         mov edx, ebx
-        call sub_E88B4
+        call SeasonIntroPage
         mov dword [byte ebp-0Ch], eax
         xor al, 1
         mov dword [byte ebp-010h], eax
         xor edx, edx
         movsx eax, word [byte ebp-010h]
-        call sub_E88B4
+        call SeasonIntroPage
         push dword 0FFFFFF50h
         mov dword [byte ebp-018h], eax
         call MakeColor
@@ -1717,7 +1726,7 @@ sub_E8923:
         call sub_1013FC
 .22:
         leave
-        jmp near sub_E7D6D_61F
+        jmp near BuildSeasonIntro_61F
         db 00h
 ;-----------------------------------------------------------------------------
 ; randomd0                          E9370  94G middle94.asm, medium confidence

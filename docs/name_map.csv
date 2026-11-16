@@ -1,16 +1,39 @@
 address,name,auto_name,source,confidence,evidence,file
 10010,GripLinkLibrary,sub_10010,96PC,medium,NHL96PC 10D66 (sem 0.87): K:8490; K:101; K:100,src/front/front_10010.asm
+102F4,CallGripDriver,sub_102F4,new,low,calls the gamepad driver,src/front/front_10010.asm
 10354,LoadGripLibrary,sub_10354,96PC,medium,NHL96PC 1124D (sem 1.00): S:GRIP; D:1684D5; S:GRIP.GLL; D:1684CC,src/front/front_10010.asm
+1046C,InitGripDriver,sub_1046C,new,low,starts the gamepad driver,src/front/front_10010.asm
 104A8,LoadJoystickConfig,sub_104A8,new,low,"from main_: the ""JSTICKS"" settings (""DOS-Joystick"")",src/front/front_10010.asm
+10A68,SetupOptionsAnim,sub_10A68,new,low,sets up the options animation,src/front/front_10010.asm
+10CC8,DrawOptionsAnimFrame,sub_10CC8,new,low,draws one frame of the options animation,src/front/front_10010.asm
+10FAC,UpdateOptionsAnim,sub_10FAC,new,low,updates the options animation,src/front/front_10010.asm
+1120C,PickCrowdChant,sub_1120C,new,low,picks a crowd chant,src/front/front_10010.asm
+11328,StartCrowdMusic,sub_11328,new,low,starts the crowd music or chant,src/front/front_10010.asm
+114C4,RestartGameMusic,sub_114C4,new,low,restarts the game music and refreshes the players,src/front/front_10010.asm
 11504,forcepldata,sub_11504,94G,medium,"94G forcepldata: (team) faceoffs only: puts each player straight into his requested position (+0A8h -> +0A9h), assnearest for the centre, setplayer",src/front/front_10010.asm
+11574,SetupFaceoffPlayers,sub_11574,new,low,places the players for the opening faceoff,src/front/front_10010.asm
+116B0,ClearPlayerFlags,sub_116B0,new,low,clears the player flags,src/front/front_10010.asm
 11744,clearteams,,96PC,medium,NHL96PC 4875E (similar): mnemonic similarity 0.80 over 60 instructions,
+11808,ResetTeamStats,sub_11808,new,low,resets the team game stats,src/front/front_10010.asm
 11908,ResetBench,sub_11908,94G,medium,94G ResetBench (96 PC body): the bench and penalty box state of both teams' rosters,src/front/front_10010.asm
 11984,IsPlayoffGame,sub_11984,new,low,"game mode check (dword_1AC814 bits 4-6 = 20h, or 10h with dword_1ACF46 set); clockcont_0 and the cup code use it",src/front/front_10010.asm
+119A8,RefreshPlayerModel,sub_119A8,new,low,refreshes a player's model and textures,src/front/front_10010.asm
 11B38,setplayer,sub_11B38,94G,medium,"94G setplayer: (player, roster index) brings a player onto the ice: pnum (+0A6h), marks him in the team's line table (+50h, 8001h / 8002h)",src/front/front_10010.asm
 11ED8,reenergizeteam,sub_11ED8,94G,medium,94G reenergizeteam (96 PC body): every player's energy back to 1000h,src/front/front_10010.asm
 11F10,SetupTeamForIntermission,,96PC,medium,NHL96PC 4AF89 (similar): mnemonic similarity 0.88 over 32 instructions,
+11F74,ResetForIntermission,sub_11F74,new,low,resets the scene for the intermission,src/front/front_10010.asm
+11FB4,SeatBenchPlayer,sub_11FB4,new,low,seats a player on the bench,src/front/front_10010.asm
+12024,ResetPlayers,sub_12024,new,low,resets the players and their animations,src/front/front_10010.asm
+12334,ResetPlayersForPeriod,sub_12334,new,low,resets the players for a new period,src/front/front_10010.asm
+123A0,ReplaceFaceoffPlayers,sub_123A0,new,low,replaces the faceoff players,src/front/front_10010.asm
+12440,PlayerInLine,sub_12440,new,low,returns whether a player is in a line,src/front/front_10010.asm
+124A4,PickLinePlayers,sub_124A4,new,low,picks the players of the current line,src/front/front_10010.asm
 127D4,setpersonel,sub_127D4,94G,medium,94G setpersonel (96 PC body): clears the team's 6 on-ice slots and sets the personnel,src/front/front_10010.asm
+12970,PeriodLengthSetting,sub_12970,new,low,returns the period length setting,src/front/front_10010.asm
+12A10,RefreshRinkPalette,sub_12A10,new,low,refreshes the rink palette,src/front/front_10010.asm
 12A70,ClockTick,sub_12A70,96PC,medium,"96 PC ClockTick: counts the game clock down (word_19CBBA minutes, word_19CBBC seconds) and posts the clock events; from RunSimFrames",src/front/front_10010.asm
+12C2C,StartPeriod,sub_12C2C,new,low,starts a period,src/front/front_10010.asm
+12DE8,FindStartingGoalies,sub_12DE8,new,low,finds the starting goalies,src/front/front_10010.asm
 12E50,ReleaseBoxPlayers,sub_12E50,new,low,"at a stoppage (assrefwhistle, assrefgoalpa): players whose penalty is over get assignment 15h (assleavebox) inserted",src/front/front_10010.asm
 1303C,AllInPlace,,96PC,medium,NHL96PC 3ABAE (similar): mnemonic similarity 0.87 over 21 instructions,
 1306C,Intermission,sub_1306C,96PC,medium,"96 PC Intermission: GameOver when gsp is 4, else SetupTeamForIntermission and resets the players for the next period",src/engine/faceoff/faceoff.asm
@@ -20,9 +43,25 @@ address,name,auto_name,source,confidence,evidence,file
 136C0,PlaceOpeningPlayers,sub_136C0,new,low,puts the players at their opening places (random spread by team and arena),src/engine/faceoff/faceoff.asm
 13920,OpeningSequence,sub_13920,new,low,"the game's opening: in a simulated game posts event 29h and returns, else places the players (PlaceOpeningPlayers) and runs the intro frames (RunOpeningFrames)",src/engine/faceoff/faceoff.asm
 13A4C,BeginGame,sub_13A4C,new,low,"from PlayGame: InitGameVars, the period fraction, then the opening sequence (OpeningSequence); 2 when it was aborted",src/engine/faceoff/faceoff.asm
+13ACB,EndGameCleanup,sub_13ACB,new,low,ends the game and clears the player flags,src/engine/faceoff/faceoff.asm
+13AF0,GetPlayerJerseyNumber,sub_13AF0,new,low,returns a player's jersey number,src/engine/faceoff/faceoff.asm
+13B50,LinkSideFlags,sub_13B50,new,low,returns the link side flags,src/engine/faceoff/faceoff.asm
+13B98,ClearLinkCounters,sub_13B98,new,low,clears the link counters,src/engine/faceoff/faceoff.asm
+13BAC,PickGameEvents,sub_13BAC,new,low,picks the random events for a game,src/engine/faceoff/faceoff.asm
+13D00,SpeedScaleAligned,sub_13D00,new,low,returns the speed scale for the skill setting (aligned stack),src/engine/faceoff/faceoff.asm
+13D50,SpeedScale,sub_13D50,new,low,returns the speed scale for the skill setting,src/engine/faceoff/faceoff.asm
+13DA4,ReachScale,sub_13DA4,new,low,returns the reach scale for the skill setting,src/engine/faceoff/faceoff.asm
+13DF8,GoalieReachFactor,sub_13DF8,new,low,returns the reach factor of a goalie or skater,src/engine/faceoff/faceoff.asm
+13E4C,PlayerReachFactor,sub_13E4C,new,low,returns the reach factor of a player,src/engine/faceoff/faceoff.asm
+13EB4,StickReachX,sub_13EB4,new,low,returns the stick reach along X,src/engine/faceoff/faceoff.asm
+13EF0,StickReachY,sub_13EF0,new,low,returns the stick reach along Y,src/engine/faceoff/faceoff.asm
+13F28,StickReachZ,sub_13F28,new,low,returns the stick reach along Z,src/engine/faceoff/faceoff.asm
+13F7C,CheckLineChangeKeys,sub_13F7C,new,low,checks the line change keys,src/engine/faceoff/faceoff.asm
 14078,RunSimFrames,sub_14078,96PC,medium,96 PC RunSimFrames: runs the simulation for one input record,src/engine/faceoff/faceoff.asm
+14140,JoystickAxisScale,sub_14140,new,low,scales a joystick axis,src/engine/faceoff/faceoff.asm
 14184,ToggleFKeyFlag,sub_14184,new,low,(key 5E00h-6600h): toggles the flag of a Ctrl+F key (dword_16AF3C),src/engine/faceoff/faceoff.asm
 141AC,ShowCameraView,sub_141AC,new,low,(view 0-7): from the camera keys and the attract game: SelectCameraView and the camera name panel,src/engine/faceoff/faceoff.asm
+141E8,RandomDiceRoll,sub_141E8,new,low,rolls random dice (debug),src/engine/faceoff/faceoff.asm
 14238,CountDebugUnlock,sub_14238,new,low,counts one step of the debug key unlock (sound 10h at 4),src/engine/faceoff/faceoff.asm
 1426C,ResetDebugUnlock,sub_1426C,new,low,clears the debug key unlock count,src/engine/faceoff/faceoff.asm
 14294,DebugKeys,sub_14294,new,low,"(key): the debug keys, active once the unlock count (word_1686D4) reaches 4",src/engine/faceoff/faceoff.asm
@@ -582,15 +621,42 @@ address,name,auto_name,source,confidence,evidence,file
 431E8,ResolveSpeechClips,sub_431E8,new,low,looks up the directory entry of each clip a bank uses,src/engine/engine_3812E.asm
 4329C,LoadTeamSpeech,sub_4329C,new,low,"(team, other): loads the team name speech file TEAM%04d.DAT when it is not loaded",src/engine/engine_3812E.asm
 43578,LoadSpeechBank,sub_43578,new,low,"from InitSpeechBanks: opens a speech bank's ""%03d.DAT"" / ""%03d.HDR"" pair (MakeDataPath) and reads its header",src/front/front_43578.asm
+43884,QueueSpeechChain,sub_43884,new,low,queues a chain of speech clips,src/front/front_43578.asm
 43944,InitSpeechBanks,sub_43944,new,low,"from InitGameAudio: sets up the speech banks (TEMPBANK, EVENT.DAT, CBANK%03d.HDR, TEAM%04d.HDR, PBP, AUDPBP3.TSF, KTSF)",src/front/front_43578.asm
+44998,CloseSpeechFile,sub_44998,new,low,closes the speech file,src/front/front_43578.asm
+449F0,SpeechClipLength,sub_449F0,new,low,returns the length of a speech clip,src/front/front_43578.asm
+44A50,SayShotCall,sub_44A50,new,low,picks the play-by-play call for a shot,src/front/front_43578.asm
+4518C,SaySaveCall,sub_4518C,new,low,picks the play-by-play call for a save,src/front/front_43578.asm
+45430,SayPassCall,sub_45430,new,low,picks the play-by-play call for a pass,src/front/front_43578.asm
+45628,SpeechTableEntry,sub_45628,new,low,returns a speech table entry,src/front/front_43578.asm
+4564C,SayPlayerCall,sub_4564C,new,low,picks the play-by-play call for a player,src/front/front_43578.asm
+45954,SayRandomFiller,sub_45954,new,low,picks a random filler call,src/front/front_43578.asm
+45A00,SpeechClipExists,sub_45A00,new,low,returns whether a speech clip exists,src/front/front_43578.asm
+45A3C,SpeechEventKind,sub_45A3C,new,low,returns the kind of a speech event,src/front/front_43578.asm
 45BEC,CommentaryEvent,sub_45BEC,new,low,"the play-by-play commentary: (event 0A0000001h-0A000002Fh, args...) with speech on, not in a replay (dword_1B8FA0); jump table jpt_45A64 by event, each case queues commentary clips. The arena PA announcer is PaEvent (B/C events)",src/front/front_45BEC.asm
 47C08,OpenSpeechFile,sub_47C08,new,low,"opens the ""SPEECH"" file (""G.KSF"")",src/front/front_45BEC.asm
+47D70,FreeSpeechBuffers,sub_47D70,new,low,frees the speech buffers,src/front/front_45BEC.asm
+47DC8,PickPaClip,sub_47DC8,new,low,picks an arena announcer clip,src/front/front_45BEC.asm
+47E38,OpenSpeechData,sub_47E38,new,low,opens the speech data file,src/front/front_45BEC.asm
+47EA4,InitSpeechStream,sub_47EA4,new,low,sets up the speech stream,src/front/front_45BEC.asm
 47F8C,ShutdownSound,sub_47F8C,96PC,medium,NHL96PC 699D0 (sem 0.61): C:2246,src/front/front_45BEC.asm
+48030,OpenPlayByPlay,sub_48030,new,low,opens the play-by-play speech,src/front/front_45BEC.asm
+48080,OpenArenaSpeech,sub_48080,new,low,opens the arena announcer speech,src/front/front_45BEC.asm
+480CC,ServiceSpeechStream,sub_480CC,new,low,feeds the speech stream,src/front/front_45BEC.asm
+486E8,QueuePaClip,sub_486E8,new,low,queues an arena announcer clip,src/front/front_45BEC.asm
+4880C,SayPaClip,sub_4880C,new,low,plays an arena announcer clip,src/front/front_45BEC.asm
+48864,PaPlayerName,sub_48864,new,low,says a player's name over the arena speakers,src/front/front_45BEC.asm
 4890C,CountRecordGame,sub_4890C,96PC,medium,96 PC CountRecordGame: counts one game of a W/L/T byte string,src/front/front_45BEC.asm
 48950,RecordPctClip,sub_48950,96PC,medium,NHL96PC 67636 (similar 0.91): mnemonic similarity 0.91 over 69 instructions,src/front/front_45BEC.asm
 489F4,RecordStreakClips,sub_489F4,96PC,medium,NHL96PC 676D4 (sem 0.91): C:560,src/front/front_45BEC.asm
 48D70,PaEvent,sub_48D70,96PC,low,"the arena PA announcer: B events (0B000001h-0B000006h) from the front end and pre-game screens, C events (0C000001h-0C000004h) in game; ClockTick posts 0C0000004h at one minute left in a period. The play-by-play is CommentaryEvent",src/front/front_48D70.asm
+4A248,StopStreamTimer,sub_4A248,new,low,stops the stream audio timer,src/front/front_48D70.asm
+4A280,ResetStreamAudio,sub_4A280,new,low,stops the music stream and clears its state (before replays and intermissions),src/front/front_48D70.asm
 4A4F4,PlayScreenMovie,sub_4A4F4,new,low,"(id): waits for the music (WaitMusicEnd), makes the movie path and plays it (PlayMovie); from the stats, all-star and create player screens",src/front/front_48D70.asm
+4A558,CloseMusicStream,sub_4A558,new,low,closes the music stream and frees its buffers,src/front/front_48D70.asm
+4A6F8,PumpMusicStream,sub_4A6F8,new,low,feeds the next packets of the music stream,src/front/front_48D70.asm
+4A74C,FeedMusicStream,sub_4A74C,new,low,"opens, queues and feeds the music stream",src/front/front_48D70.asm
+4AA78,ServiceBackgroundAudio,sub_4AA78,new,low,services speech and music streaming while the game waits,src/front/front_48D70.asm
 4AB90,MakeDataPath,sub_4AB90,96PC,medium,NHL96PC 1E3E8 (sem 0.84): C:1920; C:1834; R:579; R:572,src/front/front_48D70.asm
 4AE14,MakeDirPath,sub_4AE14,96PC,high,"96 PC MakeDirPath: (out, dir, language) a game directory path (language prefix, directory from unk_169848, backslash)",src/front/front_48D70.asm
 4AF9F,LoadDataFileHandle,sub_4AF9F,96PC,medium,NHL96PC 1E779 (sem 1.00): C:2267,src/front/front_48D70.asm
@@ -599,41 +665,352 @@ address,name,auto_name,source,confidence,evidence,file
 4B12D,LoadDataFileFlag0,sub_4B12D,96PC,medium,96 PC LoadDataFileFlag0: LoadDataFile through the same loader with flag 0,src/front/front_48D70.asm
 4B19C,OpenDataLibrary,sub_4B19C,new,low,(file id): makes the data file the current library (sub_FC330),src/front/front_48D70.asm
 4B1C4,SetArtArchive,sub_4B1C4,new,low,"(file name): finds the data file by name (102h-entry table), builds its path and makes it the current art archive; a null name closes it",src/front/front_48D70.asm
+4B307,LoadStartupData,sub_4B307,new,low,checks the CPU and loads the start-up data file,src/front/front_48D70.asm
 4B3F8,WriteGlobalSet,sub_4B3F8,96PC,medium,NHL96PC 6A5EB (similar 0.83): mnemonic similarity 0.83 over 47 instructions,src/front/front_48D70.asm
+4B4AC,NoOpPlatformHook,sub_4B4AC,new,low,does nothing (empty platform hook),src/front/front_48D70.asm
+4B4B0,RefreshViewDistance,sub_4B4B0,new,low,refreshes the camera view distance,src/front/front_48D70.asm
+4B4C4,AddModelName,sub_4B4C4,new,low,adds a model name to the model name table,src/front/front_48D70.asm
+4B540,FindModelName,sub_4B540,new,low,finds a model in the model name table,src/front/front_48D70.asm
 4B5C4,InitGameGraphics,sub_4B5C4,new,low,"from PlayGame, LoadReplay and sub_F4978: loads the arena, rink, players' art and camera for a game",src/front/front_48D70.asm
 4B80C,InitGameVideo,sub_4B80C,new,low,"from PlayGame, LoadReplay: sets the game video mode (SetVideoMode) and the view window",src/front/front_48D70.asm
+4B8DC,ResetRenderTimers,sub_4B8DC,new,low,"resets the render timers after a cut (faceoff, replay, stoppage)",src/front/front_48D70.asm
 4B928,FreeGameGraphics,sub_4B928,new,low,"from PlayGame, LoadReplay, ReplayScreen: frees what InitGameGraphics loaded (FreeRinkModel ...)",src/front/front_48D70.asm
+4B944,DrawModelList,sub_4B944,new,low,draws every model in the model list,src/front/front_48D70.asm
 4BA00,DrawGameFrame,sub_4BA00,new,low,"draws one frame of the game view (rink, objects, overlays); from GameLoop, the pause menu, RunIntermission, RunOpeningFrames and the replay",src/front/front_48D70.asm
+4BCB4,RedrawGameView,sub_4BCB4,new,low,redraws the game view at the current camera,src/front/front_48D70.asm
+4BD0C,SetStandsClip,sub_4BD0C,new,low,sets the clip for drawing the stands,src/front/front_48D70.asm
+4BD4C,SetStandsDetail,sub_4BD4C,new,low,sets the detail level for drawing the stands,src/front/front_48D70.asm
+4BDC0,PickFlashSpot,sub_4BDC0,new,low,picks a spot in the stands for a camera flash,src/front/front_48D70.asm
+4BE14,StartCameraFlash,sub_4BE14,new,low,starts a camera flash in the stands,src/front/front_48D70.asm
+4BF10,UpdateCameraFlashes,sub_4BF10,new,low,starts random camera flashes in the stands,src/front/front_48D70.asm
+4BF54,DrawFlashSprite,sub_4BF54,new,low,draws one camera flash,src/front/front_48D70.asm
+4BF94,DrawCameraFlashes,sub_4BF94,new,low,draws the camera flashes in the stands,src/front/front_48D70.asm
+4C0C4,TriggerCameraFlashes,sub_4C0C4,new,low,"turns on the camera flashes (goals, celebrations)",src/front/front_48D70.asm
+4C0CC,LoadRinkTextures,sub_4C0CC,new,low,loads the rink textures,src/front/front_48D70.asm
+4C164,BuildTexturePage,sub_4C164,new,low,builds a texture page,src/front/front_48D70.asm
+4C240,BuildTextureTile,sub_4C240,new,low,builds one texture tile,src/front/front_48D70.asm
+4C360,SetTextureDetail,sub_4C360,new,low,sets the texture detail level,src/front/front_48D70.asm
+4C404,SetupIceTextures,sub_4C404,new,low,sets up the ice textures,src/front/front_48D70.asm
+4C48C,SetupBoardAds,sub_4C48C,new,low,sets up the board advertisement textures,src/front/front_48D70.asm
+4C5A0,LoadArenaArt,sub_4C5A0,new,low,loads the arena art and palette ranges,src/front/front_48D70.asm
+4CE94,ClipLinePoint,sub_4CE94,new,low,clips one point of a rink line,src/front/front_48D70.asm
+4CF18,ProjectLinePoints,sub_4CF18,new,low,projects the points of a rink line,src/front/front_48D70.asm
+4CF74,ClipLineSegment,sub_4CF74,new,low,clips a rink line segment to the view,src/front/front_48D70.asm
+4D230,LineSegmentLength,sub_4D230,new,low,returns the length of a line segment,src/front/front_48D70.asm
+4D27C,DrawRinkCircle,sub_4D27C,new,low,draws a circle painted on the ice,src/front/front_48D70.asm
+4D3B4,DrawRinkLine,sub_4D3B4,new,low,draws a line painted on the ice,src/front/front_48D70.asm
+4D534,ScaleLineWidth,sub_4D534,new,low,scales a line width by distance,src/front/front_48D70.asm
+4D62C,SetLineWidth,sub_4D62C,new,low,sets the width of the next rink line,src/front/front_48D70.asm
+4D65C,DrawRinkArc,sub_4D65C,new,low,draws an arc painted on the ice,src/front/front_48D70.asm
+4D75C,DrawFaceoffDot,sub_4D75C,new,low,draws a faceoff dot,src/front/front_48D70.asm
+4D800,DrawLineSegment,sub_4D800,new,low,draws a line segment,src/front/front_48D70.asm
+4D8A8,SetNetPositions,sub_4D8A8,new,low,sets the positions of the nets,src/front/front_48D70.asm
+4D948,DrawNets,sub_4D948,new,low,draws the nets,src/front/front_48D70.asm
+4DA84,DrawNetShadows,sub_4DA84,new,low,draws the shadows of the nets,src/front/front_48D70.asm
+4DCF0,DrawNetsHook,sub_4DCF0,new,low,draws the nets for the frame,src/front/front_48D70.asm
+4DD0C,InitRinkProjection,sub_4DD0C,new,low,projects the rink reference points,src/front/front_48D70.asm
 4DD90,PeriodOver,sub_4DD90,96PC,medium,96 PC PeriodOver: called from GameLoop at the end of a period,src/front/front_48D70.asm
+4DD9C,IsCameraOnPuck,sub_4DD9C,new,low,returns whether the camera follows the puck,src/front/front_48D70.asm
+4DDB0,SetCameraMode,sub_4DDB0,new,low,sets the camera follow mode,src/front/front_48D70.asm
+4DDBC,InitRinkView,sub_4DDBC,new,low,sets up the rink view,src/front/front_48D70.asm
+4E3B0,UpdateViewDistance,sub_4E3B0,new,low,updates the camera view distance,src/front/front_48D70.asm
+4E410,DrawStandsRow,sub_4E410,new,low,draws a row of the stands,src/front/front_48D70.asm
+4E500,DrawStandsSection,sub_4E500,new,low,draws a section of the stands,src/front/front_48D70.asm
+4E630,DrawStandsEnd,sub_4E630,new,low,draws the stands at one end,src/front/front_48D70.asm
+4E660,DrawStandsSide,sub_4E660,new,low,draws the stands at one side,src/front/front_48D70.asm
+4E818,DrawHomeBlueLine,sub_4E818,new,low,draws one blue line,src/front/front_48D70.asm
+4E840,DrawAwayBlueLine,sub_4E840,new,low,draws the other blue line,src/front/front_48D70.asm
+4E868,DrawCenterSpots,sub_4E868,new,low,draws the centre ice marks,src/front/front_48D70.asm
+4E894,DrawEndSpots,sub_4E894,new,low,draws the end zone marks,src/front/front_48D70.asm
+4E8C0,DrawNeutralSpots,sub_4E8C0,new,low,draws the neutral zone marks,src/front/front_48D70.asm
+4E8EC,DrawCenterCircle,sub_4E8EC,new,low,draws the centre circle,src/front/front_48D70.asm
+4E938,SetRinkLineDetail,sub_4E938,new,low,sets the detail of the rink lines,src/front/front_48D70.asm
+4E9A0,DrawCreaseArc,sub_4E9A0,new,low,draws the crease arc,src/front/front_48D70.asm
+4EA44,BuildRinkGeometry,sub_4EA44,new,low,builds the rink geometry,src/front/front_48D70.asm
+4EF68,DrawIceSurface,sub_4EF68,new,low,draws the ice surface,src/front/front_48D70.asm
+4F004,DrawCreases,sub_4F004,new,low,draws the creases,src/front/front_48D70.asm
+4F068,DrawRinkMarkings,sub_4F068,new,low,draws the rink markings,src/front/front_48D70.asm
+4F294,DrawBoardsLines,sub_4F294,new,low,draws the lines along the boards,src/front/front_48D70.asm
+4F404,DrawGoalLines,sub_4F404,new,low,draws the goal lines,src/front/front_48D70.asm
+4F6AC,CrowdDistanceTo,sub_4F6AC,new,low,returns the distance from a crowd member to a point,src/front/front_48D70.asm
+4F7FC,CrowdRandomPose,sub_4F7FC,new,low,picks a random crowd pose,src/front/front_48D70.asm
+4F978,CrowdRandomDelay,sub_4F978,new,low,picks a random crowd delay,src/front/front_48D70.asm
+4FA2C,CrowdReactionStep,sub_4FA2C,new,low,steps one crowd reaction,src/front/front_48D70.asm
+4FA8C,BuildCrowdReaction,sub_4FA8C,new,low,builds a crowd reaction,src/front/front_48D70.asm
+4FC50,StartCrowdReaction,sub_4FC50,new,low,"starts a crowd reaction (near misses, hits)",src/front/front_48D70.asm
+4FD08,ClearCrowdReaction,sub_4FD08,new,low,clears the crowd reaction,src/front/front_48D70.asm
+4FD24,EndCrowdReaction,sub_4FD24,new,low,ends the crowd reaction and frees its memory,src/front/front_48D70.asm
+4FF55,NoOpCrowdHook,sub_4FF55,new,low,does nothing (empty crowd hook),src/front/front_48D70.asm
+4FF58,UpdateCrowdReaction,sub_4FF58,new,low,updates the crowd reaction,src/front/front_48D70.asm
+4FF94,FindNearestBenchPlayer,sub_4FF94,new,low,finds the nearest player on the bench,src/front/front_48D70.asm
+50050,StartBenchCheer,sub_50050,new,low,starts a bench cheer,src/front/front_48D70.asm
+50174,BenchCheerStep,sub_50174,new,low,steps a bench cheer,src/front/front_48D70.asm
+50218,UpdateBenchCheer,sub_50218,new,low,updates the bench cheer,src/front/front_48D70.asm
+503A0,PickBenchCheerers,sub_503A0,new,low,picks the players on the bench that cheer,src/front/front_48D70.asm
+504E0,GoalCrowdCheer,sub_504E0,new,low,starts the crowd cheer for a goal,src/front/front_48D70.asm
 50540,UpdateGoalLight,sub_50540,96PC,medium,NHL96PC 23F6A (sem 0.87): C:2025; C:2024; K:258,src/front/front_48D70.asm
 50740,DrawGoalLight,sub_50740,96PC,medium,NHL96PC 2414A (sem 0.77): C:2373; C:2305,src/front/front_48D70.asm
 507E4,TransformRink,sub_507E4,96PC,medium,NHL96PC 241F6 (sem 1.00): C:2323; K:880; K:6E8; K:550,src/front/front_48D70.asm
+509E8,DrawBenchLines,sub_509E8,new,low,draws the bench lines,src/front/front_48D70.asm
+50AF4,DrawBoardsTop,sub_50AF4,new,low,draws the top of the boards,src/front/front_48D70.asm
 50C90,DrawStandsSides,sub_50C90,96PC,medium,NHL96PC 248B0 (sem 1.00): C:2323,src/front/front_48D70.asm
+50DF4,DrawBenchDoors,sub_50DF4,new,low,draws the bench doors,src/front/front_48D70.asm
+50EB8,DrawGlass,sub_50EB8,new,low,draws the glass,src/front/front_48D70.asm
+50F90,DrawBenchPlayers,sub_50F90,new,low,draws the players on the bench,src/front/front_48D70.asm
+510FC,DrawBenchArea,sub_510FC,new,low,draws the bench area,src/front/front_48D70.asm
+511AC,DrawPenaltyBox,sub_511AC,new,low,draws the penalty box,src/front/front_48D70.asm
+51254,DrawBenches,sub_51254,new,low,draws the benches,src/front/front_48D70.asm
+51408,ScoreboardTransform,sub_51408,new,low,sets up the scoreboard transform,src/front/front_48D70.asm
+51434,LoadScoreboardArt,sub_51434,new,low,loads the scoreboard art,src/front/front_48D70.asm
+516B8,DrawScoreboard,sub_516B8,new,low,draws the scoreboard,src/front/front_48D70.asm
+519E0,NetFrameDistance,sub_519E0,new,low,returns the distance to the net frame,src/front/front_48D70.asm
+51A74,SetupNetArt,sub_51A74,new,low,sets up the net art,src/front/front_48D70.asm
+51AEC,ResetNetArt,sub_51AEC,new,low,resets the net art,src/front/front_48D70.asm
+51B5C,UpdateScoreboardPos,sub_51B5C,new,low,updates the scoreboard position,src/front/front_48D70.asm
+51BD8,UpdateScoreboardSpin,sub_51BD8,new,low,updates the scoreboard spin,src/front/front_48D70.asm
 51C4C,LoadNetArt,sub_51C4C,new,low,"loads the goal net art (""netback"", ""netfrnt"")",src/front/front_48D70.asm
 51CB8,BuildRinkSides,sub_51CB8,96PC,medium,NHL96PC 2583F (sem 0.80): S:side%d; D:1614B4; S:gt0%02d; D:1614BC,src/front/front_48D70.asm
 52494,OpenArenaArchive,sub_52494,new,medium,"SetArtArchive ""arena.viv"", from the game graphics set-up (sub_4B5C4)",src/front/front_48D70.asm
 525E0,LoadBoardLogo,sub_525E0,new,low,"loads a board logo shape ""blogo%d%c""",src/front/front_48D70.asm
+52648,LoadTeamLogoShape,sub_52648,new,low,loads a team logo,src/front/front_48D70.asm
+526EC,LoadTeamLogoCopy,sub_526EC,new,low,loads a copy of a team logo,src/front/front_48D70.asm
 52770,LoadLogos,sub_52770,new,low,"game graphics: loads ""logos.fsh"" (LOGOS, blogos) and the ice / board logo shapes (LoadBoardLogo, L%02d...)",src/front/front_52770.asm
+52A44,BuildIcePalette,sub_52A44,new,low,builds the ice colour palette,src/front/front_52770.asm
+52BEC,BlendRangeColours,sub_52BEC,new,low,blends the colours of a palette range,src/front/front_52770.asm
+52CA0,DimRangeColours,sub_52CA0,new,low,dims a palette range,src/front/front_52770.asm
+52CE0,BrightenRangeColours,sub_52CE0,new,low,brightens a palette range,src/front/front_52770.asm
+52D4C,BuildRinkPalette,sub_52D4C,new,low,builds the rink palette,src/front/front_52770.asm
+52E14,SetRinkPalette,sub_52E14,new,low,sets the rink palette,src/front/front_52770.asm
+52E28,UpdateRinkPalette,sub_52E28,new,low,updates the rink palette (lighting),src/front/front_52770.asm
 52E8C,LoadRinkLines,sub_52E8C,new,low,"from InitGameGraphics: the rink line and board shapes (boardback, crease, flatboards, fat red / blue lines, glassline, top / bottom boards)",src/front/front_52770.asm
+53260,SetupRinkModel,sub_53260,new,low,sets up the rink model and crowd,src/front/front_52770.asm
 53314,LoadRinkModel,sub_53314,new,low,"from InitGameGraphics: the rink model from arena.viv (rink, stands, floor, score, puck, nets, goals, extents, lights, glass, boards)",src/front/front_52770.asm
 5454C,FreeRinkModel,sub_5454C,96PC,medium,NHL96PC 2751C (sem 1.00): D:1B10E8; C:1863,src/front/front_52770.asm
+5475C,SetRinkTransform,sub_5475C,new,low,sets the rink transform,src/front/front_52770.asm
+54794,DrawRinkBackground,sub_54794,new,low,draws the rink background,src/front/front_52770.asm
+54A8C,DrawRinkSurface,sub_54A8C,new,low,draws the rink surface and markings,src/front/front_52770.asm
+55000,LoadOpeningArt,sub_55000,new,low,loads the opening sequence art,src/front/front_52770.asm
+55110,DrawRinkOverlay,sub_55110,new,low,draws the rink overlay,src/front/front_52770.asm
+55228,DrawBenchModels,sub_55228,new,low,draws the players on the bench,src/front/front_52770.asm
 552E0,DrawBenchSide,sub_552E0,96PC,medium,NHL96PC 27F20 (sem 0.71): C:2080; C:2285; D:1B105C; C:2079,src/front/front_52770.asm
+55648,GetSeatPos,sub_55648,new,low,returns the position of a seat,src/front/front_52770.asm
+55670,SetBoxDoor,sub_55670,new,low,opens or closes a penalty box door,src/front/front_52770.asm
 5585C,SetPenaltyBoxDoor,sub_5585C,96PC,medium,"96 PC SetPenaltyBoxDoor: (team, open) sets a penalty box door's state (dword_1B0A80) and starts its animation when it opens",src/front/front_52770.asm
+5586C,SetBoxDoorState,sub_5586C,new,low,sets the state of the penalty box door,src/front/front_52770.asm
+55894,DrawBenchRow,sub_55894,new,low,draws a row of the bench,src/front/front_52770.asm
+55B14,DrawBenchSection,sub_55B14,new,low,draws a section of the bench,src/front/front_52770.asm
+55FE4,DrawRinkPass,sub_55FE4,new,low,draws the rink for the frame,src/front/front_52770.asm
+560AC,DrawNearSide,sub_560AC,new,low,draws the near side of the rink,src/front/front_52770.asm
+56464,DrawFarSide,sub_56464,new,low,draws the far side of the rink,src/front/front_52770.asm
+56740,SaveViewOrigin,sub_56740,new,low,saves the view origin,src/front/front_52770.asm
+56798,ShapePixelSize,sub_56798,new,low,returns the pixel size of a shape,src/front/front_52770.asm
+567B0,DrawShadowShape,sub_567B0,new,low,draws a shadow shape,src/front/front_52770.asm
+568CC,ModelViewDepth,sub_568CC,new,low,works out the view depth of a model,src/front/front_52770.asm
+56908,DrawPortraitModels,sub_56908,new,low,draws the models for a portrait,src/front/front_52770.asm
+5696C,AddSeatModel,sub_5696C,new,low,adds a seat model,src/front/front_52770.asm
+56A08,FindSeatModel,sub_56A08,new,low,finds a seat model,src/front/front_52770.asm
+56A84,PickMarkerShape,sub_56A84,new,low,picks the marker shape,src/front/front_52770.asm
+56AE4,SetTeamColours,sub_56AE4,new,low,sets the team colours in the palette,src/front/front_52770.asm
+56B98,FaceDistance,sub_56B98,new,low,works out the distance for a face texture,src/front/front_52770.asm
+56CD0,SetFaceMouth,sub_56CD0,new,low,sets the face mouth morph and marks the model dirty,src/front/front_52770.asm
+56CE4,SetFaceExpression,sub_56CE4,new,low,sets the face expression morph and marks the model dirty,src/front/front_52770.asm
+56CF8,SetFaceBlink,sub_56CF8,new,low,sets the face blink morph and marks the model dirty,src/front/front_52770.asm
+56D0C,SetModelHeading,sub_56D0C,new,low,sets the heading of a model,src/front/front_52770.asm
+56DDC,BuildFaceTextures,sub_56DDC,new,low,builds the face textures,src/front/front_52770.asm
+57298,RefreshFaceTextures,sub_57298,new,low,refreshes the face textures,src/front/front_52770.asm
+572D4,CupFaceTextures,sub_572D4,new,low,builds the face textures for the cup celebration,src/front/front_52770.asm
+57304,SetModelSlotValue,sub_57304,new,low,sets a model slot value,src/front/front_52770.asm
+57324,SetupPlayerModel,sub_57324,new,low,"builds a player's 3D model: jersey, number and team textures for one roster slot",src/front/front_57324.asm
+57504,LayoutJerseyNumber,sub_57504,new,low,lays out the digits of a jersey number on the back and sleeve texture,src/front/front_57324.asm
+576EC,BuildCupPatchArt,sub_576EC,new,low,builds the championship patch art for the jersey,src/front/front_57324.asm
+57738,DrawJerseyLettering,sub_57738,new,low,draws the name and number lettering onto a jersey texture,src/front/front_57324.asm
+578D4,FreeGoalieMask,sub_578D4,new,low,frees the goalie mask texture,src/front/front_57324.asm
 5794C,LoadCupArt,sub_5794C,new,low,"(team): loads the ""cup"" shape from PLYRCOMN.VIV into the team record (+6C0h)",src/front/front_57324.asm
 57A1C,LoadGoalieMask,sub_57A1C,new,low,"(team, mask): loads the MASK%02da/b/c shapes from MASKS.VIV (""gmask"")",src/front/front_57324.asm
 57BA4,LoadPlayerCommonArt,sub_57BA4,new,low,"loads plyrcomn.viv: team palette, fist and torso shapes",src/front/front_57324.asm
 58144,LoadUniformArt,sub_58144,new,low,"(team, uniform, ...): loads uni%04d.viv: team palette, numbers.ffn / a2z.ffn fonts, torso and cup patch shapes",src/front/front_57324.asm
+58680,CopyShape,sub_58680,new,low,copies a shape (bitmap) into a new block,src/front/front_57324.asm
+586C0,SetupJerseyBackTexture,sub_586C0,new,low,picks and prepares the texture for the back of the jersey,src/front/front_57324.asm
+5876C,InitPlayerModelSlots,sub_5876C,new,low,clears the table of player model slots,src/front/front_57324.asm
+5881C,LoadGameModels,sub_5881C,new,low,"loads the player, goalie and referee models for a game",src/front/front_57324.asm
+58B80,SetupTeamModels,sub_58B80,new,low,sets up the models of both teams' players,src/front/front_57324.asm
+58CA0,FreeGameModels,sub_58CA0,new,low,frees the models loaded for a game,src/front/front_57324.asm
+59174,UpdateViewMatrix,sub_59174,new,low,builds the view matrix from the camera position and target,src/front/front_57324.asm
+59DB8,PoseAndDrawModel,sub_59DB8,new,low,poses a model at its frame and draws it,src/front/front_57324.asm
+59DE4,DrawModelByDetail,sub_59DE4,new,low,draws a model at the detail level picked from its distance,src/front/front_57324.asm
+59E74,DrawPlayerModel,sub_59E74,new,low,draws one player model with its stick,src/front/front_57324.asm
+59F44,DrawObjectShadow,sub_59F44,new,low,draws the shadow of an object on the ice,src/front/front_57324.asm
+5A048,DrawHeadModel,sub_5A048,new,low,draws a player's head model,src/front/front_57324.asm
+5A238,DrawLeftArmModel,sub_5A238,new,low,"poses and draws one arm part of a player model (left side, probably)",src/front/front_57324.asm
+5A2F8,DrawRightArmModel,sub_5A2F8,new,low,"poses and draws the other arm part of a player model (right side, probably)",src/front/front_57324.asm
+5A484,DrawStickModel,sub_5A484,new,low,poses and draws a stick model,src/front/front_57324.asm
+5A4E8,DrawGoalieStickModel,sub_5A4E8,new,low,poses and draws the goalie stick model,src/front/front_57324.asm
+5A5BC,DrawLeftHandModel,sub_5A5BC,new,low,poses and draws one hand of a player model,src/front/front_57324.asm
+5A638,DrawRightHandModel,sub_5A638,new,low,poses and draws the other hand of a player model,src/front/front_57324.asm
+5A6B4,ScaleModelLods,sub_5A6B4,new,low,scales the model detail distances by the view scale and detail setting,src/front/front_57324.asm
+5A6E0,SetModelExtraFlags,sub_5A6E0,new,low,small setters for two model fields (the first entry only returns),src/front/front_57324.asm
+5A6F4,DrawModelParts,sub_5A6F4,new,low,"draws every part of a player model (body, arms, hands, stick)",src/front/front_57324.asm
+5AAB8,DrawPlayersSorted,sub_5AAB8,new,low,sorts the players by distance and draws each with its shadow,src/front/front_57324.asm
+5AC28,ClearObjectHidden,sub_5AC28,new,low,clears an object's hidden flag,src/front/front_57324.asm
+5AC30,SetObjectHidden,sub_5AC30,new,low,sets an object's hidden flag,src/front/front_57324.asm
+5AC38,RenderModelPortrait,sub_5AC38,new,low,renders a player model into an offscreen portrait,src/front/front_57324.asm
+5AD54,DrawPuckMarker,sub_5AD54,new,low,draws the marker under the puck (projected onto the ice),src/front/front_57324.asm
+5AEB8,DrawPlayerMarkers,sub_5AEB8,new,low,draws the markers under the controlled players,src/front/front_57324.asm
+5B090,DrawIceMarkers,sub_5B090,new,low,draws the puck and player markers on the ice,src/front/front_57324.asm
+5B1C0,DrawPlayerNames,sub_5B1C0,new,low,draws the names over the players,src/front/front_57324.asm
+5B2D4,DrawPuckArrow,sub_5B2D4,new,low,draws the off-screen puck arrow,src/front/front_57324.asm
+5B450,NoOpDraw,sub_5B450,new,low,does nothing (empty draw hook),src/front/front_57324.asm
+5B454,CopyVec3,sub_5B454,new,low,copies a three-float vector; next entry adds two vectors,src/front/front_57324.asm
+5B46C,SetObjectHeight,sub_5B46C,new,low,sets the height of a vector; next entry adds to it,src/front/front_57324.asm
+5B488,LinkModelPair,sub_5B488,new,low,links two model slots to each other,src/front/front_57324.asm
+5B4B8,ClearModelSlots,sub_5B4B8,new,low,marks every model slot as unused,src/front/front_57324.asm
+5B4D4,RestoreSavedPalette,sub_5B4D4,new,low,restores the saved game palette,src/front/front_57324.asm
+5B50C,SaveGamePalette,sub_5B50C,new,low,saves the current game palette,src/front/front_57324.asm
+5B558,UpdateFaceTextures,sub_5B558,new,low,updates the face textures of the players on screen,src/front/front_57324.asm
+5B5CC,LoadFaceTexture,sub_5B5CC,new,low,loads one player's face texture,src/front/front_57324.asm
+5B648,FindChunkByIndex,sub_5B648,new,low,walks a chunked block to the chunk with the given index,src/front/front_57324.asm
 5B660,LoadFaceArt,sub_5B660,new,low,loads faces.viv: the face palette and the face2 shape set,src/front/front_57324.asm
+5B734,FreeFaceTextures,sub_5B734,new,low,frees the loaded face textures,src/front/front_57324.asm
+5B78C,SwapFaceTexture,sub_5B78C,new,low,swaps a player's face texture for another,src/front/front_57324.asm
 5B7E0,LoadPlayerFace,sub_5B7E0,new,low,"(slot, name): loads one player's face shape (""FAC"" + name, fallback fac00000)",src/front/front_57324.asm
+5B970,ReplayPackFrame,sub_5B970,new,low,packs one frame of object state into the replay buffer,src/front/front_57324.asm
+5BA0C,ReplayUnpackFrame,sub_5BA0C,new,low,unpacks one replay frame into object state,src/front/front_57324.asm
+5BA44,ReplayWriteFrame,sub_5BA44,new,low,writes a packed frame at the replay write position,src/front/front_57324.asm
+5BAB4,ReplaySaveState,sub_5BAB4,new,low,saves the registered state blocks for the replay,src/front/front_57324.asm
+5BB0C,ReplayRestoreState,sub_5BB0C,new,low,restores the registered state blocks from the replay,src/front/front_57324.asm
+5BB88,ReplayRecordFrame,sub_5BB88,new,low,records the current frame into the replay buffer,src/front/front_57324.asm
+5BCCC,ReplayRegisterStates,sub_5BCCC,new,low,registers the state blocks the replay saves,src/front/front_57324.asm
+5BD1C,ReplayRegisterObjects,sub_5BD1C,new,low,registers the objects the replay records,src/front/front_57324.asm
+5BD3C,FreeReplayBuffer,sub_5BD3C,new,low,frees the replay buffer,src/front/front_57324.asm
+5BD94,ResetReplayBuffer,sub_5BD94,new,low,empties the replay buffer,src/front/front_57324.asm
 5BDF4,InitReplayBuffer,sub_5BDF4,new,medium,"allocates the ""REPLAY"" buffer when free memory exceeds the request by 200000 bytes, at most 0EA60h bytes",src/front/front_57324.asm
+5BE64,IsReplayRecording,sub_5BE64,new,low,returns 1 when the replay is recording,src/front/front_57324.asm
+5BE74,ReplayHasFrames,sub_5BE74,new,low,returns 1 when the replay is recording and holds frames; next entries give the counters,src/front/front_57324.asm
+5BEB0,ReplayFreeFrames,sub_5BEB0,new,low,drops the oldest frames from the replay buffer,src/front/front_57324.asm
 5BEDC,SetReplayRecording,sub_5BEDC,new,low,"(on/off): starts or stops replay recording (dword_1B8FA0), allocating the ""RP_GAME"" block on start",src/front/front_57324.asm
+5BF88,ReplayReadFrame,sub_5BF88,new,low,reads the frame at the replay read position,src/front/front_57324.asm
+5C014,ReplaySeekStart,sub_5C014,new,low,moves the replay read position to the first frame,src/front/front_57324.asm
+5C0AC,ReplayStepFrame,sub_5C0AC,new,low,steps the replay one frame forward or back,src/front/front_57324.asm
+5C134,ReplayRecordTick,sub_5C134,new,low,records a frame when the recording is on,src/front/front_57324.asm
+5C160,ReplayPauseRecording,sub_5C160,new,low,stops recording for a while,src/front/front_57324.asm
+5C180,ReplayRecordFinal,sub_5C180,new,low,records the last frame before playback,src/front/front_57324.asm
+5C1CC,ReplaySoundAllowed,sub_5C1CC,new,low,returns whether sounds may play during replay playback,src/front/front_57324.asm
+5C1F8,ReplayDrawFrame,sub_5C1F8,new,low,draws the current replay frame,src/front/front_57324.asm
+5C2CC,ReplayCmdPlay,sub_5C2CC,new,low,replay control: play,src/front/front_57324.asm
+5C2F4,ReplayCmdStop,sub_5C2F4,new,low,replay control: stop,src/front/front_57324.asm
+5C30C,ReplayCmdRewind,sub_5C30C,new,low,replay control: rewind,src/front/front_57324.asm
+5C32C,ReplayCmdForward,sub_5C32C,new,low,replay control: fast forward,src/front/front_57324.asm
+5C34C,ReplayPlayFrames,sub_5C34C,new,low,plays replay frames in the chosen direction and speed,src/front/front_57324.asm
+5C4CC,ReplayCamFollow,sub_5C4CC,new,low,replay camera: follows the puck,src/front/front_57324.asm
+5C4E4,ReplayCamFree,sub_5C4E4,new,low,replay camera: free camera,src/front/front_57324.asm
+5C500,StartInstantReplay,sub_5C500,new,low,starts an instant replay of the last play,src/front/front_57324.asm
+5C584,EndInstantReplay,sub_5C584,new,low,ends the instant replay and resumes the game,src/front/front_57324.asm
+5C5EC,PlaySavedReplay,sub_5C5EC,new,low,plays a replay loaded from disk,src/front/front_57324.asm
+5C74C,ReplayFramesLeft,sub_5C74C,new,low,returns how many replay frames are left to play,src/front/front_57324.asm
+5C75C,ReplayCurrentFrame,sub_5C75C,new,low,returns the current replay frame,src/front/front_57324.asm
+5C764,ReplayRestoreObjects,sub_5C764,new,low,restores the objects from a replay frame,src/front/front_57324.asm
+5C894,ReplaySetupObjects,sub_5C894,new,low,sets up the objects for replay playback,src/front/front_57324.asm
+5C974,SaveReplayHeader,sub_5C974,new,low,writes the replay header to the file,src/front/front_57324.asm
+5CAB0,LoadReplayHeader,sub_5CAB0,new,low,reads the replay header from the file,src/front/front_57324.asm
+5CACC,LoadReplayData,sub_5CACC,new,low,reads the replay frames from the file,src/front/front_57324.asm
+5CCC0,FreeReplayMem,sub_5CCC0,new,low,frees the memory used by a loaded replay,src/front/front_57324.asm
 5CCE0,AllocSpriteBuffers,sub_5CCE0,new,low,"allocates the ""RSPRITE"" block (0C240h): 12 sprite buffers of 1010h bytes",src/front/front_57324.asm
+5CD68,MarkPaletteDirty,sub_5CD68,new,low,marks the palette for reloading,src/front/front_57324.asm
+5CD90,BeginOffscreenRender,sub_5CD90,new,low,switches drawing to an offscreen bitmap,src/front/front_57324.asm
+5D100,SavePortraitCamera,sub_5D100,new,low,saves the camera before a portrait render,src/front/front_57324.asm
+5D1E0,RestorePortraitCamera,sub_5D1E0,new,low,restores the camera after a portrait render,src/front/front_57324.asm
+5D23C,EndOffscreenRender,sub_5D23C,new,low,switches drawing back to the screen,src/front/front_57324.asm
+5D294,SetPortraitProjection,sub_5D294,new,low,sets the projection used for portraits,src/front/front_57324.asm
+5D2F0,CameraSplinePoint,sub_5D2F0,new,low,camera motion: point on the camera spline,src/front/front_57324.asm
+5D428,CameraLerpPoint,sub_5D428,new,low,camera motion: linear step toward the target point,src/front/front_57324.asm
+5D454,CameraEasePoint,sub_5D454,new,low,camera motion: eased step toward the target point,src/front/front_57324.asm
+5D488,ResetCameraState,sub_5D488,new,low,clears the camera state block,src/front/front_57324.asm
+5D594,CopyCameraState,sub_5D594,new,low,copies the camera position and target into the work block,src/front/front_57324.asm
+5D5DC,CameraSmoothStep,sub_5D5DC,new,low,camera motion: smoothed step of position and target,src/front/front_57324.asm
+5D6A8,SetCameraTarget,sub_5D6A8,new,low,sets where the camera moves to,src/front/front_57324.asm
+5D7A4,SetCameraPathTarget,sub_5D7A4,new,low,sets a camera target reached along a path,src/front/front_57324.asm
+5D878,SetCameraSplineTarget,sub_5D878,new,low,sets a camera target reached along a spline,src/front/front_57324.asm
+5D900,UpdateCameraMotion,sub_5D900,new,low,moves the camera one frame toward its target,src/front/front_57324.asm
+5DC1C,SnapCamera,sub_5DC1C,new,low,puts the camera at its target at once,src/front/front_57324.asm
+5DC50,BuildCameraMatrix,sub_5DC50,new,low,builds the camera matrix,src/front/front_57324.asm
+5DCBC,UpdateCameraProjection,sub_5DCBC,new,low,updates the projection from the camera field of view,src/front/front_57324.asm
+5DD74,ProjectRinkPoints,sub_5DD74,new,low,projects the rink reference points to the screen,src/front/front_57324.asm
+5DE74,InitCameraParams,sub_5DE74,new,low,sets the starting camera parameters,src/front/front_57324.asm
+5DF50,GetStickBladePos,sub_5DF50,new,low,returns the position of a player's stick blade,src/front/front_57324.asm
+5DF90,PlaySkateSounds,sub_5DF90,new,low,plays the skate sounds of a moving player,src/front/front_57324.asm
+5E1B0,MovePlayer,sub_5E1B0,new,low,moves a player by its velocity for one frame,src/front/front_57324.asm
+5E224,PuckOnStickPhysics,sub_5E224,new,low,keeps the puck on a skating player's stick,src/front/front_57324.asm
+5E7D8,PuckOnStickFromState,sub_5E7D8,new,low,keeps the puck on the stick using the saved stick state,src/front/front_57324.asm
+5E81C,StickHandleTarget,sub_5E81C,new,low,works out where the stick carries the puck,src/front/front_57324.asm
+5E934,StickHandleScaled,sub_5E934,new,low,stick handling with a scaled reach,src/front/front_57324.asm
+5E998,StickHandleSpeed,sub_5E998,new,low,stick handling speed factor for the player,src/front/front_57324.asm
+5E9F0,IsSkateAnim,sub_5E9F0,new,low,returns whether the current animation is a skating one,src/front/front_57324.asm
+5EA78,IsStopAnim,sub_5EA78,new,low,returns whether the current animation is a stop,src/front/front_57324.asm
+5EB14,StartCheckedAnim,sub_5EB14,new,low,starts an animation if the player may change animation,src/front/front_57324.asm
+5EC50,StartNextMove,sub_5EC50,new,low,starts the move that follows the current one,src/front/front_57324.asm
 5ED80,SetSPA,sub_5ED80,94G,medium,"94G SetSPA: (player, animation 0-17Ch, flags, speed) sets the player's animation; restarts it unless it is already playing",src/front/front_57324.asm
+5EEEC,SetSPAInPlace,sub_5EEEC,new,low,sets an animation without moving the player,src/front/front_57324.asm
+5F018,GoalieReadShot,sub_5F018,new,low,goalie AI: reads the shot and picks the save position,src/front/front_57324.asm
+5FE2C,GoalieAngle,sub_5FE2C,new,low,goalie AI: angle to the puck,src/front/front_57324.asm
+60078,GoalieCoverPost,sub_60078,new,low,goalie AI: covers the post,src/front/front_57324.asm
+6023C,GoalieAI,sub_6023C,new,low,goalie AI for one frame,src/front/front_57324.asm
+60710,TurnRateForSpeed,sub_60710,new,low,returns the turn rate allowed at the player's speed,src/front/front_57324.asm
+6077C,UpdateGoalie,sub_6077C,new,low,moves and animates the goalie,src/front/front_57324.asm
+60D28,GoalieTick,sub_60D28,new,low,runs the goalie and animation clock for one frame,src/front/front_57324.asm
+60D6C,ResetAnimTimer,sub_60D6C,new,low,resets a player's animation timer,src/front/front_57324.asm
+60D84,PickIdleAnim,sub_60D84,new,low,picks the idle animation for a player,src/front/front_57324.asm
+60F48,PickSkateAnim,sub_60F48,new,low,picks the skating animation for a player,src/front/front_57324.asm
+612E4,EndMove,sub_612E4,new,low,ends the current move,src/front/front_57324.asm
+613AC,AdvanceMoveAnim,sub_613AC,new,low,advances the move's animation one frame,src/front/front_57324.asm
+613F8,ApplyMoveMotion,sub_613F8,new,low,applies the move's motion to the player,src/front/front_57324.asm
+6152C,StepMove,sub_6152C,new,low,steps a move one frame,src/front/front_57324.asm
+61540,HoldPoseMove,sub_61540,new,low,move handler that keeps the player in place until the animation ends,src/front/front_57324.asm
+615D0,SteerTowardTarget,sub_615D0,new,low,turns the player toward its target,src/front/front_57324.asm
+61764,ApplySkateAccel,sub_61764,new,low,speeds the player up toward its skating speed,src/front/front_57324.asm
+617EC,SteerAndAccel,sub_617EC,new,low,turns toward the target and speeds up,src/front/front_57324.asm
+61804,PickTurnAnim,sub_61804,new,low,picks a turning animation,src/front/front_57324.asm
+61BF8,PickStopAnim,sub_61BF8,new,low,picks a stopping animation,src/front/front_57324.asm
+61F78,PickCrossoverAnim,sub_61F78,new,low,picks a crossover animation from the turn,src/front/front_57324.asm
+6211C,PickGlideAnim,sub_6211C,new,low,picks a glide animation,src/front/front_57324.asm
+62340,PickStrideAnim,sub_62340,new,low,picks the stride animation from the speed,src/front/front_57324.asm
+624D0,PickForwardTurn,sub_624D0,new,low,picks the forward turning animation from the angle to the target,src/front/front_57324.asm
+626BC,PickBackwardTurn,sub_626BC,new,low,picks the backward turning animation from the angle to the target,src/front/front_57324.asm
+628C4,GlideForwardMove,sub_628C4,new,low,move handler for gliding forward,src/front/front_57324.asm
+62C14,LimitSkateSpeed,sub_62C14,new,low,keeps the player's speed under its limit,src/front/front_57324.asm
+62F14,SkateForwardMove,sub_62F14,new,low,move handler for skating forward,src/front/front_57324.asm
+633E8,SkateBackwardMove,sub_633E8,new,low,move handler for skating backward,src/front/front_57324.asm
+63878,TurnLeanAngle,sub_63878,new,low,works out the lean angle for a turn,src/front/front_57324.asm
+63980,TurnStickPos,sub_63980,new,low,places the stick during a turn,src/front/front_57324.asm
+63AA4,TurnForwardMove,sub_63AA4,new,low,move handler for turning while skating forward,src/front/front_57324.asm
+63D24,StopSkidDistance,sub_63D24,new,low,works out how far a stopping player skids,src/front/front_57324.asm
+63E8C,StopForwardMove,sub_63E8C,new,low,move handler for stopping from forward skating (plays the skid sound),src/front/front_57324.asm
+640D0,StandMove,sub_640D0,new,low,move handler for standing in place,src/front/front_57324.asm
+642A8,SpeedTowardSpot,sub_642A8,new,low,works out the speed to reach a spot,src/front/front_57324.asm
+643AC,StartMoveAtSpeed,sub_643AC,new,low,starts the next move at the player's speed,src/front/front_57324.asm
+64490,CrossoverMove,sub_64490,new,low,move handler for crossovers,src/front/front_57324.asm
+64700,GoalieSlideMove,sub_64700,new,low,move handler for the goalie sliding across the crease,src/front/front_57324.asm
+64820,GoalieStanceMove,sub_64820,new,low,move handler for the goalie stance,src/front/front_57324.asm
+648B4,SlowSkateMove,sub_648B4,new,low,move handler for slow skating,src/front/front_57324.asm
+649E0,GlideBackwardMove,sub_649E0,new,low,move handler for gliding backward,src/front/front_57324.asm
+64AE0,TurnBackwardMove,sub_64AE0,new,low,move handler for turning while skating backward,src/front/front_57324.asm
+64D54,StopBackwardMove,sub_64D54,new,low,move handler for stopping from backward skating (plays the skid sound),src/front/front_57324.asm
+64EBC,FaceoffPuckDrop,sub_64EBC,new,low,places the puck for a faceoff drop,src/front/front_57324.asm
+650A4,SetSkateSpeedFromRating,sub_650A4,new,low,sets a player's top speed from its rating,src/front/front_57324.asm
+650E8,StartWhistleStop,sub_650E8,new,low,starts the stop animation when the whistle blows,src/front/front_57324.asm
+65164,UpdateScoreClockData,sub_65164,new,low,updates the clock and score data shown in game,src/front/front_57324.asm
+65338,ResetClockData,sub_65338,new,low,clears the in-game clock data,src/front/front_57324.asm
+6539C,UpdateGameDisplay,sub_6539C,new,low,updates the in-game display data each frame,src/front/front_57324.asm
+65481,LoadAnimData,sub_65481,new,low,loads an animation file into memory,src/front/front_57324.asm
+656B7,GetStopTable,sub_656B7,new,low,returns an entry of one of the two stop tables,src/front/front_57324.asm
+656D3,LoadSkateAnimFile,sub_656D3,new,low,loads the skating animation file,src/front/front_57324.asm
+65742,LoadAnimByName,sub_65742,new,low,finds an animation by name and loads it,src/front/front_57324.asm
+657BF,ShotAnimFrames,sub_657BF,new,low,returns the shot animation frames for a shot type,src/front/front_57324.asm
 65830,LoadSkateAnims,sub_65830,new,medium,"InitAnimPoints: loads the ""skate"" animations (and ""stop"")",src/front/front_57324.asm
 6590A,CamShot23D,sub_6590A,96PC,medium,NHL96PC 603FF (similar 0.81): mnemonic similarity 0.81 over 16 instructions,src/front/front_57324.asm
 6593E,LoadActAnims,sub_6593E,new,medium,"InitAnimPoints: loads the ""pl_act"" animations",src/front/front_57324.asm
 6596B,LoadFallAnims,sub_6596B,new,medium,"InitAnimPoints: loads the ""pl_fall"" animations",src/front/front_57324.asm
 659C6,LoadInterferAnims,sub_659C6,new,medium,"InitAnimPoints: loads the ""interfer"" animations",src/front/front_57324.asm
+659F6,LoadGoalieAnimFile,sub_659F6,new,low,loads the goalie animation file,src/front/front_57324.asm
 65B64,LoadGoalieAnims,sub_65B64,new,medium,"InitAnimPoints: loads the ""goalie"" animations",src/front/front_57324.asm
 65BFD,LoadRefSkateAnims,sub_65BFD,new,medium,"InitAnimPoints: loads the ""refskate"" animations",src/front/front_57324.asm
 65C2D,LoadRefCallAnims,sub_65C2D,new,medium,"InitAnimPoints: loads the ""refcalls"" animations",src/front/front_57324.asm
@@ -641,24 +1018,215 @@ address,name,auto_name,source,confidence,evidence,file
 65C8D,LoadFightAnims,sub_65C8D,new,medium,"InitAnimPoints: loads the ""fight"" animations",src/front/front_57324.asm
 65CBD,LoadCupAnims,sub_65CBD,new,medium,"loads the ""cup"" animations (Stanley Cup presentation, from sub_780F0)",src/front/front_57324.asm
 65CED,InitAnimPoints,sub_65CED,new,low,"looks up the animation attachment points (puck, stickheel, origin, chin, rhand, lshldr, rshldr) and loads ANIMS.VIV",src/front/front_57324.asm
+65DE8,FreeAnimTables,sub_65DE8,new,low,frees the animation tables,src/front/front_57324.asm
+65E3B,InitPlayerAnims,sub_65E3B,new,low,sets up the starting animations of the players,src/front/front_57324.asm
+65F50,StickReach,sub_65F50,new,low,works out how far a player's stick reaches,src/front/front_57324.asm
+660F0,PuckHeightAt,sub_660F0,new,low,works out the puck height at a point,src/front/front_57324.asm
+6619C,ObjectFramePos,sub_6619C,new,low,returns an object's position at its current animation frame,src/front/front_57324.asm
+66224,TryStickTouch,sub_66224,new,low,tests whether the stick touches the puck,src/front/front_57324.asm
+66524,PuckBounceOffPlayer,sub_66524,new,low,bounces the puck off a player's body,src/front/front_57324.asm
+666CC,PlayPostSound,sub_666CC,new,low,plays the sound of the puck hitting the post,src/front/front_57324.asm
+66758,PuckHitsNet,sub_66758,new,low,"puck against the net: post, crossbar, goal or save",src/front/front_57324.asm
+66E38,PuckHitsBoards,sub_66E38,new,low,puck against the boards: bounce and sound,src/front/front_57324.asm
+67248,PuckHitsGlass,sub_67248,new,low,puck against the glass: bounce and sound,src/front/front_57324.asm
+67540,NetCollisionPoint,sub_67540,new,low,works out where the puck meets the net,src/front/front_57324.asm
+67A30,PuckInNetDepth,sub_67A30,new,low,tests whether the puck is deep in the net,src/front/front_57324.asm
+67A98,PuckInNetWidth,sub_67A98,new,low,tests whether the puck is inside the posts,src/front/front_57324.asm
+67B10,PlayNetSound,sub_67B10,new,low,plays the sound of the puck in the net,src/front/front_57324.asm
+67BD0,CommentNetHit,sub_67BD0,new,low,calls the commentary for a shot off the net,src/front/front_57324.asm
+67CC0,PuckOffPost,sub_67CC0,new,low,bounces the puck off a post,src/front/front_57324.asm
+68030,PuckOffCrossbar,sub_68030,new,low,bounces the puck off the crossbar,src/front/front_57324.asm
+68378,PuckInHomeNet,sub_68378,new,low,"puck against the home team's net: goal, post or save",src/front/front_57324.asm
+6889C,PuckInAwayNet,sub_6889C,new,low,"puck against the away team's net: goal, post or save",src/front/front_57324.asm
+68DBC,PuckBehindNet,sub_68DBC,new,low,puck against the back of a net,src/front/front_57324.asm
+69410,CheckPuckNets,sub_69410,new,low,checks the puck against both nets,src/front/front_57324.asm
+6947C,GoalLinePuckTest,sub_6947C,new,low,tests whether the puck crossed the goal line (for the goal judge),src/front/front_57324.asm
+69654,UpdatePuckCarrier,sub_69654,new,low,keeps the puck with its carrier,src/front/front_57324.asm
+69750,PuckGroundHeight,sub_69750,new,low,works out the puck's height over the ice,src/front/front_57324.asm
+69970,PuckBounceIce,sub_69970,new,low,bounces the puck off the ice,src/front/front_57324.asm
+699D4,UpdatePuck,sub_699D4,new,low,"moves the puck and tests it against the boards, glass and nets",src/front/front_57324.asm
+69A44,GoalJudgeTest,sub_69A44,new,low,tests a goal for the goal judge,src/front/front_57324.asm
+69B08,RandomPuckSpin,sub_69B08,new,low,gives the puck a random spin,src/front/front_57324.asm
+69B78,StopObject,sub_69B78,new,low,stops an object,src/front/front_57324.asm
+69BA0,StartPassAnim,sub_69BA0,new,low,starts the passing animation,src/front/front_57324.asm
+69D98,PassAnimFrame,sub_69D98,new,low,picks the frame of the passing animation,src/front/front_57324.asm
+69DF4,StartDropPassAnim,sub_69DF4,new,low,starts the drop pass animation,src/front/front_57324.asm
+69F3C,StartShotAnim,sub_69F3C,new,low,starts the shooting animation,src/front/front_57324.asm
+6A0BC,StartOneTimerAnim,sub_6A0BC,new,low,starts the one-timer animation,src/front/front_57324.asm
+6A13C,StartWristShotAnim,sub_6A13C,new,low,starts the wrist shot animation,src/front/front_57324.asm
+6A244,StartPuckReceiveAnim,sub_6A244,new,low,starts the animation for receiving the puck,src/front/front_57324.asm
+6A604,ReceivePassMove,sub_6A604,new,low,move handler for receiving a pass,src/front/front_57324.asm
+6A6D8,PassAnimFrameForType,sub_6A6D8,new,low,returns the animation frame for a pass type,src/front/front_57324.asm
+6A77C,PassMove,sub_6A77C,new,low,move handler for a pass,src/front/front_57324.asm
+6AB88,ShotReach,sub_6AB88,new,low,works out where a shot meets the puck,src/front/front_57324.asm
+6ABEC,ShotMove,sub_6ABEC,new,low,move handler for a shot,src/front/front_57324.asm
+6B140,SkateWithPuckMove,sub_6B140,new,low,move handler for skating with the puck,src/front/front_57324.asm
+6B28C,GlideWithPuckMove,sub_6B28C,new,low,move handler for gliding with the puck,src/front/front_57324.asm
+6B380,CheckBoardsContact,sub_6B380,new,low,body contact against the boards,src/front/front_57324.asm
+6BC94,CheckContactVelocity,sub_6BC94,new,low,works out the speeds after body contact,src/front/front_57324.asm
+6C0FC,CheckContactForce,sub_6C0FC,new,low,works out the force of body contact,src/front/front_57324.asm
+6C73C,BodyCollide,sub_6C73C,new,low,body collision between two players,src/front/front_57324.asm
+6CA24,BodyBounce,sub_6CA24,new,low,bounce between two players,src/front/front_57324.asm
+6CD58,CheckForPenalty,sub_6CD58,new,low,tests a hit for a penalty,src/front/front_57324.asm
+6CED0,CheckPlayerVsBoards,sub_6CED0,new,low,tests a player against the boards,src/front/front_57324.asm
+6D3E4,PlayerBoardsTest,sub_6D3E4,new,low,tests whether a player is near the boards,src/front/front_57324.asm
+6D4AC,PlayerCollisions,sub_6D4AC,new,low,runs the player collision tests,src/front/front_57324.asm
+6D59C,HitDirection,sub_6D59C,new,low,works out the direction of a hit,src/front/front_57324.asm
+6D678,HitCrowdReaction,sub_6D678,new,low,crowd and commentary reaction to a hit,src/front/front_57324.asm
+6D7F8,HitKnockback,sub_6D7F8,new,low,knocks back a player that was hit,src/front/front_57324.asm
+6D980,StartHitAnim,sub_6D980,new,low,starts the animation for a hit,src/front/front_57324.asm
+6DAB0,ResolveBodyCheck,sub_6DAB0,new,low,resolves a body check: who falls and the penalty call,src/front/front_57324.asm
+6E170,StartFallAnim,sub_6E170,new,low,starts the fall animation,src/front/front_57324.asm
 6E290,checkcx,sub_6E290,94G,low,"94G checkcx: (player a3, player a2, ...) a collision between two players (x87): bounces, checking animations, interference (checkint), checkfight",src/front/front_57324.asm
+6E9A4,ResolvePlayerContact,sub_6E9A4,new,low,resolves contact between two players,src/front/front_57324.asm
+6F104,StickContact,sub_6F104,new,low,stick against a player,src/front/front_57324.asm
+6F300,PlayerPush,sub_6F300,new,low,pushes two players apart,src/front/front_57324.asm
+6F55C,ContactAngle,sub_6F55C,new,low,works out the contact angle,src/front/front_57324.asm
 6F604,checkplcoll,sub_6F604,94G,low,"94G checkplcoll: a player's collisions with the other players (checkcx, sub_6E9A4) and the rest",src/front/front_57324.asm
+6FF1C,UpdatePlayerMotion,sub_6FF1C,new,low,moves the players and updates their motion,src/front/front_57324.asm
+7002C,SortPlayersByDepth,sub_7002C,new,low,sorts the players by depth for drawing,src/front/front_57324.asm
+700D8,MoveToAnimPose,sub_700D8,new,low,moves the player to the pose of its animation,src/front/front_57324.asm
+701B8,FaceAngleDelta,sub_701B8,new,low,works out the turn to face a direction,src/front/front_57324.asm
+70260,FacePlayerToward,sub_70260,new,low,turns a player toward a point,src/front/front_57324.asm
+70324,StartFightAnimMove,sub_70324,new,low,starts a fight animation move,src/front/front_57324.asm
+70378,FightGrabMove,sub_70378,new,low,move handler for grabbing in a fight,src/front/front_57324.asm
+70424,FightHoldMove,sub_70424,new,low,move handler for holding in a fight,src/front/front_57324.asm
+704D4,FightPunchMove,sub_704D4,new,low,move handler for a punch (crowd and sound),src/front/front_57324.asm
+708B0,FightIdleMove,sub_708B0,new,low,move handler for the fight idle,src/front/front_57324.asm
+708F4,FightEndMove,sub_708F4,new,low,move handler for the end of a fight,src/front/front_57324.asm
+709D0,FightBlockMove,sub_709D0,new,low,move handler for blocking in a fight,src/front/front_57324.asm
+70A14,FightDuckMove,sub_70A14,new,low,move handler for ducking in a fight,src/front/front_57324.asm
+70A58,FightHitMove,sub_70A58,new,low,move handler for being hit in a fight (sound),src/front/front_57324.asm
+70B38,FightPauseMove,sub_70B38,new,low,move handler for a pause in a fight,src/front/front_57324.asm
+70B74,FightJerseyMove,sub_70B74,new,low,move handler for a jersey pull (sound),src/front/front_57324.asm
+70C24,FightPositionMove,sub_70C24,new,low,places the fighters toward each other,src/front/front_57324.asm
+70D60,FightStepMove,sub_70D60,new,low,move handler for stepping in a fight,src/front/front_57324.asm
+70E48,FightSwingMove,sub_70E48,new,low,move handler for a swing in a fight,src/front/front_57324.asm
+71108,FightUppercutMove,sub_71108,new,low,move handler for an uppercut,src/front/front_57324.asm
+71298,FightStaggerMove,sub_71298,new,low,move handler for staggering,src/front/front_57324.asm
+71380,FightFaceMove,sub_71380,new,low,move handler with face morphs in a fight,src/front/front_57324.asm
+713E0,FightStartMove,sub_713E0,new,low,move handler for the start of a fight,src/front/front_57324.asm
+7147C,FightCircleMove,sub_7147C,new,low,move handler for circling in a fight,src/front/front_57324.asm
+71574,FightThrowMove,sub_71574,new,low,move handler for a throw,src/front/front_57324.asm
+716F8,FightFallMove,sub_716F8,new,low,move handler for falling in a fight,src/front/front_57324.asm
+71808,StartFightPunch,sub_71808,new,low,starts a punch in a fight,src/front/front_57324.asm
+71ABC,StartFightBlock,sub_71ABC,new,low,starts a block in a fight,src/front/front_57324.asm
+71D48,StartFightGrab,sub_71D48,new,low,starts a grab in a fight,src/front/front_57324.asm
+71E58,StartFightPull,sub_71E58,new,low,starts a jersey pull in a fight,src/front/front_57324.asm
 71F4C,StartFightAnim,sub_71F4C,new,low,from StartFight: the fighter's start move (SPA 176h or 159h by +0D0h),src/front/front_57324.asm
+71FD0,PlayCelebrationSound,sub_71FD0,new,low,plays a celebration sound,src/front/front_57324.asm
+72050,CelebrationMove,sub_72050,new,low,move handler for a goal celebration,src/front/front_57324.asm
+72170,CelebrationJumpMove,sub_72170,new,low,move handler for a celebration jump,src/front/front_57324.asm
+72324,CelebrationEndMove,sub_72324,new,low,move handler for the end of a celebration,src/front/front_57324.asm
+7242C,DejectedMove,sub_7242C,new,low,move handler for a dejected player,src/front/front_57324.asm
+724C8,DejectedSkateMove,sub_724C8,new,low,move handler for a dejected player skating away,src/front/front_57324.asm
+72564,CheerMove,sub_72564,new,low,move handler for cheering,src/front/front_57324.asm
+72648,BenchCheerMove,sub_72648,new,low,move handler for cheering on the bench,src/front/front_57324.asm
+7275C,SkateToBenchStep,sub_7275C,new,low,skates toward the bench,src/front/front_57324.asm
+7291C,SkateToBenchMove,sub_7291C,new,low,move handler for skating to the bench,src/front/front_57324.asm
+72A84,SimpleAnimMove,sub_72A84,new,low,move handler that plays an animation then ends,src/front/front_57324.asm
+72AF0,SkateToSpotStep,sub_72AF0,new,low,skates toward a spot,src/front/front_57324.asm
+72B78,SkateToSpotMove,sub_72B78,new,low,move handler for skating to a spot,src/front/front_57324.asm
+72BF8,PuckRetrieveMove,sub_72BF8,new,low,move handler for picking up the puck,src/front/front_57324.asm
+72C70,PeriodEndMove,sub_72C70,new,low,move handler for the end of a period,src/front/front_57324.asm
+72D74,PeriodEndSkateMove,sub_72D74,new,low,move handler for skating off at the end of a period,src/front/front_57324.asm
 72E58,RefAtDotAnim,sub_72E58,new,low,assrefatdot's referee move: SPA 107h (sub_5EEEC),src/front/front_57324.asm
 72E94,RefFaceoffAnim,sub_72E94,new,low,"puckfaceoff2's referee move: SPA 143h, with the referee's two sprite flags (sub_56D0C)",src/front/front_57324.asm
 72EF4,RefGoalPaAnim,sub_72EF4,new,low,assrefgoalpa's referee move: SPA 144h,src/front/front_57324.asm
 72F34,RefWhistleAnim,sub_72F34,new,low,"assrefwhistle's referee move, PeriodOver aware",src/front/front_57324.asm
 72FE8,RefSignalAnim,sub_72FE8,new,low,assrefsignal's referee move: SPA 146h,src/front/front_57324.asm
 73028,RefGoalLineAnim,sub_73028,new,low,"(ref, n) assrefgoalline's referee move: SPA from table dword_16C58C",src/front/front_57324.asm
+73070,SkateMoveStep,sub_73070,new,low,steps a skating move,src/front/front_57324.asm
+730C4,StartPokeAnim,sub_730C4,new,low,starts a poke check animation,src/front/front_57324.asm
+7320C,PokeCheckMove,sub_7320C,new,low,move handler for a poke check,src/front/front_57324.asm
+73464,StickSlashMove,sub_73464,new,low,move handler for a slash (sound),src/front/front_57324.asm
+73578,SweepCheckMove,sub_73578,new,low,move handler for a sweep check,src/front/front_57324.asm
+7370C,HookMove,sub_7370C,new,low,move handler for a hook (sound),src/front/front_57324.asm
+739B8,DiveMove,sub_739B8,new,low,move handler for a dive,src/front/front_57324.asm
+73A58,HoldPoseMoveJump,sub_73A58,new,low,jumps to the hold pose move,src/front/front_57324.asm
+73A60,GoalieFreezeMove,sub_73A60,new,low,move handler for the goalie freezing the puck,src/front/front_57324.asm
+73B3C,StartBlockAnim,sub_73B3C,new,low,starts a shot block animation,src/front/front_57324.asm
+73CE8,BlockReach,sub_73CE8,new,low,works out the reach of a block,src/front/front_57324.asm
+73F00,KneelMove,sub_73F00,new,low,move handler for kneeling,src/front/front_57324.asm
+73FBC,BlockShotMove,sub_73FBC,new,low,move handler for blocking a shot,src/front/front_57324.asm
+74708,BlockSlideMove,sub_74708,new,low,move handler for sliding to block,src/front/front_57324.asm
+747E8,GoalieCoverMove,sub_747E8,new,low,move handler for the goalie covering the puck,src/front/front_57324.asm
+74A20,GoalieRecoverMove,sub_74A20,new,low,move handler for the goalie getting up,src/front/front_57324.asm
+74B74,GoalieIdleMove,sub_74B74,new,low,move handler for the goalie idle,src/front/front_57324.asm
+74BA8,StartGoalieSave,sub_74BA8,new,low,starts a goalie save animation,src/front/front_57324.asm
+74C64,StartGoalieStance,sub_74C64,new,low,starts a goalie stance animation,src/front/front_57324.asm
+74CEC,PickSaveAnim,sub_74CEC,new,low,picks the goalie save animation from the shot,src/front/front_57324.asm
+74FA4,SaveDirection,sub_74FA4,new,low,works out the direction of a save,src/front/front_57324.asm
+75068,GoalieSave,sub_75068,new,low,goalie save: picks the save and starts it,src/front/front_57324.asm
+75500,GoalieMoves,sub_75500,new,low,goalie movement and saves,src/front/front_57324.asm
+75AE8,PuckDeflectAngle,sub_75AE8,new,low,works out the angle of a deflection,src/front/front_57324.asm
+75B94,PuckDeflect,sub_75B94,new,low,deflects the puck off a player,src/front/front_57324.asm
+75F14,AllocAnimNode,sub_75F14,new,low,takes a node from the free animation node list,src/front/front_57324.asm
+75F40,InsertAnimNode,sub_75F40,new,low,inserts an animation node after another,src/front/front_57324.asm
+75F70,AddAnimNode,sub_75F70,new,low,adds an animation node to a list,src/front/front_57324.asm
+75FA0,FreeAnimNode,sub_75FA0,new,low,returns an animation node to the free list,src/front/front_57324.asm
+75FE4,ResetAnimBlend,sub_75FE4,new,low,resets an animation blend and frees its children,src/front/front_57324.asm
 76010,LoadAnimFile,sub_76010,new,medium,"(name, ...): loads a "".4da"" animation file (_splitpath_ / _makepath_), from the InitAnimPoints loaders",src/front/front_57324.asm
+760C8,FindAnimByName,sub_760C8,new,low,finds an animation by name in an animation file,src/front/front_57324.asm
+7613C,GetAnimEntry,sub_7613C,new,low,returns an entry of an animation table,src/front/front_57324.asm
+76148,DecodeAnimTree,sub_76148,new,low,decodes an animation tree from the bit stream,src/front/front_57324.asm
+7629C,DecodeAnimChild,sub_7629C,new,low,decodes one child of an animation tree,src/front/front_57324.asm
+762E4,DecodeAnimFile,sub_762E4,new,low,decodes an animation file,src/front/front_57324.asm
+76380,ReadAnimValue,sub_76380,new,low,reads one value from the animation bit stream,src/front/front_57324.asm
+763BC,DecodeAnimFrame,sub_763BC,new,low,decodes one animation frame,src/front/front_57324.asm
+76698,DecodeAnimDelta,sub_76698,new,low,decodes the changes between animation frames,src/front/front_57324.asm
+76944,GetAnimId,sub_76944,new,low,returns the id of the current animation,src/front/front_57324.asm
+76954,UpdateObjectPose,sub_76954,new,low,decodes the current pose of an object,src/front/front_57324.asm
+76A1C,UpdateMovePose,sub_76A1C,new,low,decodes the pose of a move and its motion,src/front/front_57324.asm
+76D3C,UpdateAllPoses,sub_76D3C,new,low,decodes the poses of every object,src/front/front_57324.asm
+76E04,ScaleAnimTime,sub_76E04,new,low,scales the animation time,src/front/front_57324.asm
+76E20,SetAnimClock,sub_76E20,new,low,sets the animation clock,src/front/front_57324.asm
+76E28,AddAnimClock,sub_76E28,new,low,adds to the animation clock,src/front/front_57324.asm
+76E30,UpdateAnimBlends,sub_76E30,new,low,updates the animation blends,src/front/front_57324.asm
+76FB4,AnimClockTick,sub_76FB4,new,low,advances the animation clock,src/front/front_57324.asm
+76FE8,SetAnimFrame,sub_76FE8,new,low,sets an animation to a frame,src/front/front_57324.asm
+77014,SetAnimFlags,sub_77014,new,low,sets animation flags,src/front/front_57324.asm
+77018,ClearAnimFlags,sub_77018,new,low,clears animation flags; next entry sets the blend weight,src/front/front_57324.asm
+77048,InitAnimState,sub_77048,new,low,initialises an animation state,src/front/front_57324.asm
+7716C,AllocAnimStateBlocks,sub_7716C,new,low,allocates the animation state blocks,src/front/front_57324.asm
+7724C,StartAnim,sub_7724C,new,low,starts an animation,src/front/front_57324.asm
+772B8,StartAnimNow,sub_772B8,new,low,starts an animation without blending,src/front/front_57324.asm
+77310,BlendToAnim,sub_77310,new,low,blends into a new animation,src/front/front_57324.asm
+773C0,ChangeAnim,sub_773C0,new,low,changes a player's animation,src/front/front_57324.asm
+77590,InitAnimNodePool,sub_77590,new,low,sets up the free animation node list,src/front/front_57324.asm
+77610,FreeAnimStates,sub_77610,new,low,frees the animation states,src/front/front_57324.asm
 77630,AllocAnimStates,sub_77630,new,low,"(count): allocates the ""ANIMSTAT"" block (count x 358h) and clears it",src/front/front_57324.asm
+776F8,BuildCameraDebugView,sub_776F8,new,low,builds the camera debug view,src/front/front_57324.asm
+77838,DrawCameraPath,sub_77838,new,low,draws the camera path (debug),src/front/front_57324.asm
 779C8,LoadAiIcons,sub_779C8,new,low,"loads the ""cross"" icon shapes from aicons.viv",src/front/front_57324.asm
+77A30,FreeCameraDebug,sub_77A30,new,low,frees the camera debug view,src/front/front_57324.asm
 77A88,updateplayers,sub_77A88,94G,medium,"the per-frame player update: reads the joypads (ReadJoy1), runs each object's assignment from off_19C3F4, collisions and animation, as 94G updateplayers",src/front/front_57324.asm
 77F88,GameOver,sub_77F88,96PC,medium,sets gameover (word_19CBA0); 96 PC GameOver without its already-over check,src/front/front_57324.asm
+77F94,RequestPauseMenu,sub_77F94,new,low,asks for the in-game pause menu,src/front/front_57324.asm
+77FA8,CheckIntermission,sub_77FA8,new,low,runs the intermission when it is due,src/front/front_57324.asm
+78044,CupCelebration,sub_78044,new,low,runs the championship celebration,src/front/front_57324.asm
 780F0,clockcont_0,sub_780F0,94G,medium,"94G clockcont_0 (end of period; also entered from puckfaceoff): puck assinsert 41h, periods 1-2 AddPenalty2 end of period (PA event), later periods score / overtime / cup checks",src/front/front_57324.asm
 785E8,periodicevents,sub_785E8,94G,low,"from DoGameFrame before updateplayers: chkprogress, line changes (StartFaceoffLineChange), the Stanley Cup start (sub_780F0)",src/front/front_57324.asm
+78730,PlayCrowdAmbience,sub_78730,new,low,plays the crowd ambience sounds,src/front/front_57324.asm
 78810,DoGameFrame,sub_78810,95PC,medium,"one frame of game logic, from RunSimFrames, RunOpeningFrames and PlaceOpeningPlayers: periodicevents, updateplayers, then the crowd sounds and commentary",src/front/front_57324.asm
+78938,RandomCrowdDelay,sub_78938,new,low,picks a random crowd sound delay,src/front/front_57324.asm
+789F0,SimulateGame,sub_789F0,new,low,simulates a game without playing it,src/front/front_789F0.asm
+7A4D4,SimPlayerRating,sub_7A4D4,new,low,works out a player's rating for the simulation,src/front/front_789F0.asm
+7A6D8,SimTeamStrength,sub_7A6D8,new,low,works out a team's strength for the simulation,src/front/front_789F0.asm
+7A9D8,BuildSeasonSchedule,sub_7A9D8,new,low,builds the season schedule and player stats,src/front/front_7A9D8.asm
+7B15D,UpdateTeamLines,sub_7B15D,new,low,updates a team's lines after a game,src/front/front_7A9D8.asm
+7B4E4,BuildRosterLines,sub_7B4E4,new,low,builds a team's lines,src/front/front_7A9D8.asm
+7B84B,PlayerInjuryDays,sub_7B84B,new,low,returns the days a player is injured,src/front/front_7A9D8.asm
+7B85A,FindInjuryEntry,sub_7B85A,new,low,finds an injury entry,src/front/front_7A9D8.asm
+7B88D,CheckLeagueInjuries,sub_7B88D,new,low,checks the league injuries after a game,src/front/front_7A9D8.asm
+7BB27,ClearTeamInjuries,sub_7BB27,new,low,clears the injuries of both teams,src/front/front_7A9D8.asm
+7BBB0,FadeMovieOut,sub_7BBB0,new,low,fades out the movie,src/front/front_7A9D8.asm
+7BC34,MovieKeyPressed,sub_7BC34,new,low,returns whether a key was pressed during a movie,src/front/front_7A9D8.asm
+7BC68,OpenMovieStream,sub_7BC68,new,low,opens the movie stream,src/front/front_7A9D8.asm
 7BCF0,OpenVideoStream,sub_7BCF0,new,low,"opens the movie's ""VIDEO"" stream (CdStreamOpenSecondary, CdStreamStart)",src/front/front_7A9D8.asm
+7BE04,CloseMovie,sub_7BE04,new,low,closes the movie,src/front/front_7A9D8.asm
+7BF64,DecodeMovieFrame,sub_7BF64,new,low,decodes a movie frame,src/front/front_7A9D8.asm
+7C038,PlayMovieFrames,sub_7C038,new,low,plays the movie frames,src/front/front_7A9D8.asm
 7C3EC,PlayMovie,sub_7C3EC,new,low,"plays a movie file (""AUDSTRMHACK"" audio, OpenVideoStream), from sub_4A4F4",src/front/front_7A9D8.asm
 7C600,putchar,,96PC,medium,NHL96PC 17675 (sem): S:ATZS7=60S11=55; D:164110,
 7C614,ModemReset,sub_7C614,new,low,"sends the modem set-up string ""ATE1Q0X4F1""",src/front/front_7A9D8.asm
@@ -671,164 +1239,679 @@ address,name,auto_name,source,confidence,evidence,file
 7CA1C,ModemAttention,sub_7CA1C,96PC,medium,NHL96PC 17AC7 (similar 0.86): mnemonic similarity 0.86 over 63 instructions,src/front/front_7A9D8.asm
 7CAB4,ModemSpeakerOff,sub_7CAB4,new,low,"sends ""ATM0""",src/front/front_7A9D8.asm
 7CADA,LoadLogoNames,sub_7CADA,new,low,"loads the ""logo names"" block from the logo%02d.qfs files",src/front/front_7A9D8.asm
+7CB8C,FreeTempArt,sub_7CB8C,new,low,frees the temporary art,src/front/front_7A9D8.asm
 7CBD6,InitFrontEnd,sub_7CBD6,new,low,"front-end start-up (also after a game): input devices (mous / remo), the front-end art and the team logo names",src/front/front_7A9D8.asm
 7CDD8,FreeFrontEnd,sub_7CDD8,new,low,undoes InitFrontEnd and saves GLOBAL.SET (WriteGlobalSet),src/front/front_7A9D8.asm
 7CE9E,RunFrontEnd,sub_7CE9E,96PC,medium,"96 PC RunFrontEnd: the front end, from main_: picks the front-end music, shows the title, then runs the screen with the current number (main menu, game screens 4-9 through RunGameScreens, credits, ...) until quit",src/front/front_7A9D8.asm
 7CF94,TitleScreen,sub_7CF94,new,low,"the title screen at front-end start (BACK, LOGO) with its PA announcement",src/front/front_7A9D8.asm
 7D059,main_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+7D539,CheckDiskSpace,sub_7D539,new,low,checks the free space on the current drive,src/front/main/main.asm
+7D830,DrawShadedButton,sub_7D830,new,low,draws a button into a work bitmap with shading,src/front/main/main.asm
+7D92C,DrawShadedField,sub_7D92C,new,low,draws a text field into a work bitmap with shading,src/front/main/main.asm
+7DA28,ShadeShape,sub_7DA28,new,low,draws a shape darkened or lightened in high colour modes,src/front/main/main.asm
+7DFC0,DrawShadedLogo,sub_7DFC0,new,low,draws a logo with a shaded backing in high colour modes,src/front/main/main.asm
+7E52C,DrawShadowBox,sub_7E52C,new,low,darkens a box behind menu text in high colour modes,src/front/main/main.asm
+7E860,DrawScreenBackground,sub_7E860,new,low,draws a menu screen background and title bar,src/front/main/main.asm
+7EDF0,FadeInScreen,sub_7EDF0,new,low,copies the drawn screen to the display (fade in),src/front/main/main.asm
+7EEB0,ShowScreen,sub_7EEB0,new,low,copies the drawn screen to the display,src/front/main/main.asm
+7EF70,ExitScreen,sub_7EF70,new,low,leaves a menu screen with its sound and waits for the other computer,src/front/main/main.asm
 7F028,SetRegionRect,sub_7F028,new,low,"(region, x, y, w, h): stores the rectangle twice (x0, y0, x1, y1)",src/front/main/main.asm
+7F04C,DrawEditBox,sub_7F04C,new,low,draws the box of a text edit field,src/front/main/main.asm
 7F0D8,SetTextColor,sub_7F0D8,new,low,(pixel colour): builds the font colour tables (sub_FE180) for text drawn next with DrawTextAligned; cached on the last colour,src/front/main/main.asm
 7F16C,DrawTextAligned,sub_7F16C,new,low,"(align, x, y, ..., format, ...): sprintf-style text drawn left (0), centred (1) or right (2) of x",src/front/main/main.asm
+7F29C,DrawFrameBox,sub_7F29C,new,low,draws a framed box,src/front/main/main.asm
+7F5A4,ShowMessageBox,sub_7F5A4,new,low,shows a message box and waits for a key,src/front/main/main.asm
+7F5B8,ShowMessageBoxNoWait,sub_7F5B8,new,low,shows a message box,src/front/main/main.asm
+7F5CC,MessageBox,sub_7F5CC,new,low,draws and runs a message box,src/front/main/main.asm
+7FE38,EditTextField,sub_7FE38,new,low,edits a text field,src/front/main/main.asm
+7FE4C,EditFileName,sub_7FE4C,new,low,edits a file name field,src/front/main/main.asm
+7FE60,InitKeyCharMap,sub_7FE60,new,low,builds the key to character map used by text editing,src/front/main/main.asm
 7FEC4,EditText,sub_7FEC4,96PC,medium,"NHL96PC EditText 197ED: same 394h text buffer, eax/edx/ebx/ecx + stack args, reads keys (sub_FBE40) and handles backspace/enter; called by every name entry through sub_7FE38/sub_7FE4C",src/front/main/main.asm
 80758,LoadTeamLogo,sub_80758,new,low,"(team): frees the last one and loads a team's logo art (LOGO, unpacked into an ""UNPACKLOGO"" block)",src/front/main/main.asm
+80808,FreeLogoArt,sub_80808,new,low,frees the loaded logo art,src/front/main/main.asm
+80828,DrawTeamBanner,sub_80828,new,low,draws a team banner with its logo,src/front/main/main.asm
+80A38,DrawMatchBanner,sub_80A38,new,low,draws the banner for a match,src/front/main/main.asm
+80AB8,DrawTeamLogoBanner,sub_80AB8,new,low,loads a team logo and draws its banner,src/front/main/main.asm
+80B28,DrawProgressBar,sub_80B28,new,low,draws a progress bar,src/front/main/main.asm
+80BBC,WipeScreen,sub_80BBC,new,low,plays the screen change sound and wipes to the new screen,src/front/main/main.asm
+80F48,DrawRosterPanelBox,sub_80F48,new,low,draws a roster panel box,src/front/main/main.asm
+81114,DrawEntryList,sub_81114,new,low,draws a list of entries,src/front/main/main.asm
+81468,DrawEntryRow,sub_81468,new,low,draws one entry row,src/front/main/main.asm
+815F8,FindColorRange,sub_815F8,new,low,finds the colour range that holds a colour,src/front/main/main.asm
+81650,SetHighlightText,sub_81650,new,low,sets the highlighted text colours,src/front/main/main.asm
+81678,SetNormalText,sub_81678,new,low,sets the normal text colours,src/front/main/main.asm
+816A4,PoundsToKg,sub_816A4,new,low,converts a weight in pounds to kilograms,src/front/main/main.asm
+816BC,InchesToCm,sub_816BC,new,low,converts a height in inches to centimetres,src/front/main/main.asm
+816E8,PlayerBioScreen,sub_816E8,new,low,shows a player's biography,src/front/main/main.asm
+81D1C,DrawStatTable,sub_81D1C,new,low,draws a table of stats,src/front/main/main.asm
+821CC,DrawPortraitRow,sub_821CC,new,low,draws one row of a portrait,src/front/main/main.asm
+823F0,DrawPortrait,sub_823F0,new,low,draws a portrait with its palette,src/front/main/main.asm
+82FB8,ShowStatScreen,sub_82FB8,new,low,copies a stats screen to the display,src/front/main/main.asm
+830D4,DrawStatHeader,sub_830D4,new,low,draws the header of a stats table,src/front/main/main.asm
+83314,ShowWorkingBox,sub_83314,new,low,"shows the ""working"" box",src/front/main/main.asm
+83334,DrawWorkingBox,sub_83334,new,low,"draws the ""working"" box",src/front/main/main.asm
+834EC,UpdateWorkingBox,sub_834EC,new,low,"updates the progress bar of the ""working"" box",src/front/main/main.asm
+83558,HideWorkingBox,sub_83558,new,low,"hides the ""working"" box",src/front/main/main.asm
+835AC,ShowLinkWait,sub_835AC,new,low,shows the link waiting box,src/front/main/main.asm
+835BC,ShowLinkMessage,sub_835BC,new,low,shows a link message box,src/front/main/main.asm
+835CC,DrawLinkBox,sub_835CC,new,low,draws a link message box,src/front/main/main.asm
+83850,HideLinkBox,sub_83850,new,low,hides the link message box,src/front/main/main.asm
+838A8,DrawHighlightBar,sub_838A8,new,low,draws a highlight bar in high colour modes,src/front/main/main.asm
+83BF4,WaitShortDelay,sub_83BF4,new,low,waits ten timer ticks,src/front/main/main.asm
+83C08,ShowPopupScreen,sub_83C08,new,low,shows a popup screen with a sound,src/front/main/main.asm
+83D4C,DrawStatsBackground,sub_83D4C,new,low,draws the stats screen background,src/front/main/main.asm
+84024,FreeStatsBitmap,sub_84024,new,low,frees the stats screen bitmap,src/front/main/main.asm
+84068,ShowStatsScreen,sub_84068,new,low,copies the stats screen to the display,src/front/main/main.asm
+840F8,SaveStatsScreen,sub_840F8,new,low,saves the stats screen to a bitmap,src/front/main/main.asm
+84138,RestoreStatsScreen,sub_84138,new,low,restores the stats screen and changes the music,src/front/main/main.asm
+84170,DrawListHighlight,sub_84170,new,low,draws a highlighted list entry,src/front/main/main.asm
 84204,ShowLoadingScreen,sub_84204,new,medium,"from PlayMenuGame and RunDemoGame: loads a picture and draws ""Loading..."" before the game",src/front/main/main.asm
+842E8,ClearMenuGameFlag,sub_842E8,new,low,clears the menu game flag,src/front/main/main.asm
+842F4,ShowLoadingBar,sub_842F4,new,low,shows the loading progress bar,src/front/main/main.asm
+84330,TintPortrait,sub_84330,new,low,tints a portrait in high colour modes,src/front/main/main.asm
+84570,ChangeMenuMusic,sub_84570,new,low,picks and starts new menu music,src/front/main/main.asm
+845E4,MainMenuAnim,sub_845E4,new,low,animates the main menu,src/front/front_845E4.asm
 84B55,MainMenuScreen,sub_84B55,96PC,medium,"96 PC MainMenuScreen: the main menu (""menu"", MB01-MB11 buttons, PIC%d%c pictures); checks which of EXHIBIT / SEASON / PLAYOFF.NDX exist; returns the next screen",src/front/front_845E4.asm
 85A15,RunGameScreens,sub_85A15,new,low,"(screen): from RunFrontEnd, runs the game set-up screens by number (team select 4, pick saves 5/7/9, new season 6, new play-offs 8, season 0Ch, play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h, roster 19h) until one returns to the main menu",src/front/front_845E4.asm
 85D1D,RunStatsMenu,sub_85D1D,96PC,medium,"96 PC RunStatsMenu: from the main menu (RunFrontEnd 2), the season menus and the play-offs: loads the season's stats and runs the stats screens",src/front/front_845E4.asm
+85E1E,StatsMenuScreen,sub_85E1E,new,low,runs the stats menu screen,src/front/front_845E4.asm
 86300,NameIndexNew,sub_86300,96PC,medium,NHL96PC 19384 (similar 0.93): mnemonic similarity 0.93 over 34 instructions,src/front/front_845E4.asm
 86368,NameIndexLoad,sub_86368,96PC,medium,NHL96PC 193E8 (sem 1.00): C:2120; C:1834; C:2265; C:1833,src/front/front_845E4.asm
 86424,NameIndexSave,sub_86424,96PC,medium,NHL96PC 19491 (sem 1.00): C:2514; R:1135; C:1834; C:2265,src/front/front_845E4.asm
 864C4,NameIndexFree,sub_864C4,96PC,medium,NHL96PC 19522 (similar 0.82): mnemonic similarity 0.82 over 25 instructions,src/front/front_845E4.asm
+86500,LoadNameIndex,sub_86500,new,low,loads a name index file,src/front/front_845E4.asm
 86644,NameIndexRemove,sub_86644,96PC,medium,NHL96PC 19659 (sem 1.00): S:NAMEINDEX; D:165310; K:2C093; C:1858,src/front/front_845E4.asm
+86718,NameIndexCount,sub_86718,new,low,returns the number of entries in a name index,src/front/front_845E4.asm
 86754,NameIndexPath,sub_86754,96PC,medium,NHL96PC 19731 (sem 0.94): D:16531C; C:1834; C:2265; C:1833,src/front/front_845E4.asm
+867D4,NameIndexLimit,sub_867D4,new,low,returns the entry limit of a name index,src/front/front_845E4.asm
+867F0,WritePhonebookFile,sub_867F0,new,low,writes the phonebook file,src/front/front_845E4.asm
+86878,OpenPhonebookFile,sub_86878,new,low,opens the phonebook file for writing,src/front/front_845E4.asm
+868CD,SavePhonebook,sub_868CD,new,low,saves the phonebook,src/front/front_868CD.asm
+86936,AddPhonebookEntry,sub_86936,new,low,adds an entry to the phonebook,src/front/front_868CD.asm
 869BB,LoadPhonebook,sub_869BB,new,low,"modem settings: reads the ""phonebook"" file",src/front/front_868CD.asm
+86A45,ReadPhonebook,sub_86A45,new,low,reads the phonebook,src/front/front_868CD.asm
+86A96,CopyModemString,sub_86A96,new,low,copies a modem setting string,src/front/front_868CD.asm
+86AFA,SetModemButton,sub_86AFA,new,low,sets up a modem screen button,src/front/front_868CD.asm
+86B73,SetModemArrow,sub_86B73,new,low,sets up a modem screen arrow,src/front/front_868CD.asm
+86BD0,DrawPhonebookField,sub_86BD0,new,low,draws a phonebook field,src/front/front_868CD.asm
 86CB1,PhonebookEntryScreen,sub_86CB1,new,low,"modem settings: names a phone book entry (""Please enter a name for this phone book entry""), from ModemSettingsScreen",src/front/front_868CD.asm
+87523,LayoutModemList,sub_87523,new,low,lays out the modem list,src/front/front_868CD.asm
+8769F,LayoutPortList,sub_8769F,new,low,lays out the port list,src/front/front_868CD.asm
+8781C,LayoutSpeedList,sub_8781C,new,low,lays out the speed list,src/front/front_868CD.asm
+8793E,DrawModemField,sub_8793E,new,low,draws a modem field,src/front/front_868CD.asm
 87B57,ModemSettingsScreen,sub_87B57,96PC,low,"96 PC ModemSettingsScreen: the modem settings screen (CP00-CP10 buttons, ""Generic Hayes-Compatible"" default)",src/front/front_868CD.asm
 88EDC,DrawNoNetworkServices,sub_88EDC,new,low,"network games screen: draws ""No Network Services Are Available""",src/front/front_868CD.asm
+88FD8,DrawNetworkStatus,sub_88FD8,new,low,draws the network status line,src/front/front_868CD.asm
 8907B,NetworkGamesScreen,sub_8907B,new,low,"the network game list screen (TPB0-TPB5, SERVLIST)",src/front/front_868CD.asm
+89CD6,DrawConnectScreen,sub_89CD6,new,low,draws the connect screen,src/front/front_868CD.asm
 8A81B,ModemConnectScreen,sub_8A81B,new,low,"from RunModemConnect: the modem connect screen (MOD2, BG00 / BG01)",src/front/front_868CD.asm
+8AAE5,ModemConnect,sub_8AAE5,new,low,connects by modem,src/front/front_868CD.asm
+8B145,NetworkConnect,sub_8B145,new,low,connects by network,src/front/front_868CD.asm
 8BA36,NetworkConnectScreen,sub_8BA36,new,low,"from RunNetworkConnect: the network connect screen (NET2, LoadServerList, DrawNoNetworkServices)",src/front/front_868CD.asm
 8BDCF,RunNetworkConnect,sub_8BDCF,new,low,"from RunFrontEnd (18h): the network (IPX) game list first, then the modem settings screen, until connected or back",src/front/front_868CD.asm
 8BE23,RunModemConnect,sub_8BE23,new,low,"from RunFrontEnd: the modem settings screen first, then the network game list, until connected or back",src/front/front_868CD.asm
+8BE60,CreateMenuBitmap,sub_8BE60,new,low,creates the menu work bitmap,src/front/front_868CD.asm
+8BEF8,FreeMenuBitmap,sub_8BEF8,new,low,frees the menu work bitmap,src/front/front_868CD.asm
 8BF54,InitMenuItems,sub_8BF54,96PC,medium,NHL96PC 64721 (similar 0.81): mnemonic similarity 0.81 over 32 instructions,src/front/front_868CD.asm
+8BFA0,SetMenuSelection,sub_8BFA0,new,low,sets the menu selection,src/front/front_868CD.asm
+8BFAC,RunMenu,sub_8BFAC,new,low,"runs a menu: input, highlight, sounds and link sync",src/front/front_8BFAC.asm
+8D5C0,ScrollPosToValue,sub_8D5C0,new,low,converts a scroll bar position to a value,src/front/front_8BFAC.asm
+8D6B4,ResetMouseInput,sub_8D6B4,new,low,resets the mouse input,src/front/front_8BFAC.asm
+8D6E0,SetMenuMode,sub_8D6E0,new,low,sets the menu mode,src/front/front_8BFAC.asm
+8D6E8,SetupMenuView,sub_8D6E8,new,low,sets up the menu view,src/front/front_8BFAC.asm
+8D910,RestoreMenuView,sub_8D910,new,low,restores the menu view,src/front/front_8BFAC.asm
+8D956,InitScrollList,sub_8D956,new,low,sets up a scrolling list,src/front/front_8BFAC.asm
+8DBAC,InitScrollTable,sub_8DBAC,new,low,sets up a scrolling table,src/front/front_8BFAC.asm
+8DE0F,NoOpReturn,sub_8DE0F,new,low,returns at once,src/front/front_8BFAC.asm
+8DE10,ScrollUp,sub_8DE10,new,low,scrolls a list up one line,src/front/front_8BFAC.asm
 8DE19,DrawScrollBar,sub_8DE19,96PC,medium,"96 PC DrawScrollBar, same structure",src/front/front_8BFAC.asm
+8DE68,ScrollDown,sub_8DE68,new,low,scrolls a list down one line,src/front/front_8BFAC.asm
+8DE7E,FreeScrollList,sub_8DE7E,new,low,frees a scrolling list,src/front/front_8BFAC.asm
 8DE9D,SetScrollBarPos,sub_8DE9D,96PC,low,"96 PC SetScrollBarPos, the call after DrawScrollBar at the same places",src/front/front_8BFAC.asm
+8DEAC,ScrollToMouse,sub_8DEAC,new,low,scrolls a list to the mouse position,src/front/front_8BFAC.asm
+8DF1F,RunScrollList,sub_8DF1F,new,low,runs a scrolling list,src/front/front_8BFAC.asm
+8E2EE,RunScrollMenu,sub_8E2EE,new,low,runs a scrolling menu,src/front/front_8BFAC.asm
+8E6AF,SetListSelection,sub_8E6AF,new,low,sets the selection of a list,src/front/front_8BFAC.asm
 8E740,LoadLangText,sub_8E740,96PC,medium,96 PC LoadLangText: loads the front-end text file for the language (file ids 33h-35h) into dword_16CD54,src/front/front_8BFAC.asm
 8E790,LoadLangTextB,sub_8E790,new,low,"LoadLangText for the second text set (file ids 0D6h-0D8h), used by the network screens and after a game",src/front/front_8BFAC.asm
 8E7E0,GetLangText,sub_8E7E0,96PC,medium,"96 PC GetLangText: (text id) the text for an id from the loaded language text (8-byte entries), or the default string",src/front/front_8BFAC.asm
 8E840,FreeLangText,sub_8E840,96PC,medium,96 PC FreeLangText: frees the language text,src/front/front_8BFAC.asm
+8E870,PositionAbbrev,sub_8E870,new,low,returns the abbreviation of a position,src/front/front_8BFAC.asm
 8E997,RunNewSeason,sub_8E997,new,low,"screen 6: sets up a new season (copies the set-up, NewSeasonScreen, roster, import agents)",src/front/front_8E997.asm
+8EBDF,NewSeasonSound,sub_8EBDF,new,low,plays a new season screen sound,src/front/front_8E997.asm
 8EC93,NewSeasonScreen,sub_8EC93,96PC,medium,"96 PC NewSeasonScreen: the new season set-up screen (""newmenu"", TTLW, WC00/WC01, 012R-014R)",src/front/front_8E997.asm
 8FA67,CreateSeason,sub_8FA67,new,low,"creates the new season: seeds rand from the time, picks a free SEAS%04d.SET name and adds it to SEASON.NDX",src/front/front_8E997.asm
 8FFCF,RunSeasonMenus,sub_8FFCF,96PC,low,"96 PC RunSeasonMenus: screen 0Ch, runs the season screens (season menu, standings, play-off tree, roster) until they leave",src/front/front_8E997.asm
+900AE,SeasonMenuSparkle,sub_900AE,new,low,plays a season menu sound and sparkle,src/front/front_8E997.asm
 90162,SeasonMenuScreen,sub_90162,96PC,low,"96 PC SeasonMenuScreen: the season menu (""menu"", SD00-SD03, RL00, SN00, SR00 ...)",src/front/front_8E997.asm
+91289,StandingsSparkle,sub_91289,new,low,draws a random standings sparkle,src/front/front_8E997.asm
 912E3,StandingsScreen,sub_912E3,96PC,medium,"96 PC StandingsScreen: the standings screen (""standmenu"", factoids, BGWS, TTLW)",src/front/front_8E997.asm
+91D07,CompareStandingsValue,sub_91D07,new,low,sort helper: compares two standings values,src/front/front_8E997.asm
+91D1C,CompareStandings,sub_91D1C,new,low,sort helper: compares two teams in the standings,src/front/front_8E997.asm
+91D7F,SortStandings,sub_91D7F,new,low,sorts the standings,src/front/front_8E997.asm
 91F74,BuildStandingsFactoids,sub_91F74,new,low,"standings screen: builds the ""ptlist"" / ""idlist"" factoid lines (""%s, %s %s %d %s (%s)."")",src/front/front_8E997.asm
 925BE,SeasonSettingsPath,sub_925BE,new,low,"(n, buf): the season settings file name ""%sSEAS%d.SET""",src/front/front_8E997.asm
+9260A,SeasonYearText,sub_9260A,new,low,formats the season year,src/front/front_8E997.asm
+926BD,DrawSeasonTitle,sub_926BD,new,low,draws the season title,src/front/front_8E997.asm
+9279A,FindSeasonReplay,sub_9279A,new,low,finds a saved replay of the season,src/front/front_8E997.asm
 9281C,LinkTransferSetup,sub_9281C,new,low,"link games: from RunNewSeason, RunNewPlayoffs and TeamSelectScreen, swaps the set-up data with the other computer (""Transferring data..."")",src/front/front_8E997.asm
 92DB7,LoadFakeExhibition,sub_92DB7,new,low,"for the roster screen: loads the exhibition file into ""fakeEXHIBIT"" / ""fakeAGENTS"" copies",src/front/front_8E997.asm
 92E37,SaveAgents,sub_92E37,new,low,"writes the ""agents"" (free agents) table back (SaveExhibitionFile)",src/front/front_8E997.asm
+92EE2,SaveAgentsOnly,sub_92EE2,new,low,saves the free agents,src/front/front_8E997.asm
+92F25,SaveTradesLink,sub_92F25,new,low,saves the trades and exchanges them over the link,src/front/front_8E997.asm
+92FE9,SetPlayoffFormat,sub_92FE9,new,low,sets the playoff format,src/front/front_8E997.asm
+93005,DrawPlayoffSetup,sub_93005,new,low,draws the playoff setup screen,src/front/front_93005.asm
+93480,PlayoffSetupSound,sub_93480,new,low,plays a playoff setup sound,src/front/front_93005.asm
 93512,RunNewPlayoffs,sub_93512,new,low,"screen 8: sets up new play-offs (copies the set-up, PlayoffSetupScreen, roster, import agents)",src/front/front_93005.asm
 936BE,PlayoffSetupScreen,sub_936BE,96PC,low,"96 PC PlayoffSetupScreen: the new play-offs screen (""playoffmenu"", TITL, 012R-014R, the option toggles SCOF/SCON ...)",src/front/front_93005.asm
 9401D,CreatePlayoffs,sub_9401D,new,low,creates the new play-offs: picks a free PLAY%04d.SET name and adds it to PLAYOFF.NDX,src/front/front_93005.asm
+945A7,EditPlayoffTeamName,sub_945A7,new,low,edits a playoff team name,src/front/front_93005.asm
+94643,DrawPlayoffTeam,sub_94643,new,low,draws a playoff team,src/front/front_93005.asm
+948B7,DrawPlayoffTree,sub_948B7,new,low,draws the playoff tree,src/front/front_93005.asm
 94B30,RunPlayoffMenus,sub_94B30,96PC,low,"96 PC RunPlayoffMenus: screen 0Dh, runs the play-off screens (play-off tree, standings, roster) until they leave",src/front/front_93005.asm
 94BDA,PlayoffTreeScreen,sub_94BDA,96PC,low,"96 PC PlayoffTreeScreen: the play-off tree screen (""playoffmenu"", ""pieces"", pan2 / pan6, 01RU, 01SR ...)",src/front/front_93005.asm
 96019,PlayoffSettingsPath,sub_96019,new,low,"(n, buf): the play-off file names ""%sSEAS%d.PLY"" / ""%sPLAY%d.SET""",src/front/front_93005.asm
+96083,DrawPlayoffTitle,sub_96083,new,low,draws the playoff title,src/front/front_93005.asm
+961AA,ClearPlayoffTree,sub_961AA,new,low,clears the playoff tree,src/front/front_93005.asm
+961E2,FillPlayoffTree,sub_961E2,new,low,fills the playoff tree,src/front/front_93005.asm
 9623E,EditLinesScreen,sub_9623E,96PC,medium,"96 PC EditLinesScreen: (team, line) the edit lines screen (""edit lines menu"" / ""edit lines regions"")",src/front/front_9623E.asm
 96B32,InitEditLinesScreen,sub_96B32,new,low,"from EditLinesScreen: creates its bitmap and menu items and draws the title and line art (TITL, STKL, STCR, ...)",src/front/front_9623E.asm
+96E85,LayoutLinesCard,sub_96E85,new,low,lays out the player card of the lines screen,src/front/front_9623E.asm
+97228,DrawLinesCardLogo,sub_97228,new,low,draws the team logo on the lines player card,src/front/front_9623E.asm
+9732A,EditLinesSetup,sub_9732A,new,low,loads the art and data of the edit lines screen,src/front/front_9623E.asm
 97AE7,AllocTempGameTeam,sub_97AE7,new,low,"edit lines: allocates the ""temp game team"" block and draws the arena button (SW00, AR%02d)",src/front/front_9623E.asm
 97C32,FreeEditLinesScreen,sub_97C32,new,low,from EditLinesScreen when it leaves: frees its bitmaps and blocks,src/front/front_9623E.asm
+97D16,CopyTeamRoster,sub_97D16,new,low,copies a team roster into the temporary game team,src/front/front_9623E.asm
+97F7F,CountHealthyPlayers,sub_97F7F,new,low,counts the healthy players in the lines,src/front/front_9623E.asm
+980B3,LoadLinesForTeam,sub_980B3,new,low,loads the lines of one team,src/front/front_9623E.asm
+981EE,HomePlayerRecord,sub_981EE,new,low,returns the home team record of a roster slot,src/front/front_9623E.asm
+98231,AwayPlayerRecord,sub_98231,new,low,returns the away team record of a roster slot,src/front/front_9623E.asm
 98274,LoadEditLinesRoster,sub_98274,new,low,"edit lines: allocates and fills the ""roster"" table for the team",src/front/front_9623E.asm
+984D3,FindPlayerInLines,sub_984D3,new,low,finds a player in the lines,src/front/front_9623E.asm
 98642,EditLinesGridScreen,sub_98642,new,low,"from EditLinesScreen: the line grid (Player Status, ESD, PP, PK, L1-L4, D1-D3, 5PP1 ... 3PK2 columns)",src/front/front_9623E.asm
 99992,DrawScoringLines,sub_99992,new,low,"edit lines grid: the ""Scoring Line %d"" rows (SL%02d)",src/front/front_9623E.asm
+99CC5,DrawLinesCell,sub_99CC5,new,low,draws one cell of the lines grid,src/front/front_9623E.asm
+99D40,DrawLinesGridArt,sub_99D40,new,low,draws the art of the lines grid,src/front/front_9623E.asm
+99DAC,FillStatBar,sub_99DAC,new,low,fills a stat bar,src/front/front_9623E.asm
+99E41,DrawLinesGridHeader,sub_99E41,new,low,draws the header of the lines grid,src/front/front_9623E.asm
+9A0EC,DrawForwardLines,sub_9A0EC,new,low,draws the forward lines grid,src/front/front_9623E.asm
+9A389,DrawDefenceLines,sub_9A389,new,low,draws the defence pairs grid,src/front/front_9623E.asm
+9A603,DrawSpecialLines,sub_9A603,new,low,draws the special teams lines grid,src/front/front_9623E.asm
 9A89E,DrawPlayerLines,sub_9A89E,new,low,"edit lines: ""%s %s is currently on these lines:"" for the highlighted player",src/front/front_9623E.asm
 9AADF,DrawPlayerHealth,sub_9AADF,new,low,"edit lines grid: the player's health (""Healthy"" or days out, ""%s %s -"")",src/front/front_9623E.asm
+9AC57,DrawLinesScreen,sub_9AC57,new,low,draws the edit lines screen,src/front/front_9623E.asm
+9B25A,SetLinesListPos,sub_9B25A,new,low,sets the lines list position,src/front/front_9623E.asm
+9B2A8,DrawLinesLabel,sub_9B2A8,new,low,draws a label of the lines screen,src/front/front_9623E.asm
+9B39F,InitLinesLabelList,sub_9B39F,new,low,sets up the list box of a lines label,src/front/front_9623E.asm
+9B418,InitLinesList,sub_9B418,new,low,sets up the lines list box,src/front/front_9623E.asm
+9B45C,DrawLinesPlayerCard,sub_9B45C,new,low,draws the lines screen player card,src/front/front_9623E.asm
+9B4AA,DrawLinesCardDetails,sub_9B4AA,new,low,draws the details on the lines player card,src/front/front_9623E.asm
+9BAC1,DrawRatingMeter,sub_9BAC1,new,low,draws a rating meter,src/front/front_9623E.asm
+9BB40,DrawRatingMeterArt,sub_9BB40,new,low,draws the art of a rating meter,src/front/front_9623E.asm
+9BBDF,RatingMeterColour,sub_9BBDF,new,low,picks the colour of a rating meter,src/front/front_9623E.asm
+9BC01,DrawRatingMeters,sub_9BC01,new,low,draws the rating meters,src/front/front_9623E.asm
+9BDA1,DrawCardRatings,sub_9BDA1,new,low,draws the ratings on the lines player card,src/front/front_9623E.asm
+9C3BF,LoadLinesArt,sub_9C3BF,new,low,loads the lines screen art,src/front/front_9623E.asm
 9C573,LoadEditLinesArt,sub_9C573,new,low,edit lines: opens the art library and loads the FART / LOGO pictures,src/front/front_9623E.asm
+9C7B7,ShowLinesIntro,sub_9C7B7,new,low,shows the lines screen intro,src/front/front_9623E.asm
+9C924,DrawLinesIntroText,sub_9C924,new,low,draws the lines intro text,src/front/front_9623E.asm
+9CCB1,LinesIntroSound,sub_9CCB1,new,low,plays a random lines intro sound,src/front/front_9623E.asm
+9CD63,LinesIntroSparkle,sub_9CD63,new,low,draws a random sparkle on the lines intro,src/front/front_9623E.asm
+9CE1D,ShowLinesPopup,sub_9CE1D,new,low,shows a lines screen popup,src/front/front_9623E.asm
+9CF95,CompareByRating,sub_9CF95,new,low,sort helper: compares two entries by rating,src/front/front_9623E.asm
+9CFA2,CompareGoalieFirst,sub_9CFA2,new,low,sort helper: puts goalies first,src/front/front_9623E.asm
+9CFD3,SortRosterByRating,sub_9CFD3,new,low,sorts a roster by rating,src/front/front_9623E.asm
+9D2D0,ClearAndBuildLines,sub_9D2D0,new,low,clears and builds the lines,src/front/front_9623E.asm
+9D333,BuildAutoLines,sub_9D333,new,low,builds the lines automatically from the ratings,src/front/front_9623E.asm
+9D822,SortLinesCandidates,sub_9D822,new,low,sorts the candidates for the lines,src/front/front_9623E.asm
+9D903,ClearLineSlots,sub_9D903,new,low,clears the line slots,src/front/front_9623E.asm
+9DA9D,IsInLines,sub_9DA9D,new,low,returns whether a player is already in the lines,src/front/front_9623E.asm
+9DACE,FindBestForSlot,sub_9DACE,new,low,finds the best player for a line slot,src/front/front_9623E.asm
+9DB3C,FindBestCenter,sub_9DB3C,new,low,finds the best centre for a line,src/front/front_9623E.asm
+9DBD5,FindBestWinger,sub_9DBD5,new,low,finds the best winger for a line,src/front/front_9623E.asm
+9DC7B,FindBestDefence,sub_9DC7B,new,low,finds the best defenceman for a pair,src/front/front_9623E.asm
+9DD65,FillLineSlots,sub_9DD65,new,low,fills the line slots,src/front/front_9623E.asm
+9DEC2,FillAllLines,sub_9DEC2,new,low,fills all the lines,src/front/front_9623E.asm
 9E35E,DrawHomeTeamPanel,sub_9E35E,96PC,low,96 PC DrawHomeTeamPanel: the home team's panel on the team select screen (HOM1 / HOM2),src/front/front_9E35E.asm
 9E550,DrawAwayTeamPanel,sub_9E550,new,low,"the away team's panel on the team select screen (AWY1 / AWY2), as DrawHomeTeamPanel",src/front/front_9E35E.asm
+9E723,TeamSelectSparkle,sub_9E723,new,low,plays a team select sound and sparkle,src/front/front_9E35E.asm
 9E91C,TeamSelectScreen,sub_9E91C,96PC,medium,"96 PC TeamSelectScreen: the exhibition team select screen (HOM1/HOM2, AWY1/AWY2, team ranks); returns the next screen",src/front/front_9E35E.asm
+9F671,IndexScreenSound,sub_9F671,new,low,plays an index screen sound,src/front/front_9E35E.asm
 9F6F5,PickIndexEntryScreen,sub_9F6F5,96PC,medium,"96 PC PickIndexEntryScreen: (kind 5/7/9) picks an entry of SEASON / PLAYOFF / EXHIBIT.NDX (DL00-DL03), with new and delete",src/front/front_9F6F5.asm
+A0784,DrawIndexEntry,sub_A0784,new,low,draws an index entry,src/front/front_9F6F5.asm
+A0867,LoadIndexFile,sub_A0867,new,low,loads an index file,src/front/front_9F6F5.asm
+A0C74,PickIndexEntry,sub_A0C74,new,low,lets the player pick an index entry,src/front/front_9F6F5.asm
+A12CD,SendLeagueData,sub_A12CD,new,low,sends the league data over the link,src/front/front_9F6F5.asm
+A1961,ReceiveLeagueData,sub_A1961,new,low,receives the league data over the link,src/front/front_9F6F5.asm
+A219A,SendLeagueFile,sub_A219A,new,low,sends a league file over the link,src/front/front_9F6F5.asm
+A289E,ReceiveLeagueFile,sub_A289E,new,low,receives a league file over the link,src/front/front_9F6F5.asm
 A2EF0,AllocCrusherBuffers,sub_A2EF0,new,low,"allocates the ""CRUSHER"" (493E0h) and ""CRUSHER pack"" (186A0h) buffers used to pack data sent to the other computer",src/front/front_9F6F5.asm
+A2F31,FreeTransferBuffers,sub_A2F31,new,low,frees the link transfer buffers,src/front/front_9F6F5.asm
+A2F52,CopyToTransfer,sub_A2F52,new,low,copies data into the link transfer buffer,src/front/front_9F6F5.asm
 A2F78,LinkSendData,sub_A2F78,new,low,"link games: ""Please wait... / Transferring data..."", sends a block to the other computer (LinkSendBlock)",src/front/front_9F6F5.asm
 A3048,LinkReceiveData,sub_A3048,new,low,"link games: ""Please wait... / Transferring data..."", receives a block from the other computer (LinkReceiveBlock, atoi of its size)",src/front/front_9F6F5.asm
+A3116,AppendToTransfer,sub_A3116,new,low,appends data to the link transfer buffer,src/front/front_9F6F5.asm
+A3136,DrawLinkStatusText,sub_A3136,new,low,draws the link status text,src/front/front_9F6F5.asm
+A31DE,ResetLinkSetup,sub_A31DE,new,low,resets the link setup,src/front/front_9F6F5.asm
+A3280,LinkGameSetup,sub_A3280,new,low,runs the setup screens of a link game,src/front/front_A3280.asm
+A3B69,LinkSetupCursor,sub_A3B69,new,low,moves the cursor of the link setup screen,src/front/front_A3280.asm
+A3E2B,DrawLinkSetupItem,sub_A3E2B,new,low,draws a link setup item,src/front/front_A3280.asm
+A405E,DrawLinkSetupStatus,sub_A405E,new,low,draws the link setup status,src/front/front_A3280.asm
+A4164,LinkSetupScreen,sub_A4164,new,low,runs the link setup screen,src/front/front_A3280.asm
+A4A5C,LinkSetupSound,sub_A4A5C,new,low,plays a link setup sound,src/front/front_A3280.asm
+A4B7D,RunLinkGameScreens,sub_A4B7D,new,low,runs the screens of a link game,src/front/front_A3280.asm
+A64FC,PlayArenaAnnouncement,sub_A64FC,new,low,plays an arena announcement,src/front/front_A3280.asm
 A6690,PostGameScreen,sub_A6690,new,low,"the post-game screen (NHL0 / NHLP, FLR1/2, T3S2, GS00/GS01, RM00/RM01), alternating with GameStatsScreen",src/front/front_A3280.asm
+A728C,StarScore,sub_A728C,new,low,works out the score for picking the three stars,src/front/front_A3280.asm
+A72C8,StarBonus,sub_A72C8,new,low,adds the bonus for picking the three stars,src/front/front_A3280.asm
+A7380,PickThreeStars,sub_A7380,new,low,picks the three stars of the game,src/front/front_A3280.asm
 A74F4,DrawThreeStarStats,sub_A74F4,new,low,"post-game: one star's stat lines (goals, assists, shots, +/-, hits, penalty minutes; goalie saves and save percentage; three star points)",src/front/front_A3280.asm
+A79EC,ThreeStarsSound,sub_A79EC,new,low,plays a three stars sound,src/front/front_A3280.asm
+A7AD0,ThreeStarsFlash,sub_A7AD0,new,low,flashes the three stars,src/front/front_A3280.asm
+A7C40,LoadThreeStarsArt,sub_A7C40,new,low,loads the three stars art,src/front/front_A3280.asm
+A7C90,ClearThreeStars,sub_A7C90,new,low,clears the three stars,src/front/front_A3280.asm
 A7D9C,GameStatsScreen,sub_A7D9C,96PC,medium,"96 PC GameStatsScreen: the game statistics screen (""gameStatMenu"" / ""gameStatRegn"")",src/front/front_A3280.asm
 A8204,InitGameStatsScreen,sub_A8204,new,low,"from GameStatsScreen: creates its bitmap and menu items and loads its art (LoadDataFile; BACK, BOTM)",src/front/front_A3280.asm
+A8480,FreeGameStats,sub_A8480,new,low,frees the game stats screen,src/front/front_A3280.asm
+A8524,InitGameStatsList,sub_A8524,new,low,sets up the game stats list,src/front/front_A3280.asm
 A8694,GameStatsPlayersPage,sub_A8694,new,low,"from GameStatsScreen: the ""player stats"" page (GS buttons, the three stars' tops 1TOP-3BOT)",src/front/front_A3280.asm
 A8C5C,DrawTeamGameStats,sub_A8C5C,new,low,"game stats: the team comparison rows (score, shots, power play, breakaways, one timers, faceoffs, body checks, passing...)",src/front/front_A3280.asm
+A8E84,DrawTeamStatLine,sub_A8E84,new,low,draws a team stats line,src/front/front_A3280.asm
+A91AC,DrawScoringLogo,sub_A91AC,new,low,draws the logo in the scoring summary,src/front/front_A3280.asm
 A9240,DrawScoringSummary,sub_A9240,new,low,"game stats: the scoring and penalty summary by period (""No scoring."", ""Penalties - none"")",src/front/front_A3280.asm
+A9504,ShowGameStatsPage,sub_A9504,new,low,shows a game stats page,src/front/front_A3280.asm
+A9640,FormatPlayerStatLine,sub_A9640,new,low,formats a player stats line,src/front/front_A3280.asm
+A9800,DrawPlayerStatsPage,sub_A9800,new,low,draws the player stats page,src/front/front_A3280.asm
+A9A10,BuildPlayerStatsTable,sub_A9A10,new,low,builds the player stats table,src/front/front_A3280.asm
+AA170,GameStatsSound,sub_AA170,new,low,plays a game stats sound,src/front/front_A3280.asm
+AA274,GameStatsAnim,sub_AA274,new,low,animates the game stats screen,src/front/front_A3280.asm
+AA498,ResetScoringLog,sub_AA498,new,low,clears the scoring log,src/front/front_A3280.asm
+AA4BC,LogGoal,sub_AA4BC,new,low,adds a goal to the scoring log,src/front/front_A3280.asm
+AA588,LogPenalty,sub_AA588,new,low,adds a penalty to the scoring log,src/front/front_A3280.asm
+AA650,LogPeriodEnd,sub_AA650,new,low,adds the end of a period to the scoring log,src/front/front_A3280.asm
+AA710,FirstScoringEntry,sub_AA710,new,low,returns the first entry of the scoring log,src/front/front_A3280.asm
+AA774,NextScoringEntry,sub_AA774,new,low,returns the next entry of the scoring log,src/front/front_A3280.asm
+AA7EC,FirstPenaltyEntry,sub_AA7EC,new,low,returns the first penalty in the scoring log,src/front/front_A3280.asm
+AA850,NextPenaltyEntry,sub_AA850,new,low,returns the next penalty in the scoring log,src/front/front_A3280.asm
+AA8B4,PeriodEntryCount,sub_AA8B4,new,low,returns the number of entries in a period,src/front/front_A3280.asm
+AA92C,ScoringEntryText,sub_AA92C,new,low,formats a scoring log entry,src/front/front_A3280.asm
+AAA51,NoScoringEntry,sub_AAA51,new,low,returns -1 (no entry),src/front/front_A3280.asm
 AAA58,GoalTypeSuffix,sub_AAA58,new,low,"the scoring summary goal suffix: "" (en/pp)"", "" (pp)"", "" (en/sh)"", "" (sh)"", "" (en)""",src/front/front_A3280.asm
 AAC7C,FormatGoalLine,sub_AAC7C,new,low,"scoring summary: one goal line ""%s %s (%s%s%s%s%s) %d:%02d""",src/front/front_A3280.asm
 AADEF,LoadGameLogos,sub_AADEF,new,low,"from PlayGame: the in-game language text (LoadLangTextB) and the team logos ""logo%02d.qfs""",src/front/front_A3280.asm
+AB0A6,FreeGameText,sub_AB0A6,new,low,frees the game text and art,src/front/front_A3280.asm
 AB0E8,PlayMenuGame,sub_AB0E8,96PC,medium,"96 PC PlayMenuGame: plays a game started from the menus: frees the front end, InitGameAudio, PlayGame, then back to the front end",src/front/front_A3280.asm
+AB240,SendGameResult,sub_AB240,new,low,sends the game result over the link,src/front/front_AB240.asm
+AB573,SaveGameResults,sub_AB573,new,low,saves the results of a game to the league,src/front/front_AB240.asm
+AC0A9,AdvanceSeasonDate,sub_AC0A9,new,low,advances the season date,src/front/front_AB240.asm
+AC369,FinishLeagueGame,sub_AC369,new,low,finishes a league game,src/front/front_AB240.asm
+AC41B,SaveReplayFile,sub_AC41B,new,low,saves a replay to a file,src/front/front_AB240.asm
+AC69C,WriteReplayFile,sub_AC69C,new,low,writes the replay data and index entry,src/front/front_AB240.asm
+AC6EB,ReplayNameToKey,sub_AC6EB,new,low,builds the index key of a replay name,src/front/front_AB240.asm
+AC73E,ClearReplayEntry,sub_AC73E,new,low,clears a replay index entry,src/front/front_AB240.asm
 AC799,AllocStatTable,sub_AC799,new,low,"allocates the ""statthingy"" list tables (flags, columns, sort, names, alpha, string sort) for a stats list",src/front/front_AC799.asm
+ACA49,FreeStatTable,sub_ACA49,new,low,frees a stat table and its bitmap,src/front/front_AC799.asm
+ACAE5,SetStatCell,sub_ACAE5,new,low,sets a cell of a stat table,src/front/front_AC799.asm
+ACAF2,SetStatCellFlag,sub_ACAF2,new,low,sets the flag byte of a stat table cell,src/front/front_AC799.asm
+ACB0E,SetStatColumn,sub_ACB0E,new,low,sets a column of the stat table,src/front/front_AC799.asm
+ACB21,SetStatRowWidth,sub_ACB21,new,low,sets the width of a stat table row,src/front/front_AC799.asm
+ACB2B,SortStatTableBy,sub_ACB2B,new,low,sorts a stat table by a column,src/front/front_AC799.asm
+ACB8E,CompareStatNumber,sub_ACB8E,new,low,sort helper: compares two stat cells as numbers,src/front/front_AC799.asm
+ACBF9,CompareStatText,sub_ACBF9,new,low,sort helper: compares two stat cells as text,src/front/front_AC799.asm
+ACC7F,CompareStatTextDown,sub_ACC7F,new,low,"sort helper: compares two stat cells as text, descending",src/front/front_AC799.asm
+ACD03,CompareStatName,sub_ACD03,new,low,sort helper: compares two stat cells by name,src/front/front_AC799.asm
+ACDAE,SortStatTable,sub_ACDAE,new,low,sorts a stat table and resets its scroll,src/front/front_AC799.asm
+AD151,DrawStatTableRows,sub_AD151,new,low,draws the rows of a stat table,src/front/front_AC799.asm
+AD62E,DrawStatTableArt,sub_AD62E,new,low,draws the art of a stat table,src/front/front_AC799.asm
+AD64A,WriteCsvField,sub_AD64A,new,low,writes one field to the export file,src/front/front_AC799.asm
+AD678,WriteCsvLine,sub_AD678,new,low,writes one line to the export file,src/front/front_AC799.asm
+AD6D6,AskExportFile,sub_AD6D6,new,low,asks for the export file name and opens it,src/front/front_AC799.asm
+AD79F,ExportStatTable,sub_AD79F,new,low,exports a stat table to a text file,src/front/front_AC799.asm
+ADB4F,TeamStatsSound,sub_ADB4F,new,low,plays a team stats sound,src/front/front_AC799.asm
 ADBE6,TeamStatsScreen,sub_ADBE6,96PC,low,"from RunStatsMenu: the team stats screen (""pts"", ""pppct"", ""pkpct"", ""avgt"", ""high""; ""menu"" / ""reg""; SetTeamStatColumns), as 96 PC TeamStatsScreen",src/front/front_AC799.asm
+AEFAF,StatsScreenSound,sub_AEFAF,new,low,plays a stats screen sound,src/front/front_AC799.asm
+AF074,StatsTablesScreen,sub_AF074,new,low,runs the team stats screen,src/front/front_AC799.asm
+B0906,BuildTeamStatsTable,sub_B0906,new,low,builds the team stats table,src/front/front_AC799.asm
 B0C05,SetSkaterStatColumns,sub_B0C05,new,low,"stats lists: the skater column titles (Team, #, Height, Weight, GP, G, A, P, +/-, PIM, PPG, SHG, Shots...)",src/front/front_AC799.asm
 B1248,SetGoalieStatColumns,sub_B1248,new,low,"stats lists: the goalie column titles (GP, Minutes, G.A.A., Shots, S%, GA, SO, ENG...)",src/front/front_AC799.asm
 B1922,SetTeamStatColumns,sub_B1922,new,low,"stats lists: the team column titles (GP, W, L, T, points, GF, GA, PPG, PP%, PK%, streaks...)",src/front/front_AC799.asm
+B1E1D,ParseUserName,sub_B1E1D,new,low,parses a user name,src/front/front_B1E1D.asm
+B1E9C,AddUserGame,sub_B1E9C,new,low,adds a game to a user record,src/front/front_B1E1D.asm
+B1F4D,UserRecordTotals,sub_B1F4D,new,low,works out the totals of a user record,src/front/front_B1E1D.asm
 B1FE9,DeleteUser,sub_B1FE9,96PC,medium,NHL96PC 2A692 (sem 0.62): C:1134; K:3EA; C:1833,src/front/front_B1E1D.asm
+B211C,NewUser,sub_B211C,new,low,creates a new user,src/front/front_B1E1D.asm
+B21EA,CopyUserName,sub_B21EA,new,low,copies a user name,src/front/front_B1E1D.asm
 B2258,ScrollUserList,sub_B2258,96PC,medium,NHL96PC 2AB63 (similar 0.93): mnemonic similarity 0.93 over 19 instructions,src/front/front_B1E1D.asm
+B228A,DrawUserName,sub_B228A,new,low,draws a user name,src/front/front_B1E1D.asm
 B2364,UserLogScreen,sub_B2364,new,low,"the ""User Log"" list (LoadUserList), from the remote user screen sub_A3280",src/front/front_B1E1D.asm
 B2E5B,LoadUserList,sub_B2E5B,new,low,"loads LOCAL.NDX (creating it when missing) and adds the ""<NO USER>"" / ""<NEW USER>"" entries (German text when the language is German)",src/front/front_B1E1D.asm
+B2F49,UpdateUserRecords,sub_B2F49,new,low,updates the user records after a game,src/front/front_B1E1D.asm
 B36D6,LoadUserRecords,sub_B36D6,96PC,low,"96 PC LoadUserRecords: reads every user's record (local.ndx, ""user"") into the tables of the user records screen",src/front/front_B1E1D.asm
+B3A9C,UserRecordsSound,sub_B3A9C,new,low,plays a user records sound,src/front/front_B1E1D.asm
+B3B5D,BuildUserRecordsTable,sub_B3B5D,new,low,builds the user records table,src/front/front_B1E1D.asm
+B3F21,BuildUserGamesTable,sub_B3F21,new,low,builds the user games table,src/front/front_B1E1D.asm
+B418C,RunUserRecords,sub_B418C,new,low,runs the user records screen over the link,src/front/front_B1E1D.asm
 B41EF,UserRecordsScreen,sub_B41EF,96PC,medium,"96 PC UserRecordsScreen: the user records screen: allocates the column tables (uname, urate, upts, ugf, uga, upp, upk, exrec ...), sorts by the picked column",src/front/front_B1E1D.asm
+B4F87,CompareStatColumn,sub_B4F87,new,low,compares two stats screen columns,src/front/front_B1E1D.asm
+B5031,CompareRatingColumn,sub_B5031,new,low,compares two ratings screen columns,src/front/front_B1E1D.asm
+B50DB,DrawStatsCardPage,sub_B50DB,new,low,draws the player stats page,src/front/front_B50DB.asm
 B5891,PlayerStatsScreen,sub_B5891,96PC,low,"96 PC PlayerStatsScreen: the player stats screen (""pl menu"" / ""pl reg"", sortable ""pl sort"" columns, cursor, team filter), from RunStatsMenu",src/front/front_B50DB.asm
+B6C67,DrawPlayerStatsText,sub_B6C67,new,low,draws the player stats text,src/front/front_B50DB.asm
 B7270,DrawPlayerBio,sub_B7270,new,low,"the player's height, weight, birth and draft lines",src/front/front_B50DB.asm
 B78F4,ExportPlayerCard,sub_B78F4,96PC,low,"writes the player's card (height, weight, born, birthplace, draft) to a text file, like 96 PC ExportPlayerCard",src/front/front_B50DB.asm
+B829B,DrawPlayerRatingsPage,sub_B829B,new,low,draws the player ratings page,src/front/front_B50DB.asm
 B8FDF,PlayerRatingsScreen,sub_B8FDF,96PC,low,"96 PC PlayerRatingsScreen: the player ratings screen, from RunStatsMenu and RosterScreen (as in 96 PC), same list tables as PlayerStatsScreen",src/front/front_B50DB.asm
+BB365,BuildPlayerStats,sub_BB365,new,low,builds the player stats lists,src/front/front_B50DB.asm
+BBC3A,DrawTeamNameField,sub_BBC3A,new,low,draws the team name field,src/front/front_B50DB.asm
+BBE01,DrawPlayerRatings,sub_BBE01,new,low,draws the player ratings,src/front/front_B50DB.asm
+BD61B,IsReplayRecordingOn,sub_BD61B,new,low,returns whether replay recording is on,src/front/front_B50DB.asm
+BD621,RunVideoOptions,sub_BD621,new,low,runs the video options,src/front/front_B50DB.asm
 BD62C,RunReplay,sub_BD62C,96PC,low,"96 PC RunReplay: RunInGameMenu's replay request: sets up and runs ReplayScreen, then back to the game",src/front/front_BD62C.asm
 BD98B,LoadReplay,sub_BD98B,new,low,"loads a saved replay (""replload"") and sets up the game view and animations for it",src/front/front_BD62C.asm
+BDB25,VideoOptionsScreen,sub_BDB25,new,low,runs the video options screen,src/front/front_BD62C.asm
+BE047,PlayReplayFromMenu,sub_BE047,new,low,plays a replay from the menu,src/front/front_BD62C.asm
+BE0BA,DrawReplayControls,sub_BE0BA,new,low,draws the replay controls,src/front/front_BD62C.asm
 BE2A6,ReplayScreen,sub_BE2A6,96PC,low,"96 PC ReplayScreen: the instant replay screen (""replmenu"" / ""replregs"")",src/front/front_BD62C.asm
+BECB9,DrawReplayMenu,sub_BECB9,new,low,draws the replay menu,src/front/front_BD62C.asm
+BEFC0,DrawReplayTimeline,sub_BEFC0,new,low,draws the replay timeline,src/front/front_BD62C.asm
+BF417,ReplayStatusText,sub_BF417,new,low,returns the replay status text,src/front/front_BD62C.asm
 BF4F9,PickReplayScreen,sub_BF4F9,new,low,the saved replay list (REPLAY.NDX),src/front/front_BD62C.asm
 BFFB7,OpenReplayIndex,sub_BFFB7,new,low,"from LoadReplay: reads ""REPLAY.NDX"" (NameIndexLoad / NameIndexNew), also over a link",src/front/front_BD62C.asm
 C0285,SaveReplay,sub_C0285,new,low,"from ReplayScreen: saves the highlight under a name in ""%s\REPLAY.NDX""",src/front/front_BD62C.asm
+C037B,DrawReplayEntry,sub_C037B,new,low,draws a replay entry,src/front/front_BD62C.asm
+C04BE,ReplayMenuScreen,sub_C04BE,new,low,runs the replay menu screen,src/front/front_BD62C.asm
+C0F5D,HistoryScreen,sub_C0F5D,new,low,runs the league history screen,src/front/front_C0F5D.asm
+C1577,DrawHistoryScreen,sub_C1577,new,low,draws the league history screen,src/front/front_C0F5D.asm
+C1CBB,FindHistoryTeam,sub_C1CBB,new,low,finds a team in the history list,src/front/front_C0F5D.asm
+C1D5B,BuildHistoryList,sub_C1D5B,new,low,builds the history list,src/front/front_C0F5D.asm
+C23E6,HistoryEntryText,sub_C23E6,new,low,formats a history entry,src/front/front_C0F5D.asm
+C248B,ShowHistoryArt,sub_C248B,new,low,shows the history art,src/front/front_C0F5D.asm
 C250A,ExportHistoryCsv,sub_C250A,new,low,"writes the ""history .csv"" file",src/front/front_C0F5D.asm
+C2633,HistoryLineWidth,sub_C2633,new,low,returns the width of a history line,src/front/front_C0F5D.asm
+C267B,WrapHistoryText,sub_C267B,new,low,wraps a history text line,src/front/front_C0F5D.asm
+C271D,HistoryLabel,sub_C271D,new,low,returns a history label text,src/front/front_C0F5D.asm
+C27D8,DrawHistoryText,sub_C27D8,new,low,draws the history text,src/front/front_C0F5D.asm
+C2A49,DrawHistoryPopup,sub_C2A49,new,low,draws the history popup,src/front/front_C0F5D.asm
+C2BB2,DrawHistoryList,sub_C2BB2,new,low,draws the history list,src/front/front_C0F5D.asm
+C2D94,DrawHistoryTrophy,sub_C2D94,new,low,draws the history trophy,src/front/front_C0F5D.asm
+C2F86,HistoryTrophySound,sub_C2F86,new,low,plays a history trophy sound,src/front/front_C0F5D.asm
+C3088,AnimateHistoryTrophy,sub_C3088,new,low,animates the history trophy,src/front/front_C0F5D.asm
+C3142,DrawTrophyShine,sub_C3142,new,low,draws the trophy shine,src/front/front_C0F5D.asm
+C31FE,DrawTrophySparkle,sub_C31FE,new,low,draws a random trophy sparkle,src/front/front_C0F5D.asm
+C32B0,ShowHistoryDetails,sub_C32B0,new,low,shows the details of a history entry,src/front/front_C0F5D.asm
 C3594,RunOptionsScreens,sub_C3594,new,low,from RunFrontEnd (0Ah): runs the options screen and its control set-up screens (screen numbers 22h-24h) until it returns 1Ah; in a network session only one side may change them,src/front/front_C0F5D.asm
 C36CA,DetailLevelScreen,sub_C36CA,new,low,"the front end detail level panel (On / Off for crowd, ice logos, ice texture, boards, glass, names, benches), from OptionsScreen",src/front/front_C0F5D.asm
+C462F,DrawOptionsSlider,sub_C462F,new,low,draws an options slider,src/front/front_C462F.asm
+C46EA,OptionsSound,sub_C46EA,new,low,plays an options sound,src/front/front_C462F.asm
 C48A2,OptionsScreen,sub_C48A2,new,low,"the options screen (ON0%d / OF0%d toggles, MB0%d buttons, BOTM)",src/front/front_C462F.asm
+C5F81,SeasonMenuSound,sub_C5F81,new,low,plays a season menu sound,src/front/front_C5F81.asm
+C6064,SeasonSetupScreen,sub_C6064,new,low,runs the season setup screens,src/front/front_C5F81.asm
 C755B,RosterScreen,sub_C755B,96PC,low,"96 PC RosterScreen: the roster screen (""roster menu"" / ""roster regions"")",src/front/front_C755B.asm
+C7CA4,GetRosterPlayerNumber,sub_C7CA4,new,low,returns the jersey number of a roster slot,src/front/front_C755B.asm
+C7CE8,PlayRosterSound,sub_C7CE8,new,low,plays a roster screen sound and builds its message,src/front/front_C755B.asm
+C7EAE,SetRosterMode,sub_C7EAE,new,low,sets the roster screen mode from the game mode flags,src/front/front_C755B.asm
 C7F31,LoadRosterInfoAnim,sub_C7F31,new,low,"roster screen: loads ""rosinfo!.ana""",src/front/front_C755B.asm
 C7FBC,FreeRosterInfoAnim,sub_C7FBC,new,low,"roster screen: frees the ""rosinfo!.ana"" animation",src/front/front_C755B.asm
 C800C,AllocRosterInfo,sub_C800C,new,low,"allocates the ""rosPlrInfo"" and ""seasRosArray"" tables of the roster screen",src/front/front_C755B.asm
+C80C8,SkaterOverall,sub_C80C8,new,low,works out a skater's overall rating from the rating bytes,src/front/front_C755B.asm
+C8127,GoalieOverall,sub_C8127,new,low,works out a goalie's overall rating from the rating bytes,src/front/front_C755B.asm
+C817F,LoadRosterData,sub_C817F,new,low,"loads a team's roster, players and stats",src/front/front_C755B.asm
 C885D,InitRosterData,sub_C885D,new,low,"roster screen: allocates ""deletion indices"" and ""roster player info"" and fills them (sub_C817F)",src/front/front_C755B.asm
+C8BEE,FreeRosterData,sub_C8BEE,new,low,frees the roster data,src/front/front_C755B.asm
+C8C90,DrawRosterRow,sub_C8C90,new,low,draws one row of the roster list,src/front/front_C755B.asm
 C8EDC,DrawRosterList,sub_C8EDC,new,low,"roster screen: the ""Team Roster"" / ""Additional Players"" lists",src/front/front_C755B.asm
+C9757,DrawRosterLogo,sub_C9757,new,low,draws the team logo on the roster screen,src/front/front_C755B.asm
+C97FF,ShowRosterLogo,sub_C97FF,new,low,shows the team logo panel,src/front/front_C755B.asm
+C98B1,DrawRosterTitle,sub_C98B1,new,low,draws the roster screen title,src/front/front_C755B.asm
+C9A45,CreateRosterPanel,sub_C9A45,new,low,creates the roster panel bitmap,src/front/front_C755B.asm
+C9AEE,FreeRosterPanel,sub_C9AEE,new,low,frees the roster panel bitmap,src/front/front_C755B.asm
 C9B24,InitRosterScreen,sub_C9B24,new,low,"from RosterScreen: loads the roster screen art (LoadDataFile 1Ch; BACK, TITL) and draws its panels",src/front/front_C755B.asm
 C9D84,FreeRosterScreen,sub_C9D84,new,low,from RosterScreen: frees the roster screen art once (dword_16D680 guard),src/front/front_C755B.asm
+C9DDF,DrawRosterPanel,sub_C9DDF,new,low,draws the roster panel,src/front/front_C755B.asm
+C9F18,SetupRosterLists,sub_C9F18,new,low,sets up the roster list boxes,src/front/front_C755B.asm
+CA206,LoadRosterArt,sub_CA206,new,low,loads the roster screen art,src/front/front_C755B.asm
+CA2A7,SetRosterButtons,sub_CA2A7,new,low,sets up the roster buttons,src/front/front_C755B.asm
+CA44C,InitListBox,sub_CA44C,new,low,sets up a list box,src/front/front_C755B.asm
+CA49A,DrawPlayerCard,sub_CA49A,new,low,draws the player card,src/front/front_C755B.asm
+CA758,DrawPlayerCardText,sub_CA758,new,low,draws the text of the player card,src/front/front_C755B.asm
+CAA0F,DrawRosterDetails,sub_CAA0F,new,low,draws the details of the selected player,src/front/front_C755B.asm
+CABF2,SetRosterArrows,sub_CABF2,new,low,sets up the roster scroll arrows,src/front/front_C755B.asm
+CACE0,RedrawRosterScreen,sub_CACE0,new,low,redraws the whole roster screen,src/front/front_C755B.asm
 CB041,CheckRosterInjuries,sub_CB041,new,low,"roster: the ""Roster Violation: %c. %s is injured."" check",src/front/front_C755B.asm
+CB192,GetPlayerStatLine,sub_CB192,new,low,returns a player's stat line,src/front/front_C755B.asm
 CB216,ShowTradeRejected,sub_CB216,new,low,"roster screen: ""Rejected by %s.""",src/front/front_C755B.asm
 CB324,CheckRosterLimits,sub_CB324,new,low,"roster: the minimum / maximum roster and goalie count checks (""Roster Violation: %s must have..."")",src/front/front_C755B.asm
 CB6D5,CheckRegularRosterLimits,sub_CB6D5,new,low,roster: the non-injured minimum and regular / additional roster maximum checks,src/front/front_C755B.asm
+CB9C9,RosterTradeScreen,sub_CB9C9,new,low,runs the trade part of the roster screen,src/front/front_C755B.asm
+CBCD9,FindFreeRosterSlot,sub_CBCD9,new,low,finds a free slot in the roster,src/front/front_C755B.asm
+CBDD0,FindRosterSlot,sub_CBDD0,new,low,finds a player's slot in the roster,src/front/front_C755B.asm
+CBECB,SwapRosterPlayers,sub_CBECB,new,low,swaps two players between rosters,src/front/front_C755B.asm
+CBFBA,ComparePlayersForTrade,sub_CBFBA,new,low,compares two players for a trade,src/front/front_C755B.asm
+CC1CA,RateTrade,sub_CC1CA,new,low,rates a proposed trade,src/front/front_C755B.asm
+CC3AD,TradeValue,sub_CC3AD,new,low,works out a player's trade value,src/front/front_C755B.asm
+CCB24,TradeNeedBonus,sub_CCB24,new,low,adds the bonus for a position the team needs,src/front/front_C755B.asm
+CCC30,ApplyTrade,sub_CCC30,new,low,applies a trade to both rosters,src/front/front_C755B.asm
+CCF2E,CountRosterPositions,sub_CCF2E,new,low,counts the players by position,src/front/front_C755B.asm
+CD037,ClearPlayerRecord,sub_CD037,new,low,clears a player record,src/front/front_C755B.asm
+CD13A,DrawJerseyPreview,sub_CD13A,new,low,draws the jersey preview,src/front/front_C755B.asm
 CD272,JerseyScreen,sub_CD272,new,low,"the jersey screen (""jersey menu"" / ""jersey menu regions"")",src/front/front_C755B.asm
+CD7B7,ClampRosterScroll,sub_CD7B7,new,low,keeps the roster scroll position in range,src/front/front_C755B.asm
+CD7F3,RosterEditScreen,sub_CD7F3,new,low,runs the roster editing screen,src/front/front_C755B.asm
+CDBE5,FormatTradeMessage,sub_CDBE5,new,low,formats the trade message,src/front/front_C755B.asm
+CDC8B,FindTradedPlayer,sub_CDC8B,new,low,finds a traded player,src/front/front_C755B.asm
+CDD99,RebuildLinesAfterTrade,sub_CDD99,new,low,rebuilds the lines after a roster change,src/front/front_C755B.asm
+CDEEA,FindLineSlot,sub_CDEEA,new,low,finds a slot in the lines,src/front/front_C755B.asm
+CDF39,FixLinesAfterTrade,sub_CDF39,new,low,fixes the lines after a trade,src/front/front_C755B.asm
+CE111,RemoveFromLines,sub_CE111,new,low,removes a player from the lines,src/front/front_C755B.asm
+CE178,UpdateRosterCounts,sub_CE178,new,low,updates the roster counts,src/front/front_C755B.asm
+CE3F2,RosterCreatePlayer,sub_CE3F2,new,low,opens the create player screen from the roster screen,src/front/front_C755B.asm
+CE53C,ReleasePlayer,sub_CE53C,new,low,releases a player from the roster,src/front/front_C755B.asm
+CE730,CompareShorts,sub_CE730,new,low,compares two 16-bit values (sort helper),src/front/front_C755B.asm
+CE73B,SaveTrades,sub_CE73B,new,low,saves the trades to the league,src/front/front_C755B.asm
+CEBC0,ResetExhibitionRosters,sub_CEBC0,new,low,resets the exhibition rosters,src/front/front_C755B.asm
+CEC15,ShowCreatePlayerHelp,sub_CEC15,new,low,shows the create player help line,src/front/front_C755B.asm
 CEC58,DrawCreatePlayerName,sub_CEC58,new,low,"create player screen: the name panel (NAM1, ""%c. %s"")",src/front/front_C755B.asm
+CED89,DrawCreatePlayerPanel,sub_CED89,new,low,draws the create player panel,src/front/front_C755B.asm
 CEE20,DrawCreatePlayerPosition,sub_CEE20,new,low,"from CreatePlayerScreen: the position buttons (GO / LW / RW / CE, ON / OF art)",src/front/front_C755B.asm
 CEEEA,DrawCreatePlayerHand,sub_CEEEA,new,low,"from CreatePlayerScreen: the shoots / catches buttons (SR / SL skater, GR / GL goalie, ON / OF art)",src/front/front_C755B.asm
+CEF6E,DrawCreatePlayerLabel,sub_CEF6E,new,low,draws a create player label,src/front/front_C755B.asm
 CF005,DrawCreatePlayerHeight,sub_CF005,new,low,"create player screen: the height field (""%d feet %d inches"")",src/front/front_C755B.asm
 CF0CD,DrawCreatePlayerWeight,sub_CF0CD,new,low,"create player screen: the weight field (""%d pounds"")",src/front/front_C755B.asm
+CF162,DrawCreatePlayerAge,sub_CF162,new,low,draws the created player's age,src/front/front_C755B.asm
+CF1FF,DrawRatingBarSlot,sub_CF1FF,new,low,draws one rating bar slot,src/front/front_C755B.asm
+CF255,DrawRatingBars,sub_CF255,new,low,draws the rating bars,src/front/front_C755B.asm
+CF3B3,DrawRatingValues,sub_CF3B3,new,low,draws the rating values,src/front/front_C755B.asm
+CF626,DrawRatingPanel,sub_CF626,new,low,draws the rating panel,src/front/front_C755B.asm
+CF6A3,DrawCreatePlayerField,sub_CF6A3,new,low,draws a create player field,src/front/front_C755B.asm
+CF70F,DrawCreatePlayerText,sub_CF70F,new,low,draws a create player text line,src/front/front_C755B.asm
+CF73D,DrawCreatePlayerNameLine,sub_CF73D,new,low,draws the created player's name,src/front/front_C755B.asm
 CF749,CreatePlayerScreen,sub_CF749,96PC,medium,"96 PC CreatePlayerScreen: the create player screen (""create plr menu"" / ""create plr region""), from the roster screens",src/front/front_C755B.asm
+CFFAB,DrawRatingBar,sub_CFFAB,new,low,draws one rating bar,src/front/front_C755B.asm
+D0098,InitShapeListBox,sub_D0098,new,low,sets up a list box with its shapes,src/front/front_C755B.asm
+D00F1,SetupCreatePlayerLists,sub_D00F1,new,low,sets up the create player list boxes,src/front/front_C755B.asm
 D0397,InitCreatePlayerScreen,sub_D0397,new,low,"from CreatePlayerScreen: menu items and art (TITL, NA / JN name and jersey buttons, LoadDataFile)",src/front/front_C755B.asm
+D096D,NewSkaterRecord,sub_D096D,new,low,fills a new skater record,src/front/front_C755B.asm
+D0ABE,NewGoalieRecord,sub_D0ABE,new,low,fills a new goalie record,src/front/front_C755B.asm
+D0BD8,PlayerOverall,sub_D0BD8,new,low,works out a player's overall rating,src/front/front_C755B.asm
+D0C88,RemoveListEntry,sub_D0C88,new,low,removes an entry from a list,src/front/front_C755B.asm
 D0D56,CompareFirstDword,sub_D0D56,new,medium,"qsort compare: the first dword of the two entries, ascending",src/front/front_C755B.asm
+D0D71,CompareTeamGoalsFor,sub_D0D71,new,low,"sort helper: compares the first team stat (goals for, probably)",src/front/front_C755B.asm
+D0D8E,CompareTeamGoalsAgainst,sub_D0D8E,new,low,"sort helper: compares the second team stat (goals against, probably)",src/front/front_C755B.asm
+D0DAB,CompareTeamPowerPlay,sub_D0DAB,new,low,"sort helper: compares the third team stat (power play, probably)",src/front/front_C755B.asm
+D0DC8,CompareTeamPenaltyKill,sub_D0DC8,new,low,"sort helper: compares the fourth team stat (penalty kill, probably)",src/front/front_C755B.asm
+D0DE5,CompareTeamShots,sub_D0DE5,new,low,"sort helper: compares the fifth team stat (shots, probably)",src/front/front_C755B.asm
+D0E02,ComparePlayerGoals,sub_D0E02,new,low,sort helper: compares players by goals (probably),src/front/front_C755B.asm
+D0E21,ComparePlayerAssists,sub_D0E21,new,low,sort helper: compares players by assists (probably),src/front/front_C755B.asm
+D0E40,CompareGoalieAverage,sub_D0E40,new,low,sort helper: compares goalies by games and save rate,src/front/front_C755B.asm
+D0E81,ComparePlayerOffence,sub_D0E81,new,low,sort helper: compares players by their offence ratings,src/front/front_C755B.asm
+D0EBE,ComparePlayerDefence,sub_D0EBE,new,low,sort helper: compares players by their defence ratings,src/front/front_C755B.asm
 D0F07,BuildTradePlayerLists,sub_D0F07,new,low,"from the roster screen (sub_CE73B): allocates and sorts ""aiplayers"", ""statplayers"" and ""statgoalies"" (qsort with sub_D0D56-sub_D0EBE)",src/front/front_C755B.asm
+D15FB,LayoutMatchupLeft,sub_D15FB,new,low,lays out the left side of the matchup screen,src/front/front_D15FB.asm
+D17EA,LayoutMatchupRight,sub_D17EA,new,low,lays out the right side of the matchup screen,src/front/front_D15FB.asm
 D1927,PreGameMatchupScreen,sub_D1927,96PC,low,"96 PC PreGameMatchupScreen: game screen 14h before play: the matchup with the left / right team pictures (%03dL.FSH / %03dR.FSH), PANL, team and player stats",src/front/front_D15FB.asm
+D1F8B,DrawMatchupStats,sub_D1F8B,new,low,draws the matchup stats,src/front/front_D15FB.asm
 D230A,DrawPlayerPortrait,sub_D230A,new,low,"pre-game: the player's portrait (0%02d.FSH, NOFACE.FSH, ""Portrait not found"") and ""#%d  %s %s""",src/front/front_D15FB.asm
+D24F8,DrawMatchupPlayer,sub_D24F8,new,low,draws a matchup player,src/front/front_D15FB.asm
 D26EE,PreGameStatsPanel,sub_D26EE,new,low,"from PreGameMatchupScreen: the ""homestats"" / ""awaystats"" comparison panel",src/front/front_D15FB.asm
+D2BD4,FreeMatchupScreen,sub_D2BD4,new,low,frees the matchup screen,src/front/front_D15FB.asm
+D2C78,ReadMatchupStats,sub_D2C78,new,low,reads the matchup team stats,src/front/front_D15FB.asm
+D2CCA,MatchupBarLength,sub_D2CCA,new,low,works out the length of a matchup bar,src/front/front_D15FB.asm
+D2D94,LoadMatchupArt,sub_D2D94,new,low,loads the matchup art,src/front/front_D15FB.asm
+D2E1A,MatchupSparkle,sub_D2E1A,new,low,draws a random matchup sparkle with a sound,src/front/front_D15FB.asm
+D2ED6,AnimateMatchup,sub_D2ED6,new,low,animates the matchup screen,src/front/front_D15FB.asm
+D306F,RostersSparkle,sub_D306F,new,low,draws a random sparkle on the rosters screen,src/front/front_D15FB.asm
 D3112,PreGameRostersScreen,sub_D3112,new,low,"game screen 13h before play: the home and visitor rosters (""hros"" / ""vros""), the ""blurb"" and the star players (STAR, FIR1, F%dP%d)",src/front/front_D3112.asm
+D3D5D,FormatMatchupNote,sub_D3D5D,new,low,formats a matchup note,src/front/front_D3112.asm
+D3DFA,DrawRosterPlayerInfo,sub_D3DFA,new,low,draws a roster player's information,src/front/front_D3112.asm
+D40CF,DrawMatchupHistory,sub_D40CF,new,low,draws the matchup history notes,src/front/front_D3112.asm
+D41D1,DrawRosterLabel,sub_D41D1,new,low,draws a roster label,src/front/front_D3112.asm
 D4225,DrawMatchupNotes,sub_D4225,new,low,"pre-game: the playoff race notes, season series and ""last time they met"" lines",src/front/front_D3112.asm
+D4727,FindMatchupNotes,sub_D4727,new,low,finds the notes for a matchup,src/front/front_D3112.asm
+D49BE,CountTeamResults,sub_D49BE,new,low,counts a team's results,src/front/front_D3112.asm
+D4AAC,MatchupAnnouncement,sub_D4AAC,new,low,plays the matchup announcement,src/front/front_D3112.asm
 D4E24,GoalieMaskIntro,sub_D4E24,new,low,"from GoalieMaskScreen: the opening of the mask gallery (DOR0 / DOR1 doors, PANL, LADR, BB / AB buttons)",src/front/front_D4E24.asm
+D53A4,GoalieMaskAnim,sub_D53A4,new,low,animates the goalie mask screen with a random sound,src/front/front_D4E24.asm
 D547C,GoalieMaskScreen,sub_D547C,new,medium,"from RunFrontEnd: the goalie mask gallery (MASK00%02d.FSH, ""%s - %s - %s"" goalie - team - season captions, LEFT / RIGH / FRNT buttons)",src/front/front_D4E24.asm
 D67D4,FadePalette,sub_D67D4,96PC,medium,96 PC FadePalette: fades the 300h-byte palette,src/front/front_D4E24.asm
 D68AC,FadeOut,sub_D68AC,96PC,medium,NHL96PC 63A5B (similar 0.91): mnemonic similarity 0.90 over 22 instructions,src/front/front_D4E24.asm
+D68E0,RunIntroMovie,sub_D68E0,new,low,plays the intro movie and then the demo game,src/front/front_D4E24.asm
 D6930,RunIntro,sub_D6930,96PC,medium,"96 PC RunIntro: from main_, the intro screens (scr1, scr2, !pl0, !pl1, nhll, nhlp, bkgd) with music",src/front/front_D4E24.asm
+D6D38,DrawCreditsPage,sub_D6D38,new,low,draws one page of the credits,src/front/front_D4E24.asm
+D6E20,ScrollCredits,sub_D6E20,new,low,scrolls the credits,src/front/front_D4E24.asm
+D6FD8,CreditsKeyPressed,sub_D6FD8,new,low,returns whether a key or button was pressed during the credits,src/front/front_D4E24.asm
+D705C,PlayCreditsMusic,sub_D705C,new,low,starts the credits music,src/front/front_D4E24.asm
 D70C4,CreditsScreen,sub_D70C4,new,low,"from RunFrontEnd: the credits (reads the credits text file, EAC1/EAC2, CRD1/CRD2, QCRD) with the arena music",src/front/front_D4E24.asm
 D7A70,AllocPageStack,sub_D7A70,new,low,"allocates the front end's ""PAGESTACK"" block",src/front/front_D4E24.asm
+D7B64,FreeDbPages,sub_D7B64,new,low,frees the database page cache,src/front/front_D4E24.asm
 D7BB0,OldestDbPageSlot,sub_D7BB0,new,low,"database page cache: the slot to reuse (a free one, else the least recently used by the counters at dword_16D77C)",src/front/front_D4E24.asm
 D7C14,ReadDbPage,sub_D7C14,new,medium,"database page cache: (db, page, slot) seeks to page * 1000h and reads the 1000h-byte page into cache slot (dword_16D774)",src/front/front_D4E24.asm
 D7C74,WriteDbPage,sub_D7C74,new,medium,"database page cache: (db, page, slot) seeks to page * 1000h and writes the cache slot back",src/front/front_D4E24.asm
 D7CD4,GetDbPage,sub_D7CD4,new,low,"database page cache: finds a db file's page in the cache slots (dword_16D778) or reads it in (ReadDbPage), bumps its use counter, returns the slot",src/front/front_D4E24.asm
+D7E08,InitDbFileHeader,sub_D7E08,new,low,writes the header page of a new database file,src/front/front_D4E24.asm
 D7EC8,CreateDbFile,sub_D7EC8,new,low,database: creates a db file (FileCreate) with its header and first pages,src/front/front_D4E24.asm
 D8130,OpenDbFile,sub_D8130,new,low,database: opens a db file and reads its 1FEh-byte header into a new block,src/front/front_D4E24.asm
 D81D8,CloseDbFile,sub_D81D8,new,low,"database: writes the header back into page 0 (WriteDbPage), closes the file and frees the header",src/front/front_D4E24.asm
+D8270,CopyIndexNode,sub_D8270,new,low,copies an index node,src/front/front_D4E24.asm
+D8358,FlushDbPage,sub_D8358,new,low,writes a database page back,src/front/front_D4E24.asm
+D83C0,SplitIndexNode,sub_D83C0,new,low,splits a full index node in two,src/front/front_D4E24.asm
+D8614,InsertKeyUp,sub_D8614,new,low,inserts a key into the parent node after a split,src/front/front_D4E24.asm
+D8860,CompareIndexKey,sub_D8860,new,low,compares a key with an index entry,src/front/front_D4E24.asm
+D8944,InsertKeyInNode,sub_D8944,new,low,inserts a key into an index node,src/front/front_D4E24.asm
+D8B20,AddIndexKey,sub_D8B20,new,low,adds a key to the index,src/front/front_D4E24.asm
+D8CAC,MergeIndexNodes,sub_D8CAC,new,low,merges two index nodes after a delete,src/front/front_D4E24.asm
+D9614,RemoveKeyFromNode,sub_D9614,new,low,removes a key from an index node,src/front/front_D4E24.asm
+D9708,DeleteKeyFromNode,sub_D9708,new,low,deletes a key and rebalances the node,src/front/front_D4E24.asm
+D9960,DeleteIndexKey,sub_D9960,new,low,deletes a key from the index,src/front/front_D4E24.asm
+D9AB4,SearchIndexNode,sub_D9AB4,new,low,searches an index node for a key,src/front/front_D4E24.asm
+D9D74,FindIndexKey,sub_D9D74,new,low,finds a key in the index,src/front/front_D4E24.asm
+D9E18,LeftmostKey,sub_D9E18,new,low,walks down to the first key of a subtree,src/front/front_D4E24.asm
+D9ED8,RightmostKey,sub_D9ED8,new,low,walks down to the last key of a subtree,src/front/front_D4E24.asm
+D9FDC,FirstOrLastKey,sub_D9FDC,new,low,finds the first or the last key of the index,src/front/front_D4E24.asm
+DA020,FindLastKey,sub_DA020,new,low,finds the last key of the index (probably),src/front/front_D4E24.asm
+DA02C,FindFirstKey,sub_DA02C,new,low,finds the first key of the index (probably),src/front/front_D4E24.asm
+DA038,PrevKeyInNode,sub_DA038,new,low,steps to the previous key in a node,src/front/front_D4E24.asm
+DA158,NextKeyInNode,sub_DA158,new,low,steps to the next key in a node,src/front/front_D4E24.asm
+DA274,StepIndexKey,sub_DA274,new,low,steps to the next or previous key of the index,src/front/front_D4E24.asm
+DA48C,NextIndexKey,sub_DA48C,new,low,steps to the next key of the index,src/front/front_D4E24.asm
+DA498,PrevIndexKey,sub_DA498,new,low,steps to the previous key of the index,src/front/front_D4E24.asm
+DA4A4,BuildKey,sub_DA4A4,new,low,builds an index key from a number or string,src/front/front_D4E24.asm
+DA544,BuildKeyFromLong,sub_DA544,new,low,builds an index key from a number (two entries),src/front/front_D4E24.asm
+DA57C,BuildKeyFromString,sub_DA57C,new,low,builds an index key from a string,src/front/front_D4E24.asm
+DA5C4,ParseKey,sub_DA5C4,new,low,reads a number back from an index key,src/front/front_D4E24.asm
+DA654,KeyToLong,sub_DA654,new,low,reads a number back from an index key (two entries),src/front/front_D4E24.asm
 DA66D,AllocMediaBuffer,sub_DA66D,new,medium,"allocates the ""MEDIA BUFFER"" (200h paragraphs of DOS memory)",src/front/front_DA66D.asm
 DA713,AllocStaticBuffer,sub_DA713,new,medium,"allocates the ""STATIC BUF"" once (flag word_16D7EC)",src/front/front_DA66D.asm
+DA76A,MakeRecordKey,sub_DA76A,new,low,builds the key of a record from its type and number,src/front/front_DA66D.asm
+DA797,MakeKeyPair,sub_DA797,new,low,builds a two-part record key,src/front/front_DA66D.asm
+DA7D6,KeysEqual,sub_DA7D6,new,low,returns 1 when two eight-byte keys are equal,src/front/front_DA66D.asm
+DA7EB,OpenGameDatabase,sub_DA7EB,new,low,opens the game database files,src/front/front_DA66D.asm
+DAA82,LoadHomeRosterRecords,sub_DAA82,new,low,loads the home team's roster records,src/front/front_DA66D.asm
+DAB51,LoadAwayRosterRecords,sub_DAB51,new,low,loads the away team's roster records,src/front/front_DA66D.asm
+DAC1E,SetMatchupTeams,sub_DAC1E,new,low,sets the two teams of a matchup,src/front/front_DA66D.asm
+DAC72,LoadMatchupRosters,sub_DAC72,new,low,loads the rosters of both teams of a matchup,src/front/front_DA66D.asm
+DAD7E,LoadGameRosters,sub_DAD7E,new,low,loads the rosters for a game,src/front/front_DA66D.asm
+DADD0,WriteDbRecord,sub_DADD0,new,low,writes a record to the database,src/front/front_DA66D.asm
+DAFF8,ReadDbRecord,sub_DAFF8,new,low,reads a record from the database,src/front/front_DA66D.asm
+DB508,AppendDbRecord,sub_DB508,new,low,appends a record to the database,src/front/front_DA66D.asm
+DB5B7,AllocRecordSlot,sub_DB5B7,new,low,finds the file position for a new record,src/front/front_DA66D.asm
+DB6AC,CloseGameDatabase,sub_DB6AC,new,low,closes the game database files,src/front/front_DA66D.asm
+DB747,InitDbState,sub_DB747,new,low,clears the database state at start-up,src/front/front_DA66D.asm
+DB75E,FreeDbBlock,sub_DB75E,new,low,frees a database block,src/front/front_DA66D.asm
+DB763,DaysToYear,sub_DB763,new,low,converts a day count to a year,src/front/front_DA66D.asm
+DB7B1,AgeFromBirthDate,sub_DB7B1,new,low,works out a player's age from the birth date,src/front/front_DA66D.asm
+DB838,NewRecordKey,sub_DB838,new,low,builds the key for a new record,src/front/front_DA66D.asm
+DB8E6,LookupRecord,sub_DB8E6,new,low,looks up a record by key,src/front/front_DA66D.asm
+DBBFC,FindRecordByKey,sub_DBBFC,new,low,finds a record by key and reads it,src/front/front_DA66D.asm
+DBDC1,CountDbRecords,sub_DBDC1,new,low,counts the records of the database,src/front/front_DA66D.asm
+DBEB3,RebuildDbIndex,sub_DBEB3,new,low,rebuilds the database index,src/front/front_DA66D.asm
+DC11A,RepairDatabase,sub_DC11A,new,low,checks and repairs the database,src/front/front_DA66D.asm
+DC653,FindTeamRecord,sub_DC653,new,low,finds a team record,src/front/front_DA66D.asm
+DC71D,BuildAllStarRecords,sub_DC71D,new,low,builds the all-star teams,src/front/front_DA66D.asm
+DC99F,AddPlayerRecord,sub_DC99F,new,low,adds a player record,src/front/front_DA66D.asm
+DCA6C,AddTradeRecord,sub_DCA6C,new,low,adds a trade record,src/front/front_DA66D.asm
+DCBB0,FindPlayerRecord,sub_DCBB0,new,low,finds a player record,src/front/front_DA66D.asm
+DCC75,UpdatePlayerRecord,sub_DCC75,new,low,updates a player record,src/front/front_DA66D.asm
+DCEA4,MakeLeagueKey,sub_DCEA4,new,low,builds a league record key from its type and number,src/front/front_DA66D.asm
+DCFA4,MakeLeagueKeyBase,sub_DCFA4,new,low,builds a league record key of the base type,src/front/front_DA66D.asm
+DCFB0,CreateExhibitionFile,sub_DCFB0,new,low,creates the exhibition league file,src/front/front_DA66D.asm
+DD2DE,CreatePlayoffFile,sub_DD2DE,new,low,creates the playoff league file,src/front/front_DA66D.asm
+DD61F,CreatePlayoffSchedule,sub_DD61F,new,low,creates the playoff schedule,src/front/front_DA66D.asm
+DD970,CreateSeasonFile,sub_DD970,new,low,creates the season league file,src/front/front_DA66D.asm
+DDC4A,CreateSeasonSchedule,sub_DDC4A,new,low,creates the season schedule,src/front/front_DA66D.asm
+DE20B,ScheduleEntryMatches,sub_DE20B,new,low,returns whether a schedule entry matches,src/front/front_DA66D.asm
+DE25F,FindNextSeasonGame,sub_DE25F,new,low,finds the next game of the season,src/front/front_DA66D.asm
 DE3CF,OpenLeagueFile,sub_DE3CF,new,low,"(league id, ...): opens a season / playoff file (""%s%s.SEA"", ""%s%s.PLY"" or ""%s%08x.%03x"") and reads its header; from the season, playoff and stats screens",src/front/front_DA66D.asm
+DE5A3,WriteLeagueHeader,sub_DE5A3,new,low,writes the league file header,src/front/front_DA66D.asm
+DE740,StartSeasonGame,sub_DE740,new,low,starts the next season game,src/front/front_DA66D.asm
+DE88E,RecordHomeStats,sub_DE88E,new,low,records the home team's game stats,src/front/front_DA66D.asm
+DE9F5,RecordAwayStats,sub_DE9F5,new,low,records the away team's game stats,src/front/front_DA66D.asm
+DEBA2,RecordGameResult,sub_DEBA2,new,low,records the result of a game,src/front/front_DA66D.asm
+DEE3A,SaveGameResult,sub_DEE3A,new,low,saves the result of a game,src/front/front_DA66D.asm
+DEE95,SaveExhibitionResult,sub_DEE95,new,low,saves the result of an exhibition game,src/front/front_DA66D.asm
+DEF96,SaveSeasonResult,sub_DEF96,new,low,saves the result of a season game,src/front/front_DA66D.asm
+DF1CF,MakeGameKey,sub_DF1CF,new,low,builds the key of a game record,src/front/front_DA66D.asm
+DF274,BuildPlayoffRecords,sub_DF274,new,low,builds the playoff records,src/front/front_DA66D.asm
+DFAF6,BuildSeasonRecords,sub_DFAF6,new,low,builds the season records,src/front/front_DA66D.asm
+E0297,AddGameRecord,sub_E0297,new,low,adds a game record,src/front/front_DA66D.asm
+E036F,FindGameRecord,sub_E036F,new,low,finds a game record,src/front/front_DA66D.asm
+E0415,UpdateGameRecord,sub_E0415,new,low,updates a game record,src/front/front_DA66D.asm
+E0617,MakePlayerStatKey,sub_E0617,new,low,builds the key of a player stats record,src/front/front_DA66D.asm
+E0691,MakeGoalieStatKey,sub_E0691,new,low,builds the key of a goalie stats record (probably),src/front/front_DA66D.asm
+E069E,AddPlayerStat,sub_E069E,new,low,adds a player stats record,src/front/front_DA66D.asm
+E076B,AddPlayerStatAt,sub_E076B,new,low,adds a player stats record at a key,src/front/front_DA66D.asm
+E0841,FindPlayerStat,sub_E0841,new,low,finds a player stats record,src/front/front_DA66D.asm
+E08E9,UpdatePlayerStat,sub_E08E9,new,low,updates a player stats record,src/front/front_DA66D.asm
+E0AD0,MakeTeamStatKey,sub_E0AD0,new,low,builds the key of a team stats record,src/front/front_DA66D.asm
+E0B75,MakeStandingsKey,sub_E0B75,new,low,builds the key of a standings record (probably),src/front/front_DA66D.asm
+E0B82,AddTeamStat,sub_E0B82,new,low,adds a team stats record,src/front/front_DA66D.asm
+E0C4F,AddTeamStatAt,sub_E0C4F,new,low,adds a team stats record at a key,src/front/front_DA66D.asm
+E0D0F,FindTeamStat,sub_E0D0F,new,low,finds a team stats record,src/front/front_DA66D.asm
+E0DB7,ReadTeamStats,sub_E0DB7,new,low,reads a team's stats records,src/front/front_DA66D.asm
+E0F85,UpdateTeamStat,sub_E0F85,new,low,updates a team stats record,src/front/front_DA66D.asm
 E117B,LoadExhibitionFile,sub_E117B,new,medium,"(&block): reads the exhibition file %s%s.EXH into a new ""EXHIBIT"" block (383C1h bytes) with its ""AGENTS"" part",src/front/front_DA66D.asm
 E1245,SaveExhibitionFile,sub_E1245,new,medium,(block): writes the exhibition file %s%s.EXH,src/front/front_DA66D.asm
 E12D1,FreeExhibitionFile,sub_E12D1,new,medium,(&block): frees the exhibition block and its agents part (+383C1h),src/front/front_DA66D.asm
+E12EF,ResetExhibitionStats,sub_E12EF,new,low,resets the exhibition stats,src/front/front_DA66D.asm
 E13BF,ResetExhibitionFile,sub_E13BF,new,low,"builds the original exhibition data (sub_E12EF, ""ORIGEXH"") and saves it as the exhibition file",src/front/front_DA66D.asm
+E13FE,ImportTradedPlayers,sub_E13FE,new,low,imports the traded players,src/front/front_DA66D.asm
+E1563,ImportNewPlayers,sub_E1563,new,low,imports new players,src/front/front_DA66D.asm
+E167A,AllocImportBuffer,sub_E167A,new,low,allocates the import buffer,src/front/front_DA66D.asm
+E1744,PickDemoTeams,sub_E1744,new,low,picks the teams for a demo game,src/front/front_DA66D.asm
+E19D5,AddReplayIndexEntry,sub_E19D5,new,low,adds an entry to the saved replay index,src/front/front_DA66D.asm
+E1C19,FindReplayIndexEntry,sub_E1C19,new,low,finds an entry of the saved replay index,src/front/front_DA66D.asm
 E1CC0,OpenReplayFile,sub_E1CC0,new,low,"builds a replay's file name (""%s%08x.%03x"", id xor 0ABCDCBAFh) and opens it when it exists with the expected size",src/front/front_DA66D.asm
+E1D45,RenameReplayIndexEntry,sub_E1D45,new,low,renames an entry of the saved replay index,src/front/front_DA66D.asm
+E1EC9,DeleteReplayIndexEntry,sub_E1EC9,new,low,deletes an entry of the saved replay index,src/front/front_DA66D.asm
+E2041,SaveUserRecord,sub_E2041,new,low,saves a user record,src/front/front_DA66D.asm
+E2141,LoadUserRecord,sub_E2141,new,low,loads a user record,src/front/front_DA66D.asm
+E21C6,DeleteUserRecord,sub_E21C6,new,low,deletes a user record,src/front/front_DA66D.asm
 E2270,AllocClearBlock,sub_E2270,new,low,"(tag, size, &ptr): allocates a block (flag 0), clears it and stores it; returns 1, or 0 when out of memory",src/front/front_DA66D.asm
 E22A0,AllocClearBlock20,sub_E22A0,new,low,AllocClearBlock with allocation flag 20h,src/front/front_DA66D.asm
 E22D0,FreePtr,sub_E22D0,new,medium,"(&ptr): frees the block and clears the pointer; returns 1, or 0 when it was already null",src/front/front_DA66D.asm
+E22FC,CopyBytesOk,sub_E22FC,new,low,copies bytes and returns 1,src/front/front_DA66D.asm
+E2310,CopyAndClear,sub_E2310,new,low,copies bytes and clears the rest,src/front/front_DA66D.asm
+E2334,ZeroBytesOk,sub_E2334,new,low,clears bytes and returns 1,src/front/front_DA66D.asm
+E2348,CompareKeyBytes,sub_E2348,new,low,compares two keys byte by byte,src/front/front_DA66D.asm
 E2378,FileExists,sub_E2378,new,low,(path): 1 when the file exists (sub_10AED0),src/front/front_DA66D.asm
 E2388,FileDelete,sub_E2388,new,medium,"deletes a file; returns 1, or 0 with the error text ""FILEdelete"" in eax",src/front/front_DA66D.asm
 E23BC,FileCreate,sub_E23BC,new,medium,"fopen ""w+b""; returns 1, or 0 with the error text ""FILEcreate""",src/front/front_DA66D.asm
@@ -840,47 +1923,157 @@ E2458,FileReadRecord,sub_E2458,new,medium,"freads one record; returns 1, or 0 wi
 E2494,FileWriteRecord,sub_E2494,new,medium,"fwrites one record; returns 1, or 0 with the error text ""FILEread"" (the game reuses the read message)",src/front/front_DA66D.asm
 E24D0,FileClose,sub_E24D0,new,medium,"fclose; returns 1, or 0 with the error text ""FILEclose""",src/front/front_DA66D.asm
 E24F0,FileLength,sub_E24F0,new,medium,"(file): the file's length (ftell at the end), keeping the position",src/front/front_DA66D.asm
+E2590,ReadKeyboardPad,sub_E2590,new,low,reads a keyboard pad,src/front/front_DA66D.asm
+E2620,ReadKeyboardPlayers,sub_E2620,new,low,reads the keyboard players,src/front/front_DA66D.asm
+E2790,ReadInputDriver,sub_E2790,new,low,reads the input driver,src/front/front_DA66D.asm
+E2838,ReadJoystickPads,sub_E2838,new,low,reads the joystick pads,src/front/front_DA66D.asm
 E2AF4,PollControllers,sub_E2AF4,96PC,high,96 PC PollControllers: controllers and hot keys into the slot words,src/front/front_DA66D.asm
 E2E28,InputRecordTimer,sub_E2E28,96PC,high,96 PC InputRecordTimer: timer callback pushing input records into the ring of 5,src/front/front_DA66D.asm
 E2F98,InitSlotTable,sub_E2F98,96PC,medium,slot words and teams from the 8 controller set-up bytes,src/front/front_DA66D.asm
+E304C,StartInputRecording,sub_E304C,new,low,starts recording input,src/front/front_DA66D.asm
+E30BC,StopInputTimer,sub_E30BC,new,low,stops the input timer,src/front/front_DA66D.asm
+E30D8,StartInputTimer,sub_E30D8,new,low,starts the input timer,src/front/front_DA66D.asm
+E30F4,ResetInputState,sub_E30F4,new,low,resets the input state,src/front/front_DA66D.asm
+E3174,IsInputRecording,sub_E3174,new,low,returns whether input is being recorded,src/front/front_DA66D.asm
+E3190,StopInputRecording,sub_E3190,new,low,stops recording input,src/front/front_DA66D.asm
 E3208,InputRecordAvail,sub_E3208,new,high,returns InputRecordCount (GameLoop's is there a record),src/front/front_DA66D.asm
 E3218,TakeInputRecord,sub_E3218,new,high,copies the next record out of InputRecordRing,src/front/front_DA66D.asm
+E32B4,InitLinkSettings,sub_E32B4,new,low,sets up the link settings,src/front/front_DA66D.asm
+E3410,ClearLinkAbort,sub_E3410,new,low,clears the link abort flag,src/front/front_DA66D.asm
+E341C,ServiceIdle,sub_E341C,new,low,services audio and keys while waiting,src/front/front_DA66D.asm
+E34A0,QueueLinkPacket,sub_E34A0,new,low,queues a link packet,src/front/front_DA66D.asm
+E3530,SendLinkPacket,sub_E3530,new,low,sends a link packet,src/front/front_DA66D.asm
+E3640,ResendLinkPacket,sub_E3640,new,low,resends a link packet,src/front/front_DA66D.asm
+E3700,LinkTimerOn,sub_E3700,new,low,starts the link timer,src/front/front_DA66D.asm
+E3738,LinkTimerOff,sub_E3738,new,low,stops the link timer,src/front/front_DA66D.asm
+E375C,ResetLinkStats,sub_E375C,new,low,clears the link counters,src/front/front_DA66D.asm
+E3798,SyncLinkGame,sub_E3798,new,low,synchronises the game with the other computer,src/front/front_DA66D.asm
 E3A44,NetInit,sub_E3A44,new,low,"from main_: once, starts IPX (IpxInit) and the serial layer, allocates the ""pktlayer"" buffer and marks the network ready (dword_16DAA0)",src/front/front_DA66D.asm
 E3AB8,NetShutdown,sub_E3AB8,new,low,"from main_: closes the IPX socket and the serial layer, frees ""pktlayer""",src/front/front_DA66D.asm
+E3AFC,StartNetworkLink,sub_E3AFC,new,low,starts a network link game,src/front/front_DA66D.asm
 E3E8C,NetDisconnect,sub_E3E8C,new,low,"ends a network session with the ""Disconnecting"" message (IPX or serial), then clears the connected flag (dword_16DA9C)",src/front/front_DA66D.asm
+E3F04,LinkHandshake,sub_E3F04,new,low,handshake with the other computer,src/front/front_DA66D.asm
+E4218,LinkSyncMenu,sub_E4218,new,low,synchronises a menu with the other computer,src/front/front_DA66D.asm
+E4230,LinkSyncScreen,sub_E4230,new,low,synchronises a screen with the other computer,src/front/front_DA66D.asm
+E4248,LinkSyncGame,sub_E4248,new,low,synchronises the start of a game with the other computer,src/front/front_DA66D.asm
+E4264,ClearLinkInputs,sub_E4264,new,low,clears the link input buffers,src/front/front_DA66D.asm
+E4288,LinkInputTick,sub_E4288,new,low,sends and receives the link inputs each tick,src/front/front_DA66D.asm
 E4638,LinkSendBlock,sub_E4638,96PC,low,"96 PC LinkSendBlock: (data, length, progress) sends a block to the other computer in packets (80h header), idling while it waits",src/front/front_DA66D.asm
 E4838,LinkReceiveBlock,sub_E4838,96PC,low,"96 PC LinkReceiveBlock: (dest, length, progress) waits (idling) for the next block from the other computer",src/front/front_DA66D.asm
 E4908,WaitForOtherComputer,sub_E4908,new,low,"the ""Waiting for other computer"" box: shows it and syncs with the other side",src/front/front_DA66D.asm
+E5730,InitNetSession,sub_E5730,new,low,sets up the network session,src/front/front_DA66D.asm
 E57EC,DefaultModemName,sub_E57EC,new,low,"(len out): ""Generic Hayes-Compatible"" (length 17h) when a modem is set up, else 0; from ModemSettingsScreen",src/front/front_DA66D.asm
+E5808,OpenNetSession,sub_E5808,new,low,opens the network session,src/front/front_DA66D.asm
+E59A8,CloseNetSession,sub_E59A8,new,low,closes the network session,src/front/front_DA66D.asm
+E59D8,ShutdownNetSession,sub_E59D8,new,low,shuts down the network session,src/front/front_DA66D.asm
+E5A20,SetNetPlayerName,sub_E5A20,new,low,sets the network player name,src/front/front_DA66D.asm
 E5A98,IpxInit,sub_E5A98,new,low,"looks for the IPX driver and allocates the ""IPXMEM"" / ""NETWORK"" blocks",src/front/front_DA66D.asm
 E5BF8,LoadServerList,sub_E5BF8,new,low,"loads the ""SERVLIST"" block for the network games screen",src/front/front_DA66D.asm
 E5C78,IpxCloseSocket,,new,low,closes the open IPX socket (sub_11D508) and frees its buffer (dword_16E128); the earlier 95 PC FreeRinkGfx match was wrong (only a mnemonic similarity),src/front/front_DA66D.asm
+E5CD8,HostNetGame,sub_E5CD8,new,low,hosts a network game,src/front/front_DA66D.asm
+E5D6C,LeaveNetGame,sub_E5D6C,new,low,leaves the network game,src/front/front_DA66D.asm
+E5D98,AddFoundGame,sub_E5D98,new,low,adds a found network game to the list,src/front/front_DA66D.asm
 E5EE0,FindNetworkGames,sub_E5EE0,new,low,"looks for open ""GAMEADDR"" games on the network (sub_E5D98 matches ""NHL97"" entries)",src/front/front_DA66D.asm
+E5FD8,DrawNetGameList,sub_E5FD8,new,low,draws the list of network games,src/front/front_DA66D.asm
+E61AC,ChooseNetGame,sub_E61AC,new,low,lets the player choose a network game,src/front/front_DA66D.asm
 E657C,ChooseNetworkGameScreen,sub_E657C,new,low,"network play: the ""Choose a game:"" list of open games",src/front/front_DA66D.asm
+E728C,CopyJoinedGameInfo,sub_E728C,new,low,copies the joined game's info,src/front/front_DA66D.asm
 E72B0,JoinNetworkGame,sub_E72B0,new,low,"network play: ""Waiting for connection"", runs ChooseNetworkGameScreen and connects to the chosen game",src/front/front_DA66D.asm
+E7570,CloseNetConnection,sub_E7570,new,low,closes the network connection,src/front/front_DA66D.asm
+E759F,OptionsAnimFrame,sub_E759F,new,low,draws one frame of the options animation,src/front/front_DA66D.asm
+E77B1,OptionsAnimScreen,sub_E77B1,new,low,shows the options animation screen,src/front/front_DA66D.asm
+E7B33,SeasonIntroScreen,sub_E7B33,new,low,shows the season intro screen,src/front/front_DA66D.asm
+E7D6D,BuildSeasonIntro,sub_E7D6D,new,low,builds the data of the season intro,src/front/front_E7D6D.asm
+E8418,IsTopScorer,sub_E8418,new,low,returns whether a player is the top scorer,src/front/front_E7D6D.asm
+E8461,IsTopAssister,sub_E8461,new,low,returns whether a player leads in assists,src/front/front_E7D6D.asm
+E84AA,IsTopGoalie,sub_E84AA,new,low,returns whether a goalie leads,src/front/front_E7D6D.asm
+E84F3,CompareLeader,sub_E84F3,new,low,compares a player with the current leader,src/front/front_E7D6D.asm
+E85ED,TeamRankValue,sub_E85ED,new,low,returns a team's rank value,src/front/front_E7D6D.asm
+E8660,SetupSeasonIntro,sub_E8660,new,low,sets up the season intro screen,src/front/front_E7D6D.asm
+E88B4,SeasonIntroPage,sub_E88B4,new,low,picks the page of the season intro,src/front/front_E7D6D.asm
+E8923,DrawSeasonIntro,sub_E8923,new,low,draws the season intro,src/front/front_E7D6D.asm
 E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 over 34 instructions,
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
 E9429,BuildAllStarTeams,sub_E9429,new,low,"from the season code: sets up the two All-Star teams (InitAllStarTeams, AllocAllStarRosters, PickAllStarPlayers)",src/front/front_E9429.asm
 E947A,AllStarScreen,sub_E947A,new,low,"from RunSeasonMenus: the All-Star screen (conference pages WC00 / EC00, player lists, BAK0 / BAK1)",src/front/front_E9429.asm
+E9CB5,AllStarSound,sub_E9CB5,new,low,plays an all-star screen sound,src/front/front_E9429.asm
 E9E9B,InitAllStarScreen,sub_E9E9B,new,low,"from AllStarScreen: loads its art and sets up the menu items (BAK0, TITL, LB%02d, AR%02d)",src/front/front_E9429.asm
+EA52D,FreeAllStarScreen,sub_EA52D,new,low,frees the all-star screen,src/front/front_E9429.asm
 EA5B1,DrawAllStarConference,sub_EA5B1,new,low,from AllStarScreen: draws the conference page (WC00 / WC01 or EC00 / EC01 art) and its player list (DrawAllStarList),src/front/front_E9429.asm
+EA64E,ShowAllStarArt,sub_EA64E,new,low,shows the all-star art,src/front/front_E9429.asm
+EA6EB,DrawAllStarHighlight,sub_EA6EB,new,low,draws the all-star highlight,src/front/front_E9429.asm
+EA7CF,DrawAllStarTeam,sub_EA7CF,new,low,draws an all-star team,src/front/front_E9429.asm
+EAE9A,DrawAllStarSlot,sub_EAE9A,new,low,draws an all-star slot,src/front/front_E9429.asm
+EAF08,DrawAllStarSelection,sub_EAF08,new,low,draws the all-star selection,src/front/front_E9429.asm
 EB175,DrawAllStarList,sub_EB175,new,low,"all-star screen: the ""Forwards"" / ""Defence"" / ""Goalies"" lists",src/front/front_E9429.asm
+EB840,LoadAllStarLogo,sub_EB840,new,low,loads the all-star logo,src/front/front_E9429.asm
+EB8DA,LoadAllStarArt,sub_EB8DA,new,low,loads the all-star art,src/front/front_E9429.asm
+EBA9B,AllStarNextTeam,sub_EBA9B,new,low,switches to the next all-star team,src/front/front_E9429.asm
+EBB68,AllStarPrevTeam,sub_EBB68,new,low,switches to the previous all-star team,src/front/front_E9429.asm
+EBC19,AllStarNextSlot,sub_EBC19,new,low,moves to the next all-star slot,src/front/front_E9429.asm
+EBC45,AllStarPrevSlot,sub_EBC45,new,low,moves to the previous all-star slot,src/front/front_E9429.asm
+EBC70,ClearAllStarPicks,sub_EBC70,new,low,clears the all-star picks,src/front/front_E9429.asm
+EBCFA,AllStarPicksDone,sub_EBCFA,new,low,returns whether the all-star picks are complete,src/front/front_E9429.asm
+EBD54,FindAllStarPick,sub_EBD54,new,low,finds an all-star pick,src/front/front_E9429.asm
+EBD8C,FindFreeAllStarSlot,sub_EBD8C,new,low,finds a free all-star slot,src/front/front_E9429.asm
+EBDC3,AllStarPickTaken,sub_EBDC3,new,low,returns whether a player is already picked,src/front/front_E9429.asm
+EBEDA,AllStarPickPlayer,sub_EBEDA,new,low,picks a player for the all-star team,src/front/front_E9429.asm
+EBFCE,AllStarAddPick,sub_EBFCE,new,low,adds an all-star pick,src/front/front_E9429.asm
+EC19E,AllStarRemovePick,sub_EC19E,new,low,removes an all-star pick,src/front/front_E9429.asm
+EC34D,AllStarTogglePick,sub_EC34D,new,low,picks or removes an all-star player,src/front/front_E9429.asm
+EC4DB,AllStarSlotPosition,sub_EC4DB,new,low,returns the position of an all-star slot,src/front/front_E9429.asm
+EC588,CompareAllStarGoalie,sub_EC588,new,low,sort helper: goalies first for the all-star picks,src/front/front_E9429.asm
+EC60D,CompareAllStarKey,sub_EC60D,new,low,sort helper: compares all-star picks by key,src/front/front_E9429.asm
+EC671,AddAllStarCandidate,sub_EC671,new,low,adds an all-star candidate,src/front/front_E9429.asm
+EC82C,PickAllStarCandidates,sub_EC82C,new,low,picks the all-star candidates,src/front/front_E9429.asm
 ECA57,PickAllStarPlayers,sub_ECA57,new,low,"allocates ""all star player info"" / ""all star goalie info"", sorts the season's players and goalies (qsort) and picks the All-Stars",src/front/front_E9429.asm
 ECF20,InitAllStarTeams,sub_ECF20,new,low,"names the two teams ""West All Stars"" / ""East All Stars"" and clears them",src/front/front_E9429.asm
 ED01F,AllocAllStarRosters,sub_ED01F,new,low,"allocates the ""all star rosters"", ""all star airecs"", ""all star raw plrs"" and ""all star statrecs"" blocks and fills them from the season database",src/front/front_E9429.asm
+ED3C1,DrawAllStarPickList,sub_ED3C1,new,low,draws the list of all-star picks,src/front/front_E9429.asm
+ED6C8,LinkReceiveChunk,sub_ED6C8,new,low,receives a data chunk over the link,src/front/front_E9429.asm
+ED8E8,LinkSendChunk,sub_ED8E8,new,low,sends a data chunk over the link,src/front/front_E9429.asm
+EDDAC,LinkSendFile,sub_EDDAC,new,low,sends a file over the link,src/front/front_E9429.asm
 EE0F7,GetKeyName,sub_EE0F7,new,medium,"(scan code, buf): copies the key's name (""Escape"", ""Backspace"", ""Left Shift""..., ""<NONE>"") for the control setup screen",src/front/front_E9429.asm
 EE69C,ShowReservedKey,sub_EE69C,new,low,"control setup: ""The %s key is reserved for a system function. Please choose another.""",src/front/front_EE69C.asm
+EE8AC,CopyControlSettings,sub_EE8AC,new,low,copies the control settings,src/front/front_EE69C.asm
+EE8BB,ControlSetupMain,sub_EE8BB,new,low,runs the control setup screen,src/front/front_EE69C.asm
+EECBC,ControlSetupKeys,sub_EECBC,new,low,runs the key setup page,src/front/front_EE69C.asm
+EF5B3,ControlSetupPads,sub_EF5B3,new,low,runs the gamepad setup page,src/front/front_EE69C.asm
+EFD08,ControlSetupSound,sub_EFD08,new,low,plays a control setup sound,src/front/front_EE69C.asm
+F0004,DrawControlLabel,sub_F0004,new,low,draws a control label,src/front/front_EE69C.asm
+F01C5,DrawControlKey,sub_F01C5,new,low,draws a control key,src/front/front_EE69C.asm
 F0339,ControlSetupScreen,sub_F0339,96PC,low,"96 PC ControlSetupScreen: (mode) the control set-up screen (KMB%d keyboard / mouse buttons, TB00-TB03, GLW%d)",src/front/front_EE69C.asm
+F174F,ControlSetupPlayers,sub_F174F,new,low,runs the player control page,src/front/front_EE69C.asm
+F1FF8,SetupPauseArt,sub_F1FF8,new,low,sets up the pause art,src/front/front_EE69C.asm
+F207F,CleanupPauseArt,sub_F207F,new,low,cleans up the pause art,src/front/front_EE69C.asm
+F20A1,LoadPauseArt,sub_F20A1,new,low,loads the pause menu art,src/front/front_F20A1.asm
+F22AF,FreePauseArt,sub_F22AF,new,low,frees the pause menu art,src/front/front_F20A1.asm
+F22ED,DrawMenuFrame,sub_F22ED,new,low,draws a pause menu frame,src/front/front_F20A1.asm
+F23BF,DrawPauseButton,sub_F23BF,new,low,draws a pause menu button,src/front/front_F20A1.asm
+F2544,DrawMenuItem,sub_F2544,new,low,draws a pause menu item,src/front/front_F20A1.asm
+F272B,DrawPauseDivider,sub_F272B,new,low,draws a pause menu divider,src/front/front_F20A1.asm
 F27A4,DrawPauseClock,sub_F27A4,new,low,"pause menu / intermission: the game time line ("" %d:%02d.%d"")",src/front/front_F20A1.asm
+F2AA0,DrawClockOverlay,sub_F2AA0,new,low,draws the clock overlay,src/front/front_F20A1.asm
 F2ADB,DrawPauseButtons,sub_F2ADB,96PC,low,"draws the pause menu buttons (game text Save Game, Controller Setup, Replay, Rules, Detail Level, Quit Game)",src/front/front_F20A1.asm
+F30A0,OpenInGameMenu,sub_F30A0,new,low,opens the in-game menu,src/front/front_F20A1.asm
+F30D7,LoadGameMenuText,sub_F30D7,new,low,loads the in-game menu text,src/front/front_F20A1.asm
 F30F1,PickEditLinesTeam,sub_F30F1,new,low,"the in-game ""Edit which team?"" box (Home / Away / Cancel)",src/front/front_F20A1.asm
 F36AC,ConfirmQuitGame,sub_F36AC,new,medium,"the in-game ""Are you sure you want to quit the game?"" box (Yes / No)",src/front/front_F20A1.asm
 F3C43,RunIntermission,sub_F3C43,new,low,"from PauseMenu: the intermission (fade out, arena PA event 0B0000004h and clip, ""Please press a mouse button to continue....."")",src/front/front_F20A1.asm
+F3F33,RefreshModelFromMenu,sub_F3F33,new,low,refreshes a player model from the menu,src/front/front_F20A1.asm
+F3FB0,FreePauseBitmap,sub_F3FB0,new,low,frees the pause bitmap,src/front/front_F20A1.asm
+F3FF5,SetupPauseButtons,sub_F3FF5,new,low,sets up the pause buttons,src/front/front_F20A1.asm
 F418F,PauseMenu,sub_F418F,96PC,low,"the in-game pause menu loop, from RunInGameMenu (96 PC PauseMenu); runs the rules, detail level, edit-team and quit choices",src/front/front_F20A1.asm
+F48C2,LeaveGameForMenu,sub_F48C2,new,low,leaves the game for the front-end menus,src/front/front_F20A1.asm
+F4978,ReturnToGame,sub_F4978,new,low,returns to the game from the menus,src/front/front_F20A1.asm
+F4A8F,RestartGameAudio,sub_F4A8F,new,low,restarts the game audio,src/front/front_F20A1.asm
 F4B3F,DrawIntermissionTitle,sub_F4B3F,new,low,"pause / intermission panel title: ""Second Intermission"", ""End of Game"", ""Beginning of Overtime"", ""Overtime Intermission""",src/front/front_F20A1.asm
+F5219,RunPauseIntermission,sub_F5219,new,low,runs the intermission screen,src/front/front_F20A1.asm
+F558C,CloseIntermission,sub_F558C,new,low,closes the intermission screen,src/front/front_F20A1.asm
 F5601,FillBox,sub_F5601,96PC,medium,NHL96PC 64103 (similar 0.92): mnemonic similarity 0.92 over 78 instructions,src/front/front_F20A1.asm
 F570D,RulesMenu,sub_F570D,new,medium,"the in-game rules menu (offside, icing, 2 line pass, line changes, injuries, fighting, penalties, speed game)",src/front/front_F20A1.asm
 F7BD6,DetailLevelMenu,sub_F7BD6,new,medium,"the in-game detail level menu (draw crowd, ice logos, ice texture, board advertising, glass, player benches, player names)",src/front/front_F20A1.asm
+F9496,FreeVideoBuffer,sub_F9496,new,low,frees the video buffer,src/front/front_F20A1.asm
 F98E4,NextVideoMode,sub_F98E4,new,low,"steps to the next entry of the video mode list (dword_16E304, wraps) and prints its name as a message",src/lib/lib_F94BC.asm
 F994D,PrevVideoMode,sub_F994D,new,low,"steps to the previous entry of the video mode list (dword_16E304, wraps) and prints its name as a message",src/lib/lib_F94BC.asm
 F9B40,_searchenv_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

@@ -21,26 +21,26 @@ extern dword_1C86FC, dword_1C8A8C, dword_1C8A90, dword_1C94E8, jpt_8E977, jpt_8E
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, BlitShape2
 extern BlitArt, BlitShape, sub_1013CC, sub_1013FC, FindShape, Random32, sub_10AED0, FindShapeList
 extern sub_11B0D0, SetScreenTarget, SeasonGameScreen, MusicEnabled, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
-extern MakeDirPath, LoadDataFile, sub_7A9D8, sub_7BB27, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
-extern SetRegionRect, SetTextColor, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80AB8, sub_80BBC, sub_81650
-extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad, NameIndexFree
-extern sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DBAC, sub_8DE10, DrawScrollBar, sub_8DE68
-extern sub_8DE7E, sub_8DEAC, GetLangText, PlayoffTreeScreen, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData
-extern LinkReceiveData, sub_A3116, sub_C6064, RosterScreen, sub_D49BE, sub_DA7D6, sub_DB75E, sub_DB763
-extern sub_DC653, sub_DCA6C, sub_DCBB0, sub_DCFA4, sub_DD970, sub_DDC4A, OpenLeagueFile, sub_DE5A3
-extern sub_E036F, sub_E0415, sub_E0691, sub_E069E, sub_E076B, sub_E0841, sub_E0B75, sub_E0D0F
-extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E13FE, sub_E1563, sub_E167A, sub_E1C19
-extern AllocClearBlock, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, AllStarScreen, AllocMemBlock, FreeMemBlock
+extern MakeDirPath, LoadDataFile, BuildSeasonSchedule, ClearTeamInjuries, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen
+extern SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBox, EditTextField, DrawTeamLogoBanner, WipeScreen, SetHighlightText
+extern SetNormalText, DrawStatTable, ShowLinkMessage, ShowPopupScreen, RunStatsMenu, NameIndexNew, NameIndexLoad, NameIndexFree
+extern LoadNameIndex, NameIndexLimit, InitMenuItems, RunMenu, InitScrollTable, ScrollUp, DrawScrollBar, ScrollDown
+extern FreeScrollList, ScrollToMouse, GetLangText, PlayoffTreeScreen, AllocCrusherBuffers, FreeTransferBuffers, CopyToTransfer, LinkSendData
+extern LinkReceiveData, AppendToTransfer, SeasonSetupScreen, RosterScreen, CountTeamResults, KeysEqual, FreeDbBlock, DaysToYear
+extern FindTeamRecord, AddTradeRecord, FindPlayerRecord, MakeLeagueKeyBase, CreateSeasonFile, CreateSeasonSchedule, OpenLeagueFile, WriteLeagueHeader
+extern FindGameRecord, UpdateGameRecord, MakeGoalieStatKey, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, MakeStandingsKey, FindTeamStat
+extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, ImportTradedPlayers, ImportNewPlayers, AllocImportBuffer, FindReplayIndexEntry
+extern AllocClearBlock, ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, SeasonIntroScreen, AllStarScreen, AllocMemBlock, FreeMemBlock
 extern MakeColor, FreeBitmap, sub_FCEEC, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, unk_165779
 extern unk_1657CD, unk_1657CF, unk_16D7F4, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF12, unk_1ACF4E
 extern unk_1AD22E, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C85DC, unk_1C85E8, unk_1C85F4, unk_1C8600
 extern unk_1C860C, word_1AD240, word_1AD242
 global jpt_912BF, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8, RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187
 global RunNewSeason_193, NewSeasonScreen_DCB, NewSeasonScreen_DCE, CreateSeason_55B, CreateSeason_561, CreateSeason_562, StandingsScreen_65C, StandingsScreen_685
-global StandingsScreen_699, StandingsScreen_6AD, StandingsScreen_6C1, StandingsScreen_6DD, StandingsScreen_6F4, StandingsScreen_70B, StandingsScreen_718, sub_91D7F_1EA
-global RunNewSeason, sub_8EBDF, NewSeasonScreen, CreateSeason, RunSeasonMenus, sub_900AE, SeasonMenuScreen, sub_91289
-global StandingsScreen, sub_91D07, sub_91D1C, sub_91D7F, BuildStandingsFactoids, SeasonSettingsPath, sub_9260A, sub_926BD
-global sub_9279A, LinkTransferSetup, LoadFakeExhibition, SaveAgents, sub_92EE2, sub_92F25, sub_92FE9
+global StandingsScreen_699, StandingsScreen_6AD, StandingsScreen_6C1, StandingsScreen_6DD, StandingsScreen_6F4, StandingsScreen_70B, StandingsScreen_718, SortStandings_1EA
+global RunNewSeason, NewSeasonSound, NewSeasonScreen, CreateSeason, RunSeasonMenus, SeasonMenuSparkle, SeasonMenuScreen, StandingsSparkle
+global StandingsScreen, CompareStandingsValue, CompareStandings, SortStandings, BuildStandingsFactoids, SeasonSettingsPath, SeasonYearText, DrawSeasonTitle
+global FindSeasonReplay, LinkTransferSetup, LoadFakeExhibition, SaveAgents, SaveAgentsOnly, SaveTradesLink, SetPlayoffFormat
 ;-----------------------------------------------------------------------------
 ; RunNewSeason                                    8E997  97 PC, low confidence
 ; Screen 6: sets up a new season (copies the set-up, NewSeasonScreen, roster,
@@ -66,7 +66,7 @@ RunNewSeason:
         push byte 1
         cmp dword [dword_16DA9C], byte 0
         je short .1
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .1
         mov ecx, 1
@@ -79,7 +79,7 @@ RunNewSeason:
         call GetLangText
         mov ebx, eax
         mov eax, unk_1ACF12
-        call sub_7FE38
+        call EditTextField
         test eax, eax
         je near RunNewSeason_F8
         mov eax, 6
@@ -97,7 +97,7 @@ RunNewSeason:
         mov eax, 5
         mov edx, 4
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         mov edi, eax
         lea ebx, [byte eax-01h]
         mov dword [dword_1ACF3E], ebx
@@ -136,7 +136,7 @@ RunNewSeason_F8:
         mov eax, 9
         mov edx, 5
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         mov edi, eax
         test eax, eax
         jne short .5
@@ -209,9 +209,10 @@ RunNewSeason_193:
         mov eax, esi
         jmp near NewSeasonScreen_DCE
 ;-----------------------------------------------------------------------------
-; sub_8EBDF                                                       8EBDF  97 PC
+; NewSeasonSound                                  8EBDF  97 PC, low confidence
+; Plays a new season screen sound
 ;-----------------------------------------------------------------------------
-sub_8EBDF:
+NewSeasonSound:
         push ebx
         push ecx
         push edx
@@ -354,7 +355,7 @@ NewSeasonScreen:
         mov edx, esi
         mov eax, esi
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         mov edi, dword [dword_1C86F8]
         mov esi, unk_1C5EF8
         rep movsb
@@ -526,7 +527,7 @@ NewSeasonScreen:
         mov ebx, dword [dword ebx+ebp-0B4h]
         push byte 2Dh
         movzx eax, byte [dword eax+byte_169038]
-        call sub_80AB8
+        call DrawTeamLogoBanner
         push dword [byte ebp-03Ch]
         call SetDrawTarget
         add esp, byte 4
@@ -543,7 +544,7 @@ NewSeasonScreen:
         mov eax, dword [byte ebp-03Ch]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push dword [byte ebp-03Ch]
         xor esi, esi
         call FreeBitmap
@@ -619,7 +620,7 @@ NewSeasonScreen:
         mov dword [byte ebp-038h], edx
         movzx eax, byte [dword edx+byte_169038]
         mov edx, 20h
-        call sub_80AB8
+        call DrawTeamLogoBanner
         mov eax, dword [byte ebp-044h]
         mov eax, dword [dword eax+dword_16CD64]
         push dword 5999h
@@ -634,7 +635,7 @@ NewSeasonScreen:
         mov ebx, dword [dword edi+ebp-0E8h]
         push byte 2Dh
         movzx eax, byte [dword eax+byte_169038]
-        call sub_80AB8
+        call DrawTeamLogoBanner
         push dword [dword edi+ebp-0E8h]
         call SetDrawTarget
         add esp, byte 4
@@ -723,12 +724,12 @@ NewSeasonScreen:
         jne near .42
         push byte 3
         lea eax, [byte ebp-048h]
-        mov ecx, sub_8EBDF
+        mov ecx, NewSeasonSound
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, dword [dword_1C86F8]
         mov eax, 12h
-        call sub_8BFAC
+        call RunMenu
         mov edx, eax
         cmp dword [byte ebp-048h], byte 0Fh
         jb short .13
@@ -746,11 +747,11 @@ NewSeasonScreen:
         je short .15
         jmp near .33
 .14:
-        call sub_7EEB0
+        call ShowScreen
         mov dword [byte ebp-02Ch], 1
         jmp short .12
 .15:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [dword_1ACF4A], 0
         xor esi, esi
 .16:
@@ -770,7 +771,7 @@ NewSeasonScreen:
         lea ebx, [byte ebp-04Ch]
         mov edx, ecx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         jmp near .12
 .18:
         mov eax, dword [dword ebp-04ECh]
@@ -778,20 +779,20 @@ NewSeasonScreen:
         call CreateSeason
         jmp near .12
 .19:
-        call sub_7EF70
+        call ExitScreen
         jmp near .12
 .20:
         mov eax, dword [dword_1C86F8]
         add eax, 520h
-        call sub_83C08
+        call ShowPopupScreen
         mov eax, 2
-        call sub_C6064
+        call SeasonSetupScreen
         jmp near .12
 .21:
         mov eax, dword [dword_1C86F8]
         add eax, 572h
         mov dword [byte ebp-02Ch], 19h
-        call sub_83C08
+        call ShowPopupScreen
         jmp near .12
 .22:
         xor byte [byte ebp-024h], 1
@@ -857,7 +858,7 @@ NewSeasonScreen:
         mov edx, ebx
         mov eax, ebx
         xor esi, esi
-        call sub_7E860
+        call DrawScreenBackground
 .25:
         cmp esi, byte 7
         jge short .26
@@ -948,7 +949,7 @@ NewSeasonScreen:
         mov dword [byte ebp-028h], edx
         movzx eax, byte [dword edx+byte_169038]
         mov edx, 10h
-        call sub_80AB8
+        call DrawTeamLogoBanner
         mov eax, dword [dword edi+dword_16CD64]
         push dword 5999h
         sub eax, dword [byte ebp-0Ch]
@@ -962,7 +963,7 @@ NewSeasonScreen:
         mov ebx, dword [byte ebx+ebp-080h]
         push byte 2Dh
         movzx eax, byte [dword eax+byte_169038]
-        call sub_80AB8
+        call DrawTeamLogoBanner
         mov eax, dword [dword edi+dword_16CD64]
         push dword 5999h
         sub eax, dword [byte ebp-0Ch]
@@ -976,7 +977,7 @@ NewSeasonScreen:
         mov ebx, dword [dword ebx+ebp-0E8h]
         push byte 2Dh
         movzx eax, byte [dword eax+byte_169038]
-        call sub_80AB8
+        call DrawTeamLogoBanner
         mov eax, dword [byte ebp-028h]
         movzx eax, byte [dword eax+byte_169038]
         imul eax, byte 1Ch
@@ -1023,7 +1024,7 @@ NewSeasonScreen:
         mov ebx, dword [dword ebx+ebp-0E8h]
         push byte 2Dh
         movzx eax, byte [dword eax+byte_169038]
-        call sub_80AB8
+        call DrawTeamLogoBanner
         mov eax, dword [byte ebp-010h]
         push dword [dword eax+ebp-0E8h]
         call SetDrawTarget
@@ -1102,7 +1103,7 @@ NewSeasonScreen:
         mov dword [byte ebp-040h], ebx
         mov ebx, eax
         mov eax, dword [byte ebp-040h]
-        call sub_7FE38
+        call EditTextField
         mov eax, dword [byte ebp-040h]
         call strlen_
         imul ebx, dword [byte ebp-048h], byte 52h
@@ -1147,7 +1148,7 @@ NewSeasonScreen:
         push byte 2Dh
         mov edx, 20h
         mov eax, edi
-        call sub_80AB8
+        call DrawTeamLogoBanner
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -1161,7 +1162,7 @@ NewSeasonScreen:
         mov byte [dword esi+byte_1ACF63], 1
         cmp dword [dword_16DA9C], byte 0
         je short .37
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .37
         mov byte [dword esi+byte_1ACF62], 2
@@ -1256,7 +1257,7 @@ CreateSeason:
         mov dword [dword_1AD22A], edx
         cmp dword [dword_16DA9C], byte 0
         je short .2
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .1
         mov edx, 4
@@ -1284,24 +1285,24 @@ CreateSeason:
         cwde
         mov edx, esi
         mov edi, dword_1AD244
-        call sub_DDC4A
+        call CreateSeasonSchedule
 .3:
         lea eax, [byte ebp+032h]
         lea esi, [byte ebp+032h]
-        call sub_E069E
+        call AddPlayerStat
         jmp near .6
 .4:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .5
         lea eax, [byte ebp+06Ah]
-        call sub_DCFA4
+        call MakeLeagueKeyBase
         lea eax, [byte ebp+062h]
         mov edx, 8
-        call sub_E0B75
+        call MakeStandingsKey
         lea eax, [byte ebp+05Ah]
         xor ebx, ebx
-        call sub_E0691
+        call MakeGoalieStatKey
         lea eax, [byte ebp+06Ah]
         call LinkSendBlock
         mov edx, 8
@@ -1324,7 +1325,7 @@ CreateSeason:
         cwde
         mov edx, esi
         mov edi, dword_1AD244
-        call sub_DD970
+        call CreateSeasonFile
         jmp near .3
 .5:
         mov edx, 8
@@ -1351,11 +1352,11 @@ CreateSeason:
         cwde
         mov edx, esi
         mov edi, dword_1AD244
-        call sub_DD970
+        call CreateSeasonFile
         lea edx, [byte ebp+05Ah]
         lea eax, [byte ebp+032h]
         lea esi, [byte ebp+032h]
-        call sub_E076B
+        call AddPlayerStatAt
 .6:
         movsd
         movsd
@@ -1461,7 +1462,7 @@ CreateSeason:
         cmp eax, dword [byte ebp+07Eh]
         jg near .9
         mov eax, dword [byte ebp+072h]
-        call sub_DE5A3
+        call WriteLeagueHeader
         mov esi, dword [byte ebp+072h]
         mov edi, unk_1AD22E
         lea esi, [byte esi+04h]
@@ -1498,7 +1499,7 @@ CreateSeason:
 .16:
         mov esi, eax
         mov eax, esi
-        call sub_867D4
+        call NameIndexLimit
         push eax
         push str_SEAS04dSET
         lea eax, [byte ebp-01Eh]
@@ -1516,7 +1517,7 @@ CreateSeason:
         add esp, byte 10h
         mov eax, esi
         mov dword [byte ebp+07Eh], 0
-        call sub_867D4
+        call NameIndexLimit
         mov dword [dword_1ACF3A], eax
 .17:
         imul ebx, dword [byte ebp+07Eh], byte 1Ch
@@ -1528,7 +1529,7 @@ CreateSeason:
         mov eax, dword [byte eax+014h]
         add eax, edx
         lea edx, [dword ebp-0126h]
-        call sub_DC653
+        call FindTeamRecord
         mov eax, unk_1ACF4E
         lea edx, [dword ebp-0E8h]
         add eax, ebx
@@ -1538,9 +1539,9 @@ CreateSeason:
         cmp dword [byte ebp+07Eh], byte 1Ah
         jl short .17
         lea eax, [byte ebp+072h]
-        call sub_DB75E
+        call FreeDbBlock
         lea eax, [byte ebp+076h]
-        call sub_DB75E
+        call FreeDbBlock
         push dword 525h
         push unk_1ACD2B
         lea eax, [dword ebp-0BEh]
@@ -1550,14 +1551,14 @@ CreateSeason:
         add esp, byte 0Ch
         lea edx, [byte ebp-01Eh]
         mov eax, esi
-        call sub_86500
+        call LoadNameIndex
         mov edx, eax
         mov eax, 1
         call NameIndexFree
         cmp dword [dword_1AC940], byte 0
         je short .19
         mov eax, dword_1AC940
-        call sub_DB75E
+        call FreeDbBlock
 .19:
         mov edx, dword_1AC940
         mov eax, unk_1AD22E
@@ -1565,7 +1566,7 @@ CreateSeason:
         mov dword [dword_1AC944], unk_1ACD2B
         test byte [byte_1ACD2D], 1
         je short .20
-        call sub_7A9D8
+        call BuildSeasonSchedule
 .20:
         mov dword [byte ebp+07Eh], 0
         jmp near .22
@@ -1578,7 +1579,7 @@ CreateSeason:
         add eax, edx
         lea edx, [dword ebp-01D1Ah]
         lea esi, [dword ebp-01D02h]
-        call sub_E036F
+        call FindGameRecord
         rep movsb
         mov eax, dword [dword ebp-01015h]
         mov word [dword ebp-01C5Dh], ax
@@ -1606,14 +1607,14 @@ CreateSeason:
         call memcpy_
         lea eax, [dword ebp-01D1Ah]
         inc dword [byte ebp+07Eh]
-        call sub_E0415
+        call UpdateGameRecord
 .22:
         mov eax, dword [dword_1AC940]
         movsx edx, word [eax]
         cmp edx, dword [byte ebp+07Eh]
         jg near .21
         lea eax, [byte ebp+076h]
-        call sub_DB75E
+        call FreeDbBlock
 CreateSeason_55B:
         lea esp, [dword ebp+082h]
 CreateSeason_561:
@@ -1649,7 +1650,7 @@ RunSeasonMenus:
         je near .11
         jmp short .7
 .3:
-        call sub_E7B33
+        call SeasonIntroScreen
 .4:
         mov edx, 0Ch
         jmp short .7
@@ -1701,16 +1702,17 @@ RunSeasonMenus:
 .14:
         cmp edx, byte 0Eh
         jne short .15
-        call sub_7BB27
+        call ClearTeamInjuries
         mov dword [dword_1C94E8], 1
 .15:
         mov eax, edx
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_900AE                                                       900AE  97 PC
+; SeasonMenuSparkle                               900AE  97 PC, low confidence
+; Plays a season menu sound and sparkle
 ;-----------------------------------------------------------------------------
-sub_900AE:
+SeasonMenuSparkle:
         push ebx
         push ecx
         push edx
@@ -1782,7 +1784,7 @@ SeasonMenuScreen:
         push esi
         push edi
         enter 9C0h, 0
-        call sub_81650
+        call SetHighlightText
         mov dword [byte ebp-02Ch], 0FFFFFFFFh
         mov dword [byte ebp-024h], 3
         mov byte [byte ebp-010h], 0
@@ -1802,7 +1804,7 @@ SeasonMenuScreen:
         cmp esi, byte 1Ah
         jl short .1
         mov dword [dword_1AC944], unk_1ACD2B
-        call sub_9260A
+        call SeasonYearText
         push byte 0
         push dword 3E8h
         push str_Delstring
@@ -1888,7 +1890,7 @@ SeasonMenuScreen:
         mov edx, ebx
         mov eax, ebx
         mov esi, unk_1C5EF8
-        call sub_7E860
+        call DrawScreenBackground
         mov edi, dword [dword_1C86F0]
         rep movsb
         mov eax, dword [dword_1C86F0]
@@ -1915,7 +1917,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov ecx, str_SD01
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0980h]
         push eax
         mov ecx, str_RL01
@@ -1924,7 +1926,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0940h]
         push eax
         mov ecx, str_SN01
@@ -1933,7 +1935,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 148h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0900h]
         push eax
         mov ecx, str_SR01
@@ -1942,7 +1944,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 19Ah
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-08C0h]
         push eax
         mov ecx, str_SG01
@@ -1951,7 +1953,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0880h]
         push eax
         mov ecx, str_DT01
@@ -1960,7 +1962,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 23Eh
-        call sub_81D1C
+        call DrawStatTable
         cmp dword [byte ebp-024h], byte 3
         jne short .5
         lea eax, [dword ebp-01C0h]
@@ -1979,7 +1981,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 0AE4h
-        call sub_81D1C
+        call DrawStatTable
         xor esi, esi
 .7:
         cmp dword [nosplit esi*4+dword_168E80], byte 1
@@ -2367,21 +2369,21 @@ SeasonMenuScreen:
         jl short .32
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte edi+02Ch]
-        call sub_80BBC
+        call WipeScreen
 .33:
         mov eax, dword [byte ebp-01Ch]
-        call sub_926BD
+        call DrawSeasonTitle
 .34:
         cmp dword [byte ebp-02Ch], byte 0FFFFFFFFh
         jne near .83
         push byte 3
         lea eax, [byte ebp-040h]
-        mov ecx, sub_900AE
+        mov ecx, SeasonMenuSparkle
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, dword [dword_1C86F0]
         mov eax, 23h
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp-040h], byte 4
         jb short .36
         jbe near .46
@@ -2408,11 +2410,11 @@ SeasonMenuScreen:
 .37:
         cmp dword [byte ebp-040h], byte 0
         jne near .79
-        call sub_7EEB0
+        call ShowScreen
         mov dword [byte ebp-02Ch], 1
         jmp near .34
 .38:
-        call sub_7EDF0
+        call FadeInScreen
         imul eax, dword [dword_1AD226], byte 1Ch
         cmp byte [dword eax+byte_1ACF62], 1
         jne short .41
@@ -2424,27 +2426,27 @@ SeasonMenuScreen:
         xor ebx, ebx
 .40:
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         jmp near .34
 .41:
         mov dword [byte ebp-02Ch], 1Ch
         jmp near .34
 .42:
-        call sub_7EF70
+        call ExitScreen
         jmp near .34
 .43:
         mov eax, dword [dword_1C86F0]
         add eax, 0A4h
         mov dword [byte ebp-02Ch], 1Dh
 .44:
-        call sub_83C08
+        call ShowPopupScreen
         jmp near .34
 .45:
         mov eax, dword [dword_1C86F0]
         add eax, 0F6h
-        call sub_83C08
+        call ShowPopupScreen
         mov eax, 2
-        call sub_C6064
+        call SeasonSetupScreen
         jmp near .34
 .46:
         cmp dword [dword_16DA9C], byte 0
@@ -2470,7 +2472,7 @@ SeasonMenuScreen:
         xor ebx, ebx
         mov edx, ecx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         jmp near .33
 .49:
         cmp byte [dword eax+byte_1ACF62], 0
@@ -2532,7 +2534,7 @@ SeasonMenuScreen:
         mov edx, 2
         mov eax, dword [byte ebp-034h]
         xor ebx, ebx
-        call sub_7F5A4
+        call ShowMessageBox
         test eax, eax
         je near .34
         mov byte [byte ebp-014h], 1
@@ -2705,7 +2707,7 @@ SeasonMenuScreen:
         mov ebx, eax
         mov edx, eax
         mov dword [byte ebp-01Ch], eax
-        call sub_7E860
+        call DrawScreenBackground
         lea eax, [dword ebp-01C0h]
         push eax
         mov ecx, str_EC01
@@ -2714,7 +2716,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 0AE4h
-        call sub_81D1C
+        call DrawStatTable
         push edi
         call SetDrawTarget
         add esp, byte 4
@@ -2751,7 +2753,7 @@ SeasonMenuScreen:
         mov ebx, eax
         mov edx, eax
         mov dword [byte ebp-01Ch], eax
-        call sub_7E860
+        call DrawScreenBackground
         lea eax, [dword ebp-01C0h]
         push eax
         mov ecx, str_WC01
@@ -2760,7 +2762,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 0AE4h
-        call sub_81D1C
+        call DrawStatTable
         push edi
         call SetDrawTarget
         add esp, byte 4
@@ -2955,7 +2957,7 @@ SeasonMenuScreen:
         jmp near .33
 .83:
         mov eax, dword [dword_1AD226]
-        call sub_9279A
+        call FindSeasonReplay
         test eax, eax
         je short .84
         cmp dword [byte ebp-02Ch], byte 1Ch
@@ -2995,9 +2997,10 @@ SeasonMenuScreen:
         call SeasonSettingsPath
         jmp near NewSeasonScreen_DCB
 ;-----------------------------------------------------------------------------
-; sub_91289                                                       91289  97 PC
+; StandingsSparkle                                91289  97 PC, low confidence
+; Draws a random standings sparkle
 ;-----------------------------------------------------------------------------
-sub_91289:
+StandingsSparkle:
         push ebx
         push ecx
         push edx
@@ -3083,11 +3086,11 @@ StandingsScreen:
         lea edx, [byte ebp+022h]
         mov eax, unk_1AD22E
         call OpenLeagueFile
-        call sub_81650
+        call SetHighlightText
         mov ebx, dword [byte ebp+022h]
         lea edx, [byte ebp-0Ah]
         lea eax, [byte ebp-026h]
-        call sub_91D7F
+        call SortStandings
         mov ebx, dword [byte ebp+022h]
         lea edx, [byte ebp-0Ah]
         lea eax, [dword ebp-08Eh]
@@ -3142,7 +3145,7 @@ StandingsScreen:
         mov edx, ebx
         mov eax, ebx
         mov esi, unk_1C5F4A
-        call sub_7E860
+        call DrawScreenBackground
         mov eax, 13h
         mov edx, dword [dword_1C86F4]
         mov ecx, 52h
@@ -3214,7 +3217,7 @@ StandingsScreen:
         push byte 0
         add edx, 0A4h
         xor esi, esi
-        call sub_8DBAC
+        call InitScrollTable
 .2:
         lea edx, [byte esi+05h]
         imul edx, byte 52h
@@ -3252,14 +3255,14 @@ StandingsScreen:
         shl ebx, 3
         add edx, dword [byte ebp+04Ah]
         add eax, ebx
-        call sub_DC653
+        call FindTeamRecord
         imul edx, esi, dword 194Fh
         mov eax, dword [byte ebp+022h]
         mov eax, dword [byte eax+01Ch]
         add eax, ebx
         add edx, dword [byte ebp+07Ah]
         inc esi
-        call sub_E036F
+        call FindGameRecord
         cmp esi, byte 1Ah
         jl short .5
         xor esi, esi
@@ -3599,7 +3602,7 @@ StandingsScreen_718:
         mov eax, dword [byte ebp+066h]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         jmp short .36
 .35:
         call SetScreenTarget
@@ -3613,13 +3616,13 @@ StandingsScreen_718:
 .36:
         push byte 3
         lea eax, [byte ebp+01Eh]
-        mov ecx, sub_91289
+        mov ecx, StandingsSparkle
         mov ebx, 0FFFFFFFFh
         mov edx, dword [dword_1C86F4]
         push eax
         mov eax, 12h
         mov dword [byte ebp+036h], 0
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+01Eh], byte 2
         jb short .37
         jbe near .42
@@ -3632,11 +3635,11 @@ StandingsScreen_718:
 .37:
         cmp dword [byte ebp+01Eh], byte 0
         ja short .39
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp+026h], 1Ah
         jmp near StandingsScreen.18
 .38:
-        call sub_7EF70
+        call ExitScreen
         jmp near StandingsScreen.18
 .39:
         cmp dword [byte ebp+05Eh], byte 3
@@ -3709,9 +3712,9 @@ StandingsScreen_718:
         mov ebx, dword [byte ebp+072h]
         mov edx, ebx
         mov eax, ebx
-        call sub_7E860
+        call DrawScreenBackground
         lea eax, [dword ebp-01F6h]
-        call sub_8DE7E
+        call FreeScrollList
         push byte 0
         push byte 0
         push dword 15Eh
@@ -3725,23 +3728,23 @@ StandingsScreen_718:
         push byte 0
         add edx, 0A4h
         mov dword [byte ebp+06Eh], 0FFFFFFFFh
-        call sub_8DBAC
+        call InitScrollTable
         jmp near StandingsScreen.18
 .42:
         lea eax, [dword ebp-01F6h]
         xor edx, edx
-        call sub_8DE10
+        call ScrollUp
         jmp near StandingsScreen.18
 .43:
         mov ebx, eax
         xor edx, edx
         lea eax, [dword ebp-01F6h]
-        call sub_8DEAC
+        call ScrollToMouse
         jmp near StandingsScreen.18
 .44:
         lea eax, [dword ebp-01F6h]
         xor edx, edx
-        call sub_8DE68
+        call ScrollDown
         jmp near StandingsScreen.18
 .45:
         mov eax, dword [byte ebp+01Eh]
@@ -3749,9 +3752,9 @@ StandingsScreen_718:
         mov dword [byte ebp+06Eh], eax
         jmp near StandingsScreen.18
 .46:
-        call sub_81678
+        call SetNormalText
         lea eax, [dword ebp-01F6h]
-        call sub_8DE7E
+        call FreeScrollList
         push dword [byte ebp+04Eh]
         call FreeMemBlock
         add esp, byte 4
@@ -3771,15 +3774,16 @@ StandingsScreen_718:
         call FreeMemBlock
         add esp, byte 4
         lea eax, [byte ebp+022h]
-        call sub_DB75E
+        call FreeDbBlock
         push dword [byte ebp+066h]
         call FreeBitmap
         add esp, byte 4
         jmp near CreateSeason_55B
 ;-----------------------------------------------------------------------------
-; sub_91D07                                                       91D07  97 PC
+; CompareStandingsValue                           91D07  97 PC, low confidence
+; Sort helper: compares two standings values
 ;-----------------------------------------------------------------------------
-sub_91D07:
+CompareStandingsValue:
         push ebx
         mov ebx, dword [dword_1C86E8]
         mov edx, dword [edx]
@@ -3790,9 +3794,10 @@ sub_91D07:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_91D1C                                                       91D1C  97 PC
+; CompareStandings                                91D1C  97 PC, low confidence
+; Sort helper: compares two teams in the standings
 ;-----------------------------------------------------------------------------
-sub_91D1C:
+CompareStandings:
         push ebx
         push ecx
         mov ebx, edx
@@ -3831,9 +3836,10 @@ sub_91D1C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_91D7F                                                       91D7F  97 PC
+; SortStandings                                   91D7F  97 PC, low confidence
+; Sorts the standings
 ;-----------------------------------------------------------------------------
-sub_91D7F:
+SortStandings:
         push ecx
         push esi
         push edi
@@ -3855,7 +3861,7 @@ sub_91D7F:
         mov eax, dword [byte ebx+01Ch]
         add eax, edx
         lea edx, [dword ebp-019CEh]
-        call sub_E036F
+        call FindGameRecord
         mov eax, dword [byte ebp+06Eh]
         movzx edx, byte [dword ebp-0197Eh]
         mov dword [nosplit eax*4+dword_1C8618], edx
@@ -3878,8 +3884,8 @@ sub_91D7F:
         lea eax, [byte ebp-016h]
         mov ecx, ebx
         mov ebx, dword [byte ebp+072h]
-        call sub_D49BE
-        mov ecx, sub_91D1C
+        call CountTeamResults
+        mov ecx, CompareStandings
         mov ebx, 1
         mov edx, 1Ah
         lea eax, [byte ebp+052h]
@@ -3978,7 +3984,7 @@ sub_91D7F:
         inc dword [byte ebp+06Eh]
         cmp dword [byte ebp+06Eh], byte 0Ah
         jl short .13
-sub_91D7F_1EA:
+SortStandings_1EA:
         lea esp, [dword ebp+082h]
         pop ebp
         pop edi
@@ -4047,7 +4053,7 @@ BuildStandingsFactoids:
         add eax, edx
         lea edx, [dword ebp-01AA2h]
         xor ecx, ecx
-        call sub_E036F
+        call FindGameRecord
         jmp short .3
 .2:
         imul eax, ecx, byte 38h
@@ -4063,7 +4069,7 @@ BuildStandingsFactoids:
         lea eax, [byte ebp+04Eh]
         movsd
         movsd
-        call sub_E0D0F
+        call FindTeamStat
         movsx esi, word [byte ebp-014h]
         mov edx, dword [byte ebp+076h]
         movsx eax, word [byte ebp-012h]
@@ -4099,7 +4105,7 @@ BuildStandingsFactoids:
         lea eax, [byte ebp+04Eh]
         movsd
         movsd
-        call sub_E0D0F
+        call FindTeamStat
         mov eax, dword [byte ebp+05Ah]
         shl eax, 2
         add eax, dword [byte ebp+06Ah]
@@ -4127,16 +4133,16 @@ BuildStandingsFactoids:
         cmp ebx, byte 1Ah
         jl near .1
         cmp dword [byte ebp+05Eh], byte 0
-        je near sub_91D7F_1EA
+        je near SortStandings_1EA
         mov eax, dword [byte ebp+056h]
-        mov ecx, sub_91D07
+        mov ecx, CompareStandingsValue
         mov ebx, 4
         mov edx, dword [byte ebp+076h]
         mov dword [dword_1C86E8], eax
         mov eax, dword [byte ebp+06Eh]
         call qsort_
         mov eax, dword [byte ebp+06Ah]
-        mov ecx, sub_91D07
+        mov ecx, CompareStandingsValue
         mov ebx, 4
         mov edx, dword [byte ebp+05Ah]
         mov dword [dword_1C86E8], eax
@@ -4159,7 +4165,7 @@ BuildStandingsFactoids:
         add eax, edx
         lea edx, [dword ebp-01AA2h]
         xor ecx, ecx
-        call sub_E036F
+        call FindGameRecord
         jmp near .13
 .10:
         imul esi, ecx, byte 38h
@@ -4174,7 +4180,7 @@ BuildStandingsFactoids:
         shl edx, 3
         lea eax, [byte ebp+046h]
         add edx, dword [byte ebp+072h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je near .12
         mov eax, dword [esi]
@@ -4182,7 +4188,7 @@ BuildStandingsFactoids:
         lea edx, [dword ebp-0152h]
         add eax, dword [byte ebp+072h]
         inc dword [byte ebp+07Ah]
-        call sub_DCBB0
+        call FindPlayerRecord
         lea eax, [byte ebx+063h]
         cmp dword [byte ebp+07Ah], byte 2
         jne short .11
@@ -4251,7 +4257,7 @@ BuildStandingsFactoids:
         add eax, edx
         lea edx, [dword ebp-01AA2h]
         xor ecx, ecx
-        call sub_E036F
+        call FindGameRecord
         jmp near .17
 .15:
         imul esi, ecx, byte 38h
@@ -4266,7 +4272,7 @@ BuildStandingsFactoids:
         shl edx, 3
         lea eax, [byte ebp+046h]
         add edx, dword [byte ebp+072h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .16
         mov eax, dword [esi]
@@ -4274,7 +4280,7 @@ BuildStandingsFactoids:
         lea edx, [dword ebp-0152h]
         add eax, dword [byte ebp+072h]
         inc dword [byte ebp+07Ah]
-        call sub_DCBB0
+        call FindPlayerRecord
         cmp dword [byte ebp+07Ah], byte 1
         jne short .16
         lea eax, [byte ebx+063h]
@@ -4319,7 +4325,7 @@ BuildStandingsFactoids:
         add eax, edx
         lea edx, [dword ebp-01AA2h]
         xor ecx, ecx
-        call sub_E036F
+        call FindGameRecord
         jmp near .22
 .20:
         imul esi, ecx, byte 38h
@@ -4334,7 +4340,7 @@ BuildStandingsFactoids:
         shl edx, 3
         lea eax, [byte ebp+046h]
         add edx, dword [byte ebp+062h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .21
         mov eax, dword [esi]
@@ -4342,7 +4348,7 @@ BuildStandingsFactoids:
         lea edx, [dword ebp-0152h]
         add eax, dword [byte ebp+062h]
         inc dword [byte ebp+07Ah]
-        call sub_DCBB0
+        call FindPlayerRecord
         cmp dword [byte ebp+07Ah], byte 1
         jne short .21
         lea eax, [byte ebx+063h]
@@ -4441,7 +4447,7 @@ BuildStandingsFactoids:
 .26:
         add eax, edx
         lea edx, [dword ebp-096h]
-        call sub_DC653
+        call FindTeamRecord
         lea eax, [byte ebp-070h]
         push eax
         push str_S4
@@ -4488,7 +4494,7 @@ BuildStandingsFactoids:
         push dword [byte ebp+06Ah]
         call FreeMemBlock
         add esp, byte 4
-        jmp near sub_91D7F_1EA
+        jmp near SortStandings_1EA
 ;-----------------------------------------------------------------------------
 ; SeasonSettingsPath                              925BE  97 PC, low confidence
 ; (n, buf): the season settings file name "%sSEAS%d.SET"
@@ -4522,9 +4528,10 @@ SeasonSettingsPath:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9260A                                                       9260A  97 PC
+; SeasonYearText                                  9260A  97 PC, low confidence
+; Formats the season year
 ;-----------------------------------------------------------------------------
-sub_9260A:
+SeasonYearText:
         push ebx
         push ecx
         push edx
@@ -4561,7 +4568,7 @@ sub_9260A:
         mov esi, dword [byte eax+020h]
         mov eax, 7CCh
         shl edi, 4
-        call sub_DB763
+        call DaysToYear
         cmp ax, word [byte edi+esi+04h]
         jae short .5
         mov eax, dword [dword_1AC940]
@@ -4591,9 +4598,10 @@ sub_9260A:
         jl short .7
         jmp near CreateSeason_562
 ;-----------------------------------------------------------------------------
-; sub_926BD                                                       926BD  97 PC
+; DrawSeasonTitle                                 926BD  97 PC, low confidence
+; Draws the season title
 ;-----------------------------------------------------------------------------
-sub_926BD:
+DrawSeasonTitle:
         push ebx
         push ecx
         push edx
@@ -4663,9 +4671,10 @@ sub_926BD:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9279A                                                       9279A  97 PC
+; FindSeasonReplay                                9279A  97 PC, low confidence
+; Finds a saved replay of the season
 ;-----------------------------------------------------------------------------
-sub_9279A:
+FindSeasonReplay:
         push ebx
         push ecx
         push edx
@@ -4695,7 +4704,7 @@ sub_9279A:
         add eax, esi
         mov edx, unk_16D7F4
         add eax, byte 8
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         jne short .3
         mov eax, dword [dword_1AC940]
@@ -4703,7 +4712,7 @@ sub_9279A:
         add eax, esi
         mov edx, dword_1C1334
         add eax, byte 8
-        call sub_E1C19
+        call FindReplayIndexEntry
         mov eax, 1
         pop esi
         pop edx
@@ -4741,8 +4750,8 @@ LinkTransferSetup:
         je near .34
         mov eax, 227h
         call GetLangText
-        call sub_835BC
-        call sub_E3410
+        call ShowLinkMessage
+        call ClearLinkAbort
         test eax, eax
         je near .4
         call AllocCrusherBuffers
@@ -4752,24 +4761,24 @@ LinkTransferSetup:
         lea edx, [dword esi+0DF4h]
         add eax, edx
         mov edx, 194Fh
-        call sub_A2F52
+        call CopyToTransfer
         inc dword [byte ebp+07Ah]
         cmp dword [byte ebp+07Ah], byte 1Ah
         jl short .1
         mov edx, 4
         mov eax, esi
-        call sub_A2F52
+        call CopyToTransfer
         cmp word [esi], byte 0
         je short .2
         movsx edx, word [esi]
         imul edx, byte 38h
         mov eax, dword [dword esi+0383C1h]
-        call sub_A2F52
+        call CopyToTransfer
 .2:
         mov eax, 1
         mov edx, 4
         call LinkSendData
-        call sub_A2F31
+        call FreeTransferBuffers
         xor ebx, ebx
         lea eax, [byte ebp+07Ah]
         call LinkReceiveBlock
@@ -4788,11 +4797,11 @@ LinkTransferSetup:
         call LinkReceiveBlock
         lea edx, [byte ebp-07Eh]
         lea eax, [byte ebp+06Eh]
-        call sub_DCBB0
+        call FindPlayerRecord
         lea edx, [byte ebp+03Eh]
         lea eax, [byte ebp+066h]
         xor ebx, ebx
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 0BCh
         lea eax, [byte ebp-07Eh]
         call LinkSendBlock
@@ -4812,7 +4821,7 @@ LinkTransferSetup:
         lea eax, [dword esi+0DF4h]
         add eax, edx
         mov edx, 194Fh
-        call sub_A3116
+        call AppendToTransfer
         inc dword [byte ebp+07Ah]
         cmp dword [byte ebp+07Ah], byte 1Ah
         jl short .5
@@ -4824,7 +4833,7 @@ LinkTransferSetup:
 .6:
         mov edx, 4
         mov eax, esi
-        call sub_A3116
+        call AppendToTransfer
         cmp word [esi], byte 0
         je short .7
         movsx eax, word [esi]
@@ -4837,9 +4846,9 @@ LinkTransferSetup:
         imul edx, byte 38h
         add esp, byte 0Ch
         mov dword [dword esi+0383C1h], eax
-        call sub_A3116
+        call AppendToTransfer
 .7:
-        call sub_A2F31
+        call FreeTransferBuffers
         mov dword [byte ebp+076h], 0
         mov dword [byte ebp+07Ah], 0
 .8:
@@ -4854,7 +4863,7 @@ LinkTransferSetup:
         je short .10
         lea edx, [byte ebp-07Eh]
         lea eax, [byte ecx+018h]
-        call sub_DCBB0
+        call FindPlayerRecord
         test eax, eax
         jne short .10
         inc dword [byte ebp+076h]
@@ -4876,7 +4885,7 @@ LinkTransferSetup:
         je short .13
         lea edx, [byte ebp-07Eh]
         lea eax, [byte ecx+018h]
-        call sub_DCBB0
+        call FindPlayerRecord
         test eax, eax
         jne short .13
         inc dword [byte ebp+076h]
@@ -4898,7 +4907,7 @@ LinkTransferSetup:
         je short .16
         lea edx, [byte ebp-07Eh]
         lea eax, [byte ecx+018h]
-        call sub_DCBB0
+        call FindPlayerRecord
         test eax, eax
         jne short .16
         inc dword [byte ebp+076h]
@@ -4920,7 +4929,7 @@ LinkTransferSetup:
         je short .19
         lea edx, [byte ebp-07Eh]
         lea eax, [byte ecx+018h]
-        call sub_DCBB0
+        call FindPlayerRecord
         test eax, eax
         jne short .19
         inc dword [byte ebp+076h]
@@ -4955,7 +4964,7 @@ LinkTransferSetup:
         lea eax, [byte ecx+018h]
         lea edx, [byte ebp-07Eh]
         mov dword [dword ebp+086h], eax
-        call sub_DCBB0
+        call FindPlayerRecord
         test eax, eax
         jne short .23
         mov edx, 8
@@ -4977,10 +4986,10 @@ LinkTransferSetup:
         call LinkReceiveBlock
         mov edx, dword [dword ebp+086h]
         lea eax, [byte ebp-07Eh]
-        call sub_DCA6C
+        call AddTradeRecord
         mov edx, dword [byte ebp+07Eh]
         lea eax, [byte ebp+03Eh]
-        call sub_E076B
+        call AddPlayerStatAt
 .23:
         add ecx, byte 38h
         inc edi
@@ -5000,7 +5009,7 @@ LinkTransferSetup:
         lea eax, [byte ecx+018h]
         lea edx, [byte ebp-07Eh]
         mov dword [dword ebp+082h], eax
-        call sub_DCBB0
+        call FindPlayerRecord
         test eax, eax
         jne short .26
         mov edx, 8
@@ -5022,10 +5031,10 @@ LinkTransferSetup:
         call LinkReceiveBlock
         mov edx, dword [dword ebp+082h]
         lea eax, [byte ebp-07Eh]
-        call sub_DCA6C
+        call AddTradeRecord
         mov edx, dword [byte ebp+07Eh]
         lea eax, [byte ebp+03Eh]
-        call sub_E076B
+        call AddPlayerStatAt
 .26:
         add ecx, byte 38h
         inc edi
@@ -5045,7 +5054,7 @@ LinkTransferSetup:
         lea eax, [byte ecx+018h]
         lea edx, [byte ebp-07Eh]
         mov dword [dword ebp+08Ah], eax
-        call sub_DCBB0
+        call FindPlayerRecord
         test eax, eax
         jne short .29
         mov edx, 8
@@ -5067,10 +5076,10 @@ LinkTransferSetup:
         call LinkReceiveBlock
         mov edx, dword [dword ebp+08Ah]
         lea eax, [byte ebp-07Eh]
-        call sub_DCA6C
+        call AddTradeRecord
         mov edx, dword [byte ebp+07Eh]
         lea eax, [byte ebp+03Eh]
-        call sub_E076B
+        call AddPlayerStatAt
 .29:
         add ecx, byte 38h
         inc edi
@@ -5090,7 +5099,7 @@ LinkTransferSetup:
         lea eax, [byte ecx+018h]
         lea edx, [byte ebp-07Eh]
         mov dword [dword ebp+08Eh], eax
-        call sub_DCBB0
+        call FindPlayerRecord
         test eax, eax
         jne short .32
         mov edx, 8
@@ -5112,10 +5121,10 @@ LinkTransferSetup:
         call LinkReceiveBlock
         mov edx, dword [dword ebp+08Eh]
         lea eax, [byte ebp-07Eh]
-        call sub_DCA6C
+        call AddTradeRecord
         mov edx, dword [byte ebp+07Eh]
         lea eax, [byte ebp+03Eh]
-        call sub_E076B
+        call AddPlayerStatAt
 .32:
         add ecx, byte 38h
         inc edi
@@ -5229,7 +5238,7 @@ SaveAgents:
         mov eax, dword [dword eax+0383C1h]
         call memcpy_
 .4:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .5
         mov eax, esi
@@ -5242,9 +5251,10 @@ SaveAgents:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_92EE2                                                       92EE2  97 PC
+; SaveAgentsOnly                                  92EE2  97 PC, low confidence
+; Saves the free agents
 ;-----------------------------------------------------------------------------
-sub_92EE2:
+SaveAgentsOnly:
         push ebx
         mov ebx, eax
         mov eax, edx
@@ -5252,7 +5262,7 @@ sub_92EE2:
         jne short .2
         movsx edx, dx
         mov eax, ebx
-        call sub_E167A
+        call AllocImportBuffer
         test eax, eax
         je short .3
 .1:
@@ -5263,10 +5273,10 @@ sub_92EE2:
 .2:
         movsx edx, dx
         mov eax, ebx
-        call sub_E167A
+        call AllocImportBuffer
         test eax, eax
         je short .3
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .1
         mov eax, 1
@@ -5274,9 +5284,10 @@ sub_92EE2:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_92F25                                                       92F25  97 PC
+; SaveTradesLink                                  92F25  97 PC, low confidence
+; Saves the trades and exchanges them over the link
 ;-----------------------------------------------------------------------------
-sub_92F25:
+SaveTradesLink:
         push esi
         push edi
         enter 14h, 0
@@ -5290,7 +5301,7 @@ sub_92F25:
         push eax
         movzx ecx, cl
         mov eax, esi
-        call sub_E1563
+        call ImportNewPlayers
         test eax, eax
         je near .4
 .1:
@@ -5298,7 +5309,7 @@ sub_92F25:
         call SaveAgents
         jmp near .4
 .2:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .3
         push dword [byte ebp+014h]
@@ -5306,7 +5317,7 @@ sub_92F25:
         push eax
         movzx ecx, cl
         mov eax, esi
-        call sub_E1563
+        call ImportNewPlayers
         test eax, eax
         je short .4
         mov edx, 8
@@ -5337,7 +5348,7 @@ sub_92F25:
         lea ecx, [byte ebp-0Ch]
         push dword [byte ebp-04h]
         mov eax, esi
-        call sub_E13FE
+        call ImportTradedPlayers
         test eax, eax
         jne near .1
 .4:
@@ -5346,9 +5357,10 @@ sub_92F25:
         pop esi
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_92FE9                                                       92FE9  97 PC
+; SetPlayoffFormat                                92FE9  97 PC, low confidence
+; Sets the playoff format
 ;-----------------------------------------------------------------------------
-sub_92FE9:
+SetPlayoffFormat:
         push edx
         mov edx, dword [eax]
         mov edx, dword [nosplit edx*4+dword_16CDD0]

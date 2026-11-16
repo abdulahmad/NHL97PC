@@ -49,7 +49,10 @@ static uint32_t argb[1280 * 1024];
 
 /* ---- the settings: how often the window is drawn, vsync, the numbers on the picture, and how the picture is scaled ----
  * They are kept in hockey97-win32.ini (hockey97-linux.ini) next to the program and changed from the window's menu or the keys 1-6. */
-static int present_hz = 60, vsync_on = 0, osd_on, vrr_on = 1;      /* by default: draw each new image, vsync off */
+static int present_hz = 60, vsync_on = 0, osd_on, vrr_on = 1;
+static const char *frame_names[3] = { "pentium100", "60", "unlocked" };
+static const char *const frame_choices[3] = { "Pentium 100", "60 fps", "Unlocked" };
+volatile int frames_mode;                       /* netplay.c paces the game loop by it: 0 Pentium 100, 1 60 fps, 2 unlocked */      /* by default: draw each new image, vsync off */
 static int overbar_busy;
 static void overbar_capture_host(void);
 static void title_refresh(void);
@@ -355,6 +358,7 @@ static void settings_load(void)
         else if (!strcmp(k, "custom_mask_strength")) c_mask = (float)atof(v);
         else if (!strcmp(k, "custom_sharpness")) c_sharp = (float)atof(v);
         else if (!strcmp(k, "windows_pointer")) ptr_mode = name_index(v, ptr_names, 3, 0);
+        else if (!strcmp(k, "frame_rate")) frames_mode = name_index(v, frame_names, 3, 0);
         else if (!strcmp(k, "hires_picture_height")) vscale_hi = name_index(v, vscale_names, 4, 0);
         else if (!strcmp(k, "lores_picture_height")) vscale_lo = name_index(v, vscale_names, 4, 0);
     }
@@ -377,6 +381,9 @@ static void settings_save(void)
     fprintf(f, "; NHL 97 (SDL2 port) settings. Changed from the window menu; edit them here too.\n[video]\n");
     fprintf(f, "; refresh: 60, 70 or vrr (draw whenever the game's picture changes, for variable refresh rate monitors)\nrefresh=%s\n", vrr_on ? "vrr" : present_hz == 70 ? "70" : "60");
     fprintf(f, "; vsync: on or off\nvsync=%s\n", vsync_on ? "on" : "off");
+    fprintf(f, "; frame_rate: how often the game itself draws. pentium100 (one picture per game step, about 34 a second, as on a Pentium 100:\n"
+               "; the camera moves and some animation move a step per picture, so this is their real speed), 60 (smoother, those run\n"
+               "; about 1.75x fast) or unlocked (as fast as the PC can: they run many times too fast). Online play always uses pentium100.\nframe_rate=%s\n", frame_names[frames_mode % 3]);
     fprintf(f, "; stats: on or off (frames per second, CPU and GPU use, in the top right corner)\nstats=%s\n", osd_on ? "on" : "off");
     fprintf(f, "; hires_scaling (the 640x480 menus): 1x, 2x, 3x, 4x, crt-light, crt-medium, crt-strong, crt-soft, crt-soft-grille\nhires_scaling=%s\n", hires_names[hires_mode]);
     fprintf(f, "; lores_scaling (the 320x200 game): 3x, 5x, 7x, 11x, tv-light, tv-medium, tv-strong, monitor-light, monitor-medium, monitor-strong, tv-soft, tv-soft-grille, monitor-soft, monitor-soft-grille\nlores_scaling=%s\n", lores_names[lores_mode]);
@@ -480,6 +487,7 @@ static void overbar_capture_host(void)
     if (!h || overbar_busy) return;
     h->refresh = vrr_on ? OB_REFRESH_VRR : present_hz == 70 ? OB_REFRESH_70 : OB_REFRESH_60;
     h->vsync = vsync_on;
+    h->frame_rate = frames_mode;
     h->stats = osd_on;
     h->pointer = video_pointer_mode();
     ob_mode_to_look(&h->hires, hires_mode, vscale_hi);
@@ -534,6 +542,7 @@ static void overbar_apply_host(ob_host *h)
     else if (h->refresh == OB_REFRESH_70) video_command(CMD_REFRESH_70);
     else video_command(CMD_REFRESH_60);
     if (h->vsync != video_command_checked(CMD_VSYNC)) video_command(CMD_VSYNC);
+    if (h->frame_rate != frames_mode) { frames_mode = h->frame_rate % 3; settings_save(); }
     if (h->stats != video_command_checked(CMD_STATS)) video_command(CMD_STATS);
     if (h->has_hires) {
         hi = ob_look_to_mode(&h->hires, 1);
@@ -1067,6 +1076,7 @@ void video_init(void)
     settings_load();
     ob_present_apply_hints(ob_profile_detect(SDL_GetCurrentVideoDriver(), ob_handheld_env()));
     overbar_client_init(ob_profile_detect(SDL_GetCurrentVideoDriver(), ob_handheld_env()), overbar_apply_host);
+    ob_frame_rate_choices(overbar_client_host(), frame_choices, 3, 0);
     overbar_capture_host();
     if (getenv("NHL97_PRESET")) { const char *t = getenv("NHL97_PRESET"); apply_preset(t[0] == 'l', t + 2); settings_save(); }      /* a test aid: h:path or l:path of a preset */
     ob_gl_filter = getenv("NHL97_FILTER");
