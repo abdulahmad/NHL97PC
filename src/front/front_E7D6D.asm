@@ -12,7 +12,7 @@ extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprin
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101430, sub_101560, sub_101584, sub_101EAC, sub_102B94
 extern sub_13C164, sub_419B0, sub_419B8, OpenDataLibrary, sub_7E52C, sub_7E860, sub_7F0D8, DrawTextAligned
 extern sub_80758, sub_80808, InitMenuItems, GetLangText, sub_CA44C, sub_D0098, sub_DB75E, sub_DC653
-extern sub_DCBB0, sub_DE3CF, sub_E036F, sub_E0D0F, sub_E341C, sub_FAF34, sub_FB71C, sub_FC510
+extern sub_DCBB0, OpenLeagueFile, sub_E036F, sub_E0D0F, sub_E341C, sub_FAF34, sub_FB71C, sub_FC510
 extern sub_FCFCC, sub_FD0F8, unk_167731, unk_16E1E4, unk_16E21C, unk_1AD22E, unk_1AD443, unk_1C5F4A
 extern unk_1C5F9C, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE, unk_1CD989, unk_1CDA34, unk_1CDADF
 extern unk_1CDB8A, unk_1CDC35, unk_1CDCE0, unk_1CDD8F, unk_1CDDFD, unk_1CDE36, unk_1CE03B, unk_1CE0A9
@@ -61,7 +61,7 @@ sub_E7D6D:
         mov edx, dword_1CD778
         mov eax, unk_1AD22E
         mov dword [byte ebp+076h], 0
-        call sub_DE3CF
+        call OpenLeagueFile
         call sub_E341C
         jmp near .22
 .3:

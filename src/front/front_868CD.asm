@@ -26,7 +26,7 @@ extern sub_419B8, StopAllSfx, PlaySfx, LoadDataFileLib, LoadDataFile, sub_7E860,
 extern SetRegionRect, sub_7F04C, sub_7F0D8, DrawTextAligned, sub_7F29C, sub_7F5B8, sub_7FE38, sub_80BBC
 extern sub_81114, sub_81678, sub_835BC, sub_83850, sub_867F0, sub_86878, sub_8BFAC, sub_8D956
 extern sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, GetLangText, sub_E32B4, sub_E3410
-extern sub_E341C, sub_E3AFC, LinkSendBlock, LinkReceiveBlock, sub_E57EC, sub_E5BF8, sub_FAA64, sub_FAF34
+extern sub_E341C, sub_E3AFC, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, sub_FAA64, sub_FAF34
 extern sub_FC510, sub_FCD90, sub_FCF84, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C
 extern sub_FDE44, unk_165330, unk_1AC839, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1C5EF8
 extern unk_1C5F4A, unk_1C834C, unk_1C8360, unk_1C8388, unk_1C83BA, word_16CCF8, word_16DACC, word_16DAD0
@@ -1527,7 +1527,7 @@ ModemSettingsScreen:
         lea eax, [byte ebp-044h]
         lea edx, [dword ebp-0E18h]
         mov ecx, 52h
-        call sub_E57EC
+        call DefaultModemName
         mov dword [byte ebp-010h], eax
         mov dword [byte ebp-02Ch], eax
         mov eax, 18h
@@ -2980,7 +2980,7 @@ NetworkGamesScreen:
 .1:
         lea eax, [byte ebp-03Ch]
         lea edx, [dword ebp-0D64h]
-        call sub_E5BF8
+        call LoadServerList
         mov dword [byte ebp-0Ch], eax
         mov eax, 15h
         call InitMenuItems
@@ -4589,7 +4589,7 @@ sub_89CD6:
         add esp, byte 4
         call sub_7F0D8
         lea eax, [byte ebp-010h]
-        call sub_E57EC
+        call DefaultModemName
         mov ebx, eax
         mov edx, eax
         movsx eax, word [word_1C834A]
@@ -5009,7 +5009,7 @@ sub_8AAE5:
         add esp, byte 0Ch
         mov dword [byte ebp+03Ah], eax
         lea eax, [byte ebp+02Ah]
-        call sub_E5BF8
+        call LoadServerList
         push esi
         mov dword [byte ebp+036h], eax
         mov dword [byte ebp+02Eh], eax
@@ -5518,7 +5518,7 @@ sub_8B145:
         add esp, byte 0Ch
         mov dword [byte ebp+04Ah], eax
         lea eax, [byte ebp+02Ah]
-        call sub_E5BF8
+        call LoadServerList
         push edi
         mov dword [byte ebp+03Eh], eax
         mov dword [byte ebp+036h], eax
@@ -6150,7 +6150,7 @@ sub_8BA36:
         add esp, byte 0Ch
         mov dword [byte ebp-010h], eax
         lea eax, [byte ebp-028h]
-        call sub_E5BF8
+        call LoadServerList
         push dword [byte ebp-024h]
         mov dword [byte ebp-020h], eax
         mov dword [byte ebp-018h], eax

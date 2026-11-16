@@ -1172,7 +1172,7 @@
 ;  DD970  sub_DD970                                front/front_DA66D.asm                        1
 ;  DDC4A  sub_DDC4A                                front/front_DA66D.asm                        1
 ;  DE25F  sub_DE25F                                front/front_DA66D.asm                        1
-;  DE3CF  sub_DE3CF                                front/front_DA66D.asm                        9
+;  DE3CF  OpenLeagueFile                           front/front_DA66D.asm                        9
 ;  DE5A3  sub_DE5A3                                front/front_DA66D.asm                        4
 ;  DE740  sub_DE740                                front/front_DA66D.asm                        2
 ;  DEE95  sub_DEE95                                front/front_DA66D.asm                        1
@@ -1240,8 +1240,8 @@
 ;  E4638  LinkSendBlock                            front/front_DA66D.asm                        10
 ;  E4838  LinkReceiveBlock                         front/front_DA66D.asm                        10
 ;  E4908  WaitForOtherComputer                     front/front_DA66D.asm                        5
-;  E57EC  sub_E57EC                                front/front_DA66D.asm                        1
-;  E5BF8  sub_E5BF8                                front/front_DA66D.asm                        1
+;  E57EC  DefaultModemName                         front/front_DA66D.asm                        1
+;  E5BF8  LoadServerList                           front/front_DA66D.asm                        1
 ;  E77B1  sub_E77B1                                front/front_DA66D.asm                        1
 ;  E7B33  sub_E7B33                                front/front_DA66D.asm                        2
 ;  E7D6D  sub_E7D6D                                front/front_E7D6D.asm                        1

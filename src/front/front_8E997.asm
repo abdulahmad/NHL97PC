@@ -27,7 +27,7 @@ extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, RunStatsMenu, NameIndexNew, N
 extern sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DBAC, sub_8DE10, DrawScrollBar, sub_8DE68
 extern sub_8DE7E, sub_8DEAC, GetLangText, PlayoffTreeScreen, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData
 extern LinkReceiveData, sub_A3116, sub_C6064, RosterScreen, sub_D49BE, sub_DA7D6, sub_DB75E, sub_DB763
-extern sub_DC653, sub_DCA6C, sub_DCBB0, sub_DCFA4, sub_DD970, sub_DDC4A, sub_DE3CF, sub_DE5A3
+extern sub_DC653, sub_DCA6C, sub_DCBB0, sub_DCFA4, sub_DD970, sub_DDC4A, OpenLeagueFile, sub_DE5A3
 extern sub_E036F, sub_E0415, sub_E0691, sub_E069E, sub_E076B, sub_E0841, sub_E0B75, sub_E0D0F
 extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E13FE, sub_E1563, sub_E167A, sub_E1C19
 extern AllocClearBlock, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, AllStarScreen, sub_FAA64, sub_FAF34
@@ -1272,7 +1272,7 @@ CreateSeason:
 .2:
         lea edx, [byte ebp+076h]
         mov eax, unk_16D7FC
-        call sub_DE3CF
+        call OpenLeagueFile
         cmp dword [dword_16DA9C], byte 0
         jne short .4
         movzx eax, byte [byte_1C8700]
@@ -1561,7 +1561,7 @@ CreateSeason:
 .19:
         mov edx, dword_1AC940
         mov eax, unk_1AD22E
-        call sub_DE3CF
+        call OpenLeagueFile
         mov dword [dword_1AC944], unk_1ACD2B
         test byte [byte_1ACD2D], 1
         je short .20
@@ -3082,7 +3082,7 @@ StandingsScreen:
         jl short .1
         lea edx, [byte ebp+022h]
         mov eax, unk_1AD22E
-        call sub_DE3CF
+        call OpenLeagueFile
         call sub_81650
         mov ebx, dword [byte ebp+022h]
         lea edx, [byte ebp-0Ah]

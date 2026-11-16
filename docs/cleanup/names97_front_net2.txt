@@ -1,0 +1,5 @@
+sub_E57EC DefaultModemName {confidence=low} (len out): "Generic Hayes-Compatible" (length 17h) when a modem is set up, else 0; from ModemSettingsScreen
+sub_E5BF8 LoadServerList {confidence=low} loads the "SERVLIST" block for the network games screen
+sub_E5EE0 FindNetworkGames {confidence=low} looks for open "GAMEADDR" games on the network (sub_E5D98 matches "NHL97" entries)
+sub_E72B0 JoinNetworkGame {confidence=low} network play: "Waiting for connection", runs ChooseNetworkGameScreen and connects to the chosen game
+sub_DE3CF OpenLeagueFile {confidence=low} (league id, ...): opens a season / playoff file ("%s%s.SEA", "%s%s.PLY" or "%s%08x.%03x") and reads its header; from the season, playoff and stats screens

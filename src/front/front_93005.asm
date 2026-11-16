@@ -26,7 +26,7 @@ extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5A
 extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad
 extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, StandingsScreen
 extern sub_9279A, LinkTransferSetup, sub_92FE9, sub_C6064, RosterScreen, sub_DB75E, sub_DB763, sub_DC653
-extern sub_DCFA4, sub_DD2DE, sub_DD61F, sub_DE3CF, sub_DE5A3, sub_E036F, sub_E0415, sub_E0B75
+extern sub_DCFA4, sub_DD2DE, sub_DD61F, OpenLeagueFile, sub_DE5A3, sub_E036F, sub_E0415, sub_E0B75
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, sub_FAA64
 extern sub_FAF34, sub_FC510, sub_FCC40, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110
 extern unk_165A5B, unk_16CE20, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF4E, unk_1AD250, unk_1AD443
@@ -584,7 +584,7 @@ PlayoffSetupScreen:
         sub ebp, 82h
         mov edx, dword_1AC940
         mov eax, unk_16D7FC
-        call sub_DE3CF
+        call OpenLeagueFile
         mov eax, 3
         call sub_419B0
         call sub_419B8
@@ -1572,7 +1572,7 @@ CreatePlayoffs:
         call NameIndexFree
         mov edx, dword_1AC940
         mov eax, unk_1AD73A
-        call sub_DE3CF
+        call OpenLeagueFile
         jmp near PlayoffSetupScreen_952
 ;-----------------------------------------------------------------------------
 ; sub_945A7                                                       945A7  97 PC

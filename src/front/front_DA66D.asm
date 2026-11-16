@@ -71,7 +71,7 @@ global sub_DA7D6, sub_DA7EB, sub_DAA82, sub_DAB51, sub_DAC1E, sub_DAC72, sub_DAD
 global sub_DAFF8, sub_DB508, sub_DB5B7, sub_DB6AC, sub_DB747, sub_DB75E, sub_DB763, sub_DB7B1
 global sub_DB838, sub_DB8E6, sub_DBBFC, sub_DBDC1, sub_DBEB3, sub_DC11A, sub_DC653, sub_DC71D
 global sub_DC99F, sub_DCA6C, sub_DCBB0, sub_DCC75, sub_DCEA4, sub_DCFA4, sub_DCFB0, sub_DD2DE
-global sub_DD61F, sub_DD970, sub_DDC4A, sub_DE20B, sub_DE25F, sub_DE3CF, sub_DE5A3, sub_DE740
+global sub_DD61F, sub_DD970, sub_DDC4A, sub_DE20B, sub_DE25F, OpenLeagueFile, sub_DE5A3, sub_DE740
 global sub_DE88E, sub_DE9F5, sub_DEBA2, sub_DEE3A, sub_DEE95, sub_DEF96, sub_DF1CF, sub_DF274
 global sub_DFAF6, sub_E0297, sub_E036F, sub_E0415, sub_E0617, sub_E0691, sub_E069E, sub_E076B
 global sub_E0841, sub_E08E9, sub_E0AD0, sub_E0B75, sub_E0B82, sub_E0C4F, sub_E0D0F, sub_E0DB7
@@ -84,9 +84,9 @@ global PollControllers, InputRecordTimer, InitSlotTable, sub_E304C, sub_E30BC, s
 global sub_E3190, InputRecordAvail, TakeInputRecord, sub_E32B4, sub_E3410, sub_E341C, sub_E34A0, sub_E3530
 global sub_E3640, sub_E3700, sub_E3738, sub_E375C, sub_E3798, NetInit, NetShutdown, sub_E3AFC
 global NetDisconnect, sub_E3F04, sub_E4218, sub_E4230, sub_E4248, sub_E4264, sub_E4288, LinkSendBlock
-global LinkReceiveBlock, WaitForOtherComputer, sub_E5730, sub_E57EC, sub_E5808, sub_E59A8, sub_E59D8, sub_E5A20
-global IpxInit, sub_E5BF8, sub_E5CD8, sub_E5D6C, sub_E5D98, sub_E5EE0, sub_E5FD8, sub_E61AC
-global ChooseNetworkGameScreen, sub_E728C, sub_E72B0, sub_E7570, sub_E759F, sub_E77B1, sub_E7B33
+global LinkReceiveBlock, WaitForOtherComputer, sub_E5730, DefaultModemName, sub_E5808, sub_E59A8, sub_E59D8, sub_E5A20
+global IpxInit, LoadServerList, sub_E5CD8, sub_E5D6C, sub_E5D98, FindNetworkGames, sub_E5FD8, sub_E61AC
+global ChooseNetworkGameScreen, sub_E728C, JoinNetworkGame, sub_E7570, sub_E759F, sub_E77B1, sub_E7B33
 ;-----------------------------------------------------------------------------
 ; AllocMediaBuffer                             DA66D  97 PC, medium confidence
 ; Allocates the "MEDIA BUFFER" (200h paragraphs of DOS memory)
@@ -3897,7 +3897,7 @@ sub_DD2DE:
         je short .3
         lea edx, [byte ebp+06Ah]
         mov eax, unk_16D7FC
-        call sub_DE3CF
+        call OpenLeagueFile
         test eax, eax
         je short sub_DCFB0_325
         mov eax, dword [byte ebp+06Ah]
@@ -4182,7 +4182,7 @@ sub_DD61F:
         je near .7
         lea edx, [byte ebp+062h]
         mov eax, unk_16D7FC
-        call sub_DE3CF
+        call OpenLeagueFile
         test eax, eax
         je near sub_DBBFC_1BC
         mov eax, dword [byte ebp+062h]
@@ -4475,7 +4475,7 @@ sub_DD970:
 .2:
         lea edx, [byte ebp+076h]
         mov eax, unk_16D7FC
-        call sub_DE3CF
+        call OpenLeagueFile
         test eax, eax
         je near sub_DCFB0_325
         mov eax, dword [byte ebp+076h]
@@ -4724,7 +4724,7 @@ sub_DDC4A:
         je short .2
         lea edx, [byte ebp+072h]
         mov eax, unk_16D7FC
-        call sub_DE3CF
+        call OpenLeagueFile
         test eax, eax
         je near sub_DDC4A_2F0
         mov eax, dword [byte ebp+072h]
@@ -5427,9 +5427,12 @@ sub_DE25F:
         call sub_DA48C
         jmp short .17
 ;-----------------------------------------------------------------------------
-; sub_DE3CF                                                       DE3CF  97 PC
+; OpenLeagueFile                                  DE3CF  97 PC, low confidence
+; (league id, ...): opens a season / playoff file ("%s%s.SEA", "%s%s.PLY" or
+; "%s%08x.%03x") and reads its header; from the season, playoff and stats
+; screens
 ;-----------------------------------------------------------------------------
-sub_DE3CF:
+OpenLeagueFile:
         push ebx
         push ecx
         push esi
@@ -13013,7 +13016,7 @@ sub_E3AFC:
         push ecx
         lea eax, [byte esi+074h]
         mov ecx, dword_1CD2A4
-        call sub_E72B0
+        call JoinNetworkGame
         test eax, eax
         jne near .12
         call sub_E5D6C
@@ -15145,9 +15148,11 @@ sub_E5730:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E57EC                                                       E57EC  97 PC
+; DefaultModemName                                E57EC  97 PC, low confidence
+; (len out): "Generic Hayes-Compatible" (length 17h) when a modem is set up,
+; else 0; from ModemSettingsScreen
 ;-----------------------------------------------------------------------------
-sub_E57EC:
+DefaultModemName:
         cmp word [word_16E0F8], byte 0
         jne short .1
         xor eax, eax
@@ -15515,9 +15520,10 @@ IpxInit:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E5BF8                                                       E5BF8  97 PC
+; LoadServerList                                  E5BF8  97 PC, low confidence
+; Loads the "SERVLIST" block for the network games screen
 ;-----------------------------------------------------------------------------
-sub_E5BF8:
+LoadServerList:
         push ebx
         push ecx
         push edx
@@ -15817,9 +15823,11 @@ sub_E5D98:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E5EE0                                                       E5EE0  97 PC
+; FindNetworkGames                                E5EE0  97 PC, low confidence
+; Looks for open "GAMEADDR" games on the network (sub_E5D98 matches "NHL97"
+; entries)
 ;-----------------------------------------------------------------------------
-sub_E5EE0:
+FindNetworkGames:
         push ebx
         push ecx
         push edx
@@ -16047,7 +16055,7 @@ sub_E61AC:
         cmp eax, dword [dword_16E134]
         jle near .20
         call sub_1013FC
-        call sub_E5EE0
+        call FindNetworkGames
         cmp word [word_1CD634], byte 0
         jle near .13
         cmp byte [byte_1CD460], 0
@@ -17244,9 +17252,11 @@ sub_E728C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E72B0                                                       E72B0  97 PC
+; JoinNetworkGame                                 E72B0  97 PC, low confidence
+; Network play: "Waiting for connection", runs ChooseNetworkGameScreen and
+; connects to the chosen game
 ;-----------------------------------------------------------------------------
-sub_E72B0:
+JoinNetworkGame:
         push esi
         push edi
         push ebp

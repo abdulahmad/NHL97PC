@@ -334,6 +334,7 @@ D6930,RunIntro,sub_D6930,96PC,medium,"96 PC RunIntro: from main_, the intro scre
 D70C4,CreditsScreen,sub_D70C4,new,low,"from RunFrontEnd: the credits (reads the credits text file, EAC1/EAC2, CRD1/CRD2, QCRD) with the arena music",src/front/front_D4E24.asm
 DA66D,AllocMediaBuffer,sub_DA66D,new,medium,"allocates the ""MEDIA BUFFER"" (200h paragraphs of DOS memory)",src/front/front_DA66D.asm
 DA713,AllocStaticBuffer,sub_DA713,new,medium,"allocates the ""STATIC BUF"" once (flag word_16D7EC)",src/front/front_DA66D.asm
+DE3CF,OpenLeagueFile,sub_DE3CF,new,low,"(league id, ...): opens a season / playoff file (""%s%s.SEA"", ""%s%s.PLY"" or ""%s%08x.%03x"") and reads its header; from the season, playoff and stats screens",src/front/front_DA66D.asm
 E117B,LoadExhibitionFile,sub_E117B,new,medium,"(&block): reads the exhibition file %s%s.EXH into a new ""EXHIBIT"" block (383C1h bytes) with its ""AGENTS"" part",src/front/front_DA66D.asm
 E1245,SaveExhibitionFile,sub_E1245,new,medium,(block): writes the exhibition file %s%s.EXH,src/front/front_DA66D.asm
 E12D1,FreeExhibitionFile,sub_E12D1,new,medium,(&block): frees the exhibition block and its agents part (+383C1h),src/front/front_DA66D.asm
@@ -363,9 +364,13 @@ E3E8C,NetDisconnect,sub_E3E8C,new,low,"ends a network session with the ""Disconn
 E4638,LinkSendBlock,sub_E4638,96PC,low,"96 PC LinkSendBlock: (data, length, progress) sends a block to the other computer in packets (80h header), idling while it waits",src/front/front_DA66D.asm
 E4838,LinkReceiveBlock,sub_E4838,96PC,low,"96 PC LinkReceiveBlock: (dest, length, progress) waits (idling) for the next block from the other computer",src/front/front_DA66D.asm
 E4908,WaitForOtherComputer,sub_E4908,new,low,"the ""Waiting for other computer"" box: shows it and syncs with the other side",src/front/front_DA66D.asm
+E57EC,DefaultModemName,sub_E57EC,new,low,"(len out): ""Generic Hayes-Compatible"" (length 17h) when a modem is set up, else 0; from ModemSettingsScreen",src/front/front_DA66D.asm
 E5A98,IpxInit,sub_E5A98,new,low,"looks for the IPX driver and allocates the ""IPXMEM"" / ""NETWORK"" blocks",src/front/front_DA66D.asm
+E5BF8,LoadServerList,sub_E5BF8,new,low,"loads the ""SERVLIST"" block for the network games screen",src/front/front_DA66D.asm
 E5C78,IpxCloseSocket,,new,low,closes the open IPX socket (sub_11D508) and frees its buffer (dword_16E128); the earlier 95 PC FreeRinkGfx match was wrong (only a mnemonic similarity),src/front/front_DA66D.asm
+E5EE0,FindNetworkGames,sub_E5EE0,new,low,"looks for open ""GAMEADDR"" games on the network (sub_E5D98 matches ""NHL97"" entries)",src/front/front_DA66D.asm
 E657C,ChooseNetworkGameScreen,sub_E657C,new,low,"network play: the ""Choose a game:"" list of open games",src/front/front_DA66D.asm
+E72B0,JoinNetworkGame,sub_E72B0,new,low,"network play: ""Waiting for connection"", runs ChooseNetworkGameScreen and connects to the chosen game",src/front/front_DA66D.asm
 E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 over 34 instructions,
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
 E9429,BuildAllStarTeams,sub_E9429,new,low,"from the season code: sets up the two All-Star teams (InitAllStarTeams, AllocAllStarRosters, PickAllStarPlayers)",src/front/front_E9429.asm

@@ -34,7 +34,7 @@ extern sub_7F0D8, DrawTextAligned, sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, s
 extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_840F8, sub_84138
 extern sub_84170, sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DBAC, sub_8DE10, DrawScrollBar
 extern sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, sub_DA7D6
-extern sub_DB75E, sub_DC653, sub_DCBB0, sub_DE3CF, sub_E036F, sub_E0841, sub_E0D0F, sub_E341C
+extern sub_DB75E, sub_DC653, sub_DCBB0, OpenLeagueFile, sub_E036F, sub_E0841, sub_E0D0F, sub_E341C
 extern sub_E4218, sub_E4230, sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C
 extern sub_FD0F8, sub_FD110, unk_16620D, unk_16622A, unk_16622D, unk_16622F, unk_166232, unk_166235
 extern unk_16623E, unk_1663A5, unk_1663B8, unk_16D7FC, unk_16D804, unk_1AD22E, unk_1AD236, unk_1AD73A
@@ -2144,13 +2144,13 @@ sub_ADBE6:
         je short .5
         lea edx, [byte ebp+0Eh]
         mov eax, dword [byte ebp+06Ah]
-        call sub_DE3CF
+        call OpenLeagueFile
 .5:
         cmp dword [byte ebp+066h], byte 0
         je short .6
         lea edx, [byte ebp+012h]
         mov eax, dword [byte ebp+066h]
-        call sub_DE3CF
+        call OpenLeagueFile
 .6:
         cmp dword [byte ebp+06Ah], byte 0
         je near .12
@@ -3663,7 +3663,7 @@ sub_AF074:
         lea edx, [byte ebp+06h]
         mov eax, dword [byte ebp+04Ah]
 .9:
-        call sub_DE3CF
+        call OpenLeagueFile
 .10:
         mov eax, 1Eh
         xor edx, edx
@@ -4122,7 +4122,7 @@ sub_AF074:
         lea edx, [byte ebp+06h]
         call sub_DB75E
         mov eax, dword [byte ebp+042h]
-        call sub_DE3CF
+        call OpenLeagueFile
         mov eax, dword [byte ebp+072h]
         add eax, byte 40h
         push eax
@@ -4167,7 +4167,7 @@ sub_AF074:
         lea edx, [byte ebp+06h]
         call sub_DB75E
         mov eax, dword [byte ebp+04Ah]
-        call sub_DE3CF
+        call OpenLeagueFile
         mov eax, dword [byte ebp+072h]
         add eax, byte 40h
         push eax
