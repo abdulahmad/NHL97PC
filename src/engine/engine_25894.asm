@@ -32,7 +32,7 @@ extern sub_22050, assextra4, sub_22FF0, assextra3, sub_240D0, sub_24220, sub_247
 extern sub_25010, sub_251F0, sub_25730, sub_2E310, CompLine, sub_30778, sub_3085C, sub_31C14
 extern AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330, sub_343F8, doplayeracc, sub_39DA4, sub_39EC0
 extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, sub_41D48
-extern PlaySfxOr, PlaySfxVolume, sub_424CC, sub_45BEC, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
+extern PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
 extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, sub_57324, sub_576EC, sub_57738, LoadCupArt
 extern sub_5AC28, SetSPA, sub_60D6C, sub_60F48, sub_64EBC, sub_650A4, sub_650E8, sub_6619C
@@ -3534,7 +3534,7 @@ asseben:
         cmp dx, byte 6
         jne short .3
         push dword 0A0000025h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 4
 .3:
         test byte [dword ebx+0BFh], 40h
@@ -6253,7 +6253,7 @@ sub_2A6B8:
         and eax, 0FFh
         push eax
         push dword 0A0000019h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 18h
 .9:
         call sub_69654
@@ -6341,7 +6341,7 @@ sub_2A6B8:
         push ebx
         push dword 0A000000Ch
 .12:
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
         mov eax, edx
         call sub_1DEE4
@@ -6522,7 +6522,7 @@ sub_2AA50:
         push eax
         push ecx
         push dword 0A0000016h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
         pop ecx
         pop ebx
@@ -6580,7 +6580,7 @@ sub_2AC40:
         push eax
         push edx
         push dword 0A0000016h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
 .1:
         mov eax, 1
@@ -6928,7 +6928,7 @@ sub_2AFD8:
         push eax
         push edx
         push dword 0A0000016h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
         jmp near .13
 .6:
@@ -7054,7 +7054,7 @@ sub_2AFD8:
         push eax
         push edx
         push dword 0A0000016h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
         jmp near .13
 .12:
@@ -7204,7 +7204,7 @@ sub_2B4D4:
         push dword 4004h
         push esi
         push dword 0A0000006h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
 .2:
         mov eax, dword [off_168CFC]
@@ -7246,7 +7246,7 @@ sub_2B4D4:
         push dword 400Ah
         push esi
         push dword 0A0000006h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
 .6:
         mov eax, dword [off_168CFC]
@@ -7484,7 +7484,7 @@ sub_2B4D4_469:
         push ebx
         push esi
         push dword 0A0000006h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
 .25:
         mov eax, dword [off_168CFC]
@@ -8250,7 +8250,7 @@ a2touchpuck:
         push dword 0A0000021h
         mov edx, 4
         xor ecx, ecx
-        call sub_45BEC
+        call CommentaryEvent
         mov cl, byte [byte_19CB8B]
         mov bl, byte [byte_19CB8A]
         mov eax, ecx
@@ -8326,7 +8326,7 @@ a2touchpuck:
         push eax
         push ebx
         push dword 0A0000021h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
 .9:
         xor bl, bl
@@ -8482,7 +8482,7 @@ sub_2C4E8:
         push eax
         push edx
         push dword 0A000000Eh
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
 .1:
         cmp word [penshotmode], byte 0
@@ -9160,7 +9160,7 @@ pucknorm_body:
 .23:
         push dword 0A0000013h
 .24:
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
 .25:
         mov bl, byte [dword edi+0BFh]
@@ -9311,7 +9311,7 @@ pucknorm_body:
         mov edx, dword [dword_19CB48]
         push edx
         push dword 0A0000012h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 8
         jmp near .49
 .37:
@@ -9455,7 +9455,7 @@ pucknorm_body:
         push ebx
         push dword 0A0000010h
 .48:
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
 .49:
         mov eax, dword [byte ebp-04h]
@@ -10199,7 +10199,7 @@ puckfaceoff2:
         mov esi, dword [dword_19D3A0]
         push esi
         push dword 0A0000018h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
         mov esp, ebp
         pop ebp
@@ -10322,7 +10322,7 @@ sub_2DD54:
         mov byte [dword edx+byte_19CB7E], bl
         call setpersonel
         push dword 0A0000024h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 4
         jmp short .5
 .2:

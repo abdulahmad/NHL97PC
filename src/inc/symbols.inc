@@ -424,7 +424,7 @@
 ;  45B84  jpt_45B84                                front/front_43578.asm                        1
 ;  45BC0  jpt_45BC0                                front/front_43578.asm                        1
 ;  45BD8  jpt_45BD8                                front/front_43578.asm                        1
-;  45BEC  sub_45BEC                                front/front_45BEC.asm                        7
+;  45BEC  CommentaryEvent                          front/front_45BEC.asm                        7
 ;  45C52  sub_45BEC_66                             front/front_45BEC.asm                        1
 ;  45D21  sub_45BEC_135                            front/front_45BEC.asm                        1
 ;  45ECA  sub_45BEC_2DE                            front/front_45BEC.asm                        1

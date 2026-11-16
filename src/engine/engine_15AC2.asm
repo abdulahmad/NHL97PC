@@ -52,7 +52,7 @@ extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, sub_
 extern UpdateCoachModes, sub_30778, sub_3085C, AddPenalty, AddPenalty2, sub_32D88, EndPenaltyShot, sub_34CF4
 extern doplayeracc, sub_35588, sub_35690, sub_356A8, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
 extern sub_3B1EC, sub_3B738, SetVideoMode, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
-extern sub_3CB70, sub_3CD70, sub_3CE58, sub_3CFB0, sub_3E5F0, sub_424CC, sub_45BEC, SetArtArchive
+extern sub_3CB70, sub_3CD70, sub_3CE58, sub_3CFB0, sub_3E5F0, sub_424CC, CommentaryEvent, SetArtArchive
 extern sub_4B8DC, sub_4C0C4, sub_4DDB0, sub_504E0, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
 extern sub_5D6A8, sub_5D7A4, sub_5D878, sub_5D900, sub_5DC1C, sub_5DC50, sub_5DCBC, sub_5DE74
 extern SetSPA, sub_60D6C, sub_60F48, sub_650A4, sub_65F50, sub_6619C, sub_66224, sub_69B78
@@ -11256,7 +11256,7 @@ sub_1E014:
         push byte 0
 .8:
         push dword 0A000002Fh
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 8
 .9:
         pop edx
@@ -11307,7 +11307,7 @@ sub_1E184:
         push ebx
         push edx
         push dword 0A0000015h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
 .5:
         pop ecx
@@ -15356,7 +15356,7 @@ sub_20CB0:
         mov ebx, dword [byte esp+0Ch]
         push ebx
         push dword 0A0000007h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
         jmp short .69
 .66:
@@ -18920,7 +18920,7 @@ sub_24220:
         and eax, 0FFh
         push eax
         push dword 0A0000002h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 2Ch
         mov eax, edx
         call sub_1DEE4
@@ -18987,7 +18987,7 @@ sub_24220:
         push eax
         push ebx
         push dword 0A000000Dh
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 14h
 .9:
         mov word [word_19CB94], 0FFFFh
@@ -19166,7 +19166,7 @@ sub_244BC:
         push ebx
         push eax
         push dword 0A0000014h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 10h
 .12:
         xor ebx, ebx
@@ -19620,7 +19620,7 @@ sub_249F8:
         and eax, 0FFh
         push eax
         push dword 0A0000001h
-        call sub_45BEC
+        call CommentaryEvent
         add esp, byte 2Ch
 .4:
         pop edi

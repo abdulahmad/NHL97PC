@@ -20,3 +20,4 @@ sub_40EBC_B1 OpenAudioStream_B1 {no_record}
 sub_40EBC_BE OpenAudioStream_BE {no_record}
 sub_40EBC_CB OpenAudioStream_CB {no_record}
 sub_40EBC_D8 OpenAudioStream_D8 {no_record}
+sub_45BEC CommentaryEvent {confidence=low} the play-by-play commentary: (event 0A0000001h-0A000002Fh, args...) with speech on, not in a replay (dword_1B8FA0); jump table jpt_45A64 by event, each case queues commentary clips. The arena PA announcer is PaEvent (B/C events)
