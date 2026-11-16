@@ -619,21 +619,197 @@ address,name,auto_name,source,confidence,evidence,file
 5454C,FreeRinkModel,sub_5454C,96PC,medium,NHL96PC 2751C (sem 1.00): D:1B10E8; C:1863,src/front/front_52770.asm
 552E0,DrawBenchSide,sub_552E0,96PC,medium,NHL96PC 27F20 (sem 0.71): C:2080; C:2285; D:1B105C; C:2079,src/front/front_52770.asm
 5585C,SetPenaltyBoxDoor,sub_5585C,96PC,medium,"96 PC SetPenaltyBoxDoor: (team, open) sets a penalty box door's state (dword_1B0A80) and starts its animation when it opens",src/front/front_52770.asm
+57324,SetupPlayerModel,sub_57324,new,low,"builds a player's 3D model: jersey, number and team textures for one roster slot",src/front/front_57324.asm
+57504,LayoutJerseyNumber,sub_57504,new,low,lays out the digits of a jersey number on the back and sleeve texture,src/front/front_57324.asm
+576EC,BuildCupPatchArt,sub_576EC,new,low,builds the championship patch art for the jersey,src/front/front_57324.asm
+57738,DrawJerseyLettering,sub_57738,new,low,draws the name and number lettering onto a jersey texture,src/front/front_57324.asm
+578D4,FreeGoalieMask,sub_578D4,new,low,frees the goalie mask texture,src/front/front_57324.asm
 5794C,LoadCupArt,sub_5794C,new,low,"(team): loads the ""cup"" shape from PLYRCOMN.VIV into the team record (+6C0h)",src/front/front_57324.asm
 57A1C,LoadGoalieMask,sub_57A1C,new,low,"(team, mask): loads the MASK%02da/b/c shapes from MASKS.VIV (""gmask"")",src/front/front_57324.asm
 57BA4,LoadPlayerCommonArt,sub_57BA4,new,low,"loads plyrcomn.viv: team palette, fist and torso shapes",src/front/front_57324.asm
 58144,LoadUniformArt,sub_58144,new,low,"(team, uniform, ...): loads uni%04d.viv: team palette, numbers.ffn / a2z.ffn fonts, torso and cup patch shapes",src/front/front_57324.asm
+58680,CopyShape,sub_58680,new,low,copies a shape (bitmap) into a new block,src/front/front_57324.asm
+586C0,SetupJerseyBackTexture,sub_586C0,new,low,picks and prepares the texture for the back of the jersey,src/front/front_57324.asm
+5876C,InitPlayerModelSlots,sub_5876C,new,low,clears the table of player model slots,src/front/front_57324.asm
+5881C,LoadGameModels,sub_5881C,new,low,"loads the player, goalie and referee models for a game",src/front/front_57324.asm
+58B80,SetupTeamModels,sub_58B80,new,low,sets up the models of both teams' players,src/front/front_57324.asm
+58CA0,FreeGameModels,sub_58CA0,new,low,frees the models loaded for a game,src/front/front_57324.asm
+59174,UpdateViewMatrix,sub_59174,new,low,builds the view matrix from the camera position and target,src/front/front_57324.asm
+59DB8,PoseAndDrawModel,sub_59DB8,new,low,poses a model at its frame and draws it,src/front/front_57324.asm
+59DE4,DrawModelByDetail,sub_59DE4,new,low,draws a model at the detail level picked from its distance,src/front/front_57324.asm
+59E74,DrawPlayerModel,sub_59E74,new,low,draws one player model with its stick,src/front/front_57324.asm
+59F44,DrawObjectShadow,sub_59F44,new,low,draws the shadow of an object on the ice,src/front/front_57324.asm
+5A048,DrawHeadModel,sub_5A048,new,low,draws a player's head model,src/front/front_57324.asm
+5A238,DrawLeftArmModel,sub_5A238,new,low,"poses and draws one arm part of a player model (left side, probably)",src/front/front_57324.asm
+5A2F8,DrawRightArmModel,sub_5A2F8,new,low,"poses and draws the other arm part of a player model (right side, probably)",src/front/front_57324.asm
+5A484,DrawStickModel,sub_5A484,new,low,poses and draws a stick model,src/front/front_57324.asm
+5A4E8,DrawGoalieStickModel,sub_5A4E8,new,low,poses and draws the goalie stick model,src/front/front_57324.asm
+5A5BC,DrawLeftHandModel,sub_5A5BC,new,low,poses and draws one hand of a player model,src/front/front_57324.asm
+5A638,DrawRightHandModel,sub_5A638,new,low,poses and draws the other hand of a player model,src/front/front_57324.asm
+5A6B4,ScaleModelLods,sub_5A6B4,new,low,scales the model detail distances by the view scale and detail setting,src/front/front_57324.asm
+5A6E0,SetModelExtraFlags,sub_5A6E0,new,low,small setters for two model fields (the first entry only returns),src/front/front_57324.asm
+5A6F4,DrawModelParts,sub_5A6F4,new,low,"draws every part of a player model (body, arms, hands, stick)",src/front/front_57324.asm
+5AAB8,DrawPlayersSorted,sub_5AAB8,new,low,sorts the players by distance and draws each with its shadow,src/front/front_57324.asm
+5AC28,ClearObjectHidden,sub_5AC28,new,low,clears an object's hidden flag,src/front/front_57324.asm
+5AC30,SetObjectHidden,sub_5AC30,new,low,sets an object's hidden flag,src/front/front_57324.asm
+5AC38,RenderModelPortrait,sub_5AC38,new,low,renders a player model into an offscreen portrait,src/front/front_57324.asm
+5AD54,DrawPuckMarker,sub_5AD54,new,low,draws the marker under the puck (projected onto the ice),src/front/front_57324.asm
+5AEB8,DrawPlayerMarkers,sub_5AEB8,new,low,draws the markers under the controlled players,src/front/front_57324.asm
+5B090,DrawIceMarkers,sub_5B090,new,low,draws the puck and player markers on the ice,src/front/front_57324.asm
+5B1C0,DrawPlayerNames,sub_5B1C0,new,low,draws the names over the players,src/front/front_57324.asm
+5B2D4,DrawPuckArrow,sub_5B2D4,new,low,draws the off-screen puck arrow,src/front/front_57324.asm
+5B450,NoOpDraw,sub_5B450,new,low,does nothing (empty draw hook),src/front/front_57324.asm
+5B454,CopyVec3,sub_5B454,new,low,copies a three-float vector; next entry adds two vectors,src/front/front_57324.asm
+5B46C,SetObjectHeight,sub_5B46C,new,low,sets the height of a vector; next entry adds to it,src/front/front_57324.asm
+5B488,LinkModelPair,sub_5B488,new,low,links two model slots to each other,src/front/front_57324.asm
+5B4B8,ClearModelSlots,sub_5B4B8,new,low,marks every model slot as unused,src/front/front_57324.asm
+5B4D4,RestoreSavedPalette,sub_5B4D4,new,low,restores the saved game palette,src/front/front_57324.asm
+5B50C,SaveGamePalette,sub_5B50C,new,low,saves the current game palette,src/front/front_57324.asm
+5B558,UpdateFaceTextures,sub_5B558,new,low,updates the face textures of the players on screen,src/front/front_57324.asm
+5B5CC,LoadFaceTexture,sub_5B5CC,new,low,loads one player's face texture,src/front/front_57324.asm
+5B648,FindChunkByIndex,sub_5B648,new,low,walks a chunked block to the chunk with the given index,src/front/front_57324.asm
 5B660,LoadFaceArt,sub_5B660,new,low,loads faces.viv: the face palette and the face2 shape set,src/front/front_57324.asm
+5B734,FreeFaceTextures,sub_5B734,new,low,frees the loaded face textures,src/front/front_57324.asm
+5B78C,SwapFaceTexture,sub_5B78C,new,low,swaps a player's face texture for another,src/front/front_57324.asm
 5B7E0,LoadPlayerFace,sub_5B7E0,new,low,"(slot, name): loads one player's face shape (""FAC"" + name, fallback fac00000)",src/front/front_57324.asm
+5B970,ReplayPackFrame,sub_5B970,new,low,packs one frame of object state into the replay buffer,src/front/front_57324.asm
+5BA0C,ReplayUnpackFrame,sub_5BA0C,new,low,unpacks one replay frame into object state,src/front/front_57324.asm
+5BA44,ReplayWriteFrame,sub_5BA44,new,low,writes a packed frame at the replay write position,src/front/front_57324.asm
+5BAB4,ReplaySaveState,sub_5BAB4,new,low,saves the registered state blocks for the replay,src/front/front_57324.asm
+5BB0C,ReplayRestoreState,sub_5BB0C,new,low,restores the registered state blocks from the replay,src/front/front_57324.asm
+5BB88,ReplayRecordFrame,sub_5BB88,new,low,records the current frame into the replay buffer,src/front/front_57324.asm
+5BCCC,ReplayRegisterStates,sub_5BCCC,new,low,registers the state blocks the replay saves,src/front/front_57324.asm
+5BD1C,ReplayRegisterObjects,sub_5BD1C,new,low,registers the objects the replay records,src/front/front_57324.asm
+5BD3C,FreeReplayBuffer,sub_5BD3C,new,low,frees the replay buffer,src/front/front_57324.asm
+5BD94,ResetReplayBuffer,sub_5BD94,new,low,empties the replay buffer,src/front/front_57324.asm
 5BDF4,InitReplayBuffer,sub_5BDF4,new,medium,"allocates the ""REPLAY"" buffer when free memory exceeds the request by 200000 bytes, at most 0EA60h bytes",src/front/front_57324.asm
+5BE64,IsReplayRecording,sub_5BE64,new,low,returns 1 when the replay is recording,src/front/front_57324.asm
+5BE74,ReplayHasFrames,sub_5BE74,new,low,returns 1 when the replay is recording and holds frames; next entries give the counters,src/front/front_57324.asm
+5BEB0,ReplayFreeFrames,sub_5BEB0,new,low,drops the oldest frames from the replay buffer,src/front/front_57324.asm
 5BEDC,SetReplayRecording,sub_5BEDC,new,low,"(on/off): starts or stops replay recording (dword_1B8FA0), allocating the ""RP_GAME"" block on start",src/front/front_57324.asm
+5BF88,ReplayReadFrame,sub_5BF88,new,low,reads the frame at the replay read position,src/front/front_57324.asm
+5C014,ReplaySeekStart,sub_5C014,new,low,moves the replay read position to the first frame,src/front/front_57324.asm
+5C0AC,ReplayStepFrame,sub_5C0AC,new,low,steps the replay one frame forward or back,src/front/front_57324.asm
+5C134,ReplayRecordTick,sub_5C134,new,low,records a frame when the recording is on,src/front/front_57324.asm
+5C160,ReplayPauseRecording,sub_5C160,new,low,stops recording for a while,src/front/front_57324.asm
+5C180,ReplayRecordFinal,sub_5C180,new,low,records the last frame before playback,src/front/front_57324.asm
+5C1CC,ReplaySoundAllowed,sub_5C1CC,new,low,returns whether sounds may play during replay playback,src/front/front_57324.asm
+5C1F8,ReplayDrawFrame,sub_5C1F8,new,low,draws the current replay frame,src/front/front_57324.asm
+5C2CC,ReplayCmdPlay,sub_5C2CC,new,low,replay control: play,src/front/front_57324.asm
+5C2F4,ReplayCmdStop,sub_5C2F4,new,low,replay control: stop,src/front/front_57324.asm
+5C30C,ReplayCmdRewind,sub_5C30C,new,low,replay control: rewind,src/front/front_57324.asm
+5C32C,ReplayCmdForward,sub_5C32C,new,low,replay control: fast forward,src/front/front_57324.asm
+5C34C,ReplayPlayFrames,sub_5C34C,new,low,plays replay frames in the chosen direction and speed,src/front/front_57324.asm
+5C4CC,ReplayCamFollow,sub_5C4CC,new,low,replay camera: follows the puck,src/front/front_57324.asm
+5C4E4,ReplayCamFree,sub_5C4E4,new,low,replay camera: free camera,src/front/front_57324.asm
+5C500,StartInstantReplay,sub_5C500,new,low,starts an instant replay of the last play,src/front/front_57324.asm
+5C584,EndInstantReplay,sub_5C584,new,low,ends the instant replay and resumes the game,src/front/front_57324.asm
+5C5EC,PlaySavedReplay,sub_5C5EC,new,low,plays a replay loaded from disk,src/front/front_57324.asm
+5C74C,ReplayFramesLeft,sub_5C74C,new,low,returns how many replay frames are left to play,src/front/front_57324.asm
+5C75C,ReplayCurrentFrame,sub_5C75C,new,low,returns the current replay frame,src/front/front_57324.asm
+5C764,ReplayRestoreObjects,sub_5C764,new,low,restores the objects from a replay frame,src/front/front_57324.asm
+5C894,ReplaySetupObjects,sub_5C894,new,low,sets up the objects for replay playback,src/front/front_57324.asm
+5C974,SaveReplayHeader,sub_5C974,new,low,writes the replay header to the file,src/front/front_57324.asm
+5CAB0,LoadReplayHeader,sub_5CAB0,new,low,reads the replay header from the file,src/front/front_57324.asm
+5CACC,LoadReplayData,sub_5CACC,new,low,reads the replay frames from the file,src/front/front_57324.asm
+5CCC0,FreeReplayMem,sub_5CCC0,new,low,frees the memory used by a loaded replay,src/front/front_57324.asm
 5CCE0,AllocSpriteBuffers,sub_5CCE0,new,low,"allocates the ""RSPRITE"" block (0C240h): 12 sprite buffers of 1010h bytes",src/front/front_57324.asm
+5CD68,MarkPaletteDirty,sub_5CD68,new,low,marks the palette for reloading,src/front/front_57324.asm
+5CD90,BeginOffscreenRender,sub_5CD90,new,low,switches drawing to an offscreen bitmap,src/front/front_57324.asm
+5D100,SavePortraitCamera,sub_5D100,new,low,saves the camera before a portrait render,src/front/front_57324.asm
+5D1E0,RestorePortraitCamera,sub_5D1E0,new,low,restores the camera after a portrait render,src/front/front_57324.asm
+5D23C,EndOffscreenRender,sub_5D23C,new,low,switches drawing back to the screen,src/front/front_57324.asm
+5D294,SetPortraitProjection,sub_5D294,new,low,sets the projection used for portraits,src/front/front_57324.asm
+5D2F0,CameraSplinePoint,sub_5D2F0,new,low,camera motion: point on the camera spline,src/front/front_57324.asm
+5D428,CameraLerpPoint,sub_5D428,new,low,camera motion: linear step toward the target point,src/front/front_57324.asm
+5D454,CameraEasePoint,sub_5D454,new,low,camera motion: eased step toward the target point,src/front/front_57324.asm
+5D488,ResetCameraState,sub_5D488,new,low,clears the camera state block,src/front/front_57324.asm
+5D594,CopyCameraState,sub_5D594,new,low,copies the camera position and target into the work block,src/front/front_57324.asm
+5D5DC,CameraSmoothStep,sub_5D5DC,new,low,camera motion: smoothed step of position and target,src/front/front_57324.asm
+5D6A8,SetCameraTarget,sub_5D6A8,new,low,sets where the camera moves to,src/front/front_57324.asm
+5D7A4,SetCameraPathTarget,sub_5D7A4,new,low,sets a camera target reached along a path,src/front/front_57324.asm
+5D878,SetCameraSplineTarget,sub_5D878,new,low,sets a camera target reached along a spline,src/front/front_57324.asm
+5D900,UpdateCameraMotion,sub_5D900,new,low,moves the camera one frame toward its target,src/front/front_57324.asm
+5DC1C,SnapCamera,sub_5DC1C,new,low,puts the camera at its target at once,src/front/front_57324.asm
+5DC50,BuildCameraMatrix,sub_5DC50,new,low,builds the camera matrix,src/front/front_57324.asm
+5DCBC,UpdateCameraProjection,sub_5DCBC,new,low,updates the projection from the camera field of view,src/front/front_57324.asm
+5DD74,ProjectRinkPoints,sub_5DD74,new,low,projects the rink reference points to the screen,src/front/front_57324.asm
+5DE74,InitCameraParams,sub_5DE74,new,low,sets the starting camera parameters,src/front/front_57324.asm
+5DF50,GetStickBladePos,sub_5DF50,new,low,returns the position of a player's stick blade,src/front/front_57324.asm
+5DF90,PlaySkateSounds,sub_5DF90,new,low,plays the skate sounds of a moving player,src/front/front_57324.asm
+5E1B0,MovePlayer,sub_5E1B0,new,low,moves a player by its velocity for one frame,src/front/front_57324.asm
+5E224,PuckOnStickPhysics,sub_5E224,new,low,keeps the puck on a skating player's stick,src/front/front_57324.asm
+5E7D8,PuckOnStickFromState,sub_5E7D8,new,low,keeps the puck on the stick using the saved stick state,src/front/front_57324.asm
+5E81C,StickHandleTarget,sub_5E81C,new,low,works out where the stick carries the puck,src/front/front_57324.asm
+5E934,StickHandleScaled,sub_5E934,new,low,stick handling with a scaled reach,src/front/front_57324.asm
+5E998,StickHandleSpeed,sub_5E998,new,low,stick handling speed factor for the player,src/front/front_57324.asm
+5E9F0,IsSkateAnim,sub_5E9F0,new,low,returns whether the current animation is a skating one,src/front/front_57324.asm
+5EA78,IsStopAnim,sub_5EA78,new,low,returns whether the current animation is a stop,src/front/front_57324.asm
+5EB14,StartCheckedAnim,sub_5EB14,new,low,starts an animation if the player may change animation,src/front/front_57324.asm
+5EC50,StartNextMove,sub_5EC50,new,low,starts the move that follows the current one,src/front/front_57324.asm
 5ED80,SetSPA,sub_5ED80,94G,medium,"94G SetSPA: (player, animation 0-17Ch, flags, speed) sets the player's animation; restarts it unless it is already playing",src/front/front_57324.asm
+5EEEC,SetSPAInPlace,sub_5EEEC,new,low,sets an animation without moving the player,src/front/front_57324.asm
+5F018,GoalieReadShot,sub_5F018,new,low,goalie AI: reads the shot and picks the save position,src/front/front_57324.asm
+5FE2C,GoalieAngle,sub_5FE2C,new,low,goalie AI: angle to the puck,src/front/front_57324.asm
+60078,GoalieCoverPost,sub_60078,new,low,goalie AI: covers the post,src/front/front_57324.asm
+6023C,GoalieAI,sub_6023C,new,low,goalie AI for one frame,src/front/front_57324.asm
+60710,TurnRateForSpeed,sub_60710,new,low,returns the turn rate allowed at the player's speed,src/front/front_57324.asm
+6077C,UpdateGoalie,sub_6077C,new,low,moves and animates the goalie,src/front/front_57324.asm
+60D28,GoalieTick,sub_60D28,new,low,runs the goalie and animation clock for one frame,src/front/front_57324.asm
+60D6C,ResetAnimTimer,sub_60D6C,new,low,resets a player's animation timer,src/front/front_57324.asm
+60D84,PickIdleAnim,sub_60D84,new,low,picks the idle animation for a player,src/front/front_57324.asm
+60F48,PickSkateAnim,sub_60F48,new,low,picks the skating animation for a player,src/front/front_57324.asm
+612E4,EndMove,sub_612E4,new,low,ends the current move,src/front/front_57324.asm
+613AC,AdvanceMoveAnim,sub_613AC,new,low,advances the move's animation one frame,src/front/front_57324.asm
+613F8,ApplyMoveMotion,sub_613F8,new,low,applies the move's motion to the player,src/front/front_57324.asm
+6152C,StepMove,sub_6152C,new,low,steps a move one frame,src/front/front_57324.asm
+61540,HoldPoseMove,sub_61540,new,low,move handler that keeps the player in place until the animation ends,src/front/front_57324.asm
+615D0,SteerTowardTarget,sub_615D0,new,low,turns the player toward its target,src/front/front_57324.asm
+61764,ApplySkateAccel,sub_61764,new,low,speeds the player up toward its skating speed,src/front/front_57324.asm
+617EC,SteerAndAccel,sub_617EC,new,low,turns toward the target and speeds up,src/front/front_57324.asm
+61804,PickTurnAnim,sub_61804,new,low,picks a turning animation,src/front/front_57324.asm
+61BF8,PickStopAnim,sub_61BF8,new,low,picks a stopping animation,src/front/front_57324.asm
+61F78,PickCrossoverAnim,sub_61F78,new,low,picks a crossover animation from the turn,src/front/front_57324.asm
+6211C,PickGlideAnim,sub_6211C,new,low,picks a glide animation,src/front/front_57324.asm
+62340,PickStrideAnim,sub_62340,new,low,picks the stride animation from the speed,src/front/front_57324.asm
+624D0,PickForwardTurn,sub_624D0,new,low,picks the forward turning animation from the angle to the target,src/front/front_57324.asm
+626BC,PickBackwardTurn,sub_626BC,new,low,picks the backward turning animation from the angle to the target,src/front/front_57324.asm
+628C4,GlideForwardMove,sub_628C4,new,low,move handler for gliding forward,src/front/front_57324.asm
+62C14,LimitSkateSpeed,sub_62C14,new,low,keeps the player's speed under its limit,src/front/front_57324.asm
+62F14,SkateForwardMove,sub_62F14,new,low,move handler for skating forward,src/front/front_57324.asm
+633E8,SkateBackwardMove,sub_633E8,new,low,move handler for skating backward,src/front/front_57324.asm
+63878,TurnLeanAngle,sub_63878,new,low,works out the lean angle for a turn,src/front/front_57324.asm
+63980,TurnStickPos,sub_63980,new,low,places the stick during a turn,src/front/front_57324.asm
+63AA4,TurnForwardMove,sub_63AA4,new,low,move handler for turning while skating forward,src/front/front_57324.asm
+63D24,StopSkidDistance,sub_63D24,new,low,works out how far a stopping player skids,src/front/front_57324.asm
+63E8C,StopForwardMove,sub_63E8C,new,low,move handler for stopping from forward skating (plays the skid sound),src/front/front_57324.asm
+640D0,StandMove,sub_640D0,new,low,move handler for standing in place,src/front/front_57324.asm
+642A8,SpeedTowardSpot,sub_642A8,new,low,works out the speed to reach a spot,src/front/front_57324.asm
+643AC,StartMoveAtSpeed,sub_643AC,new,low,starts the next move at the player's speed,src/front/front_57324.asm
+64490,CrossoverMove,sub_64490,new,low,move handler for crossovers,src/front/front_57324.asm
+64700,GoalieSlideMove,sub_64700,new,low,move handler for the goalie sliding across the crease,src/front/front_57324.asm
+64820,GoalieStanceMove,sub_64820,new,low,move handler for the goalie stance,src/front/front_57324.asm
+648B4,SlowSkateMove,sub_648B4,new,low,move handler for slow skating,src/front/front_57324.asm
+649E0,GlideBackwardMove,sub_649E0,new,low,move handler for gliding backward,src/front/front_57324.asm
+64AE0,TurnBackwardMove,sub_64AE0,new,low,move handler for turning while skating backward,src/front/front_57324.asm
+64D54,StopBackwardMove,sub_64D54,new,low,move handler for stopping from backward skating (plays the skid sound),src/front/front_57324.asm
+64EBC,FaceoffPuckDrop,sub_64EBC,new,low,places the puck for a faceoff drop,src/front/front_57324.asm
+650A4,SetSkateSpeedFromRating,sub_650A4,new,low,sets a player's top speed from its rating,src/front/front_57324.asm
+650E8,StartWhistleStop,sub_650E8,new,low,starts the stop animation when the whistle blows,src/front/front_57324.asm
+65164,UpdateScoreClockData,sub_65164,new,low,updates the clock and score data shown in game,src/front/front_57324.asm
+65338,ResetClockData,sub_65338,new,low,clears the in-game clock data,src/front/front_57324.asm
+6539C,UpdateGameDisplay,sub_6539C,new,low,updates the in-game display data each frame,src/front/front_57324.asm
+65481,LoadAnimData,sub_65481,new,low,loads an animation file into memory,src/front/front_57324.asm
+656B7,GetStopTable,sub_656B7,new,low,returns an entry of one of the two stop tables,src/front/front_57324.asm
+656D3,LoadSkateAnimFile,sub_656D3,new,low,loads the skating animation file,src/front/front_57324.asm
+65742,LoadAnimByName,sub_65742,new,low,finds an animation by name and loads it,src/front/front_57324.asm
+657BF,ShotAnimFrames,sub_657BF,new,low,returns the shot animation frames for a shot type,src/front/front_57324.asm
 65830,LoadSkateAnims,sub_65830,new,medium,"InitAnimPoints: loads the ""skate"" animations (and ""stop"")",src/front/front_57324.asm
 6590A,CamShot23D,sub_6590A,96PC,medium,NHL96PC 603FF (similar 0.81): mnemonic similarity 0.81 over 16 instructions,src/front/front_57324.asm
 6593E,LoadActAnims,sub_6593E,new,medium,"InitAnimPoints: loads the ""pl_act"" animations",src/front/front_57324.asm
 6596B,LoadFallAnims,sub_6596B,new,medium,"InitAnimPoints: loads the ""pl_fall"" animations",src/front/front_57324.asm
 659C6,LoadInterferAnims,sub_659C6,new,medium,"InitAnimPoints: loads the ""interfer"" animations",src/front/front_57324.asm
+659F6,LoadGoalieAnimFile,sub_659F6,new,low,loads the goalie animation file,src/front/front_57324.asm
 65B64,LoadGoalieAnims,sub_65B64,new,medium,"InitAnimPoints: loads the ""goalie"" animations",src/front/front_57324.asm
 65BFD,LoadRefSkateAnims,sub_65BFD,new,medium,"InitAnimPoints: loads the ""refskate"" animations",src/front/front_57324.asm
 65C2D,LoadRefCallAnims,sub_65C2D,new,medium,"InitAnimPoints: loads the ""refcalls"" animations",src/front/front_57324.asm
@@ -641,23 +817,198 @@ address,name,auto_name,source,confidence,evidence,file
 65C8D,LoadFightAnims,sub_65C8D,new,medium,"InitAnimPoints: loads the ""fight"" animations",src/front/front_57324.asm
 65CBD,LoadCupAnims,sub_65CBD,new,medium,"loads the ""cup"" animations (Stanley Cup presentation, from sub_780F0)",src/front/front_57324.asm
 65CED,InitAnimPoints,sub_65CED,new,low,"looks up the animation attachment points (puck, stickheel, origin, chin, rhand, lshldr, rshldr) and loads ANIMS.VIV",src/front/front_57324.asm
+65DE8,FreeAnimTables,sub_65DE8,new,low,frees the animation tables,src/front/front_57324.asm
+65E3B,InitPlayerAnims,sub_65E3B,new,low,sets up the starting animations of the players,src/front/front_57324.asm
+65F50,StickReach,sub_65F50,new,low,works out how far a player's stick reaches,src/front/front_57324.asm
+660F0,PuckHeightAt,sub_660F0,new,low,works out the puck height at a point,src/front/front_57324.asm
+6619C,ObjectFramePos,sub_6619C,new,low,returns an object's position at its current animation frame,src/front/front_57324.asm
+66224,TryStickTouch,sub_66224,new,low,tests whether the stick touches the puck,src/front/front_57324.asm
+66524,PuckBounceOffPlayer,sub_66524,new,low,bounces the puck off a player's body,src/front/front_57324.asm
+666CC,PlayPostSound,sub_666CC,new,low,plays the sound of the puck hitting the post,src/front/front_57324.asm
+66758,PuckHitsNet,sub_66758,new,low,"puck against the net: post, crossbar, goal or save",src/front/front_57324.asm
+66E38,PuckHitsBoards,sub_66E38,new,low,puck against the boards: bounce and sound,src/front/front_57324.asm
+67248,PuckHitsGlass,sub_67248,new,low,puck against the glass: bounce and sound,src/front/front_57324.asm
+67540,NetCollisionPoint,sub_67540,new,low,works out where the puck meets the net,src/front/front_57324.asm
+67A30,PuckInNetDepth,sub_67A30,new,low,tests whether the puck is deep in the net,src/front/front_57324.asm
+67A98,PuckInNetWidth,sub_67A98,new,low,tests whether the puck is inside the posts,src/front/front_57324.asm
+67B10,PlayNetSound,sub_67B10,new,low,plays the sound of the puck in the net,src/front/front_57324.asm
+67BD0,CommentNetHit,sub_67BD0,new,low,calls the commentary for a shot off the net,src/front/front_57324.asm
+67CC0,PuckOffPost,sub_67CC0,new,low,bounces the puck off a post,src/front/front_57324.asm
+68030,PuckOffCrossbar,sub_68030,new,low,bounces the puck off the crossbar,src/front/front_57324.asm
+68378,PuckInHomeNet,sub_68378,new,low,"puck against the home team's net: goal, post or save",src/front/front_57324.asm
+6889C,PuckInAwayNet,sub_6889C,new,low,"puck against the away team's net: goal, post or save",src/front/front_57324.asm
+68DBC,PuckBehindNet,sub_68DBC,new,low,puck against the back of a net,src/front/front_57324.asm
+69410,CheckPuckNets,sub_69410,new,low,checks the puck against both nets,src/front/front_57324.asm
+6947C,GoalLinePuckTest,sub_6947C,new,low,tests whether the puck crossed the goal line (for the goal judge),src/front/front_57324.asm
+69654,UpdatePuckCarrier,sub_69654,new,low,keeps the puck with its carrier,src/front/front_57324.asm
+69750,PuckGroundHeight,sub_69750,new,low,works out the puck's height over the ice,src/front/front_57324.asm
+69970,PuckBounceIce,sub_69970,new,low,bounces the puck off the ice,src/front/front_57324.asm
+699D4,UpdatePuck,sub_699D4,new,low,"moves the puck and tests it against the boards, glass and nets",src/front/front_57324.asm
+69A44,GoalJudgeTest,sub_69A44,new,low,tests a goal for the goal judge,src/front/front_57324.asm
+69B08,RandomPuckSpin,sub_69B08,new,low,gives the puck a random spin,src/front/front_57324.asm
+69B78,StopObject,sub_69B78,new,low,stops an object,src/front/front_57324.asm
+69BA0,StartPassAnim,sub_69BA0,new,low,starts the passing animation,src/front/front_57324.asm
+69D98,PassAnimFrame,sub_69D98,new,low,picks the frame of the passing animation,src/front/front_57324.asm
+69DF4,StartDropPassAnim,sub_69DF4,new,low,starts the drop pass animation,src/front/front_57324.asm
+69F3C,StartShotAnim,sub_69F3C,new,low,starts the shooting animation,src/front/front_57324.asm
+6A0BC,StartOneTimerAnim,sub_6A0BC,new,low,starts the one-timer animation,src/front/front_57324.asm
+6A13C,StartWristShotAnim,sub_6A13C,new,low,starts the wrist shot animation,src/front/front_57324.asm
+6A244,StartPuckReceiveAnim,sub_6A244,new,low,starts the animation for receiving the puck,src/front/front_57324.asm
+6A604,ReceivePassMove,sub_6A604,new,low,move handler for receiving a pass,src/front/front_57324.asm
+6A6D8,PassAnimFrameForType,sub_6A6D8,new,low,returns the animation frame for a pass type,src/front/front_57324.asm
+6A77C,PassMove,sub_6A77C,new,low,move handler for a pass,src/front/front_57324.asm
+6AB88,ShotReach,sub_6AB88,new,low,works out where a shot meets the puck,src/front/front_57324.asm
+6ABEC,ShotMove,sub_6ABEC,new,low,move handler for a shot,src/front/front_57324.asm
+6B140,SkateWithPuckMove,sub_6B140,new,low,move handler for skating with the puck,src/front/front_57324.asm
+6B28C,GlideWithPuckMove,sub_6B28C,new,low,move handler for gliding with the puck,src/front/front_57324.asm
+6B380,CheckBoardsContact,sub_6B380,new,low,body contact against the boards,src/front/front_57324.asm
+6BC94,CheckContactVelocity,sub_6BC94,new,low,works out the speeds after body contact,src/front/front_57324.asm
+6C0FC,CheckContactForce,sub_6C0FC,new,low,works out the force of body contact,src/front/front_57324.asm
+6C73C,BodyCollide,sub_6C73C,new,low,body collision between two players,src/front/front_57324.asm
+6CA24,BodyBounce,sub_6CA24,new,low,bounce between two players,src/front/front_57324.asm
+6CD58,CheckForPenalty,sub_6CD58,new,low,tests a hit for a penalty,src/front/front_57324.asm
+6CED0,CheckPlayerVsBoards,sub_6CED0,new,low,tests a player against the boards,src/front/front_57324.asm
+6D3E4,PlayerBoardsTest,sub_6D3E4,new,low,tests whether a player is near the boards,src/front/front_57324.asm
+6D4AC,PlayerCollisions,sub_6D4AC,new,low,runs the player collision tests,src/front/front_57324.asm
+6D59C,HitDirection,sub_6D59C,new,low,works out the direction of a hit,src/front/front_57324.asm
+6D678,HitCrowdReaction,sub_6D678,new,low,crowd and commentary reaction to a hit,src/front/front_57324.asm
+6D7F8,HitKnockback,sub_6D7F8,new,low,knocks back a player that was hit,src/front/front_57324.asm
+6D980,StartHitAnim,sub_6D980,new,low,starts the animation for a hit,src/front/front_57324.asm
+6DAB0,ResolveBodyCheck,sub_6DAB0,new,low,resolves a body check: who falls and the penalty call,src/front/front_57324.asm
+6E170,StartFallAnim,sub_6E170,new,low,starts the fall animation,src/front/front_57324.asm
 6E290,checkcx,sub_6E290,94G,low,"94G checkcx: (player a3, player a2, ...) a collision between two players (x87): bounces, checking animations, interference (checkint), checkfight",src/front/front_57324.asm
+6E9A4,ResolvePlayerContact,sub_6E9A4,new,low,resolves contact between two players,src/front/front_57324.asm
+6F104,StickContact,sub_6F104,new,low,stick against a player,src/front/front_57324.asm
+6F300,PlayerPush,sub_6F300,new,low,pushes two players apart,src/front/front_57324.asm
+6F55C,ContactAngle,sub_6F55C,new,low,works out the contact angle,src/front/front_57324.asm
 6F604,checkplcoll,sub_6F604,94G,low,"94G checkplcoll: a player's collisions with the other players (checkcx, sub_6E9A4) and the rest",src/front/front_57324.asm
+6FF1C,UpdatePlayerMotion,sub_6FF1C,new,low,moves the players and updates their motion,src/front/front_57324.asm
+7002C,SortPlayersByDepth,sub_7002C,new,low,sorts the players by depth for drawing,src/front/front_57324.asm
+700D8,MoveToAnimPose,sub_700D8,new,low,moves the player to the pose of its animation,src/front/front_57324.asm
+701B8,FaceAngleDelta,sub_701B8,new,low,works out the turn to face a direction,src/front/front_57324.asm
+70260,FacePlayerToward,sub_70260,new,low,turns a player toward a point,src/front/front_57324.asm
+70324,StartFightAnimMove,sub_70324,new,low,starts a fight animation move,src/front/front_57324.asm
+70378,FightGrabMove,sub_70378,new,low,move handler for grabbing in a fight,src/front/front_57324.asm
+70424,FightHoldMove,sub_70424,new,low,move handler for holding in a fight,src/front/front_57324.asm
+704D4,FightPunchMove,sub_704D4,new,low,move handler for a punch (crowd and sound),src/front/front_57324.asm
+708B0,FightIdleMove,sub_708B0,new,low,move handler for the fight idle,src/front/front_57324.asm
+708F4,FightEndMove,sub_708F4,new,low,move handler for the end of a fight,src/front/front_57324.asm
+709D0,FightBlockMove,sub_709D0,new,low,move handler for blocking in a fight,src/front/front_57324.asm
+70A14,FightDuckMove,sub_70A14,new,low,move handler for ducking in a fight,src/front/front_57324.asm
+70A58,FightHitMove,sub_70A58,new,low,move handler for being hit in a fight (sound),src/front/front_57324.asm
+70B38,FightPauseMove,sub_70B38,new,low,move handler for a pause in a fight,src/front/front_57324.asm
+70B74,FightJerseyMove,sub_70B74,new,low,move handler for a jersey pull (sound),src/front/front_57324.asm
+70C24,FightPositionMove,sub_70C24,new,low,places the fighters toward each other,src/front/front_57324.asm
+70D60,FightStepMove,sub_70D60,new,low,move handler for stepping in a fight,src/front/front_57324.asm
+70E48,FightSwingMove,sub_70E48,new,low,move handler for a swing in a fight,src/front/front_57324.asm
+71108,FightUppercutMove,sub_71108,new,low,move handler for an uppercut,src/front/front_57324.asm
+71298,FightStaggerMove,sub_71298,new,low,move handler for staggering,src/front/front_57324.asm
+71380,FightFaceMove,sub_71380,new,low,move handler with face morphs in a fight,src/front/front_57324.asm
+713E0,FightStartMove,sub_713E0,new,low,move handler for the start of a fight,src/front/front_57324.asm
+7147C,FightCircleMove,sub_7147C,new,low,move handler for circling in a fight,src/front/front_57324.asm
+71574,FightThrowMove,sub_71574,new,low,move handler for a throw,src/front/front_57324.asm
+716F8,FightFallMove,sub_716F8,new,low,move handler for falling in a fight,src/front/front_57324.asm
+71808,StartFightPunch,sub_71808,new,low,starts a punch in a fight,src/front/front_57324.asm
+71ABC,StartFightBlock,sub_71ABC,new,low,starts a block in a fight,src/front/front_57324.asm
+71D48,StartFightGrab,sub_71D48,new,low,starts a grab in a fight,src/front/front_57324.asm
+71E58,StartFightPull,sub_71E58,new,low,starts a jersey pull in a fight,src/front/front_57324.asm
 71F4C,StartFightAnim,sub_71F4C,new,low,from StartFight: the fighter's start move (SPA 176h or 159h by +0D0h),src/front/front_57324.asm
+71FD0,PlayCelebrationSound,sub_71FD0,new,low,plays a celebration sound,src/front/front_57324.asm
+72050,CelebrationMove,sub_72050,new,low,move handler for a goal celebration,src/front/front_57324.asm
+72170,CelebrationJumpMove,sub_72170,new,low,move handler for a celebration jump,src/front/front_57324.asm
+72324,CelebrationEndMove,sub_72324,new,low,move handler for the end of a celebration,src/front/front_57324.asm
+7242C,DejectedMove,sub_7242C,new,low,move handler for a dejected player,src/front/front_57324.asm
+724C8,DejectedSkateMove,sub_724C8,new,low,move handler for a dejected player skating away,src/front/front_57324.asm
+72564,CheerMove,sub_72564,new,low,move handler for cheering,src/front/front_57324.asm
+72648,BenchCheerMove,sub_72648,new,low,move handler for cheering on the bench,src/front/front_57324.asm
+7275C,SkateToBenchStep,sub_7275C,new,low,skates toward the bench,src/front/front_57324.asm
+7291C,SkateToBenchMove,sub_7291C,new,low,move handler for skating to the bench,src/front/front_57324.asm
+72A84,SimpleAnimMove,sub_72A84,new,low,move handler that plays an animation then ends,src/front/front_57324.asm
+72AF0,SkateToSpotStep,sub_72AF0,new,low,skates toward a spot,src/front/front_57324.asm
+72B78,SkateToSpotMove,sub_72B78,new,low,move handler for skating to a spot,src/front/front_57324.asm
+72BF8,PuckRetrieveMove,sub_72BF8,new,low,move handler for picking up the puck,src/front/front_57324.asm
+72C70,PeriodEndMove,sub_72C70,new,low,move handler for the end of a period,src/front/front_57324.asm
+72D74,PeriodEndSkateMove,sub_72D74,new,low,move handler for skating off at the end of a period,src/front/front_57324.asm
 72E58,RefAtDotAnim,sub_72E58,new,low,assrefatdot's referee move: SPA 107h (sub_5EEEC),src/front/front_57324.asm
 72E94,RefFaceoffAnim,sub_72E94,new,low,"puckfaceoff2's referee move: SPA 143h, with the referee's two sprite flags (sub_56D0C)",src/front/front_57324.asm
 72EF4,RefGoalPaAnim,sub_72EF4,new,low,assrefgoalpa's referee move: SPA 144h,src/front/front_57324.asm
 72F34,RefWhistleAnim,sub_72F34,new,low,"assrefwhistle's referee move, PeriodOver aware",src/front/front_57324.asm
 72FE8,RefSignalAnim,sub_72FE8,new,low,assrefsignal's referee move: SPA 146h,src/front/front_57324.asm
 73028,RefGoalLineAnim,sub_73028,new,low,"(ref, n) assrefgoalline's referee move: SPA from table dword_16C58C",src/front/front_57324.asm
+73070,SkateMoveStep,sub_73070,new,low,steps a skating move,src/front/front_57324.asm
+730C4,StartPokeAnim,sub_730C4,new,low,starts a poke check animation,src/front/front_57324.asm
+7320C,PokeCheckMove,sub_7320C,new,low,move handler for a poke check,src/front/front_57324.asm
+73464,StickSlashMove,sub_73464,new,low,move handler for a slash (sound),src/front/front_57324.asm
+73578,SweepCheckMove,sub_73578,new,low,move handler for a sweep check,src/front/front_57324.asm
+7370C,HookMove,sub_7370C,new,low,move handler for a hook (sound),src/front/front_57324.asm
+739B8,DiveMove,sub_739B8,new,low,move handler for a dive,src/front/front_57324.asm
+73A58,HoldPoseMoveJump,sub_73A58,new,low,jumps to the hold pose move,src/front/front_57324.asm
+73A60,GoalieFreezeMove,sub_73A60,new,low,move handler for the goalie freezing the puck,src/front/front_57324.asm
+73B3C,StartBlockAnim,sub_73B3C,new,low,starts a shot block animation,src/front/front_57324.asm
+73CE8,BlockReach,sub_73CE8,new,low,works out the reach of a block,src/front/front_57324.asm
+73F00,KneelMove,sub_73F00,new,low,move handler for kneeling,src/front/front_57324.asm
+73FBC,BlockShotMove,sub_73FBC,new,low,move handler for blocking a shot,src/front/front_57324.asm
+74708,BlockSlideMove,sub_74708,new,low,move handler for sliding to block,src/front/front_57324.asm
+747E8,GoalieCoverMove,sub_747E8,new,low,move handler for the goalie covering the puck,src/front/front_57324.asm
+74A20,GoalieRecoverMove,sub_74A20,new,low,move handler for the goalie getting up,src/front/front_57324.asm
+74B74,GoalieIdleMove,sub_74B74,new,low,move handler for the goalie idle,src/front/front_57324.asm
+74BA8,StartGoalieSave,sub_74BA8,new,low,starts a goalie save animation,src/front/front_57324.asm
+74C64,StartGoalieStance,sub_74C64,new,low,starts a goalie stance animation,src/front/front_57324.asm
+74CEC,PickSaveAnim,sub_74CEC,new,low,picks the goalie save animation from the shot,src/front/front_57324.asm
+74FA4,SaveDirection,sub_74FA4,new,low,works out the direction of a save,src/front/front_57324.asm
+75068,GoalieSave,sub_75068,new,low,goalie save: picks the save and starts it,src/front/front_57324.asm
+75500,GoalieMoves,sub_75500,new,low,goalie movement and saves,src/front/front_57324.asm
+75AE8,PuckDeflectAngle,sub_75AE8,new,low,works out the angle of a deflection,src/front/front_57324.asm
+75B94,PuckDeflect,sub_75B94,new,low,deflects the puck off a player,src/front/front_57324.asm
+75F14,AllocAnimNode,sub_75F14,new,low,takes a node from the free animation node list,src/front/front_57324.asm
+75F40,InsertAnimNode,sub_75F40,new,low,inserts an animation node after another,src/front/front_57324.asm
+75F70,AddAnimNode,sub_75F70,new,low,adds an animation node to a list,src/front/front_57324.asm
+75FA0,FreeAnimNode,sub_75FA0,new,low,returns an animation node to the free list,src/front/front_57324.asm
+75FE4,ResetAnimBlend,sub_75FE4,new,low,resets an animation blend and frees its children,src/front/front_57324.asm
 76010,LoadAnimFile,sub_76010,new,medium,"(name, ...): loads a "".4da"" animation file (_splitpath_ / _makepath_), from the InitAnimPoints loaders",src/front/front_57324.asm
+760C8,FindAnimByName,sub_760C8,new,low,finds an animation by name in an animation file,src/front/front_57324.asm
+7613C,GetAnimEntry,sub_7613C,new,low,returns an entry of an animation table,src/front/front_57324.asm
+76148,DecodeAnimTree,sub_76148,new,low,decodes an animation tree from the bit stream,src/front/front_57324.asm
+7629C,DecodeAnimChild,sub_7629C,new,low,decodes one child of an animation tree,src/front/front_57324.asm
+762E4,DecodeAnimFile,sub_762E4,new,low,decodes an animation file,src/front/front_57324.asm
+76380,ReadAnimValue,sub_76380,new,low,reads one value from the animation bit stream,src/front/front_57324.asm
+763BC,DecodeAnimFrame,sub_763BC,new,low,decodes one animation frame,src/front/front_57324.asm
+76698,DecodeAnimDelta,sub_76698,new,low,decodes the changes between animation frames,src/front/front_57324.asm
+76944,GetAnimId,sub_76944,new,low,returns the id of the current animation,src/front/front_57324.asm
+76954,UpdateObjectPose,sub_76954,new,low,decodes the current pose of an object,src/front/front_57324.asm
+76A1C,UpdateMovePose,sub_76A1C,new,low,decodes the pose of a move and its motion,src/front/front_57324.asm
+76D3C,UpdateAllPoses,sub_76D3C,new,low,decodes the poses of every object,src/front/front_57324.asm
+76E04,ScaleAnimTime,sub_76E04,new,low,scales the animation time,src/front/front_57324.asm
+76E20,SetAnimClock,sub_76E20,new,low,sets the animation clock,src/front/front_57324.asm
+76E28,AddAnimClock,sub_76E28,new,low,adds to the animation clock,src/front/front_57324.asm
+76E30,UpdateAnimBlends,sub_76E30,new,low,updates the animation blends,src/front/front_57324.asm
+76FB4,AnimClockTick,sub_76FB4,new,low,advances the animation clock,src/front/front_57324.asm
+76FE8,SetAnimFrame,sub_76FE8,new,low,sets an animation to a frame,src/front/front_57324.asm
+77014,SetAnimFlags,sub_77014,new,low,sets animation flags,src/front/front_57324.asm
+77018,ClearAnimFlags,sub_77018,new,low,clears animation flags; next entry sets the blend weight,src/front/front_57324.asm
+77048,InitAnimState,sub_77048,new,low,initialises an animation state,src/front/front_57324.asm
+7716C,AllocAnimStateBlocks,sub_7716C,new,low,allocates the animation state blocks,src/front/front_57324.asm
+7724C,StartAnim,sub_7724C,new,low,starts an animation,src/front/front_57324.asm
+772B8,StartAnimNow,sub_772B8,new,low,starts an animation without blending,src/front/front_57324.asm
+77310,BlendToAnim,sub_77310,new,low,blends into a new animation,src/front/front_57324.asm
+773C0,ChangeAnim,sub_773C0,new,low,changes a player's animation,src/front/front_57324.asm
+77590,InitAnimNodePool,sub_77590,new,low,sets up the free animation node list,src/front/front_57324.asm
+77610,FreeAnimStates,sub_77610,new,low,frees the animation states,src/front/front_57324.asm
 77630,AllocAnimStates,sub_77630,new,low,"(count): allocates the ""ANIMSTAT"" block (count x 358h) and clears it",src/front/front_57324.asm
+776F8,BuildCameraDebugView,sub_776F8,new,low,builds the camera debug view,src/front/front_57324.asm
+77838,DrawCameraPath,sub_77838,new,low,draws the camera path (debug),src/front/front_57324.asm
 779C8,LoadAiIcons,sub_779C8,new,low,"loads the ""cross"" icon shapes from aicons.viv",src/front/front_57324.asm
+77A30,FreeCameraDebug,sub_77A30,new,low,frees the camera debug view,src/front/front_57324.asm
 77A88,updateplayers,sub_77A88,94G,medium,"the per-frame player update: reads the joypads (ReadJoy1), runs each object's assignment from off_19C3F4, collisions and animation, as 94G updateplayers",src/front/front_57324.asm
 77F88,GameOver,sub_77F88,96PC,medium,sets gameover (word_19CBA0); 96 PC GameOver without its already-over check,src/front/front_57324.asm
+77F94,RequestPauseMenu,sub_77F94,new,low,asks for the in-game pause menu,src/front/front_57324.asm
+77FA8,CheckIntermission,sub_77FA8,new,low,runs the intermission when it is due,src/front/front_57324.asm
+78044,CupCelebration,sub_78044,new,low,runs the championship celebration,src/front/front_57324.asm
 780F0,clockcont_0,sub_780F0,94G,medium,"94G clockcont_0 (end of period; also entered from puckfaceoff): puck assinsert 41h, periods 1-2 AddPenalty2 end of period (PA event), later periods score / overtime / cup checks",src/front/front_57324.asm
 785E8,periodicevents,sub_785E8,94G,low,"from DoGameFrame before updateplayers: chkprogress, line changes (StartFaceoffLineChange), the Stanley Cup start (sub_780F0)",src/front/front_57324.asm
+78730,PlayCrowdAmbience,sub_78730,new,low,plays the crowd ambience sounds,src/front/front_57324.asm
 78810,DoGameFrame,sub_78810,95PC,medium,"one frame of game logic, from RunSimFrames, RunOpeningFrames and PlaceOpeningPlayers: periodicevents, updateplayers, then the crowd sounds and commentary",src/front/front_57324.asm
+78938,RandomCrowdDelay,sub_78938,new,low,picks a random crowd sound delay,src/front/front_57324.asm
 7BCF0,OpenVideoStream,sub_7BCF0,new,low,"opens the movie's ""VIDEO"" stream (CdStreamOpenSecondary, CdStreamStart)",src/front/front_7A9D8.asm
 7C3EC,PlayMovie,sub_7C3EC,new,low,"plays a movie file (""AUDSTRMHACK"" audio, OpenVideoStream), from sub_4A4F4",src/front/front_7A9D8.asm
 7C600,putchar,,96PC,medium,NHL96PC 17675 (sem): S:ATZS7=60S11=55; D:164110,

@@ -22,9 +22,9 @@ extern ReplayCamOrbit, ReplayCamStop, ReplayCamFreeMode, ReplayCamTurn, ReplayCa
 extern SetVideoMode, SetViewSize, ClearViewInterlaced, ShowView, SetViewOrigin, SetRinkDetail, FadeGamePalette, ChkMenuMusic
 extern PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, StopAllSfx, SetAmbientVolume, SetCrowdNoise, sub_4A280
 extern MakeDirPath, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, sub_4BCB4
-extern sub_5B4D4, sub_5BD94, InitReplayBuffer, sub_5BE64, sub_5BEB0, sub_5C2CC, sub_5C2F4, sub_5C30C
-extern sub_5C32C, sub_5C34C, sub_5C4CC, sub_5C4E4, sub_5C500, sub_5C584, sub_5C5EC, sub_5C74C
-extern sub_5C75C, sub_5C894, sub_5CAB0, sub_5CACC, InitAnimPoints, sub_65DE8, sub_76E20, sub_77610
+extern RestoreSavedPalette, ResetReplayBuffer, InitReplayBuffer, IsReplayRecording, ReplayFreeFrames, ReplayCmdPlay, ReplayCmdStop, ReplayCmdRewind
+extern ReplayCmdForward, ReplayPlayFrames, ReplayCamFollow, ReplayCamFree, StartInstantReplay, EndInstantReplay, PlaySavedReplay, ReplayFramesLeft
+extern ReplayCurrentFrame, ReplaySetupObjects, LoadReplayHeader, LoadReplayData, InitAnimPoints, FreeAnimTables, SetAnimClock, FreeAnimStates
 extern AllocAnimStates, InitFrontEnd, FreeFrontEnd, SetRegionRect, SetTextColor, DrawTextAligned, sub_7FE4C, sub_81650
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, NameIndexPath, sub_8BE60
 extern sub_8BEF8, InitMenuItems, sub_8BFAC, sub_8D5C0, sub_8D6B4, sub_8D6E8, sub_8D910, LoadLangTextB
@@ -69,7 +69,7 @@ RunReplay:
         add esp, byte 8
         mov dword [byte ebp-030h], 280h
         mov dword [byte ebp-02Ch], 1E0h
-        call sub_5BE64
+        call IsReplayRecording
         test eax, eax
         je near RunReplay_358
         xor eax, eax
@@ -317,13 +317,13 @@ LoadReplay:
         call sub_DB6AC
         mov eax, dword [dword_1CAF9C]
         mov edx, 20h
-        call sub_5CAB0
+        call LoadReplayHeader
         mov dword [dword_1AC944], unk_1ACB44
-        call sub_5BD94
+        call ResetReplayBuffer
         mov eax, 34h
         call AllocAnimStates
         xor eax, eax
-        call sub_76E20
+        call SetAnimClock
         xor eax, eax
 .1:
         imul edx, eax, dword 760h
@@ -350,20 +350,20 @@ LoadReplay:
         call InitGameGraphics
         call InitAnimPoints
         call sub_12024
-        call sub_5C894
+        call ReplaySetupObjects
         mov eax, 0C350h
         call InitReplayBuffer
         mov eax, dword [dword_1CAF9C]
-        call sub_5CACC
+        call LoadReplayData
         test eax, eax
         jne short .4
-        call sub_5BEB0
-        call sub_77610
+        call ReplayFreeFrames
+        call FreeAnimStates
         mov ecx, 0Dh
         mov eax, dword_19CD54
         xor edx, edx
         call __STOSD
-        call sub_65DE8
+        call FreeAnimTables
         call FreeGameGraphics
         cmp dword [dword_16E500], byte 0
         je short .3
@@ -382,7 +382,7 @@ LoadReplay:
         xor ebx, ebx
         mov eax, 0FFFFFFFFh
         call FadeGamePalette
-        call sub_5B4D4
+        call RestoreSavedPalette
         push dword [dword_1CAF9C]
         call FreeMemBlock
         mov eax, 1
@@ -727,7 +727,7 @@ sub_BE047:
         push edx
         mov ebx, eax
         call sub_1013FC
-        call sub_5C5EC
+        call PlaySavedReplay
         mov dword [dword_1CAF90], eax
         call sub_BF417
         call SetScreenTarget
@@ -931,11 +931,11 @@ ReplayScreen:
         enter 10h, 0
         mov eax, 0Dh
         mov dword [dword_1CAFF0], 0Dh
-        call sub_5C4CC
-        call sub_5C500
-        call sub_5C74C
+        call ReplayCamFollow
+        call StartInstantReplay
+        call ReplayFramesLeft
         mov dword [dword_1CAFA0], eax
-        call sub_5C75C
+        call ReplayCurrentFrame
         push byte 0
         push dword 4CEh
         push str_Replmenu
@@ -977,19 +977,19 @@ ReplayScreen:
 ReplayScreen_C7:
         mov eax, dword [dword_1CB000]
 .4:
-        call sub_5C34C
+        call ReplayPlayFrames
         jmp short ReplayScreen.2
 ReplayScreen_D3:
-        call sub_5C2CC
+        call ReplayCmdPlay
         jmp short ReplayScreen.2
 ReplayScreen_DA:
-        call sub_5C2F4
+        call ReplayCmdStop
         jmp short ReplayScreen.2
 ReplayScreen_E1:
-        call sub_5C30C
+        call ReplayCmdRewind
         jmp short ReplayScreen.2
 ReplayScreen_E8:
-        call sub_5C32C
+        call ReplayCmdForward
         jmp short ReplayScreen.2
 ReplayScreen_EF:
         push dword [dword_1CAFA4]
@@ -1015,13 +1015,13 @@ ReplayScreen_EF:
         call PickReplayScreen
         test eax, eax
         je short .5
-        call sub_5BEB0
-        call sub_77610
+        call ReplayFreeFrames
+        call FreeAnimStates
         mov ecx, 0Dh
         mov eax, dword_19CD54
         xor edx, edx
         call __STOSD
-        call sub_65DE8
+        call FreeAnimTables
         call FreeGameGraphics
         call sub_DA7EB
         call LoadReplay
@@ -1029,11 +1029,11 @@ ReplayScreen_EF:
         je short .5
         mov eax, 0Dh
         mov dword [dword_1CAFF0], 0Dh
-        call sub_5C4CC
-        call sub_5C500
-        call sub_5C74C
+        call ReplayCamFollow
+        call StartInstantReplay
+        call ReplayFramesLeft
         mov dword [dword_1CAFA0], eax
-        call sub_5C75C
+        call ReplayCurrentFrame
         mov dword [dword_1CB000], eax
         call sub_DB6AC
         call sub_C04BE
@@ -1154,7 +1154,7 @@ ReplayScreen_294:
         call DrawTextAligned
         add esp, byte 14h
         mov eax, dword [dword_1CAFF0]
-        call sub_5C4CC
+        call ReplayCamFollow
         jmp near ReplayScreen.2
 ReplayScreen_37D:
         cmp dword [dword_16DA9C], byte 0
@@ -1162,7 +1162,7 @@ ReplayScreen_37D:
         cmp esi, byte 2
         jne near ReplayScreen.2
 .11:
-        call sub_5C4E4
+        call ReplayCamFree
         jmp near ReplayScreen.2
 ReplayScreen_399:
         lea ebx, [byte ebp-010h]
@@ -1552,13 +1552,13 @@ ReplayScreen_929:
         mov eax, dword [dword_1CAFF4]
         test eax, eax
         je short .35
-        call sub_5BEB0
-        call sub_77610
+        call ReplayFreeFrames
+        call FreeAnimStates
         mov ecx, 0Dh
         mov eax, dword_19CD54
         xor edx, edx
         call __STOSD
-        call sub_65DE8
+        call FreeAnimTables
         call FreeGameGraphics
         call sub_E3174
         test eax, eax
@@ -1583,7 +1583,7 @@ ReplayScreen_929:
         mov eax, dword [dword_1CAFF4]
         test eax, eax
         jne near LoadReplay_194
-        call sub_5C584
+        call EndInstantReplay
         jmp near LoadReplay_194
 jpt_BEC7D:
         dd sub_BECB9_13F
@@ -3035,7 +3035,7 @@ PickReplayScreen_AA8:
         pop ebp
         jmp near RunReplay_359
         mov eax, dword [dword_1CAF9C]
-        jmp near sub_5CACC
+        jmp near LoadReplayData
 ;-----------------------------------------------------------------------------
 ; OpenReplayIndex                                 BFFB7  97 PC, low confidence
 ; From LoadReplay: reads "REPLAY.NDX" (NameIndexLoad / NameIndexNew), also

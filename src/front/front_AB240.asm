@@ -7,7 +7,7 @@ extern byte_1AD458, byte_1AD72B, byte_1AD739, byte_1AD742, dword_168F58, dword_1
 extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, dword_1AC814, dword_1AC940, dword_1ACF42
 extern dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dword_1AD45A, dword_1AD62F, dword_1AD6AB
 extern dword_1AD6AF, dword_1AD727, dword_1AD743, dword_1C1334, dword_1C1338, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
-extern memcpy_, sprintf_, sub_10AED0, MakeDirPath, sub_5C974, sub_789F0, sub_7B15D, sub_7B88D
+extern memcpy_, sprintf_, sub_10AED0, MakeDirPath, SaveReplayHeader, sub_789F0, sub_7B15D, sub_7B88D
 extern sub_7FE4C, sub_83314, sub_834EC, sub_83558, NameIndexNew, NameIndexLoad, NameIndexFree, sub_86500
 extern GetLangText, sub_91D7F, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData
 extern LinkReceiveData, sub_A3116, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DB763, sub_DCFB0, sub_DE5A3
@@ -1595,7 +1595,7 @@ sub_AC69C:
         push edi
         xor edx, edx
         xor eax, eax
-        call sub_5C974
+        call SaveReplayHeader
         push byte 0
         push eax
         mov edi, dword_1C1334
@@ -1606,7 +1606,7 @@ sub_AC69C:
         add esp, byte 0Ch
         mov edx, ebx
         mov ecx, eax
-        call sub_5C974
+        call SaveReplayHeader
         mov eax, dword_1C1334
         mov edx, ecx
         movsd

@@ -15,8 +15,8 @@ extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, sub_
 extern ShowCameraView, ClearOverlayWindows, ResetSceneCamera, assreplace, assinsert, Setplass, FaceoffSpotPosition, asspsclear
 extern ResetCoachModes, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, PickBenchSeat, ChkMenuMusic, StartMusicTrack, QueueMusicRestart
 extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEvent, PaEvent, sub_4DDB0, sub_52E28
-extern sub_57298, sub_57304, sub_57324, sub_57738, LoadGoalieMask, sub_5B558, sub_60D6C, sub_6539C
-extern sub_65E3B, DoGameFrame, sub_AA650, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
+extern sub_57298, sub_57304, SetupPlayerModel, DrawJerseyLettering, LoadGoalieMask, UpdateFaceTextures, ResetAnimTimer, UpdateGameDisplay
+extern InitPlayerAnims, DoGameFrame, sub_AA650, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
 extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
 extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, word_1684BE, word_1684CA, word_1684E8, word_1684EC
 extern word_1686D8, word_1686DA, word_168D18, word_19CB28, word_19CB2A, word_19CB5C, word_19CB60, word_19CB64
@@ -2265,12 +2265,12 @@ sub_119A8:
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
         xor ebx, ebx
-        call sub_5B558
+        call UpdateFaceTextures
         lea edx, [byte esi+08h]
         xor eax, eax
         mov bl, byte [dword esi+0BCh]
         mov al, byte [dword ecx+0A4h]
-        call sub_57738
+        call DrawJerseyLettering
         mov eax, ecx
         call sub_13AF0
         mov bl, byte [dword ecx+0BFh]
@@ -2290,12 +2290,12 @@ sub_119A8:
         mov dl, byte [dword ecx+0D0h]
         mov al, byte [dword ecx+0A4h]
         xor ebx, ebx
-        call sub_5B558
+        call UpdateFaceTextures
         lea edx, [byte esi+08h]
         xor eax, eax
         mov bl, byte [dword esi+0BCh]
         mov al, byte [dword ecx+0A4h]
-        call sub_57738
+        call DrawJerseyLettering
         test byte [byte_19CBC2], 1
         jne short .2
         cmp dword [dword_1B8FA0], byte 0
@@ -2304,7 +2304,7 @@ sub_119A8:
         xor eax, eax
         lea edx, [byte esi+027h]
         mov al, byte [dword ecx+0A4h]
-        call sub_57324
+        call SetupPlayerModel
 .3:
         mov eax, 48h
         mov ebx, dword [byte esp+04h]
@@ -2759,7 +2759,7 @@ sub_11F74:
         cmp dword [byte edx+05Ah], byte 0FFFFFFFFh
         je short .2
         xor eax, eax
-        call sub_6539C
+        call UpdateGameDisplay
 .2:
         pop edx
         pop ebx
@@ -2920,11 +2920,11 @@ sub_12024:
         mov eax, unk_1B9520
         add eax, esi
         mov dword [dword edx+0FAh], eax
-        call sub_60D6C
+        call ResetAnimTimer
         mov dword [dword esi+dword_1B9558], 3F800000h
         mov dword [dword esi+dword_1B9554], 461C4000h
         mov eax, edx
-        call sub_65E3B
+        call InitPlayerAnims
         jmp near .13
 .9:
         mov dword [dword edx+0F2h], 0
@@ -2932,7 +2932,7 @@ sub_12024:
         mov dword [dword edx+0F6h], 0
         add eax, esi
         mov dword [dword edx+0FAh], eax
-        call sub_60D6C
+        call ResetAnimTimer
         mov dword [dword esi+dword_1B9558], 3F800000h
         mov dword [dword esi+dword_1B9554], 461C4000h
         cmp ecx, byte 0Fh

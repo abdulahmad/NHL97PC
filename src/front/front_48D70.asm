@@ -77,9 +77,9 @@ extern PresentGameView, InitPaletteManager, ShutdownPaletteManager, AddPaletteRa
 extern QuantizeAllRanges, BuildGamePalette, OpenStreamBuffer, delstream, CdStreamQueue, CdStreamService, CdStreamNextPacket, StreamBufferFree
 extern MusicStreamTick, WaitMusicEnd, ServiceSpeechQueue, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, sub_52E14
 extern LoadRinkLines, LoadRinkModel, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
-extern sub_56740, LoadGoalieMask, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
-extern sub_5AAB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450, sub_5C1CC, sub_5DD74, LoadAiIcons
-extern sub_77A30, PlayMovie, sub_842F4, sub_E3410, sub_E341C, AllocMemBlock, FreeMemBlock, ZeroMem
+extern sub_56740, LoadGoalieMask, LoadGameModels, SetupTeamModels, FreeGameModels, UpdateViewMatrix, ScaleModelLods, SetModelExtraFlags
+extern DrawPlayersSorted, DrawIceMarkers, DrawPlayerNames, DrawPuckArrow, NoOpDraw, ReplaySoundAllowed, ProjectRinkPoints, LoadAiIcons
+extern FreeCameraDebug, PlayMovie, sub_842F4, sub_E3410, sub_E341C, AllocMemBlock, FreeMemBlock, ZeroMem
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, DrawTextAt, SetTextColors
 extern IntsToFloats, FloatsToInts, ScaleFloatsToInts, VecMulMat, TransformVecs, VecAdd, AddVecs, VecDistance
 extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, unk_1611B4
@@ -139,7 +139,7 @@ PaEvent:
         cmp dword [dword_169254], byte 1
         jl near PaEvent_14CD
         mov eax, 0FFFFFFFFh
-        call sub_5C1CC
+        call ReplaySoundAllowed
         test eax, eax
         je near PaEvent_14CD
         mov ebx, dword [byte esp+05Ch]
@@ -3718,7 +3718,7 @@ InitGameGraphics:
         mov ebx, dword [byte ebp+034h]
         mov edx, dword [byte ebp+030h]
         mov eax, dword [byte ebp+02Ch]
-        call sub_5881C
+        call LoadGameModels
         mov eax, 4Bh
         call sub_842F4
         call sub_E341C
@@ -3737,9 +3737,9 @@ InitGameGraphics:
         jle short .2
         mov esi, dword_1B1410
 .1:
-        mov ecx, sub_5AAB8
+        mov ecx, DrawPlayersSorted
         push esi
-        mov ebx, sub_59174
+        mov ebx, UpdateViewMatrix
         mov eax, str_Player
         push byte 1
         mov edx, esi
@@ -3772,7 +3772,7 @@ InitGameGraphics:
         call QuantizeAllRanges
         mov eax, 0FFh
         call BuildGamePalette
-        call sub_58B80
+        call SetupTeamModels
         call LoadRinkLines
         mov eax, 5Ah
         xor edx, edx
@@ -3896,10 +3896,10 @@ sub_4B8DC_47:
 ;-----------------------------------------------------------------------------
 FreeGameGraphics:
         call FreeRinkModel
-        call sub_58CA0
+        call FreeGameModels
         call ShutdownPaletteManager
         call FreeDisplayViews
-        jmp near sub_77A30
+        jmp near FreeCameraDebug
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; sub_4B944                                                       4B944  97 PC
@@ -3977,7 +3977,7 @@ sub_4B944:
         cmp dword [byte eax+0Ch], byte 1
         jne short .7
         mov eax, dword [byte eax+020h]
-        call sub_5A6E0
+        call SetModelExtraFlags
 .7:
         mov ecx, dword [dword_1ADC84]
         inc ebx
@@ -4069,7 +4069,7 @@ DrawGameFrame:
         mov eax, esi
         call sub_516B8
         call sub_55110
-        call sub_5A6B4
+        call ScaleModelLods
         mov ebp, dword [dword_1ADC84]
         xor ebx, ebx
         test ebp, ebp
@@ -4095,7 +4095,7 @@ DrawGameFrame:
         call sub_55FE4
         call sub_52E14
         call sub_4DCF0
-        call sub_5B450
+        call NoOpDraw
         xor edx, edx
 .7:
         cmp dword [dword edx+dword_1B1410], 44FF0000h
@@ -4107,7 +4107,7 @@ DrawGameFrame:
         jbe short .8
         mov eax, dword_1B1410
         add eax, edx
-        call sub_5B090
+        call DrawIceMarkers
 .8:
         add edx, 760h
         cmp edx, 5FE0h
@@ -4163,7 +4163,7 @@ DrawGameFrame:
         mov eax, 1
         call sub_4B944
         call sub_56464
-        call sub_5B1C0
+        call DrawPlayerNames
         xor edx, edx
 .12:
         cmp dword [dword edx+dword_1B1410], 44FF0000h
@@ -4175,7 +4175,7 @@ DrawGameFrame:
         jbe short .13
         mov eax, dword_1B1410
         add eax, edx
-        call sub_5B2D4
+        call DrawPuckArrow
 .13:
         add edx, 760h
         cmp edx, 5FE0h
@@ -7215,11 +7215,11 @@ sub_4DD0C:
         mov ebx, dword_1B0268
         mov edx, unk_1B0F14
         mov eax, unk_1B10FC
-        call sub_5DD74
+        call ProjectRinkPoints
         mov edx, unk_1B0FC0
         mov eax, unk_1B0FA4
         xor ebx, ebx
-        call sub_5DD74
+        call ProjectRinkPoints
         mov ebx, dword_1B0270
         mov edx, dword_1B0268
         mov eax, 2

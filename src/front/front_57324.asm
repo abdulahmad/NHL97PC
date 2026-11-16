@@ -188,71 +188,73 @@ extern word_19CBB2, gsp, gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_
 extern word_19CBDA, word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28
 extern word_19EBAC, word_19EBB2, word_19ECB8, word_19ECBE
 global jpt_628A8, jpt_62EF8, jpt_633C8, jpt_63A88, jpt_649C0, jpt_64AC0, jpt_657A3, jpt_700A0
-global jpt_73FAC, sub_57324_CD, sub_57324_D8, sub_59E74_BC, sub_5A238_80, sub_5A2F8_80, sub_5A2F8_C0, sub_5A2F8_100
-global sub_5A2F8_140, sub_5A2F8_180, sub_5C134_29, sub_5C180_C, sub_628C4_220, sub_628C4_230, sub_628C4_240, sub_628C4_250
-global sub_628C4_260, sub_62F14_89, sub_62F14_99, sub_62F14_A9, sub_62F14_3AE, sub_62F14_3E0, sub_62F14_41B, sub_633E8_31
-global sub_633E8_41, sub_633E8_51, sub_633E8_345, sub_633E8_377, sub_633E8_3B2, sub_63AA4_31, sub_63AA4_41, sub_63AA4_51
-global sub_63AA4_61, sub_63AA4_71, sub_63AA4_BC, sub_63AA4_C2, sub_649E0_23, sub_649E0_2F, sub_649E0_3B, sub_649E0_47
-global sub_649E0_53, sub_64AE0_31, sub_64AE0_41, sub_64AE0_51, sub_64AE0_61, sub_64AE0_71, sub_64AE0_BC, sub_64AE0_C2
-global sub_65481_228, sub_657BF_10, sub_657BF_1D, sub_657BF_25, sub_657BF_32, sub_657BF_3F, sub_657BF_4C, sub_657BF_59
-global CamShot23D_2B, sub_659F6_167, sub_659F6_168, sub_704D4_1B3, sub_704D4_1B8, sub_704D4_1BE, sub_704D4_1C4, sub_704D4_288
-global sub_704D4_28D, sub_704D4_293, sub_704D4_299, sub_71808_86, sub_71808_8B, sub_71808_91, sub_71808_97, sub_71808_186
-global sub_71808_18B, sub_71808_191, sub_71808_197, sub_71ABC_86, sub_71ABC_8B, sub_71ABC_91, sub_71ABC_97, sub_71ABC_186
-global sub_71ABC_18B, sub_71ABC_191, sub_71ABC_197, sub_73FBC_471, sub_73FBC_481, sub_73FBC_63F, sub_73FBC_671, sub_76A1C_31B
-global sub_57324, sub_57504, sub_576EC, sub_57738, sub_578D4, LoadCupArt, LoadGoalieMask, LoadPlayerCommonArt
-global LoadUniformArt, sub_58680, sub_586C0, sub_5876C, sub_5881C, sub_58B80, sub_58CA0, sub_59174
-global sub_59DB8, sub_59DE4, sub_59E74, sub_59F44, sub_5A048, sub_5A238, sub_5A2F8, sub_5A484
-global sub_5A4E8, sub_5A5BC, sub_5A638, sub_5A6B4, sub_5A6E0, sub_5A6F4, sub_5AAB8, sub_5AC28
-global sub_5AC30, sub_5AC38, sub_5AD54, sub_5AEB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450
-global sub_5B454, sub_5B46C, sub_5B488, sub_5B4B8, sub_5B4D4, sub_5B50C, sub_5B558, sub_5B5CC
-global sub_5B648, LoadFaceArt, sub_5B734, sub_5B78C, LoadPlayerFace, sub_5B970, sub_5BA0C, sub_5BA44
-global sub_5BAB4, sub_5BB0C, sub_5BB88, sub_5BCCC, sub_5BD1C, sub_5BD3C, sub_5BD94, InitReplayBuffer
-global sub_5BE64, sub_5BE74, sub_5BEB0, SetReplayRecording, sub_5BF88, sub_5C014, sub_5C0AC, sub_5C134
-global sub_5C160, sub_5C180, sub_5C1CC, sub_5C1F8, sub_5C2CC, sub_5C2F4, sub_5C30C, sub_5C32C
-global sub_5C34C, sub_5C4CC, sub_5C4E4, sub_5C500, sub_5C584, sub_5C5EC, sub_5C74C, sub_5C75C
-global sub_5C764, sub_5C894, sub_5C974, sub_5CAB0, sub_5CACC, sub_5CCC0, AllocSpriteBuffers, sub_5CD68
-global sub_5CD90, sub_5D100, sub_5D1E0, sub_5D23C, sub_5D294, sub_5D2F0, sub_5D428, sub_5D454
-global sub_5D488, sub_5D594, sub_5D5DC, sub_5D6A8, sub_5D7A4, sub_5D878, sub_5D900, sub_5DC1C
-global sub_5DC50, sub_5DCBC, sub_5DD74, sub_5DE74, sub_5DF50, sub_5DF90, sub_5E1B0, sub_5E224
-global sub_5E7D8, sub_5E81C, sub_5E934, sub_5E998, sub_5E9F0, sub_5EA78, sub_5EB14, sub_5EC50
-global SetSPA, sub_5EEEC, sub_5F018, sub_5FE2C, sub_60078, sub_6023C, sub_60710, sub_6077C
-global sub_60D28, sub_60D6C, sub_60D84, sub_60F48, sub_612E4, sub_613AC, sub_613F8, sub_6152C
-global sub_61540, sub_615D0, sub_61764, sub_617EC, sub_61804, sub_61BF8, sub_61F78, sub_6211C
-global sub_62340, sub_624D0, sub_626BC, sub_628C4, sub_62C14, sub_62F14, sub_633E8, sub_63878
-global sub_63980, sub_63AA4, sub_63D24, sub_63E8C, sub_640D0, sub_642A8, sub_643AC, sub_64490
-global sub_64700, sub_64820, sub_648B4, sub_649E0, sub_64AE0, sub_64D54, sub_64EBC, sub_650A4
-global sub_650E8, sub_65164, sub_65338, sub_6539C, sub_65481, sub_656B7, sub_656D3, sub_65742
-global sub_657BF, LoadSkateAnims, CamShot23D, LoadActAnims, LoadFallAnims, LoadInterferAnims, sub_659F6, LoadGoalieAnims
-global LoadRefSkateAnims, LoadRefCallAnims, LoadRefAmbiAnims, LoadFightAnims, LoadCupAnims, InitAnimPoints, sub_65DE8, sub_65E3B
-global sub_65F50, sub_660F0, sub_6619C, sub_66224, sub_66524, sub_666CC, sub_66758, sub_66E38
-global sub_67248, sub_67540, sub_67A30, sub_67A98, sub_67B10, sub_67BD0, sub_67CC0, sub_68030
-global sub_68378, sub_6889C, sub_68DBC, sub_69410, sub_6947C, sub_69654, sub_69750, sub_69970
-global sub_699D4, sub_69A44, sub_69B08, sub_69B78, sub_69BA0, sub_69D98, sub_69DF4, sub_69F3C
-global sub_6A0BC, sub_6A13C, sub_6A244, sub_6A604, sub_6A6D8, sub_6A77C, sub_6AB88, sub_6ABEC
-global sub_6B140, sub_6B28C, sub_6B380, sub_6BC94, sub_6C0FC, sub_6C73C, sub_6CA24, sub_6CD58
-global sub_6CED0, sub_6D3E4, sub_6D4AC, sub_6D59C, sub_6D678, sub_6D7F8, sub_6D980, sub_6DAB0
-global sub_6E170, checkcx, sub_6E9A4, sub_6F104, sub_6F300, sub_6F55C, checkplcoll, sub_6FF1C
-global sub_7002C, sub_700D8, sub_701B8, sub_70260, sub_70324, sub_70378, sub_70424, sub_704D4
-global sub_708B0, sub_708F4, sub_709D0, sub_70A14, sub_70A58, sub_70B38, sub_70B74, sub_70C24
-global sub_70D60, sub_70E48, sub_71108, sub_71298, sub_71380, sub_713E0, sub_7147C, sub_71574
-global sub_716F8, sub_71808, sub_71ABC, sub_71D48, sub_71E58, StartFightAnim, sub_71FD0, sub_72050
-global sub_72170, sub_72324, sub_7242C, sub_724C8, sub_72564, sub_72648, sub_7275C, sub_7291C
-global sub_72A84, sub_72AF0, sub_72B78, sub_72BF8, sub_72C70, sub_72D74, RefAtDotAnim, RefFaceoffAnim
-global RefGoalPaAnim, RefWhistleAnim, RefSignalAnim, RefGoalLineAnim, sub_73070, sub_730C4, sub_7320C, sub_73464
-global sub_73578, sub_7370C, sub_739B8, sub_73A58, sub_73A60, sub_73B3C, sub_73CE8, sub_73F00
-global sub_73FBC, sub_74708, sub_747E8, sub_74A20, sub_74B74, sub_74BA8, sub_74C64, sub_74CEC
-global sub_74FA4, sub_75068, sub_75500, sub_75AE8, sub_75B94, sub_75F14, sub_75F40, sub_75F70
-global sub_75FA0, sub_75FE4, LoadAnimFile, sub_760C8, sub_7613C, sub_76148, sub_7629C, sub_762E4
-global sub_76380, sub_763BC, sub_76698, sub_76944, sub_76954, sub_76A1C, sub_76D3C, sub_76E04
-global sub_76E20, sub_76E28, sub_76E30, sub_76FB4, sub_76FE8, sub_77014, sub_77018, sub_77048
-global sub_7716C, sub_7724C, sub_772B8, sub_77310, sub_773C0, sub_77590, sub_77610, AllocAnimStates
-global sub_776F8, sub_77838, LoadAiIcons, sub_77A30, updateplayers, GameOver, sub_77F94, sub_77FA8
-global sub_78044, clockcont_0, periodicevents, sub_78730, DoGameFrame, sub_78938, unk_65475, unk_704AC
+global jpt_73FAC, SetupPlayerModel_CD, SetupPlayerModel_D8, DrawPlayerModel_BC, DrawLeftArmModel_80, DrawRightArmModel_80, DrawRightArmModel_C0, DrawRightArmModel_100
+global DrawRightArmModel_140, DrawRightArmModel_180, ReplayRecordTick_29, ReplayRecordFinal_C, GlideForwardMove_220, GlideForwardMove_230, GlideForwardMove_240, GlideForwardMove_250
+global GlideForwardMove_260, SkateForwardMove_89, SkateForwardMove_99, SkateForwardMove_A9, SkateForwardMove_3AE, SkateForwardMove_3E0, SkateForwardMove_41B, SkateBackwardMove_31
+global SkateBackwardMove_41, SkateBackwardMove_51, SkateBackwardMove_345, SkateBackwardMove_377, SkateBackwardMove_3B2, TurnForwardMove_31, TurnForwardMove_41, TurnForwardMove_51
+global TurnForwardMove_61, TurnForwardMove_71, TurnForwardMove_BC, TurnForwardMove_C2, GlideBackwardMove_23, GlideBackwardMove_2F, GlideBackwardMove_3B, GlideBackwardMove_47
+global GlideBackwardMove_53, TurnBackwardMove_31, TurnBackwardMove_41, TurnBackwardMove_51, TurnBackwardMove_61, TurnBackwardMove_71, TurnBackwardMove_BC, TurnBackwardMove_C2
+global LoadAnimData_228, ShotAnimFrames_10, ShotAnimFrames_1D, ShotAnimFrames_25, ShotAnimFrames_32, ShotAnimFrames_3F, ShotAnimFrames_4C, ShotAnimFrames_59
+global CamShot23D_2B, LoadGoalieAnimFile_167, LoadGoalieAnimFile_168, FightPunchMove_1B3, FightPunchMove_1B8, FightPunchMove_1BE, FightPunchMove_1C4, FightPunchMove_288
+global FightPunchMove_28D, FightPunchMove_293, FightPunchMove_299, StartFightPunch_86, StartFightPunch_8B, StartFightPunch_91, StartFightPunch_97, StartFightPunch_186
+global StartFightPunch_18B, StartFightPunch_191, StartFightPunch_197, StartFightBlock_86, StartFightBlock_8B, StartFightBlock_91, StartFightBlock_97, StartFightBlock_186
+global StartFightBlock_18B, StartFightBlock_191, StartFightBlock_197, BlockShotMove_471, BlockShotMove_481, BlockShotMove_63F, BlockShotMove_671, UpdateMovePose_31B
+global SetupPlayerModel, LayoutJerseyNumber, BuildCupPatchArt, DrawJerseyLettering, FreeGoalieMask, LoadCupArt, LoadGoalieMask, LoadPlayerCommonArt
+global LoadUniformArt, CopyShape, SetupJerseyBackTexture, InitPlayerModelSlots, LoadGameModels, SetupTeamModels, FreeGameModels, UpdateViewMatrix
+global PoseAndDrawModel, DrawModelByDetail, DrawPlayerModel, DrawObjectShadow, DrawHeadModel, DrawLeftArmModel, DrawRightArmModel, DrawStickModel
+global DrawGoalieStickModel, DrawLeftHandModel, DrawRightHandModel, ScaleModelLods, SetModelExtraFlags, DrawModelParts, DrawPlayersSorted, ClearObjectHidden
+global SetObjectHidden, RenderModelPortrait, DrawPuckMarker, DrawPlayerMarkers, DrawIceMarkers, DrawPlayerNames, DrawPuckArrow, NoOpDraw
+global CopyVec3, SetObjectHeight, LinkModelPair, ClearModelSlots, RestoreSavedPalette, SaveGamePalette, UpdateFaceTextures, LoadFaceTexture
+global FindChunkByIndex, LoadFaceArt, FreeFaceTextures, SwapFaceTexture, LoadPlayerFace, ReplayPackFrame, ReplayUnpackFrame, ReplayWriteFrame
+global ReplaySaveState, ReplayRestoreState, ReplayRecordFrame, ReplayRegisterStates, ReplayRegisterObjects, FreeReplayBuffer, ResetReplayBuffer, InitReplayBuffer
+global IsReplayRecording, ReplayHasFrames, ReplayFreeFrames, SetReplayRecording, ReplayReadFrame, ReplaySeekStart, ReplayStepFrame, ReplayRecordTick
+global ReplayPauseRecording, ReplayRecordFinal, ReplaySoundAllowed, ReplayDrawFrame, ReplayCmdPlay, ReplayCmdStop, ReplayCmdRewind, ReplayCmdForward
+global ReplayPlayFrames, ReplayCamFollow, ReplayCamFree, StartInstantReplay, EndInstantReplay, PlaySavedReplay, ReplayFramesLeft, ReplayCurrentFrame
+global ReplayRestoreObjects, ReplaySetupObjects, SaveReplayHeader, LoadReplayHeader, LoadReplayData, FreeReplayMem, AllocSpriteBuffers, MarkPaletteDirty
+global BeginOffscreenRender, SavePortraitCamera, RestorePortraitCamera, EndOffscreenRender, SetPortraitProjection, CameraSplinePoint, CameraLerpPoint, CameraEasePoint
+global ResetCameraState, CopyCameraState, CameraSmoothStep, SetCameraTarget, SetCameraPathTarget, SetCameraSplineTarget, UpdateCameraMotion, SnapCamera
+global BuildCameraMatrix, UpdateCameraProjection, ProjectRinkPoints, InitCameraParams, GetStickBladePos, PlaySkateSounds, MovePlayer, PuckOnStickPhysics
+global PuckOnStickFromState, StickHandleTarget, StickHandleScaled, StickHandleSpeed, IsSkateAnim, IsStopAnim, StartCheckedAnim, StartNextMove
+global SetSPA, SetSPAInPlace, GoalieReadShot, GoalieAngle, GoalieCoverPost, GoalieAI, TurnRateForSpeed, UpdateGoalie
+global GoalieTick, ResetAnimTimer, PickIdleAnim, PickSkateAnim, EndMove, AdvanceMoveAnim, ApplyMoveMotion, StepMove
+global HoldPoseMove, SteerTowardTarget, ApplySkateAccel, SteerAndAccel, PickTurnAnim, PickStopAnim, PickCrossoverAnim, PickGlideAnim
+global PickStrideAnim, PickForwardTurn, PickBackwardTurn, GlideForwardMove, LimitSkateSpeed, SkateForwardMove, SkateBackwardMove, TurnLeanAngle
+global TurnStickPos, TurnForwardMove, StopSkidDistance, StopForwardMove, StandMove, SpeedTowardSpot, StartMoveAtSpeed, CrossoverMove
+global GoalieSlideMove, GoalieStanceMove, SlowSkateMove, GlideBackwardMove, TurnBackwardMove, StopBackwardMove, FaceoffPuckDrop, SetSkateSpeedFromRating
+global StartWhistleStop, UpdateScoreClockData, ResetClockData, UpdateGameDisplay, LoadAnimData, GetStopTable, LoadSkateAnimFile, LoadAnimByName
+global ShotAnimFrames, LoadSkateAnims, CamShot23D, LoadActAnims, LoadFallAnims, LoadInterferAnims, LoadGoalieAnimFile, LoadGoalieAnims
+global LoadRefSkateAnims, LoadRefCallAnims, LoadRefAmbiAnims, LoadFightAnims, LoadCupAnims, InitAnimPoints, FreeAnimTables, InitPlayerAnims
+global StickReach, PuckHeightAt, ObjectFramePos, TryStickTouch, PuckBounceOffPlayer, PlayPostSound, PuckHitsNet, PuckHitsBoards
+global PuckHitsGlass, NetCollisionPoint, PuckInNetDepth, PuckInNetWidth, PlayNetSound, CommentNetHit, PuckOffPost, PuckOffCrossbar
+global PuckInHomeNet, PuckInAwayNet, PuckBehindNet, CheckPuckNets, GoalLinePuckTest, UpdatePuckCarrier, PuckGroundHeight, PuckBounceIce
+global UpdatePuck, GoalJudgeTest, RandomPuckSpin, StopObject, StartPassAnim, PassAnimFrame, StartDropPassAnim, StartShotAnim
+global StartOneTimerAnim, StartWristShotAnim, StartPuckReceiveAnim, ReceivePassMove, PassAnimFrameForType, PassMove, ShotReach, ShotMove
+global SkateWithPuckMove, GlideWithPuckMove, CheckBoardsContact, CheckContactVelocity, CheckContactForce, BodyCollide, BodyBounce, CheckForPenalty
+global CheckPlayerVsBoards, PlayerBoardsTest, PlayerCollisions, HitDirection, HitCrowdReaction, HitKnockback, StartHitAnim, ResolveBodyCheck
+global StartFallAnim, checkcx, ResolvePlayerContact, StickContact, PlayerPush, ContactAngle, checkplcoll, UpdatePlayerMotion
+global SortPlayersByDepth, MoveToAnimPose, FaceAngleDelta, FacePlayerToward, StartFightAnimMove, FightGrabMove, FightHoldMove, FightPunchMove
+global FightIdleMove, FightEndMove, FightBlockMove, FightDuckMove, FightHitMove, FightPauseMove, FightJerseyMove, FightPositionMove
+global FightStepMove, FightSwingMove, FightUppercutMove, FightStaggerMove, FightFaceMove, FightStartMove, FightCircleMove, FightThrowMove
+global FightFallMove, StartFightPunch, StartFightBlock, StartFightGrab, StartFightPull, StartFightAnim, PlayCelebrationSound, CelebrationMove
+global CelebrationJumpMove, CelebrationEndMove, DejectedMove, DejectedSkateMove, CheerMove, BenchCheerMove, SkateToBenchStep, SkateToBenchMove
+global SimpleAnimMove, SkateToSpotStep, SkateToSpotMove, PuckRetrieveMove, PeriodEndMove, PeriodEndSkateMove, RefAtDotAnim, RefFaceoffAnim
+global RefGoalPaAnim, RefWhistleAnim, RefSignalAnim, RefGoalLineAnim, SkateMoveStep, StartPokeAnim, PokeCheckMove, StickSlashMove
+global SweepCheckMove, HookMove, DiveMove, HoldPoseMoveJump, GoalieFreezeMove, StartBlockAnim, BlockReach, KneelMove
+global BlockShotMove, BlockSlideMove, GoalieCoverMove, GoalieRecoverMove, GoalieIdleMove, StartGoalieSave, StartGoalieStance, PickSaveAnim
+global SaveDirection, GoalieSave, GoalieMoves, PuckDeflectAngle, PuckDeflect, AllocAnimNode, InsertAnimNode, AddAnimNode
+global FreeAnimNode, ResetAnimBlend, LoadAnimFile, FindAnimByName, GetAnimEntry, DecodeAnimTree, DecodeAnimChild, DecodeAnimFile
+global ReadAnimValue, DecodeAnimFrame, DecodeAnimDelta, GetAnimId, UpdateObjectPose, UpdateMovePose, UpdateAllPoses, ScaleAnimTime
+global SetAnimClock, AddAnimClock, UpdateAnimBlends, AnimClockTick, SetAnimFrame, SetAnimFlags, ClearAnimFlags, InitAnimState
+global AllocAnimStateBlocks, StartAnim, StartAnimNow, BlendToAnim, ChangeAnim, InitAnimNodePool, FreeAnimStates, AllocAnimStates
+global BuildCameraDebugView, DrawCameraPath, LoadAiIcons, FreeCameraDebug, updateplayers, GameOver, RequestPauseMenu, CheckIntermission
+global CupCelebration, clockcont_0, periodicevents, PlayCrowdAmbience, DoGameFrame, RandomCrowdDelay, unk_65475, unk_704AC
 global unk_704C0, unk_717E0, unk_717F4, unk_71A94, unk_71AA8, unk_78930
 ;-----------------------------------------------------------------------------
-; sub_57324                                                       57324  97 PC
+; SetupPlayerModel                                57324  97 PC, low confidence
+; Builds a player's 3D model: jersey, number and team textures for one roster
+; slot
 ;-----------------------------------------------------------------------------
-sub_57324:
+SetupPlayerModel:
         push ebx
         push ecx
         push esi
@@ -273,7 +275,7 @@ sub_57324:
         mov eax, ebp
         call strncmp_
         test eax, eax
-        je near sub_57324_CD
+        je near SetupPlayerModel_CD
         mov ebx, 5
         mov edx, ecx
         mov eax, ebp
@@ -314,7 +316,7 @@ sub_57324:
         xor ecx, ecx
         add esp, byte 4
         mov dword [dword_1D91CC], ecx
-sub_57324_CD:
+SetupPlayerModel_CD:
         add esp, byte 4
         pop ebp
         pop edi
@@ -323,7 +325,7 @@ sub_57324_CD:
         pop ebx
         ret
         db 08Bh,0C0h
-sub_57324_D8:
+SetupPlayerModel_D8:
         push esi
         push edi
         push ebp
@@ -422,9 +424,10 @@ sub_57324_D8:
         ret 10h
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_57504                                                       57504  97 PC
+; LayoutJerseyNumber                              57504  97 PC, low confidence
+; Lays out the digits of a jersey number on the back and sleeve texture
 ;-----------------------------------------------------------------------------
-sub_57504:
+LayoutJerseyNumber:
         push ebx
         push ecx
         push esi
@@ -599,9 +602,10 @@ sub_57504:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_576EC                                                       576EC  97 PC
+; BuildCupPatchArt                                576EC  97 PC, low confidence
+; Builds the championship patch art for the jersey
 ;-----------------------------------------------------------------------------
-sub_576EC:
+BuildCupPatchArt:
         push ebx
         push ecx
         push edx
@@ -631,9 +635,10 @@ sub_576EC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_57738                                                       57738  97 PC
+; DrawJerseyLettering                             57738  97 PC, low confidence
+; Draws the name and number lettering onto a jersey texture
 ;-----------------------------------------------------------------------------
-sub_57738:
+DrawJerseyLettering:
         push ecx
         push esi
         push edi
@@ -722,9 +727,9 @@ sub_57738:
         add esp, byte 4
         mov edx, dword [nosplit edi*8+dword_16B1A4]
         mov eax, dword [nosplit edi*8+dword_16B1A8]
-        call sub_57504
+        call LayoutJerseyNumber
         push ebp
-        mov ebx, sub_57324_D8
+        mov ebx, SetupPlayerModel_D8
         push str_2d
         lea eax, [byte esp+08h]
         mov dword [dword_1CF5B8], ebx
@@ -761,9 +766,10 @@ sub_57738:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_578D4                                                       578D4  97 PC
+; FreeGoalieMask                                  578D4  97 PC, low confidence
+; Frees the goalie mask texture
 ;-----------------------------------------------------------------------------
-sub_578D4:
+FreeGoalieMask:
         push ebx
         push ecx
         push edx
@@ -896,7 +902,7 @@ LoadGoalieMask:
         test ecx, ecx
         je short .1
         mov eax, ebx
-        call sub_578D4
+        call FreeGoalieMask
         mov dword [byte esp+024h], edx
         jmp short .2
 .1:
@@ -1445,9 +1451,9 @@ LoadUniformArt:
         add esp, byte 4
         mov edx, esi
         mov eax, edi
-        call sub_57504
+        call LayoutJerseyNumber
         push byte 0
-        mov ecx, sub_57324_D8
+        mov ecx, SetupPlayerModel_D8
         push str_A2zFfn
         mov dword [dword_1CF5B8], ecx
         call sub_100498
@@ -1754,9 +1760,10 @@ LoadUniformArt:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_58680                                                       58680  97 PC
+; CopyShape                                       58680  97 PC, low confidence
+; Copies a shape (bitmap) into a new block
 ;-----------------------------------------------------------------------------
-sub_58680:
+CopyShape:
         push ebx
         push ecx
         push edx
@@ -1789,9 +1796,10 @@ sub_58680:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_586C0                                                       586C0  97 PC
+; SetupJerseyBackTexture                          586C0  97 PC, low confidence
+; Picks and prepares the texture for the back of the jersey
 ;-----------------------------------------------------------------------------
-sub_586C0:
+SetupJerseyBackTexture:
         push ecx
         push esi
         push edi
@@ -1810,7 +1818,7 @@ sub_586C0:
         test esi, esi
         je short .1
         mov eax, dword [dword eax+dword_1B8478]
-        call sub_58680
+        call CopyShape
         jmp short .2
 .1:
         mov eax, dword [dword eax+dword_1B8478]
@@ -1855,9 +1863,10 @@ sub_586C0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5876C                                                       5876C  97 PC
+; InitPlayerModelSlots                            5876C  97 PC, low confidence
+; Clears the table of player model slots
 ;-----------------------------------------------------------------------------
-sub_5876C:
+InitPlayerModelSlots:
         push ebx
         push ecx
         push edx
@@ -1925,9 +1934,10 @@ sub_5876C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5881C                                                       5881C  97 PC
+; LoadGameModels                                  5881C  97 PC, low confidence
+; Loads the player, goalie and referee models for a game
 ;-----------------------------------------------------------------------------
-sub_5881C:
+LoadGameModels:
         push ecx
         push esi
         push edi
@@ -1994,12 +2004,12 @@ sub_5881C:
         mov eax, str_Faces
         mov edx, dword [dword_1ADC88]
         call AddColorTable
-        mov eax, sub_5876C
+        mov eax, InitPlayerModelSlots
         mov ebx, 5Ah
-        call sub_5BD1C
+        call ReplayRegisterObjects
         mov eax, byte_1B8580
         mov edx, ebx
-        call sub_5BCCC
+        call ReplayRegisterStates
         mov eax, dword [byte esp+014h]
         xor ebp, ebp
         add eax, byte 2
@@ -2020,7 +2030,7 @@ sub_5881C:
         sub edx, ebp
         mov eax, ebp
         mov ebx, edx
-        call sub_5BCCC
+        call ReplayRegisterStates
 .4:
         mov eax, dword [dword_1B8540]
         mov dword [dword ebp+0740h], 0FFFFFFFFh
@@ -2073,7 +2083,7 @@ sub_5881C:
         mov eax, dword [byte eax+0Ch]
         test edi, edi
         jne short .8
-        call sub_5B50C
+        call SaveGamePalette
 .8:
         mov ebp, 1
         mov edx, dword [byte esp+0Ch]
@@ -2102,7 +2112,7 @@ sub_5881C:
         mov edx, esi
         mov eax, ebp
         inc ebp
-        call sub_586C0
+        call SetupJerseyBackTexture
         cmp ebp, byte 6
         jge short .11
         jmp short .9
@@ -2110,7 +2120,7 @@ sub_5881C:
         mov ebx, esi
         mov edx, esi
         mov eax, ebp
-        call sub_586C0
+        call SetupJerseyBackTexture
         inc ebp
         jmp short .12
 .11:
@@ -2121,16 +2131,16 @@ sub_5881C:
         mov edx, 2
         mov eax, 0Ch
         xor ebx, ebx
-        call sub_586C0
+        call SetupJerseyBackTexture
         mov eax, 0Dh
         xor ebx, ebx
         xor edx, edx
-        call sub_586C0
+        call SetupJerseyBackTexture
         mov edx, 1
         mov eax, 0Eh
         xor ebx, ebx
         xor ecx, ecx
-        call sub_586C0
+        call SetupJerseyBackTexture
         xor esi, esi
 .13:
         mov ebx, esi
@@ -2184,9 +2194,10 @@ sub_5881C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_58B80                                                       58B80  97 PC
+; SetupTeamModels                                 58B80  97 PC, low confidence
+; Sets up the models of both teams' players
 ;-----------------------------------------------------------------------------
-sub_58B80:
+SetupTeamModels:
         push ebx
         push ecx
         push edx
@@ -2268,7 +2279,7 @@ sub_58B80:
         add esp, byte 0Ch
         mov eax, esi
         mov ebx, 63h
-        call sub_57324
+        call SetupPlayerModel
         call Random32
         xor edx, edx
         div ebx
@@ -2276,7 +2287,7 @@ sub_58B80:
         mov eax, esi
         mov edx, str_ABCDEFGHIJKLM
         inc esi
-        call sub_57738
+        call DrawJerseyLettering
         cmp esi, byte 0Dh
         jl short .6
         mov ecx, 8
@@ -2296,16 +2307,17 @@ sub_58B80:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_58CA0                                                       58CA0  97 PC
+; FreeGameModels                                  58CA0  97 PC, low confidence
+; Frees the models loaded for a game
 ;-----------------------------------------------------------------------------
-sub_58CA0:
+FreeGameModels:
         push ebx
         push ecx
         push edx
         push esi
         push edi
         push ebp
-        call sub_5CCC0
+        call FreeReplayMem
         mov edx, dword [dword_1B8544]
         push edx
         call FreeMemBlock
@@ -2672,11 +2684,11 @@ sub_58CA0:
         cmp ebx, byte 8
         jne short .27
         xor eax, eax
-        call sub_578D4
+        call FreeGoalieMask
         mov eax, 1
         xor ebx, ebx
-        call sub_578D4
-        call sub_5B734
+        call FreeGoalieMask
+        call FreeFaceTextures
 .28:
         add ebx, 760h
         xor ah, ah
@@ -2710,9 +2722,10 @@ sub_58CA0:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_59174                                                       59174  97 PC
+; UpdateViewMatrix                                59174  97 PC, low confidence
+; Builds the view matrix from the camera position and target
 ;-----------------------------------------------------------------------------
-sub_59174:
+UpdateViewMatrix:
         push ebx
         push ecx
         push edx
@@ -3400,9 +3413,10 @@ sub_59174:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_59DB8                                                       59DB8  97 PC
+; PoseAndDrawModel                                59DB8  97 PC, low confidence
+; Poses a model at its frame and draws it
 ;-----------------------------------------------------------------------------
-sub_59DB8:
+PoseAndDrawModel:
         push ebx
         push ecx
         mov ebx, eax
@@ -3422,9 +3436,10 @@ sub_59DB8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_59DE4                                                       59DE4  97 PC
+; DrawModelByDetail                               59DE4  97 PC, low confidence
+; Draws a model at the detail level picked from its distance
 ;-----------------------------------------------------------------------------
-sub_59DE4:
+DrawModelByDetail:
         push ebx
         push ecx
         push edx
@@ -3480,9 +3495,10 @@ sub_59DE4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_59E74                                                       59E74  97 PC
+; DrawPlayerModel                                 59E74  97 PC, low confidence
+; Draws one player model with its stick
 ;-----------------------------------------------------------------------------
-sub_59E74:
+DrawPlayerModel:
         push ebx
         push ecx
         push edx
@@ -3553,7 +3569,7 @@ sub_59E74:
         pop ebx
         ret
         db 08Bh,0C0h
-sub_59E74_BC:
+DrawPlayerModel_BC:
         push ecx
         push edx
         mov edx, dword [dword eax+0738h]
@@ -3564,9 +3580,10 @@ sub_59E74_BC:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_59F44                                                       59F44  97 PC
+; DrawObjectShadow                                59F44  97 PC, low confidence
+; Draws the shadow of an object on the ice
 ;-----------------------------------------------------------------------------
-sub_59F44:
+DrawObjectShadow:
         push ebx
         push ecx
         push edx
@@ -3653,9 +3670,10 @@ sub_59F44:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5A048                                                       5A048  97 PC
+; DrawHeadModel                                   5A048  97 PC, low confidence
+; Draws a player's head model
 ;-----------------------------------------------------------------------------
-sub_5A048:
+DrawHeadModel:
         push ebx
         push ecx
         push edx
@@ -3702,7 +3720,7 @@ sub_5A048:
 .3:
         mov eax, edi
         mov ebx, dword [dword esi+073Ch]
-        call sub_5B78C
+        call SwapFaceTexture
 .4:
         lea ebx, [dword esi+0190h]
         mov eax, edi
@@ -3829,9 +3847,10 @@ sub_5A048:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5A238                                                       5A238  97 PC
+; DrawLeftArmModel                                5A238  97 PC, low confidence
+; Poses and draws one arm part of a player model (left side, probably)
 ;-----------------------------------------------------------------------------
-sub_5A238:
+DrawLeftArmModel:
         push ebx
         push ecx
         push edx
@@ -3883,7 +3902,7 @@ sub_5A238:
         pop ebx
         ret
         db 08Bh,0C0h
-sub_5A238_80:
+DrawLeftArmModel_80:
         push edx
         sub esp, byte 4
         mov edx, eax
@@ -3910,9 +3929,10 @@ sub_5A238_80:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5A2F8                                                       5A2F8  97 PC
+; DrawRightArmModel                               5A2F8  97 PC, low confidence
+; Poses and draws the other arm part of a player model (right side, probably)
 ;-----------------------------------------------------------------------------
-sub_5A2F8:
+DrawRightArmModel:
         push ebx
         push ecx
         push edx
@@ -3964,7 +3984,7 @@ sub_5A2F8:
         pop ebx
         ret
         db 08Bh,0C0h
-sub_5A2F8_80:
+DrawRightArmModel_80:
         push edx
         sub esp, byte 4
         mov edx, eax
@@ -3990,7 +4010,7 @@ sub_5A2F8_80:
         add esp, byte 4
         pop edx
         ret
-sub_5A2F8_C0:
+DrawRightArmModel_C0:
         push edx
         sub esp, byte 4
         mov edx, eax
@@ -4016,7 +4036,7 @@ sub_5A2F8_C0:
         add esp, byte 4
         pop edx
         ret
-sub_5A2F8_100:
+DrawRightArmModel_100:
         push edx
         sub esp, byte 4
         mov edx, eax
@@ -4042,7 +4062,7 @@ sub_5A2F8_100:
         add esp, byte 4
         pop edx
         ret
-sub_5A2F8_140:
+DrawRightArmModel_140:
         push edx
         sub esp, byte 4
         mov edx, eax
@@ -4068,14 +4088,15 @@ sub_5A2F8_140:
         add esp, byte 4
         pop edx
         ret
-sub_5A2F8_180:
+DrawRightArmModel_180:
         add eax, 4F8h
         jmp near sub_1038B0
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5A484                                                       5A484  97 PC
+; DrawStickModel                                  5A484  97 PC, low confidence
+; Poses and draws a stick model
 ;-----------------------------------------------------------------------------
-sub_5A484:
+DrawStickModel:
         push ebx
         push ecx
         push edx
@@ -4116,9 +4137,10 @@ sub_5A484:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5A4E8                                                       5A4E8  97 PC
+; DrawGoalieStickModel                            5A4E8  97 PC, low confidence
+; Poses and draws the goalie stick model
 ;-----------------------------------------------------------------------------
-sub_5A4E8:
+DrawGoalieStickModel:
         push ebx
         push ecx
         push edx
@@ -4203,9 +4225,10 @@ sub_5A4E8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5A5BC                                                       5A5BC  97 PC
+; DrawLeftHandModel                               5A5BC  97 PC, low confidence
+; Poses and draws one hand of a player model
 ;-----------------------------------------------------------------------------
-sub_5A5BC:
+DrawLeftHandModel:
         push ebx
         push ecx
         push edx
@@ -4220,13 +4243,13 @@ sub_5A5BC:
         mov ebx, dword [dword edx+06CCh]
         mov edx, eax
         mov eax, ebx
-        call sub_59DB8
+        call PoseAndDrawModel
         jmp short .4
 .1:
         mov ebx, dword [dword edx+06D0h]
         mov edx, eax
         mov eax, ebx
-        call sub_59DB8
+        call PoseAndDrawModel
         jmp short .4
 .2:
         fld dword [dword eax+01F8h]
@@ -4258,9 +4281,10 @@ sub_5A5BC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5A638                                                       5A638  97 PC
+; DrawRightHandModel                              5A638  97 PC, low confidence
+; Poses and draws the other hand of a player model
 ;-----------------------------------------------------------------------------
-sub_5A638:
+DrawRightHandModel:
         push ebx
         push ecx
         push edx
@@ -4275,13 +4299,13 @@ sub_5A638:
         mov ebx, dword [dword edx+06D0h]
         mov edx, eax
         mov eax, ebx
-        call sub_59DB8
+        call PoseAndDrawModel
         jmp short .4
 .1:
         mov ebx, dword [dword edx+06CCh]
         mov edx, eax
         mov eax, ebx
-        call sub_59DB8
+        call PoseAndDrawModel
         jmp short .4
 .2:
         fld dword [dword eax+01D4h]
@@ -4313,9 +4337,10 @@ sub_5A638:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5A6B4                                                       5A6B4  97 PC
+; ScaleModelLods                                  5A6B4  97 PC, low confidence
+; Scales the model detail distances by the view scale and detail setting
 ;-----------------------------------------------------------------------------
-sub_5A6B4:
+ScaleModelLods:
         fld dword [dword_1CF5EC]
         fmul qword [qword_161A9A]
         fmul dword [dword_16B1A0]
@@ -4328,7 +4353,11 @@ sub_5A6B4:
         cmp eax, byte 28h
         jne short .1
         fstp st0
-sub_5A6E0:
+;-----------------------------------------------------------------------------
+; SetModelExtraFlags                              5A6E0  97 PC, low confidence
+; Small setters for two model fields (the first entry only returns)
+;-----------------------------------------------------------------------------
+SetModelExtraFlags:
         ret
         db 08Dh,040h,00h
         mov dword [dword eax+0740h], edx
@@ -4338,9 +4367,10 @@ sub_5A6E0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5A6F4                                                       5A6F4  97 PC
+; DrawModelParts                                  5A6F4  97 PC, low confidence
+; Draws every part of a player model (body, arms, hands, stick)
 ;-----------------------------------------------------------------------------
-sub_5A6F4:
+DrawModelParts:
         push ebx
         push ecx
         push esi
@@ -4380,7 +4410,7 @@ sub_5A6F4:
         mov dword [nosplit eax*4+dword_1B1300], edx
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], sub_5A2F8_140
+        mov dword [dword edx+dword_1B1288], DrawRightArmModel_140
         mov dword [dword_1B82D8], eax
         fld dword [byte ecx+05Ch]
         push eax
@@ -4393,7 +4423,7 @@ sub_5A6F4:
         mov eax, dword [dword_1B82D8]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], sub_5A2F8_180
+        mov dword [dword edx+dword_1B1288], DrawRightArmModel_180
         mov dword [dword_1B82D8], eax
         fld dword [byte ecx+044h]
         push eax
@@ -4405,7 +4435,7 @@ sub_5A6F4:
         mov dword [nosplit eax*4+dword_1B1300], edx
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], sub_5A2F8_C0
+        mov dword [dword edx+dword_1B1288], DrawRightArmModel_C0
         mov dword [dword_1B82D8], eax
         fld dword [byte ecx+038h]
         push eax
@@ -4417,7 +4447,7 @@ sub_5A6F4:
         mov dword [nosplit eax*4+dword_1B1300], edx
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], sub_5A2F8_100
+        mov dword [dword edx+dword_1B1288], DrawRightArmModel_100
         mov dword [dword_1B82D8], eax
         fld dword [dword ecx+080h]
         push eax
@@ -4430,7 +4460,7 @@ sub_5A6F4:
         mov eax, dword [dword_1B82D8]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], sub_5A2F8
+        mov dword [dword edx+dword_1B1288], DrawRightArmModel
         mov dword [dword_1B82D8], eax
         fld dword [byte ecx+074h]
         push eax
@@ -4443,7 +4473,7 @@ sub_5A6F4:
         mov eax, dword [dword_1B82D8]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], sub_5A2F8_80
+        mov dword [dword edx+dword_1B1288], DrawRightArmModel_80
         mov dword [dword_1B82D8], eax
         fld dword [dword ecx+0A4h]
         push eax
@@ -4456,7 +4486,7 @@ sub_5A6F4:
         mov eax, dword [dword_1B82D8]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], sub_5A238
+        mov dword [dword edx+dword_1B1288], DrawLeftArmModel
         mov dword [dword_1B82D8], eax
         fld dword [dword ecx+098h]
         push eax
@@ -4469,7 +4499,7 @@ sub_5A6F4:
         mov eax, dword [dword_1B82D8]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], sub_5A238_80
+        mov dword [dword edx+dword_1B1288], DrawLeftArmModel_80
         mov dword [dword_1B82D8], eax
         fld dword [byte ecx+020h]
         push eax
@@ -4481,7 +4511,7 @@ sub_5A6F4:
         mov eax, dword [dword_1B82D8]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], sub_5A048
+        mov dword [dword edx+dword_1B1288], DrawHeadModel
         mov dword [dword_1B82D8], eax
         fld dword [byte ecx+014h]
         push eax
@@ -4493,7 +4523,7 @@ sub_5A6F4:
         mov eax, dword [dword_1B82D8]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], sub_59E74_BC
+        mov dword [dword edx+dword_1B1288], DrawPlayerModel_BC
         mov dword [dword_1B82D8], eax
         fld dword [byte ecx+044h]
         push eax
@@ -4505,7 +4535,7 @@ sub_5A6F4:
         mov dword [nosplit eax*4+dword_1B1300], edx
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], sub_5A638
+        mov dword [dword edx+dword_1B1288], DrawRightHandModel
         mov dword [dword_1B82D8], eax
         fld dword [byte ecx+068h]
         push eax
@@ -4518,7 +4548,7 @@ sub_5A6F4:
         mov eax, dword [dword_1B82D8]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], sub_5A5BC
+        mov dword [dword edx+dword_1B1288], DrawLeftHandModel
         mov dword [dword_1B82D8], eax
         mov eax, dword [byte ebp+038h]
         test eax, eax
@@ -4544,7 +4574,7 @@ sub_5A6F4:
         mov dword [nosplit eax*4+dword_1B1300], edx
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], sub_59DE4
+        mov dword [dword edx+dword_1B1288], DrawModelByDetail
         mov dword [dword_1B82D8], eax
 .3:
         cmp dword [byte ebp+034h], byte 0
@@ -4560,7 +4590,7 @@ sub_5A6F4:
         mov dword [nosplit edx*4+dword_1B1300], eax
         mov eax, edx
         inc eax
-        mov edx, sub_5A4E8
+        mov edx, DrawGoalieStickModel
         mov dword [dword_1B82D8], eax
         mov dword [nosplit eax*4+dword_1B1284], edx
         fild dword [byte edi+030h]
@@ -4569,7 +4599,7 @@ sub_5A6F4:
         fistp dword [esp]
         pop eax
         mov edx, dword [dword_1B82D8]
-        mov ecx, sub_5A484
+        mov ecx, DrawStickModel
         mov dword [nosplit edx*4+dword_1B1300], eax
         lea eax, [byte edx+01h]
         mov dword [nosplit edx*4+dword_1B1288], ecx
@@ -4580,7 +4610,7 @@ sub_5A6F4:
         shl ecx, 2
 .5:
         cmp eax, ecx
-        jge near sub_57324_CD
+        jge near SetupPlayerModel_CD
         mov edx, dword [dword eax+dword_1B1300]
         add edx, edx
         add eax, byte 4
@@ -4590,9 +4620,10 @@ sub_5A6F4:
         jmp short .5
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5AAB8                                                       5AAB8  97 PC
+; DrawPlayersSorted                               5AAB8  97 PC, low confidence
+; Sorts the players by distance and draws each with its shadow
 ;-----------------------------------------------------------------------------
-sub_5AAB8:
+DrawPlayersSorted:
         push ebx
         push ecx
         push edx
@@ -4633,20 +4664,20 @@ sub_5AAB8:
         xor ecx, ecx
         xor edx, edx
         mov dword [dword_1B82D8], ecx
-        call sub_59E74
+        call DrawPlayerModel
         mov eax, esi
-        call sub_5A6F4
+        call DrawModelParts
         mov eax, esi
-        call sub_59F44
+        call DrawObjectShadow
         test edi, edi
         je short .3
         mov eax, edi
-        call sub_59F44
+        call DrawObjectShadow
         mov eax, edi
         mov edx, 1
-        call sub_59E74
+        call DrawPlayerModel
         mov eax, edi
-        call sub_5A6F4
+        call DrawModelParts
 .3:
         push dword_1B1288
         push dword_1B1300
@@ -4730,21 +4761,24 @@ sub_5AAB8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5AC28                                                       5AC28  97 PC
+; ClearObjectHidden                               5AC28  97 PC, low confidence
+; Clears an object's hidden flag
 ;-----------------------------------------------------------------------------
-sub_5AC28:
+ClearObjectHidden:
         mov dword [byte eax+038h], 0
         ret
 ;-----------------------------------------------------------------------------
-; sub_5AC30                                                       5AC30  97 PC
+; SetObjectHidden                                 5AC30  97 PC, low confidence
+; Sets an object's hidden flag
 ;-----------------------------------------------------------------------------
-sub_5AC30:
+SetObjectHidden:
         mov dword [byte eax+038h], 1
         ret
 ;-----------------------------------------------------------------------------
-; sub_5AC38                                                       5AC38  97 PC
+; RenderModelPortrait                             5AC38  97 PC, low confidence
+; Renders a player model into an offscreen portrait
 ;-----------------------------------------------------------------------------
-sub_5AC38:
+RenderModelPortrait:
         push esi
         push edi
         push ebp
@@ -4783,7 +4817,7 @@ sub_5AC38:
         mov ebx, dword [byte esp+08h]
         mov edx, dword [byte esp+04h]
         fstp dword [esp]
-        call sub_5D100
+        call SavePortraitCamera
         mov ebx, eax
         test eax, eax
         jne near .1
@@ -4807,14 +4841,14 @@ sub_5AC38:
         fadd dword [dword_1B9067]
         mov eax, ecx
         fstp dword [byte ecx+08h]
-        call sub_59174
+        call UpdateViewMatrix
         cmp dword [dword ecx+0748h], byte 0
         je short .2
         mov ebx, dword [byte esp+04h]
         mov edx, dword [esp]
         mov eax, edi
         lea esi, [dword ecx+0328h]
-        call sub_5D1E0
+        call RestorePortraitCamera
         push esi
         push byte 1Ah
         sub esp, byte 4
@@ -4822,17 +4856,17 @@ sub_5AC38:
         fstp dword [esp]
         mov edx, dword [byte esp+014h]
         mov ebx, eax
-        call sub_5CD90
+        call BeginOffscreenRender
         mov eax, ecx
-        call sub_5AAB8
-        call sub_5D23C
+        call DrawPlayersSorted
+        call EndOffscreenRender
 .1:
         sub esp, byte 4
         fild dword [byte ebp+08h]
         mov eax, ebx
         mov edx, dword [byte esp+0Ch]
         fstp dword [esp]
-        call sub_5D294
+        call SetPortraitProjection
 .2:
         add esp, byte 0Ch
         pop ebp
@@ -4841,9 +4875,10 @@ sub_5AC38:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5AD54                                                       5AD54  97 PC
+; DrawPuckMarker                                  5AD54  97 PC, low confidence
+; Draws the marker under the puck (projected onto the ice)
 ;-----------------------------------------------------------------------------
-sub_5AD54:
+DrawPuckMarker:
         push esi
         push ebp
         mov ebp, esp
@@ -4965,9 +5000,10 @@ sub_5AD54:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5AEB8                                                       5AEB8  97 PC
+; DrawPlayerMarkers                               5AEB8  97 PC, low confidence
+; Draws the markers under the controlled players
 ;-----------------------------------------------------------------------------
-sub_5AEB8:
+DrawPlayerMarkers:
         push ebx
         push ecx
         push edx
@@ -5114,9 +5150,10 @@ sub_5AEB8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5B090                                                       5B090  97 PC
+; DrawIceMarkers                                  5B090  97 PC, low confidence
+; Draws the puck and player markers on the ice
 ;-----------------------------------------------------------------------------
-sub_5B090:
+DrawIceMarkers:
         push ebx
         push ecx
         push edx
@@ -5151,19 +5188,19 @@ sub_5B090:
         pop ebx
         ret
 .2:
-        call sub_5AEB8
+        call DrawPlayerMarkers
         push byte 0Fh
         mov ecx, 14h
         mov ebx, 8
         mov edx, 7
         mov eax, esi
-        call sub_5AD54
+        call DrawPuckMarker
         push byte 0Fh
         mov ecx, 14h
         mov ebx, 5
         mov edx, 4
         mov eax, esi
-        call sub_5AD54
+        call DrawPuckMarker
         cmp dword [byte esi+038h], byte 0
         je short .3
         push byte 8
@@ -5171,7 +5208,7 @@ sub_5B090:
         mov ebx, 16h
         mov edx, 11h
         mov eax, esi
-        call sub_5AD54
+        call DrawPuckMarker
 .3:
         fld dword [dword esi+0424h]
         fcomp dword [dword_1B82C8]
@@ -5183,13 +5220,13 @@ sub_5B090:
         mov ebx, 0Bh
         mov edx, 9
         mov eax, esi
-        call sub_5AD54
+        call DrawPuckMarker
         push byte 14h
         mov ecx, 1Eh
         mov ebx, 0Eh
         mov edx, 0Ch
         mov eax, esi
-        call sub_5AD54
+        call DrawPuckMarker
 .4:
         fld dword [dword esi+0424h]
         fcomp dword [dword_1B82C8]
@@ -5201,13 +5238,13 @@ sub_5B090:
         mov ebx, 7
         mov edx, 6
         mov eax, esi
-        call sub_5AD54
+        call DrawPuckMarker
         push byte 0Fh
         mov ecx, 14h
         mov ebx, 4
         mov edx, 3
         mov eax, esi
-        call sub_5AD54
+        call DrawPuckMarker
 .5:
         pop esi
         pop edx
@@ -5215,9 +5252,10 @@ sub_5B090:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5B1C0                                                       5B1C0  97 PC
+; DrawPlayerNames                                 5B1C0  97 PC, low confidence
+; Draws the names over the players
 ;-----------------------------------------------------------------------------
-sub_5B1C0:
+DrawPlayerNames:
         push ecx
         push edx
         push esi
@@ -5305,9 +5343,10 @@ sub_5B1C0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5B2D4                                                       5B2D4  97 PC
+; DrawPuckArrow                                   5B2D4  97 PC, low confidence
+; Draws the off-screen puck arrow
 ;-----------------------------------------------------------------------------
-sub_5B2D4:
+DrawPuckArrow:
         push ebx
         push ecx
         push edx
@@ -5432,13 +5471,18 @@ sub_5B2D4:
         pop ecx
         pop ebx
         lea eax, [byte eax+00h]
-sub_5B450:
+;-----------------------------------------------------------------------------
+; NoOpDraw                                        5B450  97 PC, low confidence
+; Does nothing (empty draw hook)
+;-----------------------------------------------------------------------------
+NoOpDraw:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5B454                                                       5B454  97 PC
+; CopyVec3                                        5B454  97 PC, low confidence
+; Copies a three-float vector; next entry adds two vectors
 ;-----------------------------------------------------------------------------
-sub_5B454:
+CopyVec3:
         push esi
         push edi
         mov edi, eax
@@ -5456,9 +5500,10 @@ sub_5B454:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5B46C                                                       5B46C  97 PC
+; SetObjectHeight                                 5B46C  97 PC, low confidence
+; Sets the height of a vector; next entry adds to it
 ;-----------------------------------------------------------------------------
-sub_5B46C:
+SetObjectHeight:
         push edx
         mov edx, dword [byte esp+08h]
         mov dword [byte eax+0Ch], edx
@@ -5470,9 +5515,10 @@ sub_5B46C:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5B488                                                       5B488  97 PC
+; LinkModelPair                                   5B488  97 PC, low confidence
+; Links two model slots to each other
 ;-----------------------------------------------------------------------------
-sub_5B488:
+LinkModelPair:
         push ecx
         mov ecx, eax
         shl eax, 4
@@ -5492,9 +5538,10 @@ sub_5B488:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5B4B8                                                       5B4B8  97 PC
+; ClearModelSlots                                 5B4B8  97 PC, low confidence
+; Marks every model slot as unused
 ;-----------------------------------------------------------------------------
-sub_5B4B8:
+ClearModelSlots:
         push edx
         mov edx, 0FFFFFFFFh
         xor eax, eax
@@ -5506,9 +5553,10 @@ sub_5B4B8:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5B4D4                                                       5B4D4  97 PC
+; RestoreSavedPalette                             5B4D4  97 PC, low confidence
+; Restores the saved game palette
 ;-----------------------------------------------------------------------------
-sub_5B4D4:
+RestoreSavedPalette:
         push ecx
         push edx
         push dword 138h
@@ -5521,14 +5569,15 @@ sub_5B4D4:
         push unk_1B1120
         call bcopy
         add esp, byte 0Ch
-        call sub_5CD68
+        call MarkPaletteDirty
         pop edx
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5B50C                                                       5B50C  97 PC
+; SaveGamePalette                                 5B50C  97 PC, low confidence
+; Saves the current game palette
 ;-----------------------------------------------------------------------------
-sub_5B50C:
+SaveGamePalette:
         push ecx
         push edx
         push dword 138h
@@ -5546,15 +5595,16 @@ sub_5B50C:
         push unk_1B1120
         call bcopy
         add esp, byte 0Ch
-        call sub_5CD68
+        call MarkPaletteDirty
         pop edx
         pop ecx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5B558                                                       5B558  97 PC
+; UpdateFaceTextures                              5B558  97 PC, low confidence
+; Updates the face textures of the players on screen
 ;-----------------------------------------------------------------------------
-sub_5B558:
+UpdateFaceTextures:
         push ebx
         push ecx
         mov ecx, eax
@@ -5605,9 +5655,10 @@ sub_5B558:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5B5CC                                                       5B5CC  97 PC
+; LoadFaceTexture                                 5B5CC  97 PC, low confidence
+; Loads one player's face texture
 ;-----------------------------------------------------------------------------
-sub_5B5CC:
+LoadFaceTexture:
         push esi
         push edi
         push ebp
@@ -5666,9 +5717,10 @@ sub_5B5CC:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5B648                                                       5B648  97 PC
+; FindChunkByIndex                                5B648  97 PC, low confidence
+; Walks a chunked block to the chunk with the given index
 ;-----------------------------------------------------------------------------
-sub_5B648:
+FindChunkByIndex:
         mov ebx, dword [eax]
         sar ebx, 8
         test ebx, ebx
@@ -5676,7 +5728,7 @@ sub_5B648:
         dec edx
         add eax, ebx
         test edx, edx
-        jne short sub_5B648
+        jne short FindChunkByIndex
         add eax, byte 8
         ret
 .1:
@@ -5757,9 +5809,10 @@ LoadFaceArt:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5B734                                                       5B734  97 PC
+; FreeFaceTextures                                5B734  97 PC, low confidence
+; Frees the loaded face textures
 ;-----------------------------------------------------------------------------
-sub_5B734:
+FreeFaceTextures:
         push ebx
         push ecx
         push edx
@@ -5797,9 +5850,10 @@ sub_5B734:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5B78C                                                       5B78C  97 PC
+; SwapFaceTexture                                 5B78C  97 PC, low confidence
+; Swaps a player's face texture for another
 ;-----------------------------------------------------------------------------
-sub_5B78C:
+SwapFaceTexture:
         push ecx
         push esi
         push edi
@@ -5816,7 +5870,7 @@ sub_5B78C:
         push edx
         xor ebx, ebx
         mov edx, 6
-        call sub_5B5CC
+        call LoadFaceTexture
         mov ebx, dword [dword ebp+dword_1B8944]
         push ebx
         push edi
@@ -5904,17 +5958,17 @@ LoadPlayerFace:
         add esp, byte 0Ch
         mov edx, 2
         mov eax, edi
-        call sub_5B648
+        call FindChunkByIndex
         mov ecx, dword [byte esp+010h]
         push eax
         mov edx, ebp
         xor ebx, ebx
         mov eax, esi
-        call sub_5B5CC
+        call LoadFaceTexture
         mov ebx, 6
         mov edx, 1
         mov eax, edi
-        call sub_5B648
+        call FindChunkByIndex
         mov edx, dword [byte esp+014h]
         mov dword [dword edx+dword_1B8978], eax
         mov dword [byte eax+04h], 0
@@ -5931,7 +5985,7 @@ LoadPlayerFace:
         mov edx, 3
         mov eax, edi
         mov ebx, dword [byte ebx+010h]
-        call sub_5B648
+        call FindChunkByIndex
         mov ebx, dword [esi]
         mov edi, dword [byte esi+070h]
         mov edx, eax
@@ -5961,9 +6015,10 @@ LoadPlayerFace:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_5B970                                                       5B970  97 PC
+; ReplayPackFrame                                 5B970  97 PC, low confidence
+; Packs one frame of object state into the replay buffer
 ;-----------------------------------------------------------------------------
-sub_5B970:
+ReplayPackFrame:
         push ecx
         push esi
         push edi
@@ -6019,9 +6074,10 @@ sub_5B970:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5BA0C                                                       5BA0C  97 PC
+; ReplayUnpackFrame                               5BA0C  97 PC, low confidence
+; Unpacks one replay frame into object state
 ;-----------------------------------------------------------------------------
-sub_5BA0C:
+ReplayUnpackFrame:
         push ebx
         push ecx
         mov ecx, eax
@@ -6044,9 +6100,10 @@ sub_5BA0C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5BA44                                                       5BA44  97 PC
+; ReplayWriteFrame                                5BA44  97 PC, low confidence
+; Writes a packed frame at the replay write position
 ;-----------------------------------------------------------------------------
-sub_5BA44:
+ReplayWriteFrame:
         push ebx
         push ecx
         push edx
@@ -6060,7 +6117,7 @@ sub_5BA44:
         mov edx, unk_16B728
         mov eax, 4
         xor ebx, ebx
-        call sub_5B970
+        call ReplayPackFrame
         add dword [dword_1B8F64], 0FFFh
         jmp short .1
 .2:
@@ -6080,16 +6137,17 @@ sub_5BA44:
         mov eax, dword [ecx]
         mov edx, ecx
         shr eax, 10h
-        call sub_5B970
+        call ReplayPackFrame
         pop edx
         pop ecx
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5BAB4                                                       5BAB4  97 PC
+; ReplaySaveState                                 5BAB4  97 PC, low confidence
+; Saves the registered state blocks for the replay
 ;-----------------------------------------------------------------------------
-sub_5BAB4:
+ReplaySaveState:
         push ebx
         push ecx
         push esi
@@ -6133,9 +6191,10 @@ sub_5BAB4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5BB0C                                                       5BB0C  97 PC
+; ReplayRestoreState                              5BB0C  97 PC, low confidence
+; Restores the registered state blocks from the replay
 ;-----------------------------------------------------------------------------
-sub_5BB0C:
+ReplayRestoreState:
         push ebx
         push ecx
         push esi
@@ -6193,9 +6252,10 @@ sub_5BB0C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5BB88                                                       5BB88  97 PC
+; ReplayRecordFrame                               5BB88  97 PC, low confidence
+; Records the current frame into the replay buffer
 ;-----------------------------------------------------------------------------
-sub_5BB88:
+ReplayRecordFrame:
         push ebx
         push ecx
         push edx
@@ -6220,7 +6280,7 @@ sub_5BB88:
         or esi, eax
         mov eax, esp
         mov dword [esp], esi
-        call sub_5BA44
+        call ReplayWriteFrame
         mov eax, dword [esp]
         mov edx, dword [dword_1B8F7C]
         shr eax, 10h
@@ -6232,7 +6292,7 @@ sub_5BB88:
         mov dword [nosplit ebx*4+dword_1B89F0], eax
         mov eax, 1
         sub edx, edi
-        call sub_5BAB4
+        call ReplaySaveState
         cmp dword [dword_1B8F8C], byte 0
         je short .1
         mov eax, dword [dword_1B8F84]
@@ -6287,7 +6347,7 @@ sub_5BB88:
         mov ebx, dword [dword_1B8F90]
         mov dword [dword_1B8F98], edx
         sub edx, ebx
-        call sub_5BB0C
+        call ReplayRestoreState
         mov eax, dword [nosplit ecx*4+dword_1B89F0]
         mov dword [dword_1B8F70], eax
         pop esi
@@ -6296,9 +6356,10 @@ sub_5BB88:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5BCCC                                                       5BCCC  97 PC
+; ReplayRegisterStates                            5BCCC  97 PC, low confidence
+; Registers the state blocks the replay saves
 ;-----------------------------------------------------------------------------
-sub_5BCCC:
+ReplayRegisterStates:
         push ecx
         push edi
         push ebp
@@ -6324,9 +6385,10 @@ sub_5BCCC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5BD1C                                                       5BD1C  97 PC
+; ReplayRegisterObjects                           5BD1C  97 PC, low confidence
+; Registers the objects the replay records
 ;-----------------------------------------------------------------------------
-sub_5BD1C:
+ReplayRegisterObjects:
         push edx
         mov edx, eax
         cmp dword [dword_16B724], byte 0
@@ -6339,9 +6401,10 @@ sub_5BD1C:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5BD3C                                                       5BD3C  97 PC
+; FreeReplayBuffer                                5BD3C  97 PC, low confidence
+; Frees the replay buffer
 ;-----------------------------------------------------------------------------
-sub_5BD3C:
+FreeReplayBuffer:
         push ebx
         push ecx
         push edx
@@ -6371,9 +6434,10 @@ sub_5BD3C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5BD94                                                       5BD94  97 PC
+; ResetReplayBuffer                               5BD94  97 PC, low confidence
+; Empties the replay buffer
 ;-----------------------------------------------------------------------------
-sub_5BD94:
+ResetReplayBuffer:
         push ebx
         push edx
         xor edx, edx
@@ -6440,17 +6504,20 @@ InitReplayBuffer:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5BE64                                                       5BE64  97 PC
+; IsReplayRecording                               5BE64  97 PC, low confidence
+; Returns 1 when the replay is recording
 ;-----------------------------------------------------------------------------
-sub_5BE64:
+IsReplayRecording:
         cmp dword [dword_1B8F88], byte 0
         setne al
         and eax, 0FFh
         ret
 ;-----------------------------------------------------------------------------
-; sub_5BE74                                                       5BE74  97 PC
+; ReplayHasFrames                                 5BE74  97 PC, low confidence
+; Returns 1 when the replay is recording and holds frames; next entries give
+; the counters
 ;-----------------------------------------------------------------------------
-sub_5BE74:
+ReplayHasFrames:
         cmp dword [dword_1B8F88], byte 0
         setne al
         and eax, 0FFh
@@ -6473,9 +6540,10 @@ sub_5BE74:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5BEB0                                                       5BEB0  97 PC
+; ReplayFreeFrames                                5BEB0  97 PC, low confidence
+; Drops the oldest frames from the replay buffer
 ;-----------------------------------------------------------------------------
-sub_5BEB0:
+ReplayFreeFrames:
         push ecx
         push edx
         mov edx, dword [dword_1B8F88]
@@ -6532,7 +6600,7 @@ SetReplayRecording:
         mov dword [dword_1B8F6C], eax
         mov edx, eax
         xor eax, eax
-        call sub_5BAB4
+        call ReplaySaveState
 .2:
         mov eax, dword [dword_1B8F64]
         xor edx, edx
@@ -6545,7 +6613,7 @@ SetReplayRecording:
         je short .4
         mov eax, 1
         mov edx, ecx
-        call sub_5BB0C
+        call ReplayRestoreState
         mov esi, dword [dword_1B8F6C]
         push esi
         xor edi, edi
@@ -6561,9 +6629,10 @@ SetReplayRecording:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5BF88                                                       5BF88  97 PC
+; ReplayReadFrame                                 5BF88  97 PC, low confidence
+; Reads the frame at the replay read position
 ;-----------------------------------------------------------------------------
-sub_5BF88:
+ReplayReadFrame:
         push ebx
         push ecx
         push edx
@@ -6598,12 +6667,12 @@ sub_5BF88:
         mov eax, dword [dword_1B8F90]
         xor edx, edx
         add eax, byte 4
-        call sub_5BA0C
+        call ReplayUnpackFrame
         mov edx, dword [dword_1B8F98]
         mov ebp, dword [dword_1B8F90]
         mov eax, 1
         sub edx, ebp
-        call sub_5BB0C
+        call ReplayRestoreState
         mov eax, dword [nosplit ecx*4+dword_1B89F0]
         mov dword [dword_1B8F70], eax
         pop ebp
@@ -6615,9 +6684,10 @@ sub_5BF88:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5C014                                                       5C014  97 PC
+; ReplaySeekStart                                 5C014  97 PC, low confidence
+; Moves the replay read position to the first frame
 ;-----------------------------------------------------------------------------
-sub_5C014:
+ReplaySeekStart:
         push ebx
         push ecx
         push edx
@@ -6677,9 +6747,10 @@ sub_5C014:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5C0AC                                                       5C0AC  97 PC
+; ReplayStepFrame                                 5C0AC  97 PC, low confidence
+; Steps the replay one frame forward or back
 ;-----------------------------------------------------------------------------
-sub_5C0AC:
+ReplayStepFrame:
         push ebx
         push ecx
         push edx
@@ -6723,7 +6794,7 @@ sub_5C0AC:
         mov ecx, dword [dword_1B8F70]
         shr eax, 14h
         add eax, ecx
-        call sub_5BF88
+        call ReplayReadFrame
 .5:
         pop edi
         pop esi
@@ -6733,9 +6804,10 @@ sub_5C0AC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5C134                                                       5C134  97 PC
+; ReplayRecordTick                                5C134  97 PC, low confidence
+; Records a frame when the recording is on
 ;-----------------------------------------------------------------------------
-sub_5C134:
+ReplayRecordTick:
         push ecx
         push edx
         mov edx, eax
@@ -6744,38 +6816,40 @@ sub_5C134:
         mov ecx, dword [dword_1B8F68]
         cmp ecx, dword [dword_1BF8B4]
         jg short .1
-        call sub_5BB88
+        call ReplayRecordFrame
 .1:
         mov eax, edx
-        call sub_5BA44
+        call ReplayWriteFrame
 .2:
         pop edx
         pop ecx
-sub_5C134_29:
+ReplayRecordTick_29:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5C160                                                       5C160  97 PC
+; ReplayPauseRecording                            5C160  97 PC, low confidence
+; Stops recording for a while
 ;-----------------------------------------------------------------------------
-sub_5C160:
+ReplayPauseRecording:
         cmp dword [dword_1B8FA0], byte 0
-        jne short sub_5C134_29
-        call sub_5BE64
+        jne short ReplayRecordTick_29
+        call IsReplayRecording
         test eax, eax
-        je short sub_5C134_29
+        je short ReplayRecordTick_29
         xor eax, eax
         call SetReplayRecording
         mov eax, 1
-        jmp short sub_5C180_C
+        jmp short ReplayRecordFinal_C
 ;-----------------------------------------------------------------------------
-; sub_5C180                                                       5C180  97 PC
+; ReplayRecordFinal                               5C180  97 PC, low confidence
+; Records the last frame before playback
 ;-----------------------------------------------------------------------------
-sub_5C180:
+ReplayRecordFinal:
         cmp dword [dword_1B8FA4], byte 0
-        je short sub_5C134_29
+        je short ReplayRecordTick_29
         xor eax, eax
         nop
-sub_5C180_C:
+ReplayRecordFinal_C:
         push edx
         push esi
         cmp dword [dword_1B8F88], byte 0
@@ -6792,15 +6866,16 @@ sub_5C180_C:
 .1:
         xor esi, esi
         mov dword [dword_1B8F94], esi
-        call sub_5BB88
+        call ReplayRecordFrame
 .2:
         pop esi
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5C1CC                                                       5C1CC  97 PC
+; ReplaySoundAllowed                              5C1CC  97 PC, low confidence
+; Returns whether sounds may play during replay playback
 ;-----------------------------------------------------------------------------
-sub_5C1CC:
+ReplaySoundAllowed:
         cmp dword [dword_1B8FA0], byte 0
         je short .1
         cmp dword [dword_1B8F48], 258h
@@ -6818,9 +6893,10 @@ sub_5C1CC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5C1F8                                                       5C1F8  97 PC
+; ReplayDrawFrame                                 5C1F8  97 PC, low confidence
+; Draws the current replay frame
 ;-----------------------------------------------------------------------------
-sub_5C1F8:
+ReplayDrawFrame:
         push ebx
         push ecx
         push edx
@@ -6832,7 +6908,7 @@ sub_5C1F8:
         call DrawGameOverlays
         xor eax, eax
         xor esi, esi
-        call sub_6539C
+        call UpdateGameDisplay
 .1:
         mov eax, dword [off_168CF0]
         xor edx, edx
@@ -6871,7 +6947,7 @@ sub_5C1F8:
         push edx
         sub esp, byte 0Ch
         mov eax, dword [dword_1B8F50]
-        call sub_76E20
+        call SetAnimClock
         mov edx, dword [off_168CFC]
         mov eax, dword [byte edx+020h]
         mov dword [esp], eax
@@ -6885,15 +6961,16 @@ sub_5C1F8:
         call sub_4DDB0
         call sub_4DD9C
         mov eax, 1
-        call sub_5C1F8
+        call ReplayDrawFrame
         add esp, byte 0Ch
         pop edx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5C2CC                                                       5C2CC  97 PC
+; ReplayCmdPlay                                   5C2CC  97 PC, low confidence
+; Replay control: play
 ;-----------------------------------------------------------------------------
-sub_5C2CC:
+ReplayCmdPlay:
         xor eax, eax
         call SetCrowdNoise
         call StopAllSfx
@@ -6905,9 +6982,10 @@ sub_5C2CC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5C2F4                                                       5C2F4  97 PC
+; ReplayCmdStop                                   5C2F4  97 PC, low confidence
+; Replay control: stop
 ;-----------------------------------------------------------------------------
-sub_5C2F4:
+ReplayCmdStop:
         push edx
         mov eax, 64h
         mov edx, 258h
@@ -6916,9 +6994,10 @@ sub_5C2F4:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5C30C                                                       5C30C  97 PC
+; ReplayCmdRewind                                 5C30C  97 PC, low confidence
+; Replay control: rewind
 ;-----------------------------------------------------------------------------
-sub_5C30C:
+ReplayCmdRewind:
         push edx
         xor eax, eax
         mov edx, 12Ch
@@ -6930,9 +7009,10 @@ sub_5C30C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5C32C                                                       5C32C  97 PC
+; ReplayCmdForward                                5C32C  97 PC, low confidence
+; Replay control: fast forward
 ;-----------------------------------------------------------------------------
-sub_5C32C:
+ReplayCmdForward:
         push edx
         xor eax, eax
         mov edx, 4B0h
@@ -6944,9 +7024,10 @@ sub_5C32C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5C34C                                                       5C34C  97 PC
+; ReplayPlayFrames                                5C34C  97 PC, low confidence
+; Plays replay frames in the chosen direction and speed
 ;-----------------------------------------------------------------------------
-sub_5C34C:
+ReplayPlayFrames:
         push ebx
         push ecx
         push edx
@@ -6962,9 +7043,9 @@ sub_5C34C:
         call sub_114C4
         mov eax, esi
         mov dword [dword_1B8F48], edx
-        call sub_5BF88
+        call ReplayReadFrame
         mov dword [dword_1B8F50], eax
-        call sub_76E20
+        call SetAnimClock
         cmp esi, dword [dword_1B8F50]
         jle near .8
         xor edi, edi
@@ -6979,7 +7060,7 @@ sub_5C34C:
         jle near .7
 .2:
         mov eax, dword [dword_1B8F4C]
-        call sub_5C014
+        call ReplaySeekStart
         test eax, eax
         jge short .3
         mov dword [dword_1B8F48], edi
@@ -7002,14 +7083,14 @@ sub_5C34C:
 .4:
         cmp eax, byte 4
         jne short .6
-        call sub_5C0AC
+        call ReplayStepFrame
         test eax, eax
         jge short .5
         mov dword [dword_1B8F48], edi
         jmp short .7
 .5:
         mov dword [dword_1B8F50], eax
-        call sub_76E20
+        call SetAnimClock
 .6:
         cmp ecx, dword [dword_1BF8B4]
         jg short .2
@@ -7029,11 +7110,11 @@ sub_5C34C:
         add esi, 760h
         mov edx, dword [dword edx+dword_1B1464]
         inc ecx
-        call sub_76D3C
+        call UpdateAllPoses
         cmp ecx, byte 0Dh
         jl short .9
         mov eax, dword [dword_1B8F50]
-        call sub_76E20
+        call SetAnimClock
         mov edx, dword [off_168CFC]
         mov eax, dword [byte edx+020h]
         mov dword [esp], eax
@@ -7047,7 +7128,7 @@ sub_5C34C:
         call sub_4DDB0
         call sub_4DD9C
         mov eax, 1
-        call sub_5C1F8
+        call ReplayDrawFrame
         xor edx, edx
         mov eax, dword [dword_1B8F50]
         mov dword [dword_1B8F48], edx
@@ -7059,9 +7140,10 @@ sub_5C34C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5C4CC                                                       5C4CC  97 PC
+; ReplayCamFollow                                 5C4CC  97 PC, low confidence
+; Replay camera: follows the puck
 ;-----------------------------------------------------------------------------
-sub_5C4CC:
+ReplayCamFollow:
         push edx
         cmp eax, byte 0Dh
         jge short .1
@@ -7076,9 +7158,10 @@ sub_5C4CC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5C4E4                                                       5C4E4  97 PC
+; ReplayCamFree                                   5C4E4  97 PC, low confidence
+; Replay camera: free camera
 ;-----------------------------------------------------------------------------
-sub_5C4E4:
+ReplayCamFree:
         push edx
         mov eax, 1
         xor edx, edx
@@ -7090,9 +7173,10 @@ sub_5C4E4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5C500                                                       5C500  97 PC
+; StartInstantReplay                              5C500  97 PC, low confidence
+; Starts an instant replay of the last play
 ;-----------------------------------------------------------------------------
-sub_5C500:
+StartInstantReplay:
         push edx
         mov eax, dword [tickcount]
         mov dword [dword_1B8F54], eax
@@ -7114,7 +7198,7 @@ sub_5C500:
         mov eax, dword [dword_1BF8B4]
         mov dword [dword_1B8F5C], eax
         xor eax, eax
-        call sub_5C34C
+        call ReplayPlayFrames
         call SetViewWindow
         mov eax, 1
         call StartCameraPath
@@ -7125,12 +7209,13 @@ sub_5C500:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5C584                                                       5C584  97 PC
+; EndInstantReplay                                5C584  97 PC, low confidence
+; Ends the instant replay and resumes the game
 ;-----------------------------------------------------------------------------
-sub_5C584:
+EndInstantReplay:
         push edx
         mov eax, dword [dword_1B8F5C]
-        call sub_76E20
+        call SetAnimClock
         xor eax, eax
         call SetReplayRecording
         mov eax, dword [dword_1B8F44]
@@ -7159,9 +7244,10 @@ sub_5C584:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5C5EC                                                       5C5EC  97 PC
+; PlaySavedReplay                                 5C5EC  97 PC, low confidence
+; Plays a replay loaded from disk
 ;-----------------------------------------------------------------------------
-sub_5C5EC:
+PlaySavedReplay:
         push ebx
         push ecx
         push edx
@@ -7187,7 +7273,7 @@ sub_5C5EC:
         cmp esi, dword [dword_1BF8B4]
         jle near .9
         mov eax, dword [dword_1B8F4C]
-        call sub_5C014
+        call ReplaySeekStart
         test eax, eax
         jge short .4
         xor edx, edx
@@ -7211,7 +7297,7 @@ sub_5C5EC:
 .5:
         cmp edx, byte 4
         jne short .7
-        call sub_5C0AC
+        call ReplayStepFrame
         test eax, eax
         jge short .6
         xor eax, eax
@@ -7219,7 +7305,7 @@ sub_5C5EC:
         jmp short .9
 .6:
         mov dword [dword_1B8F50], eax
-        call sub_76E20
+        call SetAnimClock
         mov ecx, dword [off_168CFC]
         mov eax, dword [byte ecx+020h]
         mov dword [esp], eax
@@ -7233,7 +7319,7 @@ sub_5C5EC:
         call sub_4DDB0
         call sub_4DD9C
         mov eax, edi
-        call sub_5C1F8
+        call ReplayDrawFrame
 .7:
         call sub_E341C
         jmp near .3
@@ -7257,12 +7343,12 @@ sub_5C5EC:
         add ecx, 760h
         mov edx, dword [dword edx+dword_1B1464]
         inc esi
-        call sub_76D3C
+        call UpdateAllPoses
         cmp esi, byte 0Dh
         jl short .11
 .12:
         xor eax, eax
-        call sub_5C1F8
+        call ReplayDrawFrame
         mov eax, dword [dword_1B8F50]
         add esp, byte 0Ch
         pop edi
@@ -7273,9 +7359,10 @@ sub_5C5EC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5C74C                                                       5C74C  97 PC
+; ReplayFramesLeft                                5C74C  97 PC, low confidence
+; Returns how many replay frames are left to play
 ;-----------------------------------------------------------------------------
-sub_5C74C:
+ReplayFramesLeft:
         push edx
         mov edx, dword [dword_1B8F50]
         mov eax, dword [dword_1B8F64]
@@ -7283,16 +7370,18 @@ sub_5C74C:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5C75C                                                       5C75C  97 PC
+; ReplayCurrentFrame                              5C75C  97 PC, low confidence
+; Returns the current replay frame
 ;-----------------------------------------------------------------------------
-sub_5C75C:
+ReplayCurrentFrame:
         mov eax, dword [dword_1B8F50]
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5C764                                                       5C764  97 PC
+; ReplayRestoreObjects                            5C764  97 PC, low confidence
+; Restores the objects from a replay frame
 ;-----------------------------------------------------------------------------
-sub_5C764:
+ReplayRestoreObjects:
         push ebx
         push ecx
         push edx
@@ -7332,7 +7421,7 @@ sub_5C764:
         add esi, 760h
         mov edx, dword [dword edx+dword_1B1464]
         inc ecx
-        call sub_76D3C
+        call UpdateAllPoses
         cmp ecx, byte 0Dh
         jl short .5
         mov ecx, SortCords
@@ -7389,9 +7478,10 @@ sub_5C764:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5C894                                                       5C894  97 PC
+; ReplaySetupObjects                              5C894  97 PC, low confidence
+; Sets up the objects for replay playback
 ;-----------------------------------------------------------------------------
-sub_5C894:
+ReplaySetupObjects:
         push ebx
         push ecx
         push edx
@@ -7408,7 +7498,7 @@ sub_5C894:
         add esi, 108h
         mov ebx, edx
         inc ecx
-        call sub_5BCCC
+        call ReplayRegisterStates
         cmp ecx, byte 10h
         jl short .1
         mov ebx, 390h
@@ -7416,7 +7506,7 @@ sub_5C894:
         mov esi, hmtmstruct
         mov edx, ebx
         xor ecx, ecx
-        call sub_5BCCC
+        call ReplayRegisterStates
         add esi, 0FCh
 .2:
         imul eax, ecx, dword 10Ch
@@ -7426,7 +7516,7 @@ sub_5C894:
         add esi, 10Ch
         mov ebx, edx
         inc ecx
-        call sub_5BCCC
+        call ReplayRegisterStates
         cmp ecx, byte 2
         jl short .2
         mov ebx, 34h
@@ -7434,25 +7524,25 @@ sub_5C894:
         mov ecx, unk_1B9520
         mov edx, ebx
         mov edi, 3Ch
-        call sub_5BCCC
+        call ReplayRegisterStates
         lea esi, [dword ecx+03C0h]
 .3:
         mov ebx, edi
         mov edx, edi
         mov eax, ecx
         add ecx, byte 3Ch
-        call sub_5BCCC
+        call ReplayRegisterStates
         cmp ecx, esi
         jne short .3
         mov ebx, 284h
         mov eax, kaufmfont
         mov edx, ebx
-        call sub_5BCCC
+        call ReplayRegisterStates
         cmp dword [dword_16B724], byte 0
         je short .4
         mov eax, dword [dword_1B8F60]
         inc eax
-        mov dword [nosplit eax*4+dword_1B89D4], sub_5C764
+        mov dword [nosplit eax*4+dword_1B89D4], ReplayRestoreObjects
         mov dword [dword_1B8F60], eax
 .4:
         pop edi
@@ -7463,9 +7553,10 @@ sub_5C894:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5C974                                                       5C974  97 PC
+; SaveReplayHeader                                5C974  97 PC, low confidence
+; Writes the replay header to the file
 ;-----------------------------------------------------------------------------
-sub_5C974:
+SaveReplayHeader:
         push ebx
         push ecx
         push esi
@@ -7579,9 +7670,10 @@ sub_5C974:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5CAB0                                                       5CAB0  97 PC
+; LoadReplayHeader                                5CAB0  97 PC, low confidence
+; Reads the replay header from the file
 ;-----------------------------------------------------------------------------
-sub_5CAB0:
+LoadReplayHeader:
         push ebx
         push edx
         mov ebx, 1E7h
@@ -7594,9 +7686,10 @@ sub_5CAB0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5CACC                                                       5CACC  97 PC
+; LoadReplayData                                  5CACC  97 PC, low confidence
+; Reads the replay frames from the file
 ;-----------------------------------------------------------------------------
-sub_5CACC:
+LoadReplayData:
         push ebx
         push ecx
         push edx
@@ -7736,9 +7829,10 @@ sub_5CACC:
         ret
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_5CCC0                                                       5CCC0  97 PC
+; FreeReplayMem                                   5CCC0  97 PC, low confidence
+; Frees the memory used by a loaded replay
 ;-----------------------------------------------------------------------------
-sub_5CCC0:
+FreeReplayMem:
         push ebx
         push ecx
         push edx
@@ -7802,9 +7896,10 @@ AllocSpriteBuffers:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5CD68                                                       5CD68  97 PC
+; MarkPaletteDirty                                5CD68  97 PC, low confidence
+; Marks the palette for reloading
 ;-----------------------------------------------------------------------------
-sub_5CD68:
+MarkPaletteDirty:
         push edx
         cmp dword [dword_1B9028], byte 0
         je short .2
@@ -7820,9 +7915,10 @@ sub_5CD68:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5CD90                                                       5CD90  97 PC
+; BeginOffscreenRender                            5CD90  97 PC, low confidence
+; Switches drawing to an offscreen bitmap
 ;-----------------------------------------------------------------------------
-sub_5CD90:
+BeginOffscreenRender:
         push ebx
         push ecx
         push esi
@@ -8123,9 +8219,10 @@ sub_5CD90:
         ret 0Ch
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5D100                                                       5D100  97 PC
+; SavePortraitCamera                              5D100  97 PC, low confidence
+; Saves the camera before a portrait render
 ;-----------------------------------------------------------------------------
-sub_5D100:
+SavePortraitCamera:
         push ecx
         push esi
         push edi
@@ -8226,9 +8323,10 @@ sub_5D100:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5D1E0                                                       5D1E0  97 PC
+; RestorePortraitCamera                           5D1E0  97 PC, low confidence
+; Restores the camera after a portrait render
 ;-----------------------------------------------------------------------------
-sub_5D1E0:
+RestorePortraitCamera:
         push ecx
         push esi
         push edi
@@ -8270,9 +8368,10 @@ sub_5D1E0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5D23C                                                       5D23C  97 PC
+; EndOffscreenRender                              5D23C  97 PC, low confidence
+; Switches drawing back to the screen
 ;-----------------------------------------------------------------------------
-sub_5D23C:
+EndOffscreenRender:
         push ecx
         push edx
         fld dword [dword_1B9018]
@@ -8297,9 +8396,10 @@ sub_5D23C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5D294                                                       5D294  97 PC
+; SetPortraitProjection                           5D294  97 PC, low confidence
+; Sets the projection used for portraits
 ;-----------------------------------------------------------------------------
-sub_5D294:
+SetPortraitProjection:
         push ebx
         push ecx
         push esi
@@ -8338,9 +8438,10 @@ sub_5D294:
         ret 4
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_5D2F0                                                       5D2F0  97 PC
+; CameraSplinePoint                               5D2F0  97 PC, low confidence
+; Camera motion: point on the camera spline
 ;-----------------------------------------------------------------------------
-sub_5D2F0:
+CameraSplinePoint:
         push ebx
         push ecx
         push ebp
@@ -8462,9 +8563,10 @@ sub_5D2F0:
         pop edx
         ret 10h
 ;-----------------------------------------------------------------------------
-; sub_5D428                                                       5D428  97 PC
+; CameraLerpPoint                                 5D428  97 PC, low confidence
+; Camera motion: linear step toward the target point
 ;-----------------------------------------------------------------------------
-sub_5D428:
+CameraLerpPoint:
         push edx
         sub esp, byte 4
         mov edx, dword [eax]
@@ -8483,9 +8585,10 @@ sub_5D428:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5D454                                                       5D454  97 PC
+; CameraEasePoint                                 5D454  97 PC, low confidence
+; Camera motion: eased step toward the target point
 ;-----------------------------------------------------------------------------
-sub_5D454:
+CameraEasePoint:
         sub esp, byte 4
         fld dword [eax]
         fmul dword [dword_161B50]
@@ -8506,9 +8609,10 @@ sub_5D454:
         ret 4
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5D488                                                       5D488  97 PC
+; ResetCameraState                                5D488  97 PC, low confidence
+; Clears the camera state block
 ;-----------------------------------------------------------------------------
-sub_5D488:
+ResetCameraState:
         push edx
         mov edx, eax
         shl eax, 3
@@ -8590,9 +8694,10 @@ sub_5D488:
         pop edx
         ret 0Ch
 ;-----------------------------------------------------------------------------
-; sub_5D594                                                       5D594  97 PC
+; CopyCameraState                                 5D594  97 PC, low confidence
+; Copies the camera position and target into the work block
 ;-----------------------------------------------------------------------------
-sub_5D594:
+CopyCameraState:
         push ebx
         push ecx
         push edx
@@ -8615,9 +8720,10 @@ sub_5D594:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5D5DC                                                       5D5DC  97 PC
+; CameraSmoothStep                                5D5DC  97 PC, low confidence
+; Camera motion: smoothed step of position and target
 ;-----------------------------------------------------------------------------
-sub_5D5DC:
+CameraSmoothStep:
         push ebp
         mov ebp, esp
         sub esp, byte 10h
@@ -8694,9 +8800,10 @@ sub_5D5DC:
         ret 8
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5D6A8                                                       5D6A8  97 PC
+; SetCameraTarget                                 5D6A8  97 PC, low confidence
+; Sets where the camera moves to
 ;-----------------------------------------------------------------------------
-sub_5D6A8:
+SetCameraTarget:
         push ebx
         push ecx
         push ebp
@@ -8732,7 +8839,7 @@ sub_5D6A8:
         lea edx, [byte ebx+010h]
         fstp dword [byte ebx+018h]
         push dword [byte ebp+010h]
-        call sub_5D5DC
+        call CameraSmoothStep
         fild dword [byte ebx+020h]
         fld dword [nosplit ecx*4+dword_1B9097]
         fmul st1
@@ -8776,9 +8883,10 @@ sub_5D6A8:
         pop ebx
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_5D7A4                                                       5D7A4  97 PC
+; SetCameraPathTarget                             5D7A4  97 PC, low confidence
+; Sets a camera target reached along a path
 ;-----------------------------------------------------------------------------
-sub_5D7A4:
+SetCameraPathTarget:
         push ebx
         push ecx
         push esi
@@ -8800,7 +8908,7 @@ sub_5D7A4:
         add edi, eax
         mov eax, ebx
         push dword [dword ecx+dword_1B907B]
-        call sub_5D6A8
+        call SetCameraTarget
         mov byte [dword ebx+byte_1B9058], 3
         mov eax, dword_1B90B3
         add eax, ecx
@@ -8840,19 +8948,20 @@ sub_5D7A4:
         mov edx, ebx
         mov dword [dword_1B908B], eax
         mov eax, 3
-        call sub_5D7A4
+        call SetCameraPathTarget
         mov eax, 4
         mov edx, ebx
-        call sub_5D7A4
+        call SetCameraPathTarget
 .1:
         pop edx
         pop ebx
         ret 8
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5D878                                                       5D878  97 PC
+; SetCameraSplineTarget                           5D878  97 PC, low confidence
+; Sets a camera target reached along a spline
 ;-----------------------------------------------------------------------------
-sub_5D878:
+SetCameraSplineTarget:
         push ecx
         push esi
         mov ecx, eax
@@ -8861,17 +8970,17 @@ sub_5D878:
         push dword [edx]
         mov edx, eax
         xor eax, eax
-        call sub_5D6A8
+        call SetCameraTarget
         push dword [byte ebx+04h]
         mov eax, 1
         mov edx, ecx
         push dword [byte esi+04h]
-        call sub_5D6A8
+        call SetCameraTarget
         push dword [byte ebx+08h]
         mov eax, 2
         mov edx, ecx
         push dword [byte esi+08h]
-        call sub_5D6A8
+        call SetCameraTarget
         pop esi
         pop ecx
         ret
@@ -8883,12 +8992,12 @@ sub_5D878:
         mov edx, eax
         mov eax, 3
         push dword [byte esp+010h]
-        call sub_5D6A8
+        call SetCameraTarget
         push dword [byte esp+018h]
         mov eax, 4
         mov edx, ebx
         push dword [byte esp+018h]
-        call sub_5D6A8
+        call SetCameraTarget
         pop edx
         pop ebx
         ret 10h
@@ -8898,14 +9007,15 @@ sub_5D878:
         mov edx, eax
         mov eax, 6
         push dword [byte esp+0Ch]
-        call sub_5D6A8
+        call SetCameraTarget
         pop edx
         ret 4
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5D900                                                       5D900  97 PC
+; UpdateCameraMotion                              5D900  97 PC, low confidence
+; Moves the camera one frame toward its target
 ;-----------------------------------------------------------------------------
-sub_5D900:
+UpdateCameraMotion:
         push ebx
         push ecx
         push esi
@@ -8926,7 +9036,7 @@ sub_5D900:
         add edx, dword_1B905F
         mov eax, esi
         push dword [byte esp+030h]
-        call sub_5D5DC
+        call CameraSmoothStep
         cmp dword [byte esp+010h], byte 1
         jge short .2
         mov dword [byte esp+010h], 1
@@ -8972,7 +9082,7 @@ sub_5D900:
         mov edx, dword [byte esp+010h]
         mov dword [dword ecx+dword_1B907B], eax
         mov eax, edi
-        call sub_5D2F0
+        call CameraSplinePoint
         add esp, byte 18h
         pop ebp
         pop edi
@@ -8992,11 +9102,11 @@ sub_5D900:
         jl short .6
         mov eax, ebx
         push dword 3F800000h
-        call sub_5D428
+        call CameraLerpPoint
         push dword 3F800000h
         mov eax, ebx
         fstp dword [dword ecx+dword_1B905F]
-        call sub_5D454
+        call CameraEasePoint
         fmul dword [byte ebx+018h]
         mov ah, 1
         fstp dword [dword ecx+dword_1B9097]
@@ -9014,11 +9124,11 @@ sub_5D900:
         mov eax, ebx
         fstp dword [esp]
         push dword [esp]
-        call sub_5D428
+        call CameraLerpPoint
         push dword [esp]
         mov eax, ebx
         fstp dword [dword ecx+dword_1B905F]
-        call sub_5D454
+        call CameraEasePoint
         fmul dword [byte ebx+018h]
         fstp dword [dword ecx+dword_1B9097]
         add esp, byte 18h
@@ -9036,9 +9146,9 @@ sub_5D900:
         cmp eax, edx
         jle short .8
         mov eax, edi
-        call sub_5D2F0
+        call CameraSplinePoint
         mov eax, esi
-        call sub_5D594
+        call CopyCameraState
         fld dword [dword ecx+dword_1B90CF]
         fld dword [dword ecx+dword_1B90B3]
         mov eax, dword [byte esp+010h]
@@ -9050,7 +9160,7 @@ sub_5D900:
         mov edx, esi
         sub eax, edi
         push dword [byte esp+034h]
-        call sub_5D900
+        call UpdateCameraMotion
         add esp, byte 18h
         pop ebp
         pop edi
@@ -9061,7 +9171,7 @@ sub_5D900:
 .8:
         mov edx, eax
         mov eax, edi
-        call sub_5D2F0
+        call CameraSplinePoint
         fild dword [byte ebx+020h]
         fld1
         fdivrp
@@ -9110,11 +9220,11 @@ sub_5D900:
         fxch
         fstp dword [ebx]
         fstp dword [byte ebx+04h]
-        call sub_5D428
+        call CameraLerpPoint
         push dword [byte esp+04h]
         mov eax, ebx
         fstp dword [dword ecx+dword_1B905F]
-        call sub_5D454
+        call CameraEasePoint
         fmul dword [byte ebx+018h]
         mov eax, dword [byte esp+010h]
         fstp dword [dword ecx+dword_1B9097]
@@ -9134,7 +9244,7 @@ sub_5D900:
         fld dword [dword ecx+dword_1B905F]
         mov eax, esi
         fstp dword [dword ecx+dword_1B907B]
-        call sub_5D594
+        call CopyCameraState
         add esp, byte 18h
         pop ebp
         pop edi
@@ -9153,7 +9263,7 @@ sub_5D900:
         mov eax, esi
         fstp dword [dword ecx+dword_1B907B]
         fstp dword [dword ecx+dword_1B9097]
-        call sub_5D594
+        call CopyCameraState
 .11:
         add esp, byte 18h
         pop ebp
@@ -9164,9 +9274,10 @@ sub_5D900:
         ret 8
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5DC1C                                                       5DC1C  97 PC
+; SnapCamera                                      5DC1C  97 PC, low confidence
+; Puts the camera at its target at once
 ;-----------------------------------------------------------------------------
-sub_5DC1C:
+SnapCamera:
         push ecx
         push esi
         mov ecx, eax
@@ -9174,25 +9285,26 @@ sub_5DC1C:
         push ebx
         push dword [edx]
         xor edx, edx
-        call sub_5D900
+        call UpdateCameraMotion
         push ebx
         mov edx, 1
         mov eax, ecx
         push dword [byte esi+04h]
-        call sub_5D900
+        call UpdateCameraMotion
         push ebx
         mov edx, 2
         mov eax, ecx
         push dword [byte esi+08h]
-        call sub_5D900
+        call UpdateCameraMotion
         pop esi
         pop ecx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5DC50                                                       5DC50  97 PC
+; BuildCameraMatrix                               5DC50  97 PC, low confidence
+; Builds the camera matrix
 ;-----------------------------------------------------------------------------
-sub_5DC50:
+BuildCameraMatrix:
         push ebx
         push ecx
         push edx
@@ -9203,12 +9315,12 @@ sub_5DC50:
         push dword [byte esp+05Ch]
         mov edx, 3
         mov ecx, dword [byte esp+068h]
-        call sub_5D900
+        call UpdateCameraMotion
         push ecx
         mov edx, 4
         mov eax, ebx
         push dword [byte esp+060h]
-        call sub_5D900
+        call UpdateCameraMotion
         push dword [dword_1B906B]
         lea eax, [byte esp+04h]
         mov ebx, unk_1B92AB
@@ -9226,15 +9338,16 @@ sub_5DC50:
         ret 0Ch
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5DCBC                                                       5DCBC  97 PC
+; UpdateCameraProjection                          5DCBC  97 PC, low confidence
+; Updates the projection from the camera field of view
 ;-----------------------------------------------------------------------------
-sub_5DCBC:
+UpdateCameraProjection:
         push edx
         mov edx, dword [byte esp+0Ch]
         push edx
         mov edx, 6
         push dword [byte esp+0Ch]
-        call sub_5D900
+        call UpdateCameraMotion
         mov eax, dword [dword_1B9077]
         mov dword [dword_16B72C], eax
         pop edx
@@ -9291,9 +9404,10 @@ sub_5DCBC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5DD74                                                       5DD74  97 PC
+; ProjectRinkPoints                               5DD74  97 PC, low confidence
+; Projects the rink reference points to the screen
 ;-----------------------------------------------------------------------------
-sub_5DD74:
+ProjectRinkPoints:
         push ecx
         push esi
         sub esp, byte 0Ch
@@ -9387,62 +9501,64 @@ sub_5DD74:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5DE74                                                       5DE74  97 PC
+; InitCameraParams                                5DE74  97 PC, low confidence
+; Sets the starting camera parameters
 ;-----------------------------------------------------------------------------
-sub_5DE74:
+InitCameraParams:
         push edx
         xor edx, edx
 .1:
         mov eax, edx
         inc edx
-        call sub_5D594
+        call CopyCameraState
         cmp edx, byte 7
         jl short .1
         push dword 42C80000h
         push dword 3E4CCCCDh
         xor eax, eax
         push dword 40E00000h
-        call sub_5D488
+        call ResetCameraState
         push dword 42C80000h
         push dword 3E4CCCCDh
         mov eax, 1
         push dword 40E00000h
-        call sub_5D488
+        call ResetCameraState
         push dword 42C80000h
         push dword 3E4CCCCDh
         mov eax, 2
         push dword 40E00000h
-        call sub_5D488
+        call ResetCameraState
         push dword 3DA0D97Ch
         push dword 3E4CCCCDh
         mov eax, 3
         push dword 40E00000h
-        call sub_5D488
+        call ResetCameraState
         push dword 3DA0D97Ch
         push dword 3E4CCCCDh
         mov eax, 4
         push dword 40E00000h
-        call sub_5D488
+        call ResetCameraState
         push dword 3DA0D97Ch
         push dword 3E4CCCCDh
         mov eax, 5
         push dword 40E00000h
-        call sub_5D488
+        call ResetCameraState
         push dword 3D00ADFDh
         push dword 3E4CCCCDh
         mov eax, 6
         push dword 40E00000h
         mov edx, 3F060A92h
-        call sub_5D488
+        call ResetCameraState
         mov dword [dword_1B9093], edx
         mov dword [dword_1B9077], edx
         pop edx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_5DF50                                                       5DF50  97 PC
+; GetStickBladePos                                5DF50  97 PC, low confidence
+; Returns the position of a player's stick blade
 ;-----------------------------------------------------------------------------
-sub_5DF50:
+GetStickBladePos:
         push edx
         push ebp
         mov ebp, esp
@@ -9469,9 +9585,10 @@ sub_5DF50:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5DF90                                                       5DF90  97 PC
+; PlaySkateSounds                                 5DF90  97 PC, low confidence
+; Plays the skate sounds of a moving player
 ;-----------------------------------------------------------------------------
-sub_5DF90:
+PlaySkateSounds:
         push ebx
         push ecx
         push edx
@@ -9666,20 +9783,21 @@ sub_5DF90:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5E1B0                                                       5E1B0  97 PC
+; MovePlayer                                      5E1B0  97 PC, low confidence
+; Moves a player by its velocity for one frame
 ;-----------------------------------------------------------------------------
-sub_5E1B0:
+MovePlayer:
         push ebx
         push ecx
         push edx
         push esi
         mov ebx, eax
-        call sub_5DF90
+        call PlaySkateSounds
         cmp byte [dword ebx+0A4h], 0Ch
         ja short .5
         mov eax, ebx
         mov ecx, SortCords
-        call sub_6D4AC
+        call PlayerCollisions
         xor esi, esi
 .1:
         xor eax, eax
@@ -9708,16 +9826,17 @@ sub_5E1B0:
         mov ax, word [byte ebx+0Eh]
         mov word [byte ebx+054h], ax
         mov eax, ebx
-        call sub_660F0
+        call PuckHeightAt
         pop esi
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5E224                                                       5E224  97 PC
+; PuckOnStickPhysics                              5E224  97 PC, low confidence
+; Keeps the puck on a skating player's stick
 ;-----------------------------------------------------------------------------
-sub_5E224:
+PuckOnStickPhysics:
         push ebx
         push ecx
         push edx
@@ -10279,13 +10398,14 @@ sub_5E224:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5E7D8                                                       5E7D8  97 PC
+; PuckOnStickFromState                            5E7D8  97 PC, low confidence
+; Keeps the puck on the stick using the saved stick state
 ;-----------------------------------------------------------------------------
-sub_5E7D8:
+PuckOnStickFromState:
         push ebx
         push edx
         sub esp, byte 4
-        call sub_5E224
+        call PuckOnStickPhysics
         mov ebx, dword [nosplit eax*4+dword_1BF07C]
         mov edx, eax
         xor eax, eax
@@ -10305,9 +10425,10 @@ sub_5E7D8:
         pop ebx
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_5E81C                                                       5E81C  97 PC
+; StickHandleTarget                               5E81C  97 PC, low confidence
+; Works out where the stick carries the puck
 ;-----------------------------------------------------------------------------
-sub_5E81C:
+StickHandleTarget:
         push ebx
         push ecx
         push edx
@@ -10419,15 +10540,16 @@ sub_5E81C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5E934                                                       5E934  97 PC
+; StickHandleScaled                               5E934  97 PC, low confidence
+; Stick handling with a scaled reach
 ;-----------------------------------------------------------------------------
-sub_5E934:
+StickHandleScaled:
         push ebx
         push ebp
         mov ebp, esp
         sub esp, byte 4
         and esp, byte 0FFFFFFF8h
-        call sub_5E81C
+        call StickHandleTarget
         mov ebx, eax
         shl eax, 3
         sub eax, ebx
@@ -10456,9 +10578,10 @@ sub_5E934:
         pop ebx
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_5E998                                                       5E998  97 PC
+; StickHandleSpeed                                5E998  97 PC, low confidence
+; Stick handling speed factor for the player
 ;-----------------------------------------------------------------------------
-sub_5E998:
+StickHandleSpeed:
         push eax
         push edx
         push ebp
@@ -10492,9 +10615,10 @@ sub_5E998:
         ret 8
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5E9F0                                                       5E9F0  97 PC
+; IsSkateAnim                                     5E9F0  97 PC, low confidence
+; Returns whether the current animation is a skating one
 ;-----------------------------------------------------------------------------
-sub_5E9F0:
+IsSkateAnim:
         cmp eax, byte 45h
         jne short .1
         cmp eax, byte 47h
@@ -10547,9 +10671,10 @@ sub_5E9F0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5EA78                                                       5EA78  97 PC
+; IsStopAnim                                      5EA78  97 PC, low confidence
+; Returns whether the current animation is a stop
 ;-----------------------------------------------------------------------------
-sub_5EA78:
+IsStopAnim:
         cmp eax, byte 11h
         jl short .1
         cmp eax, byte 17h
@@ -10615,9 +10740,10 @@ sub_5EA78:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5EB14                                                       5EB14  97 PC
+; StartCheckedAnim                                5EB14  97 PC, low confidence
+; Starts an animation if the player may change animation
 ;-----------------------------------------------------------------------------
-sub_5EB14:
+StartCheckedAnim:
         push ecx
         push esi
         push edi
@@ -10650,7 +10776,7 @@ sub_5EB14:
         xor esi, esi
 .4:
         mov eax, esi
-        call sub_5E9F0
+        call IsSkateAnim
         test eax, eax
         je short .5
         mov eax, dword [dword ecx+0EEh]
@@ -10661,7 +10787,7 @@ sub_5EB14:
         and byte [byte eax+031h], 0FEh
 .6:
         mov eax, esi
-        call sub_5EA78
+        call IsStopAnim
         test eax, eax
         je short .7
         mov eax, dword [dword ecx+0EEh]
@@ -10711,7 +10837,7 @@ sub_5EB14:
         mov ebx, 5
 .14:
         mov eax, dword [dword ecx+0F6h]
-        call sub_773C0
+        call ChangeAnim
 .15:
         pop edi
         pop esi
@@ -10719,9 +10845,10 @@ sub_5EB14:
         ret 0Ch
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5EC50                                                       5EC50  97 PC
+; StartNextMove                                   5EC50  97 PC, low confidence
+; Starts the move that follows the current one
 ;-----------------------------------------------------------------------------
-sub_5EC50:
+StartNextMove:
         push ecx
         push esi
         push edi
@@ -10741,7 +10868,7 @@ sub_5EC50:
         mov byte [dword ecx+0BFh], ah
 .2:
         mov eax, esi
-        call sub_5EA78
+        call IsStopAnim
         test eax, eax
         je short .3
         mov eax, dword [dword ecx+0EEh]
@@ -10752,7 +10879,7 @@ sub_5EC50:
         and byte [byte eax+031h], 0F7h
 .4:
         mov eax, esi
-        call sub_5E9F0
+        call IsSkateAnim
         test eax, eax
         je short .5
         mov eax, dword [dword ecx+0EEh]
@@ -10811,7 +10938,7 @@ sub_5EC50:
         or dword [byte edx+0Ch], ebx
 .12:
         mov eax, dword [dword ecx+0F6h]
-        call sub_772B8
+        call StartAnimNow
         pop edi
         pop esi
         pop ecx
@@ -10852,7 +10979,7 @@ SetSPA:
         xor ecx, ecx
 .2:
         mov eax, ecx
-        call sub_5E9F0
+        call IsSkateAnim
         test eax, eax
         je short .3
         mov eax, dword [dword esi+0EEh]
@@ -10863,7 +10990,7 @@ SetSPA:
         and byte [byte eax+031h], 0FEh
 .4:
         mov eax, ecx
-        call sub_5EA78
+        call IsStopAnim
         test eax, eax
         je short .5
         mov eax, dword [dword esi+0EEh]
@@ -10926,11 +11053,11 @@ SetSPA:
         mov ebx, 4
 .13:
         mov eax, dword [dword esi+0F6h]
-        call sub_773C0
+        call ChangeAnim
         jmp short .15
 .14:
         mov eax, ebx
-        call sub_7724C
+        call StartAnim
 .15:
         add esp, byte 8
         pop ebp
@@ -10939,9 +11066,10 @@ SetSPA:
         pop ecx
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_5EEEC                                                       5EEEC  97 PC
+; SetSPAInPlace                                   5EEEC  97 PC, low confidence
+; Sets an animation without moving the player
 ;-----------------------------------------------------------------------------
-sub_5EEEC:
+SetSPAInPlace:
         push ecx
         push esi
         push edi
@@ -10960,7 +11088,7 @@ sub_5EEEC:
         xor esi, esi
 .1:
         mov eax, esi
-        call sub_5E9F0
+        call IsSkateAnim
         test eax, eax
         je short .2
         mov eax, dword [dword ecx+0EEh]
@@ -10971,7 +11099,7 @@ sub_5EEEC:
         and byte [byte eax+031h], 0FEh
 .3:
         mov eax, esi
-        call sub_5EA78
+        call IsStopAnim
         test eax, eax
         je short .4
         mov eax, dword [dword ecx+0EEh]
@@ -11027,7 +11155,7 @@ sub_5EEEC:
         or dword [byte edx+0Ch], ebx
 .10:
         mov eax, dword [dword ecx+0F6h]
-        call sub_772B8
+        call StartAnimNow
         pop ebp
         pop edi
         pop esi
@@ -11035,9 +11163,10 @@ sub_5EEEC:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5F018                                                       5F018  97 PC
+; GoalieReadShot                                  5F018  97 PC, low confidence
+; Goalie AI: reads the shot and picks the save position
 ;-----------------------------------------------------------------------------
-sub_5F018:
+GoalieReadShot:
         push ebx
         push ecx
         push edx
@@ -12076,9 +12205,10 @@ sub_5F018:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5FE2C                                                       5FE2C  97 PC
+; GoalieAngle                                     5FE2C  97 PC, low confidence
+; Goalie AI: angle to the puck
 ;-----------------------------------------------------------------------------
-sub_5FE2C:
+GoalieAngle:
         push ebx
         push ecx
         push edx
@@ -12281,9 +12411,10 @@ sub_5FE2C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_60078                                                       60078  97 PC
+; GoalieCoverPost                                 60078  97 PC, low confidence
+; Goalie AI: covers the post
 ;-----------------------------------------------------------------------------
-sub_60078:
+GoalieCoverPost:
         push ebx
         push ecx
         push edx
@@ -12440,9 +12571,10 @@ sub_60078:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_6023C                                                       6023C  97 PC
+; GoalieAI                                        6023C  97 PC, low confidence
+; Goalie AI for one frame
 ;-----------------------------------------------------------------------------
-sub_6023C:
+GoalieAI:
         push ebx
         push ecx
         push edx
@@ -12526,13 +12658,13 @@ sub_6023C:
         test ah, 8
         je short .7
         mov eax, ebx
-        call sub_5FE2C
+        call GoalieAngle
         jmp short .8
 .7:
         test ah, 10h
         je short .8
         mov eax, ebx
-        call sub_60078
+        call GoalieCoverPost
 .8:
         fld dword [byte edx+010h]
         fsub dword [byte ebx+040h]
@@ -12621,7 +12753,7 @@ sub_6023C:
         ret
 .17:
         mov eax, ebx
-        call sub_5F018
+        call GoalieReadShot
         fld dword [byte ecx+010h]
         fmul qword [qword_162BE3]
         fmul qword [qword_162BEB]
@@ -12764,7 +12896,7 @@ sub_6023C:
         test byte [byte edx+030h], 8
         je short .32
         mov eax, ebx
-        call sub_5FE2C
+        call GoalieAngle
 .32:
         test esi, esi
         jne short .33
@@ -12849,9 +12981,10 @@ sub_6023C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_60710                                                       60710  97 PC
+; TurnRateForSpeed                                60710  97 PC, low confidence
+; Returns the turn rate allowed at the player's speed
 ;-----------------------------------------------------------------------------
-sub_60710:
+TurnRateForSpeed:
         push edx
         push ebp
         mov ebp, esp
@@ -12893,9 +13026,10 @@ sub_60710:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_6077C                                                       6077C  97 PC
+; UpdateGoalie                                    6077C  97 PC, low confidence
+; Moves and animates the goalie
 ;-----------------------------------------------------------------------------
-sub_6077C:
+UpdateGoalie:
         push ebx
         push ecx
         push edx
@@ -12949,7 +13083,7 @@ sub_6077C:
         jmp near .31
 .3:
         mov eax, ebx
-        call sub_6023C
+        call GoalieAI
         test byte [dword ebx+0C0h], 1
         jne near .31
         mov dword [byte edx+01Ch], 1
@@ -12982,9 +13116,9 @@ sub_6077C:
         mov dword [byte ebx+038h], 0
         or byte [byte ecx+031h], 8
         mov eax, ebx
-        call sub_6023C
+        call GoalieAI
         mov eax, ebx
-        call sub_60F48
+        call PickSkateAnim
 .6:
         mov dword [byte edx+01Ch], 2
         mov esp, ebp
@@ -13075,9 +13209,9 @@ sub_6077C:
         mov dword [byte ebx+038h], 0
         and byte [byte ecx+031h], 0F7h
         mov eax, ebx
-        call sub_6023C
+        call GoalieAI
         mov eax, ebx
-        call sub_60F48
+        call PickSkateAnim
 .12:
         mov dword [byte edx+01Ch], 2
         mov esp, ebp
@@ -13311,11 +13445,11 @@ sub_6077C:
         mov eax, dword [byte ebx+038h]
         mov dword [byte esp+08h], eax
         mov eax, ebx
-        call sub_5E81C
+        call StickHandleTarget
         push eax
         push dword [byte esp+0Ch]
         mov ecx, eax
-        call sub_5E998
+        call StickHandleSpeed
         mov esi, ecx
         shl ecx, 3
         fstp dword [byte esp+010h]
@@ -13408,9 +13542,10 @@ sub_6077C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_60D28                                                       60D28  97 PC
+; GoalieTick                                      60D28  97 PC, low confidence
+; Runs the goalie and animation clock for one frame
 ;-----------------------------------------------------------------------------
-sub_60D28:
+GoalieTick:
         push ebx
         push ecx
         push edx
@@ -13420,9 +13555,9 @@ sub_60D28:
         mov ecx, eax
         mov eax, ebx
         mov esi, dword [dword_16E408]
-        call sub_6077C
+        call UpdateGoalie
         mov eax, dword [dword ebx+0F6h]
-        call sub_76FB4
+        call AnimClockTick
         rdtsc
         sub eax, ecx
         mov edx, dword [dword_16E408]
@@ -13438,18 +13573,20 @@ sub_60D28:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_60D6C                                                       60D6C  97 PC
+; ResetAnimTimer                                  60D6C  97 PC, low confidence
+; Resets a player's animation timer
 ;-----------------------------------------------------------------------------
-sub_60D6C:
+ResetAnimTimer:
         mov dword [byte eax+04h], 3F800000h
         mov dword [byte eax+0Ch], 0
         mov dword [byte eax+08h], 0
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_60D84                                                       60D84  97 PC
+; PickIdleAnim                                    60D84  97 PC, low confidence
+; Picks the idle animation for a player
 ;-----------------------------------------------------------------------------
-sub_60D84:
+PickIdleAnim:
         push ebx
         push ecx
         push edx
@@ -13610,9 +13747,10 @@ sub_60D84:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_60F48                                                       60F48  97 PC
+; PickSkateAnim                                   60F48  97 PC, low confidence
+; Picks the skating animation for a player
 ;-----------------------------------------------------------------------------
-sub_60F48:
+PickSkateAnim:
         push ebx
         push ecx
         push edx
@@ -13879,9 +14017,10 @@ sub_60F48:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_612E4                                                       612E4  97 PC
+; EndMove                                         612E4  97 PC, low confidence
+; Ends the current move
 ;-----------------------------------------------------------------------------
-sub_612E4:
+EndMove:
         push edx
         push ebp
         mov ebp, esp
@@ -13936,22 +14075,23 @@ sub_612E4:
         ja short .5
 .4:
         mov eax, edx
-        call sub_60F48
+        call PickSkateAnim
         mov esp, ebp
         pop ebp
         pop edx
         ret
 .5:
         mov eax, edx
-        call sub_60D84
+        call PickIdleAnim
         mov esp, ebp
         pop ebp
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_613AC                                                       613AC  97 PC
+; AdvanceMoveAnim                                 613AC  97 PC, low confidence
+; Advances the move's animation one frame
 ;-----------------------------------------------------------------------------
-sub_613AC:
+AdvanceMoveAnim:
         push ebx
         push ecx
         push esi
@@ -13961,7 +14101,7 @@ sub_613AC:
         mov edx, dword [dword edx+0F2h]
         mov ebx, esi
         mov edx, dword [byte edx+054h]
-        call sub_76A1C
+        call UpdateMovePose
         mov edx, dword [byte ecx+010h]
         cmp edx, 3F800000h
         je short .1
@@ -13983,9 +14123,10 @@ sub_613AC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_613F8                                                       613F8  97 PC
+; ApplyMoveMotion                                 613F8  97 PC, low confidence
+; Applies the move's motion to the player
 ;-----------------------------------------------------------------------------
-sub_613F8:
+ApplyMoveMotion:
         push ebx
         push ecx
         push esi
@@ -13997,7 +14138,7 @@ sub_613F8:
         mov edx, dword [byte eax+02Ch]
         mov eax, edx
         mov ecx, dword [dword edx+0FAh]
-        call sub_5DF50
+        call GetStickBladePos
         mov esi, dword [byte ecx+0Ch]
         fstp dword [esp]
         test esi, 7FFFFFFFh
@@ -14094,21 +14235,23 @@ sub_613F8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_6152C                                                       6152C  97 PC
+; StepMove                                        6152C  97 PC, low confidence
+; Steps a move one frame
 ;-----------------------------------------------------------------------------
-sub_6152C:
+StepMove:
         push ebx
         mov ebx, dword [byte eax+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, ebx
-        call sub_5E1B0
+        call MovePlayer
         pop ebx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_61540                                                       61540  97 PC
+; HoldPoseMove                                    61540  97 PC, low confidence
+; Move handler that keeps the player in place until the animation ends
 ;-----------------------------------------------------------------------------
-sub_61540:
+HoldPoseMove:
         push ebx
         push ecx
         push edx
@@ -14123,14 +14266,14 @@ sub_61540:
         and bl, 0FEh
         mov eax, ecx
         mov byte [byte edx+031h], bl
-        call sub_612E4
+        call EndMove
         jmp short .3
 .1:
         mov edx, dword [dword eax+0F2h]
         mov ebx, esp
         mov eax, ecx
         mov edx, dword [byte edx+054h]
-        call sub_76A1C
+        call UpdateMovePose
         mov edx, dword [byte ecx+010h]
         cmp edx, 3F800000h
         je short .2
@@ -14151,9 +14294,9 @@ sub_61540:
         mov edx, esp
         mov eax, ecx
         mov ebx, dword [byte ecx+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, ebx
-        call sub_5E1B0
+        call MovePlayer
 .3:
         add esp, byte 0Ch
         pop edx
@@ -14162,9 +14305,10 @@ sub_61540:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_615D0                                                       615D0  97 PC
+; SteerTowardTarget                               615D0  97 PC, low confidence
+; Turns the player toward its target
 ;-----------------------------------------------------------------------------
-sub_615D0:
+SteerTowardTarget:
         push ebx
         push ecx
         push esi
@@ -14181,7 +14325,7 @@ sub_615D0:
         mov dword [byte esp+0Ch], eax
         mov eax, ebx
         mov dword [byte esp+04h], edi
-        call sub_5DF50
+        call GetStickBladePos
         mov ebp, dword [byte edx+018h]
         fstp dword [byte esp+08h]
         test ebp, 7FFFFFFFh
@@ -14215,7 +14359,7 @@ sub_615D0:
         sahf
         jbe short .2
         mov eax, ebx
-        call sub_60710
+        call TurnRateForSpeed
         fadd dword [byte ebx+038h]
         fadd dword [esp]
         fcomp dword [byte edx+018h]
@@ -14251,7 +14395,7 @@ sub_615D0:
         cmp dword [byte edx+018h], 43700000h
         jg short .3
         mov eax, ebx
-        call sub_60710
+        call TurnRateForSpeed
         fadd dword [byte ebx+038h]
         fadd dword [byte esp+04h]
         fcomp dword [byte edx+018h]
@@ -14307,9 +14451,10 @@ sub_615D0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_61764                                                       61764  97 PC
+; ApplySkateAccel                                 61764  97 PC, low confidence
+; Speeds the player up toward its skating speed
 ;-----------------------------------------------------------------------------
-sub_61764:
+ApplySkateAccel:
         push ebx
         push ecx
         sub esp, byte 10h
@@ -14365,25 +14510,27 @@ sub_61764:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_617EC                                                       617EC  97 PC
+; SteerAndAccel                                   617EC  97 PC, low confidence
+; Turns toward the target and speeds up
 ;-----------------------------------------------------------------------------
-sub_617EC:
+SteerAndAccel:
         push ebx
         push ecx
         mov ebx, eax
         mov ecx, edx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, ecx
         mov eax, ebx
-        call sub_615D0
+        call SteerTowardTarget
         pop ecx
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_61804                                                       61804  97 PC
+; PickTurnAnim                                    61804  97 PC, low confidence
+; Picks a turning animation
 ;-----------------------------------------------------------------------------
-sub_61804:
+PickTurnAnim:
         push ebx
         push ecx
         push edx
@@ -14690,9 +14837,10 @@ sub_61804:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_61BF8                                                       61BF8  97 PC
+; PickStopAnim                                    61BF8  97 PC, low confidence
+; Picks a stopping animation
 ;-----------------------------------------------------------------------------
-sub_61BF8:
+PickStopAnim:
         push ebx
         push ecx
         push edx
@@ -14954,9 +15102,10 @@ sub_61BF8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_61F78                                                       61F78  97 PC
+; PickCrossoverAnim                               61F78  97 PC, low confidence
+; Picks a crossover animation from the turn
 ;-----------------------------------------------------------------------------
-sub_61F78:
+PickCrossoverAnim:
         push ebx
         push ecx
         push edx
@@ -14971,7 +15120,7 @@ sub_61F78:
         mov esi, dword [byte eax+028h]
         mov eax, ecx
         and esi, 0FFFFh
-        call sub_61804
+        call PickTurnAnim
         test eax, eax
         jne near .11
         cmp byte [dword ecx+0D0h], 0
@@ -15075,9 +15224,10 @@ sub_61F78:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_6211C                                                       6211C  97 PC
+; PickGlideAnim                                   6211C  97 PC, low confidence
+; Picks a glide animation
 ;-----------------------------------------------------------------------------
-sub_6211C:
+PickGlideAnim:
         push ebx
         push ecx
         push edx
@@ -15254,9 +15404,10 @@ sub_6211C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_62340                                                       62340  97 PC
+; PickStrideAnim                                  62340  97 PC, low confidence
+; Picks the stride animation from the speed
 ;-----------------------------------------------------------------------------
-sub_62340:
+PickStrideAnim:
         push ebx
         push ecx
         push edx
@@ -15272,7 +15423,7 @@ sub_62340:
         mov edi, dword [byte eax+028h]
         mov eax, ecx
         mov edx, dword [dword ecx+0FAh]
-        call sub_5E81C
+        call StickHandleTarget
         fld dword [byte edx+014h]
         mov esi, eax
         fabs
@@ -15389,9 +15540,10 @@ sub_62340:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_624D0                                                       624D0  97 PC
+; PickForwardTurn                                 624D0  97 PC, low confidence
+; Picks the forward turning animation from the angle to the target
 ;-----------------------------------------------------------------------------
-sub_624D0:
+PickForwardTurn:
         push ebx
         push ecx
         push edx
@@ -15542,9 +15694,10 @@ sub_624D0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_626BC                                                       626BC  97 PC
+; PickBackwardTurn                                626BC  97 PC, low confidence
+; Picks the backward turning animation from the angle to the target
 ;-----------------------------------------------------------------------------
-sub_626BC:
+PickBackwardTurn:
         push ebx
         push ecx
         push edx
@@ -15695,17 +15848,18 @@ sub_626BC:
         ret
         db 08Dh,040h,00h
 jpt_628A8:
-        dd sub_628C4_240
-        dd sub_628C4_260
-        dd sub_628C4_250
-        dd sub_628C4_220
-        dd sub_628C4_240
-        dd sub_628C4_260
-        dd sub_628C4_230
+        dd GlideForwardMove_240
+        dd GlideForwardMove_260
+        dd GlideForwardMove_250
+        dd GlideForwardMove_220
+        dd GlideForwardMove_240
+        dd GlideForwardMove_260
+        dd GlideForwardMove_230
 ;-----------------------------------------------------------------------------
-; sub_628C4                                                       628C4  97 PC
+; GlideForwardMove                                628C4  97 PC, low confidence
+; Move handler for gliding forward
 ;-----------------------------------------------------------------------------
-sub_628C4:
+GlideForwardMove:
         push ebx
         push ecx
         push edx
@@ -15750,9 +15904,9 @@ sub_628C4:
         cmp edx, byte 33h
         je short .3
         mov eax, ecx
-        call sub_60D84
+        call PickIdleAnim
         test eax, eax
-        jne near sub_628C4_260.21
+        jne near GlideForwardMove_260.21
 .3:
         cmp edx, byte 5
         jne near .14
@@ -15876,17 +16030,17 @@ sub_628C4:
         fistp dword [byte esp+018h]
         mov ebx, dword [byte esp+018h]
         push dword [byte esp+01Ch]
-        call sub_5EC50
-        jmp near sub_628C4_260.21
+        call StartNextMove
+        jmp near GlideForwardMove_260.21
 .14:
         mov eax, dword [byte edi+01Ch]
         dec eax
         cmp eax, byte 6
-        ja short sub_628C4_260
+        ja short GlideForwardMove_260
         jmp dword [nosplit cs:eax*4+jpt_628A8]
-sub_628C4_220:
+GlideForwardMove_220:
         mov eax, ecx
-        call sub_62340
+        call PickStrideAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -15895,9 +16049,9 @@ sub_628C4_220:
         pop ecx
         pop ebx
         ret
-sub_628C4_230:
+GlideForwardMove_230:
         mov eax, ecx
-        call sub_624D0
+        call PickForwardTurn
         mov esp, ebp
         pop ebp
         pop edi
@@ -15906,9 +16060,9 @@ sub_628C4_230:
         pop ecx
         pop ebx
         ret
-sub_628C4_240:
+GlideForwardMove_240:
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -15917,9 +16071,9 @@ sub_628C4_240:
         pop ecx
         pop ebx
         ret
-sub_628C4_250:
+GlideForwardMove_250:
         mov eax, ecx
-        call sub_61F78
+        call PickCrossoverAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -15928,7 +16082,7 @@ sub_628C4_250:
         pop ecx
         pop ebx
         ret
-sub_628C4_260:
+GlideForwardMove_260:
         test byte [byte_19CBC2], 1
         je short .17
         test byte [dword ecx+0C0h], 10h
@@ -15960,7 +16114,7 @@ sub_628C4_260:
         call sub_56CD0
 .18:
         mov eax, esi
-        call sub_612E4
+        call EndMove
         mov esp, ebp
         pop ebp
         pop edi
@@ -15975,7 +16129,7 @@ sub_628C4_260:
         mov ebx, esp
         mov eax, esi
         mov edx, dword [byte edx+054h]
-        call sub_76A1C
+        call UpdateMovePose
         mov edi, dword [byte esi+010h]
         cmp edi, 3F800000h
         je short .20
@@ -15995,16 +16149,16 @@ sub_628C4_260:
 .20:
         mov edx, esp
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, esp
         mov eax, ecx
-        call sub_615D0
+        call SteerTowardTarget
         mov edx, esp
         mov eax, esi
         mov ebx, dword [byte esi+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, ebx
-        call sub_5E1B0
+        call MovePlayer
 .21:
         mov esp, ebp
         pop ebp
@@ -16015,9 +16169,10 @@ sub_628C4_260:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_62C14                                                       62C14  97 PC
+; LimitSkateSpeed                                 62C14  97 PC, low confidence
+; Keeps the player's speed under its limit
 ;-----------------------------------------------------------------------------
-sub_62C14:
+LimitSkateSpeed:
         push ebx
         push ecx
         push esi
@@ -16056,7 +16211,7 @@ sub_62C14:
         jmp short .4
 .2:
         mov eax, ebx
-        call sub_60710
+        call TurnRateForSpeed
         fadd dword [byte ebx+038h]
         fcomp dword [byte ecx+018h]
         fnstsw ax
@@ -16266,17 +16421,18 @@ sub_62C14:
         pop ebx
         ret
 jpt_62EF8:
-        dd sub_62F14_3E0
-        dd sub_62F14_A9
-        dd sub_62F14_3AE
-        dd sub_62F14_99
-        dd sub_62F14_41B
-        dd sub_62F14_41B
-        dd sub_62F14_89
+        dd SkateForwardMove_3E0
+        dd SkateForwardMove_A9
+        dd SkateForwardMove_3AE
+        dd SkateForwardMove_99
+        dd SkateForwardMove_41B
+        dd SkateForwardMove_41B
+        dd SkateForwardMove_89
 ;-----------------------------------------------------------------------------
-; sub_62F14                                                       62F14  97 PC
+; SkateForwardMove                                62F14  97 PC, low confidence
+; Move handler for skating forward
 ;-----------------------------------------------------------------------------
-sub_62F14:
+SkateForwardMove:
         push ebx
         push ecx
         push edx
@@ -16304,24 +16460,24 @@ sub_62F14:
         mov dword [byte esp+08h], eax
         mov eax, esi
         mov edi, dword [byte esi+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, edi
-        call sub_5E1B0
+        call MovePlayer
         cmp dword [byte ebx+024h], byte 1
-        jg near sub_62F14_41B.22
+        jg near SkateForwardMove_41B.22
         and byte [dword ecx+0BFh], 0DFh
-        jmp near sub_62F14_41B.22
+        jmp near SkateForwardMove_41B.22
 .1:
         test byte [byte_19CBCA], 1
-        jne near sub_62F14_41B.22
+        jne near SkateForwardMove_41B.22
         mov edx, dword [byte ebx+01Ch]
         dec edx
         cmp edx, byte 6
-        ja near sub_62F14_41B
+        ja near SkateForwardMove_41B
         jmp dword [nosplit cs:edx*4+jpt_62EF8]
-sub_62F14_89:
+SkateForwardMove_89:
         mov eax, ecx
-        call sub_624D0
+        call PickForwardTurn
         mov esp, ebp
         pop ebp
         pop edi
@@ -16330,9 +16486,9 @@ sub_62F14_89:
         pop ecx
         pop ebx
         ret
-sub_62F14_99:
+SkateForwardMove_99:
         mov eax, ecx
-        call sub_62340
+        call PickStrideAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -16341,15 +16497,15 @@ sub_62F14_99:
         pop ecx
         pop ebx
         ret
-sub_62F14_A9:
+SkateForwardMove_A9:
         mov eax, ecx
-        call sub_5E224
+        call PuckOnStickPhysics
         mov esi, eax
         mov edx, eax
         mov eax, dword [byte ecx+038h]
         mov dword [byte esp+018h], eax
         mov eax, ecx
-        call sub_5E224
+        call PuckOnStickPhysics
         mov edi, dword [nosplit eax*4+dword_1BF07C]
         mov dword [byte esp+030h], eax
         xor eax, eax
@@ -16384,11 +16540,11 @@ sub_62F14_A9:
         sahf
         jbe short .2
         mov eax, ecx
-        call sub_5E81C
+        call StickHandleTarget
         push eax
         push dword [byte esp+02Ch]
         mov esi, eax
-        call sub_5E998
+        call StickHandleSpeed
         mov eax, esi
         shl eax, 3
         fstp dword [byte esp+014h]
@@ -16444,7 +16600,7 @@ sub_62F14_A9:
         fsub dword [byte esp+02Ch]
         mov eax, edx
         fstp qword [byte esp+044h]
-        call sub_5EA78
+        call IsStopAnim
         test eax, eax
         je short .8
         mov esi, 5A7ED197h
@@ -16564,7 +16720,7 @@ sub_62F14_A9:
         ret
 .16:
         mov eax, ecx
-        call sub_60D84
+        call PickIdleAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -16573,13 +16729,13 @@ sub_62F14_A9:
         pop ecx
         pop ebx
         ret
-sub_62F14_3AE:
+SkateForwardMove_3AE:
         cmp dword [byte ebx+018h], 43C00000h
         jle short .17
         cmp dword [byte ecx+038h], 40C00000h
         jle short .17
         mov eax, ecx
-        call sub_61F78
+        call PickCrossoverAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -16590,7 +16746,7 @@ sub_62F14_3AE:
         ret
 .17:
         mov eax, ecx
-        call sub_6211C
+        call PickGlideAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -16599,18 +16755,18 @@ sub_62F14_3AE:
         pop ecx
         pop ebx
         ret
-sub_62F14_3E0:
+SkateForwardMove_3E0:
         cmp word [dword ecx+0A9h], byte 0
-        jne short sub_62F14_41B
+        jne short SkateForwardMove_41B
         test byte [byte_19CBC2], 1
-        je short sub_62F14_41B
+        je short SkateForwardMove_41B
         mov edx, dword [dword ecx+0EEh]
         test dword [byte edx+08h], 7FFFFFFFh
-        jne short sub_62F14_41B
+        jne short SkateForwardMove_41B
         test dword [byte ecx+038h], 7FFFFFFFh
-        jne short sub_62F14_41B
+        jne short SkateForwardMove_41B
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -16619,11 +16775,11 @@ sub_62F14_3E0:
         pop ecx
         pop ebx
         ret
-sub_62F14_41B:
+SkateForwardMove_41B:
         test byte [byte esi+01Ch], 80h
         je short .18
         mov eax, esi
-        call sub_612E4
+        call EndMove
         mov esp, ebp
         pop ebp
         pop edi
@@ -16657,7 +16813,7 @@ sub_62F14_41B:
         cmp eax, byte 37h
         je short .21
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -16669,13 +16825,13 @@ sub_62F14_41B:
 .21:
         mov edx, esp
         mov eax, ecx
-        call sub_62C14
+        call LimitSkateSpeed
         mov edx, esp
         mov eax, esi
         mov ebx, dword [byte esi+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, ebx
-        call sub_5E1B0
+        call MovePlayer
 .22:
         mov esp, ebp
         pop ebp
@@ -16687,18 +16843,19 @@ sub_62F14_41B:
         ret
         db 090h
 jpt_633C8:
-        dd sub_633E8_377
-        dd sub_633E8_51
-        dd sub_633E8_345
-        dd sub_633E8_41
-        dd sub_633E8_3B2
-        dd sub_633E8_3B2
-        dd sub_633E8_3B2
-        dd sub_633E8_31
+        dd SkateBackwardMove_377
+        dd SkateBackwardMove_51
+        dd SkateBackwardMove_345
+        dd SkateBackwardMove_41
+        dd SkateBackwardMove_3B2
+        dd SkateBackwardMove_3B2
+        dd SkateBackwardMove_3B2
+        dd SkateBackwardMove_31
 ;-----------------------------------------------------------------------------
-; sub_633E8                                                       633E8  97 PC
+; SkateBackwardMove                               633E8  97 PC, low confidence
+; Move handler for skating backward
 ;-----------------------------------------------------------------------------
-sub_633E8:
+SkateBackwardMove:
         push ebx
         push ecx
         push edx
@@ -16714,11 +16871,11 @@ sub_633E8:
         mov eax, dword [byte edx+01Ch]
         dec eax
         cmp eax, byte 7
-        ja near sub_633E8_3B2
+        ja near SkateBackwardMove_3B2
         jmp dword [nosplit cs:eax*4+jpt_633C8]
-sub_633E8_31:
+SkateBackwardMove_31:
         mov eax, ecx
-        call sub_626BC
+        call PickBackwardTurn
         mov esp, ebp
         pop ebp
         pop edi
@@ -16727,9 +16884,9 @@ sub_633E8_31:
         pop ecx
         pop ebx
         ret
-sub_633E8_41:
+SkateBackwardMove_41:
         mov eax, ecx
-        call sub_62340
+        call PickStrideAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -16738,15 +16895,15 @@ sub_633E8_41:
         pop ecx
         pop ebx
         ret
-sub_633E8_51:
+SkateBackwardMove_51:
         mov eax, ecx
-        call sub_5E224
+        call PuckOnStickPhysics
         mov edi, eax
         mov esi, eax
         mov eax, dword [byte ecx+038h]
         mov dword [byte esp+020h], eax
         mov eax, ecx
-        call sub_5E224
+        call PuckOnStickPhysics
         mov ebx, dword [nosplit eax*4+dword_1BF07C]
         mov dword [byte esp+014h], eax
         xor eax, eax
@@ -16780,11 +16937,11 @@ sub_633E8_51:
         sahf
         jbe short .1
         mov eax, ecx
-        call sub_5E81C
+        call StickHandleTarget
         push eax
         push dword [byte esp+03Ch]
         mov ebx, eax
-        call sub_5E998
+        call StickHandleSpeed
         mov eax, ebx
         shl ebx, 3
         fstp dword [byte esp+018h]
@@ -16835,7 +16992,7 @@ sub_633E8_51:
         fsub dword [byte esp+034h]
         mov eax, esi
         fstp qword [byte esp+05Ch]
-        call sub_5EA78
+        call IsStopAnim
         test eax, eax
         je short .6
         mov ebx, 5A7ED197h
@@ -16956,7 +17113,7 @@ sub_633E8_51:
         ret
 .14:
         mov eax, ecx
-        call sub_60D84
+        call PickIdleAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -16965,13 +17122,13 @@ sub_633E8_51:
         pop ecx
         pop ebx
         ret
-sub_633E8_345:
+SkateBackwardMove_345:
         cmp dword [byte edx+018h], 43C00000h
         jle short .15
         cmp dword [byte ecx+038h], 40C00000h
         jle short .15
         mov eax, ecx
-        call sub_61F78
+        call PickCrossoverAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -16982,7 +17139,7 @@ sub_633E8_345:
         ret
 .15:
         mov eax, ecx
-        call sub_6211C
+        call PickGlideAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -16991,18 +17148,18 @@ sub_633E8_345:
         pop ecx
         pop ebx
         ret
-sub_633E8_377:
+SkateBackwardMove_377:
         cmp word [dword ecx+0A9h], byte 0
-        jne short sub_633E8_3B2
+        jne short SkateBackwardMove_3B2
         test byte [byte_19CBC2], 1
-        je short sub_633E8_3B2
+        je short SkateBackwardMove_3B2
         mov eax, dword [dword ecx+0EEh]
         test dword [byte eax+08h], 7FFFFFFFh
-        jne short sub_633E8_3B2
+        jne short SkateBackwardMove_3B2
         test dword [byte ecx+038h], 7FFFFFFFh
-        jne short sub_633E8_3B2
+        jne short SkateBackwardMove_3B2
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -17011,11 +17168,11 @@ sub_633E8_377:
         pop ecx
         pop ebx
         ret
-sub_633E8_3B2:
+SkateBackwardMove_3B2:
         test byte [byte ebx+01Ch], 80h
         je short .16
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         mov esp, ebp
         pop ebp
         pop edi
@@ -17065,7 +17222,7 @@ sub_633E8_3B2:
         fistp dword [byte esp+028h]
         mov ebx, dword [byte esp+028h]
         push dword [byte esp+044h]
-        call sub_5EC50
+        call StartNextMove
         mov esp, ebp
         pop ebp
         pop edi
@@ -17077,13 +17234,13 @@ sub_633E8_3B2:
 .19:
         mov edx, esp
         mov eax, ecx
-        call sub_62C14
+        call LimitSkateSpeed
         mov edx, esp
         mov eax, ebx
         mov ecx, dword [byte ebx+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, ecx
-        call sub_5E1B0
+        call MovePlayer
         mov esp, ebp
         pop ebp
         pop edi
@@ -17094,9 +17251,10 @@ sub_633E8_3B2:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_63878                                                       63878  97 PC
+; TurnLeanAngle                                   63878  97 PC, low confidence
+; Works out the lean angle for a turn
 ;-----------------------------------------------------------------------------
-sub_63878:
+TurnLeanAngle:
         push ebx
         push ecx
         push edi
@@ -17195,9 +17353,10 @@ sub_63878:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_63980                                                       63980  97 PC
+; TurnStickPos                                    63980  97 PC, low confidence
+; Places the stick during a turn
 ;-----------------------------------------------------------------------------
-sub_63980:
+TurnStickPos:
         push ebx
         push ecx
         push edi
@@ -17207,7 +17366,7 @@ sub_63980:
         and esp, byte 0FFFFFFF8h
         mov ebx, dword [dword eax+0FAh]
         mov ecx, dword [byte eax+038h]
-        call sub_5DF50
+        call GetStickBladePos
         fldz
         fxch
         fstp dword [byte esp+08h]
@@ -17292,17 +17451,18 @@ sub_63980:
         pop ebx
         ret
 jpt_63A88:
-        dd sub_63AA4_51
-        dd sub_63AA4_61
-        dd sub_63AA4_71
-        dd sub_63AA4_41
-        dd sub_63AA4_C2
-        dd sub_63AA4_BC
-        dd sub_63AA4_31
+        dd TurnForwardMove_51
+        dd TurnForwardMove_61
+        dd TurnForwardMove_71
+        dd TurnForwardMove_41
+        dd TurnForwardMove_C2
+        dd TurnForwardMove_BC
+        dd TurnForwardMove_31
 ;-----------------------------------------------------------------------------
-; sub_63AA4                                                       63AA4  97 PC
+; TurnForwardMove                                 63AA4  97 PC, low confidence
+; Move handler for turning while skating forward
 ;-----------------------------------------------------------------------------
-sub_63AA4:
+TurnForwardMove:
         push ebx
         push ecx
         push edx
@@ -17317,11 +17477,11 @@ sub_63AA4:
         dec eax
         and edi, 0FFFFh
         cmp eax, byte 6
-        ja near sub_63AA4_BC
+        ja near TurnForwardMove_BC
         jmp dword [nosplit cs:eax*4+jpt_63A88]
-sub_63AA4_31:
+TurnForwardMove_31:
         mov eax, ecx
-        call sub_624D0
+        call PickForwardTurn
         add esp, byte 20h
         pop edi
         pop esi
@@ -17329,9 +17489,9 @@ sub_63AA4_31:
         pop ecx
         pop ebx
         ret
-sub_63AA4_41:
+TurnForwardMove_41:
         mov eax, ecx
-        call sub_62340
+        call PickStrideAnim
         add esp, byte 20h
         pop edi
         pop esi
@@ -17339,9 +17499,9 @@ sub_63AA4_41:
         pop ecx
         pop ebx
         ret
-sub_63AA4_51:
+TurnForwardMove_51:
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
         add esp, byte 20h
         pop edi
         pop esi
@@ -17349,9 +17509,9 @@ sub_63AA4_51:
         pop ecx
         pop ebx
         ret
-sub_63AA4_61:
+TurnForwardMove_61:
         mov eax, ecx
-        call sub_60D84
+        call PickIdleAnim
         add esp, byte 20h
         pop edi
         pop esi
@@ -17359,11 +17519,11 @@ sub_63AA4_61:
         pop ecx
         pop ebx
         ret
-sub_63AA4_71:
+TurnForwardMove_71:
         cmp dword [byte ecx+038h], 40C00000h
         jge short .1
         mov eax, ecx
-        call sub_6211C
+        call PickGlideAnim
         add esp, byte 20h
         pop edi
         pop esi
@@ -17382,20 +17542,20 @@ sub_63AA4_71:
         jg short .3
 .2:
         mov eax, ecx
-        call sub_61804
+        call PickTurnAnim
         jmp short .4
 .3:
         mov eax, ecx
-        call sub_61BF8
+        call PickStopAnim
 .4:
         test eax, eax
-        jne near sub_63AA4_C2.15
-sub_63AA4_BC:
+        jne near TurnForwardMove_C2.15
+TurnForwardMove_BC:
         test byte [byte esi+01Ch], 80h
-        je short sub_63AA4_C2.5
-sub_63AA4_C2:
+        je short TurnForwardMove_C2.5
+TurnForwardMove_C2:
         mov eax, esi
-        call sub_612E4
+        call EndMove
         add esp, byte 20h
         pop edi
         pop esi
@@ -17447,7 +17607,7 @@ sub_63AA4_C2:
         fistp dword [byte esp+014h]
         mov ebx, dword [byte esp+014h]
         push dword [byte esp+024h]
-        call sub_5EC50
+        call StartNextMove
         add esp, byte 20h
         pop edi
         pop esi
@@ -17475,7 +17635,7 @@ sub_63AA4_C2:
         fistp dword [byte esp+014h]
         mov ebx, dword [byte esp+014h]
         push dword [byte esp+01Ch]
-        call sub_5EC50
+        call StartNextMove
         add esp, byte 20h
         pop edi
         pop esi
@@ -17489,7 +17649,7 @@ sub_63AA4_C2:
         mov ebx, esp
         mov eax, esi
         mov edx, dword [byte edx+054h]
-        call sub_76A1C
+        call UpdateMovePose
         mov ebx, dword [byte esi+010h]
         cmp ebx, 3F800000h
         je short .11
@@ -17524,19 +17684,19 @@ sub_63AA4_C2:
 .12:
         mov edx, esp
         mov eax, ecx
-        call sub_63878
+        call TurnLeanAngle
         jmp short .14
 .13:
         mov edx, esp
         mov eax, ecx
-        call sub_63980
+        call TurnStickPos
 .14:
         mov edx, esp
         mov eax, esi
         mov ecx, dword [byte esi+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, ecx
-        call sub_5E1B0
+        call MovePlayer
 .15:
         add esp, byte 20h
         pop edi
@@ -17547,9 +17707,10 @@ sub_63AA4_C2:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_63D24                                                       63D24  97 PC
+; StopSkidDistance                                63D24  97 PC, low confidence
+; Works out how far a stopping player skids
 ;-----------------------------------------------------------------------------
-sub_63D24:
+StopSkidDistance:
         push esi
         push edi
         push ebp
@@ -17582,7 +17743,7 @@ sub_63D24:
         call hypot_
         mov eax, edi
         fstp dword [byte esp+0Ch]
-        call sub_656B7
+        call GetStopTable
         fst dword [byte esp+08h]
         fcomp dword [dword_162F23]
         fnstsw ax
@@ -17668,9 +17829,10 @@ sub_63D24:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_63E8C                                                       63E8C  97 PC
+; StopForwardMove                                 63E8C  97 PC, low confidence
+; Move handler for stopping from forward skating (plays the skid sound)
 ;-----------------------------------------------------------------------------
-sub_63E8C:
+StopForwardMove:
         push ebx
         push ecx
         push edx
@@ -17729,14 +17891,14 @@ sub_63E8C:
         sahf
         ja short .4
         mov eax, edi
-        call sub_60F48
+        call PickSkateAnim
         jmp near .16
 .4:
         test byte [byte esi+01Ch], 80h
         je short .5
         mov eax, edi
         mov dword [byte edi+038h], 0
-        call sub_60F48
+        call PickSkateAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -17751,7 +17913,7 @@ sub_63E8C:
         lea ebx, [byte ebp-024h]
         mov eax, esi
         mov edx, dword [byte edx+054h]
-        call sub_76A1C
+        call UpdateMovePose
         mov edx, dword [byte esi+010h]
         cmp edx, 3F800000h
         je short .6
@@ -17772,11 +17934,11 @@ sub_63E8C:
         lea edx, [byte ebp-024h]
         mov eax, edi
         mov ebx, dword [byte esi+04h]
-        call sub_63D24
+        call StopSkidDistance
         mov eax, dword [byte ebp-08h]
         push dword [byte eax+04h]
         mov eax, esi
-        call sub_76E04
+        call ScaleAnimTime
         cmp dword [byte esi+04h], byte 0Ah
         jne short .7
         mov eax, dword [byte ebp-08h]
@@ -17828,9 +17990,9 @@ sub_63E8C:
         lea edx, [byte ebp-024h]
         mov eax, esi
         mov edi, dword [byte esi+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, edi
-        call sub_5E1B0
+        call MovePlayer
 .16:
         mov esp, ebp
         pop ebp
@@ -17882,9 +18044,10 @@ sub_63E8C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_640D0                                                       640D0  97 PC
+; StandMove                                       640D0  97 PC, low confidence
+; Move handler for standing in place
 ;-----------------------------------------------------------------------------
-sub_640D0:
+StandMove:
         push ebx
         push ecx
         push edx
@@ -17905,7 +18068,7 @@ sub_640D0:
         jmp near .6
 .1:
         mov eax, esi
-        call sub_60D84
+        call PickIdleAnim
         jmp near .16
 .2:
         mov dword [byte eax+08h], 0
@@ -17940,7 +18103,7 @@ sub_640D0:
         jne short .7
 .3:
         mov eax, esi
-        call sub_6211C
+        call PickGlideAnim
         add esp, byte 18h
         pop edi
         pop esi
@@ -17963,7 +18126,7 @@ sub_640D0:
         jne short .7
 .5:
         mov eax, esi
-        call sub_6211C
+        call PickGlideAnim
         add esp, byte 18h
         pop edi
         pop esi
@@ -17973,7 +18136,7 @@ sub_640D0:
         ret
 .6:
         mov eax, esi
-        call sub_60F48
+        call PickSkateAnim
         add esp, byte 18h
         pop edi
         pop esi
@@ -17985,7 +18148,7 @@ sub_640D0:
         test byte [byte ecx+01Ch], 80h
         je short .8
         mov eax, ecx
-        call sub_612E4
+        call EndMove
         add esp, byte 18h
         pop edi
         pop esi
@@ -17999,7 +18162,7 @@ sub_640D0:
         mov ebx, esp
         mov eax, ecx
         mov edx, dword [byte edx+054h]
-        call sub_76A1C
+        call UpdateMovePose
         mov edx, dword [byte ecx+010h]
         cmp edx, 3F800000h
         je short .9
@@ -18052,9 +18215,9 @@ sub_640D0:
         mov edx, esp
         mov eax, ecx
         mov ebx, dword [byte ecx+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, ebx
-        call sub_5E1B0
+        call MovePlayer
 .16:
         add esp, byte 18h
         pop edi
@@ -18064,9 +18227,10 @@ sub_640D0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_642A8                                                       642A8  97 PC
+; SpeedTowardSpot                                 642A8  97 PC, low confidence
+; Works out the speed to reach a spot
 ;-----------------------------------------------------------------------------
-sub_642A8:
+SpeedTowardSpot:
         push ebx
         push edx
         push esi
@@ -18156,9 +18320,10 @@ sub_642A8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_643AC                                                       643AC  97 PC
+; StartMoveAtSpeed                                643AC  97 PC, low confidence
+; Starts the next move at the player's speed
 ;-----------------------------------------------------------------------------
-sub_643AC:
+StartMoveAtSpeed:
         push ebx
         push ecx
         mov ebx, edx
@@ -18239,16 +18404,17 @@ sub_643AC:
         fistp dword [byte esp+08h]
         mov ebx, dword [byte esp+08h]
         push dword [byte esp+0Ch]
-        call sub_5EC50
+        call StartNextMove
         add esp, byte 0Ch
         pop ecx
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_64490                                                       64490  97 PC
+; CrossoverMove                                   64490  97 PC, low confidence
+; Move handler for crossovers
 ;-----------------------------------------------------------------------------
-sub_64490:
+CrossoverMove:
         push ebx
         push ecx
         push edx
@@ -18278,11 +18444,11 @@ sub_64490:
         jne short .4
 .2:
         mov eax, esi
-        call sub_62340
+        call PickStrideAnim
         jmp near .16
 .3:
         mov eax, esi
-        call sub_60F48
+        call PickSkateAnim
         jmp near .16
 .4:
         test byte [byte ecx+01Ch], 80h
@@ -18300,7 +18466,7 @@ sub_64490:
         jmp short .7
 .6:
         mov eax, esi
-        call sub_61F78
+        call PickCrossoverAnim
         add esp, byte 28h
         pop esi
         pop edx
@@ -18309,7 +18475,7 @@ sub_64490:
         ret
 .7:
         mov eax, esi
-        call sub_60D84
+        call PickIdleAnim
         add esp, byte 28h
         pop esi
         pop edx
@@ -18362,7 +18528,7 @@ sub_64490:
         fistp dword [byte esp+014h]
         mov ebx, dword [byte esp+014h]
         push dword [byte esp+018h]
-        call sub_5EC50
+        call StartNextMove
         add esp, byte 28h
         pop esi
         pop edx
@@ -18389,7 +18555,7 @@ sub_64490:
         fistp dword [byte esp+014h]
         mov ebx, dword [byte esp+014h]
         push dword [byte esp+028h]
-        call sub_5EC50
+        call StartNextMove
         add esp, byte 28h
         pop esi
         pop edx
@@ -18416,7 +18582,7 @@ sub_64490:
         fistp dword [byte esp+014h]
         mov ebx, dword [byte esp+014h]
         push dword [byte esp+020h]
-        call sub_5EC50
+        call StartNextMove
         add esp, byte 28h
         pop esi
         pop edx
@@ -18429,7 +18595,7 @@ sub_64490:
         mov ebx, esp
         mov eax, ecx
         mov edx, dword [byte edx+054h]
-        call sub_76A1C
+        call UpdateMovePose
         mov ebx, dword [byte ecx+010h]
         cmp ebx, 3F800000h
         je short .15
@@ -18449,14 +18615,14 @@ sub_64490:
 .15:
         mov edx, esp
         mov eax, esi
-        call sub_643AC
+        call StartMoveAtSpeed
         mov edx, esp
         mov eax, ecx
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, esi
-        call sub_642A8
+        call SpeedTowardSpot
         mov eax, esi
-        call sub_5E1B0
+        call MovePlayer
 .16:
         add esp, byte 28h
         pop esi
@@ -18466,9 +18632,10 @@ sub_64490:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_64700                                                       64700  97 PC
+; GoalieSlideMove                                 64700  97 PC, low confidence
+; Move handler for the goalie sliding across the crease
 ;-----------------------------------------------------------------------------
-sub_64700:
+GoalieSlideMove:
         push ebx
         push ecx
         push edx
@@ -18485,7 +18652,7 @@ sub_64700:
         or bl, 8
         mov eax, ecx
         mov byte [byte edx+031h], bl
-        call sub_6023C
+        call GoalieAI
         mov edx, dword [dword ecx+0FAh]
         mov dword [byte edx+08h], 0
         mov dword [byte edx+04h], 3F800000h
@@ -18531,7 +18698,7 @@ sub_64700:
         lea ebx, [byte ebp-0Ch]
         mov eax, esi
         mov edx, dword [byte edx+054h]
-        call sub_76A1C
+        call UpdateMovePose
         mov edx, dword [byte esi+010h]
         cmp edx, 3F800000h
         je short .6
@@ -18552,9 +18719,9 @@ sub_64700:
         lea edx, [byte ebp-0Ch]
         mov eax, esi
         mov ebx, dword [byte esi+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, ebx
-        call sub_5E1B0
+        call MovePlayer
         mov esp, ebp
         pop ebp
         pop esi
@@ -18564,9 +18731,10 @@ sub_64700:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_64820                                                       64820  97 PC
+; GoalieStanceMove                                64820  97 PC, low confidence
+; Move handler for the goalie stance
 ;-----------------------------------------------------------------------------
-sub_64820:
+GoalieStanceMove:
         push ebx
         push ecx
         push edx
@@ -18580,16 +18748,16 @@ sub_64820:
         and bl, 0F7h
         mov eax, edx
         mov byte [byte ecx+031h], bl
-        call sub_6023C
+        call GoalieAI
         mov eax, edx
-        call sub_60F48
+        call PickSkateAnim
         jmp short .3
 .1:
         mov edx, dword [dword edx+0F2h]
         mov ebx, esp
         mov eax, ecx
         mov edx, dword [byte edx+054h]
-        call sub_76A1C
+        call UpdateMovePose
         mov edx, dword [byte ecx+010h]
         cmp edx, 3F800000h
         je short .2
@@ -18610,9 +18778,9 @@ sub_64820:
         mov edx, esp
         mov eax, ecx
         mov ebx, dword [byte ecx+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, ebx
-        call sub_5E1B0
+        call MovePlayer
 .3:
         add esp, byte 0Ch
         pop edx
@@ -18621,9 +18789,10 @@ sub_64820:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_648B4                                                       648B4  97 PC
+; SlowSkateMove                                   648B4  97 PC, low confidence
+; Move handler for slow skating
 ;-----------------------------------------------------------------------------
-sub_648B4:
+SlowSkateMove:
         push ebx
         push ecx
         push edx
@@ -18652,11 +18821,11 @@ sub_648B4:
         jne short .4
 .2:
         mov eax, esi
-        call sub_62340
+        call PickStrideAnim
         jmp near .10
 .3:
         mov eax, esi
-        call sub_60F48
+        call PickSkateAnim
         jmp near .10
 .4:
         test byte [byte ecx+01Ch], 80h
@@ -18674,7 +18843,7 @@ sub_648B4:
         jmp short .7
 .6:
         mov eax, esi
-        call sub_61F78
+        call PickCrossoverAnim
         add esp, byte 0Ch
         pop edi
         pop esi
@@ -18684,7 +18853,7 @@ sub_648B4:
         ret
 .7:
         mov eax, esi
-        call sub_60D84
+        call PickIdleAnim
         add esp, byte 0Ch
         pop edi
         pop esi
@@ -18698,7 +18867,7 @@ sub_648B4:
         mov ebx, esp
         mov eax, ecx
         mov edx, dword [byte edx+054h]
-        call sub_76A1C
+        call UpdateMovePose
         mov edi, dword [byte ecx+010h]
         cmp edi, 3F800000h
         je short .9
@@ -18718,13 +18887,13 @@ sub_648B4:
 .9:
         mov edx, esp
         mov eax, esi
-        call sub_643AC
+        call StartMoveAtSpeed
         mov edx, esp
         mov eax, ecx
         mov esi, dword [byte ecx+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, esi
-        call sub_5E1B0
+        call MovePlayer
 .10:
         add esp, byte 0Ch
         pop edi
@@ -18735,18 +18904,19 @@ sub_648B4:
         ret
         db 08Dh,040h,00h
 jpt_649C0:
-        dd sub_649E0_3B
-        dd sub_649E0_53
-        dd sub_649E0_47
-        dd sub_649E0_23
-        dd sub_649E0_3B
-        dd sub_649E0_53
-        dd sub_649E0_53
-        dd sub_649E0_2F
+        dd GlideBackwardMove_3B
+        dd GlideBackwardMove_53
+        dd GlideBackwardMove_47
+        dd GlideBackwardMove_23
+        dd GlideBackwardMove_3B
+        dd GlideBackwardMove_53
+        dd GlideBackwardMove_53
+        dd GlideBackwardMove_2F
 ;-----------------------------------------------------------------------------
-; sub_649E0                                                       649E0  97 PC
+; GlideBackwardMove                               649E0  97 PC, low confidence
+; Move handler for gliding backward
 ;-----------------------------------------------------------------------------
-sub_649E0:
+GlideBackwardMove:
         push ebx
         push ecx
         push edx
@@ -18758,29 +18928,29 @@ sub_649E0:
         mov edx, dword [byte edx+01Ch]
         dec edx
         cmp edx, byte 7
-        ja short sub_649E0_53
+        ja short GlideBackwardMove_53
         jmp dword [nosplit cs:edx*4+jpt_649C0]
-sub_649E0_23:
+GlideBackwardMove_23:
         mov eax, esi
-        call sub_62340
-        jmp near sub_649E0_53.3
-sub_649E0_2F:
+        call PickStrideAnim
+        jmp near GlideBackwardMove_53.3
+GlideBackwardMove_2F:
         mov eax, esi
-        call sub_626BC
-        jmp near sub_649E0_53.3
-sub_649E0_3B:
+        call PickBackwardTurn
+        jmp near GlideBackwardMove_53.3
+GlideBackwardMove_3B:
         mov eax, esi
-        call sub_60F48
-        jmp near sub_649E0_53.3
-sub_649E0_47:
+        call PickSkateAnim
+        jmp near GlideBackwardMove_53.3
+GlideBackwardMove_47:
         mov eax, esi
-        call sub_61F78
-        jmp near sub_649E0_53.3
-sub_649E0_53:
+        call PickCrossoverAnim
+        jmp near GlideBackwardMove_53.3
+GlideBackwardMove_53:
         test byte [byte ecx+01Ch], 80h
         je short .1
         mov eax, ecx
-        call sub_612E4
+        call EndMove
         add esp, byte 0Ch
         pop esi
         pop edx
@@ -18793,7 +18963,7 @@ sub_649E0_53:
         mov ebx, esp
         mov eax, ecx
         mov edx, dword [byte edx+054h]
-        call sub_76A1C
+        call UpdateMovePose
         mov edx, dword [byte ecx+010h]
         cmp edx, 3F800000h
         je short .2
@@ -18813,16 +18983,16 @@ sub_649E0_53:
 .2:
         mov edx, esp
         mov eax, esi
-        call sub_61764
+        call ApplySkateAccel
         mov edx, esp
         mov eax, esi
-        call sub_615D0
+        call SteerTowardTarget
         mov edx, esp
         mov eax, ecx
         mov esi, dword [byte ecx+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, esi
-        call sub_5E1B0
+        call MovePlayer
 .3:
         add esp, byte 0Ch
         pop esi
@@ -18831,18 +19001,19 @@ sub_649E0_53:
         pop ebx
         ret
 jpt_64AC0:
-        dd sub_64AE0_51
-        dd sub_64AE0_61
-        dd sub_64AE0_71
-        dd sub_64AE0_41
-        dd sub_64AE0_C2
-        dd sub_64AE0_BC
-        dd sub_64AE0_BC
-        dd sub_64AE0_31
+        dd TurnBackwardMove_51
+        dd TurnBackwardMove_61
+        dd TurnBackwardMove_71
+        dd TurnBackwardMove_41
+        dd TurnBackwardMove_C2
+        dd TurnBackwardMove_BC
+        dd TurnBackwardMove_BC
+        dd TurnBackwardMove_31
 ;-----------------------------------------------------------------------------
-; sub_64AE0                                                       64AE0  97 PC
+; TurnBackwardMove                                64AE0  97 PC, low confidence
+; Move handler for turning while skating backward
 ;-----------------------------------------------------------------------------
-sub_64AE0:
+TurnBackwardMove:
         push ebx
         push ecx
         push edx
@@ -18857,11 +19028,11 @@ sub_64AE0:
         dec eax
         and edi, 0FFFFh
         cmp eax, byte 7
-        ja near sub_64AE0_BC
+        ja near TurnBackwardMove_BC
         jmp dword [nosplit cs:eax*4+jpt_64AC0]
-sub_64AE0_31:
+TurnBackwardMove_31:
         mov eax, esi
-        call sub_626BC
+        call PickBackwardTurn
         add esp, byte 20h
         pop edi
         pop esi
@@ -18869,9 +19040,9 @@ sub_64AE0_31:
         pop ecx
         pop ebx
         ret
-sub_64AE0_41:
+TurnBackwardMove_41:
         mov eax, esi
-        call sub_62340
+        call PickStrideAnim
         add esp, byte 20h
         pop edi
         pop esi
@@ -18879,9 +19050,9 @@ sub_64AE0_41:
         pop ecx
         pop ebx
         ret
-sub_64AE0_51:
+TurnBackwardMove_51:
         mov eax, esi
-        call sub_60F48
+        call PickSkateAnim
         add esp, byte 20h
         pop edi
         pop esi
@@ -18889,9 +19060,9 @@ sub_64AE0_51:
         pop ecx
         pop ebx
         ret
-sub_64AE0_61:
+TurnBackwardMove_61:
         mov eax, esi
-        call sub_60D84
+        call PickIdleAnim
         add esp, byte 20h
         pop edi
         pop esi
@@ -18899,11 +19070,11 @@ sub_64AE0_61:
         pop ecx
         pop ebx
         ret
-sub_64AE0_71:
+TurnBackwardMove_71:
         cmp dword [byte esi+038h], 40C00000h
         jge short .1
         mov eax, esi
-        call sub_6211C
+        call PickGlideAnim
         add esp, byte 20h
         pop edi
         pop esi
@@ -18922,20 +19093,20 @@ sub_64AE0_71:
         jg short .3
 .2:
         mov eax, esi
-        call sub_61804
+        call PickTurnAnim
         jmp short .4
 .3:
         mov eax, esi
-        call sub_61BF8
+        call PickStopAnim
 .4:
         test eax, eax
-        jne near sub_64AE0_C2.15
-sub_64AE0_BC:
+        jne near TurnBackwardMove_C2.15
+TurnBackwardMove_BC:
         test byte [byte ecx+01Ch], 80h
-        je short sub_64AE0_C2.5
-sub_64AE0_C2:
+        je short TurnBackwardMove_C2.5
+TurnBackwardMove_C2:
         mov eax, ecx
-        call sub_612E4
+        call EndMove
         add esp, byte 20h
         pop edi
         pop esi
@@ -18987,7 +19158,7 @@ sub_64AE0_C2:
         fistp dword [byte esp+014h]
         mov ebx, dword [byte esp+014h]
         push dword [byte esp+024h]
-        call sub_5EC50
+        call StartNextMove
         add esp, byte 20h
         pop edi
         pop esi
@@ -19015,7 +19186,7 @@ sub_64AE0_C2:
         fistp dword [byte esp+014h]
         mov ebx, dword [byte esp+014h]
         push dword [byte esp+01Ch]
-        call sub_5EC50
+        call StartNextMove
         add esp, byte 20h
         pop edi
         pop esi
@@ -19029,7 +19200,7 @@ sub_64AE0_C2:
         mov ebx, esp
         mov eax, ecx
         mov edx, dword [byte edx+054h]
-        call sub_76A1C
+        call UpdateMovePose
         mov ebx, dword [byte ecx+010h]
         cmp ebx, 3F800000h
         je short .11
@@ -19062,19 +19233,19 @@ sub_64AE0_C2:
 .12:
         mov edx, esp
         mov eax, esi
-        call sub_63878
+        call TurnLeanAngle
         jmp short .14
 .13:
         mov edx, esp
         mov eax, esi
-        call sub_63980
+        call TurnStickPos
 .14:
         mov edx, esp
         mov eax, ecx
         mov esi, dword [byte ecx+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, esi
-        call sub_5E1B0
+        call MovePlayer
 .15:
         add esp, byte 20h
         pop edi
@@ -19085,9 +19256,10 @@ sub_64AE0_C2:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_64D54                                                       64D54  97 PC
+; StopBackwardMove                                64D54  97 PC, low confidence
+; Move handler for stopping from backward skating (plays the skid sound)
 ;-----------------------------------------------------------------------------
-sub_64D54:
+StopBackwardMove:
         push ebx
         push ecx
         push edx
@@ -19114,14 +19286,14 @@ sub_64D54:
         jbe short .2
 .1:
         mov eax, edi
-        call sub_60F48
+        call PickSkateAnim
         jmp near .13
 .2:
         test byte [byte esi+01Ch], 80h
         je short .3
         mov eax, edi
         mov dword [byte edi+038h], 0
-        call sub_60F48
+        call PickSkateAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -19136,7 +19308,7 @@ sub_64D54:
         lea ebx, [byte ebp-010h]
         mov eax, esi
         mov edx, dword [byte edx+054h]
-        call sub_76A1C
+        call UpdateMovePose
         mov ebx, dword [byte esi+010h]
         cmp ebx, 3F800000h
         je short .4
@@ -19157,11 +19329,11 @@ sub_64D54:
         lea edx, [byte ebp-010h]
         mov eax, edi
         mov ebx, dword [byte esi+04h]
-        call sub_63D24
+        call StopSkidDistance
         mov eax, dword [byte ebp-04h]
         push dword [byte eax+04h]
         mov eax, esi
-        call sub_76E04
+        call ScaleAnimTime
         cmp dword [byte esi+04h], byte 2
         jne near .12
         cmp word [dword edi+0A9h], byte 0
@@ -19208,9 +19380,9 @@ sub_64D54:
         lea edx, [byte ebp-010h]
         mov eax, esi
         mov edi, dword [byte esi+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, edi
-        call sub_5E1B0
+        call MovePlayer
 .13:
         mov esp, ebp
         pop ebp
@@ -19222,9 +19394,10 @@ sub_64D54:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_64EBC                                                       64EBC  97 PC
+; FaceoffPuckDrop                                 64EBC  97 PC, low confidence
+; Places the puck for a faceoff drop
 ;-----------------------------------------------------------------------------
-sub_64EBC:
+FaceoffPuckDrop:
         push ebx
         push ecx
         push edx
@@ -19319,7 +19492,7 @@ sub_64EBC:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5EEEC
+        call SetSPAInPlace
         mov esp, ebp
         pop ebp
         pop edx
@@ -19336,7 +19509,7 @@ sub_64EBC:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         push dword 3F800000h
-        call sub_5EEEC
+        call SetSPAInPlace
         mov esp, ebp
         pop ebp
         pop edx
@@ -19354,7 +19527,7 @@ sub_64EBC:
         mov ebx, 20h
 .6:
         push dword 3F800000h
-        call sub_5EEEC
+        call SetSPAInPlace
 .7:
         mov esp, ebp
         pop ebp
@@ -19363,9 +19536,10 @@ sub_64EBC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_650A4                                                       650A4  97 PC
+; SetSkateSpeedFromRating                         650A4  97 PC, low confidence
+; Sets a player's top speed from its rating
 ;-----------------------------------------------------------------------------
-sub_650A4:
+SetSkateSpeedFromRating:
         push edx
         sub esp, byte 4
         mov edx, eax
@@ -19388,9 +19562,10 @@ sub_650A4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_650E8                                                       650E8  97 PC
+; StartWhistleStop                                650E8  97 PC, low confidence
+; Starts the stop animation when the whistle blows
 ;-----------------------------------------------------------------------------
-sub_650E8:
+StartWhistleStop:
         push ebx
         push ecx
         push edx
@@ -19428,7 +19603,7 @@ sub_650E8:
         push ecx
         push esi
         push dword [byte esp+08h]
-        call sub_5EC50
+        call StartNextMove
 .3:
         add esp, byte 4
         pop esi
@@ -19437,9 +19612,10 @@ sub_650E8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_65164                                                       65164  97 PC
+; UpdateScoreClockData                            65164  97 PC, low confidence
+; Updates the clock and score data shown in game
 ;-----------------------------------------------------------------------------
-sub_65164:
+UpdateScoreClockData:
         push esi
         push edi
         push ebp
@@ -19597,9 +19773,10 @@ sub_65164:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_65338                                                       65338  97 PC
+; ResetClockData                                  65338  97 PC, low confidence
+; Clears the in-game clock data
 ;-----------------------------------------------------------------------------
-sub_65338:
+ResetClockData:
         push ebx
         push edx
         push esi
@@ -19637,9 +19814,10 @@ sub_65338:
         pop ebx
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_6539C                                                       6539C  97 PC
+; UpdateGameDisplay                               6539C  97 PC, low confidence
+; Updates the in-game display data each frame
 ;-----------------------------------------------------------------------------
-sub_6539C:
+UpdateGameDisplay:
         push ebx
         push ecx
         push edx
@@ -19656,14 +19834,14 @@ sub_6539C:
         lea ebx, [byte ebp-08h]
         lea edx, [byte ebp-014h]
         mov eax, edi
-        call sub_65164
+        call UpdateScoreClockData
         cmp esi, byte 0Dh
         jne short .2
         mov eax, dword [dword edi+0FAh]
         push dword [byte eax+028h]
         lea eax, [byte ebp-020h]
         lea edx, [byte ebp-020h]
-        call sub_65338
+        call ResetClockData
         lea eax, [byte ebp-014h]
         call sub_4B4B0
         jmp near .5
@@ -19702,10 +19880,10 @@ sub_6539C:
 .4:
         lea edx, [byte ebp-014h]
         mov eax, dword [dword edi+0F2h]
-        call sub_5B454
+        call CopyVec3
         mov eax, dword [dword edi+0F2h]
         push dword [byte ebp-08h]
-        call sub_5B46C
+        call SetObjectHeight
 .5:
         inc esi
         add edi, 108h
@@ -19722,9 +19900,10 @@ sub_6539C:
 unk_65475:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_65481                                                       65481  97 PC
+; LoadAnimData                                    65481  97 PC, low confidence
+; Loads an animation file into memory
 ;-----------------------------------------------------------------------------
-sub_65481:
+LoadAnimData:
         push ebx
         push ecx
         push esi
@@ -19754,7 +19933,7 @@ sub_65481:
         mov ecx, eax
         mov edx, eax
         mov eax, dword [byte ebp-024h]
-        call sub_762E4
+        call DecodeAnimFile
         mov eax, dword [byte ebp-04h]
         mov byte [dword eax+byte_1BF670], 0FFh
         cmp eax, byte 62h
@@ -19768,7 +19947,7 @@ sub_65481:
 .2:
         mov edx, eax
         mov eax, dword [byte ebp-024h]
-        call sub_7613C
+        call GetAnimEntry
         mov edx, dword [byte ebp-04h]
         movzx eax, word [byte eax+02h]
         cmp byte [dword edx+byte_1BF670], 0FFh
@@ -19915,7 +20094,7 @@ sub_65481:
         fstp dword [byte ebx+01Ch]
         fstp dword [byte ebx+020h]
         fstp dword [byte ebx+024h]
-sub_65481_228:
+LoadAnimData_228:
         call FreeMemBlock
         add esp, byte 4
         leave
@@ -19925,9 +20104,10 @@ sub_65481_228:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_656B7                                                       656B7  97 PC
+; GetStopTable                                    656B7  97 PC, low confidence
+; Returns an entry of one of the two stop tables
 ;-----------------------------------------------------------------------------
-sub_656B7:
+GetStopTable:
         push ebx
         mov ebx, eax
         cmp edx, byte 0Fh
@@ -19942,9 +20122,10 @@ sub_656B7:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_656D3                                                       656D3  97 PC
+; LoadSkateAnimFile                               656D3  97 PC, low confidence
+; Loads the skating animation file
 ;-----------------------------------------------------------------------------
-sub_656D3:
+LoadSkateAnimFile:
         push ebx
         push ecx
         push esi
@@ -19963,7 +20144,7 @@ sub_656D3:
         mov dword [byte ebp-08h], eax
         mov edx, eax
         mov eax, ebx
-        call sub_762E4
+        call DecodeAnimFile
         lea eax, [byte esi-01h]
         imul ebx, eax, byte 0Ch
         add ecx, ebx
@@ -19987,11 +20168,12 @@ sub_656D3:
         test esi, esi
         jge short .1
         push dword [byte ebp-08h]
-        jmp near sub_65481_228
+        jmp near LoadAnimData_228
 ;-----------------------------------------------------------------------------
-; sub_65742                                                       65742  97 PC
+; LoadAnimByName                                  65742  97 PC, low confidence
+; Finds an animation by name and loads it
 ;-----------------------------------------------------------------------------
-sub_65742:
+LoadAnimByName:
         push esi
         push edi
         enter 0Ch, 0
@@ -20008,7 +20190,7 @@ sub_65742:
         add eax, dword [byte ebp-0Ch]
         mov edx, dword [eax]
         mov eax, esi
-        call sub_760C8
+        call FindAnimByName
         mov edx, eax
         mov eax, dword [byte ebp-0Ch]
         mov dword [ecx+eax], edx
@@ -20025,7 +20207,7 @@ sub_65742:
         add edx, dword [byte ebp+010h]
         mov eax, dword [ecx+eax]
         inc ebx
-        call sub_65481
+        call LoadAnimData
 .3:
         cmp ebx, edi
         jl short .1
@@ -20034,46 +20216,47 @@ sub_65742:
         pop esi
         ret 4
 jpt_657A3:
-        dd sub_657BF_10
-        dd sub_657BF_1D
-        dd sub_657BF_25
-        dd sub_657BF_32
-        dd sub_657BF_3F
-        dd sub_657BF_4C
-        dd sub_657BF_59
+        dd ShotAnimFrames_10
+        dd ShotAnimFrames_1D
+        dd ShotAnimFrames_25
+        dd ShotAnimFrames_32
+        dd ShotAnimFrames_3F
+        dd ShotAnimFrames_4C
+        dd ShotAnimFrames_59
 ;-----------------------------------------------------------------------------
-; sub_657BF                                                       657BF  97 PC
+; ShotAnimFrames                                  657BF  97 PC, low confidence
+; Returns the shot animation frames for a shot type
 ;-----------------------------------------------------------------------------
-sub_657BF:
+ShotAnimFrames:
         sub eax, byte 29h
         cmp eax, byte 6
-        ja short sub_657BF_59.2
+        ja short ShotAnimFrames_59.2
         jmp dword [nosplit cs:eax*4+jpt_657A3]
-sub_657BF_10:
+ShotAnimFrames_10:
         mov dword [edx], 15h
 .1:
         mov dword [ebx], 1Eh
         ret
-sub_657BF_1D:
+ShotAnimFrames_1D:
         mov dword [edx], 14h
-        jmp short sub_657BF_10.1
-sub_657BF_25:
+        jmp short ShotAnimFrames_10.1
+ShotAnimFrames_25:
         mov dword [edx], 12h
         mov dword [ebx], 1Dh
         ret
-sub_657BF_32:
+ShotAnimFrames_32:
         mov dword [edx], 10h
         mov dword [ebx], 1Ah
         ret
-sub_657BF_3F:
+ShotAnimFrames_3F:
         mov dword [edx], 0Fh
         mov dword [ebx], 13h
         ret
-sub_657BF_4C:
+ShotAnimFrames_4C:
         mov dword [edx], 0Bh
         mov dword [ebx], 14h
         ret
-sub_657BF_59:
+ShotAnimFrames_59:
         mov dword [edx], 0Dh
         mov dword [ebx], 10h
         ret
@@ -20098,7 +20281,7 @@ LoadSkateAnims:
         push unk_1B9CF8
         mov edx, 25h
         mov dword [dword_16C388], eax
-        call sub_65742
+        call LoadAnimByName
         fld dword [dword_1BA068]
         fld dword [dword_1BA050]
         fadd dword [dword_1BA088]
@@ -20124,7 +20307,7 @@ LoadSkateAnims:
         movzx ebx, byte [byte eax+0Dh]
         add esp, byte 0Ch
         mov dword [dword_1BF7F0], ebx
-        call sub_656D3
+        call LoadSkateAnimFile
         mov eax, dword [dword_1BF0BC]
         movzx eax, byte [byte eax+0Dh]
         push byte 20h
@@ -20138,7 +20321,7 @@ LoadSkateAnims:
         movzx ebx, byte [byte eax+0Dh]
         add esp, byte 0Ch
         mov dword [dword_1BF7F4], ebx
-        call sub_656D3
+        call LoadSkateAnimFile
         pop edx
         pop ecx
         pop ebx
@@ -20161,7 +20344,7 @@ CamShot23D:
         mov edx, 19h
         mov dword [dword_16C38C], eax
 CamShot23D_2B:
-        call sub_65742
+        call LoadAnimByName
         pop edx
         pop ecx
         pop ebx
@@ -20201,7 +20384,7 @@ LoadFallAnims:
         push unk_1BB268
         mov edx, 26h
         mov dword [dword_16C394], eax
-        call sub_65742
+        call LoadAnimByName
 .1:
         imul ecx, esi, byte 0Ch
         mov ebx, dword [dword_1BF06C]
@@ -20209,7 +20392,7 @@ LoadFallAnims:
         xor edx, edx
         add ecx, unk_1B9A58
         inc esi
-        call sub_76148
+        call DecodeAnimTree
         cmp esi, byte 8
         jl short .1
         pop esi
@@ -20235,9 +20418,10 @@ LoadInterferAnims:
         mov dword [dword_16C398], eax
         jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
-; sub_659F6                                                       659F6  97 PC
+; LoadGoalieAnimFile                              659F6  97 PC, low confidence
+; Loads the goalie animation file
 ;-----------------------------------------------------------------------------
-sub_659F6:
+LoadGoalieAnimFile:
         push ebx
         push ecx
         push edx
@@ -20267,14 +20451,14 @@ sub_659F6:
         mov edx, eax
         mov eax, dword [byte ebp-08h]
         mov dword [byte ebp-04h], 0
-        call sub_762E4
+        call DecodeAnimFile
         jmp short .2
 .1:
         lea edi, [byte ebp-020h]
         mov edx, eax
         mov eax, dword [byte ebp-08h]
         lea esi, [byte ebp-018h]
-        call sub_7613C
+        call GetAnimEntry
         fld dword [byte ebp-014h]
         fadd dword [byte ebx+04h]
         movzx ecx, word [byte eax+02h]
@@ -20327,7 +20511,7 @@ sub_659F6:
         fstp dword [nosplit ebx*4+dword_1B92D0]
         mov eax, dword [byte ebp-08h]
         mov ebx, dword [dword_1BF06C]
-        call sub_76148
+        call DecodeAnimTree
         imul ebx, dword [byte ebp-03Ch], byte 0Ch
         lea edi, [byte ebp-020h]
         lea esi, [byte ebp-018h]
@@ -20360,9 +20544,9 @@ sub_659F6:
         fstp dword [dword ebx+dword_1B9AC0]
         call FreeMemBlock
         add esp, byte 4
-sub_659F6_167:
+LoadGoalieAnimFile_167:
         leave
-sub_659F6_168:
+LoadGoalieAnimFile_168:
         pop edi
         pop esi
         pop edx
@@ -20385,7 +20569,7 @@ LoadGoalieAnims:
         push unk_1BBEE0
         mov edx, 6Ch
         mov dword [dword_16C39C], eax
-        call sub_65742
+        call LoadAnimByName
         mov dword [dword_1BF070], 461C4000h
         mov dword [dword_1BF054], 0BF800000h
         xor edx, edx
@@ -20393,7 +20577,7 @@ LoadGoalieAnims:
         mov ebx, edx
         mov eax, edx
         shl ebx, 2
-        call sub_659F6
+        call LoadGoalieAnimFile
         fld dword [dword ebx+dword_1B92D0]
         fcomp dword [dword_1BF054]
         fnstsw ax
@@ -20572,11 +20756,12 @@ InitAnimPoints:
         push byte 0
         call sub_FC330
         add esp, byte 4
-        jmp near sub_659F6_168
+        jmp near LoadGoalieAnimFile_168
 ;-----------------------------------------------------------------------------
-; sub_65DE8                                                       65DE8  97 PC
+; FreeAnimTables                                  65DE8  97 PC, low confidence
+; Frees the animation tables
 ;-----------------------------------------------------------------------------
-sub_65DE8:
+FreeAnimTables:
         push ebx
         push ecx
         push edx
@@ -20607,9 +20792,10 @@ sub_65DE8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_65E3B                                                       65E3B  97 PC
+; InitPlayerAnims                                 65E3B  97 PC, low confidence
+; Sets up the starting animations of the players
 ;-----------------------------------------------------------------------------
-sub_65E3B:
+InitPlayerAnims:
         push ebx
         push ecx
         push edx
@@ -20625,7 +20811,7 @@ sub_65E3B:
         call ZeroMem
         add esp, byte 8
         mov eax, dword [dword esi+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ecx, dword [dword esi+0FAh]
         mov dword [byte ecx+030h], 0
         mov ecx, dword [dword esi+0FAh]
@@ -20643,18 +20829,18 @@ sub_65E3B:
         mov eax, dword [byte ebp-04h]
         mov ebx, dword [byte ecx+03Ch]
         mov dword [dword_16C374], ebx
-        call sub_772B8
+        call StartAnimNow
         lea ecx, [byte edi+058h]
         mov eax, dword [byte ebp-04h]
         mov edx, dword [byte edi+054h]
         mov ebx, ecx
         mov eax, dword [eax]
-        call sub_76D3C
+        call UpdateAllPoses
         mov eax, ecx
-        call sub_5B50C
+        call SaveGamePalette
 .1:
         mov dword [dword_16C360], 2
-        mov dword [dword_16C384], sub_62F14
+        mov dword [dword_16C384], SkateForwardMove
         mov eax, dword [dword_1BF084]
         mov dword [dword_16C364], esi
         mov dword [dword_16C368], eax
@@ -20663,18 +20849,19 @@ sub_65E3B:
         mov eax, dword [byte ebp-04h]
         mov ebx, dword [byte ecx+03Ch]
         mov dword [dword_16C374], ebx
-        call sub_772B8
+        call StartAnimNow
         mov eax, dword [byte ebp-04h]
         lea ebx, [byte edi+058h]
         mov edx, dword [byte edi+054h]
         mov eax, dword [eax]
-        call sub_76D3C
-        jmp near sub_659F6_167
+        call UpdateAllPoses
+        jmp near LoadGoalieAnimFile_167
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_65F50                                                       65F50  97 PC
+; StickReach                                      65F50  97 PC, low confidence
+; Works out how far a player's stick reaches
 ;-----------------------------------------------------------------------------
-sub_65F50:
+StickReach:
         push eax
         push edx
         push ebp
@@ -20827,9 +21014,10 @@ sub_65F50:
         pop eax
         ret 24h
 ;-----------------------------------------------------------------------------
-; sub_660F0                                                       660F0  97 PC
+; PuckHeightAt                                    660F0  97 PC, low confidence
+; Works out the puck height at a point
 ;-----------------------------------------------------------------------------
-sub_660F0:
+PuckHeightAt:
         push edx
         sub esp, byte 4
         fld dword [byte eax+020h]
@@ -20880,9 +21068,10 @@ sub_660F0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_6619C                                                       6619C  97 PC
+; ObjectFramePos                                  6619C  97 PC, low confidence
+; Returns an object's position at its current animation frame
 ;-----------------------------------------------------------------------------
-sub_6619C:
+ObjectFramePos:
         push ecx
         push esi
         push edi
@@ -20898,7 +21087,7 @@ sub_6619C:
         mov edx, esi
         mov eax, dword [eax]
         lea edi, [byte esp+010h]
-        call sub_76954
+        call UpdateObjectPose
         lea esi, [byte esp+0Ch]
         lea eax, [byte ebp+01Ch]
         fld dword [eax]
@@ -20933,9 +21122,10 @@ sub_6619C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_66224                                                       66224  97 PC
+; TryStickTouch                                   66224  97 PC, low confidence
+; Tests whether the stick touches the puck
 ;-----------------------------------------------------------------------------
-sub_66224:
+TryStickTouch:
         push ebx
         push ecx
         push esi
@@ -21002,11 +21192,11 @@ sub_66224:
         lea ebx, [byte esp+018h]
         mov edx, dword [dword_1BF060]
         mov eax, ecx
-        call sub_6619C
+        call ObjectFramePos
         lea ebx, [byte esp+0Ch]
         mov edx, dword [dword_1BF060]
         mov eax, esi
-        call sub_6619C
+        call ObjectFramePos
         mov eax, dword [byte ecx+02Ch]
         mov dword [esp], eax
         mov eax, dword [byte ecx+034h]
@@ -21029,7 +21219,7 @@ sub_66224:
         push dword [byte esp+018h]
         push dword [byte esp+03Ch]
         push dword [byte esp+038h]
-        call sub_65F50
+        call StickReach
         fldz
         fxch
         fstp dword [byte esp+02Ch]
@@ -21089,7 +21279,7 @@ sub_66224:
         push dword [byte ecx+02Ch]
         push dword [byte esp+03Ch]
         push dword [byte esp+038h]
-        call sub_65F50
+        call StickReach
         fldz
         fxch
         fstp dword [byte esp+02Ch]
@@ -21165,9 +21355,10 @@ sub_66224:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_66524                                                       66524  97 PC
+; PuckBounceOffPlayer                             66524  97 PC, low confidence
+; Bounces the puck off a player's body
 ;-----------------------------------------------------------------------------
-sub_66524:
+PuckBounceOffPlayer:
         push ebx
         push ecx
         push esi
@@ -21181,7 +21372,7 @@ sub_66524:
         mov ebx, esp
         mov edx, dword [dword_1BF060]
         mov eax, ecx
-        call sub_6619C
+        call ObjectFramePos
         fld dword [byte esi+024h]
         fsub dword [byte esp+04h]
         mov ah, byte [dword ecx+0A4h]
@@ -21316,9 +21507,10 @@ sub_66524:
         ret 8
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_666CC                                                       666CC  97 PC
+; PlayPostSound                                   666CC  97 PC, low confidence
+; Plays the sound of the puck hitting the post
 ;-----------------------------------------------------------------------------
-sub_666CC:
+PlayPostSound:
         push ebx
         push ecx
         push edx
@@ -21365,9 +21557,10 @@ sub_666CC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_66758                                                       66758  97 PC
+; PuckHitsNet                                     66758  97 PC, low confidence
+; Puck against the net: post, crossbar, goal or save
 ;-----------------------------------------------------------------------------
-sub_66758:
+PuckHitsNet:
         push ebx
         push ecx
         push edx
@@ -21486,7 +21679,7 @@ sub_66758:
         ret 4
 .7:
         mov eax, edx
-        call sub_666CC
+        call PlayPostSound
         test eax, eax
         je short .8
         mov eax, dword [word_19CBAC]
@@ -21860,7 +22053,7 @@ sub_66758:
         fild dword [byte esp+010h]
         mov eax, edx
         fstp dword [byte edx+030h]
-        call sub_69B08
+        call RandomPuckSpin
 .35:
         mov eax, dword [off_168CF0]
         cmp byte [eax], 0
@@ -21890,9 +22083,10 @@ sub_66758:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_66E38                                                       66E38  97 PC
+; PuckHitsBoards                                  66E38  97 PC, low confidence
+; Puck against the boards: bounce and sound
 ;-----------------------------------------------------------------------------
-sub_66E38:
+PuckHitsBoards:
         push ebx
         push edx
         push esi
@@ -22139,7 +22333,7 @@ sub_66E38:
         fstp dword [byte esp+08h]
         mov eax, ebx
         push dword [byte esp+08h]
-        call sub_66758
+        call PuckHitsNet
         fld dword [byte esp+060h]
         fld dword [byte esp+020h]
         fld dword [byte esp+01Ch]
@@ -22273,9 +22467,10 @@ sub_66E38:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_67248                                                       67248  97 PC
+; PuckHitsGlass                                   67248  97 PC, low confidence
+; Puck against the glass: bounce and sound
 ;-----------------------------------------------------------------------------
-sub_67248:
+PuckHitsGlass:
         push ebx
         push ecx
         push edx
@@ -22410,7 +22605,7 @@ sub_67248:
 .9:
         mov eax, ebx
         push dword [byte esp+014h]
-        call sub_66758
+        call PuckHitsNet
         fld dword [byte esp+02Ch]
         fld1
         mov edx, dword [byte ebx+02Ch]
@@ -22554,9 +22749,10 @@ sub_67248:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_67540                                                       67540  97 PC
+; NetCollisionPoint                               67540  97 PC, low confidence
+; Works out where the puck meets the net
 ;-----------------------------------------------------------------------------
-sub_67540:
+NetCollisionPoint:
         push ebx
         push ecx
         push edx
@@ -23083,9 +23279,10 @@ sub_67540:
         ret 10h
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_67A30                                                       67A30  97 PC
+; PuckInNetDepth                                  67A30  97 PC, low confidence
+; Tests whether the puck is deep in the net
 ;-----------------------------------------------------------------------------
-sub_67A30:
+PuckInNetDepth:
         push edx
         push esi
         push edi
@@ -23125,9 +23322,10 @@ sub_67A30:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_67A98                                                       67A98  97 PC
+; PuckInNetWidth                                  67A98  97 PC, low confidence
+; Tests whether the puck is inside the posts
 ;-----------------------------------------------------------------------------
-sub_67A98:
+PuckInNetWidth:
         push ebx
         push edx
         push esi
@@ -23177,9 +23375,10 @@ sub_67A98:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_67B10                                                       67B10  97 PC
+; PlayNetSound                                    67B10  97 PC, low confidence
+; Plays the sound of the puck in the net
 ;-----------------------------------------------------------------------------
-sub_67B10:
+PlayNetSound:
         push ebx
         push edx
         push ebp
@@ -23240,9 +23439,10 @@ sub_67B10:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_67BD0                                                       67BD0  97 PC
+; CommentNetHit                                   67BD0  97 PC, low confidence
+; Calls the commentary for a shot off the net
 ;-----------------------------------------------------------------------------
-sub_67BD0:
+CommentNetHit:
         push ebx
         push edx
         mov ebx, eax
@@ -23311,9 +23511,10 @@ sub_67BD0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_67CC0                                                       67CC0  97 PC
+; PuckOffPost                                     67CC0  97 PC, low confidence
+; Bounces the puck off a post
 ;-----------------------------------------------------------------------------
-sub_67CC0:
+PuckOffPost:
         push ebx
         push ecx
         push edx
@@ -23605,9 +23806,10 @@ sub_67CC0:
         ret 0Ch
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_68030                                                       68030  97 PC
+; PuckOffCrossbar                                 68030  97 PC, low confidence
+; Bounces the puck off the crossbar
 ;-----------------------------------------------------------------------------
-sub_68030:
+PuckOffCrossbar:
         push ebx
         push ecx
         push edx
@@ -23888,9 +24090,10 @@ sub_68030:
         ret 0Ch
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_68378                                                       68378  97 PC
+; PuckInHomeNet                                   68378  97 PC, low confidence
+; Puck against the home team's net: goal, post or save
 ;-----------------------------------------------------------------------------
-sub_68378:
+PuckInHomeNet:
         push ebx
         push ecx
         push edx
@@ -24131,7 +24334,7 @@ sub_68378:
         jae near .16
         mov eax, ecx
         mov edx, 64h
-        call sub_69B08
+        call RandomPuckSpin
         push dword [byte ebp-010h]
         mov eax, 414h
         push dword [byte ebp-018h]
@@ -24143,7 +24346,7 @@ sub_68378:
         mov eax, 4
         call SetCrowdMood
         mov eax, edi
-        call sub_67BD0
+        call CommentNetHit
 .12:
         fld dword [byte ebp-020h]
         fcomp dword [dword_163300]
@@ -24154,7 +24357,7 @@ sub_68378:
         push dword [byte ebp-020h]
         mov eax, ecx
         push dword [byte ebp-028h]
-        call sub_67CC0
+        call PuckOffPost
         jmp short .16
 .13:
         push dword 45858000h
@@ -24179,7 +24382,7 @@ sub_68378:
         sub esp, byte 4
         mov eax, ecx
         fstp dword [esp]
-        call sub_68030
+        call PuckOffCrossbar
 .16:
         xor edx, edx
         call EndPenaltyShot
@@ -24261,7 +24464,7 @@ sub_68378:
         push dword 45879000h
         mov eax, ecx
         push byte 0
-        call sub_67540
+        call NetCollisionPoint
         test eax, eax
         je near .27
         fld dword [byte ebp-050h]
@@ -24325,7 +24528,7 @@ sub_68378:
         cmp dword [byte ebp-024h], 3F800000h
         jle short .25
         lea eax, [byte ebp-058h]
-        call sub_67A30
+        call PuckInNetDepth
         fld dword [byte ebp-01Ch]
         fld st0
         fadd qword [qword_163360]
@@ -24334,16 +24537,16 @@ sub_68378:
         jmp short .26
 .25:
         lea eax, [byte ebp-058h]
-        call sub_67A98
+        call PuckInNetWidth
 .26:
         mov eax, dword [dword ecx+0FAh]
         or byte [byte eax+030h], 10h
         mov eax, ecx
         push dword [byte ebp-01Ch]
-        call sub_66758
+        call PuckHitsNet
         mov eax, ecx
         push dword [byte ebp-01Ch]
-        call sub_67B10
+        call PlayNetSound
         fld dword [byte ecx+038h]
         fld st0
         fmul qword [qword_163368]
@@ -24367,9 +24570,10 @@ sub_68378:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_6889C                                                       6889C  97 PC
+; PuckInAwayNet                                   6889C  97 PC, low confidence
+; Puck against the away team's net: goal, post or save
 ;-----------------------------------------------------------------------------
-sub_6889C:
+PuckInAwayNet:
         push ebx
         push ecx
         push edx
@@ -24609,7 +24813,7 @@ sub_6889C:
         jae near .16
         mov eax, ecx
         mov edx, 64h
-        call sub_69B08
+        call RandomPuckSpin
         push dword [byte ebp-010h]
         mov eax, 414h
         push dword [byte ebp-018h]
@@ -24621,7 +24825,7 @@ sub_6889C:
         mov eax, 4
         call SetCrowdMood
         xor eax, eax
-        call sub_67BD0
+        call CommentNetHit
 .12:
         fld dword [byte ebp-020h]
         fcomp dword [dword_163378]
@@ -24632,7 +24836,7 @@ sub_6889C:
         push dword [byte ebp-020h]
         mov eax, ecx
         push dword [byte ebp-028h]
-        call sub_67CC0
+        call PuckOffPost
         jmp short .16
 .13:
         push dword 0C5858000h
@@ -24657,7 +24861,7 @@ sub_6889C:
         sub esp, byte 4
         mov eax, ecx
         fstp dword [esp]
-        call sub_68030
+        call PuckOffCrossbar
 .16:
         xor edx, edx
         call EndPenaltyShot
@@ -24739,7 +24943,7 @@ sub_6889C:
         push dword 0C5879000h
         mov eax, ecx
         push byte 0
-        call sub_67540
+        call NetCollisionPoint
         test eax, eax
         je near .27
         fld dword [byte ebp-050h]
@@ -24802,7 +25006,7 @@ sub_6889C:
         cmp dword [byte ebp-024h], 3F800000h
         jle short .25
         lea eax, [byte ebp-058h]
-        call sub_67A30
+        call PuckInNetDepth
         fld dword [byte ebp-01Ch]
         fld st0
         fadd qword [qword_1633D8]
@@ -24811,16 +25015,16 @@ sub_6889C:
         jmp short .26
 .25:
         lea eax, [byte ebp-058h]
-        call sub_67A98
+        call PuckInNetWidth
 .26:
         mov eax, dword [dword ecx+0FAh]
         or byte [byte eax+030h], 10h
         mov eax, ecx
         push dword [byte ebp-01Ch]
-        call sub_66758
+        call PuckHitsNet
         mov eax, ecx
         push dword [byte ebp-01Ch]
-        call sub_67B10
+        call PlayNetSound
         fld dword [byte ecx+038h]
         fld st0
         fmul qword [qword_1633E0]
@@ -24842,9 +25046,10 @@ sub_6889C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_68DBC                                                       68DBC  97 PC
+; PuckBehindNet                                   68DBC  97 PC, low confidence
+; Puck against the back of a net
 ;-----------------------------------------------------------------------------
-sub_68DBC:
+PuckBehindNet:
         push ebx
         push ecx
         push esi
@@ -24933,7 +25138,7 @@ sub_68DBC:
         cmp ecx, dword [off_168D0C]
         jne short .6
         mov eax, ebx
-        call sub_68378
+        call PuckInHomeNet
         mov esp, ebp
         pop ebp
         pop edi
@@ -24943,7 +25148,7 @@ sub_68DBC:
         ret
 .6:
         mov eax, ebx
-        call sub_6889C
+        call PuckInAwayNet
         mov esp, ebp
         pop ebp
         pop edi
@@ -25194,7 +25399,7 @@ sub_68DBC:
         fild dword [byte esp+024h]
         mov eax, ebx
         fstp dword [byte ebx+030h]
-        call sub_69B08
+        call RandomPuckSpin
         push dword [byte ebx+028h]
         mov eax, 414h
         push dword [byte ebx+020h]
@@ -25204,7 +25409,7 @@ sub_68DBC:
         mov eax, 4
         call SetCrowdMood
         xor eax, eax
-        call sub_67BD0
+        call CommentNetHit
 .17:
         xor edx, edx
         call EndPenaltyShot
@@ -25219,7 +25424,7 @@ sub_68DBC:
         push dword 0C2840000h
         mov eax, ebx
         push byte 0
-        call sub_67540
+        call NetCollisionPoint
         test eax, eax
         je near .27
         fld dword [byte esp+08h]
@@ -25333,7 +25538,7 @@ sub_68DBC:
         cmp dword [byte esp+038h], 3F800000h
         jle short .25
         mov eax, esp
-        call sub_67A30
+        call PuckInNetDepth
         fld dword [byte esp+05Ch]
         fld st0
         fadd qword [qword_16344C]
@@ -25342,7 +25547,7 @@ sub_68DBC:
         jmp short .26
 .25:
         mov eax, esp
-        call sub_67A98
+        call PuckInNetWidth
 .26:
         fld dword [esp]
         fmul dword [byte esp+014h]
@@ -25378,10 +25583,10 @@ sub_68DBC:
         or byte [byte eax+030h], 10h
         mov eax, ebx
         push dword [byte esp+05Ch]
-        call sub_66758
+        call PuckHitsNet
         mov eax, ebx
         push dword [byte esp+05Ch]
-        call sub_67B10
+        call PlayNetSound
         fld dword [byte ebx+038h]
         fld st0
         fmul qword [qword_16345C]
@@ -25404,16 +25609,17 @@ sub_68DBC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_69410                                                       69410  97 PC
+; CheckPuckNets                                   69410  97 PC, low confidence
+; Checks the puck against both nets
 ;-----------------------------------------------------------------------------
-sub_69410:
+CheckPuckNets:
         push ebx
         push edx
         mov ebx, eax
         test byte [byte_19CBC2], 1
         jne short .2
         mov eax, ebx
-        call sub_68378
+        call PuckInHomeNet
         test eax, eax
         je short .1
         mov eax, 1
@@ -25422,7 +25628,7 @@ sub_69410:
         ret
 .1:
         mov eax, ebx
-        call sub_6889C
+        call PuckInAwayNet
         test eax, eax
         je short .4
         mov eax, 2
@@ -25432,7 +25638,7 @@ sub_69410:
 .2:
         mov edx, dword [off_168D0C]
         mov eax, ebx
-        call sub_68DBC
+        call PuckBehindNet
         test eax, eax
         je short .3
         mov eax, 1
@@ -25442,7 +25648,7 @@ sub_69410:
 .3:
         mov edx, dword [off_168D08]
         mov eax, ebx
-        call sub_68DBC
+        call PuckBehindNet
         test eax, eax
         je short .4
         mov eax, 2
@@ -25456,9 +25662,10 @@ sub_69410:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_6947C                                                       6947C  97 PC
+; GoalLinePuckTest                                6947C  97 PC, low confidence
+; Tests whether the puck crossed the goal line (for the goal judge)
 ;-----------------------------------------------------------------------------
-sub_6947C:
+GoalLinePuckTest:
         push edx
         push esi
         push edi
@@ -25632,14 +25839,15 @@ sub_6947C:
         fstp dword [byte edx+020h]
         mov eax, edx
         fstp dword [byte edx+028h]
-        call sub_660F0
+        call PuckHeightAt
         pop edx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_69654                                                       69654  97 PC
+; UpdatePuckCarrier                               69654  97 PC, low confidence
+; Keeps the puck with its carrier
 ;-----------------------------------------------------------------------------
-sub_69654:
+UpdatePuckCarrier:
         push ebx
         push ecx
         push edx
@@ -25689,7 +25897,7 @@ sub_69654:
 .5:
         mov ebx, esp
         mov eax, esi
-        call sub_6619C
+        call ObjectFramePos
         mov eax, dword [esp]
         mov dword [byte ecx+020h], eax
         cmp word [dword esi+0A9h], byte 0
@@ -25713,7 +25921,7 @@ sub_69654:
         mov word [byte ecx+054h], ax
         mov eax, ecx
         fstp dword [byte ecx+034h]
-        call sub_660F0
+        call PuckHeightAt
         add esp, byte 0Ch
         pop esi
         pop edx
@@ -25721,9 +25929,10 @@ sub_69654:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_69750                                                       69750  97 PC
+; PuckGroundHeight                                69750  97 PC, low confidence
+; Works out the puck's height over the ice
 ;-----------------------------------------------------------------------------
-sub_69750:
+PuckGroundHeight:
         push ebx
         push ecx
         push edx
@@ -25951,9 +26160,10 @@ sub_69750:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_69970                                                       69970  97 PC
+; PuckBounceIce                                   69970  97 PC, low confidence
+; Bounces the puck off the ice
 ;-----------------------------------------------------------------------------
-sub_69970:
+PuckBounceIce:
         push edx
         mov edx, eax
         test byte [byte_19CBC2], 1
@@ -25983,15 +26193,16 @@ sub_69970:
         ret
 .4:
         mov eax, edx
-        call sub_69750
+        call PuckGroundHeight
 .5:
         pop edx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_699D4                                                       699D4  97 PC
+; UpdatePuck                                      699D4  97 PC, low confidence
+; Moves the puck and tests it against the boards, glass and nets
 ;-----------------------------------------------------------------------------
-sub_699D4:
+UpdatePuck:
         push edx
         mov edx, dword [off_168CFC]
         mov eax, dword [dword edx+0FAh]
@@ -26004,35 +26215,36 @@ sub_699D4:
         cmp word [word_19CBF4], byte 8
         je short .2
         mov eax, edx
-        call sub_66E38
+        call PuckHitsBoards
         test eax, eax
         jne short .1
         mov eax, edx
-        call sub_67248
+        call PuckHitsGlass
         test eax, eax
         jne short .1
         mov eax, edx
-        call sub_69410
+        call CheckPuckNets
         test eax, eax
         jne short .1
         mov eax, edx
-        call sub_69750
+        call PuckGroundHeight
         pop edx
         ret
 .1:
         and byte [byte_19CBCA], 0EFh
 .2:
         mov eax, edx
-        call sub_69970
+        call PuckBounceIce
         mov eax, edx
-        call sub_660F0
+        call PuckHeightAt
 .3:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_69A44                                                       69A44  97 PC
+; GoalJudgeTest                                   69A44  97 PC, low confidence
+; Tests a goal for the goal judge
 ;-----------------------------------------------------------------------------
-sub_69A44:
+GoalJudgeTest:
         push ebx
         push ebp
         mov ebp, esp
@@ -26104,9 +26316,10 @@ sub_69A44:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_69B08                                                       69B08  97 PC
+; RandomPuckSpin                                  69B08  97 PC, low confidence
+; Gives the puck a random spin
 ;-----------------------------------------------------------------------------
-sub_69B08:
+RandomPuckSpin:
         push ebx
         push ecx
         push edx
@@ -26147,9 +26360,10 @@ sub_69B08:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_69B78                                                       69B78  97 PC
+; StopObject                                      69B78  97 PC, low confidence
+; Stops an object
 ;-----------------------------------------------------------------------------
-sub_69B78:
+StopObject:
         mov eax, dword [dword eax+0FAh]
         mov dword [byte eax+0Ch], 0
         mov dword [byte eax+08h], 0
@@ -26157,9 +26371,10 @@ sub_69B78:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_69BA0                                                       69BA0  97 PC
+; StartPassAnim                                   69BA0  97 PC, low confidence
+; Starts the passing animation
 ;-----------------------------------------------------------------------------
-sub_69BA0:
+StartPassAnim:
         push ebx
         push ecx
         push esi
@@ -26290,7 +26505,7 @@ sub_69BA0:
         mov esi, 26h
 .11:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ebx, esi
         lea eax, [nosplit esi*8+00h]
         sub eax, esi
@@ -26313,7 +26528,7 @@ sub_69BA0:
         mov eax, dword [dword ecx+0FAh]
         and byte [byte eax+030h], 0FEh
         mov eax, ecx
-        call sub_69D98
+        call PassAnimFrame
         mov esp, ebp
         pop ebp
         pop esi
@@ -26321,9 +26536,10 @@ sub_69BA0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_69D98                                                       69D98  97 PC
+; PassAnimFrame                                   69D98  97 PC, low confidence
+; Picks the frame of the passing animation
 ;-----------------------------------------------------------------------------
-sub_69D98:
+PassAnimFrame:
         push ebx
         push ecx
         push edx
@@ -26343,7 +26559,7 @@ sub_69D98:
         jne short .1
         mov edx, esp
         mov eax, ecx
-        call sub_6A6D8
+        call PassAnimFrameForType
         mov edx, dword [esp]
         test edx, edx
         jl short .1
@@ -26351,7 +26567,7 @@ sub_69D98:
         jle short .1
         dec edx
         mov eax, ebx
-        call sub_76FE8
+        call SetAnimFrame
 .1:
         add esp, byte 4
         pop esi
@@ -26361,9 +26577,10 @@ sub_69D98:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_69DF4                                                       69DF4  97 PC
+; StartDropPassAnim                               69DF4  97 PC, low confidence
+; Starts the drop pass animation
 ;-----------------------------------------------------------------------------
-sub_69DF4:
+StartDropPassAnim:
         push ecx
         push esi
         push ebp
@@ -26435,7 +26652,7 @@ sub_69DF4:
         mov esi, 30h
 .5:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         lea eax, [nosplit esi*8+00h]
         sub eax, esi
         fld dword [byte ecx+038h]
@@ -26457,16 +26674,17 @@ sub_69DF4:
         mov eax, dword [dword ecx+0FAh]
         and byte [byte eax+030h], 0FEh
         mov eax, ecx
-        call sub_69D98
+        call PassAnimFrame
         mov esp, ebp
         pop ebp
         pop esi
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_69F3C                                                       69F3C  97 PC
+; StartShotAnim                                   69F3C  97 PC, low confidence
+; Starts the shooting animation
 ;-----------------------------------------------------------------------------
-sub_69F3C:
+StartShotAnim:
         push ebx
         push ecx
         push edx
@@ -26560,7 +26778,7 @@ sub_69F3C:
         mov edx, 2Ah
 .7:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov eax, dword [dword ecx+0FAh]
         mov dword [byte eax+020h], 1
         lea eax, [nosplit edx*8+00h]
@@ -26587,9 +26805,10 @@ sub_69F3C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_6A0BC                                                       6A0BC  97 PC
+; StartOneTimerAnim                               6A0BC  97 PC, low confidence
+; Starts the one-timer animation
 ;-----------------------------------------------------------------------------
-sub_6A0BC:
+StartOneTimerAnim:
         push ebx
         push ecx
         push edx
@@ -26599,9 +26818,9 @@ sub_6A0BC:
         mov eax, dword [dword ecx+0F6h]
         mov edx, 800h
         mov eax, dword [eax]
-        call sub_77018
+        call ClearAnimFlags
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov ebx, 20h
         and ah, 0DFh
@@ -26620,7 +26839,7 @@ sub_6A0BC:
         test byte [byte eax+030h], 1
         jne short .1
         mov eax, ecx
-        call sub_6A244
+        call StartPuckReceiveAnim
 .1:
         pop edx
         pop ecx
@@ -26628,9 +26847,10 @@ sub_6A0BC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_6A13C                                                       6A13C  97 PC
+; StartWristShotAnim                              6A13C  97 PC, low confidence
+; Starts the wrist shot animation
 ;-----------------------------------------------------------------------------
-sub_6A13C:
+StartWristShotAnim:
         push ebx
         push ecx
         push edx
@@ -26657,14 +26877,14 @@ sub_6A13C:
         mov ebx, esp
         lea edx, [byte esp+04h]
         mov eax, edi
-        call sub_657BF
+        call ShotAnimFrames
         cmp dword [byte esp+04h], byte 0
         jl near .3
         mov eax, dword [dword ecx+0FAh]
         mov edx, 800h
         mov dword [byte eax+020h], 0
         mov eax, esi
-        call sub_77018
+        call ClearAnimFlags
         mov ebx, dword [byte esp+04h]
         mov edx, dword [byte esi+04h]
         cmp edx, ebx
@@ -26684,7 +26904,7 @@ sub_6A13C:
         add edx, dword [byte esp+08h]
         dec edx
         mov eax, esi
-        call sub_76FE8
+        call SetAnimFrame
         cmp edi, byte 29h
         je short .2
         cmp edi, byte 2Bh
@@ -26714,9 +26934,10 @@ sub_6A13C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_6A244                                                       6A244  97 PC
+; StartPuckReceiveAnim                            6A244  97 PC, low confidence
+; Starts the animation for receiving the puck
 ;-----------------------------------------------------------------------------
-sub_6A244:
+StartPuckReceiveAnim:
         push ebx
         push ecx
         push edx
@@ -26850,7 +27071,7 @@ sub_6A244:
         pop ebx
         ret
 .9:
-        call sub_60D6C
+        call ResetAnimTimer
         mov al, byte [dword ecx+0BFh]
         mov ebx, 20h
         and al, 0DFh
@@ -26868,7 +27089,7 @@ sub_6A244:
         pop ebx
         ret
 .10:
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov ebx, 20h
         and ah, 0DFh
@@ -26886,7 +27107,7 @@ sub_6A244:
         pop ebx
         ret
 .11:
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword ecx+0BFh]
         mov edx, 100h
         and bh, 0DFh
@@ -26907,7 +27128,7 @@ sub_6A244:
         ret
 .12:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov dl, byte [dword ecx+0BFh]
         mov ebx, 20h
         and dl, 0DFh
@@ -26927,7 +27148,7 @@ sub_6A244:
         ret
 .13:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov al, byte [dword ecx+0BFh]
         mov ebx, 20h
         and al, 0DFh
@@ -26942,7 +27163,7 @@ sub_6A244:
         jmp near .17
 .15:
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
 .16:
         mov dword [byte esi+010h], 0
 .17:
@@ -26967,7 +27188,7 @@ sub_6A244:
         or byte [byte esi+0Ch], 8
         jmp near .21
 .18:
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword ecx+0BFh]
         and bh, 0DFh
         push dword 3F800000h
@@ -26990,7 +27211,7 @@ sub_6A244:
         pop ebx
         ret
 .19:
-        call sub_60D6C
+        call ResetAnimTimer
         mov bl, byte [dword ecx+0BFh]
         and bl, 0DFh
         push dword 3F800000h
@@ -27021,7 +27242,7 @@ sub_6A244:
         mov edx, esi
         mov eax, dword [eax]
         push dword 3F800000h
-        call sub_77310
+        call BlendToAnim
 .22:
         mov esp, ebp
         pop ebp
@@ -27033,9 +27254,10 @@ sub_6A244:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_6A604                                                       6A604  97 PC
+; ReceivePassMove                                 6A604  97 PC, low confidence
+; Move handler for receiving a pass
 ;-----------------------------------------------------------------------------
-sub_6A604:
+ReceivePassMove:
         push ebx
         push ecx
         push edx
@@ -27106,9 +27328,10 @@ sub_6A604:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_6A6D8                                                       6A6D8  97 PC
+; PassAnimFrameForType                            6A6D8  97 PC, low confidence
+; Returns the animation frame for a pass type
 ;-----------------------------------------------------------------------------
-sub_6A6D8:
+PassAnimFrameForType:
         cmp eax, byte 31h
         jb short .2
         jbe near .5
@@ -27169,9 +27392,10 @@ sub_6A6D8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_6A77C                                                       6A77C  97 PC
+; PassMove                                        6A77C  97 PC, low confidence
+; Move handler for a pass
 ;-----------------------------------------------------------------------------
-sub_6A77C:
+PassMove:
         push ebx
         push ecx
         push edx
@@ -27186,7 +27410,7 @@ sub_6A77C:
         and edi, 0FFFFh
         mov ebx, dword [byte eax+02Ch]
         mov eax, edi
-        call sub_6A6D8
+        call PassAnimFrameForType
         xor edx, edx
         mov eax, dword [off_168CF0]
         mov dl, byte [dword ebx+0A4h]
@@ -27204,7 +27428,7 @@ sub_6A77C:
         jmp short .3
 .2:
         mov eax, ecx
-        call sub_76944
+        call GetAnimId
 .3:
         mov edx, eax
         cmp edi, byte 31h
@@ -27246,7 +27470,7 @@ sub_6A77C:
         add esi, eax
         mov edx, esi
         mov eax, ebx
-        call sub_66224
+        call TryStickTouch
         mov edx, dword [off_168CFC]
         mov dword [byte edx+060h], eax
         jmp short .8
@@ -27348,7 +27572,7 @@ sub_6A77C:
         mov eax, dword [dword esi+0FAh]
         mov dword [byte eax+01Ch], 0
         mov eax, esi
-        call sub_60F48
+        call PickSkateAnim
         test byte [byte_19CBC2], 1
         jne near .28
         cmp word [word_19CBF4], byte 0
@@ -27457,15 +27681,15 @@ sub_6A77C:
         test byte [byte ecx+01Ch], 80h
         je short .29
         mov eax, ecx
-        call sub_612E4
+        call EndMove
         jmp short .30
 .29:
         lea edx, [byte ebp-020h]
         mov eax, ecx
-        call sub_613AC
+        call AdvanceMoveAnim
         lea edx, [byte ebp-020h]
         mov eax, ecx
-        call sub_6152C
+        call StepMove
 .30:
         mov esp, ebp
         pop ebp
@@ -27477,9 +27701,10 @@ sub_6A77C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_6AB88                                                       6AB88  97 PC
+; ShotReach                                       6AB88  97 PC, low confidence
+; Works out where a shot meets the puck
 ;-----------------------------------------------------------------------------
-sub_6AB88:
+ShotReach:
         push ebx
         push ecx
         sub esp, byte 0Ch
@@ -27487,7 +27712,7 @@ sub_6AB88:
         mov eax, edx
         mov ebx, esp
         mov edx, dword [dword_1BF060]
-        call sub_6619C
+        call ObjectFramePos
         fld dword [byte ecx+024h]
         fsub dword [byte esp+04h]
         fabs
@@ -27519,9 +27744,10 @@ sub_6AB88:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_6ABEC                                                       6ABEC  97 PC
+; ShotMove                                        6ABEC  97 PC, low confidence
+; Move handler for a shot
 ;-----------------------------------------------------------------------------
-sub_6ABEC:
+ShotMove:
         push ebx
         push ecx
         push edx
@@ -27541,7 +27767,7 @@ sub_6ABEC:
         lea edx, [byte ebp-024h]
         mov dword [byte ebp-08h], eax
         mov eax, edi
-        call sub_657BF
+        call ShotAnimFrames
         test byte [byte esi+01Ch], 80h
         je short .1
         mov eax, dword [dword ecx+0F2h]
@@ -27554,21 +27780,21 @@ sub_6ABEC:
         xor edx, edx
         call sub_56CF8
         mov eax, esi
-        call sub_612E4
+        call EndMove
         jmp near .40
 .1:
         cmp word [word_19CBD6], byte 0
         je short .4
         mov eax, dword [off_168CFC]
         mov edx, ecx
-        call sub_6AB88
+        call ShotReach
         test eax, eax
         je short .3
         mov edx, dword [byte ebp-028h]
         cmp edx, dword [byte esi+04h]
         jle short .2
         mov eax, esi
-        call sub_76FE8
+        call SetAnimFrame
 .2:
         mov eax, ecx
         mov ebx, 1
@@ -27655,7 +27881,7 @@ sub_6ABEC:
         sub esp, byte 4
         fild word [word_19CB78]
         fstp dword [esp]
-        call sub_65F50
+        call StickReach
         fldz
         fxch
         fstp dword [byte ebp-0Ch]
@@ -27875,12 +28101,12 @@ sub_6ABEC:
         mov edx, 800h
         mov dword [byte eax+020h], 0
         mov eax, esi
-        call sub_77018
+        call ClearAnimFlags
         jmp short .37
 .36:
         mov edx, 800h
         mov eax, esi
-        call sub_77014
+        call SetAnimFlags
 .37:
         mov dh, byte [byte esi+01Ch]
         test dh, 80h
@@ -27910,7 +28136,7 @@ sub_6ABEC:
         xor edx, edx
         call sub_56CF8
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -27922,10 +28148,10 @@ sub_6ABEC:
 .39:
         lea edx, [byte ebp-034h]
         mov eax, esi
-        call sub_613AC
+        call AdvanceMoveAnim
         lea edx, [byte ebp-034h]
         mov eax, esi
-        call sub_6152C
+        call StepMove
 .40:
         mov esp, ebp
         pop ebp
@@ -27937,9 +28163,10 @@ sub_6ABEC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_6B140                                                       6B140  97 PC
+; SkateWithPuckMove                               6B140  97 PC, low confidence
+; Move handler for skating with the puck
 ;-----------------------------------------------------------------------------
-sub_6B140:
+SkateWithPuckMove:
         push ebx
         push ecx
         push edx
@@ -27963,7 +28190,7 @@ sub_6B140:
         test byte [byte esi+030h], 1
         jne short .1
         mov eax, ebx
-        call sub_6A244
+        call StartPuckReceiveAnim
 .1:
         cmp word [dword ebx+0A9h], byte 0
         jne short .2
@@ -27974,7 +28201,7 @@ sub_6B140:
         cmp edx, eax
         je short .2
         mov eax, ebx
-        call sub_60F48
+        call PickSkateAnim
         jmp near .7
 .2:
         cmp word [dword ebx+0A9h], byte 0
@@ -28023,10 +28250,10 @@ sub_6B140:
         ja short .6
         mov edx, esp
         mov eax, ebx
-        call sub_73CE8
+        call BlockReach
         mov edx, esp
         mov eax, ecx
-        call sub_6152C
+        call StepMove
         mov esp, ebp
         pop ebp
         pop esi
@@ -28036,7 +28263,7 @@ sub_6B140:
         ret
 .6:
         mov eax, ecx
-        call sub_62F14
+        call SkateForwardMove
 .7:
         mov esp, ebp
         pop ebp
@@ -28050,18 +28277,19 @@ sub_6B140:
         push ecx
         mov ebx, eax
         mov ecx, edx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, ecx
         mov eax, ebx
-        call sub_615D0
+        call SteerTowardTarget
         pop ecx
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_6B28C                                                       6B28C  97 PC
+; GlideWithPuckMove                               6B28C  97 PC, low confidence
+; Move handler for gliding with the puck
 ;-----------------------------------------------------------------------------
-sub_6B28C:
+GlideWithPuckMove:
         push ebx
         push ecx
         push edx
@@ -28084,7 +28312,7 @@ sub_6B28C:
         test byte [byte eax+030h], 1
         jne short .1
         mov eax, edx
-        call sub_6A244
+        call StartPuckReceiveAnim
 .1:
         cmp word [dword edx+0A9h], byte 0
         jne near .5
@@ -28131,11 +28359,11 @@ sub_6B28C:
         sahf
         ja short .5
         mov eax, edx
-        call sub_60F48
+        call PickSkateAnim
         jmp short .6
 .5:
         mov eax, ebx
-        call sub_628C4
+        call GlideForwardMove
 .6:
         mov esp, ebp
         pop ebp
@@ -28146,9 +28374,10 @@ sub_6B28C:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_6B380                                                       6B380  97 PC
+; CheckBoardsContact                              6B380  97 PC, low confidence
+; Body contact against the boards
 ;-----------------------------------------------------------------------------
-sub_6B380:
+CheckBoardsContact:
         push ebx
         push ecx
         push edx
@@ -28209,7 +28438,7 @@ sub_6B380:
         fxch
         fstp dword [dword esp+080h]
         fstp dword [dword esp+094h]
-        call sub_6619C
+        call ObjectFramePos
         fld dword [byte esp+068h]
         fsub dword [byte ecx+028h]
         fld st0
@@ -28828,9 +29057,10 @@ sub_6B380:
         ret 4
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_6BC94                                                       6BC94  97 PC
+; CheckContactVelocity                            6BC94  97 PC, low confidence
+; Works out the speeds after body contact
 ;-----------------------------------------------------------------------------
-sub_6BC94:
+CheckContactVelocity:
         push ebx
         push ecx
         push edx
@@ -29159,9 +29389,10 @@ sub_6BC94:
         ret 8
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_6C0FC                                                       6C0FC  97 PC
+; CheckContactForce                               6C0FC  97 PC, low confidence
+; Works out the force of body contact
 ;-----------------------------------------------------------------------------
-sub_6C0FC:
+CheckContactForce:
         push ebx
         push edx
         push ebp
@@ -29596,9 +29827,10 @@ sub_6C0FC:
         ret 8
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_6C73C                                                       6C73C  97 PC
+; BodyCollide                                     6C73C  97 PC, low confidence
+; Body collision between two players
 ;-----------------------------------------------------------------------------
-sub_6C73C:
+BodyCollide:
         push ebx
         push ecx
         push edx
@@ -29709,7 +29941,7 @@ sub_6C73C:
         push dword [byte ebp+020h]
         mov eax, ecx
         push dword [byte ebp+01Ch]
-        call sub_6C0FC
+        call CheckContactForce
         jmp near .21
 .8:
         fld qword [byte ebp-04Ch]
@@ -29741,12 +29973,12 @@ sub_6C73C:
         lea ebx, [byte ebp-068h]
         mov edx, dword [dword_1BF060]
         mov eax, ecx
-        call sub_6619C
+        call ObjectFramePos
         push dword 42000000h
         push dword [byte ebp-060h]
         mov eax, ecx
         push dword [byte ebp-068h]
-        call sub_6C73C
+        call BodyCollide
 .9:
         mov eax, dword [byte ecx+038h]
         mov dword [byte ebp-038h], eax
@@ -29754,7 +29986,7 @@ sub_6C73C:
         mov dword [byte ebp-03Ch], eax
         mov eax, ecx
         push dword [byte ebp-034h]
-        call sub_66758
+        call PuckHitsNet
         test eax, eax
         je near .20
         cmp dword [byte ebp-038h], 41400000h
@@ -29881,9 +30113,10 @@ sub_6C73C:
         ret 0Ch
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_6CA24                                                       6CA24  97 PC
+; BodyBounce                                      6CA24  97 PC, low confidence
+; Bounce between two players
 ;-----------------------------------------------------------------------------
-sub_6CA24:
+BodyBounce:
         push ebx
         push ecx
         push edx
@@ -29951,7 +30184,7 @@ sub_6CA24:
         push dword [byte ebp+01Ch]
         mov eax, ecx
         push dword [byte ebp+018h]
-        call sub_6BC94
+        call CheckContactVelocity
         jmp near .29
 .4:
         fld dword [byte ebp+018h]
@@ -30019,12 +30252,12 @@ sub_6CA24:
         lea ebx, [byte ebp-06Ch]
         mov edx, dword [dword_1BF060]
         mov eax, ecx
-        call sub_6619C
+        call ObjectFramePos
         push dword 42000000h
         push dword [byte ebp-064h]
         mov eax, ecx
         push dword [byte ebp-06Ch]
-        call sub_6CA24
+        call BodyBounce
 .11:
         fld dword [byte ebp+018h]
         fabs
@@ -30076,7 +30309,7 @@ sub_6CA24:
         mov dword [byte ebp-08h], eax
         mov eax, ecx
         push dword [byte ebp-020h]
-        call sub_66758
+        call PuckHitsNet
         test eax, eax
         je near .28
         fld dword [byte ebp-01Ch]
@@ -30207,9 +30440,10 @@ sub_6CA24:
         pop ebx
         ret 0Ch
 ;-----------------------------------------------------------------------------
-; sub_6CD58                                                       6CD58  97 PC
+; CheckForPenalty                                 6CD58  97 PC, low confidence
+; Tests a hit for a penalty
 ;-----------------------------------------------------------------------------
-sub_6CD58:
+CheckForPenalty:
         push ebx
         push ecx
         push esi
@@ -30341,9 +30575,10 @@ sub_6CD58:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_6CED0                                                       6CED0  97 PC
+; CheckPlayerVsBoards                             6CED0  97 PC, low confidence
+; Tests a player against the boards
 ;-----------------------------------------------------------------------------
-sub_6CED0:
+CheckPlayerVsBoards:
         push ebx
         push ecx
         push esi
@@ -30555,7 +30790,7 @@ sub_6CED0:
         fstp dword [byte esp+064h]
         push dword [byte esp+064h]
         mov edi, dword [byte esp+06Ch]
-        call sub_6CD58
+        call CheckForPenalty
         test edi, 7FFFFFFFh
         jne short .14
         fldz
@@ -30705,7 +30940,7 @@ sub_6CED0:
 .22:
         mov eax, ecx
         push dword [byte esp+064h]
-        call sub_66758
+        call PuckHitsNet
         mov eax, dword [byte esp+03Ch]
         fld dword [byte eax+020h]
         fadd dword [byte esp+068h]
@@ -30725,13 +30960,13 @@ sub_6CED0:
         mov ebx, esp
         mov edx, dword [dword_1BF060]
         mov eax, ecx
-        call sub_6619C
+        call ObjectFramePos
         push dword 42000000h
         push dword [byte esp+0Ch]
         mov edx, dword [byte esp+044h]
         mov eax, ecx
         push dword [byte esp+08h]
-        call sub_6CED0
+        call CheckPlayerVsBoards
 .23:
         mov eax, 1
         mov esp, ebp
@@ -30744,7 +30979,7 @@ sub_6CED0:
 .24:
         mov eax, ecx
         push dword [byte esp+064h]
-        call sub_6B380
+        call CheckBoardsContact
         mov eax, 1
         mov esp, ebp
         pop ebp
@@ -30764,9 +30999,10 @@ sub_6CED0:
         pop ebx
         ret 0Ch
 ;-----------------------------------------------------------------------------
-; sub_6D3E4                                                       6D3E4  97 PC
+; PlayerBoardsTest                                6D3E4  97 PC, low confidence
+; Tests whether a player is near the boards
 ;-----------------------------------------------------------------------------
-sub_6D3E4:
+PlayerBoardsTest:
         push ebx
         push ecx
         push edx
@@ -30776,7 +31012,7 @@ sub_6D3E4:
         push dword [byte eax+028h]
         mov edx, dword [off_168D0C]
         push dword [byte eax+020h]
-        call sub_6CED0
+        call CheckPlayerVsBoards
         test eax, eax
         je short .1
         mov eax, 1
@@ -30787,7 +31023,7 @@ sub_6D3E4:
         push dword [byte ecx+028h]
         mov eax, ecx
         push dword [byte ecx+020h]
-        call sub_6CED0
+        call CheckPlayerVsBoards
         test eax, eax
         jne near .5
         cmp byte [dword ecx+0A4h], 0Ch
@@ -30805,13 +31041,13 @@ sub_6D3E4:
         mov ebx, esp
         mov edx, dword [dword_1BF060]
         mov eax, ecx
-        call sub_6619C
+        call ObjectFramePos
         push dword 42000000h
         push dword [byte esp+0Ch]
         mov edx, dword [off_168D0C]
         mov eax, ecx
         push dword [byte esp+08h]
-        call sub_6CED0
+        call CheckPlayerVsBoards
         test eax, eax
         je short .4
         mov eax, 1
@@ -30826,7 +31062,7 @@ sub_6D3E4:
         mov edx, dword [off_168D08]
         mov eax, ecx
         push dword [byte esp+08h]
-        call sub_6CED0
+        call CheckPlayerVsBoards
         test eax, eax
         je short .6
 .5:
@@ -30839,9 +31075,10 @@ sub_6D3E4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_6D4AC                                                       6D4AC  97 PC
+; PlayerCollisions                                6D4AC  97 PC, low confidence
+; Runs the player collision tests
 ;-----------------------------------------------------------------------------
-sub_6D4AC:
+PlayerCollisions:
         push ebx
         push ecx
         push edx
@@ -30860,13 +31097,13 @@ sub_6D4AC:
         push dword [byte ecx+028h]
         mov eax, ecx
         push dword [byte ecx+020h]
-        call sub_6C73C
+        call BodyCollide
         test eax, eax
         jne near .4
         mov ebx, esp
         mov edx, dword [dword_1BF060]
         mov eax, ecx
-        call sub_6619C
+        call ObjectFramePos
         cmp byte [dword ecx+0A4h], 0Ch
         je short .2
         test byte [dword ecx+0C0h], 1
@@ -30875,7 +31112,7 @@ sub_6D4AC:
         push dword [byte esp+0Ch]
         mov eax, ecx
         push dword [byte esp+08h]
-        call sub_6C73C
+        call BodyCollide
         test eax, eax
         jne short .4
 .2:
@@ -30883,7 +31120,7 @@ sub_6D4AC:
         push dword [byte ecx+028h]
         mov eax, ecx
         push dword [byte ecx+020h]
-        call sub_6CA24
+        call BodyBounce
         test eax, eax
         jne short .4
         cmp byte [dword ecx+0A4h], 0Ch
@@ -30894,16 +31131,16 @@ sub_6D4AC:
         push dword [byte esp+0Ch]
         mov eax, ecx
         push dword [byte esp+08h]
-        call sub_6CA24
+        call BodyBounce
         test eax, eax
         jne short .4
 .3:
         mov eax, ecx
-        call sub_6D3E4
+        call PlayerBoardsTest
         test eax, eax
         jne short .4
         mov eax, ecx
-        call sub_69750
+        call PuckGroundHeight
         xor eax, eax
         add esp, byte 0Ch
         pop edx
@@ -30912,9 +31149,9 @@ sub_6D4AC:
         ret
 .4:
         mov eax, ecx
-        call sub_69750
+        call PuckGroundHeight
         mov eax, ecx
-        call sub_660F0
+        call PuckHeightAt
         mov eax, 1
 .5:
         add esp, byte 0Ch
@@ -30923,9 +31160,10 @@ sub_6D4AC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_6D59C                                                       6D59C  97 PC
+; HitDirection                                    6D59C  97 PC, low confidence
+; Works out the direction of a hit
 ;-----------------------------------------------------------------------------
-sub_6D59C:
+HitDirection:
         push edx
         push ebp
         mov ebp, esp
@@ -31006,9 +31244,10 @@ sub_6D59C:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_6D678                                                       6D678  97 PC
+; HitCrowdReaction                                6D678  97 PC, low confidence
+; Crowd and commentary reaction to a hit
 ;-----------------------------------------------------------------------------
-sub_6D678:
+HitCrowdReaction:
         push ecx
         push esi
         push edi
@@ -31120,9 +31359,10 @@ sub_6D678:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_6D7F8                                                       6D7F8  97 PC
+; HitKnockback                                    6D7F8  97 PC, low confidence
+; Knocks back a player that was hit
 ;-----------------------------------------------------------------------------
-sub_6D7F8:
+HitKnockback:
         push ebx
         push ecx
         push esi
@@ -31249,9 +31489,10 @@ sub_6D7F8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_6D980                                                       6D980  97 PC
+; StartHitAnim                                    6D980  97 PC, low confidence
+; Starts the animation for a hit
 ;-----------------------------------------------------------------------------
-sub_6D980:
+StartHitAnim:
         push ebx
         push ecx
         push edx
@@ -31318,7 +31559,7 @@ sub_6D980:
         jmp short .6
 .5:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         fld qword [byte esp+01Ch]
         or ah, 20h
@@ -31330,7 +31571,7 @@ sub_6D980:
         fstp dword [esp]
         mov eax, ecx
         xor ebx, ebx
-        call sub_6D59C
+        call HitDirection
         mov edx, eax
         mov eax, ecx
         call SetSPA
@@ -31345,7 +31586,7 @@ sub_6D980:
         shl eax, 3
         mov edx, ecx
         add eax, SortCords
-        call sub_6D678
+        call HitCrowdReaction
         mov eax, 1
 .6:
         mov esp, ebp
@@ -31357,9 +31598,10 @@ sub_6D980:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_6DAB0                                                       6DAB0  97 PC
+; ResolveBodyCheck                                6DAB0  97 PC, low confidence
+; Resolves a body check: who falls and the penalty call
 ;-----------------------------------------------------------------------------
-sub_6DAB0:
+ResolveBodyCheck:
         push ebx
         push ecx
         push edx
@@ -31417,7 +31659,7 @@ sub_6DAB0:
         jbe short .2
         mov eax, ecx
         push dword [byte ebp+018h]
-        call sub_6D980
+        call StartHitAnim
         test eax, eax
         je near .8
         jmp near .35
@@ -31439,7 +31681,7 @@ sub_6DAB0:
         sahf
         jbe near .8
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov al, byte [dword ecx+0BFh]
         push dword 3F800000h
         or al, 20h
@@ -31447,7 +31689,7 @@ sub_6DAB0:
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
         xor ebx, ebx
-        call sub_6D59C
+        call HitDirection
         mov edx, eax
         mov eax, ecx
         call SetSPA
@@ -31462,7 +31704,7 @@ sub_6DAB0:
         shl eax, 3
         mov edx, ecx
         add eax, SortCords
-        call sub_6D678
+        call HitCrowdReaction
         mov eax, 1
         mov esp, ebp
         pop ebp
@@ -31484,7 +31726,7 @@ sub_6DAB0:
         jbe short .4
         mov eax, ecx
         push dword [byte ebp+018h]
-        call sub_6D980
+        call StartHitAnim
         test eax, eax
         je near .8
         mov eax, 1
@@ -31514,7 +31756,7 @@ sub_6DAB0:
         jae near .8
         mov eax, ecx
         push dword 0BFC90FDBh
-        call sub_6D59C
+        call HitDirection
         fld dword [byte esp+04h]
         mov ebx, eax
         mov edx, eax
@@ -31525,7 +31767,7 @@ sub_6DAB0:
         lea edx, [byte ebx+04h]
 .5:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov bl, byte [dword ecx+0BFh]
         or bl, 20h
         mov eax, ecx
@@ -31546,7 +31788,7 @@ sub_6DAB0:
         shl eax, 3
         mov edx, ecx
         add eax, SortCords
-        call sub_6D678
+        call HitCrowdReaction
         mov eax, 1
         mov esp, ebp
         pop ebp
@@ -31573,14 +31815,14 @@ sub_6DAB0:
         sahf
         jbe near .8
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         push dword 3F800000h
         mov bh, byte [dword ecx+0BFh]
         push byte 0
         or bh, 20h
         mov eax, ecx
         mov byte [dword ecx+0BFh], bh
-        call sub_6D59C
+        call HitDirection
         mov edx, eax
         xor ebx, ebx
         mov eax, ecx
@@ -31596,7 +31838,7 @@ sub_6DAB0:
         shl eax, 3
         mov edx, ecx
         add eax, SortCords
-        call sub_6D678
+        call HitCrowdReaction
         mov eax, 1
         mov esp, ebp
         pop ebp
@@ -31618,7 +31860,7 @@ sub_6DAB0:
         sahf
         jae short .8
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         xor ebx, ebx
         push dword 3F800000h
         mov dh, byte [dword ecx+0BFh]
@@ -31626,7 +31868,7 @@ sub_6DAB0:
         or dh, 20h
         mov eax, ecx
         mov byte [dword ecx+0BFh], dh
-        call sub_6D59C
+        call HitDirection
         mov edx, eax
         mov eax, ecx
         call SetSPA
@@ -31643,7 +31885,7 @@ sub_6DAB0:
         shl eax, 3
         mov edx, ecx
         add eax, SortCords
-        call sub_6D678
+        call HitCrowdReaction
         mov eax, 1
         mov esp, ebp
         pop ebp
@@ -31856,10 +32098,10 @@ sub_6DAB0:
         mov esi, 7Bh
 .34:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov edx, esi
         mov eax, ecx
-        call sub_6D7F8
+        call HitKnockback
         xor eax, eax
         push byte 1
         mov al, byte [dword esi+byte_16C429]
@@ -31869,7 +32111,7 @@ sub_6DAB0:
         mov edx, esi
         push dword [byte eax+038h]
         mov eax, ecx
-        call sub_5EB14
+        call StartCheckedAnim
         mov eax, dword [dword ecx+0FAh]
         or byte [byte eax+031h], 1
         xor edx, edx
@@ -31881,7 +32123,7 @@ sub_6DAB0:
         shl eax, 3
         mov edx, ecx
         add eax, SortCords
-        call sub_6D678
+        call HitCrowdReaction
         mov edx, dword [byte ecx+068h]
         mov eax, ecx
         sar edx, 10h
@@ -31896,9 +32138,10 @@ sub_6DAB0:
         pop ebx
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_6E170                                                       6E170  97 PC
+; StartFallAnim                                   6E170  97 PC, low confidence
+; Starts the fall animation
 ;-----------------------------------------------------------------------------
-sub_6E170:
+StartFallAnim:
         push ebx
         push ecx
         push esi
@@ -32097,7 +32340,7 @@ checkcx:
 .7:
         or byte [dword esi+0BFh], 20h
         mov eax, dword [dword edi+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov eax, dword [dword edi+0FAh]
         mov dword [byte eax+04h], 3F19999Ah
         cmp byte [dword edi+0A4h], 0Ch
@@ -32271,10 +32514,10 @@ checkcx:
         xor ebx, ebx
         mov eax, edi
         push dword 3F19999Ah
-        call sub_5EB14
+        call StartCheckedAnim
 .19:
         mov eax, dword [dword esi+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         cmp word [dword esi+0A9h], byte 0
         jne near .23
         fld dword [byte esp+04Ch]
@@ -32391,7 +32634,7 @@ checkcx:
 .27:
         mov edx, ecx
         mov eax, esi
-        call sub_6E170
+        call StartFallAnim
         xor ebx, ebx
         mov eax, dword [off_168CF0]
         mov bl, byte [dword esi+0A4h]
@@ -32405,7 +32648,7 @@ checkcx:
         mov ebx, 6003h
         mov edx, esi
         mov eax, edi
-        call sub_6D678
+        call HitCrowdReaction
         mov eax, dword [off_168CF0]
         mov byte [eax], 0FFh
         mov dword [byte esi+064h], 32h
@@ -32429,7 +32672,7 @@ checkcx:
 .30:
         mov edx, esi
         mov eax, edi
-        call sub_6D678
+        call HitCrowdReaction
         or byte [dword esi+0BFh], 20h
         mov eax, 1
         mov esp, ebp
@@ -32490,7 +32733,7 @@ checkcx:
         push ecx
         mov eax, esi
         push dword [byte esp+04Ch]
-        call sub_6DAB0
+        call ResolveBodyCheck
         xor ecx, ecx
         mov eax, dword [off_168CF0]
         mov cl, byte [dword esi+0A4h]
@@ -32530,9 +32773,10 @@ checkcx:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_6E9A4                                                       6E9A4  97 PC
+; ResolvePlayerContact                            6E9A4  97 PC, low confidence
+; Resolves contact between two players
 ;-----------------------------------------------------------------------------
-sub_6E9A4:
+ResolvePlayerContact:
         push ecx
         push esi
         push edi
@@ -32761,7 +33005,7 @@ sub_6E9A4:
         mov edx, eax
         mov eax, edi
         mov dword [byte esp+010h], ecx
-        call sub_6E170
+        call StartFallAnim
 .17:
         mov edx, dword [byte esp+0Ch]
         inc edx
@@ -32802,7 +33046,7 @@ sub_6E9A4:
         mov dword [byte esp+014h], eax
         mov edx, eax
         mov eax, esi
-        call sub_6E170
+        call StartFallAnim
         mov dword [byte esp+08h], 1
 .18:
         cmp dword [byte esp+010h], byte 0
@@ -32903,9 +33147,9 @@ sub_6E9A4:
 .28:
         mov eax, dword [dword edi+0FAh]
         mov edx, dword [byte esp+014h]
-        call sub_60D6C
+        call ResetAnimTimer
         mov eax, edi
-        call sub_6D7F8
+        call HitKnockback
         mov edx, dword [byte esp+014h]
         xor eax, eax
         push byte 1
@@ -32915,7 +33159,7 @@ sub_6E9A4:
         xor ebx, ebx
         push dword [byte eax+038h]
         mov eax, edi
-        call sub_5EB14
+        call StartCheckedAnim
         mov eax, dword [dword edi+0FAh]
         or byte [byte eax+031h], 1
         mov eax, dword [dword edi+0EEh]
@@ -33039,7 +33283,7 @@ sub_6E9A4:
         mov ecx, 69h
 .42:
         mov eax, dword [dword esi+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         cmp word [dword edi+0A9h], byte 0
         je short .43
         cmp dword [byte esp+010h], byte 0
@@ -33049,7 +33293,7 @@ sub_6E9A4:
 .43:
         mov edx, ecx
         mov eax, esi
-        call sub_6D7F8
+        call HitKnockback
         xor eax, eax
         push byte 1
         mov al, byte [dword ecx+byte_16C429]
@@ -33059,7 +33303,7 @@ sub_6E9A4:
         mov edx, ecx
         push dword [byte eax+038h]
         mov eax, esi
-        call sub_5EB14
+        call StartCheckedAnim
         mov eax, dword [dword esi+0FAh]
         or byte [byte eax+031h], 1
         mov eax, dword [dword esi+0EEh]
@@ -33093,9 +33337,10 @@ sub_6E9A4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_6F104                                                       6F104  97 PC
+; StickContact                                    6F104  97 PC, low confidence
+; Stick against a player
 ;-----------------------------------------------------------------------------
-sub_6F104:
+StickContact:
         push ebx
         push ecx
         push esi
@@ -33233,7 +33478,7 @@ sub_6F104:
         mov ebx, esp
         mov edx, dword [dword_1B9CB0]
         mov eax, edi
-        call sub_6619C
+        call ObjectFramePos
         cmp dword [byte esp+04h], 43100000h
         jle short .10
         xor eax, eax
@@ -33246,7 +33491,7 @@ sub_6F104:
         ret
 .10:
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         fld dword [byte ecx+038h]
         fdiv dword [dword_1BB258]
         fstp dword [byte esi+04h]
@@ -33270,7 +33515,7 @@ sub_6F104:
         xor ebx, ebx
         mov edx, 61h
         push dword [byte esi+04h]
-        call sub_5EB14
+        call StartCheckedAnim
 .13:
         mov eax, 1
 .14:
@@ -33283,9 +33528,10 @@ sub_6F104:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_6F300                                                       6F300  97 PC
+; PlayerPush                                      6F300  97 PC, low confidence
+; Pushes two players apart
 ;-----------------------------------------------------------------------------
-sub_6F300:
+PlayerPush:
         push ebx
         push ecx
         push esi
@@ -33360,7 +33606,7 @@ sub_6F300:
         fadd dword [byte ebx+028h]
         mov eax, edx
         fstp dword [byte edx+028h]
-        call sub_6D4AC
+        call PlayerCollisions
         test eax, eax
         je near .3
         mov eax, dword [byte esp+0Ch]
@@ -33401,7 +33647,7 @@ sub_6F300:
         fadd dword [byte edx+028h]
         mov eax, ebx
         fstp dword [byte ebx+028h]
-        call sub_6D4AC
+        call PlayerCollisions
         test eax, eax
         je near .3
         fld dword [dword ebx+0D2h]
@@ -33438,7 +33684,7 @@ sub_6F300:
         fadd dword [byte ebx+028h]
         mov eax, edx
         fstp dword [byte edx+028h]
-        call sub_6D4AC
+        call PlayerCollisions
         test eax, eax
         je short .3
         fld dword [dword edx+0D2h]
@@ -33459,9 +33705,10 @@ sub_6F300:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_6F55C                                                       6F55C  97 PC
+; ContactAngle                                    6F55C  97 PC, low confidence
+; Works out the contact angle
 ;-----------------------------------------------------------------------------
-sub_6F55C:
+ContactAngle:
         push esi
         push edi
         push ebp
@@ -33530,7 +33777,7 @@ sub_6F55C:
 ;-----------------------------------------------------------------------------
 ; checkplcoll                                       6F604  94G, low confidence
 ; 94G checkplcoll: a player's collisions with the other players (checkcx,
-; sub_6E9A4) and the rest
+; ResolvePlayerContact) and the rest
 ;-----------------------------------------------------------------------------
 checkplcoll:
         push ebx
@@ -33702,7 +33949,7 @@ checkplcoll:
 .11:
         mov edx, dword [dword esp+084h]
         mov eax, dword [dword esp+080h]
-        call sub_6F104
+        call StickContact
         test eax, eax
         je short .12
         xor eax, eax
@@ -33734,7 +33981,7 @@ checkplcoll:
 .13:
         mov edx, dword [dword esp+080h]
         mov eax, dword [dword esp+084h]
-        call sub_6F104
+        call StickContact
         test eax, eax
         je short .14
         xor eax, eax
@@ -33835,7 +34082,7 @@ checkplcoll:
         lea ebx, [byte esp+018h]
         lea edx, [byte esp+0Ch]
         lea eax, [byte esp+030h]
-        call sub_6F55C
+        call ContactAngle
         mov eax, dword [dword esp+080h]
         mov eax, dword [byte eax+02Ch]
         xor esi, esi
@@ -33872,7 +34119,7 @@ checkplcoll:
         lea ebx, [byte esp+03Ch]
         lea edx, [byte esp+0Ch]
         lea eax, [byte esp+030h]
-        call sub_6F55C
+        call ContactAngle
         fld dword [dword esp+0A4h]
         fxch
         fstp dword [dword esp+0A0h]
@@ -34033,7 +34280,7 @@ checkplcoll:
 .25:
         mov edx, dword [dword esp+080h]
         mov eax, dword [dword esp+084h]
-        call sub_6F300
+        call PlayerPush
         jmp near .32
 .26:
         mov edx, dword [dword esp+084h]
@@ -34080,7 +34327,7 @@ checkplcoll:
         fadd dword [dword esp+0ACh]
         mov eax, edx
         fstp dword [byte edx+028h]
-        call sub_69750
+        call PuckGroundHeight
         mov eax, dword [dword esp+084h]
         fld dword [byte eax+020h]
         fsub dword [dword esp+0B0h]
@@ -34090,7 +34337,7 @@ checkplcoll:
         fsub dword [dword esp+0ACh]
         mov edx, dword [dword esp+084h]
         fstp dword [byte eax+028h]
-        call sub_69750
+        call PuckGroundHeight
         mov edx, dword [dword edx+0FAh]
         test byte [byte edx+031h], 10h
         je short .27
@@ -34160,7 +34407,7 @@ checkplcoll:
         mov ebx, dword [byte esp+07Ch]
         mov edx, dword [dword esp+080h]
         mov eax, dword [dword esp+084h]
-        call sub_6E9A4
+        call ResolvePlayerContact
 .31:
         mov eax, dword [dword esp+084h]
         mov eax, dword [dword eax+0EEh]
@@ -34177,9 +34424,10 @@ checkplcoll:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_6FF1C                                                       6FF1C  97 PC
+; UpdatePlayerMotion                              6FF1C  97 PC, low confidence
+; Moves the players and updates their motion
 ;-----------------------------------------------------------------------------
-sub_6FF1C:
+UpdatePlayerMotion:
         push ebx
         push edx
         push ebp
@@ -34199,7 +34447,7 @@ sub_6FF1C:
         sahf
         jae short .2
         mov eax, edx
-        call sub_5E1B0
+        call MovePlayer
         fld dword [byte edx+038h]
         fadd qword [qword_163984]
         fldz
@@ -34279,9 +34527,10 @@ sub_6FF1C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_7002C                                                       7002C  97 PC
+; SortPlayersByDepth                              7002C  97 PC, low confidence
+; Sorts the players by depth for drawing
 ;-----------------------------------------------------------------------------
-sub_7002C:
+SortPlayersByDepth:
         push ebx
         push ecx
         push edx
@@ -34349,9 +34598,10 @@ jpt_700A0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_700D8                                                       700D8  97 PC
+; MoveToAnimPose                                  700D8  97 PC, low confidence
+; Moves the player to the pose of its animation
 ;-----------------------------------------------------------------------------
-sub_700D8:
+MoveToAnimPose:
         push ebx
         push ecx
         push edx
@@ -34390,7 +34640,7 @@ sub_700D8:
         mov ebx, dword [dword_1BF06C]
         mov edx, dword [byte edx+054h]
         mov eax, dword [eax]
-        call sub_76954
+        call UpdateObjectPose
         fld dword [byte esp+08h]
         fld dword [esp]
         call IF@ATAN2
@@ -34432,9 +34682,10 @@ sub_700D8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_701B8                                                       701B8  97 PC
+; FaceAngleDelta                                  701B8  97 PC, low confidence
+; Works out the turn to face a direction
 ;-----------------------------------------------------------------------------
-sub_701B8:
+FaceAngleDelta:
         push ebx
         push ebp
         mov ebp, esp
@@ -34490,9 +34741,10 @@ sub_701B8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_70260                                                       70260  97 PC
+; FacePlayerToward                                70260  97 PC, low confidence
+; Turns a player toward a point
 ;-----------------------------------------------------------------------------
-sub_70260:
+FacePlayerToward:
         push ebx
         push edx
         push ebp
@@ -34566,17 +34818,18 @@ sub_70260:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_70324                                                       70324  97 PC
+; StartFightAnimMove                              70324  97 PC, low confidence
+; Starts a fight animation move
 ;-----------------------------------------------------------------------------
-sub_70324:
+StartFightAnimMove:
         push ebx
         push ecx
         push edx
         mov ecx, eax
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov eax, ecx
-        call sub_70260
+        call FacePlayerToward
         mov edx, dword [dword ecx+0F6h]
         mov edx, dword [edx]
         mov edx, dword [byte edx+028h]
@@ -34598,9 +34851,10 @@ sub_70324:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_70378                                                       70378  97 PC
+; FightGrabMove                                   70378  97 PC, low confidence
+; Move handler for grabbing in a fight
 ;-----------------------------------------------------------------------------
-sub_70378:
+FightGrabMove:
         push ebx
         push ecx
         push edx
@@ -34613,7 +34867,7 @@ sub_70378:
         mov edi, dword [byte eax+028h]
         mov eax, ecx
         mov edx, dword [dword ecx+0FAh]
-        call sub_70260
+        call FacePlayerToward
         and edi, 0FFFFh
         mov esi, eax
         cmp eax, edi
@@ -34629,7 +34883,7 @@ sub_70378:
         je short .3
 .2:
         mov eax, edx
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov ebx, 20h
         and ah, 0DFh
@@ -34642,12 +34896,12 @@ sub_70378:
 .3:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov eax, ecx
         mov edx, esp
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         cmp esi, 158h
         jne short .4
         xor ebp, ebp
@@ -34655,7 +34909,7 @@ sub_70378:
 .4:
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .5:
         add esp, byte 0Ch
         pop ebp
@@ -34667,9 +34921,10 @@ sub_70378:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_70424                                                       70424  97 PC
+; FightHoldMove                                   70424  97 PC, low confidence
+; Move handler for holding in a fight
 ;-----------------------------------------------------------------------------
-sub_70424:
+FightHoldMove:
         push ebx
         push ecx
         push edx
@@ -34681,7 +34936,7 @@ sub_70424:
         mov edi, dword [byte eax+028h]
         mov eax, ecx
         mov edx, dword [dword ecx+0FAh]
-        call sub_70260
+        call FacePlayerToward
         and edi, 0FFFFh
         mov esi, eax
         cmp eax, edi
@@ -34690,7 +34945,7 @@ sub_70424:
         je short .2
 .1:
         mov eax, edx
-        call sub_60D6C
+        call ResetAnimTimer
         mov dl, byte [dword ecx+0BFh]
         mov ebx, 20h
         and dl, 0DFh
@@ -34707,12 +34962,12 @@ sub_70424:
         mov dword [byte esp+08h], eax
         mov eax, ecx
         mov edx, esp
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .3:
         add esp, byte 0Ch
         pop edi
@@ -34722,21 +34977,22 @@ sub_70424:
         pop ebx
         ret
 unk_704AC:
-        dd sub_704D4_1B3
-        dd sub_704D4_1B8
-        dd sub_704D4_1B8
-        dd sub_704D4_1BE
-        dd sub_704D4_1C4
+        dd FightPunchMove_1B3
+        dd FightPunchMove_1B8
+        dd FightPunchMove_1B8
+        dd FightPunchMove_1BE
+        dd FightPunchMove_1C4
 unk_704C0:
-        dd sub_704D4_288
-        dd sub_704D4_28D
-        dd sub_704D4_28D
-        dd sub_704D4_293
-        dd sub_704D4_299
+        dd FightPunchMove_288
+        dd FightPunchMove_28D
+        dd FightPunchMove_28D
+        dd FightPunchMove_293
+        dd FightPunchMove_299
 ;-----------------------------------------------------------------------------
-; sub_704D4                                                       704D4  97 PC
+; FightPunchMove                                  704D4  97 PC, low confidence
+; Move handler for a punch (crowd and sound)
 ;-----------------------------------------------------------------------------
-sub_704D4:
+FightPunchMove:
         push ebx
         push ecx
         push edx
@@ -34759,7 +35015,7 @@ sub_704D4:
         xor edx, edx
         jmp short .2
 .1:
-        call sub_76944
+        call GetAnimId
         mov edx, eax
 .2:
         xor eax, eax
@@ -34770,13 +35026,13 @@ sub_704D4:
         shl ecx, 3
         add ecx, SortCords
         test dl, 1
-        je near sub_704D4_299.19
+        je near FightPunchMove_299.19
         mov dh, byte [byte edi+030h]
         test dh, 40h
-        jne near sub_704D4_299.19
+        jne near FightPunchMove_299.19
         mov eax, dword [dword ecx+0EEh]
         test byte [byte eax+031h], 1
-        jne near sub_704D4_299.18
+        jne near FightPunchMove_299.18
         cmp dword [byte ebp-0Ch], 15Ch
         jne short .3
         mov dword [byte ebp-08h], 40h
@@ -34789,11 +35045,11 @@ sub_704D4:
         mov edx, dword [dword_1BF078]
         mov eax, esi
         fstp dword [byte ebp-04h]
-        call sub_6619C
+        call ObjectFramePos
         lea ebx, [byte ebp-024h]
         mov edx, dword [dword_1BF068]
         mov eax, ecx
-        call sub_6619C
+        call ObjectFramePos
         fld dword [byte ebp-024h]
         fsub dword [byte ebp-030h]
         fabs
@@ -34801,7 +35057,7 @@ sub_704D4:
         fcompp
         fnstsw ax
         sahf
-        jbe near sub_704D4_299.17
+        jbe near FightPunchMove_299.17
         fld dword [byte ebp-020h]
         fsub dword [byte ebp-02Ch]
         fabs
@@ -34810,14 +35066,14 @@ sub_704D4:
         fcomp qword [byte ebp-018h]
         fnstsw ax
         sahf
-        jae near sub_704D4_299.17
+        jae near FightPunchMove_299.17
         fld dword [byte ebp-01Ch]
         fsub dword [byte ebp-028h]
         fabs
         fcomp qword [byte ebp-018h]
         fnstsw ax
         sahf
-        jae near sub_704D4_299.17
+        jae near FightPunchMove_299.17
         mov bh, byte [byte edi+030h]
         or bh, 40h
         mov al, bh
@@ -34826,7 +35082,7 @@ sub_704D4:
         mov edx, dword [byte ebp-0Ch]
         mov byte [byte edi+030h], al
         cmp edx, 15Ch
-        jne near sub_704D4_1C4.10
+        jne near FightPunchMove_1C4.10
         test byte [dword ecx+0BFh], 40h
         je short .5
         mov eax, 8
@@ -34863,16 +35119,16 @@ sub_704D4:
         xor edx, edx
         mov eax, ecx
         jmp dword [dword cs:edx+unk_704AC]
-sub_704D4_1B3:
+FightPunchMove_1B3:
         dec dword [byte ecx+056h]
-        jmp short sub_704D4_1C4.6
-sub_704D4_1B8:
+        jmp short FightPunchMove_1C4.6
+FightPunchMove_1B8:
         sub dword [byte eax+056h], byte 2
-        jmp short sub_704D4_1C4.6
-sub_704D4_1BE:
+        jmp short FightPunchMove_1C4.6
+FightPunchMove_1BE:
         sub dword [byte ecx+056h], byte 3
-        jmp short sub_704D4_1C4.6
-sub_704D4_1C4:
+        jmp short FightPunchMove_1C4.6
+FightPunchMove_1C4:
         sub dword [byte ecx+056h], byte 4
 .6:
         cmp dword [byte ecx+056h], byte 0
@@ -34892,10 +35148,10 @@ sub_704D4_1C4:
         or dl, 1
         mov edi, 15Bh
         mov byte [byte eax+031h], dl
-        jmp near sub_704D4_299.16
+        jmp near FightPunchMove_299.16
 .9:
         mov edi, 15Ah
-        jmp near sub_704D4_299.16
+        jmp near FightPunchMove_299.16
 .10:
         test byte [dword ecx+0BFh], 40h
         je short .11
@@ -34924,16 +35180,16 @@ sub_704D4_1C4:
         mov edx, 4
         mov eax, ecx
         jmp dword [dword cs:edx+unk_704C0]
-sub_704D4_288:
+FightPunchMove_288:
         dec dword [byte ecx+056h]
-        jmp short sub_704D4_299.12
-sub_704D4_28D:
+        jmp short FightPunchMove_299.12
+FightPunchMove_28D:
         sub dword [byte eax+056h], byte 2
-        jmp short sub_704D4_299.12
-sub_704D4_293:
+        jmp short FightPunchMove_299.12
+FightPunchMove_293:
         sub dword [byte ecx+056h], byte 3
-        jmp short sub_704D4_299.12
-sub_704D4_299:
+        jmp short FightPunchMove_299.12
+FightPunchMove_299:
         sub dword [byte ecx+056h], edx
 .12:
         cmp dword [byte ecx+056h], byte 0
@@ -34976,7 +35232,7 @@ sub_704D4_299:
         call sub_56CF8
 .16:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         xor ebx, ebx
         or dh, 20h
@@ -35011,19 +35267,19 @@ sub_704D4_299:
         test byte [byte eax+01Ch], 80h
         je short .21
         mov eax, esi
-        call sub_70324
+        call StartFightAnimMove
         jmp short .22
 .21:
         lea edx, [byte ebp-024h]
-        call sub_613AC
+        call AdvanceMoveAnim
         mov eax, esi
         lea edx, [byte ebp-024h]
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, esi
-        call sub_61764
+        call ApplySkateAccel
         lea edx, [byte ebp-024h]
         mov eax, dword [byte ebp-010h]
-        call sub_6152C
+        call StepMove
 .22:
         mov esp, ebp
         pop ebp
@@ -35034,9 +35290,10 @@ sub_704D4_299:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_708B0                                                       708B0  97 PC
+; FightIdleMove                                   708B0  97 PC, low confidence
+; Move handler for the fight idle
 ;-----------------------------------------------------------------------------
-sub_708B0:
+FightIdleMove:
         push ebx
         push ecx
         push edx
@@ -35046,20 +35303,20 @@ sub_708B0:
         test byte [byte eax+01Ch], 80h
         je short .1
         mov eax, ecx
-        call sub_70324
+        call StartFightAnimMove
         jmp short .2
 .1:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov eax, ecx
         mov edx, esp
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .2:
         add esp, byte 0Ch
         pop edx
@@ -35068,9 +35325,10 @@ sub_708B0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_708F4                                                       708F4  97 PC
+; FightEndMove                                    708F4  97 PC, low confidence
+; Move handler for the end of a fight
 ;-----------------------------------------------------------------------------
-sub_708F4:
+FightEndMove:
         push ebx
         push ecx
         push edx
@@ -35102,12 +35360,12 @@ sub_708F4:
         test byte [byte esi+01Ch], 80h
         je short .3
         mov eax, dword [dword ecx+0F2h]
-        call sub_5AC28
+        call ClearObjectHidden
         xor edx, edx
         xor eax, eax
         mov dl, byte [dword edi+0A4h]
         mov al, byte [dword ecx+0A4h]
-        call sub_5B488
+        call LinkModelPair
         cmp byte [dword ecx+0D0h], 0
         je short .2
         push dword 3F800000h
@@ -35118,23 +35376,23 @@ sub_708F4:
         mov byte [dword ecx+0BFh], dh
         mov edx, 158h
         mov byte [dword ecx+0D0h], 0
-        call sub_5EEEC
+        call SetSPAInPlace
 .2:
         mov eax, ecx
-        call sub_70324
+        call StartFightAnimMove
         jmp short .4
 .3:
         mov edx, esp
         mov eax, esi
-        call sub_613AC
+        call AdvanceMoveAnim
         mov eax, ecx
         mov edx, esp
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, esp
         mov eax, esi
-        call sub_6152C
+        call StepMove
 .4:
         add esp, byte 0Ch
         pop edi
@@ -35145,9 +35403,10 @@ sub_708F4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_709D0                                                       709D0  97 PC
+; FightBlockMove                                  709D0  97 PC, low confidence
+; Move handler for blocking in a fight
 ;-----------------------------------------------------------------------------
-sub_709D0:
+FightBlockMove:
         push ebx
         push ecx
         push edx
@@ -35157,20 +35416,20 @@ sub_709D0:
         test byte [byte eax+01Ch], 80h
         je short .1
         mov eax, ecx
-        call sub_70324
+        call StartFightAnimMove
         jmp short .2
 .1:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov eax, ecx
         mov edx, esp
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .2:
         add esp, byte 0Ch
         pop edx
@@ -35179,9 +35438,10 @@ sub_709D0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_70A14                                                       70A14  97 PC
+; FightDuckMove                                   70A14  97 PC, low confidence
+; Move handler for ducking in a fight
 ;-----------------------------------------------------------------------------
-sub_70A14:
+FightDuckMove:
         push ebx
         push ecx
         push edx
@@ -35191,20 +35451,20 @@ sub_70A14:
         test byte [byte eax+01Ch], 80h
         je short .1
         mov eax, ecx
-        call sub_70324
+        call StartFightAnimMove
         jmp short .2
 .1:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov eax, ecx
         mov edx, esp
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .2:
         add esp, byte 0Ch
         pop edx
@@ -35213,9 +35473,10 @@ sub_70A14:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_70A58                                                       70A58  97 PC
+; FightHitMove                                    70A58  97 PC, low confidence
+; Move handler for being hit in a fight (sound)
 ;-----------------------------------------------------------------------------
-sub_70A58:
+FightHitMove:
         push ebx
         push ecx
         push edx
@@ -35231,7 +35492,7 @@ sub_70A58:
         jmp short .2
 .1:
         mov eax, ebx
-        call sub_76944
+        call GetAnimId
 .2:
         test al, 2
         je short .3
@@ -35253,7 +35514,7 @@ sub_70A58:
         test byte [byte ebx+01Ch], 80h
         je short .4
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         xor ebx, ebx
         or dh, 20h
@@ -35275,10 +35536,10 @@ sub_70A58:
 .4:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .5:
         add esp, byte 0Ch
         pop esi
@@ -35288,9 +35549,10 @@ sub_70A58:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_70B38                                                       70B38  97 PC
+; FightPauseMove                                  70B38  97 PC, low confidence
+; Move handler for a pause in a fight
 ;-----------------------------------------------------------------------------
-sub_70B38:
+FightPauseMove:
         push ebx
         push edx
         sub esp, byte 0Ch
@@ -35301,15 +35563,15 @@ sub_70B38:
         je short .1
         mov ebx, dword [dword eax+0EEh]
         and byte [byte ebx+031h], 0FEh
-        call sub_70324
+        call StartFightAnimMove
         jmp short .2
 .1:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .2:
         add esp, byte 0Ch
         pop edx
@@ -35317,9 +35579,10 @@ sub_70B38:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_70B74                                                       70B74  97 PC
+; FightJerseyMove                                 70B74  97 PC, low confidence
+; Move handler for a jersey pull (sound)
 ;-----------------------------------------------------------------------------
-sub_70B74:
+FightJerseyMove:
         push ebx
         push ecx
         push edx
@@ -35332,7 +35595,7 @@ sub_70B74:
         jmp short .2
 .1:
         mov eax, ebx
-        call sub_76944
+        call GetAnimId
 .2:
         test al, 2
         je short .3
@@ -35345,7 +35608,7 @@ sub_70B74:
         test byte [byte ebx+01Ch], 80h
         je short .4
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         xor ebx, ebx
         or dh, 20h
@@ -35367,10 +35630,10 @@ sub_70B74:
 .4:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .5:
         add esp, byte 0Ch
         pop edx
@@ -35379,9 +35642,10 @@ sub_70B74:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_70C24                                                       70C24  97 PC
+; FightPositionMove                               70C24  97 PC, low confidence
+; Places the fighters toward each other
 ;-----------------------------------------------------------------------------
-sub_70C24:
+FightPositionMove:
         push ebx
         push ecx
         push esi
@@ -35394,7 +35658,7 @@ sub_70C24:
         mov ecx, edx
         mov ebx, esp
         mov edx, dword [dword_1BF06C]
-        call sub_6619C
+        call ObjectFramePos
         fld dword [esp]
         fld dword [byte esp+08h]
         fsub dword [byte ecx+028h]
@@ -35439,7 +35703,7 @@ sub_70C24:
         fstp dword [byte ecx+040h]
 .2:
         mov eax, ecx
-        call sub_700D8
+        call MoveToAnimPose
         mov edx, dword [dword ecx+0FAh]
         fld dword [byte edx+014h]
         fadd dword [byte ecx+01Ch]
@@ -35467,7 +35731,7 @@ sub_70C24:
         fstp dword [byte ecx+01Ch]
 .4:
         mov eax, ecx
-        call sub_5E1B0
+        call MovePlayer
         fld dword [byte ecx+020h]
         fld dword [byte ecx+028h]
         fld dword [byte esi+020h]
@@ -35490,9 +35754,10 @@ sub_70C24:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_70D60                                                       70D60  97 PC
+; FightStepMove                                   70D60  97 PC, low confidence
+; Move handler for stepping in a fight
 ;-----------------------------------------------------------------------------
-sub_70D60:
+FightStepMove:
         push ebx
         push ecx
         push edx
@@ -35519,7 +35784,7 @@ sub_70D60:
         jne short .2
         mov edx, 800h
         mov eax, ebx
-        call sub_77014
+        call SetAnimFlags
         test byte [byte esi+030h], 2
         je short .1
         test byte [dword ecx+0C0h], 1
@@ -35530,7 +35795,7 @@ sub_70D60:
 .1:
         and byte [byte esi+030h], 0FDh
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         mov dl, byte [dword ecx+0BFh]
         xor ebx, ebx
         or dl, 20h
@@ -35544,7 +35809,7 @@ sub_70D60:
         test byte [byte ebx+01Ch], 80h
         je short .3
         mov eax, ecx
-        call sub_70324
+        call StartFightAnimMove
         add esp, byte 0Ch
         pop edi
         pop esi
@@ -35555,21 +35820,21 @@ sub_70D60:
 .3:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov eax, ecx
         mov edx, esp
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, esp
         mov eax, ecx
-        call sub_701B8
+        call FaceAngleDelta
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
         mov edx, edi
         mov eax, ecx
-        call sub_70C24
+        call FightPositionMove
 .4:
         add esp, byte 0Ch
         pop edi
@@ -35580,9 +35845,10 @@ sub_70D60:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_70E48                                                       70E48  97 PC
+; FightSwingMove                                  70E48  97 PC, low confidence
+; Move handler for a swing in a fight
 ;-----------------------------------------------------------------------------
-sub_70E48:
+FightSwingMove:
         push ebx
         push ecx
         push edx
@@ -35597,7 +35863,7 @@ sub_70E48:
         jmp short .2
 .1:
         mov eax, esi
-        call sub_76944
+        call GetAnimId
 .2:
         mov ecx, dword [byte esi+02Ch]
         xor edx, edx
@@ -35622,15 +35888,15 @@ sub_70E48:
         lea ebx, [byte esp+018h]
         mov edx, dword [dword_1BF078]
         mov eax, ecx
-        call sub_6619C
+        call ObjectFramePos
         mov ebx, esp
         mov edx, dword [dword_1BF074]
         mov eax, edi
-        call sub_6619C
+        call ObjectFramePos
         lea ebx, [byte esp+024h]
         mov edx, dword [dword_1BF064]
         mov eax, edi
-        call sub_6619C
+        call ObjectFramePos
         fld dword [esp]
         fadd dword [byte esp+024h]
         fmul qword [qword_163A4C]
@@ -35670,7 +35936,7 @@ sub_70E48:
 .3:
         mov eax, ebp
         mov esi, dword [byte esi+04h]
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword ecx+0BFh]
         mov edx, 172h
         or bh, 20h
@@ -35682,7 +35948,7 @@ sub_70E48:
         mov eax, dword [dword ecx+0F6h]
         mov edx, esi
         mov eax, dword [eax]
-        call sub_76FE8
+        call SetAnimFrame
         or byte [dword ecx+0BFh], 20h
         add esp, byte 30h
         pop ebp
@@ -35695,7 +35961,7 @@ sub_70E48:
 .4:
         mov eax, ebp
         mov esi, dword [byte esi+04h]
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         xor ebx, ebx
         or dh, 20h
@@ -35707,7 +35973,7 @@ sub_70E48:
         mov eax, dword [dword ecx+0F6h]
         mov edx, esi
         mov eax, dword [eax]
-        call sub_76FE8
+        call SetAnimFrame
         or byte [dword ecx+0BFh], 20h
         add esp, byte 30h
         pop ebp
@@ -35719,7 +35985,7 @@ sub_70E48:
         ret
 .5:
         mov eax, dword [dword edi+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword edi+0BFh]
         mov ebx, 40h
         or ah, 20h
@@ -35744,7 +36010,7 @@ sub_70E48:
         jne short .8
         mov edx, 800h
         mov eax, esi
-        call sub_77014
+        call SetAnimFlags
         and byte [dword ecx+0BFh], 0DFh
         test byte [byte ebp+030h], 2
         je short .7
@@ -35758,7 +36024,7 @@ sub_70E48:
         and bl, 0FDh
         mov eax, ebp
         mov byte [byte ebp+030h], bl
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword ecx+0BFh]
         mov edx, 171h
         or bh, 20h
@@ -35780,15 +36046,15 @@ sub_70E48:
         jne short .9
         lea edx, [byte esp+024h]
         mov eax, esi
-        call sub_613AC
+        call AdvanceMoveAnim
         mov eax, ecx
         lea edx, [byte esp+024h]
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         lea edx, [byte esp+024h]
         mov eax, esi
-        call sub_6152C
+        call StepMove
 .9:
         add esp, byte 30h
         pop ebp
@@ -35800,9 +36066,10 @@ sub_70E48:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_71108                                                       71108  97 PC
+; FightUppercutMove                               71108  97 PC, low confidence
+; Move handler for an uppercut
 ;-----------------------------------------------------------------------------
-sub_71108:
+FightUppercutMove:
         push ebx
         push ecx
         push edx
@@ -35820,7 +36087,7 @@ sub_71108:
         jmp short .2
 .1:
         mov eax, ebx
-        call sub_76944
+        call GetAnimId
         mov dword [byte esp+0Ch], eax
 .2:
         xor edx, edx
@@ -35861,7 +36128,7 @@ sub_71108:
         test byte [byte ebx+01Ch], 80h
         je near .5
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         test byte [byte esi+030h], 2
         jne short .4
         mov dh, byte [dword ecx+0BFh]
@@ -35897,7 +36164,7 @@ sub_71108:
         mov dl, byte [byte edx+0Dh]
         and edx, 0FFh
         dec edx
-        call sub_76FE8
+        call SetAnimFrame
         add esp, byte 10h
         pop edi
         pop esi
@@ -35910,15 +36177,15 @@ sub_71108:
         jne short .6
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov eax, ecx
         mov edx, esp
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .6:
         add esp, byte 10h
         pop edi
@@ -35928,9 +36195,10 @@ sub_71108:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_71298                                                       71298  97 PC
+; FightStaggerMove                                71298  97 PC, low confidence
+; Move handler for staggering
 ;-----------------------------------------------------------------------------
-sub_71298:
+FightStaggerMove:
         push ebx
         push ecx
         push edx
@@ -35952,7 +36220,7 @@ sub_71298:
         test ah, 80h
         je short .1
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         mov ebx, 840h
         or dh, 20h
@@ -35976,28 +36244,28 @@ sub_71298:
         mov dl, byte [byte edx+0Dh]
         and edx, 0FFh
         dec edx
-        call sub_76FE8
+        call SetAnimFrame
         jmp short .2
 .1:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov eax, ecx
         mov edx, esp
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, esp
         mov eax, ecx
-        call sub_701B8
+        call FaceAngleDelta
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
         test byte [byte esi+030h], 2
         je short .2
         mov edx, edi
         mov eax, ecx
-        call sub_70C24
+        call FightPositionMove
 .2:
         add esp, byte 0Ch
         pop edi
@@ -36007,9 +36275,10 @@ sub_71298:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_71380                                                       71380  97 PC
+; FightFaceMove                                   71380  97 PC, low confidence
+; Move handler with face morphs in a fight
 ;-----------------------------------------------------------------------------
-sub_71380:
+FightFaceMove:
         push ebx
         push ecx
         push edx
@@ -36028,15 +36297,15 @@ sub_71380:
         xor edx, edx
         call sub_56CF8
         mov eax, ecx
-        call sub_70324
+        call StartFightAnimMove
         jmp short .2
 .1:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .2:
         add esp, byte 0Ch
         pop edx
@@ -36044,9 +36313,10 @@ sub_71380:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_713E0                                                       713E0  97 PC
+; FightStartMove                                  713E0  97 PC, low confidence
+; Move handler for the start of a fight
 ;-----------------------------------------------------------------------------
-sub_713E0:
+FightStartMove:
         push ebx
         push ecx
         push edx
@@ -36063,7 +36333,7 @@ sub_713E0:
         jne short .2
         mov edx, 800h
         mov eax, esi
-        call sub_77014
+        call SetAnimFlags
         and byte [dword ecx+0BFh], 0DFh
         test byte [byte ebx+030h], 4
         je short .1
@@ -36075,7 +36345,7 @@ sub_713E0:
 .1:
         and byte [byte ebx+030h], 0F9h
         mov eax, ebx
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov edx, 174h
         or ah, 20h
@@ -36093,9 +36363,9 @@ sub_713E0:
         test byte [byte esi+01Ch], 80h
         je short .3
         mov eax, ebx
-        call sub_60D6C
+        call ResetAnimTimer
         mov eax, ecx
-        call sub_70324
+        call StartFightAnimMove
 .3:
         pop esi
         pop edx
@@ -36103,9 +36373,10 @@ sub_713E0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7147C                                                       7147C  97 PC
+; FightCircleMove                                 7147C  97 PC, low confidence
+; Move handler for circling in a fight
 ;-----------------------------------------------------------------------------
-sub_7147C:
+FightCircleMove:
         push ebx
         push ecx
         push edx
@@ -36132,7 +36403,7 @@ sub_7147C:
         jne short .2
         mov edx, 800h
         mov eax, ebx
-        call sub_77014
+        call SetAnimFlags
         test byte [byte esi+030h], 4
         je short .1
         test byte [dword ecx+0C0h], 1
@@ -36145,7 +36416,7 @@ sub_7147C:
         and dl, 0F9h
         mov eax, esi
         mov byte [byte esi+030h], dl
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         xor ebx, ebx
         or dh, 20h
@@ -36159,9 +36430,9 @@ sub_7147C:
         test byte [byte ebx+01Ch], 80h
         je short .3
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         mov eax, ecx
-        call sub_70324
+        call StartFightAnimMove
         add esp, byte 0Ch
         pop edi
         pop esi
@@ -36172,23 +36443,23 @@ sub_7147C:
 .3:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov eax, ecx
         mov edx, esp
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, esp
         mov eax, ecx
-        call sub_701B8
+        call FaceAngleDelta
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
         test byte [byte esi+030h], 4
         je short .4
         mov edx, edi
         mov eax, ecx
-        call sub_70C24
+        call FightPositionMove
 .4:
         add esp, byte 0Ch
         pop edi
@@ -36198,9 +36469,10 @@ sub_7147C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_71574                                                       71574  97 PC
+; FightThrowMove                                  71574  97 PC, low confidence
+; Move handler for a throw
 ;-----------------------------------------------------------------------------
-sub_71574:
+FightThrowMove:
         push ebx
         push ecx
         push edx
@@ -36225,7 +36497,7 @@ sub_71574:
         jmp short .2
 .1:
         mov eax, ebx
-        call sub_76944
+        call GetAnimId
 .2:
         test al, 1
         je short .3
@@ -36256,7 +36528,7 @@ sub_71574:
         test byte [byte ebx+01Ch], 80h
         je near .5
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         test byte [byte esi+030h], 4
         jne short .4
         mov eax, dword [dword ecx+0F2h]
@@ -36292,7 +36564,7 @@ sub_71574:
         mov dl, byte [byte edx+0Dh]
         and edx, 0FFh
         dec edx
-        call sub_76FE8
+        call SetAnimFrame
         add esp, byte 0Ch
         pop edi
         pop esi
@@ -36305,15 +36577,15 @@ sub_71574:
         jne short .6
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov eax, ecx
         mov edx, esp
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .6:
         add esp, byte 0Ch
         pop edi
@@ -36324,9 +36596,10 @@ sub_71574:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_716F8                                                       716F8  97 PC
+; FightFallMove                                   716F8  97 PC, low confidence
+; Move handler for falling in a fight
 ;-----------------------------------------------------------------------------
-sub_716F8:
+FightFallMove:
         push ebx
         push ecx
         push edx
@@ -36348,7 +36621,7 @@ sub_716F8:
         test ah, 80h
         je short .1
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         mov ebx, 840h
         or dh, 20h
@@ -36372,28 +36645,28 @@ sub_716F8:
         mov dl, byte [byte edx+0Dh]
         and edx, 0FFh
         dec edx
-        call sub_76FE8
+        call SetAnimFrame
         jmp short .2
 .1:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov eax, ecx
         mov edx, esp
-        call sub_700D8
+        call MoveToAnimPose
         mov eax, ecx
-        call sub_61764
+        call ApplySkateAccel
         mov edx, esp
         mov eax, ecx
-        call sub_701B8
+        call FaceAngleDelta
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
         test byte [byte esi+030h], 4
         je short .2
         mov edx, edi
         mov eax, ecx
-        call sub_70C24
+        call FightPositionMove
 .2:
         add esp, byte 0Ch
         pop edi
@@ -36403,21 +36676,22 @@ sub_716F8:
         pop ebx
         ret
 unk_717E0:
-        dd sub_71808_86
-        dd sub_71808_8B
-        dd sub_71808_8B
-        dd sub_71808_91
-        dd sub_71808_97
+        dd StartFightPunch_86
+        dd StartFightPunch_8B
+        dd StartFightPunch_8B
+        dd StartFightPunch_91
+        dd StartFightPunch_97
 unk_717F4:
-        dd sub_71808_186
-        dd sub_71808_18B
-        dd sub_71808_18B
-        dd sub_71808_191
-        dd sub_71808_197
+        dd StartFightPunch_186
+        dd StartFightPunch_18B
+        dd StartFightPunch_18B
+        dd StartFightPunch_191
+        dd StartFightPunch_197
 ;-----------------------------------------------------------------------------
-; sub_71808                                                       71808  97 PC
+; StartFightPunch                                 71808  97 PC, low confidence
+; Starts a punch in a fight
 ;-----------------------------------------------------------------------------
-sub_71808:
+StartFightPunch:
         push ebx
         push ecx
         push edx
@@ -36440,12 +36714,12 @@ sub_71808:
         and eax, 0FFFFh
         mov byte [byte edi+030h], dl
         cmp eax, 161h
-        jne near sub_71808_97.5
+        jne near StartFightPunch_97.5
         test dl, 2
-        je near sub_71808_197.12
+        je near StartFightPunch_197.12
         mov eax, edi
         mov edx, 163h
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword esi+0BFh]
         push dword 3F800000h
         or bh, 20h
@@ -36456,20 +36730,20 @@ sub_71808:
         call SetSPA
         mov eax, ecx
         jmp dword [dword cs:esi+unk_717E0]
-sub_71808_86:
+StartFightPunch_86:
         dec dword [byte ecx+056h]
-        jmp short sub_71808_97.1
-sub_71808_8B:
+        jmp short StartFightPunch_97.1
+StartFightPunch_8B:
         sub dword [byte eax+056h], byte 2
-        jmp short sub_71808_97.1
-sub_71808_91:
+        jmp short StartFightPunch_97.1
+StartFightPunch_91:
         sub dword [byte ecx+056h], byte 3
-        jmp short sub_71808_97.1
-sub_71808_97:
+        jmp short StartFightPunch_97.1
+StartFightPunch_97:
         sub dword [byte ecx+056h], byte 4
 .1:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         cmp dword [byte ecx+056h], byte 0
         setle al
         and eax, 0FFh
@@ -36496,7 +36770,7 @@ sub_71808_97:
         and byte [byte edi+030h], 0FDh
         mov eax, dword [dword ecx+0FAh]
         and byte [byte eax+030h], 0FDh
-        jmp near sub_71808_197.12
+        jmp near StartFightPunch_197.12
 .4:
         mov al, byte [dword ecx+0BFh]
         mov edx, 165h
@@ -36514,12 +36788,12 @@ sub_71808_97:
         ret
 .5:
         cmp eax, 16Bh
-        jne near sub_71808_197.10
+        jne near StartFightPunch_197.10
         test dl, 4
-        je near sub_71808_197.12
+        je near StartFightPunch_197.12
         mov eax, edi
         mov edx, 16Dh
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword esi+0BFh]
         push dword 3F800000h
         or bh, 20h
@@ -36530,20 +36804,20 @@ sub_71808_97:
         call SetSPA
         mov eax, ecx
         jmp dword [dword cs:esi+unk_717F4]
-sub_71808_186:
+StartFightPunch_186:
         dec dword [byte ecx+056h]
-        jmp short sub_71808_197.6
-sub_71808_18B:
+        jmp short StartFightPunch_197.6
+StartFightPunch_18B:
         sub dword [byte eax+056h], byte 2
-        jmp short sub_71808_197.6
-sub_71808_191:
+        jmp short StartFightPunch_197.6
+StartFightPunch_191:
         sub dword [byte ecx+056h], byte 3
-        jmp short sub_71808_197.6
-sub_71808_197:
+        jmp short StartFightPunch_197.6
+StartFightPunch_197:
         sub dword [byte ecx+056h], byte 4
 .6:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         cmp dword [byte ecx+056h], byte 0
         setle al
         and eax, 0FFh
@@ -36602,7 +36876,7 @@ sub_71808_197:
         jne short .12
 .11:
         mov eax, edi
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword esi+0BFh]
         xor ebx, ebx
         or dh, 20h
@@ -36620,21 +36894,22 @@ sub_71808_197:
         ret
         db 08Bh,0C0h
 unk_71A94:
-        dd sub_71ABC_86
-        dd sub_71ABC_8B
-        dd sub_71ABC_8B
-        dd sub_71ABC_91
-        dd sub_71ABC_97
+        dd StartFightBlock_86
+        dd StartFightBlock_8B
+        dd StartFightBlock_8B
+        dd StartFightBlock_91
+        dd StartFightBlock_97
 unk_71AA8:
-        dd sub_71ABC_186
-        dd sub_71ABC_18B
-        dd sub_71ABC_18B
-        dd sub_71ABC_191
-        dd sub_71ABC_197
+        dd StartFightBlock_186
+        dd StartFightBlock_18B
+        dd StartFightBlock_18B
+        dd StartFightBlock_191
+        dd StartFightBlock_197
 ;-----------------------------------------------------------------------------
-; sub_71ABC                                                       71ABC  97 PC
+; StartFightBlock                                 71ABC  97 PC, low confidence
+; Starts a block in a fight
 ;-----------------------------------------------------------------------------
-sub_71ABC:
+StartFightBlock:
         push ebx
         push ecx
         push edx
@@ -36657,12 +36932,12 @@ sub_71ABC:
         and eax, 0FFFFh
         mov byte [byte edi+030h], dl
         cmp eax, 161h
-        jne near sub_71ABC_97.5
+        jne near StartFightBlock_97.5
         test dl, 2
-        je near sub_71ABC_197.12
+        je near StartFightBlock_197.12
         mov eax, edi
         mov edx, 164h
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword esi+0BFh]
         push dword 3F800000h
         or bh, 20h
@@ -36673,20 +36948,20 @@ sub_71ABC:
         call SetSPA
         mov eax, ecx
         jmp dword [dword cs:esi+unk_71A94]
-sub_71ABC_86:
+StartFightBlock_86:
         dec dword [byte ecx+056h]
-        jmp short sub_71ABC_97.1
-sub_71ABC_8B:
+        jmp short StartFightBlock_97.1
+StartFightBlock_8B:
         sub dword [byte eax+056h], byte 2
-        jmp short sub_71ABC_97.1
-sub_71ABC_91:
+        jmp short StartFightBlock_97.1
+StartFightBlock_91:
         sub dword [byte ecx+056h], byte 3
-        jmp short sub_71ABC_97.1
-sub_71ABC_97:
+        jmp short StartFightBlock_97.1
+StartFightBlock_97:
         sub dword [byte ecx+056h], byte 4
 .1:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         cmp dword [byte ecx+056h], byte 0
         setle al
         and eax, 0FFh
@@ -36713,7 +36988,7 @@ sub_71ABC_97:
         and byte [byte edi+030h], 0FDh
         mov eax, dword [dword ecx+0FAh]
         and byte [byte eax+030h], 0FDh
-        jmp near sub_71ABC_197.12
+        jmp near StartFightBlock_197.12
 .4:
         mov al, byte [dword ecx+0BFh]
         mov edx, 166h
@@ -36731,12 +37006,12 @@ sub_71ABC_97:
         ret
 .5:
         cmp eax, 16Bh
-        jne near sub_71ABC_197.10
+        jne near StartFightBlock_197.10
         test dl, 4
-        je near sub_71ABC_197.12
+        je near StartFightBlock_197.12
         mov eax, edi
         mov edx, 16Dh
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword esi+0BFh]
         push dword 3F800000h
         or bh, 20h
@@ -36747,20 +37022,20 @@ sub_71ABC_97:
         call SetSPA
         mov eax, ecx
         jmp dword [dword cs:esi+unk_71AA8]
-sub_71ABC_186:
+StartFightBlock_186:
         dec dword [byte ecx+056h]
-        jmp short sub_71ABC_197.6
-sub_71ABC_18B:
+        jmp short StartFightBlock_197.6
+StartFightBlock_18B:
         sub dword [byte eax+056h], byte 2
-        jmp short sub_71ABC_197.6
-sub_71ABC_191:
+        jmp short StartFightBlock_197.6
+StartFightBlock_191:
         sub dword [byte ecx+056h], byte 3
-        jmp short sub_71ABC_197.6
-sub_71ABC_197:
+        jmp short StartFightBlock_197.6
+StartFightBlock_197:
         sub dword [byte ecx+056h], byte 4
 .6:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         cmp dword [byte ecx+056h], byte 0
         setle al
         and eax, 0FFh
@@ -36819,7 +37094,7 @@ sub_71ABC_197:
         jne short .12
 .11:
         mov eax, edi
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword esi+0BFh]
         xor ebx, ebx
         or dh, 20h
@@ -36837,9 +37112,10 @@ sub_71ABC_197:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_71D48                                                       71D48  97 PC
+; StartFightGrab                                  71D48  97 PC, low confidence
+; Starts a grab in a fight
 ;-----------------------------------------------------------------------------
-sub_71D48:
+StartFightGrab:
         push ebx
         push ecx
         push edx
@@ -36866,7 +37142,7 @@ sub_71D48:
         mov dh, dl
         or dh, 4
         mov byte [byte eax+030h], dh
-        call sub_60D6C
+        call ResetAnimTimer
         mov bl, byte [dword ecx+0BFh]
         mov edx, 16Bh
         or bl, 20h
@@ -36878,7 +37154,7 @@ sub_71D48:
         mov eax, dword [dword esi+0FAh]
         or byte [byte eax+030h], 4
         mov eax, dword [dword esi+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov al, byte [dword esi+0BFh]
         mov edx, 16Ch
         or al, 20h
@@ -36902,7 +37178,7 @@ sub_71D48:
         cmp edx, 16Ah
         jne short .3
 .2:
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov ebx, 40h
         or ah, 20h
@@ -36918,9 +37194,10 @@ sub_71D48:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_71E58                                                       71E58  97 PC
+; StartFightPull                                  71E58  97 PC, low confidence
+; Starts a jersey pull in a fight
 ;-----------------------------------------------------------------------------
-sub_71E58:
+StartFightPull:
         push ebx
         push ecx
         push edx
@@ -36944,7 +37221,7 @@ sub_71E58:
         and byte [byte edx+030h], 0FBh
         mov edx, dword [dword ecx+0FAh]
         and byte [byte edx+030h], 0FDh
-        call sub_60D6C
+        call ResetAnimTimer
         mov al, byte [dword esi+0BFh]
         mov edx, 173h
         or al, 20h
@@ -36954,7 +37231,7 @@ sub_71E58:
         push dword 3F800000h
         call SetSPA
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov edx, 174h
         jmp short .2
@@ -36966,7 +37243,7 @@ sub_71E58:
         mov byte [byte eax+030h], bl
         mov edx, dword [dword ecx+0FAh]
         and byte [byte edx+030h], 0FDh
-        call sub_60D6C
+        call ResetAnimTimer
         mov al, byte [dword esi+0BFh]
         mov edx, 170h
         or al, 20h
@@ -36976,7 +37253,7 @@ sub_71E58:
         push dword 3F800000h
         call SetSPA
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov edx, 171h
 .2:
@@ -37003,7 +37280,7 @@ StartFightAnim:
         push edx
         mov ecx, eax
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         xor ebx, ebx
         mov ah, byte [dword ecx+0BFh]
         push dword 3F800000h
@@ -37029,16 +37306,17 @@ StartFightAnim:
         xor edx, edx
         call sub_56CF8
         mov eax, dword [dword ecx+0F2h]
-        call sub_5AC28
+        call ClearObjectHidden
         pop edx
         pop ecx
         pop ebx
         ret
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_71FD0                                                       71FD0  97 PC
+; PlayCelebrationSound                            71FD0  97 PC, low confidence
+; Plays a celebration sound
 ;-----------------------------------------------------------------------------
-sub_71FD0:
+PlayCelebrationSound:
         push ebx
         push ecx
         push ebp
@@ -37088,9 +37366,10 @@ sub_71FD0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_72050                                                       72050  97 PC
+; CelebrationMove                                 72050  97 PC, low confidence
+; Move handler for a goal celebration
 ;-----------------------------------------------------------------------------
-sub_72050:
+CelebrationMove:
         push ebx
         push ecx
         push edx
@@ -37098,18 +37377,18 @@ sub_72050:
         sub esp, byte 0Ch
         mov ebx, eax
         mov ecx, dword [byte eax+02Ch]
-        call sub_76944
+        call GetAnimId
         mov dl, byte [byte ebx+01Ch]
         mov esi, dword [dword ecx+0FAh]
         test dl, 80h
         jne short .1
         mov edx, ecx
-        call sub_71FD0
+        call PlayCelebrationSound
 .1:
         test byte [byte ebx+01Ch], 80h
         je near .7
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         mov eax, dword [dword ecx+0A3h]
         mov edx, dword [dword ecx+0FEh]
         sar eax, 18h
@@ -37175,14 +37454,14 @@ sub_72050:
 .9:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, ecx
-        call sub_642A8
+        call SpeedTowardSpot
         mov eax, ecx
-        call sub_5E1B0
+        call MovePlayer
         add esp, byte 0Ch
         pop esi
         pop edx
@@ -37191,9 +37470,10 @@ sub_72050:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_72170                                                       72170  97 PC
+; CelebrationJumpMove                             72170  97 PC, low confidence
+; Move handler for a celebration jump
 ;-----------------------------------------------------------------------------
-sub_72170:
+CelebrationJumpMove:
         push ebx
         push ecx
         push edx
@@ -37204,13 +37484,13 @@ sub_72170:
         and esp, byte 0FFFFFFF8h
         mov ebx, eax
         mov ecx, dword [byte eax+02Ch]
-        call sub_76944
+        call GetAnimId
         mov dl, byte [byte ebx+01Ch]
         mov esi, dword [dword ecx+0FAh]
         test dl, 80h
         jne short .1
         mov edx, ecx
-        call sub_71FD0
+        call PlayCelebrationSound
 .1:
         test byte [byte ebx+01Ch], 80h
         je near .7
@@ -37228,7 +37508,7 @@ sub_72170:
         jne short .3
 .2:
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         xor ebx, ebx
         or dh, 20h
@@ -37270,7 +37550,7 @@ sub_72170:
         mov edx, 70h
 .6:
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         mov al, byte [dword ecx+0BFh]
         or al, 20h
         xor ebx, ebx
@@ -37319,14 +37599,14 @@ sub_72170:
 .9:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, ecx
-        call sub_642A8
+        call SpeedTowardSpot
         mov eax, ecx
-        call sub_5E1B0
+        call MovePlayer
 .10:
         mov esp, ebp
         pop ebp
@@ -37337,9 +37617,10 @@ sub_72170:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_72324                                                       72324  97 PC
+; CelebrationEndMove                              72324  97 PC, low confidence
+; Move handler for the end of a celebration
 ;-----------------------------------------------------------------------------
-sub_72324:
+CelebrationEndMove:
         push ebx
         push ecx
         push edx
@@ -37373,7 +37654,7 @@ sub_72324:
         jmp near .4
 .2:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov dl, byte [dword ecx+0BFh]
         xor ebx, ebx
         or dl, 20h
@@ -37402,10 +37683,10 @@ sub_72324:
 .3:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .4:
         add esp, byte 0Ch
         pop edx
@@ -37414,9 +37695,10 @@ sub_72324:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_7242C                                                       7242C  97 PC
+; DejectedMove                                    7242C  97 PC, low confidence
+; Move handler for a dejected player
 ;-----------------------------------------------------------------------------
-sub_7242C:
+DejectedMove:
         push ebx
         push ecx
         push edx
@@ -37454,15 +37736,15 @@ sub_7242C:
         mov eax, dword [dword ecx+0EEh]
         and byte [byte eax+031h], 0FEh
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .3
 .2:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .3:
         add esp, byte 0Ch
         pop edi
@@ -37471,9 +37753,10 @@ sub_7242C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_724C8                                                       724C8  97 PC
+; DejectedSkateMove                               724C8  97 PC, low confidence
+; Move handler for a dejected player skating away
 ;-----------------------------------------------------------------------------
-sub_724C8:
+DejectedSkateMove:
         push ebx
         push ecx
         push edx
@@ -37511,15 +37794,15 @@ sub_724C8:
         mov eax, dword [dword ecx+0EEh]
         and byte [byte eax+031h], 0FEh
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .3
 .2:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .3:
         add esp, byte 0Ch
         pop edi
@@ -37528,9 +37811,10 @@ sub_724C8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_72564                                                       72564  97 PC
+; CheerMove                                       72564  97 PC, low confidence
+; Move handler for cheering
 ;-----------------------------------------------------------------------------
-sub_72564:
+CheerMove:
         push ebx
         push ecx
         push edx
@@ -37540,13 +37824,13 @@ sub_72564:
         sub esp, byte 10h
         mov ebx, eax
         mov ecx, dword [byte eax+02Ch]
-        call sub_76944
+        call GetAnimId
         mov dl, byte [byte ebx+01Ch]
         mov dword [byte ebp-04h], eax
         test dl, 80h
         jne short .1
         mov edx, ecx
-        call sub_71FD0
+        call PlayCelebrationSound
 .1:
         test byte [byte ebp-04h], 4
         je short .2
@@ -37591,15 +37875,15 @@ sub_72564:
         mov eax, dword [dword ecx+0EEh]
         and byte [byte eax+031h], 0FEh
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .5
 .4:
         lea edx, [byte ebp-010h]
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         lea edx, [byte ebp-010h]
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .5:
         mov esp, ebp
         pop ebp
@@ -37609,9 +37893,10 @@ sub_72564:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_72648                                                       72648  97 PC
+; BenchCheerMove                                  72648  97 PC, low confidence
+; Move handler for cheering on the bench
 ;-----------------------------------------------------------------------------
-sub_72648:
+BenchCheerMove:
         push ebx
         push ecx
         push edx
@@ -37622,13 +37907,13 @@ sub_72648:
         sub esp, byte 18h
         mov ecx, eax
         mov esi, dword [byte eax+02Ch]
-        call sub_76944
+        call GetAnimId
         mov dl, byte [byte ecx+01Ch]
         mov ebx, eax
         test dl, 80h
         jne short .1
         mov edx, esi
-        call sub_71FD0
+        call PlayCelebrationSound
 .1:
         test bl, 4
         je short .2
@@ -37686,15 +37971,15 @@ sub_72648:
         mov eax, dword [dword esi+0EEh]
         and byte [byte eax+031h], 0FEh
         mov eax, ecx
-        call sub_612E4
+        call EndMove
         jmp short .5
 .4:
         lea edx, [byte ebp-018h]
         mov eax, ecx
-        call sub_613AC
+        call AdvanceMoveAnim
         lea edx, [byte ebp-018h]
         mov eax, ecx
-        call sub_6152C
+        call StepMove
 .5:
         mov esp, ebp
         pop ebp
@@ -37706,9 +37991,10 @@ sub_72648:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7275C                                                       7275C  97 PC
+; SkateToBenchStep                                7275C  97 PC, low confidence
+; Skates toward the bench
 ;-----------------------------------------------------------------------------
-sub_7275C:
+SkateToBenchStep:
         push ebx
         push ecx
         push esi
@@ -37723,7 +38009,7 @@ sub_7275C:
         mov eax, ecx
         mov dword [byte esp+018h], edx
         mov edx, dword [dword_1BF06C]
-        call sub_6619C
+        call ObjectFramePos
         fld dword [byte esi+028h]
         fld dword [byte esi+020h]
         fsub dword [esp]
@@ -37852,7 +38138,7 @@ sub_7275C:
 .13:
         fstp dword [esi]
         mov eax, ecx
-        call sub_5E1B0
+        call MovePlayer
         mov esp, ebp
         pop ebp
         pop esi
@@ -37861,9 +38147,10 @@ sub_7275C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7291C                                                       7291C  97 PC
+; SkateToBenchMove                                7291C  97 PC, low confidence
+; Move handler for skating to the bench
 ;-----------------------------------------------------------------------------
-sub_7291C:
+SkateToBenchMove:
         push ebx
         push ecx
         push edx
@@ -37890,7 +38177,7 @@ sub_7291C:
         test byte [byte ebx+01Ch], 80h
         jne short .1
         mov eax, ebx
-        call sub_76944
+        call GetAnimId
         test al, 1
         je short .1
         push dword [byte ecx+028h]
@@ -37932,23 +38219,23 @@ sub_7291C:
         and byte [dword ecx+0BFh], 0DFh
         and byte [byte esi+031h], 0EFh
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp near .7
 .4:
         test byte [byte esi+031h], 10h
         je short .5
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         fld dword [byte ecx+040h]
         mov edx, esp
         fsub dword [byte ecx+01Ch]
         mov eax, ebx
         fstp dword [esp]
-        call sub_6152C
+        call StepMove
         mov edx, edi
         mov eax, ecx
-        call sub_7275C
+        call SkateToBenchStep
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -37962,18 +38249,18 @@ sub_7291C:
         je short .6
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         fld dword [byte ecx+040h]
         mov edx, esp
         fsub dword [byte ecx+01Ch]
         mov eax, ebx
         fstp dword [esp]
-        call sub_6152C
+        call StepMove
         cmp dword [byte esi+024h], byte 1
         jg short .7
         and byte [dword ecx+0BFh], 0DFh
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -37985,10 +38272,10 @@ sub_7291C:
 .6:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .7:
         add esp, byte 0Ch
         pop ebp
@@ -38000,9 +38287,10 @@ sub_7291C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_72A84                                                       72A84  97 PC
+; SimpleAnimMove                                  72A84  97 PC, low confidence
+; Move handler that plays an animation then ends
 ;-----------------------------------------------------------------------------
-sub_72A84:
+SimpleAnimMove:
         push ebx
         push ecx
         push edx
@@ -38012,7 +38300,7 @@ sub_72A84:
         test byte [byte eax+01Ch], 80h
         je short .1
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov dl, byte [dword ecx+0BFh]
         xor ebx, ebx
         or dl, 20h
@@ -38028,10 +38316,10 @@ sub_72A84:
 .1:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .2:
         add esp, byte 0Ch
         pop edx
@@ -38040,9 +38328,10 @@ sub_72A84:
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_72AF0                                                       72AF0  97 PC
+; SkateToSpotStep                                 72AF0  97 PC, low confidence
+; Skates toward a spot
 ;-----------------------------------------------------------------------------
-sub_72AF0:
+SkateToSpotStep:
         push ebx
         push ecx
         push ebp
@@ -38082,16 +38371,17 @@ sub_72AF0:
         fstp dword [byte ecx+014h]
 .2:
         mov eax, ebx
-        call sub_62C14
+        call LimitSkateSpeed
         mov esp, ebp
         pop ebp
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_72B78                                                       72B78  97 PC
+; SkateToSpotMove                                 72B78  97 PC, low confidence
+; Move handler for skating to a spot
 ;-----------------------------------------------------------------------------
-sub_72B78:
+SkateToSpotMove:
         push ebx
         push ecx
         push edx
@@ -38122,18 +38412,18 @@ sub_72B78:
         test byte [byte ecx+01Ch], 80h
         je short .4
         mov eax, ecx
-        call sub_612E4
+        call EndMove
         jmp short .5
 .4:
         mov edx, esp
         mov eax, ecx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, esi
-        call sub_72AF0
+        call SkateToSpotStep
         mov edx, esp
         mov eax, ecx
-        call sub_6152C
+        call StepMove
 .5:
         add esp, byte 0Ch
         pop esi
@@ -38143,9 +38433,10 @@ sub_72B78:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_72BF8                                                       72BF8  97 PC
+; PuckRetrieveMove                                72BF8  97 PC, low confidence
+; Move handler for picking up the puck
 ;-----------------------------------------------------------------------------
-sub_72BF8:
+PuckRetrieveMove:
         push ebx
         push ecx
         push edx
@@ -38173,15 +38464,15 @@ sub_72BF8:
         test byte [byte ecx+01Ch], 80h
         je short .3
         mov eax, ecx
-        call sub_612E4
+        call EndMove
         jmp short .4
 .3:
         mov edx, esp
         mov eax, ecx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ecx
-        call sub_6152C
+        call StepMove
 .4:
         add esp, byte 0Ch
         pop esi
@@ -38191,9 +38482,10 @@ sub_72BF8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_72C70                                                       72C70  97 PC
+; PeriodEndMove                                   72C70  97 PC, low confidence
+; Move handler for the end of a period
 ;-----------------------------------------------------------------------------
-sub_72C70:
+PeriodEndMove:
         push ebx
         push ecx
         push edx
@@ -38253,15 +38545,15 @@ sub_72C70:
         and dl, 0FBh
         mov eax, ecx
         mov byte [dword esi+0BFh], dl
-        call sub_612E4
+        call EndMove
         jmp short .6
 .5:
         mov edx, esp
         mov eax, ecx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ecx
-        call sub_6152C
+        call StepMove
 .6:
         add esp, byte 14h
         pop esi
@@ -38269,12 +38561,13 @@ sub_72C70:
         pop ecx
         pop ebx
         ret
-        jmp near sub_62C14
+        jmp near LimitSkateSpeed
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_72D74                                                       72D74  97 PC
+; PeriodEndSkateMove                              72D74  97 PC, low confidence
+; Move handler for skating off at the end of a period
 ;-----------------------------------------------------------------------------
-sub_72D74:
+PeriodEndSkateMove:
         push ebx
         push ecx
         push edx
@@ -38326,18 +38619,18 @@ sub_72D74:
         test byte [byte ecx+01Ch], 80h
         je short .4
         mov eax, ecx
-        call sub_612E4
+        call EndMove
         jmp short .5
 .4:
         mov edx, esp
         mov eax, ecx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, esi
-        call sub_62C14
+        call LimitSkateSpeed
         mov edx, esp
         mov eax, ecx
-        call sub_6152C
+        call StepMove
 .5:
         add esp, byte 14h
         pop esi
@@ -38348,7 +38641,7 @@ sub_72D74:
         db 090h
 ;-----------------------------------------------------------------------------
 ; RefAtDotAnim                                    72E58  97 PC, low confidence
-; Assrefatdot's referee move: SPA 107h (sub_5EEEC)
+; Assrefatdot's referee move: SPA 107h (SetSPAInPlace)
 ;-----------------------------------------------------------------------------
 RefAtDotAnim:
         push ebx
@@ -38356,7 +38649,7 @@ RefAtDotAnim:
         push edx
         mov ecx, eax
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov ebx, 20h
         and ah, 0DFh
@@ -38364,7 +38657,7 @@ RefAtDotAnim:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F800000h
-        call sub_5EEEC
+        call SetSPAInPlace
         pop edx
         pop ecx
         pop ebx
@@ -38381,7 +38674,7 @@ RefFaceoffAnim:
         push edx
         mov ecx, eax
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov edx, 143h
         or ah, 20h
@@ -38414,7 +38707,7 @@ RefGoalPaAnim:
         push edx
         mov ecx, eax
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov edx, 144h
         or ah, 20h
@@ -38469,7 +38762,7 @@ RefWhistleAnim:
         fstp dword [byte esp+010h]
 .2:
         mov eax, edx
-        call sub_60D6C
+        call ResetAnimTimer
         fld dword [byte esp+010h]
         fmul dword [dword_163AD8]
         fstp dword [byte edx+0Ch]
@@ -38500,7 +38793,7 @@ RefSignalAnim:
         push edx
         mov ecx, eax
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov edx, 146h
         or ah, 20h
@@ -38527,7 +38820,7 @@ RefGoalLineAnim:
         mov eax, dword [dword eax+0FAh]
         test edx, edx
         jl short .1
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         or ah, 20h
         xor ebx, ebx
@@ -38542,21 +38835,22 @@ RefGoalLineAnim:
         ret
         db 00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_73070                                                       73070  97 PC
+; SkateMoveStep                                   73070  97 PC, low confidence
+; Steps a skating move
 ;-----------------------------------------------------------------------------
-sub_73070:
+SkateMoveStep:
         push ebx
         push ecx
         mov ecx, eax
         mov ebx, dword [byte eax+02Ch]
-        call sub_613F8
+        call ApplyMoveMotion
         mov eax, ebx
-        call sub_642A8
+        call SpeedTowardSpot
         mov eax, dword [dword ebx+0FAh]
         cmp dword [byte eax+034h], 461C4000h
         jge short .1
         mov eax, ecx
-        call sub_76944
+        call GetAnimId
         test al, 1
         je short .1
         mov eax, dword [dword ebx+0FAh]
@@ -38565,15 +38859,16 @@ sub_73070:
         mov dword [byte eax+034h], 461C4000h
 .1:
         mov eax, ebx
-        call sub_5E1B0
+        call MovePlayer
         pop ecx
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_730C4                                                       730C4  97 PC
+; StartPokeAnim                                   730C4  97 PC, low confidence
+; Starts a poke check animation
 ;-----------------------------------------------------------------------------
-sub_730C4:
+StartPokeAnim:
         push ebx
         push edx
         cmp byte [dword eax+0A4h], 6
@@ -38676,7 +38971,7 @@ sub_730C4:
         mov edx, 0C8h
 .10:
         mov eax, ebx
-        call sub_60D6C
+        call ResetAnimTimer
         mov bl, byte [dword ecx+0BFh]
         and bl, 0DFh
         mov eax, ecx
@@ -38694,9 +38989,10 @@ sub_730C4:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_7320C                                                       7320C  97 PC
+; PokeCheckMove                                   7320C  97 PC, low confidence
+; Move handler for a poke check
 ;-----------------------------------------------------------------------------
-sub_7320C:
+PokeCheckMove:
         push ebx
         push ecx
         push edx
@@ -38713,7 +39009,7 @@ sub_7320C:
         je near .5
         mov eax, ecx
         mov esi, 0ACh
-        call sub_730C4
+        call StartPokeAnim
         test eax, eax
         je near .15
         cmp byte [dword ecx+0A4h], 6
@@ -38755,7 +39051,7 @@ sub_7320C:
         lea ebx, [byte esp+0Ch]
         lea edx, [byte esp+018h]
         mov eax, ecx
-        call sub_74CEC
+        call PickSaveAnim
         fldz
         fxch
         fstp dword [byte esp+010h]
@@ -38870,7 +39166,7 @@ sub_7320C:
         mov esi, 0EDh
 .15:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword ecx+0BFh]
         mov edx, esi
         or bh, 20h
@@ -38889,10 +39185,10 @@ sub_7320C:
 .16:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_73070
+        call SkateMoveStep
         mov esp, ebp
         pop ebp
         pop esi
@@ -38902,9 +39198,10 @@ sub_7320C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_73464                                                       73464  97 PC
+; StickSlashMove                                  73464  97 PC, low confidence
+; Move handler for a slash (sound)
 ;-----------------------------------------------------------------------------
-sub_73464:
+StickSlashMove:
         push ebx
         push ecx
         push edx
@@ -38954,7 +39251,7 @@ sub_73464:
         je short .5
         mov eax, ecx
         mov edx, 0B3h
-        call sub_730C4
+        call StartPokeAnim
         test eax, eax
         je short .6
         mov eax, 2
@@ -38968,7 +39265,7 @@ sub_73464:
         mov edx, 0B3h
 .6:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov bl, byte [dword ecx+0BFh]
         or bl, 20h
         mov eax, ecx
@@ -38986,10 +39283,10 @@ sub_73464:
 .7:
         mov edx, esp
         mov eax, esi
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, esi
-        call sub_6152C
+        call StepMove
         add esp, byte 0Ch
         pop edi
         pop esi
@@ -38999,9 +39296,10 @@ sub_73464:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_73578                                                       73578  97 PC
+; SweepCheckMove                                  73578  97 PC, low confidence
+; Move handler for a sweep check
 ;-----------------------------------------------------------------------------
-sub_73578:
+SweepCheckMove:
         push ebx
         push ecx
         push edx
@@ -39021,7 +39319,7 @@ sub_73578:
         lea ebx, [byte esp+0Ch]
         lea edx, [byte esp+024h]
         mov eax, ecx
-        call sub_74CEC
+        call PickSaveAnim
         fldz
         fxch
         fstp dword [byte esp+010h]
@@ -39107,7 +39405,7 @@ sub_73578:
         mov edx, 0B1h
 .8:
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         mov bl, byte [dword ecx+0BFh]
         or bl, 20h
         mov eax, ecx
@@ -39125,10 +39423,10 @@ sub_73578:
 .9:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
         mov esp, ebp
         pop ebp
         pop esi
@@ -39138,9 +39436,10 @@ sub_73578:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7370C                                                       7370C  97 PC
+; HookMove                                        7370C  97 PC, low confidence
+; Move handler for a hook (sound)
 ;-----------------------------------------------------------------------------
-sub_7370C:
+HookMove:
         push ebx
         push ecx
         push edx
@@ -39158,7 +39457,7 @@ sub_7370C:
         test ah, 80h
         jne short .1
         mov eax, edi
-        call sub_76944
+        call GetAnimId
         test al, 2
         je short .1
         push dword [byte ecx+028h]
@@ -39202,7 +39501,7 @@ sub_7370C:
         lea ebx, [byte esp+010h]
         lea edx, [byte esp+0Ch]
         mov eax, ecx
-        call sub_74CEC
+        call PickSaveAnim
         fldz
         fxch
         fstp dword [byte esp+024h]
@@ -39221,7 +39520,7 @@ sub_7370C:
         mov edx, 0AFh
 .7:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov al, byte [dword ecx+0BFh]
         or al, 20h
         xor ebx, ebx
@@ -39246,7 +39545,7 @@ sub_7370C:
         lea ebx, [byte esp+020h]
         lea edx, [byte esp+014h]
         mov eax, ecx
-        call sub_74CEC
+        call PickSaveAnim
         fldz
         fxch
         fstp dword [byte esp+028h]
@@ -39266,7 +39565,7 @@ sub_7370C:
         jmp short .7
 .10:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword ecx+0BFh]
         mov edx, 9Dh
         and bh, 0DFh
@@ -39292,7 +39591,7 @@ sub_7370C:
         lea ebx, [byte esp+018h]
         lea edx, [byte esp+01Ch]
         mov eax, ecx
-        call sub_74CEC
+        call PickSaveAnim
         fstp dword [byte esp+030h]
         cmp esi, 0EAh
         setne al
@@ -39333,7 +39632,7 @@ sub_7370C:
         jbe short .15
 .14:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov bl, byte [dword ecx+0BFh]
         or bl, 20h
         mov eax, ecx
@@ -39352,10 +39651,10 @@ sub_7370C:
 .15:
         mov edx, esp
         mov eax, edi
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, edi
-        call sub_73070
+        call SkateMoveStep
         mov esp, ebp
         pop ebp
         pop edi
@@ -39366,9 +39665,10 @@ sub_7370C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_739B8                                                       739B8  97 PC
+; DiveMove                                        739B8  97 PC, low confidence
+; Move handler for a dive
 ;-----------------------------------------------------------------------------
-sub_739B8:
+DiveMove:
         push ebx
         push ecx
         push edx
@@ -39394,7 +39694,7 @@ sub_739B8:
         mov edx, 9Dh
 .3:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov bl, byte [dword ecx+0BFh]
         and bl, 0DFh
         mov eax, ecx
@@ -39411,16 +39711,16 @@ sub_739B8:
 .5:
         mov edx, esp
         mov eax, ecx
-        call sub_73CE8
+        call BlockReach
         jmp short .7
 .6:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
 .7:
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .8:
         add esp, byte 0Ch
         pop edx
@@ -39429,15 +39729,17 @@ sub_739B8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_73A58                                                       73A58  97 PC
+; HoldPoseMoveJump                                73A58  97 PC, low confidence
+; Jumps to the hold pose move
 ;-----------------------------------------------------------------------------
-sub_73A58:
-        jmp near sub_61540
+HoldPoseMoveJump:
+        jmp near HoldPoseMove
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_73A60                                                       73A60  97 PC
+; GoalieFreezeMove                                73A60  97 PC, low confidence
+; Move handler for the goalie freezing the puck
 ;-----------------------------------------------------------------------------
-sub_73A60:
+GoalieFreezeMove:
         push ebx
         push ecx
         push edx
@@ -39451,7 +39753,7 @@ sub_73A60:
         test cl, 80h
         je short .1
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp near .7
 .1:
         cmp edx, 0D6h
@@ -39495,7 +39797,7 @@ sub_73A60:
         and edx, 0FFh
         xor edx, ecx
         je short .6
-        call sub_60F48
+        call PickSkateAnim
         add esp, byte 0Ch
         pop esi
         pop edx
@@ -39505,10 +39807,10 @@ sub_73A60:
 .6:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_73070
+        call SkateMoveStep
 .7:
         add esp, byte 0Ch
         pop esi
@@ -39517,9 +39819,10 @@ sub_73A60:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_73B3C                                                       73B3C  97 PC
+; StartBlockAnim                                  73B3C  97 PC, low confidence
+; Starts a shot block animation
 ;-----------------------------------------------------------------------------
-sub_73B3C:
+StartBlockAnim:
         push ebx
         push ecx
         push edx
@@ -39636,7 +39939,7 @@ sub_73B3C:
         lea edx, [dword eax+0BBh]
 .6:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword ecx+0BFh]
         and bh, 0DFh
         mov eax, ecx
@@ -39661,9 +39964,10 @@ sub_73B3C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_73CE8                                                       73CE8  97 PC
+; BlockReach                                      73CE8  97 PC, low confidence
+; Works out the reach of a block
 ;-----------------------------------------------------------------------------
-sub_73CE8:
+BlockReach:
         push ebx
         push ecx
         push ebp
@@ -39840,9 +40144,10 @@ sub_73CE8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_73F00                                                       73F00  97 PC
+; KneelMove                                       73F00  97 PC, low confidence
+; Move handler for kneeling
 ;-----------------------------------------------------------------------------
-sub_73F00:
+KneelMove:
         push ebx
         push ecx
         push edx
@@ -39866,7 +40171,7 @@ sub_73F00:
         cmp esi, dword [byte ebp-04h]
         je short .5
 .1:
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         push dword 3F800000h
         or ah, 20h
@@ -39895,7 +40200,7 @@ sub_73F00:
         lea edx, [byte ebp-014h]
         mov dword [byte ebp-0Ch], eax
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .6:
         mov esp, ebp
         pop ebp
@@ -39906,14 +40211,15 @@ sub_73F00:
         ret
         db 090h
 jpt_73FAC:
-        dd sub_73FBC_671
-        dd sub_73FBC_481
-        dd sub_73FBC_63F
-        dd sub_73FBC_471
+        dd BlockShotMove_671
+        dd BlockShotMove_481
+        dd BlockShotMove_63F
+        dd BlockShotMove_471
 ;-----------------------------------------------------------------------------
-; sub_73FBC                                                       73FBC  97 PC
+; BlockShotMove                                   73FBC  97 PC, low confidence
+; Move handler for blocking a shot
 ;-----------------------------------------------------------------------------
-sub_73FBC:
+BlockShotMove:
         push ebx
         push ecx
         push edx
@@ -39973,9 +40279,9 @@ sub_73FBC:
         test byte [byte_19CBC2], 1
         jne near .16
         mov eax, ecx
-        call sub_73B3C
+        call StartBlockAnim
         test eax, eax
-        jne near sub_73FBC_671.36
+        jne near BlockShotMove_671.36
         test byte [dword ecx+0BFh], 80h
         setne al
         and eax, 0FFh
@@ -40083,7 +40389,7 @@ sub_73FBC:
         cmp edi, esi
         je near .18
         mov eax, edx
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         mov ebx, 20h
         and dh, 0DFh
@@ -40142,7 +40448,7 @@ sub_73FBC:
         movsx esi, ax
         mov eax, edx
         mov esi, dword [nosplit esi*4+dword_16C648]
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         xor ebx, ebx
         and dh, 0DFh
@@ -40163,7 +40469,7 @@ sub_73FBC:
         cmp edi, 9Eh
         je near .18
         mov eax, edx
-        call sub_60D6C
+        call ResetAnimTimer
         mov dl, byte [dword ecx+0BFh]
         mov ebx, 20h
         and dl, 0DFh
@@ -40194,7 +40500,7 @@ sub_73FBC:
         cwde
         mov esi, dword [nosplit eax*4+dword_16C63C]
         mov eax, edx
-        call sub_60D6C
+        call ResetAnimTimer
         mov dl, byte [dword ecx+0BFh]
         xor ebx, ebx
         and dl, 0DFh
@@ -40213,9 +40519,9 @@ sub_73FBC:
         ret
 .17:
         mov eax, ecx
-        call sub_73B3C
+        call StartBlockAnim
         test eax, eax
-        jne near sub_73FBC_671.36
+        jne near BlockShotMove_671.36
         mov eax, 32h
         call randomd0
         movsx esi, ax
@@ -40223,7 +40529,7 @@ sub_73FBC:
         jge short .18
         mov eax, edx
         mov esi, dword [nosplit esi*4+dword_16C618]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         xor ebx, ebx
         and ah, 0DFh
@@ -40244,7 +40550,7 @@ sub_73FBC:
         test byte [byte ebx+01Ch], 80h
         je short .19
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         mov esp, ebp
         pop ebp
         pop edi
@@ -40256,10 +40562,10 @@ sub_73FBC:
 .19:
         mov edx, esp
         mov eax, ecx
-        call sub_73CE8
+        call BlockReach
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
         mov esp, ebp
         pop ebp
         pop edi
@@ -40272,11 +40578,11 @@ sub_73FBC:
         mov eax, dword [byte edx+01Ch]
         dec eax
         cmp eax, byte 3
-        ja near sub_73FBC_671.34
+        ja near BlockShotMove_671.34
         jmp dword [nosplit cs:eax*4+jpt_73FAC]
-sub_73FBC_471:
+BlockShotMove_471:
         mov eax, ecx
-        call sub_62340
+        call PickStrideAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -40285,14 +40591,14 @@ sub_73FBC_471:
         pop ecx
         pop ebx
         ret
-sub_73FBC_481:
+BlockShotMove_481:
         mov eax, ecx
-        call sub_5E224
+        call PuckOnStickPhysics
         mov ebx, eax
         mov esi, eax
         mov eax, ecx
         push dword [byte ecx+038h]
-        call sub_5E7D8
+        call PuckOnStickFromState
         mov eax, ebx
         shl ebx, 3
         fstp dword [byte esp+01Ch]
@@ -40312,7 +40618,7 @@ sub_73FBC_481:
         jbe short .21
         mov eax, ecx
         push dword [byte esp+02Ch]
-        call sub_5E934
+        call StickHandleScaled
         fstp dword [byte esp+0Ch]
         jmp short .22
 .21:
@@ -40355,7 +40661,7 @@ sub_73FBC_481:
         fsub dword [byte esp+034h]
         mov eax, edx
         fstp dword [byte esp+024h]
-        call sub_60D6C
+        call ResetAnimTimer
         fldz
         fcomp dword [byte ecx+038h]
         fnstsw ax
@@ -40412,7 +40718,7 @@ sub_73FBC_481:
         ret
 .29:
         mov eax, edx
-        call sub_60D6C
+        call ResetAnimTimer
         mov dl, byte [dword ecx+0BFh]
         mov ebx, 20h
         and dl, 0DFh
@@ -40429,13 +40735,13 @@ sub_73FBC_481:
         pop ecx
         pop ebx
         ret
-sub_73FBC_63F:
+BlockShotMove_63F:
         cmp dword [byte edx+018h], 43C00000h
         jle short .30
         cmp dword [byte ecx+038h], 41400000h
         jle short .30
         mov eax, ecx
-        call sub_61F78
+        call PickCrossoverAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -40446,7 +40752,7 @@ sub_73FBC_63F:
         ret
 .30:
         mov eax, ecx
-        call sub_6211C
+        call PickGlideAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -40455,7 +40761,7 @@ sub_73FBC_63F:
         pop ecx
         pop ebx
         ret
-sub_73FBC_671:
+BlockShotMove_671:
         test byte [byte_19CBC2], 1
         je near .34
         mov eax, dword [dword ecx+0AEh]
@@ -40484,7 +40790,7 @@ sub_73FBC_671:
         mov esi, dword [nosplit eax*4+dword_16C618]
 .33:
         mov eax, edx
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword ecx+0BFh]
         mov edx, esi
         and bh, 0DFh
@@ -40505,7 +40811,7 @@ sub_73FBC_671:
         test byte [byte ebx+01Ch], 80h
         je short .35
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         mov esp, ebp
         pop ebp
         pop edi
@@ -40519,10 +40825,10 @@ sub_73FBC_671:
         jne short .36
         mov edx, esp
         mov eax, ecx
-        call sub_62C14
+        call LimitSkateSpeed
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .36:
         mov esp, ebp
         pop ebp
@@ -40533,9 +40839,10 @@ sub_73FBC_671:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_74708                                                       74708  97 PC
+; BlockSlideMove                                  74708  97 PC, low confidence
+; Move handler for sliding to block
 ;-----------------------------------------------------------------------------
-sub_74708:
+BlockSlideMove:
         push ebx
         push ecx
         push edx
@@ -40589,17 +40896,17 @@ sub_74708:
         jbe short .5
 .4:
         mov eax, ebx
-        call sub_60F48
+        call PickSkateAnim
         jmp short .7
 .5:
         test byte [byte ecx+01Ch], 80h
         je short .6
         mov eax, ebx
-        call sub_73B3C
+        call StartBlockAnim
         test eax, eax
         jne short .7
         mov eax, ecx
-        call sub_612E4
+        call EndMove
         mov esp, ebp
         pop ebp
         pop edx
@@ -40609,10 +40916,10 @@ sub_74708:
 .6:
         mov edx, esp
         mov eax, ebx
-        call sub_73CE8
+        call BlockReach
         mov edx, esp
         mov eax, ecx
-        call sub_6152C
+        call StepMove
 .7:
         mov esp, ebp
         pop ebp
@@ -40622,9 +40929,10 @@ sub_74708:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_747E8                                                       747E8  97 PC
+; GoalieCoverMove                                 747E8  97 PC, low confidence
+; Move handler for the goalie covering the puck
 ;-----------------------------------------------------------------------------
-sub_747E8:
+GoalieCoverMove:
         push ebx
         push ecx
         push edx
@@ -40694,7 +41002,7 @@ sub_747E8:
         cmp edi, 0C8h
         jg near .10
         mov eax, ecx
-        call sub_76944
+        call GetAnimId
         test al, 2
         je near .10
         mov eax, dword [dword esi+0FAh]
@@ -40719,7 +41027,7 @@ sub_747E8:
         mov ebx, esp
         mov edx, dword [dword_1BF06C]
         mov eax, esi
-        call sub_6619C
+        call ObjectFramePos
         mov edx, dword [off_168CFC]
         mov eax, dword [esp]
         mov dword [dword edx+0D2h], eax
@@ -40764,7 +41072,7 @@ sub_747E8:
 .12:
         mov eax, dword [dword esi+0FAh]
         mov edx, 0C8h
-        call sub_60D6C
+        call ResetAnimTimer
         xor ebx, ebx
         mov cl, byte [dword esi+0BFh]
         push dword 3F800000h
@@ -40775,15 +41083,15 @@ sub_747E8:
         jmp short .15
 .13:
         mov eax, esi
-        call sub_60F48
+        call PickSkateAnim
         jmp short .15
 .14:
         mov edx, esp
         mov eax, ecx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ecx
-        call sub_6152C
+        call StepMove
 .15:
         add esp, byte 0Ch
         pop edi
@@ -40794,9 +41102,10 @@ sub_747E8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_74A20                                                       74A20  97 PC
+; GoalieRecoverMove                               74A20  97 PC, low confidence
+; Move handler for the goalie getting up
 ;-----------------------------------------------------------------------------
-sub_74A20:
+GoalieRecoverMove:
         push ebx
         push ecx
         push edx
@@ -40846,7 +41155,7 @@ sub_74A20:
         lea ebx, [byte ebp-014h]
         mov edx, dword [nosplit eax*4+dword_1B9C90]
         mov eax, ecx
-        call sub_6619C
+        call ObjectFramePos
         mov edx, dword [off_168CFC]
         fld dword [byte ebp-014h]
         fsub dword [byte edx+020h]
@@ -40874,7 +41183,7 @@ sub_74A20:
         mov byte [edx], al
 .2:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov bl, byte [dword ecx+0BFh]
         or bl, 20h
         push dword 3F800000h
@@ -40899,10 +41208,10 @@ sub_74A20:
 .5:
         lea edx, [byte ebp-020h]
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         lea edx, [byte ebp-020h]
         mov eax, ebx
-        call sub_6152C
+        call StepMove
         mov esp, ebp
         pop ebp
         pop esi
@@ -40912,9 +41221,10 @@ sub_74A20:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_74B74                                                       74B74  97 PC
+; GoalieIdleMove                                  74B74  97 PC, low confidence
+; Move handler for the goalie idle
 ;-----------------------------------------------------------------------------
-sub_74B74:
+GoalieIdleMove:
         push ebx
         push edx
         sub esp, byte 0Ch
@@ -40923,15 +41233,15 @@ sub_74B74:
         mov eax, dword [byte eax+02Ch]
         test dl, 80h
         je short .1
-        call sub_60F48
+        call PickSkateAnim
         jmp short .2
 .1:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .2:
         add esp, byte 0Ch
         pop edx
@@ -40939,9 +41249,10 @@ sub_74B74:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_74BA8                                                       74BA8  97 PC
+; StartGoalieSave                                 74BA8  97 PC, low confidence
+; Starts a goalie save animation
 ;-----------------------------------------------------------------------------
-sub_74BA8:
+StartGoalieSave:
         push ebx
         push ecx
         push edx
@@ -40950,7 +41261,7 @@ sub_74BA8:
         mov eax, dword [eax]
         mov edx, dword [byte eax+028h]
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         and edx, 0FFFFh
         test ah, 20h
@@ -40999,9 +41310,10 @@ sub_74BA8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_74C64                                                       74C64  97 PC
+; StartGoalieStance                               74C64  97 PC, low confidence
+; Starts a goalie stance animation
 ;-----------------------------------------------------------------------------
-sub_74C64:
+StartGoalieStance:
         push ebx
         push ecx
         push edx
@@ -41016,7 +41328,7 @@ sub_74C64:
         jne short .2
 .1:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov dl, byte [dword ecx+0BFh]
         xor ebx, ebx
         or dl, 20h
@@ -41031,7 +41343,7 @@ sub_74C64:
         jne short .5
 .3:
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov edx, 103h
         or ah, 20h
@@ -41048,9 +41360,10 @@ sub_74C64:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_74CEC                                                       74CEC  97 PC
+; PickSaveAnim                                    74CEC  97 PC, low confidence
+; Picks the goalie save animation from the shot
 ;-----------------------------------------------------------------------------
-sub_74CEC:
+PickSaveAnim:
         push ecx
         push esi
         push edi
@@ -41311,9 +41624,10 @@ sub_74CEC:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_74FA4                                                       74FA4  97 PC
+; SaveDirection                                   74FA4  97 PC, low confidence
+; Works out the direction of a save
 ;-----------------------------------------------------------------------------
-sub_74FA4:
+SaveDirection:
         push esi
         push edi
         push ebp
@@ -41394,9 +41708,10 @@ sub_74FA4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_75068                                                       75068  97 PC
+; GoalieSave                                      75068  97 PC, low confidence
+; Goalie save: picks the save and starts it
 ;-----------------------------------------------------------------------------
-sub_75068:
+GoalieSave:
         push ebx
         push ecx
         push edx
@@ -41430,7 +41745,7 @@ sub_75068:
         lea edx, [byte esp+0Ch]
         add edi, eax
         mov eax, esi
-        call sub_74CEC
+        call PickSaveAnim
         fldz
         fcompp
         fnstsw ax
@@ -41541,7 +41856,7 @@ sub_75068:
         sahf
         jbe short .1
         mov eax, dword [dword esi+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov cl, byte [dword esi+0BFh]
         or cl, 20h
         xor ebx, ebx
@@ -41677,7 +41992,7 @@ sub_75068:
         fstp dword [edx]
 .11:
         mov eax, esi
-        call sub_74BA8
+        call StartGoalieSave
         mov eax, 1
         mov esp, ebp
         pop ebp
@@ -41739,7 +42054,7 @@ sub_75068:
         sahf
         jae short .14
         mov eax, dword [dword esi+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ch, byte [dword esi+0BFh]
         or ch, 20h
         xor ebx, ebx
@@ -41775,9 +42090,10 @@ sub_75068:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_75500                                                       75500  97 PC
+; GoalieMoves                                     75500  97 PC, low confidence
+; Goalie movement and saves
 ;-----------------------------------------------------------------------------
-sub_75500:
+GoalieMoves:
         push ebx
         push ecx
         push edx
@@ -41868,7 +42184,7 @@ sub_75500:
         xor eax, edx
         jne near .26
         mov eax, dword [byte ebp+07Ah]
-        call sub_75068
+        call GoalieSave
         test eax, eax
         jne near .26
         fldz
@@ -41973,7 +42289,7 @@ sub_75500:
         lea edx, [byte ebp-0Eh]
         mov dword [byte ebp-06h], eax
         lea eax, [byte ebp-01Ah]
-        call sub_74FA4
+        call SaveDirection
         fld1
         fxch
         fstp dword [byte ebp+05Ah]
@@ -42209,7 +42525,7 @@ sub_75500:
         jae near .26
         mov eax, dword [byte ebp+07Ah]
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         lea eax, [nosplit esi*4+00h]
         cmp dword [dword eax+dword_1B9358], byte 1
         jle near .25
@@ -42264,9 +42580,10 @@ sub_75500:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_75AE8                                                       75AE8  97 PC
+; PuckDeflectAngle                                75AE8  97 PC, low confidence
+; Works out the angle of a deflection
 ;-----------------------------------------------------------------------------
-sub_75AE8:
+PuckDeflectAngle:
         push ebx
         push ecx
         push esi
@@ -42336,9 +42653,10 @@ sub_75AE8:
         pop ebx
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_75B94                                                       75B94  97 PC
+; PuckDeflect                                     75B94  97 PC, low confidence
+; Deflects the puck off a player
 ;-----------------------------------------------------------------------------
-sub_75B94:
+PuckDeflect:
         push ebx
         push ecx
         push edx
@@ -42410,7 +42728,7 @@ sub_75B94:
         mov eax, ebp
         mov edx, dword [nosplit ecx*4+dword_1B9C90]
         mov dword [byte esp+038h], ecx
-        call sub_6619C
+        call ObjectFramePos
         fld dword [byte esp+0Ch]
         fld dword [byte esp+010h]
         fld dword [byte esp+014h]
@@ -42430,7 +42748,7 @@ sub_75B94:
         fstp dword [byte esp+018h]
         lea eax, [byte esp+014h]
         fstp dword [byte esp+01Ch]
-        call sub_75AE8
+        call PuckDeflectAngle
         fldz
         fxch
         fstp dword [byte esp+030h]
@@ -42486,7 +42804,7 @@ sub_75B94:
         lea ebx, [byte esp+0Ch]
         mov eax, ebp
         mov edx, dword [nosplit esi*4+dword_1B9C90]
-        call sub_6619C
+        call ObjectFramePos
         fld dword [byte esp+0Ch]
         fld dword [byte esp+010h]
         fld dword [byte esp+014h]
@@ -42506,7 +42824,7 @@ sub_75B94:
         fstp dword [byte esp+018h]
         lea eax, [byte esp+014h]
         fstp dword [byte esp+01Ch]
-        call sub_75AE8
+        call PuckDeflectAngle
         fldz
         fxch
         fstp dword [byte esp+048h]
@@ -42618,9 +42936,10 @@ sub_75B94:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_75F14                                                       75F14  97 PC
+; AllocAnimNode                                   75F14  97 PC, low confidence
+; Takes a node from the free animation node list
 ;-----------------------------------------------------------------------------
-sub_75F14:
+AllocAnimNode:
         push edx
         mov eax, dword [dword_1BF890]
         mov edx, dword [byte eax+020h]
@@ -42634,14 +42953,15 @@ sub_75F14:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_75F40                                                       75F40  97 PC
+; InsertAnimNode                                  75F40  97 PC, low confidence
+; Inserts an animation node after another
 ;-----------------------------------------------------------------------------
-sub_75F40:
+InsertAnimNode:
         push ebx
         push ecx
         push edx
         mov edx, eax
-        call sub_75F14
+        call AllocAnimNode
         mov ebx, eax
         mov dword [byte eax+024h], edx
         test edx, edx
@@ -42664,14 +42984,15 @@ sub_75F40:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_75F70                                                       75F70  97 PC
+; AddAnimNode                                     75F70  97 PC, low confidence
+; Adds an animation node to a list
 ;-----------------------------------------------------------------------------
-sub_75F70:
+AddAnimNode:
         push ebx
         push ecx
         push edx
         mov edx, eax
-        call sub_75F14
+        call AllocAnimNode
         mov ebx, eax
         mov dword [byte eax+020h], edx
         test edx, edx
@@ -42694,9 +43015,10 @@ sub_75F70:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_75FA0                                                       75FA0  97 PC
+; FreeAnimNode                                    75FA0  97 PC, low confidence
+; Returns an animation node to the free list
 ;-----------------------------------------------------------------------------
-sub_75FA0:
+FreeAnimNode:
         push ebx
         push ecx
         push edx
@@ -42725,9 +43047,10 @@ sub_75FA0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_75FE4                                                       75FE4  97 PC
+; ResetAnimBlend                                  75FE4  97 PC, low confidence
+; Resets an animation blend and frees its children
 ;-----------------------------------------------------------------------------
-sub_75FE4:
+ResetAnimBlend:
         push edx
         mov dl, byte [byte eax+01Dh]
         mov dword [byte eax+010h], 3F800000h
@@ -42739,7 +43062,7 @@ sub_75FE4:
 .1:
         test byte [byte eax+01Dh], 2
         je short .2
-        call sub_75FA0
+        call FreeAnimNode
         test eax, eax
         jne short .1
 .2:
@@ -42816,9 +43139,10 @@ LoadAnimFile:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_760C8                                                       760C8  97 PC
+; FindAnimByName                                  760C8  97 PC, low confidence
+; Finds an animation by name in an animation file
 ;-----------------------------------------------------------------------------
-sub_760C8:
+FindAnimByName:
         push ebx
         push ecx
         push esi
@@ -42884,18 +43208,20 @@ sub_760C8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7613C                                                       7613C  97 PC
+; GetAnimEntry                                    7613C  97 PC, low confidence
+; Returns an entry of an animation table
 ;-----------------------------------------------------------------------------
-sub_7613C:
+GetAnimEntry:
         shl edx, 2
         mov eax, dword [byte eax+08h]
         add eax, edx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_76148                                                       76148  97 PC
+; DecodeAnimTree                                  76148  97 PC, low confidence
+; Decodes an animation tree from the bit stream
 ;-----------------------------------------------------------------------------
-sub_76148:
+DecodeAnimTree:
         push esi
         push edi
         push ebp
@@ -43032,14 +43358,15 @@ sub_76148:
         push ecx
         mov ecx, ebx
         mov ebx, 19h
-        call sub_76148
+        call DecodeAnimTree
         pop ecx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_7629C                                                       7629C  97 PC
+; DecodeAnimChild                                 7629C  97 PC, low confidence
+; Decodes one child of an animation tree
 ;-----------------------------------------------------------------------------
-sub_7629C:
+DecodeAnimChild:
         push ecx
         push esi
         push edi
@@ -43065,7 +43392,7 @@ sub_7629C:
         mov ecx, ebp
         mov edx, esi
         mov eax, edi
-        call sub_76148
+        call DecodeAnimTree
         add ebp, byte 0Ch
         inc esi
 .4:
@@ -43082,9 +43409,10 @@ sub_7629C:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_762E4                                                       762E4  97 PC
+; DecodeAnimFile                                  762E4  97 PC, low confidence
+; Decodes an animation file
 ;-----------------------------------------------------------------------------
-sub_762E4:
+DecodeAnimFile:
         push ebx
         push ecx
         push esi
@@ -43093,7 +43421,7 @@ sub_762E4:
         mov esi, edx
         mov ebx, edx
         mov edx, 19h
-        call sub_7629C
+        call DecodeAnimChild
         mov eax, esi
         xor edx, edx
         jmp short .2
@@ -43149,9 +43477,10 @@ sub_762E4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_76380                                                       76380  97 PC
+; ReadAnimValue                                   76380  97 PC, low confidence
+; Reads one value from the animation bit stream
 ;-----------------------------------------------------------------------------
-sub_76380:
+ReadAnimValue:
         push ebp
         mov ebp, esp
         sub esp, byte 8
@@ -43176,9 +43505,10 @@ sub_76380:
         ret 8
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_763BC                                                       763BC  97 PC
+; DecodeAnimFrame                                 763BC  97 PC, low confidence
+; Decodes one animation frame
 ;-----------------------------------------------------------------------------
-sub_763BC:
+DecodeAnimFrame:
         push esi
         push edi
         push ebp
@@ -43304,7 +43634,7 @@ sub_763BC:
         mov eax, dword [dword_1BF8A4]
         mov al, byte [ebx+eax]
         and eax, 0FFh
-        call sub_76380
+        call ReadAnimValue
         fchs
         jmp short .9
 .8:
@@ -43317,7 +43647,7 @@ sub_763BC:
         mov eax, dword [dword_1BF8A4]
         mov al, byte [ebx+eax]
         and eax, 0FFh
-        call sub_76380
+        call ReadAnimValue
 .9:
         fstp dword [ecx]
         inc ebx
@@ -43332,7 +43662,7 @@ sub_763BC:
         mov al, byte [ebx+eax]
         and eax, 0FFh
         inc ebx
-        call sub_76380
+        call ReadAnimValue
         fstp dword [byte ecx+04h]
         mov edx, dword [dword_1BF89C]
         lea eax, [nosplit ebx*4+00h]
@@ -43344,7 +43674,7 @@ sub_763BC:
         mov eax, dword [dword_1BF8A4]
         mov al, byte [ebx+eax]
         and eax, 0FFh
-        call sub_76380
+        call ReadAnimValue
         fstp dword [byte ecx+08h]
         jmp short .13
 .10:
@@ -43419,9 +43749,10 @@ sub_763BC:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_76698                                                       76698  97 PC
+; DecodeAnimDelta                                 76698  97 PC, low confidence
+; Decodes the changes between animation frames
 ;-----------------------------------------------------------------------------
-sub_76698:
+DecodeAnimDelta:
         push esi
         push edi
         push ebp
@@ -43543,7 +43874,7 @@ sub_76698:
         mov eax, dword [dword_1BF8A4]
         mov al, byte [ecx+eax]
         and eax, 0FFh
-        call sub_76380
+        call ReadAnimValue
         fchs
         jmp short .9
 .8:
@@ -43556,7 +43887,7 @@ sub_76698:
         mov eax, dword [dword_1BF8A4]
         mov al, byte [ecx+eax]
         and eax, 0FFh
-        call sub_76380
+        call ReadAnimValue
 .9:
         fmul dword [byte esp+018h]
         fadd dword [ebx]
@@ -43572,7 +43903,7 @@ sub_76698:
         mov eax, dword [dword_1BF8A4]
         mov al, byte [ecx+eax]
         and eax, 0FFh
-        call sub_76380
+        call ReadAnimValue
         fmul dword [byte esp+018h]
         fadd dword [byte ebx+04h]
         inc ecx
@@ -43587,7 +43918,7 @@ sub_76698:
         mov eax, dword [dword_1BF8A4]
         mov al, byte [ecx+eax]
         and eax, 0FFh
-        call sub_76380
+        call ReadAnimValue
         fmul dword [byte esp+018h]
         fadd dword [byte ebx+08h]
         jmp short .13
@@ -43641,17 +43972,19 @@ sub_76698:
         ret 4
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_76944                                                       76944  97 PC
+; GetAnimId                                       76944  97 PC, low confidence
+; Returns the id of the current animation
 ;-----------------------------------------------------------------------------
-sub_76944:
+GetAnimId:
         mov eax, dword [dword eax+0354h]
         mov ax, word [byte eax+02h]
         and eax, 0FFFFh
         ret
 ;-----------------------------------------------------------------------------
-; sub_76954                                                       76954  97 PC
+; UpdateObjectPose                                76954  97 PC, low confidence
+; Decodes the current pose of an object
 ;-----------------------------------------------------------------------------
-sub_76954:
+UpdateObjectPose:
         push esi
         push edi
         push ebp
@@ -43682,7 +44015,7 @@ sub_76954:
         mov ebx, dword [byte esp+04h]
         mov dword [dword_1BF89C], eax
         mov eax, esi
-        call sub_763BC
+        call DecodeAnimFrame
         fld dword [byte esi+010h]
         fld1
         fsubrp
@@ -43711,7 +44044,7 @@ sub_76954:
         mov edx, ebp
         mov dword [dword_1BF89C], eax
         mov eax, esi
-        call sub_76698
+        call DecodeAnimDelta
         jmp short .1
 .2:
         add esp, byte 4
@@ -43721,9 +44054,10 @@ sub_76954:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_76A1C                                                       76A1C  97 PC
+; UpdateMovePose                                  76A1C  97 PC, low confidence
+; Decodes the pose of a move and its motion
 ;-----------------------------------------------------------------------------
-sub_76A1C:
+UpdateMovePose:
         push ecx
         push esi
         push edi
@@ -43753,7 +44087,7 @@ sub_76A1C:
         mov edx, ebp
         mov dword [dword_1BF89C], eax
         mov eax, esi
-        call sub_763BC
+        call DecodeAnimFrame
         fld dword [edi]
         fld st0
         fmul qword [qword_163DA9]
@@ -43814,7 +44148,7 @@ sub_76A1C:
         mov edx, dword [byte esp+030h]
         mov dword [dword_1BF89C], eax
         mov eax, dword [byte esp+038h]
-        call sub_763BC
+        call DecodeAnimFrame
         mov ebx, dword [byte esp+030h]
         fld dword [ebx]
         fld st0
@@ -43901,7 +44235,7 @@ sub_76A1C:
         mov edx, dword [byte esp+030h]
         mov dword [dword_1BF89C], eax
         mov eax, dword [byte esp+038h]
-        call sub_763BC
+        call DecodeAnimFrame
         fld dword [esp]
         fld st0
         fmul qword [qword_163DB1]
@@ -43981,16 +44315,17 @@ sub_76A1C:
         mov dword [byte ebx+08h], eax
 .13:
         mov esp, ebp
-sub_76A1C_31B:
+UpdateMovePose_31B:
         pop ebp
         pop edi
         pop esi
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_76D3C                                                       76D3C  97 PC
+; UpdateAllPoses                                  76D3C  97 PC, low confidence
+; Decodes the poses of every object
 ;-----------------------------------------------------------------------------
-sub_76D3C:
+UpdateAllPoses:
         push ecx
         push esi
         push edi
@@ -44023,7 +44358,7 @@ sub_76D3C:
         push eax
         xor ecx, ecx
         mov eax, esi
-        call sub_763BC
+        call DecodeAnimFrame
         fld dword [byte esi+010h]
         fld1
         fsubrp
@@ -44031,7 +44366,7 @@ sub_76D3C:
 .1:
         mov esi, dword [byte esi+020h]
         test esi, esi
-        je short sub_76A1C_31B
+        je short UpdateMovePose_31B
         mov eax, dword [dword esi+0354h]
         xor edx, edx
         mov dx, word [eax]
@@ -44056,12 +44391,13 @@ sub_76D3C:
         push eax
         xor ecx, ecx
         mov eax, esi
-        call sub_76698
+        call DecodeAnimDelta
         jmp short .1
 ;-----------------------------------------------------------------------------
-; sub_76E04                                                       76E04  97 PC
+; ScaleAnimTime                                   76E04  97 PC, low confidence
+; Scales the animation time
 ;-----------------------------------------------------------------------------
-sub_76E04:
+ScaleAnimTime:
         push edx
         mov edx, dword [eax]
         fild word [byte edx+020h]
@@ -44074,23 +44410,26 @@ sub_76E04:
         mov dword [byte eax+08h], edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_76E20                                                       76E20  97 PC
+; SetAnimClock                                    76E20  97 PC, low confidence
+; Sets the animation clock
 ;-----------------------------------------------------------------------------
-sub_76E20:
+SetAnimClock:
         mov dword [dword_1BF8B4], eax
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_76E28                                                       76E28  97 PC
+; AddAnimClock                                    76E28  97 PC, low confidence
+; Adds to the animation clock
 ;-----------------------------------------------------------------------------
-sub_76E28:
+AddAnimClock:
         add dword [dword_1BF8B4], eax
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_76E30                                                       76E30  97 PC
+; UpdateAnimBlends                                76E30  97 PC, low confidence
+; Updates the animation blends
 ;-----------------------------------------------------------------------------
-sub_76E30:
+UpdateAnimBlends:
         push ebx
         push ecx
         push edx
@@ -44153,7 +44492,7 @@ sub_76E30:
         test ch, 20h
         jne short .6
         mov eax, edx
-        call sub_75FE4
+        call ResetAnimBlend
         jmp short .6
 .5:
         mov ecx, dword [dword ebx+0354h]
@@ -44194,13 +44533,13 @@ sub_76E30:
         test byte [byte edx+01Dh], 1
         je short .10
         mov eax, edx
-        call sub_75FE4
+        call ResetAnimBlend
 .10:
         mov esi, dword [edi]
         cmp edx, esi
         jne short .14
         mov eax, esi
-        call sub_75FA0
+        call FreeAnimNode
         mov dword [edi], eax
         jmp short .15
 .11:
@@ -44215,7 +44554,7 @@ sub_76E30:
         cmp dword [byte edx+010h], 3F800000h
         jl short .12
         mov eax, edx
-        call sub_75FE4
+        call ResetAnimBlend
         mov dword [byte edx+010h], 3F800000h
         jmp short .13
 .12:
@@ -44231,7 +44570,7 @@ sub_76E30:
         jmp short .15
 .14:
         mov eax, edx
-        call sub_75FA0
+        call FreeAnimNode
 .15:
         pop ebp
         pop edi
@@ -44242,9 +44581,10 @@ sub_76E30:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_76FB4                                                       76FB4  97 PC
+; AnimClockTick                                   76FB4  97 PC, low confidence
+; Advances the animation clock
 ;-----------------------------------------------------------------------------
-sub_76FB4:
+AnimClockTick:
         push ebx
         push edx
         push esi
@@ -44259,7 +44599,7 @@ sub_76FB4:
         cmp esi, dword [byte eax+0Ch]
         jl short .2
         mov eax, edx
-        call sub_76E30
+        call UpdateAnimBlends
 .2:
         mov edi, dword [edx]
         test edi, edi
@@ -44276,9 +44616,10 @@ sub_76FB4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_76FE8                                                       76FE8  97 PC
+; SetAnimFrame                                    76FE8  97 PC, low confidence
+; Sets an animation to a frame
 ;-----------------------------------------------------------------------------
-sub_76FE8:
+SetAnimFrame:
         push ebx
         push ecx
         test edx, edx
@@ -44300,15 +44641,17 @@ sub_76FE8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_77014                                                       77014  97 PC
+; SetAnimFlags                                    77014  97 PC, low confidence
+; Sets animation flags
 ;-----------------------------------------------------------------------------
-sub_77014:
+SetAnimFlags:
         or dword [byte eax+01Ch], edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_77018                                                       77018  97 PC
+; ClearAnimFlags                                  77018  97 PC, low confidence
+; Clears animation flags; next entry sets the blend weight
 ;-----------------------------------------------------------------------------
-sub_77018:
+ClearAnimFlags:
         not edx
         and dword [byte eax+01Ch], edx
         ret
@@ -44331,9 +44674,10 @@ sub_77018:
         pop edx
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_77048                                                       77048  97 PC
+; InitAnimState                                   77048  97 PC, low confidence
+; Initialises an animation state
 ;-----------------------------------------------------------------------------
-sub_77048:
+InitAnimState:
         push ebx
         push ecx
         push edx
@@ -44448,9 +44792,10 @@ sub_77048:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7716C                                                       7716C  97 PC
+; AllocAnimStateBlocks                            7716C  97 PC, low confidence
+; Allocates the animation state blocks
 ;-----------------------------------------------------------------------------
-sub_7716C:
+AllocAnimStateBlocks:
         push ebx
         push ecx
         push edx
@@ -44512,7 +44857,7 @@ sub_7716C:
         mov eax, dword [nosplit eax*4+off_16BD2C]
         mov dword [byte edx+030h], eax
         mov eax, edx
-        call sub_77048
+        call InitAnimState
         mov esi, dword [byte edx+04h]
         mov eax, dword [edx]
         shl esi, 2
@@ -44535,9 +44880,10 @@ sub_7716C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_7724C                                                       7724C  97 PC
+; StartAnim                                       7724C  97 PC, low confidence
+; Starts an animation
 ;-----------------------------------------------------------------------------
-sub_7724C:
+StartAnim:
         push ebx
         push ecx
         push esi
@@ -44552,7 +44898,7 @@ sub_7724C:
         fld dword [byte edx+014h]
         mov eax, ebx
         fstp dword [byte ebx+018h]
-        call sub_77048
+        call InitAnimState
         mov eax, dword [byte edx+010h]
         mov dword [byte ebx+04h], eax
         mov ecx, dword [byte edx+08h]
@@ -44579,9 +44925,10 @@ sub_7724C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_772B8                                                       772B8  97 PC
+; StartAnimNow                                    772B8  97 PC, low confidence
+; Starts an animation without blending
 ;-----------------------------------------------------------------------------
-sub_772B8:
+StartAnimNow:
         push ebx
         push ecx
         push esi
@@ -44590,16 +44937,16 @@ sub_772B8:
         mov ecx, dword [eax]
         test ecx, ecx
         jne short .1
-        call sub_75F14
+        call AllocAnimNode
         mov dword [ebx], eax
         jmp short .2
 .1:
         mov eax, ecx
-        call sub_75FE4
+        call ResetAnimBlend
 .2:
         mov ebx, dword [ebx]
         mov eax, ebx
-        call sub_7724C
+        call StartAnim
         mov eax, dword [dword_1BF8B4]
         mov esi, dword [byte ebx+08h]
         mov dword [byte ebx+010h], 3F800000h
@@ -44620,9 +44967,10 @@ sub_772B8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_77310                                                       77310  97 PC
+; BlendToAnim                                     77310  97 PC, low confidence
+; Blends into a new animation
 ;-----------------------------------------------------------------------------
-sub_77310:
+BlendToAnim:
         push ebx
         push ecx
         push edi
@@ -44636,10 +44984,10 @@ sub_77310:
         jne short .1
 .2:
         mov eax, ebx
-        call sub_75F40
+        call InsertAnimNode
         mov ecx, eax
         mov ebx, eax
-        call sub_7724C
+        call StartAnim
         mov eax, dword [dword_1BF8B4]
         mov edi, dword [byte ecx+08h]
         add eax, edi
@@ -44676,7 +45024,7 @@ sub_77310:
         jmp short .6
 .5:
         mov eax, ebx
-        call sub_75F40
+        call InsertAnimNode
         mov ecx, eax
         or byte [byte ebx+01Dh], 1
 .6:
@@ -44686,7 +45034,7 @@ sub_77310:
         mov dword [byte edx+010h], eax
         mov eax, ecx
         fstp dword [byte ebx+010h]
-        call sub_7724C
+        call StartAnim
         mov dl, byte [byte ecx+01Dh]
         mov eax, dword [byte esp+0Ch]
         or dl, 2
@@ -44697,9 +45045,10 @@ sub_77310:
         pop ebx
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_773C0                                                       773C0  97 PC
+; ChangeAnim                                      773C0  97 PC, low confidence
+; Changes a player's animation
 ;-----------------------------------------------------------------------------
-sub_773C0:
+ChangeAnim:
         push ecx
         push esi
         push edi
@@ -44715,7 +45064,7 @@ sub_773C0:
         test edx, edx
         jne short .1
         mov edx, esi
-        call sub_772B8
+        call StartAnimNow
         jmp near .14
 .1:
         mov eax, dword [edx]
@@ -44752,7 +45101,7 @@ sub_773C0:
         dec edx
         mov dword [esp], edx
         je short .4
-        call sub_7613C
+        call GetAnimEntry
         jmp short .5
 .4:
         mov eax, dword [byte eax+08h]
@@ -44777,7 +45126,7 @@ sub_773C0:
         jg short .8
         mov edx, esi
         mov eax, ebx
-        call sub_7724C
+        call StartAnim
         mov esp, ebp
         pop ebp
         pop edi
@@ -44786,7 +45135,7 @@ sub_773C0:
         ret
 .8:
         mov eax, ebx
-        call sub_75F70
+        call AddAnimNode
         mov dword [edi], eax
         mov dl, byte [byte ebx+01Dh]
         or dl, 2
@@ -44794,7 +45143,7 @@ sub_773C0:
         mov byte [byte ebx+01Dh], dl
         mov edx, esi
         mov dword [byte esp+04h], eax
-        call sub_7724C
+        call StartAnim
         fild dword [byte esp+08h]
         fld1
         fdivrp
@@ -44822,7 +45171,7 @@ sub_773C0:
         test esi, esi
         je short .12
         mov eax, esi
-        call sub_75FA0
+        call FreeAnimNode
         jmp short .11
 .12:
         and byte [byte edx+01Dh], 0FEh
@@ -44864,7 +45213,7 @@ sub_773C0:
         cmp dword [esp], byte 0
         jg short .18
         mov eax, ebx
-        call sub_75FA0
+        call FreeAnimNode
         add esp, byte 4
         pop ebx
         ret
@@ -44886,9 +45235,10 @@ sub_773C0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_77590                                                       77590  97 PC
+; InitAnimNodePool                                77590  97 PC, low confidence
+; Sets up the free animation node list
 ;-----------------------------------------------------------------------------
-sub_77590:
+InitAnimNodePool:
         push ebx
         push ecx
         push edx
@@ -44927,9 +45277,10 @@ sub_77590:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_77610                                                       77610  97 PC
+; FreeAnimStates                                  77610  97 PC, low confidence
+; Frees the animation states
 ;-----------------------------------------------------------------------------
-sub_77610:
+FreeAnimStates:
         push ebx
         push ecx
         push edx
@@ -44967,7 +45318,7 @@ AllocAnimStates:
         mov edx, ebx
         sub ecx, eax
         mov eax, dword_1BF888
-        call sub_5BCCC
+        call ReplayRegisterStates
         mov edx, dword [dword_1BF888]
         xor edi, edi
         test edx, edx
@@ -44979,15 +45330,15 @@ AllocAnimStates:
         mov edx, ecx
         add eax, esi
         inc edi
-        call sub_5BCCC
+        call ReplayRegisterStates
         mov ebx, dword [dword_1BF888]
         add esi, 358h
         cmp edi, ebx
         jl short .1
 .2:
-        mov eax, sub_7716C
-        call sub_5BD1C
-        call sub_77590
+        mov eax, AllocAnimStateBlocks
+        call ReplayRegisterObjects
+        call InitAnimNodePool
         pop edi
         pop esi
         pop ecx
@@ -45019,9 +45370,10 @@ AllocAnimStates:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_776F8                                                       776F8  97 PC
+; BuildCameraDebugView                            776F8  97 PC, low confidence
+; Builds the camera debug view
 ;-----------------------------------------------------------------------------
-sub_776F8:
+BuildCameraDebugView:
         push ebx
         push ecx
         push edx
@@ -45109,9 +45461,10 @@ sub_776F8:
         ret 10h
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_77838                                                       77838  97 PC
+; DrawCameraPath                                  77838  97 PC, low confidence
+; Draws the camera path (debug)
 ;-----------------------------------------------------------------------------
-sub_77838:
+DrawCameraPath:
         push ebx
         push edx
         mov edx, dword [byte esp+018h]
@@ -45121,7 +45474,7 @@ sub_77838:
         push ebx
         mov eax, dword [dword_1C0EEC]
         push dword [byte esp+018h]
-        call sub_776F8
+        call BuildCameraDebugView
         pop edx
         pop ebx
         ret 10h
@@ -45135,7 +45488,7 @@ sub_77838:
         push ebx
         mov eax, dword [dword_1C0EFC]
         push dword [byte esp+018h]
-        call sub_776F8
+        call BuildCameraDebugView
         pop edx
         pop ebx
         ret 10h
@@ -45149,7 +45502,7 @@ sub_77838:
         push ebx
         mov eax, dword [dword_1C0EF0]
         push dword [byte esp+018h]
-        call sub_776F8
+        call BuildCameraDebugView
         pop edx
         pop ebx
         ret 10h
@@ -45163,7 +45516,7 @@ sub_77838:
         push ebx
         mov eax, dword [dword_1C0EE0]
         push dword [byte esp+018h]
-        call sub_776F8
+        call BuildCameraDebugView
         pop edx
         pop ebx
         ret 10h
@@ -45290,9 +45643,10 @@ LoadAiIcons:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_77A30                                                       77A30  97 PC
+; FreeCameraDebug                                 77A30  97 PC, low confidence
+; Frees the camera debug view
 ;-----------------------------------------------------------------------------
-sub_77A30:
+FreeCameraDebug:
         push ebx
         push ecx
         push edx
@@ -45343,8 +45697,8 @@ updateplayers:
         push ebp
         sub esp, byte 0Ch
         mov eax, 12Ch
-        call sub_76E28
-        call sub_7002C
+        call AddAnimClock
+        call SortPlayersByDepth
         call ShotChanceCommentary
         mov eax, dword [off_168D04]
         mov edx, dword [dword eax+0AEh]
@@ -45604,10 +45958,10 @@ updateplayers:
         test cl, cl
         jge short .24
         mov eax, dword [off_168CFC]
-        call sub_5E1B0
+        call MovePlayer
         jmp short .25
 .24:
-        call sub_69654
+        call UpdatePuckCarrier
         mov eax, dword [off_168CF0]
         movsx eax, byte [eax]
         imul eax, dword 108h
@@ -45628,12 +45982,12 @@ updateplayers:
         jne short .26
         call ChkPuckContacts
 .26:
-        call sub_699D4
+        call UpdatePuck
         jmp short .30
 .27:
         jge short .28
         mov eax, ebx
-        call sub_60D28
+        call GoalieTick
         jmp short .30
 .28:
         test byte [byte_19CBC2], 1
@@ -45644,7 +45998,7 @@ updateplayers:
         jne short .30
 .29:
         mov eax, ebx
-        call sub_6FF1C
+        call UpdatePlayerMotion
 .30:
         mov eax, ebx
         call ChkTiredPlayer
@@ -45667,7 +46021,7 @@ updateplayers:
         jne short .33
 .32:
         mov eax, ebx
-        call sub_6FF1C
+        call UpdatePlayerMotion
         jmp short .34
 .33:
         cmp esi, byte 0Ch
@@ -45675,7 +46029,7 @@ updateplayers:
         cmp word [dword ebx+0A9h], byte 0
         jge short .34
         mov eax, ebx
-        call sub_60D28
+        call GoalieTick
 .34:
         inc esi
         add ebx, 108h
@@ -45699,16 +46053,18 @@ GameOver:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_77F94                                                       77F94  97 PC
+; RequestPauseMenu                                77F94  97 PC, low confidence
+; Asks for the in-game pause menu
 ;-----------------------------------------------------------------------------
-sub_77F94:
+RequestPauseMenu:
         mov word [word_19CBB2], 1
         mov dword [InGameMenuRequest], 3
         ret
 ;-----------------------------------------------------------------------------
-; sub_77FA8                                                       77FA8  97 PC
+; CheckIntermission                               77FA8  97 PC, low confidence
+; Runs the intermission when it is due
 ;-----------------------------------------------------------------------------
-sub_77FA8:
+CheckIntermission:
         push ebx
         push edx
         mov eax, dword [word_19CBB0]
@@ -45751,9 +46107,10 @@ sub_77FA8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_78044                                                       78044  97 PC
+; CupCelebration                                  78044  97 PC, low confidence
+; Runs the championship celebration
 ;-----------------------------------------------------------------------------
-sub_78044:
+CupCelebration:
         push ebx
         push ecx
         push edx
@@ -46083,7 +46440,7 @@ clockcont_0:
         setl al
         xor ah, ah
         cwde
-        call sub_78044
+        call CupCelebration
         test eax, eax
         jl short .26
         mov eax, str_ANIMSVIV2
@@ -46264,9 +46621,10 @@ periodicevents:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_78730                                                       78730  97 PC
+; PlayCrowdAmbience                               78730  97 PC, low confidence
+; Plays the crowd ambience sounds
 ;-----------------------------------------------------------------------------
-sub_78730:
+PlayCrowdAmbience:
         push ebx
         push edx
         mov eax, 0FA0h
@@ -46349,7 +46707,7 @@ DoGameFrame:
         push esi
         call periodicevents
         call updateplayers
-        call sub_78730
+        call PlayCrowdAmbience
         mov eax, dword [off_168CF0]
         mov dl, byte [eax]
         test dl, dl
@@ -46428,9 +46786,10 @@ DoGameFrame:
 unk_78930:
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_78938                                                       78938  97 PC
+; RandomCrowdDelay                                78938  97 PC, low confidence
+; Picks a random crowd sound delay
 ;-----------------------------------------------------------------------------
-sub_78938:
+RandomCrowdDelay:
         push ebx
         push ecx
         push esi

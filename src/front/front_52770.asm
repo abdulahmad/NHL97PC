@@ -54,8 +54,8 @@ extern sub_4B944, sub_4BF54, sub_4BF94, sub_4C0CC, sub_4C5A0, sub_4D3B4, sub_4E8
 extern sub_4E868, sub_4E894, sub_4E8C0, sub_4E8EC, sub_4E9A0, sub_4EA44, sub_4EF68, sub_4F004
 extern sub_4F068, sub_4F294, sub_4F404, sub_4FC50, sub_4FD08, DrawGoalLight, TransformRink, sub_509E8
 extern sub_50AF4, DrawStandsSides, sub_50DF4, sub_50EB8, sub_50F90, sub_510FC, sub_511AC, sub_51254
-extern sub_51B5C, sub_51BD8, LoadNetArt, BuildRinkSides, LoadBoardLogo, sub_52648, sub_526EC, sub_59174
-extern sub_5AAB8, sub_5AC38, sub_5B4D4, sub_5BCCC, sub_5BD1C, sub_E341C, AllocMemBlock, FreeMemBlock
+extern sub_51B5C, sub_51BD8, LoadNetArt, BuildRinkSides, LoadBoardLogo, sub_52648, sub_526EC, UpdateViewMatrix
+extern DrawPlayersSorted, RenderModelPortrait, RestoreSavedPalette, ReplayRegisterStates, ReplayRegisterObjects, sub_E341C, AllocMemBlock, FreeMemBlock
 extern sub_FC330, sub_FC4BC, ClearScreen, sub_FD954, FillRect, IntsToFloats, VecMulMat, VecSub
 extern VecDistance, ProjectCoord, ProjectPointsWithZ, tickcount, unk_16175C, unk_161760, unk_161764, unk_161768
 extern unk_16176C, unk_161770, unk_161774, unk_161778, unk_1617BC, unk_16B51C, unk_16B534, unk_1A8D48
@@ -2389,10 +2389,10 @@ LoadRinkModel:
         call LoadLogos
         mov eax, dword_1B0A70
         mov edx, ebx
-        call sub_5BCCC
+        call ReplayRegisterStates
         mov eax, sub_53260
         xor esi, esi
-        call sub_5BD1C
+        call ReplayRegisterObjects
         push esi
         call sub_FC330
         add esp, byte 4
@@ -3468,7 +3468,7 @@ sub_55228:
         mov ecx, ebp
         mov edx, eax
         mov eax, dword [byte esp+0Ch]
-        call sub_5AC38
+        call RenderModelPortrait
         cmp dword [byte esp+010h], byte 0
         jle short .3
         add esi, byte 4
@@ -5248,11 +5248,11 @@ sub_56908:
         mov eax, edx
         fstp st1
         fstp dword [byte edx+0Ch]
-        call sub_59174
+        call UpdateViewMatrix
         cmp dword [dword edx+0748h], byte 0
         je short .1
         mov eax, edx
-        call sub_5AAB8
+        call DrawPlayersSorted
 .1:
         fld dword [byte edx+0Ch]
         fadd qword [qword_1617D8]
@@ -5369,7 +5369,7 @@ sub_56A08:
         push eax
         call bcopy
         add esp, byte 0Ch
-        call sub_5B4D4
+        call RestoreSavedPalette
 .2:
         mov dword [dword_16B550], 1
         pop edx

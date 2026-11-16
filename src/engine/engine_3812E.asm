@@ -51,9 +51,9 @@ extern sub_10815C, sub_1081B0, sub_108640, sub_1086BF, sub_108CE8, sub_1091E0, s
 extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, SetScreenTarget, TryPokePuck
 extern NetCollide, NetCollide2, ChkBodyContact, InitSpeechBanks, OpenSpeechFile, sub_47D70, sub_47EA4, ShutdownSound
 extern sub_4AA78, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_52D4C, sub_55648, sub_5696C, sub_56A08
-extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, sub_5AC30, sub_5B4B8, sub_5C1CC, sub_5CD68
-extern sub_5DF50, SetSPA, sub_5EEEC, sub_60D6C, sub_60F48, sub_612E4, sub_613AC, sub_6152C
-extern sub_617EC, sub_62C14, sub_74CEC, sub_74FA4, sub_76944, sub_789F0, sub_7B15D, sub_7DFC0
+extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, SetObjectHidden, ClearModelSlots, ReplaySoundAllowed, MarkPaletteDirty
+extern GetStickBladePos, SetSPA, SetSPAInPlace, ResetAnimTimer, PickSkateAnim, EndMove, AdvanceMoveAnim, StepMove
+extern SteerAndAccel, LimitSkateSpeed, PickSaveAnim, SaveDirection, GetAnimId, sub_789F0, sub_7B15D, sub_7DFC0
 extern sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C
 extern sub_7F5A4, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMenuItems, sub_8BFAC
 extern sub_8DF1F, GetLangText, sub_99DAC, sub_AC369, sub_D0098, sub_DB75E, sub_DB763, sub_DE25F
@@ -2932,7 +2932,7 @@ FaceoffStanceMove:
         mov eax, dword [dword ecx+0F2h]
         call sub_56CD0
         mov eax, ebx
-        call sub_60D6C
+        call ResetAnimTimer
         and byte [dword ecx+0BFh], 0DFh
         mov eax, 6
         push dword 3F800000h
@@ -2945,7 +2945,7 @@ FaceoffStanceMove:
         jmp short .7
 .4:
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .7
 .5:
         test byte [byte ebx+01Dh], 8
@@ -2960,10 +2960,10 @@ FaceoffStanceMove:
 .6:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .7:
         add esp, byte 0Ch
         pop esi
@@ -2988,15 +2988,15 @@ RunSimpleMove:
         je short .1
         and byte [dword eax+0BFh], 0FBh
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .2
 .1:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .2:
         add esp, byte 0Ch
         pop edx
@@ -3058,7 +3058,7 @@ FaceoffMove:
         and dh, 0DFh
         mov eax, dword [dword ecx+0FAh]
         mov byte [dword ecx+0BFh], dh
-        call sub_60D6C
+        call ResetAnimTimer
         mov bl, byte [dword ecx+0BFh]
         mov edx, 0Ch
         and bl, 0DFh
@@ -3126,10 +3126,10 @@ FaceoffMove:
         jg short .11
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .11:
         add esp, byte 10h
         pop ebp
@@ -3160,7 +3160,7 @@ MoveWithSfx:
         and bl, 0DFh
         mov eax, dword [dword ecx+0FAh]
         mov byte [dword ecx+0BFh], bl
-        call sub_60D6C
+        call ResetAnimTimer
         cmp edx, byte 5Eh
         jne short .1
         mov edx, 59h
@@ -3183,7 +3183,7 @@ MoveWithSfx:
         jmp near .9
 .4:
         mov eax, esi
-        call sub_76944
+        call GetAnimId
         mov ebx, eax
         test al, 1
         je short .7
@@ -3217,10 +3217,10 @@ MoveWithSfx:
 .8:
         mov edx, esp
         mov eax, esi
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, esi
-        call sub_6152C
+        call StepMove
 .9:
         add esp, byte 0Ch
         pop esi
@@ -3244,7 +3244,7 @@ RandomFollowMove:
         test bl, 80h
         je short .1
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
         pop edx
         pop ecx
         pop ebx
@@ -3257,7 +3257,7 @@ RandomFollowMove:
         test ax, ax
         jne near .7
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov edx, 5Dh
         and ah, 0DFh
@@ -3274,7 +3274,7 @@ RandomFollowMove:
         test ax, ax
         jne near .7
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov al, byte [dword ecx+0BFh]
         mov edx, 5Bh
         and al, 0DFh
@@ -3294,7 +3294,7 @@ RandomFollowMove:
         cmp edx, byte 2
         jge short .7
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov bh, byte [dword ecx+0BFh]
         and bh, 0DFh
         push dword 3F800000h
@@ -3376,15 +3376,15 @@ ShoutMove:
         and bl, 0FEh
         mov eax, ecx
         mov byte [byte edx+031h], bl
-        call sub_612E4
+        call EndMove
         jmp short .6
 .5:
         mov edx, esp
         mov eax, ecx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ecx
-        call sub_6152C
+        call StepMove
 .6:
         add esp, byte 0Ch
         pop esi
@@ -3422,15 +3422,15 @@ BodyMove:
         and byte [byte edx+031h], 0FEh
         and byte [dword eax+0BFh], 0DFh
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .4
 .3:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .4:
         add esp, byte 0Ch
         pop edx
@@ -3462,7 +3462,7 @@ TakePositionMove:
         cmp byte [dword ecx+eax+0B2h], 21h
         jne short .1
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         mov ebx, 20h
         and dh, 0DFh
@@ -3474,23 +3474,23 @@ TakePositionMove:
         jmp short .5
 .1:
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .5
 .2:
         cmp eax, byte 48h
         jne short .3
         mov edx, esp
         mov eax, ecx
-        call sub_62C14
+        call LimitSkateSpeed
         jmp short .4
 .3:
         mov edx, esp
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
 .4:
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .5:
         add esp, byte 0Ch
         pop edx
@@ -3518,7 +3518,7 @@ SkateStrideMove:
         test byte [byte ebx+01Ch], 80h
         je short .1
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
         jmp near .5
 .1:
         mov esi, dword [byte eax+01Ch]
@@ -3527,7 +3527,7 @@ SkateStrideMove:
         cmp esi, byte 6
         jne short .3
 .2:
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         push dword 3F800000h
         and ah, 0DFh
@@ -3551,14 +3551,14 @@ SkateStrideMove:
         lea edx, [byte ebp-0Ch]
         mov dword [byte eax+01Ch], 0
         mov eax, ecx
-        call sub_62C14
+        call LimitSkateSpeed
         cmp dword [byte ebp-04h], 41400000h
         jle short .4
         mov dword [byte ebp-04h], 41400000h
 .4:
         lea edx, [byte ebp-0Ch]
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .5:
         mov esp, ebp
         pop ebp
@@ -3583,7 +3583,7 @@ CoastMove:
         mov eax, dword [dword ecx+0FAh]
         test dl, 80h
         je short .1
-        call sub_60D6C
+        call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         mov ebx, 20h
         and dh, 0DFh
@@ -3597,14 +3597,14 @@ CoastMove:
         mov edx, esp
         mov dword [byte eax+01Ch], 0
         mov eax, ecx
-        call sub_62C14
+        call LimitSkateSpeed
         cmp dword [byte esp+08h], 41400000h
         jle short .2
         mov dword [byte esp+08h], 41400000h
 .2:
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .3:
         add esp, byte 0Ch
         pop edx
@@ -3633,7 +3633,7 @@ BackStrideMove:
         test byte [byte ebx+01Ch], 80h
         je short .1
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
         jmp short .3
 .1:
         mov esi, dword [byte eax+01Ch]
@@ -3641,7 +3641,7 @@ BackStrideMove:
         je short .2
         cmp esi, byte 6
         je short .2
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         push dword 3F800000h
         and ah, 0DFh
@@ -3664,13 +3664,13 @@ BackStrideMove:
 .2:
         lea edx, [byte ebp-0Ch]
         mov eax, ebx
-        call sub_613AC
+        call AdvanceMoveAnim
         lea edx, [byte ebp-0Ch]
         mov eax, ecx
-        call sub_617EC
+        call SteerAndAccel
         lea edx, [byte ebp-0Ch]
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .3:
         mov esp, ebp
         pop ebp
@@ -3688,7 +3688,7 @@ FaceoffSwipeAnim:
         push ecx
         mov ecx, eax
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         or ah, 20h
         xor ebx, ebx
@@ -3711,7 +3711,7 @@ FaceoffDrawAnim:
         push ecx
         mov ecx, eax
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         or ah, 20h
         xor ebx, ebx
@@ -3737,7 +3737,7 @@ SitDownAnim:
         mov ecx, eax
         mov dword [byte eax+038h], 0
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov eax, dword [dword ecx+0FAh]
         mov dword [byte eax+04h], 3F4CCCCDh
         mov ah, byte [dword ecx+0BFh]
@@ -3769,7 +3769,7 @@ StandUpAnim:
         push edx
         mov ecx, eax
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov eax, dword [dword ecx+0FAh]
         mov dword [byte eax+04h], 3F4CCCCDh
         mov ah, byte [dword ecx+0BFh]
@@ -3779,7 +3779,7 @@ StandUpAnim:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F19999Ah
-        call sub_5EEEC
+        call SetSPAInPlace
         or byte [dword ecx+0BFh], 20h
         mov dh, byte [dword ecx+0C1h]
         and dh, 0FEh
@@ -3813,7 +3813,7 @@ GoToBoxAnim:
         mov eax, dword [dword ecx+0FAh]
         mov dword [byte ecx+038h], 0
         fstp dword [esp]
-        call sub_60D6C
+        call ResetAnimTimer
         cmp byte [dword ecx+0D0h], 0
         je short .1
         fld dword [esp]
@@ -3844,7 +3844,7 @@ GoToBoxAnim:
         or byte [byte eax+031h], 1
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_5AC30
+        call SetObjectHidden
         xor ebx, ebx
         mov eax, dword [dword ecx+0F2h]
         call sub_56D0C
@@ -3855,7 +3855,7 @@ GoToBoxAnim:
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         call sub_56CE4
-        call sub_5B4B8
+        call ClearModelSlots
         add esp, byte 8
         pop edx
         pop ecx
@@ -3876,7 +3876,7 @@ LeaveBoxAnim:
         mov edx, dword [byte ecx+028h]
         mov dword [dword eax+0DAh], edx
         mov eax, dword [dword eax+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         mov edx, 58h
         or ah, 20h
@@ -3884,7 +3884,7 @@ LeaveBoxAnim:
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
         push dword 3F19999Ah
-        call sub_5EEEC
+        call SetSPAInPlace
         or byte [dword ecx+0BFh], 20h
         mov dh, byte [dword ecx+0C1h]
         and dh, 0FEh
@@ -3944,7 +3944,7 @@ RefDodgePuck:
         lea edx, [byte esp+0Ch]
         mov dword [byte esp+014h], eax
         mov eax, esp
-        call sub_74FA4
+        call SaveDirection
         fst dword [byte esp+038h]
         fcomp dword [dword_160A68]
         fnstsw ax
@@ -3970,7 +3970,7 @@ RefDodgePuck:
         jae near .4
         mov edx, dword [dword esi+0FAh]
         mov eax, edx
-        call sub_60D6C
+        call ResetAnimTimer
         fld dword [byte esp+038h]
         fmul dword [dword_160A70]
         fst dword [byte esp+038h]
@@ -4050,7 +4050,7 @@ checkgoal:
         jne short .2
 .1:
         mov eax, edx
-        call sub_612E4
+        call EndMove
         jmp short .6
 .2:
         test byte [byte edx+01Ch], 80h
@@ -4068,7 +4068,7 @@ checkgoal:
         mov eax, dword [dword ebx+0FAh]
         and byte [byte eax+031h], 0EFh
         mov eax, edx
-        call sub_612E4
+        call EndMove
         pop edi
         pop esi
         pop edx
@@ -4139,16 +4139,16 @@ CheckMove:
         je short .3
 .2:
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .4
 .3:
         mov eax, ecx
         mov dword [byte edx+01Ch], 0
         mov edx, esp
-        call sub_62C14
+        call LimitSkateSpeed
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .4:
         add esp, byte 0Ch
         pop ebp
@@ -4171,16 +4171,16 @@ SteerMove:
         test dl, 80h
         je short .1
         mov eax, ebx
-        call sub_612E4
+        call EndMove
         jmp short .2
 .1:
         mov edx, dword [dword eax+0FAh]
         mov dword [byte edx+01Ch], 0
         mov edx, esp
-        call sub_62C14
+        call LimitSkateSpeed
         mov edx, esp
         mov eax, ebx
-        call sub_6152C
+        call StepMove
 .2:
         add esp, byte 0Ch
         pop edx
@@ -4264,7 +4264,7 @@ ReachForPuckAnim:
         fadd dword [byte esp+024h]
         mov eax, ecx
         fstp dword [byte ecx+01Ch]
-        call sub_5DF50
+        call GetStickBladePos
         fstp dword [byte esp+08h]
         fld dword [byte edx+038h]
         fcomp qword [qword_160AA8]
@@ -4289,7 +4289,7 @@ ReachForPuckAnim:
         mov eax, edx
         fstp st1
         fstp dword [byte ecx+038h]
-        call sub_60D6C
+        call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         xor ebx, ebx
         and ah, 0DFh
@@ -4324,7 +4324,7 @@ PokeCheckAnim:
         lea ebx, [byte esp+08h]
         mov edx, esp
         mov esi, dword [dword eax+0FAh]
-        call sub_74CEC
+        call PickSaveAnim
         fldz
         fxch
         fstp dword [byte esp+04h]
@@ -4333,7 +4333,7 @@ PokeCheckAnim:
         sahf
         ja near .7
         mov eax, esi
-        call sub_60D6C
+        call ResetAnimTimer
         fld dword [byte esp+08h]
         fabs
         fcomp qword [qword_160AB8]
@@ -4660,7 +4660,7 @@ TryBodyCheck:
         mov bl, byte [dword esi+0A4h]
         mov dword [byte eax+020h], ebx
         mov eax, edx
-        call sub_60D6C
+        call ResetAnimTimer
         mov al, byte [dword esi+0BFh]
         xor ebx, ebx
         or al, 20h
@@ -4671,7 +4671,7 @@ TryBodyCheck:
         call SetSPA
         mov eax, dword [dword ecx+0FAh]
         xor edx, edx
-        call sub_60D6C
+        call ResetAnimTimer
         mov dl, byte [dword esi+0C2h]
         lea eax, [nosplit edx*4+00h]
         add eax, edx
@@ -6695,7 +6695,7 @@ SetViewInterlaced:
         mov dword [dword_16FA14], edx
         mov dword [dword_1A8E6C], edx
         mov dword [dword_1A8E50], edx
-        call sub_5CD68
+        call MarkPaletteDirty
 .1:
         pop edx
         pop ecx
@@ -15077,7 +15077,7 @@ PlaySfx:
         mov edx, eax
         cmp word [word_1691A4], byte 0
         je near .1
-        call sub_5C1CC
+        call ReplaySoundAllowed
         test eax, eax
         je near .1
         test byte [byte_1AC81A], 2
@@ -15285,7 +15285,7 @@ PlaySfxVolume:
         test byte [byte_1AC81A], 2
         je near .3
         mov eax, ebx
-        call sub_5C1CC
+        call ReplaySoundAllowed
         test eax, eax
         je near .3
         test ebx, ebx
@@ -15505,7 +15505,7 @@ SetCrowdNoise:
         cmp word [word_1691A4], byte 0
         je short .3
         mov eax, 525h
-        call sub_5C1CC
+        call ReplaySoundAllowed
         test eax, eax
         je short .3
         cmp dword [dword_169224], byte 0
@@ -15524,7 +15524,7 @@ SetCrowdMood:
         cmp word [word_1691A4], byte 0
         je short .1
         mov eax, 525h
-        call sub_5C1CC
+        call ReplaySoundAllowed
         test eax, eax
         je short .1
         cmp dword [dword_169224], byte 0
@@ -15546,7 +15546,7 @@ SetCrowdMood:
         cmp word [word_1691A4], byte 0
         je short .2
         mov eax, 525h
-        call sub_5C1CC
+        call ReplaySoundAllowed
         test eax, eax
         je short .2
         cmp dword [dword_169224], byte 0
