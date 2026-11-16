@@ -4,6 +4,7 @@
 #ifndef GAME_SYMS_H
 #define GAME_SYMS_H
 
+#define SYM_EditText           0x7FEC4u   /* front/main/main.asm */
 #define SYM_SetTickDeadline    0xFC2ABu   /* lib/input/input_joystick_misc_03.asm */
 #define SYM_WaitTickDeadline   0xFC2BBu   /* lib/input/input_joystick_misc_03.asm */
 #define SYM_TickDeadlinePassed 0xFC2C9u   /* lib/input/input_joystick_misc_03.asm */

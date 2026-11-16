@@ -43,7 +43,7 @@ extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1C6044, unk_1C6104, unk_1C7144, u
 global jpt_816D8, jpt_845CC, sub_816E8_425, sub_816E8_438, sub_816E8_44A, sub_816E8_45A, main_, sub_7D539
 global sub_7D830, sub_7D92C, sub_7DA28, sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0
 global sub_7EF70, sub_7F028, sub_7F04C, sub_7F0D8, sub_7F16C, sub_7F29C, sub_7F5A4, sub_7F5B8
-global sub_7F5CC, sub_7FE38, sub_7FE4C, sub_7FE60, sub_7FEC4, sub_80758, sub_80808, sub_80828
+global sub_7F5CC, sub_7FE38, sub_7FE4C, sub_7FE60, EditText, sub_80758, sub_80808, sub_80828
 global sub_80A38, sub_80AB8, sub_80B28, sub_80BBC, sub_80F48, sub_81114, sub_81468, sub_815F8
 global sub_81650, sub_81678, sub_816A4, sub_816BC, sub_816E8, sub_81D1C, sub_821CC, sub_823F0
 global sub_82FB8, sub_830D4, sub_83314, sub_83334, sub_834EC, sub_83558, sub_835AC, sub_835BC
@@ -3876,7 +3876,7 @@ sub_7FE38:
         mov esi, dword [byte esp+08h]
         push esi
         push byte 10h
-        call sub_7FEC4
+        call EditText
         pop esi
         ret 4
         db 08Dh,040h,00h
@@ -3888,7 +3888,7 @@ sub_7FE4C:
         mov esi, dword [byte esp+08h]
         push esi
         push byte 8
-        call sub_7FEC4
+        call EditText
         pop esi
         ret 4
         db 08Dh,040h,00h
@@ -3932,9 +3932,10 @@ sub_7FE60:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_7FEC4                                                       7FEC4  97 PC
+; EditText                                                       7FEC4  96 PC
+; The front end's text-edit routine every text entry goes through
 ;-----------------------------------------------------------------------------
-sub_7FEC4:
+EditText:
         push esi
         push edi
         push ebp

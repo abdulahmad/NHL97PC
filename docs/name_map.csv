@@ -13,6 +13,7 @@ address,name,auto_name,source,confidence,evidence,file
 362E0,CountTeamSlots,,96PC,medium,NHL96PC 3A2F6 (similar): mnemonic similarity 0.82 over 32 instructions,
 7C600,putchar,,96PC,medium,NHL96PC 17675 (sem): S:ATZS7=60S11=55; D:164110,
 7D059,main_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+7FEC4,EditText,sub_7FEC4,96PC,medium,"NHL96PC EditText 197ED: same 394h text buffer, eax/edx/ebx/ecx + stack args, reads keys (sub_FBE40) and handles backspace/enter; called by every name entry through sub_7FE38/sub_7FE4C",src/front/main/main.asm
 E5C78,FreeRinkGfx,,95PC,medium,NHL95PC 33727 (similar): mnemonic similarity 0.81 over 30 instructions,
 E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 over 34 instructions,
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,

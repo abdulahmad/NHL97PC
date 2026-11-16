@@ -30,6 +30,7 @@
 #define ORIG_WAITRETRACE3  SYM_WaitDisplayRetrace   /* wait display-enable then retrace */
 #define ORIG_VIDSAVE       SYM_SaveTextMode
 #define ORIG_VIDRESTORE    SYM_RestoreTextMode
+#define ORIG_EDITTEXT      SYM_EditText   /* EditText: the front end's text-edit routine (the on-screen keyboard opens while it runs) */
 #define ORIG_TICKCOUNT     SYM_tickcount
 #define ORIG_TICKDEADLINE  SYM_tickdeadline
 #define ORIG_CRT_ESP       SYM__STACKTOP
