@@ -67,14 +67,14 @@ extern unk_1AD22E, unk_1B93E0, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_169054, 
 extern word_16914E, word_1691A4, word_1691B2, word_1691B6, word_169232, word_169234, word_169236, word_19ED74
 extern word_19ED76, word_1A928A, word_1A928C, word_1A928E, word_1ABD46, word_1ABD48, word_1ABD4A, word_1ABD4C
 extern word_1ABD4E, word_1ABD50, word_1AC7D8, word_1AD240, word_1AD242, word_1C1344
-global jpt_3EF24, jpt_40D68, jpt_40DCC, jpt_40E30, jpt_40EA4, sub_3812E_13F, sub_3812E_14D, sub_3812E_17B
-global sub_3812E_182, sub_3812E_1DA, sub_3812E_1E3, sub_3812E_1EC, sub_3812E_1F3, sub_3812E_238, sub_3812E_2B1, sub_3812E_2CF
-global sub_3812E_3D3, sub_3812E_3DF, sub_3812E_3EB, sub_38675_472, sub_38E26_14D, sub_38E26_14E, sub_39BB6_6B, sub_3D030_FC
+global jpt_3EF24, jpt_40D68, jpt_40DCC, jpt_40E30, jpt_40EA4, SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B
+global SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3, SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF
+global SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, InitSeasonGameScreen_472, sub_38E26_14D, sub_38E26_14E, sub_39BB6_6B, sub_3D030_FC
 global sub_3DE08_70, CdStreamService_20, CdStreamService_5B, CdStreamService_D6, CdStreamService_14C, CdStreamService_1A3, CdStreamService_1E3, CdStreamService_47A
 global CdStreamService_595, CdStreamService_74E, CdStreamService_81D, CdStreamService_956, CdStreamService_AC2, CdStreamService_BB8, sub_40D80_11, sub_40D80_19
 global sub_40D80_21, sub_40D80_29, sub_40D80_31, sub_40D80_39, OpenAudioStream_97, OpenAudioStream_A4, OpenAudioStream_B1, OpenAudioStream_BE
-global OpenAudioStream_CB, OpenAudioStream_D8, sub_3812E, sub_385C3, sub_38675, sub_38B1A, sub_38B77, sub_38BAB
-global sub_38BFC, sub_38C79, sub_38D84, sub_38E26, sub_38F7A, sub_39052, sub_397FD, sub_39824
+global OpenAudioStream_CB, OpenAudioStream_D8, SeasonGameScreen, sub_385C3, InitSeasonGameScreen, sub_38B1A, sub_38B77, sub_38BAB
+global sub_38BFC, sub_38C79, sub_38D84, sub_38E26, sub_38F7A, DrawSeasonGamePanel, sub_397FD, sub_39824
 global sub_39851, sub_39882, sub_39B20, sub_39BB6, sub_39CE0, sub_39D1C, sub_39DA4, sub_39EC0
 global sub_3A06C, sub_3A164, sub_3A2E8, sub_3A3C8, sub_3A404, sub_3A440, sub_3A564, sub_3A65C
 global sub_3A75C, sub_3A814, sub_3A884, sub_3A920, sub_3A9D0, sub_3AA48, sub_3AAE8, sub_3AB28
@@ -100,9 +100,12 @@ global PlaySfxOr, sub_420E4, PlaySfxVolume, sub_42354, sub_423B4, sub_4241C, sub
 global sub_425CC, sub_42650, sub_42910, sub_42960, sub_42A98, sub_42AD0, sub_42C38, sub_42D38
 global OpenSpeechBanks, sub_431E8, LoadTeamSpeech
 ;-----------------------------------------------------------------------------
-; sub_3812E                                                       3812E  97 PC
+; SeasonGameScreen                                3812E  97 PC, low confidence
+; From RunSeasonMenus / RunPlayoffMenus: the next-game screen (HOME / AWAY
+; teams; play, simulate or continue, with the "team not present", "unplayed
+; games" and "no games left" messages)
 ;-----------------------------------------------------------------------------
-sub_3812E:
+SeasonGameScreen:
         push ebx
         push ecx
         push edx
@@ -168,35 +171,35 @@ sub_3812E:
 .3:
         lea edx, [dword ebp-0232h]
         lea eax, [dword ebp-0472h]
-        call sub_38675
+        call InitSeasonGameScreen
         mov eax, dword [dword_19ED10]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
         xor edi, edi
         call sub_80BBC
-        jmp short sub_3812E_182.6
-sub_3812E_13F:
+        jmp short SeasonGameScreen_182.6
+SeasonGameScreen_13F:
         call sub_7EEB0
         mov esi, 1Ah
         mov edi, ecx
-        jmp short sub_3812E_182.6
-sub_3812E_14D:
+        jmp short SeasonGameScreen_182.6
+SeasonGameScreen_14D:
         call sub_7EDF0
         mov edi, ecx
         cmp dword [dword_19ED18], byte 0
         je short .4
         mov esi, 1Fh
-        jmp short sub_3812E_182.6
+        jmp short SeasonGameScreen_182.6
 .4:
         mov eax, dword [dword_19ED14]
         mov esi, 1Ah
         cmp eax, byte 5
-        ja short sub_3812E_182.6
+        ja short SeasonGameScreen_182.6
         jmp dword [nosplit cs:eax*4+jpt_38102]
-sub_3812E_17B:
+SeasonGameScreen_17B:
         mov esi, 0Eh
-        jmp short sub_3812E_182.6
-sub_3812E_182:
+        jmp short SeasonGameScreen_182.6
+SeasonGameScreen_182:
         push byte 1
         mov eax, 24Ch
 .5:
@@ -207,7 +210,7 @@ sub_3812E_182:
         call sub_7F5A4
 .6:
         test edi, edi
-        jne near sub_3812E_3EB.17
+        jne near SeasonGameScreen_3EB.17
         lea eax, [byte ebp+07Eh]
         push edi
         mov ecx, sub_39BB6_6B
@@ -222,27 +225,27 @@ sub_3812E_182:
         lea ecx, [byte edi+01h]
         imul eax, ebx, byte 52h
         jmp dword [nosplit cs:ebx*4+jpt_380E6]
-sub_3812E_1DA:
+SeasonGameScreen_1DA:
         push byte 1
         mov eax, 24Dh
-        jmp short sub_3812E_182.5
-sub_3812E_1E3:
+        jmp short SeasonGameScreen_182.5
+SeasonGameScreen_1E3:
         push byte 1
         mov eax, 24Eh
-        jmp short sub_3812E_182.5
-sub_3812E_1EC:
+        jmp short SeasonGameScreen_182.5
+SeasonGameScreen_1EC:
         call sub_7EF70
-        jmp short sub_3812E_182.6
-sub_3812E_1F3:
+        jmp short SeasonGameScreen_182.6
+SeasonGameScreen_1F3:
         cmp dword [dword_19ED4C], byte 0
-        jle short sub_3812E_182.6
+        jle short SeasonGameScreen_182.6
         push dword [dword_19ED10]
         dec dword [dword_19ED4C]
 .7:
         call sub_FD0F8
         add esp, byte 4
         xor eax, eax
-        call sub_39052
+        call DrawSeasonGamePanel
         call sub_13C164
         push edi
         mov eax, dword [dword_19ED10]
@@ -252,8 +255,8 @@ sub_3812E_1F3:
         call sub_101390
         add esp, byte 0Ch
         call sub_1013FC
-        jmp near sub_3812E_182.6
-sub_3812E_238:
+        jmp near SeasonGameScreen_182.6
+SeasonGameScreen_238:
         mov ebx, dword [dword eax+ebp-0458h]
         mov edx, dword [dword eax+ebp-044Ch]
         movsx ecx, word [byte ebx+06h]
@@ -272,21 +275,21 @@ sub_3812E_238:
         mov eax, edx
         call sub_8DF1F
         cmp eax, dword [dword_19ED4C]
-        je near sub_3812E_182.6
+        je near SeasonGameScreen_182.6
         test eax, eax
-        jl near sub_3812E_182.6
+        jl near SeasonGameScreen_182.6
         cmp eax, byte 9
-        jge near sub_3812E_182.6
+        jge near SeasonGameScreen_182.6
         push dword [dword_19ED10]
         mov dword [dword_19ED4C], eax
-        jmp near sub_3812E_1F3.7
-sub_3812E_2B1:
+        jmp near SeasonGameScreen_1F3.7
+SeasonGameScreen_2B1:
         cmp dword [dword_19ED4C], byte 8
-        jge near sub_3812E_182.6
+        jge near SeasonGameScreen_182.6
         push dword [dword_19ED10]
         inc dword [dword_19ED4C]
-        jmp near sub_3812E_1F3.7
-sub_3812E_2CF:
+        jmp near SeasonGameScreen_1F3.7
+SeasonGameScreen_2CF:
         push dword [dword eax+ebp-0448h]
         push dword [dword eax+ebp-044Ch]
         push dword [dword eax+ebp-0458h]
@@ -332,7 +335,7 @@ sub_3812E_2CF:
         jne short .15
         mov esi, 1Ah
         inc edi
-        jmp near sub_3812E_182.6
+        jmp near SeasonGameScreen_182.6
 .15:
         call sub_39882
         push dword [dword_19ED10]
@@ -340,30 +343,30 @@ sub_3812E_2CF:
         call sub_FD0F8
         add esp, byte 4
         mov eax, 1
-        call sub_39052
+        call DrawSeasonGamePanel
         call sub_13C164
         push byte 0
         mov eax, dword [dword_19ED10]
         push byte 0
-        jmp near sub_3812E_1F3.8
+        jmp near SeasonGameScreen_1F3.8
 .16:
         mov eax, dword [dword_19ED14]
         dec eax
         cmp eax, byte 4
-        ja near sub_3812E_182.6
+        ja near SeasonGameScreen_182.6
         jmp dword [nosplit cs:eax*4+jpt_3811A]
-sub_3812E_3D3:
+SeasonGameScreen_3D3:
         push byte 1
         mov eax, 1E5h
-        jmp near sub_3812E_182.5
-sub_3812E_3DF:
+        jmp near SeasonGameScreen_182.5
+SeasonGameScreen_3DF:
         push byte 1
         mov eax, 1E6h
-        jmp near sub_3812E_182.5
-sub_3812E_3EB:
+        jmp near SeasonGameScreen_182.5
+SeasonGameScreen_3EB:
         push byte 1
         mov eax, 1E7h
-        jmp near sub_3812E_182.5
+        jmp near SeasonGameScreen_182.5
 .17:
         xor ebx, ebx
 .18:
@@ -465,9 +468,11 @@ sub_385C3:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_38675                                                       38675  97 PC
+; InitSeasonGameScreen                            38675  97 PC, low confidence
+; From SeasonGameScreen: sets up its menu items and art (BACK, TITL,
+; AB00-AB05, BH00, BT00) and the HOME / AWAY labels
 ;-----------------------------------------------------------------------------
-sub_38675:
+InitSeasonGameScreen:
         push ebx
         push ecx
         push esi
@@ -773,8 +778,8 @@ sub_38675:
         call sub_FD0F8
         add esp, byte 4
         mov eax, 1
-        call sub_39052
-sub_38675_472:
+        call DrawSeasonGamePanel
+InitSeasonGameScreen_472:
         leave
         pop edi
         pop esi
@@ -1275,7 +1280,7 @@ sub_38F7A:
         sub eax, byte 3
         call sub_99DAC
         cmp dword [dword_19ED14], byte 0
-        je near sub_38675_472
+        je near InitSeasonGameScreen_472
         push asc_160A4C
         push dword [dword_19ED70]
         call sub_101429
@@ -1297,7 +1302,7 @@ sub_38F7A:
         push eax
         call sub_FCFCC
         add esp, byte 0Ch
-        jmp near sub_38675_472
+        jmp near InitSeasonGameScreen_472
         push edx
         mov edx, dword [dword_1AC814]
         and edx, byte 70h
@@ -1311,9 +1316,11 @@ sub_38F7A:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_39052                                                       39052  97 PC
+; DrawSeasonGamePanel                             39052  97 PC, low confidence
+; From SeasonGameScreen: draws the team panel (PANL) from the league file:
+; records ("%c %d-%d" W / L / T), scores ("%s %d-%s %d"), LOCK marks
 ;-----------------------------------------------------------------------------
-sub_39052:
+DrawSeasonGamePanel:
         push ebx
         push ecx
         push edx

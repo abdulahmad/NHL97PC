@@ -8,7 +8,7 @@ extern dword_19CB32, dword_19CB48, dword_19EB58, dword_19EC64, dword_1AC944, hmt
 extern setpersonel, RemoveOverlayPanel, QueueOverlayPanel, CPgoalie, CommentaryEvent, word_19CA90, word_19CA92, word_19CA94
 extern word_19CA96, word_19CB34, word_19CB98, gsp, gameclock, word_19CBBE, word_19CBEC, word_19CBEE
 extern word_19CC24, word_19CC26, word_19EAC0
-global ReturnGoalies, sub_2DE94_1A5, sub_2DE94_259, sub_2E12C_33, sub_2DE94, sub_2E11C, sub_2E12C, sub_2E168
+global ReturnGoalies, sub_2DE94_1A5, sub_2DE94_259, sub_2E12C_33, sub_2DE94, sub_2E11C, sub_2E12C, RestoreBenchEnergy
 global sub_2E208, sub_2E310, CompLine, SetCoachMode, sub_2E7D8, UpdateCoachModes, StartFaceoffLineChange
 ;-----------------------------------------------------------------------------
 ; ReturnGoalies                    2DE3C  93G logic93_4.asm, medium confidence
@@ -309,9 +309,11 @@ sub_2E12C_33:
         jmp short sub_2E12C
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_2E168                                                       2E168  97 PC
+; RestoreBenchEnergy                             2E168  94G, medium confidence
+; 94G RestoreBenchEnergy: from periodicevents; every bench player (position
+; 8002h) gains 5 energy, capped at 1000h
 ;-----------------------------------------------------------------------------
-sub_2E168:
+RestoreBenchEnergy:
         push ebx
         push ecx
         push edx

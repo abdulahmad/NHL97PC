@@ -161,9 +161,9 @@ extern sub_110414, sub_1104F0, sub_11328, sub_114C4, sub_114FD0, sub_115020, sub
 extern sub_115170, sub_1151A4, sub_115220, sub_1152B0, sub_115318, sub_1153AC, sub_1153DC, sub_115810
 extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, sub_116050, sub_11984
 extern sub_119A8, setplayer, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
-extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, sub_18DF7, sub_18E35, DrawGameOverlays, StartCameraPath
+extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, sub_18DF7, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
 extern SelectCameraView, sub_1DFA0, sub_1E014, assreplace, assinsert, sub_1E354, sub_1FBF4, Goal
-extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, a2touchpuck, sub_2DD54, sub_2E11C, sub_2E168
+extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, a2touchpuck, ChkGoalies, sub_2E11C, RestoreBenchEnergy
 extern sub_2E208, StartFaceoffLineChange, sub_2F4B8, checkint, AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330
 extern sub_358E4, checkfight, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
 extern sub_41ACC, StopAllSfx, PlaySfxOr, PlaySfxVolume, sub_42354, sub_4241C, sub_424CC, CommentaryEvent
@@ -247,7 +247,7 @@ global sub_76380, sub_763BC, sub_76698, sub_76944, sub_76954, sub_76A1C, sub_76D
 global sub_76E20, sub_76E28, sub_76E30, sub_76FB4, sub_76FE8, sub_77014, sub_77018, sub_77048
 global sub_7716C, sub_7724C, sub_772B8, sub_77310, sub_773C0, sub_77590, sub_77610, AllocAnimStates
 global sub_776F8, sub_77838, LoadAiIcons, sub_77A30, updateplayers, GameOver, sub_77F94, sub_77FA8
-global sub_78044, sub_780F0, periodicevents, sub_78730, DoGameFrame, sub_78938, unk_65475, unk_704AC
+global sub_78044, clockcont_0, periodicevents, sub_78730, DoGameFrame, sub_78938, unk_65475, unk_704AC
 global unk_704C0, unk_717E0, unk_717F4, unk_71A94, unk_71AA8, unk_78930
 ;-----------------------------------------------------------------------------
 ; sub_57324                                                       57324  97 PC
@@ -7105,7 +7105,7 @@ sub_5C500:
         mov eax, 1
         mov dword [dword_1B8FA4], edx
         call SetReplayRecording
-        call sub_18E35
+        call ClearOverlayWindows
         call sub_18DF7
         mov eax, 2
         call sub_4B8DC
@@ -7137,7 +7137,7 @@ sub_5C584:
         mov dword [dword_1B8FA4], eax
         mov eax, dword [dword_1B8F58]
         mov dword [dword_16AF5C], eax
-        call sub_18E35
+        call ClearOverlayWindows
         test byte [byte_19CBC2], 1
         je short .1
         mov eax, 1
@@ -20489,7 +20489,7 @@ LoadFightAnims:
         jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; LoadCupAnims                                 65CBD  97 PC, medium confidence
-; Loads the "cup" animations (Stanley Cup presentation, from sub_780F0)
+; Loads the "cup" animations (Stanley Cup presentation, from clockcont_0)
 ;-----------------------------------------------------------------------------
 LoadCupAnims:
         push ebx
@@ -45820,9 +45820,12 @@ sub_78044:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_780F0                                                       780F0  97 PC
+; clockcont_0                                    780F0  94G, medium confidence
+; 94G clockcont_0 (end of period; also entered from puckfaceoff): puck
+; assinsert 41h, periods 1-2 AddPenalty2 end of period (PA event), later
+; periods score / overtime / cup checks
 ;-----------------------------------------------------------------------------
-sub_780F0:
+clockcont_0:
         push ebx
         push ecx
         push edx
@@ -46177,7 +46180,7 @@ sub_780F0:
 ;-----------------------------------------------------------------------------
 ; periodicevents                                    785E8  94G, low confidence
 ; From DoGameFrame before updateplayers: chkprogress, line changes
-; (StartFaceoffLineChange), the Stanley Cup start (sub_780F0)
+; (StartFaceoffLineChange), the Stanley Cup start (clockcont_0)
 ;-----------------------------------------------------------------------------
 periodicevents:
         push edx
@@ -46191,18 +46194,18 @@ periodicevents:
         call sub_114C4
         mov eax, 103h
         call sub_11328
-        call sub_18E35
-        call sub_780F0
+        call ClearOverlayWindows
+        call clockcont_0
 .1:
         cmp word [word_19CBF2], byte 0
         jne near .4
         test byte [byte_19CBCC], 40h
         je near .4
-        call sub_2DD54
+        call ChkGoalies
         mov eax, dword [dword_1AC944]
         test byte [byte eax+01h], 0C0h
         je near .4
-        call sub_2E168
+        call RestoreBenchEnergy
         mov eax, dword [dword_1AC944]
         mov eax, dword [byte eax+01h]
         and eax, 0C0h

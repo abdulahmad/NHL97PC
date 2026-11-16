@@ -17,7 +17,7 @@ extern dword_1CAFE4, dword_1CAFE8, dword_1CAFEC, dword_1CAFF0, dword_1CAFF4, dwo
 extern off_16D254, off_16D258, qword_166A8D, qword_166AA1, qword_166ACC, qword_166B0F, qword_166B2A, rand_
 extern sprintf_, strcmp_, strcpy_, sub_101390, sub_1013FC, sub_101429, sub_101EAC, sub_103298
 extern sub_103648, sub_105324, sub_10AED0, sub_114C4, sub_11B98E, sub_12024, sub_13C164, InitGameDisplay
-extern ApplyDisplayFlags, sub_18E35, sub_1D1DC, sub_1D208, sub_1D480, sub_1D4FC, sub_1D828, sub_1D858
+extern ApplyDisplayFlags, ClearOverlayWindows, sub_1D1DC, sub_1D208, sub_1D480, sub_1D4FC, sub_1D828, sub_1D858
 extern sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0, sub_1DD5C, sub_1DDE4, sub_1DEB8
 extern SetVideoMode, sub_3CA28, sub_3CB00, sub_3CB48, sub_3CB70, sub_3D020, sub_3E5F0, sub_41A28
 extern sub_41D18, sub_41DB8, WaitMusicEnd, ArenaFileName, StopAllSfx, sub_423B4, sub_4241C, sub_4A280
@@ -115,7 +115,7 @@ RunReplay:
         call sub_FD08C
         add esp, byte 0Ch
         mov dword [dword_1CAF98], eax
-        call sub_18E35
+        call ClearOverlayWindows
         lea eax, [byte ebp-044h]
         lea edx, [byte ebp-01Ch]
         call sub_F9789

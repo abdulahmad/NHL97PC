@@ -57,7 +57,7 @@ extern sub_4B8DC, sub_4C0C4, sub_4DDB0, sub_504E0, sub_55000, sub_56CD0, sub_56C
 extern sub_5D6A8, sub_5D7A4, sub_5D878, sub_5D900, sub_5DC1C, sub_5DC50, sub_5DCBC, sub_5DE74
 extern SetSPA, sub_60D6C, sub_60F48, sub_650A4, sub_65F50, sub_6619C, sub_66224, sub_69B78
 extern sub_69BA0, sub_69DF4, sub_74BA8, sub_74C64, sub_75500, sub_77838, sub_7F0D8, DrawTextAligned
-extern GetLangText, sub_AA4BC, sub_F2AA0, sub_F98E4, sub_F994D, sub_FAF34, sub_FC4BC, sub_FCC40
+extern GetLangText, sub_AA4BC, sub_F2AA0, NextVideoMode, PrevVideoMode, sub_FAF34, sub_FC4BC, sub_FCC40
 extern sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FD528, sub_FD954, sub_FDC68
 extern sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC, sub_FE3D0, sub_FF1FC, sub_FF320
 extern sub_FF444, sub_FF5E0, sub_FF600, sub_FF798, sub_FF7DC, sub_FF7F4, sub_FF818, sub_FFE8C
@@ -76,26 +76,26 @@ extern word_19CBB2, word_19CBB4, word_19CBB6, gsp, gameclock, word_19CBBC, word_
 extern word_19CBD6, word_19CBD8, word_19CBDA, word_19CBDC, penshotmode, word_19CBE0, penshotlive, word_19CBE6
 extern word_19CBEA, word_19CBEE, word_19CBF4, word_19CC24, word_19CC26, word_19CC50, word_19DAD9, word_19E109
 extern word_19EABE, word_19EAC0, word_19EBCA, word_19EBCC
-global jpt_19604, jpt_19F18, jpt_1A304, jpt_1A680, jpt_1A708, jpt_1B9C4, jpt_1F03C, sub_15C30_20A
-global sub_15C30_20E, sub_15C30_216, sub_15C30_217, sub_16BF9_15D, sub_16BF9_15F, DrawPenaltyPanel_26F, DrawSpecialTeamsPanel, DrawPenaltyShotPanel_48E
+global jpt_19604, jpt_19F18, jpt_1A304, jpt_1A680, jpt_1A708, jpt_1B9C4, jpt_1F03C, PrevVideoModeKey_20A
+global PrevVideoModeKey_20E, PrevVideoModeKey_216, PrevVideoModeKey_217, sub_16BF9_15D, sub_16BF9_15F, DrawPenaltyPanel_26F, DrawSpecialTeamsPanel, DrawPenaltyShotPanel_48E
 global DrawPenaltyShotPanel_49A, DrawPenaltyShotPanel_4D7, DrawPowerPlayClock_18E, UpdateCameraView_28, UpdateCameraView_54, UpdateCameraView_AC, UpdateCameraView_11B, UpdateCameraView_1AC
 global UpdateCameraView_272, UpdateCameraView_326, UpdateCameraView_461, UpdateCameraView_5F0, UpdateCameraView_7F5, UpdateCameraView_8D3, UpdateCameraZoom_21, UpdateCameraZoom_169
 global UpdateCameraZoom_221, UpdateCameraZoom_232, UpdateCameraZoom_3CB, UpdateCameraTrack_30, UpdateCameraTrack_8E, UpdateCameraTrack_19B, UpdateCameraTrack_22F, UpdateCameraTrack_2D2
 global sub_1A690_15, sub_1A690_29, sub_1A690_40, sub_1A690_57, SetCameraView_16, SetCameraView_AF, SetCameraView_14F, SetCameraView_1EF
 global SetCameraView_25A, SetCameraView_2CE, SetCameraView_36E, SetCameraView_40E, SetCameraView_4AE, SetCameraView_532, SetCameraView_5A5, SetCameraView_608
-global sub_1B9D4_1C, sub_1B9D4_73, sub_1B9D4_C6, sub_1B9D4_108, ChangeViewSize, SetViewWindow, sub_15C30, sub_15E4D
+global sub_1B9D4_1C, sub_1B9D4_73, sub_1B9D4_C6, sub_1B9D4_108, ChangeViewSize, SetViewWindow, PrevVideoModeKey, NextVideoModeKey
 global ApplyDisplayFlags, RemoveOverlayPanel, sub_160E2, sub_161F0, sub_16AD0, sub_16B17, sub_16BAD, sub_16BF5
 global sub_16BF9, DrawVideoModePanel, DrawPenaltyPanel, DrawPenaltyShotPanel, DrawInjuryPanel, DrawPeriodPanel, DrawGoalScorerPanel, DrawGameClock
 global DrawPowerPlayClock, DrawClockPanel, sub_17EB6, sub_18025, sub_1870B, sub_1882A, sub_18958, sub_18B81
-global QueueOverlayPanel, sub_18DF7, sub_18E35, sub_18E76, sub_18E9A, sub_18EEE, sub_18F67, DrawGameOverlays
+global QueueOverlayPanel, sub_18DF7, ClearOverlayWindows, sub_18E76, sub_18E9A, sub_18EEE, sub_18F67, DrawGameOverlays
 global sub_19133, GetCameraTarget, sub_19540, UpdateCameraView, UpdateCameraZoom, UpdateCameraTrack, sub_1A5F8, sub_1A690
 global SetCameraView, sub_1AD4C, sub_1AE58, SetCameraHeight, SetCameraFocus, SetCameraPathPoint, StartCameraPath, sub_1B1CC
 global sub_1B340, sub_1B3D8, SelectCameraView, sub_1B4E4, sub_1B5B0, sub_1B67C, sub_1B6E8, sub_1B71C
-global sub_1B85C, sub_1B88C, sub_1B890, sub_1B90C, sub_1B930, sub_1B9D4, sub_1BB18, sub_1BB94
-global sub_1BC18, sub_1BCA8, sub_1BCDC, LoadOpeningCamera, sub_1BFC0, sub_1C108, sub_1C210, sub_1C21C
-global sub_1C29C, sub_1C2EC, sub_1C360, sub_1C4F4, sub_1C70C, sub_1C7B4, sub_1C854, sub_1C8DC
-global sub_1C9F0, sub_1CB9C, sub_1CBD8, sub_1CCBC, sub_1CCF8, sub_1CD80, sub_1CE98, sub_1D008
-global sub_1D09C, sub_1D0BC, sub_1D16C, sub_1D1D4, sub_1D1DC, sub_1D208, sub_1D2A8, sub_1D480
+global sub_1B85C, sub_1B88C, CanStartCameraScene, sub_1B90C, sub_1B930, sub_1B9D4, PenaltyCameraScene, sub_1BB94
+global sub_1BC18, sub_1BCA8, sub_1BCDC, LoadOpeningCamera, sub_1BFC0, FightCameraScene, sub_1C210, sub_1C21C
+global FaceoffCameraScene, sub_1C2EC, sub_1C360, sub_1C4F4, sub_1C70C, FaceoffCameraScene2, sub_1C854, sub_1C8DC
+global sub_1C9F0, sub_1CB9C, PenaltyShotCameraScene, sub_1CCBC, sub_1CCF8, GoalCameraScene, sub_1CE98, FaceoffDropCameraScene
+global sub_1D09C, sub_1D0BC, sub_1D16C, sub_1D1D4, sub_1D1DC, sub_1D208, DrawCameraDebug, sub_1D480
 global sub_1D4FC, sub_1D828, sub_1D858, sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0
 global sub_1DD5C, sub_1DDE4, sub_1DEB8, sub_1DEE4, sub_1DFA0, sub_1E014, sub_1E184, assreplace
 global assinsert, assexit, sub_1E284, sub_1E354, sub_1E4E4, sub_1E7C4, sub_1E810, sub_1E8B0
@@ -124,7 +124,7 @@ ChangeViewSize:
         cmp word [word_1686E4], byte 64h
         jle short .2
         mov word [word_1686E4], 64h
-        jmp near sub_15C30_216
+        jmp near PrevVideoModeKey_216
 .1:
         cwde
         cmp eax, byte 0FFFFFFFFh
@@ -133,7 +133,7 @@ ChangeViewSize:
         cmp word [word_1686E4], byte 28h
         jge short .2
         mov word [word_1686E4], 28h
-        jmp near sub_15C30_216
+        jmp near PrevVideoModeKey_216
 .2:
         mov eax, dword [dword_16E464]
         movsx ebx, word [word_1686E4]
@@ -193,7 +193,7 @@ ChangeViewSize:
         mov ebx, esi
         mov edx, edi
         call sub_3CB70
-        jmp near sub_15C30_216
+        jmp near PrevVideoModeKey_216
 ;-----------------------------------------------------------------------------
 ; SetViewWindow                                   15BC5  97 PC, low confidence
 ; The game view window from the view size and the screen size (dword_16E464 x
@@ -231,9 +231,11 @@ SetViewWindow:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_15C30                                                       15C30  97 PC
+; PrevVideoModeKey                                15C30  97 PC, low confidence
+; From GameFunctionKeys (F11 range): clears the overlays, PrevVideoMode,
+; SetVideoMode and rebuilds the overlay windows
 ;-----------------------------------------------------------------------------
-sub_15C30:
+PrevVideoModeKey:
         push ebx
         push ecx
         push edx
@@ -244,9 +246,9 @@ sub_15C30:
         jne near .9
         cmp dword [dword_19CD34], byte 0
         jne near .9
-        call sub_18E35
+        call ClearOverlayWindows
         lea eax, [byte ebp-018h]
-        call sub_F994D
+        call PrevVideoMode
         mov edx, dword [byte ebp-014h]
         mov eax, dword [byte ebp-018h]
         call SetVideoMode
@@ -346,7 +348,7 @@ sub_15C30:
         add esp, byte 0Ch
 .8:
         test byte [byte_19EBD2], 2
-        je near sub_15C30_20A
+        je near PrevVideoModeKey_20A
         movsx eax, word [word_19CB34]
         push eax
         push byte 0
@@ -354,7 +356,7 @@ sub_15C30:
         call QueueOverlayPanel
         mov dword [dword_19D008], 0FFFFFFFFh
         add esp, byte 0Ch
-        jmp short sub_15C30_20A
+        jmp short PrevVideoModeKey_20A
 .9:
         cmp dword [dword_19CD34], byte 0
         je short .10
@@ -364,7 +366,7 @@ sub_15C30:
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD34], 0
         call sub_3CB48
-        jmp short sub_15C30_20A
+        jmp short PrevVideoModeKey_20A
 .10:
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD30], 1
@@ -372,15 +374,15 @@ sub_15C30:
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD34], 1
         call sub_3CB38
-sub_15C30_20A:
+PrevVideoModeKey_20A:
         push byte 50h
         push byte 2
-sub_15C30_20E:
+PrevVideoModeKey_20E:
         call QueueOverlayPanel
         add esp, byte 8
-sub_15C30_216:
+PrevVideoModeKey_216:
         leave
-sub_15C30_217:
+PrevVideoModeKey_217:
         pop edi
         pop esi
         pop edx
@@ -388,9 +390,11 @@ sub_15C30_217:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_15E4D                                                       15E4D  97 PC
+; NextVideoModeKey                                15E4D  97 PC, low confidence
+; From GameFunctionKeys (F12): clears the overlays, NextVideoMode,
+; SetVideoMode and rebuilds the overlay windows
 ;-----------------------------------------------------------------------------
-sub_15E4D:
+NextVideoModeKey:
         push ebx
         push ecx
         push edx
@@ -405,9 +409,9 @@ sub_15E4D:
         cmp dword [dword_19CD14], 100h
         jge near .9
 .2:
-        call sub_18E35
+        call ClearOverlayWindows
         lea eax, [byte ebp-018h]
-        call sub_F98E4
+        call NextVideoMode
         mov edx, dword [byte ebp-014h]
         mov eax, dword [byte ebp-018h]
         call SetVideoMode
@@ -499,7 +503,7 @@ sub_15E4D:
         add esp, byte 0Ch
 .8:
         test byte [byte_19EBD2], 2
-        je near sub_15C30_20A
+        je near PrevVideoModeKey_20A
         movsx eax, word [word_19CB34]
         push eax
         push byte 0
@@ -507,14 +511,14 @@ sub_15E4D:
         call QueueOverlayPanel
         mov dword [dword_19D008], 0FFFFFFFFh
         add esp, byte 0Ch
-        jmp near sub_15C30_20A
+        jmp near PrevVideoModeKey_20A
 .9:
         cmp dword [dword_19CD34], byte 0
         je short .10
         mov eax, dword [dword_1A8E80]
         call sub_3CB48
         mov dword [dword_19CD34], 0
-        jmp near sub_15C30_20A
+        jmp near PrevVideoModeKey_20A
 .10:
         mov eax, dword [dword_1A8E80]
         call sub_3CB38
@@ -522,7 +526,7 @@ sub_15E4D:
         mov dword [dword_19CD34], 1
         call sub_3CAB8
         mov dword [dword_19CD30], 1
-        jmp near sub_15C30_20A
+        jmp near PrevVideoModeKey_20A
 ;-----------------------------------------------------------------------------
 ; ApplyDisplayFlags                               1603A  97 PC, low confidence
 ; Sets the doubled / interlaced display flags (dword_19CD30, dword_19CD34) in
@@ -595,7 +599,7 @@ RemoveOverlayPanel:
         add ebx, byte 0Ch
         cmp esi, byte 0Ah
         jl short .1
-        jmp near sub_15C30_217
+        jmp near PrevVideoModeKey_217
 ;-----------------------------------------------------------------------------
 ; sub_160E2                                                       160E2  97 PC
 ;-----------------------------------------------------------------------------
@@ -2768,13 +2772,13 @@ DrawGameClock:
         jle short .1
         movsx eax, word [gameclock]
         cmp eax, dword [dword_19D018]
-        je near sub_15C30_216
+        je near PrevVideoModeKey_216
 .1:
         cmp word [gameclock], byte 3Dh
         jge short .2
         movsx eax, word [word_19CBBC]
         cmp eax, dword [dword_19D014]
-        je near sub_15C30_216
+        je near PrevVideoModeKey_216
 .2:
         movsx eax, word [gameclock]
         mov dword [dword_19D018], eax
@@ -2862,7 +2866,7 @@ DrawGameClock:
         add esp, byte 0Ch
         mov eax, dword [byte ebx+02Ch]
         call RefreshOverlayWindow
-        jmp near sub_15C30_216
+        jmp near PrevVideoModeKey_216
 ;-----------------------------------------------------------------------------
 ; DrawPowerPlayClock                              17C2C  97 PC, low confidence
 ; Draws the "Power Play" countdown next to the game clock ("%2d:%02d")
@@ -4401,9 +4405,11 @@ sub_18DF7:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_18E35                                                       18E35  97 PC
+; ClearOverlayWindows                          18E35  97 PC, medium confidence
+; Removes and frees all ten game overlay windows (unk_19CF8C),
+; RemoveOverlayWindow on each
 ;-----------------------------------------------------------------------------
-sub_18E35:
+ClearOverlayWindows:
         push ebx
         push ecx
         push edx
@@ -4686,21 +4692,21 @@ DrawGameOverlays:
         cmp esi, byte 0Ah
         jl near .1
         cmp dword [byte ebp-08h], byte 0
-        jne near sub_15C30_216
+        jne near PrevVideoModeKey_216
         cmp dword [byte ebp-04h], byte 0
-        jne near sub_15C30_216
+        jne near PrevVideoModeKey_216
         call sub_18EEE
         test eax, eax
-        jne near sub_15C30_216
+        jne near PrevVideoModeKey_216
         movsx eax, word [gameclock]
         mov ebx, 5Ah
         cdq
         idiv ebx
         cmp edx, byte 1Eh
-        jne near sub_15C30_216
+        jne near PrevVideoModeKey_216
         push dword 1F4h
         push byte 0Eh
-        jmp near sub_15C30_20E
+        jmp near PrevVideoModeKey_20E
 ;-----------------------------------------------------------------------------
 ; sub_19133                                                       19133  97 PC
 ;-----------------------------------------------------------------------------
@@ -7800,7 +7806,13 @@ sub_1B85C:
 sub_1B88C:
         xor eax, eax
         LD mov, eax, eax
-sub_1B890:
+;-----------------------------------------------------------------------------
+; CanStartCameraScene                             1B890  97 PC, low confidence
+; (priority 1-7): whether a scripted camera scene of this priority may start
+; now (none running, or a higher priority than the running one; 0 ends the
+; scene)
+;-----------------------------------------------------------------------------
+CanStartCameraScene:
         push ebx
         push edx
         mov ebx, 2
@@ -8034,16 +8046,18 @@ sub_1B9D4_108:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1BB18                                                       1BB18  97 PC
+; PenaltyCameraScene                              1BB18  97 PC, low confidence
+; From asspenalty: scripted camera scene, priority 6 (SetCameraView 8,
+; StartCameraPath, sub_1B9D4 per frame)
 ;-----------------------------------------------------------------------------
-sub_1BB18:
+PenaltyCameraScene:
         push ebx
         push esi
         push edi
         push ebp
         mov ebx, eax
         mov eax, 6
-        call sub_1B890
+        call CanStartCameraScene
         test eax, eax
         je short .1
         mov esi, sub_1B9D4
@@ -8540,9 +8554,11 @@ sub_1BFC0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1C108                                                       1C108  97 PC
+; FightCameraScene                                1C108  97 PC, low confidence
+; From StartFight: scripted camera scene, priority 2 (follows the two
+; fighters, sub_1BFC0 per frame)
 ;-----------------------------------------------------------------------------
-sub_1C108:
+FightCameraScene:
         push ebx
         push ecx
         push esi
@@ -8550,7 +8566,7 @@ sub_1C108:
         mov ecx, eax
         mov ebx, edx
         mov eax, 2
-        call sub_1B890
+        call CanStartCameraScene
         test eax, eax
         je near .6
         mov edx, 8
@@ -8666,13 +8682,14 @@ sub_1C21C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1C29C                                                       1C29C  97 PC
+; FaceoffCameraScene                              1C29C  97 PC, low confidence
+; From puckfaceoff: scripted camera scene, priority 7 (path 18h)
 ;-----------------------------------------------------------------------------
-sub_1C29C:
+FaceoffCameraScene:
         push ebx
         push edx
         mov eax, 7
-        call sub_1B890
+        call CanStartCameraScene
         test eax, eax
         je short .1
         cmp byte [byte_16892C], 0
@@ -9084,14 +9101,16 @@ sub_1C70C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1C7B4                                                       1C7B4  97 PC
+; FaceoffCameraScene2                             1C7B4  97 PC, low confidence
+; From puckfaceoff: scripted camera scene, priority 7, one of two random
+; camera moves
 ;-----------------------------------------------------------------------------
-sub_1C7B4:
+FaceoffCameraScene2:
         push ebx
         push ecx
         push edx
         mov eax, 7
-        call sub_1B890
+        call CanStartCameraScene
         test eax, eax
         je near .5
         mov dword [dword_16AF5C], 1
@@ -9442,9 +9461,10 @@ sub_1CB9C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1CBD8                                                       1CBD8  97 PC
+; PenaltyShotCameraScene                          1CBD8  97 PC, low confidence
+; From assrefpenshot: scripted camera scene, priority 3 (penshottimer)
 ;-----------------------------------------------------------------------------
-sub_1CBD8:
+PenaltyShotCameraScene:
         push ebx
         push ecx
         push esi
@@ -9453,7 +9473,7 @@ sub_1CBD8:
         sub esp, byte 8
         mov ebx, eax
         mov eax, 3
-        call sub_1B890
+        call CanStartCameraScene
         test eax, eax
         je near .2
         mov edi, sub_1CB9C
@@ -9584,9 +9604,10 @@ sub_1CCF8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1CD80                                                       1CD80  97 PC
+; GoalCameraScene                                 1CD80  97 PC, low confidence
+; From Goal: scripted camera scene, priority 5 (sub_1CCF8 per frame)
 ;-----------------------------------------------------------------------------
-sub_1CD80:
+GoalCameraScene:
         push ebx
         push ecx
         push esi
@@ -9605,7 +9626,7 @@ sub_1CD80:
         movsd
         movsd
         movsd
-        call sub_1B890
+        call CanStartCameraScene
         test eax, eax
         je near .3
         mov edi, sub_1CCF8
@@ -9787,15 +9808,16 @@ sub_1CE98:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1D008                                                       1D008  97 PC
+; FaceoffDropCameraScene                          1D008  97 PC, low confidence
+; From puckfaceoff2: scripted camera scene, priority 1 (sub_1CE98 per frame)
 ;-----------------------------------------------------------------------------
-sub_1D008:
+FaceoffDropCameraScene:
         push ebx
         push edx
         push esi
         push edi
         mov eax, 1
-        call sub_1B890
+        call CanStartCameraScene
         test eax, eax
         je near .3
         xor ah, ah
@@ -9920,7 +9942,7 @@ sub_1D16C:
         push ebp
         mov ebx, eax
         mov eax, 4
-        call sub_1B890
+        call CanStartCameraScene
         test eax, eax
         je short .1
         mov esi, sub_1D0BC
@@ -10039,9 +10061,11 @@ sub_1D208:
         call hypot_
         ret
 ;-----------------------------------------------------------------------------
-; sub_1D2A8                                                       1D2A8  97 PC
+; DrawCameraDebug                                 1D2A8  97 PC, low confidence
+; From DrawGameFrame when dword_19D094 is set: draws the camera target and
+; prints its "(%d,%d,%d)" position
 ;-----------------------------------------------------------------------------
-sub_1D2A8:
+DrawCameraDebug:
         push ebx
         push ecx
         push edx
@@ -15022,7 +15046,7 @@ Goal:
         mov dl, al
         mov eax, dword [word_19CB82]
         sar eax, 10h
-        call sub_1CD80
+        call GoalCameraScene
         mov al, byte [byte_1C135A]
         cmp al, byte [byte_1C135B]
         jne near .30

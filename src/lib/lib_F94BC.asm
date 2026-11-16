@@ -7,8 +7,11 @@ extern dword_16E304, dword_16E308, dword_16E30C, dword_16E310, dword_16E314, dwo
 extern dword_16E46C, dword_16E474, dword_16F8A8, dword_1CEFC4, dword_1CEFC8, dword_1CEFCC, dword_1CEFD4, dword_1CEFD8
 extern dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, sub_100A68, sub_1013FC, sub_120650, sub_120680
 extern sub_12071C, sub_13C164, sub_FAA64, sub_FAF34, sub_FC510, sub_FD110, tickcount, unk_1CEFE8
-global sub_F94BC, sub_F94E6, sub_F9650, sub_F9789, sub_F97B2, sub_F9869, sub_F98E4, sub_F994D
+global sub_F94BC, sub_F94E6, sub_F9650, sub_F9789, sub_F97B2, sub_F9869, NextVideoMode, PrevVideoMode
 global sub_F99C0, sub_F9A28, sub_F9A88, sub_F9B30
+;-----------------------------------------------------------------------------
+; sub_F94BC                                                            F94BC  
+;-----------------------------------------------------------------------------
 sub_F94BC:
         push ecx
         push edx
@@ -24,6 +27,9 @@ sub_F94BC:
         pop edx
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; sub_F94E6                                                            F94E6  
+;-----------------------------------------------------------------------------
 sub_F94E6:
         push ebx
         push ecx
@@ -124,6 +130,9 @@ sub_F94E6:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_F9650                                                            F9650  
+;-----------------------------------------------------------------------------
 sub_F9650:
         push ebx
         push ecx
@@ -211,6 +220,9 @@ sub_F9650:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_F9789                                                            F9789  
+;-----------------------------------------------------------------------------
 sub_F9789:
         push ecx
         push edx
@@ -230,6 +242,9 @@ sub_F9789:
         pop edx
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; sub_F97B2                                                            F97B2  
+;-----------------------------------------------------------------------------
 sub_F97B2:
         push ecx
         push esi
@@ -292,6 +307,9 @@ sub_F97B2:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; sub_F9869                                                            F9869  
+;-----------------------------------------------------------------------------
 sub_F9869:
         push ebx
         push ecx
@@ -340,7 +358,12 @@ sub_F9869:
         pop ecx
         pop ebx
         ret
-sub_F98E4:
+;-----------------------------------------------------------------------------
+; NextVideoMode                                   F98E4  97 PC, low confidence
+; Steps to the next entry of the video mode list (dword_16E304, wraps) and
+; prints its name as a message
+;-----------------------------------------------------------------------------
+NextVideoMode:
         push ebx
         push ecx
         push edx
@@ -380,7 +403,12 @@ sub_F98E4:
         pop ecx
         pop ebx
         ret
-sub_F994D:
+;-----------------------------------------------------------------------------
+; PrevVideoMode                                   F994D  97 PC, low confidence
+; Steps to the previous entry of the video mode list (dword_16E304, wraps)
+; and prints its name as a message
+;-----------------------------------------------------------------------------
+PrevVideoMode:
         push ebx
         push ecx
         push edx
@@ -422,6 +450,9 @@ sub_F994D:
         pop ebx
         ret
         db 00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; sub_F99C0                                                            F99C0  
+;-----------------------------------------------------------------------------
 sub_F99C0:
         push ebx
         push ebp
@@ -461,6 +492,9 @@ sub_F99C0:
         pop ebx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_F9A28                                                            F9A28  
+;-----------------------------------------------------------------------------
 sub_F9A28:
         push ebx
         push esi
@@ -505,6 +539,9 @@ sub_F9A28:
         jl short .1
         jmp short .2
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_F9A88                                                            F9A88  
+;-----------------------------------------------------------------------------
 sub_F9A88:
         push ebx
         push esi
@@ -561,6 +598,9 @@ sub_F9A88:
         pop ebx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_F9B30                                                            F9B30  
+;-----------------------------------------------------------------------------
 sub_F9B30:
         mov edx, dword [byte esp+04h]
         mov eax, dword [dword_16E310]

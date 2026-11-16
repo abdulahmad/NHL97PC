@@ -14,8 +14,8 @@ extern dword_19CB7B, dword_19CBAA, penshottimer, dword_19CBE8, dword_19CBF8, dwo
 extern dword_19CC54, dword_19CC58, dword_19CC5C, dword_19CC7C, dword_19CC9C, dword_19CCA4, dword_19D3AC, dword_19D40D
 extern dword_19D410, dword_19DAD3, dword_19EBAA, dword_19EBB8, dword_19ECB6, dword_19ECC4, dword_19ECD0, dword_19ECEC
 extern dword_1AC814, dword_1AC944, dword_1B8FA0, dword_1BF060, dword_1C13FF, dword_1C3522, hmtmstruct, hypot_
-extern sub_3812E_13F, sub_3812E_14D, sub_3812E_17B, sub_3812E_182, sub_3812E_1DA, sub_3812E_1E3, sub_3812E_1EC, sub_3812E_1F3
-extern sub_3812E_238, sub_3812E_2B1, sub_3812E_2CF, sub_3812E_3D3, sub_3812E_3DF, sub_3812E_3EB, off_168CD8, off_168CE8
+extern SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B, SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3
+extern SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF, SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, off_168CD8, off_168CE8
 extern off_168CEC, off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C, off_19C61F, qword_1608B7
 extern qword_1608C4, qword_1608CC, qword_1608D4, qword_1608DC, qword_1608EC, qword_1608F4, qword_1608FC, qword_160904
 extern qword_16090C, qword_160914, qword_16091C, qword_160924, qword_16092C, qword_160934, qword_16093C, qword_160944
@@ -24,13 +24,13 @@ extern qword_16098C, qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qwo
 extern regd1, slotteam, sub_100940, sub_100A68, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
 extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, sub_101154, sub_1011E8
 extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
-extern QueueOverlayPanel, sub_18E35, sub_1C108, sub_1C210, sub_1C29C, sub_1C7B4, sub_1CCBC, sub_1D16C
+extern QueueOverlayPanel, ClearOverlayWindows, FightCameraScene, sub_1C210, FaceoffCameraScene, FaceoffCameraScene2, sub_1CCBC, sub_1D16C
 extern sub_1E184, assreplace, assinsert, assexit, sub_1E8B0, Setplass, Goal, sub_24220
 extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, CompLine, StartFaceoffLineChange
 extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent
 extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
 extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
-extern sub_71D48, sub_71E58, StartFightAnim, sub_76FE8, sub_77F94, sub_780F0, sub_AA588, sub_F9A88
+extern sub_71D48, sub_71E58, StartFightAnim, sub_76FE8, sub_77F94, clockcont_0, sub_AA588, sub_F9A88
 extern sub_FAAB4, sub_FAF34, sub_FB71C, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
 extern unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E, unk_19D5A0, unk_19D5D2, unk_19D668, unk_19E060
 extern unk_19ECC8, unk_19ECE4, unk_1C135C, unk_1C347F, vecdist, vtoa, word_1686D6, word_168E2C
@@ -125,7 +125,7 @@ puckfaceoff:
         mov dx, word [awtmstruct]
         cmp dx, word [hmtmstruct]
         je short .7
-        call sub_780F0
+        call clockcont_0
         pop edi
         pop esi
         pop edx
@@ -209,7 +209,7 @@ puckfaceoff:
         and bh, 0FDh
         mov edx, SortCords
         mov byte [byte_19EBD2], bh
-        call sub_1C29C
+        call FaceoffCameraScene
         xor eax, eax
 .16:
         mov ch, byte [dword edx+0C0h]
@@ -425,7 +425,7 @@ puckfaceoff:
         mov word [word_19EAB2], ax
         mov word [word_19EBC0], ax
 .32:
-        call sub_1C7B4
+        call FaceoffCameraScene2
         mov eax, dword [dword edi+0AEh]
         sar eax, 18h
         mov edx, 43h
@@ -4983,7 +4983,7 @@ sub_32888:
         call PlaySfxVolume
         jmp short .26
 .25:
-        call sub_18E35
+        call ClearOverlayWindows
 .26:
         test byte [byte_19CBC2], 8
         je short .27
@@ -9863,7 +9863,7 @@ StartFight:
         xor eax, eax
         mov dl, byte [dword ecx+0A4h]
         mov al, byte [dword esi+0A4h]
-        call sub_1C108
+        call FightCameraScene
         pop esi
         pop ecx
         ret
@@ -12393,23 +12393,23 @@ sub_37FC8:
         pop ebx
         ret
 jpt_380E6:
-        dd sub_3812E_13F
-        dd sub_3812E_14D
-        dd sub_3812E_1EC
-        dd sub_3812E_1F3
-        dd sub_3812E_238
-        dd sub_3812E_2B1
-        dd sub_3812E_2CF
+        dd SeasonGameScreen_13F
+        dd SeasonGameScreen_14D
+        dd SeasonGameScreen_1EC
+        dd SeasonGameScreen_1F3
+        dd SeasonGameScreen_238
+        dd SeasonGameScreen_2B1
+        dd SeasonGameScreen_2CF
 jpt_38102:
-        dd sub_3812E_17B
-        dd sub_3812E_182
-        dd sub_3812E_1DA
-        dd sub_3812E_182
-        dd sub_3812E_1DA
-        dd sub_3812E_1E3
+        dd SeasonGameScreen_17B
+        dd SeasonGameScreen_182
+        dd SeasonGameScreen_1DA
+        dd SeasonGameScreen_182
+        dd SeasonGameScreen_1DA
+        dd SeasonGameScreen_1E3
 jpt_3811A:
-        dd sub_3812E_3D3
-        dd sub_3812E_3DF
-        dd sub_3812E_3D3
-        dd sub_3812E_3DF
-        dd sub_3812E_3EB
+        dd SeasonGameScreen_3D3
+        dd SeasonGameScreen_3DF
+        dd SeasonGameScreen_3D3
+        dd SeasonGameScreen_3DF
+        dd SeasonGameScreen_3EB

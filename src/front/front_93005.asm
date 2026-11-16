@@ -20,7 +20,7 @@ extern dword_1C8A88, dword_1C8A90, dword_1C8A94, dword_1C8A98, dword_1C8A9C, dwo
 extern EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA, EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D
 extern memcpy_, memset_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_
 extern sub_101324, sub_101340, sub_101390, sub_1013AC, sub_1013CC, sub_1013FC, sub_101429, sub_10AED0
-extern sub_11A318, sub_11B094, sub_11B0D0, sub_13C164, sub_3812E, sub_415A0, sub_415F8, sub_419B0
+extern sub_11A318, sub_11B094, sub_11B0D0, sub_13C164, SeasonGameScreen, sub_415A0, sub_415F8, sub_419B0
 extern sub_419B8, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80B28
 extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad
@@ -2070,7 +2070,7 @@ RunPlayoffMenus:
         je short .9
         jmp short .5
 .6:
-        call sub_3812E
+        call SeasonGameScreen
         cmp eax, byte 1Ah
         je short .4
         mov dword [dword_1C94E8], 1
