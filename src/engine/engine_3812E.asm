@@ -18,7 +18,7 @@ extern StreamTimeout, CdStreamFilled, CdStreamUsed, StreamState, AudioStreamFlag
 extern MusicPaused, MusicTime, MusicStreamPos, MusicVolumeLevel, MusicFeedCount, MusicStartTime, MusicLength, MusicHandle
 extern SfxBankRecords, AudioInitDone, SfxBankHandle, CrowdBankHandle, AmbientHandle, SfxReady, MusicReady, CrowdNoiseLevel
 extern AmbientVolume, SfxVolumeLevel, MusicVolumeWord, LastSfxPlayed, SpeechBankBuffer, SoundCardType, SoundDriverId, F32_9600
-extern F32_768_PositionSfx, SpeechQueueSize, DirPathTable, F32_ViewAngle, AudioDriverVersion, dword_16E464, dword_16E468, MenuScreenBitmap
+extern F32_768_PositionSfx, SpeechQueueSize, DirPathTable, F32_ViewAngle, AudioDriverVersion, ViewScreenWidth, ViewScreenHeight, MenuScreenBitmap
 extern QuantizePalette, DrawDestBuffer, DrawDestPitch, VideoModeNumber, VideoModeIndex, ViewInterlaced, CdStreamSpeed, BenchSlotTable
 extern SparkleTable, SeasonScreenArt, SeasonOpponent, SeasonPlayedFlag, SeasonPanelArt, SeasonUserIndex, SeasonScreenState, SparkleTime
 extern MatchupLogoArt, SeasonPanelShown, WaitIconFrame, WaitIconTime, SparkleFrame, WaitIconCount, SeasonBackground, SeasonFont
@@ -5705,7 +5705,7 @@ RebuildOverlayMask:
         mov dword [byte esp+014h], eax
         mov ebp, OverlayMaskBase
         xor edx, edx
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         mov dword [GameViewRows], edx
         mov dword [OverlayMaskDirty], edx
         mov dword [byte esp+08h], edx
@@ -5779,7 +5779,7 @@ RebuildOverlayMask:
         cmp edx, edi
         jl short .5
 .6:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         xor edi, edi
         test eax, eax
         jle near .29
@@ -5791,7 +5791,7 @@ RebuildOverlayMask:
         test esi, esi
         jne short .9
         mov eax, dword [byte esp+020h]
-        mov ebx, dword [dword_16E464]
+        mov ebx, dword [ViewScreenWidth]
         add eax, ebx
         cmp eax, 10000h
         jg short .8
@@ -6061,7 +6061,7 @@ RebuildOverlayMask:
         jle near .10
 .28:
         mov edx, dword [byte esp+010h]
-        mov ebx, dword [dword_16E468]
+        mov ebx, dword [ViewScreenHeight]
         add edx, byte 4
         inc edi
         mov dword [byte esp+010h], edx
@@ -6407,10 +6407,10 @@ SetVideoMode:
         push dword 0FF111111h
         call MakeColor
         mov dword [ViewBorderRows], eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         add esp, byte 4
         shl eax, 2
-        mov ebx, dword [dword_16E464]
+        mov ebx, dword [ViewScreenWidth]
         mov dword [dword esp+0300h], eax
         lea eax, [nosplit ebx*4+00h]
         sub eax, ebx
@@ -6798,7 +6798,7 @@ ClearViewBorders:
         mov ebx, dword [ViewBorderRows]
         push ebx
         push esi
-        mov ecx, dword [dword_16E464]
+        mov ecx, dword [ViewScreenWidth]
         push ecx
         push esi
         push byte 0
@@ -6826,7 +6826,7 @@ ClearViewBorders:
         mov ecx, dword [ViewBorderRows]
         push ecx
         push ebx
-        mov ebp, dword [dword_16E464]
+        mov ebp, dword [ViewScreenWidth]
         push ebp
         push ebx
         push byte 0
@@ -6845,7 +6845,7 @@ ClearViewBorders:
         mov ecx, dword [ViewBorderRows]
         push ecx
         push ebx
-        mov ebp, dword [dword_16E464]
+        mov ebp, dword [ViewScreenWidth]
         mov eax, dword [ViewSizeIndex]
         push ebp
         mov edx, dword [byte eax+018h]
@@ -6862,7 +6862,7 @@ ClearViewBorders:
 .7:
         mov eax, dword [ViewSizeIndex]
         mov ebx, dword [byte eax+014h]
-        mov esi, dword [dword_16E468]
+        mov esi, dword [ViewScreenHeight]
         add ebx, edi
         cmp ebx, esi
         jge short .9
@@ -6870,13 +6870,13 @@ ClearViewBorders:
         mov eax, dword [ViewBorderRows]
         push eax
         push ebx
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         push edx
         push ebx
         push byte 0
         call FillRectColor
         inc ebx
-        mov ecx, dword [dword_16E468]
+        mov ecx, dword [ViewScreenHeight]
         add esp, byte 14h
         cmp ebx, ecx
         jl short .8

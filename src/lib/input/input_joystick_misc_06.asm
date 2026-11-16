@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_10CFB4 progbits alloc exec nowrite align=1
-extern OverlayModels, OverlaySprites, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, ViewCenterX, str_D_SetCameraAngles, CameraYaw
+extern OverlayModels, OverlaySprites, ViewScreenWidth, ViewScreenHeight, str_Punct_DrawRinkSurface, ViewCenterX, str_D_SetCameraAngles, CameraYaw
 extern CameraPitch, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, CameraOriginX, CameraOriginY, CameraFlags
 extern OverlayViewMatrix, OverlayCamera, memcpy_, AngleOfVector, SubVec3, TransformVecFull, FixedLerp, DrawClippedPoly
 extern RotatePoint2D, RotateModelPoint, AngleFromDelta, SinLookup, CosLookup, ProjectPointsPersp, MultiplyMatrix, TransposeMatrix
@@ -1649,14 +1649,14 @@ SetOverlayCentre:
         mov ecx, eax
         mov dword [byte eax+020h], ebx
         mov dword [byte eax+01Ch], edx
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         sub eax, edx
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
         mov dword [byte ecx+014h], eax
-        mov edx, dword [dword_16E468]
+        mov edx, dword [ViewScreenHeight]
         sub edx, ebx
         mov eax, edx
         sar edx, 1Fh

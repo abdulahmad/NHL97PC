@@ -10,7 +10,7 @@ extern PlayerControlRest, MusicOptions, DetailLevel, DisplayOptions, PeriodHomeT
 extern F32_10, F32_neg8, F32_neg8_StickReachZ, GameEventTable, GameEventFlags, SavedCameraView, ClockShown, F32_62
 extern F32_54, F32_0p8, F32_ReachFactor, OpeningFrames, InGameMenuRequest, BrightnessLevel, ShowFrameRate, ShowStands
 extern ShowRink, ShowCenterLogo, ShowShadows, ShowOverlay, ShowCrowd, ShowBenches, CameraScenesEnabled, CupCelebrationActive
-extern InputRecordStamp, LinkGameActive, dword_16E464, dword_16E468, QuantizePalette, ProgressCount, RefState, InputState
+extern InputRecordStamp, LinkGameActive, ViewScreenWidth, ViewScreenHeight, QuantizePalette, ProgressCount, RefState, InputState
 extern InputDir, ShotState, LastTouchPlayer, PassFrom, PassTo, GameRunning, FaceoffWinner, seed
 extern GameFrame, penshottimer, PuckX, RefTarget, RefPlayer, bholdtimer, InputActive, InputSlotState
 extern PuckChasers, FaceoffCenter, ChangePlayer, LastChangePlayer, LinkSides, LinkCounter, VideoModePanelMode, VideoModeSel
@@ -35,7 +35,7 @@ extern ResetScoringLog, LoadGameLogos, FreeGameText, UpdateUserRecords, RunRepla
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, StartInputRecording, ResetInputState, IsInputRecording, StopInputRecording
 extern InputRecordAvail, TakeInputRecord, ServiceIdle, LinkSyncGame, SetupPauseArt, CleanupPauseArt, OpenInGameMenu, LoadGameMenuText
 extern PauseMenu, InitVideoModeList, GetVideoModeList, PickVideoMode, AllocMemBlock, FreeMemBlock, KbdGetKey, TicksSinceLast
-extern OpenResourceArchive, MatchColor, SetViewRect, DebugSetLine, tickcount, unk_1600A4, DisplayModes, DemoState
+extern OpenResourceArchive, MatchColor, SetViewRect, DebugSetLine, tickcount, str_VantarPaAnnanDator, DisplayModes, DemoState
 extern HomeTeamRecord, AwayTeamRecord, DisplaySettings, CrowdChantTable, CameraViewKey, DebugUnlockCount, ForcePenaltyCall
 extern DebugModelRefresh, DebugModelIndex, str_D_ChangeViewSize, SpareGameWord, SpareGameFlag, HomeSpareCount, HomeSpareFlag, FaceoffHomePlayer
 extern FaceoffAwayPlayer, AwaySpareCount, AwaySpareFlag, FaceoffX, FaceoffDropX, FaceoffY, FaceoffDropY, GameVarClear
@@ -2848,14 +2848,14 @@ SetGameBrightness:
         mov word [str_D_ChangeViewSize], 28h
 .2:
         mov ebx, dword [BrightnessLevel]
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         sar ebx, 10h
         imul edx, ebx
         mov ecx, 64h
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
-        mov edx, dword [dword_16E468]
+        mov edx, dword [ViewScreenHeight]
         imul edx, ebx
         mov ecx, eax
         mov ebx, 64h
@@ -2868,7 +2868,7 @@ SetGameBrightness:
         je short .3
         sar ebx, 1
 .3:
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
@@ -2880,7 +2880,7 @@ SetGameBrightness:
         LD sub, eax, edx
         sar eax, 1
         sub edi, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
@@ -3032,7 +3032,7 @@ PlayGame:
         mov eax, str_WaitingForOtherComputer2
         jmp short .8
 .6:
-        mov eax, unk_1600A4
+        mov eax, str_VantarPaAnnanDator
         jmp short .8
 .7:
         mov eax, str_WarteAufAnderenComputer
@@ -3352,7 +3352,7 @@ RunInGameMenu:
         xor eax, eax
         jmp short .5
 .3:
-        cmp dword [dword_16E464], 140h
+        cmp dword [ViewScreenWidth], 140h
         sete al
         movzx eax, al
         call OpenInGameMenu

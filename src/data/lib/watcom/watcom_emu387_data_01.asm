@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_199C58 progbits alloc noexec write align=1
-extern EmuNoOp, unk_168184, str_Asin, str_Sqrt, str_Exp, str_Cosh, str_Sinh, str_Pow
+extern EmuNoOp, str_Acos_MathErr, str_Asin, str_Sqrt, str_Exp, str_Cosh, str_Sinh, str_Pow
 extern str_Acosh, str_Log2, str_Log, str_Log10, str_Atanh, str_Atan2, str_Ipow, str_Dpowi
 extern str_Cos, str_Sin, str_Tan, str_Y0, str_Y1, str_Yn, str_Mod, str_Cotan
 global Hook387Flag, Hook387Saved, WVideoActive, str_2_SetupRectFill, MathErrTable, EmuInitHook, EmuFiniHook, ReciprocalRowTable
@@ -258,7 +258,7 @@ ReciprocalRows:
         db 0FAh,0D0h,034h,0D6h,06Dh,0DBh,0A7h,0E0h,0E0h,0E5h,01Ah,0EBh,053h,0F0h
 MathErrTable:
         db 08Dh,0F5h,0C6h,0FAh
-        dd unk_168184
+        dd str_Acos_MathErr
         dd str_Asin
         dd str_Sqrt
         dd str_Exp

@@ -17,7 +17,7 @@ extern MusicTime, MusicStreamPos, MusicVolumeLevel, BackgroundAudioTick, MusicFe
 extern MusicBuffer, MusicReady, CrowdNoiseLevel, AmbientVolume, MusicVolumeWord, SoundCardType, SoundDriverId, SpeechStreamFile
 extern SpeechStreamTimer, PaQueueHead, PaQueueTail, PaQueueCount, PaQueueClip, PaQueueTime, BackgroundAudioOn, ArtArchiveIds
 extern ArtArchiveSizes, DirPathTable, GameGraphicsMode, ModelCount, TextureCount, ShowFrameRate, ShowCenterLogo, ShowCrowd
-extern ArenaArchiveHandle, RinkGeometryBuilt, ScoreboardOn, LinkGameActive, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, F32_1p0_View
+extern ArenaArchiveHandle, RinkGeometryBuilt, ScoreboardOn, LinkGameActive, ViewScreenWidth, ViewScreenHeight, str_Punct_DrawRinkSurface, F32_1p0_View
 extern RinkLineWidth, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, CameraFlags, SinTable, SpeechStreamBuf
 extern SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd, GlobalSetData, GameSettings, AudioOptions, GameOptionFlags, ModelNamePtrs
 extern FrameDrawList, GameVideoMode, RenderTimer, ModelNameCount, FrameBuffer, RenderTicks, ModelList, ArenaArchive
@@ -4044,14 +4044,14 @@ DrawGameFrame:
         add esp, byte 4
         push eax
         call SetTextColors
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
         add esp, byte 8
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
@@ -4690,7 +4690,7 @@ LoadRinkTextures:
         mov dword [dword ecx+RinkTextureRows], edi
         call AllocOverlaySlot
         mov dword [dword ecx+RinkTextures], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         mov edx, eax
         sar edx, 1Fh
         shl edx, 2

@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FC008 progbits alloc exec nowrite align=1
-extern __STOSD, _dos_getvect_, _dos_setvect_, str_TIMERSTACK, TimerRate, dword_16E402, str_D_UpdateFrameRate, TimerCalibration
+extern __STOSD, _dos_getvect_, _dos_setvect_, str_TIMERSTACK, TimerRate, TimerOldVector, str_D_UpdateFrameRate, TimerCalibration
 extern MessageBoxActive, timercallbacks, TimerFraction, TimerStep, TimerOldCount, AddExitHandler, AllocMemBlock, FreeMemBlock
 extern TimerISR, TimerSavedSelector
 global RestoreTimer, RemoveTimerCallback, InstallTimer
@@ -74,7 +74,7 @@ RestoreTimer:
         push ebx
         push ecx
         push edx
-        cmp dword [dword_16E402], byte 0
+        cmp dword [TimerOldVector], byte 0
         jne short .1
         cmp word [TimerSavedSelector], byte 0
         je short .2
@@ -86,7 +86,7 @@ RestoreTimer:
         out dx, al
         mov eax, 8
         mov cx, word [TimerSavedSelector]
-        mov ebx, dword [dword_16E402]
+        mov ebx, dword [TimerOldVector]
         mov edx, 40h
         call _dos_setvect_
         xor al, al
@@ -96,7 +96,7 @@ RestoreTimer:
         mov word [TimerSavedSelector], bx
         xor ebx, ebx
         mov edx, 21h
-        mov dword [dword_16E402], ebx
+        mov dword [TimerOldVector], ebx
         sub eax, eax
         in al, dx
         and al, 0FCh
@@ -121,7 +121,7 @@ InstallTimer:
         push esi
         push edi
         push ebp
-        cmp dword [dword_16E402], byte 0
+        cmp dword [TimerOldVector], byte 0
         jne short .1
         cmp word [TimerSavedSelector], byte 0
         jne short .1
@@ -139,7 +139,7 @@ InstallTimer:
         in al, dx
         or al, 3
         out dx, al
-        mov esi, dword [dword_16E402]
+        mov esi, dword [TimerOldVector]
         mov bx, word [TimerSavedSelector]
         test esi, esi
         jne short .2
@@ -153,7 +153,7 @@ InstallTimer:
         mov ebx, TimerISR
         call _dos_getvect_
         mov ecx, cs
-        mov dword [dword_16E402], eax
+        mov dword [TimerOldVector], eax
         mov eax, 8
         mov word [TimerSavedSelector], dx
         call _dos_setvect_

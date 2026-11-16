@@ -12,7 +12,7 @@ extern str_PATH, str_DOS4GWEXE, str_CS3, str_0123456789abcdef, str_Null, str_012
 extern IdentityRemap, KbdCapsLock, KeyStateTable, KbdShiftDown, KbdCtrlDown, KbdAltDown, KbdNumLock, KbdScrollLock
 extern KbdPrefixByte, KbdInsertMode, KbdPauseState, ScanToAscii, ScanToAsciiShift, ScanToAsciiCaps, ScanToAsciiCtrl, ScanToAsciiCapsShift
 extern ShadeTable, __MBCSTable, VideoCodeLengths, MemPoolEnd, MemPoolBase, MemPoolSize, TimerTicks, GraphicsModeSet
-extern MousePresent, dword_16E464, dword_16E468, MenuScreenBitmap, ScreenModeWidth, ScreenModeHeight, str_D_UpdateFrameRate, MessageBoxActive
+extern MousePresent, ViewScreenWidth, ViewScreenHeight, MenuScreenBitmap, ScreenModeWidth, ScreenModeHeight, str_D_UpdateFrameRate, MessageBoxActive
 extern DebugMode, ScreenWidth, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, ScreenBuffer, DrawDestBuffer
 extern DrawDestPitch, DrawDestOffset, BackBufferWidth, ExitHandler, RowTable, ResourceArchive, ResourceArchiveSize, ResourceArchiveData
 extern KeyedBlitState, FpuFlags, BiosKeyFunc, KbdHandlerInstalled, KeyBuffer, KeyBufferHead, KeyBufferTail, KeyBufferMask
@@ -11290,9 +11290,9 @@ InitPlatform:
         add esp, byte 4
         mov edi, dword [MenuScreenBitmap]
         push edi
-        mov ebp, dword [dword_16E468]
+        mov ebp, dword [ViewScreenHeight]
         push ebp
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         push eax
         call SetGraphicsMode
         add esp, byte 0Ch
@@ -11334,9 +11334,9 @@ InitPlatform:
         call SetKbdIdleHook
         add esp, byte 4
         call InstallErrorHandlers
-        mov ebx, dword [dword_16E468]
+        mov ebx, dword [ViewScreenHeight]
         push ebx
-        mov ecx, dword [dword_16E464]
+        mov ecx, dword [ViewScreenWidth]
         push ecx
         push byte 14h
         push byte 1Eh

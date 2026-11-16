@@ -5,7 +5,7 @@ section s_172BC1 progbits alloc noexec write align=1
 global SoundSystemOn, DacPortTable, DacPortBits, DacRateTable, SbProIrqVectors, SbProDmaChannelTable, Sb16DmaPageTable, Sb16DmaAddrTable
 global Sb16DmaCountTable, Sb16DmaMaskTable, SoundscapeIrqFlags, SoundscapeIrqCodes, PatlDefaultPitch, SpeechQueueVolume, AudioWorkHook, AudioStreamHook
 global AudioSpeechHook, StreamLengthFn, GusDriverIsOpen, GusDriverStreaming, GusDriverFound, GusDriverRunning, DacDriverBuffer, DacDriverRunning
-global SbDriverBuffer, SbDriverRunning, SbProDriverBuffer, SbProDriverRunning, SbProChannels, dword_172C20, Sb16DriverActive, Sb16BufferSize
+global SbDriverBuffer, SbDriverRunning, SbProDriverBuffer, SbProDriverRunning, SbProChannels, Sb16DriverReady, Sb16DriverActive, Sb16BufferSize
 global Sb16SavedIrqVector, SoundscapeBasePort, str_Punct_ReadSoundscapeIni, SoundscapeCodecType, SoundscapeDmaChannel, SoundscapeWavePort, SoundscapeIrq, SoundscapeMidiIrq
 global SoundscapeDmaBuffer, SoundscapeSavedIrq, AudioDeferredPending, AudioDeferredArg, AudioBusyCount, AudioLockCount, AudioDeferredFunc, MixerStepTable
 global Sb16DmaSetupCode, Sb16SavedIrqSelector, Sb16DmaPortPatch, str_Punct_Sb16SetupDma
@@ -55,7 +55,7 @@ SbProIrqVectors:
         db 04h
 SbProDmaChannelTable:
         db 02h,06h,01h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_172C20:
+Sb16DriverReady:
         db 00h,00h,00h,00h
 Sb16DriverActive:
         db 00h,00h,00h,00h

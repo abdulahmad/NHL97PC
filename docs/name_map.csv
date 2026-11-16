@@ -3718,6 +3718,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 13C228,fprem_common,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C42E,__fprem_chk,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C4E0,fprem1_common,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+160000,SharedDataFlags,unk_160000,new,low,"four bytes of 1,1,1,0 at the start of the shared data block; unreferenced",src/data/shared_data_01.asm
 160004,str_PATH2,asc_160004,new,high,"string ""PATH""",src/data/shared_data_01.asm
 16000C,str_Rb,unk_16000C,new,high,"string ""rb""",src/data/shared_data_01.asm
 160010,str_JSTICKS,asc_160010,new,high,"string ""JSTICKS""",src/data/shared_data_01.asm
@@ -3737,6 +3738,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 160074,F64_65536,qword_160074,new,high,double constant 65536,src/data/shared_data_01.asm
 16007C,str_RPEVENT2,asc_16007C,new,high,"string ""RP_EVENT""",src/data/shared_data_01.asm
 160088,str_WaitingForOtherComputer2,asc_160088,new,high,"string ""Waiting for other computer""",src/data/shared_data_01.asm
+1600A4,str_VantarPaAnnanDator,unk_1600A4,new,low,"Swedish ""Waiting for other computer"" message",src/data/shared_data_01.asm
 1600BC,str_WarteAufAnderenComputer,asc_1600BC,new,high,"string ""Warte auf anderen Computer.""",src/data/shared_data_01.asm
 1600D8,str_BREAKIN,asc_1600D8,new,high,"string "" -------------------------BREAK IN------------------------ """,src/data/shared_data_01.asm
 160114,str_BREAKOUT,asc_160114,new,high,"string "" -------------------------BREAK OUT----------------------- """,src/data/shared_data_01.asm
@@ -7474,6 +7476,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 168148,str_FloatingPointSupportNot,,96PC,high,NHL96PC 11415C (string): 'Floating-point support not loaded\r\n',
 16816C,str_RATIONALDOS4G,,96PC,high,NHL96PC 1142A8 (string): 'RATIONAL DOS/4G',
 16817C,F64_1eneg08,qword_16817C,new,high,double constant 1e-08,src/data/lib/sound/snd_soundblaster_01_data_01.asm
+168184,str_Acos_MathErr,unk_168184,new,low,"string ""acos"", first name in the math error table",src/data/lib/sound/snd_soundblaster_01_data_01.asm
 168189,str_Asin,unk_168189,new,high,"string ""asin""",src/data/lib/sound/snd_soundblaster_01_data_01.asm
 16818E,str_Sqrt,unk_16818E,new,high,"string ""sqrt""",src/data/lib/sound/snd_soundblaster_01_data_01.asm
 168193,str_Exp,unk_168193,new,high,"string ""exp""",src/data/lib/sound/snd_soundblaster_01_data_01.asm
@@ -8164,8 +8167,10 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16E3F4,TimerTicks,dword_16E3F4,new,low,timer interrupt tick count,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E3F8,TimerTickStep,dword_16E3F8,new,low,ticks added per timer interrupt,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E3FC,TimerRate,dword_16E3FC,new,low,timer divisor and chain rate,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E402,TimerOldVector,dword_16E402,new,low,"the original timer interrupt handler, chained from the timer ISR and restored on exit",src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E406,TimerSavedSelector,word_16E406,new,low,selector of the previous timer handler,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E408,GoalieTickData,dword_16E408,new,low,goalie tick data pointers,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E410,TimerInISR,dword_16E410,new,low,nonzero while the timer ISR is running its callbacks (re-entry guard),src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E414,__8087,,95PC,medium,NHL95PC D4B9C (refset): referenced by the same 2 matched functions,
 16E415,FpuType,byte_16E415,new,low,FPU type found at start up,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E418,SavedStackSegment,word_16E418,new,low,stack segment saved at start up,src/data/lib/input/input_joystick_misc_01_data_01.asm
@@ -8180,6 +8185,8 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16E458,MouseHideCount,dword_16E458,new,low,mouse cursor hide nesting count,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E45C,MouseInitDone,dword_16E45C,new,low,mouse initialised,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E460,JoyPresent,byte_16E460,new,low,joystick found,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E464,ViewScreenWidth,dword_16E464,new,low,full screen width the game view is sized against (compared with 320),src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E468,ViewScreenHeight,dword_16E468,new,low,full screen height the game view is sized against (compared with 300),src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E46C,MenuScreenBitmap,dword_16E46C,new,low,bitmap the menus draw into,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E474,VideoModeCount,dword_16E474,new,low,number of usable video modes,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E478,SelectedVideoMode,dword_16E478,new,low,video mode picked by resolution,src/data/lib/input/input_joystick_misc_01_data_01.asm
@@ -8223,6 +8230,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16E634,DebugLineWidth,dword_16E634,new,low,width of the debug line area,src/data/lib/input/input_mouse_data_01.asm
 16E638,DebugTextColor,byte_16E638,new,low,debug text colour,src/data/lib/input/input_mouse_data_01.asm
 16E639,DebugBackColor,byte_16E639,new,low,debug background colour,src/data/lib/input/input_mouse_data_01.asm
+16E63A,DebugLineScale,byte_16E63A,new,low,"debug overlay scale divisor (default 8, set from the debug command)",src/data/lib/input/input_mouse_data_01.asm
 16E63C,DebugLineTable,dword_16E63C,new,low,text pointer per debug line,src/data/lib/input/input_mouse_data_01.asm
 16E670,ScreenWidth,dword_16E670,new,low,screen width in pixels,src/data/lib/input/input_mouse_data_01.asm
 16E674,ClipBottom,dword_16E674,new,low,bottom of the clip window,src/data/lib/input/input_mouse_data_01.asm
@@ -8566,6 +8574,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 172C10,SbProChannels,dword_172C10,new,low,channel count of the Sound Blaster Pro driver,src/data/lib/ea/ea_unpack_02_data_01.asm
 172C14,SbProIrqVectors,byte_172C14,new,low,interrupt vector of each Sound Blaster Pro IRQ line,src/data/lib/ea/ea_unpack_02_data_01.asm
 172C15,SbProDmaChannelTable,byte_172C15,new,low,DMA channel bits per Sound Blaster Pro DMA number,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C20,Sb16DriverReady,dword_172C20,new,low,set to 1 once the Sound Blaster 16 driver has started; cleared on shutdown or failure,src/data/lib/ea/ea_unpack_02_data_01.asm
 172C24,Sb16DriverActive,dword_172C24,new,low,Sound Blaster 16 driver open flag,src/data/lib/ea/ea_unpack_02_data_01.asm
 172C28,Sb16BufferSize,dword_172C28,new,low,Sound Blaster 16 DMA buffer size,src/data/lib/ea/ea_unpack_02_data_01.asm
 172C2C,Sb16DmaPageTable,byte_172C2C,new,low,DMA page register port per channel,src/data/lib/ea/ea_unpack_02_data_01.asm

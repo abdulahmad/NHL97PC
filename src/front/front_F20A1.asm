@@ -20,8 +20,8 @@ extern F32_64_DetailLevelMenu, F32_81_DetailLevelMenu, F32_98_DetailLevelMenu, F
 extern F32_36_DetailLevelMenu, F32_53_DetailLevelMenu, F32_87_DetailLevelMenu, F32_104_DetailLevelMenu, F32_121_DetailLevelMenu, F32_37, F32_18, F32_15_DetailLevelMenu
 extern F32_63, F32_0p005_DetailLevelMenu, F32_0p003125_DetailLevelMenu, F32_55_DetailLevelMenu, F32_40_DetailLevelMenu, F32_100_DetailLevelMenu, F32_85_DetailLevelMenu, F32_25_DetailLevelMenu
 extern ClockShown, InGameMenuRequest, ShowFrameRate, ShowStands, ShowRink, ShowCenterLogo, ShowOverlay, ShowCrowd
-extern ShowBenches, CameraScenesEnabled, InIntermission, LinkGameActive, GfxFixBuffer, mousex, mousey, dword_16E464
-extern dword_16E468, QuantizePalette, DrawDestPitch, VideoModePanelMode, VideoModeChanged, GameObjects, ActiveCameraScene, ViewSizeChanged
+extern ShowBenches, CameraScenesEnabled, InIntermission, LinkGameActive, GfxFixBuffer, mousex, mousey, ViewScreenWidth
+extern ViewScreenHeight, QuantizePalette, DrawDestPitch, VideoModePanelMode, VideoModeChanged, GameObjects, ActiveCameraScene, ViewSizeChanged
 extern FadeDone, GameSettings, AudioOptions, GameOptionFlags, ArenaArchive, ObjectPositions, ReplayFrames, PlayerNamesOn
 extern FrontShapeFile, PauseRemoteShape, PauseMouseShape, PauseRemoteLitShape, PauseBitmap, MenuItemHighlight, PauseClockArea, MenuFrameColour
 extern PauseResumeTick, IntermissionOverlay, MenuFontSmall, MenuFontLarge, MenuTextColour, PauseFrameMode, PresentFuncInput, F64_65536_LoadPauseArt
@@ -983,9 +983,9 @@ DrawPauseButtons:
         lea eax, [dword ebp-0114h]
         push eax
         call SaveTextState
-        fild dword [dword_16E464]
+        fild dword [ViewScreenWidth]
         fmul qword [F64_0p003125]
-        fild dword [dword_16E468]
+        fild dword [ViewScreenHeight]
         fmul qword [F64_0p005]
         add esp, byte 4
         fxch
@@ -1462,9 +1462,9 @@ PickEditLinesTeam:
         lea edx, [dword ebp-021Ch]
         mov eax, 3
         call InitMenuItems
-        fild dword [dword_16E464]
+        fild dword [ViewScreenWidth]
         fmul qword [F64_0p003125_PickEditLinesTeam]
-        fild dword [dword_16E468]
+        fild dword [ViewScreenHeight]
         fmul qword [F64_0p005_PickEditLinesTeam]
         fxch
         fstp dword [byte ebp-02Ch]
@@ -1484,8 +1484,8 @@ PickEditLinesTeam:
         fstp dword [byte ebp-024h]
         cmp di, byte 1
         jne short .2
-        fild dword [dword_16E468]
-        fild dword [dword_16E464]
+        fild dword [ViewScreenHeight]
+        fild dword [ViewScreenWidth]
         fsub dword [byte ebp-020h]
         fxch
         fsub dword [byte ebp-024h]
@@ -1507,8 +1507,8 @@ PickEditLinesTeam:
 .2:
         test di, di
         jne short .4
-        fild dword [dword_16E468]
-        fild dword [dword_16E464]
+        fild dword [ViewScreenHeight]
+        fild dword [ViewScreenWidth]
         fsub dword [byte ebp-020h]
         fxch
         fsub dword [byte ebp-024h]
@@ -1896,9 +1896,9 @@ ConfirmQuitGame:
         lea edx, [dword ebp-021Ch]
         mov eax, 2
         call InitMenuItems
-        fild dword [dword_16E464]
+        fild dword [ViewScreenWidth]
         fmul qword [F64_0p003125_ConfirmQuitGame]
-        fild dword [dword_16E468]
+        fild dword [ViewScreenHeight]
         fmul qword [F64_0p005_ConfirmQuitGame]
         fxch
         fstp dword [byte ebp-018h]
@@ -1921,8 +1921,8 @@ ConfirmQuitGame:
         cmp word [dword ebp-0220h], byte 0
         jne short .3
 .2:
-        fild dword [dword_16E468]
-        fild dword [dword_16E464]
+        fild dword [ViewScreenHeight]
+        fild dword [ViewScreenWidth]
         fsub dword [byte ebp-020h]
         fxch
         fsub dword [byte ebp-01Ch]
@@ -2418,7 +2418,7 @@ RunIntermission:
         call FadePalette
         push byte 0
         push byte 14h
-        push dword [dword_16E464]
+        push dword [ViewScreenWidth]
         call CreateBitmap
         add esp, byte 0Ch
         mov ebx, eax
@@ -2438,7 +2438,7 @@ RunIntermission:
         call GetLangText
         push eax
         call MeasureText
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         sub edx, eax
         mov eax, edx
         cdq
@@ -2454,7 +2454,7 @@ RunIntermission:
         call PresentScreen
         cmp dword [VideoModeChanged], byte 0
         sete al
-        mov edx, dword [dword_16E468]
+        mov edx, dword [ViewScreenHeight]
         movzx eax, al
         mov ebx, dword [byte ebx+02Ch]
         mov ecx, eax
@@ -2590,9 +2590,9 @@ SetupPauseButtons:
         push eax
         mov esi, edx
         mov dword [byte ebp-08h], ebx
-        cmp dword [dword_16E464], 140h
+        cmp dword [ViewScreenWidth], 140h
         jl short .1
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .2
 .1:
         mov dword [byte ebp-04h], 2
@@ -2631,9 +2631,9 @@ SetupPauseButtons:
         mov dword [byte edx+esi+010h], 4
         add ebx, eax
         mov dword [byte edx+esi+014h], ebx
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp-0Ch], eax
-        imul eax, dword [dword_16E464], byte 50h
+        imul eax, dword [ViewScreenWidth], byte 50h
         fild dword [byte ebp-0Ch]
         fmul dword [F32_0p005_SetupPauseButtons]
         mov dword [byte ebp-0Ch], eax
@@ -2741,9 +2741,9 @@ PauseMenu:
         push eax
         call RestoreTextState
         add esp, byte 4
-        cmp dword [dword_16E464], 140h
+        cmp dword [ViewScreenWidth], 140h
         jl short .4
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .5
 .4:
         mov word [PauseMenuMode], 2
@@ -2811,9 +2811,9 @@ PauseMenu_16C:
         mov ecx, eax
         mov eax, dword [IntermissionOverlay]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+072h], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         fild dword [byte ebp+072h]
         shl eax, 2
         fmul dword [F32_0p005_PauseMenu]
@@ -3005,9 +3005,9 @@ PauseMenu_29A:
         mov ecx, eax
         mov eax, dword [IntermissionOverlay]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+072h], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         fild dword [byte ebp+072h]
         shl eax, 2
         fmul dword [F32_0p005_PauseMenu]
@@ -3100,9 +3100,9 @@ PauseMenu_4EF:
         mov ecx, eax
         mov eax, dword [IntermissionOverlay]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+072h], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         fild dword [byte ebp+072h]
         shl eax, 2
         fmul dword [F32_0p005_PauseMenu]
@@ -3405,18 +3405,18 @@ DrawIntermissionTitle:
         sub ebp, 82h
         mov esi, eax
         mov ebx, edx
-        cmp dword [dword_16E464], 140h
+        cmp dword [ViewScreenWidth], 140h
         jl short .1
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .2
 .1:
         push dword [MenuFontLarge]
         call SelectFont
         add esp, byte 4
 .2:
-        imul eax, dword [dword_16E468], byte 6Eh
+        imul eax, dword [ViewScreenHeight], byte 6Eh
         mov dword [byte ebp+07Ah], eax
-        imul eax, dword [dword_16E464], byte 64h
+        imul eax, dword [ViewScreenWidth], byte 64h
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Ah], eax
@@ -3441,15 +3441,15 @@ DrawIntermissionTitle:
         push dword 0FFh
         call ClearScreen
         add esp, byte 4
-        cmp dword [dword_16E464], 140h
+        cmp dword [ViewScreenWidth], 140h
         jl near .3
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jl near .3
-        imul eax, dword [dword_16E468], byte 6Eh
+        imul eax, dword [ViewScreenHeight], byte 6Eh
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 50h
+        imul eax, dword [ViewScreenWidth], byte 50h
         mov dword [byte ebp+07Ah], eax
-        imul eax, dword [dword_16E464], byte 64h
+        imul eax, dword [ViewScreenWidth], byte 64h
         fild dword [byte ebp+07Eh]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         fadd qword [F64_0p5_DrawIntermissionTitle]
@@ -3484,12 +3484,12 @@ DrawIntermissionTitle:
         call MatchColor
         add esp, byte 4
         push eax
-        imul eax, dword [dword_16E464], byte 5Ah
+        imul eax, dword [ViewScreenWidth], byte 5Ah
         mov dword [byte ebp+07Ah], eax
-        imul eax, dword [dword_16E468], byte 0Ch
+        imul eax, dword [ViewScreenHeight], byte 0Ch
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 5
-        fild dword [dword_16E468]
+        imul eax, dword [ViewScreenWidth], byte 5
+        fild dword [ViewScreenHeight]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p003125_DrawIntermissionTitle]
@@ -3524,9 +3524,9 @@ DrawIntermissionTitle:
         mov dword [MenuItemHighlight], 0
         jmp short .4
 .3:
-        imul eax, dword [dword_16E468], byte 6Eh
+        imul eax, dword [ViewScreenHeight], byte 6Eh
         mov dword [byte ebp+07Ah], eax
-        imul eax, dword [dword_16E464], dword 82h
+        imul eax, dword [ViewScreenWidth], dword 82h
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         fadd qword [F64_0p5_DrawIntermissionTitle]
@@ -3556,9 +3556,9 @@ DrawIntermissionTitle:
         add esp, byte 4
         mov eax, dword [MenuFrameColour]
         call SetTextColor
-        cmp dword [dword_16E464], 140h
+        cmp dword [ViewScreenWidth], 140h
         jl near .13
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jl near .13
         test bx, bx
         jne short .7
@@ -3566,9 +3566,9 @@ DrawIntermissionTitle:
 .5:
         call GetLangText
         push eax
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Eh]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
@@ -3596,9 +3596,9 @@ DrawIntermissionTitle:
         mov eax, 60h
         call GetLangText
         push eax
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp+07Ah], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Ah], eax
@@ -3614,9 +3614,9 @@ DrawIntermissionTitle:
         mov eax, 63h
         call GetLangText
         push eax
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Eh]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
@@ -3635,9 +3635,9 @@ DrawIntermissionTitle:
         mov eax, 61h
         call GetLangText
         push eax
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Eh]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
@@ -3655,9 +3655,9 @@ DrawIntermissionTitle:
         mov eax, 62h
         call GetLangText
         push eax
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp+07Ah], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Ah], eax
@@ -3680,8 +3680,8 @@ DrawIntermissionTitle:
         add esp, byte 10h
         lea eax, [byte ebp+02Ah]
         push eax
-        imul eax, dword [dword_16E464], byte 5
-        fild dword [dword_16E468]
+        imul eax, dword [ViewScreenWidth], byte 5
+        fild dword [ViewScreenHeight]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
         fadd qword [F64_0p5_DrawIntermissionTitle]
@@ -3700,9 +3700,9 @@ DrawIntermissionTitle:
         add esp, byte 10h
         lea eax, [byte ebp-026h]
         push eax
-        imul eax, dword [dword_16E468], byte 9
+        imul eax, dword [ViewScreenHeight], byte 9
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Eh]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
@@ -3766,8 +3766,8 @@ DrawIntermissionTitle:
         add esp, byte 10h
         lea eax, [byte ebp+02Ah]
         push eax
-        imul eax, dword [dword_16E464], byte 5
-        fild dword [dword_16E468]
+        imul eax, dword [ViewScreenWidth], byte 5
+        fild dword [ViewScreenHeight]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
         fadd qword [F64_0p5_DrawIntermissionTitle]
@@ -3786,9 +3786,9 @@ DrawIntermissionTitle:
         add esp, byte 10h
         lea eax, [byte ebp-026h]
         push eax
-        imul eax, dword [dword_16E468], byte 9
+        imul eax, dword [ViewScreenHeight], byte 9
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Eh]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
@@ -3813,7 +3813,7 @@ DrawIntermissionTitle:
         je short .23
         imul eax, ebx, byte 0Ch
         mov edx, dword [esi+eax]
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+07Eh], eax
         mov edx, dword [byte edx+02Ch]
         fild dword [byte ebp+07Eh]
@@ -3825,7 +3825,7 @@ DrawIntermissionTitle:
         fistp dword [byte ebp+07Eh]
         sub eax, dword [byte ebp+07Eh]
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         shl eax, 2
         mov dword [byte ebp+07Eh], eax
         fild dword [byte ebp+07Eh]
@@ -3916,9 +3916,9 @@ RunPauseIntermission:
         mov ecx, eax
         mov eax, dword [IntermissionOverlay]
         mov edx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+07Ah], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         imul eax, ebx
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p005_RunPauseIntermission]
@@ -3961,10 +3961,10 @@ RunPauseIntermission:
         jle short .3
         xor ebx, eax
 .3:
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         add ebx, byte 4
         mov dword [byte ebp+07Ah], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         imul eax, ebx
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p005_RunPauseIntermission]
@@ -3992,9 +3992,9 @@ RunPauseIntermission:
         lea eax, [byte edx+014h]
         cmp ebx, eax
         jle near .2
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+07Ah], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         fild dword [byte ebp+07Ah]
         shl eax, 2
         fmul dword [F32_0p005_RunPauseIntermission]
@@ -4046,9 +4046,9 @@ RunPauseIntermission:
         jl short .7
         xor eax, eax
         call MenuOrbitScene
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+07Ah], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         fild dword [byte ebp+07Ah]
         shl eax, 2
         fmul dword [F32_0p005_RunPauseIntermission]
@@ -4251,9 +4251,9 @@ RulesMenu:
         push edi
         enter 750h, 0
         sub ebp, 82h
-        fild dword [dword_16E464]
+        fild dword [ViewScreenWidth]
         fmul qword [F64_0p003125_RulesMenu]
-        fild dword [dword_16E468]
+        fild dword [ViewScreenHeight]
         fmul qword [F64_0p005_RulesMenu]
         fxch
         fstp dword [byte ebp+072h]
@@ -5686,9 +5686,9 @@ RulesMenu:
         mov dword [dword edx+ebp-06BEh], 4
         add edi, eax
         mov dword [dword edx+ebp-06BAh], edi
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp-02Eh], eax
-        imul eax, dword [dword_16E464], byte 46h
+        imul eax, dword [ViewScreenWidth], byte 46h
         fild dword [byte ebp-02Eh]
         fmul dword [F32_0p005_RulesMenu]
         mov dword [byte ebp-02Eh], eax
@@ -7000,9 +7000,9 @@ DetailLevelMenu:
         push edi
         enter 5ACh, 0
         sub ebp, 86h
-        fild dword [dword_16E464]
+        fild dword [ViewScreenWidth]
         fmul qword [F64_0p003125_DetailLevelMenu]
-        fild dword [dword_16E468]
+        fild dword [ViewScreenHeight]
         fmul qword [F64_0p005_DetailLevelMenu]
         fxch
         fstp dword [byte ebp+072h]
@@ -7743,9 +7743,9 @@ DetailLevelMenu:
         mov dword [dword edx+ebp-0516h], 4
         add edi, eax
         mov dword [dword edx+ebp-0512h], edi
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp-012h], eax
-        imul eax, dword [dword_16E464], byte 50h
+        imul eax, dword [ViewScreenWidth], byte 50h
         fild dword [byte ebp-012h]
         fmul dword [F32_0p005_DetailLevelMenu]
         mov dword [byte ebp-012h], eax

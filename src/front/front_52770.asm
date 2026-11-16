@@ -7,7 +7,7 @@ extern str_04d, str_Lonet, str_Hinet, str_Net, str_Goal0, str_Goal1, str_Gt304, 
 extern str_Boxback, str_B00, str_XD, str_FaceoffD, str_Flash, str_Fla0, str_Fla1, str_PAL
 extern str_Light6, str_BOGIE, str_Front, RinkColorUsed, TeamColorSet, SeatModelCount, SeatModelTeam, SeatModelFlag
 extern ShowStands, ShowRink, ShowCenterLogo, ShowShadows, ShowOverlay, ShowBenches, CameraScenesEnabled, RinkModelBuffer
-extern RinkPassCount, ArenaArchiveHandle, OverlayFrameSize, OverlayFrameStride, OverlayFrame, SeatModelsUsed, dword_16E464, dword_16E468
+extern RinkPassCount, ArenaArchiveHandle, OverlayFrameSize, OverlayFrameStride, OverlayFrame, SeatModelsUsed, ViewScreenWidth, ViewScreenHeight
 extern str_Punct_DrawRinkSurface, ClipLeft, ClipTop, ClipRightEdge, ClipBottomEdge, SinTable, RinkDetail, FadeDone
 extern ArenaArchive, ArenaArt, RinkLineArt, FlashTimer, GoalLightModelNear, GoalLightModelFar, GoalLightSpinNear, GoalLightSpinFar
 extern RinkMarkingGeometry, RinkSideGeometry, RinkTextures, RinkTextureArt, OpeningArt
@@ -2698,7 +2698,7 @@ DrawRinkBackground:
         jl short .4
 .7:
         mov eax, dword [dword esp+0244h]
-        cmp eax, dword [dword_16E468]
+        cmp eax, dword [ViewScreenHeight]
         jge short .8
         cmp dword [dword esp+023Ch], byte 0
         jg short .9
@@ -2721,7 +2721,7 @@ DrawRinkBackground:
         push eax
         mov edx, dword [dword esp+0248h]
         push edx
-        mov ebx, dword [dword_16E464]
+        mov ebx, dword [ViewScreenWidth]
         push ebx
         push byte 0
         push byte 0
@@ -2729,7 +2729,7 @@ DrawRinkBackground:
         add esp, byte 14h
 .10:
         mov eax, dword [dword esp+023Ch]
-        mov ecx, dword [dword_16E468]
+        mov ecx, dword [ViewScreenHeight]
         cmp eax, ecx
         jge short .11
         mov edi, dword [dword esp+0244h]
@@ -2738,7 +2738,7 @@ DrawRinkBackground:
         push esi
         sub eax, edi
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         push eax
         mov edx, dword [dword esp+0248h]
         push edx

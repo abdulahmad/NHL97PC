@@ -1,0 +1,9 @@
+dword_172C20 Sb16DriverReady {confidence=low} set to 1 once the Sound Blaster 16 driver has started; cleared on shutdown or failure
+dword_16E402 TimerOldVector {confidence=low} the original timer interrupt handler, chained from the timer ISR and restored on exit
+dword_16E410 TimerInISR {confidence=low} nonzero while the timer ISR is running its callbacks (re-entry guard)
+dword_16E464 ViewScreenWidth {confidence=low} full screen width the game view is sized against (compared with 320)
+dword_16E468 ViewScreenHeight {confidence=low} full screen height the game view is sized against (compared with 300)
+byte_16E63A DebugLineScale {confidence=low} debug overlay scale divisor (default 8, set from the debug command)
+unk_168184 str_Acos_MathErr {confidence=low} string "acos", first name in the math error table
+unk_160000 SharedDataFlags {confidence=low} four bytes of 1,1,1,0 at the start of the shared data block; unreferenced
+unk_1600A4 str_VantarPaAnnanDator {confidence=low} Swedish "Waiting for other computer" message

@@ -6,7 +6,7 @@ extern ParseBlasterEnv, str_DMABUFFER3, str_DMABUF, str_DMABUF2, str_DMABUFFER4,
 extern str_SoundFX, str_Port, str_DMA, str_IRQ, str_SBIRQ, str_SBEnable, str_FALSE, str_WavePort
 extern atoi_, SbProIrqVectors, SbProDmaChannelTable, Sb16DmaPageTable, Sb16DmaAddrTable, Sb16DmaCountTable, Sb16DmaMaskTable, SoundscapeIrqFlags
 extern SoundscapeIrqCodes, str_D_UpdateFrameRate, SpeechQueueVolume, AudioWorkHook, AudioStreamHook, AudioSpeechHook, SbDriverBuffer, SbDriverRunning
-extern SbProDriverBuffer, SbProDriverRunning, SbProChannels, dword_172C20, Sb16DriverActive, Sb16BufferSize, Sb16SavedIrqVector, SoundscapeBasePort
+extern SbProDriverBuffer, SbProDriverRunning, SbProChannels, Sb16DriverReady, Sb16DriverActive, Sb16BufferSize, Sb16SavedIrqVector, SoundscapeBasePort
 extern str_Punct_ReadSoundscapeIni, SoundscapeCodecType, SoundscapeDmaChannel, SoundscapeWavePort, SoundscapeIrq, SoundscapeMidiIrq, SoundscapeDmaBuffer, SoundscapeSavedIrq
 extern AudioDeferredPending, AudioDeferredArg, AudioBusyCount, AudioLockCount, AudioDeferredFunc, ChannelSampleTable, DigitalAudioHandle, DigitalAudioRate
 extern SbDmaBuffer, SbRate, SbDmaChannel, SbDmaBufSize, SbIrqLine, SbBlockSize, SbHalfSize, SbOldIrqHandler
@@ -1190,7 +1190,7 @@ Sb16DriverInit:
         mov dword [Sb16DriverActive], ebp
 .14:
         xor eax, eax
-        mov dword [dword_172C20], eax
+        mov dword [Sb16DriverReady], eax
         mov eax, 0FFFFFFFFh
         pop ebp
         pop edi
@@ -1215,7 +1215,7 @@ Sb16DriverInit:
 .16:
         xor ecx, ecx
         mov eax, 0FFFFFFFBh
-        mov dword [dword_172C20], ecx
+        mov dword [Sb16DriverReady], ecx
         pop ebp
         pop edi
         pop esi
@@ -1227,7 +1227,7 @@ Sb16DriverInit:
         mov eax, ebx
         mov ebp, 1
         shl eax, 10h
-        mov dword [dword_172C20], ebp
+        mov dword [Sb16DriverReady], ebp
         or al, 3
 .18:
         pop ebp
@@ -1277,7 +1277,7 @@ Sb16DriverShutdown:
         mov dword [Sb16DriverActive], esi
 .2:
         xor edi, edi
-        mov dword [dword_172C20], edi
+        mov dword [Sb16DriverReady], edi
         pop edi
         pop esi
         pop edx
@@ -1299,7 +1299,7 @@ Sb16DriverStart:
         mov dword [Sb16StartTime], eax
         test eax, eax
         jl short .1
-        cmp dword [dword_172C20], byte 0
+        cmp dword [Sb16DriverReady], byte 0
         je short .1
         mov ebx, dword [Sb16Rate]
         mov edx, dword [Sb16Format]

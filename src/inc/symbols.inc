@@ -2589,7 +2589,7 @@
 ;  160074  F64_65536                                data/shared_data_01.asm                      1
 ;  16007C  str_RPEVENT2                             data/shared_data_01.asm                      1
 ;  160088  str_WaitingForOtherComputer2             data/shared_data_01.asm                      1
-;  1600A4  unk_1600A4                               data/shared_data_01.asm                      1
+;  1600A4  str_VantarPaAnnanDator                   data/shared_data_01.asm                      1
 ;  1600BC  str_WarteAufAnderenComputer              data/shared_data_01.asm                      1
 ;  1600D8  str_BREAKIN                              data/shared_data_01.asm                      1
 ;  160114  str_BREAKOUT                             data/shared_data_01.asm                      1
@@ -6327,7 +6327,7 @@
 ;  168148  str_FloatingPointSupportNot              data/lib/sound/snd_soundblaster_01_data_01.asm 1
 ;  16816C  str_RATIONALDOS4G                        data/lib/sound/snd_soundblaster_01_data_01.asm 1
 ;  16817C  F64_1eneg08                              data/lib/sound/snd_soundblaster_01_data_01.asm 1
-;  168184  unk_168184                               data/lib/sound/snd_soundblaster_01_data_01.asm 1
+;  168184  str_Acos_MathErr                         data/lib/sound/snd_soundblaster_01_data_01.asm 1
 ;  168189  str_Asin                                 data/lib/sound/snd_soundblaster_01_data_01.asm 1
 ;  16818E  str_Sqrt                                 data/lib/sound/snd_soundblaster_01_data_01.asm 1
 ;  168193  str_Exp                                  data/lib/sound/snd_soundblaster_01_data_01.asm 1
@@ -7011,10 +7011,10 @@
 ;  16E3F4  TimerTicks                               data/lib/input/input_joystick_misc_01_data_01.asm 4
 ;  16E3F8  TimerTickStep                            data/lib/input/input_joystick_misc_01_data_01.asm 2
 ;  16E3FC  TimerRate                                data/lib/input/input_joystick_misc_01_data_01.asm 2
-;  16E402  dword_16E402                             data/lib/input/input_joystick_misc_01_data_01.asm 2
+;  16E402  TimerOldVector                           data/lib/input/input_joystick_misc_01_data_01.asm 2
 ;  16E406  TimerSavedSelector                       data/lib/input/input_joystick_misc_01_data_01.asm 1
 ;  16E408  GoalieTickData                           data/lib/input/input_joystick_misc_01_data_01.asm 1
-;  16E410  dword_16E410                             data/lib/input/input_joystick_misc_01_data_01.asm 1
+;  16E410  TimerInISR                               data/lib/input/input_joystick_misc_01_data_01.asm 1
 ;  16E414  __8087                                   data/lib/input/input_joystick_misc_01_data_01.asm 3
 ;  16E415  FpuType                                  data/lib/input/input_joystick_misc_01_data_01.asm 2
 ;  16E418  SavedStackSegment                        data/lib/input/input_joystick_misc_01_data_01.asm 1
@@ -7029,8 +7029,8 @@
 ;  16E458  MouseHideCount                           data/lib/input/input_joystick_misc_01_data_01.asm 1
 ;  16E45C  MouseInitDone                            data/lib/input/input_joystick_misc_01_data_01.asm 1
 ;  16E460  JoyPresent                               data/lib/input/input_joystick_misc_01_data_01.asm 1
-;  16E464  dword_16E464                             data/lib/input/input_joystick_misc_01_data_01.asm 20
-;  16E468  dword_16E468                             data/lib/input/input_joystick_misc_01_data_01.asm 18
+;  16E464  ViewScreenWidth                          data/lib/input/input_joystick_misc_01_data_01.asm 20
+;  16E468  ViewScreenHeight                         data/lib/input/input_joystick_misc_01_data_01.asm 18
 ;  16E46C  MenuScreenBitmap                         data/lib/input/input_joystick_misc_01_data_01.asm 24
 ;  16E474  VideoModeCount                           data/lib/input/input_joystick_misc_01_data_01.asm 2
 ;  16E478  SelectedVideoMode                        data/lib/input/input_joystick_misc_01_data_01.asm 1
@@ -7074,7 +7074,7 @@
 ;  16E634  DebugLineWidth                           data/lib/input/input_mouse_data_01.asm       1
 ;  16E638  DebugTextColor                           data/lib/input/input_mouse_data_01.asm       1
 ;  16E639  DebugBackColor                           data/lib/input/input_mouse_data_01.asm       1
-;  16E63A  byte_16E63A                              data/lib/input/input_mouse_data_01.asm       1
+;  16E63A  DebugLineScale                           data/lib/input/input_mouse_data_01.asm       1
 ;  16E63C  DebugLineTable                           data/lib/input/input_mouse_data_01.asm       1
 ;  16E670  ScreenWidth                              data/lib/input/input_mouse_data_01.asm       10
 ;  16E674  ClipBottom                               data/lib/input/input_mouse_data_01.asm       1
@@ -7418,7 +7418,7 @@
 ;  172C10  SbProChannels                            data/lib/ea/ea_unpack_02_data_01.asm         1
 ;  172C14  SbProIrqVectors                          data/lib/ea/ea_unpack_02_data_01.asm         1
 ;  172C15  SbProDmaChannelTable                     data/lib/ea/ea_unpack_02_data_01.asm         1
-;  172C20  dword_172C20                             data/lib/ea/ea_unpack_02_data_01.asm         1
+;  172C20  Sb16DriverReady                          data/lib/ea/ea_unpack_02_data_01.asm         1
 ;  172C24  Sb16DriverActive                         data/lib/ea/ea_unpack_02_data_01.asm         1
 ;  172C28  Sb16BufferSize                           data/lib/ea/ea_unpack_02_data_01.asm         1
 ;  172C2C  Sb16DmaPageTable                         data/lib/ea/ea_unpack_02_data_01.asm         1

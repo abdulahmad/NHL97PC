@@ -16,7 +16,7 @@ extern KeyRepeatTick, KeyRepeatOn, PadHoldTicks, PadHoldCount, PadRepeatTicks, I
 extern InputRecordTaken, InputRecordStamp, KeyboardControls, LinkGameActive, NetActive, NetDriverHandle, LinkFrameDelay, LinkRemoteSequence
 extern LinkHandshakeDone, LinkBlockDone, LinkAbortPad, LinkTimeout, str_Punct_ModemSettingsScreen, LinkServiceTick, LinkTimerActive, ModemPortBasePad
 extern ModemPortChoice, NetPlayerNameSet, IpxBuffer, NetFoundCountPad, NetGameList, NetListTick, NetListChoice, NetListFirst
-extern NetJoinedOk, OptionsAnimIndex, mousex, mousey, dword_16E464, dword_16E468, MenuScreenBitmap, IpxPresent
+extern NetJoinedOk, OptionsAnimIndex, mousex, mousey, ViewScreenWidth, ViewScreenHeight, MenuScreenBitmap, IpxPresent
 extern GameSettings, FrontShapeFile, DbFileTable, DbKeyIndex, DbRecordSizes, DbStaticBuffer, DbRecordCounts, DbPlayerFile
 extern DbGameFile, DbTeamStatFile, DbPlayerStatFile, DbReplayFile, DbUserFile, DosCallRegs
 extern DosCallRegs, KeyboardPadHomeOn, KeyboardPadAwayOn, LinkInputSent, LinkInputTickCount, LinkInputChanged, LinkRemoteFlags, LinkInputAck
@@ -11362,7 +11362,7 @@ ReadInputDriver:
         push edi
         mov ebx, eax
         call dword [PresentFuncInput]
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         mov ecx, dword [mousex]
         sar edx, 2
         cmp edx, ecx
@@ -11370,7 +11370,7 @@ ReadInputDriver:
         or byte [ebx], 8
         jmp short .2
 .1:
-        mov ecx, dword [dword_16E464]
+        mov ecx, dword [ViewScreenWidth]
         sar ecx, 1
         mov esi, dword [mousex]
         add edx, ecx
@@ -11378,7 +11378,7 @@ ReadInputDriver:
         jge short .2
         or byte [ebx], 4
 .2:
-        mov edx, dword [dword_16E468]
+        mov edx, dword [ViewScreenHeight]
         mov edi, dword [mousey]
         sar edx, 2
         cmp edx, edi
@@ -11386,8 +11386,8 @@ ReadInputDriver:
         or byte [ebx], 1
         jmp short .4
 .3:
-        mov edx, dword [dword_16E464]
-        mov ecx, dword [dword_16E468]
+        mov edx, dword [ViewScreenWidth]
+        mov ecx, dword [ViewScreenHeight]
         sar edx, 2
         sar ecx, 1
         add edx, ecx
@@ -14227,19 +14227,19 @@ WaitForOtherComputer:
         je near .50
         cmp dword [LinkGameActive], byte 0
         je near .50
-        mov esi, dword [dword_16E464]
-        mov eax, dword [dword_16E464]
+        mov esi, dword [ViewScreenWidth]
+        mov eax, dword [ViewScreenWidth]
         sar esi, 3
         sub eax, esi
         mov esi, eax
-        mov eax, dword [dword_16E468]
-        mov edx, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
+        mov edx, dword [ViewScreenHeight]
         sar eax, 3
-        mov ebp, dword [dword_16E464]
+        mov ebp, dword [ViewScreenWidth]
         sub edx, eax
         sar ebp, 7
         mov dword [dword esp+0168h], edx
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         mov edi, dword [dword esp+0168h]
         sar eax, 4
         mov edx, esi
@@ -14276,7 +14276,7 @@ WaitForOtherComputer:
         lea eax, [edx+edi]
         mov edx, dword [LinkTextFont]
         add eax, byte 5
-        mov ebx, dword [dword_16E464]
+        mov ebx, dword [ViewScreenWidth]
         add eax, edx
         sar ebx, 4
         add eax, byte 2
@@ -14370,7 +14370,7 @@ WaitForOtherComputer:
         call GetLangText
         push eax
         call MeasureText
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         sar eax, 1
         sar edx, 1
         add esp, byte 4
@@ -14384,7 +14384,7 @@ WaitForOtherComputer:
         call GetLangText
         push eax
         call MeasureText
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         sar eax, 1
         sar edx, 1
         add esp, byte 4
@@ -14422,7 +14422,7 @@ WaitForOtherComputer:
         call GetLangText
         push eax
         call MeasureText
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         sar eax, 1
         sar edx, 1
         add esp, byte 4
@@ -14436,7 +14436,7 @@ WaitForOtherComputer:
         call GetLangText
         push eax
         call MeasureText
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         sar eax, 1
         sar edx, 1
         add esp, byte 4
@@ -16430,12 +16430,12 @@ ChooseNetworkGameScreen:
         add eax, edx
         push byte 20h
         mov dword [byte esp+044h], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         mov edx, 0FFFFFFFFh
         sar eax, 1
         mov dword [byte esp+030h], edx
         sub eax, 0C8h
-        mov edx, dword [dword_16E468]
+        mov edx, dword [ViewScreenHeight]
         mov dword [NetListRows], eax
         mov eax, dword [byte esp+044h]
         sar edx, 1
@@ -16476,7 +16476,7 @@ ChooseNetworkGameScreen:
         add esp, byte 0Ch
         mov dword [NetListLayer], eax
         call SetScreenTarget
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         mov edi, dword [NetListTop]
         sar eax, 1
         push edi

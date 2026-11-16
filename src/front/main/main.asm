@@ -11,7 +11,7 @@ extern str_XD2, str_CB02d, str_N, str_E, str_W, str_S14, str_NW, str_NE
 extern str_SW, str_SE, str_LX02d, str_LC02d, str_UNPACKLOGO, str_LOGO8, str_LX004, str_LC004
 extern str_DisD, str_REL1, str_RELD, str_Ldn2, ShadeTable, StartupFlag, MusicOptions, MainCmdLine
 extern FrontMusicOn, close_, DirPathTable, EntryListItems, EntryRowOffsets, str_Punct_DrawScreenBackground, EntryColumnOffsets, HighlightTextOn
-extern ScreenWipeMode, LinkBoxShown, LinkGameActive, dword_16E464, dword_16E468, MenuScreenBitmap, DebugMode, ScreenWidth
+extern ScreenWipeMode, LinkBoxShown, LinkGameActive, ViewScreenWidth, ViewScreenHeight, MenuScreenBitmap, DebugMode, ScreenWidth
 extern ExitHandler, KbdHandlerInstalled, GameSettings, ScreenBackgrounds, BackgroundFrameArt, BackgroundCornerArt, MainLogFile, FrontShapeFile
 extern LogoNames, ShadowShape, FrontFonts, EntryListArt, EntryListFrameArt, EntryListCornerArt, ScreenTitleArt, ScreenTitleFrame
 extern ScreenTitleCorner, StatsBackBitmaps, StatsBackLayers, StatsBackFrame, StatsBackCorner, StatsBackArt, LogoArtFile, FrontTextFile
@@ -338,10 +338,10 @@ main_:
         and byte [MusicOptions], 0F7h
 .18:
         call InitPlatform
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         sar eax, 1
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         sar eax, 2
         push eax
         call MouseRead
@@ -4097,14 +4097,14 @@ EditText:
         add eax, byte 0Ch
         mov dword [dword esp+063Ch], eax
         mov edi, dword [dword esp+063Ch]
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         mov ecx, dword [dword esp+0650h]
         sub eax, edi
         push byte 0
         sar eax, 1
         add ecx, byte 0Ch
         mov dword [dword esp+066Ch], eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         push ecx
         sub eax, ecx
         push edi
@@ -8481,7 +8481,7 @@ DrawLinkBox:
         mov ebp, dword [LinkBoxTimer]
         push ebp
         call CreateBitmap
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         mov ebx, eax
         mov ebp, eax
         mov eax, dword [LinkBoxTimer]
@@ -8492,7 +8492,7 @@ DrawLinkBox:
         mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov edx, dword [dword_16E468]
+        mov edx, dword [ViewScreenHeight]
         sar eax, 1
         sar edx, 1
         sub edx, eax
@@ -9606,7 +9606,7 @@ ShowLoadingScreen:
         mov eax, 1E4h
         call GetLangText
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         push dword 96h
         sar eax, 1
         push eax

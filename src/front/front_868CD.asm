@@ -16,8 +16,8 @@ extern str_TPB5, str_TPB2, str_TPB1, str_TPB0, str_TPB4, str_TPB3, str_MOD1, str
 extern str_BG00, str_BG01, str_BACK5, str_TITL3, str_LT002, str_LB002, str_RB00, str_RT00
 extern str_TOP0, str_BOT0, str_LFTD, str_RITD, str_LT0D, str_LB0D, str_RT0D, str_RB0D
 extern str_LFT0, str_RIT0, str_BTTM, MenuOptionFlags, LinkFlags, LinkSettingsRest, IndexFlags, IndexSettingsRest
-extern ModemFlags, NetworkGameFlags, ModemSettingsChanged, NetworkGameReady, MenuStartSelection, MenuBitmapReady, str_Punct_ModemSettingsScreen, dword_16E464
-extern dword_16E468, MenuScreenBitmap, GameSettings, NetworkGameIndex, FrontShapeFile, ScreenTitleItem
+extern ModemFlags, NetworkGameFlags, ModemSettingsChanged, NetworkGameReady, MenuStartSelection, MenuBitmapReady, str_Punct_ModemSettingsScreen, ViewScreenWidth
+extern ViewScreenHeight, MenuScreenBitmap, GameSettings, NetworkGameIndex, FrontShapeFile, ScreenTitleItem
 extern BlankMenuItem, PhonebookData, MenuBitmap, MenuBitmapPixels, MenuRemoteCursorArt, MenuCursorArt
 extern MenuScreenCopy, MenuCursorPixels, fclose_, fgets_, fread_, fseek_, fwrite_, memcpy_
 extern memset_, sprintf_, strcmp_, strcpy_, strlen_, strstr_, bcopy, BlitConverted
@@ -6523,10 +6523,10 @@ InitMenuItems:
         mov dword [byte ecx+0Ch], 1
         mov dword [byte ecx+02Eh], 0FFFFFFFFh
         mov dword [ecx], esi
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         mov dword [byte ecx+03Eh], eax
         add ecx, byte 52h
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         inc esi
         mov dword [byte ecx-010h], eax
         cmp esi, edi

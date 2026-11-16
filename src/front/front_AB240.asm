@@ -4,7 +4,7 @@ bits 32
 section s_AB240 progbits alloc exec nowrite align=1
 extern str_Xferdata, str_Replaybuf2, str_Gdata, str_Ros2, str_SEXHIBITNDX, str_EXHIBITNDX2, str_Saverepl, SeasonUserActive
 extern PlayoffUserActive, PlayoffRound, PlayoffStarted, PlayoffUserIndex, PlayoffColumns, HomeUserSlot, AwayUserSlot, PlayoffRoundSlots
-extern PlayoffRoundGames, PlayoffWinsNeeded, PlayoffPairings, LinkGameActive, dword_16E464, GameSettings, SeasonUserTeam, PlayoffRounds
+extern PlayoffRoundGames, PlayoffWinsNeeded, PlayoffPairings, LinkGameActive, ViewScreenWidth, GameSettings, SeasonUserTeam, PlayoffRounds
 extern SeasonActive, SeasonUserReplay, SeasonDefaultUser, SeasonRandomSeed, PlayoffRoundBits, PlayoffUserReplay, PlayoffTeamNames, PlayoffTeams
 extern PlayoffOpponents, PlayoffGameCount, PlayoffRandomSeed, SeasonFileName, ReplayIndexHandle, ReplayFileOpen, MenuFontSmall, MenuFontLarge
 extern memcpy_, sprintf_, DosFileInfo, MakeDirPath, SaveReplayHeader, SimulateGame, UpdateTeamLines, CheckLeagueInjuries
@@ -1473,7 +1473,7 @@ SaveReplayFile:
         xor esi, esi
         test byte [GameSettings], 70h
         jne near .18
-        cmp dword [dword_16E464], 140h
+        cmp dword [ViewScreenWidth], 140h
         je short .11
         push dword [MenuFontSmall]
         jmp short .12

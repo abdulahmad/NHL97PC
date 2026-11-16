@@ -6,8 +6,8 @@ extern MouseRead, WaitRetrace, __CHP, str_PNS, str_SLUP, str_SLDN, str_PWE, str_
 extern str_SLRT, F32_0p003125, F32_0p005, F32_0p003125_ScrollPosToValue, F32_0p005_ScrollPosToValue, F32_0p003125_SetupMenuView, F32_0p005_SetupMenuView, F32_0p5_InitScrollList
 extern F32_0p5_InitScrollTable, F32_14_InitScrollTable, F32_0p5_ScrollToMouse, F32_0p5_SetListSelection, MenuLinkWordPad, MenuMouseX, MenuMouseY, MenuMouseButtons
 extern MenuStartSelection, MenuBitmapReady, MenuMouseMode, MenuInputDelay, MenuViewCallback, MenuRepeatTick, MenuLinkKey, str_3_LoadLangText
-extern LangTextFiles, ErrorTextPtr, LangTextLoaded, LangTextHandle, LinkGameActive, mousex, mousey, dword_16E464
-extern dword_16E468, MenuScreenBitmap, GameSettings, FrontShapeFile, MenuSavedMouseMode, MenuLastButtons, MenuRemoteItem, MenuButtons
+extern LangTextFiles, ErrorTextPtr, LangTextLoaded, LangTextHandle, LinkGameActive, mousex, mousey, ViewScreenWidth
+extern ViewScreenHeight, MenuScreenBitmap, GameSettings, FrontShapeFile, MenuSavedMouseMode, MenuLastButtons, MenuRemoteItem, MenuButtons
 extern RemoteMouseButtons, RemoteLastButtons, RemoteLastMouseY, RemoteLastMouseX, RemoteMouseX, RemoteMouseY, MenuSavedRemoteArt, MenuLocalItem
 extern MenuLastMouseY, MenuLastMouseX, MenuSavedCursorArt, MenuRemoteLayer, MenuLocalCursorY, MenuLocalCursorX, MenuItemLeaveFunc, MenuLocalLayer
 extern MenuViewTop, MenuViewBottom, MenuItemEnterFunc, MenuViewLeft, MenuViewRight, MenuRemoteCursorY, MenuRemoteCursorX, MenuItemHoverFunc
@@ -66,14 +66,14 @@ RunMenu:
         sar edx, 10h
         sub ebx, edx
         mov edx, ebx
-        mov ebx, dword [dword_16E468]
+        mov ebx, dword [ViewScreenHeight]
         sub ebx, edx
         mov edx, dword [byte eax+02h]
         mov eax, dword [byte eax+06h]
         sar edx, 10h
         sar eax, 10h
         sub edx, eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         push ebx
         sub eax, edx
         push eax
@@ -82,13 +82,13 @@ RunMenu:
         cmp word [MenuViewSaved], byte 0
         jne short .6
         mov eax, dword [MenuCursorArt]
-        mov ebx, dword [dword_16E468]
+        mov ebx, dword [ViewScreenHeight]
         mov edx, dword [byte eax+04h]
         mov eax, dword [byte eax+02h]
         sar edx, 10h
         sar eax, 10h
         sub ebx, edx
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         push ebx
         sub edx, eax
         push edx
@@ -302,13 +302,13 @@ RunMenu:
         imul eax, ebx, dword 140h
         mov dword [byte esp+064h], eax
         fild dword [byte esp+064h]
-        fild dword [dword_16E464]
+        fild dword [ViewScreenWidth]
         fdivp
         mov ecx, dword [MenuMouseY]
         imul eax, ecx, dword 0C8h
         mov dword [byte esp+064h], eax
         fild dword [byte esp+064h]
-        fild dword [dword_16E468]
+        fild dword [ViewScreenHeight]
         fdivp
         fxch
         fadd qword [F64_0p5_RunMenu]
@@ -389,8 +389,8 @@ RunMenu:
         cmp dword [MenuMouseMode], byte 0
         je short .40
         mov eax, dword [RemoteMouseX]
-        imul eax, dword [dword_16E464]
-        mov edx, dword [dword_16E468]
+        imul eax, dword [ViewScreenWidth]
+        mov edx, dword [ViewScreenHeight]
         mov dword [byte esp+064h], eax
         mov eax, dword [RemoteMouseY]
         imul eax, edx
@@ -415,8 +415,8 @@ RunMenu:
         cmp dword [MenuMouseMode], byte 0
         je short .41
         mov eax, dword [MenuMouseX]
-        imul eax, dword [dword_16E464]
-        mov edx, dword [dword_16E468]
+        imul eax, dword [ViewScreenWidth]
+        mov edx, dword [ViewScreenHeight]
         mov dword [byte esp+064h], eax
         mov eax, dword [MenuMouseY]
         imul eax, edx
@@ -611,7 +611,7 @@ RunMenu:
         sar edx, 10h
         sar ebx, 10h
         sub edx, ebx
-        mov ebx, dword [dword_16E468]
+        mov ebx, dword [ViewScreenHeight]
         sub ebx, edx
         mov edx, dword [byte eax+02h]
         mov eax, dword [byte eax+06h]
@@ -622,14 +622,14 @@ RunMenu:
         jmp short .62
 .61:
         mov eax, dword [MenuCursorArt]
-        mov ebx, dword [dword_16E468]
+        mov ebx, dword [ViewScreenHeight]
         mov edx, dword [byte eax+04h]
         mov eax, dword [byte eax+02h]
         sar edx, 10h
         sar eax, 10h
         sub ebx, edx
 .62:
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         push ebx
         sub edx, eax
         push edx
@@ -970,27 +970,27 @@ RunMenu:
         sar edx, 10h
         sub ebx, edx
         mov edx, ebx
-        mov ebx, dword [dword_16E468]
+        mov ebx, dword [ViewScreenHeight]
         sub ebx, edx
         mov edx, dword [byte eax+02h]
         mov eax, dword [byte eax+06h]
         sar edx, 10h
         sar eax, 10h
         sub edx, eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         push ebx
         sub eax, edx
         push eax
         jmp short .92
 .91:
         mov eax, dword [MenuCursorArt]
-        mov ebx, dword [dword_16E468]
+        mov ebx, dword [ViewScreenHeight]
         mov edx, dword [byte eax+04h]
         mov eax, dword [byte eax+02h]
         sar edx, 10h
         sar eax, 10h
         sub ebx, edx
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         push ebx
         sub edx, eax
         push edx
@@ -1843,10 +1843,10 @@ ScrollPosToValue:
         shl eax, 6
         mov dword [esp], eax
         fild dword [esp]
-        fild dword [dword_16E464]
+        fild dword [ViewScreenWidth]
         fdivp
         fadd qword [F64_0p5_ScrollPosToValue]
-        mov edi, dword [dword_16E464]
+        mov edi, dword [ViewScreenWidth]
         call __CHP
         fistp dword [esp]
         mov eax, dword [esp]
@@ -1865,10 +1865,10 @@ ScrollPosToValue:
         shl eax, 3
         mov dword [esp], eax
         fild dword [esp]
-        fild dword [dword_16E468]
+        fild dword [ViewScreenHeight]
         fdivp
         fadd qword [F64_0p5_ScrollPosToValue]
-        mov ebp, dword [dword_16E468]
+        mov ebp, dword [ViewScreenHeight]
         call __CHP
         fistp dword [esp]
         mov eax, dword [esp]
@@ -1936,13 +1936,13 @@ SetupMenuView:
         shl eax, 6
         mov dword [byte esp+0Ch], eax
         fild dword [byte esp+0Ch]
-        fild dword [dword_16E464]
+        fild dword [ViewScreenWidth]
         fld1
         fdivrp
         fxch
         fmul st1
         fadd qword [F64_0p5_SetupMenuView]
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         call __CHP
         fistp dword [byte esp+0Ch]
         mov eax, dword [byte esp+0Ch]
@@ -1955,13 +1955,13 @@ SetupMenuView:
         shl eax, 3
         mov dword [esp], eax
         fild dword [esp]
-        fild dword [dword_16E468]
+        fild dword [ViewScreenHeight]
         fld1
         fdivrp
         fxch
         fmul st1
         fadd qword [F64_0p5_SetupMenuView]
-        mov ebx, dword [dword_16E468]
+        mov ebx, dword [ViewScreenHeight]
         call __CHP
         fistp dword [byte esp+08h]
         mov eax, dword [byte esp+08h]
@@ -2081,10 +2081,10 @@ RestoreMenuView:
         je short .1
         mov eax, dword [MenuSavedMouseMode]
         mov dword [MenuMouseMode], eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         dec eax
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         dec eax
         push eax
         push byte 0

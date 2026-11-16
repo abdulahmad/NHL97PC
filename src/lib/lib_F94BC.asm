@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_F94BC progbits alloc exec nowrite align=1
 extern abs_, str_IgfxFix, str_IgFix, str_GFXMODES, VesaModeCount, VideoModeChoice, VesaModeIndex, VesaModeChanged
-extern VideoModeList, AudioDriverVersion, GfxFixBuffer, IdleContext, IdleNextTick, TimerTicks, dword_16E464, dword_16E468
+extern VideoModeList, AudioDriverVersion, GfxFixBuffer, IdleContext, IdleNextTick, TimerTicks, ViewScreenWidth, ViewScreenHeight
 extern MenuScreenBitmap, VideoModeCount, VideoModeIndex, VideoModeInfo, IdleHandlers
 extern IdleHandlers, IdleHandlerCount, bcopy, PresentScreen, CountVesaModes, FindModeByResolution
 extern SetModeByResolution, SetScreenTarget, AllocMemBlock, FreeMemBlock, MakeColor, ClearScreen, tickcount, IdleHandlers
@@ -174,11 +174,11 @@ InitVideoModeList:
         push dword [VideoModeChoice]
         mov dword [VideoModeIndex], 1
         call FindModeByResolution
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         add esp, byte 8
         cmp eax, dword [VideoModeInfo]
         jne short .4
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         cmp eax, dword [VideoModeInfo+4]
         jne short .4
         mov eax, dword [MenuScreenBitmap]

@@ -16,7 +16,7 @@ extern str_UnpackLogo, str_LOGO5, str_DEBUG, LinkButtonLetters, LinkSetupCursorF
 extern PeriodHomeTeam, PeriodAwayTeam, ScoringLogPrevPeriod, ScoringLogPrevTime, ScoringLogPrevMinute, ScoringLogPrevType, ScoringLogPeriod, ScoringLogTime
 extern ScoringLogMinute, ScoringLogType, ScoringLogTeam, ScoringLogPlayer, ScoringLogAssist, ScoringLogSecondAssist, FrontMusicOn, LinkSetupCursorRow
 extern LinkSetupCursorCol, LinkSetupItemFlags, GripDriverPtr, LinkSetupMaxPlayers, LinkSetupSoundTick, LinesChangedInGame, InIntermission, KeyboardControls
-extern LinkGameActive, dword_16E464, dword_16E468, GameRunning, GameSettings, GameOptionFlags, SeasonActive, PlayoffTeamNames
+extern LinkGameActive, ViewScreenWidth, ViewScreenHeight, GameRunning, GameSettings, GameOptionFlags, SeasonActive, PlayoffTeamNames
 extern PlayoffTeams, SeasonFileName, ThreeStarsCount, HomePlayerRecords, HomeRosterData, HomeInjuredCount, AwayPlayerRecords
 extern AwayRosterData, PlayMenuGameFlag, FrontShapeFile, ShadowShape, LinkSetupLogos, LinkSetupNames, LinkSetupArt
 extern LinkSetupItemShape, LinkSetupShapes, LinkSetupSounds, LinkSetupScrollUp, LinkSetupBuffer, LinkSetupSlots, LinkSetupScrollDown, LinkSetupTop
@@ -69,8 +69,8 @@ LinkGameSetup:
         enter 4Ch, 0
         mov esi, eax
         push byte 0
-        push dword [dword_16E468]
-        push dword [dword_16E464]
+        push dword [ViewScreenHeight]
+        push dword [ViewScreenWidth]
         call CreateBitmap
         add esp, byte 0Ch
         mov edi, eax
@@ -9752,7 +9752,7 @@ LoadGameLogos:
         mov eax, 0D4h
         call LoadDataFileLib
         mov dword [ClockFontSmall], eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .1
         push eax
         jmp short .2

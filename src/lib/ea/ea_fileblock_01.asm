@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FC88C progbits alloc exec nowrite align=1
-extern _dos_getdate_, _dos_gettime_, str_02d3s02d, str_2d02d02d, DebugTextColor, DebugBackColor, byte_16E63A, ScreenBitsPerPixel
+extern _dos_getdate_, _dos_gettime_, str_02d3s02d, str_2d02d02d, DebugTextColor, DebugBackColor, DebugLineScale, ScreenBitsPerPixel
 extern ShadeTable, DebugMode, DebugLineY, DebugLineWidth, DebugLineTable, ShapeRowFunc, ShapeDrawDest, FontAscent
 extern FontDescent, TextAlign, CurrentFont, FontHeight, FontWidth, LinkTextFont, FontFirstChar, FontLastChar
 extern FontGlyphTable, FontFlags, TextColor, FontGlyphCount, FontKernTable, TextNextCharFn, FontSpacing, PaletteWords
@@ -132,7 +132,7 @@ DebugShowLines_BA:
         sub ebx, byte 2
         jmp near DebugShowLines_153.7
 DebugShowLines_CB:
-        cmp byte [byte_16E63A], 1
+        cmp byte [DebugLineScale], 1
         jbe near DebugShowLines_153.7
         mov dword [byte esp+04h], 0A0h
         mov edx, ebx
@@ -149,7 +149,7 @@ DebugShowLines_CB:
         sar eax, 1
         xor ebx, ebx
         mov edx, eax
-        mov bl, byte [byte_16E63A]
+        mov bl, byte [DebugLineScale]
         sar edx, 1Fh
         idiv ebx
         inc eax
@@ -286,7 +286,7 @@ DebugStatusLine:
         mov eax, dword [byte esp+04h]
         cmp eax, byte 1
         jl short .5
-        mov byte [byte_16E63A], al
+        mov byte [DebugLineScale], al
 .5:
         ret
         db 090h
