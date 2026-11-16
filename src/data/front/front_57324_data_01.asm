@@ -39,7 +39,7 @@ global F32_neg3, F32_neg3_CelebrationJumpMove, F32_0p5_SkateToBenchStep, F32_0p1
 global F32_0p5_BlockReach, F32_12_BlockShotMove, F32_0p1_BlockShotMove, F32_120, F32_168, F32_10_GoalieSave, F32_96_GoalieSave, F32_240
 global F32_144_GoalieMoves, F32_24_GoalieMoves, F32_2_GoalieMoves, F32_480_GoalieMoves, F32_neg1_GoalieMoves, F32_672, F64_0p002, F64_0p785398_DrawModelParts
 global F64_0p159155_DrawModelParts, F64_65536_DrawModelParts, F64_1p25, F64_0p1_CameraSplinePoint, F64_3p14159_CameraSmoothStep, F64_neg3p14159_CameraSmoothStep, F64_6p28319_CameraSmoothStep, F64_neg6p28319_CameraSmoothStep
-global qword_161B78, qword_161B80, qword_161B88, qword_161B90, F64_neg0p1, F64_0p00872665, F64_neg0p00872665, F64_neg1p6
+global CamSmoothMinX, CamSmoothStepX, CamSmoothMinY, CamSmoothStepY, F64_neg0p1, F64_0p00872665, F64_neg0p00872665, F64_neg1p6
 global F64_0p25_PlaySkateSounds, F64_0p2_PlaySkateSounds, F64_neg0p2, F64_0p785398_PuckOnStickPhysics, F64_2p35619, F64_1p1, F64_1p1_StickHandleSpeed, F64_6p28319_GoalieReadShot
 global F64_3p14159_GoalieReadShot, F64_neg6p28319_GoalieReadShot, F64_neg3p14159_GoalieReadShot, F64_0p785398_GoalieReadShot, F64_180, F64_240_GoalieReadShot, F64_1896, F64_4656
 global F64_1272, F64_4032, F64_6p28319_GoalieAngle, F64_3p14159_GoalieAngle, F64_neg6p28319_GoalieAngle, F64_neg3p14159_GoalieAngle, F64_6p28319_GoalieCoverPost, F64_3p14159_GoalieCoverPost
@@ -102,7 +102,7 @@ global F64_384_BlockSlideMove, F64_864_BlockSlideMove, F64_240_PickSaveAnim, F64
 global F64_6p28319_GoalieSave, F64_3p14159_GoalieSave, F64_neg6p28319_GoalieSave, F64_neg3p14159_GoalieSave, F64_1p0472_GoalieSave, F64_384_GoalieSave, F64_neg0p785398_GoalieSave, F64_0p785398_GoalieSave
 global F64_48, F64_0p0001_GoalieMoves, F64_144_GoalieMoves, F64_576_GoalieMoves, F64_4272_GoalieMoves, F64_240_GoalieMoves, F64_6p28319_GoalieMoves, F64_3p14159_GoalieMoves
 global F64_neg6p28319_GoalieMoves, F64_neg3p14159_GoalieMoves, F64_0p349066_GoalieMoves, F64_48_GoalieMoves, F64_2_GoalieMoves, F64_0p6_GoalieMoves, F64_480_PuckDeflect, F64_0p00613592
-global F64_0p00613592_UpdateMovePose, qword_163DB1, F64_0p001, str_Back, str_Uarm, str_BASEPOS, str_Standing, str_Glide
+global F64_0p00613592_UpdateMovePose, F64_PoseScale, F64_0p001, str_Back, str_Uarm, str_BASEPOS, str_Standing, str_Glide
 global str_StartF, str_Sk8fSu, str_Sk8fSh, str_Sk8fSd, str_Flturn, str_Frturn, str_CsovfL, str_CsovfR
 global str_Wait, str_Wait2, str_StpfwdL, str_StpfwdR, str_QstpL, str_QstpR, str_GlidbkS, str_Bsk8
 global str_Stpbw, str_Blturn, str_Brturn, str_Fr2bkL, str_Fr2bkR, str_Bk2frL, str_Bk2frR, str_BstartL
@@ -125,7 +125,7 @@ global str_ELBOWR, str_ELBOWL, str_HIPR, str_HIPL, str_SHOULR, str_SHOULL, str_S
 global str_PkGlid, str_Setpos, str_Relaxset, str_Buterfl, str_Casual, str_HugL, str_HugR, str_GLIDEL
 global str_GLIDER, str_PturnL, str_PturnR, str_Getset, str_Intobut, str_Butset, str_Po2poL, str_Po2poR
 global str_Bt2relbt, str_Bt2chest, str_Fr24, str_R24, str_L24, str_All42but, str_GetupF, str_GetupS
-global str_GetupL, str_GetupR, str_HitF, str_HitL, str_HitR, unk_16228C, str_Sk8, str_StepL
+global str_GetupL, str_GetupR, str_HitF, str_HitL, str_HitR, str_startF, str_Sk8, str_StepL
 global str_StepR, str_BigstpL, str_BigstpR, str_StepFL, str_StepFR, str_StepbkL, str_StepbkR, str_Snowpl
 global str_Icing, str_DropL, str_DropR, str_DropF, str_Chuckpuk, str_Lookhand, str_Juggle, str_Twitch
 global str_Bang, str_Post, str_LookL, str_LookR, str_CaslooL, str_CaslooR, str_WtonL, str_WtonR
@@ -149,9 +149,9 @@ global str_ClPenal, str_READY, str_THRWGLVS, str_JABBED, str_JABEDND, str_JAB, s
 global str_HOKEDBK, str_GETUPBK, str_GRAB, str_GRABBED, str_GRABJAB, str_GRABHOK, str_GRBDJBD, str_GRBDHKD
 global str_GRJBDND, str_GRHKDND, str_SHFLFWD, str_SHFLBKW, str_PULLJER, str_JERPULD, str_PULLJHK, str_JPLDHKD
 global str_PLDHKDD, str_BRKGRAB, str_RLSGRAB, str_MISGRAB, str_BRKPULJ, str_RLSPULJ, str_UP, str_THGLVOD
-global str_CUPSK8, str_CUPCASK, str_CUPKISS, str_CUPUPDW, str_CUPGLAU, str_CUPGLAD, unk_162A48, str_Lhand
-global unk_162A58, str_Sticktip, str_Lknee, str_Lankle, str_Rknee, str_Rankle, str_Pelvis, unk_162A98
-global unk_162AA0, str_Lelbow, str_Relbow, unk_162AB8, unk_162AC0
+global str_CUPSK8, str_CUPCASK, str_CUPKISS, str_CUPUPDW, str_CUPGLAU, str_CUPGLAD, str_rhand, str_Lhand
+global str_stickheel, str_Sticktip, str_Lknee, str_Lankle, str_Rknee, str_Rankle, str_Pelvis, str_back
+global str_chin, str_Lelbow, str_Relbow, str_lshldr, str_rshldr
 str_CUPP:
         db 043h,055h,050h,050h,00h,00h,00h,00h
 str_2d:
@@ -360,13 +360,13 @@ F64_6p28319_CameraSmoothStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
 F64_neg6p28319_CameraSmoothStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_161B78:
+CamSmoothMinX:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_161B80:
+CamSmoothStepX:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_161B88:
+CamSmoothMinY:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_161B90:
+CamSmoothStepY:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
 F32_2_SetCameraTarget:
         db 00h,00h,00h,040h
@@ -744,7 +744,7 @@ str_HitL:
         db 068h,069h,074h,04Ch,00h,00h,00h,00h
 str_HitR:
         db 068h,069h,074h,052h,00h,00h,00h,00h
-unk_16228C:
+str_startF:
         db 073h,074h,061h,072h,074h,02Dh,046h,00h
 str_Sk8:
         db 073h,06Bh,038h,00h
@@ -1130,11 +1130,11 @@ str_CUPGLAU:
         db 043h,055h,050h,05Fh,047h,04Ch,041h,055h,00h,00h,00h,00h
 str_CUPGLAD:
         db 043h,055h,050h,05Fh,047h,04Ch,041h,044h,00h,00h,00h,00h
-unk_162A48:
+str_rhand:
         db 072h,068h,061h,06Eh,064h,00h,00h,00h
 str_Lhand:
         db 06Ch,068h,061h,06Eh,064h,00h,00h,00h
-unk_162A58:
+str_stickheel:
         db 073h,074h,069h,063h,06Bh,068h,065h,065h,06Ch,00h,00h,00h
 str_Sticktip:
         db 073h,074h,069h,063h,06Bh,074h,069h,070h,00h,00h,00h,00h
@@ -1148,17 +1148,17 @@ str_Rankle:
         db 072h,061h,06Eh,06Bh,06Ch,065h,00h,00h
 str_Pelvis:
         db 070h,065h,06Ch,076h,069h,073h,00h,00h
-unk_162A98:
+str_back:
         db 062h,061h,063h,06Bh,00h,00h,00h,00h
-unk_162AA0:
+str_chin:
         db 063h,068h,069h,06Eh,00h,00h,00h,00h
 str_Lelbow:
         db 06Ch,065h,06Ch,062h,06Fh,077h,00h,00h
 str_Relbow:
         db 072h,065h,06Ch,062h,06Fh,077h,00h,00h
-unk_162AB8:
+str_lshldr:
         db 06Ch,073h,068h,06Ch,064h,072h,00h,00h
-unk_162AC0:
+str_rshldr:
         db 072h,073h,068h,06Ch,064h,072h,00h
 F64_neg0p1:
         db 09Ah,099h,099h,099h,099h,099h,0B9h,0BFh
@@ -2534,7 +2534,7 @@ F64_0p00613592:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,079h,03Fh
 F64_0p00613592_UpdateMovePose:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,079h,03Fh
-qword_163DB1:
+F64_PoseScale:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,079h,03Fh,00h,00h,00h
 str_ANIMSTAT:
         db 041h,04Eh,049h,04Dh,053h,054h,041h,054h,00h,00h,00h,00h,043h,050h,055h,020h

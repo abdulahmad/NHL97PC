@@ -27,7 +27,7 @@ global ReplayStateTotal, ReplayPlaying, ReplayTick, OffscreenFov, OffscreenAspec
 global PaletteDirtyFlag, PortraitCamera, OffscreenTarget
 
 
-global GoalieAnimData, dword_1B9358, dword_1B935C, PlayerDrawParams, PortraitModels, SavedPalette, SavedPaletteRemap
+global GoalieAnimData, GoalieAnimFiles, GoalieFreezeAnims, PlayerDrawParams, PortraitModels, SavedPalette, SavedPaletteRemap
 global SeatModelList, PlayerModels, ReplayStatesPuck, ReplayStatesCamera, OffscreenState, CameraViewNames
 MarkerPoints:
         resb 8
@@ -351,7 +351,7 @@ CameraStateRecords:
         resb 37
 GoalieAnimData:
         resb 136
-dword_1B9358:
+GoalieAnimFiles:
         resb 4
-dword_1B935C:
+GoalieFreezeAnims:
         resb 124

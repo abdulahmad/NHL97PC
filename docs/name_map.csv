@@ -4493,6 +4493,10 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 161B60,F64_neg3p14159_CameraSmoothStep,qword_161B60,new,high,double constant -3.1415927,src/data/front/front_57324_data_01.asm
 161B68,F64_6p28319_CameraSmoothStep,qword_161B68,new,high,double constant 6.2831854,src/data/front/front_57324_data_01.asm
 161B70,F64_neg6p28319_CameraSmoothStep,qword_161B70,new,high,double constant -6.2831854,src/data/front/front_57324_data_01.asm
+161B78,CamSmoothMinX,qword_161B78,new,low,camera smoothing threshold X,src/data/front/front_57324_data_01.asm
+161B80,CamSmoothStepX,qword_161B80,new,low,camera smoothing step X,src/data/front/front_57324_data_01.asm
+161B88,CamSmoothMinY,qword_161B88,new,low,camera smoothing threshold Y,src/data/front/front_57324_data_01.asm
+161B90,CamSmoothStepY,qword_161B90,new,low,camera smoothing step Y,src/data/front/front_57324_data_01.asm
 161B98,F32_2_SetCameraTarget,dword_161B98,new,high,float constant 2,src/data/front/front_57324_data_01.asm
 161B9C,F32_3_SetCameraTarget,dword_161B9C,new,high,float constant 3,src/data/front/front_57324_data_01.asm
 161BA0,F32_2_UpdateCameraMotion,dword_161BA0,new,high,float constant 2,src/data/front/front_57324_data_01.asm
@@ -4681,6 +4685,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 162274,str_HitF,unk_162274,new,high,"string ""hitF""",src/data/front/front_57324_data_01.asm
 16227C,str_HitL,unk_16227C,new,high,"string ""hitL""",src/data/front/front_57324_data_01.asm
 162284,str_HitR,unk_162284,new,high,"string ""hitR""",src/data/front/front_57324_data_01.asm
+16228C,str_startF,unk_16228C,new,low,"""start-F""",src/data/front/front_57324_data_01.asm
 162294,str_Sk8,unk_162294,new,high,"string ""sk8""",src/data/front/front_57324_data_01.asm
 162298,str_StepL,unk_162298,new,high,"string ""step-L""",src/data/front/front_57324_data_01.asm
 1622A0,str_StepR,unk_1622A0,new,high,"string ""step-R""",src/data/front/front_57324_data_01.asm
@@ -4873,15 +4878,21 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 162A24,str_CUPUPDW,unk_162A24,new,high,"string ""CUP_UPDW""",src/data/front/front_57324_data_01.asm
 162A30,str_CUPGLAU,unk_162A30,new,high,"string ""CUP_GLAU""",src/data/front/front_57324_data_01.asm
 162A3C,str_CUPGLAD,unk_162A3C,new,high,"string ""CUP_GLAD""",src/data/front/front_57324_data_01.asm
+162A48,str_rhand,unk_162A48,new,low,"""rhand""",src/data/front/front_57324_data_01.asm
 162A50,str_Lhand,unk_162A50,new,high,"string ""lhand""",src/data/front/front_57324_data_01.asm
+162A58,str_stickheel,unk_162A58,new,low,"""stickheel""",src/data/front/front_57324_data_01.asm
 162A64,str_Sticktip,unk_162A64,new,high,"string ""sticktip""",src/data/front/front_57324_data_01.asm
 162A70,str_Lknee,unk_162A70,new,high,"string ""lknee""",src/data/front/front_57324_data_01.asm
 162A78,str_Lankle,unk_162A78,new,high,"string ""lankle""",src/data/front/front_57324_data_01.asm
 162A80,str_Rknee,unk_162A80,new,high,"string ""rknee""",src/data/front/front_57324_data_01.asm
 162A88,str_Rankle,unk_162A88,new,high,"string ""rankle""",src/data/front/front_57324_data_01.asm
 162A90,str_Pelvis,unk_162A90,new,high,"string ""pelvis""",src/data/front/front_57324_data_01.asm
+162A98,str_back,unk_162A98,new,low,"""back""",src/data/front/front_57324_data_01.asm
+162AA0,str_chin,unk_162AA0,new,low,"""chin""",src/data/front/front_57324_data_01.asm
 162AA8,str_Lelbow,unk_162AA8,new,high,"string ""lelbow""",src/data/front/front_57324_data_01.asm
 162AB0,str_Relbow,unk_162AB0,new,high,"string ""relbow""",src/data/front/front_57324_data_01.asm
+162AB8,str_lshldr,unk_162AB8,new,low,"""lshldr""",src/data/front/front_57324_data_01.asm
+162AC0,str_rshldr,unk_162AC0,new,low,"""rshldr""",src/data/front/front_57324_data_01.asm
 162AC7,F64_neg0p1,qword_162AC7,new,high,double constant -0.1,src/data/front/front_57324_data_01.asm
 162ACF,F64_0p00872665,qword_162ACF,new,high,double constant 0.008726646389,src/data/front/front_57324_data_01.asm
 162AD7,F64_neg0p00872665,qword_162AD7,new,high,double constant -0.008726646389,src/data/front/front_57324_data_01.asm
@@ -5569,6 +5580,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 163D9C,str_4da,asc_163D9C,new,high,"string "".4da""",src/data/front/front_57324_data_01.asm
 163DA1,F64_0p00613592,qword_163DA1,new,high,double constant 0.006135923242,src/data/front/front_57324_data_01.asm
 163DA9,F64_0p00613592_UpdateMovePose,qword_163DA9,new,high,double constant 0.006135923242,src/data/front/front_57324_data_01.asm
+163DB1,F64_PoseScale,qword_163DB1,new,low,pose scale,src/data/front/front_57324_data_01.asm
 163DBC,str_ANIMSTAT,asc_163DBC,new,high,"string ""ANIMSTAT""",src/data/front/front_57324_data_01.asm
 163ED8,str_AiconsViv,asc_163ED8,new,high,"string ""aicons.viv""",src/data/front/front_57324_data_01.asm
 163EE4,str_Cross,asc_163EE4,new,high,"string ""cross""",src/data/front/front_57324_data_01.asm
@@ -7727,7 +7739,60 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16B174,OverlayFrame,dword_16B174,new,low,rink overlay frame,src/data/front/front_48D70_data_03.asm
 16B178,F32_2000_ScaleModelLods,dword_16B178,new,high,float constant 2000,src/data/front/front_48D70_data_03.asm
 16B1A0,F32_1,dword_16B1A0,new,high,float constant 1,src/data/front/front_57324_data_02.asm
+16B1A4,LetterOffsets,dword_16B1A4,new,low,jersey letter offsets,src/data/front/front_57324_data_02.asm
+16B1A8,LetterMasks,dword_16B1A8,new,low,jersey letter masks,src/data/front/front_57324_data_02.asm
+16B3F4,LetterColors,dword_16B3F4,new,low,jersey letter colours,src/data/front/front_57324_data_02.asm
+16B51C,TeamColorTable,unk_16B51C,new,low,team colour table,src/data/front/front_57324_data_02.asm
+16B534,TeamColorRanges,unk_16B534,new,low,team colour ranges,src/data/front/front_57324_data_02.asm
+16B550,SeatModelsUsed,dword_16B550,new,low,seat models used,src/data/front/front_57324_data_02.asm
+16B558,ModelPartLinkRows,unk_16B558,97PC,low,model part link rows (offset and next-part pairs),src/data/front/front_57324_data_02.asm
+16B6F8,ModelPartLinksLeft,off_16B6F8,new,low,"model part links, left side",src/data/front/front_57324_data_02.asm
+16B708,ModelPartLinksRight,off_16B708,new,low,"model part links, right side",src/data/front/front_57324_data_02.asm
+16B718,MarkerColors,unk_16B718,new,low,marker colours,src/data/front/front_57324_data_02.asm
+16B724,ReplayStatesSet,dword_16B724,new,low,replay states registered,src/data/front/front_57324_data_02.asm
+16B728,ReplayFrameMarker,unk_16B728,new,low,replay frame marker,src/data/front/front_57324_data_02.asm
+16B72C,F32_ViewAngle,dword_16B72C,new,low,view angle (pi/8),src/data/front/front_57324_data_02.asm
+16B738,SkateAnimNames,off_16B738,new,low,skate animation names,src/data/front/front_57324_data_02.asm
+16B7CC,ShotAnimNames,off_16B7CC,new,low,shot animation names,src/data/front/front_57324_data_02.asm
+16B830,ActAnimNames,off_16B830,new,low,act animation names,src/data/front/front_57324_data_02.asm
+16B8C0,FallAnimNames,off_16B8C0,new,low,fall animation names,src/data/front/front_57324_data_02.asm
+16B958,InterferAnimNames,off_16B958,new,low,interference animation names,src/data/front/front_57324_data_02.asm
+16B9A4,GoalieAnimNames,off_16B9A4,new,low,goalie animation names,src/data/front/front_57324_data_02.asm
+16BB54,RefSkateAnimNames,off_16BB54,new,low,referee skate animation names,src/data/front/front_57324_data_02.asm
+16BC44,RefAmbiAnimNames,off_16BC44,new,low,referee ambient animation names,src/data/front/front_57324_data_02.asm
+16BC5C,RefCallAnimNames,off_16BC5C,new,low,referee call animation names,src/data/front/front_57324_data_02.asm
+16BC98,FightAnimNames,off_16BC98,new,low,fight animation names,src/data/front/front_57324_data_02.asm
+16BD14,CupAnimNames,off_16BD14,new,low,cup animation names,src/data/front/front_57324_data_02.asm
+16BD2C,MoveFuncTable,off_16BD2C,new,low,move routine per animation,src/data/front/front_57324_data_02.asm
 16C32C,str_Punct_LoadAnimData,dword_16C32C,new,high,"string "",""",src/data/front/front_57324_data_02.asm
+16C338,AnimPointTable,unk_16C338,new,low,animation point table,src/data/front/front_57324_data_02.asm
+16C360,MoveState,dword_16C360,new,low,move state,src/data/front/front_57324_data_02.asm
+16C364,PlayerAnimBase,dword_16C364,new,low,player animation base,src/data/front/front_57324_data_02.asm
+16C368,PlayerAnimSize,dword_16C368,new,low,player animation size,src/data/front/front_57324_data_02.asm
+16C374,PlayerAnimScale,dword_16C374,new,low,player animation scale (1.0),src/data/front/front_57324_data_02.asm
+16C384,PlayerAnimMove,dword_16C384,new,low,player animation move,src/data/front/front_57324_data_02.asm
+16C388,SkateAnimData,dword_16C388,new,low,skate animation data,src/data/front/front_57324_data_02.asm
+16C38C,ShotAnimData,dword_16C38C,new,low,shot animation data,src/data/front/front_57324_data_02.asm
+16C390,ActAnimData,dword_16C390,new,low,act animation data,src/data/front/front_57324_data_02.asm
+16C394,FallAnimData,dword_16C394,new,low,fall animation data,src/data/front/front_57324_data_02.asm
+16C398,InterferAnimData,dword_16C398,new,low,interference animation data,src/data/front/front_57324_data_02.asm
+16C39C,GoalieAnimDataPtr,dword_16C39C,new,low,goalie animation data,src/data/front/front_57324_data_02.asm
+16C3A0,RefSkateAnimData,dword_16C3A0,new,low,referee skate animation data,src/data/front/front_57324_data_02.asm
+16C3A4,RefAmbiAnimData,dword_16C3A4,new,low,referee ambient animation data,src/data/front/front_57324_data_02.asm
+16C3A8,RefCallAnimData,dword_16C3A8,new,low,referee call animation data,src/data/front/front_57324_data_02.asm
+16C3AC,FightAnimData,dword_16C3AC,new,low,fight animation data,src/data/front/front_57324_data_02.asm
+16C3B0,CupAnimData,dword_16C3B0,new,low,cup animation data,src/data/front/front_57324_data_02.asm
+16C3B4,AnimPointNames,off_16C3B4,new,low,animation point names,src/data/front/front_57324_data_02.asm
+16C3F0,MoveAnimIds,dword_16C3F0,new,low,animation id per move,src/data/front/front_57324_data_02.asm
+16C429,MoveContactFlags,byte_16C429,new,low,contact flags per move,src/data/front/front_57324_data_02.asm
+16C54C,SpaEnabled,dword_16C54C,new,low,SPA moves enabled,src/data/front/front_57324_data_02.asm
+16C550,IdleAnims,dword_16C550,new,low,idle animations,src/data/front/front_57324_data_02.asm
+16C55C,AnimPointUnset,dword_16C55C,new,low,unset animation point (-1),src/data/front/front_57324_data_02.asm
+16C568,CollideAnimsFront,dword_16C568,new,low,collision animations from the front,src/data/front/front_57324_data_02.asm
+16C574,CollideAnimsSide,dword_16C574,new,low,collision animations from the side,src/data/front/front_57324_data_02.asm
+16C580,CollideAnimsBack,dword_16C580,new,low,collision animations from behind,src/data/front/front_57324_data_02.asm
+16C58C,RefGoalLineAnims,dword_16C58C,new,low,referee goal line animations,src/data/front/front_57324_data_02.asm
+16C618,BlockShotAnims,dword_16C618,new,low,block shot animations,src/data/front/front_57324_data_02.asm
 16C654,F32_7p84727eneg44,dword_16C654,new,high,float constant 7.8472714e-44,src/data/front/front_57324_data_02.asm
 16C664,F32_0,dword_16C664,new,high,float constant 0,src/data/front/front_57324_data_02.asm
 16C6C0,str_D_SimulateGame,dword_16C6C0,new,high,"string ""d""",src/data/front/front_57324_data_02.asm
@@ -9325,6 +9390,8 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1B9038,CameraViewNames,unk_1B9038,new,low,camera view names,src/data/front/front_57324_bss_01.asm
 1B9058,CameraStateRecords,byte_1B9058,97PC,low,"camera state records (current, target, path)",src/data/front/front_57324_bss_01.asm
 1B92D0,GoalieAnimData,dword_1B92D0,new,low,goalie animation data,src/data/front/front_57324_bss_01.asm
+1B9358,GoalieAnimFiles,dword_1B9358,new,low,goalie animation file per move,src/data/front/front_57324_bss_01.asm
+1B935C,GoalieFreezeAnims,dword_1B935C,new,low,goalie freeze animations,src/data/front/front_57324_bss_01.asm
 1B93D8,BoxSeatPlayer,dword_1B93D8,new,low,penalty box seat player,src/data/engine/engine_3812E_bss_03.asm
 1B93DC,BoxSeatTeam,dword_1B93DC,new,low,penalty box seat team,src/data/engine/engine_3812E_bss_03.asm
 1B93DD,BoxSeatSlot,byte_1B93DD,new,low,penalty box seat slot,src/data/engine/engine_3812E_bss_03.asm
@@ -9332,6 +9399,98 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1B93E0,BoxSeats,unk_1B93E0,new,low,penalty box seats,src/data/engine/engine_3812E_bss_03.asm
 1B93E4,BenchSeats,dword_1B93E4,new,low,bench seats,src/data/engine/engine_3812E_bss_03.asm
 1B93E8,SeatTable,dword_1B93E8,new,low,bench and box seat table,src/data/engine/engine_3812E_bss_03.asm
+1B94DC,DepthSortCount,dword_1B94DC,new,low,players sorted by depth,src/data/front/front_57324_bss_02.asm
+1B94E0,DepthSortKeys,unk_1B94E0,new,low,depth sort keys,src/data/front/front_57324_bss_02.asm
+1B9520,PlayerStartRecords,unk_1B9520,new,low,player start records,src/data/front/front_57324_bss_02.asm
+1B9554,PlayerStartDist,dword_1B9554,new,low,player start distance (10000.0),src/data/front/front_57324_bss_02.asm
+1B9558,PlayerStartScale,dword_1B9558,new,low,player start scale (1.0),src/data/front/front_57324_bss_02.asm
+1B9A14,ObjectSortCount,dword_1B9A14,new,low,objects sorted by depth,src/data/front/front_57324_bss_02.asm
+1B9A18,DepthSortOrder,dword_1B9A18,new,low,depth sort order,src/data/front/front_57324_bss_02.asm
+1B9A58,FallAnimSlots,unk_1B9A58,new,low,fall animation slots,src/data/front/front_57324_bss_02.asm
+1B9AB8,GoalieAnimTime,dword_1B9AB8,new,low,goalie animation time,src/data/front/front_57324_bss_02.asm
+1B9ABC,GoalieAnimFrame,dword_1B9ABC,new,low,goalie animation frame,src/data/front/front_57324_bss_02.asm
+1B9AC0,GoalieAnimPoses,dword_1B9AC0,new,low,goalie animation poses,src/data/front/front_57324_bss_02.asm
+1B9C50,DepthSortList,dword_1B9C50,new,low,depth sort list,src/data/front/front_57324_bss_02.asm
+1B9C8C,AnimPointIds,dword_1B9C8C,new,low,animation point ids,src/data/front/front_57324_bss_02.asm
+1B9C90,DeflectAnims,dword_1B9C90,new,low,deflection animations,src/data/front/front_57324_bss_02.asm
+1B9CA4,CreaseBounds,dword_1B9CA4,new,low,crease bounds,src/data/front/front_57324_bss_02.asm
+1B9CAC,GoalLineY,dword_1B9CAC,new,low,goal line Y,src/data/front/front_57324_bss_02.asm
+1B9CB0,StickContactPts,dword_1B9CB0,new,low,stick contact points,src/data/front/front_57324_bss_02.asm
+1B9CF8,AnimDataBase,unk_1B9CF8,new,low,animation data base,src/data/front/front_57324_bss_02.asm
+1B9CFC,SkateAnimSpeeds,dword_1B9CFC,new,low,skate animation speeds,src/data/front/front_57324_bss_02.asm
+1B9D04,SkateAnimAccel,dword_1B9D04,new,low,skate animation acceleration,src/data/front/front_57324_bss_02.asm
+1B9D08,SkateStrideTable,dword_1B9D08,new,low,skate stride table,src/data/front/front_57324_bss_02.asm
+1B9D18,TurnAnimAngles,dword_1B9D18,new,low,turn animation angles,src/data/front/front_57324_bss_02.asm
+1B9D20,StrideSpeeds,dword_1B9D20,new,low,stride speeds,src/data/front/front_57324_bss_02.asm
+1B9D28,SkateMoveTable,dword_1B9D28,new,low,skate move table,src/data/front/front_57324_bss_02.asm
+1BA050,SkateAnimSteps,dword_1BA050,new,low,skate animation steps,src/data/front/front_57324_bss_02.asm
+1BA068,SkateAnimTurns,dword_1BA068,new,low,skate animation turns,src/data/front/front_57324_bss_02.asm
+1BA088,SkateAnimStops,dword_1BA088,new,low,skate animation stops,src/data/front/front_57324_bss_02.asm
+1BA0A0,SkateAnimFrames,dword_1BA0A0,new,low,skate animation frames,src/data/front/front_57324_bss_02.asm
+1BA510,ShotAnimPoses,unk_1BA510,new,low,shot animation frames,src/data/front/front_57324_bss_02.asm
+1BAA88,ActAnimFrames,unk_1BAA88,new,low,act animation frames,src/data/front/front_57324_bss_02.asm
+1BAAF8,PenaltyAnimPos,dword_1BAAF8,new,low,penalty animation position,src/data/front/front_57324_bss_02.asm
+1BAB00,PenaltyAnimTime,dword_1BAB00,new,low,penalty animation time,src/data/front/front_57324_bss_02.asm
+1BAB04,BoxAnimFrames,dword_1BAB04,new,low,go-to-box animation frames,src/data/front/front_57324_bss_02.asm
+1BB258,DodgeScale,dword_1BB258,new,low,referee dodge scale,src/data/front/front_57324_bss_02.asm
+1BB268,FallAnimFrames,unk_1BB268,new,low,fall animation frames,src/data/front/front_57324_bss_02.asm
+1BBAB8,InterferAnimFrames,unk_1BBAB8,new,low,interference animation frames,src/data/front/front_57324_bss_02.asm
+1BBEE0,GoalieAnimFrames,unk_1BBEE0,new,low,goalie animation frames,src/data/front/front_57324_bss_02.asm
+1BD680,RefSkateAnimFrames,unk_1BD680,new,low,referee skate animation frames,src/data/front/front_57324_bss_02.asm
+1BE3A0,RefAmbiAnimFrames,unk_1BE3A0,new,low,referee ambient animation frames,src/data/front/front_57324_bss_02.asm
+1BE4F0,RefCallAnimFrames,unk_1BE4F0,new,low,referee call animation frames,src/data/front/front_57324_bss_02.asm
+1BE838,FightAnimFrames,unk_1BE838,new,low,fight animation frames,src/data/front/front_57324_bss_02.asm
+1BEF00,CupAnimFrames,unk_1BEF00,new,low,cup animation frames,src/data/front/front_57324_bss_02.asm
+1BF050,GoalieTickCount,dword_1BF050,new,low,goalie tick count,src/data/front/front_57324_bss_02.asm
+1BF054,GoalieMoveLimit,dword_1BF054,new,low,goalie move limit (-1.0),src/data/front/front_57324_bss_02.asm
+1BF058,SkateAnimScale,dword_1BF058,new,low,skate animation scale,src/data/front/front_57324_bss_02.asm
+1BF05C,SkateAnimBase,dword_1BF05C,new,low,skate animation base,src/data/front/front_57324_bss_02.asm
+1BF060,StickPointId,dword_1BF060,new,low,stick animation point id,src/data/front/front_57324_bss_02.asm
+1BF064,FistPointId,dword_1BF064,new,low,fist animation point id,src/data/front/front_57324_bss_02.asm
+1BF068,PunchPointId,dword_1BF068,new,low,punch animation point id,src/data/front/front_57324_bss_02.asm
+1BF06C,BodyPointId,dword_1BF06C,new,low,body animation point id,src/data/front/front_57324_bss_02.asm
+1BF070,GoalieReachLimit,dword_1BF070,new,low,goalie reach limit (10000.0),src/data/front/front_57324_bss_02.asm
+1BF074,SwingPointId,dword_1BF074,new,low,swing animation point id,src/data/front/front_57324_bss_02.asm
+1BF078,HeadPointId,dword_1BF078,new,low,head animation point id,src/data/front/front_57324_bss_02.asm
+1BF07C,MoveFuncPair,dword_1BF07C,new,low,move routine pair,src/data/front/front_57324_bss_02.asm
+1BF084,PlayerAnimSet,dword_1BF084,new,low,player animation set,src/data/front/front_57324_bss_02.asm
+1BF0B8,SkateAnimCount,dword_1BF0B8,new,low,skate animations loaded,src/data/front/front_57324_bss_02.asm
+1BF0BC,SkateAnimIndex,dword_1BF0BC,new,low,skate animation index,src/data/front/front_57324_bss_02.asm
+1BF110,ShotAnimIndex,unk_1BF110,new,low,shot animation index,src/data/front/front_57324_bss_02.asm
+1BF174,ActAnimIndex,unk_1BF174,new,low,act animation index,src/data/front/front_57324_bss_02.asm
+1BF17C,BoxAnimIndex,dword_1BF17C,new,low,go-to-box animation index,src/data/front/front_57324_bss_02.asm
+1BF1B4,PlayerAnimTable,dword_1BF1B4,new,low,player animation table,src/data/front/front_57324_bss_02.asm
+1BF204,FallAnimIndex,unk_1BF204,new,low,fall animation index,src/data/front/front_57324_bss_02.asm
+1BF248,FallAnimPtrs,dword_1BF248,new,low,fall animation pointers,src/data/front/front_57324_bss_02.asm
+1BF29C,InterferAnimIndex,unk_1BF29C,new,low,interference animation index,src/data/front/front_57324_bss_02.asm
+1BF2E8,GoalieAnimIndex,unk_1BF2E8,new,low,goalie animation index,src/data/front/front_57324_bss_02.asm
+1BF498,RefSkateAnimIndex,unk_1BF498,new,low,referee skate animation index,src/data/front/front_57324_bss_02.asm
+1BF588,RefAmbiAnimIndex,unk_1BF588,new,low,referee ambient animation index,src/data/front/front_57324_bss_02.asm
+1BF5A0,RefCallAnimIndex,unk_1BF5A0,new,low,referee call animation index,src/data/front/front_57324_bss_02.asm
+1BF5DC,FightAnimIndex,unk_1BF5DC,new,low,fight animation index,src/data/front/front_57324_bss_02.asm
+1BF658,CupAnimIndex,unk_1BF658,new,low,cup animation index,src/data/front/front_57324_bss_02.asm
+1BF670,MoveFlags,byte_1BF670,new,low,flags per move,src/data/front/front_57324_bss_02.asm
+1BF7F0,SkateAnimMem,dword_1BF7F0,new,low,skate animation memory,src/data/front/front_57324_bss_02.asm
+1BF7F4,SkateAnimMemSize,dword_1BF7F4,new,low,skate animation memory size,src/data/front/front_57324_bss_02.asm
+1BF7F8,StopTableForward,dword_1BF7F8,new,low,"stop table, forwards",src/data/front/front_57324_bss_02.asm
+1BF7FC,StopTableBackward,dword_1BF7FC,new,low,"stop table, backwards",src/data/front/front_57324_bss_02.asm
+1BF800,GoalieMoveTable,dword_1BF800,new,low,goalie move table,src/data/front/front_57324_bss_02.asm
+1BF888,AnimStateBlocks,dword_1BF888,new,low,animation state blocks,src/data/front/front_57324_bss_02.asm
+1BF88C,AnimNodesFree,dword_1BF88C,new,low,animation nodes free,src/data/front/front_57324_bss_02.asm
+1BF890,AnimNodeFreeList,dword_1BF890,new,low,animation node free list,src/data/front/front_57324_bss_02.asm
+1BF894,AnimNodePool,dword_1BF894,new,low,animation node pool,src/data/front/front_57324_bss_02.asm
+1BF898,AnimStatesReady,dword_1BF898,new,low,animation states ready,src/data/front/front_57324_bss_02.asm
+1BF89C,AnimDecodePtr,dword_1BF89C,new,low,animation decode pointer,src/data/front/front_57324_bss_02.asm
+1BF8A0,AnimDecodeEnd,dword_1BF8A0,new,low,animation decode end,src/data/front/front_57324_bss_02.asm
+1BF8A4,AnimDecodeFrame,dword_1BF8A4,new,low,animation decode frame,src/data/front/front_57324_bss_02.asm
+1BF8A8,AnimStateCount,dword_1BF8A8,new,low,animation states,src/data/front/front_57324_bss_02.asm
+1BF8B0,AnimBlend,dword_1BF8B0,new,low,animation blend factor,src/data/front/front_57324_bss_02.asm
+1BF8B4,ReplayRecordBuf,dword_1BF8B4,new,low,replay record buffer,src/data/front/front_57324_bss_02.asm
+1C0EE0,AiIconArt,dword_1C0EE0,new,low,AI debug icon art,src/data/front/front_57324_bss_02.asm
+1C0EEC,CameraDebugArt,dword_1C0EEC,new,low,camera debug art,src/data/front/front_57324_bss_02.asm
+1C0EF0,AiIconSize,dword_1C0EF0,new,low,AI debug icon size,src/data/front/front_57324_bss_02.asm
+1C0EF8,CameraDebugLoaded,dword_1C0EF8,new,low,camera debug art loaded,src/data/front/front_57324_bss_02.asm
+1C0EFC,AiIconCount,dword_1C0EFC,new,low,AI debug icons,src/data/front/front_57324_bss_02.asm
 1C1403,HomeSpeechNames,dword_1C1403,new,low,home team speech name clips,src/data/front/front_43578_bss_01.asm
 1C14BD,HomeSpeechLoaded,byte_1C14BD,new,low,home team speech clips loaded,src/data/front/front_43578_bss_01.asm
 1C3526,AwaySpeechNames,dword_1C3526,new,low,away team speech name clips,src/data/front/front_43578_bss_02.asm

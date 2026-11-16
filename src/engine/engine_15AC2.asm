@@ -35,7 +35,7 @@ extern TargetPointObj, CameraSceneCenter, CameraSceneYaw, CameraSceneDist, Camer
 extern TargetVecX, TargetVecY, TargetVecZ, PassTargetAngle, PenaltyRecord, PlayerAssignPtrs, HmScore, AwScore
 extern ViewSizeIndex, GameSettings, GameOptionFlags, ScoreboardAngle, ObjectPositions, TargetPoints, ReplayPlaying, CameraStateRecords
 extern CameraStateRecords
-extern CameraStateRecords, dword_1B9CA4, dword_1B9CAC, dword_1C95B0, dword_1C95B4
+extern CameraStateRecords, CreaseBounds, GoalLineY, dword_1C95B0, dword_1C95B4
 extern dword_1C95BC, dword_1C95C4, TextAlign, TextColorTable, TextColor, DrawGlyphFn, ProjOffsetX, ProjOffsetY
 extern hmtmstruct, hypot_, DrawGlyph_494, OverlayPanelFuncs, ClockPanelFunc, PtrPuckTarget, PtrPuckState, PtrPuckOwner
 extern PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, F64_0p000333333, F64_1p2_UpdateCameraView, F64_neg0p000454545
@@ -15790,10 +15790,10 @@ InCrease:
         mov ecx, eax
         mov esi, edx
         mov ebx, esp
-        mov edx, dword [dword_1B9CA4]
+        mov edx, dword [CreaseBounds]
         call ObjectFramePos
         lea ebx, [byte esp+0Ch]
-        mov edx, dword [dword_1B9CAC]
+        mov edx, dword [GoalLineY]
         mov eax, ecx
         call ObjectFramePos
         test esi, esi

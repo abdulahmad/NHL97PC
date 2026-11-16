@@ -13,7 +13,7 @@ extern InputButtons, InputDir, ShotState, LastTouchPlayer, PuckHitFlag, ExtraAtt
 extern GoalScorerFlags, FaceoffWinner, penshottimer, PuckX, RefTarget, RefPlayer, SlotPlayers, InputSlotPlayers
 extern bholdtimer, InputActive, PassButtonTimes, PassButtonHeld, PuckChasers, ChangePlayer, LineSortKeys, LineSortIndex
 extern LineSortOrder, PenaltyRecord, HmPenaltyPlayer, HmScore, AwPenaltyPlayer, AwScore, LinkChannelAData, LinkChannelBData
-extern GameSettings, GameOptionFlags, ReplayPlaying, dword_1BF060, dword_1C13FF, dword_1C3522, hmtmstruct, hypot_
+extern GameSettings, GameOptionFlags, ReplayPlaying, StickPointId, dword_1C13FF, dword_1C3522, hmtmstruct, hypot_
 extern SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B, SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3
 extern SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF, SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, PtrPuckTarget, PtrPuckOwner
 extern PtrPuckMotion, PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, off_19C61F, F64_480_PenaltyChance
@@ -7169,7 +7169,7 @@ ChkGrabPuckOnSwitch:
         cmp word [dword eax+0A9h], byte 0
         jle short .1
         mov ebx, esp
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         call ObjectFramePos
         mov ebx, dword [PtrPuckFlags]
         fld dword [byte esp+08h]

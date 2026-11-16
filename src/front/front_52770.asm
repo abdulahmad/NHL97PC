@@ -7,7 +7,7 @@ extern str_04d, str_Lonet, str_Hinet, str_Net, str_Goal0, str_Goal1, str_Gt304, 
 extern str_Boxback, str_B00, str_XD, str_FaceoffD, str_Flash, str_Fla0, str_Fla1, str_PAL
 extern str_Light6, str_BOGIE, str_Front, RinkColorUsed, TeamColorSet, SeatModelCount, SeatModelTeam, SeatModelFlag
 extern ShowStands, ShowRink, ShowCenterLogo, ShowShadows, ShowOverlay, ShowBenches, CameraScenesEnabled, RinkModelBuffer
-extern RinkPassCount, ArenaArchiveHandle, OverlayFrameSize, OverlayFrameStride, OverlayFrame, dword_16B550, dword_16E464, dword_16E468
+extern RinkPassCount, ArenaArchiveHandle, OverlayFrameSize, OverlayFrameStride, OverlayFrame, SeatModelsUsed, dword_16E464, dword_16E468
 extern str_Punct_DrawRinkSurface, ClipLeft, ClipTop, ClipRightEdge, ClipBottomEdge, SinTable, RinkDetail, FadeDone
 extern ArenaArchive, ArenaArt, RinkLineArt, FlashTimer, GoalLightModelNear, GoalLightModelFar, GoalLightSpinNear, GoalLightSpinFar
 extern RinkMarkingGeometry, RinkSideGeometry, RinkTextures, RinkTextureArt, OpeningArt
@@ -58,7 +58,7 @@ extern UpdateScoreboardPos, UpdateScoreboardSpin, LoadNetArt, BuildRinkSides, Lo
 extern DrawPlayersSorted, RenderModelPortrait, RestoreSavedPalette, ReplayRegisterStates, ReplayRegisterObjects, ServiceIdle, AllocMemBlock, FreeMemBlock
 extern OpenResourceArchive, MatchColor, ClearScreen, FillPolygon, FillRect, IntsToFloats, VecMulMat, VecSub
 extern VecDistance, ProjectCoord, ProjectPointsWithZ, tickcount, str_C3, str_C2, str_C1, str_C0
-extern str_L3, str_L2, str_L1, str_L0, str_Fx, unk_16B51C, unk_16B534, RinkPalette
+extern str_L3, str_L2, str_L1, str_L0, str_Fx, TeamColorTable, TeamColorRanges, RinkPalette
 extern ArenaPalette, ArenaPaletteRange, RinkSideGeometry, FlashSpotPos, GlassRemap, BenchRemap, RinkPaletteBase, RinkPaletteRemap
 extern StandsPalette, BenchPalette, CrowdReactPos, RinkViewPoints, FlashPolys, RinkCameraPoints, SeatModels, PortraitModels
 extern SeatModelList, CameraStateRecords, str_Light
@@ -5394,7 +5394,7 @@ FindSeatModel:
         db 08Dh,040h,00h
         push ecx
         push edx
-        cmp dword [dword_16B550], byte 0
+        cmp dword [SeatModelsUsed], byte 0
         jne short .2
         push dword 138h
         push SeatModels
@@ -5403,7 +5403,7 @@ FindSeatModel:
         add esp, byte 0Ch
         call RestoreSavedPalette
 .2:
-        mov dword [dword_16B550], 1
+        mov dword [SeatModelsUsed], 1
         pop edx
         pop ecx
         ret
@@ -5479,7 +5479,7 @@ SetTeamColours:
         je short .1
         cmp byte [dword esi+TeamColorSet], 0
         jne short .3
-        add eax, unk_16B51C
+        add eax, TeamColorTable
         push eax
         push byte 1
         push edx
@@ -5489,7 +5489,7 @@ SetTeamColours:
 .1:
         cmp byte [dword esi+TeamColorSet], 0
         je short .3
-        add eax, unk_16B534
+        add eax, TeamColorRanges
         push eax
         push byte 1
         push edx
@@ -5519,7 +5519,7 @@ SetTeamColours:
         mov eax, TeamColorSet
         xor edx, edx
         call __STOSB
-        mov edx, unk_16B534
+        mov edx, TeamColorRanges
         mov eax, dword [RinkLineArt]
         call SetRangeColors
         pop edx

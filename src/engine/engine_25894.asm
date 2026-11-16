@@ -14,7 +14,7 @@ extern ZoneFlags, FaceoffWinner, penshottimer, PuckX, RefTarget, RefPlayer, Slot
 extern InputActive, PuckChasers, FaceoffCenter, ChangePlayer, WhistleTime, StanleyPlayer, FaceoffPuckX, FaceoffPuckY
 extern PlayerPointsTable, PlayerScoreTable, PuckStickTimers, PuckCarrierPos, PuckPathTable, HomeTeamRecord, AwayTeamRecord
 extern AwayTeamRecord, HmAssignPlayer, HmGoalieOnIce, AwAssignPlayer, AwGoalieOnIce, GameSettings, GameOptionFlags, ReplayPlaying
-extern dword_1B9CA4, dword_1B9CAC, dword_1BAAF8, dword_1BAB00, dword_1BF060, dword_1BF068, hmtmstruct, hypot_
+extern CreaseBounds, GoalLineY, PenaltyAnimPos, PenaltyAnimTime, StickPointId, PunchPointId, hmtmstruct, hypot_
 extern PtrPuckTarget, PtrPuckState, PtrPuckOwner, PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce
 extern F64_neg12, F64_1435, F64_3312, F64_720, F64_240, F64_2040, F64_4800, F64_0p01_DeflectPuck
 extern F64_6p28319_DeflectPuck, F64_3p14159_DeflectPuck, F64_neg6p28319_DeflectPuck, F64_neg3p14159_DeflectPuck, F64_DeflectScale, F64_0p00277778, F64_24, F64_6p28319_PuckHitsGoalie
@@ -95,11 +95,11 @@ PlayerPastLine:
         mov dword [byte esp+020h], esi
 .4:
         mov ebx, esp
-        mov edx, dword [dword_1B9CA4]
+        mov edx, dword [CreaseBounds]
         mov eax, ecx
         call ObjectFramePos
         lea ebx, [byte esp+0Ch]
-        mov edx, dword [dword_1B9CAC]
+        mov edx, dword [GoalLineY]
         mov eax, ecx
         call ObjectFramePos
         test byte [dword ecx+0BFh], 80h
@@ -3837,9 +3837,9 @@ asspenalty:
         mov eax, ebx
         call SetPlayerTarget
 .1:
-        mov eax, dword [dword_1BAAF8]
+        mov eax, dword [PenaltyAnimPos]
         mov dword [byte esp+010h], eax
-        mov eax, dword [dword_1BAB00]
+        mov eax, dword [PenaltyAnimTime]
         mov dword [byte esp+0Ch], eax
         mov ah, byte [dword ebx+0BFh]
         xor edx, edx
@@ -7046,7 +7046,7 @@ PuckHitsGoalie:
         mov dword [byte ebp-04h], ebx
 .9:
         lea ebx, [byte ebp-014h]
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         mov eax, ecx
         call ObjectFramePos
         fld dword [byte ecx+038h]
@@ -7071,7 +7071,7 @@ PuckHitsGoalie:
         jmp near .13
 .10:
         lea ebx, [byte ebp-014h]
-        mov edx, dword [dword_1BF068]
+        mov edx, dword [PunchPointId]
         mov eax, ecx
         call ObjectFramePos
         fld dword [byte esi+024h]

@@ -8,8 +8,8 @@ extern PenaltyBoxCount, gmode, PuckFlags, PlayFlags, holdreset, GripLinkByte, Ch
 extern DefenseByDefense, ForwardsByOffense, HmPlayerSlots, HmRosterMap, AwPlayerSlots, AwRosterMap, GripDriverPtr, GripDriverData
 extern GripLinked, LinePlayerSlots, LinePlayerOffsets, dword_16E344, dword_16E348, dword_16E34C, dword_16E350, PersonnelTable
 extern LastTouchPlayer, penshottimer, PuckX, GameObjects, GameTick, PlayerPointsTable, HmTeamData, HmScore
-extern AwTeamData, AwScore, GameSettings, GameOptionFlags, SeasonActive, ObjectPositions, ReplayPlaying, dword_1B9554
-extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, PtrPuckTarget
+extern AwTeamData, AwScore, GameSettings, GameOptionFlags, SeasonActive, ObjectPositions, ReplayPlaying, PlayerStartDist
+extern PlayerStartScale, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, PtrPuckTarget
 extern PtrPuckState, PtrPuckOwner, PtrPuckZone, PtrPuckFlags, PtrPuckObject, F64_0p013, F64_0p01, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, GetPlayerJerseyNumber
 extern ShowCameraView, ClearOverlayWindows, ResetSceneCamera, assreplace, assinsert, Setplass, FaceoffSpotPosition, asspsclear
@@ -18,7 +18,7 @@ extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEven
 extern RefreshFaceTextures, SetModelSlotValue, SetupPlayerModel, DrawJerseyLettering, LoadGoalieMask, UpdateFaceTextures, ResetAnimTimer, UpdateGameDisplay
 extern InitPlayerAnims, DoGameFrame, LogPeriodEnd, AllocMemBlock, ZeroMem, CalibrateJoystick, ResetJoystickRange, str_Rb
 extern LinePlayerOrder, ResetPlayerSpots, GripFarCall, DefenseByOffense, ForwardsByDefense, BenchPlayerTable, HomeTeamRecord
-extern AwayTeamRecord, unk_1B9520, unk_1C135C, unk_1C347F, GripPortWord, GripSlot, GripReady, CrowdChantTable
+extern AwayTeamRecord, PlayerStartRecords, unk_1C135C, unk_1C347F, GripPortWord, GripSlot, GripReady, CrowdChantTable
 extern DebugModelRefresh, DebugModelIndex, PeriodLengths, LineChangeHome, LineChangeAway, DefendFlags, ShootSpotY, GoalieTarget
 extern ZoneTargetY, PassState, StatsPanelPlayer, PuckOwnerTeam, LastPlayerTouch, gsp, gameclock, StatsPanelOn
 extern FaceoffSpot, FaceoffZone, PeriodLength, OneTimerTarget, PuckZone, penshotmode, BenchRequest, penshotlive
@@ -2932,24 +2932,24 @@ ResetPlayers:
         mov eax, GameObjects
         add eax, edi
         mov dword [dword edx+0F6h], eax
-        mov eax, unk_1B9520
+        mov eax, PlayerStartRecords
         add eax, esi
         mov dword [dword edx+0FAh], eax
         call ResetAnimTimer
-        mov dword [dword esi+dword_1B9558], 3F800000h
-        mov dword [dword esi+dword_1B9554], 461C4000h
+        mov dword [dword esi+PlayerStartScale], 3F800000h
+        mov dword [dword esi+PlayerStartDist], 461C4000h
         mov eax, edx
         call InitPlayerAnims
         jmp near .13
 .9:
         mov dword [dword edx+0F2h], 0
-        mov eax, unk_1B9520
+        mov eax, PlayerStartRecords
         mov dword [dword edx+0F6h], 0
         add eax, esi
         mov dword [dword edx+0FAh], eax
         call ResetAnimTimer
-        mov dword [dword esi+dword_1B9558], 3F800000h
-        mov dword [dword esi+dword_1B9554], 461C4000h
+        mov dword [dword esi+PlayerStartScale], 3F800000h
+        mov dword [dword esi+PlayerStartDist], 461C4000h
         cmp ecx, byte 0Fh
         je short .10
         cmp ecx, byte 0Eh

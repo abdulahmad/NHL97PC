@@ -10,7 +10,7 @@ extern str_BKH, str_BKD, str_SFX4S, str_AUDSTREAM, str_CROWDCRD, str_GAMEDATAAUD
 extern str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, AudioStreamChannel, QuantizeByte
 extern QuantizeTable, RemapTable, IdentityRemap, gmode, OverlayMask, FadePalCurrent, FadePalBytes, FadePalTarget
 extern FadePalTargetG, FadePalTargetBytes, MusicTrackTable, SfxOptions, MusicOptions, byte_1ACF62, byte_1ACF63, byte_1AD457
-extern byte_1AD458, byte_1AD742, BoxSeatSlot, BoxSeatFlags, byte_1BF670, byte_1C135A, byte_1C135B, byte_1C6040
+extern byte_1AD458, byte_1AD742, BoxSeatSlot, BoxSeatFlags, MoveFlags, byte_1C135A, byte_1C135B, byte_1C6040
 extern F32_10_RefDodgePuck, F32_3_RefDodgePuck, F32_15, F32_0p0666667, F32_0p5_RefDodgePuck, F32_144_PokeCheckAnim, F32_336, F32_192_TryBodyCheck
 extern F32_144_TryBodyCheck, F32_98, F32_42, dword_16908A, SeasonPanelText, MatchupLogoIds, str_G_DrawLockedGame, MatchupLogoPos
 extern str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim, str_U_FaceoffDrawAnim, ViewBorderColor, ViewBorderRows, StreamBlockCount, StreamBlockSize
@@ -18,7 +18,7 @@ extern StreamTimeout, CdStreamFilled, CdStreamUsed, StreamState, AudioStreamFlag
 extern MusicPaused, MusicTime, MusicStreamPos, MusicVolumeLevel, MusicFeedCount, MusicStartTime, MusicLength, MusicHandle
 extern SfxBankRecords, AudioInitDone, SfxBankHandle, CrowdBankHandle, AmbientHandle, SfxReady, MusicReady, CrowdNoiseLevel
 extern AmbientVolume, SfxVolumeLevel, MusicVolumeWord, LastSfxPlayed, SpeechBankBuffer, SoundCardType, SoundDriverId, F32_9600
-extern F32_768_PositionSfx, SpeechQueueSize, DirPathTable, dword_16B72C, dword_16E308, dword_16E464, dword_16E468, MenuScreenBitmap
+extern F32_768_PositionSfx, SpeechQueueSize, DirPathTable, F32_ViewAngle, dword_16E308, dword_16E464, dword_16E468, MenuScreenBitmap
 extern QuantizePalette, DrawDestBuffer, DrawDestPitch, VideoModeNumber, VideoModeIndex, ViewInterlaced, CdStreamSpeed, BenchSlotTable
 extern SparkleTable, SeasonScreenArt, SeasonOpponent, SeasonPlayedFlag, SeasonPanelArt, SeasonUserIndex, SeasonScreenState, SparkleTime
 extern MatchupLogoArt, SeasonPanelShown, WaitIconFrame, WaitIconTime, SparkleFrame, WaitIconCount, SeasonBackground, SeasonFont
@@ -33,8 +33,8 @@ extern SfxBankPtrs, SfxBankNames, GameAudioState, SfxBankData, SfxBankSizes, Gam
 extern SpeechClipIndex, SpeechBankHandle, SpeechClipTable, SpeechQueueClipId, SpeechQueueDelay, SpeechQueueStage, SpeechQueuePriority, SpeechQueueTime
 extern SpeechBanksLoaded, SpeechRequestId, SpeechRequestA, SpeechRequestB, GameSettings, AudioOptions, SeasonUserTeam, GameOptionFlags
 extern SeasonPhase, SeasonActive, dword_1ACF65, dword_1AD226, dword_1AD45A, dword_1AD6AB, ReplayPlaying, CameraStateRecords
-extern CameraStateRecords, BoxSeatPlayer, BoxSeatTeam, BenchSeats, SeatTable, dword_1B9D20, dword_1BAB04
-extern dword_1BB258, dword_1BF17C, dword_1C1334, dword_1C5E74, hypot_, jpt_380E6, jpt_38102, jpt_3811A
+extern CameraStateRecords, BoxSeatPlayer, BoxSeatTeam, BenchSeats, SeatTable, StrideSpeeds, BoxAnimFrames
+extern DodgeScale, BoxAnimIndex, dword_1C1334, dword_1C5E74, hypot_, jpt_380E6, jpt_38102, jpt_3811A
 extern memcpy_, PtrPuckZone, PtrPuckFlags, SfxBankNameTable, SfxGroupTable, F64_neg3p14159_GoToBoxAnim, F64_0p2_RefDodgePuck, F64_6p28319_ReachForPuckAnim
 extern F64_3p14159_ReachForPuckAnim, F64_neg6p28319_ReachForPuckAnim, F64_neg3p14159_ReachForPuckAnim, F64_0p785398_ReachForPuckAnim, F64_0p0001, F64_0p6, F64_96, F64_0p00347222
 extern F64_0p8, F64_1p2_PokeCheckAnim, F64_6p28319_TryBodyCheck, F64_3p14159_TryBodyCheck, F64_neg6p28319_TryBodyCheck, F64_neg3p14159_TryBodyCheck, F64_1p0472, F64_1p5708
@@ -3802,12 +3802,12 @@ GoToBoxAnim:
         push edx
         sub esp, byte 8
         mov ecx, eax
-        mov edx, dword [dword_1BF17C]
+        mov edx, dword [BoxAnimIndex]
         xor eax, eax
         mov al, byte [byte edx+0Dh]
         mov dword [byte esp+04h], eax
         fild word [byte esp+04h]
-        fld dword [dword_1BAB04]
+        fld dword [BoxAnimFrames]
         fsubr qword [F64_neg3p14159_GoToBoxAnim]
         fdivrp
         mov eax, dword [dword ecx+0FAh]
@@ -3981,7 +3981,7 @@ RefDodgePuck:
         mov dword [byte esp+038h], 3F000000h
 .1:
         fld dword [byte esi+038h]
-        fdiv dword [dword_1BB258]
+        fdiv dword [DodgeScale]
         fmul dword [byte esp+038h]
         fstp dword [byte edx+04h]
         cmp dword [byte edx+04h], 3F800000h
@@ -4023,7 +4023,7 @@ RefDodgePuck:
         db 00h,00h
 ;-----------------------------------------------------------------------------
 ; checkgoal                                         3AF30  94G, low confidence
-; From the off_16BD2C handler table: the puck against a net; the two net
+; From the MoveFuncTable handler table: the puck against a net; the two net
 ; checks (NetCollide / NetCollide2) call Goal, as 93G/94G checkgoal does for the
 ; puck
 ;-----------------------------------------------------------------------------
@@ -4128,7 +4128,7 @@ CheckMove:
         jne short .3
         mov eax, dword [byte ebx+028h]
         and eax, 0FFFFh
-        mov al, byte [dword eax+byte_1BF670]
+        mov al, byte [dword eax+MoveFlags]
         and eax, 0FFh
         cmp eax, dword [byte ebx+04h]
         jg short .3
@@ -4698,7 +4698,7 @@ TryBodyCheck:
         mov dword [byte eax+04h], 3F333333h
         lea eax, [nosplit edi*8+00h]
         sub eax, edi
-        fld dword [nosplit eax*8+dword_1B9D20]
+        fld dword [nosplit eax*8+StrideSpeeds]
         fmul qword [F64_0p7]
         fsubr dword [byte ecx+038h]
         mov eax, dword [dword ecx+0FAh]
@@ -6604,7 +6604,7 @@ SetViewDrawTarget:
         push ecx
         mov esi, dword [byte ebx+018h]
         push esi
-        push dword [dword_16B72C]
+        push dword [F32_ViewAngle]
         call SetProjectionCenter
         pop esi
         pop edx
