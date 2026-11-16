@@ -12,7 +12,7 @@ extern dword_19ECC0, dword_19ECC4, dword_1AC814, dword_1AC944, dword_1ACF46, dwo
 extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, off_168CD8
 extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, qword_160018, qword_160020, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, sub_13AF0
-extern sub_141AC, sub_18E35, sub_1B3D8, sub_1E208, sub_1E224, sub_1FB6C, sub_1FF5C, sub_27D10
+extern ShowCameraView, sub_18E35, sub_1B3D8, sub_1E208, sub_1E224, sub_1FB6C, sub_1FF5C, sub_27D10
 extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, sub_34330, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
 extern sub_41DB8, sub_41E64, sub_41FA0, sub_424CC, sub_45BEC, PaEvent, sub_4DDB0, sub_52E28
 extern sub_57298, sub_57304, sub_57324, sub_57738, sub_57A1C, sub_5B558, sub_60D6C, sub_6539C
@@ -3789,7 +3789,7 @@ ClockTick:
         mov eax, 7
         call randomd0
         cwde
-        call sub_141AC
+        call ShowCameraView
 .10:
         pop esi
         pop edx

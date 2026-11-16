@@ -25,7 +25,7 @@ extern qword_160817, qword_16081F, qword_160827, qword_16082F, qword_160837, qwo
 extern qword_160857, qword_16085F, qword_160867, qword_16086F, qword_16087B, qword_160883, qword_16088B, qword_16089B
 extern qword_1608A7, randomd0, regd1, slotteam, sub_100700, sub_1008CC, sub_11328, sub_114C4
 extern sub_11504, sub_116B0, ResetBench, sub_11B38, sub_123A0, setpersonel, sub_12E50, sub_13D50
-extern sub_13DA4, sub_16090, sub_18D8A, sub_1B09C, sub_1B3F4, sub_1BB18, sub_1CBD8, sub_1D008
+extern sub_13DA4, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, SelectCameraView, sub_1BB18, sub_1CBD8, sub_1D008
 extern sub_1DEE4, sub_1E184, sub_1E208, sub_1E268, sub_1E284, sub_1E8B0, sub_1EC5C, sub_1F32C
 extern sub_1F4EC, sub_1F538, sub_1FB6C, sub_1FF5C, sub_20508, sub_20A80, sub_21B20, sub_21E98
 extern sub_22050, sub_22828, sub_22FF0, sub_23284, sub_240D0, sub_24220, sub_2471C, sub_248E8
@@ -238,7 +238,7 @@ sub_2596C:
         push byte 5
         push byte 0
         push byte 0
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
 .9:
         mov eax, dword [off_168D04]
@@ -252,7 +252,7 @@ sub_2596C:
         and dl, 7Fh
         mov eax, 5
         mov byte [byte_19CBCA], dl
-        call sub_16090
+        call RemoveOverlayPanel
         test byte [byte_19CBC2], 8
         jne short .12
         mov eax, dword [off_168D04]
@@ -498,7 +498,7 @@ sub_25BD0:
         and eax, 0FFh
         add eax, byte 7
         push eax
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         mov eax, 2
         xor edx, edx
@@ -4568,7 +4568,7 @@ sub_29064:
         push dword 1F4h
         push byte 5
         mov edx, 320h
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 1Ch
         mov dword [dword_19CC00], edx
 .5:
@@ -6025,11 +6025,11 @@ sub_2A3F4:
         call sub_4C0C4
         mov eax, 4
         mov esi, 1
-        call sub_1B3F4
+        call SelectCameraView
         mov eax, 4
         xor edx, edx
         add ecx, 108h
-        call sub_1B09C
+        call StartCameraPath
 .4:
         mov eax, dword [dword ecx+0F2h]
         call sub_5AC28
@@ -8522,7 +8522,7 @@ sub_2C5C8:
         jl short .7
         and byte [byte esi+016h], 0EFh
         mov eax, 5
-        call sub_16090
+        call RemoveOverlayPanel
         test byte [byte_19CBC2], 8
         jne short .7
         mov eax, dword [off_168D04]
@@ -8578,7 +8578,7 @@ sub_2C5C8:
         and dl, 0EFh
         mov eax, 5
         mov byte [byte ecx+016h], dl
-        call sub_16090
+        call RemoveOverlayPanel
         test byte [byte_19CBC2], 8
         jne near .20
         mov eax, dword [off_168D04]
@@ -8603,7 +8603,7 @@ sub_2C5C8:
         or ch, 10h
         push byte 0
         mov byte [byte esi+016h], ch
-        call sub_18D8A
+        call QueueOverlayPanel
         mov eax, dword [off_168D04]
         or byte [dword eax+0C1h], 2
         add esp, byte 0Ch
@@ -8670,7 +8670,7 @@ sub_2C5C8:
         and dl, 0EFh
         mov eax, 5
         mov byte [byte ecx+016h], dl
-        call sub_16090
+        call RemoveOverlayPanel
         test byte [byte_19CBC2], 8
         jne near .20
         mov eax, dword [off_168D04]
@@ -8702,7 +8702,7 @@ sub_2C5C8:
         or bh, 10h
         push byte 0
         mov byte [byte esi+016h], bh
-        call sub_18D8A
+        call QueueOverlayPanel
         mov eax, dword [off_168D04]
         or byte [dword eax+0C1h], 2
         add esp, byte 0Ch
@@ -9612,7 +9612,7 @@ sub_2D330:
         xor ch, bh
         sar eax, 10h
         xor esi, ebx
-        call sub_16090
+        call RemoveOverlayPanel
         mov al, byte [byte_19CBCA]
         mov dl, byte [byte_19EBD2]
         mov byte [byte_19CB8A], ch

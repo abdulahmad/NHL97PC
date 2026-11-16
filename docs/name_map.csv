@@ -17,6 +17,7 @@ address,name,auto_name,source,confidence,evidence,file
 13A4C,BeginGame,sub_13A4C,new,low,"from PlayGame: InitGameVars, the period fraction, then the opening sequence (OpeningSequence); 2 when it was aborted",src/engine/faceoff/faceoff.asm
 14078,RunSimFrames,sub_14078,96PC,medium,96 PC RunSimFrames: runs the simulation for one input record,src/engine/faceoff/faceoff.asm
 14184,ToggleFKeyFlag,sub_14184,new,low,(key 5E00h-6600h): toggles the flag of a Ctrl+F key (dword_16AF3C),src/engine/faceoff/faceoff.asm
+141AC,ShowCameraView,sub_141AC,new,low,(view 0-7): from the camera keys and the attract game: SelectCameraView and the camera name panel,src/engine/faceoff/faceoff.asm
 14238,CountDebugUnlock,sub_14238,new,low,counts one step of the debug key unlock (sound 10h at 4),src/engine/faceoff/faceoff.asm
 1426C,ResetDebugUnlock,sub_1426C,new,low,clears the debug key unlock count,src/engine/faceoff/faceoff.asm
 14294,DebugKeys,sub_14294,new,low,"(key): the debug keys, active once the unlock count (word_1686D4) reaches 4",src/engine/faceoff/faceoff.asm
@@ -29,6 +30,18 @@ address,name,auto_name,source,confidence,evidence,file
 152C4,PlayGame,sub_152C4,96PC,high,"96 PC PlayGame: seeds, then calls GameLoop",src/engine/faceoff/faceoff.asm
 15578,RunDemoGame,sub_15578,96PC,medium,"96 PC RunDemoGame: the attract mode game (gameopts 40h, a seed from the DOS time)",src/engine/faceoff/faceoff.asm
 1583F,RunInGameMenu,sub_1583F,96PC,high,96 PC RunInGameMenu: called when InGameMenuRequest is set,src/engine/faceoff/faceoff.asm
+16090,RemoveOverlayPanel,sub_16090,new,medium,(kind): takes the queued panels of a kind out of the panel queue,src/engine/engine_15AC2.asm
+16D61,DrawVideoModePanel,sub_16D61,new,medium,"the screen mode panel (""%d x %d"", Doubled / Interlaced / Normal)",src/engine/engine_15AC2.asm
+16ED0,DrawGoalScorerPanel,sub_16ED0,new,low,"the ""%s - #%d %s %s"" panel with ""%s %s"" assist lines (team, number, name)",src/engine/engine_15AC2.asm
+17158,DrawPlayerNamePanel,sub_17158,96PC,low,"a player name panel (""#%d %s %s""), like 96 PC DrawPlayerNamePanel",src/engine/engine_15AC2.asm
+17AD1,DrawGameClock,sub_17AD1,96PC,medium,"96 PC DrawGameClock: the game clock ""%2d:%02d"", or ""%2d.%01d"" under a minute",src/engine/engine_15AC2.asm
+17DC0,DrawClockPanel,sub_17DC0,96PC,low,the clock panel (overlay kind table off_16877E entry 0): removes panels 300h / 700h and draws the clock (DrawGameClock),src/engine/engine_15AC2.asm
+18D8A,QueueOverlayPanel,sub_18D8A,96PC,medium,"96 PC QueueOverlayPanel (kind, ticks, ...): puts a panel in a free slot of the 10-panel queue (unk_19CF8C, 0Ch each)",src/engine/engine_15AC2.asm
+1900F,DrawGameOverlays,sub_1900F,96PC,medium,"96 PC DrawGameOverlays: from GameLoop, the overlay panels of the frame (clock, queued panels)",src/engine/engine_15AC2.asm
+1A740,SetCameraView,sub_1A740,new,medium,"(camera, view 0-0Dh): fills a camera record (unk_19D0A4) with the view's name (GetLangText) and settings",src/engine/engine_15AC2.asm
+1B09C,StartCameraPath,sub_1B09C,new,low,"(path, ticks): starts a camera path (dword_19D380) for the game camera",src/engine/engine_15AC2.asm
+1B3F4,SelectCameraView,sub_1B3F4,new,medium,"(view, ticks): picks the game camera view (mod 10) with SetCameraView and moves the camera to it",src/engine/engine_15AC2.asm
+1BEA4,LoadOpeningCamera,sub_1BEA4,new,low,from OpeningSequence: loads the opening camera path intro%d.3cp from arena.viv,src/engine/engine_15AC2.asm
 2DCC8,CPgoalie,sub_2DCC8,94G,medium,94G CPgoalie (96 PC body): pulls the computer team's goalie late in the third period,src/engine/engine_25894.asm
 2DE3C,ReturnGoalies,,96PC,medium,NHL96PC 463AE (similar): mnemonic similarity 0.81 over 33 instructions,
 2E6D4,SetCoachMode,sub_2E6D4,96PC,medium,96 PC SetCoachMode: the coach mode from the score difference,src/engine/engine_2DE3C.asm

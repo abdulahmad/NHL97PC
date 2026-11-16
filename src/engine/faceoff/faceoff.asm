@@ -22,8 +22,8 @@ extern dword_1C1346, dword_1C5DE4, dword_1C5EF4, hmtmstruct, memcpy_, off_168CE8
 extern off_168D04, off_168D08, off_168D0C, qword_16002C, qword_160034, qword_16003C, qword_16004C, qword_160054
 extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, regd1, sub_11328
 extern sub_11574, sub_116B0, sub_11808, sub_11984, sub_11F74, sub_12A10, ClockTick, sub_12C2C
-extern sub_12DE8, sub_15AC2, sub_15C30, sub_15E4D, sub_18D8A, sub_18E35, sub_1900F, sub_1B09C
-extern sub_1B3D8, sub_1B3F4, sub_1B67C, sub_1BCA8, sub_1BEA4, sub_1E208, sub_20CB0, sub_2DE94
+extern sub_12DE8, sub_15AC2, sub_15C30, sub_15E4D, QueueOverlayPanel, sub_18E35, DrawGameOverlays, StartCameraPath
+extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, sub_1E208, sub_20CB0, sub_2DE94
 extern sub_30BD8, sub_31F88, sub_32260, sub_34330, sub_34950, sub_36370, sub_36754, sub_3CA28
 extern sub_3CB70, sub_3D020, sub_3E5F0, sub_4123C, sub_41670, sub_41CF0, sub_41DD8, sub_423B4
 extern sub_424CC, sub_45BEC, sub_4B074, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928
@@ -52,7 +52,7 @@ extern word_19E32A, word_1C3415, word_1C3417, word_1C5538, word_1C553A
 global AllInPlace, Intermission, StartGame, InitGameVars, RunOpeningFrames, PlaceOpeningPlayers, OpeningSequence, BeginGame
 global sub_13ACB, sub_13AF0, sub_13B50, sub_13B98, sub_13BAC, sub_13D00, sub_13D50, sub_13DA4
 global sub_13DF8, sub_13E4C, sub_13EB4, sub_13EF0, sub_13F28, sub_13F7C, RunSimFrames, sub_14140
-global ToggleFKeyFlag, sub_141AC, sub_141E8, CountDebugUnlock, ResetDebugUnlock, DebugKeys, GameFunctionKeys, HandleGameKeys
+global ToggleFKeyFlag, ShowCameraView, sub_141E8, CountDebugUnlock, ResetDebugUnlock, DebugKeys, GameFunctionKeys, HandleGameKeys
 global GameLoop, InitGameDisplay, SaveGameDisplay, SetGameBrightness, PlayGame, RunDemoGame, RunInGameMenu, unk_158E2
 global unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A72
 ;-----------------------------------------------------------------------------
@@ -710,7 +710,7 @@ OpeningSequence:
         ret
 .1:
         mov eax, 1
-        call sub_1BEA4
+        call LoadOpeningCamera
         mov eax, 0F5Ch
         call sub_4C0C4
         call PlaceOpeningPlayers
@@ -1476,9 +1476,11 @@ ToggleFKeyFlag:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_141AC                                                       141AC  97 PC
+; ShowCameraView                                  141AC  97 PC, low confidence
+; (view 0-7): from the camera keys and the attract game: SelectCameraView and
+; the camera name panel
 ;-----------------------------------------------------------------------------
-sub_141AC:
+ShowCameraView:
         push dword 14h
         call __CHK
         push edx
@@ -1489,13 +1491,13 @@ sub_141AC:
         mov word [word_1686BC], ax
         xor edx, edx
         cwde
-        call sub_1B3F4
+        call SelectCameraView
         mov eax, dword [dword_1686BA]
         sar eax, 10h
         push eax
         push byte 50h
         push byte 1
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
 .1:
         pop edx
@@ -1549,7 +1551,7 @@ CountDebugUnlock:
         push byte 1
         push dword 0C8h
         push byte 10h
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
 .1:
         pop edx
@@ -1568,7 +1570,7 @@ ResetDebugUnlock:
         xor edx, edx
         push byte 10h
         mov word [word_1686D4], dx
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edx
         ret
@@ -2200,7 +2202,7 @@ HandleGameKeys:
         mov word [word_1686BC], ax
         xor edx, edx
         cwde
-        call sub_1B3F4
+        call SelectCameraView
         mov eax, dword [dword_1686BA]
         sar eax, 10h
         push eax
@@ -2223,7 +2225,7 @@ HandleGameKeys:
         push byte 1
         push dword 0C8h
         push byte 10h
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edi
         pop edx
@@ -2236,7 +2238,7 @@ HandleGameKeys:
         xor ecx, ecx
         push byte 10h
         mov word [word_1686D4], cx
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edi
         pop edx
@@ -2252,7 +2254,7 @@ HandleGameKeys:
         push byte 1
         push dword 0C8h
         push byte 10h
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edi
         pop edx
@@ -2268,7 +2270,7 @@ HandleGameKeys:
         push byte 1
         push dword 0C8h
         push byte 10h
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edi
         pop edx
@@ -2281,7 +2283,7 @@ HandleGameKeys:
         xor edi, edi
         push byte 10h
         mov word [word_1686D4], di
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edi
         pop edx
@@ -2297,7 +2299,7 @@ HandleGameKeys:
         push byte 1
         push dword 0C8h
         push byte 10h
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop edi
         pop edx
@@ -2311,7 +2313,7 @@ HandleGameKeys:
         push byte 10h
         mov word [word_1686D4], dx
 .13:
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
 .14:
         pop edi
@@ -2438,7 +2440,7 @@ GameLoop:
         jne near .14
         call HandleGameKeys
         mov eax, esi
-        call sub_1900F
+        call DrawGameOverlays
         mov ecx, ebp
         xor edi, edi
         xor esi, esi
@@ -2965,10 +2967,10 @@ PlayGame:
         mov eax, dword [dword_1686BA]
         xor edx, edx
         sar eax, 10h
-        call sub_1B3F4
+        call SelectCameraView
         mov eax, 1
         xor edx, edx
-        call sub_1B09C
+        call StartCameraPath
         cmp dword [dword_1686C0], byte 0
         jne short .4
         mov edx, 20h

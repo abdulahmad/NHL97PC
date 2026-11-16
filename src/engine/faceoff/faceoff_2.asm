@@ -23,8 +23,8 @@ extern qword_16094C, qword_160954, qword_16095C, qword_160964, qword_16096C, qwo
 extern qword_16098C, qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qword_1609B4, qword_1609BC, randomd0
 extern regd1, slotteam, sub_100940, sub_100A68, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
 extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, sub_101154, sub_1011E8
-extern sub_101220, sub_101230, sub_11504, sub_11B38, setpersonel, sub_13D50, sub_13EB4, sub_16090
-extern sub_18D8A, sub_18E35, sub_1C108, sub_1C210, sub_1C29C, sub_1C7B4, sub_1CCBC, sub_1D16C
+extern sub_101220, sub_101230, sub_11504, sub_11B38, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
+extern QueueOverlayPanel, sub_18E35, sub_1C108, sub_1C210, sub_1C29C, sub_1C7B4, sub_1CCBC, sub_1D16C
 extern sub_1E184, sub_1E208, sub_1E224, sub_1E268, sub_1E8B0, sub_1FB6C, sub_20CB0, sub_24220
 extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, sub_2E378, sub_2EDB8
 extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, sub_42098, sub_42220, sub_424CC, sub_45BEC
@@ -336,7 +336,7 @@ puckfaceoff:
         push eax
         push dword 12Ch
         push byte 8
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
 .26:
         xor esi, esi
@@ -413,7 +413,7 @@ puckfaceoff:
         push eax
         push dword 12Ch
         push byte 7
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
 .31:
         mov eax, dword [dword_1AC944]
@@ -613,7 +613,7 @@ sub_2F4B8:
         push ebx
         push byte 0Dh
         mov dword [dword_19CC00], ebx
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         mov edx, dword [dword ecx+0A3h]
         mov ah, byte [dword ecx+0BFh]
@@ -4406,7 +4406,7 @@ sub_32340:
 .2:
         push eax
         push byte 0
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
 .3:
         mov esi, dword [byte ebp-04h]
@@ -5152,9 +5152,9 @@ sub_32CEC:
         call sub_11B38
         or byte [dword ebx+0C0h], 4
         mov eax, 500h
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, 600h
-        call sub_16090
+        call RemoveOverlayPanel
         pop esi
         pop ecx
         pop ebx
@@ -5307,7 +5307,7 @@ sub_32D88:
         cmp word [word_19CBEE], byte 7
         jne short .18
         mov eax, 7
-        call sub_16090
+        call RemoveOverlayPanel
 .18:
         mov dx, word [byte edi+0Eh]
         cmp dx, word [byte ebp+0Eh]
@@ -5781,7 +5781,7 @@ checkfornewpen:
         push dword 0C8h
         push eax
         mov ecx, 28h
-        call sub_18D8A
+        call QueueOverlayPanel
         mov eax, dword [off_168D04]
         mov dword [dword_19CB30], ecx
         or byte [dword eax+0C1h], 2
@@ -6214,7 +6214,7 @@ InProgress:
         add esp, byte 10h
         push dword 1F4h
         push byte 0Ch
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 8
 .7:
         and byte [byte_19CBC2], 0FBh
@@ -6318,7 +6318,7 @@ InProgress:
         push dword 1F4h
         push byte 0Bh
         mov esi, 320h
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         mov dword [dword_19CC00], esi
         mov esp, ebp
@@ -6390,7 +6390,7 @@ InProgress:
         push eax
         push dword 1F4h
         push byte 4
-        call sub_18D8A
+        call QueueOverlayPanel
         mov eax, 320h
         add esp, byte 14h
         mov dword [dword_19CC00], eax
@@ -6849,7 +6849,7 @@ InProgress_8B2:
 .58:
         mov eax, dword [word_19CBEC]
         sar eax, 10h
-        call sub_16090
+        call RemoveOverlayPanel
 InProgress_96E:
         pop edi
         pop esi
@@ -7607,7 +7607,7 @@ sub_34A48:
         push dword 12Ch
         push byte 8
 .7:
-        call sub_18D8A
+        call QueueOverlayPanel
         add esp, byte 0Ch
         pop esi
         pop ecx

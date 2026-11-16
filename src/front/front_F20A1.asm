@@ -30,7 +30,7 @@ extern qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qwo
 extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, sscanf_, sub_1008CC
 extern sub_101390, sub_1013FC, sub_101429, sub_101EAC, sub_102B94, sub_10491C, sub_1169F0, sub_11984
 extern sub_119A8, sub_11A318, sub_11ADD0, sub_11ADE8, sub_11BDC0, sub_11F74, sub_11FA90, sub_11FAAC
-extern sub_11FB11, sub_12A10, sub_13C164, sub_15AC2, sub_1603A, sub_16090, sub_160E2, sub_18E76
+extern sub_11FB11, sub_12A10, sub_13C164, sub_15AC2, sub_1603A, RemoveOverlayPanel, sub_160E2, sub_18E76
 extern sub_18F67, sub_1BC18, sub_1C854, sub_1C9F0, sub_1D09C, sub_3CD70, sub_3CE58, sub_3CF68
 extern sub_3CFB0, sub_3D020, sub_3E480, sub_3E5F0, sub_4123C, sub_41670, sub_419B0, sub_419B8
 extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, sub_41DD8, sub_41EA4, sub_423B4
@@ -3838,15 +3838,15 @@ sub_F5219:
         mov ebx, eax
         mov esi, edx
         mov eax, 100h
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, 300h
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, 200h
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, 400h
-        call sub_16090
+        call RemoveOverlayPanel
         mov eax, 700h
-        call sub_16090
+        call RemoveOverlayPanel
         call sub_4A280
         call sub_41CF0
         xor eax, eax

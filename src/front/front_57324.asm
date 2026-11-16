@@ -161,8 +161,8 @@ extern sub_110414, sub_1104F0, sub_11328, sub_114C4, sub_114FD0, sub_115020, sub
 extern sub_115170, sub_1151A4, sub_115220, sub_1152B0, sub_115318, sub_1153AC, sub_1153DC, sub_115810
 extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, sub_116050, sub_11984
 extern sub_119A8, sub_11B38, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
-extern sub_13F28, RunSimFrames, sub_15AC2, sub_15BC5, sub_18DF7, sub_18E35, sub_1900F, sub_1B09C
-extern sub_1B3F4, sub_1DFA0, sub_1E014, sub_1E208, sub_1E224, sub_1E354, sub_1FBF4, sub_20CB0
+extern sub_13F28, RunSimFrames, sub_15AC2, sub_15BC5, sub_18DF7, sub_18E35, DrawGameOverlays, StartCameraPath
+extern SelectCameraView, sub_1DFA0, sub_1E014, sub_1E208, sub_1E224, sub_1E354, sub_1FBF4, sub_20CB0
 extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, sub_2C064, sub_2DD54, sub_2E11C, sub_2E168
 extern sub_2E208, sub_2EDB8, sub_2F4B8, sub_2FED8, sub_32260, sub_32340, EndPenaltyShot, sub_34330
 extern sub_358E4, sub_365FC, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
@@ -6816,7 +6816,7 @@ sub_5C1F8:
         mov edi, eax
         xor eax, eax
         mov ecx, SortCords
-        call sub_1900F
+        call DrawGameOverlays
         xor eax, eax
         xor esi, esi
         call sub_6539C
@@ -7058,7 +7058,7 @@ sub_5C4CC:
         sub eax, byte 0Ch
 .2:
         xor edx, edx
-        call sub_1B09C
+        call StartCameraPath
         pop edx
         ret
         db 090h
@@ -7069,10 +7069,10 @@ sub_5C4E4:
         push edx
         mov eax, 1
         xor edx, edx
-        call sub_1B3F4
+        call SelectCameraView
         mov eax, 1
         xor edx, edx
-        call sub_1B09C
+        call StartCameraPath
         pop edx
         ret
         db 090h
@@ -7104,10 +7104,10 @@ sub_5C500:
         call sub_5C34C
         call sub_15BC5
         mov eax, 1
-        call sub_1B09C
+        call StartCameraPath
         mov eax, 1
         xor edx, edx
-        call sub_1B3F4
+        call SelectCameraView
         pop edx
         ret
         db 090h
@@ -7137,11 +7137,11 @@ sub_5C584:
         call sub_15AC2
         xor edx, edx
         mov eax, 1
-        call sub_1B09C
+        call StartCameraPath
         mov eax, dword [dword_1686BA]
         xor edx, edx
         sar eax, 10h
-        call sub_1B3F4
+        call SelectCameraView
         pop edx
         ret
         db 08Bh,0C0h
@@ -46072,7 +46072,7 @@ sub_780F0:
 .29:
         mov edx, 64h
         mov eax, 4
-        call sub_1B3F4
+        call SelectCameraView
         mov edx, 64h
         test di, di
         jge short .30
@@ -46082,7 +46082,7 @@ sub_780F0:
         xor eax, eax
 .31:
         add eax, byte 4
-        call sub_1B09C
+        call StartCameraPath
         mov dl, byte [byte_19CBC2]
         xor ebx, ebx
         or dl, 40h

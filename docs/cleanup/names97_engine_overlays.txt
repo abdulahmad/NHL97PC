@@ -1,0 +1,30 @@
+sub_17AD1 DrawGameClock {source=96PC,confidence=medium} 96 PC DrawGameClock: the game clock "%2d:%02d", or "%2d.%01d" under a minute
+sub_17DC0 DrawClockPanel {source=96PC,confidence=low} the clock panel (overlay kind table off_16877E entry 0): removes panels 300h / 700h and draws the clock (DrawGameClock)
+sub_1900F DrawGameOverlays {source=96PC,confidence=medium} 96 PC DrawGameOverlays: from GameLoop, the overlay panels of the frame (clock, queued panels)
+sub_18D8A QueueOverlayPanel {source=96PC,confidence=medium} 96 PC QueueOverlayPanel (kind, ticks, ...): puts a panel in a free slot of the 10-panel queue (unk_19CF8C, 0Ch each)
+sub_16090 RemoveOverlayPanel {confidence=medium} (kind): takes the queued panels of a kind out of the panel queue
+sub_16D61 DrawVideoModePanel {confidence=medium} the screen mode panel ("%d x %d", Doubled / Interlaced / Normal)
+sub_16ED0 DrawGoalScorerPanel {confidence=low} the "%s - #%d %s %s" panel with "%s %s" assist lines (team, number, name)
+sub_17158 DrawPlayerNamePanel {source=96PC,confidence=low} a player name panel ("#%d %s %s"), like 96 PC DrawPlayerNamePanel
+sub_1BEA4 LoadOpeningCamera {confidence=low} from OpeningSequence: loads the opening camera path intro%d.3cp from arena.viv
+sub_16ED0_26F DrawGoalScorerPanel_26F {no_record}
+sub_17158_16F DrawPlayerNamePanel_16F {no_record}
+sub_17158_48E DrawPlayerNamePanel_48E {no_record}
+sub_17158_49A DrawPlayerNamePanel_49A {no_record}
+sub_17158_4D7 DrawPlayerNamePanel_4D7 {no_record}
+sub_1A740 SetCameraView {confidence=medium} (camera, view 0-0Dh): fills a camera record (unk_19D0A4) with the view's name (GetLangText) and settings
+sub_1B3F4 SelectCameraView {confidence=medium} (view, ticks): picks the game camera view (mod 10) with SetCameraView and moves the camera to it
+sub_141AC ShowCameraView {confidence=low} (view 0-7): from the camera keys and the attract game: SelectCameraView and the camera name panel
+sub_1B09C StartCameraPath {confidence=low} (path, ticks): starts a camera path (dword_19D380) for the game camera
+sub_1A740_14F SetCameraView_14F {no_record}
+sub_1A740_16 SetCameraView_16 {no_record}
+sub_1A740_1EF SetCameraView_1EF {no_record}
+sub_1A740_25A SetCameraView_25A {no_record}
+sub_1A740_2CE SetCameraView_2CE {no_record}
+sub_1A740_36E SetCameraView_36E {no_record}
+sub_1A740_40E SetCameraView_40E {no_record}
+sub_1A740_4AE SetCameraView_4AE {no_record}
+sub_1A740_532 SetCameraView_532 {no_record}
+sub_1A740_5A5 SetCameraView_5A5 {no_record}
+sub_1A740_608 SetCameraView_608 {no_record}
+sub_1A740_AF SetCameraView_AF {no_record}
