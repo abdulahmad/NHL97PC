@@ -2550,8 +2550,167 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 13270C,_EFG_Format_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1327F6,forcedecpt_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 132855,__cnvs2d_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+132C84,EmuTrapExit,sub_132C84,new,low,x87 emulator: restores the registers and returns from the trap,src/lib/watcom/watcom_emu387.asm
+132DB8,RoundToSingle,sub_132DB8,new,low,x87 emulator: rounds the result to single precision,src/lib/watcom/watcom_emu387.asm
+132DF4,RoundToDouble,sub_132DF4,new,low,x87 emulator: rounds the result to double precision,src/lib/watcom/watcom_emu387.asm
+132E94,RaiseFpuError,sub_132E94,new,low,x87 emulator: sets an exception flag and calls the handler when it is unmasked,src/lib/watcom/watcom_emu387.asm
+132EE2,EaEax,sub_132EE2,new,low,x87 emulator operand address: [eax],src/lib/watcom/watcom_emu387.asm
+132EE8,EaEcx,sub_132EE8,new,low,x87 emulator operand address: [ecx],src/lib/watcom/watcom_emu387.asm
+132EEE,EaEdx,sub_132EEE,new,low,x87 emulator operand address: [edx],src/lib/watcom/watcom_emu387.asm
+132EF4,EaEbx,sub_132EF4,new,low,x87 emulator operand address: [ebx],src/lib/watcom/watcom_emu387.asm
+132EFA,EaEsp,sub_132EFA,new,low,x87 emulator operand address: [esp] (stack segment),src/lib/watcom/watcom_emu387.asm
+132F02,EaDisp32,sub_132F02,new,low,x87 emulator operand address: [disp32],src/lib/watcom/watcom_emu387.asm
+132F08,EaEsi,sub_132F08,new,low,x87 emulator operand address: [esi],src/lib/watcom/watcom_emu387.asm
+132F0E,EaEdi,sub_132F0E,new,low,x87 emulator operand address: [edi],src/lib/watcom/watcom_emu387.asm
+132F14,EaEaxDisp8,sub_132F14,new,low,x87 emulator operand address: [eax+disp8],src/lib/watcom/watcom_emu387.asm
+132F1C,EaEcxDisp8,sub_132F1C,new,low,x87 emulator operand address: [ecx+disp8],src/lib/watcom/watcom_emu387.asm
+132F24,EaEdxDisp8,sub_132F24,new,low,x87 emulator operand address: [edx+disp8],src/lib/watcom/watcom_emu387.asm
+132F2C,EaEbxDisp8,sub_132F2C,new,low,x87 emulator operand address: [ebx+disp8],src/lib/watcom/watcom_emu387.asm
+132F34,EaEspDisp8,sub_132F34,new,low,x87 emulator operand address: [esp+disp8],src/lib/watcom/watcom_emu387.asm
+132F3E,EaEbpDisp8,sub_132F3E,new,low,x87 emulator operand address: [ebp+disp8],src/lib/watcom/watcom_emu387.asm
+132F48,EaEsiDisp8,sub_132F48,new,low,x87 emulator operand address: [esi+disp8],src/lib/watcom/watcom_emu387.asm
+132F50,EaEdiDisp8,sub_132F50,new,low,x87 emulator operand address: [edi+disp8],src/lib/watcom/watcom_emu387.asm
+132F58,EaEaxDisp32,sub_132F58,new,low,x87 emulator operand address: [eax+disp32],src/lib/watcom/watcom_emu387.asm
+132F61,EaEcxDisp32,sub_132F61,new,low,x87 emulator operand address: [ecx+disp32],src/lib/watcom/watcom_emu387.asm
+132F6A,EaEdxDisp32,sub_132F6A,new,low,x87 emulator operand address: [edx+disp32],src/lib/watcom/watcom_emu387.asm
+132F73,EaEbxDisp32,sub_132F73,new,low,x87 emulator operand address: [ebx+disp32],src/lib/watcom/watcom_emu387.asm
+132F7C,EaEspDisp32,sub_132F7C,new,low,x87 emulator operand address: [esp+disp32],src/lib/watcom/watcom_emu387.asm
+132F87,EaEbpDisp32,sub_132F87,new,low,x87 emulator operand address: [ebp+disp32],src/lib/watcom/watcom_emu387.asm
+132F92,EaEsiDisp32,sub_132F92,new,low,x87 emulator operand address: [esi+disp32],src/lib/watcom/watcom_emu387.asm
+132F9B,EaEdiDisp32,sub_132F9B,new,low,x87 emulator operand address: [edi+disp32],src/lib/watcom/watcom_emu387.asm
+132FA4,EaSib,sub_132FA4,new,low,x87 emulator operand address: decodes a SIB byte,src/lib/watcom/watcom_emu387.asm
+132FDC,EmuUnsupported,sub_132FDC,new,low,"x87 emulator: unsupported instruction, returns from the trap",src/lib/watcom/watcom_emu387.asm
+132FE1,EmuFaddM32,sub_132FE1,new,low,x87 emulator: FADD m32real,src/lib/watcom/watcom_emu387.asm
+133000,EmuFmulM32,sub_133000,new,low,x87 emulator: FMUL m32real,src/lib/watcom/watcom_emu387.asm
+13301F,EmuFcomM32,sub_13301F,new,low,x87 emulator: FCOM m32real,src/lib/watcom/watcom_emu387.asm
+13303B,EmuFcompM32,sub_13303B,new,low,x87 emulator: FCOMP m32real,src/lib/watcom/watcom_emu387.asm
+133057,EmuFsubM32,sub_133057,new,low,x87 emulator: FSUB m32real,src/lib/watcom/watcom_emu387.asm
+133076,EmuFsubrM32,sub_133076,new,low,x87 emulator: FSUBR m32real,src/lib/watcom/watcom_emu387.asm
+133095,EmuFdivM32,sub_133095,new,low,x87 emulator: FDIV m32real,src/lib/watcom/watcom_emu387.asm
+1330B4,EmuFdivrM32,sub_1330B4,new,low,x87 emulator: FDIVR m32real,src/lib/watcom/watcom_emu387.asm
+1330D3,EmuFldM32,sub_1330D3,new,low,x87 emulator: FLD m32real,src/lib/watcom/watcom_emu387.asm
+13310D,EmuFstM32,sub_13310D,new,low,x87 emulator: FST m32real,src/lib/watcom/watcom_emu387.asm
+13311E,EmuFstpM32,sub_13311E,new,low,x87 emulator: FSTP m32real,src/lib/watcom/watcom_emu387.asm
+13312F,EmuFldenv,sub_13312F,new,low,x87 emulator: FLDENV,src/lib/watcom/watcom_emu387.asm
+13314D,EmuFldcw,sub_13314D,new,low,x87 emulator: FLDCW,src/lib/watcom/watcom_emu387.asm
+13318D,EmuFstenv,sub_13318D,new,low,x87 emulator: FSTENV,src/lib/watcom/watcom_emu387.asm
+1331A1,EmuFstcw,sub_1331A1,new,low,x87 emulator: FSTCW,src/lib/watcom/watcom_emu387.asm
+1331AF,EmuFiaddM32,sub_1331AF,new,low,x87 emulator: FIADD m32int,src/lib/watcom/watcom_emu387.asm
+1331CE,EmuFimulM32,sub_1331CE,new,low,x87 emulator: FIMUL m32int,src/lib/watcom/watcom_emu387.asm
+1331ED,EmuFicomM32,sub_1331ED,new,low,x87 emulator: FICOM m32int,src/lib/watcom/watcom_emu387.asm
+133209,EmuFicompM32,sub_133209,new,low,x87 emulator: FICOMP m32int,src/lib/watcom/watcom_emu387.asm
+133225,EmuFisubM32,sub_133225,new,low,x87 emulator: FISUB m32int,src/lib/watcom/watcom_emu387.asm
+133244,EmuFisubrM32,sub_133244,new,low,x87 emulator: FISUBR m32int,src/lib/watcom/watcom_emu387.asm
+133263,EmuFidivM32,sub_133263,new,low,x87 emulator: FIDIV m32int,src/lib/watcom/watcom_emu387.asm
+133282,EmuFidivrM32,sub_133282,new,low,x87 emulator: FIDIVR m32int,src/lib/watcom/watcom_emu387.asm
+1332A1,EmuFildM32,sub_1332A1,new,low,x87 emulator: FILD m32int,src/lib/watcom/watcom_emu387.asm
+1332DB,EmuFistM32,sub_1332DB,new,low,x87 emulator: FIST m32int,src/lib/watcom/watcom_emu387.asm
+133317,EmuFistpM32,sub_133317,new,low,x87 emulator: FISTP m32int,src/lib/watcom/watcom_emu387.asm
+13333B,EmuFaddM64,sub_13333B,new,low,x87 emulator: FADD m64real,src/lib/watcom/watcom_emu387.asm
+13335E,EmuFmulM64,sub_13335E,new,low,x87 emulator: FMUL m64real,src/lib/watcom/watcom_emu387.asm
+133381,EmuFcomM64,sub_133381,new,low,x87 emulator: FCOM m64real,src/lib/watcom/watcom_emu387.asm
+1333A1,EmuFcompM64,sub_1333A1,new,low,x87 emulator: FCOMP m64real,src/lib/watcom/watcom_emu387.asm
+1333C1,EmuFsubM64,sub_1333C1,new,low,x87 emulator: FSUB m64real,src/lib/watcom/watcom_emu387.asm
+1333E4,EmuFsubrM64,sub_1333E4,new,low,x87 emulator: FSUBR m64real,src/lib/watcom/watcom_emu387.asm
+133407,EmuFdivM64,sub_133407,new,low,x87 emulator: FDIV m64real,src/lib/watcom/watcom_emu387.asm
+13342A,EmuFdivrM64,sub_13342A,new,low,x87 emulator: FDIVR m64real,src/lib/watcom/watcom_emu387.asm
+13344D,EmuFldM80,sub_13344D,new,low,x87 emulator: FLD m80real (probably),src/lib/watcom/watcom_emu387.asm
+133494,EmuFldM64,sub_133494,new,low,x87 emulator: FLD m64real,src/lib/watcom/watcom_emu387.asm
+1334D2,EmuFstM64,sub_1334D2,new,low,x87 emulator: FST m64real,src/lib/watcom/watcom_emu387.asm
+1334E7,EmuFstpM80,sub_1334E7,new,low,x87 emulator: FSTP m80real (probably),src/lib/watcom/watcom_emu387.asm
+133505,EmuFstpM64,sub_133505,new,low,x87 emulator: FSTP m64real,src/lib/watcom/watcom_emu387.asm
+13351A,EmuFrstor,sub_13351A,new,low,x87 emulator: FRSTOR,src/lib/watcom/watcom_emu387.asm
+133561,EmuFsave,sub_133561,new,low,x87 emulator: FSAVE,src/lib/watcom/watcom_emu387.asm
+13358C,EmuFstswM16,sub_13358C,new,low,x87 emulator: FSTSW m16,src/lib/watcom/watcom_emu387.asm
+13359A,EmuFiaddM16,sub_13359A,new,low,x87 emulator: FIADD m16int,src/lib/watcom/watcom_emu387.asm
+1335BB,EmuFimulM16,sub_1335BB,new,low,x87 emulator: FIMUL m16int,src/lib/watcom/watcom_emu387.asm
+1335DC,EmuFicomM16,sub_1335DC,new,low,x87 emulator: FICOM m16int,src/lib/watcom/watcom_emu387.asm
+1335FA,EmuFicompM16,sub_1335FA,new,low,x87 emulator: FICOMP m16int,src/lib/watcom/watcom_emu387.asm
+133618,EmuFisubM16,sub_133618,new,low,x87 emulator: FISUB m16int,src/lib/watcom/watcom_emu387.asm
+133639,EmuFisubrM16,sub_133639,new,low,x87 emulator: FISUBR m16int,src/lib/watcom/watcom_emu387.asm
+13365A,EmuFidivM16,sub_13365A,new,low,x87 emulator: FIDIV m16int,src/lib/watcom/watcom_emu387.asm
+13367B,EmuFidivrM16,sub_13367B,new,low,x87 emulator: FIDIVR m16int,src/lib/watcom/watcom_emu387.asm
+13369C,EmuFildM16,sub_13369C,new,low,x87 emulator: FILD m16int,src/lib/watcom/watcom_emu387.asm
+1336D8,EmuFistM16,sub_1336D8,new,low,x87 emulator: FIST m16int,src/lib/watcom/watcom_emu387.asm
+133720,EmuFistpM16,sub_133720,new,low,x87 emulator: FISTP m16int,src/lib/watcom/watcom_emu387.asm
+133750,EmuFbld,sub_133750,new,low,x87 emulator: FBLD (unsupported),src/lib/watcom/watcom_emu387.asm
+133755,EmuFildM64,sub_133755,new,low,x87 emulator: FILD m64int,src/lib/watcom/watcom_emu387.asm
+13378F,EmuFbstp,sub_13378F,new,low,x87 emulator: FBSTP,src/lib/watcom/watcom_emu387.asm
+133794,EmuFistpM64,sub_133794,new,low,x87 emulator: FISTP m64int,src/lib/watcom/watcom_emu387.asm
+1337B8,EmuReservedOp,sub_1337B8,new,low,x87 emulator: reserved opcode (unsupported),src/lib/watcom/watcom_emu387.asm
+1337BD,EmuDispatchD9Reg,sub_1337BD,new,low,x87 emulator: dispatches the register forms of the D9 group,src/lib/watcom/watcom_emu387.asm
+1337EA,EmuFaddSt,sub_1337EA,new,low,"x87 emulator: FADD st,st(i)",src/lib/watcom/watcom_emu387.asm
+1337FF,EmuFmulSt,sub_1337FF,new,low,"x87 emulator: FMUL st,st(i)",src/lib/watcom/watcom_emu387.asm
+133814,EmuFcomSt,sub_133814,new,low,x87 emulator: FCOM st(i),src/lib/watcom/watcom_emu387.asm
+133826,EmuFcompSt,sub_133826,new,low,x87 emulator: FCOMP st(i),src/lib/watcom/watcom_emu387.asm
+133838,EmuFsubSt,sub_133838,new,low,"x87 emulator: FSUB st,st(i)",src/lib/watcom/watcom_emu387.asm
+13384D,EmuFsubrSt,sub_13384D,new,low,"x87 emulator: FSUBR st,st(i)",src/lib/watcom/watcom_emu387.asm
+133862,EmuFdivSt,sub_133862,new,low,"x87 emulator: FDIV st,st(i)",src/lib/watcom/watcom_emu387.asm
+133877,EmuFdivrSt,sub_133877,new,low,"x87 emulator: FDIVR st,st(i)",src/lib/watcom/watcom_emu387.asm
+13388C,EmuFldSt,sub_13388C,new,low,x87 emulator: FLD st(i),src/lib/watcom/watcom_emu387.asm
+1338D4,EmuFxch,sub_1338D4,new,low,x87 emulator: FXCH,src/lib/watcom/watcom_emu387.asm
+1338FC,EmuFtstFxam,sub_1338FC,new,low,x87 emulator: FTST and FXAM,src/lib/watcom/watcom_emu387.asm
+13397D,EmuSignOps,sub_13397D,new,low,"x87 emulator: FCHS, FABS and the load-constant group",src/lib/watcom/watcom_emu387.asm
+133B98,EmuLogOps,sub_133B98,new,low,"x87 emulator: F2XM1, FYL2X, FPTAN, FPATAN group",src/lib/watcom/watcom_emu387.asm
+133CA2,EmuRemOps,sub_133CA2,new,low,"x87 emulator: FPREM, FSQRT, FRNDINT, FSCALE, FSIN, FCOS group",src/lib/watcom/watcom_emu387.asm
+133DBA,EmuFucompp,sub_133DBA,new,low,x87 emulator: FUCOMPP,src/lib/watcom/watcom_emu387.asm
+133E43,EmuDispatchDBReg,sub_133E43,new,low,"x87 emulator: dispatches FCLEX, FINIT and the DB register group",src/lib/watcom/watcom_emu387.asm
+133E9D,EmuFaddToSt,sub_133E9D,new,low,"x87 emulator: FADD st(i),st",src/lib/watcom/watcom_emu387.asm
+133EB2,EmuFmulToSt,sub_133EB2,new,low,"x87 emulator: FMUL st(i),st",src/lib/watcom/watcom_emu387.asm
+133EC7,EmuFsubrToSt,sub_133EC7,new,low,"x87 emulator: FSUBR st(i),st",src/lib/watcom/watcom_emu387.asm
+133EDC,EmuFsubToSt,sub_133EDC,new,low,"x87 emulator: FSUB st(i),st",src/lib/watcom/watcom_emu387.asm
+133EF1,EmuFdivrToSt,sub_133EF1,new,low,"x87 emulator: FDIVR st(i),st",src/lib/watcom/watcom_emu387.asm
+133F06,EmuFdivToSt,sub_133F06,new,low,"x87 emulator: FDIV st(i),st",src/lib/watcom/watcom_emu387.asm
+133F1B,EmuFfree,sub_133F1B,new,low,x87 emulator: FFREE st(i),src/lib/watcom/watcom_emu387.asm
+133F3A,EmuFstSt,sub_133F3A,new,low,x87 emulator: FST st(i),src/lib/watcom/watcom_emu387.asm
+133F66,EmuFucom,sub_133F66,new,low,x87 emulator: FUCOM st(i),src/lib/watcom/watcom_emu387.asm
+133F78,EmuFucomp,sub_133F78,new,low,x87 emulator: FUCOMP st(i),src/lib/watcom/watcom_emu387.asm
+133F8A,EmuFstpSt,sub_133F8A,new,low,x87 emulator: FSTP st(i),src/lib/watcom/watcom_emu387.asm
+133FB6,EmuFaddp,sub_133FB6,new,low,"x87 emulator: FADDP st(i),st",src/lib/watcom/watcom_emu387.asm
+134001,EmuFmulp,sub_134001,new,low,"x87 emulator: FMULP st(i),st",src/lib/watcom/watcom_emu387.asm
+13404C,EmuFcompp,sub_13404C,new,low,x87 emulator: FCOMPP,src/lib/watcom/watcom_emu387.asm
+1340D5,EmuFsubrp,sub_1340D5,new,low,"x87 emulator: FSUBRP st(i),st",src/lib/watcom/watcom_emu387.asm
+134120,EmuFsubp,sub_134120,new,low,"x87 emulator: FSUBP st(i),st",src/lib/watcom/watcom_emu387.asm
+13416B,EmuFdivrp,sub_13416B,new,low,"x87 emulator: FDIVRP st(i),st",src/lib/watcom/watcom_emu387.asm
+1341B6,EmuFdivp,sub_1341B6,new,low,"x87 emulator: FDIVP st(i),st",src/lib/watcom/watcom_emu387.asm
+134201,EmuDispatchDFReg,sub_134201,new,low,x87 emulator: dispatches the DF register group (FSTSW AX),src/lib/watcom/watcom_emu387.asm
+13439A,EmuSub,sub_13439A,new,low,x87 emulator: subtracts two extended values (adds with the sign flipped),src/lib/watcom/watcom_emu387.asm
+1343A8,EmuAdd,sub_1343A8,new,low,x87 emulator: adds two extended values,src/lib/watcom/watcom_emu387.asm
+1343D2,AddExtRaw,sub_1343D2,new,low,x87 emulator: adds two extended values without rounding,src/lib/watcom/watcom_emu387.asm
+134402,AddMantissas,sub_134402,new,low,x87 emulator: aligns and adds two mantissas,src/lib/watcom/watcom_emu387.asm
+13456E,EmuCompare,sub_13456E,new,low,x87 emulator: compares two extended values and sets the condition codes,src/lib/watcom/watcom_emu387.asm
+134607,EmuDiv,sub_134607,new,low,x87 emulator: divides two extended values,src/lib/watcom/watcom_emu387.asm
+134631,DivideMantissas,sub_134631,new,low,x87 emulator: divides two mantissas,src/lib/watcom/watcom_emu387.asm
+1347DC,EmuMul,sub_1347DC,new,low,x87 emulator: multiplies two extended values,src/lib/watcom/watcom_emu387.asm
+134806,MultiplyMantissas,sub_134806,new,low,x87 emulator: multiplies two mantissas,src/lib/watcom/watcom_emu387.asm
+134957,StoreM32Int,sub_134957,new,low,x87 emulator: stores an integer of 32 bits,src/lib/watcom/watcom_emu387.asm
+13495C,StoreIntBits,sub_13495C,new,low,x87 emulator: stores an integer of the given width,src/lib/watcom/watcom_emu387.asm
+1349C6,LoadM32Int,sub_1349C6,new,low,x87 emulator: loads a 32-bit integer operand,src/lib/watcom/watcom_emu387.asm
+1349D7,LoadM64Int,sub_1349D7,new,low,x87 emulator: loads a 64-bit integer operand,src/lib/watcom/watcom_emu387.asm
+134A0C,LoadM64Real,sub_134A0C,new,low,x87 emulator: loads a 64-bit real operand,src/lib/watcom/watcom_emu387.asm
+134A8C,StoreM32Real,sub_134A8C,new,low,x87 emulator: stores a 32-bit real,src/lib/watcom/watcom_emu387.asm
+134B0B,StoreM64Real,sub_134B0B,new,low,x87 emulator: stores a 64-bit real,src/lib/watcom/watcom_emu387.asm
+134BD2,LoadM32Real,sub_134BD2,new,low,x87 emulator: loads a 32-bit real operand,src/lib/watcom/watcom_emu387.asm
+134C97,ExtToInt,sub_134C97,new,low,x87 emulator: converts an extended value to an integer,src/lib/watcom/watcom_emu387.asm
+134E24,EmuRemainder,sub_134E24,new,low,x87 emulator: partial remainder,src/lib/watcom/watcom_emu387.asm
+134EDA,RemainderStep,sub_134EDA,new,low,x87 emulator: one step of the partial remainder,src/lib/watcom/watcom_emu387.asm
+13503D,EmuRoundInt,sub_13503D,new,low,x87 emulator: rounds to an integer (FRNDINT),src/lib/watcom/watcom_emu387.asm
+1350A3,RoundMantissa,sub_1350A3,new,low,x87 emulator: rounds a mantissa by the rounding mode,src/lib/watcom/watcom_emu387.asm
+13511E,EmuExamine,sub_13511E,new,low,x87 emulator: classifies a value (FXAM),src/lib/watcom/watcom_emu387.asm
+13520C,AddOne,sub_13520C,new,low,x87 emulator: adds 1.0 to a value,src/lib/watcom/watcom_emu387.asm
+135225,EmuLog2,sub_135225,new,low,x87 emulator: base-2 logarithm,src/lib/watcom/watcom_emu387.asm
+135268,Log2Core,sub_135268,new,low,x87 emulator: core of the base-2 logarithm,src/lib/watcom/watcom_emu387.asm
+135500,SinCosCore,sub_135500,new,low,x87 emulator: core of the sine and cosine,src/lib/watcom/watcom_emu387.asm
+1356F7,EmuSin,sub_1356F7,new,low,x87 emulator: sine,src/lib/watcom/watcom_emu387.asm
+135701,EmuCos,sub_135701,new,low,x87 emulator: cosine,src/lib/watcom/watcom_emu387.asm
+13570E,EmuTan,sub_13570E,new,low,x87 emulator: tangent,src/lib/watcom/watcom_emu387.asm
+135744,EmuAtan,sub_135744,new,low,x87 emulator: arctangent,src/lib/watcom/watcom_emu387.asm
+135918,EmuExp2,sub_135918,new,low,x87 emulator: 2 to the power x minus one (F2XM1),src/lib/watcom/watcom_emu387.asm
+135A04,PolyEval,sub_135A04,new,low,x87 emulator: evaluates a polynomial,src/lib/watcom/watcom_emu387.asm
+135A56,PolyEvalOdd,sub_135A56,new,low,x87 emulator: evaluates an odd polynomial,src/lib/watcom/watcom_emu387.asm
 135A9E,__hook387,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 135B72,__unhook387,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+135BCB,EmuNoOp,sub_135BCB,new,low,x87 emulator: returns at once,src/lib/watcom/watcom_emu387.asm
 135BCC,__init_80x87,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 135BF3,__EnterWVIDEO_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 135C19,strchr_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

@@ -7,34 +7,35 @@ extern str_RATIONALDOS4G, RestoreDS, unk_132878, unk_13287C, unk_132880, unk_132
 extern unk_1328D2, unk_1328D4, unk_1328D8, unk_1328DA, unk_132922, unk_132926, unk_132930, unk_132990
 extern unk_199C58, unk_1DE6C0
 global __EnterWVIDEO_, __hook387, __init_80x87, __unhook387, jpt_1337C5, jpt_133904, jpt_133985, jpt_133BA0
-global jpt_133CAA, jpt_133DC2, jpt_133E4B, jpt_134054, jpt_134209, sub_132DF4_32, sub_132DF4_49, sub_132DF4_84
-global jpt_133E4B_2C, jpt_134209_20, jpt_134209_69, jpt_134209_CE, jpt_134209_F8, jpt_134209_110, sub_1343A8_7, sub_13495C_3
-global sub_1349D7_8, sub_13570E_E, strchr_, sub_132C84, sub_132DB8, sub_132DF4, sub_132E94, sub_132EE2
-global sub_132EE8, sub_132EEE, sub_132EF4, sub_132EFA, sub_132F02, sub_132F08, sub_132F0E, sub_132F14
-global sub_132F1C, sub_132F24, sub_132F2C, sub_132F34, sub_132F3E, sub_132F48, sub_132F50, sub_132F58
-global sub_132F61, sub_132F6A, sub_132F73, sub_132F7C, sub_132F87, sub_132F92, sub_132F9B, sub_132FA4
-global sub_132FDC, sub_132FE1, sub_133000, sub_13301F, sub_13303B, sub_133057, sub_133076, sub_133095
-global sub_1330B4, sub_1330D3, sub_13310D, sub_13311E, sub_13312F, sub_13314D, sub_13318D, sub_1331A1
-global sub_1331AF, sub_1331CE, sub_1331ED, sub_133209, sub_133225, sub_133244, sub_133263, sub_133282
-global sub_1332A1, sub_1332DB, sub_133317, sub_13333B, sub_13335E, sub_133381, sub_1333A1, sub_1333C1
-global sub_1333E4, sub_133407, sub_13342A, sub_13344D, sub_133494, sub_1334D2, sub_1334E7, sub_133505
-global sub_13351A, sub_133561, sub_13358C, sub_13359A, sub_1335BB, sub_1335DC, sub_1335FA, sub_133618
-global sub_133639, sub_13365A, sub_13367B, sub_13369C, sub_1336D8, sub_133720, sub_133750, sub_133755
-global sub_13378F, sub_133794, sub_1337B8, sub_1337BD, sub_1337EA, sub_1337FF, sub_133814, sub_133826
-global sub_133838, sub_13384D, sub_133862, sub_133877, sub_13388C, sub_1338D4, sub_1338FC, sub_13397D
-global sub_133B98, sub_133CA2, sub_133DBA, sub_133E43, sub_133E9D, sub_133EB2, sub_133EC7, sub_133EDC
-global sub_133EF1, sub_133F06, sub_133F1B, sub_133F3A, sub_133F66, sub_133F78, sub_133F8A, sub_133FB6
-global sub_134001, sub_13404C, sub_1340D5, sub_134120, sub_13416B, sub_1341B6, sub_134201, sub_13439A
-global sub_1343A8, sub_1343D2, sub_134402, sub_13456E, sub_134607, sub_134631, sub_1347DC, sub_134806
-global sub_134957, sub_13495C, sub_1349C6, sub_1349D7, sub_134A0C, sub_134A8C, sub_134B0B, sub_134BD2
-global sub_134C97, sub_134E24, sub_134EDA, sub_13503D, sub_1350A3, sub_13511E, sub_13520C, sub_135225
-global sub_135268, sub_135500, sub_1356F7, sub_135701, sub_13570E, sub_135744, sub_135918, sub_135A04
-global sub_135A56, sub_135BCB, unk_134C17, unk_134DCA, unk_1351C6, unk_1351E4, unk_13543A, unk_135494
+global jpt_133CAA, jpt_133DC2, jpt_133E4B, jpt_134054, jpt_134209, RoundToDouble_32, RoundToDouble_49, RoundToDouble_84
+global jpt_133E4B_2C, jpt_134209_20, jpt_134209_69, jpt_134209_CE, jpt_134209_F8, jpt_134209_110, EmuAdd_7, StoreIntBits_3
+global LoadM64Int_8, EmuTan_E, strchr_, EmuTrapExit, RoundToSingle, RoundToDouble, RaiseFpuError, EaEax
+global EaEcx, EaEdx, EaEbx, EaEsp, EaDisp32, EaEsi, EaEdi, EaEaxDisp8
+global EaEcxDisp8, EaEdxDisp8, EaEbxDisp8, EaEspDisp8, EaEbpDisp8, EaEsiDisp8, EaEdiDisp8, EaEaxDisp32
+global EaEcxDisp32, EaEdxDisp32, EaEbxDisp32, EaEspDisp32, EaEbpDisp32, EaEsiDisp32, EaEdiDisp32, EaSib
+global EmuUnsupported, EmuFaddM32, EmuFmulM32, EmuFcomM32, EmuFcompM32, EmuFsubM32, EmuFsubrM32, EmuFdivM32
+global EmuFdivrM32, EmuFldM32, EmuFstM32, EmuFstpM32, EmuFldenv, EmuFldcw, EmuFstenv, EmuFstcw
+global EmuFiaddM32, EmuFimulM32, EmuFicomM32, EmuFicompM32, EmuFisubM32, EmuFisubrM32, EmuFidivM32, EmuFidivrM32
+global EmuFildM32, EmuFistM32, EmuFistpM32, EmuFaddM64, EmuFmulM64, EmuFcomM64, EmuFcompM64, EmuFsubM64
+global EmuFsubrM64, EmuFdivM64, EmuFdivrM64, EmuFldM80, EmuFldM64, EmuFstM64, EmuFstpM80, EmuFstpM64
+global EmuFrstor, EmuFsave, EmuFstswM16, EmuFiaddM16, EmuFimulM16, EmuFicomM16, EmuFicompM16, EmuFisubM16
+global EmuFisubrM16, EmuFidivM16, EmuFidivrM16, EmuFildM16, EmuFistM16, EmuFistpM16, EmuFbld, EmuFildM64
+global EmuFbstp, EmuFistpM64, EmuReservedOp, EmuDispatchD9Reg, EmuFaddSt, EmuFmulSt, EmuFcomSt, EmuFcompSt
+global EmuFsubSt, EmuFsubrSt, EmuFdivSt, EmuFdivrSt, EmuFldSt, EmuFxch, EmuFtstFxam, EmuSignOps
+global EmuLogOps, EmuRemOps, EmuFucompp, EmuDispatchDBReg, EmuFaddToSt, EmuFmulToSt, EmuFsubrToSt, EmuFsubToSt
+global EmuFdivrToSt, EmuFdivToSt, EmuFfree, EmuFstSt, EmuFucom, EmuFucomp, EmuFstpSt, EmuFaddp
+global EmuFmulp, EmuFcompp, EmuFsubrp, EmuFsubp, EmuFdivrp, EmuFdivp, EmuDispatchDFReg, EmuSub
+global EmuAdd, AddExtRaw, AddMantissas, EmuCompare, EmuDiv, DivideMantissas, EmuMul, MultiplyMantissas
+global StoreM32Int, StoreIntBits, LoadM32Int, LoadM64Int, LoadM64Real, StoreM32Real, StoreM64Real, LoadM32Real
+global ExtToInt, EmuRemainder, RemainderStep, EmuRoundInt, RoundMantissa, EmuExamine, AddOne, EmuLog2
+global Log2Core, SinCosCore, EmuSin, EmuCos, EmuTan, EmuAtan, EmuExp2, PolyEval
+global PolyEvalOdd, EmuNoOp, unk_134C17, unk_134DCA, unk_1351C6, unk_1351E4, unk_13543A, unk_135494
 global unk_1354EE, unk_135C2D
 ;-----------------------------------------------------------------------------
-; sub_132C84                                                          132C84  
+; EmuTrapExit                                    132C84  97 PC, low confidence
+; X87 emulator: restores the registers and returns from the trap
 ;-----------------------------------------------------------------------------
-sub_132C84:
+EmuTrapExit:
         LD mov, ebp, esp
         mov esi, dword [byte ebp+038h]
         mov ds, word [byte ebp+03Ch]
@@ -156,9 +157,10 @@ sub_132C84:
 .13:
         ret
 ;-----------------------------------------------------------------------------
-; sub_132DB8                                                          132DB8  
+; RoundToSingle                                  132DB8  97 PC, low confidence
+; X87 emulator: rounds the result to single precision
 ;-----------------------------------------------------------------------------
-sub_132DB8:
+RoundToSingle:
         lea ebx, [byte edi+ebp+01Ch]
         mov edx, 0FFFFFF00h
         mov eax, dword [byte ebx+04h]
@@ -176,11 +178,12 @@ sub_132DB8:
 .2:
         and dword [byte ebx+04h], edx
         mov dword [ebx], 0
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_132DF4                                                          132DF4  
+; RoundToDouble                                  132DF4  97 PC, low confidence
+; X87 emulator: rounds the result to double precision
 ;-----------------------------------------------------------------------------
-sub_132DF4:
+RoundToDouble:
         lea ebx, [byte edi+ebp+01Ch]
         mov edx, 0FFFFF800h
         mov eax, dword [ebx]
@@ -196,14 +199,14 @@ sub_132DF4:
         inc word [byte ebx+08h]
 .2:
         and dword [ebx], edx
-        jmp near sub_132C84
-sub_132DF4_32:
+        jmp near EmuTrapExit
+RoundToDouble_32:
         inc eax
         mov dx, word [byte ds:ebp+04h]
         and dx, 0B8FFh
         or dh, byte [dword cs:eax+unk_132922]
         mov word [byte ds:ebp+04h], dx
-sub_132DF4_49:
+RoundToDouble_49:
         mov bx, word [dword cs:edi+unk_1328D2]
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
@@ -212,18 +215,20 @@ sub_132DF4_49:
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
-        jmp near sub_132C84
-sub_132DF4_84:
+        jmp near EmuTrapExit
+RoundToDouble_84:
         inc eax
         mov dx, word [byte ds:ebp+04h]
         and dx, 0B8FFh
         or dh, byte [dword cs:eax+unk_132922]
         mov word [byte ds:ebp+04h], dx
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_132E94                                                          132E94  
+; RaiseFpuError                                  132E94  97 PC, low confidence
+; X87 emulator: sets an exception flag and calls the handler when it is
+; unmasked
 ;-----------------------------------------------------------------------------
-sub_132E94:
+RaiseFpuError:
         or byte [byte ds:ebp+04h], al
         test byte [byte ds:ebp+00h], al
         jne short .1
@@ -260,198 +265,223 @@ sub_132E94:
 .1:
         ret
 ;-----------------------------------------------------------------------------
-; sub_132EE2                                                          132EE2  
+; EaEax                                          132EE2  97 PC, low confidence
+; X87 emulator operand address: [eax]
 ;-----------------------------------------------------------------------------
-sub_132EE2:
+EaEax:
         LD xor, ebx, ebx
         add ebx, dword [byte ebp+028h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132EE8                                                          132EE8  
+; EaEcx                                          132EE8  97 PC, low confidence
+; X87 emulator operand address: [ecx]
 ;-----------------------------------------------------------------------------
-sub_132EE8:
+EaEcx:
         LD xor, ebx, ebx
         add ebx, dword [byte ebp+024h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132EEE                                                          132EEE  
+; EaEdx                                          132EEE  97 PC, low confidence
+; X87 emulator operand address: [edx]
 ;-----------------------------------------------------------------------------
-sub_132EEE:
+EaEdx:
         LD xor, ebx, ebx
         add ebx, dword [byte ebp+020h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132EF4                                                          132EF4  
+; EaEbx                                          132EF4  97 PC, low confidence
+; X87 emulator operand address: [ebx]
 ;-----------------------------------------------------------------------------
-sub_132EF4:
+EaEbx:
         LD xor, ebx, ebx
         add ebx, dword [byte ebp+01Ch]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132EFA                                                          132EFA  
+; EaEsp                                          132EFA  97 PC, low confidence
+; X87 emulator operand address: [esp] (stack segment)
 ;-----------------------------------------------------------------------------
-sub_132EFA:
+EaEsp:
         LD xor, ebx, ebx
         add ebx, dword [byte ebp+018h]
         LD mov, ecx, edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F02                                                          132F02  
+; EaDisp32                                       132F02  97 PC, low confidence
+; X87 emulator operand address: [disp32]
 ;-----------------------------------------------------------------------------
-sub_132F02:
+EaDisp32:
         mov ebx, dword [esi]
         add esi, byte 4
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F08                                                          132F08  
+; EaEsi                                          132F08  97 PC, low confidence
+; X87 emulator operand address: [esi]
 ;-----------------------------------------------------------------------------
-sub_132F08:
+EaEsi:
         LD xor, ebx, ebx
         add ebx, dword [byte ebp+010h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F0E                                                          132F0E  
+; EaEdi                                          132F0E  97 PC, low confidence
+; X87 emulator operand address: [edi]
 ;-----------------------------------------------------------------------------
-sub_132F0E:
+EaEdi:
         LD xor, ebx, ebx
         add ebx, dword [byte ebp+0Ch]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F14                                                          132F14  
+; EaEaxDisp8                                     132F14  97 PC, low confidence
+; X87 emulator operand address: [eax+disp8]
 ;-----------------------------------------------------------------------------
-sub_132F14:
+EaEaxDisp8:
         movsx ebx, byte [esi]
         inc esi
         add ebx, dword [byte ebp+028h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F1C                                                          132F1C  
+; EaEcxDisp8                                     132F1C  97 PC, low confidence
+; X87 emulator operand address: [ecx+disp8]
 ;-----------------------------------------------------------------------------
-sub_132F1C:
+EaEcxDisp8:
         movsx ebx, byte [esi]
         inc esi
         add ebx, dword [byte ebp+024h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F24                                                          132F24  
+; EaEdxDisp8                                     132F24  97 PC, low confidence
+; X87 emulator operand address: [edx+disp8]
 ;-----------------------------------------------------------------------------
-sub_132F24:
+EaEdxDisp8:
         movsx ebx, byte [esi]
         inc esi
         add ebx, dword [byte ebp+020h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F2C                                                          132F2C  
+; EaEbxDisp8                                     132F2C  97 PC, low confidence
+; X87 emulator operand address: [ebx+disp8]
 ;-----------------------------------------------------------------------------
-sub_132F2C:
+EaEbxDisp8:
         movsx ebx, byte [esi]
         inc esi
         add ebx, dword [byte ebp+01Ch]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F34                                                          132F34  
+; EaEspDisp8                                     132F34  97 PC, low confidence
+; X87 emulator operand address: [esp+disp8]
 ;-----------------------------------------------------------------------------
-sub_132F34:
+EaEspDisp8:
         movsx ebx, byte [esi]
         inc esi
         add ebx, dword [byte ebp+018h]
         LD mov, ecx, edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F3E                                                          132F3E  
+; EaEbpDisp8                                     132F3E  97 PC, low confidence
+; X87 emulator operand address: [ebp+disp8]
 ;-----------------------------------------------------------------------------
-sub_132F3E:
+EaEbpDisp8:
         movsx ebx, byte [esi]
         inc esi
         add ebx, dword [byte ebp+014h]
         LD mov, ecx, edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F48                                                          132F48  
+; EaEsiDisp8                                     132F48  97 PC, low confidence
+; X87 emulator operand address: [esi+disp8]
 ;-----------------------------------------------------------------------------
-sub_132F48:
+EaEsiDisp8:
         movsx ebx, byte [esi]
         inc esi
         add ebx, dword [byte ebp+010h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F50                                                          132F50  
+; EaEdiDisp8                                     132F50  97 PC, low confidence
+; X87 emulator operand address: [edi+disp8]
 ;-----------------------------------------------------------------------------
-sub_132F50:
+EaEdiDisp8:
         movsx ebx, byte [esi]
         inc esi
         add ebx, dword [byte ebp+0Ch]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F58                                                          132F58  
+; EaEaxDisp32                                    132F58  97 PC, low confidence
+; X87 emulator operand address: [eax+disp32]
 ;-----------------------------------------------------------------------------
-sub_132F58:
+EaEaxDisp32:
         mov ebx, dword [esi]
         add esi, byte 4
         add ebx, dword [byte ebp+028h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F61                                                          132F61  
+; EaEcxDisp32                                    132F61  97 PC, low confidence
+; X87 emulator operand address: [ecx+disp32]
 ;-----------------------------------------------------------------------------
-sub_132F61:
+EaEcxDisp32:
         mov ebx, dword [esi]
         add esi, byte 4
         add ebx, dword [byte ebp+024h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F6A                                                          132F6A  
+; EaEdxDisp32                                    132F6A  97 PC, low confidence
+; X87 emulator operand address: [edx+disp32]
 ;-----------------------------------------------------------------------------
-sub_132F6A:
+EaEdxDisp32:
         mov ebx, dword [esi]
         add esi, byte 4
         add ebx, dword [byte ebp+020h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F73                                                          132F73  
+; EaEbxDisp32                                    132F73  97 PC, low confidence
+; X87 emulator operand address: [ebx+disp32]
 ;-----------------------------------------------------------------------------
-sub_132F73:
+EaEbxDisp32:
         mov ebx, dword [esi]
         add esi, byte 4
         add ebx, dword [byte ebp+01Ch]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F7C                                                          132F7C  
+; EaEspDisp32                                    132F7C  97 PC, low confidence
+; X87 emulator operand address: [esp+disp32]
 ;-----------------------------------------------------------------------------
-sub_132F7C:
+EaEspDisp32:
         mov ebx, dword [esi]
         add esi, byte 4
         add ebx, dword [byte ebp+018h]
         LD mov, ecx, edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F87                                                          132F87  
+; EaEbpDisp32                                    132F87  97 PC, low confidence
+; X87 emulator operand address: [ebp+disp32]
 ;-----------------------------------------------------------------------------
-sub_132F87:
+EaEbpDisp32:
         mov ebx, dword [esi]
         add esi, byte 4
         add ebx, dword [byte ebp+014h]
         LD mov, ecx, edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F92                                                          132F92  
+; EaEsiDisp32                                    132F92  97 PC, low confidence
+; X87 emulator operand address: [esi+disp32]
 ;-----------------------------------------------------------------------------
-sub_132F92:
+EaEsiDisp32:
         mov ebx, dword [esi]
         add esi, byte 4
         add ebx, dword [byte ebp+010h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132F9B                                                          132F9B  
+; EaEdiDisp32                                    132F9B  97 PC, low confidence
+; X87 emulator operand address: [edi+disp32]
 ;-----------------------------------------------------------------------------
-sub_132F9B:
+EaEdiDisp32:
         mov ebx, dword [esi]
         add esi, byte 4
         add ebx, dword [byte ebp+0Ch]
         ret
 ;-----------------------------------------------------------------------------
-; sub_132FA4                                                          132FA4  
+; EaSib                                          132FA4  97 PC, low confidence
+; X87 emulator operand address: decodes a SIB byte
 ;-----------------------------------------------------------------------------
-sub_132FA4:
+EaSib:
         mov bl, byte [esi]
         inc esi
         push ebx
@@ -478,108 +508,118 @@ sub_132FA4:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_132FDC                                                          132FDC  
+; EmuUnsupported                                 132FDC  97 PC, low confidence
+; X87 emulator: unsupported instruction, returns from the trap
 ;-----------------------------------------------------------------------------
-sub_132FDC:
-        jmp near sub_132C84
+EmuUnsupported:
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_132FE1                                                          132FE1  
+; EmuFaddM32                                     132FE1  97 PC, low confidence
+; X87 emulator: FADD m32real
 ;-----------------------------------------------------------------------------
-sub_132FE1:
+EmuFaddM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_134BD2
+        call LoadM32Real
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_1343A8
+        call EmuAdd
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133000                                                          133000  
+; EmuFmulM32                                     133000  97 PC, low confidence
+; X87 emulator: FMUL m32real
 ;-----------------------------------------------------------------------------
-sub_133000:
+EmuFmulM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_134BD2
+        call LoadM32Real
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_1347DC
+        call EmuMul
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_13301F                                                          13301F  
+; EmuFcomM32                                     13301F  97 PC, low confidence
+; X87 emulator: FCOM m32real
 ;-----------------------------------------------------------------------------
-sub_13301F:
+EmuFcomM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_134BD2
+        call LoadM32Real
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
-        call sub_13456E
-        jmp near sub_132DF4_84
+        call EmuCompare
+        jmp near RoundToDouble_84
 ;-----------------------------------------------------------------------------
-; sub_13303B                                                          13303B  
+; EmuFcompM32                                    13303B  97 PC, low confidence
+; X87 emulator: FCOMP m32real
 ;-----------------------------------------------------------------------------
-sub_13303B:
+EmuFcompM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_134BD2
+        call LoadM32Real
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
-        call sub_13456E
-        jmp near sub_132DF4_32
+        call EmuCompare
+        jmp near RoundToDouble_32
 ;-----------------------------------------------------------------------------
-; sub_133057                                                          133057  
+; EmuFsubM32                                     133057  97 PC, low confidence
+; X87 emulator: FSUB m32real
 ;-----------------------------------------------------------------------------
-sub_133057:
+EmuFsubM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_134BD2
+        call LoadM32Real
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133076                                                          133076  
+; EmuFsubrM32                                    133076  97 PC, low confidence
+; X87 emulator: FSUBR m32real
 ;-----------------------------------------------------------------------------
-sub_133076:
+EmuFsubrM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_134BD2
+        call LoadM32Real
         lea eax, [byte ebp+06Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133095                                                          133095  
+; EmuFdivM32                                     133095  97 PC, low confidence
+; X87 emulator: FDIV m32real
 ;-----------------------------------------------------------------------------
-sub_133095:
+EmuFdivM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_134BD2
+        call LoadM32Real
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_1330B4                                                          1330B4  
+; EmuFdivrM32                                    1330B4  97 PC, low confidence
+; X87 emulator: FDIVR m32real
 ;-----------------------------------------------------------------------------
-sub_1330B4:
+EmuFdivrM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_134BD2
+        call LoadM32Real
         lea eax, [byte ebp+06Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_1330D3                                                          1330D3  
+; EmuFldM32                                      1330D3  97 PC, low confidence
+; X87 emulator: FLD m32real
 ;-----------------------------------------------------------------------------
-sub_1330D3:
+EmuFldM32:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
@@ -588,28 +628,31 @@ sub_1330D3:
         and word [byte ds:ebp+08h], bx
         mov eax, dword [es:esi]
         lea edx, [byte edi+ebp+01Ch]
-        call sub_134BD2
-        jmp near sub_132C84
+        call LoadM32Real
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_13310D                                                          13310D  
+; EmuFstM32                                      13310D  97 PC, low confidence
+; X87 emulator: FST m32real
 ;-----------------------------------------------------------------------------
-sub_13310D:
+EmuFstM32:
         lea eax, [byte edi+ebp+01Ch]
-        call sub_134A8C
+        call StoreM32Real
         mov dword [es:esi], eax
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_13311E                                                          13311E  
+; EmuFstpM32                                     13311E  97 PC, low confidence
+; X87 emulator: FSTP m32real
 ;-----------------------------------------------------------------------------
-sub_13311E:
+EmuFstpM32:
         lea eax, [byte edi+ebp+01Ch]
-        call sub_134A8C
+        call StoreM32Real
         mov dword [es:esi], eax
-        jmp near sub_132DF4_49
+        jmp near RoundToDouble_49
 ;-----------------------------------------------------------------------------
-; sub_13312F                                                          13312F  
+; EmuFldenv                                      13312F  97 PC, low confidence
+; X87 emulator: FLDENV
 ;-----------------------------------------------------------------------------
-sub_13312F:
+EmuFldenv:
         mov ecx, 7
         push ds
         push es
@@ -621,146 +664,158 @@ sub_13312F:
         rep movsd
         pop es
         pop ds
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_13314D                                                          13314D  
+; EmuFldcw                                       13314D  97 PC, low confidence
+; X87 emulator: FLDCW
 ;-----------------------------------------------------------------------------
-sub_13314D:
+EmuFldcw:
         mov ax, word [es:esi]
         mov word [byte ds:ebp+00h], ax
         and ax, 300h
         cmp ax, 300h
         jne short .1
-        lea edx, [sub_132C84]
+        lea edx, [EmuTrapExit]
         mov dword [byte ds:ebp+076h], edx
         jmp short .3
 .1:
         cmp ax, 200h
         jne short .2
-        lea edx, [sub_132DF4]
+        lea edx, [RoundToDouble]
         mov dword [byte ds:ebp+076h], edx
         jmp short .3
 .2:
-        lea edx, [sub_132DB8]
+        lea edx, [RoundToSingle]
         mov dword [byte ds:ebp+076h], edx
 .3:
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_13318D                                                          13318D  
+; EmuFstenv                                      13318D  97 PC, low confidence
+; X87 emulator: FSTENV
 ;-----------------------------------------------------------------------------
-sub_13318D:
+EmuFstenv:
         mov ecx, 7
         LD mov, ebx, edi
         LD mov, edi, esi
         LD mov, esi, ebp
         rep movsd
         LD mov, edi, ebx
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_1331A1                                                          1331A1  
+; EmuFstcw                                       1331A1  97 PC, low confidence
+; X87 emulator: FSTCW
 ;-----------------------------------------------------------------------------
-sub_1331A1:
+EmuFstcw:
         mov ax, word [byte ds:ebp+00h]
         mov word [es:esi], ax
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_1331AF                                                          1331AF  
+; EmuFiaddM32                                    1331AF  97 PC, low confidence
+; X87 emulator: FIADD m32int
 ;-----------------------------------------------------------------------------
-sub_1331AF:
+EmuFiaddM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_1343A8
+        call EmuAdd
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_1331CE                                                          1331CE  
+; EmuFimulM32                                    1331CE  97 PC, low confidence
+; X87 emulator: FIMUL m32int
 ;-----------------------------------------------------------------------------
-sub_1331CE:
+EmuFimulM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_1347DC
+        call EmuMul
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_1331ED                                                          1331ED  
+; EmuFicomM32                                    1331ED  97 PC, low confidence
+; X87 emulator: FICOM m32int
 ;-----------------------------------------------------------------------------
-sub_1331ED:
+EmuFicomM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
-        call sub_13456E
-        jmp near sub_132DF4_84
+        call EmuCompare
+        jmp near RoundToDouble_84
 ;-----------------------------------------------------------------------------
-; sub_133209                                                          133209  
+; EmuFicompM32                                   133209  97 PC, low confidence
+; X87 emulator: FICOMP m32int
 ;-----------------------------------------------------------------------------
-sub_133209:
+EmuFicompM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
-        call sub_13456E
-        jmp near sub_132DF4_32
+        call EmuCompare
+        jmp near RoundToDouble_32
 ;-----------------------------------------------------------------------------
-; sub_133225                                                          133225  
+; EmuFisubM32                                    133225  97 PC, low confidence
+; X87 emulator: FISUB m32int
 ;-----------------------------------------------------------------------------
-sub_133225:
+EmuFisubM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133244                                                          133244  
+; EmuFisubrM32                                   133244  97 PC, low confidence
+; X87 emulator: FISUBR m32int
 ;-----------------------------------------------------------------------------
-sub_133244:
+EmuFisubrM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte ebp+06Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133263                                                          133263  
+; EmuFidivM32                                    133263  97 PC, low confidence
+; X87 emulator: FIDIV m32int
 ;-----------------------------------------------------------------------------
-sub_133263:
+EmuFidivM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133282                                                          133282  
+; EmuFidivrM32                                   133282  97 PC, low confidence
+; X87 emulator: FIDIVR m32int
 ;-----------------------------------------------------------------------------
-sub_133282:
+EmuFidivrM32:
         mov eax, dword [es:esi]
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte ebp+06Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_1332A1                                                          1332A1  
+; EmuFildM32                                     1332A1  97 PC, low confidence
+; X87 emulator: FILD m32int
 ;-----------------------------------------------------------------------------
-sub_1332A1:
+EmuFildM32:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
@@ -769,12 +824,13 @@ sub_1332A1:
         and word [byte ds:ebp+08h], bx
         mov eax, dword [es:esi]
         lea edx, [byte edi+ebp+01Ch]
-        call sub_1349C6
-        jmp near sub_132C84
+        call LoadM32Int
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_1332DB                                                          1332DB  
+; EmuFistM32                                     1332DB  97 PC, low confidence
+; X87 emulator: FIST m32int
 ;-----------------------------------------------------------------------------
-sub_1332DB:
+EmuFistM32:
         lea ebx, [byte edi+ebp+01Ch]
         push dword [ebx]
         push dword [byte ebx+04h]
@@ -782,133 +838,143 @@ sub_1332DB:
         lea eax, [byte edi+ebp+01Ch]
         mov dx, word [byte ds:ebp+00h]
         and dx, 0C00h
-        call sub_134C97
+        call ExtToInt
         lea eax, [byte edi+ebp+01Ch]
-        call sub_134957
+        call StoreM32Int
         mov dword [es:esi], eax
         lea ebx, [byte edi+ebp+01Ch]
         pop dword [byte ebx+06h]
         pop dword [byte ebx+04h]
         pop dword [ebx]
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_133317                                                          133317  
+; EmuFistpM32                                    133317  97 PC, low confidence
+; X87 emulator: FISTP m32int
 ;-----------------------------------------------------------------------------
-sub_133317:
+EmuFistpM32:
         lea eax, [byte edi+ebp+01Ch]
         mov dx, word [byte ds:ebp+00h]
         and dx, 0C00h
-        call sub_134C97
+        call ExtToInt
         lea eax, [byte edi+ebp+01Ch]
-        call sub_134957
+        call StoreM32Int
         mov dword [es:esi], eax
-        jmp near sub_132DF4_49
+        jmp near RoundToDouble_49
 ;-----------------------------------------------------------------------------
-; sub_13333B                                                          13333B  
+; EmuFaddM64                                     13333B  97 PC, low confidence
+; X87 emulator: FADD m64real
 ;-----------------------------------------------------------------------------
-sub_13333B:
+EmuFaddM64:
         mov eax, dword [es:esi]
         mov edx, dword [byte es:esi+04h]
         lea ebx, [byte ebp+06Ch]
-        call sub_134A0C
+        call LoadM64Real
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_1343A8
+        call EmuAdd
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_13335E                                                          13335E  
+; EmuFmulM64                                     13335E  97 PC, low confidence
+; X87 emulator: FMUL m64real
 ;-----------------------------------------------------------------------------
-sub_13335E:
+EmuFmulM64:
         mov eax, dword [es:esi]
         mov edx, dword [byte es:esi+04h]
         lea ebx, [byte ebp+06Ch]
-        call sub_134A0C
+        call LoadM64Real
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_1347DC
+        call EmuMul
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133381                                                          133381  
+; EmuFcomM64                                     133381  97 PC, low confidence
+; X87 emulator: FCOM m64real
 ;-----------------------------------------------------------------------------
-sub_133381:
+EmuFcomM64:
         mov eax, dword [es:esi]
         mov edx, dword [byte es:esi+04h]
         lea ebx, [byte ebp+06Ch]
-        call sub_134A0C
+        call LoadM64Real
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
-        call sub_13456E
-        jmp near sub_132DF4_84
+        call EmuCompare
+        jmp near RoundToDouble_84
 ;-----------------------------------------------------------------------------
-; sub_1333A1                                                          1333A1  
+; EmuFcompM64                                    1333A1  97 PC, low confidence
+; X87 emulator: FCOMP m64real
 ;-----------------------------------------------------------------------------
-sub_1333A1:
+EmuFcompM64:
         mov eax, dword [es:esi]
         mov edx, dword [byte es:esi+04h]
         lea ebx, [byte ebp+06Ch]
-        call sub_134A0C
+        call LoadM64Real
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
-        call sub_13456E
-        jmp near sub_132DF4_32
+        call EmuCompare
+        jmp near RoundToDouble_32
 ;-----------------------------------------------------------------------------
-; sub_1333C1                                                          1333C1  
+; EmuFsubM64                                     1333C1  97 PC, low confidence
+; X87 emulator: FSUB m64real
 ;-----------------------------------------------------------------------------
-sub_1333C1:
+EmuFsubM64:
         mov eax, dword [es:esi]
         mov edx, dword [byte es:esi+04h]
         lea ebx, [byte ebp+06Ch]
-        call sub_134A0C
+        call LoadM64Real
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_1333E4                                                          1333E4  
+; EmuFsubrM64                                    1333E4  97 PC, low confidence
+; X87 emulator: FSUBR m64real
 ;-----------------------------------------------------------------------------
-sub_1333E4:
+EmuFsubrM64:
         mov eax, dword [es:esi]
         mov edx, dword [byte es:esi+04h]
         lea ebx, [byte ebp+06Ch]
-        call sub_134A0C
+        call LoadM64Real
         lea eax, [byte ebp+06Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133407                                                          133407  
+; EmuFdivM64                                     133407  97 PC, low confidence
+; X87 emulator: FDIV m64real
 ;-----------------------------------------------------------------------------
-sub_133407:
+EmuFdivM64:
         mov eax, dword [es:esi]
         mov edx, dword [byte es:esi+04h]
         lea ebx, [byte ebp+06Ch]
-        call sub_134A0C
+        call LoadM64Real
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_13342A                                                          13342A  
+; EmuFdivrM64                                    13342A  97 PC, low confidence
+; X87 emulator: FDIVR m64real
 ;-----------------------------------------------------------------------------
-sub_13342A:
+EmuFdivrM64:
         mov eax, dword [es:esi]
         mov edx, dword [byte es:esi+04h]
         lea ebx, [byte ebp+06Ch]
-        call sub_134A0C
+        call LoadM64Real
         lea eax, [byte ebp+06Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_13344D                                                          13344D  
+; EmuFldM80                                      13344D  97 PC, low confidence
+; X87 emulator: FLD m80real (probably)
 ;-----------------------------------------------------------------------------
-sub_13344D:
+EmuFldM80:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
@@ -921,11 +987,12 @@ sub_13344D:
         mov dword [byte edi+ebp+020h], eax
         mov ax, word [byte es:esi+08h]
         mov word [byte edi+ebp+024h], ax
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_133494                                                          133494  
+; EmuFldM64                                      133494  97 PC, low confidence
+; X87 emulator: FLD m64real
 ;-----------------------------------------------------------------------------
-sub_133494:
+EmuFldM64:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
@@ -935,41 +1002,45 @@ sub_133494:
         mov eax, dword [es:esi]
         mov edx, dword [byte es:esi+04h]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_134A0C
-        jmp near sub_132C84
+        call LoadM64Real
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_1334D2                                                          1334D2  
+; EmuFstM64                                      1334D2  97 PC, low confidence
+; X87 emulator: FST m64real
 ;-----------------------------------------------------------------------------
-sub_1334D2:
+EmuFstM64:
         lea eax, [byte edi+ebp+01Ch]
-        call sub_134B0B
+        call StoreM64Real
         mov dword [es:esi], eax
         mov dword [byte es:esi+04h], edx
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_1334E7                                                          1334E7  
+; EmuFstpM80                                     1334E7  97 PC, low confidence
+; X87 emulator: FSTP m80real (probably)
 ;-----------------------------------------------------------------------------
-sub_1334E7:
+EmuFstpM80:
         mov eax, dword [byte edi+ebp+01Ch]
         mov dword [es:esi], eax
         mov eax, dword [byte edi+ebp+020h]
         mov dword [byte es:esi+04h], eax
         mov ax, word [byte edi+ebp+024h]
         mov word [byte es:esi+08h], ax
-        jmp near sub_132DF4_49
+        jmp near RoundToDouble_49
 ;-----------------------------------------------------------------------------
-; sub_133505                                                          133505  
+; EmuFstpM64                                     133505  97 PC, low confidence
+; X87 emulator: FSTP m64real
 ;-----------------------------------------------------------------------------
-sub_133505:
+EmuFstpM64:
         lea eax, [byte edi+ebp+01Ch]
-        call sub_134B0B
+        call StoreM64Real
         mov dword [es:esi], eax
         mov dword [byte es:esi+04h], edx
-        jmp near sub_132DF4_49
+        jmp near RoundToDouble_49
 ;-----------------------------------------------------------------------------
-; sub_13351A                                                          13351A  
+; EmuFrstor                                      13351A  97 PC, low confidence
+; X87 emulator: FRSTOR
 ;-----------------------------------------------------------------------------
-sub_13351A:
+EmuFrstor:
         mov ecx, 7
         push ds
         push es
@@ -994,11 +1065,12 @@ sub_13351A:
         loop .1
         pop es
         pop ds
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_133561                                                          133561  
+; EmuFsave                                       133561  97 PC, low confidence
+; X87 emulator: FSAVE
 ;-----------------------------------------------------------------------------
-sub_133561:
+EmuFsave:
         mov ecx, 7
         LD mov, ebx, edi
         LD mov, edi, esi
@@ -1015,118 +1087,128 @@ sub_133561:
         LD mov, edi, ebx
         jmp near jpt_133E4B_2C
 ;-----------------------------------------------------------------------------
-; sub_13358C                                                          13358C  
+; EmuFstswM16                                    13358C  97 PC, low confidence
+; X87 emulator: FSTSW m16
 ;-----------------------------------------------------------------------------
-sub_13358C:
+EmuFstswM16:
         mov ax, word [byte ds:ebp+04h]
         mov word [es:esi], ax
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_13359A                                                          13359A  
+; EmuFiaddM16                                    13359A  97 PC, low confidence
+; X87 emulator: FIADD m16int
 ;-----------------------------------------------------------------------------
-sub_13359A:
+EmuFiaddM16:
         mov ax, word [es:esi]
         cwde
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_1343A8
+        call EmuAdd
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_1335BB                                                          1335BB  
+; EmuFimulM16                                    1335BB  97 PC, low confidence
+; X87 emulator: FIMUL m16int
 ;-----------------------------------------------------------------------------
-sub_1335BB:
+EmuFimulM16:
         mov ax, word [es:esi]
         cwde
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_1347DC
+        call EmuMul
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_1335DC                                                          1335DC  
+; EmuFicomM16                                    1335DC  97 PC, low confidence
+; X87 emulator: FICOM m16int
 ;-----------------------------------------------------------------------------
-sub_1335DC:
+EmuFicomM16:
         mov ax, word [es:esi]
         cwde
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
-        call sub_13456E
-        jmp near sub_132DF4_84
+        call EmuCompare
+        jmp near RoundToDouble_84
 ;-----------------------------------------------------------------------------
-; sub_1335FA                                                          1335FA  
+; EmuFicompM16                                   1335FA  97 PC, low confidence
+; X87 emulator: FICOMP m16int
 ;-----------------------------------------------------------------------------
-sub_1335FA:
+EmuFicompM16:
         mov ax, word [es:esi]
         cwde
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
-        call sub_13456E
-        jmp near sub_132DF4_32
+        call EmuCompare
+        jmp near RoundToDouble_32
 ;-----------------------------------------------------------------------------
-; sub_133618                                                          133618  
+; EmuFisubM16                                    133618  97 PC, low confidence
+; X87 emulator: FISUB m16int
 ;-----------------------------------------------------------------------------
-sub_133618:
+EmuFisubM16:
         mov ax, word [es:esi]
         cwde
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133639                                                          133639  
+; EmuFisubrM16                                   133639  97 PC, low confidence
+; X87 emulator: FISUBR m16int
 ;-----------------------------------------------------------------------------
-sub_133639:
+EmuFisubrM16:
         mov ax, word [es:esi]
         cwde
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte ebp+06Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_13365A                                                          13365A  
+; EmuFidivM16                                    13365A  97 PC, low confidence
+; X87 emulator: FIDIV m16int
 ;-----------------------------------------------------------------------------
-sub_13365A:
+EmuFidivM16:
         mov ax, word [es:esi]
         cwde
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_13367B                                                          13367B  
+; EmuFidivrM16                                   13367B  97 PC, low confidence
+; X87 emulator: FIDIVR m16int
 ;-----------------------------------------------------------------------------
-sub_13367B:
+EmuFidivrM16:
         mov ax, word [es:esi]
         cwde
         lea edx, [byte ebp+06Ch]
-        call sub_1349C6
+        call LoadM32Int
         lea eax, [byte ebp+06Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_13369C                                                          13369C  
+; EmuFildM16                                     13369C  97 PC, low confidence
+; X87 emulator: FILD m16int
 ;-----------------------------------------------------------------------------
-sub_13369C:
+EmuFildM16:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
@@ -1136,12 +1218,13 @@ sub_13369C:
         mov ax, word [es:esi]
         cwde
         lea edx, [byte edi+ebp+01Ch]
-        call sub_1349C6
-        jmp near sub_132C84
+        call LoadM32Int
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_1336D8                                                          1336D8  
+; EmuFistM16                                     1336D8  97 PC, low confidence
+; X87 emulator: FIST m16int
 ;-----------------------------------------------------------------------------
-sub_1336D8:
+EmuFistM16:
         lea ebx, [byte edi+ebp+01Ch]
         push dword [ebx]
         push dword [byte ebx+04h]
@@ -1149,9 +1232,9 @@ sub_1336D8:
         lea eax, [byte edi+ebp+01Ch]
         mov dx, word [byte ds:ebp+00h]
         and dx, 0C00h
-        call sub_134C97
+        call ExtToInt
         lea eax, [byte edi+ebp+01Ch]
-        call sub_134957
+        call StoreM32Int
         LD mov, edx, eax
         cwde
         LD cmp, eax, edx
@@ -1163,17 +1246,18 @@ sub_1336D8:
         pop dword [byte ebx+06h]
         pop dword [byte ebx+04h]
         pop dword [ebx]
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_133720                                                          133720  
+; EmuFistpM16                                    133720  97 PC, low confidence
+; X87 emulator: FISTP m16int
 ;-----------------------------------------------------------------------------
-sub_133720:
+EmuFistpM16:
         lea eax, [byte edi+ebp+01Ch]
         mov dx, word [byte ds:ebp+00h]
         and dx, 0C00h
-        call sub_134C97
+        call ExtToInt
         lea eax, [byte edi+ebp+01Ch]
-        call sub_134957
+        call StoreM32Int
         LD mov, edx, eax
         cwde
         LD cmp, eax, edx
@@ -1181,16 +1265,18 @@ sub_133720:
         mov ax, 8000h
 .1:
         mov word [es:esi], ax
-        jmp near sub_132DF4_49
+        jmp near RoundToDouble_49
 ;-----------------------------------------------------------------------------
-; sub_133750                                                          133750  
+; EmuFbld                                        133750  97 PC, low confidence
+; X87 emulator: FBLD (unsupported)
 ;-----------------------------------------------------------------------------
-sub_133750:
-        jmp near sub_132C84
+EmuFbld:
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_133755                                                          133755  
+; EmuFildM64                                     133755  97 PC, low confidence
+; X87 emulator: FILD m64int
 ;-----------------------------------------------------------------------------
-sub_133755:
+EmuFildM64:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
@@ -1199,120 +1285,133 @@ sub_133755:
         and word [byte ds:ebp+08h], bx
         mov eax, dword [es:esi]
         lea edx, [byte edi+ebp+01Ch]
-        call sub_1349D7
-        jmp near sub_132C84
+        call LoadM64Int
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_13378F                                                          13378F  
+; EmuFbstp                                       13378F  97 PC, low confidence
+; X87 emulator: FBSTP
 ;-----------------------------------------------------------------------------
-sub_13378F:
-        jmp near sub_132DF4_49
+EmuFbstp:
+        jmp near RoundToDouble_49
 ;-----------------------------------------------------------------------------
-; sub_133794                                                          133794  
+; EmuFistpM64                                    133794  97 PC, low confidence
+; X87 emulator: FISTP m64int
 ;-----------------------------------------------------------------------------
-sub_133794:
+EmuFistpM64:
         lea eax, [byte edi+ebp+01Ch]
         mov dx, word [byte ds:ebp+00h]
         and dx, 0C00h
-        call sub_134C97
+        call ExtToInt
         lea eax, [byte edi+ebp+01Ch]
-        call sub_13495C
+        call StoreIntBits
         mov dword [es:esi], eax
-        jmp near sub_132DF4_49
+        jmp near RoundToDouble_49
 ;-----------------------------------------------------------------------------
-; sub_1337B8                                                          1337B8  
+; EmuReservedOp                                  1337B8  97 PC, low confidence
+; X87 emulator: reserved opcode (unsupported)
 ;-----------------------------------------------------------------------------
-sub_1337B8:
-        jmp near sub_132C84
+EmuReservedOp:
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_1337BD                                                          1337BD  
+; EmuDispatchD9Reg                               1337BD  97 PC, low confidence
+; X87 emulator: dispatches the register forms of the D9 group
 ;-----------------------------------------------------------------------------
-sub_1337BD:
+EmuDispatchD9Reg:
         jmp dword [nosplit cs:ebx*4+jpt_1337C5]
 jpt_1337C5:
         dd .1
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
 .1:
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_1337EA                                                          1337EA  
+; EmuFaddSt                                      1337EA  97 PC, low confidence
+; X87 emulator: FADD st,st(i)
 ;-----------------------------------------------------------------------------
-sub_1337EA:
+EmuFaddSt:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_1343A8
+        call EmuAdd
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_1337FF                                                          1337FF  
+; EmuFmulSt                                      1337FF  97 PC, low confidence
+; X87 emulator: FMUL st,st(i)
 ;-----------------------------------------------------------------------------
-sub_1337FF:
+EmuFmulSt:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_1347DC
+        call EmuMul
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133814                                                          133814  
+; EmuFcomSt                                      133814  97 PC, low confidence
+; X87 emulator: FCOM st(i)
 ;-----------------------------------------------------------------------------
-sub_133814:
+EmuFcomSt:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
-        call sub_13456E
-        jmp near sub_132DF4_84
+        call EmuCompare
+        jmp near RoundToDouble_84
 ;-----------------------------------------------------------------------------
-; sub_133826                                                          133826  
+; EmuFcompSt                                     133826  97 PC, low confidence
+; X87 emulator: FCOMP st(i)
 ;-----------------------------------------------------------------------------
-sub_133826:
+EmuFcompSt:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
-        call sub_13456E
-        jmp near sub_132DF4_32
+        call EmuCompare
+        jmp near RoundToDouble_32
 ;-----------------------------------------------------------------------------
-; sub_133838                                                          133838  
+; EmuFsubSt                                      133838  97 PC, low confidence
+; X87 emulator: FSUB st,st(i)
 ;-----------------------------------------------------------------------------
-sub_133838:
+EmuFsubSt:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_13384D                                                          13384D  
+; EmuFsubrSt                                     13384D  97 PC, low confidence
+; X87 emulator: FSUBR st,st(i)
 ;-----------------------------------------------------------------------------
-sub_13384D:
+EmuFsubrSt:
         lea eax, [byte esi+ebp+01Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133862                                                          133862  
+; EmuFdivSt                                      133862  97 PC, low confidence
+; X87 emulator: FDIV st,st(i)
 ;-----------------------------------------------------------------------------
-sub_133862:
+EmuFdivSt:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133877                                                          133877  
+; EmuFdivrSt                                     133877  97 PC, low confidence
+; X87 emulator: FDIVR st,st(i)
 ;-----------------------------------------------------------------------------
-sub_133877:
+EmuFdivrSt:
         lea eax, [byte esi+ebp+01Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte edi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_13388C                                                          13388C  
+; EmuFldSt                                       13388C  97 PC, low confidence
+; X87 emulator: FLD st(i)
 ;-----------------------------------------------------------------------------
-sub_13388C:
+EmuFldSt:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
@@ -1325,11 +1424,12 @@ sub_13388C:
         mov dword [byte edi+ebp+020h], eax
         mov ax, word [byte esi+ebp+024h]
         mov word [byte edi+ebp+024h], ax
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_1338D4                                                          1338D4  
+; EmuFxch                                        1338D4  97 PC, low confidence
+; X87 emulator: FXCH
 ;-----------------------------------------------------------------------------
-sub_1338D4:
+EmuFxch:
         lea ebx, [byte edi+ebp+01Ch]
         lea esi, [byte esi+ebp+01Ch]
         mov eax, dword [esi]
@@ -1341,29 +1441,30 @@ sub_1338D4:
         mov ax, word [byte esi+08h]
         xchg ax, word [byte ebx+08h]
         mov word [byte esi+08h], ax
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_1338FC                                                          1338FC  
+; EmuFtstFxam                                    1338FC  97 PC, low confidence
+; X87 emulator: FTST and FXAM
 ;-----------------------------------------------------------------------------
-sub_1338FC:
+EmuFtstFxam:
         jmp dword [nosplit cs:ebx*4+jpt_133904]
 jpt_133904:
         dd .1
         dd .2
-        dd sub_1337B8
-        dd sub_1337B8
+        dd EmuReservedOp
+        dd EmuReservedOp
         dd .3
         dd .4
-        dd sub_1337B8
-        dd sub_1337B8
+        dd EmuReservedOp
+        dd EmuReservedOp
 .1:
         lea eax, [byte edi+ebp+01Ch]
         xor byte [byte eax+09h], 80h
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 .2:
         lea eax, [byte edi+ebp+01Ch]
         and byte [byte eax+09h], 7Fh
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 .3:
         mov eax, dword [cs:unk_132878]
         mov dword [byte ds:ebp+06Ch], eax
@@ -1373,16 +1474,17 @@ jpt_133904:
         mov word [byte ds:ebp+074h], ax
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte ebp+06Ch]
-        call sub_13456E
-        jmp near sub_132DF4_84
+        call EmuCompare
+        jmp near RoundToDouble_84
 .4:
         lea eax, [byte edi+ebp+01Ch]
-        call sub_13511E
-        jmp near sub_132C84
+        call EmuExamine
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_13397D                                                          13397D  
+; EmuSignOps                                     13397D  97 PC, low confidence
+; X87 emulator: FCHS, FABS and the load-constant group
 ;-----------------------------------------------------------------------------
-sub_13397D:
+EmuSignOps:
         jmp dword [nosplit cs:ebx*4+jpt_133985]
 jpt_133985:
         dd .1
@@ -1392,7 +1494,7 @@ jpt_133985:
         dd .5
         dd .6
         dd .7
-        dd sub_1337B8
+        dd EmuReservedOp
 .1:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
@@ -1405,7 +1507,7 @@ jpt_133985:
         mov dword [esi], eax
         mov dword [byte esi+04h], 80000000h
         mov word [byte esi+08h], 3FFFh
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 .2:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
@@ -1417,7 +1519,7 @@ jpt_133985:
         mov dword [esi], 0CD1B8AFEh
         mov dword [byte esi+04h], 0D49A784Bh
         mov word [byte esi+08h], 4000h
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 .3:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
@@ -1429,7 +1531,7 @@ jpt_133985:
         mov dword [esi], 5C17F0BCh
         mov dword [byte esi+04h], 0B8AA3B29h
         mov word [byte esi+08h], 3FFFh
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 .4:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
@@ -1441,7 +1543,7 @@ jpt_133985:
         mov dword [esi], 2168C235h
         mov dword [byte esi+04h], 0C900DAA2h
         mov word [byte esi+08h], 4000h
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 .5:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
@@ -1453,7 +1555,7 @@ jpt_133985:
         mov dword [esi], 0FBCFF799h
         mov dword [byte esi+04h], 9A209A84h
         mov word [byte esi+08h], 3FFDh
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 .6:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
@@ -1465,7 +1567,7 @@ jpt_133985:
         mov dword [esi], 0D1CF79ACh
         mov dword [byte esi+04h], 0B17217F7h
         mov word [byte esi+08h], 3FFEh
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 .7:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
@@ -1482,11 +1584,12 @@ jpt_133985:
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328D4]
         or word [byte ds:ebp+08h], bx
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_133B98                                                          133B98  
+; EmuLogOps                                      133B98  97 PC, low confidence
+; X87 emulator: F2XM1, FYL2X, FPTAN, FPATAN group
 ;-----------------------------------------------------------------------------
-sub_133B98:
+EmuLogOps:
         jmp dword [nosplit cs:ebx*4+jpt_133BA0]
 jpt_133BA0:
         dd .1
@@ -1499,7 +1602,7 @@ jpt_133BA0:
         dd .5
 .1:
         lea eax, [byte edi+ebp+01Ch]
-        call sub_135744
+        call EmuAtan
         jmp dword [byte ds:ebp+076h]
 .2:
         lea eax, [byte edi+ebp+01Ch]
@@ -1512,11 +1615,11 @@ jpt_133BA0:
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
         lea edx, [byte edi+ebp+01Ch]
-        call sub_135225
+        call EmuLog2
         jmp dword [byte ds:ebp+076h]
 .3:
         lea eax, [byte edi+ebp+01Ch]
-        call sub_13570E
+        call EmuTan
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
@@ -1528,23 +1631,24 @@ jpt_133BA0:
         mov dword [esi], eax
         mov dword [byte esi+04h], 80000000h
         mov word [byte esi+08h], 3FFFh
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 .4:
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 .5:
         movzx edi, word [dword cs:edi+unk_132882]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_133CA2                                                          133CA2  
+; EmuRemOps                                      133CA2  97 PC, low confidence
+; X87 emulator: FPREM, FSQRT, FRNDINT, FSCALE, FSIN, FCOS group
 ;-----------------------------------------------------------------------------
-sub_133CA2:
+EmuRemOps:
         jmp dword [nosplit cs:ebx*4+jpt_133CAA]
 jpt_133CAA:
         dd .1
@@ -1558,7 +1662,7 @@ jpt_133CAA:
 .1:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
-        call sub_13503D
+        call EmuRoundInt
         and eax, byte 7
         mov dx, word [byte ds:ebp+04h]
         and dx, 0B8FFh
@@ -1576,11 +1680,11 @@ jpt_133CAA:
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
         lea edx, [byte edi+ebp+01Ch]
-        call sub_13520C
+        call AddOne
         jmp dword [byte ds:ebp+076h]
 .3:
         lea eax, [byte edi+ebp+01Ch]
-        call sub_135918
+        call EmuExp2
         jmp dword [byte ds:ebp+076h]
 .4:
         lea ebx, [byte edi+ebp+01Ch]
@@ -1588,7 +1692,7 @@ jpt_133CAA:
         push dword [byte ebx+04h]
         push dword [byte ebx+06h]
         lea eax, [byte edi+ebp+01Ch]
-        call sub_1356F7
+        call EmuSin
         movzx edi, word [dword cs:edi+unk_132884]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
@@ -1600,30 +1704,31 @@ jpt_133CAA:
         pop dword [byte ebx+04h]
         pop dword [ebx]
         lea eax, [byte edi+ebp+01Ch]
-        call sub_135701
-        jmp near sub_132C84
+        call EmuCos
+        jmp near EmuTrapExit
 .5:
         lea eax, [byte edi+ebp+01Ch]
-        call sub_1356F7
+        call EmuSin
         jmp dword [byte ds:ebp+076h]
 .6:
         lea eax, [byte edi+ebp+01Ch]
-        call sub_135701
+        call EmuCos
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133DBA                                                          133DBA  
+; EmuFucompp                                     133DBA  97 PC, low confidence
+; X87 emulator: FUCOMPP
 ;-----------------------------------------------------------------------------
-sub_133DBA:
+EmuFucompp:
         jmp dword [nosplit cs:ebx*4+jpt_133DC2]
 jpt_133DC2:
-        dd sub_1337B8
+        dd EmuReservedOp
         dd .1
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
 .1:
         mov eax, dword [byte edi+ebp+01Ch]
         mov dword [byte ds:ebp+06Ch], eax
@@ -1641,25 +1746,26 @@ jpt_133DC2:
         or word [byte ds:ebp+04h], bx
         lea eax, [byte ebp+06Ch]
         lea edx, [byte edi+ebp+01Ch]
-        call sub_13456E
-        jmp near sub_132DF4_32
+        call EmuCompare
+        jmp near RoundToDouble_32
 ;-----------------------------------------------------------------------------
-; sub_133E43                                                          133E43  
+; EmuDispatchDBReg                               133E43  97 PC, low confidence
+; X87 emulator: dispatches FCLEX, FINIT and the DB register group
 ;-----------------------------------------------------------------------------
-sub_133E43:
+EmuDispatchDBReg:
         jmp dword [nosplit cs:ebx*4+jpt_133E4B]
 jpt_133E4B:
-        dd sub_1337B8
-        dd sub_1337B8
+        dd EmuReservedOp
+        dd EmuReservedOp
         dd .1
         dd jpt_133E4B_2C
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
 .1:
         and word [byte ds:ebp+04h], 7F00h
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
 ; jpt_133E4B_2C                                                       133E77  
 ;-----------------------------------------------------------------------------
@@ -1667,77 +1773,85 @@ jpt_133E4B_2C:
         mov word [byte ds:ebp+00h], 33Fh
         mov word [byte ds:ebp+04h], 0
         mov word [byte ds:ebp+08h], 0FFFFh
-        lea edx, [sub_132C84]
+        lea edx, [EmuTrapExit]
         mov dword [byte ds:ebp+076h], edx
         LD sub, edi, edi
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_133E9D                                                          133E9D  
+; EmuFaddToSt                                    133E9D  97 PC, low confidence
+; X87 emulator: FADD st(i),st
 ;-----------------------------------------------------------------------------
-sub_133E9D:
+EmuFaddToSt:
         lea eax, [byte esi+ebp+01Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte esi+ebp+01Ch]
-        call sub_1343A8
+        call EmuAdd
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133EB2                                                          133EB2  
+; EmuFmulToSt                                    133EB2  97 PC, low confidence
+; X87 emulator: FMUL st(i),st
 ;-----------------------------------------------------------------------------
-sub_133EB2:
+EmuFmulToSt:
         lea eax, [byte esi+ebp+01Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte esi+ebp+01Ch]
-        call sub_1347DC
+        call EmuMul
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133EC7                                                          133EC7  
+; EmuFsubrToSt                                   133EC7  97 PC, low confidence
+; X87 emulator: FSUBR st(i),st
 ;-----------------------------------------------------------------------------
-sub_133EC7:
+EmuFsubrToSt:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
         lea ebx, [byte esi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133EDC                                                          133EDC  
+; EmuFsubToSt                                    133EDC  97 PC, low confidence
+; X87 emulator: FSUB st(i),st
 ;-----------------------------------------------------------------------------
-sub_133EDC:
+EmuFsubToSt:
         lea eax, [byte esi+ebp+01Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte esi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133EF1                                                          133EF1  
+; EmuFdivrToSt                                   133EF1  97 PC, low confidence
+; X87 emulator: FDIVR st(i),st
 ;-----------------------------------------------------------------------------
-sub_133EF1:
+EmuFdivrToSt:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
         lea ebx, [byte esi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133F06                                                          133F06  
+; EmuFdivToSt                                    133F06  97 PC, low confidence
+; X87 emulator: FDIV st(i),st
 ;-----------------------------------------------------------------------------
-sub_133F06:
+EmuFdivToSt:
         lea eax, [byte esi+ebp+01Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte esi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_133F1B                                                          133F1B  
+; EmuFfree                                       133F1B  97 PC, low confidence
+; X87 emulator: FFREE st(i)
 ;-----------------------------------------------------------------------------
-sub_133F1B:
+EmuFfree:
         mov bx, word [dword cs:esi+unk_1328D2]
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:esi+unk_1328DA]
         or word [byte ds:ebp+08h], bx
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_133F3A                                                          133F3A  
+; EmuFstSt                                       133F3A  97 PC, low confidence
+; X87 emulator: FST st(i)
 ;-----------------------------------------------------------------------------
-sub_133F3A:
+EmuFstSt:
         mov eax, dword [byte edi+ebp+01Ch]
         mov dword [byte esi+ebp+01Ch], eax
         mov eax, dword [byte edi+ebp+020h]
@@ -1746,27 +1860,30 @@ sub_133F3A:
         mov word [byte esi+ebp+024h], ax
         mov bx, word [dword cs:esi+unk_1328D2]
         and word [byte ds:ebp+08h], bx
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_133F66                                                          133F66  
+; EmuFucom                                       133F66  97 PC, low confidence
+; X87 emulator: FUCOM st(i)
 ;-----------------------------------------------------------------------------
-sub_133F66:
+EmuFucom:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
-        call sub_13456E
-        jmp near sub_132DF4_84
+        call EmuCompare
+        jmp near RoundToDouble_84
 ;-----------------------------------------------------------------------------
-; sub_133F78                                                          133F78  
+; EmuFucomp                                      133F78  97 PC, low confidence
+; X87 emulator: FUCOMP st(i)
 ;-----------------------------------------------------------------------------
-sub_133F78:
+EmuFucomp:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
-        call sub_13456E
-        jmp near sub_132DF4_32
+        call EmuCompare
+        jmp near RoundToDouble_32
 ;-----------------------------------------------------------------------------
-; sub_133F8A                                                          133F8A  
+; EmuFstpSt                                      133F8A  97 PC, low confidence
+; X87 emulator: FSTP st(i)
 ;-----------------------------------------------------------------------------
-sub_133F8A:
+EmuFstpSt:
         mov eax, dword [byte edi+ebp+01Ch]
         mov dword [byte esi+ebp+01Ch], eax
         mov eax, dword [byte edi+ebp+020h]
@@ -1775,15 +1892,16 @@ sub_133F8A:
         mov word [byte esi+ebp+024h], ax
         mov bx, word [dword cs:esi+unk_1328D2]
         and word [byte ds:ebp+08h], bx
-        jmp near sub_132DF4_49
+        jmp near RoundToDouble_49
 ;-----------------------------------------------------------------------------
-; sub_133FB6                                                          133FB6  
+; EmuFaddp                                       133FB6  97 PC, low confidence
+; X87 emulator: FADDP st(i),st
 ;-----------------------------------------------------------------------------
-sub_133FB6:
+EmuFaddp:
         lea eax, [byte esi+ebp+01Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte esi+ebp+01Ch]
-        call sub_1343A8
+        call EmuAdd
         mov bx, word [dword cs:edi+unk_1328D2]
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
@@ -1794,13 +1912,14 @@ sub_133FB6:
         or word [byte ds:ebp+04h], bx
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_134001                                                          134001  
+; EmuFmulp                                       134001  97 PC, low confidence
+; X87 emulator: FMULP st(i),st
 ;-----------------------------------------------------------------------------
-sub_134001:
+EmuFmulp:
         lea eax, [byte esi+ebp+01Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte esi+ebp+01Ch]
-        call sub_1347DC
+        call EmuMul
         mov bx, word [dword cs:edi+unk_1328D2]
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
@@ -1811,19 +1930,20 @@ sub_134001:
         or word [byte ds:ebp+04h], bx
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_13404C                                                          13404C  
+; EmuFcompp                                      13404C  97 PC, low confidence
+; X87 emulator: FCOMPP
 ;-----------------------------------------------------------------------------
-sub_13404C:
+EmuFcompp:
         jmp dword [nosplit cs:ebx*4+jpt_134054]
 jpt_134054:
-        dd sub_1337B8
+        dd EmuReservedOp
         dd .1
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
 .1:
         mov eax, dword [byte edi+ebp+01Ch]
         mov dword [byte ds:ebp+06Ch], eax
@@ -1841,16 +1961,17 @@ jpt_134054:
         or word [byte ds:ebp+04h], bx
         lea eax, [byte ebp+06Ch]
         lea edx, [byte edi+ebp+01Ch]
-        call sub_13456E
-        jmp near sub_132DF4_32
+        call EmuCompare
+        jmp near RoundToDouble_32
 ;-----------------------------------------------------------------------------
-; sub_1340D5                                                          1340D5  
+; EmuFsubrp                                      1340D5  97 PC, low confidence
+; X87 emulator: FSUBRP st(i),st
 ;-----------------------------------------------------------------------------
-sub_1340D5:
+EmuFsubrp:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
         lea ebx, [byte esi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         mov bx, word [dword cs:edi+unk_1328D2]
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
@@ -1861,13 +1982,14 @@ sub_1340D5:
         or word [byte ds:ebp+04h], bx
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_134120                                                          134120  
+; EmuFsubp                                       134120  97 PC, low confidence
+; X87 emulator: FSUBP st(i),st
 ;-----------------------------------------------------------------------------
-sub_134120:
+EmuFsubp:
         lea eax, [byte esi+ebp+01Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte esi+ebp+01Ch]
-        call sub_13439A
+        call EmuSub
         mov bx, word [dword cs:edi+unk_1328D2]
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
@@ -1878,13 +2000,14 @@ sub_134120:
         or word [byte ds:ebp+04h], bx
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_13416B                                                          13416B  
+; EmuFdivrp                                      13416B  97 PC, low confidence
+; X87 emulator: FDIVRP st(i),st
 ;-----------------------------------------------------------------------------
-sub_13416B:
+EmuFdivrp:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
         lea ebx, [byte esi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         mov bx, word [dword cs:edi+unk_1328D2]
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
@@ -1895,13 +2018,14 @@ sub_13416B:
         or word [byte ds:ebp+04h], bx
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_1341B6                                                          1341B6  
+; EmuFdivp                                       1341B6  97 PC, low confidence
+; X87 emulator: FDIVP st(i),st
 ;-----------------------------------------------------------------------------
-sub_1341B6:
+EmuFdivp:
         lea eax, [byte esi+ebp+01Ch]
         lea edx, [byte edi+ebp+01Ch]
         lea ebx, [byte esi+ebp+01Ch]
-        call sub_134607
+        call EmuDiv
         mov bx, word [dword cs:edi+unk_1328D2]
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
@@ -1912,19 +2036,20 @@ sub_1341B6:
         or word [byte ds:ebp+04h], bx
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
-; sub_134201                                                          134201  
+; EmuDispatchDFReg                               134201  97 PC, low confidence
+; X87 emulator: dispatches the DF register group (FSTSW AX)
 ;-----------------------------------------------------------------------------
-sub_134201:
+EmuDispatchDFReg:
         jmp dword [nosplit cs:ebx*4+jpt_134209]
 jpt_134209:
         dd jpt_134209_110.6
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_1337B8
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuReservedOp
 ;-----------------------------------------------------------------------------
 ; jpt_134209_20                                                       134229  
 ;-----------------------------------------------------------------------------
@@ -1940,7 +2065,7 @@ jpt_134209_20:
         or word [byte ds:ebp+04h], bx
         lea eax, [byte edi+ebp+01Ch]
         LD mov, ebx, eax
-        call sub_134E24
+        call EmuRemainder
         jmp dword [byte ds:ebp+076h]
 ;-----------------------------------------------------------------------------
 ; jpt_134209_69                                                       134272  
@@ -1967,15 +2092,15 @@ jpt_134209_69:
         sub ax, 3FFFh
         cwde
         LD mov, edx, esi
-        call sub_134957
-        jmp near sub_132C84
+        call StoreM32Int
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
 ; jpt_134209_CE                                                       1342D7  
 ;-----------------------------------------------------------------------------
 jpt_134209_CE:
         lea eax, [byte edi+ebp+01Ch]
         lea edx, [byte esi+ebp+01Ch]
-        call sub_13503D
+        call EmuRoundInt
         and eax, byte 7
         mov dx, word [byte ds:ebp+04h]
         and dx, 0B8FFh
@@ -1989,8 +2114,8 @@ jpt_134209_F8:
         lea eax, [byte edi+ebp+01Ch]
         mov dx, word [byte ds:ebp+00h]
         and dx, 0C00h
-        call sub_134C97
-        jmp near sub_132C84
+        call ExtToInt
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
 ; jpt_134209_110                                                      134319  
 ;-----------------------------------------------------------------------------
@@ -1999,7 +2124,7 @@ jpt_134209_110:
         movzx edi, word [dword cs:edi+unk_132882]
         lea eax, [byte edi+ebp+01Ch]
         mov cx, word [byte eax+08h]
-        call sub_134957
+        call StoreM32Int
         LD mov, edi, esi
         lea ebx, [byte edi+ebp+01Ch]
         LD mov, edx, eax
@@ -2034,38 +2159,40 @@ jpt_134209_110:
 .5:
         LD or, dx, cx
         mov word [byte ebx+08h], dx
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 .6:
         mov ax, word [byte ds:ebp+04h]
         LD mov, ebp, esp
         mov word [byte ebp+028h], ax
-        jmp near sub_132C84
+        jmp near EmuTrapExit
 ;-----------------------------------------------------------------------------
-; sub_13439A                                                          13439A  
+; EmuSub                                         13439A  97 PC, low confidence
+; X87 emulator: subtracts two extended values (adds with the sign flipped)
 ;-----------------------------------------------------------------------------
-sub_13439A:
+EmuSub:
         push esi
         push ecx
         push ebx
         mov si, word [byte edx+08h]
         xor si, 8000h
-        jmp short sub_1343A8_7
+        jmp short EmuAdd_7
 ;-----------------------------------------------------------------------------
-; sub_1343A8                                                          1343A8  
+; EmuAdd                                         1343A8  97 PC, low confidence
+; X87 emulator: adds two extended values
 ;-----------------------------------------------------------------------------
-sub_1343A8:
+EmuAdd:
         push esi
         push ecx
         push ebx
         mov si, word [byte edx+08h]
-sub_1343A8_7:
+EmuAdd_7:
         mov ecx, dword [byte edx+04h]
         mov ebx, dword [edx]
         shl esi, 10h
         mov si, word [byte eax+08h]
         mov edx, dword [byte eax+04h]
         mov eax, dword [eax]
-        call sub_134402
+        call AddMantissas
         pop ebx
         mov dword [ebx], eax
         mov dword [byte ebx+04h], edx
@@ -2074,9 +2201,10 @@ sub_1343A8_7:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_1343D2                                                          1343D2  
+; AddExtRaw                                      1343D2  97 PC, low confidence
+; X87 emulator: adds two extended values without rounding
 ;-----------------------------------------------------------------------------
-sub_1343D2:
+AddExtRaw:
         push esi
         push ecx
         push ebx
@@ -2087,7 +2215,7 @@ sub_1343D2:
         mov si, word [byte eax+08h]
         mov edx, dword [byte eax+04h]
         mov eax, dword [eax]
-        call sub_134402
+        call AddMantissas
         pop ebx
         mov dword [ebx], eax
         mov dword [byte ebx+04h], edx
@@ -2096,9 +2224,10 @@ sub_1343D2:
         pop esi
         ret 0Ch
 ;-----------------------------------------------------------------------------
-; sub_134402                                                          134402  
+; AddMantissas                                   134402  97 PC, low confidence
+; X87 emulator: aligns and adds two mantissas
 ;-----------------------------------------------------------------------------
-sub_134402:
+AddMantissas:
         LD or, eax, eax
         jne short .3
         LD or, edx, edx
@@ -2268,9 +2397,10 @@ sub_134402:
         mov edx, 80000000h
         jmp short .18
 ;-----------------------------------------------------------------------------
-; sub_13456E                                                          13456E  
+; EmuCompare                                     13456E  97 PC, low confidence
+; X87 emulator: compares two extended values and sets the condition codes
 ;-----------------------------------------------------------------------------
-sub_13456E:
+EmuCompare:
         push edi
         push esi
         mov si, word [byte eax+08h]
@@ -2340,9 +2470,10 @@ sub_13456E:
         pop edi
         ret
 ;-----------------------------------------------------------------------------
-; sub_134607                                                          134607  
+; EmuDiv                                         134607  97 PC, low confidence
+; X87 emulator: divides two extended values
 ;-----------------------------------------------------------------------------
-sub_134607:
+EmuDiv:
         push esi
         push ecx
         push ebx
@@ -2353,7 +2484,7 @@ sub_134607:
         mov si, word [byte eax+08h]
         mov edx, dword [byte eax+04h]
         mov eax, dword [eax]
-        call sub_134631
+        call DivideMantissas
         pop ebx
         mov dword [ebx], eax
         mov dword [byte ebx+04h], edx
@@ -2362,9 +2493,10 @@ sub_134607:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_134631                                                          134631  
+; DivideMantissas                                134631  97 PC, low confidence
+; X87 emulator: divides two mantissas
 ;-----------------------------------------------------------------------------
-sub_134631:
+DivideMantissas:
         LD or, ecx, ecx
         jne short .3
         LD or, ebx, ebx
@@ -2380,7 +2512,7 @@ sub_134631:
         jne short .1
         mov al, 1
         mov ah, 81h
-        call sub_132E94
+        call RaiseFpuError
         mov edx, 0C0000000h
         LD sub, eax, eax
         mov si, 0FFFFh
@@ -2388,7 +2520,7 @@ sub_134631:
 .1:
         mov al, 4
         mov ah, 83h
-        call sub_132E94
+        call RaiseFpuError
         mov edx, 80000000h
         LD sub, eax, eax
         or si, 7FFFh
@@ -2565,9 +2697,10 @@ sub_134631:
         pop ebp
         ret
 ;-----------------------------------------------------------------------------
-; sub_1347DC                                                          1347DC  
+; EmuMul                                         1347DC  97 PC, low confidence
+; X87 emulator: multiplies two extended values
 ;-----------------------------------------------------------------------------
-sub_1347DC:
+EmuMul:
         push esi
         push ecx
         push ebx
@@ -2578,7 +2711,7 @@ sub_1347DC:
         mov si, word [byte eax+08h]
         mov edx, dword [byte eax+04h]
         mov eax, dword [eax]
-        call sub_134806
+        call MultiplyMantissas
         pop ebx
         mov dword [ebx], eax
         mov dword [byte ebx+04h], edx
@@ -2587,9 +2720,10 @@ sub_1347DC:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_134806                                                          134806  
+; MultiplyMantissas                              134806  97 PC, low confidence
+; X87 emulator: multiplies two mantissas
 ;-----------------------------------------------------------------------------
-sub_134806:
+MultiplyMantissas:
         LD or, eax, eax
         jne short .2
         LD or, edx, edx
@@ -2713,7 +2847,7 @@ sub_134806:
         jmp short .11
         push ebx
         mov bl, 0A0h
-        jmp short sub_13495C_3
+        jmp short StoreIntBits_3
         push ebx
         mov bh, byte [byte eax+09h]
         push ecx
@@ -2756,19 +2890,21 @@ sub_134806:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_134957                                                          134957  
+; StoreM32Int                                    134957  97 PC, low confidence
+; X87 emulator: stores an integer of 32 bits
 ;-----------------------------------------------------------------------------
-sub_134957:
+StoreM32Int:
         push ebx
         mov bl, 1Fh
-        jmp short sub_13495C_3
+        jmp short StoreIntBits_3
 ;-----------------------------------------------------------------------------
-; sub_13495C                                                          13495C  
+; StoreIntBits                                   13495C  97 PC, low confidence
+; X87 emulator: stores an integer of the given width
 ;-----------------------------------------------------------------------------
-sub_13495C:
+StoreIntBits:
         push ebx
         mov bl, 20h
-sub_13495C_3:
+StoreIntBits_3:
         mov bh, byte [byte eax+09h]
         shr bh, 1
         LD or, bh, bl
@@ -2822,23 +2958,28 @@ sub_13495C_3:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1349C6                                                          1349C6  
+; LoadM32Int                                     1349C6  97 PC, low confidence
+; X87 emulator: loads a 32-bit integer operand
 ;-----------------------------------------------------------------------------
-sub_1349C6:
+LoadM32Int:
         push ebx
         LD mov, ebx, edx
         LD or, eax, eax
         jns short .1
         neg eax
         mov edx, 0BFFFh
-        jmp short sub_1349D7_8
+        jmp short LoadM64Int_8
 .1:
         pop ebx
-sub_1349D7:
+;-----------------------------------------------------------------------------
+; LoadM64Int                                     1349D7  97 PC, low confidence
+; X87 emulator: loads a 64-bit integer operand
+;-----------------------------------------------------------------------------
+LoadM64Int:
         push ebx
         LD mov, ebx, edx
         mov edx, 3FFFh
-sub_1349D7_8:
+LoadM64Int_8:
         push ecx
         LD or, eax, eax
         je short .1
@@ -2864,9 +3005,10 @@ sub_1349D7_8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_134A0C                                                          134A0C  
+; LoadM64Real                                    134A0C  97 PC, low confidence
+; X87 emulator: loads a 64-bit real operand
 ;-----------------------------------------------------------------------------
-sub_134A0C:
+LoadM64Real:
         push ecx
         LD mov, ecx, edx
         shld edx, eax, 0Bh
@@ -2888,7 +3030,7 @@ sub_134A0C:
         push eax
         mov al, 1
         mov ah, 81h
-        call sub_132E94
+        call RaiseFpuError
         pop eax
         or edx, 40000000h
 .3:
@@ -2923,9 +3065,10 @@ sub_134A0C:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_134A8C                                                          134A8C  
+; StoreM32Real                                   134A8C  97 PC, low confidence
+; X87 emulator: stores a 32-bit real
 ;-----------------------------------------------------------------------------
-sub_134A8C:
+StoreM32Real:
         push edx
         push ecx
         push ebx
@@ -2981,9 +3124,10 @@ sub_134A8C:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_134B0B                                                          134B0B  
+; StoreM64Real                                   134B0B  97 PC, low confidence
+; X87 emulator: stores a 64-bit real
 ;-----------------------------------------------------------------------------
-sub_134B0B:
+StoreM64Real:
         push ecx
         push ebx
         push esi
@@ -3061,7 +3205,7 @@ sub_134B0B:
         push eax
         mov al, 8
         mov ah, 84h
-        call sub_132E94
+        call RaiseFpuError
         pop eax
 .10:
         pop esi
@@ -3069,9 +3213,10 @@ sub_134B0B:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_134BD2                                                          134BD2  
+; LoadM32Real                                    134BD2  97 PC, low confidence
+; X87 emulator: loads a 32-bit real operand
 ;-----------------------------------------------------------------------------
-sub_134BD2:
+LoadM32Real:
         push ecx
         push ebx
         LD mov, ebx, edx
@@ -3111,9 +3256,10 @@ unk_134C17:
         db 07Fh,00h,00h,00h,03Fh,00h,00h,00h,01Fh,00h,00h,00h,0Fh,00h,00h,00h
         db 07h,00h,00h,00h,03h,00h,00h,00h,01h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_134C97                                                          134C97  
+; ExtToInt                                       134C97  97 PC, low confidence
+; X87 emulator: converts an extended value to an integer
 ;-----------------------------------------------------------------------------
-sub_134C97:
+ExtToInt:
         push edi
         LD mov, edi, eax
         LD sub, ebx, ebx
@@ -3243,9 +3389,10 @@ unk_134DCA:
         db 0CCh,0CCh,0CCh,0CCh,0FCh,03Fh,0F2h,081h,097h,0AAh,0AAh,0AAh,0AAh,0AAh,0FDh,0BFh
         db 00h,00h,00h,00h,00h,00h,00h,080h,0FFh,03Fh
 ;-----------------------------------------------------------------------------
-; sub_134E24                                                          134E24  
+; EmuRemainder                                   134E24  97 PC, low confidence
+; X87 emulator: partial remainder
 ;-----------------------------------------------------------------------------
-sub_134E24:
+EmuRemainder:
         push edi
         push esi
         push ecx
@@ -3278,9 +3425,9 @@ sub_134E24:
         jmp short .7
 .4:
         mov ch, byte [byte edi+09h]
-        call sub_134607
+        call EmuDiv
         LD mov, eax, ebx
-        call sub_134EDA
+        call RemainderStep
         mov dl, byte [byte ebx+09h]
         LD or, ch, ch
         js short .6
@@ -3290,7 +3437,7 @@ sub_134E24:
         push dword 4000h
         push dword 0C90FDAA2h
         push dword 2168C235h
-        call sub_1343D2
+        call AddExtRaw
 .5:
         jmp short .7
 .6:
@@ -3300,16 +3447,17 @@ sub_134E24:
         push dword 0C000h
         push dword 0C90FDAA2h
         push dword 2168C235h
-        call sub_1343D2
+        call AddExtRaw
 .7:
         pop ecx
         pop esi
         pop edi
         ret
 ;-----------------------------------------------------------------------------
-; sub_134EDA                                                          134EDA  
+; RemainderStep                                  134EDA  97 PC, low confidence
+; X87 emulator: one step of the partial remainder
 ;-----------------------------------------------------------------------------
-sub_134EDA:
+RemainderStep:
         push edi
         push esi
         push ecx
@@ -3346,7 +3494,7 @@ sub_134EDA:
         mov si, 3FFFh
         mov edx, 80000000h
         mov eax, 0
-        call sub_134631
+        call DivideMantissas
         mov dword [edi], eax
         mov dword [byte edi+04h], edx
         mov word [byte edi+08h], si
@@ -3370,7 +3518,7 @@ sub_134EDA:
         mov eax, dword [edi]
         mov edx, dword [byte edi+04h]
         mov si, word [byte edi+08h]
-        call sub_134402
+        call AddMantissas
         push eax
         push edx
         push esi
@@ -3380,20 +3528,20 @@ sub_134EDA:
         mov eax, dword [edi]
         mov edx, dword [byte edi+04h]
         mov si, word [byte edi+08h]
-        call sub_134806
+        call MultiplyMantissas
         LD sub, ebx, ebx
         mov ecx, 80000000h
         rol esi, 10h
         mov si, 0BFFFh
         rol esi, 10h
-        call sub_134402
+        call AddMantissas
         pop ebx
         shl ebx, 10h
         LD mov, bx, si
         LD mov, esi, ebx
         pop ecx
         pop ebx
-        call sub_134631
+        call DivideMantissas
         mov dword [edi], eax
         mov dword [byte edi+04h], edx
         mov word [byte edi+08h], si
@@ -3403,7 +3551,7 @@ sub_134EDA:
         LD mov, eax, edi
         lea edx, [unk_134DCA]
         mov ebx, 8
-        call sub_135A56
+        call PolyEvalOdd
         shr ch, 1
         jae short .5
         LD mov, eax, edi
@@ -3411,7 +3559,7 @@ sub_134EDA:
         push dword 860A91C1h
         push dword 6B9B2C23h
         LD mov, ebx, edi
-        call sub_1343D2
+        call AddExtRaw
 .5:
         shr ch, 1
         jae short .6
@@ -3420,7 +3568,7 @@ sub_134EDA:
         push dword 2168C235h
         LD mov, eax, edi
         LD mov, ebx, edi
-        call sub_1343D2
+        call AddExtRaw
         xor byte [byte ebx+09h], 80h
 .6:
         cmp cl, 0
@@ -3434,9 +3582,10 @@ sub_134EDA:
         pop edi
         ret
 ;-----------------------------------------------------------------------------
-; sub_13503D                                                          13503D  
+; EmuRoundInt                                    13503D  97 PC, low confidence
+; X87 emulator: rounds to an integer (FRNDINT)
 ;-----------------------------------------------------------------------------
-sub_13503D:
+EmuRoundInt:
         cmp word [byte eax+08h], byte 0
         jne short .1
         cmp dword [byte eax+04h], byte 0
@@ -3472,7 +3621,7 @@ sub_13503D:
         mov ebx, dword [edx]
         mov edx, dword [byte eax+04h]
         mov eax, dword [eax]
-        call sub_1350A3
+        call RoundMantissa
         pop ecx
         mov dword [ecx], eax
         mov dword [byte ecx+04h], edx
@@ -3486,9 +3635,10 @@ sub_13503D:
         pop ebp
         ret
 ;-----------------------------------------------------------------------------
-; sub_1350A3                                                          1350A3  
+; RoundMantissa                                  1350A3  97 PC, low confidence
+; X87 emulator: rounds a mantissa by the rounding mode
 ;-----------------------------------------------------------------------------
-sub_1350A3:
+RoundMantissa:
         push esi
         push edi
         and esi, 7FFFh
@@ -3556,9 +3706,10 @@ sub_1350A3:
 .12:
         ret
 ;-----------------------------------------------------------------------------
-; sub_13511E                                                          13511E  
+; EmuExamine                                     13511E  97 PC, low confidence
+; X87 emulator: classifies a value (FXAM)
 ;-----------------------------------------------------------------------------
-sub_13511E:
+EmuExamine:
         push ebx
         push edx
         LD mov, ebx, eax
@@ -3629,9 +3780,10 @@ unk_1351E4:
         db 0ACh,08Eh,04h,0C0h,060h,0EFh,033h,0A9h,0D0h,01Fh,04h,09Ch,07h,040h,096h,0BBh
         db 083h,06Ch,0E0h,0F4h,05Fh,0C0h,08h,0C0h
 ;-----------------------------------------------------------------------------
-; sub_13520C                                                          13520C  
+; AddOne                                         13520C  97 PC, low confidence
+; X87 emulator: adds 1.0 to a value
 ;-----------------------------------------------------------------------------
-sub_13520C:
+AddOne:
         push ebx
         push edx
         push eax
@@ -3639,22 +3791,26 @@ sub_13520C:
         push dword 80000000h
         push byte 0
         LD mov, ebx, eax
-        call sub_1343D2
+        call AddExtRaw
         pop eax
         pop edx
         pop ebx
-sub_135225:
+;-----------------------------------------------------------------------------
+; EmuLog2                                        135225  97 PC, low confidence
+; X87 emulator: base-2 logarithm
+;-----------------------------------------------------------------------------
+EmuLog2:
         push edi
         push esi
         push edx
         push ecx
         push ebx
         push eax
-        call sub_135268
+        call Log2Core
         pop eax
         LD mov, ebx, edx
         push edx
-        call sub_1347DC
+        call EmuMul
         pop edi
         mov si, word [byte edi+08h]
         mov ecx, dword [byte edi+04h]
@@ -3663,7 +3819,7 @@ sub_135225:
         mov si, 3FFFh
         mov edx, 0B8AA3B29h
         mov eax, 5C17F0BDh
-        call sub_134806
+        call MultiplyMantissas
         mov dword [edi], eax
         mov dword [byte edi+04h], edx
         mov word [byte edi+08h], si
@@ -3674,9 +3830,10 @@ sub_135225:
         pop edi
         ret
 ;-----------------------------------------------------------------------------
-; sub_135268                                                          135268  
+; Log2Core                                       135268  97 PC, low confidence
+; X87 emulator: core of the base-2 logarithm
 ;-----------------------------------------------------------------------------
-sub_135268:
+Log2Core:
         push edi
         push esi
         push edx
@@ -3698,7 +3855,7 @@ sub_135268:
         mov esi, 0BFFE3FFEh
         mov ecx, 80000000h
         LD sub, ebx, ebx
-        call sub_134402
+        call AddMantissas
         cmp word [byte edi+08h], 3FFEh
         jne short .2
         cmp dword [byte edi+04h], 0B504F333h
@@ -3710,7 +3867,7 @@ sub_135268:
         or esi, 0BFFE0000h
         mov ecx, 80000000h
         LD sub, ebx, ebx
-        call sub_134402
+        call AddMantissas
         jmp short .4
 .3:
         mov dword [edi], eax
@@ -3729,7 +3886,7 @@ sub_135268:
         or esi, 3FFE0000h
         mov ecx, 80000000h
         LD sub, ebx, ebx
-        call sub_134402
+        call AddMantissas
         shl esi, 10h
         LD mov, ecx, edx
         LD mov, ebx, eax
@@ -3737,7 +3894,7 @@ sub_135268:
         LD mov, si, ax
         pop edx
         pop eax
-        call sub_134631
+        call DivideMantissas
         push eax
         push edx
         push esi
@@ -3746,13 +3903,13 @@ sub_135268:
         LD mov, si, cx
         LD mov, ecx, edx
         LD mov, ebx, eax
-        call sub_134806
+        call MultiplyMantissas
         mov dword [edi], eax
         mov dword [byte edi+04h], edx
         mov word [byte edi+08h], si
         mov ebx, 3
         lea ecx, [unk_1351E4]
-        call sub_135A04
+        call PolyEval
         push eax
         push edx
         push esi
@@ -3761,33 +3918,33 @@ sub_135268:
         mov si, word [byte edi+08h]
         lea ecx, [unk_1351C6]
         mov ebx, 2
-        call sub_135A04
+        call PolyEval
         pop ecx
         rol esi, 10h
         LD mov, si, cx
         rol esi, 10h
         pop ecx
         pop ebx
-        call sub_134631
+        call DivideMantissas
         mov ebx, dword [edi]
         mov ecx, dword [byte edi+04h]
         rol esi, 10h
         mov si, word [byte edi+08h]
         rol esi, 10h
-        call sub_134806
+        call MultiplyMantissas
         rol esi, 10h
         mov si, word [esp]
         rol esi, 10h
         mov ecx, dword [byte esp+04h]
         mov ebx, dword [byte esp+08h]
-        call sub_134806
+        call MultiplyMantissas
         rol esi, 10h
         pop ecx
         LD mov, si, cx
         rol esi, 10h
         pop ecx
         pop ebx
-        call sub_134402
+        call AddMantissas
         pop ecx
         LD or, ecx, ecx
         je short .5
@@ -3796,7 +3953,7 @@ sub_135268:
         push esi
         LD mov, edx, edi
         LD mov, eax, ecx
-        call sub_1349C6
+        call LoadM32Int
         mov eax, dword [edi]
         mov edx, dword [byte edi+04h]
         mov si, word [byte edi+08h]
@@ -3804,14 +3961,14 @@ sub_135268:
         or esi, 0BFF20000h
         mov ecx, 0DE8082E3h
         mov ebx, 865435Ch
-        call sub_134806
+        call MultiplyMantissas
         pop ecx
         rol esi, 10h
         LD mov, si, cx
         rol esi, 10h
         pop ecx
         pop ebx
-        call sub_134402
+        call AddMantissas
         push eax
         push edx
         push esi
@@ -3822,14 +3979,14 @@ sub_135268:
         or esi, 3FFE0000h
         mov ecx, 0B1800000h
         LD sub, ebx, ebx
-        call sub_134806
+        call MultiplyMantissas
         pop ecx
         rol esi, 10h
         LD mov, si, cx
         rol esi, 10h
         pop ecx
         pop ebx
-        call sub_134402
+        call AddMantissas
 .5:
         mov dword [edi], eax
         mov dword [byte edi+04h], edx
@@ -3859,9 +4016,10 @@ unk_1354EE:
         db 00h,00h,01h,00h,02h,00h,03h,00h,04h,00h,04h,00h,05h,00h,05h,00h
         db 06h,00h
 ;-----------------------------------------------------------------------------
-; sub_135500                                                          135500  
+; SinCosCore                                     135500  97 PC, low confidence
+; X87 emulator: core of the sine and cosine
 ;-----------------------------------------------------------------------------
-sub_135500:
+SinCosCore:
         push ebp
         push edi
         push edx
@@ -3886,7 +4044,7 @@ sub_135500:
         mov ebx, 2168C235h
         mov edx, dword [byte eax+04h]
         mov eax, dword [eax]
-        call sub_1350A3
+        call RoundMantissa
         pop ecx
         mov dword [ecx], eax
         mov dword [byte ecx+04h], edx
@@ -3902,7 +4060,7 @@ sub_135500:
         push dword 3FFEh
         push dword 0C90FDAA2h
         push dword 2168C235h
-        call sub_1343D2
+        call AddExtRaw
         pop eax
         dec eax
 .2:
@@ -3919,7 +4077,7 @@ sub_135500:
         push dword 2168C235h
         LD mov, eax, edi
         LD mov, ebx, edi
-        call sub_1343D2
+        call AddExtRaw
         xor byte [byte ebx+09h], 80h
 .3:
         LD sub, ecx, ecx
@@ -3959,13 +4117,13 @@ sub_135500:
         mov si, word [byte edi+08h]
         LD mov, ebx, eax
         LD mov, ecx, edx
-        call sub_134806
+        call MultiplyMantissas
         mov ecx, dword [byte ebp-018h]
         mov ebx, 8
         LD sub, ebx, ecx
         lea ecx, [ecx+ecx*4]
         lea ecx, [nosplit ecx*2+unk_135494]
-        call sub_135A04
+        call PolyEval
         mov dword [byte ebp-0Ch], eax
         mov dword [byte ebp-08h], edx
         mov word [byte ebp-04h], si
@@ -3985,7 +4143,7 @@ sub_135500:
         LD add, ecx, ecx
         lea edx, [unk_13543A]
         LD add, edx, ecx
-        call sub_135A56
+        call PolyEvalOdd
 .10:
         mov eax, dword [byte ebp-014h]
         inc al
@@ -4039,7 +4197,7 @@ sub_135500:
         or si, 7FFFh
         jmp short .18
 .17:
-        call sub_134631
+        call DivideMantissas
 .18:
         mov dword [edi], eax
         mov dword [byte edi+04h], edx
@@ -4052,43 +4210,47 @@ sub_135500:
         pop ebp
         ret
 ;-----------------------------------------------------------------------------
-; sub_1356F7                                                          1356F7  
+; EmuSin                                         1356F7  97 PC, low confidence
+; X87 emulator: sine
 ;-----------------------------------------------------------------------------
-sub_1356F7:
+EmuSin:
         push esi
         LD sub, esi, esi
-        call sub_135500
+        call SinCosCore
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_135701                                                          135701  
+; EmuCos                                         135701  97 PC, low confidence
+; X87 emulator: cosine
 ;-----------------------------------------------------------------------------
-sub_135701:
+EmuCos:
         push esi
         mov esi, 2
-        call sub_135500
+        call SinCosCore
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_13570E                                                          13570E  
+; EmuTan                                         13570E  97 PC, low confidence
+; X87 emulator: tangent
 ;-----------------------------------------------------------------------------
-sub_13570E:
+EmuTan:
         push esi
         mov esi, 1
-        call sub_135500
+        call SinCosCore
         pop esi
         ret
         db 090h
-sub_13570E_E:
+EmuTan_E:
         adc eax, 67CC487Bh
         ret
         db 0AAh,085h,0FFh,03Fh,0E7h,0D6h,08Bh,0EAh,0E3h,0C1h,095h,08Bh,0FFh,03Fh,06Fh,0A9h
         db 0B8h,08Dh,051h,0F0h,037h,098h,0FFh,03Fh,084h,064h,0DEh,0F9h,033h,0F3h,04h,0B5h
         db 0FFh,03Fh
 ;-----------------------------------------------------------------------------
-; sub_135744                                                          135744  
+; EmuAtan                                        135744  97 PC, low confidence
+; X87 emulator: arctangent
 ;-----------------------------------------------------------------------------
-sub_135744:
+EmuAtan:
         push ebp
         push edi
         push esi
@@ -4114,7 +4276,7 @@ sub_135744:
         push byte 0
         LD mov, eax, edi
         LD mov, ebx, edi
-        call sub_1343D2
+        call AddExtRaw
         xor byte [byte ebx+09h], 80h
 .2:
         mov bx, word [byte edi+08h]
@@ -4164,7 +4326,7 @@ sub_135744:
         mov si, word [byte edi+08h]
         LD mov, ebx, eax
         LD mov, ecx, edx
-        call sub_134806
+        call MultiplyMantissas
         push eax
         push edx
         push esi
@@ -4172,7 +4334,7 @@ sub_135744:
         mov ebx, 1BF21F8Ch
         and esi, 0FFFFh
         or esi, 40030000h
-        call sub_134402
+        call AddMantissas
         LD mov, ebp, esp
         xchg eax, dword [byte ebp+08h]
         xchg edx, dword [byte ebp+04h]
@@ -4181,18 +4343,18 @@ sub_135744:
         mov ebx, 9D7BFDBh
         and esi, 0FFFFh
         or esi, 3FFA0000h
-        call sub_134806
+        call MultiplyMantissas
         mov ecx, 0E6D5051Ah
         mov ebx, 0E536E187h
         and esi, 0FFFFh
         or esi, 40010000h
-        call sub_134402
+        call AddMantissas
         mov ebx, dword [edi]
         mov ecx, dword [byte edi+04h]
         rol esi, 10h
         mov si, word [byte edi+08h]
         rol esi, 10h
-        call sub_134806
+        call MultiplyMantissas
         push eax
         push edx
         push esi
@@ -4202,7 +4364,7 @@ sub_135744:
         rol esi, 10h
         mov ebx, dword [byte ebp+08h]
         mov ecx, dword [byte ebp+04h]
-        call sub_134402
+        call AddMantissas
         xchg eax, dword [byte ebp-04h]
         xchg edx, dword [byte ebp-08h]
         xchg esi, dword [byte ebp-0Ch]
@@ -4211,20 +4373,20 @@ sub_135744:
         rol esi, 10h
         mov ebx, dword [byte ebp+08h]
         mov ecx, dword [byte ebp+04h]
-        call sub_134402
+        call AddMantissas
         rol esi, 10h
         mov si, word [byte ebp-0Ch]
         rol esi, 10h
         pop ecx
         pop ecx
         pop ebx
-        call sub_134631
+        call DivideMantissas
         mov dword [edi], eax
         mov dword [byte edi+04h], edx
         mov word [byte edi+08h], si
         add esp, byte 0Ch
         pop ecx
-        lea esi, [sub_13570E_E]
+        lea esi, [EmuTan_E]
 .11:
         LD or, ecx, ecx
         je short .13
@@ -4240,7 +4402,7 @@ sub_135744:
         mov edx, dword [byte cs:esi+04h]
         mov esi, dword [cs:esi]
         xchg esi, eax
-        call sub_134806
+        call MultiplyMantissas
         mov dword [edi], eax
         mov dword [byte edi+04h], edx
         mov word [byte edi+08h], si
@@ -4257,7 +4419,7 @@ sub_135744:
         push dword 80000000h
         push byte 0
         LD mov, ebx, edi
-        call sub_1343D2
+        call AddExtRaw
         pop ebx
         pop ecx
         pop edx
@@ -4266,9 +4428,10 @@ sub_135744:
         pop ebp
         ret
 ;-----------------------------------------------------------------------------
-; sub_135918                                                          135918  
+; EmuExp2                                        135918  97 PC, low confidence
+; X87 emulator: 2 to the power x minus one (F2XM1)
 ;-----------------------------------------------------------------------------
-sub_135918:
+EmuExp2:
         push edi
         push esi
         push edx
@@ -4375,7 +4538,7 @@ sub_135918:
         mov si, word [byte eax+08h]
         mov edx, dword [byte eax+04h]
         mov eax, dword [eax]
-        call sub_135A04
+        call PolyEval
         pop ecx
         mov dword [ecx], eax
         mov dword [byte ecx+04h], edx
@@ -4384,9 +4547,10 @@ sub_135918:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_135A04                                                          135A04  
+; PolyEval                                       135A04  97 PC, low confidence
+; X87 emulator: evaluates a polynomial
 ;-----------------------------------------------------------------------------
-sub_135A04:
+PolyEval:
         push ebp
         push edi
         push ecx
@@ -4405,14 +4569,14 @@ sub_135A04:
         rol esi, 10h
         mov ebx, dword [byte ebp+00h]
         mov ecx, dword [byte ebp+04h]
-        call sub_134806
+        call MultiplyMantissas
         lea edi, [byte edi+0Ah]
         mov ebx, dword [cs:edi]
         mov ecx, dword [byte cs:edi+04h]
         rol esi, 10h
         mov si, word [byte cs:edi+08h]
         rol esi, 10h
-        call sub_134402
+        call AddMantissas
         dec dword [byte ebp+0Ch]
         jne short .1
         add esp, byte 10h
@@ -4421,9 +4585,10 @@ sub_135A04:
         pop ebp
         ret
 ;-----------------------------------------------------------------------------
-; sub_135A56                                                          135A56  
+; PolyEvalOdd                                    135A56  97 PC, low confidence
+; X87 emulator: evaluates an odd polynomial
 ;-----------------------------------------------------------------------------
-sub_135A56:
+PolyEvalOdd:
         push edi
         push esi
         push ecx
@@ -4437,16 +4602,16 @@ sub_135A56:
         mov si, word [byte edi+08h]
         LD mov, ebx, eax
         LD mov, ecx, edx
-        call sub_134806
+        call MultiplyMantissas
         pop ecx
         pop ebx
-        call sub_135A04
+        call PolyEval
         rol esi, 10h
         mov ebx, dword [edi]
         mov ecx, dword [byte edi+04h]
         mov si, word [byte edi+08h]
         rol esi, 10h
-        call sub_134806
+        call MultiplyMantissas
         mov dword [edi], eax
         mov dword [byte edi+04h], edx
         mov word [byte edi+08h], si
@@ -4598,9 +4763,10 @@ __unhook387:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_135BCB                                                          135BCB  
+; EmuNoOp                                        135BCB  97 PC, low confidence
+; X87 emulator: returns at once
 ;-----------------------------------------------------------------------------
-sub_135BCB:
+EmuNoOp:
         ret
 ;-----------------------------------------------------------------------------
 ; __init_80x87                                                 135BCC  library

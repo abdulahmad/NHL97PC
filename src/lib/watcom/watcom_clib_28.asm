@@ -2,25 +2,28 @@
 bits 32
 %include "hockey.inc"
 section s_1327F6 progbits alloc exec nowrite align=1
-extern __fatal_runtime_error_, str_FloatingPointSupportNot, strtod_, sub_132C84, sub_132EE2, sub_132EE8, sub_132EEE, sub_132EF4
-extern sub_132EFA, sub_132F02, sub_132F08, sub_132F0E, sub_132F14, sub_132F1C, sub_132F24, sub_132F2C
-extern sub_132F34, sub_132F3E, sub_132F48, sub_132F50, sub_132F58, sub_132F61, sub_132F6A, sub_132F73
-extern sub_132F7C, sub_132F87, sub_132F92, sub_132F9B, sub_132FA4, sub_132FDC, sub_132FE1, sub_133000
-extern sub_13301F, sub_13303B, sub_133057, sub_133076, sub_133095, sub_1330B4, sub_1330D3, sub_13310D
-extern sub_13311E, sub_13312F, sub_13314D, sub_13318D, sub_1331A1, sub_1331AF, sub_1331CE, sub_1331ED
-extern sub_133209, sub_133225, sub_133244, sub_133263, sub_133282, sub_1332A1, sub_1332DB, sub_133317
-extern sub_13333B, sub_13335E, sub_133381, sub_1333A1, sub_1333C1, sub_1333E4, sub_133407, sub_13342A
-extern sub_13344D, sub_133494, sub_1334D2, sub_1334E7, sub_133505, sub_13351A, sub_133561, sub_13358C
-extern sub_13359A, sub_1335BB, sub_1335DC, sub_1335FA, sub_133618, sub_133639, sub_13365A, sub_13367B
-extern sub_13369C, sub_1336D8, sub_133720, sub_133750, sub_133755, sub_13378F, sub_133794, sub_1337B8
-extern sub_1337BD, sub_1337EA, sub_1337FF, sub_133814, sub_133826, sub_133838, sub_13384D, sub_133862
-extern sub_133877, sub_13388C, sub_1338D4, sub_1338FC, sub_13397D, sub_133B98, sub_133CA2, sub_133DBA
-extern sub_133E43, sub_133E9D, sub_133EB2, sub_133EC7, sub_133EDC, sub_133EF1, sub_133F06, sub_133F1B
-extern sub_133F3A, sub_133F66, sub_133F78, sub_133F8A, sub_133FB6, sub_134001, sub_13404C, sub_1340D5
-extern sub_134120, sub_13416B, sub_1341B6, sub_134201
+extern __fatal_runtime_error_, str_FloatingPointSupportNot, strtod_, EmuTrapExit, EaEax, EaEcx, EaEdx, EaEbx
+extern EaEsp, EaDisp32, EaEsi, EaEdi, EaEaxDisp8, EaEcxDisp8, EaEdxDisp8, EaEbxDisp8
+extern EaEspDisp8, EaEbpDisp8, EaEsiDisp8, EaEdiDisp8, EaEaxDisp32, EaEcxDisp32, EaEdxDisp32, EaEbxDisp32
+extern EaEspDisp32, EaEbpDisp32, EaEsiDisp32, EaEdiDisp32, EaSib, EmuUnsupported, EmuFaddM32, EmuFmulM32
+extern EmuFcomM32, EmuFcompM32, EmuFsubM32, EmuFsubrM32, EmuFdivM32, EmuFdivrM32, EmuFldM32, EmuFstM32
+extern EmuFstpM32, EmuFldenv, EmuFldcw, EmuFstenv, EmuFstcw, EmuFiaddM32, EmuFimulM32, EmuFicomM32
+extern EmuFicompM32, EmuFisubM32, EmuFisubrM32, EmuFidivM32, EmuFidivrM32, EmuFildM32, EmuFistM32, EmuFistpM32
+extern EmuFaddM64, EmuFmulM64, EmuFcomM64, EmuFcompM64, EmuFsubM64, EmuFsubrM64, EmuFdivM64, EmuFdivrM64
+extern EmuFldM80, EmuFldM64, EmuFstM64, EmuFstpM80, EmuFstpM64, EmuFrstor, EmuFsave, EmuFstswM16
+extern EmuFiaddM16, EmuFimulM16, EmuFicomM16, EmuFicompM16, EmuFisubM16, EmuFisubrM16, EmuFidivM16, EmuFidivrM16
+extern EmuFildM16, EmuFistM16, EmuFistpM16, EmuFbld, EmuFildM64, EmuFbstp, EmuFistpM64, EmuReservedOp
+extern EmuDispatchD9Reg, EmuFaddSt, EmuFmulSt, EmuFcomSt, EmuFcompSt, EmuFsubSt, EmuFsubrSt, EmuFdivSt
+extern EmuFdivrSt, EmuFldSt, EmuFxch, EmuFtstFxam, EmuSignOps, EmuLogOps, EmuRemOps, EmuFucompp
+extern EmuDispatchDBReg, EmuFaddToSt, EmuFmulToSt, EmuFsubrToSt, EmuFsubToSt, EmuFdivrToSt, EmuFdivToSt, EmuFfree
+extern EmuFstSt, EmuFucom, EmuFucomp, EmuFstpSt, EmuFaddp, EmuFmulp, EmuFcompp, EmuFsubrp
+extern EmuFsubp, EmuFdivrp, EmuFdivp, EmuDispatchDFReg
 global __cnvs2d_, forcedecpt_, jpt_1329F0, jpt_132AF0, jpt_132AF0_100, jpt_132AF0_170, sub_132863, unk_132878
 global unk_13287C, unk_132880, unk_132882, unk_132884, unk_132886, unk_1328D2, unk_1328D4, unk_1328D8
 global unk_1328DA, unk_132922, unk_132926, unk_132930, unk_132990
+;-----------------------------------------------------------------------------
+; forcedecpt_                                                  1327F6  library
+;-----------------------------------------------------------------------------
 forcedecpt_:
         push ebx
         mov ebx, edx
@@ -71,6 +74,9 @@ forcedecpt_:
 .6:
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __cnvs2d_                                                    132855  library
+;-----------------------------------------------------------------------------
 __cnvs2d_:
         push ebx
         mov ebx, edx
@@ -79,6 +85,9 @@ __cnvs2d_:
         fstp qword [ebx]
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_132863                                                          132863  
+;-----------------------------------------------------------------------------
 sub_132863:
         push edx
         mov edx, 1
@@ -120,185 +129,188 @@ unk_132922:
 unk_132926:
         db 00h,02h,040h,042h,01h,03h,041h,043h,087h,0DBh
 unk_132930:
-        dd sub_132EE2
-        dd sub_132EE8
-        dd sub_132EEE
-        dd sub_132EF4
-        dd sub_132FA4
-        dd sub_132F02
-        dd sub_132F08
-        dd sub_132F0E
-        dd sub_132F14
-        dd sub_132F1C
-        dd sub_132F24
-        dd sub_132F2C
-        dd sub_132FA4
-        dd sub_132F3E
-        dd sub_132F48
-        dd sub_132F50
-        dd sub_132F58
-        dd sub_132F61
-        dd sub_132F6A
-        dd sub_132F73
-        dd sub_132FA4
-        dd sub_132F87
-        dd sub_132F92
-        dd sub_132F9B
+        dd EaEax
+        dd EaEcx
+        dd EaEdx
+        dd EaEbx
+        dd EaSib
+        dd EaDisp32
+        dd EaEsi
+        dd EaEdi
+        dd EaEaxDisp8
+        dd EaEcxDisp8
+        dd EaEdxDisp8
+        dd EaEbxDisp8
+        dd EaSib
+        dd EaEbpDisp8
+        dd EaEsiDisp8
+        dd EaEdiDisp8
+        dd EaEaxDisp32
+        dd EaEcxDisp32
+        dd EaEdxDisp32
+        dd EaEbxDisp32
+        dd EaSib
+        dd EaEbpDisp32
+        dd EaEsiDisp32
+        dd EaEdiDisp32
 unk_132990:
-        dd sub_132EE2
-        dd sub_132EE8
-        dd sub_132EEE
-        dd sub_132EF4
-        dd sub_132EFA
-        dd sub_132F02
-        dd sub_132F08
-        dd sub_132F0E
-        dd sub_132F14
-        dd sub_132F1C
-        dd sub_132F24
-        dd sub_132F2C
-        dd sub_132F34
-        dd sub_132F3E
-        dd sub_132F48
-        dd sub_132F50
-        dd sub_132F58
-        dd sub_132F61
-        dd sub_132F6A
-        dd sub_132F73
-        dd sub_132F7C
-        dd sub_132F87
-        dd sub_132F92
-        dd sub_132F9B
+        dd EaEax
+        dd EaEcx
+        dd EaEdx
+        dd EaEbx
+        dd EaEsp
+        dd EaDisp32
+        dd EaEsi
+        dd EaEdi
+        dd EaEaxDisp8
+        dd EaEcxDisp8
+        dd EaEdxDisp8
+        dd EaEbxDisp8
+        dd EaEspDisp8
+        dd EaEbpDisp8
+        dd EaEsiDisp8
+        dd EaEdiDisp8
+        dd EaEaxDisp32
+        dd EaEcxDisp32
+        dd EaEdxDisp32
+        dd EaEbxDisp32
+        dd EaEspDisp32
+        dd EaEbpDisp32
+        dd EaEsiDisp32
+        dd EaEdiDisp32
 jpt_1329F0:
-        dd sub_132FE1
-        dd sub_1330D3
-        dd sub_1331AF
-        dd sub_1332A1
-        dd sub_13333B
-        dd sub_133494
-        dd sub_13359A
-        dd sub_13369C
-        dd sub_133000
-        dd sub_132FDC
-        dd sub_1331CE
-        dd sub_132FDC
-        dd sub_13335E
-        dd sub_132FDC
-        dd sub_1335BB
-        dd sub_132FDC
-        dd sub_13301F
-        dd sub_13310D
-        dd sub_1331ED
-        dd sub_1332DB
-        dd sub_133381
-        dd sub_1334D2
-        dd sub_1335DC
-        dd sub_1336D8
-        dd sub_13303B
-        dd sub_13311E
-        dd sub_133209
-        dd sub_133317
-        dd sub_1333A1
-        dd sub_133505
-        dd sub_1335FA
-        dd sub_133720
-        dd sub_133057
-        dd sub_13312F
-        dd sub_133225
-        dd sub_132FDC
-        dd sub_1333C1
-        dd sub_13351A
-        dd sub_133618
-        dd sub_133750
-        dd sub_133076
-        dd sub_13314D
-        dd sub_133244
-        dd sub_13344D
-        dd sub_1333E4
-        dd sub_132FDC
-        dd sub_133639
-        dd sub_133755
-        dd sub_133095
-        dd sub_13318D
-        dd sub_133263
-        dd sub_132FDC
-        dd sub_133407
-        dd sub_133561
-        dd sub_13365A
-        dd sub_13378F
-        dd sub_1330B4
-        dd sub_1331A1
-        dd sub_133282
-        dd sub_1334E7
-        dd sub_13342A
-        dd sub_13358C
-        dd sub_13367B
-        dd sub_133794
+        dd EmuFaddM32
+        dd EmuFldM32
+        dd EmuFiaddM32
+        dd EmuFildM32
+        dd EmuFaddM64
+        dd EmuFldM64
+        dd EmuFiaddM16
+        dd EmuFildM16
+        dd EmuFmulM32
+        dd EmuUnsupported
+        dd EmuFimulM32
+        dd EmuUnsupported
+        dd EmuFmulM64
+        dd EmuUnsupported
+        dd EmuFimulM16
+        dd EmuUnsupported
+        dd EmuFcomM32
+        dd EmuFstM32
+        dd EmuFicomM32
+        dd EmuFistM32
+        dd EmuFcomM64
+        dd EmuFstM64
+        dd EmuFicomM16
+        dd EmuFistM16
+        dd EmuFcompM32
+        dd EmuFstpM32
+        dd EmuFicompM32
+        dd EmuFistpM32
+        dd EmuFcompM64
+        dd EmuFstpM64
+        dd EmuFicompM16
+        dd EmuFistpM16
+        dd EmuFsubM32
+        dd EmuFldenv
+        dd EmuFisubM32
+        dd EmuUnsupported
+        dd EmuFsubM64
+        dd EmuFrstor
+        dd EmuFisubM16
+        dd EmuFbld
+        dd EmuFsubrM32
+        dd EmuFldcw
+        dd EmuFisubrM32
+        dd EmuFldM80
+        dd EmuFsubrM64
+        dd EmuUnsupported
+        dd EmuFisubrM16
+        dd EmuFildM64
+        dd EmuFdivM32
+        dd EmuFstenv
+        dd EmuFidivM32
+        dd EmuUnsupported
+        dd EmuFdivM64
+        dd EmuFsave
+        dd EmuFidivM16
+        dd EmuFbstp
+        dd EmuFdivrM32
+        dd EmuFstcw
+        dd EmuFidivrM32
+        dd EmuFstpM80
+        dd EmuFdivrM64
+        dd EmuFstswM16
+        dd EmuFidivrM16
+        dd EmuFistpM64
 jpt_132AF0:
-        dd sub_1337EA
-        dd sub_13388C
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_133E9D
-        dd sub_133F1B
-        dd sub_133FB6
-        dd sub_133F1B
-        dd sub_1337FF
-        dd sub_1338D4
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_133EB2
-        dd sub_1338D4
-        dd sub_134001
-        dd sub_1338D4
-        dd sub_133814
-        dd sub_1337BD
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_133814
-        dd sub_133F3A
-        dd sub_1337B8
-        dd sub_133F3A
-        dd sub_133826
-        dd sub_133F8A
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_133826
-        dd sub_133F8A
-        dd sub_13404C
-        dd sub_133F8A
-        dd sub_133838
-        dd sub_1338FC
-        dd sub_1337B8
-        dd sub_133E43
-        dd sub_133EC7
-        dd sub_133F66
-        dd sub_1340D5
-        dd sub_134201
-        dd sub_13384D
-        dd sub_13397D
-        dd sub_133DBA
-        dd sub_1337B8
-        dd sub_133EDC
-        dd sub_133F78
-        dd sub_134120
-        dd sub_1337B8
-        dd sub_133862
-        dd sub_133B98
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_133EF1
-        dd sub_1337B8
-        dd sub_13416B
-        dd sub_1337B8
-        dd sub_133877
-        dd sub_133CA2
-        dd sub_1337B8
-        dd sub_1337B8
-        dd sub_133F06
-        dd sub_1337B8
-        dd sub_1341B6
-        dd sub_1337B8
+        dd EmuFaddSt
+        dd EmuFldSt
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuFaddToSt
+        dd EmuFfree
+        dd EmuFaddp
+        dd EmuFfree
+        dd EmuFmulSt
+        dd EmuFxch
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuFmulToSt
+        dd EmuFxch
+        dd EmuFmulp
+        dd EmuFxch
+        dd EmuFcomSt
+        dd EmuDispatchD9Reg
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuFcomSt
+        dd EmuFstSt
+        dd EmuReservedOp
+        dd EmuFstSt
+        dd EmuFcompSt
+        dd EmuFstpSt
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuFcompSt
+        dd EmuFstpSt
+        dd EmuFcompp
+        dd EmuFstpSt
+        dd EmuFsubSt
+        dd EmuFtstFxam
+        dd EmuReservedOp
+        dd EmuDispatchDBReg
+        dd EmuFsubrToSt
+        dd EmuFucom
+        dd EmuFsubrp
+        dd EmuDispatchDFReg
+        dd EmuFsubrSt
+        dd EmuSignOps
+        dd EmuFucompp
+        dd EmuReservedOp
+        dd EmuFsubToSt
+        dd EmuFucomp
+        dd EmuFsubp
+        dd EmuReservedOp
+        dd EmuFdivSt
+        dd EmuLogOps
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuFdivrToSt
+        dd EmuReservedOp
+        dd EmuFdivrp
+        dd EmuReservedOp
+        dd EmuFdivrSt
+        dd EmuRemOps
+        dd EmuReservedOp
+        dd EmuReservedOp
+        dd EmuFdivToSt
+        dd EmuReservedOp
+        dd EmuFdivp
+        dd EmuReservedOp
+;-----------------------------------------------------------------------------
+; jpt_132AF0_100                                                      132BF0  
+;-----------------------------------------------------------------------------
 jpt_132AF0_100:
         sti
         pusha
@@ -309,7 +321,7 @@ jpt_132AF0_100:
         mov word [byte ebp-06h], cx
         mov ecx, dword [byte ebp+038h]
         mov dword [byte ebp+0Ch], ecx
-        call sub_132C84
+        call EmuTrapExit
         pop ds
         pop es
         popa
@@ -334,7 +346,7 @@ jpt_132AF0_100:
         push es
         push ds
         mov word [byte esp+02h], ss
-        call sub_132C84
+        call EmuTrapExit
         pop ds
         pop es
         pop edi
@@ -354,6 +366,9 @@ jpt_132AF0_100:
         mov eax, dword [ss:eax]
         iret
         db 087h,0DBh
+;-----------------------------------------------------------------------------
+; jpt_132AF0_170                                                      132C60  
+;-----------------------------------------------------------------------------
 jpt_132AF0_170:
         sti
         sub esp, byte 0Ch
@@ -370,7 +385,7 @@ jpt_132AF0_170:
         push es
         push ds
         mov word [byte esp+02h], ss
-        call sub_132C84
+        call EmuTrapExit
         pop ds
         pop es
         popa
