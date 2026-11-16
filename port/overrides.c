@@ -205,6 +205,24 @@ static void install_x87_stack_fix(void)
     memset(p, 0x90, 8);
 }
 
+/* The streamed EA audio (SCHl..SCEl chunks; sub_4A6F8 and sub_4A74C's two copies of it) hands the next chunk of the stream to sub_108BA0 when
+ * sub_3FBE4 returns neither 0 nor -1. sub_3FBE4 also returns -2 (FFFFFFFEh) when the stream has stopped (state 0Eh, set by the
+ * stream service sub_3EF68), and sub_108BA0 then reads the chunk header at address -2. The library's own callers skip every small
+ * negative answer; these three only skip -1. Online play (states loaded while the sound card and the stream's file go on) reaches
+ * the stopped state at once and crashed both machines at the first step. The je after cmp eax,-1 (4A731, 4A87E, 4A9F9) becomes jle:
+ * every negative answer is "no chunk". A real chunk is a game address, never negative. */
+static void install_stream_guard(void)
+{
+    static const uint32_t at[3] = { 0x4A731, 0x4A87E, 0x4A9F9 };
+    int i;
+    for (i = 0; i < 3; i++) {
+        uint8_t *p = GAME_ADDR(at[i]);
+        if (p[-3] != 0x83 || p[-2] != 0xF8 || p[-1] != 0xFF || p[0] != 0x74 || p[2] != 0xE8) {
+            fprintf(stderr, "overrides: the audio stream check at %X not found, not patched\n", (unsigned)at[i]); continue; }
+        p[0] = 0x7E;
+    }
+}
+
 void install_overrides(void)
 {
     osk_hook_install();
@@ -230,4 +248,5 @@ void install_overrides(void)
     install_flag_traps();
     install_rdtsc_traps();
     install_x87_stack_fix();
+    install_stream_guard();
 }
