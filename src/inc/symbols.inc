@@ -14,7 +14,7 @@
 ;  116B0  sub_116B0                                front/front_10010.asm                        2
 ;  11744  clearteams                               front/front_10010.asm                        1
 ;  11808  sub_11808                                front/front_10010.asm                        1
-;  11908  sub_11908                                front/front_10010.asm                        1
+;  11908  ResetBench                               front/front_10010.asm                        1
 ;  11984  sub_11984                                front/front_10010.asm                        3
 ;  119A8  sub_119A8                                front/front_10010.asm                        2
 ;  11B38  sub_11B38                                front/front_10010.asm                        3
@@ -22,7 +22,7 @@
 ;  11F74  sub_11F74                                front/front_10010.asm                        2
 ;  12024  sub_12024                                front/front_10010.asm                        1
 ;  123A0  sub_123A0                                front/front_10010.asm                        1
-;  127D4  sub_127D4                                front/front_10010.asm                        3
+;  127D4  setpersonel                              front/front_10010.asm                        3
 ;  12A10  sub_12A10                                front/front_10010.asm                        3
 ;  12A70  ClockTick                                front/front_10010.asm                        1
 ;  12C2C  sub_12C2C                                front/front_10010.asm                        1
@@ -198,7 +198,7 @@
 ;  2C064  sub_2C064                                engine/engine_25894.asm                      1
 ;  2D308  sub_2D308                                engine/engine_25894.asm                      1
 ;  2D330  sub_2D330                                engine/engine_25894.asm                      1
-;  2DCC8  sub_2DCC8                                engine/engine_25894.asm                      1
+;  2DCC8  CPgoalie                                 engine/engine_25894.asm                      1
 ;  2DD54  sub_2DD54                                engine/engine_25894.asm                      1
 ;  2DE3C  ReturnGoalies                            engine/engine_2DE3C.asm                      1
 ;  2DE94  sub_2DE94                                engine/engine_2DE3C.asm                      1
@@ -962,10 +962,10 @@
 ;  8D956  sub_8D956                                front/front_8BFAC.asm                        11
 ;  8DBAC  sub_8DBAC                                front/front_8BFAC.asm                        2
 ;  8DE10  sub_8DE10                                front/front_8BFAC.asm                        12
-;  8DE19  sub_8DE19                                front/front_8BFAC.asm                        10
+;  8DE19  DrawScrollBar                            front/front_8BFAC.asm                        10
 ;  8DE68  sub_8DE68                                front/front_8BFAC.asm                        12
 ;  8DE7E  sub_8DE7E                                front/front_8BFAC.asm                        12
-;  8DE9D  sub_8DE9D                                front/front_8BFAC.asm                        7
+;  8DE9D  SetScrollBarPos                          front/front_8BFAC.asm                        7
 ;  8DEAC  sub_8DEAC                                front/front_8BFAC.asm                        12
 ;  8DF1F  sub_8DF1F                                front/front_8BFAC.asm                        11
 ;  8E2EE  sub_8E2EE                                front/front_8BFAC.asm                        1
@@ -1133,7 +1133,7 @@
 ;  D49BE  sub_D49BE                                front/front_D3112.asm                        1
 ;  D4CB0  unk_D4CB0                                front/front_D3112.asm                        1
 ;  D547C  sub_D547C                                front/front_D4E24.asm                        1
-;  D67D4  sub_D67D4                                front/front_D4E24.asm                        2
+;  D67D4  FadePalette                              front/front_D4E24.asm                        2
 ;  D68AC  FadeOut                                  front/front_D4E24.asm                        3
 ;  D6930  sub_D6930                                front/front_D4E24.asm                        1
 ;  D70C4  sub_D70C4                                front/front_D4E24.asm                        1
@@ -1340,7 +1340,7 @@
 ;  FBE88  WaitKey                                  lib/input/input_joystick_misc_02.asm         1
 ;  FBE94  sub_FBE94                                lib/input/input_joystick_misc_02.asm         1
 ;  FBF24  TimerISR                                 lib/input/input_joystick_misc_02.asm         1
-;  FBFDC  sub_FBFDC                                lib/input/input_joystick_misc_02.asm         6
+;  FBFDC  addtimer                                 lib/input/input_joystick_misc_02.asm         6
 ;  FC008  sub_FC008                                lib/ea/ea_timer.asm                          6
 ;  FC0F0  sub_FC0F0                                lib/ea/ea_timer.asm                          1
 ;  FC210  sub_FC210                                lib/watcom/watcom_clib_03.asm                1
@@ -7888,7 +7888,7 @@
 ;  19CBD8  word_19CBD8                              data/engine/faceoff_data_03.asm              5
 ;  19CBDA  word_19CBDA                              data/engine/faceoff_data_03.asm              6
 ;  19CBDC  word_19CBDC                              data/engine/faceoff_data_03.asm              5
-;  19CBDE  word_19CBDE                              data/engine/faceoff_data_03.asm              5
+;  19CBDE  penshotmode                              data/engine/faceoff_data_03.asm              5
 ;  19CBE0  word_19CBE0                              data/engine/faceoff_data_03.asm              5
 ;  19CBE2  penshotlive                              data/engine/faceoff_data_03.asm              5
 ;  19CBE4  penshottimer                             data/engine/faceoff_data_03.asm              5
@@ -10667,7 +10667,7 @@
 ;  1CF260  dword_1CF260                             data/front/front_F20A1_bss_01.asm            7
 ;  1CF264  dword_1CF264                             data/front/front_F20A1_bss_01.asm            2
 ;  1CF268  dword_1CF268                             data/front/front_F20A1_bss_01.asm            3
-;  1CF26C  dword_1CF26C                             data/front/front_F20A1_bss_01.asm            2
+;  1CF26C  timercallbacks                           data/front/front_F20A1_bss_01.asm            2
 ;  1CF28C  dword_1CF28C                             data/front/front_F20A1_bss_01.asm            2
 ;  1CF28E  word_1CF28E                              data/front/front_F20A1_bss_01.asm            1
 ;  1CF290  dword_1CF290                             data/front/front_F20A1_bss_01.asm            2

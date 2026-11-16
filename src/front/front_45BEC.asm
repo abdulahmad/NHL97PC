@@ -33,7 +33,7 @@ global sub_45BEC_18A1, sub_45BEC_18AA, sub_45BEC_18B3, sub_45BEC_18BC, sub_45BEC
 global sub_45BEC_1B57, sub_45BEC_1B97, sub_45BEC_1BF5, sub_45BEC_1C3D, sub_45BEC_1CB2, sub_45BEC_1DD1, sub_45BEC_1E49, sub_45BEC_1ECB
 global sub_45BEC_1F28, sub_45BEC_1F56, sub_45BEC_1FE8, sub_45BEC, sub_47C08, sub_47D70, sub_47DC8, sub_47E38
 global sub_47EA4, ShutdownSound, sub_48030, sub_48080, sub_480CC, sub_486E8, sub_4880C, sub_48864
-global sub_4890C, RecordPctClip, RecordStreakClips
+global CountRecordGame, RecordPctClip, RecordStreakClips
 ;-----------------------------------------------------------------------------
 ; sub_45BEC                                                       45BEC  97 PC
 ;-----------------------------------------------------------------------------
@@ -3814,9 +3814,11 @@ sub_48864:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4890C                                                       4890C  97 PC
+; CountRecordGame                              4890C  96 PC, medium confidence
+; Counts one game of a W/L/T byte string (1, 2, 3) into the counters the
+; caller passes
 ;-----------------------------------------------------------------------------
-sub_4890C:
+CountRecordGame:
         push dword 0Ch
         call __CHK
         push esi
@@ -4073,7 +4075,7 @@ RecordStreakClips:
         push eax
         lea edx, [byte esp+020h]
         lea eax, [byte esp+024h]
-        call sub_4890C
+        call CountRecordGame
         mov eax, dword [byte esp+02Ch]
         inc eax
         mov dword [byte esp+02Ch], eax
@@ -4101,7 +4103,7 @@ RecordStreakClips:
         push eax
         lea edx, [byte esp+020h]
         lea eax, [byte esp+024h]
-        call sub_4890C
+        call CountRecordGame
 .13:
         mov ecx, dword [byte esp+010h]
         mov ebx, dword [byte esp+014h]
@@ -4132,7 +4134,7 @@ RecordStreakClips:
         push eax
         lea edx, [byte esp+010h]
         lea eax, [byte esp+024h]
-        call sub_4890C
+        call CountRecordGame
         mov ecx, dword [esp]
         mov ebx, dword [byte esp+04h]
         mov edx, dword [byte esp+08h]

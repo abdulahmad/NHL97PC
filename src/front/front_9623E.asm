@@ -32,7 +32,7 @@ extern sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, sub_41
 extern sub_4B108, sub_4B12D, sub_4B19C, sub_7B84B, sub_7CADA, sub_7CB8C, sub_7DFC0, sub_7E52C
 extern sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C, sub_7F29C, sub_7F5A4
 extern sub_80BBC, sub_81678, sub_823F0, sub_830D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
-extern sub_8DE68, sub_8DE7E, sub_8DE9D, sub_8DEAC, sub_8DF1F, sub_8E7E0, sub_8E870, sub_C7EAE
+extern sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E7E0, sub_8E870, sub_C7EAE
 extern sub_C80C8, sub_C8127, sub_CA44C, sub_D0098, sub_DA7D6, sub_E036F, sub_E0841, sub_E341C
 extern sub_FAA64, sub_FAF34, sub_FBE5D, sub_FC510, sub_FCD90, sub_FCFCC, sub_FCFE8, sub_FD08C
 extern sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, tickcount, unk_165BAB, unk_165BAE, unk_16D7F4
@@ -3505,7 +3505,7 @@ sub_98642:
         mov edx, dword [byte ebp+056h]
         lea eax, [dword ebp-0156h]
         mov ebx, dword [dword_1C8E1C]
-        call sub_8DE9D
+        call SetScrollBarPos
 .12:
         cmp dword [dword_1C8E48], byte 3
         jne short .13

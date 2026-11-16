@@ -38,7 +38,7 @@ extern PaEvent, sub_4A280, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00
 extern sub_4C0C4, sub_5B4D4, sub_5BE74, sub_6539C, sub_76D3C, sub_7CBD6, sub_7CDD8, sub_7F028
 extern sub_7F0D8, sub_7F16C, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
 extern sub_8E790, sub_8E7E0, sub_8E840, sub_9623E, sub_A7D9C, sub_AADEF, sub_AB0A6, sub_BD62C
-extern sub_D67D4, FadeOut, sub_DA7EB, sub_DB6AC, sub_E341C, sub_E3798, sub_E4218, sub_E4230
+extern FadePalette, FadeOut, sub_DA7EB, sub_DB6AC, sub_E341C, sub_E3798, sub_E4218, sub_E4230
 extern sub_E4908, sub_F1FF8, sub_FAF34, sub_FC330, sub_FC4BC, sub_FCC40, sub_FCD90, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC
 extern sub_FE3D0, tickcount, unk_167A4B, word_168D18, word_19CBB0, word_19CBB2, gsp, gameclock
@@ -2399,7 +2399,7 @@ sub_F3C43:
         call sub_4BCB4
         call sub_1BC18
         xor eax, eax
-        call sub_D67D4
+        call FadePalette
         push byte 0
         push byte 14h
         push dword [dword_16E464]

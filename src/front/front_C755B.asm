@@ -32,7 +32,7 @@ extern sub_41F2C, sub_41FDC, sub_4A4F4, sub_4B108, sub_7B4E4, sub_7DFC0, sub_7E5
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C, sub_7F29C, sub_7F5A4, sub_7FE38
 extern sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_816E8
 extern sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068, sub_84570, InitMenuItems, sub_8BFAC
-extern sub_8D956, sub_8DE10, sub_8DE19, sub_8DE68, sub_8DE7E, sub_8DE9D, sub_8DEAC, sub_8DF1F
+extern sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F
 extern sub_8E6AF, sub_8E7E0, sub_8E870, sub_92DB7, sub_92E37, sub_92EE2, sub_92F25, sub_9623E
 extern sub_9D333, sub_B8FDF, sub_DA7D6, sub_DB763, sub_DB7B1, sub_DC653, sub_DCBB0, sub_E036F
 extern sub_E0415, sub_E0841, sub_E0D0F, sub_E12D1, sub_E12EF, sub_FAA64, sub_FAF34, sub_FC510
@@ -248,13 +248,13 @@ sub_C755B_246:
         xor ebx, ebx
         movsx edx, word [byte edx+eax+072h]
         lea eax, [dword ebp-028Eh]
-        call sub_8DE9D
+        call SetScrollBarPos
         imul edx, dword [dword_1CC1C8], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         xor ebx, ebx
         movsx edx, word [byte edx+eax+072h]
         lea eax, [dword ebp-018Eh]
-        call sub_8DE9D
+        call SetScrollBarPos
         jmp near sub_C755B_66C.28
 sub_C755B_2EC:
         cmp dword [dword_1CC208], byte 0
@@ -282,13 +282,13 @@ sub_C755B_2EC:
         xor ebx, ebx
         movsx edx, word [byte edx+eax+072h]
         lea eax, [dword ebp-028Eh]
-        call sub_8DE9D
+        call SetScrollBarPos
         imul edx, dword [dword_1CC1C8], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         xor ebx, ebx
         movsx edx, word [byte edx+eax+072h]
         lea eax, [dword ebp-018Eh]
-        call sub_8DE9D
+        call SetScrollBarPos
         mov edx, 1
         xor eax, eax
         call sub_C8EDC
@@ -2541,7 +2541,7 @@ sub_C8EDC:
         call sub_8E6AF
         mov edx, dword [dword_1CC214]
         mov eax, dword [nosplit edi*4+dword_1CC1BC]
-        call sub_8DE19
+        call DrawScrollBar
         mov eax, dword [byte ebp+03Ah]
 sub_C8EDC_86F:
         lea esp, [dword ebp+082h]
@@ -2958,11 +2958,11 @@ sub_C9B24:
         mov ebx, dword [dword_1CC214]
         movsx edx, word [byte edx+eax+072h]
         mov eax, dword [nosplit edi*4+dword_1CC1BC]
-        call sub_8DE9D
+        call SetScrollBarPos
         mov edx, dword [dword_1CC214]
         mov eax, dword [nosplit edi*4+dword_1CC1BC]
         inc edi
-        call sub_8DE19
+        call DrawScrollBar
         cmp edi, byte 2
         jl near .1
         push dword [dword_1CC214]
@@ -4362,10 +4362,10 @@ sub_CACE0:
         xor ebx, ebx
         movsx edx, word [byte edx+eax+072h]
         mov eax, dword [nosplit esi*4+dword_1CC1BC]
-        call sub_8DE9D
+        call SetScrollBarPos
         mov edx, dword [dword_1CC214]
         mov eax, dword [nosplit esi*4+dword_1CC1BC]
-        call sub_8DE19
+        call DrawScrollBar
         call sub_13C164
         test esi, esi
         jne short .10
@@ -7628,7 +7628,7 @@ sub_CD7F3_AD:
         xor ebx, ebx
         movsx edx, word [byte edx+eax+072h]
         mov eax, dword [dword esi+dword_1CC1BC]
-        call sub_8DE9D
+        call SetScrollBarPos
         mov edx, 1
         xor eax, eax
         call sub_C8EDC
@@ -7637,10 +7637,10 @@ sub_CD7F3_AD:
         call sub_C8EDC
         mov eax, dword [dword_1CC1BC]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         mov eax, dword [dword_1CC1C0]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         mov eax, 1
         call sub_CAA0F
         test edi, edi
@@ -7672,7 +7672,7 @@ sub_CD7F3_1BD:
         mov eax, dword [dword edx+dword_1CC1BC]
         xor ebx, ebx
         mov edx, edi
-        call sub_8DE9D
+        call SetScrollBarPos
         mov edx, 1
         mov eax, esi
         call sub_C8EDC
@@ -7769,7 +7769,7 @@ sub_CD7F3_25B:
         call sub_C8EDC
         mov eax, dword [nosplit esi*4+dword_1CC1BC]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         mov eax, 1
         call sub_CAA0F
         imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h

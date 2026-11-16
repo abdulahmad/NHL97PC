@@ -11,7 +11,7 @@ global word_19CB84, word_19CB86, word_19CB88, word_19CB8C, word_19CB8E, word_19C
 global word_19CB96, word_19CB98, word_19CB9A, word_19CB9C, word_19CB9E, gameover, word_19CBA2, word_19CBA4
 global word_19CBA6, word_19CBA8, word_19CBAC, word_19CBAE, word_19CBB0, word_19CBB2, word_19CBB4, word_19CBB6
 global gsp, gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBC6, word_19CBD4, word_19CBD6
-global word_19CBD8, word_19CBDA, word_19CBDC, word_19CBDE, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA
+global word_19CBD8, word_19CBDA, word_19CBDC, penshotmode, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA
 global word_19CBEC, word_19CBEE, word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19CC26
 global word_19CC28, word_19CC2A, word_19CC2C, word_19CC2E, word_19CC50, word_19CC52
 byte_19CB71:
@@ -128,7 +128,7 @@ word_19CBDA:
         db 00h,00h
 word_19CBDC:
         db 00h,00h
-word_19CBDE:
+penshotmode:
         db 00h,00h
 word_19CBE0:
         db 00h,00h

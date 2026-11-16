@@ -19,7 +19,7 @@ extern sub_106D80, sub_106F64, sub_106F94, sub_11A318, sub_11A350, sub_11BDC0, s
 extern sub_415F8, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC, sub_4B108, sub_4B19C, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F028, sub_7F0D8
 extern sub_7F16C, sub_7F29C, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_83C08
-extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, sub_8DE19, sub_8DE68, sub_8DE7E, sub_8DEAC
+extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC
 extern sub_8DF1F, sub_8E7E0, sub_C48A2, sub_CA44C, sub_D0098, sub_E341C, sub_E4218, sub_E4230
 extern sub_E77B1, sub_F0339, sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCEEC, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C
@@ -2192,7 +2192,7 @@ sub_C27D8:
         je near sub_C1577_73D
         mov eax, dword [dword_1CB0F0]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         jmp near sub_C1577_73D
 ;-----------------------------------------------------------------------------
 ; sub_C2A49                                                       C2A49  97 PC

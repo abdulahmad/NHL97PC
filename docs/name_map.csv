@@ -2,7 +2,10 @@ address,name,auto_name,source,confidence,evidence,file
 10010,GripLinkLibrary,sub_10010,96PC,medium,NHL96PC 10D66 (sem 0.87): K:8490; K:101; K:100,src/front/front_10010.asm
 10354,LoadGripLibrary,sub_10354,96PC,medium,NHL96PC 1124D (sem 1.00): S:GRIP; D:1684D5; S:GRIP.GLL; D:1684CC,src/front/front_10010.asm
 11744,clearteams,,96PC,medium,NHL96PC 4875E (similar): mnemonic similarity 0.80 over 60 instructions,
+11908,ResetBench,sub_11908,94G,medium,94G ResetBench (96 PC body): the bench and penalty box state of both teams' rosters,src/front/front_10010.asm
+11ED8,reenergizeteam,sub_11ED8,94G,medium,94G reenergizeteam (96 PC body): every player's energy back to 1000h,src/front/front_10010.asm
 11F10,SetupTeamForIntermission,,96PC,medium,NHL96PC 4AF89 (similar): mnemonic similarity 0.88 over 32 instructions,
+127D4,setpersonel,sub_127D4,94G,medium,94G setpersonel (96 PC body): clears the team's 6 on-ice slots and sets the personnel,src/front/front_10010.asm
 12A70,ClockTick,sub_12A70,96PC,medium,"96 PC ClockTick: counts the game clock down (word_19CBBA minutes, word_19CBBC seconds) and posts the clock events; from RunSimFrames",src/front/front_10010.asm
 1303C,AllInPlace,,96PC,medium,NHL96PC 3ABAE (similar): mnemonic similarity 0.87 over 21 instructions,
 1306C,Intermission,sub_1306C,96PC,medium,"96 PC Intermission: GameOver when gsp is 4, else SetupTeamForIntermission and resets the players for the next period",src/engine/faceoff/faceoff.asm
@@ -26,10 +29,15 @@ address,name,auto_name,source,confidence,evidence,file
 152C4,PlayGame,sub_152C4,96PC,high,"96 PC PlayGame: seeds, then calls GameLoop",src/engine/faceoff/faceoff.asm
 15578,RunDemoGame,sub_15578,96PC,medium,"96 PC RunDemoGame: the attract mode game (gameopts 40h, a seed from the DOS time)",src/engine/faceoff/faceoff.asm
 1583F,RunInGameMenu,sub_1583F,96PC,high,96 PC RunInGameMenu: called when InGameMenuRequest is set,src/engine/faceoff/faceoff.asm
+2DCC8,CPgoalie,sub_2DCC8,94G,medium,94G CPgoalie (96 PC body): pulls the computer team's goalie late in the third period,src/engine/engine_25894.asm
 2DE3C,ReturnGoalies,,96PC,medium,NHL96PC 463AE (similar): mnemonic similarity 0.81 over 33 instructions,
+2E6D4,SetCoachMode,sub_2E6D4,96PC,medium,96 PC SetCoachMode: the coach mode from the score difference,src/engine/engine_2DE3C.asm
 2E8F0,UpdateCoachModes,sub_2E8F0,96PC,medium,96 PC UpdateCoachModes: from ClockTick at the same minutes of periods 2 and 3,src/engine/engine_2DE3C.asm
 2EEE8,puckfaceoff,,96PC,medium,NHL96PC 3AEBA (sem): C:306; D:19CC04; D:19EBBC; D:19EAB0,
+332C0,updatepentime,sub_332C0,94G,medium,"94G updatepentime (96 PC body): counts the penalty times down, from chkprogress",src/engine/faceoff/faceoff_2.asm
+33368,checkfornewpen,sub_33368,94G,medium,"94G checkfornewpen (96 PC body), from chkprogress",src/engine/faceoff/faceoff_2.asm
 33880,EndPenaltyShot,sub_33880,96PC,medium,96 PC EndPenaltyShot: from ClockTick when the penalty shot time runs out,src/engine/faceoff/faceoff_2.asm
+33950,InProgress,sub_33950,94G,medium,"94G InProgress: the penalty in progress (whistle, box, power play), from chkprogress after checkfornewpen",src/engine/faceoff/faceoff_2.asm
 342C4,chkprogress,,95PC,medium,NHL95PC 63C0C (similar): mnemonic similarity 0.83 over 28 instructions,
 3434C,restorepl,,96PC,medium,NHL96PC 46988 (sem): R:366; R:365,
 34428,GiveControl,,96PC,medium,NHL96PC 4806A (similar): mnemonic similarity 0.84 over 59 instructions,
@@ -39,8 +47,10 @@ address,name,auto_name,source,confidence,evidence,file
 362E0,CountTeamSlots,,96PC,medium,NHL96PC 3A2F6 (similar): mnemonic similarity 0.82 over 32 instructions,
 3EF68,CdStreamService,sub_3EF68,96PC,medium,NHL96PC 1CB54 (sem 0.87): C:460; C:458; C:2029,src/engine/engine_3812E.asm
 3FB34,CdStreamSkipMarks,sub_3FB34,96PC,high,NHL96PC 1D54E (callsite 0.90): called at the same place of CdStreamSpaceLeft,src/engine/engine_3812E.asm
+3FB7C,CdStreamContigData,sub_3FB7C,96PC,high,"96 PC CdStreamContigData, same body",src/engine/engine_3812E.asm
 3FBBC,CdStreamSpaceLeft,sub_3FBBC,96PC,high,NHL96PC 1D5A9 (exact 1.00): 19 instructions,src/engine/engine_3812E.asm
 47F8C,ShutdownSound,sub_47F8C,96PC,medium,NHL96PC 699D0 (sem 0.61): C:2246,src/front/front_45BEC.asm
+4890C,CountRecordGame,sub_4890C,96PC,medium,96 PC CountRecordGame: counts one game of a W/L/T byte string,src/front/front_45BEC.asm
 48950,RecordPctClip,sub_48950,96PC,medium,NHL96PC 67636 (similar 0.91): mnemonic similarity 0.91 over 69 instructions,src/front/front_45BEC.asm
 489F4,RecordStreakClips,sub_489F4,96PC,medium,NHL96PC 676D4 (sem 0.91): C:560,src/front/front_45BEC.asm
 48D70,PaEvent,sub_48D70,96PC,low,"the play-by-play event call: ClockTick posts 0C0000004h with the period at one minute left, where 96 PC posts PaEvent(100h)",src/front/front_48D70.asm
@@ -73,8 +83,11 @@ address,name,auto_name,source,confidence,evidence,file
 86644,NameIndexRemove,sub_86644,96PC,medium,NHL96PC 19659 (sem 1.00): S:NAMEINDEX; D:165310; K:2C093; C:1858,src/front/front_845E4.asm
 86754,NameIndexPath,sub_86754,96PC,medium,NHL96PC 19731 (sem 0.94): D:16531C; C:1834; C:2265; C:1833,src/front/front_845E4.asm
 8BF54,InitMenuItems,sub_8BF54,96PC,medium,NHL96PC 64721 (similar 0.81): mnemonic similarity 0.81 over 32 instructions,src/front/front_868CD.asm
+8DE19,DrawScrollBar,sub_8DE19,96PC,medium,"96 PC DrawScrollBar, same structure",src/front/front_8BFAC.asm
+8DE9D,SetScrollBarPos,sub_8DE9D,96PC,low,"96 PC SetScrollBarPos, the call after DrawScrollBar at the same places",src/front/front_8BFAC.asm
 B1FE9,DeleteUser,sub_B1FE9,96PC,medium,NHL96PC 2A692 (sem 0.62): C:1134; K:3EA; C:1833,src/front/front_B1E1D.asm
 B2258,ScrollUserList,sub_B2258,96PC,medium,NHL96PC 2AB63 (similar 0.93): mnemonic similarity 0.93 over 19 instructions,src/front/front_B1E1D.asm
+D67D4,FadePalette,sub_D67D4,96PC,medium,96 PC FadePalette: fades the 300h-byte palette,src/front/front_D4E24.asm
 D68AC,FadeOut,sub_D68AC,96PC,medium,NHL96PC 63A5B (similar 0.91): mnemonic similarity 0.90 over 22 instructions,src/front/front_D4E24.asm
 E2AF4,PollControllers,sub_E2AF4,96PC,high,96 PC PollControllers: controllers and hot keys into the slot words,src/front/front_DA66D.asm
 E2E28,InputRecordTimer,sub_E2E28,96PC,high,96 PC InputRecordTimer: timer callback pushing input records into the ring of 5,src/front/front_DA66D.asm
@@ -113,6 +126,7 @@ FBE09,rand_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBE2D,srand_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBE88,WaitKey,,96PC,high,NHL96PC DFF70 (exact): 4 instructions,
 FBF24,TimerISR,sub_FBF24,96PC,medium,timer interrupt handler: increments tickcount,src/lib/input/input_joystick_misc_02.asm
+FBFDC,addtimer,sub_FBFDC,96PC,medium,96 PC addtimer: adds a timer callback to the 8-entry table,src/lib/input/input_joystick_misc_02.asm
 FC078,RestoreTimer,,96PC,medium,NHL96PC AA6D0 (similar): mnemonic similarity 0.90 over 34 instructions,
 FC21A,__CHP,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FC240,__CHK,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -159,6 +173,12 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AFD9,_dos_commit_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AFE9,_dos_open_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10B660,BuildAntiAliasTable,sub_10B660,96PC,medium,NHL96PC 873AE (sem 1.00): S:AALIAS; D:167E84; K:110000; K:1004,src/lib/lib_10B660.asm
+10B780,ClipLineY,sub_10B780,96PC,medium,96 PC ClipLineY (the line clipper of the 3D library),src/lib/lib_10B660.asm
+10B99C,ClipLineX,sub_10B99C,96PC,medium,96 PC ClipLineX,src/lib/lib_10B660.asm
+10BBB8,DrawLineYPlot,sub_10BBB8,96PC,medium,96 PC DrawLineYPlot,src/lib/lib_10B660.asm
+10BD74,DrawLineY,sub_10BD74,96PC,medium,96 PC DrawLineY,src/lib/lib_10B660.asm
+10BEC0,DrawLineXPlot,sub_10BEC0,96PC,medium,96 PC DrawLineXPlot,src/lib/lib_10B660.asm
+10C07C,DrawLineX,sub_10C07C,96PC,medium,96 PC DrawLineX,src/lib/lib_10B660.asm
 10C1C0,DrawFixedLine,sub_10C1C0,96PC,medium,NHL96PC 87DD6 (similar 0.80): mnemonic similarity 0.80 over 173 instructions,src/lib/lib_10B660.asm
 1131E4,strncmp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 115874,strupr_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -561,6 +581,7 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 19CBB8,gsp,word_19CBB8,94G,medium,"94G gsp, the game segment (period 0-3, 4 = game over), as in 96 PC StartGame / Intermission / ClockTick",src/data/engine/faceoff_data_03.asm
 19CBBA,gameclock,word_19CBBA,94G,medium,94G gameclock: seconds left in the period (ClockTick),src/data/engine/faceoff_data_03.asm
 19CBC4,seed,dword_19CBC4,94G,high,randomd0's state (94G seed),src/data/engine/faceoff_data_03.asm
+19CBDE,penshotmode,word_19CBDE,96PC,medium,"96 PC penshotmode (CPgoalie, EndPenaltyShot)",src/data/engine/faceoff_data_03.asm
 19CBE2,penshotlive,word_19CBE2,96PC,medium,96 PC penshotlive: a penalty shot is running (ClockTick),src/data/engine/faceoff_data_03.asm
 19CBE4,penshottimer,dword_19CBE4,96PC,medium,96 PC penshottimer: ticks left of the penalty shot,src/data/engine/faceoff_data_03.asm
 19CC14,slotteam,,96PC,medium,NHL96PC 1178D2 (refset): referenced by the same 4 matched functions,
@@ -570,3 +591,4 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1CD1E0,InputRecordRing,unk_1CD1E0,96PC,high,96 PC InputRecordRing (97: 5 records of 14h bytes),src/data/front/front_DA66D_bss_01.asm
 1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,
+1CF26C,timercallbacks,dword_1CF26C,96PC,medium,96 PC timercallbacks: the 8 timer callbacks (addtimer),src/data/front/front_F20A1_bss_01.asm

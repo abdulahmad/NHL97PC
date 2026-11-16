@@ -35,7 +35,7 @@ extern PaEvent, sub_4A280, sub_4B074, sub_4B108, sub_4B19C, sub_7CBD6, sub_7CDD8
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C
 extern sub_7F29C, sub_80758, sub_80808, sub_80A38, sub_80AB8, sub_80BBC, sub_81650, sub_81678
 extern sub_823F0, sub_83C08, sub_84204, sub_842F4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
-extern sub_8DE19, sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E790, sub_8E7E0, sub_8E840, sub_8E870
+extern DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E790, sub_8E7E0, sub_8E840, sub_8E870
 extern sub_A3136, sub_A31DE, sub_AC799, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
 extern sub_ACDAE, sub_AD151, sub_AD62E, sub_B2364, sub_CA44C, sub_D0098, InitSlotTable, sub_E32B4
 extern sub_E3410, sub_E341C, sub_E4218, sub_E4230, sub_E4638, sub_E4838, sub_EE8AC, sub_FAA64
@@ -6686,7 +6686,7 @@ sub_A8694:
         call sub_A8524
         mov edx, dword [dword_1C9568]
         mov eax, dword [dword_1C957C]
-        call sub_8DE19
+        call DrawScrollBar
         jmp short .21
 .19:
         mov esi, 0F6h

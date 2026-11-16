@@ -5,11 +5,11 @@ section s_2DE3C progbits alloc exec nowrite align=1
 extern SortCords, __CHP, awtmstruct, byte_19CB7E, byte_19CBC2, byte_19CBC8, byte_19EB54, byte_19EB55
 extern byte_19EB56, byte_19EB57, byte_19EC60, byte_19EC61, byte_19EC62, byte_19EC63, dword_1608AF, dword_1608B3
 extern dword_19CB32, dword_19CB48, dword_19EB58, dword_19EC64, dword_1AC944, hmtmstruct, off_19C5F4, randomd0
-extern sub_127D4, sub_16090, sub_18D8A, sub_2DCC8, sub_45BEC, word_19CA90, word_19CA92, word_19CA94
+extern setpersonel, sub_16090, sub_18D8A, CPgoalie, sub_45BEC, word_19CA90, word_19CA92, word_19CA94
 extern word_19CA96, word_19CB34, word_19CB98, gsp, gameclock, word_19CBBE, word_19CBEC, word_19CBEE
 extern word_19CC24, word_19CC26, word_19EAC0
 global ReturnGoalies, sub_2DE94_1A5, sub_2DE94_259, sub_2E12C_33, sub_2DE94, sub_2E11C, sub_2E12C, sub_2E168
-global sub_2E208, sub_2E310, sub_2E378, sub_2E6D4, sub_2E7D8, UpdateCoachModes, sub_2EDB8
+global sub_2E208, sub_2E310, sub_2E378, SetCoachMode, sub_2E7D8, UpdateCoachModes, sub_2EDB8
 ;-----------------------------------------------------------------------------
 ; ReturnGoalies                    2DE3C  93G logic93_4.asm, medium confidence
 ; (computer returns a pulled goalie), from puckfaceoff.
@@ -36,7 +36,7 @@ ReturnGoalies:
         jne short .4
         mov ebx, dword [word_19CBBE]
         sar ebx, 10h
-        call sub_2DCC8
+        call CPgoalie
 .4:
         mov edx, hmtmstruct
         inc ecx
@@ -166,7 +166,7 @@ sub_2DE94:
         sub eax, edx
         shl eax, 2
         add eax, hmtmstruct
-        call sub_127D4
+        call setpersonel
 .7:
         pop ebp
         pop edi
@@ -809,9 +809,10 @@ sub_2E378:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2E6D4                                                       2E6D4  97 PC
+; SetCoachMode                                 2E6D4  95 PC, medium confidence
+; Sets a team's coach AI mode (team D2h..D6h fields)
 ;-----------------------------------------------------------------------------
-sub_2E6D4:
+SetCoachMode:
         push ebx
         push ecx
         push edx
@@ -935,9 +936,9 @@ sub_2E7D8:
 .1:
         jne short .2
         xor eax, eax
-        call sub_2E6D4
+        call SetCoachMode
         mov eax, 1
-        call sub_2E6D4
+        call SetCoachMode
         jmp short .3
 .2:
         mov ecx, 0CCCh
@@ -1001,7 +1002,7 @@ UpdateCoachModes:
         jg near .6
         xor eax, eax
         mov bl, byte [byte_19EB57]
-        call sub_2E6D4
+        call SetCoachMode
         mov ecx, dword [byte_19EB54]
         xor eax, eax
         sar ecx, 18h
@@ -1012,7 +1013,7 @@ UpdateCoachModes:
 .1:
         mov eax, 1
         mov cl, byte [byte_19EC63]
-        call sub_2E6D4
+        call SetCoachMode
         mov ebx, dword [byte_19EC60]
         xor eax, eax
         sar ebx, 18h
@@ -1174,7 +1175,7 @@ UpdateCoachModes:
         jmp short .15
 .14:
         xor eax, eax
-        call sub_2E6D4
+        call SetCoachMode
 .15:
         xor eax, eax
         mov ebx, dword [byte_19EB54]
@@ -1295,7 +1296,7 @@ UpdateCoachModes:
         jmp short .25
 .24:
         mov eax, 1
-        call sub_2E6D4
+        call SetCoachMode
 .25:
         mov eax, dword [byte_19EC60]
         sar eax, 18h

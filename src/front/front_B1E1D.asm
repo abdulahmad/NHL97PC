@@ -26,8 +26,8 @@ extern sub_102B94, sub_11A318, sub_13C164, sub_419B0, sub_419B8, sub_41FA0, sub_
 extern sub_4B108, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, sub_7F028, sub_7F0D8, sub_7F16C
 extern sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_823F0, sub_82FB8, sub_83C08
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath
-extern sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, sub_8DE19, sub_8DE68, sub_8DE7E
-extern sub_8DE9D, sub_8DEAC, sub_8E7E0, sub_AC799, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E
+extern sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E
+extern SetScrollBarPos, sub_8DEAC, sub_8E7E0, sub_AC799, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E
 extern sub_ACDAE, sub_AD151, sub_AD62E, sub_AD79F, sub_DA7EB, sub_DB6AC, sub_E117B, sub_E12D1
 extern sub_E2041, sub_E2141, sub_E21C6, sub_E341C, sub_E4218, sub_E4230, sub_E4908, sub_FAA64
 extern sub_FAF34, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FDE44, tickcount
@@ -463,7 +463,7 @@ ScrollUserList:
         jge short .2
         xor ebx, ebx
 .1:
-        call sub_8DE9D
+        call SetScrollBarPos
         pop ebx
         ret
 .2:
@@ -477,7 +477,7 @@ ScrollUserList:
         jmp short .1
 .3:
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
@@ -1017,7 +1017,7 @@ sub_B2364:
         add esp, byte 0Ch
         xor edx, edx
         mov dword [byte ebp+06Ah], 0
-        call sub_8DE19
+        call DrawScrollBar
         call sub_1013FC
         mov dword [byte ebp+046h], 1
 .9:
@@ -1276,12 +1276,12 @@ sub_B2364_8CA:
         lea eax, [dword ebp-015Eh]
         xor ebx, ebx
         sub edx, byte 0Dh
-        call sub_8DE9D
+        call SetScrollBarPos
 .31:
         call sub_13C164
         lea eax, [dword ebp-015Eh]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         call sub_1013FC
         jmp short .33
 .32:
@@ -1313,7 +1313,7 @@ sub_B2364_8CA:
         add esp, byte 0Ch
         lea eax, [dword ebp-015Eh]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         call sub_1013FC
 .35:
         cmp dword [byte ebp+06Ah], byte 0

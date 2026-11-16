@@ -21,15 +21,15 @@ extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, u
 extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, word_1684BE, word_1684CA, word_1684E8, word_1684EC
 extern word_1686D8, word_1686DA, word_168D18, word_19CB28, word_19CB2A, word_19CB5C, word_19CB60, word_19CB64
 extern word_19CB68, word_19CB96, word_19CB98, word_19CBAE, word_19CBB6, gsp, gameclock, word_19CBBC
-extern word_19CBBE, word_19CBC0, word_19CBD4, word_19CBDA, word_19CBDC, word_19CBDE, word_19CBE0, penshotlive
+extern word_19CBBE, word_19CBC0, word_19CBD4, word_19CBDA, word_19CBDC, penshotmode, word_19CBE0, penshotlive
 extern word_19CBE6, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28, word_19CC2A, word_19CCB2
 extern word_19CCB6, word_19CCBC, word_19CCBE, word_19CCC0, word_19CCC4, word_19DAD9, word_19DAEA, word_19DCFA
 extern word_19E32A, word_19E949, word_19EA51, word_19EAB6, word_19EAC0, word_19EBC2, word_19EBCC
 global SetupTeamForIntermission, clearteams, jpt_11318, loc_10000, sub_11328_26, sub_11328_4F, sub_11328_78, sub_11328_A6
 global sub_11504_E, sub_123A0_62, sub_123A0_81, GripLinkLibrary, sub_102F4, LoadGripLibrary, sub_1046C, sub_104A8
 global sub_10A68, sub_10CC8, sub_10FAC, sub_1120C, sub_11328, sub_114C4, sub_11504, sub_11574
-global sub_116B0, sub_11808, sub_11908, sub_11984, sub_119A8, sub_11B38, sub_11ED8, sub_11F74
-global sub_11FB4, sub_12024, sub_12334, sub_123A0, sub_12440, sub_124A4, sub_127D4, sub_12970
+global sub_116B0, sub_11808, ResetBench, sub_11984, sub_119A8, sub_11B38, reenergizeteam, sub_11F74
+global sub_11FB4, sub_12024, sub_12334, sub_123A0, sub_12440, sub_124A4, setpersonel, sub_12970
 global sub_12A10, ClockTick, sub_12C2C, sub_12DE8, sub_12E50, unk_10003
 ;-----------------------------------------------------------------------------
 ; loc_10000                                                       10000  97 PC
@@ -1808,11 +1808,11 @@ sub_114C4:
         ret
         db 08Dh,040h,00h
         mov eax, hmtmstruct
-        call sub_127D4
+        call setpersonel
         mov eax, hmtmstruct
         call sub_11504
         mov eax, awtmstruct
-        call sub_127D4
+        call setpersonel
         mov eax, awtmstruct
         nop
 sub_11504:
@@ -1859,11 +1859,11 @@ sub_11574:
         test byte [byte eax+02h], 20h
         jne near .3
         mov eax, hmtmstruct
-        call sub_127D4
+        call setpersonel
         mov eax, hmtmstruct
         call sub_11504
         mov eax, awtmstruct
-        call sub_127D4
+        call setpersonel
         mov eax, awtmstruct
         xor edx, edx
         call sub_11504
@@ -2156,9 +2156,11 @@ sub_11808:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11908                                                       11908  97 PC
+; ResetBench                                     11908  94G, medium confidence
+; 94G ResetBench (96 PC body): the bench and penalty box state of both teams'
+; rosters
 ;-----------------------------------------------------------------------------
-sub_11908:
+ResetBench:
         push ebx
         push ecx
         push edx
@@ -2652,9 +2654,10 @@ sub_11B38:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11ED8                                                       11ED8  97 PC
+; reenergizeteam                                 11ED8  94G, medium confidence
+; 94G reenergizeteam (96 PC body): every player's energy back to 1000h
 ;-----------------------------------------------------------------------------
-sub_11ED8:
+reenergizeteam:
         push ebx
         push ecx
         push edx
@@ -2692,13 +2695,13 @@ SetupTeamForIntermission:
         push ecx
         push edx
         push esi
-        call sub_11908
+        call ResetBench
         mov edx, hmtmstruct
         mov ecx, awtmstruct
         xor ebx, ebx
 .1:
         mov eax, edx
-        call sub_11ED8
+        call reenergizeteam
         mov word [byte edx+02h], 0
         mov eax, dword [dword_1AC944]
         test byte [byte eax+01h], 0C0h
@@ -3176,7 +3179,7 @@ sub_124A4:
         mov byte [dword edx+byte_19C3E0], bl
         cmp ax, 6
         jl short .1
-        cmp word [word_19CBDE], byte 0
+        cmp word [penshotmode], byte 0
         je short .2
         cmp esi, awtmstruct
         sete al
@@ -3422,9 +3425,11 @@ sub_124A4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_127D4                                                       127D4  97 PC
+; setpersonel                                    127D4  94G, medium confidence
+; 94G setpersonel (96 PC body): clears the team's 6 on-ice slots and sets the
+; personnel
 ;-----------------------------------------------------------------------------
-sub_127D4:
+setpersonel:
         push ebx
         push ecx
         push edx
@@ -3509,7 +3514,7 @@ sub_127D4:
         movsx edx, cx
         mov eax, esi
         call sub_3A06C
-        cmp word [word_19CBDE], byte 0
+        cmp word [penshotmode], byte 0
         je short .10
         mov edx, 19h
         mov dword [byte ebx+028h], 0
@@ -3872,7 +3877,7 @@ sub_12C2C:
 .6:
         xor esi, esi
         mov ecx, 0FFFFFFFFh
-        mov word [word_19CBDE], si
+        mov word [penshotmode], si
         mov word [penshotlive], si
         mov word [word_19CBE0], si
         mov word [word_19CBDC], si
@@ -3960,7 +3965,7 @@ sub_12E50:
         push edx
         push esi
         push edi
-        mov dx, word [word_19CBDE]
+        mov dx, word [penshotmode]
         mov ebx, SortCords
         test dx, dx
         je near .9

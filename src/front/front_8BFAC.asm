@@ -18,8 +18,8 @@ extern LoadDataFileHandle, sub_7F028, sub_835AC, sub_835BC, sub_83850, InitMenuI
 extern sub_E375C, sub_E3798, sub_FAF34, sub_FC510, SetViewRect, sub_FCD90, sub_FCFCC, sub_FD08C
 extern sub_FD0F8, sub_FD110, sub_FDC68, tickcount, word_16CD04, word_16CD20, word_16CD22
 global jpt_8E977, jpt_8E987, sub_8D956_223, sub_8DBAC_1F5, sub_8DBAC_220, sub_8BFAC, sub_8D5C0, sub_8D6B4
-global sub_8D6E0, sub_8D6E8, sub_8D910, sub_8D956, sub_8DBAC, sub_8DE0F, sub_8DE10, sub_8DE19
-global sub_8DE68, sub_8DE7E, sub_8DE9D, sub_8DEAC, sub_8DF1F, sub_8E2EE, sub_8E6AF, sub_8E740
+global sub_8D6E0, sub_8D6E8, sub_8D910, sub_8D956, sub_8DBAC, sub_8DE0F, sub_8DE10, DrawScrollBar
+global sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E2EE, sub_8E6AF, sub_8E740
 global sub_8E790, sub_8E7E0, sub_8E840, sub_8E870
 ;-----------------------------------------------------------------------------
 ; sub_8BFAC                                                       8BFAC  97 PC
@@ -2505,7 +2505,11 @@ sub_8DE10:
         cmp dword [byte eax+024h], byte 0
         jle short sub_8DE0F
         dec dword [byte eax+024h]
-sub_8DE19:
+;-----------------------------------------------------------------------------
+; DrawScrollBar                                8DE19  96 PC, medium confidence
+; Draws the scroll bar and its thumb at the position
+;-----------------------------------------------------------------------------
+DrawScrollBar:
         push ebx
         push ecx
         push esi
@@ -2541,7 +2545,7 @@ sub_8DE68:
         cmp ebx, dword [byte eax+024h]
         jle short .1
         inc dword [byte eax+024h]
-        call sub_8DE19
+        call DrawScrollBar
 .1:
         pop ebx
         ret
@@ -2564,14 +2568,15 @@ sub_8DE7E:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_8DE9D                                                       8DE9D  97 PC
+; SetScrollBarPos                                 8DE9D  96 PC, low confidence
+; (bar, pos): sets the position, then DrawScrollBar
 ;-----------------------------------------------------------------------------
-sub_8DE9D:
+SetScrollBarPos:
         push ecx
         mov ecx, edx
         mov edx, ebx
         mov dword [byte eax+024h], ecx
-        call sub_8DE19
+        call DrawScrollBar
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
@@ -2615,7 +2620,7 @@ sub_8DEAC:
         mov edx, esi
         mov dword [byte ecx+024h], eax
         mov eax, ecx
-        call sub_8DE19
+        call DrawScrollBar
 .3:
         leave
         pop esi
@@ -2753,7 +2758,7 @@ sub_8DF1F:
         je short .6
         lea eax, [dword ebp-0120h]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
 .6:
         mov eax, dword [byte ebp+010h]
         mov eax, dword [eax]
@@ -2869,7 +2874,7 @@ sub_8DF1F:
         xor edx, edx
         inc dword [dword ebp-0FCh]
 .16:
-        call sub_8DE19
+        call DrawScrollBar
 .17:
         mov dword [byte ebp-04h], 0
         jmp short .19
@@ -3066,7 +3071,7 @@ sub_8E2EE:
         je short .6
         lea eax, [dword ebp-0124h]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
 .6:
         mov eax, dword [byte ebp+010h]
         mov eax, dword [eax]
@@ -3182,7 +3187,7 @@ sub_8E2EE:
         xor edx, edx
         inc dword [dword ebp-0100h]
 .16:
-        call sub_8DE19
+        call DrawScrollBar
 .17:
         xor edi, edi
         jmp short .19

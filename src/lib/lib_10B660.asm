@@ -7,7 +7,7 @@ extern dword_16E69C, dword_1D1D30, dword_1D1D34, dword_1D1D38, dword_1D1D3C, dwo
 extern dword_1D1D4C, dword_1D1D50, dword_1D1D54, dword_1D1D58, dword_1D1D5C, dword_1D1D60, dword_1D1D64, dword_1D1D68
 extern dword_1D1D6C, dword_1D1D70, dword_1D1D74, dword_1D1D78, dword_1D1D7C, dword_1D1D80, dword_1D1D84, str_AALIAS
 extern sub_112190, sub_116830, sub_12D520, sub_FAA64, sub_FC4BC, sub_FDD1C
-global BuildAntiAliasTable, sub_10B780, sub_10B99C, sub_10BBB8, sub_10BD74, sub_10BEC0, sub_10C07C, DrawFixedLine
+global BuildAntiAliasTable, ClipLineY, ClipLineX, DrawLineYPlot, DrawLineY, DrawLineXPlot, DrawLineX, DrawFixedLine
 global sub_10C434
 ;-----------------------------------------------------------------------------
 ; BuildAntiAliasTable                         10B660  96 PC, medium confidence
@@ -116,9 +116,10 @@ BuildAntiAliasTable:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_10B780                                                          10B780  
+; ClipLineY                                   10B780  96 PC, medium confidence
+; Clips the current line to the view's top and bottom (dword_17DC1C / 17DC24)
 ;-----------------------------------------------------------------------------
-sub_10B780:
+ClipLineY:
         push ebx
         push ecx
         push edx
@@ -321,9 +322,10 @@ sub_10B780:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10B99C                                                          10B99C  
+; ClipLineX                                   10B99C  96 PC, medium confidence
+; Clips the current line to the view's left and right (dword_17DC18 / 17DC28)
 ;-----------------------------------------------------------------------------
-sub_10B99C:
+ClipLineX:
         push ebx
         push ecx
         push edx
@@ -526,9 +528,10 @@ sub_10B99C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10BBB8                                                          10BBB8  
+; DrawLineYPlot                               10BBB8  96 PC, medium confidence
+; Draws a mostly vertical line pixel by pixel (PlotPixel)
 ;-----------------------------------------------------------------------------
-sub_10BBB8:
+DrawLineYPlot:
         push ebx
         push esi
         push edi
@@ -678,9 +681,10 @@ sub_10BBB8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10BD74                                                          10BD74  
+; DrawLineY                                   10BD74  96 PC, medium confidence
+; Draws a mostly vertical line straight into the bitmap
 ;-----------------------------------------------------------------------------
-sub_10BD74:
+DrawLineY:
         push ebx
         push esi
         push edi
@@ -785,9 +789,10 @@ sub_10BD74:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_10BEC0                                                          10BEC0  
+; DrawLineXPlot                               10BEC0  96 PC, medium confidence
+; Draws a mostly horizontal line pixel by pixel (PlotPixel)
 ;-----------------------------------------------------------------------------
-sub_10BEC0:
+DrawLineXPlot:
         push ebx
         push esi
         push edi
@@ -936,9 +941,10 @@ sub_10BEC0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10C07C                                                          10C07C  
+; DrawLineX                                   10C07C  96 PC, medium confidence
+; Draws a mostly horizontal line straight into the bitmap
 ;-----------------------------------------------------------------------------
-sub_10C07C:
+DrawLineX:
         push ebx
         push esi
         push edi
@@ -1148,21 +1154,21 @@ DrawFixedLine:
         add eax, esi
         mov dword [dword_1D1D3C], edx
         mov dword [dword_1D1D6C], eax
-        call sub_10B780
+        call ClipLineY
         test eax, eax
         jle near .14
         cmp dword [dword_1D1D44], byte 0
         je short .9
-        call sub_10BBB8
+        call DrawLineYPlot
 .9:
         mov ecx, dword [dword_1D1D78]
         cmp ecx, dword [dword_1D1D58]
         jle near .14
-        call sub_10BD74
+        call DrawLineY
         mov eax, dword [dword_1D1D58]
         cmp eax, dword [dword_1D1D78]
         jge near .14
-        call sub_10BBB8
+        call DrawLineYPlot
         add esp, byte 4
         pop ebp
         pop edi
@@ -1215,21 +1221,21 @@ DrawFixedLine:
         add esi, eax
         mov dword [dword_1D1D34], edx
         mov dword [dword_1D1D68], esi
-        call sub_10B99C
+        call ClipLineX
         test eax, eax
         jle short .14
         cmp dword [dword_1D1D44], byte 0
         je short .13
-        call sub_10BEC0
+        call DrawLineXPlot
 .13:
         mov ecx, dword [dword_1D1D74]
         cmp ecx, dword [dword_1D1D40]
         jle short .14
-        call sub_10C07C
+        call DrawLineX
         mov eax, dword [dword_1D1D40]
         cmp eax, dword [dword_1D1D74]
         jge short .14
-        call sub_10BEC0
+        call DrawLineXPlot
 .14:
         add esp, byte 4
         pop ebp
@@ -1442,21 +1448,21 @@ sub_10C434:
         add edx, eax
         mov dword [dword_1D1D64], edi
         mov dword [dword_1D1D6C], edx
-        call sub_10B780
+        call ClipLineY
         test eax, eax
         jle near .27
         cmp dword [dword_1D1D44], byte 0
         je short .19
-        call sub_10BBB8
+        call DrawLineYPlot
 .19:
         mov ecx, dword [dword_1D1D78]
         cmp ecx, dword [dword_1D1D58]
         jle near .27
-        call sub_10BD74
+        call DrawLineY
         mov eax, dword [dword_1D1D58]
         cmp eax, dword [dword_1D1D78]
         jge near .27
-        call sub_10BBB8
+        call DrawLineYPlot
         jmp near .27
 .20:
         mov edi, dword [dword_1D1D34]
@@ -1535,21 +1541,21 @@ sub_10C434:
         add ebx, eax
         mov dword [dword_1D1D68], ecx
         mov dword [dword_1D1D7C], ebx
-        call sub_10B99C
+        call ClipLineX
         test eax, eax
         jle short .27
         cmp dword [dword_1D1D44], byte 0
         je short .26
-        call sub_10BEC0
+        call DrawLineXPlot
 .26:
         mov edx, dword [dword_1D1D74]
         cmp edx, dword [dword_1D1D40]
         jle short .27
-        call sub_10C07C
+        call DrawLineX
         mov eax, dword [dword_1D1D40]
         cmp eax, dword [dword_1D1D74]
         jge short .27
-        call sub_10BEC0
+        call DrawLineXPlot
 .27:
         cmp dword [byte ebp-08h], byte 0
         je short .28

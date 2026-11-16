@@ -30,7 +30,7 @@ extern sub_105808, sub_106F64, sub_106F94, sub_107D30, sub_116428, sub_1164E8, s
 extern sub_119BE4, sub_119FDC, sub_11A120, sub_11A318, sub_11A3E0, sub_11ADD0, sub_11ADE8, sub_11B008
 extern sub_13C164, sub_4095C, sub_40EBC, sub_41870, sub_41A28, sub_41D18, sub_41DB8, sub_41EA4
 extern sub_41FA0, sub_41FDC, sub_4AE14, sub_4B108, sub_4B307, sub_7CE9E, InitMenuItems, sub_8BFAC
-extern sub_8D956, sub_8DE10, sub_8DE68, sub_8DE7E, sub_8DE9D, sub_8DEAC, sub_8E7E0, sub_8E840
+extern sub_8D956, sub_8DE10, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8E7E0, sub_8E840
 extern sub_D6930, sub_DA713, sub_DB747, sub_E341C, sub_E3A44, sub_E3AB8, sub_E4638, sub_E4838
 extern sub_E4908, FillBox, sub_F9650, sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB73D
 extern sub_FBE40, sub_FBE94, sub_FC510, sub_FC73E, sub_FCC40, sub_FCD90, sub_FCF84, sub_FCFCC
@@ -6163,7 +6163,7 @@ sub_816E8:
         add esp, byte 10h
         lea eax, [dword esp+0148h]
         mov edx, ebp
-        call sub_8DE9D
+        call SetScrollBarPos
         mov edx, dword [dword esp+03C0h]
         push edx
         mov ebx, dword [dword esp+03D0h]

@@ -45,7 +45,7 @@ extern word_19CB82, word_19CB84, word_19CB86, word_19CB88, word_19CB8C, word_19C
 extern word_19CB96, word_19CB9A, word_19CB9C, word_19CB9E, gameover, word_19CBA2, word_19CBA4, word_19CBA6
 extern word_19CBA8, word_19CBAC, word_19CBAE, word_19CBB0, word_19CBB2, word_19CBB4, word_19CBB6, gsp
 extern gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD4, word_19CBD6, word_19CBD8, word_19CBDA
-extern word_19CBDC, word_19CBDE, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA, word_19CBEC, word_19CBEE
+extern word_19CBDC, penshotmode, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA, word_19CBEC, word_19CBEE
 extern word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28, word_19CC2A
 extern word_19CC2C, word_19CC50, word_19CC52, word_19CCC4, word_19CD9C, word_19CDA7, word_19DAD9, word_19DCFA
 extern word_19E32A, word_1C3415, word_1C3417, word_1C5538, word_1C553A
@@ -274,7 +274,7 @@ InitGameVars:
         xor eax, eax
         xor edx, edx
         mov word [word_19CBD4], ax
-        mov word [word_19CBDE], ax
+        mov word [penshotmode], ax
         mov word [word_19CBD6], ax
         mov word [word_19CC52], ax
         xor dh, bh

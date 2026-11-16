@@ -32,8 +32,8 @@ extern sub_11B094, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_4
 extern sub_4A4F4, sub_4B108, sub_4B19C, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, sub_7F028
 extern sub_7F0D8, sub_7F16C, sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_81D1C
 extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_840F8, sub_84138
-extern sub_84170, sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DBAC, sub_8DE10, sub_8DE19
-extern sub_8DE68, sub_8DE7E, sub_8DE9D, sub_8DEAC, sub_8DF1F, sub_8E6AF, sub_8E7E0, sub_DA7D6
+extern sub_84170, sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DBAC, sub_8DE10, DrawScrollBar
+extern sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, sub_8E7E0, sub_DA7D6
 extern sub_DB75E, sub_DC653, sub_DCBB0, sub_DE3CF, sub_E036F, sub_E0841, sub_E0D0F, sub_E341C
 extern sub_E4218, sub_E4230, sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C
 extern sub_FD0F8, sub_FD110, unk_16620D, unk_16622A, unk_16622D, unk_16622F, unk_166232, unk_166235
@@ -936,7 +936,7 @@ sub_ACDAE:
         lea eax, [dword esi+013Fh]
         mov ebx, dword [dword esi+0247h]
         mov edx, dword [dword esi+023Fh]
-        call sub_8DE9D
+        call SetScrollBarPos
         jmp short sub_ACDAE_323.42
 .39:
         sub edi, edx
@@ -1031,10 +1031,10 @@ sub_AD151:
         add esp, byte 0Ch
         lea eax, [byte esi+03Fh]
         mov edx, dword [dword esi+0247h]
-        call sub_8DE19
+        call DrawScrollBar
         lea eax, [dword esi+013Fh]
         mov edx, dword [dword esi+0247h]
-        call sub_8DE19
+        call DrawScrollBar
         mov eax, dword [byte esi+033h]
         mov dword [byte ebp-08h], eax
         mov eax, dword [byte esi+01Eh]

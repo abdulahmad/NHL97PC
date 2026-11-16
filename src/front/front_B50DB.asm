@@ -30,7 +30,7 @@ extern sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC, sub_4A4F4, sub_4B108, sub_4B1
 extern sub_7EDF0, sub_7EF70, sub_7F028, sub_7F04C, sub_7F0D8, sub_7F16C, sub_7F5A4, sub_80AB8
 extern sub_80B28, sub_80BBC, sub_815F8, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_81D1C
 extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_84330, sub_84570
-extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, sub_8DE19, sub_8DE68, sub_8DE7E, sub_8DE9D
+extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPos
 extern sub_8DEAC, sub_8DF1F, sub_8E6AF, sub_8E7E0, sub_AD678, sub_AD6D6, sub_B4F87, sub_B5031
 extern sub_BDB25, sub_DA7D6, sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, sub_DE3CF, sub_E036F
 extern sub_E0841, sub_E0D0F, sub_E341C, sub_E4218, sub_E4230, sub_FAA64, sub_FAF34, sub_FC510
@@ -1283,7 +1283,7 @@ sub_B5891:
         add esp, byte 0Ch
         mov eax, unk_1CAD24
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         call sub_1013FC
         cmp byte [byte_1C8338], 0
         jne short .33
@@ -1463,7 +1463,7 @@ sub_B5891_9DB:
         call sub_8E6AF
         mov eax, unk_1CAD24
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
         jmp near sub_B5891_DC7.64
 sub_B5891_B94:
         cmp dword [byte ebp+02Eh], byte 0
@@ -4088,7 +4088,7 @@ sub_B829B:
         jle short .8
         mov eax, unk_1CA9DC
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         cmp dword [dword_1CAEA0], byte 0
         je short .7
         mov esi, 1
@@ -5618,7 +5618,7 @@ sub_B8FDF:
         mov edx, dword [byte ebp+042h]
         mov eax, unk_1CAADC
         xor ebx, ebx
-        call sub_8DE9D
+        call SetScrollBarPos
         push byte 0
         push byte 0
         push dword 96h
@@ -5635,7 +5635,7 @@ sub_B8FDF:
         mov edx, dword [byte ebp+03Ah]
         mov eax, unk_1CABDC
         xor ebx, ebx
-        call sub_8DE9D
+        call SetScrollBarPos
         call sub_83850
         push dword [byte ebp+04Eh]
         call sub_FD0F8
@@ -5826,13 +5826,13 @@ sub_B8FDF:
         add esp, byte 4
         mov eax, unk_1CAADC
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         mov eax, unk_1CABDC
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         mov eax, unk_1CA9DC
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         call sub_1013FC
         mov eax, 37h
         call sub_4B19C
@@ -5923,14 +5923,14 @@ sub_B8FDF_D4E:
         call sub_8E6AF
         mov eax, unk_1CAADC
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
         mov edx, dword [byte ebp+072h]
         mov eax, unk_1CABDC
         call sub_8E6AF
         xor ebx, ebx
         mov eax, unk_1CABDC
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
         mov eax, dword [dword_1CAB00]
         mov edx, dword [dword_1CAE84]
         mov eax, dword [edx+eax*4]
@@ -6141,7 +6141,7 @@ sub_B8FDF_D4E:
         xor ebx, ebx
         xor edx, edx
 .63:
-        call sub_8DE9D
+        call SetScrollBarPos
         mov eax, dword [byte ebp+01Ah]
         movsx edx, word [eax]
         mov eax, unk_1CABDC
@@ -6159,7 +6159,7 @@ sub_B8FDF_D4E:
         xor ebx, ebx
         xor edx, edx
 .65:
-        call sub_8DE9D
+        call SetScrollBarPos
         mov eax, dword [dword_1CAB00]
         mov edx, dword [dword_1CAE84]
         mov eax, dword [edx+eax*4]
@@ -6370,7 +6370,7 @@ sub_B8FDF_13F5:
         xor ebx, ebx
         mov eax, unk_1CAADC
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         je short .94
         mov eax, dword [dword_1AC814]
@@ -6453,7 +6453,7 @@ sub_B8FDF_13F5:
         mov eax, unk_1CA9DC
         xor ebx, ebx
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
 .100:
         cmp dword [dword_1CAEB4], byte 0
         jne near sub_B8FDF_2040.186
@@ -6596,7 +6596,7 @@ sub_B8FDF_15C2:
         xor ebx, ebx
         mov eax, unk_1CAADC
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
 .113:
         cmp dword [dword_1CAEB4], byte 0
         je short .116
@@ -6621,7 +6621,7 @@ sub_B8FDF_15C2:
         mov eax, unk_1CA9DC
         xor ebx, ebx
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
 .116:
         cmp dword [dword_1CAEB4], byte 0
         jne near sub_B8FDF_2040.186
@@ -6668,7 +6668,7 @@ sub_B8FDF_180D:
         xor ebx, ebx
         mov eax, unk_1CAADC
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         je short .125
         mov eax, dword [dword_1AC814]
@@ -6771,7 +6771,7 @@ sub_B8FDF_1964:
         xor ebx, ebx
         mov eax, unk_1CABDC
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
         cmp dword [dword_16D454], byte 0FFFFFFFFh
         je short .137
         mov eax, dword [dword_1AC814]
@@ -6854,7 +6854,7 @@ sub_B8FDF_1964:
         mov eax, unk_1CA9DC
         xor ebx, ebx
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
 .143:
         cmp dword [dword_1CAEB4], byte 0
         jne near sub_B8FDF_2040.186
@@ -7001,7 +7001,7 @@ sub_B8FDF_1B34:
         xor ebx, ebx
         mov eax, unk_1CABDC
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
         jmp near sub_B8FDF_1964.141
 sub_B8FDF_1D11:
         mov eax, dword [byte ebp+01Ah]
@@ -7043,7 +7043,7 @@ sub_B8FDF_1D11:
         xor ebx, ebx
         mov eax, unk_1CABDC
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
         cmp dword [dword_16D454], byte 0FFFFFFFFh
         je short .165
         mov eax, dword [dword_1AC814]
@@ -7155,7 +7155,7 @@ sub_B8FDF_1EC9:
         mov eax, unk_1CA9DC
         xor ebx, ebx
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
 .172:
         cmp dword [dword_1CAEB4], byte 0
         jne short .174
@@ -7175,7 +7175,7 @@ sub_B8FDF_1EC9:
         xor ebx, ebx
         mov eax, unk_1CA9DC
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
 .174:
         mov dword [dword_1CAE70], 0FFFFFFFFh
         jmp near sub_B8FDF_2040.186
@@ -7210,7 +7210,7 @@ sub_B8FDF_1F8C:
         mov eax, unk_1CA9DC
         xor ebx, ebx
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
 .178:
         cmp dword [dword_1CAEB4], byte 0
         jne near sub_B8FDF_1EC9.174
@@ -7254,7 +7254,7 @@ sub_B8FDF_2040:
         mov eax, unk_1CA9DC
         xor ebx, ebx
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
 .182:
         cmp dword [dword_1CAEB4], byte 0
         jne short .186
@@ -7276,7 +7276,7 @@ sub_B8FDF_2040:
         mov eax, unk_1CA9DC
 .185:
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
 .186:
         cmp dword [byte ebp+052h], byte 0FFFFFFFFh
         jne near sub_B8FDF_21FD.189

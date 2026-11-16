@@ -25,8 +25,8 @@ extern sub_11F9F0, sub_11FA34, sub_13C164, sub_39851, sub_415F8, sub_419B0, sub_
 extern sub_41FDC, sub_4A4F4, sub_4B108, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
 extern sub_7F0D8, sub_7F16C, sub_7F5A4, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678
 extern sub_83314, sub_834EC, sub_83558, sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068
-extern sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, sub_8DE19, sub_8DE68, sub_8DE7E
-extern sub_8DE9D, sub_8DEAC, sub_8DF1F, sub_8E6AF, sub_8E7E0, sub_8E870, sub_9D2D0, sub_AF074
+extern sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E
+extern SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, sub_8E7E0, sub_8E870, sub_9D2D0, sub_AF074
 extern sub_B5891, sub_CA44C, sub_D0098, sub_DA7D6, sub_DAC1E, sub_DC71D, sub_DCBB0, sub_E036F
 extern sub_E0841, sub_E0D0F, sub_E341C, sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, tickcount, unk_167806, unk_167809
@@ -279,7 +279,7 @@ sub_E947A:
         lea eax, [dword ebp-028Eh]
         xor ebx, ebx
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
         jmp near .33
 .15:
         imul eax, dword [byte ebp+072h], byte 52h
@@ -464,7 +464,7 @@ sub_E947A:
         mov dword [dword eax+dword_1CE0FC], edx
         lea eax, [dword ebp-028Eh]
         xor edx, edx
-        call sub_8DE9D
+        call SetScrollBarPos
         mov eax, dword [dword_1CE1FC]
         shl eax, 2
         cmp dword [dword eax+dword_1CE104], byte 0
@@ -962,7 +962,7 @@ sub_E9E9B:
         mov edx, dword [dword_1CE1F0]
         mov eax, dword [dword_1CE1F4]
         mov ecx, asc_1677BB
-        call sub_8DE19
+        call DrawScrollBar
         push asc_1677B6
         mov edx, dword [byte ebp-0Ch]
         mov eax, dword [dword_1CE218]
@@ -1597,7 +1597,7 @@ sub_EA7CF:
         call sub_8D956
         mov edx, dword [dword_1CE1F0]
         mov eax, dword [dword_1CE1F4]
-        call sub_8DE19
+        call DrawScrollBar
         push dword [dword_1CE1F0]
         call sub_FD0F8
         mov eax, dword [dword_1CE1F8]

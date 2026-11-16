@@ -24,7 +24,7 @@ extern sub_11B0D0, sub_13C164, sub_3812E, sub_415A0, sub_419B0, sub_419B8, sub_4
 extern sub_4AE14, sub_4B108, sub_7A9D8, sub_7BB27, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
 extern sub_7F028, sub_7F0D8, sub_7F16C, sub_7F5A4, sub_7FE38, sub_80AB8, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, sub_85D1D, NameIndexNew, NameIndexLoad, NameIndexFree
-extern sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DBAC, sub_8DE10, sub_8DE19, sub_8DE68
+extern sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DBAC, sub_8DE10, DrawScrollBar, sub_8DE68
 extern sub_8DE7E, sub_8DEAC, sub_8E7E0, sub_94BDA, sub_A2EF0, sub_A2F31, sub_A2F52, sub_A2F78
 extern sub_A3048, sub_A3116, sub_C6064, sub_C755B, sub_D49BE, sub_DA7D6, sub_DB75E, sub_DB763
 extern sub_DC653, sub_DCA6C, sub_DCBB0, sub_DCFA4, sub_DD970, sub_DDC4A, sub_DE3CF, sub_DE5A3
@@ -3395,7 +3395,7 @@ sub_912E3:
         add esp, byte 0Ch
         mov edx, dword [byte ebp+066h]
         lea eax, [dword ebp-01F6h]
-        call sub_8DE19
+        call DrawScrollBar
         push byte 0FFFFFFFFh
         call sub_FC510
         add esp, byte 4

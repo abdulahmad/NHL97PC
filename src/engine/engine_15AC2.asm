@@ -73,7 +73,7 @@ extern word_19CB5C, word_19CB60, word_19CB64, word_19CB68, word_19CB82, word_19C
 extern word_19CB8E, word_19CB90, word_19CB92, word_19CB94, word_19CB96, word_19CB98, word_19CB9A, word_19CB9C
 extern word_19CB9E, gameover, word_19CBA2, word_19CBA4, word_19CBA6, word_19CBA8, word_19CBAC, word_19CBAE
 extern word_19CBB2, word_19CBB4, word_19CBB6, gsp, gameclock, word_19CBBC, word_19CBBE, word_19CBC0
-extern word_19CBD6, word_19CBD8, word_19CBDA, word_19CBDC, word_19CBDE, word_19CBE0, penshotlive, word_19CBE6
+extern word_19CBD6, word_19CBD8, word_19CBDA, word_19CBDC, penshotmode, word_19CBE0, penshotlive, word_19CBE6
 extern word_19CBEA, word_19CBEE, word_19CBF4, word_19CC24, word_19CC26, word_19CC50, word_19DAD9, word_19E109
 extern word_19EABE, word_19EAC0, word_19EBCA, word_19EBCC
 global jpt_19604, jpt_19F18, jpt_1A304, jpt_1A680, jpt_1A708, jpt_1B9C4, jpt_1F03C, sub_15C30_20A
@@ -15235,7 +15235,7 @@ sub_20CB0:
         mov edx, dword [dword ecx+0108h]
         inc word [dword edx+eax+01E45h]
 .56:
-        cmp word [word_19CBDE], byte 0
+        cmp word [penshotmode], byte 0
         je short .57
         mov eax, dword [dword ecx+0108h]
         inc word [dword eax+020E5h]
@@ -18316,7 +18316,7 @@ sub_23C98:
         and bh, 0FDh
         mov byte [dword edx+0C0h], cl
         mov byte [dword edx+0BFh], bh
-        cmp word [word_19CBDE], byte 0
+        cmp word [penshotmode], byte 0
         je near .5
         mov cx, word [word_19CBE6]
         mov al, byte [dword edx+0A4h]

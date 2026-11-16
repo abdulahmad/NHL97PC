@@ -59,7 +59,7 @@ extern sub_7F5A4, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMen
 extern sub_8DF1F, sub_8E7E0, sub_99DAC, sub_AC369, sub_D0098, sub_DB75E, sub_DB763, sub_DE25F
 extern sub_DE3CF, sub_DE740, sub_E036F, sub_E0415, sub_E2378, sub_E23BC, sub_E2404, sub_E2458
 extern sub_E2494, sub_E24D0, sub_E341C, sub_E9429, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
-extern sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB71C, sub_FBFDC, sub_FC008, sub_FC290
+extern sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB71C, addtimer, sub_FC008, sub_FC290
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8
 extern sub_FD110, sub_FDC68, sub_FE180, sub_FFA44, sub_FFA9C, tickcount, unk_160A56, unk_160B68
 extern unk_160C94, unk_160C98, unk_19ED78, unk_19F548, unk_1A0CB8, unk_1A8D48, unk_1A8E8C, unk_1A9C8C
@@ -89,7 +89,7 @@ global sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DDD8, sub_3DE
 global sub_3DF14, sub_3DF54, sub_3E064, sub_3E140, sub_3E198, sub_3E1F8, sub_3E21C, sub_3E458
 global sub_3E480, sub_3E4B8, sub_3E590, sub_3E5F0, sub_3E6D0, sub_3E818, sub_3E850, sub_3E904
 global sub_3EB40, sub_3EBE0, sub_3EC58, sub_3EC78, sub_3ED60, sub_3EE4C, sub_3EE74, CdStreamService
-global CdStreamSkipMarks, sub_3FB7C, CdStreamSpaceLeft, sub_3FBE4, sub_3FC7C, sub_3FC88, sub_3FD0C, sub_3FDCC
+global CdStreamSkipMarks, CdStreamContigData, CdStreamSpaceLeft, sub_3FBE4, sub_3FC7C, sub_3FC88, sub_3FD0C, sub_3FDCC
 global sub_3FE54, sub_3FEE8, sub_3FF4C, sub_3FF9C, sub_4006C, sub_400E8, sub_401A0, sub_40258
 global sub_40298, sub_40380, sub_403C0, sub_40400, sub_40440, sub_404C4, sub_40574, sub_405F8
 global sub_40640, sub_40680, sub_40850, sub_4095C, sub_409EC, sub_40D80, sub_40EBC, sub_4123C
@@ -8038,7 +8038,7 @@ sub_3D930:
         add esp, byte 4
         push sub_3D134
         mov dword [dword_1AC358], eax
-        call sub_FBFDC
+        call addtimer
         add esp, byte 4
         pop edx
         pop ecx
@@ -9575,7 +9575,7 @@ sub_3E6D0:
         mov dword [dword ebx+080h], 0
         push CdStreamService_BB8
         mov dword [dword ebx+084h], eax
-        call sub_FBFDC
+        call addtimer
         add esp, byte 4
         mov eax, ebx
         pop ebp
@@ -10470,7 +10470,7 @@ CdStreamService_1E3:
         mov edx, eax
         mov eax, dword [dword_1AC378]
         sub edx, esi
-        call sub_3FB7C
+        call CdStreamContigData
         cmp edx, eax
         jne near CdStreamService_AC2.58
         mov edx, dword [dword_1AC378]
@@ -10668,7 +10668,7 @@ CdStreamService_47A:
         mov edx, eax
         mov eax, dword [dword_1AC378]
         sub edx, esi
-        call sub_3FB7C
+        call CdStreamContigData
         cmp edx, eax
         jne near CdStreamService_AC2.58
         mov edx, dword [dword_1AC378]
@@ -10765,7 +10765,7 @@ CdStreamService_595:
         mov edx, eax
         mov eax, dword [dword_1AC374]
         sub edx, esi
-        call sub_3FB7C
+        call CdStreamContigData
         cmp edx, eax
         jne near CdStreamService_AC2.58
         mov edx, dword [dword_1AC374]
@@ -10902,7 +10902,7 @@ CdStreamService_74E:
         mov edx, eax
         mov eax, dword [dword_1AC374]
         sub edx, ecx
-        call sub_3FB7C
+        call CdStreamContigData
         cmp edx, eax
         jne near CdStreamService_AC2.58
         mov edx, dword [dword_1AC374]
@@ -11056,7 +11056,7 @@ CdStreamService_956:
         mov edx, eax
         mov eax, dword [dword_1AC378]
         sub edx, ebx
-        call sub_3FB7C
+        call CdStreamContigData
         cmp edx, eax
         jne near CdStreamService_AC2.58
         mov edx, dword [dword_1AC378]
@@ -11279,9 +11279,10 @@ CdStreamSkipMarks:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3FB7C                                                       3FB7C  97 PC
+; CdStreamContigData                                              3FB7C  96 PC
+; Bytes readable in one piece from the stream's ring buffer
 ;-----------------------------------------------------------------------------
-sub_3FB7C:
+CdStreamContigData:
         push ebx
         push edx
         push esi

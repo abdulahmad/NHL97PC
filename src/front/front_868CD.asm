@@ -25,7 +25,7 @@ extern sub_101340, sub_101390, sub_1013FC, sub_101429, sub_102B94, sub_11A318, s
 extern sub_419B8, sub_41FA0, sub_41FDC, sub_4B074, sub_4B108, sub_7E860, sub_7EDF0, sub_7EEB0
 extern sub_7F028, sub_7F04C, sub_7F0D8, sub_7F16C, sub_7F29C, sub_7F5B8, sub_7FE38, sub_80BBC
 extern sub_81114, sub_81678, sub_835BC, sub_83850, sub_867F0, sub_86878, sub_8BFAC, sub_8D956
-extern sub_8DE10, sub_8DE19, sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E7E0, sub_E32B4, sub_E3410
+extern sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E7E0, sub_E32B4, sub_E3410
 extern sub_E341C, sub_E3AFC, sub_E4638, sub_E4838, sub_E57EC, sub_E5BF8, sub_FAA64, sub_FAF34
 extern sub_FC510, sub_FCD90, sub_FCF84, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C
 extern sub_FDE44, unk_165330, unk_1AC839, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1C5EF8
@@ -710,7 +710,7 @@ sub_86CB1:
         add esp, byte 0Ch
         xor edx, edx
         lea edi, [dword ebp-01000h]
-        call sub_8DE19
+        call DrawScrollBar
         call sub_1013FC
         push byte 10h
         mov ebx, 1F4h
@@ -805,7 +805,7 @@ sub_86CB1_4C9:
         call sub_1013FC
         lea eax, [dword ebp-012Ch]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         mov eax, dword [dword ebp-01008h]
         mov dword [byte ebp-04h], 0
         cmp dword [eax], byte 0
@@ -855,7 +855,7 @@ sub_86CB1_60C:
         call sub_1013FC
         lea eax, [dword ebp-012Ch]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
 .11:
         cmp dword [byte ebp-014h], byte 0
         jne near sub_86CB1_752.14
@@ -906,7 +906,7 @@ sub_86CB1_6C5:
         call sub_1013FC
         lea eax, [dword ebp-012Ch]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         mov eax, dword [dword ebp-0108h]
         mov dword [byte ebp-01Ch], eax
         jmp near sub_86CB1_60C.11
@@ -3633,7 +3633,7 @@ sub_8907B_A1E:
 .24:
         lea eax, [dword ebp-0168h]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         jmp near sub_8907B_8F6
 sub_8907B_A96:
         lea eax, [dword ebp-0168h]
@@ -3665,7 +3665,7 @@ sub_8907B_A96:
         call sub_1013FC
         lea eax, [dword ebp-0168h]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
         mov eax, dword [dword ebp-0144h]
         mov dword [byte ebp-028h], eax
         jmp near sub_8907B_8F6

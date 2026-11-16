@@ -18,7 +18,7 @@ extern sub_11A318, sub_11B0D0, sub_11B98E, sub_11B9A0, sub_11BA08, sub_11BA50, s
 extern sub_419B8, sub_41FA0, sub_41FDC, sub_4AE14, sub_4B108, sub_7EDF0, sub_7EEB0, sub_7F028
 extern sub_7F04C, sub_7F0D8, sub_7F16C, sub_7F5A4, sub_81114, sub_81650, sub_83314, sub_834EC
 extern sub_83558, sub_835BC, sub_83850, NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500
-extern NameIndexRemove, NameIndexPath, sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, sub_8DE19
+extern NameIndexRemove, NameIndexPath, sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar
 extern sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E6AF, sub_8E7E0, sub_9F671, sub_AB240, sub_AC6EB
 extern sub_AC73E, sub_DA7D6, sub_DCBB0, sub_DCC75, sub_DE3CF, sub_DE5A3, sub_E036F, sub_E0415
 extern sub_E076B, sub_E0841, sub_E08E9, sub_E0D0F, sub_E0F85, sub_E19D5, sub_E1C19, sub_E1CC0
@@ -278,7 +278,7 @@ sub_9F6F5:
         jle short .12
         lea eax, [dword ebp-0166h]
         xor edx, edx
-        call sub_8DE19
+        call DrawScrollBar
 .12:
         call sub_1013FC
         jmp near sub_9F6F5_470.21

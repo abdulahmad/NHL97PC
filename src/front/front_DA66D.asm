@@ -45,7 +45,7 @@ extern sub_80BBC, sub_81D1C, sub_83314, sub_834EC, sub_83558, sub_835AC, sub_835
 extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_8E7E0, sub_D7A70, sub_D7B64, sub_D8130
 extern sub_D81D8, sub_D8B20, sub_D9960, sub_D9D74, sub_DA020, sub_DA02C, sub_DA48C, sub_DA498
 extern sub_DA544, sub_DA57C, sub_DA654, sub_E7D6D, sub_E8660, sub_E8923, sub_F9A88, sub_FAA64
-extern sub_FAAB4, sub_FAF34, sub_FB704, sub_FBE40, sub_FBFDC, sub_FC008, WaitTicks, sub_FC510
+extern sub_FAAB4, sub_FAF34, sub_FB704, sub_FBE40, addtimer, sub_FC008, WaitTicks, sub_FC510
 extern sub_FCD90, sub_FCF84, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FDC68, sub_FDD1C, sub_FDE44
 extern sub_FE150, sub_FE3D0, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
 extern unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
@@ -11985,7 +11985,7 @@ sub_E304C:
         mov dword [dword_16D894], edx
         mov dword [dword_16D898], edx
         mov dword [dword_16D89C], edx
-        call sub_FBFDC
+        call addtimer
         add esp, byte 4
         mov word [word_16D8A4], bx
 .1:
@@ -12017,7 +12017,7 @@ sub_E30D8:
         push ecx
         push edx
         push InputRecordTimer
-        call sub_FBFDC
+        call addtimer
         add esp, byte 4
         pop edx
         pop ecx
