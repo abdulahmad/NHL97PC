@@ -49,7 +49,7 @@ extern sub_10B0EC, sub_10B4E0, sub_10B580, BuildAntiAliasTable, sub_10C8E8, sub_
 extern sub_10E62C, sub_10E6AC, sub_10E7AC, sub_10E8F8, sub_10EE50, sub_10FB98, sub_10FBB0, sub_10FD58
 extern sub_10FE58, sub_10FEA8, sub_10FFBC, sub_11002C, sub_1100B4, sub_110414, sub_110538, sub_1105E4
 extern sub_110634, sub_112BCC, sub_112DE4, sub_11313C, sub_3D2C0, sub_3D3D0, sub_3DA80, sub_3DAC4
-extern sub_3DBCC, sub_3DDD8, sub_3E198, sub_3E1F8, sub_3E5F0, sub_4B1C4, sub_4B4C4, sub_4B540
+extern sub_3DBCC, sub_3DDD8, sub_3E198, sub_3E1F8, sub_3E5F0, SetArtArchive, sub_4B4C4, sub_4B540
 extern sub_4B944, sub_4BF54, sub_4BF94, sub_4C0CC, sub_4C5A0, sub_4D3B4, sub_4E818, sub_4E840
 extern sub_4E868, sub_4E894, sub_4E8C0, sub_4E8EC, sub_4E9A0, sub_4EA44, sub_4EF68, sub_4F004
 extern sub_4F068, sub_4F294, sub_4F404, sub_4FC50, sub_4FD08, DrawGoalLight, TransformRink, sub_509E8
@@ -1134,7 +1134,7 @@ sub_53314:
         sub esp, byte 64h
         mov dword [byte esp+05Ch], eax
         mov eax, asc_161404
-        call sub_4B1C4
+        call SetArtArchive
         mov dword [dword_1B108C], edx
         call sub_10B000
         mov edx, 4CCCCh
@@ -3286,7 +3286,7 @@ sub_55000:
         add edx, byte 30h
         mov eax, asc_161404
         mov byte [byte esp+05h], dl
-        call sub_4B1C4
+        call SetArtArchive
         push byte 20h
         lea eax, [byte esp+04h]
         push eax

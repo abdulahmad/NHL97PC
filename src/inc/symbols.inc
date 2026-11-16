@@ -563,7 +563,7 @@
 ;  4B108  sub_4B108                                front/front_48D70.asm                        27
 ;  4B12D  sub_4B12D                                front/front_48D70.asm                        1
 ;  4B19C  sub_4B19C                                front/front_48D70.asm                        10
-;  4B1C4  sub_4B1C4                                front/front_48D70.asm                        3
+;  4B1C4  SetArtArchive                            front/front_48D70.asm                        3
 ;  4B307  sub_4B307                                front/front_48D70.asm                        1
 ;  4B3F8  WriteGlobalSet                           front/front_48D70.asm                        1
 ;  4B4AC  sub_4B4AC                                front/front_48D70.asm                        1
@@ -661,8 +661,8 @@
 ;  57324  sub_57324                                front/front_57324.asm                        2
 ;  576EC  sub_576EC                                front/front_57324.asm                        1
 ;  57738  sub_57738                                front/front_57324.asm                        2
-;  5794C  sub_5794C                                front/front_57324.asm                        1
-;  57A1C  sub_57A1C                                front/front_57324.asm                        2
+;  5794C  LoadCupArt                               front/front_57324.asm                        1
+;  57A1C  LoadGoalieMask                           front/front_57324.asm                        2
 ;  5881C  sub_5881C                                front/front_57324.asm                        1
 ;  58B80  sub_58B80                                front/front_57324.asm                        1
 ;  58CA0  sub_58CA0                                front/front_57324.asm                        1
@@ -684,7 +684,7 @@
 ;  5BD1C  sub_5BD1C                                front/front_57324.asm                        1
 ;  5BD3C  sub_5BD3C                                front/front_57324.asm                        1
 ;  5BD94  sub_5BD94                                front/front_57324.asm                        2
-;  5BDF4  sub_5BDF4                                front/front_57324.asm                        2
+;  5BDF4  InitReplayBuffer                         front/front_57324.asm                        2
 ;  5BE64  sub_5BE64                                front/front_57324.asm                        1
 ;  5BE74  sub_5BE74                                front/front_57324.asm                        2
 ;  5BEB0  sub_5BEB0                                front/front_57324.asm                        2
@@ -747,7 +747,7 @@
 ;  650E8  sub_650E8                                front/front_57324.asm                        2
 ;  6539C  sub_6539C                                front/front_57324.asm                        3
 ;  657BF  sub_657BF                                front/front_57324.asm                        1
-;  65CED  sub_65CED                                front/front_57324.asm                        2
+;  65CED  InitAnimPoints                           front/front_57324.asm                        2
 ;  65DE8  sub_65DE8                                front/front_57324.asm                        2
 ;  65E3B  sub_65E3B                                front/front_57324.asm                        1
 ;  65F50  sub_65F50                                front/front_57324.asm                        1
@@ -837,9 +837,9 @@
 ;  76E20  sub_76E20                                front/front_57324.asm                        2
 ;  76FE8  sub_76FE8                                front/front_57324.asm                        1
 ;  77610  sub_77610                                front/front_57324.asm                        2
-;  77630  sub_77630                                front/front_57324.asm                        2
+;  77630  AllocAnimStates                          front/front_57324.asm                        2
 ;  77838  sub_77838                                front/front_57324.asm                        1
-;  779C8  sub_779C8                                front/front_57324.asm                        1
+;  779C8  LoadAiIcons                              front/front_57324.asm                        1
 ;  77A30  sub_77A30                                front/front_57324.asm                        1
 ;  77F88  GameOver                                 front/front_57324.asm                        1
 ;  77F94  sub_77F94                                front/front_57324.asm                        1
@@ -1151,7 +1151,7 @@
 ;  DA544  sub_DA544                                front/front_D4E24.asm                        1
 ;  DA57C  sub_DA57C                                front/front_D4E24.asm                        1
 ;  DA654  sub_DA654                                front/front_D4E24.asm                        1
-;  DA713  sub_DA713                                front/front_DA66D.asm                        1
+;  DA713  AllocStaticBuffer                        front/front_DA66D.asm                        1
 ;  DA7D6  sub_DA7D6                                front/front_DA66D.asm                        10
 ;  DA7EB  sub_DA7EB                                front/front_DA66D.asm                        6
 ;  DAC1E  sub_DAC1E                                front/front_DA66D.asm                        1
@@ -1211,12 +1211,12 @@
 ;  E2334  sub_E2334                                front/front_DA66D.asm                        1
 ;  E2348  sub_E2348                                front/front_DA66D.asm                        1
 ;  E2378  sub_E2378                                front/front_DA66D.asm                        2
-;  E23BC  sub_E23BC                                front/front_DA66D.asm                        2
-;  E23E0  sub_E23E0                                front/front_DA66D.asm                        2
-;  E2404  sub_E2404                                front/front_DA66D.asm                        3
-;  E2458  sub_E2458                                front/front_DA66D.asm                        3
-;  E2494  sub_E2494                                front/front_DA66D.asm                        3
-;  E24D0  sub_E24D0                                front/front_DA66D.asm                        3
+;  E23BC  FileCreate                               front/front_DA66D.asm                        2
+;  E23E0  FileOpen                                 front/front_DA66D.asm                        2
+;  E2404  FileSeek                                 front/front_DA66D.asm                        3
+;  E2458  FileReadRecord                           front/front_DA66D.asm                        3
+;  E2494  FileWriteRecord                          front/front_DA66D.asm                        3
+;  E24D0  FileClose                                front/front_DA66D.asm                        3
 ;  E24F0  sub_E24F0                                front/front_DA66D.asm                        1
 ;  E2F98  InitSlotTable                            front/front_DA66D.asm                        1
 ;  E304C  sub_E304C                                front/front_DA66D.asm                        1

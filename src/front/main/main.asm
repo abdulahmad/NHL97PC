@@ -31,7 +31,7 @@ extern sub_119BE4, sub_119FDC, sub_11A120, sub_11A318, sub_11A3E0, sub_11ADD0, s
 extern sub_13C164, sub_4095C, OpenAudioStream, sub_41870, sub_41A28, sub_41D18, sub_41DB8, ArenaFileName
 extern sub_41FA0, sub_41FDC, sub_4AE14, sub_4B108, sub_4B307, sub_7CE9E, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8E7E0, sub_8E840
-extern sub_D6930, sub_DA713, sub_DB747, sub_E341C, sub_E3A44, sub_E3AB8, sub_E4638, sub_E4838
+extern sub_D6930, AllocStaticBuffer, sub_DB747, sub_E341C, sub_E3A44, sub_E3AB8, sub_E4638, sub_E4838
 extern sub_E4908, FillBox, sub_F9650, sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB73D
 extern sub_FBE40, sub_FBE94, sub_FC510, sub_FC73E, sub_FCC40, sub_FCD90, sub_FCF84, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDC68, sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180
@@ -360,7 +360,7 @@ main_:
         call sub_E3A44
         call sub_F9650
         call sub_104A8
-        call sub_DA713
+        call AllocStaticBuffer
         mov edx, 1
         movsx eax, byte [byte_1AC818]
         call OpenAudioStream

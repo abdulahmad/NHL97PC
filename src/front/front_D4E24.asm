@@ -18,8 +18,8 @@ extern sub_11BED4, sub_13C164, WaitRetraceEdges, RunDemoGame, sub_419B0, sub_419
 extern sub_41D48, sub_41DB8, sub_41DD8, ArenaFileName, sub_41FA0, sub_41FDC, sub_4A4F4, MakeDataPath
 extern sub_4B108, sub_7E860, sub_7EDF0, sub_7F028, sub_7F0D8, sub_7F16C, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_E2270
-extern sub_E22D0, sub_E22FC, sub_E2310, sub_E2334, sub_E2348, sub_E23BC, sub_E23E0, sub_E2404
-extern sub_E2458, sub_E2494, sub_E24D0, sub_E341C, sub_F9496, sub_F94BC, sub_FAA64, sub_FAF34
+extern sub_E22D0, sub_E22FC, sub_E2310, sub_E2334, sub_E2348, FileCreate, FileOpen, FileSeek
+extern FileReadRecord, FileWriteRecord, FileClose, sub_E341C, sub_F9496, sub_F94BC, sub_FAA64, sub_FAF34
 extern sub_FBE40, sub_FBE5D, sub_FC330, sub_FC510, sub_FCD90, sub_FCEEC, sub_FCF84, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
@@ -3623,14 +3623,14 @@ sub_D7C14:
         shl edx, 0Ch
         mov eax, dword [ecx]
         shl ebx, 0Ch
-        call sub_E2404
+        call FileSeek
         add esi, ebx
         test eax, eax
         je short .5
         mov ebx, 1000h
         mov edx, esi
         mov eax, dword [ecx]
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         je short .5
         mov eax, 1
@@ -3672,14 +3672,14 @@ sub_D7C74:
         shl edx, 0Ch
         mov eax, dword [ecx]
         shl ebx, 0Ch
-        call sub_E2404
+        call FileSeek
         add esi, ebx
         test eax, eax
         je short .5
         mov ebx, 1000h
         mov edx, esi
         mov eax, dword [ecx]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je short .5
         mov eax, 1
@@ -3825,13 +3825,13 @@ sub_D7E08:
         mov edx, dword [edi]
         mov eax, dword [ecx]
         shl edx, 0Ch
-        call sub_E2404
+        call FileSeek
         test eax, eax
         je short .3
         mov ebx, 1000h
         mov edx, esi
         mov eax, dword [ecx]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je short .3
         mov ebx, esp
@@ -4003,7 +4003,7 @@ sub_D7EC8:
         call sub_E2334
         mov edx, dword [byte esp+08h]
         mov eax, ecx
-        call sub_E23BC
+        call FileCreate
         test eax, eax
         jne short .8
         lea eax, [byte esp+08h]
@@ -4022,7 +4022,7 @@ sub_D7EC8:
         test eax, eax
         jne short .9
         mov eax, dword [byte esp+08h]
-        call sub_E24D0
+        call FileClose
         lea eax, [byte esp+08h]
         call sub_E22D0
         xor eax, eax
@@ -4047,7 +4047,7 @@ sub_D7EC8:
         test eax, eax
         jne short .10
         mov eax, dword [byte esp+08h]
-        call sub_E24D0
+        call FileClose
         lea eax, [byte esp+08h]
         call sub_E22D0
         xor eax, eax
@@ -4058,7 +4058,7 @@ sub_D7EC8:
         ret
 .10:
         mov eax, dword [byte esp+08h]
-        call sub_E24D0
+        call FileClose
         lea eax, [byte esp+08h]
         call sub_E22D0
         mov eax, 1
@@ -4080,7 +4080,7 @@ sub_D8130:
         mov esi, edx
         mov edx, esp
         mov eax, esi
-        call sub_E23E0
+        call FileOpen
         test eax, eax
         je near .3
         mov edx, 1FEh
@@ -4090,23 +4090,23 @@ sub_D8130:
         test eax, eax
         jne short .1
         mov eax, esp
-        call sub_E24D0
+        call FileClose
         xor eax, eax
         jmp short .3
 .1:
         mov eax, dword [esp]
         xor edx, edx
-        call sub_E2404
+        call FileSeek
         test eax, eax
         je short .3
         mov ebx, 1FEh
         mov eax, dword [esp]
         mov edx, dword [ecx]
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         jne short .2
         mov eax, esp
-        call sub_E24D0
+        call FileClose
         mov eax, ecx
         call sub_E22D0
         xor eax, eax
@@ -4171,7 +4171,7 @@ sub_D81D8:
         je short .2
         mov eax, dword [ecx]
         mov edx, 1FEh
-        call sub_E24D0
+        call FileClose
         mov eax, dword [ecx]
         call sub_E2334
         mov eax, ecx

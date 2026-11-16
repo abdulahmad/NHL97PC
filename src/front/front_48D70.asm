@@ -77,8 +77,8 @@ extern sub_3CCA8, sub_3D930, sub_3D95C, sub_3D988, sub_3DA18, sub_3DAC4, sub_3DB
 extern sub_3E458, sub_3E590, sub_3E818, delstream, CdStreamQueue, CdStreamService, CdStreamNextPacket, sub_3FC88
 extern sub_41D94, sub_41DD8, sub_42650, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, sub_52E14
 extern sub_52E8C, sub_53314, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
-extern sub_56740, sub_57A1C, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
-extern sub_5AAB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450, sub_5C1CC, sub_5DD74, sub_779C8
+extern sub_56740, LoadGoalieMask, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
+extern sub_5AAB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450, sub_5C1CC, sub_5DD74, LoadAiIcons
 extern sub_77A30, sub_7C3EC, sub_842F4, sub_E3410, sub_E341C, sub_FAA64, sub_FAF34, sub_FB704
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, sub_FE150, sub_FE180
 extern sub_FF044, sub_FF128, sub_FF174, sub_FF444, sub_FF48C, sub_FF5E0, sub_FF690, sub_FF798
@@ -102,7 +102,7 @@ global MakeDataPath_62, MakeDataPath_111, MakeDataPath_119, MakeDataPath_11F, Ma
 global sub_4B8DC_3D, sub_4B8DC_47, sub_4E8EC_30, sub_4FD24_59, sub_50AF4_184, sub_51A74_58, sub_51AEC_50, sub_52494_2C
 global sub_52494_42, sub_52494_58, sub_52494_7D, PaEvent, sub_4A248, sub_4A280, sub_4A4F4, sub_4A558
 global sub_4A6F8, sub_4A74C, sub_4AA78, MakeDataPath, sub_4AE14, LoadDataFileHandle, sub_4B074, sub_4B108
-global sub_4B12D, sub_4B19C, sub_4B1C4, sub_4B307, WriteGlobalSet, sub_4B4AC, sub_4B4B0, sub_4B4C4
+global sub_4B12D, sub_4B19C, SetArtArchive, sub_4B307, WriteGlobalSet, sub_4B4AC, sub_4B4B0, sub_4B4C4
 global sub_4B540, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928, sub_4B944, sub_4BA00, sub_4BCB4
 global sub_4BD0C, sub_4BD4C, sub_4BDC0, sub_4BE14, sub_4BF10, sub_4BF54, sub_4BF94, sub_4C0C4
 global sub_4C0CC, sub_4C164, sub_4C240, sub_4C360, sub_4C404, sub_4C48C, sub_4C5A0, sub_4CE94
@@ -3236,9 +3236,11 @@ sub_4B19C:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4B1C4                                                       4B1C4  97 PC
+; SetArtArchive                                   4B1C4  97 PC, low confidence
+; (file name): finds the data file by name (102h-entry table), builds its
+; path and makes it the current art archive; a null name closes it
 ;-----------------------------------------------------------------------------
-sub_4B1C4:
+SetArtArchive:
         push ebx
         push ecx
         push edx
@@ -3709,13 +3711,13 @@ sub_4B5C4:
         call sub_E341C
         mov edx, dword [dword_16AF34]
         xor eax, eax
-        call sub_57A1C
+        call LoadGoalieMask
         call sub_E341C
         mov eax, 50h
         call sub_842F4
         mov eax, 1
         mov edx, dword [dword_16AF38]
-        call sub_57A1C
+        call LoadGoalieMask
         mov ebx, dword [byte ebp+02Ch]
         xor edi, edi
         test ebx, ebx
@@ -3762,7 +3764,7 @@ sub_4B5C4:
         mov eax, 5Ah
         xor edx, edx
         call sub_842F4
-        call sub_779C8
+        call LoadAiIcons
         call sub_1B6E8
         mov eax, 19h
         call StartCameraPath
@@ -12183,7 +12185,7 @@ sub_51434:
         jne near .1
         mov eax, asc_161404
         mov edx, 20h
-        call sub_4B1C4
+        call SetArtArchive
         call sub_E341C
         mov eax, str_Zamboni
         call sub_10FFBC
@@ -13456,7 +13458,7 @@ sub_52494:
         sub esp, byte 10h
         mov edx, eax
         mov eax, asc_161404
-        call sub_4B1C4
+        call SetArtArchive
         inc edx
         call sub_E341C
         cmp edx, byte 3

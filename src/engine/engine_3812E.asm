@@ -57,8 +57,8 @@ extern sub_617EC, sub_62C14, sub_74CEC, sub_74FA4, sub_76944, sub_789F0, sub_7B1
 extern sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C, sub_7F29C
 extern sub_7F5A4, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMenuItems, sub_8BFAC
 extern sub_8DF1F, sub_8E7E0, sub_99DAC, sub_AC369, sub_D0098, sub_DB75E, sub_DB763, sub_DE25F
-extern sub_DE3CF, sub_DE740, sub_E036F, sub_E0415, sub_E2378, sub_E23BC, sub_E2404, sub_E2458
-extern sub_E2494, sub_E24D0, sub_E341C, sub_E9429, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
+extern sub_DE3CF, sub_DE740, sub_E036F, sub_E0415, sub_E2378, FileCreate, FileSeek, FileReadRecord
+extern FileWriteRecord, FileClose, sub_E341C, sub_E9429, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
 extern sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB71C, addtimer, sub_FC008, sub_FC290
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8
 extern sub_FD110, sub_FDC68, sub_FE180, sub_FFA44, sub_FFA9C, tickcount, unk_160A56, unk_160B68
@@ -14097,7 +14097,7 @@ sub_41670:
         je short .7
         je short .6
         mov eax, dword_1AC780
-        call sub_E24D0
+        call FileClose
         mov esi, dword [dword_16923C]
         test esi, esi
         je short .5
@@ -14258,7 +14258,7 @@ sub_41870:
         je short .8
         je short .7
         mov eax, dword_1AC780
-        call sub_E24D0
+        call FileClose
         mov ecx, dword [dword_16923C]
         test ecx, ecx
         je short .6
@@ -15423,7 +15423,7 @@ sub_425CC:
         mov dword [dword_1AC7B8], eax
         mov eax, dword [dword_1AC780]
         mov dword [dword_1AC7C0], ecx
-        call sub_E2404
+        call FileSeek
         mov dword [dword_1AC788], ecx
         mov dword [dword_1AC784], ecx
         pop edx
@@ -15509,7 +15509,7 @@ sub_42650:
         mov ecx, dword [dword_1AC780]
         mov edx, eax
         mov eax, ecx
-        call sub_E2404
+        call FileSeek
         mov edx, dword [dword_1AC7D4]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
@@ -15542,7 +15542,7 @@ sub_42650:
         mov ebx, ecx
         add edx, eax
         mov eax, dword [dword_1AC780]
-        call sub_E2458
+        call FileReadRecord
         mov esi, dword [dword_1AC788]
         add esi, ecx
         mov edi, dword [dword_1AC784]
@@ -15743,7 +15743,7 @@ sub_42960:
         mov eax, dword [byte esp+0Ch]
         mov ebx, edi
         mov edx, ebp
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         jne short .6
         mov edx, dword [byte esp+08h]
@@ -16053,17 +16053,17 @@ OpenSpeechBanks:
         call sub_E341C
         lea eax, [byte esp+078h]
         xor esi, esi
-        call sub_E23BC
+        call FileCreate
         test eax, eax
         je near .22
         mov ebx, 4
         mov edx, asc_160D38
         mov eax, dword [dword_1AC7AC]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         jne short .1
         mov eax, dword_1AC7AC
-        call sub_E24D0
+        call FileClose
         xor eax, eax
         jmp near .22
 .1:
@@ -16072,11 +16072,11 @@ OpenSpeechBanks:
         mov eax, dword [dword_1AC7AC]
         mov dword [dword esp+0100h], edx
         lea edx, [dword esp+0100h]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         jne short .2
         mov eax, dword_1AC7AC
-        call sub_E24D0
+        call FileClose
         xor eax, eax
         add esp, 108h
         pop ebp
@@ -16090,11 +16090,11 @@ OpenSpeechBanks:
         mov eax, dword [dword_1AC7AC]
         mov dword [dword esp+0100h], ebx
         mov ebx, 4
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         jne short .3
         mov eax, dword_1AC7AC
-        call sub_E24D0
+        call FileClose
         xor eax, eax
         add esp, 108h
         pop ebp
@@ -16171,11 +16171,11 @@ OpenSpeechBanks:
         mov ebx, 81Ah
         mov edx, dword [dword_1AC7B0]
         mov eax, dword [dword_1AC7AC]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         jne short .10
         mov eax, dword_1AC7AC
-        call sub_E24D0
+        call FileClose
         xor eax, eax
         add esp, 108h
         pop ebp
@@ -16232,7 +16232,7 @@ OpenSpeechBanks:
         test edx, edx
         jne short .14
         mov eax, dword_1AC7AC
-        call sub_E24D0
+        call FileClose
         xor eax, eax
         add esp, 108h
         pop ebp
@@ -16275,11 +16275,11 @@ OpenSpeechBanks:
         mov eax, dword [dword_1AC7AC]
         mov ebx, ecx
         mov edx, ebp
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         jne short .18
         mov eax, dword_1AC7AC
-        call sub_E24D0
+        call FileClose
         xor eax, eax
         add esp, 108h
         pop ebp
@@ -16307,11 +16307,11 @@ OpenSpeechBanks:
         call sub_E341C
         mov edx, 0Ch
         mov eax, dword [dword_1AC7AC]
-        call sub_E2404
+        call FileSeek
         test eax, eax
         jne short .19
         mov eax, dword_1AC7AC
-        call sub_E24D0
+        call FileClose
         xor eax, eax
         add esp, 108h
         pop ebp
@@ -16323,11 +16323,11 @@ OpenSpeechBanks:
         mov ebx, 81Ah
         mov edx, dword [dword_1AC7B0]
         mov eax, dword [dword_1AC7AC]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         jne short .20
         mov eax, dword_1AC7AC
-        call sub_E24D0
+        call FileClose
         xor eax, eax
         add esp, 108h
         pop ebp
@@ -16342,7 +16342,7 @@ OpenSpeechBanks:
         call dword [dword esp+0104h]
 .21:
         mov eax, dword_1AC7AC
-        call sub_E24D0
+        call FileClose
         mov eax, 1
 .22:
         add esp, 108h
@@ -16523,7 +16523,7 @@ LoadTeamSpeech:
         mov dword [byte esp+054h], eax
         mov edx, eax
         mov eax, ebx
-        call sub_E2404
+        call FileSeek
         test eax, eax
         jne short .11
         push eax
@@ -16613,7 +16613,7 @@ LoadTeamSpeech:
         mov dword [byte esp+060h], eax
         mov edx, eax
         mov eax, ebx
-        call sub_E2404
+        call FileSeek
         test eax, eax
         jne short .21
         push eax

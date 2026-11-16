@@ -167,7 +167,7 @@ extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, sub_2C064, sub_2DD54, sub_2E1
 extern sub_2E208, sub_2EDB8, sub_2F4B8, sub_2FED8, sub_32260, sub_32340, EndPenaltyShot, sub_34330
 extern sub_358E4, sub_365FC, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
 extern sub_41ACC, sub_41FA0, sub_42098, sub_42220, sub_42354, sub_4241C, sub_424CC, sub_45BEC
-extern sub_4A280, sub_4B1C4, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, sub_4BA00, sub_4BCB4
+extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, sub_4BA00, sub_4BCB4
 extern sub_4C0C4, sub_4DA84, PeriodOver, sub_4DD9C, sub_4DDB0, sub_4FC50, sub_50050, sub_51B5C
 extern sub_51BD8, sub_56798, sub_567B0, sub_568CC, sub_56908, sub_56A84, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_56D0C, sub_56DDC, sub_AA650, sub_BD61B, sub_E341C, sub_FAA64
@@ -199,18 +199,18 @@ global CamShot23D_2B, sub_659F6_167, sub_659F6_168, sub_704D4_1B3, sub_704D4_1B8
 global sub_704D4_28D, sub_704D4_293, sub_704D4_299, sub_71808_86, sub_71808_8B, sub_71808_91, sub_71808_97, sub_71808_186
 global sub_71808_18B, sub_71808_191, sub_71808_197, sub_71ABC_86, sub_71ABC_8B, sub_71ABC_91, sub_71ABC_97, sub_71ABC_186
 global sub_71ABC_18B, sub_71ABC_191, sub_71ABC_197, sub_73FBC_471, sub_73FBC_481, sub_73FBC_63F, sub_73FBC_671, sub_76A1C_31B
-global sub_57324, sub_57504, sub_576EC, sub_57738, sub_578D4, sub_5794C, sub_57A1C, sub_57BA4
-global sub_58144, sub_58680, sub_586C0, sub_5876C, sub_5881C, sub_58B80, sub_58CA0, sub_59174
+global sub_57324, sub_57504, sub_576EC, sub_57738, sub_578D4, LoadCupArt, LoadGoalieMask, LoadPlayerCommonArt
+global LoadUniformArt, sub_58680, sub_586C0, sub_5876C, sub_5881C, sub_58B80, sub_58CA0, sub_59174
 global sub_59DB8, sub_59DE4, sub_59E74, sub_59F44, sub_5A048, sub_5A238, sub_5A2F8, sub_5A484
 global sub_5A4E8, sub_5A5BC, sub_5A638, sub_5A6B4, sub_5A6E0, sub_5A6F4, sub_5AAB8, sub_5AC28
 global sub_5AC30, sub_5AC38, sub_5AD54, sub_5AEB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450
 global sub_5B454, sub_5B46C, sub_5B488, sub_5B4B8, sub_5B4D4, sub_5B50C, sub_5B558, sub_5B5CC
-global sub_5B648, sub_5B660, sub_5B734, sub_5B78C, sub_5B7E0, sub_5B970, sub_5BA0C, sub_5BA44
-global sub_5BAB4, sub_5BB0C, sub_5BB88, sub_5BCCC, sub_5BD1C, sub_5BD3C, sub_5BD94, sub_5BDF4
-global sub_5BE64, sub_5BE74, sub_5BEB0, sub_5BEDC, sub_5BF88, sub_5C014, sub_5C0AC, sub_5C134
+global sub_5B648, LoadFaceArt, sub_5B734, sub_5B78C, LoadPlayerFace, sub_5B970, sub_5BA0C, sub_5BA44
+global sub_5BAB4, sub_5BB0C, sub_5BB88, sub_5BCCC, sub_5BD1C, sub_5BD3C, sub_5BD94, InitReplayBuffer
+global sub_5BE64, sub_5BE74, sub_5BEB0, SetReplayRecording, sub_5BF88, sub_5C014, sub_5C0AC, sub_5C134
 global sub_5C160, sub_5C180, sub_5C1CC, sub_5C1F8, sub_5C2CC, sub_5C2F4, sub_5C30C, sub_5C32C
 global sub_5C34C, sub_5C4CC, sub_5C4E4, sub_5C500, sub_5C584, sub_5C5EC, sub_5C74C, sub_5C75C
-global sub_5C764, sub_5C894, sub_5C974, sub_5CAB0, sub_5CACC, sub_5CCC0, sub_5CCE0, sub_5CD68
+global sub_5C764, sub_5C894, sub_5C974, sub_5CAB0, sub_5CACC, sub_5CCC0, AllocSpriteBuffers, sub_5CD68
 global sub_5CD90, sub_5D100, sub_5D1E0, sub_5D23C, sub_5D294, sub_5D2F0, sub_5D428, sub_5D454
 global sub_5D488, sub_5D594, sub_5D5DC, sub_5D6A8, sub_5D7A4, sub_5D878, sub_5D900, sub_5DC1C
 global sub_5DC50, sub_5DCBC, sub_5DD74, sub_5DE74, sub_5DF50, sub_5DF90, sub_5E1B0, sub_5E224
@@ -223,7 +223,7 @@ global sub_63980, sub_63AA4, sub_63D24, sub_63E8C, sub_640D0, sub_642A8, sub_643
 global sub_64700, sub_64820, sub_648B4, sub_649E0, sub_64AE0, sub_64D54, sub_64EBC, sub_650A4
 global sub_650E8, sub_65164, sub_65338, sub_6539C, sub_65481, sub_656B7, sub_656D3, sub_65742
 global sub_657BF, sub_65830, CamShot23D, sub_6593E, sub_6596B, sub_659C6, sub_659F6, sub_65B64
-global sub_65BFD, sub_65C2D, sub_65C5D, sub_65C8D, sub_65CBD, sub_65CED, sub_65DE8, sub_65E3B
+global sub_65BFD, sub_65C2D, sub_65C5D, sub_65C8D, sub_65CBD, InitAnimPoints, sub_65DE8, sub_65E3B
 global sub_65F50, sub_660F0, sub_6619C, sub_66224, sub_66524, sub_666CC, sub_66758, sub_66E38
 global sub_67248, sub_67540, sub_67A30, sub_67A98, sub_67B10, sub_67BD0, sub_67CC0, sub_68030
 global sub_68378, sub_6889C, sub_68DBC, sub_69410, sub_6947C, sub_69654, sub_69750, sub_69970
@@ -245,8 +245,8 @@ global sub_74FA4, sub_75068, sub_75500, sub_75AE8, sub_75B94, sub_75F14, sub_75F
 global sub_75FA0, sub_75FE4, sub_76010, sub_760C8, sub_7613C, sub_76148, sub_7629C, sub_762E4
 global sub_76380, sub_763BC, sub_76698, sub_76944, sub_76954, sub_76A1C, sub_76D3C, sub_76E04
 global sub_76E20, sub_76E28, sub_76E30, sub_76FB4, sub_76FE8, sub_77014, sub_77018, sub_77048
-global sub_7716C, sub_7724C, sub_772B8, sub_77310, sub_773C0, sub_77590, sub_77610, sub_77630
-global sub_776F8, sub_77838, sub_779C8, sub_77A30, sub_77A88, GameOver, sub_77F94, sub_77FA8
+global sub_7716C, sub_7724C, sub_772B8, sub_77310, sub_773C0, sub_77590, sub_77610, AllocAnimStates
+global sub_776F8, sub_77838, LoadAiIcons, sub_77A30, sub_77A88, GameOver, sub_77F94, sub_77FA8
 global sub_78044, sub_780F0, sub_785E8, sub_78730, sub_78810, sub_78938, unk_65475, unk_704AC
 global unk_704C0, unk_717E0, unk_717F4, unk_71A94, unk_71AA8, unk_78930
 ;-----------------------------------------------------------------------------
@@ -283,7 +283,7 @@ sub_57324:
         mov eax, esi
         mov dword [dword_1D91CC], edx
         mov edx, ecx
-        call sub_5B7E0
+        call LoadPlayerFace
         mov ebx, unk_1B85DC
         mov dword [dword edi+06F0h], eax
         xor ecx, ecx
@@ -808,9 +808,11 @@ sub_578D4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_5794C                                                       5794C  97 PC
+; LoadCupArt                                      5794C  97 PC, low confidence
+; (team): loads the "cup" shape from PLYRCOMN.VIV into the team record
+; (+6C0h)
 ;-----------------------------------------------------------------------------
-sub_5794C:
+LoadCupArt:
         push ebx
         push ecx
         push edx
@@ -825,7 +827,7 @@ sub_5794C:
         add esi, eax
         mov eax, asc_161814
         xor edx, edx
-        call sub_4B1C4
+        call SetArtArchive
         mov eax, asc_161824
         call sub_10FFBC
         push eax
@@ -874,9 +876,10 @@ sub_5794C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_57A1C                                                       57A1C  97 PC
+; LoadGoalieMask                                  57A1C  97 PC, low confidence
+; (team, mask): loads the MASK%02da/b/c shapes from MASKS.VIV ("gmask")
 ;-----------------------------------------------------------------------------
-sub_57A1C:
+LoadGoalieMask:
         push ebx
         push ecx
         push esi
@@ -900,7 +903,7 @@ sub_57A1C:
         mov dword [byte esp+024h], ecx
 .2:
         mov eax, asc_161828
-        call sub_4B1C4
+        call SetArtArchive
         push esi
         push asc_161834
         lea eax, [byte esp+08h]
@@ -1002,9 +1005,10 @@ sub_57A1C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_57BA4                                                       57BA4  97 PC
+; LoadPlayerCommonArt                             57BA4  97 PC, low confidence
+; Loads plyrcomn.viv: team palette, fist and torso shapes
 ;-----------------------------------------------------------------------------
-sub_57BA4:
+LoadPlayerCommonArt:
         push ebx
         push ecx
         push edx
@@ -1013,7 +1017,7 @@ sub_57BA4:
         push ebp
         sub esp, byte 4
         mov eax, asc_161860
-        call sub_4B1C4
+        call SetArtArchive
         push byte 20h
         push asc_161870
         call sub_101584
@@ -1392,9 +1396,11 @@ sub_57BA4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_58144                                                       58144  97 PC
+; LoadUniformArt                                  58144  97 PC, low confidence
+; (team, uniform, ...): loads uni%04d.viv: team palette, numbers.ffn /
+; a2z.ffn fonts, torso and cup patch shapes
 ;-----------------------------------------------------------------------------
-sub_58144:
+LoadUniformArt:
         push ecx
         push esi
         push edi
@@ -1411,7 +1417,7 @@ sub_58144:
         call sprintf_
         add esp, byte 0Ch
         mov eax, esp
-        call sub_4B1C4
+        call SetArtArchive
         push byte 0
         push asc_161870
         call sub_101584
@@ -1934,9 +1940,9 @@ sub_5881C:
         xor ebx, ebx
         mov dword [dword_1D91CC], edx
         mov dword [dword_1B8550], ebx
-        call sub_5CCE0
+        call AllocSpriteBuffers
         mov eax, asc_161860
-        call sub_4B1C4
+        call SetArtArchive
         call sub_E341C
         push ebx
         push asc_161A5C
@@ -1983,7 +1989,7 @@ sub_5881C:
         call sub_E341C
         mov eax, dword [dword_1B8540]
         mov ebx, 100h
-        call sub_5B660
+        call LoadFaceArt
         push byte 0
         mov eax, asc_161A74
         mov edx, dword [dword_1ADC88]
@@ -2073,20 +2079,20 @@ sub_5881C:
         mov edx, dword [byte esp+0Ch]
         xor ebx, ebx
         mov dword [dword_16B550], ebp
-        call sub_57BA4
+        call LoadPlayerCommonArt
         call sub_E341C
         xor eax, eax
-        call sub_58144
+        call LoadUniformArt
         call sub_E341C
         mov edx, dword [byte esp+08h]
         mov eax, ebp
         xor ebx, ebx
-        call sub_58144
+        call LoadUniformArt
         call sub_E341C
         mov eax, 2
         mov ebx, ebp
         xor edx, edx
-        call sub_58144
+        call LoadUniformArt
         call sub_E341C
         xor ebp, ebp
         mov ecx, 1
@@ -5678,9 +5684,10 @@ sub_5B648:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5B660                                                       5B660  97 PC
+; LoadFaceArt                                     5B660  97 PC, low confidence
+; Loads faces.viv: the face palette and the face2 shape set
 ;-----------------------------------------------------------------------------
-sub_5B660:
+LoadFaceArt:
         push ebx
         push ecx
         push edx
@@ -5692,7 +5699,7 @@ sub_5B660:
         mov eax, asc_161AD4
         mov ebp, dword [dword_1D91CC]
         mov dword [dword_1D91CC], edx
-        call sub_4B1C4
+        call SetArtArchive
         push byte 0
         push asc_161AE0
         call sub_101584
@@ -5826,9 +5833,11 @@ sub_5B78C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5B7E0                                                       5B7E0  97 PC
+; LoadPlayerFace                                  5B7E0  97 PC, low confidence
+; (slot, name): loads one player's face shape ("FAC" + name, fallback
+; fac00000)
 ;-----------------------------------------------------------------------------
-sub_5B7E0:
+LoadPlayerFace:
         push ecx
         push esi
         push edi
@@ -5841,7 +5850,7 @@ sub_5B7E0:
         mov eax, asc_161AD4
         mov ebp, dword [byte ebp+014h]
         mov esi, dword [dword edx+dword_1B88DC]
-        call sub_4B1C4
+        call SetArtArchive
         mov ecx, dword [dword edx+dword_1B8910]
         test ecx, ecx
         je short .1
@@ -6387,9 +6396,11 @@ sub_5BD94:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5BDF4                                                       5BDF4  97 PC
+; InitReplayBuffer                             5BDF4  97 PC, medium confidence
+; Allocates the "REPLAY" buffer when free memory exceeds the request by
+; 200000 bytes, at most 0EA60h bytes
 ;-----------------------------------------------------------------------------
-sub_5BDF4:
+InitReplayBuffer:
         push ebx
         push ecx
         push edx
@@ -6486,9 +6497,11 @@ sub_5BEB0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5BEDC                                                       5BEDC  97 PC
+; SetReplayRecording                              5BEDC  97 PC, low confidence
+; (on/off): starts or stops replay recording (dword_1B8FA0), allocating the
+; "RP_GAME" block on start
 ;-----------------------------------------------------------------------------
-sub_5BEDC:
+SetReplayRecording:
         push ecx
         push edx
         push esi
@@ -6751,7 +6764,7 @@ sub_5C160:
         test eax, eax
         je short sub_5C134_29
         xor eax, eax
-        call sub_5BEDC
+        call SetReplayRecording
         mov eax, 1
         jmp short sub_5C180_C
 ;-----------------------------------------------------------------------------
@@ -7091,7 +7104,7 @@ sub_5C500:
         mov dword [dword_1B8F44], eax
         mov eax, 1
         mov dword [dword_1B8FA4], edx
-        call sub_5BEDC
+        call SetReplayRecording
         call sub_18E35
         call sub_18DF7
         mov eax, 2
@@ -7119,7 +7132,7 @@ sub_5C584:
         mov eax, dword [dword_1B8F5C]
         call sub_76E20
         xor eax, eax
-        call sub_5BEDC
+        call SetReplayRecording
         mov eax, dword [dword_1B8F44]
         mov dword [dword_1B8FA4], eax
         mov eax, dword [dword_1B8F58]
@@ -7741,9 +7754,10 @@ sub_5CCC0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_5CCE0                                                       5CCE0  97 PC
+; AllocSpriteBuffers                              5CCE0  97 PC, low confidence
+; Allocates the "RSPRITE" block (0C240h): 12 sprite buffers of 1010h bytes
 ;-----------------------------------------------------------------------------
-sub_5CCE0:
+AllocSpriteBuffers:
         push ebx
         push ecx
         push edx
@@ -20479,9 +20493,11 @@ sub_65CBD:
         mov dword [dword_16C3B0], eax
         jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
-; sub_65CED                                                       65CED  97 PC
+; InitAnimPoints                                  65CED  97 PC, low confidence
+; Looks up the animation attachment points (puck, stickheel, origin, chin,
+; rhand, lshldr, rshldr) and loads ANIMS.VIV
 ;-----------------------------------------------------------------------------
-sub_65CED:
+InitAnimPoints:
         push ebx
         push ecx
         push edx
@@ -20530,7 +20546,7 @@ sub_65CED:
         cmp esi, byte 0Fh
         jl short .1
         mov eax, asc_16308F
-        call sub_4B1C4
+        call SetArtArchive
         call sub_65830
         call CamShot23D
         call sub_6593E
@@ -44903,9 +44919,10 @@ sub_77610:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_77630                                                       77630  97 PC
+; AllocAnimStates                                 77630  97 PC, low confidence
+; (count): allocates the "ANIMSTAT" block (count x 358h) and clears it
 ;-----------------------------------------------------------------------------
-sub_77630:
+AllocAnimStates:
         push ebx
         push ecx
         push esi
@@ -45211,14 +45228,15 @@ sub_77838:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_779C8                                                       779C8  97 PC
+; LoadAiIcons                                     779C8  97 PC, low confidence
+; Loads the "cross" icon shapes from aicons.viv
 ;-----------------------------------------------------------------------------
-sub_779C8:
+LoadAiIcons:
         push ebx
         push ecx
         push edx
         mov eax, asc_163ED8
-        call sub_4B1C4
+        call SetArtArchive
         xor edx, edx
         mov eax, asc_163EE4
         call sub_10FFBC
@@ -46038,7 +46056,7 @@ sub_780F0:
         test eax, eax
         jl short .26
         mov eax, asc_163EEC
-        call sub_4B1C4
+        call SetArtArchive
         call sub_65CBD
         push byte 0
         call sub_FC330

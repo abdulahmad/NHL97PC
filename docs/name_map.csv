@@ -96,6 +96,7 @@ address,name,auto_name,source,confidence,evidence,file
 48D70,PaEvent,sub_48D70,96PC,low,"the play-by-play event call: ClockTick posts 0C0000004h with the period at one minute left, where 96 PC posts PaEvent(100h)",src/front/front_48D70.asm
 4AB90,MakeDataPath,sub_4AB90,96PC,medium,NHL96PC 1E3E8 (sem 0.84): C:1920; C:1834; R:579; R:572,src/front/front_48D70.asm
 4AF9F,LoadDataFileHandle,sub_4AF9F,96PC,medium,NHL96PC 1E779 (sem 1.00): C:2267,src/front/front_48D70.asm
+4B1C4,SetArtArchive,sub_4B1C4,new,low,"(file name): finds the data file by name (102h-entry table), builds its path and makes it the current art archive; a null name closes it",src/front/front_48D70.asm
 4B3F8,WriteGlobalSet,sub_4B3F8,96PC,medium,NHL96PC 6A5EB (similar 0.83): mnemonic similarity 0.83 over 47 instructions,src/front/front_48D70.asm
 4DD90,PeriodOver,sub_4DD90,96PC,medium,96 PC PeriodOver: called from GameLoop at the end of a period,src/front/front_48D70.asm
 50540,UpdateGoalLight,sub_50540,96PC,medium,NHL96PC 23F6A (sem 0.87): C:2025; C:2024; K:258,src/front/front_48D70.asm
@@ -105,7 +106,19 @@ address,name,auto_name,source,confidence,evidence,file
 51CB8,BuildRinkSides,sub_51CB8,96PC,medium,NHL96PC 2583F (sem 0.80): S:side%d; D:1614B4; S:gt0%02d; D:1614BC,src/front/front_48D70.asm
 5454C,FreeRinkModel,sub_5454C,96PC,medium,NHL96PC 2751C (sem 1.00): D:1B10E8; C:1863,src/front/front_52770.asm
 552E0,DrawBenchSide,sub_552E0,96PC,medium,NHL96PC 27F20 (sem 0.71): C:2080; C:2285; D:1B105C; C:2079,src/front/front_52770.asm
+5794C,LoadCupArt,sub_5794C,new,low,"(team): loads the ""cup"" shape from PLYRCOMN.VIV into the team record (+6C0h)",src/front/front_57324.asm
+57A1C,LoadGoalieMask,sub_57A1C,new,low,"(team, mask): loads the MASK%02da/b/c shapes from MASKS.VIV (""gmask"")",src/front/front_57324.asm
+57BA4,LoadPlayerCommonArt,sub_57BA4,new,low,"loads plyrcomn.viv: team palette, fist and torso shapes",src/front/front_57324.asm
+58144,LoadUniformArt,sub_58144,new,low,"(team, uniform, ...): loads uni%04d.viv: team palette, numbers.ffn / a2z.ffn fonts, torso and cup patch shapes",src/front/front_57324.asm
+5B660,LoadFaceArt,sub_5B660,new,low,loads faces.viv: the face palette and the face2 shape set,src/front/front_57324.asm
+5B7E0,LoadPlayerFace,sub_5B7E0,new,low,"(slot, name): loads one player's face shape (""FAC"" + name, fallback fac00000)",src/front/front_57324.asm
+5BDF4,InitReplayBuffer,sub_5BDF4,new,medium,"allocates the ""REPLAY"" buffer when free memory exceeds the request by 200000 bytes, at most 0EA60h bytes",src/front/front_57324.asm
+5BEDC,SetReplayRecording,sub_5BEDC,new,low,"(on/off): starts or stops replay recording (dword_1B8FA0), allocating the ""RP_GAME"" block on start",src/front/front_57324.asm
+5CCE0,AllocSpriteBuffers,sub_5CCE0,new,low,"allocates the ""RSPRITE"" block (0C240h): 12 sprite buffers of 1010h bytes",src/front/front_57324.asm
 6590A,CamShot23D,sub_6590A,96PC,medium,NHL96PC 603FF (similar 0.81): mnemonic similarity 0.81 over 16 instructions,src/front/front_57324.asm
+65CED,InitAnimPoints,sub_65CED,new,low,"looks up the animation attachment points (puck, stickheel, origin, chin, rhand, lshldr, rshldr) and loads ANIMS.VIV",src/front/front_57324.asm
+77630,AllocAnimStates,sub_77630,new,low,"(count): allocates the ""ANIMSTAT"" block (count x 358h) and clears it",src/front/front_57324.asm
+779C8,LoadAiIcons,sub_779C8,new,low,"loads the ""cross"" icon shapes from aicons.viv",src/front/front_57324.asm
 77F88,GameOver,sub_77F88,96PC,medium,sets gameover (word_19CBA0); 96 PC GameOver without its already-over check,src/front/front_57324.asm
 7C600,putchar,,96PC,medium,NHL96PC 17675 (sem): S:ATZS7=60S11=55; D:164110,
 7C690,ModemHangup,sub_7C690,96PC,medium,NHL96PC 1779C (sem 0.94): S:ATH0; D:16412C; C:1054; C:1053,src/front/front_7A9D8.asm
@@ -129,6 +142,16 @@ B1FE9,DeleteUser,sub_B1FE9,96PC,medium,NHL96PC 2A692 (sem 0.62): C:1134; K:3EA; 
 B2258,ScrollUserList,sub_B2258,96PC,medium,NHL96PC 2AB63 (similar 0.93): mnemonic similarity 0.93 over 19 instructions,src/front/front_B1E1D.asm
 D67D4,FadePalette,sub_D67D4,96PC,medium,96 PC FadePalette: fades the 300h-byte palette,src/front/front_D4E24.asm
 D68AC,FadeOut,sub_D68AC,96PC,medium,NHL96PC 63A5B (similar 0.91): mnemonic similarity 0.90 over 22 instructions,src/front/front_D4E24.asm
+DA66D,AllocMediaBuffer,sub_DA66D,new,medium,"allocates the ""MEDIA BUFFER"" (200h paragraphs of DOS memory)",src/front/front_DA66D.asm
+DA713,AllocStaticBuffer,sub_DA713,new,medium,"allocates the ""STATIC BUF"" once (flag word_16D7EC)",src/front/front_DA66D.asm
+E2388,FileDelete,sub_E2388,new,medium,"deletes a file; returns 1, or 0 with the error text ""FILEdelete"" in eax",src/front/front_DA66D.asm
+E23BC,FileCreate,sub_E23BC,new,medium,"fopen ""w+b""; returns 1, or 0 with the error text ""FILEcreate""",src/front/front_DA66D.asm
+E23E0,FileOpen,sub_E23E0,new,medium,"fopen ""r+b""; returns 1, or 0 with the error text ""FILEopen""",src/front/front_DA66D.asm
+E2404,FileSeek,sub_E2404,new,medium,"fseek from the start; returns 1, or 0 with the error text ""FILEseek""",src/front/front_DA66D.asm
+E2420,FileSeekEnd,sub_E2420,new,medium,"fseek to the end of the file; returns 1, or 0 with the error text ""FILEseekend""",src/front/front_DA66D.asm
+E2458,FileReadRecord,sub_E2458,new,medium,"freads one record; returns 1, or 0 with the error text ""FILEread""",src/front/front_DA66D.asm
+E2494,FileWriteRecord,sub_E2494,new,medium,"fwrites one record; returns 1, or 0 with the error text ""FILEread"" (the game reuses the read message)",src/front/front_DA66D.asm
+E24D0,FileClose,sub_E24D0,new,medium,"fclose; returns 1, or 0 with the error text ""FILEclose""",src/front/front_DA66D.asm
 E2AF4,PollControllers,sub_E2AF4,96PC,high,96 PC PollControllers: controllers and hot keys into the slot words,src/front/front_DA66D.asm
 E2E28,InputRecordTimer,sub_E2E28,96PC,high,96 PC InputRecordTimer: timer callback pushing input records into the ring of 5,src/front/front_DA66D.asm
 E2F98,InitSlotTable,sub_E2F98,96PC,medium,slot words and teams from the 8 controller set-up bytes,src/front/front_DA66D.asm

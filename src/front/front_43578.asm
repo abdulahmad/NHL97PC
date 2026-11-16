@@ -27,7 +27,7 @@ extern sub_100940, sub_100A68, sub_101429, sub_106036, sub_106D08, sub_1070B0, s
 extern sub_109775, sub_1097F0, sub_42550, sub_425CC, sub_42910, sub_42960, sub_42C38, sub_42D38
 extern OpenSpeechBanks, sub_431E8, LoadTeamSpeech, MakeDataPath, sub_4AE14, sub_4B074, sub_4B108, sub_7D539
 extern sub_7F0D8, sub_7F5B8, sub_81678, sub_83314, sub_834EC, sub_83558, sub_842F4, sub_8BE60
-extern sub_8BEF8, sub_E2378, sub_E23E0, sub_E2404, sub_E2458, sub_E2494, sub_E24D0, sub_E24F0
+extern sub_8BEF8, sub_E2378, FileOpen, FileSeek, FileReadRecord, FileWriteRecord, FileClose, sub_E24F0
 extern sub_E341C, sub_FAA64, sub_FAAB4, sub_FAF34, sub_FC330, sub_FC410, sub_FC510, tickcount
 extern unk_160DD4, unk_160E8C, unk_160FD4, unk_161068, vecdist
 global jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60, jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8
@@ -183,7 +183,7 @@ sub_43578:
         mov eax, dword [dword_1AC7B0]
         mov edx, dword [dword esi+eax+02DCh]
         mov eax, dword [dword_1AC7AC]
-        call sub_E2404
+        call FileSeek
         test eax, eax
         je short .15
         lea eax, [byte esp+050h]
@@ -914,7 +914,7 @@ sub_43944:
         mov edx, dword_1AC7AC
         mov eax, asc_160CCC
         mov ecx, 1
-        call sub_E23E0
+        call FileOpen
         test eax, eax
         je near .43
         mov eax, dword [dword_1AC7AC]
@@ -931,7 +931,7 @@ sub_43944:
         mov ebx, 4
         lea edx, [dword esp+0154h]
         mov eax, dword [dword_1AC7AC]
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         je near .43
         xor al, al
@@ -944,7 +944,7 @@ sub_43944:
         mov ebx, 4
         lea edx, [dword esp+0164h]
         mov eax, dword [dword_1AC7AC]
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         je short .43
         cmp dword [dword esp+0164h], 81Ah
@@ -952,7 +952,7 @@ sub_43944:
         mov ebx, 4
         lea edx, [dword esp+0164h]
         mov eax, dword [dword_1AC7AC]
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         je short .43
         cmp dword [dword esp+0164h], 0AFh
@@ -960,7 +960,7 @@ sub_43944:
         mov ebx, 81Ah
         mov edx, dword [dword_1AC7B0]
         mov eax, dword [dword_1AC7AC]
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         je short .43
         xor ecx, ecx
@@ -971,7 +971,7 @@ sub_43944:
         test ecx, ecx
         je short .44
         mov eax, dword_1AC7AC
-        call sub_E24D0
+        call FileClose
 .44:
         test ecx, ecx
         je near .54
@@ -1110,7 +1110,7 @@ sub_43944:
         je short .53
         mov edx, dword_1AC7AC
         mov eax, asc_160CCC
-        call sub_E23E0
+        call FileOpen
         mov esi, eax
         jmp short .53
 .52:
@@ -1170,25 +1170,25 @@ sub_43944:
         mov edx, 0Ch
         call sub_842F4
         mov eax, dword [dword_1AC7AC]
-        call sub_E2404
+        call FileSeek
         test eax, eax
         jne short .57
         mov eax, dword_1AC7AC
-        call sub_E24D0
+        call FileClose
         jmp near .80
 .57:
         mov ebx, 81Ah
         mov edx, dword [dword_1AC7B0]
         mov eax, dword [dword_1AC7AC]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         jne short .58
         mov eax, dword_1AC7AC
-        call sub_E24D0
+        call FileClose
         jmp near .80
 .58:
         mov eax, dword_1AC7AC
-        call sub_E24D0
+        call FileClose
         call sub_E341C
         mov eax, 30h
         call sub_842F4
@@ -1290,7 +1290,7 @@ sub_43944:
         jne near .78
         mov edx, dword_1AC780
         mov eax, asc_160CCC
-        call sub_E23E0
+        call FileOpen
         test eax, eax
         je near .78
         call sub_425CC
@@ -1468,7 +1468,7 @@ sub_44998:
         cmp dword [dword_169250], byte 0
         je short .2
         mov eax, dword_1AC780
-        call sub_E24D0
+        call FileClose
         mov ebx, dword [dword_16923C]
         test ebx, ebx
         je short .1

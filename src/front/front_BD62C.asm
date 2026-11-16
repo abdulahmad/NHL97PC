@@ -22,10 +22,10 @@ extern sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0, sub_1DD5C, sub_1DD
 extern SetVideoMode, sub_3CA28, sub_3CB00, sub_3CB48, sub_3CB70, sub_3D020, sub_3E5F0, sub_41A28
 extern sub_41D18, sub_41DB8, sub_41DD8, ArenaFileName, sub_41FA0, sub_423B4, sub_4241C, sub_4A280
 extern sub_4AE14, sub_4B074, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00, sub_4BCB4
-extern sub_5B4D4, sub_5BD94, sub_5BDF4, sub_5BE64, sub_5BEB0, sub_5C2CC, sub_5C2F4, sub_5C30C
+extern sub_5B4D4, sub_5BD94, InitReplayBuffer, sub_5BE64, sub_5BEB0, sub_5C2CC, sub_5C2F4, sub_5C30C
 extern sub_5C32C, sub_5C34C, sub_5C4CC, sub_5C4E4, sub_5C500, sub_5C584, sub_5C5EC, sub_5C74C
-extern sub_5C75C, sub_5C894, sub_5CAB0, sub_5CACC, sub_65CED, sub_65DE8, sub_76E20, sub_77610
-extern sub_77630, sub_7CBD6, sub_7CDD8, sub_7F028, sub_7F0D8, sub_7F16C, sub_7FE4C, sub_81650
+extern sub_5C75C, sub_5C894, sub_5CAB0, sub_5CACC, InitAnimPoints, sub_65DE8, sub_76E20, sub_77610
+extern AllocAnimStates, sub_7CBD6, sub_7CDD8, sub_7F028, sub_7F0D8, sub_7F16C, sub_7FE4C, sub_81650
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, NameIndexPath, sub_8BE60
 extern sub_8BEF8, InitMenuItems, sub_8BFAC, sub_8D5C0, sub_8D6B4, sub_8D6E8, sub_8D910, sub_8E790
 extern sub_8E7E0, sub_8E840, sub_A0867, sub_AC69C, sub_AC6EB, sub_AC73E, sub_DA7EB, sub_DB6AC
@@ -317,7 +317,7 @@ sub_BD98B:
         mov dword [dword_1AC944], unk_1ACB44
         call sub_5BD94
         mov eax, 34h
-        call sub_77630
+        call AllocAnimStates
         xor eax, eax
         call sub_76E20
         xor eax, eax
@@ -344,11 +344,11 @@ sub_BD98B:
 .2:
         mov eax, dword_19CD10
         call sub_4B5C4
-        call sub_65CED
+        call InitAnimPoints
         call sub_12024
         call sub_5C894
         mov eax, 0C350h
-        call sub_5BDF4
+        call InitReplayBuffer
         mov eax, dword [dword_1CAF9C]
         call sub_5CACC
         test eax, eax

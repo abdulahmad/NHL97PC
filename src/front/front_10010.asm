@@ -15,7 +15,7 @@ extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, sub_
 extern ShowCameraView, sub_18E35, sub_1B3D8, sub_1E208, sub_1E224, sub_1FB6C, sub_1FF5C, sub_27D10
 extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, sub_34330, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
 extern sub_41DB8, MusicFileName, sub_41FA0, sub_424CC, sub_45BEC, PaEvent, sub_4DDB0, sub_52E28
-extern sub_57298, sub_57304, sub_57324, sub_57738, sub_57A1C, sub_5B558, sub_60D6C, sub_6539C
+extern sub_57298, sub_57304, sub_57324, sub_57738, LoadGoalieMask, sub_5B558, sub_60D6C, sub_6539C
 extern sub_65E3B, sub_78810, sub_AA650, sub_FAA64, sub_FB704, sub_FB8AE, sub_FBCD8, unk_16000C
 extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
 extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, word_1684BE, word_1684CA, word_1684E8, word_1684EC
@@ -2270,7 +2270,7 @@ sub_119A8:
         test bl, 40h
         setne al
         and eax, 0FFh
-        call sub_57A1C
+        call LoadGoalieMask
         jmp near .9
 .1:
         xor eax, eax

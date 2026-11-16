@@ -52,7 +52,7 @@ extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, sub_
 extern UpdateCoachModes, sub_30778, sub_3085C, sub_32260, sub_32340, sub_32D88, EndPenaltyShot, sub_34CF4
 extern sub_34EF8, sub_35588, sub_35690, sub_356A8, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
 extern sub_3B1EC, sub_3B738, SetVideoMode, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
-extern sub_3CB70, sub_3CD70, sub_3CE58, sub_3CFB0, sub_3E5F0, sub_424CC, sub_45BEC, sub_4B1C4
+extern sub_3CB70, sub_3CD70, sub_3CE58, sub_3CFB0, sub_3E5F0, sub_424CC, sub_45BEC, SetArtArchive
 extern sub_4B8DC, sub_4C0C4, sub_4DDB0, sub_504E0, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
 extern sub_5D6A8, sub_5D7A4, sub_5D878, sub_5D900, sub_5DC1C, sub_5DC50, sub_5DCBC, sub_5DE74
 extern sub_5ED80, sub_60D6C, sub_60F48, sub_650A4, sub_65F50, sub_6619C, sub_66224, sub_69B78
@@ -8365,7 +8365,7 @@ LoadOpeningCamera:
         call sprintf_
         add esp, byte 0Ch
         mov eax, asc_1604A8
-        call sub_4B1C4
+        call SetArtArchive
         push byte 20h
         lea eax, [byte esp+04h]
         push eax
@@ -8374,7 +8374,7 @@ LoadOpeningCamera:
         mov dword [dword_19D06C], eax
         xor eax, eax
         mov ebx, 1
-        call sub_4B1C4
+        call SetArtArchive
         mov edx, dword [dword_19D06C]
         mov edi, sub_1BCDC
         lea eax, [byte edx+04h]

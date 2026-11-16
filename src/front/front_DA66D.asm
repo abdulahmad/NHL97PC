@@ -66,7 +66,7 @@ global sub_DCC75_229, sub_DCFA4_5, sub_DCFB0_2F7, sub_DCFB0_30F, sub_DCFB0_319, 
 global sub_DE88E_15A, sub_DEE3A_55, sub_DFAF6_797, sub_E0297_C0, sub_E0297_C5, sub_E0297_CC, sub_E036F_9B, sub_E036F_A0
 global sub_E076B_BE, sub_E076B_C3, sub_E076B_CA, sub_E32B4_D6, sub_E32B4_E8, sub_E32B4_FF, sub_E32B4_10D, sub_E32B4_11D
 global sub_E341C_34, sub_E657C_A51, sub_E657C_A99, sub_E657C_AE5, sub_E657C_B21, sub_E657C_BA2, sub_E759F_20C, sub_E7B33_C6
-global sub_E7B33_D1, sub_E7B33_DB, sub_E7B33_186, sub_E7B33_19C, sub_DA66D, sub_DA713, sub_DA76A, sub_DA797
+global sub_E7B33_D1, sub_E7B33_DB, sub_E7B33_186, sub_E7B33_19C, AllocMediaBuffer, AllocStaticBuffer, sub_DA76A, sub_DA797
 global sub_DA7D6, sub_DA7EB, sub_DAA82, sub_DAB51, sub_DAC1E, sub_DAC72, sub_DAD7E, sub_DADD0
 global sub_DAFF8, sub_DB508, sub_DB5B7, sub_DB6AC, sub_DB747, sub_DB75E, sub_DB763, sub_DB7B1
 global sub_DB838, sub_DB8E6, sub_DBBFC, sub_DBDC1, sub_DBEB3, sub_DC11A, sub_DC653, sub_DC71D
@@ -78,8 +78,8 @@ global sub_E0841, sub_E08E9, sub_E0AD0, sub_E0B75, sub_E0B82, sub_E0C4F, sub_E0D
 global sub_E0F85, sub_E117B, sub_E1245, sub_E12D1, sub_E12EF, sub_E13BF, sub_E13FE, sub_E1563
 global sub_E167A, sub_E1744, sub_E19D5, sub_E1C19, sub_E1CC0, sub_E1D45, sub_E1EC9, sub_E2041
 global sub_E2141, sub_E21C6, sub_E2270, sub_E22A0, sub_E22D0, sub_E22FC, sub_E2310, sub_E2334
-global sub_E2348, sub_E2378, sub_E2388, sub_E23BC, sub_E23E0, sub_E2404, sub_E2420, sub_E2444
-global sub_E2458, sub_E2494, sub_E24D0, sub_E24F0, sub_E2590, sub_E2620, sub_E2790, sub_E2838
+global sub_E2348, sub_E2378, FileDelete, FileCreate, FileOpen, FileSeek, FileSeekEnd, sub_E2444
+global FileReadRecord, FileWriteRecord, FileClose, sub_E24F0, sub_E2590, sub_E2620, sub_E2790, sub_E2838
 global PollControllers, InputRecordTimer, InitSlotTable, sub_E304C, sub_E30BC, sub_E30D8, sub_E30F4, sub_E3174
 global sub_E3190, InputRecordAvail, TakeInputRecord, sub_E32B4, sub_E3410, sub_E341C, sub_E34A0, sub_E3530
 global sub_E3640, sub_E3700, sub_E3738, sub_E375C, sub_E3798, sub_E3A44, sub_E3AB8, sub_E3AFC
@@ -88,9 +88,10 @@ global sub_E4838, sub_E4908, sub_E5730, sub_E57EC, sub_E5808, sub_E59A8, sub_E59
 global sub_E5A98, sub_E5BF8, sub_E5CD8, sub_E5D6C, sub_E5D98, sub_E5EE0, sub_E5FD8, sub_E61AC
 global sub_E657C, sub_E728C, sub_E72B0, sub_E7570, sub_E759F, sub_E77B1, sub_E7B33
 ;-----------------------------------------------------------------------------
-; sub_DA66D                                                       DA66D  97 PC
+; AllocMediaBuffer                             DA66D  97 PC, medium confidence
+; Allocates the "MEDIA BUFFER" (200h paragraphs of DOS memory)
 ;-----------------------------------------------------------------------------
-sub_DA66D:
+AllocMediaBuffer:
         push ebx
         push ecx
         push edx
@@ -132,9 +133,10 @@ sub_DA66D:
         mov eax, ebx
         jmp near sub_DCC75_229
 ;-----------------------------------------------------------------------------
-; sub_DA713                                                       DA713  97 PC
+; AllocStaticBuffer                            DA713  97 PC, medium confidence
+; Allocates the "STATIC BUF" once (flag word_16D7EC)
 ;-----------------------------------------------------------------------------
-sub_DA713:
+AllocStaticBuffer:
         push ebx
         push edx
         cmp word [word_16D7EC], byte 0
@@ -151,7 +153,7 @@ sub_DA713:
         test eax, eax
         je short .2
         mov word [word_16D7EC], 1
-        call sub_DA66D
+        call AllocMediaBuffer
         mov dword [dword_16D7F0], eax
         mov eax, 1
 .2:
@@ -284,7 +286,7 @@ sub_DA7EB_18:
         mov eax, edx
         call sub_D81D8
         mov eax, edi
-        call sub_E24D0
+        call FileClose
         jmp short .3
 .4:
         call sub_D7B64
@@ -304,7 +306,7 @@ sub_DA7EB_18:
         call strcat_
         lea eax, [byte ebp-054h]
         mov edx, edi
-        call sub_E23E0
+        call FileOpen
         test eax, eax
         jne short .7
         mov eax, esi
@@ -320,14 +322,14 @@ sub_DA7EB_18:
         mov eax, edx
         call sub_D81D8
         mov eax, ebx
-        call sub_E24D0
+        call FileClose
         jmp short .6
 .7:
         mov edx, dword_1CD160
         mov eax, dword [dword ebx+dword_1CD180]
         add edx, ebx
         mov ebx, 4
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         jne short .9
         mov edx, dword [byte ebp-04h]
@@ -341,7 +343,7 @@ sub_DA7EB_18:
         mov eax, edx
         call sub_D81D8
         mov eax, edi
-        call sub_E24D0
+        call FileClose
         jmp short .8
 .9:
         call sub_E341C
@@ -370,7 +372,7 @@ sub_DA7EB_18:
         lea eax, [byte ebp-054h]
         mov edx, esi
         add edi, dword_1CD180
-        call sub_E23E0
+        call FileOpen
         test eax, eax
         jne short .14
         mov edx, edi
@@ -380,7 +382,7 @@ sub_DA7EB_18:
         cmp ecx, byte 2
         jl short .12
         mov eax, edx
-        call sub_E24D0
+        call FileClose
         jmp short .11
 .12:
         mov eax, ecx
@@ -399,14 +401,14 @@ sub_DA7EB_18:
         mov eax, ebx
         call sub_D81D8
         mov eax, edx
-        call sub_E24D0
+        call FileClose
         jmp short .13
 .14:
         mov edx, dword_1CD160
         mov eax, dword [dword ebx+dword_1CD180]
         add edx, ebx
         mov ebx, 4
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         jne short .18
         mov edx, edi
@@ -417,7 +419,7 @@ sub_DA7EB_18:
         cmp eax, byte 2
         jl short .16
         mov eax, edx
-        call sub_E24D0
+        call FileClose
         jmp short .15
 .16:
         mov eax, ecx
@@ -435,7 +437,7 @@ sub_DA7EB_18:
         mov eax, ebx
         call sub_D81D8
         mov eax, edx
-        call sub_E24D0
+        call FileClose
         jmp short .17
 .18:
         call sub_E341C
@@ -812,13 +814,13 @@ sub_DADD0_5C:
         shl ebx, 2
         mov eax, dword [dword ebx+dword_1CD180]
         add edx, byte 4
-        call sub_E2404
+        call FileSeek
         test eax, eax
         je short .8
         mov edx, edi
         mov eax, dword [dword ebx+dword_1CD180]
         mov ebx, dword [byte ebp-0Ch]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je short .8
 .7:
@@ -1024,13 +1026,13 @@ sub_DAFF8_62:
         shl ebx, 2
         mov eax, dword [dword ebx+dword_1CD180]
         add edx, byte 4
-        call sub_E2404
+        call FileSeek
         test eax, eax
         je near sub_DAFF8_33C.24
         mov edx, dword [byte ebp-04h]
         mov eax, dword [dword ebx+dword_1CD180]
         mov ebx, dword [byte ebp-01Ch]
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         je near sub_DAFF8_33C.24
 .9:
@@ -1359,14 +1361,14 @@ sub_DB508:
         xor edx, edx
         mov dword [dword esi+dword_1CD160], eax
         mov eax, dword [dword esi+dword_1CD180]
-        call sub_E2404
+        call FileSeek
         mov dword [byte ebp-04h], eax
         test eax, eax
         je short .2
         mov ebx, 4
         mov edx, dword [byte ebp-08h]
         mov eax, dword [dword esi+dword_1CD180]
-        call sub_E2494
+        call FileWriteRecord
         mov dword [byte ebp-04h], eax
 .2:
         lea eax, [byte ebp-0Ch]
@@ -1404,7 +1406,7 @@ sub_DB5B7:
         cmp dword [dword ecx+dword_1CD160], byte 0FFFFFFFFh
         jne short .2
         mov eax, dword [dword ecx+dword_1CD180]
-        call sub_E2420
+        call FileSeekEnd
         test eax, eax
         jne near .3
         leave
@@ -1419,7 +1421,7 @@ sub_DB5B7:
         imul edx, ebx
         mov eax, dword [dword ecx+dword_1CD180]
         add edx, byte 4
-        call sub_E2404
+        call FileSeek
         test eax, eax
         je near .4
         mov eax, dword_1CD160
@@ -1428,25 +1430,25 @@ sub_DB5B7:
         mov ebx, 4
         mov edx, dword [byte ebp-04h]
         mov eax, dword [dword ecx+dword_1CD180]
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         je short .4
         mov eax, dword [dword ecx+dword_1CD180]
         xor edx, edx
-        call sub_E2404
+        call FileSeek
         test eax, eax
         je short .4
         mov ebx, 4
         mov edx, dword [byte ebp-04h]
         mov eax, dword [dword ecx+dword_1CD180]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je short .4
         mov edx, dword [esi]
         imul edx, edi
         mov eax, dword [dword ecx+dword_1CD180]
         add edx, byte 4
-        call sub_E2404
+        call FileSeek
         test eax, eax
         je short .4
 .3:
@@ -1491,7 +1493,7 @@ sub_DB6AC:
 .2:
         mov eax, edx
         sub edx, byte 4
-        call sub_E24D0
+        call FileClose
         cmp edx, ebx
         jne short .2
         mov edx, dword_1CD158
@@ -1504,7 +1506,7 @@ sub_DB6AC:
         mov eax, edx
         call sub_D81D8
         mov eax, ebx
-        call sub_E24D0
+        call FileClose
         sub edx, byte 4
         sub ebx, byte 4
         cmp edx, ecx
@@ -2393,7 +2395,7 @@ sub_DBEB3:
         mov ebx, 67h
         mov edx, dword [dword_1CD17C]
         mov eax, dword [dword_1CD180]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_DA7EB_18
         lea ebx, [byte ebp-05Ch]
@@ -2578,13 +2580,13 @@ sub_DC11A:
         xor edx, edx
         mov dword [dword_1CD160], eax
         mov eax, dword [dword_1CD180]
-        call sub_E2404
+        call FileSeek
         test eax, eax
         je short .7
         mov ebx, 4
         mov edx, dword_1CD160
         mov eax, dword [dword_1CD180]
-        call sub_E2494
+        call FileWriteRecord
 .7:
         call sub_E341C
 sub_DC11A_21E:
@@ -2793,7 +2795,7 @@ sub_DC11A_21E:
         mov ebx, 67h
         mov edx, dword [dword_1CD17C]
         mov eax, dword [dword_1CD180]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_DA7EB_18
         lea ebx, [byte ebp-05Ch]
@@ -3118,7 +3120,7 @@ sub_DC99F:
         mov ebx, 0BCh
         mov eax, dword [dword_1CD184]
         mov edx, esi
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_DA7EB_18
         lea ebx, [byte ebp-05Ch]
@@ -3217,7 +3219,7 @@ sub_DCA6C:
         mov ebx, 0BCh
         mov edx, dword [byte ebp-068h]
         mov eax, dword [dword_1CD184]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_E036F_A0
         mov ecx, dword [byte ebp-04h]
@@ -3364,7 +3366,7 @@ sub_DCC75:
         mov ebx, 0BCh
         mov eax, dword [dword_1CD184]
         mov edx, esi
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_DCC75_1A6
         lea ebx, [byte ebp+04Ah]
@@ -3783,7 +3785,7 @@ sub_DCFB0:
         add esp, byte 14h
         lea eax, [byte ebp-012h]
         mov ecx, dword [byte ecx+08h]
-        call sub_E23BC
+        call FileCreate
         mov edx, eax
         test eax, eax
         je near .16
@@ -3793,7 +3795,7 @@ sub_DCFB0:
         mov edx, dword [byte ebp+07Ah]
         call sub_834EC
         mov eax, dword [byte ebp+06Ah]
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
         test eax, eax
         je short .12
@@ -3803,7 +3805,7 @@ sub_DCFB0:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+014h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .12:
         test edx, edx
@@ -3814,7 +3816,7 @@ sub_DCFB0:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+018h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .13:
         test edx, edx
@@ -3825,7 +3827,7 @@ sub_DCFB0:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+01Ch]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .14:
         test edx, edx
@@ -3836,11 +3838,11 @@ sub_DCFB0:
         movsx ebx, word [byte ebx+02h]
         mov edx, dword [byte edx+020h]
         shl ebx, 4
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .15:
         lea eax, [byte ebp+06Ah]
-        call sub_E24D0
+        call FileClose
         call sub_E341C
 .16:
         test edx, edx
@@ -4090,7 +4092,7 @@ sub_DD2DE:
         add esp, byte 14h
         lea eax, [byte ebp-016h]
         mov ecx, dword [byte ecx+08h]
-        call sub_E23BC
+        call FileCreate
         mov edx, eax
         test eax, eax
         je near .19
@@ -4100,7 +4102,7 @@ sub_DD2DE:
         mov edx, dword [byte ebp+07Ah]
         call sub_834EC
         mov eax, dword [byte ebp+066h]
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
         test eax, eax
         je short .15
@@ -4110,7 +4112,7 @@ sub_DD2DE:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+014h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .15:
         test edx, edx
@@ -4121,7 +4123,7 @@ sub_DD2DE:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+018h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .16:
         test edx, edx
@@ -4132,7 +4134,7 @@ sub_DD2DE:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+01Ch]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .17:
         test edx, edx
@@ -4143,11 +4145,11 @@ sub_DD2DE:
         movsx ebx, word [byte ebx+02h]
         mov edx, dword [byte edx+020h]
         shl ebx, 4
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .18:
         lea eax, [byte ebp+066h]
-        call sub_E24D0
+        call FileClose
         call sub_E341C
 .19:
         test edx, edx
@@ -4365,7 +4367,7 @@ sub_DD61F:
         add esp, byte 14h
         lea eax, [byte ebp-01Eh]
         mov ecx, dword [byte ecx+08h]
-        call sub_E23BC
+        call FileCreate
         mov edx, eax
         test eax, eax
         je near .16
@@ -4375,7 +4377,7 @@ sub_DD61F:
         mov edx, dword [byte ebp+072h]
         call sub_834EC
         mov eax, dword [byte ebp+05Eh]
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
         test eax, eax
         je short .12
@@ -4385,7 +4387,7 @@ sub_DD61F:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+014h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .12:
         test edx, edx
@@ -4396,7 +4398,7 @@ sub_DD61F:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+018h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .13:
         test edx, edx
@@ -4407,7 +4409,7 @@ sub_DD61F:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+01Ch]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .14:
         test edx, edx
@@ -4418,11 +4420,11 @@ sub_DD61F:
         movsx ebx, word [byte ebx+02h]
         mov edx, dword [byte edx+020h]
         shl ebx, 4
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .15:
         lea eax, [byte ebp+05Eh]
-        call sub_E24D0
+        call FileClose
         call sub_E341C
 .16:
         test edx, edx
@@ -4617,7 +4619,7 @@ sub_DD970:
         add esp, byte 14h
         lea eax, [byte ebp-0Ah]
         mov ecx, dword [byte ecx+08h]
-        call sub_E23BC
+        call FileCreate
         mov edx, eax
         test eax, eax
         je near .13
@@ -4628,7 +4630,7 @@ sub_DD970:
         mov edx, dword [byte ebp+07Ah]
         call sub_834EC
         mov eax, dword [byte ebp+072h]
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
         test eax, eax
         je short .9
@@ -4638,7 +4640,7 @@ sub_DD970:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+014h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .9:
         test edx, edx
@@ -4649,7 +4651,7 @@ sub_DD970:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+018h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .10:
         test edx, edx
@@ -4660,7 +4662,7 @@ sub_DD970:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+01Ch]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .11:
         test edx, edx
@@ -4671,11 +4673,11 @@ sub_DD970:
         movsx ebx, word [byte ebx+02h]
         mov edx, dword [byte edx+020h]
         shl ebx, 4
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .12:
         lea eax, [byte ebp+072h]
-        call sub_E24D0
+        call FileClose
         call sub_E341C
 .13:
         test edx, edx
@@ -4873,7 +4875,7 @@ sub_DDC4A:
         add esp, byte 14h
         lea eax, [byte ebp-0Eh]
         mov ecx, dword [byte ecx+08h]
-        call sub_E23BC
+        call FileCreate
         mov edx, eax
         test eax, eax
         je near .14
@@ -4884,7 +4886,7 @@ sub_DDC4A:
         mov edx, dword [byte ebp+07Eh]
         call sub_834EC
         mov eax, dword [byte ebp+06Eh]
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
         test eax, eax
         je short .10
@@ -4894,7 +4896,7 @@ sub_DDC4A:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+014h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .10:
         test edx, edx
@@ -4905,7 +4907,7 @@ sub_DDC4A:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+018h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .11:
         test edx, edx
@@ -4916,7 +4918,7 @@ sub_DDC4A:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+01Ch]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .12:
         test edx, edx
@@ -4927,11 +4929,11 @@ sub_DDC4A:
         movsx ebx, word [byte ebx+02h]
         mov edx, dword [byte edx+020h]
         shl ebx, 4
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .13:
         lea eax, [byte ebp+06Eh]
-        call sub_E24D0
+        call FileClose
         call sub_E341C
 .14:
         test edx, edx
@@ -5130,7 +5132,7 @@ sub_DDC4A_2F0:
         add esp, byte 14h
         lea eax, [byte ebp-0Ah]
         mov ecx, dword [byte ecx+08h]
-        call sub_E23BC
+        call FileCreate
         mov edx, eax
         test eax, eax
         je near .31
@@ -5141,7 +5143,7 @@ sub_DDC4A_2F0:
         mov edx, dword [byte ebp+07Eh]
         call sub_834EC
         mov eax, dword [byte ebp+072h]
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
         test eax, eax
         je short .27
@@ -5151,7 +5153,7 @@ sub_DDC4A_2F0:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+014h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .27:
         test edx, edx
@@ -5162,7 +5164,7 @@ sub_DDC4A_2F0:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+018h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .28:
         test edx, edx
@@ -5173,7 +5175,7 @@ sub_DDC4A_2F0:
         movsx ebx, word [ebx]
         mov edx, dword [byte edx+01Ch]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .29:
         test edx, edx
@@ -5184,11 +5186,11 @@ sub_DDC4A_2F0:
         movsx ebx, word [byte ebx+02h]
         mov edx, dword [byte edx+020h]
         shl ebx, 4
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .30:
         lea eax, [byte ebp+072h]
-        call sub_E24D0
+        call FileClose
         call sub_E341C
 .31:
         test edx, edx
@@ -5475,18 +5477,18 @@ sub_DE3CF:
         je near .13
         lea edx, [byte ebp-0Ch]
         lea eax, [byte ebp-05Ch]
-        call sub_E23E0
+        call FileOpen
         test eax, eax
         je near .13
         mov ebx, 2
         lea edx, [byte ebp-08h]
         mov eax, dword [byte ebp-0Ch]
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         jne short .7
 .5:
         lea eax, [byte ebp-0Ch]
-        call sub_E24D0
+        call FileClose
 .6:
         xor eax, eax
         leave
@@ -5498,12 +5500,12 @@ sub_DE3CF:
         mov ebx, 2
         lea edx, [byte ebp-04h]
         mov eax, dword [byte ebp-0Ch]
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         je short .5
         mov eax, dword [byte ebp-0Ch]
         xor edx, edx
-        call sub_E2404
+        call FileSeek
         test eax, eax
         je short .5
         call sub_E341C
@@ -5538,7 +5540,7 @@ sub_DE3CF:
         mov dword [byte ecx+020h], eax
         mov edx, ecx
         mov eax, dword [byte ebp-0Ch]
-        call sub_E2458
+        call FileReadRecord
         mov edx, eax
         test eax, eax
         je short .8
@@ -5546,7 +5548,7 @@ sub_DE3CF:
         movsx ebx, word [ecx]
         mov edx, dword [byte ecx+014h]
         shl ebx, 3
-        call sub_E2458
+        call FileReadRecord
         mov edx, eax
 .8:
         test edx, edx
@@ -5555,7 +5557,7 @@ sub_DE3CF:
         movsx ebx, word [ecx]
         mov edx, dword [byte ecx+018h]
         shl ebx, 3
-        call sub_E2458
+        call FileReadRecord
         mov edx, eax
 .9:
         test edx, edx
@@ -5564,7 +5566,7 @@ sub_DE3CF:
         movsx ebx, word [ecx]
         mov edx, dword [byte ecx+01Ch]
         shl ebx, 3
-        call sub_E2458
+        call FileReadRecord
         mov edx, eax
 .10:
         test edx, edx
@@ -5573,11 +5575,11 @@ sub_DE3CF:
         movsx ebx, word [byte ecx+02h]
         mov edx, dword [byte ecx+020h]
         shl ebx, 4
-        call sub_E2458
+        call FileReadRecord
         mov edx, eax
 .11:
         lea eax, [byte ebp-0Ch]
-        call sub_E24D0
+        call FileClose
         test edx, edx
         jne short .12
         mov eax, esi
@@ -5626,14 +5628,14 @@ sub_DE5A3:
         je short .1
         lea edx, [byte ebp-04h]
         lea eax, [byte ebp-054h]
-        call sub_E23BC
+        call FileCreate
         mov edx, eax
         test eax, eax
         je near .13
         mov ebx, 14h
         mov eax, dword [byte ebp-04h]
         mov edx, ecx
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
         test eax, eax
         je short .3
@@ -5641,7 +5643,7 @@ sub_DE5A3:
         movsx ebx, word [ecx]
         mov edx, dword [byte ecx+014h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .3:
         test edx, edx
@@ -5650,7 +5652,7 @@ sub_DE5A3:
         movsx ebx, word [ecx]
         mov edx, dword [byte ecx+018h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .4:
         test edx, edx
@@ -5659,7 +5661,7 @@ sub_DE5A3:
         movsx ebx, word [ecx]
         mov edx, dword [byte ecx+01Ch]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .5:
         test edx, edx
@@ -5668,31 +5670,31 @@ sub_DE5A3:
         movsx ebx, word [byte ecx+02h]
         mov edx, dword [byte ecx+020h]
         shl ebx, 4
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .6:
         lea eax, [byte ebp-04h]
-        call sub_E24D0
+        call FileClose
         jmp near .13
 .7:
         lea edx, [byte ebp-04h]
         lea eax, [byte ebp-054h]
-        call sub_E23E0
+        call FileOpen
         test eax, eax
         je near .1
         mov eax, dword [byte ebp-04h]
         xor edx, edx
-        call sub_E2404
+        call FileSeek
         test eax, eax
         jne short .8
         lea eax, [byte ebp-04h]
-        call sub_E24D0
+        call FileClose
         jmp near .1
 .8:
         mov ebx, 14h
         mov eax, dword [byte ebp-04h]
         mov edx, ecx
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
         test eax, eax
         je short .9
@@ -5700,7 +5702,7 @@ sub_DE5A3:
         movsx ebx, word [ecx]
         mov edx, dword [byte ecx+014h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .9:
         test edx, edx
@@ -5709,7 +5711,7 @@ sub_DE5A3:
         movsx ebx, word [ecx]
         mov edx, dword [byte ecx+018h]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .10:
         test edx, edx
@@ -5718,7 +5720,7 @@ sub_DE5A3:
         movsx ebx, word [ecx]
         mov edx, dword [byte ecx+01Ch]
         shl ebx, 3
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .11:
         test edx, edx
@@ -5727,11 +5729,11 @@ sub_DE5A3:
         movsx ebx, word [byte ecx+02h]
         mov edx, dword [byte ecx+020h]
         shl ebx, 4
-        call sub_E2494
+        call FileWriteRecord
         mov edx, eax
 .12:
         lea eax, [byte ebp-04h]
-        call sub_E24D0
+        call FileClose
         call sub_E341C
 .13:
         mov eax, edx
@@ -7987,7 +7989,7 @@ sub_E0297:
         mov ebx, 194Fh
         mov eax, dword [dword_1CD188]
         mov edx, esi
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_DA7EB_18
         lea ebx, [byte ebp-05Ch]
@@ -8146,7 +8148,7 @@ sub_E0415:
         mov ebx, 194Fh
         mov eax, dword [dword_1CD188]
         mov edx, esi
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_DCC75_1A6
         lea ebx, [byte ebp+04Ah]
@@ -8326,7 +8328,7 @@ sub_E069E:
         mov ebx, 27h
         mov eax, dword [dword_1CD190]
         mov edx, esi
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_DA7EB_18
         lea ebx, [byte ebp-05Ch]
@@ -8388,7 +8390,7 @@ sub_E076B:
         mov ebx, 27h
         mov edx, dword [byte ebp-060h]
         mov eax, dword [dword_1CD190]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_E036F_A0
         lea ebx, [byte ebp-05Ch]
@@ -8539,7 +8541,7 @@ sub_E08E9:
         mov ebx, 27h
         mov eax, dword [dword_1CD190]
         mov edx, esi
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_DCC75_1A6
         lea ebx, [byte ebp+022h]
@@ -8724,7 +8726,7 @@ sub_E0B82:
         mov ebx, 3Dh
         mov eax, dword [dword_1CD18C]
         mov edx, esi
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_DA7EB_18
         lea ebx, [byte ebp-05Ch]
@@ -8782,7 +8784,7 @@ sub_E0C4F:
         mov ebx, 3Dh
         mov edx, dword [byte ebp-060h]
         mov eax, dword [dword_1CD18C]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_E036F_A0
         lea ebx, [byte ebp-05Ch]
@@ -9078,7 +9080,7 @@ sub_E0F85:
         mov ebx, 3Dh
         mov eax, dword [dword_1CD18C]
         mov edx, esi
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_DCC75_1A6
         lea ebx, [byte ebp+04Ah]
@@ -9182,7 +9184,7 @@ sub_E117B:
         add esp, byte 10h
         lea edx, [byte ebp-04h]
         lea eax, [byte ebp-054h]
-        call sub_E23E0
+        call FileOpen
         test eax, eax
         je near .5
         mov edx, 383C5h
@@ -9194,7 +9196,7 @@ sub_E117B:
         mov ebx, 383C1h
         mov eax, dword [byte ebp-04h]
         mov edx, dword [ecx]
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         jne short .3
 .1:
@@ -9202,7 +9204,7 @@ sub_E117B:
         call sub_E22D0
 .2:
         lea eax, [byte ebp-04h]
-        call sub_E24D0
+        call FileClose
         xor eax, eax
         leave
         pop edx
@@ -9226,12 +9228,12 @@ sub_E117B:
         imul ebx, byte 38h
         mov edx, dword [dword eax+0383C1h]
         mov eax, dword [byte ebp-04h]
-        call sub_E2458
+        call FileReadRecord
         test eax, eax
         je short .1
 .4:
         lea eax, [byte ebp-04h]
-        call sub_E24D0
+        call FileClose
         mov eax, 1
 .5:
         leave
@@ -9257,18 +9259,18 @@ sub_E1245:
         add esp, byte 10h
         lea edx, [byte ebp-04h]
         lea eax, [byte ebp-054h]
-        call sub_E23BC
+        call FileCreate
         test eax, eax
         je short .4
         mov ebx, 383C1h
         mov eax, dword [byte ebp-04h]
         mov edx, ecx
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         jne short .2
 .1:
         lea eax, [byte ebp-04h]
-        call sub_E24D0
+        call FileClose
         xor eax, eax
         leave
         pop edx
@@ -9283,12 +9285,12 @@ sub_E1245:
         imul ebx, byte 38h
         mov eax, dword [byte ebp-04h]
         mov edx, dword [dword ecx+0383C1h]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je short .1
 .3:
         lea eax, [byte ebp-04h]
-        call sub_E24D0
+        call FileClose
         mov eax, 1
 .4:
         leave
@@ -10003,7 +10005,7 @@ sub_E19D5:
         mov ebx, 4A78h
         mov eax, dword [dword_1CD194]
         mov edx, esi
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_DDC4A_2F0
         lea edx, [byte ebp+046h]
@@ -10076,7 +10078,7 @@ sub_E19D5:
         jne short .8
 .7:
         lea eax, [byte ebp-0Ah]
-        call sub_E2388
+        call FileDelete
         mov dword [dword esi+04A70h], 0
 .8:
         test edi, edi
@@ -10319,7 +10321,7 @@ sub_E1D45:
         mov ebx, 4A78h
         mov edx, dword [byte ebp-0Eh]
         mov eax, dword [dword_1CD194]
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         je near sub_DFAF6_797
         lea edx, [byte ebp+04Ah]
@@ -10401,7 +10403,7 @@ sub_E1EC9:
         test eax, eax
         je short .1
         lea eax, [byte ebp-06h]
-        call sub_E2388
+        call FileDelete
 .1:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
@@ -10489,7 +10491,7 @@ sub_E2041:
         mov ebx, 176h
         mov eax, dword [dword_1CD198]
         mov edx, esi
-        call sub_E2494
+        call FileWriteRecord
         test eax, eax
         jne short .3
         jmp near sub_E036F_A0
@@ -10788,9 +10790,10 @@ sub_E2378:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E2388                                                       E2388  97 PC
+; FileDelete                                   E2388  97 PC, medium confidence
+; Deletes a file; returns 1, or 0 with the error text "FILEdelete" in eax
 ;-----------------------------------------------------------------------------
-sub_E2388:
+FileDelete:
         push ebx
         push ecx
         push edx
@@ -10819,9 +10822,10 @@ sub_E2388:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E23BC                                                       E23BC  97 PC
+; FileCreate                                   E23BC  97 PC, medium confidence
+; Fopen "w+b"; returns 1, or 0 with the error text "FILEcreate"
 ;-----------------------------------------------------------------------------
-sub_E23BC:
+FileCreate:
         push ebx
         mov ebx, edx
         mov edx, asc_1674D4
@@ -10839,9 +10843,10 @@ sub_E23BC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E23E0                                                       E23E0  97 PC
+; FileOpen                                     E23E0  97 PC, medium confidence
+; Fopen "r+b"; returns 1, or 0 with the error text "FILEopen"
 ;-----------------------------------------------------------------------------
-sub_E23E0:
+FileOpen:
         push ebx
         mov ebx, edx
         mov edx, asc_1674E4
@@ -10859,9 +10864,10 @@ sub_E23E0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E2404                                                       E2404  97 PC
+; FileSeek                                     E2404  97 PC, medium confidence
+; Fseek from the start; returns 1, or 0 with the error text "FILEseek"
 ;-----------------------------------------------------------------------------
-sub_E2404:
+FileSeek:
         push ebx
         xor ebx, ebx
         call fseek_
@@ -10876,9 +10882,11 @@ sub_E2404:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E2420                                                       E2420  97 PC
+; FileSeekEnd                                  E2420  97 PC, medium confidence
+; Fseek to the end of the file; returns 1, or 0 with the error text
+; "FILEseekend"
 ;-----------------------------------------------------------------------------
-sub_E2420:
+FileSeekEnd:
         push ebx
         push edx
         mov ebx, 2
@@ -10908,9 +10916,10 @@ sub_E2444:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E2458                                                       E2458  97 PC
+; FileReadRecord                               E2458  97 PC, medium confidence
+; Freads one record; returns 1, or 0 with the error text "FILEread"
 ;-----------------------------------------------------------------------------
-sub_E2458:
+FileReadRecord:
         push ecx
         push esi
         mov esi, eax
@@ -10941,9 +10950,11 @@ sub_E2458:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E2494                                                       E2494  97 PC
+; FileWriteRecord                              E2494  97 PC, medium confidence
+; Fwrites one record; returns 1, or 0 with the error text "FILEread" (the
+; game reuses the read message)
 ;-----------------------------------------------------------------------------
-sub_E2494:
+FileWriteRecord:
         push ecx
         push esi
         mov esi, eax
@@ -10974,9 +10985,10 @@ sub_E2494:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E24D0                                                       E24D0  97 PC
+; FileClose                                    E24D0  97 PC, medium confidence
+; Fclose; returns 1, or 0 with the error text "FILEclose"
 ;-----------------------------------------------------------------------------
-sub_E24D0:
+FileClose:
         push edx
         mov edx, eax
         mov eax, dword [eax]
@@ -11036,7 +11048,7 @@ sub_E24F0:
         je short .1
         mov edx, esp
         mov eax, ebx
-        call sub_E23E0
+        call FileOpen
         test eax, eax
         je short .1
         mov ecx, dword [esp]
@@ -11055,7 +11067,7 @@ sub_E24F0:
         mov eax, ecx
         call fseek_
         mov eax, esp
-        call sub_E24D0
+        call FileClose
         mov eax, edi
 .1:
         add esp, byte 4

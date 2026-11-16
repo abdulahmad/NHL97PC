@@ -34,7 +34,7 @@ extern sub_32260, sub_32340, EndPenaltyShot, sub_34330, sub_343F8, sub_34EF8, su
 extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, sub_41D48
 extern sub_42098, sub_42220, sub_424CC, sub_45BEC, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
 extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, sub_5585C, sub_56AE4, sub_56CD0
-extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, sub_57324, sub_576EC, sub_57738, sub_5794C
+extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, sub_57324, sub_576EC, sub_57738, LoadCupArt
 extern sub_5AC28, sub_5ED80, sub_60D6C, sub_60F48, sub_64EBC, sub_650A4, sub_650E8, sub_6619C
 extern sub_66524, sub_6947C, sub_69654, sub_69A44, sub_69B08, sub_69B78, sub_6A0BC, sub_6A244
 extern sub_72E58, sub_72E94, sub_72EF4, sub_72F34, sub_72FE8, sub_73028, sub_75B94, sub_78044
@@ -6010,7 +6010,7 @@ sub_2A3F4:
         push dword 3F800000h
         call sub_57304
         xor eax, eax
-        call sub_5794C
+        call LoadCupArt
         mov edx, dword [dword_19DADE]
         sar edx, 18h
         add edx, SortCords

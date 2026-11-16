@@ -28,8 +28,8 @@ extern sub_30BD8, sub_31F88, sub_32260, sub_34330, sub_34950, sub_36370, sub_367
 extern sub_3CB70, sub_3D020, sub_3E5F0, InitGameAudio, sub_41670, sub_41CF0, sub_41DD8, sub_423B4
 extern sub_424CC, sub_45BEC, sub_4B074, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928
 extern sub_4BA00, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
-extern sub_5BDF4, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
-extern sub_65CED, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, sub_77630, GameOver, sub_77FA8
+extern InitReplayBuffer, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
+extern InitAnimPoints, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, AllocAnimStates, GameOver, sub_77FA8
 extern sub_78810, sub_7F0D8, sub_81678, sub_84204, sub_842E8, sub_842F4, sub_8E740, sub_8E840
 extern sub_AA498, sub_AADEF, sub_AB0A6, sub_B2F49, sub_BD62C, FadeOut, sub_DA7EB, sub_DB6AC
 extern sub_E117B, sub_E12D1, sub_E13BF, sub_E1744, sub_E304C, sub_E30F4, sub_E3174, sub_E3190
@@ -2944,7 +2944,7 @@ PlayGame:
         call InitGameDisplay
         call sub_5BD94
         mov eax, 34h
-        call sub_77630
+        call AllocAnimStates
         mov eax, 3Ch
         call sub_842F4
         xor eax, eax
@@ -2962,7 +2962,7 @@ PlayGame:
         mov dword [dword_19CD4C], eax
         mov eax, dword_19CD10
         call sub_4B5C4
-        call sub_65CED
+        call InitAnimPoints
         call sub_5C894
         mov eax, dword [dword_1686BA]
         xor edx, edx
@@ -2983,7 +2983,7 @@ PlayGame:
         add esp, byte 4
         call sub_AA498
         mov eax, 0C350h
-        call sub_5BDF4
+        call InitReplayBuffer
         mov eax, 64h
         call sub_842F4
         cmp dword [dword_16DA9C], byte 0
