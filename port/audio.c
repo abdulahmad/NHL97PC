@@ -2,6 +2,7 @@
  * that was mixed to a WAV file (16-bit stereo), which is how the sound code is tested without speakers. */
 #include "host.h"
 #include "audio.h"
+extern volatile int nh_sim;                      /* online (netplay.c): no sound, as in the 94 and 96 ports (replays would play it twice) */
 #include <stdarg.h>
 #include <math.h>
 
@@ -135,7 +136,6 @@ static void mix(int16_t *out, int frames)
     }
 }
 
-extern volatile int nh_sim;                      /* online (netplay.c): no sound, as in the 94 and 96 ports (replays would play it twice) */
 volatile int audio_muted;                        /* set while a window menu is open (menu_win.c); the overlay mutes too */
 
 static void SDLCALL callback(void *user, Uint8 *stream, int len)
