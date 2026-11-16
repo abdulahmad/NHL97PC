@@ -31,12 +31,14 @@ extern sub_8BEF8, FileExists, FileOpen, FileSeek, FileReadRecord, FileWriteRecor
 extern sub_E341C, AllocMemBlock, sub_FAAB4, FreeMemBlock, sub_FC330, sub_FC410, MakeColor, tickcount
 extern unk_160DD4, unk_160E8C, unk_160FD4, unk_161068, vecdist
 global jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60, jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8
-global sub_43884_9C, sub_43578, sub_43884, InitSpeechBanks, sub_44998, sub_449F0, sub_44A50, sub_4518C
+global sub_43884_9C, LoadSpeechBank, sub_43884, InitSpeechBanks, sub_44998, sub_449F0, sub_44A50, sub_4518C
 global sub_45430, sub_45628, sub_4564C, sub_45954, sub_45A00, sub_45A3C
 ;-----------------------------------------------------------------------------
-; sub_43578                                                       43578  97 PC
+; LoadSpeechBank                                  43578  97 PC, low confidence
+; From InitSpeechBanks: opens a speech bank's "%03d.DAT" / "%03d.HDR" pair
+; (MakeDataPath) and reads its header
 ;-----------------------------------------------------------------------------
-sub_43578:
+LoadSpeechBank:
         push dword 98h
         call __CHK
         push ebx
@@ -1153,7 +1155,7 @@ InitSpeechBanks:
 .55:
         call sub_E341C
         mov eax, dword [dword esp+0164h]
-        call sub_43578
+        call LoadSpeechBank
         imul edx, dword [dword esp+0164h], byte 14h
         mov ebp, dword [dword_1AC7A8]
         mov eax, edx

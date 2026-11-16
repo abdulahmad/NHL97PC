@@ -159,7 +159,7 @@ extern sub_1049D0, sub_106D80, sub_10B0D4, sub_10B580, sub_10CDE0, sub_10FB50, s
 extern sub_10FD58, sub_10FE10, sub_10FE58, sub_10FE88, sub_10FFBC, sub_11002C, sub_11004C, sub_1100B4
 extern sub_110414, sub_1104F0, sub_11328, sub_114C4, sub_114FD0, sub_115020, sub_1150FC, sub_115150
 extern sub_115170, sub_1151A4, sub_115220, sub_1152B0, sub_115318, sub_1153AC, sub_1153DC, sub_115810
-extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, sub_116050, sub_11984
+extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, sub_116050, IsPlayoffGame
 extern sub_119A8, setplayer, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
 extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, sub_18DF7, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
 extern SelectCameraView, sub_1DFA0, sub_1E014, assreplace, assinsert, sub_1E354, sub_1FBF4, Goal
@@ -45729,13 +45729,13 @@ sub_77FA8:
         cmp dx, byte 3
         jle short .1
         mov word [gsp], 3
-        call sub_11984
+        call IsPlayoffGame
         test eax, eax
         jne short .2
         mov word [gsp], 4
         jmp short .2
 .1:
-        call sub_11984
+        call IsPlayoffGame
         test eax, eax
         jne short .2
         xor byte [byte_19CBC2], 2
@@ -45766,7 +45766,7 @@ sub_78044:
         pop ebx
         ret
 .1:
-        call sub_11984
+        call IsPlayoffGame
         test eax, eax
         je near .3
         cmp byte [byte_1AD72B], 3
@@ -45864,7 +45864,7 @@ clockcont_0:
         jne near .7
         cmp dx, byte 3
         jne near .5
-        call sub_11984
+        call IsPlayoffGame
         test eax, eax
         jne near .5
         mov eax, dword [off_168CF0]

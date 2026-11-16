@@ -76,7 +76,7 @@ global sub_DE88E, sub_DE9F5, sub_DEBA2, sub_DEE3A, sub_DEE95, sub_DEF96, sub_DF1
 global sub_DFAF6, sub_E0297, sub_E036F, sub_E0415, sub_E0617, sub_E0691, sub_E069E, sub_E076B
 global sub_E0841, sub_E08E9, sub_E0AD0, sub_E0B75, sub_E0B82, sub_E0C4F, sub_E0D0F, sub_E0DB7
 global sub_E0F85, LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, sub_E12EF, ResetExhibitionFile, sub_E13FE, sub_E1563
-global sub_E167A, sub_E1744, sub_E19D5, sub_E1C19, sub_E1CC0, sub_E1D45, sub_E1EC9, sub_E2041
+global sub_E167A, sub_E1744, sub_E19D5, sub_E1C19, OpenReplayFile, sub_E1D45, sub_E1EC9, sub_E2041
 global sub_E2141, sub_E21C6, AllocClearBlock, AllocClearBlock20, FreePtr, sub_E22FC, sub_E2310, sub_E2334
 global sub_E2348, FileExists, FileDelete, FileCreate, FileOpen, FileSeek, FileSeekEnd, FileTell
 global FileReadRecord, FileWriteRecord, FileClose, FileLength, sub_E2590, sub_E2620, sub_E2790, sub_E2838
@@ -10171,9 +10171,11 @@ sub_E1C19:
         mov eax, 5
         jmp near sub_E036F_9B
 ;-----------------------------------------------------------------------------
-; sub_E1CC0                                                       E1CC0  97 PC
+; OpenReplayFile                                  E1CC0  97 PC, low confidence
+; Builds a replay's file name ("%s%08x.%03x", id xor 0ABCDCBAFh) and opens it
+; when it exists with the expected size
 ;-----------------------------------------------------------------------------
-sub_E1CC0:
+OpenReplayFile:
         push ebx
         push ecx
         push esi

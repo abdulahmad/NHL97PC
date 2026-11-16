@@ -28,7 +28,7 @@ extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dwo
 extern qword_167A75, qword_167A7D, qword_167AB1, qword_167AB9, qword_167AC1, qword_167AC9, qword_167AD1, qword_167AD9
 extern qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qword_167B9F, qword_167BB3, qword_167BBB
 extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, sscanf_, sub_1008CC
-extern BlitArt, sub_1013FC, FindShape, sub_101EAC, sub_102B94, sub_10491C, sub_1169F0, sub_11984
+extern BlitArt, sub_1013FC, FindShape, sub_101EAC, sub_102B94, sub_10491C, sub_1169F0, IsPlayoffGame
 extern sub_119A8, sub_11A318, sub_11ADD0, sub_11ADE8, sub_11BDC0, sub_11F74, sub_11FA90, sub_11FAAC
 extern sub_11FB11, sub_12A10, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, sub_160E2, sub_18E76
 extern sub_18F67, sub_1BC18, sub_1C854, sub_1C9F0, sub_1D09C, AddOverlayWindow, RemoveOverlayWindow, sub_3CF68
@@ -774,7 +774,7 @@ DrawPauseClock:
         movzx eax, al
         test eax, eax
         je short .11
-        call sub_11984
+        call IsPlayoffGame
         test eax, eax
         jne short .7
         cmp word [gsp], byte 2

@@ -15,7 +15,7 @@
 ;  11744  clearteams                               front/front_10010.asm                        1
 ;  11808  sub_11808                                front/front_10010.asm                        1
 ;  11908  ResetBench                               front/front_10010.asm                        1
-;  11984  sub_11984                                front/front_10010.asm                        3
+;  11984  IsPlayoffGame                            front/front_10010.asm                        3
 ;  119A8  sub_119A8                                front/front_10010.asm                        2
 ;  11B38  setplayer                                front/front_10010.asm                        3
 ;  11F10  SetupTeamForIntermission                 front/front_10010.asm                        1
@@ -1199,7 +1199,7 @@
 ;  E1744  sub_E1744                                front/front_DA66D.asm                        2
 ;  E19D5  sub_E19D5                                front/front_DA66D.asm                        3
 ;  E1C19  sub_E1C19                                front/front_DA66D.asm                        4
-;  E1CC0  sub_E1CC0                                front/front_DA66D.asm                        3
+;  E1CC0  OpenReplayFile                           front/front_DA66D.asm                        3
 ;  E1D45  sub_E1D45                                front/front_DA66D.asm                        1
 ;  E2041  sub_E2041                                front/front_DA66D.asm                        1
 ;  E2141  sub_E2141                                front/front_DA66D.asm                        1

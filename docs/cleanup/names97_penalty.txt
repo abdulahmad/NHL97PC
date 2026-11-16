@@ -5,3 +5,6 @@ sub_3319C updatepentime_ut {source=94G,confidence=medium} 94G updatepentime_ut (
 sub_32FF8 updatepentime_ut_chk {source=95PC,confidence=low} the updatepentime_ut check for one box entry (team, player): when the time is up, the PA event 1Bh and releasepl when the team is short (the NHL95PC updatepentime_ut_chk part)
 sub_32D88 PenGoalStuff {source=94G,confidence=medium} 94G PenGoalStuff (after a goal): when the scoring team had more players on the ice, releases the first scored-on player in the box without a coincidental penalty (releasepl)
 sub_32888 Stop4Pen {source=94G,confidence=medium} 94G Stop4Pen (from checkfornewpen and puckfaceoff): stops the clock (byte_19CBC2 bit 0), sets the faceoff spot from the penalty type, clears the overlays, whistle sound and PA event
+sub_43578 LoadSpeechBank {confidence=low} from InitSpeechBanks: opens a speech bank's "%03d.DAT" / "%03d.HDR" pair (MakeDataPath) and reads its header
+sub_E1CC0 OpenReplayFile {confidence=low} builds a replay's file name ("%s%08x.%03x", id xor 0ABCDCBAFh) and opens it when it exists with the expected size
+sub_11984 IsPlayoffGame {confidence=low} game mode check (dword_1AC814 bits 4-6 = 20h, or 10h with dword_1ACF46 set); clockcont_0 and the cup code use it

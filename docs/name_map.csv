@@ -5,6 +5,7 @@ address,name,auto_name,source,confidence,evidence,file
 11504,forcepldata,sub_11504,94G,medium,"94G forcepldata: (team) faceoffs only: puts each player straight into his requested position (+0A8h -> +0A9h), assnearest for the centre, setplayer",src/front/front_10010.asm
 11744,clearteams,,96PC,medium,NHL96PC 4875E (similar): mnemonic similarity 0.80 over 60 instructions,
 11908,ResetBench,sub_11908,94G,medium,94G ResetBench (96 PC body): the bench and penalty box state of both teams' rosters,src/front/front_10010.asm
+11984,IsPlayoffGame,sub_11984,new,low,"game mode check (dword_1AC814 bits 4-6 = 20h, or 10h with dword_1ACF46 set); clockcont_0 and the cup code use it",src/front/front_10010.asm
 11B38,setplayer,sub_11B38,94G,medium,"94G setplayer: (player, roster index) brings a player onto the ice: pnum (+0A6h), marks him in the team's line table (+50h, 8001h / 8002h)",src/front/front_10010.asm
 11ED8,reenergizeteam,sub_11ED8,94G,medium,94G reenergizeteam (96 PC body): every player's energy back to 1000h,src/front/front_10010.asm
 11F10,SetupTeamForIntermission,,96PC,medium,NHL96PC 4AF89 (similar): mnemonic similarity 0.88 over 32 instructions,
@@ -194,6 +195,7 @@ address,name,auto_name,source,confidence,evidence,file
 42220,PlaySfxVolume,sub_42220,new,low,"(id, volume 0-64h, ...): PlaySfx with a volume (scaled by the globalset sound volume) and position",src/engine/engine_3812E.asm
 42D50,OpenSpeechBanks,sub_42D50,96PC,low,"opens the play-by-play speech files (%sAUDPBP3.TSF, KTSF, %sAUDPBP2.VIV, CBANK%03d.DAT), like 96 PC OpenSpeechBanks",src/engine/engine_3812E.asm
 4329C,LoadTeamSpeech,sub_4329C,new,low,"(team, other): loads the team name speech file TEAM%04d.DAT when it is not loaded",src/engine/engine_3812E.asm
+43578,LoadSpeechBank,sub_43578,new,low,"from InitSpeechBanks: opens a speech bank's ""%03d.DAT"" / ""%03d.HDR"" pair (MakeDataPath) and reads its header",src/front/front_43578.asm
 43944,InitSpeechBanks,sub_43944,new,low,"from InitGameAudio: sets up the speech banks (TEMPBANK, EVENT.DAT, CBANK%03d.HDR, TEAM%04d.HDR, PBP, AUDPBP3.TSF, KTSF)",src/front/front_43578.asm
 45BEC,CommentaryEvent,sub_45BEC,new,low,"the play-by-play commentary: (event 0A0000001h-0A000002Fh, args...) with speech on, not in a replay (dword_1B8FA0); jump table jpt_45A64 by event, each case queues commentary clips. The arena PA announcer is PaEvent (B/C events)",src/front/front_45BEC.asm
 47C08,OpenSpeechFile,sub_47C08,new,low,"opens the ""SPEECH"" file (""G.KSF"")",src/front/front_45BEC.asm
@@ -437,6 +439,7 @@ E117B,LoadExhibitionFile,sub_E117B,new,medium,"(&block): reads the exhibition fi
 E1245,SaveExhibitionFile,sub_E1245,new,medium,(block): writes the exhibition file %s%s.EXH,src/front/front_DA66D.asm
 E12D1,FreeExhibitionFile,sub_E12D1,new,medium,(&block): frees the exhibition block and its agents part (+383C1h),src/front/front_DA66D.asm
 E13BF,ResetExhibitionFile,sub_E13BF,new,low,"builds the original exhibition data (sub_E12EF, ""ORIGEXH"") and saves it as the exhibition file",src/front/front_DA66D.asm
+E1CC0,OpenReplayFile,sub_E1CC0,new,low,"builds a replay's file name (""%s%08x.%03x"", id xor 0ABCDCBAFh) and opens it when it exists with the expected size",src/front/front_DA66D.asm
 E2270,AllocClearBlock,sub_E2270,new,low,"(tag, size, &ptr): allocates a block (flag 0), clears it and stores it; returns 1, or 0 when out of memory",src/front/front_DA66D.asm
 E22A0,AllocClearBlock20,sub_E22A0,new,low,AllocClearBlock with allocation flag 20h,src/front/front_DA66D.asm
 E22D0,FreePtr,sub_E22D0,new,medium,"(&ptr): frees the block and clears the pointer; returns 1, or 0 when it was already null",src/front/front_DA66D.asm

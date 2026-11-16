@@ -21,7 +21,7 @@ extern dword_1B1410, dword_1B1464, dword_1B8578, dword_1B8F4C, dword_1B8FA0, dwo
 extern dword_1C1346, dword_1C5DE4, dword_1C5EF4, hmtmstruct, memcpy_, off_168CE8, off_168CF0, off_168CFC
 extern off_168D04, off_168D08, off_168D0C, qword_16002C, qword_160034, qword_16003C, qword_16004C, qword_160054
 extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, regd1, sub_11328
-extern sub_11574, sub_116B0, sub_11808, sub_11984, sub_11F74, sub_12A10, ClockTick, sub_12C2C
+extern sub_11574, sub_116B0, sub_11808, IsPlayoffGame, sub_11F74, sub_12A10, ClockTick, sub_12C2C
 extern sub_12DE8, ChangeViewSize, PrevVideoModeKey, NextVideoModeKey, QueueOverlayPanel, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
 extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, assreplace, Goal, sub_2DE94
 extern sub_30BD8, sub_31F88, AddPenalty, sub_34330, sub_34950, sub_36370, sub_36754, sub_3CA28
@@ -944,7 +944,7 @@ sub_13BAC:
         sar eax, 10h
         cmp eax, byte 0FFFFFFFFh
         je near .8
-        call sub_11984
+        call IsPlayoffGame
         mov ecx, 19h
         test eax, eax
         je short .3

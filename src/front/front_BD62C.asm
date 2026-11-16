@@ -29,7 +29,7 @@ extern AllocAnimStates, InitFrontEnd, FreeFrontEnd, SetRegionRect, SetTextColor,
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, NameIndexPath, sub_8BE60
 extern sub_8BEF8, InitMenuItems, sub_8BFAC, sub_8D5C0, sub_8D6B4, sub_8D6E8, sub_8D910, LoadLangTextB
 extern GetLangText, FreeLangText, sub_A0867, sub_AC69C, sub_AC6EB, sub_AC73E, sub_DA7EB, sub_DB6AC
-extern sub_E19D5, sub_E1C19, sub_E1CC0, sub_E3174, sub_E3190, sub_E3410, sub_E4218, LinkSendBlock
+extern sub_E19D5, sub_E1C19, OpenReplayFile, sub_E3174, sub_E3190, sub_E3410, sub_E4218, LinkSendBlock
 extern LinkReceiveBlock, WaitForOtherComputer, sub_F22ED, sub_F9496, sub_F94BC, sub_F9789, sub_F9869, AllocMemBlock
 extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, sub_FD954, sub_FDC68, FillRect, sub_FE180, sub_FE3D0, unk_166A8A
@@ -313,7 +313,7 @@ LoadReplay:
         mov dword [dword_1CAF9C], eax
         mov edx, eax
         mov eax, dword_1C1334
-        call sub_E1CC0
+        call OpenReplayFile
         call sub_DB6AC
         mov eax, dword [dword_1CAF9C]
         mov edx, 20h
@@ -3169,7 +3169,7 @@ OpenReplayIndex:
         mov edx, eax
         mov eax, dword_1C1334
         xor ebx, ebx
-        call sub_E1CC0
+        call OpenReplayFile
         mov edx, 4A78h
         mov eax, dword_1C1334
         call LinkSendBlock
@@ -3224,7 +3224,7 @@ OpenReplayIndex:
         mov edx, eax
         mov eax, dword_1C1334
         xor ebx, ebx
-        call sub_E1CC0
+        call OpenReplayFile
         mov edx, 4A78h
         mov eax, dword_1C1334
         call LinkSendBlock

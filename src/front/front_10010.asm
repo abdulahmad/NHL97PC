@@ -28,7 +28,7 @@ extern word_19E32A, word_19E949, word_19EA51, word_19EAB6, word_19EAC0, word_19E
 global SetupTeamForIntermission, clearteams, jpt_11318, loc_10000, sub_11328_26, sub_11328_4F, sub_11328_78, sub_11328_A6
 global forcepldata_E, sub_123A0_62, sub_123A0_81, GripLinkLibrary, sub_102F4, LoadGripLibrary, sub_1046C, LoadJoystickConfig
 global sub_10A68, sub_10CC8, sub_10FAC, sub_1120C, sub_11328, sub_114C4, forcepldata, sub_11574
-global sub_116B0, sub_11808, ResetBench, sub_11984, sub_119A8, setplayer, reenergizeteam, sub_11F74
+global sub_116B0, sub_11808, ResetBench, IsPlayoffGame, sub_119A8, setplayer, reenergizeteam, sub_11F74
 global sub_11FB4, sub_12024, sub_12334, sub_123A0, sub_12440, sub_124A4, setpersonel, sub_12970
 global sub_12A10, ClockTick, sub_12C2C, sub_12DE8, ReleaseBoxPlayers, unk_10003
 ;-----------------------------------------------------------------------------
@@ -2220,9 +2220,11 @@ ResetBench:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11984                                                       11984  97 PC
+; IsPlayoffGame                                   11984  97 PC, low confidence
+; Game mode check (dword_1AC814 bits 4-6 = 20h, or 10h with dword_1ACF46
+; set); clockcont_0 and the cup code use it
 ;-----------------------------------------------------------------------------
-sub_11984:
+IsPlayoffGame:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 20h

@@ -21,7 +21,7 @@ extern sub_83558, sub_835BC, sub_83850, NameIndexNew, NameIndexLoad, NameIndexSa
 extern NameIndexRemove, NameIndexPath, sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar
 extern sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E6AF, GetLangText, sub_9F671, sub_AB240, sub_AC6EB
 extern sub_AC73E, sub_DA7D6, sub_DCBB0, sub_DCC75, OpenLeagueFile, sub_DE5A3, sub_E036F, sub_E0415
-extern sub_E076B, sub_E0841, sub_E08E9, sub_E0D0F, sub_E0F85, sub_E19D5, sub_E1C19, sub_E1CC0
+extern sub_E076B, sub_E0841, sub_E08E9, sub_E0D0F, sub_E0F85, sub_E19D5, sub_E1C19, OpenReplayFile
 extern sub_E1D45, sub_E3410, sub_E341C, sub_E4218, LinkSendBlock, LinkReceiveBlock, sub_ED6C8, sub_EDDAC
 extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, sub_FCF84, DrawShape, CreateBitmap, SetDrawTarget
 extern sub_FDC68, sub_FE150, sub_FE180, tickcount, unk_165E4A, unk_16D7F4, unk_1ACB44, unk_1ACB49
@@ -690,7 +690,7 @@ PickIndexEntryScreen_4EE:
         mov edx, eax
         mov eax, dword_1C1334
         xor ebx, ebx
-        call sub_E1CC0
+        call OpenReplayFile
         mov edx, 4A78h
         mov eax, dword_1C1334
         call LinkSendBlock
@@ -2510,7 +2510,7 @@ sub_A12CD:
         mov dword [byte ebp-08h], eax
         mov edx, eax
         lea eax, [dword ebp-04BB0h]
-        call sub_E1CC0
+        call OpenReplayFile
 .33:
         mov edx, 4A78h
         lea eax, [dword ebp-04BB0h]
@@ -2559,7 +2559,7 @@ sub_A12CD:
         mov dword [byte ebp-08h], eax
         mov edx, eax
         lea eax, [dword ebp-04BB0h]
-        call sub_E1CC0
+        call OpenReplayFile
 .37:
         mov edx, 4A78h
         lea eax, [dword ebp-04BB0h]
