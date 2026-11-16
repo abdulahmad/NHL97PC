@@ -14,7 +14,7 @@ extern strncpy_, strnicmp_, FindShapeQuiet, GetPaletteEntries, DrawClippedPoly, 
 extern ClipTexPolyToNear, GetModelVertex, TransformModelParts, TransformModelPartsWith, UpdateModelParts, PolyCrossProduct, TexSpanCopy, ClipTexPolyLeft
 extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MatchColor, FillPolygon, FillRectColor, TileEdgeTable, ModelPartName
 global DrawTileEdgeLeft_24E, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip, DrawRinkFan, DrawRinkPolys
-global DrawRinkRing, RinkNoOpA, DrawRinkPrimFlat, DrawRinkPrimShaded, DrawRinkPrimTextured, RinkNoOpB, DrawRinkLineFlat, DrawRinkLineShaded
+global DrawRinkRing, RinkPrimSetupNone, DrawRinkPrimFlat, DrawRinkPrimShaded, DrawRinkPrimTextured, RinkPrimEndNone, DrawRinkLineFlat, DrawRinkLineShaded
 global DrawRinkLineTextured, DrawIceSpans, SetupTileSpans, DrawTileSpan, DrawTileEdgeLeft, DrawTileEdgeRight, DrawTileTexture, DrawTilePage
 global FindModelShapeByName, FindInstanceShape, BindModelShapes, UpdateModelInstance, UpdateModelPart, SetModelShape, SetModelShapeWith, SetModelPartName
 ;-----------------------------------------------------------------------------
@@ -394,10 +394,10 @@ DrawRinkRing:
         pop esi
         pop ebx
 ;-----------------------------------------------------------------------------
-; RinkNoOpA                                      10EA08  97 PC, low confidence
-; Does nothing (empty rink draw hook)
+; RinkPrimSetupNone                                      10EA08  97 PC, low confidence
+; Rink primitive set-up that does nothing (RinkPrimSetupFns, RinkPrimNoOpFns)
 ;-----------------------------------------------------------------------------
-RinkNoOpA:
+RinkPrimSetupNone:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
@@ -676,10 +676,10 @@ DrawRinkPrimTextured:
         pop ebx
         lea eax, [byte eax+00h]
 ;-----------------------------------------------------------------------------
-; RinkNoOpB                                      10ED0C  97 PC, low confidence
-; Does nothing (empty rink draw hook)
+; RinkPrimEndNone                                      10ED0C  97 PC, low confidence
+; Rink primitive end that does nothing (RinkPrimEndFns)
 ;-----------------------------------------------------------------------------
-RinkNoOpB:
+RinkPrimEndNone:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------

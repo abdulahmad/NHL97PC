@@ -1,0 +1,4 @@
+CamShot23D LoadShotAnims {confidence=medium} loads the shot animations from the puckh animation file
+CamShot23D_2B LoadShotAnims_2B {no_record} LoadShotAnims: load the poses by name
+RinkNoOpA RinkPrimSetupNone {confidence=low} rink primitive set-up that does nothing
+RinkNoOpB RinkPrimEndNone {confidence=low} rink primitive end that does nothing

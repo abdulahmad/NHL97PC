@@ -1006,7 +1006,7 @@ address,name,auto_name,source,confidence,evidence,file
 65742,LoadAnimByName,sub_65742,new,low,finds an animation by name and loads it,src/front/front_57324.asm
 657BF,ShotAnimFrames,sub_657BF,new,low,returns the shot animation frames for a shot type,src/front/front_57324.asm
 65830,LoadSkateAnims,sub_65830,new,medium,"InitAnimPoints: loads the ""skate"" animations (and ""stop"")",src/front/front_57324.asm
-6590A,CamShot23D,sub_6590A,96PC,medium,NHL96PC 603FF (similar 0.81): mnemonic similarity 0.81 over 16 instructions,src/front/front_57324.asm
+6590A,LoadShotAnims,sub_6590A,new,medium,loads the shot animations from the puckh animation file,src/front/front_57324.asm
 6593E,LoadActAnims,sub_6593E,new,medium,"InitAnimPoints: loads the ""pl_act"" animations",src/front/front_57324.asm
 6596B,LoadFallAnims,sub_6596B,new,medium,"InitAnimPoints: loads the ""pl_fall"" animations",src/front/front_57324.asm
 659C6,LoadInterferAnims,sub_659C6,new,medium,"InitAnimPoints: loads the ""interfer"" animations",src/front/front_57324.asm
@@ -2627,11 +2627,11 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 10E848,DrawRinkFan,sub_10E848,new,low,draws a fan of rink polygons,src/lib/ea/ea_shpi_03.asm
 10E8F8,DrawRinkPolys,sub_10E8F8,new,low,draws rink polygons,src/lib/ea/ea_shpi_03.asm
 10E960,DrawRinkRing,sub_10E960,new,low,draws a ring of rink polygons,src/lib/ea/ea_shpi_03.asm
-10EA08,RinkNoOpA,sub_10EA08,new,low,does nothing (empty rink draw hook),src/lib/ea/ea_shpi_03.asm
+10EA08,RinkPrimSetupNone,sub_10EA08,new,low,rink primitive set-up that does nothing,src/lib/ea/ea_shpi_03.asm
 10EA0C,DrawRinkPrimFlat,sub_10EA0C,new,low,rink primitive: flat polygon,src/lib/ea/ea_shpi_03.asm
 10EB0C,DrawRinkPrimShaded,sub_10EB0C,new,low,rink primitive: shaded polygon,src/lib/ea/ea_shpi_03.asm
 10EC0C,DrawRinkPrimTextured,sub_10EC0C,new,low,rink primitive: textured polygon,src/lib/ea/ea_shpi_03.asm
-10ED0C,RinkNoOpB,sub_10ED0C,new,low,does nothing (empty rink draw hook),src/lib/ea/ea_shpi_03.asm
+10ED0C,RinkPrimEndNone,sub_10ED0C,new,low,rink primitive end that does nothing,src/lib/ea/ea_shpi_03.asm
 10ED10,DrawRinkLineFlat,sub_10ED10,new,low,rink line primitive: flat,src/lib/ea/ea_shpi_03.asm
 10ED78,DrawRinkLineShaded,sub_10ED78,new,low,rink line primitive: shaded,src/lib/ea/ea_shpi_03.asm
 10EDE0,DrawRinkLineTextured,sub_10EDE0,new,low,rink line primitive: textured,src/lib/ea/ea_shpi_03.asm
@@ -8441,11 +8441,6 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 17075C,KbdCapsLock,byte_17075C,new,low,caps lock toggle,src/data/lib/watcom/watcom_clib_13_data_01.asm
 170760,KeyBufferMask,dword_170760,new,low,keyboard buffer index mask,src/data/lib/watcom/watcom_clib_13_data_01.asm
 170764,KeyStateTable,byte_170764,new,low,key down state per scan code,src/data/lib/watcom/watcom_clib_13_data_01.asm
-170781,KbdShiftDown,byte_170781,new,low,shift held,src/data/lib/watcom/watcom_clib_13_data_01.asm
-17078E,KbdCtrlDown,byte_17078E,new,low,control held,src/data/lib/watcom/watcom_clib_13_data_01.asm
-17079A,KbdAltDown,byte_17079A,new,low,alt held,src/data/lib/watcom/watcom_clib_13_data_01.asm
-17079C,KbdNumLock,byte_17079C,new,low,num lock toggle,src/data/lib/watcom/watcom_clib_13_data_01.asm
-1707B7,KbdScrollLock,byte_1707B7,new,low,scroll lock toggle,src/data/lib/watcom/watcom_clib_13_data_01.asm
 1707E4,SavedKbdVecOffset,dword_1707E4,new,low,previous keyboard interrupt offset,src/data/lib/watcom/watcom_clib_13_data_01.asm
 1707E8,SavedKbdVecSelector,word_1707E8,new,low,previous keyboard interrupt selector,src/data/lib/watcom/watcom_clib_13_data_01.asm
 1707EA,SavedInt16Offset,dword_1707EA,new,low,previous INT 16h offset,src/data/lib/watcom/watcom_clib_13_data_01.asm

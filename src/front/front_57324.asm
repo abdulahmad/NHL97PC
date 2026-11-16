@@ -197,7 +197,7 @@ global SkateBackwardMove_41, SkateBackwardMove_51, SkateBackwardMove_345, SkateB
 global TurnForwardMove_61, TurnForwardMove_71, TurnForwardMove_BC, TurnForwardMove_C2, GlideBackwardMove_23, GlideBackwardMove_2F, GlideBackwardMove_3B, GlideBackwardMove_47
 global GlideBackwardMove_53, TurnBackwardMove_31, TurnBackwardMove_41, TurnBackwardMove_51, TurnBackwardMove_61, TurnBackwardMove_71, TurnBackwardMove_BC, TurnBackwardMove_C2
 global LoadAnimData_228, ShotAnimFrames_10, ShotAnimFrames_1D, ShotAnimFrames_25, ShotAnimFrames_32, ShotAnimFrames_3F, ShotAnimFrames_4C, ShotAnimFrames_59
-global CamShot23D_2B, LoadGoalieAnimFile_167, LoadGoalieAnimFile_168, FightPunchMove_1B3, FightPunchMove_1B8, FightPunchMove_1BE, FightPunchMove_1C4, FightPunchMove_288
+global LoadShotAnims_2B, LoadGoalieAnimFile_167, LoadGoalieAnimFile_168, FightPunchMove_1B3, FightPunchMove_1B8, FightPunchMove_1BE, FightPunchMove_1C4, FightPunchMove_288
 global FightPunchMove_28D, FightPunchMove_293, FightPunchMove_299, StartFightPunch_86, StartFightPunch_8B, StartFightPunch_91, StartFightPunch_97, StartFightPunch_186
 global StartFightPunch_18B, StartFightPunch_191, StartFightPunch_197, StartFightBlock_86, StartFightBlock_8B, StartFightBlock_91, StartFightBlock_97, StartFightBlock_186
 global StartFightBlock_18B, StartFightBlock_191, StartFightBlock_197, BlockShotMove_471, BlockShotMove_481, BlockShotMove_63F, BlockShotMove_671, UpdateMovePose_31B
@@ -224,7 +224,7 @@ global PickStrideAnim, PickForwardTurn, PickBackwardTurn, GlideForwardMove, Limi
 global TurnStickPos, TurnForwardMove, StopSkidDistance, StopForwardMove, StandMove, SpeedTowardSpot, StartMoveAtSpeed, CrossoverMove
 global GoalieSlideMove, GoalieStanceMove, SlowSkateMove, GlideBackwardMove, TurnBackwardMove, StopBackwardMove, FaceoffPuckDrop, SetSkateSpeedFromRating
 global StartWhistleStop, UpdateScoreClockData, ResetClockData, UpdateGameDisplay, LoadAnimData, GetStopTable, LoadSkateAnimFile, LoadAnimByName
-global ShotAnimFrames, LoadSkateAnims, CamShot23D, LoadActAnims, LoadFallAnims, LoadInterferAnims, LoadGoalieAnimFile, LoadGoalieAnims
+global ShotAnimFrames, LoadSkateAnims, LoadShotAnims, LoadActAnims, LoadFallAnims, LoadInterferAnims, LoadGoalieAnimFile, LoadGoalieAnims
 global LoadRefSkateAnims, LoadRefCallAnims, LoadRefAmbiAnims, LoadFightAnims, LoadCupAnims, InitAnimPoints, FreeAnimTables, InitPlayerAnims
 global StickReach, PuckHeightAt, ObjectFramePos, TryStickTouch, PuckBounceOffPlayer, PlayPostSound, PuckHitsNet, PuckHitsBoards
 global PuckHitsGlass, NetCollisionPoint, PuckInNetDepth, PuckInNetWidth, PlayNetSound, CommentNetHit, PuckOffPost, PuckOffCrossbar
@@ -20329,11 +20329,11 @@ LoadSkateAnims:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; CamShot23D                                   6590A  96 PC, medium confidence
-; Cut-scene shot handler, record text 23Dh (view kind 9): queues an overlay
-; panel
+; LoadShotAnims                                   6590A  97 PC, medium confidence
+; Loads the shot animations from the puckh animation file into ShotAnimData
+; and their poses by name
 ;-----------------------------------------------------------------------------
-CamShot23D:
+LoadShotAnims:
         push ebx
         push ecx
         push edx
@@ -20345,7 +20345,7 @@ CamShot23D:
         push ShotAnimPoses
         mov edx, 19h
         mov dword [ShotAnimData], eax
-CamShot23D_2B:
+LoadShotAnims_2B:
         call LoadAnimByName
         pop edx
         pop ecx
@@ -20367,7 +20367,7 @@ LoadActAnims:
         push ActAnimFrames
         mov edx, 24h
         mov dword [ActAnimData], eax
-        jmp short CamShot23D_2B
+        jmp short LoadShotAnims_2B
 ;-----------------------------------------------------------------------------
 ; LoadFallAnims                                6596B  97 PC, medium confidence
 ; InitAnimPoints: loads the "pl_fall" animations
@@ -20418,7 +20418,7 @@ LoadInterferAnims:
         push InterferAnimFrames
         mov edx, 13h
         mov dword [InterferAnimData], eax
-        jmp near CamShot23D_2B
+        jmp near LoadShotAnims_2B
 ;-----------------------------------------------------------------------------
 ; LoadGoalieAnimFile                              659F6  97 PC, low confidence
 ; Loads the goalie animation file
@@ -20621,7 +20621,7 @@ LoadRefSkateAnims:
         push RefSkateAnimFrames
         mov edx, 3Ch
         mov dword [RefSkateAnimData], eax
-        jmp near CamShot23D_2B
+        jmp near LoadShotAnims_2B
 ;-----------------------------------------------------------------------------
 ; LoadRefCallAnims                             65C2D  97 PC, medium confidence
 ; InitAnimPoints: loads the "refcalls" animations
@@ -20638,7 +20638,7 @@ LoadRefCallAnims:
         push RefCallAnimFrames
         mov edx, 0Fh
         mov dword [RefCallAnimData], eax
-        jmp near CamShot23D_2B
+        jmp near LoadShotAnims_2B
 ;-----------------------------------------------------------------------------
 ; LoadRefAmbiAnims                             65C5D  97 PC, medium confidence
 ; InitAnimPoints: loads the "refambi" animations
@@ -20655,7 +20655,7 @@ LoadRefAmbiAnims:
         push RefAmbiAnimFrames
         mov edx, 6
         mov dword [RefAmbiAnimData], eax
-        jmp near CamShot23D_2B
+        jmp near LoadShotAnims_2B
 ;-----------------------------------------------------------------------------
 ; LoadFightAnims                               65C8D  97 PC, medium confidence
 ; InitAnimPoints: loads the "fight" animations
@@ -20672,7 +20672,7 @@ LoadFightAnims:
         push FightAnimFrames
         mov edx, 1Fh
         mov dword [FightAnimData], eax
-        jmp near CamShot23D_2B
+        jmp near LoadShotAnims_2B
 ;-----------------------------------------------------------------------------
 ; LoadCupAnims                                 65CBD  97 PC, medium confidence
 ; Loads the "cup" animations (Stanley Cup presentation, from clockcont_0)
@@ -20689,7 +20689,7 @@ LoadCupAnims:
         push CupAnimFrames
         mov edx, 6
         mov dword [CupAnimData], eax
-        jmp near CamShot23D_2B
+        jmp near LoadShotAnims_2B
 ;-----------------------------------------------------------------------------
 ; InitAnimPoints                                  65CED  97 PC, low confidence
 ; Looks up the animation attachment points (puck, stickheel, origin, chin,
@@ -20746,7 +20746,7 @@ InitAnimPoints:
         mov eax, str_ANIMSVIV
         call SetArtArchive
         call LoadSkateAnims
-        call CamShot23D
+        call LoadShotAnims
         call LoadActAnims
         call LoadFallAnims
         call LoadInterferAnims

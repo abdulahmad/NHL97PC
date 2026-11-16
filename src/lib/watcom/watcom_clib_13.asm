@@ -11,7 +11,7 @@ extern _curbrk, _dynend, _mbptov_, _mbsdec_, _mbsnbcnt_, _mbsnccnt_, _mbsncpy_, 
 extern _nfree_, _nmalloc_, _nmsize_, _osmajor, _osminor, _psp, _searchenv_, str_PRIMLIST
 extern str_4db, str_DxDxD, str_CmnFrateC, str_FramerateTIMERHZNOTSET, str_Rate2dDAvg2dDD, str_TGV, str_MBRAM2, str_MBDOS
 extern str_PATH, str_DOS4GWEXE, str_CS3, str_0123456789abcdef, str_Null, str_0123456789ABCDEF, str_FILESLINED, ScreenBitsPerPixel
-extern IdentityRemap, KbdCapsLock, KeyStateTable, KbdShiftDown, KbdCtrlDown, KbdAltDown, KbdNumLock, KbdScrollLock
+extern IdentityRemap, KbdCapsLock, KeyStateTable
 extern KbdPrefixByte, KbdInsertMode, KbdPauseState, ScanToAscii, ScanToAsciiShift, ScanToAsciiCaps, ScanToAsciiCtrl, ScanToAsciiCapsShift
 extern ShadeTable, __MBCSTable, VideoCodeLengths, MemPoolEnd, MemPoolBase, MemPoolSize, TimerTicks, GraphicsModeSet
 extern MousePresent, ViewScreenWidth, ViewScreenHeight, MenuScreenBitmap, ScreenModeWidth, ScreenModeHeight, str_D_UpdateFrameRate, MessageBoxActive
@@ -5973,13 +5973,13 @@ KeyboardISR:
         je short .10
         cmp ebx, byte 45h
         je short .11
-        test byte [KbdNumLock], 1
+        test byte [KeyStateTable+38h], 1
         jne near .15
-        test byte [KbdShiftDown], 1
+        test byte [KeyStateTable+1Dh], 1
         jne near .14
-        test byte [KbdCtrlDown], 1
+        test byte [KeyStateTable+2Ah], 1
         jne short .13
-        test byte [KbdAltDown], 1
+        test byte [KeyStateTable+36h], 1
         jne short .13
         test byte [KbdCapsLock], 1
         jne near .17
@@ -6033,7 +6033,7 @@ KeyboardISR:
         jne near .7
         jmp short .19
 .15:
-        test byte [KbdShiftDown], 1
+        test byte [KeyStateTable+1Dh], 1
         jne short .18
 .16:
         mov al, byte [dword ebx+ScanToAsciiCapsShift]
@@ -6042,7 +6042,7 @@ KeyboardISR:
         mov al, byte [dword ebx+ScanToAsciiCaps]
         jmp near .7
 .18:
-        test byte [KbdScrollLock], 1
+        test byte [KeyStateTable+53h], 1
         je short .16
 .19:
         cmp dword [KbdHandlerInstalled], byte 0
@@ -6142,8 +6142,8 @@ Int16Service:
         ret
 .4:
         LD xor, eax, eax
-        mov al, byte [KbdCtrlDown]
-        or al, byte [KbdAltDown]
+        mov al, byte [KeyStateTable+2Ah]
+        or al, byte [KeyStateTable+36h]
         and al, 1
         LD or, eax, eax
         ret

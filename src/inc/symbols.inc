@@ -1726,11 +1726,11 @@
 ;  10E848  DrawRinkFan                              lib/ea/ea_shpi_03.asm                        1
 ;  10E8F8  DrawRinkPolys                            lib/ea/ea_shpi_03.asm                        2
 ;  10E960  DrawRinkRing                             lib/ea/ea_shpi_03.asm                        1
-;  10EA08  RinkNoOpA                                lib/ea/ea_shpi_03.asm                        1
+;  10EA08  RinkPrimSetupNone                        lib/ea/ea_shpi_03.asm                        1
 ;  10EA0C  DrawRinkPrimFlat                         lib/ea/ea_shpi_03.asm                        1
 ;  10EB0C  DrawRinkPrimShaded                       lib/ea/ea_shpi_03.asm                        1
 ;  10EC0C  DrawRinkPrimTextured                     lib/ea/ea_shpi_03.asm                        1
-;  10ED0C  RinkNoOpB                                lib/ea/ea_shpi_03.asm                        1
+;  10ED0C  RinkPrimEndNone                          lib/ea/ea_shpi_03.asm                        1
 ;  10ED10  DrawRinkLineFlat                         lib/ea/ea_shpi_03.asm                        2
 ;  10ED78  DrawRinkLineShaded                       lib/ea/ea_shpi_03.asm                        1
 ;  10EDE0  DrawRinkLineTextured                     lib/ea/ea_shpi_03.asm                        1
@@ -7253,11 +7253,6 @@
 ;  17075C  KbdCapsLock                              data/lib/watcom/watcom_clib_13_data_01.asm   1
 ;  170760  KeyBufferMask                            data/lib/watcom/watcom_clib_13_data_01.asm   1
 ;  170764  KeyStateTable                            data/lib/watcom/watcom_clib_13_data_01.asm   1
-;  170781  KbdShiftDown                             data/lib/watcom/watcom_clib_13_data_01.asm   1
-;  17078E  KbdCtrlDown                              data/lib/watcom/watcom_clib_13_data_01.asm   1
-;  17079A  KbdAltDown                               data/lib/watcom/watcom_clib_13_data_01.asm   1
-;  17079C  KbdNumLock                               data/lib/watcom/watcom_clib_13_data_01.asm   1
-;  1707B7  KbdScrollLock                            data/lib/watcom/watcom_clib_13_data_01.asm   1
 ;  1707E4  SavedKbdVecOffset                        data/lib/watcom/watcom_clib_13_data_01.asm   1
 ;  1707E8  SavedKbdVecSelector                      data/lib/watcom/watcom_clib_13_data_01.asm   1
 ;  1707EA  SavedInt16Offset                         data/lib/watcom/watcom_clib_13_data_01.asm   1

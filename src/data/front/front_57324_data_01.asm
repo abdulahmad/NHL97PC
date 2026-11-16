@@ -1544,7 +1544,7 @@ str_Stop:                                       ; string "stop"; used by LoadSka
         db 073h,074h,06Fh,070h,00h
 F32_0p5_LoadSkateAnims:                         ; float constant 0.5; used by LoadSkateAnims
         db 00h,00h,00h,03Fh
-str_Puckh:                                      ; string "puckh"; used by CamShot23D
+str_Puckh:                                      ; string "puckh"; used by LoadShotAnims
         db 070h,075h,063h,06Bh,068h,00h
 str_PlAct:                                      ; string "pl_act"; used by LoadActAnims
         db 070h,06Ch,05Fh,061h,063h,074h,00h

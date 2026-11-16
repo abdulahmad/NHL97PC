@@ -82,7 +82,7 @@ SkateAnimStops:                                 ; skate animation stops; used by
         resb 24
 SkateAnimFrames:                                ; skate animation frames; used by LoadSkateAnims
         resb 1136
-ShotAnimPoses:                                  ; shot animation frames; used by CamShot23D
+ShotAnimPoses:                                  ; shot animation frames; used by LoadShotAnims
         resb 1400
 ActAnimFrames:                                  ; act animation frames; used by LoadActAnims
         resb 112
@@ -148,7 +148,7 @@ SkateAnimCount:                                 ; skate animations loaded; used 
         resb 4
 SkateAnimIndex:                                 ; skate animation index; used by LoadSkateAnims
         resb 84
-ShotAnimIndex:                                  ; shot animation index; used by CamShot23D
+ShotAnimIndex:                                  ; shot animation index; used by LoadShotAnims
         resb 100
 ActAnimIndex:                                   ; act animation index; used by LoadActAnims
         resb 8

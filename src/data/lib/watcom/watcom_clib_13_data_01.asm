@@ -6,7 +6,7 @@ bits 32
 section s_1706E0 progbits alloc noexec write align=1
 extern __null_int23_exit_, FixedSinCos_70, SerialISR_9, SerialISR_12, SerialISR_1B, _dos_getdiskfree__38, BlitRowRemap8, BlitRowKey16
 extern BlitRowKey24, BlitRowKey32, BiosKeyCall, SerialISR, CopyPixels8, CopyPixels16, CopyPixels24, CopyPixels32
-global str_FILESLINED, KbdCapsLock, KeyStateTable, KbdShiftDown, KbdCtrlDown, KbdAltDown, KbdNumLock, KbdScrollLock
+global str_FILESLINED, KbdCapsLock, KeyStateTable
 global KbdPrefixByte, KbdInsertMode, KbdPauseState, ScanToAscii, ScanToAsciiShift, ScanToAsciiCaps, ScanToAsciiCtrl, ScanToAsciiCapsShift
 global ShadeTable, TintByte, TintTable, KeyedBlitState, FpuFlags, BiosKeyFunc, KbdHandlerInstalled, KeyBuffer
 global KeyBufferHead, KeyBufferTail, KeyBufferMask, SavedKbdVecOffset, SavedInt16Offset, SavedRealKbdOffset, AssertLine, AssertFileName
@@ -53,20 +53,16 @@ KbdCapsLock:                                    ; caps lock toggle; used by Keyb
 KeyBufferMask:                                  ; keyboard buffer index mask; used by Int16Service,
                                                 ; KeyboardISR
         db 01h,00h,00h,00h
-KeyStateTable:                                  ; key down state per scan code; used by
+KeyStateTable:                                  ; key down state per scan code (+1Dh Ctrl, +2Ah and +36h
+                                                ; Shift, +38h Alt, +53h Del); used by
                                                 ; InstallKeyboardHandler, IsKeyDown, KeyboardISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-KbdShiftDown:                                   ; shift held; used by KeyboardISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-KbdCtrlDown:                                    ; control held; used by Int16Service, KeyboardISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-KbdAltDown:                                     ; alt held; used by Int16Service, KeyboardISR
         db 00h,00h
-KbdNumLock:                                     ; num lock toggle; used by KeyboardISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-KbdScrollLock:                                  ; scroll lock toggle; used by KeyboardISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h

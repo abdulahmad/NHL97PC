@@ -1,0 +1,5 @@
+byte_170781 KeyStateTable+1Dh folded: Ctrl key state
+byte_17078E KeyStateTable+2Ah folded: left Shift key state
+byte_17079A KeyStateTable+36h folded: right Shift key state
+byte_17079C KeyStateTable+38h folded: Alt key state
+byte_1707B7 KeyStateTable+53h folded: Del key state
