@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_16875E progbits alloc noexec write align=1
-extern asc_160210, DrawPlayerNamePanel_16F, sub_16BF9, DrawVideoModePanel, DrawGoalScorerPanel, DrawPlayerNamePanel, sub_17639, sub_1771B
-extern sub_17818, DrawClockPanel, sub_17EB6, sub_1870B, sub_1882A, sub_18958, sub_18B81, unk_160208
+extern asc_160210, DrawSpecialTeamsPanel, sub_16BF9, DrawVideoModePanel, DrawPenaltyPanel, DrawPenaltyShotPanel, DrawInjuryPanel, DrawPeriodPanel
+extern DrawGoalScorerPanel, DrawClockPanel, sub_17EB6, sub_1870B, sub_1882A, sub_18958, sub_18B81, unk_160208
 extern unk_160218, unk_160220, unk_160228, unk_160230, unk_160238, unk_160240, unk_160248, unk_160250
 extern unk_160258, unk_160260, unk_160268, unk_160270, unk_160278, unk_160280, unk_160288, unk_160290
 extern unk_160298, unk_1602A0, unk_1602A8, unk_1602B0, unk_1602B8, unk_1602C0, unk_1602C8, unk_1602D0
@@ -22,17 +22,17 @@ off_168772:
         dd DrawVideoModePanel
 off_16877E:
         dd DrawClockPanel
+        dd DrawPenaltyPanel
         dd DrawGoalScorerPanel
-        dd sub_17818
         db 00h,00h,00h,00h
         dd sub_18958
         dd sub_18B81
         dd sub_1870B
         dd sub_1882A
-        dd DrawPlayerNamePanel
-        dd DrawPlayerNamePanel_16F
-        dd sub_17639
-        dd sub_1771B
+        dd DrawPenaltyShotPanel
+        dd DrawSpecialTeamsPanel
+        dd DrawInjuryPanel
+        dd DrawPeriodPanel
         dd sub_17EB6
         db 00h,00h
 byte_1687B4:

@@ -37,9 +37,14 @@ address,name,auto_name,source,confidence,evidence,file
 1603A,ApplyDisplayFlags,sub_1603A,new,low,"sets the doubled / interlaced display flags (dword_19CD30, dword_19CD34) in the screen record",src/engine/engine_15AC2.asm
 16090,RemoveOverlayPanel,sub_16090,new,medium,(kind): takes the queued panels of a kind out of the panel queue,src/engine/engine_15AC2.asm
 16D61,DrawVideoModePanel,sub_16D61,new,medium,"the screen mode panel (""%d x %d"", Doubled / Interlaced / Normal)",src/engine/engine_15AC2.asm
-16ED0,DrawGoalScorerPanel,sub_16ED0,new,low,"the ""%s - #%d %s %s"" panel with ""%s %s"" assist lines (team, number, name)",src/engine/engine_15AC2.asm
-17158,DrawPlayerNamePanel,sub_17158,96PC,low,"a player name panel (""#%d %s %s""), like 96 PC DrawPlayerNamePanel",src/engine/engine_15AC2.asm
+16ED0,DrawPenaltyPanel,sub_16ED0,new,medium,"overlay panel kind 1: the penalty call (game text ""Penalty"", ""for"", the infraction, ""2 Minutes"" / ""5 Minute Major"", ""and a Game Misconduct"")",src/engine/engine_15AC2.asm
+17158,DrawPenaltyShotPanel,sub_17158,new,medium,"overlay panel kind 8: ""Penalty Shot"", the shooter ""against"" the goalie (was the 96 PC carry DrawPlayerNamePanel)",src/engine/engine_15AC2.asm
+172C7,DrawSpecialTeamsPanel,,new,medium,"overlay panel kind 9: specialty teams tonight / this season, power play and penalty killing (game text 33h-37h)",src/engine/engine_15AC2.asm
+17639,DrawInjuryPanel,sub_17639,new,medium,"overlay panel kind 10: ""Injury"" with ""#%d %s %s""",src/engine/engine_15AC2.asm
+1771B,DrawPeriodPanel,sub_1771B,new,medium,"overlay panel kind 11: ""Period"" with ""%s %s"" / ""%s   %d""",src/engine/engine_15AC2.asm
+17818,DrawGoalScorerPanel,sub_17818,new,medium,"overlay panel kind 2: the goal scorer (""Goal"", ""Shorthanded"", ""Empty Net"", ""Unassisted""; ""%s - #%d %c. %s"")",src/engine/engine_15AC2.asm
 17AD1,DrawGameClock,sub_17AD1,96PC,medium,"96 PC DrawGameClock: the game clock ""%2d:%02d"", or ""%2d.%01d"" under a minute",src/engine/engine_15AC2.asm
+17C2C,DrawPowerPlayClock,sub_17C2C,new,low,"draws the ""Power Play"" countdown next to the game clock (""%2d:%02d"")",src/engine/engine_15AC2.asm
 17DC0,DrawClockPanel,sub_17DC0,96PC,low,the clock panel (overlay kind table off_16877E entry 0): removes panels 300h / 700h and draws the clock (DrawGameClock),src/engine/engine_15AC2.asm
 18D8A,QueueOverlayPanel,sub_18D8A,96PC,medium,"96 PC QueueOverlayPanel (kind, ticks, ...): puts a panel in a free slot of the 10-panel queue (unk_19CF8C, 0Ch each)",src/engine/engine_15AC2.asm
 1900F,DrawGameOverlays,sub_1900F,96PC,medium,"96 PC DrawGameOverlays: from GameLoop, the overlay panels of the frame (clock, queued panels)",src/engine/engine_15AC2.asm
