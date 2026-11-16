@@ -25,7 +25,7 @@ extern sub_45BEC_1E49, sub_45BEC_1ECB, sub_45BEC_1F28, sub_45BEC_1F56, sub_45BEC
 extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, strcmp_, strcpy_
 extern sub_100940, sub_100A68, sub_101429, sub_106036, sub_106D08, sub_1070B0, sub_1086BF, sub_10884C
 extern sub_109775, sub_1097F0, sub_42550, sub_425CC, sub_42910, sub_42960, sub_42C38, sub_42D38
-extern OpenSpeechBanks, sub_431E8, LoadTeamSpeech, MakeDataPath, sub_4AE14, sub_4B074, sub_4B108, sub_7D539
+extern OpenSpeechBanks, sub_431E8, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7D539
 extern sub_7F0D8, sub_7F5B8, sub_81678, sub_83314, sub_834EC, sub_83558, sub_842F4, sub_8BE60
 extern sub_8BEF8, sub_E2378, FileOpen, FileSeek, FileReadRecord, FileWriteRecord, FileClose, sub_E24F0
 extern sub_E341C, sub_FAA64, sub_FAAB4, sub_FAF34, sub_FC330, sub_FC410, sub_FC510, tickcount
@@ -977,11 +977,11 @@ sub_43944:
         je near .54
         mov eax, 2Eh
         xor edx, edx
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1C5DE4], eax
         xor edx, edx
         mov eax, 2Fh
-        call sub_4B074
+        call LoadDataFileLib
         push asc_160DCC
         mov ebx, dword [dword_1C5DE4]
         push ebx
@@ -1094,11 +1094,11 @@ sub_43944:
         call sub_83314
         mov edx, 4
         lea eax, [dword esp+0B4h]
-        call sub_4AE14
+        call MakeDirPath
         mov edx, 4
         lea eax, [dword esp+0104h]
         xor ebx, ebx
-        call sub_4AE14
+        call MakeDirPath
         mov ebx, sub_834EC
         lea edx, [dword esp+0104h]
         lea eax, [dword esp+0B4h]

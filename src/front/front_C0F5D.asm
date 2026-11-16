@@ -16,11 +16,11 @@ extern dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dwo
 extern dword_1CB100, dword_1CB104, dword_1CBB88, off_16D5F7, sprintf_, strcat_, strcpy_, strlen_
 extern sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101EAC, sub_102C10, sub_102C30
 extern sub_106D80, sub_106F64, sub_106F94, sub_11A318, sub_11A350, sub_11BDC0, sub_13C164, sub_415A0
-extern sub_415F8, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC, sub_4B108, sub_4B19C, sub_7DA28
-extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F028, sub_7F0D8
-extern sub_7F16C, sub_7F29C, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_83C08
+extern sub_415F8, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC, LoadDataFile, OpenDataLibrary, sub_7DA28
+extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F0D8
+extern DrawTextAligned, sub_7F29C, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC
-extern sub_8DF1F, sub_8E7E0, sub_C48A2, sub_CA44C, sub_D0098, sub_E341C, sub_E4218, sub_E4230
+extern sub_8DF1F, GetLangText, sub_C48A2, sub_CA44C, sub_D0098, sub_E341C, sub_E4218, sub_E4230
 extern sub_E77B1, sub_F0339, sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCEEC, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C
 global jpt_C36A2, sub_C0F5D_60E, sub_C1577_73D, sub_C1577_73E, sub_C2633_42, sub_C36CA_A25, sub_C36CA_A36, sub_C36CA_A93
@@ -76,14 +76,14 @@ sub_C0F5D:
         call sub_419B0
         call sub_419B8
         mov eax, 26h
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1CB104], eax
         mov eax, 3
         xor edx, edx
         call sub_419B0
         call sub_419B8
         mov eax, 27h
-        call sub_4B108
+        call LoadDataFile
         push byte 0
         push dword 1E0h
         push dword 280h
@@ -1692,7 +1692,7 @@ sub_C250A:
         enter 50h, 0
         mov edx, eax
         mov eax, 0F5h
-        call sub_4B19C
+        call OpenDataLibrary
         mov eax, edx
         mov edx, dword [nosplit eax*4+off_16D5F7]
         lea eax, [byte ebp-050h]
@@ -1943,7 +1943,7 @@ sub_C271D:
 .4:
         mov eax, 13h
 .5:
-        call sub_8E7E0
+        call GetLangText
         pop edx
         ret
 .6:
@@ -2074,7 +2074,7 @@ sub_C27D8:
         push dword [dword eax+dword_1CB014]
         push byte 2
 .5:
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         inc dword [byte ebp-04h]
 .6:
@@ -2161,7 +2161,7 @@ sub_C27D8:
         push dword [dword eax+dword_1CB014]
         push byte 2
 .11:
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         inc dword [byte ebp-04h]
 .12:
@@ -3068,7 +3068,7 @@ sub_C3594:
 .4:
         mov eax, 252h
         mov edx, 1Ah
-        call sub_8E7E0
+        call GetLangText
         call sub_E4230
         jmp short .8
 .5:
@@ -3317,12 +3317,12 @@ sub_C36CA:
         xor eax, eax
         call sub_7F29C
         mov eax, 1F9h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push byte 5
         push byte 19h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         mov eax, dword [byte ebp-02Ch]
         add esp, byte 10h
         push dword [byte eax+ebp-038h]
@@ -3340,13 +3340,13 @@ sub_C36CA:
         xor eax, eax
         call sub_7F29C
         mov eax, 1FAh
-        call sub_8E7E0
+        call GetLangText
         push eax
         push byte 5
         push byte 19h
         push byte 1
         inc esi
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
 .4:
         cmp si, byte 2
@@ -3377,7 +3377,7 @@ sub_C36CA:
         mov ecx, 21Ch
         mov eax, dword [byte ebp-02Ch]
         add esi, byte 19h
-        call sub_7F028
+        call SetRegionRect
 .6:
         cmp si, 0D7h
         jle short .5
@@ -3613,7 +3613,7 @@ sub_C36CA:
         add esp, byte 4
         call sub_7F0D8
         mov eax, 1F0h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, dword [byte ebx+02Ch]
         mov ecx, 6Eh
@@ -3625,10 +3625,10 @@ sub_C36CA:
         sub edx, eax
         push edx
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 1F1h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, dword [byte ebx+02Ch]
         mov ecx, 87h
@@ -3640,10 +3640,10 @@ sub_C36CA:
         sub edx, eax
         push edx
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 1F2h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, dword [byte ebx+02Ch]
         mov ecx, 0A0h
@@ -3655,10 +3655,10 @@ sub_C36CA:
         sub edx, eax
         push edx
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 1F3h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, dword [byte ebx+02Ch]
         mov ecx, 0B9h
@@ -3670,10 +3670,10 @@ sub_C36CA:
         sub edx, eax
         push edx
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 1F4h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, dword [byte ebx+02Ch]
         mov ecx, 0D2h
@@ -3685,10 +3685,10 @@ sub_C36CA:
         sub edx, eax
         push edx
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 1F5h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, dword [byte ebx+02Ch]
         mov ecx, 0EBh
@@ -3700,10 +3700,10 @@ sub_C36CA:
         sub edx, eax
         push edx
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 1F6h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, dword [byte ebx+02Ch]
         mov ebx, 104h
@@ -3716,7 +3716,7 @@ sub_C36CA:
         push edx
         push byte 0
         mov esi, 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .23
 .21:

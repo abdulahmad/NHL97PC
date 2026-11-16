@@ -34,10 +34,10 @@ extern sub_11FB11, sub_12A10, sub_13C164, ChangeViewSize, ApplyDisplayFlags, Rem
 extern sub_18F67, sub_1BC18, sub_1C854, sub_1C9F0, sub_1D09C, sub_3CD70, sub_3CE58, sub_3CF68
 extern sub_3CFB0, sub_3D020, sub_3E480, sub_3E5F0, InitGameAudio, sub_41670, sub_419B0, sub_419B8
 extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, sub_41DD8, ArenaFileName, sub_423B4
-extern PaEvent, sub_4A280, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00, sub_4BCB4
-extern sub_4C0C4, sub_5B4D4, sub_5BE74, sub_6539C, sub_76D3C, InitFrontEnd, FreeFrontEnd, sub_7F028
-extern sub_7F0D8, sub_7F16C, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
-extern sub_8E790, sub_8E7E0, sub_8E840, EditLinesScreen, GameStatsScreen, sub_AADEF, sub_AB0A6, sub_BD62C
+extern PaEvent, sub_4A280, LoadDataFile, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00, sub_4BCB4
+extern sub_4C0C4, sub_5B4D4, sub_5BE74, sub_6539C, sub_76D3C, InitFrontEnd, FreeFrontEnd, SetRegionRect
+extern sub_7F0D8, DrawTextAligned, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
+extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, sub_AADEF, sub_AB0A6, sub_BD62C
 extern FadePalette, FadeOut, sub_DA7EB, sub_DB6AC, sub_E341C, sub_E3798, sub_E4218, sub_E4230
 extern sub_E4908, sub_F1FF8, sub_FAF34, sub_FC330, sub_FC4BC, sub_FCC40, sub_FCD90, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC
@@ -66,7 +66,7 @@ sub_F20A1:
         call sub_419B0
         call sub_419B8
         mov eax, 2Eh
-        call sub_4B108
+        call LoadDataFile
         push byte 20h
         push asc_167A29
         push eax
@@ -460,7 +460,7 @@ sub_F23BF:
         push byte 6
 .7:
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         call sub_1013FC
         leave
@@ -619,7 +619,7 @@ sub_F2544:
         push byte 6
 .12:
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         inc ebx
 .13:
@@ -1009,7 +1009,7 @@ sub_F2ADB:
         push eax
         mov dword [byte ebp-014h], eax
         mov eax, 3Ch
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-050h]
         fmul dword [dword_167A85]
         fld dword [byte ebp-08h]
@@ -1053,7 +1053,7 @@ sub_F2ADB:
         push dword [byte ebp-08h]
         push dword [byte ebp-014h]
         mov eax, 38h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-050h]
         fmul dword [dword_167A89]
         push eax
@@ -1089,7 +1089,7 @@ sub_F2ADB:
         mov eax, 3Bh
         push dword [byte ebp-014h]
         mov ebx, dword [byte ebp-0Ch]
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-028h]
         push eax
         call __CHP
@@ -1106,7 +1106,7 @@ sub_F2ADB:
         mov ebx, dword [byte ebp-0Ch]
         push dword [byte ebp-014h]
         mov edx, dword [byte ebp-02Ch]
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-030h]
         push eax
         call __CHP
@@ -1127,7 +1127,7 @@ sub_F2ADB:
         mov eax, 90h
         push dword [byte ebp-014h]
         mov ebx, dword [byte ebp-0Ch]
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-028h]
         push eax
         call __CHP
@@ -1144,7 +1144,7 @@ sub_F2ADB:
         mov ebx, dword [byte ebp-0Ch]
         push dword [byte ebp-014h]
         mov edx, dword [byte ebp-02Ch]
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-030h]
         push eax
         call __CHP
@@ -1162,7 +1162,7 @@ sub_F2ADB:
         mov ebx, dword [byte ebp-0Ch]
         push dword [byte ebp-014h]
         mov edx, dword [byte ebp-034h]
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-024h]
         push eax
         call __CHP
@@ -1179,7 +1179,7 @@ sub_F2ADB:
         push eax
         mov dword [byte ebp-020h], eax
         mov eax, 39h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-050h]
         fmul dword [dword_167A85]
         fld dword [byte ebp-08h]
@@ -1223,7 +1223,7 @@ sub_F2ADB:
         push dword [byte ebp-08h]
         push dword [byte ebp-020h]
         mov eax, 3Ah
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-050h]
         fmul dword [dword_167AA5]
         push eax
@@ -1241,7 +1241,7 @@ sub_F2ADB:
         push dword [byte ebp-08h]
         push dword [byte ebp-020h]
         mov eax, 64h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-050h]
         fmul dword [dword_167AA9]
         push eax
@@ -1259,7 +1259,7 @@ sub_F2ADB:
         push dword [byte ebp-08h]
         push dword [byte ebp-020h]
         mov eax, 3Eh
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-050h]
         fmul dword [dword_167AAD]
         push eax
@@ -1294,7 +1294,7 @@ sub_F2ADB:
         call sub_419B0
         call sub_419B8
         mov eax, 100h
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1C5DE4], eax
         cmp word [dword ebp-0118h], byte 2
         je near .14
@@ -1429,11 +1429,11 @@ sub_F30A0:
 ; sub_F30D7                                                       F30D7  97 PC
 ;-----------------------------------------------------------------------------
 sub_F30D7:
-        call sub_8E840
+        call FreeLangText
         mov eax, dword [dword_1AC814]
         shl eax, 1Ch
         shr eax, 1Eh
-        call sub_8E790
+        call LoadLangTextB
         jmp near sub_8BEF8
 ;-----------------------------------------------------------------------------
 ; sub_F30F1                                                       F30F1  97 PC
@@ -1609,7 +1609,7 @@ sub_F30F1:
         mov ebx, dword [byte ebp-03Ch]
         call sub_F22ED
         mov eax, 5Ah
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-02Ch]
         fmul dword [dword_167B05]
         jmp short .10
@@ -1634,7 +1634,7 @@ sub_F30F1:
         mov ebx, dword [byte ebp-03Ch]
         call sub_F22ED
         mov eax, 5Ah
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-02Ch]
         fmul dword [dword_167B01]
 .10:
@@ -1647,7 +1647,7 @@ sub_F30F1:
         fistp dword [byte ebp-03Ch]
         push dword [byte ebp-03Ch]
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         call sub_13C164
         cmp di, byte 2
@@ -1680,7 +1680,7 @@ sub_F30F1:
         push eax
         mov dword [byte ebp-038h], eax
         mov eax, 5Ch
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-018h]
         fmul dword [dword_167B09]
         fld dword [byte ebp-02Ch]
@@ -1731,7 +1731,7 @@ sub_F30F1:
         push dword [byte ebp-02Ch]
         push dword [byte ebp-038h]
         mov eax, 5Bh
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-018h]
         fmul dword [dword_167B15]
         mov ecx, dword [byte ebp-030h]
@@ -1749,7 +1749,7 @@ sub_F30F1:
         push dword [byte ebp-02Ch]
         push dword [byte ebp-038h]
         mov eax, 73h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-018h]
         fmul dword [dword_167B19]
         mov ecx, dword [byte ebp-030h]
@@ -1800,7 +1800,7 @@ sub_F30F1:
         mov ebx, dword [dword eax+ebp-01F2h]
         mov eax, dword [byte ebp-014h]
         inc dword [byte ebp-08h]
-        call sub_7F028
+        call SetRegionRect
 .14:
         cmp word [byte ebp-08h], byte 3
         jl near .13
@@ -2026,7 +2026,7 @@ sub_F36AC:
         call sub_FCC40
         add esp, byte 4
         mov eax, 71h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-018h]
         fmul dword [dword_167B4D]
         jmp short .9
@@ -2051,7 +2051,7 @@ sub_F36AC:
         mov ebx, dword [byte ebp-03Ch]
         call sub_F22ED
         mov eax, 71h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-018h]
         fmul dword [dword_167B49]
 .9:
@@ -2064,10 +2064,10 @@ sub_F36AC:
         fistp dword [byte ebp-038h]
         push dword [byte ebp-038h]
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 72h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-024h]
         push eax
         call __CHP
@@ -2075,7 +2075,7 @@ sub_F36AC:
         push dword [byte ebp-03Ch]
         push dword [byte ebp-038h]
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         call sub_13C164
         cmp word [dword ebp-0220h], byte 2
@@ -2106,7 +2106,7 @@ sub_F36AC:
         push eax
         mov dword [byte ebp-038h], eax
         mov eax, 70h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-02Ch]
         fmul dword [dword_167B51]
         fld dword [byte ebp-018h]
@@ -2156,7 +2156,7 @@ sub_F36AC:
         push dword [byte ebp-018h]
         push dword [byte ebp-038h]
         mov eax, 6Fh
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-018h]
         fmul dword [dword_167B61]
         mov ecx, dword [byte ebp-030h]
@@ -2216,7 +2216,7 @@ sub_F36AC:
         mov ebx, dword [dword eax+ebp-01F2h]
         mov eax, dword [byte ebp-014h]
         inc dword [byte ebp-08h]
-        call sub_7F028
+        call SetRegionRect
 .13:
         cmp word [byte ebp-08h], byte 2
         jl near .12
@@ -2419,7 +2419,7 @@ sub_F3C43:
         call sub_18F67
         push byte 4
         mov eax, 74h
-        call sub_8E7E0
+        call GetLangText
         push eax
         call sub_FDE44
         mov edx, dword [dword_16E464]
@@ -2431,7 +2431,7 @@ sub_F3C43:
         add esp, byte 4
         push eax
         mov eax, 74h
-        call sub_8E7E0
+        call GetLangText
         push eax
         call sub_FE150
         add esp, byte 0Ch
@@ -2634,7 +2634,7 @@ sub_F3FF5:
         call __CHP
         fistp dword [byte ebp-0Ch]
         mov ecx, dword [byte ebp-0Ch]
-        call sub_7F028
+        call SetRegionRect
 .5:
         inc edi
         cmp edi, byte 0Ah
@@ -2657,7 +2657,7 @@ sub_F3FF5:
         push edx
         mov ebx, dword [dword esi+030Ch]
         mov edx, dword [dword esi+0308h]
-        call sub_7F028
+        call SetRegionRect
         leave
         pop edi
         pop esi
@@ -2895,11 +2895,11 @@ sub_F418F_29A:
         push dword [dword_1CEFA8]
         call sub_FCD90
         add esp, byte 4
-        call sub_8E840
+        call FreeLangText
         mov eax, dword [dword_1AC814]
         shl eax, 1Ch
         shr eax, 1Eh
-        call sub_8E790
+        call LoadLangTextB
         call sub_8BEF8
         movsx eax, si
         call sub_F48C2
@@ -3032,12 +3032,12 @@ sub_F418F_4EF:
         push dword [dword_1CEFA8]
         call sub_FCD90
         add esp, byte 4
-        call sub_8E840
+        call FreeLangText
         mov eax, dword [dword_1AC814]
         shl eax, 1Ch
         shr eax, 1Eh
         movsx edx, si
-        call sub_8E790
+        call LoadLangTextB
         call sub_8BEF8
         mov eax, edx
         call sub_F48C2
@@ -3140,17 +3140,17 @@ sub_F418F_66D:
         jmp near sub_F418F_4BB
 .35:
         mov eax, 8Fh
-        call sub_8E7E0
+        call GetLangText
         call sub_E4230
         jmp near sub_F418F_4BB
 .36:
         lea eax, [byte ebp-0Ah]
         call sub_F3FB0
-        call sub_8E840
+        call FreeLangText
         mov eax, dword [dword_1AC814]
         shl eax, 1Ch
         shr eax, 1Eh
-        call sub_8E790
+        call LoadLangTextB
         call sub_8BEF8
         test si, si
         je short .37
@@ -3538,7 +3538,7 @@ sub_F4B3F:
         jne short .7
         mov eax, 5Eh
 .5:
-        call sub_8E7E0
+        call GetLangText
         push eax
         imul eax, dword [dword_16E468], byte 5
         mov dword [byte ebp+07Eh], eax
@@ -3568,7 +3568,7 @@ sub_F4B3F:
         cmp word [gsp], byte 1
         jne short .9
         mov eax, 60h
-        call sub_8E7E0
+        call GetLangText
         push eax
         imul eax, dword [dword_16E468], byte 5
         mov dword [byte ebp+07Ah], eax
@@ -3586,7 +3586,7 @@ sub_F4B3F:
         cmp al, byte [byte_1C135B]
         je short .10
         mov eax, 63h
-        call sub_8E7E0
+        call GetLangText
         push eax
         imul eax, dword [dword_16E468], byte 5
         mov dword [byte ebp+07Eh], eax
@@ -3607,7 +3607,7 @@ sub_F4B3F:
         cmp word [gsp], byte 2
         jne short .12
         mov eax, 61h
-        call sub_8E7E0
+        call GetLangText
         push eax
         imul eax, dword [dword_16E468], byte 5
         mov dword [byte ebp+07Eh], eax
@@ -3627,7 +3627,7 @@ sub_F4B3F:
         jmp near .16
 .12:
         mov eax, 62h
-        call sub_8E7E0
+        call GetLangText
         push eax
         imul eax, dword [dword_16E468], byte 5
         mov dword [byte ebp+07Ah], eax
@@ -3648,7 +3648,7 @@ sub_F4B3F:
         push asc_167B85
         mov eax, 5Eh
 .14:
-        call sub_8E7E0
+        call GetLangText
         push eax
         call sscanf_
         add esp, byte 10h
@@ -3670,7 +3670,7 @@ sub_F4B3F:
         fistp dword [byte ebp+07Eh]
         push dword [byte ebp+07Eh]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         lea eax, [byte ebp-026h]
         push eax
@@ -3734,7 +3734,7 @@ sub_F4B3F:
         push eax
         push asc_167B85
         mov eax, 62h
-        call sub_8E7E0
+        call GetLangText
         push eax
         call sscanf_
         add esp, byte 10h
@@ -3756,7 +3756,7 @@ sub_F4B3F:
         fistp dword [byte ebp+07Eh]
         push dword [byte ebp+07Eh]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         lea eax, [byte ebp-026h]
         push eax
@@ -3779,7 +3779,7 @@ sub_F4B3F:
         push dword [byte ebp+07Eh]
 .21:
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov ebx, 1
 .22:
@@ -4336,7 +4336,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 58h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+06Ah]
         fld dword [byte ebp-04Eh]
         fld dword [byte ebp+026h]
@@ -4368,7 +4368,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 59h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+06Ah]
         fld dword [byte ebp-04Eh]
         fld dword [byte ebp+026h]
@@ -4425,7 +4425,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 58h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-01Ah]
         fld dword [byte ebp+06h]
         fld dword [byte ebp+0Eh]
@@ -4457,7 +4457,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 59h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-01Ah]
         fld dword [byte ebp+06h]
         fld dword [byte ebp+0Eh]
@@ -4514,7 +4514,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 58h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+042h]
         fld dword [byte ebp-07Ah]
         fld dword [byte ebp-07Eh]
@@ -4546,7 +4546,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 59h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+042h]
         fld dword [byte ebp-07Ah]
         fld dword [byte ebp-07Eh]
@@ -4603,7 +4603,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 56h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+062h]
         fld dword [byte ebp-02h]
         fld dword [byte ebp+056h]
@@ -4639,7 +4639,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 54h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+062h]
         fld dword [byte ebp-02h]
         fld dword [byte ebp+056h]
@@ -4674,7 +4674,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+06Ah]
         fld dword [byte ebp-04Eh]
         fld dword [byte ebp+026h]
@@ -4696,7 +4696,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+06Ah]
         fld dword [byte ebp-04Eh]
         fld dword [byte ebp+026h]
@@ -4753,7 +4753,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+046h]
         fld dword [byte ebp-072h]
         fld dword [byte ebp-076h]
@@ -4788,7 +4788,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+046h]
         fld dword [byte ebp-072h]
         fld dword [byte ebp-076h]
@@ -4845,7 +4845,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [dword ebp-086h]
         fld dword [byte ebp+0Ah]
         fld dword [byte ebp+05Eh]
@@ -4877,7 +4877,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [dword ebp-086h]
         fld dword [byte ebp+0Ah]
         fld dword [byte ebp+05Eh]
@@ -4934,7 +4934,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 57h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-06Ah]
         fld dword [byte ebp-06Eh]
         fld dword [byte ebp+012h]
@@ -4969,7 +4969,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 55h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-06Ah]
         fld dword [byte ebp-06Eh]
         fld dword [byte ebp+012h]
@@ -5027,7 +5027,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-056h]
         fld dword [byte ebp-0Ah]
         fld dword [byte ebp-05Ah]
@@ -5062,7 +5062,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-056h]
         fld dword [byte ebp-0Ah]
         fld dword [byte ebp-05Ah]
@@ -5119,7 +5119,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [dword ebp-08Ah]
         fld dword [byte ebp+04Ah]
         fld dword [byte ebp+01Eh]
@@ -5154,7 +5154,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [dword ebp-08Ah]
         fld dword [byte ebp+04Ah]
         fld dword [byte ebp+01Eh]
@@ -5252,7 +5252,7 @@ sub_F570D:
         mov eax, 54h
 .24:
         mov edx, esi
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-03Eh]
         push eax
         call __CHP
@@ -5272,7 +5272,7 @@ sub_F570D:
         push eax
         mov eax, 56h
         mov edx, esi
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-03Eh]
         push eax
         call __CHP
@@ -5330,7 +5330,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 57h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-06h]
         fld dword [byte ebp-01Eh]
         fld dword [byte ebp+02Eh]
@@ -5369,7 +5369,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-06h]
         fld dword [byte ebp-01Eh]
         fld dword [byte ebp+02Eh]
@@ -5401,7 +5401,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 5Dh
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167BEB]
         fld dword [byte ebp-056h]
@@ -5443,7 +5443,7 @@ sub_F570D:
         push eax
         mov eax, 5Dh
         mov edx, esi
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-05Ah]
         push eax
         call __CHP
@@ -5458,7 +5458,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 5Dh
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167BF3]
         mov ecx, edi
@@ -5476,7 +5476,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 5Dh
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167BF7]
         mov ecx, edi
@@ -5515,7 +5515,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-066h]
         fld dword [byte ebp-016h]
         fld dword [byte ebp-012h]
@@ -5550,7 +5550,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-066h]
         fld dword [byte ebp-016h]
         fld dword [byte ebp-012h]
@@ -5587,7 +5587,7 @@ sub_F570D:
         push dword [byte ebp+072h]
         push eax
         mov eax, 51h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167BDF]
         fld dword [byte ebp+072h]
@@ -5676,7 +5676,7 @@ sub_F570D:
         call __CHP
         fistp dword [byte ebp-02Eh]
         mov ecx, dword [byte ebp-02Eh]
-        call sub_7F028
+        call SetRegionRect
 .38:
         inc esi
 .39:
@@ -5706,7 +5706,7 @@ sub_F570D:
 .42:
         call sub_13C164
         mov eax, 47h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C07]
         fld dword [byte ebp+072h]
@@ -5725,10 +5725,10 @@ sub_F570D:
         fistp dword [byte ebp-02Ah]
         push dword [byte ebp-02Ah]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 48h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C0B]
         fadd dword [byte ebp+076h]
@@ -5738,10 +5738,10 @@ sub_F570D:
         push dword [byte ebp-02Eh]
         push dword [byte ebp-02Ah]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 49h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C0F]
         fadd dword [byte ebp+076h]
@@ -5751,7 +5751,7 @@ sub_F570D:
         push dword [byte ebp-02Eh]
         push dword [byte ebp-02Ah]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         cmp byte [byte_1AD23E], 0
         je short .43
@@ -5759,7 +5759,7 @@ sub_F570D:
         call sub_7F0D8
 .43:
         mov eax, 4Ch
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167BDB]
         fld dword [byte ebp+072h]
@@ -5778,10 +5778,10 @@ sub_F570D:
         fistp dword [byte ebp-02Ah]
         push dword [byte ebp-02Ah]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 4Dh
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C13]
         fadd dword [byte ebp-02Eh]
@@ -5791,10 +5791,10 @@ sub_F570D:
         push dword [byte ebp+076h]
         push dword [byte ebp-02Ah]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 4Eh
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C17]
         fadd dword [byte ebp-02Eh]
@@ -5804,10 +5804,10 @@ sub_F570D:
         push dword [byte ebp+076h]
         push dword [byte ebp-02Ah]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 4Fh
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C1B]
         fadd dword [byte ebp-02Eh]
@@ -5817,7 +5817,7 @@ sub_F570D:
         push dword [byte ebp+076h]
         push dword [byte ebp-02Ah]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         cmp byte [byte_1AD23E], 0
         je short .44
@@ -5825,7 +5825,7 @@ sub_F570D:
         call sub_7F0D8
 .44:
         mov eax, 50h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C1F]
         fld dword [byte ebp+072h]
@@ -5841,7 +5841,7 @@ sub_F570D:
         fistp dword [byte ebp+076h]
         push dword [byte ebp+076h]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         call sub_1013FC
         push dword 0FF000000h
@@ -5909,7 +5909,7 @@ sub_F570D_1583:
         push eax
         mov eax, 59h
 .46:
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C33]
         fld dword [byte ebp+072h]
@@ -5962,7 +5962,7 @@ sub_F570D_1583:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C33]
         fld dword [byte ebp+072h]
@@ -6043,7 +6043,7 @@ sub_F570D_176B:
         push eax
         mov eax, 59h
 .51:
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C33]
         fld dword [byte ebp+072h]
@@ -6082,7 +6082,7 @@ sub_F570D_176B:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C33]
         fld dword [byte ebp+072h]
@@ -6131,7 +6131,7 @@ sub_F570D_176B:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C33]
         fld dword [byte ebp+072h]
@@ -6211,7 +6211,7 @@ sub_F570D_19CD:
         push dword [byte ebp+072h]
         push eax
         mov eax, 59h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C33]
         fld dword [byte ebp+072h]
@@ -6245,7 +6245,7 @@ sub_F570D_19CD:
         push eax
         mov eax, 53h
 .57:
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C33]
         fld dword [byte ebp+072h]
@@ -6288,7 +6288,7 @@ sub_F570D_19CD:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C33]
         fld dword [byte ebp+072h]
@@ -6391,7 +6391,7 @@ sub_F570D_1C04:
         push eax
         mov eax, 57h
 .64:
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fmul dword [dword_167C33]
         fld dword [byte ebp+072h]
@@ -6512,7 +6512,7 @@ sub_F570D_1D78:
         push eax
         mov eax, 8Eh
 .69:
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-042h]
         fld dword [byte ebp+06Eh]
         fld dword [byte ebp+02Ah]
@@ -6597,7 +6597,7 @@ sub_F570D_1F1F:
         push eax
         mov eax, 52h
 .71:
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-042h]
         fld dword [byte ebp+06Eh]
         fld dword [byte ebp-062h]
@@ -6682,7 +6682,7 @@ sub_F570D_2056:
         push eax
         mov eax, 52h
 .73:
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-042h]
         fld dword [byte ebp+06Eh]
         fld dword [byte ebp+01Ah]
@@ -6852,7 +6852,7 @@ sub_F570D_22F1:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-042h]
         fld dword [byte ebp+06Eh]
         fld dword [byte ebp+016h]
@@ -6885,7 +6885,7 @@ sub_F570D_22F1:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-042h]
         fld dword [byte ebp+06Eh]
         fld dword [byte ebp+016h]
@@ -7039,7 +7039,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [dword_167C6F]
         fld dword [byte ebp+072h]
@@ -7078,7 +7078,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [dword_167C6F]
         fld dword [byte ebp+072h]
@@ -7137,7 +7137,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-032h]
         fld dword [byte ebp+012h]
         fld dword [byte ebp-02Eh]
@@ -7169,7 +7169,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-032h]
         fld dword [byte ebp+012h]
         fld dword [byte ebp-02Eh]
@@ -7224,7 +7224,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-022h]
         fld dword [byte ebp+04Ah]
         fld dword [byte ebp-026h]
@@ -7253,7 +7253,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-022h]
         fld dword [byte ebp+04Ah]
         fld dword [byte ebp-026h]
@@ -7308,7 +7308,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+04Eh]
         fld dword [byte ebp+056h]
         fld dword [byte ebp+052h]
@@ -7343,7 +7343,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+04Eh]
         fld dword [byte ebp+056h]
         fld dword [byte ebp+052h]
@@ -7398,7 +7398,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+062h]
         fld dword [byte ebp+05Ah]
         fld dword [byte ebp+06h]
@@ -7433,7 +7433,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+062h]
         fld dword [byte ebp+05Ah]
         fld dword [byte ebp+06h]
@@ -7488,7 +7488,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fld dword [byte ebp+0Eh]
         fld dword [byte ebp+036h]
@@ -7520,7 +7520,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+066h]
         fld dword [byte ebp+0Eh]
         fld dword [byte ebp+036h]
@@ -7575,7 +7575,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-02Ah]
         fld dword [byte ebp-01Eh]
         fld dword [byte ebp+05Eh]
@@ -7607,7 +7607,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp-02Ah]
         fld dword [byte ebp-01Eh]
         fld dword [byte ebp+05Eh]
@@ -7644,7 +7644,7 @@ sub_F7BD6:
         push dword [byte ebp+072h]
         push eax
         mov eax, 51h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [dword_167C6F]
         fld dword [byte ebp+072h]
@@ -7732,7 +7732,7 @@ sub_F7BD6:
         fistp dword [byte ebp-012h]
         mov ecx, dword [byte ebp-012h]
         inc esi
-        call sub_7F028
+        call SetRegionRect
 .19:
         cmp si, byte 8
         jl near .18
@@ -7760,7 +7760,7 @@ sub_F7BD6:
 .22:
         call sub_13C164
         mov eax, 65h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [dword_167C9F]
         fld dword [byte ebp+072h]
@@ -7779,10 +7779,10 @@ sub_F7BD6:
         fistp dword [byte ebp+06Eh]
         push dword [byte ebp+06Eh]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 66h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [dword_167CA3]
         fadd dword [byte ebp+01Ah]
@@ -7792,10 +7792,10 @@ sub_F7BD6:
         push dword [byte ebp-012h]
         push dword [byte ebp+06Eh]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 67h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [dword_167CA7]
         fadd dword [byte ebp+01Ah]
@@ -7805,10 +7805,10 @@ sub_F7BD6:
         push dword [byte ebp-012h]
         push dword [byte ebp+06Eh]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 68h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [dword_167C73]
         fadd dword [byte ebp+01Ah]
@@ -7818,10 +7818,10 @@ sub_F7BD6:
         push dword [byte ebp-012h]
         push dword [byte ebp+06Eh]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 69h
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [dword_167CAB]
         fadd dword [byte ebp+01Ah]
@@ -7831,10 +7831,10 @@ sub_F7BD6:
         push dword [byte ebp-012h]
         push dword [byte ebp+06Eh]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 6Bh
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [dword_167CAF]
         fadd dword [byte ebp+01Ah]
@@ -7844,10 +7844,10 @@ sub_F7BD6:
         push dword [byte ebp-012h]
         push dword [byte ebp+06Eh]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov eax, 6Ah
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [dword_167CB3]
         fadd dword [byte ebp+01Ah]
@@ -7857,7 +7857,7 @@ sub_F7BD6:
         push dword [byte ebp-012h]
         push dword [byte ebp+06Eh]
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         fld dword [byte ebp+076h]
         fmul dword [dword_167CB7]
         fld dword [byte ebp+072h]
@@ -7944,7 +7944,7 @@ sub_F7BD6_C81:
         push eax
         mov eax, 53h
         mov dword [dword_16AF54], 0
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [dword_167C6F]
         fld dword [byte ebp+072h]
@@ -7982,7 +7982,7 @@ sub_F7BD6_C81:
         push eax
         mov eax, 52h
         mov dword [dword_16AF54], 1
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [dword_167CE7]
         fld dword [byte ebp+03Eh]
@@ -8066,7 +8066,7 @@ sub_F7BD6_E31:
         push eax
         mov eax, 53h
         mov dword [dword_16AF40], 0
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
         fld dword [byte ebp+026h]
@@ -8114,7 +8114,7 @@ sub_F7BD6_E31:
         push eax
         mov eax, 53h
         mov edx, edi
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+06Ah]
         push eax
         call __CHP
@@ -8131,7 +8131,7 @@ sub_F7BD6_E31:
         push eax
         mov eax, 52h
         mov dword [dword_16AF44], 1
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
         fld dword [byte ebp+026h]
@@ -8260,7 +8260,7 @@ sub_F7BD6_10E6:
         push eax
         mov eax, 53h
         mov dword [dword_16AF40], 0
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
         fld dword [byte ebp+06Ah]
@@ -8299,7 +8299,7 @@ sub_F7BD6_10E6:
         push eax
         mov eax, 52h
         mov dword [dword_16AF44], 1
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
         fld dword [byte ebp+06Ah]
@@ -8347,7 +8347,7 @@ sub_F7BD6_10E6:
         push eax
         mov eax, 52h
         mov ecx, edi
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+026h]
         push eax
         call __CHP
@@ -8397,7 +8397,7 @@ sub_F7BD6_12B8:
         mov eax, 52h
         mov dword [dword_16AF3C], 1
 .32:
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
         fld dword [byte ebp+022h]
@@ -8479,7 +8479,7 @@ sub_F7BD6_13D7:
         mov eax, 52h
         mov dword [dword_16AF48], 1
 .34:
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
         fld dword [byte ebp+02h]
@@ -8549,7 +8549,7 @@ sub_F7BD6_14F6:
         push eax
         mov eax, 53h
         mov dword [dword_16AF58], 0
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
         fld dword [byte ebp+02Ah]
@@ -8585,7 +8585,7 @@ sub_F7BD6_14F6:
         push eax
         mov eax, 52h
         mov dword [dword_16AF58], 1
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
         fld dword [byte ebp+02Ah]
@@ -8656,7 +8656,7 @@ sub_F7BD6_165B:
         push eax
         mov eax, 53h
         mov dword [dword_1B8578], 0
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
         fld dword [byte ebp+02Ah]
@@ -8689,7 +8689,7 @@ sub_F7BD6_165B:
         push eax
         mov eax, 52h
         mov dword [dword_1B8578], 1
-        call sub_8E7E0
+        call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
         fld dword [byte ebp+02Ah]

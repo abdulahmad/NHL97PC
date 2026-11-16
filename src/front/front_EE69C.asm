@@ -16,9 +16,9 @@ extern dword_1CE4EC, dword_1CE4F0, dword_1CE528, dword_1CE52C, dword_1CE532, dwo
 extern dword_1CE542, dword_1CEF9C, dword_1CEFA0, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, rand_, sprintf_
 extern str_TR0D, strlen_, sub_100A68, sub_101324, sub_101340, sub_101390, sub_1013AC, sub_1013FC
 extern sub_101429, sub_10FE58, sub_115830, sub_1167AE, sub_11A318, sub_11A350, sub_11BDC0, sub_11FAAC
-extern sub_13C164, sub_1B88C, sub_419B0, sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC, sub_4B074
-extern sub_7E860, sub_7EDF0, sub_7EF70, sub_7F028, sub_7F0D8, sub_7F16C, sub_7F5B8, sub_80BBC
-extern sub_86AFA, InitMenuItems, sub_8BFAC, sub_8E7E0, sub_E341C, sub_E4908, sub_EE0F7, sub_F20A1
+extern sub_13C164, sub_1B88C, sub_419B0, sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC, LoadDataFileLib
+extern sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5B8, sub_80BBC
+extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, sub_E341C, sub_E4908, sub_EE0F7, sub_F20A1
 extern sub_F22AF, sub_F27A4, sub_FAF34, sub_FC4BC, sub_FC510, sub_FCD90, sub_FCF84, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_167A1A, unk_16D992, unk_1AC8E4
 extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, unk_EDDEF, unk_EDE3F, unk_EDE53
@@ -180,7 +180,7 @@ sub_EE69C:
         add eax, unk_1CEA8A
         push eax
         mov eax, 25Ah
-        call sub_8E7E0
+        call GetLangText
         push eax
         lea eax, [byte ebp-064h]
         push eax
@@ -2112,7 +2112,7 @@ sub_F0004:
         add esp, byte 4
         call sub_7F0D8
         mov eax, 1C9h
-        call sub_8E7E0
+        call GetLangText
         push eax
         movsx eax, word [byte ebx+ebp-060h]
         cdq
@@ -2122,7 +2122,7 @@ sub_F0004:
         push byte 2
         push eax
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         push dword [dword ebx+dword_1CE2DC]
         call sub_FD0F8
@@ -2144,7 +2144,7 @@ sub_F0004:
         add esp, byte 4
         call sub_7F0D8
         mov eax, 1C9h
-        call sub_8E7E0
+        call GetLangText
         push eax
         movsx eax, word [byte ebx+ebp-060h]
         cdq
@@ -2154,7 +2154,7 @@ sub_F0004:
         push byte 2
         push eax
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         call sub_13C164
         mov eax, dword [dword ebx+dword_1CE2D8]
@@ -2169,7 +2169,7 @@ sub_F0004:
         push asc_167A06
         mov ecx, asc_167A0B
         mov edx, 43h
-        call sub_8E7E0
+        call GetLangText
         mov ebx, eax
         mov eax, dword [byte ebp-074h]
         jmp short .4
@@ -2179,7 +2179,7 @@ sub_F0004:
         push asc_167A10
         mov ecx, asc_167A15
         mov edx, 0Dh
-        call sub_8E7E0
+        call GetLangText
         mov ebx, eax
         mov eax, dword [byte ebp-070h]
 .4:
@@ -2269,7 +2269,7 @@ sub_F01C5:
         lea edi, [byte ebx+025h]
         push edi
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         push dword [byte esi+04h]
         call sub_FD0F8
@@ -2305,7 +2305,7 @@ sub_F01C5:
         push byte 1Eh
         push edi
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         leave
         pop edi
@@ -2364,12 +2364,12 @@ sub_F0339:
         mov eax, 69h
         xor edx, edx
         mov dword [byte ebp+07Eh], 0
-        call sub_4B074
+        call LoadDataFileLib
         mov dword [dword_1CE328], eax
         xor edx, edx
         mov eax, 6Ah
         mov esi, 1
-        call sub_4B074
+        call LoadDataFileLib
         mov dword [byte ebp+07Ah], eax
         jmp short .2
 .1:
@@ -2567,7 +2567,7 @@ sub_F0339:
         push byte 1Eh
         push byte 68h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         push dword [byte ebp+05Ah]
         call sub_FD0F8
@@ -2599,7 +2599,7 @@ sub_F0339:
         push byte 1Eh
         push byte 68h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         push dword [byte ebp+05Eh]
         call sub_FD0F8
@@ -2631,7 +2631,7 @@ sub_F0339:
         push byte 1Eh
         push byte 32h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         push dword [byte ebp+062h]
         call sub_FD0F8
@@ -2663,7 +2663,7 @@ sub_F0339:
         push byte 1Eh
         push byte 32h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         xor esi, esi
         call sub_1013FC
@@ -2723,7 +2723,7 @@ sub_F0339:
         push byte 0
         push eax
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         movsx eax, bx
         shl eax, 2
         mov edx, dword [dword eax+edi*8+dword_1CE2D8]
@@ -2774,7 +2774,7 @@ sub_F0339:
         push edx
         lea eax, [dword ebp-05B6h]
         mov edx, dword [dword_1CE53E]
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [byte ebp+05Eh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword_1CE4E0], eax
@@ -2839,7 +2839,7 @@ sub_F0339:
         mov eax, dword [byte ebp+06Ah]
         inc esi
 .10:
-        call sub_7F028
+        call SetRegionRect
         cmp si, byte 17h
         jl near .9
         cmp word [dword ebp-063Ah], byte 0
@@ -3235,7 +3235,7 @@ sub_F0339_C3A:
         push eax
         push byte 1
         inc ebx
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
 .31:
         cmp bx, byte 2
@@ -3625,7 +3625,7 @@ sub_F0339_1064:
         push byte 0
         push eax
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         mov eax, dword [byte ebp+066h]
         add esp, byte 14h
         push dword [nosplit eax*8+dword_1CE2DC]
@@ -3651,7 +3651,7 @@ sub_F0339_1064:
         push eax
         push byte 1
         lea ebx, [byte ebp+05Eh]
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         movsx eax, word [byte ebp+066h]
         lea ecx, [byte ebp+056h]

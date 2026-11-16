@@ -95,7 +95,12 @@ address,name,auto_name,source,confidence,evidence,file
 489F4,RecordStreakClips,sub_489F4,96PC,medium,NHL96PC 676D4 (sem 0.91): C:560,src/front/front_45BEC.asm
 48D70,PaEvent,sub_48D70,96PC,low,"the play-by-play event call: ClockTick posts 0C0000004h with the period at one minute left, where 96 PC posts PaEvent(100h)",src/front/front_48D70.asm
 4AB90,MakeDataPath,sub_4AB90,96PC,medium,NHL96PC 1E3E8 (sem 0.84): C:1920; C:1834; R:579; R:572,src/front/front_48D70.asm
+4AE14,MakeDirPath,sub_4AE14,96PC,high,"96 PC MakeDirPath: (out, dir, language) a game directory path (language prefix, directory from unk_169848, backslash)",src/front/front_48D70.asm
 4AF9F,LoadDataFileHandle,sub_4AF9F,96PC,medium,NHL96PC 1E779 (sem 1.00): C:2267,src/front/front_48D70.asm
+4B074,LoadDataFileLib,sub_4B074,96PC,low,96 PC LoadDataFileLib: LoadDataFile through the other library loader (sub_100498),src/front/front_48D70.asm
+4B108,LoadDataFile,sub_4B108,96PC,medium,"96 PC LoadDataFile: (file id, flags) loads a game data file by id (MakeDataPath, then the loader with flag 1)",src/front/front_48D70.asm
+4B12D,LoadDataFileFlag0,sub_4B12D,96PC,medium,96 PC LoadDataFileFlag0: LoadDataFile through the same loader with flag 0,src/front/front_48D70.asm
+4B19C,OpenDataLibrary,sub_4B19C,new,low,(file id): makes the data file the current library (sub_FC330),src/front/front_48D70.asm
 4B1C4,SetArtArchive,sub_4B1C4,new,low,"(file name): finds the data file by name (102h-entry table), builds its path and makes it the current art archive; a null name closes it",src/front/front_48D70.asm
 4B3F8,WriteGlobalSet,sub_4B3F8,96PC,medium,NHL96PC 6A5EB (similar 0.83): mnemonic similarity 0.83 over 47 instructions,src/front/front_48D70.asm
 4DD90,PeriodOver,sub_4DD90,96PC,medium,96 PC PeriodOver: called from GameLoop at the end of a period,src/front/front_48D70.asm
@@ -133,6 +138,8 @@ address,name,auto_name,source,confidence,evidence,file
 7CE9E,RunFrontEnd,sub_7CE9E,96PC,medium,"96 PC RunFrontEnd: the front end, from main_: picks the front-end music, shows the title, then runs the screen with the current number (main menu, game screens 4-9 through RunGameScreens, credits, ...) until quit",src/front/front_7A9D8.asm
 7CF94,TitleScreen,sub_7CF94,new,low,"the title screen at front-end start (BACK, LOGO) with its PA announcement",src/front/front_7A9D8.asm
 7D059,main_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+7F028,SetRegionRect,sub_7F028,new,low,"(region, x, y, w, h): stores the rectangle twice (x0, y0, x1, y1)",src/front/main/main.asm
+7F16C,DrawTextAligned,sub_7F16C,new,low,"(align, x, y, ..., format, ...): sprintf-style text drawn left (0), centred (1) or right (2) of x",src/front/main/main.asm
 7FEC4,EditText,sub_7FEC4,96PC,medium,"NHL96PC EditText 197ED: same 394h text buffer, eax/edx/ebx/ecx + stack args, reads keys (sub_FBE40) and handles backspace/enter; called by every name entry through sub_7FE38/sub_7FE4C",src/front/main/main.asm
 84B55,MainMenuScreen,sub_84B55,96PC,medium,"96 PC MainMenuScreen: the main menu (""menu"", MB01-MB11 buttons, PIC%d%c pictures); checks which of EXHIBIT / SEASON / PLAYOFF.NDX exist; returns the next screen",src/front/front_845E4.asm
 85A15,RunGameScreens,sub_85A15,new,low,"(screen): from RunFrontEnd, runs the game set-up screens by number (team select 4, pick saves 5/7/9, new season 6, new play-offs 8, season 0Ch, play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h, roster 19h) until one returns to the main menu",src/front/front_845E4.asm
@@ -145,6 +152,10 @@ address,name,auto_name,source,confidence,evidence,file
 8BF54,InitMenuItems,sub_8BF54,96PC,medium,NHL96PC 64721 (similar 0.81): mnemonic similarity 0.81 over 32 instructions,src/front/front_868CD.asm
 8DE19,DrawScrollBar,sub_8DE19,96PC,medium,"96 PC DrawScrollBar, same structure",src/front/front_8BFAC.asm
 8DE9D,SetScrollBarPos,sub_8DE9D,96PC,low,"96 PC SetScrollBarPos, the call after DrawScrollBar at the same places",src/front/front_8BFAC.asm
+8E740,LoadLangText,sub_8E740,96PC,medium,96 PC LoadLangText: loads the front-end text file for the language (file ids 33h-35h) into dword_16CD54,src/front/front_8BFAC.asm
+8E790,LoadLangTextB,sub_8E790,new,low,"LoadLangText for the second text set (file ids 0D6h-0D8h), used by the network screens and after a game",src/front/front_8BFAC.asm
+8E7E0,GetLangText,sub_8E7E0,96PC,medium,"96 PC GetLangText: (text id) the text for an id from the loaded language text (8-byte entries), or the default string",src/front/front_8BFAC.asm
+8E840,FreeLangText,sub_8E840,96PC,medium,96 PC FreeLangText: frees the language text,src/front/front_8BFAC.asm
 8E997,RunNewSeason,sub_8E997,new,low,"screen 6: sets up a new season (copies the set-up, NewSeasonScreen, roster, import agents)",src/front/front_8E997.asm
 8EC93,NewSeasonScreen,sub_8EC93,96PC,medium,"96 PC NewSeasonScreen: the new season set-up screen (""newmenu"", TTLW, WC00/WC01, 012R-014R)",src/front/front_8E997.asm
 8FA67,CreateSeason,sub_8FA67,new,low,"creates the new season: seeds rand from the time, picks a free SEAS%04d.SET name and adds it to SEASON.NDX",src/front/front_8E997.asm
@@ -170,6 +181,7 @@ D68AC,FadeOut,sub_D68AC,96PC,medium,NHL96PC 63A5B (similar 0.91): mnemonic simil
 D70C4,CreditsScreen,sub_D70C4,new,low,"from RunFrontEnd: the credits (reads the credits text file, EAC1/EAC2, CRD1/CRD2, QCRD) with the arena music",src/front/front_D4E24.asm
 DA66D,AllocMediaBuffer,sub_DA66D,new,medium,"allocates the ""MEDIA BUFFER"" (200h paragraphs of DOS memory)",src/front/front_DA66D.asm
 DA713,AllocStaticBuffer,sub_DA713,new,medium,"allocates the ""STATIC BUF"" once (flag word_16D7EC)",src/front/front_DA66D.asm
+E22D0,FreePtr,sub_E22D0,new,medium,"(&ptr): frees the block and clears the pointer; returns 1, or 0 when it was already null",src/front/front_DA66D.asm
 E2388,FileDelete,sub_E2388,new,medium,"deletes a file; returns 1, or 0 with the error text ""FILEdelete"" in eax",src/front/front_DA66D.asm
 E23BC,FileCreate,sub_E23BC,new,medium,"fopen ""w+b""; returns 1, or 0 with the error text ""FILEcreate""",src/front/front_DA66D.asm
 E23E0,FileOpen,sub_E23E0,new,medium,"fopen ""r+b""; returns 1, or 0 with the error text ""FILEopen""",src/front/front_DA66D.asm

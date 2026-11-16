@@ -14,13 +14,13 @@ extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dwo
 extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, sub_8E997_DD, sub_8E997_E6, sub_8E997_EF, sub_8E997_F8
 extern sub_8E997_16F, sub_8E997_17B, sub_8E997_187, sub_8E997_193, off_16E4E0, qword_165550, qword_165558, qword_165568
 extern sub_101390, sub_1013CC, sub_1013FC, sub_101429, sub_1097F0, sub_11A318, sub_13C164, sub_41FDC
-extern LoadDataFileHandle, sub_7F028, sub_835AC, sub_835BC, sub_83850, InitMenuItems, sub_E3410, sub_E341C
+extern LoadDataFileHandle, SetRegionRect, sub_835AC, sub_835BC, sub_83850, InitMenuItems, sub_E3410, sub_E341C
 extern sub_E375C, sub_E3798, sub_FAF34, sub_FC510, SetViewRect, sub_FCD90, sub_FCFCC, sub_FD08C
 extern sub_FD0F8, sub_FD110, sub_FDC68, tickcount, word_16CD04, word_16CD20, word_16CD22
 global jpt_8E977, jpt_8E987, sub_8D956_223, sub_8DBAC_1F5, sub_8DBAC_220, sub_8BFAC, sub_8D5C0, sub_8D6B4
 global sub_8D6E0, sub_8D6E8, sub_8D910, sub_8D956, sub_8DBAC, sub_8DE0F, sub_8DE10, DrawScrollBar
-global sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E2EE, sub_8E6AF, sub_8E740
-global sub_8E790, sub_8E7E0, sub_8E840, sub_8E870
+global sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E2EE, sub_8E6AF, LoadLangText
+global LoadLangTextB, GetLangText, FreeLangText, sub_8E870
 ;-----------------------------------------------------------------------------
 ; sub_8BFAC                                                       8BFAC  97 PC
 ;-----------------------------------------------------------------------------
@@ -353,12 +353,12 @@ sub_8BFAC:
         cmp dword [dword_16E46C], byte 8
         je short .34
         mov eax, 237h
-        call sub_8E7E0
+        call GetLangText
         call sub_835BC
         jmp short .35
 .34:
         mov eax, 76h
-        call sub_8E7E0
+        call GetLangText
         call sub_835AC
 .35:
         push dword_1C83E0
@@ -2242,7 +2242,7 @@ sub_8D956:
         mov edx, edi
         mov ebx, dword [byte ebp-0Ch]
         lea eax, [byte esi+034h]
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [byte ebp+020h]
         mov ebx, dword [byte ebp-0Ch]
         mov ecx, 0Fh
@@ -2251,7 +2251,7 @@ sub_8D956:
         push eax
         add ebx, byte 1Fh
         lea eax, [byte esi+074h]
-        call sub_7F028
+        call SetRegionRect
         push byte 1Fh
         mov ebx, dword [byte ebp-0Ch]
         mov ecx, 0Fh
@@ -2259,7 +2259,7 @@ sub_8D956:
         add ebx, dword [byte ebp+020h]
         mov edx, edi
         sub ebx, byte 1Fh
-        call sub_7F028
+        call SetRegionRect
         call sub_1013FC
         xor eax, eax
 .7:
@@ -2422,7 +2422,7 @@ sub_8DBAC:
         mov ecx, 0Fh
         mov edx, dword [byte ebp-0Ch]
         lea eax, [byte esi+034h]
-        call sub_7F028
+        call SetRegionRect
         push byte 0Fh
         mov ecx, dword [byte ebp+020h]
         mov edx, dword [byte ebp-0Ch]
@@ -2430,7 +2430,7 @@ sub_8DBAC:
         mov ebx, edi
         sub ecx, byte 3Eh
         add edx, byte 1Fh
-        call sub_7F028
+        call SetRegionRect
         push byte 15h
         mov edx, dword [byte ebp-0Ch]
         mov ecx, 0Fh
@@ -2438,7 +2438,7 @@ sub_8DBAC:
         add edx, dword [byte ebp+020h]
         mov ebx, edi
         sub edx, byte 15h
-        call sub_7F028
+        call SetRegionRect
         call sub_1013FC
         xor eax, eax
 .5:
@@ -2713,7 +2713,7 @@ sub_8DF1F:
         mov eax, dword [byte ebp-018h]
         add ebx, edx
         mov edx, dword [byte ebp-08h]
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [byte ebp-08h]
         mov dword [dword edi+ebp-0F3Eh], eax
         mov eax, dword [byte ebp-014h]
@@ -2734,7 +2734,7 @@ sub_8DF1F:
         xor ebx, ebx
         xor edx, edx
         mov dword [dword ebp-0F50h], eax
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [byte ebp+010h]
         mov eax, dword [eax]
         movsx eax, word [byte eax+06h]
@@ -3026,7 +3026,7 @@ sub_8E2EE:
         mov eax, dword [byte ebp-018h]
         add ebx, edx
         mov edx, dword [byte ebp-04h]
-        call sub_7F028
+        call SetRegionRect
         mov edx, dword [byte ebp-01Ch]
         mov eax, dword [byte ebp-04h]
         mov dword [dword edx+ebp-0F42h], eax
@@ -3047,7 +3047,7 @@ sub_8E2EE:
         xor ebx, ebx
         xor edx, edx
         mov dword [dword ebp-0F54h], eax
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [byte ebp+010h]
         mov eax, dword [eax]
         movsx eax, word [byte eax+06h]
@@ -3304,9 +3304,11 @@ sub_8E6AF:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_8E740                                                       8E740  97 PC
+; LoadLangText                                 8E740  96 PC, medium confidence
+; At start-up: the language text index (data file) and the Localize buffer
+; (800h) for the language
 ;-----------------------------------------------------------------------------
-sub_8E740:
+LoadLangText:
         push ebx
         push ecx
         push edx
@@ -3337,9 +3339,11 @@ sub_8E740:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_8E790                                                       8E790  97 PC
+; LoadLangTextB                                   8E790  97 PC, low confidence
+; LoadLangText for the second text set (file ids 0D6h-0D8h), used by the
+; network screens and after a game
 ;-----------------------------------------------------------------------------
-sub_8E790:
+LoadLangTextB:
         push ebx
         push ecx
         push edx
@@ -3370,9 +3374,11 @@ sub_8E790:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_8E7E0                                                       8E7E0  97 PC
+; GetLangText                                  8E7E0  96 PC, medium confidence
+; (text id): the text for an id from the language file (cached blocks);
+; "LFERROR!!!" if missing
 ;-----------------------------------------------------------------------------
-sub_8E7E0:
+GetLangText:
         push edx
         cmp dword [dword_16CD54], byte 0
         je short .1
@@ -3416,9 +3422,10 @@ sub_8E7E0:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_8E840                                                       8E840  97 PC
+; FreeLangText                                 8E840  96 PC, medium confidence
+; At shut-down: frees the language text index and buffer
 ;-----------------------------------------------------------------------------
-sub_8E840:
+FreeLangText:
         push ecx
         push edx
         mov edx, dword [dword_16CD54]

@@ -16,9 +16,9 @@ extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, sub_
 extern sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_103298, sub_1167AE, sub_11A318
 extern sub_11BED4, sub_13C164, WaitRetraceEdges, RunDemoGame, sub_419B0, sub_419B8, sub_41A28, sub_41D18
 extern sub_41D48, sub_41DB8, sub_41DD8, ArenaFileName, sub_41FA0, sub_41FDC, sub_4A4F4, MakeDataPath
-extern sub_4B108, sub_7E860, sub_7EDF0, sub_7F028, sub_7F0D8, sub_7F16C, sub_80BBC, sub_81650
+extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_E2270
-extern sub_E22D0, sub_E22FC, sub_E2310, sub_E2334, sub_E2348, FileCreate, FileOpen, FileSeek
+extern FreePtr, sub_E22FC, sub_E2310, sub_E2334, sub_E2348, FileCreate, FileOpen, FileSeek
 extern FileReadRecord, FileWriteRecord, FileClose, sub_E341C, sub_F9496, sub_F94BC, sub_FAA64, sub_FAF34
 extern sub_FBE40, sub_FBE5D, sub_FC330, sub_FC510, sub_FCD90, sub_FCEEC, sub_FCF84, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
@@ -254,7 +254,7 @@ sub_D4E24:
         sub edx, eax
         push edx
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov edx, dword [byte esp+018h]
         mov eax, dword [byte esp+026h]
@@ -437,7 +437,7 @@ sub_D4E24:
         sub eax, edx
         push eax
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         push byte 0FFFFFFFFh
         call sub_FC510
@@ -471,7 +471,7 @@ sub_D4E24:
         sub edx, eax
         push edx
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         call sub_13C164
         mov eax, dword [byte ebx+0Ch]
@@ -606,7 +606,7 @@ sub_D547C:
         call sub_419B8
         mov eax, 0DEh
         xor edx, edx
-        call sub_4B108
+        call LoadDataFile
         mov ebx, eax
         mov dword [dword esp+0560h], eax
         mov eax, 3
@@ -614,7 +614,7 @@ sub_D547C:
         call sub_419B0
         call sub_419B8
         mov eax, 0DFh
-        call sub_4B108
+        call LoadDataFile
         mov ebp, eax
         mov dword [dword esp+056Ch], eax
         mov eax, 3
@@ -966,7 +966,7 @@ sub_D547C:
         push eax
         push byte 1
         inc ebx
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         cmp bx, byte 2
         jl near .4
@@ -1073,7 +1073,7 @@ sub_D547C:
         push eax
         sar edx, 10h
         lea eax, [dword esp+0144h]
-        call sub_7F028
+        call SetRegionRect
         cmp word [dword esp+0578h], byte 0
         jne near sub_D547C_FF0.14
 .7:
@@ -1930,7 +1930,7 @@ sub_D547C_FF0:
         push dword 186h
         push dword 140h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
 .12:
         call sub_1013FC
@@ -2205,7 +2205,7 @@ sub_D6930:
         call sub_1013FC
         mov eax, 62h
         xor edx, edx
-        call sub_4B108
+        call LoadDataFile
         push byte 20h
         push dword 300h
         push asc_167390
@@ -2524,7 +2524,7 @@ sub_D6D38:
         sar eax, 10h
         push eax
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
 .2:
         inc ebx
@@ -2837,7 +2837,7 @@ CreditsScreen:
         call sub_419B8
         call sub_41DB8
         mov eax, 0FAh
-        call sub_4B108
+        call LoadDataFile
         push byte 0
         push dword 1E0h
         push dword 280h
@@ -3075,7 +3075,7 @@ CreditsScreen:
         push dword 19Fh
         push dword 0AFh
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         push dword 0FFFFFF50h
         call sub_FC510
@@ -3086,7 +3086,7 @@ CreditsScreen:
         push dword 1AEh
         push dword 0AFh
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov ebx, 1Eh
         call sub_1013FC
@@ -3267,7 +3267,7 @@ CreditsScreen:
         push dword 19Fh
         push dword 0AFh
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         push dword 0FFFFFF50h
         call sub_FC510
@@ -3278,7 +3278,7 @@ CreditsScreen:
         push dword 1AEh
         push dword 0AFh
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         mov ebx, 1Eh
         call sub_1013FC
@@ -3518,7 +3518,7 @@ sub_D7B64:
         test byte [byte_16D784], 1
         je short .1
         mov eax, dword_16D774
-        call sub_E22D0
+        call FreePtr
         mov dl, byte [byte_16D784]
         and dl, 0FEh
         mov eax, 1
@@ -4009,7 +4009,7 @@ sub_D7EC8:
         test eax, eax
         jne short .8
         lea eax, [byte esp+08h]
-        call sub_E22D0
+        call FreePtr
         xor eax, eax
         jmp near .11
 .8:
@@ -4026,7 +4026,7 @@ sub_D7EC8:
         mov eax, dword [byte esp+08h]
         call FileClose
         lea eax, [byte esp+08h]
-        call sub_E22D0
+        call FreePtr
         xor eax, eax
         add esp, byte 0Ch
         pop edx
@@ -4051,7 +4051,7 @@ sub_D7EC8:
         mov eax, dword [byte esp+08h]
         call FileClose
         lea eax, [byte esp+08h]
-        call sub_E22D0
+        call FreePtr
         xor eax, eax
         add esp, byte 0Ch
         pop edx
@@ -4062,7 +4062,7 @@ sub_D7EC8:
         mov eax, dword [byte esp+08h]
         call FileClose
         lea eax, [byte esp+08h]
-        call sub_E22D0
+        call FreePtr
         mov eax, 1
 .11:
         add esp, byte 0Ch
@@ -4110,7 +4110,7 @@ sub_D8130:
         mov eax, esp
         call FileClose
         mov eax, ecx
-        call sub_E22D0
+        call FreePtr
         xor eax, eax
         add esp, byte 4
         pop esi
@@ -4177,7 +4177,7 @@ sub_D81D8:
         mov eax, dword [ecx]
         call sub_E2334
         mov eax, ecx
-        call sub_E22D0
+        call FreePtr
         mov eax, 1
 .2:
         add esp, byte 4

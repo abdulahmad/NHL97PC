@@ -1,0 +1,12 @@
+sub_4AE14 MakeDirPath {source=96PC,confidence=high} 96 PC MakeDirPath: (out, dir, language) a game directory path (language prefix, directory from unk_169848, backslash)
+sub_4B108 LoadDataFile {source=96PC,confidence=medium} 96 PC LoadDataFile: (file id, flags) loads a game data file by id (MakeDataPath, then the loader with flag 1)
+sub_4B12D LoadDataFileFlag0 {source=96PC,confidence=medium} 96 PC LoadDataFileFlag0: LoadDataFile through the same loader with flag 0
+sub_4B074 LoadDataFileLib {source=96PC,confidence=low} 96 PC LoadDataFileLib: LoadDataFile through the other library loader (sub_100498)
+sub_4B19C OpenDataLibrary {confidence=low} (file id): makes the data file the current library (sub_FC330)
+sub_8E740 LoadLangText {source=96PC,confidence=medium} 96 PC LoadLangText: loads the front-end text file for the language (file ids 33h-35h) into dword_16CD54
+sub_8E790 LoadLangTextB {confidence=low} LoadLangText for the second text set (file ids 0D6h-0D8h), used by the network screens and after a game
+sub_8E7E0 GetLangText {source=96PC,confidence=medium} 96 PC GetLangText: (text id) the text for an id from the loaded language text (8-byte entries), or the default string
+sub_8E840 FreeLangText {source=96PC,confidence=medium} 96 PC FreeLangText: frees the language text
+sub_7F028 SetRegionRect {confidence=low} (region, x, y, w, h): stores the rectangle twice (x0, y0, x1, y1)
+sub_7F16C DrawTextAligned {confidence=low} (align, x, y, ..., format, ...): sprintf-style text drawn left (0), centred (1) or right (2) of x
+sub_E22D0 FreePtr {confidence=medium} (&ptr): frees the block and clears the pointer; returns 1, or 0 when it was already null

@@ -56,8 +56,8 @@ extern sub_3CB70, sub_3CD70, sub_3CE58, sub_3CFB0, sub_3E5F0, sub_424CC, sub_45B
 extern sub_4B8DC, sub_4C0C4, sub_4DDB0, sub_504E0, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
 extern sub_5D6A8, sub_5D7A4, sub_5D878, sub_5D900, sub_5DC1C, sub_5DC50, sub_5DCBC, sub_5DE74
 extern sub_5ED80, sub_60D6C, sub_60F48, sub_650A4, sub_65F50, sub_6619C, sub_66224, sub_69B78
-extern sub_69BA0, sub_69DF4, sub_74BA8, sub_74C64, sub_75500, sub_77838, sub_7F0D8, sub_7F16C
-extern sub_8E7E0, sub_AA4BC, sub_F2AA0, sub_F98E4, sub_F994D, sub_FAF34, sub_FC4BC, sub_FCC40
+extern sub_69BA0, sub_69DF4, sub_74BA8, sub_74C64, sub_75500, sub_77838, sub_7F0D8, DrawTextAligned
+extern GetLangText, sub_AA4BC, sub_F2AA0, sub_F98E4, sub_F994D, sub_FAF34, sub_FC4BC, sub_FCC40
 extern sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FD528, sub_FD954, sub_FDC68
 extern sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC, sub_FE3D0, sub_FF1FC, sub_FF320
 extern sub_FF444, sub_FF5E0, sub_FF600, sub_FF798, sub_FF7DC, sub_FF7F4, sub_FF818, sub_FFE8C
@@ -1146,7 +1146,7 @@ sub_161F0:
         sub ebx, eax
         push ebx
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .58
 .56:
@@ -1205,7 +1205,7 @@ sub_161F0:
         idiv ebx
         push eax
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .62
 .60:
@@ -1274,7 +1274,7 @@ sub_161F0:
         idiv ebx
         push eax
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp near .76
 .69:
@@ -1371,7 +1371,7 @@ sub_161F0:
         idiv ebx
         push eax
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp near .90
 .83:
@@ -1543,7 +1543,7 @@ sub_16BF9:
         mov dword [byte esi+04h], ecx
         call sub_18F67
         mov eax, dword [nosplit ecx*4+dword_1686E6]
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         lea eax, [byte ebp-024h]
         call strcpy_
@@ -1610,7 +1610,7 @@ sub_16BF9:
         push eax
         push ecx
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .6
 .5:
@@ -1744,7 +1744,7 @@ DrawVideoModePanel:
         push eax
         push ecx
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .9
 .8:
@@ -1826,7 +1826,7 @@ DrawGoalScorerPanel:
         call sub_16AD0
         push eax
         mov eax, 7
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov edx, dword [byte ebp+07Eh]
         push asc_160184
@@ -1843,7 +1843,7 @@ DrawGoalScorerPanel:
         movsx eax, dx
         sar eax, 1
         mov eax, dword [nosplit eax*4+dword_16875E]
-        call sub_8E7E0
+        call GetLangText
         push eax
         push unk_160193
         lea eax, [byte ebp+02Eh]
@@ -1851,24 +1851,24 @@ DrawGoalScorerPanel:
         call sprintf_
         add esp, byte 0Ch
         mov eax, 29h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         lea eax, [byte ebp+02Eh]
         call strcat_
         jmp short .2
 .1:
         mov eax, 21h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         lea eax, [byte ebp+02Eh]
         call strcpy_
 .2:
         movsx eax, si
         mov eax, dword [nosplit eax*4+dword_1686D2]
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, 28h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_160196
         lea eax, [byte ebp-022h]
@@ -1880,13 +1880,13 @@ DrawGoalScorerPanel:
         cmp si, byte 1Dh
         jne short .4
         mov eax, 17h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, 28h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, 1Fh
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_16019C
         lea eax, [byte ebp+02Eh]
@@ -1894,13 +1894,13 @@ DrawGoalScorerPanel:
         call sprintf_
         add esp, byte 14h
         mov eax, 18h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, 28h
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov eax, 1Dh
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_16019C
         lea eax, [byte ebp-022h]
@@ -1910,12 +1910,12 @@ DrawGoalScorerPanel:
         jmp short .5
 .4:
         mov eax, 28h
-        call sub_8E7E0
+        call GetLangText
         push eax
         movsx eax, dx
         sar eax, 1
         mov eax, dword [nosplit eax*4+dword_16875E]
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_160196
         lea eax, [byte ebp+02Eh]
@@ -1924,7 +1924,7 @@ DrawGoalScorerPanel:
         movsx eax, si
         add esp, byte 10h
         mov eax, dword [nosplit eax*4+dword_1686D2]
-        call sub_8E7E0
+        call GetLangText
         push eax
         push unk_160193
         lea eax, [byte ebp-022h]
@@ -2020,7 +2020,7 @@ DrawPlayerNamePanel:
         add esp, byte 0Ch
         mov dword [byte edx+08h], eax
         mov eax, 8
-        call sub_8E7E0
+        call GetLangText
         push eax
         push unk_160193
         lea eax, [byte ebp+07Eh]
@@ -2051,7 +2051,7 @@ DrawPlayerNamePanel:
         call sub_16AD0
         push eax
         mov eax, 35h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_1601AF
         lea eax, [byte ebp-022h]
@@ -2133,7 +2133,7 @@ DrawPlayerNamePanel_16F:
         cmp word [dword eax+020CBh], byte 0
         jne near .22
         mov eax, 34h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push unk_160193
         lea eax, [byte ebp-022h]
@@ -2183,7 +2183,7 @@ DrawPlayerNamePanel_16F:
         idiv ecx
         push eax
         mov eax, 36h
-        call sub_8E7E0
+        call GetLangText
         push eax
         test ebx, ebx
         setl al
@@ -2252,7 +2252,7 @@ DrawPlayerNamePanel_16F:
         sub edx, eax
         push edx
         mov eax, 37h
-        call sub_8E7E0
+        call GetLangText
         push eax
         test ebx, ebx
         setg al
@@ -2278,7 +2278,7 @@ DrawPlayerNamePanel_16F:
         jmp near .29
 .22:
         mov eax, 33h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push unk_160193
         lea eax, [byte ebp-022h]
@@ -2312,7 +2312,7 @@ DrawPlayerNamePanel_16F:
         movsx eax, word [dword eax+020CDh]
         push eax
         mov eax, 36h
-        call sub_8E7E0
+        call GetLangText
         push eax
         test ebx, ebx
         setl al
@@ -2416,7 +2416,7 @@ sub_17639:
         add esp, byte 0Ch
         mov dword [byte edx+08h], eax
         mov eax, 31h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push unk_160193
         lea eax, [byte ebp-022h]
@@ -2483,11 +2483,11 @@ sub_1771B:
         add esp, byte 0Ch
         mov dword [byte ebx+08h], eax
         mov eax, 30h
-        call sub_8E7E0
+        call GetLangText
         push eax
         movsx eax, word [gsp]
         add eax, byte 2Ch
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_160196
         lea eax, [byte ebp+07Eh]
@@ -2584,7 +2584,7 @@ sub_17818:
         movzx eax, byte [dword eax+0BCh]
         push eax
         mov eax, 23h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_1601DB
         jmp short .6
@@ -2595,7 +2595,7 @@ sub_17818:
         movzx eax, byte [dword eax+0BCh]
         push eax
         mov eax, 23h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_160184
         jmp short .6
@@ -2614,7 +2614,7 @@ sub_17818:
         movzx eax, byte [dword eax+0BCh]
         push eax
         mov eax, 23h
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_160184
 .6:
@@ -2632,7 +2632,7 @@ sub_17818:
         je short .9
         mov eax, 25h
 .8:
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         lea eax, [byte ebp-026h]
         call strcpy_
@@ -2646,7 +2646,7 @@ sub_17818:
         call strcat_
 .10:
         mov eax, 26h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         lea eax, [byte ebp-026h]
         call strcat_
@@ -2695,7 +2695,7 @@ sub_17818:
         jmp short .14
 .16:
         mov eax, 27h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
 .17:
         lea eax, [byte ebp+02Ah]
@@ -2946,7 +2946,7 @@ sub_17C2C:
         cmp dword [dword_16E468], 12Ch
         jge short .4
         mov eax, 36h
-        call sub_8E7E0
+        call GetLangText
         push eax
         imul eax, dword [dword_16E468], byte 37h
         cdq
@@ -2958,7 +2958,7 @@ sub_17C2C:
         idiv esi
         push eax
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .5
 .4:
@@ -2972,7 +2972,7 @@ sub_17C2C:
         idiv ecx
         push eax
         mov eax, 36h
-        call sub_8E7E0
+        call GetLangText
         push eax
         call sub_FE150
         add esp, byte 0Ch
@@ -3609,7 +3609,7 @@ sub_18025:
         push eax
         mov eax, 2Bh
 .41:
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_1601FF
         lea eax, [byte ebp-028h]
@@ -3646,7 +3646,7 @@ sub_18025:
         push byte 0
 .44:
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp near .55
 .45:
@@ -3988,7 +3988,7 @@ sub_18958:
         push eax
         mov eax, 2Bh
 .3:
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_1601FF
         lea eax, [byte ebp-028h]
@@ -4081,7 +4081,7 @@ sub_18958:
         sub edi, eax
         push edi
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .11
 .10:
@@ -4204,7 +4204,7 @@ sub_18B81:
         push ebx
         mov eax, 2Bh
 .5:
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_1601FF
         lea eax, [byte ebp-01Ch]
@@ -4258,7 +4258,7 @@ sub_18B81:
         push eax
         push byte 0
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .11
 .10:
@@ -6423,7 +6423,7 @@ SetCameraView:
         jmp dword [nosplit cs:edx*4+jpt_1A708]
 SetCameraView_16:
         mov eax, 86h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_1687BC
@@ -6458,7 +6458,7 @@ SetCameraView_16:
         ret
 SetCameraView_AF:
         mov eax, 87h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_1687E0
@@ -6494,7 +6494,7 @@ SetCameraView_AF:
         ret
 SetCameraView_14F:
         mov eax, 88h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_1687E0
@@ -6555,7 +6555,7 @@ SetCameraView_1EF:
         ret
 SetCameraView_25A:
         mov eax, 8Ah
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         call strcpy_
@@ -6583,7 +6583,7 @@ SetCameraView_25A:
         ret
 SetCameraView_2CE:
         mov eax, 8Bh
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_168864
@@ -6619,7 +6619,7 @@ SetCameraView_2CE:
         ret
 SetCameraView_36E:
         mov eax, 8Dh
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_1688B8
@@ -6655,7 +6655,7 @@ SetCameraView_36E:
         ret
 SetCameraView_40E:
         mov eax, 8Ch
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_1688B8
@@ -6691,7 +6691,7 @@ SetCameraView_40E:
         ret
 SetCameraView_4AE:
         mov eax, 89h
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         mov eax, ebx
         mov esi, unk_168828

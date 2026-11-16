@@ -11,9 +11,9 @@ extern dword_1ACB45, dword_1C1334, dword_1C86FC, dword_1C8E4C, dword_1C8E50, dwo
 extern dword_1C8E60, dword_1C8E64, dword_1C8E88, dword_1C8E8C, dword_1C8E90, dword_1C8E94, dword_1C8E98, dword_1C8E9C
 extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, sub_9F6F5_393, sub_9F6F5_3A4, sub_9F6F5_3B5, sub_9F6F5_470, sub_9F6F5_4D9
 extern sub_9F6F5_4EE, rand_, sprintf_, sub_101340, sub_101390, sub_1013FC, sub_101429, sub_11B094
-extern sub_13C164, sub_419B0, sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC, sub_4B108, sub_7E860
-extern sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F028, sub_80AB8, sub_80B28, sub_80BBC, sub_835BC
-extern sub_83850, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_8E7E0, sub_9281C, sub_C6064
+extern sub_13C164, sub_419B0, sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC, LoadDataFile, sub_7E860
+extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, sub_80AB8, sub_80B28, sub_80BBC, sub_835BC
+extern sub_83850, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, sub_9281C, sub_C6064
 extern sub_E117B, sub_E12D1, sub_E13BF, sub_E1744, sub_E3410, sub_E341C, sub_E4638, sub_E4838
 extern sub_FAA64, sub_FAF34, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcount, unk_16CFFC
 extern unk_1ACB44, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1ACB47, word_1C8EA0, word_1C8EA2
@@ -524,7 +524,7 @@ TeamSelectScreen:
         push byte 0FFFFFFFFh
         lea eax, [byte ebp+01Eh]
         mov edx, ebx
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [byte ebp+07Eh]
         mov edx, dword [byte ebp+07Eh]
         mov dword [dword eax+0396h], 4
@@ -535,7 +535,7 @@ TeamSelectScreen:
         call sub_419B8
         xor edx, edx
         mov eax, 2Ch
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1C8E5C], eax
         mov eax, 3
         xor edx, edx
@@ -543,7 +543,7 @@ TeamSelectScreen:
         call sub_419B8
         mov eax, 2Dh
         xor ebx, ebx
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1C8E58], eax
 .6:
         push ebx
@@ -1272,7 +1272,7 @@ sub_9E91C_B61:
         je short .37
         mov eax, 227h
         mov edx, 4A78h
-        call sub_8E7E0
+        call GetLangText
         call sub_835BC
         xor ebx, ebx
         mov eax, dword_1C1334
@@ -1286,7 +1286,7 @@ sub_9E91C_B61:
         jne short .38
         mov eax, 227h
         mov edx, 4A78h
-        call sub_8E7E0
+        call GetLangText
         call sub_835BC
         xor ebx, ebx
         mov eax, dword_1C1334

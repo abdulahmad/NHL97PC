@@ -7,9 +7,9 @@ extern byte_1AD458, byte_1AD72B, byte_1AD739, byte_1AD742, dword_168F58, dword_1
 extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, dword_1AC814, dword_1AC940, dword_1ACF42
 extern dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dword_1AD45A, dword_1AD62F, dword_1AD6AB
 extern dword_1AD6AF, dword_1AD727, dword_1AD743, dword_1C1334, dword_1C1338, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
-extern memcpy_, sprintf_, sub_10AED0, sub_4AE14, sub_5C974, sub_789F0, sub_7B15D, sub_7B88D
+extern memcpy_, sprintf_, sub_10AED0, MakeDirPath, sub_5C974, sub_789F0, sub_7B15D, sub_7B88D
 extern sub_7FE4C, sub_83314, sub_834EC, sub_83558, NameIndexNew, NameIndexLoad, NameIndexFree, sub_86500
-extern sub_8E7E0, sub_91D7F, sub_925BE, sub_96019, sub_A2EF0, sub_A2F31, sub_A2F52, sub_A2F78
+extern GetLangText, sub_91D7F, sub_925BE, sub_96019, sub_A2EF0, sub_A2F31, sub_A2F52, sub_A2F78
 extern sub_A3048, sub_A3116, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DB763, sub_DCFB0, sub_DE5A3
 extern sub_DE740, sub_DEE95, sub_DEF96, sub_E036F, sub_E0415, sub_E19D5, sub_E1C19, sub_E1CC0
 extern sub_E3410, sub_E4638, sub_E4838, sub_FAA64, sub_FAF34, sub_FB704, sub_FCC40, unk_16D7F4
@@ -36,7 +36,7 @@ sub_AB240:
         movsx edx, word [byte eax+02h]
         mov eax, 227h
         mov dword [byte ebp-08h], 0
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
         jmp near .23
 .1:
@@ -239,7 +239,7 @@ sub_AB240:
         mov eax, dword [dword_1AC940]
         movsx edx, word [byte eax+02h]
         mov eax, 227h
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
 .21:
         mov eax, dword [byte ebp-08h]
@@ -542,7 +542,7 @@ sub_AB573:
         mov dword [byte ebp+076h], eax
         sub edx, eax
         mov eax, 236h
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
         jmp short .22
 .21:
@@ -617,7 +617,7 @@ sub_AB573:
         mov dword [byte ebp+076h], eax
         sub edx, eax
         mov eax, 236h
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
         jmp short .25
 .24:
@@ -984,7 +984,7 @@ sub_AB573:
         mov dword [byte ebp+076h], eax
         sub edx, eax
         mov eax, 236h
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
         jmp short .52
 .51:
@@ -1486,7 +1486,7 @@ sub_AC41B:
         mov eax, 78h
         mov ecx, 1
         mov edx, 1Eh
-        call sub_8E7E0
+        call GetLangText
         mov ebx, eax
         lea eax, [byte ebp+05Eh]
         call sub_7FE4C
@@ -1498,7 +1498,7 @@ sub_AC41B:
         mov eax, 78h
         mov ecx, 2
         mov edx, 1Eh
-        call sub_8E7E0
+        call GetLangText
         mov ebx, eax
         lea eax, [byte ebp+05Eh]
         call sub_7FE4C
@@ -1512,7 +1512,7 @@ sub_AC41B:
         mov edx, 1
         lea eax, [byte ebp+036h]
         xor ebx, ebx
-        call sub_4AE14
+        call MakeDirPath
         lea eax, [byte ebp+036h]
         push eax
         push asc_16613D

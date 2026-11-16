@@ -21,7 +21,7 @@ extern sub_C755B_246, sub_C755B_2EC, sub_C755B_3B9, sub_C755B_42C, sub_C755B_49B
 extern sub_C755B_5AB, sub_C755B_5AF, sub_C755B_5CF, sub_C755B_5D3, sub_C755B_604, sub_C755B_615, sub_C755B_624, sub_C755B_65B
 extern sub_C755B_66C, rand_, sprintf_, sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429
 extern sub_102B94, sub_11A318, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41FA0
-extern sub_41FDC, sub_4B108, sub_7DFC0, sub_7F028, InitMenuItems, sub_8BFAC, sub_E341C, sub_FAF34
+extern sub_41FDC, LoadDataFile, sub_7DFC0, SetRegionRect, InitMenuItems, sub_8BFAC, sub_E341C, sub_FAF34
 extern sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcount, unk_1ACB44, unk_1ACD2B, unk_1CBC18
 extern unk_C5ED2
 global jpt_C6038, jpt_C750B, sub_C5F81_B1, sub_C6064_E65, sub_C6064_EB8, sub_C6064_F19, sub_C6064_1135, sub_C6064_115B
@@ -179,7 +179,7 @@ sub_C6064:
         call sub_419B8
         xor edx, edx
         mov eax, 21h
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1CBC14], eax
         mov eax, 3
         call sub_419B0
@@ -638,7 +638,7 @@ sub_C6064:
         add esp, byte 8
         movsx ecx, word [byte eax+04h]
         lea eax, [dword ebp-03C4h]
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [dword ebp+0264h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword_1CBC84], eax
@@ -674,7 +674,7 @@ sub_C6064:
         add esp, byte 8
         movsx ecx, word [byte eax+04h]
         lea eax, [dword ebp-0384h]
-        call sub_7F028
+        call SetRegionRect
         test byte [byte ebp+07Dh], 8
         je short .10
         mov eax, dword [dword ebp+030Ch]
@@ -696,7 +696,7 @@ sub_C6064:
         lea eax, [dword ebp-0344h]
         mov ebx, dword [dword_1CBCE6]
         mov dword [dword_1CBCD0], eax
-        call sub_7F028
+        call SetRegionRect
         test byte [byte ebp+07Dh], 20h
         je short .12
         mov eax, dword [dword ebp+030Ch]
@@ -718,7 +718,7 @@ sub_C6064:
         lea eax, [dword ebp-0304h]
         mov ebx, dword [dword_1CBD38]
         mov dword [dword_1CBD22], eax
-        call sub_7F028
+        call SetRegionRect
         test byte [byte ebp+07Dh], 10h
         je short .14
         mov eax, dword [dword ebp+030Ch]
@@ -740,7 +740,7 @@ sub_C6064:
         lea eax, [dword ebp-02C4h]
         mov ebx, dword [dword_1CBD8A]
         mov dword [dword_1CBD74], eax
-        call sub_7F028
+        call SetRegionRect
         test byte [byte ebp+07Dh], 0C0h
         jne short .16
         mov eax, dword [dword ebp+0310h]
@@ -769,7 +769,7 @@ sub_C6064:
         lea eax, [dword ebp-0244h]
         mov ebx, dword [dword_1CBE2E]
         mov dword [dword_1CBE18], eax
-        call sub_7F028
+        call SetRegionRect
         test byte [byte ebp+07Eh], 1
         je short .19
         mov eax, dword [dword ebp+030Ch]
@@ -791,7 +791,7 @@ sub_C6064:
         lea eax, [dword ebp-0204h]
         mov ebx, dword [dword_1CBE80]
         mov dword [dword_1CBE6A], eax
-        call sub_7F028
+        call SetRegionRect
         test byte [byte ebp+07Eh], 4
         je short .21
         mov eax, dword [dword ebp+030Ch]
@@ -813,7 +813,7 @@ sub_C6064:
         lea eax, [dword ebp-01C4h]
         mov ebx, dword [dword_1CBED2]
         mov dword [dword_1CBEBC], eax
-        call sub_7F028
+        call SetRegionRect
         test byte [byte ebp+07Eh], 18h
         jne short .23
         mov eax, dword [dword ebp+02E4h]
@@ -842,7 +842,7 @@ sub_C6064:
         lea eax, [dword ebp-0184h]
         mov ebx, dword [dword_1CBF24]
         mov dword [dword_1CBF0E], eax
-        call sub_7F028
+        call SetRegionRect
         test byte [byte ebp+07Eh], 20h
         je short .26
         mov eax, dword [dword ebp+030Ch]
@@ -864,7 +864,7 @@ sub_C6064:
         lea eax, [dword ebp-0144h]
         mov ebx, dword [dword_1CBF76]
         mov dword [dword_1CBF60], eax
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CBFAE], 4
         lea eax, [dword ebp-0104h]
         push byte 10h
@@ -874,7 +874,7 @@ sub_C6064:
         movsx edx, word [byte esi+0Ch]
         add ebx, 82h
         add edx, 0D2h
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CC000], 4
         lea eax, [dword ebp-0C4h]
         push byte 10h
@@ -884,7 +884,7 @@ sub_C6064:
         movsx edx, word [byte esi+0Ch]
         add ebx, 83h
         add edx, 0E0h
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CC052], 4
         lea eax, [dword ebp-084h]
         push byte 14h
@@ -894,7 +894,7 @@ sub_C6064:
         movsx edx, word [byte esi+0Ch]
         add ebx, 80h
         add edx, 0F2h
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CC0A4], 4
         lea eax, [byte ebp-044h]
         push byte 1Ah
@@ -904,7 +904,7 @@ sub_C6064:
         movsx edx, word [byte esi+0Ch]
         add ebx, byte 7Eh
         add edx, 103h
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CC0F6], 4
         lea eax, [byte ebp-04h]
         push byte 1Fh
@@ -914,7 +914,7 @@ sub_C6064:
         movsx edx, word [byte esi+0Ch]
         add ebx, byte 7Ch
         add edx, 116h
-        call sub_7F028
+        call SetRegionRect
         mov dword [dword_1CC148], 4
         lea eax, [byte ebp+03Ch]
         push byte 24h
@@ -924,7 +924,7 @@ sub_C6064:
         movsx edx, word [byte esi+0Ch]
         add ebx, byte 79h
         add edx, 12Bh
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 10h

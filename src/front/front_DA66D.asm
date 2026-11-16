@@ -39,10 +39,10 @@ extern sub_10FAC, sub_1167AE, sub_11A318, sub_11A350, sub_11B104, sub_11B98E, su
 extern sub_11C41C, sub_11D2D0, sub_11D364, sub_11D508, sub_11D5C0, sub_11D690, sub_11D780, sub_11D8D8
 extern sub_11DA0C, sub_11DE04, sub_11F850, sub_11F8D0, sub_13C164, sub_14140, sub_379AC, sub_37A1C
 extern sub_37F4C, sub_37FC8, sub_419B0, sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8
-extern ArenaFileName, sub_41FA0, sub_41FDC, sub_4AA78, sub_4B108, sub_7DFC0, sub_7E860, sub_7EDF0
-extern sub_7EF70, sub_7F028, sub_7F04C, sub_7F0D8, sub_7F16C, sub_7F29C, sub_7F5A4, sub_7F5B8
+extern ArenaFileName, sub_41FA0, sub_41FDC, sub_4AA78, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0
+extern sub_7EF70, SetRegionRect, sub_7F04C, sub_7F0D8, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7F5B8
 extern sub_80BBC, sub_81D1C, sub_83314, sub_834EC, sub_83558, sub_835AC, sub_835BC, sub_83850
-extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_8E7E0, sub_D7A70, sub_D7B64, sub_D8130
+extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, sub_D7A70, sub_D7B64, sub_D8130
 extern sub_D81D8, sub_D8B20, sub_D9960, sub_D9D74, sub_DA020, sub_DA02C, sub_DA48C, sub_DA498
 extern sub_DA544, sub_DA57C, sub_DA654, sub_E7D6D, sub_E8660, sub_E8923, sub_F9A88, sub_FAA64
 extern sub_FAAB4, sub_FAF34, sub_FB704, sub_FBE40, addtimer, sub_FC008, WaitTicks, sub_FC510
@@ -77,7 +77,7 @@ global sub_DFAF6, sub_E0297, sub_E036F, sub_E0415, sub_E0617, sub_E0691, sub_E06
 global sub_E0841, sub_E08E9, sub_E0AD0, sub_E0B75, sub_E0B82, sub_E0C4F, sub_E0D0F, sub_E0DB7
 global sub_E0F85, sub_E117B, sub_E1245, sub_E12D1, sub_E12EF, sub_E13BF, sub_E13FE, sub_E1563
 global sub_E167A, sub_E1744, sub_E19D5, sub_E1C19, sub_E1CC0, sub_E1D45, sub_E1EC9, sub_E2041
-global sub_E2141, sub_E21C6, sub_E2270, sub_E22A0, sub_E22D0, sub_E22FC, sub_E2310, sub_E2334
+global sub_E2141, sub_E21C6, sub_E2270, sub_E22A0, FreePtr, sub_E22FC, sub_E2310, sub_E2334
 global sub_E2348, sub_E2378, FileDelete, FileCreate, FileOpen, FileSeek, FileSeekEnd, sub_E2444
 global FileReadRecord, FileWriteRecord, FileClose, sub_E24F0, sub_E2590, sub_E2620, sub_E2790, sub_E2838
 global PollControllers, InputRecordTimer, InitSlotTable, sub_E304C, sub_E30BC, sub_E30D8, sub_E30F4, sub_E3174
@@ -291,7 +291,7 @@ sub_DA7EB_18:
 .4:
         call sub_D7B64
         mov eax, dword_1CD17C
-        call sub_E22D0
+        call FreePtr
         xor eax, eax
         jmp near sub_DA7EB_18
 .5:
@@ -1372,7 +1372,7 @@ sub_DB508:
         mov dword [byte ebp-04h], eax
 .2:
         lea eax, [byte ebp-0Ch]
-        call sub_E22D0
+        call FreePtr
         call sub_E341C
         mov eax, dword [byte ebp-04h]
 .3:
@@ -1534,7 +1534,7 @@ sub_DB747:
         call sub_E341C
         mov eax, dword_1CD17C
 sub_DB75E:
-        jmp near sub_E22D0
+        jmp near FreePtr
 ;-----------------------------------------------------------------------------
 ; sub_DB763                                                       DB763  97 PC
 ;-----------------------------------------------------------------------------
@@ -2160,7 +2160,7 @@ sub_DBDC1:
         jne short .3
 .1:
         lea eax, [byte ebp-010h]
-        call sub_E22D0
+        call FreePtr
 .2:
         xor eax, eax
         jmp near sub_E036F_A0
@@ -2183,7 +2183,7 @@ sub_DBDC1:
         cmp ebx, dword [byte ebp-08h]
         jl short .4
         lea eax, [byte ebp-010h]
-        call sub_E22D0
+        call FreePtr
 .6:
         push byte 0
         mov ebx, 54h
@@ -2244,7 +2244,7 @@ sub_DBEB3:
         jne short .3
 .1:
         lea eax, [byte ebp-08h]
-        call sub_E22D0
+        call FreePtr
 .2:
         xor eax, eax
         leave
@@ -2270,7 +2270,7 @@ sub_DBEB3:
         cmp ecx, dword [byte ebp-04h]
         jl short .4
         lea eax, [byte ebp-08h]
-        call sub_E22D0
+        call FreePtr
 .6:
         mov eax, dword [byte ebp-010h]
         mov dword [byte ebp-04h], 7FFFFFFFh
@@ -2488,7 +2488,7 @@ sub_DC11A:
         cmp edx, dword [byte ebp+07Eh]
         jl short .3
         lea eax, [byte ebp+076h]
-        call sub_E22D0
+        call FreePtr
 .5:
         lea edi, [byte ebp-01Ah]
         mov esi, dword [byte ebp-01Eh]
@@ -3663,7 +3663,7 @@ sub_DCFB0:
         test eax, eax
         jne short .1
         mov eax, dword [dword ebp+08Eh]
-        call sub_E22D0
+        call FreePtr
         jmp near .7
 .1:
         movsx edx, word [byte ebp-01Ah]
@@ -3672,7 +3672,7 @@ sub_DCFB0:
         mov dword [byte ebp+072h], 0
         inc edx
         inc edx
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
 .2:
         movsx eax, word [byte ebp-01Ah]
@@ -3713,7 +3713,7 @@ sub_DCFB0:
         jne short .8
 .6:
         mov eax, dword [dword ebp+08Eh]
-        call sub_E22D0
+        call FreePtr
         call sub_83558
 .7:
         xor eax, eax
@@ -3871,7 +3871,7 @@ sub_DCFB0_30F:
         jne short sub_DCFB0_31E
         mov eax, dword [dword ebp+08Eh]
 sub_DCFB0_319:
-        call sub_E22D0
+        call FreePtr
 sub_DCFB0_31E:
         call sub_83558
         mov eax, edx
@@ -3915,7 +3915,7 @@ sub_DD2DE:
 .1:
         lea eax, [byte ebp+06Ah]
 .2:
-        call sub_E22D0
+        call FreePtr
 .3:
         xor eax, eax
         jmp short sub_DCFB0_325
@@ -3962,7 +3962,7 @@ sub_DD2DE:
         test eax, eax
         jne short .5
         lea eax, [byte ebp+06Ah]
-        call sub_E22D0
+        call FreePtr
         mov eax, dword [dword ebp+08Eh]
         jmp near .2
 .5:
@@ -3972,7 +3972,7 @@ sub_DD2DE:
         mov dword [byte ebp+072h], 0
         inc edx
         inc edx
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
 .6:
         movsx eax, word [byte ebp-01Eh]
@@ -4012,7 +4012,7 @@ sub_DD2DE:
 .9:
         jne short .10
         mov eax, dword [dword ebp+08Eh]
-        call sub_E22D0
+        call FreePtr
         call sub_83558
         jmp near .1
 .10:
@@ -4043,9 +4043,9 @@ sub_DD2DE:
         test eax, eax
         jne short .11
         lea eax, [byte ebp+06Ah]
-        call sub_E22D0
+        call FreePtr
         mov eax, dword [dword ebp+08Eh]
-        call sub_E22D0
+        call FreePtr
         call sub_83558
         jmp near .3
 .11:
@@ -4054,7 +4054,7 @@ sub_DD2DE:
         jmp near .6
 .12:
         lea eax, [byte ebp+06Ah]
-        call sub_E22D0
+        call FreePtr
         mov eax, dword [byte ebp+07Ah]
         movsx ebx, word [byte ebp-01Ah]
         xor edx, edx
@@ -4198,7 +4198,7 @@ sub_DD61F:
         test eax, eax
         jne short .1
         lea eax, [byte ebp+062h]
-        call sub_E22D0
+        call FreePtr
         jmp near .7
 .1:
         mov eax, dword [dword ebp+086h]
@@ -4249,7 +4249,7 @@ sub_DD61F:
         mov eax, 243h
         inc edx
         inc edx
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
 .2:
         movsx eax, word [byte ebp-026h]
@@ -4290,9 +4290,9 @@ sub_DD61F:
         jne short .8
 .6:
         lea eax, [byte ebp+062h]
-        call sub_E22D0
+        call FreePtr
         mov eax, dword [dword ebp+086h]
-        call sub_E22D0
+        call FreePtr
         call sub_83558
 .7:
         xor eax, eax
@@ -4329,7 +4329,7 @@ sub_DD61F:
         jmp near .2
 .9:
         lea eax, [byte ebp+062h]
-        call sub_E22D0
+        call FreePtr
         mov eax, dword [byte ebp+072h]
         movsx ebx, word [byte ebp-022h]
         xor edx, edx
@@ -4451,7 +4451,7 @@ sub_DD61F:
         test edx, edx
         jne short .18
         mov eax, dword [dword ebp+086h]
-        call sub_E22D0
+        call FreePtr
 .18:
         call sub_83558
         mov eax, edx
@@ -4490,7 +4490,7 @@ sub_DD970:
         test eax, eax
         jne short .3
         lea eax, [byte ebp+076h]
-        call sub_E22D0
+        call FreePtr
         jmp short .1
 .3:
         mov eax, dword [byte ebp-016h]
@@ -4577,7 +4577,7 @@ sub_DD970:
         mov eax, 243h
         inc edx
         inc edx
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
 .6:
         mov eax, dword [byte ebp+076h]
@@ -4597,7 +4597,7 @@ sub_DD970:
         test eax, eax
         jne short .7
         mov eax, dword [byte ebp-016h]
-        call sub_E22D0
+        call FreePtr
         call sub_83558
         jmp near .1
 .7:
@@ -4703,7 +4703,7 @@ sub_DD970:
         call sub_E341C
 .14:
         lea eax, [byte ebp+076h]
-        call sub_E22D0
+        call FreePtr
         test edx, edx
         jne near sub_DCFB0_31E
         mov eax, dword [byte ebp-016h]
@@ -4740,7 +4740,7 @@ sub_DDC4A:
         jne short .3
         lea eax, [byte ebp+072h]
 .1:
-        call sub_E22D0
+        call FreePtr
 .2:
         xor eax, eax
         jmp near sub_DDC4A_2F0
@@ -4833,7 +4833,7 @@ sub_DDC4A:
         mov eax, 243h
         inc edx
         inc edx
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
 .7:
         mov eax, dword [byte ebp+072h]
@@ -4853,7 +4853,7 @@ sub_DDC4A:
         test eax, eax
         jne short .8
         mov eax, dword [byte ebp+07Ah]
-        call sub_E22D0
+        call FreePtr
         call sub_83558
         jmp near .2
 .8:
@@ -4959,12 +4959,12 @@ sub_DDC4A:
         call sub_E341C
 .15:
         lea eax, [byte ebp+072h]
-        call sub_E22D0
+        call FreePtr
         test edx, edx
         jne short .17
         mov eax, dword [byte ebp+07Ah]
 .16:
-        call sub_E22D0
+        call FreePtr
 .17:
         call sub_83558
         mov eax, edx
@@ -5057,7 +5057,7 @@ sub_DDC4A_2F0:
         test eax, eax
         jne short .20
         mov eax, dword [byte ebp+076h]
-        call sub_E22D0
+        call FreePtr
         jmp near .18
 .20:
         mov eax, dword [byte ebp+07Eh]
@@ -5088,7 +5088,7 @@ sub_DDC4A_2F0:
         xor esi, esi
         inc edx
         inc edx
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
 .23:
         mov eax, dword [byte ebp+07Ah]
@@ -5113,7 +5113,7 @@ sub_DDC4A_2F0:
 .25:
         je short .26
         mov eax, dword [byte ebp+076h]
-        call sub_E22D0
+        call FreePtr
         call sub_83558
         jmp near .18
 .26:
@@ -5583,7 +5583,7 @@ sub_DE3CF:
         test edx, edx
         jne short .12
         mov eax, esi
-        call sub_E22D0
+        call FreePtr
 .12:
         call sub_E341C
         mov eax, edx
@@ -5854,7 +5854,7 @@ sub_DE740:
         mov edx, eax
 .4:
         lea eax, [byte ebp-04h]
-        call sub_E22D0
+        call FreePtr
         mov eax, edx
 .5:
         leave
@@ -6429,7 +6429,7 @@ sub_DEE95:
         mov edx, eax
 .5:
         lea eax, [byte ebp-08h]
-        call sub_E22D0
+        call FreePtr
         mov eax, edx
         jmp near sub_E036F_A0
 ;-----------------------------------------------------------------------------
@@ -6518,7 +6518,7 @@ sub_DEF96:
         mov edx, eax
 .4:
         lea eax, [byte ebp-0Ch]
-        call sub_E22D0
+        call FreePtr
         mov eax, edx
 .5:
         leave
@@ -9201,7 +9201,7 @@ sub_E117B:
         jne short .3
 .1:
         mov eax, ecx
-        call sub_E22D0
+        call FreePtr
 .2:
         lea eax, [byte ebp-04h]
         call FileClose
@@ -9308,10 +9308,10 @@ sub_E12D1:
         cmp word [eax], byte 0
         jle short .1
         add eax, 383C1h
-        call sub_E22D0
+        call FreePtr
 .1:
         mov eax, edx
-        call sub_E22D0
+        call FreePtr
         pop edx
         ret
 ;-----------------------------------------------------------------------------
@@ -9351,7 +9351,7 @@ sub_E12EF:
         jne short .3
 .2:
         mov eax, ecx
-        call sub_E22D0
+        call FreePtr
         xor eax, eax
         jmp near sub_DA7EB_18
 .3:
@@ -9400,10 +9400,10 @@ sub_E13BF:
         cmp word [eax], byte 0
         jle short .1
         add eax, 383C1h
-        call sub_E22D0
+        call FreePtr
 .1:
         mov eax, edx
-        call sub_E22D0
+        call FreePtr
         mov eax, ebx
 .2:
         leave
@@ -9461,7 +9461,7 @@ sub_E13FE:
         mov eax, dword [byte ebp-044h]
         add eax, 383C1h
         mov edx, dword [byte ebp-044h]
-        call sub_E22D0
+        call FreePtr
         mov eax, dword [byte ebp-08h]
         mov dword [dword edx+0383C1h], eax
         mov edx, 38h
@@ -9567,7 +9567,7 @@ sub_E1563:
         mov eax, dword [byte ebp-044h]
         add eax, 383C1h
         mov edx, dword [byte ebp-044h]
-        call sub_E22D0
+        call FreePtr
         mov eax, dword [byte ebp-04h]
         mov dword [dword edx+0383C1h], eax
         mov edx, 38h
@@ -9653,7 +9653,7 @@ sub_E167A:
         cmp word [ecx], byte 1
         jne short .3
         lea eax, [dword ecx+0383C1h]
-        call sub_E22D0
+        call FreePtr
         mov eax, 1
         mov word [ecx], 0
         jmp near sub_E036F_A0
@@ -9693,7 +9693,7 @@ sub_E167A:
         mov eax, dword [byte ebp-08h]
         mov word [ecx], ax
         lea eax, [dword ecx+0383C1h]
-        call sub_E22D0
+        call FreePtr
         mov eax, dword [byte ebp-010h]
         mov dword [dword ecx+0383C1h], eax
         jmp near sub_DB8E6_244
@@ -10666,9 +10666,11 @@ sub_E22A0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E22D0                                                       E22D0  97 PC
+; FreePtr                                      E22D0  97 PC, medium confidence
+; (&ptr): frees the block and clears the pointer; returns 1, or 0 when it was
+; already null
 ;-----------------------------------------------------------------------------
-sub_E22D0:
+FreePtr:
         push ebx
         push ecx
         push edx
@@ -12745,7 +12747,7 @@ sub_E3798:
         cmp dword [dword_16E46C], byte 8
         je short .5
         mov eax, 237h
-        call sub_8E7E0
+        call GetLangText
         test eax, eax
         je short .8
         cmp ecx, dword [dword_16DAC8]
@@ -12759,7 +12761,7 @@ sub_E3798:
         jmp short .7
 .5:
         mov eax, 76h
-        call sub_8E7E0
+        call GetLangText
         test eax, eax
         je short .8
         cmp ecx, dword [dword_16DAC8]
@@ -13017,7 +13019,7 @@ sub_E3AFC:
         mov eax, 238h
         mov edx, ecx
         xor ebx, ebx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         xor eax, eax
         add esp, 100h
@@ -13060,7 +13062,7 @@ sub_E3AFC:
         mov dword [dword_1CD288], eax
         mov eax, 239h
         mov dword [dword esp+0FCh], edx
-        call sub_8E7E0
+        call GetLangText
         call sub_835BC
         mov edx, dword [dword_16DAA4]
         mov ebx, sub_E3640
@@ -13077,7 +13079,7 @@ sub_E3AFC:
         mov ecx, 1
         xor ebx, ebx
         mov edx, ecx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         xor eax, eax
         add esp, 100h
@@ -13147,7 +13149,7 @@ sub_E3AFC:
         mov ecx, 1
         xor ebx, ebx
         mov edx, ecx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         call sub_E59A8
         call sub_37A1C
@@ -14225,7 +14227,7 @@ sub_E4908:
         je short .3
         push eax
         mov eax, 23Ch
-        call sub_8E7E0
+        call GetLangText
         push eax
         call sub_FDE44
         mov edx, dword [dword_16E464]
@@ -14239,7 +14241,7 @@ sub_E4908:
 .3:
         push eax
         mov eax, 77h
-        call sub_8E7E0
+        call GetLangText
         push eax
         call sub_FDE44
         mov edx, dword [dword_16E464]
@@ -14250,7 +14252,7 @@ sub_E4908:
         push edx
         mov eax, 77h
 .4:
-        call sub_8E7E0
+        call GetLangText
         push eax
         call sub_FE150
         add esp, byte 0Ch
@@ -14277,7 +14279,7 @@ sub_E4908:
         je short .5
         push eax
         mov eax, 23Ch
-        call sub_8E7E0
+        call GetLangText
         push eax
         call sub_FDE44
         mov edx, dword [dword_16E464]
@@ -14291,7 +14293,7 @@ sub_E4908:
 .5:
         push eax
         mov eax, 75h
-        call sub_8E7E0
+        call GetLangText
         push eax
         call sub_FDE44
         mov edx, dword [dword_16E464]
@@ -14302,7 +14304,7 @@ sub_E4908:
         push edx
         mov eax, 75h
 .6:
-        call sub_8E7E0
+        call GetLangText
         push eax
         call sub_FE150
         add esp, byte 0Ch
@@ -14762,7 +14764,7 @@ sub_E4908:
         cmp ecx, byte 8
         je short .31
         mov eax, 237h
-        call sub_8E7E0
+        call GetLangText
         test eax, eax
         je short .34
         cmp edi, dword [dword_16DAC8]
@@ -15966,7 +15968,7 @@ sub_E5FD8:
         push byte 0
         add edi, byte 34h
         inc ebx
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         cmp ebx, byte 9
         jl short .1
@@ -15977,7 +15979,7 @@ sub_E5FD8:
         add esp, byte 4
         call sub_7F0D8
         mov eax, 22Ah
-        call sub_8E7E0
+        call GetLangText
         mov edx, dword [dword_1CF548]
         push eax
         lea eax, [nosplit edx*4+00h]
@@ -15988,7 +15990,7 @@ sub_E5FD8:
         push eax
         push dword 0C3h
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
 .4:
         call sub_13C164
@@ -16365,7 +16367,7 @@ sub_E657C:
         add esp, byte 4
         call sub_7F0D8
         mov eax, 22Bh
-        call sub_8E7E0
+        call GetLangText
         push eax
         mov ecx, dword [dword_1CF548]
         push ecx
@@ -16374,7 +16376,7 @@ sub_E657C:
         push byte 1
         xor edi, edi
         xor esi, esi
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
 .1:
         push byte 0
@@ -16641,7 +16643,7 @@ sub_E657C:
         push ebx
         mov ebx, dword [byte eax+02Ah]
         mov eax, dword [dword_1CD544]
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [dword_1CD54C]
         mov eax, dword [byte eax+01Ah]
         mov edx, dword [byte eax+0Ch]
@@ -16696,7 +16698,7 @@ sub_E657C:
         mov eax, dword [dword_1CD544]
         sar ecx, 10h
         add eax, byte 40h
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [dword_1CD54C]
         mov eax, dword [byte eax+06Ch]
         mov edx, dword [byte eax+0Ch]
@@ -16743,7 +16745,7 @@ sub_E657C:
         inc ebp
         add eax, edi
         add edi, byte 40h
-        call sub_7F028
+        call SetRegionRect
         cmp edi, 200h
         jne short .6
         xor ebx, ebx
@@ -16878,7 +16880,7 @@ sub_E657C:
         mov eax, dword [dword_1CD544]
         mov ecx, 0Eh
         add eax, 200h
-        call sub_7F028
+        call SetRegionRect
         mov eax, dword [dword_1CD54C]
         mov ebp, dword [dword_1CD55C]
         mov edx, dword [dword eax+02BAh]
@@ -16926,7 +16928,7 @@ sub_E657C:
         mov eax, dword [dword_1CD544]
         mov ecx, 0Eh
         add eax, 240h
-        call sub_7F028
+        call SetRegionRect
         mov edx, dword [dword_1CD54C]
         mov esi, dword [dword_1CD55C]
         mov eax, dword [dword edx+030Ch]
@@ -17294,7 +17296,7 @@ sub_E72B0:
         xor ebx, ebx
         mov eax, 22Ch
         mov edx, ecx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         xor eax, eax
         add esp, byte 5Ch
@@ -17304,7 +17306,7 @@ sub_E72B0:
         ret 4
 .2:
         mov eax, 160h
-        call sub_8E7E0
+        call GetLangText
         call sub_835BC
         cmp dword [dword_16E140], byte 0
         jne short .5
@@ -17353,7 +17355,7 @@ sub_E72B0:
         push byte 0
         mov eax, 22Dh
         mov edx, ecx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         xor eax, eax
         add esp, byte 5Ch
@@ -17382,7 +17384,7 @@ sub_E72B0:
         push edi
         mov ebx, edi
         mov edx, ecx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
 .8:
         test esi, esi
@@ -17412,7 +17414,7 @@ sub_E72B0:
         push byte 0
         mov eax, 22Fh
         mov edx, ecx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         xor eax, eax
         add esp, byte 5Ch
@@ -17624,7 +17626,7 @@ sub_E77B1:
         mov edx, 1
         xor ecx, ecx
         xor ebx, ebx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5B8
         jmp short .1
 .3:
@@ -17634,7 +17636,7 @@ sub_E77B1:
         call sub_419B0
         call sub_419B8
         mov eax, 8
-        call sub_4B108
+        call LoadDataFile
         mov esi, eax
         mov dword [byte ebp+07Eh], eax
         mov eax, 3
@@ -17642,7 +17644,7 @@ sub_E77B1:
         call sub_419B0
         call sub_419B8
         mov eax, 9
-        call sub_4B108
+        call LoadDataFile
         push asc_167624
         push esi
         mov ebx, eax
@@ -17833,7 +17835,7 @@ sub_E77B1:
         push byte 1
         mov eax, 1AFh
         xor ebx, ebx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5B8
         movzx eax, word [dword_16E144]
         call sub_10A68
@@ -17891,11 +17893,11 @@ sub_E7B33:
         call sub_7F0D8
         xor edx, edx
         mov eax, 6Ch
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1CD784], eax
         xor edx, edx
         mov eax, 6Dh
-        call sub_4B108
+        call LoadDataFile
         push byte 0
         push dword 1E0h
         push dword 280h

@@ -101,8 +101,8 @@ global PaEvent_14CD, sub_4A74C_34, sub_4A74C_4B, sub_4A74C_105, sub_4A74C_277, M
 global MakeDataPath_62, MakeDataPath_111, MakeDataPath_119, MakeDataPath_11F, MakeDataPath_132, jpt_4AE54_137, sub_4B8DC_27, sub_4B8DC_33
 global sub_4B8DC_3D, sub_4B8DC_47, sub_4E8EC_30, sub_4FD24_59, sub_50AF4_184, sub_51A74_58, sub_51AEC_50, sub_52494_2C
 global sub_52494_42, sub_52494_58, sub_52494_7D, PaEvent, sub_4A248, sub_4A280, sub_4A4F4, sub_4A558
-global sub_4A6F8, sub_4A74C, sub_4AA78, MakeDataPath, sub_4AE14, LoadDataFileHandle, sub_4B074, sub_4B108
-global sub_4B12D, sub_4B19C, SetArtArchive, sub_4B307, WriteGlobalSet, sub_4B4AC, sub_4B4B0, sub_4B4C4
+global sub_4A6F8, sub_4A74C, sub_4AA78, MakeDataPath, MakeDirPath, LoadDataFileHandle, LoadDataFileLib, LoadDataFile
+global LoadDataFileFlag0, OpenDataLibrary, SetArtArchive, sub_4B307, WriteGlobalSet, sub_4B4AC, sub_4B4B0, sub_4B4C4
 global sub_4B540, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928, sub_4B944, sub_4BA00, sub_4BCB4
 global sub_4BD0C, sub_4BD4C, sub_4BDC0, sub_4BE14, sub_4BF10, sub_4BF54, sub_4BF94, sub_4C0C4
 global sub_4C0CC, sub_4C164, sub_4C240, sub_4C360, sub_4C404, sub_4C48C, sub_4C5A0, sub_4CE94
@@ -2899,9 +2899,11 @@ jpt_4AD42:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4AE14                                                       4AE14  97 PC
+; MakeDirPath                                                     4AE14  96 PC
+; (out, dir, language): a game directory path (language prefix, directory
+; from unk_115120, backslash)
 ;-----------------------------------------------------------------------------
-sub_4AE14:
+MakeDirPath:
         push ecx
         push esi
         mov ecx, eax
@@ -3119,9 +3121,11 @@ LoadDataFileHandle:
         call sub_10AE10
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
-; sub_4B074                                                       4B074  97 PC
+; LoadDataFileLib                                 4B074  96 PC, low confidence
+; LoadDataFile through the other library loader (sub_B0494 -> sub_C4DE0, flag
+; 1)
 ;-----------------------------------------------------------------------------
-sub_4B074:
+LoadDataFileLib:
         push ebx
         push ecx
         mov ebx, edx
@@ -3167,9 +3171,11 @@ sub_4B074:
         call sub_100510
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
-; sub_4B108                                                       4B108  97 PC
+; LoadDataFile                                 4B108  96 PC, medium confidence
+; (file id, flags): loads a game data file by id (MakeDataPath, then the
+; loader)
 ;-----------------------------------------------------------------------------
-sub_4B108:
+LoadDataFile:
         push ebx
         push ecx
         mov ebx, edx
@@ -3182,9 +3188,10 @@ sub_4B108:
         call sub_101584
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
-; sub_4B12D                                                       4B12D  97 PC
+; LoadDataFileFlag0                            4B12D  96 PC, medium confidence
+; LoadDataFile through the same loader with flag 0 (sub_B20EC)
 ;-----------------------------------------------------------------------------
-sub_4B12D:
+LoadDataFileFlag0:
         push ebx
         push ecx
         mov ebx, edx
@@ -3219,9 +3226,10 @@ sub_4B12D:
         call sub_10150C
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
-; sub_4B19C                                                       4B19C  97 PC
+; OpenDataLibrary                                 4B19C  97 PC, low confidence
+; (file id): makes the data file the current library (sub_FC330)
 ;-----------------------------------------------------------------------------
-sub_4B19C:
+OpenDataLibrary:
         push ecx
         push edx
         mov edx, eax

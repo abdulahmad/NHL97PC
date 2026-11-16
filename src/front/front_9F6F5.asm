@@ -15,11 +15,11 @@ extern dword_1C93C8, dword_1C93CC, dword_1C93D8, dword_1C93DC, dword_1C93E0, dwo
 extern off_16D254, off_16D258, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
 extern sub_101324, sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_106D80, sub_107098
 extern sub_11A318, sub_11B0D0, sub_11B98E, sub_11B9A0, sub_11BA08, sub_11BA50, sub_13C164, sub_419B0
-extern sub_419B8, sub_41FA0, sub_41FDC, sub_4AE14, sub_4B108, sub_7EDF0, sub_7EEB0, sub_7F028
-extern sub_7F04C, sub_7F0D8, sub_7F16C, sub_7F5A4, sub_81114, sub_81650, sub_83314, sub_834EC
+extern sub_419B8, sub_41FA0, sub_41FDC, MakeDirPath, LoadDataFile, sub_7EDF0, sub_7EEB0, SetRegionRect
+extern sub_7F04C, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_81114, sub_81650, sub_83314, sub_834EC
 extern sub_83558, sub_835BC, sub_83850, NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500
 extern NameIndexRemove, NameIndexPath, sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar
-extern sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E6AF, sub_8E7E0, sub_9F671, sub_AB240, sub_AC6EB
+extern sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E6AF, GetLangText, sub_9F671, sub_AB240, sub_AC6EB
 extern sub_AC73E, sub_DA7D6, sub_DCBB0, sub_DCC75, sub_DE3CF, sub_DE5A3, sub_E036F, sub_E0415
 extern sub_E076B, sub_E0841, sub_E08E9, sub_E0D0F, sub_E0F85, sub_E19D5, sub_E1C19, sub_E1CC0
 extern sub_E1D45, sub_E3410, sub_E341C, sub_E4218, sub_E4638, sub_E4838, sub_ED6C8, sub_EDDAC
@@ -64,20 +64,20 @@ PickIndexEntryScreen:
         add esp, byte 0Ch
         mov dword [byte ebp+076h], eax
         lea eax, [byte ebp-066h]
-        call sub_4AE14
+        call MakeDirPath
         mov eax, 3
         call sub_419B0
         call sub_419B8
         xor edx, edx
         mov eax, 3Eh
-        call sub_4B108
+        call LoadDataFile
         mov dword [byte ebp+05Eh], eax
         mov eax, 3
         xor edx, edx
         call sub_419B0
         call sub_419B8
         mov eax, 3Fh
-        call sub_4B108
+        call LoadDataFile
         mov esi, eax
         mov dword [byte ebp+066h], eax
         mov eax, 3
@@ -90,7 +90,7 @@ PickIndexEntryScreen:
         lea eax, [byte edx+040h]
         xor edx, edx
         mov dword [byte ebp+072h], 0FFFFFFFFh
-        call sub_4B108
+        call LoadDataFile
         mov dword [byte ebp+05Ah], eax
         mov eax, 3
         mov dword [byte ebp+06Eh], 0
@@ -181,7 +181,7 @@ PickIndexEntryScreen:
         add edi, eax
         add ebx, byte 46h
         mov eax, edi
-        call sub_7F028
+        call SetRegionRect
         lea eax, [byte esi+06h]
         imul eax, byte 52h
         mov dword [dword eax+dword_1C8EB4], 4
@@ -263,7 +263,7 @@ PickIndexEntryScreen:
         push edx
         movsx edx, word [byte eax+0Ch]
         lea eax, [dword ebp-0426h]
-        call sub_7F028
+        call SetRegionRect
         call sub_13C164
         mov eax, dword [byte ebp+076h]
         push dword [byte eax+02Ch]
@@ -551,7 +551,7 @@ sub_9F6F5_4EE:
         add esp, byte 0Ch
         xor ebx, ebx
         lea eax, [byte ebp-066h]
-        call sub_4AE14
+        call MakeDirPath
         lea eax, [byte ebp-01Eh]
         push eax
         lea eax, [byte ebp-066h]
@@ -601,7 +601,7 @@ sub_9F6F5_4EE:
         add esp, byte 0Ch
         xor ebx, ebx
         lea eax, [byte ebp-066h]
-        call sub_4AE14
+        call MakeDirPath
         lea eax, [byte ebp+022h]
         push eax
         lea eax, [byte ebp-066h]
@@ -648,7 +648,7 @@ sub_9F6F5_4EE:
         add esp, byte 0Ch
         xor ebx, ebx
         lea eax, [byte ebp-066h]
-        call sub_4AE14
+        call MakeDirPath
         lea eax, [byte ebp-01Eh]
         push eax
         lea eax, [byte ebp-066h]
@@ -894,7 +894,7 @@ sub_9F6F5_4EE:
         add esp, byte 0Ch
         xor ebx, ebx
         lea eax, [byte ebp-066h]
-        call sub_4AE14
+        call MakeDirPath
         lea eax, [byte ebp-01Eh]
         push eax
         lea eax, [byte ebp-066h]
@@ -944,7 +944,7 @@ sub_9F6F5_4EE:
         add esp, byte 0Ch
         xor ebx, ebx
         lea eax, [byte ebp-066h]
-        call sub_4AE14
+        call MakeDirPath
         lea eax, [byte ebp+022h]
         push eax
         lea eax, [byte ebp-066h]
@@ -991,7 +991,7 @@ sub_9F6F5_4EE:
         add esp, byte 0Ch
         xor ebx, ebx
         lea eax, [byte ebp-066h]
-        call sub_4AE14
+        call MakeDirPath
         lea eax, [byte ebp-01Eh]
         push eax
         lea eax, [byte ebp-066h]
@@ -1313,7 +1313,7 @@ sub_A0784:
         push eax
         push byte 0
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
 .4:
         inc ebx
@@ -1435,7 +1435,7 @@ sub_A0867:
         mov edx, 1
         lea eax, [byte ebp-02Ah]
         xor ebx, ebx
-        call sub_4AE14
+        call MakeDirPath
         mov edx, asc_165DDC
         lea eax, [byte ebp-02Ah]
         call NameIndexNew
@@ -2477,7 +2477,7 @@ sub_A12CD:
         call sub_A2F78
         mov eax, 227h
         movsx edx, word [byte esi+02h]
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
         cmp dword [byte ebp-0Ch], byte 0
         je short .30
@@ -2983,7 +2983,7 @@ sub_A1961:
         jl near .4
         mov eax, 227h
         movsx edx, word [byte ebp+054h]
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
         cmp dword [dword ebp-04B4Eh], byte 0
         je short .30
@@ -3238,7 +3238,7 @@ sub_A219A:
         mov edx, 1
         xor ecx, ecx
         xor ebx, ebx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         mov eax, 1
         jmp near sub_A219A_6FD
@@ -3760,7 +3760,7 @@ sub_A289E:
         mov edx, 1
         xor ecx, ecx
         xor ebx, ebx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         mov eax, 1
         jmp near sub_A219A_6FD
@@ -4226,7 +4226,7 @@ sub_A2F78:
         enter 14h, 0
         mov esi, eax
         mov eax, 236h
-        call sub_8E7E0
+        call GetLangText
         call sub_835BC
         xor ecx, ecx
         mov ebx, dword [dword_1C93C8]
@@ -4258,7 +4258,7 @@ sub_A2F78:
         mov eax, 227h
         mov ebx, sub_834EC
         mov edx, ecx
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
         mov eax, dword [dword_1C93C8]
         mov edx, ecx
@@ -4267,7 +4267,7 @@ sub_A2F78:
         jmp short sub_A2F78_BB.3
 .2:
         mov eax, 227h
-        call sub_8E7E0
+        call GetLangText
         call sub_835BC
         mov edx, ecx
         xor ebx, ebx
@@ -4296,7 +4296,7 @@ sub_A3048:
         test eax, eax
         jne short .1
         mov eax, 236h
-        call sub_8E7E0
+        call GetLangText
         call sub_835BC
 .1:
         mov edx, 0Ah
@@ -4321,7 +4321,7 @@ sub_A3048:
         cmp eax, 1F4h
         jge short .4
         mov eax, 227h
-        call sub_8E7E0
+        call GetLangText
         call sub_835BC
         mov edx, ecx
         xor ebx, ebx
@@ -4333,7 +4333,7 @@ sub_A3048:
         mov eax, 227h
         mov ebx, sub_834EC
         mov edx, ecx
-        call sub_8E7E0
+        call GetLangText
         call sub_83314
         mov eax, dword [dword_1C93C8]
         mov edx, ecx
@@ -4342,7 +4342,7 @@ sub_A3048:
 .5:
         mov eax, 236h
         mov edx, unk_1C93D0
-        call sub_8E7E0
+        call GetLangText
         call sub_835BC
         mov ebx, dword [dword_1C93CC]
         mov eax, dword [dword_1C93C8]

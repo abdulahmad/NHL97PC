@@ -21,8 +21,8 @@ extern dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dwo
 extern sub_D3112_BB5, sub_D3112_BC3, memset_, rand_, sprintf_, strcpy_, sub_101340, sub_101390
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101430, sub_101560, sub_101584, sub_102C30, sub_11A318
 extern sub_11B094, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, sub_41FDC
-extern PaEvent, sub_4B108, sub_4B19C, LoadLogoNames, sub_7CB8C, sub_7E860, sub_7EDF0, sub_7EEB0
-extern sub_7EF70, sub_7F0D8, sub_7F16C, sub_80BBC, sub_823F0, sub_84330, InitMenuItems, sub_8BFAC
+extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, sub_7CB8C, sub_7E860, sub_7EDF0, sub_7EEB0
+extern sub_7EF70, sub_7F0D8, DrawTextAligned, sub_80BBC, sub_823F0, sub_84330, InitMenuItems, sub_8BFAC
 extern sub_E0DB7, sub_E341C, sub_FAA64, sub_FAF34, sub_FC330, sub_FC510, sub_FCD90, sub_FCFCC
 extern sub_FCFE8, sub_FD08C, sub_FD0F8, sub_FD110, tickcount, unk_166FF4, unk_16D7FC, unk_16D804
 extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_D15D1, unk_D15EE
@@ -282,14 +282,14 @@ sub_D1927:
         call sub_419B8
         xor edx, edx
         mov eax, 22h
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1CC7D4], eax
         mov eax, 3
         xor edx, edx
         call sub_419B0
         call sub_419B8
         mov eax, 23h
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1CC7CC], eax
         mov eax, dword [dword_1CC7D4]
         lea edx, [dword ebp-02D2h]
@@ -381,7 +381,7 @@ sub_D1927:
         call sub_101390
         add esp, byte 0Ch
         mov eax, 38h
-        call sub_4B19C
+        call OpenDataLibrary
         mov eax, dword [dword_1AC944]
         mov ebx, dword [byte eax+01h]
         shl ebx, 0Ch
@@ -734,7 +734,7 @@ sub_D1F8B:
         push esi
         push byte 1
         movsx ebx, word [byte ebp+066h]
-        call sub_7F16C
+        call DrawTextAligned
         mov eax, ebx
         mov ecx, 64h
         cdq
@@ -750,7 +750,7 @@ sub_D1F8B:
         push ebx
         push esi
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 18h
         cmp word [byte ebp+068h], byte 0
         jne short .1
@@ -779,7 +779,7 @@ sub_D1F8B:
         push ebx
         push esi
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 18h
         movsx eax, word [byte ebp+056h]
         push eax
@@ -788,7 +788,7 @@ sub_D1F8B:
         push ebx
         push esi
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         movsx eax, word [byte ebp+0Eh]
         push eax
@@ -799,7 +799,7 @@ sub_D1F8B:
         push esi
         push byte 1
         movsx ebx, word [byte ebp+026h]
-        call sub_7F16C
+        call DrawTextAligned
         mov eax, ebx
         mov ecx, 64h
         cdq
@@ -815,7 +815,7 @@ sub_D1F8B:
         push esi
         push byte 1
         mov ebx, edi
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 18h
         cmp word [byte ebp+028h], byte 0
         jne short .3
@@ -844,7 +844,7 @@ sub_D1F8B:
         push ebx
         push esi
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 18h
         movsx eax, word [byte ebp+016h]
         push eax
@@ -890,7 +890,7 @@ sub_D1F8B:
         push byte 0
         push byte 1Ah
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         mov eax, edi
         add esp, byte 14h
         mov dword [byte ebp+076h], eax
@@ -900,7 +900,7 @@ sub_D1F8B:
         push edi
         push byte 1Ah
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         mov eax, edi
         add eax, edi
         add esp, byte 14h
@@ -911,7 +911,7 @@ sub_D1F8B:
         push dword [byte ebp+07Ah]
         push byte 1Ah
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         movsx eax, word [byte ebp+05Eh]
         push eax
@@ -921,7 +921,7 @@ sub_D1F8B:
         push ebx
         push byte 1Ah
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         movsx eax, word [byte ebp+05Ah]
         push eax
@@ -930,7 +930,7 @@ sub_D1F8B:
         push edi
         push byte 1Ah
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         movsx eax, word [byte ebp+0Eh]
         push eax
@@ -940,7 +940,7 @@ sub_D1F8B:
         sub esi, byte 1Ah
         push esi
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         movsx eax, word [byte ebp+010h]
         push eax
@@ -948,7 +948,7 @@ sub_D1F8B:
         push dword [byte ebp+076h]
         push esi
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         movsx eax, word [byte ebp+012h]
         push eax
@@ -956,7 +956,7 @@ sub_D1F8B:
         push dword [byte ebp+07Ah]
         push esi
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         movsx eax, word [byte ebp+01Eh]
         push eax
@@ -964,7 +964,7 @@ sub_D1F8B:
         push ebx
         push esi
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         movsx eax, word [byte ebp+01Ah]
         push eax
@@ -973,7 +973,7 @@ sub_D1F8B:
 .6:
         push esi
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 14h
         jmp near sub_D1927_658
 ;-----------------------------------------------------------------------------
@@ -1005,7 +1005,7 @@ sub_D230A:
         cmp dword [dword edx+dword_1CC328], byte 0
         je short .1
         mov eax, 0F8h
-        call sub_4B19C
+        call OpenDataLibrary
         push dword [dword edx+dword_1CC328]
         push asc_167002
         lea ebx, [byte ebp-024h]
@@ -1018,7 +1018,7 @@ sub_D230A:
 .1:
         imul edx, esi, byte 18h
         mov eax, 37h
-        call sub_4B19C
+        call OpenDataLibrary
         mov eax, edi
         mov ebx, dword [dword edx+eax*4+dword_1CC638]
         mov edx, asc_167011
@@ -1030,7 +1030,7 @@ sub_D230A:
         jne short .3
         mov eax, 37h
         mov edx, asc_167016
-        call sub_4B19C
+        call OpenDataLibrary
         lea eax, [byte ebp-024h]
         call strcpy_
         mov edx, asc_167011
@@ -1096,7 +1096,7 @@ sub_D230A:
         push byte 28h
         push byte 0
         push byte 0
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 10h
         jmp short .9
 .8:
@@ -1129,7 +1129,7 @@ sub_D230A:
         sar eax, 1
         push eax
         push byte 1
-        call sub_7F16C
+        call DrawTextAligned
         add esp, byte 1Ch
 .11:
         mov eax, dword [byte ebp-04h]

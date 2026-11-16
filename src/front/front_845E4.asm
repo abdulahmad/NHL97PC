@@ -19,9 +19,9 @@ extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, sub_10
 extern sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_102B94, sub_102C30
 extern sub_106DA0, sub_10AED0, sub_110D70, sub_11A318, sub_11B094, sub_11B104, sub_13C164, sub_419B0
 extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, ArenaFileName, sub_41F2C, sub_41FA0
-extern sub_41FDC, MakeDataPath, sub_4B108, sub_4B19C, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
-extern sub_7EEB0, sub_7EF70, sub_7F028, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
-extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, sub_8E7E0, RunNewSeason, RunSeasonMenus
+extern sub_41FDC, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
+extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
+extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, RunNewSeason, RunSeasonMenus
 extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, sub_A4B7D, PostGameScreen
 extern GameStatsScreen, PlayMenuGame, sub_AC369, sub_ADBE6, sub_AF074, sub_B418C, sub_B5891, sub_B8FDF
 extern sub_BD621, sub_C0F5D, RosterScreen, sub_D1927, sub_D3112, sub_DB75E, sub_DE3CF, sub_E036F
@@ -564,7 +564,7 @@ MainMenuScreen:
 .13:
         mov eax, 0F9h
         mov ebx, 3
-        call sub_4B19C
+        call OpenDataLibrary
         call rand_
         cdq
         idiv ebx
@@ -629,7 +629,7 @@ MainMenuScreen:
         call sub_419B8
         xor edx, edx
         mov eax, 0F3h
-        call sub_4B108
+        call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp+06Ah], eax
         mov eax, 3
@@ -637,7 +637,7 @@ MainMenuScreen:
         call sub_419B0
         call sub_419B8
         mov eax, 0F4h
-        call sub_4B108
+        call LoadDataFile
         push asc_165231
         push ebx
         mov dword [byte ebp+076h], eax
@@ -713,7 +713,7 @@ MainMenuScreen:
         push dword 1E0h
         lea eax, [dword ebp-01B6h]
         xor edx, edx
-        call sub_7F028
+        call SetRegionRect
         push asc_165272
         push dword [byte ebp+06Ah]
         call sub_101429
@@ -1083,7 +1083,7 @@ sub_84B55_911:
         mov ecx, 1
         mov edx, 2
         xor ebx, ebx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         test eax, eax
         je short sub_84B55_999
@@ -1125,23 +1125,23 @@ sub_84B55_999:
         mov dword [byte ebp+07Eh], 0
 .28:
         mov eax, 202h
-        call sub_8E7E0
+        call GetLangText
         mov dword [byte ebp+032h], eax
         mov eax, 203h
-        call sub_8E7E0
+        call GetLangText
         mov dword [byte ebp+036h], eax
         mov eax, 204h
         lea ebx, [byte ebp+032h]
-        call sub_8E7E0
+        call GetLangText
         mov dword [byte ebp+03Ah], eax
         mov eax, 205h
         mov edx, 4
-        call sub_8E7E0
+        call GetLangText
         push byte 0
         mov dword [byte ebp+03Eh], eax
         mov eax, 201h
         xor ecx, ecx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         cmp ax, 3
         ja near sub_84B55_CFF.48
@@ -1400,7 +1400,7 @@ sub_84B55_C76:
         mov ecx, 1
         mov edx, 2
         xor ebx, ebx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
         test eax, eax
         je short .43
@@ -1913,14 +1913,14 @@ sub_85E1E:
         call sub_419B8
         xor edx, edx
         mov eax, 24h
-        call sub_4B108
+        call LoadDataFile
         mov dword [byte ebp+06Eh], eax
         mov eax, 3
         xor edx, edx
         call sub_419B0
         call sub_419B8
         mov eax, 25h
-        call sub_4B108
+        call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp+072h], eax
         mov eax, 3
@@ -2211,7 +2211,7 @@ sub_85E1E:
         mov dword [byte ebp+076h], 0FFFFFFFFh
         xor ecx, ecx
         xor ebx, ebx
-        call sub_8E7E0
+        call GetLangText
         call sub_7F5A4
 .13:
         cmp dword [byte ebp+076h], byte 6Ah

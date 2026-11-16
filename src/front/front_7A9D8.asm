@@ -19,9 +19,9 @@ extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, s
 extern sub_116E84, sub_116F78, sub_117338, sub_11756C, sub_117C26, sub_118C88, sub_119054, sub_11910D
 extern sub_1191D1, sub_1191F2, sub_119780, sub_13C164, sub_3E818, delstream, CdStreamStart, CdStreamOpenSecondary
 extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, sub_3FD0C, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern sub_41DB8, sub_41DD8, ArenaFileName, PaEvent, MakeDataPath, sub_4B074, sub_4B108, WriteGlobalSet
+extern sub_41DB8, sub_41DD8, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
 extern sub_7F5A4, sub_80BBC, sub_81678, MainMenuScreen, RunGameScreens, sub_85D1D, sub_8BDCF, sub_8BE23
-extern sub_8BE60, sub_8BEF8, sub_8BFA0, sub_8E740, sub_8E7E0, sub_8E840, sub_9CFD3, sub_9D333
+extern sub_8BE60, sub_8BEF8, sub_8BFA0, LoadLangText, GetLangText, FreeLangText, sub_9CFD3, sub_9D333
 extern sub_C3594, sub_D547C, CreditsScreen, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
 extern sub_E0415, sub_E069E, sub_E076B, sub_E0841, sub_E08E9, sub_E3410, sub_E341C, sub_F9650
 extern sub_FAA64, sub_FAAB4, sub_FAF34, sub_FBE40, WaitTicks, sub_FC330, sub_FC510, sub_FCD90
@@ -1360,7 +1360,7 @@ sub_7B88D:
         push eax
         mov eax, 7Ch
 .10:
-        call sub_8E7E0
+        call GetLangText
         push eax
         lea eax, [byte ebp+056h]
         push eax
@@ -1376,7 +1376,7 @@ sub_7B88D:
 .12:
         mov eax, 7Ah
 .13:
-        call sub_8E7E0
+        call GetLangText
         mov edx, eax
         lea eax, [byte ebp+056h]
         call strcpy_
@@ -1387,14 +1387,14 @@ sub_7B88D:
         imul eax, edi, byte 7
         add eax, edx
         movzx eax, byte [dword eax+ebp-0D3Eh]
-        call sub_8E7E0
+        call GetLangText
         push eax
         lea eax, [dword ebp-0F6h]
         push eax
         lea eax, [dword ebp-0E6h]
         push eax
         mov eax, 5Dh
-        call sub_8E7E0
+        call GetLangText
         push eax
         lea eax, [byte ebp+022h]
         push eax
@@ -1427,7 +1427,7 @@ sub_7B88D:
         push eax
         mov eax, 1EAh
 .18:
-        call sub_8E7E0
+        call GetLangText
         push eax
         push asc_163F07
         lea eax, [byte ebp-042h]
@@ -3055,21 +3055,21 @@ InitFrontEnd:
         jne short .1
         mov eax, 2Eh
         xor edx, edx
-        call sub_4B108
+        call LoadDataFile
         mov dword [dword_1C5DE4], eax
 .1:
         cmp dword [dword_1C5EF4], byte 0
         jne short .2
         mov eax, 2Fh
         xor edx, edx
-        call sub_4B074
+        call LoadDataFileLib
         mov dword [dword_1C5EF4], eax
 .2:
         cmp dword [dword_1C5E78], byte 0
         jne short .3
         mov eax, 0F6h
         xor edx, edx
-        call sub_4B074
+        call LoadDataFileLib
         mov dword [dword_1C5E78], eax
 .3:
         mov eax, 3
@@ -3092,7 +3092,7 @@ InitFrontEnd:
         mov eax, dword [dword_1AC814]
         shl eax, 1Ch
         shr eax, 1Eh
-        call sub_8E740
+        call LoadLangText
         mov eax, 3
         xor ebx, ebx
         call sub_419B0
@@ -3201,7 +3201,7 @@ FreeFrontEnd:
         add esp, byte 4
         xor esi, esi
         mov dword [dword_1C5E78], 0
-        call sub_8E840
+        call FreeLangText
         call sub_8BEF8
 .1:
         push dword [nosplit esi*4+dword_1C5EA0]
@@ -3345,7 +3345,7 @@ TitleScreen:
         call sub_419B8
         xor edx, edx
         mov eax, 0E1h
-        call sub_4B108
+        call LoadDataFile
         push byte 0
         push dword 1E0h
         push dword 280h
