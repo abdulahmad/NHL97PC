@@ -9,10 +9,10 @@ extern dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dwo
 extern dword_1AD6AF, dword_1AD727, dword_1AD743, dword_1C1334, dword_1C1338, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
 extern memcpy_, sprintf_, sub_10AED0, MakeDirPath, sub_5C974, sub_789F0, sub_7B15D, sub_7B88D
 extern sub_7FE4C, sub_83314, sub_834EC, sub_83558, NameIndexNew, NameIndexLoad, NameIndexFree, sub_86500
-extern GetLangText, sub_91D7F, sub_925BE, sub_96019, sub_A2EF0, sub_A2F31, sub_A2F52, sub_A2F78
+extern GetLangText, sub_91D7F, sub_925BE, sub_96019, AllocCrusherBuffers, sub_A2F31, sub_A2F52, sub_A2F78
 extern sub_A3048, sub_A3116, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DB763, sub_DCFB0, sub_DE5A3
 extern sub_DE740, sub_DEE95, sub_DEF96, sub_E036F, sub_E0415, sub_E19D5, sub_E1C19, sub_E1CC0
-extern sub_E3410, sub_E4638, sub_E4838, sub_FAA64, sub_FAF34, sub_FB704, sub_FCC40, unk_16D7F4
+extern sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_FAA64, sub_FAF34, sub_FB704, sub_FCC40, unk_16D7F4
 extern unk_1ACF4E, unk_1AD236, unk_1AD443, word_1C1344
 global sub_AB240_32D, sub_AB573_B2F, sub_AB573_B30, sub_AB240, sub_AB573, sub_AC0A9, sub_AC369, sub_AC41B
 global sub_AC69C, sub_AC6EB, sub_AC73E
@@ -110,21 +110,21 @@ sub_AB240:
         mov edx, 4
         lea eax, [byte ebp-010h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 4
         lea eax, [byte ebp-014h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         jmp short .8
 .7:
         mov edx, 4
         lea eax, [byte ebp-014h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 4
         lea eax, [byte ebp-010h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
 .8:
         mov eax, dword [byte ebp-014h]
         cmp eax, dword [byte ebp-010h]
@@ -145,7 +145,7 @@ sub_AB240:
 .12:
         test eax, eax
         je near .15
-        call sub_A2EF0
+        call AllocCrusherBuffers
         mov eax, dword [byte ebp-04h]
         cmp dword [dword eax+04A70h], byte 0
         je short .13
@@ -179,7 +179,7 @@ sub_AB240:
 .15:
         test edx, edx
         je near .19
-        call sub_A2EF0
+        call AllocCrusherBuffers
         call sub_A3048
         mov edx, 4A78h
         mov eax, dword [byte ebp-04h]

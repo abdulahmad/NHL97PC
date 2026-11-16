@@ -27,7 +27,7 @@ extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, sub_85D1D, NameInd
 extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, StandingsScreen
 extern sub_9279A, sub_9281C, sub_92FE9, sub_C6064, RosterScreen, sub_DB75E, sub_DB763, sub_DC653
 extern sub_DCFA4, sub_DD2DE, sub_DD61F, sub_DE3CF, sub_DE5A3, sub_E036F, sub_E0415, sub_E0B75
-extern sub_E117B, sub_E12D1, sub_E13BF, sub_E3410, sub_E4638, sub_E4838, sub_E7B33, sub_FAA64
+extern sub_E117B, sub_E12D1, sub_E13BF, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, sub_FAA64
 extern sub_FAF34, sub_FC510, sub_FCC40, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110
 extern unk_165A5B, unk_16CE20, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF4E, unk_1AD250, unk_1AD443
 extern unk_1AD603, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C89F8, unk_1C8A04, unk_1C8A10
@@ -1233,13 +1233,13 @@ CreatePlayoffs:
         mov edx, 4
         mov eax, dword_1AD743
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         jmp short .2
 .1:
         mov edx, 4
         mov eax, dword_1AD743
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
 .2:
         mov dword [byte ebp+07Ah], 0
 .3:
@@ -1312,21 +1312,21 @@ CreatePlayoffs:
         xor ebx, ebx
         call sub_E0B75
         lea eax, [byte ebp+066h]
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 8
         lea eax, [byte ebp+05Eh]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         jmp short .11
 .10:
         mov edx, 8
         lea eax, [byte ebp+066h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 8
         lea eax, [byte ebp+05Eh]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
 .11:
         lea eax, [byte ebp+05Eh]
         push eax

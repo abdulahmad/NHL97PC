@@ -18,7 +18,7 @@ extern str_TR0D, strlen_, sub_100A68, sub_101324, sub_101340, sub_101390, sub_10
 extern sub_101429, sub_10FE58, sub_115830, sub_1167AE, sub_11A318, sub_11A350, sub_11BDC0, sub_11FAAC
 extern sub_13C164, sub_1B88C, sub_419B0, sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC, LoadDataFileLib
 extern sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5B8, sub_80BBC
-extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, sub_E341C, sub_E4908, sub_EE0F7, sub_F20A1
+extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, sub_E341C, WaitForOtherComputer, sub_EE0F7, sub_F20A1
 extern sub_F22AF, sub_F27A4, sub_FAF34, sub_FC4BC, sub_FC510, sub_FCD90, sub_FCF84, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_167A1A, unk_16D992, unk_1AC8E4
 extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, unk_EDDEF, unk_EDE3F, unk_EDE53
@@ -3145,7 +3145,7 @@ sub_F0339_B8D:
         jmp near sub_F0339_C3A.38
 sub_F0339_BB1:
         call sub_7EF70
-        call sub_E4908
+        call WaitForOtherComputer
         jmp near sub_F0339_F11.42
 sub_F0339_BC0:
         cmp word [byte ebp+07Eh], byte 0

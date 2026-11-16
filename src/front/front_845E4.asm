@@ -25,7 +25,7 @@ extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, R
 extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, sub_A4B7D, PostGameScreen
 extern GameStatsScreen, PlayMenuGame, sub_AC369, sub_ADBE6, sub_AF074, sub_B418C, sub_B5891, sub_B8FDF
 extern sub_BD621, sub_C0F5D, RosterScreen, sub_D1927, sub_D3112, sub_DB75E, sub_DE3CF, sub_E036F
-extern sub_E3410, sub_E341C, sub_E3E8C, sub_E4638, sub_E4838, sub_FAA64, sub_FAF34, sub_FB704
+extern sub_E3410, sub_E341C, NetDisconnect, LinkSendBlock, LinkReceiveBlock, sub_FAA64, sub_FAF34, sub_FB704
 extern sub_FC330, sub_FCD90, sub_FCEEC, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, tickcount
 extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
 extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C8300, unk_1C830C, unk_845C0
@@ -499,21 +499,21 @@ MainMenuScreen:
         mov edx, 4
         lea eax, [byte ebp+056h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 4
         lea eax, [byte ebp+052h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         jmp short .5
 .4:
         mov edx, 4
         lea eax, [byte ebp+052h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 4
         lea eax, [byte ebp+056h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
 .5:
         cmp byte [byte ebp+052h], 31h
         jne short .6
@@ -1119,7 +1119,7 @@ sub_84B55_999:
         mov dword [byte ebp+07Eh], 1
         jmp near sub_84B55_CFF.48
 .26:
-        call sub_E3E8C
+        call NetDisconnect
         jmp short .28
 .27:
         mov dword [byte ebp+07Eh], 0
@@ -1412,7 +1412,7 @@ sub_84B55_C76:
         mov eax, unk_1ACB44
         call memcpy_
 .42:
-        call sub_E3E8C
+        call NetDisconnect
 .43:
         mov dword [byte ebp+07Eh], 1
         jmp short .46
@@ -2180,21 +2180,21 @@ sub_85E1E:
         mov edx, 1
         lea eax, [byte ebp+07Eh]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 1
         lea eax, [byte ebp+07Ah]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         jmp short .12
 .10:
         mov edx, 1
         lea eax, [byte ebp+07Ah]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 1
         lea eax, [byte ebp+07Eh]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         jmp short .12
 .11:
         mov byte [byte ebp+07Ah], 4Eh

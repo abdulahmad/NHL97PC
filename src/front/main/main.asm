@@ -31,8 +31,8 @@ extern sub_119BE4, sub_119FDC, sub_11A120, sub_11A318, sub_11A3E0, sub_11ADD0, s
 extern sub_13C164, sub_4095C, OpenAudioStream, sub_41870, sub_41A28, sub_41D18, sub_41DB8, ArenaFileName
 extern sub_41FA0, sub_41FDC, MakeDirPath, LoadDataFile, sub_4B307, RunFrontEnd, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, GetLangText, FreeLangText
-extern sub_D6930, AllocStaticBuffer, sub_DB747, sub_E341C, sub_E3A44, sub_E3AB8, sub_E4638, sub_E4838
-extern sub_E4908, FillBox, sub_F9650, sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB73D
+extern RunIntro, AllocStaticBuffer, sub_DB747, sub_E341C, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
+extern WaitForOtherComputer, FillBox, sub_F9650, sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB73D
 extern sub_FBE40, sub_FBE94, sub_FC510, sub_FC73E, sub_FCC40, sub_FCD90, sub_FCF84, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDC68, sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180
 extern sub_FE3D0, sub_FE470, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
@@ -357,20 +357,20 @@ main_:
         mov dword [dword_16E628], 0
         mov dword [dword_170710], 0
         call sub_11A120
-        call sub_E3A44
+        call NetInit
         call sub_F9650
         call sub_104A8
         call AllocStaticBuffer
         mov edx, 1
         movsx eax, byte [byte_1AC818]
         call OpenAudioStream
-        call sub_D6930
+        call RunIntro
         call sub_4095C
         call RunFrontEnd
         call sub_41870
         call sub_DB747
         call sub_1046C
-        call sub_E3AB8
+        call NetShutdown
         call FreeLangText
         call dword [dword_16F184]
         leave
@@ -2732,7 +2732,7 @@ sub_7EF70:
         cmp ebx, byte 16h
         jl short .1
         call sub_13C164
-        call sub_E4908
+        call WaitForOtherComputer
         call sub_1013FC
         cmp dword [esp], byte 0
         jle short .4
@@ -4472,7 +4472,7 @@ EditText:
         mov edx, dword [dword esp+0658h]
         mov eax, ebp
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         jmp near .39
 .36:
         test eax, eax
@@ -4494,7 +4494,7 @@ EditText:
         mov edx, dword [dword esp+0658h]
         mov eax, ebp
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         cmp dword [dword_16CB80], byte 0
         je short .39
         call sub_13C164

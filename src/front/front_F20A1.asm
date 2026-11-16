@@ -37,9 +37,9 @@ extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, sub_41DD8, ArenaFi
 extern PaEvent, sub_4A280, LoadDataFile, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00, sub_4BCB4
 extern sub_4C0C4, sub_5B4D4, sub_5BE74, sub_6539C, sub_76D3C, InitFrontEnd, FreeFrontEnd, SetRegionRect
 extern sub_7F0D8, DrawTextAligned, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
-extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, sub_AADEF, sub_AB0A6, sub_BD62C
+extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, sub_AADEF, sub_AB0A6, RunReplay
 extern FadePalette, FadeOut, sub_DA7EB, sub_DB6AC, sub_E341C, sub_E3798, sub_E4218, sub_E4230
-extern sub_E4908, sub_F1FF8, sub_FAF34, sub_FC330, sub_FC4BC, sub_FCC40, sub_FCD90, sub_FCFCC
+extern WaitForOtherComputer, sub_F1FF8, sub_FAF34, sub_FC330, sub_FC4BC, sub_FCC40, sub_FCD90, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC
 extern sub_FE3D0, tickcount, unk_167A4B, word_168D18, word_19CBB0, word_19CBB2, gsp, gameclock
 extern word_19CBBC, word_1C3413, word_1C5536, word_1CEFC0
@@ -2783,7 +2783,7 @@ sub_F418F_16C:
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call sub_3CE58
-        call sub_BD62C
+        call RunReplay
         cmp dword [dword_19CD30], byte 0
         sete al
         movzx eax, al
@@ -3105,7 +3105,7 @@ sub_F418F_62A:
         mov dword [InGameMenuRequest], 0
         jmp near sub_F418F_4BB
 sub_F418F_640:
-        call sub_E4908
+        call WaitForOtherComputer
         xor eax, eax
         call sub_1C9F0
         mov dword [dword_1A8E50], 1

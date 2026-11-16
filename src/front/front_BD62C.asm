@@ -29,8 +29,8 @@ extern AllocAnimStates, InitFrontEnd, FreeFrontEnd, SetRegionRect, sub_7F0D8, Dr
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, NameIndexPath, sub_8BE60
 extern sub_8BEF8, InitMenuItems, sub_8BFAC, sub_8D5C0, sub_8D6B4, sub_8D6E8, sub_8D910, LoadLangTextB
 extern GetLangText, FreeLangText, sub_A0867, sub_AC69C, sub_AC6EB, sub_AC73E, sub_DA7EB, sub_DB6AC
-extern sub_E19D5, sub_E1C19, sub_E1CC0, sub_E3174, sub_E3190, sub_E3410, sub_E4218, sub_E4638
-extern sub_E4838, sub_E4908, sub_F22ED, sub_F9496, sub_F94BC, sub_F9789, sub_F9869, sub_FAA64
+extern sub_E19D5, sub_E1C19, sub_E1CC0, sub_E3174, sub_E3190, sub_E3410, sub_E4218, LinkSendBlock
+extern LinkReceiveBlock, WaitForOtherComputer, sub_F22ED, sub_F9496, sub_F94BC, sub_F9789, sub_F9869, sub_FAA64
 extern sub_FAF34, sub_FB704, sub_FC330, sub_FC510, sub_FCC40, sub_FCD90, sub_FCFCC, sub_FD08C
 extern sub_FD0F8, sub_FD110, sub_FD954, sub_FDC68, sub_FDD1C, sub_FE180, sub_FE3D0, unk_166A8A
 extern unk_171E38, unk_1ACB44, unk_1CAEFC, unk_1CAF3C, word_1686E4
@@ -40,12 +40,14 @@ global sub_BE2A6_E8, sub_BE2A6_EF, sub_BE2A6_294, sub_BE2A6_37D, sub_BE2A6_399, 
 global sub_BE2A6_771, sub_BE2A6_8F5, sub_BE2A6_8FF, sub_BE2A6_914, sub_BE2A6_91B, sub_BE2A6_922, sub_BE2A6_929, sub_BECB9_13F
 global sub_BECB9_15A, sub_BECB9_17A, sub_BECB9_192, sub_BECB9_1A1, sub_BECB9_1B0, sub_BECB9_1B8, sub_BECB9_1C0, sub_BECB9_1C8
 global sub_BECB9_1D0, sub_BECB9_20B, sub_BECB9_22B, sub_BECB9_24B, sub_BECB9_26B, sub_BECB9_271, sub_BECB9_301, sub_BF4F9_AA8
-global sub_BD62C, sub_BD98B, sub_BDB25, sub_BE047, sub_BE0BA, sub_BE2A6, sub_BECB9, sub_BEFC0
-global sub_BF417, sub_BF4F9, sub_BFFB7, sub_C0285, sub_C037B, sub_C04BE
+global RunReplay, LoadReplay, sub_BDB25, sub_BE047, sub_BE0BA, ReplayScreen, sub_BECB9, sub_BEFC0
+global sub_BF417, PickReplayScreen, sub_BFFB7, sub_C0285, sub_C037B, sub_C04BE
 ;-----------------------------------------------------------------------------
-; sub_BD62C                                                       BD62C  97 PC
+; RunReplay                                       BD62C  96 PC, low confidence
+; RunInGameMenu's replay request: frees the sprite cache, runs ReplayScreen,
+; redraws
 ;-----------------------------------------------------------------------------
-sub_BD62C:
+RunReplay:
         push ebx
         push ecx
         push edx
@@ -188,7 +190,7 @@ sub_BD62C:
         mov eax, dword [dword_1C95BC]
         lea edx, [byte ebp-01Ch]
         mov dword [dword_1CAFA4], eax
-        call sub_BE2A6
+        call ReplayScreen
         lea eax, [byte ebp-044h]
         call sub_F9869
         mov edx, dword [byte ebp-018h]
@@ -286,9 +288,11 @@ sub_BD62C_359:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_BD98B                                                       BD98B  97 PC
+; LoadReplay                                      BD98B  97 PC, low confidence
+; Loads a saved replay ("replload") and sets up the game view and animations
+; for it
 ;-----------------------------------------------------------------------------
-sub_BD98B:
+LoadReplay:
         push ebx
         push ecx
         push edx
@@ -552,7 +556,7 @@ sub_BDB25:
         add esp, byte 8
         mov edx, ebx
         call sub_8BE60
-        call sub_BF4F9
+        call PickReplayScreen
         test eax, eax
         jne near .4
         push dword [dword_1C5DE4]
@@ -600,7 +604,7 @@ sub_BDB25:
         call sub_41DD8
         mov dword [dword_1CAFF4], 1
         call sub_DA7EB
-        call sub_BD98B
+        call LoadReplay
         test eax, eax
         jne short .5
         call sub_DB6AC
@@ -625,7 +629,7 @@ sub_BDB25:
         add esp, byte 0Ch
         mov dword [dword_1B8F4C], eax
         call sub_1D1DC
-        call sub_BE2A6
+        call ReplayScreen
         push dword [dword_1B8F4C]
         call sub_FAF34
         add esp, byte 4
@@ -914,9 +918,12 @@ jpt_BE296:
         dd sub_BE2A6_922
         dd sub_BE2A6_929
 ;-----------------------------------------------------------------------------
-; sub_BE2A6                                                       BE2A6  97 PC
+; ReplayScreen                                    BE2A6  96 PC, low confidence
+; The instant replay screen (TRANSIT; puk, rew, bak ... buttons): play,
+; rewind, frame steps, cameras, save as highlight; kept in step in a link
+; game
 ;-----------------------------------------------------------------------------
-sub_BE2A6:
+ReplayScreen:
         push ebx
         push ecx
         push edx
@@ -967,23 +974,41 @@ sub_BE2A6:
         ja near sub_BE2A6_8FF
         mov eax, dword [byte ebp-08h]
         jmp dword [nosplit cs:eax*4+jpt_BE25A]
+;-----------------------------------------------------------------------------
+; sub_BE2A6_C7                                                    BE36D  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_C7:
         mov eax, dword [dword_1CB000]
 .4:
         call sub_5C34C
-        jmp short sub_BE2A6.2
+        jmp short ReplayScreen.2
+;-----------------------------------------------------------------------------
+; sub_BE2A6_D3                                                    BE379  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_D3:
         call sub_5C2CC
-        jmp short sub_BE2A6.2
+        jmp short ReplayScreen.2
+;-----------------------------------------------------------------------------
+; sub_BE2A6_DA                                                    BE380  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_DA:
         call sub_5C2F4
-        jmp short sub_BE2A6.2
+        jmp short ReplayScreen.2
+;-----------------------------------------------------------------------------
+; sub_BE2A6_E1                                                    BE387  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_E1:
         call sub_5C30C
-        jmp short sub_BE2A6.2
+        jmp short ReplayScreen.2
+;-----------------------------------------------------------------------------
+; sub_BE2A6_E8                                                    BE38E  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_E8:
         call sub_5C32C
-        jmp short sub_BE2A6.2
+        jmp short ReplayScreen.2
+;-----------------------------------------------------------------------------
+; sub_BE2A6_EF                                                    BE395  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_EF:
         push dword [dword_1CAFA4]
         call sub_FCC40
@@ -1005,7 +1030,7 @@ sub_BE2A6_EF:
         push dword [byte ebp-04h]
         xor eax, eax
         call sub_8D6E8
-        call sub_BF4F9
+        call PickReplayScreen
         test eax, eax
         je short .5
         call sub_5BEB0
@@ -1017,7 +1042,7 @@ sub_BE2A6_EF:
         call sub_65DE8
         call sub_4B928
         call sub_DA7EB
-        call sub_BD98B
+        call LoadReplay
         test eax, eax
         je short .5
         mov eax, 0Dh
@@ -1081,16 +1106,19 @@ sub_BE2A6_EF:
         fistp dword [byte ebp-04h]
         mov ebx, dword [byte ebp-04h]
         call sub_8D6E8
-        jmp near sub_BE2A6.2
+        jmp near ReplayScreen.2
 .6:
         mov eax, esi
         call sub_C0285
-        jmp near sub_BE2A6.2
+        jmp near ReplayScreen.2
+;-----------------------------------------------------------------------------
+; sub_BE2A6_294                                                   BE53A  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_294:
         cmp dword [dword_16DA9C], byte 0
         je short .7
         cmp esi, byte 2
-        jne near sub_BE2A6.2
+        jne near ReplayScreen.2
 .7:
         push dword [dword_1CAFA4]
         call sub_FCC40
@@ -1148,15 +1176,21 @@ sub_BE2A6_294:
         add esp, byte 14h
         mov eax, dword [dword_1CAFF0]
         call sub_5C4CC
-        jmp near sub_BE2A6.2
+        jmp near ReplayScreen.2
+;-----------------------------------------------------------------------------
+; sub_BE2A6_37D                                                   BE623  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_37D:
         cmp dword [dword_16DA9C], byte 0
         je short .11
         cmp esi, byte 2
-        jne near sub_BE2A6.2
+        jne near ReplayScreen.2
 .11:
         call sub_5C4E4
-        jmp near sub_BE2A6.2
+        jmp near ReplayScreen.2
+;-----------------------------------------------------------------------------
+; sub_BE2A6_399                                                   BE63F  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_399:
         lea ebx, [byte ebp-010h]
         lea edx, [byte ebp-0Ch]
@@ -1173,11 +1207,14 @@ sub_BE2A6_399:
         idiv ecx
         add eax, dword [dword_1CB000]
         jmp near sub_BE2A6_C7.4
+;-----------------------------------------------------------------------------
+; sub_BE2A6_3D5                                                   BE67B  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_3D5:
         cmp dword [dword_16DA9C], byte 0
         je short .12
         cmp esi, byte 2
-        jne near sub_BE2A6.2
+        jne near ReplayScreen.2
 .12:
         cmp dword [dword_16D500], byte 0Ah
         je short .13
@@ -1235,12 +1272,15 @@ sub_BE2A6_3D5:
         mov edx, ebx
         mov eax, ecx
         call sub_1D914
-        jmp near sub_BE2A6.2
+        jmp near ReplayScreen.2
+;-----------------------------------------------------------------------------
+; sub_BE2A6_4D2                                                   BE778  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_4D2:
         cmp dword [dword_16DA9C], byte 0
         je short .15
         cmp esi, byte 2
-        jne near sub_BE2A6.2
+        jne near ReplayScreen.2
 .15:
         cmp dword [dword_16D500], byte 0Bh
         je short .16
@@ -1305,9 +1345,9 @@ sub_BE2A6_4D2:
         mov edx, dword [dword_1CAFF0]
         inc edx
         cmp eax, edx
-        je near sub_BE2A6.2
+        je near ReplayScreen.2
         test eax, eax
-        je near sub_BE2A6.2
+        je near ReplayScreen.2
         cmp eax, byte 11h
         je short .20
         cmp eax, byte 3
@@ -1364,12 +1404,15 @@ sub_BE2A6_4D2:
         push byte 1
         call DrawTextAligned
         add esp, byte 14h
-        jmp near sub_BE2A6.2
+        jmp near ReplayScreen.2
+;-----------------------------------------------------------------------------
+; sub_BE2A6_6A2                                                   BE948  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_6A2:
         cmp dword [dword_16DA9C], byte 0
         je short .24
         cmp esi, byte 2
-        jne near sub_BE2A6.2
+        jne near ReplayScreen.2
 .24:
         cmp dword [dword_16D500], byte 0Ch
         je short .25
@@ -1416,12 +1459,15 @@ sub_BE2A6_6A2:
         mov edx, ebx
         xor eax, eax
         call sub_1DDE4
-        jmp near sub_BE2A6.2
+        jmp near ReplayScreen.2
+;-----------------------------------------------------------------------------
+; sub_BE2A6_771                                                   BEA17  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_771:
         cmp dword [dword_16DA9C], byte 0
         je short .27
         cmp esi, byte 2
-        jne near sub_BE2A6.2
+        jne near ReplayScreen.2
 .27:
         cmp dword [dword_16D500], byte 0Dh
         je short .28
@@ -1518,29 +1564,47 @@ sub_BE2A6_771:
         add ebx, dword [byte eax+010h]
         push edx
         jmp near sub_BE2A6_4D2.23
+;-----------------------------------------------------------------------------
+; sub_BE2A6_8F5                                                   BEB9B  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_8F5:
-        call sub_E4908
-        jmp near sub_BE2A6.1
+        call WaitForOtherComputer
+        jmp near ReplayScreen.1
+;-----------------------------------------------------------------------------
+; sub_BE2A6_8FF                                                   BEBA5  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_8FF:
         mov eax, dword [dword_16D500]
         sub eax, byte 0Ah
         cmp eax, byte 3
         ja short sub_BE2A6_929.32
         jmp dword [nosplit cs:eax*4+jpt_BE296]
+;-----------------------------------------------------------------------------
+; sub_BE2A6_914                                                   BEBBA  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_914:
         call sub_1DB8C
         jmp short sub_BE2A6_929.32
+;-----------------------------------------------------------------------------
+; sub_BE2A6_91B                                                   BEBC1  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_91B:
         call sub_1D828
         jmp short sub_BE2A6_929.32
+;-----------------------------------------------------------------------------
+; sub_BE2A6_922                                                   BEBC8  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_922:
         call sub_1DEB8
         jmp short sub_BE2A6_929.32
+;-----------------------------------------------------------------------------
+; sub_BE2A6_929                                                   BEBCF  97 PC
+;-----------------------------------------------------------------------------
 sub_BE2A6_929:
         call sub_1DCB0
 .32:
         mov dword [dword_16D500], 0FFFFFFFFh
-        jmp near sub_BE2A6.2
+        jmp near ReplayScreen.2
 .33:
         mov eax, dword [dword_1CAFF4]
         test eax, eax
@@ -2270,9 +2334,10 @@ sub_BF417:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_BF4F9                                                       BF4F9  97 PC
+; PickReplayScreen                                BF4F9  97 PC, low confidence
+; The saved replay list (REPLAY.NDX)
 ;-----------------------------------------------------------------------------
-sub_BF4F9:
+PickReplayScreen:
         push ebx
         push ecx
         push edx
@@ -3072,19 +3137,19 @@ sub_BFFB7:
         mov eax, dword [off_16D258]
         xor ebx, ebx
         mov esi, 1
-        call sub_E4638
+        call LinkSendBlock
         jmp short .3
 .2:
         mov edx, 8
         mov eax, dword [off_16D254]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         xor esi, esi
 .3:
         mov edx, 8
         lea eax, [byte ebp+066h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         lea eax, [byte ebp+066h]
         mov edx, dword [off_16D254]
         call strcmp_
@@ -3096,7 +3161,7 @@ sub_BFFB7:
         mov edx, 4A78h
         mov eax, dword_1C1334
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         push byte 0
         push dword [dword_1C5DA4]
         push asc_166AE4
@@ -3105,7 +3170,7 @@ sub_BFFB7:
         add esp, byte 0Ch
         mov edx, dword [dword_1C5DA4]
         mov esi, eax
-        call sub_E4838
+        call LinkReceiveBlock
         lea eax, [byte ebp+016h]
         push eax
         push dword [dword_1C1338]
@@ -3162,18 +3227,18 @@ sub_BFFB7:
         call sub_E1CC0
         mov edx, 4A78h
         mov eax, dword_1C1334
-        call sub_E4638
+        call LinkSendBlock
         mov edx, dword [dword_1C5DA4]
         mov eax, esi
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         jmp near .9
 .6:
         call sub_E4218
         mov edx, 8
         lea eax, [byte ebp+066h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, asc_166AD8
         mov eax, unk_1CAF3C
         call strcmp_
@@ -3183,13 +3248,13 @@ sub_BFFB7:
         mov eax, dword [off_16D258]
         xor ebx, ebx
         mov esi, 1
-        call sub_E4638
+        call LinkSendBlock
         jmp short .8
 .7:
         mov edx, 8
         mov eax, dword [off_16D254]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         xor esi, esi
 .8:
         lea eax, [byte ebp+066h]
@@ -3217,11 +3282,11 @@ sub_BFFB7:
         call sub_E1CC0
         mov edx, 4A78h
         mov eax, dword_1C1334
-        call sub_E4638
+        call LinkSendBlock
         mov edx, dword [dword_1C5DA4]
         mov eax, esi
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
 .9:
         push esi
         call sub_FAF34

@@ -57,7 +57,7 @@ extern word_16E148, word_16E15E, word_16E16E, word_16E170, word_1CD1C0, word_1CD
 extern word_1CD24E, word_1CD2AC, word_1CD2B4, word_1CD2F6, word_1CD2F8, word_1CD2FA, word_1CD338, word_1CD33A
 extern word_1CD37A, word_1CD37C, word_1CD3BC, word_1CD3BE, word_1CD3C0, word_1CD3FE, word_1CD400, word_1CD404
 extern word_1CD406, word_1CD634
-global FreeRinkGfx, jpt_DADC0, jpt_DAFD8, jpt_DAFE8, jpt_DB8CE, jpt_E329C, jpt_E6554, jpt_E7B1F
+global IpxCloseSocket, jpt_DADC0, jpt_DAFD8, jpt_DAFE8, jpt_DB8CE, jpt_E329C, jpt_E6554, jpt_E7B1F
 global sub_DA76A_16, sub_DA76A_24, sub_DA7EB_13, sub_DA7EB_18, sub_DADD0_5C, sub_DADD0_102, sub_DADD0_152, sub_DADD0_1AA
 global sub_DAFF8_62, sub_DAFF8_16E, sub_DAFF8_200, sub_DAFF8_296, sub_DAFF8_33C, sub_DAFF8_3BF, sub_DAFF8_42C, sub_DAFF8_495
 global sub_DB8E6_2D, sub_DB8E6_49, sub_DB8E6_AC, sub_DB8E6_FD, sub_DB8E6_236, sub_DB8E6_244, sub_DB8E6_249, sub_DB8E6_307
@@ -82,10 +82,10 @@ global sub_E2348, sub_E2378, FileDelete, FileCreate, FileOpen, FileSeek, FileSee
 global FileReadRecord, FileWriteRecord, FileClose, sub_E24F0, sub_E2590, sub_E2620, sub_E2790, sub_E2838
 global PollControllers, InputRecordTimer, InitSlotTable, sub_E304C, sub_E30BC, sub_E30D8, sub_E30F4, sub_E3174
 global sub_E3190, InputRecordAvail, TakeInputRecord, sub_E32B4, sub_E3410, sub_E341C, sub_E34A0, sub_E3530
-global sub_E3640, sub_E3700, sub_E3738, sub_E375C, sub_E3798, sub_E3A44, sub_E3AB8, sub_E3AFC
-global sub_E3E8C, sub_E3F04, sub_E4218, sub_E4230, sub_E4248, sub_E4264, sub_E4288, sub_E4638
-global sub_E4838, sub_E4908, sub_E5730, sub_E57EC, sub_E5808, sub_E59A8, sub_E59D8, sub_E5A20
-global sub_E5A98, sub_E5BF8, sub_E5CD8, sub_E5D6C, sub_E5D98, sub_E5EE0, sub_E5FD8, sub_E61AC
+global sub_E3640, sub_E3700, sub_E3738, sub_E375C, sub_E3798, NetInit, NetShutdown, sub_E3AFC
+global NetDisconnect, sub_E3F04, sub_E4218, sub_E4230, sub_E4248, sub_E4264, sub_E4288, LinkSendBlock
+global LinkReceiveBlock, WaitForOtherComputer, sub_E5730, sub_E57EC, sub_E5808, sub_E59A8, sub_E59D8, sub_E5A20
+global IpxInit, sub_E5BF8, sub_E5CD8, sub_E5D6C, sub_E5D98, sub_E5EE0, sub_E5FD8, sub_E61AC
 global sub_E657C, sub_E728C, sub_E72B0, sub_E7570, sub_E759F, sub_E77B1, sub_E7B33
 ;-----------------------------------------------------------------------------
 ; AllocMediaBuffer                             DA66D  97 PC, medium confidence
@@ -12872,9 +12872,11 @@ sub_E3798:
         ret 0Ch
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E3A44                                                       E3A44  97 PC
+; NetInit                                         E3A44  97 PC, low confidence
+; From main_: once, starts IPX (IpxInit) and the serial layer, allocates the
+; "pktlayer" buffer and marks the network ready (dword_16DAA0)
 ;-----------------------------------------------------------------------------
-sub_E3A44:
+NetInit:
         push dword 1Ch
         call __CHK
         push ebx
@@ -12888,7 +12890,7 @@ sub_E3A44:
         pop ebx
         ret
 .1:
-        call sub_E5A98
+        call IpxInit
         mov edx, eax
         mov ebx, eax
         call sub_E5730
@@ -12917,9 +12919,10 @@ sub_E3A44:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E3AB8                                                       E3AB8  97 PC
+; NetShutdown                                     E3AB8  97 PC, low confidence
+; From main_: closes the IPX socket and the serial layer, frees "pktlayer"
 ;-----------------------------------------------------------------------------
-sub_E3AB8:
+NetShutdown:
         push dword 14h
         call __CHK
         push ebx
@@ -12927,7 +12930,7 @@ sub_E3AB8:
         push edx
         cmp dword [dword_16DAA0], byte 0
         je short .1
-        call FreeRinkGfx
+        call IpxCloseSocket
         call sub_E59D8
         mov ebx, dword [dword_16DAA4]
         push ebx
@@ -13181,36 +13184,36 @@ sub_E3AFC:
         je short .13
         mov edx, 4
         mov eax, dword_1CD28C
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 4
         mov eax, dword_1CD290
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 4
         mov eax, dword_1CD294
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 4
         mov eax, dword_1CD298
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         jmp short .14
 .13:
         mov edx, 4
         mov eax, dword_1CD294
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 4
         mov eax, dword_1CD298
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 4
         mov eax, dword_1CD28C
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 4
         mov eax, dword_1CD290
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
 .14:
         mov eax, 1
 .15:
@@ -13224,9 +13227,11 @@ sub_E3AFC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E3E8C                                                       E3E8C  97 PC
+; NetDisconnect                                   E3E8C  97 PC, low confidence
+; Ends a network session with the "Disconnecting" message (IPX or serial),
+; then clears the connected flag (dword_16DA9C)
 ;-----------------------------------------------------------------------------
-sub_E3E8C:
+NetDisconnect:
         push dword 14h
         call __CHK
         push ecx
@@ -13836,9 +13841,11 @@ sub_E4288:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E4638                                                       E4638  97 PC
+; LinkSendBlock                                   E4638  96 PC, low confidence
+; (data, length): sends a block to the other side as a type 3 header and type
+; 4 messages of 4 bytes, idling while the link is busy
 ;-----------------------------------------------------------------------------
-sub_E4638:
+LinkSendBlock:
         push dword 128h
         call __CHK
         push ecx
@@ -13998,9 +14005,11 @@ sub_E4638:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E4838                                                       E4838  97 PC
+; LinkReceiveBlock                                E4838  96 PC, low confidence
+; (dest, length): waits (idling) for the next block from the other side and
+; copies it out
 ;-----------------------------------------------------------------------------
-sub_E4838:
+LinkReceiveBlock:
         push dword 1Ch
         call __CHK
         push ecx
@@ -14068,9 +14077,11 @@ sub_E4838:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E4908                                                       E4908  97 PC
+; WaitForOtherComputer                            E4908  97 PC, low confidence
+; The "Waiting for other computer" box: shows it and syncs with the other
+; side
 ;-----------------------------------------------------------------------------
-sub_E4908:
+WaitForOtherComputer:
         push dword 1D0h
         call __CHK
         push ebx
@@ -14371,21 +14382,21 @@ sub_E4908:
         mov edx, 4
         lea eax, [dword esp+0150h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 4
         lea eax, [dword esp+0154h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         jmp short .11
 .10:
         mov edx, 4
         lea eax, [dword esp+0154h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 4
         lea eax, [dword esp+0150h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
 .11:
         xor edx, edx
         xor eax, eax
@@ -15362,9 +15373,10 @@ sub_E5A20:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E5A98                                                       E5A98  97 PC
+; IpxInit                                         E5A98  97 PC, low confidence
+; Looks for the IPX driver and allocates the "IPXMEM" / "NETWORK" blocks
 ;-----------------------------------------------------------------------------
-sub_E5A98:
+IpxInit:
         push ebx
         push ecx
         push edx
@@ -15553,11 +15565,11 @@ sub_E5BF8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; FreeRinkGfx                                  E5C78  95 PC, medium confidence
+; IpxCloseSocket                                  E5C78  95 PC, medium confidence
 ; Frees rinkbm and the rinktilebm buffer (resets currink to -1); used by
 ; cdstream and highlights
 ;-----------------------------------------------------------------------------
-FreeRinkGfx:
+IpxCloseSocket:
         push ebx
         push ecx
         push edx

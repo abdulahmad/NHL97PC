@@ -24,7 +24,7 @@ extern sub_FBE40, sub_FBE5D, sub_FC330, sub_FC510, sub_FCD90, sub_FCEEC, sub_FCF
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
 global jpt_D5460, sub_D547C_715, sub_D547C_72B, sub_D547C_89F, sub_D547C_A13, sub_D547C_B89, sub_D547C_DBB, sub_D547C_FF0
-global sub_D4E24, sub_D53A4, sub_D547C, FadePalette, FadeOut, sub_D68E0, sub_D6930, sub_D6D38
+global sub_D4E24, sub_D53A4, sub_D547C, FadePalette, FadeOut, sub_D68E0, RunIntro, sub_D6D38
 global sub_D6E20, sub_D6FD8, sub_D705C, CreditsScreen, sub_D7A70, sub_D7B64, sub_D7BB0, sub_D7C14
 global sub_D7C74, sub_D7CD4, sub_D7E08, sub_D7EC8, sub_D8130, sub_D81D8, sub_D8270, sub_D8358
 global sub_D83C0, sub_D8614, sub_D8860, sub_D8944, sub_D8B20, sub_D8CAC, sub_D9614, sub_D9708
@@ -2170,9 +2170,11 @@ sub_D68E0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_D6930                                                       D6930  97 PC
+; RunIntro                                     D6930  96 PC, medium confidence
+; From StartUp: the intro screens (scr1, scr2, !pl0, !pl1, backgrounds) with
+; music, then the movies
 ;-----------------------------------------------------------------------------
-sub_D6930:
+RunIntro:
         push ebx
         push ecx
         push edx

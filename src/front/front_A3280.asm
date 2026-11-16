@@ -38,7 +38,7 @@ extern sub_823F0, sub_83C08, sub_84204, sub_842F4, InitMenuItems, sub_8BFAC, sub
 extern DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, LoadLangTextB, GetLangText, FreeLangText, sub_8E870
 extern sub_A3136, sub_A31DE, sub_AC799, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
 extern sub_ACDAE, sub_AD151, sub_AD62E, sub_B2364, sub_CA44C, sub_D0098, InitSlotTable, sub_E32B4
-extern sub_E3410, sub_E341C, sub_E4218, sub_E4230, sub_E4638, sub_E4838, sub_EE8AC, sub_FAA64
+extern sub_E3410, sub_E341C, sub_E4218, sub_E4230, LinkSendBlock, LinkReceiveBlock, sub_EE8AC, sub_FAA64
 extern sub_FAF34, sub_FB704, sub_FC330, sub_FC510, sub_FCC40, sub_FCD90, sub_FCEEC, sub_FCF84
 extern sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FDE44, tickcount, unk_165EA0, unk_166010
 extern unk_16609C, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
@@ -2083,21 +2083,21 @@ sub_A4B7D_112:
         mov edx, 4
         mov eax, dword_1C94D8
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 4
         mov eax, dword_1C94D4
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         jmp short .8
 .7:
         mov edx, 4
         mov eax, dword_1C94D4
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 4
         mov eax, dword_1C94D8
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
 .8:
         mov eax, 3
         call sub_419B0
@@ -9981,7 +9981,7 @@ PlayMenuGame:
         mov edx, 4A78h
         mov eax, dword_1C1334
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         call sub_E4218
         jmp short .4
 .1:
@@ -9994,7 +9994,7 @@ PlayMenuGame:
         add esp, byte 0Ch
         mov ecx, eax
         mov esi, eax
-        call sub_E4838
+        call LinkReceiveBlock
         mov ebx, 16h
         mov eax, dword_1C1334
         mov edx, ecx

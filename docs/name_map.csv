@@ -168,16 +168,29 @@ address,name,auto_name,source,confidence,evidence,file
 94B30,RunPlayoffMenus,sub_94B30,96PC,low,"96 PC RunPlayoffMenus: screen 0Dh, runs the play-off screens (play-off tree, standings, roster) until they leave",src/front/front_93005.asm
 94BDA,PlayoffTreeScreen,sub_94BDA,96PC,low,"96 PC PlayoffTreeScreen: the play-off tree screen (""playoffmenu"", ""pieces"", pan2 / pan6, 01RU, 01SR ...)",src/front/front_93005.asm
 9623E,EditLinesScreen,sub_9623E,96PC,medium,"96 PC EditLinesScreen: (team, line) the edit lines screen (""edit lines menu"" / ""edit lines regions"")",src/front/front_9623E.asm
+9E35E,DrawHomeTeamPanel,sub_9E35E,96PC,low,96 PC DrawHomeTeamPanel: the home team's panel on the team select screen (HOM1 / HOM2),src/front/front_9E35E.asm
+9E550,DrawAwayTeamPanel,sub_9E550,new,low,"the away team's panel on the team select screen (AWY1 / AWY2), as DrawHomeTeamPanel",src/front/front_9E35E.asm
 9E91C,TeamSelectScreen,sub_9E91C,96PC,medium,"96 PC TeamSelectScreen: the exhibition team select screen (HOM1/HOM2, AWY1/AWY2, team ranks); returns the next screen",src/front/front_9E35E.asm
 9F6F5,PickIndexEntryScreen,sub_9F6F5,96PC,medium,"96 PC PickIndexEntryScreen: (kind 5/7/9) picks an entry of SEASON / PLAYOFF / EXHIBIT.NDX (DL00-DL03), with new and delete",src/front/front_9F6F5.asm
+A2EF0,AllocCrusherBuffers,sub_A2EF0,new,low,"allocates the ""CRUSHER"" (493E0h) and ""CRUSHER pack"" (186A0h) buffers used to pack data sent to the other computer",src/front/front_9F6F5.asm
 A6690,PostGameScreen,sub_A6690,new,low,"the post-game screen (NHL0 / NHLP, FLR1/2, T3S2, GS00/GS01, RM00/RM01), alternating with GameStatsScreen",src/front/front_A3280.asm
 A7D9C,GameStatsScreen,sub_A7D9C,96PC,medium,"96 PC GameStatsScreen: the game statistics screen (""gameStatMenu"" / ""gameStatRegn"")",src/front/front_A3280.asm
 AB0E8,PlayMenuGame,sub_AB0E8,96PC,medium,"96 PC PlayMenuGame: plays a game started from the menus: frees the front end, InitGameAudio, PlayGame, then back to the front end",src/front/front_A3280.asm
 B1FE9,DeleteUser,sub_B1FE9,96PC,medium,NHL96PC 2A692 (sem 0.62): C:1134; K:3EA; C:1833,src/front/front_B1E1D.asm
 B2258,ScrollUserList,sub_B2258,96PC,medium,NHL96PC 2AB63 (similar 0.93): mnemonic similarity 0.93 over 19 instructions,src/front/front_B1E1D.asm
+B2E5B,LoadUserList,sub_B2E5B,new,low,"loads LOCAL.NDX (creating it when missing) and adds the ""<NO USER>"" / ""<NEW USER>"" entries (German text when the language is German)",src/front/front_B1E1D.asm
+B36D6,LoadUserRecords,sub_B36D6,96PC,low,"96 PC LoadUserRecords: reads every user's record (local.ndx, ""user"") into the tables of the user records screen",src/front/front_B1E1D.asm
+B41EF,UserRecordsScreen,sub_B41EF,96PC,medium,"96 PC UserRecordsScreen: the user records screen: allocates the column tables (uname, urate, upts, ugf, uga, upp, upk, exrec ...), sorts by the picked column",src/front/front_B1E1D.asm
+BD62C,RunReplay,sub_BD62C,96PC,low,"96 PC RunReplay: RunInGameMenu's replay request: sets up and runs ReplayScreen, then back to the game",src/front/front_BD62C.asm
+BD98B,LoadReplay,sub_BD98B,new,low,"loads a saved replay (""replload"") and sets up the game view and animations for it",src/front/front_BD62C.asm
+BE2A6,ReplayScreen,sub_BE2A6,96PC,low,"96 PC ReplayScreen: the instant replay screen (""replmenu"" / ""replregs"")",src/front/front_BD62C.asm
+BF4F9,PickReplayScreen,sub_BF4F9,new,low,the saved replay list (REPLAY.NDX),src/front/front_BD62C.asm
 C755B,RosterScreen,sub_C755B,96PC,low,"96 PC RosterScreen: the roster screen (""roster menu"" / ""roster regions"")",src/front/front_C755B.asm
+CD272,JerseyScreen,sub_CD272,new,low,"the jersey screen (""jersey menu"" / ""jersey menu regions"")",src/front/front_C755B.asm
+CF749,CreatePlayerScreen,sub_CF749,96PC,medium,"96 PC CreatePlayerScreen: the create player screen (""create plr menu"" / ""create plr region""), from the roster screens",src/front/front_C755B.asm
 D67D4,FadePalette,sub_D67D4,96PC,medium,96 PC FadePalette: fades the 300h-byte palette,src/front/front_D4E24.asm
 D68AC,FadeOut,sub_D68AC,96PC,medium,NHL96PC 63A5B (similar 0.91): mnemonic similarity 0.90 over 22 instructions,src/front/front_D4E24.asm
+D6930,RunIntro,sub_D6930,96PC,medium,"96 PC RunIntro: from main_, the intro screens (scr1, scr2, !pl0, !pl1, nhll, nhlp, bkgd) with music",src/front/front_D4E24.asm
 D70C4,CreditsScreen,sub_D70C4,new,low,"from RunFrontEnd: the credits (reads the credits text file, EAC1/EAC2, CRD1/CRD2, QCRD) with the arena music",src/front/front_D4E24.asm
 DA66D,AllocMediaBuffer,sub_DA66D,new,medium,"allocates the ""MEDIA BUFFER"" (200h paragraphs of DOS memory)",src/front/front_DA66D.asm
 DA713,AllocStaticBuffer,sub_DA713,new,medium,"allocates the ""STATIC BUF"" once (flag word_16D7EC)",src/front/front_DA66D.asm
@@ -195,7 +208,14 @@ E2E28,InputRecordTimer,sub_E2E28,96PC,high,96 PC InputRecordTimer: timer callbac
 E2F98,InitSlotTable,sub_E2F98,96PC,medium,slot words and teams from the 8 controller set-up bytes,src/front/front_DA66D.asm
 E3208,InputRecordAvail,sub_E3208,new,high,returns InputRecordCount (GameLoop's is there a record),src/front/front_DA66D.asm
 E3218,TakeInputRecord,sub_E3218,new,high,copies the next record out of InputRecordRing,src/front/front_DA66D.asm
-E5C78,FreeRinkGfx,,95PC,medium,NHL95PC 33727 (similar): mnemonic similarity 0.81 over 30 instructions,
+E3A44,NetInit,sub_E3A44,new,low,"from main_: once, starts IPX (IpxInit) and the serial layer, allocates the ""pktlayer"" buffer and marks the network ready (dword_16DAA0)",src/front/front_DA66D.asm
+E3AB8,NetShutdown,sub_E3AB8,new,low,"from main_: closes the IPX socket and the serial layer, frees ""pktlayer""",src/front/front_DA66D.asm
+E3E8C,NetDisconnect,sub_E3E8C,new,low,"ends a network session with the ""Disconnecting"" message (IPX or serial), then clears the connected flag (dword_16DA9C)",src/front/front_DA66D.asm
+E4638,LinkSendBlock,sub_E4638,96PC,low,"96 PC LinkSendBlock: (data, length, progress) sends a block to the other computer in packets (80h header), idling while it waits",src/front/front_DA66D.asm
+E4838,LinkReceiveBlock,sub_E4838,96PC,low,"96 PC LinkReceiveBlock: (dest, length, progress) waits (idling) for the next block from the other computer",src/front/front_DA66D.asm
+E4908,WaitForOtherComputer,sub_E4908,new,low,"the ""Waiting for other computer"" box: shows it and syncs with the other side",src/front/front_DA66D.asm
+E5A98,IpxInit,sub_E5A98,new,low,"looks for the IPX driver and allocates the ""IPXMEM"" / ""NETWORK"" blocks",src/front/front_DA66D.asm
+E5C78,IpxCloseSocket,,95PC,low,closes the open IPX socket (sub_11D508) and frees its buffer (dword_16E128); the earlier 95 PC FreeRinkGfx match was wrong (only a mnemonic similarity),src/front/front_DA66D.asm
 E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 over 34 instructions,
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
 F5601,FillBox,sub_F5601,96PC,medium,NHL96PC 64103 (similar 0.92): mnemonic similarity 0.92 over 78 instructions,src/front/front_F20A1.asm

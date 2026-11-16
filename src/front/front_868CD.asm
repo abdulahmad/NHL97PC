@@ -26,7 +26,7 @@ extern sub_419B8, sub_41FA0, sub_41FDC, LoadDataFileLib, LoadDataFile, sub_7E860
 extern SetRegionRect, sub_7F04C, sub_7F0D8, DrawTextAligned, sub_7F29C, sub_7F5B8, sub_7FE38, sub_80BBC
 extern sub_81114, sub_81678, sub_835BC, sub_83850, sub_867F0, sub_86878, sub_8BFAC, sub_8D956
 extern sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, GetLangText, sub_E32B4, sub_E3410
-extern sub_E341C, sub_E3AFC, sub_E4638, sub_E4838, sub_E57EC, sub_E5BF8, sub_FAA64, sub_FAF34
+extern sub_E341C, sub_E3AFC, LinkSendBlock, LinkReceiveBlock, sub_E57EC, sub_E5BF8, sub_FAA64, sub_FAF34
 extern sub_FC510, sub_FCD90, sub_FCF84, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C
 extern sub_FDE44, unk_165330, unk_1AC839, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1C5EF8
 extern unk_1C5F4A, unk_1C834C, unk_1C8360, unk_1C8388, unk_1C83BA, word_16CCF8, word_16DACC, word_16DAD0
@@ -2232,11 +2232,11 @@ sub_87B57_AF4:
         mov edx, 1E7h
         mov eax, unk_1ACB44
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 1E7h
         mov eax, unk_1AC95D
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov ebx, 4
 .23:
         test byte [dword ebx+byte_1ACA66], 7
@@ -2267,11 +2267,11 @@ sub_87B57_AF4:
         mov edx, 1E7h
         mov eax, unk_1ACB44
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 1E7h
         mov eax, unk_1AC95D
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         xor ebx, ebx
 .28:
         test byte [dword ebx+byte_1ACC51], 7
@@ -2303,13 +2303,13 @@ sub_87B57_AF4:
         mov edx, 4
         lea eax, [byte ebp-040h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         jmp short .32
 .31:
         mov edx, 4
         lea eax, [byte ebp-040h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov eax, dword [byte ebp-040h]
         sar eax, 2
         and eax, byte 7
@@ -3403,11 +3403,11 @@ sub_8907B_657:
         mov edx, 1E7h
         mov eax, unk_1ACB44
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 1E7h
         mov eax, unk_1AC95D
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov ebx, 4
 .11:
         test byte [dword ebx+byte_1ACA66], 7
@@ -3438,11 +3438,11 @@ sub_8907B_657:
         mov edx, 1E7h
         mov eax, unk_1ACB44
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 1E7h
         mov eax, unk_1AC95D
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         xor ebx, ebx
 .16:
         test byte [dword ebx+byte_1ACC51], 7
@@ -3474,13 +3474,13 @@ sub_8907B_657:
         mov edx, 4
         lea eax, [byte ebp-040h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         jmp short .20
 .19:
         mov edx, 4
         lea eax, [byte ebp-040h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov eax, dword [byte ebp-040h]
         sar eax, 2
         and eax, byte 7

@@ -14,17 +14,19 @@ extern sub_9F6F5_4EE, rand_, sprintf_, sub_101340, sub_101390, sub_1013FC, sub_1
 extern sub_13C164, sub_419B0, sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC, LoadDataFile, sub_7E860
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, sub_80AB8, sub_80B28, sub_80BBC, sub_835BC
 extern sub_83850, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, sub_9281C, sub_C6064
-extern sub_E117B, sub_E12D1, sub_E13BF, sub_E1744, sub_E3410, sub_E341C, sub_E4638, sub_E4838
+extern sub_E117B, sub_E12D1, sub_E13BF, sub_E1744, sub_E3410, sub_E341C, LinkSendBlock, LinkReceiveBlock
 extern sub_FAA64, sub_FAF34, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcount, unk_16CFFC
 extern unk_1ACB44, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1ACB47, word_1C8EA0, word_1C8EA2
 global jpt_9E8E8, jpt_9F6DD, sub_9E35E_1C9, sub_9E35E_1EC, sub_9E91C_7BE, sub_9E91C_7CF, sub_9E91C_7E0, sub_9E91C_7FC
 global sub_9E91C_815, sub_9E91C_8C4, sub_9E91C_918, sub_9E91C_94F, sub_9E91C_A05, sub_9E91C_A43, sub_9E91C_ACB, sub_9E91C_B55
-global sub_9E91C_B61, sub_9E35E, sub_9E550, sub_9E723, TeamSelectScreen, sub_9F671, unk_9F5F1, unk_9F611
+global sub_9E91C_B61, DrawHomeTeamPanel, DrawAwayTeamPanel, sub_9E723, TeamSelectScreen, sub_9F671, unk_9F5F1, unk_9F611
 global unk_9F631, unk_9F651
 ;-----------------------------------------------------------------------------
-; sub_9E35E                                                       9E35E  97 PC
+; DrawHomeTeamPanel                               9E35E  96 PC, low confidence
+; The home team's panel on the team select screen: logo, name art, rank
+; (rk%02d)
 ;-----------------------------------------------------------------------------
-sub_9E35E:
+DrawHomeTeamPanel:
         push ebx
         push ecx
         push edx
@@ -175,9 +177,11 @@ sub_9E35E_1EC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9E550                                                       9E550  97 PC
+; DrawAwayTeamPanel                               9E550  97 PC, low confidence
+; The away team's panel on the team select screen (AWY1 / AWY2), as
+; DrawHomeTeamPanel
 ;-----------------------------------------------------------------------------
-sub_9E550:
+DrawAwayTeamPanel:
         push ebx
         push ecx
         push edx
@@ -861,9 +865,9 @@ TeamSelectScreen:
         cmp ebx, byte 0Bh
         jl short .9
         mov eax, dword [byte ebp+07Ah]
-        call sub_9E35E
+        call DrawHomeTeamPanel
         mov eax, dword [byte ebp+076h]
-        call sub_9E550
+        call DrawAwayTeamPanel
         mov eax, dword [tickcount]
         sub eax, byte 32h
         mov dword [dword_1C8E4C], eax
@@ -996,7 +1000,7 @@ sub_9E91C_815:
         mov eax, dword [byte ebp+076h]
         mov ebx, dword [byte ebp+07Ah]
         mov dword [byte ebp+07Ah], eax
-        call sub_9E35E
+        call DrawHomeTeamPanel
         mov eax, dword [byte ebp+07Ah]
         mov ecx, dword [byte ebp+07Eh]
         mov edx, dword [dword ebp+eax*4-014Eh]
@@ -1005,7 +1009,7 @@ sub_9E91C_815:
         mov dword [dword ecx+0304h], eax
         mov dword [dword ecx+0300h], eax
         mov eax, ebx
-        call sub_9E550
+        call DrawAwayTeamPanel
         mov edx, dword [dword ebp+ebx*4-014Eh]
         mov dword [dword ecx+034Eh], edx
         mov eax, dword [dword ebp+ebx*4-0C2h]
@@ -1032,7 +1036,7 @@ sub_9E91C_8C4:
         add dword [byte ebp+07Ah], eax
 .15:
         mov eax, dword [byte ebp+07Ah]
-        call sub_9E35E
+        call DrawHomeTeamPanel
         mov eax, dword [byte ebp+07Ah]
         mov ebx, dword [byte ebp+07Eh]
         mov edx, dword [dword ebp+eax*4-014Eh]
@@ -1081,7 +1085,7 @@ sub_9E91C_94F:
         add dword [byte ebp+076h], eax
 .22:
         mov eax, dword [byte ebp+076h]
-        call sub_9E550
+        call DrawAwayTeamPanel
         mov eax, dword [byte ebp+076h]
         mov ebx, dword [byte ebp+07Eh]
         mov edx, dword [dword ebp+eax*4-014Eh]
@@ -1170,7 +1174,7 @@ sub_9E91C_A43:
         je near sub_9E91C_94F.23
         mov edx, dword [byte ebp+07Eh]
         mov dword [byte ebp+07Ah], eax
-        call sub_9E35E
+        call DrawHomeTeamPanel
         mov eax, dword [dword ebp+ebx*4-014Eh]
         mov dword [dword edx+02FCh], eax
         mov eax, dword [dword ebp+ebx*4-0C2h]
@@ -1208,7 +1212,7 @@ sub_9E91C_ACB:
         je near sub_9E91C_94F.23
         mov edx, dword [byte ebp+07Eh]
         mov dword [byte ebp+076h], eax
-        call sub_9E550
+        call DrawAwayTeamPanel
         mov eax, dword [dword ebp+ebx*4-014Eh]
         mov dword [dword edx+034Eh], eax
         mov eax, dword [dword ebp+ebx*4-0C2h]
@@ -1276,7 +1280,7 @@ sub_9E91C_B61:
         call sub_835BC
         xor ebx, ebx
         mov eax, dword_1C1334
-        call sub_E4638
+        call LinkSendBlock
         call sub_83850
 .37:
         cmp dword [dword_16DA9C], byte 0
@@ -1290,7 +1294,7 @@ sub_9E91C_B61:
         call sub_835BC
         xor ebx, ebx
         mov eax, dword_1C1334
-        call sub_E4838
+        call LinkReceiveBlock
         call sub_83850
 .38:
         mov eax, dword [byte ebp+07Ah]

@@ -29,7 +29,7 @@ extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, Nam
 extern sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E
 extern SetScrollBarPos, sub_8DEAC, GetLangText, sub_AC799, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E
 extern sub_ACDAE, sub_AD151, sub_AD62E, sub_AD79F, sub_DA7EB, sub_DB6AC, sub_E117B, sub_E12D1
-extern sub_E2041, sub_E2141, sub_E21C6, sub_E341C, sub_E4218, sub_E4230, sub_E4908, sub_FAA64
+extern sub_E2041, sub_E2141, sub_E21C6, sub_E341C, sub_E4218, sub_E4230, WaitForOtherComputer, sub_FAA64
 extern sub_FAF34, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FDE44, tickcount
 extern unk_1665C8, unk_1665CB, unk_16661B, unk_166648, unk_1C5F4A, unk_1C9704, unk_1C9756, unk_1C989E
 extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, word_16D450, word_1AD68F, word_1AD693, word_1C3413
@@ -37,8 +37,8 @@ extern word_1C5536, word_1C55A2
 global jpt_B234C, jpt_B41D3, sub_B211C_C7, sub_B211C_C8, sub_B2364_71B, sub_B2364_77D, sub_B2364_884, sub_B2364_89E
 global sub_B2364_8BB, sub_B2364_8CA, sub_B41EF_95C, sub_B41EF_96D, sub_B41EF_9B4, sub_B41EF_A7F, sub_B41EF_A92, sub_B41EF_A9E
 global sub_B41EF_AA5, sub_B1E1D, sub_B1E9C, sub_B1F4D, DeleteUser, sub_B211C, sub_B21EA, ScrollUserList
-global sub_B228A, sub_B2364, sub_B2E5B, sub_B2F49, sub_B36D6, sub_B3A9C, sub_B3B5D, sub_B3F21
-global sub_B418C, sub_B41EF, sub_B4F87, sub_B5031
+global sub_B228A, sub_B2364, LoadUserList, sub_B2F49, LoadUserRecords, sub_B3A9C, sub_B3B5D, sub_B3F21
+global sub_B418C, UserRecordsScreen, sub_B4F87, sub_B5031
 ;-----------------------------------------------------------------------------
 ; sub_B1E1D                                                       B1E1D  97 PC
 ;-----------------------------------------------------------------------------
@@ -578,7 +578,7 @@ sub_B2364:
         mov esi, eax
         mov dword [byte ebp+066h], ecx
         lea eax, [byte ebp+04Ah]
-        call sub_B2E5B
+        call LoadUserList
         push byte 0
         movsx eax, word [byte esi+06h]
         push eax
@@ -1355,9 +1355,11 @@ sub_B2364_8CA:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_B2E5B                                                       B2E5B  97 PC
+; LoadUserList                                    B2E5B  97 PC, low confidence
+; Loads LOCAL.NDX (creating it when missing) and adds the "<NO USER>" / "<NEW
+; USER>" entries (German text when the language is German)
 ;-----------------------------------------------------------------------------
-sub_B2E5B:
+LoadUserList:
         push ebx
         push ecx
         push edx
@@ -1476,7 +1478,7 @@ sub_B2F49:
         call sub_DA7EB
         lea eax, [byte ebp+052h]
         mov dword [byte ebp+06Ah], 0
-        call sub_B2E5B
+        call LoadUserList
 .1:
         imul edx, dword [byte ebp+06Ah], byte 21h
         mov eax, dword [dword_1AC944]
@@ -2003,9 +2005,10 @@ sub_B2F49:
         pop ebp
         jmp near sub_B211C_C8
 ;-----------------------------------------------------------------------------
-; sub_B36D6                                                       B36D6  97 PC
+; LoadUserRecords                                 B36D6  96 PC, low confidence
+; Reads every user's record file into the tables of the user records screen
 ;-----------------------------------------------------------------------------
-sub_B36D6:
+LoadUserRecords:
         push ebx
         push ecx
         push edx
@@ -2806,14 +2809,14 @@ sub_B418C:
         push edx
         cmp dword [dword_16DA9C], byte 0
         jne short .1
-        call sub_B41EF
+        call UserRecordsScreen
         pop edx
         ret
 .1:
         je short .2
         cmp byte [byte_1CA9D8], 2
         jne short .2
-        call sub_B41EF
+        call UserRecordsScreen
         call sub_E4218
         mov edx, 1Ah
         mov eax, edx
@@ -2836,9 +2839,13 @@ jpt_B41D3:
         dd sub_B41EF_A9E
         dd sub_B41EF_AA5
 ;-----------------------------------------------------------------------------
-; sub_B41EF                                                       B41EF  97 PC
+; UserRecordsScreen                            B41EF  96 PC, medium confidence
+; The user records screen: allocates the column tables (uname, urate, upts,
+; ugf, uga, upp, upk, uso, ustreak, ulstreak, uteam, uopp, usort),
+; LoadUserRecords, sorts by the picked column (qsort), DrawUserRecords,
+; export
 ;-----------------------------------------------------------------------------
-sub_B41EF:
+UserRecordsScreen:
         push ebx
         push ecx
         push edx
@@ -3267,7 +3274,7 @@ sub_B41EF:
         mov edx, dword [dword_1C9872]
         call SetRegionRect
         mov eax, dword_16D440
-        call sub_B2E5B
+        call LoadUserList
         mov eax, dword [dword_16D440]
         mov eax, dword [byte eax+066h]
         dec eax
@@ -3367,7 +3374,7 @@ sub_B41EF:
         add esp, byte 4
         jmp near sub_B211C_C7
 .5:
-        call sub_B36D6
+        call LoadUserRecords
         test eax, eax
         jne short .6
         mov eax, 1Ah
@@ -3424,11 +3431,17 @@ sub_B41EF:
         ja near sub_B41EF_AA5.14
         mov ebx, dword [byte ebp-038h]
         jmp dword [nosplit cs:ebx*4+jpt_B41D3]
+;-----------------------------------------------------------------------------
+; sub_B41EF_95C                                                   B4B4B  97 PC
+;-----------------------------------------------------------------------------
 sub_B41EF_95C:
         call sub_7EDF0
 .8:
         mov dword [byte ebp-014h], 1Ah
         jmp near sub_B41EF_AA5.15
+;-----------------------------------------------------------------------------
+; sub_B41EF_96D                                                   B4B5C  97 PC
+;-----------------------------------------------------------------------------
 sub_B41EF_96D:
         cmp dword [dword_16DA9C], byte 0
         jne short .9
@@ -3447,6 +3460,9 @@ sub_B41EF_96D:
         call GetLangText
         call sub_E4230
         jmp near sub_B41EF_AA5.15
+;-----------------------------------------------------------------------------
+; sub_B41EF_9B4                                                   B4BA3  97 PC
+;-----------------------------------------------------------------------------
 sub_B41EF_9B4:
         mov eax, unk_1C9704
         call sub_83C08
@@ -3472,7 +3488,7 @@ sub_B41EF_9B4:
         call sub_B1E9C
         cmp ebx, byte 32h
         jl short .13
-        call sub_B36D6
+        call LoadUserRecords
         lea eax, [dword ebp-02A0h]
         mov edx, dword [byte ebp-010h]
         mov ecx, dword [byte ebp-04h]
@@ -3501,15 +3517,24 @@ sub_B41EF_9B4:
         call sub_1013FC
         mov dword [byte ebp-040h], 0FFFFFFFFh
         jmp short sub_B41EF_AA5.15
+;-----------------------------------------------------------------------------
+; sub_B41EF_A7F                                                   B4C6E  97 PC
+;-----------------------------------------------------------------------------
 sub_B41EF_A7F:
         mov eax, unk_1C9756
         mov dword [byte ebp-014h], 64h
         call sub_83C08
         jmp short sub_B41EF_AA5.15
+;-----------------------------------------------------------------------------
+; sub_B41EF_A92                                                   B4C81  97 PC
+;-----------------------------------------------------------------------------
 sub_B41EF_A92:
         call sub_7EF70
-        call sub_E4908
+        call WaitForOtherComputer
         jmp short sub_B41EF_AA5.15
+;-----------------------------------------------------------------------------
+; sub_B41EF_A9E                                                   B4C8D  97 PC
+;-----------------------------------------------------------------------------
 sub_B41EF_A9E:
         mov dword [byte ebp-038h], 33h
 sub_B41EF_AA5:
@@ -3533,7 +3558,7 @@ sub_B41EF_AA5:
         call sub_1013FC
 .15:
         call sub_81678
-        jmp near sub_B41EF.7
+        jmp near UserRecordsScreen.7
 .16:
         lea eax, [dword ebp-02A0h]
         call sub_ACA49
@@ -3629,7 +3654,7 @@ sub_B41EF_AA5:
         mov dword [byte ebp-04h], edx
         mov edi, ebx
         lea eax, [byte ebp-08h]
-        call sub_B2E5B
+        call LoadUserList
         imul eax, esi, byte 21h
         mov edx, dword [dword_1AC944]
         movsx edx, word [byte edx+eax+05h]

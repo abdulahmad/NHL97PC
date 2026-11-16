@@ -51,11 +51,11 @@ global sub_C8EDC, sub_C9757, sub_C97FF, sub_C98B1, sub_C9A45, sub_C9AEE, sub_C9B
 global sub_C9DDF, sub_C9F18, sub_CA206, sub_CA2A7, sub_CA44C, sub_CA49A, sub_CA758, sub_CAA0F
 global sub_CABF2, sub_CACE0, sub_CB041, sub_CB192, sub_CB216, sub_CB324, sub_CB6D5, sub_CB9C9
 global sub_CBCD9, sub_CBDD0, sub_CBECB, sub_CBFBA, sub_CC1CA, sub_CC3AD, sub_CCB24, sub_CCC30
-global sub_CCF2E, sub_CD037, sub_CD13A, sub_CD272, sub_CD7B7, sub_CD7F3, sub_CDBE5, sub_CDC8B
+global sub_CCF2E, sub_CD037, sub_CD13A, JerseyScreen, sub_CD7B7, sub_CD7F3, sub_CDBE5, sub_CDC8B
 global sub_CDD99, sub_CDEEA, sub_CDF39, sub_CE111, sub_CE178, sub_CE3F2, sub_CE53C, sub_CE730
 global sub_CE73B, sub_CEBC0, sub_CEC15, sub_CEC58, sub_CED89, sub_CEE20, sub_CEEEA, sub_CEF6E
 global sub_CF005, sub_CF0CD, sub_CF162, sub_CF1FF, sub_CF255, sub_CF3B3, sub_CF626, sub_CF6A3
-global sub_CF70F, sub_CF73D, sub_CF749, sub_CFFAB, sub_D0098, sub_D00F1, sub_D0397, sub_D096D
+global sub_CF70F, sub_CF73D, CreatePlayerScreen, sub_CFFAB, sub_D0098, sub_D00F1, sub_D0397, sub_D096D
 global sub_D0ABE, sub_D0BD8, sub_D0C88, sub_D0D56, sub_D0D71, sub_D0D8E, sub_D0DAB, sub_D0DC8
 global sub_D0DE5, sub_D0E02, sub_D0E21, sub_D0E40, sub_D0E81, sub_D0EBE, sub_D0F07, unk_D15D1
 global unk_D15EE
@@ -5305,7 +5305,7 @@ sub_CB9C9:
         add esp, byte 10h
         lea ebx, [byte ebp-074h]
         mov eax, ecx
-        call sub_CD272
+        call JerseyScreen
         mov edx, dword [byte ebp-08h]
         mov byte [dword edx+ebp-071Bh], al
 .6:
@@ -7128,9 +7128,10 @@ sub_CD13A:
         mov dword [dword_1CC1F8], esi
         jmp near sub_CF255_158
 ;-----------------------------------------------------------------------------
-; sub_CD272                                                       CD272  97 PC
+; JerseyScreen                                    CD272  97 PC, low confidence
+; The jersey screen ("jersey menu" / "jersey menu regions")
 ;-----------------------------------------------------------------------------
-sub_CD272:
+JerseyScreen:
         push ecx
         push esi
         push edi
@@ -8641,7 +8642,7 @@ sub_CE3F2:
         call sub_C9D84
 .4:
         lea eax, [dword ebp-0124h]
-        call sub_CF749
+        call CreatePlayerScreen
         mov edi, eax
         cmp dword [dword_16D668], byte 0
         je short .5
@@ -10224,9 +10225,11 @@ sub_CF73D:
         push unk_166E9D
         jmp short sub_CF70F_20
 ;-----------------------------------------------------------------------------
-; sub_CF749                                                       CF749  97 PC
+; CreatePlayerScreen                           CF749  96 PC, medium confidence
+; The create player screen (GOL0, NME0-2 name, NUM0-2 number buttons, random
+; ratings by CreatePlayerRatings), from the roster screen
 ;-----------------------------------------------------------------------------
-sub_CF749:
+CreatePlayerScreen:
         push ebx
         push ecx
         push esi
@@ -10450,7 +10453,7 @@ sub_CF749:
 .16:
         mov edx, 64h
         xor eax, eax
-        call sub_CD272
+        call JerseyScreen
         mov byte [dword ebp-0251h], al
         mov byte [dword ebp-0135h], al
         imul eax, dword [byte ebp+05Ah], byte 52h

@@ -25,12 +25,12 @@ extern MakeDirPath, LoadDataFile, sub_7A9D8, sub_7BB27, sub_7E860, sub_7EDF0, su
 extern SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80AB8, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, sub_85D1D, NameIndexNew, NameIndexLoad, NameIndexFree
 extern sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DBAC, sub_8DE10, DrawScrollBar, sub_8DE68
-extern sub_8DE7E, sub_8DEAC, GetLangText, PlayoffTreeScreen, sub_A2EF0, sub_A2F31, sub_A2F52, sub_A2F78
+extern sub_8DE7E, sub_8DEAC, GetLangText, PlayoffTreeScreen, AllocCrusherBuffers, sub_A2F31, sub_A2F52, sub_A2F78
 extern sub_A3048, sub_A3116, sub_C6064, RosterScreen, sub_D49BE, sub_DA7D6, sub_DB75E, sub_DB763
 extern sub_DC653, sub_DCA6C, sub_DCBB0, sub_DCFA4, sub_DD970, sub_DDC4A, sub_DE3CF, sub_DE5A3
 extern sub_E036F, sub_E0415, sub_E0691, sub_E069E, sub_E076B, sub_E0841, sub_E0B75, sub_E0D0F
 extern sub_E117B, sub_E1245, sub_E12D1, sub_E13BF, sub_E13FE, sub_E1563, sub_E167A, sub_E1C19
-extern sub_E2270, sub_E3410, sub_E4638, sub_E4838, sub_E7B33, sub_E947A, sub_FAA64, sub_FAF34
+extern sub_E2270, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, sub_E947A, sub_FAA64, sub_FAF34
 extern sub_FC510, sub_FCD90, sub_FCEEC, sub_FCF84, sub_FCFCC, sub_FD08C, sub_FD0F8, unk_165779
 extern unk_1657CD, unk_1657CF, unk_16D7F4, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF12, unk_1ACF4E
 extern unk_1AD22E, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C85DC, unk_1C85E8, unk_1C85F4, unk_1C8600
@@ -1286,13 +1286,13 @@ CreateSeason:
         mov edx, 4
         mov eax, dword_1AD22A
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         jmp short .2
 .1:
         mov edx, 4
         mov eax, dword_1AD22A
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
 .2:
         lea edx, [byte ebp+076h]
         mov eax, unk_16D7FC
@@ -1327,15 +1327,15 @@ CreateSeason:
         xor ebx, ebx
         call sub_E0691
         lea eax, [byte ebp+06Ah]
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 8
         lea eax, [byte ebp+062h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 8
         lea eax, [byte ebp+05Ah]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         lea eax, [byte ebp+062h]
         push eax
         movzx eax, byte [byte_1C8700]
@@ -1354,15 +1354,15 @@ CreateSeason:
         mov edx, 8
         lea eax, [byte ebp+06Ah]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 8
         lea eax, [byte ebp+062h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 8
         lea eax, [byte ebp+05Ah]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         lea eax, [byte ebp+062h]
         push eax
         movzx eax, byte [byte_1C8700]
@@ -4791,7 +4791,7 @@ sub_9281C:
         call sub_E3410
         test eax, eax
         je near .4
-        call sub_A2EF0
+        call AllocCrusherBuffers
         mov dword [byte ebp+07Ah], 0
 .1:
         imul eax, dword [byte ebp+07Ah], dword 194Fh
@@ -4818,7 +4818,7 @@ sub_9281C:
         call sub_A2F31
         xor ebx, ebx
         lea eax, [byte ebp+07Ah]
-        call sub_E4838
+        call LinkReceiveBlock
         cmp dword [byte ebp+07Ah], byte 0
         je near .34
 .3:
@@ -4827,11 +4827,11 @@ sub_9281C:
         mov edx, 8
         lea eax, [byte ebp+06Eh]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 8
         lea eax, [byte ebp+066h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         lea edx, [byte ebp-07Eh]
         lea eax, [byte ebp+06Eh]
         call sub_DCBB0
@@ -4841,15 +4841,15 @@ sub_9281C:
         call sub_E0841
         mov edx, 0BCh
         lea eax, [byte ebp-07Eh]
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 27h
         lea eax, [byte ebp+03Eh]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         dec dword [byte ebp+07Ah]
         jmp short .3
 .4:
-        call sub_A2EF0
+        call AllocCrusherBuffers
         mov eax, 1
         call sub_A3048
         mov dword [byte ebp+07Ah], 0
@@ -4984,7 +4984,7 @@ sub_9281C:
         mov edx, 4
         lea eax, [byte ebp+076h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         cmp dword [byte ebp+076h], byte 0
         je near .34
         mov dword [byte ebp+07Ah], 0
@@ -5007,20 +5007,20 @@ sub_9281C:
         mov edx, 8
         mov eax, dword [dword ebp+086h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 8
         lea eax, [byte ecx+028h]
         xor ebx, ebx
         mov dword [byte ebp+07Eh], eax
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 0BCh
         lea eax, [byte ebp-07Eh]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 27h
         lea eax, [byte ebp+03Eh]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, dword [dword ebp+086h]
         lea eax, [byte ebp-07Eh]
         call sub_DCA6C
@@ -5052,20 +5052,20 @@ sub_9281C:
         mov edx, 8
         mov eax, dword [dword ebp+082h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 8
         lea eax, [byte ecx+028h]
         xor ebx, ebx
         mov dword [byte ebp+07Eh], eax
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 0BCh
         lea eax, [byte ebp-07Eh]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 27h
         lea eax, [byte ebp+03Eh]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, dword [dword ebp+082h]
         lea eax, [byte ebp-07Eh]
         call sub_DCA6C
@@ -5097,20 +5097,20 @@ sub_9281C:
         mov edx, 8
         mov eax, dword [dword ebp+08Ah]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 8
         lea eax, [byte ecx+028h]
         xor ebx, ebx
         mov dword [byte ebp+07Eh], eax
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 0BCh
         lea eax, [byte ebp-07Eh]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 27h
         lea eax, [byte ebp+03Eh]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, dword [dword ebp+08Ah]
         lea eax, [byte ebp-07Eh]
         call sub_DCA6C
@@ -5142,20 +5142,20 @@ sub_9281C:
         mov edx, 8
         mov eax, dword [dword ebp+08Eh]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 8
         lea eax, [byte ecx+028h]
         xor ebx, ebx
         mov dword [byte ebp+07Eh], eax
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 0BCh
         lea eax, [byte ebp-07Eh]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 27h
         lea eax, [byte ebp+03Eh]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, dword [dword ebp+08Eh]
         lea eax, [byte ebp-07Eh]
         call sub_DCA6C
@@ -5355,21 +5355,21 @@ sub_92F25:
         mov edx, 8
         mov eax, edi
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         mov edx, 8
         mov eax, dword [byte ebp-04h]
         xor ebx, ebx
-        call sub_E4638
+        call LinkSendBlock
         jmp short .1
 .3:
         mov edx, 8
         lea eax, [byte ebp-014h]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         mov edx, 8
         lea eax, [byte ebp-0Ch]
         xor ebx, ebx
-        call sub_E4838
+        call LinkReceiveBlock
         push dword [byte ebp+014h]
         movzx eax, byte [byte ebp+010h]
         push eax
