@@ -59,4 +59,4 @@ The same rollback design as the 96 port (`port/netplay.c`; Overbar's `overbar/ne
 - a state is the game's image and DOS / DPMI memory without the key table, SlotWords and hot keys, plus the game thread's stack.
 
 Test aid (two copies on one machine): `NHL97_ONLINE=host` / `join` (port `NHL97_PORT`, default 41970), `NHL97_NETSIM=delay,jitter,loss%`,
-`NHL97_AUTOPAD=1`, `NHL97_REGIONS=1`, `NHL97_SOUND=none` (the sound cards are not in the states yet).
+`NHL97_AUTOPAD=1`, `NHL97_REGIONS=1`, `NHL97_SOUND=none`. With the game's sound on, a session is muted and the streamed audio (sub_3EF68 / sub_3FBE4) is off: its buffers would go back with a state while the sound card and the file go on.
