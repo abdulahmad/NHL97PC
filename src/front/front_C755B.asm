@@ -26,7 +26,7 @@ extern dword_1CC214, dword_1CC218, dword_1CC21C, dword_1CC220, dword_1CC224, dwo
 extern dword_1CC234, dword_1CC238, dword_1CC23C, dword_1CC2A4, dword_1CC2A8, dword_1CC2AC, dword_1CC2B0, dword_1CC2B4
 extern dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4, jpt_C750B, memmove_, memset_, qsort_
 extern qword_166FC4, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, BlitArt
-extern BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, sub_106DA0, sub_11A318
+extern BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, sub_106DA0, ConvertArtXY
 extern FindShapeList, sub_11B104, sub_11B98E, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime
 extern PlayMenuSfx, PlaySfx, PlayScreenMovie, LoadDataFile, sub_7B4E4, sub_7DFC0, sub_7E52C, sub_7E860
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7FE38
@@ -36,7 +36,7 @@ extern sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPo
 extern sub_8E6AF, GetLangText, sub_8E870, LoadFakeExhibition, SaveAgents, sub_92EE2, sub_92F25, EditLinesScreen
 extern sub_9D333, PlayerRatingsScreen, sub_DA7D6, sub_DB763, sub_DB7B1, sub_DC653, sub_DCBB0, sub_E036F
 extern sub_E0415, sub_E0841, sub_E0D0F, FreeExhibitionFile, sub_E12EF, AllocMemBlock, FreeMemBlock, MakeColor
-extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect, sub_FDE44, tickcount
+extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount
 extern unk_166E9D, unk_166F30, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D6C4
 extern word_16D6D2, word_16D6E4
 global jpt_CBFAA, jpt_CD7E3, RosterScreen_11C, RosterScreen_157, RosterScreen_172, RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9
@@ -2065,7 +2065,7 @@ DrawRosterList:
         call GetLangText
         push eax
         mov dword [byte ebp+032h], eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov eax, dword [byte ebp+072h]
         push dword [byte ebp+032h]
@@ -2189,7 +2189,7 @@ DrawRosterList:
         call GetLangText
         push eax
         mov dword [byte ebp+032h], eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov eax, dword [byte ebp+072h]
         push dword [byte ebp+032h]
@@ -2300,7 +2300,7 @@ DrawRosterList:
         call GetLangText
         push eax
         mov dword [byte ebp+032h], eax
-        call sub_FDE44
+        call MeasureText
         mov eax, dword [byte ebp+04Eh]
         mov eax, dword [dword eax+dword_1CC21C]
         mov eax, dword [byte eax+02Ch]
@@ -2342,7 +2342,7 @@ DrawRosterList:
         call GetLangText
         push eax
         mov dword [byte ebp+032h], eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov eax, dword [byte ebp+072h]
         push dword [byte ebp+032h]
@@ -2803,7 +2803,7 @@ sub_C9A45:
         mov dword [nosplit ebx*4+dword_1CC21C], eax
         push dword [byte eax+02Ch]
         inc ebx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         cmp ebx, byte 2
         jl short .1
@@ -2820,7 +2820,7 @@ sub_C9A45:
         push dword [dword_16D6B4]
         mov dword [dword_1CC224], eax
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push dword [dword_1CC224]
         call SetDrawTarget
@@ -4287,7 +4287,7 @@ sub_CACE0:
         push edx
         push eax
         inc edi
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         cmp edi, byte 3
         jl short .3
@@ -7120,7 +7120,7 @@ JerseyScreen:
         push byte 64h
         push byte 78h
         push dword [byte esi+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         push edi
@@ -9217,11 +9217,11 @@ DrawCreatePlayerName:
         lea ebx, [byte edi+077h]
         call SetTextColor
         push ebx
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         push ebx
         mov dword [byte ebp-08h], eax
-        call sub_FDE44
+        call MeasureText
         add eax, dword [byte ebp-08h]
         lea ecx, [byte eax+0Ah]
         mov eax, dword [byte esi+026h]
@@ -11198,7 +11198,7 @@ InitCreatePlayerScreen:
         mov eax, dword [byte esi+04h]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push byte 0
         push byte 0
@@ -11345,7 +11345,7 @@ InitCreatePlayerScreen:
         mov eax, dword [byte esi+0Ch]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push byte 0
         push byte 0

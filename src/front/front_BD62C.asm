@@ -32,7 +32,7 @@ extern GetLangText, FreeLangText, sub_A0867, sub_AC69C, sub_AC6EB, sub_AC73E, su
 extern sub_E19D5, sub_E1C19, OpenReplayFile, sub_E3174, sub_E3190, sub_E3410, sub_E4218, LinkSendBlock
 extern LinkReceiveBlock, WaitForOtherComputer, sub_F22ED, sub_F9496, sub_F94BC, sub_F9789, sub_F9869, AllocMemBlock
 extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, DrawArt, CreateBitmap
-extern SetDrawTarget, ClearScreen, sub_FD954, sub_FDC68, FillRect, sub_FE180, sub_FE3D0, unk_166A8A
+extern SetDrawTarget, ClearScreen, sub_FD954, sub_FDC68, FillRect, SetTextColors, FillRectCorners, unk_166A8A
 extern unk_171E38, unk_1ACB44, unk_1CAEFC, unk_1CAF3C, word_1686E4
 global jpt_BE037, jpt_BE213, jpt_BE25A, jpt_BE296, jpt_BEC7D, RunReplay_358, RunReplay_359, LoadReplay_194
 global sub_BE047_45, sub_BE047_4C, sub_BE047_53, sub_BE047_5A, ReplayScreen_C7, ReplayScreen_D3, ReplayScreen_DA, ReplayScreen_E1
@@ -540,7 +540,7 @@ sub_BDB25:
         call MakeColor
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         push dword [dword_1CAFA4]
         call sub_FCC40
@@ -799,7 +799,7 @@ sub_BE0BA:
         push dword [byte eax+010h]
         push dword [byte eax+04h]
         push dword [eax]
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
 .4:
         inc ebx
@@ -1663,7 +1663,7 @@ sub_BECB9:
         push eax
         lea eax, [byte esi-01h]
         push eax
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
         call sub_1013FC
         imul eax, dword [byte ebp+010h], byte 52h

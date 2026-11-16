@@ -28,8 +28,8 @@ extern dword_1C9588, dword_1C958C, dword_1C9590, dword_1C9594, dword_1C9598, dwo
 extern dword_1C95A8, dword_1C95AA, dword_1C95B0, dword_1C95B4, dword_1C95B8, dword_1C95BC, dword_1C95C0, dword_1C95C4
 extern dword_1CF548, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcpy_
 extern bcopy, BlitArt, BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101EAC
-extern sub_102B94, sub_102C10, Random32, sub_106D80, sub_106F64, sub_106F94, sub_110D70, sub_117338
-extern sub_11A318, sub_11A350, sub_13B50, sub_13B98, SetScreenTarget, PlayGame, SetPlayedTeams, IsAllStarDay
+extern sub_102B94, sub_102C10, Random32, sub_106D80, sub_106F64, sub_106F94, sub_110D70, CreateBitmapDefault
+extern ConvertArtXY, ConvertArtKeepPos, sub_13B50, sub_13B98, SetScreenTarget, PlayGame, SetPlayedTeams, IsAllStarDay
 extern InitGameAudio, MusicEnabled, LoadFrontEndSfx, InitGameSounds, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
 extern PaEvent, sub_4A280, LoadDataFileLib, LoadDataFile, OpenDataLibrary, InitFrontEnd, FreeFrontEnd, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned
@@ -40,7 +40,7 @@ extern sub_A3136, sub_A31DE, AllocStatTable, sub_ACA49, sub_ACAE5, sub_ACAF2, su
 extern sub_ACDAE, sub_AD151, sub_AD62E, UserLogScreen, sub_CA44C, sub_D0098, InitSlotTable, sub_E32B4
 extern sub_E3410, sub_E341C, sub_E4218, sub_E4230, LinkSendBlock, LinkReceiveBlock, sub_EE8AC, AllocMemBlock
 extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, sub_FCEEC, sub_FCF84
-extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, sub_FDE44, tickcount, unk_165EA0, unk_166010
+extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, unk_165EA0, unk_166010
 extern unk_16609C, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_1C94F4, word_1684BE, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
 extern word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2, word_16D2B4, word_19CB96, gameover
@@ -80,7 +80,7 @@ sub_A3280:
         mov ebx, esi
         push dword [byte edi+02Ch]
         shl ebx, 2
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov eax, dword [dword ebx+dword_1C9430]
         push dword [byte eax+02Ch]
@@ -442,7 +442,7 @@ sub_A3280:
         call GetLangText
 .22:
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov edi, eax
         mov eax, dword [dword_1CF548]
@@ -482,7 +482,7 @@ sub_A3280:
         add esp, byte 0Ch
         mov eax, dword [dword ebx+dword_1C9430]
         push dword [byte eax+02Ch]
-        call sub_11A350
+        call ConvertArtKeepPos
         add esp, byte 4
         mov eax, dword [dword_1CF548]
         push byte 20h
@@ -511,7 +511,7 @@ sub_A3280:
         add esp, byte 0Ch
         mov eax, dword [dword ebx+dword_1C9410]
         push dword [byte eax+02Ch]
-        call sub_11A350
+        call ConvertArtKeepPos
         add esp, byte 4
         mov eax, dword [dword_1CF548]
         push byte 20h
@@ -540,7 +540,7 @@ sub_A3280:
         mov word [byte eax+0Eh], dx
         mov eax, dword [dword ebx+dword_1C93F0]
         push dword [byte eax+02Ch]
-        call sub_11A350
+        call ConvertArtKeepPos
         add esp, byte 4
         push dword [dword ebx+dword_1C9410]
         call SetDrawTarget
@@ -1382,7 +1382,7 @@ sub_A4164:
         inc edx
         push edx
 .7:
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         imul eax, esi, byte 3
         mov edx, dword [byte ebx+01Ah]
@@ -1512,7 +1512,7 @@ sub_A4164:
         mov word [byte eax+0Eh], dx
         mov eax, dword [dword ebx+dword_1C9473]
         push dword [byte eax+02Ch]
-        call sub_11A350
+        call ConvertArtKeepPos
         mov word [dword ebx+word_1C9470], 0
         add esp, byte 4
         and byte [dword ebx+byte_1C9472], 7Fh
@@ -1659,7 +1659,7 @@ sub_A4164:
         mov word [byte eax+0Eh], dx
         mov eax, dword [dword ebx+dword_1C9473]
         push dword [byte eax+02Ch]
-        call sub_11A350
+        call ConvertArtKeepPos
         add esp, byte 4
         mov word [dword ebx+word_1C9470], 1
         jmp near .48
@@ -1749,7 +1749,7 @@ sub_A4164:
         inc eax
 .38:
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         imul eax, esi, byte 3
         mov edx, dword [byte ebx+01Ah]
@@ -1879,7 +1879,7 @@ sub_A4164:
         mov word [byte eax+0Eh], dx
         mov eax, dword [dword ebx+dword_1C9473]
         push dword [byte eax+02Ch]
-        call sub_11A350
+        call ConvertArtKeepPos
         mov word [dword ebx+word_1C9470], 2
         add esp, byte 4
         or byte [dword ebx+byte_1C9472], 80h
@@ -2388,7 +2388,7 @@ sub_A4B7D_112:
         lea eax, [byte ebp-040h]
         push eax
         mov dword [byte ebp-020h], edx
-        call sub_FDE44
+        call MeasureText
         mov edx, dword [byte ebp-020h]
         mov ecx, 1
         sar eax, 1
@@ -2410,7 +2410,7 @@ sub_A4B7D_112:
         lea eax, [byte ebp-040h]
         push eax
         sar ebx, 1
-        call sub_FDE44
+        call MeasureText
         mov ecx, 1
         add esp, byte 4
         sar eax, 1
@@ -2672,7 +2672,7 @@ sub_A4B7D_112:
         call GetLangText
 .55:
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov edi, eax
         mov eax, dword [dword_1CF548]
@@ -2712,7 +2712,7 @@ sub_A4B7D_112:
         add esp, byte 0Ch
         mov eax, dword [dword ebx+dword_1C9430]
         push dword [byte eax+02Ch]
-        call sub_11A350
+        call ConvertArtKeepPos
         add esp, byte 4
         mov eax, dword [dword_1CF548]
         push byte 20h
@@ -2741,7 +2741,7 @@ sub_A4B7D_112:
         add esp, byte 0Ch
         mov eax, dword [dword ebx+dword_1C9410]
         push dword [byte eax+02Ch]
-        call sub_11A350
+        call ConvertArtKeepPos
         add esp, byte 4
         mov eax, dword [dword_1CF548]
         push byte 20h
@@ -2771,7 +2771,7 @@ sub_A4B7D_112:
         mov word [byte eax+0Eh], dx
         mov eax, dword [dword ebx+dword_1C93F0]
         push dword [byte eax+02Ch]
-        call sub_11A350
+        call ConvertArtKeepPos
         add esp, byte 4
         push dword [dword ebx+dword_1C9410]
         call SetDrawTarget
@@ -2882,7 +2882,7 @@ sub_A4B7D_112:
         mov dword [byte ebp-014h], 0
         push dword [byte eax+02Ch]
         lea edi, [esi+esi*2]
-        call sub_11A350
+        call ConvertArtKeepPos
         add esp, byte 4
 .64:
         imul eax, edi, byte 52h
@@ -4190,7 +4190,7 @@ PostGameScreen:
         mov eax, dword [byte ebx+02h]
         sar eax, 10h
         push eax
-        call sub_117338
+        call CreateBitmapDefault
         add esp, byte 10h
         push eax
         mov dword [dword esp+0574h], eax
@@ -4487,7 +4487,7 @@ PostGameScreen:
         push dword 0DCh
         mov edi, dword [byte eax+02Ch]
         push edi
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         xor ebp, ebp
         xor esi, esi
@@ -4985,7 +4985,7 @@ DrawThreeStarStats:
         mov dword [byte esp+050h], eax
         mov eax, esp
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov edx, dword [byte esp+050h]
         sub edx, byte 14h
@@ -5164,7 +5164,7 @@ DrawThreeStarStats:
         mov dword [byte esp+050h], eax
         mov eax, esp
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov edx, dword [byte esp+050h]
         sub edx, byte 14h
@@ -5759,7 +5759,7 @@ GameStatsScreen_14E:
         push byte 0
         mov ebx, dword [byte eax+02Ch]
         push ebx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         jmp near GameStatsScreen_39D.15
 GameStatsScreen_19A:

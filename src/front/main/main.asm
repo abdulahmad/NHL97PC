@@ -26,16 +26,16 @@ extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, exit_, getcwd_, sub_845E4_32E, 
 extern sub_845E4_370, memcpy_, open_, printf_, sprintf_, srand_, strcat_, strcpy_
 extern strlen_, sub_1008CC, bcopy, sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC
 extern FindShape, sub_101EAC, sub_102B94, sub_102C10, Random32, LoadGripLibrary, sub_1046C, LoadJoystickConfig
-extern sub_105808, sub_106F64, sub_106F94, sub_107D30, sub_116428, sub_1164E8, sub_1167AE, sub_1169D4
-extern sub_119BE4, sub_119FDC, sub_11A120, sub_11A318, sub_11A3E0, sub_11ADD0, sub_11ADE8, sub_11B008
+extern sub_105808, sub_106F64, sub_106F94, sub_107D30, InstallKeyboardHandler, RemoveKeyboardHandler, IsKeyDown, PlotPixelAt
+extern InitMemoryPoolArgs, InitPlatform, InstallErrorHandlers, ConvertArtXY, FormatString, SaveTextState, RestoreTextState, sub_11B008
 extern SetScreenTarget, LoadMainSfxBank, OpenAudioStream, ShutdownGameAudio, ChkMenuMusic, PauseMusic, RequestMusicStop, ArenaFileName
 extern StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, sub_4B307, RunFrontEnd, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, GetLangText, FreeLangText
 extern RunIntro, AllocStaticBuffer, sub_DB747, sub_E341C, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
 extern WaitForOtherComputer, FillBox, sub_F9650, AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, sub_FB73D
 extern sub_FBE40, sub_FBE94, MakeColor, sub_FC73E, sub_FCC40, FreeBitmap, sub_FCF84, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, sub_FDC68, FillRect, sub_FDE44, sub_FE150, sub_FE180
-extern sub_FE3D0, sub_FE470, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
+extern CreateBitmap, SetDrawTarget, ClearScreen, sub_FDC68, FillRect, MeasureText, DrawTextAt, SetTextColors
+extern FillRectCorners, DrawGlyph, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
 extern unk_164636, unk_164686, unk_1646D4, unk_164724, unk_16480B, unk_1648DA, unk_16491D, unk_1649E0
 extern unk_164A6A, unk_164B4D, unk_164BFD, unk_164C3F, unk_164C6C, unk_164D67, unk_164F96, unk_16503B
 extern unk_16508B, unk_16518C, unk_165190, unk_16CB30, unk_16E8A0, unk_1C1264, unk_1C12B4, unk_1C5EF8
@@ -185,7 +185,7 @@ main_:
         push dword 0A0000h
         push dword 1000000h
         push dword 2BCh
-        call sub_119BE4
+        call InitMemoryPoolArgs
         add esp, byte 0Ch
         call sub_4B307
         test eax, eax
@@ -337,7 +337,7 @@ main_:
         je short .18
         and byte [byte_1AC81B], 0F7h
 .18:
-        call sub_119FDC
+        call InitPlatform
         mov eax, dword [dword_16E468]
         sar eax, 1
         push eax
@@ -356,7 +356,7 @@ main_:
         call srand_
         mov dword [dword_16E628], 0
         mov dword [dword_170710], 0
-        call sub_11A120
+        call InstallErrorHandlers
         call NetInit
         call sub_F9650
         call LoadJoystickConfig
@@ -461,7 +461,7 @@ sub_7D539:
         add eax, ebx
         push eax
         mov dword [byte esp+0Ch], eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
         mov eax, dword [dword_1CF554]
         push eax
@@ -469,7 +469,7 @@ sub_7D539:
         push ebp
         inc eax
         push eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
 .3:
         test si, 40h
@@ -482,7 +482,7 @@ sub_7D539:
         inc eax
         push eax
         mov dword [byte esp+0Ch], eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
         mov eax, dword [dword_1CF554]
         push eax
@@ -490,7 +490,7 @@ sub_7D539:
         push ebp
         inc eax
         push eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
 .4:
         test si, 20h
@@ -503,7 +503,7 @@ sub_7D539:
         add eax, byte 2
         push eax
         mov dword [byte esp+0Ch], eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
         mov eax, dword [dword_1CF554]
         push eax
@@ -511,7 +511,7 @@ sub_7D539:
         push ebp
         inc eax
         push eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
 .5:
         test si, 10h
@@ -524,7 +524,7 @@ sub_7D539:
         add eax, byte 3
         push eax
         mov dword [byte esp+0Ch], eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
         mov eax, dword [dword_1CF554]
         push eax
@@ -532,7 +532,7 @@ sub_7D539:
         push ebp
         inc eax
         push eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
 .6:
         test si, 8
@@ -545,7 +545,7 @@ sub_7D539:
         add eax, byte 4
         push eax
         mov dword [byte esp+0Ch], eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
         mov eax, dword [dword_1CF554]
         push eax
@@ -553,7 +553,7 @@ sub_7D539:
         push ebp
         inc eax
         push eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
 .7:
         test si, 4
@@ -566,7 +566,7 @@ sub_7D539:
         add eax, byte 5
         push eax
         mov dword [byte esp+0Ch], eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
         mov eax, dword [dword_1CF554]
         push eax
@@ -574,7 +574,7 @@ sub_7D539:
         push ebp
         inc eax
         push eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
 .8:
         test si, 2
@@ -587,7 +587,7 @@ sub_7D539:
         add eax, byte 6
         push eax
         mov dword [byte esp+0Ch], eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
         mov eax, dword [dword_1CF554]
         push eax
@@ -595,7 +595,7 @@ sub_7D539:
         push ebp
         inc eax
         push eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
 .9:
         test si, 1
@@ -607,14 +607,14 @@ sub_7D539:
         push edi
         add eax, byte 7
         push eax
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
         mov ecx, dword [dword_1CF554]
         push ecx
         push ebp
         mov esi, dword [byte esp+024h]
         push esi
-        call sub_1169D4
+        call PlotPixelAt
         add esp, byte 0Ch
 .10:
         mov eax, dword [byte esp+01Ch]
@@ -2796,7 +2796,7 @@ sub_7F04C:
         mov ebx, dword [byte eax+02Ch]
         push ebx
         mov esi, eax
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov eax, dword [byte esi+02Ch]
         xor ebx, ebx
@@ -2829,7 +2829,7 @@ sub_7F04C:
         db 090h
 ;-----------------------------------------------------------------------------
 ; SetTextColor                                    7F0D8  97 PC, low confidence
-; (pixel colour): builds the font colour tables (sub_FE180) for text drawn
+; (pixel colour): builds the font colour tables (SetTextColors) for text drawn
 ; next with DrawTextAligned; cached on the last colour
 ;-----------------------------------------------------------------------------
 SetTextColor:
@@ -2857,7 +2857,7 @@ SetTextColor:
         push byte 0
         push byte 1
 .3:
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         mov eax, unk_1C6104
         mov ebx, dword [dword_1C81B4]
@@ -2865,7 +2865,7 @@ SetTextColor:
         call memcpy_
         push byte 0
         push esi
-        call sub_FE180
+        call SetTextColors
         mov eax, unk_1C7144
         add esp, byte 8
         mov ebx, dword [dword_1C81B4]
@@ -2901,7 +2901,7 @@ DrawTextAligned:
         push edx
         lea eax, [byte esp+08h]
         push eax
-        call sub_11A3E0
+        call FormatString
         add esp, byte 0Ch
         test ebx, ebx
         jne short .1
@@ -2912,7 +2912,7 @@ DrawTextAligned:
         mov eax, esp
         push eax
         mov esi, edi
-        call sub_FDE44
+        call MeasureText
         sar eax, 1
         add esp, byte 4
         sub esi, eax
@@ -2922,7 +2922,7 @@ DrawTextAligned:
         mov eax, esp
         push eax
         mov esi, edi
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub esi, eax
 .3:
@@ -2937,18 +2937,18 @@ DrawTextAligned:
         call MakeColor
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         push edi
         push ebp
         lea eax, [byte esp+08h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         push byte 0
         mov edi, dword [dword_1C8268]
         push edi
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         mov ebp, dword [dword esp+0120h]
         push ebp
@@ -2962,7 +2962,7 @@ DrawTextAligned:
         push ebp
         lea eax, [byte esp+08h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         mov edx, unk_1C7144
         mov ebx, dword [dword_1C81B4]
         add esp, byte 0Ch
@@ -2974,7 +2974,7 @@ DrawTextAligned:
         push esi
         lea eax, [byte esp+08h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         xor eax, eax
         mov dword [dword esp+0100h], eax
@@ -3296,14 +3296,14 @@ sub_7F5CC:
         mov edx, 1Eh
         push unk_1C81BC
         mov dword [dword esp+0728h], edx
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         mov ebx, dword [dword_1C5EF4]
         push ebx
         lea edi, [dword esp+06B4h]
         mov esi, dword_16E670
         call sub_FCC40
-        mov ecx, sub_FE470
+        mov ecx, DrawGlyph
         mov eax, dword [dword_1C8268]
         add esp, byte 4
         mov dword [dword_1CF5B8], ecx
@@ -3368,13 +3368,13 @@ sub_7F5CC:
         mov byte [dword esp+ebx+05B0h], al
         lea eax, [dword esp+05B0h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         cmp esi, eax
         jg short .9
         lea eax, [dword esp+05B0h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov esi, eax
 .9:
@@ -3394,13 +3394,13 @@ sub_7F5CC:
         xor dh, dh
         push eax
         mov byte [dword esp+ebx+05B5h], dh
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         cmp esi, eax
         jg short .12
         lea eax, [dword esp+05B0h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov esi, eax
 .12:
@@ -3442,7 +3442,7 @@ sub_7F5CC:
         push eax
         mov edx, dword [byte esi+02Ch]
         push edx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         push ebx
@@ -3553,7 +3553,7 @@ sub_7F5CC:
         mov edx, dword [byte eax+02Ch]
         push edx
 .18:
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov eax, dword [dword esp+ebx+0490h]
         mov eax, dword [byte eax+02Ch]
@@ -3865,7 +3865,7 @@ sub_7F5CC:
         add esp, byte 4
 .42:
         push unk_1C81BC
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
         mov eax, dword [dword esp+06F8h]
         add esp, 75Ch
@@ -3957,12 +3957,12 @@ EditText:
         mov dword [dword esp+0680h], edx
         mov byte [dword esp+0684h], ah
         call sub_FBE94
-        call sub_1164E8
+        call RemoveKeyboardHandler
         mov ecx, 0Eh
         mov dword [dword esp+0650h], ebx
         push unk_1C81BC
         rep movsd
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         mov ecx, dword [dword esp+0698h]
         xor ebx, ebx
@@ -3970,7 +3970,7 @@ EditText:
         jne short .1
         mov esi, dword [dword_1C5EF4]
         push esi
-        mov edi, sub_FE470
+        mov edi, DrawGlyph
         call sub_FCC40
         add esp, byte 4
         mov eax, dword [dword_1C8268]
@@ -4021,7 +4021,7 @@ EditText:
         xor ch, ch
         push eax
         mov byte [dword esp+ebx+0504h], ch
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov edx, dword [dword esp+0680h]
         cmp eax, edx
@@ -4031,7 +4031,7 @@ EditText:
 .8:
         lea eax, [dword esp+0500h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
 .9:
         mov ecx, dword [dword esp+0650h]
@@ -4054,19 +4054,19 @@ EditText:
         xor dl, dl
         push eax
         mov byte [dword esp+ebx+0505h], dl
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov ebx, dword [dword esp+0680h]
         cmp eax, ebx
         jl short .12
         lea eax, [dword esp+0500h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov ebx, eax
 .12:
         push unk_16518C
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov edx, dword [dword esp+0658h]
         imul edx, eax
@@ -4113,7 +4113,7 @@ EditText:
         push ecx
         mov eax, dword [byte ebx+02Ch]
         push eax
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov edx, dword [dword esp+066Ch]
         push edx
@@ -4121,7 +4121,7 @@ EditText:
         push ecx
         mov eax, dword [byte edi+02Ch]
         push eax
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         push ebx
@@ -4161,7 +4161,7 @@ EditText:
         push eax
         push byte 0
         push byte 0
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
         jmp short .15
 .14:
@@ -4270,7 +4270,7 @@ EditText:
         push eax
         push byte 14h
         push unk_16518C
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         push eax
         push ebx
@@ -4330,7 +4330,7 @@ EditText:
         push eax
         push byte 14h
         push unk_16518C
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         push eax
         push ebx
@@ -4343,12 +4343,12 @@ EditText:
         push eax
         push byte 14h
         push unk_16518C
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         push eax
         push ebx
         push ebp
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         add eax, edi
         push eax
@@ -4396,13 +4396,13 @@ EditText:
         cmp esi, dword [dword esp+0640h]
         jge short .28
         push unk_16518C
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov edx, dword [dword esp+065Ch]
         imul edx, eax
         push ebp
         mov dword [dword esp+0648h], edx
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         cmp eax, dword [dword esp+0644h]
         jge short .28
@@ -4447,12 +4447,12 @@ EditText:
         test eax, eax
         jne short .32
         push byte 1Ch
-        call sub_1167AE
+        call IsKeyDown
         add esp, byte 4
         test eax, eax
         jne short .32
         push byte 1
-        call sub_1167AE
+        call IsKeyDown
         add esp, byte 4
         test eax, eax
         je short .33
@@ -4525,10 +4525,10 @@ EditText:
         add esp, byte 4
 .40:
         push unk_1C81BC
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
         xor ebx, ebx
-        call sub_116428
+        call InstallKeyboardHandler
         mov edx, ebp
         jmp short .43
 .41:
@@ -5893,7 +5893,7 @@ sub_81678:
         push edx
         mov edx, dword [dword_1C5EF4]
         push edx
-        mov ebx, sub_FE470
+        mov ebx, DrawGlyph
         call sub_FCC40
         add esp, byte 4
         mov eax, dword [dword_1C8268]
@@ -5989,13 +5989,13 @@ sub_816E8:
         push dword 0DCh
         mov edx, dword [byte esi+02Ch]
         push edx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push dword 8Ch
         push dword 0DCh
         mov ecx, dword [byte ebx+02Ch]
         push ecx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         mov eax, dword [byte ebx+02Ch]
@@ -8156,7 +8156,7 @@ sub_83334:
         mov esi, eax
         mov edi, edx
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         push byte 0
         push byte 50h
@@ -8189,7 +8189,7 @@ sub_83334:
         push edx
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov edi, dword [dword_1C81A4]
         push edi
@@ -8198,7 +8198,7 @@ sub_83334:
         push ebp
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         cmp ebx, byte 10h
@@ -8395,11 +8395,11 @@ sub_835CC:
         cmp dword [dword_16CB80], byte 0
         jne near .6
         push unk_16518C
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         push esi
         lea ebx, [nosplit eax*4+00h]
-        call sub_FDE44
+        call MeasureText
         add eax, ebx
         add esp, byte 4
         mov dword [dword_1C8198], eax
@@ -8409,11 +8409,11 @@ sub_835CC:
         call sub_FCC40
         add esp, byte 4
         push unk_16518C
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         push esi
         lea ebx, [nosplit eax*4+00h]
-        call sub_FDE44
+        call MeasureText
         add eax, ebx
         add esp, byte 4
         mov dword [dword_1C8198], eax
@@ -8461,7 +8461,7 @@ sub_835CC:
         push edx
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov eax, dword [dword_1C8190]
         push eax
@@ -8469,7 +8469,7 @@ sub_835CC:
         push edx
         mov ecx, dword [byte ebx+02Ch]
         push ecx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         cmp edi, byte 10h
@@ -8533,7 +8533,7 @@ sub_835CC:
         push eax
         push byte 0
         push byte 0
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
         jmp short .5
 .4:
@@ -9398,7 +9398,7 @@ sub_840F8:
         push byte 0
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         pop edx
@@ -9460,7 +9460,7 @@ sub_84170:
         push eax
         mov edx, dword [byte esi+02Ch]
         push edx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov ebx, dword [byte esp+038h]
         push ebx
@@ -9521,7 +9521,7 @@ ShowLoadingScreen:
         add esp, byte 8
         mov ecx, dword [dword_1C5EF4]
         push ecx
-        mov edi, sub_FE470
+        mov edi, DrawGlyph
         mov ebx, eax
         call sub_FCC40
         add esp, byte 4

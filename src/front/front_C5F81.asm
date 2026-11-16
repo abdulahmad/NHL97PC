@@ -20,7 +20,7 @@ extern dword_1CC0A8, dword_1CC0F6, dword_1CC0FA, dword_1CC148, dword_1CC14C, Ros
 extern RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9, RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596
 extern RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF, RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B
 extern RosterScreen_66C, rand_, sprintf_, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape
-extern sub_102B94, sub_11A318, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
+extern sub_102B94, ConvertArtXY, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
 extern PlaySfx, LoadDataFile, sub_7DFC0, SetRegionRect, InitMenuItems, sub_8BFAC, sub_E341C, FreeMemBlock
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, unk_1ACB44, unk_1ACD2B, unk_1CBC18
 extern unk_C5ED2
@@ -388,7 +388,7 @@ sub_C6064:
         movsx eax, word [byte esi+0Ch]
         push eax
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push esi
         call BlitShape2
@@ -488,7 +488,7 @@ sub_C6064:
         movsx edx, word [byte eax+0Ch]
         push edx
         push eax
-        call sub_11A318
+        call ConvertArtXY
         mov eax, dword [dword ebx+ebp+0288h]
         mov eax, dword [byte eax+02Ch]
         add esp, byte 0Ch
@@ -497,7 +497,7 @@ sub_C6064:
         movsx edx, word [byte eax+0Ch]
         push edx
         push eax
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push dword [dword ebx+ebp+0264h]
         call SetDrawTarget
@@ -958,7 +958,7 @@ sub_C6064:
         push eax
         mov eax, dword [dword ebp+0304h]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         mov eax, dword [dword ebp+0304h]
         mov dx, word [byte esi+0Ch]
         mov eax, dword [byte eax+02Ch]

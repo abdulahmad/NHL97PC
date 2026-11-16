@@ -56,8 +56,8 @@ extern sub_4F068, sub_4F294, sub_4F404, sub_4FC50, sub_4FD08, DrawGoalLight, Tra
 extern sub_50AF4, DrawStandsSides, sub_50DF4, sub_50EB8, sub_50F90, sub_510FC, sub_511AC, sub_51254
 extern sub_51B5C, sub_51BD8, LoadNetArt, BuildRinkSides, LoadBoardLogo, sub_52648, sub_526EC, sub_59174
 extern sub_5AAB8, sub_5AC38, sub_5B4D4, sub_5BCCC, sub_5BD1C, sub_E341C, AllocMemBlock, FreeMemBlock
-extern sub_FC330, sub_FC4BC, ClearScreen, sub_FD954, FillRect, sub_FF044, sub_FF444, sub_FF600
-extern sub_FF798, sub_FFBB4, sub_FFCC4, tickcount, unk_16175C, unk_161760, unk_161764, unk_161768
+extern sub_FC330, sub_FC4BC, ClearScreen, sub_FD954, FillRect, IntsToFloats, VecMulMat, VecSub
+extern VecDistance, ProjectCoord, ProjectPointsWithZ, tickcount, unk_16175C, unk_161760, unk_161764, unk_161768
 extern unk_16176C, unk_161770, unk_161774, unk_161778, unk_1617BC, unk_16B51C, unk_16B534, unk_1A8D48
 extern unk_1AEDD8, unk_1AEDF0, unk_1AFB38, unk_1B0078, unk_1B0410, unk_1B0510, unk_1B0610, unk_1B0710
 extern unk_1B0850, unk_1B0970, unk_1B0AA8, unk_1B0AE8, unk_1B1068, unk_1B1090, unk_1B1120, unk_1B73F0
@@ -2164,7 +2164,7 @@ LoadRinkModel:
         add edx, eax
         mov eax, 3
         add esi, byte 0Ch
-        call sub_FF044
+        call IntsToFloats
 .11:
         push ebp
         push str_FaceoffD
@@ -2190,7 +2190,7 @@ LoadRinkModel:
         add edx, eax
         mov eax, 3
         inc ebp
-        call sub_FF044
+        call IntsToFloats
         cmp edi, byte 14h
         jne short .11
         mov ebp, 4
@@ -2221,7 +2221,7 @@ LoadRinkModel:
         add edx, eax
         mov eax, 3
         inc ebp
-        call sub_FF044
+        call IntsToFloats
         cmp esi, byte 10h
         jne short .12
         push str_Goal0
@@ -3171,7 +3171,7 @@ sub_54A8C:
         lea esi, [ecx+eax]
         mov eax, 4
         mov dword [dword esp+02C0h], esi
-        call sub_FFCC4
+        call ProjectPointsWithZ
         push byte 1
         push byte 0
         lea eax, [dword esp+0308h]
@@ -4658,7 +4658,7 @@ sub_560AC:
         sub esp, byte 4
         fild dword [byte edx+eax*4+08h]
         fstp dword [esp]
-        call sub_FFBB4
+        call ProjectCoord
         mov edi, dword [byte ecx+04h]
         push edi
         mov ebp, dword [ecx]
@@ -4682,7 +4682,7 @@ sub_560AC:
         sub esp, byte 4
         fild dword [byte edx+eax*4+08h]
         fstp dword [esp]
-        call sub_FFBB4
+        call ProjectCoord
         mov eax, dword [byte ecx+04h]
         push eax
         mov edx, dword [ecx]
@@ -4708,7 +4708,7 @@ sub_560AC:
         sub esp, byte 4
         fild dword [byte edx+eax+08h]
         fstp dword [esp]
-        call sub_FFBB4
+        call ProjectCoord
         mov ecx, dword [byte ebx+04h]
         push ecx
         mov edi, dword [ebx]
@@ -4743,7 +4743,7 @@ sub_560AC:
         sub esp, byte 4
         fild dword [byte edx+eax*4+08h]
         fstp dword [esp]
-        call sub_FFBB4
+        call ProjectCoord
         mov ecx, dword [byte ebx+04h]
         push ecx
         mov edi, dword [ebx]
@@ -4767,7 +4767,7 @@ sub_560AC:
         sub esp, byte 4
         fild dword [byte edx+eax*4+08h]
         fstp dword [esp]
-        call sub_FFBB4
+        call ProjectCoord
         mov ebp, dword [byte ecx+04h]
         push ebp
         mov eax, dword [ecx]
@@ -4793,7 +4793,7 @@ sub_560AC:
         sub esp, byte 4
         fild dword [byte edx+eax+08h]
         fstp dword [esp]
-        call sub_FFBB4
+        call ProjectCoord
         mov ebx, dword [byte ecx+04h]
         push ebx
         mov edi, dword [ecx]
@@ -4886,7 +4886,7 @@ sub_56464:
         sub esp, byte 4
         fild dword [byte edx+eax*4+08h]
         fstp dword [esp]
-        call sub_FFBB4
+        call ProjectCoord
         mov eax, dword [byte ebx+04h]
         push eax
         mov edx, dword [ebx]
@@ -4910,7 +4910,7 @@ sub_56464:
         sub esp, byte 4
         fild dword [byte ebx+eax*4+08h]
         fstp dword [esp]
-        call sub_FFBB4
+        call ProjectCoord
         mov ebx, dword [byte edx+04h]
         push ebx
         mov ecx, dword [edx]
@@ -4935,7 +4935,7 @@ sub_56464:
         sub esp, byte 4
         fild dword [byte edx+eax*4+08h]
         fstp dword [esp]
-        call sub_FFBB4
+        call ProjectCoord
         mov edi, dword [byte ebx+04h]
         push edi
         mov ebp, dword [ebx]
@@ -4970,7 +4970,7 @@ sub_56464:
         sub esp, byte 4
         fild dword [byte edx+eax*4+08h]
         fstp dword [esp]
-        call sub_FFBB4
+        call ProjectCoord
         mov edi, dword [byte ebx+04h]
         push edi
         mov ebp, dword [ebx]
@@ -4994,7 +4994,7 @@ sub_56464:
         sub esp, byte 4
         fild dword [byte edx+eax*4+08h]
         fstp dword [esp]
-        call sub_FFBB4
+        call ProjectCoord
         mov eax, dword [byte ecx+04h]
         push eax
         mov edx, dword [ecx]
@@ -5019,7 +5019,7 @@ sub_56464:
         sub esp, byte 4
         fild dword [byte edx+eax*4+08h]
         fstp dword [esp]
-        call sub_FFBB4
+        call ProjectCoord
         mov edi, dword [byte ecx+04h]
         push edi
         mov ebp, dword [ecx]
@@ -5206,11 +5206,11 @@ sub_568CC:
         mov ebx, esp
         mov edx, dword_1B905F
         add eax, byte 3
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+0Ch]
         mov edx, unk_1B92AB
         mov eax, esp
-        call sub_FF444
+        call VecMulMat
         fld dword [byte esp+014h]
         call __CHP
         fistp dword [byte esp+018h]
@@ -5559,7 +5559,7 @@ sub_56B98:
         mov edx, dword [byte ebx+0Ch]
         mov eax, dword [byte ebx+08h]
         mov dword [byte ebx+04h], ecx
-        call sub_FF798
+        call VecDistance
         fstp dword [byte ebx+01Ch]
         add esp, byte 8
         pop ebp

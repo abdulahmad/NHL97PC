@@ -58,7 +58,7 @@ extern qword_1613D5, qword_1613DD, qword_16142D, qword_161435, qword_16143D, qwo
 extern sprintf_, str_Botboards, str_Center, str_CrowdD, str_EMPTYFSH, str_FatBlueLines, str_FatRedLines, str_Glass
 extern str_Glassline, str_Gt002d, str_Gt102d, str_Gt202d, str_Gt302d, str_HALFFSH, str_Icelogo, str_STANDSFSH
 extern str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpath, strcat_, stricmp_
-extern strlen_, strncpy_, sub_1001F8, sub_100498, sub_1004B8, sub_1004F8, sub_100510, sub_100700
+extern strlen_, strncpy_, ProjectPointFloat, sub_100498, sub_1004B8, sub_1004F8, sub_100510, sub_100700
 extern sub_1007C0, sub_100830, SortIndices, FindShape, sub_10150C, sub_101524, sub_101560, sub_101584
 extern Random32, sub_102CDC, sub_102CF4, sub_103648, sub_104948, sub_106C74, sub_106D80, sub_106DA0
 extern sub_106DE0, sub_106DF8, sub_107098, sub_1070B0, sub_108144, sub_108640, sub_108900, sub_108A60
@@ -80,9 +80,9 @@ extern LoadRinkLines, LoadRinkModel, FreeRinkModel, sub_5475C, sub_55110, sub_55
 extern sub_56740, LoadGoalieMask, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
 extern sub_5AAB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450, sub_5C1CC, sub_5DD74, LoadAiIcons
 extern sub_77A30, PlayMovie, sub_842F4, sub_E3410, sub_E341C, AllocMemBlock, FreeMemBlock, ZeroMem
-extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, sub_FE150, sub_FE180
-extern sub_FF044, sub_FF128, sub_FF174, sub_FF444, sub_FF48C, sub_FF5E0, sub_FF690, sub_FF798
-extern sub_FFA14, sub_FFBB4, sub_FFBC8, sub_FFBE0, sub_FFCC4, sub_FFDAC, tickcount, unk_1611B4
+extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, DrawTextAt, SetTextColors
+extern IntsToFloats, FloatsToInts, ScaleFloatsToInts, VecMulMat, TransformVecs, VecAdd, AddVecs, VecDistance
+extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, unk_1611B4
 extern unk_169848, unk_1698A2, unk_169989, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144
 extern unk_16B16C, unk_16E8A0, unk_1AC7DC, unk_1AC95D, unk_1ACB44, unk_1AD7C0, unk_1ADCA0, unk_1ADD38
 extern unk_1ADD40, unk_1ADD58, unk_1ADD60, unk_1ADD78, unk_1ADDE4, unk_1ADEF8, unk_1ADF38, unk_1ADFF8
@@ -3657,7 +3657,7 @@ InitGameGraphics:
         mov dword [dword_1ADC70], eax
         call sub_10B000
         push dword 42C80000h
-        call sub_FFA14
+        call SetViewScale
         push byte 64h
         call sub_10B074
         add esp, byte 4
@@ -3712,7 +3712,7 @@ InitGameGraphics:
         mov al, byte [dword eax+byte_16FA40]
         and eax, 0FFh
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         call sub_56740
         mov ebx, dword [byte ebp+034h]
@@ -4030,7 +4030,7 @@ DrawGameFrame:
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         mov eax, dword [dword_16E468]
         mov edx, eax
         sar edx, 1Fh
@@ -4045,18 +4045,18 @@ DrawGameFrame:
         sar eax, 1
         push eax
         push str_JBUG
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .4:
         call sub_56740
         mov ebx, esp
         mov edx, unk_1B92AB
         mov eax, 9
-        call sub_FF174
+        call ScaleFloatsToInts
         lea ebx, [byte esp+024h]
         mov edx, dword_1B905F
         mov eax, 3
-        call sub_FF128
+        call FloatsToInts
         mov edx, esp
         lea eax, [byte esp+024h]
         call sub_5475C
@@ -4215,7 +4215,7 @@ unk_4BCCC:
         sub esp, byte 4
         fild dword [byte eax+08h]
         fstp dword [esp]
-        call sub_FFBC8
+        call ProjectCoordInt
         add esp, byte 4
         pop ebx
         ret
@@ -4567,7 +4567,7 @@ sub_4BF94:
         lea edi, [byte esp+020h]
         fstp dword [esp]
         lea esi, [byte esp+014h]
-        call sub_FFBB4
+        call ProjectCoord
         fstp dword [byte esp+020h]
         cmp dword [byte esi+08h], byte 0
         jle short .2
@@ -5882,7 +5882,7 @@ sub_4CF18:
         mov ebx, edi
         mov edx, ecx
 .3:
-        call sub_FFDAC
+        call ProjectPointsToScreen
 .4:
         mov eax, 1
         pop ebp
@@ -6173,7 +6173,7 @@ sub_4CF74:
         mov eax, 1
         mov ebx, ebp
         mov edx, edi
-        call sub_FFDAC
+        call ProjectPointsToScreen
 .11:
         xor eax, eax
 .12:
@@ -6302,7 +6302,7 @@ sub_4D27C:
         fild dword [byte esp+0Ch]
         sub esp, byte 4
         fstp dword [esp]
-        call sub_FFBC8
+        call ProjectCoordInt
 .2:
         mov ecx, dword [dword_16F148]
         mov ebx, eax
@@ -6421,7 +6421,7 @@ sub_4D3B4:
         fild dword [byte esp+018h]
         sub esp, byte 4
         fstp dword [esp]
-        call sub_FFBC8
+        call ProjectCoordInt
 .2:
         mov ecx, dword [dword_16E4A8]
         mov ebx, eax
@@ -6436,7 +6436,7 @@ sub_4D3B4:
         fild dword [byte esp+0Ch]
         sub esp, byte 4
         fstp dword [esp]
-        call sub_FFBC8
+        call ProjectCoordInt
 .4:
         mov esi, dword [dword_16F148]
         mov ecx, eax
@@ -6940,7 +6940,7 @@ sub_4D948:
         mov edx, unk_1AEB08
         mov eax, 6
         mov ecx, ebp
-        call sub_FF48C
+        call TransformVecs
         mov dword [dword_1B0D98], 1
 .1:
         mov esi, 6
@@ -6956,7 +6956,7 @@ sub_4D948:
         mov edx, unk_1AECB8
         mov eax, 0Ah
         mov ecx, ebp
-        call sub_FF48C
+        call TransformVecs
         mov dword [dword_1B0D70], 1
 .3:
         mov esi, 0Ah
@@ -6971,7 +6971,7 @@ sub_4D948:
         mov eax, 0Eh
         mov ecx, ebp
         mov esi, 1
-        call sub_FF48C
+        call TransformVecs
         mov dword [dword_1B0D94], esi
 .5:
         mov esi, 0Eh
@@ -6980,12 +6980,12 @@ sub_4D948:
         mov ebx, edi
         mov edx, ebp
         mov eax, esi
-        call sub_FF690
+        call AddVecs
         lea ebx, [dword esp+0A8h]
         mov edx, esp
         mov eax, esi
         mov edi, dword [dword esp+011Ch]
-        call sub_FFBE0
+        call ProjectPoints
         test edi, edi
         setl al
         and eax, 0FFh
@@ -7037,7 +7037,7 @@ sub_4DA84:
         mov edx, unk_1AE7C0
         mov eax, 6
         mov ecx, ebp
-        call sub_FF48C
+        call TransformVecs
         mov dword [dword_1B0D80], 1
 .1:
         mov esi, 6
@@ -7053,7 +7053,7 @@ sub_4DA84:
         mov edx, unk_1AE6D0
         mov eax, 0Ah
         mov ecx, ebp
-        call sub_FF48C
+        call TransformVecs
         mov dword [dword_1B0D8C], 1
 .3:
         mov esi, 0Ah
@@ -7068,7 +7068,7 @@ sub_4DA84:
         mov eax, 0Eh
         mov ecx, ebp
         mov esi, 1
-        call sub_FF48C
+        call TransformVecs
         mov dword [dword_1B0D78], esi
 .5:
         mov esi, 0Eh
@@ -7077,12 +7077,12 @@ sub_4DA84:
         mov ebx, edi
         mov edx, ebp
         mov eax, esi
-        call sub_FF690
+        call AddVecs
         lea ebx, [dword esp+0A8h]
         mov edx, esp
         mov eax, esi
         mov edi, dword [dword esp+011Ch]
-        call sub_FFBE0
+        call ProjectPoints
         test edi, edi
         setl al
         and eax, 0FFh
@@ -7131,7 +7131,7 @@ sub_4DA84:
         mov edx, unk_1AE9B8
         mov ecx, ebp
         mov eax, esi
-        call sub_FF48C
+        call TransformVecs
         mov dword [dword_1B0D90], 1
         jmp short .10
 .8:
@@ -7146,7 +7146,7 @@ sub_4DA84:
         mov edx, unk_1AE808
         mov ecx, ebp
         mov eax, esi
-        call sub_FF48C
+        call TransformVecs
         mov dword [dword_1B0D74], 1
         jmp short .10
 .9:
@@ -7159,18 +7159,18 @@ sub_4DA84:
         mov edx, unk_1AE850
         mov ecx, ebp
         mov eax, esi
-        call sub_FF48C
+        call TransformVecs
         mov dword [dword_1B0D84], 1
 .10:
         mov ecx, esp
         mov ebx, edi
         mov edx, ebp
         mov eax, esi
-        call sub_FF690
+        call AddVecs
         lea ebx, [byte esp+060h]
         mov edx, esp
         mov eax, esi
-        call sub_FFBE0
+        call ProjectPoints
         mov edx, dword [dword esp+0A4h]
         test edx, edx
         setl al
@@ -7223,7 +7223,7 @@ sub_4DD0C:
         mov ebx, dword_1B0270
         mov edx, dword_1B0268
         mov eax, 2
-        call sub_FF174
+        call ScaleFloatsToInts
         xor edx, edx
         fld dword [dword_1B0F1C]
         mov dword [dword_1B0D94], edx
@@ -7309,7 +7309,7 @@ sub_4DDBC:
         mov dword [dword esp+0E0h], eax
         mov eax, unk_1B0F28
         mov dword [dword_1B0D7C], esi
-        call sub_FF444
+        call VecMulMat
         fld dword [dword esp+084h]
         fld dword [dword esp+088h]
         fstp qword [dword esp+08Ch]
@@ -7340,10 +7340,10 @@ sub_4DDBC:
         mov edx, unk_1B0F14
         mov ecx, dword [nosplit eax*4+dword_1B0278]
         lea eax, [dword esp+080h]
-        call sub_FF5E0
+        call VecAdd
         lea edx, [dword esp+094h]
         lea eax, [dword esp+080h]
-        call sub_1001F8
+        call ProjectPointFloat
         fld dword [dword_1B026C]
         fsub dword [dword esp+098h]
         fld dword [dword esp+094h]
@@ -7386,7 +7386,7 @@ sub_4DDBC:
 .7:
         push dword 3EE66666h
         push dword [dword_1B0F1C]
-        call sub_FFBB4
+        call ProjectCoord
         fstp dword [dword esp+0F0h]
         mov eax, dword [dword_1B026C]
         fld dword [dword esp+0F0h]
@@ -7488,7 +7488,7 @@ sub_4DDBC:
 .9:
         push dword 3F0CCCCDh
         push dword [dword_1B0F1C]
-        call sub_FFBB4
+        call ProjectCoord
         fmul dword [dword_1613AD]
         call __CHP
         fistp dword [dword esp+0F4h]
@@ -7671,7 +7671,7 @@ sub_4E3B0:
         mov ebx, eax
         mov ecx, edx
         mov edx, unk_1B10FC
-        call sub_FF798
+        call VecDistance
         fcomp dword [dword_1613B9]
         fnstsw ax
         sahf
@@ -8837,7 +8837,7 @@ sub_4F004:
         add esp, byte 10h
         mov eax, 8
         mov ecx, dword_1ADD18
-        call sub_FFDAC
+        call ProjectPointsToScreen
         mov ebx, 8
         push esi
         mov edx, unk_1ADEF8
@@ -8879,7 +8879,7 @@ sub_4F068:
         mov ebx, dword_1AE178
         mov edx, unk_1ADD78
         mov eax, 20h
-        call sub_FFDAC
+        call ProjectPointsToScreen
         mov ebx, dword_1AE178
         mov edx, unk_1ADD78
         mov eax, 20h
@@ -8935,7 +8935,7 @@ sub_4F068:
         add esp, byte 10h
         mov edx, unk_1ADFF8
         mov eax, 8
-        call sub_FFDAC
+        call ProjectPointsToScreen
         mov ecx, dword [dword_1B1060]
         mov eax, dword [dword_1AE000]
         mov edi, dword [dword_16E4A8]
@@ -9038,7 +9038,7 @@ sub_4F294:
         mov ebx, dword_1AE178
         mov edx, unk_1ADD78
         mov eax, 9
-        call sub_FFDAC
+        call ProjectPointsToScreen
         mov ebx, dword_1AE178
         mov edx, unk_1ADD78
         mov eax, 9
@@ -9198,7 +9198,7 @@ sub_4F404:
         mov ebx, dword_1AE178
         mov edx, unk_1ADD78
         mov eax, 11h
-        call sub_FFDAC
+        call ProjectPointsToScreen
         mov ebx, dword_1AE178
         mov edx, unk_1ADD78
         mov eax, 11h
@@ -10904,7 +10904,7 @@ UpdateGoalLight:
         sub esp, byte 4
         fild dword [byte edx+eax*4+08h]
         fstp dword [esp]
-        call sub_FFBB4
+        call ProjectCoord
         fstp dword [esp]
         fild word [byte ebx+06h]
         mov eax, dword [byte ecx+04h]
@@ -10978,7 +10978,7 @@ DrawGoalLight:
         lea ebx, [byte esp+030h]
         mov edx, esp
         mov eax, 4
-        call sub_FFCC4
+        call ProjectPointsWithZ
         push byte 1
         push byte 0
         lea eax, [byte esp+038h]
@@ -11793,7 +11793,7 @@ sub_50F90:
         mov edx, dword [dword_1B0B9C]
         mov eax, 3
         add edx, edi
-        call sub_FFCC4
+        call ProjectPointsWithZ
         cmp esi, byte 4
         jl short .4
         mov ebx, 6
@@ -12807,7 +12807,7 @@ sub_51B5C:
         mov eax, 3
         mov edi, dword [esp]
         mov esi, ebp
-        call sub_FF044
+        call IntsToFloats
         lea edi, [dword edi+dword_1ADCD0]
         mov eax, dword [esp]
         lea ebx, [nosplit ecx*4+00h]

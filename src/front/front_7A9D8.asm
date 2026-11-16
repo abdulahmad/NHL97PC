@@ -15,9 +15,9 @@ extern dword_1C5DA8, dword_1C5DAC, dword_1C5DE4, dword_1C5DE8, dword_1C5E78, dwo
 extern memcpy_, off_16C9B8, off_16C9C0, rand_, sprintf_, srand_, str_ATA, str_ATD
 extern str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, strcat_, strcpy_, strlen_, strncmp_
 extern strstr_, bcopy, BlitShape, sub_1013FC, FindShape, sub_103234, sub_1047D0, sub_108900
-extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, sub_109210, sub_116D38
-extern sub_116E84, sub_116F78, sub_117338, sub_11756C, sub_117C26, sub_118C88, sub_119054, sub_11910D
-extern sub_1191D1, sub_1191F2, sub_119780, SetScreenTarget, OpenStreamBuffer, delstream, CdStreamStart, CdStreamOpenSecondary
+extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, sub_109210, InitVideoDecoder
+extern BuildVideoGammaTable, DecodeVideoChunk, CreateBitmapDefault, ResetFrameRate, DecodeVideoFrame, DecodeTgvChunk, SerialRaiseDtr, SerialWrite
+extern SerialFlushTx, SerialWaitTxEmpty, LoadNameFile, SetScreenTarget, OpenStreamBuffer, delstream, CdStreamStart, CdStreamOpenSecondary
 extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, StreamReady, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
 extern RequestMusicStop, WaitMusicEnd, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
 extern sub_7F5A4, sub_80BBC, sub_81678, MainMenuScreen, RunGameScreens, RunStatsMenu, RunNetworkConnect, RunModemConnect
@@ -1659,13 +1659,13 @@ OpenVideoStream:
         mov esi, edx
         push dword 0FFh
         push byte 10h
-        call sub_116D38
+        call InitVideoDecoder
         add esp, byte 8
         push byte 0
         push byte 10h
         push dword 0D0h
         push dword 260h
-        call sub_117338
+        call CreateBitmapDefault
         add esp, byte 10h
         push byte 0
         push dword 4E290h
@@ -1719,7 +1719,7 @@ OpenVideoStream:
         mov dword [dword_1C1214], esi
         call sub_7BC68
         mov dword [dword_1C1238], eax
-        call sub_11756C
+        call ResetFrameRate
         mov eax, 1
 .2:
         pop edi
@@ -1860,7 +1860,7 @@ sub_7BF64:
         xor eax, eax
         mov al, byte [byte edi+0Ch]
         push eax
-        call sub_116E84
+        call BuildVideoGammaTable
         add esp, byte 4
         mov edx, dword [dword_1C1248]
         push edx
@@ -1889,7 +1889,7 @@ sub_7BF64:
         add eax, dword [dword_16E69C]
         push eax
         push edi
-        call sub_117C26
+        call DecodeVideoFrame
         jmp short .4
 .3:
         jne short .5
@@ -1903,7 +1903,7 @@ sub_7BF64:
         add eax, dword [dword_16E69C]
         push eax
         push edi
-        call sub_116F78
+        call DecodeVideoChunk
 .4:
         add esp, byte 0Ch
 .5:
@@ -1993,7 +1993,7 @@ sub_7C038:
         push edx
         mov ecx, dword [dword_1C125C]
         push ecx
-        call sub_118C88
+        call DecodeTgvChunk
         mov dword [dword_1C124C], eax
         mov eax, dword [dword_1C1234]
         add esp, byte 8
@@ -2605,7 +2605,7 @@ ModemAutoAnswer:
         push byte 4
         mov edx, dword [byte esp+0Ch]
         push edx
-        call sub_11910D
+        call SerialWrite
         add esp, byte 0Ch
         ret
         db 08Dh,040h,00h
@@ -2679,7 +2679,7 @@ ModemReadResult:
         push byte 1
         mov edi, dword [byte esp+05Ch]
         push edi
-        call sub_1191F2
+        call SerialWaitTxEmpty
         add esp, byte 10h
         test eax, eax
         je near .14
@@ -2816,10 +2816,10 @@ ModemSendCommand:
         test ebx, ebx
         je short .2
         push esi
-        call sub_119054
+        call SerialRaiseDtr
         add esp, byte 4
         push esi
-        call sub_1191D1
+        call SerialFlushTx
         add esp, byte 4
 .2:
         push byte 14h
@@ -2827,26 +2827,26 @@ ModemSendCommand:
         push eax
         push byte 1
         push esi
-        call sub_1191F2
+        call SerialWaitTxEmpty
         add esp, byte 10h
         test eax, eax
         jne short .2
         push edi
         push ebp
         push esi
-        call sub_11910D
+        call SerialWrite
         add esp, byte 0Ch
         push unk_164150
         push byte 1
         push esi
-        call sub_11910D
+        call SerialWrite
         add esp, byte 0Ch
         push byte 19h
         lea eax, [byte esp+04h]
         push eax
         push ebp
         push esi
-        call sub_1191F2
+        call SerialWaitTxEmpty
         lea edx, [byte esp+010h]
         add esp, byte 10h
         mov ebx, eax
@@ -2882,10 +2882,10 @@ ModemAttention:
         cmp edi, byte 0FFFFFFFFh
         je near .3
         push esi
-        call sub_1191D1
+        call SerialFlushTx
         add esp, byte 4
         push esi
-        call sub_119054
+        call SerialRaiseDtr
         add esp, byte 4
         push byte 69h
         call WaitTicks
@@ -2893,7 +2893,7 @@ ModemAttention:
         push str_Punct2
         push byte 3
         push esi
-        call sub_11910D
+        call SerialWrite
         add esp, byte 0Ch
         push byte 69h
         mov ebx, ebp
@@ -2997,7 +2997,7 @@ LoadLogoNames:
         lea eax, [dword ebp-0C8h]
         push eax
         push byte 23h
-        call sub_119780
+        call LoadNameFile
         add esp, byte 10h
         push byte 0
         call sub_FC330

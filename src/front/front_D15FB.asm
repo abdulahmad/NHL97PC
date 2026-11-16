@@ -19,7 +19,7 @@ extern dword_1CC700, dword_1CC78C, dword_1CC790, dword_1CC794, dword_1CC798, dwo
 extern dword_1CC7A8, dword_1CC7AC, dword_1CC7B0, dword_1CC7B4, dword_1CC7B8, dword_1CC7BC, dword_1CC7C0, dword_1CC7C4
 extern dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dword_1CC8A0, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7
 extern PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, memset_, rand_, sprintf_, strcpy_, BlitShape2, BlitArt
-extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, Random32, sub_11A318
+extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, Random32, ConvertArtXY
 extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, PlaySfx
 extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, sub_7CB8C, sub_7E860, sub_7EDF0, sub_7EEB0
 extern sub_7EF70, SetTextColor, DrawTextAligned, sub_80BBC, sub_823F0, sub_84330, InitMenuItems, sub_8BFAC
@@ -1484,13 +1484,13 @@ PreGameStatsPanel:
         mov eax, dword [dword esi+dword_1CC5B0]
         push dword [dword ebx+dword_16D6FC]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push dword [dword ebx+dword_16D720]
         mov eax, dword [dword esi+dword_1CC668]
         push dword [dword ebx+dword_16D71C]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         jmp near .13
@@ -1579,7 +1579,7 @@ PreGameStatsPanel:
         mov eax, dword [dword_1CC5F4]
         push dword [dword_16D6EC]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
 PreGameStatsPanel_4DF:

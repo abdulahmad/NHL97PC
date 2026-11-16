@@ -27,7 +27,7 @@ extern dword_1C8DFC, dword_1C8E00, dword_1C8E04, dword_1C8E08, dword_1C8E0C, dwo
 extern dword_1C8E1C, dword_1C8E20, dword_1C8E24, dword_1C8E28, dword_1C8E2C, dword_1C8E30, dword_1C8E34, dword_1C8E38
 extern dword_1C8E3C, dword_1C8E40, dword_1C8E44, dword_1C8E48, dword_1CC2AC, dword_1CF548, jpt_9621A, memset_
 extern qsort_, sprintf_, strcat_, strcpy_, BlitArt, BlitShape, sub_1013FC, FindShape
-extern FindShapeQuiet, sub_101560, sub_102B94, sub_102C10, Random32, sub_106F64, sub_106F94, sub_11A318
+extern FindShapeQuiet, sub_101560, sub_102B94, sub_102C10, Random32, sub_106F64, sub_106F94, ConvertArtXY
 extern SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx
 extern LoadDataFile, LoadDataFileFlag0, OpenDataLibrary, sub_7B84B, LoadLogoNames, sub_7CB8C, sub_7DFC0, sub_7E52C
 extern sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4
@@ -35,7 +35,7 @@ extern sub_80BBC, sub_81678, sub_823F0, sub_830D4, InitMenuItems, sub_8BFAC, sub
 extern sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, GetLangText, sub_8E870, sub_C7EAE
 extern sub_C80C8, sub_C8127, sub_CA44C, sub_D0098, sub_DA7D6, sub_E036F, sub_E0841, sub_E341C
 extern AllocMemBlock, FreeMemBlock, sub_FBE5D, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
-extern SetDrawTarget, ClearScreen, FillRect, sub_FDE44, tickcount, unk_165BAB, unk_165BAE, unk_16D7F4
+extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, unk_165BAB, unk_165BAE, unk_16D7F4
 extern unk_1C134A, unk_1C1352, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1C1344
 extern word_1C8CD4, word_1C8CEC
 global jpt_9861E, jpt_9AC47, EditLinesScreen_17F, EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA
@@ -561,7 +561,7 @@ EditLinesScreen_69D:
         mov eax, dword [dword_1C8E1C]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
 .36:
@@ -1480,7 +1480,7 @@ sub_9732A:
         mov eax, dword [byte ebp+ebx*4+0Eh]
         push dword [byte ebp+052h]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         inc ebx
         call sub_1013FC
@@ -3557,7 +3557,7 @@ EditLinesGridScreen:
         mov esi, eax
         push dword [byte eax+02Ch]
         mov edi, eax
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         cmp dword [dword_1C8E48], byte 3
         je short .17
@@ -6400,7 +6400,7 @@ sub_9AC57_32B:
         push dword [dword eax+0212h]
         mov eax, dword [dword_1C8DC8]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
 .16:
         xor esi, esi
@@ -8484,7 +8484,7 @@ sub_9C924:
         mov byte [byte eax+ebp-04Dh], 0
         lea eax, [byte ebp-050h]
         push eax
-        call sub_FDE44
+        call MeasureText
         sar eax, 1
         lea edx, [byte eax+01h]
         mov eax, dword [dword_1CF548]
@@ -8598,7 +8598,7 @@ sub_9C924:
         mov byte [byte eax+ebp-04Dh], 0
         lea eax, [byte ebp-050h]
         push eax
-        call sub_FDE44
+        call MeasureText
         sar eax, 1
         lea edx, [byte eax+01h]
         mov ebx, edi
@@ -8640,7 +8640,7 @@ sub_9C924:
         mov eax, dword [dword_1C8DA4]
         push esi
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         lea eax, [byte ebp-050h]
         push eax

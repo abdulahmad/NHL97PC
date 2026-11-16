@@ -20,7 +20,7 @@ extern dword_1C8A88, dword_1C8A90, dword_1C8A94, dword_1C8A98, dword_1C8A9C, dwo
 extern EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA, EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D
 extern memcpy_, memset_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_
 extern sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013CC, sub_1013FC, FindShape, sub_10AED0
-extern sub_11A318, FindShapeList, sub_11B0D0, SetScreenTarget, SeasonGameScreen, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
+extern ConvertArtXY, FindShapeList, sub_11B0D0, SetScreenTarget, SeasonGameScreen, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
 extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, SetRegionRect, SetTextColor, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80B28
 extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad
@@ -1965,7 +1965,7 @@ sub_948B7:
         push dword [nosplit ebx*8+dword_1C8704]
         mov eax, dword [eax+edi*4]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov eax, dword [dword_1C8A80]
         push dword [nosplit ebx*8+dword_1C8708]
@@ -2920,7 +2920,7 @@ PlayoffTreeScreen:
         mov eax, dword [eax+edx*4]
         push dword [byte eax+02Ch]
         inc esi
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         cmp esi, byte 1Eh
         jl short .44

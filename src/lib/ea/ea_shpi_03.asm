@@ -9,7 +9,7 @@ extern dword_1D2088, dword_1D208C, dword_1D2090, dword_1D2094, dword_1D2418, dwo
 extern dword_1D2428, dword_1D2430, dword_1D2438, dword_1D243C, dword_1D2440, dword_1D2444, dword_1D2448, dword_1D244C
 extern dword_1D2450, dword_1D2454, dword_1D3350, dword_1D3354, dword_1D3358, dword_1D335C, dword_1D3364, dword_1D3368
 extern strncpy_, strnicmp_, FindShapeQuiet, sub_102EBC, sub_1125EC, sub_112894, sub_112B18, sub_112BCC
-extern sub_112F3C, sub_114AF8, sub_114BC0, sub_114CE4, sub_114DDC, sub_12D740, sub_12D784, sub_12DD3C
+extern sub_112F3C, GetModelVertex, TransformModelParts, TransformModelPartsWith, UpdateModelParts, sub_12D740, sub_12D784, sub_12DD3C
 extern sub_12DE84, sub_12DFC4, sub_12E108, sub_FC4BC, sub_FD954, sub_FDC68, unk_1D2098, unk_1D3D6C
 global sub_10F374_24E, sub_10E690, sub_10E6AC, sub_10E6E4, sub_10E794, sub_10E7AC, sub_10E848, sub_10E8F8
 global sub_10E960, sub_10EA08, sub_10EA0C, sub_10EB0C, sub_10EC0C, sub_10ED0C, sub_10ED10, sub_10ED78
@@ -2058,7 +2058,7 @@ sub_10FBB0:
         mov edx, dword [byte esp+01Ch]
         mov ebx, eax
         mov eax, esi
-        call sub_114BC0
+        call TransformModelParts
         jmp short .6
 .2:
         mov eax, dword [byte eax+0Ch]
@@ -2084,7 +2084,7 @@ sub_10FBB0:
         mov ebx, eax
         mov edx, dword [edi]
         mov eax, esi
-        call sub_114AF8
+        call GetModelVertex
 .4:
         mov ebx, dword [byte esp+020h]
         add edi, byte 8
@@ -2151,7 +2151,7 @@ sub_10FBB0:
         mov edx, edi
         mov eax, esi
         mov ebx, dword [byte ebx+04h]
-        call sub_114DDC
+        call UpdateModelParts
 .8:
         pop edi
         pop esi
@@ -2196,7 +2196,7 @@ sub_10FD58:
         mov edx, edi
         mov eax, ebp
         mov ebx, dword [byte esi+04h]
-        call sub_114DDC
+        call UpdateModelParts
 .2:
         mov ebx, dword [esp]
         add esi, byte 14h
@@ -2235,7 +2235,7 @@ sub_10FD58:
         mov edx, edi
         mov eax, esi
         mov ebx, dword [byte ebx+04h]
-        call sub_114DDC
+        call UpdateModelParts
 .3:
         pop edi
         pop esi
@@ -2261,7 +2261,7 @@ sub_10FE10:
         je short .1
         mov eax, esi
         mov ebx, dword [byte ecx+04h]
-        call sub_114DDC
+        call UpdateModelParts
 .1:
         push ecx
         push byte 1
@@ -2290,7 +2290,7 @@ sub_10FE58:
         je short .1
         mov edx, esi
         mov eax, ecx
-        call sub_114BC0
+        call TransformModelParts
 .1:
         pop esi
         pop ebx
@@ -2306,7 +2306,7 @@ sub_10FE88:
         test byte [byte eax+011h], 1
         je short .1
         mov ebx, dword [byte esp+010h]
-        call sub_114CE4
+        call TransformModelPartsWith
 .1:
         pop ebx
         ret

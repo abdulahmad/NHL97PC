@@ -4,9 +4,9 @@ bits 32
 section s_12FB20 progbits alloc exec nowrite align=1
 extern str_ExitYN, dword_16E464, dword_16E468, dword_16E46C, dword_16E4C8, dword_16E6A8, dword_16F184, dword_199990
 extern dword_199994, dword_199998, dword_19999C, dword_1999A0, dword_1999A4, off_16E4D4, off_16E4D8, off_16E4DC
-extern off_16E4E0, str_PAUSEPRESSANYKEY, sub_101324, sub_1013FC, sub_115BB0, sub_115BD8, sub_117338, sub_11A264
-extern sub_11ADD0, sub_11ADE8, sub_138D04, sub_138E00, sub_138EB0, sub_138F00, SetScreenTarget, sub_FBE40
-extern MakeColor, sub_FCC40, FreeBitmap, SetDrawTarget, FillRect, sub_FE180, sub_FE3D0, unk_16E8A0
+extern off_16E4E0, str_PAUSEPRESSANYKEY, sub_101324, sub_1013FC, SaveDrawContext, RestoreDrawContext, CreateBitmapDefault, ConvertArtAt
+extern SaveTextState, RestoreTextState, sub_138D04, sub_138E00, sub_138EB0, sub_138F00, SetScreenTarget, sub_FBE40
+extern MakeColor, sub_FCC40, FreeBitmap, SetDrawTarget, FillRect, SetTextColors, FillRectCorners, unk_16E8A0
 global sub_12FB20, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0, sub_13000C
 ;-----------------------------------------------------------------------------
 ; sub_12FB20                                                          12FB20  
@@ -36,17 +36,17 @@ sub_12FB20:
         push ecx
         mov esi, dword [dword esp+0134h]
         push esi
-        call sub_117338
+        call CreateBitmapDefault
         add esp, byte 10h
         mov ebx, eax
         mov dword [dword esp+0120h], eax
         lea eax, [dword esp+0ACh]
         push eax
-        call sub_115BB0
+        call SaveDrawContext
         add esp, byte 4
         mov eax, esp
         push eax
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         push unk_16E8A0
         call sub_FCC40
@@ -77,7 +77,7 @@ sub_12FB20:
         push eax
         mov edx, dword [byte ebx+02Ch]
         push edx
-        call sub_11A264
+        call ConvertArtAt
         add esp, byte 0Ch
         call SetScreenTarget
         push dword 0FF000000h
@@ -109,14 +109,14 @@ sub_12FB20:
         mov eax, dword [dword esp+013Ch]
         add eax, byte 4
         push eax
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
         push byte 0
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         mov eax, dword [dword esp+0130h]
         add eax, byte 9
@@ -177,11 +177,11 @@ sub_12FB20:
         call dword [off_16E4DC]
         mov eax, esp
         push eax
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
         lea eax, [dword esp+0ACh]
         push eax
-        call sub_115BD8
+        call RestoreDrawContext
         add esp, byte 4
         mov ecx, dword [dword esp+0120h]
         push ecx
@@ -246,16 +246,16 @@ sub_12FDC8:
         push byte 0Ah
         mov ecx, dword [dword_16E464]
         push ecx
-        call sub_117338
+        call CreateBitmapDefault
         add esp, byte 10h
         mov ebx, eax
         lea eax, [dword esp+0ACh]
         push eax
-        call sub_115BB0
+        call SaveDrawContext
         add esp, byte 4
         mov eax, esp
         push eax
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         push unk_16E8A0
         call sub_FCC40
@@ -281,7 +281,7 @@ sub_12FDC8:
         push byte 0
         mov eax, dword [byte ebx+02Ch]
         push eax
-        call sub_11A264
+        call ConvertArtAt
         add esp, byte 0Ch
         call SetScreenTarget
         push dword 0FF000000h
@@ -302,7 +302,7 @@ sub_12FDC8:
         call MakeColor
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         mov eax, dword [dword_16E468]
         add esp, byte 8
         sub eax, byte 9
@@ -330,11 +330,11 @@ sub_12FDC8:
         call dword [off_16E4DC]
         mov eax, esp
         push eax
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
         lea eax, [dword esp+0ACh]
         push eax
-        call sub_115BD8
+        call RestoreDrawContext
         add esp, byte 4
         push ebx
         call FreeBitmap
