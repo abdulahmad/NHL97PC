@@ -182,13 +182,13 @@
 ;  28A08  assepen                                  engine/engine_25894.asm                      1
 ;  28C0C  sub_28C0C                                engine/engine_25894.asm                      1
 ;  28D88  assrefpenshot                            engine/engine_25894.asm                      1
-;  29064  sub_29064                                engine/engine_25894.asm                      1
-;  293A8  sub_293A8                                engine/engine_25894.asm                      1
+;  29064  assrefsignal                             engine/engine_25894.asm                      1
+;  293A8  assrefwhistle                            engine/engine_25894.asm                      1
 ;  295CC  sub_295CC                                engine/engine_25894.asm                      1
 ;  298E8  sub_298E8                                engine/engine_25894.asm                      1
-;  29A90  sub_29A90                                engine/engine_25894.asm                      1
+;  29A90  assreffollow                             engine/engine_25894.asm                      1
 ;  29BFC  sub_29BFC                                engine/engine_25894.asm                      1
-;  29E2C  sub_29E2C                                engine/engine_25894.asm                      1
+;  29E2C  assrefatdot                              engine/engine_25894.asm                      1
 ;  29F30  assintrostand                            engine/engine_25894.asm                      1
 ;  2A000  assintroline                             engine/engine_25894.asm                      1
 ;  2A1C8  asstakeposition                          engine/engine_25894.asm                      1

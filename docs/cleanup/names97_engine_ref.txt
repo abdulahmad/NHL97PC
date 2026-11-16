@@ -1,0 +1,4 @@
+sub_29E2C assrefatdot {source=96PC,confidence=medium} referee assignment 33h: holds the referee at the faceoff spot while play is stopped, with a random idle timer; assrefwhistle puts the referee here
+sub_293A8 assrefwhistle {source=96PC,confidence=medium} referee assignment 35h: on a stoppage (clock 0, or a tie broken in the last period) sets RefStep (dword_19CBF8) -1, the puck to assignment 42h (puckfaceoff) and the referee to 33h (assrefatdot); otherwise skates the referee along
+sub_29A90 assreffollow {source=96PC,confidence=low} referee assignment 31h: while the clock runs, picks a spot from the puck's side and position and skates the referee there
+sub_29064 assrefsignal {source=96PC,confidence=low} referee assignment 37h: plays move 0A3Dh, skates to the signalling spot, queues the overlay panel, then moves on to assignment 34h and calls the goal PA (PaEvent 0C0000001h) with the scorer's jersey

@@ -84,6 +84,10 @@ address,name,auto_name,source,confidence,evidence,file
 289AC,assdopen,sub_289AC,96PC,low,"96 PC assdopen: assignment 13h, opens the penalty box door (SetPenaltyBoxDoor, sound)",src/engine/engine_25894.asm
 28A08,assepen,sub_28A08,94G,medium,"94G assepen: assignment 14h, leaving the penalty box (setplayer gives it for a player from the box, as in 94G)",src/engine/engine_25894.asm
 28D88,assrefpenshot,sub_28D88,96PC,low,"96 PC assrefpenshot: assignment 29h (last referee handler): waits for AllInPlace before the penalty shot, with a sound",src/engine/engine_25894.asm
+29064,assrefsignal,sub_29064,96PC,low,"referee assignment 37h: plays move 0A3Dh, skates to the signalling spot, queues the overlay panel, then moves on to assignment 34h and calls the goal PA (PaEvent 0C0000001h) with the scorer's jersey",src/engine/engine_25894.asm
+293A8,assrefwhistle,sub_293A8,96PC,medium,"referee assignment 35h: on a stoppage (clock 0, or a tie broken in the last period) sets RefStep (dword_19CBF8) -1, the puck to assignment 42h (puckfaceoff) and the referee to 33h (assrefatdot); otherwise skates the referee along",src/engine/engine_25894.asm
+29A90,assreffollow,sub_29A90,96PC,low,"referee assignment 31h: while the clock runs, picks a spot from the puck's side and position and skates the referee there",src/engine/engine_25894.asm
+29E2C,assrefatdot,sub_29E2C,96PC,medium,"referee assignment 33h: holds the referee at the faceoff spot while play is stopped, with a random idle timer; assrefwhistle puts the referee here",src/engine/engine_25894.asm
 29F30,assintrostand,sub_29F30,96PC,medium,"96 PC assintrostand: assignment 1Eh (PlaceOpeningPlayers gives it), players stand during the opening, random idle animations",src/engine/engine_25894.asm
 2A000,assintroline,sub_2A000,96PC,low,"96 PC assintroline: assignment 1Fh, after assintrostand as in 96 PC: the opening line-up",src/engine/engine_25894.asm
 2A1C8,asstakeposition,sub_2A1C8,96PC,low,"96 PC asstakeposition: assignment 20h, after assintroline as in 96 PC: skate to the starting position",src/engine/engine_25894.asm

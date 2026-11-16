@@ -50,8 +50,8 @@ global jpt_2B4B4, sub_25894_D1, sub_2B4D4_424, sub_2B4D4_43B, sub_2B4D4_452, sub
 global sub_25AEC, sub_25BD0, sub_25D40, sub_25E24, sub_25F64, sub_2625C, sub_264CC, assnearest
 global sub_27210, sub_27274, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, sub_27AD8, sub_27D10
 global sub_27F80, sub_27FF0, sub_28110, asseben, sub_2842C, asspenalty, assdopen, assepen
-global sub_28C0C, assrefpenshot, sub_29064, sub_293A8, sub_295CC, sub_298E8, sub_29A90, sub_29BFC
-global sub_29E2C, assintrostand, assintroline, asstakeposition, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
+global sub_28C0C, assrefpenshot, assrefsignal, assrefwhistle, sub_295CC, sub_298E8, assreffollow, sub_29BFC
+global assrefatdot, assintrostand, assintroline, asstakeposition, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
 global sub_2AC40, sub_2AD18, sub_2AFD8, sub_2B4D4, sub_2B9EC, sub_2BAC0, sub_2BE2C, a2offsides
 global sub_2BFC4, a2touchpuck, sub_2C42C, sub_2C4E8, sub_2C5C8, sub_2C900, pucknorm_body, pucknorm
 global puckfaceoff2, CPgoalie, sub_2DD54
@@ -4491,9 +4491,12 @@ assrefpenshot:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_29064                                                       29064  97 PC
+; assrefsignal                                    29064  95 PC, low confidence
+; Asstab 20h: skates to x 0A0h,y 0 (the timekeeper side), plays 0A5Bh; when
+; RefPen is 7 (goal) posts PostGoalEvent with scorer/assists and period time;
+; then assreplace 21h
 ;-----------------------------------------------------------------------------
-sub_29064:
+assrefsignal:
         push ebx
         push ecx
         push edx
@@ -4735,9 +4738,11 @@ sub_29064:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_293A8                                                       293A8  97 PC
+; assrefwhistle                                293A8  95 PC, medium confidence
+; Asstab 24h: on a stoppage (clock 0, or period-3 tie broken) sets RefStep
+; -1, ovltimer 258h, puck to assignment 1Bh and the referee to 1Eh
 ;-----------------------------------------------------------------------------
-sub_293A8:
+assrefwhistle:
         push ebx
         push ecx
         push edx
@@ -5220,9 +5225,12 @@ sub_298E8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_29A90                                                       29A90  97 PC
+; assreffollow                                    29A90  95 PC, low confidence
+; Asstab 1Fh (StartHL2, Endfaceoff, Goal): picks a spot by puck zone (x
+; +-46h/78h/90h, y +-0EDh/0E8h or camy) and skates the referee there; idles
+; (doplayeracc 8) when the clock is stopped
 ;-----------------------------------------------------------------------------
-sub_29A90:
+assreffollow:
         push ebx
         push ecx
         push edx
@@ -5477,9 +5485,12 @@ sub_29BFC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_29E2C                                                       29E2C  97 PC
+; assrefatdot                                  29E2C  95 PC, medium confidence
+; Asstab 1Eh (StartHL2, puckfaceoff2): while play is stopped (injurystop 0,
+; clock running) holds the referee at the faceoff spot fox/C90B4 offset
+; +-0Fh, facing 2/6
 ;-----------------------------------------------------------------------------
-sub_29E2C:
+assrefatdot:
         push ebx
         push ecx
         push edx

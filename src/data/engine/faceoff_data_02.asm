@@ -6,8 +6,8 @@ extern __InitFiles_, __checkIsDBCS_, __chk8087_, __full_io_exit_, __setEFGfmt_, 
 extern puckfaceoff, sub_135D41, sub_1F5B4, sub_1F7D0, sub_209D0, sub_209E0, assgoalie, assdefo
 extern asswingo, asscentero, assdefd, asswingd, asscenterd, sub_23C98, assfaceoff, assfaceoffpl
 extern sub_244BC, sub_25F64, assnearest, sub_27274, assbench, sub_27AD8, sub_27D10, sub_28110
-extern asseben, sub_2842C, asspenalty, assdopen, assepen, assrefpenshot, sub_29064, sub_293A8
-extern sub_295CC, sub_298E8, sub_29A90, sub_29BFC, sub_29E2C, assintrostand, assintroline, asstakeposition
+extern asseben, sub_2842C, asspenalty, assdopen, assepen, assrefpenshot, assrefsignal, assrefwhistle
+extern sub_295CC, sub_298E8, assreffollow, sub_29BFC, assrefatdot, assintrostand, assintroline, asstakeposition
 extern assstanley, pucknorm, puckfaceoff2, sub_30674, assfight, assfwatch, sub_FC210, sub_FC215
 extern sub_FC238
 global byte_19C3E0, byte_19C3E6, byte_19C620, dword_19C3DD, dword_19C690, off_19C3F4, off_19C5F4, off_19C61F
@@ -76,13 +76,13 @@ off_19C3F4:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
         dd sub_209D0
-        dd sub_29A90
+        dd assreffollow
         dd sub_29BFC
-        dd sub_29E2C
+        dd assrefatdot
         dd sub_295CC
-        dd sub_293A8
+        dd assrefwhistle
         dd sub_298E8
-        dd sub_29064
+        dd assrefsignal
         dd assrefpenshot
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
