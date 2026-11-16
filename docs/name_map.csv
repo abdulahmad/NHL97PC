@@ -3560,22 +3560,22 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1371FB,GusServiceStream,sub_1371FB,new,low,refills every streaming channel that its voice interrupt flagged,src/lib/sound/snd_gus_sdk_01.asm
 137247,GusStartStream,sub_137247,new,low,"sets up the double-buffered stream in card memory, loads both halves and starts the looping voices",src/lib/sound/snd_gus_sdk_01.asm
 13786C,GusStopStreamVoices,sub_13786C,new,low,stops both streaming voices and clears the stream state,src/lib/sound/snd_gus_sdk_01.asm
-13794C,TimerCalibrate,sub_13794C,new,low,calibrates the timer,src/lib/sound/snd_hw_sb.asm
-137966,TimerRestore,sub_137966,new,low,restores the timer,src/lib/sound/snd_hw_sb.asm
-137981,TimerSetRate,sub_137981,new,low,sets the timer rate,src/lib/sound/snd_hw_sb.asm
-13799D,TimerWritePit,sub_13799D,new,low,writes the timer chip divisor,src/lib/sound/snd_hw_sb.asm
-1379BE,TimerReadCount,sub_1379BE,new,low,reads the timer count,src/lib/sound/snd_hw_sb.asm
-1379DD,TimerTicksForRate,sub_1379DD,new,low,works out the ticks for a rate,src/lib/sound/snd_hw_sb.asm
-1379FF,TimerMeasure,sub_1379FF,new,low,measures the timer,src/lib/sound/snd_hw_sb.asm
-137A2E,TimerSetDivisor,sub_137A2E,new,low,sets the timer divisor,src/lib/sound/snd_hw_sb.asm
-137A4F,TimerReset,sub_137A4F,new,low,resets the timer,src/lib/sound/snd_hw_sb.asm
-137A72,TimerInstall,sub_137A72,new,low,installs the timer handler,src/lib/sound/snd_hw_sb.asm
-137BEE,TimerChainOld,sub_137BEE,new,low,chains to the old timer handler,src/lib/sound/snd_hw_sb.asm
+13794C,WssCodecStart,sub_13794C,new,medium,starts the Windows Sound System codec: programs its format and DMA and starts playback,src/lib/sound/snd_hw_sb.asm
+137966,WssCodecStop,sub_137966,new,medium,stops the Windows Sound System codec and its DMA channel,src/lib/sound/snd_hw_sb.asm
+137981,WssSetVolume,sub_137981,new,medium,sets the Windows Sound System codec output attenuation from a volume,src/lib/sound/snd_hw_sb.asm
+13799D,WssWriteReg,sub_13799D,new,medium,"writes a Windows Sound System codec register (index in AH, value in AL)",src/lib/sound/snd_hw_sb.asm
+1379BE,WssReadReg,sub_1379BE,new,medium,reads a Windows Sound System codec register,src/lib/sound/snd_hw_sb.asm
+1379DD,WssWaitReady,sub_1379DD,new,medium,waits until the Windows Sound System codec is out of its initialise state,src/lib/sound/snd_hw_sb.asm
+1379FF,WssWaitCalibration,sub_1379FF,new,medium,waits for the Windows Sound System codec's auto-calibration to finish,src/lib/sound/snd_hw_sb.asm
+137A2E,WssSetModeChange,sub_137A2E,new,medium,sets or clears the Windows Sound System codec's mode change bit,src/lib/sound/snd_hw_sb.asm
+137A4F,WssCodecReset,sub_137A4F,new,low,puts the Windows Sound System codec back in its idle state,src/lib/sound/snd_hw_sb.asm
+137A72,WssCodecSetup,sub_137A72,new,medium,"sets the Windows Sound System codec format, programs auto-init DMA and starts playback",src/lib/sound/snd_hw_sb.asm
+137BEE,WssStopDma,sub_137BEE,new,medium,masks the Windows Sound System DMA channel,src/lib/sound/snd_hw_sb.asm
 137C20,DmaMaskChannel,sub_137C20,new,low,masks a DMA channel,src/lib/sound/snd_hw_sb.asm
 137C50,DmaProgram,sub_137C50,new,low,programs a DMA channel,src/lib/sound/snd_hw_sb.asm
-137D14,IrqEoi,sub_137D14,new,low,sends end of interrupt to the interrupt controller,src/lib/sound/snd_hw_sb.asm
-137D50,IrqAck,sub_137D50,new,low,acknowledges a sound interrupt,src/lib/sound/snd_hw_sb.asm
-137D7C,IrqVector,sub_137D7C,new,low,returns the interrupt vector of an IRQ,src/lib/sound/snd_hw_sb.asm
+137D14,DmaReadCount,sub_137D14,new,medium,reads a DMA channel's remaining count,src/lib/sound/snd_hw_sb.asm
+137D50,DmaPlayedHalf,sub_137D50,new,medium,"returns which half of the DMA buffer has just played, or -1 if no change",src/lib/sound/snd_hw_sb.asm
+137D7C,PicSendEoi,sub_137D7C,new,high,sends end of interrupt to both interrupt controllers,src/lib/sound/snd_hw_sb.asm
 137D90,IrqUnmask,sub_137D90,new,low,unmasks an IRQ,src/lib/sound/snd_hw_sb.asm
 137DD0,IrqMask,sub_137DD0,new,low,masks an IRQ,src/lib/sound/snd_hw_sb.asm
 137E04,IrqSetHandler,sub_137E04,new,low,sets an interrupt handler,src/lib/sound/snd_hw_sb.asm
@@ -3584,7 +3584,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 137F4C,SbTimeConstant,sub_137F4C,new,low,works out the Sound Blaster time constant for a rate,src/lib/sound/snd_hw_sb.asm
 137FB8,SbRateFromConstant,sub_137FB8,new,low,works out the rate from a Sound Blaster time constant,src/lib/sound/snd_hw_sb.asm
 13800A,StrToLong,sub_13800A,new,low,converts a string to a number (strtol),src/lib/sound/snd_hw_sb.asm
-138177,ReturnArg,sub_138177,new,low,returns its argument,src/lib/sound/snd_hw_sb.asm
+138177,strtoul_,sub_138177,new,medium,converts a string to an unsigned number (strtoul),src/lib/sound/snd_hw_sb.asm
 13817F,DigitValue,sub_13817F,new,low,returns the value of a digit character,src/lib/sound/snd_hw_sb.asm
 1381E0,AdpcmDecodeMono,sub_1381E0,new,medium,decodes 4-bit ADPCM samples for one channel to 16-bit samples,src/lib/sound/snd_hw_sb.asm
 138288,AdpcmDecodeStereo,sub_138288,new,medium,decodes 4-bit ADPCM samples for two channels to 16-bit samples,src/lib/sound/snd_hw_sb.asm
@@ -8734,7 +8734,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19A7D8,DmaAddressPorts,byte_19A7D8,new,low,ISA DMA address register port of each channel,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
 19A7E0,DmaCountPorts,byte_19A7E0,new,low,ISA DMA count register port of each channel (also the EOI table base),src/data/lib/sound/snd_gus_sdk_01_data_01.asm
 19A7E4,StrToLongLimits,dword_19A7E4,new,low,overflow limits used by the string to number conversion,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
-19A7E8,IrqAckLast,dword_19A7E8,new,low,last IRQ status read by the interrupt acknowledge,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A7E8,DmaLastHalf,dword_19A7E8,new,medium,DMA buffer half reported last time,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
 19A878,AdpcmDeltaTable,dword_19A878,new,medium,ADPCM sample change for each step and code,src/data/lib/sound/snd_hw_sb_data_01.asm
 19BEB8,AdpcmIndexAdjust,dword_19BEB8,new,medium,ADPCM step index change for each code,src/data/lib/sound/snd_hw_sb_data_01.asm
 19BED8,AdpcmLeftSample,dword_19BED8,new,medium,"last decoded sample, first channel",src/data/lib/sound/snd_hw_sb_data_01.asm
@@ -11254,11 +11254,11 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1DD38D,GusDriverIrq,byte_1DD38D,new,low,IRQ line of the Gravis driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD390,GusDriverCardMem,dword_1DD390,new,low,card memory allocated for the stream,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD394,GusDriverDmaBuf,dword_1DD394,new,low,DMA buffer of the Gravis driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
-1DD398,DacTimerRate,dword_1DD398,new,low,timer rate of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD398,WssFormat,dword_1DD398,new,medium,codec register 8 value: rate select and sample format,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD39C,DacBuffer,dword_1DD39C,new,low,output buffer of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD3A0,DacIrq,dword_1DD3A0,new,low,interrupt line acknowledged by the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD3A4,DacPort,dword_1DD3A4,new,low,output port of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
-1DD3A8,DacTimerDivisor,dword_1DD3A8,new,low,timer divisor of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3A8,WssDmaSize,dword_1DD3A8,new,medium,codec DMA buffer size,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD3AC,DacBufPos,dword_1DD3AC,new,low,position in the DAC output buffer,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD3B0,DacBufSize,dword_1DD3B0,new,low,size of the DAC output buffer,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD3B4,DacState,dword_1DD3B4,new,low,state words of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
@@ -11354,16 +11354,16 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1DE6C0,Hook387Save,unk_1DE6C0,new,low,FPU state saved by __hook387,src/data/lib/input/input_joystick_misc_08_bss_01.asm
 1DE740,GusEnvConfig,dword_1DE740,new,low,ULTRASND environment settings,src/data/lib/input/input_joystick_misc_08_bss_01.asm
 1DE760,GusDramSize,word_1DE760,new,low,Gravis on-board memory size,src/data/lib/input/input_joystick_misc_08_bss_01.asm
-1DE764,TimerOldOffsetLo,word_1DE764,new,low,low word of the saved timer interrupt offset,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE766,TimerOldSelector,word_1DE766,new,low,selector of the saved timer interrupt handler,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE768,TimerOldHandler,dword_1DE768,new,low,saved protected-mode timer interrupt handler,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE76C,TimerOldRealHandler,dword_1DE76C,new,low,saved real-mode timer interrupt handler,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE770,TimerIrqMask,byte_1DE770,new,low,saved interrupt controller mask bit of the timer,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE771,TimerChainFlag,byte_1DE771,new,low,set when the old timer handler must still be called,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE772,TimerPitMode,byte_1DE772,new,low,timer chip mode bits used when writing the counter,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE773,TimerInstalled,byte_1DE773,new,low,set while the game's timer handler is installed,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE774,TimerDivisor,dword_1DE774,new,low,current timer chip divisor,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE778,TimerChainCount,dword_1DE778,new,low,tick accumulator that decides when to chain to the old timer handler,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE764,WssCodecDmaAddress,word_1DE764,new,medium,low word of the codec DMA buffer address,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE766,WssCodecDmaCount,word_1DE766,new,medium,DMA transfer count for the codec buffer,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE768,WssCodecDmaSize,dword_1DE768,new,medium,codec DMA buffer size in bytes,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE76C,WssCodecDmaHalf,dword_1DE76C,new,medium,half the codec DMA buffer size,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE770,WssCodecDmaPage,byte_1DE770,new,medium,DMA page of the codec buffer,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE771,WssCodecDmaRunning,byte_1DE771,new,medium,set while the codec DMA channel runs,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE772,WssIndexBits,byte_1DE772,new,medium,mode bits ORed into every codec register index,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE773,WssCodecRunning,byte_1DE773,new,medium,set while the Windows Sound System codec plays,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE774,WssCodecPort,dword_1DE774,new,medium,Windows Sound System codec base port,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE778,WssCodecDma,dword_1DE778,new,medium,DMA channel the codec uses,src/data/lib/sound/snd_hw_sb_bss_01.asm
 1DE780,DbcsLeadTable,word_1DE780,new,low,DOS double-byte character lead table pointer,src/data/lib/sound/snd_hw_sb_bss_01.asm
 1DE784,CMainArgc,dword_1DE784,new,low,argument count passed to main,src/data/lib/sound/snd_hw_sb_bss_01.asm
 1DE788,CMainArgv,dword_1DE788,new,low,argument vector passed to main,src/data/lib/sound/snd_hw_sb_bss_01.asm

@@ -7,11 +7,11 @@ section s_127D70 progbits alloc exec nowrite align=1
 extern str_DMABUFFER, str_DMABUFFER2, DacPortTable, DacPortBits, DacRateTable, GusDriverDma, GusDriverIrq, PatlDefaultPitch
 extern GusDriverIsOpen, GusDriverStreaming, GusDriverFound, GusDriverRunning, DacDriverBuffer, DacDriverRunning, GusStreamRefillB, UnpackSrcPtr
 extern UnpackDestPtr, UnpackCount, UnpackStackPtr, UnpackPairTable, ChannelSampleTable, PatlChannelParams, GusDriverCardMem, GusDriverDmaBuf
-extern DacTimerRate, DacBuffer, DacIrq, DacPort, DacTimerDivisor, DacBufPos, DacBufSize, DacState
+extern WssFormat, DacBuffer, DacIrq, DacPort, WssDmaSize, DacBufPos, DacBufSize, DacState
 extern PlayPatchNote_4E8, memset_, AdvanceStreamOffset, AudioNullFunc, StartTmplSample, PickSampleRate, ReadBlasterPort, AudioEnter
 extern AudioLeaveCheck, MixerInit, MixerFillBuffer, PlayPatchNote, StartChannel, MixNoise, UpdateChannels, SetChannelCount
 extern GusGetEnvConfig, GusProbePort, GusOpen, GusClose, GusMemAlloc, GusStopStream, GusStreamBusy, GusServiceStream
-extern GusStartStream, TimerCalibrate, TimerRestore, TimerSetRate, IrqAck, AllocMemData, FreeMemBlock, GusDriverConfig
+extern GusStartStream, WssCodecStart, WssCodecStop, WssSetVolume, DmaPlayedHalf, AllocMemData, FreeMemBlock, GusDriverConfig
 extern GusDriverBasePort
 global PrepareBankSampleDataJumpTable, PrepareBankSampleData_B3, PrepareBankSampleData_F0, PrepareBankSampleData_FD, PrepareBankSampleData_124, PrepareBankSampleData_1B0, ExpandBytePair, UnpackBytePairs
 global PrepareBankSampleData, LoadSampleHeader, PlayPatlSample, PlaySoundEntry, GusDetect, GusDriverStartStream, GusDriverCaps, GusDriverOpen
@@ -1272,37 +1272,37 @@ DacDriverOpen:
 .8:
         mov eax, 800h
         mov ebx, 4
-        mov dword [DacTimerRate], eax
+        mov dword [WssFormat], eax
         jmp short .15
 .9:
         mov ebp, 803h
         mov ebx, 4
-        mov dword [DacTimerRate], ebp
+        mov dword [WssFormat], ebp
         jmp short .15
 .10:
         mov edi, 802h
         mov ebx, 2
-        mov dword [DacTimerRate], edi
+        mov dword [WssFormat], edi
         jmp short .15
 .11:
         mov ecx, 807h
         mov ebx, 2
-        mov dword [DacTimerRate], ecx
+        mov dword [WssFormat], ecx
         jmp short .15
 .12:
-        mov dword [DacTimerRate], 806h
+        mov dword [WssFormat], 806h
         mov ebx, 1
         jmp short .15
 .13:
         mov edx, 80Bh
         mov ebx, 1
 .14:
-        mov dword [DacTimerRate], edx
+        mov dword [WssFormat], edx
 .15:
         lea ecx, [nosplit esi*4+00h]
         sub ecx, esi
         xor eax, eax
-        mov edi, dword [DacTimerRate]
+        mov edi, dword [WssFormat]
         mov al, byte [dword ecx+DacPortTable]
         or edi, eax
         mov eax, 400h
@@ -1317,15 +1317,15 @@ DacDriverOpen:
         mov edx, eax
         sar edx, 1Fh
         idiv ebx
-        mov dword [DacTimerDivisor], eax
+        mov dword [WssDmaSize], eax
         shr eax, 1
         mov dword [DacPort], eax
-        mov eax, dword [DacTimerDivisor]
+        mov eax, dword [WssDmaSize]
         push dword 200h
         add eax, eax
         push eax
         push str_DMABUFFER2
-        mov dword [DacTimerRate], edi
+        mov dword [WssFormat], edi
         call AllocMemData
         add esp, byte 0Ch
         mov dword [DacBufPos], eax
@@ -1343,7 +1343,7 @@ DacDriverOpen:
 .16:
         mov ebx, 10000h
         mov edx, eax
-        mov ebp, dword [DacTimerDivisor]
+        mov ebp, dword [WssDmaSize]
         and edx, 0FFFFh
         sub ebx, ebp
         mov dword [DacDriverBuffer], eax
@@ -1402,7 +1402,7 @@ DacDriverOpen:
         mov eax, dword [DacBufPos]
         push eax
         push ebx
-        call TimerCalibrate
+        call WssCodecStart
         mov ebx, eax
         add esp, byte 8
         test eax, eax
@@ -1424,7 +1424,7 @@ DacDriverOpen:
 .19:
         push byte 7Fh
         mov edi, 1
-        call TimerSetRate
+        call WssSetVolume
         mov eax, esi
         add esp, byte 4
         shl eax, 10h
@@ -1449,7 +1449,7 @@ DacDriverClose:
         push esi
         cmp dword [DacDriverBuffer], byte 0
         je short .1
-        call TimerRestore
+        call WssCodecStop
         mov ebx, dword [DacDriverBuffer]
         push ebx
         call FreeMemBlock
@@ -1475,7 +1475,7 @@ DacDriverUpdate:
         push edx
         mov edx, dword [DacIrq]
         mov eax, dword [DacPort]
-        call IrqAck
+        call DmaPlayedHalf
         mov dword [DacState], eax
         test eax, eax
         jl short .1

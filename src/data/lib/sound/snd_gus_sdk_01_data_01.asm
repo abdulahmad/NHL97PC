@@ -9,7 +9,7 @@ global GusIrqLatchBits, GusStreamVoiceA, GusStreamVoiceStereo, GusStreamVoiceB, 
 global DmaAddressPorts, DmaCountPorts, GusOpenCount, GusStreamRefillA, GusStreamRefillB, GusStreamSrcA, GusStreamHalfA, GusStreamBusyA
 global GusStreamSrcB, GusStreamHalfB, GusStreamBusyB, GusStreamActive, GusStreamBufSize, GusStreamHalfSize, GusStreamQuarterSize, GusRefillSrc
 global GusRefillDest, GusRefillLength, GusStreamCardA, GusStreamCardB, GusStreamCardEnd, GusStreamStartLo, GusStreamEndLo, StrToLongLimits
-global IrqAckLast, GusEnvVarName, GusStreamLoopLo, GusStreamLoopHi, GusStreamStartHi, GusStreamEndHi
+global DmaLastHalf, GusEnvVarName, GusStreamLoopLo, GusStreamLoopHi, GusStreamStartHi, GusStreamEndHi
 GusEnvVarName:                                  ; points to the name of the environment variable that holds
                                                 ; the card settings; used by GusGetEnvConfig
         dd str_ULTRASND
@@ -116,12 +116,11 @@ DmaAddressPorts:                                ; ISA DMA address register port 
                                                 ; DmaProgram
         db 00h,02h,04h,06h,0C0h,0C4h,0C8h,0CCh
 DmaCountPorts:                                  ; ISA DMA count register port of each channel (also the EOI
-                                                ; table base); used by DmaProgram, IrqEoi
+                                                ; table base); used by DmaProgram, DmaReadCount
         db 01h,03h,05h,07h
 StrToLongLimits:                                ; overflow limits used by the string to number conversion
         db 0C2h,0C6h,0CAh,0CEh
-IrqAckLast:                                     ; last IRQ status read by the interrupt acknowledge; used by
-                                                ; IrqAck
+DmaLastHalf:                                    ; DMA buffer half reported last time; used by DmaPlayedHalf
         db 0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,07Fh,055h,055h,055h,055h,0FFh,0FFh,0FFh,03Fh
         db 033h,033h,033h,033h,0AAh,0AAh,0AAh,02Ah,024h,049h,092h,024h,0FFh,0FFh,0FFh,01Fh
         db 01Ch,0C7h,071h,01Ch,099h,099h,099h,019h,074h,0D1h,045h,017h,055h,055h,055h,015h

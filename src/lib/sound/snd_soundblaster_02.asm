@@ -6,7 +6,7 @@ bits 32
 section s_12C604 progbits alloc exec nowrite align=1
 extern SoundSystemOn, ChannelStateBytes, ChannelActiveFlags, ChannelPriorityTable, ChannelRampTable, SbChannelVoice, SbChannelFlags, ChannelUpdateTick
 extern ChannelSampleTable, ChannelRecords, VolumeRampTable, DigitalAudioRate, ChannelCount, SbChannelSlots, SbChannelCount, getenv_
-extern str_BLASTER, Random32, SetChannelPitch, StopChannel, AudioEnter, AudioLeaveCheck, ReturnArg, SbBasePort
+extern str_BLASTER, Random32, SetChannelPitch, StopChannel, AudioEnter, AudioLeaveCheck, strtoul_, SbBasePort
 extern SbIrq, SbMixerAddrPort, SbMixerDataPort, SbResetPort, SbWritePort, SbReadPort
 global ParseBlasterEnv, ParseHexValue, SbReadData, SbWaitRead, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp
 global SbDetectDsp, SbSetRate, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, ChannelSlotOf, UpdateChannels
@@ -44,7 +44,7 @@ ParseHexValue:
         lea edx, [byte esp+08h]
         mov byte [esp+ecx], al
         mov eax, esp
-        call ReturnArg
+        call strtoul_
         mov dword [edi], eax
         mov eax, ecx
         add esp, byte 0Ch

@@ -8,7 +8,7 @@ extern GusIrqLatchBits, GusStreamVoiceA, GusStreamVoiceStereo, GusStreamVoiceB, 
 extern GusRecordDmaChannel, GusMidiIrq, GusWaveIrq, GusOpenCount, GusStreamRefillA, GusStreamRefillB, GusStreamSrcA, GusStreamHalfA
 extern GusStreamBusyA, GusStreamSrcB, GusStreamHalfB, GusStreamBusyB, GusStreamActive, GusStreamBufSize, GusStreamHalfSize, GusStreamQuarterSize
 extern GusRefillSrc, GusRefillDest, GusRefillLength, GusStreamCardA, GusStreamCardB, GusStreamCardEnd, GusStreamStartLo, GusStreamEndLo
-extern GusEnvConfig, getenv_, inp_, inpw_, GusEnvVarName, outp_, outpw_, ReturnArg
+extern GusEnvConfig, getenv_, inp_, inpw_, GusEnvVarName, outp_, outpw_, strtoul_
 extern GusHookIrq, GusUnhookIrq, GusWaveIrqHandler, GusMidiIrqHandler, GusDelay, GusSetBasePort, GusClearIrqState, GusEnterCritical
 extern GusLeaveCritical, GusClearCallbacks, GusSetVoiceCallbacks, GusRunInitTable, GusPeek, GusPoke, GusTestDramBank, GusDownload
 extern GusStreamLoopLo, GusStreamLoopHi, GusStreamStartHi, GusStreamEndHi, GusBasePort, GusIrqStatusPort, GusIrqLatchPort, GusDmaLatchPort
@@ -36,7 +36,7 @@ GusGetEnvConfig:
         je near .6
         mov edx, GusEnvConfig
         mov ebx, 10h
-        call ReturnArg
+        call strtoul_
         mov word [byte ecx+02h], ax
         mov eax, dword [GusEnvConfig]
         cmp byte [eax], 2Ch
@@ -47,7 +47,7 @@ GusGetEnvConfig:
         mov edx, GusEnvConfig
         mov ebx, 0Ah
         mov eax, dword [GusEnvConfig]
-        call ReturnArg
+        call strtoul_
         mov byte [byte ecx+07h], al
         mov eax, dword [GusEnvConfig]
         cmp byte [eax], 2Ch
@@ -58,7 +58,7 @@ GusGetEnvConfig:
         mov edx, GusEnvConfig
         mov ebx, 0Ah
         mov eax, dword [GusEnvConfig]
-        call ReturnArg
+        call strtoul_
         mov byte [byte ecx+06h], al
         mov eax, dword [GusEnvConfig]
         cmp byte [eax], 2Ch
@@ -69,7 +69,7 @@ GusGetEnvConfig:
         mov edx, GusEnvConfig
         mov ebx, 0Ah
         mov eax, dword [GusEnvConfig]
-        call ReturnArg
+        call strtoul_
         mov byte [byte ecx+04h], al
         mov eax, dword [GusEnvConfig]
         cmp byte [eax], 2Ch
@@ -80,7 +80,7 @@ GusGetEnvConfig:
         mov edx, GusEnvConfig
         mov ebx, 0Ah
         mov eax, dword [GusEnvConfig]
-        call ReturnArg
+        call strtoul_
         mov dx, word [byte ecx+02h]
         mov byte [byte ecx+05h], al
         test dx, dx

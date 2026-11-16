@@ -4,40 +4,37 @@
 bits 32
 %include "hockey.inc"
 section s_1DE764 nobits alloc noexec write align=1
-global TimerIrqMask, TimerChainFlag, TimerPitMode, TimerInstalled, GusPlayDmaChannel, GusIrqLatch, GusRecordDmaChannel, GusMidiIrq
-global GusWaveIrq, GusDmaControl, TimerOldHandler, TimerOldRealHandler, TimerDivisor, TimerChainCount, CMainArgc, CMainArgv
-global GusVoiceIrqBits, GusDmaLeft, GusDmaChunkSize, GusDmaDone, GusDmaChannels, BreakHandlerRegs, StartupStack, TimerOldOffsetLo
-global TimerOldSelector, DbcsLeadTable, GusDosResult, GusIrqFlags, GusActiveVoices, GusCriticalDepth, GusDmaChunkLo, GusDmaChunkHi
+global WssCodecDmaPage, WssCodecDmaRunning, WssIndexBits, WssCodecRunning, GusPlayDmaChannel, GusIrqLatch, GusRecordDmaChannel, GusMidiIrq
+global GusWaveIrq, GusDmaControl, WssCodecDmaSize, WssCodecDmaHalf, WssCodecPort, WssCodecDma, CMainArgc, CMainArgv
+global GusVoiceIrqBits, GusDmaLeft, GusDmaChunkSize, GusDmaDone, GusDmaChannels, BreakHandlerRegs, StartupStack, WssCodecDmaAddress
+global WssCodecDmaCount, DbcsLeadTable, GusDosResult, GusIrqFlags, GusActiveVoices, GusCriticalDepth, GusDmaChunkLo, GusDmaChunkHi
 global GusDmaFlags
-TimerOldOffsetLo:                               ; low word of the saved timer interrupt offset; used by
-                                                ; TimerInstall
+WssCodecDmaAddress:                             ; low word of the codec DMA buffer address; used by
+                                                ; WssCodecSetup
         resb 2
-TimerOldSelector:                               ; selector of the saved timer interrupt handler; used by
-                                                ; TimerInstall
+WssCodecDmaCount:                               ; DMA transfer count for the codec buffer; used by
+                                                ; WssCodecSetup
         resb 2
-TimerOldHandler:                                ; saved protected-mode timer interrupt handler; used by
-                                                ; TimerInstall
+WssCodecDmaSize:                                ; codec DMA buffer size in bytes; used by WssCodecSetup
         resb 4
-TimerOldRealHandler:                            ; saved real-mode timer interrupt handler; used by
-                                                ; TimerInstall
+WssCodecDmaHalf:                                ; half the codec DMA buffer size; used by WssCodecSetup
         resb 4
-TimerIrqMask:                                   ; saved interrupt controller mask bit of the timer; used by
-                                                ; TimerInstall
+WssCodecDmaPage:                                ; DMA page of the codec buffer; used by WssCodecSetup
         resb 1
-TimerChainFlag:                                 ; set when the old timer handler must still be called; used by
-                                                ; TimerChainOld, TimerInstall
+WssCodecDmaRunning:                             ; set while the codec DMA channel runs; used by WssCodecSetup,
+                                                ; WssStopDma
         resb 1
-TimerPitMode:                                   ; timer chip mode bits used when writing the counter; used by
-                                                ; TimerReadCount, TimerSetDivisor, TimerWritePit
+WssIndexBits:                                   ; mode bits ORed into every codec register index; used by
+                                                ; WssReadReg, WssSetModeChange, WssWriteReg
         resb 1
-TimerInstalled:                                 ; set while the game's timer handler is installed; used by
-                                                ; TimerInstall, TimerRestore
+WssCodecRunning:                                ; set while the Windows Sound System codec plays; used by
+                                                ; WssCodecSetup, WssCodecStop
         resb 1
-TimerDivisor:                                   ; current timer chip divisor; used by TimerInstall,
-                                                ; TimerReadCount, TimerSetDivisor ...
+WssCodecPort:                                   ; Windows Sound System codec base port; used by WssCodecSetup,
+                                                ; WssReadReg, WssSetModeChange ...
         resb 4
-TimerChainCount:                                ; tick accumulator that decides when to chain to the old timer
-                                                ; handler; used by TimerChainOld, TimerInstall
+WssCodecDma:                                    ; DMA channel the codec uses; used by WssCodecSetup,
+                                                ; WssStopDma
         resb 8
 DbcsLeadTable:                                  ; DOS double-byte character lead table pointer; used by
                                                 ; dos_get_dbcs_lead_table_, fini_, init_

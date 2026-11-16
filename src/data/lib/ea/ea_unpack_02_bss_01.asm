@@ -4,8 +4,8 @@
 bits 32
 %include "hockey.inc"
 section s_1DD384 nobits alloc noexec write align=1
-global GusDriverDma, GusDriverIrq, PatlChannelParams, GusDriverCardMem, GusDriverDmaBuf, DacTimerRate, DacBuffer, DacIrq
-global DacPort, DacTimerDivisor, DacBufPos, DacBufSize, DacState, SbDmaBuffer, SbRate, SbDmaChannel
+global GusDriverDma, GusDriverIrq, PatlChannelParams, GusDriverCardMem, GusDriverDmaBuf, WssFormat, DacBuffer, DacIrq
+global DacPort, WssDmaSize, DacBufPos, DacBufSize, DacState, SbDmaBuffer, SbRate, SbDmaChannel
 global SbDmaBufSize, SbIrqLine, SbBlockSize, SbHalfSize, SbOldIrqHandler, SbStartTime, SbProDmaBuffer, SbProOldIrq
 global SbProIrqVector, SbProRate, SbProIrqMask, SbProDmaBufSize, SbProBlockSize, SbProDmaChannel, SbProIrqLine, SbProIrqNum
 global SbProHalfSize, SbProOldMask, SbProStereo, SbProBasePort, SbProOldHandler, SbProStartTime, Sb16OldIrq, Sb16IrqVector
@@ -33,8 +33,8 @@ GusDriverCardMem:                               ; card memory allocated for the 
 GusDriverDmaBuf:                                ; DMA buffer of the Gravis driver; used by
                                                 ; GusDriverStartStream, GusDriverUpdate
         resb 4
-DacTimerRate:                                   ; timer rate of the DAC driver; used by DacDriverOpen,
-                                                ; TimerInstall
+WssFormat:                                      ; codec register 8 value: rate select and sample format; used
+                                                ; by DacDriverOpen, WssCodecSetup
         resb 4
 DacBuffer:                                      ; output buffer of the DAC driver; used by DacDriverOpen,
                                                 ; DacDriverUpdate
@@ -45,8 +45,7 @@ DacIrq:                                         ; interrupt line acknowledged by
 DacPort:                                        ; output port of the DAC driver; used by DacDriverOpen,
                                                 ; DacDriverUpdate
         resb 4
-DacTimerDivisor:                                ; timer divisor of the DAC driver; used by DacDriverOpen,
-                                                ; TimerInstall
+WssDmaSize:                                     ; codec DMA buffer size; used by DacDriverOpen, WssCodecSetup
         resb 4
 DacBufPos:                                      ; position in the DAC output buffer; used by DacDriverOpen,
                                                 ; DacDriverUpdate
