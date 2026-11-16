@@ -5,8 +5,8 @@ section s_D3112 progbits alloc exec nowrite align=1
 extern str_Hros, str_Vros, str_Blurb, str_STAR, str_FIR1, str_FDPD, str_FIRD, str_000010
 extern str_DOOR, str_TXT1, str_TRM1, str_TITL13, str_LOGO02dFSH2, str_LOGO7, str_LOGO28FSH, str_SS12
 extern str_SDD, str_SDDD, str_SSS2, str_SS13, str_SSS3, str_Roster4, str_SVsSDDD, str_SDSD2
-extern byte_1AD742, byte_1C6040, byte_1CC8B4, dword_168F58, dword_16D744, dword_16D748, dword_16D74C, dword_16D750
-extern MenuScreenBitmap, GameSettings, dword_1AC940, dword_1AC944, dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD437
+extern byte_1AD742, byte_1C6040, byte_1CC8B4, PlayoffColumns, dword_16D744, dword_16D748, dword_16D74C, dword_16D750
+extern MenuScreenBitmap, GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, dword_1ACF65, dword_1AD226, dword_1AD437
 extern dword_1AD62F, dword_1AD6AB, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, jpt_D3102
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, BlitConverted, BlitArt
 extern BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, DrawSpriteScaledBy, SetScreenTarget
@@ -22,7 +22,7 @@ extern str_Hextall, str_PHI, str_QUE, str_199293, str_Heyward, str_Hirsch, str_V
 extern unk_1671E0, str_Jablonski, unk_1671F0, str_Joseph, str_EDM, str_Kidd, str_CAL, str_Kolzig
 extern str_Lacher, str_BOS, str_Moog, str_DAL, str_Richter, unk_167234, str_Roy, str_COL
 extern str_MTL, str_Thibault, str_Vanbiesbrouck, str_FLA, str_Vernon, str_DET, str_EA, unk_16D7FC
-extern unk_1ACF12, unk_1C135C, unk_1C1382, unk_1C139A, unk_1C347F, unk_1C34A5, unk_1C5EF8, unk_1C5F4A
+extern MatchupNote, unk_1C135C, unk_1C1382, unk_1C139A, unk_1C347F, unk_1C34A5, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_D3057, unk_D305F, unk_D3067, word_1C1344
 global jpt_D4215, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7, PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, PreGameRostersScreen_C3F, DrawMatchupHistory_FB, DrawMatchupHistory_FC
 global DrawMatchupNotes_86, DrawMatchupNotes_C5, DrawMatchupNotes_10F, DrawMatchupNotes_14B, PreGameRostersScreen, FormatMatchupNote, DrawRosterPlayerInfo, DrawMatchupHistory
@@ -130,7 +130,7 @@ PreGameRostersScreen:
         jne short .4
         lea eax, [byte ebp+042h]
         call LoadExhibitionFile
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -140,7 +140,7 @@ PreGameRostersScreen:
         mov edi, dword [byte ebp+072h]
         lea esi, [dword esi+eax+0DF4h]
         rep movsb
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
@@ -171,20 +171,20 @@ PreGameRostersScreen:
         call memset_
         jmp near .10
 .5:
-        mov edx, dword [dword_1AC944]
+        mov edx, dword [GameOptionFlags]
         mov edx, dword [byte edx+01h]
         shl edx, 0Ch
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shr edx, 1Ah
         mov eax, dword [byte eax+01Ch]
         shl edx, 3
         add eax, edx
         mov edx, dword [byte ebp+072h]
         call FindGameRecord
-        mov edx, dword [dword_1AC944]
+        mov edx, dword [GameOptionFlags]
         mov edx, dword [byte edx+01h]
         shl edx, 6
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shr edx, 1Ah
         mov eax, dword [byte eax+01Ch]
         shl edx, 3
@@ -195,28 +195,28 @@ PreGameRostersScreen:
 .6:
         xor esi, esi
 .7:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
         cmp eax, dword [nosplit esi*4+dword_1AD6AB]
         jne short .8
         mov edx, esi
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 3
         mov eax, dword [byte eax+01Ch]
         add eax, edx
         mov edx, dword [byte ebp+072h]
         call FindGameRecord
 .8:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
         cmp eax, dword [nosplit esi*4+dword_1AD6AB]
         jne short .9
         mov edx, esi
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 3
         mov eax, dword [byte eax+01Ch]
         add eax, edx
@@ -530,7 +530,7 @@ PreGameRostersScreen:
         add esp, byte 0Ch
         mov eax, 39h
         call OpenDataLibrary
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -579,7 +579,7 @@ PreGameRostersScreen:
         add esp, byte 4
         push ebx
         call FreeMemBlock
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         add esp, byte 4
@@ -589,7 +589,7 @@ PreGameRostersScreen:
         lea eax, [byte ebp+02Ah]
         push eax
         call sprintf_
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, 3F00000h
         add esp, byte 0Ch
@@ -1010,7 +1010,7 @@ FormatMatchupNote:
         mov eax, 13h
         call GetLangText
         push eax
-        push unk_1ACF12
+        push MatchupNote
         mov eax, dword [dword_16D744]
         push str_SS12
         push dword [nosplit eax*4+dword_1CC864]
@@ -1076,16 +1076,16 @@ DrawRosterPlayerInfo:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .2
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .2
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
         mov dword [byte ebp+06Ah], eax
         jmp short .5
 .2:
-        mov esi, dword [dword_1AC944]
+        mov esi, dword [GameOptionFlags]
         xor ebx, ebx
 .3:
         mov edx, dword [byte esi+01h]
@@ -1100,7 +1100,7 @@ DrawRosterPlayerInfo:
         jl short .3
 .5:
         mov edx, dword [byte ebp+06Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 3
         mov eax, dword [byte eax+01Ch]
         add eax, edx
@@ -1126,10 +1126,10 @@ DrawRosterPlayerInfo:
         add esp, byte 0Ch
         jmp short .7
 .6:
-        mov edx, dword [dword_1AC944]
+        mov edx, dword [GameOptionFlags]
         mov edx, dword [byte edx+01h]
         shl edx, 6
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shr edx, 1Ah
         mov eax, dword [byte eax+01Ch]
         shl edx, 3
@@ -1169,7 +1169,7 @@ DrawRosterPlayerInfo:
         add eax, esi
         movzx edx, byte [dword eax+ebp-0D0Dh]
         add edx, dword [dword eax+ebp-0D12h]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx ecx, word [byte eax+02h]
         shl ecx, 4
         mov eax, dword [byte eax+020h]
@@ -1269,12 +1269,12 @@ DrawMatchupHistory:
         lea edx, [byte eax+03Eh]
         mov dword [byte ebp-0Ch], edx
         je short .4
-        mov edx, dword [dword_1AC944]
+        mov edx, dword [GameOptionFlags]
         mov esi, dword [byte edx+01h]
         shl esi, 0Ch
         jmp short .5
 .4:
-        mov edx, dword [dword_1AC944]
+        mov edx, dword [GameOptionFlags]
         mov esi, dword [byte edx+01h]
         shl esi, 6
 .5:
@@ -1530,7 +1530,7 @@ DrawMatchupNotes_14B:
         imul eax, esi, dword 194Fh
         mov edx, dword [byte ebp-01Ch]
         add edx, eax
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov eax, dword [byte eax+01Ch]
         add eax, dword [byte ebp-014h]
         call FindGameRecord
@@ -1539,7 +1539,7 @@ DrawMatchupNotes_14B:
 .11:
         inc ebx
 .12:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx ecx, word [eax]
         cmp ebx, ecx
         jge short .13
@@ -1655,7 +1655,7 @@ DrawMatchupNotes_14B:
 .29:
         inc ebx
 .30:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx ecx, word [byte eax+02h]
         cmp ebx, ecx
         jl near .14
@@ -1791,7 +1791,7 @@ FindMatchupNotes:
         xor ebx, ebx
 .1:
         mov edx, ebx
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 3
         mov eax, dword [byte eax+01Ch]
         add eax, edx
@@ -1810,19 +1810,19 @@ FindMatchupNotes:
         lea ebx, [byte ebp+02Ah]
         lea edx, [byte ebp-05Ah]
         lea eax, [dword ebp-0C2h]
-        mov ecx, dword [dword_1AC940]
+        mov ecx, dword [SeasonUserTeam]
         call CountTeamResults
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
         inc dword [byte ebp+eax*4-05Ah]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
         inc dword [byte ebp+eax*4-05Ah]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         lea ebx, [byte ebp+046h]
@@ -1830,24 +1830,24 @@ FindMatchupNotes:
         lea edx, [byte ebp-05Ah]
         add dword [dword ebp+eax*4-0C2h], byte 2
         lea eax, [dword ebp-0C2h]
-        mov ecx, dword [dword_1AC940]
+        mov ecx, dword [SeasonUserTeam]
         call CountTeamResults
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
         inc dword [byte ebp+eax*4-05Ah]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
         inc dword [byte ebp+eax*4-05Ah]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
         inc dword [dword ebp+eax*4-0C2h]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         lea ebx, [byte ebp+0Eh]
@@ -1855,24 +1855,24 @@ FindMatchupNotes:
         lea edx, [byte ebp-05Ah]
         dec dword [dword ebp+eax*4-0C2h]
         lea eax, [dword ebp-0C2h]
-        mov ecx, dword [dword_1AC940]
+        mov ecx, dword [SeasonUserTeam]
         call CountTeamResults
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
         inc dword [byte ebp+eax*4-05Ah]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
         inc dword [byte ebp+eax*4-05Ah]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
         dec dword [dword ebp+eax*4-0C2h]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         lea ebx, [byte ebp+062h]
@@ -1880,9 +1880,9 @@ FindMatchupNotes:
         lea edx, [byte ebp-05Ah]
         inc dword [dword ebp+eax*4-0C2h]
         lea eax, [dword ebp-0C2h]
-        mov ecx, dword [dword_1AC940]
+        mov ecx, dword [SeasonUserTeam]
         call CountTeamResults
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -1892,7 +1892,7 @@ FindMatchupNotes:
         jne short .2
         or byte [byte ebp+07Eh], 80h
 .2:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -1902,7 +1902,7 @@ FindMatchupNotes:
         jne short .3
         or byte [byte ebp+07Eh], 40h
 .3:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -1912,7 +1912,7 @@ FindMatchupNotes:
         jne short .4
         or byte [byte ebp+07Eh], 20h
 .4:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -1922,7 +1922,7 @@ FindMatchupNotes:
         jne short .5
         or byte [byte ebp+07Eh], 10h
 .5:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
@@ -1932,7 +1932,7 @@ FindMatchupNotes:
         jne short .6
         or byte [byte ebp+07Eh], 8
 .6:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
@@ -1942,7 +1942,7 @@ FindMatchupNotes:
         jne short .7
         or byte [byte ebp+07Eh], 4
 .7:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
@@ -1952,7 +1952,7 @@ FindMatchupNotes:
         jne short .8
         or byte [byte ebp+07Eh], 2
 .8:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
@@ -2014,8 +2014,8 @@ CountTeamResults:
         mov eax, ebx
         shl ecx, 2
         shl eax, 2
-        mov esi, dword [dword ecx+dword_168F58]
-        cmp esi, dword [dword eax+dword_168F58]
+        mov esi, dword [dword ecx+PlayoffColumns]
+        cmp esi, dword [dword eax+PlayoffColumns]
         jne short .5
         mov esi, dword [byte eax+ebp-070h]
         cmp esi, dword [dword ecx+ebp-0D8h]
@@ -2070,7 +2070,7 @@ MatchupAnnouncement:
         xor edx, edx
         cmp eax, byte 10h
         jne near .12
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne near .12
         imul esi, dword [dword_1AD226], byte 1Ch
         mov esi, dword [dword esi+dword_1ACF65]
@@ -2087,7 +2087,7 @@ MatchupAnnouncement:
         cmp edx, byte 0Bh
         jge short .8
         dec esi
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov ebx, esi
         mov eax, dword [byte eax+020h]
         shl ebx, 4
@@ -2143,7 +2143,7 @@ MatchupAnnouncement:
         je short .13
         cmp eax, byte 10h
         jne near .32
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je near .32
 .13:
         movzx esi, byte [byte_1AD742]

@@ -18,7 +18,7 @@ extern DrawDestPitch, DrawDestOffset, BackBufferWidth, ExitHandler, RowTable, Re
 extern KeyedBlitState, FpuFlags, BiosKeyFunc, KbdHandlerInstalled, KeyBuffer, KeyBufferHead, KeyBufferTail, KeyBufferMask
 extern SavedKbdVecOffset, SavedInt16Offset, SavedRealKbdOffset, AssertLine, AssertFileName, AssertMessage, VideoGammaSource, VideoDecoderReady
 extern FrameRateCount, FrameRateStart, FrameRateTicks, FrameRateValue, FrameRateMin, FrameRateMax, PlatformState, PlatformFirstInit
-extern _fmode, StackLow, LoadFileHook, __MBCSFlag, _umaskval, __NHandles, dword_19C690, VideoBitCount
+extern _fmode, StackLow, LoadFileHook, __MBCSFlag, _umaskval, __NHandles, VideoCodePtr, VideoBitCount
 extern VideoBitBuffer, VideoOutPtr, VideoBlockX, VideoBlockY, VideoBlockTemp, VideoBlockSum, VideoIdctScale, F32_0p541196
 extern F32_1p30656, F32_0p382683, F32_6p7554e15, dword_1CF260, dword_1CF264, dword_1CF268, TextOriginX, ModelSetupMode
 extern PrimColor, ModelFileCount, BitReaderPtr, BitReaderBits, VideoCodeTableA, VideoDecoderA, VideoCodeTableB, VideoGammaTable
@@ -7549,7 +7549,7 @@ ResetFrameRate:
 ;-----------------------------------------------------------------------------
 ReadVideoCodes:
         mov eax, dword [VideoBitCount]
-        mov esi, dword [dword_19C690]
+        mov esi, dword [VideoCodePtr]
         shl eax, 18h
         mov ebp, dword [VideoBitCount]
         sar eax, 8
@@ -7605,7 +7605,7 @@ ReadVideoCodes_8A:
 .3:
         dec edi
         jg short ReadVideoCodes.1
-        mov dword [dword_19C690], esi
+        mov dword [VideoCodePtr], esi
         mov dword [VideoBitCount], ebp
         mov dword [VideoBitBuffer], ecx
         ret
@@ -7668,7 +7668,7 @@ ReadVideoCodes_115:
         LD or, ebp, eax
         dec edi
         jg near ReadVideoCodes.1
-        mov dword [dword_19C690], esi
+        mov dword [VideoCodePtr], esi
         mov dword [VideoBitCount], ebp
         mov dword [VideoBitBuffer], ecx
         ret
@@ -8053,7 +8053,7 @@ DecodeVideoFrame:
         LD xor, eax, eax
         mov al, byte [esi]
         inc esi
-        mov dword [dword_19C690], esi
+        mov dword [VideoCodePtr], esi
         mov dword [VideoBitCount], eax
         mov dword [VideoBitBuffer], 8
         call ReadVideoCodes

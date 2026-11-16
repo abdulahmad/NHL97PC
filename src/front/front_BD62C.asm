@@ -6,9 +6,9 @@ extern SortCords, __CHP, __STOSD, str_Mous4, str_Remo3, str_Replload, str_RPEVEN
 extern str_Replregs, str_REPLAYNDX, str_DATAREPLAYNDX2, str_DONTHAVEIT2, str_Replay, str_SS10, str_Replbuff, str_SREPLAYNDX
 extern str_S12, str_NOIS, str_ARWD, byte_19CBC2, byte_1C6040, byte_1CB004, F32_0p005_ReplayScreen, F32_0p003125_ReplayScreen
 extern F32_0p005_DrawReplayTimeline, F32_0p003125_DrawReplayTimeline, F32_0p003125_PickReplayScreen, F32_0p005_PickReplayScreen, F32_0p003125_DrawReplayEntry, F32_0p005_DrawReplayEntry, F32_0p003125_ReplayMenuScreen, F32_0p005_ReplayMenuScreen
-extern dword_1686C0, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
+extern ClockShown, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
 extern VideoModeCount, QuantizePalette, dword_19CD10, dword_19CD14, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C
-extern dword_19CD30, dword_19CD34, dword_19CD4C, dword_19CD54, ViewSizeIndex, GameSettings, dword_1AC944, dword_1B1B64
+extern dword_19CD30, dword_19CD34, dword_19CD4C, dword_19CD54, ViewSizeIndex, GameSettings, GameOptionFlags, dword_1B1B64
 extern dword_1B8F4C, dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, dword_1C95B4
 extern dword_1C95BC, dword_1CAECC, dword_1CAED0, dword_1CAED4, dword_1CAED8, dword_1CAEDC, dword_1CAEE0, dword_1CAEE4
 extern dword_1CAEE8, dword_1CAEEC, dword_1CAEF0, dword_1CAEF4, dword_1CAEF8, dword_1CAF8C, dword_1CAF90, dword_1CAF94
@@ -33,7 +33,7 @@ extern AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile, IsInputRecordi
 extern LinkReceiveBlock, WaitForOtherComputer, DrawMenuFrame, FreeVideoBuffer, AllocGfxFixBuffer, GetVideoModeList, PickVideoMode, AllocMemBlock
 extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillPolygon, FillRectColor, FillRect, SetTextColors, FillRectCorners, str_S_ReplayScreen
-extern VideoOptionsText, unk_1ACB44, unk_1CAEFC, unk_1CAF3C, str_D_ChangeViewSize
+extern VideoOptionsText, GlobalSetVersion, unk_1CAEFC, unk_1CAF3C, str_D_ChangeViewSize
 global jpt_BE037, jpt_BE213, jpt_BE25A, jpt_BE296, jpt_BEC7D, RunReplay_358, RunReplay_359, LoadReplay_194
 global PlayReplayFromMenu_45, PlayReplayFromMenu_4C, PlayReplayFromMenu_53, PlayReplayFromMenu_5A, ReplayScreen_C7, ReplayScreen_D3, ReplayScreen_DA, ReplayScreen_E1
 global ReplayScreen_E8, ReplayScreen_EF, ReplayScreen_294, ReplayScreen_37D, ReplayScreen_399, ReplayScreen_3D5, ReplayScreen_4D2, ReplayScreen_6A2
@@ -318,7 +318,7 @@ LoadReplay:
         mov eax, dword [dword_1CAF9C]
         mov edx, 20h
         call LoadReplayHeader
-        mov dword [dword_1AC944], unk_1ACB44
+        mov dword [GameOptionFlags], GlobalSetVersion
         call ResetReplayBuffer
         mov eax, 34h
         call AllocAnimStates
@@ -520,12 +520,12 @@ VideoOptionsScreen:
         mov dword [dword_1CAFA4], eax
         mov dword [dword_1C5E78], eax
         mov dword [dword_1C5EF4], eax
-        cmp dword [dword_1686C0], byte 0
+        cmp dword [ClockShown], byte 0
         jne short .2
         mov eax, 70h
         xor edx, edx
         call LoadDataFileLib
-        mov dword [dword_1686C0], eax
+        mov dword [ClockShown], eax
 .2:
         push byte 0
         call OpenResourceArchive
@@ -577,11 +577,11 @@ VideoOptionsScreen:
         mov dword [dword_1C5E78], 0
         mov dword [dword_1C5EF4], 0
         add esp, byte 4
-        cmp dword [dword_1686C0], byte 0
+        cmp dword [ClockShown], byte 0
         je short .3
-        push dword [dword_1686C0]
+        push dword [ClockShown]
         call FreeMemBlock
-        mov dword [dword_1686C0], 0
+        mov dword [ClockShown], 0
         add esp, byte 4
 .3:
         call InitFrontEnd
@@ -616,12 +616,12 @@ VideoOptionsScreen:
         ret
 .5:
         call CloseGameDatabase
-        cmp dword [dword_1686C0], byte 0
+        cmp dword [ClockShown], byte 0
         jne short .6
         mov eax, 70h
         xor edx, edx
         call LoadDataFileLib
-        mov dword [dword_1686C0], eax
+        mov dword [ClockShown], eax
 .6:
         push byte 0
         push byte 18h
@@ -661,11 +661,11 @@ VideoOptionsScreen:
         push dword [dword_1CAF98]
         call FreeBitmap
         add esp, byte 4
-        cmp dword [dword_1686C0], byte 0
+        cmp dword [ClockShown], byte 0
         je short .7
-        push dword [dword_1686C0]
+        push dword [ClockShown]
         call FreeMemBlock
-        mov dword [dword_1686C0], 0
+        mov dword [ClockShown], 0
         add esp, byte 4
 .7:
         call FreeLangText
@@ -674,11 +674,11 @@ VideoOptionsScreen:
         mov dword [dword_1C5E78], 0
         mov dword [dword_1C5EF4], 0
         add esp, byte 4
-        cmp dword [dword_1686C0], byte 0
+        cmp dword [ClockShown], byte 0
         je short .8
-        push dword [dword_1686C0]
+        push dword [ClockShown]
         call FreeMemBlock
-        mov dword [dword_1686C0], 0
+        mov dword [ClockShown], 0
         add esp, byte 4
 .8:
         push dword [dword_1C5DE4]

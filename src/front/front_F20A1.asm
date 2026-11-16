@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_F20A1 progbits alloc exec nowrite align=1
 extern SortCords, __CHP, str_Mous6, str_Remo4, str_D02dD, str_D02dD2, str_CB0D, str_CB002
-extern str_Chat, str_SS15, str_D4, IntermissionActive, byte_19CBC2, byte_1AC81B, byte_1AC81C, byte_1AD23E
+extern str_Chat, str_SS15, str_D4, IntermissionActive, byte_19CBC2, MusicOptions, DetailLevel, byte_1AD23E
 extern byte_1C135A, byte_1C135B, F32_3_DrawPauseButton, F32_4_DrawPauseButton, F32_3_DrawMenuItem, F32_4_DrawMenuItem, F32_12_DrawPauseButtons, F32_100_DrawPauseButtons
 extern F32_155, F32_10_DrawPauseButtons, F32_165, F32_129, F32_117, F32_105, F32_141, F32_153
 extern F32_178, F32_40_PickEditLinesTeam, F32_130, F32_0p5_PickEditLinesTeam, F32_55, F32_150, F32_50_PickEditLinesTeam, F32_10_PickEditLinesTeam
@@ -19,10 +19,10 @@ extern F32_180_DetailLevelMenu, F32_130_DetailLevelMenu, F32_90_DetailLevelMenu,
 extern F32_64_DetailLevelMenu, F32_81_DetailLevelMenu, F32_98_DetailLevelMenu, F32_115_DetailLevelMenu, F32_132_DetailLevelMenu, F32_178_DetailLevelMenu, F32_5_DetailLevelMenu, F32_19_DetailLevelMenu
 extern F32_36_DetailLevelMenu, F32_53_DetailLevelMenu, F32_87_DetailLevelMenu, F32_104_DetailLevelMenu, F32_121_DetailLevelMenu, F32_37, F32_18, F32_15_DetailLevelMenu
 extern F32_63, F32_0p005_DetailLevelMenu, F32_0p003125_DetailLevelMenu, F32_55_DetailLevelMenu, F32_40_DetailLevelMenu, F32_100_DetailLevelMenu, F32_85_DetailLevelMenu, F32_25_DetailLevelMenu
-extern dword_1686C0, InGameMenuRequest, dword_16AF3C, dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF50, dword_16AF54
+extern ClockShown, InGameMenuRequest, dword_16AF3C, dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF50, dword_16AF54
 extern dword_16AF58, dword_16AF5C, dword_16D2BC, dword_16DA9C, dword_16E30C, mousex, mousey, dword_16E464
 extern dword_16E468, QuantizePalette, DrawDestPitch, dword_19CD10, dword_19CD30, dword_19CD54, ActiveCameraScene, ViewSizeChanged
-extern FadeDone, GameSettings, dword_1AC819, dword_1AC944, dword_1ADC88, dword_1B1410, dword_1B1464, dword_1B8578
+extern FadeDone, GameSettings, AudioOptions, GameOptionFlags, dword_1ADC88, dword_1B1410, dword_1B1464, dword_1B8578
 extern dword_1C5DE4, dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dword_1CEF98, dword_1CEF9C, dword_1CEFA0
 extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dword_1CEFBC, PresentFuncInput, F64_65536_LoadPauseArt
 extern F64_0p003125, F64_0p005, F64_200, F64_0p00208333, F64_320, F64_0p0015625, F64_0p003125_PickEditLinesTeam, F64_0p005_PickEditLinesTeam
@@ -41,7 +41,7 @@ extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScree
 extern FadePalette, FadeOut, OpenGameDatabase, CloseGameDatabase, ServiceIdle, SyncLinkGame, LinkSyncMenu, LinkSyncScreen
 extern WaitForOtherComputer, SetupPauseArt, FreeMemBlock, OpenResourceArchive, MatchColor, SelectFont, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt
-extern FillRectCorners, tickcount, str_D_DrawPauseClock, word_168D18, word_19CBB0, word_19CBB2, gsp, gameclock
+extern FillRectCorners, tickcount, str_D_DrawPauseClock, PeriodLengths, word_19CBB0, word_19CBB2, gsp, gameclock
 extern word_19CBBC, word_1C3413, word_1C5536, word_1CEFC0
 global jpt_F4167, jpt_F56E5, jpt_F7BB6, PickEditLinesTeam_5B2, PickEditLinesTeam_5B5, PauseMenu_16C, PauseMenu_26F, PauseMenu_29A
 global PauseMenu_4BB, PauseMenu_4EF, PauseMenu_60A, PauseMenu_62A, PauseMenu_640, PauseMenu_66D, PauseMenu_726, PauseMenu_72C
@@ -706,7 +706,7 @@ DrawPauseClock:
         push eax
         call SaveTextState
         add esp, byte 4
-        push dword [dword_1686C0]
+        push dword [ClockShown]
         call SelectFont
         add esp, byte 4
         push esi
@@ -785,14 +785,14 @@ DrawPauseClock:
         jne short .7
         cmp word [gsp], byte 2
         jl short .7
-        movsx eax, word [word_168D18]
+        movsx eax, word [PeriodLengths]
         jmp short .8
 .7:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 13h
         shr eax, 1Eh
-        movsx eax, word [nosplit eax*2+word_168D18]
+        movsx eax, word [nosplit eax*2+PeriodLengths]
 .8:
         mov ebx, 3Ch
         cdq
@@ -2337,7 +2337,7 @@ RunIntermission:
         call InitGameSounds
         movzx eax, byte [byte_1C135B]
         push eax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 6
         shr edx, 1Ah
@@ -2356,7 +2356,7 @@ RunIntermission:
         call PaEvent
         add esp, byte 18h
 .1:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add eax, esi
         mov dl, byte [dword eax+010Dh]
         and dl, 7
@@ -2873,7 +2873,7 @@ PauseMenu_29A:
         xor ebx, ebx
         jmp short .16
 .13:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov dword [byte ebp+076h], eax
         movsx eax, dx
         add eax, dword [byte ebp+076h]
@@ -2932,7 +2932,7 @@ PauseMenu_29A:
         test di, di
         jne short .21
 .20:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         xor eax, eax
@@ -2942,7 +2942,7 @@ PauseMenu_29A:
         jne short .22
         test di, di
         je short .22
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 6
         mov eax, 1
@@ -2961,7 +2961,7 @@ PauseMenu_29A:
         je short .25
         cmp word [byte ebp+07Eh], byte 0
         jne short .25
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 6
         mov eax, 1
@@ -3349,7 +3349,7 @@ RestartGameAudio:
         call InitGameSounds
         movzx eax, byte [byte_1C135B]
         push eax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 6
         shr edx, 1Ah
@@ -4358,7 +4358,7 @@ RulesMenu:
         fstp dword [byte ebp-052h]
         cmp word [word_1CEFC0], byte 2
         je near .11
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+01h], 8
         je short .3
         push dword [byte ebp+066h]
@@ -4440,7 +4440,7 @@ RulesMenu:
         fmul dword [F32_70]
         fxch
         fmul dword [F32_8_RulesMenu]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp-0Eh]
         fxch st2
@@ -4529,7 +4529,7 @@ RulesMenu:
         fmul dword [F32_70]
         fxch
         fmul dword [F32_8_RulesMenu]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp+04Eh]
         fxch st2
@@ -4618,7 +4618,7 @@ RulesMenu:
         fmul dword [F32_70]
         fxch
         fmul dword [F32_8_RulesMenu]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp+03Eh]
         fxch st2
@@ -4696,7 +4696,7 @@ RulesMenu:
         mov eax, dword [byte ebp-02Eh]
         jmp short .9
 .11:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+01h], 8
         je short .12
         push dword [byte ebp+066h]
@@ -4768,7 +4768,7 @@ RulesMenu:
         fmul dword [F32_70]
         fxch
         fmul dword [F32_8_RulesMenu]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [dword ebp-082h]
         fxch st2
@@ -4860,7 +4860,7 @@ RulesMenu:
         fmul dword [F32_70]
         fxch
         fmul dword [F32_8_RulesMenu]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp-026h]
         fxch st2
@@ -4949,7 +4949,7 @@ RulesMenu:
         fmul dword [F32_70]
         fxch
         fmul dword [F32_8_RulesMenu]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp+05Ah]
         fxch st2
@@ -5049,7 +5049,7 @@ RulesMenu:
         fstp dword [byte ebp-05Eh]
         test byte [GameSettings], 70h
         jne near .33
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+02h], 1
         je short .20
         push dword [byte ebp+066h]
@@ -5134,7 +5134,7 @@ RulesMenu:
         fmul dword [F32_70]
         fxch
         fmul dword [F32_8_RulesMenu]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp+032h]
         fxch st2
@@ -5216,7 +5216,7 @@ RulesMenu:
         movsx edx, ax
         lea eax, [dword ebp-0D2h]
         call DrawMenuItem
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, byte 7
         imul eax, byte 14h
@@ -5269,7 +5269,7 @@ RulesMenu:
         fstp dword [byte ebp-03Eh]
         cmp word [word_1CEFC0], byte 2
         je near .28
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, 0C0h
         cmp eax, 80h
@@ -5318,7 +5318,7 @@ RulesMenu:
         mov eax, 53h
         jmp short .24
 .28:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, 0C0h
         cmp eax, 80h
@@ -5341,7 +5341,7 @@ RulesMenu:
         fmul dword [F32_81]
         fxch st3
         fmul dword [F32_70]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         fxch
         fmul dword [F32_8_RulesMenu]
         mov eax, dword [byte eax+01h]
@@ -5530,7 +5530,7 @@ RulesMenu:
         fmul dword [F32_70]
         fxch
         fmul dword [F32_8_RulesMenu]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp+052h]
         fxch st2
@@ -5926,7 +5926,7 @@ RulesMenu_1583:
         add esp, byte 4
         push dword [dword ebp-0116h]
         call FreeBitmap
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         test byte [byte eax+01h], 8
         je near .48
@@ -6060,7 +6060,7 @@ RulesMenu_176B:
         add esp, byte 4
         push dword [dword ebp-010Ah]
         call FreeBitmap
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         test byte [byte eax+01h], 20h
         je near .53
@@ -6229,7 +6229,7 @@ RulesMenu_19CD:
         add esp, byte 4
         push dword [dword ebp-0FEh]
         call FreeBitmap
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         test byte [byte eax+01h], 10h
         je near .58
@@ -6384,7 +6384,7 @@ RulesMenu_1C04:
         add esp, byte 4
         push dword [dword ebp-0F2h]
         call FreeBitmap
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         test byte [byte eax+02h], 2
         je short .62
@@ -6490,7 +6490,7 @@ RulesMenu_1D78:
         call FreeBitmap
         fld dword [byte ebp+066h]
         fmul dword [F32_85]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         fstp dword [byte ebp+02Ah]
         test byte [byte eax+01h], 0C0h
@@ -6607,7 +6607,7 @@ RulesMenu_1F1F:
         call FreeBitmap
         fld dword [byte ebp+066h]
         fmul dword [F32_100_RulesMenu]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         fstp dword [byte ebp-062h]
         test byte [byte eax+02h], 1
@@ -6692,7 +6692,7 @@ RulesMenu_2056:
         call FreeBitmap
         fld dword [byte ebp+066h]
         fmul dword [F32_115]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         fstp dword [byte ebp+01Ah]
         test byte [byte eax+02h], 4
@@ -6775,14 +6775,14 @@ RulesMenu_218D:
         add esp, byte 4
         push dword [dword ebp-0C2h]
         call FreeBitmap
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         and edx, byte 7
         inc edx
         and byte [byte eax+01h], 0F8h
         and edx, byte 7
         or dword [byte eax+01h], edx
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         and edx, byte 7
         add esp, byte 4
@@ -6790,7 +6790,7 @@ RulesMenu_218D:
         jbe short .74
         and byte [byte eax+01h], 0F8h
 .74:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, byte 7
         imul eax, byte 14h
@@ -6871,7 +6871,7 @@ RulesMenu_22F1:
         call FreeBitmap
         fld dword [byte ebp+066h]
         fmul dword [F32_145]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         fstp dword [byte ebp+016h]
         test byte [byte eax+02h], 20h
@@ -8775,40 +8775,40 @@ DetailLevelMenu_17B7:
         xor eax, eax
 .41:
         and eax, byte 1
-        and byte [byte_1AC81B], 0DFh
+        and byte [MusicOptions], 0DFh
         shl eax, 15h
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         mov eax, dword [dword_16AF44]
         and eax, byte 1
-        and byte [byte_1AC81B], 0BFh
+        and byte [MusicOptions], 0BFh
         shl eax, 16h
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         mov eax, dword [dword_16AF40]
         and eax, byte 1
-        and byte [byte_1AC81C], 0FEh
+        and byte [DetailLevel], 0FEh
         shl eax, 18h
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         mov eax, dword [dword_16AF3C]
         and eax, byte 1
-        and byte [byte_1AC81C], 0FDh
+        and byte [DetailLevel], 0FDh
         shl eax, 19h
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         mov eax, dword [dword_16AF48]
         and eax, byte 1
-        and byte [byte_1AC81C], 0FBh
+        and byte [DetailLevel], 0FBh
         shl eax, 1Ah
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         mov eax, dword [dword_1B8578]
         and eax, byte 1
-        and byte [byte_1AC81C], 0F7h
+        and byte [DetailLevel], 0F7h
         shl eax, 1Bh
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         mov eax, dword [dword_16AF58]
         and eax, byte 1
-        and byte [byte_1AC81C], 0DFh
+        and byte [DetailLevel], 0DFh
         shl eax, 1Dh
         mov dword [byte ebp+07Eh], 1
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         jmp near DetailLevelMenu_E31.29
 .42:
         call RedrawGameView

@@ -10,16 +10,16 @@ extern str_C100, str_C200, str_C201, str_C210, str_C211, str_C300, str_C301, str
 extern str_C303, str_C310, str_C311, str_C312, str_C313, str_C320, str_C321, str_C322
 extern str_C323, str_C330, str_C331, str_C332, str_C333, str_GLASS, str_ArenaViv2, str_Zamtrack
 extern str_Netback, str_Netfrnt, str_BlogoDC, str_L02da, str_L02db, str_L02dc, str_L02dC, IdentityRemap
-extern MusicTrackTable, StartupFlag, byte_1AC81A, byte_1AC81B, byte_1AC948, byte_1AC95B, byte_1AEDED, byte_1AEDEE
+extern MusicTrackTable, StartupFlag, SfxOptions, MusicOptions, GlobalSetName, GlobalSetPad, byte_1AEDED, byte_1AEDEE
 extern byte_1AEDEF, F32_neg4264, F32_neg2040, F32_65536_ScaleLineWidth, F32_65536_InitRinkView, F32_600, F32_6_BuildRinkGeometry, F32_10_BuildRinkGeometry
-extern F32_14, F32_4, F32_8, dword_1691A8, dword_1691AC, dword_1691AE, dword_1691B0, dword_1691B8
-extern dword_1691BC, dword_1691C0, dword_1691C4, dword_1691C8, dword_1691CC, dword_1691D0, dword_1691D4, dword_1691D8
-extern dword_1691E0, dword_169224, dword_169228, dword_16922C, dword_169230, dword_169250, dword_169254, dword_169258
+extern F32_14, F32_4, F32_8, MusicState, MusicTrack, MusicNextTrack, MusicRestart, MusicPaused
+extern MusicTime, MusicStreamPos, MusicVolumeLevel, BackgroundAudioTick, MusicFeedCount, MusicStartTime, MusicLength, MusicHandle
+extern MusicBuffer, MusicReady, CrowdNoiseLevel, AmbientVolume, MusicVolumeWord, dword_169250, dword_169254, dword_169258
 extern dword_169264, dword_169278, dword_16927A, dword_16927C, dword_16927E, dword_169280, dword_169844, dword_1698AF
 extern dword_169996, dword_16AEB4, dword_16AF30, dword_16AF34, dword_16AF38, dword_16AF3C, dword_16AF48, dword_16AF54
 extern dword_16AF68, dword_16B164, dword_16B168, dword_16DA9C, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, F32_1p0_View
 extern RinkLineWidth, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, CameraFlags, SinTable, SpeechStreamBuf
-extern SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd, GlobalSetData, GameSettings, dword_1AC819, dword_1AC944, dword_1AD748
+extern SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd, GlobalSetData, GameSettings, AudioOptions, GameOptionFlags, dword_1AD748
 extern dword_1ADBF8, dword_1ADC70, dword_1ADC74, dword_1ADC78, dword_1ADC7C, dword_1ADC80, dword_1ADC84, dword_1ADC88
 extern dword_1ADC8C, dword_1ADC90, dword_1ADC94, dword_1ADC98, dword_1ADC9C, dword_1ADCA8, dword_1ADCB8, dword_1ADCC0
 extern dword_1ADCC8, dword_1ADCD0, dword_1ADCD8, dword_1ADCE4, dword_1ADCE8, dword_1ADCF4, dword_1ADD00, dword_1ADD0C
@@ -84,7 +84,7 @@ extern WaitTicks, OpenResourceArchive, CurrentArchiveName, MatchColor, SelectFon
 extern IntsToFloats, FloatsToInts, ScaleFloatsToInts, VecMulMat, TransformVecs, VecAdd, AddVecs, VecDistance
 extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, str_Punct_MakeDataPath
 extern unk_169848, unk_1698A2, str_X_SetArtArchive, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144
-extern unk_16B16C, DebugTagStr, DataFilePath, unk_1AC95D, unk_1ACB44, unk_1AD7C0, unk_1ADCA0, unk_1ADD38
+extern unk_16B16C, DebugTagStr, DataFilePath, LinkSettings, GlobalSetVersion, unk_1AD7C0, unk_1ADCA0, unk_1ADD38
 extern unk_1ADD40, unk_1ADD58, unk_1ADD60, unk_1ADD78, unk_1ADDE4, unk_1ADEF8, unk_1ADF38, unk_1ADFF8
 extern unk_1AE028, unk_1AE058, unk_1AE0B8, unk_1AE118, unk_1AE278, unk_1AE588, unk_1AE688, unk_1AE6D0
 extern unk_1AE748, unk_1AE7C0, unk_1AE808, unk_1AE850, unk_1AE8B0, unk_1AE910, unk_1AE9B8, unk_1AE9E8
@@ -92,7 +92,7 @@ extern unk_1AEA30, unk_1AEA60, unk_1AEB08, unk_1AEB50, unk_1AEB98, unk_1AEC40, u
 extern unk_1AEDD8, unk_1AEDF0, unk_1AEE08, unk_1AEEA8, unk_1AF340, unk_1AF450, unk_1B0078, unk_1B0410
 extern unk_1B0510, unk_1B0970, unk_1B0AA8, unk_1B0AD0, unk_1B0B3C, unk_1B0BA0, unk_1B0C0C, unk_1B0C84
 extern unk_1B0CF0, unk_1B0F14, unk_1B0F28, unk_1B0FA4, unk_1B0FC0, unk_1B1068, unk_1B10FC, unk_1B92AB
-extern ModelSlots, vecdist, word_1691A4, word_1691B2, word_1691B4, word_1691B6, word_169282, word_169284
+extern ModelSlots, vecdist, SfxBankLoaded, MusicBlock, MusicBlockCount, MusicStopRequest, word_169282, word_169284
 extern word_1B0B62
 global jpt_4A73C, jpt_4AD42, jpt_4AE54, jpt_4B8CC, jpt_52484, PaEvent_4D6, PaEvent_4EC, PaEvent_502
 global PaEvent_518, PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E
@@ -134,7 +134,7 @@ PaEvent:
         push edi
         push ebp
         sub esp, byte 40h
-        test byte [byte_1AC81B], 2
+        test byte [MusicOptions], 2
         je near PaEvent_14CD
         cmp dword [dword_169254], byte 1
         jl near PaEvent_14CD
@@ -2129,13 +2129,13 @@ PlayScreenMovie:
         mov ebx, eax
         mov ecx, edx
         call WaitMusicEnd
-        mov dx, word [word_1691A4]
+        mov dx, word [SfxBankLoaded]
         xor esi, esi
         test dx, dx
         je short .2
-        test byte [byte_1AC81A], 2
+        test byte [SfxOptions], 2
         jne short .1
-        test byte [dword_1AC819], 2
+        test byte [AudioOptions], 2
         je short .2
 .1:
         mov esi, 1
@@ -2146,7 +2146,7 @@ PlayScreenMovie:
         mov ebx, 25AEEh
         push esi
         lea eax, [byte esp+04h]
-        mov edx, dword [dword_1691BC]
+        mov edx, dword [MusicTime]
         call PlayMovie
         add esp, byte 50h
         pop esi
@@ -2167,106 +2167,106 @@ CloseMusicStream:
         push esi
         push edi
         push ebp
-        mov edx, dword [dword_1691C0]
+        mov edx, dword [MusicStreamPos]
         push edx
         xor ebx, ebx
         call delstream
         mov ecx, 0FFFFFFFFh
-        mov edi, dword [dword_1691B8]
+        mov edi, dword [MusicPaused]
         add esp, byte 4
-        mov dword [dword_1691C0], ebx
-        mov dword [dword_1691E0], ebx
-        mov dword [dword_1691C4], ecx
+        mov dword [MusicStreamPos], ebx
+        mov dword [MusicBuffer], ebx
+        mov dword [MusicVolumeLevel], ecx
         test edi, edi
         jne short .1
-        mov eax, dword [word_1691B2]
+        mov eax, dword [MusicBlock]
         sar eax, 10h
         lea edx, [nosplit eax*4+00h]
         add edx, eax
         shl edx, 4
         xor ah, ah
-        mov bx, word [word_1691B6]
+        mov bx, word [MusicStopRequest]
         mov byte [dword edx+MusicTrackTable], ah
-        mov edx, dword [dword_1691AE]
+        mov edx, dword [MusicNextTrack]
         dec ebx
         sar edx, 10h
-        mov word [word_1691B6], bx
+        mov word [MusicStopRequest], bx
         inc edx
         mov ebx, 4
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov word [dword_1691B0], dx
+        mov word [MusicRestart], dx
 .1:
-        mov edx, dword [word_1691B2]
+        mov edx, dword [MusicBlock]
         sar edx, 10h
         inc edx
         mov ebx, 4
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov cx, word [word_1691B2]
-        mov word [word_1691B4], dx
+        mov cx, word [MusicBlock]
+        mov word [MusicBlockCount], dx
         cmp dx, cx
         jne short .2
-        cmp dword [dword_1691B8], byte 0
+        cmp dword [MusicPaused], byte 0
         je short .2
-        mov ax, word [dword_1691B0]
-        mov word [word_1691B4], ax
+        mov ax, word [MusicRestart]
+        mov word [MusicBlockCount], ax
 .2:
-        cmp dword [dword_1691D0], byte 0
+        cmp dword [MusicStartTime], byte 0
         je near .8
-        mov eax, dword [dword_1691B0]
-        mov edx, dword [dword_1691D8]
+        mov eax, dword [MusicRestart]
+        mov edx, dword [MusicHandle]
         sar eax, 10h
         cmp eax, edx
         jne short .4
-        cmp dword [dword_1691B8], byte 0
+        cmp dword [MusicPaused], byte 0
         je short .3
-        mov ax, word [dword_1691B0]
-        mov word [word_1691B4], ax
+        mov ax, word [MusicRestart]
+        mov word [MusicBlockCount], ax
         jmp near .7
 .3:
-        mov ax, word [word_1691B2]
+        mov ax, word [MusicBlock]
         xor esi, esi
-        mov word [word_1691B4], ax
-        mov word [dword_1691B0], ax
-        mov word [word_1691B6], si
+        mov word [MusicBlockCount], ax
+        mov word [MusicRestart], ax
+        mov word [MusicStopRequest], si
         jmp short .7
 .4:
         cmp edx, byte 0FFFFFFFFh
         je short .7
         mov ecx, 4
-        mov ax, word [dword_1691B0]
-        mov ebx, dword [word_1691B2]
-        mov di, word [word_1691B2]
-        mov esi, dword [dword_1691D8]
-        mov word [word_1691B4], ax
+        mov ax, word [MusicRestart]
+        mov ebx, dword [MusicBlock]
+        mov di, word [MusicBlock]
+        mov esi, dword [MusicHandle]
+        mov word [MusicBlockCount], ax
         sar ebx, 10h
 .5:
-        mov edx, dword [word_1691B2]
+        mov edx, dword [MusicBlock]
         sar edx, 10h
         cmp edx, esi
         je short .6
-        cmp di, word [word_1691B4]
+        cmp di, word [MusicBlockCount]
         je short .6
         inc edx
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
-        mov word [word_1691B4], dx
+        mov word [MusicBlockCount], dx
         jmp short .5
 .6:
-        mov dx, word [word_1691B2]
-        cmp dx, word [word_1691B4]
+        mov dx, word [MusicBlock]
+        cmp dx, word [MusicBlockCount]
         jne short .7
-        mov word [word_1691B4], bx
+        mov word [MusicBlockCount], bx
 .7:
         xor edi, edi
-        mov dword [dword_1691D0], edi
+        mov dword [MusicStartTime], edi
 .8:
         xor ebp, ebp
-        mov dword [dword_1691D4], ebp
+        mov dword [MusicLength], ebp
         pop ebp
         pop edi
         pop esi
@@ -2284,12 +2284,12 @@ PumpMusicStream:
         call __CHK
         push ecx
         push edx
-        cmp dword [dword_1691C0], byte 0
+        cmp dword [MusicStreamPos], byte 0
         je short .1
         call CdStreamService
-        cmp dword [dword_1691E0], byte 0
+        cmp dword [MusicBuffer], byte 0
         je short .1
-        mov ecx, dword [dword_1691C0]
+        mov ecx, dword [MusicStreamPos]
         push ecx
         call CdStreamNextPacket
         add esp, byte 4
@@ -2321,29 +2321,29 @@ FeedMusicStream:
         push esi
         push edi
         push ebp
-        cmp dword [dword_1691BC], byte 0
+        cmp dword [MusicTime], byte 0
         je near FeedMusicStream_277.14
-        mov eax, dword [dword_1691A8]
+        mov eax, dword [MusicState]
         dec eax
         cmp eax, byte 3
         ja near FeedMusicStream_277.14
         jmp dword [nosplit cs:eax*4+jpt_4A73C]
 FeedMusicStream_34:
-        cmp word [word_1691B6], byte 0
+        cmp word [MusicStopRequest], byte 0
         jne short FeedMusicStream_4B
         xor edx, edx
-        mov dword [dword_1691CC], edx
+        mov dword [MusicFeedCount], edx
         jmp near FeedMusicStream_277.14
 FeedMusicStream_4B:
         push dword 800h
         push dword 25B7Eh
-        mov ecx, dword [dword_1691BC]
+        mov ecx, dword [MusicTime]
         push ecx
         call OpenStreamBuffer
-        mov ebx, dword [word_1691B2]
+        mov ebx, dword [MusicBlock]
         mov edx, eax
         sar ebx, 10h
-        mov dword [dword_1691C0], eax
+        mov dword [MusicStreamPos], eax
         lea eax, [nosplit ebx*4+00h]
         add eax, ebx
         shl eax, 4
@@ -2355,21 +2355,21 @@ FeedMusicStream_4B:
         add esp, byte 8
         test eax, eax
         jne short .3
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .1
         xor edi, edi
-        mov dword [dword_1691B8], edi
+        mov dword [MusicPaused], edi
 .1:
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .2
-        mov eax, dword [dword_1691B0]
+        mov eax, dword [MusicRestart]
         mov ebp, 1
         sar eax, 10h
-        mov dword [dword_1691D0], ebp
-        mov dword [dword_1691D8], eax
+        mov dword [MusicStartTime], ebp
+        mov dword [MusicHandle], eax
 .2:
         call CloseMusicStream
-        mov dword [dword_1691A8], 1
+        mov dword [MusicState], 1
         pop ebp
         pop edi
         pop esi
@@ -2378,21 +2378,21 @@ FeedMusicStream_4B:
         pop ebx
         ret
 .3:
-        cmp dword [dword_1691CC], byte 0
+        cmp dword [MusicFeedCount], byte 0
         je short .4
-        mov dword [dword_1691AC], 1
+        mov dword [MusicTrack], 1
 .4:
         mov eax, 1
         mov ebp, 3
-        mov dword [dword_1691CC], eax
-        mov dword [dword_1691A8], ebp
+        mov dword [MusicFeedCount], eax
+        mov dword [MusicState], ebp
 FeedMusicStream_105:
-        cmp dword [dword_1691C0], byte 0
+        cmp dword [MusicStreamPos], byte 0
         je short .5
         call CdStreamService
-        cmp dword [dword_1691E0], byte 0
+        cmp dword [MusicBuffer], byte 0
         je short .5
-        mov ecx, dword [dword_1691C0]
+        mov ecx, dword [MusicStreamPos]
         push ecx
         call CdStreamNextPacket
         add esp, byte 4
@@ -2402,9 +2402,9 @@ FeedMusicStream_105:
         je short .5
         call FeedAudioStream
 .5:
-        cmp dword [dword_1691AC], byte 0
+        cmp dword [MusicTrack], byte 0
         je near FeedMusicStream_277.14
-        mov edi, dword [dword_1691C0]
+        mov edi, dword [MusicStreamPos]
         push edi
         call StreamBufferFree
         add esp, byte 4
@@ -2414,26 +2414,26 @@ FeedMusicStream_105:
         mov ecx, 25AEEh
         mov ebx, 0C8h
         mov edx, 3
-        mov eax, dword [dword_1691C0]
+        mov eax, dword [MusicStreamPos]
         call OpenAudioStreamChannel
         test eax, eax
         jg short .8
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .6
         xor ebx, ebx
-        mov dword [dword_1691B8], ebx
+        mov dword [MusicPaused], ebx
 .6:
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .7
-        mov eax, dword [dword_1691B0]
+        mov eax, dword [MusicRestart]
         mov ecx, 1
         sar eax, 10h
-        mov dword [dword_1691D0], ecx
-        mov dword [dword_1691D8], eax
+        mov dword [MusicStartTime], ecx
+        mov dword [MusicHandle], eax
 .7:
         mov esi, 1
         call CloseMusicStream
-        mov dword [dword_1691A8], esi
+        mov dword [MusicState], esi
         pop ebp
         pop edi
         pop esi
@@ -2444,30 +2444,30 @@ FeedMusicStream_105:
 .8:
         mov ebp, 1
         mov eax, 0Fh
-        mov dword [dword_1691E0], ebp
+        mov dword [MusicBuffer], ebp
         call CloseAudioStreamChannel
-        mov dword [dword_1691C4], eax
+        mov dword [MusicVolumeLevel], eax
         test eax, eax
         jge short .11
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .9
         xor edi, edi
-        mov dword [dword_1691B8], edi
+        mov dword [MusicPaused], edi
 .9:
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .10
-        mov eax, dword [dword_1691B0]
+        mov eax, dword [MusicRestart]
         mov ebp, 1
         sar eax, 10h
-        mov dword [dword_1691D0], ebp
-        mov dword [dword_1691D8], eax
+        mov dword [MusicStartTime], ebp
+        mov dword [MusicHandle], eax
 .10:
         call FlushAudioStream
         call CloseMusicStream
         xor eax, eax
         mov edx, 1
-        mov dword [dword_1691CC], eax
-        mov dword [dword_1691A8], edx
+        mov dword [MusicFeedCount], eax
+        mov dword [MusicState], edx
         pop ebp
         pop edi
         pop esi
@@ -2476,15 +2476,15 @@ FeedMusicStream_105:
         pop ebx
         ret
 .11:
-        mov dword [dword_1691A8], 4
-        mov edx, dword [dword_169230]
+        mov dword [MusicState], 4
+        mov edx, dword [MusicVolumeWord]
         mov ecx, 0FFFFFFFFh
         sar edx, 10h
         xor ebx, ebx
         call SetMusicStreamVolume
-        mov dword [dword_1691D0], ebx
-        mov dword [dword_1691D8], ecx
-        mov dword [dword_1691D4], ebx
+        mov dword [MusicStartTime], ebx
+        mov dword [MusicHandle], ecx
+        mov dword [MusicLength], ebx
         pop ebp
         pop edi
         pop esi
@@ -2494,14 +2494,14 @@ FeedMusicStream_105:
         ret
 FeedMusicStream_277:
         xor ebx, ebx
-        mov ecx, dword [dword_1691C0]
-        mov dword [dword_1691AC], ebx
+        mov ecx, dword [MusicStreamPos]
+        mov dword [MusicTrack], ebx
         test ecx, ecx
         je short .12
         call CdStreamService
-        cmp dword [dword_1691E0], byte 0
+        cmp dword [MusicBuffer], byte 0
         je short .12
-        mov edi, dword [dword_1691C0]
+        mov edi, dword [MusicStreamPos]
         push edi
         call CdStreamNextPacket
         add esp, byte 4
@@ -2511,11 +2511,11 @@ FeedMusicStream_277:
         je short .12
         call FeedAudioStream
 .12:
-        mov eax, dword [dword_1691C4]
+        mov eax, dword [MusicVolumeLevel]
         call ChannelPlaying
         test eax, eax
         je short .13
-        mov eax, dword [dword_1691C4]
+        mov eax, dword [MusicVolumeLevel]
         call StopChannel
         push byte 1
         call WaitTicks
@@ -2523,7 +2523,7 @@ FeedMusicStream_277:
         mov ebx, 1
         call FlushAudioStream
         call CloseMusicStream
-        mov dword [dword_1691A8], ebx
+        mov dword [MusicState], ebx
         pop ebp
         pop edi
         pop esi
@@ -2532,15 +2532,15 @@ FeedMusicStream_277:
         pop ebx
         ret
 .13:
-        cmp dword [dword_1691D4], byte 0
+        cmp dword [MusicLength], byte 0
         jne short .14
-        cmp dword [dword_1691D0], byte 0
+        cmp dword [MusicStartTime], byte 0
         je short .14
         mov ebx, 0FFFFFFFFh
         mov edx, 32h
-        mov eax, dword [dword_1691C4]
+        mov eax, dword [MusicVolumeLevel]
         call SetChannelVolumeChecked
-        mov dword [dword_1691D4], 1
+        mov dword [MusicLength], 1
 .14:
         pop ebp
         pop edi
@@ -2560,7 +2560,7 @@ ServiceBackgroundAudio:
         push ebx
         push esi
         push edi
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         jne short .1
         xor eax, eax
         pop edi
@@ -2587,13 +2587,13 @@ ServiceBackgroundAudio:
         je short .5
         cmp dword [dword_169254], byte 2
         jne short .4
-        cmp dword [dword_1691CC], byte 0
+        cmp dword [MusicFeedCount], byte 0
         jne short .5
 .4:
         call ServiceSpeechStream
 .5:
         mov eax, dword [tickcount]
-        mov edx, dword [dword_1691C8]
+        mov edx, dword [BackgroundAudioTick]
         inc edx
         cmp eax, edx
         jge short .6
@@ -2605,26 +2605,26 @@ ServiceBackgroundAudio:
         pop ebx
         ret
 .6:
-        mov dword [dword_1691C8], eax
+        mov dword [BackgroundAudioTick], eax
         cmp dword [dword_169250], byte 0
         je short .7
         call PlayQueuedSpeech
 .7:
-        cmp dword [dword_169224], byte 0
+        cmp dword [MusicReady], byte 0
         je short .10
-        mov ebx, dword [dword_16922C]
-        mov eax, dword [dword_169228]
+        mov ebx, dword [AmbientVolume]
+        mov eax, dword [CrowdNoiseLevel]
         cmp eax, ebx
         je short .10
         jge short .8
         lea edi, [byte eax+03h]
-        mov dword [dword_169228], edi
+        mov dword [CrowdNoiseLevel], edi
         jmp short .9
 .8:
         lea esi, [byte eax-03h]
-        mov dword [dword_169228], esi
+        mov dword [CrowdNoiseLevel], esi
 .9:
-        mov eax, dword [dword_169228]
+        mov eax, dword [CrowdNoiseLevel]
         call SetSpeechVolume
 .10:
         cmp dword [dword_169254], byte 2
@@ -3397,9 +3397,9 @@ LoadStartupData:
         push esi
         enter 38h, 0
         call DetectCPU
-        mov byte [byte_1AC948], 0
-        mov dword [dword_16AEB4], byte_1AC948
-        mov dword [dword_1AC944], unk_1ACB44
+        mov byte [GlobalSetName], 0
+        mov dword [dword_16AEB4], GlobalSetName
+        mov dword [GameOptionFlags], GlobalSetVersion
         mov edx, 1
         lea eax, [byte ebp-038h]
         lea ebx, [byte ebp-04h]
@@ -3430,20 +3430,20 @@ LoadStartupData:
         jne short .4
         cmp byte [StartupFlag], 0
         jne short .3
-        and dword [dword_1AC819], 0FFE9FFFDh
+        and dword [AudioOptions], 0FFE9FFFDh
 .3:
         mov ebx, 14h
         lea esi, [dword ecx+0130h]
-        mov eax, byte_1AC948
+        mov eax, GlobalSetName
         mov edx, esi
         call strncpy_
-        mov eax, byte_1AC948
-        mov byte [byte_1AC95B], 0
+        mov eax, GlobalSetName
+        mov byte [GlobalSetPad], 0
         call strlen_
         inc eax
         mov ebx, 1E7h
         lea edx, [esi+eax]
-        mov eax, unk_1ACB44
+        mov eax, GlobalSetVersion
         mov esi, 1
         call memcpy_
 .4:
@@ -3487,11 +3487,11 @@ WriteGlobalSet:
         add esp, byte 0Ch
         test eax, eax
         je short .4
-        mov eax, byte_1AC948
+        mov eax, GlobalSetName
         call strlen_
         inc eax
         push eax
-        push byte_1AC948
+        push GlobalSetName
         push dword [byte ebp-04h]
         call DosWriteFile
         add esp, byte 0Ch
@@ -3504,11 +3504,11 @@ WriteGlobalSet:
         je short .2
 .1:
         push dword 1E7h
-        push unk_1ACB44
+        push GlobalSetVersion
         jmp short .3
 .2:
         push dword 1E7h
-        push unk_1AC95D
+        push LinkSettings
 .3:
         push dword [byte ebp-04h]
         call DosWriteFile

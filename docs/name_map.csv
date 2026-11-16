@@ -3767,7 +3767,10 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 160210,str_CHASE,asc_160210,new,high,"string ""CHASE""",src/data/engine/engine_15AC2_data_01.asm
 160218,str_OFFST,unk_160218,new,high,"string ""OFFST""",src/data/engine/engine_15AC2_data_01.asm
 160220,str_RELTV,unk_160220,new,high,"string ""RELTV""",src/data/engine/engine_15AC2_data_01.asm
+160228,CamTagNone,unk_160228,new,low,"""NONE"" camera tag",src/data/engine/engine_15AC2_data_01.asm
 160230,str_PUCK,unk_160230,new,high,"string ""PUCK """,src/data/engine/engine_15AC2_data_01.asm
+160238,CamTagNet0,unk_160238,new,low,"""NET0"" camera tag (first net)",src/data/engine/engine_15AC2_data_01.asm
+160240,CamTagNet1,unk_160240,new,low,"""NET1"" camera tag (second net)",src/data/engine/engine_15AC2_data_01.asm
 160248,str_PLYR0,unk_160248,new,high,"string ""PLYR0""",src/data/engine/engine_15AC2_data_01.asm
 160250,str_SCORE,unk_160250,new,high,"string ""SCORE""",src/data/engine/engine_15AC2_data_01.asm
 160258,str_USER,unk_160258,new,high,"string ""USER """,src/data/engine/engine_15AC2_data_01.asm
@@ -4122,6 +4125,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 160B48,str_MEGAHIST,asc_160B48,new,high,"string ""MEGAHIST""",src/data/engine/engine_3812E_data_01.asm
 160B54,str_CDSTREAM,,96PC,high,NHL96PC 11061C (string): 'CDSTREAM',
 160B60,str_STREAM,,96PC,high,NHL96PC 110682 (string): 'STREAM',
+160B68,StreamReadBuf,unk_160B68,new,low,stream read buffer,src/data/engine/engine_3812E_data_01.asm
 160B6C,str_SECCDSTREAM,,96PC,high,NHL96PC 1106A7 (string): 'SECCDSTREAM',
 160B78,str_GLOBAL,unk_160B78,new,high,"string ""GLOBAL""",src/data/engine/engine_3812E_data_01.asm
 160B80,str_FRONT1,unk_160B80,new,high,"string ""FRONT1""",src/data/engine/engine_3812E_data_01.asm
@@ -4149,6 +4153,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 160C60,str_Right,unk_160C60,new,high,"string ""Right""",src/data/engine/engine_3812E_data_01.asm
 160C68,str_Left,unk_160C68,new,high,"string ""Left""",src/data/engine/engine_3812E_data_01.asm
 160C70,str_PointBlank,unk_160C70,new,high,"string ""PointBlank""",src/data/engine/engine_3812E_data_01.asm
+160C7C,str_NetExt,unk_160C7C,new,low,"""net"" extension",src/data/engine/engine_3812E_data_01.asm
 160C80,str_EndBoards,unk_160C80,new,high,"string ""endBoards""",src/data/engine/engine_3812E_data_01.asm
 160C8C,str_ERROR,unk_160C8C,new,high,"string ""ERROR""",src/data/engine/engine_3812E_data_01.asm
 160C94,str_16,unk_160C94,new,high,"string ""16""",src/data/engine/engine_3812E_data_01.asm
@@ -7510,11 +7515,25 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 168574,LinePlayerOrder,unk_168574,new,low,line player order,src/data/lib/watcom/watcom_clib_31_data_01.asm
 168628,CameraSceneId,dword_168628,new,low,camera scene being played (-1 none),src/data/lib/watcom/watcom_clib_31_data_01.asm
 16862C,ScoreClockShown,dword_16862C,new,low,score clock visible,src/data/lib/watcom/watcom_clib_31_data_01.asm
+16862E,GameEventTable,dword_16862E,new,low,game event table,src/data/engine/faceoff_data_01.asm
+168630,GameEventFlags,dword_168630,new,low,game event flags,src/data/engine/faceoff_data_01.asm
+1686BA,SavedCameraView,dword_1686BA,new,low,camera view saved for replays,src/data/engine/faceoff_data_01.asm
+1686BC,CameraViewKey,word_1686BC,new,low,camera view key,src/data/engine/faceoff_data_01.asm
+1686C0,ClockShown,dword_1686C0,new,low,clock shown,src/data/engine/faceoff_data_01.asm
 1686C4,F32_62,dword_1686C4,new,high,float constant 62,src/data/engine/faceoff_data_01.asm
 1686C8,F32_54,dword_1686C8,new,high,float constant 54,src/data/engine/faceoff_data_01.asm
 1686CC,F32_0p8,dword_1686CC,new,high,float constant 0.8000000119,src/data/engine/faceoff_data_01.asm
+1686D0,F32_ReachFactor,dword_1686D0,new,low,player reach factor,src/data/engine/faceoff_data_01.asm
+1686D2,PenaltyPanelIds,dword_1686D2,new,low,text id per penalty panel,src/data/engine/faceoff_data_01.asm
+1686D4,DebugUnlockCount,word_1686D4,new,low,debug unlock key count,src/data/engine/faceoff_data_01.asm
+1686D6,ForcePenaltyCall,word_1686D6,new,low,debug key: the next penalty chance is always called,src/data/engine/faceoff_data_01.asm
+1686D8,DebugModelRefresh,word_1686D8,new,low,debug model refresh,src/data/engine/faceoff_data_01.asm
+1686DA,DebugModelIndex,word_1686DA,new,low,debug model index,src/data/engine/faceoff_data_01.asm
+1686DC,OpeningFrames,dword_1686DC,new,low,opening frames,src/data/engine/faceoff_data_01.asm
 1686E0,InGameMenuRequest,dword_1686E0,96PC,high,96 PC InGameMenuRequest,src/data/engine/faceoff_data_01.asm
+1686E2,BrightnessLevel,dword_1686E2,new,low,brightness level,src/data/engine/faceoff_data_01.asm
 1686E4,str_D_ChangeViewSize,word_1686E4,new,high,"string ""d""",src/data/engine/faceoff_data_01.asm
+1686E6,MessagePanelIds,dword_1686E6,new,low,text id per message panel,src/data/engine/faceoff_data_01.asm
 16875E,PenaltyNameIds,dword_16875E,new,low,text id per penalty type,src/data/engine/engine_15AC2_data_02.asm
 168772,OverlayPanelFuncs,off_168772,new,low,draw routine per overlay panel,src/data/engine/engine_15AC2_data_02.asm
 16877E,ClockPanelFunc,off_16877E,new,low,clock panel draw routine,src/data/engine/engine_15AC2_data_02.asm
@@ -7548,13 +7567,89 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 168B14,IntroLineCount,dword_168B14,new,low,intro line-up step,src/data/engine/engine_25894_data_02.asm
 168B18,ShotTargetX,dword_168B18,new,low,shot target X,src/data/engine/engine_25894_data_02.asm
 168B1C,ShotTargetY,dword_168B1C,new,low,shot target Y,src/data/engine/engine_25894_data_02.asm
+168B60,LineSlotPositions,byte_168B60,new,low,position per line slot,src/data/engine/faceoff_2_data_02.asm
+168B66,LineReplaceOrder,dword_168B66,new,low,line replacement order,src/data/engine/faceoff_2_data_02.asm
+168B69,LineSlotOffsets,byte_168B69,new,low,offset per line slot,src/data/engine/faceoff_2_data_02.asm
+168C04,LineReplaceTable,byte_168C04,new,low,line replacement table,src/data/engine/faceoff_2_data_02.asm
+168C38,ResetPlayerSpots,unk_168C38,new,low,player spots used by ResetPlayers,src/data/engine/faceoff_2_data_02.asm
+168CD8,PtrPuckTarget,off_168CD8,new,low,pointer to the puck target record,src/data/engine/faceoff_2_data_02.asm
+168CE0,PtrPuckState,off_168CE0,new,low,pointer to the puck state record,src/data/engine/faceoff_2_data_02.asm
+168CE8,PtrPuckOwner,off_168CE8,new,low,pointer to the puck owner record,src/data/engine/faceoff_2_data_02.asm
+168CEC,PtrPuckMotion,off_168CEC,new,low,pointer to the puck motion record,src/data/engine/faceoff_2_data_02.asm
+168CF0,PtrPuckZone,off_168CF0,new,low,pointer to the puck zone record,src/data/engine/faceoff_2_data_02.asm
+168CFC,PtrPuckFlags,off_168CFC,new,low,pointer to the puck flags,src/data/engine/faceoff_2_data_02.asm
+168D04,PtrPuckObject,off_168D04,new,low,pointer to the puck object,src/data/engine/faceoff_2_data_02.asm
+168D08,PtrHomeIce,off_168D08,new,low,pointer to the home players on the ice,src/data/engine/faceoff_2_data_02.asm
+168D0C,PtrAwayIce,off_168D0C,new,low,pointer to the away players on the ice,src/data/engine/faceoff_2_data_02.asm
+168D18,PeriodLengths,word_168D18,new,low,period length per setting,src/data/engine/faceoff_2_data_02.asm
+168D20,PenaltyMinutes,dword_168D20,new,low,minutes per penalty type,src/data/engine/faceoff_2_data_02.asm
+168D8E,PenaltyFlags,dword_168D8E,new,low,flags per penalty type,src/data/engine/faceoff_2_data_02.asm
+168DA4,PenaltyPaCodes,dword_168DA4,new,low,announcer code per penalty type,src/data/engine/faceoff_2_data_02.asm
+168DCC,PenaltyTypes,dword_168DCC,new,low,penalty type records,src/data/engine/faceoff_2_data_02.asm
+168E2C,ProgressTimes,word_168E2C,new,low,progress check times,src/data/engine/faceoff_2_data_02.asm
+168E2E,ProgressLimit,word_168E2E,new,low,progress check limit,src/data/engine/faceoff_2_data_02.asm
 168E34,str_Punct_InProgress,word_168E34,new,high,"string ""@""",src/data/engine/faceoff_2_data_02.asm
+168E50,SlotJoyMap,byte_168E50,new,low,joystick per control slot,src/data/engine/faceoff_2_data_02.asm
+168E60,LineChangeKeys,word_168E60,new,low,key per line change choice,src/data/engine/faceoff_2_data_02.asm
+168E70,PacketLinkOpen,dword_168E70,new,low,packet link open,src/data/engine/faceoff_2_data_02.asm
+168E74,PacketLinkMode,dword_168E74,new,low,packet link mode,src/data/engine/faceoff_2_data_02.asm
+168E7C,PacketSize,dword_168E7C,new,low,packet size (400),src/data/engine/faceoff_2_data_02.asm
+168E80,StandingsColumns,dword_168E80,new,low,standings columns,src/data/engine/faceoff_2_data_02.asm
+168F58,PlayoffColumns,dword_168F58,new,low,playoff table columns,src/data/engine/faceoff_2_data_02.asm
 1690AE,str_Punct_DrawSeasonGamePanel,word_1690AE,new,high,"string ""\t""",src/data/front/front_8E997_data_02.asm
+1690D2,SeasonPanelText,dword_1690D2,new,low,text id per season panel field,src/data/engine/engine_3812E_data_02.asm
+1690EE,MatchupLogoIds,dword_1690EE,new,low,logo per matchup,src/data/engine/engine_3812E_data_02.asm
 16910A,str_G_DrawLockedGame,dword_16910A,new,high,"string ""G""",src/data/engine/engine_3812E_data_02.asm
+169126,MatchupLogoPos,dword_169126,new,low,logo position per matchup,src/data/engine/engine_3812E_data_02.asm
 16913A,str_Punct_DrawLockedGame,dword_16913A,new,high,"string ""<""",src/data/engine/engine_3812E_data_02.asm
+16914E,SparkleTimer,word_16914E,new,low,sparkle animation timer,src/data/engine/engine_3812E_data_02.asm
 169150,str_O_FaceoffStanceMove,dword_169150,new,high,"string ""O""",src/data/engine/engine_3812E_data_02.asm
 16916C,str_C_FaceoffSwipeAnim,dword_16916C,new,high,"string ""C""",src/data/engine/engine_3812E_data_02.asm
 169178,str_U_FaceoffDrawAnim,dword_169178,new,high,"string ""U""",src/data/engine/engine_3812E_data_02.asm
+169180,ViewBorderColor,dword_169180,new,low,view border colour,src/data/engine/engine_3812E_data_02.asm
+169184,ViewBorderRows,dword_169184,new,low,view border rows,src/data/engine/engine_3812E_data_02.asm
+16918C,StreamBlockCount,dword_16918C,new,low,stream block count,src/data/engine/engine_3812E_data_02.asm
+169190,StreamBlockSize,dword_169190,new,low,stream block size,src/data/engine/engine_3812E_data_02.asm
+169194,StreamTimeout,dword_169194,new,low,stream timeout,src/data/engine/engine_3812E_data_02.asm
+1691A0,StreamState,dword_1691A0,new,low,stream state,src/data/engine/engine_3812E_data_02.asm
+1691A2,AudioStreamFlags,dword_1691A2,new,low,audio stream flags,src/data/engine/engine_3812E_data_02.asm
+1691A4,SfxBankLoaded,word_1691A4,new,low,sound effect bank loaded,src/data/engine/engine_3812E_data_02.asm
+1691A8,MusicState,dword_1691A8,new,low,music state,src/data/engine/engine_3812E_data_02.asm
+1691AC,MusicTrack,dword_1691AC,new,low,current music track,src/data/engine/engine_3812E_data_02.asm
+1691AE,MusicNextTrack,dword_1691AE,new,low,next music track,src/data/engine/engine_3812E_data_02.asm
+1691B0,MusicRestart,dword_1691B0,new,low,music restart request,src/data/engine/engine_3812E_data_02.asm
+1691B2,MusicBlock,word_1691B2,new,low,music block,src/data/engine/engine_3812E_data_02.asm
+1691B4,MusicBlockCount,word_1691B4,new,low,music block count,src/data/engine/engine_3812E_data_02.asm
+1691B6,MusicStopRequest,word_1691B6,new,low,music stop request,src/data/engine/engine_3812E_data_02.asm
+1691B8,MusicPaused,dword_1691B8,new,low,music paused,src/data/engine/engine_3812E_data_02.asm
+1691BC,MusicTime,dword_1691BC,new,low,music time,src/data/engine/engine_3812E_data_02.asm
+1691C0,MusicStreamPos,dword_1691C0,new,low,music stream position,src/data/engine/engine_3812E_data_02.asm
+1691C4,MusicVolumeLevel,dword_1691C4,new,low,music volume (-1 not set),src/data/engine/engine_3812E_data_02.asm
+1691C8,BackgroundAudioTick,dword_1691C8,new,low,background audio tick,src/data/engine/engine_3812E_data_02.asm
+1691CC,MusicFeedCount,dword_1691CC,new,low,music feed count,src/data/engine/engine_3812E_data_02.asm
+1691D0,MusicStartTime,dword_1691D0,new,low,music start time,src/data/engine/engine_3812E_data_02.asm
+1691D4,MusicLength,dword_1691D4,new,low,music length,src/data/engine/engine_3812E_data_02.asm
+1691D8,MusicHandle,dword_1691D8,new,low,music stream handle (-1 none),src/data/engine/engine_3812E_data_02.asm
+1691DC,AudioStreamChannel,byte_1691DC,new,low,audio stream channel,src/data/engine/engine_3812E_data_02.asm
+1691E0,MusicBuffer,dword_1691E0,new,low,music buffer,src/data/engine/engine_3812E_data_02.asm
+1691E4,SfxBankNameTable,off_1691E4,new,low,sound effect bank name table,src/data/engine/engine_3812E_data_02.asm
+1691F8,SfxGroupTable,off_1691F8,new,low,sound effect group table,src/data/engine/engine_3812E_data_02.asm
+1691FC,SfxBankRecords,dword_1691FC,new,low,sound effect bank records,src/data/engine/engine_3812E_data_02.asm
+169210,AudioInitDone,dword_169210,new,low,game audio set up,src/data/engine/engine_3812E_data_02.asm
+169214,SfxBankHandle,dword_169214,new,low,sound effect bank handle,src/data/engine/engine_3812E_data_02.asm
+169218,CrowdBankHandle,dword_169218,new,low,crowd sound bank handle,src/data/engine/engine_3812E_data_02.asm
+16921C,AmbientHandle,dword_16921C,new,low,ambient sound handle,src/data/engine/engine_3812E_data_02.asm
+169220,SfxReady,dword_169220,new,low,sound effects ready,src/data/engine/engine_3812E_data_02.asm
+169224,MusicReady,dword_169224,new,low,music ready,src/data/engine/engine_3812E_data_02.asm
+169228,CrowdNoiseLevel,dword_169228,new,low,crowd noise level,src/data/engine/engine_3812E_data_02.asm
+16922C,AmbientVolume,dword_16922C,new,low,ambient volume,src/data/engine/engine_3812E_data_02.asm
+16922E,SfxVolumeLevel,dword_16922E,new,low,sound effect volume,src/data/engine/engine_3812E_data_02.asm
+169230,MusicVolumeWord,dword_169230,new,low,music volume,src/data/engine/engine_3812E_data_02.asm
+169232,SfxVolumeScale,word_169232,new,low,sound effect volume scale,src/data/engine/engine_3812E_data_02.asm
+169234,SfxVolumeWord,word_169234,new,low,sound effect volume,src/data/engine/engine_3812E_data_02.asm
+169236,MusicVolumeScale,word_169236,new,low,music volume scale,src/data/engine/engine_3812E_data_02.asm
+169238,LastSfxPlayed,dword_169238,new,low,last sound effect played,src/data/engine/engine_3812E_data_02.asm
+16923C,SpeechBankBuffer,dword_16923C,new,low,speech bank buffer,src/data/engine/engine_3812E_data_02.asm
 16928C,F32_9600,dword_16928C,new,high,float constant 9600,src/data/front/front_45BEC_data_01.asm
 169290,F32_768_PositionSfx,dword_169290,new,high,float constant 768,src/data/front/front_45BEC_data_01.asm
 169989,str_X_SetArtArchive,unk_169989,new,high,"string ""x""",src/data/front/front_48D70_data_02.asm
@@ -8232,6 +8327,26 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19C3D1,PharLapVersion,byte_19C3D1,new,low,Phar Lap version,src/data/lib/watcom/watcom_clib_32_data_01.asm
 19C3D2,ErgoVersion,byte_19C3D2,new,low,Ergo extender version,src/data/lib/watcom/watcom_clib_32_data_01.asm
 19C3D3,IntelExtenderVersion,byte_19C3D3,new,low,Intel extender version,src/data/lib/watcom/watcom_clib_32_data_01.asm
+19C3D8,SpareGameWord,word_19C3D8,new,low,"cleared at game start, never read",src/data/engine/faceoff_data_02.asm
+19C3DA,SpareGameFlag,word_19C3DA,new,low,"cleared at game start, never read",src/data/engine/faceoff_data_02.asm
+19C3DC,HomeSpareCount,word_19C3DC,new,low,"home team word cleared at game start, never read",src/data/engine/faceoff_data_02.asm
+19C3DD,PersonnelTable,dword_19C3DD,new,low,personnel table,src/data/engine/faceoff_data_02.asm
+19C3DE,HomeSpareFlag,word_19C3DE,new,low,"home team word cleared at game start, never read",src/data/engine/faceoff_data_02.asm
+19C3E0,LinePlayersHome,byte_19C3E0,new,low,home line players,src/data/engine/faceoff_data_02.asm
+19C3E6,LinePlayersAway,byte_19C3E6,new,low,away line players,src/data/engine/faceoff_data_02.asm
+19C3EC,FaceoffHomePlayer,word_19C3EC,new,low,home face-off player,src/data/engine/faceoff_data_02.asm
+19C3EE,FaceoffAwayPlayer,word_19C3EE,new,low,away face-off player,src/data/engine/faceoff_data_02.asm
+19C3F0,AwaySpareCount,word_19C3F0,new,low,"away team word cleared at game start, never read",src/data/engine/faceoff_data_02.asm
+19C3F2,AwaySpareFlag,word_19C3F2,new,low,"away team word cleared at game start, never read",src/data/engine/faceoff_data_02.asm
+19C3F4,AssignFuncTable,off_19C3F4,new,low,assignment routine per player role,src/data/engine/faceoff_data_02.asm
+19C534,CompLineRows,unk_19C534,97PC,low,computer line rows: player order per line type,src/data/engine/faceoff_data_02.asm
+19C5F4,CompLineTable,off_19C5F4,new,low,computer line row per line type,src/data/engine/faceoff_data_02.asm
+19C620,LinePickOrder,byte_19C620,new,low,line pick order,src/data/engine/faceoff_data_02.asm
+19C628,RimTargetX,word_19C628,new,low,rim target X,src/data/engine/faceoff_data_02.asm
+19C62A,RimTargetY,word_19C62A,new,low,rim target Y,src/data/engine/faceoff_data_02.asm
+19C648,InitRtnsEntry,unk_19C648,new,low,start up routine entry,src/data/engine/faceoff_data_02.asm
+19C67E,FiniRtnsEntry,unk_19C67E,new,low,shut down routine entry,src/data/engine/faceoff_data_02.asm
+19C690,VideoCodePtr,dword_19C690,new,low,video code pointer,src/data/engine/faceoff_data_02.asm
 19C694,VideoBitCount,dword_19C694,new,low,video bit reader bits left,src/data/lib/watcom/watcom_clib_13_data_02.asm
 19C698,VideoBitBuffer,dword_19C698,new,low,video bit reader buffer,src/data/lib/watcom/watcom_clib_13_data_02.asm
 19C69C,VideoOutPtr,dword_19C69C,new,low,output pointer for the video block transform,src/data/lib/watcom/watcom_clib_13_data_02.asm
@@ -8271,7 +8386,50 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19C90C,F80_0,tbyte_19C90C,new,high,extended constant 0,src/data/lib/video/video_bios_vga_09_data_01.asm
 19CA1C,GusInitTable,unk_19CA1C,new,low,Gravis register initialisation table,src/data/lib/video/video_bios_vga_09_data_01.asm
 19CA28,kaufmfont,,96PC,high,NHL96PC 151598 (position): same fixup of sub_DB13C,
+19CA2F,ProgressRecord,dword_19CA2F,new,low,progress record,src/data/engine/faceoff_2_data_03.asm
+19CA30,PenaltyPending,byte_19CA30,new,low,penalty pending,src/data/engine/faceoff_2_data_03.asm
+19CA31,PenaltyTeam,byte_19CA31,new,low,team taking the penalty,src/data/engine/faceoff_2_data_03.asm
+19CA32,PenaltySlots,byte_19CA32,new,low,penalty slots,src/data/engine/faceoff_2_data_03.asm
+19CA33,PenaltyQueue,byte_19CA33,new,low,penalty queue,src/data/engine/faceoff_2_data_03.asm
+19CA88,PadSlotA,dword_19CA88,new,low,first pad slot record,src/data/engine/faceoff_2_data_03.asm
+19CA8C,PadSlotB,dword_19CA8C,new,low,second pad slot record,src/data/engine/faceoff_2_data_03.asm
+19CA90,FaceoffX,word_19CA90,new,low,face-off X,src/data/engine/faceoff_2_data_03.asm
+19CA92,FaceoffDropX,word_19CA92,new,low,face-off drop X,src/data/engine/faceoff_2_data_03.asm
+19CA94,FaceoffY,word_19CA94,new,low,face-off Y,src/data/engine/faceoff_2_data_03.asm
+19CA96,FaceoffDropY,word_19CA96,new,low,face-off drop Y,src/data/engine/faceoff_2_data_03.asm
+19CA98,JoyStateTable,unk_19CA98,new,low,joystick state per slot,src/data/engine/faceoff_2_data_03.asm
+19CB16,GameVarClear,word_19CB16,new,low,game variable cleared by InitGameVars,src/data/engine/faceoff_2_data_03.asm
+19CB18,JoyButtonsTable,word_19CB18,new,low,joystick buttons per pad,src/data/engine/faceoff_2_data_03.asm
+19CB28,LineChangeHome,word_19CB28,new,low,home line change request,src/data/engine/faceoff_2_data_03.asm
+19CB2A,LineChangeAway,word_19CB2A,new,low,away line change request,src/data/engine/faceoff_2_data_03.asm
+19CB2C,LineChangeHomeLine,word_19CB2C,new,low,home line requested,src/data/engine/faceoff_2_data_03.asm
+19CB2E,LineChangeAwayLine,word_19CB2E,new,low,away line requested,src/data/engine/faceoff_2_data_03.asm
+19CB30,ProgressCount,dword_19CB30,new,low,game progress count,src/data/engine/faceoff_2_data_03.asm
+19CB32,FaceoffSlots,dword_19CB32,new,low,face-off slot per team,src/data/engine/faceoff_2_data_03.asm
+19CB34,HomeSkaters,word_19CB34,new,low,home skaters on the ice,src/data/engine/faceoff_2_data_03.asm
+19CB36,AwaySkaters,word_19CB36,new,low,away skaters on the ice,src/data/engine/faceoff_2_data_03.asm
+19CB38,RefState,dword_19CB38,new,low,referee state,src/data/engine/faceoff_2_data_03.asm
+19CB3C,InputState,dword_19CB3C,new,low,input state,src/data/engine/faceoff_2_data_03.asm
+19CB3E,InputButtons,dword_19CB3E,new,low,input buttons,src/data/engine/faceoff_2_data_03.asm
+19CB40,InputDir,dword_19CB40,new,low,input direction,src/data/engine/faceoff_2_data_03.asm
+19CB44,ShotState,dword_19CB44,new,low,shot state,src/data/engine/faceoff_2_data_03.asm
+19CB48,LastTouchPlayer,dword_19CB48,new,low,player who last touched the puck,src/data/engine/faceoff_2_data_03.asm
+19CB4C,PassFrom,dword_19CB4C,new,low,passing player,src/data/engine/faceoff_2_data_03.asm
+19CB50,PassTo,dword_19CB50,new,low,pass target player,src/data/engine/faceoff_2_data_03.asm
+19CB54,PuckHitFlag,dword_19CB54,new,low,puck hit flag,src/data/engine/faceoff_2_data_03.asm
+19CB58,GameRunning,dword_19CB58,new,low,game running,src/data/engine/faceoff_2_data_03.asm
+19CB5A,DefendTarget,dword_19CB5A,new,low,defending target,src/data/engine/faceoff_2_data_03.asm
+19CB5C,DefendFlags,word_19CB5C,new,low,defending flags,src/data/engine/faceoff_2_data_03.asm
+19CB5E,ShootSpotX,dword_19CB5E,new,low,shooting spot X,src/data/engine/faceoff_2_data_03.asm
+19CB60,ShootSpotY,word_19CB60,new,low,shooting spot Y,src/data/engine/faceoff_2_data_03.asm
+19CB62,ExtraAttacker,dword_19CB62,new,low,extra attacker,src/data/engine/faceoff_2_data_03.asm
+19CB64,GoalieTarget,word_19CB64,new,low,goalie target,src/data/engine/faceoff_2_data_03.asm
+19CB66,ZoneTargetX,dword_19CB66,new,low,zone target X,src/data/engine/faceoff_2_data_03.asm
+19CB68,ZoneTargetY,word_19CB68,new,low,zone target Y,src/data/engine/faceoff_2_data_03.asm
+19CB6A,ZoneFlags,dword_19CB6A,new,low,zone flags,src/data/engine/faceoff_2_data_03.asm
 19CB6C,regd1,,96PC,medium,NHL96PC 165980 (refset): referenced by the same 2 matched functions,
+19CB6D,BenchSlotTable,dword_19CB6D,new,low,bench slot table,src/data/engine/faceoff_2_data_03.asm
+19CB70,PenaltyBoxCount,byte_19CB70,new,low,players in the penalty box,src/data/engine/faceoff_2_data_03.asm
 19CBA0,gameover,word_19CBA0,96PC,medium,"96 PC gameover (GameOver sets it, RunSimFrames checks it)",src/data/engine/faceoff_data_03.asm
 19CBB8,gsp,word_19CBB8,94G,medium,"94G gsp, the game segment (period 0-3, 4 = game over), as in 96 PC StartGame / Intermission / ClockTick",src/data/engine/faceoff_data_03.asm
 19CBBA,gameclock,word_19CBBA,94G,medium,94G gameclock: seconds left in the period (ClockTick),src/data/engine/faceoff_data_03.asm
@@ -8280,6 +8438,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19CBE2,penshotlive,word_19CBE2,96PC,medium,96 PC penshotlive: a penalty shot is running (ClockTick),src/data/engine/faceoff_data_03.asm
 19CBE4,penshottimer,dword_19CBE4,96PC,medium,96 PC penshottimer: ticks left of the penalty shot,src/data/engine/faceoff_data_03.asm
 19CC14,slotteam,,96PC,medium,NHL96PC 1178D2 (refset): referenced by the same 4 matched functions,
+19CCAC,FaceoffScratch,unk_19CCAC,new,low,face-off scratch,src/data/engine/faceoff_bss_01.asm
 19CF8C,OverlayPanelQueue,unk_19CF8C,new,low,queued overlay panels,src/data/engine/engine_15AC2_bss_01.asm
 19D004,ScorePanelHome,dword_19D004,new,low,home score shown on the score panel (-1 forces a redraw),src/data/engine/engine_15AC2_bss_01.asm
 19D008,ScorePanelAway,dword_19D008,new,low,away score shown on the score panel (-1 forces a redraw),src/data/engine/engine_15AC2_bss_01.asm
@@ -8371,7 +8530,25 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19D3A0,FaceoffPuckX,dword_19D3A0,new,low,face-off puck X,src/data/engine/engine_15AC2_bss_01.asm
 19D3A4,FaceoffPuckY,dword_19D3A4,new,low,face-off puck Y,src/data/engine/engine_15AC2_bss_01.asm
 19D3A8,PassTargetAngle,dword_19D3A8,new,low,pass target angle,src/data/engine/engine_15AC2_bss_01.asm
+19D3AC,LineSortKeys,dword_19D3AC,new,low,line sort keys,src/data/engine/faceoff_2_bss_01.asm
+19D40D,LineSortIndex,dword_19D40D,new,low,line sort index,src/data/engine/faceoff_2_bss_01.asm
+19D410,LineSortOrder,dword_19D410,new,low,line sort order,src/data/engine/faceoff_2_bss_01.asm
+19D69A,LineBuildLine,word_19D69A,new,low,line being built,src/data/engine/faceoff_2_bss_01.asm
+19D69C,LineBuildSlot,word_19D69C,new,low,slot being filled,src/data/engine/faceoff_2_bss_01.asm
+19D69E,LineBuildPlayer,word_19D69E,new,low,player being placed,src/data/engine/faceoff_2_bss_01.asm
+19D6A0,BenchPlayerTable,unk_19D6A0,new,low,bench player records,src/data/engine/faceoff_2_bss_01.asm
 19DA30,SortCords,,96PC,medium,NHL96PC 16479C (refset): referenced by the same 3 matched functions,
+19DA50,PlayerPointsTable,dword_19DA50,new,low,points per player (8 bytes each),src/data/engine/faceoff_2_bss_01.asm
+19DA58,PlayerScoreTable,dword_19DA58,new,low,scoring record per player,src/data/engine/faceoff_2_bss_01.asm
+19DA68,PlayerUpdateFlags,dword_19DA68,new,low,update flags per player,src/data/engine/faceoff_2_bss_01.asm
+19DA70,PlayerUpdateTable,dword_19DA70,new,low,update records per player,src/data/engine/faceoff_2_bss_01.asm
+19DA94,PuckStickTimers,dword_19DA94,new,low,puck-to-stick timer per player,src/data/engine/faceoff_2_bss_01.asm
+19DAD3,PenaltyRecord,dword_19DAD3,new,low,penalty record per player (8 bytes each),src/data/engine/faceoff_2_bss_01.asm
+19DAD4,StanleyFlag,byte_19DAD4,new,low,flag read by assstanley,src/data/engine/faceoff_2_bss_01.asm
+19DAD5,GoalFlags,byte_19DAD5,new,low,goal flags per player,src/data/engine/faceoff_2_bss_01.asm
+19DAD6,GoalieFlags,byte_19DAD6,new,low,goalie flags per player,src/data/engine/faceoff_2_bss_01.asm
+19DAD9,PlayerAssignWords,word_19DAD9,new,low,assignment word per player,src/data/engine/faceoff_2_bss_01.asm
+19DADD,PlayerAssignPtrs,dword_19DADD,new,low,assignment pointer per player,src/data/engine/faceoff_2_bss_01.asm
 19DADE,PuckCarrierPos,dword_19DADE,new,low,puck carrier position read by assstanley,src/data/engine/engine_25894_bss_01.asm
 19DAEA,PlayerControlWords,word_19DAEA,new,low,control word per player (8 bytes each),src/data/engine/engine_25894_bss_01.asm
 19DAEF,PlayerControlFlags,byte_19DAEF,new,low,control flags per player (8 bytes each),src/data/engine/engine_25894_bss_01.asm
@@ -8430,6 +8607,39 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19ECBE,AwLineCount,word_19ECBE,new,low,away team: lines used,src/data/engine/engine_25894_bss_01.asm
 19ECC0,AwTeamData,dword_19ECC0,new,low,away team: team data pointer,src/data/engine/engine_25894_bss_01.asm
 19ECC4,AwScore,dword_19ECC4,new,low,away team: score,src/data/engine/engine_25894_bss_01.asm
+19ECC8,LinkChannelA,unk_19ECC8,new,low,first link channel,src/data/engine/faceoff_2_bss_02.asm
+19ECD0,LinkChannelAData,dword_19ECD0,new,low,first link channel data,src/data/engine/faceoff_2_bss_02.asm
+19ECE4,LinkChannelB,unk_19ECE4,new,low,second link channel,src/data/engine/faceoff_2_bss_02.asm
+19ECEC,LinkChannelBData,dword_19ECEC,new,low,second link channel data,src/data/engine/faceoff_2_bss_02.asm
+19ED00,SparkleTable,dword_19ED00,new,low,sparkle sprites,src/data/engine/faceoff_2_bss_02.asm
+19ED10,SeasonScreenArt,dword_19ED10,new,low,season game screen art,src/data/engine/faceoff_2_bss_02.asm
+19ED14,SeasonOpponent,dword_19ED14,new,low,season opponent,src/data/engine/faceoff_2_bss_02.asm
+19ED18,SeasonPlayedFlag,dword_19ED18,new,low,season game played,src/data/engine/faceoff_2_bss_02.asm
+19ED1C,SeasonPanelArt,dword_19ED1C,new,low,season panel art,src/data/engine/faceoff_2_bss_02.asm
+19ED20,SeasonUserIndex,dword_19ED20,new,low,season user team index,src/data/engine/faceoff_2_bss_02.asm
+19ED24,SeasonScreenState,dword_19ED24,new,low,season game screen state,src/data/engine/faceoff_2_bss_02.asm
+19ED28,SparkleTime,dword_19ED28,new,low,sparkle time,src/data/engine/faceoff_2_bss_02.asm
+19ED2C,MatchupLogoArt,dword_19ED2C,new,low,matchup logo art,src/data/engine/faceoff_2_bss_02.asm
+19ED30,SeasonPanelShown,dword_19ED30,new,low,season panel shown,src/data/engine/faceoff_2_bss_02.asm
+19ED34,WaitIconFrame,dword_19ED34,new,low,wait icon frame,src/data/engine/faceoff_2_bss_02.asm
+19ED38,WaitIconTime,dword_19ED38,new,low,wait icon time,src/data/engine/faceoff_2_bss_02.asm
+19ED3C,SparkleFrame,dword_19ED3C,new,low,sparkle frame,src/data/engine/faceoff_2_bss_02.asm
+19ED40,WaitIconCount,dword_19ED40,new,low,wait icon count,src/data/engine/faceoff_2_bss_02.asm
+19ED44,SeasonBackground,dword_19ED44,new,low,season screen background,src/data/engine/faceoff_2_bss_02.asm
+19ED48,SeasonFont,dword_19ED48,new,low,season screen font,src/data/engine/faceoff_2_bss_02.asm
+19ED4C,SeasonGameIndex,dword_19ED4C,new,low,season game index,src/data/engine/faceoff_2_bss_02.asm
+19ED50,SeasonHomeTeam,dword_19ED50,new,low,season home team,src/data/engine/faceoff_2_bss_02.asm
+19ED54,SeasonAwayTeam,dword_19ED54,new,low,season away team,src/data/engine/faceoff_2_bss_02.asm
+19ED58,SeasonDay,dword_19ED58,new,low,season day,src/data/engine/faceoff_2_bss_02.asm
+19ED5C,WaitIconShown,dword_19ED5C,new,low,wait icon shown,src/data/engine/faceoff_2_bss_02.asm
+19ED60,WaitIconOn,dword_19ED60,new,low,wait icon on,src/data/engine/faceoff_2_bss_02.asm
+19ED64,SeasonGameCount,dword_19ED64,new,low,season games,src/data/engine/faceoff_2_bss_02.asm
+19ED68,SparkleX,dword_19ED68,new,low,sparkle X,src/data/engine/faceoff_2_bss_02.asm
+19ED6C,SparkleY,dword_19ED6C,new,low,sparkle Y,src/data/engine/faceoff_2_bss_02.asm
+19ED70,AllStarLogoArt,dword_19ED70,new,low,all-star logo art,src/data/engine/faceoff_2_bss_02.asm
+19ED74,SeasonDate,word_19ED74,new,low,season date,src/data/engine/faceoff_2_bss_02.asm
+19ED76,SeasonLastGame,word_19ED76,new,low,last season game played,src/data/engine/faceoff_2_bss_02.asm
+19ED78,DisplayViewRecords,unk_19ED78,new,low,display view records,src/data/engine/faceoff_2_bss_02.asm
 19F4F4,SpanSlotNext,dword_19F4F4,new,low,dirty span slot links,src/data/engine/engine_3812E_bss_01.asm
 19F4F8,SpanSlotStart,dword_19F4F8,new,low,dirty span slot start,src/data/engine/engine_3812E_bss_01.asm
 19F4FC,SpanSlotTable,dword_19F4FC,new,low,dirty span slots,src/data/engine/engine_3812E_bss_01.asm
@@ -8529,6 +8739,51 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1AC810,GlobalSetData,dword_1AC810,new,low,GLOBAL.SET settings,src/data/engine/engine_3812E_bss_02.asm
 1AC814,GameSettings,dword_1AC814,new,low,game settings flags,src/data/engine/engine_3812E_bss_02.asm
 1AC818,StartupFlag,byte_1AC818,new,low,start up option,src/data/engine/engine_3812E_bss_02.asm
+1AC819,AudioOptions,dword_1AC819,new,low,audio option bits,src/data/engine/engine_3812E_bss_02.asm
+1AC81A,SfxOptions,byte_1AC81A,new,low,sound effect option bits,src/data/engine/engine_3812E_bss_02.asm
+1AC81B,MusicOptions,byte_1AC81B,new,low,music option bits,src/data/engine/engine_3812E_bss_02.asm
+1AC81C,DetailLevel,byte_1AC81C,new,low,graphics detail level,src/data/engine/engine_3812E_bss_02.asm
+1AC81D,DisplayOptions,byte_1AC81D,new,low,display options,src/data/engine/engine_3812E_bss_02.asm
+1AC821,DisplaySettings,unk_1AC821,new,low,saved display settings,src/data/engine/engine_3812E_bss_02.asm
+1AC835,Brightness,dword_1AC835,new,low,game brightness,src/data/engine/engine_3812E_bss_02.asm
+1AC839,ModemSettings,unk_1AC839,new,low,modem settings,src/data/engine/engine_3812E_bss_02.asm
+1AC8AD,NetworkGameIndex,dword_1AC8AD,new,low,network game picked,src/data/engine/engine_3812E_bss_02.asm
+1AC8B1,NetworkSettings,word_1AC8B1,new,low,network settings,src/data/engine/engine_3812E_bss_02.asm
+1AC8C6,MenuOptionFlags,byte_1AC8C6,new,low,main menu option flags,src/data/engine/engine_3812E_bss_02.asm
+1AC8E4,ControlSetup,unk_1AC8E4,new,low,control setup per player,src/data/engine/engine_3812E_bss_02.asm
+1AC93C,ControlSetupFlags,byte_1AC93C,new,low,control setup flags,src/data/engine/engine_3812E_bss_02.asm
+1AC940,SeasonUserTeam,dword_1AC940,new,low,user team in the season,src/data/engine/engine_3812E_bss_02.asm
+1AC944,GameOptionFlags,dword_1AC944,new,low,game option flags,src/data/engine/engine_3812E_bss_02.asm
+1AC948,GlobalSetName,byte_1AC948,new,low,name stored in GLOBAL.SET,src/data/engine/engine_3812E_bss_02.asm
+1AC95B,GlobalSetPad,byte_1AC95B,new,low,GLOBAL.SET padding,src/data/engine/engine_3812E_bss_02.asm
+1AC95D,LinkSettings,unk_1AC95D,new,low,link settings,src/data/engine/engine_3812E_bss_02.asm
+1AC962,LinkSettingsData,unk_1AC962,new,low,link settings data,src/data/engine/engine_3812E_bss_02.asm
+1ACA65,LinkMenuCursor,byte_1ACA65,new,low,link menu cursor,src/data/engine/engine_3812E_bss_02.asm
+1ACA66,LinkFlags,byte_1ACA66,new,low,link flags,src/data/engine/engine_3812E_bss_02.asm
+1ACA6A,LinkSettingsRest,byte_1ACA6A,new,low,rest of the link settings,src/data/engine/engine_3812E_bss_02.asm
+1ACB44,GlobalSetVersion,unk_1ACB44,new,low,GLOBAL.SET version byte,src/data/engine/engine_3812E_bss_02.asm
+1ACB45,TeamSelectFlags,dword_1ACB45,new,low,team select flags,src/data/engine/engine_3812E_bss_02.asm
+1ACB47,TeamSelectMode,word_1ACB47,new,low,team select mode,src/data/engine/engine_3812E_bss_02.asm
+1ACB49,IndexEntrySettings,unk_1ACB49,new,low,index entry settings,src/data/engine/engine_3812E_bss_02.asm
+1ACC50,IndexMenuCursor,byte_1ACC50,new,low,index menu cursor,src/data/engine/engine_3812E_bss_02.asm
+1ACC51,IndexFlags,byte_1ACC51,new,low,index entry flags,src/data/engine/engine_3812E_bss_02.asm
+1ACC55,IndexSettingsRest,byte_1ACC55,new,low,rest of the index entry settings,src/data/engine/engine_3812E_bss_02.asm
+1ACD2B,SeasonName,unk_1ACD2B,new,low,season name,src/data/engine/engine_3812E_bss_02.asm
+1ACD2D,SeasonFlags,byte_1ACD2D,new,low,season flags,src/data/engine/engine_3812E_bss_02.asm
+1ACD30,SeasonPath,unk_1ACD30,new,low,season file path,src/data/engine/engine_3812E_bss_02.asm
+1ACE38,SeasonIndexPath,unk_1ACE38,new,low,season index path,src/data/engine/engine_3812E_bss_02.asm
+1ACF12,MatchupNote,unk_1ACF12,new,low,playoff matchup note,src/data/engine/engine_3812E_bss_02.asm
+1ACF3A,SeasonSlot,dword_1ACF3A,new,low,season save slot,src/data/engine/engine_3812E_bss_02.asm
+1ACF3E,SeasonPhase,dword_1ACF3E,new,low,season phase (2 = all-star break),src/data/engine/engine_3812E_bss_02.asm
+1ACF42,PlayoffRounds,dword_1ACF42,new,low,playoff rounds,src/data/engine/engine_3812E_bss_02.asm
+1ACF46,SeasonActive,dword_1ACF46,new,low,season running,src/data/engine/engine_3812E_bss_02.asm
+1B93D8,BoxSeatPlayer,dword_1B93D8,new,low,penalty box seat player,src/data/engine/engine_3812E_bss_03.asm
+1B93DC,BoxSeatTeam,dword_1B93DC,new,low,penalty box seat team,src/data/engine/engine_3812E_bss_03.asm
+1B93DD,BoxSeatSlot,byte_1B93DD,new,low,penalty box seat slot,src/data/engine/engine_3812E_bss_03.asm
+1B93DE,BoxSeatFlags,byte_1B93DE,new,low,penalty box seat flags,src/data/engine/engine_3812E_bss_03.asm
+1B93E0,BoxSeats,unk_1B93E0,new,low,penalty box seats,src/data/engine/engine_3812E_bss_03.asm
+1B93E4,BenchSeats,dword_1B93E4,new,low,bench seats,src/data/engine/engine_3812E_bss_03.asm
+1B93E8,SeatTable,dword_1B93E8,new,low,bench and box seat table,src/data/engine/engine_3812E_bss_03.asm
 1CD1E0,InputRecordRing,unk_1CD1E0,96PC,high,96 PC InputRecordRing (97: 5 records of 14h bytes),src/data/front/front_DA66D_bss_01.asm
 1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,

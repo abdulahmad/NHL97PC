@@ -23,8 +23,8 @@ global F64_100, F64_1p05, F64_0p1, F64_0p01_ReplayCamTurn, F64_3p14159_ReplayCam
 global F64_576, F64_768, F64_0p159155_ChkPokeOrCheck, F64_65536_ChkPokeOrCheck, F64_0p392699_ChkPokeOrCheck, F64_3p14159_GoaliePosTarget, F64_6p28319_GoaliePosTarget, F64_neg6p28319_GoaliePosTarget
 global F64_neg3p14159_GoaliePosTarget, F64_0p392699_GoaliePosTarget, F64_neg0p392699, F64_0p159155_GoaliePosTarget, F64_65536_GoaliePosTarget, F64_0p25, F64_3p14159_Endfaceoff, F64_288
 global F64_480, F64_3p14159_CanReceivePass, F64_0p785398_CanReceivePass, F64_0p785398_MakePass, F64_1080, F64_4272, F64_576_RimPuck, str_S_DrawPenaltyPanel
-global str_Punct_DrawGoalScorerPanel, str_CommaSpace, str_CloseParen, str_NONE, str_OFFST, str_RELTV, unk_160228, str_PUCK
-global unk_160238, unk_160240, str_PLYR0, str_SCORE, str_USER, str_ZAMB, str_MULTI, str_PEN0
+global str_Punct_DrawGoalScorerPanel, str_CommaSpace, str_CloseParen, str_NONE, str_OFFST, str_RELTV, CamTagNone, str_PUCK
+global CamTagNet0, CamTagNet1, str_PLYR0, str_SCORE, str_USER, str_ZAMB, str_MULTI, str_PEN0
 global str_PEN1, str_BNCH0, str_BNCH1, str_CENTR, str_CIRC1, str_CIRC2, str_CIRC3, str_CIRC4
 global str_DOT1, str_DOT2, str_DOT3, str_DOT4
 F32_0p5:
@@ -81,13 +81,13 @@ str_OFFST:
         db 04Fh,046h,046h,053h,054h,00h,00h,00h
 str_RELTV:
         db 052h,045h,04Ch,054h,056h,00h,00h,00h
-unk_160228:
+CamTagNone:
         db 04Eh,04Fh,04Eh,045h,020h,00h,00h,00h
 str_PUCK:
         db 050h,055h,043h,04Bh,020h,00h,00h,00h
-unk_160238:
+CamTagNet0:
         db 04Eh,045h,054h,030h,020h,00h,00h,00h
-unk_160240:
+CamTagNet1:
         db 04Eh,045h,054h,031h,020h,00h,00h,00h
 str_PLYR0:
         db 050h,04Ch,059h,052h,030h,00h,00h,00h

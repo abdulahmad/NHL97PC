@@ -4,7 +4,7 @@ bits 32
 section s_16875E progbits alloc noexec write align=1
 extern str_CHASE, DrawSpecialTeamsPanel, DrawMessagePanel, DrawVideoModePanel, DrawPenaltyPanel, DrawPenaltyShotPanel, DrawInjuryPanel, DrawPeriodPanel
 extern DrawGoalScorerPanel, DrawClockPanel, PowerPlayPanel, HomeTeamPanel, AwayTeamPanel, HomeStatPanel, AwayStatPanel, str_NONE
-extern str_OFFST, str_RELTV, unk_160228, str_PUCK, unk_160238, unk_160240, str_PLYR0, str_SCORE
+extern str_OFFST, str_RELTV, CamTagNone, str_PUCK, CamTagNet0, CamTagNet1, str_PLYR0, str_SCORE
 extern str_USER, str_ZAMB, str_MULTI, str_PEN0, str_PEN1, str_BNCH0, str_BNCH1, str_CENTR
 extern str_CIRC1, str_CIRC2, str_CIRC3, str_CIRC4, str_DOT1, str_DOT2, str_DOT3, str_DOT4
 global CameraFlagsByte, GoalSceneActive, ReplayCameraActive, FaceoffDropScene, CameraScenesOn, IntermissionActive, FightSceneActive, PlayerAssignOrder
@@ -66,10 +66,10 @@ CameraViewDefs:
         dd str_CHASE
         dd str_OFFST
         dd str_RELTV
-        dd unk_160228
+        dd CamTagNone
         dd str_PUCK
-        dd unk_160238
-        dd unk_160240
+        dd CamTagNet0
+        dd CamTagNet1
         dd str_PLYR0
         dd str_SCORE
         dd str_USER

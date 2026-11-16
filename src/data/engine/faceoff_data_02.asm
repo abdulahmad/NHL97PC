@@ -10,33 +10,33 @@ extern asseben, assleaveice, asspenalty, assdopen, assepen, assrefpenshot, assre
 extern assrefgoalpa, assrefgoalline, assreffollow, assrefdrop, assrefatdot, assintrostand, assintroline, asstakeposition
 extern assstanley, pucknorm, puckfaceoff2, assshoot, assfight, assfwatch, InitFpuEmulatorEntry, FiniFpuEmulatorEntry
 extern SaveStackSegment
-global byte_19C3E0, byte_19C3E6, byte_19C620, dword_19C3DD, dword_19C690, off_19C3F4, off_19C5F4, off_19C61F
-global unk_19C534, unk_19C544, unk_19C564, unk_19C574, unk_19C584, unk_19C594, unk_19C5A4, unk_19C5B4
-global unk_19C5C4, unk_19C5D4, unk_19C5E4, unk_19C648, unk_19C67E, word_19C3D8, word_19C3DA, word_19C3DC
-global word_19C3DE, word_19C3EC, word_19C3EE, word_19C3F0, word_19C3F2, word_19C628, word_19C62A
-word_19C3D8:
+global LinePlayersHome, LinePlayersAway, LinePickOrder, PersonnelTable, VideoCodePtr, AssignFuncTable, CompLineTable, off_19C61F
+global CompLineRows
+global InitRtnsEntry, FiniRtnsEntry, SpareGameWord, SpareGameFlag, HomeSpareCount
+global HomeSpareFlag, FaceoffHomePlayer, FaceoffAwayPlayer, AwaySpareCount, AwaySpareFlag, RimTargetX, RimTargetY
+SpareGameWord:
         db 00h,00h
-word_19C3DA:
+SpareGameFlag:
         db 00h,00h
-word_19C3DC:
+HomeSpareCount:
         db 00h
-dword_19C3DD:
+PersonnelTable:
         db 00h
-word_19C3DE:
+HomeSpareFlag:
         db 00h,00h
-byte_19C3E0:
+LinePlayersHome:
         db 00h,00h,00h,00h,00h,00h
-byte_19C3E6:
+LinePlayersAway:
         db 00h,00h,00h,00h,00h,00h
-word_19C3EC:
+FaceoffHomePlayer:
         db 00h,00h
-word_19C3EE:
+FaceoffAwayPlayer:
         db 00h,00h
-word_19C3F0:
+AwaySpareCount:
         db 00h,00h
-word_19C3F2:
+AwaySpareFlag:
         db 00h,00h
-off_19C3F4:
+AssignFuncTable:
         dd assnull
         dd assbenchwait
         dd assgoalie
@@ -94,50 +94,40 @@ off_19C3F4:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_19C534:
+CompLineRows:
         db 02h,01h,00h,03h,00h,03h,02h,01h,03h,02h,01h,00h,01h,00h,03h,02h
-unk_19C544:
         db 01h,02h,03h,0FFh,02h,00h,03h,0FFh,00h,01h,03h,0FFh,00h,01h,02h,0FFh
         db 01h,02h,03h,0FFh,02h,00h,03h,0FFh,03h,00h,01h,0FFh,00h,01h,02h,0FFh
-unk_19C564:
         db 02h,01h,00h,0FFh,00h,02h,01h,0FFh,01h,02h,00h,0FFh,01h,00h,02h,0FFh
-unk_19C574:
         db 02h,01h,00h,03h,00h,01h,02h,03h,03h,02h,01h,00h,01h,00h,03h,02h
-unk_19C584:
         db 02h,01h,00h,03h,00h,01h,03h,02h,03h,02h,01h,00h,01h,00h,03h,02h
-unk_19C594:
         db 02h,01h,00h,0FFh,00h,01h,02h,0FFh,02h,01h,00h,0FFh,01h,00h,02h,0FFh
-unk_19C5A4:
         db 05h,04h,0FFh,0FFh,04h,05h,0FFh,0FFh,04h,05h,0FFh,0FFh,04h,05h,0FFh,0FFh
-unk_19C5B4:
         db 01h,00h,0FFh,0FFh,00h,01h,0FFh,0FFh,00h,01h,0FFh,0FFh,00h,01h,0FFh,0FFh
-unk_19C5C4:
         db 01h,02h,0FFh,0FFh,02h,00h,0FFh,0FFh,00h,01h,0FFh,0FFh,00h,01h,02h,0FFh
-unk_19C5D4:
         db 01h,02h,03h,0FFh,02h,03h,00h,0FFh,03h,00h,01h,0FFh,00h,01h,02h,0FFh
-unk_19C5E4:
         db 01h,02h,0FFh,0FFh,00h,02h,0FFh,0FFh,00h,01h,0FFh,0FFh,00h,01h,02h,0FFh
-off_19C5F4:
-        dd unk_19C534
-        dd unk_19C544
-        dd unk_19C564
-        dd unk_19C574
-        dd unk_19C584
-        dd unk_19C594
-        dd unk_19C5A4
-        dd unk_19C5B4
-        dd unk_19C5C4
-        dd unk_19C5D4
+CompLineTable:
+        dd CompLineRows
+        dd CompLineRows+10h
+        dd CompLineRows+30h
+        dd CompLineRows+40h
+        dd CompLineRows+50h
+        dd CompLineRows+60h
+        dd CompLineRows+70h
+        dd CompLineRows+80h
+        dd CompLineRows+090h
+        dd CompLineRows+0A0h
 off_19C61F equ $+3
-        dd unk_19C5E4
-byte_19C620:
+        dd CompLineRows+0B0h
+LinePickOrder:
         db 00h,01h,02h,04h,03h,05h,06h,00h
-word_19C628:
+RimTargetX:
         db 00h,00h
-word_19C62A:
+RimTargetY:
         db 0C8h,00h,08Dh,00h,08Dh,00h,0C8h,00h,00h,00h,08Dh,00h,073h,0FFh,00h,00h
         db 038h,0FFh,073h,0FFh,073h,0FFh,038h,0FFh,00h,00h,073h,0FFh,08Dh,00h
-unk_19C648:
+InitRtnsEntry:
         db 00h,020h
         dd __setEFGfmt_
         db 00h,01h
@@ -156,12 +146,12 @@ unk_19C648:
         dd CheckPentiumFdiv
         db 00h,0Ah
         dd init_
-unk_19C67E:
+FiniRtnsEntry:
         db 00h,01h
         dd FiniFpuEmulatorEntry
         db 00h,020h
         dd __full_io_exit_
         db 00h,0Ah
         dd fini_
-dword_19C690:
+VideoCodePtr:
         db 00h,00h,00h,00h

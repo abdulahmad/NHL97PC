@@ -10,7 +10,7 @@ extern str_AB092, str_POWR3, str_EC002, str_EC012, str_BAK12, str_C, str_D3, str
 extern str_AR02d3, str_AllStarPlayerInfo, str_AllStarGoalieInfo, str_WestAllStars, str_EastAllStars, str_AllStarRosters, str_AllStarAirecs, str_AllStarRawPlrs
 extern str_AllStarStatrecs, str_MB044, str_FrANKGBarchard, str_100, str_REF, str_Refpack, str_F10, byte_16CCF0
 extern byte_16E273, byte_16E274, byte_16E275, byte_16E28E, byte_1C135A, byte_1C135B, byte_1C3449, byte_1C556C
-extern byte_1C6040, byte_1CE224, byte_1CE23D, byte_1CE23E, dword_16DA9C, str_Punct_LoadAllStarArt, dword_1AC940, dword_1C1334
+extern byte_1C6040, byte_1CE224, byte_1CE23D, byte_1CE23E, dword_16DA9C, str_Punct_LoadAllStarArt, SeasonUserTeam, dword_1C1334
 extern dword_1C1346, dword_1C5DE4, dword_1C5E74, dword_1CE0E4, dword_1CE0E8, dword_1CE0EC, dword_1CE0F4, dword_1CE0FC
 extern dword_1CE104, dword_1CE10C, dword_1CE110, dword_1CE114, dword_1CE118, dword_1CE11C, dword_1CE120, dword_1CE124
 extern dword_1CE128, dword_1CE12C, dword_1CE130, dword_1CE134, dword_1CE158, dword_1CE15C, dword_1CE160, dword_1CE164
@@ -4114,7 +4114,7 @@ PickAllStarPlayers:
         push esi
         push edi
         enter 40h, 0
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov edi, 0DF7h
         mov dword [byte ebp-020h], 1ADh
         movsx eax, word [eax]
@@ -4477,7 +4477,7 @@ InitAllStarTeams:
         mov esi, unk_16D7F4
         movsd
         movsd
-        mov esi, dword [dword_1AC940]
+        mov esi, dword [SeasonUserTeam]
         mov edi, unk_1C133C
         lea esi, [byte esi+04h]
         movsd
@@ -4586,7 +4586,7 @@ AllocAllStarRosters:
 .5:
         test ebx, ebx
         jge short .4
-        mov esi, dword [dword_1AC940]
+        mov esi, dword [SeasonUserTeam]
         mov dword [dword_1CE1B4], unk_1C135C
         mov dword [dword_1CE1B8], unk_1C347F
         movsx esi, word [esi]
@@ -4664,7 +4664,7 @@ AllocAllStarRosters:
         mov eax, dword [dword_1CE220]
         mov ecx, ebx
         add edx, eax
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl ecx, 3
         mov eax, dword [byte eax+01Ch]
         add eax, ecx

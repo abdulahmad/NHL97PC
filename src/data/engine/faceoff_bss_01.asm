@@ -2,6 +2,6 @@
 bits 32
 %include "hockey.inc"
 section s_19CCAC nobits alloc noexec write align=1
-global unk_19CCAC
-unk_19CCAC:
+global FaceoffScratch
+FaceoffScratch:
         resb 3

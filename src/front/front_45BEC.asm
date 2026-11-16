@@ -2,12 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_45BEC progbits alloc exec nowrite align=1
-extern __CHK, str_CarrySS, str_GKSF, str_SPEECH, byte_1C135A, byte_1C135B, dword_16922E, dword_169240
+extern __CHK, str_CarrySS, str_GKSF, str_SPEECH, byte_1C135A, byte_1C135B, SfxVolumeLevel, dword_169240
 extern dword_169244, dword_169248, dword_169250, dword_169254, dword_169258, dword_16925C, dword_169260, dword_169264
 extern dword_16926C, dword_169274, dword_169278, dword_16927A, dword_16927C, dword_16927E, dword_169280, dword_169288
 extern dword_1697B4, dword_16981C, dword_169820, dword_1AC4F0, dword_1AC4F4, dword_1AC4F8, dword_1AC4FC, dword_1AC500
 extern dword_1AC504, dword_1AC5C8, dword_1AC5D0, SpeechFileHandle, SpeechStreamBuf, SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd
-extern SpeechStreamClip, GameSettings, dword_1AC944, dword_1B8FA0, jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60
+extern SpeechStreamClip, GameSettings, GameOptionFlags, dword_1B8FA0, jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60
 extern jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8, PaEvent_4D6, PaEvent_4EC, PaEvent_502, PaEvent_518
 extern PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E, PaEvent_745
 extern PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967, PaEvent_14CD
@@ -18,7 +18,7 @@ extern SpeechQueueGo, ShutdownSpeechQueue, RingBufferSpace, QueuePassSpeech, Que
 extern QueueReceiveSpeech, QueueLoosePuckSpeech, QueueCarrySpeech, QueueTeamSpeech, QueueDeflectSpeech, QueuePickupSpeech, QueueFaceoffSpeech, QueuePenaltyEndSpeech
 extern QueueFinalSpeech, QueueTouchPuckSpeech, QueuePenaltyCallSpeech, QueueStoppageSpeech, QueuePowerPlaySpeech, SayShotCall, SaySaveCall, SpeechTableEntry
 extern SayPlayerCall, SayRandomFiller, SpeechClipExists, MakeDataPath, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
-extern tickcount, word_1691A4, word_169268, word_169282, word_169284, word_169824
+extern tickcount, SfxBankLoaded, word_169268, word_169282, word_169284, word_169824
 global jpt_48D20, jpt_48D50, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D, CommentaryEvent_3F6, CommentaryEvent_3FF
 global CommentaryEvent_408, CommentaryEvent_411, CommentaryEvent_41A, CommentaryEvent_423, CommentaryEvent_48A, CommentaryEvent_4E4, CommentaryEvent_4ED, CommentaryEvent_4F6
 global CommentaryEvent_4FF, CommentaryEvent_508, CommentaryEvent_511, CommentaryEvent_51A, CommentaryEvent_523, CommentaryEvent_52C, CommentaryEvent_535, CommentaryEvent_58C
@@ -53,7 +53,7 @@ CommentaryEvent:
         mov ebp, esp
         sub esp, 630h
         sub ebp, byte 7Ah
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je near CommentaryEvent_1FE8.273
         mov edx, dword [dword_1B8FA0]
         test edx, edx
@@ -2438,7 +2438,7 @@ CommentaryEvent_1CB2:
         mov dword [byte ebp+03Ah], eax
         cmp eax, byte 2
         jge near .246
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, 0FC000h
         cmp eax, 68000h
@@ -3022,7 +3022,7 @@ InitSpeechStream:
         mov dword [SpeechFileHandle], ebx
         call RegisterStreamBank
         mov dword [dword_169264], eax
-        mov eax, dword [dword_16922E]
+        mov eax, dword [SfxVolumeLevel]
         sar eax, 10h
         call StartSpeechQueue
         cmp word [word_169268], byte 0

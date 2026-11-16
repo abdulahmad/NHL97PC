@@ -7,23 +7,23 @@ extern str_BACK, str_TITL, str_AB02, str_AB01, str_AB00, str_BH00, str_BT00, str
 extern str_AB04, str_AB03, str_SIM0, str_BT02d, str_FAN0, str_LT00, str_Logo02dFsh, str_LOGO
 extern str_ALST, str_CDD, str_SDSD, str_LOCK, str_PANL, str_DMAN, str_HIST, str_MEGAHIST
 extern str_BKH, str_BKD, str_SFX4S, str_AUDSTREAM, str_CROWDCRD, str_GAMEDATAAUDPBP3TSF, str_MENU, str_S02dASF
-extern str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, byte_1691DC, QuantizeByte
+extern str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, AudioStreamChannel, QuantizeByte
 extern QuantizeTable, RemapTable, IdentityRemap, byte_19CBC2, OverlayMask, FadePalCurrent, FadePalBytes, FadePalTarget
-extern FadePalTargetG, FadePalTargetBytes, MusicTrackTable, byte_1AC81A, byte_1AC81B, byte_1ACF62, byte_1ACF63, byte_1AD457
-extern byte_1AD458, byte_1AD742, byte_1B93DD, byte_1B93DE, byte_1BF670, byte_1C135A, byte_1C135B, byte_1C6040
+extern FadePalTargetG, FadePalTargetBytes, MusicTrackTable, SfxOptions, MusicOptions, byte_1ACF62, byte_1ACF63, byte_1AD457
+extern byte_1AD458, byte_1AD742, BoxSeatSlot, BoxSeatFlags, byte_1BF670, byte_1C135A, byte_1C135B, byte_1C6040
 extern F32_10_RefDodgePuck, F32_3_RefDodgePuck, F32_15, F32_0p0666667, F32_0p5_RefDodgePuck, F32_144_PokeCheckAnim, F32_336, F32_192_TryBodyCheck
-extern F32_144_TryBodyCheck, F32_98, F32_42, dword_16908A, dword_1690D2, dword_1690EE, str_G_DrawLockedGame, dword_169126
-extern str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim, str_U_FaceoffDrawAnim, dword_169180, dword_169184, dword_16918C, dword_169190
-extern dword_169194, dword_169198, dword_16919C, dword_1691A0, dword_1691A2, dword_1691A8, dword_1691AC, dword_1691B0
-extern dword_1691B8, dword_1691BC, dword_1691C0, dword_1691C4, dword_1691CC, dword_1691D0, dword_1691D4, dword_1691D8
-extern dword_1691FC, dword_169210, dword_169214, dword_169218, dword_16921C, dword_169220, dword_169224, dword_169228
-extern dword_16922C, dword_16922E, dword_169230, dword_169238, dword_16923C, dword_169250, dword_169254, F32_9600
+extern F32_144_TryBodyCheck, F32_98, F32_42, dword_16908A, SeasonPanelText, MatchupLogoIds, str_G_DrawLockedGame, MatchupLogoPos
+extern str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim, str_U_FaceoffDrawAnim, ViewBorderColor, ViewBorderRows, StreamBlockCount, StreamBlockSize
+extern StreamTimeout, dword_169198, dword_16919C, StreamState, AudioStreamFlags, MusicState, MusicTrack, MusicRestart
+extern MusicPaused, MusicTime, MusicStreamPos, MusicVolumeLevel, MusicFeedCount, MusicStartTime, MusicLength, MusicHandle
+extern SfxBankRecords, AudioInitDone, SfxBankHandle, CrowdBankHandle, AmbientHandle, SfxReady, MusicReady, CrowdNoiseLevel
+extern AmbientVolume, SfxVolumeLevel, MusicVolumeWord, LastSfxPlayed, SpeechBankBuffer, dword_169250, dword_169254, F32_9600
 extern F32_768_PositionSfx, dword_169294, dword_16AEB4, dword_16B72C, dword_16E308, dword_16E464, dword_16E468, MenuScreenBitmap
-extern QuantizePalette, DrawDestBuffer, DrawDestPitch, VideoModeNumber, VideoModeIndex, ViewInterlaced, CdStreamSpeed, dword_19CB6D
-extern dword_19ED00, dword_19ED10, dword_19ED14, dword_19ED18, dword_19ED1C, dword_19ED20, dword_19ED24, dword_19ED28
-extern dword_19ED2C, dword_19ED30, dword_19ED34, dword_19ED38, dword_19ED3C, dword_19ED40, dword_19ED44, dword_19ED48
-extern dword_19ED4C, dword_19ED50, dword_19ED54, dword_19ED58, dword_19ED5C, dword_19ED60, dword_19ED64, dword_19ED68
-extern dword_19ED6C, dword_19ED70, SpanSlotNext, SpanSlotStart, SpanSlotTable, OverlayRowCount, OverlayRowMask, OverlayWindowFlags
+extern QuantizePalette, DrawDestBuffer, DrawDestPitch, VideoModeNumber, VideoModeIndex, ViewInterlaced, CdStreamSpeed, BenchSlotTable
+extern SparkleTable, SeasonScreenArt, SeasonOpponent, SeasonPlayedFlag, SeasonPanelArt, SeasonUserIndex, SeasonScreenState, SparkleTime
+extern MatchupLogoArt, SeasonPanelShown, WaitIconFrame, WaitIconTime, SparkleFrame, WaitIconCount, SeasonBackground, SeasonFont
+extern SeasonGameIndex, SeasonHomeTeam, SeasonAwayTeam, SeasonDay, WaitIconShown, WaitIconOn, SeasonGameCount, SparkleX
+extern SparkleY, AllStarLogoArt, SpanSlotNext, SpanSlotStart, SpanSlotTable, OverlayRowCount, OverlayRowMask, OverlayWindowFlags
 extern OverlayWindowCount, ScreenRegion, OverlayWindows, GameViewBuffer, GameViewPitch, ViewSizeChanged, ViewAspect, DirtySpanCount
 extern OverlayMaskDirty, RinkDetail, GameViewTop, GameViewRows, DisplayViewCount, GameViewShown, DisplayViews, OverlayWindowsOpen
 extern ViewSizeIndex, ViewPixelWidth, ViewPixelHeight, FadeFramesLeft, FadeActive, FadeFirstEntry, ArtRemapTable, PaletteRangeCount
@@ -31,11 +31,11 @@ extern FadeEntryCount, FadeDone, RangeBlendLevel, FadeStepCount, StreamSpeed, Cd
 extern SpeechReqHead, SpeechReqTail, SpeechRequests, dword_1AC4FC, dword_1AC508, dword_1AC50C, dword_1AC510, dword_1AC5D8
 extern dword_1AC5EC, SfxBankNames, GameAudioState, SfxBankData, SfxBankSizes, GameSoundsOn, SpeechQueueRead, SpeechQueueWrite
 extern SpeechClipIndex, SpeechBankHandle, SpeechClipTable, SpeechQueueClipId, SpeechQueueDelay, SpeechQueueStage, SpeechQueuePriority, SpeechQueueTime
-extern SpeechBanksLoaded, SpeechRequestId, SpeechRequestA, SpeechRequestB, GameSettings, dword_1AC819, dword_1AC940, dword_1AC944
-extern dword_1ACF3E, dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD45A, dword_1AD6AB, dword_1B8FA0, dword_1B905F
-extern dword_1B9067, dword_1B906F, dword_1B93D8, dword_1B93DC, dword_1B93E4, dword_1B93E8, dword_1B9D20, dword_1BAB04
+extern SpeechBanksLoaded, SpeechRequestId, SpeechRequestA, SpeechRequestB, GameSettings, AudioOptions, SeasonUserTeam, GameOptionFlags
+extern SeasonPhase, SeasonActive, dword_1ACF65, dword_1AD226, dword_1AD45A, dword_1AD6AB, dword_1B8FA0, dword_1B905F
+extern dword_1B9067, dword_1B906F, BoxSeatPlayer, BoxSeatTeam, BenchSeats, SeatTable, dword_1B9D20, dword_1BAB04
 extern dword_1BB258, dword_1BF17C, dword_1C1334, dword_1C5E74, hypot_, jpt_380E6, jpt_38102, jpt_3811A
-extern memcpy_, off_168CF0, off_168CFC, off_1691E4, off_1691F8, F64_neg3p14159_GoToBoxAnim, F64_0p2_RefDodgePuck, F64_6p28319_ReachForPuckAnim
+extern memcpy_, PtrPuckZone, PtrPuckFlags, SfxBankNameTable, SfxGroupTable, F64_neg3p14159_GoToBoxAnim, F64_0p2_RefDodgePuck, F64_6p28319_ReachForPuckAnim
 extern F64_3p14159_ReachForPuckAnim, F64_neg6p28319_ReachForPuckAnim, F64_neg3p14159_ReachForPuckAnim, F64_0p785398_ReachForPuckAnim, F64_0p0001, F64_0p6, F64_96, F64_0p00347222
 extern F64_0p8, F64_1p2_PokeCheckAnim, F64_6p28319_TryBodyCheck, F64_3p14159_TryBodyCheck, F64_neg6p28319_TryBodyCheck, F64_neg3p14159_TryBodyCheck, F64_1p0472, F64_1p5708
 extern F64_0p349066, F64_0p785398_TryBodyCheck, F64_0p7, F64_0p5_SetViewDrawTarget, F64_3p14159_PositionSfx, F64_neg3p14159_PositionSfx, F64_6p28319_PositionSfx, F64_neg6p28319_PositionSfx
@@ -61,11 +61,11 @@ extern OpenLeagueFile, StartSeasonGame, FindGameRecord, UpdateGameRecord, FileEx
 extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, FreeVideoBuffer, AllocGfxFixBuffer, AddIdleHandler, RemoveIdleHandler
 extern AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMem, addtimer, RemoveTimerCallback, TicksSinceLast
 extern WaitTicks, OpenResourceArchive, CurrentArchiveName, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
-extern ClearScreen, FillRectColor, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, str_D_DrawSeasonGamePanel, unk_160B68
-extern str_16, str_8, unk_19ED78, DirtySpans, OverlayMaskBase, RinkPalette, FadePalCount, PaletteRanges
-extern unk_1AD22E, unk_1B93E0, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_169054, word_169066, str_Punct_DrawSeasonGamePanel
-extern word_16914E, word_1691A4, word_1691B2, word_1691B6, word_169232, word_169234, word_169236, word_19ED74
-extern word_19ED76, FadePalStepR, FadePalStepG, FadePalSteps, FadeAccumR, FadeAccumG, FadeAccumB, FadeAccumNext
+extern ClearScreen, FillRectColor, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, str_D_DrawSeasonGamePanel, StreamReadBuf
+extern str_16, str_8, DisplayViewRecords, DirtySpans, OverlayMaskBase, RinkPalette, FadePalCount, PaletteRanges
+extern unk_1AD22E, BoxSeats, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_169054, word_169066, str_Punct_DrawSeasonGamePanel
+extern SparkleTimer, SfxBankLoaded, MusicBlock, MusicStopRequest, SfxVolumeScale, SfxVolumeWord, MusicVolumeScale, SeasonDate
+extern SeasonLastGame, FadePalStepR, FadePalStepG, FadePalSteps, FadeAccumR, FadeAccumG, FadeAccumB, FadeAccumNext
 extern FadeAccumLast, FadeAccums, SpeechQueuePrio, word_1AD240, word_1AD242, word_1C1344
 global jpt_3EF24, jpt_40D68, jpt_40DCC, jpt_40E30, jpt_40EA4, SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B
 global SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3, SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF
@@ -118,22 +118,22 @@ SeasonGameScreen:
         call MusicEnabled
 .1:
         lea eax, [dword ebp-0472h]
-        mov dword [dword_19ED6C], eax
+        mov dword [SparkleY], eax
         lea eax, [byte ebp+01Eh]
-        mov dword [dword_19ED5C], 0
-        mov dword [dword_19ED58], eax
+        mov dword [WaitIconShown], 0
+        mov dword [SeasonDay], eax
         lea eax, [byte ebp+042h]
-        mov dword [dword_19ED3C], 0
-        mov dword [dword_19ED64], eax
+        mov dword [SparkleFrame], 0
+        mov dword [SeasonGameCount], eax
         lea eax, [byte ebp-0Ah]
-        mov dword [dword_19ED40], 0
-        mov dword [dword_19ED38], eax
+        mov dword [WaitIconCount], 0
+        mov dword [WaitIconTime], eax
         lea eax, [byte ebp+066h]
-        mov dword [dword_19ED34], 0
-        mov dword [dword_19ED24], eax
+        mov dword [WaitIconFrame], 0
+        mov dword [SeasonScreenState], eax
         lea eax, [byte ebp-072h]
-        mov dword [dword_19ED60], 1
-        mov dword [dword_19ED2C], eax
+        mov dword [WaitIconOn], 1
+        mov dword [MatchupLogoArt], eax
         call GetAllStarDate
         push byte 0FFFFFFFFh
         call MakeColor
@@ -145,7 +145,7 @@ SeasonGameScreen:
         call WaitSoundTime
         mov eax, 53h
         call LoadDataFile
-        mov dword [dword_19ED70], eax
+        mov dword [AllStarLogoArt], eax
         mov eax, 3
         xor edx, edx
         call SecondsToSamples
@@ -155,24 +155,24 @@ SeasonGameScreen:
         push byte 0
         push dword 1E0h
         push dword 280h
-        mov dword [dword_19ED44], eax
+        mov dword [SeasonBackground], eax
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [dword_19ED10], eax
+        mov dword [SeasonScreenArt], eax
         call SetSeasonUserTeam
         test eax, eax
         je short .2
         call StartNextSeasonGame
-        mov word [word_19ED76], ax
+        mov word [SeasonLastGame], ax
         jmp short .3
 .2:
-        mov dword [dword_19ED14], 5
-        mov word [word_19ED76], 0FFFFh
+        mov dword [SeasonOpponent], 5
+        mov word [SeasonLastGame], 0FFFFh
 .3:
         lea edx, [dword ebp-0232h]
         lea eax, [dword ebp-0472h]
         call InitSeasonGameScreen
-        mov eax, dword [dword_19ED10]
+        mov eax, dword [SeasonScreenArt]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
         xor edi, edi
@@ -186,12 +186,12 @@ SeasonGameScreen_13F:
 SeasonGameScreen_14D:
         call FadeInScreen
         mov edi, ecx
-        cmp dword [dword_19ED18], byte 0
+        cmp dword [SeasonPlayedFlag], byte 0
         je short .4
         mov esi, 1Fh
         jmp short SeasonGameScreen_182.6
 .4:
-        mov eax, dword [dword_19ED14]
+        mov eax, dword [SeasonOpponent]
         mov esi, 1Ah
         cmp eax, byte 5
         ja short SeasonGameScreen_182.6
@@ -237,10 +237,10 @@ SeasonGameScreen_1EC:
         call ExitScreen
         jmp short SeasonGameScreen_182.6
 SeasonGameScreen_1F3:
-        cmp dword [dword_19ED4C], byte 0
+        cmp dword [SeasonGameIndex], byte 0
         jle short SeasonGameScreen_182.6
-        push dword [dword_19ED10]
-        dec dword [dword_19ED4C]
+        push dword [SeasonScreenArt]
+        dec dword [SeasonGameIndex]
 .7:
         call SetDrawTarget
         add esp, byte 4
@@ -248,7 +248,7 @@ SeasonGameScreen_1F3:
         call DrawSeasonGamePanel
         call SetScreenTarget
         push edi
-        mov eax, dword [dword_19ED10]
+        mov eax, dword [SeasonScreenArt]
         push edi
 .8:
         push dword [byte eax+02Ch]
@@ -265,29 +265,29 @@ SeasonGameScreen_238:
         add edx, ebx
         push ecx
         add edx, byte 0Fh
-        mov ebx, dword [dword_19ED10]
+        mov ebx, dword [SeasonScreenArt]
         push edx
         push dword [byte ebx+02Ch]
         mov edx, 9
-        push dword [dword_19ED64]
+        push dword [SeasonGameCount]
         mov ebx, dword [dword eax+ebp-044Ch]
-        push dword [dword_19ED58]
+        push dword [SeasonDay]
         mov eax, edx
         call RunScrollList
-        cmp eax, dword [dword_19ED4C]
+        cmp eax, dword [SeasonGameIndex]
         je near SeasonGameScreen_182.6
         test eax, eax
         jl near SeasonGameScreen_182.6
         cmp eax, byte 9
         jge near SeasonGameScreen_182.6
-        push dword [dword_19ED10]
-        mov dword [dword_19ED4C], eax
+        push dword [SeasonScreenArt]
+        mov dword [SeasonGameIndex], eax
         jmp near SeasonGameScreen_1F3.7
 SeasonGameScreen_2B1:
-        cmp dword [dword_19ED4C], byte 8
+        cmp dword [SeasonGameIndex], byte 8
         jge near SeasonGameScreen_182.6
-        push dword [dword_19ED10]
-        inc dword [dword_19ED4C]
+        push dword [SeasonScreenArt]
+        inc dword [SeasonGameIndex]
         jmp near SeasonGameScreen_1F3.7
 SeasonGameScreen_2CF:
         push dword [dword eax+ebp-0448h]
@@ -295,13 +295,13 @@ SeasonGameScreen_2CF:
         push dword [dword eax+ebp-0458h]
         call BlitArt
         add esp, byte 0Ch
-        cmp dword [dword_19ED14], byte 0
+        cmp dword [SeasonOpponent], byte 0
         jne near .16
         mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         je short .9
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .10
 .9:
         mov ebx, 1
@@ -309,15 +309,15 @@ SeasonGameScreen_2CF:
 .10:
         xor ebx, ebx
 .11:
-        movsx eax, word [word_19ED76]
+        movsx eax, word [SeasonLastGame]
         mov edx, ebx
         call SimulateGame
-        cmp dword [dword_19ED18], byte 0
+        cmp dword [SeasonPlayedFlag], byte 0
         je short .12
         movzx ax, byte [byte_1C135A]
         mov word [word_1AD240], ax
         movzx ax, byte [byte_1C135B]
-        mov dword [dword_19ED18], 0
+        mov dword [SeasonPlayedFlag], 0
         mov word [word_1AD242], ax
         jmp short .13
 .12:
@@ -328,7 +328,7 @@ SeasonGameScreen_2CF:
         and eax, byte 70h
         cmp eax, byte 20h
         je short .14
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .15
 .14:
         test ebx, ebx
@@ -338,19 +338,19 @@ SeasonGameScreen_2CF:
         jmp near SeasonGameScreen_182.6
 .15:
         call StartNextSeasonGame
-        push dword [dword_19ED10]
-        mov word [word_19ED76], ax
+        push dword [SeasonScreenArt]
+        mov word [SeasonLastGame], ax
         call SetDrawTarget
         add esp, byte 4
         mov eax, 1
         call DrawSeasonGamePanel
         call SetScreenTarget
         push byte 0
-        mov eax, dword [dword_19ED10]
+        mov eax, dword [SeasonScreenArt]
         push byte 0
         jmp near SeasonGameScreen_1F3.8
 .16:
-        mov eax, dword [dword_19ED14]
+        mov eax, dword [SeasonOpponent]
         dec eax
         cmp eax, byte 4
         ja near SeasonGameScreen_182.6
@@ -370,7 +370,7 @@ SeasonGameScreen_3EB:
 .17:
         xor ebx, ebx
 .18:
-        mov edx, dword [dword_19ED2C]
+        mov edx, dword [MatchupLogoArt]
         mov eax, ebx
         push dword [edx+eax*4]
         call FreeBitmap
@@ -378,30 +378,30 @@ SeasonGameScreen_3EB:
         add esp, byte 4
         cmp ebx, byte 1Ah
         jl short .18
-        cmp dword [dword_19ED30], byte 0
+        cmp dword [SeasonPanelShown], byte 0
         je short .19
-        mov eax, dword_19ED30
+        mov eax, SeasonPanelShown
         call FreeDbBlock
 .19:
-        mov dword [dword_19ED30], 0
-        cmp dword [dword_19ED48], byte 0
+        mov dword [SeasonPanelShown], 0
+        cmp dword [SeasonFont], byte 0
         je short .20
-        push dword [dword_19ED48]
+        push dword [SeasonFont]
         call FreeMemBlock
         add esp, byte 4
 .20:
-        push dword [dword_19ED10]
+        push dword [SeasonScreenArt]
         call FreeBitmap
         add esp, byte 4
-        push dword [dword_19ED44]
+        push dword [SeasonBackground]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_19ED70]
+        push dword [AllStarLogoArt]
         call FreeMemBlock
         add esp, byte 4
         cmp byte [byte_1C6040], 0
         je short .21
-        cmp dword [dword_19ED18], byte 0
+        cmp dword [SeasonPlayedFlag], byte 0
         jne short .21
         call LoadFrontEndSfx
 .21:
@@ -422,29 +422,29 @@ SetSeasonUserTeam:
         mov edx, 1
         cmp eax, byte 10h
         jne short .2
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .2
         mov eax, dword [dword_1AD226]
 .1:
-        mov dword [dword_19ED20], eax
+        mov dword [SeasonUserIndex], eax
         jmp near .7
 .2:
         movzx eax, byte [byte_1AD742]
-        mov dword [dword_19ED20], eax
+        mov dword [SeasonUserIndex], eax
         mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .4
-        cmp dword [dword_19ED20], byte 0
+        cmp dword [SeasonUserIndex], byte 0
         jl short .3
-        cmp eax, dword [dword_19ED20]
+        cmp eax, dword [SeasonUserIndex]
         jle short .3
-        mov eax, dword [dword_19ED20]
+        mov eax, dword [SeasonUserIndex]
         shl eax, 2
         mov ebx, dword [dword eax+dword_1AD6AB]
         cmp ebx, dword [dword_1AD226]
         jne short .3
-        mov dword [dword_19ED50], ebx
+        mov dword [SeasonHomeTeam], ebx
         mov eax, edx
         pop edx
         pop ebx
@@ -454,17 +454,17 @@ SetSeasonUserTeam:
         xor edx, edx
         jmp short .1
 .4:
-        cmp dword [dword_19ED20], byte 0
+        cmp dword [SeasonUserIndex], byte 0
         jl short .5
-        cmp dword [dword_19ED20], byte 10h
+        cmp dword [SeasonUserIndex], byte 10h
         jl short .6
 .5:
-        mov dword [dword_19ED20], 0
+        mov dword [SeasonUserIndex], 0
 .6:
-        mov eax, dword [dword_19ED20]
+        mov eax, dword [SeasonUserIndex]
         mov eax, dword [nosplit eax*4+dword_1AD6AB]
 .7:
-        mov dword [dword_19ED50], eax
+        mov dword [SeasonHomeTeam], eax
         mov eax, edx
         pop edx
         pop ebx
@@ -496,24 +496,24 @@ InitSeasonGameScreen:
         mov dword [byte eax+014h], edx
         cmp dword [byte ebp-04h], byte 7
         jl short .1
-        push dword [dword_19ED10]
+        push dword [SeasonScreenArt]
         call SetDrawTarget
         add esp, byte 4
         push str_BACK
-        push dword [dword_19ED70]
+        push dword [AllStarLogoArt]
         call FindShape
         add esp, byte 8
         push eax
-        mov dword [dword_19ED1C], eax
+        mov dword [SeasonPanelArt], eax
         call BlitShape
         add esp, byte 4
         push str_TITL
-        push dword [dword_19ED44]
+        push dword [SeasonBackground]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
-        mov eax, dword [dword_19ED10]
+        mov eax, dword [SeasonScreenArt]
         mov edi, dword [byte ebp-018h]
         mov esi, unk_1C5EF8
         mov eax, dword [byte eax+02Ch]
@@ -541,26 +541,26 @@ InitSeasonGameScreen:
         lea edx, [dword eax+0F6h]
         mov dword [dword eax+0A4h], 2
         mov ecx, str_AB01
-        mov eax, dword [dword_19ED70]
+        mov eax, dword [AllStarLogoArt]
         call InitShapeListBox
         push str_BH00
         mov edx, dword [byte ebp-018h]
         mov ecx, str_BH00
         mov ebx, str_BT00
-        mov eax, dword [dword_19ED44]
+        mov eax, dword [SeasonBackground]
         add edx, 148h
         call InitShapeListBox
         push str_AB05
         mov edx, dword [byte ebp-018h]
         mov ecx, str_AB04
         mov ebx, str_AB03
-        mov eax, dword [dword_19ED70]
+        mov eax, dword [AllStarLogoArt]
         add edx, 19Ah
         call InitShapeListBox
         push str_SIM0
         mov edx, dword [byte ebp-018h]
         mov ecx, str_SIM0
-        mov eax, dword [dword_19ED44]
+        mov eax, dword [SeasonBackground]
         add edx, 1ECh
         mov ebx, ecx
         call InitShapeListBox
@@ -576,13 +576,13 @@ InitSeasonGameScreen:
         mov byte [byte ebp-011h], al
         lea eax, [byte ebp-014h]
         push eax
-        push dword [dword_19ED44]
+        push dword [SeasonBackground]
         call FindShape
         mov edx, eax
         mov eax, dword [byte ebp-04h]
         add esp, byte 8
         inc dword [byte ebp-04h]
-        mov dword [nosplit eax*4+dword_19ED00], edx
+        mov dword [nosplit eax*4+SparkleTable], edx
         cmp dword [byte ebp-04h], byte 4
         jl short .2
         mov dword [byte ebp-04h], 0
@@ -600,20 +600,20 @@ InitSeasonGameScreen:
         add esp, byte 0Ch
         lea eax, [byte ebp-014h]
         push eax
-        push dword [dword_19ED44]
+        push dword [SeasonBackground]
         mov ebx, dword [byte ebp-04h]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_19ED58]
+        mov eax, dword [SeasonDay]
         add esp, byte 8
         mov dword [eax+ebx*4], edx
         lea eax, [byte ebp-014h]
         push eax
-        push dword [dword_19ED44]
+        push dword [SeasonBackground]
         mov byte [byte ebp-013h], 48h
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_19ED64]
+        mov eax, dword [SeasonGameCount]
         inc dword [byte ebp-04h]
         add esp, byte 8
         mov dword [eax+ebx*4], edx
@@ -631,9 +631,9 @@ InitSeasonGameScreen:
         mov byte [byte ebp-011h], al
         lea eax, [byte ebp-014h]
         push eax
-        push dword [dword_19ED70]
+        push dword [AllStarLogoArt]
         call FindShape
-        mov ebx, dword [dword_19ED38]
+        mov ebx, dword [WaitIconTime]
         mov edx, eax
         mov eax, dword [byte ebp-04h]
         add esp, byte 8
@@ -653,9 +653,9 @@ InitSeasonGameScreen:
         mov byte [byte ebp-011h], al
         lea eax, [byte ebp-014h]
         push eax
-        push dword [dword_19ED70]
+        push dword [AllStarLogoArt]
         call FindShape
-        mov ebx, dword [dword_19ED24]
+        mov ebx, dword [SeasonScreenState]
         mov edx, eax
         mov eax, dword [byte ebp-04h]
         add esp, byte 8
@@ -664,19 +664,19 @@ InitSeasonGameScreen:
         cmp dword [byte ebp-04h], byte 6
         jl short .5
         mov eax, 52h
-        mov dword [dword_19ED30], 0
+        mov dword [SeasonPanelShown], 0
         call OpenDataLibrary
-        push dword [dword_19ED10]
+        push dword [SeasonScreenArt]
         call SetDrawTarget
         add esp, byte 4
-        push dword [dword_19ED50]
+        push dword [SeasonHomeTeam]
         push str_Logo02dFsh
         lea eax, [byte ebp-014h]
         push eax
         call sprintf_
         add esp, byte 0Ch
         mov eax, 3
-        mov dword [dword_19ED54], 0
+        mov dword [SeasonAwayTeam], 0
         call SecondsToSamples
         call WaitSoundTime
         push byte 0
@@ -684,19 +684,19 @@ InitSeasonGameScreen:
         push eax
         call OpenArtArchive
         add esp, byte 8
-        mov dword [dword_19ED48], eax
+        mov dword [SeasonFont], eax
         test eax, eax
         je short .6
         push str_LOGO
         push eax
         call FindShapeQuiet
         add esp, byte 8
-        mov dword [dword_19ED54], eax
+        mov dword [SeasonAwayTeam], eax
 .6:
         push byte 28h
         mov ecx, 1B8h
         mov ebx, 6Ch
-        mov eax, dword [dword_19ED10]
+        mov eax, dword [SeasonScreenArt]
         push byte 5Ah
         mov edx, 14h
         mov eax, dword [byte eax+02Ch]
@@ -754,12 +754,12 @@ InitSeasonGameScreen:
         call CreateBitmap
         mov edx, dword [byte ebp-04h]
         mov ebx, eax
-        mov eax, dword [dword_19ED2C]
+        mov eax, dword [MatchupLogoArt]
         add esp, byte 0Ch
         mov dword [eax+edx*4], ebx
         mov eax, edx
         call LoadTeamLogo
-        mov eax, dword [dword_19ED2C]
+        mov eax, dword [MatchupLogoArt]
         push dword [eax+edx*4]
         call SetDrawTarget
         add esp, byte 4
@@ -776,7 +776,7 @@ InitSeasonGameScreen:
         call FreeLogoArt
         cmp dword [byte ebp-04h], byte 1Ah
         jl short .9
-        push dword [dword_19ED10]
+        push dword [SeasonScreenArt]
         call SetDrawTarget
         add esp, byte 4
         mov eax, 1
@@ -907,17 +907,17 @@ DrawMatchupLogo:
         mov eax, edx
         push dword [nosplit edx*4+str_Punct_DrawLockedGame]
         mov edx, ecx
-        mov eax, dword [nosplit eax*4+dword_169126]
+        mov eax, dword [nosplit eax*4+MatchupLogoPos]
         push dword [nosplit edx*4+str_G_DrawLockedGame]
         add eax, byte 53h
         push eax
-        mov eax, dword [nosplit edx*4+dword_1690EE]
+        mov eax, dword [nosplit edx*4+MatchupLogoIds]
         add eax, byte 4Ch
         push eax
-        mov eax, dword [dword_19ED10]
+        mov eax, dword [SeasonScreenArt]
         mov edx, dword [byte eax+02Ch]
         mov eax, ebx
-        mov ebx, dword [dword_19ED2C]
+        mov ebx, dword [MatchupLogoArt]
         xor ecx, ecx
         mov eax, dword [ebx+eax*4]
         push byte 0
@@ -939,7 +939,7 @@ DrawAllStarLogo:
         mov ebx, edx
         push dword [MenuScreenBitmap]
         push str_ALST
-        push dword [dword_19ED70]
+        push dword [AllStarLogoArt]
         call FindShape
         add esp, byte 8
         push eax
@@ -950,17 +950,17 @@ DrawAllStarLogo:
         add esp, byte 8
         dec eax
         dec eax
-        mov edx, dword [nosplit edx*4+dword_169126]
+        mov edx, dword [nosplit edx*4+MatchupLogoPos]
         push eax
         mov eax, edi
         add edx, byte 53h
         push dword [nosplit eax*4+str_G_DrawLockedGame]
-        mov eax, dword [nosplit eax*4+dword_1690EE]
+        mov eax, dword [nosplit eax*4+MatchupLogoIds]
         push edx
         add eax, byte 4Ch
         xor ecx, ecx
         push eax
-        mov eax, dword [dword_19ED10]
+        mov eax, dword [SeasonScreenArt]
         mov ebx, 18h
         push byte 2
         mov edx, dword [byte eax+02Ch]
@@ -995,14 +995,14 @@ DrawGameScore:
         movsx edx, word [byte ebx+04h]
         mov ecx, dword [nosplit eax*4+str_G_DrawLockedGame]
         sub ecx, edx
-        mov eax, dword [nosplit eax*4+dword_1690EE]
+        mov eax, dword [nosplit eax*4+MatchupLogoIds]
         mov edx, ecx
         add eax, byte 4Ch
         sar edx, 1
         add eax, edx
         mov dword [byte ebp-04h], eax
         mov eax, dword [byte ebp-014h]
-        mov edx, dword [nosplit eax*4+dword_169126]
+        mov edx, dword [nosplit eax*4+MatchupLogoPos]
         add edx, byte 53h
         add edx, dword [nosplit eax*4+str_Punct_DrawLockedGame]
         movsx eax, word [byte ebx+06h]
@@ -1091,13 +1091,13 @@ DrawGameScoreLine:
         movsx edi, word [byte ebx+04h]
         mov edx, dword [nosplit eax*4+str_G_DrawLockedGame]
         sub edx, edi
-        mov eax, dword [nosplit eax*4+dword_1690EE]
+        mov eax, dword [nosplit eax*4+MatchupLogoIds]
         mov edi, edx
         add eax, byte 4Ch
         sar edi, 1
         add edi, eax
         mov eax, esi
-        mov edx, dword [nosplit eax*4+dword_169126]
+        mov edx, dword [nosplit eax*4+MatchupLogoPos]
         add edx, byte 53h
         add edx, dword [nosplit eax*4+str_Punct_DrawLockedGame]
         movsx eax, word [byte ebx+06h]
@@ -1143,17 +1143,17 @@ FindUserOpponent:
         push esi
         push edi
         enter 4, 0
-        movsx edx, word [word_19ED76]
-        mov eax, dword [dword_1AC940]
+        movsx edx, word [SeasonLastGame]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         add eax, edx
         movsx ecx, byte [eax]
-        cmp ecx, dword [dword_19ED20]
+        cmp ecx, dword [SeasonUserIndex]
         jne short .1
         movsx ecx, byte [byte eax+01h]
 .1:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov esi, ecx
         xor ebx, ebx
         jmp short .3
@@ -1175,7 +1175,7 @@ FindUserOpponent:
         cmp ebx, edx
         jl short .2
 .4:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
 .5:
         mov edx, ebx
         movsx ebx, word [byte eax+02h]
@@ -1211,42 +1211,42 @@ FindUserOpponent:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .11
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .11
-        imul eax, dword [dword_19ED20], byte 1Ch
+        imul eax, dword [SeasonUserIndex], byte 1Ch
         test byte [dword eax+byte_1ACF62], 1
         jne short .9
         imul eax, ecx, byte 1Ch
         test byte [dword eax+byte_1ACF62], 1
         je short .10
 .9:
-        mov dword [dword_19ED14], 1
+        mov dword [SeasonOpponent], 1
         jmp near FindUserOpponent_14D
 .10:
-        movsx ebx, word [word_19ED76]
+        movsx ebx, word [SeasonLastGame]
         cmp edx, ebx
         jge short FindUserOpponent_14D
         test byte [dword eax+byte_1ACF63], 1
         je short FindUserOpponent_14D
-        mov dword [dword_19ED14], 2
+        mov dword [SeasonOpponent], 2
         jmp short FindUserOpponent_14D
 .11:
-        imul eax, dword [dword_19ED20], byte 1Ch
+        imul eax, dword [SeasonUserIndex], byte 1Ch
         test byte [dword eax+byte_1AD457], 1
         jne short .12
         imul eax, ecx, byte 1Ch
         test byte [dword eax+byte_1AD457], 1
         je short .13
 .12:
-        mov dword [dword_19ED14], 3
+        mov dword [SeasonOpponent], 3
         jmp short FindUserOpponent_14D
 .13:
-        movsx ebx, word [word_19ED76]
+        movsx ebx, word [SeasonLastGame]
         cmp edx, ebx
         jge short FindUserOpponent_14D
         test byte [dword eax+byte_1AD458], 1
         je short FindUserOpponent_14D
-        mov dword [dword_19ED14], 4
+        mov dword [SeasonOpponent], 4
 FindUserOpponent_14D:
         leave
 FindUserOpponent_14E:
@@ -1268,12 +1268,12 @@ DrawLockedGame:
         enter 8, 0
         mov esi, eax
         shl esi, 2
-        mov eax, dword [dword esi+dword_1690EE]
+        mov eax, dword [dword esi+MatchupLogoIds]
         mov edi, edx
         add eax, byte 4Ch
         shl edi, 2
         mov dword [byte ebp-04h], eax
-        mov eax, dword [dword edi+dword_169126]
+        mov eax, dword [dword edi+MatchupLogoPos]
         push byte 3
         add eax, byte 53h
         push dword 0FFFFFF50h
@@ -1290,10 +1290,10 @@ DrawLockedGame:
         sub edx, byte 3
         sub eax, byte 3
         call FillStatBar
-        cmp dword [dword_19ED14], byte 0
+        cmp dword [SeasonOpponent], byte 0
         je near InitSeasonGameScreen_472
         push str_LOCK
-        push dword [dword_19ED70]
+        push dword [AllStarLogoArt]
         call FindShape
         movsx edx, word [byte eax+04h]
         mov ebx, dword [dword esi+str_G_DrawLockedGame]
@@ -1319,7 +1319,7 @@ DrawLockedGame:
         and edx, byte 70h
         cmp edx, byte 10h
         jne short .1
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .2
 .1:
         mov eax, dword [nosplit eax*4+dword_1AD6AB]
@@ -1344,10 +1344,10 @@ DrawSeasonGamePanel:
         mov dword [byte ebp-010h], 1
         cmp eax, byte 10h
         jne short .3
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .3
         movzx eax, byte [byte_1AD742]
-        mov dword [dword_19ED20], eax
+        mov dword [SeasonUserIndex], eax
         test eax, eax
         jl short .1
         cmp eax, byte 10h
@@ -1360,28 +1360,28 @@ DrawSeasonGamePanel:
 .1:
         mov dword [byte ebp-010h], 0
 .2:
-        cmp dword [dword_19ED30], byte 0
+        cmp dword [SeasonPanelShown], byte 0
         jne short .3
-        mov edx, dword_19ED30
+        mov edx, SeasonPanelShown
         mov eax, unk_1AD22E
         call OpenLeagueFile
         test eax, eax
         jne short .3
-        mov dword [dword_19ED30], eax
+        mov dword [SeasonPanelShown], eax
 .3:
         push str_PANL
-        push dword [dword_19ED70]
+        push dword [AllStarLogoArt]
         call FindShape
         add esp, byte 8
         mov dword [byte ebp-01Ch], eax
         cmp dword [byte ebp-010h], byte 0
         je short .4
-        cmp word [word_19ED76], byte 0
+        cmp word [SeasonLastGame], byte 0
         jge short .4
-        mov edx, dword [dword_19ED20]
-        mov eax, dword [dword_1AC940]
+        mov edx, dword [SeasonUserIndex]
+        mov eax, dword [SeasonUserTeam]
         call FindTeamGame
-        mov word [word_19ED76], ax
+        mov word [SeasonLastGame], ax
 .4:
         test ebx, ebx
         je near .9
@@ -1398,10 +1398,10 @@ DrawSeasonGamePanel:
         mov bx, word [nosplit esi*4+word_169066]
         mov edx, eax
         add ebx, eax
-        cmp dword [dword_19ED18], byte 0
+        cmp dword [SeasonPlayedFlag], byte 0
         jne short .7
-        movsx edi, word [word_19ED76]
-        mov eax, dword [dword_1AC940]
+        movsx edi, word [SeasonLastGame]
+        mov eax, dword [SeasonUserTeam]
         shl edi, 4
         mov eax, dword [byte eax+020h]
         add eax, edi
@@ -1410,23 +1410,23 @@ DrawSeasonGamePanel:
         cmp bx, word [byte eax+04h]
 .6:
         jbe short .8
-        mov dword [dword_19ED4C], esi
+        mov dword [SeasonGameIndex], esi
         jmp short .9
 .7:
-        cmp ax, word [word_19ED74]
+        cmp ax, word [SeasonDate]
         ja short .8
-        cmp bx, word [word_19ED74]
+        cmp bx, word [SeasonDate]
         jmp short .6
 .8:
         inc esi
         cmp esi, byte 9
         jl short .5
 .9:
-        mov eax, dword [dword_19ED4C]
+        mov eax, dword [SeasonGameIndex]
         mov ax, word [nosplit eax*4+str_Punct_DrawSeasonGamePanel]
         inc eax
         movsx edx, ax
-        mov eax, dword [dword_19ED4C]
+        mov eax, dword [SeasonGameIndex]
         mov ebx, 1
         movsx eax, word [nosplit eax*2+word_169054]
         xor edi, edi
@@ -1442,7 +1442,7 @@ DrawSeasonGamePanel:
         jae short .12
         inc edi
 .11:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [byte eax+02h]
         cmp edi, edx
         jl short .10
@@ -1450,13 +1450,13 @@ DrawSeasonGamePanel:
         test edi, edi
         jne near .19
         mov edx, edi
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         mov ax, word [byte edx+eax+04h]
         cmp ax, word [byte ebp-04h]
         jbe near .19
-        cmp dword [dword_19ED30], byte 0
+        cmp dword [SeasonPanelShown], byte 0
         je near .20
         mov dword [byte ebp-08h], edi
         jmp short .14
@@ -1469,16 +1469,16 @@ DrawSeasonGamePanel:
         jae short .15
         inc dword [byte ebp-08h]
 .14:
-        mov eax, dword [dword_19ED30]
+        mov eax, dword [SeasonPanelShown]
         movsx edx, word [byte eax+02h]
         cmp edx, dword [byte ebp-08h]
         jg short .13
 .15:
-        mov eax, dword [dword_19ED50]
+        mov eax, dword [SeasonHomeTeam]
         mov dword [byte ebp-018h], eax
         mov esi, dword [byte ebp-08h]
         mov edx, dword [byte ebp-018h]
-        mov eax, dword [dword_19ED30]
+        mov eax, dword [SeasonPanelShown]
         jmp short .17
 .16:
         mov ebx, esi
@@ -1505,10 +1505,10 @@ DrawSeasonGamePanel:
 .20:
         cmp dword [byte ebp-010h], byte 0
         je short .24
-        cmp dword [dword_19ED14], byte 5
+        cmp dword [SeasonOpponent], byte 5
         je short .24
-        mov edx, dword [dword_19ED20]
-        mov ebx, dword [dword_1AC940]
+        mov edx, dword [SeasonUserIndex]
+        mov ebx, dword [SeasonUserTeam]
         jmp short .22
 .21:
         mov eax, edi
@@ -1527,19 +1527,19 @@ DrawSeasonGamePanel:
         cmp edi, eax
         jl short .21
 .23:
-        cmp dword [dword_19ED18], byte 0
+        cmp dword [SeasonPlayedFlag], byte 0
         jne short .25
         call FindUserOpponent
         jmp short .25
 .24:
-        cmp dword [dword_19ED14], byte 0
+        cmp dword [SeasonOpponent], byte 0
         jne short .25
-        mov dword [dword_19ED14], 5
+        mov dword [SeasonOpponent], 5
 .25:
         cmp dword [byte ebp-010h], byte 0
         je short .28
-        movsx edx, word [word_19ED76]
-        mov eax, dword [dword_1AC940]
+        movsx edx, word [SeasonLastGame]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov ebx, dword [byte eax+020h]
         cmp byte [byte edx+ebx+02h], 0
@@ -1549,7 +1549,7 @@ DrawSeasonGamePanel:
         movsx edx, word [byte eax+02h]
         cmp edi, edx
         jge short .28
-        mov edx, dword [dword_19ED20]
+        mov edx, dword [SeasonUserIndex]
         mov ebx, eax
         jmp short .27
 .26:
@@ -1569,31 +1569,31 @@ DrawSeasonGamePanel:
         cmp edi, eax
         jl short .26
 .28:
-        mov edx, dword [dword_19ED4C]
-        mov eax, dword [dword_19ED58]
+        mov edx, dword [SeasonGameIndex]
+        mov eax, dword [SeasonDay]
         shl edx, 2
         add edx, eax
-        mov eax, dword [dword_19ED6C]
+        mov eax, dword [SparkleY]
         mov edx, dword [edx]
         mov dword [dword eax+0162h], edx
-        mov edx, dword [dword_19ED4C]
-        mov eax, dword [dword_19ED64]
+        mov edx, dword [SeasonGameIndex]
+        mov eax, dword [SeasonGameCount]
         shl edx, 2
         add edx, eax
-        mov eax, dword [dword_19ED6C]
+        mov eax, dword [SparkleY]
         mov edx, dword [edx]
         mov dword [dword eax+016Ah], edx
-        mov eax, dword [dword_19ED6C]
+        mov eax, dword [SparkleY]
         mov dword [dword eax+0166h], edx
-        mov eax, dword [dword_19ED6C]
+        mov eax, dword [SparkleY]
         push dword [dword eax+0172h]
         push dword [dword eax+016Eh]
         push dword [dword eax+0162h]
         call BlitArt
         add esp, byte 0Ch
-        cmp dword [dword_19ED54], byte 0
+        cmp dword [SeasonAwayTeam], byte 0
         je near .29
-        mov eax, dword [dword_19ED54]
+        mov eax, dword [SeasonAwayTeam]
         movsx eax, word [byte eax+06h]
         add eax, byte 53h
         push eax
@@ -1602,9 +1602,9 @@ DrawSeasonGamePanel:
         push byte 49h
         call SetClipWindow
         add esp, byte 10h
-        push dword [dword_19ED1C]
+        push dword [SeasonPanelArt]
         call BlitShape
-        mov eax, dword [dword_19ED54]
+        mov eax, dword [SeasonAwayTeam]
         movsx edx, word [byte eax+06h]
         add esp, byte 4
         add edx, byte 53h
@@ -1617,10 +1617,10 @@ DrawSeasonGamePanel:
         push eax
         call SetClipWindow
         add esp, byte 10h
-        push dword [dword_19ED1C]
+        push dword [SeasonPanelArt]
         call BlitShape
         add esp, byte 4
-        mov eax, dword [dword_19ED54]
+        mov eax, dword [SeasonAwayTeam]
         push byte 53h
         movsx eax, word [byte eax+04h]
         push byte 50h
@@ -1629,9 +1629,9 @@ DrawSeasonGamePanel:
         push byte 49h
         call SetClipWindow
         add esp, byte 10h
-        push dword [dword_19ED1C]
+        push dword [SeasonPanelArt]
         call BlitShape
-        mov eax, dword [dword_19ED54]
+        mov eax, dword [SeasonAwayTeam]
         movsx edx, word [byte eax+06h]
         add esp, byte 4
         lea ebx, [byte edx+056h]
@@ -1644,7 +1644,7 @@ DrawSeasonGamePanel:
         push byte 49h
         call SetClipWindow
         add esp, byte 10h
-        push dword [dword_19ED1C]
+        push dword [SeasonPanelArt]
         call BlitShape
         add esp, byte 4
         push dword 1E0h
@@ -1655,7 +1655,7 @@ DrawSeasonGamePanel:
         add esp, byte 10h
         push byte 53h
         push byte 4Ch
-        push dword [dword_19ED54]
+        push dword [SeasonAwayTeam]
         call BlitArt
         add esp, byte 0Ch
 .29:
@@ -1666,15 +1666,15 @@ DrawSeasonGamePanel:
         xor esi, esi
         call SetTextColor
 .30:
-        mov eax, dword [dword_19ED4C]
+        mov eax, dword [SeasonGameIndex]
         mov eax, dword [nosplit eax*4+dword_16908A]
         add eax, esi
         cdq
         idiv ebx
-        mov eax, dword [nosplit edx*4+dword_1690D2]
+        mov eax, dword [nosplit edx*4+SeasonPanelText]
         call GetLangText
         push eax
-        mov edx, dword [nosplit esi*4+dword_1690EE]
+        mov edx, dword [nosplit esi*4+MatchupLogoIds]
         mov eax, dword [nosplit esi*4+str_G_DrawLockedGame]
         add edx, byte 4Ch
         sar eax, 1
@@ -1706,7 +1706,7 @@ DrawSeasonGamePanel:
         mov dword [byte ebp-014h], eax
         cmp dword [byte ebp-010h], byte 0
         je near .44
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [byte eax+02h]
         cmp edi, edx
         jge near .41
@@ -1722,13 +1722,13 @@ DrawSeasonGamePanel:
         mov ebx, dword [GameSettings]
         movsx edx, byte [eax]
         and ebx, byte 70h
-        cmp edx, dword [dword_19ED20]
+        cmp edx, dword [SeasonUserIndex]
         jne short .34
         movsx eax, byte [byte eax+01h]
         mov edx, eax
         cmp ebx, byte 10h
         jne short .32
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .32
         mov ebx, eax
         jmp short .33
@@ -1741,7 +1741,7 @@ DrawSeasonGamePanel:
         mov eax, edx
         cmp ebx, byte 10h
         jne short .35
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .36
 .35:
         mov edx, dword [nosplit eax*4+dword_1AD6AB]
@@ -1756,20 +1756,20 @@ DrawSeasonGamePanel:
         mov eax, dword [byte ebp-028h]
         call DrawMatchupLogo
         mov ebx, edi
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl ebx, 4
         mov edx, dword [byte eax+020h]
         cmp byte [byte edx+ebx+02h], 0
         jl short .38
         mov ecx, dword [byte ebp-0Ch]
-        push dword [dword_19ED20]
+        push dword [SeasonUserIndex]
         mov ebx, dword [byte ebp-028h]
         push dword [byte ebp-01Ch]
         mov edx, edi
         call DrawGameScore
 .38:
-        mov edx, dword [dword_19ED20]
-        mov eax, dword [dword_1AC940]
+        mov edx, dword [SeasonUserIndex]
+        mov eax, dword [SeasonUserTeam]
         jmp short .40
 .39:
         mov ebx, edi
@@ -1788,17 +1788,17 @@ DrawSeasonGamePanel:
         cmp edi, ebx
         jl short .39
 .41:
-        cmp dword [dword_19ED18], byte 0
+        cmp dword [SeasonPlayedFlag], byte 0
         je short .42
         movzx eax, word [byte ebp-04h]
         lea edx, [eax+esi]
-        movzx eax, word [word_19ED74]
+        movzx eax, word [SeasonDate]
         cmp edx, eax
         jne short .44
         jmp short .43
 .42:
-        movsx edx, word [word_19ED76]
-        mov eax, dword [dword_1AC940]
+        movsx edx, word [SeasonLastGame]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         movzx ebx, word [byte ebp-04h]
@@ -1814,9 +1814,9 @@ DrawSeasonGamePanel:
         mov eax, dword [byte ebp-028h]
         call DrawLockedGame
 .44:
-        cmp dword [dword_19ED30], byte 0
+        cmp dword [SeasonPanelShown], byte 0
         je near .51
-        mov eax, dword [dword_19ED30]
+        mov eax, dword [SeasonPanelShown]
         movsx edx, word [byte eax+02h]
         cmp edx, dword [byte ebp-08h]
         jle near .51
@@ -1845,7 +1845,7 @@ DrawSeasonGamePanel:
         mov eax, dword [byte ebp-028h]
         call DrawMatchupLogo
         mov edx, dword [byte ebp-08h]
-        mov eax, dword [dword_19ED30]
+        mov eax, dword [SeasonPanelShown]
         shl edx, 4
         mov ebx, dword [byte eax+020h]
         cmp byte [byte edx+ebx+02h], 0
@@ -1859,7 +1859,7 @@ DrawSeasonGamePanel:
 .47:
         mov edx, dword [byte ebp-08h]
         mov ebx, dword [byte ebp-018h]
-        mov eax, dword [dword_19ED30]
+        mov eax, dword [SeasonPanelShown]
         inc edx
         mov dword [byte ebp-020h], ebx
         jmp short .49
@@ -1883,7 +1883,7 @@ DrawSeasonGamePanel:
         mov dword [byte ebp-08h], edx
 .51:
         movzx edx, word [byte ebp-04h]
-        movzx eax, word [word_19ED74]
+        movzx eax, word [SeasonDate]
         add edx, esi
         cmp edx, eax
         jne short .52
@@ -1906,12 +1906,12 @@ DrawSeasonGamePanel:
         inc esi
         mov eax, dword [byte ebp-0Ch]
         push esi
-        mov eax, dword [nosplit eax*4+dword_169126]
+        mov eax, dword [nosplit eax*4+MatchupLogoPos]
         push str_D_DrawSeasonGamePanel
         add eax, byte 56h
         push eax
         mov eax, dword [byte ebp-028h]
-        mov edx, dword [nosplit eax*4+dword_1690EE]
+        mov edx, dword [nosplit eax*4+MatchupLogoIds]
         add edx, byte 4Ch
         add edx, dword [nosplit eax*4+str_G_DrawLockedGame]
         sub edx, byte 3
@@ -1920,7 +1920,7 @@ DrawSeasonGamePanel:
         call DrawTextAligned
         add esp, byte 14h
 .53:
-        mov eax, dword [dword_19ED4C]
+        mov eax, dword [SeasonGameIndex]
         cmp esi, dword [nosplit eax*4+word_169066]
         jl near .31
         push dword 198h
@@ -1928,11 +1928,11 @@ DrawSeasonGamePanel:
         push dword 280h
         push byte 0
         call SetClipWindow
-        mov eax, dword [dword_19ED24]
+        mov eax, dword [SeasonScreenState]
         add esp, byte 10h
         push dword [eax]
         call BlitShape
-        mov eax, dword [dword_19ED24]
+        mov eax, dword [SeasonScreenState]
         add esp, byte 4
         push dword [byte eax+0Ch]
         call BlitShape
@@ -1947,7 +1947,7 @@ SetPlayedTeams:
         movzx ax, byte [byte_1C135A]
         mov word [word_1AD240], ax
         movzx ax, byte [byte_1C135B]
-        mov dword [dword_19ED18], 0
+        mov dword [SeasonPlayedFlag], 0
         mov word [word_1AD242], ax
         ret
 ;-----------------------------------------------------------------------------
@@ -1959,7 +1959,7 @@ IsAllStarDay:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .1
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .1
         call GetAllStarDate
         cmp ax, word [word_1C1344]
@@ -1978,14 +1978,14 @@ GetAllStarDate:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .1
-        cmp dword [dword_1ACF3E], byte 2
+        cmp dword [SeasonPhase], byte 2
         jne short .1
-        mov word [word_19ED74], 88DCh
+        mov word [SeasonDate], 88DCh
         jmp short .2
 .1:
-        mov word [word_19ED74], 890Bh
+        mov word [SeasonDate], 890Bh
 .2:
-        mov ax, word [word_19ED74]
+        mov ax, word [SeasonDate]
         ret
 ;-----------------------------------------------------------------------------
 ; StartNextSeasonGame                             39882  97 PC, low confidence
@@ -1998,28 +1998,28 @@ StartNextSeasonGame:
         push esi
         push edi
         enter 195Ch, 0
-        mov edx, dword [dword_19ED20]
-        mov eax, dword [dword_1AC940]
+        mov edx, dword [SeasonUserIndex]
+        mov eax, dword [SeasonUserTeam]
         call TeamHasGamesLeft
         test eax, eax
         jne short .1
         mov eax, 0FFFFFFFFh
-        mov dword [dword_19ED14], 5
+        mov dword [SeasonOpponent], 5
         jmp near .11
 .1:
         mov eax, dword [GameSettings]
         and eax, byte 70h
-        mov dword [dword_19ED14], 0
+        mov dword [SeasonOpponent], 0
         cmp eax, byte 10h
         jne short .2
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .2
         mov esi, dword [dword_1AD226]
         jmp short .3
 .2:
         movzx esi, byte [byte_1AD742]
 .3:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl esi, 3
         mov eax, dword [byte eax+014h]
         lea edi, [byte ebp-0Ch]
@@ -2028,11 +2028,11 @@ StartNextSeasonGame:
         movsd
         lea ebx, [byte ebp-04h]
         lea edx, [byte ebp-0Ch]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         call FindNextSeasonGame
         test eax, eax
         jne short .4
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov ax, word [byte eax+02h]
         dec eax
         mov dword [byte ebp-04h], eax
@@ -2044,25 +2044,25 @@ StartNextSeasonGame:
         cmp word [word_1AD240], byte 0
         jge short .5
         movsx edx, word [byte ebp-04h]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         mov ax, word [byte edx+eax+04h]
-        cmp ax, word [word_19ED74]
+        cmp ax, word [SeasonDate]
         jbe short .5
         call BuildAllStarTeams
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         and dword [byte eax+01h], 0FFF03FFFh
         or dword [byte eax+01h], 68000h
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         and word [byte eax+03h], 0FC0Fh
         or word [byte eax+03h], 1B0h
-        mov dword [dword_19ED18], 1
+        mov dword [SeasonPlayedFlag], 1
         jmp near .10
 .5:
         movsx ebx, word [byte ebp-04h]
-        mov dword [dword_19ED18], 0
-        mov edx, dword [dword_1AC940]
+        mov dword [SeasonPlayedFlag], 0
+        mov edx, dword [SeasonUserTeam]
         shl ebx, 4
         mov eax, dword [byte edx+020h]
         mov ax, word [byte ebx+eax+04h]
@@ -2071,41 +2071,41 @@ StartNextSeasonGame:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .6
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .6
         mov edx, dword [byte edx+020h]
         movsx edx, byte [edx+ebx]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         and edx, byte 3Fh
         and dword [byte eax+01h], 0FFF03FFFh
         shl edx, 0Eh
         or dword [byte eax+01h], edx
         movsx ebx, word [byte ebp-04h]
-        mov edx, dword [dword_1AC940]
+        mov edx, dword [SeasonUserTeam]
         shl ebx, 4
         mov edx, dword [byte edx+020h]
         movsx edx, byte [byte edx+ebx+01h]
         jmp short .7
 .6:
         movsx ebx, word [byte ebp-04h]
-        mov edx, dword [dword_1AC940]
+        mov edx, dword [SeasonUserTeam]
         shl ebx, 4
         mov edx, dword [byte edx+020h]
         movsx edx, byte [edx+ebx]
         mov edx, dword [nosplit edx*4+dword_1AD6AB]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         and edx, byte 3Fh
         and dword [byte eax+01h], 0FFF03FFFh
         shl edx, 0Eh
         or dword [byte eax+01h], edx
         movsx ebx, word [byte ebp-04h]
-        mov edx, dword [dword_1AC940]
+        mov edx, dword [SeasonUserTeam]
         shl ebx, 4
         mov edx, dword [byte edx+020h]
         movsx edx, byte [byte edx+ebx+01h]
         mov edx, dword [nosplit edx*4+dword_1AD6AB]
 .7:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         and edx, byte 3Fh
         and word [byte eax+03h], 0FC0Fh
         shl edx, 14h
@@ -2114,7 +2114,7 @@ StartNextSeasonGame:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .8
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .8
         imul eax, dword [dword_1AD226], byte 1Ch
         movsx edx, word [byte ebp-04h]
@@ -2127,7 +2127,7 @@ StartNextSeasonGame:
         mov dword [dword eax+dword_1AD45A], edx
 .9:
         movsx edx, word [byte ebp-04h]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov ebx, dword [byte eax+020h]
         movsx edx, byte [edx+ebx]
@@ -2141,7 +2141,7 @@ StartNextSeasonGame:
         lea eax, [dword ebp-0195Ch]
         call UpdateGameRecord
         movsx edx, word [byte ebp-04h]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov ebx, dword [byte eax+020h]
         movsx edx, byte [byte edx+ebx+01h]
@@ -2156,7 +2156,7 @@ StartNextSeasonGame:
         mov ebx, dword_1C1334
         call UpdateGameRecord
         movsx edx, word [byte ebp-04h]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         call StartSeasonGame
 .10:
         mov eax, dword [byte ebp-04h]
@@ -2180,37 +2180,37 @@ AnimateWaitIcon:
         mov eax, dword [tickcount]
         mov ebx, eax
         mov esi, eax
-        cmp eax, dword [dword_19ED34]
+        cmp eax, dword [WaitIconFrame]
         jbe short .1
-        mov eax, dword [dword_19ED5C]
-        mov ecx, dword [dword_19ED38]
+        mov eax, dword [WaitIconShown]
+        mov ecx, dword [WaitIconTime]
         push dword [ecx+eax*4]
         call BlitShape
         mov ecx, 0Ah
-        add dword [dword_19ED5C], byte 2
+        add dword [WaitIconShown], byte 2
         xor edx, edx
-        mov eax, dword [dword_19ED5C]
+        mov eax, dword [WaitIconShown]
         div ecx
         add ebx, byte 0Ch
         add esp, byte 4
-        mov dword [dword_19ED34], ebx
-        mov dword [dword_19ED5C], edx
+        mov dword [WaitIconFrame], ebx
+        mov dword [WaitIconShown], edx
 .1:
-        cmp esi, dword [dword_19ED40]
+        cmp esi, dword [WaitIconCount]
         jbe short .2
-        mov ebx, dword [dword_19ED60]
-        mov eax, dword [dword_19ED38]
+        mov ebx, dword [WaitIconOn]
+        mov eax, dword [WaitIconTime]
         push dword [eax+ebx*4]
         call BlitShape
         mov ebx, 0Ah
-        add dword [dword_19ED60], byte 2
+        add dword [WaitIconOn], byte 2
         xor edx, edx
-        mov eax, dword [dword_19ED60]
+        mov eax, dword [WaitIconOn]
         div ebx
         add esi, byte 0Eh
         add esp, byte 4
-        mov dword [dword_19ED40], esi
-        mov dword [dword_19ED60], edx
+        mov dword [WaitIconCount], esi
+        mov dword [WaitIconOn], edx
 .2:
         pop esi
         pop edx
@@ -2227,7 +2227,7 @@ AnimateSparkle:
         push edx
         mov eax, dword [tickcount]
         mov ebx, eax
-        cmp eax, dword [dword_19ED3C]
+        cmp eax, dword [SparkleFrame]
         jbe short .1
         push dword 198h
         push byte 0
@@ -2240,7 +2240,7 @@ AnimateSparkle:
         xor edx, edx
         div ecx
         mov eax, edx
-        mov edx, dword [dword_19ED24]
+        mov edx, dword [SeasonScreenState]
         push dword [edx+eax*4]
         call BlitShape
         add esp, byte 4
@@ -2251,7 +2251,7 @@ AnimateSparkle:
         div ecx
         add edx, ebx
         add edx, byte 0Ah
-        mov dword [dword_19ED3C], edx
+        mov dword [SparkleFrame], edx
 .1:
         pop edx
         pop ecx
@@ -2267,9 +2267,9 @@ AnimateSparkle_6B:
         mov eax, dword [tickcount]
         mov esi, eax
         xor ebx, ebx
-        cmp eax, dword [dword_19ED28]
+        cmp eax, dword [SparkleTime]
         jbe near .5
-        mov eax, dword [dword_19ED6C]
+        mov eax, dword [SparkleY]
         cmp dword [dword eax+01F0h], byte 1
         jne short .3
         call Random32
@@ -2277,34 +2277,34 @@ AnimateSparkle_6B:
         xor edx, edx
         div ecx
         mov ebx, 1
-        cmp edx, dword [dword_19ED68]
+        cmp edx, dword [SparkleX]
         jl short .2
         inc edx
 .2:
-        mov eax, dword [dword_19ED6C]
-        mov dword [dword_19ED68], edx
+        mov eax, dword [SparkleY]
+        mov dword [SparkleX], edx
         push dword [dword eax+0216h]
         push dword [dword eax+0212h]
-        push dword [nosplit edx*4+dword_19ED00]
+        push dword [nosplit edx*4+SparkleTable]
         add esi, byte 4
         call BlitArt
         add esp, byte 0Ch
-        mov dword [dword_19ED28], esi
+        mov dword [SparkleTime], esi
 .3:
         test bx, bx
         jne short .4
-        cmp word [word_16914E], byte 0
+        cmp word [SparkleTimer], byte 0
         je short .4
         call StopAllSfx
-        mov word [word_16914E], bx
+        mov word [SparkleTimer], bx
 .4:
         test bx, bx
         je short .5
-        cmp word [word_16914E], byte 0
+        cmp word [SparkleTimer], byte 0
         jne short .5
         mov eax, 309h
         call PlaySfx
-        mov word [word_16914E], 1
+        mov word [SparkleTimer], 1
 .5:
         pop esi
         pop edx
@@ -2330,14 +2330,14 @@ FindBenchSlot:
         shl edx, 7
         jmp short .2
 .1:
-        mov ebx, dword [dword edx+byte_1B93DE]
+        mov ebx, dword [dword edx+BoxSeatFlags]
         sar ebx, 18h
         cmp ebx, esi
         je short .4
         inc eax
         add edx, byte 4
 .2:
-        mov ebx, dword [dword ecx+dword_19CB6D]
+        mov ebx, dword [dword ecx+BenchSlotTable]
         sar ebx, 18h
         cmp eax, ebx
         jl short .1
@@ -2427,7 +2427,7 @@ PickBoxSeat:
         test byte [dword eax+0BFh], 40h
         setne al
         and eax, 0FFh
-        mov esi, dword [dword eax+dword_19CB6D]
+        mov esi, dword [dword eax+BenchSlotTable]
         sar esi, 18h
         mov ebp, eax
         dec esi
@@ -2489,11 +2489,11 @@ PickBoxSeat:
         fstp dword [ecx]
 .7:
         sub edi, byte 4
-        mov eax, dword [dword edi+dword_1B93E4]
+        mov eax, dword [dword edi+BenchSeats]
         dec esi
-        mov dword [dword edi+dword_1B93E8], eax
+        mov dword [dword edi+SeatTable], eax
 .8:
-        mov eax, unk_1B93E0
+        mov eax, BoxSeats
         add eax, dword [byte esp+014h]
         test esi, esi
         jge near .1
@@ -2530,7 +2530,7 @@ FreeBoxSeat:
         xor ebx, ebx
         test dh, 40h
         setne bl
-        mov edx, dword [dword ebx+dword_19CB6D]
+        mov edx, dword [dword ebx+BenchSlotTable]
         sar edx, 18h
         mov dword [byte esp+010h], edx
         mov edx, dword [dword eax+0A3h]
@@ -2545,7 +2545,7 @@ FreeBoxSeat:
         jl near .10
         shl ebx, 7
         shl eax, 2
-        add ebx, unk_1B93E0
+        add ebx, BoxSeats
         add eax, ebx
         mov bl, byte [byte eax+02h]
         test bl, bl
@@ -2563,7 +2563,7 @@ FreeBoxSeat:
         add ebp, eax
         cmp edi, ebx
         jge near .9
-        mov ecx, unk_1B93E0
+        mov ecx, BoxSeats
         add ecx, dword [byte esp+0Ch]
         add ecx, eax
 .2:
@@ -2638,9 +2638,9 @@ FreeBoxSeat:
         fstp dword [edx]
 .8:
         add ebp, byte 4
-        mov eax, dword [dword ebp+dword_1B93DC]
+        mov eax, dword [dword ebp+BoxSeatTeam]
         inc edi
-        mov dword [dword ebp+dword_1B93D8], eax
+        mov dword [dword ebp+BoxSeatPlayer], eax
         mov eax, dword [byte esp+010h]
         add ecx, byte 4
         cmp edi, eax
@@ -2651,9 +2651,9 @@ FreeBoxSeat:
         shl eax, 2
         add eax, edx
         mov bh, 0FFh
-        mov byte [dword eax+byte_1B93DE], bh
-        mov byte [dword eax+dword_1B93DC], bh
-        mov byte [dword eax+byte_1B93DD], bh
+        mov byte [dword eax+BoxSeatFlags], bh
+        mov byte [dword eax+BoxSeatTeam], bh
+        mov byte [dword eax+BoxSeatSlot], bh
 .10:
         add esp, byte 1Ch
         pop ebp
@@ -2696,7 +2696,7 @@ PickBenchSeat:
         mov edi, ecx
         shl edi, 7
         shl eax, 2
-        add edi, unk_1B93E0
+        add edi, BoxSeats
         add edi, eax
         cmp byte [byte edi+02h], 0
         jge short .1
@@ -2717,7 +2717,7 @@ PickBenchSeat:
         call FindBenchSlot
         test eax, eax
         jl short .3
-        mov edx, unk_1B93E0
+        mov edx, BoxSeats
         shl ebp, 7
         shl eax, 2
         add edx, ebp
@@ -2769,7 +2769,7 @@ MoveBoxToBenchSeat:
         sub esp, byte 1Ch
         mov esi, eax
         movsx edx, dx
-        mov ecx, unk_1B93E0
+        mov ecx, BoxSeats
         call FindBenchSlot
         mov ebx, esi
         mov edi, eax
@@ -2783,7 +2783,7 @@ MoveBoxToBenchSeat:
         movsx eax, ah
         call FindSeatModel
         mov byte [byte edx+02h], 0FFh
-        mov eax, dword [dword esi+dword_19CB6D]
+        mov eax, dword [dword esi+BenchSlotTable]
         sar eax, 18h
         mov dword [byte esp+014h], eax
         cmp eax, byte 1
@@ -2866,9 +2866,9 @@ MoveBoxToBenchSeat:
         fstp dword [edx]
 .7:
         add ebp, byte 4
-        mov eax, dword [dword ebp+dword_1B93DC]
+        mov eax, dword [dword ebp+BoxSeatTeam]
         inc edi
-        mov dword [dword ebp+dword_1B93D8], eax
+        mov dword [dword ebp+BoxSeatPlayer], eax
         mov eax, dword [byte esp+014h]
         add ecx, byte 4
         cmp edi, eax
@@ -2879,9 +2879,9 @@ MoveBoxToBenchSeat:
         shl eax, 2
         add eax, edx
         mov dl, 0FFh
-        mov byte [dword eax+byte_1B93DE], dl
-        mov byte [dword eax+dword_1B93DC], dl
-        mov byte [dword eax+byte_1B93DD], dl
+        mov byte [dword eax+BoxSeatFlags], dl
+        mov byte [dword eax+BoxSeatTeam], dl
+        mov byte [dword eax+BoxSeatSlot], dl
 .9:
         add esp, byte 1Ch
         pop ebp
@@ -3099,7 +3099,7 @@ FaceoffMove:
         mov ebp, dword [byte esp+0Ch]
         cmp ebp, dword [byte ebx+04h]
         jne short .10
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         cmp dword [byte eax+024h], 41C00000h
         jg short .8
         push dword [byte eax+028h]
@@ -3121,7 +3121,7 @@ FaceoffMove:
 .9:
         call PlaySfxVolume
 .10:
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         cmp dword [byte eax+024h], 42400000h
         jg short .11
         mov edx, esp
@@ -3913,10 +3913,10 @@ RefDodgePuck:
         jne near .4
         test byte [dword esi+0BFh], 20h
         jne near .4
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jge near .4
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         cmp dword [byte edx+024h], 41C00000h
         jg near .4
         fld dword [byte esi+020h]
@@ -4204,7 +4204,7 @@ ReachForPuckAnim:
         and esp, byte 0FFFFFFF8h
         mov ecx, eax
         mov edx, dword [dword eax+0FAh]
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fld dword [byte eax+020h]
         fsub dword [byte ecx+020h]
         fld dword [byte eax+028h]
@@ -4351,7 +4351,7 @@ PokeCheckAnim:
         call SetSPA
         jmp near .6
 .1:
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         fld dword [byte esp+04h]
         fmul dword [byte edx+030h]
         fadd dword [byte edx+024h]
@@ -4737,20 +4737,20 @@ DoCheckButton:
         call TryPokePuck
         test eax, eax
         jne near .5
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jl short .1
         cmp byte [dword esi+0A4h], 6
         setb al
         xor edx, edx
         mov dl, al
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 6
         setl al
         and eax, 0FFh
         xor eax, edx
         je short .1
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         movsx edx, byte [edx]
         mov eax, edx
         shl eax, 5
@@ -6372,7 +6372,7 @@ SetVideoMode:
         add esp, byte 0Ch
         mov dword [VideoModeIndex], edi
         call SetScreenTarget
-        mov ebp, dword [dword_169184]
+        mov ebp, dword [ViewBorderRows]
         push ebp
         call ClearScreen
         add esp, byte 4
@@ -6387,7 +6387,7 @@ SetVideoMode:
         cmp dword [VideoModeNumber], byte 0
         sete al
         and eax, 0FFh
-        mov dword [dword_169180], eax
+        mov dword [ViewBorderColor], eax
         mov eax, esp
         push eax
         push dword 100h
@@ -6406,7 +6406,7 @@ SetVideoMode:
         add esp, byte 8
         push dword 0FF111111h
         call MakeColor
-        mov dword [dword_169184], eax
+        mov dword [ViewBorderRows], eax
         mov eax, dword [dword_16E468]
         add esp, byte 4
         shl eax, 2
@@ -6551,7 +6551,7 @@ AddDisplayView:
         mov eax, dword [byte eax+028h]
         call removewindow
         mov eax, dword [esi]
-        mov dword [byte eax+028h], unk_19ED78
+        mov dword [byte eax+028h], DisplayViewRecords
         mov dword [byte esi+014h], 0
         mov dword [byte esi+08h], edi
         mov dword [byte esi+0Ch], ebp
@@ -6795,7 +6795,7 @@ ClearViewBorders:
         xor esi, esi
         jmp short .3
 .2:
-        mov ebx, dword [dword_169184]
+        mov ebx, dword [ViewBorderRows]
         push ebx
         push esi
         mov ecx, dword [dword_16E464]
@@ -6823,7 +6823,7 @@ ClearViewBorders:
         je short .5
         test dh, 4
         jne short .5
-        mov ecx, dword [dword_169184]
+        mov ecx, dword [ViewBorderRows]
         push ecx
         push ebx
         mov ebp, dword [dword_16E464]
@@ -6832,7 +6832,7 @@ ClearViewBorders:
         push byte 0
         jmp short .6
 .5:
-        mov ebp, dword [dword_169184]
+        mov ebp, dword [ViewBorderRows]
         push ebp
         mov eax, dword [ViewSizeIndex]
         push ebx
@@ -6842,7 +6842,7 @@ ClearViewBorders:
         push byte 0
         call FillRectColor
         add esp, byte 14h
-        mov ecx, dword [dword_169184]
+        mov ecx, dword [ViewBorderRows]
         push ecx
         push ebx
         mov ebp, dword [dword_16E464]
@@ -6867,7 +6867,7 @@ ClearViewBorders:
         cmp ebx, esi
         jge short .9
 .8:
-        mov eax, dword [dword_169184]
+        mov eax, dword [ViewBorderRows]
         push eax
         push ebx
         mov edx, dword [dword_16E464]
@@ -6928,7 +6928,7 @@ PresentGameView:
 .2:
         cmp dword [DisplayViewCount], byte 0
         je short .3
-        mov eax, dword [dword_169180]
+        mov eax, dword [ViewBorderColor]
         call RebuildOverlayMask
 .3:
         mov edi, 1
@@ -7030,7 +7030,7 @@ AddOverlayWindow:
         test byte [dword ebx+OverlayMask], 8
         je short .5
         mov eax, dword [dword ebx+OverlayWindowCount]
-        mov edx, dword [dword_169184]
+        mov edx, dword [ViewBorderRows]
         shl eax, 0Eh
         push edx
         shr eax, 16h
@@ -7136,7 +7136,7 @@ RemoveOverlayWindow:
         jl short .5
         mov ebp, dword [OverlayWindowsOpen]
         dec ebp
-        mov eax, dword [dword_169180]
+        mov eax, dword [ViewBorderColor]
         mov dword [OverlayWindowsOpen], ebp
         call RebuildOverlayMask
         pop ebp
@@ -9639,7 +9639,7 @@ FadeGamePalette:
         ret
         db 090h
         mov eax, dword [byte esp+04h]
-        mov dword [dword_16918C], eax
+        mov dword [StreamBlockCount], eax
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
@@ -9653,7 +9653,7 @@ InitStreamBuffer:
         push ebp
         mov esi, dword [byte esp+014h]
         mov edi, dword [byte esp+01Ch]
-        mov edx, dword [dword_16918C]
+        mov edx, dword [StreamBlockCount]
         lea eax, [nosplit edx*4+00h]
         add eax, edx
         mov edx, eax
@@ -9668,7 +9668,7 @@ InitStreamBuffer:
         sub edx, eax
         mov dword [byte esi+038h], edx
         mov ebx, esi
-        mov ecx, dword [dword_16918C]
+        mov ecx, dword [StreamBlockCount]
         lea edx, [dword esi+090h]
         mov ebp, dword [StreamHandle]
         mov eax, edx
@@ -9686,7 +9686,7 @@ InitStreamBuffer:
         jl short .1
 .2:
         mov dword [dword eax+097h], 0
-        mov edx, dword [dword_16918C]
+        mov edx, dword [StreamBlockCount]
         mov dword [byte ebx+024h], 0
         mov dword [byte ebx+018h], 0
         lea eax, [nosplit edx*4+00h]
@@ -9720,7 +9720,7 @@ InitStreamBuffer:
         mov dword [byte ebx+078h], eax
         mov eax, dword [byte ebx+034h]
         mov dword [byte ebx+030h], eax
-        mov edx, dword [dword_169190]
+        mov edx, dword [StreamBlockSize]
         mov eax, edi
         imul edx
         shl edx, 10h
@@ -9777,7 +9777,7 @@ CdStreamOpen:
         push edi
         mov edx, dword [byte esp+018h]
         push edx
-        mov edx, dword [dword_16918C]
+        mov edx, dword [StreamBlockCount]
         lea eax, [nosplit edx*4+00h]
         add eax, edx
         mov edx, eax
@@ -9791,7 +9791,7 @@ CdStreamOpen:
         push eax
         push str_CDSTREAM
         call AllocMemBlock
-        mov edx, dword [dword_16918C]
+        mov edx, dword [StreamBlockCount]
         mov ecx, eax
         lea eax, [nosplit edx*4+00h]
         add eax, edx
@@ -9982,15 +9982,15 @@ setstreamspeed:
         mov eax, edx
         sar edx, 1Fh
         idiv esi
-        mov dword [dword_169190], eax
+        mov dword [StreamBlockSize], eax
         cmp eax, 0DAh
         jle short .8
-        mov dword [dword_169190], 0DAh
+        mov dword [StreamBlockSize], 0DAh
 .8:
-        cmp dword [dword_169190], 0A3h
+        cmp dword [StreamBlockSize], 0A3h
         jge short .9
         mov esi, 1
-        mov dword [dword_169190], esi
+        mov dword [StreamBlockSize], esi
         mov dword [CdStreamSpeed], esi
 .9:
         cmp dword [CdStreamSpeed], byte 0
@@ -10006,13 +10006,13 @@ setstreamspeed:
         call DetectMscdex
         test eax, eax
         jne short .10
-        mov dword [dword_169190], 1
+        mov dword [StreamBlockSize], 1
 .10:
         mov edx, dword [byte esp+01Ch]
         lea eax, [nosplit edx*4+00h]
         add eax, edx
         add eax, eax
-        mov dword [dword_169194], eax
+        mov dword [StreamTimeout], eax
         mov eax, dword [StreamRate]
         add esp, byte 24h
         pop ebp
@@ -10024,8 +10024,8 @@ setstreamspeed:
         push ebx
         mov ebx, 12Ch
         mov edx, 0DAh
-        mov dword [dword_169194], ebx
-        mov dword [dword_169190], edx
+        mov dword [StreamTimeout], ebx
+        mov dword [StreamBlockSize], edx
         pop ebx
         ret
         db 08Dh,040h,00h
@@ -10266,7 +10266,7 @@ RequestStreamRead:
         mov edx, dword [byte esp+014h]
         push edx
         push byte 2
-        push unk_160B68
+        push StreamReadBuf
         mov ebx, dword [byte esp+01Ch]
         push ebx
         call CdStreamRequest
@@ -10279,7 +10279,7 @@ RequestStreamRead:
         mov edx, dword [byte esp+014h]
         push edx
         push byte 2
-        push unk_160B68
+        push StreamReadBuf
         mov ebx, dword [byte esp+01Ch]
         push ebx
         call CdStreamRequest
@@ -10292,7 +10292,7 @@ RequestStreamRead:
         mov edx, dword [byte esp+014h]
         push edx
         push byte 10h
-        push unk_160B68
+        push StreamReadBuf
         mov ebx, dword [byte esp+01Ch]
         push ebx
         call CdStreamRequest
@@ -10305,7 +10305,7 @@ RequestStreamRead:
         mov edx, dword [byte esp+014h]
         push edx
         push byte 10h
-        push unk_160B68
+        push StreamReadBuf
         mov ebx, dword [byte esp+01Ch]
         push ebx
         call CdStreamRequest
@@ -10360,7 +10360,7 @@ UpdateMusicStream:
         call CdSeek
         add esp, byte 8
         mov edx, dword [byte esp+08h]
-        mov eax, dword [dword_169194]
+        mov eax, dword [StreamTimeout]
         mov dword [dword edx+080h], eax
         pop ebx
         ret
@@ -10709,7 +10709,7 @@ CdStreamService_1E3:
         mov eax, dword [StreamHandle]
         mov dword [byte eax+048h], 0
         mov eax, dword [StreamHandle]
-        mov edx, dword [dword_169194]
+        mov edx, dword [StreamTimeout]
         add esp, byte 8
         mov dword [dword eax+080h], edx
         add esp, byte 4
@@ -10784,14 +10784,14 @@ CdStreamService_1E3:
         mov eax, dword [StreamHandle]
         sub ebx, ecx
         mov esi, dword [dword eax+080h]
-        mov dword [dword_1691A0], edi
+        mov dword [StreamState], edi
         push ebx
         mov edx, dword [byte eax+08h]
         push edx
         mov ecx, dword [byte eax+018h]
         push ecx
         call CdRead
-        mov eax, dword [dword_1691A0]
+        mov eax, dword [StreamState]
         mov edx, dword [dword_169198]
         mov ecx, dword [dword_16919C]
         add edx, eax
@@ -10802,7 +10802,7 @@ CdStreamService_1E3:
         mov dword [dword eax+080h], esi
         mov ecx, dword [StreamHandle]
         add esp, byte 0Ch
-        mov edx, dword [dword_169190]
+        mov edx, dword [StreamBlockSize]
         mov eax, dword [byte ecx+03Ch]
         imul edx
         shl edx, 10h
@@ -11151,14 +11151,14 @@ CdStreamService_81D:
         sub ebx, ecx
         mov edx, dword [CdStreamBuf]
         mov esi, dword [dword eax+080h]
-        mov dword [dword_1691A0], edi
+        mov dword [StreamState], edi
         push ebx
         mov ecx, dword [byte edx+08h]
         push ecx
         mov edx, dword [byte eax+018h]
         push edx
         call CdRead
-        mov eax, dword [dword_1691A0]
+        mov eax, dword [StreamState]
         mov ecx, dword [dword_169198]
         add ecx, eax
         add dword [dword_16919C], ebx
@@ -11167,7 +11167,7 @@ CdStreamService_81D:
         mov dword [dword eax+080h], esi
         mov ecx, dword [StreamHandle]
         add esp, byte 0Ch
-        mov edx, dword [dword_169190]
+        mov edx, dword [StreamBlockSize]
         mov eax, dword [byte ecx+03Ch]
         imul edx
         shl edx, 10h
@@ -11396,7 +11396,7 @@ CdStreamService_AC2:
 CdStreamService_BB8:
         mov eax, dword [StreamHandle]
         sub dword [dword eax+080h], byte 0Ah
-        inc dword [dword_1691A0]
+        inc dword [StreamState]
         ret
         db 090h
 ;-----------------------------------------------------------------------------
@@ -13047,7 +13047,7 @@ QueuePowerPlaySpeech:
         cmp eax, 0C0h
         jne short .4
         xor ebx, ebx
-        mov dword [dword_169238], ebx
+        mov dword [LastSfxPlayed], ebx
         pop edx
         pop ebx
         ret
@@ -13055,7 +13055,7 @@ QueuePowerPlaySpeech:
         push esi
         mov ecx, eax
         mov esi, edx
-        mov edx, dword [dword_169238]
+        mov edx, dword [LastSfxPlayed]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         mov dword [nosplit eax*4+dword_1AC508], ecx
@@ -13066,7 +13066,7 @@ QueuePowerPlaySpeech:
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_169238], edx
+        mov dword [LastSfxPlayed], edx
         pop esi
         pop ecx
         ret
@@ -13078,7 +13078,7 @@ LoadMainSfxBank:
         push ecx
         push edx
         sub esp, 0A0h
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je near .5
         call CurrentArchiveName
         test eax, eax
@@ -13135,7 +13135,7 @@ LoadSfxBank:
         push ebp
         sub esp, byte 3Ch
         mov edi, eax
-        mov dx, word [word_1691A4]
+        mov dx, word [SfxBankLoaded]
         xor ebp, ebp
         xor esi, esi
         mov dword [byte esp+038h], ebp
@@ -13145,7 +13145,7 @@ LoadSfxBank:
         jmp near .29
 .1:
         lea edx, [nosplit eax*4+00h]
-        cmp dword [dword edx+dword_1691FC], byte 0
+        cmp dword [dword edx+SfxBankRecords], byte 0
         je short .2
         xor eax, eax
         add esp, byte 3Ch
@@ -13158,13 +13158,13 @@ LoadSfxBank:
         ret
 .2:
         lea eax, [byte esp+024h]
-        mov edx, dword [dword edx+off_1691E4]
+        mov edx, dword [dword edx+SfxBankNameTable]
         call strcpy_
         cmp edi, byte 3
         jne short .5
-        cmp dword [dword_169220], byte 0
+        cmp dword [SfxReady], byte 0
         je short .3
-        cmp dword [dword_169214], byte 0
+        cmp dword [SfxBankHandle], byte 0
         jne short .4
 .3:
         push byte 0
@@ -13180,9 +13180,9 @@ LoadSfxBank:
 .5:
         cmp edi, byte 5
         jne short .11
-        cmp dword [dword_169220], byte 0
+        cmp dword [SfxReady], byte 0
         je short .6
-        cmp dword [dword_169218], byte 0
+        cmp dword [CrowdBankHandle], byte 0
         jne short .7
 .6:
         push byte 0
@@ -13214,13 +13214,13 @@ LoadSfxBank:
         test eax, eax
         je near .28
         lea eax, [byte esp+014h]
-        mov edx, dword [nosplit edi*4+off_1691E4]
+        mov edx, dword [nosplit edi*4+SfxBankNameTable]
         call strcpy_
         cmp edi, byte 3
         jne short .14
-        cmp dword [dword_169220], byte 0
+        cmp dword [SfxReady], byte 0
         je short .12
-        cmp dword [dword_169214], byte 0
+        cmp dword [SfxBankHandle], byte 0
         jne short .13
 .12:
         push byte 0
@@ -13234,9 +13234,9 @@ LoadSfxBank:
 .14:
         cmp edi, byte 5
         jne short .19
-        cmp dword [dword_169220], byte 0
+        cmp dword [SfxReady], byte 0
         je short .15
-        cmp dword [dword_169218], byte 0
+        cmp dword [CrowdBankHandle], byte 0
         jne short .16
 .15:
         push byte 0
@@ -13286,7 +13286,7 @@ LoadSfxBank:
         jmp near .28
 .22:
         lea ebx, [nosplit edi*4+00h]
-        mov ecx, dword [dword ebx+off_1691E4]
+        mov ecx, dword [dword ebx+SfxBankNameTable]
         push ecx
         push str_SFX4S
         lea eax, [byte esp+08h]
@@ -13302,7 +13302,7 @@ LoadSfxBank:
         mov dword [dword ebx+SfxBankData], edx
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword ebx+dword_1691FC], eax
+        mov dword [dword ebx+SfxBankRecords], eax
         mov edx, dword [byte esp+034h]
         mov dword [dword ebx+SfxBankSizes], eax
         add eax, edx
@@ -13317,13 +13317,13 @@ LoadSfxBank:
         add esp, byte 8
         test eax, eax
         jne short .23
-        mov edi, dword [dword ebx+dword_1691FC]
+        mov edi, dword [dword ebx+SfxBankRecords]
         push edi
         xor ebp, ebp
         call FreeMemBlock
         add esp, byte 4
         mov eax, esi
-        mov dword [dword ebx+dword_1691FC], ebp
+        mov dword [dword ebx+SfxBankRecords], ebp
         mov dword [dword ebx+SfxBankData], ebp
         add esp, byte 3Ch
         pop ebp
@@ -13348,13 +13348,13 @@ LoadSfxBank:
         push ebp
         call FreeMemBlock
         add esp, byte 4
-        mov eax, dword [dword ebx+dword_1691FC]
+        mov eax, dword [dword ebx+SfxBankRecords]
         push eax
         call FreeMemBlock
         add esp, byte 4
         xor edx, edx
         mov eax, esi
-        mov dword [dword ebx+dword_1691FC], edx
+        mov dword [dword ebx+SfxBankRecords], edx
         mov dword [dword ebx+SfxBankData], edx
         add esp, byte 3Ch
         pop ebp
@@ -13373,13 +13373,13 @@ LoadSfxBank:
         add esp, byte 8
         test eax, eax
         jne short .25
-        mov ecx, dword [dword ebx+dword_1691FC]
+        mov ecx, dword [dword ebx+SfxBankRecords]
         push ecx
         xor edi, edi
         call FreeMemBlock
         add esp, byte 4
         mov eax, esi
-        mov dword [dword ebx+dword_1691FC], edi
+        mov dword [dword ebx+SfxBankRecords], edi
         mov dword [dword ebx+SfxBankData], edi
         add esp, byte 3Ch
         pop ebp
@@ -13404,13 +13404,13 @@ LoadSfxBank:
         call RegisterSoundBank
         test eax, eax
         jge short .27
-        mov ebx, dword [dword edi+dword_1691FC]
+        mov ebx, dword [dword edi+SfxBankRecords]
         push ebx
         call FreeMemBlock
         add esp, byte 4
         xor ecx, ecx
         mov eax, esi
-        mov dword [dword edi+dword_1691FC], ecx
+        mov dword [dword edi+SfxBankRecords], ecx
         mov dword [dword edi+SfxBankData], ecx
         add esp, byte 3Ch
         pop ebp
@@ -13597,7 +13597,7 @@ OpenAudioStream:
         push ebp
         sub esp, 0F4h
         mov dword [dword esp+0F0h], eax
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .1
         xor eax, eax
         jmp near OpenAudioStream_D8.22
@@ -13703,22 +13703,22 @@ OpenAudioStream_D8:
         mov edi, 1
         push str_AUDSTREAM
         xor ebp, ebp
-        mov word [word_1691A4], cx
+        mov word [SfxBankLoaded], cx
         call AllocMemBlock
-        mov si, word [word_1691A4]
+        mov si, word [SfxBankLoaded]
         add esp, byte 0Ch
-        mov dword [dword_1691BC], eax
-        mov dword [dword_1691C0], ebp
+        mov dword [MusicTime], eax
+        mov dword [MusicStreamPos], ebp
         mov eax, 0FFFFFFFFh
-        mov dword [dword_1691D0], ebp
-        mov dword [dword_1691C4], eax
-        mov dword [dword_1691D8], eax
-        mov eax, dword [dword_1AC819]
-        mov dword [dword_1691D4], ebp
+        mov dword [MusicStartTime], ebp
+        mov dword [MusicVolumeLevel], eax
+        mov dword [MusicHandle], eax
+        mov eax, dword [AudioOptions]
+        mov dword [MusicLength], ebp
         shl eax, 0Fh
-        mov dword [dword_1691AC], ebp
+        mov dword [MusicTrack], ebp
         shr eax, 19h
-        mov dword [dword_1691A8], edi
+        mov dword [MusicState], edi
         mov edx, eax
         test si, si
         je short .12
@@ -13731,7 +13731,7 @@ OpenAudioStream_D8:
         xor eax, eax
 .11:
         movsx edx, ax
-        mov word [word_169234], ax
+        mov word [SfxVolumeWord], ax
         lea eax, [nosplit edx*8+00h]
         sub eax, edx
         mov edx, eax
@@ -13742,9 +13742,9 @@ OpenAudioStream_D8:
         sar edx, 1Fh
         idiv ebx
         add eax, byte 16h
-        mov word [dword_169230], ax
+        mov word [MusicVolumeWord], ax
 .12:
-        mov eax, dword [dword_1AC819]
+        mov eax, dword [AudioOptions]
         shl eax, 17h
         shr eax, 19h
         cwde
@@ -13808,8 +13808,8 @@ OpenAudioStream_D8:
         cmp eax, 0C0h
         jne short .18
         xor ecx, ecx
-        mov bh, byte [byte_1691DC]
-        mov dword [dword_169238], ecx
+        mov bh, byte [AudioStreamChannel]
+        mov dword [LastSfxPlayed], ecx
         test bh, bh
         jne short .19
         mov edx, 0E7h
@@ -13825,10 +13825,10 @@ OpenAudioStream_D8:
         call setstreamspeed
         mov cl, 1
         add esp, byte 8
-        mov byte [byte_1691DC], cl
+        mov byte [AudioStreamChannel], cl
 .19:
         xor esi, esi
-        mov dword [dword_169224], esi
+        mov dword [MusicReady], esi
         call DetectWindows
         test eax, eax
         jne short .21
@@ -13840,9 +13840,9 @@ OpenAudioStream_D8:
         jmp short .21
 .20:
         xor ebx, ebx
-        mov word [word_1691A4], bx
+        mov word [SfxBankLoaded], bx
 .21:
-        mov eax, dword [dword_1691A2]
+        mov eax, dword [AudioStreamFlags]
         sar eax, 10h
 .22:
         add esp, 0F4h
@@ -13865,7 +13865,7 @@ InitGameAudio:
         push edi
         push ebp
         sub esp, 0A0h
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je near .16
         call WaitMusicEnd
         call CurrentArchiveName
@@ -13919,13 +13919,13 @@ InitGameAudio:
         test eax, eax
         setne al
         and eax, 0FFh
-        mov dword [dword_169214], eax
+        mov dword [SfxBankHandle], eax
         call ServiceIdle
         mov eax, 0Ch
         call ShowLoadingBar
-        cmp dword [dword_169220], byte 0
+        cmp dword [SfxReady], byte 0
         je short .4
-        cmp dword [dword_16921C], byte 0
+        cmp dword [AmbientHandle], byte 0
         jne short .5
 .4:
         push byte 0
@@ -13937,11 +13937,11 @@ InitGameAudio:
         mov eax, 4
         mov ebp, 1
         call LoadSfxBank
-        mov dword [dword_16921C], ebp
+        mov dword [AmbientHandle], ebp
         jmp short .7
 .6:
         xor edi, edi
-        mov dword [dword_16921C], edi
+        mov dword [AmbientHandle], edi
 .7:
         call ServiceIdle
         mov eax, 0Fh
@@ -13951,9 +13951,9 @@ InitGameAudio:
         test eax, eax
         setne al
         and eax, 0FFh
-        mov dword [dword_169218], eax
+        mov dword [CrowdBankHandle], eax
         call ServiceIdle
-        cmp dword [dword_169210], byte 0
+        cmp dword [AudioInitDone], byte 0
         je near .11
         mov eax, 10266h
         call WaitSoundTime
@@ -13961,7 +13961,7 @@ InitGameAudio:
         push str_CROWDCRD
         call LoadFileAllocQuiet
         add esp, byte 8
-        mov dword [dword_169224], eax
+        mov dword [MusicReady], eax
         test eax, eax
         je short .9
         mov ebx, dword [GameAudioState]
@@ -13970,21 +13970,21 @@ InitGameAudio:
         call InitSoundMixer
         test eax, eax
         jge short .8
-        mov ecx, dword [dword_169224]
+        mov ecx, dword [MusicReady]
         push ecx
         xor esi, esi
         call FreeMemBlock
         add esp, byte 4
         mov eax, 5
-        mov dword [dword_169224], esi
+        mov dword [MusicReady], esi
         jmp short .10
 .8:
-        test byte [byte_1AC81B], 4
+        test byte [MusicOptions], 4
         je short .11
         xor edx, edx
         xor eax, eax
-        mov dword [dword_16922C], edx
-        mov dword [dword_169228], edx
+        mov dword [AmbientVolume], edx
+        mov dword [CrowdNoiseLevel], edx
         call SetMixerVolumes
         mov eax, 3Ch
         call SetChannelVolume
@@ -14007,7 +14007,7 @@ InitGameAudio:
 .13:
         call OpenResourceArchive
         add esp, byte 4
-        test byte [byte_1AC81B], 8
+        test byte [MusicOptions], 8
         je short .15
         mov eax, dword [GameSettings]
         and eax, byte 70h
@@ -14020,7 +14020,7 @@ InitGameAudio:
 .14:
         call InitSpeechBanks
 .15:
-        mov eax, dword [dword_1AC819]
+        mov eax, dword [AudioOptions]
         shl eax, 17h
         shr eax, 19h
         cwde
@@ -14045,7 +14045,7 @@ InitGameAudio:
 SetMusicVolume:
         push ebx
         push edx
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je near .4
         cmp ax, 64h
         jle short .1
@@ -14056,7 +14056,7 @@ SetMusicVolume:
         xor eax, eax
 .2:
         movsx edx, ax
-        mov word [word_169236], ax
+        mov word [MusicVolumeScale], ax
         lea eax, [nosplit edx*8+00h]
         sub eax, edx
         mov edx, eax
@@ -14068,10 +14068,10 @@ SetMusicVolume:
         idiv ebx
         add eax, byte 16h
         mov edx, dword [dword_169250]
-        mov word [word_169232], ax
+        mov word [SfxVolumeScale], ax
         test edx, edx
         je short .3
-        mov edx, dword [dword_169230]
+        mov edx, dword [MusicVolumeWord]
         sar edx, 10h
         mov eax, edx
         shl eax, 6
@@ -14079,13 +14079,13 @@ SetMusicVolume:
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov word [word_169232], ax
+        mov word [SfxVolumeScale], ax
 .3:
         call MusicPlaying
         test eax, eax
         je short .4
-        mov edx, dword [dword_169230]
-        mov eax, dword [dword_1691C4]
+        mov edx, dword [MusicVolumeWord]
+        mov eax, dword [MusicVolumeLevel]
         sar edx, 10h
         call SetMusicStreamVolume
 .4:
@@ -14100,7 +14100,7 @@ SetMusicVolume:
 SetSfxVolume:
         push ebx
         push edx
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .3
         cmp ax, 64h
         jle short .1
@@ -14111,7 +14111,7 @@ SetSfxVolume:
         xor eax, eax
 .2:
         movsx edx, ax
-        mov word [word_169234], ax
+        mov word [SfxVolumeWord], ax
         lea eax, [nosplit edx*8+00h]
         sub eax, edx
         mov edx, eax
@@ -14122,7 +14122,7 @@ SetSfxVolume:
         sar edx, 1Fh
         idiv ebx
         add eax, byte 16h
-        mov word [dword_169230], ax
+        mov word [MusicVolumeWord], ax
 .3:
         pop edx
         pop ebx
@@ -14144,20 +14144,20 @@ FreeSfxBank:
         push ecx
         push edx
         push esi
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .1
         lea ebx, [nosplit eax*4+00h]
-        cmp dword [dword ebx+dword_1691FC], byte 0
+        cmp dword [dword ebx+SfxBankRecords], byte 0
         je short .1
         call StopBankSounds
         mov eax, dword [dword ebx+SfxBankNames]
         call UnregisterSoundBank
-        mov ecx, dword [dword ebx+dword_1691FC]
+        mov ecx, dword [dword ebx+SfxBankRecords]
         push ecx
         xor esi, esi
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword ebx+dword_1691FC], esi
+        mov dword [dword ebx+SfxBankRecords], esi
         mov dword [dword ebx+SfxBankData], esi
 .1:
         pop esi
@@ -14224,15 +14224,15 @@ InitGameSounds:
         push ebp
         sub esp, 0A0h
         mov ebx, eax
-        mov dx, word [word_1691A4]
+        mov dx, word [SfxBankLoaded]
         test dx, dx
         je near .15
         je short .1
-        cmp dword [dword_169224], byte 0
+        cmp dword [MusicReady], byte 0
         je short .1
-        test byte [byte_1AC81B], 4
+        test byte [MusicOptions], 4
         je short .1
-        mov edx, dword [dword_16922E]
+        mov edx, dword [SfxVolumeLevel]
         sar edx, 10h
         imul edx, byte 0
         mov ecx, 64h
@@ -14240,7 +14240,7 @@ InitGameSounds:
         sar edx, 1Fh
         idiv ecx
         mov ecx, dword [dword_169250]
-        mov dword [dword_16922C], eax
+        mov dword [AmbientVolume], eax
         test ecx, ecx
         je short .1
         mov edx, eax
@@ -14253,24 +14253,24 @@ InitGameSounds:
         shl edx, 5
         LD sbb, eax, edx
         sar eax, 5
-        mov dword [dword_16922C], eax
+        mov dword [AmbientVolume], eax
 .1:
-        cmp dword [dword_169224], byte 0
+        cmp dword [MusicReady], byte 0
         je short .4
 .2:
-        cmp dword [dword_169228], byte 0
+        cmp dword [CrowdNoiseLevel], byte 0
         jle short .3
         call ServiceIdle
         jmp short .2
 .3:
         call StopAllChannels
         call ResetSoundChannels
-        mov ebp, dword [dword_169224]
+        mov ebp, dword [MusicReady]
         push ebp
         call FreeMemBlock
         xor eax, eax
         add esp, byte 4
-        mov dword [dword_169224], eax
+        mov dword [MusicReady], eax
 .4:
         mov eax, 4
         call FreeSfxBank
@@ -14285,14 +14285,14 @@ InitGameSounds:
         je short .6
         mov eax, GameSoundsOn
         call FileClose
-        mov esi, dword [dword_16923C]
+        mov esi, dword [SpeechBankBuffer]
         test esi, esi
         je short .5
         push esi
         call FreeMemBlock
         xor ebp, ebp
         add esp, byte 4
-        mov dword [dword_16923C], ebp
+        mov dword [SpeechBankBuffer], ebp
 .5:
         call CloseSpeechChannels
 .6:
@@ -14300,7 +14300,7 @@ InitGameSounds:
         mov dword [dword_169250], eax
         call ServiceIdle
 .7:
-        mov eax, dword [dword_1AC819]
+        mov eax, dword [AudioOptions]
         shl eax, 17h
         shr eax, 19h
         cwde
@@ -14349,10 +14349,10 @@ InitGameSounds:
         jne short .11
         mov eax, 2
         call LoadSfxBank
-        mov dword [dword_169220], ebx
+        mov dword [SfxReady], ebx
         jmp short .12
 .11:
-        mov dword [dword_169220], 1
+        mov dword [SfxReady], 1
 .12:
         cmp byte [esp], 0
         je short .13
@@ -14384,7 +14384,7 @@ ShutdownGameAudio:
         push edx
         push edi
         push ebp
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je near .10
         call DetectWindows
         test eax, eax
@@ -14393,13 +14393,13 @@ ShutdownGameAudio:
         call RemoveIdleHandler
         add esp, byte 4
 .1:
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .2
-        cmp dword [dword_169224], byte 0
+        cmp dword [MusicReady], byte 0
         je short .2
-        test byte [byte_1AC81B], 4
+        test byte [MusicOptions], 4
         je short .2
-        mov edx, dword [dword_16922E]
+        mov edx, dword [SfxVolumeLevel]
         sar edx, 10h
         imul edx, byte 0
         mov ebx, 64h
@@ -14407,7 +14407,7 @@ ShutdownGameAudio:
         sar edx, 1Fh
         idiv ebx
         mov ebx, dword [dword_169250]
-        mov dword [dword_16922C], eax
+        mov dword [AmbientVolume], eax
         test ebx, ebx
         je short .2
         lea edx, [nosplit eax*4+00h]
@@ -14419,28 +14419,28 @@ ShutdownGameAudio:
         shl edx, 5
         LD sbb, eax, edx
         sar eax, 5
-        mov dword [dword_16922C], eax
+        mov dword [AmbientVolume], eax
 .2:
         call WaitMusicEnd
-        cmp dword [dword_169224], byte 0
+        cmp dword [MusicReady], byte 0
         je short .5
 .3:
-        cmp dword [dword_169228], byte 0
+        cmp dword [CrowdNoiseLevel], byte 0
         jle short .4
         call ServiceIdle
         jmp short .3
 .4:
         call StopAllChannels
         call ResetSoundChannels
-        mov edi, dword [dword_169224]
+        mov edi, dword [MusicReady]
         push edi
         xor ebp, ebp
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_169224], ebp
+        mov dword [MusicReady], ebp
 .5:
         xor eax, eax
-        mov dword [dword_169220], eax
+        mov dword [SfxReady], eax
         call ShutdownSound
         mov edx, dword [dword_169250]
         test edx, edx
@@ -14448,14 +14448,14 @@ ShutdownGameAudio:
         je short .7
         mov eax, GameSoundsOn
         call FileClose
-        mov ecx, dword [dword_16923C]
+        mov ecx, dword [SpeechBankBuffer]
         test ecx, ecx
         je short .6
         push ecx
         call FreeMemBlock
         xor edi, edi
         add esp, byte 4
-        mov dword [dword_16923C], edi
+        mov dword [SpeechBankBuffer], edi
 .6:
         call CloseSpeechChannels
 .7:
@@ -14472,7 +14472,7 @@ ShutdownGameAudio:
         jl short .9
         xor ecx, ecx
         call CloseDigitalAudio
-        mov word [word_1691A4], cx
+        mov word [SfxBankLoaded], cx
 .10:
         pop ebp
         pop edi
@@ -14496,11 +14496,11 @@ SecondsToSamples:
 WaitSoundTime:
         push ebx
         push edx
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .3
-        cmp dword [dword_1691BC], byte 0
+        cmp dword [MusicTime], byte 0
         je short .3
-        cmp word [word_1691B6], byte 0
+        cmp word [MusicStopRequest], byte 0
         jle short .3
         mov edx, eax
         shl eax, 2
@@ -14522,7 +14522,7 @@ WaitSoundTime:
         xor ebx, ebx
 .2:
         call ServiceIdle
-        cmp bx, word [word_1691B6]
+        cmp bx, word [MusicStopRequest]
         jge short .3
         call AudioStreamPosition
         test eax, eax
@@ -14544,24 +14544,24 @@ ChkMenuMusic:
         push ecx
         push edx
         mov ecx, eax
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je near .3
-        test byte [dword_1AC819], 2
+        test byte [AudioOptions], 2
         je near .3
         mov edx, str_MENU
         mov eax, ecx
         call strstr_
         test eax, eax
         je short .1
-        test byte [dword_1AC819], 2
+        test byte [AudioOptions], 2
         jmp short .2
 .1:
-        test byte [byte_1AC81B], 10h
+        test byte [MusicOptions], 10h
 .2:
         je short .3
-        cmp word [word_1691B6], byte 4
+        cmp word [MusicStopRequest], byte 4
         jge short .3
-        mov edx, dword [dword_1691B0]
+        mov edx, dword [MusicRestart]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
         add eax, edx
@@ -14570,17 +14570,17 @@ ChkMenuMusic:
         mov edx, ecx
         add eax, MusicTrackTable
         call strncpy_
-        mov edx, dword [dword_1691B0]
+        mov edx, dword [MusicRestart]
         sar edx, 10h
         inc edx
         mov ecx, 4
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
-        mov cx, word [word_1691B6]
+        mov cx, word [MusicStopRequest]
         inc ecx
-        mov word [word_1691B2], dx
-        mov word [word_1691B6], cx
+        mov word [MusicBlock], dx
+        mov word [MusicStopRequest], cx
 .3:
         pop edx
         pop ecx
@@ -14595,18 +14595,18 @@ StartMusicTrack:
         push ebx
         push edx
         mov edx, eax
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je near .3
-        cmp word [word_1691B6], byte 4
+        cmp word [MusicStopRequest], byte 4
         jge near .3
-        mov ebx, dword [dword_1691B0]
+        mov ebx, dword [MusicRestart]
         sar ebx, 10h
         lea eax, [nosplit ebx*4+00h]
         add eax, ebx
         shl eax, 4
         add eax, MusicTrackTable
         call MakeDataPath
-        mov edx, dword [dword_1691B0]
+        mov edx, dword [MusicRestart]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
         add eax, edx
@@ -14616,21 +14616,21 @@ StartMusicTrack:
         call strstr_
         test eax, eax
         je short .1
-        test byte [dword_1AC819], 2
+        test byte [AudioOptions], 2
         jmp short .2
 .1:
-        test byte [byte_1AC81B], 10h
+        test byte [MusicOptions], 10h
 .2:
         je short .3
-        mov edx, dword [dword_1691B0]
+        mov edx, dword [MusicRestart]
         sar edx, 10h
         inc edx
         mov ebx, 4
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        inc word [word_1691B6]
-        mov word [word_1691B2], dx
+        inc word [MusicStopRequest]
+        mov word [MusicBlock], dx
 .3:
         pop edx
         pop ebx
@@ -14639,21 +14639,21 @@ StartMusicTrack:
         push ecx
         push edx
         mov ecx, eax
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je near .6
         mov edx, str_MENU
         call strstr_
         test eax, eax
         je short .4
-        test byte [dword_1AC819], 2
+        test byte [AudioOptions], 2
         jmp short .5
 .4:
-        test byte [byte_1AC81B], 10h
+        test byte [MusicOptions], 10h
 .5:
         je short .6
-        cmp word [word_1691B6], byte 4
+        cmp word [MusicStopRequest], byte 4
         jge short .6
-        mov edx, dword [dword_1691B0]
+        mov edx, dword [MusicRestart]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
         add eax, edx
@@ -14663,21 +14663,21 @@ StartMusicTrack:
         add eax, MusicTrackTable
         mov ecx, 4
         call strncpy_
-        mov eax, dword [dword_1691B0]
+        mov eax, dword [MusicRestart]
         mov edx, 1
         sar eax, 10h
-        mov dword [dword_1691D0], edx
+        mov dword [MusicStartTime], edx
         add edx, eax
-        mov dword [dword_1691D8], eax
+        mov dword [MusicHandle], eax
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
         mov ebx, 1
-        mov cx, word [word_1691B6]
-        mov dword [dword_1691AC], ebx
+        mov cx, word [MusicStopRequest]
+        mov dword [MusicTrack], ebx
         inc ecx
-        mov word [word_1691B2], dx
-        mov word [word_1691B6], cx
+        mov word [MusicBlock], dx
+        mov word [MusicStopRequest], cx
 .6:
         pop edx
         pop ecx
@@ -14687,18 +14687,18 @@ StartMusicTrack:
         push ebx
         push edx
         mov edx, eax
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je near .9
-        cmp word [word_1691B6], byte 4
+        cmp word [MusicStopRequest], byte 4
         jge near .9
-        mov ebx, dword [dword_1691B0]
+        mov ebx, dword [MusicRestart]
         sar ebx, 10h
         lea eax, [nosplit ebx*4+00h]
         add eax, ebx
         shl eax, 4
         add eax, MusicTrackTable
         call MakeDataPath
-        mov edx, dword [dword_1691B0]
+        mov edx, dword [MusicRestart]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
         add eax, edx
@@ -14708,34 +14708,34 @@ StartMusicTrack:
         call strstr_
         test eax, eax
         je short .7
-        test byte [dword_1AC819], 2
+        test byte [AudioOptions], 2
         jmp short .8
 .7:
-        test byte [byte_1AC81B], 10h
+        test byte [MusicOptions], 10h
 .8:
         je short .9
         mov edx, 1
-        mov eax, dword [dword_1691B0]
+        mov eax, dword [MusicRestart]
         mov ebx, 4
         sar eax, 10h
-        mov dword [dword_1691D0], edx
+        mov dword [MusicStartTime], edx
         add edx, eax
-        mov dword [dword_1691D8], eax
+        mov dword [MusicHandle], eax
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        inc word [word_1691B6]
+        inc word [MusicStopRequest]
         mov ebx, 1
-        mov word [word_1691B2], dx
-        mov dword [dword_1691AC], ebx
+        mov word [MusicBlock], dx
+        mov dword [MusicTrack], ebx
 .9:
         pop edx
         pop ebx
         ret
         db 090h
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .10
-        mov dword [dword_1691D0], 1
+        mov dword [MusicStartTime], 1
 .10:
         ret
         db 08Dh,040h,00h
@@ -14745,13 +14745,13 @@ StartMusicTrack:
 ;-----------------------------------------------------------------------------
 QueueMusicRestart:
         push edx
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .1
-        mov eax, dword [dword_1691B0]
+        mov eax, dword [MusicRestart]
         mov edx, 1
         sar eax, 10h
-        mov dword [dword_1691D0], edx
-        mov dword [dword_1691D8], eax
+        mov dword [MusicStartTime], edx
+        mov dword [MusicHandle], eax
 .1:
         pop edx
         ret
@@ -14761,9 +14761,9 @@ QueueMusicRestart:
 ; Asks the music to pause
 ;-----------------------------------------------------------------------------
 PauseMusic:
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .1
-        mov dword [dword_1691B8], 1
+        mov dword [MusicPaused], 1
 .1:
         ret
         db 08Dh,040h,00h
@@ -14773,35 +14773,35 @@ PauseMusic:
 ;-----------------------------------------------------------------------------
 ResumeMusic:
         push edx
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .1
         xor edx, edx
-        mov dword [dword_1691B8], edx
+        mov dword [MusicPaused], edx
 .1:
         pop edx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; MusicPlaying                                    41D48  97 PC, low confidence
-; 1 while the music stream (dword_1691C4) is still playing, with music on
+; 1 while the music stream (MusicVolumeLevel) is still playing, with music on
 ;-----------------------------------------------------------------------------
 MusicPlaying:
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .2
-        cmp dword [dword_1691BC], byte 0
+        cmp dword [MusicTime], byte 0
         je short .2
-        cmp dword [dword_1691CC], byte 0
+        cmp dword [MusicFeedCount], byte 0
         je short .2
-        cmp dword [dword_1691A8], byte 4
+        cmp dword [MusicState], byte 4
         jne short .2
-        mov eax, dword [dword_1691C4]
+        mov eax, dword [MusicVolumeLevel]
         call ChannelPlaying
         test eax, eax
         jne short .1
         mov eax, 1
         ret
 .1:
-        cmp word [word_1691B6], byte 0
+        cmp word [MusicStopRequest], byte 0
         jle short .2
         mov eax, 1
         ret
@@ -14815,9 +14815,9 @@ MusicPlaying:
 MusicStreamTick:
         push ecx
         push edx
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .1
-        mov edx, dword [dword_1691C0]
+        mov edx, dword [MusicStreamPos]
         test edx, edx
         je short .1
         push edx
@@ -14833,11 +14833,11 @@ MusicStreamTick:
 ; Asks the music to stop
 ;-----------------------------------------------------------------------------
 RequestMusicStop:
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .1
-        cmp dword [dword_1691A8], byte 0
+        cmp dword [MusicState], byte 0
         je short .1
-        mov dword [dword_1691AC], 1
+        mov dword [MusicTrack], 1
 .1:
         ret
         db 08Bh,0C0h
@@ -14851,22 +14851,22 @@ WaitMusicEnd:
         push ecx
         push edx
         push esi
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je near .4
-        cmp dword [dword_1691BC], byte 0
+        cmp dword [MusicTime], byte 0
         je short .4
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .1
         xor ebx, ebx
-        mov dword [dword_1691B8], ebx
+        mov dword [MusicPaused], ebx
 .1:
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .2
-        mov eax, dword [dword_1691B0]
+        mov eax, dword [MusicRestart]
         mov ecx, 1
         sar eax, 10h
-        mov dword [dword_1691D0], ecx
-        mov dword [dword_1691D8], eax
+        mov dword [MusicStartTime], ecx
+        mov dword [MusicHandle], eax
 .2:
         call MusicPlaying
         test eax, eax
@@ -14879,10 +14879,10 @@ WaitMusicEnd:
         xor esi, esi
         mov eax, 0FFFFFFFFh
         add esp, byte 4
-        mov dword [dword_1691D0], esi
-        mov dword [dword_1691D4], esi
-        mov dword [dword_1691AC], esi
-        mov dword [dword_1691D8], eax
+        mov dword [MusicStartTime], esi
+        mov dword [MusicLength], esi
+        mov dword [MusicTrack], esi
+        mov dword [MusicHandle], eax
 .4:
         pop esi
         pop edx
@@ -14967,7 +14967,7 @@ StopBankSounds:
         push edx
         push esi
         mov ebx, eax
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .3
         test eax, eax
         jl short .3
@@ -15001,7 +15001,7 @@ PlayMenuSfx:
         push edx
         push ebp
         mov ebx, eax
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .3
         test eax, eax
         jl short .3
@@ -15013,7 +15013,7 @@ PlayMenuSfx:
         jl short .3
         cmp ecx, byte 6
         jge short .3
-        cmp dword [nosplit eax*4+off_1691F8], byte 0
+        cmp dword [nosplit eax*4+SfxGroupTable], byte 0
         je short .3
         mov ebp, 0FFFFFFFFh
         and ebx, 0FFh
@@ -15044,7 +15044,7 @@ PlayMenuSfx:
 StopAllSfx:
         push ecx
         push edx
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .3
         mov ecx, 0FFFFFFFFh
         xor edx, edx
@@ -15075,12 +15075,12 @@ PlaySfx:
         push edx
         push esi
         mov edx, eax
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je near .1
         call ReplaySoundAllowed
         test eax, eax
         je near .1
-        test byte [byte_1AC81A], 2
+        test byte [SfxOptions], 2
         je near .1
         test edx, edx
         jl near .1
@@ -15094,16 +15094,16 @@ PlaySfx:
         cmp esi, byte 6
         jge short .1
         shl eax, 2
-        cmp dword [dword eax+off_1691F8], byte 0
+        cmp dword [dword eax+SfxGroupTable], byte 0
         je short .1
-        mov ebx, dword [dword_16922E]
+        mov ebx, dword [SfxVolumeLevel]
         mov ecx, edx
         mov eax, dword [dword eax+dword_1AC5EC]
         and ecx, 0FFh
         sar ebx, 10h
         mov edx, ecx
         call PlaySample
-        mov edx, dword [dword_169238]
+        mov edx, dword [LastSfxPlayed]
         mov ebx, eax
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
@@ -15115,7 +15115,7 @@ PlaySfx:
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_169238], edx
+        mov dword [LastSfxPlayed], edx
 .1:
         pop esi
         pop edx
@@ -15132,7 +15132,7 @@ PlaySfxOr:
         push ebx
         push ecx
         push esi
-        mov cx, word [word_1691A4]
+        mov cx, word [SfxBankLoaded]
         mov ebx, 1
         test cx, cx
         je short .3
@@ -15147,7 +15147,7 @@ PlaySfxOr:
         jl short .1
         cmp esi, byte 6
         jge short .1
-        cmp dword [nosplit ecx*4+off_1691F8], byte 0
+        cmp dword [nosplit ecx*4+SfxGroupTable], byte 0
         je short .1
         xor ebx, ebx
 .1:
@@ -15282,7 +15282,7 @@ PlaySfxVolume:
         push edi
         sub esp, byte 8
         mov ebx, eax
-        test byte [byte_1AC81A], 2
+        test byte [SfxOptions], 2
         je near .3
         mov eax, ebx
         call ReplaySoundAllowed
@@ -15299,7 +15299,7 @@ PlaySfxVolume:
         jl near .3
         cmp esi, byte 6
         jge near .3
-        cmp dword [nosplit eax*4+off_1691F8], byte 0
+        cmp dword [nosplit eax*4+SfxGroupTable], byte 0
         je near .3
         cmp edx, byte 64h
         jle short .1
@@ -15321,7 +15321,7 @@ PlaySfxVolume:
         mov eax, edx
         sar edx, 1Fh
         idiv esi
-        mov edx, dword [word_169232]
+        mov edx, dword [SfxVolumeScale]
         sar edx, 10h
         imul edx, eax
         mov dword [byte esp+04h], eax
@@ -15349,7 +15349,7 @@ PlaySfxVolume:
         mov edx, esi
         mov eax, dword [nosplit edi*4+dword_1AC5EC]
         call PlaySampleVolume
-        mov edx, dword [dword_169238]
+        mov edx, dword [LastSfxPlayed]
         mov ebx, eax
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
@@ -15362,7 +15362,7 @@ PlaySfxVolume:
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_169238], edx
+        mov dword [LastSfxPlayed], edx
 .3:
         add esp, byte 8
         pop edi
@@ -15381,7 +15381,7 @@ PlaySfxAt:
         push edi
         mov ecx, edx
         mov edx, ebx
-        mov bx, word [word_1691A4]
+        mov bx, word [SfxBankLoaded]
         mov esi, 1
         test bx, bx
         je short .4
@@ -15396,7 +15396,7 @@ PlaySfxAt:
         jl short .1
         cmp ebx, byte 6
         jge short .1
-        cmp dword [nosplit edi*4+off_1691F8], byte 0
+        cmp dword [nosplit edi*4+SfxGroupTable], byte 0
         je short .1
         xor esi, esi
 .1:
@@ -15423,13 +15423,13 @@ PlaySfxAt:
 SetAmbientVolume:
         push ebx
         push edx
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .1
-        cmp dword [dword_169224], byte 0
+        cmp dword [MusicReady], byte 0
         je short .1
-        test byte [byte_1AC81B], 4
+        test byte [MusicOptions], 4
         je short .1
-        mov edx, dword [dword_16922E]
+        mov edx, dword [SfxVolumeLevel]
         sar edx, 10h
         imul edx, eax
         mov ebx, 64h
@@ -15437,7 +15437,7 @@ SetAmbientVolume:
         sar edx, 1Fh
         idiv ebx
         mov ebx, dword [dword_169250]
-        mov dword [dword_16922C], eax
+        mov dword [AmbientVolume], eax
         test ebx, ebx
         je short .1
         mov edx, eax
@@ -15450,7 +15450,7 @@ SetAmbientVolume:
         shl edx, 5
         LD sbb, eax, edx
         sar eax, 5
-        mov dword [dword_16922C], eax
+        mov dword [AmbientVolume], eax
 .1:
         pop edx
         pop ebx
@@ -15463,13 +15463,13 @@ SetAmbientVolume:
 SetCrowdNoise:
         push ebx
         push edx
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .2
-        cmp dword [dword_169224], byte 0
+        cmp dword [MusicReady], byte 0
         je short .2
-        test byte [byte_1AC81B], 4
+        test byte [MusicOptions], 4
         je short .2
-        mov edx, dword [dword_16922E]
+        mov edx, dword [SfxVolumeLevel]
         sar edx, 10h
         imul edx, eax
         mov ebx, 64h
@@ -15477,8 +15477,8 @@ SetCrowdNoise:
         sar edx, 1Fh
         idiv ebx
         mov ebx, dword [dword_169250]
-        mov dword [dword_169228], eax
-        mov dword [dword_16922C], eax
+        mov dword [CrowdNoiseLevel], eax
+        mov dword [AmbientVolume], eax
         test ebx, ebx
         je short .1
         mov edx, eax
@@ -15491,10 +15491,10 @@ SetCrowdNoise:
         shl edx, 5
         LD sbb, eax, edx
         sar eax, 5
-        mov dword [dword_169228], eax
-        mov dword [dword_16922C], eax
+        mov dword [CrowdNoiseLevel], eax
+        mov dword [AmbientVolume], eax
 .1:
-        mov eax, dword [dword_169228]
+        mov eax, dword [CrowdNoiseLevel]
         call SetSpeechVolume
 .2:
         pop edx
@@ -15502,15 +15502,15 @@ SetCrowdNoise:
 .3:
         ret
         db 08Bh,0C0h
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .3
         mov eax, 525h
         call ReplaySoundAllowed
         test eax, eax
         je short .3
-        cmp dword [dword_169224], byte 0
+        cmp dword [MusicReady], byte 0
         je short .3
-        test byte [byte_1AC81B], 4
+        test byte [MusicOptions], 4
         je short .3
         mov eax, 32h
         jmp near SetChannelVolume
@@ -15521,15 +15521,15 @@ SetCrowdNoise:
 SetCrowdMood:
         push edx
         mov edx, eax
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .1
         mov eax, 525h
         call ReplaySoundAllowed
         test eax, eax
         je short .1
-        cmp dword [dword_169224], byte 0
+        cmp dword [MusicReady], byte 0
         je short .1
-        test byte [byte_1AC81B], 4
+        test byte [MusicOptions], 4
         je short .1
         test edx, edx
         jl short .1
@@ -15543,15 +15543,15 @@ SetCrowdMood:
         db 090h
         push edx
         mov edx, eax
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .2
         mov eax, 525h
         call ReplaySoundAllowed
         test eax, eax
         je short .2
-        cmp dword [dword_169224], byte 0
+        cmp dword [MusicReady], byte 0
         je short .2
-        test byte [byte_1AC81B], 4
+        test byte [MusicOptions], 4
         je short .2
         test edx, edx
         jl short .2
@@ -15861,7 +15861,7 @@ FindSpeechClip:
         lea eax, [ebx+edx]
         sar eax, 1
         imul edi, eax, byte 0Eh
-        mov ecx, dword [dword_16923C]
+        mov ecx, dword [SpeechBankBuffer]
         add ecx, edi
         mov edi, dword [ecx]
         cmp esi, edi

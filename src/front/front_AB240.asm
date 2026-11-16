@@ -3,9 +3,9 @@ bits 32
 %include "hockey.inc"
 section s_AB240 progbits alloc exec nowrite align=1
 extern str_Xferdata, str_Replaybuf2, str_Gdata, str_Ros2, str_SEXHIBITNDX, str_EXHIBITNDX2, str_Saverepl, byte_1ACF63
-extern byte_1AD458, byte_1AD72B, byte_1AD739, byte_1AD742, dword_168F58, dword_16D2CC, dword_16D2EC, dword_16D30C
-extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, GameSettings, dword_1AC940, dword_1ACF42
-extern dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dword_1AD45A, dword_1AD62F, dword_1AD6AB
+extern byte_1AD458, byte_1AD72B, byte_1AD739, byte_1AD742, PlayoffColumns, dword_16D2CC, dword_16D2EC, dword_16D30C
+extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, GameSettings, SeasonUserTeam, PlayoffRounds
+extern SeasonActive, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dword_1AD45A, dword_1AD62F, dword_1AD6AB
 extern dword_1AD6AF, dword_1AD727, dword_1AD743, dword_1C1334, dword_1C1338, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
 extern memcpy_, sprintf_, DosFileInfo, MakeDirPath, SaveReplayHeader, SimulateGame, UpdateTeamLines, CheckLeagueInjuries
 extern EditFileName, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, NameIndexNew, NameIndexLoad, NameIndexFree, LoadNameIndex
@@ -32,7 +32,7 @@ SendGameResult:
         push str_Xferdata
         call AllocMemBlock
         mov dword [byte ebp-04h], eax
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         add esp, byte 0Ch
         movsx edx, word [byte eax+02h]
         mov eax, 227h
@@ -63,7 +63,7 @@ SendGameResult:
         cmp eax, byte 20h
         jne near .22
         mov edx, dword [byte ebp-08h]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         add eax, edx
@@ -77,7 +77,7 @@ SendGameResult:
         jne near .22
 .3:
         mov esi, dword [byte ebp-08h]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl esi, 4
         mov eax, dword [byte eax+020h]
         add eax, esi
@@ -89,7 +89,7 @@ SendGameResult:
         mov dword [byte ebp-010h], 0
         jmp short .6
 .4:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov eax, dword [byte eax+020h]
         add eax, esi
         mov edx, dword [byte ebp-04h]
@@ -220,7 +220,7 @@ SendGameResult:
         mov eax, dword_1C1334
         mov esi, dword [byte ebp-08h]
         call memcpy_
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl esi, 4
         mov eax, dword [byte eax+020h]
         lea edi, [byte esi+eax+08h]
@@ -232,12 +232,12 @@ SendGameResult:
         and eax, byte 70h
         cmp eax, byte 20h
         je short .20
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .21
 .20:
         call HideWorkingBox
         call SaveGameResults
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [byte eax+02h]
         mov eax, 227h
         call GetLangText
@@ -248,7 +248,7 @@ SendGameResult:
 .22:
         inc dword [byte ebp-08h]
 .23:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [byte eax+02h]
         cmp edx, dword [byte ebp-08h]
         jg near .1
@@ -294,7 +294,7 @@ SaveGameResults:
 .1:
         cmp edx, byte 10h
         jne near .5
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne near .5
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [byte eax+020h]
@@ -310,7 +310,7 @@ SaveGameResults:
         jne near .8
 .2:
         mov ecx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl ecx, 4
         mov eax, dword [byte eax+020h]
         add eax, ecx
@@ -322,7 +322,7 @@ SaveGameResults:
         call KeysEqual
         test eax, eax
         jne near .8
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov esi, dword [byte eax+020h]
         mov dx, word [byte ecx+esi+04h]
         mov word [word_1C1344], dx
@@ -335,7 +335,7 @@ SaveGameResults:
         call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
         call UpdateTeamLines
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov eax, dword [byte eax+020h]
         movsx eax, byte [ecx+eax]
         imul eax, byte 1Ch
@@ -345,7 +345,7 @@ SaveGameResults:
         call UpdateGameRecord
 .3:
         mov ebx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl ebx, 4
         mov ecx, dword [byte eax+020h]
         movsx edx, byte [byte ecx+ebx+01h]
@@ -356,7 +356,7 @@ SaveGameResults:
         call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
         call UpdateTeamLines
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov eax, dword [byte eax+020h]
         movsx eax, byte [byte ebx+eax+01h]
         imul eax, byte 1Ch
@@ -366,7 +366,7 @@ SaveGameResults:
         call UpdateGameRecord
 .4:
         mov edx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         add eax, edx
@@ -377,12 +377,12 @@ SaveGameResults:
         cmp dword [dword eax+04A74h], byte 0FFFFFFFFh
         jne near .8
         movsx edx, word [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         call SaveExhibitionResult
         jmp near .8
 .5:
         mov edx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         add eax, edx
@@ -396,7 +396,7 @@ SaveGameResults:
         jne short .8
 .6:
         mov ecx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl ecx, 4
         mov eax, dword [byte eax+020h]
         add eax, ecx
@@ -408,7 +408,7 @@ SaveGameResults:
         call KeysEqual
         test eax, eax
         jne short .8
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov eax, dword [byte eax+020h]
         add eax, ecx
         mov edx, dword [byte ebp+066h]
@@ -418,14 +418,14 @@ SaveGameResults:
         cmp dword [dword eax+04A74h], byte 0FFFFFFFFh
         jne short .7
         movsx edx, word [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         call SaveExhibitionResult
 .7:
         mov eax, dword [byte ebp+07Ah]
         call SaveReplayFile
 .8:
         mov edx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         movsx eax, byte [byte edx+eax+02h]
@@ -438,11 +438,11 @@ SaveGameResults:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .10
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
 .10:
         inc dword [byte ebp+07Ah]
 .11:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov edx, dword [GameSettings]
         movsx ebx, word [byte eax+02h]
         and edx, byte 70h
@@ -450,7 +450,7 @@ SaveGameResults:
         jg near .1
         cmp edx, byte 10h
         jne near .16
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne near .16
         mov dword [byte ebp+07Ah], 0
         mov dword [byte ebp+062h], 1
@@ -470,7 +470,7 @@ SaveGameResults:
         jne short .14
 .13:
         mov edx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         movsx eax, byte [byte edx+eax+02h]
@@ -480,7 +480,7 @@ SaveGameResults:
 .14:
         inc dword [byte ebp+07Ah]
 .15:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [byte eax+02h]
         cmp edx, dword [byte ebp+07Ah]
         jg short .12
@@ -508,7 +508,7 @@ SaveGameResults:
 .18:
         inc dword [byte ebp+07Ah]
 .19:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [byte eax+02h]
         cmp edx, dword [byte ebp+07Ah]
         jg short .17
@@ -519,10 +519,10 @@ SaveGameResults:
         and eax, byte 70h
         cmp eax, byte 10h
         jne near .23
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne near .23
         mov edx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         add eax, edx
@@ -553,7 +553,7 @@ SaveGameResults:
         call UpdateWorkingBox
 .22:
         mov esi, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl esi, 4
         mov ecx, dword [byte eax+020h]
         mov dx, word [byte ecx+esi+04h]
@@ -569,7 +569,7 @@ SaveGameResults:
         call UpdateTeamLines
         mov eax, dword [byte ebp+06Ah]
         call UpdateGameRecord
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov ecx, dword [byte eax+020h]
         movsx edx, byte [byte ecx+esi+01h]
         mov eax, dword [byte eax+01Ch]
@@ -583,19 +583,19 @@ SaveGameResults:
         mov eax, dword [byte ebp+06Ah]
         movsx edx, word [byte ebp+07Ah]
         call UpdateGameRecord
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         call StartSeasonGame
         mov eax, dword [byte ebp+07Ah]
         xor edx, edx
         mov ebx, dword_1C1334
         call SimulateGame
         mov edx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         call SaveSeasonResult
         jmp near .26
 .23:
         mov edx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         add eax, edx
@@ -628,7 +628,7 @@ SaveGameResults:
         call UpdateWorkingBox
 .25:
         mov esi, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl esi, 4
         mov ecx, dword [byte eax+020h]
         mov dx, word [byte ecx+esi+04h]
@@ -644,7 +644,7 @@ SaveGameResults:
         call UpdateTeamLines
         mov eax, dword [byte ebp+06Ah]
         call UpdateGameRecord
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov edx, dword [byte eax+020h]
         movsx edx, byte [byte edx+esi+01h]
         mov eax, dword [byte eax+01Ch]
@@ -658,14 +658,14 @@ SaveGameResults:
         mov eax, dword [byte ebp+06Ah]
         movsx edx, word [byte ebp+07Ah]
         call UpdateGameRecord
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         call StartSeasonGame
         mov edx, 1
         mov eax, dword [byte ebp+07Ah]
         mov ebx, dword_1C1334
         call SimulateGame
         mov edx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         call SaveSeasonResult
         mov eax, dword [byte ebp+07Ah]
         call SaveReplayFile
@@ -696,10 +696,10 @@ SaveGameResults:
         mov byte [byte_1AD72B], 0
         mov byte [byte_1AD739], 1
         lea edx, [byte ebp+03Ah]
-        mov eax, dword [dword_1ACF42]
+        mov eax, dword [PlayoffRounds]
         and byte [dword_1AD437], 0F8h
         and eax, byte 7
-        mov ebx, dword [dword_1AC940]
+        mov ebx, dword [SeasonUserTeam]
         or dword [dword_1AD437], eax
         lea eax, [byte ebp+01Eh]
         mov dword [byte ebp+07Ah], 0
@@ -710,7 +710,7 @@ SaveGameResults:
         imul esi, ecx, byte 1Ch
         mov edx, ecx
         shl edx, 3
-        cmp dword [nosplit ecx*4+dword_168F58], byte 3
+        cmp dword [nosplit ecx*4+PlayoffColumns], byte 3
         jne short .32
         cmp dword [byte ebp+05Ah], byte 8
         jge short .31
@@ -727,7 +727,7 @@ SaveGameResults:
         movsd
         mov esi, dword [nosplit eax*4+dword_16D2CC]
         mov dword [nosplit esi*4+dword_1AD6AB], ecx
-        mov ecx, dword [dword_1AC940]
+        mov ecx, dword [SeasonUserTeam]
         mov ebx, dword [byte ecx+014h]
         add edx, ebx
         lea edi, [byte ebp+esi*8-062h]
@@ -753,7 +753,7 @@ SaveGameResults:
         movsd
         mov esi, dword [nosplit eax*4+dword_16D2EC]
         mov dword [nosplit esi*4+dword_1AD6AB], ecx
-        mov ecx, dword [dword_1AC940]
+        mov ecx, dword [SeasonUserTeam]
         mov ecx, dword [byte ecx+014h]
         add ecx, edx
         lea edi, [byte ebp+esi*8-062h]
@@ -769,7 +769,7 @@ SaveGameResults:
         lea eax, [byte ebp+056h]
         lea ebx, [byte ebp-062h]
         mov edx, 10h
-        mov ecx, dword [dword_1AC940]
+        mov ecx, dword [SeasonUserTeam]
         push eax
         mov eax, 69h
         mov dword [byte ebp+07Ah], 0
@@ -903,14 +903,14 @@ SaveGameResults:
         ja near .35
         mov byte [byte_1AD739], 1
         mov eax, dword [byte ebp+056h]
-        mov dword [dword_1ACF46], 1
-        mov dword [dword_1AC940], eax
+        mov dword [SeasonActive], 1
+        mov dword [SeasonUserTeam], eax
 .41:
         mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         je short .42
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je near .59
 .42:
         call AdvanceSeasonDate
@@ -932,7 +932,7 @@ SaveGameResults:
         mov eax, 1
 .44:
         mov edx, dword [byte ebp+07Ah]
-        mov ecx, dword [dword_1AC940]
+        mov ecx, dword [SeasonUserTeam]
         shl edx, 4
         mov ecx, dword [byte ecx+020h]
         add ecx, edx
@@ -947,7 +947,7 @@ SaveGameResults:
 .45:
         inc dword [byte ebp+07Ah]
 .46:
-        mov ecx, dword [dword_1AC940]
+        mov ecx, dword [SeasonUserTeam]
         movsx edx, word [byte ecx+02h]
         cmp edx, dword [byte ebp+07Ah]
         jle short .47
@@ -996,21 +996,21 @@ SaveGameResults:
 .52:
         movsx edx, word [byte ebp+07Ah]
         mov ebx, dword_1C1334
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         call StartSeasonGame
         mov edx, 1
         mov eax, dword [byte ebp+07Ah]
         mov ebx, dword_1C1334
         call SimulateGame
         mov edx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         call SaveSeasonResult
         mov eax, dword [byte ebp+07Ah]
         call SaveReplayFile
 .53:
         inc dword [byte ebp+07Ah]
 .54:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [byte eax+02h]
         cmp edx, dword [byte ebp+07Ah]
         jg near .50
@@ -1033,7 +1033,7 @@ SaveGameResults:
         mov eax, 1
 .56:
         mov edx, dword [byte ebp+07Ah]
-        mov ecx, dword [dword_1AC940]
+        mov ecx, dword [SeasonUserTeam]
         shl edx, 4
         mov ecx, dword [byte ecx+020h]
         add ecx, edx
@@ -1048,7 +1048,7 @@ SaveGameResults:
 .57:
         inc dword [byte ebp+07Ah]
 .58:
-        mov ecx, dword [dword_1AC940]
+        mov ecx, dword [SeasonUserTeam]
         movsx edx, word [byte ecx+02h]
         cmp edx, dword [byte ebp+07Ah]
         jle near .49
@@ -1058,7 +1058,7 @@ SaveGameResults:
 .59:
         cmp dword [byte ebp+062h], byte 0
         je short .60
-        mov esi, dword [dword_1AC940]
+        mov esi, dword [SeasonUserTeam]
         mov edi, unk_1AD236
         lea esi, [byte esi+04h]
         movsd
@@ -1125,7 +1125,7 @@ AdvanceSeasonDate:
 .3:
         inc dword [byte ebp-04h]
 .4:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [byte eax+02h]
         cmp edx, dword [byte ebp-04h]
         jle short .5
@@ -1245,12 +1245,12 @@ AdvanceSeasonDate:
         imul edx, dword [byte ebp-020h], byte 7
         add eax, edx
         add esi, eax
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov eax, dword [byte eax+020h]
         shl esi, 4
         mov dl, byte [byte ebp-014h]
         mov byte [esi+eax], dl
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov eax, dword [byte eax+020h]
         mov dl, byte [byte ebp-010h]
         mov byte [byte esi+eax+01h], dl
@@ -1265,13 +1265,13 @@ AdvanceSeasonDate:
         imul esi, ecx
         imul edx, dword [byte ebp-020h], byte 7
         add edx, eax
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         add esi, edx
         mov eax, dword [byte eax+020h]
         shl esi, 4
         mov dl, byte [byte ebp-014h]
         mov byte [byte esi+eax+01h], dl
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov eax, dword [byte eax+020h]
         mov dl, byte [byte ebp-010h]
         mov byte [esi+eax], dl
@@ -1286,12 +1286,12 @@ AdvanceSeasonDate:
         mov edx, ecx
         add edi, eax
         add edx, ecx
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         add edx, edi
         mov eax, dword [byte eax+020h]
         inc edx
         mov word [byte esi+eax+04h], dx
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov eax, dword [byte eax+020h]
         mov word [byte esi+eax+06h], 730h
         inc ecx
@@ -1308,7 +1308,7 @@ AdvanceSeasonDate:
         cmp eax, dword [byte ebp-04h]
         jg near .15
 .25:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         inc byte [byte_1AD72B]
         call WriteLeagueHeader
 .26:
@@ -1333,7 +1333,7 @@ FinishLeagueGame:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .1
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .1
         imul eax, dword [dword_1AD226], byte 1Ch
         mov edi, dword_1C1334
@@ -1346,7 +1346,7 @@ FinishLeagueGame:
         movsd
         call AddReplayIndexEntry
         mov esi, ecx
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl esi, 4
         mov eax, dword [byte eax+020h]
         lea edi, [byte esi+eax+08h]
@@ -1365,7 +1365,7 @@ FinishLeagueGame:
         mov ecx, dword [dword eax+dword_1AD45A]
         mov eax, dword_1C1334
         call AddReplayIndexEntry
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl ecx, 4
         mov esi, dword [byte eax+020h]
         lea edi, [byte ecx+esi+08h]
@@ -1374,7 +1374,7 @@ FinishLeagueGame:
         movsd
 .2:
         call SaveGameResults
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         call WriteLeagueHeader
         jmp near SendGameResult_32D
 ;-----------------------------------------------------------------------------
@@ -1387,7 +1387,7 @@ SaveReplayFile:
         push edx
         push esi
         mov edx, eax
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         add eax, edx
@@ -1439,20 +1439,20 @@ SaveReplayFile:
         jne short .8
 .7:
         mov ecx, eax
-        mov edx, dword [dword_1AC940]
+        mov edx, dword [SeasonUserTeam]
         shl ecx, 4
         mov edx, dword [byte edx+020h]
         mov byte [ecx+edx], 0FFh
-        mov edx, dword [dword_1AC940]
+        mov edx, dword [SeasonUserTeam]
         mov edx, dword [byte edx+020h]
         mov byte [byte ecx+edx+01h], 0FFh
-        mov edx, dword [dword_1AC940]
+        mov edx, dword [SeasonUserTeam]
         mov edx, dword [byte edx+020h]
         mov word [byte ecx+edx+04h], 0
 .8:
         inc eax
 .9:
-        mov edx, dword [dword_1AC940]
+        mov edx, dword [SeasonUserTeam]
         movsx ecx, word [byte edx+02h]
         cmp eax, ecx
         jl short .6
@@ -1565,7 +1565,7 @@ SaveReplayFile:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .19
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .19
         imul eax, dword [dword_1AD226], byte 1Ch
         mov edx, dword [dword eax+dword_1ACF65]
@@ -1576,14 +1576,14 @@ SaveReplayFile:
         mov edx, dword [dword eax+dword_1AD45A]
 .20:
         call WriteReplayFile
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov esi, dword [byte eax+020h]
         lea edi, [byte edx+esi+08h]
         mov esi, dword_1C1334
         movsd
         movsd
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         call WriteLeagueHeader
 .21:
         call CloseGameDatabase

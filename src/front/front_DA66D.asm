@@ -9,7 +9,7 @@ extern str_Pktlayer, str_Disconnecting, str_WaitingForOtherComputer, str_IPXMEM,
 extern str_PICKS2, str_REGS2, str_LX003, str_LC003, str_LX0D3, str_LC0D3, str_DTOP, str_DBOT
 extern str_08x, str_KWKJSK122691, str_BACK13, str_MB014, str_MB023, str_MB03, str_AR02d2, str_LT02d2
 extern str_MB004, str_GenericHayesCompatible, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, byte_1CD24D, byte_1CD250
-extern byte_1CD460, byte_1CD75C, GripDriverPtr, dword_168E7C, dword_16D788, dword_16D78C, dword_16D790, dword_16D794
+extern byte_1CD460, byte_1CD75C, GripDriverPtr, PacketSize, dword_16D788, dword_16D78C, dword_16D790, dword_16D794
 extern dword_16D798, dword_16D79C, dword_16D7A0, dword_16D7A4, dword_16D7A8, dword_16D7D0, dword_16D7D4, dword_16D7D8
 extern dword_16D7F0, dword_16D894, dword_16D898, dword_16D89C, dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0
 extern dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8, dword_16D8DC, InputRecordTail, InputRecordHead, InputRecordCount
@@ -13029,7 +13029,7 @@ NetInit:
         mov ebx, 0BB8h
         push unk_1CD2BA
         mov dword [dword_16DAA4], eax
-        mov dword [dword_168E7C], ebx
+        mov dword [PacketSize], ebx
         call ZeroMem
         mov ecx, 1
         add esp, byte 8

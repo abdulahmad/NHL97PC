@@ -4,9 +4,9 @@ bits 32
 section s_2DE3C progbits alloc exec nowrite align=1
 extern SortCords, __CHP, awtmstruct, byte_19CB7E, byte_19CBC2, byte_19CBC8, HmCoachOffense, HmCoachDefense
 extern HmCoachGoalie, HmCoachLines, AwCoachOffense, AwCoachDefense, AwCoachGoalie, AwCoachLines, F32_40_ChkTiredPlayer, F32_0p01
-extern dword_19CB32, dword_19CB48, HmCoachTimer, AwCoachTimer, dword_1AC944, hmtmstruct, off_19C5F4, randomd0
-extern setpersonel, RemoveOverlayPanel, QueueOverlayPanel, CPgoalie, CommentaryEvent, word_19CA90, word_19CA92, word_19CA94
-extern word_19CA96, word_19CB34, word_19CB98, gsp, gameclock, word_19CBBE, word_19CBEC, word_19CBEE
+extern FaceoffSlots, LastTouchPlayer, HmCoachTimer, AwCoachTimer, GameOptionFlags, hmtmstruct, CompLineTable, randomd0
+extern setpersonel, RemoveOverlayPanel, QueueOverlayPanel, CPgoalie, CommentaryEvent, FaceoffX, FaceoffDropX, FaceoffY
+extern FaceoffDropY, HomeSkaters, word_19CB98, gsp, gameclock, word_19CBBE, word_19CBEC, word_19CBEE
 extern word_19CC24, word_19CC26, HmLineState
 global ReturnGoalies, CoachLineChange_1A5, CoachLineChange_259, LineSlotsPtr_33, CoachLineChange, TeamLineSlots, LineSlotsPtr, RestoreBenchEnergy
 global ChkTiredPlayer, AvgLineEnergy, CompLine, SetCoachMode, ResetCoachModes, UpdateCoachModes, StartFaceoffLineChange
@@ -151,7 +151,7 @@ CoachLineChange:
         mov ax, word [edx]
         cmp ax, word [byte ebp+00h]
         setge al
-        mov edx, dword [dword_19CB48]
+        mov edx, dword [LastTouchPlayer]
         push edx
         and eax, 0FFh
         push eax
@@ -357,7 +357,7 @@ RestoreBenchEnergy:
         ret
         push ebx
         push edx
-        mov edx, dword [dword_1AC944]
+        mov edx, dword [GameOptionFlags]
         test byte [byte edx+01h], 0C0h
         je short .6
         mov edx, dword [dword eax+0A3h]
@@ -398,7 +398,7 @@ ChkTiredPlayer:
         je near .7
         cmp byte [dword edx+0A4h], 0Ch
         je near .7
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+01h], 0C0h
         je near .7
         mov eax, 28h
@@ -653,7 +653,7 @@ CompLine:
         movsx eax, cx
         sar edx, 18h
         shl eax, 2
-        mov esi, dword [nosplit edx*4+off_19C5F4]
+        mov esi, dword [nosplit edx*4+CompLineTable]
         add esi, eax
         mov ax, word [byte ebx+02h]
         mov word [byte esp+0Ch], ax
@@ -971,7 +971,7 @@ ResetCoachModes:
         mov word [byte edx+04h], 0
         mov ax, word [byte edx+04h]
         mov word [byte ebx+04h], ax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+01h], 0C0h
         je short .5
         cmp word [gsp], byte 0
@@ -1335,7 +1335,7 @@ StartFaceoffLineChange:
         push ecx
         push edx
         push esi
-        mov edx, dword [dword_1AC944]
+        mov edx, dword [GameOptionFlags]
         test byte [byte edx+01h], 0C0h
         je near .5
         mov edx, dword [dword eax+0FEh]
@@ -1360,12 +1360,12 @@ StartFaceoffLineChange:
         sub ecx, eax
         lea eax, [nosplit esi*2+00h]
         mov dx, word [byte edx+02h]
-        mov word [dword eax+word_19CB34], dx
+        mov word [dword eax+HomeSkaters], dx
         test ecx, ecx
         jle short .1
         cmp dx, byte 6
         jge short .4
-        mov word [dword eax+word_19CB34], 6
+        mov word [dword eax+HomeSkaters], 6
         jmp short .4
 .1:
         test ecx, ecx
@@ -1375,15 +1375,15 @@ StartFaceoffLineChange:
         cmp dx, byte 5
         jle short .4
 .2:
-        mov word [nosplit ebx*2+word_19CB34], 4
+        mov word [nosplit ebx*2+HomeSkaters], 4
         jmp short .4
 .3:
         cmp dx, byte 4
         jl short .4
         xor ecx, ecx
-        mov word [dword eax+word_19CB34], cx
+        mov word [dword eax+HomeSkaters], cx
 .4:
-        mov eax, dword [nosplit ebx*2+dword_19CB32]
+        mov eax, dword [nosplit ebx*2+FaceoffSlots]
         sar eax, 10h
         push eax
         push byte 0
@@ -1408,16 +1408,16 @@ StartFaceoffLineChange:
         je short .7
         test byte [dword edx+0BFh], 40h
         je short .6
-        mov word [word_19CA94], 168h
+        mov word [FaceoffY], 168h
         mov dl, byte [dword edx+0A4h]
         xor dh, dh
-        mov word [word_19CA96], dx
+        mov word [FaceoffDropY], dx
         ret
 .6:
-        mov word [word_19CA90], 258h
+        mov word [FaceoffX], 258h
         mov dl, byte [dword edx+0A4h]
         xor dh, dh
-        mov word [word_19CA92], dx
+        mov word [FaceoffDropX], dx
 .7:
         ret
         db 08Bh,0C0h

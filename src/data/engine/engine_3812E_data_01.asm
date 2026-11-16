@@ -12,10 +12,10 @@ global F32_42, F64_neg3p14159_GoToBoxAnim, F64_0p2_RefDodgePuck, F64_6p28319_Rea
 global F64_0p0001, F64_0p6, F64_96, F64_0p00347222, F64_0p8, F64_1p2_PokeCheckAnim, F64_6p28319_TryBodyCheck, F64_3p14159_TryBodyCheck
 global F64_neg6p28319_TryBodyCheck, F64_neg3p14159_TryBodyCheck, F64_1p0472, F64_1p5708, F64_0p349066, F64_0p785398_TryBodyCheck, F64_0p7, F64_0p5_SetViewDrawTarget
 global F64_3p14159_PositionSfx, F64_neg3p14159_PositionSfx, F64_6p28319_PositionSfx, F64_neg6p28319_PositionSfx, str_CDSTREAM, str_SECCDSTREAM, str_STREAM, str_D_DrawSeasonGamePanel
-global unk_160B68, str_GLOBAL, str_FRONT1, str_FRONT2, str_GAME, str_AUXI, str_CROWD, str_CentreArea
+global StreamReadBuf, str_GLOBAL, str_FRONT1, str_FRONT2, str_GAME, str_AUXI, str_CROWD, str_CentreArea
 global str_CentreIce, str_BlueLine, str_Point, str_OwnBlueLine, str_InFront, str_InFrontOfTheNet, str_OwnZone, str_Corner
 global str_NeutralZone, str_Slot, str_Wing, str_BehindNet, str_BesideNet, str_OffensiveZone, str_WideOfNet, str_Deep
-global str_Right, str_Left, str_PointBlank, unk_160C7C, str_EndBoards, str_ERROR, str_16, str_8
+global str_Right, str_Left, str_PointBlank, str_NetExt, str_EndBoards, str_ERROR, str_16, str_8
 str_BACK:
         db 042h,041h,043h,04Bh,00h
 str_TITL:
@@ -134,7 +134,7 @@ str_CDSTREAM:
         db 043h,044h,053h,054h,052h,045h,041h,04Dh,00h,00h,00h,00h
 str_STREAM:
         db 053h,054h,052h,045h,041h,04Dh,00h,00h
-unk_160B68:
+StreamReadBuf:
         db 00h,00h,00h,00h
 str_SECCDSTREAM:
         db 053h,045h,043h,043h,044h,053h,054h,052h,045h,041h,04Dh,00h
@@ -190,7 +190,7 @@ str_Left:
         db 04Ch,065h,066h,074h,00h,00h,00h,00h
 str_PointBlank:
         db 050h,06Fh,069h,06Eh,074h,042h,06Ch,061h,06Eh,06Bh,00h,00h
-unk_160C7C:
+str_NetExt:
         db 06Eh,065h,074h,00h
 str_EndBoards:
         db 065h,06Eh,064h,042h,06Fh,061h,072h,064h,073h,00h,00h,00h

@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_12F9E3 progbits alloc exec nowrite align=1
-extern __CommonInit_, CMainEnv, CMainResult, dword_19C690, CMainArgc, CMainArgv, exit_, main_
-extern BlitConverted, ConvertArtAt, CMainHook, SetScreenTarget, unk_19C648, unk_19C67E
+extern __CommonInit_, CMainEnv, CMainResult, VideoCodePtr, CMainArgc, CMainArgv, exit_, main_
+extern BlitConverted, ConvertArtAt, CMainHook, SetScreenTarget, InitRtnsEntry, FiniRtnsEntry
 global __CMain, __FiniRtns, __InitRtns, PrintScreen
 ;-----------------------------------------------------------------------------
 ; __CMain                                                      12F9E3  library
@@ -46,9 +46,9 @@ __InitRtns:
         mov edx, eax
 .1:
         db 03Eh,0BEh                            ; insn: mov esi,3C648h
-        dd unk_19C648
+        dd InitRtnsEntry
         db 03Eh,0BFh                            ; insn: mov edi,3C67Eh
-        dd unk_19C67E
+        dd FiniRtnsEntry
         mov ebx, edi
         mov al, dl
 .2:
@@ -96,9 +96,9 @@ __FiniRtns:
         mov dl, al
 .1:
         db 03Eh,0BEh                            ; insn: mov esi,3C67Eh
-        dd unk_19C67E
+        dd FiniRtnsEntry
         db 03Eh,0BFh                            ; insn: mov edi,3C690h
-        dd dword_19C690
+        dd VideoCodePtr
         mov ebx, edi
         mov al, dl
 .2:

@@ -6,7 +6,7 @@ extern str_LTDA, str_LTDB, str_BACK15, str_ROT0, str_BOT02, str_TITL16, str_ROTD
 extern str_BB012, str_BB02, str_BB052, str_KMB4, str_KMB5, str_KMBD, str_TOP02, str_TL0D
 extern str_MID1, str_BL0D, str_BR0D, str_BL01, str_BR012, str_TL01, str_TR012, str_Mous5
 extern str_BOX0, str_BOX1, str_BB03, str_BB042, str_KMB0, str_KMB1, str_S13, str_TB012
-extern str_TB002, str_TB032, str_TB022, str_GLWD, str_SCRB, byte_1AC93C, byte_1C6040, dword_1B10CC
+extern str_TB002, str_TB032, str_TB022, str_GLWD, str_SCRB, ControlSetupFlags, byte_1C6040, dword_1B10CC
 extern dword_1B10D4, dword_1C95B4, dword_1C95BC, dword_1CE1E8, dword_1CE1EC, dword_1CE258, dword_1CE260, dword_1CE264
 extern dword_1CE2A0, dword_1CE2A4, dword_1CE2D8, dword_1CE2DC, dword_1CE308, dword_1CE318, dword_1CE31C, dword_1CE328
 extern dword_1CE32C, dword_1CE330, dword_1CE33C, dword_1CE340, dword_1CE346, dword_1CE34A, dword_1CE34E, dword_1CE352
@@ -20,7 +20,7 @@ extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx
 extern DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, WipeScreen
 extern SetModemButton, InitMenuItems, RunMenu, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, LoadPauseArt
 extern FreePauseArt, DrawPauseClock, FreeMemBlock, MatchColor, MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_S_DrawControlKey, unk_16D992, unk_1AC8E4
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_S_DrawControlKey, unk_16D992, ControlSetup
 extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, str_Punct_DrawControlLabel, unk_EDE3F, unk_EDE53
 extern unk_EE053, str_Punct_ControlSetupScreen, unk_EE0E3, word_16E2EC, word_16E2EE, word_16E2F0
 global jpt_F031D, ShowReservedKey_20A, ControlSetupMain_3F3, ControlSetupMain_3FB, ControlSetupScreen_B8D, ControlSetupScreen_BB1, ControlSetupScreen_BC0, ControlSetupScreen_BF3
@@ -1233,7 +1233,7 @@ ControlSetupKeys:
         push dword 14Fh
         call DrawShadowRect
         add esp, byte 18h
-        test byte [byte_1AC93C], 1
+        test byte [ControlSetupFlags], 1
         jne short .16
         push dword 154h
         push dword 0B9h
@@ -2359,7 +2359,7 @@ ControlSetupScreen:
         push eax
         lea edi, [byte ebp+032h]
         mov esi, unk_EE0E3
-        push unk_1AC8E4
+        push ControlSetup
         movsd
         movsd
         movsd
@@ -3148,7 +3148,7 @@ ControlSetupScreen:
 ControlSetupScreen_B8D:
         call FadeInScreen
         push byte 58h
-        push unk_1AC8E4
+        push ControlSetup
         lea eax, [dword ebp-0B6h]
         push eax
         mov dword [byte ebp+072h], 64h
@@ -3292,17 +3292,17 @@ ControlSetupScreen_C3A:
         jl short .33
         jmp near ControlSetupScreen_F11.41
 .35:
-        mov eax, dword [byte_1AC93C]
+        mov eax, dword [ControlSetupFlags]
         and eax, byte 1
         inc eax
-        and byte [byte_1AC93C], 0FEh
+        and byte [ControlSetupFlags], 0FEh
         and eax, byte 1
-        or dword [byte_1AC93C], eax
-        mov eax, dword [byte_1AC93C]
+        or dword [ControlSetupFlags], eax
+        mov eax, dword [ControlSetupFlags]
         and eax, byte 1
         cmp eax, byte 2
         jb short .36
-        and byte [byte_1AC93C], 0FEh
+        and byte [ControlSetupFlags], 0FEh
 .36:
         call SetScreenTarget
         push str_Mous5
@@ -3356,7 +3356,7 @@ ControlSetupScreen_C3A:
         push dword 14Fh
         call DrawShadowRect
         add esp, byte 18h
-        test byte [byte_1AC93C], 1
+        test byte [ControlSetupFlags], 1
         jne short .39
         push dword 154h
         push dword 0B9h
@@ -4380,7 +4380,7 @@ ControlSetupPlayers:
         push dword 14Fh
         call DrawShadowRect
         add esp, byte 18h
-        test byte [byte_1AC93C], 1
+        test byte [ControlSetupFlags], 1
         jne short .10
         push dword 154h
         push dword 0B9h

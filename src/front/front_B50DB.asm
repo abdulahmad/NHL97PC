@@ -17,7 +17,7 @@ extern str_SC18, str_SC17, str_SC16, str_SC17SC18SC19, str_SC30, str_SC29, str_S
 extern str_AB08, str_AB07, str_AB06, str_AB11, str_AB10, str_AB09, str_SC09SC10SC11, str_Rroster
 extern str_Lroster, str_POWR2, str_01d02d, byte_16CCF0, byte_1AD739, byte_1C6040, byte_1C8338, byte_1CAEC8
 extern dword_16CCF1, dword_16D400, dword_16D404, dword_16D454, dword_16D458, dword_16D45C, dword_16D470, dword_16D484
-extern dword_16D4B0, dword_16D4D4, dword_16DA9C, MenuScreenBitmap, GameSettings, dword_1ACF46, dword_1AD6AB, dword_1C5EEC
+extern dword_16D4B0, dword_16D4D4, dword_16DA9C, MenuScreenBitmap, GameSettings, SeasonActive, dword_1AD6AB, dword_1C5EEC
 extern dword_1CAA00, dword_1CAB00, dword_1CAC00, dword_1CACDC, dword_1CAD28, dword_1CAD2C, dword_1CAD38, dword_1CAD48
 extern dword_1CAE24, dword_1CAE28, dword_1CAE2C, dword_1CAE34, dword_1CAE6C, dword_1CAE70, dword_1CAE74, dword_1CAE78
 extern dword_1CAE7C, dword_1CAE80, dword_1CAE84, dword_1CAE88, dword_1CAE8C, dword_1CAE90, dword_1CAE94, dword_1CAE98
@@ -722,7 +722,7 @@ PlayerStatsScreen:
         lea edx, [byte ebp+032h]
         mov eax, unk_1AD22E
         call OpenLeagueFile
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .5
         lea edx, [byte ebp+02Eh]
         mov eax, unk_1AD236
@@ -6236,7 +6236,7 @@ PlayerRatingsScreen_11E4:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .72
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .73
 .72:
         mov eax, 1
@@ -6335,7 +6335,7 @@ PlayerRatingsScreen_13C2:
         and eax, byte 70h
         cmp eax, byte 10h
         jne near PlayerRatingsScreen_2040.186
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je near PlayerRatingsScreen_2040.186
 .85:
         xor byte [dword_16D404], 1
@@ -7493,7 +7493,7 @@ BuildPlayerStats:
         and eax, byte 70h
         cmp eax, byte 10h
         jne near .5
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je near .5
         mov dword [byte ebp+076h], 0
         mov dword [byte ebp+06Eh], 0
@@ -7587,7 +7587,7 @@ BuildPlayerStats:
         add edx, dword [dword ebp-0327Eh]
         add eax, byte 20h
         call FindTeamStat
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .10
         cmp dword [byte ebp+06Eh], byte 0
         jne short .11
@@ -7737,7 +7737,7 @@ BuildPlayerStats:
         add edx, dword [dword ebp-0327Eh]
         add eax, byte 20h
         call FindTeamStat
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .27
         cmp dword [byte ebp+06Eh], byte 0
         jne short .28
@@ -7885,7 +7885,7 @@ BuildPlayerStats:
         add edx, dword [dword ebp-0327Eh]
         add eax, byte 20h
         call FindTeamStat
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .44
         cmp dword [byte ebp+06Eh], byte 0
         jne short .45
@@ -8036,7 +8036,7 @@ BuildPlayerStats:
         add edx, dword [dword ebp-0327Eh]
         add eax, byte 20h
         call FindTeamStat
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .61
         cmp dword [byte ebp+06Eh], byte 0
         jne short .62

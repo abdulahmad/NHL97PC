@@ -7,9 +7,9 @@ extern str_OFF0, str_SL02d, str_LB02d, str_LY02d, str_MB01MB02MB03, str_MB05MB06
 extern str_TITL2, str_GMT1, str_BOTM, str_LB00, str_LB07, str_MB02, str_MB01, str_MB00
 extern str_MB06, str_MB05, str_MB04, str_MB10, str_MB09, str_MB08, str_BACK4, str_SY02d
 extern str_SY00, str_SY01, str_SY02, str_SY03, str_SY04, str_SY05, str_SY06, str_GL00
-extern str_GR00, str_Mous3, str_DATAREPLAYNDX, byte_16CCF0, byte_1AC8C6, byte_1ACA65, byte_1ACC50, byte_1AD742
+extern str_GR00, str_Mous3, str_DATAREPLAYNDX, byte_16CCF0, MenuOptionFlags, LinkMenuCursor, IndexMenuCursor, byte_1AD742
 extern byte_1C6040, byte_1C82B3, byte_1C82B4, byte_1C8338, byte_1CA9D8, byte_1CBB8C, dword_16CCC4, dword_16CCE8
-extern dword_16CCEC, dword_16CCF1, dword_16CD58, dword_16D76C, dword_16DA9C, MenuScreenBitmap, GameSettings, dword_1AC944
+extern dword_16CCEC, dword_16CCF1, dword_16CD58, dword_16D76C, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags
 extern dword_1AD226, dword_1AD6A7, dword_1C5DE0, dword_1C5DE4, dword_1C8268, dword_1C826C, dword_1C829C, dword_1C82A0
 extern dword_1C82A4, dword_1C82A8, dword_1C82AC, dword_1C82B0, dword_1C82C0, dword_1C82C4, dword_1C82C8, dword_1C82CC
 extern dword_1C82D0, dword_1C82D4, dword_1C82D8, dword_1C82DC, dword_1C82E0, dword_1C82E4, dword_1C82F4, dword_1C8318
@@ -27,7 +27,7 @@ extern GameStatsScreen, PlayMenuGame, FinishLeagueGame, TeamStatsScreen, StatsTa
 extern RunVideoOptions, HistoryScreen, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, FreeDbBlock, OpenLeagueFile, FindGameRecord
 extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
 extern OpenResourceArchive, FreeBitmap, DrawShapeCore, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
-extern str_Rb_WritePhonebookFile, str_Wb, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
+extern str_Rb_WritePhonebookFile, str_Wb, unk_16CCC8, unk_16D804, LinkSettings, LinkSettingsData, GlobalSetVersion, IndexEntrySettings
 extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C8300, unk_1C830C, unk_845C0
 global jpt_84AF5, jpt_84B15, jpt_84B25, jpt_84B3D, jpt_85CFD, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
 global MainMenuAnim_370, MainMenuAnim_50B, MainMenuScreen_911, MainMenuScreen_999, MainMenuScreen_A17, MainMenuScreen_A23, MainMenuScreen_A2F, MainMenuScreen_A3B
@@ -1093,21 +1093,21 @@ MainMenuScreen_911:
         lea eax, [byte ebx-04h]
         imul eax, byte 21h
         push byte 21h
-        add eax, unk_1AC962
+        add eax, LinkSettingsData
         push eax
         imul eax, ebx, byte 21h
-        add eax, unk_1ACB49
+        add eax, IndexEntrySettings
         push eax
         inc ebx
         call bcopy
-        mov al, byte [dword ebx+byte_1ACC50]
+        mov al, byte [dword ebx+IndexMenuCursor]
         add esp, byte 0Ch
-        mov byte [dword ebx+byte_1ACA65], al
+        mov byte [dword ebx+LinkMenuCursor], al
         cmp ebx, byte 8
         jl short .25
         mov ebx, 1E7h
-        mov edx, unk_1AC95D
-        mov eax, unk_1ACB44
+        mov edx, LinkSettings
+        mov eax, GlobalSetVersion
         call memcpy_
         jmp short MainMenuScreen_999.26
 MainMenuScreen_999:
@@ -1346,8 +1346,8 @@ MainMenuScreen_C76:
         test eax, eax
         jne short .42
         mov ebx, 1E7h
-        mov edx, unk_1AC95D
-        mov eax, unk_1ACB44
+        mov edx, LinkSettings
+        mov eax, GlobalSetVersion
         call memcpy_
 .42:
         call NetDisconnect
@@ -1355,7 +1355,7 @@ MainMenuScreen_C76:
         mov dword [byte ebp+07Eh], 1
         jmp short .46
 .44:
-        test byte [byte_1AC8C6], 1
+        test byte [MenuOptionFlags], 1
         je short .45
         mov dword [byte ebp+07Eh], 18h
         jmp short .46
@@ -1583,7 +1583,7 @@ RunGameScreens:
         mov ebx, 0Dh
         jmp short .17
 .19:
-        mov ecx, dword [dword_1AC944]
+        mov ecx, dword [GameOptionFlags]
         test byte [byte ecx+02h], 20h
         je short .20
         cmp eax, byte 13h

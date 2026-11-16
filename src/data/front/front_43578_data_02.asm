@@ -4,7 +4,7 @@ bits 32
 section s_169780 progbits alloc noexec write align=1
 extern str_CentreArea, str_CentreIce, str_BlueLine, str_Point, str_OwnBlueLine, str_InFront, str_InFrontOfTheNet, str_OwnZone
 extern str_Corner, str_NeutralZone, str_Slot, str_Wing, str_BehindNet, str_BesideNet, str_OffensiveZone, str_WideOfNet
-extern str_Deep, str_Right, str_Left, str_PointBlank, unk_160C7C, str_EndBoards, str_ERROR, unk_1692F8
+extern str_Deep, str_Right, str_Left, str_PointBlank, str_NetExt, str_EndBoards, str_ERROR, unk_1692F8
 extern unk_169300, unk_169308, unk_16933C, unk_169370, unk_1693D0, unk_169488, unk_1694E8, unk_1695A0
 extern unk_169600, unk_169660, unk_1696C0, unk_169778
 global dword_1697B4, dword_1697B8, dword_169818, dword_16981C, dword_169820, dword_169844, off_169780, off_1697BC
@@ -48,7 +48,7 @@ off_1697BC:
         dd str_Right
         dd str_Left
         dd str_PointBlank
-        dd unk_160C7C
+        dd str_NetExt
         dd str_EndBoards
 off_169814:
         dd str_ERROR

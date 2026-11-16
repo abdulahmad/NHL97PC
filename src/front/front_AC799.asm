@@ -21,8 +21,8 @@ extern str_RS06, str_RS05, str_RS04, str_RS05RS06RS07, str_LAHL, str_LABL, str_R
 extern str_RS09RS11RS11, str_RS22, str_RS21, str_RS20, str_RS21RS22RS23, str_RS26, str_RS25, str_RS24
 extern str_RS25RS26RS27, str_RS30, str_RS29, str_RS28, str_RS29RS30RS31, str_RS38, str_RS37, str_RS36
 extern str_RS37RS38RS39, str_LB02d2, str_LH02d, str_LH26, str_TTL0, str_SDDSDD, str_SD02dSD02d, str_SD02dSDD
-extern str_SDDSD2, str_CSS, byte_16CCF0, byte_1C6040, byte_1C8338, dword_168E80, dword_16CCF1, dword_16D400
-extern dword_16D404, dword_16DA9C, MenuScreenBitmap, GameSettings, dword_1ACF46, dword_1AD6AB, dword_1C5EEC, dword_1C95C8
+extern str_SDDSD2, str_CSS, byte_16CCF0, byte_1C6040, byte_1C8338, StandingsColumns, dword_16CCF1, dword_16D400
+extern dword_16D404, dword_16DA9C, MenuScreenBitmap, GameSettings, SeasonActive, dword_1AD6AB, dword_1C5EEC, dword_1C95C8
 extern dword_1C95CC, dword_1C95D0, dword_1C95D4, dword_1C95D8, dword_1C95DC, dword_1C95E0, dword_1C95E4, dword_1C95E8
 extern dword_1C95EC, dword_1C95F0, dword_1C95F4, dword_1C95F8, dword_1C95FC, dword_1C9600, dword_1C9610, dword_1C9614
 extern dword_1C9618, dword_1C961C, dword_1C9620, dword_1C9624, dword_1C9628, fclose_, fopen_, fprintf_
@@ -2156,7 +2156,7 @@ TeamStatsScreen:
         jmp short .4
 .2:
         mov dword [byte ebp+06Ah], unk_1AD22E
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .3
         mov dword [byte ebp+066h], unk_1AD236
 .3:
@@ -3659,7 +3659,7 @@ StatsTablesScreen:
         jmp short .7
 .5:
         mov dword [byte ebp+042h], unk_1AD22E
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .6
         mov dword [byte ebp+04Ah], unk_1AD236
         jmp short .7
@@ -6887,7 +6887,7 @@ SetTeamStatColumns:
         lea edi, [dword edx+085h]
         mov dword [ecx], edi
         movsx edx, word [dword edx+0D07h]
-        mov edx, dword [nosplit edx*4+dword_168E80]
+        mov edx, dword [nosplit edx*4+StandingsColumns]
         cmp edx, byte 2
         jb short .2
         jbe short .3

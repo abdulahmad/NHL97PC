@@ -61,7 +61,7 @@
 #define D_FLAGS        SYM_HotKeyFlags
 #define D_MENUFLAG     SYM_InGameMenuRequest
 #define D_OPTS         SYM_GlobalSetData        /* the options block of GLOBAL.SET (magic, install mode, then the game's options) */
-#define D_SETUP        SYM_unk_1ACB44          /* the game set-up: +1 the teams, +5 the user logs, +10Dh the 8 controller bytes */
+#define D_SETUP        SYM_GlobalSetVersion          /* the game set-up: +1 the teams, +5 the user logs, +10Dh the 8 controller bytes */
 #define OPTS_SKIP      8u                      /* the magic and the install mode stay each machine's */
 #define OPTS_N         0x130u
 #define SETUP_N        0x115u                  /* the teams, the user logs and the controller bytes; the key sets after them stay */

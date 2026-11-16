@@ -3,29 +3,29 @@ bits 32
 %include "hockey.inc"
 section s_1690D2 progbits alloc noexec write align=1
 extern str_GLOBAL, str_FRONT1, str_FRONT2, str_GAME, str_AUXI, str_CROWD
-global byte_1691DC, dword_1690D2, dword_1690EE, str_G_DrawLockedGame, dword_169126, str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim
-global str_U_FaceoffDrawAnim, dword_169180, dword_169184, dword_16918C, dword_169190, dword_169194, dword_169198, dword_16919C
-global dword_1691A0, dword_1691A2, dword_1691A8, dword_1691AC, dword_1691AE, dword_1691B0, dword_1691B8, dword_1691BC
-global dword_1691C0, dword_1691C4, dword_1691C8, dword_1691CC, dword_1691D0, dword_1691D4, dword_1691D8, dword_1691E0
-global dword_1691FC, dword_169210, dword_169214, dword_169218, dword_16921C, dword_169220, dword_169224, dword_169228
-global dword_16922C, dword_16922E, dword_169230, dword_169238, dword_16923C, off_1691E4, off_1691F8, word_16914E
-global word_1691A4, word_1691B2, word_1691B4, word_1691B6, word_169232, word_169234, word_169236
-dword_1690D2:
+global AudioStreamChannel, SeasonPanelText, MatchupLogoIds, str_G_DrawLockedGame, MatchupLogoPos, str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim
+global str_U_FaceoffDrawAnim, ViewBorderColor, ViewBorderRows, StreamBlockCount, StreamBlockSize, StreamTimeout, dword_169198, dword_16919C
+global StreamState, AudioStreamFlags, MusicState, MusicTrack, MusicNextTrack, MusicRestart, MusicPaused, MusicTime
+global MusicStreamPos, MusicVolumeLevel, BackgroundAudioTick, MusicFeedCount, MusicStartTime, MusicLength, MusicHandle, MusicBuffer
+global SfxBankRecords, AudioInitDone, SfxBankHandle, CrowdBankHandle, AmbientHandle, SfxReady, MusicReady, CrowdNoiseLevel
+global AmbientVolume, SfxVolumeLevel, MusicVolumeWord, LastSfxPlayed, SpeechBankBuffer, SfxBankNameTable, SfxGroupTable, SparkleTimer
+global SfxBankLoaded, MusicBlock, MusicBlockCount, MusicStopRequest, SfxVolumeScale, SfxVolumeWord, MusicVolumeScale
+SeasonPanelText:
         db 089h,00h,00h,00h,08Ah,00h,00h,00h,08Bh,00h,00h,00h,08Ch,00h,00h,00h
         db 08Dh,00h,00h,00h,08Eh,00h,00h,00h,08Fh,00h,00h,00h
-dword_1690EE:
+MatchupLogoIds:
         db 00h,00h,00h,00h,04Ah,00h,00h,00h,08Fh,00h,00h,00h,0D3h,00h,00h,00h
         db 018h,01h,00h,00h,05Ch,01h,00h,00h,0A1h,01h,00h,00h
 str_G_DrawLockedGame:
         db 047h,00h,00h,00h,041h,00h,00h,00h,041h,00h,00h,00h,041h,00h,00h,00h
         db 041h,00h,00h,00h,041h,00h,00h,00h,045h,00h,00h,00h
-dword_169126:
+MatchupLogoPos:
         db 014h,00h,00h,00h,054h,00h,00h,00h,095h,00h,00h,00h,0D5h,00h,00h,00h
         db 015h,01h,00h,00h
 str_Punct_DrawLockedGame:
         db 03Ch,00h,00h,00h,03Dh,00h,00h,00h,03Dh,00h,00h,00h,03Dh,00h,00h,00h
         db 042h,00h,00h,00h
-word_16914E:
+SparkleTimer:
         db 00h,00h
 str_O_FaceoffStanceMove:
         db 04Fh,00h,00h,00h,050h,00h,00h,00h,052h,00h,00h,00h,053h,00h,00h,00h
@@ -34,100 +34,100 @@ str_C_FaceoffSwipeAnim:
         db 043h,00h,00h,00h,041h,00h,00h,00h,054h,00h,00h,00h
 str_U_FaceoffDrawAnim:
         db 055h,00h,00h,00h,055h,00h,00h,00h
-dword_169180:
+ViewBorderColor:
         db 00h,00h,00h,00h
-dword_169184:
+ViewBorderRows:
         db 00h,00h,00h,00h,0FFh,00h,0FFh,0FFh
-dword_16918C:
+StreamBlockCount:
         db 08h,00h,00h,00h
-dword_169190:
+StreamBlockSize:
         db 0DAh,00h,00h,00h
-dword_169194:
+StreamTimeout:
         db 02Ch,01h,00h,00h
 dword_169198:
         db 00h,00h,00h,00h
 dword_16919C:
         db 00h,00h,00h,00h
-dword_1691A0:
+StreamState:
         db 00h,00h
-dword_1691A2:
+AudioStreamFlags:
         db 00h,00h
-word_1691A4:
+SfxBankLoaded:
         db 00h,00h,00h,00h
-dword_1691A8:
+MusicState:
         db 00h,00h,00h,00h
-dword_1691AC:
+MusicTrack:
         db 00h,00h
-dword_1691AE:
+MusicNextTrack:
         db 00h,00h
-dword_1691B0:
+MusicRestart:
         db 00h,00h
-word_1691B2:
+MusicBlock:
         db 00h,00h
-word_1691B4:
+MusicBlockCount:
         db 00h,00h
-word_1691B6:
+MusicStopRequest:
         db 00h,00h
-dword_1691B8:
+MusicPaused:
         db 00h,00h,00h,00h
-dword_1691BC:
+MusicTime:
         db 00h,00h,00h,00h
-dword_1691C0:
+MusicStreamPos:
         db 00h,00h,00h,00h
-dword_1691C4:
+MusicVolumeLevel:
         db 0FFh,0FFh,0FFh,0FFh
-dword_1691C8:
+BackgroundAudioTick:
         db 00h,00h,00h,00h
-dword_1691CC:
+MusicFeedCount:
         db 00h,00h,00h,00h
-dword_1691D0:
+MusicStartTime:
         db 00h,00h,00h,00h
-dword_1691D4:
+MusicLength:
         db 00h,00h,00h,00h
-dword_1691D8:
+MusicHandle:
         db 0FFh,0FFh,0FFh,0FFh
-byte_1691DC:
+AudioStreamChannel:
         db 00h,00h,00h,00h
-dword_1691E0:
+MusicBuffer:
         db 00h,00h,00h,00h
-off_1691E4:
+SfxBankNameTable:
         dd str_GLOBAL
         dd str_FRONT1
         dd str_FRONT2
         dd str_GAME
         dd str_AUXI
-off_1691F8:
+SfxGroupTable:
         dd str_CROWD
-dword_1691FC:
+SfxBankRecords:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-dword_169210:
+AudioInitDone:
         db 00h,00h,00h,00h
-dword_169214:
+SfxBankHandle:
         db 00h,00h,00h,00h
-dword_169218:
+CrowdBankHandle:
         db 00h,00h,00h,00h
-dword_16921C:
+AmbientHandle:
         db 00h,00h,00h,00h
-dword_169220:
+SfxReady:
         db 00h,00h,00h,00h
-dword_169224:
+MusicReady:
         db 00h,00h,00h,00h
-dword_169228:
+CrowdNoiseLevel:
         db 00h,00h,00h,00h
-dword_16922C:
+AmbientVolume:
         db 00h,00h
-dword_16922E:
+SfxVolumeLevel:
         db 00h,00h
-dword_169230:
+MusicVolumeWord:
         db 00h,00h
-word_169232:
+SfxVolumeScale:
         db 00h,00h
-word_169234:
+SfxVolumeWord:
         db 00h,00h
-word_169236:
+MusicVolumeScale:
         db 00h,00h
-dword_169238:
+LastSfxPlayed:
         db 00h,00h,00h,00h
-dword_16923C:
+SpeechBankBuffer:
         db 00h,00h,00h,00h

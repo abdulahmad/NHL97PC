@@ -17,7 +17,7 @@ extern str_Skate, str_Stop, str_Puckh, str_PlAct, str_PlFall, str_Interfer, str_
 extern str_Refcalls, str_Refambi, str_Fight, str_Cup2, str_Puck3, str_Stickheel, str_Origin, str_Chin
 extern str_Rhand, str_Lshldr, str_Rshldr, str_ANIMSVIV, str_MIRROR, str_SCALED, str_LOOP, str_MASTER
 extern str_SLAVE, str_FADING, str_4da, str_ANIMSTAT, str_AiconsViv, str_Cross, str_ANIMSVIV2, awtmstruct
-extern byte_16C429, IdentityRemap, PuckArrowColors, byte_19CA30, byte_19CB74, byte_19CBC2, byte_19CBC8, byte_19CBCA
+extern byte_16C429, IdentityRemap, PuckArrowColors, PenaltyPending, byte_19CB74, byte_19CBC2, byte_19CBC8, byte_19CBCA
 extern byte_19CBCC, byte_19CD8C, PlayerControlFlags, byte_1AD72B, byte_1B1378, byte_1B1398, byte_1B8571, byte_1B8580
 extern byte_1B8582, byte_1B9058, byte_1BF670, chkprogress, F32_50_DrawPlayerModel, F32_200, F32_neg30, F32_20_DrawPlayerMarkers
 extern F32_neg20_DrawPlayerMarkers, F32_30, F32_65536_LoadFaceTexture, F32_4096, F32_464, F32_65536_BeginOffscreenRender, F32_65536_SetPortraitProjection, F32_2_CameraSplinePoint
@@ -41,16 +41,16 @@ extern F32_neg88_CheckPlayerVsBoards, F32_0p5_HitKnockback, F32_0p1_HitKnockback
 extern F32_neg4608, F32_4608, F32_neg1848, F32_1392_ResolveBodyCheck, F32_1848, F32_10_ResolvePlayerContact, F32_16, F32_neg3
 extern F32_neg3_CelebrationJumpMove, F32_0p5_SkateToBenchStep, F32_0p1_RefWhistleAnim, F32_30_PokeCheckMove, F32_96_PokeCheckMove, F32_30_SweepCheckMove, F32_30_HookMove, F32_0p5_BlockReach
 extern F32_12_BlockShotMove, F32_0p1_BlockShotMove, F32_120, F32_168, F32_10_GoalieSave, F32_96_GoalieSave, F32_240, F32_144_GoalieMoves
-extern F32_24_GoalieMoves, F32_2_GoalieMoves, F32_480_GoalieMoves, F32_neg1_GoalieMoves, F32_672, ScoreClockShown, dword_1686BA, InGameMenuRequest
-extern dword_168F58, dword_16AF5C, F32_2000_ScaleModelLods, F32_1, dword_16B1A4, dword_16B1A8, dword_16B3F4, dword_16B550
+extern F32_24_GoalieMoves, F32_2_GoalieMoves, F32_480_GoalieMoves, F32_neg1_GoalieMoves, F32_672, ScoreClockShown, SavedCameraView, InGameMenuRequest
+extern PlayoffColumns, dword_16AF5C, F32_2000_ScaleModelLods, F32_1, dword_16B1A4, dword_16B1A8, dword_16B3F4, dword_16B550
 extern dword_16B724, dword_16B72C, str_Punct_LoadAnimData, dword_16C360, dword_16C364, dword_16C368, dword_16C374, dword_16C384
 extern dword_16C388, dword_16C38C, dword_16C390, dword_16C394, dword_16C398, dword_16C39C, dword_16C3A0, dword_16C3A4
 extern dword_16C3A8, dword_16C3AC, dword_16C3B0, dword_16C3F0, dword_16C54C, dword_16C550, dword_16C55C, dword_16C568
 extern dword_16C574, dword_16C580, dword_16C58C, dword_16C618, dword_16C63C, dword_16C648, F32_7p84727eneg44, F32_0
 extern dword_16C6B0, dword_16C6B4, dword_16C6B8, dword_16C6BC, dword_16E308, GoalieTickData, str_Punct_DrawRinkSurface, F32_50p0_View
-extern ViewCenterY, str_D_ProjectPointsPersp, dword_19CB44, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB54, dword_19CB66
-extern dword_19CC00, dword_19CC02, dword_19CC54, dword_19CD54, dword_19DA68, dword_19DA70, HmSkaterCount, HmTeamData
-extern HmScore, AwSkaterCount, AwTeamData, AwScore, ViewPixelWidth, ViewPixelHeight, GameSettings, dword_1AC944
+extern ViewCenterY, str_D_ProjectPointsPersp, ShotState, LastTouchPlayer, PassFrom, PassTo, PuckHitFlag, ZoneTargetX
+extern dword_19CC00, dword_19CC02, dword_19CC54, dword_19CD54, PlayerUpdateFlags, PlayerUpdateTable, HmSkaterCount, HmTeamData
+extern HmScore, AwSkaterCount, AwTeamData, AwScore, ViewPixelWidth, ViewPixelHeight, GameSettings, GameOptionFlags
 extern dword_1AD437, dword_1AD69F, dword_1AD6A3, dword_1ADC88, dword_1ADC90, dword_1B0CFC, dword_1B1258, dword_1B1260
 extern dword_1B1264, dword_1B126C, dword_1B1270, dword_1B1278, dword_1B127C, dword_1B1284, dword_1B1288, dword_1B12FC
 extern dword_1B1300, dword_1B137C, dword_1B1380, dword_1B1384, dword_1B1388, dword_1B138C, dword_1B1390, dword_1B13B0
@@ -84,10 +84,10 @@ extern dword_1BF1B4, dword_1BF248, dword_1BF7F0, dword_1BF7F4, dword_1BF7F8, dwo
 extern dword_1BF88C, dword_1BF890, dword_1BF894, dword_1BF898, dword_1BF89C, dword_1BF8A0, dword_1BF8A4, dword_1BF8A8
 extern dword_1BF8B0, dword_1BF8B4, dword_1C0EE0, dword_1C0EEC, dword_1C0EF0, dword_1C0EF8, dword_1C0EFC, FontGlyphColors
 extern DrawGlyphFn, ProjOffsetX, ProjOffsetY, ProjDetailScale, ProjAspect, UniformArtBuf, ModelFileCount, BitReaderBits
-extern hmtmstruct, hypot_, kaufmfont, memcpy_, off_168CD8, off_168CE0, off_168CE8, off_168CF0
-extern off_168CFC, off_168D04, off_168D08, off_168D0C, off_16B6F8, off_16B708, off_16B738, off_16B7CC
+extern hmtmstruct, hypot_, kaufmfont, memcpy_, PtrPuckTarget, PtrPuckState, PtrPuckOwner, PtrPuckZone
+extern PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, off_16B6F8, off_16B708, off_16B738, off_16B7CC
 extern off_16B830, off_16B8C0, off_16B958, off_16B9A4, off_16BB54, off_16BC44, off_16BC5C, off_16BC98
-extern off_16BD14, off_16BD2C, off_16C3B4, off_19C3F4, F64_0p002, F64_0p785398_DrawModelParts, F64_0p159155_DrawModelParts, F64_65536_DrawModelParts
+extern off_16BD14, off_16BD2C, off_16C3B4, AssignFuncTable, F64_0p002, F64_0p785398_DrawModelParts, F64_0p159155_DrawModelParts, F64_65536_DrawModelParts
 extern F64_1p25, F64_0p1_CameraSplinePoint, F64_3p14159_CameraSmoothStep, F64_neg3p14159_CameraSmoothStep, F64_6p28319_CameraSmoothStep, F64_neg6p28319_CameraSmoothStep, qword_161B78, qword_161B80
 extern qword_161B88, qword_161B90, F64_neg0p1, F64_0p00872665, F64_neg0p00872665, F64_neg1p6, F64_0p25_PlaySkateSounds, F64_0p2_PlaySkateSounds
 extern F64_neg0p2, F64_0p785398_PuckOnStickPhysics, F64_2p35619, F64_1p1, F64_1p1_StickHandleSpeed, F64_6p28319_GoalieReadShot, F64_3p14159_GoalieReadShot, F64_neg6p28319_GoalieReadShot
@@ -176,13 +176,13 @@ extern FreeBitmap, SetDrawTarget, FillPolygon, FillPolygonPoints, FillRectColor,
 extern SetTextColors, ClearIfNaN, FloatsToInts, MatRotX, MatRotY, MatTranspose, MatMul, VecMulMat
 extern TransformVecs, TransformTranslateVecs, VecAdd, VecSub, OffsetVecs, SubVecs, VecCross, VecDistance
 extern VecLength, VecScale, VecDot, PerspectiveScale, ProjectCoord, ProjectPoints, ProjectPointInt, ClipProjectPoints
-extern tickcount, unk_16B534, unk_16B718, unk_16B728, unk_16C338, DebugTagStr, unk_19D6A0, HomeTeamRecord
-extern unk_1ACB44, unk_1B1120, unk_1B13E8, unk_1B73F0, unk_1B7448, unk_1B7BA8, unk_1B85DC, unk_1B8BD0
+extern tickcount, unk_16B534, unk_16B718, unk_16B728, unk_16C338, DebugTagStr, BenchPlayerTable, HomeTeamRecord
+extern GlobalSetVersion, unk_1B1120, unk_1B13E8, unk_1B73F0, unk_1B7448, unk_1B7BA8, unk_1B85DC, unk_1B8BD0
 extern unk_1B8D88, unk_1B8FA8, unk_1B91AF, unk_1B92AB, unk_1B94E0, unk_1B9520, unk_1B9A58, unk_1B9CF8
 extern unk_1BA510, unk_1BAA88, unk_1BB268, unk_1BBAB8, unk_1BBEE0, unk_1BD680, unk_1BE3A0, unk_1BE4F0
 extern unk_1BE838, unk_1BEF00, unk_1BF110, unk_1BF174, unk_1BF204, unk_1BF29C, unk_1BF2E8, unk_1BF498
 extern unk_1BF588, unk_1BF5A0, unk_1BF5DC, unk_1BF658, unk_1C135C, unk_1C347F, unk_56790, unk_56794
-extern vecdist, word_1686D8, word_19CB64, word_19CB68, word_19CB76, word_19CB78, word_19CB7A, word_19CB7C
+extern vecdist, DebugModelRefresh, GoalieTarget, ZoneTargetY, word_19CB76, word_19CB78, word_19CB7A, word_19CB7C
 extern word_19CB84, word_19CB92, word_19CB94, word_19CB98, gameover, word_19CBAC, word_19CBAE, word_19CBB0
 extern word_19CBB2, gsp, gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD6, word_19CBD8
 extern word_19CBDA, word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28
@@ -6910,7 +6910,7 @@ ReplayDrawFrame:
         xor esi, esi
         call UpdateGameDisplay
 .1:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         inc esi
         mov dl, byte [dword ecx+0A4h]
@@ -6948,7 +6948,7 @@ ReplayDrawFrame:
         sub esp, byte 0Ch
         mov eax, dword [dword_1B8F50]
         call SetAnimClock
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         mov eax, dword [byte edx+020h]
         mov dword [esp], eax
         mov eax, dword [byte edx+024h]
@@ -7115,7 +7115,7 @@ ReplayPlayFrames:
         jl short .9
         mov eax, dword [dword_1B8F50]
         call SetAnimClock
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         mov eax, dword [byte edx+020h]
         mov dword [esp], eax
         mov eax, dword [byte edx+024h]
@@ -7236,7 +7236,7 @@ EndInstantReplay:
         xor edx, edx
         mov eax, 1
         call StartCameraPath
-        mov eax, dword [dword_1686BA]
+        mov eax, dword [SavedCameraView]
         xor edx, edx
         sar eax, 10h
         call SelectCameraView
@@ -7306,7 +7306,7 @@ PlaySavedReplay:
 .6:
         mov dword [dword_1B8F50], eax
         call SetAnimClock
-        mov ecx, dword [off_168CFC]
+        mov ecx, dword [PtrPuckFlags]
         mov eax, dword [byte ecx+020h]
         mov dword [esp], eax
         mov eax, dword [byte ecx+024h]
@@ -7454,7 +7454,7 @@ ReplayRestoreObjects:
         movsx ebx, bx
         mov eax, ecx
         call RefreshPlayerModel
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         inc esi
         mov dl, byte [dword ecx+0A4h]
@@ -7502,7 +7502,7 @@ ReplaySetupObjects:
         cmp ecx, byte 10h
         jl short .1
         mov ebx, 390h
-        mov eax, unk_19D6A0
+        mov eax, BenchPlayerTable
         mov esi, hmtmstruct
         mov edx, ebx
         xor ecx, ecx
@@ -7569,7 +7569,7 @@ SaveReplayHeader:
         test edx, edx
         je short .1
         mov ebx, 1E7h
-        mov edx, dword [dword_1AC944]
+        mov edx, dword [GameOptionFlags]
         call memcpy_
 .1:
         mov eax, dword [GameSettings]
@@ -7678,7 +7678,7 @@ LoadReplayHeader:
         push edx
         mov ebx, 1E7h
         mov edx, eax
-        mov eax, unk_1ACB44
+        mov eax, GlobalSetVersion
         call memcpy_
         mov eax, 1
         pop edx
@@ -7768,7 +7768,7 @@ LoadReplayData:
         xor edx, edx
 .2:
         mov ebp, ecx
-        add ebp, unk_19D6A0
+        add ebp, BenchPlayerTable
         mov dword [dword eax+0EEh], ebp
         cmp edx, byte 6
         jl short .3
@@ -9852,7 +9852,7 @@ PuckOnStickPhysics:
         test bx, bx
         jne short .2
         mov dl, byte [dword edx+0A4h]
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         and edx, 0FFh
         movsx eax, byte [eax]
         cmp edx, eax
@@ -10053,7 +10053,7 @@ PuckOnStickPhysics:
 .15:
         cmp word [dword edx+0A9h], byte 0
         jle short .16
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor ebx, ebx
         movsx eax, byte [eax]
         mov bl, byte [dword edx+0A4h]
@@ -10115,7 +10115,7 @@ PuckOnStickPhysics:
         jle short .21
         xor ebx, ebx
         mov bl, al
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         movsx eax, byte [eax]
         cmp ebx, eax
         je short .22
@@ -10159,7 +10159,7 @@ PuckOnStickPhysics:
 .25:
         cmp word [dword edx+0A9h], byte 0
         jle short .26
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor ebx, ebx
         movsx eax, byte [eax]
         mov bl, byte [dword edx+0A4h]
@@ -10260,7 +10260,7 @@ PuckOnStickPhysics:
         cmp word [dword edx+0A9h], byte 0
         jle short .34
         xor ebx, ebx
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov bl, ch
         movsx eax, byte [eax]
         cmp ebx, eax
@@ -10319,7 +10319,7 @@ PuckOnStickPhysics:
         cmp word [dword edx+0A9h], byte 0
         jle short .39
         xor ebx, ebx
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov bl, ch
         movsx eax, byte [eax]
         cmp ebx, eax
@@ -10367,7 +10367,7 @@ PuckOnStickPhysics:
         jle short .44
         xor ebx, ebx
         mov bl, al
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         movsx eax, byte [eax]
         cmp ebx, eax
         je short .45
@@ -10438,7 +10438,7 @@ StickHandleTarget:
         test cx, cx
         jne short .2
         mov dl, byte [dword eax+0A4h]
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         and edx, 0FFh
         movsx eax, byte [eax]
         cmp edx, eax
@@ -11203,10 +11203,10 @@ GoalieReadShot:
         fnstsw ax
         sahf
         jae short .1
-        mov eax, dword [off_168D0C]
+        mov eax, dword [PtrAwayIce]
         jmp short .2
 .1:
-        mov eax, dword [off_168D08]
+        mov eax, dword [PtrHomeIce]
 .2:
         mov esi, dword [dword edx+0FAh]
         and byte [byte esi+030h], 0EFh
@@ -12430,10 +12430,10 @@ GoalieCoverPost:
         fnstsw ax
         sahf
         jae short .1
-        mov eax, dword [off_168D0C]
+        mov eax, dword [PtrAwayIce]
         jmp short .2
 .1:
-        mov eax, dword [off_168D08]
+        mov eax, dword [PtrHomeIce]
 .2:
         mov esi, dword [byte eax+020h]
         mov ecx, dword [byte eax+01Ch]
@@ -13622,7 +13622,7 @@ PickIdleAnim:
 .3:
         cmp word [dword ecx+0A9h], byte 0
         jne short .5
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         xor eax, eax
         movsx edx, byte [edx]
         mov al, byte [dword ecx+0A4h]
@@ -13668,7 +13668,7 @@ PickIdleAnim:
         pop ebx
         ret
 .7:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -13801,7 +13801,7 @@ PickSkateAnim:
 .5:
         xor edx, edx
         mov dl, ah
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         movsx eax, byte [eax]
         cmp edx, eax
         jne short .6
@@ -13858,7 +13858,7 @@ PickSkateAnim:
         test byte [dword ecx+0BFh], 80h
         setne al
         mov edx, eax
-        mov eax, dword [off_168CE8]
+        mov eax, dword [PtrPuckOwner]
         mov si, word [eax]
         and edx, 0FFh
         test si, si
@@ -13866,7 +13866,7 @@ PickSkateAnim:
         and eax, 0FFh
         xor eax, edx
         je near .4
-        mov edx, dword [off_168CE8]
+        mov edx, dword [PtrPuckOwner]
         mov di, word [edx]
         test di, di
         jge short .10
@@ -13878,13 +13878,13 @@ PickSkateAnim:
 .11:
         cmp eax, 570h
         jle near .4
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jl short .12
         cmp byte [dword ecx+0A4h], 6
         setb al
         mov edx, eax
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         and edx, 0FFh
         cmp byte [eax], 6
         setl al
@@ -13925,7 +13925,7 @@ PickSkateAnim:
         je short .23
         cmp word [dword ecx+0A9h], byte 0
         jle short .20
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -13948,7 +13948,7 @@ PickSkateAnim:
 .23:
         cmp word [dword ecx+0A9h], byte 0
         jle short .24
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -14564,7 +14564,7 @@ PickTurnAnim:
         and eax, 0FFh
         xor eax, edx
         je short .2
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         xor eax, eax
         movsx edx, byte [edx]
         mov al, byte [dword ecx+0A4h]
@@ -14576,7 +14576,7 @@ PickTurnAnim:
         mov edx, 0A4h
         jmp short .4
 .2:
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         mov al, byte [dword ecx+0A4h]
         movsx edx, byte [edx]
         cmp eax, edx
@@ -14681,7 +14681,7 @@ PickTurnAnim:
         jle short .11
         xor eax, eax
         mov al, dl
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         movsx edx, byte [edx]
         cmp eax, edx
         je short .12
@@ -14708,7 +14708,7 @@ PickTurnAnim:
 .15:
         cmp word [dword ecx+0A9h], byte 0
         jle short .16
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         xor eax, eax
         movsx edx, byte [edx]
         mov al, byte [dword ecx+0A4h]
@@ -14753,7 +14753,7 @@ PickTurnAnim:
         je short .25
         cmp word [dword ecx+0A9h], byte 0
         jle short .22
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -14782,7 +14782,7 @@ PickTurnAnim:
 .26:
         cmp word [dword ecx+0A9h], byte 0
         jle short .27
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -14869,7 +14869,7 @@ PickStopAnim:
         and eax, 0FFh
         xor eax, edx
         je short .2
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -14881,7 +14881,7 @@ PickStopAnim:
         mov edx, 0A4h
         jmp short .4
 .2:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -14951,7 +14951,7 @@ PickStopAnim:
         je short .11
         cmp word [dword ecx+0A9h], byte 0
         jle short .8
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -14980,7 +14980,7 @@ PickStopAnim:
 .12:
         cmp word [dword ecx+0A9h], byte 0
         jle short .13
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -15025,7 +15025,7 @@ PickStopAnim:
         je short .22
         cmp word [dword ecx+0A9h], byte 0
         jle short .19
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -15054,7 +15054,7 @@ PickStopAnim:
 .23:
         cmp word [dword ecx+0A9h], byte 0
         jle short .24
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -15555,12 +15555,12 @@ PickForwardTurn:
         mov eax, dword [dword eax+0F6h]
         mov eax, dword [eax]
         mov ebx, dword [byte eax+028h]
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov dl, byte [eax]
         and ebx, 0FFFFh
         test dl, dl
         jl short .1
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fld dword [byte eax+020h]
         fsub dword [byte ecx+020h]
         fld dword [byte eax+028h]
@@ -15709,12 +15709,12 @@ PickBackwardTurn:
         mov eax, dword [dword eax+0F6h]
         mov eax, dword [eax]
         mov ebx, dword [byte eax+028h]
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov dl, byte [eax]
         and ebx, 0FFFFh
         test dl, dl
         jl short .1
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fld dword [byte eax+020h]
         fsub dword [byte ecx+020h]
         fld dword [byte eax+028h]
@@ -15880,7 +15880,7 @@ GlideForwardMove:
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
         mov dword [byte esp+0Ch], eax
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         movsx eax, byte [eax]
         mov dword [byte esp+010h], eax
         mov eax, dword [byte esp+0Ch]
@@ -16791,7 +16791,7 @@ SkateForwardMove_41B:
 .18:
         cmp word [dword ecx+0A9h], byte 0
         jle short .19
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         xor ebx, ebx
         movsx edx, byte [edx]
         mov bl, byte [dword ecx+0A4h]
@@ -17184,7 +17184,7 @@ SkateBackwardMove_3B2:
 .16:
         cmp word [dword ecx+0A9h], byte 0
         jle short .17
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -17566,7 +17566,7 @@ TurnForwardMove_C2:
 .5:
         cmp word [dword ecx+0A9h], byte 0
         jle short .6
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -17948,7 +17948,7 @@ StopForwardMove:
         jne near .15
         cmp word [dword edi+0A9h], byte 0
         jne short .10
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         push dword [byte edi+028h]
         mov dl, byte [dword edi+0A4h]
@@ -17964,7 +17964,7 @@ StopForwardMove:
         mov eax, 430h
         jmp short .14
 .10:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         push dword [byte edi+028h]
         mov dl, byte [dword edi+0A4h]
@@ -18485,7 +18485,7 @@ CrossoverMove:
 .8:
         cmp word [dword esi+0A9h], byte 0
         jle short .9
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         xor ebx, ebx
         movsx edx, byte [edx]
         mov bl, byte [dword esi+0A4h]
@@ -18665,7 +18665,7 @@ GoalieSlideMove:
         mov ebx, 20h
         test dx, dx
         jle short .1
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         movzx esi, byte [dword ecx+0A4h]
         movsx edx, byte [edx]
         cmp esi, edx
@@ -19117,7 +19117,7 @@ TurnBackwardMove_C2:
 .5:
         cmp word [dword esi+0A9h], byte 0
         jle short .6
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword esi+0A4h]
@@ -19338,7 +19338,7 @@ StopBackwardMove:
         jne near .12
         cmp word [dword edi+0A9h], byte 0
         jne short .7
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         push dword [byte edi+028h]
         mov dl, byte [dword edi+0A4h]
@@ -19354,7 +19354,7 @@ StopBackwardMove:
         mov eax, 430h
         jmp short .11
 .7:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         push dword [byte edi+028h]
         mov dl, byte [dword edi+0A4h]
@@ -21250,7 +21250,7 @@ TryStickTouch:
         fchs
         fstp dword [byte esp+034h]
 .8:
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov eax, dword [dword eax+0EEh]
         mov edx, dword [byte esp+04Ch]
         mov dword [byte eax+08h], edx
@@ -21260,7 +21260,7 @@ TryStickTouch:
         fld dword [byte esp+044h]
         faddp st2
         call IF@ATAN2
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov eax, dword [dword eax+0EEh]
         fstp dword [byte eax+0Ch]
         jmp near .14
@@ -21310,7 +21310,7 @@ TryStickTouch:
         fchs
         fstp dword [byte esp+030h]
 .12:
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov eax, dword [dword eax+0EEh]
         mov edx, dword [byte esp+028h]
         mov dword [byte eax+08h], edx
@@ -21320,13 +21320,13 @@ TryStickTouch:
         fld dword [byte esp+044h]
         faddp st2
         call IF@ATAN2
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov eax, dword [dword eax+0EEh]
         fstp dword [byte eax+0Ch]
         jmp short .14
 .13:
         fld dword [byte ecx+038h]
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fadd qword [F64_25]
         mov eax, dword [dword eax+0EEh]
         fstp dword [byte eax+08h]
@@ -21336,7 +21336,7 @@ TryStickTouch:
         fsub dword [byte esi+028h]
         fxch
         call IF@ATAN2
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov eax, dword [dword eax+0EEh]
         fstp dword [byte eax+0Ch]
         xor eax, eax
@@ -21516,11 +21516,11 @@ PlayPostSound:
         push edx
         sub esp, byte 0Ch
         mov ebx, eax
-        cmp word [word_1686D8], byte 0
+        cmp word [DebugModelRefresh], byte 0
         je short .1
         mov dword [byte eax+038h], 43520000h
         xor ecx, ecx
-        mov word [word_1686D8], cx
+        mov word [DebugModelRefresh], cx
 .1:
         cmp dword [byte ebx+038h], 43480000h
         jl short .2
@@ -21646,7 +21646,7 @@ PuckHitsNet:
         jne short .6
         cmp word [dword ecx+0A9h], byte 0
         jne short .5
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov bx, word [byte eax+06Dh]
         cmp bx, byte 1
         je short .4
@@ -21685,7 +21685,7 @@ PuckHitsNet:
         mov eax, dword [word_19CBAC]
         mov edx, 1
         sar eax, 10h
-        mov dword [dword_19CB54], edx
+        mov dword [PuckHitFlag], edx
         mov edx, eax
         shl edx, 5
         add edx, eax
@@ -22033,7 +22033,7 @@ PuckHitsNet:
         fstp dword [byte edx+038h]
         cmp cl, 0Dh
         jne near .38
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jge short .35
         mov eax, dword [dword edx+0FAh]
@@ -22055,7 +22055,7 @@ PuckHitsNet:
         fstp dword [byte edx+030h]
         call RandomPuckSpin
 .35:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jl short .36
         fld dword [byte edx+028h]
@@ -22298,7 +22298,7 @@ PuckHitsBoards:
         fld dword [byte esp+060h]
         fld st0
         fmul dword [byte esp+028h]
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         fxch
         fmul dword [byte esp+02Ch]
         mov dl, byte [eax]
@@ -22547,7 +22547,7 @@ PuckHitsGlass:
         fstp dword [byte esp+040h]
         mov dword [byte esp+014h], ecx
 .3:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jl short .4
         mov eax, dword [byte esp+040h]
@@ -22589,7 +22589,7 @@ PuckHitsGlass:
         fstp dword [byte esp+044h]
         mov dword [byte esp+014h], esi
 .7:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jl short .8
         mov eax, dword [byte esp+044h]
@@ -23387,7 +23387,7 @@ PlayNetSound:
         and esp, byte 0FFFFFFF8h
         mov edx, eax
         fld dword [byte eax+040h]
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         fsub dword [byte ebp+010h]
         mov bl, byte [eax]
         fstp dword [byte esp+010h]
@@ -23478,7 +23478,7 @@ CommentNetHit:
 .2:
         add edx, ebx
         mov ebx, 1001h
-        mov dword [dword_19CB48], ebx
+        mov dword [LastTouchPlayer], ebx
         push ebx
         mov bh, byte [dword eax+0BFh]
         push dword 0B005h
@@ -23495,7 +23495,7 @@ CommentNetHit:
         ret
 .3:
         mov edx, 1000h
-        mov dword [dword_19CB48], edx
+        mov dword [LastTouchPlayer], edx
         push edx
         mov bl, byte [dword eax+0BFh]
         push dword 0B001h
@@ -23699,7 +23699,7 @@ PuckOffPost:
         fistp dword [byte esp+02Ch]
         mov eax, dword [byte esp+02Ch]
         mov bx, word [regd1]
-        mov word [word_19CB64], ax
+        mov word [GoalieTarget], ax
         cmp ax, bx
         jge short .10
         mov eax, dword [byte esp+01Ch]
@@ -23994,7 +23994,7 @@ PuckOffCrossbar:
         fistp dword [byte esp+024h]
         mov eax, dword [byte esp+024h]
         mov bx, word [regd1]
-        mov word [word_19CB64], ax
+        mov word [GoalieTarget], ax
         cmp ax, bx
         jge short .10
         mov eax, dword [byte esp+014h]
@@ -24316,7 +24316,7 @@ PuckInHomeNet:
         fnstsw ax
         sahf
         jae short .11
-        mov eax, dword [off_168D0C]
+        mov eax, dword [PtrAwayIce]
         mov esi, 1
         call Goal
         jmp near .16
@@ -24795,7 +24795,7 @@ PuckInAwayNet:
         fnstsw ax
         sahf
         jae short .11
-        mov eax, dword [off_168D08]
+        mov eax, dword [PtrHomeIce]
         mov esi, 1
         call Goal
         jmp near .16
@@ -25135,7 +25135,7 @@ PuckBehindNet:
         fnstsw ax
         sahf
         jne short .7
-        cmp ecx, dword [off_168D0C]
+        cmp ecx, dword [PtrAwayIce]
         jne short .6
         mov eax, ebx
         call PuckInHomeNet
@@ -25636,7 +25636,7 @@ CheckPuckNets:
         pop ebx
         ret
 .2:
-        mov edx, dword [off_168D0C]
+        mov edx, dword [PtrAwayIce]
         mov eax, ebx
         call PuckBehindNet
         test eax, eax
@@ -25646,7 +25646,7 @@ CheckPuckNets:
         pop ebx
         ret
 .3:
-        mov edx, dword [off_168D08]
+        mov edx, dword [PtrHomeIce]
         mov eax, ebx
         call PuckBehindNet
         test eax, eax
@@ -25679,10 +25679,10 @@ GoalLinePuckTest:
         fnstsw ax
         sahf
         jae short .1
-        mov eax, dword [off_168D0C]
+        mov eax, dword [PtrAwayIce]
         jmp short .2
 .1:
-        mov eax, dword [off_168D08]
+        mov eax, dword [PtrHomeIce]
 .2:
         fld dword [byte edx+020h]
         fld dword [byte edx+028h]
@@ -25853,7 +25853,7 @@ UpdatePuckCarrier:
         push edx
         push esi
         sub esp, byte 0Ch
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         movsx edx, byte [eax]
         mov eax, edx
         shl eax, 5
@@ -25863,7 +25863,7 @@ UpdatePuckCarrier:
         add esi, eax
         mov eax, dword [dword esi+0F6h]
         mov eax, dword [eax]
-        mov ecx, dword [off_168CFC]
+        mov ecx, dword [PtrPuckFlags]
         mov edx, dword [byte eax+028h]
         mov bx, word [dword esi+0A9h]
         and edx, 0FFFFh
@@ -26204,12 +26204,12 @@ PuckBounceIce:
 ;-----------------------------------------------------------------------------
 UpdatePuck:
         push edx
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         mov eax, dword [dword edx+0FAh]
         and byte [byte eax+030h], 0F7h
         mov eax, dword [dword edx+0FAh]
         and byte [byte eax+030h], 0EFh
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0Ch
         je short .3
         cmp word [word_19CBF4], byte 8
@@ -26548,7 +26548,7 @@ PassAnimFrame:
         mov ebx, dword [dword eax+0F6h]
         xor edx, edx
         mov ebx, dword [ebx]
-        mov esi, dword [off_168CF0]
+        mov esi, dword [PtrPuckZone]
         mov dl, byte [dword eax+0A4h]
         mov ecx, dword [byte ebx+028h]
         movsx esi, byte [esi]
@@ -26734,7 +26734,7 @@ StartShotAnim:
         fadd qword [F64_6p28319_StartShotAnim]
         fstp dword [byte esp+018h]
 .2:
-        cmp dword [dword_19CB44], byte 0
+        cmp dword [ShotState], byte 0
         jne short .4
         cmp byte [dword ecx+0D0h], 0
         setne al
@@ -26830,7 +26830,7 @@ StartOneTimerAnim:
         push dword 3F800000h
         call SetSPA
         xor edx, edx
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov dl, byte [dword ecx+0A4h]
         movsx eax, byte [eax]
         cmp edx, eax
@@ -26860,7 +26860,7 @@ StartWristShotAnim:
         sub esp, byte 0Ch
         mov ecx, eax
         mov esi, dword [dword eax+0F6h]
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         mov esi, dword [esi]
         movsx edx, byte [edx]
         xor eax, eax
@@ -26965,7 +26965,7 @@ StartPuckReceiveAnim:
         xor eax, eax
         mov al, bh
         mov dword [byte ebp-04h], eax
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov ebx, dword [byte ebp-04h]
         movsx eax, byte [eax]
         cmp eax, ebx
@@ -27266,7 +27266,7 @@ ReceivePassMove:
         mov edx, eax
         mov ecx, dword [byte eax+02Ch]
         mov eax, dword [dword ecx+0F6h]
-        mov esi, dword [off_168CF0]
+        mov esi, dword [PtrPuckZone]
         mov ebx, dword [dword ecx+0FAh]
         mov eax, dword [eax]
         movzx edi, byte [dword ecx+0A4h]
@@ -27412,7 +27412,7 @@ PassMove:
         mov eax, edi
         call PassAnimFrameForType
         xor edx, edx
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov dl, byte [dword ebx+0A4h]
         movsx eax, byte [eax]
         cmp edx, eax
@@ -27453,7 +27453,7 @@ PassMove:
         test dl, 2
         je near .28
 .6:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov byte [eax], 0FFh
         mov eax, dword [dword ebx+0FAh]
         mov dword [byte ebx+064h], 10h
@@ -27471,27 +27471,27 @@ PassMove:
         mov edx, esi
         mov eax, ebx
         call TryStickTouch
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         mov dword [byte edx+060h], eax
         jmp short .8
 .7:
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov dword [byte eax+060h], 0FFFFFFFFh
 .8:
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov edx, dword [dword eax+0EEh]
         fld dword [byte edx+08h]
         fstp dword [byte eax+038h]
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov edx, dword [dword eax+0EEh]
         fld dword [byte edx+0Ch]
         fstp dword [byte eax+040h]
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         fld dword [byte edx+040h]
         fsin
         fmul dword [byte edx+038h]
         fstp dword [byte edx+02Ch]
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         fld dword [byte edx+040h]
         fcos
         fmul dword [byte edx+038h]
@@ -27506,13 +27506,13 @@ PassMove:
         mov dword [byte ebp-04h], eax
         fild word [byte ebp-04h]
         fadd qword [F64_25_PassMove]
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         jmp short .11
 .10:
         mov eax, 19h
         call randomd0
         mov dword [byte ebp-04h], eax
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fild word [byte ebp-04h]
 .11:
         fstp dword [byte eax+030h]
@@ -27520,7 +27520,7 @@ PassMove:
         jne near .15
         cmp byte [dword ebx+0D0h], 0
         je short .12
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov dword [byte ebp-08h], eax
         xor eax, eax
         mov al, byte [dword ebx+0CEh]
@@ -27533,7 +27533,7 @@ PassMove:
         fild dword [byte ebp-010h]
         jmp short .13
 .12:
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov dword [byte ebp-010h], eax
         xor eax, eax
         mov al, byte [dword ebx+0C9h]
@@ -27557,14 +27557,14 @@ PassMove:
 .15:
         mov eax, 404h
 .16:
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         push dword [byte edx+028h]
         push dword [byte edx+020h]
         mov edx, 64h
         call PlaySfxVolume
         cmp word [word_19CB94], byte 0
         jl near .27
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov edx, 0Eh
         mov word [byte eax+06Dh], 1
         mov eax, esi
@@ -27616,7 +27616,7 @@ PassMove:
         add eax, 0A3h
 .20:
         add edx, eax
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         cmp dword [byte eax+05Ah], byte 4
         jge short .21
         mov eax, 2002h
@@ -27624,12 +27624,12 @@ PassMove:
 .21:
         mov eax, 2000h
 .22:
-        mov dword [dword_19CB50], eax
-        mov eax, dword [off_168CFC]
+        mov dword [PassTo], eax
+        mov eax, dword [PtrPuckFlags]
         mov dword [byte ebp-0Ch], eax
         cmp dword [byte eax+030h], 41B80000h
         jl short .23
-        mov dword [dword_19CB4C], 2004h
+        mov dword [PassFrom], 2004h
         jmp short .26
 .23:
         call SpeedScale
@@ -27638,22 +27638,22 @@ PassMove:
         fnstsw ax
         sahf
         jb short .24
-        mov dword [dword_19CB4C], 2005h
+        mov dword [PassFrom], 2005h
         jmp short .26
 .24:
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         cmp dword [byte eax+05Ah], byte 10h
         jge short .25
-        mov dword [dword_19CB4C], 2006h
+        mov dword [PassFrom], 2006h
         jmp short .26
 .25:
-        mov dword [dword_19CB4C], 2003h
+        mov dword [PassFrom], 2003h
 .26:
-        mov eax, dword [dword_19CB48]
+        mov eax, dword [LastTouchPlayer]
         push eax
-        mov eax, dword [dword_19CB4C]
+        mov eax, dword [PassFrom]
         push eax
-        mov eax, dword [dword_19CB50]
+        mov eax, dword [PassTo]
         push eax
         lea eax, [byte esi+028h]
         push eax
@@ -27675,7 +27675,7 @@ PassMove:
         add esp, byte 2Ch
         jmp short .28
 .27:
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov word [byte eax+06Dh], 2
 .28:
         test byte [byte ecx+01Ch], 80h
@@ -27785,7 +27785,7 @@ ShotMove:
 .1:
         cmp word [word_19CBD6], byte 0
         je short .4
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov edx, ecx
         call ShotReach
         test eax, eax
@@ -27810,7 +27810,7 @@ ShotMove:
         xor ebx, ebx
         mov word [word_19CBD6], bx
 .4:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -27836,7 +27836,7 @@ ShotMove:
         and byte [byte_19CBC8], 0F7h
         mov dh, byte [byte_19CBCA]
         or dh, 10h
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov byte [byte_19CBCA], dh
         mov byte [eax], 0FFh
         cmp word [word_19CB78], byte 0
@@ -27851,17 +27851,17 @@ ShotMove:
 .9:
         cmp eax, 2D0h
         jge short .10
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov word [byte eax+06Dh], 0
         jmp short .11
 .10:
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov word [byte eax+06Dh], 2
 .11:
         mov eax, dword [dword ecx+0FAh]
         mov dword [byte ecx+064h], 10h
         or byte [byte eax+031h], 1
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov edx, dword [dword eax+0EEh]
         mov ebx, dword [byte edx+08h]
         mov dword [byte eax+038h], ebx
@@ -27869,7 +27869,7 @@ ShotMove:
         push eax
         lea eax, [byte ebp-01Ch]
         push eax
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         push dword [byte eax+038h]
         push dword [byte eax+028h]
         push dword [byte eax+020h]
@@ -27892,15 +27892,15 @@ ShotMove:
         fld dword [byte ebp-020h]
         fld dword [byte ebp-01Ch]
         call IF@ATAN2
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fstp dword [byte eax+040h]
         fild word [word_19CB76]
         fdiv dword [byte ebp-0Ch]
         fmul dword [F32_2_ShotMove]
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fstp dword [byte eax+030h]
         mov eax, 0Ah
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         call randomd0
         mov dword [byte ebp-04h], eax
         fld dword [byte ebp-0Ch]
@@ -27910,7 +27910,7 @@ ShotMove:
         fmul dword [F32_6_ShotMove]
         fxch
         fstp dword [byte edx+030h]
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         fstp dword [byte ebp-014h]
         fld dword [byte edx+030h]
         fcomp dword [byte ebp-014h]
@@ -27920,12 +27920,12 @@ ShotMove:
         mov eax, dword [byte ebp-014h]
         mov dword [byte edx+030h], eax
 .12:
-        mov ebx, dword [off_168CFC]
+        mov ebx, dword [PtrPuckFlags]
         fld dword [byte ebx+040h]
         fsin
         fmul dword [byte ebx+038h]
         fstp dword [byte ebx+02Ch]
-        mov ebx, dword [off_168CFC]
+        mov ebx, dword [PtrPuckFlags]
         fld dword [byte ebx+040h]
         fcos
         fmul dword [byte ebx+038h]
@@ -27953,7 +27953,7 @@ ShotMove:
 .17:
         mov ebx, 3004h
 .18:
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         push dword [byte edx+028h]
         push dword [byte edx+020h]
         mov edx, 64h
@@ -27981,7 +27981,7 @@ ShotMove:
         add edx, 0A3h
 .20:
         lea edi, [edx+eax]
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         cmp word [byte eax+06Dh], byte 0
         jne near .33
         mov edx, dword [byte eax+038h]
@@ -28008,7 +28008,7 @@ ShotMove:
         je short .26
         jmp short .25
 .24:
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         cmp dword [byte edx+05Ah], byte 20h
         jg short .26
         mov ebx, 3007h
@@ -28066,7 +28066,7 @@ ShotMove:
         add esp, byte 24h
         jmp short .34
 .33:
-        mov edx, dword [dword_19CB48]
+        mov edx, dword [LastTouchPlayer]
         push edx
         mov ah, byte [dword ecx+0BFh]
         push dword 8000h
@@ -28089,7 +28089,7 @@ ShotMove:
         mov eax, dword [byte ebp-08h]
         cmp dword [byte eax+020h], byte 0
         je short .37
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -28181,7 +28181,7 @@ SkateWithPuckMove:
         mov esi, dword [dword ebx+0FAh]
         test dx, dx
         jle short .1
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         xor eax, eax
         movsx edx, byte [edx]
         mov al, byte [dword ebx+0A4h]
@@ -28194,7 +28194,7 @@ SkateWithPuckMove:
 .1:
         cmp word [dword ebx+0A9h], byte 0
         jne short .2
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ebx+0A4h]
@@ -28304,7 +28304,7 @@ GlideWithPuckMove:
         mov eax, dword [dword edx+0FAh]
         test cx, cx
         jle short .1
-        mov ecx, dword [off_168CF0]
+        mov ecx, dword [PtrPuckZone]
         movzx esi, byte [dword edx+0A4h]
         movsx ecx, byte [ecx]
         cmp esi, ecx
@@ -28396,10 +28396,10 @@ CheckBoardsContact:
         fnstsw ax
         sahf
         jae short .1
-        mov edx, dword [off_168D0C]
+        mov edx, dword [PtrAwayIce]
         jmp short .2
 .1:
-        mov edx, dword [off_168D08]
+        mov edx, dword [PtrHomeIce]
 .2:
         fldz
         fld dword [byte edx+020h]
@@ -31010,7 +31010,7 @@ PlayerBoardsTest:
         mov ecx, eax
         push dword [byte eax+050h]
         push dword [byte eax+028h]
-        mov edx, dword [off_168D0C]
+        mov edx, dword [PtrAwayIce]
         push dword [byte eax+020h]
         call CheckPlayerVsBoards
         test eax, eax
@@ -31019,7 +31019,7 @@ PlayerBoardsTest:
         jmp near .6
 .1:
         push dword [byte ecx+050h]
-        mov edx, dword [off_168D08]
+        mov edx, dword [PtrHomeIce]
         push dword [byte ecx+028h]
         mov eax, ecx
         push dword [byte ecx+020h]
@@ -31044,7 +31044,7 @@ PlayerBoardsTest:
         call ObjectFramePos
         push dword 42000000h
         push dword [byte esp+0Ch]
-        mov edx, dword [off_168D0C]
+        mov edx, dword [PtrAwayIce]
         mov eax, ecx
         push dword [byte esp+08h]
         call CheckPlayerVsBoards
@@ -31059,7 +31059,7 @@ PlayerBoardsTest:
 .4:
         push dword 42000000h
         push dword [byte esp+0Ch]
-        mov edx, dword [off_168D08]
+        mov edx, dword [PtrHomeIce]
         mov eax, ecx
         push dword [byte esp+08h]
         call CheckPlayerVsBoards
@@ -31261,7 +31261,7 @@ HitCrowdReaction:
         pop ecx
         ret
 .1:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jge short .2
         xor eax, eax
@@ -31269,7 +31269,7 @@ HitCrowdReaction:
         mov al, byte [dword edx+0A4h]
         cmp ax, si
         jne near .10
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         cmp dword [byte eax+05Ah], byte 0FFFFFFA0h
         jl near .10
 .2:
@@ -32590,7 +32590,7 @@ checkcx:
         add eax, edx
         cmp eax, byte 0Ah
         jg near .31
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor ebx, ebx
         movsx eax, byte [eax]
         mov bl, byte [dword esi+0A4h]
@@ -32636,7 +32636,7 @@ checkcx:
         mov eax, esi
         call StartFallAnim
         xor ebx, ebx
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov bl, byte [dword esi+0A4h]
         movsx eax, byte [eax]
         cmp ebx, eax
@@ -32649,7 +32649,7 @@ checkcx:
         mov edx, esi
         mov eax, edi
         call HitCrowdReaction
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov byte [eax], 0FFh
         mov dword [byte esi+064h], 32h
         or byte [dword esi+0BFh], 20h
@@ -32735,7 +32735,7 @@ checkcx:
         push dword [byte esp+04Ch]
         call ResolveBodyCheck
         xor ecx, ecx
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov cl, byte [dword esi+0A4h]
         movsx ebx, byte [eax]
         cmp ecx, ebx
@@ -33174,7 +33174,7 @@ ResolvePlayerContact:
         xor edx, edx
         xor ebx, ebx
         call SetFaceBlink
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov bl, byte [dword edi+0A4h]
         movsx edx, byte [eax]
         cmp ebx, edx
@@ -33318,7 +33318,7 @@ ResolvePlayerContact:
         xor edx, edx
         call SetFaceBlink
         xor edx, edx
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov dl, byte [dword esi+0A4h]
         movsx ebx, byte [eax]
         cmp edx, ebx
@@ -33363,7 +33363,7 @@ StickContact:
         xor eax, eax
         jmp near .14
 .1:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -34755,7 +34755,7 @@ FacePlayerToward:
         mov edx, dword [dword eax+0EEh]
         test bl, 1
         je short .1
-        mov ebx, dword [off_168CFC]
+        mov ebx, dword [PtrPuckFlags]
         test byte [dword ebx+0C0h], 1
         jne short .2
 .1:
@@ -35789,7 +35789,7 @@ FightStepMove:
         je short .1
         test byte [dword ecx+0C0h], 1
         je short .1
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         test byte [dword eax+0C0h], 1
         jne short .2
 .1:
@@ -36016,7 +36016,7 @@ FightSwingMove:
         je short .7
         test byte [dword ecx+0C0h], 1
         je short .7
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         test byte [dword eax+0C0h], 1
         jne short .8
 .7:
@@ -36339,7 +36339,7 @@ FightStartMove:
         je short .1
         test byte [dword ecx+0C0h], 1
         je short .1
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         test byte [dword eax+0C0h], 1
         jne short .2
 .1:
@@ -36408,7 +36408,7 @@ FightCircleMove:
         je short .1
         test byte [dword ecx+0C0h], 1
         je short .1
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         test byte [dword eax+0C0h], 1
         jne short .2
 .1:
@@ -38455,9 +38455,9 @@ PuckRetrieveMove:
         jge short .1
         mov dword [byte esi+064h], 1Eh
 .1:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov byte [eax], 0FFh
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov dword [byte eax+030h], 0C1200000h
         call IsCameraOnPuck
 .2:
@@ -38501,16 +38501,16 @@ PeriodEndMove:
 .1:
         cmp dword [byte ecx+04h], byte 2Bh
         jne near .4
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov byte [eax], 0Ch
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov dword [byte eax+038h], 0
-        mov eax, dword [off_168CE0]
+        mov eax, dword [PtrPuckState]
         mov word [eax], 0C0h
         mov ax, word [eax]
         mov edx, 32h
         mov dword [byte esp+010h], eax
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fild word [byte esp+010h]
         fstp dword [byte eax+024h]
         mov eax, esi
@@ -38578,16 +38578,16 @@ PeriodEndSkateMove:
         mov esi, dword [byte eax+02Ch]
         cmp edx, byte 0Fh
         jne near .3
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov byte [eax], 0Ch
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov dword [byte eax+038h], 0
-        mov eax, dword [off_168CE0]
+        mov eax, dword [PtrPuckState]
         mov word [eax], 0C0h
         mov ax, word [eax]
         mov edx, 32h
         mov dword [byte esp+010h], eax
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fild word [byte esp+010h]
         fstp dword [byte eax+024h]
         mov eax, esi
@@ -39064,13 +39064,13 @@ PokeCheckMove:
         fnstsw ax
         sahf
         ja short .6
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jl short .7
         cmp byte [dword ecx+0A4h], 6
         setb al
         mov edx, eax
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov bh, byte [eax]
         and edx, 0FFh
         cmp bh, 6
@@ -39082,7 +39082,7 @@ PokeCheckMove:
         mov esi, 0A9h
         jmp near .15
 .7:
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jl short .8
         mov eax, 2
@@ -39093,7 +39093,7 @@ PokeCheckMove:
         lea esi, [dword eax+0F0h]
         jmp near .15
 .8:
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fld dword [byte eax+030h]
         fmul dword [byte esp+010h]
         fld dword [byte esp+018h]
@@ -39332,12 +39332,12 @@ SweepCheckMove:
         fnstsw ax
         sahf
         ja short .2
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         cmp byte [edx], 0
         jl short .1
         cmp byte [dword ecx+0A4h], 6
         setb dl
-        mov ebx, dword [off_168CF0]
+        mov ebx, dword [PtrPuckZone]
         mov al, byte [ebx]
         and edx, 0FFh
         cmp al, 6
@@ -39346,7 +39346,7 @@ SweepCheckMove:
         cmp ebx, edx
         je short .2
 .1:
-        mov edx, dword [off_168CE0]
+        mov edx, dword [PtrPuckState]
         cmp word [edx], 90h
         jge near .7
 .2:
@@ -39495,7 +39495,7 @@ HookMove:
 .5:
         test byte [byte_19CBC2], 1
         jne short .6
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jge short .6
         lea ebx, [byte esp+010h]
@@ -39539,7 +39539,7 @@ HookMove:
 .8:
         test byte [byte_19CBC2], 1
         jne short .9
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jge short .9
         lea ebx, [byte esp+020h]
@@ -39600,14 +39600,14 @@ HookMove:
         lea edx, [dword eax+0AFh]
         test bl, 1
         jne short .14
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jl short .13
         mov ah, byte [dword ecx+0A4h]
         xor ebx, ebx
         cmp ah, 6
         setb bl
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 6
         setl al
         and eax, 0FFh
@@ -39775,7 +39775,7 @@ GoalieFreezeMove:
 .4:
         cmp edx, dword [byte ebx+04h]
         jne short .5
-        mov ecx, dword [off_168CF0]
+        mov ecx, dword [PtrPuckZone]
         movzx esi, byte [dword eax+0A4h]
         movsx ecx, byte [ecx]
         cmp esi, ecx
@@ -39784,13 +39784,13 @@ GoalieFreezeMove:
 .5:
         cmp edx, dword [byte ebx+04h]
         jge short .6
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         cmp byte [edx], 0
         jl short .6
         cmp byte [dword eax+0A4h], 6
         setb dl
         mov ecx, edx
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         and ecx, 0FFh
         cmp byte [edx], 6
         setl dl
@@ -40164,7 +40164,7 @@ KneelMove:
         jne short .1
         movzx esi, byte [dword ecx+0A4h]
         mov dword [byte ebp-08h], esi
-        mov esi, dword [off_168CF0]
+        mov esi, dword [PtrPuckZone]
         movsx esi, byte [esi]
         mov dword [byte ebp-04h], esi
         mov esi, dword [byte ebp-08h]
@@ -40286,14 +40286,14 @@ BlockShotMove:
         setne al
         and eax, 0FFh
         mov dword [byte esp+018h], eax
-        mov eax, dword [off_168CE8]
+        mov eax, dword [PtrPuckOwner]
         cmp word [eax], byte 0
         setg al
         mov esi, dword [byte esp+018h]
         and eax, 0FFh
         xor eax, esi
         je near .12
-        mov esi, dword [off_168CE8]
+        mov esi, dword [PtrPuckOwner]
         mov ax, word [esi]
         test ax, ax
         jge short .4
@@ -40305,13 +40305,13 @@ BlockShotMove:
 .5:
         cmp esi, 570h
         jle near .12
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jl short .6
         cmp byte [dword ecx+0A4h], 6
         setb al
         mov esi, eax
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         and esi, 0FFh
         cmp byte [eax], 6
         setl al
@@ -40411,14 +40411,14 @@ BlockShotMove:
         setne al
         and eax, 0FFh
         mov dword [byte esp+020h], eax
-        mov eax, dword [off_168CE8]
+        mov eax, dword [PtrPuckOwner]
         cmp word [eax], byte 0
         setl al
         mov esi, dword [byte esp+020h]
         and eax, 0FFh
         xor eax, esi
         je near .15
-        mov esi, dword [off_168CE8]
+        mov esi, dword [PtrPuckOwner]
         mov ax, word [esi]
         test ax, ax
         jge short .13
@@ -40430,13 +40430,13 @@ BlockShotMove:
 .14:
         cmp eax, 570h
         jle short .15
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jl short .15
         cmp byte [dword ecx+0A4h], 6
         setb al
         mov esi, eax
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         and esi, 0FFh
         cmp byte [eax], 6
         setl al
@@ -40768,7 +40768,7 @@ BlockShotMove_671:
         sar eax, 18h
         cmp byte [dword ecx+eax+0B2h], 1Eh
         je near .34
-        mov esi, dword [off_168CFC]
+        mov esi, dword [PtrPuckFlags]
         mov eax, dword [dword esi+0AEh]
         sar eax, 18h
         cmp byte [dword esi+eax+0B2h], 43h
@@ -41018,7 +41018,7 @@ GoalieCoverMove:
 .9:
         mov dword [byte esi+064h], eax
         xor edx, edx
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov dl, byte [dword esi+0A4h]
         movsx ebx, byte [eax]
         cmp edx, ebx
@@ -41028,30 +41028,30 @@ GoalieCoverMove:
         mov edx, dword [dword_1BF06C]
         mov eax, esi
         call ObjectFramePos
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         mov eax, dword [esp]
         mov dword [dword edx+0D2h], eax
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov ebx, dword [dword edx+0D2h]
         mov dword [byte eax+020h], ebx
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         mov eax, dword [byte esp+04h]
         mov dword [dword edx+0D6h], eax
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov ebx, dword [dword edx+0D6h]
         mov dword [byte eax+024h], ebx
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         mov eax, dword [byte esp+08h]
         mov dword [dword edx+0DAh], eax
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov ebx, dword [dword edx+0DAh]
         mov dword [byte eax+028h], ebx
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov dword [byte eax+034h], 0
         fld dword [byte eax+034h]
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fst dword [byte eax+030h]
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fstp dword [byte eax+02Ch]
         call IsCameraOnPuck
 .10:
@@ -41120,10 +41120,10 @@ GoalieRecoverMove:
         and esi, 0FFFFh
         test ah, 80h
         je near .5
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jge near .2
-        mov ebx, dword [off_168CFC]
+        mov ebx, dword [PtrPuckFlags]
         fld dword [byte ebx+020h]
         fsub dword [byte ecx+020h]
         fstp dword [byte ebp-014h]
@@ -41144,7 +41144,7 @@ GoalieRecoverMove:
         fnstsw ax
         sahf
         jae short .1
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov dl, byte [dword ecx+0A4h]
         mov byte [eax], dl
         jmp short .2
@@ -41156,7 +41156,7 @@ GoalieRecoverMove:
         mov edx, dword [nosplit eax*4+dword_1B9C90]
         mov eax, ecx
         call ObjectFramePos
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         fld dword [byte ebp-014h]
         fsub dword [byte edx+020h]
         fld dword [byte ebp-0Ch]
@@ -41178,7 +41178,7 @@ GoalieRecoverMove:
         fnstsw ax
         sahf
         jae short .2
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         mov al, byte [dword ecx+0A4h]
         mov byte [edx], al
 .2:
@@ -41373,7 +41373,7 @@ PickSaveAnim:
         and esp, byte 0FFFFFFF8h
         mov esi, eax
         mov ecx, edx
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         fld dword [byte edx+020h]
         fld dword [byte edx+028h]
         fsub dword [byte eax+028h]
@@ -41722,9 +41722,9 @@ GoalieSave:
         sub esp, byte 68h
         and esp, byte 0FFFFFFF8h
         mov esi, eax
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov dl, byte [eax]
-        mov ecx, dword [off_168CFC]
+        mov ecx, dword [PtrPuckFlags]
         test dl, dl
         jge near .15
         call ReachScale
@@ -42112,11 +42112,11 @@ GoalieMoves:
         mov dword [byte ebp+03Ah], 10B0h
 .2:
         fild dword [byte ebp+03Ah]
-        mov eax, dword [off_168CFC]
-        mov ebx, dword [off_168CE8]
+        mov eax, dword [PtrPuckFlags]
+        mov ebx, dword [PtrPuckOwner]
         mov dword [byte ebp+04Eh], eax
         mov eax, dword [byte eax+02Ch]
-        mov edx, dword [off_168CD8]
+        mov edx, dword [PtrPuckTarget]
         mov dword [byte ebp+032h], eax
         mov eax, dword [byte ebp+04Eh]
         movsx ebx, word [ebx]
@@ -42152,7 +42152,7 @@ GoalieMoves:
 .3:
         test byte [byte_19CBC2], 1
         jne near .26
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov cl, byte [eax]
         test cl, cl
         jl short .4
@@ -42268,7 +42268,7 @@ GoalieMoves:
 .7:
         ja near .26
         mov eax, dword [byte ebp+07Ah]
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         fld dword [byte eax+020h]
         fsub dword [byte edx+020h]
         fstp dword [byte ebp-01Ah]
@@ -42419,7 +42419,7 @@ GoalieMoves:
         jl short .15
         cmp edi, byte 13h
         jg short .15
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp cl, byte [eax]
         jle near .21
 .15:
@@ -42665,7 +42665,7 @@ PuckDeflect:
         push ebp
         sub esp, byte 4Ch
         mov ebp, eax
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov edx, dword [byte eax+020h]
         mov dword [byte esp+024h], edx
         mov edx, dword [byte eax+024h]
@@ -42768,15 +42768,15 @@ PuckDeflect:
         or byte [byte eax+031h], 4
         fld dword [byte esp+018h]
         fadd dword [byte esp+040h]
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fstp dword [byte eax+020h]
         fld dword [byte esp+01Ch]
         fadd dword [byte esp+03Ch]
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fstp dword [byte eax+024h]
         fld dword [byte esp+020h]
         fadd dword [byte esp+044h]
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fstp dword [byte eax+028h]
         mov eax, ecx
         jmp near .10
@@ -42786,7 +42786,7 @@ PuckDeflect:
         mov ecx, 4
         xor edi, edi
 .3:
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         cmp dword [byte eax+030h], 41A00000h
         jle short .4
         mov ebx, 0Fh
@@ -42842,17 +42842,17 @@ PuckDeflect:
         jbe near .8
         mov eax, dword [dword ebp+0F6h]
         fld dword [byte esp+018h]
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         mov eax, dword [eax]
         fadd dword [byte esp+040h]
         mov eax, dword [byte eax+028h]
         fstp dword [byte edx+020h]
         fld dword [byte esp+01Ch]
         fadd dword [byte esp+03Ch]
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         fstp dword [byte edx+024h]
         fld dword [byte esp+020h]
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         fadd dword [byte esp+044h]
         and eax, 0FFFFh
         fstp dword [byte edx+028h]
@@ -42867,9 +42867,9 @@ PuckDeflect:
 .6:
         mov eax, ebp
         call PlayerGetsPuck
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov word [byte eax+06Dh], 4
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         cmp dword [byte eax+056h], byte 0
         jge short .9
         mov dword [byte eax+056h], 5Ah
@@ -45685,7 +45685,7 @@ FreeCameraDebug:
 ;-----------------------------------------------------------------------------
 ; updateplayers                                  77A88  94G, medium confidence
 ; The per-frame player update: reads the joypads (ReadJoy1), runs each
-; object's assignment from off_19C3F4, collisions and animation, as 94G
+; object's assignment from AssignFuncTable, collisions and animation, as 94G
 ; updateplayers
 ;-----------------------------------------------------------------------------
 updateplayers:
@@ -45700,7 +45700,7 @@ updateplayers:
         call AddAnimClock
         call SortPlayersByDepth
         call ShotChanceCommentary
-        mov eax, dword [off_168D04]
+        mov eax, dword [PtrPuckObject]
         mov edx, dword [dword eax+0AEh]
         sar edx, 18h
         mov esi, dword [dword edx+eax+0AFh]
@@ -45712,7 +45712,7 @@ updateplayers:
         jne short .1
         cmp word [word_19CBF0], byte 0
         jge short .1
-        cmp byte [byte_19CA30], 0
+        cmp byte [PenaltyPending], 0
         jne short .1
         cmp esi, byte 36h
         je short .1
@@ -45736,13 +45736,13 @@ updateplayers:
         mov ebx, SortCords
 .3:
         mov edx, dword [byte ebx+04h]
-        mov eax, dword [off_168CD8]
+        mov eax, dword [PtrPuckTarget]
         sar edx, 10h
         movsx eax, word [eax]
         sub eax, edx
         mov ebp, dword [byte ebx+0Ch]
         mov dword [esp], eax
-        mov eax, dword [off_168CE8]
+        mov eax, dword [PtrPuckOwner]
         sar ebp, 10h
         movsx eax, word [eax]
         sub eax, ebp
@@ -45923,59 +45923,59 @@ updateplayers:
 .22:
         cmp esi, byte 0Dh
         jne near .27
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov cl, byte [eax]
         cmp cl, 0Ch
         jne short .23
-        mov eax, dword [off_168D04]
+        mov eax, dword [PtrPuckObject]
         fld dword [byte eax+020h]
         call __CHP
         fistp dword [byte esp+04h]
         mov eax, dword [byte esp+04h]
-        mov edi, dword [off_168CFC]
+        mov edi, dword [PtrPuckFlags]
         mov word [byte edi+06h], ax
         mov dword [byte esp+08h], eax
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fild word [byte esp+08h]
         fstp dword [byte eax+020h]
-        mov eax, dword [off_168D04]
+        mov eax, dword [PtrPuckObject]
         fld dword [byte eax+028h]
         call __CHP
         fistp dword [byte esp+04h]
         mov eax, dword [byte esp+04h]
-        mov edx, dword [off_168CFC]
+        mov edx, dword [PtrPuckFlags]
         mov word [byte edx+0Eh], ax
         mov dword [byte esp+08h], eax
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         fild word [byte esp+08h]
         fstp dword [byte eax+028h]
-        mov eax, dword [off_168D04]
-        mov edx, dword [off_168CFC]
+        mov eax, dword [PtrPuckObject]
+        mov edx, dword [PtrPuckFlags]
         mov ax, word [byte eax+0Eh]
         mov word [byte edx+054h], ax
         jmp short .25
 .23:
         test cl, cl
         jge short .24
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         call MovePlayer
         jmp short .25
 .24:
         call UpdatePuckCarrier
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         movsx eax, byte [eax]
         imul eax, dword 108h
-        mov edx, dword [off_168CFC]
-        mov ecx, dword [dword eax+dword_19DA68]
+        mov edx, dword [PtrPuckFlags]
+        mov ecx, dword [dword eax+PlayerUpdateFlags]
         mov dword [byte edx+038h], ecx
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         movsx eax, byte [eax]
         imul edx, eax, dword 108h
-        mov eax, dword [off_168CFC]
-        mov ecx, dword [dword edx+dword_19DA70]
+        mov eax, dword [PtrPuckFlags]
+        mov ecx, dword [dword edx+PlayerUpdateTable]
         mov dword [byte eax+040h], ecx
 .25:
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov edx, dword [dword eax+0AEh]
         sar edx, 18h
         cmp byte [dword edx+eax+0B2h], 41h
@@ -46010,7 +46010,7 @@ updateplayers:
         and eax, 0FFh
         lea edx, [nosplit eax*4+00h]
         mov eax, ebx
-        call dword [dword edx+off_19C3F4]
+        call dword [dword edx+AssignFuncTable]
         jmp short .34
 .31:
         test byte [byte_19CBC2], 1
@@ -46143,7 +46143,7 @@ CupCelebration:
         mov eax, dword [nosplit eax*4+HmScore]
         mov eax, dword [byte eax+064h]
         sar eax, 10h
-        cmp dword [nosplit eax*4+dword_168F58], byte 3
+        cmp dword [nosplit eax*4+PlayoffColumns], byte 3
         jne short .3
         mov eax, ebx
         pop edx
@@ -46162,7 +46162,7 @@ CupCelebration:
         mov eax, dword [nosplit eax*4+HmScore]
         mov eax, dword [byte eax+064h]
         sar eax, 10h
-        cmp dword [nosplit eax*4+dword_168F58], byte 0Ch
+        cmp dword [nosplit eax*4+PlayoffColumns], byte 0Ch
         jne short .3
         mov eax, ebx
         pop edx
@@ -46190,7 +46190,7 @@ clockcont_0:
         push edi
         push ebp
         mov edx, 41h
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         call assinsert
         mov dx, word [gsp]
         cmp dx, byte 2
@@ -46203,7 +46203,7 @@ clockcont_0:
         call LogPeriodEnd
 .1:
         mov edx, 1
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         xor ebx, ebx
         call AddPenalty2
         mov eax, dword [word_19CBAE]
@@ -46224,7 +46224,7 @@ clockcont_0:
         call IsPlayoffGame
         test eax, eax
         jne near .5
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov ebx, 0FFFFFFFFh
         mov byte [eax], 0FFh
         xor eax, eax
@@ -46250,19 +46250,19 @@ clockcont_0:
         or ah, 40h
         xor ebx, ebx
         mov byte [byte_19CBC2], ah
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov ecx, 1000h
         call AddPenalty2
         push ecx
         push dword 0C001h
         push dword 0A000001Fh
-        mov dword [dword_19CB48], ecx
+        mov dword [LastTouchPlayer], ecx
         call CommentaryEvent
         add esp, byte 0Ch
         jmp short .6
 .5:
         mov edx, 1
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         xor ebx, ebx
         call AddPenalty2
         mov eax, dword [word_19CBAE]
@@ -46288,10 +46288,10 @@ clockcont_0:
         ret
 .7:
         mov edx, 40h
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         call assreplace
         mov edx, 3E8h
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov dword [dword_19CC00], edx
         mov esi, 0FFFFFFFFh
         mov byte [eax], 0FFh
@@ -46340,7 +46340,7 @@ clockcont_0:
         jne near .17
         mov ebx, dword [dword ecx+0FEh]
         movsx ax, byte [dword ebx+088h]
-        mov word [word_19CB68], ax
+        mov word [ZoneTargetY], ax
         test ax, ax
         jl near .17
         cmp word [regd1], byte 0
@@ -46357,19 +46357,19 @@ clockcont_0:
         mov word [regd1], dx
         mov edx, ebp
         call assinsert
-        mov edx, dword [dword_19CB66]
+        mov edx, dword [ZoneTargetX]
         mov eax, ecx
         sar edx, 10h
         call setplayer
-        mov word [word_19CB68], 1
+        mov word [ZoneTargetY], 1
 .16:
-        mov eax, dword [dword_19CB66]
+        mov eax, dword [ZoneTargetX]
         sar eax, 10h
         mov dl, byte [dword ebx+eax+088h]
         mov byte [dword ebx+eax+087h], dl
         test dl, dl
         jl short .17
-        inc word [word_19CB68]
+        inc word [ZoneTargetY]
         jmp short .16
 .17:
         inc esi
@@ -46400,7 +46400,7 @@ clockcont_0:
         jne near .25
         mov ebx, dword [dword ecx+0FEh]
         movsx ax, byte [dword ebx+088h]
-        mov word [word_19CB68], ax
+        mov word [ZoneTargetY], ax
         test ax, ax
         jl short .25
         cmp word [regd1], byte 0
@@ -46417,19 +46417,19 @@ clockcont_0:
         mov word [regd1], ax
         mov eax, ecx
         call assinsert
-        mov edx, dword [dword_19CB66]
+        mov edx, dword [ZoneTargetX]
         mov eax, ecx
         sar edx, 10h
         call setplayer
-        mov word [word_19CB68], 1
+        mov word [ZoneTargetY], 1
 .24:
-        mov eax, dword [dword_19CB66]
+        mov eax, dword [ZoneTargetX]
         sar eax, 10h
         mov dl, byte [dword ebx+eax+088h]
         mov byte [dword ebx+eax+087h], dl
         test dl, dl
         jl short .25
-        inc word [word_19CB68]
+        inc word [ZoneTargetY]
         jmp short .24
 .25:
         inc esi
@@ -46452,7 +46452,7 @@ clockcont_0:
         mov eax, 0CCCCh
         mov edx, 44h
         call TriggerCameraFlashes
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         call assreplace
         mov eax, 5Ch
         call StartMusicTrack
@@ -46492,7 +46492,7 @@ clockcont_0:
         mov dl, byte [byte_19CBC2]
         xor ebx, ebx
         or dl, 40h
-        mov eax, dword [off_168CFC]
+        mov eax, dword [PtrPuckFlags]
         mov byte [byte_19CBC2], dl
         mov edx, 2
         call AddPenalty2
@@ -46514,14 +46514,14 @@ clockcont_0:
         push eax
         push dword 0C002h
         push dword 0A000001Fh
-        mov dword [dword_19CB48], eax
+        mov dword [LastTouchPlayer], eax
         jmp short .35
 .34:
         mov ebp, 1001h
         push ebp
         push dword 0C001h
         push dword 0A000001Fh
-        mov dword [dword_19CB48], ebp
+        mov dword [LastTouchPlayer], ebp
 .35:
         call CommentaryEvent
         add esp, byte 0Ch
@@ -46559,11 +46559,11 @@ periodicevents:
         test byte [byte_19CBCC], 40h
         je near .4
         call ChkGoalies
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+01h], 0C0h
         je near .4
         call RestoreBenchEnergy
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, 0C0h
         cmp eax, byte 40h
@@ -46645,14 +46645,14 @@ PlayCrowdAmbience:
 .3:
         test byte [byte_19CBC2], 1
         jne near .6
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         cmp byte [eax], 0
         jl near .6
         mov eax, 3E8h
         call randomd0
         cmp ax, 2
         jg near .6
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         movsx edx, byte [eax]
         mov eax, edx
         shl eax, 5
@@ -46671,7 +46671,7 @@ PlayCrowdAmbience:
 .4:
         mov eax, 6
 .5:
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         movsx edx, byte [edx]
         cmp eax, edx
         je short .6
@@ -46708,7 +46708,7 @@ DoGameFrame:
         call periodicevents
         call updateplayers
         call PlayCrowdAmbience
-        mov eax, dword [off_168CF0]
+        mov eax, dword [PtrPuckZone]
         mov dl, byte [eax]
         test dl, dl
         jl near .3
@@ -46739,7 +46739,7 @@ DoGameFrame:
         add ebx, 0A3h
 .2:
         add edx, ebx
-        mov ebx, dword [dword_19CB48]
+        mov ebx, dword [LastTouchPlayer]
         push ebx
         lea ebx, [byte eax+028h]
         push ebx
@@ -46761,7 +46761,7 @@ DoGameFrame:
         xor esi, esi
 .4:
         xor eax, eax
-        mov edx, dword [off_168CF0]
+        mov edx, dword [PtrPuckZone]
         mov al, byte [dword ecx+0A4h]
         movsx edx, byte [edx]
         inc esi

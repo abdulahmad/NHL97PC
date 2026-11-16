@@ -2,74 +2,74 @@
 bits 32
 %include "hockey.inc"
 section s_19ECC8 nobits alloc noexec write align=1
-global dword_19ECD0, dword_19ECEC, dword_19ED00, dword_19ED10, dword_19ED14, dword_19ED18, dword_19ED1C, dword_19ED20
-global dword_19ED24, dword_19ED28, dword_19ED2C, dword_19ED30, dword_19ED34, dword_19ED38, dword_19ED3C, dword_19ED40
-global dword_19ED44, dword_19ED48, dword_19ED4C, dword_19ED50, dword_19ED54, dword_19ED58, dword_19ED5C, dword_19ED60
-global dword_19ED64, dword_19ED68, dword_19ED6C, dword_19ED70, unk_19ECC8, unk_19ECE4, unk_19ED78, word_19ED74
-global word_19ED76
-unk_19ECC8:
+global LinkChannelAData, LinkChannelBData, SparkleTable, SeasonScreenArt, SeasonOpponent, SeasonPlayedFlag, SeasonPanelArt, SeasonUserIndex
+global SeasonScreenState, SparkleTime, MatchupLogoArt, SeasonPanelShown, WaitIconFrame, WaitIconTime, SparkleFrame, WaitIconCount
+global SeasonBackground, SeasonFont, SeasonGameIndex, SeasonHomeTeam, SeasonAwayTeam, SeasonDay, WaitIconShown, WaitIconOn
+global SeasonGameCount, SparkleX, SparkleY, AllStarLogoArt, LinkChannelA, LinkChannelB, DisplayViewRecords, SeasonDate
+global SeasonLastGame
+LinkChannelA:
         resb 8
-dword_19ECD0:
+LinkChannelAData:
         resb 20
-unk_19ECE4:
+LinkChannelB:
         resb 8
-dword_19ECEC:
+LinkChannelBData:
         resb 20
-dword_19ED00:
+SparkleTable:
         resb 16
-dword_19ED10:
+SeasonScreenArt:
         resb 4
-dword_19ED14:
+SeasonOpponent:
         resb 4
-dword_19ED18:
+SeasonPlayedFlag:
         resb 4
-dword_19ED1C:
+SeasonPanelArt:
         resb 4
-dword_19ED20:
+SeasonUserIndex:
         resb 4
-dword_19ED24:
+SeasonScreenState:
         resb 4
-dword_19ED28:
+SparkleTime:
         resb 4
-dword_19ED2C:
+MatchupLogoArt:
         resb 4
-dword_19ED30:
+SeasonPanelShown:
         resb 4
-dword_19ED34:
+WaitIconFrame:
         resb 4
-dword_19ED38:
+WaitIconTime:
         resb 4
-dword_19ED3C:
+SparkleFrame:
         resb 4
-dword_19ED40:
+WaitIconCount:
         resb 4
-dword_19ED44:
+SeasonBackground:
         resb 4
-dword_19ED48:
+SeasonFont:
         resb 4
-dword_19ED4C:
+SeasonGameIndex:
         resb 4
-dword_19ED50:
+SeasonHomeTeam:
         resb 4
-dword_19ED54:
+SeasonAwayTeam:
         resb 4
-dword_19ED58:
+SeasonDay:
         resb 4
-dword_19ED5C:
+WaitIconShown:
         resb 4
-dword_19ED60:
+WaitIconOn:
         resb 4
-dword_19ED64:
+SeasonGameCount:
         resb 4
-dword_19ED68:
+SparkleX:
         resb 4
-dword_19ED6C:
+SparkleY:
         resb 4
-dword_19ED70:
+AllStarLogoArt:
         resb 4
-word_19ED74:
+SeasonDate:
         resb 2
-word_19ED76:
+SeasonLastGame:
         resb 2
-unk_19ED78:
+DisplayViewRecords:
         resb 1916

@@ -9,7 +9,7 @@ extern str_Punct11, str_YouMustFirstUseTheSETUPPr, str_SystemBeforeRunningHOCKEY
 extern str_NHL97MustBeInstalledAndRu, str_CDFILEIVIV, str_BitteLegenSieDieNHL97CDIn, str_PleaseInsertTheNHL97CDROM, str_CHK12, str_X12, str_CB003, str_CHKD
 extern str_XD2, str_CB02d, str_N, str_E, str_W, str_S14, str_NW, str_NE
 extern str_SW, str_SE, str_LX02d, str_LC02d, str_UNPACKLOGO, str_LOGO8, str_LX004, str_LC004
-extern str_DisD, str_REL1, str_RELD, str_Ldn2, ShadeTable, StartupFlag, byte_1AC81B, byte_1C1267
+extern str_DisD, str_REL1, str_RELD, str_Ldn2, ShadeTable, StartupFlag, MusicOptions, byte_1C1267
 extern byte_1C6040, close_, dword_16AEB4, dword_16CAB0, dword_16CAB4, str_Punct_DrawScreenBackground, dword_16CAF4, dword_16CB78
 extern dword_16CB7C, dword_16CB80, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap, DebugMode, ScreenWidth
 extern ExitHandler, KbdHandlerInstalled, GameSettings, dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE4
@@ -335,7 +335,7 @@ main_:
         mov byte [byte_1C6040], al
         test al, al
         je short .18
-        and byte [byte_1AC81B], 0F7h
+        and byte [MusicOptions], 0F7h
 .18:
         call InitPlatform
         mov eax, dword [dword_16E468]

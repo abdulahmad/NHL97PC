@@ -2,16 +2,16 @@
 bits 32
 %include "hockey.inc"
 section s_1AC5F0 nobits alloc noexec write align=1
-global MusicTrackTable, StartupFlag, byte_1AC81A, byte_1AC81B, byte_1AC81C, byte_1AC81D, byte_1AC8C6, byte_1AC93C
-global byte_1AC948, byte_1AC95B, byte_1ACA65, byte_1ACA66, byte_1ACA6A, byte_1ACC50, byte_1ACC51, byte_1ACC55
-global byte_1ACD2D, SfxBankNames, GameAudioState, SfxBankData, SfxBankSizes, PlayerCallLast, PlayerCallTime, GameSoundsOn
+global MusicTrackTable, StartupFlag, SfxOptions, MusicOptions, DetailLevel, DisplayOptions, MenuOptionFlags, ControlSetupFlags
+global GlobalSetName, GlobalSetPad, LinkMenuCursor, LinkFlags, LinkSettingsRest, IndexMenuCursor, IndexFlags, IndexSettingsRest
+global SeasonFlags, SfxBankNames, GameAudioState, SfxBankData, SfxBankSizes, PlayerCallLast, PlayerCallTime, GameSoundsOn
 global SpeechQueueRead, SpeechQueueWrite, SpeechFileHandle, SpeechStreamBuf, SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd, SpeechStreamClip
 global SpeechChainCount, SpeechClipIndex, SpeechBankHandle, SpeechClipTable, SpeechQueueClipId, SpeechQueueDelay, SpeechQueueStage, SpeechQueuePriority
 global SpeechQueueTime, SpeechBanksLoaded, SpeechBankList, SpeechChainLen, SpeechRequestId, SpeechRequestA, SpeechRequestB, GlobalSetData
-global GameSettings, dword_1AC819, dword_1AC835, dword_1AC8AD, dword_1AC940, dword_1AC944, dword_1ACB45, dword_1ACF3A
-global dword_1ACF3E, dword_1ACF42, dword_1ACF46, DataFilePath, unk_1AC821, unk_1AC839, unk_1AC8E4, unk_1AC95D
-global unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1ACD2B, unk_1ACD30, unk_1ACE38, unk_1ACF12, SpeechQueuePrio
-global word_1AC8B1, word_1ACB47
+global GameSettings, AudioOptions, Brightness, NetworkGameIndex, SeasonUserTeam, GameOptionFlags, TeamSelectFlags, SeasonSlot
+global SeasonPhase, PlayoffRounds, SeasonActive, DataFilePath, DisplaySettings, ModemSettings, ControlSetup, LinkSettings
+global LinkSettingsData, GlobalSetVersion, IndexEntrySettings, SeasonName, SeasonPath, SeasonIndexPath, MatchupNote, SpeechQueuePrio
+global NetworkSettings, TeamSelectMode
 SfxBankNames:
         resb 20
 GameAudioState:
@@ -84,79 +84,79 @@ GameSettings:
         resb 4
 StartupFlag:
         resb 1
-dword_1AC819:
+AudioOptions:
         resb 1
-byte_1AC81A:
+SfxOptions:
         resb 1
-byte_1AC81B:
+MusicOptions:
         resb 1
-byte_1AC81C:
+DetailLevel:
         resb 1
-byte_1AC81D:
+DisplayOptions:
         resb 4
-unk_1AC821:
+DisplaySettings:
         resb 20
-dword_1AC835:
+Brightness:
         resb 4
-unk_1AC839:
+ModemSettings:
         resb 116
-dword_1AC8AD:
+NetworkGameIndex:
         resb 4
-word_1AC8B1:
+NetworkSettings:
         resb 21
-byte_1AC8C6:
+MenuOptionFlags:
         resb 30
-unk_1AC8E4:
+ControlSetup:
         resb 88
-byte_1AC93C:
+ControlSetupFlags:
         resb 4
-dword_1AC940:
+SeasonUserTeam:
         resb 4
-dword_1AC944:
+GameOptionFlags:
         resb 4
-byte_1AC948:
+GlobalSetName:
         resb 19
-byte_1AC95B:
+GlobalSetPad:
         resb 2
-unk_1AC95D:
+LinkSettings:
         resb 5
-unk_1AC962:
+LinkSettingsData:
         resb 259
-byte_1ACA65:
+LinkMenuCursor:
         resb 1
-byte_1ACA66:
+LinkFlags:
         resb 4
-byte_1ACA6A:
+LinkSettingsRest:
         resb 218
-unk_1ACB44:
+GlobalSetVersion:
         resb 1
-dword_1ACB45:
+TeamSelectFlags:
         resb 2
-word_1ACB47:
+TeamSelectMode:
         resb 2
-unk_1ACB49:
+IndexEntrySettings:
         resb 263
-byte_1ACC50:
+IndexMenuCursor:
         resb 1
-byte_1ACC51:
+IndexFlags:
         resb 4
-byte_1ACC55:
+IndexSettingsRest:
         resb 214
-unk_1ACD2B:
+SeasonName:
         resb 2
-byte_1ACD2D:
+SeasonFlags:
         resb 3
-unk_1ACD30:
+SeasonPath:
         resb 264
-unk_1ACE38:
+SeasonIndexPath:
         resb 218
-unk_1ACF12:
+MatchupNote:
         resb 40
-dword_1ACF3A:
+SeasonSlot:
         resb 4
-dword_1ACF3E:
+SeasonPhase:
         resb 4
-dword_1ACF42:
+PlayoffRounds:
         resb 4
-dword_1ACF46:
+SeasonActive:
         resb 4

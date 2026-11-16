@@ -4,10 +4,10 @@ bits 32
 section s_43578 progbits alloc exec nowrite align=1
 extern __CHK, __CHP, str_GAMEDATAAUDPBP3TSF, str_TEMP, str_KTSF, str_03dDAT, str_03dHDR, str_TEMPBANK
 extern str_EVENTDAT, str_CBANK03dHDR, str_TEAM04dHDR, str_PBP, str_Mous, str_Remo, str_PlayByPlayNeedsToBeInstal, str_PlayByPlayNeedsToBeInstal2
-extern str_InstallingPlayByPlay, byte_1AC81B, byte_1C14BD, byte_1C315C, byte_1C35E0, byte_1C527F, dword_16923C, dword_169248
+extern str_InstallingPlayByPlay, MusicOptions, byte_1C14BD, byte_1C315C, byte_1C35E0, byte_1C527F, SpeechBankBuffer, dword_169248
 extern dword_16924C, dword_169250, dword_1697B8, dword_169818, PlayerCallClips, PlayerCallTimes, dword_1AC5C8, dword_1AC5CC
 extern dword_1AC5D0, dword_1AC5D4, PlayerCallLast, PlayerCallTime, GameSoundsOn, SpeechChainCount, SpeechClipIndex, SpeechBankHandle
-extern SpeechClipTable, SpeechBanksLoaded, SpeechBankList, SpeechChainLen, GameSettings, dword_1AC944, dword_1C13FB, dword_1C13FF
+extern SpeechClipTable, SpeechBanksLoaded, SpeechBankList, SpeechChainLen, GameSettings, GameOptionFlags, dword_1C13FB, dword_1C13FF
 extern dword_1C1403, dword_1C309A, dword_1C309E, dword_1C30A2, dword_1C351E, dword_1C3522, dword_1C3526, dword_1C51BD
 extern dword_1C51C1, dword_1C51C5, dword_1C5DE4, dword_1C5EF4, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D
 extern CommentaryEvent_3F6, CommentaryEvent_3FF, CommentaryEvent_408, CommentaryEvent_411, CommentaryEvent_41A, CommentaryEvent_423, CommentaryEvent_48A, CommentaryEvent_4E4
@@ -75,7 +75,7 @@ LoadSpeechBank:
         jmp short .2
 .3:
         mov ebp, dword [byte esp+06Ch]
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         add eax, ebp
         mov edx, dword [dword edx+02D8h]
         cmp edx, dword [eax]
@@ -96,7 +96,7 @@ LoadSpeechBank:
         add esi, esi
         cmp edi, ecx
         jne short .7
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         mov word [byte esi+eax+04h], bx
         jmp near .18
 .7:
@@ -106,7 +106,7 @@ LoadSpeechBank:
         mov eax, esp
         push eax
         call OpenResourceArchive
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         add esp, byte 4
         mov edx, dword [esi+eax]
         push edx
@@ -165,7 +165,7 @@ LoadSpeechBank:
         mov word [dword ebp+02D6h], ax
         lea ebp, [nosplit edx*8+00h]
         sub ebp, edx
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         add ebp, ebp
         add eax, ebp
         mov dword [byte esp+060h], eax
@@ -196,7 +196,7 @@ LoadSpeechBank:
         mov eax, dword [SpeechClipTable]
         cmp dword [dword esi+eax+02E0h], byte 0
         jbe short .15
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         mov word [byte eax+ebp+04h], bx
         mov eax, dword [SpeechClipTable]
         mov cx, word [dword eax+02D4h]
@@ -221,7 +221,7 @@ LoadSpeechBank:
         mov edx, dword [byte esp+068h]
         lea eax, [nosplit edx*8+00h]
         sub eax, edx
-        mov edx, dword [dword_16923C]
+        mov edx, dword [SpeechBankBuffer]
         mov word [byte edx+eax*2+04h], 0FFFFh
 .17:
         push byte 0
@@ -231,7 +231,7 @@ LoadSpeechBank:
         mov edx, dword [byte esp+068h]
         lea ebx, [nosplit edx*8+00h]
         sub ebx, edx
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         add ebx, ebx
         cmp word [byte ebx+eax+04h], byte 0
         jl short .20
@@ -241,7 +241,7 @@ LoadSpeechBank:
         mov eax, esp
         push eax
         call OpenResourceArchive
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         add esp, byte 4
         mov ecx, dword [ebx+eax]
         push ecx
@@ -251,7 +251,7 @@ LoadSpeechBank:
         call sprintf_
         add esp, byte 0Ch
         call ServiceIdle
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         mov esi, dword [byte ebx+eax+0Ah]
         push esi
         lea eax, [byte esp+054h]
@@ -260,7 +260,7 @@ LoadSpeechBank:
         add esp, byte 8
         test eax, eax
         jne short .19
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         mov word [byte ebx+eax+04h], 0FFFFh
 .19:
         push byte 0
@@ -386,7 +386,7 @@ InitSpeechBanks:
         sub esp, 178h
         cmp dword [dword_169250], byte 0
         jne near .84
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         mov eax, dword [byte eax+01h]
         shl edx, 0Ch
@@ -426,7 +426,7 @@ InitSpeechBanks:
         mov dword [dword esp+016Ch], 24h
 .6:
         xor eax, eax
-        mov dword [dword_16923C], eax
+        mov dword [SpeechBankBuffer], eax
         call CurrentArchiveName
         test eax, eax
         je short .7
@@ -768,7 +768,7 @@ InitSpeechBanks:
         xor edi, edi
         mov ebp, dword [SpeechClipIndex]
         add esp, byte 0Ch
-        mov dword [dword_16923C], eax
+        mov dword [SpeechBankBuffer], eax
         mov dword [dword esp+0164h], edi
         test ebp, ebp
         jle near .38
@@ -782,18 +782,18 @@ InitSpeechBanks:
         mov ecx, dword [dword esp+0174h]
         shl eax, 2
         add ecx, eax
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         add edx, eax
         mov eax, dword [ecx]
         mov dword [edx], eax
         imul edx, dword [dword esp+0164h], byte 0Eh
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         mov word [byte edx+eax+04h], si
         imul eax, dword [dword esp+0164h], byte 0Eh
-        mov edx, dword [dword_16923C]
+        mov edx, dword [SpeechBankBuffer]
         mov dword [byte edx+eax+06h], esi
         imul edx, dword [SpeechClipIndex], byte 0Eh
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         mov edi, dword [dword esp+0164h]
         lea ecx, [eax+edx]
         imul edx, edi, dword 307h
@@ -808,7 +808,7 @@ InitSpeechBanks:
         jl near .37
 .38:
         imul eax, dword [SpeechClipIndex], dword 307h
-        mov edx, dword [dword_16923C]
+        mov edx, dword [SpeechBankBuffer]
         mov edx, dword [byte edx+0Ah]
         xor esi, esi
         add edx, eax
@@ -820,7 +820,7 @@ InitSpeechBanks:
         mov edx, dword [SpeechBankList]
         shl eax, 3
         add eax, edx
-        mov edx, dword [dword_16923C]
+        mov edx, dword [SpeechBankBuffer]
         add dword [byte eax+04h], edx
         mov eax, dword [dword esp+0164h]
         push eax
@@ -847,7 +847,7 @@ InitSpeechBanks:
         jl short .39
         mov ecx, dword [dword esp+0170h]
         push ecx
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         mov edx, dword [dword_1AC5CC]
         push str_TEAM04dHDR
         add edx, eax
@@ -865,7 +865,7 @@ InitSpeechBanks:
         test eax, eax
         je near .80
         call ServiceIdle
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         mov ebp, dword [dword_1AC5D4]
         add ebp, eax
         mov eax, dword [dword esp+016Ch]
@@ -1052,10 +1052,10 @@ InitSpeechBanks:
         xor ebx, ebx
         mov edx, ecx
         call ShowMessageBoxNoWait
-        mov dl, byte [byte_1AC81B]
+        mov dl, byte [MusicOptions]
         and dl, 0F7h
         xor esi, esi
-        mov byte [byte_1AC81B], dl
+        mov byte [MusicOptions], dl
         jmp near .53
 .48:
         cmp eax, byte 1
@@ -1119,10 +1119,10 @@ InitSpeechBanks:
         mov esi, eax
         jmp short .53
 .52:
-        mov ah, byte [byte_1AC81B]
+        mov ah, byte [MusicOptions]
         and ah, 0F7h
         xor esi, esi
-        mov byte [byte_1AC81B], ah
+        mov byte [MusicOptions], ah
 .53:
         call FreeMenuBitmap
         mov ecx, dword [dword_1C5DE4]
@@ -1311,7 +1311,7 @@ InitSpeechBanks:
 .68:
         mov edi, dword [dword esp+0164h]
         imul edx, edi, byte 0Eh
-        mov eax, dword [dword_16923C]
+        mov eax, dword [SpeechBankBuffer]
         add eax, edx
         mov edx, dword [byte eax+02h]
         sar edx, 10h
@@ -1322,7 +1322,7 @@ InitSpeechBanks:
         mov ebp, dword [dword esp+0164h]
         mov edx, eax
         imul eax, ebp, byte 0Eh
-        mov ebx, dword [dword_16923C]
+        mov ebx, dword [SpeechBankBuffer]
         mov dword [byte ebx+eax+06h], edx
         mov ebx, dword [dword esp+0164h]
         mov eax, dword [SpeechChainCount]
@@ -1400,7 +1400,7 @@ InitSpeechBanks:
 .75:
         sub edx, 0AFh
         imul edx, byte 0Eh
-        mov ebx, dword [dword_16923C]
+        mov ebx, dword [SpeechBankBuffer]
         mov edx, dword [byte edx+ebx+02h]
         sar edx, 10h
         imul edx, byte 0Ch
@@ -1426,13 +1426,13 @@ InitSpeechBanks:
         mov esi, dword [dword_169250]
         test esi, esi
         jne short .81
-        mov edi, dword [dword_16923C]
+        mov edi, dword [SpeechBankBuffer]
         test edi, edi
         je short .81
         push edi
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_16923C], esi
+        mov dword [SpeechBankBuffer], esi
 .81:
         mov edx, dword [dword esp+0174h]
         push edx
@@ -1475,14 +1475,14 @@ CloseSpeechFile:
         je short .2
         mov eax, GameSoundsOn
         call FileClose
-        mov ebx, dword [dword_16923C]
+        mov ebx, dword [SpeechBankBuffer]
         test ebx, ebx
         je short .1
         push ebx
         call FreeMemBlock
         xor esi, esi
         add esp, byte 4
-        mov dword [dword_16923C], esi
+        mov dword [SpeechBankBuffer], esi
 .1:
         call CloseSpeechChannels
 .2:
@@ -2996,7 +2996,7 @@ SpeechClipExists:
         jl short .3
         shl eax, 3
         sub eax, edx
-        mov edx, dword [dword_16923C]
+        mov edx, dword [SpeechBankBuffer]
         mov eax, dword [byte edx+eax*2+06h]
 .3:
         pop edx
