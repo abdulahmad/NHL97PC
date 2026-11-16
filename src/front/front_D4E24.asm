@@ -15,16 +15,16 @@ extern fopen_, memcpy_, memset_, off_16E4E0, rand_, sprintf_, sscanf_, str_CRD1
 extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, sub_101340
 extern sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_103298, sub_1167AE, sub_11A318
 extern sub_11BED4, sub_13C164, WaitRetraceEdges, sub_15578, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern sub_41D48, sub_41DB8, sub_41DD8, sub_41EA4, sub_41FA0, sub_41FDC, sub_4A4F4, sub_4AB90
+extern sub_41D48, sub_41DB8, sub_41DD8, sub_41EA4, sub_41FA0, sub_41FDC, sub_4A4F4, MakeDataPath
 extern sub_4B108, sub_7E860, sub_7EDF0, sub_7F028, sub_7F0D8, sub_7F16C, sub_80BBC, sub_81650
-extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, sub_8BF54, sub_8BFAC, sub_8DF1F, sub_E2270
+extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_E2270
 extern sub_E22D0, sub_E22FC, sub_E2310, sub_E2334, sub_E2348, sub_E23BC, sub_E23E0, sub_E2404
 extern sub_E2458, sub_E2494, sub_E24D0, sub_E341C, sub_F9496, sub_F94BC, sub_FAA64, sub_FAF34
 extern sub_FBE40, sub_FBE5D, sub_FC330, sub_FC510, sub_FCD90, sub_FCEEC, sub_FCF84, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
 global jpt_D5460, sub_D547C_715, sub_D547C_72B, sub_D547C_89F, sub_D547C_A13, sub_D547C_B89, sub_D547C_DBB, sub_D547C_FF0
-global sub_D4E24, sub_D53A4, sub_D547C, sub_D67D4, sub_D68AC, sub_D68E0, sub_D6930, sub_D6D38
+global sub_D4E24, sub_D53A4, sub_D547C, sub_D67D4, FadeOut, sub_D68E0, sub_D6930, sub_D6D38
 global sub_D6E20, sub_D6FD8, sub_D705C, sub_D70C4, sub_D7A70, sub_D7B64, sub_D7BB0, sub_D7C14
 global sub_D7C74, sub_D7CD4, sub_D7E08, sub_D7EC8, sub_D8130, sub_D81D8, sub_D8270, sub_D8358
 global sub_D83C0, sub_D8614, sub_D8860, sub_D8944, sub_D8B20, sub_D8CAC, sub_D9614, sub_D9708
@@ -756,7 +756,7 @@ sub_D547C:
         call sub_D4E24
         mov edx, 0E0h
         lea eax, [dword esp+0534h]
-        call sub_4AB90
+        call MakeDataPath
         lea eax, [dword esp+0534h]
         push eax
         call sub_FC330
@@ -981,7 +981,7 @@ sub_D547C:
         jl near .3
         mov edx, dword_1CCEF8
         mov eax, 7
-        call sub_8BF54
+        call InitMenuItems
         push asc_1672B0
         mov esi, dword [dword esp+0564h]
         push esi
@@ -2105,9 +2105,10 @@ sub_D67D4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_D68AC                                                       D68AC  97 PC
+; FadeOut                                      D68AC  96 PC, medium confidence
+; (steps): fades the current palette to black
 ;-----------------------------------------------------------------------------
-sub_D68AC:
+FadeOut:
         push ebx
         push ecx
         push edx
@@ -2843,7 +2844,7 @@ sub_D70C4:
         mov edx, 0FBh
         mov dword [dword esp+06B54h], eax
         lea eax, [dword esp+06AA8h]
-        call sub_4AB90
+        call MakeDataPath
         mov edx, unk_1673CC
         lea eax, [dword esp+06AA8h]
         call fopen_
@@ -2919,7 +2920,7 @@ sub_D70C4:
         mov edx, 0FCh
         call fclose_
         lea eax, [dword esp+06AA8h]
-        call sub_4AB90
+        call MakeDataPath
         mov edx, unk_1673CC
         lea eax, [dword esp+06AA8h]
         call fopen_
@@ -3208,7 +3209,7 @@ sub_D70C4:
         mov edx, 0D5h
         mov dword [dword esp+06B60h], eax
         lea eax, [dword esp+06AA8h]
-        call sub_4AB90
+        call MakeDataPath
         mov edx, unk_1673CC
         lea eax, [dword esp+06AA8h]
         call fopen_

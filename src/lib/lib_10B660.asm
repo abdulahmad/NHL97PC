@@ -7,9 +7,13 @@ extern dword_16E69C, dword_1D1D30, dword_1D1D34, dword_1D1D38, dword_1D1D3C, dwo
 extern dword_1D1D4C, dword_1D1D50, dword_1D1D54, dword_1D1D58, dword_1D1D5C, dword_1D1D60, dword_1D1D64, dword_1D1D68
 extern dword_1D1D6C, dword_1D1D70, dword_1D1D74, dword_1D1D78, dword_1D1D7C, dword_1D1D80, dword_1D1D84, str_AALIAS
 extern sub_112190, sub_116830, sub_12D520, sub_FAA64, sub_FC4BC, sub_FDD1C
-global sub_10B660, sub_10B780, sub_10B99C, sub_10BBB8, sub_10BD74, sub_10BEC0, sub_10C07C, sub_10C1C0
+global BuildAntiAliasTable, sub_10B780, sub_10B99C, sub_10BBB8, sub_10BD74, sub_10BEC0, sub_10C07C, DrawFixedLine
 global sub_10C434
-sub_10B660:
+;-----------------------------------------------------------------------------
+; BuildAntiAliasTable                         10B660  96 PC, medium confidence
+; The AALIAS table (1004h bytes) of blended colours for the 3D view's lines
+;-----------------------------------------------------------------------------
+BuildAntiAliasTable:
         push esi
         push edi
         push ebp
@@ -111,6 +115,9 @@ sub_10B660:
         pop edi
         pop esi
         ret 4
+;-----------------------------------------------------------------------------
+; sub_10B780                                                          10B780  
+;-----------------------------------------------------------------------------
 sub_10B780:
         push ebx
         push ecx
@@ -313,6 +320,9 @@ sub_10B780:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_10B99C                                                          10B99C  
+;-----------------------------------------------------------------------------
 sub_10B99C:
         push ebx
         push ecx
@@ -515,6 +525,9 @@ sub_10B99C:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_10BBB8                                                          10BBB8  
+;-----------------------------------------------------------------------------
 sub_10BBB8:
         push ebx
         push esi
@@ -664,6 +677,9 @@ sub_10BBB8:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_10BD74                                                          10BD74  
+;-----------------------------------------------------------------------------
 sub_10BD74:
         push ebx
         push esi
@@ -768,6 +784,9 @@ sub_10BD74:
         pop esi
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_10BEC0                                                          10BEC0  
+;-----------------------------------------------------------------------------
 sub_10BEC0:
         push ebx
         push esi
@@ -916,6 +935,9 @@ sub_10BEC0:
         pop ebx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_10C07C                                                          10C07C  
+;-----------------------------------------------------------------------------
 sub_10C07C:
         push ebx
         push esi
@@ -1018,7 +1040,12 @@ sub_10C07C:
         pop ebx
         ret
         db 090h
-sub_10C1C0:
+;-----------------------------------------------------------------------------
+; DrawFixedLine                               10C1C0  96 PC, medium confidence
+; (x0, y0, x1, y1 in 16.16, colour): a line of the 3D rink model (rink_model
+; calls)
+;-----------------------------------------------------------------------------
+DrawFixedLine:
         push ebx
         push esi
         push edi
@@ -1211,6 +1238,9 @@ sub_10C1C0:
         pop ebx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_10C434                                                          10C434  
+;-----------------------------------------------------------------------------
 sub_10C434:
         push ebx
         push esi

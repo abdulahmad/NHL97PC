@@ -1,0 +1,65 @@
+sub_10010 GripLinkLibrary {source=96PC,confidence=medium} NHL96PC 10D66 (sem 0.87): K:8490; K:101; K:100
+sub_10354 LoadGripLibrary {source=96PC,confidence=medium} NHL96PC 1124D (sem 1.00): S:GRIP; D:1684D5; S:GRIP.GLL; D:1684CC
+sub_3EF68 CdStreamService {source=96PC,confidence=medium} NHL96PC 1CB54 (sem 0.87): C:460; C:458; C:2029
+sub_3FB34 CdStreamSkipMarks {source=96PC,confidence=high} NHL96PC 1D54E (callsite 0.90): called at the same place of CdStreamSpaceLeft
+sub_3FBBC CdStreamSpaceLeft {source=96PC,confidence=high} NHL96PC 1D5A9 (exact 1.00): 19 instructions
+sub_47F8C ShutdownSound {source=96PC,confidence=medium} NHL96PC 699D0 (sem 0.61): C:2246
+sub_48950 RecordPctClip {source=96PC,confidence=medium} NHL96PC 67636 (similar 0.91): mnemonic similarity 0.91 over 69 instructions
+sub_489F4 RecordStreakClips {source=96PC,confidence=medium} NHL96PC 676D4 (sem 0.91): C:560
+sub_4AB90 MakeDataPath {source=96PC,confidence=medium} NHL96PC 1E3E8 (sem 0.84): C:1920; C:1834; R:579; R:572
+sub_4AF9F LoadDataFileHandle {source=96PC,confidence=medium} NHL96PC 1E779 (sem 1.00): C:2267
+sub_4B3F8 WriteGlobalSet {source=96PC,confidence=medium} NHL96PC 6A5EB (similar 0.83): mnemonic similarity 0.83 over 47 instructions
+sub_50540 UpdateGoalLight {source=96PC,confidence=medium} NHL96PC 23F6A (sem 0.87): C:2025; C:2024; K:258
+sub_50740 DrawGoalLight {source=96PC,confidence=medium} NHL96PC 2414A (sem 0.77): C:2373; C:2305
+sub_507E4 TransformRink {source=96PC,confidence=medium} NHL96PC 241F6 (sem 1.00): C:2323; K:880; K:6E8; K:550
+sub_50C90 DrawStandsSides {source=96PC,confidence=medium} NHL96PC 248B0 (sem 1.00): C:2323
+sub_51CB8 BuildRinkSides {source=96PC,confidence=medium} NHL96PC 2583F (sem 0.80): S:side%d; D:1614B4; S:gt0%02d; D:1614BC
+sub_5454C FreeRinkModel {source=96PC,confidence=medium} NHL96PC 2751C (sem 1.00): D:1B10E8; C:1863
+sub_552E0 DrawBenchSide {source=96PC,confidence=medium} NHL96PC 27F20 (sem 0.71): C:2080; C:2285; D:1B105C; C:2079
+sub_6590A CamShot23D {source=96PC,confidence=medium} NHL96PC 603FF (similar 0.81): mnemonic similarity 0.81 over 16 instructions
+sub_7C690 ModemHangup {source=96PC,confidence=medium} NHL96PC 1779C (sem 0.94): S:ATH0; D:16412C; C:1054; C:1053
+sub_7C7A4 ModemAutoAnswer {source=96PC,confidence=medium} NHL96PC 17887 (sem 1.00): S:ATS0=1; D:164140; S:ATA ; D:164148
+sub_7C7E0 ModemWaitConnect {source=96PC,confidence=medium} NHL96PC 178C0 (neighbour 0.78): between ModemAutoAnswer and ModemReadResult, mnemonic similarity 0.78
+sub_7C834 ModemReadResult {source=96PC,confidence=medium} NHL96PC 17906 (sem 1.00): C:2478; C:2221; R:1054
+sub_7C988 ModemSendCommand {source=96PC,confidence=medium} NHL96PC 17A32 (similar 0.85): mnemonic similarity 0.85 over 63 instructions
+sub_7CA1C ModemAttention {source=96PC,confidence=medium} NHL96PC 17AC7 (similar 0.86): mnemonic similarity 0.86 over 63 instructions
+sub_86300 NameIndexNew {source=96PC,confidence=medium} NHL96PC 19384 (similar 0.93): mnemonic similarity 0.93 over 34 instructions
+sub_86368 NameIndexLoad {source=96PC,confidence=medium} NHL96PC 193E8 (sem 1.00): C:2120; C:1834; C:2265; C:1833
+sub_86424 NameIndexSave {source=96PC,confidence=medium} NHL96PC 19491 (sem 1.00): C:2514; R:1135; C:1834; C:2265
+sub_864C4 NameIndexFree {source=96PC,confidence=medium} NHL96PC 19522 (similar 0.82): mnemonic similarity 0.82 over 25 instructions
+sub_86644 NameIndexRemove {source=96PC,confidence=medium} NHL96PC 19659 (sem 1.00): S:NAMEINDEX; D:165310; K:2C093; C:1858
+sub_86754 NameIndexPath {source=96PC,confidence=medium} NHL96PC 19731 (sem 0.94): D:16531C; C:1834; C:2265; C:1833
+sub_8BF54 InitMenuItems {source=96PC,confidence=medium} NHL96PC 64721 (similar 0.81): mnemonic similarity 0.81 over 32 instructions
+sub_B1FE9 DeleteUser {source=96PC,confidence=medium} NHL96PC 2A692 (sem 0.62): C:1134; K:3EA; C:1833
+sub_B2258 ScrollUserList {source=96PC,confidence=medium} NHL96PC 2AB63 (similar 0.93): mnemonic similarity 0.93 over 19 instructions
+sub_D68AC FadeOut {source=96PC,confidence=medium} NHL96PC 63A5B (similar 0.91): mnemonic similarity 0.90 over 22 instructions
+sub_F5601 FillBox {source=96PC,confidence=medium} NHL96PC 64103 (similar 0.92): mnemonic similarity 0.92 over 78 instructions
+sub_FAEF8 findmemblock {source=96PC,confidence=high} NHL96PC ABEEC (callsite 0.90): called at the same place of sub_AC9B8
+sub_109A74 AsyncInit {source=96PC,confidence=medium} NHL96PC 1BA4D (sem 0.89): S:ASYNC FILE; D:167E78; K:FFFF800
+sub_109B50 AsyncClose {source=96PC,confidence=medium} NHL96PC 1BB20 (sem 1.00): C:1905; C:2113
+sub_109C94 AsyncRequestOpen {source=96PC,confidence=medium} NHL96PC 1BC7A (similar 0.91): mnemonic similarity 0.91 over 54 instructions
+sub_109D70 AsyncRequestSection {source=96PC,confidence=medium} NHL96PC 1BD67 (similar 0.89): mnemonic similarity 0.88 over 52 instructions
+sub_10B660 BuildAntiAliasTable {source=96PC,confidence=medium} NHL96PC 873AE (sem 1.00): S:AALIAS; D:167E84; K:110000; K:1004
+sub_10C1C0 DrawFixedLine {source=96PC,confidence=medium} NHL96PC 87DD6 (similar 0.80): mnemonic similarity 0.80 over 173 instructions
+sub_3EF68_14C CdStreamService_14C {no_record}
+sub_3EF68_1A3 CdStreamService_1A3 {no_record}
+sub_3EF68_1E3 CdStreamService_1E3 {no_record}
+sub_3EF68_20 CdStreamService_20 {no_record}
+sub_3EF68_47A CdStreamService_47A {no_record}
+sub_3EF68_595 CdStreamService_595 {no_record}
+sub_3EF68_5B CdStreamService_5B {no_record}
+sub_3EF68_74E CdStreamService_74E {no_record}
+sub_3EF68_81D CdStreamService_81D {no_record}
+sub_3EF68_956 CdStreamService_956 {no_record}
+sub_3EF68_AC2 CdStreamService_AC2 {no_record}
+sub_3EF68_BB8 CdStreamService_BB8 {no_record}
+sub_3EF68_D6 CdStreamService_D6 {no_record}
+sub_4AB90_111 MakeDataPath_111 {no_record}
+sub_4AB90_119 MakeDataPath_119 {no_record}
+sub_4AB90_11F MakeDataPath_11F {no_record}
+sub_4AB90_132 MakeDataPath_132 {no_record}
+sub_4AB90_41 MakeDataPath_41 {no_record}
+sub_4AB90_49 MakeDataPath_49 {no_record}
+sub_4AB90_4F MakeDataPath_4F {no_record}
+sub_4AB90_62 MakeDataPath_62 {no_record}
+sub_6590A_2B CamShot23D_2B {no_record}

@@ -195,7 +195,7 @@ global sub_633E8_41, sub_633E8_51, sub_633E8_345, sub_633E8_377, sub_633E8_3B2, 
 global sub_63AA4_61, sub_63AA4_71, sub_63AA4_BC, sub_63AA4_C2, sub_649E0_23, sub_649E0_2F, sub_649E0_3B, sub_649E0_47
 global sub_649E0_53, sub_64AE0_31, sub_64AE0_41, sub_64AE0_51, sub_64AE0_61, sub_64AE0_71, sub_64AE0_BC, sub_64AE0_C2
 global sub_65481_228, sub_657BF_10, sub_657BF_1D, sub_657BF_25, sub_657BF_32, sub_657BF_3F, sub_657BF_4C, sub_657BF_59
-global sub_6590A_2B, sub_659F6_167, sub_659F6_168, sub_704D4_1B3, sub_704D4_1B8, sub_704D4_1BE, sub_704D4_1C4, sub_704D4_288
+global CamShot23D_2B, sub_659F6_167, sub_659F6_168, sub_704D4_1B3, sub_704D4_1B8, sub_704D4_1BE, sub_704D4_1C4, sub_704D4_288
 global sub_704D4_28D, sub_704D4_293, sub_704D4_299, sub_71808_86, sub_71808_8B, sub_71808_91, sub_71808_97, sub_71808_186
 global sub_71808_18B, sub_71808_191, sub_71808_197, sub_71ABC_86, sub_71ABC_8B, sub_71ABC_91, sub_71ABC_97, sub_71ABC_186
 global sub_71ABC_18B, sub_71ABC_191, sub_71ABC_197, sub_73FBC_471, sub_73FBC_481, sub_73FBC_63F, sub_73FBC_671, sub_76A1C_31B
@@ -222,7 +222,7 @@ global sub_62340, sub_624D0, sub_626BC, sub_628C4, sub_62C14, sub_62F14, sub_633
 global sub_63980, sub_63AA4, sub_63D24, sub_63E8C, sub_640D0, sub_642A8, sub_643AC, sub_64490
 global sub_64700, sub_64820, sub_648B4, sub_649E0, sub_64AE0, sub_64D54, sub_64EBC, sub_650A4
 global sub_650E8, sub_65164, sub_65338, sub_6539C, sub_65481, sub_656B7, sub_656D3, sub_65742
-global sub_657BF, sub_65830, sub_6590A, sub_6593E, sub_6596B, sub_659C6, sub_659F6, sub_65B64
+global sub_657BF, sub_65830, CamShot23D, sub_6593E, sub_6596B, sub_659C6, sub_659F6, sub_65B64
 global sub_65BFD, sub_65C2D, sub_65C5D, sub_65C8D, sub_65CBD, sub_65CED, sub_65DE8, sub_65E3B
 global sub_65F50, sub_660F0, sub_6619C, sub_66224, sub_66524, sub_666CC, sub_66758, sub_66E38
 global sub_67248, sub_67540, sub_67A30, sub_67A98, sub_67B10, sub_67BD0, sub_67CC0, sub_68030
@@ -20127,9 +20127,11 @@ sub_65830:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_6590A                                                       6590A  97 PC
+; CamShot23D                                   6590A  96 PC, medium confidence
+; Cut-scene shot handler, record text 23Dh (view kind 9): queues an overlay
+; panel
 ;-----------------------------------------------------------------------------
-sub_6590A:
+CamShot23D:
         push ebx
         push ecx
         push edx
@@ -20141,7 +20143,7 @@ sub_6590A:
         push unk_1BA510
         mov edx, 19h
         mov dword [dword_16C38C], eax
-sub_6590A_2B:
+CamShot23D_2B:
         call sub_65742
         pop edx
         pop ecx
@@ -20162,7 +20164,7 @@ sub_6593E:
         push unk_1BAA88
         mov edx, 24h
         mov dword [dword_16C390], eax
-        jmp short sub_6590A_2B
+        jmp short CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; sub_6596B                                                       6596B  97 PC
 ;-----------------------------------------------------------------------------
@@ -20211,7 +20213,7 @@ sub_659C6:
         push unk_1BBAB8
         mov edx, 13h
         mov dword [dword_16C398], eax
-        jmp near sub_6590A_2B
+        jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; sub_659F6                                                       659F6  97 PC
 ;-----------------------------------------------------------------------------
@@ -20411,7 +20413,7 @@ sub_65BFD:
         push unk_1BD680
         mov edx, 3Ch
         mov dword [dword_16C3A0], eax
-        jmp near sub_6590A_2B
+        jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; sub_65C2D                                                       65C2D  97 PC
 ;-----------------------------------------------------------------------------
@@ -20427,7 +20429,7 @@ sub_65C2D:
         push unk_1BE4F0
         mov edx, 0Fh
         mov dword [dword_16C3A8], eax
-        jmp near sub_6590A_2B
+        jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; sub_65C5D                                                       65C5D  97 PC
 ;-----------------------------------------------------------------------------
@@ -20443,7 +20445,7 @@ sub_65C5D:
         push unk_1BE3A0
         mov edx, 6
         mov dword [dword_16C3A4], eax
-        jmp near sub_6590A_2B
+        jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; sub_65C8D                                                       65C8D  97 PC
 ;-----------------------------------------------------------------------------
@@ -20459,7 +20461,7 @@ sub_65C8D:
         push unk_1BE838
         mov edx, 1Fh
         mov dword [dword_16C3AC], eax
-        jmp near sub_6590A_2B
+        jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; sub_65CBD                                                       65CBD  97 PC
 ;-----------------------------------------------------------------------------
@@ -20475,7 +20477,7 @@ sub_65CBD:
         push unk_1BEF00
         mov edx, 6
         mov dword [dword_16C3B0], eax
-        jmp near sub_6590A_2B
+        jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; sub_65CED                                                       65CED  97 PC
 ;-----------------------------------------------------------------------------
@@ -20530,7 +20532,7 @@ sub_65CED:
         mov eax, asc_16308F
         call sub_4B1C4
         call sub_65830
-        call sub_6590A
+        call CamShot23D
         call sub_6593E
         call sub_6596B
         call sub_659C6

@@ -31,7 +31,7 @@ extern sub_11B094, sub_11B104, sub_11B98E, sub_13C164, sub_415A0, sub_415F8, sub
 extern sub_41F2C, sub_41FDC, sub_4A4F4, sub_4B108, sub_7B4E4, sub_7DFC0, sub_7E52C, sub_7E860
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C, sub_7F29C, sub_7F5A4, sub_7FE38
 extern sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_816E8
-extern sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068, sub_84570, sub_8BF54, sub_8BFAC
+extern sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068, sub_84570, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, sub_8DE19, sub_8DE68, sub_8DE7E, sub_8DE9D, sub_8DEAC, sub_8DF1F
 extern sub_8E6AF, sub_8E7E0, sub_8E870, sub_92DB7, sub_92E37, sub_92EE2, sub_92F25, sub_9623E
 extern sub_9D333, sub_B8FDF, sub_DA7D6, sub_DB763, sub_DB7B1, sub_DC653, sub_DCBB0, sub_E036F
@@ -121,7 +121,7 @@ sub_C755B:
         call sub_C885D
         mov eax, 28h
         xor ebx, ebx
-        call sub_8BF54
+        call InitMenuItems
 .2:
         mov eax, ebx
         mov edx, dword [byte ebp+076h]
@@ -7426,7 +7426,7 @@ sub_CD272:
         mov edx, ebx
         mov eax, 64h
         mov dword [dword_1CC1EC], ebx
-        call sub_8BF54
+        call InitMenuItems
 .29:
         mov eax, esi
         mov ebx, 0Ah
@@ -11065,7 +11065,7 @@ sub_D0397:
         mov edx, eax
         mov eax, 28h
         mov dword [byte ebp-04h], 0
-        call sub_8BF54
+        call InitMenuItems
 .1:
         mov eax, dword [byte ebp-04h]
         shl eax, 6

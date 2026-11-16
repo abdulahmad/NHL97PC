@@ -31,7 +31,7 @@ extern sub_4BA00, sub_4BCB4, sub_4C0C4, sub_4DD90, sub_52E28, sub_55000, sub_5BD
 extern sub_5BDF4, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
 extern sub_65CED, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, sub_77630, sub_77F88, sub_77FA8
 extern sub_78810, sub_7F0D8, sub_81678, sub_84204, sub_842E8, sub_842F4, sub_8E740, sub_8E840
-extern sub_AA498, sub_AADEF, sub_AB0A6, sub_B2F49, sub_BD62C, sub_D68AC, sub_DA7EB, sub_DB6AC
+extern sub_AA498, sub_AADEF, sub_AB0A6, sub_B2F49, sub_BD62C, FadeOut, sub_DA7EB, sub_DB6AC
 extern sub_E117B, sub_E12D1, sub_E13BF, sub_E1744, sub_E304C, sub_E30F4, sub_E3174, sub_E3190
 extern sub_E3208, sub_E3218, sub_E341C, sub_E4248, sub_F1FF8, sub_F207F, sub_F30A0, sub_F30D7
 extern sub_F418F, sub_F9650, sub_F9789, sub_F9869, sub_FAA64, sub_FAF34, sub_FBE40, sub_FC290
@@ -2528,7 +2528,7 @@ sub_14AC8:
 .23:
         call sub_13ACB
         mov eax, 4
-        call sub_D68AC
+        call FadeOut
         mov ebx, dword [dword_1B8F4C]
         push ebx
         call sub_FAF34

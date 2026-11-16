@@ -34,7 +34,7 @@ extern sub_4123C, sub_415A0, sub_415F8, sub_41670, sub_419B0, sub_419B8, sub_41F
 extern sub_48D70, sub_4A280, sub_4B074, sub_4B108, sub_4B19C, sub_7CBD6, sub_7CDD8, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C
 extern sub_7F29C, sub_80758, sub_80808, sub_80A38, sub_80AB8, sub_80BBC, sub_81650, sub_81678
-extern sub_823F0, sub_83C08, sub_84204, sub_842F4, sub_8BF54, sub_8BFAC, sub_8D956, sub_8DE10
+extern sub_823F0, sub_83C08, sub_84204, sub_842F4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
 extern sub_8DE19, sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E790, sub_8E7E0, sub_8E840, sub_8E870
 extern sub_A3136, sub_A31DE, sub_AC799, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
 extern sub_ACDAE, sub_AD151, sub_AD62E, sub_B2364, sub_CA44C, sub_D0098, sub_E2F98, sub_E32B4
@@ -2626,7 +2626,7 @@ sub_A4B7D_112:
         add esp, byte 4
         add eax, byte 7
         xor esi, esi
-        call sub_8BF54
+        call InitMenuItems
         jmp near .74
 .51:
         movzx eax, byte [dword esi+byte_16D27A]
@@ -3889,7 +3889,7 @@ sub_A6690:
         mov edx, esp
         mov eax, 8
         xor ecx, ecx
-        call sub_8BF54
+        call InitMenuItems
         lea eax, [dword esp+0450h]
         mov edx, 1
         mov dword [dword esp+01AAh], ebx
@@ -6049,7 +6049,7 @@ sub_A8204:
         call sub_80808
         mov eax, 5Dh
         mov edx, dword [dword_1C9584]
-        call sub_8BF54
+        call InitMenuItems
         mov edx, ebx
         xor eax, eax
 .1:

@@ -18,8 +18,8 @@ extern strstr_, sub_100A68, sub_1013AC, sub_1013FC, sub_101429, sub_103234, sub_
 extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, sub_109210, sub_116D38
 extern sub_116E84, sub_116F78, sub_117338, sub_11756C, sub_117C26, sub_118C88, sub_119054, sub_11910D
 extern sub_1191D1, sub_1191F2, sub_119780, sub_13C164, sub_3E818, sub_3EB40, sub_3EC58, sub_3EE74
-extern sub_3EF68, sub_3FBE4, sub_3FC7C, sub_3FD0C, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern sub_41DB8, sub_41DD8, sub_41EA4, sub_48D70, sub_4AB90, sub_4B074, sub_4B108, sub_4B3F8
+extern CdStreamService, sub_3FBE4, sub_3FC7C, sub_3FD0C, sub_419B0, sub_419B8, sub_41A28, sub_41D18
+extern sub_41DB8, sub_41DD8, sub_41EA4, sub_48D70, MakeDataPath, sub_4B074, sub_4B108, WriteGlobalSet
 extern sub_7F5A4, sub_80BBC, sub_81678, sub_84B55, sub_85A15, sub_85D1D, sub_8BDCF, sub_8BE23
 extern sub_8BE60, sub_8BEF8, sub_8BFA0, sub_8E740, sub_8E7E0, sub_8E840, sub_9CFD3, sub_9D333
 extern sub_C3594, sub_D547C, sub_D70C4, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
@@ -29,8 +29,8 @@ extern sub_FD08C, sub_FD0F8, sub_FD110, tickcount, unk_164138, unk_16413C, unk_1
 extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
 global sub_7A9D8_77E, sub_7CB8C_45, putchar, sub_7A9D8, sub_7B15D, sub_7B4E4, sub_7B84B, sub_7B85A
 global sub_7B88D, sub_7BB27, sub_7BBB0, sub_7BC34, sub_7BC68, sub_7BCF0, sub_7BE04, sub_7BF64
-global sub_7C038, sub_7C3EC, sub_7C614, sub_7C690, sub_7C714, sub_7C7A4, sub_7C7E0, sub_7C834
-global sub_7C988, sub_7CA1C, sub_7CAB4, sub_7CADA, sub_7CB8C, sub_7CBD6, sub_7CDD8, sub_7CE9E
+global sub_7C038, sub_7C3EC, sub_7C614, ModemHangup, sub_7C714, ModemAutoAnswer, ModemWaitConnect, ModemReadResult
+global ModemSendCommand, ModemAttention, sub_7CAB4, sub_7CADA, sub_7CB8C, sub_7CBD6, sub_7CDD8, sub_7CE9E
 global sub_7CF94
 ;-----------------------------------------------------------------------------
 ; sub_7A9D8                                                       7A9D8  97 PC
@@ -1945,7 +1945,7 @@ sub_7C038:
         mov eax, dword [tickcount]
         mov ebx, eax
 .2:
-        call sub_3EF68
+        call CdStreamService
         mov edx, dword [dword_1C1254]
         push edx
         call sub_3FBE4
@@ -2056,8 +2056,8 @@ sub_7C038:
         mov eax, dword [tickcount]
         mov ebx, eax
 .12:
-        call sub_3EF68
-        call sub_3EF68
+        call CdStreamService
+        call CdStreamService
         mov ecx, dword [dword_1C1260]
         push ecx
         call sub_3FBE4
@@ -2394,7 +2394,7 @@ sub_7C3EC:
         ret 4
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; putchar                                    7C600  library, medium confidence
+; putchar                                      7C600  96 PC, medium confidence
 ;-----------------------------------------------------------------------------
 putchar:
         push str_ATZS760S1155
@@ -2413,7 +2413,7 @@ sub_7C614:
         mov esi, dword [byte esp+0Ch]
         mov edx, dword [byte esp+010h]
         mov eax, esi
-        call sub_7CA1C
+        call ModemAttention
         test eax, eax
         jne short .1
         mov eax, 4
@@ -2423,7 +2423,7 @@ sub_7C614:
 .1:
         mov eax, esi
         xor ebx, ebx
-        call sub_7C988
+        call ModemSendCommand
         test eax, eax
         jne short .2
         mov eax, 4
@@ -2435,7 +2435,7 @@ sub_7C614:
         add eax, eax
         push eax
         push esi
-        call sub_7C834
+        call ModemReadResult
         add esp, byte 8
         mov edx, eax
         test eax, eax
@@ -2443,7 +2443,7 @@ sub_7C614:
         mov edx, asc_164120
         mov eax, esi
         xor ebx, ebx
-        call sub_7C988
+        call ModemSendCommand
         test eax, eax
         jne short .3
         mov eax, 4
@@ -2455,7 +2455,7 @@ sub_7C614:
         add eax, eax
         push eax
         push esi
-        call sub_7C834
+        call ModemReadResult
         add esp, byte 8
         mov edx, eax
 .4:
@@ -2465,13 +2465,15 @@ sub_7C614:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_7C690                                                       7C690  97 PC
+; ModemHangup                                  7C690  96 PC, medium confidence
+; (port): ModemAttention, then ATH0 and its answer; 4 when the modem does not
+; answer
 ;-----------------------------------------------------------------------------
-sub_7C690:
+ModemHangup:
         push ebx
         mov ecx, dword [byte esp+08h]
         mov eax, ecx
-        call sub_7CA1C
+        call ModemAttention
         test eax, eax
         jne short .1
         mov eax, 4
@@ -2481,7 +2483,7 @@ sub_7C690:
         mov edx, str_ATH0
         mov eax, ecx
         xor ebx, ebx
-        call sub_7C988
+        call ModemSendCommand
         test eax, eax
         jne short .2
         mov eax, 4
@@ -2492,7 +2494,7 @@ sub_7C690:
         add eax, eax
         push eax
         push ecx
-        call sub_7C834
+        call ModemReadResult
         add esp, byte 8
         pop ebx
         ret
@@ -2502,7 +2504,7 @@ sub_7C690:
         sub esp, byte 50h
         mov esi, dword [byte esp+05Ch]
         push esi
-        call sub_7C690
+        call ModemHangup
         add esp, byte 4
         mov edx, str_ATD
         mov eax, esp
@@ -2513,7 +2515,7 @@ sub_7C690:
         call strcat_
         mov edx, esp
         mov eax, esi
-        call sub_7C988
+        call ModemSendCommand
         add esp, byte 50h
         pop esi
         pop ebx
@@ -2528,7 +2530,7 @@ sub_7C714:
         sub esp, byte 50h
         mov esi, dword [byte esp+05Ch]
         push esi
-        call sub_7C690
+        call ModemHangup
         add esp, byte 4
         mov eax, esp
         mov edx, dword [byte esp+064h]
@@ -2548,7 +2550,7 @@ sub_7C714:
         call strcat_
         mov edx, esp
         mov eax, esi
-        call sub_7C988
+        call ModemSendCommand
         add esp, byte 50h
         pop esi
         pop ebx
@@ -2558,37 +2560,38 @@ sub_7C714:
         push esi
         mov esi, dword [byte esp+0Ch]
         push esi
-        call sub_7C690
+        call ModemHangup
         xor ebx, ebx
         add esp, byte 4
         mov eax, esi
         mov edx, str_ATD
-        call sub_7CA1C
+        call ModemAttention
         mov eax, esi
-        call sub_7C988
+        call ModemSendCommand
         mov eax, dword [dword_16E4B0]
         add eax, eax
         push eax
         push esi
-        call sub_7C834
+        call ModemReadResult
         add esp, byte 8
         pop esi
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7C7A4                                                       7C7A4  97 PC
+; ModemAutoAnswer                              7C7A4  96 PC, medium confidence
+; (port): hangs up, then ATS0=1 (answer on the first ring)
 ;-----------------------------------------------------------------------------
-sub_7C7A4:
+ModemAutoAnswer:
         push ebx
         push esi
         mov esi, dword [byte esp+0Ch]
         push esi
         mov ebx, 1
-        call sub_7C690
+        call ModemHangup
         add esp, byte 4
         mov edx, str_ATS01
         mov eax, esi
-        call sub_7C988
+        call ModemSendCommand
         pop esi
         pop ebx
         ret
@@ -2602,9 +2605,11 @@ sub_7C7A4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7C7E0                                                       7C7E0  97 PC
+; ModemWaitConnect                             7C7E0  96 PC, medium confidence
+; (port): reads one modem result: 0 for none / NO CARRIER-type results, 4 for
+; an error, else the result code (1 / 5 / 10+ = CONNECT at some speed)
 ;-----------------------------------------------------------------------------
-sub_7C7E0:
+ModemWaitConnect:
         mov eax, dword [dword_16E4B0]
         mov edx, eax
         sar edx, 1Fh
@@ -2614,7 +2619,7 @@ sub_7C7E0:
         push eax
         mov edx, dword [byte esp+08h]
         push edx
-        call sub_7C834
+        call ModemReadResult
         add esp, byte 8
         mov edx, eax
         test eax, eax
@@ -2642,9 +2647,12 @@ sub_7C7E0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_7C834                                                       7C834  97 PC
+; ModemReadResult                              7C834  96 PC, medium confidence
+; (port, timeout): reads a line from the modem (at most 41 characters) and
+; matches it against the result string table off_114F1C; returns its code, -1
+; for none
 ;-----------------------------------------------------------------------------
-sub_7C834:
+ModemReadResult:
         push ebx
         push esi
         push edi
@@ -2780,9 +2788,11 @@ sub_7C834:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_7C988                                                       7C988  97 PC
+; ModemSendCommand                             7C988  96 PC, medium confidence
+; (port, command, flush): sends command + CR (at most 79 characters) and
+; checks the modem echoes it; 1 when it does
 ;-----------------------------------------------------------------------------
-sub_7C988:
+ModemSendCommand:
         push ecx
         push esi
         push edi
@@ -2848,9 +2858,11 @@ sub_7C988:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7CA1C                                                       7CA1C  97 PC
+; ModemAttention                               7CA1C  96 PC, medium confidence
+; (port): flushes, waits, sends "+++" (escape to command mode), waits, sends
+; AT and reads the answer; 1 when the modem answers
 ;-----------------------------------------------------------------------------
-sub_7CA1C:
+ModemAttention:
         push ebx
         push ecx
         push edx
@@ -2884,14 +2896,14 @@ sub_7CA1C:
         add esp, byte 4
         mov edx, unk_164158
         mov eax, esi
-        call sub_7C988
+        call ModemSendCommand
         test eax, eax
         je short .2
         mov eax, dword [dword_16E4B0]
         add eax, eax
         push eax
         push esi
-        call sub_7C834
+        call ModemReadResult
         add esp, byte 8
         test eax, eax
         jne short .2
@@ -2924,12 +2936,12 @@ sub_7CAB4:
         mov edx, str_ATM0
         mov eax, ecx
         xor ebx, ebx
-        call sub_7C988
+        call ModemSendCommand
         mov eax, dword [dword_16E4B0]
         add eax, eax
         push eax
         push ecx
-        call sub_7C834
+        call ModemReadResult
         add esp, byte 8
         pop ebx
         ret
@@ -2968,7 +2980,7 @@ sub_7CADA:
         jl short .1
         mov edx, 32h
         lea eax, [byte ebp-03Ch]
-        call sub_4AB90
+        call MakeDataPath
         lea eax, [byte ebp-03Ch]
         push eax
         call sub_FC330
@@ -3209,7 +3221,7 @@ sub_7CDD8:
         cmp esi, byte 0Ch
         jl short .2
         call sub_7CB8C
-        call sub_4B3F8
+        call WriteGlobalSet
         call sub_DB6AC
         pop esi
         pop edx

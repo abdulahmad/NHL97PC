@@ -17,8 +17,8 @@ extern sub_101324, sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429, s
 extern sub_11A318, sub_11B0D0, sub_11B98E, sub_11B9A0, sub_11BA08, sub_11BA50, sub_13C164, sub_419B0
 extern sub_419B8, sub_41FA0, sub_41FDC, sub_4AE14, sub_4B108, sub_7EDF0, sub_7EEB0, sub_7F028
 extern sub_7F04C, sub_7F0D8, sub_7F16C, sub_7F5A4, sub_81114, sub_81650, sub_83314, sub_834EC
-extern sub_83558, sub_835BC, sub_83850, sub_86300, sub_86368, sub_86424, sub_864C4, sub_86500
-extern sub_86644, sub_86754, sub_867D4, sub_8BF54, sub_8BFAC, sub_8D956, sub_8DE10, sub_8DE19
+extern sub_83558, sub_835BC, sub_83850, NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500
+extern NameIndexRemove, NameIndexPath, sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, sub_8DE19
 extern sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E6AF, sub_8E7E0, sub_9F671, sub_AB240, sub_AC6EB
 extern sub_AC73E, sub_DA7D6, sub_DCBB0, sub_DCC75, sub_DE3CF, sub_DE5A3, sub_E036F, sub_E0415
 extern sub_E076B, sub_E0841, sub_E08E9, sub_E0D0F, sub_E0F85, sub_E19D5, sub_E1C19, sub_E1CC0
@@ -122,7 +122,7 @@ sub_9F6F5:
 .2:
         mov edx, asc_165D1F
         lea eax, [byte ebp-066h]
-        call sub_86368
+        call NameIndexLoad
         mov dword [byte ebp+07Ah], eax
         test eax, eax
         jne short .6
@@ -131,7 +131,7 @@ sub_9F6F5:
 .3:
         mov edx, asc_165D2A
         lea eax, [byte ebp-066h]
-        call sub_86368
+        call NameIndexLoad
         mov dword [byte ebp+07Ah], eax
         test eax, eax
         jne short .6
@@ -140,14 +140,14 @@ sub_9F6F5:
 .4:
         mov edx, asc_165D36
         lea eax, [byte ebp-066h]
-        call sub_86368
+        call NameIndexLoad
         mov dword [byte ebp+07Ah], eax
         test eax, eax
         jne short .6
         mov edx, asc_165D36
 .5:
         lea eax, [byte ebp-066h]
-        call sub_86300
+        call NameIndexNew
         mov dword [byte ebp+07Ah], eax
 .6:
         cmp dword [dword_16DA9C], byte 0
@@ -166,7 +166,7 @@ sub_9F6F5:
         mov dword [byte ebp+062h], eax
         mov eax, 10h
         xor esi, esi
-        call sub_8BF54
+        call InitMenuItems
 .9:
         imul ebx, esi, byte 12h
         push byte 12h
@@ -295,7 +295,7 @@ sub_9F6F5_3B5:
         lea ebx, [byte ebp+02h]
         mov eax, dword [byte ebp+07Eh]
         mov edx, edi
-        call sub_86754
+        call NameIndexPath
         mov edx, asc_165D47
         lea eax, [byte ebp+02h]
         call strcmp_
@@ -307,11 +307,11 @@ sub_9F6F5_3B5:
         mov edx, dword [byte ebp+06Eh]
         mov eax, dword [byte ebp+07Eh]
         add edx, 3E8h
-        call sub_86644
+        call NameIndexRemove
         mov esi, eax
         mov dword [byte ebp+07Eh], eax
         mov dword [byte ebp+07Ah], eax
-        call sub_86424
+        call NameIndexSave
         cmp dword [byte esi+066h], byte 0Ah
         jle short .15
         lea eax, [dword ebp-0166h]
@@ -407,7 +407,7 @@ sub_9F6F5_4EE:
         lea ebx, [byte ebp+02h]
         mov eax, dword [byte ebp+07Eh]
         mov edx, edi
-        call sub_86754
+        call NameIndexPath
         mov edx, asc_165D47
         lea eax, [byte ebp+02h]
         call strcmp_
@@ -661,7 +661,7 @@ sub_9F6F5_4EE:
         call sub_86500
         mov edx, eax
         mov eax, 1
-        call sub_864C4
+        call NameIndexFree
         jmp near .68
 .41:
         test esi, esi
@@ -1352,7 +1352,7 @@ sub_A0867:
         lea edx, [dword eax+03E8h]
         lea ebx, [byte ebp+02Eh]
         mov eax, dword [byte ebp-02Eh]
-        call sub_86754
+        call NameIndexPath
         lea eax, [byte ebp+02Eh]
         jmp short .3
 .2:
@@ -1418,7 +1418,7 @@ sub_A0867:
         call sub_4AE14
         mov edx, asc_165DDC
         lea eax, [byte ebp-02Ah]
-        call sub_86300
+        call NameIndexNew
         mov esi, eax
         call sub_E3410
         test eax, eax
@@ -1452,7 +1452,7 @@ sub_A0867:
         lea ebx, [byte ebp+02Eh]
         mov eax, dword [byte ebp-02Eh]
         add edx, 3E8h
-        call sub_86754
+        call NameIndexPath
         lea eax, [byte ebp+02Eh]
         jmp short .12
 .11:
@@ -1520,7 +1520,7 @@ sub_A0867:
         mov eax, dword [byte ebp-02Eh]
         lea edx, [dword ecx+03E8h]
         mov dword [byte ebp+06Eh], 1
-        call sub_86754
+        call NameIndexPath
         lea eax, [byte ebp+02Eh]
         jmp short .20
 .19:
@@ -1609,7 +1609,7 @@ sub_A0867:
         lea ebx, [byte ebp+02Eh]
         mov eax, dword [byte ebp-02Eh]
         add edx, 3E8h
-        call sub_86754
+        call NameIndexPath
         lea eax, [byte ebp+02Eh]
         jmp short .32
 .31:

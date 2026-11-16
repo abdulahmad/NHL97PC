@@ -8,7 +8,7 @@ extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, dwo
 extern dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dword_1AD45A, dword_1AD62F, dword_1AD6AB
 extern dword_1AD6AF, dword_1AD727, dword_1AD743, dword_1C1334, dword_1C1338, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
 extern memcpy_, sprintf_, sub_10AED0, sub_4AE14, sub_5C974, sub_789F0, sub_7B15D, sub_7B88D
-extern sub_7FE4C, sub_83314, sub_834EC, sub_83558, sub_86300, sub_86368, sub_864C4, sub_86500
+extern sub_7FE4C, sub_83314, sub_834EC, sub_83558, NameIndexNew, NameIndexLoad, NameIndexFree, sub_86500
 extern sub_8E7E0, sub_91D7F, sub_925BE, sub_96019, sub_A2EF0, sub_A2F31, sub_A2F52, sub_A2F78
 extern sub_A3048, sub_A3116, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DB763, sub_DCFB0, sub_DE5A3
 extern sub_DE740, sub_DEE95, sub_DEF96, sub_E036F, sub_E0415, sub_E19D5, sub_E1C19, sub_E1CC0
@@ -1528,12 +1528,12 @@ sub_AC41B:
         jne short .16
         mov edx, asc_16614C
         lea eax, [byte ebp+036h]
-        call sub_86300
+        call NameIndexNew
         jmp short .17
 .16:
         mov edx, asc_16614C
         lea eax, [byte ebp+036h]
-        call sub_86368
+        call NameIndexLoad
 .17:
         mov ecx, eax
         mov edi, dword_1C1334
@@ -1553,7 +1553,7 @@ sub_AC41B:
         call sub_86500
         mov edx, eax
         mov eax, 1
-        call sub_864C4
+        call NameIndexFree
         jmp short .21
 .18:
         mov eax, dword [dword_1AC814]

@@ -49,13 +49,13 @@ extern sub_106F7C, sub_106F94, sub_1070B0, sub_1070D0, sub_107154, sub_1072F0, s
 extern sub_107B70, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48, sub_108040, sub_108144
 extern sub_10815C, sub_1081B0, sub_108640, sub_1086BF, sub_108CE8, sub_1091E0, sub_109210, sub_109250
 extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, sub_13C164, sub_1E7C4
-extern sub_2F8D8, sub_2FA00, sub_2FB40, sub_43944, sub_47C08, sub_47D70, sub_47EA4, sub_47F8C
-extern sub_4AA78, sub_4AB90, sub_4B108, sub_4B19C, sub_52D4C, sub_55648, sub_5696C, sub_56A08
+extern sub_2F8D8, sub_2FA00, sub_2FB40, sub_43944, sub_47C08, sub_47D70, sub_47EA4, ShutdownSound
+extern sub_4AA78, MakeDataPath, sub_4B108, sub_4B19C, sub_52D4C, sub_55648, sub_5696C, sub_56A08
 extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, sub_5AC30, sub_5B4B8, sub_5C1CC, sub_5CD68
 extern sub_5DF50, sub_5ED80, sub_5EEEC, sub_60D6C, sub_60F48, sub_612E4, sub_613AC, sub_6152C
 extern sub_617EC, sub_62C14, sub_74CEC, sub_74FA4, sub_76944, sub_789F0, sub_7B15D, sub_7DFC0
 extern sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C, sub_7F29C
-extern sub_7F5A4, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_842F4, sub_8BF54, sub_8BFAC
+extern sub_7F5A4, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMenuItems, sub_8BFAC
 extern sub_8DF1F, sub_8E7E0, sub_99DAC, sub_AC369, sub_D0098, sub_DB75E, sub_DB763, sub_DE25F
 extern sub_DE3CF, sub_DE740, sub_E036F, sub_E0415, sub_E2378, sub_E23BC, sub_E2404, sub_E2458
 extern sub_E2494, sub_E24D0, sub_E341C, sub_E9429, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
@@ -70,8 +70,8 @@ extern word_1ABD4E, word_1ABD50, word_1AC7D8, word_1AD240, word_1AD242, word_1C1
 global jpt_3EF24, jpt_40D68, jpt_40DCC, jpt_40E30, jpt_40EA4, sub_3812E_13F, sub_3812E_14D, sub_3812E_17B
 global sub_3812E_182, sub_3812E_1DA, sub_3812E_1E3, sub_3812E_1EC, sub_3812E_1F3, sub_3812E_238, sub_3812E_2B1, sub_3812E_2CF
 global sub_3812E_3D3, sub_3812E_3DF, sub_3812E_3EB, sub_38675_472, sub_38E26_14D, sub_38E26_14E, sub_39BB6_6B, sub_3D030_FC
-global sub_3DE08_70, sub_3EF68_20, sub_3EF68_5B, sub_3EF68_D6, sub_3EF68_14C, sub_3EF68_1A3, sub_3EF68_1E3, sub_3EF68_47A
-global sub_3EF68_595, sub_3EF68_74E, sub_3EF68_81D, sub_3EF68_956, sub_3EF68_AC2, sub_3EF68_BB8, sub_40D80_11, sub_40D80_19
+global sub_3DE08_70, CdStreamService_20, CdStreamService_5B, CdStreamService_D6, CdStreamService_14C, CdStreamService_1A3, CdStreamService_1E3, CdStreamService_47A
+global CdStreamService_595, CdStreamService_74E, CdStreamService_81D, CdStreamService_956, CdStreamService_AC2, CdStreamService_BB8, sub_40D80_11, sub_40D80_19
 global sub_40D80_21, sub_40D80_29, sub_40D80_31, sub_40D80_39, sub_40EBC_97, sub_40EBC_A4, sub_40EBC_B1, sub_40EBC_BE
 global sub_40EBC_CB, sub_40EBC_D8, sub_3812E, sub_385C3, sub_38675, sub_38B1A, sub_38B77, sub_38BAB
 global sub_38BFC, sub_38C79, sub_38D84, sub_38E26, sub_38F7A, sub_39052, sub_397FD, sub_39824
@@ -88,8 +88,8 @@ global sub_3D660, sub_3D764, sub_3D898, sub_3D930, sub_3D95C, sub_3D988, sub_3D9
 global sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DDD8, sub_3DE08, sub_3DE94
 global sub_3DF14, sub_3DF54, sub_3E064, sub_3E140, sub_3E198, sub_3E1F8, sub_3E21C, sub_3E458
 global sub_3E480, sub_3E4B8, sub_3E590, sub_3E5F0, sub_3E6D0, sub_3E818, sub_3E850, sub_3E904
-global sub_3EB40, sub_3EBE0, sub_3EC58, sub_3EC78, sub_3ED60, sub_3EE4C, sub_3EE74, sub_3EF68
-global sub_3FB34, sub_3FB7C, sub_3FBBC, sub_3FBE4, sub_3FC7C, sub_3FC88, sub_3FD0C, sub_3FDCC
+global sub_3EB40, sub_3EBE0, sub_3EC58, sub_3EC78, sub_3ED60, sub_3EE4C, sub_3EE74, CdStreamService
+global CdStreamSkipMarks, sub_3FB7C, CdStreamSpaceLeft, sub_3FBE4, sub_3FC7C, sub_3FC88, sub_3FD0C, sub_3FDCC
 global sub_3FE54, sub_3FEE8, sub_3FF4C, sub_3FF9C, sub_4006C, sub_400E8, sub_401A0, sub_40258
 global sub_40298, sub_40380, sub_403C0, sub_40400, sub_40440, sub_404C4, sub_40574, sub_405F8
 global sub_40640, sub_40680, sub_40850, sub_4095C, sub_409EC, sub_40D80, sub_40EBC, sub_4123C
@@ -478,7 +478,7 @@ sub_38675:
         mov edx, eax
         mov eax, 7
         mov dword [byte ebp-04h], 0
-        call sub_8BF54
+        call InitMenuItems
 .1:
         mov eax, dword [byte ebp-04h]
         shl eax, 6
@@ -9573,7 +9573,7 @@ sub_3E6D0:
         shr eax, 10h
         adc eax, edx
         mov dword [dword ebx+080h], 0
-        push sub_3EF68_BB8
+        push CdStreamService_BB8
         mov dword [dword ebx+084h], eax
         call sub_FBFDC
         add esp, byte 4
@@ -9879,7 +9879,7 @@ sub_3EB40:
         mov ebx, dword [byte esp+08h]
         cmp ebx, dword [dword_1AC378]
         jne short .1
-        push sub_3EF68_BB8
+        push CdStreamService_BB8
         call sub_FC008
         mov ecx, dword [byte ebx+018h]
         add esp, byte 4
@@ -9900,7 +9900,7 @@ sub_3EB40:
         jne short .4
         cmp edx, edx
         jne short .2
-        push sub_3EF68_BB8
+        push CdStreamService_BB8
         call sub_FC008
         mov edi, dword [byte esi+018h]
         add esp, byte 4
@@ -10260,27 +10260,29 @@ sub_3EE74:
         pop ebx
         ret
 jpt_3EF24:
-        dd sub_3EF68_D6
-        dd sub_3EF68_1E3
-        dd sub_3EF68_47A
-        dd sub_3EF68_595
-        dd sub_3EF68_74E
-        dd sub_3EF68_81D
-        dd sub_3EF68_5B
-        dd sub_3EF68_20
-        dd sub_3EF68_AC2
-        dd sub_3EF68_956
-        dd sub_3EF68_1A3
-        dd sub_3EF68_20
-        dd sub_3EF68_14C
-        dd sub_3EF68_20
-        dd sub_3EF68_20
-        dd sub_3EF68_1E3
-        dd sub_3EF68_D6
+        dd CdStreamService_D6
+        dd CdStreamService_1E3
+        dd CdStreamService_47A
+        dd CdStreamService_595
+        dd CdStreamService_74E
+        dd CdStreamService_81D
+        dd CdStreamService_5B
+        dd CdStreamService_20
+        dd CdStreamService_AC2
+        dd CdStreamService_956
+        dd CdStreamService_1A3
+        dd CdStreamService_20
+        dd CdStreamService_14C
+        dd CdStreamService_20
+        dd CdStreamService_20
+        dd CdStreamService_1E3
+        dd CdStreamService_D6
 ;-----------------------------------------------------------------------------
-; sub_3EF68                                                       3EF68  97 PC
+; CdStreamService                              3EF68  96 PC, medium confidence
+; The current CD stream's state machine (open, read, refill, wrap, next
+; file), driven by its read budget
 ;-----------------------------------------------------------------------------
-sub_3EF68:
+CdStreamService:
         push ebx
         push esi
         push edi
@@ -10288,10 +10290,10 @@ sub_3EF68:
         sub esp, byte 4
         mov eax, dword [dword_1AC378]
         cmp dword [dword eax+080h], byte 0
-        jg near sub_3EF68_AC2.58
+        jg near CdStreamService_AC2.58
         mov ebp, 8
         xor edi, edi
-sub_3EF68_20:
+CdStreamService_20:
         mov eax, dword [dword_1AC378]
         mov ebx, dword [byte eax+020h]
         cmp ebp, ebx
@@ -10309,9 +10311,9 @@ sub_3EF68_20:
         mov edx, dword [byte eax+01Ch]
         dec edx
         cmp edx, byte 10h
-        ja short sub_3EF68_20
+        ja short CdStreamService_20
         jmp dword [nosplit cs:edx*4+jpt_3EF24]
-sub_3EF68_5B:
+CdStreamService_5B:
         mov ecx, dword [byte eax+074h]
         cmp edi, ecx
         je short .4
@@ -10340,7 +10342,7 @@ sub_3EF68_5B:
         mov dword [dword edx+097h], eax
         mov eax, dword [dword_1AC378]
         mov dword [byte eax+070h], edx
-        jmp near sub_3EF68_20
+        jmp near CdStreamService_20
 .4:
         mov dword [dword eax+080h], 0
         add esp, byte 4
@@ -10349,7 +10351,7 @@ sub_3EF68_5B:
         pop esi
         pop ebx
         ret
-sub_3EF68_D6:
+CdStreamService_D6:
         mov eax, dword [dword_1AC378]
         mov esi, dword [byte eax+018h]
         cmp edi, esi
@@ -10384,11 +10386,11 @@ sub_3EF68_D6:
         cmp esi, byte 1
         jne short .6
         mov dword [byte eax+01Ch], 2
-        jmp near sub_3EF68_20
+        jmp near CdStreamService_20
 .6:
         mov dword [byte eax+01Ch], 10h
-        jmp near sub_3EF68_20
-sub_3EF68_14C:
+        jmp near CdStreamService_20
+CdStreamService_14C:
         mov esi, dword [byte eax+018h]
         test esi, esi
         je short .7
@@ -10419,7 +10421,7 @@ sub_3EF68_14C:
         mov eax, dword [dword_1AC378]
         add esp, byte 14h
         mov dword [byte eax+01Ch], 2
-sub_3EF68_1A3:
+CdStreamService_1A3:
         mov eax, dword [dword_1AC378]
         mov dword [dword_1AC374], eax
 .8:
@@ -10438,7 +10440,7 @@ sub_3EF68_1A3:
         mov dword [dword_1AC374], eax
         test eax, eax
         jne short .8
-sub_3EF68_1E3:
+CdStreamService_1E3:
         mov eax, dword [dword_1AC378]
         cmp dword [byte eax+01Ch], byte 2
         jne short .9
@@ -10454,7 +10456,7 @@ sub_3EF68_1E3:
 .10:
         mov edx, dword [dword_1AC378]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         mov ebx, dword [byte edx+08h]
         mov edx, dword [dword_1AC378]
@@ -10462,7 +10464,7 @@ sub_3EF68_1E3:
         cmp eax, dword [byte edx+03Ch]
         jg short .13
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         mov esi, dword [byte edx+08h]
         mov edx, eax
@@ -10470,10 +10472,10 @@ sub_3EF68_1E3:
         sub edx, esi
         call sub_3FB7C
         cmp edx, eax
-        jne near sub_3EF68_AC2.58
+        jne near CdStreamService_AC2.58
         mov edx, dword [dword_1AC378]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
         cmp eax, dword [byte edx+08h]
         ja short .11
@@ -10486,7 +10488,7 @@ sub_3EF68_1E3:
 .12:
         mov eax, dword [dword_1AC378]
         cmp edx, dword [byte eax+03Ch]
-        jle near sub_3EF68_AC2.58
+        jle near CdStreamService_AC2.58
         mov eax, dword [byte eax+0Ch]
         mov dword [eax], 0FFFFFFFFh
         mov eax, dword [dword_1AC378]
@@ -10498,7 +10500,7 @@ sub_3EF68_1E3:
 .13:
         mov edx, dword [dword_1AC378]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
         mov ecx, dword [byte edx+08h]
         mov ebx, edx
@@ -10522,7 +10524,7 @@ sub_3EF68_1E3:
 .16:
         mov edx, dword [dword_1AC378]
         cmp eax, dword [byte edx+03Ch]
-        jle near sub_3EF68_AC2.58
+        jle near CdStreamService_AC2.58
         mov dword [byte edx+01Ch], 3
         mov eax, dword [dword_1AC378]
         mov edx, dword [byte eax+0Ch]
@@ -10556,7 +10558,7 @@ sub_3EF68_1E3:
         mov eax, dword [dword_1AC378]
         mov esi, dword [byte eax+048h]
         cmp edx, esi
-        jle near sub_3EF68_AC2.58
+        jle near CdStreamService_AC2.58
         push esi
         mov ebx, dword [eax]
         push ebx
@@ -10581,7 +10583,7 @@ sub_3EF68_1E3:
 .19:
         mov edx, dword [dword_1AC378]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
         mov ecx, dword [byte edx+08h]
         mov ebx, edx
@@ -10607,9 +10609,9 @@ sub_3EF68_1E3:
         mov edx, dword [dword_1AC378]
         mov esi, dword [byte edx+03Ch]
         cmp eax, esi
-        jle near sub_3EF68_AC2.58
+        jle near CdStreamService_AC2.58
         cmp edi, dword [dword edx+080h]
-        jl near sub_3EF68_AC2.58
+        jl near CdStreamService_AC2.58
         mov ecx, dword [byte edx+060h]
         mov dword [byte edx+060h], edi
         mov ebx, esi
@@ -10647,20 +10649,20 @@ sub_3EF68_1E3:
         add dword [byte eax+058h], ebx
         mov eax, dword [dword_1AC378]
         add dword [byte eax+048h], ebx
-sub_3EF68_47A:
+CdStreamService_47A:
         mov edx, dword [dword_1AC378]
         cmp ebp, dword [byte edx+048h]
         jbe short .23
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         mov ebx, dword [byte edx+08h]
         mov edx, dword [dword_1AC378]
         sub eax, ebx
         cmp eax, dword [byte edx+03Ch]
-        jg near sub_3EF68_1E3.19
+        jg near CdStreamService_1E3.19
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         mov esi, dword [byte edx+08h]
         mov edx, eax
@@ -10668,17 +10670,17 @@ sub_3EF68_47A:
         sub edx, esi
         call sub_3FB7C
         cmp edx, eax
-        jne near sub_3EF68_AC2.58
+        jne near CdStreamService_AC2.58
         mov edx, dword [dword_1AC378]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
         cmp eax, dword [byte edx+08h]
-        ja near sub_3EF68_1E3.17
+        ja near CdStreamService_1E3.17
         mov ecx, dword [edx]
         mov edx, eax
         sub edx, ecx
-        jmp near sub_3EF68_1E3.18
+        jmp near CdStreamService_1E3.18
 .23:
         mov eax, dword [byte edx+0Ch]
         cmp dword [eax], 6C454353h
@@ -10686,7 +10688,7 @@ sub_3EF68_47A:
         cmp edi, dword [byte edx+074h]
         je short .24
         mov dword [byte edx+01Ch], 7
-        jmp near sub_3EF68_20
+        jmp near CdStreamService_20
 .24:
         mov eax, dword [dword_1AC378]
         mov edx, dword [byte eax+0Ch]
@@ -10725,11 +10727,11 @@ sub_3EF68_47A:
         mov edx, dword [dword_1AC374]
         mov eax, dword [byte eax+044h]
         cmp eax, dword [byte edx+038h]
-        jle short sub_3EF68_595
+        jle short CdStreamService_595
 .28:
         mov eax, dword [dword_1AC378]
         cmp edi, dword [byte eax+028h]
-        jne short sub_3EF68_595
+        jne short CdStreamService_595
         mov dword [byte eax+01Ch], 0Eh
         add esp, byte 4
         pop ebp
@@ -10737,14 +10739,14 @@ sub_3EF68_47A:
         pop esi
         pop ebx
         ret
-sub_3EF68_595:
+CdStreamService_595:
         mov esi, dword [dword_1AC378]
         cmp esi, dword [dword_1AC374]
-        je near sub_3EF68_74E
+        je near CdStreamService_74E
         mov dword [byte esi+01Ch], 4
         mov edx, dword [dword_1AC374]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         sub eax, dword [byte edx+08h]
         mov edx, dword [dword_1AC378]
@@ -10757,7 +10759,7 @@ sub_3EF68_595:
         ja short .31
         mov edx, dword [dword_1AC374]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         mov esi, dword [byte edx+08h]
         mov edx, eax
@@ -10765,10 +10767,10 @@ sub_3EF68_595:
         sub edx, esi
         call sub_3FB7C
         cmp edx, eax
-        jne near sub_3EF68_AC2.58
+        jne near CdStreamService_AC2.58
         mov edx, dword [dword_1AC374]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
         cmp eax, dword [byte edx+08h]
         ja short .29
@@ -10779,7 +10781,7 @@ sub_3EF68_595:
 .30:
         mov edx, dword [dword_1AC378]
         cmp eax, dword [byte edx+048h]
-        jle near sub_3EF68_AC2.58
+        jle near CdStreamService_AC2.58
         mov eax, dword [dword_1AC374]
         mov eax, dword [byte eax+0Ch]
         mov dword [eax], 0FFFFFFFFh
@@ -10791,7 +10793,7 @@ sub_3EF68_595:
 .31:
         mov edx, dword [dword_1AC374]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
         mov ecx, dword [byte edx+08h]
         mov ebx, edx
@@ -10819,7 +10821,7 @@ sub_3EF68_595:
         mov ebx, dword [byte eax+03Ch]
         add ebx, ebp
         cmp edx, ebx
-        jbe near sub_3EF68_AC2.58
+        jbe near CdStreamService_AC2.58
         cmp edi, dword [byte eax+040h]
         jg short .35
         mov edx, dword [byte eax+048h]
@@ -10842,7 +10844,7 @@ sub_3EF68_595:
         mov eax, dword [dword_1AC378]
         add esp, byte 0Ch
         mov dword [byte eax+048h], edi
-        jmp short sub_3EF68_74E
+        jmp short CdStreamService_74E
 .35:
         mov edx, dword [byte eax+044h]
         push edx
@@ -10878,23 +10880,23 @@ sub_3EF68_595:
         sub esi, edx
         add esp, byte 0Ch
         mov dword [byte eax+08h], esi
-sub_3EF68_74E:
+CdStreamService_74E:
         mov edx, dword [dword_1AC378]
         mov eax, dword [byte edx+040h]
         cmp edi, eax
-        jge near sub_3EF68_81D
+        jge near CdStreamService_81D
         mov ebx, dword [byte edx+03Ch]
         lea edx, [eax+ebx]
         mov eax, dword [dword_1AC374]
         add edx, byte 8
-        call sub_3FBBC
+        call CdStreamSpaceLeft
         cmp eax, edx
-        ja near sub_3EF68_81D
+        ja near CdStreamService_81D
         mov eax, dword [dword_1AC378]
         mov dword [byte eax+01Ch], 5
         mov edx, dword [dword_1AC374]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         mov ecx, dword [byte edx+08h]
         mov edx, eax
@@ -10902,10 +10904,10 @@ sub_3EF68_74E:
         sub edx, ecx
         call sub_3FB7C
         cmp edx, eax
-        jne near sub_3EF68_AC2.58
+        jne near CdStreamService_AC2.58
         mov edx, dword [dword_1AC374]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
         cmp eax, dword [byte edx+08h]
         ja short .36
@@ -10917,7 +10919,7 @@ sub_3EF68_74E:
         mov edx, dword [dword_1AC378]
         mov ecx, dword [byte edx+048h]
         cmp eax, ecx
-        jle near sub_3EF68_AC2.58
+        jle near CdStreamService_AC2.58
         mov eax, dword [dword_1AC374]
         push ecx
         mov edx, dword [eax]
@@ -10938,7 +10940,7 @@ sub_3EF68_74E:
         mov edx, dword [eax]
         add esp, byte 0Ch
         mov dword [byte eax+0Ch], edx
-sub_3EF68_81D:
+CdStreamService_81D:
         mov eax, dword [dword_1AC378]
         mov dword [byte eax+01Ch], 6
 .38:
@@ -10947,7 +10949,7 @@ sub_3EF68_81D:
         jge near .42
         mov edx, dword [dword_1AC374]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
         mov ecx, dword [byte edx+08h]
         mov ebx, edx
@@ -10973,9 +10975,9 @@ sub_3EF68_81D:
         mov edx, dword [dword_1AC378]
         mov esi, dword [byte edx+03Ch]
         cmp eax, esi
-        jle near sub_3EF68_AC2.58
+        jle near CdStreamService_AC2.58
         cmp edi, dword [dword edx+080h]
-        jl near sub_3EF68_AC2.58
+        jl near CdStreamService_AC2.58
         mov ecx, dword [byte edx+060h]
         mov dword [byte edx+060h], edi
         mov ebx, esi
@@ -11022,21 +11024,21 @@ sub_3EF68_81D:
         add dword [byte edx+0Ch], eax
         mov eax, dword [dword_1AC378]
         mov dword [byte eax+01Ch], 7
-        jmp near sub_3EF68_20
+        jmp near CdStreamService_20
 .43:
         mov edx, dword [dword_1AC374]
         mov eax, dword [byte eax+044h]
         add dword [byte edx+0Ch], eax
-sub_3EF68_956:
+CdStreamService_956:
         mov ebx, dword [dword_1AC378]
         cmp ebx, dword [dword_1AC374]
         je near .50
         mov dword [byte ebx+01Ch], 0Ah
         mov edx, dword [dword_1AC378]
         cmp dword [byte edx+048h], byte 0
-        jne near sub_3EF68_AC2
+        jne near CdStreamService_AC2
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov ebx, dword [byte edx+04h]
         mov edi, dword [byte edx+08h]
         mov edx, dword [dword_1AC374]
@@ -11048,7 +11050,7 @@ sub_3EF68_956:
         jg near .46
         mov edx, dword [dword_1AC378]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         mov ebx, dword [byte edx+08h]
         mov edx, eax
@@ -11056,10 +11058,10 @@ sub_3EF68_956:
         sub edx, ebx
         call sub_3FB7C
         cmp edx, eax
-        jne near sub_3EF68_AC2.58
+        jne near CdStreamService_AC2.58
         mov edx, dword [dword_1AC378]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
         cmp eax, dword [byte edx+08h]
         ja short .44
@@ -11073,7 +11075,7 @@ sub_3EF68_956:
         mov eax, dword [byte edx+08h]
         sub eax, dword [byte edx+0Ch]
         cmp ebx, eax
-        jle near sub_3EF68_AC2.58
+        jle near CdStreamService_AC2.58
         mov eax, dword [dword_1AC378]
         mov eax, dword [byte eax+0Ch]
         mov dword [eax], 0FFFFFFFFh
@@ -11086,7 +11088,7 @@ sub_3EF68_956:
 .46:
         mov edx, dword [dword_1AC378]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
         mov ebp, dword [byte edx+08h]
         mov ebx, edx
@@ -11112,7 +11114,7 @@ sub_3EF68_956:
         mov edx, dword [byte ebx+08h]
         sub edx, dword [byte ebx+0Ch]
         cmp eax, edx
-        jle near sub_3EF68_AC2.58
+        jle near CdStreamService_AC2.58
         mov eax, dword [dword_1AC378]
         mov dword [byte eax+048h], edx
         mov eax, dword [dword_1AC378]
@@ -11132,7 +11134,7 @@ sub_3EF68_956:
         add edx, dword [byte eax+048h]
         add esp, byte 0Ch
         mov dword [byte eax+08h], edx
-        jmp short sub_3EF68_AC2
+        jmp short CdStreamService_AC2
 .50:
         mov edx, dword [dword_1AC374]
         mov eax, dword [byte edx+08h]
@@ -11140,7 +11142,7 @@ sub_3EF68_956:
         mov edx, eax
         sub edx, ecx
         mov dword [byte ebx+048h], edx
-sub_3EF68_AC2:
+CdStreamService_AC2:
         mov eax, dword [dword_1AC378]
         mov edx, dword [byte eax+058h]
         mov ecx, dword [byte eax+048h]
@@ -11156,7 +11158,7 @@ sub_3EF68_AC2:
 .51:
         mov edx, dword [dword_1AC374]
         mov eax, edx
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
         mov ebp, dword [byte edx+08h]
         mov ebx, edx
@@ -11225,16 +11227,18 @@ sub_3EF68_AC2:
         pop ebx
         ret
         db 090h
-sub_3EF68_BB8:
+CdStreamService_BB8:
         mov eax, dword [dword_1AC378]
         sub dword [dword eax+080h], byte 0Ah
         inc dword [dword_1691A0]
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3FB34                                                       3FB34  97 PC
+; CdStreamSkipMarks                                               3FB34  96 PC
+; Moves a stream's read pointer over skip (-2) and wrap (-1) marks in its
+; ring buffer
 ;-----------------------------------------------------------------------------
-sub_3FB34:
+CdStreamSkipMarks:
         push ebx
         push edx
         push esi
@@ -11283,7 +11287,7 @@ sub_3FB7C:
         push esi
         push edi
         mov edx, eax
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
         mov ebx, dword [byte edx+08h]
         cmp eax, ebx
@@ -11317,19 +11321,20 @@ sub_3FB7C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3FBBC                                                       3FBBC  97 PC
+; CdStreamSpaceLeft                                               3FBBC  96 PC
+; Room left at the end of the stream's ring buffer
 ;-----------------------------------------------------------------------------
-sub_3FBBC:
+CdStreamSpaceLeft:
         push edx
         mov edx, eax
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         sub eax, dword [byte edx+08h]
         pop edx
         ret
         push edx
         mov edx, eax
-        call sub_3FB34
+        call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
         cmp eax, dword [byte edx+08h]
         ja short .1
@@ -12897,7 +12902,7 @@ sub_4095C:
 .2:
         mov edx, 55h
         mov eax, esp
-        call sub_4AB90
+        call MakeDataPath
         mov eax, esp
         push eax
         call sub_FC330
@@ -13580,7 +13585,7 @@ sub_40EBC_D8:
 .15:
         mov edx, 55h
         mov eax, esp
-        call sub_4AB90
+        call MakeDataPath
         mov eax, esp
         push eax
         call sub_FC330
@@ -13611,10 +13616,10 @@ sub_40EBC_D8:
         jne short .19
         mov edx, 0E7h
         mov eax, esp
-        call sub_4AB90
+        call MakeDataPath
         mov edx, 0E5h
         lea eax, [dword esp+0A0h]
-        call sub_4AB90
+        call MakeDataPath
         lea eax, [dword esp+0A0h]
         push eax
         lea eax, [byte esp+04h]
@@ -13680,7 +13685,7 @@ sub_4123C:
 .2:
         mov edx, 55h
         mov eax, esp
-        call sub_4AB90
+        call MakeDataPath
         mov eax, esp
         push eax
         call sub_FC330
@@ -13977,7 +13982,7 @@ sub_415F8:
 .2:
         mov edx, 55h
         mov eax, esp
-        call sub_4AB90
+        call MakeDataPath
         mov eax, esp
         push eax
         call sub_FC330
@@ -14124,7 +14129,7 @@ sub_41670:
 .10:
         mov edx, 55h
         lea eax, [byte esp+050h]
-        call sub_4AB90
+        call MakeDataPath
         lea eax, [byte esp+050h]
         push eax
         call sub_FC330
@@ -14225,7 +14230,7 @@ sub_41870:
 .5:
         xor eax, eax
         mov dword [dword_169220], eax
-        call sub_47F8C
+        call ShutdownSound
         mov edx, dword [dword_169250]
         test edx, edx
         je short .8
@@ -14385,7 +14390,7 @@ sub_41ACC:
         add eax, ebx
         shl eax, 4
         add eax, byte_1AC638
-        call sub_4AB90
+        call MakeDataPath
         mov edx, dword [dword_1691B0]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
@@ -14477,7 +14482,7 @@ sub_41ACC:
         add eax, ebx
         shl eax, 4
         add eax, byte_1AC638
-        call sub_4AB90
+        call MakeDataPath
         mov edx, dword [dword_1691B0]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
@@ -14680,7 +14685,7 @@ sub_41E64:
 .2:
         mov edx, 58h
         mov eax, esp
-        call sub_4AB90
+        call MakeDataPath
         push ebx
         lea eax, [byte esp+04h]
         push eax
@@ -14714,7 +14719,7 @@ sub_41EA4:
         mov edx, 59h
         mov eax, esp
         inc ebx
-        call sub_4AB90
+        call MakeDataPath
         push ebx
         lea eax, [byte esp+04h]
         push eax
@@ -16425,7 +16430,7 @@ sub_4329C:
 .2:
         mov edx, 57h
         mov eax, esp
-        call sub_4AB90
+        call MakeDataPath
         mov eax, esp
         push eax
         call sub_FC330

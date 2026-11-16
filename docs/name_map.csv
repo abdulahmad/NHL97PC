@@ -1,4 +1,6 @@
 address,name,auto_name,source,confidence,evidence,file
+10010,GripLinkLibrary,sub_10010,96PC,medium,NHL96PC 10D66 (sem 0.87): K:8490; K:101; K:100,src/front/front_10010.asm
+10354,LoadGripLibrary,sub_10354,96PC,medium,NHL96PC 1124D (sem 1.00): S:GRIP; D:1684D5; S:GRIP.GLL; D:1684CC,src/front/front_10010.asm
 11744,clearteams,,96PC,medium,NHL96PC 4875E (similar): mnemonic similarity 0.80 over 60 instructions,
 11F10,SetupTeamForIntermission,,96PC,medium,NHL96PC 4AF89 (similar): mnemonic similarity 0.88 over 32 instructions,
 1303C,AllInPlace,,96PC,medium,NHL96PC 3ABAE (similar): mnemonic similarity 0.87 over 21 instructions,
@@ -11,12 +13,46 @@ address,name,auto_name,source,confidence,evidence,file
 34980,SlotToJoy,,96PC,medium,NHL96PC 3987A (similar): mnemonic similarity 0.92 over 36 instructions,
 349E4,ReadJoy1,,96PC,medium,NHL96PC 398DB (sem): C:371,
 362E0,CountTeamSlots,,96PC,medium,NHL96PC 3A2F6 (similar): mnemonic similarity 0.82 over 32 instructions,
+3EF68,CdStreamService,sub_3EF68,96PC,medium,NHL96PC 1CB54 (sem 0.87): C:460; C:458; C:2029,src/engine/engine_3812E.asm
+3FB34,CdStreamSkipMarks,sub_3FB34,96PC,high,NHL96PC 1D54E (callsite 0.90): called at the same place of CdStreamSpaceLeft,src/engine/engine_3812E.asm
+3FBBC,CdStreamSpaceLeft,sub_3FBBC,96PC,high,NHL96PC 1D5A9 (exact 1.00): 19 instructions,src/engine/engine_3812E.asm
+47F8C,ShutdownSound,sub_47F8C,96PC,medium,NHL96PC 699D0 (sem 0.61): C:2246,src/front/front_45BEC.asm
+48950,RecordPctClip,sub_48950,96PC,medium,NHL96PC 67636 (similar 0.91): mnemonic similarity 0.91 over 69 instructions,src/front/front_45BEC.asm
+489F4,RecordStreakClips,sub_489F4,96PC,medium,NHL96PC 676D4 (sem 0.91): C:560,src/front/front_45BEC.asm
+4AB90,MakeDataPath,sub_4AB90,96PC,medium,NHL96PC 1E3E8 (sem 0.84): C:1920; C:1834; R:579; R:572,src/front/front_48D70.asm
+4AF9F,LoadDataFileHandle,sub_4AF9F,96PC,medium,NHL96PC 1E779 (sem 1.00): C:2267,src/front/front_48D70.asm
+4B3F8,WriteGlobalSet,sub_4B3F8,96PC,medium,NHL96PC 6A5EB (similar 0.83): mnemonic similarity 0.83 over 47 instructions,src/front/front_48D70.asm
+50540,UpdateGoalLight,sub_50540,96PC,medium,NHL96PC 23F6A (sem 0.87): C:2025; C:2024; K:258,src/front/front_48D70.asm
+50740,DrawGoalLight,sub_50740,96PC,medium,NHL96PC 2414A (sem 0.77): C:2373; C:2305,src/front/front_48D70.asm
+507E4,TransformRink,sub_507E4,96PC,medium,NHL96PC 241F6 (sem 1.00): C:2323; K:880; K:6E8; K:550,src/front/front_48D70.asm
+50C90,DrawStandsSides,sub_50C90,96PC,medium,NHL96PC 248B0 (sem 1.00): C:2323,src/front/front_48D70.asm
+51CB8,BuildRinkSides,sub_51CB8,96PC,medium,NHL96PC 2583F (sem 0.80): S:side%d; D:1614B4; S:gt0%02d; D:1614BC,src/front/front_48D70.asm
+5454C,FreeRinkModel,sub_5454C,96PC,medium,NHL96PC 2751C (sem 1.00): D:1B10E8; C:1863,src/front/front_52770.asm
+552E0,DrawBenchSide,sub_552E0,96PC,medium,NHL96PC 27F20 (sem 0.71): C:2080; C:2285; D:1B105C; C:2079,src/front/front_52770.asm
+6590A,CamShot23D,sub_6590A,96PC,medium,NHL96PC 603FF (similar 0.81): mnemonic similarity 0.81 over 16 instructions,src/front/front_57324.asm
 7C600,putchar,,96PC,medium,NHL96PC 17675 (sem): S:ATZS7=60S11=55; D:164110,
+7C690,ModemHangup,sub_7C690,96PC,medium,NHL96PC 1779C (sem 0.94): S:ATH0; D:16412C; C:1054; C:1053,src/front/front_7A9D8.asm
+7C7A4,ModemAutoAnswer,sub_7C7A4,96PC,medium,NHL96PC 17887 (sem 1.00): S:ATS0=1; D:164140; S:ATA ; D:164148,src/front/front_7A9D8.asm
+7C7E0,ModemWaitConnect,sub_7C7E0,96PC,medium,"NHL96PC 178C0 (neighbour 0.78): between ModemAutoAnswer and ModemReadResult, mnemonic similarity 0.78",src/front/front_7A9D8.asm
+7C834,ModemReadResult,sub_7C834,96PC,medium,NHL96PC 17906 (sem 1.00): C:2478; C:2221; R:1054,src/front/front_7A9D8.asm
+7C988,ModemSendCommand,sub_7C988,96PC,medium,NHL96PC 17A32 (similar 0.85): mnemonic similarity 0.85 over 63 instructions,src/front/front_7A9D8.asm
+7CA1C,ModemAttention,sub_7CA1C,96PC,medium,NHL96PC 17AC7 (similar 0.86): mnemonic similarity 0.86 over 63 instructions,src/front/front_7A9D8.asm
 7D059,main_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 7FEC4,EditText,sub_7FEC4,96PC,medium,"NHL96PC EditText 197ED: same 394h text buffer, eax/edx/ebx/ecx + stack args, reads keys (sub_FBE40) and handles backspace/enter; called by every name entry through sub_7FE38/sub_7FE4C",src/front/main/main.asm
+86300,NameIndexNew,sub_86300,96PC,medium,NHL96PC 19384 (similar 0.93): mnemonic similarity 0.93 over 34 instructions,src/front/front_845E4.asm
+86368,NameIndexLoad,sub_86368,96PC,medium,NHL96PC 193E8 (sem 1.00): C:2120; C:1834; C:2265; C:1833,src/front/front_845E4.asm
+86424,NameIndexSave,sub_86424,96PC,medium,NHL96PC 19491 (sem 1.00): C:2514; R:1135; C:1834; C:2265,src/front/front_845E4.asm
+864C4,NameIndexFree,sub_864C4,96PC,medium,NHL96PC 19522 (similar 0.82): mnemonic similarity 0.82 over 25 instructions,src/front/front_845E4.asm
+86644,NameIndexRemove,sub_86644,96PC,medium,NHL96PC 19659 (sem 1.00): S:NAMEINDEX; D:165310; K:2C093; C:1858,src/front/front_845E4.asm
+86754,NameIndexPath,sub_86754,96PC,medium,NHL96PC 19731 (sem 0.94): D:16531C; C:1834; C:2265; C:1833,src/front/front_845E4.asm
+8BF54,InitMenuItems,sub_8BF54,96PC,medium,NHL96PC 64721 (similar 0.81): mnemonic similarity 0.81 over 32 instructions,src/front/front_868CD.asm
+B1FE9,DeleteUser,sub_B1FE9,96PC,medium,NHL96PC 2A692 (sem 0.62): C:1134; K:3EA; C:1833,src/front/front_B1E1D.asm
+B2258,ScrollUserList,sub_B2258,96PC,medium,NHL96PC 2AB63 (similar 0.93): mnemonic similarity 0.93 over 19 instructions,src/front/front_B1E1D.asm
+D68AC,FadeOut,sub_D68AC,96PC,medium,NHL96PC 63A5B (similar 0.91): mnemonic similarity 0.90 over 22 instructions,src/front/front_D4E24.asm
 E5C78,FreeRinkGfx,,95PC,medium,NHL95PC 33727 (similar): mnemonic similarity 0.81 over 30 instructions,
 E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 over 34 instructions,
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
+F5601,FillBox,sub_F5601,96PC,medium,NHL96PC 64103 (similar 0.92): mnemonic similarity 0.92 over 78 instructions,src/front/front_F20A1.asm
 F9B40,_searchenv_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 F9C34,strcpy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 F9C53,strcat_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -36,6 +72,7 @@ FA13B,__doclose_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FA1CB,_nmalloc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FA2AE,fread_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FA489,_nfree_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+FAEF8,findmemblock,sub_FAEF8,96PC,high,NHL96PC ABEEC (callsite 0.90): called at the same place of sub_AC9B8,src/lib/ea/ea_memman_01.asm
 FB63C,type_info__raw_name,,95PC,high,NHL95PC 8DBE4 (exact): 6 instructions,
 FBD60,__STOSB,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBD97,__STOSD,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -76,6 +113,10 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 106EC0,unpack,,96PC,medium,NHL96PC AFB88 (sem): C:3143; C:3144; C:3146; R:2562,
 10911D,strstr_,,96PC,medium,NHL96PC B16C9 (similar): mnemonic similarity 0.99 over 102 instructions,
 10942E,openhandle,,96PC,medium,NHL96PC E06B2 (similar): mnemonic similarity 0.91 over 87 instructions,
+109A74,AsyncInit,sub_109A74,96PC,medium,NHL96PC 1BA4D (sem 0.89): S:ASYNC FILE; D:167E78; K:FFFF800,src/lib/lib_109A74.asm
+109B50,AsyncClose,sub_109B50,96PC,medium,NHL96PC 1BB20 (sem 1.00): C:1905; C:2113,src/lib/lib_109A74.asm
+109C94,AsyncRequestOpen,sub_109C94,96PC,medium,NHL96PC 1BC7A (similar 0.91): mnemonic similarity 0.91 over 54 instructions,src/lib/lib_109A74.asm
+109D70,AsyncRequestSection,sub_109D70,96PC,medium,NHL96PC 1BD67 (similar 0.89): mnemonic similarity 0.88 over 52 instructions,src/lib/lib_109A74.asm
 10ADAA,strlen_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10ADC3,stricmp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AF13,printf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -83,6 +124,8 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AFCA,_dos_close_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AFD9,_dos_commit_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AFE9,_dos_open_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+10B660,BuildAntiAliasTable,sub_10B660,96PC,medium,NHL96PC 873AE (sem 1.00): S:AALIAS; D:167E84; K:110000; K:1004,src/lib/lib_10B660.asm
+10C1C0,DrawFixedLine,sub_10C1C0,96PC,medium,NHL96PC 87DD6 (similar 0.80): mnemonic similarity 0.80 over 173 instructions,src/lib/lib_10B660.asm
 1131E4,strncmp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 115874,strupr_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 115BF9,copypart_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

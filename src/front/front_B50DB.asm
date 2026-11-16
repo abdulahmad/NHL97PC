@@ -30,7 +30,7 @@ extern sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC, sub_4A4F4, sub_4B108, sub_4B1
 extern sub_7EDF0, sub_7EF70, sub_7F028, sub_7F04C, sub_7F0D8, sub_7F16C, sub_7F5A4, sub_80AB8
 extern sub_80B28, sub_80BBC, sub_815F8, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_81D1C
 extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_84330, sub_84570
-extern sub_8BF54, sub_8BFAC, sub_8D956, sub_8DE10, sub_8DE19, sub_8DE68, sub_8DE7E, sub_8DE9D
+extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, sub_8DE19, sub_8DE68, sub_8DE7E, sub_8DE9D
 extern sub_8DEAC, sub_8DF1F, sub_8E6AF, sub_8E7E0, sub_AD678, sub_AD6D6, sub_B4F87, sub_B5031
 extern sub_BDB25, sub_DA7D6, sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, sub_DE3CF, sub_E036F
 extern sub_E0841, sub_E0D0F, sub_E341C, sub_E4218, sub_E4230, sub_FAA64, sub_FAF34, sub_FC510
@@ -825,7 +825,7 @@ sub_B5891:
         call qsort_
         mov eax, 0Dh
         mov edx, dword [dword_1CAEAC]
-        call sub_8BF54
+        call InitMenuItems
         mov eax, 3
         call sub_419B0
         call sub_419B8
@@ -1290,7 +1290,7 @@ sub_B5891:
         mov edx, dword [dword_1CAEAC]
         mov eax, 1
         add edx, byte 52h
-        call sub_8BF54
+        call InitMenuItems
 .33:
         push byte 3
         lea eax, [byte ebp+036h]
@@ -5217,7 +5217,7 @@ sub_B8FDF:
 .24:
         mov eax, 15h
         mov edx, dword [dword_1CAEAC]
-        call sub_8BF54
+        call InitMenuItems
         mov eax, 3
         call sub_419B0
         call sub_419B8
@@ -5579,7 +5579,7 @@ sub_B8FDF:
         mov eax, 6
         add edx, 19Ah
         xor ebx, ebx
-        call sub_8BF54
+        call InitMenuItems
 .38:
         lea edx, [byte ebx+05h]
         imul eax, edx, byte 52h
@@ -5866,7 +5866,7 @@ sub_B8FDF:
         mov edx, dword [dword_1CAEAC]
         mov eax, 1
         add edx, byte 52h
-        call sub_8BF54
+        call InitMenuItems
 .50:
         push byte 3
         lea eax, [byte ebp+01Eh]
@@ -6175,7 +6175,7 @@ sub_B8FDF_D4E:
         add edx, 19Ah
         mov eax, 6
         mov dword [dword_1CAEB0], 0FFFFFFFFh
-        call sub_8BF54
+        call InitMenuItems
 .66:
         lea edx, [byte ebx+05h]
         imul eax, edx, byte 52h
