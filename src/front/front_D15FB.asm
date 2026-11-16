@@ -8,7 +8,7 @@ extern str_ST02d, byte_1C3449, byte_1C344A, byte_1C344B, byte_1C3455, byte_1C345
 extern byte_1C556D, byte_1C556E, byte_1C5578, byte_1C5579, byte_1C55A0, byte_1C6040, byte_1CC8B4, dword_16D6E8
 extern dword_16D6EC, dword_16D6F0, dword_16D6F4, dword_16D6F8, dword_16D6FC, dword_16D700, dword_16D704, dword_16D708
 extern dword_16D71C, dword_16D720, dword_16D724, dword_16D728, dword_16D73C, dword_16D740, dword_16D74C, dword_16D750
-extern GameSettings, GameOptionFlags, SeasonActive, dword_1C13FF, dword_1C309E, dword_1C3522, dword_1C51C1, dword_1CC2C8
+extern GameSettings, GameOptionFlags, SeasonActive, dword_1C13FF, HomeRosterData, dword_1C3522, AwayRosterData, dword_1CC2C8
 extern dword_1CC328, dword_1CC32C, dword_1CC330, dword_1CC334, dword_1CC338, dword_1CC33C, dword_1CC340, dword_1CC344
 extern dword_1CC348, dword_1CC34C, dword_1CC4B0, dword_1CC4B4, dword_1CC4B8, dword_1CC4BC, dword_1CC4C0, dword_1CC4C4
 extern dword_1CC4C8, dword_1CC4CC, dword_1CC5B0, dword_1CC5C8, dword_1CC5CC, dword_1CC5D0, dword_1CC5EC, dword_1CC5F0
@@ -1344,7 +1344,7 @@ PreGameStatsPanel:
         sub eax, byte 19h
 .1:
         imul edx, eax, dword 125h
-        mov ebx, dword_1C309E
+        mov ebx, HomeRosterData+1B94h
         add ebx, edx
         movsx eax, word [nosplit eax*2+word_1C340D]
         mov dword [dword_1CC638], ebx
@@ -1388,7 +1388,7 @@ PreGameStatsPanel:
         sub eax, byte 19h
 .4:
         imul edx, eax, dword 125h
-        mov ebx, dword_1C51C1
+        mov ebx, AwayRosterData+1B94h
         add ebx, edx
         movsx eax, word [nosplit eax*2+word_1C5530]
         mov dword [dword_1CC650], ebx

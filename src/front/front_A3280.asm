@@ -17,8 +17,8 @@ extern byte_1C135A, byte_1C135B, byte_1C559C, byte_1C559D, byte_1C559E, byte_1C5
 extern byte_1C55A6, byte_1C55A7, byte_1C55A8, byte_1C55A9, byte_1C55AA, byte_1C55AB, byte_1C6040, byte_1C944A
 extern byte_1C944C, byte_1C9472, GripDriverPtr, dword_16D29E, dword_16D2A8, dword_16D2B8, dword_16D2BC, dword_16D93A
 extern dword_16DA9C, dword_16E464, dword_16E468, GameRunning, GameSettings, GameOptionFlags, SeasonActive, dword_1AD62F
-extern dword_1AD6AB, dword_1C1334, dword_1C13FB, dword_1C13FF, dword_1C309A, dword_1C309E, dword_1C351E, dword_1C3522
-extern dword_1C51BD, dword_1C51C1, dword_1C5DE0, dword_1C5DE4, dword_1C5E74, dword_1C93F0, dword_1C9410, dword_1C9430
+extern dword_1AD6AB, dword_1C1334, dword_1C13FB, dword_1C13FF, HomeRosterData, dword_1C351E, dword_1C3522
+extern AwayRosterData, dword_1C5DE0, dword_1C5DE4, dword_1C5E74, dword_1C93F0, dword_1C9410, dword_1C9430
 extern dword_1C9473, dword_1C94A4, dword_1C94A8, dword_1C94B4, dword_1C94B8, dword_1C94BC, dword_1C94C0, dword_1C94C4
 extern dword_1C94C8, dword_1C94CC, dword_1C94D0, dword_1C94D4, dword_1C94D8, dword_1C94DC, dword_1C94E0, dword_1C94E4
 extern dword_1C94E8, dword_1C950C, dword_1C9510, dword_1C9514, dword_1C9524, dword_1C9534, dword_1C9538, dword_1C953C
@@ -4832,7 +4832,7 @@ PickThreeStars:
         sar eax, 10h
         cmp edx, eax
         jl short .3
-        mov esi, dword_1C309E
+        mov esi, HomeRosterData+1B94h
         lea ecx, [nosplit ebx*8+00h]
         xor edx, edx
         add esi, 0FDh
@@ -4850,11 +4850,11 @@ PickThreeStars:
         mov word [byte ecx-06h], dx
         inc edx
 .6:
-        mov eax, dword [dword_1C309A]
+        mov eax, dword [HomeRosterData+1B90h]
         sar eax, 10h
         cmp edx, eax
         jl short .5
-        mov esi, dword_1C51C1
+        mov esi, AwayRosterData+1B94h
         lea ecx, [nosplit ebx*8+00h]
         xor edx, edx
         add esi, 0FDh
@@ -4872,7 +4872,7 @@ PickThreeStars:
         mov word [byte ecx-06h], dx
         inc edx
 .8:
-        mov eax, dword [dword_1C51BD]
+        mov eax, dword [AwayRosterData+1B90h]
         sar eax, 10h
         cmp edx, eax
         jl short .7
@@ -5146,13 +5146,13 @@ DrawThreeStarStats:
         mov ax, word [dword eax+word_1C94F6]
         and eax, 0FFFFh
         imul eax, dword 125h
-        mov esi, dword_1C309E
+        mov esi, HomeRosterData+1B94h
         jmp short .17
 .16:
         mov ax, word [dword eax+word_1C94F6]
         and eax, 0FFFFh
         imul eax, dword 125h
-        mov esi, dword_1C51C1
+        mov esi, AwayRosterData+1B94h
 .17:
         add esi, eax
         lea ebp, [byte esi+08h]

@@ -2,12 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_789F0 progbits alloc exec nowrite align=1
-extern byte_1C135A, byte_1C135B, byte_1C31A7, byte_1C347D, byte_1C52CA, byte_1C55A0, str_D_SimulateGame, dword_16C730
+extern byte_1C135A, byte_1C135B, HomeRosterData, byte_1C347D, AwayRosterData, byte_1C55A0, str_D_SimulateGame, dword_16C730
 extern SeasonUserTeam, GameOptionFlags, dword_1AD22A, dword_1AD743, dword_1C13C0, dword_1C13FB, dword_1C34E3, dword_1C351E
 extern memset_, rand_, srand_, RandomCrowdDelay, PlayerOverall, FindPlayerRecord, FindGameRecord, FindPlayerStat
 extern ReadTeamStats, ServiceIdle, ZeroMem, unk_16D7FC, unk_16D804, unk_1C135C, unk_1C347F, unk_78930
-extern word_1C150A, word_1C319B, word_1C319D, word_1C31A3, word_1C3415, word_1C3417, word_1C3419, word_1C3427
-extern word_1C362D, word_1C52BE, word_1C52C0, word_1C52C6, word_1C5538, word_1C553A, word_1C553C, word_1C554A
+extern HomeRosterData, word_1C3415, word_1C3417, word_1C3419, word_1C3427
+extern AwayRosterData, word_1C5538, word_1C553A, word_1C553C, word_1C554A
 global SimulateGame, SimPlayerRating, SimTeamStrength, unk_7A788
 ;-----------------------------------------------------------------------------
 ; SimulateGame                                    789F0  97 PC, low confidence
@@ -1567,36 +1567,36 @@ SimulateGame:
         mov bl, byte [dword eax+byte_1C347D]
         imul edx, ebx, dword 125h
         mov eax, dword [dword esp+014E8h]
-        mov word [dword edx+word_1C31A3], ax
+        mov word [dword edx+HomeRosterData+1C99h], ax
         mov eax, dword [GameOptionFlags]
         test byte [byte eax+02h], 18h
         jne short .121
-        mov word [dword edx+word_1C319B], 384h
+        mov word [dword edx+HomeRosterData+1C91h], 384h
         jmp short .123
 .121:
         mov eax, dword [byte eax+01h]
         and eax, 1800h
         cmp eax, 800h
         jne short .122
-        mov word [dword edx+word_1C319B], 708h
+        mov word [dword edx+HomeRosterData+1C91h], 708h
         jmp short .123
 .122:
-        mov word [dword edx+word_1C319B], 0E10h
+        mov word [dword edx+HomeRosterData+1C91h], 0E10h
 .123:
         imul eax, ebx, dword 125h
         mov ch, 1
         xor edx, edx
         xor ebx, ebx
-        mov byte [dword eax+byte_1C31A7], ch
+        mov byte [dword eax+HomeRosterData+1C9Dh], ch
         mov ecx, eax
         jmp short .125
 .124:
-        mov si, word [dword ecx+word_1C319D]
-        mov ax, word [dword ebx+word_1C362D]
+        mov si, word [dword ecx+HomeRosterData+1C93h]
+        mov ax, word [dword ebx+AwayRosterData]
         add ebx, 125h
         add esi, eax
         inc edx
-        mov word [dword ecx+word_1C319D], si
+        mov word [dword ecx+HomeRosterData+1C93h], si
 .125:
         mov eax, dword [dword_1C351E]
         sar eax, 10h
@@ -1615,36 +1615,36 @@ SimulateGame:
         mov bl, byte [dword eax+byte_1C55A0]
         imul edx, ebx, dword 125h
         mov eax, dword [dword esp+014E4h]
-        mov word [dword edx+word_1C52C6], ax
+        mov word [dword edx+AwayRosterData+1C99h], ax
         mov eax, dword [GameOptionFlags]
         test byte [byte eax+02h], 18h
         jne short .126
-        mov word [dword edx+word_1C52BE], 384h
+        mov word [dword edx+AwayRosterData+1C91h], 384h
         jmp short .128
 .126:
         mov eax, dword [byte eax+01h]
         and eax, 1800h
         cmp eax, 800h
         jne short .127
-        mov word [dword edx+word_1C52BE], 708h
+        mov word [dword edx+AwayRosterData+1C91h], 708h
         jmp short .128
 .127:
-        mov word [dword edx+word_1C52BE], 0E10h
+        mov word [dword edx+AwayRosterData+1C91h], 0E10h
 .128:
         imul eax, ebx, dword 125h
         mov ch, 1
         xor edx, edx
         xor ebx, ebx
-        mov byte [dword eax+byte_1C52CA], ch
+        mov byte [dword eax+AwayRosterData+1C9Dh], ch
         mov ecx, eax
         jmp short .130
 .129:
-        mov si, word [dword ecx+word_1C52C0]
-        mov ax, word [dword edx+word_1C150A]
+        mov si, word [dword ecx+AwayRosterData+1C93h]
+        mov ax, word [dword edx+HomeRosterData]
         add edx, 125h
         add esi, eax
         inc ebx
-        mov word [dword ecx+word_1C52C0], si
+        mov word [dword ecx+AwayRosterData+1C93h], si
 .130:
         mov eax, dword [dword_1C13FB]
         sar eax, 10h

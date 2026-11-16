@@ -2,14 +2,14 @@
 bits 32
 %include "hockey.inc"
 section s_16C734 progbits alloc noexec write align=1
-extern str_OK, str_0, unk_163F28, str_CONNECT, unk_163F38, unk_163F3C, str_RING, str_2
-extern unk_163F4C, str_NOCARRIER, str_3, unk_163F60, unk_163F64, str_4, unk_163F70, str_CONNECT1200
-extern str_5, unk_163F88, str_NODIALTONE, str_6, unk_163FA0, unk_163FA4, str_BUSY, str_7
-extern unk_163FC0, str_NOANSWER, unk_163FD0, unk_163FD4, str_CONNECT2400, str_10, unk_163FF0, str_CONNECT9600
-extern str_13, unk_16400C, str_CONNECT9600ARQ, str_17, unk_16402C, str_CONNECT9600HST, str_23, unk_16404C
-extern str_CONNECT9600ARQHST, str_27, unk_164070, str_CONNECT14400, str_25, unk_16408C, str_CONNECT14400ARQ, str_26
-extern unk_1640AC, str_CONNECT14400HST, str_35, unk_1640CC, str_CONNECT14400ARQHST, str_36, unk_1640F0, str_CONNECT28800
-extern str_107, unk_16410C
+extern str_OK, str_0, ModemResultStrings
+extern ModemResultStrings
+extern ModemResultStrings
+extern ModemResultStrings
+extern ModemResultStrings
+extern ModemResultStrings
+extern ModemResultStrings
+extern ModemResultStrings
 global byte_16C914, dword_16C734, dword_16C738, str_1_BuildSeasonSchedule, dword_16C760, dword_16C982, dword_16C996, dword_16C9AC
 global dword_16C9B0, dword_16CAA8, dword_16CAAC, off_16C9B8, off_16C9C0
 dword_16C734:
@@ -71,64 +71,64 @@ off_16C9B8:
         dd str_OK
         dd str_0
 off_16C9C0:
-        dd unk_163F28
-        dd str_CONNECT
-        dd unk_163F38
-        dd unk_163F3C
-        dd str_RING
-        dd str_2
-        dd unk_163F4C
-        dd str_NOCARRIER
-        dd str_3
-        dd unk_163F60
-        dd unk_163F64
-        dd str_4
-        dd unk_163F70
-        dd str_CONNECT1200
-        dd str_5
-        dd unk_163F88
-        dd str_NODIALTONE
-        dd str_6
-        dd unk_163FA0
-        dd unk_163FA4
-        dd str_6
-        dd unk_163FA0
-        dd str_BUSY
-        dd str_7
-        dd unk_163FC0
-        dd str_NOANSWER
-        dd unk_163FD0
-        dd unk_163FD4
-        dd str_CONNECT2400
-        dd str_10
-        dd unk_163FF0
-        dd str_CONNECT9600
-        dd str_13
-        dd unk_16400C
-        dd str_CONNECT9600ARQ
-        dd str_17
-        dd unk_16402C
-        dd str_CONNECT9600HST
-        dd str_23
-        dd unk_16404C
-        dd str_CONNECT9600ARQHST
-        dd str_27
-        dd unk_164070
-        dd str_CONNECT14400
-        dd str_25
-        dd unk_16408C
-        dd str_CONNECT14400ARQ
-        dd str_26
-        dd unk_1640AC
-        dd str_CONNECT14400HST
-        dd str_35
-        dd unk_1640CC
-        dd str_CONNECT14400ARQHST
-        dd str_36
-        dd unk_1640F0
-        dd str_CONNECT28800
-        dd str_107
-        dd unk_16410C
+        dd ModemResultStrings
+        dd ModemResultStrings+4
+        dd ModemResultStrings+10h
+        dd ModemResultStrings+14h
+        dd ModemResultStrings+18h
+        dd ModemResultStrings+20h
+        dd ModemResultStrings+24h
+        dd ModemResultStrings+28h
+        dd ModemResultStrings+34h
+        dd ModemResultStrings+38h
+        dd ModemResultStrings+3Ch
+        dd ModemResultStrings+44h
+        dd ModemResultStrings+48h
+        dd ModemResultStrings+4Ch
+        dd ModemResultStrings+5Ch
+        dd ModemResultStrings+60h
+        dd ModemResultStrings+64h
+        dd ModemResultStrings+74h
+        dd ModemResultStrings+78h
+        dd ModemResultStrings+7Ch
+        dd ModemResultStrings+74h
+        dd ModemResultStrings+78h
+        dd ModemResultStrings+8Ch
+        dd ModemResultStrings+094h
+        dd ModemResultStrings+098h
+        dd ModemResultStrings+09Ch
+        dd ModemResultStrings+0A8h
+        dd ModemResultStrings+0ACh
+        dd ModemResultStrings+0B0h
+        dd ModemResultStrings+0C0h
+        dd ModemResultStrings+0C8h
+        dd ModemResultStrings+0CCh
+        dd ModemResultStrings+0DCh
+        dd ModemResultStrings+0E4h
+        dd ModemResultStrings+0E8h
+        dd ModemResultStrings+0FCh
+        dd ModemResultStrings+104h
+        dd ModemResultStrings+108h
+        dd ModemResultStrings+11Ch
+        dd ModemResultStrings+124h
+        dd ModemResultStrings+128h
+        dd ModemResultStrings+140h
+        dd ModemResultStrings+148h
+        dd ModemResultStrings+14Ch
+        dd ModemResultStrings+15Ch
+        dd ModemResultStrings+164h
+        dd ModemResultStrings+168h
+        dd ModemResultStrings+17Ch
+        dd ModemResultStrings+184h
+        dd ModemResultStrings+188h
+        dd ModemResultStrings+19Ch
+        dd ModemResultStrings+1A4h
+        dd ModemResultStrings+1A8h
+        dd ModemResultStrings+1C0h
+        dd ModemResultStrings+1C8h
+        dd ModemResultStrings+1CCh
+        dd ModemResultStrings+1DCh
+        dd ModemResultStrings+1E4h
 dword_16CAA8:
         db 014h,00h,00h,00h
 dword_16CAAC:

@@ -2,23 +2,15 @@
 bits 32
 %include "hockey.inc"
 section s_1C362D nobits alloc noexec write align=1
-global byte_1C527F, byte_1C52CA, dword_1C51BD, dword_1C51C1, dword_1C51C5, word_1C362D, word_1C52BE, word_1C52C0
-global word_1C52C6
-word_1C362D:
+global AwayRosterData
+
+AwayRosterData:
         resb 7056
-dword_1C51BD:
         resb 4
-dword_1C51C1:
         resb 4
-dword_1C51C5:
         resb 186
-byte_1C527F:
         resb 63
-word_1C52BE:
         resb 2
-word_1C52C0:
         resb 6
-word_1C52C6:
         resb 4
-byte_1C52CA:
         resb 614

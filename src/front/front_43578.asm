@@ -4,12 +4,12 @@ bits 32
 section s_43578 progbits alloc exec nowrite align=1
 extern __CHK, __CHP, str_GAMEDATAAUDPBP3TSF, str_TEMP, str_KTSF, str_03dDAT, str_03dHDR, str_TEMPBANK
 extern str_EVENTDAT, str_CBANK03dHDR, str_TEAM04dHDR, str_PBP, str_Mous, str_Remo, str_PlayByPlayNeedsToBeInstal, str_PlayByPlayNeedsToBeInstal2
-extern str_InstallingPlayByPlay, MusicOptions, HomeSpeechLoaded, byte_1C315C, AwaySpeechLoaded, byte_1C527F, SpeechBankBuffer, SpeechBanksReady
+extern str_InstallingPlayByPlay, MusicOptions, HomeSpeechLoaded, HomeRosterData, AwaySpeechLoaded, AwayRosterData, SpeechBankBuffer, SpeechBanksReady
 extern SpeechBankCountFront, SoundCardType, PlayerCallStart, PlayerCallClip, PlayerCallClips, PlayerCallTimes, SpeechBankHome, SpeechBankHomeSize
 extern SpeechBankAway, SpeechBankAwaySize, PlayerCallLast, PlayerCallTime, GameSoundsOn, SpeechChainCount, SpeechClipIndex, SpeechBankHandle
 extern SpeechClipTable, SpeechBanksLoaded, SpeechBankList, SpeechChainLen, GameSettings, GameOptionFlags, dword_1C13FB, dword_1C13FF
-extern HomeSpeechNames, dword_1C309A, dword_1C309E, dword_1C30A2, dword_1C351E, dword_1C3522, AwaySpeechNames, dword_1C51BD
-extern dword_1C51C1, dword_1C51C5, dword_1C5DE4, dword_1C5EF4, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D
+extern HomeSpeechNames, HomeRosterData, dword_1C351E, dword_1C3522, AwaySpeechNames, AwayRosterData
+extern AwayRosterData, dword_1C5DE4, dword_1C5EF4, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D
 extern CommentaryEvent_3F6, CommentaryEvent_3FF, CommentaryEvent_408, CommentaryEvent_411, CommentaryEvent_41A, CommentaryEvent_423, CommentaryEvent_48A, CommentaryEvent_4E4
 extern CommentaryEvent_4ED, CommentaryEvent_4F6, CommentaryEvent_4FF, CommentaryEvent_508, CommentaryEvent_511, CommentaryEvent_51A, CommentaryEvent_523, CommentaryEvent_52C
 extern CommentaryEvent_535, CommentaryEvent_58C, CommentaryEvent_5E2, CommentaryEvent_5EB, CommentaryEvent_5F4, CommentaryEvent_5FD, CommentaryEvent_654, CommentaryEvent_6D5
@@ -469,9 +469,9 @@ InitSpeechBanks:
         mov dword [dword esp+0164h], esi
         jmp short .14
 .12:
-        cmp byte [dword ebx+byte_1C315C], 1
+        cmp byte [dword ebx+HomeRosterData+1C52h], 1
         ja short .13
-        cmp dword [dword ebx+dword_1C309E], byte 0
+        cmp dword [dword ebx+HomeRosterData+1B94h], byte 0
         jne short .13
         inc edx
 .13:
@@ -480,7 +480,7 @@ InitSpeechBanks:
         add ebx, 125h
         mov dword [dword esp+0164h], ebp
 .14:
-        mov esi, dword [dword_1C309A]
+        mov esi, dword [HomeRosterData+1B90h]
         mov ecx, dword [dword esp+0164h]
         sar esi, 10h
         cmp esi, ecx
@@ -511,9 +511,9 @@ InitSpeechBanks:
         mov dword [dword esp+0164h], edi
         jmp short .20
 .18:
-        cmp byte [dword ebx+byte_1C527F], 1
+        cmp byte [dword ebx+AwayRosterData+1C52h], 1
         ja short .19
-        cmp dword [dword ebx+dword_1C51C1], byte 0
+        cmp dword [dword ebx+AwayRosterData+1B94h], byte 0
         jne short .19
         inc eax
 .19:
@@ -522,7 +522,7 @@ InitSpeechBanks:
         add ebx, 125h
         mov dword [dword esp+0164h], esi
 .20:
-        mov ecx, dword [dword_1C51BD]
+        mov ecx, dword [AwayRosterData+1B90h]
         mov esi, dword [dword esp+0164h]
         sar ecx, 10h
         cmp ecx, esi
@@ -573,11 +573,11 @@ InitSpeechBanks:
         jmp short .26
 .24:
         imul edx, ecx, dword 125h
-        cmp byte [dword edx+byte_1C315C], 1
+        cmp byte [dword edx+HomeRosterData+1C52h], 1
         ja short .25
-        cmp dword [dword edx+dword_1C309E], byte 0
+        cmp dword [dword edx+HomeRosterData+1B94h], byte 0
         jne short .25
-        mov edx, dword [dword edx+dword_1C30A2]
+        mov edx, dword [dword edx+HomeRosterData+1B98h]
         add esi, byte 4
         mov dword [ebx], edx
         add ebx, byte 4
@@ -586,7 +586,7 @@ InitSpeechBanks:
 .25:
         inc dword [dword esp+0164h]
 .26:
-        mov edx, dword [dword_1C309A]
+        mov edx, dword [HomeRosterData+1B90h]
         mov ecx, dword [dword esp+0164h]
         sar edx, 10h
         cmp edx, ecx
@@ -627,11 +627,11 @@ InitSpeechBanks:
         jmp short .32
 .30:
         imul edx, ecx, dword 125h
-        cmp byte [dword edx+byte_1C527F], 1
+        cmp byte [dword edx+AwayRosterData+1C52h], 1
         ja short .31
-        cmp dword [dword edx+dword_1C51C1], byte 0
+        cmp dword [dword edx+AwayRosterData+1B94h], byte 0
         jne short .31
-        mov edx, dword [dword edx+dword_1C51C5]
+        mov edx, dword [dword edx+AwayRosterData+1B98h]
         add ebx, byte 4
         mov dword [esi], edx
         add esi, byte 4
@@ -640,7 +640,7 @@ InitSpeechBanks:
 .31:
         inc dword [dword esp+0164h]
 .32:
-        mov edx, dword [dword_1C51BD]
+        mov edx, dword [AwayRosterData+1B90h]
         mov ecx, dword [dword esp+0164h]
         sar edx, 10h
         cmp edx, ecx

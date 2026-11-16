@@ -5592,39 +5592,6 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 163F14,str_AUDSTRMHACK,asc_163F14,new,high,"string ""AUDSTRMHACK""",src/data/front/front_7A9D8_data_01.asm
 163F20,str_OK,unk_163F20,new,high,"string ""_OK""",src/data/front/front_7A9D8_data_01.asm
 163F24,str_0,unk_163F24,new,high,"string ""_0_""",src/data/front/front_7A9D8_data_01.asm
-163F2C,str_CONNECT,unk_163F2C,new,high,"string ""_CONNECT""",src/data/front/front_7A9D8_data_01.asm
-163F40,str_RING,unk_163F40,new,high,"string ""_RING""",src/data/front/front_7A9D8_data_01.asm
-163F48,str_2,unk_163F48,new,high,"string ""_2_""",src/data/front/front_7A9D8_data_01.asm
-163F50,str_NOCARRIER,unk_163F50,new,high,"string ""_NO CARRIER""",src/data/front/front_7A9D8_data_01.asm
-163F5C,str_3,unk_163F5C,new,high,"string ""_3_""",src/data/front/front_7A9D8_data_01.asm
-163F6C,str_4,unk_163F6C,new,high,"string ""_4_""",src/data/front/front_7A9D8_data_01.asm
-163F74,str_CONNECT1200,unk_163F74,new,high,"string ""_CONNECT 1200""",src/data/front/front_7A9D8_data_01.asm
-163F84,str_5,unk_163F84,new,high,"string ""_5_""",src/data/front/front_7A9D8_data_01.asm
-163F8C,str_NODIALTONE,unk_163F8C,new,high,"string ""_NO DIALTONE""",src/data/front/front_7A9D8_data_01.asm
-163F9C,str_6,unk_163F9C,new,high,"string ""_6_""",src/data/front/front_7A9D8_data_01.asm
-163FB4,str_BUSY,unk_163FB4,new,high,"string ""_BUSY""",src/data/front/front_7A9D8_data_01.asm
-163FBC,str_7,unk_163FBC,new,high,"string ""_7_""",src/data/front/front_7A9D8_data_01.asm
-163FC4,str_NOANSWER,unk_163FC4,new,high,"string ""_NO ANSWER""",src/data/front/front_7A9D8_data_01.asm
-163FD8,str_CONNECT2400,unk_163FD8,new,high,"string ""_CONNECT 2400""",src/data/front/front_7A9D8_data_01.asm
-163FE8,str_10,unk_163FE8,new,high,"string ""_10_""",src/data/front/front_7A9D8_data_01.asm
-163FF4,str_CONNECT9600,unk_163FF4,new,high,"string ""_CONNECT 9600""",src/data/front/front_7A9D8_data_01.asm
-164004,str_13,unk_164004,new,high,"string ""_13_""",src/data/front/front_7A9D8_data_01.asm
-164010,str_CONNECT9600ARQ,unk_164010,new,high,"string ""_CONNECT 9600/ARQ""",src/data/front/front_7A9D8_data_01.asm
-164024,str_17,unk_164024,new,high,"string ""_17_""",src/data/front/front_7A9D8_data_01.asm
-164030,str_CONNECT9600HST,unk_164030,new,high,"string ""_CONNECT 9600/HST""",src/data/front/front_7A9D8_data_01.asm
-164044,str_23,unk_164044,new,high,"string ""_23_""",src/data/front/front_7A9D8_data_01.asm
-164050,str_CONNECT9600ARQHST,unk_164050,new,high,"string ""_CONNECT 9600/ARQ/HST""",src/data/front/front_7A9D8_data_01.asm
-164068,str_27,unk_164068,new,high,"string ""_27_""",src/data/front/front_7A9D8_data_01.asm
-164074,str_CONNECT14400,unk_164074,new,high,"string ""_CONNECT 14400""",src/data/front/front_7A9D8_data_01.asm
-164084,str_25,unk_164084,new,high,"string ""_25_""",src/data/front/front_7A9D8_data_01.asm
-164090,str_CONNECT14400ARQ,unk_164090,new,high,"string ""_CONNECT 14400/ARQ""",src/data/front/front_7A9D8_data_01.asm
-1640A4,str_26,unk_1640A4,new,high,"string ""_26_""",src/data/front/front_7A9D8_data_01.asm
-1640B0,str_CONNECT14400HST,unk_1640B0,new,high,"string ""_CONNECT 14400/HST""",src/data/front/front_7A9D8_data_01.asm
-1640C4,str_35,unk_1640C4,new,high,"string ""_35_""",src/data/front/front_7A9D8_data_01.asm
-1640D0,str_CONNECT14400ARQHST,unk_1640D0,new,high,"string ""_CONNECT 14400/ARQ/HST""",src/data/front/front_7A9D8_data_01.asm
-1640E8,str_36,unk_1640E8,new,high,"string ""_36_""",src/data/front/front_7A9D8_data_01.asm
-1640F4,str_CONNECT28800,unk_1640F4,new,high,"string ""_CONNECT 28800""",src/data/front/front_7A9D8_data_01.asm
-164104,str_107,unk_164104,new,high,"string ""_107_""",src/data/front/front_7A9D8_data_01.asm
 164110,str_ATZS760S1155,,96PC,high,NHL96PC 11029C (string): 'ATZS7=60S11=55',
 164120,str_ATE1Q0X4F1,asc_164120,new,high,"string ""ATE1Q0X4F1""",src/data/front/front_7A9D8_data_01.asm
 16412C,str_ATH0,,96PC,high,NHL96PC 1102BF (string): 'ATH0',
@@ -10081,3 +10048,6 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1DE7F4,BreakHandlerRegs,unk_1DE7F4,new,low,register save area of the Ctrl-Break and Ctrl-C handlers,src/data/lib/sound/snd_hw_sb_bss_01.asm
 1DEC00,StartupStack,unk_1DEC00,new,low,stack the program starts on,src/data/lib/sound/snd_hw_sb_bss_01.asm
 1DF7E4,BreakHandlerStack,unk_1DF7E4,new,low,stack used by the Ctrl-Break and Ctrl-C handlers,src/data/lib/sound/snd_gus_sdk_02_bss_01.asm
+1C150A,HomeRosterData,word_1C150A,97PC,low,"home team roster, stats and simulation data",src/data/front/front_789F0_bss_01.asm
+1C362D,AwayRosterData,word_1C362D,97PC,low,"away team roster, stats and simulation data",src/data/front/front_789F0_bss_02.asm
+163F28,ModemResultStrings,unk_163F28,97PC,low,modem result code strings (numeric and text forms),src/data/front/front_7A9D8_data_01.asm
