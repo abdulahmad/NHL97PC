@@ -140,6 +140,9 @@ address,name,auto_name,source,confidence,evidence,file
 36E34,assfwatch,sub_36E34,93G,medium,"NHLPA 93 assfwatch: assignment 1Dh (checkfight gives it to the others), players watching the fight",src/engine/faceoff/faceoff_2.asm
 3AF30,checkgoal,sub_3AF30,94G,low,"from the off_16BD2C handler table: the puck against a net; the two net checks (sub_2F8D8 / sub_2FA00) call Goal, as 93G/94G checkgoal does for the puck",src/engine/engine_3812E.asm
 3C75C,SetVideoMode,sub_3C75C,new,medium,"(width, height): switches the screen mode when it differs from the current one (dword_1A8E84 x dword_1A8E88)",src/engine/engine_3812E.asm
+3CD70,AddOverlayWindow,sub_3CD70,new,low,"(id, ...): adds an entry to the 32-byte overlay window list (dword_1A8B48, count dword_1A8E7C) and draws it; from every overlay panel and the pause menu",src/engine/engine_3812E.asm
+3CE58,RemoveOverlayWindow,sub_3CE58,new,low,"(id): takes the overlay window out of the list and restores what was under it; from RemoveOverlayPanel, DrawGameOverlays, the pause menu",src/engine/engine_3812E.asm
+3CFB0,RefreshOverlayWindow,sub_3CFB0,new,low,"(id): marks the overlay window's cells for redraw (byte_1A0CC2 bit 4); from DrawGameClock, DrawPowerPlayClock, the pause menu",src/engine/engine_3812E.asm
 3E850,CdStreamOpen,sub_3E850,96PC,medium,"96 PC CdStreamOpen: allocates and opens a CD stream (""CDSTREAM"" block)",src/engine/engine_3812E.asm
 3E904,setstreamspeed,sub_3E904,96PC,medium,"96 PC setstreamspeed (""STREAM"" block), measures the stream's read speed",src/engine/engine_3812E.asm
 3EB40,delstream,sub_3EB40,96PC,low,closes a CD stream: removes its timer callback and frees its buffer,src/engine/engine_3812E.asm
@@ -156,6 +159,8 @@ address,name,auto_name,source,confidence,evidence,file
 409EC,LoadSfxBank,sub_409EC,new,low,"(bank): with sound on, loads a sound effect bank (SFX4%s .BKH / .BKD)",src/engine/engine_3812E.asm
 40EBC,OpenAudioStream,sub_40EBC,new,low,"opens the audio stream (""AUDSTREAM"" block)",src/engine/engine_3812E.asm
 4123C,InitGameAudio,sub_4123C,new,low,with sound on: the crowd (CROWD.CRD) and the play-by-play table (GAMEDATA\AUDPBP3.TSF),src/engine/engine_3812E.asm
+41D48,MusicPlaying,sub_41D48,new,low,"1 while the music stream (dword_1691C4) is still playing, with music on",src/engine/engine_3812E.asm
+41DD8,WaitMusicEnd,sub_41DD8,new,low,"with music on, restarts the current track request and idles (sub_E341C) until MusicPlaying is 0",src/engine/engine_3812E.asm
 41E64,MusicFileName,sub_41E64,new,medium,"(track 0-43h, buf): the music file path ""%s%02d.ASF"" in data folder 58h",src/engine/engine_3812E.asm
 41EA4,ArenaFileName,sub_41EA4,new,low,"(clip 0-8, buf): the ""%s%02d.ASF"" path of data folder 59h (clip + 1)",src/engine/engine_3812E.asm
 41FA0,StopAllSfx,sub_41FA0,new,low,stops every voice in PlaySfx's list (dword_1AC508),src/engine/engine_3812E.asm

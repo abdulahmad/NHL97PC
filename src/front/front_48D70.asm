@@ -75,7 +75,7 @@ extern StartCameraPath, SelectCameraView, sub_1B6E8, sub_1B71C, sub_1B85C, sub_1
 extern sub_3C880, sub_3C8DC, sub_3C944, sub_3C9C8, sub_3CA28, sub_3CAB8, sub_3CB38, sub_3CB70
 extern sub_3CCA8, sub_3D930, sub_3D95C, sub_3D988, sub_3DA18, sub_3DAC4, sub_3DBCC, sub_3DCBC
 extern sub_3E458, sub_3E590, sub_3E818, delstream, CdStreamQueue, CdStreamService, CdStreamNextPacket, sub_3FC88
-extern sub_41D94, sub_41DD8, sub_42650, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, sub_52E14
+extern sub_41D94, WaitMusicEnd, sub_42650, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, sub_52E14
 extern sub_52E8C, sub_53314, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
 extern sub_56740, LoadGoalieMask, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
 extern sub_5AAB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450, sub_5C1CC, sub_5DD74, LoadAiIcons
@@ -2123,7 +2123,7 @@ sub_4A4F4:
         sub esp, byte 50h
         mov ebx, eax
         mov ecx, edx
-        call sub_41DD8
+        call WaitMusicEnd
         mov dx, word [word_1691A4]
         xor esi, esi
         test dx, dx

@@ -25,7 +25,7 @@ extern sub_11574, sub_116B0, sub_11808, sub_11984, sub_11F74, sub_12A10, ClockTi
 extern sub_12DE8, ChangeViewSize, sub_15C30, sub_15E4D, QueueOverlayPanel, sub_18E35, DrawGameOverlays, StartCameraPath
 extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, assreplace, Goal, sub_2DE94
 extern sub_30BD8, sub_31F88, AddPenalty, sub_34330, sub_34950, sub_36370, sub_36754, sub_3CA28
-extern sub_3CB70, sub_3D020, sub_3E5F0, InitGameAudio, sub_41670, sub_41CF0, sub_41DD8, sub_423B4
+extern sub_3CB70, sub_3D020, sub_3E5F0, InitGameAudio, sub_41670, sub_41CF0, WaitMusicEnd, sub_423B4
 extern sub_424CC, CommentaryEvent, LoadDataFileLib, LoadDataFile, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928
 extern sub_4BA00, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
 extern InitReplayBuffer, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
@@ -454,7 +454,7 @@ RunOpeningFrames:
         jle short .12
         cmp dword [esp], byte 0
         jne short .12
-        call sub_41DD8
+        call WaitMusicEnd
         mov eax, 64h
         call sub_423B4
         mov dword [esp], 1
@@ -3122,7 +3122,7 @@ RunDemoGame:
         sub esp, byte 8
         mov esi, dword [dword_1AC814]
         mov edi, dword [byte_1AC81D]
-        call sub_41DD8
+        call WaitMusicEnd
         call sub_DA7EB
         mov ah, byte [dword_1AC814]
         and ah, 8Fh

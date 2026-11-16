@@ -314,10 +314,10 @@
 ;  3CB48  sub_3CB48                                engine/engine_3812E.asm                      2
 ;  3CB70  sub_3CB70                                engine/engine_3812E.asm                      4
 ;  3CCA8  sub_3CCA8                                engine/engine_3812E.asm                      1
-;  3CD70  sub_3CD70                                engine/engine_3812E.asm                      2
-;  3CE58  sub_3CE58                                engine/engine_3812E.asm                      2
+;  3CD70  AddOverlayWindow                         engine/engine_3812E.asm                      2
+;  3CE58  RemoveOverlayWindow                      engine/engine_3812E.asm                      2
 ;  3CF68  sub_3CF68                                engine/engine_3812E.asm                      1
-;  3CFB0  sub_3CFB0                                engine/engine_3812E.asm                      2
+;  3CFB0  RefreshOverlayWindow                     engine/engine_3812E.asm                      2
 ;  3D020  sub_3D020                                engine/engine_3812E.asm                      3
 ;  3D2C0  sub_3D2C0                                engine/engine_3812E.asm                      1
 ;  3D3D0  sub_3D3D0                                engine/engine_3812E.asm                      1
@@ -384,10 +384,10 @@
 ;  41CF0  sub_41CF0                                engine/engine_3812E.asm                      4
 ;  41D18  sub_41D18                                engine/engine_3812E.asm                      8
 ;  41D30  sub_41D30                                engine/engine_3812E.asm                      1
-;  41D48  sub_41D48                                engine/engine_3812E.asm                      2
+;  41D48  MusicPlaying                             engine/engine_3812E.asm                      2
 ;  41D94  sub_41D94                                engine/engine_3812E.asm                      1
 ;  41DB8  sub_41DB8                                engine/engine_3812E.asm                      9
-;  41DD8  sub_41DD8                                engine/engine_3812E.asm                      9
+;  41DD8  WaitMusicEnd                             engine/engine_3812E.asm                      9
 ;  41E64  MusicFileName                            engine/engine_3812E.asm                      1
 ;  41EA4  ArenaFileName                            engine/engine_3812E.asm                      8
 ;  41F2C  sub_41F2C                                engine/engine_3812E.asm                      9

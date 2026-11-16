@@ -31,7 +31,7 @@ extern sub_1F4EC, sub_1F538, Setplass, sub_1FF5C, Endfaceoff, sub_20A80, assgoal
 extern sub_22050, assextra4, sub_22FF0, assextra3, sub_240D0, sub_24220, sub_2471C, sub_248E8
 extern sub_25010, sub_251F0, sub_25730, sub_2E310, CompLine, sub_30778, sub_3085C, sub_31C14
 extern AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330, sub_343F8, doplayeracc, sub_39DA4, sub_39EC0
-extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, sub_41D48
+extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, MusicPlaying
 extern PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
 extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, sub_57324, sub_576EC, sub_57738, LoadCupArt
@@ -6143,7 +6143,7 @@ assstanley:
         mov eax, dword [esp]
         cmp dword [byte eax+060h], 1B58h
         jne short .8
-        call sub_41D48
+        call MusicPlaying
         test eax, eax
         je short .8
         call sub_41CF0

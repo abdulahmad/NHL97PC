@@ -19,7 +19,7 @@ extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, s
 extern sub_116E84, sub_116F78, sub_117338, sub_11756C, sub_117C26, sub_118C88, sub_119054, sub_11910D
 extern sub_1191D1, sub_1191F2, sub_119780, sub_13C164, sub_3E818, delstream, CdStreamStart, CdStreamOpenSecondary
 extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, sub_3FD0C, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern sub_41DB8, sub_41DD8, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
+extern sub_41DB8, WaitMusicEnd, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
 extern sub_7F5A4, sub_80BBC, sub_81678, MainMenuScreen, RunGameScreens, RunStatsMenu, RunNetworkConnect, RunModemConnect
 extern sub_8BE60, sub_8BEF8, sub_8BFA0, LoadLangText, GetLangText, FreeLangText, sub_9CFD3, sub_9D333
 extern RunOptionsScreens, sub_D547C, CreditsScreen, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
@@ -3324,7 +3324,7 @@ RunFrontEnd:
         call sub_D547C
         jmp short .6
 .13:
-        call sub_41DD8
+        call WaitMusicEnd
         call FreeFrontEnd
         leave
         pop edx
