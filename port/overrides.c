@@ -187,6 +187,24 @@ __attribute__((naked)) static void wait_retrace_entry(void)
 void osk_hook_install(void);
 void install_rdtsc_traps(void);
 
+/* The Watcom start-up (__sys_init_387_emulator, 121AD0) ends with four fldz: it leaves the x87 register stack "4 empty / 4 full",
+ * also with a real FPU. EA's hand-written maths needs more than the four registers left: the model loader overflowed the stack while
+ * it read the players' chest and shoulder model, a real FPU answers a masked overflow with NaN, and the model's fourth vertex stayed
+ * NaN for the whole game. The projection (sub_FFBE0) turned it into x = 80000000h, the polygon was clipped at the left edge of the
+ * screen, and each player dragged rows of jersey colour from x = 0 (the "streaks"); the crest on the chest was never drawn right.
+ * DOSBox's FPU ignores the overflow and simply overwrites the dummy zeros, so the game works there. The four fldz (121AF3) are
+ * replaced by nops in the loaded image: the stack starts empty, and every push lands where DOSBox would have put it.
+ * NHL97_X87DUMMIES=1 keeps them (to see the streaks again). */
+static void install_x87_stack_fix(void)
+{
+    static const uint8_t fldz4[8] = { 0xD9, 0xEE, 0xD9, 0xEE, 0xD9, 0xEE, 0xD9, 0xEE };
+    uint8_t *p = GAME_ADDR(0x121AF3);
+    const char *e = getenv("NHL97_X87DUMMIES");
+    if (e && *e && *e != '0') return;
+    if (memcmp(p, fldz4, 8) || p[-6] != 0xD9 || p[-5] != 0x2D) { fprintf(stderr, "overrides: the four fldz at 121AF3 not found, not patched\n"); return; }
+    memset(p, 0x90, 8);
+}
+
 void install_overrides(void)
 {
     osk_hook_install();
@@ -211,4 +229,5 @@ void install_overrides(void)
     if (GAME_ADDR(ORIG_WAITRETRACE3)[0] == 0xBA || (GAME_ADDR(ORIG_WAITRETRACE3)[0] == 0x66 && GAME_ADDR(ORIG_WAITRETRACE3)[1] == 0xBA))   /* 97: 66 BA DA 03, mov dx */ patch_jmp(GAME_ADDR(ORIG_WAITRETRACE3), wait_retrace_entry);
     install_flag_traps();
     install_rdtsc_traps();
+    install_x87_stack_fix();
 }

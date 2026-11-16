@@ -33,6 +33,10 @@ The game addresses the host uses are `SYM_<label>` names of this source tree (`p
 - The front end loads partial palettes without waiting for the retrace: a palette the game has stopped writing is shown.
 - `WaitRetrace` and friends start with `66 BA` (mov dx, 3DAh) and are replaced like 96's.
 - The movies are TGQ (true colour), not 96's TGV, so there is no TGV palette sync to do.
+- The x87 register stack starts empty: the four `fldz` at the end of the Watcom start-up (121AF3, "4 empty / 4 full") are nops in
+  the loaded image. With them EA's model loader overflowed the stack, a real FPU answered with NaN, and the players' chest model
+  kept a NaN vertex: rows of jersey colour from the left edge of the screen to each player. DOSBox ignores the overflow.
+  `NHL97_X87DUMMIES=1` keeps the four `fldz` (`port/overrides.c`).
 - The on-screen keyboard opens by itself in `EditText` (7FEC4), the routine every name entry goes through.
 - Not wired yet (96 addresses that 97 has elsewhere): online play (`port/netplay_off.c` stands in; 97's game loop is new, none of
   96's hook points matched), the sound start-up log, the default `GLOBAL.SET`.
