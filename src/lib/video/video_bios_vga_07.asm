@@ -3,11 +3,14 @@ bits 32
 %include "hockey.inc"
 section s_12F270 progbits alloc exec nowrite align=1
 extern _Extender, _nmalloc_, byte_19988D, byte_1DE6B8, byte_1DE6B9, byte_1DE6BA, dword_16FECC, dword_1702CC
-extern dword_1706CC, dword_170ACC, dword_1712CC, dword_199888, memset_, strncpy_, sub_11BFC5, sub_138B6F
+extern dword_1706CC, dword_170ACC, dword_1712CC, dword_199888, memset_, strncpy_, StrCopyEnd, sub_138B6F
 extern word_1DE780
 global __checkIsDBCS_, __mbsninc_, __mbvtop_, _mbgetcode_, _mbptov_, _mbscat_, _mbscpy_, _mbsdec_
 global _mbsinc_, _mbsnbcnt_, _mbsnbcpy_, _mbsnccnt_, _mbsncpy_, _mbsnextc_, _mbsninc_, _mbvtop_
 global dos_get_dbcs_lead_table_, _mbscat__34, _mbscpy__B6, sub_12F270
+;-----------------------------------------------------------------------------
+; sub_12F270                                                          12F270  
+;-----------------------------------------------------------------------------
 sub_12F270:
         push ebx
         mov eax, dword [byte esp+08h]
@@ -57,6 +60,9 @@ sub_12F270:
         mov dword [ecx], edx
         pop ebx
         db 0C3h                                 ; insn: ret
+;-----------------------------------------------------------------------------
+; _mbsnccnt_                                                   12F2F1  library
+;-----------------------------------------------------------------------------
 _mbsnccnt_:
         db 053h                                 ; insn: push ebx
         push ecx
@@ -92,6 +98,9 @@ _mbsnccnt_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _mbsnbcnt_                                                   12F32F  library
+;-----------------------------------------------------------------------------
 _mbsnbcnt_:
         push ebx
         push ecx
@@ -118,6 +127,9 @@ _mbsnbcnt_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _mbsninc_                                                    12F360  library
+;-----------------------------------------------------------------------------
 _mbsninc_:
         push ebx
         mov ebx, eax
@@ -131,6 +143,9 @@ _mbsninc_:
         add eax, edx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __mbsninc_                                                   12F379  library
+;-----------------------------------------------------------------------------
 __mbsninc_:
         push ebx
         push esi
@@ -164,6 +179,9 @@ __mbsninc_:
         pop esi
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _mbscat_                                                     12F3BE  library
+;-----------------------------------------------------------------------------
 _mbscat_:
         push ebx
         push ecx
@@ -215,6 +233,9 @@ _mbscat__34:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _mbscpy_                                                     12F40F  library
+;-----------------------------------------------------------------------------
 _mbscpy_:
         push ebx
         push ecx
@@ -316,7 +337,7 @@ _mbscpy_:
         jmp short _mbscpy__B6
 .2:
         mov edx, esi
-        call sub_11BFC5
+        call StrCopyEnd
 _mbscpy__B6:
         mov eax, ebp
         pop ebp
@@ -428,7 +449,7 @@ _mbscpy__B6:
         jmp short .15
 .14:
         mov edx, dword [byte esp+04h]
-        call sub_11BFC5
+        call StrCopyEnd
 .15:
         mov eax, ebp
         add esp, byte 8
@@ -437,6 +458,9 @@ _mbscpy__B6:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; _mbsncpy_                                                    12F5BE  library
+;-----------------------------------------------------------------------------
 _mbsncpy_:
         push ecx
         push esi
@@ -453,6 +477,9 @@ _mbsncpy_:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; _mbsnbcpy_                                                   12F5DD  library
+;-----------------------------------------------------------------------------
 _mbsnbcpy_:
         push ecx
         push esi
@@ -534,6 +561,9 @@ _mbsnbcpy_:
 .6:
         call strncpy_
         jmp near _mbscpy__B6
+;-----------------------------------------------------------------------------
+; _mbptov_                                                     12F691  library
+;-----------------------------------------------------------------------------
 _mbptov_:
         push edx
         mov edx, dword [dword_199888]
@@ -560,6 +590,9 @@ _mbptov_:
         and eax, 0FFh
         pop edx
         ret
+;-----------------------------------------------------------------------------
+; _mbvtop_                                                     12F6CF  library
+;-----------------------------------------------------------------------------
 _mbvtop_:
         push ebx
         mov ebx, eax
@@ -576,6 +609,9 @@ _mbvtop_:
         mov byte [edx], bl
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __mbvtop_                                                    12F6E9  library
+;-----------------------------------------------------------------------------
 __mbvtop_:
         push edx
         test ah, 0FFh
@@ -595,6 +631,9 @@ __mbvtop_:
         mov eax, byte_1DE6B8
         pop edx
         ret
+;-----------------------------------------------------------------------------
+; __checkIsDBCS_                                               12F71D  library
+;-----------------------------------------------------------------------------
 __checkIsDBCS_:
         push edx
         push es
@@ -615,6 +654,9 @@ __checkIsDBCS_:
         pop es
         pop edx
         ret
+;-----------------------------------------------------------------------------
+; dos_get_dbcs_lead_table_                                     12F74B  library
+;-----------------------------------------------------------------------------
 dos_get_dbcs_lead_table_:
         push ebx
         push ecx
@@ -701,6 +743,9 @@ dos_get_dbcs_lead_table_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _mbgetcode_                                                  12F858  library
+;-----------------------------------------------------------------------------
 _mbgetcode_:
         push ebx
         push ecx
@@ -759,6 +804,9 @@ _mbgetcode_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _mbsnextc_                                                   12F8C5  library
+;-----------------------------------------------------------------------------
 _mbsnextc_:
         push ebx
         push edx
@@ -799,6 +847,9 @@ _mbsnextc_:
         pop edx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _mbsinc_                                                     12F917  library
+;-----------------------------------------------------------------------------
 _mbsinc_:
         push ebx
         push edx
@@ -832,6 +883,9 @@ _mbsinc_:
         pop edx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _mbsdec_                                                     12F95D  library
+;-----------------------------------------------------------------------------
 _mbsdec_:
         push ebx
         push esi

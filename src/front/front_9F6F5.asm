@@ -14,7 +14,7 @@ extern dword_1C8F58, dword_1C8F5C, dword_1C8F62, dword_1C8F66, dword_1C8F6A, dwo
 extern dword_1C93C8, dword_1C93CC, dword_1C93D8, dword_1C93DC, dword_1C93E0, dword_1C94B8, jpt_9F6DD, memcpy_
 extern off_16D254, off_16D258, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
 extern sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_106D80, sub_107098
-extern ConvertArtXY, sub_11B0D0, sub_11B98E, sub_11B9A0, sub_11BA08, sub_11BA50, SetScreenTarget, SecondsToSamples
+extern ConvertArtXY, sub_11B0D0, UnlinkJump, GetFileTimes, FileDateText, FreeArtArchive, SetScreenTarget, SecondsToSamples
 extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, FadeInScreen, ShowScreen, SetRegionRect
 extern DrawEditBox, SetTextColor, DrawTextAligned, ShowMessageBox, DrawEntryList, SetHighlightText, ShowWorkingBox, UpdateWorkingBox
 extern HideWorkingBox, ShowLinkMessage, HideLinkBox, NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, LoadNameIndex
@@ -304,7 +304,7 @@ PickIndexEntryScreen_3B5:
         test eax, eax
         je short .14
         lea eax, [byte ebp+02h]
-        call sub_11B98E
+        call UnlinkJump
 .14:
         mov edx, dword [byte ebp+06Eh]
         mov eax, dword [byte ebp+07Eh]
@@ -346,7 +346,7 @@ PickIndexEntryScreen_3B5:
 .18:
         mov eax, str_DATAPLAYOFFNDX2
 .19:
-        call sub_11B98E
+        call UnlinkJump
         jmp near PickIndexEntryScreen_393.13
 PickIndexEntryScreen_470:
         lea eax, [dword ebp-0166h]
@@ -1872,13 +1872,13 @@ PickIndexEntry:
         push eax
         lea eax, [byte ebp+052h]
         push eax
-        call sub_11B9A0
+        call GetFileTimes
         add esp, byte 8
         push esi
         lea eax, [byte ebp+042h]
         push eax
         mov dword [byte ebp+07Eh], 0
-        call sub_11B9A0
+        call GetFileTimes
         add esp, byte 8
 .8:
         mov ebx, dword [byte ebp+07Eh]
@@ -1891,7 +1891,7 @@ PickIndexEntry:
         lea eax, [byte ebp+02h]
         add eax, ebx
         push eax
-        call sub_11BA08
+        call FileDateText
         lea eax, [dword ebp-0DEh]
         add esp, byte 0Ch
         add eax, ebx
@@ -1901,7 +1901,7 @@ PickIndexEntry:
         lea eax, [byte ebp-03Eh]
         add eax, ebx
         push eax
-        call sub_11BA08
+        call FileDateText
         lea eax, [dword ebp-0BEh]
         add esp, byte 0Ch
         add eax, ebx
@@ -1915,7 +1915,7 @@ PickIndexEntry:
         push eax
         add dword [dword ebx+ebp-09Ah], byte 1Fh
         add dword [dword ebx+ebp-0DAh], byte 1Fh
-        call sub_11BA08
+        call FileDateText
         lea eax, [dword ebp-011Eh]
         add esp, byte 0Ch
         add eax, ebx
@@ -1926,7 +1926,7 @@ PickIndexEntry:
         add eax, ebx
         push eax
         inc dword [byte ebp+07Eh]
-        call sub_11BA08
+        call FileDateText
         add esp, byte 0Ch
         add dword [dword ebx+ebp-0BEh], byte 3Ah
         add dword [dword ebx+ebp-011Eh], byte 3Ah
@@ -1946,22 +1946,22 @@ PickIndexEntry:
         lea eax, [dword ebp-0DEh]
         push eax
         push edi
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         lea eax, [dword ebp-011Eh]
         push eax
         push dword [byte ebp+07Ah]
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         lea eax, [dword ebp-09Eh]
         push eax
         push dword [byte ebp+076h]
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         lea eax, [dword ebp-0BEh]
         push eax
         push dword [byte ebp+072h]
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         push dword [byte ebp+06Eh]
         call DrawShape
@@ -2012,13 +2012,13 @@ PickIndexEntry:
         push eax
         lea eax, [byte ebp+052h]
         push eax
-        call sub_11B9A0
+        call GetFileTimes
         add esp, byte 8
         push esi
         lea eax, [byte ebp+042h]
         push eax
         mov dword [byte ebp+07Eh], 0
-        call sub_11B9A0
+        call GetFileTimes
         add esp, byte 8
 .12:
         mov ebx, dword [byte ebp+07Eh]
@@ -2031,7 +2031,7 @@ PickIndexEntry:
         lea eax, [byte ebp-05Eh]
         add eax, ebx
         push eax
-        call sub_11BA08
+        call FileDateText
         lea eax, [dword ebp-013Eh]
         add esp, byte 0Ch
         add eax, ebx
@@ -2044,7 +2044,7 @@ PickIndexEntry:
         push eax
         inc dword [byte ebp+07Eh]
         add dword [dword ebx+ebp-0FAh], 128h
-        call sub_11BA08
+        call FileDateText
         add dword [dword ebx+ebp-013Eh], byte 3Ah
         add esp, byte 0Ch
         add dword [dword ebx+ebp-013Ah], 128h
@@ -2062,22 +2062,22 @@ PickIndexEntry:
         lea eax, [dword ebp-0FEh]
         push eax
         push edi
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         lea eax, [dword ebp-013Eh]
         push eax
         push dword [byte ebp+07Ah]
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         lea eax, [dword ebp-09Eh]
         push eax
         push dword [byte ebp+076h]
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         lea eax, [dword ebp-0BEh]
         push eax
         push dword [byte ebp+072h]
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         push dword [byte ebp+06Eh]
         call DrawShape

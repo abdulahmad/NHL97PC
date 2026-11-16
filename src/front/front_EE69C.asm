@@ -15,7 +15,7 @@ extern dword_1CE48E, dword_1CE492, dword_1CE496, dword_1CE4D6, dword_1CE4DA, dwo
 extern dword_1CE4EC, dword_1CE4F0, dword_1CE528, dword_1CE52C, dword_1CE532, dword_1CE536, dword_1CE53A, dword_1CE53E
 extern dword_1CE542, dword_1CEF9C, dword_1CEFA0, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, rand_, sprintf_
 extern str_TR0D, strlen_, bcopy, sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC
-extern FindShape, sub_10FE58, CreateBitmapForArt, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11BDC0, sub_11FAAC
+extern FindShape, sub_10FE58, CreateBitmapForArt, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, DrawShadowRect, sub_11FAAC
 extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFileLib
 extern DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, WipeScreen
 extern SetModemButton, InitMenuItems, RunMenu, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, LoadPauseArt
@@ -1198,7 +1198,7 @@ ControlSetupKeys:
         push dword 116h
         push dword 15Eh
         push dword 0B9h
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 1
         push byte 0FFFFFFFFh
@@ -1209,7 +1209,7 @@ ControlSetupKeys:
         push dword 116h
         push dword 15Eh
         push dword 116h
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 1
         push byte 0FFFFFFFFh
@@ -1220,7 +1220,7 @@ ControlSetupKeys:
         push dword 14Fh
         push dword 96h
         push dword 15Eh
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 1
         push byte 0FFFFFFFFh
@@ -1231,7 +1231,7 @@ ControlSetupKeys:
         push dword 14Fh
         push dword 96h
         push dword 14Fh
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         test byte [byte_1AC93C], 1
         jne short .16
@@ -3321,7 +3321,7 @@ ControlSetupScreen_C3A:
         push dword 116h
         push dword 15Eh
         push dword 0B9h
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 1
         push byte 0FFFFFFFFh
@@ -3332,7 +3332,7 @@ ControlSetupScreen_C3A:
         push dword 116h
         push dword 15Eh
         push dword 116h
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 1
         push byte 0FFFFFFFFh
@@ -3343,7 +3343,7 @@ ControlSetupScreen_C3A:
         push dword 14Fh
         push dword 96h
         push dword 15Eh
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 1
         push byte 0FFFFFFFFh
@@ -3354,7 +3354,7 @@ ControlSetupScreen_C3A:
         push dword 14Fh
         push dword 96h
         push dword 14Fh
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         test byte [byte_1AC93C], 1
         jne short .39
@@ -4345,7 +4345,7 @@ ControlSetupPlayers:
         push dword 116h
         push dword 15Eh
         push dword 0B9h
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 1
         push byte 0FFFFFFFFh
@@ -4356,7 +4356,7 @@ ControlSetupPlayers:
         push dword 116h
         push dword 15Eh
         push dword 116h
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 1
         push byte 0FFFFFFFFh
@@ -4367,7 +4367,7 @@ ControlSetupPlayers:
         push dword 14Fh
         push dword 96h
         push dword 15Eh
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 1
         push byte 0FFFFFFFFh
@@ -4378,7 +4378,7 @@ ControlSetupPlayers:
         push dword 14Fh
         push dword 96h
         push dword 14Fh
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         test byte [byte_1AC93C], 1
         jne short .10

@@ -29,7 +29,7 @@ extern qword_167A75, qword_167A7D, qword_167AB1, qword_167AB9, qword_167AC1, qwo
 extern qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qword_167B9F, qword_167BB3, qword_167BBB
 extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, sscanf_, sub_1008CC
 extern BlitArt, sub_1013FC, FindShape, sub_101EAC, sub_102B94, sub_10491C, PrintBoxedText, IsPlayoffGame
-extern RefreshPlayerModel, ConvertArtXY, SaveTextState, RestoreTextState, sub_11BDC0, ResetForIntermission, sub_11FA90, sub_11FAAC
+extern RefreshPlayerModel, ConvertArtXY, SaveTextState, RestoreTextState, DrawShadowRect, ResetForIntermission, GetCurrentFont, sub_11FAAC
 extern sub_11FB11, RefreshRinkPalette, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, DrawPanelArtScaled, RefreshOverlayWindows
 extern SetOverlayFont, IntermissionCameraScene, MenuCameraScene, MenuOrbitScene, RestoreGameCamera, AddOverlayWindow, RemoveOverlayWindow, UpdateScreenRegion
 extern RefreshOverlayWindow, SetRinkDetail, SetRangePalette, FadeGamePalette, InitGameAudio, InitGameSounds, SecondsToSamples, WaitSoundTime
@@ -453,7 +453,7 @@ DrawPauseButton:
         je short .6
         push dword [byte ebp+018h]
         push byte 0
-        call sub_11FA90
+        call GetCurrentFont
         inc eax
         inc eax
         push eax
@@ -613,7 +613,7 @@ DrawMenuItem:
         je short .11
         push dword [byte ebp+014h]
         push byte 0
-        call sub_11FA90
+        call GetCurrentFont
         inc eax
         inc eax
         push eax
@@ -7914,7 +7914,7 @@ DetailLevelMenu:
         push dword [byte ebp-012h]
         fistp dword [byte ebp-06h]
         push dword [byte ebp-06h]
-        call sub_11BDC0
+        call DrawShadowRect
         fld dword [byte ebp+076h]
         add esp, byte 18h
         fmul dword [dword_167CC3]
@@ -7927,7 +7927,7 @@ DetailLevelMenu:
         push dword [byte ebp-06h]
         push dword [byte ebp-012h]
         push dword [byte ebp-06h]
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 2
         push dword [dword_1CEFB8]
@@ -7935,7 +7935,7 @@ DetailLevelMenu:
         push dword [byte ebp-06h]
         push dword [byte ebp-0Ah]
         push dword [byte ebp+07Ah]
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         call sub_1013FC
         push dword 0FF000000h

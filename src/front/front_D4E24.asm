@@ -14,7 +14,7 @@ extern dword_1CD0F8, dword_1CD0FE, dword_1CD102, dword_1CD106, dword_1CD10A, dwo
 extern fopen_, memcpy_, memset_, off_16E4E0, rand_, sprintf_, sscanf_, str_CRD1
 extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, BlitShape2
 extern BlitArt, BlitShape, sub_1013FC, FindShape, sub_101584, sub_103298, IsKeyDown, ConvertArtXY
-extern sub_11BED4, SetScreenTarget, WaitRetraceEdges, RunDemoGame, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
+extern CountFrameTick, SetScreenTarget, WaitRetraceEdges, RunDemoGame, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
 extern MusicPlaying, RequestMusicStop, WaitMusicEnd, ArenaFileName, StopAllSfx, PlaySfx, PlayScreenMovie, MakeDataPath
 extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextColor, DrawTextAligned, WipeScreen, SetHighlightText
 extern SetNormalText, DrawStatTable, DrawPortrait, ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, AllocClearBlock
@@ -2000,7 +2000,7 @@ GoalieMaskScreen_FF0:
         push unk_1CC8B8
         push dword 100h
         push byte 0
-        call sub_11BED4
+        call CountFrameTick
         add esp, byte 0Ch
         pop edx
         pop ecx
@@ -2097,7 +2097,7 @@ FadePalette:
         push edi
         push dword 100h
         push byte 0
-        call sub_11BED4
+        call CountFrameTick
         add esp, byte 0Ch
 .11:
         call ServiceIdle
@@ -2253,7 +2253,7 @@ RunIntro:
         push edx
         push dword 100h
         push esi
-        call sub_11BED4
+        call CountFrameTick
         add esp, byte 0Ch
         push str_Pl0
         push edi
@@ -2303,7 +2303,7 @@ RunIntro:
         push dword 100h
         push esi
         mov edi, eax
-        call sub_11BED4
+        call CountFrameTick
         add esp, byte 0Ch
         call RequestMusicStop
         call ServiceIdle

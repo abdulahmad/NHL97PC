@@ -16,7 +16,7 @@ extern dword_1CAF98, dword_1CAF9C, dword_1CAFA0, dword_1CAFA4, dword_1CAFA8, dwo
 extern dword_1CAFE4, dword_1CAFE8, dword_1CAFEC, dword_1CAFF0, dword_1CAFF4, dword_1CAFF8, dword_1CAFFC, dword_1CB000
 extern off_16D254, off_16D258, qword_166A8D, qword_166AA1, qword_166ACC, qword_166B0F, qword_166B2A, rand_
 extern sprintf_, strcmp_, strcpy_, BlitArt, sub_1013FC, FindShape, sub_101EAC, sub_103298
-extern sub_103648, sub_105324, sub_10AED0, RestartGameMusic, sub_11B98E, ResetPlayers, SetScreenTarget, InitGameDisplay
+extern sub_103648, sub_105324, sub_10AED0, RestartGameMusic, UnlinkJump, ResetPlayers, SetScreenTarget, InitGameDisplay
 extern ApplyDisplayFlags, ClearOverlayWindows, ReplayCameraOn, ReplayCameraOff, ReplayCamFollowMode, ReplayCamDrag, ReplayCamRestorePath, ReplayCamOrbitMode
 extern ReplayCamOrbit, ReplayCamStop, ReplayCamFreeMode, ReplayCamTurn, ReplayCamMove, ReplayCamZoomMode, ReplayCamZoom, ReplayCamClearFlag
 extern SetVideoMode, SetViewSize, ClearViewInterlaced, ShowView, SetViewOrigin, SetRinkDetail, FadeGamePalette, ChkMenuMusic
@@ -2955,7 +2955,7 @@ PickReplayScreen:
         cmp dword [byte ecx+066h], byte 0
         jne short .9
         mov eax, str_DATAREPLAYNDX2
-        call sub_11B98E
+        call UnlinkJump
         mov dword [byte ebp+02Eh], 0
         jmp near .9
 .11:

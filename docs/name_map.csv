@@ -2413,6 +2413,10 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 11B4D7,byteswap_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 11B4FD,med3_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 11B555,qsort_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+11B98E,UnlinkJump,sub_11B98E,new,low,jumps to unlink (file delete),src/lib/watcom/watcom_clib_15.asm
+11B9A0,GetFileTimes,sub_11B9A0,new,low,reads a file's date and time,src/lib/watcom/watcom_clib_15.asm
+11BA08,FileDateText,sub_11BA08,new,low,formats a file's date and time,src/lib/watcom/watcom_clib_15.asm
+11BA50,FreeArtArchive,sub_11BA50,new,low,frees an art archive,src/lib/watcom/watcom_clib_15.asm
 11BC80,memmove_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 11BCCD,memcmp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 11BCEB,cget_string_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -2420,8 +2424,93 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 11BD18,vsscanf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 11BD3F,sscanf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 11BD60,fprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+11BD90,SetFullClip,sub_11BD90,new,low,sets the clip window to the whole bitmap,src/lib/watcom/watcom_clib_15.asm
+11BDC0,DrawShadowRect,sub_11BDC0,new,low,draws a shadow rectangle,src/lib/watcom/watcom_clib_15.asm
+11BED4,CountFrameTick,sub_11BED4,new,low,counts a frame and checks the frame rate,src/lib/watcom/watcom_clib_15.asm
 11BF84,segread_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 11BFAC,int386x_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+11BFC5,StrCopyEnd,sub_11BFC5,new,low,copies a string and returns its end,src/lib/watcom/watcom_clib_15.asm
+11C010,SerialLinkOpen,sub_11C010,new,low,opens the serial link (null modem),src/lib/watcom/watcom_clib_15.asm
+11C0A8,SerialLinkClose,sub_11C0A8,new,low,marks the serial link closed,src/lib/watcom/watcom_clib_15.asm
+11C0BC,SerialLinkIsOpen,sub_11C0BC,new,low,returns whether the serial link is open,src/lib/watcom/watcom_clib_15.asm
+11C0C4,SerialLinkTxFree,sub_11C0C4,new,low,returns the free space of the serial send buffer,src/lib/watcom/watcom_clib_15.asm
+11C0D8,SerialLinkRxCount,sub_11C0D8,new,low,returns the bytes waiting in the serial receive buffer,src/lib/watcom/watcom_clib_15.asm
+11C0EC,SerialLinkRead,sub_11C0EC,new,low,reads from the serial link,src/lib/watcom/watcom_clib_15.asm
+11C114,SerialLinkWrite,sub_11C114,new,low,writes to the serial link when there is room,src/lib/watcom/watcom_clib_15.asm
+11C134,OpenSerialPacketLink,sub_11C134,new,low,opens a packet link over the serial port,src/lib/watcom/watcom_clib_15.asm
+11C170,ModemLinkClose,sub_11C170,new,low,hangs up the modem and closes the link,src/lib/watcom/watcom_clib_15.asm
+11C1CC,ModemLinkOpen,sub_11C1CC,new,low,"opens the modem link: resets, dials or answers",src/lib/watcom/watcom_clib_15.asm
+11C340,ModemLinkHangup,sub_11C340,new,low,hangs up the modem link,src/lib/watcom/watcom_clib_15.asm
+11C384,ModemLinkCarrier,sub_11C384,new,low,returns whether the modem has carrier,src/lib/watcom/watcom_clib_15.asm
+11C3AC,ModemLinkTxFree,sub_11C3AC,new,low,returns the free space of the modem send buffer,src/lib/watcom/watcom_clib_15.asm
+11C3C0,ModemLinkRxCount,sub_11C3C0,new,low,returns the bytes waiting in the modem receive buffer,src/lib/watcom/watcom_clib_15.asm
+11C3D4,ModemLinkRead,sub_11C3D4,new,low,reads from the modem link,src/lib/watcom/watcom_clib_15.asm
+11C3FC,ModemLinkWrite,sub_11C3FC,new,low,writes to the modem link when there is room,src/lib/watcom/watcom_clib_15.asm
+11C41C,OpenModemPacketLink,sub_11C41C,new,low,opens a packet link over the modem,src/lib/watcom/watcom_clib_15.asm
+11C4C8,NetLogf,sub_11C4C8,new,low,formats a network log message,src/lib/watcom/watcom_clib_15.asm
+11C51C,SameNetAddress,sub_11C51C,new,low,returns whether two network addresses are equal,src/lib/watcom/watcom_clib_15.asm
+11C598,NetTimeoutPassed,sub_11C598,new,low,returns whether the network timeout has passed,src/lib/watcom/watcom_clib_15.asm
+11C5B0,LowestSetBit,sub_11C5B0,new,low,returns the lowest set bit of a mask,src/lib/watcom/watcom_clib_15.asm
+11C5CC,NetSendMessage,sub_11C5CC,new,low,sends a network message,src/lib/watcom/watcom_clib_15.asm
+11C6B8,NetSendWait,sub_11C6B8,new,low,sends a network message and waits,src/lib/watcom/watcom_clib_15.asm
+11C780,NetFindPeer,sub_11C780,new,low,finds a network peer,src/lib/watcom/watcom_clib_15.asm
+11C7E4,NetFreeSlot,sub_11C7E4,new,low,finds a free network slot,src/lib/watcom/watcom_clib_15.asm
+11C854,NetQueueMessage,sub_11C854,new,low,queues a network message,src/lib/watcom/watcom_clib_15.asm
+11C8E0,NetHandleMessage,sub_11C8E0,new,low,"handles a network message by its tag (get, ply, rsp, srv, req, opn, out, bad)",src/lib/watcom/watcom_clib_15.asm
+11D118,NetPollMessages,sub_11D118,new,low,polls the network for messages,src/lib/watcom/watcom_clib_15.asm
+11D2D0,NetCopyName,sub_11D2D0,new,low,copies a network name,src/lib/watcom/watcom_clib_15.asm
+11D364,NetOpenSession,sub_11D364,new,low,opens a network session,src/lib/watcom/watcom_clib_15.asm
+11D508,NetCloseSession,sub_11D508,new,low,closes a network session,src/lib/watcom/watcom_clib_15.asm
+11D5C0,NetAnnounce,sub_11D5C0,new,low,announces this game on the network,src/lib/watcom/watcom_clib_15.asm
+11D690,NetJoinGame,sub_11D690,new,low,joins a network game,src/lib/watcom/watcom_clib_15.asm
+11D780,NetLeaveGame,sub_11D780,new,low,leaves a network game,src/lib/watcom/watcom_clib_15.asm
+11D8D8,NetListGames,sub_11D8D8,new,low,lists the network games,src/lib/watcom/watcom_clib_15.asm
+11DA0C,NetDisconnectPeer,sub_11DA0C,new,low,disconnects a network peer,src/lib/watcom/watcom_clib_15.asm
+11DE04,OpenNetPacketLink,sub_11DE04,new,low,opens a packet link over the network,src/lib/watcom/watcom_clib_15.asm
+11DE64,NetPeerSend,sub_11DE64,new,low,sends to a network peer,src/lib/watcom/watcom_clib_15.asm
+11DEE4,NetLinkRead,sub_11DEE4,new,low,reads from the network link,src/lib/watcom/watcom_clib_15.asm
+11DF4C,NetLinkWrite,sub_11DF4C,new,low,writes to the network link,src/lib/watcom/watcom_clib_15.asm
+11DFB4,NetLinkConnected,sub_11DFB4,new,low,returns whether the network link is connected,src/lib/watcom/watcom_clib_15.asm
+11DFD4,NetLinkRxCount,sub_11DFD4,new,low,returns the bytes waiting on the network link,src/lib/watcom/watcom_clib_15.asm
+11DFF0,NetLinkTxFree,sub_11DFF0,new,low,returns the free space on the network link,src/lib/watcom/watcom_clib_15.asm
+11E004,NetBroadcast,sub_11E004,new,low,broadcasts a network message,src/lib/watcom/watcom_clib_15.asm
+11E11C,NetHashName,sub_11E11C,new,low,hashes a network name,src/lib/watcom/watcom_clib_15.asm
+11E1A0,IpxCloseSocketCall,sub_11E1A0,new,low,IPX: closes a socket (real mode call),src/lib/watcom/watcom_clib_15.asm
+11E234,IpxGetAddressCall,sub_11E234,new,low,IPX: gets the local address (real mode call),src/lib/watcom/watcom_clib_15.asm
+11E2D0,IpxGetTargetCall,sub_11E2D0,new,low,IPX: gets the local target (real mode call),src/lib/watcom/watcom_clib_15.asm
+11E388,IpxRelinquishCall,sub_11E388,new,low,IPX: gives time to the driver (real mode call),src/lib/watcom/watcom_clib_15.asm
+11E410,IpxOpenSocketCall,sub_11E410,new,low,IPX: opens a socket (real mode call),src/lib/watcom/watcom_clib_15.asm
+11E52C,IpxSetupPacket,sub_11E52C,new,low,IPX: sets up a packet header,src/lib/watcom/watcom_clib_15.asm
+11E5E8,IpxResolveTarget,sub_11E5E8,new,low,IPX: works out the immediate address of a target,src/lib/watcom/watcom_clib_15.asm
+11E688,IpxSendPacket,sub_11E688,new,low,IPX: sends a packet,src/lib/watcom/watcom_clib_15.asm
+11E9EC,IpxPostListen,sub_11E9EC,new,low,IPX: posts a listen buffer,src/lib/watcom/watcom_clib_15.asm
+11EB64,SetPairOneZero,sub_11EB64,new,low,sets two words to one and zero,src/lib/watcom/watcom_clib_15.asm
+11EB70,IpxDetect,sub_11EB70,new,low,IPX: checks that the IPX driver is installed,src/lib/watcom/watcom_clib_15.asm
+11EC18,IpxHookCheck,sub_11EC18,new,low,IPX: checks the real mode interrupt vector and sets up the buffers,src/lib/watcom/watcom_clib_15.asm
+11EE6C,IpxRestoreVector,sub_11EE6C,new,low,IPX: restores the real mode interrupt vector,src/lib/watcom/watcom_clib_15.asm
+11EF20,IpxSetupLayer,sub_11EF20,new,low,IPX: sets up the IPX layer,src/lib/watcom/watcom_clib_15.asm
+11F154,IpxShutdown,sub_11F154,new,low,IPX: shuts down the IPX layer,src/lib/watcom/watcom_clib_15.asm
+11F1FC,IpxSocketNumber,sub_11F1FC,new,low,IPX: returns the socket number in host order,src/lib/watcom/watcom_clib_15.asm
+11F218,IpxStart,sub_11F218,new,low,IPX: starts the IPX layer and opens the socket,src/lib/watcom/watcom_clib_15.asm
+11F2B4,IpxStop,sub_11F2B4,new,low,IPX: stops the IPX layer,src/lib/watcom/watcom_clib_15.asm
+11F304,IpxBuildHeader,sub_11F304,new,low,IPX: builds a packet header,src/lib/watcom/watcom_clib_15.asm
+11F3F4,IpxClearName,sub_11F3F4,new,low,IPX: clears a node name,src/lib/watcom/watcom_clib_15.asm
+11F404,IpxSameNode,sub_11F404,new,low,IPX: returns whether two node addresses are equal,src/lib/watcom/watcom_clib_15.asm
+11F42C,IpxCopyAddress,sub_11F42C,new,low,IPX: copies an address,src/lib/watcom/watcom_clib_15.asm
+11F440,IpxLookupTarget,sub_11F440,new,low,IPX: looks up the immediate address of a node,src/lib/watcom/watcom_clib_15.asm
+11F480,IpxLockSend,sub_11F480,new,low,IPX: locks the send buffer,src/lib/watcom/watcom_clib_15.asm
+11F494,IpxLockListen,sub_11F494,new,low,IPX: locks the listen buffer,src/lib/watcom/watcom_clib_15.asm
+11F4A8,IpxQueueSend,sub_11F4A8,new,low,IPX: queues a packet to send,src/lib/watcom/watcom_clib_15.asm
+11F5D8,IpxReceive,sub_11F5D8,new,low,IPX: takes a received packet,src/lib/watcom/watcom_clib_15.asm
+11F794,IpxPeek,sub_11F794,new,low,IPX: peeks at a received packet,src/lib/watcom/watcom_clib_15.asm
+11F850,IpxLinkStartup,sub_11F850,new,low,IPX: starts the IPX link driver,src/lib/watcom/watcom_clib_15.asm
+11F8D0,SetNetCallback,sub_11F8D0,new,low,sets the network callback,src/lib/watcom/watcom_clib_15.asm
+11F8E0,AllocNetBuffer,sub_11F8E0,new,low,allocates a network buffer,src/lib/watcom/watcom_clib_15.asm
+11F94C,FreeNetBuffer,sub_11F94C,new,low,frees a network buffer,src/lib/watcom/watcom_clib_15.asm
+11F9F0,ReadBigEndian,sub_11F9F0,new,low,reads a big-endian number of the given size,src/lib/watcom/watcom_clib_15.asm
+11FA34,WriteBigEndian,sub_11FA34,new,low,writes a big-endian number of the given size,src/lib/watcom/watcom_clib_15.asm
+11FA90,GetCurrentFont,sub_11FA90,new,low,returns the current font,src/lib/watcom/watcom_clib_15.asm
+11FA98,SetTextOrigin,sub_11FA98,new,low,sets the text origin,src/lib/watcom/watcom_clib_15.asm
 12075C,abs_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12076F,access_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1207AA,getenv_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

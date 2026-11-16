@@ -15,7 +15,7 @@ extern dword_1CB0C0, dword_1CB0C4, dword_1CB0C8, dword_1CB0CC, dword_1CB0D0, dwo
 extern dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dword_1CB0F4, dword_1CB0F8, dword_1CB0FC
 extern dword_1CB100, dword_1CB104, dword_1CBB88, off_16D5F7, sprintf_, strcat_, strcpy_, strlen_
 extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32
-extern sub_106D80, sub_106F64, sub_106F94, ConvertArtXY, ConvertArtKeepPos, sub_11BDC0, SetScreenTarget, MusicEnabled
+extern sub_106D80, sub_106F64, sub_106F94, ConvertArtXY, ConvertArtKeepPos, DrawShadowRect, SetScreenTarget, MusicEnabled
 extern LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, ShadeShape
 extern DrawShadedLogo, DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetRegionRect, SetTextColor
 extern DrawTextAligned, DrawFrameBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText, ShowPopupScreen
@@ -3608,7 +3608,7 @@ DetailLevelScreen:
         push dword 0C8h
         push byte 5Ah
         push dword 0D7h
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 3
         push byte 0FFFFFFFFh
@@ -3619,7 +3619,7 @@ DetailLevelScreen:
         push dword 0CAh
         push byte 5Ah
         push dword 0CAh
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 3
         push byte 0FFFFFFFFh
@@ -3630,7 +3630,7 @@ DetailLevelScreen:
         push dword 0C8h
         push byte 73h
         push dword 0D7h
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 0FFFFFFFFh
         call MakeColor

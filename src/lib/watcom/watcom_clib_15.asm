@@ -22,19 +22,19 @@ extern unk_167FA4, unk_172264, unk_17226C, unk_172274, unk_1DA3C4, unk_1DA418, u
 extern unk_1DA466, unk_1DA468, unk_1DA498, unk_1DA4A4, unlink_, word_1DA4A6, word_1DA4A8, word_1DA4AA
 extern word_1DA4AC, word_1DA4AE, word_1DA4B0, word_1DA4B2
 global byteswap_, cget_string_, fgets_, fprintf_, fputc_, fwrite_, int386x_, med3__4F
-global sub_11D118_168, sub_11D118_184, sub_11E5E8_8C, med3_, memcmp_, memmove_, qsort_, segread_
-global sscanf_, sub_11B98E, sub_11B9A0, sub_11BA08, sub_11BA50, sub_11BD90, sub_11BDC0, sub_11BED4
-global sub_11BFC5, sub_11C010, sub_11C0A8, sub_11C0BC, sub_11C0C4, sub_11C0D8, sub_11C0EC, sub_11C114
-global sub_11C134, sub_11C170, sub_11C1CC, sub_11C340, sub_11C384, sub_11C3AC, sub_11C3C0, sub_11C3D4
-global sub_11C3FC, sub_11C41C, sub_11C4C8, sub_11C51C, sub_11C598, sub_11C5B0, sub_11C5CC, sub_11C6B8
-global sub_11C780, sub_11C7E4, sub_11C854, sub_11C8E0, sub_11D118, sub_11D2D0, sub_11D364, sub_11D508
-global sub_11D5C0, sub_11D690, sub_11D780, sub_11D8D8, sub_11DA0C, sub_11DE04, sub_11DE64, sub_11DEE4
-global sub_11DF4C, sub_11DFB4, sub_11DFD4, sub_11DFF0, sub_11E004, sub_11E11C, sub_11E1A0, sub_11E234
-global sub_11E2D0, sub_11E388, sub_11E410, sub_11E52C, sub_11E5E8, sub_11E688, sub_11E9EC, sub_11EB64
-global sub_11EB70, sub_11EC18, sub_11EE6C, sub_11EF20, sub_11F154, sub_11F1FC, sub_11F218, sub_11F2B4
-global sub_11F304, sub_11F3F4, sub_11F404, sub_11F42C, sub_11F440, sub_11F480, sub_11F494, sub_11F4A8
-global sub_11F5D8, sub_11F794, sub_11F850, sub_11F8D0, sub_11F8E0, sub_11F94C, sub_11F9F0, sub_11FA34
-global sub_11FA90, sub_11FA98, uncget_string_, unk_11C450, unk_11C468, unk_11C480, unk_11C498, unk_11C4B0
+global NetPollMessages_168, NetPollMessages_184, IpxResolveTarget_8C, med3_, memcmp_, memmove_, qsort_, segread_
+global sscanf_, UnlinkJump, GetFileTimes, FileDateText, FreeArtArchive, SetFullClip, DrawShadowRect, CountFrameTick
+global StrCopyEnd, SerialLinkOpen, SerialLinkClose, SerialLinkIsOpen, SerialLinkTxFree, SerialLinkRxCount, SerialLinkRead, SerialLinkWrite
+global OpenSerialPacketLink, ModemLinkClose, ModemLinkOpen, ModemLinkHangup, ModemLinkCarrier, ModemLinkTxFree, ModemLinkRxCount, ModemLinkRead
+global ModemLinkWrite, OpenModemPacketLink, NetLogf, SameNetAddress, NetTimeoutPassed, LowestSetBit, NetSendMessage, NetSendWait
+global NetFindPeer, NetFreeSlot, NetQueueMessage, NetHandleMessage, NetPollMessages, NetCopyName, NetOpenSession, NetCloseSession
+global NetAnnounce, NetJoinGame, NetLeaveGame, NetListGames, NetDisconnectPeer, OpenNetPacketLink, NetPeerSend, NetLinkRead
+global NetLinkWrite, NetLinkConnected, NetLinkRxCount, NetLinkTxFree, NetBroadcast, NetHashName, IpxCloseSocketCall, IpxGetAddressCall
+global IpxGetTargetCall, IpxRelinquishCall, IpxOpenSocketCall, IpxSetupPacket, IpxResolveTarget, IpxSendPacket, IpxPostListen, SetPairOneZero
+global IpxDetect, IpxHookCheck, IpxRestoreVector, IpxSetupLayer, IpxShutdown, IpxSocketNumber, IpxStart, IpxStop
+global IpxBuildHeader, IpxClearName, IpxSameNode, IpxCopyAddress, IpxLookupTarget, IpxLockSend, IpxLockListen, IpxQueueSend
+global IpxReceive, IpxPeek, IpxLinkStartup, SetNetCallback, AllocNetBuffer, FreeNetBuffer, ReadBigEndian, WriteBigEndian
+global GetCurrentFont, SetTextOrigin, uncget_string_, unk_11C450, unk_11C468, unk_11C480, unk_11C498, unk_11C4B0
 global vsscanf_
 ;-----------------------------------------------------------------------------
 ; fputc_                                                       11B20A  library
@@ -818,15 +818,17 @@ qsort_:
         inc dword [byte ebp-014h]
         jmp near .3
 ;-----------------------------------------------------------------------------
-; sub_11B98E                                                          11B98E  
+; UnlinkJump                                     11B98E  97 PC, low confidence
+; Jumps to unlink (file delete)
 ;-----------------------------------------------------------------------------
-sub_11B98E:
+UnlinkJump:
         jmp near unlink_
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11B9A0                                                          11B9A0  
+; GetFileTimes                                   11B9A0  97 PC, low confidence
+; Reads a file's date and time
 ;-----------------------------------------------------------------------------
-sub_11B9A0:
+GetFileTimes:
         push ebx
         sub esp, byte 8
         mov ebx, dword [byte esp+010h]
@@ -867,9 +869,10 @@ sub_11B9A0:
         ret
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11BA08                                                          11BA08  
+; FileDateText                                   11BA08  97 PC, low confidence
+; Formats a file's date and time
 ;-----------------------------------------------------------------------------
-sub_11BA08:
+FileDateText:
         push ebx
         push esi
         push edi
@@ -904,9 +907,10 @@ sub_11BA08:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_11BA50                                                          11BA50  
+; FreeArtArchive                                 11BA50  97 PC, low confidence
+; Frees an art archive
 ;-----------------------------------------------------------------------------
-sub_11BA50:
+FreeArtArchive:
         push ebx
         push esi
         push edi
@@ -1266,9 +1270,10 @@ fprintf_:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11BD90                                                          11BD90  
+; SetFullClip                                    11BD90  97 PC, low confidence
+; Sets the clip window to the whole bitmap
 ;-----------------------------------------------------------------------------
-sub_11BD90:
+SetFullClip:
         push ebx
         push esi
         mov edx, dword [byte esp+018h]
@@ -1286,9 +1291,10 @@ sub_11BD90:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11BDC0                                                          11BDC0  
+; DrawShadowRect                                 11BDC0  97 PC, low confidence
+; Draws a shadow rectangle
 ;-----------------------------------------------------------------------------
-sub_11BDC0:
+DrawShadowRect:
         push ebx
         push esi
         push edi
@@ -1393,9 +1399,10 @@ sub_11BDC0:
         ret
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11BED4                                                          11BED4  
+; CountFrameTick                                 11BED4  97 PC, low confidence
+; Counts a frame and checks the frame rate
 ;-----------------------------------------------------------------------------
-sub_11BED4:
+CountFrameTick:
         push ebx
         push esi
         push edi
@@ -1496,9 +1503,10 @@ int386x_:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_11BFC5                                                          11BFC5  
+; StrCopyEnd                                     11BFC5  97 PC, low confidence
+; Copies a string and returns its end
 ;-----------------------------------------------------------------------------
-sub_11BFC5:
+StrCopyEnd:
         push ecx
         push esi
         push edi
@@ -1542,9 +1550,10 @@ sub_11BFC5:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11C010                                                          11C010  
+; SerialLinkOpen                                 11C010  97 PC, low confidence
+; Opens the serial link (null modem)
 ;-----------------------------------------------------------------------------
-sub_11C010:
+SerialLinkOpen:
         push ebx
         push esi
         push edi
@@ -1612,25 +1621,28 @@ sub_11C010:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11C0A8                                                          11C0A8  
+; SerialLinkClose                                11C0A8  97 PC, low confidence
+; Marks the serial link closed
 ;-----------------------------------------------------------------------------
-sub_11C0A8:
+SerialLinkClose:
         mov eax, dword [byte esp+04h]
         mov dword [byte eax+028h], 0
         mov eax, 1
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11C0BC                                                          11C0BC  
+; SerialLinkIsOpen                               11C0BC  97 PC, low confidence
+; Returns whether the serial link is open
 ;-----------------------------------------------------------------------------
-sub_11C0BC:
+SerialLinkIsOpen:
         mov eax, dword [byte esp+04h]
         mov eax, dword [byte eax+028h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_11C0C4                                                          11C0C4  
+; SerialLinkTxFree                               11C0C4  97 PC, low confidence
+; Returns the free space of the serial send buffer
 ;-----------------------------------------------------------------------------
-sub_11C0C4:
+SerialLinkTxFree:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte eax+02Ch]
         push edx
@@ -1639,9 +1651,10 @@ sub_11C0C4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11C0D8                                                          11C0D8  
+; SerialLinkRxCount                              11C0D8  97 PC, low confidence
+; Returns the bytes waiting in the serial receive buffer
 ;-----------------------------------------------------------------------------
-sub_11C0D8:
+SerialLinkRxCount:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte eax+02Ch]
         push edx
@@ -1650,9 +1663,10 @@ sub_11C0D8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11C0EC                                                          11C0EC  
+; SerialLinkRead                                 11C0EC  97 PC, low confidence
+; Reads from the serial link
 ;-----------------------------------------------------------------------------
-sub_11C0EC:
+SerialLinkRead:
         push ebx
         mov edx, dword [byte esp+0Ch]
         push edx
@@ -1673,9 +1687,10 @@ sub_11C0EC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11C114                                                          11C114  
+; SerialLinkWrite                                11C114  97 PC, low confidence
+; Writes to the serial link when there is room
 ;-----------------------------------------------------------------------------
-sub_11C114:
+SerialLinkWrite:
         push ebx
         mov edx, dword [byte esp+0Ch]
         push edx
@@ -1690,9 +1705,10 @@ sub_11C114:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11C134                                                          11C134  
+; OpenSerialPacketLink                           11C134  97 PC, low confidence
+; Opens a packet link over the serial port
 ;-----------------------------------------------------------------------------
-sub_11C134:
+OpenSerialPacketLink:
         push ebx
         push esi
         push edi
@@ -1715,9 +1731,10 @@ sub_11C134:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11C170                                                          11C170  
+; ModemLinkClose                                 11C170  97 PC, low confidence
+; Hangs up the modem and closes the link
 ;-----------------------------------------------------------------------------
-sub_11C170:
+ModemLinkClose:
         push ebx
         push esi
         xor ebx, ebx
@@ -1729,7 +1746,7 @@ sub_11C170:
         cmp dword [dword_172168], byte 0
         jne short .3
         db 068h                                 ; insn: push 10C170h
-        dd sub_11C170
+        dd ModemLinkClose
         call sub_F9A28
         add esp, byte 4
 .3:
@@ -1759,9 +1776,10 @@ sub_11C170:
         jl short .1
         jmp short .2
 ;-----------------------------------------------------------------------------
-; sub_11C1CC                                                          11C1CC  
+; ModemLinkOpen                                  11C1CC  97 PC, low confidence
+; Opens the modem link: resets, dials or answers
 ;-----------------------------------------------------------------------------
-sub_11C1CC:
+ModemLinkOpen:
         push ebx
         push esi
         push edi
@@ -1922,9 +1940,10 @@ sub_11C1CC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11C340                                                          11C340  
+; ModemLinkHangup                                11C340  97 PC, low confidence
+; Hangs up the modem link
 ;-----------------------------------------------------------------------------
-sub_11C340:
+ModemLinkHangup:
         push ebx
         mov ebx, dword [byte esp+08h]
         cmp dword [byte ebx+028h], byte 0
@@ -1932,7 +1951,7 @@ sub_11C340:
         push byte 0
         push byte 0
         db 068h                                 ; insn: push 10C170h
-        dd sub_11C170
+        dd ModemLinkClose
         call sub_F99C0
         mov eax, 1
         mov cl, byte [byte ebx+02Ch]
@@ -1948,9 +1967,10 @@ sub_11C340:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11C384                                                          11C384  
+; ModemLinkCarrier                               11C384  97 PC, low confidence
+; Returns whether the modem has carrier
 ;-----------------------------------------------------------------------------
-sub_11C384:
+ModemLinkCarrier:
         push ebx
         mov eax, dword [byte esp+08h]
         cmp dword [byte eax+028h], byte 0
@@ -1970,9 +1990,10 @@ sub_11C384:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11C3AC                                                          11C3AC  
+; ModemLinkTxFree                                11C3AC  97 PC, low confidence
+; Returns the free space of the modem send buffer
 ;-----------------------------------------------------------------------------
-sub_11C3AC:
+ModemLinkTxFree:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte eax+02Ch]
         push edx
@@ -1981,9 +2002,10 @@ sub_11C3AC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11C3C0                                                          11C3C0  
+; ModemLinkRxCount                               11C3C0  97 PC, low confidence
+; Returns the bytes waiting in the modem receive buffer
 ;-----------------------------------------------------------------------------
-sub_11C3C0:
+ModemLinkRxCount:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte eax+02Ch]
         push edx
@@ -1992,9 +2014,10 @@ sub_11C3C0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11C3D4                                                          11C3D4  
+; ModemLinkRead                                  11C3D4  97 PC, low confidence
+; Reads from the modem link
 ;-----------------------------------------------------------------------------
-sub_11C3D4:
+ModemLinkRead:
         push ebx
         mov edx, dword [byte esp+0Ch]
         push edx
@@ -2015,9 +2038,10 @@ sub_11C3D4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11C3FC                                                          11C3FC  
+; ModemLinkWrite                                 11C3FC  97 PC, low confidence
+; Writes to the modem link when there is room
 ;-----------------------------------------------------------------------------
-sub_11C3FC:
+ModemLinkWrite:
         push ebx
         mov edx, dword [byte esp+0Ch]
         push edx
@@ -2032,9 +2056,10 @@ sub_11C3FC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11C41C                                                          11C41C  
+; OpenModemPacketLink                            11C41C  97 PC, low confidence
+; Opens a packet link over the modem
 ;-----------------------------------------------------------------------------
-sub_11C41C:
+OpenModemPacketLink:
         push ebx
         push esi
         push edi
@@ -2072,9 +2097,10 @@ unk_11C4B0:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11C4C8                                                          11C4C8  
+; NetLogf                                        11C4C8  97 PC, low confidence
+; Formats a network log message
 ;-----------------------------------------------------------------------------
-sub_11C4C8:
+NetLogf:
         push ebx
         xor ebx, ebx
         mov bl, byte [byte eax+0Fh]
@@ -2116,9 +2142,10 @@ sub_11C4C8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11C51C                                                          11C51C  
+; SameNetAddress                                 11C51C  97 PC, low confidence
+; Returns whether two network addresses are equal
 ;-----------------------------------------------------------------------------
-sub_11C51C:
+SameNetAddress:
         push ebx
         push ecx
         push esi
@@ -2194,9 +2221,10 @@ sub_11C51C:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11C598                                                          11C598  
+; NetTimeoutPassed                               11C598  97 PC, low confidence
+; Returns whether the network timeout has passed
 ;-----------------------------------------------------------------------------
-sub_11C598:
+NetTimeoutPassed:
         mov eax, dword [dword_16E3F4]
         sub eax, dword [dword_1721B4]
         test eax, eax
@@ -2205,9 +2233,10 @@ sub_11C598:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11C5B0                                                          11C5B0  
+; LowestSetBit                                   11C5B0  97 PC, low confidence
+; Returns the lowest set bit of a mask
 ;-----------------------------------------------------------------------------
-sub_11C5B0:
+LowestSetBit:
         push ebx
         push edx
         mov ebx, eax
@@ -2228,9 +2257,10 @@ sub_11C5B0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11C5CC                                                          11C5CC  
+; NetSendMessage                                 11C5CC  97 PC, low confidence
+; Sends a network message
 ;-----------------------------------------------------------------------------
-sub_11C5CC:
+NetSendMessage:
         push ecx
         push esi
         push edi
@@ -2316,9 +2346,10 @@ sub_11C5CC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11C6B8                                                          11C6B8  
+; NetSendWait                                    11C6B8  97 PC, low confidence
+; Sends a network message and waits
 ;-----------------------------------------------------------------------------
-sub_11C6B8:
+NetSendWait:
         push esi
         push edi
         push ebp
@@ -2359,7 +2390,7 @@ sub_11C6B8:
         lea eax, [byte esi+014h]
         mov dword [esp], eax
 .2:
-        call sub_11C598
+        call NetTimeoutPassed
         test eax, eax
         jne short .5
         mov ecx, dword [byte esp+01Ch]
@@ -2391,9 +2422,10 @@ sub_11C6B8:
         pop esi
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_11C780                                                          11C780  
+; NetFindPeer                                    11C780  97 PC, low confidence
+; Finds a network peer
 ;-----------------------------------------------------------------------------
-sub_11C780:
+NetFindPeer:
         push ebx
         push ecx
         push esi
@@ -2417,7 +2449,7 @@ sub_11C780:
         mov ecx, dword [byte edi+04h]
         push ecx
         mov dword [byte esp+0Ch], eax
-        call sub_11DE64
+        call NetPeerSend
         add esp, byte 0Ch
         test eax, eax
         je short .2
@@ -2442,9 +2474,10 @@ sub_11C780:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11C7E4                                                          11C7E4  
+; NetFreeSlot                                    11C7E4  97 PC, low confidence
+; Finds a free network slot
 ;-----------------------------------------------------------------------------
-sub_11C7E4:
+NetFreeSlot:
         push ebx
         push ecx
         push esi
@@ -2494,9 +2527,10 @@ sub_11C7E4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11C854                                                          11C854  
+; NetQueueMessage                                11C854  97 PC, low confidence
+; Queues a network message
 ;-----------------------------------------------------------------------------
-sub_11C854:
+NetQueueMessage:
         push ebx
         push ecx
         push esi
@@ -2531,7 +2565,7 @@ sub_11C854:
         push eax
         lea edx, [byte esp+074h]
         mov eax, edi
-        call sub_11C8E0
+        call NetHandleMessage
 .2:
         cmp dword [dword esp+084h], byte 0
         jne short .1
@@ -2544,9 +2578,11 @@ sub_11C854:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11C8E0                                                          11C8E0  
+; NetHandleMessage                               11C8E0  97 PC, low confidence
+; Handles a network message by its tag (get, ply, rsp, srv, req, opn, out,
+; bad)
 ;-----------------------------------------------------------------------------
-sub_11C8E0:
+NetHandleMessage:
         push esi
         push edi
         push ebp
@@ -2628,7 +2664,7 @@ sub_11C8E0:
         mov edx, dword [dword esp+0C8h]
         mov eax, dword [byte ebp+0Ch]
         xor ebx, ebx
-        call sub_11C5CC
+        call NetSendMessage
         add esp, 0CCh
         pop ebp
         pop edi
@@ -2649,7 +2685,7 @@ sub_11C8E0:
         mov ecx, dword [byte ebp+0Ch]
         mov ebx, eax
         mov eax, ecx
-        call sub_11C5CC
+        call NetSendMessage
         add esp, 0CCh
         pop ebp
         pop edi
@@ -2690,7 +2726,7 @@ sub_11C8E0:
         mov edx, dword [dword esp+0CCh]
         push edx
         push ebp
-        call sub_11DE64
+        call NetPeerSend
         add esp, byte 0Ch
         test eax, eax
         je short .11
@@ -2773,7 +2809,7 @@ sub_11C8E0:
         mov edx, dword [dword esp+0C8h]
         push edx
         mov eax, dword [byte esi+04h]
-        call sub_11C5B0
+        call LowestSetBit
         push eax
         lea eax, [byte esp+078h]
         push eax
@@ -2853,7 +2889,7 @@ sub_11C8E0:
         mov eax, dword [dword esp+0CCh]
         push eax
         push ebp
-        call sub_11DE64
+        call NetPeerSend
         add esp, byte 0Ch
         test eax, eax
         je near .41
@@ -2923,7 +2959,7 @@ sub_11C8E0:
         mov ecx, 0EA727370h
         mov eax, dword [byte ebp+0Ch]
         mov edi, 0Ch
-        call sub_11C780
+        call NetFindPeer
         mov ebx, eax
         mov dword [dword esp+0B8h], ecx
         mov eax, dword [esi]
@@ -2960,7 +2996,7 @@ sub_11C8E0:
         lea ecx, [byte esi+014h]
         mov eax, dword [byte ebp+0Ch]
         mov edx, ecx
-        call sub_11C7E4
+        call NetFreeSlot
         lea edi, [byte esi+014h]
         mov esi, dword [dword esp+0C8h]
         mov ebx, eax
@@ -3056,7 +3092,7 @@ sub_11C8E0:
         push eax
         push edx
         push ebp
-        call sub_11DE64
+        call NetPeerSend
         add esp, byte 0Ch
         test eax, eax
         je near .41
@@ -3106,7 +3142,7 @@ sub_11C8E0:
         mov eax, dword [byte ebp+0Ch]
         test eax, eax
         je short .36
-        call sub_11C780
+        call NetFindPeer
         add esp, 0CCh
         pop ebp
         pop edi
@@ -3122,7 +3158,7 @@ sub_11C8E0:
         mov ecx, dword [dword esp+0CCh]
         push ecx
         push ebp
-        call sub_11DE64
+        call NetPeerSend
         add esp, byte 0Ch
         test eax, eax
         je near .41
@@ -3145,7 +3181,7 @@ sub_11C8E0:
         test ebx, ebx
         je short .38
         mov eax, ebx
-        call sub_11C780
+        call NetFindPeer
         add esp, 0CCh
         pop ebp
         pop edi
@@ -3156,7 +3192,7 @@ sub_11C8E0:
         push eax
         push edx
         push ebp
-        call sub_11DE64
+        call NetPeerSend
         add esp, byte 0Ch
         test eax, eax
         je near .41
@@ -3175,7 +3211,7 @@ sub_11C8E0:
         je short .40
         mov edx, dword [dword esp+0C8h]
         mov eax, edi
-        call sub_11C780
+        call NetFindPeer
         mov ebx, eax
         test eax, eax
         je short .41
@@ -3210,9 +3246,10 @@ sub_11C8E0:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11D118                                                          11D118  
+; NetPollMessages                                11D118  97 PC, low confidence
+; Polls the network for messages
 ;-----------------------------------------------------------------------------
-sub_11D118:
+NetPollMessages:
         push ebx
         push esi
         push edi
@@ -3237,7 +3274,7 @@ sub_11D118:
         mov edx, esp
 .1:
         mov eax, dword [byte esp+024h]
-        call sub_11C854
+        call NetQueueMessage
         mov eax, dword [byte esp+024h]
         mov ecx, dword [dword eax+098h]
         test ecx, ecx
@@ -3327,12 +3364,12 @@ sub_11D118:
         pop ebx
         ret
         db 08Dh,040h,00h
-sub_11D118_168:
+NetPollMessages_168:
         push ecx
         push edx
         push byte 1
         db 068h                                 ; insn: push 10D118h
-        dd sub_11D118
+        dd NetPollMessages
         push unk_1DA3C4
         call sub_101154
         add esp, byte 0Ch
@@ -3340,7 +3377,7 @@ sub_11D118_168:
         pop ecx
         ret
         db 08Dh,040h,00h
-sub_11D118_184:
+NetPollMessages_184:
         push ecx
         push edx
 .9:
@@ -3351,7 +3388,7 @@ sub_11D118_184:
         je short .10
         mov edx, dword [dword_1DA3CC]
         push edx
-        call sub_11D508
+        call NetCloseSession
         add esp, byte 4
         jmp short .9
 .10:
@@ -3362,9 +3399,10 @@ sub_11D118_184:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11D2D0                                                          11D2D0  
+; NetCopyName                                    11D2D0  97 PC, low confidence
+; Copies a network name
 ;-----------------------------------------------------------------------------
-sub_11D2D0:
+NetCopyName:
         push ebx
         push esi
         push edi
@@ -3428,9 +3466,10 @@ sub_11D2D0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11D364                                                          11D364  
+; NetOpenSession                                 11D364  97 PC, low confidence
+; Opens a network session
 ;-----------------------------------------------------------------------------
-sub_11D364:
+NetOpenSession:
         push ebx
         push esi
         push edi
@@ -3447,7 +3486,7 @@ sub_11D364:
         call sub_100B88
         add esp, byte 0Ch
         db 068h                                 ; insn: push 10D29Ch
-        dd sub_11D118_184
+        dd NetPollMessages_184
         call sub_101220
         mov ebx, dword [dword_1721A0]
         add esp, byte 4
@@ -3470,7 +3509,7 @@ sub_11D364:
         cmp eax, byte 0FFFFFFFFh
         je short .3
         push edi
-        call sub_11D508
+        call NetCloseSession
         add esp, byte 4
 .3:
         push dword 0C0h
@@ -3504,7 +3543,7 @@ sub_11D364:
         mov eax, dword [dword ecx+dword_1DA3B4]
         mov edx, esi
         add eax, byte 4
-        call sub_11C51C
+        call SameNetAddress
         test eax, eax
         jne short .6
         mov edx, dword [dword_172194]
@@ -3561,7 +3600,7 @@ sub_11D364:
         test eax, eax
         jne short .9
         db 068h                                 ; insn: push 10D280h
-        dd sub_11D118_168
+        dd NetPollMessages_168
         call addtimer
         add esp, byte 4
 .9:
@@ -3577,9 +3616,10 @@ sub_11D364:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11D508                                                          11D508  
+; NetCloseSession                                11D508  97 PC, low confidence
+; Closes a network session
 ;-----------------------------------------------------------------------------
-sub_11D508:
+NetCloseSession:
         push ebx
         push esi
         push edi
@@ -3605,7 +3645,7 @@ sub_11D508:
         je short .3
 .2:
         push ebx
-        call sub_11DA0C
+        call NetDisconnectPeer
         add esp, byte 4
 .3:
         mov edi, dword [dword ebx+0A4h]
@@ -3638,7 +3678,7 @@ sub_11D508:
         test eax, eax
         jne short .7
         db 068h                                 ; insn: push 10D280h
-        dd sub_11D118_168
+        dd NetPollMessages_168
         call sub_FC008
         add esp, byte 4
 .7:
@@ -3649,9 +3689,10 @@ sub_11D508:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11D5C0                                                          11D5C0  
+; NetAnnounce                                    11D5C0  97 PC, low confidence
+; Announces this game on the network
 ;-----------------------------------------------------------------------------
-sub_11D5C0:
+NetAnnounce:
         push ebx
         push esi
         push edi
@@ -3678,7 +3719,7 @@ sub_11D5C0:
         mov edx, esp
         lea eax, [dword ebx+084h]
         rep movsd
-        call sub_11C4C8
+        call NetLogf
         mov eax, dword [byte esp+060h]
         mov dword [byte esp+03Ch], ebx
         mov dword [byte esp+030h], ebp
@@ -3728,9 +3769,10 @@ sub_11D5C0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11D690                                                          11D690  
+; NetJoinGame                                    11D690  97 PC, low confidence
+; Joins a network game
 ;-----------------------------------------------------------------------------
-sub_11D690:
+NetJoinGame:
         push ebx
         push esi
         push edi
@@ -3759,7 +3801,7 @@ sub_11D690:
         lea eax, [byte ebp+014h]
         push eax
         push ebp
-        call sub_11DE64
+        call NetPeerSend
         add esp, byte 0Ch
         test eax, eax
         je short .2
@@ -3772,7 +3814,7 @@ sub_11D690:
         ret
 .2:
         push ebp
-        call sub_11DA0C
+        call NetDisconnectPeer
         add esp, byte 4
         mov dword [dword ebp+098h], 0
 .3:
@@ -3807,7 +3849,7 @@ sub_11D690:
         push byte 70h
         lea edx, [byte esp+078h]
         mov eax, ebp
-        call sub_11C6B8
+        call NetSendWait
         mov eax, dword [byte esp+074h]
 .6:
         add esp, 88h
@@ -3818,9 +3860,10 @@ sub_11D690:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11D780                                                          11D780  
+; NetLeaveGame                                   11D780  97 PC, low confidence
+; Leaves a network game
 ;-----------------------------------------------------------------------------
-sub_11D780:
+NetLeaveGame:
         push ebx
         push esi
         push edi
@@ -3850,7 +3893,7 @@ sub_11D780:
         cmp dword [dword ebp+098h], byte 0
         je short .3
         push ebp
-        call sub_11DA0C
+        call NetDisconnectPeer
         add esp, byte 4
         mov dword [dword ebp+098h], 0
 .3:
@@ -3909,7 +3952,7 @@ sub_11D780:
         mov edx, dword [byte ebp+0Ch]
         lea eax, [dword ebp+084h]
         add edx, byte 0Ch
-        call sub_11C4C8
+        call NetLogf
         mov esi, dword [byte ebp+08h]
         mov edx, dword [byte ebp+0Ch]
         mov eax, dword [byte ebp+010h]
@@ -3935,9 +3978,10 @@ sub_11D780:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11D8D8                                                          11D8D8  
+; NetListGames                                   11D8D8  97 PC, low confidence
+; Lists the network games
 ;-----------------------------------------------------------------------------
-sub_11D8D8:
+NetListGames:
         push ebx
         push esi
         push ebp
@@ -4013,7 +4057,7 @@ sub_11D8D8:
         mov edx, dword [byte esi+0Ch]
         lea eax, [dword esi+084h]
         add edx, byte 0Ch
-        call sub_11C4C8
+        call NetLogf
         mov ebx, dword [byte esi+08h]
         mov edx, dword [byte esi+0Ch]
         mov eax, dword [byte esi+010h]
@@ -4053,9 +4097,10 @@ sub_11D8D8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11DA0C                                                          11DA0C  
+; NetDisconnectPeer                              11DA0C  97 PC, low confidence
+; Disconnects a network peer
 ;-----------------------------------------------------------------------------
-sub_11DA0C:
+NetDisconnectPeer:
         push ebx
         push esi
         push edi
@@ -4204,7 +4249,7 @@ sub_11DA0C:
         lea eax, [byte ebp+014h]
         push eax
         push ebp
-        call sub_11DE64
+        call NetPeerSend
         add esp, byte 0Ch
         test eax, eax
         je near .18
@@ -4266,7 +4311,7 @@ sub_11DA0C:
         push byte 4Ch
         lea ecx, [byte esp+08h]
         mov eax, ebp
-        call sub_11C6B8
+        call NetSendWait
         cmp dword [byte esp+074h], byte 0
         je near .22
         push byte 4
@@ -4288,7 +4333,7 @@ sub_11DA0C:
         push byte 8
         lea edx, [byte esp+078h]
         mov eax, ebp
-        call sub_11C6B8
+        call NetSendWait
         cmp dword [byte esp+074h], byte 0
         setne al
         and eax, 0FFh
@@ -4317,7 +4362,7 @@ sub_11DA0C:
         push byte 8
         lea edx, [byte esp+078h]
         mov eax, ebp
-        call sub_11C6B8
+        call NetSendWait
         cmp dword [byte esp+074h], byte 0
         setne al
         and eax, 0FFh
@@ -4363,7 +4408,7 @@ sub_11DA0C:
         test ecx, ecx
         je short .25
         mov eax, ecx
-        call sub_11C780
+        call NetFindPeer
         mov edi, eax
         test eax, eax
         je short .25
@@ -4401,9 +4446,10 @@ sub_11DA0C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11DE04                                                          11DE04  
+; OpenNetPacketLink                              11DE04  97 PC, low confidence
+; Opens a packet link over the network
 ;-----------------------------------------------------------------------------
-sub_11DE04:
+OpenNetPacketLink:
         push ebx
         push esi
         push edi
@@ -4450,9 +4496,10 @@ sub_11DE04:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11DE64                                                          11DE64  
+; NetPeerSend                                    11DE64  97 PC, low confidence
+; Sends to a network peer
 ;-----------------------------------------------------------------------------
-sub_11DE64:
+NetPeerSend:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
@@ -4510,9 +4557,10 @@ sub_11DE64:
         mov eax, 1
         ret
 ;-----------------------------------------------------------------------------
-; sub_11DEE4                                                          11DEE4  
+; NetLinkRead                                    11DEE4  97 PC, low confidence
+; Reads from the network link
 ;-----------------------------------------------------------------------------
-sub_11DEE4:
+NetLinkRead:
         push ebx
         push esi
         push edi
@@ -4558,9 +4606,10 @@ sub_11DEE4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11DF4C                                                          11DF4C  
+; NetLinkWrite                                   11DF4C  97 PC, low confidence
+; Writes to the network link
 ;-----------------------------------------------------------------------------
-sub_11DF4C:
+NetLinkWrite:
         push ebx
         push esi
         push edi
@@ -4601,9 +4650,10 @@ sub_11DF4C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11DFB4                                                          11DFB4  
+; NetLinkConnected                               11DFB4  97 PC, low confidence
+; Returns whether the network link is connected
 ;-----------------------------------------------------------------------------
-sub_11DFB4:
+NetLinkConnected:
         mov eax, dword [byte esp+04h]
         cmp dword [byte eax+040h], byte 0
         je short .1
@@ -4617,9 +4667,10 @@ sub_11DFB4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11DFD4                                                          11DFD4  
+; NetLinkRxCount                                 11DFD4  97 PC, low confidence
+; Returns the bytes waiting on the network link
 ;-----------------------------------------------------------------------------
-sub_11DFD4:
+NetLinkRxCount:
         mov eax, dword [byte esp+04h]
         mov eax, dword [byte eax+028h]
         mov edx, dword [byte eax+08h]
@@ -4632,9 +4683,10 @@ sub_11DFD4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11DFF0                                                          11DFF0  
+; NetLinkTxFree                                  11DFF0  97 PC, low confidence
+; Returns the free space on the network link
 ;-----------------------------------------------------------------------------
-sub_11DFF0:
+NetLinkTxFree:
         mov eax, dword [byte esp+04h]
         mov eax, dword [byte eax+028h]
         mov edx, dword [byte eax+08h]
@@ -4643,9 +4695,10 @@ sub_11DFF0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11E004                                                          11E004  
+; NetBroadcast                                   11E004  97 PC, low confidence
+; Broadcasts a network message
 ;-----------------------------------------------------------------------------
-sub_11E004:
+NetBroadcast:
         push ebx
         push esi
         push edi
@@ -4697,7 +4750,7 @@ sub_11E004:
         push esi
         lea edx, [byte esp+01Ch]
         mov eax, dword [dword eax+094h]
-        call sub_11C8E0
+        call NetHandleMessage
         mov eax, dword [byte ebp+028h]
         mov edx, esp
         cmp edx, dword [dword eax+094h]
@@ -4742,9 +4795,10 @@ sub_11E004:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11E11C                                                          11E11C  
+; NetHashName                                    11E11C  97 PC, low confidence
+; Hashes a network name
 ;-----------------------------------------------------------------------------
-sub_11E11C:
+NetHashName:
         push ebx
         push esi
         push edi
@@ -4796,9 +4850,10 @@ sub_11E11C:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11E1A0                                                          11E1A0  
+; IpxCloseSocketCall                             11E1A0  97 PC, low confidence
+; IPX: closes a socket (real mode call)
 ;-----------------------------------------------------------------------------
-sub_11E1A0:
+IpxCloseSocketCall:
         push ebx
         push ecx
         push edx
@@ -4844,9 +4899,10 @@ sub_11E1A0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11E234                                                          11E234  
+; IpxGetAddressCall                              11E234  97 PC, low confidence
+; IPX: gets the local address (real mode call)
 ;-----------------------------------------------------------------------------
-sub_11E234:
+IpxGetAddressCall:
         push ebx
         push ecx
         push edx
@@ -4894,9 +4950,10 @@ sub_11E234:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11E2D0                                                          11E2D0  
+; IpxGetTargetCall                               11E2D0  97 PC, low confidence
+; IPX: gets the local target (real mode call)
 ;-----------------------------------------------------------------------------
-sub_11E2D0:
+IpxGetTargetCall:
         push ebx
         push ecx
         push esi
@@ -4953,9 +5010,10 @@ sub_11E2D0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11E388                                                          11E388  
+; IpxRelinquishCall                              11E388  97 PC, low confidence
+; IPX: gives time to the driver (real mode call)
 ;-----------------------------------------------------------------------------
-sub_11E388:
+IpxRelinquishCall:
         push ebx
         push ecx
         push edx
@@ -4998,9 +5056,10 @@ sub_11E388:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11E410                                                          11E410  
+; IpxOpenSocketCall                              11E410  97 PC, low confidence
+; IPX: opens a socket (real mode call)
 ;-----------------------------------------------------------------------------
-sub_11E410:
+IpxOpenSocketCall:
         push ebx
         push ecx
         push esi
@@ -5108,9 +5167,10 @@ sub_11E410:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11E52C                                                          11E52C  
+; IpxSetupPacket                                 11E52C  97 PC, low confidence
+; IPX: sets up a packet header
 ;-----------------------------------------------------------------------------
-sub_11E52C:
+IpxSetupPacket:
         push ecx
         push esi
         push edi
@@ -5181,9 +5241,10 @@ sub_11E52C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11E5E8                                                          11E5E8  
+; IpxResolveTarget                               11E5E8  97 PC, low confidence
+; IPX: works out the immediate address of a target
 ;-----------------------------------------------------------------------------
-sub_11E5E8:
+IpxResolveTarget:
         push ebx
         push ecx
         push esi
@@ -5215,7 +5276,7 @@ sub_11E5E8:
         add esp, byte 0Ch
         mov edx, esp
         mov eax, esi
-        call sub_11F440
+        call IpxLookupTarget
         test eax, eax
         je short .1
         mov edi, unk_1DA418
@@ -5231,7 +5292,7 @@ sub_11E5E8:
         push ecx
         mov eax, esi
         mov ecx, unk_1DA418
-        call sub_11F4A8
+        call IpxQueueSend
 .1:
         add esp, byte 14h
         pop edi
@@ -5240,7 +5301,7 @@ sub_11E5E8:
         pop ebx
         ret
         db 08Dh,040h,00h
-sub_11E5E8_8C:
+IpxResolveTarget_8C:
         mov eax, dword [byte esp+04h]
         cmp byte [byte eax+0Ch], 0
         sete al
@@ -5248,9 +5309,10 @@ sub_11E5E8_8C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11E688                                                          11E688  
+; IpxSendPacket                                  11E688  97 PC, low confidence
+; IPX: sends a packet
 ;-----------------------------------------------------------------------------
-sub_11E688:
+IpxSendPacket:
         push ebx
         push esi
         push edi
@@ -5377,7 +5439,7 @@ sub_11E688:
         jmp near .3
 .4:
         mov eax, edi
-        call sub_11E388
+        call IpxRelinquishCall
         mov eax, dword [dword_17224C]
         mov al, byte [byte eax+05Dh]
         mov ah, byte [byte_172251]
@@ -5392,7 +5454,7 @@ sub_11E688:
 .5:
         push byte 0
         db 068h                                 ; insn: push 10E674h
-        dd sub_11E5E8_8C
+        dd IpxResolveTarget_8C
         mov edx, dword [byte esp+020h]
         push edx
         call sub_100FCC
@@ -5450,7 +5512,7 @@ sub_11E688:
         jne short .7
         mov edx, ebx
         mov eax, esi
-        call sub_11E5E8
+        call IpxResolveTarget
 .7:
         mov edx, dword [byte esp+014h]
         inc edi
@@ -5491,7 +5553,7 @@ sub_11E688:
 .12:
         push byte 0
         db 068h                                 ; insn: push 10E674h
-        dd sub_11E5E8_8C
+        dd IpxResolveTarget_8C
         push esi
         call sub_100FCC
         add esp, byte 0Ch
@@ -5527,9 +5589,10 @@ sub_11E688:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11E9EC                                                          11E9EC  
+; IpxPostListen                                  11E9EC  97 PC, low confidence
+; IPX: posts a listen buffer
 ;-----------------------------------------------------------------------------
-sub_11E9EC:
+IpxPostListen:
         push ebx
         push esi
         push edi
@@ -5562,7 +5625,7 @@ sub_11E9EC:
         add esp, byte 0Ch
         lea edx, [byte esp+04h]
         mov eax, esp
-        call sub_11E52C
+        call IpxSetupPacket
         test eax, eax
         je short .1
         mov edx, dword [dword_16E4B0]
@@ -5624,7 +5687,7 @@ sub_11E9EC:
         lea edx, [byte esi+020h]
         mov ebx, edi
         lea eax, [byte esi+044h]
-        call sub_11E52C
+        call IpxSetupPacket
 .6:
         mov eax, dword [dword_17225C]
         push esi
@@ -5646,7 +5709,7 @@ sub_11E9EC:
         cld
         push byte 0
         db 068h                                 ; insn: push 10E688h
-        dd sub_11E688
+        dd IpxSendPacket
         push unk_1DA448
         call sub_101154
         add esp, byte 0Ch
@@ -5658,12 +5721,17 @@ sub_11E9EC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11EB64                                                          11EB64  
+; SetPairOneZero                                 11EB64  97 PC, low confidence
+; Sets two words to one and zero
 ;-----------------------------------------------------------------------------
-sub_11EB64:
+SetPairOneZero:
         mov dword [eax], 1
         mov dword [edx], 0
-sub_11EB70:
+;-----------------------------------------------------------------------------
+; IpxDetect                                      11EB70  97 PC, low confidence
+; IPX: checks that the IPX driver is installed
+;-----------------------------------------------------------------------------
+IpxDetect:
         push ebx
         push ecx
         push edx
@@ -5717,9 +5785,10 @@ sub_11EB70:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11EC18                                                          11EC18  
+; IpxHookCheck                                   11EC18  97 PC, low confidence
+; IPX: checks the real mode interrupt vector and sets up the buffers
 ;-----------------------------------------------------------------------------
-sub_11EC18:
+IpxHookCheck:
         push ebx
         push ecx
         push edx
@@ -5879,7 +5948,7 @@ sub_11EC18:
         mov eax, 31h
         call int386_
 .10:
-        call sub_11EB70
+        call IpxDetect
         test eax, eax
         je short .11
         mov eax, 8628h
@@ -5893,9 +5962,10 @@ sub_11EC18:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11EE6C                                                          11EE6C  
+; IpxRestoreVector                               11EE6C  97 PC, low confidence
+; IPX: restores the real mode interrupt vector
 ;-----------------------------------------------------------------------------
-sub_11EE6C:
+IpxRestoreVector:
         push ebx
         push ecx
         push edx
@@ -5913,7 +5983,7 @@ sub_11EE6C:
         push ebx
         call sub_100C50
         add esp, byte 4
-        call sub_11F154
+        call IpxShutdown
         jmp short .1
 .2:
         push unk_1DA448
@@ -5952,9 +6022,10 @@ sub_11EE6C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11EF20                                                          11EF20  
+; IpxSetupLayer                                  11EF20  97 PC, low confidence
+; IPX: sets up the IPX layer
 ;-----------------------------------------------------------------------------
-sub_11EF20:
+IpxSetupLayer:
         push ebx
         push ecx
         push esi
@@ -5996,7 +6067,7 @@ sub_11EF20:
         add esp, byte 0Ch
         mov edx, ebx
         mov eax, edi
-        call sub_11E410
+        call IpxOpenSocketCall
         test eax, eax
         jne short .5
         cmp dword [dword_172258], byte 0
@@ -6013,7 +6084,7 @@ sub_11EF20:
 .5:
         lea ebx, [byte esi+08h]
         mov eax, ebx
-        call sub_11E234
+        call IpxGetAddressCall
         mov al, byte [byte esi+04h]
         push byte 0
         mov byte [byte ebx+0Ah], al
@@ -6068,7 +6139,7 @@ sub_11EF20:
         push eax
         push byte 1
         db 068h                                 ; insn: push 10E9ECh
-        dd sub_11E9EC
+        dd IpxPostListen
         call sub_F99C0
         add esp, byte 0Ch
 .7:
@@ -6087,7 +6158,7 @@ sub_11EF20:
         mov eax, esi
         xor ecx, ecx
         add edi, byte 2
-        call sub_11F4A8
+        call IpxQueueSend
         cmp edi, dword [dword_16E3F4]
         jle short .10
         xor ebx, ebx
@@ -6099,7 +6170,7 @@ sub_11EF20:
         jne short .10
         push ebx
         push esi
-        call sub_11E688
+        call IpxSendPacket
         add esp, byte 8
         cmp edi, dword [dword_16E3F4]
         jg short .9
@@ -6130,7 +6201,7 @@ sub_11EF20:
         test eax, eax
         jne short .14
         mov eax, esi
-        call sub_11F154
+        call IpxShutdown
         xor esi, esi
         mov eax, esi
         add esp, byte 0Ch
@@ -6165,17 +6236,18 @@ sub_11EF20:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11F154                                                          11F154  
+; IpxShutdown                                    11F154  97 PC, low confidence
+; IPX: shuts down the IPX layer
 ;-----------------------------------------------------------------------------
-sub_11F154:
+IpxShutdown:
         push ebx
         push ecx
         push edx
         mov ebx, eax
         xor eax, eax
-        call sub_11E388
+        call IpxRelinquishCall
         lea eax, [byte ebx+04h]
-        call sub_11E1A0
+        call IpxCloseSocketCall
         push ebx
         push unk_1DA448
         call sub_100D8C
@@ -6186,7 +6258,7 @@ sub_11F154:
         test eax, eax
         jne short .1
         db 068h                                 ; insn: push 10E9ECh
-        dd sub_11E9EC
+        dd IpxPostListen
         call sub_F9A28
         add esp, byte 4
 .1:
@@ -6227,9 +6299,10 @@ sub_11F154:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11F1FC                                                          11F1FC  
+; IpxSocketNumber                                11F1FC  97 PC, low confidence
+; IPX: returns the socket number in host order
 ;-----------------------------------------------------------------------------
-sub_11F1FC:
+IpxSocketNumber:
         push ecx
         mov ecx, 2
         add eax, byte 4
@@ -6242,9 +6315,10 @@ sub_11F1FC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11F218                                                          11F218  
+; IpxStart                                       11F218  97 PC, low confidence
+; IPX: starts the IPX layer and opens the socket
 ;-----------------------------------------------------------------------------
-sub_11F218:
+IpxStart:
         push ebx
         push ecx
         push esi
@@ -6262,7 +6336,7 @@ sub_11F218:
         ret
 .1:
         mov eax, 452h
-        call sub_11EF20
+        call IpxSetupLayer
         xor ecx, ecx
         mov dword [dword_17225C], eax
         mov dword [dword_172260], ecx
@@ -6308,9 +6382,10 @@ sub_11F218:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11F2B4                                                          11F2B4  
+; IpxStop                                        11F2B4  97 PC, low confidence
+; IPX: stops the IPX layer
 ;-----------------------------------------------------------------------------
-sub_11F2B4:
+IpxStop:
         push ebx
         push ecx
         cmp dword [dword_17225C], byte 0
@@ -6329,7 +6404,7 @@ sub_11F2B4:
         call WaitTicks
         add esp, byte 4
         mov eax, dword [dword_17225C]
-        call sub_11F154
+        call IpxShutdown
         mov dword [dword_17225C], ebx
 .1:
         mov eax, 1
@@ -6338,9 +6413,10 @@ sub_11F2B4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11F304                                                          11F304  
+; IpxBuildHeader                                 11F304  97 PC, low confidence
+; IPX: builds a packet header
 ;-----------------------------------------------------------------------------
-sub_11F304:
+IpxBuildHeader:
         push ebx
         push ecx
         push esi
@@ -6427,18 +6503,20 @@ sub_11F304:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11F3F4                                                          11F3F4  
+; IpxClearName                                   11F3F4  97 PC, low confidence
+; IPX: clears a node name
 ;-----------------------------------------------------------------------------
-sub_11F3F4:
+IpxClearName:
         mov byte [byte eax+07h], 20h
         mov byte [byte eax+06h], 0
         mov eax, 1
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11F404                                                          11F404  
+; IpxSameNode                                    11F404  97 PC, low confidence
+; IPX: returns whether two node addresses are equal
 ;-----------------------------------------------------------------------------
-sub_11F404:
+IpxSameNode:
         push ecx
         push esi
         push edi
@@ -6460,9 +6538,10 @@ sub_11F404:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11F42C                                                          11F42C  
+; IpxCopyAddress                                 11F42C  97 PC, low confidence
+; IPX: copies an address
 ;-----------------------------------------------------------------------------
-sub_11F42C:
+IpxCopyAddress:
         push esi
         push edi
         mov edi, edx
@@ -6477,9 +6556,10 @@ sub_11F42C:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_11F440                                                          11F440  
+; IpxLookupTarget                                11F440  97 PC, low confidence
+; IPX: looks up the immediate address of a node
 ;-----------------------------------------------------------------------------
-sub_11F440:
+IpxLookupTarget:
         push ebx
         push ecx
         push esi
@@ -6494,7 +6574,7 @@ sub_11F440:
         lea edx, [byte ebx+0Ch]
         add esp, byte 0Ch
         mov eax, ebx
-        call sub_11E2D0
+        call IpxGetTargetCall
         push byte 14h
         push esi
         push ebx
@@ -6509,9 +6589,10 @@ sub_11F440:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11F480                                                          11F480  
+; IpxLockSend                                    11F480  97 PC, low confidence
+; IPX: locks the send buffer
 ;-----------------------------------------------------------------------------
-sub_11F480:
+IpxLockSend:
         push ecx
         push edx
         add eax, 8Ch
@@ -6523,9 +6604,10 @@ sub_11F480:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11F494                                                          11F494  
+; IpxLockListen                                  11F494  97 PC, low confidence
+; IPX: locks the listen buffer
 ;-----------------------------------------------------------------------------
-sub_11F494:
+IpxLockListen:
         push ecx
         push edx
         add eax, byte 54h
@@ -6537,9 +6619,10 @@ sub_11F494:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11F4A8                                                          11F4A8  
+; IpxQueueSend                                   11F4A8  97 PC, low confidence
+; IPX: queues a packet to send
 ;-----------------------------------------------------------------------------
-sub_11F4A8:
+IpxQueueSend:
         push esi
         push edi
         push ebp
@@ -6660,9 +6743,10 @@ sub_11F4A8:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11F5D8                                                          11F5D8  
+; IpxReceive                                     11F5D8  97 PC, low confidence
+; IPX: takes a received packet
 ;-----------------------------------------------------------------------------
-sub_11F5D8:
+IpxReceive:
         push esi
         push edi
         push ebp
@@ -6736,7 +6820,7 @@ sub_11F5D8:
         mov ebx, esp
         mov edx, dword [byte esp+028h]
         mov eax, dword [byte esp+034h]
-        call sub_11F404
+        call IpxSameNode
         test eax, eax
         jne short .3
         cmp dword [byte esp+038h], byte 0
@@ -6830,9 +6914,10 @@ sub_11F5D8:
         ret 4
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11F794                                                          11F794  
+; IpxPeek                                        11F794  97 PC, low confidence
+; IPX: peeks at a received packet
 ;-----------------------------------------------------------------------------
-sub_11F794:
+IpxPeek:
         push esi
         push edi
         push ebp
@@ -6876,7 +6961,7 @@ sub_11F794:
         lea ebx, [byte edx+044h]
         mov eax, edi
         mov edx, ebp
-        call sub_11F404
+        call IpxSameNode
         test eax, eax
         jne short .5
 .2:
@@ -6912,9 +6997,10 @@ sub_11F794:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11F850                                                          11F850  
+; IpxLinkStartup                                 11F850  97 PC, low confidence
+; IPX: starts the IPX link driver
 ;-----------------------------------------------------------------------------
-sub_11F850:
+IpxLinkStartup:
         push ebx
         push ecx
         push edx
@@ -6924,11 +7010,11 @@ sub_11F850:
         jne short .5
         mov ecx, 1
         mov dword [dword_172244], ecx
-        call sub_11EC18
+        call IpxHookCheck
         test eax, eax
         je short .4
         xor eax, eax
-        call sub_11EF20
+        call IpxSetupLayer
         mov edx, eax
         test eax, eax
         je short .2
@@ -6941,12 +7027,12 @@ sub_11F850:
         mov dword [dword_1721E4], ebx
 .1:
         mov eax, edx
-        call sub_11F154
+        call IpxShutdown
         jmp short .3
 .2:
         mov dword [dword_172244], eax
 .3:
-        call sub_11EE6C
+        call IpxRestoreVector
         jmp short .5
 .4:
         mov dword [dword_172244], edx
@@ -6962,16 +7048,18 @@ sub_11F850:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11F8D0                                                          11F8D0  
+; SetNetCallback                                 11F8D0  97 PC, low confidence
+; Sets the network callback
 ;-----------------------------------------------------------------------------
-sub_11F8D0:
+SetNetCallback:
         mov dword [dword_172258], eax
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11F8E0                                                          11F8E0  
+; AllocNetBuffer                                 11F8E0  97 PC, low confidence
+; Allocates a network buffer
 ;-----------------------------------------------------------------------------
-sub_11F8E0:
+AllocNetBuffer:
         push ebx
         push ecx
         push edx
@@ -7021,9 +7109,10 @@ sub_11F8E0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11F94C                                                          11F94C  
+; FreeNetBuffer                                  11F94C  97 PC, low confidence
+; Frees a network buffer
 ;-----------------------------------------------------------------------------
-sub_11F94C:
+FreeNetBuffer:
         push ebx
         push ecx
         push edx
@@ -7096,9 +7185,10 @@ sub_11F94C:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_11F9F0                                                          11F9F0  
+; ReadBigEndian                                  11F9F0  97 PC, low confidence
+; Reads a big-endian number of the given size
 ;-----------------------------------------------------------------------------
-sub_11F9F0:
+ReadBigEndian:
         push ebx
         push ecx
         xor ebx, ebx
@@ -7145,9 +7235,10 @@ sub_11F9F0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11FA34                                                          11FA34  
+; WriteBigEndian                                 11FA34  97 PC, low confidence
+; Writes a big-endian number of the given size
 ;-----------------------------------------------------------------------------
-sub_11FA34:
+WriteBigEndian:
         push ecx
         sub esp, byte 4
         mov ecx, 4
@@ -7189,16 +7280,18 @@ sub_11FA34:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11FA90                                                          11FA90  
+; GetCurrentFont                                 11FA90  97 PC, low confidence
+; Returns the current font
 ;-----------------------------------------------------------------------------
-sub_11FA90:
+GetCurrentFont:
         mov eax, dword [dword_1CF548]
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11FA98                                                          11FA98  
+; SetTextOrigin                                  11FA98  97 PC, low confidence
+; Sets the text origin
 ;-----------------------------------------------------------------------------
-sub_11FA98:
+SetTextOrigin:
         mov eax, dword [byte esp+04h]
         mov dword [dword_1CF528], eax
         mov eax, dword [byte esp+08h]

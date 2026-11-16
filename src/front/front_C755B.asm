@@ -27,7 +27,7 @@ extern dword_1CC234, dword_1CC238, dword_1CC23C, dword_1CC2A4, dword_1CC2A8, dwo
 extern dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4, jpt_C750B, memmove_, memset_, qsort_
 extern qword_166FC4, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, BlitArt
 extern BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, sub_106DA0, ConvertArtXY
-extern FindShapeList, sub_11B104, sub_11B98E, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime
+extern FindShapeList, sub_11B104, UnlinkJump, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime
 extern PlayMenuSfx, PlaySfx, PlayScreenMovie, LoadDataFile, BuildRosterLines, DrawShadedLogo, DrawShadowBox, DrawScreenBackground
 extern FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox, EditTextField
 extern LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText, PoundsToKg, InchesToCm, PlayerBioScreen
@@ -819,7 +819,7 @@ LoadRosterInfoAnim:
         cmp eax, dword [dword_1CC230]
         jl short .1
         mov eax, str_RosinfoAna
-        call sub_11B98E
+        call UnlinkJump
 .5:
         mov eax, ebx
         pop esi

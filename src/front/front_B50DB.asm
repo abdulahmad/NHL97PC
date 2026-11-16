@@ -25,7 +25,7 @@ extern dword_1CAE9C, dword_1CAEA0, dword_1CAEA4, dword_1CAEA8, dword_1CAEAC, dwo
 extern dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, dword_1CAFF4, fclose_, fopen_, fprintf_, qsort_
 extern qword_16695B, rand_, sprintf_, strcat_, strcpy_, sub_101324, BlitShape2, BlitArt
 extern sub_1013FC, FindShape, sub_101560, sub_101584, sub_101EAC, sub_102B94, sub_102C10, sub_10CD98
-extern ConvertArtInPlace, ConvertArtXY, FindShapeList, sub_11BD90, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
+extern ConvertArtInPlace, ConvertArtXY, FindShapeList, SetFullClip, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
 extern WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, DrawScreenBackground
 extern FadeInScreen, ExitScreen, SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, ShowMessageBox, DrawTeamLogoBanner
 extern DrawProgressBar, WipeScreen, FindColorRange, SetHighlightText, SetNormalText, PoundsToKg, InchesToCm, DrawStatTable
@@ -4429,7 +4429,7 @@ DrawPlayerRatingsPage:
         push dword 12Fh
         push byte 0Ch
         push byte 0Ah
-        call sub_11BD90
+        call SetFullClip
         add esp, byte 10h
         push byte 1
         push byte 4Bh
@@ -4801,7 +4801,7 @@ DrawPlayerRatingsPage:
         push dword 14Ah
         push byte 0Ch
         push byte 0Ah
-        call sub_11BD90
+        call SetFullClip
         add esp, byte 10h
         push byte 2
         push byte 0Ah

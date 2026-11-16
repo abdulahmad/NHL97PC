@@ -11,7 +11,7 @@ extern dword_1CF544, dword_1CF550, dword_1CF554, dword_1CF558, dword_1CF598, dwo
 extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dword_1CF5C4, dword_1CF5C8, dword_1CF5CC
 extern dword_1CF5D0, dword_1CF5D4, dword_1CF5D8, dword_1CF5DC, dword_1CF5E0, dword_1CF5E4, dword_1CF5E8, dword_1CF5EC
 extern dword_1CF5F0, dword_1DA4D0, mem_putc_, qword_167DA1, qword_167DA9, qword_167DB1, qword_167DB9, strcmp_
-extern Random32, PlotPixelRGB, PlotPixel, SaveTextState, RestoreTextState, sub_11F8E0, sub_11F94C, sub_11FA98
+extern Random32, PlotPixelRGB, PlotPixel, SaveTextState, RestoreTextState, AllocNetBuffer, FreeNetBuffer, SetTextOrigin
 extern sub_11FAAC, sub_124C30, sub_124D78, sub_124DB0, sub_124E1C, sub_124FB9, MakeColor, FillRect
 global IF@ATAN, IF@ATAN2, IF@DPOW, hypot_, DrawGlyph_494, DrawGlyph_590, PrepareTextDraw_72, FloatsToInts_47
 global ProjectPointsWithZ_DF, sprintf_, ProjectPointFloat, PowIntLoop, MeasureText, FindGlyph, GetGlyph, GetKerning
@@ -390,7 +390,7 @@ DrawTextAt:
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_11FA98
+        call SetTextOrigin
         add esp, byte 8
         mov ecx, dword [byte esp+08h]
         push ecx
@@ -591,7 +591,7 @@ DrawTextBoxedAt:
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_11FA98
+        call SetTextOrigin
         add esp, byte 8
         mov ecx, dword [byte esp+08h]
         push ecx
@@ -1488,7 +1488,7 @@ PrepareTextDraw:
         mov ebx, 1040h
         mov eax, ebx
         mov dword [dword_1CF5B4], ebx
-        call sub_11F8E0
+        call AllocNetBuffer
         mov dword [dword_1CF5B0], eax
 .1:
         cmp dword [dword_1CF53C], byte 0
@@ -1624,7 +1624,7 @@ FreeTextBuffers:
         je short .1
         mov eax, edx
         xor ebx, ebx
-        call sub_11F94C
+        call FreeNetBuffer
         mov dword [dword_1CF5B0], ebx
         mov dword [dword_1CF5B4], ebx
 .1:

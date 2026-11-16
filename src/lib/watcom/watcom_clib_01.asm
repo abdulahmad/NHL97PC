@@ -5,7 +5,7 @@ section s_F9C34 progbits alloc exec nowrite align=1
 extern __ExpandDGROUP_, __MemAllocator, __MemFree, __allocfp_, __chktty_, __close_, __fill_buffer_, __flush_
 extern __freefp_, __ioalloc_, __qread_, __set_errno_, str_MBRAM, byte_1DA4C4, dword_16E318, dword_16E31C
 extern dword_16E320, dword_16E32C, dword_16E330, dword_1724C9, dword_1CF0D8, dword_1CF25C, dword_1CF260, dword_1CF268
-extern dword_1DA4BC, dword_1DA4C0, fflush_, lseek_, sopen_, sub_11B98E, sub_120AB8, sub_121261
+extern dword_1DA4BC, dword_1DA4C0, fflush_, lseek_, sopen_, UnlinkJump, sub_120AB8, sub_121261
 extern sub_121460, sub_121470, sub_121494, sub_FA5B8, tell_, tolower_
 global __MkTmpFile_, __doclose_, __doopen_, __hex_, __open_flags_, __shutdown_stream_, __update_buffer_, _fsopen_
 global _nfree_, _nmalloc_, close_file_, fclose_, fopen_, fread_, fseek_, ftell_
@@ -704,7 +704,7 @@ __doclose_:
         mov dl, byte [byte ecx+019h]
         call __MkTmpFile_
         mov eax, esp
-        call sub_11B98E
+        call UnlinkJump
 .6:
         mov eax, esi
 .7:

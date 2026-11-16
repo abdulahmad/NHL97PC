@@ -35,9 +35,9 @@ extern memcpy_, memset_, off_16D7AC, off_16D7B4, off_16D7DC, off_16D7E0, off_16D
 extern off_16E0FC, off_16E4E0, rand_, segread_, slotteam, sprintf_, strcat_, strcmp_
 extern strcpy_, stricmp_, strlen_, strncpy_, bcopy, BlitShape2, BlitArt, BlitShape
 extern sub_1013FC, FindShape, sub_102B94, sub_106D08, sub_1070B0, sub_107D30, SetupOptionsAnim, sub_10AED0
-extern UpdateOptionsAnim, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11B104, sub_11B98E, sub_11BFC5, sub_11C134
-extern sub_11C41C, sub_11D2D0, sub_11D364, sub_11D508, sub_11D5C0, sub_11D690, sub_11D780, sub_11D8D8
-extern sub_11DA0C, sub_11DE04, sub_11F850, sub_11F8D0, SetScreenTarget, JoystickAxisScale, InitPacketLink, ShutdownPacketLink
+extern UpdateOptionsAnim, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11B104, UnlinkJump, StrCopyEnd, OpenSerialPacketLink
+extern OpenModemPacketLink, NetCopyName, NetOpenSession, NetCloseSession, NetAnnounce, NetJoinGame, NetLeaveGame, NetListGames
+extern NetDisconnectPeer, OpenNetPacketLink, IpxLinkStartup, SetNetCallback, SetScreenTarget, JoystickAxisScale, InitPacketLink, ShutdownPacketLink
 extern PacketLinkSend, ClosePacketLink, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd
 extern ArenaFileName, StopAllSfx, PlaySfx, ServiceBackgroundAudio, LoadDataFile, DrawShadedLogo, DrawScreenBackground, FadeInScreen
 extern ExitScreen, SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox, ShowMessageBoxNoWait
@@ -1837,7 +1837,7 @@ LookupRecord_FD:
         mov ebx, 19h
         mov eax, ecx
         add edx, byte 18h
-        call sub_11BFC5
+        call StrCopyEnd
         mov eax, ecx
         call strlen_
         mov edx, eax
@@ -10906,7 +10906,7 @@ FileDelete:
         test eax, eax
         je short .2
         mov eax, ebx
-        call sub_11B98E
+        call UnlinkJump
         test eax, eax
         jne short .1
         mov eax, str_FILEdelete
@@ -15235,7 +15235,7 @@ InitNetSession:
         push edx
         mov dword [dword_1CD444], edx
         mov dword [dword_1CD438], eax
-        call sub_11C134
+        call OpenSerialPacketLink
         add esp, byte 14h
         push byte 4
         push dword 0FAh
@@ -15244,7 +15244,7 @@ InitNetSession:
         push byte 0
         mov ebx, eax
         mov esi, eax
-        call sub_11C41C
+        call OpenModemPacketLink
         add esp, byte 14h
         cmp ebx, eax
         jge short .2
@@ -15386,7 +15386,7 @@ OpenNetSession:
         push byte 0
         push byte 20h
         push unk_1CD408
-        call sub_11C134
+        call OpenSerialPacketLink
         add esp, byte 14h
         test eax, eax
         jne short .10
@@ -15400,7 +15400,7 @@ OpenNetSession:
         push byte 0
         push byte 20h
         push unk_1CD408
-        call sub_11C41C
+        call OpenModemPacketLink
         add esp, byte 14h
         test eax, eax
         je short .11
@@ -15534,7 +15534,7 @@ IpxInit:
         shl eax, 1Ch
         shr eax, 1Eh
         mov eax, dword [nosplit eax*4+off_16E0FC]
-        call sub_11F850
+        call IpxLinkStartup
         mov ebx, eax
 .2:
         test ebx, ebx
@@ -15545,7 +15545,7 @@ IpxInit:
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_16E128], eax
-        call sub_11F8D0
+        call SetNetCallback
 .3:
         xor ebx, ebx
         push byte 2
@@ -15555,7 +15555,7 @@ IpxInit:
         push dword 2580h
         push SetNetPlayerName
         mov dword [dword_16E124], ebx
-        call sub_11D2D0
+        call NetCopyName
         add esp, byte 10h
         test eax, eax
         jne short .5
@@ -15597,7 +15597,7 @@ IpxInit:
         push SetNetPlayerName
         mov dword [dword_16E124], eax
         mov word [word_16E120], si
-        call sub_11D2D0
+        call NetCopyName
         add esp, byte 10h
         test eax, eax
         jne short .7
@@ -15627,7 +15627,7 @@ IpxInit:
         mov edi, 1
         push byte 0
         mov word [word_16E108], di
-        call sub_11DE04
+        call OpenNetPacketLink
         add esp, byte 14h
 .8:
         pop ebp
@@ -15720,7 +15720,7 @@ IpxCloseSocket:
         jl short .1
         push unk_1CD480
         mov esi, 0FFFFFFFFh
-        call sub_11D508
+        call NetCloseSession
         add esp, byte 4
         mov word [word_16E10A], si
 .1:
@@ -15788,7 +15788,7 @@ HostNetGame:
         push eax
         push unk_16E110
         push unk_1CD480
-        call sub_11D364
+        call NetOpenSession
         add esp, byte 14h
         test eax, eax
         je short .3
@@ -15812,7 +15812,7 @@ LeaveNetGame:
         jl short .1
         push unk_1CD480
         mov ebx, 0FFFFFFFFh
-        call sub_11D508
+        call NetCloseSession
         add esp, byte 4
         mov word [word_16E10A], bx
 .1:
@@ -15973,7 +15973,7 @@ FindNetworkGames:
         push byte 1Eh
         push AddFoundGame
         push unk_1CD480
-        call sub_11D5C0
+        call NetAnnounce
         add esp, byte 0Ch
         mov eax, dword [tickcount]
         lea ebx, [byte eax+05h]
@@ -16010,7 +16010,7 @@ FindNetworkGames:
         push byte 1Eh
         push AddFoundGame
         push unk_1CD480
-        call sub_11D5C0
+        call NetAnnounce
         add esp, byte 0Ch
         call ServiceIdle
 .4:
@@ -17447,7 +17447,7 @@ JoinNetworkGame:
         mov esi, 2
         push unk_1CD480
         mov dword [byte esp+050h], esi
-        call sub_11D780
+        call NetLeaveGame
         add esp, byte 10h
         test eax, eax
         jne short .2
@@ -17479,7 +17479,7 @@ JoinNetworkGame:
         test eax, eax
         je short .4
         push unk_1CD480
-        call sub_11DA0C
+        call NetDisconnectPeer
         add esp, byte 4
         call HideLinkBox
         xor eax, eax
@@ -17503,12 +17503,12 @@ JoinNetworkGame:
         call HideLinkBox
         push byte 0
         push unk_1CD480
-        call sub_11D8D8
+        call NetListGames
         add esp, byte 8
         test eax, eax
         jne near .9
         push unk_1CD480
-        call sub_11DA0C
+        call NetDisconnectPeer
         add esp, byte 4
         xor ebx, ebx
         mov ecx, 1
@@ -17534,7 +17534,7 @@ JoinNetworkGame:
         lea eax, [byte esp+048h]
         push eax
         push unk_1CD480
-        call sub_11D690
+        call NetJoinGame
         add esp, byte 0Ch
         mov esi, eax
         test eax, eax
@@ -17562,12 +17562,12 @@ JoinNetworkGame:
         push byte 0
         push byte 20h
         push unk_1CD570
-        call sub_11DE04
+        call OpenNetPacketLink
         add esp, byte 14h
         test eax, eax
         jne short .10
         push unk_1CD480
-        call sub_11DA0C
+        call NetDisconnectPeer
         add esp, byte 4
         xor ebx, ebx
         mov ecx, 1
@@ -17611,7 +17611,7 @@ CloseNetConnection:
         xor edx, edx
         xor ebx, ebx
         mov dword [dword_1CD590], edx
-        call sub_11DA0C
+        call NetDisconnectPeer
         add esp, byte 4
         mov word [word_16E10C], bx
 .1:
