@@ -30,7 +30,7 @@ global sub_11504_E, sub_123A0_62, sub_123A0_81, GripLinkLibrary, sub_102F4, Load
 global sub_10A68, sub_10CC8, sub_10FAC, sub_1120C, sub_11328, sub_114C4, sub_11504, sub_11574
 global sub_116B0, sub_11808, sub_11908, sub_11984, sub_119A8, sub_11B38, sub_11ED8, sub_11F74
 global sub_11FB4, sub_12024, sub_12334, sub_123A0, sub_12440, sub_124A4, sub_127D4, sub_12970
-global sub_12A10, sub_12A70, sub_12C2C, sub_12DE8, sub_12E50, unk_10003
+global sub_12A10, ClockTick, sub_12C2C, sub_12DE8, sub_12E50, unk_10003
 ;-----------------------------------------------------------------------------
 ; loc_10000                                                       10000  97 PC
 ;-----------------------------------------------------------------------------
@@ -3650,9 +3650,11 @@ sub_12A10:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12A70                                                       12A70  97 PC
+; ClockTick                                    12A70  95 PC, medium confidence
+; run from the main loop. Counts clockticks (18h per second) and gameclock down; horn sfx 97h at
+; 60 s (unless music plays), UpdateCoachModes each second. Debug playback (penshotlive) ends via EndPenaltyShot.
 ;-----------------------------------------------------------------------------
-sub_12A70:
+ClockTick:
         push ebx
         push ecx
         push edx

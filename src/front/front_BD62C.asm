@@ -16,7 +16,7 @@ extern dword_1CAF98, dword_1CAF9C, dword_1CAFA0, dword_1CAFA4, dword_1CAFA8, dwo
 extern dword_1CAFE4, dword_1CAFE8, dword_1CAFEC, dword_1CAFF0, dword_1CAFF4, dword_1CAFF8, dword_1CAFFC, dword_1CB000
 extern off_16D254, off_16D258, qword_166A8D, qword_166AA1, qword_166ACC, qword_166B0F, qword_166B2A, rand_
 extern sprintf_, strcmp_, strcpy_, sub_101390, sub_1013FC, sub_101429, sub_101EAC, sub_103298
-extern sub_103648, sub_105324, sub_10AED0, sub_114C4, sub_11B98E, sub_12024, sub_13C164, sub_14E60
+extern sub_103648, sub_105324, sub_10AED0, sub_114C4, sub_11B98E, sub_12024, sub_13C164, InitGameDisplay
 extern sub_1603A, sub_18E35, sub_1D1DC, sub_1D208, sub_1D480, sub_1D4FC, sub_1D828, sub_1D858
 extern sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0, sub_1DD5C, sub_1DDE4, sub_1DEB8
 extern sub_3C75C, sub_3CA28, sub_3CB00, sub_3CB48, sub_3CB70, sub_3D020, sub_3E5F0, sub_41A28
@@ -327,7 +327,7 @@ sub_BD98B:
         mov dword [dword edx+dword_1B1B64], 0
         cmp eax, byte 0Dh
         jl short .1
-        call sub_14E60
+        call InitGameDisplay
         mov eax, dword [dword_1CAFF4]
         test eax, eax
         je short .2

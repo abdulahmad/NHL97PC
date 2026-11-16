@@ -14,7 +14,7 @@ extern dword_1CD0F8, dword_1CD0FE, dword_1CD102, dword_1CD106, dword_1CD10A, dwo
 extern fopen_, memcpy_, memset_, off_16E4E0, rand_, sprintf_, sscanf_, str_CRD1
 extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, sub_101340
 extern sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_103298, sub_1167AE, sub_11A318
-extern sub_11BED4, sub_13C164, WaitRetraceEdges, sub_15578, sub_419B0, sub_419B8, sub_41A28, sub_41D18
+extern sub_11BED4, sub_13C164, WaitRetraceEdges, RunDemoGame, sub_419B0, sub_419B8, sub_41A28, sub_41D18
 extern sub_41D48, sub_41DB8, sub_41DD8, sub_41EA4, sub_41FA0, sub_41FDC, sub_4A4F4, MakeDataPath
 extern sub_4B108, sub_7E860, sub_7EDF0, sub_7F028, sub_7F0D8, sub_7F16C, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_E2270
@@ -2157,7 +2157,7 @@ sub_D68E0:
 .2:
         test edx, edx
         jne short .3
-        call sub_15578
+        call RunDemoGame
         mov edx, eax
         call sub_41DD8
 .3:

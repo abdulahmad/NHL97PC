@@ -3,12 +3,28 @@ address,name,auto_name,source,confidence,evidence,file
 10354,LoadGripLibrary,sub_10354,96PC,medium,NHL96PC 1124D (sem 1.00): S:GRIP; D:1684D5; S:GRIP.GLL; D:1684CC,src/front/front_10010.asm
 11744,clearteams,,96PC,medium,NHL96PC 4875E (similar): mnemonic similarity 0.80 over 60 instructions,
 11F10,SetupTeamForIntermission,,96PC,medium,NHL96PC 4AF89 (similar): mnemonic similarity 0.88 over 32 instructions,
+12A70,ClockTick,sub_12A70,96PC,medium,"96 PC ClockTick: counts the game clock down (word_19CBBA minutes, word_19CBBC seconds) and posts the clock events; from RunSimFrames",src/front/front_10010.asm
 1303C,AllInPlace,,96PC,medium,NHL96PC 3ABAE (similar): mnemonic similarity 0.87 over 21 instructions,
 1306C,Intermission,sub_1306C,96PC,medium,"96 PC Intermission: GameOver when gsp is 4, else SetupTeamForIntermission and resets the players for the next period",src/engine/faceoff/faceoff.asm
 130C8,StartGame,sub_130C8,96PC,medium,"96 PC StartGame: CountTeamSlots, clears the game vars and teams, restores the teams and starts the period",src/engine/faceoff/faceoff.asm
+131E0,InitGameVars,sub_131E0,new,medium,"clears the per-game state (clock, period, gameover, penalties, counters), then StartGame",src/engine/faceoff/faceoff.asm
+134F0,RunOpeningFrames,sub_134F0,new,low,runs the input records and frames of the opening until a button or 5DCh frames,src/engine/faceoff/faceoff.asm
+136C0,PlaceOpeningPlayers,sub_136C0,new,low,puts the players at their opening places (random spread by team and arena),src/engine/faceoff/faceoff.asm
+13920,OpeningSequence,sub_13920,new,low,"the game's opening: in a simulated game posts event 29h and returns, else places the players (PlaceOpeningPlayers) and runs the intro frames (RunOpeningFrames)",src/engine/faceoff/faceoff.asm
+13A4C,BeginGame,sub_13A4C,new,low,"from PlayGame: InitGameVars, the period fraction, then the opening sequence (OpeningSequence); 2 when it was aborted",src/engine/faceoff/faceoff.asm
 14078,RunSimFrames,sub_14078,96PC,medium,96 PC RunSimFrames: runs the simulation for one input record,src/engine/faceoff/faceoff.asm
+14184,ToggleFKeyFlag,sub_14184,new,low,(key 5E00h-6600h): toggles the flag of a Ctrl+F key (dword_16AF3C),src/engine/faceoff/faceoff.asm
+14238,CountDebugUnlock,sub_14238,new,low,counts one step of the debug key unlock (sound 10h at 4),src/engine/faceoff/faceoff.asm
+1426C,ResetDebugUnlock,sub_1426C,new,low,clears the debug key unlock count,src/engine/faceoff/faceoff.asm
+14294,DebugKeys,sub_14294,new,low,"(key): the debug keys, active once the unlock count (word_1686D4) reaches 4",src/engine/faceoff/faceoff.asm
+14710,GameFunctionKeys,sub_14710,new,low,"(key): Ctrl+F1-F9 toggles (dword_16AF3C), +, - and =",src/engine/faceoff/faceoff.asm
+14880,HandleGameKeys,sub_14880,new,medium,"from GameLoop: the in-game keyboard: the unlocked debug keys (DebugKeys), the function keys (GameFunctionKeys)",src/engine/faceoff/faceoff.asm
 14AC8,GameLoop,sub_14AC8,96PC,high,"96 PC GameLoop: same structure (input records, RunSimFrames, in-game menu, period over, game over)",src/engine/faceoff/faceoff.asm
+14E60,InitGameDisplay,sub_14E60,new,low,from PlayGame: copies the display options (unk_16AED4) and sets the 640x480 game screen,src/engine/faceoff/faceoff.asm
+14FE0,SaveGameDisplay,sub_14FE0,new,low,writes the game's display options back (dword_1AC835) after the game,src/engine/faceoff/faceoff.asm
+151A8,SetGameBrightness,sub_151A8,new,low,the brightness (28h-64h) from the display options,src/engine/faceoff/faceoff.asm
 152C4,PlayGame,sub_152C4,96PC,high,"96 PC PlayGame: seeds, then calls GameLoop",src/engine/faceoff/faceoff.asm
+15578,RunDemoGame,sub_15578,96PC,medium,"96 PC RunDemoGame: the attract mode game (gameopts 40h, a seed from the DOS time)",src/engine/faceoff/faceoff.asm
 1583F,RunInGameMenu,sub_1583F,96PC,high,96 PC RunInGameMenu: called when InGameMenuRequest is set,src/engine/faceoff/faceoff.asm
 2DE3C,ReturnGoalies,,96PC,medium,NHL96PC 463AE (similar): mnemonic similarity 0.81 over 33 instructions,
 2EEE8,puckfaceoff,,96PC,medium,NHL96PC 3AEBA (sem): C:306; D:19CC04; D:19EBBC; D:19EAB0,

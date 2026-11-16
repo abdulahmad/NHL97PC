@@ -24,7 +24,7 @@
 ;  123A0  sub_123A0                                front/front_10010.asm                        1
 ;  127D4  sub_127D4                                front/front_10010.asm                        3
 ;  12A10  sub_12A10                                front/front_10010.asm                        3
-;  12A70  sub_12A70                                front/front_10010.asm                        1
+;  12A70  ClockTick                                front/front_10010.asm                        1
 ;  12C2C  sub_12C2C                                front/front_10010.asm                        1
 ;  12DE8  sub_12DE8                                front/front_10010.asm                        1
 ;  12E50  sub_12E50                                front/front_10010.asm                        1
@@ -41,9 +41,9 @@
 ;  14078  RunSimFrames                             engine/faceoff/faceoff.asm                   1
 ;  14140  sub_14140                                engine/faceoff/faceoff.asm                   1
 ;  141AC  sub_141AC                                engine/faceoff/faceoff.asm                   1
-;  14E60  sub_14E60                                engine/faceoff/faceoff.asm                   1
+;  14E60  InitGameDisplay                          engine/faceoff/faceoff.asm                   1
 ;  152C4  PlayGame                                 engine/faceoff/faceoff.asm                   1
-;  15578  sub_15578                                engine/faceoff/faceoff.asm                   1
+;  15578  RunDemoGame                              engine/faceoff/faceoff.asm                   1
 ;  158E2  unk_158E2                                engine/faceoff/faceoff.asm                   1
 ;  15932  unk_15932                                engine/faceoff/faceoff.asm                   1
 ;  15982  unk_15982                                engine/faceoff/faceoff.asm                   1
