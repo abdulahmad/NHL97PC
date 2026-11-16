@@ -135,7 +135,7 @@
 ;  1FB6C  Setplass                                 engine/engine_15AC2.asm                      3
 ;  1FBF4  sub_1FBF4                                engine/engine_15AC2.asm                      1
 ;  1FF5C  sub_1FF5C                                engine/engine_15AC2.asm                      2
-;  20508  sub_20508                                engine/engine_15AC2.asm                      1
+;  20508  Endfaceoff                               engine/engine_15AC2.asm                      1
 ;  209D0  sub_209D0                                engine/engine_15AC2.asm                      1
 ;  209E0  sub_209E0                                engine/engine_15AC2.asm                      1
 ;  20A80  sub_20A80                                engine/engine_15AC2.asm                      1
@@ -184,10 +184,10 @@
 ;  28D88  assrefpenshot                            engine/engine_25894.asm                      1
 ;  29064  assrefsignal                             engine/engine_25894.asm                      1
 ;  293A8  assrefwhistle                            engine/engine_25894.asm                      1
-;  295CC  sub_295CC                                engine/engine_25894.asm                      1
-;  298E8  sub_298E8                                engine/engine_25894.asm                      1
+;  295CC  assrefgoalpa                             engine/engine_25894.asm                      1
+;  298E8  assrefgoalline                           engine/engine_25894.asm                      1
 ;  29A90  assreffollow                             engine/engine_25894.asm                      1
-;  29BFC  sub_29BFC                                engine/engine_25894.asm                      1
+;  29BFC  assrefdrop                               engine/engine_25894.asm                      1
 ;  29E2C  assrefatdot                              engine/engine_25894.asm                      1
 ;  29F30  assintrostand                            engine/engine_25894.asm                      1
 ;  2A000  assintroline                             engine/engine_25894.asm                      1

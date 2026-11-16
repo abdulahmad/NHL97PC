@@ -1,0 +1,4 @@
+sub_295CC assrefgoalpa {source=96PC,confidence=medium} referee assignment 34h: set by assrefsignal, assrefpenshot and EndPenaltyShot as in 96 PC; after the goal call sends the referee on (32h / 33h / 35h) and the puck to 42h (puckfaceoff)
+sub_29BFC assrefdrop {source=96PC,confidence=low} referee assignment 32h (after assintrostand and assrefgoalpa): in a penalty shot goes to 38h (assrefpenshot), else to 33h (assrefatdot) for the faceoff
+sub_298E8 assrefgoalline {source=96PC,confidence=low} referee assignment 36h, set by nothing (as in 96 PC): skates the referee to a fixed spot at one end and then to 34h
+sub_20508 Endfaceoff {source=96PC,confidence=medium} from puckfaceoff2: decides the faceoff (randomd0 21h / 0Ah as in 96 PC), gives the puck assignment 41h (pucknorm) and the referee 31h (assreffollow)

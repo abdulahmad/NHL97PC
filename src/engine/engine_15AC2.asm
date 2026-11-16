@@ -100,7 +100,7 @@ global sub_1D4FC, sub_1D828, sub_1D858, sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DB
 global sub_1DD5C, sub_1DDE4, sub_1DEB8, sub_1DEE4, sub_1DFA0, sub_1E014, sub_1E184, assreplace
 global assinsert, assexit, sub_1E284, sub_1E354, sub_1E4E4, sub_1E7C4, sub_1E810, sub_1E8B0
 global check4bench, SwapPosition, sub_1F32C, sub_1F4EC, sub_1F538, sub_1F5B4, sub_1F7D0, Setplass
-global sub_1FBF4, sub_1FF5C, sub_20508, sub_209CC, sub_209D0, sub_209E0, sub_20A80, sub_20C50
+global sub_1FBF4, sub_1FF5C, Endfaceoff, sub_209CC, sub_209D0, sub_209E0, sub_20A80, sub_20C50
 global sub_20CB0, sub_218B8, sub_21A4C, sub_21AB4, assgoalie, sub_21E98, sub_22050, assextra4
 global assdefo, asswingo, asscentero, sub_22FF0, assextra3, assdefd, asswingd, asscenterd
 global sub_23C98, assfaceoff, assfaceoffpl, sub_240D0, sub_24220, sub_244BC, sub_2471C, sub_248E8
@@ -14184,9 +14184,11 @@ sub_1FF5C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_20508                                                       20508  97 PC
+; Endfaceoff                         20508  94G logic94.asm, medium confidence
+; From puckfaceoff2: decides the faceoff (randomd0 21h / 0Ah as in 96 PC),
+; gives the puck assignment 41h (pucknorm) and the referee 31h (assreffollow)
 ;-----------------------------------------------------------------------------
-sub_20508:
+Endfaceoff:
         push ebx
         push ecx
         push edx
