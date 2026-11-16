@@ -97,25 +97,25 @@ extern word_1B0B62
 global jpt_4A73C, jpt_4AD42, jpt_4AE54, jpt_4B8CC, jpt_52484, PaEvent_4D6, PaEvent_4EC, PaEvent_502
 global PaEvent_518, PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E
 global PaEvent_745, PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967
-global PaEvent_14CD, sub_4A74C_34, sub_4A74C_4B, sub_4A74C_105, sub_4A74C_277, MakeDataPath_41, MakeDataPath_49, MakeDataPath_4F
-global MakeDataPath_62, MakeDataPath_111, MakeDataPath_119, MakeDataPath_11F, MakeDataPath_132, jpt_4AE54_137, sub_4B8DC_27, sub_4B8DC_33
-global sub_4B8DC_3D, sub_4B8DC_47, sub_4E8EC_30, sub_4FD24_59, sub_50AF4_184, sub_51A74_58, sub_51AEC_50, OpenArenaArchive_2C
-global OpenArenaArchive_42, OpenArenaArchive_58, OpenArenaArchive_7D, PaEvent, sub_4A248, sub_4A280, PlayScreenMovie, sub_4A558
-global sub_4A6F8, sub_4A74C, sub_4AA78, MakeDataPath, MakeDirPath, LoadDataFileHandle, LoadDataFileLib, LoadDataFile
-global LoadDataFileFlag0, OpenDataLibrary, SetArtArchive, sub_4B307, WriteGlobalSet, sub_4B4AC, sub_4B4B0, sub_4B4C4
-global sub_4B540, InitGameGraphics, InitGameVideo, sub_4B8DC, FreeGameGraphics, sub_4B944, DrawGameFrame, sub_4BCB4
-global sub_4BD0C, sub_4BD4C, sub_4BDC0, sub_4BE14, sub_4BF10, sub_4BF54, sub_4BF94, sub_4C0C4
-global sub_4C0CC, sub_4C164, sub_4C240, sub_4C360, sub_4C404, sub_4C48C, sub_4C5A0, sub_4CE94
-global sub_4CF18, sub_4CF74, sub_4D230, sub_4D27C, sub_4D3B4, sub_4D534, sub_4D62C, sub_4D65C
-global sub_4D75C, sub_4D800, sub_4D8A8, sub_4D948, sub_4DA84, sub_4DCF0, sub_4DD0C, PeriodOver
-global sub_4DD9C, sub_4DDB0, sub_4DDBC, sub_4E3B0, sub_4E410, sub_4E500, sub_4E630, sub_4E660
-global sub_4E818, sub_4E840, sub_4E868, sub_4E894, sub_4E8C0, sub_4E8EC, sub_4E938, sub_4E9A0
-global sub_4EA44, sub_4EF68, sub_4F004, sub_4F068, sub_4F294, sub_4F404, sub_4F6AC, sub_4F7FC
-global sub_4F978, sub_4FA2C, sub_4FA8C, sub_4FC50, sub_4FD08, sub_4FD24, sub_4FF55, sub_4FF58
-global sub_4FF94, sub_50050, sub_50174, sub_50218, sub_503A0, sub_504E0, UpdateGoalLight, DrawGoalLight
-global TransformRink, sub_509E8, sub_50AF4, DrawStandsSides, sub_50DF4, sub_50EB8, sub_50F90, sub_510FC
-global sub_511AC, sub_51254, sub_51408, sub_51434, sub_516B8, sub_519E0, sub_51A74, sub_51AEC
-global sub_51B5C, sub_51BD8, LoadNetArt, BuildRinkSides, OpenArenaArchive, LoadBoardLogo, sub_52648, sub_526EC
+global PaEvent_14CD, FeedMusicStream_34, FeedMusicStream_4B, FeedMusicStream_105, FeedMusicStream_277, MakeDataPath_41, MakeDataPath_49, MakeDataPath_4F
+global MakeDataPath_62, MakeDataPath_111, MakeDataPath_119, MakeDataPath_11F, MakeDataPath_132, jpt_4AE54_137, ResetRenderTimers_27, ResetRenderTimers_33
+global ResetRenderTimers_3D, ResetRenderTimers_47, DrawCenterCircle_30, EndCrowdReaction_59, DrawBoardsTop_184, SetupNetArt_58, ResetNetArt_50, OpenArenaArchive_2C
+global OpenArenaArchive_42, OpenArenaArchive_58, OpenArenaArchive_7D, PaEvent, StopStreamTimer, ResetStreamAudio, PlayScreenMovie, CloseMusicStream
+global PumpMusicStream, FeedMusicStream, ServiceBackgroundAudio, MakeDataPath, MakeDirPath, LoadDataFileHandle, LoadDataFileLib, LoadDataFile
+global LoadDataFileFlag0, OpenDataLibrary, SetArtArchive, LoadStartupData, WriteGlobalSet, NoOpPlatformHook, RefreshViewDistance, AddModelName
+global FindModelName, InitGameGraphics, InitGameVideo, ResetRenderTimers, FreeGameGraphics, DrawModelList, DrawGameFrame, RedrawGameView
+global SetStandsClip, SetStandsDetail, PickFlashSpot, StartCameraFlash, UpdateCameraFlashes, DrawFlashSprite, DrawCameraFlashes, TriggerCameraFlashes
+global LoadRinkTextures, BuildTexturePage, BuildTextureTile, SetTextureDetail, SetupIceTextures, SetupBoardAds, LoadArenaArt, ClipLinePoint
+global ProjectLinePoints, ClipLineSegment, LineSegmentLength, DrawRinkCircle, DrawRinkLine, ScaleLineWidth, SetLineWidth, DrawRinkArc
+global DrawFaceoffDot, DrawLineSegment, SetNetPositions, DrawNets, DrawNetShadows, DrawNetsHook, InitRinkProjection, PeriodOver
+global IsCameraOnPuck, SetCameraMode, InitRinkView, UpdateViewDistance, DrawStandsRow, DrawStandsSection, DrawStandsEnd, DrawStandsSide
+global DrawHomeBlueLine, DrawAwayBlueLine, DrawCenterSpots, DrawEndSpots, DrawNeutralSpots, DrawCenterCircle, SetRinkLineDetail, DrawCreaseArc
+global BuildRinkGeometry, DrawIceSurface, DrawCreases, DrawRinkMarkings, DrawBoardsLines, DrawGoalLines, CrowdDistanceTo, CrowdRandomPose
+global CrowdRandomDelay, CrowdReactionStep, BuildCrowdReaction, StartCrowdReaction, ClearCrowdReaction, EndCrowdReaction, NoOpCrowdHook, UpdateCrowdReaction
+global FindNearestBenchPlayer, StartBenchCheer, BenchCheerStep, UpdateBenchCheer, PickBenchCheerers, GoalCrowdCheer, UpdateGoalLight, DrawGoalLight
+global TransformRink, DrawBenchLines, DrawBoardsTop, DrawStandsSides, DrawBenchDoors, DrawGlass, DrawBenchPlayers, DrawBenchArea
+global DrawPenaltyBox, DrawBenches, ScoreboardTransform, LoadScoreboardArt, DrawScoreboard, NetFrameDistance, SetupNetArt, ResetNetArt
+global UpdateScoreboardPos, UpdateScoreboardSpin, LoadNetArt, BuildRinkSides, OpenArenaArchive, LoadBoardLogo, LoadTeamLogoShape, LoadTeamLogoCopy
 global unk_4AB70, unk_4AB80, unk_4B4A0, unk_4BCC0, unk_4BCCC
 ;-----------------------------------------------------------------------------
 ; PaEvent                                         48D70  96 PC, low confidence
@@ -1906,9 +1906,10 @@ PaEvent_14CD:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4A248                                                       4A248  97 PC
+; StopStreamTimer                                 4A248  97 PC, low confidence
+; Stops the stream audio timer
 ;-----------------------------------------------------------------------------
-sub_4A248:
+StopStreamTimer:
         push dword 4
         call __CHK
         cmp dword [dword_169254], byte 1
@@ -1928,9 +1929,11 @@ sub_4A248:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_4A280                                                       4A280  97 PC
+; ResetStreamAudio                                4A280  97 PC, low confidence
+; Stops the music stream and clears its state (before replays and
+; intermissions)
 ;-----------------------------------------------------------------------------
-sub_4A280:
+ResetStreamAudio:
         push dword 20h
         call __CHK
         push ebx
@@ -2152,9 +2155,10 @@ PlayScreenMovie:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4A558                                                       4A558  97 PC
+; CloseMusicStream                                4A558  97 PC, low confidence
+; Closes the music stream and frees its buffers
 ;-----------------------------------------------------------------------------
-sub_4A558:
+CloseMusicStream:
         push dword 20h
         call __CHK
         push ebx
@@ -2272,9 +2276,10 @@ sub_4A558:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4A6F8                                                       4A6F8  97 PC
+; PumpMusicStream                                 4A6F8  97 PC, low confidence
+; Feeds the next packets of the music stream
 ;-----------------------------------------------------------------------------
-sub_4A6F8:
+PumpMusicStream:
         push dword 10h
         call __CHK
         push ecx
@@ -2299,14 +2304,15 @@ sub_4A6F8:
         ret
         db 090h
 jpt_4A73C:
-        dd sub_4A74C_34
-        dd sub_4A74C_4B
-        dd sub_4A74C_105
-        dd sub_4A74C_277
+        dd FeedMusicStream_34
+        dd FeedMusicStream_4B
+        dd FeedMusicStream_105
+        dd FeedMusicStream_277
 ;-----------------------------------------------------------------------------
-; sub_4A74C                                                       4A74C  97 PC
+; FeedMusicStream                                 4A74C  97 PC, low confidence
+; Opens, queues and feeds the music stream
 ;-----------------------------------------------------------------------------
-sub_4A74C:
+FeedMusicStream:
         push dword 28h
         call __CHK
         push ebx
@@ -2316,19 +2322,19 @@ sub_4A74C:
         push edi
         push ebp
         cmp dword [dword_1691BC], byte 0
-        je near sub_4A74C_277.14
+        je near FeedMusicStream_277.14
         mov eax, dword [dword_1691A8]
         dec eax
         cmp eax, byte 3
-        ja near sub_4A74C_277.14
+        ja near FeedMusicStream_277.14
         jmp dword [nosplit cs:eax*4+jpt_4A73C]
-sub_4A74C_34:
+FeedMusicStream_34:
         cmp word [word_1691B6], byte 0
-        jne short sub_4A74C_4B
+        jne short FeedMusicStream_4B
         xor edx, edx
         mov dword [dword_1691CC], edx
-        jmp near sub_4A74C_277.14
-sub_4A74C_4B:
+        jmp near FeedMusicStream_277.14
+FeedMusicStream_4B:
         push dword 800h
         push dword 25B7Eh
         mov ecx, dword [dword_1691BC]
@@ -2362,7 +2368,7 @@ sub_4A74C_4B:
         mov dword [dword_1691D0], ebp
         mov dword [dword_1691D8], eax
 .2:
-        call sub_4A558
+        call CloseMusicStream
         mov dword [dword_1691A8], 1
         pop ebp
         pop edi
@@ -2380,7 +2386,7 @@ sub_4A74C_4B:
         mov ebp, 3
         mov dword [dword_1691CC], eax
         mov dword [dword_1691A8], ebp
-sub_4A74C_105:
+FeedMusicStream_105:
         cmp dword [dword_1691C0], byte 0
         je short .5
         call CdStreamService
@@ -2397,13 +2403,13 @@ sub_4A74C_105:
         call sub_108BA0
 .5:
         cmp dword [dword_1691AC], byte 0
-        je near sub_4A74C_277.14
+        je near FeedMusicStream_277.14
         mov edi, dword [dword_1691C0]
         push edi
         call StreamBufferFree
         add esp, byte 4
         cmp eax, 1588h
-        jl near sub_4A74C_277.14
+        jl near FeedMusicStream_277.14
         push byte 0
         mov ecx, 25AEEh
         mov ebx, 0C8h
@@ -2426,7 +2432,7 @@ sub_4A74C_105:
         mov dword [dword_1691D8], eax
 .7:
         mov esi, 1
-        call sub_4A558
+        call CloseMusicStream
         mov dword [dword_1691A8], esi
         pop ebp
         pop edi
@@ -2457,7 +2463,7 @@ sub_4A74C_105:
         mov dword [dword_1691D8], eax
 .10:
         call sub_108E74
-        call sub_4A558
+        call CloseMusicStream
         xor eax, eax
         mov edx, 1
         mov dword [dword_1691CC], eax
@@ -2486,7 +2492,7 @@ sub_4A74C_105:
         pop ecx
         pop ebx
         ret
-sub_4A74C_277:
+FeedMusicStream_277:
         xor ebx, ebx
         mov ecx, dword [dword_1691C0]
         mov dword [dword_1691AC], ebx
@@ -2516,7 +2522,7 @@ sub_4A74C_277:
         add esp, byte 4
         mov ebx, 1
         call sub_108E74
-        call sub_4A558
+        call CloseMusicStream
         mov dword [dword_1691A8], ebx
         pop ebp
         pop edi
@@ -2545,9 +2551,10 @@ sub_4A74C_277:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4AA78                                                       4AA78  97 PC
+; ServiceBackgroundAudio                          4AA78  97 PC, low confidence
+; Services speech and music streaming while the game waits
 ;-----------------------------------------------------------------------------
-sub_4AA78:
+ServiceBackgroundAudio:
         push dword 10h
         call __CHK
         push ebx
@@ -2626,7 +2633,7 @@ sub_4AA78:
         cmp bx, word [dword_169280]
         jne short .12
 .11:
-        call sub_4A74C
+        call FeedMusicStream
 .12:
         xor eax, eax
         mov dword [dword_169844], eax
@@ -3380,9 +3387,10 @@ SetArtArchive:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4B307                                                       4B307  97 PC
+; LoadStartupData                                 4B307  97 PC, low confidence
+; Checks the CPU and loads the start-up data file
 ;-----------------------------------------------------------------------------
-sub_4B307:
+LoadStartupData:
         push ebx
         push ecx
         push edx
@@ -3517,15 +3525,17 @@ WriteGlobalSet:
 unk_4B4A0:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,0FAh,044h
 ;-----------------------------------------------------------------------------
-; sub_4B4AC                                                       4B4AC  97 PC
+; NoOpPlatformHook                                4B4AC  97 PC, low confidence
+; Does nothing (empty platform hook)
 ;-----------------------------------------------------------------------------
-sub_4B4AC:
+NoOpPlatformHook:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4B4B0                                                       4B4B0  97 PC
+; RefreshViewDistance                             4B4B0  97 PC, low confidence
+; Refreshes the camera view distance
 ;-----------------------------------------------------------------------------
-sub_4B4B0:
+RefreshViewDistance:
         push esi
         push edi
         mov edi, unk_16AF14
@@ -3533,14 +3543,15 @@ sub_4B4B0:
         movsd
         movsd
         movsd
-        call sub_4E3B0
+        call UpdateViewDistance
         pop edi
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_4B4C4                                                       4B4C4  97 PC
+; AddModelName                                    4B4C4  97 PC, low confidence
+; Adds a model name to the model name table
 ;-----------------------------------------------------------------------------
-sub_4B4C4:
+AddModelName:
         push esi
         push edi
         sub esp, byte 4
@@ -3579,9 +3590,10 @@ sub_4B4C4:
         ret 8
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4B540                                                       4B540  97 PC
+; FindModelName                                   4B540  97 PC, low confidence
+; Finds a model in the model name table
 ;-----------------------------------------------------------------------------
-sub_4B540:
+FindModelName:
         push ebx
         push ecx
         push edx
@@ -3744,7 +3756,7 @@ InitGameGraphics:
         push byte 1
         mov edx, esi
         inc edi
-        call sub_4B4C4
+        call AddModelName
         mov ecx, dword [byte ebp+02Ch]
         add esi, 760h
         cmp edi, ecx
@@ -3757,15 +3769,15 @@ InitGameGraphics:
         movsd
         movsd
         movsd
-        call sub_4E3B0
+        call UpdateViewDistance
         mov esi, dword [dword_1B10F8]
         push esi
-        mov ecx, sub_4DDBC
-        mov ebx, sub_4DD0C
+        mov ecx, InitRinkView
+        mov ebx, InitRinkProjection
         push byte 2
         mov edx, unk_1B10FC
         mov eax, str_Puck
-        call sub_4B4C4
+        call AddModelName
         mov eax, 55h
         call sub_842F4
         call sub_E341C
@@ -3860,14 +3872,15 @@ InitGameVideo:
         pop ebx
         ret
 jpt_4B8CC:
-        dd sub_4B8DC_27
-        dd sub_4B8DC_47
-        dd sub_4B8DC_3D
-        dd sub_4B8DC_33
+        dd ResetRenderTimers_27
+        dd ResetRenderTimers_47
+        dd ResetRenderTimers_3D
+        dd ResetRenderTimers_33
 ;-----------------------------------------------------------------------------
-; sub_4B8DC                                                       4B8DC  97 PC
+; ResetRenderTimers                               4B8DC  97 PC, low confidence
+; Resets the render timers after a cut (faceoff, replay, stoppage)
 ;-----------------------------------------------------------------------------
-sub_4B8DC:
+ResetRenderTimers:
         push edx
         xor edx, edx
         mov dword [dword_1ADC80], eax
@@ -3875,17 +3888,17 @@ sub_4B8DC:
         mov dword [dword_1ADC74], edx
         mov dword [dword_1ADC98], edx
         cmp eax, byte 3
-        ja short sub_4B8DC_47
+        ja short ResetRenderTimers_47
         jmp dword [nosplit cs:eax*4+jpt_4B8CC]
-sub_4B8DC_27:
+ResetRenderTimers_27:
         mov dword [dword_1B857C], 1
         pop edx
         ret
-sub_4B8DC_33:
+ResetRenderTimers_33:
         mov dword [dword_1ADC98], 1
-sub_4B8DC_3D:
+ResetRenderTimers_3D:
         mov dword [dword_1ADC74], 1
-sub_4B8DC_47:
+ResetRenderTimers_47:
         pop edx
         ret
         db 08Dh,040h,00h
@@ -3902,9 +3915,10 @@ FreeGameGraphics:
         jmp near FreeCameraDebug
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4B944                                                       4B944  97 PC
+; DrawModelList                                   4B944  97 PC, low confidence
+; Draws every model in the model list
 ;-----------------------------------------------------------------------------
-sub_4B944:
+DrawModelList:
         push esi
         push edi
         push ebp
@@ -4061,13 +4075,13 @@ DrawGameFrame:
         lea eax, [byte esp+024h]
         call sub_5475C
         mov eax, esi
-        call sub_50218
+        call UpdateBenchCheer
         mov eax, esi
-        call sub_4FF58
+        call UpdateCrowdReaction
         mov eax, esi
         call UpdateGoalLight
         mov eax, esi
-        call sub_516B8
+        call DrawScoreboard
         call sub_55110
         call ScaleModelLods
         mov ebp, dword [dword_1ADC84]
@@ -4094,7 +4108,7 @@ DrawGameFrame:
         add esp, byte 0Ch
         call sub_55FE4
         call sub_52E14
-        call sub_4DCF0
+        call DrawNetsHook
         call NoOpDraw
         xor edx, edx
 .7:
@@ -4126,7 +4140,7 @@ DrawGameFrame:
         mov ebx, 7F8h
         mov edx, 0FFFFF808h
         mov eax, 1
-        call sub_4B944
+        call DrawModelList
         push dword 0FFFFEF58h
         mov ecx, 0FFFFED40h
         jmp near .11
@@ -4138,7 +4152,7 @@ DrawGameFrame:
         mov ebx, 7F8h
         mov edx, 0FFFFF808h
         mov eax, 1
-        call sub_4B944
+        call DrawModelList
         push dword 12C0h
         mov ecx, 10A8h
         jmp short .11
@@ -4148,20 +4162,20 @@ DrawGameFrame:
         mov ebx, 7F8h
         mov edx, 0FFFFF808h
         mov eax, 1
-        call sub_4B944
+        call DrawModelList
         push dword 12C0h
         mov ecx, 10A8h
         mov ebx, 7F8h
         mov edx, 0FFFFF808h
         mov eax, 1
-        call sub_4B944
+        call DrawModelList
         push dword 10A8h
         mov ecx, 0FFFFEF58h
 .11:
         mov ebx, 7F8h
         mov edx, 0FFFFF808h
         mov eax, 1
-        call sub_4B944
+        call DrawModelList
         call sub_56464
         call DrawPlayerNames
         xor edx, edx
@@ -4189,9 +4203,10 @@ DrawGameFrame:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4BCB4                                                       4BCB4  97 PC
+; RedrawGameView                                  4BCB4  97 PC, low confidence
+; Redraws the game view at the current camera
 ;-----------------------------------------------------------------------------
-sub_4BCB4:
+RedrawGameView:
         jmp near PresentGameView
         db 00h,00h,00h,00h,00h,00h,00h
 unk_4BCC0:
@@ -4221,9 +4236,10 @@ unk_4BCCC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4BD0C                                                       4BD0C  97 PC
+; SetStandsClip                                   4BD0C  97 PC, low confidence
+; Sets the clip for drawing the stands
 ;-----------------------------------------------------------------------------
-sub_4BD0C:
+SetStandsClip:
         push ebx
         push ecx
         push esi
@@ -4260,9 +4276,10 @@ sub_4BD0C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4BD4C                                                       4BD4C  97 PC
+; SetStandsDetail                                 4BD4C  97 PC, low confidence
+; Sets the detail level for drawing the stands
 ;-----------------------------------------------------------------------------
-sub_4BD4C:
+SetStandsDetail:
         push ecx
         push esi
         push edi
@@ -4317,9 +4334,10 @@ sub_4BD4C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4BDC0                                                       4BDC0  97 PC
+; PickFlashSpot                                   4BDC0  97 PC, low confidence
+; Picks a spot in the stands for a camera flash
 ;-----------------------------------------------------------------------------
-sub_4BDC0:
+PickFlashSpot:
         push ebx
         push edx
         push esi
@@ -4357,9 +4375,10 @@ sub_4BDC0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4BE14                                                       4BE14  97 PC
+; StartCameraFlash                                4BE14  97 PC, low confidence
+; Starts a camera flash in the stands
 ;-----------------------------------------------------------------------------
-sub_4BE14:
+StartCameraFlash:
         push ebx
         push ecx
         push esi
@@ -4461,9 +4480,10 @@ sub_4BE14:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4BF10                                                       4BF10  97 PC
+; UpdateCameraFlashes                             4BF10  97 PC, low confidence
+; Starts random camera flashes in the stands
 ;-----------------------------------------------------------------------------
-sub_4BF10:
+UpdateCameraFlashes:
         push ebx
         push ecx
         push edx
@@ -4478,12 +4498,12 @@ sub_4BF10:
         and eax, 0FFFFh
         cmp eax, esi
         jae short .1
-        call sub_4BDC0
+        call PickFlashSpot
         test eax, eax
         je short .1
         mov edx, eax
         mov eax, ebx
-        call sub_4BE14
+        call StartCameraFlash
 .1:
         pop esi
         pop edx
@@ -4492,9 +4512,10 @@ sub_4BF10:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4BF54                                                       4BF54  97 PC
+; DrawFlashSprite                                 4BF54  97 PC, low confidence
+; Draws one camera flash
 ;-----------------------------------------------------------------------------
-sub_4BF54:
+DrawFlashSprite:
         push ebx
         push ecx
         push edx
@@ -4524,9 +4545,10 @@ sub_4BF54:
         pop ebx
         ret 10h
 ;-----------------------------------------------------------------------------
-; sub_4BF94                                                       4BF94  97 PC
+; DrawCameraFlashes                               4BF94  97 PC, low confidence
+; Draws the camera flashes in the stands
 ;-----------------------------------------------------------------------------
-sub_4BF94:
+DrawCameraFlashes:
         push ebx
         push ecx
         push edx
@@ -4623,7 +4645,7 @@ sub_4BF94:
         jne short .6
         mov eax, edx
         add eax, unk_1B0078
-        call sub_4BF94
+        call DrawCameraFlashes
 .6:
         add edx, byte 14h
         cmp edx, 190h
@@ -4632,16 +4654,18 @@ sub_4BF94:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4C0C4                                                       4C0C4  97 PC
+; TriggerCameraFlashes                            4C0C4  97 PC, low confidence
+; Turns on the camera flashes (goals, celebrations)
 ;-----------------------------------------------------------------------------
-sub_4C0C4:
+TriggerCameraFlashes:
         mov dword [dword_1B0A88], eax
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_4C0CC                                                       4C0CC  97 PC
+; LoadRinkTextures                                4C0CC  97 PC, low confidence
+; Loads the rink textures
 ;-----------------------------------------------------------------------------
-sub_4C0CC:
+LoadRinkTextures:
         push ebx
         push ecx
         push edx
@@ -4689,9 +4713,10 @@ sub_4C0CC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4C164                                                       4C164  97 PC
+; BuildTexturePage                                4C164  97 PC, low confidence
+; Builds a texture page
 ;-----------------------------------------------------------------------------
-sub_4C164:
+BuildTexturePage:
         push ecx
         push esi
         push edi
@@ -4781,9 +4806,10 @@ sub_4C164:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4C240                                                       4C240  97 PC
+; BuildTextureTile                                4C240  97 PC, low confidence
+; Builds one texture tile
 ;-----------------------------------------------------------------------------
-sub_4C240:
+BuildTextureTile:
         push esi
         push edi
         push ebp
@@ -4869,9 +4895,10 @@ sub_4C240:
         ret 8
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4C360                                                       4C360  97 PC
+; SetTextureDetail                                4C360  97 PC, low confidence
+; Sets the texture detail level
 ;-----------------------------------------------------------------------------
-sub_4C360:
+SetTextureDetail:
         push ebx
         push ecx
         push esi
@@ -4942,9 +4969,10 @@ sub_4C360:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_4C404                                                       4C404  97 PC
+; SetupIceTextures                                4C404  97 PC, low confidence
+; Sets up the ice textures
 ;-----------------------------------------------------------------------------
-sub_4C404:
+SetupIceTextures:
         push ebx
         push ecx
         push esi
@@ -4959,7 +4987,7 @@ sub_4C404:
         mov ecx, dword [byte edx+08h]
         and eax, byte 7
         mov edx, ecx
-        call sub_4C360
+        call SetTextureDetail
         cmp eax, 1000h
         jle short .1
         xor eax, eax
@@ -4988,13 +5016,13 @@ sub_4C404:
         and eax, byte 7
         mov ebx, edx
         mov edx, esi
-        call sub_4C240
+        call BuildTextureTile
         jmp short .6
 .5:
         mov ebx, 0FFFFFFFFh
         mov edx, ecx
         mov eax, esi
-        call sub_4C164
+        call BuildTexturePage
 .6:
         xor eax, eax
         pop esi
@@ -5003,9 +5031,10 @@ sub_4C404:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4C48C                                                       4C48C  97 PC
+; SetupBoardAds                                   4C48C  97 PC, low confidence
+; Sets up the board advertisement textures
 ;-----------------------------------------------------------------------------
-sub_4C48C:
+SetupBoardAds:
         push ebx
         push ecx
         push esi
@@ -5014,13 +5043,13 @@ sub_4C48C:
         mov ecx, dword [byte edx+08h]
         and eax, byte 7
         mov edx, ecx
-        call sub_4C360
+        call SetTextureDetail
         cmp eax, 1000h
         jge short .1
         mov ebx, 0FFFFFFFFh
         mov eax, dword [dword_1B0D9C]
         mov edx, ecx
-        call sub_4C164
+        call BuildTexturePage
         jmp short .5
 .1:
         cmp eax, 4000h
@@ -5031,7 +5060,7 @@ sub_4C48C:
         mov ebx, 0FFFFFFFFh
         mov edx, dword [byte esi+08h]
         mov eax, dword [dword ecx+dword_1B0D9C]
-        call sub_4C164
+        call BuildTexturePage
         add ecx, byte 4
         add esi, byte 10h
         cmp ecx, byte 14h
@@ -5044,7 +5073,7 @@ sub_4C48C:
         mov ebx, 0FFFFFFFFh
         mov edx, dword [byte esi+08h]
         mov eax, dword [dword ecx+dword_1B0D9C]
-        call sub_4C164
+        call BuildTexturePage
         add ecx, byte 4
         add esi, byte 10h
         cmp ecx, byte 54h
@@ -5113,9 +5142,10 @@ sub_4C48C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4C5A0                                                       4C5A0  97 PC
+; LoadArenaArt                                    4C5A0  97 PC, low confidence
+; Loads the arena art and palette ranges
 ;-----------------------------------------------------------------------------
-sub_4C5A0:
+LoadArenaArt:
         push ebx
         push ecx
         push edx
@@ -5338,7 +5368,7 @@ sub_4C5A0:
         mov dword [dword esi+dword_1AEE04], eax
         cmp ebx, byte 4
         jl short .6
-        push sub_4C404
+        push SetupIceTextures
         mov esi, dword [byte esp+014h]
         push esi
         push edx
@@ -5395,7 +5425,7 @@ sub_4C5A0:
         mov dword [dword_1B0D9C], eax
         call sub_10FE58
         add esp, byte 0Ch
-        push sub_4C48C
+        push SetupBoardAds
         push ebx
         mov edi, dword [dword_1B0FA0]
         push edi
@@ -5781,9 +5811,10 @@ sub_4C5A0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4CE94                                                       4CE94  97 PC
+; ClipLinePoint                                   4CE94  97 PC, low confidence
+; Clips one point of a rink line
 ;-----------------------------------------------------------------------------
-sub_4CE94:
+ClipLinePoint:
         push ecx
         push esi
         push edi
@@ -5844,9 +5875,10 @@ sub_4CE94:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4CF18                                                       4CF18  97 PC
+; ProjectLinePoints                               4CF18  97 PC, low confidence
+; Projects the points of a rink line
 ;-----------------------------------------------------------------------------
-sub_4CF18:
+ProjectLinePoints:
         push esi
         push edi
         push ebp
@@ -5866,7 +5898,7 @@ sub_4CF18:
 .1:
         mov edx, ecx
         mov eax, ebx
-        call sub_4CE94
+        call ClipLinePoint
         mov eax, 1
         mov ebx, ebp
         mov edx, esi
@@ -5877,7 +5909,7 @@ sub_4CF18:
         mov ebx, ecx
         mov edx, esi
         mov eax, ecx
-        call sub_4CE94
+        call ClipLinePoint
         mov eax, 1
         mov ebx, edi
         mov edx, ecx
@@ -5891,9 +5923,10 @@ sub_4CF18:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_4CF74                                                       4CF74  97 PC
+; ClipLineSegment                                 4CF74  97 PC, low confidence
+; Clips a rink line segment to the view
 ;-----------------------------------------------------------------------------
-sub_4CF74:
+ClipLineSegment:
         push ecx
         push esi
         push edi
@@ -6185,9 +6218,10 @@ sub_4CF74:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4D230                                                       4D230  97 PC
+; LineSegmentLength                               4D230  97 PC, low confidence
+; Returns the length of a line segment
 ;-----------------------------------------------------------------------------
-sub_4D230:
+LineSegmentLength:
         push ebx
         push ecx
         push esi
@@ -6231,9 +6265,10 @@ sub_4D230:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4D27C                                                       4D27C  97 PC
+; DrawRinkCircle                                  4D27C  97 PC, low confidence
+; Draws a circle painted on the ice
 ;-----------------------------------------------------------------------------
-sub_4D27C:
+DrawRinkCircle:
         push esi
         push edi
         push ebp
@@ -6275,19 +6310,19 @@ sub_4D27C:
         lea edx, [byte esp+018h]
         movsd
         movsd
-        call sub_4CF18
+        call ProjectLinePoints
         test eax, eax
         je near .5
         lea ebx, [byte esp+0Ch]
         mov edx, esp
         lea eax, [byte esp+020h]
-        call sub_4CF74
+        call ClipLineSegment
         test eax, eax
         jne near .5
         mov ebx, esp
         lea edx, [byte esp+0Ch]
         lea eax, [byte esp+018h]
-        call sub_4CF74
+        call ClipLineSegment
         test eax, eax
         jne near .5
         mov eax, dword [byte esp+08h]
@@ -6314,7 +6349,7 @@ sub_4D27C:
         mov edi, dword [byte esp+018h]
         sub edx, esi
         sub eax, edi
-        call sub_4D230
+        call LineSegmentLength
         test eax, eax
         jge short .3
         neg eax
@@ -6350,9 +6385,10 @@ sub_4D27C:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_4D3B4                                                       4D3B4  97 PC
+; DrawRinkLine                                    4D3B4  97 PC, low confidence
+; Draws a line painted on the ice
 ;-----------------------------------------------------------------------------
-sub_4D3B4:
+DrawRinkLine:
         push esi
         push edi
         push ebp
@@ -6394,19 +6430,19 @@ sub_4D3B4:
         lea edx, [byte esp+020h]
         movsd
         movsd
-        call sub_4CF18
+        call ProjectLinePoints
         test eax, eax
         je near .7
         lea ebx, [byte esp+0Ch]
         mov edx, esp
         lea eax, [byte esp+018h]
-        call sub_4CF74
+        call ClipLineSegment
         test eax, eax
         jne near .7
         mov ebx, esp
         lea edx, [byte esp+0Ch]
         lea eax, [byte esp+020h]
-        call sub_4CF74
+        call ClipLineSegment
         test eax, eax
         jne near .7
         mov eax, dword [byte esp+014h]
@@ -6448,7 +6484,7 @@ sub_4D3B4:
         mov ebp, dword [byte esp+020h]
         sub edx, edi
         sub eax, ebp
-        call sub_4D230
+        call LineSegmentLength
         mov edx, eax
         test eax, eax
         jge short .5
@@ -6497,9 +6533,10 @@ sub_4D3B4:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_4D534                                                       4D534  97 PC
+; ScaleLineWidth                                  4D534  97 PC, low confidence
+; Scales a line width by distance
 ;-----------------------------------------------------------------------------
-sub_4D534:
+ScaleLineWidth:
         push esi
         push ebp
         mov ebp, esp
@@ -6589,9 +6626,10 @@ sub_4D534:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_4D62C                                                       4D62C  97 PC
+; SetLineWidth                                    4D62C  97 PC, low confidence
+; Sets the width of the next rink line
 ;-----------------------------------------------------------------------------
-sub_4D62C:
+SetLineWidth:
         push edi
         mov edi, dword [dword_16E4A8]
         cmp edi, dword [byte ebx+08h]
@@ -6609,14 +6647,15 @@ sub_4D62C:
         mov ecx, dword [byte esp+0Ch]
         push ecx
         mov ecx, dword [byte esp+0Ch]
-        call sub_4D534
+        call ScaleLineWidth
         pop edi
         ret 8
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4D65C                                                       4D65C  97 PC
+; DrawRinkArc                                     4D65C  97 PC, low confidence
+; Draws an arc painted on the ice
 ;-----------------------------------------------------------------------------
-sub_4D65C:
+DrawRinkArc:
         push esi
         push edi
         push ebp
@@ -6660,19 +6699,19 @@ sub_4D65C:
         lea edx, [byte esp+018h]
         movsd
         movsd
-        call sub_4CF18
+        call ProjectLinePoints
         test eax, eax
         je near .1
         mov ebx, esp
         lea edx, [byte esp+0Ch]
         lea eax, [byte esp+018h]
-        call sub_4CF74
+        call ClipLineSegment
         test eax, eax
         jne short .1
         lea ebx, [byte esp+0Ch]
         mov edx, esp
         lea eax, [byte esp+020h]
-        call sub_4CF74
+        call ClipLineSegment
         test eax, eax
         jne short .1
         mov edx, dword [byte esp+040h]
@@ -6681,7 +6720,7 @@ sub_4D65C:
         push edx
         mov ecx, ebp
         lea edx, [byte esp+01Ch]
-        call sub_4D534
+        call ScaleLineWidth
         mov ebx, dword [byte esp+040h]
         lea edx, [byte esp+018h]
         mov esi, eax
@@ -6689,7 +6728,7 @@ sub_4D65C:
         push ebx
         lea eax, [byte esp+024h]
         lea ebx, [byte esp+04h]
-        call sub_4D534
+        call ScaleLineWidth
         push eax
         push esi
         mov ecx, dword [byte esp+044h]
@@ -6712,9 +6751,10 @@ sub_4D65C:
         ret 8
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4D75C                                                       4D75C  97 PC
+; DrawFaceoffDot                                  4D75C  97 PC, low confidence
+; Draws a faceoff dot
 ;-----------------------------------------------------------------------------
-sub_4D75C:
+DrawFaceoffDot:
         push esi
         push edi
         push ebp
@@ -6779,9 +6819,10 @@ sub_4D75C:
         ret 8
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4D800                                                       4D800  97 PC
+; DrawLineSegment                                 4D800  97 PC, low confidence
+; Draws a line segment
 ;-----------------------------------------------------------------------------
-sub_4D800:
+DrawLineSegment:
         push esi
         push edi
         push ebp
@@ -6845,9 +6886,10 @@ sub_4D800:
         ret 8
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4D8A8                                                       4D8A8  97 PC
+; SetNetPositions                                 4D8A8  97 PC, low confidence
+; Sets the positions of the nets
 ;-----------------------------------------------------------------------------
-sub_4D8A8:
+SetNetPositions:
         push esi
         push edi
         push ebp
@@ -6910,9 +6952,10 @@ sub_4D8A8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4D948                                                       4D948  97 PC
+; DrawNets                                        4D948  97 PC, low confidence
+; Draws the nets
 ;-----------------------------------------------------------------------------
-sub_4D948:
+DrawNets:
         push ebx
         push ecx
         push esi
@@ -7007,9 +7050,10 @@ sub_4D948:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4DA84                                                       4DA84  97 PC
+; DrawNetShadows                                  4DA84  97 PC, low confidence
+; Draws the shadows of the nets
 ;-----------------------------------------------------------------------------
-sub_4DA84:
+DrawNetShadows:
         push ebx
         push ecx
         push esi
@@ -7193,23 +7237,25 @@ sub_4DA84:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4DCF0                                                       4DCF0  97 PC
+; DrawNetsHook                                    4DCF0  97 PC, low confidence
+; Draws the nets for the frame
 ;-----------------------------------------------------------------------------
-sub_4DCF0:
+DrawNetsHook:
         push edx
         cmp dword [dword_1B0ACC], byte 0
         je short .1
         mov edx, 0FFFFFFFFh
         mov eax, unk_1B0FC0
-        call sub_4D948
+        call DrawNets
 .1:
         pop edx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4DD0C                                                       4DD0C  97 PC
+; InitRinkProjection                              4DD0C  97 PC, low confidence
+; Projects the rink reference points
 ;-----------------------------------------------------------------------------
-sub_4DD0C:
+InitRinkProjection:
         push ebx
         push edx
         mov ebx, dword_1B0268
@@ -7255,9 +7301,10 @@ PeriodOver:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4DD9C                                                       4DD9C  97 PC
+; IsCameraOnPuck                                  4DD9C  97 PC, low confidence
+; Returns whether the camera follows the puck
 ;-----------------------------------------------------------------------------
-sub_4DD9C:
+IsCameraOnPuck:
         push edx
         mov edx, 1
         mov dword [dword_1B0D88], edx
@@ -7265,16 +7312,18 @@ sub_4DD9C:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4DDB0                                                       4DDB0  97 PC
+; SetCameraMode                                   4DDB0  97 PC, low confidence
+; Sets the camera follow mode
 ;-----------------------------------------------------------------------------
-sub_4DDB0:
+SetCameraMode:
         mov dword [dword_1B0D88], 1
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4DDBC                                                       4DDBC  97 PC
+; InitRinkView                                    4DDBC  97 PC, low confidence
+; Sets up the rink view
 ;-----------------------------------------------------------------------------
-sub_4DDBC:
+InitRinkView:
         push ebx
         push ecx
         push edx
@@ -7661,9 +7710,10 @@ sub_4DDBC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4E3B0                                                       4E3B0  97 PC
+; UpdateViewDistance                              4E3B0  97 PC, low confidence
+; Updates the camera view distance
 ;-----------------------------------------------------------------------------
-sub_4E3B0:
+UpdateViewDistance:
         push ebx
         push ecx
         push esi
@@ -7704,9 +7754,10 @@ sub_4E3B0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4E410                                                       4E410  97 PC
+; DrawStandsRow                                   4E410  97 PC, low confidence
+; Draws a row of the stands
 ;-----------------------------------------------------------------------------
-sub_4E410:
+DrawStandsRow:
         push ecx
         push esi
         push edi
@@ -7789,16 +7840,17 @@ sub_4E410:
         mov ebx, 0FFFFFFFFh
         mov edx, dword [byte eax+08h]
         mov eax, dword [dword_1B101C]
-        call sub_4E410
+        call DrawStandsRow
         xor eax, eax
         pop edx
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4E500                                                       4E500  97 PC
+; DrawStandsSection                               4E500  97 PC, low confidence
+; Draws a section of the stands
 ;-----------------------------------------------------------------------------
-sub_4E500:
+DrawStandsSection:
         push esi
         push edi
         push ebp
@@ -7895,9 +7947,10 @@ sub_4E500:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_4E630                                                       4E630  97 PC
+; DrawStandsEnd                                   4E630  97 PC, low confidence
+; Draws the stands at one end
 ;-----------------------------------------------------------------------------
-sub_4E630:
+DrawStandsEnd:
         push ebx
         push ecx
         push edx
@@ -7907,11 +7960,11 @@ sub_4E630:
         mov ebx, dword [byte eax+0Ch]
         mov edx, dword [byte eax+08h]
         mov eax, dword [dword_1B0FD0]
-        call sub_4E500
+        call DrawStandsSection
         test eax, eax
         je short .1
         mov eax, dword [byte esi+08h]
-        call sub_4BF10
+        call UpdateCameraFlashes
 .1:
         xor eax, eax
         pop esi
@@ -7921,9 +7974,10 @@ sub_4E630:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_4E660                                                       4E660  97 PC
+; DrawStandsSide                                  4E660  97 PC, low confidence
+; Draws the stands at one side
 ;-----------------------------------------------------------------------------
-sub_4E660:
+DrawStandsSide:
         push ebx
         push ecx
         push esi
@@ -8045,7 +8099,7 @@ sub_4E660:
         mov eax, ebp
         mov ebx, dword [byte esi+0Ch]
         mov edx, dword [byte esi+08h]
-        call sub_4E500
+        call DrawStandsSection
         jmp short .12
 .9:
         test edi, edi
@@ -8057,7 +8111,7 @@ sub_4E660:
 .11:
         mov eax, ebp
         mov edx, dword [byte esi+08h]
-        call sub_4E410
+        call DrawStandsRow
 .12:
         mov ecx, eax
         test edi, edi
@@ -8087,7 +8141,7 @@ sub_4E660:
         test ecx, ecx
         je short .14
         mov eax, dword [byte esi+08h]
-        call sub_4BF10
+        call UpdateCameraFlashes
 .14:
         xor eax, eax
         add esp, byte 18h
@@ -8099,9 +8153,10 @@ sub_4E660:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4E818                                                       4E818  97 PC
+; DrawHomeBlueLine                                4E818  97 PC, low confidence
+; Draws one blue line
 ;-----------------------------------------------------------------------------
-sub_4E818:
+DrawHomeBlueLine:
         push ebx
         push ecx
         mov ebx, dword [dword_1B1058]
@@ -8110,16 +8165,17 @@ sub_4E818:
         mov ebx, dword [byte edx+08h]
         mov edx, dword [dword eax+084h]
         mov eax, dword [byte eax+07Ch]
-        call sub_4D3B4
+        call DrawRinkLine
         xor eax, eax
         pop ecx
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4E840                                                       4E840  97 PC
+; DrawAwayBlueLine                                4E840  97 PC, low confidence
+; Draws the other blue line
 ;-----------------------------------------------------------------------------
-sub_4E840:
+DrawAwayBlueLine:
         push ebx
         push ecx
         mov ebx, dword [dword_1B104C]
@@ -8128,16 +8184,17 @@ sub_4E840:
         mov ebx, dword [byte edx+08h]
         mov edx, dword [dword eax+084h]
         mov eax, dword [byte eax+07Ch]
-        call sub_4D3B4
+        call DrawRinkLine
         xor eax, eax
         pop ecx
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4E868                                                       4E868  97 PC
+; DrawCenterSpots                                 4E868  97 PC, low confidence
+; Draws the centre ice marks
 ;-----------------------------------------------------------------------------
-sub_4E868:
+DrawCenterSpots:
         push ebx
         push ecx
         mov ebx, dword [dword_1B1044]
@@ -8148,15 +8205,16 @@ sub_4E868:
         mov ecx, dword [dword_1B1060]
         mov edx, dword [dword eax+084h]
         mov eax, dword [byte eax+07Ch]
-        call sub_4D65C
+        call DrawRinkArc
         xor eax, eax
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4E894                                                       4E894  97 PC
+; DrawEndSpots                                    4E894  97 PC, low confidence
+; Draws the end zone marks
 ;-----------------------------------------------------------------------------
-sub_4E894:
+DrawEndSpots:
         push ebx
         push ecx
         mov ebx, dword [dword_1B1044]
@@ -8167,15 +8225,16 @@ sub_4E894:
         mov ecx, dword [dword_1B1060]
         mov edx, dword [dword eax+084h]
         mov eax, dword [byte eax+07Ch]
-        call sub_4D65C
+        call DrawRinkArc
         xor eax, eax
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4E8C0                                                       4E8C0  97 PC
+; DrawNeutralSpots                                4E8C0  97 PC, low confidence
+; Draws the neutral zone marks
 ;-----------------------------------------------------------------------------
-sub_4E8C0:
+DrawNeutralSpots:
         push ebx
         push ecx
         mov ebx, dword [dword_1B1030]
@@ -8186,15 +8245,16 @@ sub_4E8C0:
         mov ecx, dword [dword_1B1060]
         mov edx, dword [dword eax+084h]
         mov eax, dword [byte eax+07Ch]
-        call sub_4D65C
+        call DrawRinkArc
         xor eax, eax
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4E8EC                                                       4E8EC  97 PC
+; DrawCenterCircle                                4E8EC  97 PC, low confidence
+; Draws the centre circle
 ;-----------------------------------------------------------------------------
-sub_4E8EC:
+DrawCenterCircle:
         push ebx
         push ecx
         cmp dword [dword_16AF48], byte 0
@@ -8205,14 +8265,14 @@ sub_4E8EC:
         mov edx, dword [dword eax+084h]
         mov ecx, dword [dword_1B0F9C]
         mov eax, dword [byte eax+07Ch]
-        call sub_4D27C
+        call DrawRinkCircle
 .1:
         xor eax, eax
         pop ecx
         pop ebx
         ret
         db 08Bh,0C0h
-sub_4E8EC_30:
+DrawCenterCircle_30:
         push ecx
         cmp dword [dword_16AF48], byte 0
         je short .2
@@ -8226,9 +8286,10 @@ sub_4E8EC_30:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4E938                                                       4E938  97 PC
+; SetRinkLineDetail                               4E938  97 PC, low confidence
+; Sets the detail of the rink lines
 ;-----------------------------------------------------------------------------
-sub_4E938:
+SetRinkLineDetail:
         push ebx
         push ecx
         push esi
@@ -8245,7 +8306,7 @@ sub_4E938:
         mov eax, dword [esi]
         mov edx, ebx
         and eax, byte 7
-        call sub_4C360
+        call SetTextureDetail
         mov edx, eax
         mov eax, dword [esi]
         shl eax, 8
@@ -8277,9 +8338,10 @@ sub_4E938:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4E9A0                                                       4E9A0  97 PC
+; DrawCreaseArc                                   4E9A0  97 PC, low confidence
+; Draws the crease arc
 ;-----------------------------------------------------------------------------
-sub_4E9A0:
+DrawCreaseArc:
         push ebx
         push ecx
         push esi
@@ -8313,7 +8375,7 @@ sub_4E9A0:
         mov ebx, dword [byte edx+08h]
         mov edx, dword [dword eax+084h]
         mov eax, dword [byte eax+07Ch]
-        call sub_4D27C
+        call DrawRinkCircle
         xor eax, eax
         pop ecx
         pop ebx
@@ -8345,9 +8407,10 @@ sub_4E9A0:
         ret 0Ch
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4EA44                                                       4EA44  97 PC
+; BuildRinkGeometry                               4EA44  97 PC, low confidence
+; Builds the rink geometry
 ;-----------------------------------------------------------------------------
-sub_4EA44:
+BuildRinkGeometry:
         push ebx
         push ecx
         push edx
@@ -8767,9 +8830,10 @@ sub_4EA44:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_4EF68                                                       4EF68  97 PC
+; DrawIceSurface                                  4EF68  97 PC, low confidence
+; Draws the ice surface
 ;-----------------------------------------------------------------------------
-sub_4EF68:
+DrawIceSurface:
         push ecx
         push edx
         push unk_1AE278
@@ -8813,9 +8877,10 @@ sub_4EF68:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4F004                                                       4F004  97 PC
+; DrawCreases                                     4F004  97 PC, low confidence
+; Draws the creases
 ;-----------------------------------------------------------------------------
-sub_4F004:
+DrawCreases:
         push ebx
         push ecx
         push esi
@@ -8842,7 +8907,7 @@ sub_4F004:
         push esi
         mov edx, unk_1ADEF8
         mov eax, unk_1AE058
-        call sub_4D8A8
+        call SetNetPositions
 .1:
         pop esi
         pop ecx
@@ -8850,9 +8915,10 @@ sub_4F004:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_4F068                                                       4F068  97 PC
+; DrawRinkMarkings                                4F068  97 PC, low confidence
+; Draws the rink markings
 ;-----------------------------------------------------------------------------
-sub_4F068:
+DrawRinkMarkings:
         push ebx
         push ecx
         push esi
@@ -8873,7 +8939,7 @@ sub_4F068:
         add esp, byte 10h
         mov edx, unk_1ADD78
         mov eax, 20h
-        call sub_4BD0C
+        call SetStandsClip
         test eax, eax
         jne near .11
         mov ebx, dword_1AE178
@@ -8883,7 +8949,7 @@ sub_4F068:
         mov ebx, dword_1AE178
         mov edx, unk_1ADD78
         mov eax, 20h
-        call sub_4BD4C
+        call SetStandsDetail
         test eax, eax
         jne near .11
         mov ebx, unk_1ADD78
@@ -8899,7 +8965,7 @@ sub_4F068:
         mov ecx, edi
         mov edx, esi
         add ebp, byte 4
-        call sub_4D62C
+        call SetLineWidth
         mov ebx, edi
         mov dword [byte esp+ebp-04h], eax
         mov eax, esi
@@ -8912,7 +8978,7 @@ sub_4F068:
         push edx
         mov eax, esi
         mov edx, dword_1AE178
-        call sub_4D62C
+        call SetLineWidth
         mov dword [esp+ebp], eax
         mov eax, esp
         mov ecx, unk_1AE588
@@ -8922,7 +8988,7 @@ sub_4F068:
         push ebx
         mov eax, unk_1ADD78
         mov ebx, 20h
-        call sub_4D75C
+        call DrawFaceoffDot
         cmp dword [dword esp+0A0h], byte 0
         je near .11
         push unk_1ADFF8
@@ -8954,7 +9020,7 @@ sub_4F068:
         push ebx
         mov eax, unk_1ADD38
         mov ebx, unk_1ADFF8
-        call sub_4D534
+        call ScaleLineWidth
         mov ebx, eax
 .4:
         xor eax, eax
@@ -8982,7 +9048,7 @@ sub_4F068:
         push ebx
         mov eax, unk_1ADD58
         mov ebx, unk_1AE028
-        call sub_4D534
+        call ScaleLineWidth
         mov ebx, eax
 .8:
         cmp esi, byte 8
@@ -9003,7 +9069,7 @@ sub_4F068:
         push ebp
         mov edx, unk_1ADD38
         mov eax, unk_1ADFF8
-        call sub_4D800
+        call DrawLineSegment
 .11:
         add esp, 0A8h
         pop ebp
@@ -9014,9 +9080,10 @@ sub_4F068:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_4F294                                                       4F294  97 PC
+; DrawBoardsLines                                 4F294  97 PC, low confidence
+; Draws the lines along the boards
 ;-----------------------------------------------------------------------------
-sub_4F294:
+DrawBoardsLines:
         push ebx
         push ecx
         push edx
@@ -9032,7 +9099,7 @@ sub_4F294:
         add esp, byte 10h
         mov edx, unk_1ADD78
         mov eax, 9
-        call sub_4BD0C
+        call SetStandsClip
         test eax, eax
         jne near .3
         mov ebx, dword_1AE178
@@ -9042,7 +9109,7 @@ sub_4F294:
         mov ebx, dword_1AE178
         mov edx, unk_1ADD78
         mov eax, 9
-        call sub_4BD4C
+        call SetStandsDetail
         test eax, eax
         jne near .3
         mov eax, unk_1ADD78
@@ -9064,7 +9131,7 @@ sub_4F294:
         mov eax, esi
         mov edx, ebp
         add edi, byte 4
-        call sub_4D62C
+        call SetLineWidth
         mov esi, ebp
         mov dword [byte esp+edi-08h], eax
         add ebp, byte 8
@@ -9078,7 +9145,7 @@ sub_4F294:
         mov ebx, eax
         mov eax, esi
         mov dword [byte esp+02Ch], ecx
-        call sub_4D62C
+        call SetLineWidth
         mov esi, ebp
         mov dword [byte esp+edi-04h], eax
         mov ebp, dword [byte esp+028h]
@@ -9096,7 +9163,7 @@ sub_4F294:
         lea edx, [byte esi-08h]
         mov ebx, eax
         mov eax, esi
-        call sub_4D62C
+        call SetLineWidth
         mov dword [esp+edi], eax
         mov eax, esp
         mov ebx, 8
@@ -9106,7 +9173,7 @@ sub_4F294:
         push ecx
         mov eax, unk_1ADD78
         mov ecx, unk_1AE588
-        call sub_4D800
+        call DrawLineSegment
 .3:
         add esp, byte 2Ch
         pop ebp
@@ -9129,16 +9196,17 @@ sub_4F294:
         mov edx, ebp
         mov eax, esi
         add edi, byte 4
-        call sub_4D62C
+        call SetLineWidth
         mov esi, ebp
         mov dword [byte esp+edi-04h], eax
         mov eax, dword [byte esp+024h]
         jmp near .2
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4F404                                                       4F404  97 PC
+; DrawGoalLines                                   4F404  97 PC, low confidence
+; Draws the goal lines
 ;-----------------------------------------------------------------------------
-sub_4F404:
+DrawGoalLines:
         push ebx
         push ecx
         push esi
@@ -9192,7 +9260,7 @@ sub_4F404:
 .4:
         mov edx, unk_1ADD78
         mov eax, 11h
-        call sub_4BD0C
+        call SetStandsClip
         test eax, eax
         jne near .12
         mov ebx, dword_1AE178
@@ -9202,7 +9270,7 @@ sub_4F404:
         mov ebx, dword_1AE178
         mov edx, unk_1ADD78
         mov eax, 11h
-        call sub_4BD4C
+        call SetStandsDetail
         test eax, eax
         jne near .12
         mov ebx, unk_1ADD78
@@ -9220,7 +9288,7 @@ sub_4F404:
         mov edx, ebp
         mov ecx, edi
         add esi, byte 4
-        call sub_4D62C
+        call SetLineWidth
         mov dword [dword esp+esi+084h], eax
         mov ebx, edi
         mov edx, dword [dword_1B1030]
@@ -9233,7 +9301,7 @@ sub_4F404:
         mov edx, ebp
         mov ecx, edi
         add esi, byte 4
-        call sub_4D62C
+        call SetLineWidth
         mov ebx, edi
         mov dword [dword esp+esi+084h], eax
         mov edi, dword [dword esp+0ACh]
@@ -9253,7 +9321,7 @@ sub_4F404:
         mov ebx, edx
         mov edx, eax
         mov eax, edi
-        call sub_4D62C
+        call SetLineWidth
         xor edx, edx
         mov dword [dword esp+esi+088h], eax
         xor ebx, ebx
@@ -9298,7 +9366,7 @@ sub_4F404:
         push edi
         mov edx, dword_1AE178
         mov eax, unk_1ADD78
-        call sub_4D800
+        call DrawLineSegment
         mov ebx, 6Ch
         mov esi, dword [dword_1ADDEC]
         mov ebp, dword [dword_16E4A8]
@@ -9351,16 +9419,17 @@ sub_4F404:
         mov edx, edi
         mov ecx, ebp
         add esi, byte 4
-        call sub_4D62C
+        call SetLineWidth
         mov ebx, ebp
         mov dword [dword esp+esi+084h], eax
         mov eax, edi
         jmp near .6
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4F6AC                                                       4F6AC  97 PC
+; CrowdDistanceTo                                 4F6AC  97 PC, low confidence
+; Returns the distance from a crowd member to a point
 ;-----------------------------------------------------------------------------
-sub_4F6AC:
+CrowdDistanceTo:
         push ecx
         push esi
         push edi
@@ -9482,9 +9551,10 @@ sub_4F6AC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4F7FC                                                       4F7FC  97 PC
+; CrowdRandomPose                                 4F7FC  97 PC, low confidence
+; Picks a random crowd pose
 ;-----------------------------------------------------------------------------
-sub_4F7FC:
+CrowdRandomPose:
         push esi
         push edi
         push ebp
@@ -9628,9 +9698,10 @@ sub_4F7FC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4F978                                                       4F978  97 PC
+; CrowdRandomDelay                                4F978  97 PC, low confidence
+; Picks a random crowd delay
 ;-----------------------------------------------------------------------------
-sub_4F978:
+CrowdRandomDelay:
         push ecx
         push esi
         push edi
@@ -9689,9 +9760,10 @@ sub_4F978:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4FA2C                                                       4FA2C  97 PC
+; CrowdReactionStep                               4FA2C  97 PC, low confidence
+; Steps one crowd reaction
 ;-----------------------------------------------------------------------------
-sub_4FA2C:
+CrowdReactionStep:
         push esi
         push edi
         push ebp
@@ -9702,11 +9774,11 @@ sub_4FA2C:
         mov dword [byte esp+010h], ecx
         cmp ecx, byte 1
         jg short .1
-        call sub_4F978
+        call CrowdRandomDelay
         jmp short .2
 .1:
         mov ecx, esp
-        call sub_4F7FC
+        call CrowdRandomPose
         mov ebx, dword [byte esp+010h]
         mov edx, esi
         dec ebx
@@ -9714,17 +9786,17 @@ sub_4FA2C:
         mov dword [byte esp+0Ch], ebx
         mov ecx, ebx
         mov ebx, esp
-        call sub_4FA2C
+        call CrowdReactionStep
         mov ecx, dword [byte esp+0Ch]
         mov ebx, esp
         mov edx, edi
         mov eax, esi
-        call sub_4FA2C
+        call CrowdReactionStep
         mov ecx, dword [byte esp+0Ch]
         mov ebx, esp
         mov edx, ebp
         mov eax, edi
-        call sub_4FA2C
+        call CrowdReactionStep
 .2:
         add esp, byte 14h
         pop ebp
@@ -9733,9 +9805,10 @@ sub_4FA2C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_4FA8C                                                       4FA8C  97 PC
+; BuildCrowdReaction                              4FA8C  97 PC, low confidence
+; Builds a crowd reaction
 ;-----------------------------------------------------------------------------
-sub_4FA8C:
+BuildCrowdReaction:
         push ebx
         push ecx
         push edx
@@ -9775,7 +9848,7 @@ sub_4FA8C:
         lea ebx, [byte esp+018h]
         lea edx, [byte esp+0Ch]
         mov eax, esp
-        call sub_4F7FC
+        call CrowdRandomPose
         mov eax, dword [byte esp+024h]
         mov ecx, dword [byte esp+054h]
         add eax, ecx
@@ -9817,29 +9890,29 @@ sub_4FA8C:
         lea ebx, [byte esp+030h]
         lea edx, [byte esp+024h]
         mov eax, esp
-        call sub_4F978
+        call CrowdRandomDelay
         lea ebx, [byte esp+030h]
         lea edx, [byte esp+0Ch]
         mov eax, esp
-        call sub_4F978
+        call CrowdRandomDelay
         lea ebx, [byte esp+03Ch]
         lea edx, [byte esp+030h]
         lea eax, [byte esp+0Ch]
-        call sub_4F978
+        call CrowdRandomDelay
         lea ebx, [byte esp+03Ch]
         lea edx, [byte esp+018h]
         lea eax, [byte esp+0Ch]
         mov ecx, 4
-        call sub_4F978
+        call CrowdRandomDelay
         lea ebx, [byte esp+03Ch]
         lea edx, [byte esp+024h]
         lea eax, [byte esp+018h]
-        call sub_4FA2C
+        call CrowdReactionStep
         mov ecx, 4
         lea ebx, [byte esp+03Ch]
         lea edx, [byte esp+030h]
         lea eax, [byte esp+024h]
-        call sub_4FA2C
+        call CrowdReactionStep
         add esp, byte 60h
         pop edi
         pop esi
@@ -9852,22 +9925,22 @@ sub_4FA8C:
         lea ebx, [byte esp+030h]
         lea edx, [byte esp+024h]
         mov eax, esp
-        call sub_4FA2C
+        call CrowdReactionStep
         mov ecx, 4
         lea ebx, [byte esp+030h]
         lea edx, [byte esp+0Ch]
         mov eax, esp
-        call sub_4FA2C
+        call CrowdReactionStep
         mov ecx, 4
         lea ebx, [byte esp+030h]
         lea edx, [byte esp+018h]
         lea eax, [byte esp+0Ch]
-        call sub_4FA2C
+        call CrowdReactionStep
         mov ecx, 4
         lea ebx, [byte esp+030h]
         lea edx, [byte esp+024h]
         lea eax, [byte esp+018h]
-        call sub_4FA2C
+        call CrowdReactionStep
         add esp, byte 60h
         pop edi
         pop esi
@@ -9877,9 +9950,10 @@ sub_4FA8C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4FC50                                                       4FC50  97 PC
+; StartCrowdReaction                              4FC50  97 PC, low confidence
+; Starts a crowd reaction (near misses, hits)
 ;-----------------------------------------------------------------------------
-sub_4FC50:
+StartCrowdReaction:
         push ecx
         push esi
         push edi
@@ -9895,7 +9969,7 @@ sub_4FC50:
         movsd
         movsd
         movsd
-        call sub_4F6AC
+        call CrowdDistanceTo
         cmp dword [dword_1B0ABC], byte 0FFFFFFFFh
         je near .2
         cmp dword [dword_1B0AB8], byte 0
@@ -9924,7 +9998,7 @@ sub_4FC50:
         mov dword [dword_1B0AC4], eax
         mov eax, dword [byte ebp+04h]
         mov dword [dword_1B0AC8], eax
-        call sub_4FA8C
+        call BuildCrowdReaction
 .2:
         add esp, byte 8
         pop ebp
@@ -9934,9 +10008,10 @@ sub_4FC50:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4FD08                                                       4FD08  97 PC
+; ClearCrowdReaction                              4FD08  97 PC, low confidence
+; Clears the crowd reaction
 ;-----------------------------------------------------------------------------
-sub_4FD08:
+ClearCrowdReaction:
         push edx
         mov edx, 0FFFFFFFFh
         xor eax, eax
@@ -9948,9 +10023,10 @@ sub_4FD08:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4FD24                                                       4FD24  97 PC
+; EndCrowdReaction                                4FD24  97 PC, low confidence
+; Ends the crowd reaction and frees its memory
 ;-----------------------------------------------------------------------------
-sub_4FD24:
+EndCrowdReaction:
         push ebx
         push ecx
         push edx
@@ -9984,7 +10060,7 @@ sub_4FD24:
         pop ecx
         pop ebx
         ret
-sub_4FD24_59:
+EndCrowdReaction_59:
         mov eax, dword [dword_1B0B90]
         mov edx, dword [dword_1B0B98]
         xor ebx, ebx
@@ -10148,15 +10224,20 @@ sub_4FD24_59:
         pop edx
         pop ecx
         pop ebx
-sub_4FF55:
+;-----------------------------------------------------------------------------
+; NoOpCrowdHook                                   4FF55  97 PC, low confidence
+; Does nothing (empty crowd hook)
+;-----------------------------------------------------------------------------
+NoOpCrowdHook:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_4FF58                                                       4FF58  97 PC
+; UpdateCrowdReaction                             4FF58  97 PC, low confidence
+; Updates the crowd reaction
 ;-----------------------------------------------------------------------------
-sub_4FF58:
+UpdateCrowdReaction:
         cmp dword [dword_1B0AB8], byte 0
-        je short sub_4FF55
+        je short NoOpCrowdHook
         sub eax, dword [dword_1B0AB4]
         nop
         push ebx
@@ -10170,7 +10251,7 @@ sub_4FF58:
         xor edx, edx
         mov dword [byte esp+014h], edx
         cmp eax, 0C8h
-        jle near sub_4FD24_59
+        jle near EndCrowdReaction_59
         mov dword [dword_1B0AB8], edx
         add esp, byte 1Ch
         pop ebp
@@ -10181,9 +10262,10 @@ sub_4FF58:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4FF94                                                       4FF94  97 PC
+; FindNearestBenchPlayer                          4FF94  97 PC, low confidence
+; Finds the nearest player on the bench
 ;-----------------------------------------------------------------------------
-sub_4FF94:
+FindNearestBenchPlayer:
         push ecx
         push esi
         push edi
@@ -10253,9 +10335,10 @@ sub_4FF94:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_50050                                                       50050  97 PC
+; StartBenchCheer                                 50050  97 PC, low confidence
+; Starts a bench cheer
 ;-----------------------------------------------------------------------------
-sub_50050:
+StartBenchCheer:
         push ecx
         push esi
         push edi
@@ -10267,13 +10350,13 @@ sub_50050:
         jle near .8
         mov edx, dword [byte eax+08h]
         mov eax, dword [eax]
-        call sub_503A0
+        call PickBenchCheerers
         cmp eax, dword [dword_1B0FF0]
         jle near .8
         mov ebx, esp
         lea edx, [byte esp+04h]
         mov eax, ecx
-        call sub_4F6AC
+        call CrowdDistanceTo
         mov ebx, dword [byte esp+04h]
         cmp ebx, byte 0FFFFFFFFh
         je near .8
@@ -10283,12 +10366,12 @@ sub_50050:
         je short .1
         xor edx, edx
         mov dword [dword_1B0AA4], edx
-        call sub_50174
+        call BenchCheerStep
 .1:
         mov ebx, dword_1B0A90
         mov edx, dword_1B0A8C
         mov eax, ecx
-        call sub_4FF94
+        call FindNearestBenchPlayer
         mov ebx, dword [dword_1B0A8C]
         cmp ebx, byte 0FFFFFFFFh
         je near .8
@@ -10349,9 +10432,10 @@ sub_50050:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_50174                                                       50174  97 PC
+; BenchCheerStep                                  50174  97 PC, low confidence
+; Steps a bench cheer
 ;-----------------------------------------------------------------------------
-sub_50174:
+BenchCheerStep:
         push ebx
         push ecx
         push edx
@@ -10417,15 +10501,16 @@ sub_50174:
         je short .8
         xor ebx, ebx
         mov dword [dword_1B0AA4], ebx
-        call sub_50174
+        call BenchCheerStep
 .8:
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_50218                                                       50218  97 PC
+; UpdateBenchCheer                                50218  97 PC, low confidence
+; Updates the bench cheer
 ;-----------------------------------------------------------------------------
-sub_50218:
+UpdateBenchCheer:
         push ebx
         push ecx
         push edx
@@ -10451,7 +10536,7 @@ sub_50218:
         je near .10
         xor edi, edi
         mov dword [dword_1B0AA4], edi
-        call sub_50174
+        call BenchCheerStep
         jmp near .10
 .1:
         mov ebx, dword [dword_1B0A8C]
@@ -10568,9 +10653,10 @@ sub_50218:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_503A0                                                       503A0  97 PC
+; PickBenchCheerers                               503A0  97 PC, low confidence
+; Picks the players on the bench that cheer
 ;-----------------------------------------------------------------------------
-sub_503A0:
+PickBenchCheerers:
         push ebx
         mov ebx, eax
         movsx eax, dx
@@ -10616,7 +10702,7 @@ sub_503A0:
         mov edx, dword [byte eax+06h]
         sar edx, 10h
         movsx eax, word [eax]
-        call sub_503A0
+        call PickBenchCheerers
         mov edx, dword [dword_1B0FF0]
         cmp eax, edx
         jne short .4
@@ -10630,7 +10716,7 @@ sub_503A0:
         lea edx, [byte esp+018h]
         mov dword [ecx], eax
         mov eax, esi
-        call sub_4F6AC
+        call CrowdDistanceTo
         mov ebx, dword [byte esp+018h]
         cmp ebx, byte 0FFFFFFFFh
         jne short .5
@@ -10700,9 +10786,10 @@ sub_503A0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_504E0                                                       504E0  97 PC
+; GoalCrowdCheer                                  504E0  97 PC, low confidence
+; Starts the crowd cheer for a goal
 ;-----------------------------------------------------------------------------
-sub_504E0:
+GoalCrowdCheer:
         push ebx
         push ecx
         push esi
@@ -11169,9 +11256,10 @@ TransformRink:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_509E8                                                       509E8  97 PC
+; DrawBenchLines                                  509E8  97 PC, low confidence
+; Draws the bench lines
 ;-----------------------------------------------------------------------------
-sub_509E8:
+DrawBenchLines:
         push ebx
         push ecx
         push edx
@@ -11208,7 +11296,7 @@ sub_509E8:
         push edx
         mov ebx, esi
         mov edx, ebp
-        call sub_4D3B4
+        call DrawRinkLine
         mov ecx, dword [byte esp+010h]
         inc edi
         mov ebx, dword [byte ecx+028h]
@@ -11242,7 +11330,7 @@ sub_509E8:
         push edx
         mov ebx, esi
         mov edx, ebp
-        call sub_4D3B4
+        call DrawRinkLine
 .5:
         mov ecx, dword [byte esp+010h]
         mov ebx, dword [byte esp+08h]
@@ -11268,9 +11356,10 @@ sub_509E8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_50AF4                                                       50AF4  97 PC
+; DrawBoardsTop                                   50AF4  97 PC, low confidence
+; Draws the top of the boards
 ;-----------------------------------------------------------------------------
-sub_50AF4:
+DrawBoardsTop:
         push ebx
         push ecx
         push edx
@@ -11307,7 +11396,7 @@ sub_50AF4:
         push edx
         mov ebx, esi
         mov edx, ebp
-        call sub_4D3B4
+        call DrawRinkLine
         mov ecx, dword [byte esp+010h]
         inc edi
         mov ebx, dword [byte ecx+02Ch]
@@ -11340,7 +11429,7 @@ sub_50AF4:
         push edx
         mov ebx, esi
         mov edx, ebp
-        call sub_4D3B4
+        call DrawRinkLine
 .5:
         mov ecx, dword [byte esp+010h]
         mov ebx, dword [byte esp+08h]
@@ -11389,7 +11478,7 @@ sub_50AF4:
         mov edx, esi
         mov eax, edi
         mov ebx, dword [byte ebx+08h]
-        call sub_4D3B4
+        call DrawRinkLine
         mov ecx, dword [byte esp+010h]
         inc ecx
         mov dword [byte esp+010h], ecx
@@ -11406,9 +11495,9 @@ sub_50AF4:
         inc edx
         mov dword [byte esp+08h], ebx
         mov dword [byte esp+04h], edx
-sub_50AF4_184:
+DrawBoardsTop_184:
         cmp dword [byte esp+04h], byte 10h
-        jl near sub_50AF4.8
+        jl near DrawBoardsTop.8
         add esp, byte 14h
         pop ebp
         pop edi
@@ -11470,7 +11559,7 @@ DrawStandsSides:
         mov eax, dword [dword_1B101C]
         mov edx, dword [byte edx+08h]
         inc esi
-        call sub_4E410
+        call DrawStandsRow
         mov edx, dword [byte edi+074h]
         add ecx, byte 4
         cmp esi, edx
@@ -11488,11 +11577,11 @@ DrawStandsSides:
         jge short .7
         mov eax, dword [dword_1B10E8]
         mov edx, dword [ebx]
-        call sub_4E660
+        call DrawStandsSide
         jmp short .8
 .7:
         mov eax, dword [ebx]
-        call sub_4E630
+        call DrawStandsEnd
 .8:
         inc ecx
         mov eax, dword [byte edi+06Ch]
@@ -11533,7 +11622,7 @@ DrawStandsSides:
 .13:
         mov eax, dword [dword_1B10E8]
         mov edx, dword [ebx]
-        call sub_4E660
+        call DrawStandsSide
         inc ecx
         mov edx, dword [byte esi+07Ch]
         add ebx, byte 4
@@ -11563,9 +11652,10 @@ DrawStandsSides:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_50DF4                                                       50DF4  97 PC
+; DrawBenchDoors                                  50DF4  97 PC, low confidence
+; Draws the bench doors
 ;-----------------------------------------------------------------------------
-sub_50DF4:
+DrawBenchDoors:
         push ebx
         push ecx
         push edx
@@ -11620,7 +11710,7 @@ sub_50DF4:
         and ebx, byte 7
         mov edx, dword [dword eax+084h]
         mov eax, dword [byte eax+07Ch]
-        call sub_4D8A8
+        call SetNetPositions
 .5:
         inc edi
         mov edx, dword [byte ebp+060h]
@@ -11644,9 +11734,10 @@ sub_50DF4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_50EB8                                                       50EB8  97 PC
+; DrawGlass                                       50EB8  97 PC, low confidence
+; Draws the glass
 ;-----------------------------------------------------------------------------
-sub_50EB8:
+DrawGlass:
         push ebx
         push ecx
         push edx
@@ -11676,7 +11767,7 @@ sub_50EB8:
         mov ecx, dword [dword_1B1108]
         mov edx, eax
         mov eax, ecx
-        call sub_4E938
+        call SetRinkLineDetail
         jmp short .4
 .3:
         mov eax, dword [ebx]
@@ -11734,9 +11825,10 @@ sub_50EB8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_50F90                                                       50F90  97 PC
+; DrawBenchPlayers                                50F90  97 PC, low confidence
+; Draws the players on the bench
 ;-----------------------------------------------------------------------------
-sub_50F90:
+DrawBenchPlayers:
         push ebx
         push ecx
         push edx
@@ -11858,9 +11950,10 @@ sub_50F90:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_510FC                                                       510FC  97 PC
+; DrawBenchArea                                   510FC  97 PC, low confidence
+; Draws the bench area
 ;-----------------------------------------------------------------------------
-sub_510FC:
+DrawBenchArea:
         push ebx
         push ecx
         push edx
@@ -11895,7 +11988,7 @@ sub_510FC:
         add esp, byte 8
         test eax, eax
         jne short .4
-        call sub_50F90
+        call DrawBenchPlayers
         jmp short .4
 .3:
         mov eax, dword [esi]
@@ -11926,15 +12019,19 @@ sub_510FC:
         ret
         db 08Bh,0C0h
         mov eax, 1
-        call sub_50AF4
-        call sub_50DF4
+        call DrawBoardsTop
+        call DrawBenchDoors
         mov eax, 1
-        call sub_509E8
+        call DrawBenchLines
         cmp dword [dword_16AF48], byte 0
         je short .6
         mov eax, 1
         nop
-sub_511AC:
+;-----------------------------------------------------------------------------
+; DrawPenaltyBox                                  511AC  97 PC, low confidence
+; Draws the penalty box
+;-----------------------------------------------------------------------------
+DrawPenaltyBox:
         push ebx
         push ecx
         push edx
@@ -11974,7 +12071,7 @@ sub_511AC:
         push edx
         mov edx, esi
         mov ebx, dword [byte ebx+08h]
-        call sub_4D3B4
+        call DrawRinkLine
         add dword [byte esp+0Ch], byte 4
         mov ebx, dword [byte esp+08h]
         inc ebp
@@ -11988,13 +12085,14 @@ sub_511AC:
         mov dword [byte esp+08h], eax
         mov dword [byte esp+04h], ebp
         cmp ebp, byte 4
-        jge near sub_50AF4_184
+        jge near DrawBoardsTop_184
         jmp short .1
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_51254                                                       51254  97 PC
+; DrawBenches                                     51254  97 PC, low confidence
+; Draws the benches
 ;-----------------------------------------------------------------------------
-sub_51254:
+DrawBenches:
         push ebx
         push ecx
         push edx
@@ -12128,7 +12226,7 @@ sub_51254:
         jl short .8
 .10:
         xor eax, eax
-        call sub_509E8
+        call DrawBenchLines
         cmp dword [dword_16AF48], byte 0
         je short .11
         push unk_1B0510
@@ -12137,9 +12235,9 @@ sub_51254:
         add esp, byte 4
         mov dword [dword_1B0F9C], eax
         xor eax, eax
-        call sub_510FC
+        call DrawBenchArea
         xor eax, eax
-        call sub_511AC
+        call DrawPenaltyBox
 .11:
         mov eax, esp
         push eax
@@ -12156,9 +12254,10 @@ sub_51254:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_51408                                                       51408  97 PC
+; ScoreboardTransform                             51408  97 PC, low confidence
+; Sets up the scoreboard transform
 ;-----------------------------------------------------------------------------
-sub_51408:
+ScoreboardTransform:
         push ebx
         push ecx
         push edx
@@ -12182,9 +12281,10 @@ sub_51408:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_51434                                                       51434  97 PC
+; LoadScoreboardArt                               51434  97 PC, low confidence
+; Loads the scoreboard art
 ;-----------------------------------------------------------------------------
-sub_51434:
+LoadScoreboardArt:
         push ecx
         push edx
         push eax
@@ -12240,12 +12340,12 @@ sub_51434:
         add esp, byte 8
         mov esi, dword [dword_1B0B1C]
         push esi
-        mov ebx, sub_51408
-        mov ecx, sub_51434
+        mov ebx, ScoreboardTransform
+        mov ecx, LoadScoreboardArt
         push byte 4
         mov eax, str_Zamboni
         xor edx, edx
-        call sub_4B4C4
+        call AddModelName
         mov edx, 20h
         mov dword [dword_1B0B7C], eax
         mov eax, str_Zamtrack
@@ -12364,7 +12464,7 @@ sub_51434:
         add esp, byte 4
         mov eax, dword [dword_1B0B7C]
         xor edi, edi
-        call sub_4B540
+        call FindModelName
         mov dword [dword_16B168], edi
         pop edi
         pop esi
@@ -12374,9 +12474,10 @@ sub_51434:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_516B8                                                       516B8  97 PC
+; DrawScoreboard                                  516B8  97 PC, low confidence
+; Draws the scoreboard
 ;-----------------------------------------------------------------------------
-sub_516B8:
+DrawScoreboard:
         push ebx
         push ecx
         push edx
@@ -12608,9 +12709,10 @@ sub_516B8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_519E0                                                       519E0  97 PC
+; NetFrameDistance                                519E0  97 PC, low confidence
+; Returns the distance to the net frame
 ;-----------------------------------------------------------------------------
-sub_519E0:
+NetFrameDistance:
         push ebx
         push ecx
         push edx
@@ -12663,9 +12765,10 @@ sub_519E0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_51A74                                                       51A74  97 PC
+; SetupNetArt                                     51A74  97 PC, low confidence
+; Sets up the net art
 ;-----------------------------------------------------------------------------
-sub_51A74:
+SetupNetArt:
         push ebx
         push ecx
         push edx
@@ -12673,7 +12776,7 @@ sub_51A74:
         push edi
         push ebp
         mov ebx, eax
-        call sub_519E0
+        call NetFrameDistance
         mov ecx, dword [ebx]
         mov ecx, dword [nosplit ecx*4+dword_1ADCB8]
         mov ebx, dword [byte ecx+018h]
@@ -12709,7 +12812,7 @@ sub_51A74:
         pop ebx
         ret
         db 08Bh,0C0h
-sub_51A74_58:
+SetupNetArt_58:
         push ecx
         push edx
         mov eax, dword [eax]
@@ -12724,9 +12827,10 @@ sub_51A74_58:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_51AEC                                                       51AEC  97 PC
+; ResetNetArt                                     51AEC  97 PC, low confidence
+; Resets the net art
 ;-----------------------------------------------------------------------------
-sub_51AEC:
+ResetNetArt:
         push ebx
         push ecx
         push edx
@@ -12768,7 +12872,7 @@ sub_51AEC:
         pop ebx
         ret
         db 090h
-sub_51AEC_50:
+ResetNetArt_50:
         push ecx
         push edx
         mov eax, dword [eax]
@@ -12783,9 +12887,10 @@ sub_51AEC_50:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_51B5C                                                       51B5C  97 PC
+; UpdateScoreboardPos                             51B5C  97 PC, low confidence
+; Updates the scoreboard position
 ;-----------------------------------------------------------------------------
-sub_51B5C:
+UpdateScoreboardPos:
         push ebx
         push ecx
         push esi
@@ -12836,9 +12941,10 @@ sub_51B5C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_51BD8                                                       51BD8  97 PC
+; UpdateScoreboardSpin                            51BD8  97 PC, low confidence
+; Updates the scoreboard spin
 ;-----------------------------------------------------------------------------
-sub_51BD8:
+UpdateScoreboardSpin:
         push ebx
         push ecx
         push edx
@@ -12893,9 +12999,9 @@ LoadNetArt:
         push edi
         push ebp
         mov ebp, unk_16B16C
-        mov ecx, sub_51A74_58
+        mov ecx, SetupNetArt_58
         lea edi, [nosplit eax*4+00h]
-        mov ebx, sub_51A74
+        mov ebx, SetupNetArt
         mov esi, eax
         add ebp, edi
         shl eax, 2
@@ -12907,15 +13013,15 @@ LoadNetArt:
         add esi, eax
         mov eax, str_Netback
         mov edx, esi
-        call sub_4B4C4
-        mov ecx, sub_51AEC_50
+        call AddModelName
+        mov ecx, ResetNetArt_50
         push ebp
-        mov ebx, sub_51AEC
+        mov ebx, ResetNetArt
         mov edx, esi
         push byte 0
         mov dword [dword edi+dword_1ADCC0], eax
         mov eax, str_Netfrnt
-        call sub_4B4C4
+        call AddModelName
         mov dword [dword edi+dword_1ADCC8], eax
         pop ebp
         pop edi
@@ -13623,9 +13729,10 @@ LoadBoardLogo:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_52648                                                       52648  97 PC
+; LoadTeamLogoShape                               52648  97 PC, low confidence
+; Loads a team logo
 ;-----------------------------------------------------------------------------
-sub_52648:
+LoadTeamLogoShape:
         push ebx
         push ecx
         push esi
@@ -13691,9 +13798,10 @@ sub_52648:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_526EC                                                       526EC  97 PC
+; LoadTeamLogoCopy                                526EC  97 PC, low confidence
+; Loads a copy of a team logo
 ;-----------------------------------------------------------------------------
-sub_526EC:
+LoadTeamLogoCopy:
         push esi
         sub esp, byte 10h
         mov esi, eax

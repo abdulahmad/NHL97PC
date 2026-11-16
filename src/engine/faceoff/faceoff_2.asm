@@ -28,7 +28,7 @@ extern QueueOverlayPanel, ClearOverlayWindows, FightCameraScene, SetFightCameraR
 extern LineChangeCommentary, assreplace, assinsert, assexit, ChkPokeOrCheck, Setplass, Goal, CreditPass
 extern CarrierInShotArea, CanReceivePass, StartPass, checkob, AssignControlSlots, ResetFaceoffAssigns, CompLine, StartFaceoffLineChange
 extern FaceoffSwipeAnim, FaceoffDrawAnim, ReachForPuckAnim, DoCheckButton, PlaySfxOr, PlaySfxVolume, SetCrowdMood, CommentaryEvent
-extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, PickSkateAnim, SetSkateSpeedFromRating, StartWhistleStop
+extern PaEvent, ResetRenderTimers, sub_56CD0, sub_56CE4, sub_56CF8, PickSkateAnim, SetSkateSpeedFromRating, StartWhistleStop
 extern ShotAnimFrames, ObjectFramePos, StopObject, StartShotAnim, StartOneTimerAnim, StartWristShotAnim, StartFightPunch, StartFightBlock
 extern StartFightGrab, StartFightPull, StartFightAnim, SetAnimFrame, RequestPauseMenu, clockcont_0, sub_AA588, sub_F9A88
 extern sub_FAAB4, FreeMemBlock, FillMem, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
@@ -4852,7 +4852,7 @@ Stop4Pen:
         cmp dword [dword_1B8FA0], byte 0
         jne short .1
         mov eax, 1
-        call sub_4B8DC
+        call ResetRenderTimers
 .1:
         movsx edx, dx
         lea eax, [nosplit edx*4+00h]

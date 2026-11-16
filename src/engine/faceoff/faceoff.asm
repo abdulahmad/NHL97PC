@@ -26,8 +26,8 @@ extern sub_12DE8, ChangeViewSize, PrevVideoModeKey, NextVideoModeKey, QueueOverl
 extern ResetSceneCamera, SelectCameraView, ToggleCameraFollow, EndOpeningCamera, LoadOpeningCamera, assreplace, Goal, CoachLineChange
 extern SetupAutoLines, InitGameLines, AddPenalty, SetPlayerTarget, InitPadSlots, DebugRestoreEnergy, ResetPlayerCounters, SetViewSize
 extern SetViewOrigin, SetRinkDetail, FadeGamePalette, InitGameAudio, InitGameSounds, QueueMusicRestart, WaitMusicEnd, SetAmbientVolume
-extern SetCrowdMood, CommentaryEvent, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, sub_4B8DC, FreeGameGraphics
-extern DrawGameFrame, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, FreeReplayBuffer, ResetReplayBuffer
+extern SetCrowdMood, CommentaryEvent, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, ResetRenderTimers, FreeGameGraphics
+extern DrawGameFrame, RedrawGameView, TriggerCameraFlashes, PeriodOver, sub_52E28, sub_55000, FreeReplayBuffer, ResetReplayBuffer
 extern InitReplayBuffer, ReplayHasFrames, ReplayFreeFrames, ReplayRecordTick, ReplayPauseRecording, ReplayRecordFinal, ReplaySetupObjects, UpdateGameDisplay
 extern InitAnimPoints, FreeAnimTables, UpdateAllPoses, SetAnimClock, FreeAnimStates, AllocAnimStates, GameOver, CheckIntermission
 extern DoGameFrame, SetTextColor, sub_81678, ShowLoadingScreen, sub_842E8, sub_842F4, LoadLangText, FreeLangText
@@ -447,7 +447,7 @@ RunOpeningFrames:
         mov eax, dword [tickcount]
         call DrawGameFrame
         call sub_E341C
-        call sub_4BCB4
+        call RedrawGameView
         mov eax, dword [byte esp+08h]
         lea eax, [eax+eax*2]
         cmp eax, 5DCh
@@ -712,7 +712,7 @@ OpeningSequence:
         mov eax, 1
         call LoadOpeningCamera
         mov eax, 0F5Ch
-        call sub_4C0C4
+        call TriggerCameraFlashes
         call PlaceOpeningPlayers
         call RunOpeningFrames
         mov ebx, eax
@@ -728,7 +728,7 @@ OpeningSequence:
 .3:
         call EndOpeningCamera
         mov eax, 7AEh
-        call sub_4C0C4
+        call TriggerCameraFlashes
         xor eax, eax
         call sub_55000
         cmp word [word_19CC24], byte 0
@@ -2476,7 +2476,7 @@ GameLoop:
         mov eax, dword [tickcount]
         call DrawGameFrame
         call sub_E341C
-        call sub_4BCB4
+        call RedrawGameView
 .14:
         cmp dword [InGameMenuRequest], byte 0
         je short .15
@@ -3047,7 +3047,7 @@ PlayGame:
         mov eax, 0FFFFFFFFh
         call FadeGamePalette
         mov eax, 1
-        call sub_4B8DC
+        call ResetRenderTimers
         call sub_E30F4
         call sub_E304C
         call BeginGame

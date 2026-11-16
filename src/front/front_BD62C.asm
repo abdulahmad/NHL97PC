@@ -20,8 +20,8 @@ extern sub_103648, sub_105324, sub_10AED0, sub_114C4, sub_11B98E, sub_12024, Set
 extern ApplyDisplayFlags, ClearOverlayWindows, ReplayCameraOn, ReplayCameraOff, ReplayCamFollowMode, ReplayCamDrag, ReplayCamRestorePath, ReplayCamOrbitMode
 extern ReplayCamOrbit, ReplayCamStop, ReplayCamFreeMode, ReplayCamTurn, ReplayCamMove, ReplayCamZoomMode, ReplayCamZoom, ReplayCamClearFlag
 extern SetVideoMode, SetViewSize, ClearViewInterlaced, ShowView, SetViewOrigin, SetRinkDetail, FadeGamePalette, ChkMenuMusic
-extern PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, StopAllSfx, SetAmbientVolume, SetCrowdNoise, sub_4A280
-extern MakeDirPath, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, sub_4BCB4
+extern PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, StopAllSfx, SetAmbientVolume, SetCrowdNoise, ResetStreamAudio
+extern MakeDirPath, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, RedrawGameView
 extern RestoreSavedPalette, ResetReplayBuffer, InitReplayBuffer, IsReplayRecording, ReplayFreeFrames, ReplayCmdPlay, ReplayCmdStop, ReplayCmdRewind
 extern ReplayCmdForward, ReplayPlayFrames, ReplayCamFollow, ReplayCamFree, StartInstantReplay, EndInstantReplay, PlaySavedReplay, ReplayFramesLeft
 extern ReplayCurrentFrame, ReplaySetupObjects, LoadReplayHeader, LoadReplayData, InitAnimPoints, FreeAnimTables, SetAnimClock, FreeAnimStates
@@ -74,7 +74,7 @@ RunReplay:
         je near RunReplay_358
         xor eax, eax
         call SetCrowdNoise
-        call sub_4A280
+        call ResetStreamAudio
         call StopAllSfx
         call sub_114C4
         call ReplayCameraOn
@@ -3600,7 +3600,7 @@ sub_C04BE:
         jl near .4
         xor eax, eax
         call DrawGameFrame
-        call sub_4BCB4
+        call RedrawGameView
         call SetScreenTarget
         xor ebx, ebx
         jmp short .12

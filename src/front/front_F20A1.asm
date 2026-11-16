@@ -34,8 +34,8 @@ extern sub_11FB11, sub_12A10, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags
 extern SetOverlayFont, IntermissionCameraScene, MenuCameraScene, MenuOrbitScene, RestoreGameCamera, AddOverlayWindow, RemoveOverlayWindow, UpdateScreenRegion
 extern RefreshOverlayWindow, SetRinkDetail, SetRangePalette, FadeGamePalette, InitGameAudio, InitGameSounds, SecondsToSamples, WaitSoundTime
 extern ChkMenuMusic, QueueMusicRestart, PauseMusic, ResumeMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, SetAmbientVolume
-extern PaEvent, sub_4A280, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, sub_4BCB4
-extern sub_4C0C4, RestoreSavedPalette, ReplayHasFrames, UpdateGameDisplay, UpdateAllPoses, InitFrontEnd, FreeFrontEnd, SetRegionRect
+extern PaEvent, ResetStreamAudio, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, RedrawGameView
+extern TriggerCameraFlashes, RestoreSavedPalette, ReplayHasFrames, UpdateGameDisplay, UpdateAllPoses, InitFrontEnd, FreeFrontEnd, SetRegionRect
 extern SetTextColor, DrawTextAligned, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
 extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, LoadGameLogos, sub_AB0A6, RunReplay
 extern FadePalette, FadeOut, sub_DA7EB, sub_DB6AC, sub_E341C, sub_E3798, sub_E4218, sub_E4230
@@ -2297,7 +2297,7 @@ RunIntermission:
         push esi
         push edi
         enter 41Ch, 0
-        call sub_4A280
+        call ResetStreamAudio
         call QueueMusicRestart
         lea eax, [dword ebp-011Ch]
         push eax
@@ -2400,10 +2400,10 @@ RunIntermission:
         call RequestMusicStop
         xor eax, eax
         lea edx, [dword ebp-041Ch]
-        call sub_4C0C4
+        call TriggerCameraFlashes
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_4BCB4
+        call RedrawGameView
         call IntermissionCameraScene
         xor eax, eax
         call FadePalette
@@ -2465,7 +2465,7 @@ RunIntermission:
         mov eax, dword [tickcount]
         call DrawGameFrame
         call sub_E341C
-        call sub_4BCB4
+        call RedrawGameView
         call sub_E341C
         call dword [off_16E4E0]
         mov dword [byte ebp-018h], eax
@@ -3018,7 +3018,7 @@ PauseMenu_29A:
 .29:
         mov dword [dword_1A8E50], 1
 .30:
-        call sub_4BCB4
+        call RedrawGameView
 PauseMenu_4BB:
         cmp dword [byte ebp+07Ah], byte 0FFFFFFFFh
         jne near PauseMenu_66D.36
@@ -3144,7 +3144,7 @@ PauseMenu_66D:
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
-        call sub_4BCB4
+        call RedrawGameView
         call sub_E4218
         jmp near PauseMenu_4BB
 .35:
@@ -3315,7 +3315,7 @@ sub_F4978:
 .4:
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_4BCB4
+        call RedrawGameView
         leave
         pop edx
         pop ecx
@@ -3858,7 +3858,7 @@ sub_F5219:
         call RemoveOverlayPanel
         mov eax, 700h
         call RemoveOverlayPanel
-        call sub_4A280
+        call ResetStreamAudio
         call QueueMusicRestart
         xor eax, eax
         call SetAmbientVolume
@@ -3931,7 +3931,7 @@ sub_F5219:
 .2:
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_4BCB4
+        call RedrawGameView
         mov eax, edx
         sub eax, ebx
         imul eax, byte 0FFFFFFB0h
@@ -3999,7 +3999,7 @@ sub_F5219:
         call UpdateScreenRegion
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_4BCB4
+        call RedrawGameView
         jmp near .9
 .5:
         call sub_F4A8F
@@ -4061,7 +4061,7 @@ sub_F5219:
         call sub_11F74
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_4BCB4
+        call RedrawGameView
         mov eax, 0FFFFFFFFh
         call FadeGamePalette
 .9:
@@ -6944,7 +6944,7 @@ RulesMenu_2464:
         mov dword [byte ebp+07Ah], 1
         jmp near RulesMenu.45
 .77:
-        call sub_4BCB4
+        call RedrawGameView
         xor esi, esi
         jmp short .79
 .78:
@@ -8794,7 +8794,7 @@ DetailLevelMenu_17B7:
         or dword [dword_1AC819], eax
         jmp near DetailLevelMenu_E31.29
 .42:
-        call sub_4BCB4
+        call RedrawGameView
         xor esi, esi
         jmp short .44
 .43:

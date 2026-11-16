@@ -50,7 +50,7 @@ extern sub_107B70, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48, s
 extern sub_10815C, sub_1081B0, sub_108640, sub_1086BF, sub_108CE8, sub_1091E0, sub_109210, sub_109250
 extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, SetScreenTarget, TryPokePuck
 extern NetCollide, NetCollide2, ChkBodyContact, InitSpeechBanks, OpenSpeechFile, sub_47D70, sub_47EA4, ShutdownSound
-extern sub_4AA78, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_52D4C, sub_55648, sub_5696C, sub_56A08
+extern ServiceBackgroundAudio, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_52D4C, sub_55648, sub_5696C, sub_56A08
 extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, SetObjectHidden, ClearModelSlots, ReplaySoundAllowed, MarkPaletteDirty
 extern GetStickBladePos, SetSPA, SetSPAInPlace, ResetAnimTimer, PickSkateAnim, EndMove, AdvanceMoveAnim, StepMove
 extern SteerAndAccel, LimitSkateSpeed, PickSaveAnim, SaveDirection, GetAnimId, sub_789F0, sub_7B15D, sub_7DFC0
@@ -13834,7 +13834,7 @@ OpenAudioStream_D8:
         jne short .21
         push esi
         push byte 2
-        push sub_4AA78
+        push ServiceBackgroundAudio
         call sub_F99C0
         add esp, byte 0Ch
         jmp short .21
@@ -14389,7 +14389,7 @@ ShutdownGameAudio:
         call sub_107D30
         test eax, eax
         jne short .1
-        push sub_4AA78
+        push ServiceBackgroundAudio
         call sub_F9A28
         add esp, byte 4
 .1:

@@ -10,7 +10,7 @@ extern dword_16E46C, dword_1AC814, dword_1AC940, dword_1AC944, dword_1ACF46, dwo
 extern dword_1AD62F, dword_1AD6AB, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, jpt_D3102
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, sub_101324, BlitArt
 extern BlitShape, sub_1013FC, FindShape, sub_101584, sub_101EAC, sub_102B94, sub_10CD98, SetScreenTarget
-extern IsAllStarDay, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, PaEvent, sub_4A280, LoadDataFile
+extern IsAllStarDay, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, PaEvent, ResetStreamAudio, LoadDataFile
 extern OpenDataLibrary, sub_7B84B, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned
 extern sub_80BBC, sub_80F48, sub_83BF4, InitMenuItems, sub_8BFAC, GetLangText, sub_D306F, sub_DA7D6
 extern sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, OpenLeagueFile, sub_E036F, LoadExhibitionFile, FreeExhibitionFile
@@ -964,7 +964,7 @@ PreGameRostersScreen_BC3:
         push dword [byte ebp+05Eh]
         call FreeMemBlock
         add esp, byte 4
-        call sub_4A280
+        call ResetStreamAudio
         test byte [dword_1AC814], 70h
         jne short .35
         lea eax, [byte ebp+042h]

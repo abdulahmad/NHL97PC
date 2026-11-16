@@ -590,7 +590,13 @@ address,name,auto_name,source,confidence,evidence,file
 48950,RecordPctClip,sub_48950,96PC,medium,NHL96PC 67636 (similar 0.91): mnemonic similarity 0.91 over 69 instructions,src/front/front_45BEC.asm
 489F4,RecordStreakClips,sub_489F4,96PC,medium,NHL96PC 676D4 (sem 0.91): C:560,src/front/front_45BEC.asm
 48D70,PaEvent,sub_48D70,96PC,low,"the arena PA announcer: B events (0B000001h-0B000006h) from the front end and pre-game screens, C events (0C000001h-0C000004h) in game; ClockTick posts 0C0000004h at one minute left in a period. The play-by-play is CommentaryEvent",src/front/front_48D70.asm
+4A248,StopStreamTimer,sub_4A248,new,low,stops the stream audio timer,src/front/front_48D70.asm
+4A280,ResetStreamAudio,sub_4A280,new,low,stops the music stream and clears its state (before replays and intermissions),src/front/front_48D70.asm
 4A4F4,PlayScreenMovie,sub_4A4F4,new,low,"(id): waits for the music (WaitMusicEnd), makes the movie path and plays it (PlayMovie); from the stats, all-star and create player screens",src/front/front_48D70.asm
+4A558,CloseMusicStream,sub_4A558,new,low,closes the music stream and frees its buffers,src/front/front_48D70.asm
+4A6F8,PumpMusicStream,sub_4A6F8,new,low,feeds the next packets of the music stream,src/front/front_48D70.asm
+4A74C,FeedMusicStream,sub_4A74C,new,low,"opens, queues and feeds the music stream",src/front/front_48D70.asm
+4AA78,ServiceBackgroundAudio,sub_4AA78,new,low,services speech and music streaming while the game waits,src/front/front_48D70.asm
 4AB90,MakeDataPath,sub_4AB90,96PC,medium,NHL96PC 1E3E8 (sem 0.84): C:1920; C:1834; R:579; R:572,src/front/front_48D70.asm
 4AE14,MakeDirPath,sub_4AE14,96PC,high,"96 PC MakeDirPath: (out, dir, language) a game directory path (language prefix, directory from unk_169848, backslash)",src/front/front_48D70.asm
 4AF9F,LoadDataFileHandle,sub_4AF9F,96PC,medium,NHL96PC 1E779 (sem 1.00): C:2267,src/front/front_48D70.asm
@@ -599,20 +605,115 @@ address,name,auto_name,source,confidence,evidence,file
 4B12D,LoadDataFileFlag0,sub_4B12D,96PC,medium,96 PC LoadDataFileFlag0: LoadDataFile through the same loader with flag 0,src/front/front_48D70.asm
 4B19C,OpenDataLibrary,sub_4B19C,new,low,(file id): makes the data file the current library (sub_FC330),src/front/front_48D70.asm
 4B1C4,SetArtArchive,sub_4B1C4,new,low,"(file name): finds the data file by name (102h-entry table), builds its path and makes it the current art archive; a null name closes it",src/front/front_48D70.asm
+4B307,LoadStartupData,sub_4B307,new,low,checks the CPU and loads the start-up data file,src/front/front_48D70.asm
 4B3F8,WriteGlobalSet,sub_4B3F8,96PC,medium,NHL96PC 6A5EB (similar 0.83): mnemonic similarity 0.83 over 47 instructions,src/front/front_48D70.asm
+4B4AC,NoOpPlatformHook,sub_4B4AC,new,low,does nothing (empty platform hook),src/front/front_48D70.asm
+4B4B0,RefreshViewDistance,sub_4B4B0,new,low,refreshes the camera view distance,src/front/front_48D70.asm
+4B4C4,AddModelName,sub_4B4C4,new,low,adds a model name to the model name table,src/front/front_48D70.asm
+4B540,FindModelName,sub_4B540,new,low,finds a model in the model name table,src/front/front_48D70.asm
 4B5C4,InitGameGraphics,sub_4B5C4,new,low,"from PlayGame, LoadReplay and sub_F4978: loads the arena, rink, players' art and camera for a game",src/front/front_48D70.asm
 4B80C,InitGameVideo,sub_4B80C,new,low,"from PlayGame, LoadReplay: sets the game video mode (SetVideoMode) and the view window",src/front/front_48D70.asm
+4B8DC,ResetRenderTimers,sub_4B8DC,new,low,"resets the render timers after a cut (faceoff, replay, stoppage)",src/front/front_48D70.asm
 4B928,FreeGameGraphics,sub_4B928,new,low,"from PlayGame, LoadReplay, ReplayScreen: frees what InitGameGraphics loaded (FreeRinkModel ...)",src/front/front_48D70.asm
+4B944,DrawModelList,sub_4B944,new,low,draws every model in the model list,src/front/front_48D70.asm
 4BA00,DrawGameFrame,sub_4BA00,new,low,"draws one frame of the game view (rink, objects, overlays); from GameLoop, the pause menu, RunIntermission, RunOpeningFrames and the replay",src/front/front_48D70.asm
+4BCB4,RedrawGameView,sub_4BCB4,new,low,redraws the game view at the current camera,src/front/front_48D70.asm
+4BD0C,SetStandsClip,sub_4BD0C,new,low,sets the clip for drawing the stands,src/front/front_48D70.asm
+4BD4C,SetStandsDetail,sub_4BD4C,new,low,sets the detail level for drawing the stands,src/front/front_48D70.asm
+4BDC0,PickFlashSpot,sub_4BDC0,new,low,picks a spot in the stands for a camera flash,src/front/front_48D70.asm
+4BE14,StartCameraFlash,sub_4BE14,new,low,starts a camera flash in the stands,src/front/front_48D70.asm
+4BF10,UpdateCameraFlashes,sub_4BF10,new,low,starts random camera flashes in the stands,src/front/front_48D70.asm
+4BF54,DrawFlashSprite,sub_4BF54,new,low,draws one camera flash,src/front/front_48D70.asm
+4BF94,DrawCameraFlashes,sub_4BF94,new,low,draws the camera flashes in the stands,src/front/front_48D70.asm
+4C0C4,TriggerCameraFlashes,sub_4C0C4,new,low,"turns on the camera flashes (goals, celebrations)",src/front/front_48D70.asm
+4C0CC,LoadRinkTextures,sub_4C0CC,new,low,loads the rink textures,src/front/front_48D70.asm
+4C164,BuildTexturePage,sub_4C164,new,low,builds a texture page,src/front/front_48D70.asm
+4C240,BuildTextureTile,sub_4C240,new,low,builds one texture tile,src/front/front_48D70.asm
+4C360,SetTextureDetail,sub_4C360,new,low,sets the texture detail level,src/front/front_48D70.asm
+4C404,SetupIceTextures,sub_4C404,new,low,sets up the ice textures,src/front/front_48D70.asm
+4C48C,SetupBoardAds,sub_4C48C,new,low,sets up the board advertisement textures,src/front/front_48D70.asm
+4C5A0,LoadArenaArt,sub_4C5A0,new,low,loads the arena art and palette ranges,src/front/front_48D70.asm
+4CE94,ClipLinePoint,sub_4CE94,new,low,clips one point of a rink line,src/front/front_48D70.asm
+4CF18,ProjectLinePoints,sub_4CF18,new,low,projects the points of a rink line,src/front/front_48D70.asm
+4CF74,ClipLineSegment,sub_4CF74,new,low,clips a rink line segment to the view,src/front/front_48D70.asm
+4D230,LineSegmentLength,sub_4D230,new,low,returns the length of a line segment,src/front/front_48D70.asm
+4D27C,DrawRinkCircle,sub_4D27C,new,low,draws a circle painted on the ice,src/front/front_48D70.asm
+4D3B4,DrawRinkLine,sub_4D3B4,new,low,draws a line painted on the ice,src/front/front_48D70.asm
+4D534,ScaleLineWidth,sub_4D534,new,low,scales a line width by distance,src/front/front_48D70.asm
+4D62C,SetLineWidth,sub_4D62C,new,low,sets the width of the next rink line,src/front/front_48D70.asm
+4D65C,DrawRinkArc,sub_4D65C,new,low,draws an arc painted on the ice,src/front/front_48D70.asm
+4D75C,DrawFaceoffDot,sub_4D75C,new,low,draws a faceoff dot,src/front/front_48D70.asm
+4D800,DrawLineSegment,sub_4D800,new,low,draws a line segment,src/front/front_48D70.asm
+4D8A8,SetNetPositions,sub_4D8A8,new,low,sets the positions of the nets,src/front/front_48D70.asm
+4D948,DrawNets,sub_4D948,new,low,draws the nets,src/front/front_48D70.asm
+4DA84,DrawNetShadows,sub_4DA84,new,low,draws the shadows of the nets,src/front/front_48D70.asm
+4DCF0,DrawNetsHook,sub_4DCF0,new,low,draws the nets for the frame,src/front/front_48D70.asm
+4DD0C,InitRinkProjection,sub_4DD0C,new,low,projects the rink reference points,src/front/front_48D70.asm
 4DD90,PeriodOver,sub_4DD90,96PC,medium,96 PC PeriodOver: called from GameLoop at the end of a period,src/front/front_48D70.asm
+4DD9C,IsCameraOnPuck,sub_4DD9C,new,low,returns whether the camera follows the puck,src/front/front_48D70.asm
+4DDB0,SetCameraMode,sub_4DDB0,new,low,sets the camera follow mode,src/front/front_48D70.asm
+4DDBC,InitRinkView,sub_4DDBC,new,low,sets up the rink view,src/front/front_48D70.asm
+4E3B0,UpdateViewDistance,sub_4E3B0,new,low,updates the camera view distance,src/front/front_48D70.asm
+4E410,DrawStandsRow,sub_4E410,new,low,draws a row of the stands,src/front/front_48D70.asm
+4E500,DrawStandsSection,sub_4E500,new,low,draws a section of the stands,src/front/front_48D70.asm
+4E630,DrawStandsEnd,sub_4E630,new,low,draws the stands at one end,src/front/front_48D70.asm
+4E660,DrawStandsSide,sub_4E660,new,low,draws the stands at one side,src/front/front_48D70.asm
+4E818,DrawHomeBlueLine,sub_4E818,new,low,draws one blue line,src/front/front_48D70.asm
+4E840,DrawAwayBlueLine,sub_4E840,new,low,draws the other blue line,src/front/front_48D70.asm
+4E868,DrawCenterSpots,sub_4E868,new,low,draws the centre ice marks,src/front/front_48D70.asm
+4E894,DrawEndSpots,sub_4E894,new,low,draws the end zone marks,src/front/front_48D70.asm
+4E8C0,DrawNeutralSpots,sub_4E8C0,new,low,draws the neutral zone marks,src/front/front_48D70.asm
+4E8EC,DrawCenterCircle,sub_4E8EC,new,low,draws the centre circle,src/front/front_48D70.asm
+4E938,SetRinkLineDetail,sub_4E938,new,low,sets the detail of the rink lines,src/front/front_48D70.asm
+4E9A0,DrawCreaseArc,sub_4E9A0,new,low,draws the crease arc,src/front/front_48D70.asm
+4EA44,BuildRinkGeometry,sub_4EA44,new,low,builds the rink geometry,src/front/front_48D70.asm
+4EF68,DrawIceSurface,sub_4EF68,new,low,draws the ice surface,src/front/front_48D70.asm
+4F004,DrawCreases,sub_4F004,new,low,draws the creases,src/front/front_48D70.asm
+4F068,DrawRinkMarkings,sub_4F068,new,low,draws the rink markings,src/front/front_48D70.asm
+4F294,DrawBoardsLines,sub_4F294,new,low,draws the lines along the boards,src/front/front_48D70.asm
+4F404,DrawGoalLines,sub_4F404,new,low,draws the goal lines,src/front/front_48D70.asm
+4F6AC,CrowdDistanceTo,sub_4F6AC,new,low,returns the distance from a crowd member to a point,src/front/front_48D70.asm
+4F7FC,CrowdRandomPose,sub_4F7FC,new,low,picks a random crowd pose,src/front/front_48D70.asm
+4F978,CrowdRandomDelay,sub_4F978,new,low,picks a random crowd delay,src/front/front_48D70.asm
+4FA2C,CrowdReactionStep,sub_4FA2C,new,low,steps one crowd reaction,src/front/front_48D70.asm
+4FA8C,BuildCrowdReaction,sub_4FA8C,new,low,builds a crowd reaction,src/front/front_48D70.asm
+4FC50,StartCrowdReaction,sub_4FC50,new,low,"starts a crowd reaction (near misses, hits)",src/front/front_48D70.asm
+4FD08,ClearCrowdReaction,sub_4FD08,new,low,clears the crowd reaction,src/front/front_48D70.asm
+4FD24,EndCrowdReaction,sub_4FD24,new,low,ends the crowd reaction and frees its memory,src/front/front_48D70.asm
+4FF55,NoOpCrowdHook,sub_4FF55,new,low,does nothing (empty crowd hook),src/front/front_48D70.asm
+4FF58,UpdateCrowdReaction,sub_4FF58,new,low,updates the crowd reaction,src/front/front_48D70.asm
+4FF94,FindNearestBenchPlayer,sub_4FF94,new,low,finds the nearest player on the bench,src/front/front_48D70.asm
+50050,StartBenchCheer,sub_50050,new,low,starts a bench cheer,src/front/front_48D70.asm
+50174,BenchCheerStep,sub_50174,new,low,steps a bench cheer,src/front/front_48D70.asm
+50218,UpdateBenchCheer,sub_50218,new,low,updates the bench cheer,src/front/front_48D70.asm
+503A0,PickBenchCheerers,sub_503A0,new,low,picks the players on the bench that cheer,src/front/front_48D70.asm
+504E0,GoalCrowdCheer,sub_504E0,new,low,starts the crowd cheer for a goal,src/front/front_48D70.asm
 50540,UpdateGoalLight,sub_50540,96PC,medium,NHL96PC 23F6A (sem 0.87): C:2025; C:2024; K:258,src/front/front_48D70.asm
 50740,DrawGoalLight,sub_50740,96PC,medium,NHL96PC 2414A (sem 0.77): C:2373; C:2305,src/front/front_48D70.asm
 507E4,TransformRink,sub_507E4,96PC,medium,NHL96PC 241F6 (sem 1.00): C:2323; K:880; K:6E8; K:550,src/front/front_48D70.asm
+509E8,DrawBenchLines,sub_509E8,new,low,draws the bench lines,src/front/front_48D70.asm
+50AF4,DrawBoardsTop,sub_50AF4,new,low,draws the top of the boards,src/front/front_48D70.asm
 50C90,DrawStandsSides,sub_50C90,96PC,medium,NHL96PC 248B0 (sem 1.00): C:2323,src/front/front_48D70.asm
+50DF4,DrawBenchDoors,sub_50DF4,new,low,draws the bench doors,src/front/front_48D70.asm
+50EB8,DrawGlass,sub_50EB8,new,low,draws the glass,src/front/front_48D70.asm
+50F90,DrawBenchPlayers,sub_50F90,new,low,draws the players on the bench,src/front/front_48D70.asm
+510FC,DrawBenchArea,sub_510FC,new,low,draws the bench area,src/front/front_48D70.asm
+511AC,DrawPenaltyBox,sub_511AC,new,low,draws the penalty box,src/front/front_48D70.asm
+51254,DrawBenches,sub_51254,new,low,draws the benches,src/front/front_48D70.asm
+51408,ScoreboardTransform,sub_51408,new,low,sets up the scoreboard transform,src/front/front_48D70.asm
+51434,LoadScoreboardArt,sub_51434,new,low,loads the scoreboard art,src/front/front_48D70.asm
+516B8,DrawScoreboard,sub_516B8,new,low,draws the scoreboard,src/front/front_48D70.asm
+519E0,NetFrameDistance,sub_519E0,new,low,returns the distance to the net frame,src/front/front_48D70.asm
+51A74,SetupNetArt,sub_51A74,new,low,sets up the net art,src/front/front_48D70.asm
+51AEC,ResetNetArt,sub_51AEC,new,low,resets the net art,src/front/front_48D70.asm
+51B5C,UpdateScoreboardPos,sub_51B5C,new,low,updates the scoreboard position,src/front/front_48D70.asm
+51BD8,UpdateScoreboardSpin,sub_51BD8,new,low,updates the scoreboard spin,src/front/front_48D70.asm
 51C4C,LoadNetArt,sub_51C4C,new,low,"loads the goal net art (""netback"", ""netfrnt"")",src/front/front_48D70.asm
 51CB8,BuildRinkSides,sub_51CB8,96PC,medium,NHL96PC 2583F (sem 0.80): S:side%d; D:1614B4; S:gt0%02d; D:1614BC,src/front/front_48D70.asm
 52494,OpenArenaArchive,sub_52494,new,medium,"SetArtArchive ""arena.viv"", from the game graphics set-up (sub_4B5C4)",src/front/front_48D70.asm
 525E0,LoadBoardLogo,sub_525E0,new,low,"loads a board logo shape ""blogo%d%c""",src/front/front_48D70.asm
+52648,LoadTeamLogoShape,sub_52648,new,low,loads a team logo,src/front/front_48D70.asm
+526EC,LoadTeamLogoCopy,sub_526EC,new,low,loads a copy of a team logo,src/front/front_48D70.asm
 52770,LoadLogos,sub_52770,new,low,"game graphics: loads ""logos.fsh"" (LOGOS, blogos) and the ice / board logo shapes (LoadBoardLogo, L%02d...)",src/front/front_52770.asm
 52E8C,LoadRinkLines,sub_52E8C,new,low,"from InitGameGraphics: the rink line and board shapes (boardback, crease, flatboards, fat red / blue lines, glassline, top / bottom boards)",src/front/front_52770.asm
 53314,LoadRinkModel,sub_53314,new,low,"from InitGameGraphics: the rink model from arena.viv (rink, stands, floor, score, puck, nets, goals, extents, lights, glass, boards)",src/front/front_52770.asm

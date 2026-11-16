@@ -53,7 +53,7 @@ extern UpdateCoachModes, ChkShoot, ForceShoot, AddPenalty, AddPenalty2, PenGoalS
 extern doplayeracc, ChkOneTimerSpot, ClearLastPasser, OneTimerShot, PickBenchSeat, FaceoffMoveResult, FaceoffSwipeAnim, FaceoffDrawAnim
 extern PokeCheckAnim, AIBodyCheck, SetVideoMode, SetViewSize, SetViewInterlaced, ClearViewInterlaced, HideView, ShowView
 extern SetViewOrigin, AddOverlayWindow, RemoveOverlayWindow, RefreshOverlayWindow, FadeGamePalette, SetCrowdMood, CommentaryEvent, SetArtArchive
-extern sub_4B8DC, sub_4C0C4, sub_4DDB0, sub_504E0, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
+extern ResetRenderTimers, TriggerCameraFlashes, SetCameraMode, GoalCrowdCheer, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
 extern SetCameraTarget, SetCameraPathTarget, SetCameraSplineTarget, UpdateCameraMotion, SnapCamera, BuildCameraMatrix, UpdateCameraProjection, InitCameraParams
 extern SetSPA, ResetAnimTimer, PickSkateAnim, SetSkateSpeedFromRating, StickReach, ObjectFramePos, TryStickTouch, StopObject
 extern StartPassAnim, StartDropPassAnim, StartGoalieSave, StartGoalieStance, GoalieMoves, DrawCameraPath, SetTextColor, DrawTextAligned
@@ -7508,7 +7508,7 @@ SelectCameraView:
         mov dword [dword_19D0DC], edx
         call UpdateGameCamera
         mov dword [dword_19D0DC], ebx
-        call sub_4DDB0
+        call SetCameraMode
 .4:
         mov edx, unk_19D0A4
         mov eax, unk_1B9038
@@ -7679,7 +7679,7 @@ ToggleCameraFollow:
         mov dword [dword_19D0DC], ebx
         call UpdateGameCamera
         mov dword [dword_19D0DC], ecx
-        call sub_4DDB0
+        call SetCameraMode
         mov ah, byte [byte_1687B4]
         test ah, ah
         sete al
@@ -14351,7 +14351,7 @@ Endfaceoff:
         cmp dword [dword_1B8FA0], byte 0
         jne short .1
         xor eax, eax
-        call sub_4B8DC
+        call ResetRenderTimers
 .1:
         call sub_114C4
         mov eax, 501h
@@ -15147,9 +15147,9 @@ Goal:
         sar ebx, 10h
         mov edx, eax
         mov eax, ebx
-        call sub_504E0
+        call GoalCrowdCheer
         mov eax, 170Ah
-        call sub_4C0C4
+        call TriggerCameraFlashes
         cmp word [byte ecx+010h], byte 0
         jl short .19
         mov edx, dword [dword ecx+0FAh]

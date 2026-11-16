@@ -32,8 +32,8 @@ extern DefendPuck, assextra4, FindManToCover, assextra3, BuildPassTargets, Credi
 extern StartPass, AIPassDecision, ChkAIShoot, AvgLineEnergy, CompLine, ChkShoot, ForceShoot, UpdateLinesForAbsent
 extern AddPenalty, AddPenalty2, EndPenaltyShot, SetPlayerTarget, SetSlotPlayer, doplayeracc, PickBoxSeat, FreeBoxSeat
 extern MoveBoxToBenchSeat, SitDownAnim, StandUpAnim, GoToBoxAnim, LeaveBoxAnim, RefDodgePuck, QueueMusicRestart, MusicPlaying
-extern PlaySfxOr, PlaySfxVolume, SetCrowdMood, CommentaryEvent, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
-extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
+extern PlaySfxOr, PlaySfxVolume, SetCrowdMood, CommentaryEvent, PaEvent, TriggerCameraFlashes, PeriodOver, IsCameraOnPuck
+extern SetCameraMode, EndCrowdReaction, UpdateScoreboardPos, UpdateScoreboardSpin, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, SetupPlayerModel, BuildCupPatchArt, DrawJerseyLettering, LoadCupArt
 extern ClearObjectHidden, SetSPA, ResetAnimTimer, PickSkateAnim, FaceoffPuckDrop, SetSkateSpeedFromRating, StartWhistleStop, ObjectFramePos
 extern PuckBounceOffPlayer, GoalLinePuckTest, UpdatePuckCarrier, GoalJudgeTest, RandomPuckSpin, StopObject, StartOneTimerAnim, StartPuckReceiveAnim
@@ -4432,7 +4432,7 @@ assrefpenshot:
         mov byte [eax], 0FFh
         mov eax, dword [off_168CFC]
         call StopObject
-        call sub_4DD9C
+        call IsCameraOnPuck
         mov eax, dword [off_168CFC]
         mov dword [byte eax+028h], 0
         fld dword [byte eax+028h]
@@ -4561,7 +4561,7 @@ assrefsignal:
         and dh, 0FDh
         mov eax, 0A3Dh
         mov byte [dword ebx+0BFh], dh
-        call sub_4C0C4
+        call TriggerCameraFlashes
         or byte [dword ebx+0C0h], 20h
         fldz
         fcomp dword [byte ebx+020h]
@@ -5015,7 +5015,7 @@ assrefgoalpa:
         ret
 .5:
         mov eax, 51Eh
-        call sub_4C0C4
+        call TriggerCameraFlashes
         mov dh, byte [dword ebx+0BFh]
         and dh, 0FDh
         mov esi, 1
@@ -6118,7 +6118,7 @@ assstanley:
         mov byte [byte_19DAEF], al
         mov eax, 11EBh
         xor edx, edx
-        call sub_4C0C4
+        call TriggerCameraFlashes
         mov eax, 4
         mov esi, 1
         call SelectCameraView
@@ -6223,7 +6223,7 @@ PlayerGetsPuck:
         mov eax, dword [off_168CF0]
         mov bl, byte [dword edx+0A4h]
         mov byte [eax], bl
-        call sub_4DDB0
+        call SetCameraMode
         mov eax, dword [off_168CFC]
         call StopObject
         cmp word [dword edx+0A9h], byte 0
@@ -9725,7 +9725,7 @@ puckfaceoff2:
         cmp dword [byte eax+060h], byte 64h
         jne near .45
 .3:
-        call sub_4DDB0
+        call SetCameraMode
         mov eax, edi
         mov bl, byte [dword edi+0BFh]
         xor ecx, ecx
@@ -9755,7 +9755,7 @@ puckfaceoff2:
         xor edx, edx
         xor ecx, ecx
         call SetPenaltyBoxDoor
-        call sub_4FD24
+        call EndCrowdReaction
         mov dword [dword_19CB54], ebx
         call ReleaseBoxToBench
         mov eax, dword [word_19CBEC]
@@ -9847,12 +9847,12 @@ puckfaceoff2:
         mov dword [byte esp+08h], eax
         xor eax, eax
         mov dword [esp], ecx
-        call sub_51B5C
+        call UpdateScoreboardPos
         mov edx, 0FFFFEF50h
         mov eax, 1
         mov dword [byte esp+08h], edx
         mov edx, esp
-        call sub_51B5C
+        call UpdateScoreboardPos
         mov eax, dword [off_168D0C]
         mov dword [byte eax+020h], ecx
         mov eax, dword [off_168D0C]
@@ -9882,7 +9882,7 @@ puckfaceoff2:
         fadd qword [qword_1608A7]
         xor eax, eax
         fstp dword [esp]
-        call sub_51BD8
+        call UpdateScoreboardSpin
         mov eax, dword [off_168D08]
         cmp byte [dword eax+0A4h], 0Fh
         jne short .7
@@ -9905,7 +9905,7 @@ puckfaceoff2:
         fadd qword [qword_1608A7]
         mov eax, 1
         fstp dword [esp]
-        call sub_51BD8
+        call UpdateScoreboardSpin
         mov eax, dword [off_168D0C]
         mov eax, dword [dword eax+0FAh]
         mov dword [byte eax+0Ch], 0

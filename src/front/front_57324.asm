@@ -167,9 +167,9 @@ extern InCrease, UpdateCreaseFlag, PlayerGetsPuck, ChkPuckContacts, a2touchpuck,
 extern ChkTiredPlayer, StartFaceoffLineChange, ChkPenaltyCall, checkint, AddPenalty, AddPenalty2, EndPenaltyShot, SetPlayerTarget
 extern doinput, checkfight, AddBankToRange, RemapArtBank, SetRangeColors, AddColorTable, RemapBankToRange, RemapArtPixels
 extern StartMusicTrack, StopAllSfx, PlaySfxOr, PlaySfxVolume, PlaySfxAt, SetCrowdNoise, SetCrowdMood, CommentaryEvent
-extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, DrawGameFrame, sub_4BCB4
-extern sub_4C0C4, sub_4DA84, PeriodOver, sub_4DD9C, sub_4DDB0, sub_4FC50, sub_50050, sub_51B5C
-extern sub_51BD8, sub_56798, sub_567B0, sub_568CC, sub_56908, sub_56A84, sub_56AE4, sub_56CD0
+extern ResetStreamAudio, SetArtArchive, RefreshViewDistance, AddModelName, FindModelName, ResetRenderTimers, DrawGameFrame, RedrawGameView
+extern TriggerCameraFlashes, DrawNetShadows, PeriodOver, IsCameraOnPuck, SetCameraMode, StartCrowdReaction, StartBenchCheer, UpdateScoreboardPos
+extern UpdateScoreboardSpin, sub_56798, sub_567B0, sub_568CC, sub_56908, sub_56A84, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_56D0C, sub_56DDC, sub_AA650, sub_BD61B, sub_E341C, AllocMemBlock
 extern sub_FAAB4, FreeMemBlock, sub_FB4A4, ZeroMem, FillMem, sub_FC330, sub_FC4BC, sub_FCC40
 extern FreeBitmap, SetDrawTarget, sub_FD954, sub_FDC0C, sub_FDC68, FillRect, MeasureText, DrawTextAt
@@ -1897,7 +1897,7 @@ InitPlayerModelSlots:
         test ebx, ebx
         jl short .3
         mov eax, ebx
-        call sub_4B540
+        call FindModelName
         mov dword [dword edx+dword_1B13C8], ecx
 .3:
         add edx, byte 4
@@ -1916,7 +1916,7 @@ InitPlayerModelSlots:
         push byte 3
         mov edx, esi
         mov eax, str_BOGIE
-        call sub_4B4C4
+        call AddModelName
         mov byte [dword edi+byte_1B8582], al
         movsx eax, al
         mov dword [dword ebp+dword_1B13C8], eax
@@ -5167,7 +5167,7 @@ DrawIceMarkers:
         jl short .1
         lea edx, [dword ecx+0F0h]
         mov eax, ebx
-        call sub_4DA84
+        call DrawNetShadows
         pop esi
         pop edx
         pop ecx
@@ -5181,7 +5181,7 @@ DrawIceMarkers:
         add esp, byte 4
         mov edx, eax
         mov eax, ebx
-        call sub_4DA84
+        call DrawNetShadows
         pop esi
         pop edx
         pop ecx
@@ -6937,7 +6937,7 @@ ReplayDrawFrame:
 .3:
         call DrawGameFrame
         call sub_E341C
-        call sub_4BCB4
+        call RedrawGameView
         pop edi
         pop esi
         pop edx
@@ -6957,9 +6957,9 @@ ReplayDrawFrame:
         mov edx, dword_16C6B0
         mov dword [byte esp+08h], eax
         mov eax, esp
-        call sub_4B4B0
-        call sub_4DDB0
-        call sub_4DD9C
+        call RefreshViewDistance
+        call SetCameraMode
+        call IsCameraOnPuck
         mov eax, 1
         call ReplayDrawFrame
         add esp, byte 0Ch
@@ -7038,7 +7038,7 @@ ReplayPlayFrames:
         xor eax, eax
         mov edx, 12Ch
         call SetCrowdNoise
-        call sub_4A280
+        call ResetStreamAudio
         call StopAllSfx
         call sub_114C4
         mov eax, esi
@@ -7124,9 +7124,9 @@ ReplayPlayFrames:
         mov edx, dword_16C6B0
         mov dword [byte esp+08h], eax
         mov eax, esp
-        call sub_4B4B0
-        call sub_4DDB0
-        call sub_4DD9C
+        call RefreshViewDistance
+        call SetCameraMode
+        call IsCameraOnPuck
         mov eax, 1
         call ReplayDrawFrame
         xor edx, edx
@@ -7192,9 +7192,9 @@ StartInstantReplay:
         call ClearOverlayWindows
         call OpenFreeOverlay
         mov eax, 2
-        call sub_4B8DC
+        call ResetRenderTimers
         mov eax, 3
-        call sub_4B8DC
+        call ResetRenderTimers
         mov eax, dword [dword_1BF8B4]
         mov dword [dword_1B8F5C], eax
         xor eax, eax
@@ -7230,7 +7230,7 @@ EndInstantReplay:
 .1:
         xor eax, eax
 .2:
-        call sub_4B8DC
+        call ResetRenderTimers
         xor eax, eax
         call ChangeViewSize
         xor edx, edx
@@ -7315,9 +7315,9 @@ PlaySavedReplay:
         mov edx, dword_16C6B0
         mov dword [byte esp+08h], eax
         mov eax, esp
-        call sub_4B4B0
-        call sub_4DDB0
-        call sub_4DD9C
+        call RefreshViewDistance
+        call SetCameraMode
+        call IsCameraOnPuck
         mov eax, edi
         call ReplayDrawFrame
 .7:
@@ -19843,7 +19843,7 @@ UpdateGameDisplay:
         lea edx, [byte ebp-020h]
         call ResetClockData
         lea eax, [byte ebp-014h]
-        call sub_4B4B0
+        call RefreshViewDistance
         jmp near .5
 .2:
         cmp esi, byte 0Eh
@@ -19867,7 +19867,7 @@ UpdateGameDisplay:
         sete al
         lea edx, [byte ebp-02Ch]
         and eax, 0FFh
-        call sub_51B5C
+        call UpdateScoreboardPos
         fld dword [byte ebp-08h]
         fadd qword [qword_162FF3]
         sub esp, byte 4
@@ -19875,7 +19875,7 @@ UpdateGameDisplay:
         cmp esi, byte 0Eh
         sete al
         and eax, 0FFh
-        call sub_51BD8
+        call UpdateScoreboardSpin
         jmp short .5
 .4:
         lea edx, [byte ebp-014h]
@@ -21545,7 +21545,7 @@ PlayPostSound:
         mov eax, dword [tickcount]
         mov ebx, eax
         mov eax, esp
-        call sub_4FC50
+        call StartCrowdReaction
         mov eax, 1
         jmp short .3
 .2:
@@ -26454,18 +26454,18 @@ StartPassAnim:
         jae short .4
         mov esi, 0FCh
         and byte [byte edx+031h], 0FDh
-        call sub_4DD9C
+        call IsCameraOnPuck
         jmp near .11
 .4:
         mov esi, 0FBh
         and byte [byte edx+031h], 0FDh
-        call sub_4DD9C
+        call IsCameraOnPuck
         jmp near .11
 .5:
         mov esi, 0FDh
 .6:
         and byte [byte edx+031h], 0FDh
-        call sub_4DD9C
+        call IsCameraOnPuck
         jmp short .11
 .7:
         mov ah, byte [dword ecx+0D0h]
@@ -26630,7 +26630,7 @@ StartDropPassAnim:
         and bl, 0FDh
         mov esi, 0FFh
         mov byte [byte edx+031h], bl
-        call sub_4DD9C
+        call IsCameraOnPuck
         jmp short .5
 .3:
         mov ah, byte [dword ecx+0D0h]
@@ -37939,7 +37939,7 @@ BenchCheerMove:
         mov eax, dword [tickcount]
         mov ebx, eax
         lea eax, [byte ebp-0Ch]
-        call sub_50050
+        call StartBenchCheer
 .2:
         mov dh, byte [byte ecx+01Ch]
         test dh, 80h
@@ -38459,7 +38459,7 @@ PuckRetrieveMove:
         mov byte [eax], 0FFh
         mov eax, dword [off_168CFC]
         mov dword [byte eax+030h], 0C1200000h
-        call sub_4DD9C
+        call IsCameraOnPuck
 .2:
         test byte [byte ecx+01Ch], 80h
         je short .3
@@ -40987,7 +40987,7 @@ GoalieCoverMove:
         cmp edx, byte 1Eh
         jne short .5
 .4:
-        call sub_4DD9C
+        call IsCameraOnPuck
         jmp short .7
 .5:
         cmp edx, byte 13h
@@ -41053,7 +41053,7 @@ GoalieCoverMove:
         fst dword [byte eax+030h]
         mov eax, dword [off_168CFC]
         fstp dword [byte eax+02Ch]
-        call sub_4DD9C
+        call IsCameraOnPuck
 .10:
         test byte [byte ecx+01Ch], 80h
         je short .14
@@ -46451,7 +46451,7 @@ clockcont_0:
         add esp, byte 4
         mov eax, 0CCCCh
         mov edx, 44h
-        call sub_4C0C4
+        call TriggerCameraFlashes
         mov eax, dword [off_168CFC]
         call assreplace
         mov eax, 5Ch

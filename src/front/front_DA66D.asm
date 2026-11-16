@@ -39,7 +39,7 @@ extern sub_10FAC, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11B104, sub_11
 extern sub_11C41C, sub_11D2D0, sub_11D364, sub_11D508, sub_11D5C0, sub_11D690, sub_11D780, sub_11D8D8
 extern sub_11DA0C, sub_11DE04, sub_11F850, sub_11F8D0, SetScreenTarget, sub_14140, InitPacketLink, ShutdownPacketLink
 extern PacketLinkSend, ClosePacketLink, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd
-extern ArenaFileName, StopAllSfx, PlaySfx, sub_4AA78, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0
+extern ArenaFileName, StopAllSfx, PlaySfx, ServiceBackgroundAudio, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0
 extern sub_7EF70, SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7F5B8
 extern sub_80BBC, sub_81D1C, sub_83314, sub_834EC, sub_83558, sub_835AC, sub_835BC, sub_83850
 extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, AllocPageStack, sub_D7B64, OpenDbFile
@@ -12372,7 +12372,7 @@ sub_E341C:
         add esp, byte 4
         push byte 0
         push byte 0
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -12390,7 +12390,7 @@ sub_E341C_34:
         add esp, byte 4
         push byte 0
         push byte 0
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -12800,7 +12800,7 @@ sub_E3798:
         add esp, byte 4
         push esi
         push esi
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -13132,7 +13132,7 @@ sub_E3AFC:
         add esp, byte 4
         push esi
         push esi
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -13154,7 +13154,7 @@ sub_E3AFC:
         add esp, byte 4
         push esi
         push esi
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -13359,7 +13359,7 @@ sub_E3F04:
         add esp, byte 4
         push esi
         push esi
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -13401,7 +13401,7 @@ sub_E3F04:
         add esp, byte 4
         push esi
         push esi
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -13443,7 +13443,7 @@ sub_E3F04:
         add esp, byte 4
         push esi
         push esi
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -13494,7 +13494,7 @@ sub_E3F04:
         add esp, byte 4
         push esi
         push esi
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -13896,7 +13896,7 @@ LinkSendBlock:
         add esp, byte 4
         push byte 0
         push byte 0
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -13961,7 +13961,7 @@ LinkSendBlock:
         add esp, byte 4
         push byte 0
         push byte 0
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -14004,7 +14004,7 @@ LinkSendBlock:
         add esp, byte 4
         push esi
         push esi
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -14067,7 +14067,7 @@ LinkReceiveBlock:
         add esp, byte 4
         push byte 0
         push byte 0
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -14383,7 +14383,7 @@ WaitForOtherComputer:
         add esp, byte 4
         push ebx
         push ebx
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -14476,7 +14476,7 @@ WaitForOtherComputer:
         add esp, byte 4
         push byte 0
         push byte 0
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -14828,7 +14828,7 @@ WaitForOtherComputer:
         add esp, byte 4
         push edi
         push edi
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
@@ -15047,7 +15047,7 @@ WaitForOtherComputer:
         add esp, byte 4
         push byte 0
         push byte 0
-        call sub_4AA78
+        call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
         mov dword [dword_16DAC4], eax
