@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_1724D4 progbits alloc noexec write align=1
-extern sub_121DB9
+extern EmuNoHook
 global _Envptr, _Envptr_w4, _Extender, _ExtenderSubtype, _LpCmdLine, _STACKLOW, _STACKTOP, __no87
 global __real87, _curbrk, _dynend, _osmajor, _osminor, _psp, byte_172518, byte_1725A4
 global byte_17268C, dword_1724D4, dword_17251B, dword_172524, dword_172564, dword_17257C, dword_17258C, dword_172590
@@ -76,7 +76,7 @@ _osmajor:
 _osminor:
         db 00h
 dword_1725AD:
-        dd sub_121DB9
+        dd EmuNoHook
         db 00h,00h,00h,040h,081h,049h,081h,067h,081h,094h,081h,090h,081h,093h,081h,095h
         db 081h,066h,081h,069h,081h,06Ah,081h,096h,081h,07Bh,081h,043h,081h,07Ch,081h,044h
         db 081h,05Eh,081h,04Fh,082h,050h,082h,051h,082h,052h,082h,053h,082h,054h,082h,055h

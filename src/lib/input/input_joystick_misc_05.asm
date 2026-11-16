@@ -5,8 +5,8 @@ section s_100A68 progbits alloc exec nowrite align=1
 extern str_DtoD, atexit_, byte_16E688, byte_16F748, byte_16FA40, byte_171C90, dword_16E4C8, dword_16E500
 extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E698, dword_16E69C, dword_16E6A0, dword_16F188
 extern dword_16F5AC, dword_16F5B4, dword_1CF5F0, dword_1DA4D0, exit_, off_16F588, off_16F5BC, off_16F5C0
-extern off_16F684, sprintf_, strrchr_, sub_100528, sub_1049D0, PlotPixelRGB, sub_12189C, sub_12233C
-extern sub_122D90, sub_123FA8, sub_125DDE, sub_125E68, sub_125FE1, sub_126052, sub_1261A4, sub_126264
+extern off_16F684, sprintf_, strrchr_, sub_100528, sub_1049D0, PlotPixelRGB, sub_12189C, BlitCore
+extern ShapeRowBytes, sub_123FA8, sub_125DDE, sub_125E68, sub_125FE1, sub_126052, sub_1261A4, sub_126264
 extern sub_126364, AllocMemBlock, FreeMemBlock, MakeColor, word_1CF5F4
 global _os_handle, jpt_1015B0, jpt_101980, PacketChecksum_90, FindShapeQuiet_2, BlendPixelMode_30, BlendPixelMode_54, BlendPixelMode_6E
 global BlendPixelMode_94, BlendPixelMode_B9, BlendPixelMode_10C, BlendPixelMode_153, BlendPixelMode_1A6, BlendPixelMode_1BC, BlendPixelMode_204, BlendPixelMode_232
@@ -1207,7 +1207,7 @@ BlitConverted:
         mov edx, dword [byte esp+0Ch]
         mov ecx, off_16F588
         mov ebx, dword [byte esp+010h]
-        call sub_12233C
+        call BlitCore
         pop ebx
         ret
         db 08Dh,040h,00h
@@ -1223,7 +1223,7 @@ BlitShape2:
         mov ebx, dword [byte eax+0Ch]
         sar edx, 10h
         sar ebx, 10h
-        call sub_12233C
+        call BlitCore
         pop ebx
         ret
         db 08Dh,040h,00h
@@ -1240,7 +1240,7 @@ BlitShape2:
         sub ecx, ebx
         mov ebx, ecx
         mov ecx, off_16F588
-        call sub_12233C
+        call BlitCore
         pop ebx
         ret
         db 08Dh,040h,00h
@@ -1255,7 +1255,7 @@ BlitArt:
         mov edx, dword [byte esp+0Ch]
         mov ecx, off_16F588
         mov ebx, dword [byte esp+010h]
-        call sub_12233C
+        call BlitCore
         pop ebx
         ret
         db 08Dh,040h,00h
@@ -1271,7 +1271,7 @@ BlitShape:
         mov ebx, dword [byte eax+0Ch]
         sar edx, 10h
         sar ebx, 10h
-        call sub_12233C
+        call BlitCore
         pop ebx
         ret
         db 08Dh,040h,00h
@@ -1293,7 +1293,7 @@ BlitClippedY:
         sub ecx, ebx
         mov ebx, ecx
         mov ecx, off_16F588
-        call sub_12233C
+        call BlitCore
         pop ebx
         ret
         db 00h,00h,00h
@@ -3512,7 +3512,7 @@ ConvertArtShape:
         sar eax, 10h
         push edi
         mov dword [byte esp+04Ch], eax
-        call sub_122D90
+        call ShapeRowBytes
         add esp, byte 4
         mov dword [byte esp+03Ch], eax
         mov eax, dword [byte esp+044h]

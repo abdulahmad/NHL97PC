@@ -7,7 +7,7 @@ extern __set_errno_, __shutdown_stream_, _nfree_, _nmalloc_, _osmajor, byte_1684
 extern byte_199A24, byte_199AA4, byte_1DA4C5, dword_16E318, dword_16E678, dword_16E67C, dword_16E680, dword_16E684
 extern dword_16E698, dword_16E6A0, dword_1999A5, dword_1999C0, dword_199A14, dword_199A18, dword_199A1E, dword_199B2A
 extern dword_199B2E, dword_1CF528, dword_1DA4BC, dword_1DA4C0, dword_1DA8D8, __freefp__39, memset_, off_199C54
-extern str_NotEnoughMemoryTo, str_SaveText, bcopy, AddExitHandler, RestoreDS, sub_122838, sub_12285A, sub_122DF0
+extern str_NotEnoughMemoryTo, str_SaveText, bcopy, AddExitHandler, RestoreDS, SetBlitSource, CopyMappedSpan, BuildSpanOffsets
 extern sub_12FFD8, sub_12FFF0, sub_138F20, sub_138F5A, sub_FA9C4, sub_FAF70, sub_FB62C, ZeroMem
 extern sub_FBE63, MakeColor, sub_FCC40, FillRect, SetTextColors, FreeTextBuffers, tolower_, unk_16E8A0
 extern unk_1722C0, unk_172342, word_199A1C, word_199A22
@@ -877,7 +877,7 @@ RasterShapeTriangle:
         mov dword [byte esp+060h], eax
         lea eax, [byte ebx+010h]
         push eax
-        call sub_122838
+        call SetBlitSource
         add esp, byte 8
         mov eax, ebx
         xor edx, edx
@@ -1070,7 +1070,7 @@ RasterShapeTriangle:
         push dword 8000h
         push dword 8000h
         push dword_1DA8D8
-        call sub_122DF0
+        call BuildSpanOffsets
         add esp, byte 1Ch
         mov edx, dword [byte esp+028h]
         mov eax, dword [dword esp+090h]
@@ -1315,7 +1315,7 @@ RasterShapeTriangle:
         mov eax, dword [edx+ebx]
         add eax, dword [ecx]
         push eax
-        call sub_12285A
+        call CopyMappedSpan
         add esp, byte 0Ch
 .29:
         mov eax, dword [byte esp+064h]
@@ -1386,7 +1386,7 @@ RasterShapeTriangle:
         mov eax, dword [ebx]
         add eax, dword [edx]
         push eax
-        call sub_12285A
+        call CopyMappedSpan
         add esp, byte 0Ch
 .35:
         mov ecx, dword [byte esp+064h]
@@ -1603,7 +1603,7 @@ RasterShapeTriangle:
         mov eax, dword [eax]
         add eax, ecx
         push eax
-        call sub_12285A
+        call CopyMappedSpan
         add esp, byte 0Ch
 .51:
         mov eax, dword [byte esp+064h]
@@ -1674,7 +1674,7 @@ RasterShapeTriangle:
         mov eax, dword [ebx]
         add eax, dword [edx]
         push eax
-        call sub_12285A
+        call CopyMappedSpan
         add esp, byte 0Ch
 .57:
         mov ecx, dword [byte esp+064h]

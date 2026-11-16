@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_10C8B0 progbits alloc exec nowrite align=1
 extern byte_16E688, byte_16E689, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694
-extern dword_16E698, dword_16E6A0, dword_1DA8D8, ConvertArtSame, sub_102D3C, sub_122838, sub_12285A, sub_122D90
-extern sub_122DF0, sub_12D6A0, FreeMemBlock
+extern dword_16E698, dword_16E6A0, dword_1DA8D8, ConvertArtSame, sub_102D3C, SetBlitSource, CopyMappedSpan, ShapeRowBytes
+extern BuildSpanOffsets, sub_12D6A0, FreeMemBlock
 global sub_10C8B0, sub_10C8E8, sub_10C920, sub_10C9B0, sub_10CA48, sub_10CCB0, sub_10CD98, sub_10CDE0
 global sub_10CE9C
 ;-----------------------------------------------------------------------------
@@ -171,7 +171,7 @@ sub_10C9B0:
         push ebp
         push ecx
         mov ebx, eax
-        call sub_12285A
+        call CopyMappedSpan
         add esp, byte 0Ch
         lea eax, [byte edi+01h]
         call sub_102D3C
@@ -184,7 +184,7 @@ sub_10C9B0:
         push eax
         push byte 0
 .2:
-        call sub_12285A
+        call CopyMappedSpan
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -265,7 +265,7 @@ sub_10CA48:
         jle near .15
         mov eax, dword [byte esp+034h]
         push eax
-        call sub_122D90
+        call ShapeRowBytes
         add esp, byte 4
         mov edx, dword [byte esp+04h]
         shl edx, 10h
@@ -357,7 +357,7 @@ sub_10CA48:
         mov edx, dword [edi]
         mov edi, dword [byte esp+014h]
         add edi, edx
-        mov dword [byte esp+0Ch], sub_12285A
+        mov dword [byte esp+0Ch], CopyMappedSpan
         mov edx, dword [dword_16E694]
         test edx, edx
         je short .13
@@ -372,13 +372,13 @@ sub_10CA48:
         push byte 0
         push eax
         push dword_1DA8D8
-        call sub_122DF0
+        call BuildSpanOffsets
         add esp, byte 1Ch
         mov eax, dword [byte esp+034h]
         push dword_1DA8D8
         add eax, byte 10h
         push eax
-        call sub_122838
+        call SetBlitSource
         add esp, byte 8
 .14:
         dec ebx

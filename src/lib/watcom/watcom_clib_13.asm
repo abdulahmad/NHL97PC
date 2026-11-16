@@ -29,7 +29,7 @@ extern off_19C6E3, qword_167EC8, qword_167ED0, qword_167EE0, sprintf_, strcat_, 
 extern strncpy_, sub_1004B8, bcopy, AddExitHandler, PresentScreen, ConvertArtPalette, Random32, sub_102D3C
 extern sub_103298, sub_103648, sub_10374C, sub_10376C, sub_1049D0, FileExistsPath, sub_106F64, sub_109401
 extern sub_109545, sub_10955B, sub_1095AD, sub_10CFB4, sub_10CFF7, DrawPolyArray, sub_121460, sub_121470
-extern sub_121494, sub_12189C, sub_121A43, sub_12200C, sub_12233C, sub_123FCB, sub_124DB0, sub_1258A4
+extern sub_121494, sub_12189C, sub_121A43, ArchiveEntryOffset, BlitCore, sub_123FCB, sub_124DB0, sub_1258A4
 extern sub_125DDE, sub_12D520, sub_12F270, sub_12FACC, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0
 extern sub_13005A, TgvCopyBlock, TgvFillBlock, SaveTextScreen, RestoreTextScreen, InitTextOutput, ClearNumLock, InstallBreakHandler
 extern RegisterHotkey, SetScreenTarget, NoOpPlatformHook, sub_FA5B8, sub_FA6A0, sub_FA734, sub_FA8AC, sub_FA954
@@ -4782,7 +4782,7 @@ BlitShapeKeyed:
         mov ebx, dword [dword esp+041Ch]
         mov edx, dword [dword esp+0418h]
         mov eax, esi
-        call sub_12233C
+        call BlitCore
         mov dword [nosplit edi*4+dword_1DA4D0], ebp
         add esp, 400h
         pop ebp
@@ -10249,7 +10249,7 @@ LoadNamedResource:
         push ecx
         mov esi, dword [dword_17014C]
         push esi
-        call sub_12200C
+        call ArchiveEntryOffset
         mov esi, eax
         add esp, byte 0Ch
         test eax, eax
@@ -11552,7 +11552,7 @@ ConvertArtAt:
         mov edx, dword [byte esp+014h]
         mov ebx, edi
         mov eax, esi
-        call sub_12233C
+        call BlitCore
         mov eax, dword [byte esp+014h]
         mov word [byte esi+0Eh], di
         mov word [byte esi+0Ch], ax
@@ -11579,7 +11579,7 @@ ConvertArtInPlace:
         sar ebx, 10h
         mov dword [esp], edx
         mov edi, ebx
-        call sub_12233C
+        call BlitCore
         mov edx, dword [esp]
         mov word [byte esi+0Eh], di
         mov word [byte esi+0Ch], dx
@@ -11607,7 +11607,7 @@ ConvertArtInPlace:
         mov eax, esi
         mov ebx, edi
         mov dword [esp], edx
-        call sub_12233C
+        call BlitCore
         mov edx, dword [esp]
         mov word [byte esi+0Eh], di
         mov word [byte esi+0Ch], dx
@@ -11634,7 +11634,7 @@ ConvertArtXY:
         mov dword [esp], edx
         mov eax, esi
         mov edi, ebx
-        call sub_12233C
+        call BlitCore
         mov edx, dword [esp]
         mov word [byte esi+0Eh], di
         mov word [byte esi+0Ch], dx
@@ -11662,7 +11662,7 @@ ConvertArtKeepPos:
         sar ebx, 10h
         mov dword [esp], edx
         mov edi, ebx
-        call sub_12233C
+        call BlitCore
         mov edx, dword [esp]
         mov word [byte esi+0Eh], di
         mov word [byte esi+0Ch], dx
@@ -11690,7 +11690,7 @@ ConvertArtKeepPos:
         mov eax, esi
         mov ebx, edi
         mov dword [esp], edx
-        call sub_12233C
+        call BlitCore
         mov edx, dword [esp]
         mov word [byte esi+0Eh], di
         mov word [byte esi+0Ch], dx

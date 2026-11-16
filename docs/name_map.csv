@@ -2766,15 +2766,41 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 121AD0,__sys_init_387_emulator,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 121B00,InitFpuFlags,,95PC,high,NHL95PC 9D352 (callsite): called at the same place of __sys_init_387_emulator,
 121C55,__sys_fini_387_emulator,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+121CCF,EmuRestoreFpuVector,sub_121CCF,new,low,puts back the original coprocessor-missing vector and CR0 coprocessor bits when the emulator shuts down,src/lib/watcom/watcom_clib_19.asm
+121D0A,EmuRestoreRealVector,sub_121D0A,new,low,restores the saved real-mode vector through the DOS extender,src/lib/watcom/watcom_clib_19.asm
 121D2B,__save_8087_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 121D30,__rest_8087_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 121D34,__init_8087_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 121D65,_fpreset_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 121D6F,__chk8087_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+121DB9,EmuNoHook,sub_121DB9,new,low,empty emulator hook,src/lib/watcom/watcom_clib_19.asm
 121DBA,__exit_with_msg_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 121DBF,__fatal_runtime_error_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+121DE0,GetArchiveType,sub_121DE0,new,low,"returns the archive format of a buffer: 1 for the old C0FB archive, 2 for BIGF, 0 for neither",src/lib/watcom/watcom_clib_19.asm
+121E38,GetArchiveHeaderSize,sub_121E38,new,low,returns the size of an archive's directory header for its format,src/lib/watcom/watcom_clib_19.asm
+121E94,FindArchiveEntry,sub_121E94,new,low,searches an archive directory for an entry by name or index and returns its offset and size,src/lib/watcom/watcom_clib_19.asm
+12200C,ArchiveEntryOffset,sub_12200C,new,low,returns the offset of a named entry in an archive,src/lib/watcom/watcom_clib_19.asm
+122068,ArchiveEntryOffsetAt,sub_122068,new,low,returns the offset of an archive entry by index,src/lib/watcom/watcom_clib_19.asm
+122094,LocateArchiveEntry,sub_122094,new,low,"returns a pointer to a named entry inside an archive in memory, or 0",src/lib/watcom/watcom_clib_19.asm
+122120,LocateArchiveEntries,sub_122120,new,low,splits a comma-separated list of names and stores a pointer to each entry of the archive,src/lib/watcom/watcom_clib_19.asm
 122259,mem_putc__0,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12226C,vsprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+122290,NextTextByte,sub_122290,new,low,returns the next byte of a text string and advances the pointer,src/lib/watcom/watcom_clib_19.asm
+1222BC,NextTextChar,sub_1222BC,new,low,"returns the next character of a text string (two bytes when the high bit is set, mapped through the character table)",src/lib/watcom/watcom_clib_19.asm
+12233C,BlitCore,sub_12233C,new,low,"common blit engine: clips the shape, converts its pixel format and copies or scales it row by row",src/lib/watcom/watcom_clib_19.asm
+122838,SetBlitSource,sub_122838,new,low,sets the source pointer and the column offset table used by the span copiers,src/lib/watcom/watcom_clib_19.asm
+12285A,CopyMappedSpan,sub_12285A,new,low,"copies a span of pixels from the source through the column offset table, by pixel depth",src/lib/watcom/watcom_clib_19.asm
+122C09,CopyScaledSpan,sub_122C09,new,low,"copies a span of pixels picked through the column offset table, eight at a time",src/lib/watcom/watcom_clib_19.asm
+122D90,ShapeRowBytes,sub_122D90,new,low,returns the number of bytes in one row of a shape for its pixel format,src/lib/watcom/watcom_clib_19.asm
+122DF0,BuildSpanOffsets,sub_122DF0,new,low,fills the column offset table by stepping source coordinates in 16.16 fixed point,src/lib/watcom/watcom_clib_19.asm
+122ECC,FillMemFast,sub_122ECC,new,low,fills memory with an 8-byte pattern using 64-bit FPU stores,src/lib/watcom/watcom_clib_19.asm
+122F7C,RemapPixels,sub_122F7C,new,low,translates a run of pixels through the colour remap table,src/lib/watcom/watcom_clib_19.asm
+123010,ClipEdgeAtX,sub_123010,new,low,clips a polygon edge at a vertical line and outputs the intersection point,src/lib/watcom/watcom_clib_19.asm
+12307C,ClipEdgeAtY,sub_12307C,new,low,clips a polygon edge at a horizontal line and outputs the intersection point,src/lib/watcom/watcom_clib_19.asm
+1230E8,ClipPolyLeft,sub_1230E8,new,low,clips a polygon against the left edge of the clip window,src/lib/watcom/watcom_clib_19.asm
+1231AC,ClipPolyRight,sub_1231AC,new,low,clips a polygon against the right edge of the clip window,src/lib/watcom/watcom_clib_19.asm
+12328C,ClipPolyTop,sub_12328C,new,low,clips a polygon against the top edge of the clip window,src/lib/watcom/watcom_clib_19.asm
+123350,ClipPolyBottom,sub_123350,new,low,clips a polygon against the bottom edge of the clip window,src/lib/watcom/watcom_clib_19.asm
 123FEA,__prtf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 124389,getprintspecs_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1244C7,evalflags_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

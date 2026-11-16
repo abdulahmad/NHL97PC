@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_126480 progbits alloc exec nowrite align=1
-extern byte_172AB0, byte_172AB1, byte_172AB4, AddExitHandler, sub_122D90, word_172AB2
+extern byte_172AB0, byte_172AB1, byte_172AB4, AddExitHandler, ShapeRowBytes, word_172AB2
 global RestoreTextMode, SaveTextMode, sub_1265D0, sub_126624, sub_12664C
 ;-----------------------------------------------------------------------------
 ; SaveTextMode                                126480  96 PC, medium confidence
@@ -139,7 +139,7 @@ sub_126624:
         mov ebx, dword [byte esi+04h]
         push esi
         sar ebx, 10h
-        call sub_122D90
+        call ShapeRowBytes
         imul eax, ebx
         add esp, byte 4
         push eax

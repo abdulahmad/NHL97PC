@@ -10,10 +10,10 @@ extern dword_1DA8D0, dword_1DA8D4, off_199CDC, off_199CE0, strchr_, strcpy_, str
 extern bcopy, ConvertArtRows, ConvertArtShape, sub_102D3C, FixedLerp, WriteConsoleMessage, FreeMemBlock, unk_1DA4CC
 extern unk_1DC118, unk_1DC218, unk_1DC318, unk_1DC418, word_170708, word_172568, word_17256A, word_199CD8
 global __chk8087_, __exit_with_msg_, __fatal_runtime_error_, __init_8087_, __rest_8087_, __save_8087_, __sys_fini_387_emulator, _fpreset_
-global sub_1222BC_54, sub_1230E8_B8, mem_putc__0, sub_121CCF, sub_121D0A, sub_121DB9, sub_121DE0, sub_121E38
-global sub_121E94, sub_12200C, sub_122068, sub_122094, sub_122120, sub_122290, sub_1222BC, sub_12233C
-global sub_122838, sub_12285A, sub_122C09, sub_122D90, sub_122DF0, sub_122ECC, sub_122F7C, sub_123010
-global sub_12307C, sub_1230E8, sub_1231AC, sub_12328C, sub_123350, vsprintf_
+global NextTextChar_54, ClipPolyLeft_B8, mem_putc__0, EmuRestoreFpuVector, EmuRestoreRealVector, EmuNoHook, GetArchiveType, GetArchiveHeaderSize
+global FindArchiveEntry, ArchiveEntryOffset, ArchiveEntryOffsetAt, LocateArchiveEntry, LocateArchiveEntries, NextTextByte, NextTextChar, BlitCore
+global SetBlitSource, CopyMappedSpan, CopyScaledSpan, ShapeRowBytes, BuildSpanOffsets, FillMemFast, RemapPixels, ClipEdgeAtX
+global ClipEdgeAtY, ClipPolyLeft, ClipPolyRight, ClipPolyTop, ClipPolyBottom, vsprintf_
 ;-----------------------------------------------------------------------------
 ; __sys_fini_387_emulator                                      121C55  library
 ;-----------------------------------------------------------------------------
@@ -28,7 +28,7 @@ __sys_fini_387_emulator:
         mov al, byte [_Extender]
         cmp byte [byte_1725A4], 0
         je short .2
-        call sub_121D0A
+        call EmuRestoreRealVector
         jmp short .6
 .2:
         cmp al, 9
@@ -57,7 +57,7 @@ __sys_fini_387_emulator:
         call __unhook387
         cmp al, 1
         je short .6
-        call sub_121CCF
+        call EmuRestoreFpuVector
 .6:
         mov byte [__real87], 0
         pop edx
@@ -65,9 +65,11 @@ __sys_fini_387_emulator:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_121CCF                                                          121CCF  
+; EmuRestoreFpuVector                            121CCF  97 PC, low confidence
+; Puts back the original coprocessor-missing vector and CR0 coprocessor bits
+; when the emulator shuts down
 ;-----------------------------------------------------------------------------
-sub_121CCF:
+EmuRestoreFpuVector:
         mov cl, 7
         mov ax, 2504h
         mov edx, dword [dword_172564]
@@ -77,7 +79,7 @@ sub_121CCF:
         pop ds
         cmp byte [_Extender], 3
         jl short .1
-        call sub_121D0A
+        call EmuRestoreRealVector
         jmp short .2
 .1:
         mov ecx, cr0
@@ -88,9 +90,10 @@ sub_121CCF:
 .2:
         ret
 ;-----------------------------------------------------------------------------
-; sub_121D0A                                                          121D0A  
+; EmuRestoreRealVector                           121D0A  97 PC, low confidence
+; Restores the saved real-mode vector through the DOS extender
 ;-----------------------------------------------------------------------------
-sub_121D0A:
+EmuRestoreRealVector:
         xor ebx, ebx
         lea edx, [dword_172524]
         mov ax, 2535h
@@ -174,9 +177,10 @@ __chk8087_:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_121DB9                                                          121DB9  
+; EmuNoHook                                      121DB9  97 PC, low confidence
+; Empty emulator hook
 ;-----------------------------------------------------------------------------
-sub_121DB9:
+EmuNoHook:
         ret
 ;-----------------------------------------------------------------------------
 ; __exit_with_msg_                                             121DBA  library
@@ -204,9 +208,11 @@ __fatal_runtime_error_:
         ret
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_121DE0                                                          121DE0  
+; GetArchiveType                                 121DE0  97 PC, low confidence
+; Returns the archive format of a buffer: 1 for the old C0FB archive, 2 for
+; BIGF, 0 for neither
 ;-----------------------------------------------------------------------------
-sub_121DE0:
+GetArchiveType:
         push ebx
         mov ebx, dword [byte esp+08h]
         xor edx, edx
@@ -242,15 +248,16 @@ sub_121DE0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_121E38                                                          121E38  
+; GetArchiveHeaderSize                           121E38  97 PC, low confidence
+; Returns the size of an archive's directory header for its format
 ;-----------------------------------------------------------------------------
-sub_121E38:
+GetArchiveHeaderSize:
         push ebx
         mov ebx, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
         push edx
         push ebx
-        call sub_121DE0
+        call GetArchiveType
         add esp, byte 8
         cmp eax, byte 1
         jb short .3
@@ -286,9 +293,11 @@ sub_121E38:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_121E94                                                          121E94  
+; FindArchiveEntry                               121E94  97 PC, low confidence
+; Searches an archive directory for an entry by name or index and returns its
+; offset and size
 ;-----------------------------------------------------------------------------
-sub_121E94:
+FindArchiveEntry:
         push ebx
         push esi
         push edi
@@ -298,14 +307,14 @@ sub_121E94:
         mov edx, dword [byte esp+028h]
         push edx
         push edi
-        call sub_121E38
+        call GetArchiveHeaderSize
         add esp, byte 8
         mov ecx, dword [byte esp+028h]
         push ecx
         lea ebp, [edi+eax]
         push edi
         xor esi, esi
-        call sub_121DE0
+        call GetArchiveType
         add esp, byte 8
         cmp eax, byte 1
         jb near .15
@@ -446,9 +455,10 @@ sub_121E94:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_12200C                                                          12200C  
+; ArchiveEntryOffset                             12200C  97 PC, low confidence
+; Returns the offset of a named entry in an archive
 ;-----------------------------------------------------------------------------
-sub_12200C:
+ArchiveEntryOffset:
         push ebx
         sub esp, byte 4
         mov edx, dword [byte esp+014h]
@@ -461,7 +471,7 @@ sub_12200C:
         push ebx
         mov ecx, dword [byte esp+020h]
         push ecx
-        call sub_121E94
+        call FindArchiveEntry
         add esp, byte 18h
         mov eax, dword [esp]
         add esp, byte 4
@@ -479,16 +489,17 @@ sub_12200C:
         push edx
         mov ebx, dword [byte esp+020h]
         push ebx
-        call sub_121E94
+        call FindArchiveEntry
         add esp, byte 18h
         mov eax, dword [esp]
         add esp, byte 4
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_122068                                                          122068  
+; ArchiveEntryOffsetAt                           122068  97 PC, low confidence
+; Returns the offset of an archive entry by index
 ;-----------------------------------------------------------------------------
-sub_122068:
+ArchiveEntryOffsetAt:
         push ebx
         sub esp, byte 4
         push byte 0
@@ -500,16 +511,17 @@ sub_122068:
         push edx
         mov ebx, dword [byte esp+020h]
         push ebx
-        call sub_121E94
+        call FindArchiveEntry
         add esp, byte 18h
         mov eax, dword [esp]
         add esp, byte 4
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_122094                                                          122094  
+; LocateArchiveEntry                             122094  97 PC, low confidence
+; Returns a pointer to a named entry inside an archive in memory, or 0
 ;-----------------------------------------------------------------------------
-sub_122094:
+LocateArchiveEntry:
         push ebx
         push esi
         push edi
@@ -525,7 +537,7 @@ sub_122094:
         push ecx
         mov esi, dword [byte esp+028h]
         push esi
-        call sub_121E94
+        call FindArchiveEntry
         add esp, byte 18h
         mov edi, dword [esp]
         test edi, edi
@@ -546,7 +558,7 @@ sub_122094:
         mov ecx, dword [byte esp+010h]
         push ecx
         xor ebx, ebx
-        call sub_12200C
+        call ArchiveEntryOffset
         add esp, byte 0Ch
         test eax, eax
         je short .2
@@ -564,7 +576,7 @@ sub_122094:
         push edx
         mov ecx, dword [byte esp+010h]
         push ecx
-        call sub_12200C
+        call ArchiveEntryOffset
         add esp, byte 0Ch
         test eax, eax
         je short .3
@@ -575,9 +587,11 @@ sub_122094:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_122120                                                          122120  
+; LocateArchiveEntries                           122120  97 PC, low confidence
+; Splits a comma-separated list of names and stores a pointer to each entry
+; of the archive
 ;-----------------------------------------------------------------------------
-sub_122120:
+LocateArchiveEntries:
         push ebx
         push esi
         push edi
@@ -598,7 +612,7 @@ sub_122120:
         push esi
         push ebp
         add edi, byte 4
-        call sub_122094
+        call LocateArchiveEntry
         add esp, byte 0Ch
         mov dword [byte edi-04h], eax
         test ebx, ebx
@@ -623,7 +637,7 @@ sub_122120:
         push ebx
         mov ecx, dword [byte esp+014h]
         push ecx
-        call sub_122120
+        call LocateArchiveEntries
         add esp, byte 10h
         pop ebx
         ret
@@ -635,7 +649,7 @@ sub_122120:
         push ebx
         mov ecx, dword [byte esp+014h]
         push ecx
-        call sub_122120
+        call LocateArchiveEntries
         add esp, byte 10h
         pop ebx
         ret
@@ -645,7 +659,7 @@ sub_122120:
         xor ebx, ebx
         push ebx
         push esi
-        call sub_121DE0
+        call GetArchiveType
         add esp, byte 8
         cmp eax, byte 1
         jb short .7
@@ -687,7 +701,7 @@ sub_122120:
         push byte 0
         mov ebx, dword [byte esp+020h]
         push ebx
-        call sub_121E94
+        call FindArchiveEntry
         add esp, byte 18h
         test eax, eax
         je short .8
@@ -708,7 +722,7 @@ sub_122120:
         push byte 0
         mov ecx, dword [byte esp+01Ch]
         push ecx
-        call sub_121E94
+        call FindArchiveEntry
         add esp, byte 18h
         test eax, eax
         je short .9
@@ -752,9 +766,10 @@ vsprintf_:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_122290                                                          122290  
+; NextTextByte                                   122290  97 PC, low confidence
+; Returns the next byte of a text string and advances the pointer
 ;-----------------------------------------------------------------------------
-sub_122290:
+NextTextByte:
         push ebx
         push edx
         mov edx, dword [eax]
@@ -776,9 +791,11 @@ sub_122290:
 .1:
         ret
 ;-----------------------------------------------------------------------------
-; sub_1222BC                                                          1222BC  
+; NextTextChar                                   1222BC  97 PC, low confidence
+; Returns the next character of a text string (two bytes when the high bit is
+; set, mapped through the character table)
 ;-----------------------------------------------------------------------------
-sub_1222BC:
+NextTextChar:
         push ebx
         push ecx
         push edx
@@ -815,7 +832,7 @@ sub_1222BC:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-sub_1222BC_54:
+NextTextChar_54:
         push ecx
         push esi
         sub esp, 1400h
@@ -833,9 +850,11 @@ sub_1222BC_54:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_12233C                                                          12233C  
+; BlitCore                                       12233C  97 PC, low confidence
+; Common blit engine: clips the shape, converts its pixel format and copies
+; or scales it row by row
 ;-----------------------------------------------------------------------------
-sub_12233C:
+BlitCore:
         push esi
         push edi
         push ebp
@@ -919,7 +938,7 @@ sub_12233C:
         mov eax, dword [byte ebp-04Ch]
         push eax
         mov esi, dword [byte ebp-04Ch]
-        call sub_122D90
+        call ShapeRowBytes
         mov edx, dword [byte ebp-05Ch]
         add esi, byte 10h
         sub eax, edx
@@ -1071,7 +1090,7 @@ sub_12233C:
         je short .19
         mov eax, dword [byte ebp-04h]
         mov dword [dword_1DA8D0], eax
-        mov dword [byte ebp-04h], sub_1222BC_54
+        mov dword [byte ebp-04h], NextTextChar_54
 .19:
         cmp dword [dword_16E694], byte 0
         je short .20
@@ -1117,7 +1136,7 @@ sub_12233C:
         jne short .25
         cmp dword [byte ebp-03Ch], byte 0
         jne short .25
-        cmp dword [byte ebp-04h], sub_1222BC_54
+        cmp dword [byte ebp-04h], NextTextChar_54
         je short .25
         mov ebx, dword [byte ebp-0Ch]
         imul ebx, edi
@@ -1316,9 +1335,11 @@ sub_12233C:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_122838                                                          122838  
+; SetBlitSource                                  122838  97 PC, low confidence
+; Sets the source pointer and the column offset table used by the span
+; copiers
 ;-----------------------------------------------------------------------------
-sub_122838:
+SetBlitSource:
         push ebp
         LD mov, ebp, esp
         mov eax, dword [byte ebp+08h]
@@ -1334,9 +1355,11 @@ sub_122838:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_12285A                                                          12285A  
+; CopyMappedSpan                                 12285A  97 PC, low confidence
+; Copies a span of pixels from the source through the column offset table, by
+; pixel depth
 ;-----------------------------------------------------------------------------
-sub_12285A:
+CopyMappedSpan:
         push ebx
         push esi
         push edi
@@ -1741,9 +1764,11 @@ sub_12285A:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_122C09                                                          122C09  
+; CopyScaledSpan                                 122C09  97 PC, low confidence
+; Copies a span of pixels picked through the column offset table, eight at a
+; time
 ;-----------------------------------------------------------------------------
-sub_122C09:
+CopyScaledSpan:
         push ebx
         push esi
         push edi
@@ -1887,9 +1912,10 @@ sub_122C09:
         jmp short .6
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_122D90                                                          122D90  
+; ShapeRowBytes                                  122D90  97 PC, low confidence
+; Returns the number of bytes in one row of a shape for its pixel format
 ;-----------------------------------------------------------------------------
-sub_122D90:
+ShapeRowBytes:
         push ebx
         mov edx, dword [byte esp+08h]
         mov eax, dword [edx]
@@ -1930,9 +1956,11 @@ sub_122D90:
         ret
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_122DF0                                                          122DF0  
+; BuildSpanOffsets                               122DF0  97 PC, low confidence
+; Fills the column offset table by stepping source coordinates in 16.16 fixed
+; point
 ;-----------------------------------------------------------------------------
-sub_122DF0:
+BuildSpanOffsets:
         push ebx
         push esi
         push edi
@@ -2029,9 +2057,10 @@ sub_122DF0:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_122ECC                                                          122ECC  
+; FillMemFast                                    122ECC  97 PC, low confidence
+; Fills memory with an 8-byte pattern using 64-bit FPU stores
 ;-----------------------------------------------------------------------------
-sub_122ECC:
+FillMemFast:
         push ecx
         push eax
         push edx
@@ -2115,9 +2144,10 @@ sub_122ECC:
 .14:
         jmp near .1
 ;-----------------------------------------------------------------------------
-; sub_122F7C                                                          122F7C  
+; RemapPixels                                    122F7C  97 PC, low confidence
+; Translates a run of pixels through the colour remap table
 ;-----------------------------------------------------------------------------
-sub_122F7C:
+RemapPixels:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -2183,9 +2213,10 @@ sub_122F7C:
         ret
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_123010                                                          123010  
+; ClipEdgeAtX                                    123010  97 PC, low confidence
+; Clips a polygon edge at a vertical line and outputs the intersection point
 ;-----------------------------------------------------------------------------
-sub_123010:
+ClipEdgeAtX:
         push ebx
         push esi
         push edi
@@ -2239,9 +2270,11 @@ sub_123010:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12307C                                                          12307C  
+; ClipEdgeAtY                                    12307C  97 PC, low confidence
+; Clips a polygon edge at a horizontal line and outputs the intersection
+; point
 ;-----------------------------------------------------------------------------
-sub_12307C:
+ClipEdgeAtY:
         push ebx
         push esi
         push edi
@@ -2295,9 +2328,10 @@ sub_12307C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1230E8                                                          1230E8  
+; ClipPolyLeft                                   1230E8  97 PC, low confidence
+; Clips a polygon against the left edge of the clip window
 ;-----------------------------------------------------------------------------
-sub_1230E8:
+ClipPolyLeft:
         push ebx
         push esi
         push edi
@@ -2324,7 +2358,7 @@ sub_1230E8:
         push eax
         mov edi, dword [byte esp+010h]
         push edi
-        call sub_123010
+        call ClipEdgeAtX
         add esp, byte 10h
         test eax, eax
         je short .6
@@ -2347,7 +2381,7 @@ sub_1230E8:
         mov edx, dword [byte esp+0Ch]
         push edx
         push eax
-        call sub_123010
+        call ClipEdgeAtX
         add esp, byte 10h
         test eax, eax
         je short .3
@@ -2366,7 +2400,7 @@ sub_1230E8:
         dec eax
         mov dword [byte esp+01Ch], eax
         test eax, eax
-        jle short sub_1230E8_B8
+        jle short ClipPolyLeft_B8
         mov ecx, dword [byte esp+01Ch]
         mov eax, dword [byte esp+04h]
         cmp ecx, byte 1
@@ -2377,7 +2411,7 @@ sub_1230E8:
         lea esi, [byte eax+08h]
         mov dword [byte esp+04h], esi
         jmp near .2
-sub_1230E8_B8:
+ClipPolyLeft_B8:
         mov eax, ebp
         add esp, byte 8
         pop ebp
@@ -2387,9 +2421,10 @@ sub_1230E8_B8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1231AC                                                          1231AC  
+; ClipPolyRight                                  1231AC  97 PC, low confidence
+; Clips a polygon against the right edge of the clip window
 ;-----------------------------------------------------------------------------
-sub_1231AC:
+ClipPolyRight:
         push ebx
         push esi
         push edi
@@ -2418,7 +2453,7 @@ sub_1231AC:
         push eax
         mov edi, dword [byte esp+010h]
         push edi
-        call sub_123010
+        call ClipEdgeAtX
         add esp, byte 10h
         test eax, eax
         je short .5
@@ -2441,7 +2476,7 @@ sub_1231AC:
         mov edx, dword [byte esp+0Ch]
         push edx
         push eax
-        call sub_123010
+        call ClipEdgeAtX
         add esp, byte 10h
         test eax, eax
         je short .2
@@ -2484,9 +2519,10 @@ sub_1231AC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12328C                                                          12328C  
+; ClipPolyTop                                    12328C  97 PC, low confidence
+; Clips a polygon against the top edge of the clip window
 ;-----------------------------------------------------------------------------
-sub_12328C:
+ClipPolyTop:
         push ebx
         push esi
         push edi
@@ -2513,7 +2549,7 @@ sub_12328C:
         push eax
         mov edi, dword [byte esp+010h]
         push edi
-        call sub_12307C
+        call ClipEdgeAtY
         add esp, byte 10h
         test eax, eax
         je short .6
@@ -2535,7 +2571,7 @@ sub_12328C:
         mov edx, dword [byte esp+0Ch]
         push edx
         push eax
-        call sub_12307C
+        call ClipEdgeAtY
         add esp, byte 10h
         test eax, eax
         je short .4
@@ -2557,7 +2593,7 @@ sub_12328C:
         dec eax
         mov dword [byte esp+01Ch], eax
         test eax, eax
-        jle near sub_1230E8_B8
+        jle near ClipPolyLeft_B8
         mov ecx, dword [byte esp+01Ch]
         mov eax, dword [byte esp+04h]
         cmp ecx, byte 1
@@ -2570,9 +2606,10 @@ sub_12328C:
         jmp near .2
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_123350                                                          123350  
+; ClipPolyBottom                                 123350  97 PC, low confidence
+; Clips a polygon against the bottom edge of the clip window
 ;-----------------------------------------------------------------------------
-sub_123350:
+ClipPolyBottom:
         push ebx
         push esi
         push edi
@@ -2599,7 +2636,7 @@ sub_123350:
         push eax
         mov edi, dword [byte esp+010h]
         push edi
-        call sub_12307C
+        call ClipEdgeAtY
         add esp, byte 10h
         test eax, eax
         je short .6
@@ -2621,7 +2658,7 @@ sub_123350:
         mov edx, dword [byte esp+0Ch]
         push edx
         push eax
-        call sub_12307C
+        call ClipEdgeAtY
         add esp, byte 10h
         test eax, eax
         je short .4
@@ -2643,7 +2680,7 @@ sub_123350:
         dec eax
         mov dword [byte esp+01Ch], eax
         test eax, eax
-        jle near sub_1230E8_B8
+        jle near ClipPolyLeft_B8
         mov ecx, dword [byte esp+01Ch]
         mov eax, dword [byte esp+04h]
         cmp ecx, byte 1
