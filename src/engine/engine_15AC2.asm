@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_15AC2 progbits alloc exec nowrite align=1
-extern IF@ATAN2, IF@DFMOD, IF@DPOW, SortCords, __CHP, asc_160158, asc_160161, asc_16016A
-extern asc_160172, asc_16017D, asc_160184, asc_160196, asc_16019C, asc_1601A5, asc_1601AF, asc_1601BC
-extern asc_1601C7, asc_1601D3, asc_1601DB, asc_1601EB, asc_1601F6, asc_1601FF, asc_160210, asc_160428
-extern asc_160438, asc_16049C, asc_1604A8, asc_1604E4, awtmstruct, byte_1687B4, byte_16892C, byte_16892D
+extern IF@ATAN2, IF@DFMOD, IF@DPOW, SortCords, __CHP, str_2d02d, str_DXD, str_Doubled
+extern str_Interlaced, str_Normal, str_SDSS, str_SS, str_SSS, str_DSS, str_SDSS2, str_SSD
+extern str_SSDD, str_SD, str_SDCS, str_Punct, str_2d01d, str_SD2, str_CHASE, str_THRILLCAMTm
+extern str_USERCHASE, str_IntroD3cp, str_ArenaViv, str_DDD, awtmstruct, byte_1687B4, byte_16892C, byte_16892D
 extern byte_16892E, byte_16892F, byte_168930, byte_1689BC, byte_1689C0, byte_1689E4, byte_19CA30, byte_19CA31
 extern byte_19CB7E, byte_19CBC2, byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19D01C, byte_19DAD5, byte_19DAD6
 extern byte_19DAEF, byte_19EAC6, byte_19EB54, byte_19EB55, byte_19EBD2, byte_19EC60, byte_19EC61, byte_1C135A
@@ -37,7 +37,7 @@ extern dword_1A8E80, dword_1AC814, dword_1AC944, dword_1B10DC, dword_1B1410, dwo
 extern dword_1B9063, dword_1B9067, dword_1B906B, dword_1B906F, dword_1B9077, dword_1B907B, dword_1B907F, dword_1B9083
 extern dword_1B9087, dword_1B908B, dword_1B908F, dword_1B9093, dword_1B9CA4, dword_1B9CAC, dword_1C95B0, dword_1C95B4
 extern dword_1C95BC, dword_1C95C4, dword_1CF538, dword_1CF554, dword_1CF5A4, dword_1CF5B8, dword_1CF5E4, dword_1CF5E8
-extern hmtmstruct, hypot_, sub_FE470_494, off_168772, off_16877E, off_168CD8, off_168CE0, off_168CE8
+extern hmtmstruct, hypot_, DrawGlyph_494, off_168772, off_16877E, off_168CD8, off_168CE0, off_168CE8
 extern off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C, qword_1602E6, qword_1602F6, qword_1602FE
 extern qword_16030A, qword_160336, qword_16033E, qword_16034E, qword_160356, qword_16035E, qword_160366, qword_16036E
 extern qword_160376, qword_16037E, qword_16038A, qword_160392, qword_1603BA, qword_1603CE, qword_1603DE, qword_1603E6
@@ -48,19 +48,19 @@ extern qword_160553, qword_16055B, qword_16056C, qword_160588, qword_160590, qwo
 extern qword_1605B4, qword_1605BC, qword_1605C4, qword_1605CC, qword_1605D4, qword_1605DC, qword_1605E4, qword_1605EC
 extern qword_1605F4, qword_160604, qword_160624, qword_160630, qword_160638, qword_160640, qword_160648, qword_160650
 extern qword_160658, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, sub_100498
-extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, sub_25AEC, sub_2E11C
-extern UpdateCoachModes, sub_30778, sub_3085C, AddPenalty, AddPenalty2, PenGoalStuff, EndPenaltyShot, sub_34CF4
-extern doplayeracc, sub_35588, sub_35690, sub_356A8, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
-extern sub_3B1EC, sub_3B738, SetVideoMode, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
-extern sub_3CB70, AddOverlayWindow, RemoveOverlayWindow, RefreshOverlayWindow, sub_3E5F0, sub_424CC, CommentaryEvent, SetArtArchive
-extern sub_4B8DC, sub_4C0C4, sub_4DDB0, sub_504E0, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
-extern sub_5D6A8, sub_5D7A4, sub_5D878, sub_5D900, sub_5DC1C, sub_5DC50, sub_5DCBC, sub_5DE74
-extern SetSPA, sub_60D6C, sub_60F48, sub_650A4, sub_65F50, sub_6619C, sub_66224, sub_69B78
-extern sub_69BA0, sub_69DF4, sub_74BA8, sub_74C64, sub_75500, sub_77838, SetTextColor, DrawTextAligned
+extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, GetLowestPen, TeamLineSlots
+extern UpdateCoachModes, ChkShoot, ForceShoot, AddPenalty, AddPenalty2, PenGoalStuff, EndPenaltyShot, FaceDirFromMotion
+extern doplayeracc, ChkOneTimerSpot, ClearLastPasser, OneTimerShot, PickBenchSeat, FaceoffMoveResult, FaceoffSwipeAnim, FaceoffDrawAnim
+extern PokeCheckAnim, AIBodyCheck, SetVideoMode, SetViewSize, SetViewInterlaced, ClearViewInterlaced, HideView, ShowView
+extern SetViewOrigin, AddOverlayWindow, RemoveOverlayWindow, RefreshOverlayWindow, FadeGamePalette, SetCrowdMood, CommentaryEvent, SetArtArchive
+extern ResetRenderTimers, TriggerCameraFlashes, SetCameraMode, GoalCrowdCheer, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
+extern SetCameraTarget, SetCameraPathTarget, SetCameraSplineTarget, UpdateCameraMotion, SnapCamera, BuildCameraMatrix, UpdateCameraProjection, InitCameraParams
+extern SetSPA, ResetAnimTimer, PickSkateAnim, SetSkateSpeedFromRating, StickReach, ObjectFramePos, TryStickTouch, StopObject
+extern StartPassAnim, StartDropPassAnim, StartGoalieSave, StartGoalieStance, GoalieMoves, DrawCameraPath, SetTextColor, DrawTextAligned
 extern GetLangText, sub_AA4BC, sub_F2AA0, NextVideoMode, PrevVideoMode, FreeMemBlock, sub_FC4BC, sub_FCC40
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, sub_FD528, sub_FD954, sub_FDC68
-extern FillRect, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC, sub_FE3D0, sub_FF1FC, sub_FF320
-extern sub_FF444, sub_FF5E0, sub_FF600, sub_FF798, sub_FF7DC, sub_FF7F4, sub_FF818, sub_FFE8C
+extern FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt, FillRectCorners, MatRotY, MatTranspose
+extern VecMulMat, VecAdd, VecSub, VecDistance, VecLength, VecScale, VecNormalizeTo, ProjectPointInt
 extern tickcount, unk_158E2, unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A72, unk_160193
 extern unk_1601EF, unk_1601F1, unk_1601F4, unk_1687BC, unk_1687C8, unk_1687D4, unk_1687E0, unk_1687EC
 extern unk_1687F8, unk_168810, unk_16881C, unk_168828, unk_168834, unk_168840, unk_16884C, unk_168858
@@ -77,34 +77,34 @@ extern word_19CBD6, word_19CBD8, word_19CBDA, word_19CBDC, penshotmode, word_19C
 extern word_19CBEA, word_19CBEE, word_19CBF4, word_19CC24, word_19CC26, word_19CC50, word_19DAD9, word_19E109
 extern word_19EABE, word_19EAC0, word_19EBCA, word_19EBCC
 global jpt_19604, jpt_19F18, jpt_1A304, jpt_1A680, jpt_1A708, jpt_1B9C4, jpt_1F03C, PrevVideoModeKey_20A
-global PrevVideoModeKey_20E, PrevVideoModeKey_216, PrevVideoModeKey_217, sub_16BF9_15D, sub_16BF9_15F, DrawPenaltyPanel_26F, DrawSpecialTeamsPanel, DrawPenaltyShotPanel_48E
+global PrevVideoModeKey_20E, PrevVideoModeKey_216, PrevVideoModeKey_217, DrawMessagePanel_15D, DrawMessagePanel_15F, DrawPenaltyPanel_26F, DrawSpecialTeamsPanel, DrawPenaltyShotPanel_48E
 global DrawPenaltyShotPanel_49A, DrawPenaltyShotPanel_4D7, DrawPowerPlayClock_18E, UpdateCameraView_28, UpdateCameraView_54, UpdateCameraView_AC, UpdateCameraView_11B, UpdateCameraView_1AC
 global UpdateCameraView_272, UpdateCameraView_326, UpdateCameraView_461, UpdateCameraView_5F0, UpdateCameraView_7F5, UpdateCameraView_8D3, UpdateCameraZoom_21, UpdateCameraZoom_169
 global UpdateCameraZoom_221, UpdateCameraZoom_232, UpdateCameraZoom_3CB, UpdateCameraTrack_30, UpdateCameraTrack_8E, UpdateCameraTrack_19B, UpdateCameraTrack_22F, UpdateCameraTrack_2D2
-global sub_1A690_15, sub_1A690_29, sub_1A690_40, sub_1A690_57, SetCameraView_16, SetCameraView_AF, SetCameraView_14F, SetCameraView_1EF
+global EaseCameraAngles_15, EaseCameraAngles_29, EaseCameraAngles_40, EaseCameraAngles_57, SetCameraView_16, SetCameraView_AF, SetCameraView_14F, SetCameraView_1EF
 global SetCameraView_25A, SetCameraView_2CE, SetCameraView_36E, SetCameraView_40E, SetCameraView_4AE, SetCameraView_532, SetCameraView_5A5, SetCameraView_608
-global sub_1B9D4_1C, sub_1B9D4_73, sub_1B9D4_C6, sub_1B9D4_108, ChangeViewSize, SetViewWindow, PrevVideoModeKey, NextVideoModeKey
-global ApplyDisplayFlags, RemoveOverlayPanel, sub_160E2, sub_161F0, sub_16AD0, sub_16B17, sub_16BAD, sub_16BF5
-global sub_16BF9, DrawVideoModePanel, DrawPenaltyPanel, DrawPenaltyShotPanel, DrawInjuryPanel, DrawPeriodPanel, DrawGoalScorerPanel, DrawGameClock
-global DrawPowerPlayClock, DrawClockPanel, sub_17EB6, sub_18025, sub_1870B, sub_1882A, sub_18958, sub_18B81
-global QueueOverlayPanel, sub_18DF7, ClearOverlayWindows, sub_18E76, sub_18E9A, sub_18EEE, sub_18F67, DrawGameOverlays
-global sub_19133, GetCameraTarget, sub_19540, UpdateCameraView, UpdateCameraZoom, UpdateCameraTrack, sub_1A5F8, sub_1A690
-global SetCameraView, sub_1AD4C, sub_1AE58, SetCameraHeight, SetCameraFocus, SetCameraPathPoint, StartCameraPath, sub_1B1CC
-global sub_1B340, sub_1B3D8, SelectCameraView, sub_1B4E4, sub_1B5B0, sub_1B67C, sub_1B6E8, sub_1B71C
-global sub_1B85C, sub_1B88C, CanStartCameraScene, sub_1B90C, sub_1B930, sub_1B9D4, PenaltyCameraScene, sub_1BB94
-global sub_1BC18, sub_1BCA8, sub_1BCDC, LoadOpeningCamera, sub_1BFC0, FightCameraScene, sub_1C210, sub_1C21C
-global FaceoffCameraScene, sub_1C2EC, sub_1C360, sub_1C4F4, sub_1C70C, FaceoffCameraScene2, sub_1C854, sub_1C8DC
-global sub_1C9F0, sub_1CB9C, PenaltyShotCameraScene, sub_1CCBC, sub_1CCF8, GoalCameraScene, sub_1CE98, FaceoffDropCameraScene
-global sub_1D09C, sub_1D0BC, sub_1D16C, sub_1D1D4, sub_1D1DC, sub_1D208, DrawCameraDebug, sub_1D480
-global sub_1D4FC, sub_1D828, sub_1D858, sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0
-global sub_1DD5C, sub_1DDE4, sub_1DEB8, sub_1DEE4, sub_1DFA0, sub_1E014, sub_1E184, assreplace
-global assinsert, assexit, sub_1E284, sub_1E354, sub_1E4E4, sub_1E7C4, sub_1E810, sub_1E8B0
-global check4bench, SwapPosition, sub_1F32C, sub_1F4EC, sub_1F538, asscoverdefd, asscoverdefo, Setplass
-global sub_1FBF4, sub_1FF5C, Endfaceoff, sub_209CC, sub_209D0, assbenchwait, sub_20A80, sub_20C50
-global Goal, sub_218B8, sub_21A4C, sub_21AB4, assgoalie, sub_21E98, sub_22050, assextra4
-global assdefo, asswingo, asscentero, sub_22FF0, assextra3, assdefd, asswingd, asscenterd
-global sub_23C98, assfaceoff, assfaceoffpl, sub_240D0, sub_24220, sub_244BC, sub_2471C, sub_248E8
-global sub_249F8, sub_24C00, sub_25010, sub_25188, sub_251F0, sub_25730, unk_19178, unk_19180
+global PenaltySceneStep_1C, PenaltySceneStep_73, PenaltySceneStep_C6, PenaltySceneStep_108, ChangeViewSize, SetViewWindow, PrevVideoModeKey, NextVideoModeKey
+global ApplyDisplayFlags, RemoveOverlayPanel, DrawPanelArtScaled, DrawPanelPlayerCard, GetPlayerNumber, GetPlayerPanelName, GetPlayerName, TeamNameField
+global DrawMessagePanel, DrawVideoModePanel, DrawPenaltyPanel, DrawPenaltyShotPanel, DrawInjuryPanel, DrawPeriodPanel, DrawGoalScorerPanel, DrawGameClock
+global DrawPowerPlayClock, DrawClockPanel, PowerPlayPanel, UpdateScoreboardPanel, HomeTeamPanel, AwayTeamPanel, HomeStatPanel, AwayStatPanel
+global QueueOverlayPanel, OpenFreeOverlay, ClearOverlayWindows, RefreshOverlayWindows, ChkShowStatsPanel, ChkPowerPlayPanel, SetOverlayFont, DrawGameOverlays
+global IsOverlayShown, GetCameraTarget, GetTargetPoint, UpdateCameraView, UpdateCameraZoom, UpdateCameraTrack, EaseAngle, EaseCameraAngles
+global SetCameraView, BuildSplinePath, SetCameraSpline, SetCameraHeight, SetCameraFocus, SetCameraPathPoint, StartCameraPath, SetCameraPathPoints
+global FightCameraStart, ResetSceneCamera, SelectCameraView, UpdateGameCamera, DampCameraMotion, ToggleCameraFollow, InitCamera, DrawCameraDebugMarks
+global RunCameraScene, CameraNoop, CanStartCameraScene, SetCameraSceneFunc, PenaltyCameraDistance, PenaltySceneStep, PenaltyCameraScene, IntermissionSceneStep
+global IntermissionCameraScene, EndOpeningCamera, OpeningCameraStep, LoadOpeningCamera, FightSceneStep, FightCameraScene, SetFightCameraReady, SceneReturnToView
+global FaceoffCameraScene, FaceoffSceneStep, FaceoffCloseupScene, FaceoffSweepStep, FaceoffSweepScene, FaceoffCameraScene2, MenuCameraScene, MenuOrbitStep
+global MenuOrbitScene, PenShotSceneStep, PenaltyShotCameraScene, EndPenShotScene, GoalSceneStep, GoalCameraScene, FaceoffDropSceneStep, FaceoffDropCameraScene
+global RestoreGameCamera, PenaltyCallSceneStep, PenaltyCallCameraScene, SetFaceoffEndFlag, ReplayCameraOn, ReplayCameraOff, DrawCameraDebug, ReplayCamFollowMode
+global ReplayCamDrag, ReplayCamRestorePath, ReplayCamOrbitMode, ReplayCamOrbit, ReplayCamStop, ReplayCamFreeMode, ReplayCamTurn, ReplayCamMove
+global ReplayCamZoomMode, ReplayCamZoom, ReplayCamClearFlag, CrowdForPuckZone, CrowdForPlayer, ShotChanceCommentary, LineChangeCommentary, assreplace
+global assinsert, assexit, AimAtPuckTarget, SetZoneFlags, CanReachPuck, TryPokePuck, RandomPokeCheck, ChkPokeOrCheck
+global check4bench, SwapPosition, ChkForwardSwap, GetDefensePartner, ChkSwapWithPartner, asscoverdefd, asscoverdefo, Setplass
+global GoaliePosTarget, FaceoffSpotPosition, Endfaceoff, AssNoop, assnull, assbenchwait, DelayedPenaltyEnd, ChkTeamPlayerFlag
+global Goal, InCrease, UpdateCreaseFlag, FindCreasePlayer, assgoalie, KeepInsideRink, DefendPuck, assextra4
+global assdefo, asswingo, asscentero, FindManToCover, assextra3, assdefd, asswingd, asscenterd
+global asstofaceoff, assfaceoff, assfaceoffpl, BuildPassTargets, CreditPass, assonetimer, CarrierInShotArea, CanReceivePass
+global MakePass, RimPuck, StartPass, TargetInAngle, AIPassDecision, ChkAIShoot, unk_19178, unk_19180
 global unk_19188, unk_19194, unk_191A0, unk_191AC
 ;-----------------------------------------------------------------------------
 ; ChangeViewSize                               15AC2  97 PC, medium confidence
@@ -188,11 +188,11 @@ ChangeViewSize:
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
-        call sub_3CA28
+        call SetViewSize
         mov eax, dword [dword_1A8E80]
         mov ebx, esi
         mov edx, edi
-        call sub_3CB70
+        call SetViewOrigin
         jmp near PrevVideoModeKey_216
 ;-----------------------------------------------------------------------------
 ; SetViewWindow                                   15BC5  97 PC, low confidence
@@ -221,11 +221,11 @@ SetViewWindow:
         mov dword [dword_19CD28], ecx
         mov edx, ecx
         mov dword [dword_19CD2C], ebx
-        call sub_3CA28
+        call SetViewSize
         mov eax, dword [dword_1A8E80]
         xor ebx, ebx
         xor edx, edx
-        call sub_3CB70
+        call SetViewOrigin
         pop edx
         pop ecx
         pop ebx
@@ -259,16 +259,16 @@ PrevVideoModeKey:
         cmp eax, 100h
         jl short .1
         mov eax, dword [dword_1A8E80]
-        call sub_3CAB8
+        call SetViewInterlaced
         mov dword [dword_19CD30], 1
         jmp short .2
 .1:
         mov eax, dword [dword_1A8E80]
-        call sub_3CB00
+        call ClearViewInterlaced
         mov dword [dword_19CD30], 0
 .2:
         mov eax, dword [dword_1A8E80]
-        call sub_3CB48
+        call ShowView
         movsx ebx, word [word_1686E4]
         mov eax, dword [dword_16E464]
         imul eax, ebx
@@ -323,11 +323,11 @@ PrevVideoModeKey:
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
-        call sub_3CA28
+        call SetViewSize
         mov eax, dword [dword_1A8E80]
         mov ebx, esi
         mov edx, edi
-        call sub_3CB70
+        call SetViewOrigin
         cmp dword [dword_16E468], 12Ch
         jge short .6
         push dword [dword_1C95B4]
@@ -362,18 +362,18 @@ PrevVideoModeKey:
         je short .10
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD30], 0
-        call sub_3CB00
+        call ClearViewInterlaced
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD34], 0
-        call sub_3CB48
+        call ShowView
         jmp short PrevVideoModeKey_20A
 .10:
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD30], 1
-        call sub_3CAB8
+        call SetViewInterlaced
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD34], 1
-        call sub_3CB38
+        call HideView
 PrevVideoModeKey_20A:
         push byte 50h
         push byte 2
@@ -420,10 +420,10 @@ NextVideoModeKey:
         mov eax, dword [byte ebp-014h]
         mov dword [dword_19CD14], eax
         mov eax, dword [dword_1A8E80]
-        call sub_3CB00
+        call ClearViewInterlaced
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD30], 0
-        call sub_3CB48
+        call ShowView
         movsx ebx, word [word_1686E4]
         mov eax, dword [dword_16E464]
         imul eax, ebx
@@ -478,11 +478,11 @@ NextVideoModeKey:
         mov dword [dword_19CD20], eax
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD24], esi
-        call sub_3CA28
+        call SetViewSize
         mov edx, dword [byte ebp-04h]
         mov eax, dword [dword_1A8E80]
         mov ebx, esi
-        call sub_3CB70
+        call SetViewOrigin
         cmp dword [dword_16E468], 12Ch
         jge short .6
         push dword [dword_1C95B4]
@@ -516,15 +516,15 @@ NextVideoModeKey:
         cmp dword [dword_19CD34], byte 0
         je short .10
         mov eax, dword [dword_1A8E80]
-        call sub_3CB48
+        call ShowView
         mov dword [dword_19CD34], 0
         jmp near PrevVideoModeKey_20A
 .10:
         mov eax, dword [dword_1A8E80]
-        call sub_3CB38
+        call HideView
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD34], 1
-        call sub_3CAB8
+        call SetViewInterlaced
         mov dword [dword_19CD30], 1
         jmp near PrevVideoModeKey_20A
 ;-----------------------------------------------------------------------------
@@ -536,19 +536,19 @@ ApplyDisplayFlags:
         cmp dword [dword_19CD30], byte 0
         je short .1
         mov eax, dword [dword_1A8E80]
-        call sub_3CAB8
+        call SetViewInterlaced
         jmp short .2
 .1:
         mov eax, dword [dword_1A8E80]
-        call sub_3CB00
+        call ClearViewInterlaced
 .2:
         cmp dword [dword_19CD34], byte 0
         je short .3
         mov eax, dword [dword_1A8E80]
-        jmp near sub_3CB38
+        jmp near HideView
 .3:
         mov eax, dword [dword_1A8E80]
-        jmp near sub_3CB48
+        jmp near ShowView
         push edx
         mov eax, unk_19CF8C
         xor edx, edx
@@ -601,9 +601,11 @@ RemoveOverlayPanel:
         jl short .1
         jmp near PrevVideoModeKey_217
 ;-----------------------------------------------------------------------------
-; sub_160E2                                                       160E2  97 PC
+; DrawPanelArtScaled                              160E2  97 PC, low confidence
+; Draws a piece of overlay panel art scaled to the panel size; takes the art
+; and the panel rectangle
 ;-----------------------------------------------------------------------------
-sub_160E2:
+DrawPanelArtScaled:
         push ebx
         push ecx
         push edx
@@ -709,9 +711,11 @@ sub_160E2:
         pop ebx
         ret 0Ch
 ;-----------------------------------------------------------------------------
-; sub_161F0                                                       161F0  97 PC
+; DrawPanelPlayerCard                             161F0  97 PC, low confidence
+; Draws a player card on an overlay panel: picture, number, name and stats of
+; the given player
 ;-----------------------------------------------------------------------------
-sub_161F0:
+DrawPanelPlayerCard:
         push esi
         push edi
         enter 30h, 0
@@ -1058,7 +1062,7 @@ sub_161F0:
         push byte 0
         call FillRect
         add esp, byte 14h
-        call sub_18F67
+        call SetOverlayFont
         cmp edi, byte 2
         jne short .51
         call rand_
@@ -1087,7 +1091,7 @@ sub_161F0:
         mov eax, edi
         push dword 3F000000h
 .53:
-        call sub_160E2
+        call DrawPanelArtScaled
         movsx esi, word [gameclock]
         movsx eax, word [word_19CB98]
         sub eax, esi
@@ -1107,7 +1111,7 @@ sub_161F0:
         cdq
         idiv ebx
         push eax
-        push asc_160158
+        push str_2d02d
         lea eax, [byte ebp-018h]
         push eax
         call sprintf_
@@ -1145,7 +1149,7 @@ sub_161F0:
         mov ebx, eax
         lea eax, [byte ebp-018h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub ebx, eax
         push ebx
@@ -1171,13 +1175,13 @@ sub_161F0:
         mov ebx, eax
         lea eax, [byte ebp-018h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub ebx, eax
         push ebx
         lea eax, [byte ebp-018h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .58:
         imul eax, dword [dword_16E468], byte 0Ah
@@ -1229,7 +1233,7 @@ sub_161F0:
         idiv ebx
         push eax
         push dword [byte ebp-08h]
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .62:
         cmp dword [dword_16E468], 12Ch
@@ -1325,7 +1329,7 @@ sub_161F0:
         idiv ebx
         push eax
         push dword [byte ebp-0Ch]
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .76:
         cmp dword [dword_16E468], 12Ch
@@ -1423,7 +1427,7 @@ sub_161F0:
         idiv ebx
         push eax
         push dword [byte ebp+010h]
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .90:
         leave
@@ -1431,9 +1435,10 @@ sub_161F0:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_16AD0                                                       16AD0  97 PC
+; GetPlayerNumber                                 16AD0  97 PC, low confidence
+; Returns the jersey number of a player from the team roster record
 ;-----------------------------------------------------------------------------
-sub_16AD0:
+GetPlayerNumber:
         push edx
         mov edx, dword [dword eax+0FEh]
         mov edx, dword [dword edx+0108h]
@@ -1452,9 +1457,11 @@ sub_16AD0:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_16B17                                                       16B17  97 PC
+; GetPlayerPanelName                              16B17  97 PC, low confidence
+; Builds the short name of a player shown on an overlay panel (initial and
+; last name)
 ;-----------------------------------------------------------------------------
-sub_16B17:
+GetPlayerPanelName:
         push edx
         mov edx, dword [dword eax+0FEh]
         mov edx, dword [dword edx+0108h]
@@ -1494,9 +1501,10 @@ sub_16B17:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_16BAD                                                       16BAD  97 PC
+; GetPlayerName                                   16BAD  97 PC, low confidence
+; Copies the full name of a player from the team roster record into a buffer
 ;-----------------------------------------------------------------------------
-sub_16BAD:
+GetPlayerName:
         push edx
         mov edx, dword [dword eax+0FEh]
         mov edx, dword [dword edx+0108h]
@@ -1517,15 +1525,18 @@ sub_16BAD:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_16BF5                                                       16BF5  97 PC
+; TeamNameField                                   16BF5  97 PC, low confidence
+; Returns the team name field of a team record
 ;-----------------------------------------------------------------------------
-sub_16BF5:
+TeamNameField:
         add eax, byte 3Eh
         ret
 ;-----------------------------------------------------------------------------
-; sub_16BF9                                                       16BF9  97 PC
+; DrawMessagePanel                                16BF9  97 PC, low confidence
+; Draws the in-game message overlay: frame, title and text lines picked by
+; the message type
 ;-----------------------------------------------------------------------------
-sub_16BF9:
+DrawMessagePanel:
         push esi
         push edi
         enter 24h, 0
@@ -1535,17 +1546,17 @@ sub_16BF9:
         mov ecx, dword [ecx]
         mov ecx, dword [byte ecx-04h]
         cmp ecx, byte 0FFFFFFFFh
-        je near sub_16BF9_15F.7
+        je near DrawMessagePanel_15F.7
         movsx eax, word [word_19CBEE]
         cmp eax, ecx
-        jg near sub_16BF9_15F.7
+        jg near DrawMessagePanel_15F.7
         cmp eax, byte 0FFFFFFFFh
         je short .1
         call RemoveOverlayPanel
 .1:
         mov word [word_19CBEE], cx
         mov dword [byte esi+04h], ecx
-        call sub_18F67
+        call SetOverlayFont
         mov eax, dword [nosplit ecx*4+dword_1686E6]
         call GetLangText
         mov edx, eax
@@ -1558,7 +1569,7 @@ sub_16BF9:
         mov ebx, eax
         lea eax, [byte ebp-024h]
         push eax
-        call sub_FDE44
+        call MeasureText
         lea ecx, [eax+ebx]
         mov eax, ecx
         mov ebx, 4
@@ -1595,7 +1606,7 @@ sub_16BF9:
         push dword 0FEh
         call ClearScreen
         add esp, byte 4
-        call sub_18F67
+        call SetOverlayFont
         imul eax, dword [dword_16E464], byte 0Ah
         mov ecx, 280h
         cdq
@@ -1622,7 +1633,7 @@ sub_16BF9:
         push ecx
         lea eax, [byte ebp-024h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .6:
         cmp dword [dword_19CD30], byte 0
@@ -1638,9 +1649,9 @@ sub_16BF9:
         cdq
         idiv esi
         mov edx, eax
-sub_16BF9_15D:
+DrawMessagePanel_15D:
         xor eax, eax
-sub_16BF9_15F:
+DrawMessagePanel_15F:
         call AddOverlayWindow
 .7:
         leave
@@ -1657,7 +1668,7 @@ DrawVideoModePanel:
         enter 38h, 0
         mov esi, eax
         mov edi, ebx
-        call sub_18F67
+        call SetOverlayFont
         mov eax, 200h
         call RemoveOverlayPanel
         mov dword [byte esi+04h], 200h
@@ -1673,7 +1684,7 @@ DrawVideoModePanel:
         jne short .5
         push dword [dword_19CD14]
         push dword [dword_19CD10]
-        push asc_160161
+        push str_DXD
         lea eax, [byte ebp-038h]
         push eax
         call sprintf_
@@ -1682,13 +1693,13 @@ DrawVideoModePanel:
         je short .3
         cmp dword [dword_19CD34], byte 0
         je short .2
-        mov edx, asc_16016A
+        mov edx, str_Doubled
         jmp short .4
 .2:
-        mov edx, asc_160172
+        mov edx, str_Interlaced
         jmp short .4
 .3:
-        mov edx, asc_16017D
+        mov edx, str_Normal
 .4:
         lea eax, [byte ebp-038h]
         call strcat_
@@ -1700,7 +1711,7 @@ DrawVideoModePanel:
         mov ebx, eax
         lea eax, [byte ebp-038h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         lea ecx, [eax+ebx]
         cmp dword [dword_16E468], 12Ch
@@ -1729,7 +1740,7 @@ DrawVideoModePanel:
         push dword 0FEh
         call ClearScreen
         add esp, byte 4
-        call sub_18F67
+        call SetOverlayFont
         imul eax, dword [dword_16E464], byte 0Ah
         mov ecx, 280h
         cdq
@@ -1756,7 +1767,7 @@ DrawVideoModePanel:
         push ecx
         lea eax, [byte ebp-038h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .9:
         cmp dword [dword_19CD30], byte 0
@@ -1767,7 +1778,7 @@ DrawVideoModePanel:
         xor edx, edx
         or cl, 8
         mov ebx, dword [byte eax+02Ch]
-        jmp near sub_16BF9_15D
+        jmp near DrawMessagePanel_15D
 ;-----------------------------------------------------------------------------
 ; DrawPenaltyPanel                             16ED0  97 PC, medium confidence
 ; Overlay panel kind 1: the penalty call (game text "Penalty", "for", the
@@ -1822,19 +1833,19 @@ DrawPenaltyPanel:
         add esp, byte 0Ch
         mov dword [byte edx+08h], eax
         mov eax, ebx
-        call sub_16BAD
+        call GetPlayerName
         push eax
         mov eax, ebx
-        call sub_16B17
+        call GetPlayerPanelName
         push eax
         mov eax, ebx
-        call sub_16AD0
+        call GetPlayerNumber
         push eax
         mov eax, 7
         call GetLangText
         push eax
         mov edx, dword [byte ebp+07Eh]
-        push asc_160184
+        push str_SDSS
         lea eax, [byte ebp-072h]
         xor dh, dh
         push eax
@@ -1875,7 +1886,7 @@ DrawPenaltyPanel:
         mov eax, 28h
         call GetLangText
         push eax
-        push asc_160196
+        push str_SS
         lea eax, [byte ebp-022h]
         push eax
         call sprintf_
@@ -1893,7 +1904,7 @@ DrawPenaltyPanel:
         mov eax, 1Fh
         call GetLangText
         push eax
-        push asc_16019C
+        push str_SSS
         lea eax, [byte ebp+02Eh]
         push eax
         call sprintf_
@@ -1907,7 +1918,7 @@ DrawPenaltyPanel:
         mov eax, 1Dh
         call GetLangText
         push eax
-        push asc_16019C
+        push str_SSS
         lea eax, [byte ebp-022h]
         push eax
         call sprintf_
@@ -1922,7 +1933,7 @@ DrawPenaltyPanel:
         mov eax, dword [nosplit eax*4+dword_16875E]
         call GetLangText
         push eax
-        push asc_160196
+        push str_SS
         lea eax, [byte ebp+02Eh]
         push eax
         call sprintf_
@@ -1948,7 +1959,7 @@ DrawPenaltyPanel:
         mov ebx, edx
         mov edx, esi
         mov eax, dword [eax]
-        call sub_161F0
+        call DrawPanelPlayerCard
         cmp dword [dword_19CD30], byte 0
         sete al
         movzx eax, al
@@ -2034,32 +2045,32 @@ DrawPenaltyShotPanel:
         call sprintf_
         add esp, byte 0Ch
         mov eax, ebx
-        call sub_16BAD
+        call GetPlayerName
         push eax
         mov eax, ebx
-        call sub_16B17
+        call GetPlayerPanelName
         push eax
         mov eax, ebx
-        call sub_16AD0
+        call GetPlayerNumber
         push eax
-        push asc_1601A5
+        push str_DSS
         lea eax, [byte ebp+02Eh]
         push eax
         call sprintf_
         add esp, byte 14h
         mov eax, esi
-        call sub_16BAD
+        call GetPlayerName
         push eax
         mov eax, esi
-        call sub_16B17
+        call GetPlayerPanelName
         push eax
         mov eax, esi
-        call sub_16AD0
+        call GetPlayerNumber
         push eax
         mov eax, 35h
         call GetLangText
         push eax
-        push asc_1601AF
+        push str_SDSS2
         lea eax, [byte ebp-022h]
         push eax
         lea ecx, [byte ebp+02Eh]
@@ -2075,7 +2086,7 @@ DrawPenaltyShotPanel:
         movzx edx, dl
         mov ebx, eax
         mov eax, esi
-        call sub_161F0
+        call DrawPanelPlayerCard
         cmp dword [dword_19CD30], byte 0
         sete al
         movzx eax, al
@@ -2207,9 +2218,9 @@ DrawSpecialTeamsPanel:
         mov eax, hmtmstruct
 .10:
         mov eax, dword [dword eax+0108h]
-        call sub_16BF5
+        call TeamNameField
         push eax
-        push asc_1601BC
+        push str_SSD
         lea eax, [byte ebp+07Eh]
         push eax
         call sprintf_
@@ -2276,9 +2287,9 @@ DrawSpecialTeamsPanel:
         mov eax, hmtmstruct
 .20:
         mov eax, dword [dword eax+0108h]
-        call sub_16BF5
+        call TeamNameField
         push eax
-        push asc_1601BC
+        push str_SSD
         lea eax, [byte ebp+02Eh]
         push eax
         call sprintf_
@@ -2336,9 +2347,9 @@ DrawSpecialTeamsPanel:
         mov eax, hmtmstruct
 .28:
         mov eax, dword [dword eax+0108h]
-        call sub_16BF5
+        call TeamNameField
         push eax
-        push asc_1601C7
+        push str_SSDD
         lea eax, [byte ebp+07Eh]
         push eax
         call sprintf_
@@ -2358,7 +2369,7 @@ DrawPenaltyShotPanel_48E:
         mov edx, esi
         mov eax, dword [eax]
 DrawPenaltyShotPanel_49A:
-        call sub_161F0
+        call DrawPanelPlayerCard
         cmp dword [dword_19CD30], byte 0
         sete al
         movzx eax, al
@@ -2436,15 +2447,15 @@ DrawInjuryPanel:
         call sprintf_
         add esp, byte 0Ch
         mov eax, ebx
-        call sub_16BAD
+        call GetPlayerName
         push eax
         mov eax, ebx
-        call sub_16B17
+        call GetPlayerPanelName
         push eax
         mov eax, ebx
-        call sub_16AD0
+        call GetPlayerNumber
         push eax
-        push asc_1601A5
+        push str_DSS
         lea eax, [byte ebp+02Eh]
         push eax
         lea ecx, [byte ebp+02Eh]
@@ -2472,7 +2483,7 @@ DrawPeriodPanel:
         mov esi, unk_15A22
         mov eax, 100h
         rep movsd
-        call sub_19133
+        call IsOverlayShown
         test eax, eax
         jne near DrawPenaltyShotPanel_4D7
         mov eax, dword [byte ebp-026h]
@@ -2502,7 +2513,7 @@ DrawPeriodPanel:
         add eax, byte 2Ch
         call GetLangText
         push eax
-        push asc_160196
+        push str_SS
         lea eax, [byte ebp+07Eh]
         push eax
         call sprintf_
@@ -2510,9 +2521,9 @@ DrawPeriodPanel:
         movzx eax, byte [byte_1C135B]
         push eax
         mov eax, dword [dword_19ECC4]
-        call sub_16BF5
+        call TeamNameField
         push eax
-        push asc_1601D3
+        push str_SD
         lea eax, [byte ebp+02Eh]
         push eax
         call sprintf_
@@ -2520,9 +2531,9 @@ DrawPeriodPanel:
         movzx eax, byte [byte_1C135A]
         push eax
         mov eax, dword [dword_19EBB8]
-        call sub_16BF5
+        call TeamNameField
         push eax
-        push asc_1601D3
+        push str_SD
         lea eax, [byte ebp-022h]
         push eax
         lea ecx, [byte ebp+02Eh]
@@ -2601,7 +2612,7 @@ DrawGoalScorerPanel:
         mov eax, 23h
         call GetLangText
         push eax
-        push asc_1601DB
+        push str_SDCS
         jmp short .6
 .4:
         push edx
@@ -2612,7 +2623,7 @@ DrawGoalScorerPanel:
         mov eax, 23h
         call GetLangText
         push eax
-        push asc_160184
+        push str_SDSS
         jmp short .6
 .5:
         movsx edi, di
@@ -2631,7 +2642,7 @@ DrawGoalScorerPanel:
         mov eax, 23h
         call GetLangText
         push eax
-        push asc_160184
+        push str_SDSS
 .6:
         lea eax, [byte ebp-076h]
         push eax
@@ -2656,7 +2667,7 @@ DrawGoalScorerPanel:
         je short .11
         cmp byte [byte ebp-026h], 0
         je short .10
-        mov edx, asc_1601EB
+        mov edx, str_Punct
         lea eax, [byte ebp-026h]
         call strcat_
 .10:
@@ -2743,7 +2754,7 @@ DrawGoalScorerPanel:
         lea ebx, [byte ebp-076h]
         lea ecx, [byte ebp+02Ah]
         mov eax, dword [eax]
-        call sub_161F0
+        call DrawPanelPlayerCard
         cmp dword [dword_19CD30], byte 0
         sete al
         movzx eax, al
@@ -2807,7 +2818,7 @@ DrawGameClock:
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         movsx ecx, word [gameclock]
         mov eax, ecx
         mov esi, 3Ch
@@ -2824,7 +2835,7 @@ DrawGameClock:
         jle short .6
         push edx
         push esi
-        push asc_160158
+        push str_2d02d
         jmp short .7
 .6:
         movsx eax, word [word_19CBBC]
@@ -2835,7 +2846,7 @@ DrawGameClock:
         sar eax, 4
         push eax
         push ecx
-        push asc_1601F6
+        push str_2d01d
 .7:
         lea eax, [byte ebp-014h]
         push eax
@@ -2862,7 +2873,7 @@ DrawGameClock:
         push ecx
         lea eax, [byte ebp-014h]
         push eax
-        call sub_FE3AC
+        call DrawTextBoxedAt
         add esp, byte 0Ch
         mov eax, dword [byte ebx+02Ch]
         call RefreshOverlayWindow
@@ -2882,7 +2893,7 @@ DrawPowerPlayClock:
         cmp eax, dword [dword_19D018]
         je near DrawPowerPlayClock_18E
         mov dword [dword_19D018], eax
-        call sub_25AEC
+        call GetLowestPen
         movsx esi, ax
         test esi, esi
         jne short .1
@@ -2928,7 +2939,7 @@ DrawPowerPlayClock:
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         mov eax, esi
         mov ecx, 3Ch
         cdq
@@ -2939,7 +2950,7 @@ DrawPowerPlayClock:
         cdq
         idiv ecx
         push eax
-        push asc_160158
+        push str_2d02d
         lea eax, [byte ebp-014h]
         push eax
         call sprintf_
@@ -2956,9 +2967,9 @@ DrawPowerPlayClock:
         push eax
         lea eax, [byte ebp-014h]
         push eax
-        call sub_FE3AC
+        call DrawTextBoxedAt
         add esp, byte 0Ch
-        call sub_18F67
+        call SetOverlayFont
         cmp dword [dword_16E468], 12Ch
         jge short .4
         mov eax, 36h
@@ -2990,7 +3001,7 @@ DrawPowerPlayClock:
         mov eax, 36h
         call GetLangText
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .5:
         mov eax, dword [byte ebx+02Ch]
@@ -3078,9 +3089,11 @@ DrawClockPanel:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_17EB6                                                       17EB6  97 PC
+; PowerPlayPanel                                  17EB6  97 PC, low confidence
+; Draws the power play overlay: team, time left on the penalty and players in
+; the box
 ;-----------------------------------------------------------------------------
-sub_17EB6:
+PowerPlayPanel:
         push esi
         push edi
         enter 8, 0
@@ -3165,7 +3178,7 @@ sub_17EB6:
         test edi, edi
         sete al
         movzx eax, al
-        call sub_160E2
+        call DrawPanelArtScaled
         mov eax, dword [byte ebp-08h]
         mov dword [byte esi+08h], eax
         mov eax, dword [esi]
@@ -3188,11 +3201,12 @@ sub_17EB6:
         shl ecx, 4
         or cl, 8
         mov edx, esi
-        jmp near sub_16BF9_15F
+        jmp near DrawMessagePanel_15F
 ;-----------------------------------------------------------------------------
-; sub_18025                                                       18025  97 PC
+; UpdateScoreboardPanel                           18025  97 PC, low confidence
+; Redraws the score and clock overlay when the score, period or time changes
 ;-----------------------------------------------------------------------------
-sub_18025:
+UpdateScoreboardPanel:
         push ebx
         push ecx
         push esi
@@ -3219,7 +3233,7 @@ sub_18025:
         movsx eax, word [word_19EABE]
         sub eax, esi
         mov esi, eax
-        call sub_18F67
+        call SetOverlayFont
         push ebx
         call SetDrawTarget
         imul eax, dword [dword_16E464], byte 64h
@@ -3323,7 +3337,7 @@ sub_18025:
 .9:
         movsx edx, word [byte ebp-0Ch]
         movsx eax, word [byte ebp-08h]
-        call sub_2E11C
+        call TeamLineSlots
         movsx edi, ax
         cmp edi, 0BB8h
         jle short .10
@@ -3607,7 +3621,7 @@ sub_18025:
         idiv ecx
 .37:
         push eax
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
 .38:
         lea eax, [byte esi+01h]
@@ -3628,7 +3642,7 @@ sub_18025:
 .41:
         call GetLangText
         push eax
-        push asc_1601FF
+        push str_SD2
         lea eax, [byte ebp-028h]
         push eax
         call sprintf_
@@ -3722,7 +3736,7 @@ sub_18025:
         mov edi, eax
         lea eax, [byte ebp-028h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub edi, eax
         push edi
@@ -3756,14 +3770,14 @@ sub_18025:
         mov edi, eax
         lea eax, [byte ebp-028h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub edi, eax
         push edi
 .54:
         lea eax, [byte ebp-028h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .55:
         inc dword [byte ebp-0Ch]
@@ -3783,9 +3797,10 @@ sub_18025:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1870B                                                       1870B  97 PC
+; HomeTeamPanel                                   1870B  97 PC, low confidence
+; Draws the home team overlay panel (name, logo, score)
 ;-----------------------------------------------------------------------------
-sub_1870B:
+HomeTeamPanel:
         push esi
         push edi
         enter 4, 0
@@ -3848,11 +3863,11 @@ sub_1870B:
         mov eax, 1
         push dword 3DCCCCCDh
 .4:
-        call sub_160E2
+        call DrawPanelArtScaled
         mov dword [dword_19D00C], 0FFFFFFFFh
         xor edx, edx
         mov eax, dword [esi]
-        call sub_18025
+        call UpdateScoreboardPanel
         cmp dword [dword_19CD30], byte 0
         sete al
         movzx eax, al
@@ -3874,9 +3889,10 @@ sub_1870B:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_1882A                                                       1882A  97 PC
+; AwayTeamPanel                                   1882A  97 PC, low confidence
+; Draws the away team overlay panel (name, logo, score)
 ;-----------------------------------------------------------------------------
-sub_1882A:
+AwayTeamPanel:
         push esi
         push edi
         enter 4, 0
@@ -3937,12 +3953,12 @@ sub_1882A:
         xor eax, eax
         push dword 3DCCCCCDh
 .4:
-        call sub_160E2
+        call DrawPanelArtScaled
         mov dword [byte esi+08h], ebx
         mov dword [dword_19D010], 0FFFFFFFFh
         mov edx, 1
         mov eax, dword [esi]
-        call sub_18025
+        call UpdateScoreboardPanel
         cmp dword [dword_19CD30], byte 0
         sete al
         movzx eax, al
@@ -3968,15 +3984,16 @@ sub_1882A:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_18958                                                       18958  97 PC
+; HomeStatPanel                                   18958  97 PC, low confidence
+; Draws the home team statistics overlay (shots, goals, power play)
 ;-----------------------------------------------------------------------------
-sub_18958:
+HomeStatPanel:
         push esi
         push edi
         enter 28h, 0
         mov esi, eax
         mov dword [byte ebp-08h], ebx
-        call sub_18F67
+        call SetOverlayFont
         cmp dword [esi], byte 0
         jne near .14
         mov eax, 500h
@@ -4007,7 +4024,7 @@ sub_18958:
 .3:
         call GetLangText
         push eax
-        push asc_1601FF
+        push str_SD2
         lea eax, [byte ebp-028h]
         push eax
         call sprintf_
@@ -4093,7 +4110,7 @@ sub_18958:
         push eax
         push ecx
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub edi, eax
         push edi
@@ -4105,13 +4122,13 @@ sub_18958:
         push ecx
         lea eax, [byte ebp-028h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub edi, eax
         push edi
         lea eax, [byte ebp-028h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .11:
         imul eax, dword [dword_16E464], byte 1Eh
@@ -4132,7 +4149,7 @@ sub_18958:
         mov eax, 1
         push dword 3DCCCCCDh
 .13:
-        call sub_160E2
+        call DrawPanelArtScaled
         mov eax, dword [byte ebp-08h]
         mov dword [byte esi+08h], eax
         cmp dword [dword_19CD30], byte 0
@@ -4156,15 +4173,16 @@ sub_18958:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_18B81                                                       18B81  97 PC
+; AwayStatPanel                                   18B81  97 PC, low confidence
+; Draws the away team statistics overlay (shots, goals, power play)
 ;-----------------------------------------------------------------------------
-sub_18B81:
+AwayStatPanel:
         push esi
         push edi
         enter 1Ch, 0
         mov esi, eax
         mov dword [byte ebp-08h], ebx
-        call sub_18F67
+        call SetOverlayFont
         cmp dword [esi], byte 0
         jne near .14
         mov eax, 600h
@@ -4223,7 +4241,7 @@ sub_18B81:
 .5:
         call GetLangText
         push eax
-        push asc_1601FF
+        push str_SD2
         lea eax, [byte ebp-01Ch]
         push eax
         call sprintf_
@@ -4283,7 +4301,7 @@ sub_18B81:
         push byte 0
         lea eax, [byte ebp-01Ch]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .11:
         imul eax, dword [dword_16E464], dword 82h
@@ -4304,7 +4322,7 @@ sub_18B81:
         xor eax, eax
         push dword 3DCCCCCDh
 .13:
-        call sub_160E2
+        call DrawPanelArtScaled
         mov eax, dword [byte ebp-08h]
         mov dword [byte esi+08h], eax
         cmp dword [dword_19CD30], byte 0
@@ -4373,9 +4391,11 @@ QueueOverlayPanel:
         mov dword [byte ebp-04h], 0
         jmp near DrawPowerPlayClock_18E
 ;-----------------------------------------------------------------------------
-; sub_18DF7                                                       18DF7  97 PC
+; OpenFreeOverlay                                 18DF7  97 PC, low confidence
+; Finds a free overlay window slot, allocates its bitmap and adds it to the
+; overlay list; returns the slot
 ;-----------------------------------------------------------------------------
-sub_18DF7:
+OpenFreeOverlay:
         push ebx
         push ecx
         push edx
@@ -4438,9 +4458,10 @@ ClearOverlayWindows:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_18E76                                                       18E76  97 PC
+; RefreshOverlayWindows                        18E76  97 PC, medium confidence
+; Asks every open overlay window to be drawn again
 ;-----------------------------------------------------------------------------
-sub_18E76:
+RefreshOverlayWindows:
         push ebx
         push edx
         mov edx, unk_19CF8C
@@ -4460,9 +4481,11 @@ sub_18E76:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_18E9A                                                       18E9A  97 PC
+; ChkShowStatsPanel                               18E9A  97 PC, low confidence
+; Opens the statistics overlay at a stoppage when the option is on and none
+; is shown
 ;-----------------------------------------------------------------------------
-sub_18E9A:
+ChkShowStatsPanel:
         push ebx
         push edx
         movsx eax, word [gameclock]
@@ -4495,9 +4518,10 @@ sub_18E9A:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_18EEE                                                       18EEE  97 PC
+; ChkPowerPlayPanel                               18EEE  97 PC, low confidence
+; Opens or closes the power play overlay as penalties start and end
 ;-----------------------------------------------------------------------------
-sub_18EEE:
+ChkPowerPlayPanel:
         push ebx
         push ecx
         push edx
@@ -4549,9 +4573,10 @@ sub_18EEE:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_18F67                                                       18F67  97 PC
+; SetOverlayFont                                  18F67  97 PC, low confidence
+; Selects the font and colours used to draw text on the overlay panels
 ;-----------------------------------------------------------------------------
-sub_18F67:
+SetOverlayFont:
         push ebx
         push ecx
         push edx
@@ -4588,7 +4613,7 @@ sub_18F67:
         add esp, byte 4
         push eax
         xor ebx, ebx
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
 .5:
         lea eax, [byte ebx+030h]
@@ -4607,7 +4632,7 @@ sub_18F67:
         mov dword [nosplit ebx*4+dword_1CF554], eax
         cmp ebx, byte 10h
         jl short .5
-        mov dword [dword_1CF5B8], sub_FE470_494
+        mov dword [dword_1CF5B8], DrawGlyph_494
         pop edx
         pop ecx
         pop ebx
@@ -4625,7 +4650,7 @@ DrawGameOverlays:
         push edi
         enter 8, 0
         mov edi, eax
-        call sub_18E9A
+        call ChkShowStatsPanel
         mov dword [byte ebp-04h], 0
         mov dword [byte ebp-08h], 0
         mov ebx, unk_19CF8C
@@ -4685,7 +4710,7 @@ DrawGameOverlays:
         mov edx, 1
         mov eax, dword [ebx]
 .7:
-        call sub_18025
+        call UpdateScoreboardPanel
 .8:
         inc esi
         add ebx, byte 0Ch
@@ -4695,7 +4720,7 @@ DrawGameOverlays:
         jne near PrevVideoModeKey_216
         cmp dword [byte ebp-04h], byte 0
         jne near PrevVideoModeKey_216
-        call sub_18EEE
+        call ChkPowerPlayPanel
         test eax, eax
         jne near PrevVideoModeKey_216
         movsx eax, word [gameclock]
@@ -4708,9 +4733,10 @@ DrawGameOverlays:
         push byte 0Eh
         jmp near PrevVideoModeKey_20E
 ;-----------------------------------------------------------------------------
-; sub_19133                                                       19133  97 PC
+; IsOverlayShown                               19133  97 PC, medium confidence
+; Returns nonzero when the given overlay window is open
 ;-----------------------------------------------------------------------------
-sub_19133:
+IsOverlayShown:
         push ebx
         push edx
         mov ebx, eax
@@ -4807,16 +4833,16 @@ GetCameraTarget:
         movsd
         mov eax, esp
         push dword [byte ebx+0Ch]
-        call sub_FF1FC
+        call MatRotY
         lea eax, [byte ebx+070h]
         mov edx, esp
         lea ebx, [byte esp+030h]
-        call sub_FF444
+        call VecMulMat
         mov ebx, dword_19D390
         mov edx, dword_1B905F
         lea eax, [byte esp+03Ch]
-        call sub_FF600
-        call sub_FF7DC
+        call VecSub
+        call VecLength
         fst dword [byte esp+060h]
         fcomp dword [dword_1602DA]
         fnstsw ax
@@ -4844,10 +4870,10 @@ GetCameraTarget:
         push eax
         push dword [byte esp+060h]
         mov ebx, dword_19D390
-        call sub_FF7F4
+        call VecScale
         mov edx, eax
         lea eax, [byte esp+03Ch]
-        call sub_FF5E0
+        call VecAdd
         mov eax, dword_19D390
         add esp, byte 68h
         pop ebp
@@ -5055,11 +5081,11 @@ GetCameraTarget:
         lea ebx, [byte esp+024h]
         push ebx
         push dword [dword ecx+dword_19D138]
-        call sub_FF7F4
+        call VecScale
         lea ebx, [byte esp+048h]
         mov edx, eax
         lea eax, [byte esp+048h]
-        call sub_FF5E0
+        call VecAdd
         fld dword [byte esp+064h]
         fadd dword [dword ecx+dword_19D138]
         fstp dword [byte esp+064h]
@@ -5076,7 +5102,7 @@ GetCameraTarget:
         sub esp, byte 4
         lea eax, [byte esp+050h]
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         add esp, byte 68h
         pop ebp
         pop edi
@@ -5097,9 +5123,11 @@ GetCameraTarget:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_19540                                                       19540  97 PC
+; GetTargetPoint                                  19540  97 PC, low confidence
+; Returns the point the game camera looks at: the puck, its carrier or the
+; object the scene follows
 ;-----------------------------------------------------------------------------
-sub_19540:
+GetTargetPoint:
         push ebx
         cmp eax, byte 4
         jl short .1
@@ -5227,7 +5255,7 @@ UpdateCameraView_28:
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword ecx+0108h]
         lea eax, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
         mov esp, ebp
         pop ebp
         pop edi
@@ -5241,15 +5269,15 @@ UpdateCameraView_54:
         lea edx, [dword ecx+0E4h]
         lea ebx, [dword esp+0CCh]
         lea eax, [dword ecx+0F0h]
-        call sub_FF600
+        call VecSub
         lea eax, [dword esp+0CCh]
         push eax
         lea edx, [dword esp+0D0h]
         push dword [dword ecx+0114h]
         lea ebx, [dword ecx+0FCh]
-        call sub_FF818
+        call VecNormalizeTo
         lea eax, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
         mov esp, ebp
         pop ebp
         pop edi
@@ -5263,19 +5291,19 @@ UpdateCameraView_AC:
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword ecx+0108h]
         lea eax, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
         lea edx, [dword ecx+0E4h]
         lea ebx, [dword esp+0B4h]
         lea eax, [dword ecx+0FCh]
-        call sub_FF600
+        call VecSub
         lea eax, [dword esp+0B4h]
         push eax
         lea edx, [dword esp+0B8h]
         push dword [dword ecx+0114h]
         lea ebx, [dword ecx+0FCh]
-        call sub_FF818
+        call VecNormalizeTo
         lea eax, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
         mov esp, ebp
         pop ebp
         pop edi
@@ -5308,7 +5336,7 @@ UpdateCameraView_11B:
         add edx, eax
         mov eax, esi
         mov dword [dword_19D1E0], esi
-        call sub_5D878
+        call SetCameraSplineTarget
         inc dword [dword_19D1E4]
         jmp short .3
 .1:
@@ -5333,7 +5361,7 @@ UpdateCameraView_11B:
 UpdateCameraView_1AC:
         lea edx, [dword esp+0150h]
         mov eax, dword [dword_19D380]
-        call sub_19540
+        call GetTargetPoint
         test eax, eax
         je near UpdateCameraView_8D3
         xor esi, esi
@@ -5351,13 +5379,13 @@ UpdateCameraView_1AC:
         fstp dword [dword esp+0150h]
         push dword [dword esp+0150h]
         lea edx, [byte esp+04h]
-        call sub_FF1FC
+        call MatRotY
         lea eax, [dword esp+0138h]
-        call sub_FF444
+        call VecMulMat
         lea ebx, [dword esp+012Ch]
         lea eax, [dword esp+012Ch]
         lea edx, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
         mov eax, dword [dword esp+012Ch]
         mov dword [dword ecx+0FCh], eax
         mov eax, dword [dword_1B9063]
@@ -5374,7 +5402,7 @@ UpdateCameraView_1AC:
 UpdateCameraView_272:
         lea edx, [dword esp+014Ch]
         mov eax, dword [dword_19D380]
-        call sub_19540
+        call GetTargetPoint
         test eax, eax
         je near UpdateCameraView_8D3
         fld dword [dword esp+014Ch]
@@ -5389,13 +5417,13 @@ UpdateCameraView_272:
         push dword [dword esp+014Ch]
         lea eax, [byte esp+028h]
         mov dword [dword esp+0A0h], esi
-        call sub_FF1FC
+        call MatRotY
         lea eax, [dword esp+09Ch]
-        call sub_FF444
+        call VecMulMat
         lea ebx, [dword esp+0F0h]
         mov edx, dword_19D188
         lea eax, [dword esp+0F0h]
-        call sub_FF5E0
+        call VecAdd
         mov eax, dword [dword esp+0F0h]
         fld dword [dword_1B9063]
         mov dword [dword_19D1A0], eax
@@ -5431,7 +5459,7 @@ UpdateCameraView_326:
         movsd
         movsd
         movsd
-        call sub_FF600
+        call VecSub
         fld dword [dword esp+0E0h]
         fld dword [dword esp+0D8h]
         call IF@ATAN2
@@ -5439,7 +5467,7 @@ UpdateCameraView_326:
         fadd dword [dword_19D1BC]
         lea eax, [byte esp+070h]
         fstp dword [esp]
-        call sub_FF1FC
+        call MatRotY
         fld dword [dword esp+0E0h]
         fld dword [dword_19D1B8]
         xor eax, eax
@@ -5461,11 +5489,11 @@ UpdateCameraView_326:
         lea ebx, [dword esp+0114h]
         lea edx, [byte esp+06Ch]
         lea eax, [dword esp+0120h]
-        call sub_FF444
+        call VecMulMat
         lea ebx, [dword esp+0114h]
         mov edx, dword_19D188
         lea eax, [dword esp+0114h]
-        call sub_FF5E0
+        call VecAdd
         mov eax, dword [dword esp+0114h]
         fld dword [dword_1B9063]
         mov dword [dword_19D1A0], eax
@@ -5501,7 +5529,7 @@ UpdateCameraView_461:
         movsd
         movsd
         movsd
-        call sub_FF600
+        call VecSub
         fld dword [dword esp+0B0h]
         fld dword [dword esp+0A8h]
         call IF@ATAN2
@@ -5540,14 +5568,14 @@ UpdateCameraView_461:
         jbe short .8
         lea eax, [byte esp+048h]
         push dword [dword esp+0160h]
-        call sub_FF1FC
+        call MatRotY
         mov eax, dword [dword esp+0160h]
         mov dword [dword_1687B8], eax
         jmp short .9
 .8:
         lea eax, [byte esp+048h]
         push dword [dword_1687B8]
-        call sub_FF1FC
+        call MatRotY
 .9:
         lea edx, [byte esp+048h]
         xor ebx, ebx
@@ -5557,11 +5585,11 @@ UpdateCameraView_461:
         mov dword [dword esp+098h], eax
         lea ebx, [dword esp+0E4h]
         lea eax, [dword esp+090h]
-        call sub_FF444
+        call VecMulMat
         lea ebx, [dword esp+0E4h]
         mov edx, dword_19D188
         lea eax, [dword esp+0E4h]
-        call sub_FF5E0
+        call VecAdd
         mov eax, dword [dword esp+0E4h]
         fld dword [dword_1B9063]
         mov dword [dword_19D1A0], eax
@@ -5592,7 +5620,7 @@ UpdateCameraView_5F0:
         fadd qword [qword_1602F6]
         mov eax, esi
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         mov dword [dword ecx+02ACh], 3EDF66F3h
         jmp near .14
 .10:
@@ -5608,7 +5636,7 @@ UpdateCameraView_5F0:
         fsubrp
         mov eax, esi
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         mov dword [dword ecx+02ACh], 3DB2B8C3h
         jmp near .14
 .11:
@@ -5626,7 +5654,7 @@ UpdateCameraView_5F0:
         fadd qword [qword_1602F6]
         mov eax, esi
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         mov dword [dword ecx+02ACh], 3EDF66F3h
         jmp short .14
 .12:
@@ -5645,7 +5673,7 @@ UpdateCameraView_5F0:
         fsubrp
         mov eax, esi
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         mov dword [dword ecx+02ACh], 3DB2B8C3h
         jmp short .14
 .13:
@@ -5660,7 +5688,7 @@ UpdateCameraView_5F0:
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword esp+0C0h]
         lea eax, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
 .15:
         fld dword [dword ecx+0F0h]
         fsub dword [dword ecx+0E4h]
@@ -5729,7 +5757,7 @@ UpdateCameraView_7F5:
         faddp
         lea eax, [dword ecx+0108h]
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         jmp short .21
 .19:
         fld dword [dword ecx+0ECh]
@@ -5753,7 +5781,7 @@ UpdateCameraView_7F5:
         faddp
         lea eax, [dword ecx+0108h]
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         jmp short .21
 .20:
         lea edi, [dword esp+0C0h]
@@ -5767,7 +5795,7 @@ UpdateCameraView_7F5:
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword esp+0C0h]
         lea eax, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
 UpdateCameraView_8D3:
         mov esp, ebp
         pop ebp
@@ -6099,7 +6127,7 @@ UpdateCameraTrack_30:
         mov ebx, esp
         mov edx, dword_1B905F
         lea eax, [dword ecx+0E4h]
-        call sub_FF600
+        call VecSub
         fld dword [byte esp+08h]
         fld dword [esp]
         call IF@ATAN2
@@ -6128,7 +6156,7 @@ UpdateCameraTrack_8E:
         mov ebx, esp
         mov edx, dword_1B905F
         lea eax, [dword ecx+0E4h]
-        call sub_FF600
+        call VecSub
         fld dword [byte esp+08h]
         fld dword [esp]
         call IF@ATAN2
@@ -6216,7 +6244,7 @@ UpdateCameraTrack_19B:
         mov ebx, esp
         mov edx, dword_1B905F
         lea eax, [dword ecx+0E4h]
-        call sub_FF600
+        call VecSub
         fld dword [byte esp+08h]
         fld dword [byte esp+04h]
         fstp qword [byte esp+0Ch]
@@ -6254,7 +6282,7 @@ UpdateCameraTrack_22F:
         mov ebx, esp
         mov edx, dword_1B905F
         lea eax, [dword ecx+0E4h]
-        call sub_FF600
+        call VecSub
         fld dword [byte esp+08h]
         fld dword [byte esp+04h]
         fstp qword [byte esp+0Ch]
@@ -6302,9 +6330,11 @@ UpdateCameraTrack_2D2:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1A5F8                                                       1A5F8  97 PC
+; EaseAngle                                       1A5F8  97 PC, low confidence
+; Moves an angle toward a target angle by a fraction of the difference,
+; taking the short way round
 ;-----------------------------------------------------------------------------
-sub_1A5F8:
+EaseAngle:
         push ecx
         push ebp
         mov ebp, esp
@@ -6362,39 +6392,40 @@ sub_1A5F8:
         pop ecx
         ret
 jpt_1A680:
-        dd sub_1A690_57
-        dd sub_1A690_15
-        dd sub_1A690_40
-        dd sub_1A690_29
+        dd EaseCameraAngles_57
+        dd EaseCameraAngles_15
+        dd EaseCameraAngles_40
+        dd EaseCameraAngles_29
 ;-----------------------------------------------------------------------------
-; sub_1A690                                                       1A690  97 PC
+; EaseCameraAngles                                1A690  97 PC, low confidence
+; Eases the camera's heading, pitch and roll toward their targets each frame
 ;-----------------------------------------------------------------------------
-sub_1A690:
+EaseCameraAngles:
         push ebx
         push ecx
         push edx
         mov ecx, eax
         mov eax, dword [byte eax+030h]
         cmp eax, byte 3
-        ja short sub_1A690_57
+        ja short EaseCameraAngles_57
         jmp dword [nosplit cs:eax*4+jpt_1A680]
-sub_1A690_15:
+EaseCameraAngles_15:
         lea ebx, [dword ecx+02ACh]
         lea edx, [dword ecx+02A8h]
         lea eax, [dword ecx+029Ch]
-        jmp short sub_1A690_40.1
-sub_1A690_29:
+        jmp short EaseCameraAngles_40.1
+EaseCameraAngles_29:
         lea ebx, [dword ecx+02ACh]
         lea edx, [dword ecx+02A8h]
         lea eax, [dword ecx+029Ch]
-        call sub_1A5F8
-sub_1A690_40:
+        call EaseAngle
+EaseCameraAngles_40:
         lea ebx, [dword ecx+02B4h]
         lea edx, [dword ecx+02B0h]
         lea eax, [dword ecx+02A0h]
 .1:
-        call sub_1A5F8
-sub_1A690_57:
+        call EaseAngle
+EaseCameraAngles_57:
         pop edx
         pop ecx
         pop ebx
@@ -6548,7 +6579,7 @@ SetCameraView_14F:
         pop ebx
         ret
 SetCameraView_1EF:
-        mov edx, asc_160210
+        mov edx, str_CHASE
         call strcpy_
         mov dword [byte ebx+024h], 1
         mov dword [dword ebx+0114h], 453B8000h
@@ -6735,7 +6766,7 @@ SetCameraView_4AE:
         pop ebx
         ret
 SetCameraView_532:
-        mov edx, asc_160428
+        mov edx, str_THRILLCAMTm
         mov edi, dword_19D1A0
         mov esi, dword_1B905F
         call strcpy_
@@ -6763,12 +6794,12 @@ SetCameraView_532:
         pop ebx
         ret
 SetCameraView_5A5:
-        mov edx, asc_160438
+        mov edx, str_USERCHASE
         call strcpy_
         mov edx, dword_19D188
         mov eax, dword_1B905F
         mov dword [byte ebx+024h], 1
-        call sub_FF798
+        call VecDistance
         mov dword [byte ebx+028h], 4
         fstp dword [dword ebx+0114h]
         fld dword [dword_1B9063]
@@ -6785,9 +6816,10 @@ SetCameraView_608:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1AD4C                                                       1AD4C  97 PC
+; BuildSplinePath                                 1AD4C  97 PC, low confidence
+; Builds the spline coefficients of a camera path through its control points
 ;-----------------------------------------------------------------------------
-sub_1AD4C:
+BuildSplinePath:
         push esi
         push edi
         push ebp
@@ -6813,13 +6845,13 @@ sub_1AD4C:
         mov ebx, edi
         sub edx, byte 0Ch
         mov eax, ecx
-        call sub_FF600
+        call VecSub
         jmp short .2
 .1:
         mov edx, dword_1B905F
         mov ebx, edi
         mov eax, ecx
-        call sub_FF600
+        call VecSub
 .2:
         mov eax, dword [esp]
         fild dword [eax]
@@ -6831,7 +6863,7 @@ sub_1AD4C:
         mov eax, edi
         fstp dword [esp]
         mov ecx, dword [byte esp+08h]
-        call sub_FF7F4
+        call VecScale
         mov eax, dword [byte esp+04h]
         add edi, byte 0Ch
         sub eax, esi
@@ -6843,7 +6875,7 @@ sub_1AD4C:
         lea edx, [byte eax-0Ch]
         mov ebx, edi
         add eax, byte 0Ch
-        call sub_FF600
+        call VecSub
         fild dword [ecx]
         fld1
         fdivrp
@@ -6854,7 +6886,7 @@ sub_1AD4C:
         mov eax, edi
         fstp dword [esp]
         add edi, byte 0Ch
-        call sub_FF7F4
+        call VecScale
 .4:
         imul eax, esi, byte 0Ch
         cmp esi, dword [byte esp+08h]
@@ -6870,7 +6902,7 @@ sub_1AD4C:
         lea edx, [byte eax-018h]
         mov ebx, edi
         mov eax, esi
-        call sub_FF600
+        call VecSub
         fild dword [ecx]
         fld1
         fdivrp
@@ -6878,7 +6910,7 @@ sub_1AD4C:
         sub esp, byte 4
         mov eax, edi
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         jmp short .6
 .5:
         mov esi, unk_16F110
@@ -6892,9 +6924,10 @@ sub_1AD4C:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_1AE58                                                       1AE58  97 PC
+; SetCameraSpline                                 1AE58  97 PC, low confidence
+; Starts the camera along a spline path: control points, length and speed
 ;-----------------------------------------------------------------------------
-sub_1AE58:
+SetCameraSpline:
         push esi
         push edi
         push ebp
@@ -6918,7 +6951,7 @@ sub_1AE58:
         mov eax, ebp
         mov ecx, dword [byte esp+04h]
         mov dword [dword_19D1DC], ebp
-        call sub_1AD4C
+        call BuildSplinePath
         xor eax, eax
         test ebp, ebp
         jle short .3
@@ -6947,7 +6980,7 @@ sub_1AE58:
         mov edx, unk_19D214
         mov eax, dword [eax]
         mov ecx, 1
-        call sub_5D878
+        call SetCameraSplineTarget
         mov dword [dword_19D1E4], ecx
 .4:
         add esp, byte 4
@@ -6975,13 +7008,13 @@ sub_1AE58:
         mov edx, eax
         xor ecx, ecx
         mov eax, 1
-        call sub_1AE58
+        call SetCameraSpline
         jmp short .6
 .5:
         mov ebx, 4
         mov edx, eax
         xor eax, eax
-        call sub_5DC1C
+        call SnapCamera
 .6:
         add esp, byte 4
         pop edi
@@ -7007,7 +7040,7 @@ SetCameraHeight:
         push byte 0
         push eax
         mov eax, 1
-        call sub_5D6A8
+        call SetCameraTarget
         pop edx
         pop ebx
         ret 8
@@ -7016,7 +7049,7 @@ SetCameraHeight:
         mov edx, 1
         push eax
         xor eax, eax
-        call sub_5D900
+        call UpdateCameraMotion
         pop edx
         pop ebx
         ret 8
@@ -7041,12 +7074,12 @@ SetCameraFocus:
         mov edx, ebx
         xor eax, eax
         push dword [byte esp+010h]
-        call sub_5D6A8
+        call SetCameraTarget
         push byte 0
         mov eax, 2
         mov edx, ebx
         push dword [byte esp+014h]
-        call sub_5D6A8
+        call SetCameraTarget
         pop edx
         pop ebx
         ret 0Ch
@@ -7054,7 +7087,7 @@ SetCameraFocus:
         mov ebx, 4
         mov edx, dword_19D1A0
         xor eax, eax
-        call sub_5DC1C
+        call SnapCamera
         pop edx
         pop ebx
         ret 0Ch
@@ -7070,7 +7103,7 @@ SetCameraFocus:
         push byte 0
         push eax
         mov eax, 6
-        call sub_5D6A8
+        call SetCameraTarget
         pop edx
         pop ebx
         ret 8
@@ -7079,7 +7112,7 @@ SetCameraFocus:
         mov edx, 6
         push eax
         xor eax, eax
-        call sub_5D900
+        call UpdateCameraMotion
         pop edx
         pop ebx
         ret 8
@@ -7106,10 +7139,10 @@ SetCameraPathPoint:
         mov edx, ebx
         mov dword [dword_1B908B], eax
         mov eax, 3
-        call sub_5D7A4
+        call SetCameraPathTarget
         mov eax, 4
         mov edx, ebx
-        call sub_5D7A4
+        call SetCameraPathTarget
         pop edx
         pop ebx
         ret 0Ch
@@ -7118,7 +7151,7 @@ SetCameraPathPoint:
         push eax
         xor eax, eax
         push dword [byte esp+014h]
-        call sub_5DC50
+        call BuildCameraMatrix
         pop edx
         pop ebx
         ret 0Ch
@@ -7164,17 +7197,17 @@ StartCameraPath:
         fstp dword [dword_1B9087]
         mov edx, ecx
         fstp dword [dword_1B908B]
-        call sub_5D7A4
+        call SetCameraPathTarget
         mov eax, 4
         mov edx, ecx
-        call sub_5D7A4
+        call SetCameraPathTarget
         jmp short .4
 .3:
         push byte 4
         push dword [dword_19D344]
         xor eax, eax
         push dword [dword_19D340]
-        call sub_5DC50
+        call BuildCameraMatrix
 .4:
         mov eax, 1
 .5:
@@ -7230,9 +7263,11 @@ StartCameraPath:
         ret 0Ch
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1B1CC                                                       1B1CC  97 PC
+; SetCameraPathPoints                             1B1CC  97 PC, low confidence
+; Fills the control points of the camera path from the current camera and the
+; target view
 ;-----------------------------------------------------------------------------
-sub_1B1CC:
+SetCameraPathPoints:
         push ecx
         push ebp
         mov ebp, esp
@@ -7332,10 +7367,10 @@ sub_1B1CC:
         mov dword [dword_19D388], edx
         mov edx, 190h
         mov ebx, dword [byte esp+028h]
-        call sub_5D6A8
+        call SetCameraTarget
         mov edx, esp
         mov eax, 2
-        call sub_1B1CC
+        call SetCameraPathPoints
         test eax, eax
         je short .5
         mov eax, dword [byte esp+018h]
@@ -7352,9 +7387,10 @@ sub_1B1CC:
         ret 0Ch
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1B340                                                       1B340  97 PC
+; FightCameraStart                                1B340  97 PC, low confidence
+; Moves the camera to the fight view around the two fighting players
 ;-----------------------------------------------------------------------------
-sub_1B340:
+FightCameraStart:
         push ebx
         push ecx
         push esi
@@ -7376,10 +7412,10 @@ sub_1B340:
         mov dword [dword_19D388], edx
         mov edx, 190h
         mov ebx, dword [byte esp+02Ch]
-        call sub_5D6A8
+        call SetCameraTarget
         mov edx, esp
         mov eax, 2
-        call sub_1B1CC
+        call SetCameraPathPoints
         test eax, eax
         je short .1
         mov edi, 3
@@ -7399,9 +7435,11 @@ sub_1B340:
         ret 0Ch
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1B3D8                                                       1B3D8  97 PC
+; ResetSceneCamera                                1B3D8  97 PC, low confidence
+; Ends a camera scene: clears the scene function and puts the camera back on
+; the game view
 ;-----------------------------------------------------------------------------
-sub_1B3D8:
+ResetSceneCamera:
         push edx
         mov edx, 8
         mov eax, unk_19D0A4
@@ -7430,13 +7468,13 @@ SelectCameraView:
         cmp byte [byte_1687B4], 0
         je short .1
         mov eax, unk_19D0A4
-        call sub_1B5B0
+        call DampCameraMotion
 .1:
         test ecx, ecx
         jle near .3
         mov edx, dword [dword_19D0DC]
         xor eax, eax
-        call sub_1B4E4
+        call UpdateGameCamera
         xor ebx, ebx
         fld dword [dword_19D1A0]
         fld dword [dword_19D1A4]
@@ -7459,7 +7497,7 @@ SelectCameraView:
         mov edx, ecx
         mov eax, ebx
         inc ebx
-        call sub_5D7A4
+        call SetCameraPathTarget
         cmp ebx, byte 7
         jge short .4
         jmp short .2
@@ -7468,9 +7506,9 @@ SelectCameraView:
         xor eax, eax
         xor ebx, ebx
         mov dword [dword_19D0DC], edx
-        call sub_1B4E4
+        call UpdateGameCamera
         mov dword [dword_19D0DC], ebx
-        call sub_4DDB0
+        call SetCameraMode
 .4:
         mov edx, unk_19D0A4
         mov eax, unk_1B9038
@@ -7482,9 +7520,11 @@ SelectCameraView:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1B4E4                                                       1B4E4  97 PC
+; UpdateGameCamera                                1B4E4  97 PC, low confidence
+; Per-frame game camera: runs the scene function or follows the target with
+; the chosen camera view
 ;-----------------------------------------------------------------------------
-sub_1B4E4:
+UpdateGameCamera:
         push ebx
         push ecx
         push esi
@@ -7522,16 +7562,16 @@ sub_1B4E4:
         mov edx, dword_19D1A0
         call UpdateCameraZoom
         mov eax, ecx
-        call sub_5DC1C
+        call SnapCamera
         mov eax, unk_19D0A4
         call UpdateCameraTrack
         mov eax, unk_19D0A4
-        call sub_1A690
+        call EaseCameraAngles
         push ebp
         push dword [dword_19D344]
         mov eax, ecx
         push dword [dword_19D340]
-        call sub_5DC50
+        call BuildCameraMatrix
         mov eax, dword [dword_19D0D8]
         test eax, eax
         jbe short .2
@@ -7543,7 +7583,7 @@ sub_1B4E4:
         push ebp
         mov eax, ecx
         push dword [dword_19D36C]
-        call sub_5DCBC
+        call UpdateCameraProjection
         pop ebp
         pop edi
         pop esi
@@ -7551,9 +7591,10 @@ sub_1B4E4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1B5B0                                                       1B5B0  97 PC
+; DampCameraMotion                                1B5B0  97 PC, low confidence
+; Smooths the camera position toward its goal so the view does not jump
 ;-----------------------------------------------------------------------------
-sub_1B5B0:
+DampCameraMotion:
         push edx
         push ebp
         mov ebp, esp
@@ -7613,14 +7654,16 @@ sub_1B5B0:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1B67C                                                       1B67C  97 PC
+; ToggleCameraFollow                              1B67C  97 PC, low confidence
+; Switches the camera between following the puck and following the controlled
+; player
 ;-----------------------------------------------------------------------------
-sub_1B67C:
+ToggleCameraFollow:
         push ebx
         push ecx
         push edx
         mov eax, unk_19D0A4
-        call sub_1B5B0
+        call DampCameraMotion
         cmp dword [dword_19D388], byte 3
         jne short .1
         fld dword [dword_19D19C]
@@ -7634,9 +7677,9 @@ sub_1B67C:
         xor ecx, ecx
         mov edx, ebx
         mov dword [dword_19D0DC], ebx
-        call sub_1B4E4
+        call UpdateGameCamera
         mov dword [dword_19D0DC], ecx
-        call sub_4DDB0
+        call SetCameraMode
         mov ah, byte [byte_1687B4]
         test ah, ah
         sete al
@@ -7647,10 +7690,12 @@ sub_1B67C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1B6E8                                                       1B6E8  97 PC
+; InitCamera                                      1B6E8  97 PC, low confidence
+; Sets the camera to its start view and clears the scene state at the start
+; of a game
 ;-----------------------------------------------------------------------------
-sub_1B6E8:
-        jmp near sub_5DE74
+InitCamera:
+        jmp near InitCameraParams
         db 08Dh,040h,00h
         push edx
         push esi
@@ -7672,9 +7717,10 @@ sub_1B6E8:
         pop edx
         ret 18h
 ;-----------------------------------------------------------------------------
-; sub_1B71C                                                       1B71C  97 PC
+; DrawCameraDebugMarks                            1B71C  97 PC, low confidence
+; Debug: draws markers at the camera target and path points
 ;-----------------------------------------------------------------------------
-sub_1B71C:
+DrawCameraDebugMarks:
         push ebx
         push ecx
         push edx
@@ -7773,16 +7819,17 @@ sub_1B71C:
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         pop edx
         pop ecx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1B85C                                                       1B85C  97 PC
+; RunCameraScene                                  1B85C  97 PC, low confidence
+; Calls the current camera scene step function when one is set
 ;-----------------------------------------------------------------------------
-sub_1B85C:
+RunCameraScene:
         push ebx
         push edx
         mov ebx, eax
@@ -7795,15 +7842,16 @@ sub_1B85C:
 .1:
         mov edx, dword [dword_19D0DC]
         mov eax, ebx
-        call sub_1B4E4
+        call UpdateGameCamera
         pop edx
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1B88C                                                       1B88C  97 PC
+; CameraNoop                                      1B88C  97 PC, low confidence
+; Empty camera scene step
 ;-----------------------------------------------------------------------------
-sub_1B88C:
+CameraNoop:
         xor eax, eax
         LD mov, eax, eax
 ;-----------------------------------------------------------------------------
@@ -7863,9 +7911,10 @@ CanStartCameraScene:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1B90C                                                       1B90C  97 PC
+; SetCameraSceneFunc                              1B90C  97 PC, low confidence
+; Sets the function that drives the camera each frame for the current scene
 ;-----------------------------------------------------------------------------
-sub_1B90C:
+SetCameraSceneFunc:
         push ecx
         push edx
         mov ecx, 1
@@ -7879,9 +7928,11 @@ sub_1B90C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1B930                                                       1B930  97 PC
+; PenaltyCameraDistance                           1B930  97 PC, low confidence
+; Returns how far the camera stays from the penalized player in the penalty
+; scene
 ;-----------------------------------------------------------------------------
-sub_1B930:
+PenaltyCameraDistance:
         push eax
         push edx
         push esi
@@ -7939,14 +7990,15 @@ sub_1B930:
         ret
         db 08Dh,040h,00h
 jpt_1B9C4:
-        dd sub_1B9D4_1C
-        dd sub_1B9D4_73
-        dd sub_1B9D4_C6
-        dd sub_1B9D4_108
+        dd PenaltySceneStep_1C
+        dd PenaltySceneStep_73
+        dd PenaltySceneStep_C6
+        dd PenaltySceneStep_108
 ;-----------------------------------------------------------------------------
-; sub_1B9D4                                                       1B9D4  97 PC
+; PenaltySceneStep                                1B9D4  97 PC, low confidence
+; Camera step of the penalty scene: follows the penalized player to the box
 ;-----------------------------------------------------------------------------
-sub_1B9D4:
+PenaltySceneStep:
         push ebx
         push ecx
         push edx
@@ -7955,14 +8007,14 @@ sub_1B9D4:
         push ebp
         mov eax, dword [dword_19D088]
         cmp eax, byte 3
-        ja near sub_1B9D4_108.1
+        ja near PenaltySceneStep_108.1
         jmp dword [nosplit cs:eax*4+jpt_1B9C4]
-sub_1B9D4_1C:
-        call sub_1B930
+PenaltySceneStep_1C:
+        call PenaltyCameraDistance
         fcomp dword [dword_160467]
         fnstsw ax
         sahf
-        ja near sub_1B9D4_108.1
+        ja near PenaltySceneStep_108.1
         push byte 0
         mov esi, 43C80000h
         push dword 43C80000h
@@ -7971,7 +8023,7 @@ sub_1B9D4_1C:
         mov eax, 1
         mov dword [dword_19D0CC], ecx
         mov dword [dword_19D1A4], esi
-        call sub_5D6A8
+        call SetCameraTarget
         mov ebp, dword [dword_19D088]
         inc ebp
         mov dword [dword_19D08C], ecx
@@ -7983,9 +8035,9 @@ sub_1B9D4_1C:
         pop ecx
         pop ebx
         ret
-sub_1B9D4_73:
+PenaltySceneStep_73:
         cmp dword [dword_19D08C], 0C8h
-        jl near sub_1B9D4_108.1
+        jl near PenaltySceneStep_108.1
         mov edx, dword [dword_19D07C]
         lea eax, [nosplit edx*4+00h]
         push dword 190h
@@ -8005,9 +8057,9 @@ sub_1B9D4_73:
         pop ecx
         pop ebx
         ret
-sub_1B9D4_C6:
+PenaltySceneStep_C6:
         cmp dword [dword_19D08C], 190h
-        jl short sub_1B9D4_108.1
+        jl short PenaltySceneStep_108.1
         mov edx, 8
         mov eax, unk_19D0A4
         mov esi, 8
@@ -8025,17 +8077,17 @@ sub_1B9D4_C6:
         pop ecx
         pop ebx
         ret
-sub_1B9D4_108:
+PenaltySceneStep_108:
         cmp dword [dword_19D08C], 190h
         jl short .1
-        mov eax, sub_1C4F4
+        mov eax, FaceoffSweepStep
         mov ebx, 0BF490FDBh
-        call sub_1B90C
+        call SetCameraSceneFunc
         xor edx, edx
         mov eax, 0FFFFFFFFh
         mov dword [dword_19D058], ebx
         mov ebx, 32h
-        call sub_3E5F0
+        call FadeGamePalette
 .1:
         pop ebp
         pop edi
@@ -8048,7 +8100,7 @@ sub_1B9D4_108:
 ;-----------------------------------------------------------------------------
 ; PenaltyCameraScene                              1BB18  97 PC, low confidence
 ; From asspenalty: scripted camera scene, priority 6 (SetCameraView 8,
-; StartCameraPath, sub_1B9D4 per frame)
+; StartCameraPath, PenaltySceneStep per frame)
 ;-----------------------------------------------------------------------------
 PenaltyCameraScene:
         push ebx
@@ -8060,7 +8112,7 @@ PenaltyCameraScene:
         call CanStartCameraScene
         test eax, eax
         je short .1
-        mov esi, sub_1B9D4
+        mov esi, PenaltySceneStep
         mov edi, 1
         mov eax, unk_19D0A4
         mov ebp, 8
@@ -8087,9 +8139,10 @@ PenaltyCameraScene:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1BB94                                                       1BB94  97 PC
+; IntermissionSceneStep                           1BB94  97 PC, low confidence
+; Camera step of the intermission scene: slow move over the rink
 ;-----------------------------------------------------------------------------
-sub_1BB94:
+IntermissionSceneStep:
         push ebx
         push ecx
         push edx
@@ -8108,7 +8161,7 @@ sub_1BB94:
         mov ebx, unk_1689AC
         mov edx, unk_16897C
         mov eax, 4
-        call sub_1AE58
+        call SetCameraSpline
         mov edi, dword [dword_19D088]
         xor esi, esi
         inc edi
@@ -8122,7 +8175,7 @@ sub_1BB94:
         mov edx, unk_16897C
         mov ecx, eax
         mov eax, 4
-        call sub_1AE58
+        call SetCameraSpline
         xor ebx, ebx
         mov dword [dword_19D08C], ebx
 .3:
@@ -8134,9 +8187,10 @@ sub_1BB94:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1BC18                                                       1BC18  97 PC
+; IntermissionCameraScene                         1BC18  97 PC, low confidence
+; Starts the intermission camera scene
 ;-----------------------------------------------------------------------------
-sub_1BC18:
+IntermissionCameraScene:
         push ebx
         push ecx
         push edx
@@ -8146,7 +8200,7 @@ sub_1BC18:
         sub esp, byte 4
         mov edx, 8
         mov eax, unk_19D0A4
-        mov esi, sub_1BB94
+        mov esi, IntermissionSceneStep
         mov edi, 1
         mov ebp, 4B0h
         call SetCameraView
@@ -8171,7 +8225,7 @@ sub_1BC18:
         movsd
         movsd
         movsd
-        call sub_1AE58
+        call SetCameraSpline
         add esp, byte 4
         pop ebp
         pop edi
@@ -8182,9 +8236,10 @@ sub_1BC18:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1BCA8                                                       1BCA8  97 PC
+; EndOpeningCamera                                1BCA8  97 PC, low confidence
+; Ends the opening camera move and hands the camera to the game view
 ;-----------------------------------------------------------------------------
-sub_1BCA8:
+EndOpeningCamera:
         push ebx
         push ecx
         push edx
@@ -8205,9 +8260,11 @@ sub_1BCA8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1BCDC                                                       1BCDC  97 PC
+; OpeningCameraStep                               1BCDC  97 PC, low confidence
+; Camera step of the opening scene: the fly-in over the arena before the
+; first faceoff
 ;-----------------------------------------------------------------------------
-sub_1BCDC:
+OpeningCameraStep:
         push ebx
         push ecx
         push edx
@@ -8343,7 +8400,7 @@ sub_1BCDC:
         movsd
         movsd
         movsd
-        call sub_5DC1C
+        call SnapCamera
         push ecx
         push dword [byte esp+010h]
         push dword [byte esp+018h]
@@ -8355,7 +8412,7 @@ sub_1BCDC:
         mov dword [dword_19D36C], eax
         xor eax, eax
         mov dword [dword_19D0D8], ecx
-        call sub_5D900
+        call UpdateCameraMotion
 .7:
         mov esp, ebp
         pop ebp
@@ -8386,12 +8443,12 @@ LoadOpeningCamera:
         mov dword [dword_19D388], edx
         call sub_55000
         push byte 1
-        push asc_16049C
+        push str_IntroD3cp
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
         add esp, byte 0Ch
-        mov eax, asc_1604A8
+        mov eax, str_ArenaViv
         call SetArtArchive
         push byte 20h
         lea eax, [byte esp+04h]
@@ -8403,7 +8460,7 @@ LoadOpeningCamera:
         mov ebx, 1
         call SetArtArchive
         mov edx, dword [dword_19D06C]
-        mov edi, sub_1BCDC
+        mov edi, OpeningCameraStep
         lea eax, [byte edx+04h]
         mov ebp, ebx
         mov dword [dword_19D078], eax
@@ -8424,7 +8481,7 @@ LoadOpeningCamera:
         movsd
         movsd
         movsd
-        call sub_5DC1C
+        call SnapCamera
         mov edx, dword [dword_19D078]
         push ecx
         push dword [byte edx+010h]
@@ -8439,7 +8496,7 @@ LoadOpeningCamera:
         mov dword [dword_19D36C], eax
         xor eax, eax
         mov dword [dword_19D0D8], ecx
-        call sub_5D900
+        call UpdateCameraMotion
         mov dword [dword_16AF5C], ebx
         call sub_F2AA0
         mov dword [dword_168628], ebx
@@ -8453,9 +8510,10 @@ LoadOpeningCamera:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1BFC0                                                       1BFC0  97 PC
+; FightSceneStep                                  1BFC0  97 PC, low confidence
+; Camera step of the fight scene: circles the fighters
 ;-----------------------------------------------------------------------------
-sub_1BFC0:
+FightSceneStep:
         push ebx
         push ecx
         push edx
@@ -8497,7 +8555,7 @@ sub_1BFC0:
         mov eax, 1
         mov dword [dword_19D0CC], esi
         mov dword [dword_19D1A4], edi
-        call sub_5D6A8
+        call SetCameraTarget
         pop ebp
         pop edi
         pop esi
@@ -8543,7 +8601,7 @@ sub_1BFC0:
         mov eax, 1
         mov dword [dword_19D0CC], ebx
         mov dword [dword_19D1A4], ecx
-        call sub_5D6A8
+        call SetCameraTarget
 .4:
         pop ebp
         pop edi
@@ -8556,7 +8614,7 @@ sub_1BFC0:
 ;-----------------------------------------------------------------------------
 ; FightCameraScene                                1C108  97 PC, low confidence
 ; From StartFight: scripted camera scene, priority 2 (follows the two
-; fighters, sub_1BFC0 per frame)
+; fighters, FightSceneStep per frame)
 ;-----------------------------------------------------------------------------
 FightCameraScene:
         push ebx
@@ -8571,7 +8629,7 @@ FightCameraScene:
         je near .6
         mov edx, 8
         mov eax, unk_19D0A4
-        mov ebp, sub_1BFC0
+        mov ebp, FightSceneStep
         call SetCameraView
         add ecx, byte 4
         add ebx, byte 4
@@ -8612,7 +8670,7 @@ FightCameraScene:
 .5:
         mov eax, dword [dword_19D020]
         push dword 447A0000h
-        call sub_1B340
+        call FightCameraStart
         push byte 0
         mov esi, 43960000h
         push dword 43960000h
@@ -8621,7 +8679,7 @@ FightCameraScene:
         mov eax, 1
         mov dword [dword_19D0CC], ecx
         mov dword [dword_19D1A4], esi
-        call sub_5D6A8
+        call SetCameraTarget
 .6:
         pop ebp
         pop esi
@@ -8630,16 +8688,18 @@ FightCameraScene:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1C210                                                       1C210  97 PC
+; SetFightCameraReady                             1C210  97 PC, low confidence
+; Marks the fight camera as in place
 ;-----------------------------------------------------------------------------
-sub_1C210:
+SetFightCameraReady:
         mov word [word_1689BE], 1
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1C21C                                                       1C21C  97 PC
+; SceneReturnToView                               1C21C  97 PC, low confidence
+; Moves the camera from a scene back to the normal game view
 ;-----------------------------------------------------------------------------
-sub_1C21C:
+SceneReturnToView:
         push ebx
         push edx
         cmp dword [dword_19D08C], byte 64h
@@ -8650,7 +8710,7 @@ sub_1C21C:
         call SelectCameraView
         mov edx, 10000h
         mov eax, 0FFFFFFFFh
-        call sub_3E5F0
+        call FadeGamePalette
         xor ebx, ebx
         mov dword [dword_19D384], ebx
 .1:
@@ -8667,11 +8727,11 @@ sub_1C21C:
         mov eax, 0FFFFFFFFh
         xor edx, edx
         mov esi, 1
-        call sub_3E5F0
+        call FadeGamePalette
         mov dword [dword_19D068], ecx
         mov dword [dword_19D384], esi
         xor edx, edx
-        mov ecx, sub_1C21C
+        mov ecx, SceneReturnToView
         mov dword [dword_19D08C], edx
         mov dword [dword_19D088], edx
         mov dword [dword_19D084], ecx
@@ -8709,9 +8769,10 @@ FaceoffCameraScene:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1C2EC                                                       1C2EC  97 PC
+; FaceoffSceneStep                                1C2EC  97 PC, low confidence
+; Camera step of the faceoff scene
 ;-----------------------------------------------------------------------------
-sub_1C2EC:
+FaceoffSceneStep:
         push ebx
         push ecx
         push edx
@@ -8736,7 +8797,7 @@ sub_1C2EC:
         mov dword [dword_19D1A4], eax
         mov eax, 1
         mov dword [dword_19D0CC], ebp
-        call sub_5D6A8
+        call SetCameraTarget
         mov dword [dword_19D384], ebp
 .1:
         pop ebp
@@ -8748,9 +8809,10 @@ sub_1C2EC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1C360                                                       1C360  97 PC
+; FaceoffCloseupScene                             1C360  97 PC, low confidence
+; Starts the close-up camera on the faceoff circle
 ;-----------------------------------------------------------------------------
-sub_1C360:
+FaceoffCloseupScene:
         push ebx
         push ecx
         push edx
@@ -8760,7 +8822,7 @@ sub_1C360:
         sub esp, byte 2Ch
         lea edi, [byte esp+024h]
         mov esi, unk_19178
-        mov ecx, sub_1C2EC
+        mov ecx, FaceoffSceneStep
         mov eax, 9
         movsd
         movsd
@@ -8861,7 +8923,7 @@ sub_1C360:
         mov edx, esp
         mov eax, 2
         xor ecx, ecx
-        call sub_1AE58
+        call SetCameraSpline
         mov eax, esi
         mov edi, dword_19D374
         call GetCameraTarget
@@ -8882,9 +8944,10 @@ sub_1C360:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1C4F4                                                       1C4F4  97 PC
+; FaceoffSweepStep                                1C4F4  97 PC, low confidence
+; Camera step of the sweep down to the faceoff circle
 ;-----------------------------------------------------------------------------
-sub_1C4F4:
+FaceoffSweepStep:
         push ebx
         push ecx
         push edx
@@ -8936,7 +8999,7 @@ sub_1C4F4:
         mov dword [dword_19D1A4], eax
         xor eax, eax
         mov dword [dword_19D0CC], ebp
-        call sub_5D900
+        call UpdateCameraMotion
         mov dword [dword_19D0CC], esi
         lea esi, [byte esp+0Ch]
         mov dword [byte esp+08h], ebx
@@ -8951,7 +9014,7 @@ sub_1C4F4:
         movsd
         movsd
         movsd
-        call sub_3E5F0
+        call FadeGamePalette
         mov ecx, dword [dword_19D088]
         inc ecx
         mov dword [dword_19D08C], ebp
@@ -8975,7 +9038,7 @@ sub_1C4F4:
         mov dword [dword_19D1A4], eax
         mov eax, 1
         mov dword [dword_19D0CC], ebp
-        call sub_5D6A8
+        call SetCameraTarget
         mov ebx, dword [dword_19D088]
         inc ebx
         mov dword [dword_19D08C], ebp
@@ -9003,7 +9066,7 @@ sub_1C4F4:
         mov eax, 1
         mov dword [dword_19D0CC], ebx
         mov dword [dword_19D1A4], ecx
-        call sub_5D6A8
+        call SetCameraTarget
         mov dword [dword_19D384], ebx
 .4:
         add esp, byte 18h
@@ -9020,7 +9083,7 @@ sub_1C4F4:
         push edx
         push esi
         push edi
-        mov ecx, sub_1C4F4
+        mov ecx, FaceoffSweepStep
         mov esi, 1
         mov edi, 0BF490FDBh
         mov ebx, 32h
@@ -9031,7 +9094,7 @@ sub_1C4F4:
         mov dword [dword_19D084], ecx
         mov dword [dword_19D384], esi
         mov dword [dword_19D058], edi
-        call sub_3E5F0
+        call FadeGamePalette
         pop edi
         pop esi
         pop edx
@@ -9040,9 +9103,10 @@ sub_1C4F4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1C70C                                                       1C70C  97 PC
+; FaceoffSweepScene                               1C70C  97 PC, low confidence
+; Starts the camera sweep down to the faceoff circle
 ;-----------------------------------------------------------------------------
-sub_1C70C:
+FaceoffSweepScene:
         push ebx
         push ecx
         push edx
@@ -9085,12 +9149,12 @@ sub_1C70C:
         mov eax, 2
         mov dword [byte esp+020h], ecx
         mov dword [byte esp+024h], esi
-        call sub_1B1CC
+        call SetCameraPathPoints
         lea ebx, [byte esp+018h]
         mov edx, esp
         mov eax, 2
         xor ecx, ecx
-        call sub_1AE58
+        call SetCameraSpline
         add esp, byte 28h
         pop ebp
         pop edi
@@ -9133,20 +9197,20 @@ FaceoffCameraScene2:
         je short .2
         jmp short .4
 .1:
-        call sub_1C360
+        call FaceoffCloseupScene
         jmp short .4
 .2:
-        mov eax, sub_1C4F4
+        mov eax, FaceoffSweepStep
         mov ecx, 0BF490FDBh
         mov ebx, 32h
-        call sub_1B90C
+        call SetCameraSceneFunc
         xor edx, edx
         mov eax, 0FFFFFFFFh
         mov dword [dword_19D058], ecx
-        call sub_3E5F0
+        call FadeGamePalette
         jmp short .4
 .3:
-        call sub_1C70C
+        call FaceoffSweepScene
 .4:
         mov dword [dword_168628], 1
 .5:
@@ -9156,9 +9220,10 @@ FaceoffCameraScene2:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1C854                                                       1C854  97 PC
+; MenuCameraScene                                 1C854  97 PC, low confidence
+; Starts the camera scene shown behind the in-game menus
 ;-----------------------------------------------------------------------------
-sub_1C854:
+MenuCameraScene:
         push ebx
         push ecx
         push edx
@@ -9179,7 +9244,7 @@ sub_1C854:
         mov dword [dword_19D388], edx
         mov edx, 6
         mov dword [dword_19D36C], ecx
-        call sub_5D900
+        call UpdateCameraMotion
         mov edx, unk_19D04C
         mov dword [dword_19D0C8], ebx
         xor eax, eax
@@ -9187,7 +9252,7 @@ sub_1C854:
         movsd
         movsd
         movsd
-        call sub_5DC1C
+        call SnapCamera
         mov edi, dword_19D374
         mov esi, unk_19D05C
         mov eax, 12h
@@ -9203,9 +9268,10 @@ sub_1C854:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1C8DC                                                       1C8DC  97 PC
+; MenuOrbitStep                                   1C8DC  97 PC, low confidence
+; Camera step of the slow orbit behind the in-game menus
 ;-----------------------------------------------------------------------------
-sub_1C8DC:
+MenuOrbitStep:
         push ebx
         push ecx
         push edx
@@ -9288,13 +9354,13 @@ sub_1C8DC:
         mov edx, esp
         mov eax, 1
         xor ecx, ecx
-        call sub_1AE58
+        call SetCameraSpline
         jmp short .6
 .5:
         mov ebx, 4
         mov edx, esp
         xor eax, eax
-        call sub_5DC1C
+        call SnapCamera
 .6:
         add esp, byte 10h
         pop ebp
@@ -9306,9 +9372,10 @@ sub_1C8DC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1C9F0                                                       1C9F0  97 PC
+; MenuOrbitScene                                  1C9F0  97 PC, low confidence
+; Starts the slow orbit behind the in-game menus
 ;-----------------------------------------------------------------------------
-sub_1C9F0:
+MenuOrbitScene:
         push ebx
         push ecx
         push edx
@@ -9325,10 +9392,10 @@ sub_1C9F0:
         mov dword [dword_19D0D8], edx
         mov edx, 6
         mov dword [dword_19D36C], ecx
-        call sub_5D900
+        call UpdateCameraMotion
         test ebx, ebx
         je near .1
-        mov edi, sub_1C8DC
+        mov edi, MenuOrbitStep
         mov ebp, 1
         mov edx, 8
         mov eax, unk_19D0A4
@@ -9397,7 +9464,7 @@ sub_1C9F0:
         movsd
         movsd
         movsd
-        call sub_5DC1C
+        call SnapCamera
         mov eax, 11h
         mov edi, dword_19D374
         call GetCameraTarget
@@ -9438,9 +9505,10 @@ sub_1C9F0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1CB9C                                                       1CB9C  97 PC
+; PenShotSceneStep                                1CB9C  97 PC, low confidence
+; Camera step of the penalty shot scene: follows the shooter in on the goalie
 ;-----------------------------------------------------------------------------
-sub_1CB9C:
+PenShotSceneStep:
         push ebx
         push ecx
         push edx
@@ -9454,7 +9522,7 @@ sub_1CB9C:
         mov eax, 1
         mov dword [dword_19D0CC], ebx
         mov dword [dword_19D1A4], ecx
-        call sub_5D6A8
+        call SetCameraTarget
 .1:
         pop edx
         pop ecx
@@ -9476,7 +9544,7 @@ PenaltyShotCameraScene:
         call CanStartCameraScene
         test eax, eax
         je near .2
-        mov edi, sub_1CB9C
+        mov edi, PenShotSceneStep
         mov ebp, 1
         mov eax, dword [penshottimer]
         mov dword [dword_19D040], ebx
@@ -9491,14 +9559,14 @@ PenaltyShotCameraScene:
         mov dword [byte esp+04h], edx
         mov dword [dword_19D044], eax
         mov dword [esp], ebx
-        call sub_1B3D8
+        call ResetSceneCamera
         push dword 190h
         lea edx, [byte esp+04h]
         push dword 442F0000h
         mov ebx, 258h
         call SetCameraHeight
         mov eax, 2
-        call sub_1B1CC
+        call SetCameraPathPoints
         test eax, eax
         je short .1
         mov edx, 3FA00000h
@@ -9516,7 +9584,7 @@ PenaltyShotCameraScene:
         mov edi, 1
         mov dword [dword_19D0CC], ecx
         mov dword [dword_19D1A4], esi
-        call sub_5D6A8
+        call SetCameraTarget
         mov dword [dword_168628], edi
 .2:
         add esp, byte 8
@@ -9528,9 +9596,10 @@ PenaltyShotCameraScene:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1CCBC                                                       1CCBC  97 PC
+; EndPenShotScene                                 1CCBC  97 PC, low confidence
+; Ends the penalty shot camera scene
 ;-----------------------------------------------------------------------------
-sub_1CCBC:
+EndPenShotScene:
         push ebx
         push edx
         mov eax, dword [dword_19D040]
@@ -9542,7 +9611,7 @@ sub_1CCBC:
         mov edx, dword_19D020
         mov dword [dword_19D024], eax
         mov eax, 2
-        call sub_1B1CC
+        call SetCameraPathPoints
         xor edx, edx
         mov dword [dword_19D384], edx
         pop edx
@@ -9550,9 +9619,10 @@ sub_1CCBC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1CCF8                                                       1CCF8  97 PC
+; GoalSceneStep                                   1CCF8  97 PC, low confidence
+; Camera step of the goal scene: follows the scorer's celebration
 ;-----------------------------------------------------------------------------
-sub_1CCF8:
+GoalSceneStep:
         push ebx
         push ecx
         push edx
@@ -9581,7 +9651,7 @@ sub_1CCF8:
         mov edi, unk_19D31C
         mov dword [dword_19D0CC], ebx
         mov dword [dword_19D1A4], ecx
-        call sub_5D6A8
+        call SetCameraTarget
         mov dword [dword_19D0CC], esi
         lea esi, [byte esp+0Ch]
         movsd
@@ -9605,7 +9675,7 @@ sub_1CCF8:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; GoalCameraScene                                 1CD80  97 PC, low confidence
-; From Goal: scripted camera scene, priority 5 (sub_1CCF8 per frame)
+; From Goal: scripted camera scene, priority 5 (GoalSceneStep per frame)
 ;-----------------------------------------------------------------------------
 GoalCameraScene:
         push ebx
@@ -9629,7 +9699,7 @@ GoalCameraScene:
         call CanStartCameraScene
         test eax, eax
         je near .3
-        mov edi, sub_1CCF8
+        mov edi, GoalSceneStep
         mov ebp, 1
         mov ah, 1
         xor ecx, ecx
@@ -9658,14 +9728,14 @@ GoalCameraScene:
         mov dword [byte esp+018h], ecx
         mov dword [byte esp+01Ch], ebx
         mov dword [dword_19D388], eax
-        call sub_1B3D8
+        call ResetSceneCamera
         push dword 190h
         lea edx, [byte esp+01Ch]
         push dword 442F0000h
         mov ebx, 12Ch
         call SetCameraHeight
         mov eax, 2
-        call sub_1B1CC
+        call SetCameraPathPoints
         test eax, eax
         je short .2
         mov ebx, 3F99999Ah
@@ -9697,9 +9767,10 @@ GoalCameraScene:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1CE98                                                       1CE98  97 PC
+; FaceoffDropSceneStep                            1CE98  97 PC, low confidence
+; Camera step while the referee drops the puck
 ;-----------------------------------------------------------------------------
-sub_1CE98:
+FaceoffDropSceneStep:
         push ebx
         push edx
         push edi
@@ -9768,7 +9839,7 @@ sub_1CE98:
         mov dword [dword_19D0D8], edi
         mov dword [dword_19D36C], ebp
 .4:
-        call sub_5D900
+        call UpdateCameraMotion
         mov edx, 8
         mov eax, unk_19D0A4
         mov ebx, 8
@@ -9777,7 +9848,7 @@ sub_1CE98:
         mov eax, 0FFFFFFFFh
         mov dword [dword_19D388], ebx
         mov ebx, 64h
-        call sub_3E5F0
+        call FadeGamePalette
         inc dword [dword_19D088]
         pop ebp
         pop edi
@@ -9809,7 +9880,7 @@ sub_1CE98:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; FaceoffDropCameraScene                          1D008  97 PC, low confidence
-; From puckfaceoff2: scripted camera scene, priority 1 (sub_1CE98 per frame)
+; From puckfaceoff2: scripted camera scene, priority 1 (FaceoffDropSceneStep per frame)
 ;-----------------------------------------------------------------------------
 FaceoffDropCameraScene:
         push ebx
@@ -9836,9 +9907,9 @@ FaceoffDropCameraScene:
         mov ebx, 32h
         mov eax, 0FFFFFFFFh
         xor edx, edx
-        call sub_3E5F0
+        call FadeGamePalette
 .2:
-        mov esi, sub_1CE98
+        mov esi, FaceoffDropSceneStep
         xor bh, bh
         mov edi, 1
         mov byte [byte_16892F], bh
@@ -9855,9 +9926,10 @@ FaceoffDropCameraScene:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1D09C                                                       1D09C  97 PC
+; RestoreGameCamera                               1D09C  97 PC, low confidence
+; Restores the camera view saved before a scene
 ;-----------------------------------------------------------------------------
-sub_1D09C:
+RestoreGameCamera:
         push edx
         mov eax, 1
         xor edx, edx
@@ -9870,9 +9942,10 @@ sub_1D09C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1D0BC                                                       1D0BC  97 PC
+; PenaltyCallSceneStep                            1D0BC  97 PC, low confidence
+; Camera step while the referee signals a penalty
 ;-----------------------------------------------------------------------------
-sub_1D0BC:
+PenaltyCallSceneStep:
         push ebx
         push ecx
         push edx
@@ -9911,7 +9984,7 @@ sub_1D0BC:
         movsd
         movsd
         movsd
-        call sub_1AE58
+        call SetCameraSpline
         push byte 0
         mov edi, 43FA0000h
         push dword 43FA0000h
@@ -9920,7 +9993,7 @@ sub_1D0BC:
         mov eax, 1
         mov dword [dword_19D0CC], esi
         mov dword [dword_19D1A4], edi
-        call sub_5D6A8
+        call SetCameraTarget
         mov dword [dword_19D384], esi
 .3:
         add esp, byte 10h
@@ -9932,9 +10005,10 @@ sub_1D0BC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1D16C                                                       1D16C  97 PC
+; PenaltyCallCameraScene                          1D16C  97 PC, low confidence
+; Starts the camera scene of a penalty call
 ;-----------------------------------------------------------------------------
-sub_1D16C:
+PenaltyCallCameraScene:
         push ebx
         push edx
         push esi
@@ -9945,7 +10019,7 @@ sub_1D16C:
         call CanStartCameraScene
         test eax, eax
         je short .1
-        mov esi, sub_1D0BC
+        mov esi, PenaltyCallSceneStep
         mov edi, 1
         mov eax, unk_19D0A4
         xor edx, edx
@@ -9969,15 +10043,17 @@ sub_1D16C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1D1D4                                                       1D1D4  97 PC
+; SetFaceoffEndFlag                               1D1D4  97 PC, low confidence
+; Sets the flag that ends the faceoff camera scene
 ;-----------------------------------------------------------------------------
-sub_1D1D4:
+SetFaceoffEndFlag:
         mov byte [byte_16892E], 1
         ret
 ;-----------------------------------------------------------------------------
-; sub_1D1DC                                                       1D1DC  97 PC
+; ReplayCameraOn                                  1D1DC  97 PC, low confidence
+; Hands the camera to the instant replay controls
 ;-----------------------------------------------------------------------------
-sub_1D1DC:
+ReplayCameraOn:
         push edx
         mov ah, 1
         xor edx, edx
@@ -9992,9 +10068,10 @@ sub_1D1DC:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1D208                                                       1D208  97 PC
+; ReplayCameraOff                                 1D208  97 PC, low confidence
+; Gives the camera back to the game after the instant replay
 ;-----------------------------------------------------------------------------
-sub_1D208:
+ReplayCameraOff:
         push edx
         xor ah, ah
         xor edx, edx
@@ -10085,11 +10162,11 @@ DrawCameraDebug:
         lea eax, [byte esp+028h]
         mov dword [byte esp+02Ch], ebx
         lea ebx, [byte esp+034h]
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+040h]
         mov edx, unk_1B92AB
         lea eax, [byte esp+034h]
-        call sub_FF444
+        call VecMulMat
         cmp dword [byte esp+048h], 42C80000h
         jl near .4
         cmp dword [dword_19D380], byte 12h
@@ -10109,12 +10186,12 @@ DrawCameraDebug:
         push dword 40800000h
         push eax
         push byte 0
-        call sub_77838
+        call DrawCameraPath
         cmp dword [dword_19D38C], byte 0
         je near .4
         lea edx, [byte esp+04Ch]
         lea eax, [byte esp+040h]
-        call sub_FFE8C
+        call ProjectPointInt
         fld dword [byte esp+030h]
         fld dword [byte esp+02Ch]
         fld dword [byte esp+028h]
@@ -10133,7 +10210,7 @@ DrawCameraDebug:
         fistp dword [byte esp+060h]
         mov ebx, dword [byte esp+060h]
         push ebx
-        push asc_1604E4
+        push str_DDD
         lea eax, [byte esp+010h]
         push eax
         call sprintf_
@@ -10149,7 +10226,7 @@ DrawCameraDebug:
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         mov ecx, dword [byte esp+050h]
         add ecx, byte 2
@@ -10159,7 +10236,7 @@ DrawCameraDebug:
         lea eax, [byte esp+08h]
         push eax
         mov dword [byte esp+05Ch], ecx
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         push dword 0FF000000h
         mov ebp, dword [byte esp+050h]
@@ -10175,7 +10252,7 @@ DrawCameraDebug:
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         mov edx, dword [byte esp+050h]
         push edx
@@ -10183,7 +10260,7 @@ DrawCameraDebug:
         push ebx
         lea eax, [byte esp+08h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .4:
         add esp, byte 5Ch
@@ -10222,9 +10299,10 @@ DrawCameraDebug:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1D480                                                       1D480  97 PC
+; ReplayCamFollowMode                             1D480  97 PC, low confidence
+; Replay camera: follow mode, keeps the target in view
 ;-----------------------------------------------------------------------------
-sub_1D480:
+ReplayCamFollowMode:
         push ebx
         push ecx
         push edx
@@ -10264,9 +10342,11 @@ sub_1D480:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1D4FC                                                       1D4FC  97 PC
+; ReplayCamDrag                                   1D4FC  97 PC, low confidence
+; Replay camera: moves the camera with the mouse or pad while a button is
+; held
 ;-----------------------------------------------------------------------------
-sub_1D4FC:
+ReplayCamDrag:
         push ebx
         push ecx
         push esi
@@ -10511,9 +10591,10 @@ sub_1D4FC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1D828                                                       1D828  97 PC
+; ReplayCamRestorePath                            1D828  97 PC, low confidence
+; Replay camera: puts the saved camera path back
 ;-----------------------------------------------------------------------------
-sub_1D828:
+ReplayCamRestorePath:
         push ebx
         push edx
         xor edx, edx
@@ -10531,9 +10612,10 @@ sub_1D828:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1D858                                                       1D858  97 PC
+; ReplayCamOrbitMode                              1D858  97 PC, low confidence
+; Replay camera: starts orbit mode around the target
 ;-----------------------------------------------------------------------------
-sub_1D858:
+ReplayCamOrbitMode:
         push ebx
         push edx
         push esi
@@ -10565,8 +10647,8 @@ sub_1D858:
         mov ebx, esp
         mov edx, eax
         mov eax, dword_1B905F
-        call sub_FF600
-        call sub_FF7DC
+        call VecSub
+        call VecLength
         fstp dword [dword_19D1B8]
         jmp short .3
 .2:
@@ -10593,9 +10675,10 @@ sub_1D858:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1D914                                                       1D914  97 PC
+; ReplayCamOrbit                                  1D914  97 PC, low confidence
+; Replay camera: orbits and zooms around the target from the input
 ;-----------------------------------------------------------------------------
-sub_1D914:
+ReplayCamOrbit:
         push ebx
         push ecx
         push esi
@@ -10604,7 +10687,7 @@ sub_1D914:
         mov ebx, edx
         mov edx, dword_19D188
         mov eax, dword_19D194
-        call sub_FF798
+        call VecDistance
         fld dword [dword_19D198]
         fsub dword [dword_19D18C]
         fdiv st1
@@ -10757,26 +10840,26 @@ sub_1D914:
         mov dword [byte esp+034h], eax
         mov eax, unk_1B92AB
         mov dword [byte esp+038h], esi
-        call sub_FF320
+        call MatTranspose
         mov edx, esp
         lea eax, [byte esp+030h]
-        call sub_FF444
+        call VecMulMat
         lea ebx, [byte esp+030h]
         lea edx, [byte esp+024h]
         mov eax, dword_1B905F
-        call sub_FF5E0
+        call VecAdd
         lea ebx, [byte esp+030h]
         mov edx, dword_19D188
         lea eax, [byte esp+030h]
-        call sub_FF600
+        call VecSub
         lea eax, [byte esp+030h]
         push eax
         mov ebx, dword_19D1A0
         push dword [dword_19D1B8]
         lea edx, [byte esp+038h]
-        call sub_FF818
+        call VecNormalizeTo
         mov eax, dword_19D188
-        call sub_FF5E0
+        call VecAdd
         mov eax, dword [dword_19D380]
         xor edx, edx
         call StartCameraPath
@@ -10787,9 +10870,10 @@ sub_1D914:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1DB8C                                                       1DB8C  97 PC
+; ReplayCamStop                                   1DB8C  97 PC, low confidence
+; Replay camera: stops the current camera move
 ;-----------------------------------------------------------------------------
-sub_1DB8C:
+ReplayCamStop:
         push edx
         xor edx, edx
         mov dword [dword_19D094], edx
@@ -10798,9 +10882,10 @@ sub_1DB8C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1DBA0                                                       1DBA0  97 PC
+; ReplayCamFreeMode                               1DBA0  97 PC, low confidence
+; Replay camera: starts free mode
 ;-----------------------------------------------------------------------------
-sub_1DBA0:
+ReplayCamFreeMode:
         push ebx
         push edx
         sub esp, byte 0Ch
@@ -10815,20 +10900,21 @@ sub_1DBA0:
         mov dword [dword_19D0D4], edx
         mov dword [dword_19D0C8], edx
         mov edx, dword_1B905F
-        call sub_FF600
+        call VecSub
         mov ebx, unk_19D028
         mov edx, unk_1B92AB
         mov eax, esp
-        call sub_FF444
+        call VecMulMat
         add esp, byte 0Ch
         pop edx
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1DBF0                                                       1DBF0  97 PC
+; ReplayCamTurn                                   1DBF0  97 PC, low confidence
+; Replay camera: turns the free camera from the input
 ;-----------------------------------------------------------------------------
-sub_1DBF0:
+ReplayCamTurn:
         push ebx
         push ebp
         mov ebp, esp
@@ -10864,7 +10950,7 @@ sub_1DBF0:
         fstp dword [esp]
         lea eax, [byte esp+04h]
         xor ebx, ebx
-        call sub_FF1FC
+        call MatRotY
         mov dword [byte esp+034h], ebx
         mov dword [byte esp+030h], ebx
         mov ebx, edx
@@ -10878,34 +10964,35 @@ sub_1DBF0:
         fild dword [byte esp+044h]
         lea eax, [byte esp+030h]
         fstp dword [byte esp+038h]
-        call sub_FF444
+        call VecMulMat
         mov ebx, dword_19D1A0
         lea edx, [byte esp+024h]
         mov eax, ebx
-        call sub_FF5E0
+        call VecAdd
         mov esp, ebp
         pop ebp
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1DCB0                                                       1DCB0  97 PC
+; ReplayCamMove                                   1DCB0  97 PC, low confidence
+; Replay camera: moves the free camera from the input
 ;-----------------------------------------------------------------------------
-sub_1DCB0:
+ReplayCamMove:
         push ebx
         push edx
         sub esp, byte 30h
         mov edx, esp
         mov eax, unk_1B92AB
         lea ebx, [byte esp+024h]
-        call sub_FF320
+        call MatTranspose
         mov edx, esp
         mov eax, unk_19D028
-        call sub_FF444
+        call VecMulMat
         mov ebx, dword_19D374
         mov edx, dword_1B905F
         lea eax, [byte esp+024h]
-        call sub_FF5E0
+        call VecAdd
         xor edx, edx
         mov ebx, dword [dword_19D374]
         mov dword [dword_19D378], edx
@@ -10939,9 +11026,10 @@ sub_1DCB0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1DD5C                                                       1DD5C  97 PC
+; ReplayCamZoomMode                               1DD5C  97 PC, low confidence
+; Replay camera: starts zoom mode
 ;-----------------------------------------------------------------------------
-sub_1DD5C:
+ReplayCamZoomMode:
         push ebx
         push edx
         push esi
@@ -10965,8 +11053,8 @@ sub_1DD5C:
         mov edx, eax
         mov eax, dword_1B905F
         mov edi, 1
-        call sub_FF600
-        call sub_FF7DC
+        call VecSub
+        call VecLength
         mov eax, dword [dword_19D380]
         fstp dword [dword_19D1B8]
         call GetCameraTarget
@@ -10987,9 +11075,10 @@ sub_1DD5C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1DDE4                                                       1DDE4  97 PC
+; ReplayCamZoom                                   1DDE4  97 PC, low confidence
+; Replay camera: zooms in or out from the input
 ;-----------------------------------------------------------------------------
-sub_1DDE4:
+ReplayCamZoom:
         push ebx
         push esi
         sub esp, byte 40h
@@ -11016,13 +11105,13 @@ sub_1DDE4:
         lea ebx, [byte esp+024h]
         mov edx, dword_19D188
         mov eax, dword_1B905F
-        call sub_FF600
+        call VecSub
         lea eax, [byte esp+024h]
         push eax
         mov ebx, dword_19D1A0
         push dword [dword_19D1B8]
         lea edx, [byte esp+02Ch]
-        call sub_FF818
+        call VecNormalizeTo
         mov eax, dword_19D188
         jmp short .4
 .3:
@@ -11033,40 +11122,44 @@ sub_1DDE4:
         mov dword [byte esp+024h], edx
         mov edx, esp
         fstp dword [byte esp+02Ch]
-        call sub_FF320
+        call MatTranspose
         mov edx, esp
         lea eax, [byte esp+024h]
-        call sub_FF444
+        call VecMulMat
         mov ebx, dword_19D1A0
         lea edx, [byte esp+030h]
         mov eax, dword_1B905F
 .4:
-        call sub_FF5E0
+        call VecAdd
         add esp, byte 40h
         pop esi
         pop ebx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1DEB8                                                       1DEB8  97 PC
+; ReplayCamClearFlag                              1DEB8  97 PC, low confidence
+; Replay camera: clears the camera mode flag
 ;-----------------------------------------------------------------------------
-sub_1DEB8:
+ReplayCamClearFlag:
         push edx
         xor edx, edx
         mov dword [dword_19D094], edx
         pop edx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-        call sub_66224
+        call TryStickTouch
         mov edx, dword [off_168CFC]
         add eax, eax
         mov dword [byte edx+060h], eax
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1DEE4                                                       1DEE4  97 PC
+; CrowdForPuckZone                                1DEE4  97 PC, low confidence
+; Sets the crowd mood from where the player touching the puck is: own zone,
+; neutral zone, deep, or near the net on a fast puck; nothing while the puck
+; is in its faceoff state
 ;-----------------------------------------------------------------------------
-sub_1DEE4:
+CrowdForPuckZone:
         push ebx
         push ecx
         push edx
@@ -11093,7 +11186,7 @@ sub_1DEE4:
         cmp ebx, 570h
         jge short .3
         mov eax, 6
-        call sub_424CC
+        call SetCrowdMood
         add esp, byte 4
         pop edx
         pop ecx
@@ -11106,7 +11199,7 @@ sub_1DEE4:
         jge short .5
 .4:
         mov eax, 7
-        call sub_424CC
+        call SetCrowdMood
         add esp, byte 4
         pop edx
         pop ecx
@@ -11120,7 +11213,7 @@ sub_1DEE4:
         sahf
         jbe short .6
         mov eax, 8
-        call sub_424CC
+        call SetCrowdMood
         add esp, byte 4
         pop edx
         pop ecx
@@ -11129,7 +11222,7 @@ sub_1DEE4:
 .6:
         mov eax, 9
 .7:
-        call sub_424CC
+        call SetCrowdMood
 .8:
         add esp, byte 4
         pop edx
@@ -11138,9 +11231,11 @@ sub_1DEE4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1DFA0                                                       1DFA0  97 PC
+; CrowdForPlayer                                  1DFA0  97 PC, low confidence
+; Sets the crowd mood when a player gets the puck: by which team and whether
+; he is past the blue line
 ;-----------------------------------------------------------------------------
-sub_1DFA0:
+CrowdForPlayer:
         push ebx
         push edx
         sub esp, byte 4
@@ -11174,7 +11269,7 @@ sub_1DFA0:
 .4:
         mov eax, 3
 .5:
-        call sub_424CC
+        call SetCrowdMood
 .6:
         add esp, byte 4
         pop edx
@@ -11182,9 +11277,11 @@ sub_1DFA0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1E014                                                       1E014  97 PC
+; ShotChanceCommentary                            1E014  97 PC, low confidence
+; Each frame: rates how close the carrier is to a scoring chance (distance to
+; the goal) and sets the crowd mood and the play-by-play excitement level
 ;-----------------------------------------------------------------------------
-sub_1E014:
+ShotChanceCommentary:
         push ebx
         push ecx
         push edx
@@ -11247,7 +11344,7 @@ sub_1E014:
         jge short .5
         mov eax, 6
 .4:
-        call sub_424CC
+        call SetCrowdMood
 .5:
         mov eax, dword [off_168CFC]
         mov edx, dword [byte eax+04h]
@@ -11302,9 +11399,11 @@ sub_1E014:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1E184                                                       1E184  97 PC
+; LineChangeCommentary                            1E184  97 PC, low confidence
+; Play-by-play call for a line change of the given player's team (more often
+; while play is stopped)
 ;-----------------------------------------------------------------------------
-sub_1E184:
+LineChangeCommentary:
         push ebx
         push ecx
         mov ebx, eax
@@ -11405,9 +11504,11 @@ assexit:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1E284                                                       1E284  97 PC
+; AimAtPuckTarget                                 1E284  97 PC, low confidence
+; Turns a player toward the puck carrier, or toward the goal he attacks when
+; he carries the puck himself; sets the motion heading
 ;-----------------------------------------------------------------------------
-sub_1E284:
+AimAtPuckTarget:
         push ebx
         push ecx
         push edx
@@ -11474,9 +11575,11 @@ sub_1E284:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1E354                                                       1E354  97 PC
+; SetZoneFlags                                    1E354  97 PC, low confidence
+; Sets a player's rink zone flags from his position seen from his attacking
+; end: side (left, middle, right) and depth (own end to deep offensive zone)
 ;-----------------------------------------------------------------------------
-sub_1E354:
+SetZoneFlags:
         push ebx
         push ecx
         push edx
@@ -11608,9 +11711,12 @@ sub_1E354:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1E4E4                                                       1E4E4  97 PC
+; CanReachPuck                                    1E4E4  97 PC, low confidence
+; Whether a player can play the loose or carried puck: not his own team's
+; carrier, play running, puck speed in range and moving his way; returns
+; nonzero if so
 ;-----------------------------------------------------------------------------
-sub_1E4E4:
+CanReachPuck:
         push ebx
         push ecx
         push edx
@@ -11884,7 +11990,7 @@ sub_1E4E4:
         push byte 0
         push dword [byte esp+028h]
         push byte 0
-        call sub_65F50
+        call StickReach
         fstp st0
         mov eax, 1
 .24:
@@ -11895,9 +12001,11 @@ sub_1E4E4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1E7C4                                                       1E7C4  97 PC
+; TryPokePuck                                     1E7C4  97 PC, low confidence
+; Starts a poke check when the player can reach the puck; keeps the puck's
+; motion as it was; returns nonzero when started
 ;-----------------------------------------------------------------------------
-sub_1E7C4:
+TryPokePuck:
         push ebx
         push edx
         sub esp, byte 8
@@ -11908,12 +12016,12 @@ sub_1E7C4:
         mov dword [esp], eax
         mov eax, edx
         mov dword [byte esp+04h], ebx
-        call sub_1E4E4
+        call CanReachPuck
         mov ebx, eax
         test eax, eax
         je short .1
         mov eax, edx
-        call sub_3B1EC
+        call PokeCheckAnim
 .1:
         mov eax, dword [off_168CFC]
         mov edx, dword [byte esp+04h]
@@ -11927,9 +12035,11 @@ sub_1E7C4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1E810                                                       1E810  97 PC
+; RandomPokeCheck                                 1E810  97 PC, low confidence
+; Computer players poke at the puck now and then, more often against the
+; other team and with higher checking skill
 ;-----------------------------------------------------------------------------
-sub_1E810:
+RandomPokeCheck:
         push ebx
         push ecx
         push edx
@@ -11967,11 +12077,11 @@ sub_1E810:
         mov dword [esp], eax
         mov eax, edx
         mov dword [byte esp+04h], ebx
-        call sub_1E4E4
+        call CanReachPuck
         test eax, eax
         je short .2
         mov eax, edx
-        call sub_3B1EC
+        call PokeCheckAnim
 .2:
         mov eax, dword [off_168CFC]
         mov edx, dword [byte esp+04h]
@@ -11987,9 +12097,11 @@ sub_1E810:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1E8B0                                                       1E8B0  97 PC
+; ChkPokeOrCheck                                  1E8B0  97 PC, low confidence
+; Defender decides to poke check, hook or body check the carrier from
+; distance, angle, skill and difficulty
 ;-----------------------------------------------------------------------------
-sub_1E8B0:
+ChkPokeOrCheck:
         push ebx
         push ecx
         push edx
@@ -12270,7 +12382,7 @@ sub_1E8B0:
         jl short .31
         mov edx, ebx
         mov eax, ecx
-        call sub_3B738
+        call AIBodyCheck
         mov esp, ebp
         pop ebp
         pop edi
@@ -12287,7 +12399,7 @@ sub_1E8B0:
         mov eax, dword [dword ecx+0EEh]
         and byte [byte eax+029h], 0DFh
         mov eax, ecx
-        call sub_1E810
+        call RandomPokeCheck
 .32:
         mov esp, ebp
         pop ebp
@@ -12845,9 +12957,11 @@ jpt_1F03C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1F32C                                                       1F32C  97 PC
+; ChkForwardSwap                                  1F32C  97 PC, low confidence
+; A defenseman caught deep in the offensive zone swaps position with a
+; forward (left wing, center or right wing by side)
 ;-----------------------------------------------------------------------------
-sub_1F32C:
+ChkForwardSwap:
         push ebx
         push ecx
         push edx
@@ -13005,9 +13119,11 @@ sub_1F32C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1F4EC                                                       1F4EC  97 PC
+; GetDefensePartner                               1F4EC  97 PC, low confidence
+; Returns the object of the other defenseman of a defenseman's line, 0 for a
+; forward
 ;-----------------------------------------------------------------------------
-sub_1F4EC:
+GetDefensePartner:
         push ebx
         push edx
         mov edx, eax
@@ -13038,16 +13154,18 @@ sub_1F4EC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1F538                                                       1F538  97 PC
+; ChkSwapWithPartner                              1F538  97 PC, low confidence
+; Two defensemen on the wrong sides swap positions; returns 1 when they
+; swapped
 ;-----------------------------------------------------------------------------
-sub_1F538:
+ChkSwapWithPartner:
         push ebx
         push ecx
         push edx
         push esi
         push edi
         mov ebx, eax
-        call sub_1F4EC
+        call GetDefensePartner
         mov ecx, eax
         test eax, eax
         je short .1
@@ -13240,10 +13358,10 @@ asscoverdefd:
         mov al, byte [dword ebx+0C6h]
         mov dword [byte ebx+05Ah], eax
         mov eax, ebx
-        call sub_22FF0
+        call FindManToCover
 .7:
         mov eax, ebx
-        call sub_1E8B0
+        call ChkPokeOrCheck
 .8:
         pop edi
         pop esi
@@ -13503,11 +13621,11 @@ asscoverdefo:
         mov eax, dword [dword ebx+0EEh]
         mov dword [byte eax+018h], 42480000h
         mov eax, ebx
-        call sub_650A4
+        call SetSkateSpeedFromRating
         mov eax, dword [dword ebx+0EEh]
         mov dword [byte eax+024h], 42C80000h
         mov eax, ebx
-        call sub_1E284
+        call AimAtPuckTarget
 .17:
         pop edi
         pop esi
@@ -13562,9 +13680,11 @@ Setplass:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1FBF4                                                       1FBF4  97 PC
+; GoaliePosTarget                                 1FBF4  97 PC, low confidence
+; Works out where the goalie stands: on the line between the puck and the
+; middle of the goal, kept inside the crease
 ;-----------------------------------------------------------------------------
-sub_1FBF4:
+GoaliePosTarget:
         push ecx
         push esi
         push edi
@@ -13718,7 +13838,7 @@ sub_1FBF4:
         mov eax, dword [dword esi+0EEh]
         mov dword [byte eax+018h], 0
         mov eax, esi
-        call sub_650A4
+        call SetSkateSpeedFromRating
         mov eax, dword [dword esi+0EEh]
         mov dword [byte eax+024h], 42C80000h
         mov eax, dword [dword_19CB66]
@@ -13834,9 +13954,11 @@ sub_1FBF4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1FF5C                                                       1FF5C  97 PC
+; FaceoffSpotPosition                             1FF5C  97 PC, low confidence
+; Sets the spot a player takes at a faceoff from his position and the faceoff
+; dot (table of offsets per position)
 ;-----------------------------------------------------------------------------
-sub_1FF5C:
+FaceoffSpotPosition:
         push ebx
         push ecx
         push edx
@@ -14192,7 +14314,7 @@ sub_1FF5C:
         mov eax, dword [dword esi+0EEh]
         mov dword [byte eax+018h], 0
         mov eax, esi
-        call sub_650A4
+        call SetSkateSpeedFromRating
         jmp short .42
 .41:
         mov ebx, dword [word_19CBBE]
@@ -14200,7 +14322,7 @@ sub_1FF5C:
         mov eax, esi
         sar ebx, 10h
         sar edx, 10h
-        call sub_1FBF4
+        call GoaliePosTarget
 .42:
         mov eax, dword [dword esi+0EEh]
         mov dword [byte eax+024h], 42480000h
@@ -14229,7 +14351,7 @@ Endfaceoff:
         cmp dword [dword_1B8FA0], byte 0
         jne short .1
         xor eax, eax
-        call sub_4B8DC
+        call ResetRenderTimers
 .1:
         call sub_114C4
         mov eax, 501h
@@ -14285,7 +14407,7 @@ Endfaceoff:
         cmp eax, byte 43h
         jg short .8
         mov edx, esp
-        call sub_3A404
+        call FaceoffMoveResult
         mov edx, dword [byte esp+0Ch]
         mov eax, dword [esp]
         sub eax, dword [byte edx+04h]
@@ -14325,7 +14447,7 @@ Endfaceoff:
         jg short .13
         lea edx, [byte esp+08h]
         mov eax, esi
-        call sub_3A404
+        call FaceoffMoveResult
         mov eax, dword [byte esp+08h]
         sub eax, dword [byte ebp+04h]
         test eax, eax
@@ -14553,7 +14675,7 @@ Endfaceoff:
         or byte [byte eax+028h], 80h
         mov eax, dword [off_168D04]
         mov dword [byte eax+038h], 41F00000h
-        call sub_1D1D4
+        call SetFaceoffEndFlag
         add esp, byte 1Ch
         pop ebp
         pop edi
@@ -14573,16 +14695,22 @@ Endfaceoff:
         call doplayeracc
 .30:
         pop edx
-sub_209CC:
+;-----------------------------------------------------------------------------
+; AssNoop                                         209CC  97 PC, low confidence
+; Empty assignment: does nothing
+;-----------------------------------------------------------------------------
+AssNoop:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_209D0                                                       209D0  97 PC
+; assnull                                         209D0  97 PC, low confidence
+; Assignment 0 (and the first referee and puck slots): stops the animation of
+; object 13, otherwise nothing
 ;-----------------------------------------------------------------------------
-sub_209D0:
+assnull:
         cmp byte [dword eax+0A4h], 0Dh
-        jne short sub_209CC
-        jmp near sub_69B78
+        jne short AssNoop
+        jmp near StopObject
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; assbenchwait                                    209E0  95 PC, low confidence
@@ -14601,7 +14729,7 @@ assbenchwait:
         je short .3
         mov edx, 0FFFFFFFFh
         mov eax, ebx
-        call sub_3A06C
+        call PickBenchSeat
         mov cl, byte [dword ebx+0BFh]
         and cl, 0FDh
         mov dx, word [dword ebx+0A9h]
@@ -14637,9 +14765,11 @@ assbenchwait:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_20A80                                                       20A80  97 PC
+; DelayedPenaltyEnd                               20A80  97 PC, low confidence
+; Ends a delayed penalty when the penalized team touches the puck or a goal
+; is scored: stops play, crowd reaction; keeps the right players in the box
 ;-----------------------------------------------------------------------------
-sub_20A80:
+DelayedPenaltyEnd:
         push ebx
         push ecx
         push edx
@@ -14733,7 +14863,7 @@ sub_20A80:
         and eax, 0FFh
         add eax, byte 3
 .9:
-        call sub_424CC
+        call SetCrowdMood
 .10:
         cmp dword [dword_1B8FA0], byte 0
         jne near .12
@@ -14772,9 +14902,11 @@ sub_20A80:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_20C50                                                       20C50  97 PC
+; ChkTeamPlayerFlag                               20C50  97 PC, low confidence
+; On a goal: whether the given team has a player on the ice with the
+; goal-check flag set; returns 1 if so
 ;-----------------------------------------------------------------------------
-sub_20C50:
+ChkTeamPlayerFlag:
         push ebx
         push edx
         test byte [byte_19CBC2], 8
@@ -14923,12 +15055,12 @@ Goal:
         jne short .13
         mov eax, dword [dword_19CBAA]
         sar eax, 10h
-        call sub_20C50
+        call ChkTeamPlayerFlag
         test eax, eax
         jne short .13
         mov eax, dword [dword_19CBAA]
         sar eax, 10h
-        call sub_21AB4
+        call FindCreasePlayer
         mov edx, eax
         test ax, ax
         jl near .17
@@ -14936,7 +15068,7 @@ Goal:
         test di, di
         jne short .14
         mov eax, 1
-        call sub_20A80
+        call DelayedPenaltyEnd
 .14:
         test byte [byte_19CBC2], 1
         jne near .86
@@ -15009,15 +15141,15 @@ Goal:
 .18:
         or byte [byte_19CBCA], 10h
         mov eax, 1
-        call sub_20A80
+        call DelayedPenaltyEnd
         mov eax, dword [tickcount]
         mov ebx, dword [dword_19CBAA]
         sar ebx, 10h
         mov edx, eax
         mov eax, ebx
-        call sub_504E0
+        call GoalCrowdCheer
         mov eax, 170Ah
-        call sub_4C0C4
+        call TriggerCameraFlashes
         cmp word [byte ecx+010h], byte 0
         jl short .19
         mov edx, dword [dword ecx+0FAh]
@@ -15146,7 +15278,7 @@ Goal:
         sete al
         and eax, 0FFh
 .34:
-        call sub_424CC
+        call SetCrowdMood
         mov al, byte [byte_1C135A]
         cmp al, byte [byte_1C135B]
         jne near .39
@@ -15643,9 +15775,11 @@ Goal:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_218B8                                                       218B8  97 PC
+; InCrease                                        218B8  97 PC, low confidence
+; Whether a player stands in the goal crease at the given end (distance from
+; the goal mouth); returns 1 if so
 ;-----------------------------------------------------------------------------
-sub_218B8:
+InCrease:
         push ebx
         push ecx
         push esi
@@ -15657,11 +15791,11 @@ sub_218B8:
         mov esi, edx
         mov ebx, esp
         mov edx, dword [dword_1B9CA4]
-        call sub_6619C
+        call ObjectFramePos
         lea ebx, [byte esp+0Ch]
         mov edx, dword [dword_1B9CAC]
         mov eax, ecx
-        call sub_6619C
+        call ObjectFramePos
         test esi, esi
         jne near .4
         mov edx, dword [byte esp+08h]
@@ -15785,9 +15919,10 @@ sub_218B8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_21A4C                                                       21A4C  97 PC
+; UpdateCreaseFlag                                21A4C  97 PC, low confidence
+; Each frame: sets or clears a player's in-crease flag at the goal he attacks
 ;-----------------------------------------------------------------------------
-sub_21A4C:
+UpdateCreaseFlag:
         push ebx
         push edx
         mov ebx, eax
@@ -15795,7 +15930,7 @@ sub_21A4C:
         je short .2
         mov eax, ebx
         xor edx, edx
-        call sub_218B8
+        call InCrease
         test eax, eax
         jne short .1
         mov byte [dword ebx+0A5h], 0
@@ -15810,7 +15945,7 @@ sub_21A4C:
 .2:
         mov edx, 1
         mov eax, ebx
-        call sub_218B8
+        call InCrease
         test eax, eax
         jne short .3
         mov byte [dword ebx+0A5h], 0
@@ -15829,9 +15964,11 @@ sub_21A4C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_21AB4                                                       21AB4  97 PC
+; FindCreasePlayer                                21AB4  97 PC, low confidence
+; On a goal with the crease rule on: returns the number of the first attacker
+; standing in the crease, -1 if none
 ;-----------------------------------------------------------------------------
-sub_21AB4:
+FindCreasePlayer:
         push ebx
         push edx
         mov edx, dword [dword_1AC944]
@@ -15940,7 +16077,7 @@ assgoalie:
         mov eax, dword [dword ecx+0EEh]
         mov dword [byte eax+018h], 0
         mov eax, ecx
-        call sub_650A4
+        call SetSkateSpeedFromRating
         mov eax, dword [dword ecx+0EEh]
         mov dword [byte eax+024h], 42C80000h
         test byte [dword ecx+0BFh], 80h
@@ -16021,7 +16158,7 @@ assgoalie:
         movsx ebx, word [eax]
         xor edx, edx
         mov eax, ecx
-        call sub_1FBF4
+        call GoaliePosTarget
         add esp, byte 8
         pop ebp
         pop edi
@@ -16048,14 +16185,14 @@ assgoalie:
         test ax, ax
         jne near .20
         mov eax, ecx
-        call sub_240D0
+        call BuildPassTargets
         mov word [word_19CB64], ax
         cmp ax, 1E0h
         jge short .17
         cmp ax, 0F0h
         jge near .18
         mov eax, ecx
-        call sub_74BA8
+        call StartGoalieSave
         dec dword [byte ecx+056h]
         add esp, byte 8
         pop ebp
@@ -16082,12 +16219,12 @@ assgoalie:
         cmp esi, 106h
         je near .18
         mov eax, ecx
-        call sub_251F0
+        call AIPassDecision
         test ax, ax
         jne near .19
 .18:
         mov eax, ecx
-        call sub_75500
+        call GoalieMoves
 .19:
         add esp, byte 8
         pop ebp
@@ -16101,14 +16238,14 @@ assgoalie:
         cmp dword [byte ecx+056h], byte 5Ah
         jge short .18
         mov eax, ecx
-        call sub_240D0
+        call BuildPassTargets
         mov word [word_19CB64], ax
         cmp ax, 0F0h
         jl short .18
         mov eax, ecx
-        call sub_74C64
+        call StartGoalieStance
         mov eax, ecx
-        call sub_75500
+        call GoalieMoves
         add esp, byte 8
         pop ebp
         pop edi
@@ -16133,9 +16270,9 @@ assgoalie:
         cmp dword [byte ecx+056h], byte 5Ah
         jge short .18
         mov eax, ecx
-        call sub_74C64
+        call StartGoalieStance
         mov eax, ecx
-        call sub_240D0
+        call BuildPassTargets
         mov word [word_19CB64], ax
         cmp ax, 1E0h
         jge near .18
@@ -16151,9 +16288,11 @@ assgoalie:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_21E98                                                       21E98  97 PC
+; KeepInsideRink                                  21E98  97 PC, low confidence
+; Pulls a player's skating target back inside the boards when it lies past
+; the rink edge
 ;-----------------------------------------------------------------------------
-sub_21E98:
+KeepInsideRink:
         push ebx
         push ecx
         push edx
@@ -16347,9 +16486,11 @@ sub_21E98:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_22050                                                       22050  97 PC
+; DefendPuck                                      22050  97 PC, low confidence
+; Defensive play of a computer player: picks the attacker or lane to cover
+; and skates there
 ;-----------------------------------------------------------------------------
-sub_22050:
+DefendPuck:
         push ebx
         push ecx
         push edx
@@ -16521,7 +16662,7 @@ sub_22050:
         jmp near .54
 .20:
         mov eax, edx
-        call sub_1F4EC
+        call GetDefensePartner
         cmp eax, ebx
         jne near .27
         mov eax, dword [dword_19CB62]
@@ -16747,7 +16888,7 @@ sub_22050:
         cmp eax, dword [byte ebx+012h]
         jge short .44
         mov eax, edx
-        call sub_22FF0
+        call FindManToCover
         jmp near .56
 .44:
         cmp word [dword edx+0ABh], byte 1
@@ -16827,17 +16968,17 @@ sub_22050:
         fild word [regd1]
         fstp dword [byte eax+04h]
         mov eax, edx
-        call sub_21E98
+        call KeepInsideRink
         mov eax, dword [dword edx+0EEh]
         and byte [byte eax+028h], 7Fh
         mov eax, dword [dword edx+0EEh]
         mov dword [byte eax+018h], 41F00000h
         mov eax, edx
-        call sub_650A4
+        call SetSkateSpeedFromRating
         mov eax, dword [dword edx+0EEh]
         mov dword [byte eax+024h], 42C80000h
         mov eax, edx
-        call sub_1E284
+        call AimAtPuckTarget
 .56:
         pop ebp
         pop edi
@@ -17051,15 +17192,15 @@ assextra4:
         fild word [regd1]
         fstp dword [byte eax+04h]
         mov eax, edx
-        call sub_21E98
+        call KeepInsideRink
         mov eax, dword [dword edx+0EEh]
         and byte [byte eax+028h], 7Fh
         mov eax, dword [dword edx+0EEh]
         mov dword [byte eax+018h], 42200000h
         mov eax, edx
-        call sub_650A4
+        call SetSkateSpeedFromRating
         mov eax, edx
-        call sub_1E284
+        call AimAtPuckTarget
         cmp bx, byte 8
         jne short .20
         test byte [dword edx+0BFh], 80h
@@ -17185,7 +17326,7 @@ assdefo:
         call SwapPosition
 .4:
         mov eax, ebx
-        call sub_1F538
+        call ChkSwapWithPartner
         mov edi, dword [byte ebx+056h]
         sub edi, byte 2
         mov dword [byte ebx+056h], edi
@@ -17206,7 +17347,7 @@ assdefo:
         ret
 .5:
         mov eax, ebx
-        call sub_22050
+        call DefendPuck
 .6:
         pop edi
         pop edx
@@ -17460,9 +17601,10 @@ asscentero:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_22FF0                                                       22FF0  97 PC
+; FindManToCover                                  22FF0  97 PC, low confidence
+; Picks the opposing skater a defending player covers, by side and distance
 ;-----------------------------------------------------------------------------
-sub_22FF0:
+FindManToCover:
         push ebx
         push ecx
         push edx
@@ -17629,7 +17771,7 @@ sub_22FF0:
         fild dword [regd1]
         fstp dword [byte eax+04h]
         mov eax, esi
-        call sub_21E98
+        call KeepInsideRink
         mov eax, dword [dword esi+0EEh]
         mov dword [byte eax+08h], 0
         mov eax, dword [dword esi+0EEh]
@@ -17637,13 +17779,13 @@ sub_22FF0:
         mov eax, dword [dword esi+0EEh]
         mov dword [byte eax+018h], 41C80000h
         mov eax, esi
-        call sub_650A4
+        call SetSkateSpeedFromRating
         mov eax, dword [dword esi+0EEh]
         mov dword [byte eax+024h], 42C80000h
         mov eax, esi
-        call sub_1E284
+        call AimAtPuckTarget
         mov eax, esi
-        call sub_34CF4
+        call FaceDirFromMotion
         pop ebp
         pop edi
         pop esi
@@ -18059,17 +18201,17 @@ assextra3:
         fild word [regd1]
         fstp dword [byte eax+04h]
         mov eax, edx
-        call sub_21E98
+        call KeepInsideRink
         mov eax, dword [dword edx+0EEh]
         mov dword [byte eax+018h], 41F00000h
         mov eax, edx
-        call sub_650A4
+        call SetSkateSpeedFromRating
         mov eax, dword [dword edx+0EEh]
         mov dword [byte eax+024h], 42C80000h
         mov eax, edx
-        call sub_1E284
+        call AimAtPuckTarget
         mov eax, edx
-        call sub_34CF4
+        call FaceDirFromMotion
         pop edi
         pop esi
         pop edx
@@ -18200,10 +18342,10 @@ assdefd:
         mov al, byte [dword ebx+0C6h]
         mov dword [byte ebx+05Ah], eax
         mov eax, ebx
-        call sub_22FF0
+        call FindManToCover
 .6:
         mov eax, ebx
-        call sub_1E8B0
+        call ChkPokeOrCheck
 .7:
         pop edi
         pop edx
@@ -18401,9 +18543,11 @@ asscenterd:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_23C98                                                       23C98  97 PC
+; asstofaceoff                                    23C98  97 PC, low confidence
+; Assignment 6: a player skates to his faceoff spot (or to the bench, or to
+; the side for a penalty shot)
 ;-----------------------------------------------------------------------------
-sub_23C98:
+asstofaceoff:
         push ebx
         push ecx
         push edx
@@ -18469,14 +18613,14 @@ sub_23C98:
         mov eax, dword [dword edx+0EEh]
         mov dword [byte eax+018h], 0
         mov eax, edx
-        call sub_650A4
+        call SetSkateSpeedFromRating
         mov eax, dword [dword edx+0EEh]
         mov dword [byte eax+024h], 42C80000h
         or byte [dword edx+0C0h], 4
         jmp short .6
 .5:
         mov eax, edx
-        call sub_1FF5C
+        call FaceoffSpotPosition
 .6:
         fild word [byte edx+06h]
         fstp dword [byte esp+04h]
@@ -18566,7 +18710,7 @@ assfaceoff:
         cmp eax, byte 0Ch
         je short .1
         mov eax, ecx
-        call sub_60F48
+        call PickSkateAnim
 .1:
         mov al, byte [dword ecx+0B1h]
         mov bh, byte [dword ecx+0BFh]
@@ -18591,7 +18735,7 @@ assfaceoff:
         test edx, edx
         je short .3
         mov eax, dword [dword ecx+0FAh]
-        call sub_60D6C
+        call ResetAnimTimer
         mov bl, byte [dword ecx+0BFh]
         and bl, 0DFh
         push dword 3F800000h
@@ -18735,7 +18879,7 @@ assfaceoffpl:
         jg short .17
         movsx edx, ax
         mov eax, ebx
-        call sub_3AAE8
+        call FaceoffSwipeAnim
         pop edx
         pop ecx
         pop ebx
@@ -18743,7 +18887,7 @@ assfaceoffpl:
 .17:
         movsx edx, ax
         mov eax, ebx
-        call sub_3AB28
+        call FaceoffDrawAnim
 .18:
         pop edx
         pop ecx
@@ -18751,9 +18895,11 @@ assfaceoffpl:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_240D0                                                       240D0  97 PC
+; BuildPassTargets                                240D0  97 PC, low confidence
+; Fills a player's table of passing targets: each teammate's distance and
+; lane, best target first
 ;-----------------------------------------------------------------------------
-sub_240D0:
+BuildPassTargets:
         push ebx
         push ecx
         push edx
@@ -18862,9 +19008,11 @@ sub_240D0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_24220                                                       24220  97 PC
+; CreditPass                                      24220  97 PC, low confidence
+; A teammate takes a pass: counts the completed pass for the team and calls
+; the play-by-play
 ;-----------------------------------------------------------------------------
-sub_24220:
+CreditPass:
         push ebx
         push ecx
         push edx
@@ -18973,7 +19121,7 @@ sub_24220:
         call CommentaryEvent
         add esp, byte 2Ch
         mov eax, edx
-        call sub_1DEE4
+        call CrowdForPuckZone
         mov word [word_19CB94], 0FFFFh
         mov esp, ebp
         pop ebp
@@ -19052,9 +19200,10 @@ sub_24220:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_244BC                                                       244BC  97 PC
+; assonetimer                                     244BC  97 PC, low confidence
+; Asstab 0Eh: the one-timer: waits for the pass, then shoots (OneTimerShot)
 ;-----------------------------------------------------------------------------
-sub_244BC:
+assonetimer:
         push ebx
         push ecx
         push edx
@@ -19081,9 +19230,9 @@ sub_244BC:
         test cl, 8
         je short .2
         mov eax, ebx
-        call sub_35690
+        call ClearLastPasser
         mov eax, ebx
-        call sub_356A8
+        call OneTimerShot
         jmp near .13
 .2:
         test cl, 2
@@ -19107,7 +19256,7 @@ sub_244BC:
         test ax, ax
         jne short .5
         mov eax, ebx
-        call sub_35588
+        call ChkOneTimerSpot
         test ax, ax
         je short .5
         mov word [word_19CBD6], 1
@@ -19119,7 +19268,7 @@ sub_244BC:
         je short .6
         mov word [regd1], ax
         mov eax, ebx
-        call sub_356A8
+        call OneTimerShot
         pop edi
         pop esi
         pop edx
@@ -19131,7 +19280,7 @@ sub_244BC:
         je near .13
         mov word [regd1], ax
         mov eax, ebx
-        call sub_35690
+        call ClearLastPasser
         pop edi
         pop esi
         pop edx
@@ -19165,7 +19314,7 @@ sub_244BC:
         cmp ecx, edx
         jne short .9
         mov eax, ebx
-        call sub_24220
+        call CreditPass
         jmp near .12
 .9:
         cmp byte [eax], 0
@@ -19234,9 +19383,11 @@ sub_244BC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_2471C                                                       2471C  97 PC
+; CarrierInShotArea                               2471C  97 PC, low confidence
+; Whether the puck carrier is in the area in front of the net he attacks
+; (play running); returns nonzero if so
 ;-----------------------------------------------------------------------------
-sub_2471C:
+CarrierInShotArea:
         push ebx
         push ecx
         push edx
@@ -19443,9 +19594,11 @@ sub_2471C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_248E8                                                       248E8  97 PC
+; CanReceivePass                                  248E8  97 PC, low confidence
+; Whether a teammate can take a pass: on the ice, open, close enough and
+; ahead of the passer
 ;-----------------------------------------------------------------------------
-sub_248E8:
+CanReceivePass:
         push ebx
         push ecx
         mov ebx, eax
@@ -19458,7 +19611,7 @@ sub_248E8:
 .1:
         test byte [dword eax+0BFh], 8
         jne short .2
-        call sub_2471C
+        call CarrierInShotArea
         test eax, eax
         je short .2
         xor eax, eax
@@ -19570,9 +19723,11 @@ sub_248E8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_249F8                                                       249F8  97 PC
+; MakePass                                        249F8  97 PC, low confidence
+; The passer lets the puck go: clears the carrier, sets the puck speed from
+; the pass power, counts the pass and calls the play-by-play
 ;-----------------------------------------------------------------------------
-sub_249F8:
+MakePass:
         push ebx
         push ecx
         push esi
@@ -19616,7 +19771,7 @@ sub_249F8:
         mov eax, dword [dword ebx+0FAh]
         mov dword [byte eax+01Ch], 0
         mov eax, ebx
-        call sub_60F48
+        call PickSkateAnim
         fld dword [byte ecx+038h]
         fsub dword [byte ebx+038h]
         mov eax, dword [off_168CFC]
@@ -19686,7 +19841,7 @@ sub_249F8:
         mov ebx, edx
         mov word [word_19CB94], 0FFFFh
         mov edx, ebx
-        call sub_69BA0
+        call StartPassAnim
         mov eax, dword [off_168CFC]
         mov eax, dword [dword eax+0EEh]
         fild word [word_19CB8E]
@@ -19714,9 +19869,10 @@ sub_249F8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_24C00                                                       24C00  97 PC
+; RimPuck                                         24C00  97 PC, low confidence
+; Pass type 8: shoots the puck around the boards to a teammate
 ;-----------------------------------------------------------------------------
-sub_24C00:
+RimPuck:
         push ebx
         push ecx
         push edx
@@ -19975,7 +20131,7 @@ sub_24C00:
         mov edx, esp
         mov word [word_19CB94], ax
         mov eax, ebx
-        call sub_69BA0
+        call StartPassAnim
         mov edx, dword [off_168CFC]
         mov eax, dword [dword edx+0EEh]
         fild word [word_19CB8E]
@@ -20007,9 +20163,10 @@ sub_24C00:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_25010                                                       25010  97 PC
+; StartPass                                       25010  97 PC, low confidence
+; Starts a pass by its type (normal, flip, rim, drop) to the chosen teammate
 ;-----------------------------------------------------------------------------
-sub_25010:
+StartPass:
         push ebx
         push ecx
         push edi
@@ -20044,15 +20201,15 @@ sub_25010:
         mov al, byte [dword edx+0A4h]
         mov word [word_19CB94], ax
         mov eax, ecx
-        call sub_69BA0
+        call StartPassAnim
         jmp near .6
 .3:
         mov eax, ecx
-        call sub_249F8
+        call MakePass
         jmp near .6
 .4:
         mov eax, ecx
-        call sub_24C00
+        call RimPuck
         jmp near .6
 .5:
         mov edi, 0FFFFFFFFh
@@ -20062,7 +20219,7 @@ sub_25010:
         sar ebx, 10h
         sar edx, 10h
         mov word [word_19CB94], di
-        call sub_69DF4
+        call StartDropPassAnim
         mov edx, dword [off_168CFC]
         mov edx, dword [dword edx+0EEh]
         fild word [word_19CB8E]
@@ -20095,7 +20252,7 @@ sub_25010:
         push ecx
         mov ebx, eax
         mov ecx, edx
-        call sub_248E8
+        call CanReceivePass
         test ax, ax
         je short .7
         mov word [word_19CB96], 2
@@ -20105,7 +20262,7 @@ sub_25010:
 .8:
         mov edx, ecx
         mov eax, ebx
-        call sub_25010
+        call StartPass
         cmp word [dword ebx+0A9h], byte 0
         jle short .9
         mov al, byte [dword ebx+0B1h]
@@ -20119,9 +20276,11 @@ sub_25010:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_25188                                                       25188  97 PC
+; TargetInAngle                                   25188  97 PC, low confidence
+; Whether a teammate lies within the given angle of the passer's heading and
+; farther than him; returns 1 if so
 ;-----------------------------------------------------------------------------
-sub_25188:
+TargetInAngle:
         push esi
         mov esi, dword [dword eax+0E2h]
         cmp esi, dword [dword edx+0E2h]
@@ -20159,9 +20318,11 @@ sub_25188:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_251F0                                                       251F0  97 PC
+; AIPassDecision                                  251F0  97 PC, low confidence
+; Computer puck carrier decides to pass, shoot or keep skating; picks the
+; receiver
 ;-----------------------------------------------------------------------------
-sub_251F0:
+AIPassDecision:
         push ebx
         push ecx
         push edx
@@ -20253,7 +20414,7 @@ sub_251F0:
 .9:
         mov edx, esi
         mov eax, ebp
-        call sub_248E8
+        call CanReceivePass
         test ax, ax
         je near .33
         mov word [word_19CB96], 2
@@ -20275,7 +20436,7 @@ sub_251F0:
         jne near .33
 .12:
         mov eax, esi
-        call sub_240D0
+        call BuildPassTargets
         cmp eax, 1E0h
         jle near .33
 .13:
@@ -20367,7 +20528,7 @@ sub_251F0:
         mov ebx, edi
         mov edx, ecx
         mov eax, esi
-        call sub_25188
+        call TargetInAngle
         test ax, ax
         jne near .31
         mov bx, word [word_19CB5C]
@@ -20498,7 +20659,7 @@ sub_251F0:
         cmp dword [byte esp+08h], byte 0
         je short .33
         mov eax, ebp
-        call sub_3085C
+        call ForceShoot
         xor eax, eax
         mov al, byte [dword esi+0A4h]
         mov word [word_19CB94], ax
@@ -20540,7 +20701,7 @@ sub_251F0:
         je short .36
         mov edx, esi
         mov eax, ebp
-        call sub_25010
+        call StartPass
         mov ax, word [dword ebp+0A9h]
         test ax, ax
         je short .37
@@ -20572,9 +20733,11 @@ sub_251F0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_25730                                                       25730  97 PC
+; ChkAIShoot                                      25730  97 PC, low confidence
+; Computer carrier decides to shoot from range and angle (always late in a
+; period when behind)
 ;-----------------------------------------------------------------------------
-sub_25730:
+ChkAIShoot:
         push ebx
         push ecx
         push edx
@@ -20686,7 +20849,7 @@ sub_25730:
         ret
 .11:
         mov eax, ebx
-        call sub_30778
+        call ChkShoot
         mov eax, 1
         pop edi
         pop edx

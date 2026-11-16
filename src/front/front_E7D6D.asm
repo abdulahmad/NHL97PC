@@ -2,17 +2,17 @@
 bits 32
 %include "hockey.inc"
 section s_E7D6D progbits alloc exec nowrite align=1
-extern SetClipWindow, asc_1676E9, asc_1676EE, asc_1676F3, asc_1676FA, asc_1676FF, asc_167704, asc_167709
-extern asc_16770E, asc_167713, asc_167718, asc_16771D, asc_167722, asc_167727, asc_167734, asc_16773C
-extern asc_167744, byte_16E264, byte_1CD7A9, byte_1CD7B3, byte_1CD7B4, byte_1CD7FC, byte_1CD7FD, byte_1CD7FE
+extern SetClipWindow, str_BACK14, str_TITL14, str_LB02d6, str_AB025, str_AB015, str_AB005, str_AB055
+extern str_AB045, str_AB035, str_FRAM, str_000011, str_FART5, str_DSS4, str_D02d4, str_D01d3
+extern str_SSDD3, byte_16E264, byte_1CD7A9, byte_1CD7B3, byte_1CD7B4, byte_1CD7FC, byte_1CD7FD, byte_1CD7FE
 extern byte_1CD85E, byte_1CDA5F, byte_1CDC60, byte_1CDDFF, byte_1CDE61, dword_16E1AC, dword_16E22C, dword_16E46C
 extern seed, dword_1AC814, dword_1AC940, dword_1AD62F, dword_1AD6AB, dword_1AD71B, dword_1AD71F, dword_1AD723
 extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778
 extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprintf_, strcpy_, BlitArt
 extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, sub_101EAC, sub_102B94
-extern SetScreenTarget, sub_419B0, sub_419B8, OpenDataLibrary, sub_7E52C, sub_7E860, SetTextColor, DrawTextAligned
-extern LoadTeamLogo, sub_80808, InitMenuItems, GetLangText, sub_CA44C, sub_D0098, sub_DB75E, sub_DC653
-extern sub_DCBB0, OpenLeagueFile, sub_E036F, sub_E0D0F, sub_E341C, FreeMemBlock, FillMem, MakeColor
+extern SetScreenTarget, SecondsToSamples, WaitSoundTime, OpenDataLibrary, DrawShadowBox, DrawScreenBackground, SetTextColor, DrawTextAligned
+extern LoadTeamLogo, FreeLogoArt, InitMenuItems, GetLangText, InitListBox, InitShapeListBox, FreeDbBlock, FindTeamRecord
+extern FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindTeamStat, ServiceIdle, FreeMemBlock, FillMem, MakeColor
 extern DrawArt, SetDrawTarget, unk_167731, unk_16E1E4, unk_16E21C, unk_1AD22E, unk_1AD443, unk_1C5F4A
 extern unk_1C5F9C, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE, unk_1CD989, unk_1CDA34, unk_1CDADF
 extern unk_1CDB8A, unk_1CDC35, unk_1CDCE0, unk_1CDD8F, unk_1CDDFD, unk_1CDE36, unk_1CE03B, unk_1CE0A9
@@ -62,7 +62,7 @@ sub_E7D6D:
         mov eax, unk_1AD22E
         mov dword [byte ebp+076h], 0
         call OpenLeagueFile
-        call sub_E341C
+        call ServiceIdle
         jmp near .22
 .3:
         mov edx, dword [byte ebp+076h]
@@ -70,10 +70,10 @@ sub_E7D6D:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-019DEh]
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
         je near .21
-        call sub_E341C
+        call ServiceIdle
         movzx eax, byte [dword ebp-0198Eh]
         movzx ebx, byte [dword ebp-0198Ch]
         add eax, eax
@@ -135,8 +135,8 @@ sub_E7D6D:
         mov esi, word_1CD788
         lea eax, [byte edi+020h]
         mov ebx, dword [byte ebp+076h]
-        call sub_E0D0F
-        call sub_E341C
+        call FindTeamStat
+        call ServiceIdle
         lea edx, [byte ebp+02Eh]
         cmp word [byte ebp+046h], byte 0
         jle short .11
@@ -250,8 +250,8 @@ sub_E7D6D:
         lea edx, [byte ebp+02Eh]
         lea eax, [byte ebx+020h]
         mov esi, unk_1CDA34
-        call sub_E0D0F
-        call sub_E341C
+        call FindTeamStat
+        call ServiceIdle
         lea eax, [byte ebp+02Eh]
         mov edx, ebx
         mov ebx, dword [byte ebp+076h]
@@ -303,7 +303,7 @@ sub_E7D6D:
         cmp edx, dword [byte ebp+076h]
         jg near .3
         mov eax, dword_1CD778
-        call sub_DB75E
+        call FreeDbBlock
         mov dword [dword_1CD76C], 0Eh
         mov dword [dword_1CD768], unk_16E1E4
 .23:
@@ -315,10 +315,10 @@ sub_E7D6D:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-019DEh]
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
         je near .32
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+076h]
         mov edx, dword [dword_1AD71B]
         shl eax, 2
@@ -377,8 +377,8 @@ sub_E7D6D:
         mov ebx, dword [byte ebp+076h]
         lea eax, [byte edi+020h]
         mov esi, unk_1CDE36
-        call sub_E0D0F
-        call sub_E341C
+        call FindTeamStat
+        call ServiceIdle
         lea edx, [byte ebp+02Eh]
         mov ebx, dword [nosplit ebx*4+dword_1AD6AB]
         cmp word [byte ebp+046h], byte 0
@@ -427,7 +427,7 @@ sub_E7D6D:
         jbe short .37
         lea edx, [dword ebp-08Eh]
         lea eax, [byte esi+03Dh]
-        call sub_DCBB0
+        call FindPlayerRecord
         lea edx, [byte ebp-076h]
         lea eax, [byte esi+02h]
         call strcpy_
@@ -443,9 +443,9 @@ sub_E7D6D:
         jl short .37
         lea edx, [byte esi+0Ch]
         lea eax, [byte esi+04h]
-        call sub_DC653
+        call FindTeamRecord
 .36:
-        call sub_E341C
+        call ServiceIdle
 .37:
         inc dword [byte ebp+076h]
         cmp dword [byte ebp+076h], byte 0Eh
@@ -791,20 +791,20 @@ sub_E8660:
         mov dword [byte eax+01Ah], edx
         mov edx, 280h
         inc esi
-        call sub_CA44C
+        call InitListBox
         cmp esi, byte 5
         jl short .1
         push dword [dword_1CD764]
         call SetDrawTarget
         add esp, byte 4
-        push asc_1676E9
+        push str_BACK14
         push dword [dword_1CD784]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_1676EE
+        push str_TITL14
         push dword [dword_1CD774]
         call FindShape
         add esp, byte 8
@@ -818,7 +818,7 @@ sub_E8660:
         mov ebx, eax
         mov edx, eax
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         rep movsb
         mov eax, dword [byte ebp-014h]
         mov ecx, 52h
@@ -835,7 +835,7 @@ sub_E8660:
         mov ebx, esi
         mov eax, dword [eax+ebx*4]
         push dword [nosplit eax*4+dword_16E22C]
-        push asc_1676F3
+        push str_LB02d6
         lea eax, [byte ebp-010h]
         push eax
         call sprintf_
@@ -870,7 +870,7 @@ sub_E8660:
         movsx edx, word [byte eax+0Ch]
         mov eax, dword [dword_1CD760]
         add eax, 0A4h
-        call sub_CA44C
+        call InitListBox
         mov esi, dword [dword_1CD770]
         mov eax, dword [dword_1CD780]
         shl esi, 2
@@ -886,21 +886,21 @@ sub_E8660:
         mov edx, dword [esi]
         mov dword [dword eax+0C6h], edx
         mov eax, dword [dword_1CD760]
-        push asc_1676FA
-        mov ecx, asc_1676FF
+        push str_AB025
+        mov ecx, str_AB015
         mov dword [dword eax+0C2h], edx
-        mov ebx, asc_167704
+        mov ebx, str_AB005
         mov edx, dword [dword_1CD760]
         mov eax, dword [dword_1CD784]
         add edx, 0F6h
-        call sub_D0098
-        push asc_167709
-        mov ecx, asc_16770E
-        mov ebx, asc_167713
+        call InitShapeListBox
+        push str_AB055
+        mov ecx, str_AB045
+        mov ebx, str_AB035
         mov edx, dword [dword_1CD760]
         mov eax, dword [dword_1CD784]
         add edx, 148h
-        call sub_D0098
+        call InitShapeListBox
         xor eax, eax
         call sub_E8923
         leave
@@ -996,21 +996,21 @@ sub_E8923:
         push dword [dword_1CD764]
         call SetDrawTarget
         add esp, byte 4
-        push asc_1676E9
+        push str_BACK14
         push dword [dword_1CD784]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_1676EE
+        push str_TITL14
         push dword [dword_1CD774]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_167718
+        push str_FRAM
         push dword [dword_1CD784]
         call FindShape
         add esp, byte 8
@@ -1054,13 +1054,13 @@ sub_E8923:
         mov eax, 6Bh
         call OpenDataLibrary
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push dword [nosplit edi*4+off_16E174]
         call sub_101584
         add esp, byte 8
-        push asc_16771D
+        push str_000011
         push eax
         mov ebx, eax
         call FindShape
@@ -1087,8 +1087,8 @@ sub_E8923:
         cmp byte [dword esi+byte_1CD7A9], 0
         je near .4
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, word_1CD788
         add eax, esi
         push byte 0
@@ -1099,7 +1099,7 @@ sub_E8923:
         mov dword [byte ebp-014h], eax
         test eax, eax
         je short .4
-        push asc_167722
+        push str_FART5
         push eax
         call FindShapeQuiet
         add esp, byte 8
@@ -1142,7 +1142,7 @@ sub_E8923:
         push dword 0F2h
         mov edx, 18h
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         imul ebx, edi, dword 0ABh
         mov eax, word_1CD788
         add eax, ebx
@@ -1153,7 +1153,7 @@ sub_E8923:
         push eax
         movzx eax, byte [dword ebx+byte_1CD7B4]
         push eax
-        push asc_167727
+        push str_DSS4
         push dword 168h
         push dword 1F6h
         push byte 1
@@ -1279,7 +1279,7 @@ sub_E8923:
         cdq
         idiv ecx
         push eax
-        push asc_167734
+        push str_D02d4
         push dword 8Ah
         push dword 240h
         push byte 0
@@ -1316,7 +1316,7 @@ sub_E8923:
         cdq
         idiv ecx
         push eax
-        push asc_16773C
+        push str_D01d3
         mov eax, dword [byte ebp-04h]
         push esi
         add eax, dword [byte ebp-08h]
@@ -1526,7 +1526,7 @@ sub_E8923:
         cdq
         idiv ecx
         push eax
-        push asc_16773C
+        push str_D01d3
         mov eax, dword [byte ebp-04h]
         push esi
         add eax, dword [byte ebp-08h]
@@ -1557,14 +1557,14 @@ sub_E8923:
         call sub_101EAC
         add esp, byte 10h
         mov ebx, 17Dh
-        call sub_80808
+        call FreeLogoArt
         push dword 115h
         mov ecx, 64h
         mov eax, dword [dword_1CD764]
         push dword 0F2h
         mov edx, 18h
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         imul ebx, edi, dword 0ABh
         mov esi, 68h
         cmp edi, byte 9
@@ -1683,7 +1683,7 @@ sub_E8923:
         mov eax, 1A3h
         call GetLangText
         push eax
-        push asc_167744
+        push str_SSDD3
         push esi
         push dword [byte ebp-04h]
         push byte 1

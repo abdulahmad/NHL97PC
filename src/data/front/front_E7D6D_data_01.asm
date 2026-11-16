@@ -2,105 +2,105 @@
 bits 32
 %include "hockey.inc"
 section s_1676E9 progbits alloc noexec write align=1
-global asc_1676E9, asc_1676EE, asc_1676F3, asc_1676FA, asc_1676FF, asc_167704, asc_167709, asc_16770E
-global asc_167713, asc_167718, asc_16771D, asc_167722, asc_167727, asc_167734, asc_16773C, asc_167744
-global asc_167750, asc_167757, asc_16775C, asc_167761, asc_167766, asc_16776B, asc_167770, asc_167775
-global asc_16777A, asc_16777F, asc_167784, asc_167789, asc_16778E, asc_167793, asc_167798, asc_16779D
-global asc_1677A2, asc_1677A7, asc_1677AC, asc_1677B1, asc_1677B6, asc_1677BB, asc_1677C0, asc_1677C5
-global asc_1677CA, asc_1677CF, asc_1677D4, asc_1677D9, asc_1677DE, asc_1677E3, asc_1677E8, unk_167731
-asc_1676E9:
+global str_BACK14, str_TITL14, str_LB02d6, str_AB025, str_AB015, str_AB005, str_AB055, str_AB045
+global str_AB035, str_FRAM, str_000011, str_FART5, str_DSS4, str_D02d4, str_D01d3, str_SSDD3
+global str_MB02d2, str_BAK02, str_TITL15, str_WC002, str_WC012, str_LB005, str_LH00, str_AR00
+global str_AT00, str_MB082, str_MB12, str_MB005, str_MB16, str_MB20, str_1TOP6, str_2TOP6
+global str_3TOP6, str_1BOT6, str_2BOT6, str_3BOT6, str_AB026, str_AB016, str_AB006, str_AB056
+global str_AB046, str_AB036, str_AB082, str_AB072, str_AB062, str_AB112, str_AB102, unk_167731
+str_BACK14:
         db 042h,041h,043h,04Bh,00h
-asc_1676EE:
+str_TITL14:
         db 054h,049h,054h,04Ch,00h
-asc_1676F3:
+str_LB02d6:
         db 04Ch,042h,025h,030h,032h,064h,00h
-asc_1676FA:
+str_AB025:
         db 041h,042h,030h,032h,00h
-asc_1676FF:
+str_AB015:
         db 041h,042h,030h,031h,00h
-asc_167704:
+str_AB005:
         db 041h,042h,030h,030h,00h
-asc_167709:
+str_AB055:
         db 041h,042h,030h,035h,00h
-asc_16770E:
+str_AB045:
         db 041h,042h,030h,034h,00h
-asc_167713:
+str_AB035:
         db 041h,042h,030h,033h,00h
-asc_167718:
+str_FRAM:
         db 046h,052h,041h,04Dh,00h
-asc_16771D:
+str_000011:
         db 030h,030h,030h,030h,00h
-asc_167722:
+str_FART5:
         db 046h,041h,052h,054h,00h
-asc_167727:
+str_DSS4:
         db 023h,025h,064h,020h,025h,073h,020h,025h,073h,00h
 unk_167731:
         db 025h,064h,00h
-asc_167734:
+str_D02d4:
         db 025h,064h,02Eh,025h,030h,032h,064h,00h
-asc_16773C:
+str_D01d3:
         db 025h,064h,02Eh,025h,030h,031h,064h,00h
-asc_167744:
+str_SSDD3:
         db 025h,073h,020h,025h,073h,020h,025h,064h,02Dh,025h,064h,00h
-asc_167750:
+str_MB02d2:
         db 04Dh,042h,025h,030h,032h,064h,00h
-asc_167757:
+str_BAK02:
         db 042h,041h,04Bh,030h,00h
-asc_16775C:
+str_TITL15:
         db 054h,049h,054h,04Ch,00h
-asc_167761:
+str_WC002:
         db 057h,043h,030h,030h,00h
-asc_167766:
+str_WC012:
         db 057h,043h,030h,031h,00h
-asc_16776B:
+str_LB005:
         db 04Ch,042h,030h,030h,00h
-asc_167770:
+str_LH00:
         db 04Ch,048h,030h,030h,00h
-asc_167775:
+str_AR00:
         db 041h,052h,030h,030h,00h
-asc_16777A:
+str_AT00:
         db 041h,054h,030h,030h,00h
-asc_16777F:
+str_MB082:
         db 04Dh,042h,030h,038h,00h
-asc_167784:
+str_MB12:
         db 04Dh,042h,031h,032h,00h
-asc_167789:
+str_MB005:
         db 04Dh,042h,030h,030h,00h
-asc_16778E:
+str_MB16:
         db 04Dh,042h,031h,036h,00h
-asc_167793:
+str_MB20:
         db 04Dh,042h,032h,030h,00h
-asc_167798:
+str_1TOP6:
         db 031h,054h,04Fh,050h,00h
-asc_16779D:
+str_2TOP6:
         db 032h,054h,04Fh,050h,00h
-asc_1677A2:
+str_3TOP6:
         db 033h,054h,04Fh,050h,00h
-asc_1677A7:
+str_1BOT6:
         db 031h,042h,04Fh,054h,00h
-asc_1677AC:
+str_2BOT6:
         db 032h,042h,04Fh,054h,00h
-asc_1677B1:
+str_3BOT6:
         db 033h,042h,04Fh,054h,00h
-asc_1677B6:
+str_AB026:
         db 041h,042h,030h,032h,00h
-asc_1677BB:
+str_AB016:
         db 041h,042h,030h,031h,00h
-asc_1677C0:
+str_AB006:
         db 041h,042h,030h,030h,00h
-asc_1677C5:
+str_AB056:
         db 041h,042h,030h,035h,00h
-asc_1677CA:
+str_AB046:
         db 041h,042h,030h,034h,00h
-asc_1677CF:
+str_AB036:
         db 041h,042h,030h,033h,00h
-asc_1677D4:
+str_AB082:
         db 041h,042h,030h,038h,00h
-asc_1677D9:
+str_AB072:
         db 041h,042h,030h,037h,00h
-asc_1677DE:
+str_AB062:
         db 041h,042h,030h,036h,00h
-asc_1677E3:
+str_AB112:
         db 041h,042h,031h,031h,00h
-asc_1677E8:
+str_AB102:
         db 041h,042h,031h,030h,00h

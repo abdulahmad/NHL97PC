@@ -2,33 +2,33 @@
 bits 32
 %include "hockey.inc"
 section s_868CD progbits alloc exec nowrite align=1
-extern __STOSB, asc_165326, asc_165333, asc_16533A, asc_16533F, asc_165344, asc_165349, asc_16534E
-extern asc_165353, asc_165358, asc_16535D, asc_165362, asc_165367, asc_16536C, asc_165371, asc_165376
-extern asc_16537B, asc_165380, asc_165385, asc_16538A, asc_16538F, asc_165394, asc_165399, asc_16539E
-extern asc_1653A3, asc_1653A8, asc_1653AD, asc_1653B2, asc_1653B7, asc_1653BC, asc_1653C1, asc_1653C6
-extern asc_1653CB, asc_1653D0, asc_1653D5, asc_1653DA, asc_1653DF, asc_1653E4, asc_1653E9, asc_1653EE
-extern asc_1653F3, asc_1653F8, asc_1653FD, asc_165402, asc_165407, asc_16540C, asc_165411, asc_165416
-extern asc_16541B, asc_165421, asc_165426, asc_16542B, asc_165430, asc_165435, asc_16543A, asc_16543F
-extern asc_165444, asc_165449, asc_16544E, asc_165453, asc_165458, asc_16545D, asc_165462, asc_165467
-extern asc_16546C, asc_165471, asc_165476, asc_16547B, asc_165480, asc_165485, asc_16548A, asc_16548F
-extern asc_165494, asc_165499, asc_16549E, asc_1654A3, asc_1654A8, asc_1654AD, asc_1654B2, asc_1654B7
-extern asc_1654BB, asc_1654C0, asc_1654C5, asc_1654CA, asc_1654CF, asc_1654D4, asc_1654D9, asc_1654DE
-extern asc_1654E3, asc_1654E8, asc_1654ED, asc_1654F2, asc_1654F7, asc_1654FC, asc_165501, asc_165506
-extern asc_16550B, asc_165510, asc_165515, asc_16551B, asc_165521, asc_165527, asc_16552D, asc_165533
-extern asc_165539, asc_16553E, asc_165543, byte_1AC8C6, byte_1ACA66, byte_1ACA6A, byte_1ACC51, byte_1ACC55
+extern __STOSB, str_Phonebook, str_Delete, str_1TOP, str_2TOP, str_3TOP, str_1BOT, str_2BOT
+extern str_3BOT, str_CP00, str_CP01, str_CP03, str_CP04, str_CP06, str_CP07, str_CP09
+extern str_CP10, str_CP02, str_CP05, str_CP08, str_CP11, str_IR00, str_IR01, str_IR03
+extern str_IR04, str_IR06, str_IR07, str_IR09, str_IR10, str_IR02, str_IR05, str_IR08
+extern str_IR11, str_BR00, str_BR01, str_BR03, str_BR04, str_BR06, str_BR07, str_BR02
+extern str_BR05, str_BR08, str_PB02, str_PB01, str_PB00, str_MT02, str_MT01, str_MT00
+extern str_Punct3, str_DS02, str_DS01, str_DS00, str_IS02, str_IS01, str_IS00, str_PT02
+extern str_PT01, str_PT00, str_DC02, str_DC01, str_DC00, str_DC05, str_DC04, str_DC03
+extern str_CM02, str_CM05, str_CM04, str_CM03, str_CM01, str_CM00, str_MOD2, str_NET2
+extern str_NET1, str_NET0, str_BG02, str_ATDT, str_Atdt, str_ATDP, str_Atdp, str_S2
+extern str_TPB5, str_TPB2, str_TPB1, str_TPB0, str_TPB4, str_TPB3, str_MOD1, str_MOD0
+extern str_BG00, str_BG01, str_BACK5, str_TITL3, str_LT002, str_LB002, str_RB00, str_RT00
+extern str_TOP0, str_BOT0, str_LFTD, str_RITD, str_LT0D, str_LB0D, str_RT0D, str_RB0D
+extern str_LFT0, str_RIT0, str_BTTM, byte_1AC8C6, byte_1ACA66, byte_1ACA6A, byte_1ACC51, byte_1ACC55
 extern byte_1C833C, byte_1C83B4, dword_16CCFA, dword_16CCFE, dword_16CD14, dword_16CD18, dword_16DAC0, dword_16E464
 extern dword_16E468, dword_16E46C, dword_1AC814, dword_1AC8AD, dword_1C5DE4, dword_1C5F12, dword_1C5F1E, dword_1C5F22
 extern dword_1C5F64, dword_1C5F70, dword_1C5F74, dword_1C83B0, dword_1C8440, dword_1C8444, dword_1C8448, dword_1C844C
 extern dword_1C8450, dword_1C8454, fclose_, fgets_, fread_, fseek_, fwrite_, memcpy_
 extern memset_, sprintf_, strcmp_, strcpy_, strlen_, strstr_, bcopy, sub_101324
-extern BlitShape2, BlitArt, sub_1013FC, FindShape, sub_102B94, sub_11A318, SetScreenTarget, sub_419B0
-extern sub_419B8, StopAllSfx, PlaySfx, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0, sub_7EEB0
-extern SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5B8, sub_7FE38, sub_80BBC
-extern sub_81114, sub_81678, sub_835BC, sub_83850, sub_867F0, sub_86878, sub_8BFAC, sub_8D956
-extern sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, GetLangText, sub_E32B4, sub_E3410
-extern sub_E341C, sub_E3AFC, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, AllocMemBlock, FreeMemBlock
+extern BlitShape2, BlitArt, sub_1013FC, FindShape, sub_102B94, ConvertArtXY, SetScreenTarget, SecondsToSamples
+extern WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFileLib, LoadDataFile, DrawScreenBackground, FadeInScreen, ShowScreen
+extern SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBoxNoWait, EditTextField, WipeScreen
+extern DrawEntryList, SetNormalText, ShowLinkMessage, HideLinkBox, sub_867F0, sub_86878, sub_8BFAC, sub_8D956
+extern sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, GetLangText, InitLinkSettings, ClearLinkAbort
+extern ServiceIdle, StartNetworkLink, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, AllocMemBlock, FreeMemBlock
 extern MakeColor, FreeBitmap, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect
-extern sub_FDE44, unk_165330, unk_1AC839, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1C5EF8
+extern MeasureText, unk_165330, unk_1AC839, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1C5EF8
 extern unk_1C5F4A, unk_1C834C, unk_1C8360, unk_1C8388, unk_1C83BA, word_16CCF8, word_16DACC, word_16DAD0
 extern word_1AC8B1, word_1C8340, word_1C8342, word_1C8344, word_1C8346, word_1C8348, word_1C834A, word_1C83B8
 global jpt_86C99, jpt_87AF7, jpt_89053, sub_868CD_5F, PhonebookEntryScreen_4B8, PhonebookEntryScreen_4C9, PhonebookEntryScreen_5DB, PhonebookEntryScreen_60C
@@ -61,7 +61,7 @@ sub_868CD:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         xor eax, eax
         jmp near ModemConnectScreen_2C4
 .1:
@@ -150,7 +150,7 @@ LoadPhonebook:
         imul eax, dword 0A0h
         push byte 20h
         push eax
-        push asc_165326
+        push str_Phonebook
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1C83B0], eax
@@ -170,7 +170,7 @@ LoadPhonebook:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         jmp short .1
 .3:
         mov edx, 4
@@ -204,7 +204,7 @@ sub_86A45:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         mov dword [byte ebp-04h], esi
         jmp short .2
 .1:
@@ -384,7 +384,7 @@ sub_86BD0:
         push eax
         add ebx, byte 2Dh
         mov eax, 6
-        call sub_7F04C
+        call DrawEditBox
 .4:
         lea ebx, [esi+edi]
         imul ebx, dword 0A0h
@@ -439,7 +439,7 @@ PhonebookEntryScreen:
         enter 1000h, 0
         push eax
         push edx
-        call sub_81678
+        call SetNormalText
         lea edx, [dword ebp-01000h]
         mov eax, 1Ah
         call InitMenuItems
@@ -473,13 +473,13 @@ PhonebookEntryScreen:
         push byte 6Eh
         push byte 46h
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push byte 6Eh
         push byte 46h
         push dword [byte esi+02Ch]
         mov dword [byte ebp-014h], 0
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov dword [byte ebp-04h], 0
         mov dword [byte ebp-01Ch], 0FFFFFFFFh
@@ -505,7 +505,7 @@ PhonebookEntryScreen:
         add esp, byte 4
         xor edx, edx
         xor eax, eax
-        call sub_7F29C
+        call DrawFrameBox
         test esi, esi
         jle short .2
         push dword 0FFFFFF50h
@@ -516,7 +516,7 @@ PhonebookEntryScreen:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        push asc_165333
+        push str_Delete
         push byte 5
         push byte 28h
         push byte 1
@@ -549,33 +549,33 @@ PhonebookEntryScreen:
         movsx ecx, word [byte eax+04h]
         lea eax, [dword ebp-076Ch]
         call SetRegionRect
-        push asc_16533A
+        push str_1TOP
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
-        push asc_16533F
+        push str_2TOP
         push dword [dword_1C5DE4]
         mov dword [dword ebp-0EF0h], eax
         call FindShape
         add esp, byte 8
-        push asc_165344
+        push str_3TOP
         push dword [dword_1C5DE4]
         mov dword [dword ebp-0EECh], eax
         call FindShape
         add esp, byte 8
-        push asc_165349
+        push str_1BOT
         mov dword [dword ebp-0EE4h], 50h
         mov dword [dword ebp-0EE0h], 8Ch
         push dword [dword_1C5DE4]
         mov dword [dword ebp-0EE8h], eax
         call FindShape
         add esp, byte 8
-        push asc_16534E
+        push str_2BOT
         push dword [dword_1C5DE4]
         mov dword [dword ebp-0E4Ch], eax
         call FindShape
         add esp, byte 8
-        push asc_165353
+        push str_3BOT
         push dword [dword_1C5DE4]
         mov dword [dword ebp-0E48h], eax
         call FindShape
@@ -647,7 +647,7 @@ PhonebookEntryScreen:
         add esp, byte 14h
         xor edx, edx
         xor eax, eax
-        call sub_7F29C
+        call DrawFrameBox
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -664,7 +664,7 @@ PhonebookEntryScreen:
         mov eax, dword [byte ebp-010h]
         push byte 0Ah
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         mov eax, dword [byte ebp-010h]
         mov eax, dword [byte eax+02Ch]
         mov word [byte eax+0Ch], 50h
@@ -694,7 +694,7 @@ PhonebookEntryScreen:
         mov eax, dword [byte ebp-0Ch]
         push byte 28h
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         mov ecx, dword [dword ebp-01008h]
@@ -724,7 +724,7 @@ PhonebookEntryScreen:
         push byte 50h
         mov edx, eax
         mov esi, unk_1C5EF8
-        call sub_81114
+        call DrawEntryList
         mov ecx, 52h
         rep movsb
         mov ecx, 52h
@@ -735,7 +735,7 @@ PhonebookEntryScreen:
         mov dword [dword ebp-0F5Ch], 2
         jmp near PhonebookEntryScreen_60C.11
 PhonebookEntryScreen_4B8:
-        call sub_7EEB0
+        call ShowScreen
 .6:
         mov dword [byte ebp-014h], 1
         jmp near PhonebookEntryScreen_60C.11
@@ -823,7 +823,7 @@ PhonebookEntryScreen_5DB:
         add edx, byte 50h
         mov dword [byte ebp-014h], 1
         call strcpy_
-        call sub_7EDF0
+        call FadeInScreen
         jmp near PhonebookEntryScreen_60C.11
 PhonebookEntryScreen_60C:
         cmp dword [dword ebp-0108h], byte 0
@@ -945,7 +945,7 @@ PhonebookEntryScreen_752:
         add esi, edx
         mov edx, 14h
         mov eax, esi
-        call sub_7FE38
+        call EditTextField
         jmp near PhonebookEntryScreen_60C.10
 .13:
         sub dword [byte ebp-020h], byte 0Ah
@@ -1007,11 +1007,11 @@ sub_87523:
         mov dword [byte ebp-04h], ecx
         test ebx, ebx
         jne short .1
-        push asc_165358
+        push str_CP00
         push eax
         call FindShape
         add esp, byte 8
-        push asc_16535D
+        push str_CP01
         push edi
         mov dword [dword esi+0BEh], eax
         call FindShape
@@ -1020,11 +1020,11 @@ sub_87523:
 .1:
         cmp ebx, byte 1
         jne short .2
-        push asc_165362
+        push str_CP03
         push edi
         call FindShape
         add esp, byte 8
-        push asc_165367
+        push str_CP04
         push edi
         mov dword [dword esi+0110h], eax
         call FindShape
@@ -1033,11 +1033,11 @@ sub_87523:
 .2:
         cmp ebx, byte 2
         jne short .3
-        push asc_16536C
+        push str_CP06
         push edi
         call FindShape
         add esp, byte 8
-        push asc_165371
+        push str_CP07
         push edi
         mov dword [dword esi+0162h], eax
         call FindShape
@@ -1046,11 +1046,11 @@ sub_87523:
 .3:
         cmp ebx, byte 3
         jne short .4
-        push asc_165376
+        push str_CP09
         push edi
         call FindShape
         add esp, byte 8
-        push asc_16537B
+        push str_CP10
         push edi
         mov dword [dword esi+01B4h], eax
         call FindShape
@@ -1059,11 +1059,11 @@ sub_87523:
 .4:
         cmp dword [byte ebp-04h], byte 0
         jne short .5
-        push asc_165380
+        push str_CP02
         push edi
         call FindShape
         add esp, byte 8
-        push asc_165380
+        push str_CP02
         push edi
         mov dword [dword esi+0BEh], eax
         call FindShape
@@ -1072,11 +1072,11 @@ sub_87523:
 .5:
         cmp dword [byte ebp-04h], byte 1
         jne short .6
-        push asc_165385
+        push str_CP05
         push edi
         call FindShape
         add esp, byte 8
-        push asc_165385
+        push str_CP05
         push edi
         mov dword [dword esi+0110h], eax
         call FindShape
@@ -1085,11 +1085,11 @@ sub_87523:
 .6:
         cmp dword [byte ebp-04h], byte 2
         jne short .7
-        push asc_16538A
+        push str_CP08
         push edi
         call FindShape
         add esp, byte 8
-        push asc_16538A
+        push str_CP08
         push edi
         mov dword [dword esi+0162h], eax
         call FindShape
@@ -1098,11 +1098,11 @@ sub_87523:
 .7:
         cmp dword [byte ebp-04h], byte 3
         jne short .8
-        push asc_16538F
+        push str_CP11
         push edi
         call FindShape
         add esp, byte 8
-        push asc_16538F
+        push str_CP11
         push edi
         mov dword [dword esi+01B4h], eax
         call FindShape
@@ -1125,11 +1125,11 @@ sub_8769F:
         mov dword [byte ebp-04h], ecx
         cmp ebx, byte 2
         jne short .1
-        push asc_165394
+        push str_IR00
         push eax
         call FindShape
         add esp, byte 8
-        push asc_165399
+        push str_IR01
         push edi
         mov dword [dword esi+0206h], eax
         call FindShape
@@ -1138,11 +1138,11 @@ sub_8769F:
 .1:
         cmp ebx, byte 3
         jne short .2
-        push asc_16539E
+        push str_IR03
         push edi
         call FindShape
         add esp, byte 8
-        push asc_1653A3
+        push str_IR04
         push edi
         mov dword [dword esi+0258h], eax
         call FindShape
@@ -1151,11 +1151,11 @@ sub_8769F:
 .2:
         cmp ebx, byte 4
         jne short .3
-        push asc_1653A8
+        push str_IR06
         push edi
         call FindShape
         add esp, byte 8
-        push asc_1653AD
+        push str_IR07
         push edi
         mov dword [dword esi+02AAh], eax
         call FindShape
@@ -1164,11 +1164,11 @@ sub_8769F:
 .3:
         cmp ebx, byte 7
         jne short .4
-        push asc_1653B2
+        push str_IR09
         push edi
         call FindShape
         add esp, byte 8
-        push asc_1653B7
+        push str_IR10
         push edi
         mov dword [dword esi+02FCh], eax
         call FindShape
@@ -1177,11 +1177,11 @@ sub_8769F:
 .4:
         cmp dword [byte ebp-04h], byte 2
         jne short .5
-        push asc_1653BC
+        push str_IR02
         push edi
         call FindShape
         add esp, byte 8
-        push asc_1653BC
+        push str_IR02
         push edi
         mov dword [dword esi+0206h], eax
         call FindShape
@@ -1190,11 +1190,11 @@ sub_8769F:
 .5:
         cmp dword [byte ebp-04h], byte 3
         jne short .6
-        push asc_1653C1
+        push str_IR05
         push edi
         call FindShape
         add esp, byte 8
-        push asc_1653C1
+        push str_IR05
         push edi
         mov dword [dword esi+0258h], eax
         call FindShape
@@ -1203,11 +1203,11 @@ sub_8769F:
 .6:
         cmp dword [byte ebp-04h], byte 4
         jne short .7
-        push asc_1653C6
+        push str_IR08
         push edi
         call FindShape
         add esp, byte 8
-        push asc_1653C6
+        push str_IR08
         push edi
         mov dword [dword esi+02AAh], eax
         call FindShape
@@ -1216,11 +1216,11 @@ sub_8769F:
 .7:
         cmp dword [byte ebp-04h], byte 7
         jne short .8
-        push asc_1653CB
+        push str_IR11
         push edi
         call FindShape
         add esp, byte 8
-        push asc_1653CB
+        push str_IR11
         push edi
         mov dword [dword esi+02FCh], eax
         call FindShape
@@ -1243,11 +1243,11 @@ sub_8781C:
         mov dword [byte ebp-04h], ecx
         cmp ebx, byte 9
         jne short .1
-        push asc_1653D0
+        push str_BR00
         push eax
         call FindShape
         add esp, byte 8
-        push asc_1653D5
+        push str_BR01
         push edi
         mov dword [dword esi+0630h], eax
         call FindShape
@@ -1256,11 +1256,11 @@ sub_8781C:
 .1:
         cmp ebx, byte 0Ah
         jne short .2
-        push asc_1653DA
+        push str_BR03
         push edi
         call FindShape
         add esp, byte 8
-        push asc_1653DF
+        push str_BR04
         push edi
         mov dword [dword esi+0682h], eax
         call FindShape
@@ -1269,11 +1269,11 @@ sub_8781C:
 .2:
         cmp ebx, byte 0Ch
         jne short .3
-        push asc_1653E4
+        push str_BR06
         push edi
         call FindShape
         add esp, byte 8
-        push asc_1653E9
+        push str_BR07
         push edi
         mov dword [dword esi+06D4h], eax
         call FindShape
@@ -1282,11 +1282,11 @@ sub_8781C:
 .3:
         cmp dword [byte ebp-04h], byte 9
         jne short .4
-        push asc_1653EE
+        push str_BR02
         push edi
         call FindShape
         add esp, byte 8
-        push asc_1653EE
+        push str_BR02
         push edi
         mov dword [dword esi+0630h], eax
         call FindShape
@@ -1295,11 +1295,11 @@ sub_8781C:
 .4:
         cmp dword [byte ebp-04h], byte 0Ah
         jne short .5
-        push asc_1653F3
+        push str_BR05
         push edi
         call FindShape
         add esp, byte 8
-        push asc_1653F3
+        push str_BR05
         push edi
         mov dword [dword esi+0682h], eax
         call FindShape
@@ -1308,11 +1308,11 @@ sub_8781C:
 .5:
         cmp dword [byte ebp-04h], byte 0Ch
         jne short .6
-        push asc_1653F8
+        push str_BR08
         push edi
         call FindShape
         add esp, byte 8
-        push asc_1653F8
+        push str_BR08
         push edi
         mov dword [dword esi+06D4h], eax
         call FindShape
@@ -1342,7 +1342,7 @@ sub_8793E:
         movsx eax, word [byte eax+04h]
         mov dword [byte ebp-08h], 0
         mov dword [byte ebp-0Ch], eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         cmp eax, dword [byte ebp-0Ch]
         jle near .6
@@ -1365,7 +1365,7 @@ sub_8793E:
         mov dword [byte ebp-0Ch], eax
         lea eax, [byte ebp-020h]
         push eax
-        call sub_FDE44
+        call MeasureText
         mov edx, dword [byte ebp-0Ch]
         add edx, byte 5
         add esp, byte 4
@@ -1536,7 +1536,7 @@ ModemSettingsScreen:
         call InitMenuItems
         mov eax, 65h
         xor edx, edx
-        mov ebx, asc_165358
+        mov ebx, str_CP00
         call LoadDataFileLib
         mov dword [byte ebp-08h], eax
         mov dword [byte ebp-034h], eax
@@ -1555,72 +1555,72 @@ ModemSettingsScreen:
         mov edx, dword [byte ebp-020h]
         push eax
         rep movsb
-        push asc_165380
-        mov ecx, asc_16535D
+        push str_CP02
+        mov ecx, str_CP01
         lea eax, [dword ebp-0D74h]
         mov dword [dword ebp-0DC6h], 1
         call sub_86AFA
         lea eax, [dword ebp-0628h]
         push eax
-        mov ecx, asc_165367
-        mov ebx, asc_165362
-        push asc_165385
+        mov ecx, str_CP04
+        mov ebx, str_CP03
+        push str_CP05
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0D22h]
         call sub_86AFA
         lea eax, [dword ebp-05E8h]
         push eax
-        mov ecx, asc_165371
-        mov ebx, asc_16536C
-        push asc_16538A
+        mov ecx, str_CP07
+        mov ebx, str_CP06
+        push str_CP08
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0CD0h]
         call sub_86AFA
         lea eax, [dword ebp-05A8h]
         push eax
-        mov ecx, asc_16537B
-        mov ebx, asc_165376
-        push asc_16538F
+        mov ecx, str_CP10
+        mov ebx, str_CP09
+        push str_CP11
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0C7Eh]
         call sub_86AFA
         lea eax, [dword ebp-0568h]
         push eax
-        mov ecx, asc_165399
-        mov ebx, asc_165394
-        push asc_1653BC
+        mov ecx, str_IR01
+        mov ebx, str_IR00
+        push str_IR02
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0C2Ch]
         call sub_86AFA
         lea eax, [dword ebp-0528h]
         push eax
-        mov ecx, asc_1653A3
-        mov ebx, asc_16539E
-        push asc_1653C1
+        mov ecx, str_IR04
+        mov ebx, str_IR03
+        push str_IR05
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0BDAh]
         call sub_86AFA
         lea eax, [dword ebp-04E8h]
         push eax
-        mov ecx, asc_1653AD
-        mov ebx, asc_1653A8
-        push asc_1653C6
+        mov ecx, str_IR07
+        mov ebx, str_IR06
+        push str_IR08
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0B88h]
         call sub_86AFA
         lea eax, [dword ebp-04A8h]
         push eax
-        mov ecx, asc_1653B7
-        mov ebx, asc_1653B2
-        push asc_1653CB
+        mov ecx, str_IR10
+        mov ebx, str_IR09
+        push str_IR11
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0B36h]
         call sub_86AFA
         lea eax, [dword ebp-0468h]
         push eax
-        mov ecx, asc_165402
-        mov ebx, asc_165407
-        push asc_1653FD
+        mov ecx, str_PB01
+        mov ebx, str_PB00
+        push str_PB02
         mov edx, dword [byte ebp-08h]
         lea eax, [dword ebp-0AE4h]
         call sub_86AFA
@@ -1714,7 +1714,7 @@ ModemSettingsScreen:
         mov dword [dword ebp-0A6Ch], 78h
         mov dword [dword ebp-0A68h], 8Ch
         mov dword [dword ebp-0A74h], eax
-        call sub_81678
+        call SetNormalText
         mov eax, esi
         mov ecx, 0AFh
         call sub_8793E
@@ -1725,9 +1725,9 @@ ModemSettingsScreen:
         call SetRegionRect
         lea eax, [dword ebp-03E8h]
         push eax
-        mov ecx, asc_165411
-        mov ebx, asc_165416
-        push asc_16540C
+        mov ecx, str_MT01
+        mov ebx, str_MT00
+        push str_MT02
         mov edx, dword [byte ebp-020h]
         lea eax, [dword ebp-0A40h]
         call sub_86B73
@@ -1756,7 +1756,7 @@ ModemSettingsScreen:
         mov word [byte eax+0Ch], 11Dh
         mov eax, dword [byte ebx+02Ch]
         mov word [byte eax+0Eh], 106h
-        call sub_81678
+        call SetNormalText
         call SetScreenTarget
         push byte 0FFFFFFFFh
         call MakeColor
@@ -1782,7 +1782,7 @@ ModemSettingsScreen:
 .3:
         cmp ax, 1Eh
         jl short .2
-        mov edx, asc_16541B
+        mov edx, str_Punct3
         lea eax, [byte ebp-04Ah]
         call strcpy_
         lea eax, [byte ebp-068h]
@@ -1808,9 +1808,9 @@ ModemSettingsScreen:
         call SetRegionRect
         lea eax, [dword ebp-03A8h]
         push eax
-        mov ecx, asc_165426
-        mov ebx, asc_16542B
-        push asc_165421
+        mov ecx, str_DS01
+        mov ebx, str_DS00
+        push str_DS02
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-09EEh]
         call sub_86B73
@@ -1860,9 +1860,9 @@ ModemSettingsScreen:
         call SetRegionRect
         lea eax, [dword ebp-0368h]
         push eax
-        mov ecx, asc_165435
-        mov ebx, asc_16543A
-        push asc_165430
+        mov ecx, str_IS01
+        mov ebx, str_IS00
+        push str_IS02
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-099Ch]
         call sub_86B73
@@ -1912,9 +1912,9 @@ ModemSettingsScreen:
         call SetRegionRect
         lea eax, [dword ebp-0328h]
         push eax
-        mov ecx, asc_165444
-        mov ebx, asc_165449
-        push asc_16543F
+        mov ecx, str_PT01
+        mov ebx, str_PT00
+        push str_PT02
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-094Ah]
         call sub_86B73
@@ -1967,16 +1967,16 @@ ModemSettingsScreen:
         je short .8
         lea eax, [dword ebp-02E8h]
         push eax
-        mov ecx, asc_165453
-        mov ebx, asc_165458
-        push asc_16544E
+        mov ecx, str_DC01
+        mov ebx, str_DC00
+        push str_DC02
         jmp short .9
 .8:
         lea eax, [dword ebp-02E8h]
         push eax
-        mov ecx, asc_165462
-        mov ebx, asc_165467
-        push asc_16545D
+        mov ecx, str_DC04
+        mov ebx, str_DC03
+        push str_DC05
 .9:
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-08F8h]
@@ -1985,84 +1985,84 @@ ModemSettingsScreen:
         jne short .10
         lea eax, [dword ebp-02A8h]
         push eax
-        mov ecx, asc_16546C
+        mov ecx, str_CM02
         mov edx, dword [byte ebp-018h]
-        push asc_16546C
+        push str_CM02
         mov ebx, ecx
         lea eax, [dword ebp-08A6h]
         call sub_86AFA
         lea eax, [dword ebp-0268h]
         push eax
-        mov ecx, asc_165476
-        mov ebx, asc_16547B
-        push asc_165471
+        mov ecx, str_CM04
+        mov ebx, str_CM03
+        push str_CM05
         mov edx, dword [byte ebp-018h]
         jmp short .11
 .10:
         lea eax, [dword ebp-02A8h]
         push eax
-        mov ecx, asc_165480
-        mov ebx, asc_165485
-        push asc_16546C
+        mov ecx, str_CM01
+        mov ebx, str_CM00
+        push str_CM02
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-08A6h]
         call sub_86AFA
         lea eax, [dword ebp-0268h]
         push eax
-        mov ecx, asc_165471
+        mov ecx, str_CM05
         mov edx, dword [byte ebp-018h]
-        push asc_165471
+        push str_CM05
         mov ebx, ecx
 .11:
         lea eax, [dword ebp-0854h]
         call sub_86AFA
         lea eax, [dword ebp-0228h]
         push eax
-        mov ecx, asc_1653D5
-        mov ebx, asc_1653D0
-        push asc_1653EE
+        mov ecx, str_BR01
+        mov ebx, str_BR00
+        push str_BR02
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-0802h]
         call sub_86AFA
         lea eax, [dword ebp-01E8h]
         push eax
-        mov ecx, asc_1653DF
-        mov ebx, asc_1653DA
-        push asc_1653F3
+        mov ecx, str_BR04
+        mov ebx, str_BR03
+        push str_BR05
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-07B0h]
         call sub_86AFA
         lea eax, [dword ebp-01A8h]
         push eax
-        mov ecx, asc_1653E9
-        mov ebx, asc_1653E4
-        push asc_1653F8
+        mov ecx, str_BR07
+        mov ebx, str_BR06
+        push str_BR08
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-075Eh]
         call sub_86AFA
         lea eax, [dword ebp-0168h]
         push eax
-        mov ecx, asc_16548A
+        mov ecx, str_MOD2
         mov edx, dword [byte ebp-018h]
-        push asc_16548A
+        push str_MOD2
         mov ebx, ecx
         lea eax, [dword ebp-070Ch]
         call sub_86AFA
         lea eax, [dword ebp-0128h]
         push eax
-        mov ecx, asc_165494
-        mov ebx, asc_165499
-        push asc_16548F
+        mov ecx, str_NET1
+        mov ebx, str_NET0
+        push str_NET2
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-06BAh]
         call sub_86AFA
         cmp word [word_1C8340], byte 0
         jne short .12
-        push asc_165380
+        push str_CP02
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
-        push asc_165380
+        push str_CP02
         push dword [byte ebp-018h]
         mov dword [dword ebp-0D5Ah], eax
         call FindShape
@@ -2071,11 +2071,11 @@ ModemSettingsScreen:
 .12:
         cmp word [word_1C8340], byte 1
         jne short .13
-        push asc_165385
+        push str_CP05
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
-        push asc_165385
+        push str_CP05
         push dword [byte ebp-018h]
         mov dword [dword ebp-0D08h], eax
         call FindShape
@@ -2084,11 +2084,11 @@ ModemSettingsScreen:
 .13:
         cmp word [word_1C8340], byte 2
         jne short .14
-        push asc_16538A
+        push str_CP08
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
-        push asc_16538A
+        push str_CP08
         push dword [byte ebp-018h]
         mov dword [dword ebp-0CB6h], eax
         call FindShape
@@ -2097,11 +2097,11 @@ ModemSettingsScreen:
 .14:
         cmp word [word_1C8340], byte 3
         jne short .15
-        push asc_16538F
+        push str_CP11
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
-        push asc_16538F
+        push str_CP11
         push dword [byte ebp-018h]
         mov dword [dword ebp-0C64h], eax
         call FindShape
@@ -2110,11 +2110,11 @@ ModemSettingsScreen:
 .15:
         cmp word [word_1C8342], byte 2
         jne short .16
-        push asc_1653BC
+        push str_IR02
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
-        push asc_1653BC
+        push str_IR02
         push dword [byte ebp-018h]
         mov dword [dword ebp-0C12h], eax
         call FindShape
@@ -2123,11 +2123,11 @@ ModemSettingsScreen:
 .16:
         cmp word [word_1C8342], byte 3
         jne short .17
-        push asc_1653C1
+        push str_IR05
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
-        push asc_1653C1
+        push str_IR05
         push dword [byte ebp-018h]
         mov dword [dword ebp-0BC0h], eax
         call FindShape
@@ -2136,11 +2136,11 @@ ModemSettingsScreen:
 .17:
         cmp word [word_1C8342], byte 4
         jne short .18
-        push asc_1653C6
+        push str_IR08
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
-        push asc_1653C6
+        push str_IR08
         push dword [byte ebp-018h]
         mov dword [dword ebp-0B6Eh], eax
         call FindShape
@@ -2149,11 +2149,11 @@ ModemSettingsScreen:
 .18:
         cmp word [word_1C8342], byte 7
         jne short .19
-        push asc_1653CB
+        push str_IR11
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
-        push asc_1653CB
+        push str_IR11
         push dword [byte ebp-018h]
         mov dword [dword ebp-0B1Ch], eax
         call FindShape
@@ -2162,11 +2162,11 @@ ModemSettingsScreen:
 .19:
         cmp word [word_1C8344], byte 9
         jne short .20
-        push asc_1653EE
+        push str_BR02
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
-        push asc_1653EE
+        push str_BR02
         push dword [byte ebp-018h]
         mov dword [dword ebp-07E8h], eax
         call FindShape
@@ -2175,11 +2175,11 @@ ModemSettingsScreen:
 .20:
         cmp word [word_1C8344], byte 0Ah
         jne short .21
-        push asc_1653F3
+        push str_BR05
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
-        push asc_1653F3
+        push str_BR05
         push dword [byte ebp-018h]
         mov dword [dword ebp-0796h], eax
         call FindShape
@@ -2188,11 +2188,11 @@ ModemSettingsScreen:
 .21:
         cmp word [word_1C8344], byte 0Ch
         jne near ModemSettingsScreen_11E3
-        push asc_1653F8
+        push str_BR08
         push dword [byte ebp-018h]
         call FindShape
         add esp, byte 8
-        push asc_1653F8
+        push str_BR08
         push dword [byte ebp-018h]
         mov dword [dword ebp-0744h], eax
         call FindShape
@@ -2200,12 +2200,12 @@ ModemSettingsScreen:
         mov dword [dword ebp-0740h], eax
         jmp near ModemSettingsScreen_11E3
 ModemSettingsScreen_AE3:
-        call sub_7EEB0
+        call ShowScreen
 .22:
         mov dword [byte ebp-028h], 1
         jmp near ModemSettingsScreen_11E3
 ModemSettingsScreen_AF4:
-        call sub_7EDF0
+        call FadeInScreen
         mov edx, byte_1C833C
         mov eax, unk_1AC839
         call sub_86A96
@@ -2223,15 +2223,15 @@ ModemSettingsScreen_AF4:
         or edx, eax
         mov eax, byte_1ACC51
         mov dword [byte ebp-040h], edx
-        call sub_E32B4
+        call InitLinkSettings
         mov eax, unk_1AC839
-        call sub_E3AFC
+        call StartNetworkLink
         test eax, eax
         je near ModemSettingsScreen_11E3
         mov eax, 235h
         call GetLangText
-        call sub_835BC
-        call sub_E3410
+        call ShowLinkMessage
+        call ClearLinkAbort
         test eax, eax
         je near .27
         mov edx, 1E7h
@@ -2302,7 +2302,7 @@ ModemSettingsScreen_AF4:
         cmp ebx, byte 4
         jl short .28
 .30:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .31
         mov edx, 4
@@ -2327,7 +2327,7 @@ ModemSettingsScreen_AF4:
         shl eax, 7
         or dword [dword_1AC814], eax
 .32:
-        call sub_83850
+        call HideLinkBox
         jmp near ModemSettingsScreen_AE3.22
 ModemSettingsScreen_CC6:
         mov ecx, dword [byte ebp-038h]
@@ -2373,7 +2373,7 @@ ModemSettingsScreen_D5E:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         jmp near ModemSettingsScreen_11E3
 .34:
         lea edx, [byte ebp-03Ch]
@@ -2389,12 +2389,12 @@ ModemSettingsScreen_D5E:
         push byte 0
         push byte 0
         push dword [byte esi+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push esi
         call SetDrawTarget
         add esp, byte 4
-        push asc_16549E
+        push str_BG02
         push dword [byte ebp-034h]
         call FindShape
         add esp, byte 8
@@ -2405,7 +2405,7 @@ ModemSettingsScreen_D5E:
         mov eax, dword [byte esi+02Ch]
         mov ebx, eax
         mov edx, eax
-        call sub_7E860
+        call DrawScreenBackground
         push esi
         call FreeBitmap
         add esp, byte 4
@@ -2417,13 +2417,13 @@ ModemSettingsScreen_D5E:
         mov eax, dword [byte ebp-04h]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push byte 0
         mov eax, dword [byte ebp-0Ch]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call SetScreenTarget
         mov eax, dword [byte ebp-024h]
@@ -2443,7 +2443,7 @@ ModemSettingsScreen_E4D:
         mov edx, 14h
         mov ebx, eax
         mov eax, unk_1C834C
-        call sub_7FE38
+        call EditTextField
         jmp short ModemSettingsScreen_D5E.35
 ModemSettingsScreen_E6E:
         inc word [word_1C834A]
@@ -2501,7 +2501,7 @@ ModemSettingsScreen_E6E:
 .38:
         cmp ax, 1Bh
         jl short .37
-        mov edx, asc_16541B
+        mov edx, str_Punct3
         lea eax, [byte ebp-04Dh]
         call strcpy_
         lea eax, [byte ebp-068h]
@@ -2530,7 +2530,7 @@ ModemSettingsScreen_F7C:
         mov edx, 1Eh
         mov ebx, eax
         mov eax, unk_1C8388
-        call sub_7FE38
+        call EditTextField
         call SetScreenTarget
         mov eax, dword [byte ebp-030h]
         push dword [byte eax+02Ch]
@@ -2552,7 +2552,7 @@ ModemSettingsScreen_FCE:
         mov edx, 1Eh
         mov ebx, eax
         mov eax, unk_1C8360
-        call sub_7FE38
+        call EditTextField
         call SetScreenTarget
         push dword [byte edi+02Ch]
         call BlitShape2
@@ -2568,7 +2568,7 @@ ModemSettingsScreen_FCE:
 ModemSettingsScreen_1020:
         cmp word [word_1C8348], byte 0
         je short .44
-        mov edx, asc_1654A3
+        mov edx, str_ATDT
         mov eax, unk_1C8388
         mov word [word_1C8348], 0
         call strstr_
@@ -2576,7 +2576,7 @@ ModemSettingsScreen_1020:
         je short .43
         mov byte [byte eax+03h], 50h
 .43:
-        mov edx, asc_1654A8
+        mov edx, str_Atdt
         mov eax, unk_1C8388
         call strstr_
         test eax, eax
@@ -2584,7 +2584,7 @@ ModemSettingsScreen_1020:
         mov byte [byte eax+03h], 70h
         jmp short .46
 .44:
-        mov edx, asc_1654AD
+        mov edx, str_ATDP
         mov eax, unk_1C8388
         mov word [word_1C8348], 1
         call strstr_
@@ -2592,7 +2592,7 @@ ModemSettingsScreen_1020:
         je short .45
         mov byte [byte eax+03h], 54h
 .45:
-        mov edx, asc_1654B2
+        mov edx, str_Atdp
         mov eax, unk_1C8388
         call strstr_
         test eax, eax
@@ -2647,9 +2647,9 @@ ModemSettingsScreen_112C:
         je short .50
         lea eax, [dword ebp-02E8h]
         push eax
-        mov ecx, asc_165453
-        mov ebx, asc_165458
-        push asc_16544E
+        mov ecx, str_DC01
+        mov ebx, str_DC00
+        push str_DC02
 .49:
         mov edx, dword [byte ebp-018h]
         lea eax, [dword ebp-08F8h]
@@ -2658,27 +2658,27 @@ ModemSettingsScreen_112C:
 .50:
         lea eax, [dword ebp-02E8h]
         push eax
-        mov ecx, asc_165462
-        mov ebx, asc_165467
-        push asc_16545D
+        mov ecx, str_DC04
+        mov ebx, str_DC03
+        push str_DC05
         jmp short .49
 ModemSettingsScreen_1184:
-        push asc_16546C
+        push str_CM02
         push dword [byte ebp-018h]
         and byte [byte_1C833C], 0FEh
         call FindShape
         add esp, byte 8
-        push asc_16546C
+        push str_CM02
         push dword [byte ebp-018h]
         mov dword [dword ebp-088Ch], eax
         call FindShape
         add esp, byte 8
-        push asc_16547B
+        push str_CM03
         push dword [byte ebp-018h]
         mov dword [dword ebp-0888h], eax
         call FindShape
         add esp, byte 8
-        push asc_165476
+        push str_CM04
 .51:
         push dword [byte ebp-018h]
         mov dword [dword ebp-083Ah], eax
@@ -2702,22 +2702,22 @@ ModemSettingsScreen_11E3:
         mov eax, dword [byte ebp-038h]
         jmp dword [nosplit cs:eax*4+jpt_87AF7]
 ModemSettingsScreen_121D:
-        push asc_165485
+        push str_CM00
         push dword [byte ebp-018h]
         or byte [byte_1C833C], 1
         call FindShape
         add esp, byte 8
-        push asc_165480
+        push str_CM01
         push dword [byte ebp-018h]
         mov dword [dword ebp-088Ch], eax
         call FindShape
         add esp, byte 8
-        push asc_165471
+        push str_CM05
         push dword [byte ebp-018h]
         mov dword [dword ebp-0888h], eax
         call FindShape
         add esp, byte 8
-        push asc_165471
+        push str_CM05
         jmp near ModemSettingsScreen_1184.51
 ModemSettingsScreen_126A:
         mov ecx, 9
@@ -2824,7 +2824,7 @@ DrawNoNetworkServices:
         mov ebx, dword [byte esi+02Ch]
         push eax
         movsx eax, word [byte ebx+06h]
-        push asc_1654B7
+        push str_S2
         sar eax, 1
         push eax
         movsx eax, word [byte ebx+04h]
@@ -2986,29 +2986,29 @@ NetworkGamesScreen:
         mov eax, 15h
         call InitMenuItems
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 67h
         call LoadDataFile
         mov dword [byte ebp-02Ch], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 68h
         call LoadDataFile
         mov dword [byte ebp-030h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 66h
         call LoadDataFile
         mov dword [byte ebp-01Ch], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push dword 96h
         push dword 181h
@@ -3139,14 +3139,14 @@ NetworkGamesScreen:
         mov ebx, eax
         push dword [byte eax+02Ch]
         mov dword [byte ebp-024h], eax
-        call sub_11A318
+        call ConvertArtXY
         mov eax, dword [byte ebx+02Ch]
         mov word [byte eax+0Ch], 69h
         mov eax, dword [byte ebx+02Ch]
         add esp, byte 0Ch
         mov word [byte eax+0Eh], 0DCh
         call sub_1013FC
-        call sub_81678
+        call SetNormalText
         mov eax, dword [byte ebp-08h]
         cmp eax, dword [byte ebp-03Ch]
         jl short .2
@@ -3208,66 +3208,66 @@ NetworkGamesScreen:
         je short .3
         lea eax, [dword ebp-0668h]
         push eax
-        mov ecx, asc_1654BB
+        mov ecx, str_TPB5
         mov edx, dword [byte ebp-030h]
-        push asc_1654BB
+        push str_TPB5
         mov ebx, ecx
         lea eax, [dword ebp-0C6Eh]
         call sub_86AFA
         lea eax, [dword ebp-0628h]
         push eax
-        mov ecx, asc_1654C5
-        mov ebx, asc_1654CA
-        push asc_1654C0
+        mov ecx, str_TPB1
+        mov ebx, str_TPB0
+        push str_TPB2
         mov edx, dword [byte ebp-030h]
         jmp short .4
 .3:
         lea eax, [dword ebp-0668h]
         push eax
-        mov ecx, asc_1654CF
-        mov ebx, asc_1654D4
-        push asc_1654BB
+        mov ecx, str_TPB4
+        mov ebx, str_TPB3
+        push str_TPB5
         mov edx, dword [byte ebp-030h]
         lea eax, [dword ebp-0C6Eh]
         call sub_86AFA
         lea eax, [dword ebp-0628h]
         push eax
-        mov ecx, asc_1654C0
+        mov ecx, str_TPB2
         mov edx, dword [byte ebp-030h]
-        push asc_1654C0
+        push str_TPB2
         mov ebx, ecx
 .4:
         lea eax, [dword ebp-0C1Ch]
         call sub_86AFA
         cmp dword [byte ebp-03Ch], byte 0Ah
         jle near .5
-        push asc_16533A
+        push str_1TOP
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
-        push asc_16533F
+        push str_2TOP
         push dword [dword_1C5DE4]
         mov dword [dword ebp-0BB0h], eax
         call FindShape
         add esp, byte 8
-        push asc_165344
+        push str_3TOP
         push dword [dword_1C5DE4]
         mov dword [dword ebp-0BACh], eax
         call FindShape
         add esp, byte 8
-        push asc_165349
+        push str_1BOT
         mov dword [dword ebp-0BA4h], 69h
         mov dword [dword ebp-0BA0h], 0DCh
         push dword [dword_1C5DE4]
         mov dword [dword ebp-0BA8h], eax
         call FindShape
         add esp, byte 8
-        push asc_16534E
+        push str_2BOT
         push dword [dword_1C5DE4]
         mov dword [dword ebp-0B0Ch], eax
         call FindShape
         add esp, byte 8
-        push asc_165353
+        push str_3BOT
         push dword [dword_1C5DE4]
         mov dword [dword ebp-0B08h], eax
         call FindShape
@@ -3282,18 +3282,18 @@ NetworkGamesScreen:
 .5:
         lea eax, [dword ebp-0528h]
         push eax
-        mov ecx, asc_1654D9
-        mov ebx, asc_1654DE
-        push asc_16548A
+        mov ecx, str_MOD1
+        mov ebx, str_MOD0
+        push str_MOD2
         mov edx, dword [byte ebp-01Ch]
         lea eax, [dword ebp-0AD4h]
         call sub_86AFA
         lea eax, [dword ebp-04E8h]
-        mov ecx, asc_16548F
+        mov ecx, str_NET2
         push eax
         mov edx, dword [byte ebp-01Ch]
         mov ebx, ecx
-        push asc_16548F
+        push str_NET2
         lea eax, [dword ebp-0A82h]
         mov esi, 0Bh
         call sub_86AFA
@@ -3349,18 +3349,18 @@ NetworkGamesScreen:
         mov eax, dword [byte ebp-038h]
         jmp dword [nosplit cs:eax*4+jpt_89053]
 NetworkGamesScreen_646:
-        call sub_7EEB0
+        call ShowScreen
 .9:
         mov dword [byte ebp-04h], 1
         jmp near NetworkGamesScreen_8F6
 NetworkGamesScreen_657:
-        call sub_7EDF0
+        call FadeInScreen
         cmp dword [byte ebp-03Ch], byte 0
         jne short .10
         mov eax, 1A2h
         call GetLangText
         push eax
-        push asc_1654B7
+        push str_S2
         lea eax, [byte ebp-068h]
         push eax
         call sprintf_
@@ -3370,7 +3370,7 @@ NetworkGamesScreen_657:
         push byte 1
         xor ebx, ebx
         lea eax, [byte ebp-068h]
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         jmp near NetworkGamesScreen_8F6
 .10:
         mov eax, dword [byte ebp-08h]
@@ -3396,15 +3396,15 @@ NetworkGamesScreen_657:
         add edx, eax
         mov eax, byte_1ACC51
         mov dword [byte ebp-040h], edx
-        call sub_E32B4
+        call InitLinkSettings
         mov eax, unk_1AC839
-        call sub_E3AFC
+        call StartNetworkLink
         test eax, eax
         je near NetworkGamesScreen_8F6
         mov eax, 235h
         call GetLangText
-        call sub_835BC
-        call sub_E3410
+        call ShowLinkMessage
+        call ClearLinkAbort
         test eax, eax
         je near .15
         mov edx, 1E7h
@@ -3475,7 +3475,7 @@ NetworkGamesScreen_657:
         cmp ebx, byte 4
         jl short .16
 .18:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .19
         mov edx, 4
@@ -3500,7 +3500,7 @@ NetworkGamesScreen_657:
         shl eax, 7
         or dword [dword_1AC814], eax
 .20:
-        call sub_83850
+        call HideLinkBox
         jmp near NetworkGamesScreen_646.9
 NetworkGamesScreen_880:
         push byte 0
@@ -3510,7 +3510,7 @@ NetworkGamesScreen_880:
         mov ecx, ebx
         mov ebx, eax
         mov eax, unk_1C83BA
-        call sub_7FE38
+        call EditTextField
         push dword [byte ebp-020h]
         call SetDrawTarget
         add esp, byte 4
@@ -3518,13 +3518,13 @@ NetworkGamesScreen_880:
         mov eax, dword [byte ebp-010h]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push byte 0
         mov eax, dword [byte ebp-018h]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call SetScreenTarget
         mov eax, dword [byte ebp-020h]
@@ -3553,33 +3553,33 @@ NetworkGamesScreen_8F6:
         add eax, byte 0Bh
         jmp near NetworkGamesScreen.8
 NetworkGamesScreen_92B:
-        push asc_1654CA
+        push str_TPB0
         push dword [byte ebp-030h]
         or byte [byte_1C83B4], 1
         call FindShape
         add esp, byte 8
-        push asc_1654C5
+        push str_TPB1
         push dword [byte ebp-030h]
         mov dword [dword ebp-0C02h], eax
         call FindShape
         add esp, byte 8
-        push asc_1654C0
+        push str_TPB2
         push dword [byte ebp-030h]
         mov dword [dword ebp-0BFEh], eax
         call FindShape
         add esp, byte 8
-        push asc_1654BB
+        push str_TPB5
         push dword [byte ebp-030h]
         mov dword [dword ebp-0BFAh], eax
         call FindShape
         add esp, byte 8
-        push asc_1654BB
+        push str_TPB5
 .22:
         push dword [byte ebp-030h]
         mov dword [dword ebp-0C54h], eax
         call FindShape
         add esp, byte 8
-        push asc_1654BB
+        push str_TPB5
         push dword [byte ebp-030h]
         mov dword [dword ebp-0C50h], eax
         call FindShape
@@ -3587,27 +3587,27 @@ NetworkGamesScreen_92B:
         mov dword [dword ebp-0C4Ch], eax
         jmp near NetworkGamesScreen_8F6
 NetworkGamesScreen_9BB:
-        push asc_1654C0
+        push str_TPB2
         push dword [byte ebp-030h]
         and byte [byte_1C83B4], 0FEh
         call FindShape
         add esp, byte 8
-        push asc_1654C0
+        push str_TPB2
         push dword [byte ebp-030h]
         mov dword [dword ebp-0C02h], eax
         call FindShape
         add esp, byte 8
-        push asc_1654C0
+        push str_TPB2
         push dword [byte ebp-030h]
         mov dword [dword ebp-0BFEh], eax
         call FindShape
         add esp, byte 8
-        push asc_1654D4
+        push str_TPB3
         push dword [byte ebp-030h]
         mov dword [dword ebp-0BFAh], eax
         call FindShape
         add esp, byte 8
-        push asc_1654CF
+        push str_TPB4
         jmp near NetworkGamesScreen_92B.22
 NetworkGamesScreen_A1E:
         cmp dword [dword ebp-0144h], byte 0
@@ -3797,7 +3797,7 @@ sub_89CD6:
         call CreateBitmap
         add esp, byte 0Ch
         mov ebx, eax
-        push asc_1654E3
+        push str_BG00
         mov dword [byte ebp-0Ch], eax
         mov eax, dword [byte esi+02Ch]
         push edi
@@ -3808,7 +3808,7 @@ sub_89CD6:
         add esp, byte 8
         mov word [byte edx+0Eh], ax
         mov eax, dword [byte ebp-04h]
-        push asc_1654E8
+        push str_BG01
         mov eax, dword [byte eax+02Ch]
         push dword [byte ebp-08h]
         mov word [byte eax+0Ch], 0
@@ -3823,7 +3823,7 @@ sub_89CD6:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_1654E3
+        push str_BG00
         push edi
         call FindShape
         add esp, byte 8
@@ -3837,11 +3837,11 @@ sub_89CD6:
         push edx
         push byte 78h
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         test byte [byte_1C833C], 1
         je near .2
-        push asc_165485
+        push str_CM00
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -3850,20 +3850,20 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_165485
+        push str_CM00
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165485
+        push str_CM00
         push edi
         call FindShape
         add esp, byte 8
         push eax
         call BlitArt
         add esp, byte 0Ch
-        push asc_165471
+        push str_CM05
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -3872,16 +3872,16 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_165471
+        push str_CM05
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165471
+        push str_CM05
         jmp short .3
 .2:
-        push asc_16546C
+        push str_CM02
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -3890,20 +3890,20 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_16546C
+        push str_CM02
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_16546C
+        push str_CM02
         push edi
         call FindShape
         add esp, byte 8
         push eax
         call BlitArt
         add esp, byte 0Ch
-        push asc_16547B
+        push str_CM03
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -3912,13 +3912,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_16547B
+        push str_CM03
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_16547B
+        push str_CM03
 .3:
         push edi
         call FindShape
@@ -3926,7 +3926,7 @@ sub_89CD6:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        push asc_165407
+        push str_PB00
         mov eax, dword [byte esi+02Ch]
         push dword [byte ebp-08h]
         movsx ebx, word [byte eax+0Eh]
@@ -3935,13 +3935,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_165407
+        push str_PB00
         push dword [byte ebp-08h]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165407
+        push str_PB00
         push dword [byte ebp-08h]
         call FindShape
         add esp, byte 8
@@ -3950,7 +3950,7 @@ sub_89CD6:
         add esp, byte 0Ch
         cmp word [word_1C8346], byte 0
         je short .4
-        push asc_165458
+        push str_DC00
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -3959,16 +3959,16 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_165458
+        push str_DC00
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165458
+        push str_DC00
         jmp short .5
 .4:
-        push asc_165467
+        push str_DC03
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -3977,13 +3977,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_165467
+        push str_DC03
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165467
+        push str_DC03
 .5:
         push edi
         call FindShape
@@ -3993,7 +3993,7 @@ sub_89CD6:
         add esp, byte 0Ch
         cmp word [word_1C8344], byte 9
         jne short .6
-        push asc_1653D0
+        push str_BR00
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4002,16 +4002,16 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_1653D0
+        push str_BR00
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1653EE
+        push str_BR02
         jmp short .7
 .6:
-        push asc_1653D0
+        push str_BR00
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4020,13 +4020,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_1653D0
+        push str_BR00
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1653D0
+        push str_BR00
 .7:
         push edi
         call FindShape
@@ -4036,7 +4036,7 @@ sub_89CD6:
         add esp, byte 0Ch
         cmp word [word_1C8344], byte 0Ah
         jne short .8
-        push asc_1653DA
+        push str_BR03
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4045,16 +4045,16 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_1653DA
+        push str_BR03
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1653F3
+        push str_BR05
         jmp short .9
 .8:
-        push asc_1653DA
+        push str_BR03
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4063,13 +4063,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_1653DA
+        push str_BR03
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1653DA
+        push str_BR03
 .9:
         push edi
         call FindShape
@@ -4079,7 +4079,7 @@ sub_89CD6:
         add esp, byte 0Ch
         cmp word [word_1C8344], byte 0Ch
         jne short .10
-        push asc_1653E4
+        push str_BR06
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4088,16 +4088,16 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_1653E4
+        push str_BR06
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1653F8
+        push str_BR08
         jmp short .11
 .10:
-        push asc_1653E4
+        push str_BR06
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4106,13 +4106,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_1653E4
+        push str_BR06
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1653E4
+        push str_BR06
 .11:
         push edi
         call FindShape
@@ -4122,7 +4122,7 @@ sub_89CD6:
         add esp, byte 0Ch
         cmp word [word_1C8340], byte 0
         jne short .12
-        push asc_165380
+        push str_CP02
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4131,16 +4131,16 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_165380
+        push str_CP02
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165380
+        push str_CP02
         jmp short .13
 .12:
-        push asc_165358
+        push str_CP00
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4149,13 +4149,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_165358
+        push str_CP00
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165358
+        push str_CP00
 .13:
         push edi
         call FindShape
@@ -4165,7 +4165,7 @@ sub_89CD6:
         add esp, byte 0Ch
         cmp word [word_1C8340], byte 1
         jne short .14
-        push asc_165385
+        push str_CP05
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4174,16 +4174,16 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_165385
+        push str_CP05
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165385
+        push str_CP05
         jmp short .15
 .14:
-        push asc_165362
+        push str_CP03
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4192,13 +4192,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_165362
+        push str_CP03
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165362
+        push str_CP03
 .15:
         push edi
         call FindShape
@@ -4208,7 +4208,7 @@ sub_89CD6:
         add esp, byte 0Ch
         cmp word [word_1C8340], byte 2
         jne short .16
-        push asc_16538A
+        push str_CP08
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4217,16 +4217,16 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_16538A
+        push str_CP08
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_16538A
+        push str_CP08
         jmp short .17
 .16:
-        push asc_16536C
+        push str_CP06
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4235,13 +4235,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_16536C
+        push str_CP06
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_16536C
+        push str_CP06
 .17:
         push edi
         call FindShape
@@ -4251,7 +4251,7 @@ sub_89CD6:
         add esp, byte 0Ch
         cmp word [word_1C8340], byte 3
         jne short .18
-        push asc_16538F
+        push str_CP11
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4260,16 +4260,16 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_16538F
+        push str_CP11
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_16538F
+        push str_CP11
         jmp short .19
 .18:
-        push asc_165376
+        push str_CP09
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4278,13 +4278,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_165376
+        push str_CP09
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165376
+        push str_CP09
 .19:
         push edi
         call FindShape
@@ -4294,7 +4294,7 @@ sub_89CD6:
         add esp, byte 0Ch
         cmp word [word_1C8342], byte 2
         jne short .20
-        push asc_1653BC
+        push str_IR02
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4303,16 +4303,16 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_1653BC
+        push str_IR02
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1653BC
+        push str_IR02
         jmp short .21
 .20:
-        push asc_165394
+        push str_IR00
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4321,13 +4321,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_165394
+        push str_IR00
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165394
+        push str_IR00
 .21:
         push edi
         call FindShape
@@ -4337,7 +4337,7 @@ sub_89CD6:
         add esp, byte 0Ch
         cmp word [word_1C8342], byte 3
         jne short .22
-        push asc_1653C1
+        push str_IR05
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4346,16 +4346,16 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_1653C1
+        push str_IR05
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1653C1
+        push str_IR05
         jmp short .23
 .22:
-        push asc_16539E
+        push str_IR03
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4364,13 +4364,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_16539E
+        push str_IR03
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_16539E
+        push str_IR03
 .23:
         push edi
         call FindShape
@@ -4380,7 +4380,7 @@ sub_89CD6:
         add esp, byte 0Ch
         cmp word [word_1C8342], byte 4
         jne short .24
-        push asc_1653C6
+        push str_IR08
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4389,16 +4389,16 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_1653C6
+        push str_IR08
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1653C6
+        push str_IR08
         jmp short .25
 .24:
-        push asc_1653A8
+        push str_IR06
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4407,13 +4407,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_1653A8
+        push str_IR06
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1653A8
+        push str_IR06
 .25:
         push edi
         call FindShape
@@ -4423,7 +4423,7 @@ sub_89CD6:
         add esp, byte 0Ch
         cmp word [word_1C8342], byte 7
         jne short .26
-        push asc_1653CB
+        push str_IR11
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4432,16 +4432,16 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_1653CB
+        push str_IR11
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1653CB
+        push str_IR11
         jmp short .27
 .26:
-        push asc_1653B2
+        push str_IR09
         mov eax, dword [byte esi+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4450,13 +4450,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_1653B2
+        push str_IR09
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1653B2
+        push str_IR09
 .27:
         push edi
         call FindShape
@@ -4486,7 +4486,7 @@ sub_89CD6:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_1654E8
+        push str_BG01
         push dword [byte ebp-08h]
         call FindShape
         add esp, byte 8
@@ -4494,7 +4494,7 @@ sub_89CD6:
         call BlitArt
         add esp, byte 0Ch
         mov eax, dword [byte ebp-04h]
-        push asc_165416
+        push str_MT00
         mov eax, dword [byte eax+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4503,13 +4503,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_165416
+        push str_MT00
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165416
+        push str_MT00
         push edi
         call FindShape
         add esp, byte 8
@@ -4517,7 +4517,7 @@ sub_89CD6:
         call BlitArt
         add esp, byte 0Ch
         mov eax, dword [byte ebp-04h]
-        push asc_16542B
+        push str_DS00
         mov eax, dword [byte eax+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4526,13 +4526,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_16542B
+        push str_DS00
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_16542B
+        push str_DS00
         push edi
         call FindShape
         add esp, byte 8
@@ -4540,7 +4540,7 @@ sub_89CD6:
         call BlitArt
         add esp, byte 0Ch
         mov eax, dword [byte ebp-04h]
-        push asc_16543A
+        push str_IS00
         mov eax, dword [byte eax+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4549,13 +4549,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_16543A
+        push str_IS00
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_16543A
+        push str_IS00
         push edi
         call FindShape
         add esp, byte 8
@@ -4563,7 +4563,7 @@ sub_89CD6:
         call BlitArt
         add esp, byte 0Ch
         mov eax, dword [byte ebp-04h]
-        push asc_165449
+        push str_PT00
         mov eax, dword [byte eax+02Ch]
         push edi
         movsx ebx, word [byte eax+0Eh]
@@ -4572,13 +4572,13 @@ sub_89CD6:
         add esp, byte 8
         sub eax, ebx
         push eax
-        push asc_165449
+        push str_PT00
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165449
+        push str_PT00
         push edi
         call FindShape
         add esp, byte 8
@@ -4609,7 +4609,7 @@ sub_89CD6:
         mov byte [byte esi+ebp-061h], al
         cmp esi, byte 1Eh
         jl short .28
-        mov edx, asc_16541B
+        mov edx, str_Punct3
         lea eax, [byte ebp-042h]
         call strcpy_
         lea eax, [byte ebp-060h]
@@ -4694,45 +4694,45 @@ ModemConnectScreen:
         push esi
         push edi
         enter 24h, 0
-        call sub_81678
+        call SetNormalText
         mov eax, 2
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 65h
         call LoadDataFile
         mov esi, eax
         mov dword [byte ebp-010h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 66h
         call LoadDataFile
         mov edi, eax
         mov dword [byte ebp-018h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 67h
         call LoadDataFile
         mov dword [byte ebp-04h], eax
         mov dword [byte ebp-020h], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
-        push asc_1654E3
+        push str_BG00
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_1654E3
+        push str_BG00
         push edi
         call FindShape
         add esp, byte 8
@@ -4743,13 +4743,13 @@ ModemConnectScreen:
         add esp, byte 0Ch
         mov dword [byte ebp-014h], eax
         push byte 0
-        push asc_1654E8
+        push str_BG01
         push esi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_1654E8
+        push str_BG01
         push esi
         call FindShape
         add esp, byte 8
@@ -4775,21 +4775,21 @@ ModemConnectScreen:
         mov dword [byte ebp-0Ch], eax
         call SetDrawTarget
         add esp, byte 4
-        push asc_1654ED
+        push str_BACK5
         push dword [byte ebp-04h]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape2
         add esp, byte 4
-        push asc_16549E
+        push str_BG02
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape2
         add esp, byte 4
-        push asc_1654F2
+        push str_TITL3
         push edi
         call FindShape
         add esp, byte 8
@@ -4804,42 +4804,42 @@ ModemConnectScreen:
         push dword [byte eax+02Ch]
         call BlitShape2
         add esp, byte 4
-        push asc_1654F7
+        push str_LT002
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call sub_FCF84
         add esp, byte 4
-        push asc_1654FC
+        push str_LB002
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call sub_FCF84
         add esp, byte 4
-        push asc_165501
+        push str_RB00
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call sub_FCF84
         add esp, byte 4
-        push asc_165506
+        push str_RT00
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call sub_FCF84
         add esp, byte 4
-        push asc_165499
+        push str_NET0
         push edi
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape2
         add esp, byte 4
-        push asc_16548A
+        push str_MOD2
         push edi
         call FindShape
         add esp, byte 8
@@ -4851,7 +4851,7 @@ ModemConnectScreen:
         mov eax, dword [byte ebx+02Ch]
         mov ebx, eax
         mov edx, eax
-        call sub_7E860
+        call DrawScreenBackground
         mov word [word_16CCF8], 1
 .1:
         push dword [dword_1C5F22]
@@ -4868,7 +4868,7 @@ ModemConnectScreen:
         mov eax, dword [byte ebp-0Ch]
         mov edx, 1
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push dword [byte ebp-0Ch]
         call FreeBitmap
         add esp, byte 4
@@ -4909,52 +4909,52 @@ sub_8AAE5:
         push edi
         enter 0DCh, 0
         sub ebp, 82h
-        call sub_81678
+        call SetNormalText
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 65h
         call LoadDataFile
         mov esi, eax
         mov dword [byte ebp+076h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 66h
         call LoadDataFile
         mov ebx, eax
         mov dword [byte ebp+032h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 67h
         call LoadDataFile
         mov dword [byte ebp+042h], eax
         mov dword [byte ebp+062h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 68h
         call LoadDataFile
         mov edi, eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
-        push asc_1654E3
+        push str_BG00
         push ebx
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_1654E3
+        push str_BG00
         push ebx
         call FindShape
         add esp, byte 8
@@ -4966,13 +4966,13 @@ sub_8AAE5:
         add esp, byte 0Ch
         mov dword [byte ebp+056h], eax
         push byte 0
-        push asc_1654E8
+        push str_BG01
         push esi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_1654E8
+        push str_BG01
         push esi
         call FindShape
         add esp, byte 8
@@ -4987,11 +4987,11 @@ sub_8AAE5:
         mov eax, dword [byte ebp+03Eh]
         mov ebx, esi
         call sub_89CD6
-        push asc_16550B
+        push str_TOP0
         push edi
         call FindShape
         add esp, byte 8
-        push asc_165510
+        push str_BOT0
         push dword [byte ebp+042h]
         mov dword [byte ebp+04Ah], eax
         call FindShape
@@ -5037,7 +5037,7 @@ sub_8AAE5:
         xor esi, esi
 .1:
         push esi
-        push asc_165515
+        push str_LFTD
         lea eax, [byte ebp+01Eh]
         push eax
         call sprintf_
@@ -5048,7 +5048,7 @@ sub_8AAE5:
         call FindShape
         add esp, byte 8
         push esi
-        push asc_16551B
+        push str_RITD
         mov dword [byte ebp+esi*4-01Eh], eax
         lea eax, [byte ebp+01Eh]
         push eax
@@ -5060,7 +5060,7 @@ sub_8AAE5:
         call FindShape
         add esp, byte 8
         push esi
-        push asc_165521
+        push str_LT0D
         mov dword [byte ebp+esi*4-032h], eax
         lea eax, [byte ebp+01Eh]
         push eax
@@ -5072,7 +5072,7 @@ sub_8AAE5:
         call FindShape
         add esp, byte 8
         push esi
-        push asc_165527
+        push str_LB0D
         mov dword [byte ebp+esi*4-046h], eax
         lea eax, [byte ebp+01Eh]
         push eax
@@ -5084,7 +5084,7 @@ sub_8AAE5:
         call FindShape
         add esp, byte 8
         push esi
-        push asc_16552D
+        push str_RT0D
         mov dword [byte ebp+esi*4-0Ah], eax
         lea eax, [byte ebp+01Eh]
         push eax
@@ -5096,7 +5096,7 @@ sub_8AAE5:
         call FindShape
         add esp, byte 8
         push esi
-        push asc_165533
+        push str_RB0D
         mov dword [byte ebp+esi*4-05Ah], eax
         lea eax, [byte ebp+01Eh]
         push eax
@@ -5150,7 +5150,7 @@ sub_8AAE5:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_1654ED
+        push str_BACK5
         push dword [byte ebp+062h]
         call FindShape
         add esp, byte 8
@@ -5193,7 +5193,7 @@ sub_8AAE5:
         add esp, byte 14h
         test byte [byte_1C83B4], 1
         jne short .3
-        push asc_1654D4
+        push str_TPB3
         push edi
         call FindShape
         movsx eax, word [byte eax+0Eh]
@@ -5201,20 +5201,20 @@ sub_8AAE5:
         add esp, byte 8
         sub eax, byte 29h
         push eax
-        push asc_1654D4
+        push str_TPB3
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1654D4
+        push str_TPB3
         push edi
         call FindShape
         add esp, byte 8
         push eax
         call BlitArt
         add esp, byte 0Ch
-        push asc_1654C0
+        push str_TPB2
         push edi
         call FindShape
         movsx eax, word [byte eax+0Eh]
@@ -5222,16 +5222,16 @@ sub_8AAE5:
         add esp, byte 8
         sub eax, byte 29h
         push eax
-        push asc_1654C0
+        push str_TPB2
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1654C0
+        push str_TPB2
         jmp short .4
 .3:
-        push asc_1654CA
+        push str_TPB0
         push edi
         call FindShape
         movsx eax, word [byte eax+0Eh]
@@ -5239,20 +5239,20 @@ sub_8AAE5:
         add esp, byte 8
         sub eax, byte 29h
         push eax
-        push asc_1654CA
+        push str_TPB0
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1654CA
+        push str_TPB0
         push edi
         call FindShape
         add esp, byte 8
         push eax
         call BlitArt
         add esp, byte 0Ch
-        push asc_1654BB
+        push str_TPB5
         push edi
         call FindShape
         movsx eax, word [byte eax+0Eh]
@@ -5260,13 +5260,13 @@ sub_8AAE5:
         add esp, byte 8
         sub eax, byte 29h
         push eax
-        push asc_1654BB
+        push str_TPB5
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1654BB
+        push str_TPB5
 .4:
         push edi
         call FindShape
@@ -5353,7 +5353,7 @@ sub_8AAE5:
         mov dword [byte ebp+07Ah], 0
 .5:
         sub esi, byte 0Ah
-        call sub_E341C
+        call ServiceIdle
         test esi, esi
         jg near .2
         call StopAllSfx
@@ -5404,11 +5404,11 @@ sub_8B145:
         push edi
         enter 0DCh, 0
         sub ebp, 82h
-        call sub_81678
+        call SetNormalText
         mov eax, 3
         mov dword [byte ebp+07Ah], 0
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         cmp dword [dword_16CCFE], byte 0
         jne short .1
         mov ax, word [word_1AC8B1]
@@ -5425,8 +5425,8 @@ sub_8B145:
         or dword [byte_1C83B4], eax
 .1:
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 65h
         call LoadDataFile
@@ -5434,38 +5434,38 @@ sub_8B145:
         mov dword [byte ebp+06Eh], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 66h
         call LoadDataFile
         mov edi, eax
         mov dword [byte ebp+032h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 67h
         call LoadDataFile
         mov dword [byte ebp+052h], eax
         mov dword [byte ebp+07Eh], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 68h
         call LoadDataFile
         mov esi, eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
-        push asc_1654E3
+        push str_BG00
         push edi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_1654E3
+        push str_BG00
         push edi
         call FindShape
         add esp, byte 8
@@ -5476,13 +5476,13 @@ sub_8B145:
         add esp, byte 0Ch
         mov dword [byte ebp+04Eh], eax
         push byte 0
-        push asc_1654E8
+        push str_BG01
         push ebx
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_1654E8
+        push str_BG01
         push ebx
         call FindShape
         add esp, byte 8
@@ -5496,11 +5496,11 @@ sub_8B145:
         push dword [byte ebp+052h]
         mov eax, dword [byte ebp+03Ah]
         call sub_89CD6
-        push asc_16550B
+        push str_TOP0
         push esi
         call FindShape
         add esp, byte 8
-        push asc_165510
+        push str_BOT0
         push dword [byte ebp+052h]
         mov dword [byte ebp+072h], eax
         call FindShape
@@ -5546,7 +5546,7 @@ sub_8B145:
         xor edi, edi
 .2:
         push edi
-        push asc_165515
+        push str_LFTD
         lea eax, [byte ebp+01Eh]
         push eax
         call sprintf_
@@ -5557,7 +5557,7 @@ sub_8B145:
         call FindShape
         add esp, byte 8
         push edi
-        push asc_16551B
+        push str_RITD
         mov dword [byte ebp+edi*4-01Eh], eax
         lea eax, [byte ebp+01Eh]
         push eax
@@ -5569,7 +5569,7 @@ sub_8B145:
         call FindShape
         add esp, byte 8
         push edi
-        push asc_165521
+        push str_LT0D
         mov dword [byte ebp+edi*4-05Ah], eax
         lea eax, [byte ebp+01Eh]
         push eax
@@ -5581,7 +5581,7 @@ sub_8B145:
         call FindShape
         add esp, byte 8
         push edi
-        push asc_165527
+        push str_LB0D
         mov dword [byte ebp+edi*4-032h], eax
         lea eax, [byte ebp+01Eh]
         push eax
@@ -5593,7 +5593,7 @@ sub_8B145:
         call FindShape
         add esp, byte 8
         push edi
-        push asc_16552D
+        push str_RT0D
         mov dword [byte ebp+edi*4-0Ah], eax
         lea eax, [byte ebp+01Eh]
         push eax
@@ -5605,7 +5605,7 @@ sub_8B145:
         call FindShape
         add esp, byte 8
         push edi
-        push asc_165533
+        push str_RB0D
         mov dword [byte ebp+edi*4+0Ah], eax
         lea eax, [byte ebp+01Eh]
         push eax
@@ -5658,7 +5658,7 @@ sub_8B145:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_1654ED
+        push str_BACK5
         push dword [byte ebp+07Eh]
         call FindShape
         add esp, byte 8
@@ -5718,7 +5718,7 @@ sub_8B145:
         add esp, byte 14h
         test byte [byte_1C83B4], 1
         jne short .4
-        push asc_1654D4
+        push str_TPB3
         push esi
         call FindShape
         movsx eax, word [byte eax+0Eh]
@@ -5726,20 +5726,20 @@ sub_8B145:
         add esp, byte 8
         sub eax, byte 29h
         push eax
-        push asc_1654D4
+        push str_TPB3
         push esi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1654D4
+        push str_TPB3
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call BlitArt
         add esp, byte 0Ch
-        push asc_1654C0
+        push str_TPB2
         push esi
         call FindShape
         movsx eax, word [byte eax+0Eh]
@@ -5747,16 +5747,16 @@ sub_8B145:
         add esp, byte 8
         sub eax, byte 29h
         push eax
-        push asc_1654C0
+        push str_TPB2
         push esi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1654C0
+        push str_TPB2
         jmp short .5
 .4:
-        push asc_1654CA
+        push str_TPB0
         push esi
         call FindShape
         movsx eax, word [byte eax+0Eh]
@@ -5764,20 +5764,20 @@ sub_8B145:
         add esp, byte 8
         sub eax, byte 29h
         push eax
-        push asc_1654CA
+        push str_TPB0
         push esi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1654CA
+        push str_TPB0
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call BlitArt
         add esp, byte 0Ch
-        push asc_1654BB
+        push str_TPB5
         push esi
         call FindShape
         movsx eax, word [byte eax+0Eh]
@@ -5785,13 +5785,13 @@ sub_8B145:
         add esp, byte 8
         sub eax, byte 29h
         push eax
-        push asc_1654BB
+        push str_TPB5
         push esi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1654BB
+        push str_TPB5
 .5:
         push esi
         call FindShape
@@ -5870,7 +5870,7 @@ sub_8B145:
         mov dword [byte ebp+07Ah], 0
 .6:
         add edi, byte 0Ah
-        call sub_E341C
+        call ServiceIdle
         cmp edi, 0B4h
         jl near .3
         call StopAllSfx
@@ -5881,7 +5881,7 @@ sub_8B145:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_1654ED
+        push str_BACK5
         push dword [byte ebp+07Eh]
         call FindShape
         add esp, byte 8
@@ -5908,40 +5908,40 @@ sub_8B145:
         push dword [byte ebp+076h]
         call DrawArt
         add esp, byte 0Ch
-        push asc_165539
+        push str_LFT0
         push dword [byte ebp+07Eh]
         call FindShape
         movsx eax, word [byte eax+0Eh]
         add esp, byte 8
         sub eax, byte 36h
         push eax
-        push asc_165539
+        push str_LFT0
         push dword [byte ebp+07Eh]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_165539
+        push str_LFT0
         push dword [byte ebp+07Eh]
         call FindShape
         add esp, byte 8
         push eax
         call DrawArt
         add esp, byte 0Ch
-        push asc_16553E
+        push str_RIT0
         push dword [byte ebp+07Eh]
         call FindShape
         movsx eax, word [byte eax+0Eh]
         add esp, byte 8
         sub eax, byte 36h
         push eax
-        push asc_16553E
+        push str_RIT0
         push dword [byte ebp+07Eh]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_16553E
+        push str_RIT0
         push dword [byte ebp+07Eh]
         call FindShape
         add esp, byte 8
@@ -5950,76 +5950,76 @@ sub_8B145:
         add esp, byte 0Ch
         test byte [byte_1C83B4], 1
         jne short .7
-        push asc_1654D4
+        push str_TPB3
         push esi
         call FindShape
         movsx eax, word [byte eax+0Eh]
         add esp, byte 8
         sub eax, byte 36h
         push eax
-        push asc_1654D4
+        push str_TPB3
         push esi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1654D4
+        push str_TPB3
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call BlitArt
         add esp, byte 0Ch
-        push asc_1654C0
+        push str_TPB2
         push esi
         call FindShape
         movsx eax, word [byte eax+0Eh]
         add esp, byte 8
         sub eax, byte 36h
         push eax
-        push asc_1654C0
+        push str_TPB2
         push esi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1654C0
+        push str_TPB2
         jmp short .8
 .7:
-        push asc_1654CA
+        push str_TPB0
         push esi
         call FindShape
         movsx eax, word [byte eax+0Eh]
         add esp, byte 8
         sub eax, byte 36h
         push eax
-        push asc_1654CA
+        push str_TPB0
         push esi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1654CA
+        push str_TPB0
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call BlitArt
         add esp, byte 0Ch
-        push asc_1654BB
+        push str_TPB5
         push esi
         call FindShape
         movsx eax, word [byte eax+0Eh]
         add esp, byte 8
         sub eax, byte 36h
         push eax
-        push asc_1654BB
+        push str_TPB5
         push esi
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+0Ch]
         push eax
-        push asc_1654BB
+        push str_TPB5
 .8:
         push esi
         call FindShape
@@ -6092,43 +6092,43 @@ NetworkConnectScreen:
         push esi
         push edi
         enter 28h, 0
-        call sub_81678
+        call SetNormalText
         mov eax, 2
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 67h
         call LoadDataFile
         mov dword [byte ebp-04h], eax
         mov dword [byte ebp-0Ch], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 68h
         call LoadDataFile
         mov esi, eax
         mov dword [byte ebp-014h], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 65h
         call LoadDataFile
         mov dword [byte ebp-01Ch], eax
         mov eax, 3
         xor edx, edx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 66h
         call LoadDataFile
         mov dword [byte ebp-08h], eax
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov ax, word [word_1AC8B1]
         mov edx, dword_1AC8AD
         mov word [word_1C83B8], ax
@@ -6180,35 +6180,35 @@ NetworkConnectScreen:
         push edi
         call SetDrawTarget
         add esp, byte 4
-        push asc_1654ED
+        push str_BACK5
         push dword [byte ebp-04h]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape2
         add esp, byte 4
-        push asc_16550B
+        push str_TOP0
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call sub_FCF84
         add esp, byte 4
-        push asc_165510
+        push str_BOT0
         push dword [byte ebp-04h]
         call FindShape
         add esp, byte 8
         push eax
         call sub_FCF84
         add esp, byte 4
-        push asc_165539
+        push str_LFT0
         push dword [byte ebp-04h]
         call FindShape
         add esp, byte 8
         push eax
         call sub_FCF84
         add esp, byte 4
-        push asc_16553E
+        push str_RIT0
         push dword [byte ebp-04h]
         call FindShape
         add esp, byte 8
@@ -6217,24 +6217,24 @@ NetworkConnectScreen:
         add esp, byte 4
         test byte [byte_1C83B4], 1
         jne short .1
-        push asc_1654D4
+        push str_TPB3
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape2
         add esp, byte 4
-        push asc_1654C0
+        push str_TPB2
         jmp short .2
 .1:
-        push asc_1654BB
+        push str_TPB5
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape2
         add esp, byte 4
-        push asc_1654CA
+        push str_TPB0
 .2:
         push esi
         call FindShape
@@ -6259,28 +6259,28 @@ NetworkConnectScreen:
         push byte 1
         call DrawTextAligned
         add esp, byte 14h
-        push asc_1654F2
+        push str_TITL3
         push dword [byte ebp-014h]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape2
         add esp, byte 4
-        push asc_165543
+        push str_BTTM
         push dword [byte ebp-0Ch]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape2
         add esp, byte 4
-        push asc_16548F
+        push str_NET2
         push dword [byte ebp-08h]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape2
         add esp, byte 4
-        push asc_1654DE
+        push str_MOD0
         push dword [byte ebp-08h]
         call FindShape
         add esp, byte 8
@@ -6292,7 +6292,7 @@ NetworkConnectScreen:
         mov eax, dword [byte edi+02Ch]
         mov ebx, eax
         mov edx, eax
-        call sub_7E860
+        call DrawScreenBackground
         mov word [word_16CCF8], 1
 .3:
         push dword [dword_1C5F74]
@@ -6308,7 +6308,7 @@ NetworkConnectScreen:
         call sub_1013FC
         mov edx, 1
         mov eax, dword [byte edi+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push edi
         call FreeBitmap
         add esp, byte 4

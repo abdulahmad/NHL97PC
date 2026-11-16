@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FA5B8 progbits alloc exec nowrite align=1
-extern asc_167D10, asc_167D28, dword_16E340, dword_1CF0E0, dword_1CF25C, dword_1CF260, memlist1, sprintf_
+extern str_LOW8s, str_GAP, dword_16E340, dword_1CF0E0, dword_1CF25C, dword_1CF260, memlist1, sprintf_
 extern str_HIGHMEM, strncpy_, sub_1013FC, sub_121470, sub_121494, sub_FABB8
 global sub_FA5B8, sub_FA6A0, sub_FA734, sub_FA8AC, sub_FA954, sub_FA9C4, sub_FAA14, AllocMemBlock
 global sub_FAAB4, sub_FAB68
@@ -39,7 +39,7 @@ sub_FA5B8:
         mov edx, dword [dword_1CF25C]
         push esi
         mov eax, dword [byte edx+020h]
-        push asc_167D10
+        push str_LOW8s
         mov dword [dword_1CF25C], eax
         lea eax, [byte edx+04h]
         push eax
@@ -183,7 +183,7 @@ sub_FA734:
         mov dword [ecx], eax
         mov ebx, 0Ch
         mov eax, dword [byte esi+04h]
-        mov edx, asc_167D28
+        mov edx, str_GAP
         add eax, byte 4
         call strncpy_
         mov eax, dword [byte esi+04h]

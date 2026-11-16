@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_160660 progbits alloc noexec write align=1
-global asc_1606D4, dword_160688, dword_16068C, dword_160690, dword_160694, dword_160698, dword_16069C, dword_1606A0
+global str_Cuppal, dword_160688, dword_16068C, dword_160690, dword_160694, dword_160698, dword_16069C, dword_1606A0
 global dword_1606A4, dword_1606A8, dword_1606AC, dword_1606B0, dword_1606B4, dword_1606B8, dword_1606CC, dword_1606D0
 global dword_1606DB, dword_1606DF, dword_16070B, dword_16070F, dword_160723, dword_160727, dword_160733, dword_160737
 global dword_160753, dword_160757, dword_16079B, dword_1607C7, dword_1607CB, dword_160877, dword_160893, dword_160897
@@ -58,7 +58,7 @@ dword_1606CC:
         db 00h,00h,0C0h,042h
 dword_1606D0:
         db 00h,00h,0C0h,042h
-asc_1606D4:
+str_Cuppal:
         db 063h,075h,070h,070h,061h,06Ch,00h
 dword_1606DB:
         db 00h,00h,040h,040h

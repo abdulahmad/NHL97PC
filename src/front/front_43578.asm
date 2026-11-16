@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_43578 progbits alloc exec nowrite align=1
-extern __CHK, __CHP, asc_160CCC, asc_160D20, asc_160D38, asc_160D70, asc_160D7C, asc_160D88
-extern asc_160D94, asc_160DA0, asc_160DB0, asc_160DC0, asc_160DC4, asc_160DCC, asc_160F3C, asc_1610DC
-extern asc_161158, byte_1AC81B, byte_1C14BD, byte_1C315C, byte_1C35E0, byte_1C527F, dword_16923C, dword_169248
+extern __CHK, __CHP, str_GAMEDATAAUDPBP3TSF, str_TEMP, str_KTSF, str_03dDAT, str_03dHDR, str_TEMPBANK
+extern str_EVENTDAT, str_CBANK03dHDR, str_TEAM04dHDR, str_PBP, str_Mous, str_Remo, str_PlayByPlayNeedsToBeInstal, str_PlayByPlayNeedsToBeInstal2
+extern str_InstallingPlayByPlay, byte_1AC81B, byte_1C14BD, byte_1C315C, byte_1C35E0, byte_1C527F, dword_16923C, dword_169248
 extern dword_16924C, dword_169250, dword_1697B8, dword_169818, dword_1AC380, dword_1AC3D8, dword_1AC5C8, dword_1AC5CC
 extern dword_1AC5D0, dword_1AC5D4, dword_1AC778, dword_1AC77C, dword_1AC780, dword_1AC7A4, dword_1AC7A8, dword_1AC7AC
 extern dword_1AC7B0, dword_1AC7C8, dword_1AC7CC, dword_1AC7D0, dword_1AC814, dword_1AC944, dword_1C13FB, dword_1C13FF
@@ -23,12 +23,12 @@ extern CommentaryEvent_1871, CommentaryEvent_189C, CommentaryEvent_18A1, Comment
 extern CommentaryEvent_1A44, CommentaryEvent_1B16, CommentaryEvent_1B57, CommentaryEvent_1B97, CommentaryEvent_1BF5, CommentaryEvent_1C3D, CommentaryEvent_1CB2, CommentaryEvent_1DD1
 extern CommentaryEvent_1E49, CommentaryEvent_1ECB, CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, off_169780, off_1697BC, off_169814
 extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, strcmp_, strcpy_
-extern sub_100940, bcopy, FindShape, sub_106036, sub_106D08, sub_1070B0, sub_1086BF, sub_10884C
-extern sub_109775, sub_1097F0, sub_42550, sub_425CC, sub_42910, sub_42960, sub_42C38, sub_42D38
-extern OpenSpeechBanks, sub_431E8, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7D539
-extern SetTextColor, sub_7F5B8, sub_81678, sub_83314, sub_834EC, sub_83558, sub_842F4, sub_8BE60
+extern SortIndices, bcopy, FindShape, sub_106036, sub_106D08, sub_1070B0, sub_1086BF, sub_10884C
+extern sub_109775, sub_1097F0, QueueSpeechRequest, ResetSpeechQueue, FindSpeechClip, LoadSpeechBlock, LoadClipIfMissing, SpeechFileHeader
+extern OpenSpeechBanks, ResolveSpeechClips, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, CheckDiskSpace
+extern SetTextColor, ShowMessageBoxNoWait, SetNormalText, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, ShowLoadingBar, sub_8BE60
 extern sub_8BEF8, FileExists, FileOpen, FileSeek, FileReadRecord, FileWriteRecord, FileClose, FileLength
-extern sub_E341C, AllocMemBlock, sub_FAAB4, FreeMemBlock, sub_FC330, sub_FC410, MakeColor, tickcount
+extern ServiceIdle, AllocMemBlock, sub_FAAB4, FreeMemBlock, sub_FC330, sub_FC410, MakeColor, tickcount
 extern unk_160DD4, unk_160E8C, unk_160FD4, unk_161068, vecdist
 global jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60, jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8
 global sub_43884_9C, LoadSpeechBank, sub_43884, InitSpeechBanks, sub_44998, sub_449F0, sub_44A50, sub_4518C
@@ -110,7 +110,7 @@ LoadSpeechBank:
         add esp, byte 4
         mov edx, dword [esi+eax]
         push edx
-        push asc_160D70
+        push str_03dDAT
         lea eax, [byte esp+058h]
         push eax
         call sprintf_
@@ -140,7 +140,7 @@ LoadSpeechBank:
 .11:
         test eax, eax
         jne short .12
-        call sub_431E8
+        call ResolveSpeechClips
         jmp short .8
 .12:
         mov ebx, dword [dword_1AC7B0]
@@ -150,7 +150,7 @@ LoadSpeechBank:
         sar ebx, 10h
         jmp short .14
 .13:
-        call sub_431E8
+        call ResolveSpeechClips
         mov ebx, eax
 .14:
         mov edi, 1
@@ -177,7 +177,7 @@ LoadSpeechBank:
         mov eax, dword [eax]
         mov dword [dword edx+02D8h], eax
         mov eax, ecx
-        call sub_42C38
+        call LoadClipIfMissing
         test eax, eax
         jl short .15
         mov edx, dword [dword_1AC7B0]
@@ -190,7 +190,7 @@ LoadSpeechBank:
         je short .15
         lea eax, [byte esp+050h]
         mov edx, dword [dword_1AC7AC]
-        call sub_42960
+        call LoadSpeechBlock
         mov edx, dword [dword_1AC7B0]
         mov dword [dword edx+esi+02E0h], eax
         mov eax, dword [dword_1AC7B0]
@@ -245,12 +245,12 @@ LoadSpeechBank:
         add esp, byte 4
         mov ecx, dword [ebx+eax]
         push ecx
-        push asc_160D7C
+        push str_03dHDR
         lea eax, [byte esp+058h]
         push eax
         call sprintf_
         add esp, byte 0Ch
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [dword_16923C]
         mov esi, dword [byte ebx+eax+0Ah]
         push esi
@@ -358,7 +358,7 @@ sub_43884_9C:
         test eax, eax
         jl short .9
         add eax, ecx
-        call sub_42550
+        call QueueSpeechRequest
         test eax, eax
         je short .9
         mov eax, 1
@@ -530,7 +530,7 @@ InitSpeechBanks:
         push byte 20h
         lea eax, [nosplit esi*8+00h]
         push eax
-        push asc_160D20
+        push str_TEMP
         call sub_FAAB4
         add esp, byte 0Ch
         mov ebx, eax
@@ -646,18 +646,18 @@ InitSpeechBanks:
         jg short .30
         mov dword [dword_1AC7A8], eax
         mov eax, 13h
-        call sub_842F4
+        call ShowLoadingBar
         push edi
         mov esi, dword [dword esp+0178h]
         push esi
         mov edi, dword [dword_1AC7A8]
         push edi
-        call sub_100940
+        call SortIndices
         add esp, byte 0Ch
-        call sub_E341C
+        call ServiceIdle
         push byte 20h
         push dword 578h
-        push asc_160D88
+        push str_TEMPBANK
         call AllocMemBlock
         mov dword [dword_1AC7CC], eax
         mov eax, dword [dword_1AC7A8]
@@ -674,7 +674,7 @@ InitSpeechBanks:
         push eax
         call sub_FC330
         add esp, byte 4
-        push asc_160D94
+        push str_EVENTDAT
         call sub_106D08
         add esp, byte 4
         add edi, 81Ah
@@ -687,7 +687,7 @@ InitSpeechBanks:
 .33:
         mov ecx, dword [dword esp+0164h]
         push ecx
-        push asc_160DA0
+        push str_CBANK03dHDR
         lea eax, [dword esp+015Ch]
         push eax
         call sprintf_
@@ -714,7 +714,7 @@ InitSpeechBanks:
         jl short .33
         mov eax, dword [dword esp+0170h]
         push eax
-        push asc_160DB0
+        push str_TEAM04dHDR
         lea eax, [dword esp+015Ch]
         push eax
         call sprintf_
@@ -732,7 +732,7 @@ InitSpeechBanks:
 .35:
         mov ecx, dword [dword esp+016Ch]
         push ecx
-        push asc_160DB0
+        push str_TEAM04dHDR
         lea eax, [dword esp+015Ch]
         push eax
         call sprintf_
@@ -755,13 +755,13 @@ InitSpeechBanks:
         add edi, 8000h
         shl eax, 3
         add edi, eax
-        call sub_E341C
+        call ServiceIdle
         mov eax, 14h
-        call sub_842F4
+        call ShowLoadingBar
         push byte 0
         add edi, 578h
         push edi
-        push asc_160DC0
+        push str_PBP
         mov dword [dword_16924C], edi
         call AllocMemBlock
         xor edi, edi
@@ -823,12 +823,12 @@ InitSpeechBanks:
         add dword [byte eax+04h], edx
         mov eax, dword [dword esp+0164h]
         push eax
-        push asc_160DA0
+        push str_CBANK03dHDR
         lea eax, [dword esp+015Ch]
         push eax
         call sprintf_
         add esp, byte 0Ch
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [dword esp+0164h]
         mov edx, dword [dword_1AC7CC]
         mov ecx, dword [byte edx+eax*8+04h]
@@ -848,7 +848,7 @@ InitSpeechBanks:
         push ecx
         mov eax, dword [dword_16923C]
         mov edx, dword [dword_1AC5CC]
-        push asc_160DB0
+        push str_TEAM04dHDR
         add edx, eax
         lea eax, [dword esp+015Ch]
         push eax
@@ -863,13 +863,13 @@ InitSpeechBanks:
         add esp, byte 8
         test eax, eax
         je near .80
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [dword_16923C]
         mov ebp, dword [dword_1AC5D4]
         add ebp, eax
         mov eax, dword [dword esp+016Ch]
         push eax
-        push asc_160DB0
+        push str_TEAM04dHDR
         lea eax, [dword esp+015Ch]
         push eax
         mov dword [dword_1AC5D4], ebp
@@ -884,7 +884,7 @@ InitSpeechBanks:
         test eax, eax
         je near .80
         add ebx, dword [dword esp+0168h]
-        call sub_E341C
+        call ServiceIdle
         lea eax, [edi+ebx]
         mov dword [dword_1AC7C8], eax
         add eax, 8000h
@@ -906,17 +906,17 @@ InitSpeechBanks:
         add esp, byte 4
         mov eax, 16h
         mov dword [dword_1AC7CC], ebx
-        call sub_842F4
-        mov eax, asc_160CCC
+        call ShowLoadingBar
+        mov eax, str_GAMEDATAAUDPBP3TSF
         call FileExists
         test eax, eax
         jne short .40
         mov ecx, 1
         jmp near .44
 .40:
-        call sub_E341C
+        call ServiceIdle
         mov edx, dword_1AC7AC
-        mov eax, asc_160CCC
+        mov eax, str_GAMEDATAAUDPBP3TSF
         mov ecx, 1
         call FileOpen
         test eax, eax
@@ -925,7 +925,7 @@ InitSpeechBanks:
         call FileLength
         mov edx, eax
         lea eax, [dword esp+0164h]
-        call sub_42D38
+        call SpeechFileHeader
         cmp edx, eax
         je short .41
         xor ecx, ecx
@@ -939,7 +939,7 @@ InitSpeechBanks:
         test eax, eax
         je near .43
         xor al, al
-        mov edx, asc_160D38
+        mov edx, str_KTSF
         mov byte [dword esp+0158h], al
         lea eax, [dword esp+0154h]
         call strcmp_
@@ -986,13 +986,13 @@ InitSpeechBanks:
         xor edx, edx
         mov eax, 2Fh
         call LoadDataFileLib
-        push asc_160DCC
+        push str_Remo
         mov ebx, dword [dword_1C5DE4]
         push ebx
         mov dword [dword_1C5EF4], eax
         call FindShape
         add esp, byte 8
-        push asc_160DC4
+        push str_Mous
         mov ecx, dword [dword_1C5DE4]
         push ecx
         mov ebx, eax
@@ -1000,14 +1000,14 @@ InitSpeechBanks:
         add esp, byte 8
         mov edx, ebx
         call sub_8BE60
-        call sub_81678
+        call SetNormalText
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
         mov ebp, 408Ch
         call SetTextColor
         mov dword [dword esp+0164h], ebp
-        call sub_7D539
+        call CheckDiskSpace
         mov edx, eax
         mov eax, dword [dword_1AC814]
         mov esi, 0CCh
@@ -1021,25 +1021,25 @@ InitSpeechBanks:
         jbe short .45
         cmp eax, byte 2
         jne short .46
-        call sub_7D539
+        call CheckDiskSpace
         mov edx, dword [dword esp+0164h]
         sub edx, eax
         push edx
         push unk_160DD4
         jmp short .47
 .45:
-        call sub_7D539
+        call CheckDiskSpace
         mov edx, dword [dword esp+0164h]
         sub edx, eax
         push edx
         push unk_160E8C
         jmp short .47
 .46:
-        call sub_7D539
+        call CheckDiskSpace
         mov edx, dword [dword esp+0164h]
         sub edx, eax
         push edx
-        push asc_160F3C
+        push str_PlayByPlayNeedsToBeInstal
 .47:
         lea eax, [byte esp+08h]
         push eax
@@ -1050,7 +1050,7 @@ InitSpeechBanks:
         lea eax, [byte esp+04h]
         xor ebx, ebx
         mov edx, ecx
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         mov dl, byte [byte_1AC81B]
         and dl, 0F7h
         xor esi, esi
@@ -1074,7 +1074,7 @@ InitSpeechBanks:
         mov eax, dword [dword esp+0164h]
         sub eax, 400h
         push eax
-        push asc_1610DC
+        push str_PlayByPlayNeedsToBeInstal2
 .51:
         lea eax, [byte esp+08h]
         push eax
@@ -1085,7 +1085,7 @@ InitSpeechBanks:
         mov edx, 2
         lea eax, [byte esp+04h]
         xor ebx, ebx
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         test eax, eax
         je near .52
         push byte 0FFFFFFFFh
@@ -1093,9 +1093,9 @@ InitSpeechBanks:
         add esp, byte 4
         call SetTextColor
         mov edx, esi
-        mov eax, asc_161158
+        mov eax, str_InstallingPlayByPlay
         mov ebx, 1
-        call sub_83314
+        call ShowWorkingBox
         mov edx, 4
         lea eax, [dword esp+0B4h]
         call MakeDirPath
@@ -1103,17 +1103,17 @@ InitSpeechBanks:
         lea eax, [dword esp+0104h]
         xor ebx, ebx
         call MakeDirPath
-        mov ebx, sub_834EC
+        mov ebx, UpdateWorkingBox
         lea edx, [dword esp+0104h]
         lea eax, [dword esp+0B4h]
         call OpenSpeechBanks
         mov edx, eax
         mov esi, eax
-        call sub_83558
+        call HideWorkingBox
         test edx, edx
         je short .53
         mov edx, dword_1AC7AC
-        mov eax, asc_160CCC
+        mov eax, str_GAMEDATAAUDPBP3TSF
         call FileOpen
         mov esi, eax
         jmp short .53
@@ -1140,20 +1140,20 @@ InitSpeechBanks:
 .54:
         mov eax, 18h
         mov edx, dword [dword esp+016Ch]
-        call sub_842F4
-        call sub_E341C
+        call ShowLoadingBar
+        call ServiceIdle
         mov eax, dword [dword esp+0170h]
         call LoadTeamSpeech
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1Ah
         xor ebx, ebx
-        call sub_842F4
+        call ShowLoadingBar
         mov ecx, dword [dword_1AC7A8]
         mov dword [dword esp+0164h], ebx
         test ecx, ecx
         jle short .56
 .55:
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [dword esp+0164h]
         call LoadSpeechBank
         imul edx, dword [dword esp+0164h], byte 14h
@@ -1162,7 +1162,7 @@ InitSpeechBanks:
         sar edx, 1Fh
         idiv ebp
         add eax, byte 1Ah
-        call sub_842F4
+        call ShowLoadingBar
         mov eax, dword [dword esp+0164h]
         inc eax
         mov edx, dword [dword_1AC7A8]
@@ -1172,7 +1172,7 @@ InitSpeechBanks:
 .56:
         mov eax, 2Eh
         mov edx, 0Ch
-        call sub_842F4
+        call ShowLoadingBar
         mov eax, dword [dword_1AC7AC]
         call FileSeek
         test eax, eax
@@ -1193,9 +1193,9 @@ InitSpeechBanks:
 .58:
         mov eax, dword_1AC7AC
         call FileClose
-        call sub_E341C
+        call ServiceIdle
         mov eax, 30h
-        call sub_842F4
+        call ShowLoadingBar
         mov eax, sub_43884_9C
         call sub_10884C
         test eax, eax
@@ -1207,9 +1207,9 @@ InitSpeechBanks:
         push eax
         call sub_FC330
         add esp, byte 4
-        call sub_E341C
+        call ServiceIdle
         push edi
-        push asc_160D94
+        push str_EVENTDAT
         call sub_1070B0
         add esp, byte 8
         test eax, eax
@@ -1217,7 +1217,7 @@ InitSpeechBanks:
         call sub_1086BF
         jmp near .80
 .59:
-        call sub_E341C
+        call ServiceIdle
         mov eax, edi
         call sub_106036
         test eax, eax
@@ -1226,7 +1226,7 @@ InitSpeechBanks:
         jmp near .80
 .60:
         xor ebx, ebx
-        call sub_E341C
+        call ServiceIdle
         mov dword [dword esp+0164h], ebx
         mov ebx, 2
 .61:
@@ -1287,17 +1287,17 @@ InitSpeechBanks:
         inc dword [dword esp+0164h]
         jmp near .65
 .67:
-        call sub_E341C
+        call ServiceIdle
         mov eax, 31h
-        call sub_842F4
+        call ShowLoadingBar
         cmp dword [dword esp+0164h], 0AFh
         jne near .78
         mov edx, dword_1AC780
-        mov eax, asc_160CCC
+        mov eax, str_GAMEDATAAUDPBP3TSF
         call FileOpen
         test eax, eax
         je near .78
-        call sub_425CC
+        call ResetSpeechQueue
         mov esi, 1
         mov eax, dword [dword_1AC7A8]
         xor edi, edi
@@ -1357,7 +1357,7 @@ InitSpeechBanks:
         push eax
         push edx
         xor edi, edi
-        call sub_100940
+        call SortIndices
         mov ebx, dword [dword_1AC7A8]
         add esp, byte 0Ch
         add ebx, 0AFh
@@ -1377,7 +1377,7 @@ InitSpeechBanks:
         cmp eax, ebx
         jl short .72
 .73:
-        call sub_E341C
+        call ServiceIdle
         xor esi, esi
         mov edi, dword [dword_1AC7D0]
         mov dword [dword esp+0164h], esi
@@ -1415,12 +1415,12 @@ InitSpeechBanks:
         jl short .74
 .77:
         mov eax, 32h
-        call sub_842F4
+        call ShowLoadingBar
         jmp short .79
 .78:
         call sub_1086BF
 .79:
-        call sub_E341C
+        call ServiceIdle
 .80:
         mov esi, dword [dword_169250]
         test esi, esi
@@ -1447,7 +1447,7 @@ InitSpeechBanks:
 .83:
         call sub_FC330
         add esp, byte 4
-        call sub_E341C
+        call ServiceIdle
 .84:
         add esp, 178h
         pop ebp
@@ -1486,7 +1486,7 @@ sub_44998:
 .2:
         xor edi, edi
         mov dword [dword_169250], edi
-        call sub_E341C
+        call ServiceIdle
         pop edi
         pop esi
         pop edx
@@ -2980,7 +2980,7 @@ sub_45A00:
         ret
 .2:
         mov eax, dword [byte eax+04h]
-        call sub_42910
+        call FindSpeechClip
         mov edx, eax
         test eax, eax
         jl short .3

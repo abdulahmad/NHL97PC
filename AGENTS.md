@@ -14,9 +14,5 @@ If you are an AI agent (Claude, Codex, Copilot, Cursor, or any other) and you ar
 
 ## For AI agents working in this repo
 
-Start with [START_HERE.md](START_HERE.md), then [SEGMENT_AGENT.md](SEGMENT_AGENT.md) (rules, queue, history), [PROMPT.md](PROMPT.md), [docs/PLAN.md](docs/PLAN.md) and
-[docs/HANDOFF.md](docs/HANDOFF.md). Every commit must build to MATCH. Never force-push.
-## For AI agents working in this repo
-
-Start with [START_HERE.md](START_HERE.md), then [docs/ASM_BUILD.md](docs/ASM_BUILD.md). Every commit must build to MATCH. Never force-push.
+Start with [START_HERE.md](START_HERE.md), then [CONTRIBUTING.md](CONTRIBUTING.md) (names, comments) and [docs/ASM_BUILD.md](docs/ASM_BUILD.md). Every commit must build to MATCH. Never force-push.
 Never commit game files (HOCKEY.EXE, the IDA listing, data files): this repository is public.

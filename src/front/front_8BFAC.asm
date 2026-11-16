@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_8BFAC progbits alloc exec nowrite align=1
-extern MouseRead, WaitRetrace, __CHP, asc_165578, asc_16557D, asc_165582, asc_16558B, asc_165590
-extern asc_165595, dword_165548, dword_16554C, dword_165560, dword_165564, dword_165570, dword_165574, dword_165587
+extern MouseRead, WaitRetrace, __CHP, str_PNS, str_SLUP, str_SLDN, str_PWE, str_SLLT
+extern str_SLRT, dword_165548, dword_16554C, dword_165560, dword_165564, dword_165570, dword_165574, dword_165587
 extern dword_16559A, dword_16559E, dword_1655A2, dword_1655A6, dword_16CD02, dword_16CD08, dword_16CD0C, dword_16CD10
 extern dword_16CD14, dword_16CD18, dword_16CD1C, dword_16CD24, dword_16CD28, dword_16CD2C, dword_16CD30, dword_16CD34
 extern dword_16CD40, dword_16CD4C, dword_16CD50, dword_16CD54, dword_16DA9C, mousex, mousey, dword_16E464
@@ -13,9 +13,9 @@ extern dword_1C8400, dword_1C8404, dword_1C8408, dword_1C840C, dword_1C8410, dwo
 extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dword_1C8434, dword_1C8438, dword_1C843C
 extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8
 extern RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187, RunNewSeason_193, off_16E4E0, qword_165550, qword_165558, qword_165568
-extern BlitArt, sub_1013CC, sub_1013FC, FindShape, sub_1097F0, sub_11A318, SetScreenTarget, PlaySfx
-extern LoadDataFileHandle, SetRegionRect, sub_835AC, sub_835BC, sub_83850, InitMenuItems, sub_E3410, sub_E341C
-extern sub_E375C, sub_E3798, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
+extern BlitArt, sub_1013CC, sub_1013FC, FindShape, sub_1097F0, ConvertArtXY, SetScreenTarget, PlaySfx
+extern LoadDataFileHandle, SetRegionRect, ShowLinkWait, ShowLinkMessage, HideLinkBox, InitMenuItems, ClearLinkAbort, ServiceIdle
+extern ResetLinkStats, SyncLinkGame, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, sub_FDC68, tickcount, word_16CD04, word_16CD20, word_16CD22
 global jpt_8E977, jpt_8E987, sub_8D956_223, sub_8DBAC_1F5, sub_8DBAC_220, sub_8BFAC, sub_8D5C0, sub_8D6B4
 global sub_8D6E0, sub_8D6E8, sub_8D910, sub_8D956, sub_8DBAC, sub_8DE0F, sub_8DE10, DrawScrollBar
@@ -216,7 +216,7 @@ sub_8BFAC:
         jl near .10
 .22:
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov ebx, 0FFFFFFFFh
@@ -237,7 +237,7 @@ sub_8BFAC:
         cmp eax, dword [dword_16CD24]
         jle short .24
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov dword [dword_16CD24], eax
@@ -252,7 +252,7 @@ sub_8BFAC:
         cmp dword [byte esp+034h], byte 0
         jne short .26
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov ebx, 1
@@ -330,7 +330,7 @@ sub_8BFAC:
         push dword_1C83F0
         mov edx, dword_16CD08
         mov eax, dword_16CD30
-        call sub_E3798
+        call SyncLinkGame
         mov ebx, dword [byte esp+034h]
         mov dword [byte esp+014h], eax
         test ebx, ebx
@@ -354,12 +354,12 @@ sub_8BFAC:
         je short .34
         mov eax, 237h
         call GetLangText
-        call sub_835BC
+        call ShowLinkMessage
         jmp short .35
 .34:
         mov eax, 76h
         call GetLangText
-        call sub_835AC
+        call ShowLinkWait
 .35:
         push dword_1C83E0
         push dword_1C83F4
@@ -368,10 +368,10 @@ sub_8BFAC:
         push dword_1C83F0
         mov edx, dword_16CD08
         mov eax, dword_16CD30
-        call sub_E3798
+        call SyncLinkGame
         test eax, eax
         jne short .36
-        call sub_E341C
+        call ServiceIdle
         jmp short .35
 .36:
         mov edx, 1
@@ -379,7 +379,7 @@ sub_8BFAC:
         mov dword [byte esp+014h], edx
         test bx, bx
         jne short .37
-        call sub_83850
+        call HideLinkBox
 .37:
         mov eax, dword [tickcount]
         add eax, byte 1Eh
@@ -483,7 +483,7 @@ sub_8BFAC:
         mov dword [esp], eax
         test ecx, ecx
         je short .48
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov dword [dword_16CD24], eax
@@ -540,7 +540,7 @@ sub_8BFAC:
 .54:
         cmp dword [byte esp+034h], byte 0
         je short .55
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov dword [dword_16CD24], eax
@@ -1525,7 +1525,7 @@ sub_8BFAC:
         mov ecx, dword [byte esp+048h]
         test ecx, ecx
         jl short .152
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .151
         mov dword [dword esp+084h], ebx
@@ -1639,7 +1639,7 @@ sub_8BFAC:
         push eax
         mov edx, dword [dword_1C8454]
         push edx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov ecx, dword [byte esp+020h]
         push ecx
@@ -1694,7 +1694,7 @@ sub_8BFAC:
         push ecx
         mov eax, dword [dword_1C8444]
         push eax
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push ebx
         mov ecx, dword [byte esp+020h]
@@ -1899,7 +1899,7 @@ sub_8D6B4:
         add esp, byte 8
         mov edx, esi
         xor ecx, ecx
-        call sub_E375C
+        call ResetLinkStats
         pop esi
         pop ecx
         pop ebx
@@ -2039,7 +2039,7 @@ sub_8D6E8:
         sar ebx, 1
         sar edx, 1
         xor ecx, ecx
-        call sub_E375C
+        call ResetLinkStats
         mov ebp, dword [dword_1C8424]
         push ebp
         mov eax, dword [dword_1C8430]
@@ -2125,7 +2125,7 @@ sub_8D956:
         mov dword [byte esi+014h], eax
         call CreateBitmap
         add esp, byte 0Ch
-        push asc_165578
+        push str_PNS
         mov dword [byte esi+018h], eax
         push dword [dword_1C5DE4]
         call FindShape
@@ -2141,7 +2141,7 @@ sub_8D956:
         mov eax, dword [byte esi+018h]
         push dword [byte ebp+018h]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         push dword [byte esi+018h]
@@ -2161,7 +2161,7 @@ sub_8D956:
 .2:
         push byte 0
         push byte 0
-        push asc_16557D
+        push str_SLUP
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -2172,7 +2172,7 @@ sub_8D956:
         sub edi, byte 15h
         push edi
         push byte 0
-        push asc_165582
+        push str_SLDN
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -2321,7 +2321,7 @@ sub_8DBAC:
         mov dword [byte esi+014h], eax
         call CreateBitmap
         add esp, byte 0Ch
-        push asc_16558B
+        push str_PWE
         mov dword [byte esi+018h], eax
         push dword [dword_1C5DE4]
         call FindShape
@@ -2341,7 +2341,7 @@ sub_8DBAC:
         add esp, byte 0Ch
         push byte 0
         push byte 0
-        push asc_165590
+        push str_SLLT
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -2352,7 +2352,7 @@ sub_8DBAC:
         push byte 0
         sub edi, byte 15h
         push edi
-        push asc_165595
+        push str_SLRT
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -2672,7 +2672,7 @@ sub_8DF1F:
         push eax
         mov eax, dword [byte ebp-010h]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         lea edx, [dword ebp-0F64h]
@@ -2776,7 +2776,7 @@ sub_8DF1F:
         push dword [byte ebp-0Ch]
         push dword [byte ebp-08h]
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         lea eax, [byte esi-01h]
@@ -2814,7 +2814,7 @@ sub_8DF1F:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .9
-        call sub_E341C
+        call ServiceIdle
         jmp short .8
 .9:
         dec dword [byte ebp-04h]
@@ -2982,7 +2982,7 @@ sub_8E2EE:
         push eax
         mov eax, dword [byte ebp-010h]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         lea edx, [dword ebp-0F68h]
@@ -3089,7 +3089,7 @@ sub_8E2EE:
         push dword [byte ebp-08h]
         push dword [byte ebp-04h]
         push dword [byte edi+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         lea edi, [byte esi-01h]
@@ -3127,7 +3127,7 @@ sub_8E2EE:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .9
-        call sub_E341C
+        call ServiceIdle
         jmp short .8
 .9:
         dec edi

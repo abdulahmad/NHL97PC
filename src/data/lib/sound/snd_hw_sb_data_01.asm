@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_19A878 progbits alloc noexec write align=1
 extern sub_13B66E
-global asc_19BEE8, asc_19BFD8, dword_19A878, dword_19BEB8, dword_19BED8, dword_19BEDC, dword_19BEE0, dword_19BEE4
+global str_NoErrorInXACODECFunctionL, str_InvalidErrorCodeInXACODEC, dword_19A878, dword_19BEB8, dword_19BED8, dword_19BEDC, dword_19BEE0, dword_19BEE4
 global dword_19C008, dword_19C00C, dword_19C010, word_19C018, word_19C01A, word_19C020, word_19C022
 dword_19A878:
         db 00h,00h,00h,00h,01h,00h,00h,00h,03h,00h,00h,00h,04h,00h,00h,00h
@@ -373,7 +373,7 @@ dword_19BEE0:
         db 00h,00h,00h,00h
 dword_19BEE4:
         db 00h,00h,00h,00h
-asc_19BEE8:
+str_NoErrorInXACODECFunctionL:
         db 04Eh,06Fh,020h,045h,072h,072h,06Fh,072h,020h,049h,06Eh,020h,058h,041h,043h,04Fh
         db 044h,045h,043h,020h,046h,075h,06Eh,063h,074h,069h,06Fh,06Eh,020h,04Ch,069h,062h
         db 072h,061h,072h,079h,021h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -389,7 +389,7 @@ asc_19BEE8:
         db 06Eh,063h,074h,069h,06Fh,06Eh,020h,04Ch,069h,062h,072h,061h,072h,079h,021h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-asc_19BFD8:
+str_InvalidErrorCodeInXACODEC:
         db 049h,06Eh,076h,061h,06Ch,069h,064h,020h,045h,072h,072h,06Fh,072h,020h,043h,06Fh
         db 064h,065h,020h,049h,06Eh,020h,058h,041h,043h,04Fh,044h,045h,043h,020h,046h,075h
         db 06Eh,063h,074h,069h,06Fh,06Eh,020h,04Ch,069h,062h,072h,061h,072h,079h,021h,00h

@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_1608B7 progbits alloc noexec write align=1
-global asc_1609CC, dword_1608C0, dword_1608E4, dword_1608E8, dword_1609C4, dword_1609C8, qword_1608B7, qword_1608C4
+global str_Pktbuffer, dword_1608C0, dword_1608E4, dword_1608E8, dword_1609C4, dword_1609C8, qword_1608B7, qword_1608C4
 global qword_1608CC, qword_1608D4, qword_1608DC, qword_1608EC, qword_1608F4, qword_1608FC, qword_160904, qword_16090C
 global qword_160914, qword_16091C, qword_160924, qword_16092C, qword_160934, qword_16093C, qword_160944, qword_16094C
 global qword_160954, qword_16095C, qword_160964, qword_16096C, qword_160974, qword_16097C, qword_160984, qword_16098C
@@ -81,5 +81,5 @@ dword_1609C4:
         db 00h,00h,010h,043h
 dword_1609C8:
         db 00h,00h,040h,042h
-asc_1609CC:
+str_Pktbuffer:
         db 070h,06Bh,074h,062h,075h,066h,066h,065h,072h,00h,00h,00h

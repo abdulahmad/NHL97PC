@@ -3,13 +3,16 @@ bits 32
 %include "hockey.inc"
 section s_F9C34 progbits alloc exec nowrite align=1
 extern __ExpandDGROUP_, __MemAllocator, __MemFree, __allocfp_, __chktty_, __close_, __fill_buffer_, __flush_
-extern __freefp_, __ioalloc_, __qread_, __set_errno_, asc_167D08, byte_1DA4C4, dword_16E318, dword_16E31C
+extern __freefp_, __ioalloc_, __qread_, __set_errno_, str_MBRAM, byte_1DA4C4, dword_16E318, dword_16E31C
 extern dword_16E320, dword_16E32C, dword_16E330, dword_1724C9, dword_1CF0D8, dword_1CF25C, dword_1CF260, dword_1CF268
 extern dword_1DA4BC, dword_1DA4C0, fflush_, lseek_, sopen_, sub_11B98E, sub_120AB8, sub_121261
 extern sub_121460, sub_121470, sub_121494, sub_FA5B8, tell_, tolower_
 global __MkTmpFile_, __doclose_, __doopen_, __hex_, __open_flags_, __shutdown_stream_, __update_buffer_, _fsopen_
 global _nfree_, _nmalloc_, close_file_, fclose_, fopen_, fread_, fseek_, ftell_
 global strcat_, strcpy_
+;-----------------------------------------------------------------------------
+; strcpy_                                                       F9C34  library
+;-----------------------------------------------------------------------------
 strcpy_:
         push ecx
         push eax
@@ -28,6 +31,9 @@ strcpy_:
         pop eax
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; strcat_                                                       F9C53  library
+;-----------------------------------------------------------------------------
 strcat_:
         push ecx
         push esi
@@ -62,6 +68,9 @@ strcat_:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; __open_flags_                                                 F9C86  library
+;-----------------------------------------------------------------------------
 __open_flags_:
         push ebx
         push ecx
@@ -153,6 +162,9 @@ __open_flags_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __doopen_                                                     F9D57  library
+;-----------------------------------------------------------------------------
 __doopen_:
         push esi
         mov esi, eax
@@ -230,6 +242,9 @@ __doopen_:
         mov eax, ecx
         pop esi
         ret 4
+;-----------------------------------------------------------------------------
+; _fsopen_                                                      F9E1B  library
+;-----------------------------------------------------------------------------
 _fsopen_:
         push ecx
         push esi
@@ -259,12 +274,18 @@ _fsopen_:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; fopen_                                                        F9E54  library
+;-----------------------------------------------------------------------------
 fopen_:
         push ebx
         xor ebx, ebx
         call _fsopen_
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; close_file_                                                   F9E5E  library
+;-----------------------------------------------------------------------------
 close_file_:
         push ebx
         push ecx
@@ -346,6 +367,9 @@ close_file_:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; __update_buffer_                                              F9F08  library
+;-----------------------------------------------------------------------------
 __update_buffer_:
         push ebx
         push ecx
@@ -380,6 +404,9 @@ __update_buffer_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; fseek_                                                        F9F4A  library
+;-----------------------------------------------------------------------------
 fseek_:
         push ecx
         push esi
@@ -494,6 +521,9 @@ fseek_:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; ftell_                                                        FA046  library
+;-----------------------------------------------------------------------------
 ftell_:
         push ebx
         push edx
@@ -526,6 +556,9 @@ ftell_:
         pop edx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; fclose_                                                       FA088  library
+;-----------------------------------------------------------------------------
 fclose_:
         push ebx
         push edx
@@ -550,6 +583,9 @@ fclose_:
         pop edx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __shutdown_stream_                                            FA0B5  library
+;-----------------------------------------------------------------------------
 __shutdown_stream_:
         push ebx
         mov ebx, eax
@@ -560,6 +596,9 @@ __shutdown_stream_:
         mov eax, edx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __hex_                                                        FA0CA  library
+;-----------------------------------------------------------------------------
 __hex_:
         add eax, byte 30h
         cmp eax, byte 39h
@@ -567,6 +606,9 @@ __hex_:
         add eax, byte 27h
 .1:
         ret
+;-----------------------------------------------------------------------------
+; __MkTmpFile_                                                  FA0D6  library
+;-----------------------------------------------------------------------------
 __MkTmpFile_:
         push ebx
         push ecx
@@ -608,6 +650,9 @@ __MkTmpFile_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __doclose_                                                    FA13B  library
+;-----------------------------------------------------------------------------
 __doclose_:
         push ebx
         push ecx
@@ -670,6 +715,9 @@ __doclose_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _nmalloc_                                                     FA1CB  library
+;-----------------------------------------------------------------------------
 _nmalloc_:
         push ebx
         push ecx
@@ -768,6 +816,9 @@ _nmalloc_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; fread_                                                        FA2AE  library
+;-----------------------------------------------------------------------------
 fread_:
         push esi
         push edi
@@ -949,6 +1000,9 @@ fread_:
         pop edi
         pop esi
         ret
+;-----------------------------------------------------------------------------
+; _nfree_                                                       FA489  library
+;-----------------------------------------------------------------------------
 _nfree_:
         push ebx
         push ecx
@@ -1048,7 +1102,7 @@ _nfree_:
         add eax, ecx
         push eax
         push byte 0
-        push asc_167D08
+        push str_MBRAM
         call sub_FA5B8
         mov eax, dword [dword_16E32C]
         mov ebx, dword [dword_16E330]

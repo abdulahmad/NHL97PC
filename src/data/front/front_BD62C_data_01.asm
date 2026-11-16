@@ -2,25 +2,25 @@
 bits 32
 %include "hockey.inc"
 section s_166A5C progbits alloc noexec write align=1
-global asc_166A5C, asc_166A61, asc_166A66, asc_166A6F, asc_166A78, asc_166A81, asc_166AAD, asc_166AB8
-global asc_166AD8, asc_166AE4, asc_166AEB, asc_166AF0, asc_166AF9, asc_166B07, asc_166B1B, asc_166B20
+global str_Mous4, str_Remo3, str_Replload, str_RPEVENT, str_Replmenu, str_Replregs, str_REPLAYNDX, str_DATAREPLAYNDX2
+global str_DONTHAVEIT2, str_Replay, str_SS10, str_Replbuff, str_SREPLAYNDX, str_S12, str_NOIS, str_ARWD
 global dword_166A95, dword_166A99, dword_166A9D, dword_166AA9, dword_166AC8, dword_166AD4, dword_166B0B, dword_166B17
 global dword_166B26, dword_166B32, qword_166A8D, qword_166AA1, qword_166ACC, qword_166B0F, qword_166B2A, unk_166A8A
 global unk_166B38, unk_166B3C, unk_166B40, unk_166B44, unk_166B48, unk_166B4C, unk_166B50, unk_166B54
 global unk_166B58, unk_166B5C, unk_166B60, unk_166B64, unk_166B67, unk_166B6B, unk_166B6E, unk_166B72
 global unk_166B76, unk_166B7A, unk_166B7E, unk_166B82, unk_166B86, unk_166B8A, unk_166B8D, unk_166B90
 global unk_166B94, unk_166B98
-asc_166A5C:
+str_Mous4:
         db 06Dh,06Fh,075h,073h,00h
-asc_166A61:
+str_Remo3:
         db 072h,065h,06Dh,06Fh,00h
-asc_166A66:
+str_Replload:
         db 072h,065h,070h,06Ch,06Ch,06Fh,061h,064h,00h
-asc_166A6F:
+str_RPEVENT:
         db 052h,050h,05Fh,045h,056h,045h,04Eh,054h,00h
-asc_166A78:
+str_Replmenu:
         db 072h,065h,070h,06Ch,06Dh,065h,06Eh,075h,00h
-asc_166A81:
+str_Replregs:
         db 072h,065h,070h,06Ch,072h,065h,067h,073h,00h
 unk_166A8A:
         db 025h,073h,00h
@@ -36,9 +36,9 @@ qword_166AA1:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
 dword_166AA9:
         db 0CDh,0CCh,04Ch,03Bh
-asc_166AAD:
+str_REPLAYNDX:
         db 052h,045h,050h,04Ch,041h,059h,02Eh,04Eh,044h,058h,00h
-asc_166AB8:
+str_DATAREPLAYNDX2:
         db 044h,041h,054h,041h,05Ch,052h,045h,050h,04Ch,041h,059h,02Eh,04Eh,044h,058h,00h
 dword_166AC8:
         db 0CDh,0CCh,04Ch,03Bh
@@ -46,17 +46,17 @@ qword_166ACC:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
 dword_166AD4:
         db 0Ah,0D7h,0A3h,03Bh
-asc_166AD8:
+str_DONTHAVEIT2:
         db 044h,04Fh,04Eh,054h,048h,041h,056h,045h,02Eh,049h,054h,00h
-asc_166AE4:
+str_Replay:
         db 072h,065h,070h,06Ch,061h,079h,00h
-asc_166AEB:
+str_SS10:
         db 025h,073h,025h,073h,00h
-asc_166AF0:
+str_Replbuff:
         db 072h,065h,070h,06Ch,062h,075h,066h,066h,00h
-asc_166AF9:
+str_SREPLAYNDX:
         db 025h,073h,05Ch,052h,045h,050h,04Ch,041h,059h,02Eh,04Eh,044h,058h,00h
-asc_166B07:
+str_S12:
         db 03Eh,025h,073h,00h
 dword_166B0B:
         db 0CDh,0CCh,04Ch,03Bh
@@ -64,9 +64,9 @@ qword_166B0F:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
 dword_166B17:
         db 0Ah,0D7h,0A3h,03Bh
-asc_166B1B:
+str_NOIS:
         db 04Eh,04Fh,049h,053h,00h
-asc_166B20:
+str_ARWD:
         db 041h,052h,057h,025h,064h,00h
 dword_166B26:
         db 0CDh,0CCh,04Ch,03Bh

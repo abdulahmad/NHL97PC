@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_F20A1 progbits alloc exec nowrite align=1
-extern SortCords, __CHP, asc_167A29, asc_167A2E, asc_167A4E, asc_167A5A, asc_167A65, asc_167A6B
-extern asc_167A70, asc_167B85, asc_167BAB, byte_168930, byte_19CBC2, byte_1AC81B, byte_1AC81C, byte_1AD23E
+extern SortCords, __CHP, str_Mous6, str_Remo4, str_D02dD, str_D02dD2, str_CB0D, str_CB002
+extern str_Chat, str_SS15, str_D4, byte_168930, byte_19CBC2, byte_1AC81B, byte_1AC81C, byte_1AD23E
 extern byte_1C135A, byte_1C135B, dword_167A3B, dword_167A3F, dword_167A43, dword_167A47, dword_167A85, dword_167A89
 extern dword_167A8D, dword_167A91, dword_167A95, dword_167A99, dword_167A9D, dword_167AA1, dword_167AA5, dword_167AA9
 extern dword_167AAD, dword_167AE1, dword_167AE5, dword_167AE9, dword_167AED, dword_167AF1, dword_167AF5, dword_167AF9
@@ -28,20 +28,20 @@ extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dwo
 extern qword_167A75, qword_167A7D, qword_167AB1, qword_167AB9, qword_167AC1, qword_167AC9, qword_167AD1, qword_167AD9
 extern qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qword_167B9F, qword_167BB3, qword_167BBB
 extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, sscanf_, sub_1008CC
-extern BlitArt, sub_1013FC, FindShape, sub_101EAC, sub_102B94, sub_10491C, sub_1169F0, IsPlayoffGame
-extern sub_119A8, sub_11A318, sub_11ADD0, sub_11ADE8, sub_11BDC0, sub_11F74, sub_11FA90, sub_11FAAC
-extern sub_11FB11, sub_12A10, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, sub_160E2, sub_18E76
-extern sub_18F67, sub_1BC18, sub_1C854, sub_1C9F0, sub_1D09C, AddOverlayWindow, RemoveOverlayWindow, sub_3CF68
-extern RefreshOverlayWindow, sub_3D020, sub_3E480, sub_3E5F0, InitGameAudio, sub_41670, sub_419B0, sub_419B8
-extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, WaitMusicEnd, ArenaFileName, sub_423B4
-extern PaEvent, sub_4A280, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, sub_4BCB4
-extern sub_4C0C4, sub_5B4D4, sub_5BE74, sub_6539C, sub_76D3C, InitFrontEnd, FreeFrontEnd, SetRegionRect
+extern BlitArt, sub_1013FC, FindShape, sub_101EAC, sub_102B94, sub_10491C, PrintBoxedText, IsPlayoffGame
+extern sub_119A8, ConvertArtXY, SaveTextState, RestoreTextState, sub_11BDC0, sub_11F74, sub_11FA90, sub_11FAAC
+extern sub_11FB11, sub_12A10, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, DrawPanelArtScaled, RefreshOverlayWindows
+extern SetOverlayFont, IntermissionCameraScene, MenuCameraScene, MenuOrbitScene, RestoreGameCamera, AddOverlayWindow, RemoveOverlayWindow, UpdateScreenRegion
+extern RefreshOverlayWindow, SetRinkDetail, SetRangePalette, FadeGamePalette, InitGameAudio, InitGameSounds, SecondsToSamples, WaitSoundTime
+extern ChkMenuMusic, QueueMusicRestart, PauseMusic, ResumeMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, SetAmbientVolume
+extern PaEvent, ResetStreamAudio, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, RedrawGameView
+extern TriggerCameraFlashes, RestoreSavedPalette, ReplayHasFrames, UpdateGameDisplay, UpdateAllPoses, InitFrontEnd, FreeFrontEnd, SetRegionRect
 extern SetTextColor, DrawTextAligned, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
 extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, LoadGameLogos, sub_AB0A6, RunReplay
-extern FadePalette, FadeOut, sub_DA7EB, sub_DB6AC, sub_E341C, sub_E3798, sub_E4218, sub_E4230
+extern FadePalette, FadeOut, OpenGameDatabase, CloseGameDatabase, ServiceIdle, SyncLinkGame, LinkSyncMenu, LinkSyncScreen
 extern WaitForOtherComputer, sub_F1FF8, FreeMemBlock, sub_FC330, sub_FC4BC, sub_FCC40, FreeBitmap, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC
-extern sub_FE3D0, tickcount, unk_167A4B, word_168D18, word_19CBB0, word_19CBB2, gsp, gameclock
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt
+extern FillRectCorners, tickcount, unk_167A4B, word_168D18, word_19CBB0, word_19CBB2, gsp, gameclock
 extern word_19CBBC, word_1C3413, word_1C5536, word_1CEFC0
 global jpt_F4167, jpt_F56E5, jpt_F7BB6, PickEditLinesTeam_5B2, PickEditLinesTeam_5B5, PauseMenu_16C, PauseMenu_26F, PauseMenu_29A
 global PauseMenu_4BB, PauseMenu_4EF, PauseMenu_60A, PauseMenu_62A, PauseMenu_640, PauseMenu_66D, PauseMenu_726, PauseMenu_72C
@@ -63,19 +63,19 @@ sub_F20A1:
         enter 8, 0
         mov eax, 3
         mov edx, 20h
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 2Eh
         call LoadDataFile
         push byte 20h
-        push asc_167A29
+        push str_Mous6
         push eax
         mov dword [dword_1C5DE4], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_167A29
+        push str_Mous6
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -84,14 +84,14 @@ sub_F20A1:
         call CreateBitmap
         add esp, byte 0Ch
         push byte 20h
-        push asc_167A2E
+        push str_Remo4
         push dword [dword_1C5DE4]
         mov dword [dword_1CEF88], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_167A2E
+        push str_Remo4
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -100,7 +100,7 @@ sub_F20A1:
         call CreateBitmap
         add esp, byte 0Ch
         push byte 20h
-        push asc_167A29
+        push str_Mous6
         push dword [dword_1C5DE4]
         mov dword [dword_1CEF8C], eax
         call FindShape
@@ -110,7 +110,7 @@ sub_F20A1:
         sar eax, 1
         add esp, byte 8
         push eax
-        push asc_167A29
+        push str_Mous6
         push dword [dword_1C5DE4]
         call FindShape
         movsx eax, word [byte eax+04h]
@@ -122,7 +122,7 @@ sub_F20A1:
         call CreateBitmap
         add esp, byte 0Ch
         push byte 20h
-        push asc_167A2E
+        push str_Remo4
         push dword [dword_1C5DE4]
         mov dword [dword_1CEF90], eax
         call FindShape
@@ -132,7 +132,7 @@ sub_F20A1:
         sar eax, 1
         add esp, byte 8
         push eax
-        push asc_167A2E
+        push str_Remo4
         push dword [dword_1C5DE4]
         call FindShape
         movsx eax, word [byte eax+04h]
@@ -165,11 +165,11 @@ sub_F20A1:
         test bx, bx
         jne short .3
         push byte 10h
-        push asc_167A29
+        push str_Mous6
         jmp short .4
 .3:
         push byte 10h
-        push asc_167A2E
+        push str_Remo4
 .4:
         push dword [dword_1C5DE4]
         call FindShape
@@ -267,7 +267,7 @@ sub_F22ED:
         push eax
         push esi
         push edi
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
         push dword 0B0B0B0h
         call sub_FC4BC
@@ -283,7 +283,7 @@ sub_F22ED:
         push eax
         lea eax, [byte edi+01h]
         push eax
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
         push dword [dword_1CEFA0]
         lea eax, [byte ebx-03h]
@@ -295,7 +295,7 @@ sub_F22ED:
         push eax
         lea eax, [byte edi+02h]
         push eax
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
         push dword 0B0B0B0h
         call sub_FC4BC
@@ -310,7 +310,7 @@ sub_F22ED:
         push eax
         lea eax, [byte edi+03h]
         push eax
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
         push dword 101010h
         call sub_FC4BC
@@ -325,7 +325,7 @@ sub_F22ED:
         push esi
         add edi, byte 4
         push edi
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
         leave
         pop edi
@@ -420,7 +420,7 @@ sub_F23BF:
         push dword [byte ebp-024h]
         push dword [byte ebp-018h]
         push dword [byte ebp-04h]
-        call sub_FE3D0
+        call FillRectCorners
         jmp short .4
 .2:
         cmp esi, byte 1
@@ -579,7 +579,7 @@ sub_F2544:
         push dword [byte ebp-028h]
         push dword [byte ebp-020h]
         push dword [byte ebp-010h]
-        call sub_FE3D0
+        call FillRectCorners
         jmp short .9
 .7:
         cmp bx, byte 1
@@ -698,7 +698,7 @@ DrawPauseClock:
         mov ebx, eax
         lea eax, [byte ebp-02Eh]
         push eax
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         push dword [dword_1686C0]
         call sub_FCC40
@@ -710,15 +710,15 @@ DrawPauseClock:
         push byte 19h
         mov eax, 1
         push dword 3E3851ECh
-        call sub_160E2
+        call DrawPanelArtScaled
         push dword 0E4h
         push dword 0E7h
         xor eax, eax
         push dword 3E3851ECh
-        call sub_160E2
+        call DrawPanelArtScaled
         push ebx
         push dword 0F8h
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         cmp word [word_19CBB2], byte 0
         je short .1
@@ -759,13 +759,13 @@ DrawPauseClock:
         lea eax, [byte ebp+07Eh]
         push eax
         mov ebx, 89h
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub ebx, eax
         push ebx
         lea eax, [byte ebp+07Eh]
         push eax
-        call sub_FE3AC
+        call DrawTextBoxedAt
         add esp, byte 0Ch
         cmp word [word_19CBB2], byte 0
         je near .11
@@ -797,13 +797,13 @@ DrawPauseClock:
         push byte 0
         push eax
 .9:
-        push asc_167A4E
+        push str_D02dD
         jmp short .13
 .10:
         push byte 0
         push byte 0
         push eax
-        push asc_167A5A
+        push str_D02dD2
         jmp short .13
 .11:
         movsx ecx, word [gameclock]
@@ -839,11 +839,11 @@ DrawPauseClock:
         push eax
         push ecx
         push ebx
-        push asc_167A5A
+        push str_D02dD2
 .13:
         push byte 7Ch
         push byte 46h
-        call sub_1169F0
+        call PrintBoxedText
         add esp, byte 18h
         movzx eax, byte [byte_1C135A]
         push eax
@@ -856,13 +856,13 @@ DrawPauseClock:
         lea eax, [byte ebp+07Eh]
         push eax
         mov ebx, 42h
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub ebx, eax
         push ebx
         lea eax, [byte ebp+07Eh]
         push eax
-        call sub_FE3AC
+        call DrawTextBoxedAt
         add esp, byte 0Ch
         movzx eax, byte [byte_1C135B]
         push eax
@@ -875,13 +875,13 @@ DrawPauseClock:
         lea eax, [byte ebp+07Eh]
         push eax
         mov ebx, 0F1h
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub ebx, eax
         push ebx
         lea eax, [byte ebp+07Eh]
         push eax
-        call sub_FE3AC
+        call DrawTextBoxedAt
         add esp, byte 0Ch
         movsx eax, word [word_1C3413]
         push eax
@@ -894,13 +894,13 @@ DrawPauseClock:
         lea eax, [byte ebp+07Eh]
         push eax
         mov ebx, 3Eh
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub ebx, eax
         push ebx
         lea eax, [byte ebp+07Eh]
         push eax
-        call sub_FE3AC
+        call DrawTextBoxedAt
         add esp, byte 0Ch
         movsx eax, word [word_1C5536]
         push eax
@@ -913,18 +913,18 @@ DrawPauseClock:
         lea eax, [byte ebp+07Eh]
         push eax
         mov ebx, 0F6h
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub ebx, eax
         push ebx
         lea eax, [byte ebp+07Eh]
         push eax
-        call sub_FE3AC
+        call DrawTextBoxedAt
         add esp, byte 0Ch
         call sub_1013FC
         lea eax, [byte ebp-02Eh]
         push eax
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
         push byte 0
         call sub_FC330
@@ -947,13 +947,13 @@ sub_F2AA0:
         je short .1
         lea eax, [dword ebp-0ACh]
         push eax
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
         call DrawPauseClock
         lea eax, [dword ebp-0ACh]
         push eax
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
 .1:
         leave
@@ -975,7 +975,7 @@ DrawPauseButtons:
         mov esi, edx
         lea eax, [dword ebp-0114h]
         push eax
-        call sub_11ADD0
+        call SaveTextState
         fild dword [dword_16E464]
         fmul qword [qword_167A75]
         fild dword [dword_16E468]
@@ -1294,8 +1294,8 @@ DrawPauseButtons:
 .11:
         mov eax, 3
         mov edx, 20h
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, 100h
         call LoadDataFile
         mov dword [dword_1C5DE4], eax
@@ -1306,7 +1306,7 @@ DrawPauseButtons:
 .12:
         movsx ebx, di
         push ebx
-        push asc_167A65
+        push str_CB0D
         lea eax, [byte ebp-068h]
         push eax
         call sprintf_
@@ -1363,8 +1363,8 @@ DrawPauseButtons:
         movsx edx, word [dword ebp-0118h]
         push dword [byte ebp-08h]
         push edx
-        push asc_167A70
-        push asc_167A6B
+        push str_Chat
+        push str_CB002
         push eax
         call FindShape
         fild word [byte eax+06h]
@@ -1376,7 +1376,7 @@ DrawPauseButtons:
         add esp, byte 8
         cwde
         push eax
-        push asc_167A6B
+        push str_CB002
         push dword [dword_1C5DE4]
         call FindShape
         fild word [byte eax+04h]
@@ -1398,7 +1398,7 @@ DrawPauseButtons:
         lea eax, [dword ebp-0114h]
         push eax
         mov dword [dword_1C5DE4], 0
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
         leave
         pop edi
@@ -1572,7 +1572,7 @@ PickEditLinesTeam:
         push dword [byte ebp-03Ch]
 .8:
         push dword [byte esi+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push dword [byte ebp-01Ch]
         call SetDrawTarget
@@ -1985,7 +1985,7 @@ ConfirmQuitGame:
         push dword [byte ebp-03Ch]
 .7:
         push dword [byte esi+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push edi
         call SetDrawTarget
@@ -2297,18 +2297,18 @@ RunIntermission:
         push esi
         push edi
         enter 41Ch, 0
-        call sub_4A280
-        call sub_41CF0
+        call ResetStreamAudio
+        call QueueMusicRestart
         lea eax, [dword ebp-011Ch]
         push eax
         mov dword [dword_16AF5C], 1
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
         call DrawPauseClock
         lea eax, [dword ebp-011Ch]
         push eax
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
         lea eax, [dword ebp-041Ch]
         push eax
@@ -2325,7 +2325,7 @@ RunIntermission:
         mov dword [byte ebp-04h], eax
         call WaitMusicEnd
         mov eax, 1
-        call sub_41670
+        call InitGameSounds
         movzx eax, byte [byte_1C135B]
         push eax
         mov eax, dword [dword_1AC944]
@@ -2363,7 +2363,7 @@ RunIntermission:
         inc esi
         cmp esi, byte 8
         jl short .1
-        call sub_41D18
+        call PauseMusic
         lea edx, [byte ebp-070h]
         mov eax, 2
         call ArenaFileName
@@ -2392,19 +2392,19 @@ RunIntermission:
         call ArenaFileName
 .7:
         lea eax, [byte ebp-070h]
-        call sub_41A28
+        call ChkMenuMusic
         mov eax, 3
         mov ebx, 3
-        call sub_419B0
-        call sub_419B8
-        call sub_41DB8
+        call SecondsToSamples
+        call WaitSoundTime
+        call RequestMusicStop
         xor eax, eax
         lea edx, [dword ebp-041Ch]
-        call sub_4C0C4
+        call TriggerCameraFlashes
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_4BCB4
-        call sub_1BC18
+        call RedrawGameView
+        call IntermissionCameraScene
         xor eax, eax
         call FadePalette
         push byte 0
@@ -2423,12 +2423,12 @@ RunIntermission:
         push dword 0FEh
         call ClearScreen
         add esp, byte 4
-        call sub_18F67
+        call SetOverlayFont
         push byte 4
         mov eax, 74h
         call GetLangText
         push eax
-        call sub_FDE44
+        call MeasureText
         mov edx, dword [dword_16E464]
         sub edx, eax
         mov eax, edx
@@ -2440,7 +2440,7 @@ RunIntermission:
         mov eax, 74h
         call GetLangText
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         call sub_1013FC
         cmp dword [dword_19CD30], byte 0
@@ -2464,9 +2464,9 @@ RunIntermission:
         jne short .9
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_E341C
-        call sub_4BCB4
-        call sub_E341C
+        call ServiceIdle
+        call RedrawGameView
+        call ServiceIdle
         call dword [off_16E4E0]
         mov dword [byte ebp-018h], eax
         mov eax, dword [mousex]
@@ -2485,7 +2485,7 @@ RunIntermission:
         push eax
         lea edx, [byte ebp-01Ch]
         lea eax, [byte ebp-014h]
-        call sub_E3798
+        call SyncLinkGame
         jmp short .8
 .9:
         mov eax, dword [byte esi+02Ch]
@@ -2494,8 +2494,8 @@ RunIntermission:
         call FreeBitmap
         add esp, byte 4
         mov eax, 4
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         mov eax, dword [byte ebp-04h]
         mov dword [dword_16AF58], eax
         jmp near PickEditLinesTeam_5B5
@@ -2699,7 +2699,7 @@ PauseMenu:
         mov eax, 0FFFFFFFFh
         xor ebx, ebx
         mov dword [byte ebp+07Ah], 0FFFFFFFFh
-        call sub_3E5F0
+        call FadeGamePalette
         test byte [byte_19CBC2], 40h
         je short .1
         call RunIntermission
@@ -2721,13 +2721,13 @@ PauseMenu:
         lea eax, [dword ebp-0B6h]
         push eax
         mov dword [dword_16AF5C], 1
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
         call DrawPauseClock
         lea eax, [dword ebp-0B6h]
         push eax
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
         cmp dword [dword_16E464], 140h
         jl short .4
@@ -2783,7 +2783,7 @@ PauseMenu:
         mov eax, dword [byte ebp+06Eh]
         jmp dword [nosplit cs:eax*4+jpt_F4167]
 PauseMenu_16C:
-        call sub_5BE74
+        call ReplayHasFrames
         test eax, eax
         je near PauseMenu_4BB
         lea eax, [byte ebp-0Ah]
@@ -2826,7 +2826,7 @@ PauseMenu_16C:
         call DrawPauseClock
         lea eax, [byte ebp-0Ah]
         call sub_F3FF5
-        call sub_1C854
+        call MenuCameraScene
         call sub_8BEF8
         cmp word [word_1CEFC0], byte 2
         jne short .11
@@ -2847,10 +2847,10 @@ PauseMenu_16C:
         jmp near PauseMenu_29A.30
 PauseMenu_26F:
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         call RulesMenu
-        call sub_18E76
+        call RefreshOverlayWindows
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
@@ -2914,7 +2914,7 @@ PauseMenu_29A:
         call sub_F48C2
         call sub_AB0A6
         call InitFrontEnd
-        call sub_41DB8
+        call RequestMusicStop
         test bx, bx
         je short .21
         test di, di
@@ -3018,7 +3018,7 @@ PauseMenu_29A:
 .29:
         mov dword [dword_1A8E50], 1
 .30:
-        call sub_4BCB4
+        call RedrawGameView
 PauseMenu_4BB:
         cmp dword [byte ebp+07Ah], byte 0FFFFFFFFh
         jne near PauseMenu_66D.36
@@ -3052,7 +3052,7 @@ PauseMenu_4EF:
         call sub_F48C2
         call sub_AB0A6
         call InitFrontEnd
-        call sub_41DB8
+        call RequestMusicStop
         call GameStatsScreen
         call FreeFrontEnd
         mov eax, edx
@@ -3116,9 +3116,9 @@ PauseMenu_62A:
 PauseMenu_640:
         call WaitForOtherComputer
         xor eax, eax
-        call sub_1C9F0
+        call MenuOrbitScene
         mov dword [dword_1A8E50], 1
-        call sub_18E76
+        call RefreshOverlayWindows
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
@@ -3136,21 +3136,21 @@ PauseMenu_66D:
         cmp ebx, byte 2
         jne short .35
         mov eax, ebx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         call DetailLevelMenu
         mov dword [dword_1A8E50], 1
-        call sub_18E76
+        call RefreshOverlayWindows
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
-        call sub_4BCB4
-        call sub_E4218
+        call RedrawGameView
+        call LinkSyncMenu
         jmp near PauseMenu_4BB
 .35:
         mov eax, 8Fh
         call GetLangText
-        call sub_E4230
+        call LinkSyncScreen
         jmp near PauseMenu_4BB
 .36:
         lea eax, [byte ebp-0Ah]
@@ -3210,8 +3210,8 @@ sub_F48C2:
         jne short .2
         mov eax, 1
         mov ebx, 2
-        call sub_41670
-        call sub_41D18
+        call InitGameSounds
+        call PauseMusic
         call rand_
         cdq
         idiv ebx
@@ -3220,7 +3220,7 @@ sub_F48C2:
         mov eax, ebx
         call ArenaFileName
         lea eax, [byte ebp-050h]
-        call sub_41A28
+        call ChkMenuMusic
         lea eax, [byte ebx+01h]
         mov ebx, 2
         cdq
@@ -3229,12 +3229,12 @@ sub_F48C2:
         lea edx, [byte ebp-050h]
         call ArenaFileName
         lea eax, [byte ebp-050h]
-        call sub_41A28
+        call ChkMenuMusic
 .2:
         mov eax, 2
-        call sub_419B0
-        call sub_419B8
-        call sub_DA7EB
+        call SecondsToSamples
+        call WaitSoundTime
+        call OpenGameDatabase
         leave
         pop edx
         pop ecx
@@ -3249,14 +3249,14 @@ sub_F4978:
         push edx
         enter 158h, 0
         mov ecx, eax
-        call sub_DB6AC
+        call CloseGameDatabase
         test ecx, ecx
         jne short .1
         call InitGameAudio
 .1:
         mov eax, dword_19CD10
         call InitGameGraphics
-        call sub_1C854
+        call MenuCameraScene
         call InitGameVideo
         call ApplyDisplayFlags
         xor eax, eax
@@ -3264,10 +3264,10 @@ sub_F4978:
         call LoadGameLogos
         call sub_F1FF8
         mov eax, dword [dword_1ADC88]
-        call sub_3E480
+        call SetRangePalette
         mov eax, 947Ah
         xor ecx, ecx
-        call sub_3D020
+        call SetRinkDetail
 .2:
         imul eax, ecx, dword 760h
         mov ebx, dword_1B1410
@@ -3276,46 +3276,46 @@ sub_F4978:
         add ebx, byte 58h
         mov eax, dword [nosplit ecx*4+dword_19CD54]
         inc ecx
-        call sub_76D3C
+        call UpdateAllPoses
         cmp ecx, byte 0Dh
         jl short .2
         call sub_F3F33
-        call sub_5B4D4
+        call RestoreSavedPalette
         xor eax, eax
-        call sub_6539C
+        call UpdateGameDisplay
         cmp dword [dword_16AF5C], byte 0
         je short .3
         lea eax, [dword ebp-0ACh]
         push eax
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
         call DrawPauseClock
         lea eax, [dword ebp-0ACh]
         push eax
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
 .3:
         mov edx, 10000h
         mov eax, 0FFFFFFFFh
         xor ebx, ebx
-        call sub_3E5F0
+        call FadeGamePalette
         cmp dword [dword_16AF5C], byte 0
         je short .4
         lea eax, [dword ebp-0158h]
         push eax
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
         call DrawPauseClock
         lea eax, [dword ebp-0158h]
         push eax
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
 .4:
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_4BCB4
+        call RedrawGameView
         leave
         pop edx
         pop ecx
@@ -3331,7 +3331,7 @@ sub_F4A8F:
         mov eax, dword [tickcount]
         call WaitMusicEnd
         mov eax, 1
-        call sub_41670
+        call InitGameSounds
         movzx eax, byte [byte_1C135B]
         push eax
         mov eax, dword [dword_1AC944]
@@ -3351,7 +3351,7 @@ sub_F4A8F:
         call PaEvent
         add esp, byte 18h
         mov ebx, 2
-        call sub_41D18
+        call PauseMusic
         call rand_
         cdq
         idiv ebx
@@ -3360,7 +3360,7 @@ sub_F4A8F:
         lea edx, [byte ebp-050h]
         call ArenaFileName
         lea eax, [byte ebp-050h]
-        call sub_41A28
+        call ChkMenuMusic
         lea eax, [byte ebx+01h]
         mov ebx, 2
         cdq
@@ -3369,13 +3369,13 @@ sub_F4A8F:
         lea edx, [byte ebp-050h]
         call ArenaFileName
         lea eax, [byte ebp-050h]
-        call sub_41A28
-        call sub_41DB8
+        call ChkMenuMusic
+        call RequestMusicStop
         leave
         pop edx
         pop ebx
         ret
-        call sub_41D30
+        call ResumeMusic
         jmp near WaitMusicEnd
 ;-----------------------------------------------------------------------------
 ; DrawIntermissionTitle                           F4B3F  97 PC, low confidence
@@ -3656,7 +3656,7 @@ DrawIntermissionTitle:
         push eax
         lea eax, [byte ebp+02Ah]
         push eax
-        push asc_167B85
+        push str_SS15
         mov eax, 5Eh
 .14:
         call GetLangText
@@ -3712,7 +3712,7 @@ DrawIntermissionTitle:
         push eax
         lea eax, [byte ebp+02Ah]
         push eax
-        push asc_167B85
+        push str_SS15
         mov eax, 5Fh
         jmp near .14
 .18:
@@ -3722,7 +3722,7 @@ DrawIntermissionTitle:
         push eax
         lea eax, [byte ebp+02Ah]
         push eax
-        push asc_167B85
+        push str_SS15
         mov eax, 60h
         jmp near .14
 .19:
@@ -3735,7 +3735,7 @@ DrawIntermissionTitle:
         push eax
         lea eax, [byte ebp+02Ah]
         push eax
-        push asc_167B85
+        push str_SS15
         mov eax, 63h
         jmp near .14
 .20:
@@ -3743,7 +3743,7 @@ DrawIntermissionTitle:
         push eax
         lea eax, [byte ebp+02Ah]
         push eax
-        push asc_167B85
+        push str_SS15
         mov eax, 62h
         call GetLangText
         push eax
@@ -3858,21 +3858,21 @@ sub_F5219:
         call RemoveOverlayPanel
         mov eax, 700h
         call RemoveOverlayPanel
-        call sub_4A280
-        call sub_41CF0
+        call ResetStreamAudio
+        call QueueMusicRestart
         xor eax, eax
-        call sub_423B4
+        call SetAmbientVolume
         cmp dword [dword_16AF5C], byte 0
         je short .1
         lea eax, [dword ebp-018Ah]
         push eax
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
         call DrawPauseClock
         lea eax, [dword ebp-018Ah]
         push eax
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
 .1:
         movsx edx, si
@@ -3881,13 +3881,13 @@ sub_F5219:
         lea eax, [byte ebp-032h]
         push eax
         mov dword [dword_16AF5C], 1
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
         call DrawPauseClock
         lea eax, [byte ebp-032h]
         push eax
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
         mov eax, dword [tickcount]
         mov edi, eax
@@ -3925,13 +3925,13 @@ sub_F5219:
         test si, si
         jne near .5
         mov eax, 12Ch
-        call sub_1C9F0
+        call MenuOrbitScene
         mov ebx, edi
         jmp near .4
 .2:
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_4BCB4
+        call RedrawGameView
         mov eax, edx
         sub eax, ebx
         imul eax, byte 0FFFFFFB0h
@@ -3966,8 +3966,8 @@ sub_F5219:
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov edx, dword [byte ebp+07Ah]
-        call sub_3CF68
-        call sub_E341C
+        call UpdateScreenRegion
+        call ServiceIdle
         mov eax, dword [tickcount]
         mov ebx, eax
 .4:
@@ -3996,10 +3996,10 @@ sub_F5219:
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov edx, dword [byte ebp+07Ah]
-        call sub_3CF68
+        call UpdateScreenRegion
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_4BCB4
+        call RedrawGameView
         jmp near .9
 .5:
         call sub_F4A8F
@@ -4007,19 +4007,19 @@ sub_F5219:
         je short .6
         lea eax, [dword ebp-0DEh]
         push eax
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
         call DrawPauseClock
         lea eax, [dword ebp-0DEh]
         push eax
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
 .6:
         mov ebx, 64h
         mov eax, 0FFFFFFFFh
         xor edx, edx
-        call sub_3E5F0
+        call FadeGamePalette
         mov eax, dword [tickcount]
         mov ebx, eax
 .7:
@@ -4029,7 +4029,7 @@ sub_F5219:
         cmp eax, edx
         jl short .7
         xor eax, eax
-        call sub_1C9F0
+        call MenuOrbitScene
         imul eax, dword [dword_16E468], byte 52h
         mov dword [byte ebp+07Ah], eax
         mov eax, dword [dword_16E464]
@@ -4050,7 +4050,7 @@ sub_F5219:
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov edx, dword [byte ebp+07Ah]
-        call sub_3CF68
+        call UpdateScreenRegion
 .8:
         cmp dword [dword_1AC364], byte 0
         jne short .8
@@ -4061,9 +4061,9 @@ sub_F5219:
         call sub_11F74
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_4BCB4
+        call RedrawGameView
         mov eax, 0FFFFFFFFh
-        call sub_3E5F0
+        call FadeGamePalette
 .9:
         mov eax, dword [tickcount]
         mov dword [dword_1CEFBC], eax
@@ -4091,10 +4091,10 @@ sub_F558C:
         call FreeBitmap
         add esp, byte 4
         mov dword [dword_19D384], 0
-        call sub_1D09C
+        call RestoreGameCamera
         test bx, bx
         je short .1
-        call sub_41D30
+        call ResumeMusic
         call WaitMusicEnd
         mov byte [byte_168930], 1
 .1:
@@ -4106,7 +4106,7 @@ sub_F558C:
         test eax, eax
         je short .2
         mov eax, 64h
-        call sub_423B4
+        call SetAmbientVolume
 .2:
         pop esi
         pop ecx
@@ -5204,7 +5204,7 @@ RulesMenu:
         and eax, byte 7
         imul eax, byte 14h
         push eax
-        push asc_167BAB
+        push str_D4
         lea eax, [dword ebp-0A2h]
         push eax
         call sprintf_
@@ -6778,7 +6778,7 @@ RulesMenu_218D:
         and eax, byte 7
         imul eax, byte 14h
         push eax
-        push asc_167BAB
+        push str_D4
         lea eax, [dword ebp-0A2h]
         push eax
         call sprintf_
@@ -6944,7 +6944,7 @@ RulesMenu_2464:
         mov dword [byte ebp+07Ah], 1
         jmp near RulesMenu.45
 .77:
-        call sub_4BCB4
+        call RedrawGameView
         xor esi, esi
         jmp short .79
 .78:
@@ -8794,7 +8794,7 @@ DetailLevelMenu_17B7:
         or dword [dword_1AC819], eax
         jmp near DetailLevelMenu_E31.29
 .42:
-        call sub_4BCB4
+        call RedrawGameView
         xor esi, esi
         jmp short .44
 .43:

@@ -1,0 +1,75 @@
+sub_2F4B8 ChkPenaltyCall {confidence=low} from a body check (sub_6DAB0): whether the referee calls a penalty on the hit (skill and energy chance), AddPenalty2, penalty camera (priority 4), overlay, line update
+sub_2F744 PenaltyChance {confidence=low} chance a referee sees an infraction: by the player's discipline (+0CDh), distance to the puck, period, score difference and play state
+sub_2F818 ChkNetCrash {confidence=low} puck carrier driving into the net: 63h when the net is empty (goal awarded), 1 when the goalie is hit
+sub_2F8D8 NetCollide {source=96PC,confidence=low} from checkgoal: an object hits a net: goal awarded on an empty net (Goal) or goalie interference (AddPenalty 22h)
+sub_2FA00 NetCollide2 {confidence=low} from checkgoal: the same check for the other net
+sub_2FB40 ChkBodyContact {confidence=low} from an animation event: body contact between two players: goalie contact by strength, checkint, Goal / AddPenalty outcomes
+sub_2FFB8 PickShotTarget {confidence=low} picks where a shot aims (word_19CB92 corner 0-8, random unless a set play) and the target point at the goal (+-7F8h, +-10B0h)
+sub_30300 UpdateShot {confidence=low} shot animation (frames 29h-2Fh): winds up, aims (PickShotTarget), releases or gives up (assexit)
+sub_305D8 StartShot {confidence=low} starts a shot: shot flag (byte_19CBC8 8), aim reset, goal line target (+-10B0h), shot animation
+sub_30674 assshoot {confidence=low} asstab 11h: the shooting assignment (StartShot, UpdateShot, slap shot hold timer)
+sub_30778 ChkShoot {confidence=low} computer player decides to shoot from the distance to the goal line (10B0h - y < 3C0h) and chance, then assignment 11h
+sub_3085C ForceShoot {confidence=low} immediate shot: shot settings and assignment 11h unless a shot is already on
+sub_308AC PositionSlot {confidence=low} (position word 8001h-8007h): the line slot number of a roster position code
+sub_308F4 SortByPosition {confidence=low} sorts the team's dressed players of one position letter by rating (SortIndices)
+sub_30998 SortForwards {confidence=low} sorts the team's dressed non-defencemen by rating (SortIndices)
+sub_30A34 BuildTeamLines {confidence=low} builds a team's line table (+20EDh) from the sorted player lists
+sub_30BD8 SetupAutoLines {confidence=low} from StartGame: rates both rosters and builds their lines (SortByPosition, SortForwards, BuildTeamLines)
+sub_31070 CanPlayLineSlot {confidence=low} whether a player may take a line slot (position class table byte_168B60, availability byte_19D53C)
+sub_313F4 FindLinePlayer {confidence=low} first player of a list who can play a slot (CanPlayLineSlot)
+sub_31540 PickLineReplacement {confidence=low} picks a replacement for a line slot from the position order lists (byte_168B69, byte_168C04)
+sub_31A2C CopyGoalieSlot {confidence=low} copies the starting / backup goalie line byte (+34h / +35h) over the other
+sub_31A5C FixLineSlot {confidence=low} repairs a line slot after a change (slot 24h special case), PositionSlot checks
+sub_31B6C RebuildLines {confidence=low} refills a team's line slots from a start index (PickLineReplacement), availability table byte_19D53C
+sub_31C14 UpdateLinesForAbsent {confidence=low} recounts the available players and rebuilds the lines when a player leaves (penalty, injury, ice exit)
+sub_31F88 InitGameLines {confidence=low} from StartGame: counts the available players per team and fills the lines
+sub_32184 ChkTwoInBox {confidence=low} whether the player's team already has players serving in the box (counts 8001h / 8002h entries of the box list)
+sub_335CC SumOnIceRatings {confidence=low} from InProgress: adds up the ratings of the team's skaters on the ice
+sub_336E4 SetupPenaltyShot {source=96PC,confidence=medium} from InProgress: penalty shot setup (penshotmode on, stat +20E3h, one skater a side, shooter and goalie)
+sub_33904 PenaltyPaCode {confidence=low} arena PA event code for a penalty (table dword_168DA4) with its minor / major / misconduct bits
+sub_34330 SetPlayerTarget {confidence=low} (player, object): sets the player's target object (+0BAh) and its flag (+0BFh bit 3)
+sub_343F8 SetSlotPlayer {confidence=low} (slot, player): gives a control slot a new player (restorepl) when it changes
+sub_34500 ChkGrabPuckOnSwitch {confidence=low} from changeplayer: the new controlled player close enough to the puck takes it (sub_3B09C)
+sub_348DC AutoSwitchToCarrier {confidence=low} auto-switch option (gameopts +2 bit 1): the control slot moves to the team's puck carrier
+sub_34950 InitPadSlots {confidence=low} from InitGameVars: resets the 8 joystick slot records
+sub_34A48 RequestLineChange {source=95PC,confidence=low} (player, line): sets the team's next line (+2), cycles the line count, PA / play-by-play event, setpersonel
+sub_34B04 LineChangeKey {confidence=low} from doinput: line change key: picks the line (power play +6, penalty kill +4) or StartFaceoffLineChange
+sub_34B78 DoLineChangeInput {confidence=low} from doinput: line change buttons and the line select table (word_168E60)
+sub_34C18 FaceoffInput {confidence=low} from doinput: the controlled faceoff player's joystick direction (assignment 8)
+sub_34CF4 FaceDirFromMotion {confidence=low} the 8-way facing direction from the player's heading (+40h)
+sub_34F58 SetSkateDir {confidence=low} (player, dir 0-7): heading and speed toward a joystick direction, limited by the top speed
+sub_34FD0 JoySkate {confidence=low} from doinput: skating from the joystick direction (SetSkateDir, doplayeracc)
+sub_3505C JoyDirSkate {confidence=low} from doinput: skating from a slot's pad direction (unk_19CA98)
+sub_3509C FindPassTarget {confidence=low} nearest open teammate in the pass direction from the puck (skips the passer, off-ice and busy players)
+sub_35188 ChkPassTo {confidence=low} pass target found and lane open (sub_248E8): pass direction
+sub_35234 DoPassButton {confidence=low} from doinput: pass button: target, pass kind (word_19CB96), sub_25010
+sub_353B4 ShotAimDir {confidence=low} shot direction from the joystick and the shooter's hand (word_19CB92)
+sub_35464 DoShootButton {confidence=low} from doinput: shoot button: aim, power, target point, sub_25010
+sub_35588 ChkOneTimerSpot {confidence=low} in the attacking zone (570h-1050h) with a teammate ready: one-timer chance
+sub_35690 ClearLastPasser {confidence=low} clears word_19CBD8
+sub_356A8 OneTimerShot {confidence=low} from assonetimer: the one-timer shot itself (sub_24220, assexit)
+sub_358E4 doinput {source=94G,confidence=medium} 94G doinput (from updateplayers): a human player's pad: line changes, skating, pass / shoot / check buttons, control switch
+sub_36370 DebugRestoreEnergy {confidence=low} from DebugKeys: every player back to full energy (100), counter word_19CB82 3E8h
+sub_36754 ResetPlayerCounters {confidence=low} from StartGame: clears the per-player bytes byte_19EB7F / byte_19EC8B and word_19CB82
+sub_36778 HumanStickAction {confidence=low} from doinput: the controlled player's stick / check move against his target (puck flag, partner object +6Ch)
+sub_37044 PutChecksum {confidence=low} packet link: computes a checksum with the given function and stores it big-endian at the end of a buffer
+sub_3708C VerifyPacketChecksum {confidence=low} packet link: recomputes a received packet's checksum and compares it
+sub_37134 BuildPacketHeader {confidence=low} packet link: packet header (sequence number, 0FEh marker, kind) and payload copy, interrupts off around the counter
+sub_37198 SendPacket {confidence=low} packet link: sends a queued packet when the device has room
+sub_3727C SendAckPacket {confidence=low} packet link: sends an acknowledgement packet
+sub_37374 AckPackets {confidence=low} packet link: moves the acknowledged window and frees acknowledged packets
+sub_373D8 MarkPacketAcked {confidence=low} packet link: marks one sent packet acknowledged
+sub_37424 FreeLinkChannel {confidence=low} packet link: removes a channel from the open list and closes its device
+sub_37470 ParsePacket {confidence=low} packet link: finds a 0FEh-framed packet in received bytes, checks it and handles its kind
+sub_375F0 ReceivePackets {confidence=low} packet link: reads the device's bytes and parses the packets
+sub_376FC LinkGetDevice {confidence=low} packet link: returns a channel's device (+4)
+sub_37704 LinkCountdown {confidence=low} packet link: counts a channel's resend counter down, true at zero
+sub_3772C LinkResendIfDue {confidence=low} packet link: resends when the counter has run out
+sub_37744 LinkPoll {confidence=low} packet link timer task: per channel resends, receives and acknowledges
+sub_379AC InitPacketLink {confidence=low} packet link: once, sets up the channel lists, the timer task (addtimer) and the exit handler
+sub_37A1C ShutdownPacketLink {confidence=low} packet link: closes every channel and removes the timer task
+sub_37AB4 OpenPacketLink {confidence=low} packet link: opens a channel ("pktbuffer" block, window 2-7, packet size >= 6)
+sub_37F4C PacketLinkSend {confidence=low} packet link: queues and sends a block on a channel (LinkSendBlock, WaitForOtherComputer)
+sub_37FC8 ClosePacketLink {confidence=low} packet link: flushes and closes a channel
+sub_244BC assonetimer {confidence=low} asstab 0Eh: the one-timer: waits for the pass, then shoots (OneTimerShot)
+sub_100940 SortIndices {source=95PC,confidence=medium} sort library: sort n indices by their keys (n, keys, indices)

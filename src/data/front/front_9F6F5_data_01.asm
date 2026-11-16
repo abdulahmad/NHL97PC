@@ -2,88 +2,88 @@
 bits 32
 %include "hockey.inc"
 section s_165D10 progbits alloc noexec write align=1
-global asc_165D10, asc_165D15, asc_165D1A, asc_165D1F, asc_165D2A, asc_165D36, asc_165D42, asc_165D47
-global asc_165D53, asc_165D64, asc_165D74, asc_165D85, asc_165D8F, asc_165D9C, asc_165DA1, asc_165DAE
-global asc_165DBB, asc_165DC0, asc_165DC4, asc_165DD0, asc_165DDC, asc_165DE5, asc_165DEA, asc_165DEF
-global asc_165DF4, asc_165DF9, asc_165DFE, asc_165E03, asc_165E08, asc_165E0D, asc_165E12, asc_165E19
-global asc_165E20, asc_165E26, asc_165E2C, asc_165E30, asc_165E35, asc_165E3D, unk_165E4A
-asc_165D10:
+global str_DL01, str_DL02, str_DL03, str_SEASONNDX2, str_PLAYOFFNDX2, str_EXHIBITNDX, str_DL00, str_DONTHAVEIT
+global str_DATAEXHIBITNDX2, str_DATASEASONNDX2, str_DATAPLAYOFFNDX2, str_Replaybuf, str_SEAS04dSET2, str_SS7, str_SEAS04dPLY, str_PLAY04dSET2
+global str_PLY, str_S5, str_IdlistFfc, str_SharedFfc, str_WHATEVER, str_04d3, str_TRBL, str_TRBR
+global str_TRLS, str_TRRS, str_TRSE, str_TRSS, str_TRSP, str_PICT, str_Roster3, str_Rosids
+global str_Rtids, str_Games, str_Ros, str_Lros, str_CRUSHER, str_CRUSHERPack, unk_165E4A
+str_DL01:
         db 044h,04Ch,030h,031h,00h
-asc_165D15:
+str_DL02:
         db 044h,04Ch,030h,032h,00h
-asc_165D1A:
+str_DL03:
         db 044h,04Ch,030h,033h,00h
-asc_165D1F:
+str_SEASONNDX2:
         db 053h,045h,041h,053h,04Fh,04Eh,02Eh,04Eh,044h,058h,00h
-asc_165D2A:
+str_PLAYOFFNDX2:
         db 050h,04Ch,041h,059h,04Fh,046h,046h,02Eh,04Eh,044h,058h,00h
-asc_165D36:
+str_EXHIBITNDX:
         db 045h,058h,048h,049h,042h,049h,054h,02Eh,04Eh,044h,058h,00h
-asc_165D42:
+str_DL00:
         db 044h,04Ch,030h,030h,00h
-asc_165D47:
+str_DONTHAVEIT:
         db 044h,04Fh,04Eh,054h,048h,041h,056h,045h,02Eh,049h,054h,00h
-asc_165D53:
+str_DATAEXHIBITNDX2:
         db 044h,041h,054h,041h,05Ch,045h,058h,048h,049h,042h,049h,054h,02Eh,04Eh,044h,058h
         db 00h
-asc_165D64:
+str_DATASEASONNDX2:
         db 044h,041h,054h,041h,05Ch,053h,045h,041h,053h,04Fh,04Eh,02Eh,04Eh,044h,058h,00h
-asc_165D74:
+str_DATAPLAYOFFNDX2:
         db 044h,041h,054h,041h,05Ch,050h,04Ch,041h,059h,04Fh,046h,046h,02Eh,04Eh,044h,058h
         db 00h
-asc_165D85:
+str_Replaybuf:
         db 072h,065h,070h,06Ch,061h,079h,062h,075h,066h,00h
-asc_165D8F:
+str_SEAS04dSET2:
         db 053h,045h,041h,053h,025h,030h,034h,064h,02Eh,053h,045h,054h,00h
-asc_165D9C:
+str_SS7:
         db 025h,073h,025h,073h,00h
-asc_165DA1:
+str_SEAS04dPLY:
         db 053h,045h,041h,053h,025h,030h,034h,064h,02Eh,050h,04Ch,059h,00h
-asc_165DAE:
+str_PLAY04dSET2:
         db 050h,04Ch,041h,059h,025h,030h,034h,064h,02Eh,053h,045h,054h,00h
-asc_165DBB:
+str_PLY:
         db 02Eh,050h,04Ch,059h,00h
-asc_165DC0:
+str_S5:
         db 03Eh,025h,073h,00h
-asc_165DC4:
+str_IdlistFfc:
         db 069h,064h,06Ch,069h,073h,074h,028h,066h,066h,063h,029h,00h
-asc_165DD0:
+str_SharedFfc:
         db 073h,068h,061h,072h,065h,064h,028h,066h,066h,063h,029h,00h
-asc_165DDC:
+str_WHATEVER:
         db 057h,048h,041h,054h,045h,056h,045h,052h,00h
-asc_165DE5:
+str_04d3:
         db 025h,030h,034h,064h,00h
-asc_165DEA:
+str_TRBL:
         db 054h,052h,042h,04Ch,00h
-asc_165DEF:
+str_TRBR:
         db 054h,052h,042h,052h,00h
-asc_165DF4:
+str_TRLS:
         db 054h,052h,04Ch,053h,00h
-asc_165DF9:
+str_TRRS:
         db 054h,052h,052h,053h,00h
-asc_165DFE:
+str_TRSE:
         db 054h,052h,053h,045h,00h
-asc_165E03:
+str_TRSS:
         db 054h,052h,053h,053h,00h
-asc_165E08:
+str_TRSP:
         db 054h,052h,053h,050h,00h
-asc_165E0D:
+str_PICT:
         db 050h,049h,043h,054h,00h
-asc_165E12:
+str_Roster3:
         db 072h,06Fh,073h,074h,065h,072h,00h
-asc_165E19:
+str_Rosids:
         db 072h,06Fh,073h,069h,064h,073h,00h
-asc_165E20:
+str_Rtids:
         db 072h,074h,069h,064h,073h,00h
-asc_165E26:
+str_Games:
         db 067h,061h,06Dh,065h,073h,00h
-asc_165E2C:
+str_Ros:
         db 072h,06Fh,073h,00h
-asc_165E30:
+str_Lros:
         db 06Ch,072h,06Fh,073h,00h
-asc_165E35:
+str_CRUSHER:
         db 043h,052h,055h,053h,048h,045h,052h,00h
-asc_165E3D:
+str_CRUSHERPack:
         db 043h,052h,055h,053h,048h,045h,052h,020h,070h,061h,063h,06Bh,00h
 unk_165E4A:
         db 025h,064h,00h,00h,00h,00h

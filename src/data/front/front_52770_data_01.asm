@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_16154C progbits alloc noexec write align=1
-global asc_16154C, asc_161558, asc_161560, asc_161590, asc_1615A0, asc_1615A8, asc_1615B0, asc_1615B8
-global asc_1615C0, asc_1615C4, asc_1615CC, asc_1615FC, asc_161614, asc_161714, asc_161734, asc_161758
-global asc_16177C, asc_1617A4, asc_1617AC, asc_1617B4, asc_1617C0, asc_1617C8, asc_1617E0, asc_161800
+global str_LogosFsh, str_LOGOS, str_Blogos, str_Floor, str_Puck2, str_04d, str_Lonet, str_Hinet
+global str_Net, str_Goal0, str_Goal1, str_Gt304, str_FLOOR, str_Boxback, str_B00, str_XD
+global str_FaceoffD, str_Flash, str_Fla0, str_Fla1, str_PAL, str_Light6, str_BOGIE, str_Front
 global qword_1617D0, qword_1617D8, qword_1617E6, qword_1617EE, qword_1617F6, str_Benchbk, str_Benchdiv, str_Benchx
 global str_Benchz0, str_Benchz1, str_Boardback, str_Crease, str_Door00, str_Door01, str_Door02, str_Door10
 global str_Door11, str_Door12, str_DoorZ0, str_DoorZ1, str_Flatboards, str_Glite0, str_Glite1, str_Grnlite
@@ -13,11 +13,11 @@ global str_Minz, str_Pbench0D, str_Pbench1D, str_Penback, str_Penbox0D, str_Penb
 global str_Penboxz0, str_Penboxz1, str_R02d, str_Redlite, str_Rink, str_Rlite0, str_Rlite1, str_STAND
 global str_STAND2ND, str_Score, str_Strobe, str_ThinRedLines, unk_16175C, unk_161760, unk_161764, unk_161768
 global unk_16176C, unk_161770, unk_161774, unk_161778, unk_1617BC
-asc_16154C:
+str_LogosFsh:
         db 06Ch,06Fh,067h,06Fh,073h,02Eh,066h,073h,068h,00h,00h,00h
-asc_161558:
+str_LOGOS:
         db 04Ch,04Fh,047h,04Fh,053h,00h,00h,00h
-asc_161560:
+str_Blogos:
         db 062h,06Ch,06Fh,067h,06Fh,073h,00h,00h
 str_Boardback:
         db 062h,06Fh,061h,072h,064h,062h,061h,063h,06Bh,00h,00h,00h
@@ -27,23 +27,23 @@ str_Flatboards:
         db 066h,06Ch,061h,074h,062h,06Fh,061h,072h,064h,073h,00h,00h
 str_Rink:
         db 072h,069h,06Eh,06Bh,00h,00h,00h,00h
-asc_161590:
+str_Floor:
         db 066h,06Ch,06Fh,06Fh,072h,00h,00h,00h
 str_Score:
         db 073h,063h,06Fh,072h,065h,00h,00h,00h
-asc_1615A0:
+str_Puck2:
         db 070h,075h,063h,06Bh,00h,00h,00h,00h
-asc_1615A8:
+str_04d:
         db 025h,030h,034h,064h,00h,00h,00h,00h
-asc_1615B0:
+str_Lonet:
         db 06Ch,06Fh,06Eh,065h,074h,00h,00h,00h
-asc_1615B8:
+str_Hinet:
         db 068h,069h,06Eh,065h,074h,00h,00h,00h
-asc_1615C0:
+str_Net:
         db 06Eh,065h,074h,00h
-asc_1615C4:
+str_Goal0:
         db 067h,06Fh,061h,06Ch,030h,00h,00h,00h
-asc_1615CC:
+str_Goal1:
         db 067h,06Fh,061h,06Ch,031h,00h,00h,00h
 str_Minx:
         db 06Dh,069h,06Eh,078h,00h,00h,00h,00h
@@ -55,13 +55,13 @@ str_Maxz:
         db 06Dh,061h,078h,07Ah,00h,00h,00h,00h
 str_Rlite1:
         db 072h,06Ch,069h,074h,065h,031h,00h,00h
-asc_1615FC:
+str_Gt304:
         db 067h,074h,033h,030h,034h,00h,00h,00h
 str_Strobe:
         db 073h,074h,072h,06Fh,062h,065h,00h,00h
 str_STAND:
         db 053h,054h,041h,04Eh,044h,00h,00h,00h
-asc_161614:
+str_FLOOR:
         db 046h,04Ch,04Fh,04Fh,052h,00h,00h,00h
 str_STAND2ND:
         db 053h,054h,041h,04Eh,044h,032h,04Eh,044h,00h,00h,00h,00h
@@ -117,13 +117,13 @@ str_Benchbk:
         db 062h,065h,06Eh,063h,068h,062h,06Bh,00h
 str_Benchx:
         db 062h,065h,06Eh,063h,068h,078h,00h,00h
-asc_161714:
+str_Boxback:
         db 062h,06Fh,078h,062h,061h,063h,06Bh,00h
 str_Pbench0D:
         db 070h,062h,065h,06Eh,063h,068h,030h,025h,064h,00h,00h,00h
 str_Pbench1D:
         db 070h,062h,065h,06Eh,063h,068h,031h,025h,064h,00h,00h,00h
-asc_161734:
+str_B00:
         db 062h,030h,030h,00h
 str_Gt007:
         db 067h,074h,030h,030h,037h,00h,00h,00h
@@ -133,7 +133,7 @@ str_Gt302:
         db 067h,074h,033h,030h,032h,00h,00h,00h
 str_R02d:
         db 072h,025h,030h,02Eh,032h,064h,00h,00h
-asc_161758:
+str_XD:
         db 078h,025h,064h,00h
 unk_16175C:
         db 063h,033h,00h,00h
@@ -151,29 +151,29 @@ unk_161774:
         db 06Ch,031h,00h,00h
 unk_161778:
         db 06Ch,030h,00h,00h
-asc_16177C:
+str_FaceoffD:
         db 066h,061h,063h,065h,06Fh,066h,066h,025h,064h,00h,00h,00h
 str_IceLine:
         db 069h,063h,065h,05Fh,06Ch,069h,06Eh,065h,00h,00h,00h,00h
 str_ThinRedLines:
         db 074h,068h,069h,06Eh,05Fh,072h,065h,064h,05Fh,06Ch,069h,06Eh,065h,073h,00h,00h
-asc_1617A4:
+str_Flash:
         db 066h,06Ch,061h,073h,068h,00h,00h,00h
-asc_1617AC:
+str_Fla0:
         db 066h,06Ch,061h,030h,00h,00h,00h,00h
-asc_1617B4:
+str_Fla1:
         db 066h,06Ch,061h,031h,00h,00h,00h,00h
 unk_1617BC:
         db 066h,078h,00h,00h
-asc_1617C0:
+str_PAL:
         db 021h,050h,041h,04Ch,00h,00h,00h,00h
-asc_1617C8:
+str_Light6:
         db 06Ch,069h,067h,068h,074h,036h,00h,00h
 qword_1617D0:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
 qword_1617D8:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-asc_1617E0:
+str_BOGIE:
         db 042h,04Fh,047h,049h,045h,00h
 qword_1617E6:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh
@@ -181,5 +181,5 @@ qword_1617EE:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh
 qword_1617F6:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh,00h,00h
-asc_161800:
+str_Front:
         db 066h,072h,06Fh,06Eh,074h,00h,00h,00h

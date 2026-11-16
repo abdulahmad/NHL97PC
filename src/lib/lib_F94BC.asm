@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_F94BC progbits alloc exec nowrite align=1
-extern abs_, asc_167CEC, asc_167CF5, asc_167CFC, dword_16E2F4, dword_16E2F8, dword_16E2FC, dword_16E300
+extern abs_, str_IgfxFix, str_IgFix, str_GFXMODES, dword_16E2F4, dword_16E2F8, dword_16E2FC, dword_16E300
 extern dword_16E304, dword_16E308, dword_16E30C, dword_16E310, dword_16E314, dword_16E3F4, dword_16E464, dword_16E468
 extern dword_16E46C, dword_16E474, dword_16F8A8, dword_1CEFC4, dword_1CEFC8, dword_1CEFCC, dword_1CEFD4, dword_1CEFD8
 extern dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, bcopy, sub_1013FC, sub_120650, sub_120680
@@ -19,7 +19,7 @@ sub_F94BC:
         jne short .1
         push dword 200h
         push dword 400h
-        push asc_167CEC
+        push str_IgfxFix
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_16E30C], eax
@@ -38,7 +38,7 @@ sub_F94E6:
         enter 0A0h, 0
         push dword 200h
         push dword 400h
-        push asc_167CF5
+        push str_IgFix
         xor ebx, ebx
         call AllocMemBlock
         add esp, byte 0Ch
@@ -113,7 +113,7 @@ sub_F94E6:
         push byte 20h
         shl ebx, 2
         push ebx
-        push asc_167CFC
+        push str_GFXMODES
         call AllocMemBlock
         add esp, byte 0Ch
         push ebx

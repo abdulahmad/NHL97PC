@@ -1,0 +1,6 @@
+sub_2DE94 CoachLineChange {confidence=low} computer coach changes a team's line when the line is tired or the situation changes (power play, empty net)
+sub_2E11C TeamLineSlots {confidence=low} picks the team (away when the argument is positive, else home) and falls into LineSlotsPtr
+sub_2E12C LineSlotsPtr {confidence=low} returns a pointer to the player slots of a team's line
+sub_2E208 ChkTiredPlayer {confidence=low} with line changes on: now and then a tired skater loses speed
+sub_2E310 AvgLineEnergy {confidence=low} returns the average energy of a team's skaters on the ice
+sub_2E7D8 ResetCoachModes {confidence=low} sets the coach modes of both teams to their defaults for the game type

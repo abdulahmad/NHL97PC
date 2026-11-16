@@ -4,7 +4,7 @@ bits 32
 section s_FCF84 progbits alloc exec nowrite align=1
 extern byte_16E688, byte_16E689, dword_16E46C, dword_16E670, dword_16E678, dword_16E67C, dword_16E680, dword_16E684
 extern dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0, dword_1CF29C, dword_1CF2A0, dword_1CF524
-extern dword_1CFCF0, dword_1DA8D8, off_16E87C, sub_102B78, sub_102D3C, sub_117140, sub_12233C, sub_122838
+extern dword_1CFCF0, dword_1DA8D8, off_16E87C, sub_102B78, sub_102D3C, CreateBitmapEx, sub_12233C, sub_122838
 extern sub_122C09, sub_122D90, sub_122DF0, sub_122ECC, sub_122F7C, sub_1230E8, sub_1231AC, sub_12328C
 extern sub_123350, sub_123423, sub_123D38, sub_123FCB, FreeMemBlock, sub_FB73D, sub_FCEEC, unk_1CF2A4
 global sub_FDC68_48, sub_FDC68_5C, sub_FDC68_6C, sub_FDC68_80, mem_putc_, sub_FCF84, DrawArt, DrawShape
@@ -110,7 +110,7 @@ DrawShape:
         push esi
         mov edi, dword [byte esp+020h]
         push edi
-        call sub_117140
+        call CreateBitmapEx
         add esp, byte 14h
         test eax, eax
         je short .1
@@ -131,7 +131,7 @@ DrawShape:
         push ecx
         mov esi, dword [byte esp+01Ch]
         push esi
-        call sub_117140
+        call CreateBitmapEx
         add esp, byte 14h
         test eax, eax
         je short .2
@@ -158,7 +158,7 @@ CreateBitmap:
         push ecx
         mov esi, dword [byte esp+01Ch]
         push esi
-        call sub_117140
+        call CreateBitmapEx
         add esp, byte 14h
         mov eax, dword [eax]
         pop esi

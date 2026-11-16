@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_11B20A progbits alloc exec nowrite align=1
-extern SetClipWindow, __flush_, __fprtf_, __int386x_, __ioalloc_, __qwrite_, __set_errno_, asc_167FA0
-extern asc_167FA8, asc_167FE0, asc_167FEC, asc_167FF4, asc_167FFC, asc_168004, asc_16800C, asc_168014
+extern SetClipWindow, __flush_, __fprtf_, __int386x_, __ioalloc_, __qwrite_, __set_errno_, str_ATD2
+extern str_EAGAME08x04x04x02x02x02x0, str_Netserv, str_IPXINTF, str_IPXSOCK, str_Galloc, str_GMEM, str_GEND, str_GFRE
 extern byte_16E689, byte_172250, byte_172251, byte_1DA8CF, dword_16E3F4, dword_16E46C, dword_16E4B0, dword_16E4BC
 extern dword_16E4C8, dword_1702CC, dword_172138, dword_17213C, dword_172168, dword_172194, dword_172198, dword_17219C
 extern dword_1721A0, dword_1721A4, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4, dword_1721E0, dword_1721E4
@@ -13,9 +13,9 @@ extern dword_1DA3EC, dword_1DA3F0, dword_1DA3F4, dword_1DA3F8, dword_1DA3FC, dwo
 extern dword_1DA40C, dword_1DA410, dword_1DA414, dword_1DA4D0, fgetc_, int386_, off_172140, off_17216C
 extern off_1721B8, putchar, sprintf_, strncmp_, strncpy_, bcopy, sub_100B88, sub_100BC8
 extern sub_100BCC, sub_100C08, sub_100C50, sub_100D8C, sub_100DC4, sub_100DCC, sub_100FCC, sub_101154
-extern sub_101220, sub_102B78, sub_11313C, sub_118D54, sub_118E3F, sub_118F7B, sub_118F91, sub_118FB7
-extern sub_11908E, sub_1190E8, sub_11910D, sub_1191A4, sub_1191B8, sub_1191D1, sub_119255, sub_119328
-extern sub_11FAD6, sub_120763, sub_123FA8, sub_12F270, sub_13130C, sub_1313FD, sub_37AB4, ModemReset
+extern sub_101220, sub_102B78, sub_11313C, SerialConfigure, SerialOpen, SerialIsOpen, SerialSetBaud, SerialProgramUart
+extern SerialCarrier, SerialWriteIfRoom, SerialWrite, SerialRxCount, SerialTxFree, SerialFlushTx, SerialRead, SerialFlushRx
+extern sub_11FAD6, sub_120763, sub_123FA8, sub_12F270, sub_13130C, sub_1313FD, OpenPacketLink, ModemReset
 extern ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemSpeakerOff, sub_F99C0, sub_F9A28, sub_F9A88
 extern AllocMemBlock, sub_FAAB4, FreeMemBlock, ZeroMem, FillMem, addtimer, sub_FC008, WaitTicks
 extern unk_167FA4, unk_172264, unk_17226C, unk_172274, unk_1DA3C4, unk_1DA418, unk_1DA448, unk_1DA464
@@ -1561,21 +1561,21 @@ sub_11C010:
 .1:
         mov ecx, dword [byte esi+02Ch]
         push ecx
-        call sub_118FB7
+        call SerialProgramUart
         add esp, byte 4
         push eax
         mov edi, dword [byte esi+02Ch]
         push edi
 .2:
-        call sub_118F91
+        call SerialSetBaud
         add esp, byte 8
         mov edx, dword [byte ebx+02Ch]
         push edx
-        call sub_118E3F
+        call SerialOpen
         add esp, byte 4
         mov ecx, dword [byte ebx+02Ch]
         push ecx
-        call sub_118F7B
+        call SerialIsOpen
         add esp, byte 4
         test eax, eax
         je short .3
@@ -1589,15 +1589,15 @@ sub_11C010:
         push eax
         mov edx, dword [byte ebx+02Ch]
         push edx
-        call sub_118D54
+        call SerialConfigure
         add esp, byte 14h
         mov ecx, dword [byte ebx+02Ch]
         push ecx
-        call sub_119328
+        call SerialFlushRx
         add esp, byte 4
         mov esi, dword [byte ebx+02Ch]
         push esi
-        call sub_1191D1
+        call SerialFlushTx
         add esp, byte 4
         mov dword [byte ebx+028h], 1
         jmp short .4
@@ -1634,7 +1634,7 @@ sub_11C0C4:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_1191B8
+        call SerialTxFree
         add esp, byte 4
         ret
         db 08Dh,040h,00h
@@ -1645,7 +1645,7 @@ sub_11C0D8:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_1191A4
+        call SerialRxCount
         add esp, byte 4
         ret
         db 08Dh,040h,00h
@@ -1661,7 +1661,7 @@ sub_11C0EC:
         push ebx
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_119255
+        call SerialRead
         add esp, byte 0Ch
         mov edx, eax
         test eax, eax
@@ -1684,7 +1684,7 @@ sub_11C114:
         push ebx
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_1190E8
+        call SerialWriteIfRoom
         add esp, byte 0Ch
         pop ebx
         ret
@@ -1707,7 +1707,7 @@ sub_11C134:
         push off_172140
         mov edi, dword [byte esp+024h]
         push edi
-        call sub_37AB4
+        call OpenPacketLink
         add esp, byte 18h
         pop edi
         pop esi
@@ -1779,21 +1779,21 @@ sub_11C1CC:
 .1:
         mov ecx, dword [byte esi+02Ch]
         push ecx
-        call sub_118FB7
+        call SerialProgramUart
         add esp, byte 4
         push eax
         mov edi, dword [byte esi+02Ch]
         push edi
 .2:
-        call sub_118F91
+        call SerialSetBaud
         add esp, byte 8
         mov edx, dword [byte ebx+02Ch]
         push edx
-        call sub_118E3F
+        call SerialOpen
         add esp, byte 4
         mov ecx, dword [byte ebx+02Ch]
         push ecx
-        call sub_118F7B
+        call SerialIsOpen
         add esp, byte 4
         test eax, eax
         je near .13
@@ -1807,12 +1807,12 @@ sub_11C1CC:
         push edx
         mov ecx, dword [byte ebx+02Ch]
         push ecx
-        call sub_118D54
+        call SerialConfigure
         add esp, byte 14h
         mov edi, dword [byte ebx+02Ch]
         push edi
         xor esi, esi
-        call sub_119328
+        call SerialFlushRx
         mov ebp, dword [byte ebx+04Ch]
         add esp, byte 4
         test ebp, ebp
@@ -1864,7 +1864,7 @@ sub_11C1CC:
         test ecx, ecx
         jne short .8
 .7:
-        mov dword [byte ebx+050h], asc_167FA0
+        mov dword [byte ebx+050h], str_ATD2
 .8:
         mov eax, dword [byte ebx+048h]
         push eax
@@ -1907,7 +1907,7 @@ sub_11C1CC:
         push byte 1
         mov ecx, dword [byte ebx+02Ch]
         push ecx
-        call sub_11910D
+        call SerialWrite
         add esp, byte 0Ch
         mov esi, dword [byte ebx+02Ch]
         push esi
@@ -1957,7 +1957,7 @@ sub_11C384:
         je short .1
         mov ebx, dword [byte eax+02Ch]
         push ebx
-        call sub_11908E
+        call SerialCarrier
         add esp, byte 4
         test eax, eax
         je short .1
@@ -1976,7 +1976,7 @@ sub_11C3AC:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_1191B8
+        call SerialTxFree
         add esp, byte 4
         ret
         db 08Dh,040h,00h
@@ -1987,7 +1987,7 @@ sub_11C3C0:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_1191A4
+        call SerialRxCount
         add esp, byte 4
         ret
         db 08Dh,040h,00h
@@ -2003,7 +2003,7 @@ sub_11C3D4:
         push ebx
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_119255
+        call SerialRead
         add esp, byte 0Ch
         mov edx, eax
         test eax, eax
@@ -2026,7 +2026,7 @@ sub_11C3FC:
         push ebx
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_1190E8
+        call SerialWriteIfRoom
         add esp, byte 0Ch
         pop ebx
         ret
@@ -2049,7 +2049,7 @@ sub_11C41C:
         push off_17216C
         mov edi, dword [byte esp+024h]
         push edi
-        call sub_37AB4
+        call OpenPacketLink
         add esp, byte 18h
         pop edi
         pop esi
@@ -2108,7 +2108,7 @@ sub_11C4C8:
         push ebx
         mov ebx, dword [eax]
         push ebx
-        push asc_167FA8
+        push str_EAGAME08x04x04x02x02x02x0
         push edx
         call sprintf_
         add esp, byte 34h
@@ -3865,7 +3865,7 @@ sub_11D780:
         shl eax, 2
         add eax, 0F8h
         push eax
-        push asc_167FE0
+        push str_Netserv
         call sub_FAAB4
         add esp, byte 0Ch
         mov dword [byte ebp+0Ch], eax
@@ -4441,7 +4441,7 @@ sub_11DE04:
         push ebp
         push off_1721B8
         push eax
-        call sub_37AB4
+        call OpenPacketLink
         add esp, byte 18h
         pop ebp
         pop edi
@@ -5742,7 +5742,7 @@ sub_11EC18:
         or ah, 2
         push eax
         push dword 9E0h
-        push asc_167FEC
+        push str_IPXINTF
         call sub_FAAB4
         add esp, byte 0Ch
         mov dword [dword_17224C], eax
@@ -5976,7 +5976,7 @@ sub_11EF20:
         or ah, 2
         push eax
         push dword 8628h
-        push asc_167FF4
+        push str_IPXSOCK
         call sub_FAAB4
         add esp, byte 0Ch
         mov esi, eax
@@ -6990,7 +6990,7 @@ sub_11F8E0:
         push edx
         add eax, byte 0Ch
         push eax
-        push asc_167FFC
+        push str_Galloc
         call AllocMemBlock
         mov ebx, eax
         add esp, byte 0Ch
@@ -6998,7 +6998,7 @@ sub_11F8E0:
         je short .2
         push byte 4
         push eax
-        push asc_168004
+        push str_GMEM
         call bcopy
         add esp, byte 0Ch
         add ebx, byte 8
@@ -7006,7 +7006,7 @@ sub_11F8E0:
         mov dword [byte ebx-04h], esi
         add esi, ebx
         push esi
-        push asc_16800C
+        push str_GEND
         call bcopy
         mov ecx, dword [dword_1722BC]
         add esp, byte 0Ch
@@ -7032,7 +7032,7 @@ sub_11F94C:
         push ebp
         mov edx, eax
         mov ecx, 4
-        mov edi, asc_168004
+        mov edi, str_GMEM
         lea esi, [byte eax-08h]
         mov ebp, dword [byte eax-04h]
         xor eax, eax
@@ -7049,7 +7049,7 @@ sub_11F94C:
         cmp ebp, 2000000h
         jge short .3
         mov ecx, 4
-        mov edi, asc_16800C
+        mov edi, str_GEND
         lea esi, [edx+ebp]
         xor eax, eax
         repe cmpsb
@@ -7065,7 +7065,7 @@ sub_11F94C:
         test ebx, ebx
         jne short .5
         mov ecx, 4
-        mov edi, asc_168014
+        mov edi, str_GFRE
         xor eax, eax
         repe cmpsb
         je short .4
@@ -7076,7 +7076,7 @@ sub_11F94C:
 .5:
         push byte 4
         push esi
-        push asc_168014
+        push str_GFRE
         call bcopy
         add esp, byte 0Ch
         push esi

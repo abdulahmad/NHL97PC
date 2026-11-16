@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_107A2C progbits alloc exec nowrite align=1
-extern ParseBlasterEnv, ResetGameVars, asc_167E64, byte_170044, byte_170045, byte_170046, byte_170047, byte_170048
+extern ParseBlasterEnv, ResetGameVars, str_VoxPlaybuf, byte_170044, byte_170045, byte_170046, byte_170047, byte_170048
 extern byte_1700A0, byte_1700A1, byte_1700A4, byte_1700A5, byte_1700A6, byte_1700A7, byte_1700A8, byte_172BC5
 extern byte_1DCF01, byte_1DCF45, byte_1DD381, dword_170042, dword_170043, dword_170050, dword_170054, dword_170058
 extern dword_170060, dword_170080, dword_170084, dword_170088, dword_17008C, dword_170090, dword_170094, dword_170098
@@ -14,7 +14,7 @@ extern dword_1DCEC0, dword_1DCEC4, dword_1DCF38, dword_1DCF62, dword_1DD378, dwo
 extern sub_107154, sub_1072B4, sub_1072F0, sub_107308, sub_107370, sub_1077D0, sub_1077F8, sub_1078E4
 extern sub_1095C4, sub_10A860, sub_10A868, sub_10A8C4, sub_10AD20, sub_128280, sub_128680, sub_128D84
 extern sub_12AB04, sub_12AB0C, sub_12C8BC, sub_12C950, sub_12C970, sub_12C9D0, sub_12CA20, sub_12CD34
-extern sub_12CEE1, sub_12D13B, sub_12D141, sub_12D150, sub_3ED60, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
+extern sub_12CEE1, sub_12D13B, sub_12D141, sub_12D150, RequestStreamRead, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
 extern AllocMemBlock, FreeMemBlock, unk_1072E0, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E
 global jpt_108240, sub_108250_20, sub_108250_FC, sub_108250_1C0, sub_108250_27B, strstr_, sub_107A2C, sub_107A9C
 global sub_107AE0, sub_107B70, sub_107BD8, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48
@@ -1318,7 +1318,7 @@ sub_108725:
         push byte 0
         add eax, 3480h
         push eax
-        push asc_167E64
+        push str_VoxPlaybuf
         mov dword [dword_1DCAEC], 3480h
         call AllocMemBlock
         add esp, byte 0Ch
@@ -1760,7 +1760,7 @@ sub_108BA0:
         push ecx
         mov esi, dword [dword_170080]
         push esi
-        call sub_3ED60
+        call RequestStreamRead
         add esp, byte 8
         push ebx
         mov edi, dword [dword_170080]
@@ -2114,7 +2114,7 @@ sub_108EF0:
         mov ecx, dword [dword_170080]
         push ecx
         add eax, byte 8
-        call sub_3ED60
+        call RequestStreamRead
         add esp, byte 8
         push ebx
         mov esi, dword [dword_170080]

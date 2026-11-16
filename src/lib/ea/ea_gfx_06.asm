@@ -4,11 +4,14 @@ bits 32
 section s_10B040 progbits alloc exec nowrite align=1
 extern dword_16E4A8, dword_170218, dword_1D1CF8, dword_1D1CFC, dword_1D1D00, dword_1D1D04, dword_1D1D08, dword_1D1D0C
 extern dword_1D1D10, dword_1D1D14, dword_1D1D2C, off_170278, off_170284, off_170290, off_17029C, off_1702A8
-extern sub_100940, sub_10C8E8, sub_10CF34, sub_10E690, sub_10E6AC, sub_10E6E4, sub_10E794, sub_10E7AC
-extern sub_112010, sub_1120F0, sub_114E54, sub_114E7C, sub_12D300, sub_12D4B8, sub_FFBE0, unk_17021C
+extern SortIndices, sub_10C8E8, sub_10CF34, sub_10E690, sub_10E6AC, sub_10E6E4, sub_10E794, sub_10E7AC
+extern sub_112010, sub_1120F0, CallModelPartFuncs, CallAllPartFuncs, sub_12D300, sub_12D4B8, ProjectPoints, unk_17021C
 extern unk_170240
 global sub_10B0EC_9B, sub_10B20C_B8, sub_10B348_190, sub_10B040, sub_10B060, sub_10B074, sub_10B084, sub_10B0D4
 global sub_10B0EC, sub_10B18C, sub_10B20C, sub_10B2CC, sub_10B348, sub_10B4E0, sub_10B580, sub_10B59C
+;-----------------------------------------------------------------------------
+; sub_10B040                                                          10B040  
+;-----------------------------------------------------------------------------
 sub_10B040:
         push esi
         push edi
@@ -21,6 +24,9 @@ sub_10B040:
         pop edi
         pop esi
         ret
+;-----------------------------------------------------------------------------
+; sub_10B060                                                          10B060  
+;-----------------------------------------------------------------------------
 sub_10B060:
         push esi
         push edi
@@ -33,12 +39,18 @@ sub_10B060:
         pop esi
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_10B074                                                          10B074  
+;-----------------------------------------------------------------------------
 sub_10B074:
         mov eax, dword [byte esp+04h]
         mov dword [dword_170218], eax
         dec eax
         mov dword [dword_16E4A8], eax
         ret
+;-----------------------------------------------------------------------------
+; sub_10B084                                                          10B084  
+;-----------------------------------------------------------------------------
 sub_10B084:
         push ebx
         push esi
@@ -73,15 +85,21 @@ sub_10B084:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_10B0D4                                                          10B0D4  
+;-----------------------------------------------------------------------------
 sub_10B0D4:
         push ebx
         mov eax, dword [byte esp+08h]
         mov ebx, dword [dword eax+080h]
         mov edx, dword [byte eax+07Ch]
         mov eax, dword [byte eax+04h]
-        call sub_FFBE0
+        call ProjectPoints
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_10B0EC                                                          10B0EC  
+;-----------------------------------------------------------------------------
 sub_10B0EC:
         push ebx
         push esi
@@ -147,6 +165,9 @@ sub_10B0EC_9B:
         pop esi
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_10B18C                                                          10B18C  
+;-----------------------------------------------------------------------------
 sub_10B18C:
         push ebx
         push esi
@@ -202,6 +223,9 @@ sub_10B18C:
         add edx, byte 4
         mov dword [byte eax-04h], ecx
         jmp short .5
+;-----------------------------------------------------------------------------
+; sub_10B20C                                                          10B20C  
+;-----------------------------------------------------------------------------
 sub_10B20C:
         push ebx
         push esi
@@ -253,7 +277,7 @@ sub_10B20C:
         push eax
         mov ecx, dword [dword esp+0FC8h]
         push ecx
-        call sub_100940
+        call SortIndices
         add esp, byte 0Ch
         add esp, 0FA8h
 sub_10B20C_B8:
@@ -263,6 +287,9 @@ sub_10B20C_B8:
         pop ebx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_10B2CC                                                          10B2CC  
+;-----------------------------------------------------------------------------
 sub_10B2CC:
         push ebx
         mov eax, dword [byte esp+08h]
@@ -316,6 +343,9 @@ sub_10B2CC:
 .2:
         add ebx, byte 10h
         jmp short .1
+;-----------------------------------------------------------------------------
+; sub_10B348                                                          10B348  
+;-----------------------------------------------------------------------------
 sub_10B348:
         push ebx
         push esi
@@ -469,6 +499,9 @@ sub_10B348_190:
         pop ebx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_10B4E0                                                          10B4E0  
+;-----------------------------------------------------------------------------
 sub_10B4E0:
         push ebx
         push esi
@@ -480,7 +513,7 @@ sub_10B4E0:
         test byte [byte eax+011h], 1
         je short .1
         mov edx, esi
-        call sub_114E54
+        call CallModelPartFuncs
         pop ebp
         pop edi
         pop esi
@@ -524,6 +557,9 @@ sub_10B4E0:
         add esp, byte 4
         jmp short .2
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_10B580                                                          10B580  
+;-----------------------------------------------------------------------------
 sub_10B580:
         push ebx
         mov eax, dword [byte esp+08h]
@@ -537,25 +573,28 @@ sub_10B580:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_10B59C                                                          10B59C  
+;-----------------------------------------------------------------------------
 sub_10B59C:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, 1
         xor ebx, ebx
         mov dword [dword_1D1D10], edx
-        call sub_114E7C
+        call CallAllPartFuncs
         mov dword [dword_1D1D10], ebx
         pop ebx
         ret
         db 090h
         mov eax, dword [byte esp+04h]
-        jmp near sub_114E7C
+        jmp near CallAllPartFuncs
         db 08Dh,040h,00h
         push ebx
         mov eax, dword [byte esp+08h]
         test byte [byte eax+011h], 1
         je short .1
-        call sub_114E7C
+        call CallAllPartFuncs
         pop ebx
         ret
 .1:

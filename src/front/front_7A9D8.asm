@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_7A9D8 progbits alloc exec nowrite align=1
-extern asc_163F00, asc_163F07, asc_163F0C, asc_163F14, asc_164120, asc_164154, asc_164164, asc_16416F
-extern asc_16417C, asc_164181, asc_164186, asc_16418B, asc_164190, asc_164195, asc_16419A, asc_16419F
+extern str_Roster, str_SS2, str_VIDEO, str_AUDSTRMHACK, str_ATE1Q0X4F1, str_Punct2, str_LogoNames, str_Logo02dQfs
+extern str_Mous2, str_Remo2, str_CHK1, str_X1, str_CB00, str_CB01, str_BACK2, str_LOGO2
 extern atoi_, byte_16C914, byte_16CCF0, byte_1ACF63, byte_1AD458, dword_16C734, dword_16C738, dword_16C75C
 extern dword_16C760, dword_16C982, dword_16C996, dword_16C9AC, dword_16C9B0, dword_16CAA8, dword_16CAAC, dword_16CB74
 extern dword_16DA9C, dword_16E4B0, dword_16E698, dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16E6BC, dword_16E6C8
@@ -15,15 +15,15 @@ extern dword_1C5DA8, dword_1C5DAC, dword_1C5DE4, dword_1C5DE8, dword_1C5E78, dwo
 extern memcpy_, off_16C9B8, off_16C9C0, rand_, sprintf_, srand_, str_ATA, str_ATD
 extern str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, strcat_, strcpy_, strlen_, strncmp_
 extern strstr_, bcopy, BlitShape, sub_1013FC, FindShape, sub_103234, sub_1047D0, sub_108900
-extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, sub_109210, sub_116D38
-extern sub_116E84, sub_116F78, sub_117338, sub_11756C, sub_117C26, sub_118C88, sub_119054, sub_11910D
-extern sub_1191D1, sub_1191F2, sub_119780, SetScreenTarget, sub_3E818, delstream, CdStreamStart, CdStreamOpenSecondary
-extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, sub_3FD0C, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern sub_41DB8, WaitMusicEnd, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
-extern sub_7F5A4, sub_80BBC, sub_81678, MainMenuScreen, RunGameScreens, RunStatsMenu, RunNetworkConnect, RunModemConnect
+extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, sub_109210, InitVideoDecoder
+extern BuildVideoGammaTable, DecodeVideoChunk, CreateBitmapDefault, ResetFrameRate, DecodeVideoFrame, DecodeTgvChunk, SerialRaiseDtr, SerialWrite
+extern SerialFlushTx, SerialWaitTxEmpty, LoadNameFile, SetScreenTarget, OpenStreamBuffer, delstream, CdStreamStart, CdStreamOpenSecondary
+extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, StreamReady, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
+extern RequestMusicStop, WaitMusicEnd, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
+extern ShowMessageBox, WipeScreen, SetNormalText, MainMenuScreen, RunGameScreens, RunStatsMenu, RunNetworkConnect, RunModemConnect
 extern sub_8BE60, sub_8BEF8, sub_8BFA0, LoadLangText, GetLangText, FreeLangText, sub_9CFD3, sub_9D333
-extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
-extern sub_E0415, sub_E069E, sub_E076B, sub_E0841, sub_E08E9, sub_E3410, sub_E341C, sub_F9650
+extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, KeysEqual, OpenGameDatabase, CloseGameDatabase, FindPlayerRecord, FindGameRecord
+extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, sub_F9650
 extern AllocMemBlock, sub_FAAB4, FreeMemBlock, sub_FBE40, WaitTicks, sub_FC330, MakeColor, FreeBitmap
 extern CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_164138, unk_16413C, unk_164150, unk_164158
 extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
@@ -51,7 +51,7 @@ sub_7A9D8:
         imul eax, dword 194Fh
         push byte 0
         push eax
-        push asc_163F00
+        push str_Roster
         mov dword [byte ebp-020h], 0
         mov dword [byte ebp-08h], 0
         call AllocMemBlock
@@ -66,7 +66,7 @@ sub_7A9D8:
         add eax, ebx
         add edx, dword [byte ebp-0Ch]
         xor ecx, ecx
-        call sub_E036F
+        call FindGameRecord
         jmp short .3
 .2:
         imul ebx, dword [byte ebp-08h], byte 19h
@@ -76,7 +76,7 @@ sub_7A9D8:
         lea edx, [byte ebp-060h]
         add eax, byte 28h
         add ebx, ecx
-        call sub_E0841
+        call FindPlayerStat
         mov al, byte [byte ebp-042h]
         mov byte [dword ebx+ebp-02ECh], al
         movzx eax, al
@@ -600,16 +600,16 @@ sub_7A9D8:
         mov byte [dword eax+0D12h], dl
         cmp dword [dword_16DA9C], byte 0
         je short .57
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .57
         lea edx, [byte ebp-038h]
         lea eax, [byte ebp-060h]
-        call sub_E076B
+        call AddPlayerStatAt
         jmp short .58
 .57:
         lea eax, [byte ebp-060h]
-        call sub_E069E
+        call AddPlayerStat
 .58:
         mov dword [byte ebp-010h], 1
         inc dword [dword_1AD24C]
@@ -637,7 +637,7 @@ sub_7A9D8:
         imul eax, dword [byte ebp-08h], dword 194Fh
         add eax, dword [byte ebp-0Ch]
         inc dword [byte ebp-08h]
-        call sub_E0415
+        call UpdateGameRecord
 .64:
         mov eax, dword [dword_1AC940]
         movsx eax, word [eax]
@@ -702,14 +702,14 @@ sub_7B15D:
         add ebx, byte 28h
         or byte [dword eax+0D09h], 1
         mov eax, ebx
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je near .10
         lea edx, [byte ebp-048h]
         lea edi, [byte ebp-020h]
         mov eax, ebx
         mov esi, dword_1AD244
-        call sub_E0841
+        call FindPlayerStat
         mov eax, dword [byte ebp-018h]
         movsd
         movsd
@@ -718,7 +718,7 @@ sub_7B15D:
         add dword [byte ebp-01Ch], eax
         lea eax, [byte ebp-020h]
         mov ebx, 17h
-        call sub_E0841
+        call FindPlayerStat
         lea edx, [byte ebp-038h]
         lea eax, [byte ebp-060h]
         call memcpy_
@@ -787,7 +787,7 @@ sub_7B15D:
         imul esi, ecx, byte 38h
         lea eax, [byte ebp-070h]
         add esi, dword [byte ebp-074h]
-        call sub_E08E9
+        call UpdatePlayerStat
         lea edi, [dword esi+0D31h]
         lea esi, [byte ebp-070h]
         jmp near .2
@@ -810,7 +810,7 @@ sub_7B15D:
         shl edx, 3
         add eax, edx
         mov edx, dword [byte ebp-074h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .15
         mov eax, dword [dword_1AC814]
@@ -958,7 +958,7 @@ sub_7B4E4:
         shl edx, 3
         add edx, eax
         mov eax, dword [byte ebp-014h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         jne short .2
         mov eax, dword [dword_1AC940]
@@ -969,7 +969,7 @@ sub_7B4E4:
         shl edx, 3
         add edx, eax
         mov eax, dword [byte ebp-014h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .3
 .2:
@@ -1034,7 +1034,7 @@ sub_7B4E4:
         shl edx, 3
         add eax, edx
         mov edx, dword [byte ebp-014h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .13
         mov eax, dword [dword_1AC814]
@@ -1175,7 +1175,7 @@ sub_7B4E4:
         shl edx, 3
         add edx, eax
         mov eax, ecx
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         jne short .21
         mov eax, dword [dword_1AC940]
@@ -1186,7 +1186,7 @@ sub_7B4E4:
         shl edx, 3
         add edx, eax
         mov eax, ecx
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .22
 .21:
@@ -1298,7 +1298,7 @@ sub_7B88D:
         lea edx, [dword ebp-01A4Eh]
         mov dword [byte ebp+07Ah], unk_1C347F
 .3:
-        call sub_E036F
+        call FindGameRecord
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 10h
@@ -1335,7 +1335,7 @@ sub_7B88D:
         add eax, edx
         lea edx, [dword ebp-0FEh]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         movzx edx, byte [dword ebx+ebp-0D3Dh]
         mov eax, dword [dword_1AC940]
         add edx, dword [dword ebx+ebp-0D42h]
@@ -1429,7 +1429,7 @@ sub_7B88D:
 .18:
         call GetLangText
         push eax
-        push asc_163F07
+        push str_SS2
         lea eax, [byte ebp-042h]
         push eax
         call sprintf_
@@ -1439,7 +1439,7 @@ sub_7B88D:
         lea eax, [byte ebp-042h]
         xor ecx, ecx
         xor ebx, ebx
-        call sub_7F5A4
+        call ShowMessageBox
 .19:
         inc edi
         cmp edi, byte 3
@@ -1454,7 +1454,7 @@ sub_7B88D:
         lea eax, [dword ebp-01A4Eh]
         call sub_9D333
         lea eax, [dword ebp-01A4Eh]
-        call sub_E0415
+        call UpdateGameRecord
 .21:
         inc dword [byte ebp+07Eh]
         cmp dword [byte ebp+07Eh], byte 2
@@ -1659,17 +1659,17 @@ OpenVideoStream:
         mov esi, edx
         push dword 0FFh
         push byte 10h
-        call sub_116D38
+        call InitVideoDecoder
         add esp, byte 8
         push byte 0
         push byte 10h
         push dword 0D0h
         push dword 260h
-        call sub_117338
+        call CreateBitmapDefault
         add esp, byte 10h
         push byte 0
         push dword 4E290h
-        push asc_163F0C
+        push str_VIDEO
         mov dword [dword_1C1248], eax
         call sub_FAAB4
         add esp, byte 0Ch
@@ -1679,7 +1679,7 @@ OpenVideoStream:
         push dword 2000h
         push dword 4E290h
         push eax
-        call sub_3E818
+        call OpenStreamBuffer
         add esp, byte 0Ch
         mov dword [dword_1C1254], eax
         test eax, eax
@@ -1719,7 +1719,7 @@ OpenVideoStream:
         mov dword [dword_1C1214], esi
         call sub_7BC68
         mov dword [dword_1C1238], eax
-        call sub_11756C
+        call ResetFrameRate
         mov eax, 1
 .2:
         pop edi
@@ -1860,7 +1860,7 @@ sub_7BF64:
         xor eax, eax
         mov al, byte [byte edi+0Ch]
         push eax
-        call sub_116E84
+        call BuildVideoGammaTable
         add esp, byte 4
         mov edx, dword [dword_1C1248]
         push edx
@@ -1889,7 +1889,7 @@ sub_7BF64:
         add eax, dword [dword_16E69C]
         push eax
         push edi
-        call sub_117C26
+        call DecodeVideoFrame
         jmp short .4
 .3:
         jne short .5
@@ -1903,7 +1903,7 @@ sub_7BF64:
         add eax, dword [dword_16E69C]
         push eax
         push edi
-        call sub_116F78
+        call DecodeVideoChunk
 .4:
         add esp, byte 0Ch
 .5:
@@ -1955,7 +1955,7 @@ sub_7C038:
         mov ecx, dword [dword_1C1254]
         push ecx
         mov dword [dword_1C1258], eax
-        call sub_3FD0C
+        call StreamReady
         add esp, byte 8
         test eax, eax
         je short .3
@@ -1993,7 +1993,7 @@ sub_7C038:
         push edx
         mov ecx, dword [dword_1C125C]
         push ecx
-        call sub_118C88
+        call DecodeTgvChunk
         mov dword [dword_1C124C], eax
         mov eax, dword [dword_1C1234]
         add esp, byte 8
@@ -2067,7 +2067,7 @@ sub_7C038:
         mov dword [dword_1C1258], eax
         mov eax, dword [dword_1C1260]
         push eax
-        call sub_3FD0C
+        call StreamReady
         add esp, byte 8
         test eax, eax
         je short .13
@@ -2256,7 +2256,7 @@ PlayMovie:
         lea eax, [dword ebx+090h]
         push eax
         mov edx, 1
-        push asc_163F14
+        push str_AUDSTRMHACK
         mov dword [byte esp+0Ch], edx
         call AllocMemBlock
         add esp, byte 0Ch
@@ -2285,7 +2285,7 @@ PlayMovie:
         add esp, byte 8
         test eax, eax
         je short .3
-        call sub_E341C
+        call ServiceIdle
 .3:
         cmp dword [dword_1C122C], byte 0
         jne short .4
@@ -2305,7 +2305,7 @@ PlayMovie:
         call sub_FBE40
         test eax, eax
         je short .6
-        call sub_E341C
+        call ServiceIdle
         jmp short .5
 .6:
         mov edx, edi
@@ -2348,7 +2348,7 @@ PlayMovie:
 .10:
         cmp ebp, dword [dword_16DA9C]
         je short .11
-        call sub_E341C
+        call ServiceIdle
 .11:
         test esi, esi
         jg short .7
@@ -2386,7 +2386,7 @@ PlayMovie:
 .15:
         cmp dword [dword_16DA9C], byte 0
         je short .16
-        call sub_E341C
+        call ServiceIdle
 .16:
         mov eax, esi
         add esp, byte 4
@@ -2443,7 +2443,7 @@ ModemReset:
         mov edx, eax
         test eax, eax
         jne short .4
-        mov edx, asc_164120
+        mov edx, str_ATE1Q0X4F1
         mov eax, esi
         xor ebx, ebx
         call ModemSendCommand
@@ -2605,7 +2605,7 @@ ModemAutoAnswer:
         push byte 4
         mov edx, dword [byte esp+0Ch]
         push edx
-        call sub_11910D
+        call SerialWrite
         add esp, byte 0Ch
         ret
         db 08Dh,040h,00h
@@ -2679,7 +2679,7 @@ ModemReadResult:
         push byte 1
         mov edi, dword [byte esp+05Ch]
         push edi
-        call sub_1191F2
+        call SerialWaitTxEmpty
         add esp, byte 10h
         test eax, eax
         je near .14
@@ -2816,10 +2816,10 @@ ModemSendCommand:
         test ebx, ebx
         je short .2
         push esi
-        call sub_119054
+        call SerialRaiseDtr
         add esp, byte 4
         push esi
-        call sub_1191D1
+        call SerialFlushTx
         add esp, byte 4
 .2:
         push byte 14h
@@ -2827,26 +2827,26 @@ ModemSendCommand:
         push eax
         push byte 1
         push esi
-        call sub_1191F2
+        call SerialWaitTxEmpty
         add esp, byte 10h
         test eax, eax
         jne short .2
         push edi
         push ebp
         push esi
-        call sub_11910D
+        call SerialWrite
         add esp, byte 0Ch
         push unk_164150
         push byte 1
         push esi
-        call sub_11910D
+        call SerialWrite
         add esp, byte 0Ch
         push byte 19h
         lea eax, [byte esp+04h]
         push eax
         push ebp
         push esi
-        call sub_1191F2
+        call SerialWaitTxEmpty
         lea edx, [byte esp+010h]
         add esp, byte 10h
         mov ebx, eax
@@ -2882,18 +2882,18 @@ ModemAttention:
         cmp edi, byte 0FFFFFFFFh
         je near .3
         push esi
-        call sub_1191D1
+        call SerialFlushTx
         add esp, byte 4
         push esi
-        call sub_119054
+        call SerialRaiseDtr
         add esp, byte 4
         push byte 69h
         call WaitTicks
         add esp, byte 4
-        push asc_164154
+        push str_Punct2
         push byte 3
         push esi
-        call sub_11910D
+        call SerialWrite
         add esp, byte 0Ch
         push byte 69h
         mov ebx, ebp
@@ -2963,11 +2963,11 @@ LoadLogoNames:
         cmp dword [dword_16CB74], byte 0
         jne near .2
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push byte 0
         push dword 230h
-        push asc_164164
+        push str_LogoNames
         call AllocMemBlock
         add esp, byte 0Ch
         mov ebx, eax
@@ -2976,7 +2976,7 @@ LoadLogoNames:
         mov eax, edx
         push edx
         shl eax, 4
-        push asc_16416F
+        push str_Logo02dQfs
         lea ecx, [ebx+eax]
         inc edx
         push ecx
@@ -2997,7 +2997,7 @@ LoadLogoNames:
         lea eax, [dword ebp-0C8h]
         push eax
         push byte 23h
-        call sub_119780
+        call LoadNameFile
         add esp, byte 10h
         push byte 0
         call sub_FC330
@@ -3053,10 +3053,10 @@ InitFrontEnd:
         push ecx
         push edx
         call sub_F9650
-        call sub_DA7EB
+        call OpenGameDatabase
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         cmp dword [dword_1C5DE4], byte 0
         jne short .1
         mov eax, 2Eh
@@ -3079,14 +3079,14 @@ InitFrontEnd:
         mov dword [dword_1C5E78], eax
 .3:
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
-        call sub_81678
-        push asc_164181
+        call SecondsToSamples
+        call WaitSoundTime
+        call SetNormalText
+        push str_Remo2
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
-        push asc_16417C
+        push str_Mous2
         push dword [dword_1C5DE4]
         mov ebx, eax
         call FindShape
@@ -3101,17 +3101,17 @@ InitFrontEnd:
         call LoadLangText
         mov eax, 3
         xor ebx, ebx
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
 .4:
         push byte 0
-        push asc_164186
+        push str_CHK1
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_164186
+        push str_CHK1
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -3120,14 +3120,14 @@ InitFrontEnd:
         call CreateBitmap
         add esp, byte 0Ch
         push byte 0
-        push asc_16418B
+        push str_X1
         push dword [dword_1C5DE4]
         mov dword [nosplit ebx*4+dword_1C5EA0], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_16418B
+        push str_X1
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -3142,13 +3142,13 @@ InitFrontEnd:
         xor ebx, ebx
 .5:
         push byte 0
-        push asc_164190
+        push str_CB00
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_164190
+        push str_CB00
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -3163,13 +3163,13 @@ InitFrontEnd:
         mov ebx, 2
 .6:
         push byte 0
-        push asc_164195
+        push str_CB01
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_164195
+        push str_CB01
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -3232,7 +3232,7 @@ FreeFrontEnd:
         jl short .2
         call sub_7CB8C
         call WriteGlobalSet
-        call sub_DB6AC
+        call CloseGameDatabase
         pop esi
         pop edx
         pop ecx
@@ -3249,7 +3249,7 @@ RunFrontEnd:
         push edx
         enter 50h, 0
         call InitFrontEnd
-        call sub_41D18
+        call PauseMusic
         call rand_
         mov ecx, 2
         cdq
@@ -3260,7 +3260,7 @@ RunFrontEnd:
         call ArenaFileName
         lea eax, [byte ebp-050h]
         mov ebx, 1
-        call sub_41A28
+        call ChkMenuMusic
         lea eax, [ecx+ebx]
         mov ecx, 2
         cdq
@@ -3269,8 +3269,8 @@ RunFrontEnd:
         lea edx, [byte ebp-050h]
         call ArenaFileName
         lea eax, [byte ebp-050h]
-        call sub_41A28
-        call sub_41DB8
+        call ChkMenuMusic
+        call RequestMusicStop
         call TitleScreen
         jmp short .7
 .1:
@@ -3347,8 +3347,8 @@ TitleScreen:
         push edx
         push esi
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         xor edx, edx
         mov eax, 0E1h
         call LoadDataFile
@@ -3362,14 +3362,14 @@ TitleScreen:
         mov ebx, eax
         call SetDrawTarget
         add esp, byte 4
-        push asc_16419A
+        push str_BACK2
         push esi
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
-        push asc_16419F
+        push str_LOGO2
         push esi
         call FindShape
         add esp, byte 8
@@ -3381,13 +3381,13 @@ TitleScreen:
         add esp, byte 4
         mov eax, dword [byte ebx+02Ch]
         xor edx, edx
-        call sub_80BBC
+        call WipeScreen
         push ebx
         call FreeBitmap
         add esp, byte 4
         mov eax, 3
-        call sub_419B0
-        call sub_419B8
+        call SecondsToSamples
+        call WaitSoundTime
         push dword 0B0000001h
         call PaEvent
         add esp, byte 4
@@ -3397,5 +3397,5 @@ TitleScreen:
         mov eax, dword [tickcount]
         cmp eax, ebx
         jge near sub_7CB8C_45
-        call sub_E341C
+        call ServiceIdle
         jmp short .1

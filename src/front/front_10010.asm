@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_10000 progbits alloc exec nowrite align=1
-extern SortCords, __STOSB, _nfree_, _nmalloc_, _searchenv_, asc_160004, asc_160010, asc_1684B0
+extern SortCords, __STOSB, _nfree_, _nmalloc_, _searchenv_, str_PATH2, str_JSTICKS, str_DOSJoystick
 extern awtmstruct, byte_1684C8, byte_16E35C, byte_19C3E0, byte_19C3E6, byte_19C620, byte_19CA30, byte_19CA31
 extern byte_19CB70, byte_19CBC2, byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CCAF, byte_19CCC6, byte_19CD05
 extern byte_19D604, byte_19D636, byte_19EB38, byte_19EB5C, byte_19EC44, byte_19EC68, dword_1684C0, dword_1684C4
@@ -12,11 +12,11 @@ extern dword_19ECC0, dword_19ECC4, dword_1AC814, dword_1AC944, dword_1ACF46, dwo
 extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, off_168CD8
 extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, qword_160018, qword_160020, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, sub_13AF0
-extern ShowCameraView, ClearOverlayWindows, sub_1B3D8, assreplace, assinsert, Setplass, sub_1FF5C, asspsclear
-extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, sub_34330, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
-extern sub_41DB8, MusicFileName, StopAllSfx, sub_424CC, CommentaryEvent, PaEvent, sub_4DDB0, sub_52E28
-extern sub_57298, sub_57304, sub_57324, sub_57738, LoadGoalieMask, sub_5B558, sub_60D6C, sub_6539C
-extern sub_65E3B, DoGameFrame, sub_AA650, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
+extern ShowCameraView, ClearOverlayWindows, ResetSceneCamera, assreplace, assinsert, Setplass, FaceoffSpotPosition, asspsclear
+extern ResetCoachModes, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, PickBenchSeat, ChkMenuMusic, StartMusicTrack, QueueMusicRestart
+extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEvent, PaEvent, SetCameraMode, sub_52E28
+extern sub_57298, sub_57304, SetupPlayerModel, DrawJerseyLettering, LoadGoalieMask, UpdateFaceTextures, ResetAnimTimer, UpdateGameDisplay
+extern InitPlayerAnims, DoGameFrame, sub_AA650, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
 extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
 extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, word_1684BE, word_1684CA, word_1684E8, word_1684EC
 extern word_1686D8, word_1686DA, word_168D18, word_19CB28, word_19CB2A, word_19CB5C, word_19CB60, word_19CB64
@@ -434,7 +434,7 @@ LoadGripLibrary:
         cmp byte [esp], 0
         jne short .1
         mov ebx, esp
-        mov edx, asc_160004
+        mov edx, str_PATH2
         mov eax, str_GRIPGLL
         call _searchenv_
 .1:
@@ -573,7 +573,7 @@ LoadJoystickConfig:
         push byte 20h
         shl eax, 2
         push eax
-        push asc_160010
+        push str_JSTICKS
         xor ebx, ebx
         call AllocMemBlock
         mov bx, word [word_1684BE]
@@ -829,7 +829,7 @@ LoadJoystickConfig:
         mov eax, dword [dword_1684C0]
         or byte [eax], 8
         mov eax, dword [dword_1684C0]
-        mov edx, asc_1684B0
+        mov edx, str_DOSJoystick
         add eax, byte 4
         call strcpy_
         mov eax, dword [dword_1684C0]
@@ -885,7 +885,7 @@ LoadJoystickConfig:
         or ch, 8
         mov byte [byte eax+038h], ch
         mov eax, dword [dword_1684C0]
-        mov edx, asc_1684B0
+        mov edx, str_DOSJoystick
         add eax, byte 3Ch
         call strcpy_
         mov eax, dword [dword_1684C0]
@@ -978,7 +978,7 @@ sub_10A68:
         mov eax, dword [dword_1684C0]
         or byte [eax], 8
         mov eax, dword [dword_1684C0]
-        mov edx, asc_1684B0
+        mov edx, str_DOSJoystick
         add eax, byte 4
         call strcpy_
         mov eax, dword [dword_1684C0]
@@ -1043,7 +1043,7 @@ sub_10A68:
         or bh, 8
         mov byte [byte eax+038h], bh
         mov eax, dword [dword_1684C0]
-        mov edx, asc_1684B0
+        mov edx, str_DOSJoystick
         add eax, byte 3Ch
         call strcpy_
         mov eax, dword [dword_1684C0]
@@ -1669,12 +1669,12 @@ sub_11328:
         jmp dword [nosplit cs:eax*4+jpt_11318]
 sub_11328_26:
         mov eax, 0Dh
-        call sub_424CC
+        call SetCrowdMood
         mov eax, 5Bh
         mov ch, 1
-        call sub_41ACC
+        call StartMusicTrack
         mov byte [byte_19CD05], ch
-        call sub_41DB8
+        call RequestMusicStop
         add esp, byte 54h
         pop esi
         pop edx
@@ -1683,12 +1683,12 @@ sub_11328_26:
         ret
 sub_11328_4F:
         mov eax, 0Dh
-        call sub_424CC
+        call SetCrowdMood
         mov eax, 5Ah
         mov cl, 1
-        call sub_41ACC
+        call StartMusicTrack
         mov byte [byte_19CD05], cl
-        call sub_41DB8
+        call RequestMusicStop
         add esp, byte 54h
         pop esi
         pop edx
@@ -1703,9 +1703,9 @@ sub_11328_78:
         idiv ebx
         lea eax, [byte edx+05Dh]
         mov bh, 1
-        call sub_41ACC
+        call StartMusicTrack
         mov byte [byte_19CD05], bh
-        call sub_41DB8
+        call RequestMusicStop
         add esp, byte 54h
         pop esi
         pop edx
@@ -1715,9 +1715,9 @@ sub_11328_78:
 sub_11328_A6:
         mov eax, 61h
         mov bl, 1
-        call sub_41ACC
+        call StartMusicTrack
         mov byte [byte_19CD05], bl
-        call sub_41DB8
+        call RequestMusicStop
         add esp, byte 54h
         pop esi
         pop edx
@@ -1726,7 +1726,7 @@ sub_11328_A6:
         ret
 .1:
         mov eax, 8
-        call sub_424CC
+        call SetCrowdMood
         mov eax, dword [dword_1AC944]
         test byte [byte eax+02h], 20h
         jne near .6
@@ -1783,9 +1783,9 @@ sub_11328_A6:
         call MusicFileName
         mov eax, esp
         mov dh, 1
-        call sub_41A28
+        call ChkMenuMusic
         mov byte [byte_19CD05], dh
-        call sub_41DB8
+        call RequestMusicStop
 .6:
         add esp, byte 54h
         pop esi
@@ -1802,7 +1802,7 @@ sub_114C4:
         cmp byte [byte_19CD05], 0
         je short .1
         xor dl, dl
-        call sub_41CF0
+        call QueueMusicRestart
         mov byte [byte_19CD05], dl
 .1:
         pop edx
@@ -1915,7 +1915,7 @@ sub_11574:
         cmp word [dword ebx+0A9h], byte 0
         jl short .2
         mov eax, ebx
-        call sub_1FF5C
+        call FaceoffSpotPosition
         mov edx, dword [dword ebx+0EEh]
         fld dword [edx]
         mov edx, dword [dword ebx+0EEh]
@@ -2265,12 +2265,12 @@ sub_119A8:
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
         xor ebx, ebx
-        call sub_5B558
+        call UpdateFaceTextures
         lea edx, [byte esi+08h]
         xor eax, eax
         mov bl, byte [dword esi+0BCh]
         mov al, byte [dword ecx+0A4h]
-        call sub_57738
+        call DrawJerseyLettering
         mov eax, ecx
         call sub_13AF0
         mov bl, byte [dword ecx+0BFh]
@@ -2290,12 +2290,12 @@ sub_119A8:
         mov dl, byte [dword ecx+0D0h]
         mov al, byte [dword ecx+0A4h]
         xor ebx, ebx
-        call sub_5B558
+        call UpdateFaceTextures
         lea edx, [byte esi+08h]
         xor eax, eax
         mov bl, byte [dword esi+0BCh]
         mov al, byte [dword ecx+0A4h]
-        call sub_57738
+        call DrawJerseyLettering
         test byte [byte_19CBC2], 1
         jne short .2
         cmp dword [dword_1B8FA0], byte 0
@@ -2304,7 +2304,7 @@ sub_119A8:
         xor eax, eax
         lea edx, [byte esi+027h]
         mov al, byte [dword ecx+0A4h]
-        call sub_57324
+        call SetupPlayerModel
 .3:
         mov eax, 48h
         mov ebx, dword [byte esp+04h]
@@ -2379,7 +2379,7 @@ setplayer:
         mov edx, edi
         mov byte [dword ecx+0C0h], ah
         mov eax, ecx
-        call sub_3A06C
+        call PickBenchSeat
         mov esi, dword [dword ecx+0FEh]
         mov byte [dword ecx+0A6h], bl
         mov ax, word [byte esi+edi*2+050h]
@@ -2754,12 +2754,12 @@ sub_11F74:
         mov dword [dword edx+dword_19DA50], ebx
         cmp ax, 0Dh
         jl short .1
-        call sub_1B3D8
+        call ResetSceneCamera
         mov edx, dword [off_168D04]
         cmp dword [byte edx+05Ah], byte 0FFFFFFFFh
         je short .2
         xor eax, eax
-        call sub_6539C
+        call UpdateGameDisplay
 .2:
         pop edx
         pop ebx
@@ -2782,7 +2782,7 @@ sub_11FB4:
         mov eax, ebx
         mov edx, 0FFFFFFFFh
         add eax, SortCords
-        call sub_3A06C
+        call PickBenchSeat
 .2:
         mov eax, ebx
         xor edx, edx
@@ -2920,11 +2920,11 @@ sub_12024:
         mov eax, unk_1B9520
         add eax, esi
         mov dword [dword edx+0FAh], eax
-        call sub_60D6C
+        call ResetAnimTimer
         mov dword [dword esi+dword_1B9558], 3F800000h
         mov dword [dword esi+dword_1B9554], 461C4000h
         mov eax, edx
-        call sub_65E3B
+        call InitPlayerAnims
         jmp near .13
 .9:
         mov dword [dword edx+0F2h], 0
@@ -2932,7 +2932,7 @@ sub_12024:
         mov dword [dword edx+0F6h], 0
         add eax, esi
         mov dword [dword edx+0FAh], eax
-        call sub_60D6C
+        call ResetAnimTimer
         mov dword [dword esi+dword_1B9558], 3F800000h
         mov dword [dword esi+dword_1B9554], 461C4000h
         cmp ecx, byte 0Fh
@@ -3523,7 +3523,7 @@ setpersonel:
         jge short .12
         movsx edx, cx
         mov eax, esi
-        call sub_3A06C
+        call PickBenchSeat
         cmp word [penshotmode], byte 0
         je short .10
         mov edx, 19h
@@ -3819,14 +3819,14 @@ sub_12C2C:
         cmp byte [byte_19CD05], 0
         je short .1
         xor dl, dl
-        call sub_41CF0
+        call QueueMusicRestart
         mov byte [byte_19CD05], dl
 .1:
         xor edx, edx
         call StopAllSfx
         mov word [word_19CB2A], dx
         mov word [word_19CB28], dx
-        call sub_2E7D8
+        call ResetCoachModes
         call sub_12334
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
@@ -3869,7 +3869,7 @@ sub_12C2C:
         mov word [nosplit eax*2+word_19CC04], 2
         mov edx, 0FFFFFFFFh
         mov eax, unk_19DC40
-        call sub_34330
+        call SetPlayerTarget
         mov ax, word [word_19CC28]
         mov word [word_19DCFA], ax
 .5:
@@ -3881,7 +3881,7 @@ sub_12C2C:
         mov edx, 0FFFFFFFFh
         mov word [nosplit eax*2+word_19CC04], cx
         mov eax, unk_19E270
-        call sub_34330
+        call SetPlayerTarget
         mov ax, word [word_19CC2A]
         mov word [word_19E32A], ax
 .6:
@@ -3906,7 +3906,7 @@ sub_12C2C:
 .8:
         mov eax, dword [off_168CFC]
         call assreplace
-        call sub_4DDB0
+        call SetCameraMode
         mov bl, byte [byte_19CBCA]
         or bl, 4
         mov edx, 1

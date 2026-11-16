@@ -6,7 +6,7 @@ extern SetClipWindow, byte_1D1D88, dword_16E670, dword_16E676, dword_16E67A, dwo
 extern dword_16E69C, dword_1D1D30, dword_1D1D34, dword_1D1D38, dword_1D1D3C, dword_1D1D40, dword_1D1D44, dword_1D1D48
 extern dword_1D1D4C, dword_1D1D50, dword_1D1D54, dword_1D1D58, dword_1D1D5C, dword_1D1D60, dword_1D1D64, dword_1D1D68
 extern dword_1D1D6C, dword_1D1D70, dword_1D1D74, dword_1D1D78, dword_1D1D7C, dword_1D1D80, dword_1D1D84, str_AALIAS
-extern sub_112190, sub_116830, sub_12D520, AllocMemBlock, sub_FC4BC, FillRect
+extern sub_112190, PlotPixel, sub_12D520, AllocMemBlock, sub_FC4BC, FillRect
 global BuildAntiAliasTable, ClipLineY, ClipLineX, DrawLineYPlot, DrawLineY, DrawLineXPlot, DrawLineX, DrawFixedLine
 global sub_10C434
 ;-----------------------------------------------------------------------------
@@ -616,7 +616,7 @@ DrawLineYPlot:
         push eax
         push edi
         push ebx
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .6:
         inc ebx
@@ -653,7 +653,7 @@ DrawLineYPlot:
         push eax
         push edi
         push esi
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .9:
         mov eax, dword [dword_1D1D64]
@@ -875,7 +875,7 @@ DrawLineXPlot:
         push eax
         push ebx
         push edi
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .6:
         inc ebx
@@ -913,7 +913,7 @@ DrawLineXPlot:
         push eax
         push esi
         push edi
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .9:
         mov eax, dword [dword_1D1D7C]

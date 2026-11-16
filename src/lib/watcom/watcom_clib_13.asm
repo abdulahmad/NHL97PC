@@ -6,9 +6,9 @@ extern GetTicks, RestoreTextMode, TicksSince, _Envptr, _Envptr_w4, _Extender, _E
 extern _LpCmdLine, _STACKLOW, _STACKTOP, __CHP, __CMain, __FiniRtns, __IOMode_, __InitRtns
 extern __STOSB, __SetIOMode_, __close_, __mbvtop_, __no87, __set_EINVAL_, __set_errno_, __set_errno_dos_
 extern _curbrk, _dynend, _mbptov_, _mbsdec_, _mbsnbcnt_, _mbsnccnt_, _mbsncpy_, _nexpand_
-extern _nfree_, _nmalloc_, _nmsize_, _osmajor, _osminor, _psp, _searchenv_, asc_167EBC
-extern asc_167ED8, asc_167EE8, asc_167EF4, asc_167F00, asc_167F20, asc_167F40, asc_167F44, asc_167F4C
-extern asc_167F54, asc_167F5C, asc_167F68, asc_167F70, asc_167F84, asc_167F8C, asc_1709DC, byte_16E688
+extern _nfree_, _nmalloc_, _nmsize_, _osmajor, _osminor, _psp, _searchenv_, str_PRIMLIST
+extern str_4db, str_DxDxD, str_CmnFrateC, str_FramerateTIMERHZNOTSET, str_Rate2dDAvg2dDD, str_TGV, str_MBRAM2, str_MBDOS
+extern str_PATH, str_DOS4GWEXE, str_CS3, str_0123456789abcdef, str_Null, str_0123456789ABCDEF, str_FILESLINED, byte_16E688
 extern byte_16FA40, byte_17075C, byte_170764, byte_170781, byte_17078E, byte_17079A, byte_17079C, byte_1707B7
 extern byte_1707FC, byte_170800, byte_170804, byte_170810, byte_17086B, byte_1708C6, byte_170921, byte_17097C
 extern byte_171C90, byte_19988D, byte_19C6E4, dword_16E32C, dword_16E330, dword_16E334, dword_16E3F4, dword_16E444
@@ -32,11 +32,11 @@ extern sub_109545, sub_10955B, sub_1095AD, sub_10CFB4, sub_10CFF7, sub_1128F8, s
 extern sub_121494, sub_12189C, sub_121A43, sub_12200C, sub_12233C, sub_123FCB, sub_124DB0, sub_1258A4
 extern sub_125DDE, sub_12D520, sub_12F270, sub_12FACC, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0
 extern sub_13005A, sub_1300A8, sub_13014C, sub_13059C, sub_13061C, sub_1306A0, sub_130709, sub_13073E
-extern sub_130815, SetScreenTarget, sub_4B4AC, sub_FA5B8, sub_FA6A0, sub_FA734, sub_FA8AC, sub_FA954
+extern sub_130815, SetScreenTarget, NoOpPlatformHook, sub_FA5B8, sub_FA6A0, sub_FA734, sub_FA8AC, sub_FA954
 extern sub_FAA14, AllocMemBlock, sub_FAB68, FreeMemBlock, sub_FB5C8, sub_FB62C, ZeroMem, sub_FBE78
 extern sub_FC0F0, sub_FC410, MakeColor, sub_FC73E, sub_FC88C, sub_FCC40, sub_FD0DC, ClearScreen
-extern sub_FD954, sub_FDC68, sub_FE180, sub_FE3AC, sub_FEE60, sub_FF320, sub_FF48C, sub_FF5E0
-extern sub_FF600, sub_FF690, sub_FF710, sub_FF7F4, sub_FF874, sub_FF8CC, unk_10003, unk_16E8A0
+extern sub_FD954, sub_FDC68, SetTextColors, DrawTextBoxedAt, RefreshTextColors, MatTranspose, TransformVecs, VecAdd
+extern VecSub, AddVecs, VecCross, VecScale, VecNormalize, VecCrossUnit, unk_10003, unk_16E8A0
 extern unk_170B26, unk_170B30, unk_170F72, unk_170F7C, unk_1713BE, unk_1713C8, unk_17180A, unk_171814
 extern unk_171E38, unk_19CCB0, unk_1D91D0, unk_1D9B50, unk_1D9B70, unk_1D9B90, unk_1D9BB0, unk_1D9BD0
 extern unk_1D9BF0, unk_1D9C10, unk_1D9C30, unk_1D9C34, unk_1D9C38, unk_1D9C3C, unk_1D9C40, unk_1D9C44
@@ -50,33 +50,33 @@ extern unk_1DA230, unk_1DA250, unk_1DA270, unk_1DA290, unk_1DA2B0, unk_1DA2D0, u
 extern unk_1DA330, unk_1DEC00, vsprintf_, word_170708, word_1707E8, word_1707EE, word_1707F4, word_1707F6
 extern word_170B24, word_171C56, word_1D91FC
 global __null_int23_exit_, __set_binary_, _dos_getdiskfree_, _exit_, _makepath_, _splitpath_, atoi_, close_
-global copypart_, exit_, getcwd_, jpt_114394, jpt_114B90, jpt_114CB4, sub_11323C_30, sub_1138A0_6C
-global sub_113BB8_80, sub_113ED4_EC, sub_11404C_6C, sub_1143D4_A3, sub_1143D4_D6, sub_1143D4_10C, sub_1143D4_1A6, sub_1143D4_39E
-global sub_1143D4_401, sub_1143D4_48F, sub_1143D4_53A, sub_1143D4_607, sub_1143D4_65B, sub_1143D4_6FD, sub_114BC0_5F, sub_114BC0_6C
-global sub_114BC0_D3, sub_114BC0_DF, sub_114BC0_EA, sub_114BC0_EF, sub_114CE4_9F, sub_114CE4_BF, sub_114CE4_DD, sub_1150FC_4C
-global sub_1158A0_70, sub_115A10_1C, start_74, start_28F, sub_1163E1_23, sub_117598_5B, sub_117598_6B, sub_117598_7D
-global sub_117598_8A, sub_117598_D4, sub_117598_E6, sub_117598_115, sub_1190E8_20, sub_11910D_6, sub_119255_46, sub_119349_9
-global sub_119349_12, sub_119349_1B, sub_119349_85, unk_1193EA_10, _dos_getdiskfree__38, memset_, open_, pickup_
-global sopen_, start, strncmp_, strnicmp_, strupr_, sub_113210, sub_11323C, sub_1132A4
-global sub_113324, sub_1133A0, sub_1133D8, sub_113458, sub_1134D8, sub_113514, sub_113568, sub_1135BC
-global sub_1135DC, sub_113630, sub_113684, sub_1136A4, sub_1136F8, sub_11374C, sub_11376C, sub_1137C0
-global sub_113814, sub_113834, sub_1138A0, sub_11392C, sub_113998, sub_113A04, sub_113A24, sub_113A90
-global sub_113AFC, sub_113B38, sub_113BB8, sub_113C78, sub_113D00, sub_113D84, sub_113DC4, sub_113E4C
-global sub_113ED4, sub_113FE0, sub_11404C, sub_1140D8, sub_114144, sub_1141B0, sub_1141D0, sub_11423C
-global sub_1142A8, sub_1142EC, sub_114340, sub_1143D4, sub_114AF8, sub_114BC0, sub_114CE4, sub_114DDC
-global sub_114E54, sub_114E7C, sub_114EB8, sub_114FD0, sub_115020, sub_1150FC, sub_115150, sub_115170
-global sub_1151A4, sub_115220, sub_115288, sub_1152B0, sub_115318, sub_1153AC, sub_1153DC, sub_1155B0
-global sub_115810, sub_115830, sub_1158A0, sub_11599C, sub_1159B8, sub_1159D0, sub_115A10, sub_115A58
-global sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, sub_116050, sub_1163E1, sub_11641C, sub_116428
-global sub_1164E8, sub_116559, sub_1166F0, sub_11673A, sub_1167AE, sub_1167BD, sub_1167CC, sub_116820
-global sub_116830, sub_1169D4, sub_1169F0, sub_116A70, sub_116D38, sub_116E84, sub_116F78, sub_117140
-global sub_117338, sub_117390, sub_11756C, sub_117598, sub_117733, sub_117896, sub_1179A0, sub_117C26
-global sub_118520, sub_1185B0, sub_1186C0, sub_118954, sub_118C88, sub_118D54, sub_118E3F, sub_118F1C
-global sub_118F67, sub_118F7B, sub_118F91, sub_118FB7, sub_119054, sub_11908E, sub_1190E8, sub_11910D
-global sub_1191A4, sub_1191B8, sub_1191D1, sub_1191F2, sub_119255, sub_119328, sub_119349, sub_119550
-global sub_119730, sub_119780, sub_119800, sub_119850, sub_119BC8, sub_119BE4, sub_119F20, sub_119F54
-global sub_119FDC, sub_11A120, sub_11A210, sub_11A220, sub_11A230, sub_11A250, sub_11A264, sub_11A294
-global sub_11A318, sub_11A350, sub_11A3E0, sub_11ADD0, sub_11ADE8, __saved_DS, unk_116427, unk_1166EF
+global copypart_, exit_, getcwd_, jpt_114394, jpt_114B90, jpt_114CB4, PrimRectDebug_30, PrimTriTexCcw_6C
+global PrimQuadDebugCcw_80, PrimQuadSplit_EC, PrimQuadTexCcw_6C, DrawPrimList_A3, DrawPrimList_D6, DrawPrimList_10C, DrawPrimList_1A6, DrawPrimList_39E
+global DrawPrimList_401, DrawPrimList_48F, DrawPrimList_53A, DrawPrimList_607, DrawPrimList_65B, DrawPrimList_6FD, TransformModelParts_5F, TransformModelParts_6C
+global TransformModelParts_D3, TransformModelParts_DF, TransformModelParts_EA, TransformModelParts_EF, TransformModelPartsWith_9F, TransformModelPartsWith_BF, TransformModelPartsWith_DD, AttachModelFrame_4C
+global FixedSinCos_70, BlitRowKey32_1C, start_74, start_28F, WriteConsoleMessage_23, ReadVideoCodes_5B, ReadVideoCodes_6B, ReadVideoCodes_7D
+global ReadVideoCodes_8A, ReadVideoCodes_D4, ReadVideoCodes_E6, ReadVideoCodes_115, SerialWriteIfRoom_20, SerialWrite_6, SerialRead_46, SerialISR_9
+global SerialISR_12, SerialISR_1B, SerialISR_85, unk_1193EA_10, _dos_getdiskfree__38, memset_, open_, pickup_
+global sopen_, start, strncmp_, strnicmp_, strupr_, PrimRect, PrimRectDebug, PrimTriFlat
+global PrimTriLitCcw, PrimTriShade, PrimTriShadeBlend, PrimTriShadeCcw, PrimTriDebug, PrimTriDebugCw, PrimTriDebugCcw, CopyTriScreenVerts
+global TriVertsIfCw, TriVertsIfCcw, CopyTriTexVerts, TriTexVertsIfCw, TriTexVertsIfCcw, CopyTriShadeVerts, TriShadeVertsIfCw, TriShadeVertsIfCcw
+global PrimTriTex, PrimTriTexCw, PrimTriTexCcw, PrimTriTexClearCw, PrimTriTexClearCcw, PrimTriTexShade, PrimTriTexShadeCw, PrimTriTexShadeCcw
+global PrimQuadDebug, PrimQuadDebugCw, PrimQuadDebugCcw, PrimQuadFlat, PrimQuadLitCcw, PrimQuadShade, PrimQuadShadeCw, PrimQuadShadeBlendCcw
+global PrimQuadSplit, PrimQuadTexCw, PrimQuadTexCcw, PrimQuadTexShadeCw, PrimQuadTexShadeCcw, PrimQuadTexClear, PrimQuadTexClearCw, PrimQuadTexClearCcw
+global PrimQuadRandomFill, PrimQuadRandomFillCw, PrimQuadRandomFillCcw, DrawPrimList, GetModelVertex, TransformModelParts, TransformModelPartsWith, UpdateModelParts
+global CallModelPartFuncs, CallAllPartFuncs, BuildFrameFromPoints, TransformBoneVerts, SkinModelVerts, AttachModelFrame, AttachModel, UpdateModelFrame
+global SkinModel, ScaleModelVerts, FixupModelOffsets, LoadModelFile, FindModelPart, ResetMorphVerts, ApplyMorphTarget, PlotPixelRGB
+global PlotPixelRGBAt, CreateBitmapForArt, FixedSinCos, BlitRowRemap8, BlitRowKey16, BlitRowKey24, BlitRowKey32, BlitShapeKeyed
+global BlitShapeAt, SaveDrawContext, RestoreDrawContext, SetBitReader, ReadBits, WriteConsoleMessage, RestoreDS, InstallKeyboardHandler
+global RemoveKeyboardHandler, KeyboardISR, Int16Handler, Int16Service, IsKeyDown, BiosKeyCall, AssertFail, AssertFailEntry
+global PlotPixel, PlotPixelAt, PrintBoxedText, BuildDecodeTable, InitVideoDecoder, BuildVideoGammaTable, DecodeVideoChunk, CreateBitmapEx
+global CreateBitmapDefault, UpdateFrameRate, ResetFrameRate, ReadVideoCodes, VideoBlockFill, VideoBlockDelta, VideoBlockPattern, DecodeVideoFrame
+global BuildHuffTable, DecodeHuffRuns, DecodeTgvFrame, DecodeTgvKeyFrame, DecodeTgvChunk, SerialConfigure, SerialOpen, SerialClose
+global SerialCloseAll, SerialIsOpen, SerialSetBaud, SerialProgramUart, SerialRaiseDtr, SerialCarrier, SerialWriteIfRoom, SerialWrite
+global SerialRxCount, SerialTxFree, SerialFlushTx, SerialWaitTxEmpty, SerialRead, SerialFlushRx, SerialISR, LoadNamedResource
+global LoadNamedResourceEx, LoadNameFile, GrabLargestBlock, InitMemoryPool, InitMemoryPoolDefault, InitMemoryPoolArgs, ExitGraphics, FindDos4gw
+global InitPlatform, InstallErrorHandlers, CopyPixels8, CopyPixels16, CopyPixels24, CopyPixels32, ConvertArtAt, ConvertArtInPlace
+global ConvertArtXY, ConvertArtKeepPos, FormatString, SaveTextState, RestoreTextState, __saved_DS, unk_116427, unk_1166EF
 global unk_1193EA
 ;-----------------------------------------------------------------------------
 ; strncmp_                                                     1131E4  library
@@ -112,9 +112,10 @@ strncmp_:
         jmp short .1
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_113210                                                          113210  
+; PrimRect                                       113210  97 PC, low confidence
+; Model renderer: draws a filled rectangle primitive
 ;-----------------------------------------------------------------------------
-sub_113210:
+PrimRect:
         push ebx
         push ecx
         push edx
@@ -142,9 +143,10 @@ sub_113210:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11323C                                                          11323C  
+; PrimRectDebug                                  11323C  97 PC, low confidence
+; Model renderer: draws a rectangle primitive in a random colour (debug view)
 ;-----------------------------------------------------------------------------
-sub_11323C:
+PrimRectDebug:
         push ebx
         push ecx
         push edx
@@ -172,7 +174,7 @@ sub_11323C:
         pop ebx
         ret
         db 090h
-sub_11323C_30:
+PrimRectDebug_30:
         push ecx
         push edx
         push esi
@@ -205,9 +207,10 @@ sub_11323C_30:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1132A4                                                          1132A4  
+; PrimTriFlat                                    1132A4  97 PC, low confidence
+; Model renderer: draws a flat triangle when it faces the camera
 ;-----------------------------------------------------------------------------
-sub_1132A4:
+PrimTriFlat:
         push ebx
         push ecx
         push edx
@@ -267,9 +270,11 @@ sub_1132A4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_113324                                                          113324  
+; PrimTriLitCcw                                  113324  97 PC, low confidence
+; Model renderer: draws a lit triangle when it is wound the other way
+; (mirrored model)
 ;-----------------------------------------------------------------------------
-sub_113324:
+PrimTriLitCcw:
         push ebx
         push ecx
         push edx
@@ -328,9 +333,10 @@ sub_113324:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1133A0                                                          1133A0  
+; PrimTriShade                                   1133A0  97 PC, low confidence
+; Model renderer: draws a shaded triangle from both sides
 ;-----------------------------------------------------------------------------
-sub_1133A0:
+PrimTriShade:
         push ecx
         push edx
         push esi
@@ -363,9 +369,10 @@ sub_1133A0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1133D8                                                          1133D8  
+; PrimTriShadeBlend                              1133D8  97 PC, low confidence
+; Model renderer: draws a shaded, blended triangle when it faces the camera
 ;-----------------------------------------------------------------------------
-sub_1133D8:
+PrimTriShadeBlend:
         push ebx
         push ecx
         push edx
@@ -425,9 +432,10 @@ sub_1133D8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_113458                                                          113458  
+; PrimTriShadeCcw                                113458  97 PC, low confidence
+; Model renderer: draws a shaded triangle when it is wound the other way
 ;-----------------------------------------------------------------------------
-sub_113458:
+PrimTriShadeCcw:
         push ebx
         push ecx
         push edx
@@ -487,9 +495,10 @@ sub_113458:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1134D8                                                          1134D8  
+; PrimTriDebug                                   1134D8  97 PC, low confidence
+; Model renderer: draws a triangle in a random colour (debug view)
 ;-----------------------------------------------------------------------------
-sub_1134D8:
+PrimTriDebug:
         push ecx
         push edx
         push esi
@@ -522,9 +531,10 @@ sub_1134D8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_113514                                                          113514  
+; PrimTriDebugCw                                 113514  97 PC, low confidence
+; Model renderer: random-colour triangle when it faces the camera
 ;-----------------------------------------------------------------------------
-sub_113514:
+PrimTriDebugCw:
         push ebx
         push ecx
         push edx
@@ -553,7 +563,7 @@ sub_113514:
         xor edx, ebx
         je short .1
         mov eax, edi
-        call sub_1134D8
+        call PrimTriDebug
 .1:
         pop edi
         pop esi
@@ -562,9 +572,10 @@ sub_113514:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_113568                                                          113568  
+; PrimTriDebugCcw                                113568  97 PC, low confidence
+; Model renderer: random-colour triangle when it is wound the other way
 ;-----------------------------------------------------------------------------
-sub_113568:
+PrimTriDebugCcw:
         push ebx
         push ecx
         push edx
@@ -593,7 +604,7 @@ sub_113568:
         xor edx, ebx
         jne short .1
         mov eax, edi
-        call sub_1134D8
+        call PrimTriDebug
 .1:
         pop edi
         pop esi
@@ -602,9 +613,10 @@ sub_113568:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1135BC                                                          1135BC  
+; CopyTriScreenVerts                             1135BC  97 PC, low confidence
+; Model renderer: copies the three projected vertices of a triangle primitive
 ;-----------------------------------------------------------------------------
-sub_1135BC:
+CopyTriScreenVerts:
         push esi
         push edi
         lea edi, [byte eax+04h]
@@ -624,9 +636,11 @@ sub_1135BC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1135DC                                                          1135DC  
+; TriVertsIfCw                                   1135DC  97 PC, low confidence
+; Model renderer: copies a triangle's projected vertices when it faces the
+; camera
 ;-----------------------------------------------------------------------------
-sub_1135DC:
+TriVertsIfCw:
         push ebx
         push ecx
         push edx
@@ -655,7 +669,7 @@ sub_1135DC:
         xor edx, ebx
         je short .1
         mov eax, edi
-        call sub_1135BC
+        call CopyTriScreenVerts
 .1:
         pop edi
         pop esi
@@ -664,9 +678,11 @@ sub_1135DC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_113630                                                          113630  
+; TriVertsIfCcw                                  113630  97 PC, low confidence
+; Model renderer: copies a triangle's projected vertices when it is wound the
+; other way
 ;-----------------------------------------------------------------------------
-sub_113630:
+TriVertsIfCcw:
         push ebx
         push ecx
         push edx
@@ -695,7 +711,7 @@ sub_113630:
         xor edx, ebx
         jne short .1
         mov eax, edi
-        call sub_1135BC
+        call CopyTriScreenVerts
 .1:
         pop edi
         pop esi
@@ -704,9 +720,10 @@ sub_113630:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_113684                                                          113684  
+; CopyTriTexVerts                                113684  97 PC, low confidence
+; Model renderer: copies the three textured vertices of a triangle primitive
 ;-----------------------------------------------------------------------------
-sub_113684:
+CopyTriTexVerts:
         push esi
         push edi
         lea edi, [byte eax+04h]
@@ -726,9 +743,11 @@ sub_113684:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1136A4                                                          1136A4  
+; TriTexVertsIfCw                                1136A4  97 PC, low confidence
+; Model renderer: copies a triangle's textured vertices when it faces the
+; camera
 ;-----------------------------------------------------------------------------
-sub_1136A4:
+TriTexVertsIfCw:
         push ebx
         push ecx
         push edx
@@ -757,7 +776,7 @@ sub_1136A4:
         xor edx, ebx
         je short .1
         mov eax, edi
-        call sub_113684
+        call CopyTriTexVerts
 .1:
         pop edi
         pop esi
@@ -766,9 +785,11 @@ sub_1136A4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1136F8                                                          1136F8  
+; TriTexVertsIfCcw                               1136F8  97 PC, low confidence
+; Model renderer: copies a triangle's textured vertices when it is wound the
+; other way
 ;-----------------------------------------------------------------------------
-sub_1136F8:
+TriTexVertsIfCcw:
         push ebx
         push ecx
         push edx
@@ -797,7 +818,7 @@ sub_1136F8:
         xor edx, ebx
         jne short .1
         mov eax, edi
-        call sub_113684
+        call CopyTriTexVerts
 .1:
         pop edi
         pop esi
@@ -806,9 +827,10 @@ sub_1136F8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11374C                                                          11374C  
+; CopyTriShadeVerts                              11374C  97 PC, low confidence
+; Model renderer: copies the three shaded vertices of a triangle primitive
 ;-----------------------------------------------------------------------------
-sub_11374C:
+CopyTriShadeVerts:
         push esi
         push edi
         lea edi, [byte eax+04h]
@@ -828,9 +850,11 @@ sub_11374C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11376C                                                          11376C  
+; TriShadeVertsIfCw                              11376C  97 PC, low confidence
+; Model renderer: copies a triangle's shaded vertices when it faces the
+; camera
 ;-----------------------------------------------------------------------------
-sub_11376C:
+TriShadeVertsIfCw:
         push ebx
         push ecx
         push edx
@@ -859,7 +883,7 @@ sub_11376C:
         xor edx, ebx
         je short .1
         mov eax, edi
-        call sub_11374C
+        call CopyTriShadeVerts
 .1:
         pop edi
         pop esi
@@ -868,9 +892,11 @@ sub_11376C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1137C0                                                          1137C0  
+; TriShadeVertsIfCcw                             1137C0  97 PC, low confidence
+; Model renderer: copies a triangle's shaded vertices when it is wound the
+; other way
 ;-----------------------------------------------------------------------------
-sub_1137C0:
+TriShadeVertsIfCcw:
         push ebx
         push ecx
         push edx
@@ -899,7 +925,7 @@ sub_1137C0:
         xor edx, ebx
         jne short .1
         mov eax, edi
-        call sub_11374C
+        call CopyTriShadeVerts
 .1:
         pop edi
         pop esi
@@ -908,9 +934,10 @@ sub_1137C0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_113814                                                          113814  
+; PrimTriTex                                     113814  97 PC, low confidence
+; Model renderer: draws a textured triangle from both sides
 ;-----------------------------------------------------------------------------
-sub_113814:
+PrimTriTex:
         push ecx
         push edx
         push byte 0
@@ -929,9 +956,10 @@ sub_113814:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_113834                                                          113834  
+; PrimTriTexCw                                   113834  97 PC, low confidence
+; Model renderer: draws a textured triangle when it faces the camera
 ;-----------------------------------------------------------------------------
-sub_113834:
+PrimTriTexCw:
         push ebx
         push ecx
         push edx
@@ -979,9 +1007,10 @@ sub_113834:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1138A0                                                          1138A0  
+; PrimTriTexCcw                                  1138A0  97 PC, low confidence
+; Model renderer: draws a textured triangle when it is wound the other way
 ;-----------------------------------------------------------------------------
-sub_1138A0:
+PrimTriTexCcw:
         push ebx
         push ecx
         push edx
@@ -1029,7 +1058,7 @@ sub_1138A0:
         pop ebx
         ret
         db 090h
-sub_1138A0_6C:
+PrimTriTexCcw_6C:
         push ecx
         push edx
         push byte 1
@@ -1048,9 +1077,11 @@ sub_1138A0_6C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11392C                                                          11392C  
+; PrimTriTexClearCw                              11392C  97 PC, low confidence
+; Model renderer: draws a textured triangle with transparent texels when it
+; faces the camera
 ;-----------------------------------------------------------------------------
-sub_11392C:
+PrimTriTexClearCw:
         push ebx
         push ecx
         push edx
@@ -1078,56 +1109,6 @@ sub_11392C:
         and edx, 0FFh
         xor edx, ebx
         je short .1
-        push byte 1
-        mov ecx, dword [dword_1D91C8]
-        push ecx
-        lea edx, [byte edi+01Ch]
-        push edx
-        lea edx, [byte edi+028h]
-        push edx
-        push byte 3
-        mov esi, dword [byte edi+040h]
-        push esi
-        call sub_1128F8
-        add esp, byte 18h
-.1:
-        pop edi
-        pop esi
-        pop edx
-        pop ecx
-        pop ebx
-        ret
-;-----------------------------------------------------------------------------
-; sub_113998                                                          113998  
-;-----------------------------------------------------------------------------
-sub_113998:
-        push ebx
-        push ecx
-        push edx
-        push esi
-        push edi
-        mov edi, eax
-        mov ebx, dword [byte eax+024h]
-        mov esi, dword [byte eax+020h]
-        mov edx, dword [byte eax+01Ch]
-        mov eax, dword [ebx]
-        mov ebx, dword [byte ebx+04h]
-        mov ecx, dword [edx]
-        mov edx, dword [byte edx+04h]
-        sub eax, dword [esi]
-        sub ebx, dword [byte esi+04h]
-        sub ecx, dword [esi]
-        sub edx, dword [byte esi+04h]
-        imul eax, edx
-        imul ebx, ecx
-        sub ebx, eax
-        mov dword [dword_1D91C8], ebx
-        test ebx, ebx
-        setl dl
-        mov ebx, dword [dword_1D1D10]
-        and edx, 0FFh
-        xor edx, ebx
-        jne short .1
         push byte 1
         mov ecx, dword [dword_1D91C8]
         push ecx
@@ -1148,9 +1129,62 @@ sub_113998:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_113A04                                                          113A04  
+; PrimTriTexClearCcw                             113998  97 PC, low confidence
+; Model renderer: draws a textured triangle with transparent texels when it
+; is wound the other way
 ;-----------------------------------------------------------------------------
-sub_113A04:
+PrimTriTexClearCcw:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        mov edi, eax
+        mov ebx, dword [byte eax+024h]
+        mov esi, dword [byte eax+020h]
+        mov edx, dword [byte eax+01Ch]
+        mov eax, dword [ebx]
+        mov ebx, dword [byte ebx+04h]
+        mov ecx, dword [edx]
+        mov edx, dword [byte edx+04h]
+        sub eax, dword [esi]
+        sub ebx, dword [byte esi+04h]
+        sub ecx, dword [esi]
+        sub edx, dword [byte esi+04h]
+        imul eax, edx
+        imul ebx, ecx
+        sub ebx, eax
+        mov dword [dword_1D91C8], ebx
+        test ebx, ebx
+        setl dl
+        mov ebx, dword [dword_1D1D10]
+        and edx, 0FFh
+        xor edx, ebx
+        jne short .1
+        push byte 1
+        mov ecx, dword [dword_1D91C8]
+        push ecx
+        lea edx, [byte edi+01Ch]
+        push edx
+        lea edx, [byte edi+028h]
+        push edx
+        push byte 3
+        mov esi, dword [byte edi+040h]
+        push esi
+        call sub_1128F8
+        add esp, byte 18h
+.1:
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; PrimTriTexShade                                113A04  97 PC, low confidence
+; Model renderer: draws a shaded textured triangle from both sides
+;-----------------------------------------------------------------------------
+PrimTriTexShade:
         push ecx
         push edx
         push byte 2
@@ -1169,9 +1203,10 @@ sub_113A04:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_113A24                                                          113A24  
+; PrimTriTexShadeCw                              113A24  97 PC, low confidence
+; Model renderer: draws a shaded textured triangle when it faces the camera
 ;-----------------------------------------------------------------------------
-sub_113A24:
+PrimTriTexShadeCw:
         push ebx
         push ecx
         push edx
@@ -1219,9 +1254,11 @@ sub_113A24:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_113A90                                                          113A90  
+; PrimTriTexShadeCcw                             113A90  97 PC, low confidence
+; Model renderer: draws a shaded textured triangle when it is wound the other
+; way
 ;-----------------------------------------------------------------------------
-sub_113A90:
+PrimTriTexShadeCcw:
         push ebx
         push ecx
         push edx
@@ -1269,9 +1306,10 @@ sub_113A90:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_113AFC                                                          113AFC  
+; PrimQuadDebug                                  113AFC  97 PC, low confidence
+; Model renderer: draws a quad in a random colour (debug view)
 ;-----------------------------------------------------------------------------
-sub_113AFC:
+PrimQuadDebug:
         push ecx
         push edx
         push esi
@@ -1304,9 +1342,10 @@ sub_113AFC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_113B38                                                          113B38  
+; PrimQuadDebugCw                                113B38  97 PC, low confidence
+; Model renderer: random-colour quad when it faces the camera
 ;-----------------------------------------------------------------------------
-sub_113B38:
+PrimQuadDebugCw:
         push ebx
         push ecx
         push edx
@@ -1366,9 +1405,10 @@ sub_113B38:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_113BB8                                                          113BB8  
+; PrimQuadDebugCcw                               113BB8  97 PC, low confidence
+; Model renderer: random-colour quad when it is wound the other way
 ;-----------------------------------------------------------------------------
-sub_113BB8:
+PrimQuadDebugCcw:
         push ebx
         push ecx
         push edx
@@ -1427,7 +1467,7 @@ sub_113BB8:
         pop ebx
         ret
         db 08Dh,040h,00h
-sub_113BB8_80:
+PrimQuadDebugCcw_80:
         push ecx
         push edx
         push esi
@@ -1464,9 +1504,10 @@ sub_113BB8_80:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_113C78                                                          113C78  
+; PrimQuadFlat                                   113C78  97 PC, low confidence
+; Model renderer: draws a flat quad when it faces the camera
 ;-----------------------------------------------------------------------------
-sub_113C78:
+PrimQuadFlat:
         push ebx
         push ecx
         push edx
@@ -1530,9 +1571,10 @@ sub_113C78:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_113D00                                                          113D00  
+; PrimQuadLitCcw                                 113D00  97 PC, low confidence
+; Model renderer: draws a lit quad when it is wound the other way
 ;-----------------------------------------------------------------------------
-sub_113D00:
+PrimQuadLitCcw:
         push ebx
         push ecx
         push edx
@@ -1595,9 +1637,10 @@ sub_113D00:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_113D84                                                          113D84  
+; PrimQuadShade                                  113D84  97 PC, low confidence
+; Model renderer: draws a shaded quad from both sides
 ;-----------------------------------------------------------------------------
-sub_113D84:
+PrimQuadShade:
         push ecx
         push edx
         push esi
@@ -1634,9 +1677,10 @@ sub_113D84:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_113DC4                                                          113DC4  
+; PrimQuadShadeCw                                113DC4  97 PC, low confidence
+; Model renderer: draws a shaded quad when it faces the camera
 ;-----------------------------------------------------------------------------
-sub_113DC4:
+PrimQuadShadeCw:
         push ebx
         push ecx
         push edx
@@ -1700,9 +1744,10 @@ sub_113DC4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_113E4C                                                          113E4C  
+; PrimQuadShadeBlendCcw                          113E4C  97 PC, low confidence
+; Model renderer: draws a shaded, blended quad when it is wound the other way
 ;-----------------------------------------------------------------------------
-sub_113E4C:
+PrimQuadShadeBlendCcw:
         push ebx
         push ecx
         push edx
@@ -1766,9 +1811,10 @@ sub_113E4C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_113ED4                                                          113ED4  
+; PrimQuadSplit                                  113ED4  97 PC, low confidence
+; Model renderer: draws a quad as two random-colour triangles (debug view)
 ;-----------------------------------------------------------------------------
-sub_113ED4:
+PrimQuadSplit:
         push ecx
         push edx
         push esi
@@ -1832,7 +1878,7 @@ sub_113ED4:
         xor edx, ebx
         je short .1
         mov eax, edi
-        call sub_113ED4
+        call PrimQuadSplit
 .1:
         pop edi
         pop esi
@@ -1868,7 +1914,7 @@ sub_113ED4:
         xor edx, ebx
         jne short .2
         mov eax, edi
-        call sub_113ED4
+        call PrimQuadSplit
 .2:
         pop edi
         pop esi
@@ -1876,7 +1922,7 @@ sub_113ED4:
         pop ecx
         pop ebx
         ret
-sub_113ED4_EC:
+PrimQuadSplit_EC:
         push ecx
         push edx
         push byte 0
@@ -1895,9 +1941,10 @@ sub_113ED4_EC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_113FE0                                                          113FE0  
+; PrimQuadTexCw                                  113FE0  97 PC, low confidence
+; Model renderer: draws a textured quad when it faces the camera
 ;-----------------------------------------------------------------------------
-sub_113FE0:
+PrimQuadTexCw:
         push ebx
         push ecx
         push edx
@@ -1945,9 +1992,10 @@ sub_113FE0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11404C                                                          11404C  
+; PrimQuadTexCcw                                 11404C  97 PC, low confidence
+; Model renderer: draws a textured quad when it is wound the other way
 ;-----------------------------------------------------------------------------
-sub_11404C:
+PrimQuadTexCcw:
         push ebx
         push ecx
         push edx
@@ -1995,7 +2043,7 @@ sub_11404C:
         pop ebx
         ret
         db 090h
-sub_11404C_6C:
+PrimQuadTexCcw_6C:
         push ecx
         push edx
         push byte 2
@@ -2014,9 +2062,10 @@ sub_11404C_6C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1140D8                                                          1140D8  
+; PrimQuadTexShadeCw                             1140D8  97 PC, low confidence
+; Model renderer: draws a shaded textured quad when it faces the camera
 ;-----------------------------------------------------------------------------
-sub_1140D8:
+PrimQuadTexShadeCw:
         push ebx
         push ecx
         push edx
@@ -2064,9 +2113,10 @@ sub_1140D8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_114144                                                          114144  
+; PrimQuadTexShadeCcw                            114144  97 PC, low confidence
+; Model renderer: draws a shaded textured quad when it is wound the other way
 ;-----------------------------------------------------------------------------
-sub_114144:
+PrimQuadTexShadeCcw:
         push ebx
         push ecx
         push edx
@@ -2114,9 +2164,11 @@ sub_114144:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1141B0                                                          1141B0  
+; PrimQuadTexClear                               1141B0  97 PC, low confidence
+; Model renderer: draws a textured quad with transparent texels from both
+; sides
 ;-----------------------------------------------------------------------------
-sub_1141B0:
+PrimQuadTexClear:
         push ecx
         push edx
         push byte 1
@@ -2135,9 +2187,11 @@ sub_1141B0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1141D0                                                          1141D0  
+; PrimQuadTexClearCw                             1141D0  97 PC, low confidence
+; Model renderer: draws a textured quad with transparent texels when it faces
+; the camera
 ;-----------------------------------------------------------------------------
-sub_1141D0:
+PrimQuadTexClearCw:
         push ebx
         push ecx
         push edx
@@ -2185,9 +2239,11 @@ sub_1141D0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11423C                                                          11423C  
+; PrimQuadTexClearCcw                            11423C  97 PC, low confidence
+; Model renderer: draws a textured quad with transparent texels when it is
+; wound the other way
 ;-----------------------------------------------------------------------------
-sub_11423C:
+PrimQuadTexClearCcw:
         push ebx
         push ecx
         push edx
@@ -2235,9 +2291,10 @@ sub_11423C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1142A8                                                          1142A8  
+; PrimQuadRandomFill                             1142A8  97 PC, low confidence
+; Model renderer: fills a quad in a random colour (debug view)
 ;-----------------------------------------------------------------------------
-sub_1142A8:
+PrimQuadRandomFill:
         push ecx
         push edx
         push esi
@@ -2274,9 +2331,10 @@ sub_1142A8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1142EC                                                          1142EC  
+; PrimQuadRandomFillCw                           1142EC  97 PC, low confidence
+; Model renderer: random-colour quad fill when it faces the camera
 ;-----------------------------------------------------------------------------
-sub_1142EC:
+PrimQuadRandomFillCw:
         push ebx
         push ecx
         push edx
@@ -2305,7 +2363,7 @@ sub_1142EC:
         xor edx, ebx
         je short .1
         mov eax, edi
-        call sub_1142A8
+        call PrimQuadRandomFill
 .1:
         pop edi
         pop esi
@@ -2314,9 +2372,10 @@ sub_1142EC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_114340                                                          114340  
+; PrimQuadRandomFillCcw                          114340  97 PC, low confidence
+; Model renderer: random-colour quad fill when it is wound the other way
 ;-----------------------------------------------------------------------------
-sub_114340:
+PrimQuadRandomFillCcw:
         push ebx
         push ecx
         push edx
@@ -2345,7 +2404,7 @@ sub_114340:
         xor edx, ebx
         jne short .1
         mov eax, edi
-        call sub_1142A8
+        call PrimQuadRandomFill
 .1:
         pop edi
         pop esi
@@ -2354,26 +2413,28 @@ sub_114340:
         pop ebx
         ret
 jpt_114394:
-        dd sub_1143D4_A3
-        dd sub_1143D4_D6
-        dd sub_1143D4_10C
-        dd sub_1143D4_6FD
-        dd sub_1143D4_1A6
-        dd sub_1143D4_6FD
-        dd sub_1143D4_6FD
-        dd sub_1143D4_39E
-        dd sub_1143D4_401
-        dd sub_1143D4_48F
-        dd sub_1143D4_6FD
-        dd sub_1143D4_53A
-        dd sub_1143D4_6FD
-        dd sub_1143D4_6FD
-        dd sub_1143D4_607
-        dd sub_1143D4_65B
+        dd DrawPrimList_A3
+        dd DrawPrimList_D6
+        dd DrawPrimList_10C
+        dd DrawPrimList_6FD
+        dd DrawPrimList_1A6
+        dd DrawPrimList_6FD
+        dd DrawPrimList_6FD
+        dd DrawPrimList_39E
+        dd DrawPrimList_401
+        dd DrawPrimList_48F
+        dd DrawPrimList_6FD
+        dd DrawPrimList_53A
+        dd DrawPrimList_6FD
+        dd DrawPrimList_6FD
+        dd DrawPrimList_607
+        dd DrawPrimList_65B
 ;-----------------------------------------------------------------------------
-; sub_1143D4                                                          1143D4  
+; DrawPrimList                                   1143D4  97 PC, low confidence
+; Model renderer: builds the primitive list of a model ("PRIMLIST"), sorts it
+; by depth and draws each primitive by type
 ;-----------------------------------------------------------------------------
-sub_1143D4:
+DrawPrimList:
         push ebx
         push ecx
         push esi
@@ -2385,7 +2446,7 @@ sub_1143D4:
         push dword 2710h
         mov edi, dword [eax]
         mov eax, dword [byte eax+08h]
-        push asc_167EBC
+        push str_PRIMLIST
         mov ebx, dword [byte edi+028h]
         mov dword [byte esp+01Ch], eax
         call AllocMemBlock
@@ -2409,7 +2470,7 @@ sub_1143D4:
         lea ecx, [byte edx-01h]
         mov dword [byte esp+010h], ecx
         test edx, edx
-        jle near sub_1143D4_6FD.58
+        jle near DrawPrimList_6FD.58
         mov edi, esp
         mov esi, ebx
         mov ecx, dword [byte esp+0Ch]
@@ -2424,12 +2485,12 @@ sub_1143D4:
         dec edx
         mov dword [byte esp+0Ch], esi
         cmp edx, byte 0Fh
-        ja near sub_1143D4_6FD
+        ja near DrawPrimList_6FD
         jmp dword [nosplit cs:edx*4+jpt_114394]
-sub_1143D4_A3:
+DrawPrimList_A3:
         mov edx, dword [byte esp+014h]
         lea ecx, [byte edx+020h]
-        mov dword [edx], sub_113210
+        mov dword [edx], PrimRect
         mov dword [byte esp+014h], ecx
         mov ecx, dword [edi]
         mov esi, dword [byte esp+018h]
@@ -2442,11 +2503,11 @@ sub_1143D4_A3:
         add esi, ecx
         mov dword [byte edx+018h], esi
         add ebx, byte 10h
-        jmp short sub_1143D4.1
-sub_1143D4_D6:
+        jmp short DrawPrimList.1
+DrawPrimList_D6:
         mov edx, dword [byte esp+014h]
         lea ecx, [byte edx+024h]
-        mov dword [edx], sub_11323C
+        mov dword [edx], PrimRectDebug
         mov dword [byte esp+014h], ecx
         mov ecx, dword [edi]
         mov esi, dword [byte esp+018h]
@@ -2459,8 +2520,8 @@ sub_1143D4_D6:
         add esi, ecx
         mov dword [byte edx+018h], esi
         add ebx, byte 10h
-        jmp near sub_1143D4.1
-sub_1143D4_10C:
+        jmp near DrawPrimList.1
+DrawPrimList_10C:
         mov edx, dword [byte esp+014h]
         lea ecx, [byte edx+02Ch]
         mov dword [byte esp+014h], ecx
@@ -2471,10 +2532,10 @@ sub_1143D4_10C:
         and ecx, byte 78h
         cmp ecx, byte 10h
         jne short .2
-        mov dword [edx], sub_1133A0
+        mov dword [edx], PrimTriShade
         jmp short .5
 .2:
-        mov dword [edx], sub_11323C_30
+        mov dword [edx], PrimRectDebug_30
         jmp short .5
 .3:
         test cl, 2
@@ -2483,19 +2544,19 @@ sub_1143D4_10C:
         and ecx, byte 78h
         cmp ecx, byte 10h
         jne short .4
-        mov dword [edx], sub_1133D8
+        mov dword [edx], PrimTriShadeBlend
         jmp short .5
 .4:
-        mov dword [edx], sub_1132A4
+        mov dword [edx], PrimTriFlat
 .5:
         mov ecx, dword [esp]
         and ecx, byte 78h
         cmp ecx, byte 10h
         jne short .6
-        mov dword [edx], sub_113458
+        mov dword [edx], PrimTriShadeCcw
         jmp short .7
 .6:
-        mov dword [edx], sub_113324
+        mov dword [edx], PrimTriLitCcw
 .7:
         mov ecx, dword [edi]
         mov esi, dword [byte esp+018h]
@@ -2513,8 +2574,8 @@ sub_1143D4_10C:
         add esi, ecx
         mov dword [byte edx+024h], esi
         add ebx, byte 10h
-        jmp near sub_1143D4.1
-sub_1143D4_1A6:
+        jmp near DrawPrimList.1
+DrawPrimList_1A6:
         mov ebp, dword [byte esp+014h]
         lea edx, [byte ebp+044h]
         mov dword [byte esp+014h], edx
@@ -2527,17 +2588,17 @@ sub_1143D4_1A6:
         and edx, byte 78h
         cmp edx, byte 10h
         jne short .8
-        mov dword [byte ebp+00h], sub_113A04
+        mov dword [byte ebp+00h], PrimTriTexShade
         jmp near .16
 .8:
         mov edx, dword [esp]
         and edx, byte 78h
         cmp edx, byte 8
         jne short .9
-        mov dword [byte ebp+00h], sub_1138A0_6C
+        mov dword [byte ebp+00h], PrimTriTexCcw_6C
         jmp near .16
 .9:
-        mov dword [byte ebp+00h], sub_113814
+        mov dword [byte ebp+00h], PrimTriTex
         jmp near .16
 .10:
         test cl, 2
@@ -2546,34 +2607,34 @@ sub_1143D4_1A6:
         and edx, byte 78h
         cmp edx, byte 10h
         jne short .11
-        mov dword [byte ebp+00h], sub_113A24
+        mov dword [byte ebp+00h], PrimTriTexShadeCw
         jmp short .16
 .11:
         mov edx, dword [esp]
         and edx, byte 78h
         cmp edx, byte 8
         jne short .12
-        mov dword [byte ebp+00h], sub_11392C
+        mov dword [byte ebp+00h], PrimTriTexClearCw
         jmp short .16
 .12:
-        mov dword [byte ebp+00h], sub_113834
+        mov dword [byte ebp+00h], PrimTriTexCw
         jmp short .16
 .13:
         mov edx, dword [esp]
         and edx, byte 78h
         cmp edx, byte 10h
         jne short .14
-        mov dword [byte ebp+00h], sub_113A90
+        mov dword [byte ebp+00h], PrimTriTexShadeCcw
         jmp short .16
 .14:
         mov edx, dword [esp]
         and edx, byte 78h
         cmp edx, byte 8
         jne short .15
-        mov dword [byte ebp+00h], sub_113998
+        mov dword [byte ebp+00h], PrimTriTexClearCcw
         jmp short .16
 .15:
-        mov dword [byte ebp+00h], sub_1138A0
+        mov dword [byte ebp+00h], PrimTriTexCcw
 .16:
         mov ecx, ebp
         xor edx, edx
@@ -2601,17 +2662,17 @@ sub_1143D4_1A6:
         and edx, byte 78h
         cmp edx, byte 10h
         jne short .19
-        mov dword [byte ebp+00h], sub_11374C
+        mov dword [byte ebp+00h], CopyTriShadeVerts
         jmp near .27
 .19:
         mov edx, dword [esp]
         and edx, byte 78h
         cmp edx, byte 8
         jne short .20
-        mov dword [byte ebp+00h], sub_113684
+        mov dword [byte ebp+00h], CopyTriTexVerts
         jmp near .27
 .20:
-        mov dword [byte ebp+00h], sub_1135BC
+        mov dword [byte ebp+00h], CopyTriScreenVerts
         jmp near .27
 .21:
         test dl, 2
@@ -2620,34 +2681,34 @@ sub_1143D4_1A6:
         and edx, byte 78h
         cmp edx, byte 10h
         jne short .22
-        mov dword [byte ebp+00h], sub_11376C
+        mov dword [byte ebp+00h], TriShadeVertsIfCw
         jmp short .27
 .22:
         mov edx, dword [esp]
         and edx, byte 78h
         cmp edx, byte 8
         jne short .23
-        mov dword [byte ebp+00h], sub_1136A4
+        mov dword [byte ebp+00h], TriTexVertsIfCw
         jmp short .27
 .23:
-        mov dword [byte ebp+00h], sub_1135DC
+        mov dword [byte ebp+00h], TriVertsIfCw
         jmp short .27
 .24:
         mov edx, dword [esp]
         and edx, byte 78h
         cmp edx, byte 10h
         jne short .25
-        mov dword [byte ebp+00h], sub_1137C0
+        mov dword [byte ebp+00h], TriShadeVertsIfCcw
         jmp short .27
 .25:
         mov edx, dword [esp]
         and edx, byte 78h
         cmp edx, byte 8
         jne short .26
-        mov dword [byte ebp+00h], sub_1136F8
+        mov dword [byte ebp+00h], TriTexVertsIfCcw
         jmp short .27
 .26:
-        mov dword [byte ebp+00h], sub_113630
+        mov dword [byte ebp+00h], TriVertsIfCcw
 .27:
         mov ecx, ebp
         xor edx, edx
@@ -2681,23 +2742,23 @@ sub_1143D4_1A6:
         add ecx, edx
         mov dword [byte ebp+024h], ecx
         add ebx, byte 10h
-        jmp near sub_1143D4.1
-sub_1143D4_39E:
+        jmp near DrawPrimList.1
+DrawPrimList_39E:
         mov edx, dword [byte esp+014h]
         lea ecx, [byte edx+034h]
         mov dword [byte esp+014h], ecx
         mov cl, byte [byte esp+01h]
         test cl, 1
         je short .30
-        mov dword [edx], sub_1134D8
+        mov dword [edx], PrimTriDebug
         jmp short .32
 .30:
         test cl, 2
         je short .31
-        mov dword [edx], sub_113514
+        mov dword [edx], PrimTriDebugCw
         jmp short .32
 .31:
-        mov dword [edx], sub_113568
+        mov dword [edx], PrimTriDebugCcw
 .32:
         mov ecx, dword [edi]
         mov esi, dword [byte esp+018h]
@@ -2715,23 +2776,23 @@ sub_1143D4_39E:
         add esi, ecx
         mov dword [byte edx+024h], esi
         add ebx, byte 10h
-        jmp near sub_1143D4.1
-sub_1143D4_401:
+        jmp near DrawPrimList.1
+DrawPrimList_401:
         mov ebp, dword [byte esp+014h]
         lea edx, [byte ebp+050h]
         mov dword [byte esp+014h], edx
         mov dl, byte [byte esp+01h]
         test dl, 1
         je short .33
-        mov dword [byte ebp+00h], sub_113AFC
+        mov dword [byte ebp+00h], PrimQuadDebug
         jmp short .35
 .33:
         test dl, 2
         je short .34
-        mov dword [byte ebp+00h], sub_113B38
+        mov dword [byte ebp+00h], PrimQuadDebugCw
         jmp short .35
 .34:
-        mov dword [byte ebp+00h], sub_113BB8
+        mov dword [byte ebp+00h], PrimQuadDebugCcw
 .35:
         mov ecx, ebp
         xor edx, edx
@@ -2764,8 +2825,8 @@ sub_1143D4_401:
         add ecx, edx
         mov dword [byte ebp+024h], ecx
         add ebx, byte 10h
-        jmp near sub_1143D4.1
-sub_1143D4_48F:
+        jmp near DrawPrimList.1
+DrawPrimList_48F:
         mov edx, dword [byte esp+014h]
         lea ebp, [byte edx+038h]
         mov cl, byte [byte esp+01h]
@@ -2776,10 +2837,10 @@ sub_1143D4_48F:
         and ecx, byte 78h
         cmp ecx, byte 10h
         jne short .37
-        mov dword [edx], sub_113D84
+        mov dword [edx], PrimQuadShade
         jmp short .42
 .37:
-        mov dword [edx], sub_113BB8_80
+        mov dword [edx], PrimQuadDebugCcw_80
         jmp short .42
 .38:
         test cl, 2
@@ -2788,20 +2849,20 @@ sub_1143D4_48F:
         and ecx, byte 78h
         cmp ecx, byte 10h
         jne short .39
-        mov dword [edx], sub_113DC4
+        mov dword [edx], PrimQuadShadeCw
         jmp short .42
 .39:
-        mov dword [edx], sub_113C78
+        mov dword [edx], PrimQuadFlat
         jmp short .42
 .40:
         mov ecx, dword [esp]
         and ecx, byte 78h
         cmp ecx, byte 10h
         jne short .41
-        mov dword [edx], sub_113E4C
+        mov dword [edx], PrimQuadShadeBlendCcw
         jmp short .42
 .41:
-        mov dword [edx], sub_113D00
+        mov dword [edx], PrimQuadLitCcw
 .42:
         mov ecx, dword [edi]
         mov esi, dword [byte esp+018h]
@@ -2824,8 +2885,8 @@ sub_1143D4_48F:
         add esi, ecx
         mov dword [byte edx+030h], esi
         add ebx, byte 10h
-        jmp near sub_1143D4.1
-sub_1143D4_53A:
+        jmp near DrawPrimList.1
+DrawPrimList_53A:
         mov ebp, dword [byte esp+014h]
         mov edx, dword [esp]
         mov ch, byte [byte esp+01h]
@@ -2836,46 +2897,46 @@ sub_1143D4_53A:
         je short .45
         cmp edx, byte 10h
         jne short .43
-        mov dword [byte ebp+00h], sub_11404C_6C
+        mov dword [byte ebp+00h], PrimQuadTexCcw_6C
         jmp near .51
 .43:
         cmp edx, byte 8
         jne short .44
-        mov dword [byte ebp+00h], sub_1141B0
+        mov dword [byte ebp+00h], PrimQuadTexClear
         jmp short .51
 .44:
-        mov dword [byte ebp+00h], sub_113ED4_EC
+        mov dword [byte ebp+00h], PrimQuadSplit_EC
         jmp short .51
 .45:
         test ch, 2
         je short .48
         cmp edx, byte 10h
         jne short .46
-        mov dword [byte ebp+00h], sub_1140D8
+        mov dword [byte ebp+00h], PrimQuadTexShadeCw
         jmp short .51
 .46:
         cmp edx, byte 8
         jne short .47
-        mov dword [byte ebp+00h], sub_1141D0
+        mov dword [byte ebp+00h], PrimQuadTexClearCw
         jmp short .51
 .47:
-        mov dword [byte ebp+00h], sub_113FE0
+        mov dword [byte ebp+00h], PrimQuadTexCw
         jmp short .51
 .48:
         cmp edx, byte 10h
         jne short .49
-        mov dword [byte ebp+00h], sub_114144
+        mov dword [byte ebp+00h], PrimQuadTexShadeCcw
         jmp short .51
 .49:
         cmp edx, byte 8
         jne short .50
-        mov dword [byte ebp+00h], sub_11423C
+        mov dword [byte ebp+00h], PrimQuadTexClearCcw
         jmp short .51
 .50:
-        mov dword [byte ebp+00h], sub_11404C
+        mov dword [byte ebp+00h], PrimQuadTexCcw
 .51:
         test byte [byte esp+01h], 10h
-        je near sub_1143D4_65B.57
+        je near DrawPrimList_65B.57
         mov ecx, ebp
         xor edx, edx
 .52:
@@ -2893,11 +2954,11 @@ sub_1143D4_53A:
         mov dword [byte ecx+030h], esi
         cmp edx, byte 10h
         jne short .52
-        jmp near sub_1143D4_65B.57
-sub_1143D4_607:
+        jmp near DrawPrimList_65B.57
+DrawPrimList_607:
         mov edx, dword [byte esp+014h]
         lea ecx, [byte edx+044h]
-        mov dword [edx], sub_113ED4
+        mov dword [edx], PrimQuadSplit
         mov dword [byte esp+014h], ecx
         mov ecx, dword [edi]
         mov esi, dword [byte esp+018h]
@@ -2920,23 +2981,23 @@ sub_1143D4_607:
         add esi, ecx
         mov dword [byte edx+030h], esi
         add ebx, byte 10h
-        jmp near sub_1143D4.1
-sub_1143D4_65B:
+        jmp near DrawPrimList.1
+DrawPrimList_65B:
         mov ebp, dword [byte esp+014h]
         lea edx, [byte ebp+068h]
         mov dword [byte esp+014h], edx
         mov dl, byte [byte esp+01h]
         test dl, 1
         je short .53
-        mov dword [byte ebp+00h], sub_1142A8
+        mov dword [byte ebp+00h], PrimQuadRandomFill
         jmp short .55
 .53:
         test dl, 2
         je short .54
-        mov dword [byte ebp+00h], sub_1142EC
+        mov dword [byte ebp+00h], PrimQuadRandomFillCw
         jmp short .55
 .54:
-        mov dword [byte ebp+00h], sub_114340
+        mov dword [byte ebp+00h], PrimQuadRandomFillCcw
 .55:
         test byte [byte esp+01h], 10h
         je short .57
@@ -2978,9 +3039,9 @@ sub_1143D4_65B:
         shl edx, 3
         add ecx, edx
         mov dword [byte ebp+030h], ecx
-sub_1143D4_6FD:
+DrawPrimList_6FD:
         add ebx, byte 10h
-        jmp near sub_1143D4.1
+        jmp near DrawPrimList.1
 .58:
         mov eax, dword [byte esp+014h]
         mov ebx, dword [byte esp+08h]
@@ -2998,9 +3059,10 @@ sub_1143D4_6FD:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_114AF8                                                          114AF8  
+; GetModelVertex                                 114AF8  97 PC, low confidence
+; Model library: copies one vertex of a model part
 ;-----------------------------------------------------------------------------
-sub_114AF8:
+GetModelVertex:
         push ecx
         push esi
         push edi
@@ -3059,22 +3121,23 @@ sub_114AF8:
         ret
         db 08Bh,0C0h
 jpt_114B90:
-        dd sub_114BC0_5F
-        dd sub_114BC0_DF
-        dd sub_114BC0_DF
-        dd sub_114BC0_DF
-        dd sub_114BC0_5F
-        dd sub_114BC0_DF
-        dd sub_114BC0_DF
-        dd sub_114BC0_6C
-        dd sub_114BC0_DF
-        dd sub_114BC0_DF
-        dd sub_114BC0_DF
-        dd sub_114BC0_D3
+        dd TransformModelParts_5F
+        dd TransformModelParts_DF
+        dd TransformModelParts_DF
+        dd TransformModelParts_DF
+        dd TransformModelParts_5F
+        dd TransformModelParts_DF
+        dd TransformModelParts_DF
+        dd TransformModelParts_6C
+        dd TransformModelParts_DF
+        dd TransformModelParts_DF
+        dd TransformModelParts_DF
+        dd TransformModelParts_D3
 ;-----------------------------------------------------------------------------
-; sub_114BC0                                                          114BC0  
+; TransformModelParts                            114BC0  97 PC, low confidence
+; Model library: transforms the vertices of every part of a model
 ;-----------------------------------------------------------------------------
-sub_114BC0:
+TransformModelParts:
         push ecx
         push esi
         push edi
@@ -3090,7 +3153,7 @@ sub_114BC0:
         mov eax, ebp
         dec ebp
         test eax, eax
-        jle near sub_114BC0_EA
+        jle near TransformModelParts_EA
         mov edi, esp
         mov esi, ecx
         movsd
@@ -3100,23 +3163,23 @@ sub_114BC0:
         mov esi, dword [byte esp+08h]
         shr eax, 18h
         cmp eax, esi
-        jne near sub_114BC0_DF
+        jne near TransformModelParts_DF
         mov eax, dword [byte esp+04h]
         and eax, 0FFh
         sub eax, byte 5
         cmp eax, byte 0Bh
-        ja near sub_114BC0_DF
+        ja near TransformModelParts_DF
         jmp dword [nosplit cs:eax*4+jpt_114B90]
-sub_114BC0_5F:
+TransformModelParts_5F:
         mov eax, dword [edx]
         mov dword [byte eax+040h], ebx
         add edx, byte 4
         add ecx, byte 10h
-        jmp short sub_114BC0.1
-sub_114BC0_6C:
+        jmp short TransformModelParts.1
+TransformModelParts_6C:
         mov eax, dword [edx]
         test byte [byte esp+01h], 10h
-        jne short sub_114BC0_D3.3
+        jne short TransformModelParts_D3.3
 .2:
         mov dword [byte eax+034h], 0
         mov dword [byte eax+038h], 0
@@ -3145,43 +3208,45 @@ sub_114BC0_6C:
         mov dword [byte eax+050h], esi
         add edx, byte 4
         add ecx, byte 10h
-        jmp near sub_114BC0.1
-sub_114BC0_D3:
+        jmp near TransformModelParts.1
+TransformModelParts_D3:
         mov eax, dword [edx]
         test byte [byte esp+01h], 10h
-        je short sub_114BC0_6C.2
+        je short TransformModelParts_6C.2
 .3:
         mov dword [byte eax+054h], ebx
-sub_114BC0_DF:
+TransformModelParts_DF:
         add edx, byte 4
         add ecx, byte 10h
-        jmp near sub_114BC0.1
-sub_114BC0_EA:
+        jmp near TransformModelParts.1
+TransformModelParts_EA:
         add esp, byte 0Ch
         pop ebp
         pop edi
-sub_114BC0_EF:
+TransformModelParts_EF:
         pop esi
         pop ecx
         ret
         db 08Bh,0C0h
 jpt_114CB4:
-        dd sub_114CE4_9F
-        dd sub_114CE4_DD
-        dd sub_114CE4_DD
-        dd sub_114CE4_DD
-        dd sub_114CE4_9F
-        dd sub_114CE4_DD
-        dd sub_114CE4_DD
-        dd sub_114CE4_BF
-        dd sub_114CE4_DD
-        dd sub_114CE4_DD
-        dd sub_114CE4_DD
-        dd sub_114CE4_BF
+        dd TransformModelPartsWith_9F
+        dd TransformModelPartsWith_DD
+        dd TransformModelPartsWith_DD
+        dd TransformModelPartsWith_DD
+        dd TransformModelPartsWith_9F
+        dd TransformModelPartsWith_DD
+        dd TransformModelPartsWith_DD
+        dd TransformModelPartsWith_BF
+        dd TransformModelPartsWith_DD
+        dd TransformModelPartsWith_DD
+        dd TransformModelPartsWith_DD
+        dd TransformModelPartsWith_BF
 ;-----------------------------------------------------------------------------
-; sub_114CE4                                                          114CE4  
+; TransformModelPartsWith                        114CE4  97 PC, low confidence
+; Model library: transforms the vertices of every part of a model by a given
+; matrix and offset
 ;-----------------------------------------------------------------------------
-sub_114CE4:
+TransformModelPartsWith:
         push esi
         push edi
         push ebp
@@ -3201,7 +3266,7 @@ sub_114CE4:
         lea edx, [byte eax-01h]
         mov dword [byte esp+0Ch], edx
         test eax, eax
-        jle near sub_114CE4_DD.5
+        jle near TransformModelPartsWith_DD.5
         mov edi, esp
         mov esi, ebx
         movsd
@@ -3211,9 +3276,9 @@ sub_114CE4:
         mov ecx, dword [byte esp+08h]
         shr eax, 18h
         cmp eax, ecx
-        jne near sub_114CE4_DD
+        jne near TransformModelPartsWith_DD
         test byte [byte ebx+01h], 10h
-        je near sub_114CE4_DD
+        je near TransformModelPartsWith_DD
         xor edx, edx
         xor eax, eax
         jmp short .3
@@ -3232,14 +3297,14 @@ sub_114CE4:
         mov edx, dword [ebx]
         and edx, byte 7
         cmp eax, edx
-        jae short sub_114CE4_DD
+        jae short TransformModelPartsWith_DD
         mov edx, dword [byte esp+04h]
         and edx, 0FFh
         sub edx, byte 5
         cmp edx, byte 0Bh
-        ja short sub_114CE4_DD
+        ja short TransformModelPartsWith_DD
         jmp dword [nosplit cs:edx*4+jpt_114CB4]
-sub_114CE4_9F:
+TransformModelPartsWith_9F:
         mov edx, dword [byte esp+010h]
         shl eax, 3
         mov edx, dword [edx]
@@ -3250,8 +3315,8 @@ sub_114CE4_9F:
         mov edx, dword [byte esp+014h]
         mov edx, dword [byte edx+04h]
         mov dword [byte eax+02Ch], edx
-        jmp short sub_114CE4_DD
-sub_114CE4_BF:
+        jmp short TransformModelPartsWith_DD
+TransformModelPartsWith_BF:
         mov edx, dword [byte esp+010h]
         shl eax, 3
         mov edx, dword [edx]
@@ -3262,12 +3327,12 @@ sub_114CE4_BF:
         mov edx, dword [byte esp+014h]
         mov edx, dword [byte edx+04h]
         mov dword [byte eax+038h], edx
-sub_114CE4_DD:
+TransformModelPartsWith_DD:
         mov edi, dword [byte esp+010h]
         add edi, byte 4
         add ebx, byte 10h
         mov dword [byte esp+010h], edi
-        jmp near sub_114CE4.1
+        jmp near TransformModelPartsWith.1
 .5:
         add esp, byte 18h
         pop ebp
@@ -3276,9 +3341,10 @@ sub_114CE4_DD:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_114DDC                                                          114DDC  
+; UpdateModelParts                               114DDC  97 PC, low confidence
+; Model library: runs the per-frame update of every part of a model
 ;-----------------------------------------------------------------------------
-sub_114DDC:
+UpdateModelParts:
         push ecx
         push esi
         push edi
@@ -3295,7 +3361,7 @@ sub_114DDC:
         mov edx, ebp
         dec ebp
         test edx, edx
-        jle near sub_114BC0_EA
+        jle near TransformModelParts_EA
         mov edi, esp
         mov esi, ebx
         movsd
@@ -3332,9 +3398,10 @@ sub_114DDC:
         add ebx, byte 10h
         jmp short .1
 ;-----------------------------------------------------------------------------
-; sub_114E54                                                          114E54  
+; CallModelPartFuncs                             114E54  97 PC, low confidence
+; Model library: calls the function of each listed model part
 ;-----------------------------------------------------------------------------
-sub_114E54:
+CallModelPartFuncs:
         push ecx
         push esi
         mov ecx, edx
@@ -3344,7 +3411,7 @@ sub_114E54:
         mov edx, ecx
         dec ecx
         test edx, edx
-        jle near sub_114BC0_EF
+        jle near TransformModelParts_EF
         mov edx, dword [ebx]
         mov edx, dword [esi+edx*4]
         mov eax, edx
@@ -3353,9 +3420,10 @@ sub_114E54:
         jmp short .1
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_114E7C                                                          114E7C  
+; CallAllPartFuncs                               114E7C  97 PC, low confidence
+; Model library: calls the function of every model part
 ;-----------------------------------------------------------------------------
-sub_114E7C:
+CallAllPartFuncs:
         push ebx
         push ecx
         push edx
@@ -3384,9 +3452,10 @@ sub_114E7C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_114EB8                                                          114EB8  
+; BuildFrameFromPoints                           114EB8  97 PC, low confidence
+; Model library: builds an orientation matrix from three points of a model
 ;-----------------------------------------------------------------------------
-sub_114EB8:
+BuildFrameFromPoints:
         push ecx
         push esi
         push edi
@@ -3407,7 +3476,7 @@ sub_114EB8:
         add eax, esi
         mov dword [byte esp+030h], ebx
         lea ebx, [byte esp+024h]
-        call sub_FF600
+        call VecSub
         cmp dword [ecx], byte 2
         jne short .1
         lea ebx, [byte esp+018h]
@@ -3415,16 +3484,16 @@ sub_114EB8:
         mov eax, dword [byte ecx+01Ch]
         add edx, esi
         add eax, esi
-        call sub_FF600
+        call VecSub
         lea edx, [byte esp+024h]
         lea eax, [byte esp+018h]
         mov ebx, ebp
-        call sub_FF8CC
+        call VecCrossUnit
         jmp short .2
 .1:
         lea eax, [byte esp+024h]
         mov edx, ebp
-        call sub_FF874
+        call VecNormalize
 .2:
         mov ebx, dword [ecx]
         test ebx, ebx
@@ -3432,7 +3501,7 @@ sub_114EB8:
         lea ebx, [byte esp+024h]
         mov edx, dword [byte esp+034h]
         mov eax, dword [byte esp+030h]
-        call sub_FF600
+        call VecSub
         jmp short .5
 .3:
         cmp ebx, byte 3
@@ -3442,15 +3511,15 @@ sub_114EB8:
         mov eax, dword [byte ecx+01Ch]
         add edx, esi
         add eax, esi
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+0Ch]
         mov edx, dword [byte esp+034h]
         mov ecx, eax
         mov eax, dword [byte esp+030h]
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+024h]
         mov edx, ecx
-        call sub_FF710
+        call VecCross
         jmp short .5
 .4:
         cmp ebx, byte 1
@@ -3460,25 +3529,25 @@ sub_114EB8:
         mov eax, dword [byte ecx+01Ch]
         add edx, esi
         add eax, esi
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+024h]
         mov edx, dword [byte esp+034h]
         mov ecx, eax
         mov eax, dword [byte esp+030h]
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+024h]
         mov edx, ecx
-        call sub_FF5E0
+        call VecAdd
 .5:
         lea ecx, [byte edi+0Ch]
         lea edx, [byte esp+024h]
         mov ebx, ecx
         mov eax, edi
-        call sub_FF8CC
+        call VecCrossUnit
         lea ebx, [byte edi+018h]
         mov edx, ecx
         mov eax, edi
-        call sub_FF710
+        call VecCross
         mov eax, 1
         add esp, byte 38h
         pop ebp
@@ -3488,9 +3557,10 @@ sub_114EB8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_114FD0                                                          114FD0  
+; TransformBoneVerts                             114FD0  97 PC, low confidence
+; Model library: transforms the vertices attached to a bone
 ;-----------------------------------------------------------------------------
-sub_114FD0:
+TransformBoneVerts:
         push esi
         push edi
         mov esi, eax
@@ -3514,16 +3584,17 @@ sub_114FD0:
         add ebx, eax
         mov eax, dword [byte ecx+08h]
         mov ecx, edx
-        call sub_FF48C
+        call TransformVecs
         mov eax, 1
         pop edi
         pop esi
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_115020                                                          115020  
+; SkinModelVerts                                 115020  97 PC, low confidence
+; Model library: moves the vertices attached to each anchor point with it
 ;-----------------------------------------------------------------------------
-sub_115020:
+SkinModelVerts:
         push ecx
         push esi
         push edi
@@ -3581,7 +3652,7 @@ sub_115020:
         fstp dword [byte esp+08h]
         mov eax, dword [byte eax+024h]
         add esi, byte 28h
-        call sub_FF690
+        call AddVecs
         mov ebx, dword [byte esp+018h]
         mov eax, dword [byte esp+020h]
         mov edx, ebp
@@ -3590,7 +3661,7 @@ sub_115020:
         mov dword [byte esp+018h], ecx
         mov ecx, ebp
         mov dword [byte esp+020h], esi
-        call sub_FF48C
+        call TransformVecs
         jmp near .1
 .2:
         mov eax, dword [byte esp+0Ch]
@@ -3604,9 +3675,11 @@ sub_115020:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1150FC                                                          1150FC  
+; AttachModelFrame                               1150FC  97 PC, low confidence
+; Model library: sets a model's frame from its anchor points; returns 0 when
+; it has none
 ;-----------------------------------------------------------------------------
-sub_1150FC:
+AttachModelFrame:
         push ebx
         push ecx
         push esi
@@ -3630,10 +3703,10 @@ sub_1150FC:
         mov ebx, esp
         mov edx, ebp
         mov eax, ecx
-        call sub_114EB8
+        call BuildFrameFromPoints
         mov eax, esp
         mov edx, edi
-        call sub_FF320
+        call MatTranspose
         add ecx, byte 28h
         add edi, byte 24h
         jmp short .2
@@ -3642,7 +3715,7 @@ sub_1150FC:
         mov eax, dword [byte eax+064h]
 .4:
         add esp, byte 28h
-sub_1150FC_4C:
+AttachModelFrame_4C:
         pop ebp
         pop edi
         pop esi
@@ -3651,30 +3724,32 @@ sub_1150FC_4C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_115150                                                          115150  
+; AttachModel                                    115150  97 PC, low confidence
+; Model library: attaches a model to its anchor points and moves its vertices
 ;-----------------------------------------------------------------------------
-sub_115150:
+AttachModel:
         push ebx
         push ecx
         push esi
         mov ecx, eax
         mov esi, edx
-        call sub_1150FC
+        call AttachModelFrame
         test eax, eax
         je short .1
         mov edx, esi
         mov eax, ecx
         mov ebx, dword [byte ecx+018h]
-        call sub_115020
+        call SkinModelVerts
 .1:
         pop esi
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_115170                                                          115170  
+; UpdateModelFrame                               115170  97 PC, low confidence
+; Model library: rebuilds the frames of a model's anchor points
 ;-----------------------------------------------------------------------------
-sub_115170:
+UpdateModelFrame:
         push ebx
         push ecx
         push esi
@@ -3684,25 +3759,26 @@ sub_115170:
         mov esi, dword [eax]
         mov ecx, dword [byte esi+064h]
         test ecx, ecx
-        je short sub_1150FC_4C
+        je short AttachModelFrame_4C
         mov edi, dword [dword eax+08Ch]
         mov esi, dword [byte esi+068h]
 .1:
         dec ecx
         cmp ecx, byte 0FFFFFFFFh
-        je short sub_1150FC_4C
+        je short AttachModelFrame_4C
         mov ebx, edi
         mov eax, esi
         mov edx, ebp
-        call sub_114EB8
+        call BuildFrameFromPoints
         add edi, byte 24h
         add esi, byte 28h
         jmp short .1
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1151A4                                                          1151A4  
+; SkinModel                                      1151A4  97 PC, low confidence
+; Model library: moves the vertices of a model with its anchor points
 ;-----------------------------------------------------------------------------
-sub_1151A4:
+SkinModel:
         push ebx
         push ecx
         push esi
@@ -3735,7 +3811,7 @@ sub_1151A4:
         mov eax, dword [byte esi+024h]
         mov dword [byte esp+0Ch], ecx
         mov ecx, edi
-        call sub_FF48C
+        call TransformVecs
         mov ebx, dword [esp]
         mov ecx, edi
         mov eax, dword [byte esi+04h]
@@ -3743,7 +3819,7 @@ sub_1151A4:
         add ebx, eax
         mov eax, dword [byte esi+024h]
         add esi, byte 28h
-        call sub_FF690
+        call AddVecs
         jmp short .1
 .2:
         add esp, byte 10h
@@ -3755,9 +3831,10 @@ sub_1151A4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_115220                                                          115220  
+; ScaleModelVerts                                115220  97 PC, low confidence
+; Model library: converts a model's fixed-point vertices to floats
 ;-----------------------------------------------------------------------------
-sub_115220:
+ScaleModelVerts:
         push ebx
         push ecx
         push edx
@@ -3800,9 +3877,10 @@ sub_115220:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_115288                                                          115288  
+; FixupModelOffsets                              115288  97 PC, low confidence
+; Model library: turns the offsets of a loaded model file into pointers
 ;-----------------------------------------------------------------------------
-sub_115288:
+FixupModelOffsets:
         push edx
         mov edx, dword [byte eax+08h]
         add edx, eax
@@ -3821,9 +3899,11 @@ sub_115288:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1152B0                                                          1152B0  
+; LoadModelFile                                  1152B0  97 PC, low confidence
+; Model library: builds the path of a model file (".4db"), loads it and fixes
+; its offsets
 ;-----------------------------------------------------------------------------
-sub_1152B0:
+LoadModelFile:
         push ebx
         push ecx
         sub esp, byte 50h
@@ -3851,7 +3931,7 @@ sub_1152B0:
         cmp edx, eax
         jb short .1
 .4:
-        mov edx, asc_167ED8
+        mov edx, str_4db
         mov eax, esp
         call strcat_
         push ecx
@@ -3862,7 +3942,7 @@ sub_1152B0:
         mov edx, eax
         test eax, eax
         je short .5
-        call sub_115288
+        call FixupModelOffsets
 .5:
         mov eax, edx
         add esp, byte 50h
@@ -3870,9 +3950,11 @@ sub_1152B0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_115318                                                          115318  
+; FindModelPart                                  115318  97 PC, low confidence
+; Model library: returns the index of a model part by its 8-character name,
+; -1 if none
 ;-----------------------------------------------------------------------------
-sub_115318:
+FindModelPart:
         push ebx
         push ecx
         push esi
@@ -3950,9 +4032,11 @@ sub_115318:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1153AC                                                          1153AC  
+; ResetMorphVerts                                1153AC  97 PC, low confidence
+; Model library: copies a model's base vertices back before the morph targets
+; are added
 ;-----------------------------------------------------------------------------
-sub_1153AC:
+ResetMorphVerts:
         push ebx
         push esi
         mov ecx, dword [byte esp+0Ch]
@@ -3973,9 +4057,11 @@ sub_1153AC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1153DC                                                          1153DC  
+; ApplyMorphTarget                               1153DC  97 PC, low confidence
+; Model library: adds a weighted morph target (face expression) to a model's
+; vertices
 ;-----------------------------------------------------------------------------
-sub_1153DC:
+ApplyMorphTarget:
         push ebx
         push esi
         push edi
@@ -4021,7 +4107,7 @@ sub_1153DC:
         mov edx, ecx
         mov ebx, eax
         add edi, byte 4
-        call sub_FF5E0
+        call VecAdd
         add ecx, byte 0Ch
         jmp short .1
 .2:
@@ -4037,11 +4123,11 @@ sub_1153DC:
         push dword [byte esp+030h]
         mov eax, ecx
         mov ebx, ebp
-        call sub_FF7F4
+        call VecScale
         mov edx, eax
         mov eax, ebp
         add ecx, byte 0Ch
-        call sub_FF5E0
+        call VecAdd
         jmp short .2
 .3:
         add esp, byte 10h
@@ -4117,7 +4203,7 @@ sub_1153DC:
         add ebx, eax
         add eax, edi
         add esi, byte 0Ch
-        call sub_FF5E0
+        call VecAdd
         jmp short .6
 .7:
         dec ebp
@@ -4132,13 +4218,13 @@ sub_1153DC:
         push dword [byte esp+034h]
         mov eax, esi
         add ecx, byte 4
-        call sub_FF7F4
+        call VecScale
         add ebx, edi
         add edi, edx
         mov edx, eax
         mov eax, edi
         add esi, byte 0Ch
-        call sub_FF5E0
+        call VecAdd
         jmp short .7
 .8:
         add esp, byte 14h
@@ -4149,9 +4235,10 @@ sub_1153DC:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1155B0                                                          1155B0  
+; PlotPixelRGB                                   1155B0  97 PC, low confidence
+; Graphics library: plots a pixel of an RGB colour, clipped to the window
 ;-----------------------------------------------------------------------------
-sub_1155B0:
+PlotPixelRGB:
         push ebx
         push esi
         push edi
@@ -4342,7 +4429,7 @@ sub_1155B0:
         push eax
         push edi
         push esi
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .12:
         add esp, byte 1Ch
@@ -4353,9 +4440,10 @@ sub_1155B0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_115810                                                          115810  
+; PlotPixelRGBAt                                 115810  97 PC, low confidence
+; Graphics library: (x, y, colour) entry of PlotPixelRGB
 ;-----------------------------------------------------------------------------
-sub_115810:
+PlotPixelRGBAt:
         push ebx
         mov edx, dword [byte esp+010h]
         push edx
@@ -4363,15 +4451,16 @@ sub_115810:
         push ebx
         mov ecx, dword [byte esp+010h]
         push ecx
-        call sub_1155B0
+        call PlotPixelRGB
         add esp, byte 0Ch
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_115830                                                          115830  
+; CreateBitmapForArt                             115830  97 PC, low confidence
+; Graphics library: creates a bitmap the size and depth of an art
 ;-----------------------------------------------------------------------------
-sub_115830:
+CreateBitmapForArt:
         push ebx
         push esi
         mov esi, dword [byte esp+0Ch]
@@ -4388,7 +4477,7 @@ sub_115830:
         push ebx
         sar edx, 10h
         push edx
-        call sub_117338
+        call CreateBitmapDefault
         add esp, byte 10h
         push byte 38h
         push eax
@@ -4431,9 +4520,10 @@ strupr_:
         ret
         db 00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1158A0                                                          1158A0  
+; FixedSinCos                                    1158A0  97 PC, low confidence
+; Graphics library: sine and cosine of a fixed-point angle from the table
 ;-----------------------------------------------------------------------------
-sub_1158A0:
+FixedSinCos:
         push ebx
         sub esp, byte 8
         mov eax, esp
@@ -4469,7 +4559,7 @@ sub_1158A0:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-sub_1158A0_70:
+FixedSinCos_70:
         push ecx
         push esi
         push edi
@@ -4531,9 +4621,11 @@ sub_1158A0_70:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11599C                                                          11599C  
+; BlitRowRemap8                                  11599C  97 PC, low confidence
+; Graphics library: copies a row of 8-bit pixels through the remap table,
+; skipping transparent ones
 ;-----------------------------------------------------------------------------
-sub_11599C:
+BlitRowRemap8:
         push ecx
 .1:
         xor ecx, ecx
@@ -4551,9 +4643,10 @@ sub_11599C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1159B8                                                          1159B8  
+; BlitRowKey16                                   1159B8  97 PC, low confidence
+; Graphics library: copies a row of 16-bit pixels, skipping transparent ones
 ;-----------------------------------------------------------------------------
-sub_1159B8:
+BlitRowKey16:
         push ecx
 .1:
         mov cx, word [eax]
@@ -4569,9 +4662,10 @@ sub_1159B8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1159D0                                                          1159D0  
+; BlitRowKey24                                   1159D0  97 PC, low confidence
+; Graphics library: copies a row of 24-bit pixels, skipping transparent ones
 ;-----------------------------------------------------------------------------
-sub_1159D0:
+BlitRowKey24:
         push ecx
         push esi
         push edi
@@ -4603,9 +4697,10 @@ sub_1159D0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_115A10                                                          115A10  
+; BlitRowKey32                                   115A10  97 PC, low confidence
+; Graphics library: copies a row of 32-bit pixels, skipping transparent ones
 ;-----------------------------------------------------------------------------
-sub_115A10:
+BlitRowKey32:
         push ecx
         push esi
 .1:
@@ -4624,7 +4719,7 @@ sub_115A10:
         pop ecx
         ret
         db 090h
-sub_115A10_1C:
+BlitRowKey32_1C:
         push ecx
 .3:
         xor ecx, ecx
@@ -4644,9 +4739,11 @@ sub_115A10_1C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_115A58                                                          115A58  
+; BlitShapeKeyed                                 115A58  97 PC, low confidence
+; Graphics library: draws a shape with transparency, row by row, for its
+; pixel depth
 ;-----------------------------------------------------------------------------
-sub_115A58:
+BlitShapeKeyed:
         push ebx
         push esi
         push edi
@@ -4679,7 +4776,7 @@ sub_115A58:
         call sub_1025DC
         mov edx, word_1D91FC
         call sub_125DDE
-        mov dword [dword_1706F8], sub_115A10_1C
+        mov dword [dword_1706F8], BlitRowKey32_1C
 .3:
         mov ecx, off_1706E0
         mov ebx, dword [dword esp+041Ch]
@@ -4701,7 +4798,7 @@ sub_115A58:
         sar eax, 10h
         push eax
         push edx
-        call sub_115A58
+        call BlitShapeKeyed
         add esp, byte 0Ch
         ret
         push ebx
@@ -4717,7 +4814,7 @@ sub_115A58:
         sub ebx, eax
         push ebx
         push edx
-        call sub_115A58
+        call BlitShapeKeyed
         add esp, byte 0Ch
         pop ebx
         ret
@@ -4729,7 +4826,7 @@ sub_115A58:
         push ebx
         mov ecx, dword [byte esp+010h]
         push ecx
-        call sub_115A58
+        call BlitShapeKeyed
         add esp, byte 0Ch
         pop ebx
         ret
@@ -4742,13 +4839,14 @@ sub_115A58:
         sar eax, 10h
         push eax
         push edx
-        call sub_115A58
+        call BlitShapeKeyed
         add esp, byte 0Ch
         ret
 ;-----------------------------------------------------------------------------
-; sub_115B78                                                          115B78  
+; BlitShapeAt                                    115B78  97 PC, low confidence
+; Graphics library: draws a shape with transparency at x, y less its hot spot
 ;-----------------------------------------------------------------------------
-sub_115B78:
+BlitShapeAt:
         push ebx
         mov edx, dword [byte esp+08h]
         mov eax, dword [byte edx+08h]
@@ -4762,15 +4860,16 @@ sub_115B78:
         sub ebx, eax
         push ebx
         push edx
-        call sub_115A58
+        call BlitShapeKeyed
         add esp, byte 0Ch
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_115BB0                                                          115BB0  
+; SaveDrawContext                                115BB0  97 PC, low confidence
+; Graphics library: saves the draw target and clip window
 ;-----------------------------------------------------------------------------
-sub_115BB0:
+SaveDrawContext:
         push esi
         push edi
         mov eax, dword [byte esp+0Ch]
@@ -4787,9 +4886,10 @@ sub_115BB0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_115BD8                                                          115BD8  
+; RestoreDrawContext                             115BD8  97 PC, low confidence
+; Graphics library: restores the saved draw target and clip window
 ;-----------------------------------------------------------------------------
-sub_115BD8:
+RestoreDrawContext:
         push esi
         push edi
         mov esi, dword [byte esp+0Ch]
@@ -5220,9 +5320,10 @@ strnicmp_:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_115F98                                                          115F98  
+; SetBitReader                                   115F98  97 PC, low confidence
+; Bit reader: sets the buffer and bit position to read from
 ;-----------------------------------------------------------------------------
-sub_115F98:
+SetBitReader:
         mov dword [dword_1D9404], edx
         mov dword [dword_1D940C], eax
         ret
@@ -5297,9 +5398,10 @@ sub_115F98:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_116050                                                          116050  
+; ReadBits                                       116050  97 PC, low confidence
+; Bit reader: reads the given number of bits
 ;-----------------------------------------------------------------------------
-sub_116050:
+ReadBits:
         push ebx
         push ecx
         push edx
@@ -5660,11 +5762,12 @@ start_74:
         sub ebp, ebp
         call __CMain
 start_28F:
-        jmp short sub_1163E1_23
+        jmp short WriteConsoleMessage_23
 ;-----------------------------------------------------------------------------
-; sub_1163E1                                                          1163E1  
+; WriteConsoleMessage                            1163E1  97 PC, low confidence
+; Writes a message to the console through DOS before exit
 ;-----------------------------------------------------------------------------
-sub_1163E1:
+WriteConsoleMessage:
         push edx
         push eax
         db 0BAh                                 ; insn: mov edx,1061C4h
@@ -5685,7 +5788,7 @@ sub_1163E1:
         mov ah, 40h
         int 21h
         pop eax
-sub_1163E1_23:
+WriteConsoleMessage_23:
         push eax
         mov eax, 0
         mov edx, 0FFh
@@ -5694,7 +5797,11 @@ sub_1163E1_23:
         mov ah, 4Ch
         int 21h
         lea eax, [byte eax+00h]
-sub_11641C:
+;-----------------------------------------------------------------------------
+; RestoreDS                                      11641C  97 PC, low confidence
+; Loads the saved data segment (for interrupt handlers)
+;-----------------------------------------------------------------------------
+RestoreDS:
         db 066h,02Eh,08Eh,01Dh                  ; insn: o16 mov ds,[cs:106425h]
         dd __saved_DS
         ret
@@ -5703,9 +5810,10 @@ __saved_DS:
 unk_116427:
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_116428                                                          116428  
+; InstallKeyboardHandler                         116428  97 PC, low confidence
+; Keyboard: hooks the keyboard interrupt and clears the key table
 ;-----------------------------------------------------------------------------
-sub_116428:
+InstallKeyboardHandler:
         push ebx
         cmp word [word_1707F6], byte 0
         jne near .1
@@ -5734,12 +5842,12 @@ sub_116428:
         mov dx, cs
         mov ebx, 9
         db 0B8h                                 ; insn: mov eax,106559h
-        dd sub_116559
+        dd KeyboardISR
         call sub_12FFF0
         mov dx, cs
         mov ebx, 16h
         db 0B8h                                 ; insn: mov eax,1066F0h
-        dd sub_1166F0
+        dd Int16Handler
         mov dx, cs
         mov ebx, 23h
         db 0B8h                                 ; insn: mov eax,1066EFh
@@ -5748,19 +5856,20 @@ sub_116428:
         pop eax
         out 21h, al
         db 0BBh                                 ; insn: mov ebx,10673Ah
-        dd sub_11673A
+        dd Int16Service
         mov dword [dword_17070C], ebx
         db 068h                                 ; insn: push 1064E8h
-        dd sub_1164E8
+        dd RemoveKeyboardHandler
         call sub_101220
         add esp, byte 4
 .1:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1164E8                                                          1164E8  
+; RemoveKeyboardHandler                          1164E8  97 PC, low confidence
+; Keyboard: restores the original keyboard interrupt
 ;-----------------------------------------------------------------------------
-sub_1164E8:
+RemoveKeyboardHandler:
         push ebx
         cmp word [word_1707F6], byte 0
         je short .1
@@ -5785,16 +5894,18 @@ sub_1164E8:
         pop eax
         out 21h, al
         db 0BBh                                 ; insn: mov ebx,1067BDh
-        dd sub_1167BD
+        dd BiosKeyCall
         mov dword [dword_17070C], ebx
         popa
 .1:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_116559                                                          116559  
+; KeyboardISR                                    116559  97 PC, low confidence
+; Keyboard: interrupt handler, reads the scan code and updates the key table
+; and buffer
 ;-----------------------------------------------------------------------------
-sub_116559:
+KeyboardISR:
         push eax
         push ebx
         push ds
@@ -5929,9 +6040,11 @@ sub_116559:
 unk_1166EF:
         db 0CFh
 ;-----------------------------------------------------------------------------
-; sub_1166F0                                                          1166F0  
+; Int16Handler                                   1166F0  97 PC, low confidence
+; Keyboard: BIOS keyboard service replacement that reads from the game's key
+; buffer
 ;-----------------------------------------------------------------------------
-sub_1166F0:
+Int16Handler:
         push ebx
         push ecx
         push edx
@@ -5945,9 +6058,9 @@ sub_1166F0:
         LD mov, ebp, esp
         sub esp, byte 8
         cld
-        call sub_11641C
+        call RestoreDS
         sti
-        call sub_11673A
+        call Int16Service
         pushf
         pop ebx
         and ebx, 4000h
@@ -5979,9 +6092,10 @@ sub_1166F0:
         pop ebx
         iret
 ;-----------------------------------------------------------------------------
-; sub_11673A                                                          11673A  
+; Int16Service                                   11673A  97 PC, low confidence
+; Keyboard: handles the BIOS keyboard read and status calls
 ;-----------------------------------------------------------------------------
-sub_11673A:
+Int16Service:
         cmp ah, 0
         je short .3
         cmp ah, 10h
@@ -6023,9 +6137,10 @@ sub_11673A:
         LD or, eax, eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_1167AE                                                          1167AE  
+; IsKeyDown                                      1167AE  97 PC, low confidence
+; Keyboard: returns whether the key of a scan code is held
 ;-----------------------------------------------------------------------------
-sub_1167AE:
+IsKeyDown:
         push ebp
         LD mov, ebp, esp
         mov edx, dword [byte ebp+08h]
@@ -6033,9 +6148,10 @@ sub_1167AE:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_1167BD                                                          1167BD  
+; BiosKeyCall                                    1167BD  97 PC, low confidence
+; Keyboard: calls the BIOS keyboard service
 ;-----------------------------------------------------------------------------
-sub_1167BD:
+BiosKeyCall:
         push ebx
         push esi
         push edi
@@ -6047,23 +6163,25 @@ sub_1167BD:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1167CC                                                          1167CC  
+; AssertFail                                     1167CC  97 PC, low confidence
+; Stops the program with the "FILE %s LINE %d." message after restoring the
+; screen
 ;-----------------------------------------------------------------------------
-sub_1167CC:
-        call sub_11641C
+AssertFail:
+        call RestoreDS
         pop eax
         mov eax, dword [dword_1709D8]
         cmp eax, byte 0
         je short .1
         mov dword [esp], eax
 .1:
-        call sub_119F20
+        call ExitGraphics
         call sub_13005A
         cmp dword [dword_1709ED], byte 0
         je short .2
         push dword [dword_1709F1]
         push dword [dword_1709ED]
-        push asc_1709DC
+        push str_FILESLINED
         call sub_13005A
         add esp, byte 0Ch
 .2:
@@ -6077,15 +6195,17 @@ sub_1167CC:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_116820                                                          116820  
+; AssertFailEntry                                116820  97 PC, low confidence
+; Jumps to AssertFail
 ;-----------------------------------------------------------------------------
-sub_116820:
-        jmp near sub_1167CC
+AssertFailEntry:
+        jmp near AssertFail
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_116830                                                          116830  
+; PlotPixel                                      116830  97 PC, low confidence
+; Graphics library: plots a pixel, clipped to the window
 ;-----------------------------------------------------------------------------
-sub_116830:
+PlotPixel:
         push ebx
         push esi
         push edi
@@ -6239,9 +6359,10 @@ sub_116830:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1169D4                                                          1169D4  
+; PlotPixelAt                                    1169D4  97 PC, low confidence
+; Graphics library: (x, y, colour) entry of PlotPixel
 ;-----------------------------------------------------------------------------
-sub_1169D4:
+PlotPixelAt:
         push ebx
         mov edx, dword [byte esp+010h]
         push edx
@@ -6249,15 +6370,16 @@ sub_1169D4:
         push ebx
         mov ecx, dword [byte esp+010h]
         push ecx
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
         pop ebx
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1169F0                                                          1169F0  
+; PrintBoxedText                                 1169F0  97 PC, low confidence
+; Formats text like printf and draws it on a box at x, y
 ;-----------------------------------------------------------------------------
-sub_1169F0:
+PrintBoxedText:
         push ebx
         sub esp, 104h
         lea eax, [dword esp+0118h]
@@ -6272,7 +6394,7 @@ sub_1169F0:
         push ebx
         lea eax, [byte esp+08h]
         push eax
-        call sub_FE3AC
+        call DrawTextBoxedAt
         add esp, byte 0Ch
         xor ecx, ecx
         mov dword [dword esp+0100h], ecx
@@ -6298,9 +6420,10 @@ memset_:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_116A70                                                          116A70  
+; BuildDecodeTable                               116A70  97 PC, low confidence
+; Video player: builds the decoding table of the video stream
 ;-----------------------------------------------------------------------------
-sub_116A70:
+BuildDecodeTable:
         push esi
         push edi
         push ebp
@@ -6605,9 +6728,10 @@ sub_116A70:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_116D38                                                          116D38  
+; InitVideoDecoder                               116D38  97 PC, low confidence
+; Video player: sets up the decoder tables for a video stream
 ;-----------------------------------------------------------------------------
-sub_116D38:
+InitVideoDecoder:
         push ebx
         push esi
         push edi
@@ -6632,7 +6756,7 @@ sub_116D38:
         mov ecx, edx
         mov ebx, edx
         add edi, byte 4
-        call sub_116A70
+        call BuildDecodeTable
         mov ecx, dword [esp]
         mov dword [dword edi+dword_1D990C], eax
         mov ah, byte [byte esp+08h]
@@ -6672,7 +6796,7 @@ sub_116D38:
         mov ebx, edi
         mov eax, esi
         add ebp, byte 4
-        call sub_116A70
+        call BuildDecodeTable
         mov dl, byte [byte esp+0Ch]
         mov ecx, dword [esp]
         mov dword [dword ebp+dword_1D940C], eax
@@ -6710,7 +6834,7 @@ sub_116D38:
         push eax
         mov edx, edi
         mov eax, esi
-        call sub_116A70
+        call BuildDecodeTable
         add byte [byte esp+04h], 2
         mov edx, dword [esp]
         add ebp, byte 4
@@ -6727,9 +6851,10 @@ sub_116D38:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_116E84                                                          116E84  
+; BuildVideoGammaTable                           116E84  97 PC, low confidence
+; Video player: builds the brightness table of the video palette
 ;-----------------------------------------------------------------------------
-sub_116E84:
+BuildVideoGammaTable:
         push ebx
         push esi
         push edi
@@ -6814,9 +6939,10 @@ sub_116E84:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_116F78                                                          116F78  
+; DecodeVideoChunk                               116F78  97 PC, low confidence
+; Video player: decodes a chunk of the video stream
 ;-----------------------------------------------------------------------------
-sub_116F78:
+DecodeVideoChunk:
         push ebx
         push esi
         push edi
@@ -6983,9 +7109,11 @@ sub_116F78:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_117140                                                          117140  
+; CreateBitmapEx                                 117140  97 PC, low confidence
+; Graphics library: creates a bitmap of a width, height and depth
+; ("%dx%dx%d")
 ;-----------------------------------------------------------------------------
-sub_117140:
+CreateBitmapEx:
         push ebx
         push esi
         push edi
@@ -7046,7 +7174,7 @@ sub_117140:
         mov eax, dword [byte esp+034h]
         push eax
         push edi
-        push asc_167EE8
+        push str_DxDxD
         lea eax, [byte esp+010h]
         push eax
         call sprintf_
@@ -7147,7 +7275,7 @@ sub_117140:
         push ecx
         mov esi, dword [byte esp+01Ch]
         push esi
-        call sub_117140
+        call CreateBitmapEx
         add esp, byte 14h
         pop esi
         pop ebx
@@ -7164,7 +7292,7 @@ sub_117140:
         push ecx
         mov esi, dword [byte esp+01Ch]
         push esi
-        call sub_117140
+        call CreateBitmapEx
         add esp, byte 14h
         pop esi
         pop ebx
@@ -7183,7 +7311,7 @@ sub_117140:
         push esi
         mov edi, dword [byte esp+020h]
         push edi
-        call sub_117140
+        call CreateBitmapEx
         add esp, byte 14h
         test eax, eax
         je short .10
@@ -7195,9 +7323,10 @@ sub_117140:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_117338                                                          117338  
+; CreateBitmapDefault                            117338  97 PC, low confidence
+; Graphics library: creates a bitmap in the screen's depth
 ;-----------------------------------------------------------------------------
-sub_117338:
+CreateBitmapDefault:
         push ebx
         push esi
         push byte 1
@@ -7209,7 +7338,7 @@ sub_117338:
         push ecx
         mov esi, dword [byte esp+01Ch]
         push esi
-        call sub_117140
+        call CreateBitmapEx
         add esp, byte 14h
         mov eax, dword [eax]
         pop esi
@@ -7227,7 +7356,7 @@ sub_117338:
         push ecx
         mov esi, dword [byte esp+01Ch]
         push esi
-        call sub_117140
+        call CreateBitmapEx
         add esp, byte 14h
         test eax, eax
         je short .1
@@ -7238,9 +7367,10 @@ sub_117338:
         ret
         db 00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_117390                                                          117390  
+; UpdateFrameRate                                117390  97 PC, low confidence
+; Counts frames and works out the frame rate ("framerate - TIMERHZ NOT SET")
 ;-----------------------------------------------------------------------------
-sub_117390:
+UpdateFrameRate:
         push ebx
         push esi
         push edi
@@ -7255,12 +7385,12 @@ sub_117390:
         sub ebp, ecx
         test eax, eax
         jne short .1
-        mov edx, asc_167EF4
+        mov edx, str_CmnFrateC
         mov ecx, 62h
-        push asc_167F00
+        push str_FramerateTIMERHZNOTSET
         mov dword [dword_1709ED], edx
         mov dword [dword_1709F1], ecx
-        call sub_116820
+        call AssertFailEntry
         add esp, byte 4
 .1:
         mov esi, dword [dword_170B08]
@@ -7342,7 +7472,7 @@ sub_117390:
         mov eax, esi
         sar eax, 10h
         push eax
-        push asc_167F20
+        push str_Rate2dDAvg2dDD
         mov eax, dword [byte esp+030h]
         push eax
         mov edx, dword [byte esp+030h]
@@ -7375,7 +7505,7 @@ sub_117390:
 .11:
         push byte 0
         push byte 0
-        call sub_117390
+        call UpdateFrameRate
         add esp, byte 10h
         ret
         db 08Bh,0C0h
@@ -7383,25 +7513,26 @@ sub_117390:
         push sub_1013FC
         push byte 0
         push byte 0
-        call sub_117390
+        call UpdateFrameRate
         add esp, byte 10h
         ret
         push ebx
         push byte 0
         db 068h                                 ; insn: push 1069F0h
-        dd sub_1169F0
+        dd PrintBoxedText
         mov edx, dword [dword_16E480]
         push edx
         mov ebx, dword [dword_16E47C]
         push ebx
-        call sub_117390
+        call UpdateFrameRate
         add esp, byte 10h
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11756C                                                          11756C  
+; ResetFrameRate                                 11756C  97 PC, low confidence
+; Clears the frame rate counters
 ;-----------------------------------------------------------------------------
-sub_11756C:
+ResetFrameRate:
         xor edx, edx
         mov dword [dword_170AFC], edx
         mov dword [dword_170B00], edx
@@ -7413,9 +7544,10 @@ sub_11756C:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_117598                                                          117598  
+; ReadVideoCodes                                 117598  97 PC, low confidence
+; Video player: reads the block codes of a frame
 ;-----------------------------------------------------------------------------
-sub_117598:
+ReadVideoCodes:
         mov eax, dword [dword_19C694]
         mov esi, dword [dword_19C690]
         shl eax, 18h
@@ -7442,19 +7574,19 @@ sub_117598:
         mov bl, byte [dword edi+byte_19C6E4]
         and eax, byte 7
         jmp dword [nosplit eax*4+off_19C6C4]
-sub_117598_5B:
+ReadVideoCodes_5B:
         mov eax, dword [nosplit ebx*4+dword_1D9810]
         mov dword [nosplit ebx*4+dword_1D9B30], eax
-        jmp short sub_117598_8A.2
-sub_117598_6B:
+        jmp short ReadVideoCodes_8A.2
+ReadVideoCodes_6B:
         mov eax, dword [nosplit ebx*4+dword_1D9810]
         neg eax
         mov dword [nosplit ebx*4+dword_1D9B30], eax
-        jmp short sub_117598_8A.2
-sub_117598_7D:
+        jmp short ReadVideoCodes_8A.2
+ReadVideoCodes_7D:
         mov dword [nosplit ebx*4+dword_1D9B30], 0
-        jmp short sub_117598_8A.2
-sub_117598_8A:
+        jmp short ReadVideoCodes_8A.2
+ReadVideoCodes_8A:
         mov dword [nosplit ebx*4+dword_1D9B30], 0
         mov bl, byte [dword edi+off_19C6E3]
         dec edi
@@ -7472,16 +7604,16 @@ sub_117598_8A:
         LD or, ebp, eax
 .3:
         dec edi
-        jg short sub_117598.1
+        jg short ReadVideoCodes.1
         mov dword [dword_19C690], esi
         mov dword [dword_19C694], ebp
         mov dword [dword_19C698], ecx
         ret
-sub_117598_D4:
+ReadVideoCodes_D4:
         mov dword [nosplit ebx*4+dword_1D9B30], 0
         mov bl, byte [dword edi+off_19C6E3]
         dec edi
-sub_117598_E6:
+ReadVideoCodes_E6:
         LD mov, eax, ebp
         LD xor, edx, edx
         and eax, 0FFh
@@ -7495,8 +7627,8 @@ sub_117598_E6:
         dec eax
         jne short .4
         inc edi
-        jmp short sub_117598_115.6
-sub_117598_115:
+        jmp short ReadVideoCodes_115.6
+ReadVideoCodes_115:
         LD mov, eax, ebp
         and eax, 0FCh
         cmp eax, 0FCh
@@ -7535,15 +7667,16 @@ sub_117598_115:
         add ecx, byte 8
         LD or, ebp, eax
         dec edi
-        jg near sub_117598.1
+        jg near ReadVideoCodes.1
         mov dword [dword_19C690], esi
         mov dword [dword_19C694], ebp
         mov dword [dword_19C698], ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_117733                                                          117733  
+; VideoBlockFill                                 117733  97 PC, low confidence
+; Video player: fills a block with one colour
 ;-----------------------------------------------------------------------------
-sub_117733:
+VideoBlockFill:
         mov ebx, dword [byte esi+014h]
         mov eax, dword [byte esi+0Ch]
         mov ecx, dword [byte esi+04h]
@@ -7644,9 +7777,10 @@ sub_117733:
         mov dword [dword edi+0FCh], eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_117896                                                          117896  
+; VideoBlockDelta                                117896  97 PC, low confidence
+; Video player: draws a block as a change from the last frame
 ;-----------------------------------------------------------------------------
-sub_117896:
+VideoBlockDelta:
         mov ebx, dword [byte esi+014h]
         mov eax, dword [byte esi+0Ch]
         mov ecx, dword [byte esi+04h]
@@ -7723,9 +7857,10 @@ sub_117896:
         mov dword [byte edi+01Ch], edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1179A0                                                          1179A0  
+; VideoBlockPattern                              1179A0  97 PC, low confidence
+; Video player: draws a block from a two-colour pattern
 ;-----------------------------------------------------------------------------
-sub_1179A0:
+VideoBlockPattern:
         mov eax, dword [esi]
         mov edx, dword [byte esi+04h]
         shr eax, 11h
@@ -7904,9 +8039,10 @@ sub_1179A0:
         mov dword [byte edi+03Ch], edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_117C26                                                          117C26  
+; DecodeVideoFrame                               117C26  97 PC, low confidence
+; Video player: decodes one frame block by block
 ;-----------------------------------------------------------------------------
-sub_117C26:
+DecodeVideoFrame:
         push ebx
         push ecx
         push edx
@@ -7920,364 +8056,364 @@ sub_117C26:
         mov dword [dword_19C690], esi
         mov dword [dword_19C694], eax
         mov dword [dword_19C698], 8
-        call sub_117598
+        call ReadVideoCodes
         mov esi, dword_1D9B30
         mov dword [dword_19C69C], unk_1D9C30
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B50
         mov dword [dword_19C69C], unk_1D9C34
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B70
         mov dword [dword_19C69C], unk_1D9C38
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B90
         mov dword [dword_19C69C], unk_1D9C3C
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BB0
         mov dword [dword_19C69C], unk_1D9C40
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BD0
         mov dword [dword_19C69C], unk_1D9C44
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BF0
         mov dword [dword_19C69C], unk_1D9C48
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9C10
         mov dword [dword_19C69C], unk_1D9C4C
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9C30
         mov dword [dword_19C69C], unk_1D9D50
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C54
         mov dword [dword_19C69C], unk_1D9D90
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C78
         mov dword [dword_19C69C], unk_1D9DD0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C9C
         mov dword [dword_19C69C], unk_1D9E10
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9CC0
         mov dword [dword_19C69C], unk_1D9E50
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9CE4
         mov dword [dword_19C69C], unk_1D9E90
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9D08
         mov dword [dword_19C69C], unk_1D9ED0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9D2C
         mov dword [dword_19C69C], unk_1D9F10
-        call sub_117896
-        call sub_117598
+        call VideoBlockDelta
+        call ReadVideoCodes
         mov esi, dword_1D9B30
         mov dword [dword_19C69C], unk_1D9C30
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B50
         mov dword [dword_19C69C], unk_1D9C34
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B70
         mov dword [dword_19C69C], unk_1D9C38
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B90
         mov dword [dword_19C69C], unk_1D9C3C
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BB0
         mov dword [dword_19C69C], unk_1D9C40
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BD0
         mov dword [dword_19C69C], unk_1D9C44
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BF0
         mov dword [dword_19C69C], unk_1D9C48
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9C10
         mov dword [dword_19C69C], unk_1D9C4C
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9C30
         mov dword [dword_19C69C], unk_1D9D70
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C54
         mov dword [dword_19C69C], unk_1D9DB0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C78
         mov dword [dword_19C69C], unk_1D9DF0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C9C
         mov dword [dword_19C69C], unk_1D9E30
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9CC0
         mov dword [dword_19C69C], unk_1D9E70
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9CE4
         mov dword [dword_19C69C], unk_1D9EB0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9D08
         mov dword [dword_19C69C], unk_1D9EF0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9D2C
         mov dword [dword_19C69C], unk_1D9F30
-        call sub_117896
-        call sub_117598
+        call VideoBlockDelta
+        call ReadVideoCodes
         mov esi, dword_1D9B30
         mov dword [dword_19C69C], unk_1D9C30
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B50
         mov dword [dword_19C69C], unk_1D9C34
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B70
         mov dword [dword_19C69C], unk_1D9C38
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B90
         mov dword [dword_19C69C], unk_1D9C3C
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BB0
         mov dword [dword_19C69C], unk_1D9C40
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BD0
         mov dword [dword_19C69C], unk_1D9C44
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BF0
         mov dword [dword_19C69C], unk_1D9C48
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9C10
         mov dword [dword_19C69C], unk_1D9C4C
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9C30
         mov dword [dword_19C69C], unk_1D9F50
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C54
         mov dword [dword_19C69C], unk_1D9F90
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C78
         mov dword [dword_19C69C], unk_1D9FD0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C9C
         mov dword [dword_19C69C], unk_1DA010
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9CC0
         mov dword [dword_19C69C], unk_1DA050
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9CE4
         mov dword [dword_19C69C], unk_1DA090
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9D08
         mov dword [dword_19C69C], unk_1DA0D0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9D2C
         mov dword [dword_19C69C], unk_1DA110
-        call sub_117896
-        call sub_117598
+        call VideoBlockDelta
+        call ReadVideoCodes
         mov esi, dword_1D9B30
         mov dword [dword_19C69C], unk_1D9C30
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B50
         mov dword [dword_19C69C], unk_1D9C34
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B70
         mov dword [dword_19C69C], unk_1D9C38
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B90
         mov dword [dword_19C69C], unk_1D9C3C
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BB0
         mov dword [dword_19C69C], unk_1D9C40
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BD0
         mov dword [dword_19C69C], unk_1D9C44
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BF0
         mov dword [dword_19C69C], unk_1D9C48
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9C10
         mov dword [dword_19C69C], unk_1D9C4C
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9C30
         mov dword [dword_19C69C], unk_1D9F70
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C54
         mov dword [dword_19C69C], unk_1D9FB0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C78
         mov dword [dword_19C69C], unk_1D9FF0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C9C
         mov dword [dword_19C69C], unk_1DA030
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9CC0
         mov dword [dword_19C69C], unk_1DA070
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9CE4
         mov dword [dword_19C69C], unk_1DA0B0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9D08
         mov dword [dword_19C69C], unk_1DA0F0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9D2C
         mov dword [dword_19C69C], unk_1DA130
-        call sub_117896
-        call sub_117598
+        call VideoBlockDelta
+        call ReadVideoCodes
         mov esi, dword_1D9B30
         mov dword [dword_19C69C], unk_1D9C30
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B50
         mov dword [dword_19C69C], unk_1D9C34
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B70
         mov dword [dword_19C69C], unk_1D9C38
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B90
         mov dword [dword_19C69C], unk_1D9C3C
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BB0
         mov dword [dword_19C69C], unk_1D9C40
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BD0
         mov dword [dword_19C69C], unk_1D9C44
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BF0
         mov dword [dword_19C69C], unk_1D9C48
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9C10
         mov dword [dword_19C69C], unk_1D9C4C
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9C30
         mov dword [dword_19C69C], unk_1DA150
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C54
         mov dword [dword_19C69C], unk_1DA170
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C78
         mov dword [dword_19C69C], unk_1DA190
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C9C
         mov dword [dword_19C69C], unk_1DA1B0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9CC0
         mov dword [dword_19C69C], unk_1DA1D0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9CE4
         mov dword [dword_19C69C], unk_1DA1F0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9D08
         mov dword [dword_19C69C], unk_1DA210
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9D2C
         mov dword [dword_19C69C], unk_1DA230
-        call sub_117896
-        call sub_117598
+        call VideoBlockDelta
+        call ReadVideoCodes
         mov esi, dword_1D9B30
         mov dword [dword_19C69C], unk_1D9C30
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B50
         mov dword [dword_19C69C], unk_1D9C34
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B70
         mov dword [dword_19C69C], unk_1D9C38
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9B90
         mov dword [dword_19C69C], unk_1D9C3C
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BB0
         mov dword [dword_19C69C], unk_1D9C40
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BD0
         mov dword [dword_19C69C], unk_1D9C44
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9BF0
         mov dword [dword_19C69C], unk_1D9C48
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9C10
         mov dword [dword_19C69C], unk_1D9C4C
-        call sub_117733
+        call VideoBlockFill
         mov esi, unk_1D9C30
         mov dword [dword_19C69C], unk_1DA250
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C54
         mov dword [dword_19C69C], unk_1DA270
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C78
         mov dword [dword_19C69C], unk_1DA290
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9C9C
         mov dword [dword_19C69C], unk_1DA2B0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9CC0
         mov dword [dword_19C69C], unk_1DA2D0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9CE4
         mov dword [dword_19C69C], unk_1DA2F0
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9D08
         mov dword [dword_19C69C], unk_1DA310
-        call sub_117896
+        call VideoBlockDelta
         mov esi, unk_1D9D2C
         mov dword [dword_19C69C], unk_1DA330
-        call sub_117896
+        call VideoBlockDelta
         mov edi, dword [byte esp+020h]
         mov esi, unk_1D9D50
         mov ebx, unk_1DA150
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1D9D90
         mov ebx, unk_1DA150
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1D9DD0
         mov ebx, unk_1DA170
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1D9E10
         mov ebx, unk_1DA170
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1D9E50
         mov ebx, unk_1DA190
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1D9E90
         mov ebx, unk_1DA190
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1D9ED0
         mov ebx, unk_1DA1B0
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1D9F10
         mov ebx, unk_1DA1B0
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1D9F50
         mov ebx, unk_1DA1D0
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1D9F90
         mov ebx, unk_1DA1D0
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1D9FD0
         mov ebx, unk_1DA1F0
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1DA010
         mov ebx, unk_1DA1F0
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1DA050
         mov ebx, unk_1DA210
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1DA090
         mov ebx, unk_1DA210
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1DA0D0
         mov ebx, unk_1DA230
-        call sub_1179A0
+        call VideoBlockPattern
         add edi, dword [byte esp+024h]
         mov esi, unk_1DA110
         mov ebx, unk_1DA230
-        call sub_1179A0
+        call VideoBlockPattern
         pop ebp
         pop edi
         pop esi
@@ -8287,9 +8423,10 @@ sub_117C26:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_118520                                                          118520  
+; BuildHuffTable                                 118520  97 PC, low confidence
+; TGV video: builds a Huffman decoding table
 ;-----------------------------------------------------------------------------
-sub_118520:
+BuildHuffTable:
         push esi
         push edi
         push ebp
@@ -8349,9 +8486,10 @@ sub_118520:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1185B0                                                          1185B0  
+; DecodeHuffRuns                                 1185B0  97 PC, low confidence
+; TGV video: decodes Huffman coded runs
 ;-----------------------------------------------------------------------------
-sub_1185B0:
+DecodeHuffRuns:
         push ebx
         push esi
         push edi
@@ -8455,9 +8593,10 @@ sub_1185B0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1186C0                                                          1186C0  
+; DecodeTgvFrame                                 1186C0  97 PC, low confidence
+; TGV video: decodes a delta frame ("TGV")
 ;-----------------------------------------------------------------------------
-sub_1186C0:
+DecodeTgvFrame:
         push ebx
         push esi
         push edi
@@ -8540,7 +8679,7 @@ sub_1186C0:
         push ecx
         add eax, ebp
         push eax
-        push asc_167F40
+        push str_TGV
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte esi+03Ch], eax
@@ -8572,7 +8711,7 @@ sub_1186C0:
         lea ebx, [nosplit edi*2+00h]
         mov dword [byte esp+04h], eax
         mov eax, dword [byte esi+03Ch]
-        call sub_118520
+        call BuildHuffTable
         mov edx, dword [byte esp+0Ch]
         mov eax, dword [byte esi+034h]
         shl edx, 2
@@ -8628,7 +8767,7 @@ sub_1186C0:
         push eax
         mov ecx, dword [byte esp+024h]
         push ecx
-        call sub_1185B0
+        call DecodeHuffRuns
         add esp, byte 0Ch
         add dword [byte esp+01Ch], ebx
 .8:
@@ -8686,9 +8825,10 @@ sub_1186C0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_118954                                                          118954  
+; DecodeTgvKeyFrame                              118954  97 PC, low confidence
+; TGV video: decodes a key frame ("TGV")
 ;-----------------------------------------------------------------------------
-sub_118954:
+DecodeTgvKeyFrame:
         push ebx
         push esi
         push edi
@@ -8812,13 +8952,13 @@ sub_118954:
         push eax
         add ebx, byte 10h
         push ebx
-        push asc_167F40
+        push str_TGV
         call AllocMemBlock
         add esp, byte 0Ch
         mov edx, dword [dword_16E4C8]
         push edx
         push ebx
-        push asc_167F40
+        push str_TGV
         mov dword [byte esi+028h], eax
         call AllocMemBlock
         mov ebx, dword [dword_16E4C8]
@@ -8828,7 +8968,7 @@ sub_118954:
         push ebx
         shl eax, 3
         push eax
-        push asc_167F40
+        push str_TGV
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte esi+034h], eax
@@ -8842,7 +8982,7 @@ sub_118954:
         push ecx
         shl eax, 2
         push eax
-        push asc_167F40
+        push str_TGV
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte esi+030h], eax
@@ -8944,7 +9084,7 @@ sub_118954:
         mov edx, dword [dword_16E4C8]
         push edx
         push dword 344h
-        push asc_167F40
+        push str_TGV
         call AllocMemBlock
         add esp, byte 0Ch
         mov ecx, eax
@@ -8958,9 +9098,10 @@ sub_118954:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_118C88                                                          118C88  
+; DecodeTgvChunk                                 118C88  97 PC, low confidence
+; TGV video: decodes a chunk by its tag (key frame or delta frame)
 ;-----------------------------------------------------------------------------
-sub_118C88:
+DecodeTgvChunk:
         push ebx
         mov ebx, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
@@ -8990,12 +9131,12 @@ sub_118C88:
 .2:
         push edx
         push ebx
-        call sub_118954
+        call DecodeTgvKeyFrame
         jmp short .4
 .3:
         push edx
         push ebx
-        call sub_1186C0
+        call DecodeTgvFrame
 .4:
         add esp, byte 8
 .5:
@@ -9053,9 +9194,10 @@ sub_118C88:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_118D54                                                          118D54  
+; SerialConfigure                                118D54  97 PC, low confidence
+; Serial port: sets the port's address, interrupt and buffers
 ;-----------------------------------------------------------------------------
-sub_118D54:
+SerialConfigure:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -9147,9 +9289,10 @@ sub_118D54:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_118E3F                                                          118E3F  
+; SerialOpen                                     118E3F  97 PC, low confidence
+; Serial port: installs the port's interrupt handler and enables it
 ;-----------------------------------------------------------------------------
-sub_118E3F:
+SerialOpen:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFFCh
@@ -9170,7 +9313,7 @@ sub_118E3F:
         mov al, byte [ebx]
         push eax
         push dword [byte ebp+08h]
-        call sub_118D54
+        call SerialConfigure
         add esp, byte 14h
         mov ebx, dword [byte ebp-04h]
         lea eax, [byte ebx+04Ch]
@@ -9223,7 +9366,7 @@ sub_118E3F:
         out 21h, al
         popf
         db 068h                                 ; insn: push 108F67h
-        dd sub_118F67
+        dd SerialCloseAll
         call sub_101220
         add esp, byte 4
 .1:
@@ -9232,9 +9375,10 @@ sub_118E3F:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_118F1C                                                          118F1C  
+; SerialClose                                    118F1C  97 PC, low confidence
+; Serial port: disables the port and restores its interrupt
 ;-----------------------------------------------------------------------------
-sub_118F1C:
+SerialClose:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -9262,21 +9406,23 @@ sub_118F1C:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_118F67                                                          118F67  
+; SerialCloseAll                                 118F67  97 PC, low confidence
+; Serial port: closes both ports
 ;-----------------------------------------------------------------------------
-sub_118F67:
+SerialCloseAll:
         pusha
         push byte 0
-        call sub_118F1C
+        call SerialClose
         push byte 1
-        call sub_118F1C
+        call SerialClose
         add esp, byte 8
         popa
         ret
 ;-----------------------------------------------------------------------------
-; sub_118F7B                                                          118F7B  
+; SerialIsOpen                                   118F7B  97 PC, low confidence
+; Serial port: returns whether the port is open
 ;-----------------------------------------------------------------------------
-sub_118F7B:
+SerialIsOpen:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -9289,9 +9435,10 @@ sub_118F7B:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_118F91                                                          118F91  
+; SerialSetBaud                                  118F91  97 PC, low confidence
+; Serial port: sets the baud rate
 ;-----------------------------------------------------------------------------
-sub_118F91:
+SerialSetBaud:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -9309,9 +9456,10 @@ sub_118F91:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_118FB7                                                          118FB7  
+; SerialProgramUart                              118FB7  97 PC, low confidence
+; Serial port: programs the UART's divisor and line settings
 ;-----------------------------------------------------------------------------
-sub_118FB7:
+SerialProgramUart:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFF8h
@@ -9379,9 +9527,10 @@ sub_118FB7:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_119054                                                          119054  
+; SerialRaiseDtr                                 119054  97 PC, low confidence
+; Serial port: raises DTR
 ;-----------------------------------------------------------------------------
-sub_119054:
+SerialRaiseDtr:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -9409,9 +9558,10 @@ sub_119054:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_11908E                                                          11908E  
+; SerialCarrier                                  11908E  97 PC, low confidence
+; Serial port: returns the carrier detect bit
 ;-----------------------------------------------------------------------------
-sub_11908E:
+SerialCarrier:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -9441,7 +9591,7 @@ sub_11908E:
         mov eax, 200h
         sub eax, dword [byte ebx+028h]
         cmp eax, dword [byte ebp+0Ch]
-        jge short sub_11910D_6
+        jge short SerialWrite_6
         push esi
         call TicksSince
         add esp, byte 4
@@ -9454,9 +9604,10 @@ sub_11908E:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_1190E8                                                          1190E8  
+; SerialWriteIfRoom                              1190E8  97 PC, low confidence
+; Serial port: writes the bytes when the send buffer has room
 ;-----------------------------------------------------------------------------
-sub_1190E8:
+SerialWriteIfRoom:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -9467,30 +9618,31 @@ sub_1190E8:
         mov eax, 200h
         sub eax, dword [byte ebx+028h]
         cmp eax, dword [byte ebp+0Ch]
-        jge short sub_11910D_6
+        jge short SerialWrite_6
         LD xor, ax, ax
-sub_1190E8_20:
+SerialWriteIfRoom_20:
         pop edi
         pop esi
         pop ebx
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_11910D                                                          11910D  
+; SerialWrite                                    11910D  97 PC, low confidence
+; Serial port: puts bytes in the send buffer and starts sending
 ;-----------------------------------------------------------------------------
-sub_11910D:
+SerialWrite:
         push ebp
         LD mov, ebp, esp
         push ebx
         push esi
         push edi
-sub_11910D_6:
+SerialWrite_6:
         mov eax, dword [byte ebp+08h]
         mov ebx, dword [nosplit eax*4+off_170B14]
         pushf
         mov ecx, dword [byte ebp+0Ch]
         LD or, ecx, ecx
-        jle short sub_1190E8_20
+        jle short SerialWriteIfRoom_20
         mov esi, dword [byte ebp+010h]
         mov edi, dword [byte ebx+024h]
         mov edx, dword [byte ebx+01Ch]
@@ -9556,9 +9708,10 @@ sub_11910D_6:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_1191A4                                                          1191A4  
+; SerialRxCount                                  1191A4  97 PC, low confidence
+; Serial port: number of bytes received and not read
 ;-----------------------------------------------------------------------------
-sub_1191A4:
+SerialRxCount:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -9569,9 +9722,10 @@ sub_1191A4:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_1191B8                                                          1191B8  
+; SerialTxFree                                   1191B8  97 PC, low confidence
+; Serial port: free room in the send buffer
 ;-----------------------------------------------------------------------------
-sub_1191B8:
+SerialTxFree:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -9583,9 +9737,10 @@ sub_1191B8:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_1191D1                                                          1191D1  
+; SerialFlushTx                                  1191D1  97 PC, low confidence
+; Serial port: empties the send buffer
 ;-----------------------------------------------------------------------------
-sub_1191D1:
+SerialFlushTx:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -9601,9 +9756,10 @@ sub_1191D1:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_1191F2                                                          1191F2  
+; SerialWaitTxEmpty                              1191F2  97 PC, low confidence
+; Serial port: waits until the send buffer is empty or the time runs out
 ;-----------------------------------------------------------------------------
-sub_1191F2:
+SerialWaitTxEmpty:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFFCh
@@ -9629,7 +9785,7 @@ sub_1191F2:
         mov ecx, dword [byte ebx+03Ch]
         mov dword [byte ebp+0Ch], ecx
 .2:
-        jmp short sub_119255_46
+        jmp short SerialRead_46
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFFCh
@@ -9640,7 +9796,7 @@ sub_1191F2:
         mov ebx, dword [nosplit eax*4+off_170B14]
         mov ecx, dword [byte ebp+0Ch]
         cmp ecx, dword [byte ebx+03Ch]
-        jle short sub_119255_46
+        jle short SerialRead_46
         LD xor, eax, eax
         pop esi
         pop ebx
@@ -9648,9 +9804,10 @@ sub_1191F2:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_119255                                                          119255  
+; SerialRead                                     119255  97 PC, low confidence
+; Serial port: reads received bytes
 ;-----------------------------------------------------------------------------
-sub_119255:
+SerialRead:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFFCh
@@ -9670,9 +9827,9 @@ sub_119255:
         ret
 .1:
         cmp ecx, dword [byte ebp+0Ch]
-        jle short sub_119255_46
+        jle short SerialRead_46
         mov ecx, dword [byte ebp+0Ch]
-        jmp short sub_119255_46
+        jmp short SerialRead_46
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFFCh
@@ -9685,7 +9842,7 @@ sub_119255:
 .2:
         cmp ecx, dword [byte ebx+03Ch]
         jg short .2
-sub_119255_46:
+SerialRead_46:
         cld
         mov dword [byte ebp+0Ch], ecx
         LD or, ecx, ecx
@@ -9764,9 +9921,10 @@ sub_119255_46:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_119328                                                          119328  
+; SerialFlushRx                                  119328  97 PC, low confidence
+; Serial port: empties the receive buffer
 ;-----------------------------------------------------------------------------
-sub_119328:
+SerialFlushRx:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -9782,21 +9940,22 @@ sub_119328:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_119349                                                          119349  
+; SerialISR                                      119349  97 PC, low confidence
+; Serial port: interrupt handler entries of the ports
 ;-----------------------------------------------------------------------------
-sub_119349:
+SerialISR:
         push ebx
         lea ebx, [unk_170B26]
-        jmp short sub_119349_1B.1
-sub_119349_9:
+        jmp short SerialISR_1B.1
+SerialISR_9:
         push ebx
         lea ebx, [unk_170F72]
-        jmp short sub_119349_1B.1
-sub_119349_12:
+        jmp short SerialISR_1B.1
+SerialISR_12:
         push ebx
         lea ebx, [unk_1713BE]
-        jmp short sub_119349_1B.1
-sub_119349_1B:
+        jmp short SerialISR_1B.1
+SerialISR_1B:
         push ebx
         lea ebx, [unk_17180A]
 .1:
@@ -9816,7 +9975,7 @@ sub_119349_1B:
         LD xor, eax, eax
         in al, dx
         test al, 1
-        je short sub_119349_85.2
+        je short SerialISR_85.2
         jmp short unk_1193EA_10
         db 01Fh,05Fh,05Eh,05Ah,059h,058h,03Bh,01Dh
         dd off_170B14
@@ -9833,7 +9992,7 @@ sub_119349_1B:
         db 00h,00h,05Bh,0EAh
         dd unk_171814 wrt ..gotoff
         db 00h,00h
-sub_119349_85:
+SerialISR_85:
         mov dx, word [byte ebx+08h]
         or dx, byte 2
         LD xor, eax, eax
@@ -9875,7 +10034,7 @@ unk_1193EA_10:
         je short .3
         jmp short .12
 .3:
-        jmp short sub_119349_85
+        jmp short SerialISR_85
 .4:
         test al, 1
         je short .5
@@ -9903,12 +10062,12 @@ unk_1193EA_10:
         mov esi, dword [byte ebx+018h]
 .7:
         mov dword [byte ebx+020h], esi
-        jmp near sub_119349_85
+        jmp near SerialISR_85
 .8:
         cmp ecx, byte 0FFFFFFFFh
         jne short .9
         mov dword [byte ebx+028h], ecx
-        jmp near sub_119349_85
+        jmp near SerialISR_85
 .9:
         and dx, byte 0FFF8h
         or dx, byte 4
@@ -9918,7 +10077,7 @@ unk_1193EA_10:
 .10:
         out dx, al
 .11:
-        jmp near sub_119349_85
+        jmp near SerialISR_85
 .12:
         and dx, byte 0FFF8h
         or dx, byte 5
@@ -9957,7 +10116,7 @@ unk_1193EA_10:
         jle short .16
         add dword [byte ebx+040h], 10000h
 .16:
-        jmp near sub_119349_85
+        jmp near SerialISR_85
 ;-----------------------------------------------------------------------------
 ; atoi_                                                        1194D5  library
 ;-----------------------------------------------------------------------------
@@ -10015,9 +10174,10 @@ atoi_:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_119550                                                          119550  
+; LoadNamedResource                              119550  97 PC, low confidence
+; Loads a named resource from the data folder
 ;-----------------------------------------------------------------------------
-sub_119550:
+LoadNamedResource:
         push ebx
         push esi
         push edi
@@ -10184,7 +10344,7 @@ sub_119550:
         push ecx
         mov esi, dword [byte esp+01Ch]
         push esi
-        call sub_119550
+        call LoadNamedResource
         add esp, byte 14h
         pop esi
         pop ebx
@@ -10201,16 +10361,17 @@ sub_119550:
         push ecx
         mov esi, dword [byte esp+01Ch]
         push esi
-        call sub_119550
+        call LoadNamedResource
         add esp, byte 14h
         pop esi
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_119730                                                          119730  
+; LoadNamedResourceEx                            119730  97 PC, low confidence
+; Calls LoadNamedResource with its options
 ;-----------------------------------------------------------------------------
-sub_119730:
+LoadNamedResourceEx:
         push ebx
         push esi
         push edi
@@ -10225,7 +10386,7 @@ sub_119730:
         mov esi, dword [byte esp+024h]
         push esi
         push edi
-        call sub_119550
+        call LoadNamedResource
         xor esi, esi
         add esp, byte 14h
         mov ebp, eax
@@ -10253,9 +10414,10 @@ sub_119730:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_119780                                                          119780  
+; LoadNameFile                                   119780  97 PC, low confidence
+; Loads a list of names (logo names) from the data folder
 ;-----------------------------------------------------------------------------
-sub_119780:
+LoadNameFile:
         push ebx
         push esi
         push byte 1
@@ -10267,7 +10429,7 @@ sub_119780:
         push ecx
         mov esi, dword [byte esp+01Ch]
         push esi
-        call sub_119730
+        call LoadNamedResourceEx
         add esp, byte 14h
         pop esi
         pop ebx
@@ -10284,7 +10446,7 @@ sub_119780:
         push ecx
         mov esi, dword [byte esp+01Ch]
         push esi
-        call sub_119730
+        call LoadNamedResourceEx
         add esp, byte 14h
         pop esi
         pop ebx
@@ -10318,9 +10480,10 @@ _exit_:
         jmp near start_28F
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_119800                                                          119800  
+; GrabLargestBlock                               119800  97 PC, low confidence
+; Allocates the largest block the memory manager gives, trying smaller sizes
 ;-----------------------------------------------------------------------------
-sub_119800:
+GrabLargestBlock:
         push ebx
         mov edx, dword [byte esp+08h]
         test edx, edx
@@ -10355,9 +10518,10 @@ sub_119800:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_119850                                                          119850  
+; InitMemoryPool                                 119850  97 PC, low confidence
+; Sets up the game's memory pool from DOS extender memory
 ;-----------------------------------------------------------------------------
-sub_119850:
+InitMemoryPool:
         push ebx
         push esi
         push edi
@@ -10379,7 +10543,7 @@ sub_119850:
         je short .4
         lea ebx, [edx+esi]
         push ebx
-        call sub_119800
+        call GrabLargestBlock
         sub eax, esi
         add esp, byte 4
         cmp eax, 4000h
@@ -10388,7 +10552,7 @@ sub_119850:
         jmp short .2
 .1:
         push ebx
-        call sub_119800
+        call GrabLargestBlock
         add esp, byte 4
         sub eax, esi
 .2:
@@ -10402,7 +10566,7 @@ sub_119850:
         jmp short .7
 .4:
         push ebp
-        call sub_119800
+        call GrabLargestBlock
         sub eax, esi
         add esp, byte 4
         cmp eax, 4000h
@@ -10411,7 +10575,7 @@ sub_119850:
         jmp short .6
 .5:
         push ebp
-        call sub_119800
+        call GrabLargestBlock
         add esp, byte 4
         sub eax, esi
 .6:
@@ -10443,7 +10607,7 @@ sub_119850:
         add eax, edi
         push eax
         push byte 0
-        push asc_167F44
+        push str_MBRAM2
         call sub_FA5B8
         mov edi, dword [dword_16E32C]
         mov edx, dword [dword_16E330]
@@ -10537,7 +10701,7 @@ sub_119850:
         jge short .14
         mov ecx, dword [byte esp+05Ch]
         push ecx
-        call sub_119800
+        call GrabLargestBlock
         and al, 0F0h
         add esp, byte 4
         mov edx, eax
@@ -10553,7 +10717,7 @@ sub_119850:
         push byte 0
         inc ebp
         mov dword [dword ebx+dword_1DA350], eax
-        push asc_167F44
+        push str_MBRAM2
         add ebx, byte 4
         mov dword [byte esp+050h], ecx
         call sub_FA734
@@ -10597,7 +10761,7 @@ sub_119850:
         push esi
         push eax
         push byte 0
-        push asc_167F44
+        push str_MBRAM2
         mov dword [nosplit ebp*4+dword_1DA350], eax
         call sub_FA734
         add esp, byte 10h
@@ -10616,7 +10780,7 @@ sub_119850:
         push eax
         push dword 200h
         push byte 0
-        push asc_167F4C
+        push str_MBDOS
         add edi, ecx
         call sub_FA6A0
         add esp, byte 24h
@@ -10648,23 +10812,25 @@ sub_119850:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_119BC8                                                          119BC8  
+; InitMemoryPoolDefault                          119BC8  97 PC, low confidence
+; Sets up the memory pool with the default size
 ;-----------------------------------------------------------------------------
-sub_119BC8:
+InitMemoryPoolDefault:
         push byte 0
         push byte 0
         push byte 0
         push dword 0F42400h
         mov edx, dword [byte esp+014h]
         push edx
-        call sub_119850
+        call InitMemoryPool
         add esp, byte 14h
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_119BE4                                                          119BE4  
+; InitMemoryPoolArgs                             119BE4  97 PC, low confidence
+; Sets up the memory pool with the given sizes
 ;-----------------------------------------------------------------------------
-sub_119BE4:
+InitMemoryPoolArgs:
         push ebx
         push byte 0
         mov edx, dword [byte esp+014h]
@@ -10674,7 +10840,7 @@ sub_119BE4:
         push ebx
         mov ecx, dword [byte esp+018h]
         push ecx
-        call sub_119850
+        call InitMemoryPool
         add esp, byte 14h
         pop ebx
         ret
@@ -10688,7 +10854,7 @@ sub_119BE4:
         push byte 0
         mov ecx, dword [byte esp+018h]
         push ecx
-        call sub_119850
+        call InitMemoryPool
         add esp, byte 14h
         pop ebx
         ret
@@ -11010,9 +11176,10 @@ close_:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_119F20                                                          119F20  
+; ExitGraphics                                   119F20  97 PC, low confidence
+; Restores text mode and frees the screen
 ;-----------------------------------------------------------------------------
-sub_119F20:
+ExitGraphics:
         push ebx
         push ecx
         push edx
@@ -11034,24 +11201,25 @@ sub_119F20:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_119F54                                                          119F54  
+; FindDos4gw                                     119F54  97 PC, low confidence
+; Looks for DOS4GW.EXE on the PATH
 ;-----------------------------------------------------------------------------
-sub_119F54:
+FindDos4gw:
         push ebx
         push esi
         sub esp, 100h
         mov ebx, esp
         xor ah, ah
-        mov edx, asc_167F54
+        mov edx, str_PATH
         mov byte [esp], ah
-        mov eax, asc_167F5C
+        mov eax, str_DOS4GWEXE
         call _searchenv_
         mov dl, byte [esp]
         xor esi, esi
         test dl, dl
         jne short .1
-        push asc_167F5C
-        push asc_167F68
+        push str_DOS4GWEXE
+        push str_CS3
         lea eax, [byte esp+08h]
         push eax
         call sprintf_
@@ -11077,19 +11245,20 @@ sub_119F54:
         ret
         db 08Bh,0C0h
         push byte 0
-        call sub_119F54
+        call FindDos4gw
         add esp, byte 4
         ret
         db 090h
         push byte 1
-        call sub_119F54
+        call FindDos4gw
         add esp, byte 4
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_119FDC                                                          119FDC  
+; InitPlatform                                   119FDC  97 PC, low confidence
+; Start-up: DOS extender check, memory pool, timer, screen
 ;-----------------------------------------------------------------------------
-sub_119FDC:
+InitPlatform:
         push ebx
         push esi
         push edi
@@ -11097,13 +11266,13 @@ sub_119FDC:
         cmp dword [dword_171C8C], byte 0
         je short .1
         push byte 1
-        call sub_119F54
+        call FindDos4gw
         add esp, byte 4
 .1:
         cmp dword [dword_16E330], byte 0
         jne short .2
         push dword 0C8h
-        call sub_119BC8
+        call InitMemoryPoolDefault
         add esp, byte 4
 .2:
         mov ecx, dword [dword_16E4B0]
@@ -11115,7 +11284,7 @@ sub_119FDC:
         jne short .3
         call sub_13059C
         db 068h                                 ; insn: push 109F20h
-        dd sub_119F20
+        dd ExitGraphics
         mov dword [dword_171C88], eax
         call sub_101220
         add esp, byte 4
@@ -11145,7 +11314,7 @@ sub_119FDC:
         call MakeColor
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         call SetScreenTarget
         push byte 0
@@ -11157,14 +11326,14 @@ sub_119FDC:
         call sub_FC73E
 .4:
         call sub_130709
-        call sub_116428
+        call InstallKeyboardHandler
         push sub_1013FC
         call sub_13073E
         add esp, byte 4
         push sub_121A43
         call sub_FBE78
         add esp, byte 4
-        call sub_11A120
+        call InstallErrorHandlers
         mov ebx, dword [dword_16E468]
         push ebx
         mov ecx, dword [dword_16E464]
@@ -11177,7 +11346,7 @@ sub_119FDC:
         push byte 0
         call sub_10CFB4
         add esp, byte 8
-        call sub_4B4AC
+        call NoOpPlatformHook
         pop ebp
         pop edi
         pop esi
@@ -11185,9 +11354,10 @@ sub_119FDC:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11A120                                                          11A120  
+; InstallErrorHandlers                           11A120  97 PC, low confidence
+; Installs the handlers of the error interrupts
 ;-----------------------------------------------------------------------------
-sub_11A120:
+InstallErrorHandlers:
         push sub_12FF9C
         push byte 10h
         call sub_130815
@@ -11305,9 +11475,10 @@ _dos_getdiskfree__38:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11A210                                                          11A210  
+; CopyPixels8                                    11A210  97 PC, low confidence
+; Copies a row of 8-bit pixels
 ;-----------------------------------------------------------------------------
-sub_11A210:
+CopyPixels8:
         push ecx
         push ebx
         push eax
@@ -11318,9 +11489,10 @@ sub_11A210:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11A220                                                          11A220  
+; CopyPixels16                                   11A220  97 PC, low confidence
+; Copies a row of 16-bit pixels
 ;-----------------------------------------------------------------------------
-sub_11A220:
+CopyPixels16:
         push ecx
         add ebx, ebx
         push ebx
@@ -11331,9 +11503,10 @@ sub_11A220:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11A230                                                          11A230  
+; CopyPixels24                                   11A230  97 PC, low confidence
+; Copies a row of 24-bit pixels
 ;-----------------------------------------------------------------------------
-sub_11A230:
+CopyPixels24:
         push ecx
         push esi
         mov ecx, eax
@@ -11351,9 +11524,10 @@ sub_11A230:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11A250                                                          11A250  
+; CopyPixels32                                   11A250  97 PC, low confidence
+; Copies a row of 32-bit pixels
 ;-----------------------------------------------------------------------------
-sub_11A250:
+CopyPixels32:
         push ecx
         shl ebx, 2
         push ebx
@@ -11365,9 +11539,10 @@ sub_11A250:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11A264                                                          11A264  
+; ConvertArtAt                                   11A264  97 PC, low confidence
+; Converts an art to the screen's pixel format and sets its position
 ;-----------------------------------------------------------------------------
-sub_11A264:
+ConvertArtAt:
         push ebx
         push esi
         push edi
@@ -11387,9 +11562,10 @@ sub_11A264:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11A294                                                          11A294  
+; ConvertArtInPlace                              11A294  97 PC, low confidence
+; Converts an art to the screen's pixel format at its own position
 ;-----------------------------------------------------------------------------
-sub_11A294:
+ConvertArtInPlace:
         push ebx
         push esi
         push edi
@@ -11442,9 +11618,11 @@ sub_11A294:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11A318                                                          11A318  
+; ConvertArtXY                                   11A318  97 PC, low confidence
+; (art, x, y) converts an art to the screen's pixel format and sets its
+; position
 ;-----------------------------------------------------------------------------
-sub_11A318:
+ConvertArtXY:
         push ebx
         push esi
         push edi
@@ -11467,9 +11645,10 @@ sub_11A318:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11A350                                                          11A350  
+; ConvertArtKeepPos                              11A350  97 PC, low confidence
+; Converts an art to the screen's pixel format, keeping its position
 ;-----------------------------------------------------------------------------
-sub_11A350:
+ConvertArtKeepPos:
         push ebx
         push esi
         push edi
@@ -11522,16 +11701,18 @@ sub_11A350:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11A3E0                                                          11A3E0  
+; FormatString                                   11A3E0  97 PC, low confidence
+; Formats a string like printf (numbers, strings, padding) for the text
+; drawing routines
 ;-----------------------------------------------------------------------------
-sub_11A3E0:
+FormatString:
         push ebx
         push esi
         push edi
         push ebp
         sub esp, 12Ch
         mov ebx, dword [dword esp+0144h]
-        mov dword [dword esp+0118h], asc_167F70
+        mov dword [dword esp+0118h], str_0123456789abcdef
 .1:
         xor eax, eax
         mov al, byte [ebx]
@@ -11985,7 +12166,7 @@ sub_11A3E0:
         mov dword [dword esp+0114h], eax
         test eax, eax
         jne short .63
-        mov dword [dword esp+0114h], asc_167F84
+        mov dword [dword esp+0114h], str_Null
 .63:
         mov eax, dword [dword esp+0120h]
         test eax, eax
@@ -12053,7 +12234,7 @@ sub_11A3E0:
         mov dword [dword esp+0124h], eax
         jmp near .79
 .74:
-        mov dword [dword esp+0118h], asc_167F8C
+        mov dword [dword esp+0118h], str_0123456789ABCDEF
 .75:
         test si, 1
         je short .76
@@ -12118,7 +12299,7 @@ sub_11A3E0:
         mov dword [dword esp+0124h], eax
         test eax, eax
         jne short .82
-        mov dword [dword esp+0118h], asc_167F70
+        mov dword [dword esp+0118h], str_0123456789abcdef
         test si, 10h
         je short .83
         cmp edi, byte 8
@@ -12271,7 +12452,7 @@ sub_11A3E0:
         push edx
         mov ebx, dword [byte esp+014h]
         push ebx
-        call sub_11A3E0
+        call FormatString
         add esp, byte 0Ch
         xor ecx, ecx
         mov dword [esp], ecx
@@ -12280,9 +12461,10 @@ sub_11A3E0:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_11ADD0                                                          11ADD0  
+; SaveTextState                                  11ADD0  97 PC, low confidence
+; Saves the text drawing state (font, colours, position)
 ;-----------------------------------------------------------------------------
-sub_11ADD0:
+SaveTextState:
         push esi
         push edi
         mov ecx, 2Bh
@@ -12294,16 +12476,17 @@ sub_11ADD0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11ADE8                                                          11ADE8  
+; RestoreTextState                               11ADE8  97 PC, low confidence
+; Restores the text drawing state and its colour tables
 ;-----------------------------------------------------------------------------
-sub_11ADE8:
+RestoreTextState:
         push esi
         push edi
         mov ecx, 2Bh
         mov esi, dword [byte esp+0Ch]
         mov edi, dword_1CF528
         rep movsd
-        call sub_FEE60
+        call RefreshTextColors
         pop edi
         pop esi
         ret

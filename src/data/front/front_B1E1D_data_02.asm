@@ -6,7 +6,7 @@ extern unk_166B38, unk_166B3C, unk_166B40, unk_166B44, unk_166B48, unk_166B4C, u
 extern unk_166B58, unk_166B5C, unk_166B60, unk_166B64, unk_166B67, unk_166B6B, unk_166B6E, unk_166B72
 extern unk_166B76, unk_166B7A, unk_166B7E, unk_166B82, unk_166B86, unk_166B8A, unk_166B8D, unk_166B90
 extern unk_166B94, unk_166B98
-global asc_16D65F, byte_16D5DC, dword_16D440, dword_16D444, dword_16D448, dword_16D44C, dword_16D454, dword_16D458
+global str_None, byte_16D5DC, dword_16D440, dword_16D444, dword_16D448, dword_16D44C, dword_16D454, dword_16D458
 global dword_16D45C, dword_16D470, dword_16D484, dword_16D4B0, dword_16D4D4, dword_16D500, dword_16D504, dword_16D508
 global dword_16D664, off_16D5F7, word_16D450
 dword_16D440:
@@ -90,7 +90,7 @@ off_16D5F7:
         dd unk_166B90
         dd unk_166B94
         dd unk_166B98
-asc_16D65F:
+str_None:
         db 04Eh,06Fh,06Eh,065h,00h
 dword_16D664:
         db 00h,00h,00h,00h

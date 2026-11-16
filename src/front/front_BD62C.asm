@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_BD62C progbits alloc exec nowrite align=1
-extern SortCords, __CHP, __STOSD, asc_166A5C, asc_166A61, asc_166A66, asc_166A6F, asc_166A78
-extern asc_166A81, asc_166AAD, asc_166AB8, asc_166AD8, asc_166AE4, asc_166AEB, asc_166AF0, asc_166AF9
-extern asc_166B07, asc_166B1B, asc_166B20, byte_19CBC2, byte_1C6040, byte_1CB004, dword_166A95, dword_166A99
+extern SortCords, __CHP, __STOSD, str_Mous4, str_Remo3, str_Replload, str_RPEVENT, str_Replmenu
+extern str_Replregs, str_REPLAYNDX, str_DATAREPLAYNDX2, str_DONTHAVEIT2, str_Replay, str_SS10, str_Replbuff, str_SREPLAYNDX
+extern str_S12, str_NOIS, str_ARWD, byte_19CBC2, byte_1C6040, byte_1CB004, dword_166A95, dword_166A99
 extern dword_166A9D, dword_166AA9, dword_166AC8, dword_166AD4, dword_166B0B, dword_166B17, dword_166B26, dword_166B32
 extern dword_1686C0, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, dword_16E46C
 extern dword_16E474, dword_16E500, dword_19CD10, dword_19CD14, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C
@@ -17,22 +17,22 @@ extern dword_1CAFE4, dword_1CAFE8, dword_1CAFEC, dword_1CAFF0, dword_1CAFF4, dwo
 extern off_16D254, off_16D258, qword_166A8D, qword_166AA1, qword_166ACC, qword_166B0F, qword_166B2A, rand_
 extern sprintf_, strcmp_, strcpy_, BlitArt, sub_1013FC, FindShape, sub_101EAC, sub_103298
 extern sub_103648, sub_105324, sub_10AED0, sub_114C4, sub_11B98E, sub_12024, SetScreenTarget, InitGameDisplay
-extern ApplyDisplayFlags, ClearOverlayWindows, sub_1D1DC, sub_1D208, sub_1D480, sub_1D4FC, sub_1D828, sub_1D858
-extern sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0, sub_1DD5C, sub_1DDE4, sub_1DEB8
-extern SetVideoMode, sub_3CA28, sub_3CB00, sub_3CB48, sub_3CB70, sub_3D020, sub_3E5F0, sub_41A28
-extern sub_41D18, sub_41DB8, WaitMusicEnd, ArenaFileName, StopAllSfx, sub_423B4, sub_4241C, sub_4A280
-extern MakeDirPath, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, sub_4BCB4
-extern sub_5B4D4, sub_5BD94, InitReplayBuffer, sub_5BE64, sub_5BEB0, sub_5C2CC, sub_5C2F4, sub_5C30C
-extern sub_5C32C, sub_5C34C, sub_5C4CC, sub_5C4E4, sub_5C500, sub_5C584, sub_5C5EC, sub_5C74C
-extern sub_5C75C, sub_5C894, sub_5CAB0, sub_5CACC, InitAnimPoints, sub_65DE8, sub_76E20, sub_77610
-extern AllocAnimStates, InitFrontEnd, FreeFrontEnd, SetRegionRect, SetTextColor, DrawTextAligned, sub_7FE4C, sub_81650
+extern ApplyDisplayFlags, ClearOverlayWindows, ReplayCameraOn, ReplayCameraOff, ReplayCamFollowMode, ReplayCamDrag, ReplayCamRestorePath, ReplayCamOrbitMode
+extern ReplayCamOrbit, ReplayCamStop, ReplayCamFreeMode, ReplayCamTurn, ReplayCamMove, ReplayCamZoomMode, ReplayCamZoom, ReplayCamClearFlag
+extern SetVideoMode, SetViewSize, ClearViewInterlaced, ShowView, SetViewOrigin, SetRinkDetail, FadeGamePalette, ChkMenuMusic
+extern PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, StopAllSfx, SetAmbientVolume, SetCrowdNoise, ResetStreamAudio
+extern MakeDirPath, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, RedrawGameView
+extern RestoreSavedPalette, ResetReplayBuffer, InitReplayBuffer, IsReplayRecording, ReplayFreeFrames, ReplayCmdPlay, ReplayCmdStop, ReplayCmdRewind
+extern ReplayCmdForward, ReplayPlayFrames, ReplayCamFollow, ReplayCamFree, StartInstantReplay, EndInstantReplay, PlaySavedReplay, ReplayFramesLeft
+extern ReplayCurrentFrame, ReplaySetupObjects, LoadReplayHeader, LoadReplayData, InitAnimPoints, FreeAnimTables, SetAnimClock, FreeAnimStates
+extern AllocAnimStates, InitFrontEnd, FreeFrontEnd, SetRegionRect, SetTextColor, DrawTextAligned, EditFileName, SetHighlightText
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, NameIndexPath, sub_8BE60
 extern sub_8BEF8, InitMenuItems, sub_8BFAC, sub_8D5C0, sub_8D6B4, sub_8D6E8, sub_8D910, LoadLangTextB
-extern GetLangText, FreeLangText, sub_A0867, sub_AC69C, sub_AC6EB, sub_AC73E, sub_DA7EB, sub_DB6AC
-extern sub_E19D5, sub_E1C19, OpenReplayFile, sub_E3174, sub_E3190, sub_E3410, sub_E4218, LinkSendBlock
+extern GetLangText, FreeLangText, sub_A0867, sub_AC69C, sub_AC6EB, sub_AC73E, OpenGameDatabase, CloseGameDatabase
+extern AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile, IsInputRecording, StopInputRecording, ClearLinkAbort, LinkSyncMenu, LinkSendBlock
 extern LinkReceiveBlock, WaitForOtherComputer, sub_F22ED, sub_F9496, sub_F94BC, sub_F9789, sub_F9869, AllocMemBlock
 extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, DrawArt, CreateBitmap
-extern SetDrawTarget, ClearScreen, sub_FD954, sub_FDC68, FillRect, sub_FE180, sub_FE3D0, unk_166A8A
+extern SetDrawTarget, ClearScreen, sub_FD954, sub_FDC68, FillRect, SetTextColors, FillRectCorners, unk_166A8A
 extern unk_171E38, unk_1ACB44, unk_1CAEFC, unk_1CAF3C, word_1686E4
 global jpt_BE037, jpt_BE213, jpt_BE25A, jpt_BE296, jpt_BEC7D, RunReplay_358, RunReplay_359, LoadReplay_194
 global sub_BE047_45, sub_BE047_4C, sub_BE047_53, sub_BE047_5A, ReplayScreen_C7, ReplayScreen_D3, ReplayScreen_DA, ReplayScreen_E1
@@ -61,7 +61,7 @@ RunReplay:
         mov eax, 0FFFFFFFFh
         xor ebx, ebx
         rep movsd
-        call sub_3E5F0
+        call FadeGamePalette
         push byte 14h
         lea eax, [byte ebp-030h]
         push eax
@@ -69,28 +69,28 @@ RunReplay:
         add esp, byte 8
         mov dword [byte ebp-030h], 280h
         mov dword [byte ebp-02Ch], 1E0h
-        call sub_5BE64
+        call IsReplayRecording
         test eax, eax
         je near RunReplay_358
         xor eax, eax
-        call sub_4241C
-        call sub_4A280
+        call SetCrowdNoise
+        call ResetStreamAudio
         call StopAllSfx
         call sub_114C4
-        call sub_1D1DC
+        call ReplayCameraOn
         xor edx, edx
         mov eax, 0FDh
         mov dword [dword_1CAFF4], 0
         call LoadDataFile
         push byte 0
-        push asc_166A5C
+        push str_Mous4
         push eax
         mov dword [dword_1C5DE4], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -99,14 +99,14 @@ RunReplay:
         call CreateBitmap
         add esp, byte 0Ch
         push byte 0
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         mov dword [dword_1CAF94], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -129,10 +129,10 @@ RunReplay:
         mov eax, dword [byte ebp-018h]
         mov dword [dword_19CD14], eax
         mov eax, dword [dword_1A8E80]
-        call sub_3CB00
+        call ClearViewInterlaced
         mov dword [dword_19CD30], 0
         mov eax, dword [dword_1A8E80]
-        call sub_3CB48
+        call ShowView
         movsx ebx, word [word_1686E4]
         mov eax, dword [dword_16E464]
         imul eax, ebx
@@ -182,11 +182,11 @@ RunReplay:
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
-        call sub_3CA28
+        call SetViewSize
         mov eax, dword [dword_1A8E80]
         mov ebx, esi
         mov edx, edi
-        call sub_3CB70
+        call SetViewOrigin
         mov eax, dword [dword_1C95BC]
         lea edx, [byte ebp-01Ch]
         mov dword [dword_1CAFA4], eax
@@ -201,10 +201,10 @@ RunReplay:
         mov eax, dword [byte ebp-018h]
         mov dword [dword_19CD14], eax
         mov eax, dword [dword_1A8E80]
-        call sub_3CB00
+        call ClearViewInterlaced
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD30], 0
-        call sub_3CB48
+        call ShowView
         movsx ebx, word [word_1686E4]
         mov eax, dword [dword_16E464]
         imul eax, ebx
@@ -254,14 +254,14 @@ RunReplay:
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
-        call sub_3CA28
+        call SetViewSize
         mov ecx, 10h
         mov eax, dword [dword_1A8E80]
         mov ebx, esi
         mov edx, edi
         mov edi, dword_19CD10
         mov esi, unk_1CAEFC
-        call sub_3CB70
+        call SetViewOrigin
         mov dword [InGameMenuRequest], 0
         rep movsd
         call ApplyDisplayFlags
@@ -275,9 +275,9 @@ RunReplay:
         call FreeMemBlock
         add esp, byte 4
         mov dword [dword_1C5DE4], 0
-        call sub_1D208
+        call ReplayCameraOff
         mov eax, 64h
-        call sub_423B4
+        call SetAmbientVolume
 RunReplay_358:
         leave
 RunReplay_359:
@@ -304,26 +304,26 @@ LoadReplay:
         mov edx, dword_1C1334
         call sub_AC6EB
         lea eax, [byte ebp-08h]
-        call sub_E1C19
+        call FindReplayIndexEntry
         push byte 0
         push dword [dword_1C5DA4]
-        push asc_166A66
+        push str_Replload
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1CAF9C], eax
         mov edx, eax
         mov eax, dword_1C1334
         call OpenReplayFile
-        call sub_DB6AC
+        call CloseGameDatabase
         mov eax, dword [dword_1CAF9C]
         mov edx, 20h
-        call sub_5CAB0
+        call LoadReplayHeader
         mov dword [dword_1AC944], unk_1ACB44
-        call sub_5BD94
+        call ResetReplayBuffer
         mov eax, 34h
         call AllocAnimStates
         xor eax, eax
-        call sub_76E20
+        call SetAnimClock
         xor eax, eax
 .1:
         imul edx, eax, dword 760h
@@ -350,20 +350,20 @@ LoadReplay:
         call InitGameGraphics
         call InitAnimPoints
         call sub_12024
-        call sub_5C894
+        call ReplaySetupObjects
         mov eax, 0C350h
         call InitReplayBuffer
         mov eax, dword [dword_1CAF9C]
-        call sub_5CACC
+        call LoadReplayData
         test eax, eax
         jne short .4
-        call sub_5BEB0
-        call sub_77610
+        call ReplayFreeFrames
+        call FreeAnimStates
         mov ecx, 0Dh
         mov eax, dword_19CD54
         xor edx, edx
         call __STOSD
-        call sub_65DE8
+        call FreeAnimTables
         call FreeGameGraphics
         cmp dword [dword_16E500], byte 0
         je short .3
@@ -378,11 +378,11 @@ LoadReplay:
         call InitGameVideo
         mov eax, 947Ah
         mov edx, 10000h
-        call sub_3D020
+        call SetRinkDetail
         xor ebx, ebx
         mov eax, 0FFFFFFFFh
-        call sub_3E5F0
-        call sub_5B4D4
+        call FadeGamePalette
+        call RestoreSavedPalette
         push dword [dword_1CAF9C]
         call FreeMemBlock
         mov eax, 1
@@ -407,7 +407,7 @@ sub_BDB25:
         call ClearScreen
         add esp, byte 4
         call sub_1013FC
-        call sub_81650
+        call SetHighlightText
         call FreeFrontEnd
         cmp dword [dword_16CCF1], byte 0
         je short .1
@@ -440,14 +440,14 @@ sub_BDB25:
         xor edx, edx
         call LoadDataFile
         push byte 0
-        push asc_166A5C
+        push str_Mous4
         push eax
         mov dword [dword_1C5DE4], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -456,14 +456,14 @@ sub_BDB25:
         call CreateBitmap
         add esp, byte 0Ch
         push byte 0
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         mov dword [dword_1CAF94], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -480,7 +480,7 @@ sub_BDB25:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -496,7 +496,7 @@ sub_BDB25:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -540,16 +540,16 @@ sub_BDB25:
         call MakeColor
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         push dword [dword_1CAFA4]
         call sub_FCC40
         add esp, byte 4
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         mov ebx, eax
         call FindShape
@@ -584,11 +584,11 @@ sub_BDB25:
         add esp, byte 4
 .3:
         call InitFrontEnd
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         mov ebx, eax
         call FindShape
@@ -603,18 +603,18 @@ sub_BDB25:
 .4:
         call WaitMusicEnd
         mov dword [dword_1CAFF4], 1
-        call sub_DA7EB
+        call OpenGameDatabase
         call LoadReplay
         test eax, eax
         jne short .5
-        call sub_DB6AC
+        call CloseGameDatabase
         leave
         pop edx
         pop ecx
         pop ebx
         ret
 .5:
-        call sub_DB6AC
+        call CloseGameDatabase
         cmp dword [dword_1686C0], byte 0
         jne short .6
         mov eax, 70h
@@ -624,11 +624,11 @@ sub_BDB25:
 .6:
         push byte 0
         push byte 18h
-        push asc_166A6F
+        push str_RPEVENT
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1B8F4C], eax
-        call sub_1D1DC
+        call ReplayCameraOn
         call ReplayScreen
         push dword [dword_1B8F4C]
         call FreeMemBlock
@@ -642,18 +642,18 @@ sub_BDB25:
         call sub_103298
         add esp, byte 0Ch
         call sub_F94BC
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         mov ebx, eax
         call FindShape
         add esp, byte 8
         mov edx, ebx
         call sub_8BE60
-        call sub_1D208
+        call ReplayCameraOff
         push dword [dword_1CAF94]
         call FreeBitmap
         add esp, byte 4
@@ -685,10 +685,10 @@ sub_BDB25:
         add esp, byte 4
         mov ebx, 2
         mov dword [dword_1C5DE4], 0
-        call sub_DA7EB
+        call OpenGameDatabase
         call InitFrontEnd
         call WaitMusicEnd
-        call sub_41D18
+        call PauseMusic
         call rand_
         cdq
         idiv ebx
@@ -697,7 +697,7 @@ sub_BDB25:
         mov eax, ebx
         call ArenaFileName
         lea eax, [byte ebp-028h]
-        call sub_41A28
+        call ChkMenuMusic
         lea eax, [byte ebx+01h]
         mov ebx, 2
         cdq
@@ -706,8 +706,8 @@ sub_BDB25:
         lea edx, [byte ebp-028h]
         call ArenaFileName
         lea eax, [byte ebp-028h]
-        call sub_41A28
-        call sub_41DB8
+        call ChkMenuMusic
+        call RequestMusicStop
         leave
         pop edx
         pop ecx
@@ -727,7 +727,7 @@ sub_BE047:
         push edx
         mov ebx, eax
         call sub_1013FC
-        call sub_5C5EC
+        call PlaySavedReplay
         mov dword [dword_1CAF90], eax
         call sub_BF417
         call SetScreenTarget
@@ -742,16 +742,16 @@ sub_BE047:
         ja short sub_BE047_5A.1
         jmp dword [nosplit cs:eax*4+jpt_BE037]
 sub_BE047_45:
-        call sub_1DB8C
+        call ReplayCamStop
         jmp short sub_BE047_5A.1
 sub_BE047_4C:
-        call sub_1D828
+        call ReplayCamRestorePath
         jmp short sub_BE047_5A.1
 sub_BE047_53:
-        call sub_1DEB8
+        call ReplayCamClearFlag
         jmp short sub_BE047_5A.1
 sub_BE047_5A:
-        call sub_1DCB0
+        call ReplayCamMove
 .1:
         mov dword [edx], 0FFFFFFFFh
         mov dword [dword_1CAF8C], 0
@@ -799,7 +799,7 @@ sub_BE0BA:
         push dword [byte eax+010h]
         push dword [byte eax+04h]
         push dword [eax]
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
 .4:
         inc ebx
@@ -882,16 +882,16 @@ jpt_BE213:
         ja short .5
         jmp dword [nosplit cs:eax*4+jpt_BE213]
 .1:
-        call sub_1DB8C
+        call ReplayCamStop
         jmp short .5
 .2:
-        call sub_1D828
+        call ReplayCamRestorePath
         jmp short .5
 .3:
-        call sub_1DEB8
+        call ReplayCamClearFlag
         jmp short .5
 .4:
-        call sub_1DCB0
+        call ReplayCamMove
 .5:
         mov dword [edx], 0FFFFFFFFh
         pop edx
@@ -931,20 +931,20 @@ ReplayScreen:
         enter 10h, 0
         mov eax, 0Dh
         mov dword [dword_1CAFF0], 0Dh
-        call sub_5C4CC
-        call sub_5C500
-        call sub_5C74C
+        call ReplayCamFollow
+        call StartInstantReplay
+        call ReplayFramesLeft
         mov dword [dword_1CAFA0], eax
-        call sub_5C75C
+        call ReplayCurrentFrame
         push byte 0
         push dword 4CEh
-        push asc_166A78
+        push str_Replmenu
         mov dword [dword_1CB000], eax
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 3C0h
-        push asc_166A81
+        push str_Replregs
         mov dword [dword_1CAFF8], eax
         call AllocMemBlock
         mov edx, dword [dword_1CAFF8]
@@ -977,19 +977,19 @@ ReplayScreen:
 ReplayScreen_C7:
         mov eax, dword [dword_1CB000]
 .4:
-        call sub_5C34C
+        call ReplayPlayFrames
         jmp short ReplayScreen.2
 ReplayScreen_D3:
-        call sub_5C2CC
+        call ReplayCmdPlay
         jmp short ReplayScreen.2
 ReplayScreen_DA:
-        call sub_5C2F4
+        call ReplayCmdStop
         jmp short ReplayScreen.2
 ReplayScreen_E1:
-        call sub_5C30C
+        call ReplayCmdRewind
         jmp short ReplayScreen.2
 ReplayScreen_E8:
-        call sub_5C32C
+        call ReplayCmdForward
         jmp short ReplayScreen.2
 ReplayScreen_EF:
         push dword [dword_1CAFA4]
@@ -1015,31 +1015,31 @@ ReplayScreen_EF:
         call PickReplayScreen
         test eax, eax
         je short .5
-        call sub_5BEB0
-        call sub_77610
+        call ReplayFreeFrames
+        call FreeAnimStates
         mov ecx, 0Dh
         mov eax, dword_19CD54
         xor edx, edx
         call __STOSD
-        call sub_65DE8
+        call FreeAnimTables
         call FreeGameGraphics
-        call sub_DA7EB
+        call OpenGameDatabase
         call LoadReplay
         test eax, eax
         je short .5
         mov eax, 0Dh
         mov dword [dword_1CAFF0], 0Dh
-        call sub_5C4CC
-        call sub_5C500
-        call sub_5C74C
+        call ReplayCamFollow
+        call StartInstantReplay
+        call ReplayFramesLeft
         mov dword [dword_1CAFA0], eax
-        call sub_5C75C
+        call ReplayCurrentFrame
         mov dword [dword_1CB000], eax
-        call sub_DB6AC
+        call CloseGameDatabase
         call sub_C04BE
 .5:
         call sub_8D910
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         movsx eax, word [byte eax+06h]
@@ -1058,7 +1058,7 @@ ReplayScreen_EF:
         fistp dword [byte ebp-04h]
         sub eax, dword [byte ebp-04h]
         push eax
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         movsx eax, word [byte eax+04h]
@@ -1154,7 +1154,7 @@ ReplayScreen_294:
         call DrawTextAligned
         add esp, byte 14h
         mov eax, dword [dword_1CAFF0]
-        call sub_5C4CC
+        call ReplayCamFollow
         jmp near ReplayScreen.2
 ReplayScreen_37D:
         cmp dword [dword_16DA9C], byte 0
@@ -1162,7 +1162,7 @@ ReplayScreen_37D:
         cmp esi, byte 2
         jne near ReplayScreen.2
 .11:
-        call sub_5C4E4
+        call ReplayCamFree
         jmp near ReplayScreen.2
 ReplayScreen_399:
         lea ebx, [byte ebp-010h]
@@ -1188,7 +1188,7 @@ ReplayScreen_3D5:
 .12:
         cmp dword [dword_16D500], byte 0Ah
         je short .13
-        call sub_1D858
+        call ReplayCamOrbitMode
 .13:
         lea ebx, [byte ebp-010h]
         lea edx, [byte ebp-0Ch]
@@ -1241,7 +1241,7 @@ ReplayScreen_3D5:
 .14:
         mov edx, ebx
         mov eax, ecx
-        call sub_1D914
+        call ReplayCamOrbit
         jmp near ReplayScreen.2
 ReplayScreen_4D2:
         cmp dword [dword_16DA9C], byte 0
@@ -1251,7 +1251,7 @@ ReplayScreen_4D2:
 .15:
         cmp dword [dword_16D500], byte 0Bh
         je short .16
-        call sub_1D480
+        call ReplayCamFollowMode
 .16:
         lea ebx, [byte ebp-010h]
         lea edx, [byte ebp-0Ch]
@@ -1304,7 +1304,7 @@ ReplayScreen_4D2:
 .17:
         mov edx, ebx
         mov eax, ecx
-        call sub_1D4FC
+        call ReplayCamDrag
         cmp eax, byte 0FFFFFFFFh
         jne short .18
         mov eax, 11h
@@ -1380,7 +1380,7 @@ ReplayScreen_6A2:
 .24:
         cmp dword [dword_16D500], byte 0Ch
         je short .25
-        call sub_1DD5C
+        call ReplayCamZoomMode
 .25:
         lea ebx, [byte ebp-010h]
         lea edx, [byte ebp-0Ch]
@@ -1422,7 +1422,7 @@ ReplayScreen_6A2:
 .26:
         mov edx, ebx
         xor eax, eax
-        call sub_1DDE4
+        call ReplayCamZoom
         jmp near ReplayScreen.2
 ReplayScreen_771:
         cmp dword [dword_16DA9C], byte 0
@@ -1432,7 +1432,7 @@ ReplayScreen_771:
 .27:
         cmp dword [dword_16D500], byte 0Dh
         je short .28
-        call sub_1DBA0
+        call ReplayCamFreeMode
 .28:
         lea ebx, [byte ebp-010h]
         lea edx, [byte ebp-0Ch]
@@ -1485,7 +1485,7 @@ ReplayScreen_771:
 .29:
         mov edx, ebx
         mov eax, ecx
-        call sub_1DBF0
+        call ReplayCamTurn
         push dword 0FF000000h
         call MakeColor
         add esp, byte 4
@@ -1535,16 +1535,16 @@ ReplayScreen_8FF:
         ja short ReplayScreen_929.32
         jmp dword [nosplit cs:eax*4+jpt_BE296]
 ReplayScreen_914:
-        call sub_1DB8C
+        call ReplayCamStop
         jmp short ReplayScreen_929.32
 ReplayScreen_91B:
-        call sub_1D828
+        call ReplayCamRestorePath
         jmp short ReplayScreen_929.32
 ReplayScreen_922:
-        call sub_1DEB8
+        call ReplayCamClearFlag
         jmp short ReplayScreen_929.32
 ReplayScreen_929:
-        call sub_1DCB0
+        call ReplayCamMove
 .32:
         mov dword [dword_16D500], 0FFFFFFFFh
         jmp near ReplayScreen.2
@@ -1552,18 +1552,18 @@ ReplayScreen_929:
         mov eax, dword [dword_1CAFF4]
         test eax, eax
         je short .35
-        call sub_5BEB0
-        call sub_77610
+        call ReplayFreeFrames
+        call FreeAnimStates
         mov ecx, 0Dh
         mov eax, dword_19CD54
         xor edx, edx
         call __STOSD
-        call sub_65DE8
+        call FreeAnimTables
         call FreeGameGraphics
-        call sub_E3174
+        call IsInputRecording
         test eax, eax
         jne short .34
-        call sub_E3190
+        call StopInputRecording
 .34:
         cmp dword [dword_16E500], byte 0
         je short .35
@@ -1579,11 +1579,11 @@ ReplayScreen_929:
         push dword [dword_1CAFA8]
         call FreeMemBlock
         add esp, byte 4
-        call sub_1D828
+        call ReplayCamRestorePath
         mov eax, dword [dword_1CAFF4]
         test eax, eax
         jne near LoadReplay_194
-        call sub_5C584
+        call EndInstantReplay
         jmp near LoadReplay_194
 jpt_BEC7D:
         dd sub_BECB9_13F
@@ -1663,7 +1663,7 @@ sub_BECB9:
         push eax
         lea eax, [byte esi-01h]
         push eax
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
         call sub_1013FC
         imul eax, dword [byte ebp+010h], byte 52h
@@ -2692,13 +2692,13 @@ PickReplayScreen:
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
-        mov edx, asc_166AAD
+        mov edx, str_REPLAYNDX
         call SetTextColor
         lea eax, [byte ebp+06h]
         call NameIndexLoad
         test eax, eax
         jne short .6
-        mov edx, asc_166AAD
+        mov edx, str_REPLAYNDX
         lea eax, [byte ebp+06h]
         call NameIndexNew
 .6:
@@ -2948,7 +2948,7 @@ PickReplayScreen:
         call sub_C037B
         cmp dword [byte ecx+066h], byte 0
         jne short .9
-        mov eax, asc_166AB8
+        mov eax, str_DATAREPLAYNDX2
         call sub_11B98E
         mov dword [byte ebp+02Eh], 0
         jmp near .9
@@ -3035,7 +3035,7 @@ PickReplayScreen_AA8:
         pop ebp
         jmp near RunReplay_359
         mov eax, dword [dword_1CAF9C]
-        jmp near sub_5CACC
+        jmp near LoadReplayData
 ;-----------------------------------------------------------------------------
 ; OpenReplayIndex                                 BFFB7  97 PC, low confidence
 ; From LoadReplay: reads "REPLAY.NDX" (NameIndexLoad / NameIndexNew), also
@@ -3053,14 +3053,14 @@ OpenReplayIndex:
         lea eax, [byte ebp+03Eh]
         xor ebx, ebx
         call MakeDirPath
-        mov edx, asc_166AAD
+        mov edx, str_REPLAYNDX
         lea eax, [byte ebp+03Eh]
         mov dword [byte ebp+07Eh], 0
         call NameIndexLoad
         mov edi, eax
         test eax, eax
         jne short .1
-        mov edx, asc_166AAD
+        mov edx, str_REPLAYNDX
         lea eax, [byte ebp+03Eh]
         call NameIndexNew
         mov edi, eax
@@ -3069,11 +3069,11 @@ OpenReplayIndex:
         mov dword [byte ebp+07Ah], eax
         cmp dword [dword_16DA9C], byte 0
         je short PickReplayScreen_AA8
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je near .6
-        call sub_E4218
-        mov edx, asc_166AD8
+        call LinkSyncMenu
+        mov edx, str_DONTHAVEIT2
         mov eax, unk_1CAF3C
         call strcmp_
         test eax, eax
@@ -3109,7 +3109,7 @@ OpenReplayIndex:
         call LinkReceiveBlock
         push byte 0
         push dword [dword_1C5DA4]
-        push asc_166AE4
+        push str_Replay
         xor ebx, ebx
         call AllocMemBlock
         add esp, byte 0Ch
@@ -3132,7 +3132,7 @@ OpenReplayIndex:
         push eax
         lea eax, [byte ebp+03Eh]
         push eax
-        push asc_166AEB
+        push str_SS10
         lea eax, [byte ebp-03Ah]
         push eax
         mov edx, esi
@@ -3140,7 +3140,7 @@ OpenReplayIndex:
         add esp, byte 10h
         mov eax, dword_1C1334
         mov ebx, dword [dword_1C5DA4]
-        call sub_E19D5
+        call AddReplayIndexEntry
         imul eax, dword [byte ebp+07Eh], byte 36h
         add eax, dword [byte ebp+07Ah]
         lea ebx, [byte eax+0Dh]
@@ -3159,10 +3159,10 @@ OpenReplayIndex:
         mov edx, dword_1C1334
         call sub_AC6EB
         lea eax, [byte ebp+072h]
-        call sub_E1C19
+        call FindReplayIndexEntry
         push byte 0
         push dword [dword_1C5DA4]
-        push asc_166AF0
+        push str_Replbuff
         call AllocMemBlock
         mov esi, eax
         add esp, byte 0Ch
@@ -3179,12 +3179,12 @@ OpenReplayIndex:
         call LinkSendBlock
         jmp near .9
 .6:
-        call sub_E4218
+        call LinkSyncMenu
         mov edx, 8
         lea eax, [byte ebp+066h]
         xor ebx, ebx
         call LinkReceiveBlock
-        mov edx, asc_166AD8
+        mov edx, str_DONTHAVEIT2
         mov eax, unk_1CAF3C
         call strcmp_
         test eax, eax
@@ -3214,10 +3214,10 @@ OpenReplayIndex:
         mov edx, dword_1C1334
         call sub_AC6EB
         lea eax, [byte ebp+072h]
-        call sub_E1C19
+        call FindReplayIndexEntry
         push byte 0
         push dword [dword_1C5DA4]
-        push asc_166AF0
+        push str_Replbuff
         call AllocMemBlock
         mov esi, eax
         add esp, byte 0Ch
@@ -3257,7 +3257,7 @@ SaveReplay:
         mov ecx, esi
         mov ebx, eax
         lea eax, [byte ebp+07Eh]
-        call sub_7FE4C
+        call EditFileName
         test eax, eax
         je near .3
         cmp esi, byte 2
@@ -3268,7 +3268,7 @@ SaveReplay:
         call MakeDirPath
         lea eax, [byte ebp+02Eh]
         push eax
-        push asc_166AF9
+        push str_SREPLAYNDX
         lea eax, [byte ebp-022h]
         push eax
         call sprintf_
@@ -3279,19 +3279,19 @@ SaveReplay:
         add esp, byte 4
         test eax, eax
         jne short .1
-        mov edx, asc_166AAD
+        mov edx, str_REPLAYNDX
         lea eax, [byte ebp+02Eh]
         call NameIndexNew
         jmp short .2
 .1:
-        mov edx, asc_166AAD
+        mov edx, str_REPLAYNDX
         lea eax, [byte ebp+02Eh]
         call NameIndexLoad
 .2:
         mov esi, eax
-        call sub_DA7EB
+        call OpenGameDatabase
         call sub_AC69C
-        call sub_DB6AC
+        call CloseGameDatabase
         lea eax, [byte ebp+056h]
         push eax
         push dword [dword_1C1338]
@@ -3301,7 +3301,7 @@ SaveReplay:
         push eax
         lea eax, [byte ebp+02Eh]
         push eax
-        push asc_166AEB
+        push str_SS10
         lea eax, [byte ebp-022h]
         push eax
         lea ebx, [byte ebp+07Eh]
@@ -3376,7 +3376,7 @@ sub_C037B:
         add eax, dword [byte ebp-08h]
         add eax, byte 0Dh
         push eax
-        push asc_166B07
+        push str_S12
         lea eax, [byte ebp-038h]
         push eax
         call sprintf_
@@ -3454,7 +3454,7 @@ sub_C04BE:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -3470,7 +3470,7 @@ sub_C04BE:
         add esp, byte 4
         push byte 0
         push byte 0
-        push asc_166A61
+        push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
@@ -3484,7 +3484,7 @@ sub_C04BE:
         mov eax, dword [dword_1CAF94]
         mov eax, dword [byte eax+02Ch]
         call sub_8BE60
-        push asc_166B1B
+        push str_NOIS
         push dword [dword_1C5DE4]
         call FindShape
         mov edx, dword [eax]
@@ -3534,7 +3534,7 @@ sub_C04BE:
 .4:
         lea eax, [byte esi+01h]
         push eax
-        push asc_166B20
+        push str_ARWD
         lea eax, [byte ebp-030h]
         push eax
         call sprintf_
@@ -3600,7 +3600,7 @@ sub_C04BE:
         jl near .4
         xor eax, eax
         call DrawGameFrame
-        call sub_4BCB4
+        call RedrawGameView
         call SetScreenTarget
         xor ebx, ebx
         jmp short .12
@@ -4082,7 +4082,7 @@ sub_C04BE:
         mov eax, dword [byte ebp-018h]
         call sub_BECB9
 .17:
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         movsx eax, word [byte eax+06h]
@@ -4101,7 +4101,7 @@ sub_C04BE:
         fistp dword [byte ebp-018h]
         sub eax, dword [byte ebp-018h]
         push eax
-        push asc_166A5C
+        push str_Mous4
         push dword [dword_1C5DE4]
         call FindShape
         movsx eax, word [byte eax+04h]
