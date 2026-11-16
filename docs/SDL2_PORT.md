@@ -28,10 +28,14 @@ The game addresses the host uses are `SYM_<label>` names of this source tree (`p
 - No bound DOS/4GW in the EXE: the LE header is at 2C90h.
 - `WaitRetrace` has no mode switch; its loop count is `dword_171E34`. `WaitDisplayRetrace` had no label in the listing.
 - `WaitTicks` runs the game's task list (`sub_F9A88`) while it waits, so it is not replaced; `TickDeadlinePassed` uses edx.
-- Not wired yet (96 addresses that 97 has elsewhere): online play (`port/netplay_off.c` stands in), the automatic on-screen
-  keyboard (F9 still opens it), the sound start-up log, the TGV palette sync, the default `GLOBAL.SET`.
+- NHL 97 asks for 640x480 with 16-bit colour (VESA 0111h, 5:6:5) first: the front end and the TGQ movies are drawn in it, the
+  game itself in 0101h (8 bits). `NHL97_NOHICOLOR=1` hides 0111h (the movies and menus are then black).
+- The front end loads partial palettes without waiting for the retrace: a palette the game has stopped writing is shown.
+- `WaitRetrace` and friends start with `66 BA` (mov dx, 3DAh) and are replaced like 96's.
+- The movies are TGQ (true colour), not 96's TGV, so there is no TGV palette sync to do.
+- The on-screen keyboard opens by itself in `EditText` (7FEC4), the routine every name entry goes through.
+- Not wired yet (96 addresses that 97 has elsewhere): online play (`port/netplay_off.c` stands in; 97's game loop is new, none of
+  96's hook points matched), the sound start-up log, the default `GLOBAL.SET`.
 
-## Test aids
-
-As in 96, with `NHL97_` names: `NHL97_KEYS="ms:Key ..."` (scripted keys, no window focus needed), `NHL97_TRACE=1`,
-`NHL97_STATS=1`, `NHL97_SOUND=none`, `NHL97_AUDIOLOG=1`, and Overbar's `OVERBAR_TEST_KEYS` / `OVERBAR_TEST_LOG` / `OVERBAR_TEST_DUMP`.
+Escape skips the intro movie (`NHL97_KEYS="20000:Escape"` in tests). `NHL97_VLOG=1` logs, once a second, the video hardware use,
+the tick count and every file open.
