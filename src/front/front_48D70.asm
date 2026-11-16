@@ -71,7 +71,7 @@ extern sub_10E8F8, sub_10E960, sub_10ED10, sub_10F814, sub_10FAE4, sub_10FB98, s
 extern sub_10FE58, sub_10FEA8, sub_10FFBC, sub_11002C, sub_1100B4, sub_110414, sub_110440, sub_1104CC
 extern sub_110538, sub_11059C, sub_1105E4, sub_1105FC, sub_110634, sub_110658, sub_11066C, sub_110680
 extern sub_110D70, sub_111C08, sub_111FA0, sub_112010, sub_1120F0, sub_112190, sub_112894, sub_1129B8
-extern StartCameraPath, SelectCameraView, sub_1B6E8, sub_1B71C, sub_1B85C, sub_1D2A8, sub_3B75B, sub_3C75C
+extern StartCameraPath, SelectCameraView, sub_1B6E8, sub_1B71C, sub_1B85C, sub_1D2A8, sub_3B75B, SetVideoMode
 extern sub_3C880, sub_3C8DC, sub_3C944, sub_3C9C8, sub_3CA28, sub_3CAB8, sub_3CB38, sub_3CB70
 extern sub_3CCA8, sub_3D930, sub_3D95C, sub_3D988, sub_3DA18, sub_3DAC4, sub_3DBCC, sub_3DCBC
 extern sub_3E458, sub_3E590, sub_3E818, sub_3EB40, sub_3EC78, CdStreamService, sub_3FBE4, sub_3FC88
@@ -3795,7 +3795,7 @@ sub_4B80C:
         mov edx, dword [byte eax+04h]
         mov eax, dword [eax]
         mov ecx, 300h
-        call sub_3C75C
+        call SetVideoMode
         mov eax, esp
         xor edx, edx
         call __STOSB

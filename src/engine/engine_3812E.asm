@@ -80,7 +80,7 @@ global sub_3A06C, sub_3A164, sub_3A2E8, sub_3A3C8, sub_3A404, sub_3A440, sub_3A5
 global sub_3A75C, sub_3A814, sub_3A884, sub_3A920, sub_3A9D0, sub_3AA48, sub_3AAE8, sub_3AB28
 global sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_3AF30, sub_3AFDC, sub_3B05C
 global sub_3B09C, sub_3B1EC, sub_3B334, sub_3B690, sub_3B738, sub_3B75B, sub_3B760, sub_3B8AC
-global sub_3B900, sub_3B954, sub_3C0B4, sub_3C544, sub_3C580, sub_3C5D4, sub_3C75C, sub_3C880
+global sub_3B900, sub_3B954, sub_3C0B4, sub_3C544, sub_3C580, sub_3C5D4, SetVideoMode, sub_3C880
 global sub_3C8DC, sub_3C944, sub_3C9C8, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
 global sub_3CB70, sub_3CB98, sub_3CCA8, sub_3CD70, sub_3CE58, sub_3CF68, sub_3CFB0, sub_3D020
 global sub_3D030, sub_3D134, sub_3D180, sub_3D2C0, sub_3D3D0, sub_3D4C4, sub_3D548, sub_3D5EC
@@ -6253,9 +6253,11 @@ sub_3C5D4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3C75C                                                       3C75C  97 PC
+; SetVideoMode                                 3C75C  97 PC, medium confidence
+; (width, height): switches the screen mode when it differs from the current
+; one (dword_1A8E84 x dword_1A8E88)
 ;-----------------------------------------------------------------------------
-sub_3C75C:
+SetVideoMode:
         push ebx
         push ecx
         push esi

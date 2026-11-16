@@ -50,11 +50,11 @@
 ;  159D2  unk_159D2                                engine/faceoff/faceoff.asm                   1
 ;  15A22  unk_15A22                                engine/faceoff/faceoff.asm                   1
 ;  15A72  unk_15A72                                engine/faceoff/faceoff.asm                   1
-;  15AC2  sub_15AC2                                engine/engine_15AC2.asm                      3
-;  15BC5  sub_15BC5                                engine/engine_15AC2.asm                      1
+;  15AC2  ChangeViewSize                           engine/engine_15AC2.asm                      3
+;  15BC5  SetViewWindow                            engine/engine_15AC2.asm                      1
 ;  15C30  sub_15C30                                engine/engine_15AC2.asm                      1
 ;  15E4D  sub_15E4D                                engine/engine_15AC2.asm                      1
-;  1603A  sub_1603A                                engine/engine_15AC2.asm                      2
+;  1603A  ApplyDisplayFlags                        engine/engine_15AC2.asm                      2
 ;  16090  RemoveOverlayPanel                       engine/engine_15AC2.asm                      4
 ;  160E2  sub_160E2                                engine/engine_15AC2.asm                      1
 ;  16BF9  sub_16BF9                                engine/engine_15AC2.asm                      1
@@ -302,7 +302,7 @@
 ;  3B690  sub_3B690                                engine/engine_3812E.asm                      1
 ;  3B738  sub_3B738                                engine/engine_3812E.asm                      1
 ;  3B75B  sub_3B75B                                engine/engine_3812E.asm                      1
-;  3C75C  sub_3C75C                                engine/engine_3812E.asm                      3
+;  3C75C  SetVideoMode                             engine/engine_3812E.asm                      3
 ;  3C880  sub_3C880                                engine/engine_3812E.asm                      1
 ;  3C8DC  sub_3C8DC                                engine/engine_3812E.asm                      1
 ;  3C944  sub_3C944                                engine/engine_3812E.asm                      1

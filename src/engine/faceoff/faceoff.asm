@@ -22,7 +22,7 @@ extern dword_1C1346, dword_1C5DE4, dword_1C5EF4, hmtmstruct, memcpy_, off_168CE8
 extern off_168D04, off_168D08, off_168D0C, qword_16002C, qword_160034, qword_16003C, qword_16004C, qword_160054
 extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, regd1, sub_11328
 extern sub_11574, sub_116B0, sub_11808, sub_11984, sub_11F74, sub_12A10, ClockTick, sub_12C2C
-extern sub_12DE8, sub_15AC2, sub_15C30, sub_15E4D, QueueOverlayPanel, sub_18E35, DrawGameOverlays, StartCameraPath
+extern sub_12DE8, ChangeViewSize, sub_15C30, sub_15E4D, QueueOverlayPanel, sub_18E35, DrawGameOverlays, StartCameraPath
 extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, sub_1E208, sub_20CB0, sub_2DE94
 extern sub_30BD8, sub_31F88, sub_32260, sub_34330, sub_34950, sub_36370, sub_36754, sub_3CA28
 extern sub_3CB70, sub_3D020, sub_3E5F0, sub_4123C, sub_41670, sub_41CF0, sub_41DD8, sub_423B4
@@ -2106,14 +2106,14 @@ GameFunctionKeys:
         ret
 .14:
         mov eax, 1
-        call sub_15AC2
+        call ChangeViewSize
         pop ebp
         pop edx
         pop ecx
         ret
 .15:
         mov eax, 0FFFFFFFFh
-        call sub_15AC2
+        call ChangeViewSize
 .16:
         pop ebp
         pop edx

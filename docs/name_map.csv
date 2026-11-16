@@ -30,6 +30,9 @@ address,name,auto_name,source,confidence,evidence,file
 152C4,PlayGame,sub_152C4,96PC,high,"96 PC PlayGame: seeds, then calls GameLoop",src/engine/faceoff/faceoff.asm
 15578,RunDemoGame,sub_15578,96PC,medium,"96 PC RunDemoGame: the attract mode game (gameopts 40h, a seed from the DOS time)",src/engine/faceoff/faceoff.asm
 1583F,RunInGameMenu,sub_1583F,96PC,high,96 PC RunInGameMenu: called when InGameMenuRequest is set,src/engine/faceoff/faceoff.asm
+15AC2,ChangeViewSize,sub_15AC2,new,medium,"(+1 / -1): the game view size in steps of 10 between 28h and 64h percent (word_1686E4), then the view window",src/engine/engine_15AC2.asm
+15BC5,SetViewWindow,sub_15BC5,new,low,the game view window from the view size and the screen size (dword_16E464 x dword_16E468),src/engine/engine_15AC2.asm
+1603A,ApplyDisplayFlags,sub_1603A,new,low,"sets the doubled / interlaced display flags (dword_19CD30, dword_19CD34) in the screen record",src/engine/engine_15AC2.asm
 16090,RemoveOverlayPanel,sub_16090,new,medium,(kind): takes the queued panels of a kind out of the panel queue,src/engine/engine_15AC2.asm
 16D61,DrawVideoModePanel,sub_16D61,new,medium,"the screen mode panel (""%d x %d"", Doubled / Interlaced / Normal)",src/engine/engine_15AC2.asm
 16ED0,DrawGoalScorerPanel,sub_16ED0,new,low,"the ""%s - #%d %s %s"" panel with ""%s %s"" assist lines (team, number, name)",src/engine/engine_15AC2.asm
@@ -38,7 +41,14 @@ address,name,auto_name,source,confidence,evidence,file
 17DC0,DrawClockPanel,sub_17DC0,96PC,low,the clock panel (overlay kind table off_16877E entry 0): removes panels 300h / 700h and draws the clock (DrawGameClock),src/engine/engine_15AC2.asm
 18D8A,QueueOverlayPanel,sub_18D8A,96PC,medium,"96 PC QueueOverlayPanel (kind, ticks, ...): puts a panel in a free slot of the 10-panel queue (unk_19CF8C, 0Ch each)",src/engine/engine_15AC2.asm
 1900F,DrawGameOverlays,sub_1900F,96PC,medium,"96 PC DrawGameOverlays: from GameLoop, the overlay panels of the frame (clock, queued panels)",src/engine/engine_15AC2.asm
+191F8,GetCameraTarget,sub_191F8,new,low,"(target 4-10h and up): the position record of a camera target (player records at dword_1B1410, then fixed targets); 0 when none",src/engine/engine_15AC2.asm
+1963C,UpdateCameraView,sub_1963C,new,low,"(camera, ...): per frame, the camera by its view kind (+24h, 0-0Dh)",src/engine/engine_15AC2.asm
+19F30,UpdateCameraZoom,sub_19F30,new,low,"(camera): the camera distance by its zoom mode (+28h, 0-5)",src/engine/engine_15AC2.asm
+1A31C,UpdateCameraTrack,sub_1A31C,new,low,"(camera): follows the camera path target by its track mode (+2Ch, 0-5)",src/engine/engine_15AC2.asm
 1A740,SetCameraView,sub_1A740,new,medium,"(camera, view 0-0Dh): fills a camera record (unk_19D0A4) with the view's name (GetLangText) and settings",src/engine/engine_15AC2.asm
+1AF4C,SetCameraHeight,sub_1AF4C,new,low,"sets the camera height (dword_19D1A4), at once or eased over frames",src/engine/engine_15AC2.asm
+1AF90,SetCameraFocus,sub_1AF90,new,low,"sets the camera focus x / z (dword_19D1A0, dword_19D1A8), at once or eased",src/engine/engine_15AC2.asm
+1B034,SetCameraPathPoint,sub_1B034,new,low,"sets the camera path point (dword_19D340, dword_19D344), at once or eased",src/engine/engine_15AC2.asm
 1B09C,StartCameraPath,sub_1B09C,new,low,"(path, ticks): starts a camera path (dword_19D380) for the game camera",src/engine/engine_15AC2.asm
 1B3F4,SelectCameraView,sub_1B3F4,new,medium,"(view, ticks): picks the game camera view (mod 10) with SetCameraView and moves the camera to it",src/engine/engine_15AC2.asm
 1BEA4,LoadOpeningCamera,sub_1BEA4,new,low,from OpeningSequence: loads the opening camera path intro%d.3cp from arena.viv,src/engine/engine_15AC2.asm
@@ -58,6 +68,7 @@ address,name,auto_name,source,confidence,evidence,file
 34980,SlotToJoy,,96PC,medium,NHL96PC 3987A (similar): mnemonic similarity 0.92 over 36 instructions,
 349E4,ReadJoy1,,96PC,medium,NHL96PC 398DB (sem): C:371,
 362E0,CountTeamSlots,,96PC,medium,NHL96PC 3A2F6 (similar): mnemonic similarity 0.82 over 32 instructions,
+3C75C,SetVideoMode,sub_3C75C,new,medium,"(width, height): switches the screen mode when it differs from the current one (dword_1A8E84 x dword_1A8E88)",src/engine/engine_3812E.asm
 3EF68,CdStreamService,sub_3EF68,96PC,medium,NHL96PC 1CB54 (sem 0.87): C:460; C:458; C:2029,src/engine/engine_3812E.asm
 3FB34,CdStreamSkipMarks,sub_3FB34,96PC,high,NHL96PC 1D54E (callsite 0.90): called at the same place of CdStreamSpaceLeft,src/engine/engine_3812E.asm
 3FB7C,CdStreamContigData,sub_3FB7C,96PC,high,"96 PC CdStreamContigData, same body",src/engine/engine_3812E.asm

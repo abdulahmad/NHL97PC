@@ -30,7 +30,7 @@ extern qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qwo
 extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, sscanf_, sub_1008CC
 extern sub_101390, sub_1013FC, sub_101429, sub_101EAC, sub_102B94, sub_10491C, sub_1169F0, sub_11984
 extern sub_119A8, sub_11A318, sub_11ADD0, sub_11ADE8, sub_11BDC0, sub_11F74, sub_11FA90, sub_11FAAC
-extern sub_11FB11, sub_12A10, sub_13C164, sub_15AC2, sub_1603A, RemoveOverlayPanel, sub_160E2, sub_18E76
+extern sub_11FB11, sub_12A10, sub_13C164, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, sub_160E2, sub_18E76
 extern sub_18F67, sub_1BC18, sub_1C854, sub_1C9F0, sub_1D09C, sub_3CD70, sub_3CE58, sub_3CF68
 extern sub_3CFB0, sub_3D020, sub_3E480, sub_3E5F0, sub_4123C, sub_41670, sub_419B0, sub_419B8
 extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, sub_41DD8, sub_41EA4, sub_423B4
@@ -2832,7 +2832,7 @@ sub_F418F_16C:
 .12:
         mov eax, dword [byte eax+02Ch]
         call sub_8BE60
-        call sub_1603A
+        call ApplyDisplayFlags
         mov eax, dword [dword_1CEFBC]
         call sub_4BA00
         jmp near sub_F418F_29A.30
@@ -3249,9 +3249,9 @@ sub_F4978:
         call sub_4B5C4
         call sub_1C854
         call sub_4B80C
-        call sub_1603A
+        call ApplyDisplayFlags
         xor eax, eax
-        call sub_15AC2
+        call ChangeViewSize
         call sub_AADEF
         call sub_F1FF8
         mov eax, dword [dword_1ADC88]

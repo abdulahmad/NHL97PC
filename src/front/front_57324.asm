@@ -161,7 +161,7 @@ extern sub_110414, sub_1104F0, sub_11328, sub_114C4, sub_114FD0, sub_115020, sub
 extern sub_115170, sub_1151A4, sub_115220, sub_1152B0, sub_115318, sub_1153AC, sub_1153DC, sub_115810
 extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, sub_116050, sub_11984
 extern sub_119A8, sub_11B38, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
-extern sub_13F28, RunSimFrames, sub_15AC2, sub_15BC5, sub_18DF7, sub_18E35, DrawGameOverlays, StartCameraPath
+extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, sub_18DF7, sub_18E35, DrawGameOverlays, StartCameraPath
 extern SelectCameraView, sub_1DFA0, sub_1E014, sub_1E208, sub_1E224, sub_1E354, sub_1FBF4, sub_20CB0
 extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, sub_2C064, sub_2DD54, sub_2E11C, sub_2E168
 extern sub_2E208, sub_2EDB8, sub_2F4B8, sub_2FED8, sub_32260, sub_32340, EndPenaltyShot, sub_34330
@@ -7102,7 +7102,7 @@ sub_5C500:
         mov dword [dword_1B8F5C], eax
         xor eax, eax
         call sub_5C34C
-        call sub_15BC5
+        call SetViewWindow
         mov eax, 1
         call StartCameraPath
         mov eax, 1
@@ -7134,7 +7134,7 @@ sub_5C584:
 .2:
         call sub_4B8DC
         xor eax, eax
-        call sub_15AC2
+        call ChangeViewSize
         xor edx, edx
         mov eax, 1
         call StartCameraPath

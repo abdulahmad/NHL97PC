@@ -17,9 +17,9 @@ extern dword_1CAFE4, dword_1CAFE8, dword_1CAFEC, dword_1CAFF0, dword_1CAFF4, dwo
 extern off_16D254, off_16D258, qword_166A8D, qword_166AA1, qword_166ACC, qword_166B0F, qword_166B2A, rand_
 extern sprintf_, strcmp_, strcpy_, sub_101390, sub_1013FC, sub_101429, sub_101EAC, sub_103298
 extern sub_103648, sub_105324, sub_10AED0, sub_114C4, sub_11B98E, sub_12024, sub_13C164, InitGameDisplay
-extern sub_1603A, sub_18E35, sub_1D1DC, sub_1D208, sub_1D480, sub_1D4FC, sub_1D828, sub_1D858
+extern ApplyDisplayFlags, sub_18E35, sub_1D1DC, sub_1D208, sub_1D480, sub_1D4FC, sub_1D828, sub_1D858
 extern sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0, sub_1DD5C, sub_1DDE4, sub_1DEB8
-extern sub_3C75C, sub_3CA28, sub_3CB00, sub_3CB48, sub_3CB70, sub_3D020, sub_3E5F0, sub_41A28
+extern SetVideoMode, sub_3CA28, sub_3CB00, sub_3CB48, sub_3CB70, sub_3D020, sub_3E5F0, sub_41A28
 extern sub_41D18, sub_41DB8, sub_41DD8, sub_41EA4, sub_41FA0, sub_423B4, sub_4241C, sub_4A280
 extern sub_4AE14, sub_4B074, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00, sub_4BCB4
 extern sub_5B4D4, sub_5BD94, sub_5BDF4, sub_5BE64, sub_5BEB0, sub_5C2CC, sub_5C2F4, sub_5C30C
@@ -121,7 +121,7 @@ sub_BD62C:
         call sub_F9869
         mov edx, dword [byte ebp-018h]
         mov eax, dword [byte ebp-01Ch]
-        call sub_3C75C
+        call SetVideoMode
         mov eax, dword [byte ebp-01Ch]
         mov dword [dword_19CD10], eax
         mov eax, dword [byte ebp-018h]
@@ -193,7 +193,7 @@ sub_BD62C:
         call sub_F9869
         mov edx, dword [byte ebp-018h]
         mov eax, dword [byte ebp-01Ch]
-        call sub_3C75C
+        call SetVideoMode
         mov eax, dword [byte ebp-01Ch]
         mov dword [dword_19CD10], eax
         mov eax, dword [byte ebp-018h]
@@ -262,7 +262,7 @@ sub_BD62C:
         call sub_3CB70
         mov dword [InGameMenuRequest], 0
         rep movsd
-        call sub_1603A
+        call ApplyDisplayFlags
         push dword [dword_1CAF94]
         call sub_FCD90
         add esp, byte 4
