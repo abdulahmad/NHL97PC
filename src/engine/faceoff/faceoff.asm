@@ -14,11 +14,11 @@ extern F32_54, F32_0p8, F32_ReachFactor, OpeningFrames, InGameMenuRequest, Brigh
 extern ShowRink, ShowCenterLogo, ShowShadows, ShowOverlay, ShowCrowd, ShowBenches, CameraScenesEnabled, CupCelebrationActive
 extern InputRecordStamp, LinkGameActive, ViewScreenWidth, ViewScreenHeight, QuantizePalette, ProgressCount, RefState, InputState
 extern InputDir, ShotState, LastTouchPlayer, PassFrom, PassTo, GameRunning, FaceoffWinner, seed
-extern GameFrame, penshottimer, PuckX, RefTarget, RefPlayer, bholdtimer, InputActive, InputSlotState
+extern GameFrame, penshottimer, puckx, RefTarget, RefPlayer, bholdtimer, InputActive, InputSlotState
 extern PuckChasers, FaceoffCenter, ChangePlayer, LastChangePlayer, LinkSides, LinkCounter, VideoModePanelMode, VideoModeSel
 extern DisplayWidth, DisplayHeight, ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH, VideoModeChanged, DisplayFlags
 extern GameEventPtr, DisplayBuffer, DisplayBufferSize, ReplayLoaded, GameKeyState, GameObjects, GameTick, GameLoopTime
-extern DemoFrame, PlayerPointsTable, ViewSizeIndex, GameSettings, AudioOptions, Brightness, GameOptionFlags, GameRecord
+extern DemoFrame, PlayerPointsTable, ViewSizeIndex, GameSettings, AudioOptions, brightness, GameOptionFlags, GameRecord
 extern ObjectPositions, ReplayFrames, PlayerNamesOn, ReplayMode, ReplayPlaying, ReplayTick, CameraStateRecords, SeasonFileName
 extern AllStarTeamCode, FrontShapeFile, FrontTextFile, hmtmstruct, memcpy_, PtrPuckOwner, PtrPuckZone, PtrPuckFlags
 extern PtrPuckObject, PtrHomeIce, PtrAwayIce, F64_0p000244141, F64_1p2, F64_neg8, F64_0p5, F64_50
@@ -47,7 +47,7 @@ extern PassPlayer, PassPending, PassTarget, ShootButtonTime, LastTouchTeam, Pass
 extern PassState, AssistOne, AssistTwo, GoalScorer, gameover, GoalState, HomeGoalsPeriod, AwayGoalsPeriod
 extern fofdata2, PuckOwner, PuckOwnerTeam, Period, SimFrames, StoppageFlag, LastPlayerTouch, gsp
 extern gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, PeriodLength, OneTimerReady, OneTimerPasser, OneTimerTarget
-extern PuckZone, penshotmode, BenchRequest, penshotlive, FaceoffRequest, PuckY, DelayedPen, MessagePanel
+extern PuckZone, penshotmode, BenchRequest, penshotlive, FaceoffRequest, pucky, DelayedPen, MessagePanel
 extern PenCntDwn, GoalLineFlag, BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeControlSlot, AwayControlSlot
 extern HomeEbenPlayer, FaceoffTakers, FaceoffTakerAway, ChantIndex, LineChangeKeyLow, DemoInput, PlayerAssignWords, HomeTeamRecord
 extern AwayTeamRecord, HomeSimGoals, HomeSimShots, AwaySimGoals, AwaySimShots
@@ -55,7 +55,7 @@ global AllInPlace, Intermission, StartGame, InitGameVars, RunOpeningFrames, Plac
 global EndGameCleanup, GetPlayerJerseyNumber, LinkSideFlags, ClearLinkCounters, PickGameEvents, SpeedScaleAligned, SpeedScale, ReachScale
 global GoalieReachFactor, PlayerReachFactor, StickReachX, StickReachY, StickReachZ, CheckLineChangeKeys, RunSimFrames, JoystickAxisScale
 global ToggleFKeyFlag, ShowCameraView, RandomDiceRoll, CountDebugUnlock, ResetDebugUnlock, DebugKeys, GameFunctionKeys, HandleGameKeys
-global GameLoop, InitGameDisplay, SaveGameDisplay, SetGameBrightness, PlayGame, RunDemoGame, RunInGameMenu, PenaltyPanelBlank
+global Gameloop, InitGameDisplay, SaveGameDisplay, SetGameBrightness, PlayGame, RunDemoGame, RunInGameMenu, PenaltyPanelBlank
 global PenaltyShotPanelBlank, SpecialTeamsPanelBlank, InjuryPanelBlank, PeriodPanelBlank, GoalScorerPanelBlank
 ;-----------------------------------------------------------------------------
 ; AllInPlace                                   1303C  95 PC, medium confidence
@@ -240,8 +240,8 @@ InitGameVars:
         mov dword [PassTo], ecx
         mov dword [PassFrom], ecx
         mov word [DelayedPen], bx
-        mov word [PuckY], si
-        mov word [PuckX], bx
+        mov word [pucky], si
+        mov word [puckx], bx
         mov word [FaceoffRequest], di
         mov word [MessagePanel], di
         mov word [ProgressTimer], di
@@ -2139,7 +2139,7 @@ GameFunctionKeys:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; HandleGameKeys                               14880  97 PC, medium confidence
-; From GameLoop: the in-game keyboard: the unlocked debug keys (DebugKeys),
+; From Gameloop: the in-game keyboard: the unlocked debug keys (DebugKeys),
 ; the function keys (GameFunctionKeys)
 ;-----------------------------------------------------------------------------
 HandleGameKeys:
@@ -2339,11 +2339,11 @@ HandleGameKeys:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; GameLoop                                                        14AC8  96 PC
+; Gameloop                                                        14AC8  96 PC
 ; The game loop PlayGame runs: takes input records out of the ring, then
 ; draws
 ;-----------------------------------------------------------------------------
-GameLoop:
+Gameloop:
         push dword 28h
         call __CHK
         push ebx
@@ -2610,7 +2610,7 @@ InitGameDisplay:
         mov eax, dword [byte esp+04h]
         mov edx, 280h
         mov dword [VideoModeSel], eax
-        mov eax, dword [Brightness]
+        mov eax, dword [brightness]
         mov dword [DisplayHeight], ebx
         and eax, byte 3
         mov dword [DisplayWidth], edx
@@ -2618,7 +2618,7 @@ InitGameDisplay:
         setne al
         and eax, 0FFh
         mov dword [VideoModeChanged], eax
-        mov eax, dword [Brightness]
+        mov eax, dword [brightness]
         and eax, byte 3
         test al, 2
         setne al
@@ -2698,7 +2698,7 @@ InitGameDisplay:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; SaveGameDisplay                                 14FE0  97 PC, low confidence
-; Writes the game's display options back (Brightness) after the game
+; Writes the game's display options back (brightness) after the game
 ;-----------------------------------------------------------------------------
 SaveGameDisplay:
         push dword 18h
@@ -2710,14 +2710,14 @@ SaveGameDisplay:
         push ebp
         mov eax, DisplaySettings
         call GetVideoModeList
-        mov edx, dword [Brightness]
+        mov edx, dword [brightness]
         mov ebx, dword [VideoModeChanged]
         and dl, 0FCh
         test ebx, ebx
         je short .2
         cmp dword [DisplayFlags], byte 0
         je short .1
-        or byte [Brightness], 3
+        or byte [brightness], 3
         jmp short .4
 .1:
         or dl, 1
@@ -2727,7 +2727,7 @@ SaveGameDisplay:
         je short .3
         or dl, 2
 .3:
-        mov dword [Brightness], edx
+        mov dword [brightness], edx
 .4:
         mov edx, dword [BrightnessLevel]
         sar edx, 10h
@@ -2736,14 +2736,14 @@ SaveGameDisplay:
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov dl, byte [Brightness]
+        mov dl, byte [brightness]
         mov bl, byte [DetailLevel]
         and eax, byte 0Fh
         and dl, 0C3h
         shl eax, 2
-        mov byte [Brightness], dl
+        mov byte [brightness], dl
         mov dh, byte [DisplayOptions]
-        mov edi, dword [Brightness]
+        mov edi, dword [brightness]
         and dh, 0F0h
         or edi, eax
         mov eax, dword [SavedCameraView]
@@ -2781,7 +2781,7 @@ SaveGameDisplay:
         mov byte [DetailLevel], ch
         shl eax, 1Ah
         or dword [AudioOptions], eax
-        mov dword [Brightness], edi
+        mov dword [brightness], edi
         mov dl, byte [MusicOptions]
         mov eax, dword [ShowShadows]
         and dl, 7Fh
@@ -2831,7 +2831,7 @@ SetGameBrightness:
         push esi
         push edi
         push ebp
-        mov eax, dword [Brightness]
+        mov eax, dword [brightness]
         shl eax, 1Ah
         shr eax, 1Ch
         lea ebx, [nosplit eax*4+00h]
@@ -2925,7 +2925,7 @@ SetGameBrightness:
 ;
 ; (&savefile): without an open saved game runs the pre-game screens (LoadRockMusic, LoadGameGfx, SetupGame;
 ; gameresult 2 on cancel), otherwise LoadGameState from the file, rebuilds lines (SetupTeamLines) and
-; resumes; then GameLoop; in league / Play-Off mode a completed game (gameresult 1) deletes
+; resumes; then Gameloop; in league / Play-Off mode a completed game (gameresult 1) deletes
 ;
 ; <league>\game.sav; called from temp_files, import_export and PlayoffModeLoop
 ;-----------------------------------------------------------------------------
@@ -3071,7 +3071,7 @@ PlayGame:
         mov dword [GameRunning], eax
         cmp eax, byte 2
         je short .11
-        call GameLoop
+        call Gameloop
 .11:
         call ReplayFreeFrames
         mov edi, dword [ClockShown]
@@ -3124,7 +3124,7 @@ PlayGame:
 ;-----------------------------------------------------------------------------
 ; RunDemoGame                                  15578  96 PC, medium confidence
 ; Attract-mode demo game: seeds rand from the time, InitSlotTable, loads the game, starts InputRecordTimer,
-; SetupDemoGame, GameLoop, then stops the timer and restores the screen; same job
+; SetupDemoGame, Gameloop, then stops the timer and restores the screen; same job
 ;-----------------------------------------------------------------------------
 RunDemoGame:
         push dword 28h

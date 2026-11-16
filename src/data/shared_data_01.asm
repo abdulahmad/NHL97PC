@@ -45,7 +45,7 @@ F64_0p159155:                                   ; double constant 0.159155; used
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
 F64_65536:                                      ; double constant 65536; used by JoystickAxisScale
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-str_RPEVENT2:                                   ; string "RP_EVENT"; used by GameLoop
+str_RPEVENT2:                                   ; string "RP_EVENT"; used by Gameloop
         db 052h,050h,05Fh,045h,056h,045h,04Eh,054h,00h,00h,00h,00h
 str_WaitingForOtherComputer2:                   ; string "Waiting for other computer"; used by PlayGame
         db 057h,061h,069h,074h,069h,06Eh,067h,020h,066h,06Fh,072h,020h,06Fh,074h,068h,065h

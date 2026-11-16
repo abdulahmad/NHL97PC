@@ -54,6 +54,7 @@ int main(int argc, char **argv)
     plat_make_image_writable();
     install_overrides();
     netplay_install();
+    { void camera_install(void); camera_install(); }
     modem_test_open();
     plat_install_traps();
     if (getenv("NHL97_CRASHTEST")) { volatile int *p = 0; *p = 1; }

@@ -6,14 +6,14 @@ bits 32
 section s_19CB71 progbits alloc noexec write align=1
 global ShotFlagsReset, NearestPlayer, NearestTeam, GoalieOut, OneTimerFlag, iflags, IcingTeam, gmode
 global PuckFlags, PlayFlags, holdreset, RefSignal, GoalScorerFlags, FaceoffWinner, seed, GameFrame
-global penshottimer, PuckX, RefTarget, RefPlayer, SlotPlayers, SlotPuckPlayer, InputSlotPlayers, bholdtimer
+global penshottimer, puckx, RefTarget, RefPlayer, SlotPlayers, SlotPuckPlayer, InputSlotPlayers, bholdtimer
 global InputActive, PassButtonTimes, InputSlotState, PassButtonHeld, PuckChasers, FaceoffCenter, ChangePlayer, LastChangePlayer
 global slotteam, ProgressTimer, ShotTarget, ShotTimer, ShotType, ShotSpeed, ShotPending, PassPlayer
-global PassPending, PassTarget, ShootButtonTime, LastTouchTeam, PassDistX, PassDistY, PassReceiver, OneTimerPlayer
+global PassPending, PassTarget, ShootButtonTime, LastTouchTeam, PassDistX, PassDistY, PassReceiver, onetimerplayer
 global PassState, StatsPanelPlayer, AssistOne, AssistTwo, GoalScorer, gameover, GoalState, HomeGoalsPeriod
 global AwayGoalsPeriod, fofdata2, PuckOwner, PuckOwnerTeam, Period, SimFrames, StoppageFlag, LastPlayerTouch
 global gsp, gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, PeriodLength, OneTimerReady
-global OneTimerPasser, OneTimerTarget, PuckZone, penshotmode, BenchRequest, penshotlive, FaceoffRequest, PuckY
+global OneTimerPasser, OneTimerTarget, PuckZone, penshotmode, BenchRequest, penshotlive, FaceoffRequest, pucky
 global DelayedPen, MessagePanel, PenCntDwn, GoalLineFlag, BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff
 global HomeControlSlot, AwayControlSlot, HomeEbenPlayer, AwayEbenPlayer, FaceoffTakers, FaceoffTakerAway
 ShotFlagsReset:                                 ; shot flags cleared at game start; used by InitGameVars
@@ -26,17 +26,17 @@ NearestPlayer:                                  ; player nearest the puck; used 
         db 00h
 NearestTeam:                                    ; team nearest the puck; used by InitGameVars
         db 00h
-ShotTarget:                                     ; shot target spot; used by InitGameVars, OneTimerShot,
+ShotTarget:                                     ; shot target spot; used by InitGameVars, onetimershot,
                                                 ; PickShotTarget ...
         db 00h,00h
-ShotTimer:                                      ; shot timer; used by InitGameVars, OneTimerShot,
+ShotTimer:                                      ; shot timer; used by InitGameVars, onetimershot,
                                                 ; PickShotTarget ...
         db 00h,00h
 ShotType:                                       ; shot type; used by ChkShoot, ForceShoot, InitGameVars ...
         db 00h
 GoalScorerFlags:                                ; goal scorer flags per team; used by Goal, SetupPenaltyShot
         db 00h
-ShotSpeed:                                      ; shot speed; used by InitGameVars, OneTimerShot, ShotMove ...
+ShotSpeed:                                      ; shot speed; used by InitGameVars, onetimershot, ShotMove ...
         db 00h,00h
 GoalieOut:                                      ; goalie pulled per team; used by CPgoalie, ChkGoalies,
                                                 ; CoachLineChange ...
@@ -75,7 +75,7 @@ PassDistY:                                      ; pass distance Y; used by ChkPa
 PassReceiver:                                   ; pass receiver; used by AIPassDecision, DefendPuck,
                                                 ; DoPassButton ...
         db 00h,00h
-OneTimerPlayer:                                 ; one-timer player; used by AIPassDecision, CreditPass,
+onetimerplayer:                                 ; one-timer player; used by AIPassDecision, CreditPass,
                                                 ; DefendPuck ...
         db 00h,00h
 PassState:                                      ; pass state; used by AIPassDecision, BeginGame, ClockTick ...
@@ -91,7 +91,7 @@ AssistTwo:                                      ; second assist player; used by 
         db 00h,00h
 GoalScorer:                                     ; goal scorer; used by Goal, InitGameVars, assrefsignal
         db 00h,00h
-gameover:                                       ; used by FormatPlayerStatLine, GameLoop, GameOver ...
+gameover:                                       ; used by FormatPlayerStatLine, Gameloop, GameOver ...
         db 00h,00h
 GoalState:                                      ; goal state; used by Goal, InitGameVars
         db 00h,00h
@@ -101,10 +101,10 @@ HomeGoalsPeriod:                                ; home goals this period; used b
 AwayGoalsPeriod:                                ; away goals this period; used by EndPenaltyShot, Goal,
                                                 ; InitGameVars ...
         db 00h,00h
-fofdata2:                                       ; face-off data; used by Endfaceoff, FaceoffInput,
+fofdata2:                                       ; face-off data; used by Endfaceoff, faceoffinput,
                                                 ; InitGameVars ...
         db 00h,00h
-FaceoffWinner:                                  ; face-off winner; used by Endfaceoff, FaceoffInput, Goal ...
+FaceoffWinner:                                  ; face-off winner; used by Endfaceoff, faceoffinput, Goal ...
         db 00h,00h
 PuckOwner:                                      ; player holding the puck; used by ChkDelayedOffside,
                                                 ; CommentNetHit, CreditPass ...
@@ -116,7 +116,7 @@ Period:                                         ; current period; used by CheckI
                                                 ; DrawPauseClock ...
         db 00h,00h
 SimFrames:                                      ; simulation frames to run; used by DelayedPenaltyEnd,
-                                                ; DrawPauseClock, GameLoop ...
+                                                ; DrawPauseClock, Gameloop ...
         db 00h,00h
 StoppageFlag:                                   ; play stopped; used by CreditPass, DelayedPenaltyEnd,
                                                 ; EndPenaltyShot ...
@@ -152,13 +152,13 @@ PlayFlags:                                      ; play state flags; used by Bloc
 holdreset:                                      ; hold reset flags; used by ClearPlayerFlags, Endfaceoff,
                                                 ; PlayerGetsPuck ...
         db 00h,00h,00h,00h
-GameFrame:                                      ; game frame counter; used by GameLoop, InitGameVars,
+GameFrame:                                      ; game frame counter; used by Gameloop, InitGameVars,
                                                 ; PlaceOpeningPlayers
         db 00h,00h,00h,00h
 PeriodLength:                                   ; period length; used by InitGameVars, PeriodLengthSetting,
                                                 ; StartPeriod ...
         db 00h,00h
-OneTimerReady:                                  ; one-timer ready; used by CreditPass, Goal, GoalieSave ...
+OneTimerReady:                                  ; one-timer ready; used by CreditPass, Goal, goaliesave ...
         db 00h,00h
 OneTimerPasser:                                 ; one-timer passer; used by ClearLastPasser, CreditPass,
                                                 ; InitGameVars ...
@@ -181,10 +181,10 @@ penshottimer:                                   ; used by AddPenalty2, ClockTick
 FaceoffRequest:                                 ; face-off request; used by ChkBodyContact, DebugKeys,
                                                 ; EndPenaltyShot ...
         db 00h,00h
-PuckX:                                          ; puck X; used by InitGameVars, PickLinePlayers,
+puckx:                                          ; puck X; used by InitGameVars, PickLinePlayers,
                                                 ; ReleaseBoxPlayers ...
         db 00h,00h
-PuckY:                                          ; puck Y; used by Goal, InitGameVars, SetupPenaltyShot ...
+pucky:                                          ; puck Y; used by Goal, InitGameVars, SetupPenaltyShot ...
         db 00h,00h
 DelayedPen:                                     ; delayed penalty team; used by AddPenalty2, ChkBodyContact,
                                                 ; CoachLineChange ...
@@ -208,7 +208,7 @@ RefSignal:                                      ; referee signal; used by InProg
                                                 ; assrefgoalline
         db 00h,00h,00h,00h
 RefPlayer:                                      ; referee player (-1 none); used by ChkPenaltyCall,
-                                                ; CupCelebration, GameLoop ...
+                                                ; CupCelebration, Gameloop ...
         db 0FFh,0FFh
 SlotPlayers:                                    ; player per control slot; used by AutoSwitchToCarrier,
                                                 ; GiveControl, SetSlotPlayer ...
@@ -262,7 +262,7 @@ PassButtonHeld:                                 ; pass button held per slot; use
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 PuckChasers:                                    ; puck chaser per team; used by DoPassButton, InitGameVars,
-                                                ; OneTimerShot ...
+                                                ; onetimershot ...
         db 00h,00h,00h,00h
 FaceoffCenter:                                  ; face-off center; used by InitGameVars, puckfaceoff2
         db 00h,00h,00h,00h

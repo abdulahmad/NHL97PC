@@ -106,7 +106,7 @@ PassTo:                                         ; pass target player; used by Cr
 PuckHitFlag:                                    ; puck hit flag; used by AddPenalty2, PuckHitsNet,
                                                 ; puckfaceoff2
         db 00h,00h,00h,00h
-GameRunning:                                    ; game running; used by GameLoop, InitGameVars, PlayGame ...
+GameRunning:                                    ; game running; used by Gameloop, InitGameVars, PlayGame ...
         db 00h,00h
 DefendTarget:                                   ; defending target; used by DefendPuck, assextra4
         db 00h,00h

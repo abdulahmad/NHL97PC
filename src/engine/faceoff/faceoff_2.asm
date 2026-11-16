@@ -7,12 +7,12 @@ section s_2EEE8 progbits alloc exec nowrite align=1
 extern IF@ATAN2, ReturnGoalies, SortCords, __CHP, str_Pktbuffer, awtmstruct, LineSlotPositions, LineSlotOffsets
 extern LineReplaceTable, SlotJoyMap, PenaltyPending, PenaltyTeam, PenaltySlots, PenaltyQueue, PenaltyBoxCount, gmode
 extern PuckFlags, PlayFlags, holdreset, RefSignal, PadStates, LineSlotTaken, LineSlotStart, DefenseByDefense
-extern ForwardsByOffense, GoalieFlags, PlayerControlFlags, PlayerStateFlags, HmPlayerFlags, HmCoachGoalie, HmPlayerEnergy, AwPlayerFlags
+extern ForwardsByOffense, goalieflags, PlayerControlFlags, PlayerStateFlags, HmPlayerFlags, HmCoachGoalie, HmPlayerEnergy, AwPlayerFlags
 extern AwCoachGoalie, AwPlayerEnergy, F32_neg1392_PickShotTarget, F32_neg432, F32_neg1392_updatepentime_ut_chk, F32_144_assfwatch, F32_48_assfwatch, ShotTargetX
 extern ShotTargetY, LineReplaceOrder, PenaltyMinutes, PenaltyFlags, PenaltyPaCodes, PenaltyTypes, PacketLinkOpen, PacketLinkMode
 extern PacketSize, ProgressRecord, PadSlotA, PadSlotB, ProgressCount, FaceoffSlots, RefState, InputState
 extern InputButtons, InputDir, ShotState, LastTouchPlayer, PuckHitFlag, ExtraAttacker, ZoneTargetX, ZoneFlags
-extern GoalScorerFlags, FaceoffWinner, penshottimer, PuckX, RefTarget, RefPlayer, SlotPlayers, InputSlotPlayers
+extern GoalScorerFlags, FaceoffWinner, penshottimer, puckx, RefTarget, RefPlayer, SlotPlayers, InputSlotPlayers
 extern bholdtimer, InputActive, PassButtonTimes, PassButtonHeld, PuckChasers, ChangePlayer, LineSortKeys, LineSortIndex
 extern LineSortOrder, PenaltyRecord, HmPenaltyPlayer, HmScore, AwPenaltyPlayer, AwScore, LinkChannelAData, LinkChannelBData
 extern GameSettings, GameOptionFlags, ReplayPlaying, StickPointId, HomePlayerRecords, AwayPlayerRecords, hmtmstruct, hypot_
@@ -35,14 +35,14 @@ extern ShotAnimFrames, ObjectFramePos, StopObject, StartShotAnim, StartOneTimerA
 extern StartFightGrab, StartFightPull, StartFightAnim, SetAnimFrame, RequestPauseMenu, clockcont_0, LogPenalty, RunIdleHandlers
 extern AllocMemData, FreeMemBlock, FillMem, addtimer, RemoveTimerCallback, WaitTicks, JoyStateTable, CentersByOffense
 extern RightWingsByDefense, CentersByDefense, LeftWingsByOffense, LeftWingsByDefense, RightWingsByOffense, DefenseByOffense, ForwardsByDefense, HomeTeamRecord
-extern LinkChannelA, LinkChannelB, AutoLineData, HomeLines, vecdist, vtoa, ForcePenaltyCall, ProgressTimes
+extern LinkChannelA, LinkChannelB, AutoLineData, homelines, vecdist, vtoa, ForcePenaltyCall, ProgressTimes
 extern ProgressLimit, str_Punct_InProgress, LineChangeKeys, FaceoffHomePlayer, FaceoffAwayPlayer, RimTargetX, RimTargetY, FaceoffX
 extern FaceoffDropX, FaceoffY, FaceoffDropY, JoyButtonsTable, LineChangeHome, LineChangeAway, HomeSkaters, DefendFlags
 extern GoalieTarget, ZoneTargetY, ProgressTimer, ShotTarget, ShotTimer, ShotType, ShotSpeed, ShotPending
-extern PassPlayer, PassTarget, ShootButtonTime, LastTouchTeam, PassDistX, PassDistY, PassReceiver, OneTimerPlayer
+extern PassPlayer, PassTarget, ShootButtonTime, LastTouchTeam, PassDistX, PassDistY, PassReceiver, onetimerplayer
 extern PassState, StatsPanelPlayer, HomeGoalsPeriod, AwayGoalsPeriod, fofdata2, PuckOwner, PuckOwnerTeam, StoppageFlag
 extern LastPlayerTouch, gsp, gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, PeriodLength, OneTimerReady
-extern OneTimerPasser, OneTimerTarget, PuckZone, penshotmode, BenchRequest, penshotlive, FaceoffRequest, PuckY
+extern OneTimerPasser, OneTimerTarget, PuckZone, penshotmode, BenchRequest, penshotlive, FaceoffRequest, pucky
 extern DelayedPen, MessagePanel, PenCntDwn, GoalLineFlag, BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff
 extern HomeControlSlot, AwayControlSlot, HomeEbenPlayer, AwayEbenPlayer, FaceoffTakers, FaceoffTakerAway, LineBuildLine, LineBuildSlot
 extern LineBuildPlayer, PlayerControlWords, HmFaceoffCenter, HmFaceoffWinger, HmPlayersInBox, HmLineState, AwFaceoffCenter, AwFaceoffWinger
@@ -58,8 +58,8 @@ global SetupAutoLines, CanPlayLineSlot, FindLinePlayer, PickLineReplacement, Cop
 global InitGameLines, ChkTwoInBox, AddPenalty, AddPenalty2, Stop4Pen, updatepwrplay, chkatop, releasepl
 global PenGoalStuff, updatepentime_ut_chk, updatepentime_ut, updatepentime, checkfornewpen, SumOnIceRatings, SetupPenaltyShot, EndPenaltyShot
 global PenaltyPaCode, InProgress, SetPlayerTarget, SetSlotPlayer, ChkGrabPuckOnSwitch, AutoSwitchToCarrier, InitPadSlots, RequestLineChange
-global LineChangeKey, DoLineChangeInput, FaceoffInput, FaceDirFromMotion, doplayeracc, SetSkateDir, JoySkate, JoyDirSkate
-global FindPassTarget, ChkPassTo, DoPassButton, ShotAimDir, DoShootButton, ChkOneTimerSpot, ClearLastPasser, OneTimerShot
+global LineChangeKey, DoLineChangeInput, faceoffinput, FaceDirFromMotion, doplayeracc, SetSkateDir, JoySkate, JoyDirSkate
+global FindPassTarget, ChkPassTo, DoPassButton, ShotAimDir, DoShootButton, ChkOneTimerSpot, ClearLastPasser, onetimershot
 global doinput, DebugRestoreEnergy, CheckFightOdds, StartFight, checkfight, ResetPlayerCounters, HumanStickAction, assfight
 global assfwatch, PutChecksum, VerifyPacketChecksum, BuildPacketHeader, SendPacket, SendAckPacket, AckPackets, MarkPacketAcked
 global FreeLinkChannel, ParsePacket, ReceivePackets, LinkGetDevice, LinkCountdown, LinkResendIfDue, LinkPoll, InitPacketLink
@@ -1418,7 +1418,7 @@ PickShotTarget:
 .3:
         mov edi, 0FFFFFFFFh
         mov ax, word [PassReceiver]
-        mov word [OneTimerPlayer], di
+        mov word [onetimerplayer], di
         cmp ax, 8
         jle short .4
         mov word [PassReceiver], 8
@@ -2663,7 +2663,7 @@ SetupAutoLines:
         add ecx, ebx
         add ebx, eax
         mov eax, ebp
-        mov edi, HomeLines
+        mov edi, homelines
         call BuildTeamLines
         cmp si, byte 2
         jl near .1
@@ -6017,7 +6017,7 @@ SetupPenaltyShot:
         setg al
         xor ah, ah
         mov edx, dword [ReplayPlaying]
-        mov word [PuckY], ax
+        mov word [pucky], ax
         test edx, edx
         jne short .3
         test ax, ax
@@ -6036,11 +6036,11 @@ SetupPenaltyShot:
         shl eax, 5
         mov edi, 1
         add eax, edx
-        mov cx, word [PuckY]
+        mov cx, word [pucky]
         mov word [HmPlayersInBox], di
-        movsx ax, byte [nosplit eax*8+GoalieFlags]
+        movsx ax, byte [nosplit eax*8+goalieflags]
         mov word [AwPlayersInBox], di
-        mov word [PuckX], ax
+        mov word [puckx], ax
         mov ax, word [FaceoffSpot]
         xor edx, edx
         mov word [AwayGoalsPeriod], ax
@@ -6061,7 +6061,7 @@ SetupPenaltyShot:
         imul ebx, eax, dword 125h
         lea eax, [dword edx+0A3h]
         add ebx, eax
-        mov ax, word [PuckY]
+        mov ax, word [pucky]
         xor al, 1
         test ax, ax
         jle short .6
@@ -6070,7 +6070,7 @@ SetupPenaltyShot:
 .6:
         mov edx, hmtmstruct
 .7:
-        mov ax, word [PuckY]
+        mov ax, word [pucky]
         mov si, word [byte edx+010h]
         xor al, 1
         test si, si
@@ -6094,7 +6094,7 @@ SetupPenaltyShot:
         mov eax, dword [nosplit eax*8+PenaltyRecord]
 .11:
         sar eax, 18h
-        mov dx, word [PuckY]
+        mov dx, word [pucky]
         xor dl, 1
         test dx, dx
         jle short .12
@@ -6110,7 +6110,7 @@ SetupPenaltyShot:
         add eax, edx
         push eax
         push ebx
-        mov eax, dword [PuckX]
+        mov eax, dword [puckx]
         push byte 1
         sar eax, 10h
         push eax
@@ -7814,11 +7814,11 @@ DoLineChangeInput:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; FaceoffInput                                    34C18  97 PC, low confidence
+; faceoffinput                                    34C18  97 PC, low confidence
 ; From doinput: the controlled faceoff player's joystick direction
 ; (assignment 8)
 ;-----------------------------------------------------------------------------
-FaceoffInput:
+faceoffinput:
         push ebx
         push ecx
         push edx
@@ -8792,10 +8792,10 @@ ClearLastPasser:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; OneTimerShot                                    356A8  97 PC, low confidence
+; onetimershot                                    356A8  97 PC, low confidence
 ; From assonetimer: the one-timer shot itself (CreditPass, assexit)
 ;-----------------------------------------------------------------------------
-OneTimerShot:
+onetimershot:
         push ebx
         push ecx
         push edx
@@ -8826,7 +8826,7 @@ OneTimerShot:
         call CreditPass
         jmp short .3
 .2:
-        mov word [OneTimerPlayer], 0FFFFh
+        mov word [onetimerplayer], 0FFFFh
 .3:
         and byte [dword ecx+0BFh], 0FEh
         mov eax, dword [dword ecx+0AEh]
@@ -9053,7 +9053,7 @@ doinput:
         test byte [PlayFlags], 1
         je short .11
         mov eax, ebx
-        call FaceoffInput
+        call faceoffinput
         jmp near .55
 .11:
         test byte [dword ebx+0C0h], 8
@@ -9191,12 +9191,12 @@ doinput:
         je near .23
         cmp dword [nosplit esi*4+PuckChasers], byte 0
         jne near .23
-        cmp word [OneTimerPlayer], byte 0
+        cmp word [onetimerplayer], byte 0
         jl short .23
         cmp byte [dword ebx+0A4h], 6
         setb al
         mov edx, eax
-        mov si, word [OneTimerPlayer]
+        mov si, word [onetimerplayer]
         and edx, 0FFh
         cmp si, byte 6
         setl al
@@ -9235,7 +9235,7 @@ doinput:
         ret
 .24:
         xor eax, eax
-        mov di, word [OneTimerPlayer]
+        mov di, word [onetimerplayer]
         mov al, byte [dword ebx+0A4h]
         cmp ax, di
         jne short .26
@@ -9562,12 +9562,12 @@ doinput:
         je near .23
         cmp dword [nosplit esi*4+PuckChasers], byte 0
         jne near .23
-        cmp word [OneTimerPlayer], byte 0
+        cmp word [onetimerplayer], byte 0
         jl near .23
         cmp byte [dword ebx+0A4h], 6
         setb al
         mov edx, eax
-        mov si, word [OneTimerPlayer]
+        mov si, word [onetimerplayer]
         and edx, 0FFh
         cmp si, byte 6
         setl al
@@ -9600,7 +9600,7 @@ doinput:
         sar edx, 10h
         mov eax, edx
         shl eax, 5
-        mov si, word [OneTimerPlayer]
+        mov si, word [onetimerplayer]
         add eax, edx
         xor edx, edx
         shl eax, 3
@@ -9653,7 +9653,7 @@ doinput:
         jl near .52
         cmp byte [dword ebx+0A4h], 6
         setb dl
-        mov di, word [OneTimerPlayer]
+        mov di, word [onetimerplayer]
         movzx esi, dl
         cmp di, byte 6
         setl dl

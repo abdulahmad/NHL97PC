@@ -9,7 +9,7 @@ global BenchCheerCount, BenchCheerFirst, BenchCheerLast, BenchCheerOn, CrowdReac
 global CrowdReactLevel, CrowdReactTime, CameraOnPuck, ScoreboardArt, ScoreboardDigits, ScoreboardSize, ScoreboardFrame, ScoreboardBounds
 global ScoreboardTime, ScoreboardScore, ScoreboardPeriod, ScoreboardBuffer, ScoreboardPitch, ScoreboardLogo, ScoreboardHome, ScoreboardAway
 global ScoreboardClock, ScoreboardLoaded, GoalLightArt, GoalLightModel, CrowdDelay, CrowdReactType, CrowdReactEnd, CrowdModel
-global CrowdFrame, CrowdFrameTime, RinkLength, RinkWidth, RinkCorner, RinkGoalLine, RinkBlueLine, RinkCenterLine
+global Crowdframe, CrowdFrameTime, RinkLength, RinkWidth, RinkCorner, RinkGoalLine, RinkBlueLine, RinkCenterLine
 global ModelSlotTable, RinkModelState, NetX, NetShadowX, NetShadowY, ViewDistance, NetShadowZ, NetShadowW
 global CameraModeOn, NetShadowH, NetShadowD, NetY, NetZ, BoardAdArt, ArenaArtParts
 
@@ -134,7 +134,7 @@ CrowdReactEnd:                                  ; crowd reaction end time; used 
 CrowdModel:                                     ; crowd model; used by EndCrowdReaction, FreeRinkModel,
                                                 ; SetupRinkModel ...
         resb 4
-CrowdFrame:                                     ; crowd frame; used by DrawBenchPlayers, EndCrowdReaction,
+Crowdframe:                                     ; crowd frame; used by DrawBenchPlayers, EndCrowdReaction,
                                                 ; StartCrowdReaction
         resb 4
 CrowdFrameTime:                                 ; crowd frame time; used by DrawBenchPlayers,

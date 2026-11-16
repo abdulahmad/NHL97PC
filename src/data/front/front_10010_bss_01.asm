@@ -83,21 +83,21 @@ ReplayLoaded:                                   ; replay loaded; used by LoadRep
         resb 4
 GameKeyState:                                   ; game key state; used by HandleGameKeys
         resb 4
-GameObjects:                                    ; game object records; used by GameLoop, LoadReplay,
+GameObjects:                                    ; game object records; used by Gameloop, LoadReplay,
                                                 ; LoadReplayData ...
         resb 52
-GameTick:                                       ; game tick; used by GameLoop, InitGameVars,
+GameTick:                                       ; game tick; used by Gameloop, InitGameVars,
                                                 ; PlaceOpeningPlayers ...
         resb 4
-PadStates:                                      ; pad state per slot; used by GameLoop, PlaySavedReplay,
+PadStates:                                      ; pad state per slot; used by Gameloop, PlaySavedReplay,
                                                 ; ReplayPlayFrames ...
         resb 16
 LineChangeKeyLow:                               ; line change key low byte; used by CheckLineChangeKeys,
-                                                ; GameLoop, RunSimFrames
+                                                ; Gameloop, RunSimFrames
         resb 1
 LineChangeKeyFlags:                             ; line change key flags; used by CheckLineChangeKeys
         resb 3
-GameLoopTime:                                   ; game loop time; used by GameLoop
+GameLoopTime:                                   ; game loop time; used by Gameloop
         resb 4
 DemoState:                                      ; demo game state; used by RunDemoGame
         resb 1

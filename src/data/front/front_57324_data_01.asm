@@ -1544,7 +1544,7 @@ str_Stop:                                       ; string "stop"; used by LoadSka
         db 073h,074h,06Fh,070h,00h
 F32_0p5_LoadSkateAnims:                         ; float constant 0.5; used by LoadSkateAnims
         db 00h,00h,00h,03Fh
-str_Puckh:                                      ; string "puckh"; used by CamShot23D
+str_Puckh:                                      ; string "puckh"; used by LoadShotAnims
         db 070h,075h,063h,06Bh,068h,00h
 str_PlAct:                                      ; string "pl_act"; used by LoadActAnims
         db 070h,06Ch,05Fh,061h,063h,074h,00h
@@ -2452,35 +2452,35 @@ F64_72:                                         ; double constant 72; used by Pi
         db 00h,00h,00h,00h,00h,00h,052h,040h
 F64_144_PickSaveAnim:                           ; double constant 144; used by PickSaveAnim
         db 00h,00h,00h,00h,00h,00h,062h,040h
-F64_4272_GoalieSave:                            ; double constant 4272; used by GoalieSave
+F64_4272_GoalieSave:                            ; double constant 4272; used by goaliesave
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-F64_2832:                                       ; double constant 2832; used by GoalieSave
+F64_2832:                                       ; double constant 2832; used by goaliesave
         db 00h,00h,00h,00h,00h,020h,0A6h,040h
-F64_72_GoalieSave:                              ; double constant 72; used by GoalieSave
+F64_72_GoalieSave:                              ; double constant 72; used by goaliesave
         db 00h,00h,00h,00h,00h,00h,052h,040h
-F32_10_GoalieSave:                              ; float constant 10; used by GoalieSave
+F32_10_GoalieSave:                              ; float constant 10; used by goaliesave
         db 00h,00h,020h,041h
-F64_6p28319_GoalieSave:                         ; double constant 6.28319; used by GoalieSave
+F64_6p28319_GoalieSave:                         ; double constant 6.28319; used by goaliesave
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-F64_3p14159_GoalieSave:                         ; double constant 3.14159; used by GoalieSave
+F64_3p14159_GoalieSave:                         ; double constant 3.14159; used by goaliesave
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-F64_neg6p28319_GoalieSave:                      ; double constant -6.28319; used by GoalieSave
+F64_neg6p28319_GoalieSave:                      ; double constant -6.28319; used by goaliesave
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-F64_neg3p14159_GoalieSave:                      ; double constant -3.14159; used by GoalieSave
+F64_neg3p14159_GoalieSave:                      ; double constant -3.14159; used by goaliesave
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-F32_96_GoalieSave:                              ; float constant 96; used by GoalieSave
+F32_96_GoalieSave:                              ; float constant 96; used by goaliesave
         db 00h,00h,0C0h,042h
-F32_240:                                        ; float constant 240; used by GoalieSave
+F32_240:                                        ; float constant 240; used by goaliesave
         db 00h,00h,070h,043h
-F64_1p0472_GoalieSave:                          ; double constant 1.0472; used by GoalieSave
+F64_1p0472_GoalieSave:                          ; double constant 1.0472; used by goaliesave
         db 0BCh,08Bh,054h,03Ch,052h,0C1h,0F0h,03Fh
-F64_384_GoalieSave:                             ; double constant 384; used by GoalieSave
+F64_384_GoalieSave:                             ; double constant 384; used by goaliesave
         db 00h,00h,00h,00h,00h,00h,078h,040h
-F64_neg0p785398_GoalieSave:                     ; double constant -0.785398; used by GoalieSave
+F64_neg0p785398_GoalieSave:                     ; double constant -0.785398; used by goaliesave
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,0BFh
-F64_0p785398_GoalieSave:                        ; double constant 0.785398; used by GoalieSave
+F64_0p785398_GoalieSave:                        ; double constant 0.785398; used by goaliesave
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-F64_48:                                         ; double constant 48; used by GoalieSave
+F64_48:                                         ; double constant 48; used by goaliesave
         db 00h,00h,00h,00h,00h,00h,048h,040h
 F64_0p0001_GoalieMoves:                         ; double constant 0.0001; used by GoalieMoves
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,01Ah,03Fh

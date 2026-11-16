@@ -5,10 +5,10 @@ bits 32
 %include "hockey.inc"
 section s_19A878 progbits alloc noexec write align=1
 extern CallMatherr
-global str_NoErrorInXACODECFunctionL, str_InvalidErrorCodeInXACODEC, FloatPow10Table, FloatPow10Exponents, FloatFormatDigits, FloatFormatExponent, FloatFormatMantissaLo, FloatFormatMantissaHi
+global str_NoErrorInXACODECFunctionL, str_InvalidErrorCodeInXACODEC, AdpcmDeltaTable, AdpcmIndexAdjust, AdpcmLeftSample, AdpcmRightSample, AdpcmLeftIndex, AdpcmRightIndex
 global DebugLineStart, MaxPrecision, MatherrHook, GusBasePort, GusIrqStatusPort, GusIrqLatchPort, GusDmaLatchPort
-FloatPow10Table:                                ; powers of ten used to format floating-point numbers; used by
-                                                ; FormatFloat, InitFloatFormat
+AdpcmDeltaTable:                                ; ADPCM sample change for each step and code; used by
+                                                ; AdpcmDecodeMono, AdpcmDecodeStereo
         db 00h,00h,00h,00h,01h,00h,00h,00h,03h,00h,00h,00h,04h,00h,00h,00h
         db 07h,00h,00h,00h,08h,00h,00h,00h,0Ah,00h,00h,00h,0Bh,00h,00h,00h
         db 00h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh,0FDh,0FFh,0FFh,0FFh,0FCh,0FFh,0FFh,0FFh
@@ -365,24 +365,22 @@ FloatPow10Table:                                ; powers of ten used to format f
         db 0FEh,08Fh,00h,00h,0FDh,0AFh,00h,00h,0FDh,0CFh,00h,00h,0FCh,0EFh,00h,00h
         db 01h,0F0h,0FFh,0FFh,02h,0D0h,0FFh,0FFh,02h,0B0h,0FFh,0FFh,03h,090h,0FFh,0FFh
         db 02h,070h,0FFh,0FFh,03h,050h,0FFh,0FFh,03h,030h,0FFh,0FFh,04h,010h,0FFh,0FFh
-FloatPow10Exponents:                            ; binary exponents of the powers of ten used to format
-                                                ; numbers; used by FormatFloat, InitFloatFormat
+AdpcmIndexAdjust:                               ; ADPCM step index change for each code; used by
+                                                ; AdpcmDecodeMono, AdpcmDecodeStereo
         db 0C0h,0FFh,0FFh,0FFh,0C0h,0FFh,0FFh,0FFh,0C0h,0FFh,0FFh,0FFh,0C0h,0FFh,0FFh,0FFh
         db 080h,00h,00h,00h,00h,01h,00h,00h,080h,01h,00h,00h,00h,02h,00h,00h
-FloatFormatDigits:                              ; digit count of the number being formatted; used by
-                                                ; FormatFloat
+AdpcmLeftSample:                                ; last decoded sample, first channel; used by
+                                                ; AdpcmDecodeStereo
         db 00h,00h,00h,00h
-FloatFormatExponent:                            ; decimal exponent of the number being formatted; used by
-                                                ; FormatFloat
+AdpcmRightSample:                               ; last decoded sample, second channel; used by
+                                                ; AdpcmDecodeStereo
         db 00h,00h,00h,00h
-FloatFormatMantissaLo:                          ; low half of the mantissa being formatted; used by
-                                                ; FormatFloat
+AdpcmLeftIndex:                                 ; ADPCM step index, first channel; used by AdpcmDecodeStereo
         db 00h,00h,00h,00h
-FloatFormatMantissaHi:                          ; high half of the mantissa being formatted; used by
-                                                ; FormatFloat
+AdpcmRightIndex:                                ; ADPCM step index, second channel; used by AdpcmDecodeStereo
         db 00h,00h,00h,00h
 str_NoErrorInXACODECFunctionL:                  ; string "No Error In XACODEC Function Library!"; used by
-                                                ; RoundDigits
+                                                ; XaReadSample
         db 04Eh,06Fh,020h,045h,072h,072h,06Fh,072h,020h,049h,06Eh,020h,058h,041h,043h,04Fh
         db 044h,045h,043h,020h,046h,075h,06Eh,063h,074h,069h,06Fh,06Eh,020h,04Ch,069h,062h
         db 072h,061h,072h,079h,021h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -399,7 +397,7 @@ str_NoErrorInXACODECFunctionL:                  ; string "No Error In XACODEC Fu
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 str_InvalidErrorCodeInXACODEC:                  ; string "Invalid Error Code In XACODEC Function Library!";
-                                                ; used by RoundDigits
+                                                ; used by XaReadSample
         db 049h,06Eh,076h,061h,06Ch,069h,064h,020h,045h,072h,072h,06Fh,072h,020h,043h,06Fh
         db 064h,065h,020h,049h,06Eh,020h,058h,041h,043h,04Fh,044h,045h,043h,020h,046h,075h
         db 06Eh,063h,074h,069h,06Fh,06Eh,020h,04Ch,069h,062h,072h,061h,072h,079h,021h,00h

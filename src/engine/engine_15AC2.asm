@@ -9,7 +9,7 @@ extern str_Interlaced, str_Normal, str_SDSS, str_SS, str_SSS, str_DSS, str_SDSS2
 extern str_SSDD, str_SD, str_SDCS, str_Punct, str_2d01d, str_SD2, str_CHASE, str_THRILLCAMTm
 extern str_USERCHASE, str_IntroD3cp, str_ArenaViv, str_DDD, awtmstruct, CameraFlagsByte, GoalSceneActive, ReplayCameraActive
 extern FaceoffDropScene, CameraScenesOn, IntermissionActive, FightSceneActive, PlayerAssignOrder, FaceoffSpotIndex, PenaltyPending, PenaltyTeam
-extern GoalieOut, gmode, PuckFlags, PlayFlags, holdreset, PanelNameBuf, GoalFlags, GoalieFlags
+extern GoalieOut, gmode, PuckFlags, PlayFlags, holdreset, PanelNameBuf, GoalFlags, goalieflags
 extern PlayerControlFlags, HmPlayerFlags, HmCoachOffense, HmCoachDefense, AwPlayerFlags, AwCoachOffense, AwCoachDefense, PeriodHomeTeam
 extern PeriodAwayTeam, F32_0p5, F32_65536, F32_100, F32_2000, F32_500, F32_neg500, F32_neg1800
 extern F32_neg4000, F32_neg1000, F32_neg500_UpdateCameraView, F32_neg2000, F32_neg0p000147059, F32_0p000232558, F32_0p000357143, F32_neg0p000188679
@@ -52,7 +52,7 @@ extern F64_3p14159_Endfaceoff, F64_288, F64_480, F64_3p14159_CanReceivePass, F64
 extern F64_576_RimPuck, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, LoadResourceDataShared
 extern AngleOfVector, SinInterp, CosInterp, StartCrowdMusic, RestartGameMusic, SpeedScale, GetLowestPen, TeamLineSlots
 extern UpdateCoachModes, ChkShoot, ForceShoot, AddPenalty, AddPenalty2, PenGoalStuff, EndPenaltyShot, FaceDirFromMotion
-extern doplayeracc, ChkOneTimerSpot, ClearLastPasser, OneTimerShot, PickBenchSeat, FaceoffMoveResult, FaceoffSwipeAnim, FaceoffDrawAnim
+extern doplayeracc, ChkOneTimerSpot, ClearLastPasser, onetimershot, PickBenchSeat, FaceoffMoveResult, FaceoffSwipeAnim, FaceoffDrawAnim
 extern PokeCheckAnim, AIBodyCheck, SetVideoMode, SetViewSize, SetViewInterlaced, ClearViewInterlaced, HideView, ShowView
 extern SetViewOrigin, AddOverlayWindow, RemoveOverlayWindow, RefreshOverlayWindow, FadeGamePalette, SetCrowdMood, CommentaryEvent, SetArtArchive
 extern ResetRenderTimers, TriggerCameraFlashes, SetCameraMode, GoalCrowdCheer, LoadOpeningArt, SetFaceMouth, SetFaceExpression, SetFaceBlink
@@ -72,11 +72,11 @@ extern ReplayCamPos, MenuCamPos, MenuCamTarget, CameraPathPoints, SplineCoefsX, 
 extern HomeTeamRecord, ScoreboardCorners, RinkViewPoints, RinkCameraPoints, CameraViewNames, CameraStateRecords, vecdist, vtoa
 extern str_D_ChangeViewSize, FightCameraReady, FaceoffSpotX, FaceoffSpotY, RimTargetX, RimTargetY, HomeSkaters, AwaySkaters
 extern DefendFlags, ShootSpotY, GoalieTarget, ZoneTargetY, PassPlayer, PassPending, PassTarget, LastTouchTeam
-extern PassDistX, PassDistY, PassReceiver, OneTimerPlayer, PassState, StatsPanelPlayer, AssistOne, AssistTwo
+extern PassDistX, PassDistY, PassReceiver, onetimerplayer, PassState, StatsPanelPlayer, AssistOne, AssistTwo
 extern GoalScorer, gameover, GoalState, HomeGoalsPeriod, AwayGoalsPeriod, fofdata2, PuckOwner, PuckOwnerTeam
 extern SimFrames, StoppageFlag, LastPlayerTouch, gsp, gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone
 extern OneTimerReady, OneTimerPasser, OneTimerTarget, PuckZone, penshotmode, BenchRequest, penshotlive, FaceoffRequest
-extern PuckY, MessagePanel, BreakawayFlag, HomeGoalieOff, AwayGoalieOff, FaceoffTakers, PlayerAssignWords, HomeTeamRecord
+extern pucky, MessagePanel, BreakawayFlag, HomeGoalieOff, AwayGoalieOff, FaceoffTakers, PlayerAssignWords, HomeTeamRecord
 extern HmPlayersInBox, HmLineState, AwPlayersInBox, AwLineState
 global UpdateCameraViewJumpTable, UpdateCameraZoomJumpTable, UpdateCameraTrackJumpTable, EaseCameraAnglesJumpTable, SetCameraViewJumpTable, PenaltySceneStepJumpTable, SwapPositionJumpTable, PrevVideoModeKey_20A
 global PrevVideoModeKey_20E, PrevVideoModeKey_216, PrevVideoModeKey_217, DrawMessagePanel_15D, DrawMessagePanel_15F, DrawPenaltyPanel_26F, DrawSpecialTeamsPanel, DrawPenaltyShotPanel_48E
@@ -15121,7 +15121,7 @@ Goal:
 .17:
         cmp word [penshotlive], byte 0
         je short .18
-        mov dx, word [PuckY]
+        mov dx, word [pucky]
         cmp dx, word [PuckOwner]
         je short .18
         call EndPenaltyShot
@@ -15152,7 +15152,7 @@ Goal:
         mov eax, edx
         shl eax, 5
         add eax, edx
-        mov al, byte [nosplit eax*8+GoalieFlags]
+        mov al, byte [nosplit eax*8+goalieflags]
         sub al, 19h
         mov byte [byte esp+020h], al
 .19:
@@ -15163,7 +15163,7 @@ Goal:
         mov eax, edx
         shl eax, 5
         add eax, edx
-        mov al, byte [nosplit eax*8+GoalieFlags]
+        mov al, byte [nosplit eax*8+goalieflags]
         sub al, 19h
         mov byte [byte esp+024h], al
 .20:
@@ -16508,12 +16508,12 @@ DefendPuck:
         cmp eax, ebx
         je short .2
 .1:
-        cmp word [OneTimerPlayer], byte 0
+        cmp word [onetimerplayer], byte 0
         jl near .34
         cmp byte [dword edx+0A4h], 6
         setb al
         mov ebx, eax
-        mov cx, word [OneTimerPlayer]
+        mov cx, word [onetimerplayer]
         and ebx, 0FFh
         cmp cx, byte 6
         setl al
@@ -19018,7 +19018,7 @@ CreditPass:
         sub esp, byte 8
         mov edx, eax
         xor ebx, ebx
-        mov si, word [OneTimerPlayer]
+        mov si, word [onetimerplayer]
         mov word [OneTimerReady], bx
         mov word [OneTimerPasser], bx
         test si, si
@@ -19117,7 +19117,7 @@ CreditPass:
         add esp, byte 2Ch
         mov eax, edx
         call CrowdForPuckZone
-        mov word [OneTimerPlayer], 0FFFFh
+        mov word [onetimerplayer], 0FFFFh
         mov esp, ebp
         pop ebp
         pop edi
@@ -19183,7 +19183,7 @@ CreditPass:
         call CommentaryEvent
         add esp, byte 14h
 .9:
-        mov word [OneTimerPlayer], 0FFFFh
+        mov word [onetimerplayer], 0FFFFh
 .10:
         mov esp, ebp
         pop ebp
@@ -19196,7 +19196,7 @@ CreditPass:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; assonetimer                                     244BC  97 PC, low confidence
-; Asstab 0Eh: the one-timer: waits for the pass, then shoots (OneTimerShot)
+; Asstab 0Eh: the one-timer: waits for the pass, then shoots (onetimershot)
 ;-----------------------------------------------------------------------------
 assonetimer:
         push ebx
@@ -19227,7 +19227,7 @@ assonetimer:
         mov eax, ebx
         call ClearLastPasser
         mov eax, ebx
-        call OneTimerShot
+        call onetimershot
         jmp near .13
 .2:
         test cl, 2
@@ -19263,7 +19263,7 @@ assonetimer:
         je short .6
         mov word [regd1], ax
         mov eax, ebx
-        call OneTimerShot
+        call onetimershot
         pop edi
         pop esi
         pop edx
@@ -19367,7 +19367,7 @@ assonetimer:
         mov edi, 0FFFFFFFFh
         mov word [OneTimerReady], bx
         mov word [OneTimerTarget], bx
-        mov word [OneTimerPlayer], di
+        mov word [onetimerplayer], di
         mov word [OneTimerPasser], bx
 .13:
         pop edi
@@ -19834,7 +19834,7 @@ MakePass:
         sub esp, byte 8
         mov ecx, eax
         mov ebx, edx
-        mov word [OneTimerPlayer], 0FFFFh
+        mov word [onetimerplayer], 0FFFFh
         mov edx, ebx
         call StartPassAnim
         mov eax, dword [PtrPuckFlags]
@@ -20124,7 +20124,7 @@ RimPuck:
 .34:
         mov eax, 0FFFFFFFFh
         mov edx, esp
-        mov word [OneTimerPlayer], ax
+        mov word [onetimerplayer], ax
         mov eax, ebx
         call StartPassAnim
         mov edx, dword [PtrPuckFlags]
@@ -20194,7 +20194,7 @@ StartPass:
 .2:
         xor eax, eax
         mov al, byte [dword edx+0A4h]
-        mov word [OneTimerPlayer], ax
+        mov word [onetimerplayer], ax
         mov eax, ecx
         call StartPassAnim
         jmp near .6
@@ -20213,7 +20213,7 @@ StartPass:
         mov eax, ecx
         sar ebx, 10h
         sar edx, 10h
-        mov word [OneTimerPlayer], di
+        mov word [onetimerplayer], di
         call StartDropPassAnim
         mov edx, dword [PtrPuckFlags]
         mov edx, dword [dword edx+0EEh]
@@ -20657,7 +20657,7 @@ AIPassDecision:
         call ForceShoot
         xor eax, eax
         mov al, byte [dword esi+0A4h]
-        mov word [OneTimerPlayer], ax
+        mov word [onetimerplayer], ax
         mov edx, dword [dword esi+0AEh]
         sar edx, 18h
         mov ebx, 0Eh
@@ -20690,7 +20690,7 @@ AIPassDecision:
         mov word [PassReceiver], di
         mov word [PassState], cx
 .35:
-        mov eax, dword [OneTimerPlayer]
+        mov eax, dword [onetimerplayer]
         sar eax, 10h
         cmp eax, byte 0FFFFFFFFh
         je short .36

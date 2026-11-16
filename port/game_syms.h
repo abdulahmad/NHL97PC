@@ -4,7 +4,7 @@
 #ifndef GAME_SYMS_H
 #define GAME_SYMS_H
 
-#define SYM_GameLoop           0x14AC8u   /* engine/faceoff/faceoff.asm */
+#define SYM_Gameloop           0x14AC8u   /* engine/faceoff/faceoff.asm */
 #define SYM_InitGameDisplay    0x14E60u   /* engine/faceoff/faceoff.asm */
 #define SYM_PlayGame           0x152C4u   /* engine/faceoff/faceoff.asm */
 #define SYM_RunInGameMenu      0x1583Fu   /* engine/faceoff/faceoff.asm */

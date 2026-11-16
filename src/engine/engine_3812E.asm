@@ -16,7 +16,7 @@ extern PlayoffUserActive, PlayoffUserIndex, BoxSeatSlot, BoxSeatFlags, MoveFlags
 extern F32_10_RefDodgePuck, F32_3_RefDodgePuck, F32_15, F32_0p0666667, F32_0p5_RefDodgePuck, F32_144_PokeCheckAnim, F32_336, F32_192_TryBodyCheck
 extern F32_144_TryBodyCheck, F32_98, F32_42, SeasonGameDayOffsets, SeasonPanelText, MatchupLogoIds, str_G_DrawLockedGame, MatchupLogoPos
 extern str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim, str_U_FaceoffDrawAnim, ViewBorderColor, ViewBorderRows, StreamBlockCount, StreamBlockSize
-extern StreamTimeout, CdStreamFilled, CdStreamUsed, StreamState, AudioStreamFlags, MusicState, MusicTrack, MusicRestart
+extern StreamTimeout, CdStreamFilled, CdStreamUsed, streamstate, AudioStreamFlags, MusicState, MusicTrack, MusicRestart
 extern MusicPaused, MusicTime, MusicStreamPos, MusicVolumeLevel, MusicFeedCount, MusicStartTime, MusicLength, MusicHandle
 extern SfxBankRecords, AudioInitDone, SfxBankHandle, CrowdBankHandle, AmbientHandle, SfxReady, MusicReady, CrowdNoiseLevel
 extern AmbientVolume, SfxVolumeLevel, MusicVolumeWord, LastSfxPlayed, SpeechBankBuffer, SoundCardType, SoundDriverId, F32_9600
@@ -10783,14 +10783,14 @@ CdStreamService_1E3:
         mov eax, dword [StreamHandle]
         sub ebx, ecx
         mov esi, dword [dword eax+080h]
-        mov dword [StreamState], edi
+        mov dword [streamstate], edi
         push ebx
         mov edx, dword [byte eax+08h]
         push edx
         mov ecx, dword [byte eax+018h]
         push ecx
         call CdRead
-        mov eax, dword [StreamState]
+        mov eax, dword [streamstate]
         mov edx, dword [CdStreamFilled]
         mov ecx, dword [CdStreamUsed]
         add edx, eax
@@ -11150,14 +11150,14 @@ CdStreamService_81D:
         sub ebx, ecx
         mov edx, dword [CdStreamBuf]
         mov esi, dword [dword eax+080h]
-        mov dword [StreamState], edi
+        mov dword [streamstate], edi
         push ebx
         mov ecx, dword [byte edx+08h]
         push ecx
         mov edx, dword [byte eax+018h]
         push edx
         call CdRead
-        mov eax, dword [StreamState]
+        mov eax, dword [streamstate]
         mov ecx, dword [CdStreamFilled]
         add ecx, eax
         add dword [CdStreamUsed], ebx
@@ -11395,7 +11395,7 @@ CdStreamService_AC2:
 CdStreamService_BB8:
         mov eax, dword [StreamHandle]
         sub dword [dword eax+080h], byte 0Ah
-        inc dword [StreamState]
+        inc dword [streamstate]
         ret
         db 090h
 ;-----------------------------------------------------------------------------

@@ -20,8 +20,8 @@ extern ScapeCodecBase, ScapeCodecState, ScapeBasePort, ScapeIrq, ScapeDmaChannel
 extern fclose_, fgets_, fopen_, fseek_, getenv_, SbRateFromConstant_2B, str_WSSDMA, strcmp_
 extern strstr_, strupr_, AudioDriverUpdate, ApplyChannelVolume, PickSampleRate, StopChannel, RestoreDS, MixerInit
 extern MixerFillBuffer, SbReadData, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp, SbDetectDsp, SbSetRate
-extern StartChannel, SetChannelCount, DmaMaskChannel, DmaProgram, IrqAck, IrqVector, IrqUnmask, IrqMask
-extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, ReturnArg, AllocMemData, FreeMemBlock
+extern StartChannel, SetChannelCount, DmaMaskChannel, DmaProgram, DmaPlayedHalf, PicSendEoi, IrqUnmask, IrqMask
+extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, strtoul_, AllocMemData, FreeMemBlock
 extern WssBasePortsBlaster, BlasterCodeList, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, SbIrqStub220
 extern SbIrqStub240, SbIrqStub220Slave, SbIrqStub240Slave, str_Rt_ReadSoundscapeIni, str_Punct_IniFindKey, Sb16DmaSetupCode, SbConfig, SbProConfig
 extern Sb16SavedIrqSelector, Sb16DmaPortPatch, str_Punct_Sb16SetupDma, SbDspVersion, SbOldIrqSelector, SbProOldSelector, Sb16DspVersion, Sb16IrqStatusPort
@@ -375,7 +375,7 @@ SbDriverStart:
         push edx
         mov edx, dword [SbDmaChannel]
         mov eax, dword [SbRate]
-        call IrqAck
+        call DmaPlayedHalf
         mov dword [SbStartTime], eax
         test eax, eax
         jl short .1
@@ -458,7 +458,7 @@ SbSetupDma:
         call IrqSetHandler
         mov word [SbOldIrqSelector], dx
         mov dword [SbOldIrqHandler], eax
-        call IrqVector
+        call PicSendEoi
         mov eax, dword [SbIrqLine]
         mov ecx, 58h
         call IrqUnmask
@@ -784,7 +784,7 @@ SbProDriverStart:
         push edx
         mov edx, dword [SbProDmaChannel]
         mov eax, dword [SbProRate]
-        call IrqAck
+        call DmaPlayedHalf
         mov dword [SbProStartTime], eax
         test eax, eax
         jl short .1
@@ -866,7 +866,7 @@ SbProSetupDma:
         mov ecx, cs
         call AllocDosDmaBuffer
         mov dword [SbProIrqMask], eax
-        call IrqVector
+        call PicSendEoi
         mov eax, dword [SbProIrqNum]
         call IrqUnmask
         mov eax, 0D1h
@@ -1297,7 +1297,7 @@ Sb16DriverStart:
         push edx
         mov edx, dword [Sb16DmaChannel]
         mov eax, dword [Sb16HalfSize]
-        call IrqAck
+        call DmaPlayedHalf
         mov dword [Sb16StartTime], eax
         test eax, eax
         jl short .1
@@ -1392,7 +1392,7 @@ Sb16SetupDma:
         mov eax, dword [Sb16IrqLine]
         call AllocDosDmaBuffer
         mov dword [Sb16IrqMask], eax
-        call IrqVector
+        call PicSendEoi
         mov eax, dword [Sb16IrqLine]
         mov ecx, 18h
         call IrqUnmask
@@ -1759,7 +1759,7 @@ SoundscapeDriverStart:
         push edx
         mov edx, dword [ScapeCodecPort]
         mov eax, dword [ScapeDmaChannel]
-        call IrqAck
+        call DmaPlayedHalf
         mov dword [ScapeRate], eax
         test eax, eax
         jl short .1
@@ -1879,7 +1879,7 @@ ReadSoundscapeIni:
         mov ebx, 10h
         mov eax, esp
         xor edx, edx
-        call ReturnArg
+        call strtoul_
         mov ebx, str_DMA
         mov edx, esp
         mov dword [SoundscapeBasePort], eax
@@ -1893,7 +1893,7 @@ ReadSoundscapeIni:
         mov ebx, 10h
         mov eax, esp
         xor edx, edx
-        call ReturnArg
+        call strtoul_
         mov ebx, str_IRQ
         mov edx, esp
         mov dword [ScapeCodecPort], eax
@@ -1907,7 +1907,7 @@ ReadSoundscapeIni:
         mov ebx, 10h
         mov eax, esp
         xor edx, edx
-        call ReturnArg
+        call strtoul_
         mov dword [str_Punct_ReadSoundscapeIni], eax
         cmp eax, byte 2
         jne short .11
@@ -1925,7 +1925,7 @@ ReadSoundscapeIni:
         mov ebx, 10h
         mov eax, esp
         xor edx, edx
-        call ReturnArg
+        call strtoul_
         mov dword [ScapeCodecState], eax
         cmp eax, byte 2
         jne short .13
@@ -1978,7 +1978,7 @@ ReadSoundscapeIni:
         mov ebx, 10h
         mov eax, esp
         xor edx, edx
-        call ReturnArg
+        call strtoul_
         jmp short .20
 .19:
         mov eax, dword [SoundscapeBasePort]

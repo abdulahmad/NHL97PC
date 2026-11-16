@@ -4,33 +4,33 @@
 bits 32
 %include "hockey.inc"
 section s_170278 progbits alloc noexec write align=1
-extern RinkNoOpA, DrawRinkPrimFlat, DrawRinkPrimShaded, DrawRinkPrimTextured, RinkNoOpB, DrawRinkLineFlat, DrawRinkLineShaded, DrawRinkLineTextured
+extern RinkPrimSetupNone, DrawRinkPrimFlat, DrawRinkPrimShaded, DrawRinkPrimTextured, RinkPrimEndNone, DrawRinkLineFlat, DrawRinkLineShaded, DrawRinkLineTextured
 extern TexSpanCopy, TexSpanKeyed, TexSpanShadow
 global IceSpansEnabled, TexSpanTable, str_Punct_DrawTexturedPoly, str_Punct_DrawTexturedSpan, F32_7p00649eneg41, SinTable, CosTable, RinkPrimNoOpFns
 global RinkPrimFlatFns, RinkPrimSetupFns, RinkPrimLineFns, RinkPrimEndFns, PolySpanFns
 RinkPrimNoOpFns:                                ; rink primitive functions that draw nothing; used by
                                                 ; DrawModelPartPolys
-        dd RinkNoOpA
-        dd RinkNoOpA
-        dd RinkNoOpA
+        dd RinkPrimSetupNone
+        dd RinkPrimSetupNone
+        dd RinkPrimSetupNone
 RinkPrimFlatFns:                                ; rink primitive functions for flat polygons; used by
                                                 ; DrawModelPartPolys
         dd DrawRinkPrimFlat
         dd DrawRinkPrimShaded
         dd DrawRinkPrimTextured
 RinkPrimSetupFns:                               ; rink primitive set-up functions; used by DrawModelPartPolys
-        dd RinkNoOpA
-        dd RinkNoOpA
-        dd RinkNoOpA
+        dd RinkPrimSetupNone
+        dd RinkPrimSetupNone
+        dd RinkPrimSetupNone
 RinkPrimLineFns:                                ; rink primitive functions for lines; used by
                                                 ; DrawModelPartPolys
         dd DrawRinkLineFlat
         dd DrawRinkLineTextured
         dd DrawRinkLineShaded
 RinkPrimEndFns:                                 ; rink primitive end functions; used by DrawModelPartPolys
-        dd RinkNoOpB
-        dd RinkNoOpB
-        dd RinkNoOpB
+        dd RinkPrimEndNone
+        dd RinkPrimEndNone
+        dd RinkPrimEndNone
 IceSpansEnabled:                                ; set when the ice is drawn with shaded spans; used by
                                                 ; DrawIceSpans
         db 01h,00h,00h,00h

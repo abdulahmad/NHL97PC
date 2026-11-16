@@ -9,7 +9,7 @@ extern awtmstruct, GripFlags, JoyPortMask, LinePlayersHome, LinePlayersAway, Lin
 extern PenaltyBoxCount, gmode, PuckFlags, PlayFlags, holdreset, GripLinkByte, ChantPlayed, ChantState
 extern DefenseByDefense, ForwardsByOffense, HmPlayerSlots, HmRosterMap, AwPlayerSlots, AwRosterMap, GripDriverPtr, GripDriverData
 extern GripLinked, LinePlayerSlots, LinePlayerOffsets, JoyAxisValues, JoyAxisY, JoyAxisSecondX, JoyAxisSecondY, PersonnelTable
-extern LastTouchPlayer, penshottimer, PuckX, GameObjects, GameTick, PlayerPointsTable, HmTeamData, HmScore
+extern LastTouchPlayer, penshottimer, puckx, GameObjects, GameTick, PlayerPointsTable, HmTeamData, HmScore
 extern AwTeamData, AwScore, GameSettings, GameOptionFlags, SeasonActive, ObjectPositions, ReplayPlaying, PlayerStartDist
 extern PlayerStartScale, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, PtrPuckTarget
 extern PtrPuckState, PtrPuckOwner, PtrPuckZone, PtrPuckFlags, PtrPuckObject, F64_0p013, F64_0p01, rand_
@@ -20,7 +20,7 @@ extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEven
 extern RefreshFaceTextures, SetModelSlotValue, SetupPlayerModel, DrawJerseyLettering, LoadGoalieMask, UpdateFaceTextures, ResetAnimTimer, UpdateGameDisplay
 extern InitPlayerAnims, DoGameFrame, LogPeriodEnd, AllocMemBlock, ZeroMem, CalibrateJoystick, ResetJoystickRange, str_Rb
 extern LinePlayerOrder, ResetPlayerSpots, GripFarCall, DefenseByOffense, ForwardsByDefense, BenchPlayerTable, HomeTeamRecord
-extern AwayTeamRecord, PlayerStartRecords, AutoLineData, HomeLines, GripPortWord, GripSlot, GripReady, CrowdChantTable
+extern AwayTeamRecord, PlayerStartRecords, AutoLineData, homelines, GripPortWord, GripSlot, GripReady, CrowdChantTable
 extern DebugModelRefresh, DebugModelIndex, PeriodLengths, LineChangeHome, LineChangeAway, DefendFlags, ShootSpotY, GoalieTarget
 extern ZoneTargetY, PassState, StatsPanelPlayer, PuckOwnerTeam, LastPlayerTouch, gsp, gameclock, StatsPanelOn
 extern FaceoffSpot, FaceoffZone, PeriodLength, OneTimerTarget, PuckZone, penshotmode, BenchRequest, penshotlive
@@ -2041,7 +2041,7 @@ clearteams:
         mov ebx, AutoLineData
         mov ah, 0FFh
         mov ecx, HomeTeamRecord+420h
-        mov esi, HomeLines
+        mov esi, homelines
         mov dword [HmTeamData], edx
         mov dword [HmScore], ebx
         mov byte [HmPlayerSlots], ah
@@ -3213,7 +3213,7 @@ PickLinePlayers:
         je short .2
         cmp esi, awtmstruct
         sete al
-        mov edx, dword [PuckX]
+        mov edx, dword [puckx]
         and eax, 0FFh
         sar edx, 10h
         cmp edx, eax
@@ -4046,7 +4046,7 @@ ReleaseBoxPlayers:
         setne al
         xor edx, edx
         mov dl, al
-        mov eax, dword [PuckX]
+        mov eax, dword [puckx]
         sar eax, 10h
         xor eax, edx
         je short .5

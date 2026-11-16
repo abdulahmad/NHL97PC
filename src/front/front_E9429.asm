@@ -40,7 +40,7 @@ extern str_K, str_L, str_Semicolon_KeyName, str_Apostrophe_KeyName, str_Backquot
 extern str_C_GetKeyName, str_V, str_B, str_N_GetKeyName, str_M, str_Comma_KeyName, str_Period_KeyName, str_Slash_KeyName
 extern str_Asterisk_KeyName, str_F1, str_F2, str_F3, str_F4, str_F5, str_F6, str_F7
 extern str_F8, str_F9, DbKeyBuffer, AllStarTeamIds, AllStarHomeLines, AllStarAwayLines, AutoLineData, AllStarRoster
-extern HomeLines, HomeTeamName, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, StatsBackItem, KeyNames, KeyNameSlots
+extern homelines, HomeTeamName, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, StatsBackItem, KeyNames, KeyNameSlots
 extern KeyNameSlots
 extern KeyNameSlots
 extern KeyNameSlots
@@ -4362,7 +4362,7 @@ PickAllStarPlayers:
         mov esi, AutoLineData
         jmp short .15
 .14:
-        mov esi, HomeLines
+        mov esi, homelines
 .15:
         mov word [dword esi+01D40h], 3
         mov ecx, esi
@@ -4502,7 +4502,7 @@ InitAllStarTeams:
         mov byte [PeriodHomeTeam], 0
         call memset_
         mov ebx, 2123h
-        mov eax, HomeLines
+        mov eax, homelines
         xor edx, edx
         call memset_
         mov ebx, 36h
@@ -4521,7 +4521,7 @@ InitAllStarTeams:
         call strcpy_
         mov eax, AutoLineData
         call BuildAllStarRecords
-        mov eax, HomeLines
+        mov eax, homelines
         call BuildAllStarRecords
         mov word [IndexEntryList], 1Ah
         mov word [HomeTeamCode], 1Bh
@@ -4590,7 +4590,7 @@ AllocAllStarRosters:
         jge short .4
         mov esi, dword [SeasonUserTeam]
         mov dword [AllStarLineData], AutoLineData
-        mov dword [AllStarLineDataAway], HomeLines
+        mov dword [AllStarLineDataAway], homelines
         movsx esi, word [esi]
         imul eax, esi, dword 194Fh
         push byte 0

@@ -28,7 +28,7 @@ extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, KeysEqual, OpenGameDa
 extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, InitVideoModeList
 extern AllocMemBlock, AllocMemData, FreeMemBlock, KbdGetKey, WaitTicks, OpenResourceArchive, MakeColor, FreeBitmap
 extern CreateBitmap, SetDrawTarget, ClearScreen, tickcount, str_T, str_P, str_Punct_ModemSendCommand, str_AT
-extern MoviePalette, AutoLineData, HomeLines, AllStarDay
+extern MoviePalette, AutoLineData, homelines, AllStarDay
 global BuildSeasonSchedule_77E, FreeTempArt_45, putchar, BuildSeasonSchedule, UpdateTeamLines, BuildRosterLines, PlayerInjuryDays, FindInjuryEntry
 global CheckLeagueInjuries, ClearTeamInjuries, FadeMovieOut, MovieKeyPressed, OpenMovieStream, OpenVideoStream, CloseMovie, DecodeMovieFrame
 global PlayMovieFrames, PlayMovie, ModemReset, ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemReadResult
@@ -1304,7 +1304,7 @@ CheckLeagueInjuries:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-01A4Eh]
-        mov dword [byte ebp+07Ah], HomeLines
+        mov dword [byte ebp+07Ah], homelines
 .3:
         call FindGameRecord
         mov eax, dword [GameSettings]
@@ -1492,7 +1492,7 @@ ClearTeamInjuries:
         mov eax, AutoLineData
         jmp short .3
 .2:
-        mov eax, HomeLines
+        mov eax, homelines
 .3:
         xor ebx, ebx
         jmp short .7

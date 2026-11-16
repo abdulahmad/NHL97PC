@@ -8,13 +8,13 @@
  *
  *   - Input records. The timer callback InputRecordTimer polls the controllers (PollControllers: the 8 slot words, SlotWords,
  *     and the flag word HotKeyFlags) and every 3 ticks pushes a record into a ring of 5 (InputRecordRing, 14h bytes: the 8 slot
- *     words, the flags, the ticks). GameLoop asks InputRecordAvail, takes a record (TakeInputRecord) and runs the simulation for
+ *     words, the flags, the ticks). Gameloop asks InputRecordAvail, takes a record (TakeInputRecord) and runs the simulation for
  *     it (RunSimFrames), then draws a frame. In a session the callback does nothing and InputRecordAvail asks this file: once per
  *     pass of the loop it is one step of the session, with both machines' slot words and flags (host: slot 0, guest: slot 1),
  *     3 ticks. The states are taken there.
  *   - The game's clock (tickcount) counts 3 a step in a session instead of the timer interrupt's ticks, so it is the same on
  *     both machines and goes back with a state.
- *   - The in-game menus (RunInGameMenu, called from GameLoop: pause, intermission, end of game) are left out in a session; the
+ *   - The in-game menus (RunInGameMenu, called from Gameloop: pause, intermission, end of game) are left out in a session; the
  *     record's pause bit is dropped. The game goes on.
  *   - Start: PlayGame, after the Online page's Host / Connect. The host's game options (the 130h block from GLOBAL.SET), its
  *     game set-up (teams, user logs, the 8 controller set-up bytes) and both random seeds (EA's and the C library's) go to the
@@ -41,8 +41,8 @@
 
 /* ---- the game's code and data (original linear addresses) ---- */
 #define O_PLAYGAME     SYM_PlayGame            /* PlayGame: push 28h (5 bytes), call __CHK ... */
-#define O_LOOP         SYM_GameLoop            /* GameLoop, up to the next routine */
-#define O_LOOP_END     SYM_InitGameDisplay     /* InitGameDisplay, the routine after GameLoop */
+#define O_LOOP         SYM_Gameloop            /* Gameloop, up to the next routine */
+#define O_LOOP_END     SYM_InitGameDisplay     /* InitGameDisplay, the routine after Gameloop */
 #define O_SAMPLER      SYM_InputRecordTimer    /* push ebx, ecx, edx, esi, edi, ebp */
 #define O_AVAIL        SYM_InputRecordAvail    /* push 4 / call __CHK / mov eax, InputRecordCount / ret */
 #define O_READPADS     SYM_PollControllers     /* the controllers into SlotWords, the hot keys into HotKeyFlags */
@@ -314,7 +314,7 @@ static int make_step(void)
     return 0;
 }
 
-/* InputRecordAvail (GameLoop's "is there a record?", and the line-up loop's): in a session, one step a pass */
+/* InputRecordAvail (Gameloop's "is there a record?", and the line-up loop's): in a session, one step a pass */
 /* Offline frame pacing (Video page, Frame rate; video.c frames_mode). The game draws whenever no input record is waiting, and much
  * of what moves on the screen (the camera's moves between plays, some animation) moves a step per drawn frame, not per record. On
  * a Pentium 75-100 the drawing took about as long as a record (3 ticks, about 34 a second); a modern CPU drew hundreds of frames a
@@ -326,6 +326,16 @@ static int make_step(void)
 extern volatile int frames_mode;
 static int nh_drew;
 static int64_t nh_drew_ns;
+static int frames_env = -2;
+int nh_frames_mode(void)
+{
+    if (frames_env == -2) {
+        const char *e = getenv("NHL97_FRAMES");
+        frames_env = !e ? -1 : !strcmp(e, "free") || !strcmp(e, "unlocked") ? 2 : !strcmp(e, "60") ? 1 : 0;
+    }
+    return frames_env >= 0 ? frames_env : frames_mode % 3;
+}
+
 static uint32_t paced_avail(uint32_t c)
 {
     static int env = -2;
@@ -451,7 +461,7 @@ void nh_playgame_enter(void)
     if (ob_netgame_test()) fprintf(stderr, "online: session on, this machine plays slot %d (controller byte %02x)\n", nh_me, (unsigned)my_cfg);
 }
 
-/* GameLoop has returned: the clock is the timer's again (the end screens wait on it) */
+/* Gameloop has returned: the clock is the timer's again (the end screens wait on it) */
 void nh_game_over(void)
 {
     if (!nh_sim) return;
@@ -504,7 +514,7 @@ __attribute__((naked)) static void menu_stub(void)
         "1:\n\tjmp *" SYM("nh_menu"));
 }
 
-__attribute__((naked)) static void loop_stub(void)       /* PlayGame's call of GameLoop: then the game is over */
+__attribute__((naked)) static void loop_stub(void)       /* PlayGame's call of Gameloop: then the game is over */
 {
     __asm__ volatile("call *" SYM("nh_loop") "\n\tpushal\n\tcall " SYM("nh_game_over") "\n\tpopal\n\tret");
 }

@@ -10,40 +10,40 @@ global SbDmaPagePorts, SbDmaMaskPorts, SbDmaModePorts, SbDmaFlipFlopPorts, SbDma
 ; Sound Blaster 8237 DMA page register port for each channel 0-3
 ;-----------------------------------------------------------------------------
 SbDmaPagePorts:                                 ; Sound Blaster 8237 DMA page register port for each channel
-                                                ; 0-3; used by TimerInstall
+                                                ; 0-3; used by WssCodecSetup
         db 087h,083h,081h,082h
 ;-----------------------------------------------------------------------------
 ; SbDmaMaskPorts                                 150004  97 PC, low confidence
 ; Sound Blaster 8237 DMA single-channel mask register port for each channel
 ;-----------------------------------------------------------------------------
 SbDmaMaskPorts:                                 ; Sound Blaster 8237 DMA single-channel mask register port for
-                                                ; each channel; used by TimerChainOld, TimerInstall
+                                                ; each channel; used by WssStopDma, WssCodecSetup
         db 0Ah,0Ah,0Ah,0Ah
 ;-----------------------------------------------------------------------------
 ; SbDmaModePorts                                 150008  97 PC, low confidence
 ; Sound Blaster 8237 DMA mode register port for each channel
 ;-----------------------------------------------------------------------------
 SbDmaModePorts:                                 ; Sound Blaster 8237 DMA mode register port for each channel;
-                                                ; used by TimerInstall
+                                                ; used by WssCodecSetup
         db 0Bh,0Bh,0Bh,0Bh
 ;-----------------------------------------------------------------------------
 ; SbDmaFlipFlopPorts                               15000C  97 PC, low confidence
 ; 8237 DMA clear flip-flop register port for each channel
 ;-----------------------------------------------------------------------------
 SbDmaFlipFlopPorts:                             ; Sound Blaster 8237 DMA clear flip-flop register port for
-                                                ; each channel; used by TimerInstall
+                                                ; each channel; used by WssCodecSetup
         db 0Ch,0Ch,0Ch,0Ch
 ;-----------------------------------------------------------------------------
 ; SbDmaAddressPorts                              150010  97 PC, low confidence
 ; Sound Blaster 8237 DMA base address register port for each channel
 ;-----------------------------------------------------------------------------
 SbDmaAddressPorts:                              ; Sound Blaster 8237 DMA base address register port for each
-                                                ; channel; used by TimerInstall
+                                                ; channel; used by WssCodecSetup
         db 00h,02h,04h,06h
 ;-----------------------------------------------------------------------------
 ; SbDmaCountPorts                                150014  97 PC, low confidence
 ; Sound Blaster 8237 DMA count register port for each channel
 ;-----------------------------------------------------------------------------
 SbDmaCountPorts:                                ; Sound Blaster 8237 DMA count register port for each channel;
-                                                ; used by TimerInstall
+                                                ; used by WssCodecSetup
         db 01h,03h,05h,07h

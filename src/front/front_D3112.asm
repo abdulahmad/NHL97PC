@@ -24,7 +24,7 @@ extern str_Hextall, str_PHI, str_QUE, str_199293, str_Heyward, str_Hirsch, str_V
 extern str_LA_GoalieMaskList, str_Jablonski, str_TB_GoalieMaskList, str_Joseph, str_EDM, str_Kidd, str_CAL, str_Kolzig
 extern str_Lacher, str_BOS, str_Moog, str_DAL, str_Richter, str_NYR_GoalieMaskList, str_Roy, str_COL
 extern str_MTL, str_Thibault, str_Vanbiesbrouck, str_FLA, str_Vernon, str_DET, str_EA, PlayoffDbKey
-extern MatchupNote, AutoLineData, MatchupNoteText, MatchupNoteLine, HomeLines, HomeCityName, ScreenTitleItem, BlankMenuItem
+extern MatchupNote, AutoLineData, MatchupNoteText, MatchupNoteLine, homelines, HomeCityName, ScreenTitleItem, BlankMenuItem
 extern ScreenFrameItem, MatchupNotesBlankRect, MatchupNotesBlankPos, MatchupNotesBlankSize, AllStarDay
 global DrawMatchupNotesJumpTable, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7, PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, PreGameRostersScreen_C3F, DrawMatchupHistory_FB, DrawMatchupHistory_FC
 global DrawMatchupNotes_86, DrawMatchupNotes_C5, DrawMatchupNotes_10F, DrawMatchupNotes_14B, PreGameRostersScreen, FormatMatchupNote, DrawRosterPlayerInfo, DrawMatchupHistory
@@ -1266,7 +1266,7 @@ DrawMatchupHistory:
         mov eax, AutoLineData
         jmp short .3
 .2:
-        mov eax, HomeLines
+        mov eax, homelines
 .3:
         lea edx, [byte eax+03Eh]
         mov dword [byte ebp-0Ch], edx
@@ -1515,7 +1515,7 @@ DrawMatchupNotes_14B:
         mov edi, AutoLineData
         jmp short .9
 .8:
-        mov edi, HomeLines
+        mov edi, homelines
 .9:
         xor ebx, ebx
         jmp short .12
@@ -1678,7 +1678,7 @@ DrawMatchupNotes_14B:
         mov edi, AutoLineData
         jmp short .35
 .34:
-        mov edi, HomeLines
+        mov edi, homelines
 .35:
         mov eax, dword [byte ebp-08h]
         add eax, dword [byte ebp-010h]

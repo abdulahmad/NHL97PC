@@ -12,7 +12,7 @@ extern SpeechRingTail, SpeechSampleBufA, SpeechSampleBufB, SpeechRingUsed, Speec
 extern SpeechStreamBuffer, SpeechStreamSize, SpeechStreamChannel, SpeechStreamData, SpeechStreamActive, SpeechStreamHandle, SpeechStreamPos, SpeechStreamBlock
 extern SpeechStreamFlagCount, SpeechBufferTag, SpeechPatchVoices, SpeechPatchChannel, SpeechPatchDataOffset, SpeechPatchDataSize, SpeechPatchPosition, SpeechPatchHeaderSize
 extern SpeechPatchTemplateTag, SpeechPatchLength, SpeechPatchLoopFrom, SpeechPatchLoopTo, SpeechPatchNext, SpeechPatchHandle, SpeechPatchMaxVolume, CheckBankIndex
-extern ChannelTimeLeft, PlaySoundEntry, AudioEnter, AudioLeaveCheck, MixerSamplePosition, IsChannelActive, ScanFloat, SpeechPatchFlags
+extern ChannelTimeLeft, PlaySoundEntry, AudioEnter, AudioLeaveCheck, MixerSamplePosition, IsChannelActive, XaDecodeBlock, SpeechPatchFlags
 extern SpeechPatchLoopStart, SpeechPatchLoopEnd, SpeechPatchSampleRate
 global ResetGameVars, ResetSpeechStreamState, FillSpeechSamples, FillSpeechBuffer, ServiceSpeechBuffers, SpeechStreamFlag, ServiceSpeechIfOpen, PlayBankSample
 global ChannelPosition, ChannelTimeLeftLocked
@@ -115,7 +115,7 @@ FillSpeechSamples:
         push byte 1
         mov ebx, edi
         inc dword [byte ebp-04h]
-        call ScanFloat
+        call XaDecodeBlock
         add edi, byte 10h
         add esi, byte 70h
 .2:

@@ -71,7 +71,7 @@ InputRecordCount:                               ; used by InputRecordAvail, Inpu
 InputRecordTaken:                               ; set once an input record is taken; used by InputRecordTimer,
                                                 ; LinkInputTick, TakeInputRecord
         db 00h,00h,00h,00h
-InputRecordStamp:                               ; used by GameLoop, InputRecordTimer, LinkInputTick
+InputRecordStamp:                               ; used by Gameloop, InputRecordTimer, LinkInputTick
         db 00h,00h,00h,00h
 JoystickUpKey:                                  ; joystick up key; used by ReadJoystickPads
         db 010h,00h

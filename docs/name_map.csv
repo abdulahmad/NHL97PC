@@ -67,7 +67,7 @@ address,name,auto_name,source,confidence,evidence,file
 14294,DebugKeys,sub_14294,new,low,"(key): the debug keys, active once the unlock count (word_1686D4) reaches 4",src/engine/faceoff/faceoff.asm
 14710,GameFunctionKeys,sub_14710,new,low,"(key): Ctrl+F1-F9 toggles (dword_16AF3C), +, - and =",src/engine/faceoff/faceoff.asm
 14880,HandleGameKeys,sub_14880,new,medium,"from GameLoop: the in-game keyboard: the unlocked debug keys (DebugKeys), the function keys (GameFunctionKeys)",src/engine/faceoff/faceoff.asm
-14AC8,GameLoop,sub_14AC8,96PC,high,"96 PC GameLoop: same structure (input records, RunSimFrames, in-game menu, period over, game over)",src/engine/faceoff/faceoff.asm
+14AC8,Gameloop,sub_14AC8,94G,medium,the game's main loop (94G hockey94 Gameloop),src/engine/faceoff/faceoff.asm
 14E60,InitGameDisplay,sub_14E60,new,low,from PlayGame: copies the display options (unk_16AED4) and sets the 640x480 game screen,src/engine/faceoff/faceoff.asm
 14FE0,SaveGameDisplay,sub_14FE0,new,low,writes the game's display options back (dword_1AC835) after the game,src/engine/faceoff/faceoff.asm
 151A8,SetGameBrightness,sub_151A8,new,low,the brightness (28h-64h) from the display options,src/engine/faceoff/faceoff.asm
@@ -376,7 +376,7 @@ address,name,auto_name,source,confidence,evidence,file
 34A48,RequestLineChange,sub_34A48,95PC,low,"(player, line): sets the team's next line (+2), cycles the line count, PA / play-by-play event, setpersonel",src/engine/faceoff/faceoff_2.asm
 34B04,LineChangeKey,sub_34B04,new,low,"from doinput: line change key: picks the line (power play +6, penalty kill +4) or StartFaceoffLineChange",src/engine/faceoff/faceoff_2.asm
 34B78,DoLineChangeInput,sub_34B78,new,low,from doinput: line change buttons and the line select table (word_168E60),src/engine/faceoff/faceoff_2.asm
-34C18,FaceoffInput,sub_34C18,new,low,from doinput: the controlled faceoff player's joystick direction (assignment 8),src/engine/faceoff/faceoff_2.asm
+34C18,faceoffinput,sub_34C18,94G,medium,controller processing for the faceoff (94G logic94 faceoffinput),src/engine/faceoff/faceoff_2.asm
 34CF4,FaceDirFromMotion,sub_34CF4,new,low,the 8-way facing direction from the player's heading (+40h),src/engine/faceoff/faceoff_2.asm
 34EF8,doplayeracc,sub_34EF8,94G,medium,"94G doplayeracc: (player, direction 0-7, 8+ = none) the player accelerates toward the direction (x87 heading, sub_34CF4)",src/engine/faceoff/faceoff_2.asm
 34F58,SetSkateDir,sub_34F58,new,low,"(player, dir 0-7): heading and speed toward a joystick direction, limited by the top speed",src/engine/faceoff/faceoff_2.asm
@@ -389,7 +389,7 @@ address,name,auto_name,source,confidence,evidence,file
 35464,DoShootButton,sub_35464,new,low,"from doinput: shoot button: aim, power, target point, sub_25010",src/engine/faceoff/faceoff_2.asm
 35588,ChkOneTimerSpot,sub_35588,new,low,in the attacking zone (570h-1050h) with a teammate ready: one-timer chance,src/engine/faceoff/faceoff_2.asm
 35690,ClearLastPasser,sub_35690,new,low,clears word_19CBD8,src/engine/faceoff/faceoff_2.asm
-356A8,OneTimerShot,sub_356A8,new,low,"from assonetimer: the one-timer shot itself (sub_24220, assexit)",src/engine/faceoff/faceoff_2.asm
+356A8,onetimershot,sub_356A8,94G,medium,the one-timer shot (94G onetimer94 onetimershot),src/engine/faceoff/faceoff_2.asm
 358E4,doinput,sub_358E4,94G,medium,"94G doinput (from updateplayers): a human player's pad: line changes, skating, pass / shoot / check buttons, control switch",src/engine/faceoff/faceoff_2.asm
 362E0,CountTeamSlots,,96PC,medium,NHL96PC 3A2F6 (similar): mnemonic similarity 0.82 over 32 instructions,
 36370,DebugRestoreEnergy,sub_36370,new,low,"from DebugKeys: every player back to full energy (100), counter word_19CB82 3E8h",src/engine/faceoff/faceoff_2.asm
@@ -1006,7 +1006,7 @@ address,name,auto_name,source,confidence,evidence,file
 65742,LoadAnimByName,sub_65742,new,low,finds an animation by name and loads it,src/front/front_57324.asm
 657BF,ShotAnimFrames,sub_657BF,new,low,returns the shot animation frames for a shot type,src/front/front_57324.asm
 65830,LoadSkateAnims,sub_65830,new,medium,"InitAnimPoints: loads the ""skate"" animations (and ""stop"")",src/front/front_57324.asm
-6590A,CamShot23D,sub_6590A,96PC,medium,NHL96PC 603FF (similar 0.81): mnemonic similarity 0.81 over 16 instructions,src/front/front_57324.asm
+6590A,LoadShotAnims,sub_6590A,new,medium,loads the shot animations from the puckh animation file,src/front/front_57324.asm
 6593E,LoadActAnims,sub_6593E,new,medium,"InitAnimPoints: loads the ""pl_act"" animations",src/front/front_57324.asm
 6596B,LoadFallAnims,sub_6596B,new,medium,"InitAnimPoints: loads the ""pl_fall"" animations",src/front/front_57324.asm
 659C6,LoadInterferAnims,sub_659C6,new,medium,"InitAnimPoints: loads the ""interfer"" animations",src/front/front_57324.asm
@@ -1157,7 +1157,7 @@ address,name,auto_name,source,confidence,evidence,file
 74C64,StartGoalieStance,sub_74C64,new,low,starts a goalie stance animation,src/front/front_57324.asm
 74CEC,PickSaveAnim,sub_74CEC,new,low,picks the goalie save animation from the shot,src/front/front_57324.asm
 74FA4,SaveDirection,sub_74FA4,new,low,works out the direction of a save,src/front/front_57324.asm
-75068,GoalieSave,sub_75068,new,low,goalie save: picks the save and starts it,src/front/front_57324.asm
+75068,goaliesave,sub_75068,94G,medium,picks the goalie save and starts it (94G logic94 goaliesave),src/front/front_57324.asm
 75500,GoalieMoves,sub_75500,new,low,goalie movement and saves,src/front/front_57324.asm
 75AE8,PuckDeflectAngle,sub_75AE8,new,low,works out the angle of a deflection,src/front/front_57324.asm
 75B94,PuckDeflect,sub_75B94,new,low,deflects the puck off a player,src/front/front_57324.asm
@@ -2627,11 +2627,11 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 10E848,DrawRinkFan,sub_10E848,new,low,draws a fan of rink polygons,src/lib/ea/ea_shpi_03.asm
 10E8F8,DrawRinkPolys,sub_10E8F8,new,low,draws rink polygons,src/lib/ea/ea_shpi_03.asm
 10E960,DrawRinkRing,sub_10E960,new,low,draws a ring of rink polygons,src/lib/ea/ea_shpi_03.asm
-10EA08,RinkNoOpA,sub_10EA08,new,low,does nothing (empty rink draw hook),src/lib/ea/ea_shpi_03.asm
+10EA08,RinkPrimSetupNone,sub_10EA08,new,low,rink primitive set-up that does nothing,src/lib/ea/ea_shpi_03.asm
 10EA0C,DrawRinkPrimFlat,sub_10EA0C,new,low,rink primitive: flat polygon,src/lib/ea/ea_shpi_03.asm
 10EB0C,DrawRinkPrimShaded,sub_10EB0C,new,low,rink primitive: shaded polygon,src/lib/ea/ea_shpi_03.asm
 10EC0C,DrawRinkPrimTextured,sub_10EC0C,new,low,rink primitive: textured polygon,src/lib/ea/ea_shpi_03.asm
-10ED0C,RinkNoOpB,sub_10ED0C,new,low,does nothing (empty rink draw hook),src/lib/ea/ea_shpi_03.asm
+10ED0C,RinkPrimEndNone,sub_10ED0C,new,low,rink primitive end that does nothing,src/lib/ea/ea_shpi_03.asm
 10ED10,DrawRinkLineFlat,sub_10ED10,new,low,rink line primitive: flat,src/lib/ea/ea_shpi_03.asm
 10ED78,DrawRinkLineShaded,sub_10ED78,new,low,rink line primitive: shaded,src/lib/ea/ea_shpi_03.asm
 10EDE0,DrawRinkLineTextured,sub_10EDE0,new,low,rink line primitive: textured,src/lib/ea/ea_shpi_03.asm
@@ -3560,22 +3560,22 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1371FB,GusServiceStream,sub_1371FB,new,low,refills every streaming channel that its voice interrupt flagged,src/lib/sound/snd_gus_sdk_01.asm
 137247,GusStartStream,sub_137247,new,low,"sets up the double-buffered stream in card memory, loads both halves and starts the looping voices",src/lib/sound/snd_gus_sdk_01.asm
 13786C,GusStopStreamVoices,sub_13786C,new,low,stops both streaming voices and clears the stream state,src/lib/sound/snd_gus_sdk_01.asm
-13794C,TimerCalibrate,sub_13794C,new,low,calibrates the timer,src/lib/sound/snd_hw_sb.asm
-137966,TimerRestore,sub_137966,new,low,restores the timer,src/lib/sound/snd_hw_sb.asm
-137981,TimerSetRate,sub_137981,new,low,sets the timer rate,src/lib/sound/snd_hw_sb.asm
-13799D,TimerWritePit,sub_13799D,new,low,writes the timer chip divisor,src/lib/sound/snd_hw_sb.asm
-1379BE,TimerReadCount,sub_1379BE,new,low,reads the timer count,src/lib/sound/snd_hw_sb.asm
-1379DD,TimerTicksForRate,sub_1379DD,new,low,works out the ticks for a rate,src/lib/sound/snd_hw_sb.asm
-1379FF,TimerMeasure,sub_1379FF,new,low,measures the timer,src/lib/sound/snd_hw_sb.asm
-137A2E,TimerSetDivisor,sub_137A2E,new,low,sets the timer divisor,src/lib/sound/snd_hw_sb.asm
-137A4F,TimerReset,sub_137A4F,new,low,resets the timer,src/lib/sound/snd_hw_sb.asm
-137A72,TimerInstall,sub_137A72,new,low,installs the timer handler,src/lib/sound/snd_hw_sb.asm
-137BEE,TimerChainOld,sub_137BEE,new,low,chains to the old timer handler,src/lib/sound/snd_hw_sb.asm
+13794C,WssCodecStart,sub_13794C,new,medium,starts the Windows Sound System codec: programs its format and DMA and starts playback,src/lib/sound/snd_hw_sb.asm
+137966,WssCodecStop,sub_137966,new,medium,stops the Windows Sound System codec and its DMA channel,src/lib/sound/snd_hw_sb.asm
+137981,WssSetVolume,sub_137981,new,medium,sets the Windows Sound System codec output attenuation from a volume,src/lib/sound/snd_hw_sb.asm
+13799D,WssWriteReg,sub_13799D,new,medium,"writes a Windows Sound System codec register (index in AH, value in AL)",src/lib/sound/snd_hw_sb.asm
+1379BE,WssReadReg,sub_1379BE,new,medium,reads a Windows Sound System codec register,src/lib/sound/snd_hw_sb.asm
+1379DD,WssWaitReady,sub_1379DD,new,medium,waits until the Windows Sound System codec is out of its initialise state,src/lib/sound/snd_hw_sb.asm
+1379FF,WssWaitCalibration,sub_1379FF,new,medium,waits for the Windows Sound System codec's auto-calibration to finish,src/lib/sound/snd_hw_sb.asm
+137A2E,WssSetModeChange,sub_137A2E,new,medium,sets or clears the Windows Sound System codec's mode change bit,src/lib/sound/snd_hw_sb.asm
+137A4F,WssCodecReset,sub_137A4F,new,low,puts the Windows Sound System codec back in its idle state,src/lib/sound/snd_hw_sb.asm
+137A72,WssCodecSetup,sub_137A72,new,medium,"sets the Windows Sound System codec format, programs auto-init DMA and starts playback",src/lib/sound/snd_hw_sb.asm
+137BEE,WssStopDma,sub_137BEE,new,medium,masks the Windows Sound System DMA channel,src/lib/sound/snd_hw_sb.asm
 137C20,DmaMaskChannel,sub_137C20,new,low,masks a DMA channel,src/lib/sound/snd_hw_sb.asm
 137C50,DmaProgram,sub_137C50,new,low,programs a DMA channel,src/lib/sound/snd_hw_sb.asm
-137D14,IrqEoi,sub_137D14,new,low,sends end of interrupt to the interrupt controller,src/lib/sound/snd_hw_sb.asm
-137D50,IrqAck,sub_137D50,new,low,acknowledges a sound interrupt,src/lib/sound/snd_hw_sb.asm
-137D7C,IrqVector,sub_137D7C,new,low,returns the interrupt vector of an IRQ,src/lib/sound/snd_hw_sb.asm
+137D14,DmaReadCount,sub_137D14,new,medium,reads a DMA channel's remaining count,src/lib/sound/snd_hw_sb.asm
+137D50,DmaPlayedHalf,sub_137D50,new,medium,"returns which half of the DMA buffer has just played, or -1 if no change",src/lib/sound/snd_hw_sb.asm
+137D7C,PicSendEoi,sub_137D7C,new,high,sends end of interrupt to both interrupt controllers,src/lib/sound/snd_hw_sb.asm
 137D90,IrqUnmask,sub_137D90,new,low,unmasks an IRQ,src/lib/sound/snd_hw_sb.asm
 137DD0,IrqMask,sub_137DD0,new,low,masks an IRQ,src/lib/sound/snd_hw_sb.asm
 137E04,IrqSetHandler,sub_137E04,new,low,sets an interrupt handler,src/lib/sound/snd_hw_sb.asm
@@ -3584,12 +3584,24 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 137F4C,SbTimeConstant,sub_137F4C,new,low,works out the Sound Blaster time constant for a rate,src/lib/sound/snd_hw_sb.asm
 137FB8,SbRateFromConstant,sub_137FB8,new,low,works out the rate from a Sound Blaster time constant,src/lib/sound/snd_hw_sb.asm
 13800A,StrToLong,sub_13800A,new,low,converts a string to a number (strtol),src/lib/sound/snd_hw_sb.asm
-138177,ReturnArg,sub_138177,new,low,returns its argument,src/lib/sound/snd_hw_sb.asm
+138177,strtoul_,sub_138177,new,medium,converts a string to an unsigned number (strtoul),src/lib/sound/snd_hw_sb.asm
 13817F,DigitValue,sub_13817F,new,low,returns the value of a digit character,src/lib/sound/snd_hw_sb.asm
-1381E0,InitFloatFormat,sub_1381E0,new,low,sets up the number formatting tables,src/lib/sound/snd_hw_sb.asm
-138288,FormatFloat,sub_138288,new,low,formats a floating-point number,src/lib/sound/snd_hw_sb.asm
-1386E1,ScanFloat,sub_1386E1,new,low,reads a floating-point number,src/lib/sound/snd_hw_sb.asm
-1388B1,RoundDigits,sub_1388B1,new,low,rounds the digits of a formatted number,src/lib/sound/snd_hw_sb.asm
+1381E0,AdpcmDecodeMono,sub_1381E0,new,medium,decodes 4-bit ADPCM samples for one channel to 16-bit samples,src/lib/sound/snd_hw_sb.asm
+138288,AdpcmDecodeStereo,sub_138288,new,medium,decodes 4-bit ADPCM samples for two channels to 16-bit samples,src/lib/sound/snd_hw_sb.asm
+138407,XaEncodeFilterJumpTable,,new,low,jump table for the filter cases of the XA block encoder,src/lib/sound/snd_hw_sb.asm
+138417,XaEncodeClampJumpTable,,new,low,jump table for the clamp cases of the XA block encoder,src/lib/sound/snd_hw_sb.asm
+13847B,XaEncodeFilterFlat,,new,low,XA encoder case: filter with no prediction,src/lib/sound/snd_hw_sb.asm
+13848B,XaEncodeFilterLinear,,new,low,XA encoder case: filter with one coefficient,src/lib/sound/snd_hw_sb.asm
+13849B,XaEncodeFilterSteep,,new,low,XA encoder case: filter with coefficients 460 and -208,src/lib/sound/snd_hw_sb.asm
+1384AB,XaEncodeFilterSmooth,,new,low,"XA encoder case: filter with coefficients 392 and -220, then the loop that tries each filter on the block",src/lib/sound/snd_hw_sb.asm
+1386D1,XaDecodeFilterJumpTable,,new,medium,jump table for the filter cases of XaDecodeBlock,src/lib/sound/snd_hw_sb.asm
+1386E1,XaDecodeBlock,sub_1386E1,new,medium,decodes one XA (BRR) block: the header picks the filter and the shift,src/lib/sound/snd_hw_sb.asm
+138705,XaDecodeFilterFlat,,new,medium,XA decoder case: filter with no prediction,src/lib/sound/snd_hw_sb.asm
+138715,XaDecodeFilterLinear,,new,medium,XA decoder case: filter with one coefficient,src/lib/sound/snd_hw_sb.asm
+138725,XaDecodeFilterSteep,,new,medium,XA decoder case: filter with coefficients 460 and -208,src/lib/sound/snd_hw_sb.asm
+138735,XaDecodeFilterSmooth,,new,medium,XA decoder case: filter with coefficients 392 and -220,src/lib/sound/snd_hw_sb.asm
+138859,XaFilterCoefsJumpTable,,new,medium,jump table for the filter coefficient cases,src/lib/sound/snd_hw_sb.asm
+1388B1,XaReadSample,sub_1388B1,new,medium,"reads a 16-bit sample in either byte order, signed or unsigned",src/lib/sound/snd_hw_sb.asm
 138910,DrawCharMono,sub_138910,new,low,draws a character in one colour,src/lib/sound/snd_hw_sb.asm
 1389B0,DrawCharShadow,sub_1389B0,new,low,draws a character with a shadow,src/lib/sound/snd_hw_sb.asm
 138A50,DrawCharOutline,sub_138A50,new,low,draws a character with an outline,src/lib/sound/snd_hw_sb.asm
@@ -7663,7 +7675,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 169194,StreamTimeout,dword_169194,new,low,stream timeout,src/data/engine/engine_3812E_data_02.asm
 169198,CdStreamFilled,dword_169198,new,low,CD stream bytes filled,src/data/engine/engine_3812E_data_02.asm
 16919C,CdStreamUsed,dword_16919C,new,low,CD stream bytes used,src/data/engine/engine_3812E_data_02.asm
-1691A0,StreamState,dword_1691A0,new,low,stream state,src/data/engine/engine_3812E_data_02.asm
+1691A0,streamstate,dword_1691A0,94S,medium,audio stream state (94 SNES ram94s streamstate),src/data/engine/engine_3812E_data_02.asm
 1691A2,AudioStreamFlags,dword_1691A2,new,low,audio stream flags,src/data/engine/engine_3812E_data_02.asm
 1691A4,SfxBankLoaded,word_1691A4,new,low,sound effect bank loaded,src/data/engine/engine_3812E_data_02.asm
 1691A8,MusicState,dword_1691A8,new,low,music state,src/data/engine/engine_3812E_data_02.asm
@@ -8429,11 +8441,6 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 17075C,KbdCapsLock,byte_17075C,new,low,caps lock toggle,src/data/lib/watcom/watcom_clib_13_data_01.asm
 170760,KeyBufferMask,dword_170760,new,low,keyboard buffer index mask,src/data/lib/watcom/watcom_clib_13_data_01.asm
 170764,KeyStateTable,byte_170764,new,low,key down state per scan code,src/data/lib/watcom/watcom_clib_13_data_01.asm
-170781,KbdShiftDown,byte_170781,new,low,shift held,src/data/lib/watcom/watcom_clib_13_data_01.asm
-17078E,KbdCtrlDown,byte_17078E,new,low,control held,src/data/lib/watcom/watcom_clib_13_data_01.asm
-17079A,KbdAltDown,byte_17079A,new,low,alt held,src/data/lib/watcom/watcom_clib_13_data_01.asm
-17079C,KbdNumLock,byte_17079C,new,low,num lock toggle,src/data/lib/watcom/watcom_clib_13_data_01.asm
-1707B7,KbdScrollLock,byte_1707B7,new,low,scroll lock toggle,src/data/lib/watcom/watcom_clib_13_data_01.asm
 1707E4,SavedKbdVecOffset,dword_1707E4,new,low,previous keyboard interrupt offset,src/data/lib/watcom/watcom_clib_13_data_01.asm
 1707E8,SavedKbdVecSelector,word_1707E8,new,low,previous keyboard interrupt selector,src/data/lib/watcom/watcom_clib_13_data_01.asm
 1707EA,SavedInt16Offset,dword_1707EA,new,low,previous INT 16h offset,src/data/lib/watcom/watcom_clib_13_data_01.asm
@@ -8722,13 +8729,13 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19A7D8,DmaAddressPorts,byte_19A7D8,new,low,ISA DMA address register port of each channel,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
 19A7E0,DmaCountPorts,byte_19A7E0,new,low,ISA DMA count register port of each channel (also the EOI table base),src/data/lib/sound/snd_gus_sdk_01_data_01.asm
 19A7E4,StrToLongLimits,dword_19A7E4,new,low,overflow limits used by the string to number conversion,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
-19A7E8,IrqAckLast,dword_19A7E8,new,low,last IRQ status read by the interrupt acknowledge,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
-19A878,FloatPow10Table,dword_19A878,new,low,powers of ten used to format floating-point numbers,src/data/lib/sound/snd_hw_sb_data_01.asm
-19BEB8,FloatPow10Exponents,dword_19BEB8,new,low,binary exponents of the powers of ten used to format numbers,src/data/lib/sound/snd_hw_sb_data_01.asm
-19BED8,FloatFormatDigits,dword_19BED8,new,low,digit count of the number being formatted,src/data/lib/sound/snd_hw_sb_data_01.asm
-19BEDC,FloatFormatExponent,dword_19BEDC,new,low,decimal exponent of the number being formatted,src/data/lib/sound/snd_hw_sb_data_01.asm
-19BEE0,FloatFormatMantissaLo,dword_19BEE0,new,low,low half of the mantissa being formatted,src/data/lib/sound/snd_hw_sb_data_01.asm
-19BEE4,FloatFormatMantissaHi,dword_19BEE4,new,low,high half of the mantissa being formatted,src/data/lib/sound/snd_hw_sb_data_01.asm
+19A7E8,DmaLastHalf,dword_19A7E8,new,medium,DMA buffer half reported last time,src/data/lib/sound/snd_gus_sdk_01_data_01.asm
+19A878,AdpcmDeltaTable,dword_19A878,new,medium,ADPCM sample change for each step and code,src/data/lib/sound/snd_hw_sb_data_01.asm
+19BEB8,AdpcmIndexAdjust,dword_19BEB8,new,medium,ADPCM step index change for each code,src/data/lib/sound/snd_hw_sb_data_01.asm
+19BED8,AdpcmLeftSample,dword_19BED8,new,medium,"last decoded sample, first channel",src/data/lib/sound/snd_hw_sb_data_01.asm
+19BEDC,AdpcmRightSample,dword_19BEDC,new,medium,"last decoded sample, second channel",src/data/lib/sound/snd_hw_sb_data_01.asm
+19BEE0,AdpcmLeftIndex,dword_19BEE0,new,medium,"ADPCM step index, first channel",src/data/lib/sound/snd_hw_sb_data_01.asm
+19BEE4,AdpcmRightIndex,dword_19BEE4,new,medium,"ADPCM step index, second channel",src/data/lib/sound/snd_hw_sb_data_01.asm
 19BEE8,str_NoErrorInXACODECFunctionL,asc_19BEE8,new,high,"string ""No Error In XACODEC Function Library!""",src/data/lib/sound/snd_hw_sb_data_01.asm
 19BFD8,str_InvalidErrorCodeInXACODEC,asc_19BFD8,new,high,"string ""Invalid Error Code In XACODEC Function Library!""",src/data/lib/sound/snd_hw_sb_data_01.asm
 19C008,DebugLineStart,dword_19C008,new,low,start time of the current debug line,src/data/lib/sound/snd_hw_sb_data_01.asm
@@ -8917,7 +8924,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19CB8E,PassDistX,word_19CB8E,new,low,pass distance X,src/data/engine/faceoff_data_03.asm
 19CB90,PassDistY,word_19CB90,new,low,pass distance Y,src/data/engine/faceoff_data_03.asm
 19CB92,PassReceiver,word_19CB92,new,low,pass receiver,src/data/engine/faceoff_data_03.asm
-19CB94,OneTimerPlayer,word_19CB94,new,low,one-timer player,src/data/engine/faceoff_data_03.asm
+19CB94,onetimerplayer,word_19CB94,94G,medium,player set up for a one-timer (94G ram94 onetimerplayer),src/data/engine/faceoff_data_03.asm
 19CB96,PassState,word_19CB96,new,low,pass state,src/data/engine/faceoff_data_03.asm
 19CB98,StatsPanelPlayer,word_19CB98,new,low,player shown on the stats panel,src/data/engine/faceoff_data_03.asm
 19CB9A,AssistOne,word_19CB9A,new,low,first assist player,src/data/engine/faceoff_data_03.asm
@@ -8956,8 +8963,8 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19CBE2,penshotlive,word_19CBE2,96PC,medium,96 PC penshotlive: a penalty shot is running (ClockTick),src/data/engine/faceoff_data_03.asm
 19CBE4,penshottimer,dword_19CBE4,96PC,medium,96 PC penshottimer: ticks left of the penalty shot,src/data/engine/faceoff_data_03.asm
 19CBE6,FaceoffRequest,word_19CBE6,new,low,face-off request,src/data/engine/faceoff_data_03.asm
-19CBE8,PuckX,dword_19CBE8,new,low,puck X,src/data/engine/faceoff_data_03.asm
-19CBEA,PuckY,word_19CBEA,new,low,puck Y,src/data/engine/faceoff_data_03.asm
+19CBE8,puckx,dword_19CBE8,94G,medium,puck x position (94G ram94 puckx),src/data/engine/faceoff_data_03.asm
+19CBEA,pucky,word_19CBEA,94G,medium,puck y position (94G ram94 pucky),src/data/engine/faceoff_data_03.asm
 19CBEC,DelayedPen,word_19CBEC,new,low,delayed penalty team,src/data/engine/faceoff_data_03.asm
 19CBEE,MessagePanel,word_19CBEE,new,low,message panel showing (-1 none),src/data/engine/faceoff_data_03.asm
 19CBF0,PenCntDwn,word_19CBF0,new,low,penalty countdown,src/data/engine/faceoff_data_03.asm
@@ -9134,7 +9141,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19DAD3,PenaltyRecord,dword_19DAD3,new,low,penalty record per player (8 bytes each),src/data/engine/faceoff_2_bss_01.asm
 19DAD4,StanleyFlag,byte_19DAD4,new,low,flag read by assstanley,src/data/engine/faceoff_2_bss_01.asm
 19DAD5,GoalFlags,byte_19DAD5,new,low,goal flags per player,src/data/engine/faceoff_2_bss_01.asm
-19DAD6,GoalieFlags,byte_19DAD6,new,low,goalie flags per player,src/data/engine/faceoff_2_bss_01.asm
+19DAD6,goalieflags,byte_19DAD6,94S,medium,per-player goalie flags set by the goalie assignments (94 SNES ram94s goalieflags),src/data/engine/faceoff_2_bss_01.asm
 19DAD9,PlayerAssignWords,word_19DAD9,new,low,assignment word per player,src/data/engine/faceoff_2_bss_01.asm
 19DADD,PlayerAssignPtrs,dword_19DADD,new,low,assignment pointer per player,src/data/engine/faceoff_2_bss_01.asm
 19DADE,PuckCarrierPos,dword_19DADE,new,low,puck carrier position read by assstanley,src/data/engine/engine_25894_bss_01.asm
@@ -9348,7 +9355,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1AC81C,DetailLevel,byte_1AC81C,new,low,graphics detail level,src/data/engine/engine_3812E_bss_02.asm
 1AC81D,DisplayOptions,byte_1AC81D,new,low,display options,src/data/engine/engine_3812E_bss_02.asm
 1AC821,DisplaySettings,unk_1AC821,new,low,saved display settings,src/data/engine/engine_3812E_bss_02.asm
-1AC835,Brightness,dword_1AC835,new,low,game brightness,src/data/engine/engine_3812E_bss_02.asm
+1AC835,brightness,dword_1AC835,94S,medium,screen brightness the fades set (94 SNES ram94s brightness),src/data/engine/engine_3812E_bss_02.asm
 1AC839,ModemSettings,unk_1AC839,new,low,modem settings,src/data/engine/engine_3812E_bss_02.asm
 1AC8AD,NetworkGameIndex,dword_1AC8AD,new,low,network game picked,src/data/engine/engine_3812E_bss_02.asm
 1AC8B1,NetworkSettings,word_1AC8B1,new,low,network settings,src/data/engine/engine_3812E_bss_02.asm
@@ -9563,7 +9570,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1B0B8C,CrowdReactType,dword_1B0B8C,new,low,crowd reaction type,src/data/front/front_48D70_bss_03.asm
 1B0B90,CrowdReactEnd,dword_1B0B90,new,low,crowd reaction end time,src/data/front/front_48D70_bss_03.asm
 1B0B94,CrowdModel,dword_1B0B94,new,low,crowd model,src/data/front/front_48D70_bss_03.asm
-1B0B98,CrowdFrame,dword_1B0B98,new,low,crowd frame,src/data/front/front_48D70_bss_03.asm
+1B0B98,Crowdframe,dword_1B0B98,94G,medium,crowd animation frame (94G ram94 Crowdframe),src/data/front/front_48D70_bss_03.asm
 1B0B9C,CrowdFrameTime,dword_1B0B9C,new,low,crowd frame time,src/data/front/front_48D70_bss_03.asm
 1B0BA0,IceLinePolys,unk_1B0BA0,new,low,ice line polygons,src/data/front/front_48D70_bss_03.asm
 1B0C0C,BoardLinePolys,unk_1B0C0C,new,low,board line polygons,src/data/front/front_48D70_bss_03.asm
@@ -9928,7 +9935,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1C3455,HomeDefenceIndex,byte_1C3455,new,low,home starting defenceman,src/data/front/front_D15FB_bss_01.asm
 1C3456,HomeDefencePartner,byte_1C3456,new,low,home starting defence partner,src/data/front/front_D15FB_bss_01.asm
 1C347D,HomeBackupGoalie,byte_1C347D,new,low,home backup goalie,src/data/front/front_D15FB_bss_01.asm
-1C347F,HomeLines,unk_1C347F,new,low,home team lines,src/data/front/front_D15FB_bss_01.asm
+1C347F,homelines,unk_1C347F,94S,medium,home team lines (94 SNES ram94s homelines),src/data/front/front_D15FB_bss_01.asm
 1C3487,HomeTeamName,unk_1C3487,new,low,home team name,src/data/front/front_D15FB_bss_01.asm
 1C34A5,HomeCityName,unk_1C34A5,new,low,home city name,src/data/front/front_D15FB_bss_01.asm
 1C34E3,HomeTeamRating,dword_1C34E3,new,low,home team rating,src/data/front/front_D15FB_bss_01.asm
@@ -11242,11 +11249,11 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1DD38D,GusDriverIrq,byte_1DD38D,new,low,IRQ line of the Gravis driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD390,GusDriverCardMem,dword_1DD390,new,low,card memory allocated for the stream,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD394,GusDriverDmaBuf,dword_1DD394,new,low,DMA buffer of the Gravis driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
-1DD398,DacTimerRate,dword_1DD398,new,low,timer rate of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD398,WssFormat,dword_1DD398,new,medium,codec register 8 value: rate select and sample format,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD39C,DacBuffer,dword_1DD39C,new,low,output buffer of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD3A0,DacIrq,dword_1DD3A0,new,low,interrupt line acknowledged by the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD3A4,DacPort,dword_1DD3A4,new,low,output port of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
-1DD3A8,DacTimerDivisor,dword_1DD3A8,new,low,timer divisor of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3A8,WssDmaSize,dword_1DD3A8,new,medium,codec DMA buffer size,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD3AC,DacBufPos,dword_1DD3AC,new,low,position in the DAC output buffer,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD3B0,DacBufSize,dword_1DD3B0,new,low,size of the DAC output buffer,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD3B4,DacState,dword_1DD3B4,new,low,state words of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
@@ -11342,16 +11349,16 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1DE6C0,Hook387Save,unk_1DE6C0,new,low,FPU state saved by __hook387,src/data/lib/input/input_joystick_misc_08_bss_01.asm
 1DE740,GusEnvConfig,dword_1DE740,new,low,ULTRASND environment settings,src/data/lib/input/input_joystick_misc_08_bss_01.asm
 1DE760,GusDramSize,word_1DE760,new,low,Gravis on-board memory size,src/data/lib/input/input_joystick_misc_08_bss_01.asm
-1DE764,TimerOldOffsetLo,word_1DE764,new,low,low word of the saved timer interrupt offset,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE766,TimerOldSelector,word_1DE766,new,low,selector of the saved timer interrupt handler,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE768,TimerOldHandler,dword_1DE768,new,low,saved protected-mode timer interrupt handler,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE76C,TimerOldRealHandler,dword_1DE76C,new,low,saved real-mode timer interrupt handler,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE770,TimerIrqMask,byte_1DE770,new,low,saved interrupt controller mask bit of the timer,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE771,TimerChainFlag,byte_1DE771,new,low,set when the old timer handler must still be called,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE772,TimerPitMode,byte_1DE772,new,low,timer chip mode bits used when writing the counter,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE773,TimerInstalled,byte_1DE773,new,low,set while the game's timer handler is installed,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE774,TimerDivisor,dword_1DE774,new,low,current timer chip divisor,src/data/lib/sound/snd_hw_sb_bss_01.asm
-1DE778,TimerChainCount,dword_1DE778,new,low,tick accumulator that decides when to chain to the old timer handler,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE764,WssCodecDmaAddress,word_1DE764,new,medium,low word of the codec DMA buffer address,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE766,WssCodecDmaCount,word_1DE766,new,medium,DMA transfer count for the codec buffer,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE768,WssCodecDmaSize,dword_1DE768,new,medium,codec DMA buffer size in bytes,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE76C,WssCodecDmaHalf,dword_1DE76C,new,medium,half the codec DMA buffer size,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE770,WssCodecDmaPage,byte_1DE770,new,medium,DMA page of the codec buffer,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE771,WssCodecDmaRunning,byte_1DE771,new,medium,set while the codec DMA channel runs,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE772,WssIndexBits,byte_1DE772,new,medium,mode bits ORed into every codec register index,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE773,WssCodecRunning,byte_1DE773,new,medium,set while the Windows Sound System codec plays,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE774,WssCodecPort,dword_1DE774,new,medium,Windows Sound System codec base port,src/data/lib/sound/snd_hw_sb_bss_01.asm
+1DE778,WssCodecDma,dword_1DE778,new,medium,DMA channel the codec uses,src/data/lib/sound/snd_hw_sb_bss_01.asm
 1DE780,DbcsLeadTable,word_1DE780,new,low,DOS double-byte character lead table pointer,src/data/lib/sound/snd_hw_sb_bss_01.asm
 1DE784,CMainArgc,dword_1DE784,new,low,argument count passed to main,src/data/lib/sound/snd_hw_sb_bss_01.asm
 1DE788,CMainArgv,dword_1DE788,new,low,argument vector passed to main,src/data/lib/sound/snd_hw_sb_bss_01.asm

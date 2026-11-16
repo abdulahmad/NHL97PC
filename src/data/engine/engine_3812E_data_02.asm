@@ -7,7 +7,7 @@ section s_1690D2 progbits alloc noexec write align=1
 extern str_GLOBAL, str_FRONT1, str_FRONT2, str_GAME, str_AUXI, str_CROWD
 global AudioStreamChannel, SeasonPanelText, MatchupLogoIds, str_G_DrawLockedGame, MatchupLogoPos, str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim
 global str_U_FaceoffDrawAnim, ViewBorderColor, ViewBorderRows, StreamBlockCount, StreamBlockSize, StreamTimeout, CdStreamFilled, CdStreamUsed
-global StreamState, AudioStreamFlags, MusicState, MusicTrack, MusicNextTrack, MusicRestart, MusicPaused, MusicTime
+global streamstate, AudioStreamFlags, MusicState, MusicTrack, MusicNextTrack, MusicRestart, MusicPaused, MusicTime
 global MusicStreamPos, MusicVolumeLevel, BackgroundAudioTick, MusicFeedCount, MusicStartTime, MusicLength, MusicHandle, MusicBuffer
 global SfxBankRecords, AudioInitDone, SfxBankHandle, CrowdBankHandle, AmbientHandle, SfxReady, MusicReady, CrowdNoiseLevel
 global AmbientVolume, SfxVolumeLevel, MusicVolumeWord, LastSfxPlayed, SpeechBankBuffer, SfxBankNameTable, SfxGroupTable, SparkleTimer
@@ -59,7 +59,7 @@ CdStreamFilled:                                 ; CD stream bytes filled; used b
         db 00h,00h,00h,00h
 CdStreamUsed:                                   ; CD stream bytes used; used by CdStreamService
         db 00h,00h,00h,00h
-StreamState:                                    ; stream state; used by CdStreamService
+streamstate:                                    ; stream state; used by CdStreamService
         db 00h,00h
 AudioStreamFlags:                               ; audio stream flags; used by OpenAudioStream
         db 00h,00h

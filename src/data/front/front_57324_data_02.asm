@@ -229,7 +229,7 @@ SkateAnimNames:                                 ; skate animation names; used by
         dd str_BcsovR
         dd str_AcclL
         dd str_AcclR
-ShotAnimNames:                                  ; shot animation names; used by CamShot23D
+ShotAnimNames:                                  ; shot animation names; used by LoadShotAnims
         dd str_PFHSW
         dd str_PFHFWD
         dd str_PBKHSW
@@ -986,7 +986,7 @@ PlayerAnimMove:                                 ; player animation move; used by
         db 00h,00h,00h,00h
 SkateAnimData:                                  ; skate animation data; used by FreeAnimTables, LoadSkateAnims
         db 00h,00h,00h,00h
-ShotAnimData:                                   ; shot animation data; used by CamShot23D
+ShotAnimData:                                   ; shot animation data; used by LoadShotAnims
         db 00h,00h,00h,00h
 ActAnimData:                                    ; act animation data; used by LoadActAnims
         db 00h,00h,00h,00h
@@ -1022,7 +1022,7 @@ AnimPointNames:                                 ; animation point names; used by
         dd str_Relbow
         dd str_lshldr
         dd str_rshldr
-MoveAnimIds:                                    ; animation id per move; used by GoalieMoves, GoalieSave,
+MoveAnimIds:                                    ; animation id per move; used by GoalieMoves, goaliesave,
                                                 ; LoadAnimData ...
         db 0D6h,00h,00h,00h,0D7h,00h,00h,00h,0D8h,00h,00h,00h,0D9h,00h,00h,00h
         db 0DAh,00h,00h,00h,0DBh,00h,00h,00h,0DCh,00h,00h,00h,0DDh,00h,00h,00h

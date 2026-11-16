@@ -5,7 +5,7 @@ bits 32
 %include "hockey.inc"
 section s_1C340D nobits alloc noexec write align=1
 global HomeGoalieIndex, HomeCenterIndex, HomeWingIndex, HomeDefenceIndex, HomeDefencePartner, HomeBackupGoalie, HomeTeamRating, HomeInjuredCount
-global AwayPlayerRecords, HomeLines, HomeTeamName, HomeCityName, HomeSlotRatings, HomePeriodShots, HomeSimGoals, HomeSimShots
+global AwayPlayerRecords, homelines, HomeTeamName, HomeCityName, HomeSlotRatings, HomePeriodShots, HomeSimGoals, HomeSimShots
 global HomeShotTotals, HomeGoalTotals, HomeTeamCode
 HomeSlotRatings:                                ; home rating per roster slot; used by PreGameStatsPanel
         resb 6
@@ -35,7 +35,7 @@ HomeDefencePartner:                             ; home starting defence partner;
         resb 39
 HomeBackupGoalie:                               ; home backup goalie; used by PreGameStatsPanel, SimulateGame
         resb 2
-HomeLines:                                      ; home team lines; used by AllocAllStarRosters,
+homelines:                                      ; home team lines; used by AllocAllStarRosters,
                                                 ; AllocTempGameTeam, BuildPlayerStatsTable ...
         resb 8
 HomeTeamName:                                   ; home team name; used by InitAllStarTeams

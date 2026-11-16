@@ -99,7 +99,7 @@ TargetPoints:                                   ; target points; used by GetTarg
         resb 64
 ModelPairs:                                     ; linked model pairs; used by LinkModelPair
         resb 8
-ReplayFrames:                                   ; replay frame buffer; used by GameLoop, InitAnimPoints,
+ReplayFrames:                                   ; replay frame buffer; used by Gameloop, InitAnimPoints,
                                                 ; PlaySavedReplay ...
         resb 1792
 ReplayData:                                     ; replay data; used by LoadReplay
@@ -297,7 +297,7 @@ InstantReplayOn:                                ; instant replay running; used b
 ReplaySoundOn:                                  ; replay sound allowed; used by PlaySavedReplay,
                                                 ; ReplayCmdForward, ReplayCmdPlay ...
         resb 4
-ReplayMode:                                     ; replay mode; used by GameLoop, PlaySavedReplay,
+ReplayMode:                                     ; replay mode; used by Gameloop, PlaySavedReplay,
                                                 ; ReplayPlayFrames ...
         resb 4
 ReplayFrame:                                    ; replay frame; used by PlaySavedReplay, ReplayCurrentFrame,
@@ -364,7 +364,7 @@ ReplayPlaying:                                  ; replay playing; used by AddPen
                                                 ; CreditPass ...
         resb 4
 ReplayTick:                                     ; replay tick; used by EndInstantReplay, FreeReplayBuffer,
-                                                ; GameLoop ...
+                                                ; Gameloop ...
         resb 4
 OffscreenState:                                 ; offscreen render state; used by BeginOffscreenRender,
                                                 ; EndOffscreenRender
@@ -423,7 +423,7 @@ CameraStateRecords:                             ; camera state records (current,
         resb 176
         resb 252
         resb 37
-GoalieAnimData:                                 ; goalie animation data; used by GoalieMoves, GoalieSave,
+GoalieAnimData:                                 ; goalie animation data; used by GoalieMoves, goaliesave,
                                                 ; LoadGoalieAnimFile ...
         resb 136
 GoalieAnimFiles:                                ; goalie animation file per move; used by GoalieFreezeMove,

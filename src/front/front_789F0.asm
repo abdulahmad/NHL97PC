@@ -7,7 +7,7 @@ section s_789F0 progbits alloc exec nowrite align=1
 extern PeriodHomeTeam, PeriodAwayTeam, HomeRosterData, HomeBackupGoalie, AwayRosterData, AwayBackupGoalie, str_D_SimulateGame, SimGameResult
 extern SeasonUserTeam, GameOptionFlags, SeasonRandomSeed, PlayoffRandomSeed, PaEventValue, ThreeStarsCount, HomeTeamRating, HomeInjuredCount
 extern memset_, rand_, srand_, RandomCrowdDelay, PlayerOverall, FindPlayerRecord, FindGameRecord, FindPlayerStat
-extern ReadTeamStats, ServiceIdle, ZeroMem, PlayoffDbKey, SeasonDbKey, AutoLineData, HomeLines, SimGameBlankPair
+extern ReadTeamStats, ServiceIdle, ZeroMem, PlayoffDbKey, SeasonDbKey, AutoLineData, homelines, SimGameBlankPair
 extern HomeRosterData, HomeSimGoals, HomeSimShots, HomeShotTotals, HomeGoalTotals
 extern AwayRosterData, AwaySimGoals, AwaySimShots, AwayShotTotals, AwayGoalTotals
 global SimulateGame, SimPlayerRating, SimTeamStrength, SimTeamStrengthJumpTable
@@ -51,7 +51,7 @@ SimulateGame:
         mov dword [dword esp+01524h], AutoLineData
         jmp short .5
 .4:
-        mov dword [dword esp+01524h], HomeLines
+        mov dword [dword esp+01524h], homelines
 .5:
         mov ebx, 339h
         mov eax, dword [dword esp+0159Ch]
@@ -674,13 +674,13 @@ SimulateGame:
 .40:
         cmp dword [dword esp+01628h], byte 0
         jne short .41
-        mov ebx, HomeLines
+        mov ebx, homelines
         mov edx, AutoLineData
         mov dword [dword esp+01604h], ebx
         mov dword [dword esp+01608h], edx
         jmp short .42
 .41:
-        mov eax, HomeLines
+        mov eax, homelines
         mov ebp, AutoLineData
         mov dword [dword esp+01608h], eax
         mov dword [dword esp+01604h], ebp
@@ -1666,7 +1666,7 @@ SimulateGame:
         mov esi, AutoLineData
         jmp short .134
 .133:
-        mov esi, HomeLines
+        mov esi, homelines
 .134:
         mov eax, esi
         xor edx, edx

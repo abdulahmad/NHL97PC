@@ -12247,7 +12247,7 @@ StopInputRecording:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; InputRecordAvail                                                E3208  97 PC
-; Returns InputRecordCount (GameLoop's is there a record)
+; Returns InputRecordCount (Gameloop's is there a record)
 ;-----------------------------------------------------------------------------
 InputRecordAvail:
         push dword 4

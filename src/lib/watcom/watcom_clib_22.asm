@@ -8,7 +8,7 @@ extern StreamLengthFn, MixerStepTable, MixerVolumeLookup, MixerAccumLeft, MixerA
 extern MixerStereo, MixerOutputRate, MixerOutPtr, Mixer16Bit, MixerOutEnd, MixerChunkSamples, MixerChunkLeft, MixerSamplePtr
 extern MixerSampleStep, MixerLoopLength, MixerLoopLimit, MixerLoopStart, MixerFracPos, MixerFracStep, MixerOutputFunc, MixerStopFunc
 extern ChannelSampleTable, PatchRegionParams, MixerChannelTable, StartPatchSample, ParsePatchTags, AudioEnter, AudioLeaveCheck, SbReadData
-extern SbWaitRead, StartChannel, MixNoise, UpdateChannels, SetChannelCount, InitFloatFormat, FormatFloat, MixerChunkBuffer
+extern SbWaitRead, StartChannel, MixNoise, UpdateChannels, SetChannelCount, AdpcmDecodeMono, AdpcmDecodeStereo, MixerChunkBuffer
 extern PatchDefaultHandle, SbBasePort, SbIrq, SbMixerAddrPort, SbMixerDataPort, SbResetPort, SbWritePort, SbReadPort
 global PlayPatchNoteJumpTable, MixerChunkLength_4A, MixerChunkLength_8F, MixerChunkLength_10C, MixerChunkLength_21B, MixerChunkLength_341, MixSample16_7B, MixSample16_102
 global MixSample16_184, MixSample16_20B, MixSample16_291, MixSample16_2B4, MixSample16_330, MixSample16_3AD, MixOutStereo16_46, MixOutStereo16_8A
@@ -601,11 +601,11 @@ MixerPickMixRoutine:
         je short .10
         test dword [byte esi+04h], 2
         je short .9
-        lea eax, [FormatFloat]
+        lea eax, [AdpcmDecodeStereo]
         mov dword [byte esi+05Ch], eax
         jmp short .10
 .9:
-        lea eax, [InitFloatFormat]
+        lea eax, [AdpcmDecodeMono]
         mov dword [byte esi+05Ch], eax
 .10:
         mov eax, dword [byte esi+04h]
