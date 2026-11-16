@@ -22,15 +22,15 @@ extern dword_1C5FFE, dword_1C6002, dword_1C6008, dword_1C600C, dword_1C6010, dwo
 extern dword_1C6080, dword_1C6084, dword_1C60C0, dword_1C60C4, dword_1C8184, dword_1C8188, dword_1C818C, dword_1C8190
 extern dword_1C8194, dword_1C8198, dword_1C819C, dword_1C81A0, dword_1C81A4, dword_1C81A8, dword_1C81AC, dword_1C81B0
 extern dword_1C81B4, dword_1C81B8, dword_1C8268, dword_1CF538, dword_1CF548, dword_1CF550, dword_1CF554, dword_1CF5A4
-extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, exit_, getcwd_, sub_845E4_32E, sub_845E4_344, sub_845E4_35A
-extern sub_845E4_370, memcpy_, open_, printf_, sprintf_, srand_, strcat_, strcpy_
+extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, exit_, getcwd_, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
+extern MainMenuAnim_370, memcpy_, open_, printf_, sprintf_, srand_, strcat_, strcpy_
 extern strlen_, sub_1008CC, bcopy, sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC
-extern FindShape, sub_101EAC, sub_102B94, sub_102C10, Random32, LoadGripLibrary, sub_1046C, LoadJoystickConfig
+extern FindShape, sub_101EAC, sub_102B94, sub_102C10, Random32, LoadGripLibrary, InitGripDriver, LoadJoystickConfig
 extern sub_105808, sub_106F64, sub_106F94, sub_107D30, InstallKeyboardHandler, RemoveKeyboardHandler, IsKeyDown, PlotPixelAt
 extern InitMemoryPoolArgs, InitPlatform, InstallErrorHandlers, ConvertArtXY, FormatString, SaveTextState, RestoreTextState, sub_11B008
 extern SetScreenTarget, LoadMainSfxBank, OpenAudioStream, ShutdownGameAudio, ChkMenuMusic, PauseMusic, RequestMusicStop, ArenaFileName
-extern StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, LoadStartupData, RunFrontEnd, InitMenuItems, sub_8BFAC
-extern sub_8D956, sub_8DE10, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, GetLangText, FreeLangText
+extern StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, LoadStartupData, RunFrontEnd, InitMenuItems, RunMenu
+extern InitScrollList, ScrollUp, ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, GetLangText, FreeLangText
 extern RunIntro, AllocStaticBuffer, InitDbState, ServiceIdle, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
 extern WaitForOtherComputer, FillBox, sub_F9650, AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, sub_FB73D
 extern sub_FBE40, sub_FBE94, MakeColor, sub_FC73E, sub_FCC40, FreeBitmap, sub_FCF84, DrawArt
@@ -369,7 +369,7 @@ main_:
         call RunFrontEnd
         call ShutdownGameAudio
         call InitDbState
-        call sub_1046C
+        call InitGripDriver
         call NetShutdown
         call FreeLangText
         call dword [dword_16F184]
@@ -3800,7 +3800,7 @@ MessageBox:
         push eax
         mov eax, dword [dword esp+0744h]
         mov esi, 8
-        call sub_8BFAC
+        call RunMenu
 .36:
         call SetScreenTarget
         mov ebx, dword [dword esp+06F8h]
@@ -6121,7 +6121,7 @@ PlayerBioScreen:
         push byte 0
         lea eax, [dword esp+0164h]
         lea edx, [byte esp+01Ch]
-        call sub_8D956
+        call InitScrollList
         mov eax, dword [dword esp+0380h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword esp+0110h], eax
@@ -6242,7 +6242,7 @@ PlayerBioScreen:
         push eax
         xor ecx, ecx
         mov eax, 4
-        call sub_8BFAC
+        call RunMenu
         mov ecx, dword [dword esp+03B4h]
         cmp ecx, byte 3
         ja near PlayerBioScreen_45A.9
@@ -6251,18 +6251,18 @@ PlayerBioScreen:
 PlayerBioScreen_425:
         lea eax, [dword esp+0148h]
         mov edx, edi
-        call sub_8DE10
+        call ScrollUp
         jmp near PlayerBioScreen_45A.9
 PlayerBioScreen_438:
         mov ebx, eax
         mov edx, edi
         lea eax, [dword esp+0148h]
-        call sub_8DEAC
+        call ScrollToMouse
         jmp short PlayerBioScreen_45A.9
 PlayerBioScreen_44A:
         lea eax, [dword esp+0148h]
         mov edx, edi
-        call sub_8DE68
+        call ScrollDown
         jmp short PlayerBioScreen_45A.9
 PlayerBioScreen_45A:
         mov eax, dword [tickcount]
@@ -6377,7 +6377,7 @@ PlayerBioScreen_45A:
         call FreeBitmap
         add esp, byte 4
         lea eax, [dword esp+0148h]
-        call sub_8DE7E
+        call FreeScrollList
         cmp dword [dword esp+0348h], byte 0
         jle short .12
         lea eax, [dword esp+0348h]
@@ -9893,9 +9893,9 @@ ChangeMenuMusic:
 unk_845C0:
         db 0Eh,00h,00h,00h,0Ah,00h,00h,00h,018h,00h,00h,00h
 jpt_845CC:
-        dd sub_845E4_32E
-        dd sub_845E4_344
-        dd sub_845E4_35A
-        dd sub_845E4_370
-        dd sub_845E4_35A
-        dd sub_845E4_344
+        dd MainMenuAnim_32E
+        dd MainMenuAnim_344
+        dd MainMenuAnim_35A
+        dd MainMenuAnim_370
+        dd MainMenuAnim_35A
+        dd MainMenuAnim_344

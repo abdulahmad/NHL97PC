@@ -8,11 +8,12 @@ extern memset_, rand_, srand_, RandomCrowdDelay, PlayerOverall, FindPlayerRecord
 extern ReadTeamStats, ServiceIdle, ZeroMem, unk_16D7FC, unk_16D804, unk_1C135C, unk_1C347F, unk_78930
 extern word_1C150A, word_1C319B, word_1C319D, word_1C31A3, word_1C3415, word_1C3417, word_1C3419, word_1C3427
 extern word_1C362D, word_1C52BE, word_1C52C0, word_1C52C6, word_1C5538, word_1C553A, word_1C553C, word_1C554A
-global sub_789F0, sub_7A4D4, sub_7A6D8, unk_7A788
+global SimulateGame, SimPlayerRating, SimTeamStrength, unk_7A788
 ;-----------------------------------------------------------------------------
-; sub_789F0                                                       789F0  97 PC
+; SimulateGame                                    789F0  97 PC, low confidence
+; Simulates a game without playing it
 ;-----------------------------------------------------------------------------
-sub_789F0:
+SimulateGame:
         push ebx
         push ecx
         push esi
@@ -170,7 +171,7 @@ sub_789F0:
         push ecx
         xor ecx, ecx
         mov edi, dword [dword esp+01540h]
-        call sub_7A4D4
+        call SimPlayerRating
         mov ecx, 8
         lea esi, [dword esp+01444h]
         lea edi, [dword esp+edi+0BECh]
@@ -196,7 +197,7 @@ sub_789F0:
         push eax
         mov eax, dword [dword esp+01548h]
         mov edi, dword [dword esp+0154Ch]
-        call sub_7A4D4
+        call SimPlayerRating
         mov ecx, 8
         lea esi, [dword esp+01468h]
         lea edi, [dword esp+edi+0BECh]
@@ -221,7 +222,7 @@ sub_789F0:
         push esi
         lea esi, [dword esp+01490h]
         mov edi, dword [dword esp+01594h]
-        call sub_7A4D4
+        call SimPlayerRating
         mov ecx, 8
         lea esi, [dword esp+0148Ch]
         lea edi, [dword esp+edi+0BECh]
@@ -316,7 +317,7 @@ sub_789F0:
         sar ebx, 10h
         lea edx, [byte ecx+018h]
         mov edi, dword [dword esp+0155Ch]
-        call sub_7A6D8
+        call SimTeamStrength
         mov ecx, 9
         lea esi, [dword esp+0141Ch]
         lea edi, [dword esp+edi+013D0h]
@@ -1752,9 +1753,10 @@ sub_789F0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7A4D4                                                       7A4D4  97 PC
+; SimPlayerRating                                 7A4D4  97 PC, low confidence
+; Works out a player's rating for the simulation
 ;-----------------------------------------------------------------------------
-sub_7A4D4:
+SimPlayerRating:
         push edi
         push ebp
         sub esp, byte 34h
@@ -1943,9 +1945,10 @@ sub_7A4D4:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7A6D8                                                       7A6D8  97 PC
+; SimTeamStrength                                 7A6D8  97 PC, low confidence
+; Works out a team's strength for the simulation
 ;-----------------------------------------------------------------------------
-sub_7A6D8:
+SimTeamStrength:
         push ecx
         push edi
         push ebp
@@ -2150,7 +2153,7 @@ unk_7A788:
         lea eax, [byte ebp+02h]
         mov bl, byte [byte ebp+07Eh]
         inc edi
-        call sub_7A4D4
+        call SimPlayerRating
         mov edx, dword [byte ebp+076h]
         cmp edi, edx
         jne short .13
@@ -2194,7 +2197,7 @@ unk_7A788:
         lea eax, [byte ebp+02h]
         xor ebx, ebx
         inc edi
-        call sub_7A4D4
+        call SimPlayerRating
         cmp edi, dword [byte ebp+07Ah]
         jne short .15
         mov ecx, dword [byte ebp+062h]

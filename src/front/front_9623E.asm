@@ -29,10 +29,10 @@ extern dword_1C8E3C, dword_1C8E40, dword_1C8E44, dword_1C8E48, dword_1CC2AC, dwo
 extern qsort_, sprintf_, strcat_, strcpy_, BlitArt, BlitShape, sub_1013FC, FindShape
 extern FindShapeQuiet, sub_101560, sub_102B94, sub_102C10, Random32, sub_106F64, sub_106F94, ConvertArtXY
 extern SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx
-extern LoadDataFile, LoadDataFileFlag0, OpenDataLibrary, sub_7B84B, LoadLogoNames, sub_7CB8C, DrawShadedLogo, DrawShadowBox
+extern LoadDataFile, LoadDataFileFlag0, OpenDataLibrary, PlayerInjuryDays, LoadLogoNames, FreeTempArt, DrawShadedLogo, DrawShadowBox
 extern DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox
-extern WipeScreen, SetNormalText, DrawPortrait, DrawStatHeader, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
-extern sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, GetLangText, sub_8E870, SetRosterMode
+extern WipeScreen, SetNormalText, DrawPortrait, DrawStatHeader, InitMenuItems, RunMenu, InitScrollList, ScrollUp
+extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList, GetLangText, PositionAbbrev, SetRosterMode
 extern SkaterOverall, GoalieOverall, InitListBox, InitShapeListBox, KeysEqual, FindGameRecord, FindPlayerStat, ServiceIdle
 extern AllocMemBlock, FreeMemBlock, sub_FBE5D, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, unk_165BAB, unk_165BAE, unk_16D7F4
@@ -361,7 +361,7 @@ EditLinesScreen_2C7:
         push eax
         mov edx, esi
         mov eax, 1Eh
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+066h], byte 8
         ja near EditLinesScreen_69D.33
         mov eax, dword [byte ebp+066h]
@@ -397,7 +397,7 @@ EditLinesScreen_4C4:
         mov eax, dword [dword_1C8DF8]
         push dword_1C8B44
         mov edx, eax
-        call sub_8DF1F
+        call RunScrollList
         cmp eax, dword [dword_1C8E14]
         je near .27
         test eax, eax
@@ -426,7 +426,7 @@ EditLinesScreen_4C4:
         mov eax, dword [dword_1C8DF4]
         push dword_1C8AB4
         mov edx, eax
-        call sub_8DF1F
+        call RunScrollList
         cmp eax, dword [dword_1C8E18]
         je short .27
         test eax, eax
@@ -1306,7 +1306,7 @@ EditLinesSetup:
 .6:
         cmp byte [byte_1C6040], 0
         je short .7
-        call sub_7CB8C
+        call FreeTempArt
 .7:
         cmp dword [dword_1C8DB0], byte 22h
         jne short .8
@@ -3462,7 +3462,7 @@ EditLinesGridScreen:
         push byte 0
         movsx ebx, word [dword eax+0A1h]
         lea eax, [dword ebp-0156h]
-        call sub_8D956
+        call InitScrollList
         mov eax, dword [byte ebp+076h]
         mov dword [dword eax+0212h], 266h
         push str_1TOP2
@@ -4053,7 +4053,7 @@ EditLinesGridScreen_E82:
         mov eax, dword [dword_1C8DF8]
         push dword_1C8B44
         mov edx, eax
-        call sub_8DF1F
+        call RunScrollList
         test eax, eax
         jl near .62
         cmp eax, dword [dword_1C8DF8]
@@ -4080,7 +4080,7 @@ EditLinesGridScreen_E82:
         mov eax, dword [dword_1C8DF4]
         push dword_1C8AB4
         mov edx, eax
-        call sub_8DF1F
+        call RunScrollList
         test eax, eax
         jl short .62
         cmp eax, dword [dword_1C8DF4]
@@ -4163,7 +4163,7 @@ EditLinesGridScreen_1010:
         push eax
         xor ecx, ecx
         mov eax, 14h
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+046h], byte 8
         ja near EditLinesGridScreen_10DB.77
         mov edx, dword [byte ebp+046h]
@@ -4193,7 +4193,7 @@ EditLinesGridScreen_1087:
         lea eax, [dword ebp-0156h]
         xor edx, edx
         mov ecx, 1
-        call sub_8DE10
+        call ScrollUp
 .75:
         mov ebx, edi
         mov eax, dword [dword ebp-0132h]
@@ -4206,7 +4206,7 @@ EditLinesGridScreen_10B1:
         mov ebx, eax
         xor edx, edx
         lea eax, [dword ebp-0156h]
-        call sub_8DEAC
+        call ScrollToMouse
         mov eax, dword [dword ebp-0132h]
         cmp eax, dword [byte ebp+056h]
         je near EditLinesGridScreen_1010
@@ -4218,7 +4218,7 @@ EditLinesGridScreen_10DB:
         lea eax, [dword ebp-0156h]
         xor edx, edx
         mov ecx, 1
-        call sub_8DE68
+        call ScrollDown
         jmp short EditLinesGridScreen_1087.75
 .77:
         mov eax, dword [byte ebp+076h]
@@ -4286,7 +4286,7 @@ EditLinesGridScreen_10DB:
         cmp dword [dword_1C8E48], byte 3
         je short .80
         lea eax, [dword ebp-0156h]
-        call sub_8DE7E
+        call FreeScrollList
 .80:
         push dword [byte ebp+04Ah]
         call FreeMemBlock
@@ -5240,7 +5240,7 @@ DrawForwardLines:
         mov eax, dword [dword_1C8E24]
         add esp, byte 10h
         movzx eax, byte [dword ebx+eax+0160h]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push unk_165BAE
@@ -5455,7 +5455,7 @@ DrawDefenceLines:
         mov eax, dword [dword_1C8E24]
         add esp, byte 10h
         movzx eax, byte [dword ebx+eax+0160h]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push unk_165BAE
@@ -5648,7 +5648,7 @@ DrawSpecialLines:
         call DrawTextAligned
         add esp, byte 10h
         mov eax, 47h
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push unk_165BAE
@@ -5774,7 +5774,7 @@ DrawPlayerLines:
         add esp, byte 18h
         add eax, 10Fh
         add esi, byte 12h
-        call sub_7B84B
+        call PlayerInjuryDays
         mov dword [byte ebp+07Ah], eax
         test eax, eax
         jl near .5
@@ -5961,7 +5961,7 @@ DrawPlayerHealth:
         add esp, byte 18h
         add eax, 10Fh
         add ebx, byte 12h
-        call sub_7B84B
+        call PlayerInjuryDays
         mov dword [byte ebp+07Ah], eax
         test eax, eax
         jl near .5

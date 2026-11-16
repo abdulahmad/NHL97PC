@@ -21,21 +21,22 @@ extern SerialFlushTx, SerialWaitTxEmpty, LoadNameFile, SetScreenTarget, OpenStre
 extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, StreamReady, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
 extern RequestMusicStop, WaitMusicEnd, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
 extern ShowMessageBox, WipeScreen, SetNormalText, MainMenuScreen, RunGameScreens, RunStatsMenu, RunNetworkConnect, RunModemConnect
-extern sub_8BE60, sub_8BEF8, sub_8BFA0, LoadLangText, GetLangText, FreeLangText, SortRosterByRating, BuildAutoLines
+extern CreateMenuBitmap, FreeMenuBitmap, SetMenuSelection, LoadLangText, GetLangText, FreeLangText, SortRosterByRating, BuildAutoLines
 extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, KeysEqual, OpenGameDatabase, CloseGameDatabase, FindPlayerRecord, FindGameRecord
 extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, sub_F9650
 extern AllocMemBlock, sub_FAAB4, FreeMemBlock, sub_FBE40, WaitTicks, sub_FC330, MakeColor, FreeBitmap
 extern CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_164138, unk_16413C, unk_164150, unk_164158
 extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
-global sub_7A9D8_77E, sub_7CB8C_45, putchar, sub_7A9D8, sub_7B15D, sub_7B4E4, sub_7B84B, sub_7B85A
-global sub_7B88D, sub_7BB27, sub_7BBB0, sub_7BC34, sub_7BC68, OpenVideoStream, sub_7BE04, sub_7BF64
-global sub_7C038, PlayMovie, ModemReset, ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemReadResult
-global ModemSendCommand, ModemAttention, ModemSpeakerOff, LoadLogoNames, sub_7CB8C, InitFrontEnd, FreeFrontEnd, RunFrontEnd
+global BuildSeasonSchedule_77E, FreeTempArt_45, putchar, BuildSeasonSchedule, UpdateTeamLines, BuildRosterLines, PlayerInjuryDays, FindInjuryEntry
+global CheckLeagueInjuries, ClearTeamInjuries, FadeMovieOut, MovieKeyPressed, OpenMovieStream, OpenVideoStream, CloseMovie, DecodeMovieFrame
+global PlayMovieFrames, PlayMovie, ModemReset, ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemReadResult
+global ModemSendCommand, ModemAttention, ModemSpeakerOff, LoadLogoNames, FreeTempArt, InitFrontEnd, FreeFrontEnd, RunFrontEnd
 global TitleScreen
 ;-----------------------------------------------------------------------------
-; sub_7A9D8                                                       7A9D8  97 PC
+; BuildSeasonSchedule                             7A9D8  97 PC, low confidence
+; Builds the season schedule and player stats
 ;-----------------------------------------------------------------------------
-sub_7A9D8:
+BuildSeasonSchedule:
         push ebx
         push ecx
         push edx
@@ -646,7 +647,7 @@ sub_7A9D8:
         push dword [byte ebp-0Ch]
         call FreeMemBlock
         add esp, byte 4
-sub_7A9D8_77E:
+BuildSeasonSchedule_77E:
         leave
         pop edi
         pop esi
@@ -655,9 +656,10 @@ sub_7A9D8_77E:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7B15D                                                       7B15D  97 PC
+; UpdateTeamLines                                 7B15D  97 PC, low confidence
+; Updates a team's lines after a game
 ;-----------------------------------------------------------------------------
-sub_7B15D:
+UpdateTeamLines:
         push ebx
         push ecx
         push edx
@@ -678,7 +680,7 @@ sub_7B15D:
         add ebx, esi
         mov edx, dword [byte ebp-014h]
         lea eax, [byte ebx+03h]
-        call sub_7B85A
+        call FindInjuryEntry
         mov edx, eax
         mov eax, dword [byte ebp-074h]
         add eax, esi
@@ -839,15 +841,15 @@ sub_7B15D:
         cmp dword [byte ebp-010h], byte 0
         je short .17
         cmp dword [byte ebp-0Ch], byte 0
-        je near sub_7A9D8_77E
+        je near BuildSeasonSchedule_77E
         mov eax, dword [byte ebp-074h]
         call SortRosterByRating
         mov eax, dword [byte ebp-074h]
         call BuildAutoLines
-        jmp near sub_7A9D8_77E
+        jmp near BuildSeasonSchedule_77E
 .17:
         cmp dword [byte ebp-0Ch], byte 0
-        je near sub_7A9D8_77E
+        je near BuildSeasonSchedule_77E
         mov edi, dword [byte ebp-074h]
         mov esi, dword [byte ebp-074h]
         mov ecx, 36h
@@ -896,7 +898,7 @@ sub_7B15D:
         add eax, ebx
         mov edx, dword [byte ebp-014h]
         add eax, byte 3
-        call sub_7B85A
+        call FindInjuryEntry
         mov edx, eax
         mov eax, dword [byte ebp-074h]
         add eax, ebx
@@ -928,11 +930,12 @@ sub_7B15D:
         movsx eax, word [dword eax+0D05h]
         cmp ecx, eax
         jl short .18
-        jmp near sub_7A9D8_77E
+        jmp near BuildSeasonSchedule_77E
 ;-----------------------------------------------------------------------------
-; sub_7B4E4                                                       7B4E4  97 PC
+; BuildRosterLines                                7B4E4  97 PC, low confidence
+; Builds a team's lines
 ;-----------------------------------------------------------------------------
-sub_7B4E4:
+BuildRosterLines:
         push ebx
         push ecx
         push edx
@@ -1000,7 +1003,7 @@ sub_7B4E4:
         add eax, edi
         mov edx, dword [byte ebp-04h]
         add eax, byte 3
-        call sub_7B85A
+        call FindInjuryEntry
         mov edx, eax
         mov eax, dword [byte ebp-014h]
         add eax, edi
@@ -1063,15 +1066,15 @@ sub_7B4E4:
         test esi, esi
         je short .15
         test ecx, ecx
-        je near sub_7A9D8_77E
+        je near BuildSeasonSchedule_77E
         mov eax, dword [byte ebp-014h]
         call SortRosterByRating
         mov eax, dword [byte ebp-014h]
         call BuildAutoLines
-        jmp near sub_7A9D8_77E
+        jmp near BuildSeasonSchedule_77E
 .15:
         test ecx, ecx
-        je near sub_7A9D8_77E
+        je near BuildSeasonSchedule_77E
         mov edi, dword [byte ebp-014h]
         mov esi, dword [byte ebp-014h]
         mov ecx, 36h
@@ -1120,7 +1123,7 @@ sub_7B4E4:
         add eax, ecx
         mov edx, dword [byte ebp-04h]
         add eax, byte 3
-        call sub_7B85A
+        call FindInjuryEntry
         mov edx, eax
         mov eax, dword [byte ebp-014h]
         add eax, ecx
@@ -1152,7 +1155,7 @@ sub_7B4E4:
         movsx eax, word [dword eax+0D05h]
         cmp ebx, eax
         jl short .16
-        jmp near sub_7A9D8_77E
+        jmp near BuildSeasonSchedule_77E
         push ebx
         push ecx
         push esi
@@ -1208,25 +1211,27 @@ sub_7B4E4:
 .23:
         mov eax, dword [byte ebp-08h]
         mov edx, esi
-        call sub_7B85A
+        call FindInjuryEntry
         leave
         pop esi
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7B84B                                                       7B84B  97 PC
+; PlayerInjuryDays                                7B84B  97 PC, low confidence
+; Returns the days a player is injured
 ;-----------------------------------------------------------------------------
-sub_7B84B:
+PlayerInjuryDays:
         push edx
         movzx edx, word [word_1C1344]
-        call sub_7B85A
+        call FindInjuryEntry
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7B85A                                                       7B85A  97 PC
+; FindInjuryEntry                                 7B85A  97 PC, low confidence
+; Finds an injury entry
 ;-----------------------------------------------------------------------------
-sub_7B85A:
+FindInjuryEntry:
         push ebx
         push ecx
         push esi
@@ -1258,9 +1263,10 @@ sub_7B85A:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7B88D                                                       7B88D  97 PC
+; CheckLeagueInjuries                             7B88D  97 PC, low confidence
+; Checks the league injuries after a game
 ;-----------------------------------------------------------------------------
-sub_7B88D:
+CheckLeagueInjuries:
         push ebx
         push ecx
         push esi
@@ -1467,9 +1473,10 @@ sub_7B88D:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7BB27                                                       7BB27  97 PC
+; ClearTeamInjuries                               7BB27  97 PC, low confidence
+; Clears the injuries of both teams
 ;-----------------------------------------------------------------------------
-sub_7BB27:
+ClearTeamInjuries:
         push ebx
         push ecx
         push edx
@@ -1518,12 +1525,13 @@ sub_7BB27:
         inc ecx
         cmp ecx, byte 2
         jl short .1
-        jmp near sub_7A9D8_77E
+        jmp near BuildSeasonSchedule_77E
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_7BBB0                                                       7BBB0  97 PC
+; FadeMovieOut                                    7BBB0  97 PC, low confidence
+; Fades out the movie
 ;-----------------------------------------------------------------------------
-sub_7BBB0:
+FadeMovieOut:
         mov eax, dword [dword_1C1240]
         call sub_1091E0
         test eax, eax
@@ -1573,9 +1581,10 @@ sub_7BBB0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7BC34                                                       7BC34  97 PC
+; MovieKeyPressed                                 7BC34  97 PC, low confidence
+; Returns whether a key was pressed during a movie
 ;-----------------------------------------------------------------------------
-sub_7BC34:
+MovieKeyPressed:
         push ecx
         push edx
         cmp dword [dword_1C122C], byte 0
@@ -1594,9 +1603,10 @@ sub_7BC34:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7BC68                                                       7BC68  97 PC
+; OpenMovieStream                                 7BC68  97 PC, low confidence
+; Opens the movie stream
 ;-----------------------------------------------------------------------------
-sub_7BC68:
+OpenMovieStream:
         push ebx
         push edx
         push esi
@@ -1606,7 +1616,7 @@ sub_7BC68:
         je short .1
         cmp dword [dword_1C121C], byte 0
         jne short .1
-        call sub_7BBB0
+        call FadeMovieOut
         test eax, eax
         je short .1
         mov eax, dword [tickcount]
@@ -1717,7 +1727,7 @@ OpenVideoStream:
         mov dword [dword_1C120C], esi
         mov dword [dword_1C1200], esi
         mov dword [dword_1C1214], esi
-        call sub_7BC68
+        call OpenMovieStream
         mov dword [dword_1C1238], eax
         call ResetFrameRate
         mov eax, 1
@@ -1728,9 +1738,10 @@ OpenVideoStream:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_7BE04                                                       7BE04  97 PC
+; CloseMovie                                      7BE04  97 PC, low confidence
+; Closes the movie
 ;-----------------------------------------------------------------------------
-sub_7BE04:
+CloseMovie:
         push ebx
         push ecx
         push edx
@@ -1749,7 +1760,7 @@ sub_7BE04:
         je near .8
         cmp dword [dword_1C121C], byte 0
         je short .1
-        call sub_7BC34
+        call MovieKeyPressed
         test eax, eax
         je short .2
 .1:
@@ -1787,7 +1798,7 @@ sub_7BE04:
         je short .6
         test ebx, ebx
         jne short .6
-        call sub_7BC34
+        call MovieKeyPressed
         test al, 1
         je short .3
 .6:
@@ -1846,9 +1857,10 @@ sub_7BE04:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7BF64                                                       7BF64  97 PC
+; DecodeMovieFrame                                7BF64  97 PC, low confidence
+; Decodes a movie frame
 ;-----------------------------------------------------------------------------
-sub_7BF64:
+DecodeMovieFrame:
         push ebx
         push ecx
         push edx
@@ -1929,9 +1941,10 @@ sub_7BF64:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_7C038                                                       7C038  97 PC
+; PlayMovieFrames                                 7C038  97 PC, low confidence
+; Plays the movie frames
 ;-----------------------------------------------------------------------------
-sub_7C038:
+PlayMovieFrames:
         push ebx
         push ecx
         push edx
@@ -1983,7 +1996,7 @@ sub_7C038:
         cmp eax, 54475170h
         jne short .7
         mov eax, dword [dword_1C1258]
-        call sub_7BF64
+        call DecodeMovieFrame
         mov dword [dword_1C124C], eax
         jmp short .7
 .5:
@@ -2038,7 +2051,7 @@ sub_7C038:
         jne short .10
         cmp ecx, dword [dword_1C1210]
         jne short .10
-        call sub_7BC34
+        call MovieKeyPressed
         test eax, eax
         je near .2
 .10:
@@ -2112,10 +2125,10 @@ sub_7C038:
         jne short .17
         mov dword [dword_1C1228], 2
 .16:
-        call sub_7BC68
+        call OpenMovieStream
         mov dword [dword_1C1238], eax
 .17:
-        call sub_7BC68
+        call OpenMovieStream
         mov edx, dword [dword_1C1238]
         sub eax, edx
         mov dword [dword_1C1220], eax
@@ -2127,7 +2140,7 @@ sub_7C038:
         cmp dword [dword_1C1220], byte 0Fh
         jle short .18
         mov dword [dword_1C1228], 2
-        call sub_7BC68
+        call OpenMovieStream
         mov dword [dword_1C1238], eax
 .18:
         mov eax, dword [tickcount]
@@ -2160,7 +2173,7 @@ sub_7C038:
         je short .23
         test edx, edx
         jne short .23
-        call sub_7BC34
+        call MovieKeyPressed
         test eax, eax
         je near .12
 .23:
@@ -2196,7 +2209,7 @@ sub_7C038:
 .29:
         test eax, eax
         je short .30
-        call sub_7BC34
+        call MovieKeyPressed
         test eax, eax
         je near .1
 .30:
@@ -2315,7 +2328,7 @@ PlayMovie:
         je near .12
         xor ebp, ebp
 .7:
-        call sub_7C038
+        call PlayMovieFrames
         mov ebx, eax
         test eax, eax
         je short .9
@@ -2353,7 +2366,7 @@ PlayMovie:
         test esi, esi
         jg short .7
         mov eax, edi
-        call sub_7BE04
+        call CloseMovie
 .12:
         cmp dword [dword_1C122C], byte 0
         jne short .13
@@ -3013,15 +3026,16 @@ LoadLogoNames:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7CB8C                                                       7CB8C  97 PC
+; FreeTempArt                                     7CB8C  97 PC, low confidence
+; Frees the temporary art
 ;-----------------------------------------------------------------------------
-sub_7CB8C:
+FreeTempArt:
         push ebx
         push ecx
         push edx
         push esi
         cmp dword [dword_16CB74], byte 0
-        je short sub_7CB8C_45
+        je short FreeTempArt_45
         xor esi, esi
 .1:
         mov ebx, esi
@@ -3037,7 +3051,7 @@ sub_7CB8C:
         cmp esi, byte 23h
         jl short .1
         mov dword [dword_16CB74], 0
-sub_7CB8C_45:
+FreeTempArt_45:
         pop esi
         pop edx
         pop ecx
@@ -3092,9 +3106,9 @@ InitFrontEnd:
         call FindShape
         add esp, byte 8
         mov edx, ebx
-        call sub_8BE60
+        call CreateMenuBitmap
         mov eax, 100h
-        call sub_8BFA0
+        call SetMenuSelection
         mov eax, dword [dword_1AC814]
         shl eax, 1Ch
         shr eax, 1Eh
@@ -3208,7 +3222,7 @@ FreeFrontEnd:
         xor esi, esi
         mov dword [dword_1C5E78], 0
         call FreeLangText
-        call sub_8BEF8
+        call FreeMenuBitmap
 .1:
         push dword [nosplit esi*4+dword_1C5EA0]
         inc esi
@@ -3230,7 +3244,7 @@ FreeFrontEnd:
         mov dword [nosplit esi*4+dword_1C5DA8], 0
         cmp esi, byte 0Ch
         jl short .2
-        call sub_7CB8C
+        call FreeTempArt
         call WriteGlobalSet
         call CloseGameDatabase
         pop esi
@@ -3396,6 +3410,6 @@ TitleScreen:
 .1:
         mov eax, dword [tickcount]
         cmp eax, ebx
-        jge near sub_7CB8C_45
+        jge near FreeTempArt_45
         call ServiceIdle
         jmp short .1

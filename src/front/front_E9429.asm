@@ -25,8 +25,8 @@ extern sub_11F9F0, sub_11FA34, SetScreenTarget, GetAllStarDate, LoadFrontEndSfx,
 extern PlaySfx, PlayScreenMovie, LoadDataFile, DrawShadedLogo, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen
 extern SetTextColor, DrawTextAligned, ShowMessageBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText
 extern ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, DrawHighlightBar, ShowPopupScreen, DrawStatsBackground, FreeStatsBitmap, ShowStatsScreen
-extern ChangeMenuMusic, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E
-extern SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, sub_8E870, ClearAndBuildLines, sub_AF074
+extern ChangeMenuMusic, InitMenuItems, RunMenu, InitScrollList, ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList
+extern SetScrollBarPos, ScrollToMouse, RunScrollList, SetListSelection, GetLangText, PositionAbbrev, ClearAndBuildLines, StatsTablesScreen
 extern PlayerStatsScreen, InitListBox, InitShapeListBox, KeysEqual, SetMatchupTeams, BuildAllStarRecords, FindPlayerRecord, FindGameRecord
 extern FindPlayerStat, FindTeamStat, ServiceIdle, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, unk_167806, unk_167809
@@ -151,7 +151,7 @@ AllStarScreen:
         jbe near .30
         lea eax, [dword ebp-028Eh]
         xor edx, edx
-        call sub_8DE68
+        call ScrollDown
         jmp near .29
 .3:
         cmp dword [byte ebp+072h], byte 4
@@ -262,7 +262,7 @@ AllStarScreen:
         mov edx, 8
         mov ebx, dword [dword eax+ebp-01F80h]
         mov eax, 0Dh
-        call sub_8DF1F
+        call RunScrollList
         test eax, eax
         jl near .35
         cmp eax, byte 0Dh
@@ -320,7 +320,7 @@ AllStarScreen:
         mov eax, dword [dword_1CE210]
         push dword [dword_1CE1D4]
         mov eax, dword [nosplit eax*4+dword_1CE1AC]
-        call sub_8DF1F
+        call RunScrollList
         mov edx, dword [dword_1CE210]
         cmp eax, dword [nosplit edx*4+dword_1CE0E4]
         je near .35
@@ -431,12 +431,12 @@ AllStarScreen:
         lea eax, [dword ebp-01C72h]
         call ShowPopupScreen
         call FreeAllStarScreen
-        call sub_AF074
+        call StatsTablesScreen
         jmp short .24
 .28:
         lea eax, [dword ebp-028Eh]
         xor edx, edx
-        call sub_8DE10
+        call ScrollUp
 .29:
         mov edx, 0FFFFFFFEh
         mov eax, 1
@@ -446,7 +446,7 @@ AllStarScreen:
         mov ebx, eax
         xor edx, edx
         lea eax, [dword ebp-028Eh]
-        call sub_8DEAC
+        call ScrollToMouse
         mov eax, dword [byte ebp+07Ah]
         cmp eax, dword [dword ebp-026Ah]
         je near .35
@@ -492,7 +492,7 @@ AllStarScreen:
         push eax
         lea edx, [dword ebp-01FA6h]
         mov eax, 33h
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+072h], byte 9
         jb near .3
         jbe near .23
@@ -918,7 +918,7 @@ InitAllStarScreen:
         push byte 0
         mov eax, dword [dword_1CE1F4]
         add edx, 386h
-        call sub_8D956
+        call InitScrollList
         mov eax, dword [byte ebp-0Ch]
         mov dword [dword eax+03ACh], 266h
         push str_1TOP6
@@ -1179,7 +1179,7 @@ FreeAllStarScreen:
         push ecx
         push edx
         mov eax, dword [dword_1CE1F4]
-        call sub_8DE7E
+        call FreeScrollList
         push dword [dword_1CE1E0]
         call FreeBitmap
         add esp, byte 4
@@ -1398,7 +1398,7 @@ DrawAllStarTeam:
         add edx, eax
         mov eax, dword [dword_1CE1F4]
         mov dword [byte ebp-010h], edx
-        call sub_8E6AF
+        call SetListSelection
         push str_BAK12
         push dword [dword_1CE218]
         call FindShape
@@ -1593,7 +1593,7 @@ DrawAllStarTeam:
         call FreeBitmap
         add esp, byte 4
         mov eax, dword [dword_1CE1F4]
-        call sub_8DE7E
+        call FreeScrollList
         push byte 0
         push byte 0
         push dword 0B4h
@@ -1607,7 +1607,7 @@ DrawAllStarTeam:
         push byte 0
         add edx, 386h
         mov eax, dword [dword_1CE1F4]
-        call sub_8D956
+        call InitScrollList
         mov edx, dword [dword_1CE1F0]
         mov eax, dword [dword_1CE1F4]
         call DrawScrollBar
@@ -1739,7 +1739,7 @@ DrawAllStarTeam:
         mov byte [byte ebp-04h], dl
         mov dword [byte ebp-01Ch], eax
         movzx eax, byte [byte ebp-08h]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         mov ebx, dword [byte ebp-014h]

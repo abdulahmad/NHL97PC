@@ -23,7 +23,7 @@ extern qword_16094C, qword_160954, qword_16095C, qword_160964, qword_16096C, qwo
 extern qword_16098C, qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qword_1609B4, qword_1609BC, randomd0
 extern regd1, slotteam, SortIndices, bcopy, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
 extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, sub_101154, sub_1011E8
-extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
+extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, SpeedScale, StickReachX, RemoveOverlayPanel
 extern QueueOverlayPanel, ClearOverlayWindows, FightCameraScene, SetFightCameraReady, FaceoffCameraScene, FaceoffCameraScene2, EndPenShotScene, PenaltyCallCameraScene
 extern LineChangeCommentary, assreplace, assinsert, assexit, ChkPokeOrCheck, Setplass, Goal, CreditPass
 extern CarrierInShotArea, CanReceivePass, StartPass, checkob, AssignControlSlots, ResetFaceoffAssigns, CompLine, StartFaceoffLineChange
@@ -8135,7 +8135,7 @@ SetSkateDir:
         faddp
         mov eax, ebx
         fstp dword [byte ebx+038h]
-        call sub_13EB4
+        call StickReachX
         fstp dword [byte esp+08h]
         fld dword [byte ebx+038h]
         fcomp dword [byte esp+08h]
@@ -8596,7 +8596,7 @@ DoShootButton:
         call ShotAimDir
 .1:
         mov word [word_19CB96], 0Ah
-        call sub_13D50
+        call SpeedScale
         call __CHP
         fistp dword [esp]
         mov eax, dword [esp]

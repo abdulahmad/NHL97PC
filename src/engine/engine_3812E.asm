@@ -49,16 +49,16 @@ extern sub_106F7C, sub_106F94, sub_1070B0, sub_1070D0, sub_107154, sub_1072F0, s
 extern sub_107B70, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48, sub_108040, sub_108144
 extern sub_10815C, sub_1081B0, sub_108640, sub_1086BF, sub_108CE8, sub_1091E0, sub_109210, sub_109250
 extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, SetScreenTarget, TryPokePuck
-extern NetCollide, NetCollide2, ChkBodyContact, InitSpeechBanks, OpenSpeechFile, sub_47D70, sub_47EA4, ShutdownSound
+extern NetCollide, NetCollide2, ChkBodyContact, InitSpeechBanks, OpenSpeechFile, FreeSpeechBuffers, InitSpeechStream, ShutdownSound
 extern ServiceBackgroundAudio, MakeDataPath, LoadDataFile, OpenDataLibrary, BuildRinkPalette, GetSeatPos, AddSeatModel, FindSeatModel
 extern SetFaceMouth, SetFaceExpression, SetFaceBlink, SetModelHeading, SetObjectHidden, ClearModelSlots, ReplaySoundAllowed, MarkPaletteDirty
 extern GetStickBladePos, SetSPA, SetSPAInPlace, ResetAnimTimer, PickSkateAnim, EndMove, AdvanceMoveAnim, StepMove
-extern SteerAndAccel, LimitSkateSpeed, PickSaveAnim, SaveDirection, GetAnimId, sub_789F0, sub_7B15D, DrawShadedLogo
+extern SteerAndAccel, LimitSkateSpeed, PickSaveAnim, SaveDirection, GetAnimId, SimulateGame, UpdateTeamLines, DrawShadedLogo
 extern DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned, DrawFrameBox
-extern ShowMessageBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, ShowLoadingBar, InitMenuItems, sub_8BFAC
-extern sub_8DF1F, GetLangText, FillStatBar, sub_AC369, InitShapeListBox, FreeDbBlock, DaysToYear, FindNextSeasonGame
+extern ShowMessageBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, ShowLoadingBar, InitMenuItems, RunMenu
+extern RunScrollList, GetLangText, FillStatBar, FinishLeagueGame, InitShapeListBox, FreeDbBlock, DaysToYear, FindNextSeasonGame
 extern OpenLeagueFile, StartSeasonGame, FindGameRecord, UpdateGameRecord, FileExists, FileCreate, FileSeek, FileReadRecord
-extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
+extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, FreeVideoBuffer, sub_F94BC, sub_F99C0, sub_F9A28
 extern AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, FillMem, addtimer, sub_FC008, sub_FC290
 extern WaitTicks, sub_FC330, sub_FC410, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
 extern ClearScreen, sub_FDC68, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, unk_160A56, unk_160B68
@@ -218,7 +218,7 @@ SeasonGameScreen_182:
         push eax
         lea edx, [dword ebp-0472h]
         mov eax, 7
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+07Eh], byte 6
         ja short .6
         mov ebx, dword [byte ebp+07Eh]
@@ -273,7 +273,7 @@ SeasonGameScreen_238:
         mov ebx, dword [dword eax+ebp-044Ch]
         push dword [dword_19ED58]
         mov eax, edx
-        call sub_8DF1F
+        call RunScrollList
         cmp eax, dword [dword_19ED4C]
         je near SeasonGameScreen_182.6
         test eax, eax
@@ -311,7 +311,7 @@ SeasonGameScreen_2CF:
 .11:
         movsx eax, word [word_19ED76]
         mov edx, ebx
-        call sub_789F0
+        call SimulateGame
         cmp dword [dword_19ED18], byte 0
         je short .12
         movzx ax, byte [byte_1C135A]
@@ -322,7 +322,7 @@ SeasonGameScreen_2CF:
         jmp short .13
 .12:
         mov eax, 1
-        call sub_AC369
+        call FinishLeagueGame
 .13:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
@@ -2137,7 +2137,7 @@ StartNextSeasonGame:
         lea edx, [dword ebp-0195Ch]
         call FindGameRecord
         lea eax, [dword ebp-0195Ch]
-        call sub_7B15D
+        call UpdateTeamLines
         lea eax, [dword ebp-0195Ch]
         call UpdateGameRecord
         movsx edx, word [byte ebp-04h]
@@ -2151,7 +2151,7 @@ StartNextSeasonGame:
         lea edx, [dword ebp-0195Ch]
         call FindGameRecord
         lea eax, [dword ebp-0195Ch]
-        call sub_7B15D
+        call UpdateTeamLines
         lea eax, [dword ebp-0195Ch]
         mov ebx, dword_1C1334
         call UpdateGameRecord
@@ -6377,7 +6377,7 @@ SetVideoMode:
         call ClearScreen
         add esp, byte 4
         call sub_1013FC
-        call sub_F9496
+        call FreeVideoBuffer
         push byte 8
         push esi
         push ebx
@@ -13749,15 +13749,15 @@ OpenAudioStream_D8:
         shr eax, 19h
         cwde
         call SetMusicVolume
-        call sub_47EA4
+        call InitSpeechStream
         cmp dword [dword_169254], byte 0FFFFFFFFh
         jne short .13
-        call sub_47EA4
+        call InitSpeechStream
 .13:
         mov eax, 2
-        call sub_47D70
+        call FreeSpeechBuffers
         mov eax, 1
-        call sub_47D70
+        call FreeSpeechBuffers
         call ServiceIdle
         xor eax, eax
         xor edx, edx
@@ -13898,10 +13898,10 @@ InitGameAudio:
         call ShowLoadingBar
         cmp dword [dword_169254], byte 0FFFFFFFFh
         jne short .3
-        call sub_47EA4
+        call InitSpeechStream
 .3:
         xor eax, eax
-        call sub_47D70
+        call FreeSpeechBuffers
         call ServiceIdle
         mov eax, 1
         call OpenSpeechFile
@@ -14308,12 +14308,12 @@ InitGameSounds:
         call ServiceIdle
         cmp dword [dword_169254], byte 0FFFFFFFFh
         jne short .8
-        call sub_47EA4
+        call InitSpeechStream
 .8:
         mov eax, 2
-        call sub_47D70
+        call FreeSpeechBuffers
         mov eax, 1
-        call sub_47D70
+        call FreeSpeechBuffers
         call ServiceIdle
         xor eax, eax
         mov ecx, 1

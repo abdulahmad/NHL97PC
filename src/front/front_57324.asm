@@ -157,11 +157,11 @@ extern strncmp_, strncpy_, strnicmp_, strupr_, sub_100498, sub_100700, SortIndic
 extern BlitShape2, FindShape, sub_101560, sub_101584, Random32, sub_1038B0, sub_103E14, sub_1043A4
 extern sub_1049D0, sub_106D80, sub_10B0D4, sub_10B580, sub_10CDE0, sub_10FB50, sub_10FB98, sub_10FBB0
 extern sub_10FD58, sub_10FE10, sub_10FE58, sub_10FE88, sub_10FFBC, sub_11002C, sub_11004C, sub_1100B4
-extern sub_110414, sub_1104F0, sub_11328, sub_114C4, TransformBoneVerts, SkinModelVerts, AttachModelFrame, AttachModel
+extern sub_110414, sub_1104F0, StartCrowdMusic, RestartGameMusic, TransformBoneVerts, SkinModelVerts, AttachModelFrame, AttachModel
 extern UpdateModelFrame, SkinModel, ScaleModelVerts, LoadModelFile, FindModelPart, ResetMorphVerts, ApplyMorphTarget, PlotPixelRGBAt
 extern CreateBitmapForArt, FixedSinCos, BlitShapeAt, SaveDrawContext, RestoreDrawContext, SetBitReader, ReadBits, IsPlayoffGame
-extern sub_119A8, setplayer, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
-extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, OpenFreeOverlay, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
+extern RefreshPlayerModel, setplayer, RefreshRinkPalette, Intermission, SpeedScale, ReachScale, StickReachX, StickReachY
+extern StickReachZ, RunSimFrames, ChangeViewSize, SetViewWindow, OpenFreeOverlay, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
 extern SelectCameraView, CrowdForPlayer, ShotChanceCommentary, assreplace, assinsert, SetZoneFlags, GoaliePosTarget, Goal
 extern InCrease, UpdateCreaseFlag, PlayerGetsPuck, ChkPuckContacts, a2touchpuck, ChkGoalies, TeamLineSlots, RestoreBenchEnergy
 extern ChkTiredPlayer, StartFaceoffLineChange, ChkPenaltyCall, checkint, AddPenalty, AddPenalty2, EndPenaltyShot, SetPlayerTarget
@@ -170,7 +170,7 @@ extern StartMusicTrack, StopAllSfx, PlaySfxOr, PlaySfxVolume, PlaySfxAt, SetCrow
 extern ResetStreamAudio, SetArtArchive, RefreshViewDistance, AddModelName, FindModelName, ResetRenderTimers, DrawGameFrame, RedrawGameView
 extern TriggerCameraFlashes, DrawNetShadows, PeriodOver, IsCameraOnPuck, SetCameraMode, StartCrowdReaction, StartBenchCheer, UpdateScoreboardPos
 extern UpdateScoreboardSpin, ShapePixelSize, DrawShadowShape, ModelViewDepth, DrawPortraitModels, PickMarkerShape, SetTeamColours, SetFaceMouth
-extern SetFaceExpression, SetFaceBlink, SetModelHeading, BuildFaceTextures, LogPeriodEnd, sub_BD61B, ServiceIdle, AllocMemBlock
+extern SetFaceExpression, SetFaceBlink, SetModelHeading, BuildFaceTextures, LogPeriodEnd, IsReplayRecordingOn, ServiceIdle, AllocMemBlock
 extern sub_FAAB4, FreeMemBlock, sub_FB4A4, ZeroMem, FillMem, sub_FC330, sub_FC4BC, sub_FCC40
 extern FreeBitmap, SetDrawTarget, sub_FD954, sub_FDC0C, sub_FDC68, FillRect, MeasureText, DrawTextAt
 extern SetTextColors, ClearIfNaN, FloatsToInts, MatRotX, MatRotY, MatTranspose, MatMul, VecMulMat
@@ -6588,7 +6588,7 @@ SetReplayRecording:
         mov dword [dword_1B8FA0], ebp
         jmp short .4
 .1:
-        call sub_BD61B
+        call IsReplayRecordingOn
         test eax, eax
         jne short .2
         push byte 20h
@@ -6929,7 +6929,7 @@ ReplayDrawFrame:
         test edi, edi
         je short .2
         mov eax, 1
-        call sub_12A10
+        call RefreshRinkPalette
         mov eax, dword [dword_1B8F54]
         jmp short .3
 .2:
@@ -6974,7 +6974,7 @@ ReplayCmdPlay:
         xor eax, eax
         call SetCrowdNoise
         call StopAllSfx
-        call sub_114C4
+        call RestartGameMusic
         cmp dword [dword_1B8F48], byte 0
         sete al
         and eax, 0FFh
@@ -7003,7 +7003,7 @@ ReplayCmdRewind:
         mov edx, 12Ch
         call SetCrowdNoise
         call StopAllSfx
-        call sub_114C4
+        call RestartGameMusic
         mov dword [dword_1B8F48], edx
         pop edx
         ret
@@ -7018,7 +7018,7 @@ ReplayCmdForward:
         mov edx, 4B0h
         call SetCrowdNoise
         call StopAllSfx
-        call sub_114C4
+        call RestartGameMusic
         mov dword [dword_1B8F48], edx
         pop edx
         ret
@@ -7040,7 +7040,7 @@ ReplayPlayFrames:
         call SetCrowdNoise
         call ResetStreamAudio
         call StopAllSfx
-        call sub_114C4
+        call RestartGameMusic
         mov eax, esi
         mov dword [dword_1B8F48], edx
         call ReplayReadFrame
@@ -7453,7 +7453,7 @@ ReplayRestoreObjects:
 .8:
         movsx ebx, bx
         mov eax, ecx
-        call sub_119A8
+        call RefreshPlayerModel
         mov eax, dword [off_168CF0]
         xor edx, edx
         inc esi
@@ -9569,13 +9569,13 @@ GetStickBladePos:
         je short .2
         cmp dword [byte edx+024h], 43480000h
         jne short .1
-        call sub_13EB4
+        call StickReachX
         jmp short .3
 .1:
-        call sub_13EF0
+        call StickReachY
         jmp short .3
 .2:
-        call sub_13F28
+        call StickReachZ
 .3:
         fstp dword [esp]
         fld dword [esp]
@@ -14461,7 +14461,7 @@ ApplySkateAccel:
         mov ecx, eax
         mov ebx, edx
         mov edx, dword [dword eax+0FAh]
-        call sub_13D50
+        call SpeedScale
         fdivr dword [byte ecx+038h]
         fmul qword [qword_162CC3]
         fsubr qword [qword_162CCB]
@@ -17267,7 +17267,7 @@ TurnLeanAngle:
         mov edx, dword [dword eax+0FAh]
         mov eax, dword [byte eax+038h]
         mov dword [byte esp+010h], eax
-        call sub_13D50
+        call SpeedScale
         fdivr dword [byte ebx+038h]
         fmul qword [qword_162ED3]
         fsubr qword [qword_162EDB]
@@ -21152,7 +21152,7 @@ TryStickTouch:
         fstp dword [byte esp+04Ch]
         test dx, dx
         jne short .1
-        call sub_13D50
+        call SpeedScale
         fcomp dword [byte esp+04Ch]
         fnstsw ax
         sahf
@@ -21162,11 +21162,11 @@ TryStickTouch:
         mov dword [byte esp+038h], eax
         fild word [byte esp+038h]
         fstp dword [byte esp+024h]
-        call sub_13D50
+        call SpeedScale
         fadd dword [byte esp+024h]
         jmp short .3
 .1:
-        call sub_13D50
+        call SpeedScale
         fmul qword [qword_1630C0]
         fld dword [byte esp+04Ch]
         fstp qword [byte esp+03Ch]
@@ -21174,17 +21174,17 @@ TryStickTouch:
         fnstsw ax
         sahf
         jae short .2
-        call sub_13D50
+        call SpeedScale
         fmul qword [qword_1630C0]
         jmp short .3
 .2:
-        call sub_13DA4
+        call ReachScale
         fmul qword [qword_1630C8]
         fcomp qword [byte esp+03Ch]
         fnstsw ax
         sahf
         jbe short .4
-        call sub_13DA4
+        call ReachScale
         fmul qword [qword_1630C8]
 .3:
         fstp dword [byte esp+04Ch]
@@ -21265,7 +21265,7 @@ TryStickTouch:
         fstp dword [byte eax+0Ch]
         jmp near .14
 .9:
-        call sub_13D50
+        call SpeedScale
         lea eax, [byte esp+044h]
         fmul qword [qword_1630C0]
         push eax
@@ -21379,7 +21379,7 @@ PuckBounceOffPlayer:
         fstp dword [byte esp+01Ch]
         cmp ah, 0Ch
         je short .1
-        call sub_13D50
+        call SpeedScale
         fmul dword [dword_1630E4]
         fcomp dword [byte esi+038h]
         fnstsw ax
@@ -21433,7 +21433,7 @@ PuckBounceOffPlayer:
         mov al, byte [dword ecx+0A4h]
         cmp ax, dx
         je short .5
-        call sub_13D50
+        call SpeedScale
         fcomp dword [byte esi+038h]
         fnstsw ax
         sahf
@@ -27632,7 +27632,7 @@ PassMove:
         mov dword [dword_19CB4C], 2004h
         jmp short .26
 .23:
-        call sub_13D50
+        call SpeedScale
         mov eax, dword [byte ebp-0Ch]
         fcomp dword [byte eax+038h]
         fnstsw ax
@@ -38025,13 +38025,13 @@ SkateToBenchStep:
         fstp qword [esp]
         call hypot_
         fstp dword [byte ecx+038h]
-        call sub_13D50
+        call SpeedScale
         fmul dword [dword_163A6C]
         fcomp dword [byte ecx+038h]
         fnstsw ax
         sahf
         jae short .1
-        call sub_13D50
+        call SpeedScale
         fmul dword [dword_163A6C]
         fstp dword [byte ecx+038h]
 .1:
@@ -39982,7 +39982,7 @@ BlockReach:
         fmul qword [qword_163B94]
         fsub dword [byte ebx+01Ch]
         fstp dword [byte esp+048h]
-        call sub_13D50
+        call SpeedScale
         fld qword [qword_163B8C]
         fld dword [byte esp+048h]
         call IF@DFMOD
@@ -40074,7 +40074,7 @@ BlockReach:
         fmul qword [qword_163BD8]
         fstp st1
         fstp dword [byte edx+08h]
-        call sub_13D50
+        call SpeedScale
         fmul dword [dword_163BD4]
         fcomp dword [byte edx+08h]
         fnstsw ax
@@ -40126,14 +40126,14 @@ BlockReach:
 .14:
         fstp dword [byte edx+08h]
 .15:
-        call sub_13D50
+        call SpeedScale
         fmul dword [dword_163BD4]
         fcomp dword [byte edx+08h]
         fnstsw ax
         sahf
         jae short .17
 .16:
-        call sub_13D50
+        call SpeedScale
         fmul dword [dword_163BD4]
         fstp dword [byte edx+08h]
 .17:
@@ -41727,7 +41727,7 @@ GoalieSave:
         mov ecx, dword [off_168CFC]
         test dl, dl
         jge near .15
-        call sub_13DA4
+        call ReachScale
         fcomp dword [byte ecx+038h]
         fnstsw ax
         sahf
@@ -46548,9 +46548,9 @@ periodicevents:
         jne short .1
         cmp word [word_19CBBC], byte 0
         jne short .1
-        call sub_114C4
+        call RestartGameMusic
         mov eax, 103h
-        call sub_11328
+        call StartCrowdMusic
         call ClearOverlayWindows
         call clockcont_0
 .1:

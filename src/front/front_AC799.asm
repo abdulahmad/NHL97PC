@@ -32,22 +32,22 @@ extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToS
 extern PlayScreenMovie, LoadDataFile, OpenDataLibrary, DrawShadedLogo, DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect
 extern SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, EditTextField, WipeScreen, SetHighlightText, SetNormalText, DrawStatTable
 extern ShowStatScreen, ShowLinkMessage, HideLinkBox, DrawStatsBackground, FreeStatsBitmap, ShowStatsScreen, SaveStatsScreen, RestoreStatsScreen
-extern DrawListHighlight, ChangeMenuMusic, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DBAC, sub_8DE10, DrawScrollBar
-extern sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, KeysEqual
+extern DrawListHighlight, ChangeMenuMusic, InitMenuItems, RunMenu, InitScrollList, InitScrollTable, ScrollUp, DrawScrollBar
+extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList, SetListSelection, GetLangText, KeysEqual
 extern FreeDbBlock, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindPlayerStat, FindTeamStat, ServiceIdle
 extern LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, unk_16620D, unk_16622A, unk_16622D, unk_16622F, unk_166232, unk_166235
 extern unk_16623E, unk_1663A5, unk_1663B8, unk_16D7FC, unk_16D804, unk_1AD22E, unk_1AD236, unk_1AD73A
 extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D408, word_1C962C
-global jpt_ACD96, jpt_AD11D, jpt_ADBD6, jpt_AF064, AllocStatTable_2AA, sub_ACDAE_301, sub_ACDAE_303, sub_ACDAE_310
-global sub_ACDAE_321, sub_ACDAE_323, sub_ACDAE_36B, sub_AD151_2A9, sub_AD151_2C4, sub_AD151_2ED, sub_AD151_34B, sub_AD151_36C
-global sub_AD151_3D1, sub_AD151_3FD, sub_AD151_435, sub_AD151_470, sub_AD151_48D, sub_AD151_4D7, sub_AD79F_19A, sub_AD79F_1BA
-global sub_AD79F_1EB, sub_AD79F_221, sub_AD79F_26D, sub_AD79F_2D9, sub_AD79F_304, sub_AD79F_344, sub_AD79F_36C, sub_AD79F_38A
-global TeamStatsScreen_FC4, TeamStatsScreen_1027, TeamStatsScreen_108A, TeamStatsScreen_10ED, TeamStatsScreen_13BC, TeamStatsScreen_13C3, sub_AF074_B17, sub_AF074_BC9
-global sub_AF074_C68, sub_AF074_D0E, AllocStatTable, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
-global sub_ACB2B, sub_ACB8E, sub_ACBF9, sub_ACC7F, sub_ACD03, sub_ACDAE, sub_AD151, sub_AD62E
-global sub_AD64A, sub_AD678, sub_AD6D6, sub_AD79F, sub_ADB4F, TeamStatsScreen, sub_AEFAF, sub_AF074
-global sub_B0906, SetSkaterStatColumns, SetGoalieStatColumns, SetTeamStatColumns, unk_AD76B, unk_B1DF1, unk_B1DFD, unk_B1E09
+global jpt_ACD96, jpt_AD11D, jpt_ADBD6, jpt_AF064, AllocStatTable_2AA, SortStatTable_301, SortStatTable_303, SortStatTable_310
+global SortStatTable_321, SortStatTable_323, SortStatTable_36B, DrawStatTableRows_2A9, DrawStatTableRows_2C4, DrawStatTableRows_2ED, DrawStatTableRows_34B, DrawStatTableRows_36C
+global DrawStatTableRows_3D1, DrawStatTableRows_3FD, DrawStatTableRows_435, DrawStatTableRows_470, DrawStatTableRows_48D, DrawStatTableRows_4D7, ExportStatTable_19A, ExportStatTable_1BA
+global ExportStatTable_1EB, ExportStatTable_221, ExportStatTable_26D, ExportStatTable_2D9, ExportStatTable_304, ExportStatTable_344, ExportStatTable_36C, ExportStatTable_38A
+global TeamStatsScreen_FC4, TeamStatsScreen_1027, TeamStatsScreen_108A, TeamStatsScreen_10ED, TeamStatsScreen_13BC, TeamStatsScreen_13C3, StatsTablesScreen_B17, StatsTablesScreen_BC9
+global StatsTablesScreen_C68, StatsTablesScreen_D0E, AllocStatTable, FreeStatTable, SetStatCell, SetStatCellFlag, SetStatColumn, SetStatRowWidth
+global SortStatTableBy, CompareStatNumber, CompareStatText, CompareStatTextDown, CompareStatName, SortStatTable, DrawStatTableRows, DrawStatTableArt
+global WriteCsvField, WriteCsvLine, AskExportFile, ExportStatTable, TeamStatsSound, TeamStatsScreen, StatsScreenSound, StatsTablesScreen
+global BuildTeamStatsTable, SetSkaterStatColumns, SetGoalieStatColumns, SetTeamStatColumns, unk_AD76B, unk_B1DF1, unk_B1DFD, unk_B1E09
 global unk_B1E11
 ;-----------------------------------------------------------------------------
 ; AllocStatTable                                  AC799  97 PC, low confidence
@@ -193,7 +193,7 @@ AllocStatTable:
         push byte 0
         lea eax, [byte esi+03Fh]
         add edx, dword [byte ebp+014h]
-        call sub_8DBAC
+        call InitScrollTable
         mov eax, dword [byte ebp-020h]
         imul eax, dword [byte ebp+02Ch]
         push dword [byte ebp+020h]
@@ -214,7 +214,7 @@ AllocStatTable:
         push byte 0
         add edx, eax
         lea eax, [dword esi+013Fh]
-        call sub_8D956
+        call InitScrollList
         push byte 0
         push edi
         push str_StatthingySort2
@@ -287,9 +287,10 @@ AllocStatTable_2AA:
         pop esi
         ret 24h
 ;-----------------------------------------------------------------------------
-; sub_ACA49                                                       ACA49  97 PC
+; FreeStatTable                                   ACA49  97 PC, low confidence
+; Frees a stat table and its bitmap
 ;-----------------------------------------------------------------------------
-sub_ACA49:
+FreeStatTable:
         push ebx
         push ecx
         push edx
@@ -319,9 +320,9 @@ sub_ACA49:
         call FreeBitmap
         add esp, byte 4
         lea eax, [byte ebx+03Fh]
-        call sub_8DE7E
+        call FreeScrollList
         lea eax, [dword ebx+013Fh]
-        call sub_8DE7E
+        call FreeScrollList
         push dword [dword_1C9614]
         call FreeMemBlock
         add esp, byte 4
@@ -333,18 +334,20 @@ sub_ACA49:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_ACAE5                                                       ACAE5  97 PC
+; SetStatCell                                     ACAE5  97 PC, low confidence
+; Sets a cell of a stat table
 ;-----------------------------------------------------------------------------
-sub_ACAE5:
+SetStatCell:
         imul edx, dword [byte eax+08h]
         mov eax, dword [byte eax+012h]
         add ebx, edx
         mov dword [eax+ebx*4], ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_ACAF2                                                       ACAF2  97 PC
+; SetStatCellFlag                                 ACAF2  97 PC, low confidence
+; Sets the flag byte of a stat table cell
 ;-----------------------------------------------------------------------------
-sub_ACAF2:
+SetStatCellFlag:
         push esi
         enter 4, 0
         mov byte [byte ebp-04h], bl
@@ -358,9 +361,10 @@ sub_ACAF2:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_ACB0E                                                       ACB0E  97 PC
+; SetStatColumn                                   ACB0E  97 PC, low confidence
+; Sets a column of the stat table
 ;-----------------------------------------------------------------------------
-sub_ACB0E:
+SetStatColumn:
         mov eax, dword [dword_1C9624]
         mov dword [eax+edx*4], ebx
         mov eax, dword [dword_1C961C]
@@ -368,16 +372,18 @@ sub_ACB0E:
         mov dword [eax+edx*4], ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_ACB21                                                       ACB21  97 PC
+; SetStatRowWidth                                 ACB21  97 PC, low confidence
+; Sets the width of a stat table row
 ;-----------------------------------------------------------------------------
-sub_ACB21:
+SetStatRowWidth:
         mov eax, dword [dword_1C9628]
         mov word [eax+edx*2], bx
         ret
 ;-----------------------------------------------------------------------------
-; sub_ACB2B                                                       ACB2B  97 PC
+; SortStatTableBy                                 ACB2B  97 PC, low confidence
+; Sorts a stat table by a column
 ;-----------------------------------------------------------------------------
-sub_ACB2B:
+SortStatTableBy:
         push ebx
         push ecx
         push esi
@@ -390,7 +396,7 @@ sub_ACB2B:
         lea edx, [byte eax+01h]
         xor ebx, ebx
         mov eax, esi
-        call sub_ACDAE
+        call SortStatTable
         mov dword [byte esi+04h], 0
         xor eax, eax
         jmp short .3
@@ -410,15 +416,16 @@ sub_ACB2B:
         jl short .1
         lea eax, [dword esi+013Fh]
         mov edx, dword [byte esi+04h]
-        call sub_8E6AF
+        call SetListSelection
         pop esi
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_ACB8E                                                       ACB8E  97 PC
+; CompareStatNumber                               ACB8E  97 PC, low confidence
+; Sort helper: compares two stat cells as numbers
 ;-----------------------------------------------------------------------------
-sub_ACB8E:
+CompareStatNumber:
         push ebx
         enter 18h, 0
         lea ebx, [byte ebp-010h]
@@ -460,9 +467,10 @@ sub_ACB8E:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_ACBF9                                                       ACBF9  97 PC
+; CompareStatText                                 ACBF9  97 PC, low confidence
+; Sort helper: compares two stat cells as text
 ;-----------------------------------------------------------------------------
-sub_ACBF9:
+CompareStatText:
         push ebx
         push ecx
         push esi
@@ -519,9 +527,10 @@ sub_ACBF9:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_ACC7F                                                       ACC7F  97 PC
+; CompareStatTextDown                             ACC7F  97 PC, low confidence
+; Sort helper: compares two stat cells as text, descending
 ;-----------------------------------------------------------------------------
-sub_ACC7F:
+CompareStatTextDown:
         push ebx
         push ecx
         push esi
@@ -577,9 +586,10 @@ sub_ACC7F:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_ACD03                                                       ACD03  97 PC
+; CompareStatName                                 ACD03  97 PC, low confidence
+; Sort helper: compares two stat cells by name
 ;-----------------------------------------------------------------------------
-sub_ACD03:
+CompareStatName:
         push ebx
         push ecx
         push esi
@@ -639,16 +649,17 @@ sub_ACD03:
         pop ebx
         ret
 jpt_ACD96:
-        dd sub_ACDAE_301
-        dd sub_ACDAE_310
-        dd sub_ACDAE_321
-        dd sub_ACDAE_303
-        dd sub_ACDAE_36B
-        dd sub_ACDAE_323
+        dd SortStatTable_301
+        dd SortStatTable_310
+        dd SortStatTable_321
+        dd SortStatTable_303
+        dd SortStatTable_36B
+        dd SortStatTable_323
 ;-----------------------------------------------------------------------------
-; sub_ACDAE                                                       ACDAE  97 PC
+; SortStatTable                                   ACDAE  97 PC, low confidence
+; Sorts a stat table and resets its scroll
 ;-----------------------------------------------------------------------------
-sub_ACDAE:
+SortStatTable:
         push esi
         push edi
         enter 14h, 0
@@ -862,12 +873,12 @@ sub_ACDAE:
         add eax, dword [byte esi+01Eh]
         cmp byte [eax], 8
         jne short .27
-        mov ecx, sub_ACD03
+        mov ecx, CompareStatName
         jmp short .31
 .27:
         cmp byte [eax], 0Ch
         jne short .28
-        mov ecx, sub_ACB8E
+        mov ecx, CompareStatNumber
         jmp short .31
 .28:
         cmp byte [eax], 0Bh
@@ -875,10 +886,10 @@ sub_ACDAE:
         cmp byte [eax], 2
         jne short .30
 .29:
-        mov ecx, sub_ACC7F
+        mov ecx, CompareStatTextDown
         jmp short .31
 .30:
-        mov ecx, sub_ACBF9
+        mov ecx, CompareStatText
 .31:
         mov ebx, 4
         mov edx, dword [esi]
@@ -939,33 +950,33 @@ sub_ACDAE:
         mov ebx, dword [dword esi+0247h]
         mov edx, dword [dword esi+023Fh]
         call SetScrollBarPos
-        jmp short sub_ACDAE_323.42
+        jmp short SortStatTable_323.42
 .39:
         sub edi, edx
         mov edx, edi
         cmp edi, byte 5
-        ja short sub_ACDAE_323.41
+        ja short SortStatTable_323.41
         lea edi, [byte esi+03Fh]
         lea eax, [dword esi+013Fh]
         jmp dword [nosplit cs:edx*4+jpt_ACD96]
-sub_ACDAE_301:
+SortStatTable_301:
         mov eax, edi
-sub_ACDAE_303:
+SortStatTable_303:
         mov edx, dword [dword esi+0247h]
-        call sub_8DE10
-        jmp short sub_ACDAE_323.41
-sub_ACDAE_310:
+        call ScrollUp
+        jmp short SortStatTable_323.41
+SortStatTable_310:
         mov ebx, ecx
         mov eax, edi
 .40:
         mov edx, dword [dword esi+0247h]
-        call sub_8DEAC
-        jmp short sub_ACDAE_323.41
-sub_ACDAE_321:
+        call ScrollToMouse
+        jmp short SortStatTable_323.41
+SortStatTable_321:
         mov eax, edi
-sub_ACDAE_323:
+SortStatTable_323:
         mov edx, dword [dword esi+0247h]
-        call sub_8DE68
+        call ScrollDown
 .41:
         mov eax, dword [dword esi+0163h]
         mov dword [dword esi+023Fh], eax
@@ -990,27 +1001,28 @@ sub_ACDAE_323:
         pop edi
         pop esi
         ret 4
-sub_ACDAE_36B:
+SortStatTable_36B:
         mov ebx, ecx
-        jmp short sub_ACDAE_310.40
+        jmp short SortStatTable_310.40
 jpt_AD11D:
-        dd sub_AD151_2A9
-        dd sub_AD151_2A9
-        dd sub_AD151_2ED
-        dd sub_AD151_2C4
-        dd sub_AD151_470
-        dd sub_AD151_435
-        dd sub_AD151_3FD
-        dd sub_AD151_48D
-        dd sub_AD151_3D1
-        dd sub_AD151_36C
-        dd sub_AD151_2C4
-        dd sub_AD151_48D
-        dd sub_AD151_34B
+        dd DrawStatTableRows_2A9
+        dd DrawStatTableRows_2A9
+        dd DrawStatTableRows_2ED
+        dd DrawStatTableRows_2C4
+        dd DrawStatTableRows_470
+        dd DrawStatTableRows_435
+        dd DrawStatTableRows_3FD
+        dd DrawStatTableRows_48D
+        dd DrawStatTableRows_3D1
+        dd DrawStatTableRows_36C
+        dd DrawStatTableRows_2C4
+        dd DrawStatTableRows_48D
+        dd DrawStatTableRows_34B
 ;-----------------------------------------------------------------------------
-; sub_AD151                                                       AD151  97 PC
+; DrawStatTableRows                               AD151  97 PC, low confidence
+; Draws the rows of a stat table
 ;-----------------------------------------------------------------------------
-sub_AD151:
+DrawStatTableRows:
         push ebx
         push ecx
         push edx
@@ -1121,10 +1133,10 @@ sub_AD151:
         call DrawListHighlight
 .4:
         mov edi, dword [dword esi+023Fh]
-        jmp near sub_AD151_2ED.20
+        jmp near DrawStatTableRows_2ED.20
 .5:
         cmp edi, dword [byte esi+04h]
-        jge near sub_AD151_2ED.19
+        jge near DrawStatTableRows_2ED.19
         mov eax, edi
         mov edx, dword [byte esi+01Ah]
         mov ebx, dword [edx+eax*4]
@@ -1224,18 +1236,18 @@ sub_AD151:
         add edx, eax
         mov ebx, dword [dword esi+0243h]
         mov dword [byte ebp-010h], edx
-        jmp near sub_AD151_2ED.18
+        jmp near DrawStatTableRows_2ED.18
 .13:
         mov eax, dword [byte esi+0Eh]
         mov al, byte [ebx+eax]
         dec al
         cmp al, 0Ch
-        ja near sub_AD151_2ED
+        ja near DrawStatTableRows_2ED
         movzx ecx, al
         mov eax, edi
         shl eax, 2
         jmp dword [nosplit cs:ecx*4+jpt_AD11D]
-sub_AD151_2A9:
+DrawStatTableRows_2A9:
         mov eax, edi
         mov edx, dword [byte esi+01Ah]
         mov edx, dword [edx+eax*4]
@@ -1245,8 +1257,8 @@ sub_AD151_2A9:
         shl edx, 2
         mov eax, dword [edx+eax]
         push dword [eax]
-        jmp short sub_AD151_2C4.16
-sub_AD151_2C4:
+        jmp short DrawStatTableRows_2C4.16
+DrawStatTableRows_2C4:
         mov eax, edi
         mov edx, dword [byte esi+01Ah]
         mov eax, dword [edx+eax*4]
@@ -1265,7 +1277,7 @@ sub_AD151_2C4:
         push eax
         call sprintf_
         add esp, byte 0Ch
-sub_AD151_2ED:
+DrawStatTableRows_2ED:
         lea eax, [byte ebp-074h]
         push eax
         push dword [byte ebp-08h]
@@ -1280,7 +1292,7 @@ sub_AD151_2ED:
         movzx eax, byte [byte esi+0Dh]
         add eax, dword [dword esi+0243h]
         cmp ebx, eax
-        jl near sub_AD151.13
+        jl near DrawStatTableRows.13
         mov eax, dword [byte esi+033h]
         add dword [byte ebp-08h], eax
 .19:
@@ -1289,15 +1301,15 @@ sub_AD151_2ED:
         movzx eax, byte [byte esi+0Ch]
         add eax, dword [dword esi+023Fh]
         cmp edi, eax
-        jl near sub_AD151.5
+        jl near DrawStatTableRows.5
         mov eax, dword [byte esi+03Bh]
         mov edx, dword [byte esi+037h]
         sar eax, 1
         add edx, eax
         mov edi, dword [dword esi+0243h]
         mov dword [byte ebp-010h], edx
-        jmp near sub_AD151_48D.25
-sub_AD151_34B:
+        jmp near DrawStatTableRows_48D.25
+DrawStatTableRows_34B:
         mov edx, dword [byte esi+01Ah]
         mov eax, dword [edx+eax]
         imul eax, dword [byte esi+08h]
@@ -1308,8 +1320,8 @@ sub_AD151_34B:
         mov ecx, 3Ch
         cdq
         idiv ecx
-        jmp near sub_AD151_2C4.15
-sub_AD151_36C:
+        jmp near DrawStatTableRows_2C4.15
+DrawStatTableRows_36C:
         mov edx, dword [byte esi+01Ah]
         mov edx, dword [edx+eax]
         imul edx, dword [byte esi+08h]
@@ -1326,7 +1338,7 @@ sub_AD151_36C:
         push eax
         call sprintf_
         add esp, byte 8
-        jmp near sub_AD151_2ED
+        jmp near DrawStatTableRows_2ED
 .22:
         mov eax, ecx
         mov dword [byte ebp-04h], 64h
@@ -1344,8 +1356,8 @@ sub_AD151_36C:
         push eax
         call sprintf_
         add esp, byte 10h
-        jmp near sub_AD151_2ED
-sub_AD151_3D1:
+        jmp near DrawStatTableRows_2ED
+DrawStatTableRows_3D1:
         mov edx, dword [byte esi+01Ah]
         mov edx, dword [edx+eax]
         imul edx, dword [byte esi+08h]
@@ -1354,12 +1366,12 @@ sub_AD151_3D1:
         shl edx, 2
         mov eax, dword [edx+eax]
         cmp word [eax], byte 0
-        jne near sub_AD151_2C4.14
+        jne near DrawStatTableRows_2C4.14
         mov eax, 1AEh
         call GetLangText
         push eax
-        jmp short sub_AD151_36C.21
-sub_AD151_3FD:
+        jmp short DrawStatTableRows_36C.21
+DrawStatTableRows_3FD:
         mov edx, dword [byte esi+01Ah]
         mov eax, dword [edx+eax]
         imul eax, dword [byte esi+08h]
@@ -1378,8 +1390,8 @@ sub_AD151_3FD:
         idiv dword [byte ebp-04h]
         push eax
         push str_DD2
-        jmp short sub_AD151_36C.23
-sub_AD151_435:
+        jmp short DrawStatTableRows_36C.23
+DrawStatTableRows_435:
         mov edx, dword [byte esi+01Ah]
         mov eax, dword [edx+eax]
         imul eax, dword [byte esi+08h]
@@ -1398,8 +1410,8 @@ sub_AD151_435:
         idiv dword [byte ebp-04h]
         push eax
         push str_D01d2
-        jmp near sub_AD151_36C.23
-sub_AD151_470:
+        jmp near DrawStatTableRows_36C.23
+DrawStatTableRows_470:
         mov edx, dword [byte esi+01Ah]
         mov edx, dword [edx+eax]
         imul edx, dword [byte esi+08h]
@@ -1408,8 +1420,8 @@ sub_AD151_470:
         shl edx, 2
         mov eax, dword [edx+eax]
         movzx eax, byte [eax]
-        jmp near sub_AD151_2C4.15
-sub_AD151_48D:
+        jmp near DrawStatTableRows_2C4.15
+DrawStatTableRows_48D:
         mov eax, edi
         mov edx, dword [byte esi+01Ah]
         mov eax, dword [edx+eax*4]
@@ -1418,7 +1430,7 @@ sub_AD151_48D:
         add eax, ebx
         push dword [edx+eax*4]
         push unk_16622A
-        jmp near sub_AD151_2C4.17
+        jmp near DrawStatTableRows_2C4.17
 .24:
         mov edx, edi
         mov eax, dword [byte esi+027h]
@@ -1436,13 +1448,14 @@ sub_AD151_48D:
         add eax, dword [dword esi+0243h]
         cmp edi, eax
         jl short .24
-sub_AD151_4D7:
+DrawStatTableRows_4D7:
         leave
         jmp near TeamStatsScreen_13C3
 ;-----------------------------------------------------------------------------
-; sub_AD62E                                                       AD62E  97 PC
+; DrawStatTableArt                                AD62E  97 PC, low confidence
+; Draws the art of a stat table
 ;-----------------------------------------------------------------------------
-sub_AD62E:
+DrawStatTableArt:
         push ecx
         push edx
         push dword [byte eax+02Fh]
@@ -1455,9 +1468,10 @@ sub_AD62E:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_AD64A                                                       AD64A  97 PC
+; WriteCsvField                                   AD64A  97 PC, low confidence
+; Writes one field to the export file
 ;-----------------------------------------------------------------------------
-sub_AD64A:
+WriteCsvField:
         push ecx
         mov ecx, eax
         push edx
@@ -1480,9 +1494,10 @@ sub_AD64A:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_AD678                                                       AD678  97 PC
+; WriteCsvLine                                    AD678  97 PC, low confidence
+; Writes one line to the export file
 ;-----------------------------------------------------------------------------
-sub_AD678:
+WriteCsvLine:
         push ecx
         push esi
         push edi
@@ -1528,9 +1543,10 @@ sub_AD678:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_AD6D6                                                       AD6D6  97 PC
+; AskExportFile                                   AD6D6  97 PC, low confidence
+; Asks for the export file name and opens it
 ;-----------------------------------------------------------------------------
-sub_AD6D6:
+AskExportFile:
         push ebx
         push ecx
         push esi
@@ -1588,23 +1604,24 @@ sub_AD6D6:
         pop ebx
         ret
 unk_AD76B:
-        dd sub_AD79F_19A
-        dd sub_AD79F_19A
-        dd sub_AD79F_221
-        dd sub_AD79F_1BA
-        dd sub_AD79F_36C
-        dd sub_AD79F_344
-        dd sub_AD79F_304
-        dd sub_AD79F_38A
-        dd sub_AD79F_2D9
-        dd sub_AD79F_26D
-        dd sub_AD79F_1BA
-        dd sub_AD79F_38A
-        dd sub_AD79F_1EB
+        dd ExportStatTable_19A
+        dd ExportStatTable_19A
+        dd ExportStatTable_221
+        dd ExportStatTable_1BA
+        dd ExportStatTable_36C
+        dd ExportStatTable_344
+        dd ExportStatTable_304
+        dd ExportStatTable_38A
+        dd ExportStatTable_2D9
+        dd ExportStatTable_26D
+        dd ExportStatTable_1BA
+        dd ExportStatTable_38A
+        dd ExportStatTable_1EB
 ;-----------------------------------------------------------------------------
-; sub_AD79F                                                       AD79F  97 PC
+; ExportStatTable                                 AD79F  97 PC, low confidence
+; Exports a stat table to a text file
 ;-----------------------------------------------------------------------------
-sub_AD79F:
+ExportStatTable:
         push ebx
         push ecx
         push edx
@@ -1623,9 +1640,9 @@ sub_AD79F:
         jl short .1
         lea edx, [byte ebp-02Ch]
         mov eax, 1Eh
-        call sub_AD6D6
+        call AskExportFile
         test eax, eax
-        je near sub_AD151_4D7
+        je near DrawStatTableRows_4D7
         xor edx, edx
         jmp short .4
 .3:
@@ -1648,7 +1665,7 @@ sub_AD79F:
         xor ebx, ebx
         call GetLangText
         call ShowMessageBoxNoWait
-        jmp near sub_AD151_4D7
+        jmp near DrawStatTableRows_4D7
 .5:
         xor edx, edx
         jmp short .7
@@ -1678,7 +1695,7 @@ sub_AD79F:
         add esp, byte 8
         mov eax, esi
         xor edi, edi
-        call sub_AD64A
+        call WriteCsvField
         jmp short .9
 .8:
         mov eax, ebx
@@ -1695,7 +1712,7 @@ sub_AD79F:
         mov eax, esi
         movsx ebx, word [dword ebp+ebx*2-0E0h]
         inc edi
-        call sub_AD678
+        call WriteCsvLine
 .9:
         movsx ebx, di
         cmp ebx, dword [byte ecx+08h]
@@ -1703,7 +1720,7 @@ sub_AD79F:
         push unk_166235
         push esi
         mov dword [byte ebp-08h], 0
-        jmp near sub_AD79F_221.16
+        jmp near ExportStatTable_221.16
 .10:
         lea eax, [byte edi+01h]
         push eax
@@ -1715,7 +1732,7 @@ sub_AD79F:
         add esp, byte 0Ch
         lea edx, [byte ebp-07Ch]
         mov eax, esi
-        call sub_AD64A
+        call WriteCsvField
         mov eax, edi
         mov edx, dword [byte ecx+01Ah]
         mov eax, dword [edx+eax*4]
@@ -1730,19 +1747,19 @@ sub_AD79F:
         add esp, byte 0Ch
         mov eax, esi
         xor edi, edi
-        call sub_AD64A
-        jmp near sub_AD79F_221.15
+        call WriteCsvField
+        jmp near ExportStatTable_221.15
 .11:
         mov ebx, dword [byte ecx+0Eh]
         mov dl, byte [ebx+eax]
         dec dl
         cmp dl, 0Ch
-        ja near sub_AD79F_221
+        ja near ExportStatTable_221
         movzx edx, dl
         mov ebx, edx
         shl ebx, 2
         jmp dword [dword cs:ebx+unk_AD76B]
-sub_AD79F_19A:
+ExportStatTable_19A:
         movsx edx, word [byte ebp-08h]
         mov eax, dword [byte ecx+01Ah]
         shl edx, 2
@@ -1753,8 +1770,8 @@ sub_AD79F_19A:
         mov edx, dword [byte ecx+012h]
         mov eax, dword [edx+eax*4]
         push dword [eax]
-        jmp short sub_AD79F_1EB.13
-sub_AD79F_1BA:
+        jmp short ExportStatTable_1EB.13
+ExportStatTable_1BA:
         movsx edx, word [byte ebp-08h]
         mov eax, dword [byte ecx+01Ah]
         shl edx, 2
@@ -1771,7 +1788,7 @@ sub_AD79F_1BA:
         push eax
         call sprintf_
         add esp, byte 0Ch
-sub_AD79F_1EB:
+ExportStatTable_1EB:
         movsx eax, word [byte ebp-08h]
         mov edx, dword [byte ecx+01Ah]
         mov eax, dword [edx+eax*4]
@@ -1793,17 +1810,17 @@ sub_AD79F_1EB:
         push eax
         call sprintf_
         add esp, byte 0Ch
-sub_AD79F_221:
+ExportStatTable_221:
         movsx eax, di
         lea edx, [byte ebp-07Ch]
         movsx ebx, word [dword ebp+eax*2-0E0h]
         mov eax, esi
         inc edi
-        call sub_AD678
+        call WriteCsvLine
 .15:
         movsx eax, di
         cmp eax, dword [byte ecx+08h]
-        jl near sub_AD79F.11
+        jl near ExportStatTable.11
         push unk_16623E
         push esi
         inc dword [byte ebp-08h]
@@ -1812,11 +1829,11 @@ sub_AD79F_221:
         add esp, byte 8
         movsx edi, word [byte ebp-08h]
         cmp edi, dword [byte ecx+04h]
-        jl near sub_AD79F.10
+        jl near ExportStatTable.10
         mov eax, esi
         call fclose_
-        jmp near sub_AD151_4D7
-sub_AD79F_26D:
+        jmp near DrawStatTableRows_4D7
+ExportStatTable_26D:
         mov ebx, dword [byte ecx+01Ah]
         movsx edx, word [byte ebp-08h]
         mov ebx, dword [ebx+edx*4]
@@ -1835,7 +1852,7 @@ sub_AD79F_26D:
         push eax
         call sprintf_
         add esp, byte 8
-        jmp near sub_AD79F_221
+        jmp near ExportStatTable_221
 .18:
         mov eax, ebx
         mov dword [byte ebp-0Ch], 64h
@@ -1853,8 +1870,8 @@ sub_AD79F_26D:
         push eax
         call sprintf_
         add esp, byte 10h
-        jmp near sub_AD79F_221
-sub_AD79F_2D9:
+        jmp near ExportStatTable_221
+ExportStatTable_2D9:
         mov ebx, dword [byte ecx+01Ah]
         movsx edx, word [byte ebp-08h]
         mov ebx, dword [ebx+edx*4]
@@ -1865,11 +1882,11 @@ sub_AD79F_2D9:
         cmp word [eax], byte 0
         jne short .20
         mov eax, 1AEh
-        jmp short sub_AD79F_26D.17
+        jmp short ExportStatTable_26D.17
 .20:
         movsx eax, word [eax]
-        jmp near sub_AD79F_1EB.12
-sub_AD79F_304:
+        jmp near ExportStatTable_1EB.12
+ExportStatTable_304:
         movsx ebx, word [byte ebp-08h]
         mov edx, dword [byte ecx+01Ah]
         shl ebx, 2
@@ -1891,8 +1908,8 @@ sub_AD79F_304:
         idiv dword [byte ebp-0Ch]
         push eax
         push str_DD2
-        jmp short sub_AD79F_26D.19
-sub_AD79F_344:
+        jmp short ExportStatTable_26D.19
+ExportStatTable_344:
         movsx edx, word [byte ebp-08h]
         mov ebx, dword [byte ecx+01Ah]
         shl edx, 2
@@ -1905,8 +1922,8 @@ sub_AD79F_344:
         movsx eax, word [eax]
         push eax
         push str_03d
-        jmp near sub_AD79F_1EB.14
-sub_AD79F_36C:
+        jmp near ExportStatTable_1EB.14
+ExportStatTable_36C:
         mov ebx, dword [byte ecx+01Ah]
         movsx edx, word [byte ebp-08h]
         mov ebx, dword [ebx+edx*4]
@@ -1915,8 +1932,8 @@ sub_AD79F_36C:
         add eax, ebx
         mov eax, dword [edx+eax*4]
         movzx eax, byte [eax]
-        jmp near sub_AD79F_1EB.12
-sub_AD79F_38A:
+        jmp near ExportStatTable_1EB.12
+ExportStatTable_38A:
         movsx eax, word [byte ebp-08h]
         mov edx, dword [byte ecx+01Ah]
         mov edx, dword [edx+eax*4]
@@ -1927,11 +1944,12 @@ sub_AD79F_38A:
         mov eax, dword [byte ecx+012h]
         push dword [edx+eax]
         push unk_16622A
-        jmp near sub_AD79F_1EB.14
+        jmp near ExportStatTable_1EB.14
 ;-----------------------------------------------------------------------------
-; sub_ADB4F                                                       ADB4F  97 PC
+; TeamStatsSound                                  ADB4F  97 PC, low confidence
+; Plays a team stats sound
 ;-----------------------------------------------------------------------------
-sub_ADB4F:
+TeamStatsSound:
         push ebx
         push ecx
         push edx
@@ -2419,7 +2437,7 @@ TeamStatsScreen:
         mov edx, 10h
         lea eax, [dword ebp-0276h]
         mov ebx, dword [byte ebp+072h]
-        call sub_ACB2B
+        call SortStatTableBy
         mov edx, ebx
         mov eax, ebx
         mov ecx, 52h
@@ -2629,7 +2647,7 @@ TeamStatsScreen:
         xor eax, eax
 .38:
         add eax, byte 70h
-        call sub_8BFAC
+        call RunMenu
         mov edx, eax
         cmp dword [byte ebp+016h], byte 3
         jb short .39
@@ -2686,7 +2704,7 @@ TeamStatsScreen:
         mov dword [dword_16D404], 1
         lea eax, [dword ebp-0276h]
         movsx esi, word [word_1C962C]
-        call sub_ACA49
+        call FreeStatTable
         mov eax, dword [byte ebp+076h]
         add eax, byte 40h
         push eax
@@ -2774,7 +2792,7 @@ TeamStatsScreen:
         mov dword [dword_1C95DC], eax
         lea eax, [dword ebp-0276h]
         movsx esi, word [word_1C962C]
-        call sub_ACA49
+        call FreeStatTable
         push dword [byte ebp+0Eh]
         push dword [byte ebp+036h]
         push dword [byte ebp+04Eh]
@@ -2795,7 +2813,7 @@ TeamStatsScreen:
         movsx edx, si
         mov dword [byte ebp+05Ah], eax
         lea eax, [dword ebp-0276h]
-        call sub_ACB2B
+        call SortStatTableBy
 .47:
         xor ebx, ebx
 .48:
@@ -3028,12 +3046,12 @@ TeamStatsScreen:
         add esp, byte 8
         mov dword [dword_1C95F4], eax
         lea eax, [dword ebp-0276h]
-        call sub_ACB2B
+        call SortStatTableBy
 .72:
         cmp dword [byte ebp+046h], byte 0FFFFFFFFh
         jne near TeamStatsScreen_10ED.83
         lea eax, [dword ebp-0276h]
-        call sub_AD151
+        call DrawStatTableRows
         call SetScreenTarget
         push dword [dword ebp-0247h]
         mov eax, dword [byte ebp-02Fh]
@@ -3045,7 +3063,7 @@ TeamStatsScreen:
         call sub_1013FC
         push byte 3
         lea eax, [byte ebp+016h]
-        mov ecx, sub_ADB4F
+        mov ecx, TeamStatsSound
         mov edx, dword [dword_1C9610]
         push eax
         cmp dword [dword_16D404], byte 0
@@ -3209,13 +3227,13 @@ TeamStatsScreen_10ED:
         cmp dword [dword_16DA9C], byte 0
         jne short .77
         lea eax, [dword ebp-0276h]
-        call sub_AD79F
+        call ExportStatTable
         jmp near TeamStatsScreen.72
 .77:
         cmp eax, byte 2
         jne short .78
         lea eax, [dword ebp-0276h]
-        call sub_AD79F
+        call ExportStatTable
         call LinkSyncMenu
         jmp near TeamStatsScreen.72
 .78:
@@ -3230,7 +3248,7 @@ TeamStatsScreen_10ED:
         mov edx, dword [byte ebp+016h]
         lea eax, [dword ebp-0276h]
         sub edx, byte 6
-        call sub_ACDAE
+        call SortStatTable
         cmp dword [byte ebp+01Ah], byte 0FFFFFFFFh
         je near TeamStatsScreen.72
         cmp dword [byte ebp+01Ah], byte 0
@@ -3324,7 +3342,7 @@ TeamStatsScreen_10ED:
         jmp near TeamStatsScreen.72
 .83:
         lea eax, [dword ebp-0276h]
-        call sub_ACA49
+        call FreeStatTable
         push dword [byte ebp+022h]
         call FreeMemBlock
         add esp, byte 4
@@ -3401,9 +3419,10 @@ TeamStatsScreen_13C3:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_AEFAF                                                       AEFAF  97 PC
+; StatsScreenSound                                AEFAF  97 PC, low confidence
+; Plays a stats screen sound
 ;-----------------------------------------------------------------------------
-sub_AEFAF:
+StatsScreenSound:
         push ebx
         push ecx
         push edx
@@ -3461,14 +3480,15 @@ sub_AEFAF:
         pop ebx
         ret
 jpt_AF064:
-        dd sub_AF074_B17
-        dd sub_AF074_BC9
-        dd sub_AF074_C68
-        dd sub_AF074_D0E
+        dd StatsTablesScreen_B17
+        dd StatsTablesScreen_BC9
+        dd StatsTablesScreen_C68
+        dd StatsTablesScreen_D0E
 ;-----------------------------------------------------------------------------
-; sub_AF074                                                       AF074  97 PC
+; StatsTablesScreen                               AF074  97 PC, low confidence
+; Runs the team stats screen
 ;-----------------------------------------------------------------------------
-sub_AF074:
+StatsTablesScreen:
         push ebx
         push ecx
         push edx
@@ -3814,7 +3834,7 @@ sub_AF074:
         lea edx, [byte ebp+02h]
         push dword [byte ebp+06Ah]
         mov eax, dword [byte ebp+06h]
-        call sub_B0906
+        call BuildTeamStatsTable
         push dword [byte ebp+062h]
         push dword [byte ebp+06Eh]
         push dword [byte ebp+02h]
@@ -3844,7 +3864,7 @@ sub_AF074:
         lea eax, [dword ebp-035Eh]
         xor edx, edx
 .20:
-        call sub_ACB2B
+        call SortStatTableBy
         call SetHighlightText
         mov eax, dword [byte ebp+076h]
         mov eax, dword [byte eax+02Ch]
@@ -4010,9 +4030,9 @@ sub_AF074:
         call WipeScreen
 .24:
         cmp dword [byte ebp+032h], byte 0FFFFFFFFh
-        jne near sub_AF074_D0E.113
+        jne near StatsTablesScreen_D0E.113
         lea eax, [dword ebp-035Eh]
-        call sub_AD151
+        call DrawStatTableRows
         call SetScreenTarget
         push dword [dword ebp-032Fh]
         mov eax, dword [dword ebp-0117h]
@@ -4052,7 +4072,7 @@ sub_AF074:
 .28:
         push byte 3
         lea eax, [byte ebp+0Ah]
-        mov ecx, sub_AEFAF
+        mov ecx, StatsScreenSound
         mov ebx, 0FFFFFFFFh
         mov edx, dword [dword_1C9610]
         push eax
@@ -4060,43 +4080,43 @@ sub_AF074:
         setg al
         movzx eax, al
         add eax, 0AAh
-        call sub_8BFAC
+        call RunMenu
         mov edx, eax
         cmp dword [byte ebp+0Ah], byte 5
         jb short .30
         cmp dword [byte ebp+0Ah], byte 5
-        jbe near sub_AF074_D0E.57
+        jbe near StatsTablesScreen_D0E.57
         cmp dword [byte ebp+0Ah], byte 8
         jb short .29
-        jbe near sub_AF074_D0E.80
+        jbe near StatsTablesScreen_D0E.80
         cmp dword [byte ebp+0Ah], 0A9h
-        jb near sub_AF074_D0E.91
+        jb near StatsTablesScreen_D0E.91
         jbe short .32
         cmp dword [byte ebp+0Ah], 0AAh
         je short .33
-        jmp near sub_AF074_D0E.91
+        jmp near StatsTablesScreen_D0E.91
 .29:
         cmp dword [byte ebp+0Ah], byte 6
-        jbe near sub_AF074_D0E.69
-        jmp near sub_AF074_D0E.72
+        jbe near StatsTablesScreen_D0E.69
+        jmp near StatsTablesScreen_D0E.72
 .30:
         cmp dword [byte ebp+0Ah], byte 2
         jb short .31
         jbe short .35
         cmp dword [byte ebp+0Ah], byte 3
         jbe near .44
-        jmp near sub_AF074_BC9.50
+        jmp near StatsTablesScreen_BC9.50
 .31:
         cmp dword [byte ebp+0Ah], byte 0
         ja short .34
         call FadeInScreen
         mov dword [byte ebp+032h], 1Ah
-        jmp near sub_AF074_D0E.100
+        jmp near StatsTablesScreen_D0E.100
 .32:
         call SetNormalText
         call ExitScreen
         call SetHighlightText
-        jmp near sub_AF074_D0E.100
+        jmp near StatsTablesScreen_D0E.100
 .33:
         call ShowStatsScreen
         cmp dword [dword_16DA9C], byte 0
@@ -4106,10 +4126,10 @@ sub_AF074:
         mov byte [byte ebp+07Eh], 1
         call PlayScreenMovie
         call ChangeMenuMusic
-        jmp near sub_AF074_D0E.100
+        jmp near StatsTablesScreen_D0E.100
 .34:
         mov dword [byte ebp+032h], 64h
-        jmp near sub_AF074_D0E.100
+        jmp near StatsTablesScreen_D0E.100
 .35:
         cmp dword [dword_16D404], byte 0
         je short .37
@@ -4202,7 +4222,7 @@ sub_AF074:
         mov eax, dword [byte ebp+06h]
         push dword [byte ebp+06Ah]
         mov dword [byte ebp-02h], 0
-        call sub_B0906
+        call BuildTeamStatsTable
 .44:
         cmp dword [byte ebp+0Ah], byte 3
         jne short .45
@@ -4212,14 +4232,14 @@ sub_AF074:
         mov dword [byte ebp+012h], 0
 .45:
         cmp dword [byte ebp+012h], byte 3
-        ja near sub_AF074_BC9.50
+        ja near StatsTablesScreen_BC9.50
         mov esi, dword [byte ebp+072h]
         mov eax, dword [byte ebp+072h]
         mov ebx, dword [byte ebp+012h]
         add esi, 200h
         add eax, 80h
         jmp dword [nosplit cs:ebx*4+jpt_AF064]
-sub_AF074_B17:
+StatsTablesScreen_B17:
         push eax
         mov ecx, str_RS17
         mov ebx, str_RS16
@@ -4234,7 +4254,7 @@ sub_AF074_B17:
         call FindShapeList
         add esp, byte 0Ch
         lea eax, [dword ebp-035Eh]
-        call sub_ACA49
+        call FreeStatTable
         push dword [byte ebp+062h]
         push dword [byte ebp+06Eh]
         push dword [byte ebp+02h]
@@ -4261,13 +4281,13 @@ sub_AF074_B17:
 .47:
         lea eax, [dword ebp-035Eh]
 .48:
-        call sub_ACB2B
-        jmp near sub_AF074_BC9.50
+        call SortStatTableBy
+        jmp near StatsTablesScreen_BC9.50
 .49:
         lea eax, [dword ebp-035Eh]
         xor edx, edx
         jmp short .48
-sub_AF074_BC9:
+StatsTablesScreen_BC9:
         push eax
         mov ecx, str_RS21
         mov ebx, str_RS20
@@ -4282,7 +4302,7 @@ sub_AF074_BC9:
         call FindShapeList
         add esp, byte 0Ch
         lea eax, [dword ebp-035Eh]
-        call sub_ACA49
+        call FreeStatTable
         push dword [byte ebp+062h]
         push dword [byte ebp+06Eh]
         push dword [byte ebp+022h]
@@ -4302,12 +4322,12 @@ sub_AF074_BC9:
         call SetGoalieStatColumns
 .50:
         cmp dword [byte ebp+0Ah], byte 4
-        jne near sub_AF074_D0E.54
+        jne near StatsTablesScreen_D0E.54
         cmp dword [byte ebp+02Eh], byte 0
-        jne near sub_AF074_D0E.53
+        jne near StatsTablesScreen_D0E.53
         mov dword [byte ebp+02Eh], 1
-        jmp near sub_AF074_D0E.54
-sub_AF074_C68:
+        jmp near StatsTablesScreen_D0E.54
+StatsTablesScreen_C68:
         push eax
         mov ecx, str_RS25
         mov ebx, str_RS24
@@ -4322,7 +4342,7 @@ sub_AF074_C68:
         call FindShapeList
         add esp, byte 0Ch
         lea eax, [dword ebp-035Eh]
-        call sub_ACA49
+        call FreeStatTable
         push dword [byte ebp+062h]
         push dword [byte ebp+06Eh]
         push dword [byte ebp+02h]
@@ -4345,11 +4365,11 @@ sub_AF074_C68:
         mov ax, word [nosplit eax*2+word_16D408]
         shl eax, 3
         or al, 2
-        jmp near sub_AF074_B17.46
+        jmp near StatsTablesScreen_B17.46
 .51:
         mov edx, 2
-        jmp near sub_AF074_B17.47
-sub_AF074_D0E:
+        jmp near StatsTablesScreen_B17.47
+StatsTablesScreen_D0E:
         push eax
         mov ecx, str_RS29
         mov ebx, str_RS28
@@ -4364,7 +4384,7 @@ sub_AF074_D0E:
         call FindShapeList
         add esp, byte 0Ch
         lea eax, [dword ebp-035Eh]
-        call sub_ACA49
+        call FreeStatTable
         push dword [byte ebp+062h]
         push dword [byte ebp+06Eh]
         push dword [byte ebp+02h]
@@ -4387,10 +4407,10 @@ sub_AF074_D0E:
         mov ax, word [nosplit eax*2+word_16D408]
         shl eax, 3
         or al, 4
-        jmp near sub_AF074_B17.46
+        jmp near StatsTablesScreen_B17.46
 .52:
         mov edx, 4
-        jmp near sub_AF074_B17.47
+        jmp near StatsTablesScreen_B17.47
 .53:
         mov dword [byte ebp+02Eh], 0
 .54:
@@ -4403,7 +4423,7 @@ sub_AF074_D0E:
         movsx edx, ax
         lea eax, [dword ebp-035Eh]
         mov ecx, str_RS33
-        call sub_ACB2B
+        call SortStatTableBy
         push ebx
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [dword_1C9610]
@@ -4424,7 +4444,7 @@ sub_AF074_D0E:
         movsx edx, ax
         lea eax, [dword ebp-035Eh]
         mov ecx, str_RS37
-        call sub_ACB2B
+        call SortStatTableBy
         push ebx
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [dword_1C9610]
@@ -4512,7 +4532,7 @@ sub_AF074_D0E:
         push edx
         inc eax
         mov edx, 0Ah
-        call sub_8DF1F
+        call RunScrollList
         mov dword [byte ebp+0Ah], eax
         cmp eax, byte 0FFFFFFFFh
         je short .64
@@ -4543,7 +4563,7 @@ sub_AF074_D0E:
 .66:
         movsx edx, ax
         lea eax, [dword ebp-035Eh]
-        call sub_ACB2B
+        call SortStatTableBy
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         jne short .68
         push str_TTL1
@@ -4565,13 +4585,13 @@ sub_AF074_D0E:
         cmp dword [dword_16DA9C], byte 0
         jne short .70
         lea eax, [dword ebp-035Eh]
-        call sub_AD79F
+        call ExportStatTable
         jmp near .100
 .70:
         cmp eax, byte 2
         jne short .71
         lea eax, [dword ebp-035Eh]
-        call sub_AD79F
+        call ExportStatTable
         call LinkSyncMenu
         jmp near .100
 .71:
@@ -4733,7 +4753,7 @@ sub_AF074_D0E:
 .88:
         movsx edx, ax
         lea eax, [dword ebp-035Eh]
-        call sub_ACB2B
+        call SortStatTableBy
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         jne short .89
         push str_TTL1
@@ -4759,7 +4779,7 @@ sub_AF074_D0E:
         mov edx, dword [byte ebp+0Ah]
         xor ebx, ebx
         sub edx, byte 9
-        call sub_ACDAE
+        call SortStatTable
         cmp dword [byte ebp+0Eh], byte 0FFFFFFFFh
         je near .100
         cmp dword [byte ebp+0Eh], byte 0
@@ -4965,9 +4985,9 @@ sub_AF074_D0E:
         call sub_1013FC
 .100:
         cmp byte [byte ebp+07Eh], 0
-        je near sub_AF074.24
+        je near StatsTablesScreen.24
         lea eax, [dword ebp-035Eh]
-        call sub_AD151
+        call DrawStatTableRows
         call SetScreenTarget
         push dword [dword ebp-032Fh]
         mov eax, dword [dword ebp-0117h]
@@ -5111,7 +5131,7 @@ sub_AF074_D0E:
         call sub_1013CC
         add esp, byte 0Ch
         lea eax, [dword ebp-035Eh]
-        call sub_AD151
+        call DrawStatTableRows
         call SetScreenTarget
         push byte 0
         mov eax, dword [byte ebp+076h]
@@ -5127,10 +5147,10 @@ sub_AF074_D0E:
         add esp, byte 0Ch
         mov byte [byte ebp+07Eh], 0
         call sub_1013FC
-        jmp near sub_AF074.24
+        jmp near StatsTablesScreen.24
 .113:
         lea eax, [dword ebp-035Eh]
-        call sub_ACA49
+        call FreeStatTable
         push dword [byte ebp+016h]
         call FreeMemBlock
         add esp, byte 4
@@ -5214,9 +5234,10 @@ sub_AF074_D0E:
         mov eax, dword [byte ebp+032h]
         jmp near TeamStatsScreen_13BC
 ;-----------------------------------------------------------------------------
-; sub_B0906                                                       B0906  97 PC
+; BuildTeamStatsTable                             B0906  97 PC, low confidence
+; Builds the team stats table
 ;-----------------------------------------------------------------------------
-sub_B0906:
+BuildTeamStatsTable:
         push esi
         push edi
         enter 0D4h, 0

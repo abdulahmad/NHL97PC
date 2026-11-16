@@ -75,7 +75,7 @@ extern StartCameraPath, SelectCameraView, InitCamera, DrawCameraDebugMarks, RunC
 extern InitDisplayViews, FreeDisplayViews, AddDisplayView, SetViewDrawTarget, SetViewSize, SetViewInterlaced, HideView, SetViewOrigin
 extern PresentGameView, InitPaletteManager, ShutdownPaletteManager, AddPaletteRange, AddArtToRange, RemapArtBank, SetRangeColors, RemapBankToRange
 extern QuantizeAllRanges, BuildGamePalette, OpenStreamBuffer, delstream, CdStreamQueue, CdStreamService, CdStreamNextPacket, StreamBufferFree
-extern MusicStreamTick, WaitMusicEnd, ServiceSpeechQueue, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, SetRinkPalette
+extern MusicStreamTick, WaitMusicEnd, ServiceSpeechQueue, ServiceSpeechStream, SayPaClip, PaPlayerName, RecordStreakClips, SetRinkPalette
 extern LoadRinkLines, LoadRinkModel, FreeRinkModel, SetRinkTransform, DrawRinkOverlay, DrawRinkPass, DrawNearSide, DrawFarSide
 extern SaveViewOrigin, LoadGoalieMask, LoadGameModels, SetupTeamModels, FreeGameModels, UpdateViewMatrix, ScaleModelLods, SetModelExtraFlags
 extern DrawPlayersSorted, DrawIceMarkers, DrawPlayerNames, DrawPuckArrow, NoOpDraw, ReplaySoundAllowed, ProjectRinkPoints, LoadAiIcons
@@ -245,25 +245,25 @@ PaEvent:
         lea edx, [dword ebx+09Fh]
 .17:
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         cmp dword [esp], byte 0FFFFFFFFh
         jne short .18
         mov edx, dword [byte esp+0Ch]
         xor eax, eax
         add edx, 0A5h
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+010h]
         xor eax, eax
         add edx, 0C8h
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+04h]
         xor eax, eax
         add edx, 0E7h
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+08h]
         xor eax, eax
         add edx, 10Ah
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -276,19 +276,19 @@ PaEvent:
         mov edx, dword [byte esp+04h]
         xor eax, eax
         add edx, 0A5h
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+08h]
         xor eax, eax
         add edx, 0C8h
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+0Ch]
         xor eax, eax
         add edx, 0E7h
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+010h]
         xor eax, eax
         add edx, 10Ah
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -302,7 +302,7 @@ PaEvent:
         jne near PaEvent_14CD
         mov edx, 1A2h
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -316,7 +316,7 @@ PaEvent:
         jne near PaEvent_14CD
         mov edx, 1A1h
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -382,14 +382,14 @@ PaEvent:
         je near PaEvent_14CD
         mov edx, dword [byte esp+010h]
         mov eax, dword [byte esp+0Ch]
-        call sub_48864
+        call PaPlayerName
         mov edx, eax
         mov ebx, eax
         test eax, eax
         jl short .33
         lea edx, [dword eax+08Fh]
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -409,13 +409,13 @@ PaEvent:
         inc ecx
         add edx, ecx
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         mov ecx, dword [byte esp+04h]
         test ecx, ecx
         jle short .34
         lea edx, [byte ecx+034h]
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
 .34:
         mov esi, dword [byte esp+08h]
         cmp esi, byte 10h
@@ -491,15 +491,15 @@ PaEvent:
 .47:
         mov edx, ebx
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+0Ch]
         xor eax, eax
         add edx, byte 49h
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+010h]
         xor eax, eax
         add edx, byte 6Ch
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -544,7 +544,7 @@ PaEvent:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
-        call sub_4880C
+        call SayPaClip
         mov eax, dword [byte esp+034h]
         dec eax
         cmp ax, 0Bh
@@ -554,7 +554,7 @@ PaEvent:
 PaEvent_4D6:
         mov edx, 15Bh
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -566,7 +566,7 @@ PaEvent_4D6:
 PaEvent_4EC:
         mov edx, 15Ah
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -578,7 +578,7 @@ PaEvent_4EC:
 PaEvent_502:
         mov edx, 15Ch
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -592,7 +592,7 @@ PaEvent_518:
         sar edx, 10h
         xor eax, eax
         add edx, 14Eh
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -609,12 +609,12 @@ PaEvent_536:
         idiv ebx
         add edx, 14Bh
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+03Ah]
         sar edx, 10h
         xor eax, eax
         add edx, 15Dh
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -631,12 +631,12 @@ PaEvent_572:
         idiv ebx
         add edx, 147h
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+03Ah]
         sar edx, 10h
         xor eax, eax
         add edx, 15Dh
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -653,7 +653,7 @@ PaEvent_5AE:
         idiv ebx
         add edx, 145h
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -670,7 +670,7 @@ PaEvent_5D6:
         idiv ebx
         add edx, 143h
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -687,17 +687,17 @@ PaEvent_5FE:
         idiv ebx
         add edx, 158h
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+03Ah]
         sar edx, 10h
         xor eax, eax
         add edx, 17Ah
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+036h]
         sar edx, 10h
         xor eax, eax
         add edx, 184h
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -714,17 +714,17 @@ PaEvent_64E:
         idiv ebx
         add edx, 155h
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+03Ah]
         sar edx, 10h
         xor eax, eax
         add edx, 170h
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+036h]
         sar edx, 10h
         xor eax, eax
         add edx, 184h
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -741,17 +741,17 @@ PaEvent_69E:
         idiv ebx
         add edx, 151h
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+03Ah]
         sar edx, 10h
         xor eax, eax
         add edx, 166h
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+036h]
         sar edx, 10h
         xor eax, eax
         add edx, 184h
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -815,14 +815,14 @@ PaEvent_745:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
-        call sub_4880C
+        call SayPaClip
         mov edx, 18Dh
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+08h]
         xor eax, eax
         add edx, 195h
-        call sub_4880C
+        call SayPaClip
         mov ebp, dword [byte esp+0Ch]
         test ebp, ebp
         jne short .61
@@ -839,7 +839,7 @@ PaEvent_745:
         add eax, 19Ch
         add edx, eax
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -851,7 +851,7 @@ PaEvent_745:
 .61:
         lea edx, [dword ebp+019Ch]
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -883,18 +883,18 @@ PaEvent_7FF:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
-        call sub_4880C
+        call SayPaClip
         mov edx, 18Eh
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+08h]
         xor eax, eax
         add edx, 195h
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+0Ch]
         xor eax, eax
         add edx, 19Ch
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -914,14 +914,14 @@ PaEvent_87E:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
-        call sub_4880C
+        call SayPaClip
         mov edx, 18Fh
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+08h]
         xor eax, eax
         add edx, 198h
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -934,10 +934,10 @@ PaEvent_8CF:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
-        call sub_4880C
+        call SayPaClip
         mov edx, 190h
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -950,10 +950,10 @@ PaEvent_8F5:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
-        call sub_4880C
+        call SayPaClip
         mov edx, 191h
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -966,10 +966,10 @@ PaEvent_91B:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
-        call sub_4880C
+        call SayPaClip
         mov edx, 192h
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -982,10 +982,10 @@ PaEvent_941:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
-        call sub_4880C
+        call SayPaClip
         mov edx, 193h
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -998,10 +998,10 @@ PaEvent_967:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
-        call sub_4880C
+        call SayPaClip
         mov edx, 194h
         xor eax, eax
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -1044,11 +1044,11 @@ PaEvent_967:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+04h]
         xor eax, eax
         add edx, 1A3h
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -1162,11 +1162,11 @@ PaEvent_967:
         je near PaEvent_14CD
         mov edx, dword [byte esp+04h]
         mov eax, 2
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+08h]
         mov eax, 2
         add edx, 4B4h
-        call sub_4880C
+        call SayPaClip
         cmp dword [ecx], byte 0
         jne short .86
         mov eax, dword [dword_1AC814]
@@ -1176,19 +1176,19 @@ PaEvent_967:
         mov edx, dword [byte esp+0Ch]
         mov eax, 2
         add edx, 518h
-        call sub_4880C
+        call SayPaClip
 .86:
         cmp dword [esp], byte 0
         jle near PaEvent_14CD
         mov edx, 47Fh
         mov eax, 2
-        call sub_4880C
+        call SayPaClip
         cmp dword [esp], byte 1
         jle near .88
         mov edx, dword [byte esp+010h]
         mov eax, 2
         add edx, byte 6Ah
-        call sub_4880C
+        call SayPaClip
         mov eax, dword [byte esp+02Ch]
         cmp dword [eax], byte 0
         jne short .87
@@ -1199,15 +1199,15 @@ PaEvent_967:
         mov edx, dword [byte esp+014h]
         mov eax, 2
         add edx, 0CEh
-        call sub_4880C
+        call SayPaClip
 .87:
         mov edx, 480h
         mov eax, 2
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+018h]
         mov eax, 2
         add edx, 4B4h
-        call sub_4880C
+        call SayPaClip
         mov eax, dword [byte esp+030h]
         cmp dword [eax], byte 0
         jne near PaEvent_14CD
@@ -1218,7 +1218,7 @@ PaEvent_967:
         mov edx, dword [byte esp+01Ch]
         mov eax, 2
         add edx, 518h
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -1231,7 +1231,7 @@ PaEvent_967:
         mov edx, dword [byte esp+010h]
         mov eax, 2
         add edx, 4B4h
-        call sub_4880C
+        call SayPaClip
         mov eax, dword [byte esp+02Ch]
         cmp dword [eax], byte 0
         jne near PaEvent_14CD
@@ -1242,7 +1242,7 @@ PaEvent_967:
         mov edx, dword [byte esp+014h]
         mov eax, 2
         add edx, 518h
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -1331,11 +1331,11 @@ PaEvent_967:
         mov edx, dword [esp]
         mov eax, 2
         add edx, byte 46h
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+08h]
         mov eax, 2
         add edx, byte 6Ah
-        call sub_4880C
+        call SayPaClip
         mov eax, dword [dword_1AC814]
         mov ebx, dword [byte esp+04h]
         and eax, byte 0Ch
@@ -1348,11 +1348,11 @@ PaEvent_967:
         mov edx, dword [byte esp+0Ch]
         mov eax, 2
         add edx, 0CEh
-        call sub_4880C
+        call SayPaClip
 .102:
         mov edx, 481h
         mov eax, 2
-        call sub_4880C
+        call SayPaClip
         cmp dword [ecx], byte 0
         jne short .103
         mov eax, dword [dword_1AC814]
@@ -1362,11 +1362,11 @@ PaEvent_967:
         mov edx, dword [byte esp+010h]
         mov eax, 2
         add edx, 4B4h
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+014h]
         mov eax, 2
         add edx, 518h
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -1379,7 +1379,7 @@ PaEvent_967:
         mov edx, dword [byte esp+010h]
         mov eax, 2
         add edx, byte 6Ah
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -1397,7 +1397,7 @@ PaEvent_967:
         mov edx, dword [byte esp+0Ch]
         mov eax, 2
         add edx, 518h
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -1806,7 +1806,7 @@ PaEvent_967:
         mov edx, dword [esp]
         mov eax, 2
         add edx, byte 23h
-        call sub_4880C
+        call SayPaClip
         cmp dword [byte esp+04h], byte 1
         jne short .153
         mov edx, 69h
@@ -1815,11 +1815,11 @@ PaEvent_967:
         mov edx, 6Ah
 .154:
         mov eax, 2
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+08h]
         mov eax, 2
         add edx, byte 6Ah
-        call sub_4880C
+        call SayPaClip
         cmp dword [ecx], byte 0
         jne short .155
         mov eax, dword [dword_1AC814]
@@ -1829,27 +1829,27 @@ PaEvent_967:
         mov edx, dword [byte esp+0Ch]
         mov eax, 2
         add edx, 0CEh
-        call sub_4880C
+        call SayPaClip
 .155:
         mov edx, dword [byte esp+010h]
         mov eax, 2
-        call sub_4880C
+        call SayPaClip
         cmp dword [byte esp+020h], byte 0
         je short .156
         mov edx, 4B0h
         mov eax, 2
-        call sub_4880C
+        call SayPaClip
 .156:
         mov ebp, dword [byte esp+04h]
         cmp ebp, byte 2
         jne near PaEvent_14CD
         mov edx, 480h
         mov eax, ebp
-        call sub_4880C
+        call SayPaClip
         mov edx, dword [byte esp+014h]
         mov eax, ebp
         add edx, byte 6Ah
-        call sub_4880C
+        call SayPaClip
         mov eax, dword [byte esp+02Ch]
         cmp dword [eax], byte 0
         jne short .157
@@ -1860,16 +1860,16 @@ PaEvent_967:
         mov edx, dword [byte esp+018h]
         mov eax, ebp
         add edx, 0CEh
-        call sub_4880C
+        call SayPaClip
 .157:
         mov edx, dword [byte esp+01Ch]
         mov eax, 2
-        call sub_4880C
+        call SayPaClip
         cmp dword [byte esp+024h], byte 0
         je short PaEvent_14CD
         mov edx, 4B0h
         mov eax, 2
-        call sub_4880C
+        call SayPaClip
         add esp, byte 40h
         pop ebp
         pop edi
@@ -1894,7 +1894,7 @@ PaEvent_967:
 .160:
         mov eax, 1
 .161:
-        call sub_4880C
+        call SayPaClip
 PaEvent_14CD:
         add esp, byte 40h
         pop ebp
@@ -2590,7 +2590,7 @@ ServiceBackgroundAudio:
         cmp dword [dword_1691CC], byte 0
         jne short .5
 .4:
-        call sub_480CC
+        call ServiceSpeechStream
 .5:
         mov eax, dword [tickcount]
         mov edx, dword [dword_1691C8]
@@ -3654,7 +3654,7 @@ FindModelName:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; InitGameGraphics                                4B5C4  97 PC, low confidence
-; From PlayGame, LoadReplay and sub_F4978: loads the arena, rink, players'
+; From PlayGame, LoadReplay and ReturnToGame: loads the arena, rink, players'
 ; art and camera for a game
 ;-----------------------------------------------------------------------------
 InitGameGraphics:

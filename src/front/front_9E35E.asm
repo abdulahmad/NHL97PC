@@ -13,13 +13,13 @@ extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, PickIndexEntryScreen_393, PickI
 extern PickIndexEntryScreen_4EE, rand_, sprintf_, BlitShape2, BlitArt, sub_1013FC, FindShape, FindShapeList
 extern SetScreenTarget, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFile, DrawScreenBackground
 extern FadeInScreen, ShowScreen, ExitScreen, SetRegionRect, DrawTeamLogoBanner, DrawProgressBar, WipeScreen, ShowLinkMessage
-extern HideLinkBox, ShowPopupScreen, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, LinkTransferSetup, sub_C6064
+extern HideLinkBox, ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, GetLangText, LinkTransferSetup, SeasonSetupScreen
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, ClearLinkAbort, ServiceIdle, LinkSendBlock, LinkReceiveBlock
 extern AllocMemBlock, FreeMemBlock, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, unk_16CFFC
 extern unk_1ACB44, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1ACB47, word_1C8EA0, word_1C8EA2
 global jpt_9E8E8, jpt_9F6DD, DrawHomeTeamPanel_1C9, DrawHomeTeamPanel_1EC, TeamSelectScreen_7BE, TeamSelectScreen_7CF, TeamSelectScreen_7E0, TeamSelectScreen_7FC
 global TeamSelectScreen_815, TeamSelectScreen_8C4, TeamSelectScreen_918, TeamSelectScreen_94F, TeamSelectScreen_A05, TeamSelectScreen_A43, TeamSelectScreen_ACB, TeamSelectScreen_B55
-global TeamSelectScreen_B61, DrawHomeTeamPanel, DrawAwayTeamPanel, sub_9E723, TeamSelectScreen, sub_9F671, unk_9F5F1, unk_9F611
+global TeamSelectScreen_B61, DrawHomeTeamPanel, DrawAwayTeamPanel, TeamSelectSparkle, TeamSelectScreen, IndexScreenSound, unk_9F5F1, unk_9F611
 global unk_9F631, unk_9F651
 ;-----------------------------------------------------------------------------
 ; DrawHomeTeamPanel                               9E35E  96 PC, low confidence
@@ -312,9 +312,10 @@ DrawAwayTeamPanel:
         push dword 1A2h
         jmp near DrawHomeTeamPanel_1C9
 ;-----------------------------------------------------------------------------
-; sub_9E723                                                       9E723  97 PC
+; TeamSelectSparkle                               9E723  97 PC, low confidence
+; Plays a team select sound and sparkle
 ;-----------------------------------------------------------------------------
-sub_9E723:
+TeamSelectSparkle:
         push ebx
         push ecx
         push edx
@@ -951,7 +952,7 @@ TeamSelectScreen_7E0:
         add eax, 0A4h
         call ShowPopupScreen
         mov eax, 1
-        call sub_C6064
+        call SeasonSetupScreen
         jmp near TeamSelectScreen_94F.23
 TeamSelectScreen_7FC:
         mov eax, dword [byte ebp+07Eh]
@@ -1084,14 +1085,14 @@ TeamSelectScreen_94F:
         and edx, byte 3Fh
         and word [byte eax+03h], 0FC0Fh
         shl edx, 14h
-        mov ecx, sub_9E723
+        mov ecx, TeamSelectSparkle
         or dword [byte eax+01h], edx
         lea eax, [byte ebp+066h]
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, dword [byte ebp+07Eh]
         mov eax, 0Dh
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+066h], byte 0Ch
         ja short .23
         mov eax, dword [byte ebp+066h]
@@ -1138,7 +1139,7 @@ TeamSelectScreen_A43:
 .28:
         mov eax, 21h
 .29:
-        call sub_8DF1F
+        call RunScrollList
         mov ebx, eax
         cmp eax, byte 0FFFFFFFFh
         je near TeamSelectScreen_94F.23
@@ -1173,7 +1174,7 @@ TeamSelectScreen_ACB:
 .30:
         mov eax, 21h
 .31:
-        call sub_8DF1F
+        call RunScrollList
         mov ebx, eax
         cmp eax, byte 0FFFFFFFFh
         je near TeamSelectScreen_94F.23
@@ -1296,9 +1297,10 @@ unk_9F651:
         db 0F6h,0FFh,0FFh,0FFh,0FBh,0FFh,0FFh,0FFh,0BEh,00h,00h,00h,0FBh,0FFh,0FFh,0FFh
         db 0BEh,00h,00h,00h,0Fh,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0Fh,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_9F671                                                       9F671  97 PC
+; IndexScreenSound                                9F671  97 PC, low confidence
+; Plays an index screen sound
 ;-----------------------------------------------------------------------------
-sub_9F671:
+IndexScreenSound:
         push ebx
         push ecx
         push edx

@@ -29,16 +29,16 @@ extern dword_1C95A8, dword_1C95AA, dword_1C95B0, dword_1C95B4, dword_1C95B8, dwo
 extern dword_1CF548, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcpy_
 extern bcopy, BlitArt, BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101EAC
 extern sub_102B94, sub_102C10, Random32, sub_106D80, sub_106F64, sub_106F94, sub_110D70, CreateBitmapDefault
-extern ConvertArtXY, ConvertArtKeepPos, sub_13B50, sub_13B98, SetScreenTarget, PlayGame, SetPlayedTeams, IsAllStarDay
+extern ConvertArtXY, ConvertArtKeepPos, LinkSideFlags, ClearLinkCounters, SetScreenTarget, PlayGame, SetPlayedTeams, IsAllStarDay
 extern InitGameAudio, MusicEnabled, LoadFrontEndSfx, InitGameSounds, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
 extern PaEvent, ResetStreamAudio, LoadDataFileLib, LoadDataFile, OpenDataLibrary, InitFrontEnd, FreeFrontEnd, ShadeShape
 extern DrawShadedLogo, DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned
 extern DrawFrameBox, LoadTeamLogo, FreeLogoArt, DrawMatchBanner, DrawTeamLogoBanner, WipeScreen, SetHighlightText, SetNormalText
-extern DrawPortrait, ShowPopupScreen, ShowLoadingScreen, ShowLoadingBar, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
-extern DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, LoadLangTextB, GetLangText, FreeLangText, sub_8E870
-extern sub_A3136, sub_A31DE, AllocStatTable, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
-extern sub_ACDAE, sub_AD151, sub_AD62E, UserLogScreen, InitListBox, InitShapeListBox, InitSlotTable, InitLinkSettings
-extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, sub_EE8AC, AllocMemBlock
+extern DrawPortrait, ShowPopupScreen, ShowLoadingScreen, ShowLoadingBar, InitMenuItems, RunMenu, InitScrollList, ScrollUp
+extern DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse, LoadLangTextB, GetLangText, FreeLangText, PositionAbbrev
+extern DrawLinkStatusText, ResetLinkSetup, AllocStatTable, FreeStatTable, SetStatCell, SetStatCellFlag, SetStatColumn, SetStatRowWidth
+extern SortStatTable, DrawStatTableRows, DrawStatTableArt, UserLogScreen, InitListBox, InitShapeListBox, InitSlotTable, InitLinkSettings
+extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, CopyControlSettings, AllocMemBlock
 extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, sub_FCEEC, sub_FCF84
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, unk_165EA0, unk_166010
 extern unk_16609C, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
@@ -581,7 +581,7 @@ LinkGameSetup:
         xor edx, edx
         call GetLangText
 .26:
-        call sub_A3136
+        call DrawLinkStatusText
         push dword [nosplit esi*4+dword_1C93F0]
         call SetDrawTarget
         add esp, byte 4
@@ -620,7 +620,7 @@ LinkGameSetup:
         mov ebx, ecx
         call GetLangText
 .30:
-        call sub_A3136
+        call DrawLinkStatusText
         lea edi, [esi+esi*2]
         inc edi
         imul ebx, edi, byte 52h
@@ -1467,7 +1467,7 @@ LinkSetupScreen:
         movsx eax, si
         imul ebx, eax, byte 7
         movzx edx, byte [dword ebx+byte_1C9472]
-        call sub_A31DE
+        call ResetLinkSetup
         mov edx, eax
         imul eax, edi, byte 52h
         mov dword [byte ebp-01Ch], eax
@@ -1628,7 +1628,7 @@ LinkSetupScreen:
         mov eax, dword [byte ebp-020h]
         add esp, byte 4
         movzx edx, byte [dword ebx+byte_1C9472]
-        call sub_A31DE
+        call ResetLinkSetup
         mov ecx, eax
         imul eax, edi, byte 52h
         mov edx, dword [dword_1C94CC]
@@ -1834,7 +1834,7 @@ LinkSetupScreen:
         movsx eax, si
         imul ebx, eax, byte 7
         movzx edx, byte [dword ebx+byte_1C9472]
-        call sub_A31DE
+        call ResetLinkSetup
         mov edx, eax
         imul eax, edi, byte 52h
         mov dword [byte ebp-014h], eax
@@ -2030,7 +2030,7 @@ RunLinkGameScreens_30:
         jne short .3
         cmp dword [dword_19CB58], byte 0
         je short .3
-        call sub_13B98
+        call ClearLinkCounters
 .3:
         cmp dword [dword_16DA9C], byte 0
         je short .4
@@ -2426,7 +2426,7 @@ RunLinkGameScreens_112:
 .41:
         sub edx, eax
         lea eax, [byte ebp-040h]
-        call sub_A3136
+        call DrawLinkStatusText
 .42:
         inc edi
 .43:
@@ -2818,7 +2818,7 @@ RunLinkGameScreens_112:
         xor edx, edx
         call GetLangText
 .59:
-        call sub_A3136
+        call DrawLinkStatusText
         push dword [nosplit esi*4+dword_1C93F0]
         call SetDrawTarget
         add esp, byte 4
@@ -2857,7 +2857,7 @@ RunLinkGameScreens_112:
         mov ebx, ecx
         call GetLangText
 .63:
-        call sub_A3136
+        call DrawLinkStatusText
         push dword [byte ebp-08h]
         call SetDrawTarget
         add esp, byte 4
@@ -2971,7 +2971,7 @@ RunLinkGameScreens_112:
         jne short .66
         movzx edx, byte [dword eax+byte_1C9472]
         mov eax, esi
-        call sub_A31DE
+        call ResetLinkSetup
         mov edx, eax
         mov eax, dword [dword_1C94CC]
         mov dword [byte ebx+eax+01Ah], edx
@@ -3526,7 +3526,7 @@ RunLinkGameScreens_112:
         add eax, byte 6
         mov edx, dword [dword_1C94CC]
         add eax, dword [dword_16DA9C]
-        call sub_8BFAC
+        call RunMenu
         mov ebx, eax
         imul eax, dword [dword_1C94DC], byte 3
         cmp eax, dword [byte ebp-024h]
@@ -3598,7 +3598,7 @@ RunLinkGameScreens_112:
         jne short .86
         xor eax, eax
 .85:
-        call sub_13B50
+        call LinkSideFlags
         test eax, eax
         sete al
         movzx eax, al
@@ -4594,7 +4594,7 @@ PostGameScreen:
         push eax
         lea edx, [byte esp+08h]
         mov eax, 8
-        call sub_8BFAC
+        call RunMenu
         mov eax, dword [dword esp+0560h]
         dec eax
         cmp eax, byte 3
@@ -5746,7 +5746,7 @@ GameStatsScreen:
         mov edx, esi
         mov eax, 2Ch
 .4:
-        call sub_8BFAC
+        call RunMenu
         mov ecx, dword [dword esp+03FCh]
         cmp ecx, byte 7
         ja near GameStatsScreen_39D.12
@@ -5784,7 +5784,7 @@ GameStatsScreen_19A:
         cmp dword [dword_1C955C], byte 1
         jne short .5
         mov eax, dword [dword_1C9548]
-        call sub_ACA49
+        call FreeStatTable
 .5:
         mov eax, dword [dword_1C955C]
         inc eax
@@ -5811,7 +5811,7 @@ GameStatsScreen_19A:
 GameStatsScreen_205:
         mov eax, dword [dword_1C957C]
         xor edx, ecx
-        call sub_8DE10
+        call ScrollUp
         mov eax, dword [dword_1C957C]
         cmp edi, dword [byte eax+024h]
         je near GameStatsScreen_39D.16
@@ -5833,7 +5833,7 @@ GameStatsScreen_24A:
         mov ebx, eax
         xor edx, edx
         mov eax, ecx
-        call sub_8DEAC
+        call ScrollToMouse
         mov eax, dword [dword_1C957C]
         cmp edi, dword [byte eax+024h]
         je near GameStatsScreen_39D.16
@@ -5853,7 +5853,7 @@ GameStatsScreen_24A:
 GameStatsScreen_294:
         mov eax, dword [dword_1C957C]
         xor edx, ecx
-        call sub_8DE68
+        call ScrollDown
         mov eax, dword [dword_1C957C]
         cmp edi, dword [byte eax+024h]
         je near GameStatsScreen_39D.16
@@ -5914,11 +5914,11 @@ GameStatsScreen_2D9:
         cmp ebx, 0A4h
         jne short .10
         mov eax, dword [dword_1C9548]
-        call sub_ACA49
+        call FreeStatTable
         mov eax, 1
         call DrawPlayerStatsPage
         mov eax, dword [dword_1C9548]
-        call sub_AD151
+        call DrawStatTableRows
         call SetScreenTarget
         push byte 0
         mov eax, dword [dword_1C9568]
@@ -5934,11 +5934,11 @@ GameStatsScreen_39D:
         and eax, 0FFh
         mov dword [dword_1C958C], eax
         mov eax, dword [dword_1C9548]
-        call sub_ACA49
+        call FreeStatTable
         xor eax, eax
         call DrawPlayerStatsPage
         mov eax, dword [dword_1C9548]
-        call sub_AD151
+        call DrawStatTableRows
         call SetScreenTarget
         push byte 0
         mov eax, dword [dword_1C9568]
@@ -5955,14 +5955,14 @@ GameStatsScreen_39D:
         xor ebx, ebx
         mov eax, dword [dword_1C9548]
         sub edx, byte 0Ah
-        call sub_ACDAE
+        call SortStatTable
 .13:
         mov eax, dword [dword_1C9548]
-        call sub_AD151
+        call DrawStatTableRows
         call SetScreenTarget
 .14:
         mov eax, dword [dword_1C9548]
-        call sub_AD62E
+        call DrawStatTableArt
 .15:
         call sub_1013FC
 .16:
@@ -5971,7 +5971,7 @@ GameStatsScreen_39D:
         cmp dword [dword_1C955C], byte 1
         jne short .17
         mov eax, dword [dword_1C9548]
-        call sub_ACA49
+        call FreeStatTable
 .17:
         mov edi, dword [dword esp+0400h]
         call FreeGameStats
@@ -6188,7 +6188,7 @@ FreeGameStats:
         cmp dword [dword_1C9588], byte 0
         je short .1
         mov eax, dword [dword_1C957C]
-        call sub_8DE7E
+        call FreeScrollList
 .1:
         mov ebx, dword [dword_1C956C]
         test ebx, ebx
@@ -6262,7 +6262,7 @@ InitGameStatsList:
         mov edx, dword [dword_1C9584]
         mov eax, dword [dword_1C957C]
         add edx, 0F6h
-        call sub_8D956
+        call InitScrollList
         mov eax, dword [dword_1C9584]
         mov dword [dword eax+011Ch], esi
         mov eax, dword [dword_1C9584]
@@ -6398,7 +6398,7 @@ GameStatsPlayersPage:
         je short .6
         mov eax, dword [dword_1C957C]
         mov esi, 0F6h
-        call sub_8DE7E
+        call FreeScrollList
         mov edi, 1
 .5:
         mov eax, dword [dword_1C9584]
@@ -8016,7 +8016,7 @@ BuildPlayerStatsTable:
         push eax
         xor eax, eax
         mov al, byte [dword ebx+0160h]
-        call sub_8E870
+        call PositionAbbrev
         and eax, 0FFh
         push eax
         mov eax, dword [dword_1C956C]
@@ -8085,65 +8085,65 @@ BuildPlayerStatsTable:
         add ebx, eax
         mov eax, dword [dword_1C9548]
 .7:
-        call sub_ACB0E
+        call SetStatColumn
         mov eax, dword [dword_1C9548]
         mov ecx, edi
         mov edx, esi
         xor ebx, ebx
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 1
         mov eax, dword [dword_1C9548]
         lea ecx, [byte edi+02h]
         mov edx, esi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 2
         mov ecx, dword [dword_1C9538]
         mov eax, dword [dword_1C9548]
         mov edx, esi
         add ecx, ebp
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 3
         mov eax, dword [dword_1C9548]
         lea ecx, [byte edi+06h]
         mov edx, esi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 4
         mov eax, dword [dword_1C9548]
         lea ecx, [byte edi+04h]
         mov edx, esi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 5
         mov eax, dword [dword_1C9548]
         lea ecx, [byte edi+010h]
         mov edx, esi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 6
         mov eax, dword [dword_1C9548]
         lea ecx, [byte edi+0Eh]
         mov edx, esi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 7
         mov ecx, dword [dword_1C953C]
         mov eax, dword [dword_1C9548]
         mov edx, esi
         add ecx, ebp
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 8
         mov eax, dword [dword_1C9548]
         lea ecx, [byte edi+0Ch]
         mov edx, esi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 9
         mov eax, dword [dword_1C9548]
         lea ecx, [byte edi+0Ah]
         mov edx, esi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 0Ah
         mov ecx, dword [dword_1C9540]
         mov eax, dword [dword_1C9548]
         mov edx, esi
         add ecx, ebp
-        call sub_ACAE5
+        call SetStatCell
         mov eax, dword [byte esp+014h]
         mov al, byte [dword eax+0160h]
         cmp al, 44h
@@ -8176,7 +8176,7 @@ BuildPlayerStatsTable:
         mov eax, dword [dword_1C9548]
         mov edx, esi
         mov edi, dword [byte esp+018h]
-        call sub_ACB21
+        call SetStatRowWidth
         add ebp, byte 2
         mov ebx, dword [esp]
         add ecx, 125h
@@ -8199,7 +8199,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 190h
         mov ebx, 4
         mov edx, 1
@@ -8207,7 +8207,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 191h
         mov ebx, 4
         mov edx, 2
@@ -8215,7 +8215,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 192h
         mov ebx, 9
         mov edx, 3
@@ -8223,7 +8223,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 144h
         mov ebx, 4
         call GetLangText
@@ -8231,7 +8231,7 @@ BuildPlayerStatsTable:
         mov ecx, eax
         mov edx, ebx
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 193h
         mov ebx, 4
         mov edx, 5
@@ -8239,7 +8239,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 194h
         mov ebx, 4
         mov edx, 6
@@ -8247,7 +8247,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 195h
         mov ebx, 6
         mov edx, 7
@@ -8255,7 +8255,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 146h
         mov ebx, 4
         mov edx, 8
@@ -8263,7 +8263,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 145h
         mov ebx, 4
         mov edx, 9
@@ -8271,7 +8271,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 147h
         mov ebx, 4
         mov edx, 0Ah
@@ -8292,7 +8292,7 @@ BuildPlayerStatsTable:
         mov al, byte [dword ebx+01DFEh]
         push eax
         mov eax, edi
-        call sub_8E870
+        call PositionAbbrev
         and eax, 0FFh
         push eax
         mov eax, dword [dword_1C956C]
@@ -8363,52 +8363,52 @@ BuildPlayerStatsTable:
         add ebx, edx
         mov edx, esi
 .20:
-        call sub_ACB0E
+        call SetStatColumn
         mov eax, dword [dword_1C9548]
         lea ecx, [byte ebp+02h]
         mov edx, esi
         xor ebx, ebx
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 1
         mov ecx, dword [dword_1C9534]
         mov eax, dword [dword_1C9548]
         mov edx, esi
         add ecx, edi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 2
         mov ecx, dword [dword_1C953C]
         mov eax, dword [dword_1C9548]
         mov edx, esi
         add ecx, edi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 3
         mov eax, dword [dword_1C9548]
         lea ecx, [byte ebp+08h]
         mov edx, esi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 4
         mov ecx, dword [dword_1C9544]
         mov eax, dword [dword_1C9548]
         mov edx, esi
         add ecx, edi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 5
         mov ecx, dword [dword_1C9540]
         mov eax, dword [dword_1C9548]
         mov edx, esi
         add ecx, edi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 6
         mov eax, dword [dword_1C9548]
         lea ecx, [byte ebp+04h]
         mov edx, esi
-        call sub_ACAE5
+        call SetStatCell
         mov ebx, 7
         mov eax, dword [dword_1C9548]
         lea ecx, [byte ebp+06h]
         mov edx, esi
         add edi, byte 2
-        call sub_ACAE5
+        call SetStatCell
         mov ebp, dword [byte esp+08h]
         mov eax, dword [byte esp+0Ch]
         mov edx, dword [byte esp+010h]
@@ -8432,7 +8432,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 196h
         mov ebx, 4
         mov edx, 1
@@ -8440,7 +8440,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 197h
         mov ebx, 6
         mov edx, 2
@@ -8448,7 +8448,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 198h
         mov ebx, 4
         mov edx, 3
@@ -8456,7 +8456,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 199h
         mov ebx, 0Ah
         mov edx, 4
@@ -8464,7 +8464,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 147h
         mov ebx, 4
         mov edx, 5
@@ -8472,7 +8472,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 18Fh
         mov ebx, 4
         mov edx, 6
@@ -8480,7 +8480,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         mov eax, 190h
         mov ebx, 4
         mov edx, 7
@@ -8489,7 +8489,7 @@ BuildPlayerStatsTable:
         mov esi, dword [dword_1C9548]
         mov ecx, eax
         mov eax, esi
-        call sub_ACAF2
+        call SetStatCellFlag
         add esp, byte 1Ch
         pop ebp
         pop edi
@@ -10039,7 +10039,7 @@ PlayMenuGame:
         call InitGameAudio
         mov edx, unk_1AC8E4
         mov eax, dword_16D93A
-        call sub_EE8AC
+        call CopyControlSettings
         mov eax, 37h
         call ShowLoadingBar
         mov dword [dword_16D2B8], 1

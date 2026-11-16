@@ -17,9 +17,9 @@ extern BlitArt, BlitShape, sub_1013FC, FindShape, sub_101584, sub_103298, IsKeyD
 extern sub_11BED4, SetScreenTarget, WaitRetraceEdges, RunDemoGame, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
 extern MusicPlaying, RequestMusicStop, WaitMusicEnd, ArenaFileName, StopAllSfx, PlaySfx, PlayScreenMovie, MakeDataPath
 extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextColor, DrawTextAligned, WipeScreen, SetHighlightText
-extern SetNormalText, DrawStatTable, DrawPortrait, ShowPopupScreen, InitMenuItems, sub_8BFAC, sub_8DF1F, AllocClearBlock
+extern SetNormalText, DrawStatTable, DrawPortrait, ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, AllocClearBlock
 extern FreePtr, CopyBytesOk, CopyAndClear, ZeroBytesOk, CompareKeyBytes, FileCreate, FileOpen, FileSeek
-extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, sub_F9496, sub_F94BC, AllocMemBlock, FreeMemBlock
+extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, FreeVideoBuffer, sub_F94BC, AllocMemBlock, FreeMemBlock
 extern sub_FBE40, sub_FBE5D, sub_FC330, MakeColor, FreeBitmap, sub_FCEEC, sub_FCF84, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
@@ -1089,7 +1089,7 @@ GoalieMaskScreen:
         push eax
         mov edx, dword_1CCEF8
         mov eax, 7
-        call sub_8BFAC
+        call RunMenu
         mov edx, dword [dword esp+055Ch]
         cmp edx, byte 6
         ja near GoalieMaskScreen_FF0.13
@@ -1770,7 +1770,7 @@ GoalieMaskScreen_FF0:
         push eax
         mov edx, 0Ah
         mov eax, 1Fh
-        call sub_8DF1F
+        call RunScrollList
         movsx edx, ax
         cmp edx, byte 0FFFFFFFFh
         je short .10
@@ -2196,7 +2196,7 @@ RunIntro:
         call ClearScreen
         add esp, byte 4
         call sub_1013FC
-        call sub_F9496
+        call FreeVideoBuffer
         push byte 8
         push dword 1E0h
         push dword 280h
@@ -2435,7 +2435,7 @@ RunIntro:
         call ClearScreen
         add esp, byte 4
         call sub_1013FC
-        call sub_F9496
+        call FreeVideoBuffer
         push byte 10h
         push dword 1E0h
         push dword 280h

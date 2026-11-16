@@ -11,8 +11,8 @@ extern dword_1AD62F, dword_1AD6AB, dword_1CC7D8, dword_1CC828, dword_1CC860, dwo
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, sub_101324, BlitArt
 extern BlitShape, sub_1013FC, FindShape, sub_101584, sub_101EAC, sub_102B94, sub_10CD98, SetScreenTarget
 extern IsAllStarDay, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, PaEvent, ResetStreamAudio, LoadDataFile
-extern OpenDataLibrary, sub_7B84B, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned
-extern WipeScreen, DrawRosterPanelBox, WaitShortDelay, InitMenuItems, sub_8BFAC, GetLangText, sub_D306F, KeysEqual
+extern OpenDataLibrary, PlayerInjuryDays, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned
+extern WipeScreen, DrawRosterPanelBox, WaitShortDelay, InitMenuItems, RunMenu, GetLangText, RostersSparkle, KeysEqual
 extern FreeDbBlock, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord, LoadExhibitionFile, FreeExhibitionFile
 extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount
 extern unk_1670CF, unk_16711C, unk_167124, unk_167128, unk_167130, unk_167138, unk_16713C, unk_167144
@@ -24,9 +24,9 @@ extern unk_167214, unk_16721C, unk_167220, unk_167228, unk_16722C, unk_167234, u
 extern unk_167240, unk_167244, unk_167250, unk_167260, unk_167264, unk_16726C, unk_16727C, unk_16D7FC
 extern unk_1ACF12, unk_1C135C, unk_1C1382, unk_1C139A, unk_1C347F, unk_1C34A5, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_D3057, unk_D305F, unk_D3067, word_1C1344
-global jpt_D4215, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7, PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, PreGameRostersScreen_C3F, sub_D40CF_FB, sub_D40CF_FC
-global DrawMatchupNotes_86, DrawMatchupNotes_C5, DrawMatchupNotes_10F, DrawMatchupNotes_14B, PreGameRostersScreen, sub_D3D5D, sub_D3DFA, sub_D40CF
-global sub_D41D1, DrawMatchupNotes, sub_D4727, sub_D49BE, sub_D4AAC, unk_D4CB0
+global jpt_D4215, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7, PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, PreGameRostersScreen_C3F, DrawMatchupHistory_FB, DrawMatchupHistory_FC
+global DrawMatchupNotes_86, DrawMatchupNotes_C5, DrawMatchupNotes_10F, DrawMatchupNotes_14B, PreGameRostersScreen, FormatMatchupNote, DrawRosterPlayerInfo, DrawMatchupHistory
+global DrawRosterLabel, DrawMatchupNotes, FindMatchupNotes, CountTeamResults, MatchupAnnouncement, unk_D4CB0
 ;-----------------------------------------------------------------------------
 ; PreGameRostersScreen                            D3112  97 PC, low confidence
 ; Game screen 13h before play: the home and visitor rosters ("hros" /
@@ -659,7 +659,7 @@ PreGameRostersScreen:
         call IsAllStarDay
         test eax, eax
         jne short .24
-        call sub_D3DFA
+        call DrawRosterPlayerInfo
 .24:
         mov eax, dword [dword_1AC814]
         shl eax, 19h
@@ -671,12 +671,12 @@ PreGameRostersScreen:
 .25:
         test eax, eax
         jne short .27
-        call sub_D40CF
+        call DrawMatchupHistory
         jmp short .27
 .26:
         call DrawMatchupNotes
 .27:
-        call sub_D41D1
+        call DrawRosterLabel
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
@@ -838,7 +838,7 @@ PreGameRostersScreen:
         call StopAllSfx
         mov eax, 203h
         call PlaySfx
-        call sub_D4AAC
+        call MatchupAnnouncement
         cmp byte [byte_1CC8B4], 5
         jne near PreGameRostersScreen_B6A
         xor esi, esi
@@ -914,12 +914,12 @@ PreGameRostersScreen_B6A:
         je short PreGameRostersScreen_BC3.32
         push byte 3
         lea eax, [byte ebp+046h]
-        mov ecx, sub_D306F
+        mov ecx, RostersSparkle
         mov ebx, 0FFFFFFFFh
         push eax
         lea edx, [dword ebp-011Eh]
         mov eax, 4
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+046h], byte 3
         ja short PreGameRostersScreen_B6A
         mov eax, dword [byte ebp+046h]
@@ -974,11 +974,12 @@ PreGameRostersScreen_BC3:
 PreGameRostersScreen_C3F:
         lea esp, [dword ebp+082h]
         pop ebp
-        jmp near sub_D40CF_FC
+        jmp near DrawMatchupHistory_FC
 ;-----------------------------------------------------------------------------
-; sub_D3D5D                                                       D3D5D  97 PC
+; FormatMatchupNote                               D3D5D  97 PC, low confidence
+; Formats a matchup note
 ;-----------------------------------------------------------------------------
-sub_D3D5D:
+FormatMatchupNote:
         push ecx
         push edx
         mov edx, eax
@@ -1028,9 +1029,10 @@ sub_D3D5D:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D3DFA                                                       D3DFA  97 PC
+; DrawRosterPlayerInfo                            D3DFA  97 PC, low confidence
+; Draws a roster player's information
 ;-----------------------------------------------------------------------------
-sub_D3DFA:
+DrawRosterPlayerInfo:
         push ebx
         push ecx
         push edx
@@ -1142,7 +1144,7 @@ sub_D3DFA:
         lea edx, [dword ebp-0D15h]
         add edx, esi
         lea eax, [byte edx+03h]
-        call sub_7B84B
+        call PlayerInjuryDays
         mov dword [byte ebp+06Eh], eax
         mov dword [byte ebp+072h], eax
         cmp eax, byte 0FFFFFFFFh
@@ -1242,9 +1244,10 @@ sub_D3DFA:
         jl near .1
         jmp near PreGameRostersScreen_C3F
 ;-----------------------------------------------------------------------------
-; sub_D40CF                                                       D40CF  97 PC
+; DrawMatchupHistory                              D40CF  97 PC, low confidence
+; Draws the matchup history notes
 ;-----------------------------------------------------------------------------
-sub_D40CF:
+DrawMatchupHistory:
         push ebx
         push ecx
         push edx
@@ -1253,7 +1256,7 @@ sub_D40CF:
         enter 195Ch, 0
         call IsAllStarDay
         test eax, eax
-        jne near sub_D40CF_FB
+        jne near DrawMatchupHistory_FB
         xor ebx, ebx
 .1:
         test ebx, ebx
@@ -1301,7 +1304,7 @@ sub_D40CF:
         call FreeDbBlock
 .7:
         mov eax, 1
-        call sub_D3D5D
+        call FormatMatchupNote
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -1321,9 +1324,9 @@ sub_D40CF:
         add esp, byte 18h
         cmp ebx, byte 2
         jl near .1
-sub_D40CF_FB:
+DrawMatchupHistory_FB:
         leave
-sub_D40CF_FC:
+DrawMatchupHistory_FC:
         pop edi
         pop esi
         pop edx
@@ -1331,9 +1334,10 @@ sub_D40CF_FC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D41D1                                                       D41D1  97 PC
+; DrawRosterLabel                                 D41D1  97 PC, low confidence
+; Draws a roster label
 ;-----------------------------------------------------------------------------
-sub_D41D1:
+DrawRosterLabel:
         push ebx
         push ecx
         push edx
@@ -1392,7 +1396,7 @@ DrawMatchupNotes:
         mov dword [byte ebp-010h], 0
         movsd
         movsd
-        call sub_D4727
+        call FindMatchupNotes
         movzx edi, al
         mov dword [byte ebp-04h], 0
         test edi, edi
@@ -1494,7 +1498,7 @@ DrawMatchupNotes_14B:
         inc esi
         cmp esi, byte 2
         jl near DrawMatchupNotes.1
-        jmp near sub_D40CF_FB
+        jmp near DrawMatchupHistory_FB
 .6:
         push edi
         push dword 329Eh
@@ -1660,11 +1664,11 @@ DrawMatchupNotes_14B:
         cmp dword [byte ebp-024h], byte 0
         jne short .32
 .31:
-        call sub_D40CF
+        call DrawMatchupHistory
         jmp near .38
 .32:
         mov eax, 3
-        call sub_D3D5D
+        call FormatMatchupNote
         xor esi, esi
 .33:
         test esi, esi
@@ -1772,11 +1776,12 @@ DrawMatchupNotes_14B:
         push dword [byte ebp-01Ch]
         call FreeMemBlock
         add esp, byte 4
-        jmp near sub_D40CF_FB
+        jmp near DrawMatchupHistory_FB
 ;-----------------------------------------------------------------------------
-; sub_D4727                                                       D4727  97 PC
+; FindMatchupNotes                                D4727  97 PC, low confidence
+; Finds the notes for a matchup
 ;-----------------------------------------------------------------------------
-sub_D4727:
+FindMatchupNotes:
         push ebx
         push ecx
         push edx
@@ -1806,7 +1811,7 @@ sub_D4727:
         lea edx, [byte ebp-05Ah]
         lea eax, [dword ebp-0C2h]
         mov ecx, dword [dword_1AC940]
-        call sub_D49BE
+        call CountTeamResults
         mov eax, dword [dword_1AC944]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
@@ -1826,7 +1831,7 @@ sub_D4727:
         add dword [dword ebp+eax*4-0C2h], byte 2
         lea eax, [dword ebp-0C2h]
         mov ecx, dword [dword_1AC940]
-        call sub_D49BE
+        call CountTeamResults
         mov eax, dword [dword_1AC944]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
@@ -1851,7 +1856,7 @@ sub_D4727:
         dec dword [dword ebp+eax*4-0C2h]
         lea eax, [dword ebp-0C2h]
         mov ecx, dword [dword_1AC940]
-        call sub_D49BE
+        call CountTeamResults
         mov eax, dword [dword_1AC944]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
@@ -1876,7 +1881,7 @@ sub_D4727:
         inc dword [dword ebp+eax*4-0C2h]
         lea eax, [dword ebp-0C2h]
         mov ecx, dword [dword_1AC940]
-        call sub_D49BE
+        call CountTeamResults
         mov eax, dword [dword_1AC944]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
@@ -1965,9 +1970,10 @@ sub_D4727:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D49BE                                                       D49BE  97 PC
+; CountTeamResults                                D49BE  97 PC, low confidence
+; Counts a team's results
 ;-----------------------------------------------------------------------------
-sub_D49BE:
+CountTeamResults:
         push esi
         push edi
         enter 1A8h, 0
@@ -2050,9 +2056,10 @@ sub_D49BE:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_D4AAC                                                       D4AAC  97 PC
+; MatchupAnnouncement                             D4AAC  97 PC, low confidence
+; Plays the matchup announcement
 ;-----------------------------------------------------------------------------
-sub_D4AAC:
+MatchupAnnouncement:
         push ebx
         push ecx
         push edx

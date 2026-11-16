@@ -23,9 +23,9 @@ extern qword_16078B, qword_160793, qword_16079F, qword_1607A7, qword_1607AF, qwo
 extern qword_1607D7, qword_1607DF, qword_1607E7, qword_1607EF, qword_1607F7, qword_1607FF, qword_160807, qword_16080F
 extern qword_160817, qword_16081F, qword_160827, qword_16082F, qword_160837, qword_16083F, qword_160847, qword_16084F
 extern qword_160857, qword_16085F, qword_160867, qword_16086F, qword_16087B, qword_160883, qword_16088B, qword_16089B
-extern qword_1608A7, randomd0, regd1, slotteam, sub_100700, sub_1008CC, sub_11328, sub_114C4
-extern forcepldata, sub_116B0, ResetBench, setplayer, sub_123A0, setpersonel, ReleaseBoxPlayers, sub_13D50
-extern sub_13DA4, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, SelectCameraView, PenaltyCameraScene, PenaltyShotCameraScene, FaceoffDropCameraScene
+extern qword_1608A7, randomd0, regd1, slotteam, sub_100700, sub_1008CC, StartCrowdMusic, RestartGameMusic
+extern forcepldata, ClearPlayerFlags, ResetBench, setplayer, ReplaceFaceoffPlayers, setpersonel, ReleaseBoxPlayers, SpeedScale
+extern ReachScale, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, SelectCameraView, PenaltyCameraScene, PenaltyShotCameraScene, FaceoffDropCameraScene
 extern CrowdForPuckZone, LineChangeCommentary, assreplace, assexit, AimAtPuckTarget, ChkPokeOrCheck, check4bench, ChkForwardSwap
 extern GetDefensePartner, ChkSwapWithPartner, Setplass, FaceoffSpotPosition, Endfaceoff, DelayedPenaltyEnd, assgoalie, KeepInsideRink
 extern DefendPuck, assextra4, FindManToCover, assextra3, BuildPassTargets, CreditPass, CarrierInShotArea, CanReceivePass
@@ -3374,7 +3374,7 @@ PenShotStart:
         mov word [penshottimer], cx
         mov word [penshotlive], dx
         mov word [word_19CBE0], dx
-        call sub_116B0
+        call ClearPlayerFlags
         mov esp, ebp
         pop ebp
         pop esi
@@ -4870,7 +4870,7 @@ assrefwhistle:
         call ReleaseBoxPlayers
         mov eax, dword [dword_19CCC2]
         sar eax, 10h
-        call sub_11328
+        call StartCrowdMusic
         and byte [dword ebx+0C1h], 0FDh
         mov eax, ebx
         call StartWhistleStop
@@ -5025,7 +5025,7 @@ assrefgoalpa:
         call ReleaseBoxPlayers
         mov eax, dword [dword_19CCC2]
         sar eax, 10h
-        call sub_11328
+        call StartCrowdMusic
         mov cl, byte [dword ebx+0C1h]
         and cl, 0FDh
         mov eax, ebx
@@ -7886,7 +7886,7 @@ PuckPlayerContact:
         mov eax, dword [byte ecx+050h]
         mov edx, dword [off_168CFC]
         mov dword [byte esp+018h], eax
-        call sub_13D50
+        call SpeedScale
         fcomp dword [byte edx+038h]
         fnstsw ax
         sahf
@@ -9029,7 +9029,7 @@ pucknorm_body:
         mov eax, dword [off_168CFC]
         cmp dword [byte eax+05Ah], byte 18h
         jne near .25
-        call sub_13DA4
+        call ReachScale
         fmul dword [dword_160877]
         fcomp dword [byte edi+038h]
         fnstsw ax
@@ -10020,7 +10020,7 @@ puckfaceoff2:
         mov byte [dword edi+0BFh], ch
         mov byte [dword edi+eax+0B2h], dl
         or byte [dword edi+0BFh], 2
-        call sub_114C4
+        call RestartGameMusic
         call PenShotStart
         mov esp, ebp
         pop ebp
@@ -10042,7 +10042,7 @@ puckfaceoff2:
         mov eax, awtmstruct
         xor esi, esi
         call forcepldata
-        call sub_123A0
+        call ReplaceFaceoffPlayers
 .21:
         mov edx, 0FFFFFFFFh
         mov eax, ecx

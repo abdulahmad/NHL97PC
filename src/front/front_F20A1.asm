@@ -29,17 +29,17 @@ extern qword_167A75, qword_167A7D, qword_167AB1, qword_167AB9, qword_167AC1, qwo
 extern qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qword_167B9F, qword_167BB3, qword_167BBB
 extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, sscanf_, sub_1008CC
 extern BlitArt, sub_1013FC, FindShape, sub_101EAC, sub_102B94, sub_10491C, PrintBoxedText, IsPlayoffGame
-extern sub_119A8, ConvertArtXY, SaveTextState, RestoreTextState, sub_11BDC0, sub_11F74, sub_11FA90, sub_11FAAC
-extern sub_11FB11, sub_12A10, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, DrawPanelArtScaled, RefreshOverlayWindows
+extern RefreshPlayerModel, ConvertArtXY, SaveTextState, RestoreTextState, sub_11BDC0, ResetForIntermission, sub_11FA90, sub_11FAAC
+extern sub_11FB11, RefreshRinkPalette, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, DrawPanelArtScaled, RefreshOverlayWindows
 extern SetOverlayFont, IntermissionCameraScene, MenuCameraScene, MenuOrbitScene, RestoreGameCamera, AddOverlayWindow, RemoveOverlayWindow, UpdateScreenRegion
 extern RefreshOverlayWindow, SetRinkDetail, SetRangePalette, FadeGamePalette, InitGameAudio, InitGameSounds, SecondsToSamples, WaitSoundTime
 extern ChkMenuMusic, QueueMusicRestart, PauseMusic, ResumeMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, SetAmbientVolume
 extern PaEvent, ResetStreamAudio, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, RedrawGameView
 extern TriggerCameraFlashes, RestoreSavedPalette, ReplayHasFrames, UpdateGameDisplay, UpdateAllPoses, InitFrontEnd, FreeFrontEnd, SetRegionRect
-extern SetTextColor, DrawTextAligned, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
+extern SetTextColor, DrawTextAligned, CreateMenuBitmap, FreeMenuBitmap, InitMenuItems, SetMenuSelection, RunMenu, SetMenuMode
 extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, LoadGameLogos, FreeGameText, RunReplay
 extern FadePalette, FadeOut, OpenGameDatabase, CloseGameDatabase, ServiceIdle, SyncLinkGame, LinkSyncMenu, LinkSyncScreen
-extern WaitForOtherComputer, sub_F1FF8, FreeMemBlock, sub_FC330, sub_FC4BC, sub_FCC40, FreeBitmap, DrawArt
+extern WaitForOtherComputer, SetupPauseArt, FreeMemBlock, sub_FC330, sub_FC4BC, sub_FCC40, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt
 extern FillRectCorners, tickcount, unk_167A4B, word_168D18, word_19CBB0, word_19CBB2, gsp, gameclock
 extern word_19CBBC, word_1C3413, word_1C5536, word_1CEFC0
@@ -47,14 +47,15 @@ global jpt_F4167, jpt_F56E5, jpt_F7BB6, PickEditLinesTeam_5B2, PickEditLinesTeam
 global PauseMenu_4BB, PauseMenu_4EF, PauseMenu_60A, PauseMenu_62A, PauseMenu_640, PauseMenu_66D, PauseMenu_726, PauseMenu_72C
 global PauseMenu_72D, RulesMenu_1583, RulesMenu_176B, RulesMenu_19CD, RulesMenu_1C04, RulesMenu_1D78, RulesMenu_1F1F, RulesMenu_2056
 global RulesMenu_218D, RulesMenu_22F1, RulesMenu_2464, DetailLevelMenu_C81, DetailLevelMenu_E31, DetailLevelMenu_10E6, DetailLevelMenu_12B8, DetailLevelMenu_13D7
-global DetailLevelMenu_14F6, DetailLevelMenu_165B, DetailLevelMenu_17B7, sub_F20A1, sub_F22AF, sub_F22ED, sub_F23BF, sub_F2544
-global sub_F272B, DrawPauseClock, sub_F2AA0, DrawPauseButtons, sub_F30A0, sub_F30D7, PickEditLinesTeam, ConfirmQuitGame
-global RunIntermission, sub_F3F33, sub_F3FB0, sub_F3FF5, PauseMenu, sub_F48C2, sub_F4978, sub_F4A8F
-global DrawIntermissionTitle, sub_F5219, sub_F558C, FillBox, RulesMenu, DetailLevelMenu, sub_F9496
+global DetailLevelMenu_14F6, DetailLevelMenu_165B, DetailLevelMenu_17B7, LoadPauseArt, FreePauseArt, DrawMenuFrame, DrawPauseButton, DrawMenuItem
+global DrawPauseDivider, DrawPauseClock, DrawClockOverlay, DrawPauseButtons, OpenInGameMenu, LoadGameMenuText, PickEditLinesTeam, ConfirmQuitGame
+global RunIntermission, RefreshModelFromMenu, FreePauseBitmap, SetupPauseButtons, PauseMenu, LeaveGameForMenu, ReturnToGame, RestartGameAudio
+global DrawIntermissionTitle, RunPauseIntermission, CloseIntermission, FillBox, RulesMenu, DetailLevelMenu, FreeVideoBuffer
 ;-----------------------------------------------------------------------------
-; sub_F20A1                                                       F20A1  97 PC
+; LoadPauseArt                                    F20A1  97 PC, low confidence
+; Loads the pause menu art
 ;-----------------------------------------------------------------------------
-sub_F20A1:
+LoadPauseArt:
         push ebx
         push ecx
         push edx
@@ -203,16 +204,17 @@ sub_F20A1:
         jl near .1
         call sub_1013FC
         mov eax, 1
-        call sub_8D6E0
+        call SetMenuMode
         push dword [dword_1C5DE4]
         call FreeMemBlock
         mov dword [dword_1C5DE4], 0
         add esp, byte 4
         jmp near PickEditLinesTeam_5B5
 ;-----------------------------------------------------------------------------
-; sub_F22AF                                                       F22AF  97 PC
+; FreePauseArt                                    F22AF  97 PC, low confidence
+; Frees the pause menu art
 ;-----------------------------------------------------------------------------
-sub_F22AF:
+FreePauseArt:
         push ebx
         push ecx
         push edx
@@ -238,16 +240,17 @@ sub_F22AF:
         cmp bx, byte 2
         jl short .1
         xor eax, eax
-        call sub_8D6E0
+        call SetMenuMode
         pop esi
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F22ED                                                       F22ED  97 PC
+; DrawMenuFrame                                   F22ED  97 PC, low confidence
+; Draws a pause menu frame
 ;-----------------------------------------------------------------------------
-sub_F22ED:
+DrawMenuFrame:
         push esi
         push edi
         enter 4, 0
@@ -332,9 +335,10 @@ sub_F22ED:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_F23BF                                                       F23BF  97 PC
+; DrawPauseButton                                 F23BF  97 PC, low confidence
+; Draws a pause menu button
 ;-----------------------------------------------------------------------------
-sub_F23BF:
+DrawPauseButton:
         push esi
         push edi
         enter 24h, 0
@@ -468,9 +472,10 @@ sub_F23BF:
         pop esi
         ret 18h
 ;-----------------------------------------------------------------------------
-; sub_F2544                                                       F2544  97 PC
+; DrawMenuItem                                    F2544  97 PC, low confidence
+; Draws a pause menu item
 ;-----------------------------------------------------------------------------
-sub_F2544:
+DrawMenuItem:
         push esi
         push edi
         enter 28h, 0
@@ -633,9 +638,10 @@ sub_F2544:
         pop esi
         ret 14h
 ;-----------------------------------------------------------------------------
-; sub_F272B                                                       F272B  97 PC
+; DrawPauseDivider                                F272B  97 PC, low confidence
+; Draws a pause menu divider
 ;-----------------------------------------------------------------------------
-sub_F272B:
+DrawPauseDivider:
         push ebx
         push ecx
         push edx
@@ -937,9 +943,10 @@ DrawPauseClock:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F2AA0                                                       F2AA0  97 PC
+; DrawClockOverlay                                F2AA0  97 PC, low confidence
+; Draws the clock overlay
 ;-----------------------------------------------------------------------------
-sub_F2AA0:
+DrawClockOverlay:
         push ecx
         push edx
         enter 0ACh, 0
@@ -1051,7 +1058,7 @@ DrawPauseButtons:
         movsx eax, di
         mov ebx, dword [byte ebp-0Ch]
         mov dword [byte ebp-018h], eax
-        call sub_F23BF
+        call DrawPauseButton
         push dword [byte ebp-050h]
         push dword [byte ebp-08h]
         push dword [byte ebp-014h]
@@ -1069,7 +1076,7 @@ DrawPauseButtons:
         push dword [byte ebp-054h]
         movsx ecx, ax
         mov eax, dword [byte ebp-018h]
-        call sub_F23BF
+        call DrawPauseButton
         fld dword [byte ebp-050h]
         fmul dword [dword_167A95]
         fld dword [byte ebp-050h]
@@ -1102,7 +1109,7 @@ DrawPauseButtons:
         push dword [byte ebp-054h]
         movsx ecx, ax
         mov eax, dword [byte ebp-018h]
-        call sub_F23BF
+        call DrawPauseButton
         push dword [byte ebp-050h]
         push dword [byte ebp-08h]
         mov eax, 3Dh
@@ -1119,7 +1126,7 @@ DrawPauseButtons:
         push dword [byte ebp-054h]
         movsx ecx, ax
         mov eax, dword [byte ebp-018h]
-        call sub_F23BF
+        call DrawPauseButton
         push dword [byte ebp-050h]
         push dword [byte ebp-08h]
         mov eax, 3Fh
@@ -1140,7 +1147,7 @@ DrawPauseButtons:
         push dword [byte ebp-054h]
         movsx ecx, ax
         mov eax, dword [byte ebp-018h]
-        call sub_F23BF
+        call DrawPauseButton
         push dword [byte ebp-050h]
         push dword [byte ebp-08h]
         mov eax, 91h
@@ -1157,7 +1164,7 @@ DrawPauseButtons:
         push dword [byte ebp-054h]
         movsx ecx, ax
         mov eax, dword [byte ebp-018h]
-        call sub_F23BF
+        call DrawPauseButton
         push dword [byte ebp-050h]
         push dword [byte ebp-08h]
         mov eax, 92h
@@ -1175,7 +1182,7 @@ DrawPauseButtons:
         push dword [byte ebp-054h]
         movsx ecx, ax
         mov eax, dword [byte ebp-018h]
-        call sub_F23BF
+        call DrawPauseButton
         push dword [byte ebp-050h]
         movsx eax, word [dword ebp-0118h]
         push dword [byte ebp-08h]
@@ -1221,7 +1228,7 @@ DrawPauseButtons:
         movsx eax, di
         mov ebx, dword [byte ebp-048h]
         mov dword [byte ebp-044h], eax
-        call sub_F23BF
+        call DrawPauseButton
         push dword [byte ebp-050h]
         push dword [byte ebp-08h]
         push dword [byte ebp-020h]
@@ -1239,7 +1246,7 @@ DrawPauseButtons:
         push dword [byte ebp-05Ch]
         movsx ecx, ax
         mov eax, dword [byte ebp-044h]
-        call sub_F23BF
+        call DrawPauseButton
         push dword [byte ebp-050h]
         push dword [byte ebp-08h]
         push dword [byte ebp-020h]
@@ -1257,7 +1264,7 @@ DrawPauseButtons:
         push dword [byte ebp-05Ch]
         movsx ecx, ax
         mov eax, dword [byte ebp-044h]
-        call sub_F23BF
+        call DrawPauseButton
         push dword [byte ebp-050h]
         push dword [byte ebp-08h]
         push dword [byte ebp-020h]
@@ -1276,7 +1283,7 @@ DrawPauseButtons:
         movsx ecx, ax
         mov eax, dword [byte ebp-044h]
         inc edi
-        call sub_F23BF
+        call DrawPauseButton
 .8:
         cmp di, byte 2
         jl near .3
@@ -1316,7 +1323,7 @@ DrawPauseButtons:
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
-        call sub_F272B
+        call DrawPauseDivider
         push byte 20h
         lea eax, [byte ebp-068h]
         push eax
@@ -1390,7 +1397,7 @@ DrawPauseButtons:
         add esp, byte 8
         movsx ecx, ax
         lea eax, [byte esi+06Ch]
-        call sub_F2544
+        call DrawMenuItem
 .15:
         push dword [dword_1C5DE4]
         call FreeMemBlock
@@ -1407,9 +1414,10 @@ DrawPauseButtons:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F30A0                                                       F30A0  97 PC
+; OpenInGameMenu                                  F30A0  97 PC, low confidence
+; Opens the in-game menu
 ;-----------------------------------------------------------------------------
-sub_F30A0:
+OpenInGameMenu:
         push edx
         cmp ax, 2
         jne short .1
@@ -1423,21 +1431,22 @@ sub_F30A0:
         mov eax, dword [dword_1CEF88]
 .2:
         mov eax, dword [byte eax+02Ch]
-        call sub_8BE60
+        call CreateMenuBitmap
         mov eax, 100h
-        call sub_8BFA0
+        call SetMenuSelection
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F30D7                                                       F30D7  97 PC
+; LoadGameMenuText                                F30D7  97 PC, low confidence
+; Loads the in-game menu text
 ;-----------------------------------------------------------------------------
-sub_F30D7:
+LoadGameMenuText:
         call FreeLangText
         mov eax, dword [dword_1AC814]
         shl eax, 1Ch
         shr eax, 1Eh
         call LoadLangTextB
-        jmp near sub_8BEF8
+        jmp near FreeMenuBitmap
 ;-----------------------------------------------------------------------------
 ; PickEditLinesTeam                               F30F1  97 PC, low confidence
 ; The in-game "Edit which team?" box (Home / Away / Cancel)
@@ -1611,7 +1620,7 @@ PickEditLinesTeam:
         fistp dword [byte ebp-03Ch]
         mov ecx, dword [byte ebp-038h]
         mov ebx, dword [byte ebp-03Ch]
-        call sub_F22ED
+        call DrawMenuFrame
         mov eax, 5Ah
         call GetLangText
         fld dword [byte ebp-02Ch]
@@ -1636,7 +1645,7 @@ PickEditLinesTeam:
         fistp dword [byte ebp-03Ch]
         mov ecx, dword [byte ebp-038h]
         mov ebx, dword [byte ebp-03Ch]
-        call sub_F22ED
+        call DrawMenuFrame
         mov eax, 5Ah
         call GetLangText
         fld dword [byte ebp-02Ch]
@@ -1730,7 +1739,7 @@ PickEditLinesTeam:
         mov dword [byte ebp-010h], eax
         mov edx, eax
         lea eax, [byte ebp-064h]
-        call sub_F2544
+        call DrawMenuItem
         push dword [byte ebp-018h]
         push dword [byte ebp-02Ch]
         push dword [byte ebp-038h]
@@ -1748,7 +1757,7 @@ PickEditLinesTeam:
         push dword [byte ebp-034h]
         movsx ebx, ax
         lea eax, [byte ebp-058h]
-        call sub_F2544
+        call DrawMenuItem
         push dword [byte ebp-018h]
         push dword [byte ebp-02Ch]
         push dword [byte ebp-038h]
@@ -1767,7 +1776,7 @@ PickEditLinesTeam:
         movsx ebx, ax
         lea eax, [byte ebp-04Ch]
         mov dword [byte ebp-08h], 0
-        call sub_F2544
+        call DrawMenuItem
         jmp near .14
 .13:
         movsx eax, word [byte ebp-08h]
@@ -1815,7 +1824,7 @@ PickEditLinesTeam:
         push eax
         xor ecx, ecx
         mov eax, 3
-        call sub_8BFAC
+        call RunMenu
         call SetScreenTarget
         cmp di, byte 2
         je short .15
@@ -2026,7 +2035,7 @@ ConfirmQuitGame:
         fistp dword [byte ebp-03Ch]
         mov ecx, dword [byte ebp-038h]
         mov ebx, dword [byte ebp-03Ch]
-        call sub_F22ED
+        call DrawMenuFrame
         push dword [dword_1CEFB0]
         call sub_FCC40
         add esp, byte 4
@@ -2054,7 +2063,7 @@ ConfirmQuitGame:
         fistp dword [byte ebp-03Ch]
         mov ecx, dword [byte ebp-038h]
         mov ebx, dword [byte ebp-03Ch]
-        call sub_F22ED
+        call DrawMenuFrame
         mov eax, 71h
         call GetLangText
         fld dword [byte ebp-018h]
@@ -2156,7 +2165,7 @@ ConfirmQuitGame:
         mov ebx, dword [byte ebp-010h]
         movsx edx, ax
         lea eax, [byte ebp-064h]
-        call sub_F2544
+        call DrawMenuItem
         push dword [byte ebp-02Ch]
         push dword [byte ebp-018h]
         push dword [byte ebp-038h]
@@ -2175,7 +2184,7 @@ ConfirmQuitGame:
         movsx edx, ax
         lea eax, [byte ebp-058h]
         mov dword [byte ebp-08h], 0
-        call sub_F2544
+        call DrawMenuItem
         jmp near .13
 .12:
         movsx eax, word [byte ebp-08h]
@@ -2232,7 +2241,7 @@ ConfirmQuitGame:
         push eax
         xor ecx, ecx
         mov eax, 2
-        call sub_8BFAC
+        call RunMenu
         call SetScreenTarget
         cmp word [word_1CEFC0], byte 2
         je short .14
@@ -2318,7 +2327,7 @@ RunIntermission:
         add esp, byte 0Ch
         mov eax, 3
         call FadeOut
-        call sub_11F74
+        call ResetForIntermission
         mov dword [dword_16D2BC], 1
         mov eax, dword [dword_16AF58]
         mov dword [dword_16AF58], 0
@@ -2500,9 +2509,10 @@ RunIntermission:
         mov dword [dword_16AF58], eax
         jmp near PickEditLinesTeam_5B5
 ;-----------------------------------------------------------------------------
-; sub_F3F33                                                       F3F33  97 PC
+; RefreshModelFromMenu                            F3F33  97 PC, low confidence
+; Refreshes a player model from the menu
 ;-----------------------------------------------------------------------------
-sub_F3F33:
+RefreshModelFromMenu:
         push ebx
         push ecx
         push edx
@@ -2531,7 +2541,7 @@ sub_F3F33:
         movsx ebx, word [dword edx+0F7h]
 .3:
         mov eax, ecx
-        call sub_119A8
+        call RefreshPlayerModel
         inc esi
         add ecx, 108h
         cmp esi, byte 0Ch
@@ -2542,9 +2552,10 @@ sub_F3F33:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F3FB0                                                       F3FB0  97 PC
+; FreePauseBitmap                                 F3FB0  97 PC, low confidence
+; Frees the pause bitmap
 ;-----------------------------------------------------------------------------
-sub_F3FB0:
+FreePauseBitmap:
         push ebx
         push ecx
         push edx
@@ -2568,9 +2579,10 @@ sub_F3FB0:
         jl short .1
         jmp near PauseMenu_72D
 ;-----------------------------------------------------------------------------
-; sub_F3FF5                                                       F3FF5  97 PC
+; SetupPauseButtons                               F3FF5  97 PC, low confidence
+; Sets up the pause buttons
 ;-----------------------------------------------------------------------------
-sub_F3FF5:
+SetupPauseButtons:
         push ecx
         push esi
         push edi
@@ -2752,20 +2764,20 @@ PauseMenu:
         mov eax, dword [dword_1CEF88]
 .8:
         mov eax, dword [byte eax+02Ch]
-        call sub_8BE60
+        call CreateMenuBitmap
         mov eax, 100h
         lea edx, [dword ebp-066Ah]
-        call sub_8BFA0
+        call SetMenuSelection
         mov eax, dword [tickcount]
         mov eax, 0Ah
         lea ebx, [dword ebp-0336h]
         call InitMenuItems
         lea edx, [dword ebp-066Ah]
         lea eax, [byte ebp-0Ah]
-        call sub_F3FF5
+        call SetupPauseButtons
         lea eax, [byte ebp-0Ah]
         movsx edx, si
-        call sub_F5219
+        call RunPauseIntermission
         jmp near PauseMenu_4BB
 .9:
         push byte 3
@@ -2776,7 +2788,7 @@ PauseMenu:
         xor ecx, ecx
         mov eax, 9
 .10:
-        call sub_8BFAC
+        call RunMenu
         mov ebx, eax
         cmp dword [byte ebp+06Eh], byte 9
         ja near PauseMenu_4BB
@@ -2787,8 +2799,8 @@ PauseMenu_16C:
         test eax, eax
         je near PauseMenu_4BB
         lea eax, [byte ebp-0Ah]
-        call sub_F3FB0
-        call sub_8BEF8
+        call FreePauseBitmap
+        call FreeMenuBitmap
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call RemoveOverlayWindow
@@ -2825,9 +2837,9 @@ PauseMenu_16C:
         lea edx, [dword ebp-066Ah]
         call DrawPauseClock
         lea eax, [byte ebp-0Ah]
-        call sub_F3FF5
+        call SetupPauseButtons
         call MenuCameraScene
-        call sub_8BEF8
+        call FreeMenuBitmap
         cmp word [word_1CEFC0], byte 2
         jne short .11
         mov eax, dword [dword_1CEF94]
@@ -2840,7 +2852,7 @@ PauseMenu_16C:
         mov eax, dword [dword_1CEF88]
 .12:
         mov eax, dword [byte eax+02Ch]
-        call sub_8BE60
+        call CreateMenuBitmap
         call ApplyDisplayFlags
         mov eax, dword [dword_1CEFBC]
         call DrawGameFrame
@@ -2897,7 +2909,7 @@ PauseMenu_29A:
         je near PauseMenu_4BB
 .19:
         lea eax, [byte ebp-0Ah]
-        call sub_F3FB0
+        call FreePauseBitmap
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call RemoveOverlayWindow
@@ -2909,9 +2921,9 @@ PauseMenu_29A:
         shl eax, 1Ch
         shr eax, 1Eh
         call LoadLangTextB
-        call sub_8BEF8
+        call FreeMenuBitmap
         movsx eax, si
-        call sub_F48C2
+        call LeaveGameForMenu
         call FreeGameText
         call InitFrontEnd
         call RequestMusicStop
@@ -2959,7 +2971,7 @@ PauseMenu_29A:
 .25:
         call FreeFrontEnd
         movsx eax, si
-        call sub_F4978
+        call ReturnToGame
         mov ax, word [word_1CEFC0]
         cmp ax, 2
         jne short .26
@@ -2973,15 +2985,15 @@ PauseMenu_29A:
         mov eax, dword [dword_1CEF88]
 .27:
         mov eax, dword [byte eax+02Ch]
-        call sub_8BE60
+        call CreateMenuBitmap
         mov eax, 100h
         lea ebx, [dword ebp-0336h]
-        call sub_8BFA0
+        call SetMenuSelection
         mov eax, dword [dword_1CEF9C]
         lea edx, [dword ebp-066Ah]
         call DrawPauseClock
         lea eax, [byte ebp-0Ah]
-        call sub_F3FF5
+        call SetupPauseButtons
         lea eax, [byte ebp-0Ah]
         movsx edx, si
         call DrawIntermissionTitle
@@ -3034,7 +3046,7 @@ PauseMenu_4BB:
         jmp near PauseMenu.10
 PauseMenu_4EF:
         lea eax, [byte ebp-0Ah]
-        call sub_F3FB0
+        call FreePauseBitmap
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call RemoveOverlayWindow
@@ -3047,16 +3059,16 @@ PauseMenu_4EF:
         shr eax, 1Eh
         movsx edx, si
         call LoadLangTextB
-        call sub_8BEF8
+        call FreeMenuBitmap
         mov eax, edx
-        call sub_F48C2
+        call LeaveGameForMenu
         call FreeGameText
         call InitFrontEnd
         call RequestMusicStop
         call GameStatsScreen
         call FreeFrontEnd
         mov eax, edx
-        call sub_F4978
+        call ReturnToGame
         mov ax, word [word_1CEFC0]
         cmp ax, 2
         jne short .31
@@ -3070,15 +3082,15 @@ PauseMenu_4EF:
         mov eax, dword [dword_1CEF88]
 .32:
         mov eax, dword [byte eax+02Ch]
-        call sub_8BE60
+        call CreateMenuBitmap
         mov eax, 100h
         lea ebx, [dword ebp-0336h]
-        call sub_8BFA0
+        call SetMenuSelection
         mov eax, dword [dword_1CEF9C]
         lea edx, [dword ebp-066Ah]
         call DrawPauseClock
         lea eax, [byte ebp-0Ah]
-        call sub_F3FF5
+        call SetupPauseButtons
         lea eax, [byte ebp-0Ah]
         movsx edx, si
         call DrawIntermissionTitle
@@ -3154,20 +3166,20 @@ PauseMenu_66D:
         jmp near PauseMenu_4BB
 .36:
         lea eax, [byte ebp-0Ah]
-        call sub_F3FB0
+        call FreePauseBitmap
         call FreeLangText
         mov eax, dword [dword_1AC814]
         shl eax, 1Ch
         shr eax, 1Eh
         call LoadLangTextB
-        call sub_8BEF8
+        call FreeMenuBitmap
         test si, si
         je short .37
         call InitGameAudio
 .37:
         mov edx, dword [byte ebp+07Ah]
         movsx eax, si
-        call sub_F558C
+        call CloseIntermission
         mov eax, dword [tickcount]
         mov dword [dword_1CEFA4], eax
         mov eax, dword [byte ebp+07Ah]
@@ -3183,9 +3195,10 @@ PauseMenu_72D:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F48C2                                                       F48C2  97 PC
+; LeaveGameForMenu                                F48C2  97 PC, low confidence
+; Leaves the game for the front-end menus
 ;-----------------------------------------------------------------------------
-sub_F48C2:
+LeaveGameForMenu:
         push ebx
         push ecx
         push edx
@@ -3199,7 +3212,7 @@ sub_F48C2:
         mov dword [dword_16E500], 0
         add esp, byte 4
 .1:
-        call sub_F22AF
+        call FreePauseArt
         push byte 1
         call sub_11FAAC
         add esp, byte 4
@@ -3241,9 +3254,10 @@ sub_F48C2:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F4978                                                       F4978  97 PC
+; ReturnToGame                                    F4978  97 PC, low confidence
+; Returns to the game from the menus
 ;-----------------------------------------------------------------------------
-sub_F4978:
+ReturnToGame:
         push ebx
         push ecx
         push edx
@@ -3262,7 +3276,7 @@ sub_F4978:
         xor eax, eax
         call ChangeViewSize
         call LoadGameLogos
-        call sub_F1FF8
+        call SetupPauseArt
         mov eax, dword [dword_1ADC88]
         call SetRangePalette
         mov eax, 947Ah
@@ -3279,7 +3293,7 @@ sub_F4978:
         call UpdateAllPoses
         cmp ecx, byte 0Dh
         jl short .2
-        call sub_F3F33
+        call RefreshModelFromMenu
         call RestoreSavedPalette
         xor eax, eax
         call UpdateGameDisplay
@@ -3322,9 +3336,10 @@ sub_F4978:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F4A8F                                                       F4A8F  97 PC
+; RestartGameAudio                                F4A8F  97 PC, low confidence
+; Restarts the game audio
 ;-----------------------------------------------------------------------------
-sub_F4A8F:
+RestartGameAudio:
         push ebx
         push edx
         enter 50h, 0
@@ -3837,9 +3852,10 @@ DrawIntermissionTitle:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F5219                                                       F5219  97 PC
+; RunPauseIntermission                            F5219  97 PC, low confidence
+; Runs the intermission screen
 ;-----------------------------------------------------------------------------
-sub_F5219:
+RunPauseIntermission:
         push ebx
         push ecx
         push esi
@@ -4002,7 +4018,7 @@ sub_F5219:
         call RedrawGameView
         jmp near .9
 .5:
-        call sub_F4A8F
+        call RestartGameAudio
         cmp dword [dword_16AF5C], byte 0
         je short .6
         lea eax, [dword ebp-0DEh]
@@ -4057,8 +4073,8 @@ sub_F5219:
         mov eax, 1
         mov ebx, 64h
         mov edx, 10000h
-        call sub_12A10
-        call sub_11F74
+        call RefreshRinkPalette
+        call ResetForIntermission
         mov eax, dword [tickcount]
         call DrawGameFrame
         call RedrawGameView
@@ -4075,9 +4091,10 @@ sub_F5219:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F558C                                                       F558C  97 PC
+; CloseIntermission                               F558C  97 PC, low confidence
+; Closes the intermission screen
 ;-----------------------------------------------------------------------------
-sub_F558C:
+CloseIntermission:
         push ebx
         push ecx
         push esi
@@ -4322,7 +4339,7 @@ RulesMenu:
         mov edx, dword [byte ebp-02Ah]
         mov eax, dword [byte ebp-02Eh]
 .2:
-        call sub_F22ED
+        call DrawMenuFrame
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167BD3]
@@ -4412,7 +4429,7 @@ RulesMenu:
         mov eax, dword [byte ebp+076h]
         movsx edx, ax
         lea eax, [dword ebp-011Ah]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167BD3]
@@ -4501,7 +4518,7 @@ RulesMenu:
         mov eax, dword [byte ebp-02Eh]
         movsx edx, ax
         lea eax, [dword ebp-010Eh]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167BD3]
@@ -4590,7 +4607,7 @@ RulesMenu:
         mov eax, dword [byte ebp+076h]
         movsx edx, ax
         lea eax, [dword ebp-0102h]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167BD3]
@@ -4740,7 +4757,7 @@ RulesMenu:
         mov eax, dword [byte ebp+076h]
         movsx edx, ax
         lea eax, [dword ebp-011Ah]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167BD3]
@@ -4832,7 +4849,7 @@ RulesMenu:
 .15:
         movsx edx, ax
         lea eax, [dword ebp-010Eh]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167BD3]
@@ -4921,7 +4938,7 @@ RulesMenu:
         mov eax, dword [byte ebp+076h]
         movsx edx, ax
         lea eax, [dword ebp-0102h]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167BD3]
@@ -5013,7 +5030,7 @@ RulesMenu:
 .19:
         movsx edx, ax
         lea eax, [dword ebp-0F6h]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167BD3]
@@ -5106,7 +5123,7 @@ RulesMenu:
 .21:
         movsx edx, ax
         lea eax, [dword ebp-0DEh]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167BD3]
@@ -5198,7 +5215,7 @@ RulesMenu:
 .23:
         movsx edx, ax
         lea eax, [dword ebp-0D2h]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [dword_1AC944]
         mov eax, dword [byte eax+01h]
         and eax, byte 7
@@ -5246,7 +5263,7 @@ RulesMenu:
         movsx esi, ax
         lea eax, [dword ebp-0C6h]
         mov edx, esi
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+066h]
         fmul dword [dword_167BEB]
         fstp dword [byte ebp-03Eh]
@@ -5448,7 +5465,7 @@ RulesMenu:
         movsx esi, ax
         lea eax, [dword ebp-0EAh]
         mov edx, esi
-        call sub_F2544
+        call DrawMenuItem
         push dword [byte ebp+066h]
         push dword [byte ebp+072h]
         movsx eax, word [word_1CEFC0]
@@ -5465,7 +5482,7 @@ RulesMenu:
         push dword [byte ebp+022h]
         movsx ebx, ax
         lea eax, [dword ebp-0DEh]
-        call sub_F2544
+        call DrawMenuItem
         push dword [byte ebp+066h]
         movsx eax, word [word_1CEFC0]
         push dword [byte ebp+072h]
@@ -5483,7 +5500,7 @@ RulesMenu:
         push dword [byte ebp+022h]
         movsx ebx, ax
         lea eax, [dword ebp-0D2h]
-        call sub_F2544
+        call DrawMenuItem
         push dword [byte ebp+066h]
         movsx eax, word [word_1CEFC0]
         push dword [byte ebp+072h]
@@ -5502,7 +5519,7 @@ RulesMenu:
         movsx ebx, ax
         lea eax, [dword ebp-0C6h]
 .34:
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167BD3]
@@ -5594,7 +5611,7 @@ RulesMenu:
 .36:
         movsx edx, ax
         lea eax, [dword ebp-0BAh]
-        call sub_F2544
+        call DrawMenuItem
         push dword [byte ebp+066h]
         movsx eax, word [word_1CEFC0]
         push dword [byte ebp+072h]
@@ -5634,7 +5651,7 @@ RulesMenu:
         mov eax, dword [byte ebp+076h]
         movsx edx, ax
         lea eax, [dword ebp-0AEh]
-        call sub_F2544
+        call DrawMenuItem
         call sub_1013FC
         lea edx, [dword ebp-06CEh]
         mov eax, 0Ah
@@ -5871,7 +5888,7 @@ RulesMenu:
         push eax
         xor ecx, ecx
         mov eax, 0Ah
-        call sub_8BFAC
+        call RunMenu
         cmp dword [dword ebp-092h], byte 9
         ja short .45
         fld dword [byte ebp+072h]
@@ -6010,7 +6027,7 @@ RulesMenu_1583:
         mov eax, dword [byte ebp+076h]
         movsx edx, ax
         lea eax, [dword ebp-011Ah]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [dword ebp-011Ah]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-06B4h], eax
@@ -6179,7 +6196,7 @@ RulesMenu_176B:
 .55:
         movsx edx, ax
         lea eax, [dword ebp-010Eh]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [dword ebp-010Eh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0662h], eax
@@ -6336,7 +6353,7 @@ RulesMenu_19CD:
         mov eax, dword [byte ebp+076h]
         movsx edx, ax
         lea eax, [dword ebp-0102h]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [dword ebp-0102h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0610h], eax
@@ -6438,7 +6455,7 @@ RulesMenu_1C04:
         mov eax, dword [byte ebp+076h]
         movsx edx, ax
         lea eax, [dword ebp-0F6h]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [dword ebp-0F6h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-05BEh], eax
@@ -6555,7 +6572,7 @@ RulesMenu_1D78:
         mov eax, dword [byte ebp+076h]
         movsx edx, ax
         lea eax, [dword ebp-0EAh]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [dword ebp-0EAh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-056Ch], eax
@@ -6640,7 +6657,7 @@ RulesMenu_1F1F:
         mov eax, dword [byte ebp+076h]
         movsx edx, ax
         lea eax, [dword ebp-0DEh]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [dword ebp-0DEh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-051Ah], eax
@@ -6725,7 +6742,7 @@ RulesMenu_2056:
         mov eax, dword [byte ebp+076h]
         movsx edx, ax
         lea eax, [dword ebp-0D2h]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [dword ebp-0D2h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-04C8h], eax
@@ -6821,7 +6838,7 @@ RulesMenu_218D:
         mov eax, dword [byte ebp+076h]
         movsx edx, ax
         lea eax, [dword ebp-0C6h]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [dword ebp-0C6h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0476h], eax
@@ -6929,7 +6946,7 @@ RulesMenu_22F1:
         mov eax, dword [byte ebp+076h]
         movsx edx, ax
         lea eax, [dword ebp-0BAh]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [dword ebp-0BAh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0424h], eax
@@ -7043,7 +7060,7 @@ DetailLevelMenu:
         add esp, byte 14h
         mov edx, dword [byte ebp-0Ah]
         mov eax, dword [byte ebp-012h]
-        call sub_F22ED
+        call DrawMenuFrame
         cmp dword [dword_16AF50], byte 0
         jne short .3
         cmp dword [dword_16AF54], byte 0
@@ -7128,7 +7145,7 @@ DetailLevelMenu:
 .5:
         movsx edx, ax
         lea eax, [dword ebp-096h]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167C7B]
@@ -7215,7 +7232,7 @@ DetailLevelMenu:
         mov eax, dword [byte ebp-012h]
         movsx edx, ax
         lea eax, [dword ebp-08Ah]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167C7B]
@@ -7299,7 +7316,7 @@ DetailLevelMenu:
         mov eax, dword [byte ebp+07Ah]
         movsx edx, ax
         lea eax, [byte ebp-07Eh]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167C7B]
@@ -7389,7 +7406,7 @@ DetailLevelMenu:
 .11:
         movsx edx, ax
         lea eax, [byte ebp-072h]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167C7B]
@@ -7479,7 +7496,7 @@ DetailLevelMenu:
 .13:
         movsx edx, ax
         lea eax, [byte ebp-066h]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167C7B]
@@ -7566,7 +7583,7 @@ DetailLevelMenu:
         mov eax, dword [byte ebp+07Ah]
         movsx edx, ax
         lea eax, [byte ebp-05Ah]
-        call sub_F2544
+        call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
         fmul dword [dword_167C7B]
@@ -7653,7 +7670,7 @@ DetailLevelMenu:
         mov eax, dword [byte ebp-012h]
         movsx edx, ax
         lea eax, [byte ebp-04Eh]
-        call sub_F2544
+        call DrawMenuItem
         push dword [byte ebp+076h]
         movsx eax, word [word_1CEFC0]
         push dword [byte ebp+072h]
@@ -7693,7 +7710,7 @@ DetailLevelMenu:
         mov eax, dword [byte ebp+07Ah]
         movsx edx, ax
         lea eax, [byte ebp-042h]
-        call sub_F2544
+        call DrawMenuItem
         call sub_1013FC
         lea edx, [dword ebp-0526h]
         mov eax, 8
@@ -8029,7 +8046,7 @@ DetailLevelMenu_C81:
         mov eax, dword [byte ebp+07Ah]
         movsx edx, ax
         lea eax, [dword ebp-096h]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [dword ebp-096h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-050Ch], eax
@@ -8115,7 +8132,7 @@ DetailLevelMenu_E31:
         movsx edi, ax
         lea eax, [dword ebp-08Ah]
         mov edx, edi
-        call sub_F2544
+        call DrawMenuItem
         push dword [byte ebp-07Eh]
         call FreeBitmap
         add esp, byte 4
@@ -8178,7 +8195,7 @@ DetailLevelMenu_E31:
 .27:
         lea eax, [dword ebp-08Ah]
 .28:
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [dword ebp-08Ah]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-04BAh], eax
@@ -8207,7 +8224,7 @@ DetailLevelMenu_E31:
         push eax
         xor ecx, ecx
         mov eax, 8
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp-036h], byte 7
         ja short .29
         fld dword [byte ebp+072h]
@@ -8348,7 +8365,7 @@ DetailLevelMenu_10E6:
         mov dword [byte ebp-012h], eax
         mov edx, eax
         lea eax, [byte ebp-07Eh]
-        call sub_F2544
+        call DrawMenuItem
         push dword [dword ebp-08Ah]
         call FreeBitmap
         add esp, byte 4
@@ -8442,7 +8459,7 @@ DetailLevelMenu_12B8:
         mov eax, dword [byte ebp+07Ah]
         movsx edx, ax
         lea eax, [byte ebp-072h]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [byte ebp-072h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0416h], eax
@@ -8524,7 +8541,7 @@ DetailLevelMenu_13D7:
         mov eax, dword [byte ebp+07Ah]
         movsx edx, ax
         lea eax, [byte ebp-066h]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [byte ebp-066h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-03C4h], eax
@@ -8631,7 +8648,7 @@ DetailLevelMenu_14F6:
 .36:
         movsx edx, ax
         lea eax, [byte ebp-05Ah]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [byte ebp-05Ah]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0372h], eax
@@ -8735,7 +8752,7 @@ DetailLevelMenu_165B:
         mov eax, dword [byte ebp-012h]
         movsx edx, ax
         lea eax, [byte ebp-04Eh]
-        call sub_F2544
+        call DrawMenuItem
         mov eax, dword [byte ebp-04Eh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0320h], eax
@@ -8813,9 +8830,10 @@ DetailLevelMenu_17B7:
         lea esp, [dword ebp+086h]
         jmp near PauseMenu_72C
 ;-----------------------------------------------------------------------------
-; sub_F9496                                                       F9496  97 PC
+; FreeVideoBuffer                                 F9496  97 PC, low confidence
+; Frees the video buffer
 ;-----------------------------------------------------------------------------
-sub_F9496:
+FreeVideoBuffer:
         push ecx
         push edx
         cmp dword [dword_16E30C], byte 0

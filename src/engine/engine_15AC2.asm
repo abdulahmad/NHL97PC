@@ -48,7 +48,7 @@ extern qword_160553, qword_16055B, qword_16056C, qword_160588, qword_160590, qwo
 extern qword_1605B4, qword_1605BC, qword_1605C4, qword_1605CC, qword_1605D4, qword_1605DC, qword_1605E4, qword_1605EC
 extern qword_1605F4, qword_160604, qword_160624, qword_160630, qword_160638, qword_160640, qword_160648, qword_160650
 extern qword_160658, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, sub_100498
-extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, GetLowestPen, TeamLineSlots
+extern sub_100700, sub_1007C0, sub_100830, StartCrowdMusic, RestartGameMusic, SpeedScale, GetLowestPen, TeamLineSlots
 extern UpdateCoachModes, ChkShoot, ForceShoot, AddPenalty, AddPenalty2, PenGoalStuff, EndPenaltyShot, FaceDirFromMotion
 extern doplayeracc, ChkOneTimerSpot, ClearLastPasser, OneTimerShot, PickBenchSeat, FaceoffMoveResult, FaceoffSwipeAnim, FaceoffDrawAnim
 extern PokeCheckAnim, AIBodyCheck, SetVideoMode, SetViewSize, SetViewInterlaced, ClearViewInterlaced, HideView, ShowView
@@ -57,7 +57,7 @@ extern ResetRenderTimers, TriggerCameraFlashes, SetCameraMode, GoalCrowdCheer, L
 extern SetCameraTarget, SetCameraPathTarget, SetCameraSplineTarget, UpdateCameraMotion, SnapCamera, BuildCameraMatrix, UpdateCameraProjection, InitCameraParams
 extern SetSPA, ResetAnimTimer, PickSkateAnim, SetSkateSpeedFromRating, StickReach, ObjectFramePos, TryStickTouch, StopObject
 extern StartPassAnim, StartDropPassAnim, StartGoalieSave, StartGoalieStance, GoalieMoves, DrawCameraPath, SetTextColor, DrawTextAligned
-extern GetLangText, LogGoal, sub_F2AA0, NextVideoMode, PrevVideoMode, FreeMemBlock, sub_FC4BC, sub_FCC40
+extern GetLangText, LogGoal, DrawClockOverlay, NextVideoMode, PrevVideoMode, FreeMemBlock, sub_FC4BC, sub_FCC40
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, sub_FD528, sub_FD954, sub_FDC68
 extern FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt, FillRectCorners, MatRotY, MatTranspose
 extern VecMulMat, VecAdd, VecSub, VecDistance, VecLength, VecScale, VecNormalizeTo, ProjectPointInt
@@ -8130,7 +8130,7 @@ PenaltyCameraScene:
         mov dword [dword_19D388], ebp
         call StartCameraPath
         mov dword [dword_16AF5C], edi
-        call sub_F2AA0
+        call DrawClockOverlay
 .1:
         pop ebp
         pop edi
@@ -8498,7 +8498,7 @@ LoadOpeningCamera:
         mov dword [dword_19D0D8], ecx
         call UpdateCameraMotion
         mov dword [dword_16AF5C], ebx
-        call sub_F2AA0
+        call DrawClockOverlay
         mov dword [dword_168628], ebx
         add esp, byte 14h
         pop ebp
@@ -9178,7 +9178,7 @@ FaceoffCameraScene2:
         test eax, eax
         je near .5
         mov dword [dword_16AF5C], 1
-        call sub_F2AA0
+        call DrawClockOverlay
         call rand_
         mov edx, eax
         mov ebx, 2
@@ -14353,7 +14353,7 @@ Endfaceoff:
         xor eax, eax
         call ResetRenderTimers
 .1:
-        call sub_114C4
+        call RestartGameMusic
         mov eax, 501h
         call RemoveOverlayPanel
         mov eax, 601h
@@ -15264,7 +15264,7 @@ Goal:
         inc byte [byte_1C135A]
 .31:
         mov eax, 102h
-        call sub_11328
+        call StartCrowdMusic
         mov eax, 0Ah
         jmp short .34
 .32:
@@ -19619,7 +19619,7 @@ CanReceivePass:
         pop ebx
         ret
 .2:
-        call sub_13D50
+        call SpeedScale
         fmul dword [dword_16062C]
         fcomp dword [byte ebx+038h]
         fnstsw ax
@@ -20109,7 +20109,7 @@ RimPuck:
 .33:
         cmp word [dword ebx+0A9h], byte 0
         jne short .34
-        call sub_13D50
+        call SpeedScale
         fild word [word_19CB8E]
         fcompp
         fnstsw ax
@@ -20120,7 +20120,7 @@ RimPuck:
         mov dword [dword esp+0110h], eax
         fild word [dword esp+0110h]
         fstp dword [dword esp+0108h]
-        call sub_13D50
+        call SpeedScale
         fadd dword [dword esp+0108h]
         call __CHP
         fistp dword [dword esp+010Ch]

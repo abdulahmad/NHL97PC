@@ -21,26 +21,27 @@ extern sub_106DA0, sub_10AED0, sub_110D70, ConvertArtXY, FindShapeList, sub_11B1
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, StopAllSfx
 extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, ShadeShape, DrawShadowBox, DrawScreenBackground, FadeInScreen
 extern ShowScreen, ExitScreen, SetRegionRect, ShowMessageBox, WipeScreen, DrawEntryRow, DrawStatTable, ShowPopupScreen
-extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, RunNewSeason, RunSeasonMenus
-extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, RunLinkGameScreens, PostGameScreen
-extern GameStatsScreen, PlayMenuGame, sub_AC369, TeamStatsScreen, sub_AF074, sub_B418C, PlayerStatsScreen, PlayerRatingsScreen
-extern sub_BD621, sub_C0F5D, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, FreeDbBlock, OpenLeagueFile, FindGameRecord
+extern InitMenuItems, RunMenu, SetupMenuView, RestoreMenuView, RunScrollMenu, GetLangText, RunNewSeason, RunSeasonMenus
+extern FindSeasonReplay, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, RunLinkGameScreens, PostGameScreen
+extern GameStatsScreen, PlayMenuGame, FinishLeagueGame, TeamStatsScreen, StatsTablesScreen, RunUserRecords, PlayerStatsScreen, PlayerRatingsScreen
+extern RunVideoOptions, HistoryScreen, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, FreeDbBlock, OpenLeagueFile, FindGameRecord
 extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
 extern sub_FC330, FreeBitmap, sub_FCEEC, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
 extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C8300, unk_1C830C, unk_845C0
-global jpt_84AF5, jpt_84B15, jpt_84B25, jpt_84B3D, jpt_85CFD, sub_845E4_32E, sub_845E4_344, sub_845E4_35A
-global sub_845E4_370, sub_845E4_50B, MainMenuScreen_911, MainMenuScreen_999, MainMenuScreen_A17, MainMenuScreen_A23, MainMenuScreen_A2F, MainMenuScreen_A3B
+global jpt_84AF5, jpt_84B15, jpt_84B25, jpt_84B3D, jpt_85CFD, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
+global MainMenuAnim_370, MainMenuAnim_50B, MainMenuScreen_911, MainMenuScreen_999, MainMenuScreen_A17, MainMenuScreen_A23, MainMenuScreen_A2F, MainMenuScreen_A3B
 global MainMenuScreen_A68, MainMenuScreen_A79, MainMenuScreen_A82, MainMenuScreen_A94, MainMenuScreen_A9D, MainMenuScreen_AAF, MainMenuScreen_AB8, MainMenuScreen_BA5
 global MainMenuScreen_BBD, MainMenuScreen_BC6, MainMenuScreen_BD5, MainMenuScreen_BDE, MainMenuScreen_BED, MainMenuScreen_BF6, MainMenuScreen_C76, MainMenuScreen_CFF
 global MainMenuScreen_DDB, MainMenuScreen_DF1, RunStatsMenu_6E, RunStatsMenu_82, RunStatsMenu_9E, RunStatsMenu_A5, RunStatsMenu_AC, RunStatsMenu_B3
-global RunStatsMenu_BA, RunStatsMenu_C1, sub_845E4, MainMenuScreen, RunGameScreens, RunStatsMenu, sub_85E1E, NameIndexNew
-global NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath, sub_867D4
-global sub_867F0, sub_86878
+global RunStatsMenu_BA, RunStatsMenu_C1, MainMenuAnim, MainMenuScreen, RunGameScreens, RunStatsMenu, StatsMenuScreen, NameIndexNew
+global NameIndexLoad, NameIndexSave, NameIndexFree, LoadNameIndex, NameIndexRemove, NameIndexCount, NameIndexPath, NameIndexLimit
+global WritePhonebookFile, OpenPhonebookFile
 ;-----------------------------------------------------------------------------
-; sub_845E4                                                       845E4  97 PC
+; MainMenuAnim                                    845E4  97 PC, low confidence
+; Animates the main menu
 ;-----------------------------------------------------------------------------
-sub_845E4:
+MainMenuAnim:
         push ebx
         push ecx
         push edx
@@ -245,39 +246,39 @@ sub_845E4:
         add esp, byte 4
 .17:
         cmp esi, byte 64h
-        jle near sub_845E4_370.20
+        jle near MainMenuAnim_370.20
         cmp esi, 96h
-        jge near sub_845E4_370.20
+        jge near MainMenuAnim_370.20
         lea eax, [byte esi-064h]
         imul eax, byte 7
         mov ebx, 32h
         cdq
         idiv ebx
         cmp eax, dword [dword_1C831C]
-        je near sub_845E4_370.20
+        je near MainMenuAnim_370.20
         mov dword [dword_1C831C], eax
         cmp eax, byte 5
-        ja short sub_845E4_370.19
+        ja short MainMenuAnim_370.19
         jmp dword [nosplit cs:eax*4+jpt_845CC]
-sub_845E4_32E:
+MainMenuAnim_32E:
         push dword [dword_1C82C8]
         call BlitShape2
         add esp, byte 4
         push dword [dword_1C82D8]
-        jmp short sub_845E4_370.18
-sub_845E4_344:
+        jmp short MainMenuAnim_370.18
+MainMenuAnim_344:
         push dword [dword_1C82CC]
         call BlitShape2
         add esp, byte 4
         push dword [dword_1C82DC]
-        jmp short sub_845E4_370.18
-sub_845E4_35A:
+        jmp short MainMenuAnim_370.18
+MainMenuAnim_35A:
         push dword [dword_1C82D0]
         call BlitShape2
         add esp, byte 4
         push dword [dword_1C82E0]
-        jmp short sub_845E4_370.18
-sub_845E4_370:
+        jmp short MainMenuAnim_370.18
+MainMenuAnim_370:
         push dword [dword_1C82D4]
 .18:
         call BlitShape2
@@ -318,9 +319,9 @@ sub_845E4_370:
         add esp, byte 4
 .23:
         cmp esi, 0C8h
-        jle near sub_845E4_50B
+        jle near MainMenuAnim_50B
         cmp esi, 2BCh
-        jge near sub_845E4_50B
+        jge near MainMenuAnim_50B
         mov edi, dword [dword_1C82C4]
         mov eax, dword [byte edi+02Ch]
         movsx edx, word [byte eax+04h]
@@ -338,7 +339,7 @@ sub_845E4_370:
         idiv esi
         sub ebx, edx
         cmp ebx, dword [dword_1C82A0]
-        je near sub_845E4_50B
+        je near MainMenuAnim_50B
         push edi
         mov dword [dword_1C82A0], ebx
         call SetDrawTarget
@@ -392,7 +393,7 @@ sub_845E4_370:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-sub_845E4_50B:
+MainMenuAnim_50B:
         pop edi
         pop esi
         pop edx
@@ -1221,7 +1222,7 @@ MainMenuScreen_AB8:
         mov eax, dword [byte ebp-03Ah]
         mov dword [byte ebp+esi*4+06h], eax
 .35:
-        push sub_845E4
+        push MainMenuAnim
         push byte 0
         push byte 0
         push dword [dword_1C8324]
@@ -1240,7 +1241,7 @@ MainMenuScreen_AB8:
         mov eax, esi
         mov ecx, edx
         mov edx, esi
-        call sub_8E2EE
+        call RunScrollMenu
         mov dword [byte ebp+062h], eax
         cmp eax, byte 0FFFFFFFFh
         je near MainMenuScreen_CFF.48
@@ -1300,7 +1301,7 @@ MainMenuScreen_BF6:
         mov dword [byte ebp+ebx*4+06h], edx
         cmp ebx, byte 3
         jl short .41
-        push sub_845E4
+        push MainMenuAnim
         push byte 0
         push byte 0
         push dword [dword_1C8324]
@@ -1318,7 +1319,7 @@ MainMenuScreen_BF6:
         mov edx, 3
         mov ebx, dword [dword eax+011Ch]
         mov eax, edx
-        call sub_8E2EE
+        call RunScrollMenu
         cmp eax, byte 0FFFFFFFFh
         je near MainMenuScreen_CFF.48
         and eax, byte 3
@@ -1400,7 +1401,7 @@ MainMenuScreen_CFF:
         mov dword [dword eax+0118h], edx
         mov eax, dword [dword_1C8320]
         push byte 3
-        mov ecx, sub_845E4
+        mov ecx, MainMenuAnim
         mov dword [dword eax+0114h], edx
         lea eax, [byte ebp+04Eh]
         mov ebx, 0FFFFFFFFh
@@ -1408,7 +1409,7 @@ MainMenuScreen_CFF:
         mov eax, dword [dword_16DA9C]
         mov edx, dword [dword_1C8320]
         add eax, byte 7
-        call sub_8BFAC
+        call RunMenu
         mov byte [byte_1CBB8C], al
         cmp dword [byte ebp+04Eh], byte 7
         ja near .48
@@ -1471,7 +1472,7 @@ MainMenuScreen_DF1:
         add esp, byte 4
         lea esp, [dword ebp+082h]
         pop ebp
-        jmp near sub_845E4_50B
+        jmp near MainMenuAnim_50B
 ;-----------------------------------------------------------------------------
 ; RunGameScreens                                  85A15  97 PC, low confidence
 ; (screen): from RunFrontEnd, runs the game set-up screens by number (team
@@ -1570,7 +1571,7 @@ RunGameScreens:
         mov eax, dword [dword_1AD226]
         mov ebx, 0Ch
 .17:
-        call sub_9279A
+        call FindSeasonReplay
         test eax, eax
         jne near .8
         mov dword [dword_1C8334], 1
@@ -1594,7 +1595,7 @@ RunGameScreens:
         jne short .24
         mov eax, dword [dword_1AD226]
 .21:
-        call sub_9279A
+        call FindSeasonReplay
         test eax, eax
 .22:
         je near .8
@@ -1668,7 +1669,7 @@ RunGameScreens:
         jne short .41
 .39:
         xor eax, eax
-        call sub_AC369
+        call FinishLeagueGame
         jmp short .41
 .40:
         mov ebx, 1Ah
@@ -1768,7 +1769,7 @@ RunStatsMenu:
         and byte [dword_1AC814], 8Fh
         jmp short RunStatsMenu_82.4
 RunStatsMenu_6E:
-        call sub_85E1E
+        call StatsMenuScreen
         mov ebx, eax
         cmp eax, byte 1Ah
         jne short .2
@@ -1789,19 +1790,19 @@ RunStatsMenu_82:
         ja short .4
         jmp dword [nosplit cs:eax*4+jpt_85CFD]
 RunStatsMenu_9E:
-        call sub_AF074
+        call StatsTablesScreen
         jmp short RunStatsMenu_82.3
 RunStatsMenu_A5:
-        call sub_C0F5D
+        call HistoryScreen
         jmp short RunStatsMenu_82.3
 RunStatsMenu_AC:
         call PlayerStatsScreen
         jmp short RunStatsMenu_82.3
 RunStatsMenu_B3:
-        call sub_BD621
+        call RunVideoOptions
         jmp short RunStatsMenu_82.3
 RunStatsMenu_BA:
-        call sub_B418C
+        call RunUserRecords
         jmp short RunStatsMenu_82.3
 RunStatsMenu_C1:
         movzx ebx, byte [byte_16CCF0]
@@ -1825,9 +1826,10 @@ RunStatsMenu_C1:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_85E1E                                                       85E1E  97 PC
+; StatsMenuScreen                                 85E1E  97 PC, low confidence
+; Runs the stats menu screen
 ;-----------------------------------------------------------------------------
-sub_85E1E:
+StatsMenuScreen:
         push ebx
         push ecx
         push edx
@@ -2072,7 +2074,7 @@ sub_85E1E:
         xor edx, edx
         mov ecx, eax
         xor eax, eax
-        call sub_8D6E8
+        call SetupMenuView
         push byte 3
         lea eax, [byte ebp+062h]
         mov ebx, 0FFFFFFFFh
@@ -2080,9 +2082,9 @@ sub_85E1E:
         push eax
         xor ecx, ecx
         mov eax, 8
-        call sub_8BFAC
+        call RunMenu
         mov byte [byte_1CA9D8], al
-        call sub_8D910
+        call RestoreMenuView
         cmp dword [byte ebp+062h], byte 0
         jne short .6
         mov dword [byte ebp+076h], 1Ah
@@ -2415,9 +2417,10 @@ NameIndexFree:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_86500                                                       86500  97 PC
+; LoadNameIndex                                   86500  97 PC, low confidence
+; Loads a name index file
 ;-----------------------------------------------------------------------------
-sub_86500:
+LoadNameIndex:
         push ecx
         push esi
         push edi
@@ -2636,9 +2639,10 @@ NameIndexRemove:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_86718                                                       86718  97 PC
+; NameIndexCount                                  86718  97 PC, low confidence
+; Returns the number of entries in a name index
 ;-----------------------------------------------------------------------------
-sub_86718:
+NameIndexCount:
         push ecx
         test eax, eax
         jne short .1
@@ -2731,9 +2735,10 @@ NameIndexPath:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_867D4                                                       867D4  97 PC
+; NameIndexLimit                                  867D4  97 PC, low confidence
+; Returns the entry limit of a name index
 ;-----------------------------------------------------------------------------
-sub_867D4:
+NameIndexLimit:
         test eax, eax
         jne short .1
         mov eax, 3E8h
@@ -2747,9 +2752,10 @@ sub_867D4:
         mov eax, dword [byte eax+06Ah]
         ret
 ;-----------------------------------------------------------------------------
-; sub_867F0                                                       867F0  97 PC
+; WritePhonebookFile                              867F0  97 PC, low confidence
+; Writes the phonebook file
 ;-----------------------------------------------------------------------------
-sub_867F0:
+WritePhonebookFile:
         push ebx
         push ecx
         push edx
@@ -2801,9 +2807,10 @@ sub_867F0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_86878                                                       86878  97 PC
+; OpenPhonebookFile                               86878  97 PC, low confidence
+; Opens the phonebook file for writing
 ;-----------------------------------------------------------------------------
-sub_86878:
+OpenPhonebookFile:
         push ebx
         push ecx
         push edx

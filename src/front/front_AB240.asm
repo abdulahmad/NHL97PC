@@ -7,19 +7,20 @@ extern byte_1AD458, byte_1AD72B, byte_1AD739, byte_1AD742, dword_168F58, dword_1
 extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, dword_1AC814, dword_1AC940, dword_1ACF42
 extern dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dword_1AD45A, dword_1AD62F, dword_1AD6AB
 extern dword_1AD6AF, dword_1AD727, dword_1AD743, dword_1C1334, dword_1C1338, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
-extern memcpy_, sprintf_, sub_10AED0, MakeDirPath, SaveReplayHeader, sub_789F0, sub_7B15D, sub_7B88D
-extern EditFileName, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, NameIndexNew, NameIndexLoad, NameIndexFree, sub_86500
-extern GetLangText, sub_91D7F, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData
-extern LinkReceiveData, sub_A3116, KeysEqual, OpenGameDatabase, CloseGameDatabase, DaysToYear, CreateExhibitionFile, WriteLeagueHeader
+extern memcpy_, sprintf_, sub_10AED0, MakeDirPath, SaveReplayHeader, SimulateGame, UpdateTeamLines, CheckLeagueInjuries
+extern EditFileName, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, NameIndexNew, NameIndexLoad, NameIndexFree, LoadNameIndex
+extern GetLangText, SortStandings, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, FreeTransferBuffers, CopyToTransfer, LinkSendData
+extern LinkReceiveData, AppendToTransfer, KeysEqual, OpenGameDatabase, CloseGameDatabase, DaysToYear, CreateExhibitionFile, WriteLeagueHeader
 extern StartSeasonGame, SaveExhibitionResult, SaveSeasonResult, FindGameRecord, UpdateGameRecord, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile
 extern ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem, sub_FCC40, unk_16D7F4
 extern unk_1ACF4E, unk_1AD236, unk_1AD443, word_1C1344
-global sub_AB240_32D, sub_AB573_B2F, sub_AB573_B30, sub_AB240, sub_AB573, sub_AC0A9, sub_AC369, sub_AC41B
-global sub_AC69C, sub_AC6EB, sub_AC73E
+global SendGameResult_32D, SaveGameResults_B2F, SaveGameResults_B30, SendGameResult, SaveGameResults, AdvanceSeasonDate, FinishLeagueGame, SaveReplayFile
+global WriteReplayFile, ReplayNameToKey, ClearReplayEntry
 ;-----------------------------------------------------------------------------
-; sub_AB240                                                       AB240  97 PC
+; SendGameResult                                  AB240  97 PC, low confidence
+; Sends the game result over the link
 ;-----------------------------------------------------------------------------
-sub_AB240:
+SendGameResult:
         push ebx
         push ecx
         push edx
@@ -158,7 +159,7 @@ sub_AB240:
 .13:
         mov edx, 4A78h
         mov eax, dword [byte ebp-04h]
-        call sub_A2F52
+        call CopyToTransfer
         mov eax, dword [byte ebp-04h]
         cmp dword [dword eax+04A70h], byte 0
         je short .14
@@ -167,14 +168,14 @@ sub_AB240:
         mov edx, dword [byte ebp-04h]
         mov eax, dword [byte ebp-0Ch]
         mov edx, dword [dword edx+04A70h]
-        call sub_A2F52
+        call CopyToTransfer
         push dword [byte ebp-0Ch]
         call FreeMemBlock
         add esp, byte 4
 .14:
         mov eax, 1
         call LinkSendData
-        call sub_A2F31
+        call FreeTransferBuffers
         jmp near .19
 .15:
         test edx, edx
@@ -183,7 +184,7 @@ sub_AB240:
         call LinkReceiveData
         mov edx, 4A78h
         mov eax, dword [byte ebp-04h]
-        call sub_A3116
+        call AppendToTransfer
         mov eax, dword [byte ebp-04h]
         cmp dword [dword eax+04A70h], byte 0
         je short .16
@@ -195,7 +196,7 @@ sub_AB240:
         add esp, byte 0Ch
         mov edx, dword [dword edx+04A70h]
         mov dword [byte ebp-0Ch], eax
-        call sub_A3116
+        call AppendToTransfer
         jmp short .17
 .16:
         mov dword [byte ebp-0Ch], 0
@@ -203,7 +204,7 @@ sub_AB240:
         mov eax, 1
         mov ebx, dword [byte ebp-04h]
         mov edx, dword [byte ebp-0Ch]
-        call sub_A2F31
+        call FreeTransferBuffers
         mov eax, dword [byte ebp-04h]
         mov ebx, dword [dword ebx+04A70h]
         call AddReplayIndexEntry
@@ -235,7 +236,7 @@ sub_AB240:
         je short .21
 .20:
         call HideWorkingBox
-        call sub_AB573
+        call SaveGameResults
         mov eax, dword [dword_1AC940]
         movsx edx, word [byte eax+02h]
         mov eax, 227h
@@ -252,17 +253,18 @@ sub_AB240:
         cmp edx, dword [byte ebp-08h]
         jg near .1
         call HideWorkingBox
-        call sub_AB573
+        call SaveGameResults
         push dword [byte ebp-04h]
         call FreeMemBlock
         add esp, byte 4
-sub_AB240_32D:
+SendGameResult_32D:
         leave
-        jmp near sub_AB573_B30
+        jmp near SaveGameResults_B30
 ;-----------------------------------------------------------------------------
-; sub_AB573                                                       AB573  97 PC
+; SaveGameResults                                 AB573  97 PC, low confidence
+; Saves the results of a game to the league
 ;-----------------------------------------------------------------------------
-sub_AB573:
+SaveGameResults:
         push ebx
         push ecx
         push edx
@@ -332,7 +334,7 @@ sub_AB573:
         mov edx, dword [byte ebp+06Ah]
         call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
-        call sub_7B15D
+        call UpdateTeamLines
         mov eax, dword [dword_1AC940]
         mov eax, dword [byte eax+020h]
         movsx eax, byte [ecx+eax]
@@ -353,7 +355,7 @@ sub_AB573:
         mov edx, dword [byte ebp+06Ah]
         call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
-        call sub_7B15D
+        call UpdateTeamLines
         mov eax, dword [dword_1AC940]
         mov eax, dword [byte eax+020h]
         movsx eax, byte [byte ebx+eax+01h]
@@ -420,7 +422,7 @@ sub_AB573:
         call SaveExhibitionResult
 .7:
         mov eax, dword [byte ebp+07Ah]
-        call sub_AC41B
+        call SaveReplayFile
 .8:
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [dword_1AC940]
@@ -564,7 +566,7 @@ sub_AB573:
         mov edx, dword [byte ebp+06Ah]
         call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
-        call sub_7B15D
+        call UpdateTeamLines
         mov eax, dword [byte ebp+06Ah]
         call UpdateGameRecord
         mov eax, dword [dword_1AC940]
@@ -577,7 +579,7 @@ sub_AB573:
         call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
         mov ebx, dword_1C1334
-        call sub_7B15D
+        call UpdateTeamLines
         mov eax, dword [byte ebp+06Ah]
         movsx edx, word [byte ebp+07Ah]
         call UpdateGameRecord
@@ -586,7 +588,7 @@ sub_AB573:
         mov eax, dword [byte ebp+07Ah]
         xor edx, edx
         mov ebx, dword_1C1334
-        call sub_789F0
+        call SimulateGame
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [dword_1AC940]
         call SaveSeasonResult
@@ -639,7 +641,7 @@ sub_AB573:
         mov edx, dword [byte ebp+06Ah]
         call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
-        call sub_7B15D
+        call UpdateTeamLines
         mov eax, dword [byte ebp+06Ah]
         call UpdateGameRecord
         mov eax, dword [dword_1AC940]
@@ -652,7 +654,7 @@ sub_AB573:
         call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
         mov ebx, dword_1C1334
-        call sub_7B15D
+        call UpdateTeamLines
         mov eax, dword [byte ebp+06Ah]
         movsx edx, word [byte ebp+07Ah]
         call UpdateGameRecord
@@ -661,12 +663,12 @@ sub_AB573:
         mov edx, 1
         mov eax, dword [byte ebp+07Ah]
         mov ebx, dword_1C1334
-        call sub_789F0
+        call SimulateGame
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [dword_1AC940]
         call SaveSeasonResult
         mov eax, dword [byte ebp+07Ah]
-        call sub_AC41B
+        call SaveReplayFile
 .26:
         inc dword [byte ebp+07Ah]
 .27:
@@ -701,7 +703,7 @@ sub_AB573:
         or dword [dword_1AD437], eax
         lea eax, [byte ebp+01Eh]
         mov dword [byte ebp+07Ah], 0
-        call sub_91D7F
+        call SortStandings
 .30:
         mov ecx, dword [byte ebp+07Ah]
         movzx ecx, byte [byte ecx+ebp+01Eh]
@@ -911,7 +913,7 @@ sub_AB573:
         cmp dword [dword_1ACF46], byte 0
         je near .59
 .42:
-        call sub_AC0A9
+        call AdvanceSeasonDate
         xor eax, eax
         mov dword [byte ebp+07Ah], eax
         jmp short .46
@@ -999,12 +1001,12 @@ sub_AB573:
         mov edx, 1
         mov eax, dword [byte ebp+07Ah]
         mov ebx, dword_1C1334
-        call sub_789F0
+        call SimulateGame
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [dword_1AC940]
         call SaveSeasonResult
         mov eax, dword [byte ebp+07Ah]
-        call sub_AC41B
+        call SaveReplayFile
 .53:
         inc dword [byte ebp+07Ah]
 .54:
@@ -1012,7 +1014,7 @@ sub_AB573:
         movsx edx, word [byte eax+02h]
         cmp edx, dword [byte ebp+07Ah]
         jg near .50
-        call sub_AC0A9
+        call AdvanceSeasonDate
         xor eax, eax
         mov dword [byte ebp+07Ah], eax
         jmp short .58
@@ -1075,9 +1077,9 @@ sub_AB573:
         call FreeMemBlock
         add esp, byte 4
         lea esp, [dword ebp+082h]
-sub_AB573_B2F:
+SaveGameResults_B2F:
         pop ebp
-sub_AB573_B30:
+SaveGameResults_B30:
         pop edi
         pop esi
         pop edx
@@ -1085,9 +1087,10 @@ sub_AB573_B30:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_AC0A9                                                       AC0A9  97 PC
+; AdvanceSeasonDate                               AC0A9  97 PC, low confidence
+; Advances the season date
 ;-----------------------------------------------------------------------------
-sub_AC0A9:
+AdvanceSeasonDate:
         push ebx
         push ecx
         push edx
@@ -1098,7 +1101,7 @@ sub_AC0A9:
         cmp byte [byte_1AD72B], 4
         jne short .1
         mov eax, 1
-        jmp near sub_AB240_32D
+        jmp near SendGameResult_32D
 .1:
         mov dword [byte ebp-04h], 0
         jmp short .4
@@ -1312,11 +1315,12 @@ sub_AC0A9:
         cmp dword [byte ebp-0Ch], byte 0
         sete al
         movzx eax, al
-        jmp near sub_AB240_32D
+        jmp near SendGameResult_32D
 ;-----------------------------------------------------------------------------
-; sub_AC369                                                       AC369  97 PC
+; FinishLeagueGame                                AC369  97 PC, low confidence
+; Finishes a league game
 ;-----------------------------------------------------------------------------
-sub_AC369:
+FinishLeagueGame:
         push ebx
         push ecx
         push edx
@@ -1351,7 +1355,7 @@ sub_AC369:
         mov eax, ecx
         movsd
         movsd
-        call sub_7B88D
+        call CheckLeagueInjuries
         jmp short .2
 .1:
         movzx eax, byte [byte_1AD742]
@@ -1369,14 +1373,15 @@ sub_AC369:
         movsd
         movsd
 .2:
-        call sub_AB573
+        call SaveGameResults
         mov eax, dword [dword_1AC940]
         call WriteLeagueHeader
-        jmp near sub_AB240_32D
+        jmp near SendGameResult_32D
 ;-----------------------------------------------------------------------------
-; sub_AC41B                                                       AC41B  97 PC
+; SaveReplayFile                                  AC41B  97 PC, low confidence
+; Saves a replay to a file
 ;-----------------------------------------------------------------------------
-sub_AC41B:
+SaveReplayFile:
         push ebx
         push ecx
         push edx
@@ -1541,16 +1546,16 @@ sub_AC41B:
         movsd
         movsd
         mov dword [dword_1C5DA8], 0
-        call sub_AC69C
+        call WriteReplayFile
         lea eax, [byte ebp+07Eh]
         push eax
         push dword [dword_1C1338]
         lea ebx, [byte ebp+05Eh]
         push dword [dword_1C1334]
         lea edx, [byte ebp+07Eh]
-        call sub_AC73E
+        call ClearReplayEntry
         mov eax, ecx
-        call sub_86500
+        call LoadNameIndex
         mov edx, eax
         mov eax, 1
         call NameIndexFree
@@ -1570,7 +1575,7 @@ sub_AC41B:
         imul eax, byte 1Ch
         mov edx, dword [dword eax+dword_1AD45A]
 .20:
-        call sub_AC69C
+        call WriteReplayFile
         mov eax, dword [dword_1AC940]
         shl edx, 4
         mov esi, dword [byte eax+020h]
@@ -1583,11 +1588,12 @@ sub_AC41B:
 .21:
         call CloseGameDatabase
         lea esp, [dword ebp+08Eh]
-        jmp near sub_AB573_B2F
+        jmp near SaveGameResults_B2F
 ;-----------------------------------------------------------------------------
-; sub_AC69C                                                       AC69C  97 PC
+; WriteReplayFile                                 AC69C  97 PC, low confidence
+; Writes the replay data and index entry
 ;-----------------------------------------------------------------------------
-sub_AC69C:
+WriteReplayFile:
         push ebx
         push ecx
         push edx
@@ -1615,11 +1621,12 @@ sub_AC69C:
         push ecx
         call FreeMemBlock
         add esp, byte 4
-        jmp near sub_AB573_B30
+        jmp near SaveGameResults_B30
 ;-----------------------------------------------------------------------------
-; sub_AC6EB                                                       AC6EB  97 PC
+; ReplayNameToKey                                 AC6EB  97 PC, low confidence
+; Builds the index key of a replay name
 ;-----------------------------------------------------------------------------
-sub_AC6EB:
+ReplayNameToKey:
         push ebx
         push edx
         push edi
@@ -1664,9 +1671,10 @@ sub_AC6EB:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_AC73E                                                       AC73E  97 PC
+; ClearReplayEntry                                AC73E  97 PC, low confidence
+; Clears a replay index entry
 ;-----------------------------------------------------------------------------
-sub_AC73E:
+ClearReplayEntry:
         push ebx
         push ecx
         push edx

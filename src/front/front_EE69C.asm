@@ -18,14 +18,14 @@ extern str_TR0D, strlen_, bcopy, sub_101324, BlitShape2, BlitArt, BlitShape, sub
 extern FindShape, sub_10FE58, CreateBitmapForArt, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11BDC0, sub_11FAAC
 extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFileLib
 extern DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, WipeScreen
-extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, sub_F20A1
-extern sub_F22AF, DrawPauseClock, FreeMemBlock, sub_FC4BC, MakeColor, FreeBitmap, sub_FCF84, DrawArt
+extern SetModemButton, InitMenuItems, RunMenu, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, LoadPauseArt
+extern FreePauseArt, DrawPauseClock, FreeMemBlock, sub_FC4BC, MakeColor, FreeBitmap, sub_FCF84, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_167A1A, unk_16D992, unk_1AC8E4
 extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, unk_EDDEF, unk_EDE3F, unk_EDE53
 extern unk_EE053, unk_EE093, unk_EE0E3, word_16E2EC, word_16E2EE, word_16E2F0
-global jpt_F031D, ShowReservedKey_20A, sub_EE8BB_3F3, sub_EE8BB_3FB, ControlSetupScreen_B8D, ControlSetupScreen_BB1, ControlSetupScreen_BC0, ControlSetupScreen_BF3
-global ControlSetupScreen_C3A, ControlSetupScreen_F11, ControlSetupScreen_1064, ShowReservedKey, sub_EE8AC, sub_EE8BB, sub_EECBC, sub_EF5B3
-global sub_EFD08, sub_F0004, sub_F01C5, ControlSetupScreen, sub_F174F, sub_F1FF8, sub_F207F
+global jpt_F031D, ShowReservedKey_20A, ControlSetupMain_3F3, ControlSetupMain_3FB, ControlSetupScreen_B8D, ControlSetupScreen_BB1, ControlSetupScreen_BC0, ControlSetupScreen_BF3
+global ControlSetupScreen_C3A, ControlSetupScreen_F11, ControlSetupScreen_1064, ShowReservedKey, CopyControlSettings, ControlSetupMain, ControlSetupKeys, ControlSetupPads
+global ControlSetupSound, DrawControlLabel, DrawControlKey, ControlSetupScreen, ControlSetupPlayers, SetupPauseArt, CleanupPauseArt
 ;-----------------------------------------------------------------------------
 ; ShowReservedKey                                 EE69C  97 PC, low confidence
 ; Control setup: "The %s key is reserved for a system function. Please choose
@@ -217,9 +217,10 @@ ShowReservedKey_20A:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EE8AC                                                       EE8AC  97 PC
+; CopyControlSettings                             EE8AC  97 PC, low confidence
+; Copies the control settings
 ;-----------------------------------------------------------------------------
-sub_EE8AC:
+CopyControlSettings:
         push ecx
         push byte 58h
         push eax
@@ -229,9 +230,10 @@ sub_EE8AC:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EE8BB                                                       EE8BB  97 PC
+; ControlSetupMain                                EE8BB  97 PC, low confidence
+; Runs the control setup screen
 ;-----------------------------------------------------------------------------
-sub_EE8BB:
+ControlSetupMain:
         push esi
         push edi
         enter 10h, 0
@@ -544,18 +546,19 @@ sub_EE8BB:
         call SetScreenTarget
         push dword [byte ebx+02Ch]
         call BlitShape
-sub_EE8BB_3F3:
+ControlSetupMain_3F3:
         add esp, byte 4
         call sub_1013FC
-sub_EE8BB_3FB:
+ControlSetupMain_3FB:
         leave
         pop edi
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_EECBC                                                       EECBC  97 PC
+; ControlSetupKeys                                EECBC  97 PC, low confidence
+; Runs the key setup page
 ;-----------------------------------------------------------------------------
-sub_EECBC:
+ControlSetupKeys:
         push esi
         push edi
         enter 28h, 0
@@ -1267,11 +1270,12 @@ sub_EECBC:
         add esp, byte 0Ch
         push ebx
         call FreeBitmap
-        jmp near sub_EE8BB_3F3
+        jmp near ControlSetupMain_3F3
 ;-----------------------------------------------------------------------------
-; sub_EF5B3                                                       EF5B3  97 PC
+; ControlSetupPads                                EF5B3  97 PC, low confidence
+; Runs the gamepad setup page
 ;-----------------------------------------------------------------------------
-sub_EF5B3:
+ControlSetupPads:
         push esi
         push edi
         enter 2Ch, 0
@@ -1854,11 +1858,12 @@ sub_EF5B3:
         call StopAllSfx
         mov eax, 203h
         call PlaySfx
-        jmp near sub_EE8BB_3FB
+        jmp near ControlSetupMain_3FB
 ;-----------------------------------------------------------------------------
-; sub_EFD08                                                       EFD08  97 PC
+; ControlSetupSound                               EFD08  97 PC, low confidence
+; Plays a control setup sound
 ;-----------------------------------------------------------------------------
-sub_EFD08:
+ControlSetupSound:
         push ebx
         push ecx
         push edx
@@ -2052,9 +2057,10 @@ sub_EFD08:
         mov dword [dword_1CE318], esi
         jmp near ShowReservedKey_20A
 ;-----------------------------------------------------------------------------
-; sub_F0004                                                       F0004  97 PC
+; DrawControlLabel                                F0004  97 PC, low confidence
+; Draws a control label
 ;-----------------------------------------------------------------------------
-sub_F0004:
+DrawControlLabel:
         push esi
         push edi
         enter 64h, 0
@@ -2185,17 +2191,18 @@ sub_F0004:
         mov ebx, eax
         mov eax, dword [byte ebp-070h]
 .4:
-        call sub_F01C5
+        call DrawControlKey
 .5:
         inc esi
 .6:
         cmp si, byte 0Ah
         jl near .1
-        jmp near sub_EE8BB_3FB
+        jmp near ControlSetupMain_3FB
 ;-----------------------------------------------------------------------------
-; sub_F01C5                                                       F01C5  97 PC
+; DrawControlKey                                  F01C5  97 PC, low confidence
+; Draws a control key
 ;-----------------------------------------------------------------------------
-sub_F01C5:
+DrawControlKey:
         push esi
         push edi
         enter 2Ch, 0
@@ -2855,7 +2862,7 @@ ControlSetupScreen:
         mov edx, dword [byte ebp+07Ah]
         mov ecx, dword [byte eax+02Ch]
         mov eax, dword [dword_1CE328]
-        call sub_EE8BB
+        call ControlSetupMain
         jmp short .12
 .11:
         mov eax, dword [byte ebp+05Eh]
@@ -2865,7 +2872,7 @@ ControlSetupScreen:
         mov edx, dword [byte ebp+07Ah]
         mov ecx, dword [byte eax+02Ch]
         mov eax, dword [dword_1CE328]
-        call sub_F174F
+        call ControlSetupPlayers
 .12:
         xor esi, esi
         jmp near .18
@@ -3049,7 +3056,7 @@ ControlSetupScreen:
         push str_BB02
         mov ebx, ecx
         mov eax, unk_1CE3D0
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-05F6h]
         push eax
         mov ecx, str_BB042
@@ -3057,7 +3064,7 @@ ControlSetupScreen:
         push str_BB052
         mov edx, dword [byte ebp+07Ah]
         mov eax, unk_1CE422
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-0536h]
         push eax
         mov ecx, str_KMB1
@@ -3072,7 +3079,7 @@ ControlSetupScreen:
         push str_BB02
         mov edx, dword [byte ebp+07Ah]
         mov eax, unk_1CE3D0
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-05F6h]
         push eax
         mov ecx, str_BB052
@@ -3080,7 +3087,7 @@ ControlSetupScreen:
         push str_BB052
         mov ebx, ecx
         mov eax, unk_1CE422
-        call sub_86AFA
+        call SetModemButton
         lea eax, [dword ebp-0536h]
         push eax
         mov ecx, str_KMB5
@@ -3089,7 +3096,7 @@ ControlSetupScreen:
 .20:
         mov edx, dword [byte ebp+07Ah]
         mov eax, unk_1CE474
-        call sub_86AFA
+        call SetModemButton
         mov esi, 7
         jmp short .22
 .21:
@@ -3125,7 +3132,7 @@ ControlSetupScreen:
 .23:
         push byte 2
         lea eax, [byte ebp+066h]
-        mov ecx, sub_EFD08
+        mov ecx, ControlSetupSound
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, dword_1CE32C
@@ -3162,7 +3169,7 @@ ControlSetupScreen_BC0:
         mov ecx, dword [byte eax+02Ch]
         mov eax, dword [dword_1CE328]
         mov dword [byte ebp+07Eh], 0
-        call sub_EF5B3
+        call ControlSetupPads
         jmp near ControlSetupScreen_F11.42
 ControlSetupScreen_BF3:
         cmp word [byte ebp+07Eh], byte 0
@@ -3176,7 +3183,7 @@ ControlSetupScreen_BF3:
         mov edx, dword [byte ebp+07Ah]
         mov ecx, dword [byte eax+02Ch]
         mov eax, dword [dword_1CE328]
-        call sub_EECBC
+        call ControlSetupKeys
 .26:
         mov dword [byte ebp+07Eh], 1
         mov dword [dword ebp-063Ah], 0
@@ -3258,7 +3265,7 @@ ControlSetupScreen_C3A:
         push str_TB012
         add ebx, eax
         lea eax, [byte ebp+056h]
-        call sub_F01C5
+        call DrawControlKey
         movsx eax, word [byte ebp+044h]
         movsx eax, word [dword ebp+eax*4-0B4h]
         imul eax, byte 0Fh
@@ -3270,7 +3277,7 @@ ControlSetupScreen_C3A:
         add ebx, eax
         lea eax, [byte ebp+05Eh]
         xor esi, esi
-        call sub_F01C5
+        call DrawControlKey
         call SetScreenTarget
         jmp short .34
 .33:
@@ -3446,14 +3453,14 @@ ControlSetupScreen_F11:
         mov edx, 0Dh
         add ebx, eax
         lea eax, [byte ebp+05Eh]
-        call sub_F01C5
+        call DrawControlKey
         push dword [byte ebp+07Ah]
         lea ecx, [byte ebp+056h]
         lea ebx, [byte ebp+05Eh]
         lea edx, [dword ebp-0B6h]
         mov eax, 9
 .40:
-        call sub_F0004
+        call DrawControlLabel
 .41:
         call sub_1013FC
 .42:
@@ -3465,13 +3472,13 @@ ControlSetupScreen_F11:
         jne near ControlSetupScreen.23
         push byte 2
         lea eax, [byte ebp+066h]
-        mov ecx, sub_EFD08
+        mov ecx, ControlSetupSound
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, dword_1CE32C
         mov eax, 17h
 .43:
-        call sub_8BFAC
+        call RunMenu
         jmp near ControlSetupScreen.25
 ControlSetupScreen_1064:
         push dword [byte ebp+056h]
@@ -3533,7 +3540,7 @@ ControlSetupScreen_1064:
         mov edx, 43h
         add ebx, eax
         lea eax, [byte ebp+056h]
-        call sub_F01C5
+        call DrawControlKey
         push dword [byte ebp+07Ah]
         lea ecx, [byte ebp+056h]
         lea ebx, [byte ebp+05Eh]
@@ -3661,7 +3668,7 @@ ControlSetupScreen_1064:
         lea ecx, [byte ebp+056h]
         push dword [byte ebp+07Ah]
         lea edx, [dword ebp-0B6h]
-        call sub_F0004
+        call DrawControlLabel
         call SetScreenTarget
         mov eax, dword [byte ebp+066h]
         mov eax, dword [nosplit eax*8+dword_1CE2D8]
@@ -3737,9 +3744,10 @@ ControlSetupScreen_1064:
         pop ebp
         jmp near ShowReservedKey_20A
 ;-----------------------------------------------------------------------------
-; sub_F174F                                                       F174F  97 PC
+; ControlSetupPlayers                             F174F  97 PC, low confidence
+; Runs the player control page
 ;-----------------------------------------------------------------------------
-sub_F174F:
+ControlSetupPlayers:
         push esi
         push edi
         enter 24h, 0
@@ -4411,14 +4419,15 @@ sub_F174F:
         push dword [byte ebp-018h]
         call FreeBitmap
         add esp, byte 4
-        jmp near sub_EE8BB_3FB
+        jmp near ControlSetupMain_3FB
 ;-----------------------------------------------------------------------------
-; sub_F1FF8                                                       F1FF8  97 PC
+; SetupPauseArt                                   F1FF8  97 PC, low confidence
+; Sets up the pause art
 ;-----------------------------------------------------------------------------
-sub_F1FF8:
+SetupPauseArt:
         push ecx
         push edx
-        call sub_F20A1
+        call LoadPauseArt
         mov eax, dword [dword_1C95BC]
         mov dword [dword_1CEFB0], eax
         mov eax, dword [dword_1C95B4]
@@ -4452,12 +4461,13 @@ sub_F1FF8:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F207F                                                       F207F  97 PC
+; CleanupPauseArt                                 F207F  97 PC, low confidence
+; Cleans up the pause art
 ;-----------------------------------------------------------------------------
-sub_F207F:
+CleanupPauseArt:
         push ecx
         push edx
-        call sub_F22AF
+        call FreePauseArt
         push byte 1
         call sub_11FAAC
         add esp, byte 4

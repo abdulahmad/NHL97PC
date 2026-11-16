@@ -26,13 +26,13 @@ extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, 
 extern SortIndices, bcopy, FindShape, sub_106036, sub_106D08, sub_1070B0, sub_1086BF, sub_10884C
 extern sub_109775, sub_1097F0, QueueSpeechRequest, ResetSpeechQueue, FindSpeechClip, LoadSpeechBlock, LoadClipIfMissing, SpeechFileHeader
 extern OpenSpeechBanks, ResolveSpeechClips, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, CheckDiskSpace
-extern SetTextColor, ShowMessageBoxNoWait, SetNormalText, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, ShowLoadingBar, sub_8BE60
-extern sub_8BEF8, FileExists, FileOpen, FileSeek, FileReadRecord, FileWriteRecord, FileClose, FileLength
+extern SetTextColor, ShowMessageBoxNoWait, SetNormalText, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, ShowLoadingBar, CreateMenuBitmap
+extern FreeMenuBitmap, FileExists, FileOpen, FileSeek, FileReadRecord, FileWriteRecord, FileClose, FileLength
 extern ServiceIdle, AllocMemBlock, sub_FAAB4, FreeMemBlock, sub_FC330, sub_FC410, MakeColor, tickcount
 extern unk_160DD4, unk_160E8C, unk_160FD4, unk_161068, vecdist
 global jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60, jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8
-global sub_43884_9C, LoadSpeechBank, sub_43884, InitSpeechBanks, sub_44998, sub_449F0, sub_44A50, sub_4518C
-global sub_45430, sub_45628, sub_4564C, sub_45954, sub_45A00, sub_45A3C
+global QueueSpeechChain_9C, LoadSpeechBank, QueueSpeechChain, InitSpeechBanks, CloseSpeechFile, SpeechClipLength, SayShotCall, SaySaveCall
+global SayPassCall, SpeechTableEntry, SayPlayerCall, SayRandomFiller, SpeechClipExists, SpeechEventKind
 ;-----------------------------------------------------------------------------
 ; LoadSpeechBank                                  43578  97 PC, low confidence
 ; From InitSpeechBanks: opens a speech bank's "%03d.DAT" / "%03d.HDR" pair
@@ -277,9 +277,10 @@ LoadSpeechBank:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_43884                                                       43884  97 PC
+; QueueSpeechChain                                43884  97 PC, low confidence
+; Queues a chain of speech clips
 ;-----------------------------------------------------------------------------
-sub_43884:
+QueueSpeechChain:
         push dword 1Ch
         call __CHK
         push ebx
@@ -350,11 +351,11 @@ sub_43884:
         pop ebx
         ret
         db 08Dh,040h,00h
-sub_43884_9C:
+QueueSpeechChain_9C:
         push ecx
         mov ecx, edx
         mov edx, ebx
-        call sub_43884
+        call QueueSpeechChain
         test eax, eax
         jl short .9
         add eax, ecx
@@ -999,7 +1000,7 @@ InitSpeechBanks:
         call FindShape
         add esp, byte 8
         mov edx, ebx
-        call sub_8BE60
+        call CreateMenuBitmap
         call SetNormalText
         push byte 0FFFFFFFFh
         call MakeColor
@@ -1123,7 +1124,7 @@ InitSpeechBanks:
         xor esi, esi
         mov byte [byte_1AC81B], ah
 .53:
-        call sub_8BEF8
+        call FreeMenuBitmap
         mov ecx, dword [dword_1C5DE4]
         push ecx
         call FreeMemBlock
@@ -1196,7 +1197,7 @@ InitSpeechBanks:
         call ServiceIdle
         mov eax, 30h
         call ShowLoadingBar
-        mov eax, sub_43884_9C
+        mov eax, QueueSpeechChain_9C
         call sub_10884C
         test eax, eax
         jl near .79
@@ -1459,9 +1460,10 @@ InitSpeechBanks:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_44998                                                       44998  97 PC
+; CloseSpeechFile                                 44998  97 PC, low confidence
+; Closes the speech file
 ;-----------------------------------------------------------------------------
-sub_44998:
+CloseSpeechFile:
         push dword 1Ch
         call __CHK
         push ebx
@@ -1495,9 +1497,10 @@ sub_44998:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_449F0                                                       449F0  97 PC
+; SpeechClipLength                                449F0  97 PC, low confidence
+; Returns the length of a speech clip
 ;-----------------------------------------------------------------------------
-sub_449F0:
+SpeechClipLength:
         push dword 28h
         call __CHK
         push ecx
@@ -1545,9 +1548,10 @@ sub_449F0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_44A50                                                       44A50  97 PC
+; SayShotCall                                     44A50  97 PC, low confidence
+; Picks the play-by-play call for a shot
 ;-----------------------------------------------------------------------------
-sub_44A50:
+SayShotCall:
         push dword 50h
         call __CHK
         push ebx
@@ -1758,7 +1762,7 @@ sub_44A50:
         mov ebx, esi
         mov edx, edi
         mov dword [byte ebp+00h], 9
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .30
         call rand_
@@ -1787,7 +1791,7 @@ sub_44A50:
         mov eax, 0Ah
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .31
         call rand_
@@ -1803,13 +1807,13 @@ sub_44A50:
         mov eax, 3
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .33
         mov eax, 4
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .32
         mov dword [byte ebp+00h], 1
@@ -1825,7 +1829,7 @@ sub_44A50:
         mov ebx, esi
         mov edx, edi
         mov dword [byte ebp+00h], 7
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .34
         call rand_
@@ -1841,7 +1845,7 @@ sub_44A50:
         mov eax, 8
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .35
         mov dword [byte ebp+00h], 8
@@ -1850,7 +1854,7 @@ sub_44A50:
         mov eax, 0Bh
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .36
         mov dword [byte ebp+00h], 0Ch
@@ -1859,7 +1863,7 @@ sub_44A50:
         mov eax, 0Ch
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .37
         mov dword [byte ebp+00h], 0Dh
@@ -1875,13 +1879,13 @@ sub_44A50:
         mov eax, 0Ah
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         jne near .47
         mov eax, 7
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je near .48
         mov dword [byte ebp+00h], 5
@@ -1891,7 +1895,7 @@ sub_44A50:
         mov ebx, esi
         mov edx, edi
         mov dword [byte ebp+00h], 0Eh
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .39
         mov eax, dword [byte esp+060h]
@@ -1910,7 +1914,7 @@ sub_44A50:
         mov eax, 9
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .40
         mov dword [byte ebp+00h], 0Ah
@@ -1919,7 +1923,7 @@ sub_44A50:
         mov eax, 7
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .42
         call rand_
@@ -1938,7 +1942,7 @@ sub_44A50:
         mov eax, 6
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .43
         mov eax, dword [byte esp+060h]
@@ -1951,7 +1955,7 @@ sub_44A50:
         mov eax, 8
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .44
         mov dword [byte ebp+00h], 8
@@ -1960,7 +1964,7 @@ sub_44A50:
         mov eax, 0Bh
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .45
         mov dword [byte ebp+00h], 0Ch
@@ -1969,7 +1973,7 @@ sub_44A50:
         mov eax, 0Ch
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .46
         mov dword [byte ebp+00h], 0Dh
@@ -1978,7 +1982,7 @@ sub_44A50:
         mov eax, 0Ah
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .48
         mov eax, dword [byte esp+060h]
@@ -1994,26 +1998,26 @@ sub_44A50:
         mov edx, dword [byte esp+01Ch]
         mov dword [eax], 0
         xor eax, eax
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .49
         mov ebx, esi
         mov edx, edi
         xor eax, eax
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         jne short .50
 .49:
         mov ebx, dword [byte esp+020h]
         mov edx, dword [byte esp+01Ch]
         mov eax, 1
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .51
         mov eax, 1
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .51
 .50:
@@ -2046,13 +2050,13 @@ sub_44A50:
         mov eax, 0Ah
         mov ebx, esi
         mov edx, edi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .53
         mov ebx, dword [byte esp+020h]
         mov edx, dword [byte esp+01Ch]
         mov eax, 0Ah
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .53
         mov eax, dword [byte esp+060h]
@@ -2149,9 +2153,10 @@ sub_44A50:
         pop ebx
         ret 20h
 ;-----------------------------------------------------------------------------
-; sub_4518C                                                       4518C  97 PC
+; SaySaveCall                                     4518C  97 PC, low confidence
+; Picks the play-by-play call for a save
 ;-----------------------------------------------------------------------------
-sub_4518C:
+SaySaveCall:
         push dword 28h
         call __CHK
         push ebx
@@ -2214,7 +2219,7 @@ sub_4518C:
         mov eax, 3
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .11
         call rand_
@@ -2258,7 +2263,7 @@ sub_4518C:
         mov eax, 5
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .9
         mov eax, 2
@@ -2274,13 +2279,13 @@ sub_4518C:
         mov eax, 7
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .17
         mov eax, 9
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .16
         call rand_
@@ -2313,7 +2318,7 @@ sub_4518C:
         mov eax, 9
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .18
         mov eax, 0Ah
@@ -2329,7 +2334,7 @@ sub_4518C:
         mov eax, 6
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je near .25
         call rand_
@@ -2342,7 +2347,7 @@ sub_4518C:
         mov eax, 5
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .19
         call rand_
@@ -2412,7 +2417,7 @@ sub_4518C:
         mov eax, 5
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .26
         mov eax, 2
@@ -2437,9 +2442,10 @@ sub_4518C:
         ret 8
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_45430                                                       45430  97 PC
+; SayPassCall                                     45430  97 PC, low confidence
+; Picks the play-by-play call for a pass
 ;-----------------------------------------------------------------------------
-sub_45430:
+SayPassCall:
         push dword 14h
         call __CHK
         push ecx
@@ -2487,7 +2493,7 @@ sub_45430:
         mov ebx, ecx
         mov edx, esi
         mov edi, 9
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .11
         test ebp, ebp
@@ -2506,19 +2512,19 @@ sub_45430:
         mov eax, 0Ah
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         jne near .22
         mov eax, 3
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je near .23
         mov eax, 4
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .12
         mov edi, 1
@@ -2540,7 +2546,7 @@ sub_45430:
         mov eax, 8
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .14
         mov edi, 8
@@ -2554,7 +2560,7 @@ sub_45430:
         mov eax, 0Bh
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .15
         mov edi, 0Ch
@@ -2568,7 +2574,7 @@ sub_45430:
         mov eax, 0Ch
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .16
         mov edi, 0Dh
@@ -2582,7 +2588,7 @@ sub_45430:
         mov eax, 7
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .17
         mov edi, 5
@@ -2599,7 +2605,7 @@ sub_45430:
         mov ebx, ecx
         mov edx, esi
         mov edi, 0Eh
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .18
         mov edi, 0Ah
@@ -2613,7 +2619,7 @@ sub_45430:
         mov eax, 6
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .23
         mov edi, 3
@@ -2628,7 +2634,7 @@ sub_45430:
         mov ebx, ecx
         mov edx, esi
         mov edi, 7
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .21
 .20:
@@ -2643,7 +2649,7 @@ sub_45430:
         mov eax, 0Ah
         mov ebx, ecx
         mov edx, esi
-        call sub_449F0
+        call SpeechClipLength
         test eax, eax
         je short .23
 .22:
@@ -2656,9 +2662,10 @@ sub_45430:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_45628                                                       45628  97 PC
+; SpeechTableEntry                                45628  97 PC, low confidence
+; Returns a speech table entry
 ;-----------------------------------------------------------------------------
-sub_45628:
+SpeechTableEntry:
         push dword 4
         call __CHK
         test eax, eax
@@ -2672,9 +2679,10 @@ sub_45628:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4564C                                                       4564C  97 PC
+; SayPlayerCall                                   4564C  97 PC, low confidence
+; Picks the play-by-play call for a player
 ;-----------------------------------------------------------------------------
-sub_4564C:
+SayPlayerCall:
         push dword 2Ch
         call __CHK
         push ebx
@@ -2707,7 +2715,7 @@ sub_4564C:
         add ebp, 7F8h
         mov ebx, esi
         mov edx, ebp
-        call sub_45430
+        call SayPassCall
         mov edx, dword [byte esp+030h]
         mov dword [edx], eax
         mov edx, dword [byte esp+03Ch]
@@ -2903,9 +2911,10 @@ sub_4564C:
         ret 1Ch
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_45954                                                       45954  97 PC
+; SayRandomFiller                                 45954  97 PC, low confidence
+; Picks a random filler call
 ;-----------------------------------------------------------------------------
-sub_45954:
+SayRandomFiller:
         push dword 14h
         call __CHK
         push ebx
@@ -2964,9 +2973,10 @@ sub_45954:
         pop ebx
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_45A00                                                       45A00  97 PC
+; SpeechClipExists                                45A00  97 PC, low confidence
+; Returns whether a speech clip exists
 ;-----------------------------------------------------------------------------
-sub_45A00:
+SpeechClipExists:
         push dword 8
         call __CHK
         push edx
@@ -2993,9 +3003,10 @@ sub_45A00:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_45A3C                                                       45A3C  97 PC
+; SpeechEventKind                                 45A3C  97 PC, low confidence
+; Returns the kind of a speech event
 ;-----------------------------------------------------------------------------
-sub_45A3C:
+SpeechEventKind:
         push dword 4
         call __CHK
         cmp eax, 1000h

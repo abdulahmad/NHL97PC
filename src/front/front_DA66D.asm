@@ -34,17 +34,17 @@ extern fclose_, fopen_, fread_, fseek_, ftell_, fwrite_, int386x_, memcmp_
 extern memcpy_, memset_, off_16D7AC, off_16D7B4, off_16D7DC, off_16D7E0, off_16D7E4, off_16D7E8
 extern off_16E0FC, off_16E4E0, rand_, segread_, slotteam, sprintf_, strcat_, strcmp_
 extern strcpy_, stricmp_, strlen_, strncpy_, bcopy, BlitShape2, BlitArt, BlitShape
-extern sub_1013FC, FindShape, sub_102B94, sub_106D08, sub_1070B0, sub_107D30, sub_10A68, sub_10AED0
-extern sub_10FAC, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11B104, sub_11B98E, sub_11BFC5, sub_11C134
+extern sub_1013FC, FindShape, sub_102B94, sub_106D08, sub_1070B0, sub_107D30, SetupOptionsAnim, sub_10AED0
+extern UpdateOptionsAnim, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11B104, sub_11B98E, sub_11BFC5, sub_11C134
 extern sub_11C41C, sub_11D2D0, sub_11D364, sub_11D508, sub_11D5C0, sub_11D690, sub_11D780, sub_11D8D8
-extern sub_11DA0C, sub_11DE04, sub_11F850, sub_11F8D0, SetScreenTarget, sub_14140, InitPacketLink, ShutdownPacketLink
+extern sub_11DA0C, sub_11DE04, sub_11F850, sub_11F8D0, SetScreenTarget, JoystickAxisScale, InitPacketLink, ShutdownPacketLink
 extern PacketLinkSend, ClosePacketLink, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd
 extern ArenaFileName, StopAllSfx, PlaySfx, ServiceBackgroundAudio, LoadDataFile, DrawShadedLogo, DrawScreenBackground, FadeInScreen
 extern ExitScreen, SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox, ShowMessageBoxNoWait
 extern WipeScreen, DrawStatTable, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, ShowLinkWait, ShowLinkMessage, HideLinkBox
-extern ShowPopupScreen, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, AllocPageStack, FreeDbPages, OpenDbFile
+extern ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, GetLangText, AllocPageStack, FreeDbPages, OpenDbFile
 extern CloseDbFile, AddIndexKey, DeleteIndexKey, FindIndexKey, FindLastKey, FindFirstKey, NextIndexKey, PrevIndexKey
-extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, sub_E7D6D, sub_E8660, sub_E8923, sub_F9A88, AllocMemBlock
+extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, BuildSeasonIntro, SetupSeasonIntro, DrawSeasonIntro, sub_F9A88, AllocMemBlock
 extern sub_FAAB4, FreeMemBlock, ZeroMem, sub_FBE40, addtimer, sub_FC008, WaitTicks, MakeColor
 extern FreeBitmap, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, sub_FDC68, FillRect, MeasureText
 extern DrawTextAt, FillRectCorners, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
@@ -11661,7 +11661,7 @@ ReadJoystickPads:
         xor bl, bl
 .15:
         xor ecx, ecx
-        call sub_14140
+        call JoystickAxisScale
         mov cl, al
         lea eax, [nosplit ecx*4+00h]
         sub eax, ecx
@@ -11877,7 +11877,7 @@ PollControllers:
         jbe short .11
         xor dl, dl
 .11:
-        call sub_14140
+        call JoystickAxisScale
         and eax, 0FFh
         imul eax, byte 0Bh
         mov dword [byte esp+04h], eax
@@ -11924,7 +11924,7 @@ InputRecordTimer:
         mov dword [dword_16D8A8], 1
         cmp dword [dword_16D898], byte 0
         jne short .1
-        call sub_10FAC
+        call UpdateOptionsAnim
 .1:
         cmp dword [dword_16D894], byte 0
         jne short .2
@@ -17122,7 +17122,7 @@ ChooseNetworkGameScreen:
         push eax
         mov ecx, ChooseNetGame
         mov eax, 0Ah
-        call sub_8BFAC
+        call RunMenu
         mov eax, dword [byte esp+02Ch]
         cmp ebp, eax
         jg short .9
@@ -17630,7 +17630,7 @@ OptionsAnimFrame:
         push esi
         push edi
         enter 38h, 0
-        call sub_10FAC
+        call UpdateOptionsAnim
         imul eax, dword [dword_16E144], byte 38h
         mov ecx, 0Eh
         mov esi, dword [dword_1684C0]
@@ -17984,7 +17984,7 @@ OptionsAnimScreen:
         push eax
         mov edx, unk_1CD6AC
         mov eax, 2
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+072h], byte 0
         jbe short .10
         cmp dword [byte ebp+072h], byte 1
@@ -18001,7 +18001,7 @@ OptionsAnimScreen:
         call GetLangText
         call ShowMessageBoxNoWait
         movzx eax, word [dword_16E144]
-        call sub_10A68
+        call SetupOptionsAnim
         jmp short .9
 .11:
         call FadeInScreen
@@ -18070,9 +18070,9 @@ SeasonIntroScreen:
         add esp, byte 0Ch
         lea edx, [dword ebp-0182h]
         mov dword [dword_1CD764], eax
-        call sub_E7D6D
+        call BuildSeasonIntro
         lea eax, [dword ebp-031Eh]
-        call sub_E8660
+        call SetupSeasonIntro
         call PauseMusic
         lea edx, [byte ebp-042h]
         mov eax, 6
@@ -18112,7 +18112,7 @@ SeasonIntroScreen_DB:
         mov eax, dword [dword_1CD76C]
         push dword [dword_1CD780]
         mov edx, eax
-        call sub_8DF1F
+        call RunScrollList
         cmp eax, dword [dword_1CD770]
         je short .2
         test eax, eax
@@ -18122,7 +18122,7 @@ SeasonIntroScreen_DB:
         mov dword [dword_1CD770], eax
         mov eax, 1
 .1:
-        call sub_E8923
+        call DrawSeasonIntro
 .2:
         test esi, esi
         jne short SeasonIntroScreen_19C.3
@@ -18133,7 +18133,7 @@ SeasonIntroScreen_DB:
         push eax
         xor ecx, ecx
         mov eax, 5
-        call sub_8BFAC
+        call RunMenu
         cmp dword [byte ebp+07Eh], byte 4
         ja short .2
         mov eax, dword [byte ebp+07Eh]

@@ -28,12 +28,12 @@ extern dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4, jpt_C750B, memmov
 extern qword_166FC4, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, BlitArt
 extern BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, sub_106DA0, ConvertArtXY
 extern FindShapeList, sub_11B104, sub_11B98E, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime
-extern PlayMenuSfx, PlaySfx, PlayScreenMovie, LoadDataFile, sub_7B4E4, DrawShadedLogo, DrawShadowBox, DrawScreenBackground
+extern PlayMenuSfx, PlaySfx, PlayScreenMovie, LoadDataFile, BuildRosterLines, DrawShadedLogo, DrawShadowBox, DrawScreenBackground
 extern FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox, EditTextField
 extern LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText, PoundsToKg, InchesToCm, PlayerBioScreen
-extern DrawHighlightBar, ShowPopupScreen, DrawStatsBackground, FreeStatsBitmap, ShowStatsScreen, ChangeMenuMusic, InitMenuItems, sub_8BFAC
-extern sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F
-extern sub_8E6AF, GetLangText, sub_8E870, LoadFakeExhibition, SaveAgents, sub_92EE2, sub_92F25, EditLinesScreen
+extern DrawHighlightBar, ShowPopupScreen, DrawStatsBackground, FreeStatsBitmap, ShowStatsScreen, ChangeMenuMusic, InitMenuItems, RunMenu
+extern InitScrollList, ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList
+extern SetListSelection, GetLangText, PositionAbbrev, LoadFakeExhibition, SaveAgents, SaveAgentsOnly, SaveTradesLink, EditLinesScreen
 extern BuildAutoLines, PlayerRatingsScreen, KeysEqual, DaysToYear, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, FindGameRecord
 extern UpdateGameRecord, FindPlayerStat, FindTeamStat, FreeExhibitionFile, ResetExhibitionStats, AllocMemBlock, FreeMemBlock, MakeColor
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount
@@ -354,7 +354,7 @@ RosterScreen_42C:
         mov edx, 4
         push dword [dword_1CC234]
         mov eax, edx
-        call sub_8DF1F
+        call RunScrollList
         xor edx, edx
 .11:
         mov ebx, eax
@@ -384,7 +384,7 @@ RosterScreen_49B:
         mov edx, 4
         push dword [dword_1CC234]
         mov eax, edx
-        call sub_8DF1F
+        call RunScrollList
         mov edx, 1
         jmp short RosterScreen_42C.11
 RosterScreen_4ED:
@@ -403,7 +403,7 @@ RosterScreen_4ED:
         mov edx, 0Ah
         push dword [dword_1CC210]
         mov eax, dword [dword_1CC230]
-        call sub_8DF1F
+        call RunScrollList
         xor ebx, ebx
         jmp short .14
 .13:
@@ -431,7 +431,7 @@ RosterScreen_53E:
         mov eax, dword [dword_1CC230]
         push dword [dword_1CC210]
         mov edx, 0Ah
-        call sub_8DF1F
+        call RunScrollList
         xor ebx, ebx
         jmp short .16
 .15:
@@ -474,7 +474,7 @@ RosterScreen_5CF:
 RosterScreen_5D3:
         lea eax, [dword ebp-028Eh]
         xor edx, edx
-        call sub_8DE10
+        call ScrollUp
 .22:
         imul edx, dword [dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
@@ -488,17 +488,17 @@ RosterScreen_604:
         lea eax, [dword ebp-028Eh]
         mov ebx, edx
         xor edx, edx
-        call sub_8DEAC
+        call ScrollToMouse
         jmp short RosterScreen_5D3.22
 RosterScreen_615:
         lea eax, [dword ebp-028Eh]
         xor edx, edx
-        call sub_8DE68
+        call ScrollDown
         jmp short RosterScreen_5D3.22
 RosterScreen_624:
         lea eax, [dword ebp-018Eh]
         xor edx, edx
-        call sub_8DE10
+        call ScrollUp
 .23:
         imul eax, dword [dword_1CC1C8], dword 32C6h
         mov edx, dword [dword_1CC2AC]
@@ -515,12 +515,12 @@ RosterScreen_65B:
         lea eax, [dword ebp-018Eh]
         mov ebx, edx
         xor edx, edx
-        call sub_8DEAC
+        call ScrollToMouse
         jmp short RosterScreen_624.23
 RosterScreen_66C:
         lea eax, [dword ebp-018Eh]
         xor edx, edx
-        call sub_8DE68
+        call ScrollDown
         imul edx, dword [dword_1CC1C8], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         jmp short RosterScreen_624.24
@@ -548,7 +548,7 @@ RosterScreen_66C:
         push eax
         mov edx, edi
         mov eax, 28h
-        call sub_8BFAC
+        call RunMenu
         mov edx, eax
         cmp dword [byte ebp+072h], byte 13h
         ja short .26
@@ -912,7 +912,7 @@ AllocRosterInfo:
 .2:
         mov eax, dword [dword_16D670]
         add eax, edi
-        call sub_7B4E4
+        call BuildRosterLines
 .3:
         inc ecx
 .4:
@@ -2113,7 +2113,7 @@ DrawRosterList:
         movzx ecx, byte [dword eax+0D0Ah]
         push ecx
         movzx eax, byte [dword eax+0D0Bh]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -2237,7 +2237,7 @@ DrawRosterList:
         movzx ecx, byte [dword eax+01284h]
         push ecx
         movzx eax, byte [dword eax+01285h]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -2390,7 +2390,7 @@ DrawRosterList:
         movzx ecx, byte [dword eax+0132Eh]
         push ecx
         movzx eax, byte [dword eax+0132Fh]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -2464,7 +2464,7 @@ DrawRosterList:
         movzx ecx, byte [dword eax+018A8h]
         push ecx
         movzx eax, byte [dword eax+018A9h]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -2554,7 +2554,7 @@ DrawRosterList:
         movsx edx, word [byte edx+eax+074h]
         inc edx
         mov eax, dword [nosplit edi*4+dword_1CC1BC]
-        call sub_8E6AF
+        call SetListSelection
         mov edx, dword [dword_1CC214]
         mov eax, dword [nosplit edi*4+dword_1CC1BC]
         call DrawScrollBar
@@ -2975,7 +2975,7 @@ InitRosterScreen:
         inc ebx
         add edx, eax
         mov eax, dword [nosplit edi*4+dword_1CC1BC]
-        call sub_8D956
+        call InitScrollList
         imul edx, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov ebx, dword [dword_1CC214]
@@ -3032,7 +3032,7 @@ FreeRosterScreen:
 .1:
         mov eax, dword [nosplit edx*4+dword_1CC1BC]
         inc edx
-        call sub_8DE7E
+        call FreeScrollList
         cmp edx, byte 2
         jl short .1
         call FreeRosterPanel
@@ -3826,7 +3826,7 @@ DrawPlayerCardText:
         movzx eax, byte [dword ecx+edx+0D0Ah]
         push eax
         movzx eax, byte [dword ecx+edx+0D0Bh]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -3868,7 +3868,7 @@ DrawPlayerCardText:
         movzx eax, byte [dword ecx+edx+01284h]
         push eax
         movzx eax, byte [dword ecx+edx+01285h]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -3901,7 +3901,7 @@ DrawPlayerCardText:
         movzx eax, byte [dword ecx+edx+0132Eh]
         push eax
         movzx eax, byte [dword ecx+edx+0132Fh]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -3935,7 +3935,7 @@ DrawPlayerCardText:
         movzx eax, byte [dword ecx+edx+018A8h]
         push eax
         movzx eax, byte [dword ecx+edx+018A9h]
-        call sub_8E870
+        call PositionAbbrev
         movzx eax, al
         push eax
         push str_CDCS2
@@ -4390,7 +4390,7 @@ RedrawRosterScreen:
         movsx edx, word [byte edx+eax+074h]
         inc edx
         mov eax, dword [nosplit esi*4+dword_1CC1BC]
-        call sub_8E6AF
+        call SetListSelection
         imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         xor ebx, ebx
@@ -7533,7 +7533,7 @@ JerseyScreen:
         push eax
         mov edx, edi
         mov eax, 64h
-        call sub_8BFAC
+        call RunMenu
         mov eax, dword [byte ebp+04Eh]
         cmp byte [dword eax+byte_1CC240], 0
         jne short .30
@@ -7678,7 +7678,7 @@ RosterEditScreen_AD:
         movsx edx, word [byte edx+eax+074h]
         inc edx
         mov eax, dword [dword esi+dword_1CC1BC]
-        call sub_8E6AF
+        call SetListSelection
         imul edx, dword [dword esi+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         xor ebx, ebx
@@ -7819,7 +7819,7 @@ RosterEditScreen_25B:
         movsx edx, word [byte edx+eax+074h]
         inc edx
         mov eax, dword [nosplit esi*4+dword_1CC1BC]
-        call sub_8E6AF
+        call SetListSelection
         mov edx, 1
         mov eax, esi
         call DrawRosterList
@@ -8886,7 +8886,7 @@ SaveTrades:
         add edx, 8FEh
         add edx, eax
         mov eax, dword [dword_16D66C]
-        call sub_92F25
+        call SaveTradesLink
         movsx edx, word [byte ebp-04h]
         imul edx, byte 38h
         mov eax, dword [dword_16D66C]
@@ -8945,7 +8945,7 @@ SaveTrades:
         add edx, 1B5Ah
         add edx, eax
         mov eax, dword [dword_16D66C]
-        call sub_92F25
+        call SaveTradesLink
         movsx edx, word [byte ebp-04h]
         imul edx, byte 38h
         mov eax, dword [dword_16D66C]
@@ -9004,7 +9004,7 @@ SaveTrades:
         add eax, 1D8Eh
         add edx, eax
         mov eax, dword [dword_16D66C]
-        call sub_92F25
+        call SaveTradesLink
         movsx ebx, word [byte ebp-04h]
         imul ebx, byte 38h
         mov eax, dword [dword_16D66C]
@@ -9063,7 +9063,7 @@ SaveTrades:
         add edx, 2FEAh
         add edx, eax
         mov eax, dword [dword_16D66C]
-        call sub_92F25
+        call SaveTradesLink
         movsx edx, word [byte ebp-04h]
         imul edx, byte 38h
         mov eax, dword [dword_16D66C]
@@ -9136,7 +9136,7 @@ SaveTrades:
         movsx edx, word [edx+eax*2]
         mov eax, dword [dword_16D66C]
         inc dword [byte ebp-0Ch]
-        call sub_92EE2
+        call SaveAgentsOnly
 .19:
         mov eax, dword [byte ebp-0Ch]
         cmp eax, dword [dword_1CC2A4]
@@ -10641,7 +10641,7 @@ CreatePlayerScreen:
         push eax
         mov edx, dword [byte ebp+072h]
         mov eax, 28h
-        call sub_8BFAC
+        call RunMenu
         mov edx, eax
         mov esi, eax
         cmp dword [byte ebp+05Ah], byte 5
