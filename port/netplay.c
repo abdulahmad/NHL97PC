@@ -48,6 +48,7 @@
 #define O_READPADS     SYM_PollControllers     /* the controllers into SlotWords, the hot keys into HotKeyFlags */
 #define O_INITPADS     SYM_InitSlotTable       /* InitSlotTable(eax: the 8 controller set-up bytes): SlotWords' high bytes, the teams */
 #define O_MENU         SYM_RunInGameMenu
+#define D_SCENE        0x19D384u               /* the camera scene flag (a scene function runs: RunCameraScene) */
 #define O_STREAMSVC    0x3EF68u                /* sub_3EF68, the audio stream service */
 #define O_NEXTCHUNK    0x3FBE4u                /* sub_3FBE4, the stream's next chunk (0: none) */
 #define O_TICK_ISR     SYM_TimerISR            /* has inc dword [tickcount] (FF 05 addr) */
@@ -319,7 +320,8 @@ static int make_step(void)
  * a Pentium 75-100 the drawing took about as long as a record (3 ticks, about 34 a second); a modern CPU drew hundreds of frames a
  * second and those ran 10x too fast (and the busy loop stuttered).
  *   Pentium 100: after a frame the loop waits for the next record (at most 100 ms, in case the records stop): one frame a record.
- *   60 fps: no frame sooner than 1/60 s after the last one; a record that comes meanwhile is run first.
+ *   60 fps: no frame sooner than 1/60 s after the last one; a record that comes meanwhile is run first. During a camera scene
+ *   it paces as Pentium 100.
  *   Unlocked: as fast as it can (the original on a fast CPU). NHL97_FRAMES=pentium100 / 60 / free overrides the setting. */
 extern volatile int frames_mode;
 static int nh_drew;
@@ -333,6 +335,9 @@ static uint32_t paced_avail(uint32_t c)
         env = !e ? -1 : !strcmp(e, "free") || !strcmp(e, "unlocked") ? 2 : !strcmp(e, "60") ? 1 : 0;
     }
     mode = env >= 0 ? env : frames_mode;
+    /* 60 fps keeps the camera scenes (the opening fly-in, faceoffs, fights, penalties, intermissions: a scene function runs while
+     * 19D384 is set, see RunCameraScene) at Pentium 100 pacing: their camera eases toward its goal a step per drawn frame */
+    if (mode == 1 && G32(D_SCENE)) mode = 0;
     if (!c && (mode == 0 ? nh_drew : mode == 1)) {
         int64_t until = mode == 1 ? nh_drew_ns + 1000000000 / 60 : plat_now_ns() + 100000000;
         while (!(c = G32(D_QCOUNT)) && plat_now_ns() < until) host_idle_once();
