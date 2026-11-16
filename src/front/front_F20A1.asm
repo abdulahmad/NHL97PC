@@ -38,7 +38,7 @@ extern PaEvent, ResetStreamAudio, LoadDataFile, InitGameGraphics, InitGameVideo,
 extern TriggerCameraFlashes, RestoreSavedPalette, ReplayHasFrames, UpdateGameDisplay, UpdateAllPoses, InitFrontEnd, FreeFrontEnd, SetRegionRect
 extern SetTextColor, DrawTextAligned, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
 extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, LoadGameLogos, sub_AB0A6, RunReplay
-extern FadePalette, FadeOut, sub_DA7EB, sub_DB6AC, sub_E341C, sub_E3798, sub_E4218, sub_E4230
+extern FadePalette, FadeOut, OpenGameDatabase, CloseGameDatabase, ServiceIdle, SyncLinkGame, LinkSyncMenu, LinkSyncScreen
 extern WaitForOtherComputer, sub_F1FF8, FreeMemBlock, sub_FC330, sub_FC4BC, sub_FCC40, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt
 extern FillRectCorners, tickcount, unk_167A4B, word_168D18, word_19CBB0, word_19CBB2, gsp, gameclock
@@ -2464,9 +2464,9 @@ RunIntermission:
         jne short .9
         mov eax, dword [tickcount]
         call DrawGameFrame
-        call sub_E341C
+        call ServiceIdle
         call RedrawGameView
-        call sub_E341C
+        call ServiceIdle
         call dword [off_16E4E0]
         mov dword [byte ebp-018h], eax
         mov eax, dword [mousex]
@@ -2485,7 +2485,7 @@ RunIntermission:
         push eax
         lea edx, [byte ebp-01Ch]
         lea eax, [byte ebp-014h]
-        call sub_E3798
+        call SyncLinkGame
         jmp short .8
 .9:
         mov eax, dword [byte esi+02Ch]
@@ -3145,12 +3145,12 @@ PauseMenu_66D:
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
         call RedrawGameView
-        call sub_E4218
+        call LinkSyncMenu
         jmp near PauseMenu_4BB
 .35:
         mov eax, 8Fh
         call GetLangText
-        call sub_E4230
+        call LinkSyncScreen
         jmp near PauseMenu_4BB
 .36:
         lea eax, [byte ebp-0Ah]
@@ -3234,7 +3234,7 @@ sub_F48C2:
         mov eax, 2
         call SecondsToSamples
         call WaitSoundTime
-        call sub_DA7EB
+        call OpenGameDatabase
         leave
         pop edx
         pop ecx
@@ -3249,7 +3249,7 @@ sub_F4978:
         push edx
         enter 158h, 0
         mov ecx, eax
-        call sub_DB6AC
+        call CloseGameDatabase
         test ecx, ecx
         jne short .1
         call InitGameAudio
@@ -3967,7 +3967,7 @@ sub_F5219:
         fistp dword [byte ebp+07Ah]
         mov edx, dword [byte ebp+07Ah]
         call UpdateScreenRegion
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         mov ebx, eax
 .4:

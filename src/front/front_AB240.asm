@@ -10,9 +10,9 @@ extern dword_1AD6AF, dword_1AD727, dword_1AD743, dword_1C1334, dword_1C1338, dwo
 extern memcpy_, sprintf_, sub_10AED0, MakeDirPath, SaveReplayHeader, sub_789F0, sub_7B15D, sub_7B88D
 extern sub_7FE4C, sub_83314, sub_834EC, sub_83558, NameIndexNew, NameIndexLoad, NameIndexFree, sub_86500
 extern GetLangText, sub_91D7F, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData
-extern LinkReceiveData, sub_A3116, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DB763, sub_DCFB0, sub_DE5A3
-extern sub_DE740, sub_DEE95, sub_DEF96, sub_E036F, sub_E0415, sub_E19D5, sub_E1C19, OpenReplayFile
-extern sub_E3410, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem, sub_FCC40, unk_16D7F4
+extern LinkReceiveData, sub_A3116, KeysEqual, OpenGameDatabase, CloseGameDatabase, DaysToYear, CreateExhibitionFile, WriteLeagueHeader
+extern StartSeasonGame, SaveExhibitionResult, SaveSeasonResult, FindGameRecord, UpdateGameRecord, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile
+extern ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem, sub_FCC40, unk_16D7F4
 extern unk_1ACF4E, unk_1AD236, unk_1AD443, word_1C1344
 global sub_AB240_32D, sub_AB573_B2F, sub_AB573_B30, sub_AB240, sub_AB573, sub_AC0A9, sub_AC369, sub_AC41B
 global sub_AC69C, sub_AC6EB, sub_AC73E
@@ -82,7 +82,7 @@ sub_AB240:
         add eax, esi
         mov edx, unk_16D7F4
         add eax, byte 8
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .4
         mov dword [byte ebp-010h], 0
@@ -93,7 +93,7 @@ sub_AB240:
         add eax, esi
         mov edx, dword [byte ebp-04h]
         add eax, byte 8
-        call sub_E1C19
+        call FindReplayIndexEntry
         mov eax, dword [byte ebp-04h]
         cmp dword [dword eax+04A74h], byte 0FFFFFFFFh
         jne short .5
@@ -104,7 +104,7 @@ sub_AB240:
         inc eax
         mov dword [byte ebp-010h], eax
 .6:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .7
         mov edx, 4
@@ -206,7 +206,7 @@ sub_AB240:
         call sub_A2F31
         mov eax, dword [byte ebp-04h]
         mov ebx, dword [dword ebx+04A70h]
-        call sub_E19D5
+        call AddReplayIndexEntry
         mov eax, dword [byte ebp-04h]
         cmp dword [dword eax+04A70h], byte 0
         je short .18
@@ -317,7 +317,7 @@ sub_AB573:
         jne near .8
         mov edx, unk_16D7F4
         add eax, byte 8
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         jne near .8
         mov eax, dword [dword_1AC940]
@@ -330,7 +330,7 @@ sub_AB573:
         shl edx, 3
         add eax, edx
         mov edx, dword [byte ebp+06Ah]
-        call sub_E036F
+        call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
         call sub_7B15D
         mov eax, dword [dword_1AC940]
@@ -340,7 +340,7 @@ sub_AB573:
         cmp byte [dword eax+byte_1ACF63], 1
         je short .3
         mov eax, dword [byte ebp+06Ah]
-        call sub_E0415
+        call UpdateGameRecord
 .3:
         mov ebx, dword [byte ebp+07Ah]
         mov eax, dword [dword_1AC940]
@@ -351,7 +351,7 @@ sub_AB573:
         shl edx, 3
         add eax, edx
         mov edx, dword [byte ebp+06Ah]
-        call sub_E036F
+        call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
         call sub_7B15D
         mov eax, dword [dword_1AC940]
@@ -361,7 +361,7 @@ sub_AB573:
         cmp byte [dword eax+byte_1ACF63], 1
         je short .4
         mov eax, dword [byte ebp+06Ah]
-        call sub_E0415
+        call UpdateGameRecord
 .4:
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [dword_1AC940]
@@ -370,13 +370,13 @@ sub_AB573:
         add eax, edx
         mov edx, dword [byte ebp+066h]
         add eax, byte 8
-        call sub_E1C19
+        call FindReplayIndexEntry
         mov eax, dword [byte ebp+066h]
         cmp dword [dword eax+04A74h], byte 0FFFFFFFFh
         jne near .8
         movsx edx, word [byte ebp+07Ah]
         mov eax, dword [dword_1AC940]
-        call sub_DEE95
+        call SaveExhibitionResult
         jmp near .8
 .5:
         mov edx, dword [byte ebp+07Ah]
@@ -403,7 +403,7 @@ sub_AB573:
         jne short .8
         mov edx, unk_16D7F4
         add eax, byte 8
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         jne short .8
         mov eax, dword [dword_1AC940]
@@ -411,13 +411,13 @@ sub_AB573:
         add eax, ecx
         mov edx, dword [byte ebp+066h]
         add eax, byte 8
-        call sub_E1C19
+        call FindReplayIndexEntry
         mov eax, dword [byte ebp+066h]
         cmp dword [dword eax+04A74h], byte 0FFFFFFFFh
         jne short .7
         movsx edx, word [byte ebp+07Ah]
         mov eax, dword [dword_1AC940]
-        call sub_DEE95
+        call SaveExhibitionResult
 .7:
         mov eax, dword [byte ebp+07Ah]
         call sub_AC41B
@@ -562,11 +562,11 @@ sub_AB573:
         shl edx, 3
         add eax, edx
         mov edx, dword [byte ebp+06Ah]
-        call sub_E036F
+        call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
         call sub_7B15D
         mov eax, dword [byte ebp+06Ah]
-        call sub_E0415
+        call UpdateGameRecord
         mov eax, dword [dword_1AC940]
         mov ecx, dword [byte eax+020h]
         movsx edx, byte [byte ecx+esi+01h]
@@ -574,22 +574,22 @@ sub_AB573:
         shl edx, 3
         add eax, edx
         mov edx, dword [byte ebp+06Ah]
-        call sub_E036F
+        call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
         mov ebx, dword_1C1334
         call sub_7B15D
         mov eax, dword [byte ebp+06Ah]
         movsx edx, word [byte ebp+07Ah]
-        call sub_E0415
+        call UpdateGameRecord
         mov eax, dword [dword_1AC940]
-        call sub_DE740
+        call StartSeasonGame
         mov eax, dword [byte ebp+07Ah]
         xor edx, edx
         mov ebx, dword_1C1334
         call sub_789F0
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [dword_1AC940]
-        call sub_DEF96
+        call SaveSeasonResult
         jmp near .26
 .23:
         mov edx, dword [byte ebp+07Ah]
@@ -637,11 +637,11 @@ sub_AB573:
         shl edx, 3
         add eax, edx
         mov edx, dword [byte ebp+06Ah]
-        call sub_E036F
+        call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
         call sub_7B15D
         mov eax, dword [byte ebp+06Ah]
-        call sub_E0415
+        call UpdateGameRecord
         mov eax, dword [dword_1AC940]
         mov edx, dword [byte eax+020h]
         movsx edx, byte [byte edx+esi+01h]
@@ -649,22 +649,22 @@ sub_AB573:
         shl edx, 3
         add eax, edx
         mov edx, dword [byte ebp+06Ah]
-        call sub_E036F
+        call FindGameRecord
         mov eax, dword [byte ebp+06Ah]
         mov ebx, dword_1C1334
         call sub_7B15D
         mov eax, dword [byte ebp+06Ah]
         movsx edx, word [byte ebp+07Ah]
-        call sub_E0415
+        call UpdateGameRecord
         mov eax, dword [dword_1AC940]
-        call sub_DE740
+        call StartSeasonGame
         mov edx, 1
         mov eax, dword [byte ebp+07Ah]
         mov ebx, dword_1C1334
         call sub_789F0
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [dword_1AC940]
-        call sub_DEF96
+        call SaveSeasonResult
         mov eax, dword [byte ebp+07Ah]
         call sub_AC41B
 .26:
@@ -771,7 +771,7 @@ sub_AB573:
         push eax
         mov eax, 69h
         mov dword [byte ebp+07Ah], 0
-        call sub_DCFB0
+        call CreateExhibitionFile
         jmp near .40
 .35:
         mov dword [byte ebp+06Eh], 0
@@ -805,7 +805,7 @@ sub_AB573:
         mov ebx, 1
         mov edx, 5
         mov eax, 7CCh
-        call sub_DB763
+        call DaysToYear
         mov edx, eax
         add edx, esi
         mov esi, dword [byte ebp+07Ah]
@@ -852,7 +852,7 @@ sub_AB573:
         mov ebx, 1
         mov edx, 5
         mov eax, 7CCh
-        call sub_DB763
+        call DaysToYear
         mov edx, eax
         add edx, esi
         mov esi, dword [byte ebp+07Ah]
@@ -881,7 +881,7 @@ sub_AB573:
         mov ebx, 1
         mov edx, 5
         mov eax, 7CCh
-        call sub_DB763
+        call DaysToYear
         add eax, edi
         add esi, eax
         mov eax, dword [byte ebp+056h]
@@ -995,14 +995,14 @@ sub_AB573:
         movsx edx, word [byte ebp+07Ah]
         mov ebx, dword_1C1334
         mov eax, dword [dword_1AC940]
-        call sub_DE740
+        call StartSeasonGame
         mov edx, 1
         mov eax, dword [byte ebp+07Ah]
         mov ebx, dword_1C1334
         call sub_789F0
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [dword_1AC940]
-        call sub_DEF96
+        call SaveSeasonResult
         mov eax, dword [byte ebp+07Ah]
         call sub_AC41B
 .53:
@@ -1279,7 +1279,7 @@ sub_AC0A9:
         mov ebx, 1
         mov edx, 5
         mov eax, 7CCh
-        call sub_DB763
+        call DaysToYear
         mov edx, ecx
         add edi, eax
         add edx, ecx
@@ -1307,7 +1307,7 @@ sub_AC0A9:
 .25:
         mov eax, dword [dword_1AC940]
         inc byte [byte_1AD72B]
-        call sub_DE5A3
+        call WriteLeagueHeader
 .26:
         cmp dword [byte ebp-0Ch], byte 0
         sete al
@@ -1340,7 +1340,7 @@ sub_AC369:
         mov eax, dword_1C1334
         movsd
         movsd
-        call sub_E19D5
+        call AddReplayIndexEntry
         mov esi, ecx
         mov eax, dword [dword_1AC940]
         shl esi, 4
@@ -1360,7 +1360,7 @@ sub_AC369:
         xor edx, edx
         mov ecx, dword [dword eax+dword_1AD45A]
         mov eax, dword_1C1334
-        call sub_E19D5
+        call AddReplayIndexEntry
         mov eax, dword [dword_1AC940]
         shl ecx, 4
         mov esi, dword [byte eax+020h]
@@ -1371,7 +1371,7 @@ sub_AC369:
 .2:
         call sub_AB573
         mov eax, dword [dword_1AC940]
-        call sub_DE5A3
+        call WriteLeagueHeader
         jmp near sub_AB240_32D
 ;-----------------------------------------------------------------------------
 ; sub_AC41B                                                       AC41B  97 PC
@@ -1464,7 +1464,7 @@ sub_AC41B:
         push edi
         enter 0A8h, 0
         sub ebp, 8Eh
-        call sub_DA7EB
+        call OpenGameDatabase
         xor esi, esi
         test byte [dword_1AC814], 70h
         jne near .18
@@ -1479,7 +1479,7 @@ sub_AC41B:
         add esp, byte 4
         cmp dword [dword_16DA9C], byte 0
         je short .13
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .13
         push byte 1
@@ -1579,9 +1579,9 @@ sub_AC41B:
         movsd
         movsd
         mov eax, dword [dword_1AC940]
-        call sub_DE5A3
+        call WriteLeagueHeader
 .21:
-        call sub_DB6AC
+        call CloseGameDatabase
         lea esp, [dword ebp+08Eh]
         jmp near sub_AB573_B2F
 ;-----------------------------------------------------------------------------
@@ -1611,7 +1611,7 @@ sub_AC69C:
         mov edx, ecx
         movsd
         movsd
-        call sub_E19D5
+        call AddReplayIndexEntry
         push ecx
         call FreeMemBlock
         add esp, byte 4

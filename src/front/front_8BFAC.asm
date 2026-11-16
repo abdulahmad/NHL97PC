@@ -14,8 +14,8 @@ extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dwo
 extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8
 extern RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187, RunNewSeason_193, off_16E4E0, qword_165550, qword_165558, qword_165568
 extern BlitArt, sub_1013CC, sub_1013FC, FindShape, sub_1097F0, ConvertArtXY, SetScreenTarget, PlaySfx
-extern LoadDataFileHandle, SetRegionRect, sub_835AC, sub_835BC, sub_83850, InitMenuItems, sub_E3410, sub_E341C
-extern sub_E375C, sub_E3798, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
+extern LoadDataFileHandle, SetRegionRect, sub_835AC, sub_835BC, sub_83850, InitMenuItems, ClearLinkAbort, ServiceIdle
+extern ResetLinkStats, SyncLinkGame, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, sub_FDC68, tickcount, word_16CD04, word_16CD20, word_16CD22
 global jpt_8E977, jpt_8E987, sub_8D956_223, sub_8DBAC_1F5, sub_8DBAC_220, sub_8BFAC, sub_8D5C0, sub_8D6B4
 global sub_8D6E0, sub_8D6E8, sub_8D910, sub_8D956, sub_8DBAC, sub_8DE0F, sub_8DE10, DrawScrollBar
@@ -216,7 +216,7 @@ sub_8BFAC:
         jl near .10
 .22:
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov ebx, 0FFFFFFFFh
@@ -237,7 +237,7 @@ sub_8BFAC:
         cmp eax, dword [dword_16CD24]
         jle short .24
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov dword [dword_16CD24], eax
@@ -252,7 +252,7 @@ sub_8BFAC:
         cmp dword [byte esp+034h], byte 0
         jne short .26
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov ebx, 1
@@ -330,7 +330,7 @@ sub_8BFAC:
         push dword_1C83F0
         mov edx, dword_16CD08
         mov eax, dword_16CD30
-        call sub_E3798
+        call SyncLinkGame
         mov ebx, dword [byte esp+034h]
         mov dword [byte esp+014h], eax
         test ebx, ebx
@@ -368,10 +368,10 @@ sub_8BFAC:
         push dword_1C83F0
         mov edx, dword_16CD08
         mov eax, dword_16CD30
-        call sub_E3798
+        call SyncLinkGame
         test eax, eax
         jne short .36
-        call sub_E341C
+        call ServiceIdle
         jmp short .35
 .36:
         mov edx, 1
@@ -483,7 +483,7 @@ sub_8BFAC:
         mov dword [esp], eax
         test ecx, ecx
         je short .48
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov dword [dword_16CD24], eax
@@ -540,7 +540,7 @@ sub_8BFAC:
 .54:
         cmp dword [byte esp+034h], byte 0
         je short .55
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
         mov dword [dword_16CD24], eax
@@ -1525,7 +1525,7 @@ sub_8BFAC:
         mov ecx, dword [byte esp+048h]
         test ecx, ecx
         jl short .152
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .151
         mov dword [dword esp+084h], ebx
@@ -1899,7 +1899,7 @@ sub_8D6B4:
         add esp, byte 8
         mov edx, esi
         xor ecx, ecx
-        call sub_E375C
+        call ResetLinkStats
         pop esi
         pop ecx
         pop ebx
@@ -2039,7 +2039,7 @@ sub_8D6E8:
         sar ebx, 1
         sar edx, 1
         xor ecx, ecx
-        call sub_E375C
+        call ResetLinkStats
         mov ebp, dword [dword_1C8424]
         push ebp
         mov eax, dword [dword_1C8430]
@@ -2814,7 +2814,7 @@ sub_8DF1F:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .9
-        call sub_E341C
+        call ServiceIdle
         jmp short .8
 .9:
         dec dword [byte ebp-04h]
@@ -3127,7 +3127,7 @@ sub_8E2EE:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .9
-        call sub_E341C
+        call ServiceIdle
         jmp short .8
 .9:
         dec edi

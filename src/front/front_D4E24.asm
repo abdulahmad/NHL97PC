@@ -18,19 +18,19 @@ extern sub_11BED4, SetScreenTarget, WaitRetraceEdges, RunDemoGame, SecondsToSamp
 extern MusicPlaying, RequestMusicStop, WaitMusicEnd, ArenaFileName, StopAllSfx, PlaySfx, PlayScreenMovie, MakeDataPath
 extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, SetTextColor, DrawTextAligned, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, AllocClearBlock
-extern FreePtr, sub_E22FC, sub_E2310, sub_E2334, sub_E2348, FileCreate, FileOpen, FileSeek
-extern FileReadRecord, FileWriteRecord, FileClose, sub_E341C, sub_F9496, sub_F94BC, AllocMemBlock, FreeMemBlock
+extern FreePtr, CopyBytesOk, CopyAndClear, ZeroBytesOk, CompareKeyBytes, FileCreate, FileOpen, FileSeek
+extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, sub_F9496, sub_F94BC, AllocMemBlock, FreeMemBlock
 extern sub_FBE40, sub_FBE5D, sub_FC330, MakeColor, FreeBitmap, sub_FCEEC, sub_FCF84, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
 global jpt_D5460, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
-global GoalieMaskIntro, sub_D53A4, GoalieMaskScreen, FadePalette, FadeOut, sub_D68E0, RunIntro, sub_D6D38
-global sub_D6E20, sub_D6FD8, sub_D705C, CreditsScreen, AllocPageStack, sub_D7B64, OldestDbPageSlot, ReadDbPage
-global WriteDbPage, GetDbPage, sub_D7E08, CreateDbFile, OpenDbFile, CloseDbFile, sub_D8270, sub_D8358
-global sub_D83C0, sub_D8614, sub_D8860, sub_D8944, sub_D8B20, sub_D8CAC, sub_D9614, sub_D9708
-global sub_D9960, sub_D9AB4, sub_D9D74, sub_D9E18, sub_D9ED8, sub_D9FDC, sub_DA020, sub_DA02C
-global sub_DA038, sub_DA158, sub_DA274, sub_DA48C, sub_DA498, sub_DA4A4, sub_DA544, sub_DA57C
-global sub_DA5C4, sub_DA654
+global GoalieMaskIntro, GoalieMaskAnim, GoalieMaskScreen, FadePalette, FadeOut, RunIntroMovie, RunIntro, DrawCreditsPage
+global ScrollCredits, CreditsKeyPressed, PlayCreditsMusic, CreditsScreen, AllocPageStack, FreeDbPages, OldestDbPageSlot, ReadDbPage
+global WriteDbPage, GetDbPage, InitDbFileHeader, CreateDbFile, OpenDbFile, CloseDbFile, CopyIndexNode, FlushDbPage
+global SplitIndexNode, InsertKeyUp, CompareIndexKey, InsertKeyInNode, AddIndexKey, MergeIndexNodes, RemoveKeyFromNode, DeleteKeyFromNode
+global DeleteIndexKey, SearchIndexNode, FindIndexKey, LeftmostKey, RightmostKey, FirstOrLastKey, FindLastKey, FindFirstKey
+global PrevKeyInNode, NextKeyInNode, StepIndexKey, NextIndexKey, PrevIndexKey, BuildKey, BuildKeyFromLong, BuildKeyFromString
+global ParseKey, KeyToLong
 ;-----------------------------------------------------------------------------
 ; GoalieMaskIntro                                 D4E24  97 PC, low confidence
 ; From GoalieMaskScreen: the opening of the mask gallery (DOR0 / DOR1 doors,
@@ -508,9 +508,10 @@ GoalieMaskIntro:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D53A4                                                       D53A4  97 PC
+; GoalieMaskAnim                                  D53A4  97 PC, low confidence
+; Animates the goalie mask screen with a random sound
 ;-----------------------------------------------------------------------------
-sub_D53A4:
+GoalieMaskAnim:
         push ebx
         push ecx
         push edx
@@ -1083,7 +1084,7 @@ GoalieMaskScreen:
 .7:
         push byte 2
         lea eax, [dword esp+0560h]
-        mov ecx, sub_D53A4
+        mov ecx, GoalieMaskAnim
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, dword_1CCEF8
@@ -2099,7 +2100,7 @@ FadePalette:
         call sub_11BED4
         add esp, byte 0Ch
 .11:
-        call sub_E341C
+        call ServiceIdle
         test esi, esi
         jne short .4
         add esp, byte 4
@@ -2136,9 +2137,10 @@ FadeOut:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_D68E0                                                       D68E0  97 PC
+; RunIntroMovie                                   D68E0  97 PC, low confidence
+; Plays the intro movie and then the demo game
 ;-----------------------------------------------------------------------------
-sub_D68E0:
+RunIntroMovie:
         push ebx
         push ecx
         push edx
@@ -2304,7 +2306,7 @@ RunIntro:
         call sub_11BED4
         add esp, byte 0Ch
         call RequestMusicStop
-        call sub_E341C
+        call ServiceIdle
         push byte 14h
         call SetTickDeadline
         add esp, byte 4
@@ -2323,7 +2325,7 @@ RunIntro:
         call sub_FBE5D
         mov esi, eax
 .2:
-        call sub_E341C
+        call ServiceIdle
         jmp short .1
 .3:
         mov ebx, 25Eh
@@ -2385,7 +2387,7 @@ RunIntro:
         call sub_FBE5D
         mov esi, eax
 .5:
-        call sub_E341C
+        call ServiceIdle
         jmp short .4
 .6:
         push unk_1CCBB8
@@ -2421,7 +2423,7 @@ RunIntro:
         call sub_FBE5D
         mov esi, eax
 .8:
-        call sub_E341C
+        call ServiceIdle
         jmp short .7
 .9:
         call WaitMusicEnd
@@ -2450,7 +2452,7 @@ RunIntro:
         call sub_1013FC
         test esi, esi
         jne short .10
-        call sub_D68E0
+        call RunIntroMovie
 .10:
         call SetScreenTarget
         push dword 0FF000000h
@@ -2488,9 +2490,10 @@ RunIntro:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_D6D38                                                       D6D38  97 PC
+; DrawCreditsPage                                 D6D38  97 PC, low confidence
+; Draws one page of the credits
 ;-----------------------------------------------------------------------------
-sub_D6D38:
+DrawCreditsPage:
         push esi
         push edi
         push ebp
@@ -2544,7 +2547,7 @@ sub_D6D38:
         call BlitShape2
         add esp, byte 4
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         add esp, byte 4
         pop ebp
         pop edi
@@ -2575,9 +2578,10 @@ sub_D6D38:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_D6E20                                                       D6E20  97 PC
+; ScrollCredits                                   D6E20  97 PC, low confidence
+; Scrolls the credits
 ;-----------------------------------------------------------------------------
-sub_D6E20:
+ScrollCredits:
         push esi
         push edi
         push ebp
@@ -2593,7 +2597,7 @@ sub_D6E20:
         xor eax, eax
         mov dword [byte esp+018h], eax
 .1:
-        call sub_D6FD8
+        call CreditsKeyPressed
         test eax, eax
         je short .2
         xor esi, esi
@@ -2675,7 +2679,7 @@ sub_D6E20:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .5
-        call sub_E341C
+        call ServiceIdle
         jmp short .4
 .5:
         mov dword [dword_16D764], edi
@@ -2726,9 +2730,10 @@ sub_D6E20:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_D6FD8                                                       D6FD8  97 PC
+; CreditsKeyPressed                               D6FD8  97 PC, low confidence
+; Returns whether a key or button was pressed during the credits
 ;-----------------------------------------------------------------------------
-sub_D6FD8:
+CreditsKeyPressed:
         push ebx
         push ecx
         push edx
@@ -2776,9 +2781,10 @@ sub_D6FD8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D705C                                                       D705C  97 PC
+; PlayCreditsMusic                                D705C  97 PC, low confidence
+; Starts the credits music
 ;-----------------------------------------------------------------------------
-sub_D705C:
+PlayCreditsMusic:
         push ebx
         push edx
         sub esp, byte 50h
@@ -3099,7 +3105,7 @@ CreditsScreen:
         mov ecx, edi
         mov edx, dword [dword esp+ebp+03A74h]
         mov eax, dword [dword esp+ebp+03A70h]
-        call sub_D6E20
+        call ScrollCredits
         test eax, eax
         jne short .5
         mov esi, 1Ch
@@ -3110,8 +3116,8 @@ CreditsScreen:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .7
-        call sub_E341C
-        call sub_D6FD8
+        call ServiceIdle
+        call CreditsKeyPressed
         test eax, eax
         je short .6
         mov esi, 1Ch
@@ -3291,7 +3297,7 @@ CreditsScreen:
         mov ecx, edi
         mov edx, dword [dword esp+ebp+05E2Ch]
         mov eax, dword [dword esp+ebp+05E28h]
-        call sub_D6E20
+        call ScrollCredits
         test eax, eax
         jne short .12
         mov ah, 1
@@ -3305,8 +3311,8 @@ CreditsScreen:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .14
-        call sub_E341C
-        call sub_D6FD8
+        call ServiceIdle
+        call CreditsKeyPressed
         test eax, eax
         je short .13
         mov esi, 14h
@@ -3386,20 +3392,20 @@ CreditsScreen:
 .18:
         cmp byte [dword esp+06B7Ch], 0
         jne near .23
-        call sub_E341C
+        call ServiceIdle
         lea ecx, [dword esp+04C30h]
         mov eax, dword [dword esp+06B60h]
         mov ebx, ebp
         mov edx, edi
-        call sub_D6D38
-        call sub_E341C
+        call DrawCreditsPage
+        call ServiceIdle
         mov eax, dword [tickcount]
         lea esi, [byte eax+02h]
 .19:
         mov eax, dword [tickcount]
         cmp eax, esi
         jge short .20
-        call sub_E341C
+        call ServiceIdle
         jmp short .19
 .20:
         mov eax, dword [dword esp+06B5Ch]
@@ -3409,8 +3415,8 @@ CreditsScreen:
         jge short .21
         mov dword [dword esp+06B70h], 1
 .21:
-        call sub_E341C
-        call sub_D6FD8
+        call ServiceIdle
+        call CreditsKeyPressed
         test eax, eax
         je short .22
         mov dword [dword esp+06B70h], 1
@@ -3427,7 +3433,7 @@ CreditsScreen:
         push edx
         call FreeMemBlock
         add esp, byte 4
-        call sub_D705C
+        call PlayCreditsMusic
 .24:
         add esp, 6B80h
         pop ebp
@@ -3448,7 +3454,7 @@ AllocPageStack:
         mov ebx, eax
         mov edx, 20h
         mov eax, unk_1CD138
-        call sub_E2334
+        call ZeroBytesOk
         test ebx, ebx
         jge short .1
         xor ebx, ebx
@@ -3477,7 +3483,7 @@ AllocPageStack:
         sub edx, ebx
         mov eax, dword [dword_16D774]
         shl edx, 2
-        call sub_E2334
+        call ZeroBytesOk
         mov ebx, dword [dword_16D770]
         mov eax, dword [dword_16D774]
         shl ebx, 0Ch
@@ -3518,9 +3524,10 @@ AllocPageStack:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_D7B64                                                       D7B64  97 PC
+; FreeDbPages                                     D7B64  97 PC, low confidence
+; Frees the database page cache
 ;-----------------------------------------------------------------------------
-sub_D7B64:
+FreeDbPages:
         push edx
         test byte [byte_16D784], 1
         je short .1
@@ -3544,7 +3551,7 @@ sub_D7B64:
         mov ebx, 20h
         mov edx, eax
         mov eax, unk_1CD138
-        call sub_E22FC
+        call CopyBytesOk
 .2:
         pop edx
         pop ebx
@@ -3815,9 +3822,10 @@ GetDbPage:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_D7E08                                                       D7E08  97 PC
+; InitDbFileHeader                                D7E08  97 PC, low confidence
+; Writes the header page of a new database file
 ;-----------------------------------------------------------------------------
-sub_D7E08:
+InitDbFileHeader:
         push ecx
         push esi
         push edi
@@ -3838,7 +3846,7 @@ sub_D7E08:
         add esi, eax
         mov edx, 1000h
         mov eax, esi
-        call sub_E2334
+        call ZeroBytesOk
         mov dword [dword esi+0FF2h], 0FFFFFFFFh
         mov edx, dword [edi]
         mov eax, dword [ecx]
@@ -3867,7 +3875,7 @@ sub_D7E08:
         mov ebx, 1FEh
         add edx, eax
         mov eax, ecx
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, dword [esp]
         mov eax, ecx
         xor edx, edx
@@ -3905,7 +3913,7 @@ CreateDbFile:
         jge short .1
         lea edx, [byte esp+04h]
         mov ebx, ebp
-        call sub_D7E08
+        call InitDbFileHeader
         test eax, eax
         je near .7
         mov ecx, 1
@@ -3980,7 +3988,7 @@ CreateDbFile:
         mov ebx, 1FEh
         add edx, eax
         mov eax, edi
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, dword [esp]
         mov eax, edi
         xor edx, edx
@@ -4019,7 +4027,7 @@ CreateDbFile:
         je near .11
         mov edx, 1FEh
         mov eax, dword [byte esp+08h]
-        call sub_E2334
+        call ZeroBytesOk
         mov edx, dword [byte esp+08h]
         mov eax, ecx
         call FileCreate
@@ -4037,7 +4045,7 @@ CreateDbFile:
         mov dword [dword eax+01F5h], 0
         mov edx, esp
         mov eax, dword [byte esp+08h]
-        call sub_D7E08
+        call InitDbFileHeader
         test eax, eax
         jne short .9
         mov eax, dword [byte esp+08h]
@@ -4058,7 +4066,7 @@ CreateDbFile:
         or byte [dword edx+0FF0h], 1
         mov ebx, 1FEh
         mov eax, dword [byte esp+08h]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, dword [byte esp+04h]
         mov eax, dword [byte esp+08h]
         xor edx, edx
@@ -4142,11 +4150,11 @@ OpenDbFile:
         mov eax, dword [ecx]
         mov edx, 0B4h
         add eax, 0E5h
-        call sub_E2334
+        call ZeroBytesOk
         mov eax, dword [ecx]
         mov edx, 5Ah
         add eax, 199h
-        call sub_E2334
+        call ZeroBytesOk
         mov eax, 1
 .3:
         add esp, byte 4
@@ -4174,12 +4182,12 @@ CloseDbFile:
 .1:
         lea eax, [dword edx+0E5h]
         mov edx, 0B4h
-        call sub_E2334
+        call ZeroBytesOk
         mov eax, dword [ecx]
         mov edx, 5Ah
         add eax, 199h
         mov ebx, esp
-        call sub_E2334
+        call ZeroBytesOk
         mov eax, dword [ecx]
         xor edx, edx
         call GetDbPage
@@ -4195,7 +4203,7 @@ CloseDbFile:
         mov edx, 1FEh
         call FileClose
         mov eax, dword [ecx]
-        call sub_E2334
+        call ZeroBytesOk
         mov eax, ecx
         call FreePtr
         mov eax, 1
@@ -4217,9 +4225,10 @@ CloseDbFile:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_D8270                                                       D8270  97 PC
+; CopyIndexNode                                   D8270  97 PC, low confidence
+; Copies an index node
 ;-----------------------------------------------------------------------------
-sub_D8270:
+CopyIndexNode:
         push esi
         push edi
         push ebp
@@ -4259,7 +4268,7 @@ sub_D8270:
         mov ebx, 2Eh
         mov edx, esi
         mov eax, edi
-        call sub_E2310
+        call CopyAndClear
         sub ecx, byte 4
         dec ebp
         mov edx, dword [byte esp+010h]
@@ -4286,7 +4295,7 @@ sub_D8270:
         mov ebx, 2Eh
         add edx, eax
         mov eax, dword [esp]
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, dword [byte esp+0Ch]
         mov bx, word [byte edx+04h]
         inc ebx
@@ -4299,9 +4308,10 @@ sub_D8270:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_D8358                                                       D8358  97 PC
+; FlushDbPage                                     D8358  97 PC, low confidence
+; Writes a database page back
 ;-----------------------------------------------------------------------------
-sub_D8358:
+FlushDbPage:
         push esi
         push edi
         push ebp
@@ -4349,9 +4359,10 @@ sub_D8358:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_D83C0                                                       D83C0  97 PC
+; SplitIndexNode                                  D83C0  97 PC, low confidence
+; Splits a full index node in two
 ;-----------------------------------------------------------------------------
-sub_D83C0:
+SplitIndexNode:
         push esi
         push edi
         push ebp
@@ -4377,7 +4388,7 @@ sub_D83C0:
         mov eax, dword [edi]
         add edx, byte 6
         add eax, 0ECh
-        call sub_E2310
+        call CopyAndClear
         mov eax, dword [edi]
         mov word [byte eax+04h], 5
         mov eax, dword [esi]
@@ -4388,7 +4399,7 @@ sub_D83C0:
         mov eax, dword [edi]
         add edx, 1D6h
         add eax, 1EAh
-        call sub_E2310
+        call CopyAndClear
         mov eax, dword [esi]
         mov word [byte eax+04h], 5
         jmp near .5
@@ -4399,18 +4410,18 @@ sub_D83C0:
         mov eax, dword [edi]
         add edx, byte 6
         add eax, 0ECh
-        call sub_E2310
+        call CopyAndClear
         mov ebx, 18h
         mov edx, dword [esi]
         mov eax, dword [edi]
         add edx, 1D2h
         add eax, 1E6h
-        call sub_E2310
+        call CopyAndClear
         mov ebx, 2Eh
         mov eax, dword [edi]
         mov edx, esp
         add eax, 0BEh
-        call sub_E2310
+        call CopyAndClear
         mov eax, dword [edi]
         mov word [byte eax+04h], 4
         mov eax, dword [esi]
@@ -4419,7 +4430,7 @@ sub_D83C0:
         mov word [byte eax+04h], 5
         mov edx, ebp
         mov eax, dword [edi]
-        call sub_D8270
+        call CopyIndexNode
         test eax, eax
         jne near .4
         jmp near .6
@@ -4440,7 +4451,7 @@ sub_D83C0:
         mov edx, dword [esi]
         mov eax, ebp
         add edx, byte 6
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [edi]
         mov ebx, dword [byte eax+02h]
         mov edx, dword [esi]
@@ -4450,7 +4461,7 @@ sub_D83C0:
         add edx, 1D2h
         add eax, ebx
         mov ebx, 4
-        call sub_E2310
+        call CopyAndClear
         mov eax, dword [esi]
         mov edx, dword [byte esp+04Ch]
         mov dword [dword eax+01D6h], edx
@@ -4469,7 +4480,7 @@ sub_D83C0:
         mov edx, ebp
         add eax, ebx
         mov ebx, 2Eh
-        call sub_E2310
+        call CopyAndClear
         mov eax, dword [edi]
         dec word [byte eax+04h]
         jmp short .5
@@ -4479,18 +4490,18 @@ sub_D83C0:
         mov eax, dword [edi]
         add edx, byte 6
         add eax, 11Ah
-        call sub_E2310
+        call CopyAndClear
         mov ebx, 14h
         mov edx, dword [esi]
         mov eax, dword [edi]
         add edx, 1D2h
         add eax, 1EAh
-        call sub_E2310
+        call CopyAndClear
         mov ebx, 2Eh
         mov eax, dword [edi]
         mov edx, esp
         add eax, 0ECh
-        call sub_E2310
+        call CopyAndClear
         mov eax, dword [edi]
         mov word [byte eax+04h], 5
         mov ecx, dword [byte esp+04Ch]
@@ -4500,14 +4511,14 @@ sub_D83C0:
         mov word [byte eax+04h], 4
         sub ebx, byte 6
         mov eax, dword [esi]
-        call sub_D8270
+        call CopyIndexNode
         test eax, eax
         je short .6
 .4:
         mov ebx, 2Eh
         mov eax, esp
         mov edx, ebp
-        call sub_E22FC
+        call CopyBytesOk
 .5:
         mov eax, dword [esi]
         mov ecx, dword [byte esp+068h]
@@ -4517,7 +4528,7 @@ sub_D83C0:
         sar edx, 10h
         mov eax, dword [byte esp+030h]
         inc edx
-        call sub_D8358
+        call FlushDbPage
         test eax, eax
         je short .6
         mov eax, 1
@@ -4529,9 +4540,10 @@ sub_D83C0:
         ret 24h
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_D8614                                                       D8614  97 PC
+; InsertKeyUp                                     D8614  97 PC, low confidence
+; Inserts a key into the parent node after a split
 ;-----------------------------------------------------------------------------
-sub_D8614:
+InsertKeyUp:
         push esi
         push edi
         push ebp
@@ -4602,7 +4614,7 @@ sub_D8614:
         mov dword [byte esp+058h], eax
         mov edx, eax
         mov eax, esi
-        call sub_D83C0
+        call SplitIndexNode
         mov eax, esp
         lea ecx, [byte esp+01Ch]
         lea ebx, [byte esp+0Ch]
@@ -4625,7 +4637,7 @@ sub_D8614:
         mov edx, dword [esp]
         mov eax, edi
         add edx, byte 6
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [esp]
         mov dword [dword eax+01D2h], ebp
         mov edx, dword [esp]
@@ -4648,7 +4660,7 @@ sub_D8614:
         mov ebx, 1FEh
         add edx, eax
         mov eax, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, dword [byte esp+01Ch]
         mov ebx, dword [byte esp+020h]
         mov eax, esi
@@ -4709,7 +4721,7 @@ sub_D8614:
 .4:
         mov ebx, dword [byte esp+030h]
         mov edx, edi
-        call sub_D8270
+        call CopyIndexNode
         test eax, eax
         je short .6
         mov ebx, dword [byte esp+02Ch]
@@ -4728,9 +4740,10 @@ sub_D8614:
         ret 4
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_D8860                                                       D8860  97 PC
+; CompareIndexKey                                 D8860  97 PC, low confidence
+; Compares a key with an index entry
 ;-----------------------------------------------------------------------------
-sub_D8860:
+CompareIndexKey:
         push ecx
         push esi
         push edi
@@ -4762,7 +4775,7 @@ sub_D8860:
         add edx, eax
         mov eax, ebp
         xor esi, esi
-        call sub_E2348
+        call CompareKeyBytes
         mov edx, eax
         test eax, eax
         jne short .3
@@ -4802,7 +4815,7 @@ sub_D8860:
         mov eax, ebp
         add edx, ebx
         mov ebx, 2Ah
-        call sub_E2348
+        call CompareKeyBytes
         mov edx, eax
 .6:
         cmp si, di
@@ -4827,9 +4840,10 @@ sub_D8860:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_D8944                                                       D8944  97 PC
+; InsertKeyInNode                                 D8944  97 PC, low confidence
+; Inserts a key into an index node
 ;-----------------------------------------------------------------------------
-sub_D8944:
+InsertKeyInNode:
         push esi
         push edi
         push ebp
@@ -4859,7 +4873,7 @@ sub_D8944:
         add edx, eax
         mov eax, edi
         mov dword [byte esp+04h], edx
-        call sub_D8860
+        call CompareIndexKey
         test eax, eax
         je near .4
         mov eax, dword [byte esp+04h]
@@ -4883,7 +4897,7 @@ sub_D8944:
         mov dword [byte esp+024h], eax
         mov edx, eax
         mov eax, esi
-        call sub_D8944
+        call InsertKeyInNode
         test eax, eax
         je near .4
         mov eax, dword [byte esp+038h]
@@ -4892,7 +4906,7 @@ sub_D8944:
         mov ebx, 2Eh
         mov eax, dword [byte esp+03Ch]
         mov edx, edi
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [byte esp+03Ch]
         mov ecx, ebp
         push eax
@@ -4901,7 +4915,7 @@ sub_D8944:
         push edx
         mov eax, esi
         mov edx, dword [byte esp+024h]
-        call sub_D8944
+        call InsertKeyInNode
         jmp near .3
 .1:
         mov eax, ebp
@@ -4913,7 +4927,7 @@ sub_D8944:
         mov ebx, 2Eh
         mov edx, dword [byte esp+03Ch]
         mov eax, edi
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, esp
         push eax
         mov ecx, dword [byte esp+03Ch]
@@ -4936,7 +4950,7 @@ sub_D8944:
         push edi
         mov ecx, dword [byte esp+038h]
         mov eax, esi
-        call sub_D83C0
+        call SplitIndexNode
         test eax, eax
         je near .4
         mov eax, dword [byte esp+04h]
@@ -4966,7 +4980,7 @@ sub_D8944:
         mov ebx, dword [byte esp+014h]
         mov edx, edi
         mov ecx, dword [ecx]
-        call sub_D8270
+        call CopyIndexNode
         test eax, eax
         je short .4
         mov ebx, dword [byte esp+018h]
@@ -4986,9 +5000,10 @@ sub_D8944:
         pop esi
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_D8B20                                                       D8B20  97 PC
+; AddIndexKey                                     D8B20  97 PC, low confidence
+; Adds a key to the index
 ;-----------------------------------------------------------------------------
-sub_D8B20:
+AddIndexKey:
         push esi
         push edi
         push ebp
@@ -4998,7 +5013,7 @@ sub_D8B20:
         mov eax, ebx
         mov ebx, 2Ah
         lea edx, [byte esp+030h]
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [byte esp+072h]
         sar eax, 10h
         mov edi, esi
@@ -5031,7 +5046,7 @@ sub_D8B20:
         mov ebx, 1FEh
         add edx, eax
         mov eax, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, dword [byte esp+060h]
         mov eax, esi
         xor edx, edx
@@ -5062,7 +5077,7 @@ sub_D8B20:
         lea ebx, [byte esp+060h]
         mov edx, dword [byte esp+06Ch]
         lea eax, [byte esp+030h]
-        call sub_D8860
+        call CompareIndexKey
         test eax, eax
         je near .5
         xor ebx, ebx
@@ -5076,7 +5091,7 @@ sub_D8B20:
         mov eax, edi
         lea ebx, [byte esp+034h]
         sar edx, 10h
-        call sub_D8614
+        call InsertKeyUp
         test eax, eax
         jne short .4
         add esp, byte 78h
@@ -5099,7 +5114,7 @@ sub_D8B20:
         sar esi, 10h
         mov eax, edi
         mov edx, esi
-        call sub_D8944
+        call InsertKeyInNode
         test eax, eax
         je short .5
         mov ebp, dword [byte esp+064h]
@@ -5110,7 +5125,7 @@ sub_D8B20:
         push ebp
         mov edx, esi
         mov eax, edi
-        call sub_D8614
+        call InsertKeyUp
         test eax, eax
         je short .5
 .4:
@@ -5123,9 +5138,10 @@ sub_D8B20:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_D8CAC                                                       D8CAC  97 PC
+; MergeIndexNodes                                 D8CAC  97 PC, low confidence
+; Merges two index nodes after a delete
 ;-----------------------------------------------------------------------------
-sub_D8CAC:
+MergeIndexNodes:
         push esi
         push edi
         push ebp
@@ -5236,7 +5252,7 @@ sub_D8CAC:
         add ebx, ebx
         add edx, eax
         mov eax, dword [byte esp+030h]
-        call sub_E2310
+        call CopyAndClear
         mov eax, 0Ah
         lea edx, [byte ebp+028h]
 .7:
@@ -5268,7 +5284,7 @@ sub_D8CAC:
         sub ebx, edx
         mov edx, esi
         add ebx, ebx
-        call sub_E2310
+        call CopyAndClear
         mov edx, dword [byte ecx+02h]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
@@ -5289,7 +5305,7 @@ sub_D8CAC:
         mov ebx, 2Eh
         add eax, edx
         mov edx, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov word [byte ebp+04h], 0Ah
         mov eax, dword [byte esp+040h]
         mov edx, dword [byte ecx+02h]
@@ -5297,7 +5313,7 @@ sub_D8CAC:
         sar edx, 10h
         mov ecx, dword [byte esp+03Ch]
         inc edx
-        call sub_D8358
+        call FlushDbPage
         test eax, eax
         jne short .10
         xor edi, edi
@@ -5332,13 +5348,13 @@ sub_D8CAC:
         lea edx, [eax+ecx]
         mov ebx, 2Eh
         add eax, edi
-        call sub_E2310
+        call CopyAndClear
         jmp short .13
 .12:
         imul ebx, byte 2Eh
         mov edx, 2Eh
         add eax, ebx
-        call sub_E2334
+        call ZeroBytesOk
 .13:
         mov eax, dword [dword esp+090h]
         mov ebx, dword [byte esp+074h]
@@ -5444,7 +5460,7 @@ sub_D8CAC:
         mov ebx, 1FEh
         add edx, eax
         mov eax, dword [byte esp+040h]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, dword [esp]
         mov eax, dword [byte esp+040h]
         xor edx, edx
@@ -5490,7 +5506,7 @@ sub_D8CAC:
         mov edx, edi
         add eax, ebx
         mov ebx, 2Eh
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [byte esp+01Ch]
         mov dword [byte esp+050h], eax
         mov eax, esi
@@ -5520,7 +5536,7 @@ sub_D8CAC:
         mov eax, dword [byte esp+010h]
         add edx, ebx
         mov ebx, 2Eh
-        call sub_E22FC
+        call CopyBytesOk
 .21:
         mov edx, dword [byte esp+010h]
         mov eax, dword [byte esp+060h]
@@ -5555,7 +5571,7 @@ sub_D8CAC:
         mov dword [byte esp+01Ch], edx
         add eax, edx
         mov edx, edi
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [byte esp+01Ch]
         mov edi, esi
         mov dword [byte esp+048h], eax
@@ -5592,7 +5608,7 @@ sub_D8CAC:
         mov eax, dword [byte esp+06Ch]
         add edx, ebx
         mov ebx, 2Eh
-        call sub_E2310
+        call CopyAndClear
 .23:
         mov edx, dword [byte esp+070h]
         mov ebx, dword [byte esp+06Ch]
@@ -5619,7 +5635,7 @@ sub_D8CAC:
         lea edx, [byte esi+01h]
         add ebx, ecx
         mov ecx, dword [byte esp+034h]
-        call sub_D8358
+        call FlushDbPage
         test eax, eax
         jne near .31
         xor edi, edi
@@ -5671,7 +5687,7 @@ sub_D8CAC:
         mov edx, dword [byte esp+064h]
         add eax, ebx
         mov ebx, 2Eh
-        call sub_E2310
+        call CopyAndClear
 .27:
         mov ebx, dword [byte esp+014h]
         mov eax, dword [byte esp+018h]
@@ -5711,7 +5727,7 @@ sub_D8CAC:
         mov edx, edi
         add eax, ebx
         mov ebx, 2Eh
-        call sub_E22FC
+        call CopyBytesOk
         lea eax, [byte ecx+06h]
         lea edx, [nosplit esi*4+00h]
         mov dword [byte esp+044h], eax
@@ -5753,7 +5769,7 @@ sub_D8CAC:
         mov ebx, 2Eh
         add eax, edx
         mov edx, dword [byte esp+058h]
-        call sub_E2310
+        call CopyAndClear
 .30:
         mov eax, dword [byte esp+058h]
         mov ebx, dword [byte esp+05Ch]
@@ -5787,7 +5803,7 @@ sub_D8CAC:
         mov ebx, 2Eh
         add eax, edx
         mov edx, edi
-        call sub_E2310
+        call CopyAndClear
         mov bx, word [byte ecx+04h]
         mov eax, dword [byte esp+040h]
         sub ebx, esi
@@ -5795,7 +5811,7 @@ sub_D8CAC:
         mov word [byte ecx+04h], bx
         mov ecx, dword [byte esp+03Ch]
         lea ebx, [dword ebp+01D2h]
-        call sub_D8358
+        call FlushDbPage
         test eax, eax
         jne short .31
         xor edi, edi
@@ -5891,9 +5907,10 @@ sub_D8CAC:
         ret 10h
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_D9614                                                       D9614  97 PC
+; RemoveKeyFromNode                               D9614  97 PC, low confidence
+; Removes a key from an index node
 ;-----------------------------------------------------------------------------
-sub_D9614:
+RemoveKeyFromNode:
         push esi
         push edi
         push ebp
@@ -5906,19 +5923,19 @@ sub_D9614:
         mov edx, esp
         mov eax, edi
         lea ecx, [byte esp+038h]
-        call sub_E22FC
+        call CopyBytesOk
         lea eax, [byte esp+034h]
         mov ebx, esp
         push eax
         mov edx, ebp
         mov eax, esi
-        call sub_D9AB4
+        call SearchIndexNode
         test eax, eax
         je near .1
         mov ebx, 2Ah
         mov edx, esp
         mov eax, edi
-        call sub_E2348
+        call CompareKeyBytes
         test eax, eax
         jne near .1
         mov edx, dword [byte esp+038h]
@@ -5944,7 +5961,7 @@ sub_D9614:
         add ecx, eax
         mov eax, esp
         mov edx, ecx
-        call sub_D8860
+        call CompareIndexKey
         test eax, eax
         jne short .1
         mov edi, dword [byte esp+02Ch]
@@ -5957,7 +5974,7 @@ sub_D9614:
         mov ebx, 2Eh
         add edx, eax
         mov eax, dword [byte esp+03Ch]
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, dword [byte esp+034h]
         mov ebx, dword [byte esp+030h]
         mov eax, esi
@@ -5976,9 +5993,10 @@ sub_D9614:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_D9708                                                       D9708  97 PC
+; DeleteKeyFromNode                               D9708  97 PC, low confidence
+; Deletes a key and rebalances the node
 ;-----------------------------------------------------------------------------
-sub_D9708:
+DeleteKeyFromNode:
         push esi
         push edi
         push ebp
@@ -6009,7 +6027,7 @@ sub_D9708:
         add edx, eax
         mov eax, ecx
         mov dword [byte esp+034h], edx
-        call sub_D8860
+        call CompareIndexKey
         mov ebx, dword [byte esp+044h]
         mov ecx, dword [byte esp+034h]
         shl ebx, 2
@@ -6051,7 +6069,7 @@ sub_D9708:
         add edx, eax
         add eax, ebx
         mov ebx, ecx
-        call sub_E2310
+        call CopyAndClear
         inc dword [byte esp+044h]
         jmp short .1
 .2:
@@ -6063,7 +6081,7 @@ sub_D9708:
         add eax, eax
         add eax, edx
         mov edx, 2Eh
-        call sub_E2334
+        call ZeroBytesOk
         jmp near .6
 .3:
         mov ecx, dword [dword ebx+01D6h]
@@ -6094,18 +6112,18 @@ sub_D9708:
         mov edx, esp
         add eax, byte 6
         mov ebp, dword [byte esp+04Ah]
-        call sub_E22FC
+        call CopyBytesOk
         mov ecx, dword [byte esp+02Ah]
         mov ebx, esp
         sar ebp, 10h
         mov eax, esi
         mov edx, ebp
-        call sub_D9960
+        call DeleteIndexKey
         mov ecx, esp
         mov ebx, edi
         mov edx, ebp
         mov eax, esi
-        call sub_D9614
+        call RemoveKeyFromNode
         test eax, eax
         je near .10
         mov eax, dword [byte esp+060h]
@@ -6142,7 +6160,7 @@ sub_D9708:
         push eax
         mov ebx, ebp
         mov eax, esi
-        call sub_D9708
+        call DeleteKeyFromNode
         test eax, eax
         je short .10
         mov eax, dword [byte esp+040h]
@@ -6159,7 +6177,7 @@ sub_D9708:
         push eax
         lea ebx, [byte esp+058h]
         mov eax, esi
-        call sub_D8CAC
+        call MergeIndexNodes
 .8:
         mov eax, dword [byte esp+034h]
         mov eax, dword [byte eax+02h]
@@ -6182,9 +6200,10 @@ sub_D9708:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_D9960                                                       D9960  97 PC
+; DeleteIndexKey                                  D9960  97 PC, low confidence
+; Deletes a key from the index
 ;-----------------------------------------------------------------------------
-sub_D9960:
+DeleteIndexKey:
         push esi
         push edi
         push ebp
@@ -6194,7 +6213,7 @@ sub_D9960:
         mov eax, ebx
         mov ebx, 2Ah
         mov edx, esp
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, dword [byte esp+036h]
         sar ebx, 10h
         lea ebp, [nosplit ebx*4+00h]
@@ -6209,7 +6228,7 @@ sub_D9960:
         push eax
         lea ecx, [byte esp+04h]
         mov eax, edi
-        call sub_D9708
+        call DeleteKeyFromNode
         test eax, eax
         je near .4
         cmp dword [byte esp+034h], byte 0
@@ -6266,7 +6285,7 @@ sub_D9960:
         mov ebx, 1FEh
         add edx, eax
         mov eax, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, dword [byte esp+030h]
         mov eax, esi
         xor edx, edx
@@ -6287,9 +6306,10 @@ sub_D9960:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_D9AB4                                                       D9AB4  97 PC
+; SearchIndexNode                                 D9AB4  97 PC, low confidence
+; Searches an index node for a key
 ;-----------------------------------------------------------------------------
-sub_D9AB4:
+SearchIndexNode:
         push esi
         push edi
         push ebp
@@ -6328,7 +6348,7 @@ sub_D9AB4:
         mov ebx, esp
         mov edx, ecx
         mov eax, ebp
-        call sub_D8860
+        call CompareIndexKey
         lea ebx, [byte ecx+06h]
         test eax, eax
         jne short .2
@@ -6350,7 +6370,7 @@ sub_D9AB4:
         mov edx, ebp
         add eax, ebx
         mov ebx, 2Ah
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, dword [esp]
         lea eax, [nosplit ebx*4+00h]
         sub eax, ebx
@@ -6390,7 +6410,7 @@ sub_D9AB4:
         mov edx, ebp
         add eax, ebx
         mov ebx, 2Ah
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, dword [esp]
         lea eax, [nosplit ebx*4+00h]
         sub eax, ebx
@@ -6427,7 +6447,7 @@ sub_D9AB4:
         add ecx, ecx
         mov ebx, 2Ah
         add eax, ecx
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [byte esp+014h]
         mov edx, dword [byte esp+08h]
         mov eax, dword [byte ecx+eax+030h]
@@ -6463,7 +6483,7 @@ sub_D9AB4:
         mov edx, ebp
         add eax, ebx
         mov ebx, 2Ah
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, dword [byte ecx+02h]
         sar ebx, 10h
         dec ebx
@@ -6509,15 +6529,16 @@ sub_D9AB4:
         ret 4
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_D9D74                                                       D9D74  97 PC
+; FindIndexKey                                    D9D74  97 PC, low confidence
+; Finds a key in the index
 ;-----------------------------------------------------------------------------
-sub_D9D74:
+FindIndexKey:
         push esi
         sub esp, byte 4
         mov esi, esp
         push esi
         movsx edx, dx
-        call sub_D9AB4
+        call SearchIndexNode
         add esp, byte 4
         pop esi
         ret
@@ -6536,20 +6557,20 @@ sub_D9D74:
         mov eax, esi
         mov edx, esp
         lea ecx, [byte esp+02Ch]
-        call sub_E22FC
+        call CopyBytesOk
         lea eax, [byte esp+030h]
         mov edx, dword [byte esp+03Ah]
         mov ebx, esp
         push eax
         sar edx, 10h
         mov eax, edi
-        call sub_D9AB4
+        call SearchIndexNode
         test eax, eax
         je short .3
         mov ebx, 2Ah
         mov edx, esp
         mov eax, esi
-        call sub_E2348
+        call CompareKeyBytes
         test eax, eax
         jne short .1
         cmp ebp, dword [byte esp+02Ch]
@@ -6573,9 +6594,10 @@ sub_D9D74:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_D9E18                                                       D9E18  97 PC
+; LeftmostKey                                     D9E18  97 PC, low confidence
+; Walks down to the first key of a subtree
 ;-----------------------------------------------------------------------------
-sub_D9E18:
+LeftmostKey:
         push esi
         push edi
         push ebp
@@ -6612,7 +6634,7 @@ sub_D9E18:
         mov ebx, 2Ah
         lea eax, [byte ecx+06h]
         mov edx, edi
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [byte ecx+030h]
         mov dword [byte ebp+00h], eax
         mov eax, dword [byte esp+02h]
@@ -6633,7 +6655,7 @@ sub_D9E18:
         mov edx, dword [byte esp+06h]
         mov eax, esi
         sar edx, 10h
-        call sub_D9E18
+        call LeftmostKey
 .3:
         add esp, byte 8
         pop ebp
@@ -6642,9 +6664,10 @@ sub_D9E18:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_D9ED8                                                       D9ED8  97 PC
+; RightmostKey                                    D9ED8  97 PC, low confidence
+; Walks down to the last key of a subtree
 ;-----------------------------------------------------------------------------
-sub_D9ED8:
+RightmostKey:
         push esi
         push edi
         push ebp
@@ -6691,7 +6714,7 @@ sub_D9ED8:
         mov ebx, 2Ah
         add eax, edx
         mov edx, edi
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [byte ecx+02h]
         sar eax, 10h
         lea edx, [byte eax-01h]
@@ -6722,7 +6745,7 @@ sub_D9ED8:
         sar edx, 10h
         mov eax, esi
         mov ecx, ebp
-        call sub_D9ED8
+        call RightmostKey
 .3:
         add esp, byte 8
         pop ebp
@@ -6731,9 +6754,10 @@ sub_D9ED8:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_D9FDC                                                       D9FDC  97 PC
+; FirstOrLastKey                                  D9FDC  97 PC, low confidence
+; Finds the first or the last key of the index
 ;-----------------------------------------------------------------------------
-sub_D9FDC:
+FirstOrLastKey:
         push esi
         movsx edx, dx
         mov esi, dword [byte eax+edx*4+031h]
@@ -6743,12 +6767,12 @@ sub_D9FDC:
         cmp dword [byte esp+08h], byte 0
         je short .1
         push esi
-        call sub_D9E18
+        call LeftmostKey
         pop esi
         ret 4
 .1:
         push esi
-        call sub_D9ED8
+        call RightmostKey
         pop esi
         ret 4
 .2:
@@ -6758,27 +6782,30 @@ sub_D9FDC:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_DA020                                                       DA020  97 PC
+; FindLastKey                                     DA020  97 PC, low confidence
+; Finds the last key of the index (probably)
 ;-----------------------------------------------------------------------------
-sub_DA020:
+FindLastKey:
         push byte 1
         movsx edx, dx
-        call sub_D9FDC
+        call FirstOrLastKey
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_DA02C                                                       DA02C  97 PC
+; FindFirstKey                                    DA02C  97 PC, low confidence
+; Finds the first key of the index (probably)
 ;-----------------------------------------------------------------------------
-sub_DA02C:
+FindFirstKey:
         push byte 0
         movsx edx, dx
-        call sub_D9FDC
+        call FirstOrLastKey
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_DA038                                                       DA038  97 PC
+; PrevKeyInNode                                   DA038  97 PC, low confidence
+; Steps to the previous key in a node
 ;-----------------------------------------------------------------------------
-sub_DA038:
+PrevKeyInNode:
         push esi
         push edi
         push ebp
@@ -6812,7 +6839,7 @@ sub_DA038:
         mov ebx, esp
         mov edx, ecx
         mov eax, esi
-        call sub_D8860
+        call CompareIndexKey
         test eax, eax
         je near .4
         mov edx, dword [esp]
@@ -6827,7 +6854,7 @@ sub_DA038:
         mov ebx, esi
         sar edx, 10h
         mov eax, edi
-        call sub_DA038
+        call PrevKeyInNode
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -6854,7 +6881,7 @@ sub_DA038:
         mov ebx, 2Ah
         add eax, edx
         mov edx, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov esi, dword [esp]
         lea eax, [nosplit esi*4+00h]
         sub eax, esi
@@ -6879,9 +6906,10 @@ sub_DA038:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_DA158                                                       DA158  97 PC
+; NextKeyInNode                                   DA158  97 PC, low confidence
+; Steps to the next key in a node
 ;-----------------------------------------------------------------------------
-sub_DA158:
+NextKeyInNode:
         push esi
         push edi
         push ebp
@@ -6915,7 +6943,7 @@ sub_DA158:
         mov ebx, esp
         mov edx, ecx
         mov eax, edi
-        call sub_D8860
+        call CompareIndexKey
         test eax, eax
         je near .4
         mov eax, dword [byte ecx+02h]
@@ -6932,7 +6960,7 @@ sub_DA158:
         mov eax, esi
         sar edx, 10h
         mov ebx, edi
-        call sub_DA158
+        call NextKeyInNode
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -6957,7 +6985,7 @@ sub_DA158:
         mov ebx, 2Ah
         add eax, edx
         mov edx, edi
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, dword [esp]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
@@ -6981,9 +7009,10 @@ sub_DA158:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_DA274                                                       DA274  97 PC
+; StepIndexKey                                    DA274  97 PC, low confidence
+; Steps to the next or previous key of the index
 ;-----------------------------------------------------------------------------
-sub_DA274:
+StepIndexKey:
         push esi
         push edi
         push ebp
@@ -7048,14 +7077,14 @@ sub_DA274:
         mov ebx, 2Ah
         mov eax, dword [byte esp+0Ch]
         mov edx, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, dword [byte esp+010h]
         mov ebx, dword [ecx]
         mov eax, edi
         push ebx
         mov ecx, ebp
         mov ebx, esi
-        call sub_DA158
+        call NextKeyInNode
         jmp near .10
 .2:
         mov dword [byte ebp+00h], 0FFFFFFFFh
@@ -7073,14 +7102,14 @@ sub_DA274:
         mov ebx, 2Ah
         mov eax, dword [byte esp+0Ch]
         mov edx, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, dword [byte esp+010h]
         mov eax, dword [ecx]
         mov ebx, esi
         push eax
         mov ecx, ebp
         mov eax, edi
-        call sub_DA038
+        call PrevKeyInNode
         add esp, byte 18h
         pop ebp
         pop edi
@@ -7108,7 +7137,7 @@ sub_DA274:
         add eax, edx
         mov edx, esi
         mov esi, dword [byte esp+04h]
-        call sub_E22FC
+        call CopyBytesOk
         mov esi, dword [dword esi+0197h]
         sar esi, 10h
         lea eax, [nosplit esi*4+00h]
@@ -7134,7 +7163,7 @@ sub_DA274:
         mov ecx, ebp
         mov eax, edi
         mov ebx, esi
-        call sub_D9E18
+        call LeftmostKey
         add esp, byte 18h
         pop ebp
         pop edi
@@ -7149,7 +7178,7 @@ sub_DA274:
         mov ecx, ebp
         mov eax, edi
         mov edx, dword [byte esp+014h]
-        call sub_D9ED8
+        call RightmostKey
         add esp, byte 18h
         pop ebp
         pop edi
@@ -7165,27 +7194,30 @@ sub_DA274:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_DA48C                                                       DA48C  97 PC
+; NextIndexKey                                    DA48C  97 PC, low confidence
+; Steps to the next key of the index
 ;-----------------------------------------------------------------------------
-sub_DA48C:
+NextIndexKey:
         push byte 1
         movsx edx, dx
-        call sub_DA274
+        call StepIndexKey
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_DA498                                                       DA498  97 PC
+; PrevIndexKey                                    DA498  97 PC, low confidence
+; Steps to the previous key of the index
 ;-----------------------------------------------------------------------------
-sub_DA498:
+PrevIndexKey:
         push byte 0
         movsx edx, dx
-        call sub_DA274
+        call StepIndexKey
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_DA4A4                                                       DA4A4  97 PC
+; BuildKey                                        DA4A4  97 PC, low confidence
+; Builds an index key from a number or string
 ;-----------------------------------------------------------------------------
-sub_DA4A4:
+BuildKey:
         push esi
         push edi
         push ebp
@@ -7203,7 +7235,7 @@ sub_DA4A4:
 .2:
         mov edx, esp
         mov ebx, edi
-        call sub_E22FC
+        call CopyBytesOk
         test ecx, ecx
         je short .3
         add byte [byte esp+edi-01h], 80h
@@ -7255,18 +7287,19 @@ sub_DA4A4:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_DA544                                                       DA544  97 PC
+; BuildKeyFromLong                                DA544  97 PC, low confidence
+; Builds an index key from a number (two entries)
 ;-----------------------------------------------------------------------------
-sub_DA544:
+BuildKeyFromLong:
         push ecx
         xor ecx, ecx
-        call sub_DA4A4
+        call BuildKey
         pop ecx
         ret
         db 08Bh,0C0h
         push ecx
         mov ecx, 1
-        call sub_DA4A4
+        call BuildKey
         pop ecx
         ret
         db 08Dh,040h,00h
@@ -7281,14 +7314,15 @@ sub_DA544:
         jne short .1
 .2:
         mov eax, esi
-        call sub_DA4A4
+        call BuildKey
         pop esi
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_DA57C                                                       DA57C  97 PC
+; BuildKeyFromString                              DA57C  97 PC, low confidence
+; Builds an index key from a string
 ;-----------------------------------------------------------------------------
-sub_DA57C:
+BuildKeyFromString:
         push ecx
         push esi
         mov ecx, eax
@@ -7304,7 +7338,7 @@ sub_DA57C:
         jne short .1
 .2:
         mov eax, esi
-        call sub_DA4A4
+        call BuildKey
         pop esi
         pop ecx
         ret
@@ -7324,14 +7358,15 @@ sub_DA57C:
         jne short .3
 .4:
         mov eax, esi
-        call sub_DA4A4
+        call BuildKey
         pop esi
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DA5C4                                                       DA5C4  97 PC
+; ParseKey                                        DA5C4  97 PC, low confidence
+; Reads a number back from an index key
 ;-----------------------------------------------------------------------------
-sub_DA5C4:
+ParseKey:
         push esi
         push edi
         push ebp
@@ -7350,7 +7385,7 @@ sub_DA5C4:
 .2:
         mov edx, esp
         lea ebx, [byte esi+01h]
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, esi
         mov ebx, edi
         dec edx
@@ -7400,17 +7435,18 @@ sub_DA5C4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_DA654                                                       DA654  97 PC
+; KeyToLong                                       DA654  97 PC, low confidence
+; Reads a number back from an index key (two entries)
 ;-----------------------------------------------------------------------------
-sub_DA654:
+KeyToLong:
         push ecx
         xor ecx, ecx
-        call sub_DA5C4
+        call ParseKey
         pop ecx
         ret
         db 08Bh,0C0h
         push ecx
         mov ecx, 1
-        call sub_DA5C4
+        call ParseKey
         pop ecx
         ret

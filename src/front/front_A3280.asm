@@ -37,8 +37,8 @@ extern sub_7F29C, LoadTeamLogo, sub_80808, sub_80A38, sub_80AB8, sub_80BBC, sub_
 extern sub_823F0, sub_83C08, ShowLoadingScreen, sub_842F4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
 extern DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, LoadLangTextB, GetLangText, FreeLangText, sub_8E870
 extern sub_A3136, sub_A31DE, AllocStatTable, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
-extern sub_ACDAE, sub_AD151, sub_AD62E, UserLogScreen, sub_CA44C, sub_D0098, InitSlotTable, sub_E32B4
-extern sub_E3410, sub_E341C, sub_E4218, sub_E4230, LinkSendBlock, LinkReceiveBlock, sub_EE8AC, AllocMemBlock
+extern sub_ACDAE, sub_AD151, sub_AD62E, UserLogScreen, sub_CA44C, sub_D0098, InitSlotTable, InitLinkSettings
+extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, sub_EE8AC, AllocMemBlock
 extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, sub_FCEEC, sub_FCF84
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, unk_165EA0, unk_166010
 extern unk_16609C, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
@@ -266,7 +266,7 @@ sub_A3280:
         mov eax, dword [tickcount]
         cmp eax, dword [byte ebp-03Ch]
         jge short .9
-        call sub_E341C
+        call ServiceIdle
         jmp short .8
 .9:
         inc dword [byte ebp-08h]
@@ -390,7 +390,7 @@ sub_A3280:
         mov eax, dword [tickcount]
         cmp eax, dword [byte ebp-03Ch]
         jge short .18
-        call sub_E341C
+        call ServiceIdle
         jmp short .17
 .18:
         dec dword [byte ebp-08h]
@@ -414,7 +414,7 @@ sub_A3280:
         mov dword [byte ebp-034h], eax
         cmp dword [dword_16DA9C], byte 0
         je short .20
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .19
         mov eax, dword [dword_1C94DC]
@@ -422,7 +422,7 @@ sub_A3280:
         cmp esi, eax
         jl short .20
 .19:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .21
         mov eax, dword [dword_1C94DC]
@@ -547,7 +547,7 @@ sub_A3280:
         add esp, byte 4
         cmp dword [dword_16DA9C], byte 0
         je short .24
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .23
         mov eax, dword [dword_1C94DC]
@@ -555,7 +555,7 @@ sub_A3280:
         cmp esi, eax
         jl short .24
 .23:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .25
         mov eax, dword [dword_1C94DC]
@@ -586,7 +586,7 @@ sub_A3280:
         add esp, byte 4
         cmp dword [dword_16DA9C], byte 0
         je short .28
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .27
         mov eax, dword [dword_1C94DC]
@@ -594,7 +594,7 @@ sub_A3280:
         cmp esi, eax
         jl short .28
 .27:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .29
         mov eax, dword [dword_1C94DC]
@@ -786,7 +786,7 @@ sub_A3280:
         mov eax, dword [tickcount]
         cmp eax, dword [byte ebp-03Ch]
         jge short .36
-        call sub_E341C
+        call ServiceIdle
         jmp short .35
 .36:
         push dword [byte ebp-030h]
@@ -1256,12 +1256,12 @@ sub_A405E:
 .2:
         cmp dword [byte ebp-08h], byte 4
         jge short .3
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .1
         jmp short .4
 .3:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .1
 .4:
@@ -1307,13 +1307,13 @@ sub_A4164:
         je short .3
         cmp si, byte 4
         jge short .2
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .3
 .2:
         cmp si, byte 3
         jle short .4
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .4
 .3:
@@ -1444,13 +1444,13 @@ sub_A4164:
         je short .12
         cmp si, byte 4
         jge short .9
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .10
 .9:
         cmp si, byte 3
         jle short .11
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .11
 .10:
@@ -1475,13 +1475,13 @@ sub_A4164:
         je short .16
         cmp si, byte 4
         jge short .13
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .14
 .13:
         cmp si, byte 3
         jle short .15
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .15
 .14:
@@ -1581,13 +1581,13 @@ sub_A4164:
         jne short .27
         cmp si, byte 4
         jge short .24
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .25
 .24:
         cmp si, byte 3
         jle short .26
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .26
 .25:
@@ -1599,13 +1599,13 @@ sub_A4164:
 .27:
         cmp si, byte 4
         jge short .28
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .29
 .28:
         cmp si, byte 3
         jle short .30
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .30
 .29:
@@ -1674,13 +1674,13 @@ sub_A4164:
         je short .34
         cmp si, byte 4
         jge short .33
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .34
 .33:
         cmp si, byte 3
         jle short .35
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .35
 .34:
@@ -1811,13 +1811,13 @@ sub_A4164:
         je short .43
         cmp si, byte 4
         jge short .40
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .41
 .40:
         cmp si, byte 3
         jle short .42
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .42
 .41:
@@ -1842,13 +1842,13 @@ sub_A4164:
         je short .47
         cmp si, byte 4
         jge short .44
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .45
 .44:
         cmp si, byte 3
         jle short .46
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .46
 .45:
@@ -1886,7 +1886,7 @@ sub_A4164:
 .48:
         cmp dword [dword_16DA9C], byte 0
         je short .51
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .50
         cmp si, byte 4
@@ -2062,7 +2062,7 @@ sub_A4B7D_30:
         add esp, byte 0Ch
         lea eax, [byte ebp-02Ch]
         xor esi, esi
-        call sub_E32B4
+        call InitLinkSettings
         mov dword [dword_1C94D8], eax
 .6:
         mov al, byte [byte esi+ebp-02Ch]
@@ -2077,7 +2077,7 @@ sub_A4B7D_112:
         jl short sub_A4B7D_30.6
         cmp dword [dword_16DA9C], byte 0
         je short .8
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .7
         mov edx, 4
@@ -2231,7 +2231,7 @@ sub_A4B7D_112:
         jne short .27
         cmp dword [dword_16DA9C], byte 0
         je short .26
-        call sub_E3410
+        call ClearLinkAbort
         mov edx, dword [dword_1C94C0]
         mov ebx, dword [dword_1C94C8]
         inc edx
@@ -2255,7 +2255,7 @@ sub_A4B7D_112:
 .27:
         cmp dword [dword_16DA9C], byte 0
         je short .31
-        call sub_E3410
+        call ClearLinkAbort
         mov edx, dword [dword_1C94B4]
         mov ebx, eax
         mov eax, dword [dword_1C94C4]
@@ -2644,7 +2644,7 @@ sub_A4B7D_112:
         mov dword [byte ebp-0Ch], eax
         cmp dword [dword_16DA9C], byte 0
         je short .53
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .52
         mov eax, dword [dword_1C94DC]
@@ -2652,7 +2652,7 @@ sub_A4B7D_112:
         cmp esi, eax
         jl short .53
 .52:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .54
         mov eax, dword [dword_1C94DC]
@@ -2778,7 +2778,7 @@ sub_A4B7D_112:
         add esp, byte 4
         cmp dword [dword_16DA9C], byte 0
         je short .57
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .56
         mov eax, dword [dword_1C94DC]
@@ -2786,7 +2786,7 @@ sub_A4B7D_112:
         cmp esi, eax
         jl short .57
 .56:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .58
         mov eax, dword [dword_1C94DC]
@@ -2817,7 +2817,7 @@ sub_A4B7D_112:
         add esp, byte 4
         cmp dword [dword_16DA9C], byte 0
         je short .61
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .60
         mov eax, dword [dword_1C94DC]
@@ -2825,7 +2825,7 @@ sub_A4B7D_112:
         cmp esi, eax
         jl short .61
 .60:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .62
         mov eax, dword [dword_1C94DC]
@@ -3076,7 +3076,7 @@ sub_A4B7D_112:
         mov dword [byte ebx+eax+042h], edx
         cmp dword [dword_16DA9C], byte 0
         je short .73
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .71
         cmp esi, byte 4
@@ -3546,12 +3546,12 @@ sub_A4B7D_112:
         cdq
         idiv ebx
         call sub_A3280
-        call sub_E4218
+        call LinkSyncMenu
         jmp near .88
 .78:
         mov eax, 228h
         call GetLangText
-        call sub_E4230
+        call LinkSyncScreen
         jmp near .88
 .79:
         imul edx, dword [byte ebp-024h], byte 52h
@@ -4341,7 +4341,7 @@ PostGameScreen:
         sub ebp, byte 2Dh
         mov dword [dword esp+04E4h], edi
         mov dword [dword esp+04ECh], ebp
-        call sub_E341C
+        call ServiceIdle
         push str_BTM1
         mov eax, dword [dword_1C95A4]
         push eax
@@ -4359,7 +4359,7 @@ PostGameScreen:
         sar ebx, 10h
         mov edx, dword [byte edx+02Ch]
         call sub_823F0
-        call sub_E341C
+        call ServiceIdle
         push str_BTM2
         mov edx, dword [dword_1C95A4]
         push edx
@@ -4378,7 +4378,7 @@ PostGameScreen:
         mov edx, dword [byte edx+02Ch]
         call sub_823F0
         mov ebx, dword [dword esp+0568h]
-        call sub_E341C
+        call ServiceIdle
         push ebx
         call sub_FCF84
         mov edx, dword [dword_1C9558]
@@ -4390,7 +4390,7 @@ PostGameScreen:
         mov edx, dword [byte edx+02Ch]
         sar ebx, 10h
         call sub_823F0
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [dword esp+0120h]
         sub eax, byte 11h
         push eax
@@ -4474,7 +4474,7 @@ PostGameScreen:
         push esi
         call FreeBitmap
         add esp, byte 4
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         push byte 76h
         push dword 0C8h
@@ -4496,7 +4496,7 @@ PostGameScreen:
         mov dword [dword esp+0564h], ebp
         mov ebp, 0C8h
 .23:
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         push byte 76h
         push ebp
@@ -9954,14 +9954,14 @@ PlayMenuGame:
         call ShowLoadingScreen
         cmp dword [dword_16DA9C], byte 0
         je near .4
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .1
         mov edx, 4A78h
         mov eax, dword_1C1334
         xor ebx, ebx
         call LinkSendBlock
-        call sub_E4218
+        call LinkSyncMenu
         jmp short .4
 .1:
         push eax
@@ -9993,7 +9993,7 @@ PlayMenuGame:
         call bcopy
         add esp, byte 0Ch
 .3:
-        call sub_E4218
+        call LinkSyncMenu
         push esi
         call FreeMemBlock
         add esp, byte 4

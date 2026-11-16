@@ -31,7 +31,7 @@ extern InitMemoryPoolArgs, InitPlatform, InstallErrorHandlers, ConvertArtXY, For
 extern SetScreenTarget, LoadMainSfxBank, OpenAudioStream, ShutdownGameAudio, ChkMenuMusic, PauseMusic, RequestMusicStop, ArenaFileName
 extern StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, LoadStartupData, RunFrontEnd, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, GetLangText, FreeLangText
-extern RunIntro, AllocStaticBuffer, sub_DB747, sub_E341C, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
+extern RunIntro, AllocStaticBuffer, InitDbState, ServiceIdle, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
 extern WaitForOtherComputer, FillBox, sub_F9650, AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, sub_FB73D
 extern sub_FBE40, sub_FBE94, MakeColor, sub_FC73E, sub_FCC40, FreeBitmap, sub_FCF84, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, sub_FDC68, FillRect, MeasureText, DrawTextAt, SetTextColors
@@ -368,7 +368,7 @@ main_:
         call LoadMainSfxBank
         call RunFrontEnd
         call ShutdownGameAudio
-        call sub_DB747
+        call InitDbState
         call sub_1046C
         call NetShutdown
         call FreeLangText
@@ -2571,7 +2571,7 @@ sub_7EDF0:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .4
-        call sub_E341C
+        call ServiceIdle
         jmp short .3
 .4:
         inc ebx
@@ -2645,7 +2645,7 @@ sub_7EEB0:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .4
-        call sub_E341C
+        call ServiceIdle
         jmp short .3
 .4:
         inc ebx
@@ -2725,7 +2725,7 @@ sub_7EF70:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .3
-        call sub_E341C
+        call ServiceIdle
         jmp short .2
 .3:
         inc ebx
@@ -3809,7 +3809,7 @@ sub_7F5CC:
         mov eax, dword [tickcount]
         cmp eax, ebx
         jge short .38
-        call sub_E341C
+        call ServiceIdle
         jmp short .37
 .38:
         add esi, byte 4
@@ -4370,7 +4370,7 @@ EditText:
         call sub_FBE40
         test al, al
         jne short .24
-        call sub_E341C
+        call ServiceIdle
         jmp short .23
 .24:
         and eax, 0FFh
@@ -4411,7 +4411,7 @@ EditText:
         mov byte [esi+ebp], 0
         mov byte [byte esi+ebp-01h], dl
 .28:
-        call sub_E341C
+        call ServiceIdle
         cmp byte [dword esp+0684h], 1Bh
         jne near .20
 .29:
@@ -4457,7 +4457,7 @@ EditText:
         test eax, eax
         je short .33
 .32:
-        call sub_E341C
+        call ServiceIdle
         jmp short .31
 .33:
         cmp byte [dword esp+0684h], 1Bh
@@ -5060,7 +5060,7 @@ sub_80BBC:
         mov eax, dword [tickcount]
         cmp eax, ebx
         jge short .5
-        call sub_E341C
+        call ServiceIdle
         jmp short .4
 .5:
         mov eax, dword [byte esp+05Ch]
@@ -5147,7 +5147,7 @@ sub_80BBC:
         add esp, byte 0Ch
         call sub_1013FC
 .7:
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         cmp eax, ebx
         jl short .7
@@ -5196,7 +5196,7 @@ sub_80BBC:
         add esp, byte 0Ch
         call sub_1013FC
 .10:
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         cmp eax, ebx
         jl short .10
@@ -5247,7 +5247,7 @@ sub_80BBC:
         add esp, byte 0Ch
         call sub_1013FC
 .13:
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         cmp eax, ebx
         jl short .13
@@ -6252,7 +6252,7 @@ sub_816E8_45A:
         mov eax, dword [tickcount]
         cmp ebx, eax
         jle short .8
-        call sub_E341C
+        call ServiceIdle
         jmp short .7
 .8:
         add esi, byte 4
@@ -7884,7 +7884,7 @@ sub_82FB8:
         add esp, byte 0Ch
         call sub_1013FC
 .4:
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         cmp eax, ebx
         jl short .4
@@ -9356,7 +9356,7 @@ sub_84068:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .4
-        call sub_E341C
+        call ServiceIdle
         jmp short .3
 .4:
         add ebx, byte 4

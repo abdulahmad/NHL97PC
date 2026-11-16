@@ -28,8 +28,8 @@ extern ReplayCurrentFrame, ReplaySetupObjects, LoadReplayHeader, LoadReplayData,
 extern AllocAnimStates, InitFrontEnd, FreeFrontEnd, SetRegionRect, SetTextColor, DrawTextAligned, sub_7FE4C, sub_81650
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, NameIndexPath, sub_8BE60
 extern sub_8BEF8, InitMenuItems, sub_8BFAC, sub_8D5C0, sub_8D6B4, sub_8D6E8, sub_8D910, LoadLangTextB
-extern GetLangText, FreeLangText, sub_A0867, sub_AC69C, sub_AC6EB, sub_AC73E, sub_DA7EB, sub_DB6AC
-extern sub_E19D5, sub_E1C19, OpenReplayFile, sub_E3174, sub_E3190, sub_E3410, sub_E4218, LinkSendBlock
+extern GetLangText, FreeLangText, sub_A0867, sub_AC69C, sub_AC6EB, sub_AC73E, OpenGameDatabase, CloseGameDatabase
+extern AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile, IsInputRecording, StopInputRecording, ClearLinkAbort, LinkSyncMenu, LinkSendBlock
 extern LinkReceiveBlock, WaitForOtherComputer, sub_F22ED, sub_F9496, sub_F94BC, sub_F9789, sub_F9869, AllocMemBlock
 extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, sub_FD954, sub_FDC68, FillRect, SetTextColors, FillRectCorners, unk_166A8A
@@ -304,7 +304,7 @@ LoadReplay:
         mov edx, dword_1C1334
         call sub_AC6EB
         lea eax, [byte ebp-08h]
-        call sub_E1C19
+        call FindReplayIndexEntry
         push byte 0
         push dword [dword_1C5DA4]
         push str_Replload
@@ -314,7 +314,7 @@ LoadReplay:
         mov edx, eax
         mov eax, dword_1C1334
         call OpenReplayFile
-        call sub_DB6AC
+        call CloseGameDatabase
         mov eax, dword [dword_1CAF9C]
         mov edx, 20h
         call LoadReplayHeader
@@ -603,18 +603,18 @@ sub_BDB25:
 .4:
         call WaitMusicEnd
         mov dword [dword_1CAFF4], 1
-        call sub_DA7EB
+        call OpenGameDatabase
         call LoadReplay
         test eax, eax
         jne short .5
-        call sub_DB6AC
+        call CloseGameDatabase
         leave
         pop edx
         pop ecx
         pop ebx
         ret
 .5:
-        call sub_DB6AC
+        call CloseGameDatabase
         cmp dword [dword_1686C0], byte 0
         jne short .6
         mov eax, 70h
@@ -685,7 +685,7 @@ sub_BDB25:
         add esp, byte 4
         mov ebx, 2
         mov dword [dword_1C5DE4], 0
-        call sub_DA7EB
+        call OpenGameDatabase
         call InitFrontEnd
         call WaitMusicEnd
         call PauseMusic
@@ -1023,7 +1023,7 @@ ReplayScreen_EF:
         call __STOSD
         call FreeAnimTables
         call FreeGameGraphics
-        call sub_DA7EB
+        call OpenGameDatabase
         call LoadReplay
         test eax, eax
         je short .5
@@ -1035,7 +1035,7 @@ ReplayScreen_EF:
         mov dword [dword_1CAFA0], eax
         call ReplayCurrentFrame
         mov dword [dword_1CB000], eax
-        call sub_DB6AC
+        call CloseGameDatabase
         call sub_C04BE
 .5:
         call sub_8D910
@@ -1560,10 +1560,10 @@ ReplayScreen_929:
         call __STOSD
         call FreeAnimTables
         call FreeGameGraphics
-        call sub_E3174
+        call IsInputRecording
         test eax, eax
         jne short .34
-        call sub_E3190
+        call StopInputRecording
 .34:
         cmp dword [dword_16E500], byte 0
         je short .35
@@ -3069,10 +3069,10 @@ OpenReplayIndex:
         mov dword [byte ebp+07Ah], eax
         cmp dword [dword_16DA9C], byte 0
         je short PickReplayScreen_AA8
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je near .6
-        call sub_E4218
+        call LinkSyncMenu
         mov edx, str_DONTHAVEIT2
         mov eax, unk_1CAF3C
         call strcmp_
@@ -3140,7 +3140,7 @@ OpenReplayIndex:
         add esp, byte 10h
         mov eax, dword_1C1334
         mov ebx, dword [dword_1C5DA4]
-        call sub_E19D5
+        call AddReplayIndexEntry
         imul eax, dword [byte ebp+07Eh], byte 36h
         add eax, dword [byte ebp+07Ah]
         lea ebx, [byte eax+0Dh]
@@ -3159,7 +3159,7 @@ OpenReplayIndex:
         mov edx, dword_1C1334
         call sub_AC6EB
         lea eax, [byte ebp+072h]
-        call sub_E1C19
+        call FindReplayIndexEntry
         push byte 0
         push dword [dword_1C5DA4]
         push str_Replbuff
@@ -3179,7 +3179,7 @@ OpenReplayIndex:
         call LinkSendBlock
         jmp near .9
 .6:
-        call sub_E4218
+        call LinkSyncMenu
         mov edx, 8
         lea eax, [byte ebp+066h]
         xor ebx, ebx
@@ -3214,7 +3214,7 @@ OpenReplayIndex:
         mov edx, dword_1C1334
         call sub_AC6EB
         lea eax, [byte ebp+072h]
-        call sub_E1C19
+        call FindReplayIndexEntry
         push byte 0
         push dword [dword_1C5DA4]
         push str_Replbuff
@@ -3289,9 +3289,9 @@ SaveReplay:
         call NameIndexLoad
 .2:
         mov esi, eax
-        call sub_DA7EB
+        call OpenGameDatabase
         call sub_AC69C
-        call sub_DB6AC
+        call CloseGameDatabase
         lea eax, [byte ebp+056h]
         push eax
         push dword [dword_1C1338]

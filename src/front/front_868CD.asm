@@ -25,8 +25,8 @@ extern BlitShape2, BlitArt, sub_1013FC, FindShape, sub_102B94, ConvertArtXY, Set
 extern WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0, sub_7EEB0
 extern SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5B8, sub_7FE38, sub_80BBC
 extern sub_81114, sub_81678, sub_835BC, sub_83850, sub_867F0, sub_86878, sub_8BFAC, sub_8D956
-extern sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, GetLangText, sub_E32B4, sub_E3410
-extern sub_E341C, sub_E3AFC, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, AllocMemBlock, FreeMemBlock
+extern sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, GetLangText, InitLinkSettings, ClearLinkAbort
+extern ServiceIdle, StartNetworkLink, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, AllocMemBlock, FreeMemBlock
 extern MakeColor, FreeBitmap, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect
 extern MeasureText, unk_165330, unk_1AC839, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1C5EF8
 extern unk_1C5F4A, unk_1C834C, unk_1C8360, unk_1C8388, unk_1C83BA, word_16CCF8, word_16DACC, word_16DAD0
@@ -2223,15 +2223,15 @@ ModemSettingsScreen_AF4:
         or edx, eax
         mov eax, byte_1ACC51
         mov dword [byte ebp-040h], edx
-        call sub_E32B4
+        call InitLinkSettings
         mov eax, unk_1AC839
-        call sub_E3AFC
+        call StartNetworkLink
         test eax, eax
         je near ModemSettingsScreen_11E3
         mov eax, 235h
         call GetLangText
         call sub_835BC
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je near .27
         mov edx, 1E7h
@@ -2302,7 +2302,7 @@ ModemSettingsScreen_AF4:
         cmp ebx, byte 4
         jl short .28
 .30:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .31
         mov edx, 4
@@ -3396,15 +3396,15 @@ NetworkGamesScreen_657:
         add edx, eax
         mov eax, byte_1ACC51
         mov dword [byte ebp-040h], edx
-        call sub_E32B4
+        call InitLinkSettings
         mov eax, unk_1AC839
-        call sub_E3AFC
+        call StartNetworkLink
         test eax, eax
         je near NetworkGamesScreen_8F6
         mov eax, 235h
         call GetLangText
         call sub_835BC
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je near .15
         mov edx, 1E7h
@@ -3475,7 +3475,7 @@ NetworkGamesScreen_657:
         cmp ebx, byte 4
         jl short .16
 .18:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .19
         mov edx, 4
@@ -5353,7 +5353,7 @@ sub_8AAE5:
         mov dword [byte ebp+07Ah], 0
 .5:
         sub esi, byte 0Ah
-        call sub_E341C
+        call ServiceIdle
         test esi, esi
         jg near .2
         call StopAllSfx
@@ -5870,7 +5870,7 @@ sub_8B145:
         mov dword [byte ebp+07Ah], 0
 .6:
         add edi, byte 0Ah
-        call sub_E341C
+        call ServiceIdle
         cmp edi, 0B4h
         jl near .3
         call StopAllSfx

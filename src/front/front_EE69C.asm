@@ -18,7 +18,7 @@ extern str_TR0D, strlen_, bcopy, sub_101324, BlitShape2, BlitArt, BlitShape, sub
 extern FindShape, sub_10FE58, CreateBitmapForArt, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11BDC0, sub_11FAAC
 extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFileLib
 extern sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, SetTextColor, DrawTextAligned, sub_7F5B8, sub_80BBC
-extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, sub_E341C, WaitForOtherComputer, GetKeyName, sub_F20A1
+extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, sub_F20A1
 extern sub_F22AF, DrawPauseClock, FreeMemBlock, sub_FC4BC, MakeColor, FreeBitmap, sub_FCF84, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_167A1A, unk_16D992, unk_1AC8E4
 extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, unk_EDDEF, unk_EDE3F, unk_EDE53
@@ -142,7 +142,7 @@ ShowReservedKey:
         call BlitShape2
         add esp, byte 4
 .8:
-        call sub_E341C
+        call ServiceIdle
         jmp near .2
 .9:
         movsx eax, di
@@ -245,7 +245,7 @@ sub_EE8BB:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .2
-        call sub_E341C
+        call ServiceIdle
         jmp short .1
 .2:
         mov eax, 2
@@ -480,7 +480,7 @@ sub_EE8BB:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .13
-        call sub_E341C
+        call ServiceIdle
         jmp short .12
 .13:
         inc dword [byte ebp-04h]
@@ -758,7 +758,7 @@ sub_EECBC:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .7
-        call sub_E341C
+        call ServiceIdle
         jmp short .6
 .7:
         dec edi
@@ -1005,7 +1005,7 @@ sub_EECBC:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .12
-        call sub_E341C
+        call ServiceIdle
         jmp short .11
 .12:
         call SetScreenTarget
@@ -1695,7 +1695,7 @@ sub_EF5B3:
         mov eax, dword [tickcount]
         cmp eax, ecx
         jge short .10
-        call sub_E341C
+        call ServiceIdle
         jmp short .9
 .10:
         call SetScreenTarget
@@ -1805,7 +1805,7 @@ sub_EF5B3:
         mov eax, dword [tickcount]
         cmp eax, ecx
         jge short .16
-        call sub_E341C
+        call ServiceIdle
         jmp short .15
 .16:
         inc dword [byte ebp-04h]
@@ -4068,7 +4068,7 @@ sub_F174F:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .6
-        call sub_E341C
+        call ServiceIdle
         jmp short .5
 .6:
         call SetScreenTarget

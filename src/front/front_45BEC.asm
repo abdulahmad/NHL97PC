@@ -17,7 +17,7 @@ extern sub_109E74, sub_10A7D0, sub_10A860, sub_10A868, sub_10A8C4, sub_10A930, s
 extern sub_10AB1C, sub_10ABC8, RingBufferSpace, QueuePassSpeech, QueueShotSpeech, QueuePositionSpeech, QueueHitSpeech, QueuePenaltySpeech
 extern QueueReceiveSpeech, QueueLoosePuckSpeech, QueueCarrySpeech, QueueTeamSpeech, QueueDeflectSpeech, QueuePickupSpeech, QueueFaceoffSpeech, QueuePenaltyEndSpeech
 extern QueueFinalSpeech, QueueTouchPuckSpeech, QueuePenaltyCallSpeech, QueueStoppageSpeech, QueuePowerPlaySpeech, sub_44A50, sub_4518C, sub_45628
-extern sub_4564C, sub_45954, sub_45A00, MakeDataPath, sub_E341C, AllocMemBlock, FreeMemBlock, ZeroMem
+extern sub_4564C, sub_45954, sub_45A00, MakeDataPath, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
 extern tickcount, word_1691A4, word_169268, word_169282, word_169284, word_169824
 global jpt_48D20, jpt_48D50, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D, CommentaryEvent_3F6, CommentaryEvent_3FF
 global CommentaryEvent_408, CommentaryEvent_411, CommentaryEvent_41A, CommentaryEvent_423, CommentaryEvent_48A, CommentaryEvent_4E4, CommentaryEvent_4ED, CommentaryEvent_4F6
@@ -2761,7 +2761,7 @@ OpenSpeechFile:
         add eax, byte 8
         call strcat_
 .3:
-        call sub_E341C
+        call ServiceIdle
         mov eax, esp
         push eax
         lea eax, [byte esp+08h]
@@ -2945,7 +2945,7 @@ sub_47E38:
         sub esp, 0A0h
         cmp word [word_169268], byte 0
         jne short .1
-        call sub_E341C
+        call ServiceIdle
         lea eax, [byte esp+050h]
         mov edx, dword [dword_16926C]
         call MakeDataPath
@@ -2959,7 +2959,7 @@ sub_47E38:
         call sub_109870
         add esp, byte 8
         mov ebx, 1
-        call sub_E341C
+        call ServiceIdle
         mov word [word_169268], bx
 .1:
         add esp, 0A0h
@@ -3026,7 +3026,7 @@ sub_47EA4:
         call sub_47E38
 .1:
         xor esi, esi
-        call sub_E341C
+        call ServiceIdle
         mov dword [dword_169254], esi
 .2:
         pop esi
@@ -3075,7 +3075,7 @@ ShutdownSound:
         call ZeroMem
         add esp, byte 8
         mov dword [dword_169254], ebx
-        call sub_E341C
+        call ServiceIdle
 .1:
         pop esi
         pop edx
@@ -3096,14 +3096,14 @@ sub_48030:
 .1:
         xor eax, eax
         call sub_47D70
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov eax, 2
         mov ebx, 2
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov dword [dword_169254], ebx
         pop ebx
         ret
@@ -3122,11 +3122,11 @@ sub_48080:
         call sub_47D70
         mov eax, 1
         call sub_47D70
-        call sub_E341C
+        call ServiceIdle
         xor eax, eax
         mov ebx, 1
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov dword [dword_169254], ebx
         pop ebx
         ret

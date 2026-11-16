@@ -24,8 +24,8 @@ extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F5A4, sub_80BBC, sub_81468, sub
 extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, RunNewSeason, RunSeasonMenus
 extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, sub_A4B7D, PostGameScreen
 extern GameStatsScreen, PlayMenuGame, sub_AC369, TeamStatsScreen, sub_AF074, sub_B418C, PlayerStatsScreen, PlayerRatingsScreen
-extern sub_BD621, sub_C0F5D, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, sub_DB75E, OpenLeagueFile, sub_E036F
-extern sub_E3410, sub_E341C, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
+extern sub_BD621, sub_C0F5D, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, FreeDbBlock, OpenLeagueFile, FindGameRecord
+extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
 extern sub_FC330, FreeBitmap, sub_FCEEC, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
 extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C8300, unk_1C830C, unk_845C0
@@ -493,7 +493,7 @@ MainMenuScreen:
         push eax
         call sprintf_
         add esp, byte 14h
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .4
         mov edx, 4
@@ -602,7 +602,7 @@ MainMenuScreen:
         mov byte [byte edx+ebp-04Fh], 1
         call sprintf_
         add esp, byte 10h
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         lea eax, [byte ebp+022h]
         push eax
@@ -918,7 +918,7 @@ MainMenuScreen:
         cmp ebx, eax
         jge near .23
         mov edx, dword [byte ebp+07Ah]
-        call sub_E341C
+        call ServiceIdle
         mov eax, ebx
         movsx edx, word [byte edx+06h]
         sub eax, dword [dword_1C82A4]
@@ -1084,7 +1084,7 @@ MainMenuScreen_911:
         call sub_7F5A4
         test eax, eax
         je short MainMenuScreen_999
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short MainMenuScreen_999.26
         mov ebx, 4
@@ -1341,7 +1341,7 @@ MainMenuScreen_C76:
         call sub_7F5A4
         test eax, eax
         je short .43
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .42
         mov ebx, 1E7h
@@ -1758,13 +1758,13 @@ RunStatsMenu:
         add eax, edx
         lea edx, [dword ebp-01954h]
         inc ecx
-        call sub_E036F
+        call FindGameRecord
         movsx edx, word [dword ebp-0C4Dh]
         mov dword [nosplit ecx*4+dword_1AD6A7], edx
         cmp ecx, byte 10h
         jl short .1
         lea eax, [byte ebp-04h]
-        call sub_DB75E
+        call FreeDbBlock
         and byte [dword_1AC814], 8Fh
         jmp short RunStatsMenu_82.4
 RunStatsMenu_6E:
@@ -2104,7 +2104,7 @@ sub_85E1E:
 .9:
         cmp dword [dword_16DA9C], byte 0
         je short .11
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .10
         mov edx, 1
@@ -2251,7 +2251,7 @@ NameIndexLoad:
         mov eax, esp
         mov edx, esi
         call strcat_
-        call sub_E341C
+        call ServiceIdle
         push byte 20h
         lea eax, [byte esp+04h]
         push eax
@@ -2259,7 +2259,7 @@ NameIndexLoad:
         add esp, byte 8
         mov edx, eax
         mov edi, eax
-        call sub_E341C
+        call ServiceIdle
         test edx, edx
         jne short .2
         xor eax, eax

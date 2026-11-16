@@ -11,8 +11,8 @@ extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dwo
 extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprintf_, strcpy_, BlitArt
 extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, sub_101EAC, sub_102B94
 extern SetScreenTarget, SecondsToSamples, WaitSoundTime, OpenDataLibrary, sub_7E52C, sub_7E860, SetTextColor, DrawTextAligned
-extern LoadTeamLogo, sub_80808, InitMenuItems, GetLangText, sub_CA44C, sub_D0098, sub_DB75E, sub_DC653
-extern sub_DCBB0, OpenLeagueFile, sub_E036F, sub_E0D0F, sub_E341C, FreeMemBlock, FillMem, MakeColor
+extern LoadTeamLogo, sub_80808, InitMenuItems, GetLangText, sub_CA44C, sub_D0098, FreeDbBlock, FindTeamRecord
+extern FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindTeamStat, ServiceIdle, FreeMemBlock, FillMem, MakeColor
 extern DrawArt, SetDrawTarget, unk_167731, unk_16E1E4, unk_16E21C, unk_1AD22E, unk_1AD443, unk_1C5F4A
 extern unk_1C5F9C, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE, unk_1CD989, unk_1CDA34, unk_1CDADF
 extern unk_1CDB8A, unk_1CDC35, unk_1CDCE0, unk_1CDD8F, unk_1CDDFD, unk_1CDE36, unk_1CE03B, unk_1CE0A9
@@ -62,7 +62,7 @@ sub_E7D6D:
         mov eax, unk_1AD22E
         mov dword [byte ebp+076h], 0
         call OpenLeagueFile
-        call sub_E341C
+        call ServiceIdle
         jmp near .22
 .3:
         mov edx, dword [byte ebp+076h]
@@ -70,10 +70,10 @@ sub_E7D6D:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-019DEh]
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
         je near .21
-        call sub_E341C
+        call ServiceIdle
         movzx eax, byte [dword ebp-0198Eh]
         movzx ebx, byte [dword ebp-0198Ch]
         add eax, eax
@@ -135,8 +135,8 @@ sub_E7D6D:
         mov esi, word_1CD788
         lea eax, [byte edi+020h]
         mov ebx, dword [byte ebp+076h]
-        call sub_E0D0F
-        call sub_E341C
+        call FindTeamStat
+        call ServiceIdle
         lea edx, [byte ebp+02Eh]
         cmp word [byte ebp+046h], byte 0
         jle short .11
@@ -250,8 +250,8 @@ sub_E7D6D:
         lea edx, [byte ebp+02Eh]
         lea eax, [byte ebx+020h]
         mov esi, unk_1CDA34
-        call sub_E0D0F
-        call sub_E341C
+        call FindTeamStat
+        call ServiceIdle
         lea eax, [byte ebp+02Eh]
         mov edx, ebx
         mov ebx, dword [byte ebp+076h]
@@ -303,7 +303,7 @@ sub_E7D6D:
         cmp edx, dword [byte ebp+076h]
         jg near .3
         mov eax, dword_1CD778
-        call sub_DB75E
+        call FreeDbBlock
         mov dword [dword_1CD76C], 0Eh
         mov dword [dword_1CD768], unk_16E1E4
 .23:
@@ -315,10 +315,10 @@ sub_E7D6D:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-019DEh]
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
         je near .32
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+076h]
         mov edx, dword [dword_1AD71B]
         shl eax, 2
@@ -377,8 +377,8 @@ sub_E7D6D:
         mov ebx, dword [byte ebp+076h]
         lea eax, [byte edi+020h]
         mov esi, unk_1CDE36
-        call sub_E0D0F
-        call sub_E341C
+        call FindTeamStat
+        call ServiceIdle
         lea edx, [byte ebp+02Eh]
         mov ebx, dword [nosplit ebx*4+dword_1AD6AB]
         cmp word [byte ebp+046h], byte 0
@@ -427,7 +427,7 @@ sub_E7D6D:
         jbe short .37
         lea edx, [dword ebp-08Eh]
         lea eax, [byte esi+03Dh]
-        call sub_DCBB0
+        call FindPlayerRecord
         lea edx, [byte ebp-076h]
         lea eax, [byte esi+02h]
         call strcpy_
@@ -443,9 +443,9 @@ sub_E7D6D:
         jl short .37
         lea edx, [byte esi+0Ch]
         lea eax, [byte esi+04h]
-        call sub_DC653
+        call FindTeamRecord
 .36:
-        call sub_E341C
+        call ServiceIdle
 .37:
         inc dword [byte ebp+076h]
         cmp dword [byte ebp+076h], byte 0Eh

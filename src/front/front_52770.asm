@@ -55,7 +55,7 @@ extern DrawCenterSpots, DrawEndSpots, DrawNeutralSpots, DrawCenterCircle, DrawCr
 extern DrawRinkMarkings, DrawBoardsLines, DrawGoalLines, StartCrowdReaction, ClearCrowdReaction, DrawGoalLight, TransformRink, DrawBenchLines
 extern DrawBoardsTop, DrawStandsSides, DrawBenchDoors, DrawGlass, DrawBenchPlayers, DrawBenchArea, DrawPenaltyBox, DrawBenches
 extern UpdateScoreboardPos, UpdateScoreboardSpin, LoadNetArt, BuildRinkSides, LoadBoardLogo, LoadTeamLogoShape, LoadTeamLogoCopy, UpdateViewMatrix
-extern DrawPlayersSorted, RenderModelPortrait, RestoreSavedPalette, ReplayRegisterStates, ReplayRegisterObjects, sub_E341C, AllocMemBlock, FreeMemBlock
+extern DrawPlayersSorted, RenderModelPortrait, RestoreSavedPalette, ReplayRegisterStates, ReplayRegisterObjects, ServiceIdle, AllocMemBlock, FreeMemBlock
 extern sub_FC330, sub_FC4BC, ClearScreen, sub_FD954, FillRect, IntsToFloats, VecMulMat, VecSub
 extern VecDistance, ProjectCoord, ProjectPointsWithZ, tickcount, unk_16175C, unk_161760, unk_161764, unk_161768
 extern unk_16176C, unk_161770, unk_161774, unk_161778, unk_1617BC, unk_16B51C, unk_16B534, unk_1A8D48
@@ -91,7 +91,7 @@ LoadLogos:
         mov eax, 2
 .2:
         mov dword [dword esp+0E0h], eax
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         push str_LogosFsh
         call sub_101584
@@ -105,7 +105,7 @@ LoadLogos:
         idiv ecx
         add esp, byte 4
         mov esi, eax
-        call sub_E341C
+        call ServiceIdle
         push ebx
         call sub_102C96
         add esp, byte 4
@@ -1220,7 +1220,7 @@ LoadRinkModel:
         shr eax, 10h
         adc eax, edx
         mov dword [dword_1B1038], eax
-        call sub_E341C
+        call ServiceIdle
         xor edx, edx
         mov eax, str_Rink
         call sub_10FFBC
@@ -1250,7 +1250,7 @@ LoadRinkModel:
         or dl, 2
         add esp, byte 8
         mov byte [byte eax+010h], dl
-        call sub_E341C
+        call ServiceIdle
         mov eax, str_Stands2
         xor edx, edx
         mov ebx, 4
@@ -1271,7 +1271,7 @@ LoadRinkModel:
         push ecx
         call sub_10FEA8
         add esp, byte 0Ch
-        call sub_E341C
+        call ServiceIdle
         xor edx, edx
         mov eax, str_Score
         call sub_10FFBC
@@ -1301,7 +1301,7 @@ LoadRinkModel:
         or bl, 2
         add esp, byte 8
         mov byte [byte eax+010h], bl
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         push str_Puck2
         xor edi, edi
@@ -1327,7 +1327,7 @@ LoadRinkModel:
         mov dword [dword edi+dword_1B0274], eax
         cmp esi, byte 12h
         jl short .1
-        call sub_E341C
+        call ServiceIdle
         mov eax, str_Lonet
         xor edx, edx
         call sub_10FFBC
@@ -2341,7 +2341,7 @@ LoadRinkModel:
         xor esi, esi
         mov edi, 1
         call BuildRinkSides
-        call sub_E341C
+        call ServiceIdle
         mov dword [dword_1B0A88], esi
 .13:
         add esi, byte 14h
@@ -2369,7 +2369,7 @@ LoadRinkModel:
         xor ecx, ecx
         mov eax, unk_1617BC
         call RemapArtBank
-        call sub_E341C
+        call ServiceIdle
         call LoadRinkTextures
         mov ecx, 0FFFFFFFFh
         push str_PAL
@@ -3299,13 +3299,13 @@ sub_55000:
         call sub_101584
         add esp, byte 8
         mov dword [dword_1B0E28], eax
-        call sub_E341C
+        call ServiceIdle
         push byte 20h
         push str_Light6
         call sub_101584
         add esp, byte 8
         mov dword [dword_1B0E24], eax
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         call sub_FC330
         add esp, byte 4

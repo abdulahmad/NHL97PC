@@ -12,8 +12,8 @@ extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, sub_101324, Bl
 extern BlitShape, sub_1013FC, FindShape, sub_101584, sub_101EAC, sub_102B94, sub_10CD98, SetScreenTarget
 extern IsAllStarDay, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, PaEvent, ResetStreamAudio, LoadDataFile
 extern OpenDataLibrary, sub_7B84B, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned
-extern sub_80BBC, sub_80F48, sub_83BF4, InitMenuItems, sub_8BFAC, GetLangText, sub_D306F, sub_DA7D6
-extern sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, OpenLeagueFile, sub_E036F, LoadExhibitionFile, FreeExhibitionFile
+extern sub_80BBC, sub_80F48, sub_83BF4, InitMenuItems, sub_8BFAC, GetLangText, sub_D306F, KeysEqual
+extern FreeDbBlock, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord, LoadExhibitionFile, FreeExhibitionFile
 extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount
 extern unk_1670CF, unk_16711C, unk_167124, unk_167128, unk_167130, unk_167138, unk_16713C, unk_167144
 extern unk_167148, unk_167150, unk_167154, unk_16715C, unk_167160, unk_167168, unk_16716C, unk_167178
@@ -180,7 +180,7 @@ PreGameRostersScreen:
         shl edx, 3
         add eax, edx
         mov edx, dword [byte ebp+072h]
-        call sub_E036F
+        call FindGameRecord
         mov edx, dword [dword_1AC944]
         mov edx, dword [byte edx+01h]
         shl edx, 6
@@ -190,7 +190,7 @@ PreGameRostersScreen:
         shl edx, 3
         add eax, edx
         mov edx, dword [byte ebp+06Eh]
-        call sub_E036F
+        call FindGameRecord
         jmp short .10
 .6:
         xor esi, esi
@@ -207,7 +207,7 @@ PreGameRostersScreen:
         mov eax, dword [byte eax+01Ch]
         add eax, edx
         mov edx, dword [byte ebp+072h]
-        call sub_E036F
+        call FindGameRecord
 .8:
         mov eax, dword [dword_1AC944]
         mov eax, dword [byte eax+01h]
@@ -221,7 +221,7 @@ PreGameRostersScreen:
         mov eax, dword [byte eax+01Ch]
         add eax, edx
         mov edx, dword [byte ebp+06Eh]
-        call sub_E036F
+        call FindGameRecord
 .9:
         inc esi
         cmp esi, byte 10h
@@ -1042,7 +1042,7 @@ sub_D3DFA:
         lea ebx, [byte ebp+07Eh]
         lea edx, [byte ebp+07Ah]
         movzx eax, word [word_1C1344]
-        call sub_DB7B1
+        call AgeFromBirthDate
         push byte 0FFFFFFFFh
         call MakeColor
         mov edx, eax
@@ -1103,10 +1103,10 @@ sub_D3DFA:
         mov eax, dword [byte eax+01Ch]
         add eax, edx
         lea edx, [dword ebp-01A1Eh]
-        call sub_E036F
+        call FindGameRecord
         lea edx, [byte ebp-012h]
         lea eax, [dword ebp-01A0Eh]
-        call sub_DC653
+        call FindTeamRecord
         push byte 0FFFFFFFFh
         call MakeColor
         mov edx, eax
@@ -1133,7 +1133,7 @@ sub_D3DFA:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-01A1Eh]
-        call sub_E036F
+        call FindGameRecord
 .7:
         xor ebx, ebx
         jmp near .17
@@ -1153,11 +1153,11 @@ sub_D3DFA:
         test byte [dword esi+ebp-0D15h], 1
         je short .9
         lea edx, [dword ebp-0CEh]
-        call sub_DCBB0
+        call FindPlayerRecord
         jmp near .16
 .9:
         lea edx, [dword ebp-0CEh]
-        call sub_DCBB0
+        call FindPlayerRecord
         push dword 0FF0000h
         call MakeColor
         mov edx, eax
@@ -1292,13 +1292,13 @@ sub_D40CF:
         mov eax, dword [byte eax+01Ch]
         lea edx, [dword ebp-0195Ch]
         add eax, esi
-        call sub_E036F
+        call FindGameRecord
         movzx eax, byte [dword ebp-0190Ah]
         movzx edi, byte [dword ebp-0190Ch]
         mov dword [byte ebp-04h], eax
         lea eax, [byte ebp-08h]
         movzx esi, byte [dword ebp-0190Bh]
-        call sub_DB75E
+        call FreeDbBlock
 .7:
         mov eax, 1
         call sub_D3D5D
@@ -1520,7 +1520,7 @@ DrawMatchupNotes_14B:
         mov dword [byte ebp-014h], edx
         add eax, edx
         mov edx, edi
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .11
         imul eax, esi, dword 194Fh
@@ -1529,7 +1529,7 @@ DrawMatchupNotes_14B:
         mov eax, dword [dword_1AC940]
         mov eax, dword [byte eax+01Ch]
         add eax, dword [byte ebp-014h]
-        call sub_E036F
+        call FindGameRecord
         mov dword [byte ecx+ebp-030h], 1
         mov dword [byte ecx+ebp-038h], ebx
 .11:
@@ -1791,7 +1791,7 @@ sub_D4727:
         mov eax, dword [byte eax+01Ch]
         add eax, edx
         lea edx, [dword ebp-01A12h]
-        call sub_E036F
+        call FindGameRecord
         movzx edx, byte [dword ebp-019C2h]
         movzx eax, byte [dword ebp-019C0h]
         add edx, edx

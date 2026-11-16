@@ -23,7 +23,7 @@ extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584,
 extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, PlaySfx
 extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, sub_7CB8C, sub_7E860, sub_7EDF0, sub_7EEB0
 extern sub_7EF70, SetTextColor, DrawTextAligned, sub_80BBC, sub_823F0, sub_84330, InitMenuItems, sub_8BFAC
-extern sub_E0DB7, sub_E341C, AllocMemBlock, FreeMemBlock, sub_FC330, MakeColor, FreeBitmap, DrawArt
+extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, sub_FC330, MakeColor, FreeBitmap, DrawArt
 extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_166FF4, unk_16D7FC, unk_16D804
 extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_D15D1, unk_D15EE
 extern word_1C340D, word_1C5530
@@ -545,7 +545,7 @@ PreGameMatchupScreen:
         call SetScreenTarget
         call sub_D2E1A
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         jmp short .7
 .8:
         inc ebx
@@ -1193,7 +1193,7 @@ sub_D24F8:
         call sub_D2CCA
         test byte [byte ebp-04h], 2
         je short .4
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [dword_1CC684]
         mov ebx, dword [byte eax+02Ch]
         mov eax, dword [dword esi+dword_1CC668]
@@ -1213,7 +1213,7 @@ sub_D24F8:
         mov eax, dword [byte eax+02Ch]
         call sub_D2CCA
 .4:
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [tickcount]
         cmp eax, dword [byte ebp-0Ch]
         jl short .4
@@ -1230,7 +1230,7 @@ sub_D24F8:
         add esp, byte 4
         test byte [byte ebp-04h], 2
         je short .5
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [dword_1CC684]
         push dword [byte eax+02Ch]
         call BlitShape
@@ -1533,7 +1533,7 @@ PreGameStatsPanel:
         mov word [byte eax+0Eh], dx
 .13:
         inc dword [byte ebp-04h]
-        call sub_E341C
+        call ServiceIdle
         cmp dword [byte ebp-04h], byte 8
         jl near .11
         inc edi
@@ -1667,7 +1667,7 @@ sub_D2C78:
         mov eax, esi
         mov edx, dword [nosplit ecx*4+dword_1CC638]
         add ebx, dword [byte ebp-04h]
-        call sub_E0DB7
+        call ReadTeamStats
         test eax, eax
         jne short .2
         xor edi, edi
@@ -1676,7 +1676,7 @@ sub_D2C78:
         mov eax, esi
         mov edx, dword [nosplit ecx*4+dword_1CC650]
         add ebx, dword [byte ebp-08h]
-        call sub_E0DB7
+        call ReadTeamStats
         test eax, eax
         jne short .3
         xor edi, edi

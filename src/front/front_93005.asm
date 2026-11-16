@@ -25,9 +25,9 @@ extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFileLib, LoadDat
 extern sub_7EEB0, sub_7EF70, SetRegionRect, SetTextColor, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80B28
 extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad
 extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, StandingsScreen
-extern sub_9279A, LinkTransferSetup, sub_92FE9, sub_C6064, RosterScreen, sub_DB75E, sub_DB763, sub_DC653
-extern sub_DCFA4, sub_DD2DE, sub_DD61F, OpenLeagueFile, sub_DE5A3, sub_E036F, sub_E0415, sub_E0B75
-extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, AllocMemBlock
+extern sub_9279A, LinkTransferSetup, sub_92FE9, sub_C6064, RosterScreen, FreeDbBlock, DaysToYear, FindTeamRecord
+extern MakeLeagueKeyBase, CreatePlayoffFile, CreatePlayoffSchedule, OpenLeagueFile, WriteLeagueHeader, FindGameRecord, UpdateGameRecord, MakeStandingsKey
+extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, SeasonIntroScreen, AllocMemBlock
 extern FreeMemBlock, MakeColor, sub_FCC40, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen
 extern unk_165A5B, unk_16CE20, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF4E, unk_1AD250, unk_1AD443
 extern unk_1AD603, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C89F8, unk_1C8A04, unk_1C8A10
@@ -330,7 +330,7 @@ sub_93005:
         mov eax, dword [byte eax+014h]
         add eax, edx
         lea edx, [byte ebp-03Ah]
-        call sub_DC653
+        call FindTeamRecord
         imul eax, esi, byte 1Eh
         lea edx, [byte ebp+04h]
         add eax, byte_1C880C
@@ -350,7 +350,7 @@ sub_93005:
         mov eax, dword [byte eax+014h]
         add eax, edx
         lea edx, [byte ebp-03Ah]
-        call sub_DC653
+        call FindTeamRecord
         imul eax, dword [dword_1C8A90], byte 1Eh
         lea edx, [byte ebp+04h]
         add eax, byte_1C880C
@@ -459,7 +459,7 @@ RunNewPlayoffs:
         push byte 1
         cmp dword [dword_16DA9C], byte 0
         je short .1
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .1
         mov ecx, 1
@@ -925,7 +925,7 @@ PlayoffSetupScreen:
         mov eax, dword [byte eax+014h]
         add eax, edx
         lea edx, [byte ebp-05Ah]
-        call sub_DC653
+        call FindTeamRecord
         imul eax, esi, byte 1Eh
         lea edx, [byte ebp-01Ch]
         add eax, byte_1C880C
@@ -939,7 +939,7 @@ PlayoffSetupScreen:
         mov eax, dword [byte eax+014h]
         add eax, edx
         lea edx, [byte ebp-05Ah]
-        call sub_DC653
+        call FindTeamRecord
         lea eax, [byte esi+08h]
         imul eax, byte 1Eh
         lea edx, [byte ebp-01Ch]
@@ -1007,7 +1007,7 @@ PlayoffSetupScreen:
         je short .10
         call sub_7EDF0
         mov eax, dword_1AC940
-        call sub_DB75E
+        call FreeDbBlock
         mov eax, dword [dword ebp-099Eh]
         mov dword [byte ebp+072h], 0Dh
         call CreatePlayoffs
@@ -1215,7 +1215,7 @@ CreatePlayoffs:
         mov dword [dword_1AD743], edx
         cmp dword [dword_16DA9C], byte 0
         je short .2
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .1
         mov edx, 4
@@ -1257,7 +1257,7 @@ CreatePlayoffs:
         call strcpy_
         cmp dword [dword_16DA9C], byte 0
         je short .5
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .5
         mov eax, dword [byte ebp+07Ah]
@@ -1287,18 +1287,18 @@ CreatePlayoffs:
         push eax
         mov edx, 10h
         mov eax, 69h
-        call sub_DD2DE
+        call CreatePlayoffFile
         jmp near .12
 .9:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .10
         lea eax, [byte ebp+066h]
         mov edx, 8
-        call sub_DCFA4
+        call MakeLeagueKeyBase
         lea eax, [byte ebp+05Eh]
         xor ebx, ebx
-        call sub_E0B75
+        call MakeStandingsKey
         lea eax, [byte ebp+066h]
         call LinkSendBlock
         mov edx, 8
@@ -1325,7 +1325,7 @@ CreatePlayoffs:
         push eax
         mov edx, 10h
         mov eax, 69h
-        call sub_DD61F
+        call CreatePlayoffSchedule
 .12:
         mov dword [byte ebp+07Ah], 0
         jmp near .18
@@ -1361,7 +1361,7 @@ CreatePlayoffs:
         mov ebx, 1
         mov edx, 5
         mov eax, 7CCh
-        call sub_DB763
+        call DaysToYear
         mov edx, eax
         add edx, esi
         mov esi, dword [byte ebp+07Ah]
@@ -1408,7 +1408,7 @@ CreatePlayoffs:
         mov ebx, 1
         mov edx, 5
         mov eax, 7CCh
-        call sub_DB763
+        call DaysToYear
         mov edx, eax
         add edx, esi
         mov esi, dword [byte ebp+07Ah]
@@ -1437,7 +1437,7 @@ CreatePlayoffs:
         mov ebx, 1
         mov edx, 5
         mov eax, 7CCh
-        call sub_DB763
+        call DaysToYear
         add eax, edi
         add esi, eax
         mov eax, dword [byte ebp+06Eh]
@@ -1467,7 +1467,7 @@ CreatePlayoffs:
         add eax, edx
         lea edx, [dword ebp-01A62h]
         lea esi, [dword ebp-01A4Ah]
-        call sub_E036F
+        call FindGameRecord
         rep movsb
         mov eax, dword [dword ebp-0D5Dh]
         mov word [dword ebp-019A5h], ax
@@ -1495,14 +1495,14 @@ CreatePlayoffs:
         call memcpy_
         lea eax, [dword ebp-01A62h]
         inc dword [byte ebp+07Ah]
-        call sub_E0415
+        call UpdateGameRecord
 .20:
         mov eax, dword [byte ebp+06Eh]
         movsx eax, word [eax]
         cmp eax, dword [byte ebp+07Ah]
         jg near .19
         mov eax, dword [byte ebp+06Eh]
-        call sub_DE5A3
+        call WriteLeagueHeader
         mov esi, dword [byte ebp+06Eh]
         mov edx, 1
         mov edi, unk_1AD73A
@@ -1511,7 +1511,7 @@ CreatePlayoffs:
         lea eax, [byte ebp+06Eh]
         movsd
         movsd
-        call sub_DB75E
+        call FreeDbBlock
         lea eax, [dword ebp-092h]
         call MakeDirPath
         lea eax, [dword ebp-092h]
@@ -1612,7 +1612,7 @@ sub_945A7:
         mov eax, dword [byte eax+014h]
         add eax, edx
         lea edx, [byte ebp-068h]
-        call sub_DC653
+        call FindTeamRecord
         imul eax, esi, byte 1Eh
         lea edx, [byte ebp-02Ah]
         add eax, byte_1C880C
@@ -2084,7 +2084,7 @@ RunPlayoffMenus:
         call StandingsScreen
         jmp short .4
 .9:
-        call sub_E7B33
+        call SeasonIntroScreen
         jmp short .4
 ;-----------------------------------------------------------------------------
 ; PlayoffTreeScreen                               94BDA  96 PC, low confidence

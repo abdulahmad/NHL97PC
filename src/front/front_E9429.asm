@@ -27,8 +27,8 @@ extern SetTextColor, DrawTextAligned, sub_7F5A4, LoadTeamLogo, sub_80808, sub_80
 extern sub_83314, sub_834EC, sub_83558, sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068
 extern sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E
 extern SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, sub_8E870, sub_9D2D0, sub_AF074
-extern PlayerStatsScreen, sub_CA44C, sub_D0098, sub_DA7D6, sub_DAC1E, sub_DC71D, sub_DCBB0, sub_E036F
-extern sub_E0841, sub_E0D0F, sub_E341C, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt
+extern PlayerStatsScreen, sub_CA44C, sub_D0098, KeysEqual, SetMatchupTeams, BuildAllStarRecords, FindPlayerRecord, FindGameRecord
+extern FindPlayerStat, FindTeamStat, ServiceIdle, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, unk_167806, unk_167809
 extern unk_167814, unk_1678E0, unk_1678E2, unk_1678E4, unk_1678E6, unk_1678E8, unk_1678EA, unk_1678EC
 extern unk_1678EE, unk_1678F0, unk_1678F2, unk_1678F4, unk_1678F6, unk_1678F8, unk_1678FA, unk_1678FC
@@ -1485,7 +1485,7 @@ sub_EA7CF:
         mov eax, dword [tickcount]
         cmp edx, eax
         jle short .3
-        call sub_E341C
+        call ServiceIdle
         jmp short .2
 .3:
         push dword [dword_1CE1F0]
@@ -2142,7 +2142,7 @@ DrawAllStarList:
         mov eax, dword [tickcount]
         cmp edx, eax
         jle short .3
-        call sub_E341C
+        call ServiceIdle
         jmp short .2
 .3:
         cmp dword [byte ebp-010h], byte 1
@@ -3107,7 +3107,7 @@ sub_EBDC3:
         mov eax, dword [byte ebp-010h]
         add eax, 0A3h
         add eax, dword [byte ebp-0Ch]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .3
 .2:
@@ -3143,7 +3143,7 @@ sub_EBDC3:
         mov eax, dword [byte ebp-04h]
         add eax, 1D42h
         add eax, dword [byte ebp-08h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .6
         add ebx, byte 13h
@@ -3788,7 +3788,7 @@ sub_EC671:
         mov eax, dword [byte ebp-018h]
         add eax, 0A3h
         add eax, edi
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .3
         inc esi
@@ -3927,7 +3927,7 @@ sub_EC82C:
         mov dword [byte ebp-010h], eax
         mov eax, edi
         add eax, dword [byte ebp-010h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .3
         inc esi
@@ -4403,7 +4403,7 @@ PickAllStarPlayers:
         lea eax, [dword esi+01D42h]
         add edx, eax
         movsx eax, word [byte esi+066h]
-        call sub_DAC1E
+        call SetMatchupTeams
         mov edx, eax
         mov eax, dword [byte ebp-0Ch]
         inc dword [byte ebp-0Ch]
@@ -4491,9 +4491,9 @@ InitAllStarTeams:
         mov eax, unk_1C3487
         call strcpy_
         mov eax, unk_1C135C
-        call sub_DC71D
+        call BuildAllStarRecords
         mov eax, unk_1C347F
-        call sub_DC71D
+        call BuildAllStarRecords
         mov word [word_1C13C2], 1Ah
         mov word [word_1C34E5], 1Bh
         mov word [word_1C1348], 15h
@@ -4641,7 +4641,7 @@ AllocAllStarRosters:
         shl ecx, 3
         mov eax, dword [byte eax+01Ch]
         add eax, ecx
-        call sub_E036F
+        call FindGameRecord
         mov ecx, dword [dword_1CE200]
         mov eax, ebx
         mov edx, dword [ecx+eax*4]
@@ -4665,7 +4665,7 @@ AllocAllStarRosters:
         add eax, edx
         mov edx, dword [byte ebp-01Ch]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         imul edx, ecx, byte 27h
         mov eax, dword [dword_1CE220]
         add eax, dword [byte ebp-010h]
@@ -4673,7 +4673,7 @@ AllocAllStarRosters:
         add eax, dword [byte ebp-018h]
         add eax, byte 18h
         add edx, edi
-        call sub_E0841
+        call FindPlayerStat
         imul edx, ecx, byte 3Dh
         mov eax, dword [dword_1CE220]
         add eax, dword [byte ebp-010h]
@@ -4682,7 +4682,7 @@ AllocAllStarRosters:
         add edx, dword [byte ebp-08h]
         add eax, byte 20h
         inc ecx
-        call sub_E0D0F
+        call FindTeamStat
 .10:
         imul eax, ebx, dword 194Fh
         mov dword [byte ebp-010h], eax
@@ -4707,7 +4707,7 @@ AllocAllStarRosters:
         add eax, edx
         mov edx, dword [byte ebp-014h]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         imul edx, dword [byte ebp-01Ch], byte 27h
         mov eax, dword [dword_1CE220]
         add eax, dword [byte ebp-0Ch]
@@ -4715,7 +4715,7 @@ AllocAllStarRosters:
         add eax, dword [byte ebp-018h]
         add eax, byte 18h
         add edx, edi
-        call sub_E0841
+        call FindPlayerStat
         imul edx, dword [byte ebp-01Ch], byte 3Dh
         mov eax, dword [dword_1CE220]
         add eax, dword [byte ebp-0Ch]
@@ -4724,7 +4724,7 @@ AllocAllStarRosters:
         add edx, dword [byte ebp-08h]
         add eax, byte 20h
         inc ecx
-        call sub_E0D0F
+        call FindTeamStat
 .12:
         imul eax, ebx, dword 194Fh
         mov dword [byte ebp-0Ch], eax
@@ -5020,7 +5020,7 @@ sub_ED6C8:
         inc ebx
         add edi, eax
 .2:
-        call sub_E341C
+        call ServiceIdle
         mov ch, byte [ebx]
         mov cl, ch
         and cl, 3
@@ -5300,7 +5300,7 @@ sub_ED8E8:
         mov ebx, dword [byte esp+014h]
         test ebx, ebx
         jle near .26
-        call sub_E341C
+        call ServiceIdle
         xor ecx, ecx
         mov esi, 2
         mov dword [byte esp+028h], ecx

@@ -42,9 +42,9 @@ extern PacketLinkSend, ClosePacketLink, SecondsToSamples, WaitSoundTime, ChkMenu
 extern ArenaFileName, StopAllSfx, PlaySfx, ServiceBackgroundAudio, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0
 extern sub_7EF70, SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7F5B8
 extern sub_80BBC, sub_81D1C, sub_83314, sub_834EC, sub_83558, sub_835AC, sub_835BC, sub_83850
-extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, AllocPageStack, sub_D7B64, OpenDbFile
-extern CloseDbFile, sub_D8B20, sub_D9960, sub_D9D74, sub_DA020, sub_DA02C, sub_DA48C, sub_DA498
-extern sub_DA544, sub_DA57C, sub_DA654, sub_E7D6D, sub_E8660, sub_E8923, sub_F9A88, AllocMemBlock
+extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, AllocPageStack, FreeDbPages, OpenDbFile
+extern CloseDbFile, AddIndexKey, DeleteIndexKey, FindIndexKey, FindLastKey, FindFirstKey, NextIndexKey, PrevIndexKey
+extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, sub_E7D6D, sub_E8660, sub_E8923, sub_F9A88, AllocMemBlock
 extern sub_FAAB4, FreeMemBlock, ZeroMem, sub_FBE40, addtimer, sub_FC008, WaitTicks, MakeColor
 extern FreeBitmap, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, sub_FDC68, FillRect, MeasureText
 extern DrawTextAt, FillRectCorners, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
@@ -58,35 +58,35 @@ extern word_1CD24E, word_1CD2AC, word_1CD2B4, word_1CD2F6, word_1CD2F8, word_1CD
 extern word_1CD37A, word_1CD37C, word_1CD3BC, word_1CD3BE, word_1CD3C0, word_1CD3FE, word_1CD400, word_1CD404
 extern word_1CD406, word_1CD634
 global IpxCloseSocket, jpt_DADC0, jpt_DAFD8, jpt_DAFE8, jpt_DB8CE, jpt_E329C, jpt_E6554, jpt_E7B1F
-global sub_DA76A_16, sub_DA76A_24, sub_DA7EB_13, sub_DA7EB_18, sub_DADD0_5C, sub_DADD0_102, sub_DADD0_152, sub_DADD0_1AA
-global sub_DAFF8_62, sub_DAFF8_16E, sub_DAFF8_200, sub_DAFF8_296, sub_DAFF8_33C, sub_DAFF8_3BF, sub_DAFF8_42C, sub_DAFF8_495
-global sub_DB8E6_2D, sub_DB8E6_49, sub_DB8E6_AC, sub_DB8E6_FD, sub_DB8E6_236, sub_DB8E6_244, sub_DB8E6_249, sub_DB8E6_307
-global sub_DB8E6_30C, sub_DBBFC_1BC, sub_DC11A_21E, sub_DC11A_52F, sub_DCC75_19F, sub_DCC75_1A6, sub_DCC75_1AD, sub_DCC75_221
-global sub_DCC75_229, sub_DCFA4_5, sub_DCFB0_2F7, sub_DCFB0_30F, sub_DCFB0_319, sub_DCFB0_31E, sub_DCFB0_325, sub_DDC4A_2F0
-global sub_DE88E_15A, sub_DEE3A_55, sub_DFAF6_797, sub_E0297_C0, sub_E0297_C5, sub_E0297_CC, sub_E036F_9B, sub_E036F_A0
-global sub_E076B_BE, sub_E076B_C3, sub_E076B_CA, sub_E32B4_D6, sub_E32B4_E8, sub_E32B4_FF, sub_E32B4_10D, sub_E32B4_11D
-global sub_E341C_34, ChooseNetworkGameScreen_A51, ChooseNetworkGameScreen_A99, ChooseNetworkGameScreen_AE5, ChooseNetworkGameScreen_B21, ChooseNetworkGameScreen_BA2, sub_E759F_20C, sub_E7B33_C6
-global sub_E7B33_D1, sub_E7B33_DB, sub_E7B33_186, sub_E7B33_19C, AllocMediaBuffer, AllocStaticBuffer, sub_DA76A, sub_DA797
-global sub_DA7D6, sub_DA7EB, sub_DAA82, sub_DAB51, sub_DAC1E, sub_DAC72, sub_DAD7E, sub_DADD0
-global sub_DAFF8, sub_DB508, sub_DB5B7, sub_DB6AC, sub_DB747, sub_DB75E, sub_DB763, sub_DB7B1
-global sub_DB838, sub_DB8E6, sub_DBBFC, sub_DBDC1, sub_DBEB3, sub_DC11A, sub_DC653, sub_DC71D
-global sub_DC99F, sub_DCA6C, sub_DCBB0, sub_DCC75, sub_DCEA4, sub_DCFA4, sub_DCFB0, sub_DD2DE
-global sub_DD61F, sub_DD970, sub_DDC4A, sub_DE20B, sub_DE25F, OpenLeagueFile, sub_DE5A3, sub_DE740
-global sub_DE88E, sub_DE9F5, sub_DEBA2, sub_DEE3A, sub_DEE95, sub_DEF96, sub_DF1CF, sub_DF274
-global sub_DFAF6, sub_E0297, sub_E036F, sub_E0415, sub_E0617, sub_E0691, sub_E069E, sub_E076B
-global sub_E0841, sub_E08E9, sub_E0AD0, sub_E0B75, sub_E0B82, sub_E0C4F, sub_E0D0F, sub_E0DB7
-global sub_E0F85, LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, sub_E12EF, ResetExhibitionFile, sub_E13FE, sub_E1563
-global sub_E167A, sub_E1744, sub_E19D5, sub_E1C19, OpenReplayFile, sub_E1D45, sub_E1EC9, sub_E2041
-global sub_E2141, sub_E21C6, AllocClearBlock, AllocClearBlock20, FreePtr, sub_E22FC, sub_E2310, sub_E2334
-global sub_E2348, FileExists, FileDelete, FileCreate, FileOpen, FileSeek, FileSeekEnd, FileTell
-global FileReadRecord, FileWriteRecord, FileClose, FileLength, sub_E2590, sub_E2620, sub_E2790, sub_E2838
-global PollControllers, InputRecordTimer, InitSlotTable, sub_E304C, sub_E30BC, sub_E30D8, sub_E30F4, sub_E3174
-global sub_E3190, InputRecordAvail, TakeInputRecord, sub_E32B4, sub_E3410, sub_E341C, sub_E34A0, sub_E3530
-global sub_E3640, sub_E3700, sub_E3738, sub_E375C, sub_E3798, NetInit, NetShutdown, sub_E3AFC
-global NetDisconnect, sub_E3F04, sub_E4218, sub_E4230, sub_E4248, sub_E4264, sub_E4288, LinkSendBlock
-global LinkReceiveBlock, WaitForOtherComputer, sub_E5730, DefaultModemName, sub_E5808, sub_E59A8, sub_E59D8, sub_E5A20
-global IpxInit, LoadServerList, sub_E5CD8, sub_E5D6C, sub_E5D98, FindNetworkGames, sub_E5FD8, sub_E61AC
-global ChooseNetworkGameScreen, sub_E728C, JoinNetworkGame, sub_E7570, sub_E759F, sub_E77B1, sub_E7B33
+global MakeRecordKey_16, MakeRecordKey_24, OpenGameDatabase_13, OpenGameDatabase_18, WriteDbRecord_5C, WriteDbRecord_102, WriteDbRecord_152, WriteDbRecord_1AA
+global ReadDbRecord_62, ReadDbRecord_16E, ReadDbRecord_200, ReadDbRecord_296, ReadDbRecord_33C, ReadDbRecord_3BF, ReadDbRecord_42C, ReadDbRecord_495
+global LookupRecord_2D, LookupRecord_49, LookupRecord_AC, LookupRecord_FD, LookupRecord_236, LookupRecord_244, LookupRecord_249, LookupRecord_307
+global LookupRecord_30C, FindRecordByKey_1BC, RepairDatabase_21E, RepairDatabase_52F, UpdatePlayerRecord_19F, UpdatePlayerRecord_1A6, UpdatePlayerRecord_1AD, UpdatePlayerRecord_221
+global UpdatePlayerRecord_229, MakeLeagueKeyBase_5, CreateExhibitionFile_2F7, CreateExhibitionFile_30F, CreateExhibitionFile_319, CreateExhibitionFile_31E, CreateExhibitionFile_325, CreateSeasonSchedule_2F0
+global RecordHomeStats_15A, SaveGameResult_55, BuildSeasonRecords_797, AddGameRecord_C0, AddGameRecord_C5, AddGameRecord_CC, FindGameRecord_9B, FindGameRecord_A0
+global AddPlayerStatAt_BE, AddPlayerStatAt_C3, AddPlayerStatAt_CA, InitLinkSettings_D6, InitLinkSettings_E8, InitLinkSettings_FF, InitLinkSettings_10D, InitLinkSettings_11D
+global ServiceIdle_34, ChooseNetworkGameScreen_A51, ChooseNetworkGameScreen_A99, ChooseNetworkGameScreen_AE5, ChooseNetworkGameScreen_B21, ChooseNetworkGameScreen_BA2, OptionsAnimFrame_20C, SeasonIntroScreen_C6
+global SeasonIntroScreen_D1, SeasonIntroScreen_DB, SeasonIntroScreen_186, SeasonIntroScreen_19C, AllocMediaBuffer, AllocStaticBuffer, MakeRecordKey, MakeKeyPair
+global KeysEqual, OpenGameDatabase, LoadHomeRosterRecords, LoadAwayRosterRecords, SetMatchupTeams, LoadMatchupRosters, LoadGameRosters, WriteDbRecord
+global ReadDbRecord, AppendDbRecord, AllocRecordSlot, CloseGameDatabase, InitDbState, FreeDbBlock, DaysToYear, AgeFromBirthDate
+global NewRecordKey, LookupRecord, FindRecordByKey, CountDbRecords, RebuildDbIndex, RepairDatabase, FindTeamRecord, BuildAllStarRecords
+global AddPlayerRecord, AddTradeRecord, FindPlayerRecord, UpdatePlayerRecord, MakeLeagueKey, MakeLeagueKeyBase, CreateExhibitionFile, CreatePlayoffFile
+global CreatePlayoffSchedule, CreateSeasonFile, CreateSeasonSchedule, ScheduleEntryMatches, FindNextSeasonGame, OpenLeagueFile, WriteLeagueHeader, StartSeasonGame
+global RecordHomeStats, RecordAwayStats, RecordGameResult, SaveGameResult, SaveExhibitionResult, SaveSeasonResult, MakeGameKey, BuildPlayoffRecords
+global BuildSeasonRecords, AddGameRecord, FindGameRecord, UpdateGameRecord, MakePlayerStatKey, MakeGoalieStatKey, AddPlayerStat, AddPlayerStatAt
+global FindPlayerStat, UpdatePlayerStat, MakeTeamStatKey, MakeStandingsKey, AddTeamStat, AddTeamStatAt, FindTeamStat, ReadTeamStats
+global UpdateTeamStat, LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionStats, ResetExhibitionFile, ImportTradedPlayers, ImportNewPlayers
+global AllocImportBuffer, PickDemoTeams, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile, RenameReplayIndexEntry, DeleteReplayIndexEntry, SaveUserRecord
+global LoadUserRecord, DeleteUserRecord, AllocClearBlock, AllocClearBlock20, FreePtr, CopyBytesOk, CopyAndClear, ZeroBytesOk
+global CompareKeyBytes, FileExists, FileDelete, FileCreate, FileOpen, FileSeek, FileSeekEnd, FileTell
+global FileReadRecord, FileWriteRecord, FileClose, FileLength, ReadKeyboardPad, ReadKeyboardPlayers, ReadInputDriver, ReadJoystickPads
+global PollControllers, InputRecordTimer, InitSlotTable, StartInputRecording, StopInputTimer, StartInputTimer, ResetInputState, IsInputRecording
+global StopInputRecording, InputRecordAvail, TakeInputRecord, InitLinkSettings, ClearLinkAbort, ServiceIdle, QueueLinkPacket, SendLinkPacket
+global ResendLinkPacket, LinkTimerOn, LinkTimerOff, ResetLinkStats, SyncLinkGame, NetInit, NetShutdown, StartNetworkLink
+global NetDisconnect, LinkHandshake, LinkSyncMenu, LinkSyncScreen, LinkSyncGame, ClearLinkInputs, LinkInputTick, LinkSendBlock
+global LinkReceiveBlock, WaitForOtherComputer, InitNetSession, DefaultModemName, OpenNetSession, CloseNetSession, ShutdownNetSession, SetNetPlayerName
+global IpxInit, LoadServerList, HostNetGame, LeaveNetGame, AddFoundGame, FindNetworkGames, DrawNetGameList, ChooseNetGame
+global ChooseNetworkGameScreen, CopyJoinedGameInfo, JoinNetworkGame, CloseNetConnection, OptionsAnimFrame, OptionsAnimScreen, SeasonIntroScreen
 ;-----------------------------------------------------------------------------
 ; AllocMediaBuffer                             DA66D  97 PC, medium confidence
 ; Allocates the "MEDIA BUFFER" (200h paragraphs of DOS memory)
@@ -131,7 +131,7 @@ AllocMediaBuffer:
         call FreeMemBlock
         add esp, byte 4
         mov eax, ebx
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
 ;-----------------------------------------------------------------------------
 ; AllocStaticBuffer                            DA713  97 PC, medium confidence
 ; Allocates the "STATIC BUF" once (flag word_16D7EC)
@@ -168,9 +168,10 @@ AllocStaticBuffer:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DA76A                                                       DA76A  97 PC
+; MakeRecordKey                                   DA76A  97 PC, low confidence
+; Builds the key of a record from its type and number
 ;-----------------------------------------------------------------------------
-sub_DA76A:
+MakeRecordKey:
         push ebx
         push ecx
         push esi
@@ -179,22 +180,23 @@ sub_DA76A:
         lea edx, [byte eax+04h]
         mov ebx, ecx
         mov eax, 4
-        call sub_DA544
-sub_DA76A_16:
+        call BuildKeyFromLong
+MakeRecordKey_16:
         mov eax, 4
         mov ebx, ecx
         mov edx, esi
-        call sub_DA57C
-sub_DA76A_24:
+        call BuildKeyFromString
+MakeRecordKey_24:
         mov eax, 1
         pop esi
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DA797                                                       DA797  97 PC
+; MakeKeyPair                                     DA797  97 PC, low confidence
+; Builds a two-part record key
 ;-----------------------------------------------------------------------------
-sub_DA797:
+MakeKeyPair:
         push ebx
         push ecx
         push esi
@@ -203,8 +205,8 @@ sub_DA797:
         lea edx, [byte eax+04h]
         mov ebx, ecx
         mov eax, 4
-        call sub_DA57C
-        jmp short sub_DA76A_16
+        call BuildKeyFromString
+        jmp short MakeRecordKey_16
         push ebx
         push ecx
         push esi
@@ -213,16 +215,17 @@ sub_DA797:
         lea ebx, [byte edx+04h]
         mov edx, eax
         mov eax, 4
-        call sub_DA654
+        call KeyToLong
         mov eax, 4
         lea edx, [byte ecx+05h]
         mov ebx, esi
-        call sub_DA654
-        jmp short sub_DA76A_24
+        call KeyToLong
+        jmp short MakeRecordKey_24
 ;-----------------------------------------------------------------------------
-; sub_DA7D6                                                       DA7D6  97 PC
+; KeysEqual                                       DA7D6  97 PC, low confidence
+; Returns 1 when two eight-byte keys are equal
 ;-----------------------------------------------------------------------------
-sub_DA7D6:
+KeysEqual:
         push ebx
         mov ebx, 8
         call memcmp_
@@ -232,9 +235,10 @@ sub_DA7D6:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DA7EB                                                       DA7EB  97 PC
+; OpenGameDatabase                                DA7EB  97 PC, low confidence
+; Opens the game database files
 ;-----------------------------------------------------------------------------
-sub_DA7EB:
+OpenGameDatabase:
         push ebx
         push ecx
         push edx
@@ -242,17 +246,17 @@ sub_DA7EB:
         push edi
         enter 54h, 0
         cmp word [word_16D7EE], byte 0
-        je short sub_DA7EB_18.1
-sub_DA7EB_13:
+        je short OpenGameDatabase_18.1
+OpenGameDatabase_13:
         mov eax, 1
-sub_DA7EB_18:
+OpenGameDatabase_18:
         leave
-        jmp near sub_DCC75_1AD
+        jmp near UpdatePlayerRecord_1AD
 .1:
         mov eax, 14h
         call AllocPageStack
         test eax, eax
-        je short sub_DA7EB_18
+        je short OpenGameDatabase_18
         mov esi, dword_1CD158
         xor ecx, ecx
 .2:
@@ -289,11 +293,11 @@ sub_DA7EB_18:
         call FileClose
         jmp short .3
 .4:
-        call sub_D7B64
+        call FreeDbPages
         mov eax, dword_1CD17C
         call FreePtr
         xor eax, eax
-        jmp near sub_DA7EB_18
+        jmp near OpenGameDatabase_18
 .5:
         lea eax, [byte ebp-054h]
         mov edx, dword [off_16D7E0]
@@ -346,7 +350,7 @@ sub_DA7EB_18:
         call FileClose
         jmp short .8
 .9:
-        call sub_E341C
+        call ServiceIdle
         inc ecx
         add esi, byte 4
         cmp ecx, byte 2
@@ -440,7 +444,7 @@ sub_DA7EB_18:
         call FileClose
         jmp short .17
 .18:
-        call sub_E341C
+        call ServiceIdle
         add esi, byte 4
         inc ecx
         jmp near .10
@@ -448,11 +452,12 @@ sub_DA7EB_18:
         mov word [word_16D7EE], 1
         mov eax, 1
         mov dword [dword_16D7A8], 0
-        jmp near sub_DA7EB_18
+        jmp near OpenGameDatabase_18
 ;-----------------------------------------------------------------------------
-; sub_DAA82                                                       DAA82  97 PC
+; LoadHomeRosterRecords                           DAA82  97 PC, low confidence
+; Loads the home team's roster records
 ;-----------------------------------------------------------------------------
-sub_DAA82:
+LoadHomeRosterRecords:
         push ebx
         push ecx
         push esi
@@ -460,7 +465,7 @@ sub_DAA82:
         mov ecx, eax
         mov esi, edx
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         test eax, eax
         je near .3
         mov al, byte [byte ecx+01h]
@@ -471,13 +476,13 @@ sub_DAA82:
         lea edx, [byte ebp-028h]
         mov byte [dword esi+0BEh], al
         lea eax, [byte ecx+028h]
-        call sub_E0841
+        call FindPlayerStat
         test eax, eax
         je near .3
         mov ebx, 17h
         lea eax, [byte ebp-018h]
         lea edx, [dword esi+0E6h]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, 8
         mov edx, unk_16D7F4
         lea eax, [byte ecx+020h]
@@ -489,7 +494,7 @@ sub_DAA82:
         jne short .1
         lea edx, [byte ebp-068h]
         lea eax, [byte ecx+020h]
-        call sub_E0D0F
+        call FindTeamStat
         test eax, eax
         jne short .2
         leave
@@ -500,17 +505,17 @@ sub_DAA82:
 .1:
         mov edx, 3Dh
         lea eax, [byte ebp-068h]
-        call sub_E2334
+        call ZeroBytesOk
 .2:
         mov ebx, 21h
         lea eax, [byte ebp-050h]
         lea edx, [dword esi+0C1h]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, 15h
         lea edx, [dword esi+010Fh]
         lea eax, [byte ecx+03h]
-        call sub_E22FC
-        call sub_E341C
+        call CopyBytesOk
+        call ServiceIdle
         mov eax, 1
 .3:
         leave
@@ -519,9 +524,10 @@ sub_DAA82:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DAB51                                                       DAB51  97 PC
+; LoadAwayRosterRecords                           DAB51  97 PC, low confidence
+; Loads the away team's roster records
 ;-----------------------------------------------------------------------------
-sub_DAB51:
+LoadAwayRosterRecords:
         push ebx
         push ecx
         push esi
@@ -529,7 +535,7 @@ sub_DAB51:
         mov esi, eax
         mov ecx, edx
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         test eax, eax
         je near .3
         mov al, byte [byte esi+01h]
@@ -539,13 +545,13 @@ sub_DAB51:
         lea edx, [byte ebp-028h]
         mov byte [dword ecx+0BEh], al
         lea eax, [byte esi+028h]
-        call sub_E0841
+        call FindPlayerStat
         test eax, eax
         je near .3
         mov ebx, 13h
         lea eax, [byte ebp-018h]
         lea edx, [dword ecx+0E6h]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, 8
         mov edx, unk_16D7F4
         lea eax, [byte esi+020h]
@@ -557,7 +563,7 @@ sub_DAB51:
         jne short .1
         lea edx, [byte ebp-068h]
         lea eax, [byte esi+020h]
-        call sub_E0D0F
+        call FindTeamStat
         test eax, eax
         jne short .2
         leave
@@ -568,17 +574,17 @@ sub_DAB51:
 .1:
         mov edx, 3Dh
         lea eax, [byte ebp-068h]
-        call sub_E2334
+        call ZeroBytesOk
 .2:
         mov ebx, 25h
         lea eax, [byte ebp-050h]
         lea edx, [dword ecx+0C1h]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, 15h
         lea edx, [dword ecx+010Fh]
         lea eax, [byte esi+03h]
-        call sub_E22FC
-        call sub_E341C
+        call CopyBytesOk
+        call ServiceIdle
         mov eax, 1
 .3:
         leave
@@ -587,9 +593,10 @@ sub_DAB51:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DAC1E                                                       DAC1E  97 PC
+; SetMatchupTeams                                 DAC1E  97 PC, low confidence
+; Sets the two teams of a matchup
 ;-----------------------------------------------------------------------------
-sub_DAC1E:
+SetMatchupTeams:
         push ebx
         push ecx
         push esi
@@ -613,7 +620,7 @@ sub_DAC1E:
         cmp edi, dword [byte edx+04h]
         jne short .2
         mov ax, word [dword eax+word_16D80E]
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .2:
         jae short .3
         lea esi, [byte ebx+01h]
@@ -623,11 +630,12 @@ sub_DAC1E:
         jmp short .1
 .4:
         mov eax, dword [byte ebp-04h]
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 ;-----------------------------------------------------------------------------
-; sub_DAC72                                                       DAC72  97 PC
+; LoadMatchupRosters                              DAC72  97 PC, low confidence
+; Loads the rosters of both teams of a matchup
 ;-----------------------------------------------------------------------------
-sub_DAC72:
+LoadMatchupRosters:
         push ebx
         push ecx
         push esi
@@ -636,20 +644,20 @@ sub_DAC72:
         mov ecx, eax
         mov esi, edx
         add eax, byte 10h
-        call sub_DC653
+        call FindTeamRecord
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ebx, 39h
         mov ax, word [dword ecx+0D07h]
         lea edx, [byte esi+068h]
         mov word [byte esi+066h], ax
         lea eax, [byte ecx+04Eh]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, 36h
         lea edx, [dword esi+020EDh]
         lea eax, [byte ecx+018h]
         mov dword [byte ebp-04h], 0
-        call sub_E22FC
+        call CopyBytesOk
         lea edi, [dword esi+0A3h]
         lea ebx, [dword ecx+0D09h]
 .1:
@@ -658,10 +666,10 @@ sub_DAC72:
         jle short .2
         mov edx, edi
         mov eax, ebx
-        call sub_DAA82
+        call LoadHomeRosterRecords
         test eax, eax
-        je near sub_E036F_A0
-        call sub_E341C
+        je near FindGameRecord_A0
+        call ServiceIdle
         inc dword [byte ebp-04h]
         add ebx, byte 38h
         add edi, 125h
@@ -678,18 +686,18 @@ sub_DAC72:
         jle short .4
         mov eax, dword [byte ebp-08h]
         mov edx, ebx
-        call sub_DAB51
+        call LoadAwayRosterRecords
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         add dword [byte ebp-08h], byte 38h
         mov edx, ebx
         inc edi
         inc edi
         movsx eax, word [byte esi+066h]
         inc dword [byte ebp-0Ch]
-        call sub_DAC1E
+        call SetMatchupTeams
         mov word [dword edi+020AFh], ax
-        call sub_E341C
+        call ServiceIdle
         add ebx, 125h
         jmp short .3
 .4:
@@ -697,11 +705,12 @@ sub_DAC72:
         mov word [dword esi+0A1h], ax
         mov ax, word [dword ecx+01281h]
         mov word [dword esi+01D40h], ax
-        jmp near sub_DB8E6_244
+        jmp near LookupRecord_244
 ;-----------------------------------------------------------------------------
-; sub_DAD7E                                                       DAD7E  97 PC
+; LoadGameRosters                                 DAD7E  97 PC, low confidence
+; Loads the rosters for a game
 ;-----------------------------------------------------------------------------
-sub_DAD7E:
+LoadGameRosters:
         push ecx
         push esi
         push edi
@@ -715,32 +724,33 @@ sub_DAD7E:
         lea edx, [byte ebx+028h]
         movsd
         movsd
-        call sub_DAC72
+        call LoadMatchupRosters
         mov esi, eax
         mov edx, eax
-        call sub_E341C
+        call ServiceIdle
         test esi, esi
         je short .1
         lea edx, [dword ebx+0214Bh]
         mov eax, ecx
-        call sub_DAC72
+        call LoadMatchupRosters
         mov edx, eax
 .1:
-        call sub_E341C
+        call ServiceIdle
         mov eax, edx
         pop edi
         pop esi
         pop ecx
         ret
 jpt_DADC0:
-        dd sub_DADD0_5C
-        dd sub_DADD0_1AA
-        dd sub_DADD0_152
-        dd sub_DADD0_102
+        dd WriteDbRecord_5C
+        dd WriteDbRecord_1AA
+        dd WriteDbRecord_152
+        dd WriteDbRecord_102
 ;-----------------------------------------------------------------------------
-; sub_DADD0                                                       DADD0  97 PC
+; WriteDbRecord                                   DADD0  97 PC, low confidence
+; Writes a record to the database
 ;-----------------------------------------------------------------------------
-sub_DADD0:
+WriteDbRecord:
         push esi
         push edi
         enter 14h, 0
@@ -758,7 +768,7 @@ sub_DADD0:
         ret
 .1:
         cmp dword [dword_16D7A8], byte 0
-        je near sub_DADD0_5C.6
+        je near WriteDbRecord_5C.6
         cmp ebx, eax
         je short .2
         cmp eax, byte 4
@@ -766,14 +776,14 @@ sub_DADD0:
         cmp eax, byte 3
         je short .2
         cmp eax, byte 2
-        jne near sub_DADD0_5C.6
+        jne near WriteDbRecord_5C.6
 .2:
         mov eax, dword [byte ebp-018h]
         dec eax
         cmp eax, byte 3
-        ja near sub_DADD0_5C.6
+        ja near WriteDbRecord_5C.6
         jmp dword [nosplit cs:eax*4+jpt_DADC0]
-sub_DADD0_5C:
+WriteDbRecord_5C:
         cmp esi, dword [dword_16D788]
         jge near .6
         xor eax, eax
@@ -824,20 +834,20 @@ sub_DADD0_5C:
         test eax, eax
         je short .8
 .7:
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
 .8:
         leave
         pop edi
         pop esi
         ret
-sub_DADD0_102:
+WriteDbRecord_102:
         cmp esi, dword [dword_16D78C]
-        jge short sub_DADD0_5C.6
+        jge short WriteDbRecord_5C.6
         xor eax, eax
 .9:
         cmp eax, dword [dword_16D78C]
-        jge short sub_DADD0_5C.5
+        jge short WriteDbRecord_5C.5
         imul edx, eax, byte 2Fh
         mov dword [byte ebp-08h], edx
         mov edx, dword [dword_16D79C]
@@ -860,13 +870,13 @@ sub_DADD0_102:
 .10:
         inc eax
         jmp short .9
-sub_DADD0_152:
+WriteDbRecord_152:
         cmp esi, dword [dword_16D790]
-        jge near sub_DADD0_5C.6
+        jge near WriteDbRecord_5C.6
         xor eax, eax
 .11:
         cmp eax, dword [dword_16D790]
-        jge near sub_DADD0_5C.5
+        jge near WriteDbRecord_5C.5
         imul edx, eax, byte 45h
         mov dword [byte ebp-04h], edx
         mov edx, dword [dword_16D7A0]
@@ -889,13 +899,13 @@ sub_DADD0_152:
 .12:
         inc eax
         jmp short .11
-sub_DADD0_1AA:
+WriteDbRecord_1AA:
         cmp esi, dword [dword_16D794]
-        jge near sub_DADD0_5C.6
+        jge near WriteDbRecord_5C.6
         xor eax, eax
 .13:
         cmp eax, dword [dword_16D794]
-        jge near sub_DADD0_5C.5
+        jge near WriteDbRecord_5C.5
         imul edx, eax, dword 1957h
         mov dword [byte ebp-014h], edx
         mov edx, dword [dword_16D7A4]
@@ -919,19 +929,20 @@ sub_DADD0_1AA:
         inc eax
         jmp short .13
 jpt_DAFD8:
-        dd sub_DAFF8_62
-        dd sub_DAFF8_296
-        dd sub_DAFF8_200
-        dd sub_DAFF8_16E
+        dd ReadDbRecord_62
+        dd ReadDbRecord_296
+        dd ReadDbRecord_200
+        dd ReadDbRecord_16E
 jpt_DAFE8:
-        dd sub_DAFF8_33C
-        dd sub_DAFF8_495
-        dd sub_DAFF8_42C
-        dd sub_DAFF8_3BF
+        dd ReadDbRecord_33C
+        dd ReadDbRecord_495
+        dd ReadDbRecord_42C
+        dd ReadDbRecord_3BF
 ;-----------------------------------------------------------------------------
-; sub_DAFF8                                                       DAFF8  97 PC
+; ReadDbRecord                                    DAFF8  97 PC, low confidence
+; Reads a record from the database
 ;-----------------------------------------------------------------------------
-sub_DAFF8:
+ReadDbRecord:
         push esi
         push edi
         enter 24h, 0
@@ -951,7 +962,7 @@ sub_DAFF8:
         ret
 .1:
         cmp dword [dword_16D7A8], byte 0
-        je near sub_DAFF8_62.8
+        je near ReadDbRecord_62.8
         cmp ebx, eax
         je short .2
         cmp eax, byte 4
@@ -959,14 +970,14 @@ sub_DAFF8:
         cmp eax, byte 3
         je short .2
         cmp eax, byte 2
-        jne near sub_DAFF8_62.8
+        jne near ReadDbRecord_62.8
 .2:
         mov eax, dword [byte ebp-028h]
         dec eax
         cmp eax, byte 3
-        ja near sub_DAFF8_62.8
+        ja near ReadDbRecord_62.8
         jmp dword [nosplit cs:eax*4+jpt_DAFD8]
-sub_DAFF8_62:
+ReadDbRecord_62:
         cmp edi, dword [dword_16D788]
         jge near .8
         xor eax, eax
@@ -1028,24 +1039,24 @@ sub_DAFF8_62:
         add edx, byte 4
         call FileSeek
         test eax, eax
-        je near sub_DAFF8_33C.24
+        je near ReadDbRecord_33C.24
         mov edx, dword [byte ebp-04h]
         mov eax, dword [dword ebx+dword_1CD180]
         mov ebx, dword [byte ebp-01Ch]
         call FileReadRecord
         test eax, eax
-        je near sub_DAFF8_33C.24
+        je near ReadDbRecord_33C.24
 .9:
         cmp dword [byte ebp-08h], byte 0
-        je near sub_DAFF8_33C.23
+        je near ReadDbRecord_33C.23
         mov eax, dword [byte ebp-028h]
         dec eax
         cmp eax, byte 3
-        ja near sub_DAFF8_33C.23
+        ja near ReadDbRecord_33C.23
         jmp dword [nosplit cs:eax*4+jpt_DAFE8]
-sub_DAFF8_16E:
+ReadDbRecord_16E:
         cmp edi, dword [dword_16D78C]
-        jge short sub_DAFF8_62.8
+        jge short ReadDbRecord_62.8
         xor eax, eax
 .10:
         cmp eax, dword [dword_16D78C]
@@ -1089,12 +1100,12 @@ sub_DAFF8_16E:
         jmp short .10
 .13:
         cmp dword [dword_16D78C], byte 0
-        jle near sub_DAFF8_62.8
+        jle near ReadDbRecord_62.8
         cmp eax, dword [dword_16D78C]
-        jmp near sub_DAFF8_62.7
-sub_DAFF8_200:
+        jmp near ReadDbRecord_62.7
+ReadDbRecord_200:
         cmp edi, dword [dword_16D790]
-        jge near sub_DAFF8_62.8
+        jge near ReadDbRecord_62.8
         xor eax, eax
 .14:
         cmp eax, dword [dword_16D790]
@@ -1138,12 +1149,12 @@ sub_DAFF8_200:
         jmp short .14
 .17:
         cmp dword [dword_16D790], byte 0
-        jle near sub_DAFF8_62.8
+        jle near ReadDbRecord_62.8
         cmp eax, dword [dword_16D790]
-        jmp near sub_DAFF8_62.7
-sub_DAFF8_296:
+        jmp near ReadDbRecord_62.7
+ReadDbRecord_296:
         cmp edi, dword [dword_16D794]
-        jge near sub_DAFF8_62.8
+        jge near ReadDbRecord_62.8
         xor eax, eax
 .18:
         cmp eax, dword [dword_16D794]
@@ -1187,10 +1198,10 @@ sub_DAFF8_296:
         jmp short .18
 .21:
         cmp dword [dword_16D794], byte 0
-        jle near sub_DAFF8_62.8
+        jle near ReadDbRecord_62.8
         cmp eax, dword [dword_16D794]
-        jmp near sub_DAFF8_62.7
-sub_DAFF8_33C:
+        jmp near ReadDbRecord_62.7
+ReadDbRecord_33C:
         imul eax, esi, dword 0C4h
         mov edx, dword [dword_16D798]
         add eax, edx
@@ -1201,7 +1212,7 @@ sub_DAFF8_33C:
         lea ecx, [byte eax+08h]
         mov edx, dword [eax]
         mov eax, 1
-        call sub_DADD0
+        call WriteDbRecord
         mov dword [dword_16D7A8], 1
 .22:
         imul esi, dword 0C4h
@@ -1220,14 +1231,14 @@ sub_DAFF8_33C:
         mov eax, dword [dword_16D798]
         mov dword [byte esi+eax+04h], edx
 .23:
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
 .24:
         leave
         pop edi
         pop esi
         ret
-sub_DAFF8_3BF:
+ReadDbRecord_3BF:
         imul eax, esi, byte 2Fh
         mov edx, dword [dword_16D79C]
         add eax, edx
@@ -1238,7 +1249,7 @@ sub_DAFF8_3BF:
         lea ecx, [byte eax+08h]
         mov edx, dword [eax]
         mov eax, 4
-        call sub_DADD0
+        call WriteDbRecord
         mov dword [dword_16D7A8], 1
 .25:
         imul esi, byte 2Fh
@@ -1256,8 +1267,8 @@ sub_DAFF8_3BF:
         mov edx, dword [dword_16D79C]
 .26:
         mov dword [byte edx+esi+04h], eax
-        jmp short sub_DAFF8_33C.23
-sub_DAFF8_42C:
+        jmp short ReadDbRecord_33C.23
+ReadDbRecord_42C:
         imul eax, esi, byte 45h
         mov edx, dword [dword_16D7A0]
         add eax, edx
@@ -1268,7 +1279,7 @@ sub_DAFF8_42C:
         lea ecx, [byte eax+08h]
         mov edx, dword [eax]
         mov eax, 3
-        call sub_DADD0
+        call WriteDbRecord
         mov dword [dword_16D7A8], 1
 .27:
         imul esi, byte 45h
@@ -1284,8 +1295,8 @@ sub_DAFF8_42C:
         mov dword [esi+eax], edi
         mov eax, dword [tickcount]
         mov edx, dword [dword_16D7A0]
-        jmp short sub_DAFF8_3BF.26
-sub_DAFF8_495:
+        jmp short ReadDbRecord_3BF.26
+ReadDbRecord_495:
         imul eax, esi, dword 1957h
         mov edx, dword [dword_16D7A4]
         add eax, edx
@@ -1296,7 +1307,7 @@ sub_DAFF8_495:
         lea ecx, [byte eax+08h]
         mov edx, dword [eax]
         mov eax, 2
-        call sub_DADD0
+        call WriteDbRecord
         mov dword [dword_16D7A8], 1
 .28:
         imul esi, dword 1957h
@@ -1312,13 +1323,14 @@ sub_DAFF8_495:
         mov dword [esi+eax], edi
         mov eax, dword [tickcount]
         mov edx, dword [dword_16D7A4]
-        jmp near sub_DAFF8_3BF.26
+        jmp near ReadDbRecord_3BF.26
         mov eax, 1
         ret
 ;-----------------------------------------------------------------------------
-; sub_DB508                                                       DB508  97 PC
+; AppendDbRecord                                  DB508  97 PC, low confidence
+; Appends a record to the database
 ;-----------------------------------------------------------------------------
-sub_DB508:
+AppendDbRecord:
         push ecx
         push esi
         push edi
@@ -1349,12 +1361,12 @@ sub_DB508:
         add eax, esi
         mov edx, dword [byte ebp-0Ch]
         mov dword [byte ebp-08h], eax
-        call sub_E22FC
+        call CopyBytesOk
         mov ecx, dword [byte ebp-0Ch]
         mov edx, dword [byte ebp-014h]
         mov eax, dword [byte ebp-010h]
         mov ebx, edi
-        call sub_DADD0
+        call WriteDbRecord
         test eax, eax
         je short .2
         mov eax, dword [byte ebp-014h]
@@ -1373,7 +1385,7 @@ sub_DB508:
 .2:
         lea eax, [byte ebp-0Ch]
         call FreePtr
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp-04h]
 .3:
         leave
@@ -1382,9 +1394,10 @@ sub_DB508:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DB5B7                                                       DB5B7  97 PC
+; AllocRecordSlot                                 DB5B7  97 PC, low confidence
+; Finds the file position for a new record
 ;-----------------------------------------------------------------------------
-sub_DB5B7:
+AllocRecordSlot:
         push ecx
         push esi
         push edi
@@ -1463,7 +1476,7 @@ sub_DB5B7:
         sub eax, byte 4
         div edi
         mov dword [esi], eax
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
 .4:
         leave
@@ -1472,9 +1485,10 @@ sub_DB5B7:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DB6AC                                                       DB6AC  97 PC
+; CloseGameDatabase                               DB6AC  97 PC, low confidence
+; Closes the game database files
 ;-----------------------------------------------------------------------------
-sub_DB6AC:
+CloseGameDatabase:
         push ebx
         push ecx
         push edx
@@ -1511,34 +1525,40 @@ sub_DB6AC:
         sub ebx, byte 4
         cmp edx, ecx
         jne short .3
-        call sub_D7B64
+        call FreeDbPages
         mov word [word_16D7EE], 0
         mov dword [dword_16D7D0], 0
         mov dword [dword_16D7D4], 0
         mov dword [dword_16D7D8], 0
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DB747                                                       DB747  97 PC
+; InitDbState                                     DB747  97 PC, low confidence
+; Clears the database state at start-up
 ;-----------------------------------------------------------------------------
-sub_DB747:
+InitDbState:
         cmp word [word_16D7EC], byte 0
         jne short .1
         xor eax, eax
         ret
 .1:
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword_1CD17C
-sub_DB75E:
+;-----------------------------------------------------------------------------
+; FreeDbBlock                                     DB75E  97 PC, low confidence
+; Frees a database block
+;-----------------------------------------------------------------------------
+FreeDbBlock:
         jmp near FreePtr
 ;-----------------------------------------------------------------------------
-; sub_DB763                                                       DB763  97 PC
+; DaysToYear                                      DB763  97 PC, low confidence
+; Converts a day count to a year
 ;-----------------------------------------------------------------------------
-sub_DB763:
+DaysToYear:
         push ecx
         push esi
         push edi
@@ -1571,9 +1591,10 @@ sub_DB763:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DB7B1                                                       DB7B1  97 PC
+; AgeFromBirthDate                                DB7B1  97 PC, low confidence
+; Works out a player's age from the birth date
 ;-----------------------------------------------------------------------------
-sub_DB7B1:
+AgeFromBirthDate:
         push esi
         push edi
         enter 8, 0
@@ -1624,9 +1645,10 @@ sub_DB7B1:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_DB838                                                       DB838  97 PC
+; NewRecordKey                                    DB838  97 PC, low confidence
+; Builds the key for a new record
 ;-----------------------------------------------------------------------------
-sub_DB838:
+NewRecordKey:
         push ebx
         push ecx
         push esi
@@ -1653,7 +1675,7 @@ sub_DB838:
         lea ebx, [byte ebp-030h]
         movsx edx, ax
         mov eax, dword [dword_1CD158]
-        call sub_DA02C
+        call FindFirstKey
         test eax, eax
         je short .6
         cmp byte [byte ebp-030h], 0
@@ -1668,16 +1690,16 @@ sub_DB838:
         lea edx, [byte ebp-030h]
         mov eax, 4
         lea ebx, [byte esi+04h]
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-030h]
         mov eax, 4
         mov ebx, esi
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov eax, dword [dword_16D7F0]
         mov dword [esi], eax
         inc dword [byte esi+04h]
-        call sub_E341C
+        call ServiceIdle
 .5:
         mov eax, 1
 .6:
@@ -1687,16 +1709,17 @@ sub_DB838:
         pop ebx
         ret
 jpt_DB8CE:
-        dd sub_DB8E6_2D
-        dd sub_DB8E6_49
-        dd sub_DB8E6_2D
-        dd sub_DB8E6_AC
-        dd sub_DB8E6_2D
-        dd sub_DB8E6_FD
+        dd LookupRecord_2D
+        dd LookupRecord_49
+        dd LookupRecord_2D
+        dd LookupRecord_AC
+        dd LookupRecord_2D
+        dd LookupRecord_FD
 ;-----------------------------------------------------------------------------
-; sub_DB8E6                                                       DB8E6  97 PC
+; LookupRecord                                    DB8E6  97 PC, low confidence
+; Looks up a record by key
 ;-----------------------------------------------------------------------------
-sub_DB8E6:
+LookupRecord:
         push ecx
         push esi
         push edi
@@ -1707,29 +1730,29 @@ sub_DB8E6:
         mov dword [byte ebp-04h], eax
         mov edi, eax
         cmp edx, byte 5
-        ja near sub_DB8E6_FD.13
+        ja near LookupRecord_FD.13
         lea ebx, [byte esi+08h]
         add eax, byte 4
         mov dword [byte ebp-08h], ebx
         jmp dword [nosplit cs:edx*4+jpt_DB8CE]
-sub_DB8E6_2D:
+LookupRecord_2D:
         mov ebx, ecx
         mov edx, eax
         mov eax, 4
-        call sub_DA544
+        call BuildKeyFromLong
         mov eax, 4
         mov ebx, ecx
         mov edx, esi
-        jmp near sub_DB8E6_AC.7
-sub_DB8E6_49:
+        jmp near LookupRecord_AC.7
+LookupRecord_49:
         mov eax, 4
         lea edx, [byte esi+0Ch]
         mov ebx, ecx
-        call sub_DA544
+        call BuildKeyFromLong
         mov edx, dword [byte ebp-08h]
         mov eax, 4
         mov ebx, ecx
-        call sub_DA57C
+        call BuildKeyFromString
 .1:
         lea esi, [byte ecx+01h]
         cmp byte [ecx], 0
@@ -1746,17 +1769,17 @@ sub_DB8E6_49:
         mov edx, ecx
         mov eax, esi
         call strcpy_
-        jmp near sub_DB8E6_AC.8
+        jmp near LookupRecord_AC.8
 .3:
         mov eax, 4
         lea edx, [byte edi+015h]
         mov ebx, esi
-        call sub_DA544
+        call BuildKeyFromLong
         mov eax, 4
         mov ebx, esi
         mov edx, ecx
-        jmp short sub_DB8E6_AC.7
-sub_DB8E6_AC:
+        jmp short LookupRecord_AC.7
+LookupRecord_AC:
         mov edx, ebx
         mov eax, ecx
         call strcpy_
@@ -1778,13 +1801,13 @@ sub_DB8E6_AC:
         mov eax, 4
         mov ebx, ecx
         add edx, byte 4
-        call sub_DA57C
+        call BuildKeyFromString
         mov edx, dword [byte ebp-0Ch]
 .6:
         mov eax, 4
         mov ebx, ecx
 .7:
-        call sub_DA57C
+        call BuildKeyFromString
 .8:
         mov eax, 1
         leave
@@ -1792,7 +1815,7 @@ sub_DB8E6_AC:
         pop esi
         pop ecx
         ret
-sub_DB8E6_FD:
+LookupRecord_FD:
         mov edx, ebx
         mov eax, ecx
         call strcpy_
@@ -1833,9 +1856,9 @@ sub_DB8E6_FD:
         mov eax, 4
         mov ebx, ecx
         add edx, byte 4
-        call sub_DA57C
+        call BuildKeyFromString
         mov edx, dword [byte ebp-04h]
-        jmp near sub_DB8E6_AC.6
+        jmp near LookupRecord_AC.6
 .13:
         xor eax, eax
         leave
@@ -1853,7 +1876,7 @@ sub_DB8E6_FD:
         cmp word [word_16D7EE], byte 0
         jne short .14
         xor eax, eax
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .14:
         mov edx, 2Fh
         mov eax, dword [byte ebp-040h]
@@ -1861,29 +1884,29 @@ sub_DB8E6_FD:
         mov esi, dword [byte ebp-03Ch]
         lea ebx, [byte ebp-038h]
         lea ecx, [byte ebp-04h]
-        call sub_E2334
+        call ZeroBytesOk
         mov eax, dword [byte ebp-040h]
         movsd
         movsd
         xor edx, edx
         mov byte [byte eax+010h], 0
-        call sub_DB8E6
+        call LookupRecord
         lea ebx, [byte ebp-038h]
         mov eax, dword [dword_1CD158]
         xor edx, edx
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         lea ebx, [byte ebp-0Ch]
         lea edx, [byte ebp-038h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-038h]
         lea ebx, [byte ebp-0Ch]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         mov edx, dword [byte ebp-03Ch]
         lea eax, [byte ebp-0Ch]
@@ -1892,25 +1915,25 @@ sub_DB8E6_FD:
         sete al
         movzx eax, al
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ebx, 67h
         mov edx, dword [byte ebp-04h]
         mov ecx, dword [dword_1CD17C]
         xor eax, eax
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ebx, 2Fh
-sub_DB8E6_236:
+LookupRecord_236:
         mov eax, dword [dword_1CD17C]
         mov edx, dword [byte ebp-040h]
         inc eax
-        call sub_E22FC
-sub_DB8E6_244:
-        call sub_E341C
-sub_DB8E6_249:
+        call CopyBytesOk
+LookupRecord_244:
+        call ServiceIdle
+LookupRecord_249:
         mov eax, 1
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
         push ebx
         push ecx
         push edx
@@ -1920,28 +1943,28 @@ sub_DB8E6_249:
         cmp word [word_16D7EE], byte 0
         jne short .15
         xor eax, eax
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
 .15:
         lea ebx, [byte ebp-038h]
         xor edx, edx
         lea ecx, [byte ebp-04h]
-        call sub_DB8E6
+        call LookupRecord
         lea ebx, [byte ebp-038h]
         mov eax, dword [dword_1CD158]
         xor edx, edx
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_DCC75_229
+        je near UpdatePlayerRecord_229
         lea ebx, [byte ebp-0Ch]
         lea edx, [byte ebp-038h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-038h]
         lea ebx, [byte ebp-0Ch]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         lea edx, [byte ebp-0Ch]
         mov eax, esi
@@ -1950,28 +1973,29 @@ sub_DB8E6_249:
         sete al
         movzx eax, al
         test eax, eax
-        je near sub_DCC75_229
+        je near UpdatePlayerRecord_229
         mov ebx, 2Fh
         mov edx, dword [dword_1CD17C]
         mov eax, esi
         inc edx
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, 67h
         mov edx, dword [byte ebp-04h]
         mov ecx, dword [dword_1CD17C]
         xor eax, eax
-        call sub_DADD0
+        call WriteDbRecord
         test eax, eax
-        je near sub_DCC75_229
-sub_DB8E6_307:
-        call sub_E341C
-sub_DB8E6_30C:
+        je near UpdatePlayerRecord_229
+LookupRecord_307:
+        call ServiceIdle
+LookupRecord_30C:
         mov eax, 1
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
 ;-----------------------------------------------------------------------------
-; sub_DBBFC                                                       DBBFC  97 PC
+; FindRecordByKey                                 DBBFC  97 PC, low confidence
+; Finds a record by key and reads it
 ;-----------------------------------------------------------------------------
-sub_DBBFC:
+FindRecordByKey:
         push esi
         push edi
         enter 7Ch, 0
@@ -1984,7 +2008,7 @@ sub_DBBFC:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_DBBFC_1BC
+        jmp near FindRecordByKey_1BC
 .2:
         lea edi, [byte ebp+02h]
         mov esi, eax
@@ -2003,14 +2027,14 @@ sub_DBBFC:
         mov edx, 1
         lea eax, [byte ebp-06h]
         lea ecx, [byte ebp+05Eh]
-        call sub_DB8E6
+        call LookupRecord
         lea ebx, [byte ebp+02Ah]
         mov edx, 1
         mov eax, dword [dword_1CD158]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_DBBFC_1BC
-        call sub_E341C
+        je near FindRecordByKey_1BC
+        call ServiceIdle
         cmp dword [byte ebp+05Eh], byte 0FFFFFFFFh
         jne short .5
         cmp byte [byte ebp+02Ah], 0
@@ -2024,20 +2048,20 @@ sub_DBBFC:
         lea esi, [byte ebp+02Ah]
         mov ebx, edi
         add esi, byte 5
-        call sub_DA654
+        call KeyToLong
         mov dword [byte ebp+066h], edi
         lea ebx, [byte ebp+056h]
         mov eax, 4
         mov edx, esi
         mov dword [byte ebp+06Ah], esi
 .6:
-        call sub_DA654
+        call KeyToLong
         mov al, byte [byte ebp+034h]
         cmp al, byte [byte ebp+072h]
         jne near .13
         mov edx, dword [byte ebp-0Ah]
         lea eax, [byte ebp+056h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je near .13
         mov edx, dword [byte ebp-0Eh]
@@ -2053,9 +2077,9 @@ sub_DBBFC:
         mov edx, dword [byte ebp+05Eh]
         mov ecx, dword [dword_1CD17C]
         xor eax, eax
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
-        je near sub_DBBFC_1BC
+        je near FindRecordByKey_1BC
         cmp dword [dword ebp+08Ah], byte 0
         je short .10
         mov edi, dword [byte ebp+06Eh]
@@ -2083,7 +2107,7 @@ sub_DBBFC:
         inc eax
         add edx, dword [dword ebp+086h]
         inc dword [byte ebp+06Eh]
-        call sub_E22FC
+        call CopyBytesOk
         jmp short .12
 .11:
         inc dword [byte ebp+06Eh]
@@ -2092,13 +2116,13 @@ sub_DBBFC:
         lea ebx, [byte ebp+02Ah]
         mov edx, 1
         mov eax, dword [dword_1CD158]
-        call sub_DA48C
+        call NextIndexKey
         test eax, eax
-        je short sub_DBBFC_1BC
+        je short FindRecordByKey_1BC
         mov ebx, dword [byte ebp+066h]
         lea edx, [byte ebp+02Ah]
         mov eax, 4
-        call sub_DA654
+        call KeyToLong
         lea ebx, [byte ebp+056h]
         mov edx, dword [byte ebp+06Ah]
         mov eax, 4
@@ -2107,18 +2131,19 @@ sub_DBBFC:
         mov edx, dword [byte ebp-0Eh]
         mov eax, dword [byte ebp+06Eh]
         mov dword [edx], eax
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
-sub_DBBFC_1BC:
+FindRecordByKey_1BC:
         lea esp, [byte ebp+076h]
         pop ebp
         pop edi
         pop esi
         ret 0Ch
 ;-----------------------------------------------------------------------------
-; sub_DBDC1                                                       DBDC1  97 PC
+; CountDbRecords                                  DBDC1  97 PC, low confidence
+; Counts the records of the database
 ;-----------------------------------------------------------------------------
-sub_DBDC1:
+CountDbRecords:
         push ebx
         push ecx
         push esi
@@ -2136,9 +2161,9 @@ sub_DBDC1:
         push byte 0
         lea edx, [byte ebp-08h]
         xor ecx, ecx
-        call sub_DBBFC
+        call FindRecordByKey
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         cmp dword [byte ebp-08h], byte 0
         jle near .6
         mov edx, dword [byte ebp-08h]
@@ -2147,7 +2172,7 @@ sub_DBDC1:
         shl edx, 3
         call AllocClearBlock
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         push dword [byte ebp-010h]
         push byte 1
         mov ebx, 4Ch
@@ -2155,7 +2180,7 @@ sub_DBDC1:
         push byte 0
         mov eax, esi
         xor ecx, ecx
-        call sub_DBBFC
+        call FindRecordByKey
         test eax, eax
         jne short .3
 .1:
@@ -2163,7 +2188,7 @@ sub_DBDC1:
         call FreePtr
 .2:
         xor eax, eax
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .3:
         xor ecx, ecx
         xor ebx, ebx
@@ -2172,7 +2197,7 @@ sub_DBDC1:
         mov eax, dword [byte ebp-010h]
         lea edx, [byte ebp-0Ch]
         add eax, ecx
-        call sub_DBDC1
+        call CountDbRecords
         test eax, eax
         je short .1
         mov eax, dword [byte ebp-0Ch]
@@ -2193,17 +2218,18 @@ sub_DBDC1:
         push byte 0
         xor ecx, ecx
         mov dword [byte ebp-08h], 7FFFFFFFh
-        call sub_DBBFC
+        call FindRecordByKey
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov eax, dword [byte ebp-04h]
         add eax, dword [byte ebp-08h]
         mov dword [edi], eax
-        jmp near sub_DB8E6_244
+        jmp near LookupRecord_244
 ;-----------------------------------------------------------------------------
-; sub_DBEB3                                                       DBEB3  97 PC
+; RebuildDbIndex                                  DBEB3  97 PC, low confidence
+; Rebuilds the database index
 ;-----------------------------------------------------------------------------
-sub_DBEB3:
+RebuildDbIndex:
         push ecx
         push esi
         push edi
@@ -2220,7 +2246,7 @@ sub_DBEB3:
         push byte 0
         lea edx, [byte ebp-04h]
         xor ecx, ecx
-        call sub_DBBFC
+        call FindRecordByKey
         test eax, eax
         je near .9
         cmp dword [byte ebp-04h], byte 0
@@ -2239,7 +2265,7 @@ sub_DBEB3:
         push byte 0
         mov eax, dword [byte ebp-0Ch]
         xor ecx, ecx
-        call sub_DBBFC
+        call FindRecordByKey
         test eax, eax
         jne short .3
 .1:
@@ -2261,7 +2287,7 @@ sub_DBEB3:
         mov ebx, dword [byte ebp-014h]
         mov edx, dword [byte ebp-010h]
         add eax, esi
-        call sub_DBEB3
+        call RebuildDbIndex
         test eax, eax
         je short .1
         inc ecx
@@ -2281,7 +2307,7 @@ sub_DBEB3:
         push byte 0
         xor ecx, ecx
         mov eax, dword [byte ebp-0Ch]
-        call sub_DBBFC
+        call FindRecordByKey
         test eax, eax
         je short .9
         mov edx, dword [byte ebp-014h]
@@ -2302,7 +2328,7 @@ sub_DBEB3:
         mov edx, dword [byte ebp-010h]
         shl eax, 3
         add dword [edx], eax
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
 .9:
         leave
@@ -2315,7 +2341,7 @@ sub_DBEB3:
         mov dword [byte ebp-08h], ebx
         lea ebx, [byte ebp-08h]
         lea edx, [byte ebp-04h]
-        call sub_DBEB3
+        call RebuildDbIndex
         leave
         ret
         push ebx
@@ -2326,7 +2352,7 @@ sub_DBEB3:
         push byte 0
         xor ecx, ecx
         mov dword [edx], 7FFFFFFFh
-        call sub_DBBFC
+        call FindRecordByKey
         pop ecx
         pop ebx
         ret
@@ -2347,7 +2373,7 @@ sub_DBEB3:
         mov ebx, 4Ch
         mov dword [edx], 7FFFFFFFh
 .12:
-        call sub_DBBFC
+        call FindRecordByKey
         pop ecx
         ret
         push ecx
@@ -2372,64 +2398,65 @@ sub_DBEB3:
         cmp word [word_16D7EE], byte 0
         jne short .13
         xor eax, eax
-        jmp near sub_DA7EB_18
+        jmp near OpenGameDatabase_18
 .13:
         mov edx, eax
         xor eax, eax
-        call sub_DB838
+        call NewRecordKey
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         mov ebx, 67h
         lea edx, [byte ebp-04h]
         xor eax, eax
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         mov eax, dword [dword_1CD17C]
         mov byte [eax], 47h
         mov ebx, 2Fh
         mov edx, dword [dword_1CD17C]
         mov eax, esi
         inc edx
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, 67h
         mov edx, dword [dword_1CD17C]
         mov eax, dword [dword_1CD180]
         call FileWriteRecord
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         lea ebx, [byte ebp-05Ch]
         mov eax, esi
         xor edx, edx
-        call sub_DB8E6
+        call LookupRecord
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov eax, dword [dword_1CD158]
         xor edx, edx
-        call sub_D8B20
+        call AddIndexKey
         mov edi, eax
         test eax, eax
-        je near sub_E0297_CC
+        je near AddGameRecord_CC
         lea ebx, [byte ebp-030h]
         mov edx, 1
         mov eax, esi
-        call sub_DB8E6
+        call LookupRecord
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 1
         mov eax, dword [dword_1CD158]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
-        jne near sub_E0297_CC
+        jne near AddGameRecord_CC
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov eax, dword [dword_1CD158]
         xor edx, edx
-        jmp near sub_E0297_C5
+        jmp near AddGameRecord_C5
 ;-----------------------------------------------------------------------------
-; sub_DC11A                                                       DC11A  97 PC
+; RepairDatabase                                  DC11A  97 PC, low confidence
+; Checks and repairs the database
 ;-----------------------------------------------------------------------------
-sub_DC11A:
+RepairDatabase:
         push ebx
         push ecx
         push edx
@@ -2442,7 +2469,7 @@ sub_DC11A:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_DCC75_1A6
+        jmp near UpdatePlayerRecord_1A6
 .2:
         push byte 0
         push byte 0
@@ -2451,9 +2478,9 @@ sub_DC11A:
         push byte 0
         xor ecx, ecx
         mov dword [byte ebp+07Eh], 7FFFFFFFh
-        call sub_DBBFC
+        call FindRecordByKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         cmp dword [byte ebp+07Eh], byte 0
         jle short .5
         mov edx, dword [byte ebp+07Eh]
@@ -2462,7 +2489,7 @@ sub_DC11A:
         shl edx, 3
         call AllocClearBlock
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         push dword [byte ebp+076h]
         push byte 1
         mov ebx, 4Ch
@@ -2470,18 +2497,18 @@ sub_DC11A:
         push byte 0
         mov eax, dword [byte ebp-01Eh]
         xor ecx, ecx
-        call sub_DBBFC
+        call FindRecordByKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         xor ebx, ebx
         xor edx, edx
         jmp short .4
 .3:
         mov eax, dword [byte ebp+076h]
         add eax, ebx
-        call sub_DC11A
+        call RepairDatabase
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         inc edx
         add ebx, byte 8
 .4:
@@ -2498,23 +2525,23 @@ sub_DC11A:
         xor edx, edx
         movsd
         movsd
-        call sub_DB8E6
+        call LookupRecord
         lea ebx, [byte ebp+042h]
         mov eax, dword [dword_1CD158]
         xor edx, edx
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea ebx, [byte ebp+06Eh]
         lea edx, [byte ebp+042h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp+042h]
         lea ebx, [byte ebp+06Eh]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         lea edx, [byte ebp+06Eh]
         mov eax, dword [byte ebp-01Eh]
@@ -2523,57 +2550,57 @@ sub_DC11A:
         sete al
         movzx eax, al
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         mov ebx, 67h
         mov edx, dword [byte ebp+07Ah]
         mov ecx, dword [dword_1CD17C]
         xor eax, eax
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         mov ebx, 2Fh
         mov eax, dword [dword_1CD17C]
         lea edx, [byte ebp-01Ah]
         inc eax
-        call sub_E22FC
+        call CopyBytesOk
         lea ebx, [byte ebp+016h]
         mov edx, 1
         lea eax, [byte ebp-01Ah]
-        call sub_DB8E6
+        call LookupRecord
         mov ecx, dword [byte ebp+07Ah]
         lea ebx, [byte ebp+016h]
         mov edx, 1
         mov eax, dword [dword_1CD158]
-        call sub_D9960
+        call DeleteIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea ebx, [byte ebp+042h]
         lea eax, [byte ebp-01Ah]
         xor edx, edx
-        call sub_DB8E6
+        call LookupRecord
         mov ecx, dword [byte ebp+07Ah]
         lea ebx, [byte ebp+042h]
         mov eax, dword [dword_1CD158]
         xor edx, edx
-        call sub_D9960
+        call DeleteIndexKey
         test eax, eax
         jne short .6
         mov ecx, dword [byte ebp+07Ah]
         lea ebx, [byte ebp+016h]
         mov edx, 1
         mov eax, dword [dword_1CD158]
-        call sub_D8B20
+        call AddIndexKey
         jmp near .1
 .6:
         mov ebx, 4
         mov eax, dword_1CD160
         mov edx, dword [dword_1CD17C]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, 67h
         mov edx, dword [byte ebp+07Ah]
         mov ecx, dword [dword_1CD17C]
         xor eax, eax
-        call sub_DADD0
+        call WriteDbRecord
         test eax, eax
         je short .7
         mov eax, dword [byte ebp+07Ah]
@@ -2588,10 +2615,10 @@ sub_DC11A:
         mov eax, dword [dword_1CD180]
         call FileWriteRecord
 .7:
-        call sub_E341C
-sub_DC11A_21E:
+        call ServiceIdle
+RepairDatabase_21E:
         mov eax, 1
-        jmp near sub_DCC75_1A6
+        jmp near UpdatePlayerRecord_1A6
         push ebx
         push ecx
         push edx
@@ -2601,27 +2628,27 @@ sub_DC11A_21E:
         cmp word [word_16D7EE], byte 0
         jne short .8
         xor eax, eax
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
 .8:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov dword [eax], 0
         mov edx, 2
         mov eax, dword [dword_1CD158]
-        call sub_DA020
+        call FindLastKey
 .9:
         test eax, eax
-        je near sub_DCC75_229
+        je near UpdatePlayerRecord_229
         cmp byte [byte ebp-030h], 0
-        je near sub_DB8E6_307
+        je near LookupRecord_307
         cmp dword [byte ebp-04h], byte 0FFFFFFFFh
-        je near sub_DB8E6_307
+        je near LookupRecord_307
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         inc dword [esi]
         mov edx, 2
         mov eax, dword [dword_1CD158]
-        call sub_DA48C
+        call NextIndexKey
         jmp short .9
         push ebx
         push ecx
@@ -2633,16 +2660,16 @@ sub_DC11A_21E:
         jne short .11
 .10:
         xor eax, eax
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
 .11:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 3
         mov eax, dword [dword_1CD158]
         mov dword [dword_16D7D0], 0
-        call sub_DA020
+        call FindLastKey
         test eax, eax
-        je near sub_DCC75_229
+        je near UpdatePlayerRecord_229
         cmp dword [byte ebp-04h], byte 0FFFFFFFFh
         jne short .12
         cmp byte [byte ebp-030h], 0
@@ -2652,17 +2679,17 @@ sub_DC11A_21E:
         mov edx, dword [byte ebp-04h]
         mov ecx, dword [dword_1CD17C]
         xor eax, eax
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
-        je near sub_DCC75_229
-        call sub_E341C
+        je near UpdatePlayerRecord_229
+        call ServiceIdle
         mov ebx, 66h
         mov eax, dword [dword_1CD17C]
         mov edx, esi
         inc eax
-        call sub_E22FC
+        call CopyBytesOk
         mov dword [dword_16D7D0], 1
-        jmp near sub_DB8E6_30C
+        jmp near LookupRecord_30C
         push ebx
         push ecx
         push edx
@@ -2672,30 +2699,30 @@ sub_DC11A_21E:
         cmp word [word_16D7EE], byte 0
         jne short .13
         xor eax, eax
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
 .13:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 3
         mov eax, dword [dword_1CD158]
         mov dword [dword_16D7D0], 0
-        call sub_DA02C
+        call FindFirstKey
         test eax, eax
-        je near sub_DCC75_229
+        je near UpdatePlayerRecord_229
         mov ebx, 67h
         mov edx, dword [byte ebp-04h]
         mov ecx, dword [dword_1CD17C]
         xor eax, eax
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
-        je near sub_DCC75_229
+        je near UpdatePlayerRecord_229
         mov ebx, 66h
         mov eax, dword [dword_1CD17C]
         mov edx, esi
         inc eax
-        call sub_E22FC
+        call CopyBytesOk
         mov dword [dword_16D7D0], 1
-        jmp near sub_DB8E6_307
+        jmp near LookupRecord_307
         push ebx
         push ecx
         push esi
@@ -2719,7 +2746,7 @@ sub_DC11A_21E:
         lea ebx, [byte ebp-030h]
         mov edx, 3
         mov eax, dword [dword_1CD158]
-        call sub_DA48C
+        call NextIndexKey
 .16:
         test eax, eax
         jne short .18
@@ -2734,7 +2761,7 @@ sub_DC11A_21E:
         lea ebx, [byte ebp-030h]
         mov edx, 3
         mov eax, dword [dword_1CD158]
-        call sub_DA498
+        call PrevIndexKey
         jmp short .16
 .18:
         cmp dword [byte ebp-04h], byte 0FFFFFFFFh
@@ -2746,15 +2773,15 @@ sub_DC11A_21E:
         mov edx, dword [byte ebp-04h]
         mov ecx, dword [dword_1CD17C]
         xor eax, eax
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
         je short .20
         mov ebx, 66h
         mov eax, dword [dword_1CD17C]
         mov edx, esi
         inc eax
-        call sub_E22FC
-        call sub_E341C
+        call CopyBytesOk
+        call ServiceIdle
         mov eax, 1
 .20:
         leave
@@ -2772,65 +2799,66 @@ sub_DC11A_21E:
         cmp word [word_16D7EE], byte 0
         jne short .21
         xor eax, eax
-        jmp near sub_DA7EB_18
+        jmp near OpenGameDatabase_18
 .21:
         mov edx, eax
         mov eax, 2
-        call sub_DB838
+        call NewRecordKey
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         mov ebx, 67h
         lea edx, [byte ebp-04h]
         xor eax, eax
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         mov eax, dword [dword_1CD17C]
         mov byte [eax], 52h
         mov ebx, 66h
         mov edx, dword [dword_1CD17C]
         mov eax, esi
         inc edx
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, 67h
         mov edx, dword [dword_1CD17C]
         mov eax, dword [dword_1CD180]
         call FileWriteRecord
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         lea ebx, [byte ebp-05Ch]
         mov edx, 2
         mov eax, esi
-        call sub_DB8E6
+        call LookupRecord
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 2
         mov eax, dword [dword_1CD158]
-        call sub_D8B20
+        call AddIndexKey
         mov edi, eax
         test eax, eax
-        je near sub_E0297_CC
+        je near AddGameRecord_CC
         lea ebx, [byte ebp-030h]
         mov edx, 3
         mov eax, esi
-        call sub_DB8E6
+        call LookupRecord
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 3
         mov eax, dword [dword_1CD158]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
-        jne near sub_E0297_CC
+        jne near AddGameRecord_CC
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 2
-sub_DC11A_52F:
+RepairDatabase_52F:
         mov eax, dword [dword_1CD158]
-        jmp near sub_E0297_C5
+        jmp near AddGameRecord_C5
 ;-----------------------------------------------------------------------------
-; sub_DC653                                                       DC653  97 PC
+; FindTeamRecord                                  DC653  97 PC, low confidence
+; Finds a team record
 ;-----------------------------------------------------------------------------
-sub_DC653:
+FindTeamRecord:
         push ebx
         push ecx
         push esi
@@ -2841,7 +2869,7 @@ sub_DC653:
         cmp word [word_16D7EE], byte 0
         jne short .1
         xor eax, eax
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .1:
         mov edx, 66h
         mov eax, dword [byte ebp-040h]
@@ -2849,28 +2877,28 @@ sub_DC653:
         mov esi, dword [byte ebp-03Ch]
         lea ebx, [byte ebp-038h]
         lea ecx, [byte ebp-04h]
-        call sub_E2334
+        call ZeroBytesOk
         mov edx, 2
         mov eax, dword [byte ebp-040h]
         movsd
         movsd
-        call sub_DB8E6
+        call LookupRecord
         lea ebx, [byte ebp-038h]
         mov edx, 2
         mov eax, dword [dword_1CD158]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         lea ebx, [byte ebp-0Ch]
         lea edx, [byte ebp-038h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-038h]
         lea ebx, [byte ebp-0Ch]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         lea edx, [byte ebp-0Ch]
         mov eax, dword [byte ebp-03Ch]
@@ -2879,20 +2907,21 @@ sub_DC653:
         sete al
         movzx eax, al
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ebx, 67h
         mov edx, dword [byte ebp-04h]
         mov ecx, dword [dword_1CD17C]
         xor eax, eax
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ebx, 66h
-        jmp near sub_DB8E6_236
+        jmp near LookupRecord_236
 ;-----------------------------------------------------------------------------
-; sub_DC71D                                                       DC71D  97 PC
+; BuildAllStarRecords                             DC71D  97 PC, low confidence
+; Builds the all-star teams
 ;-----------------------------------------------------------------------------
-sub_DC71D:
+BuildAllStarRecords:
         push ebx
         push ecx
         push edx
@@ -2902,34 +2931,34 @@ sub_DC71D:
         cmp word [word_16D7EE], byte 0
         jne short .1
         xor eax, eax
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
 .1:
         lea ebx, [byte ebp-030h]
         mov edx, 3
         mov dword [eax], 0
         lea ecx, [byte ebp-04h]
         mov dword [byte eax+04h], 0
-        call sub_DB8E6
+        call LookupRecord
         lea ebx, [byte ebp-030h]
         mov edx, 3
         mov eax, dword [dword_1CD158]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_DCC75_229
+        je near UpdatePlayerRecord_229
         mov ebx, 67h
         mov edx, dword [byte ebp-04h]
         mov ecx, dword [dword_1CD17C]
         xor eax, eax
         mov dword [dword_16D7D0], 1
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
-        je near sub_DCC75_229
+        je near UpdatePlayerRecord_229
         mov ebx, 66h
         mov eax, dword [dword_1CD17C]
         mov edx, esi
         inc eax
-        call sub_E22FC
-        jmp near sub_DB8E6_307
+        call CopyBytesOk
+        jmp near LookupRecord_307
         push ebx
         push ecx
         push edx
@@ -2939,31 +2968,31 @@ sub_DC71D:
         cmp word [word_16D7EE], byte 0
         jne short .2
         xor eax, eax
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
 .2:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov dword [eax], 0
         mov edx, 4
         mov eax, dword [dword_1CD158]
-        call sub_DA020
+        call FindLastKey
         test eax, eax
-        je near sub_DCC75_229
-        call sub_E341C
+        je near UpdatePlayerRecord_229
+        call ServiceIdle
 .3:
         cmp byte [byte ebp-030h], 0
-        je near sub_DB8E6_307
+        je near LookupRecord_307
         cmp dword [byte ebp-04h], byte 0FFFFFFFFh
-        je near sub_DB8E6_307
+        je near LookupRecord_307
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         inc dword [esi]
         mov edx, 4
         mov eax, dword [dword_1CD158]
-        call sub_DA48C
+        call NextIndexKey
         test eax, eax
         jne short .3
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
         push ebx
         push ecx
         push edx
@@ -2974,17 +3003,17 @@ sub_DC71D:
         jne short .5
 .4:
         xor eax, eax
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
 .5:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 5
         mov eax, dword [dword_1CD158]
         mov dword [dword_16D7D4], 0
-        call sub_DA020
+        call FindLastKey
         test eax, eax
-        je near sub_DCC75_229
-        call sub_E341C
+        je near UpdatePlayerRecord_229
+        call ServiceIdle
         cmp dword [byte ebp-04h], byte 0FFFFFFFFh
         jne short .6
         cmp byte [byte ebp-030h], 0
@@ -2994,13 +3023,13 @@ sub_DC71D:
         mov edx, dword [byte ebp-04h]
         mov eax, 1
         mov ecx, esi
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
-        je near sub_DCC75_229
+        je near UpdatePlayerRecord_229
 .7:
         mov eax, 1
         mov dword [dword_16D7D4], 1
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
         push ebx
         push ecx
         push edx
@@ -3010,25 +3039,25 @@ sub_DC71D:
         cmp word [word_16D7EE], byte 0
         jne short .8
         xor eax, eax
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
 .8:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 5
         mov eax, dword [dword_1CD158]
         mov dword [dword_16D7D4], 0
-        call sub_DA02C
+        call FindFirstKey
         test eax, eax
-        je near sub_DCC75_229
-        call sub_E341C
+        je near UpdatePlayerRecord_229
+        call ServiceIdle
         mov ebx, 0BCh
         mov edx, dword [byte ebp-04h]
         mov eax, 1
         mov ecx, esi
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
         jne short .7
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
         push ebx
         push ecx
         push esi
@@ -3052,7 +3081,7 @@ sub_DC71D:
         lea ebx, [byte ebp-030h]
         mov edx, 5
         mov eax, dword [dword_1CD158]
-        call sub_DA48C
+        call NextIndexKey
 .11:
         test eax, eax
         jne short .13
@@ -3067,7 +3096,7 @@ sub_DC71D:
         lea ebx, [byte ebp-030h]
         mov edx, 5
         mov eax, dword [dword_1CD158]
-        call sub_DA498
+        call PrevIndexKey
         jmp short .11
 .13:
         cmp dword [byte ebp-04h], byte 0FFFFFFFFh
@@ -3079,10 +3108,10 @@ sub_DC71D:
         mov edx, dword [byte ebp-04h]
         mov eax, 1
         mov ecx, esi
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
         je short .15
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
 .15:
         leave
@@ -3091,9 +3120,10 @@ sub_DC71D:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DC99F                                                       DC99F  97 PC
+; AddPlayerRecord                                 DC99F  97 PC, low confidence
+; Adds a player record
 ;-----------------------------------------------------------------------------
-sub_DC99F:
+AddPlayerRecord:
         push ebx
         push ecx
         push edx
@@ -3104,56 +3134,57 @@ sub_DC99F:
         cmp word [word_16D7EE], byte 0
         jne short .1
         xor eax, eax
-        jmp near sub_DA7EB_18
+        jmp near OpenGameDatabase_18
 .1:
         mov edx, eax
         mov eax, 4
-        call sub_DB838
+        call NewRecordKey
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         mov ebx, 0BCh
         lea edx, [byte ebp-04h]
         mov eax, 1
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         mov ebx, 0BCh
         mov eax, dword [dword_1CD184]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         lea ebx, [byte ebp-05Ch]
         mov edx, 4
         mov eax, esi
-        call sub_DB8E6
+        call LookupRecord
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 4
         mov eax, dword [dword_1CD158]
-        call sub_D8B20
+        call AddIndexKey
         mov edi, eax
         test eax, eax
-        je near sub_E0297_CC
+        je near AddGameRecord_CC
         lea ebx, [byte ebp-030h]
         mov edx, 5
         mov eax, esi
-        call sub_DB8E6
+        call LookupRecord
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 5
         mov eax, dword [dword_1CD158]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
-        jne near sub_E0297_CC
+        jne near AddGameRecord_CC
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 4
-        jmp near sub_DC11A_52F
+        jmp near RepairDatabase_52F
 ;-----------------------------------------------------------------------------
-; sub_DCA6C                                                       DCA6C  97 PC
+; AddTradeRecord                                  DCA6C  97 PC, low confidence
+; Adds a trade record
 ;-----------------------------------------------------------------------------
-sub_DCA6C:
+AddTradeRecord:
         push ebx
         push ecx
         push esi
@@ -3164,7 +3195,7 @@ sub_DCA6C:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .2:
         cmp dword [edx], byte 0
         je short .1
@@ -3179,23 +3210,23 @@ sub_DCA6C:
         mov edx, 4
         movsd
         movsd
-        call sub_DB8E6
+        call LookupRecord
         lea ebx, [byte ebp-064h]
         mov edx, 4
         mov eax, dword [dword_1CD158]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
         je short .3
         lea ebx, [byte ebp-0Ch]
         lea edx, [byte ebp-064h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-064h]
         lea ebx, [byte ebp-0Ch]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         lea edx, [byte ebp-0Ch]
         mov eax, dword [byte ebp-068h]
@@ -3209,47 +3240,48 @@ sub_DCA6C:
         lea ebx, [byte ebp-064h]
         mov edx, 4
         mov eax, dword [byte ebp-068h]
-        call sub_DB8E6
+        call LookupRecord
         mov ebx, 0BCh
         lea edx, [byte ebp-04h]
         mov eax, 1
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ebx, 0BCh
         mov edx, dword [byte ebp-068h]
         mov eax, dword [dword_1CD184]
         call FileWriteRecord
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-064h]
         mov edx, 4
         mov eax, dword [dword_1CD158]
-        call sub_D8B20
+        call AddIndexKey
         mov esi, eax
         test eax, eax
-        je near sub_E076B_CA
+        je near AddPlayerStatAt_CA
         lea ebx, [byte ebp-038h]
         mov edx, 5
         mov eax, dword [byte ebp-068h]
-        call sub_DB8E6
+        call LookupRecord
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-038h]
         mov edx, 5
         mov eax, dword [dword_1CD158]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
-        jne near sub_E076B_CA
+        jne near AddPlayerStatAt_CA
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-064h]
         mov edx, 4
         mov eax, dword [dword_1CD158]
-        jmp near sub_E076B_C3
+        jmp near AddPlayerStatAt_C3
 ;-----------------------------------------------------------------------------
-; sub_DCBB0                                                       DCBB0  97 PC
+; FindPlayerRecord                                DCBB0  97 PC, low confidence
+; Finds a player record
 ;-----------------------------------------------------------------------------
-sub_DCBB0:
+FindPlayerRecord:
         push ebx
         push ecx
         push esi
@@ -3260,7 +3292,7 @@ sub_DCBB0:
         cmp word [word_16D7EE], byte 0
         jne short .1
         xor eax, eax
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .1:
         mov edx, 0BCh
         mov eax, dword [byte ebp-040h]
@@ -3268,28 +3300,28 @@ sub_DCBB0:
         mov esi, dword [byte ebp-03Ch]
         lea ebx, [byte ebp-038h]
         lea ecx, [byte ebp-04h]
-        call sub_E2334
+        call ZeroBytesOk
         mov edx, 4
         mov eax, dword [byte ebp-040h]
         movsd
         movsd
-        call sub_DB8E6
+        call LookupRecord
         lea ebx, [byte ebp-038h]
         mov edx, 4
         mov eax, dword [dword_1CD158]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         lea ebx, [byte ebp-0Ch]
         lea edx, [byte ebp-038h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-038h]
         lea ebx, [byte ebp-0Ch]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         lea edx, [byte ebp-0Ch]
         mov eax, dword [byte ebp-03Ch]
@@ -3298,19 +3330,20 @@ sub_DCBB0:
         sete al
         movzx eax, al
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ecx, dword [byte ebp-040h]
         mov ebx, 0BCh
         mov edx, dword [byte ebp-04h]
         mov eax, 1
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
-        jne near sub_DB8E6_244
-        jmp near sub_E036F_A0
+        jne near LookupRecord_244
+        jmp near FindGameRecord_A0
 ;-----------------------------------------------------------------------------
-; sub_DCC75                                                       DCC75  97 PC
+; UpdatePlayerRecord                              DCC75  97 PC, low confidence
+; Updates a player record
 ;-----------------------------------------------------------------------------
-sub_DCC75:
+UpdatePlayerRecord:
         push ebx
         push ecx
         push edx
@@ -3323,28 +3356,28 @@ sub_DCC75:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_DCC75_1A6
+        jmp near UpdatePlayerRecord_1A6
 .2:
         lea ebx, [byte ebp+01Eh]
         mov edx, 4
         lea ecx, [byte ebp+07Eh]
-        call sub_DB8E6
+        call LookupRecord
         lea ebx, [byte ebp+01Eh]
         mov edx, 4
         mov eax, dword [dword_1CD158]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea ebx, [byte ebp+076h]
         lea edx, [byte ebp+01Eh]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp+01Eh]
         lea ebx, [byte ebp+076h]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         lea edx, [byte ebp+076h]
         mov eax, esi
@@ -3360,51 +3393,51 @@ sub_DCC75:
         mov ebx, 0BCh
         lea edx, [byte ebp+07Eh]
         mov eax, 1
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         mov ebx, 0BCh
         mov eax, dword [dword_1CD184]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea ebx, [byte ebp+04Ah]
         mov edx, 4
         mov eax, esi
-        call sub_DB8E6
+        call LookupRecord
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
         mov edx, 4
         mov eax, dword [dword_1CD158]
-        call sub_D8B20
+        call AddIndexKey
         mov edi, eax
         test eax, eax
         je short .3
         lea ebx, [byte ebp-0Eh]
         mov edx, 5
         mov eax, esi
-        call sub_DB8E6
+        call LookupRecord
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Eh]
         mov edx, 5
         mov eax, dword [dword_1CD158]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
         jne short .3
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
         mov edx, 4
         mov eax, dword [dword_1CD158]
-        call sub_D9960
+        call DeleteIndexKey
         xor edi, edi
 .3:
         mov eax, edi
-        jmp short sub_DCC75_1A6
+        jmp short UpdatePlayerRecord_1A6
 .4:
         lea edx, [dword ebp-0CAh]
         mov eax, esi
-        call sub_DCBB0
+        call FindPlayerRecord
         lea edx, [dword ebp-0C2h]
         lea eax, [byte esi+08h]
         call strcmp_
@@ -3417,20 +3450,20 @@ sub_DCC75:
         jne near .1
         lea edx, [dword ebp-0CAh]
         mov eax, esi
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je near .1
-        call sub_E341C
+        call ServiceIdle
         mov ebx, 0BCh
         mov edx, dword [byte ebp+07Eh]
         mov eax, 1
-sub_DCC75_19F:
+UpdatePlayerRecord_19F:
         mov ecx, esi
-        call sub_DADD0
-sub_DCC75_1A6:
+        call WriteDbRecord
+UpdatePlayerRecord_1A6:
         lea esp, [dword ebp+082h]
         pop ebp
-sub_DCC75_1AD:
+UpdatePlayerRecord_1AD:
         pop edi
         pop esi
         pop edx
@@ -3446,31 +3479,31 @@ sub_DCC75_1AD:
         cmp word [word_16D7EE], byte 0
         jne short .5
         xor eax, eax
-        jmp short sub_DCC75_229
+        jmp short UpdatePlayerRecord_229
 .5:
         lea ebx, [byte ebp-030h]
         mov edx, 5
         mov dword [eax], 0
         lea ecx, [byte ebp-04h]
         mov dword [byte eax+04h], 0
-        call sub_DB8E6
+        call LookupRecord
         lea ebx, [byte ebp-030h]
         mov edx, 5
         mov eax, dword [dword_1CD158]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je short sub_DCC75_229
-        call sub_E341C
+        je short UpdatePlayerRecord_229
+        call ServiceIdle
         mov ebx, 0BCh
         mov edx, dword [byte ebp-04h]
         mov eax, 1
         mov ecx, esi
         mov dword [dword_16D7D4], 1
-        call sub_DAFF8
-sub_DCC75_221:
+        call ReadDbRecord
+UpdatePlayerRecord_221:
         test eax, eax
-        jne near sub_DB8E6_30C
-sub_DCC75_229:
+        jne near LookupRecord_30C
+UpdatePlayerRecord_229:
         leave
         pop esi
         pop edx
@@ -3478,9 +3511,10 @@ sub_DCC75_229:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DCEA4                                                       DCEA4  97 PC
+; MakeLeagueKey                                   DCEA4  97 PC, low confidence
+; Builds a league record key from its type and number
 ;-----------------------------------------------------------------------------
-sub_DCEA4:
+MakeLeagueKey:
         push ebx
         push ecx
         push esi
@@ -3513,7 +3547,7 @@ sub_DCEA4:
         lea ebx, [byte ebp-030h]
         movsx edx, ax
         mov eax, dword [dword_1CD15C]
-        call sub_DA02C
+        call FindFirstKey
         test eax, eax
         je short .5
         cmp byte [byte ebp-030h], 0
@@ -3533,12 +3567,12 @@ sub_DCEA4:
         lea edx, [byte ebp-030h]
         mov eax, 4
         lea ebx, [byte esi+04h]
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-030h]
         mov eax, 4
         mov ebx, esi
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov eax, dword [dword_16D7F0]
         mov dword [esi], eax
         mov eax, 1
@@ -3565,40 +3599,42 @@ sub_DCEA4:
         lea edi, [byte eax+04h]
         lea edx, [byte eax+08h]
         mov eax, 4
-        call sub_DA544
+        call BuildKeyFromLong
         mov eax, 4
         mov ebx, ecx
         mov edx, edi
-        call sub_DA57C
+        call BuildKeyFromString
         mov eax, 4
         lea edi, [byte esi+0Ch]
         mov ebx, ecx
         lea edx, [byte esi+010h]
-        call sub_DA57C
+        call BuildKeyFromString
         mov eax, 4
         mov ebx, ecx
         mov edx, edi
-        call sub_DA57C
+        call BuildKeyFromString
         mov eax, 1
         pop edi
         pop esi
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DCFA4                                                       DCFA4  97 PC
+; MakeLeagueKeyBase                               DCFA4  97 PC, low confidence
+; Builds a league record key of the base type
 ;-----------------------------------------------------------------------------
-sub_DCFA4:
+MakeLeagueKeyBase:
         push edx
         mov edx, eax
         xor eax, eax
-sub_DCFA4_5:
-        call sub_DCEA4
+MakeLeagueKeyBase_5:
+        call MakeLeagueKey
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DCFB0                                                       DCFB0  97 PC
+; CreateExhibitionFile                            DCFB0  97 PC, low confidence
+; Creates the exhibition league file
 ;-----------------------------------------------------------------------------
-sub_DCFB0:
+CreateExhibitionFile:
         push esi
         push edi
         enter 90h, 0
@@ -3619,7 +3655,7 @@ sub_DCFB0:
         mov eax, str_SCHED
         call AllocClearBlock20
         test eax, eax
-        je near sub_DCFB0_325
+        je near CreateExhibitionFile_325
         mov eax, dword [dword ebp+08Eh]
         mov eax, dword [eax]
         mov dword [byte ebp+07Ah], eax
@@ -3659,7 +3695,7 @@ sub_DCFB0:
         mov dword [byte eax+020h], edx
         lea edx, [byte eax+04h]
         xor eax, eax
-        call sub_DCEA4
+        call MakeLeagueKey
         test eax, eax
         jne short .1
         mov eax, dword [dword ebp+08Eh]
@@ -3678,7 +3714,7 @@ sub_DCFB0:
         movsx eax, word [byte ebp-01Ah]
         cmp eax, dword [byte ebp+076h]
         jle near .9
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+076h]
         mov ecx, dword [byte ebp+072h]
         inc eax
@@ -3717,7 +3753,7 @@ sub_DCFB0:
         call sub_83558
 .7:
         xor eax, eax
-        jmp near sub_DCFB0_325
+        jmp near CreateExhibitionFile_325
 .8:
         mov eax, dword [byte ebp+06Eh]
         mov esi, dword [byte ebp-022h]
@@ -3741,7 +3777,7 @@ sub_DCFB0:
         mov eax, dword [byte ebp+06Eh]
         movsd
         movsd
-        call sub_DFAF6
+        call BuildSeasonRecords
         test eax, eax
         je short .6
         inc dword [byte ebp+076h]
@@ -3769,7 +3805,7 @@ sub_DCFB0:
 .11:
         cmp edx, ebx
         jl short .10
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+07Ah]
         push dword [byte eax+08h]
         mov eax, dword [byte eax+04h]
@@ -3843,10 +3879,10 @@ sub_DCFB0:
 .15:
         lea eax, [byte ebp+06Ah]
         call FileClose
-        call sub_E341C
+        call ServiceIdle
 .16:
         test edx, edx
-        je short sub_DCFB0_30F
+        je short CreateExhibitionFile_30F
         movsx eax, word [byte ebp-01Ah]
         inc eax
         inc eax
@@ -3854,37 +3890,38 @@ sub_DCFB0:
         mov eax, dword [byte ebp+07Ah]
         lea edx, [byte ebp+03Eh]
         add eax, byte 4
-        call sub_DA76A
+        call MakeRecordKey
         mov eax, dword [byte ebp+07Ah]
         lea edx, [byte ebp+03Eh]
         add eax, byte 0Ch
         lea ebx, [byte ebp+03Eh]
-sub_DCFB0_2F7:
-        call sub_DA797
+CreateExhibitionFile_2F7:
+        call MakeKeyPair
         mov eax, dword [dword_1CD15C]
         xor edx, edx
-        call sub_D8B20
+        call AddIndexKey
         mov edx, eax
-        call sub_E341C
-sub_DCFB0_30F:
+        call ServiceIdle
+CreateExhibitionFile_30F:
         test edx, edx
-        jne short sub_DCFB0_31E
+        jne short CreateExhibitionFile_31E
         mov eax, dword [dword ebp+08Eh]
-sub_DCFB0_319:
+CreateExhibitionFile_319:
         call FreePtr
-sub_DCFB0_31E:
+CreateExhibitionFile_31E:
         call sub_83558
         mov eax, edx
-sub_DCFB0_325:
+CreateExhibitionFile_325:
         lea esp, [byte ebp+07Eh]
         pop ebp
         pop edi
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_DD2DE                                                       DD2DE  97 PC
+; CreatePlayoffFile                               DD2DE  97 PC, low confidence
+; Creates the playoff league file
 ;-----------------------------------------------------------------------------
-sub_DD2DE:
+CreatePlayoffFile:
         push esi
         push edi
         enter 94h, 0
@@ -3899,7 +3936,7 @@ sub_DD2DE:
         mov eax, unk_16D7FC
         call OpenLeagueFile
         test eax, eax
-        je short sub_DCFB0_325
+        je short CreateExhibitionFile_325
         mov eax, dword [byte ebp+06Ah]
         movsx eax, word [eax]
         imul eax, byte 18h
@@ -3918,7 +3955,7 @@ sub_DD2DE:
         call FreePtr
 .3:
         xor eax, eax
-        jmp short sub_DCFB0_325
+        jmp short CreateExhibitionFile_325
 .4:
         mov eax, dword [dword ebp+08Eh]
         mov eax, dword [eax]
@@ -3958,7 +3995,7 @@ sub_DD2DE:
         mov dword [byte eax+020h], edx
         lea edx, [byte eax+04h]
         xor eax, eax
-        call sub_DCEA4
+        call MakeLeagueKey
         test eax, eax
         jne short .5
         lea eax, [byte ebp+06Ah]
@@ -3978,7 +4015,7 @@ sub_DD2DE:
         movsx eax, word [byte ebp-01Eh]
         cmp eax, dword [byte ebp+076h]
         jle near .12
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+076h]
         mov ecx, dword [byte ebp+072h]
         inc eax
@@ -4039,7 +4076,7 @@ sub_DD2DE:
         mov edx, dword [byte ebp-026h]
         movsd
         movsd
-        call sub_DF274
+        call BuildPlayoffRecords
         test eax, eax
         jne short .11
         lea eax, [byte ebp+06Ah]
@@ -4076,7 +4113,7 @@ sub_DD2DE:
 .14:
         cmp edx, ebx
         jl short .13
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+07Ah]
         push dword [byte eax+08h]
         mov eax, dword [byte eax+04h]
@@ -4150,26 +4187,27 @@ sub_DD2DE:
 .18:
         lea eax, [byte ebp+066h]
         call FileClose
-        call sub_E341C
+        call ServiceIdle
 .19:
         test edx, edx
-        je near sub_DCFB0_30F
+        je near CreateExhibitionFile_30F
         movsx eax, word [byte ebp-01Eh]
         inc eax
         call sub_834EC
         mov eax, dword [byte ebp+07Ah]
         lea edx, [byte ebp+03Ah]
         add eax, byte 4
-        call sub_DA76A
+        call MakeRecordKey
         mov eax, dword [byte ebp+07Ah]
         lea edx, [byte ebp+03Ah]
         add eax, byte 0Ch
         lea ebx, [byte ebp+03Ah]
-        jmp near sub_DCFB0_2F7
+        jmp near CreateExhibitionFile_2F7
 ;-----------------------------------------------------------------------------
-; sub_DD61F                                                       DD61F  97 PC
+; CreatePlayoffSchedule                           DD61F  97 PC, low confidence
+; Creates the playoff schedule
 ;-----------------------------------------------------------------------------
-sub_DD61F:
+CreatePlayoffSchedule:
         push esi
         push edi
         enter 94h, 0
@@ -4184,7 +4222,7 @@ sub_DD61F:
         mov eax, unk_16D7FC
         call OpenLeagueFile
         test eax, eax
-        je near sub_DBBFC_1BC
+        je near FindRecordByKey_1BC
         mov eax, dword [byte ebp+062h]
         movsx eax, word [eax]
         imul eax, byte 18h
@@ -4255,7 +4293,7 @@ sub_DD61F:
         movsx eax, word [byte ebp-026h]
         cmp eax, dword [byte ebp+06Eh]
         jle near .9
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+06Eh]
         mov ecx, dword [byte ebp+06Ah]
         inc eax
@@ -4296,7 +4334,7 @@ sub_DD61F:
         call sub_83558
 .7:
         xor eax, eax
-        jmp near sub_DBBFC_1BC
+        jmp near FindRecordByKey_1BC
 .8:
         mov edx, dword [byte ebp+066h]
         mov eax, dword [byte ebp+062h]
@@ -4321,7 +4359,7 @@ sub_DD61F:
         mov edx, dword [byte ebp-02Eh]
         movsd
         movsd
-        call sub_DF274
+        call BuildPlayoffRecords
         test eax, eax
         je short .6
         inc dword [byte ebp+06Eh]
@@ -4351,7 +4389,7 @@ sub_DD61F:
 .11:
         cmp edx, ebx
         jl short .10
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+072h]
         push dword [byte eax+08h]
         mov eax, dword [byte eax+04h]
@@ -4425,7 +4463,7 @@ sub_DD61F:
 .15:
         lea eax, [byte ebp+05Eh]
         call FileClose
-        call sub_E341C
+        call ServiceIdle
 .16:
         test edx, edx
         je short .17
@@ -4436,17 +4474,17 @@ sub_DD61F:
         mov eax, dword [byte ebp+072h]
         lea edx, [byte ebp+032h]
         add eax, byte 4
-        call sub_DA76A
+        call MakeRecordKey
         mov eax, dword [byte ebp+072h]
         lea edx, [byte ebp+032h]
         add eax, byte 0Ch
         lea ebx, [byte ebp+032h]
-        call sub_DA797
+        call MakeKeyPair
         mov eax, dword [dword_1CD15C]
         xor edx, edx
-        call sub_D8B20
+        call AddIndexKey
         mov edx, eax
-        call sub_E341C
+        call ServiceIdle
 .17:
         test edx, edx
         jne short .18
@@ -4455,11 +4493,12 @@ sub_DD61F:
 .18:
         call sub_83558
         mov eax, edx
-        jmp near sub_DBBFC_1BC
+        jmp near FindRecordByKey_1BC
 ;-----------------------------------------------------------------------------
-; sub_DD970                                                       DD970  97 PC
+; CreateSeasonFile                                DD970  97 PC, low confidence
+; Creates the season league file
 ;-----------------------------------------------------------------------------
-sub_DD970:
+CreateSeasonFile:
         push esi
         push edi
         enter 88h, 0
@@ -4471,13 +4510,13 @@ sub_DD970:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_DCFB0_325
+        jmp near CreateExhibitionFile_325
 .2:
         lea edx, [byte ebp+076h]
         mov eax, unk_16D7FC
         call OpenLeagueFile
         test eax, eax
-        je near sub_DCFB0_325
+        je near CreateExhibitionFile_325
         mov eax, dword [byte ebp+076h]
         movsx edx, word [eax]
         imul edx, byte 18h
@@ -4536,7 +4575,7 @@ sub_DD970:
         shl ebx, 3
         mov eax, dword [byte eax+014h]
         mov edi, dword [byte ebp+07Ah]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, dword [byte ebp+07Ah]
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [byte ebp+076h]
@@ -4545,7 +4584,7 @@ sub_DD970:
         mov eax, dword [byte eax+018h]
         shl ebx, 3
         mov esi, ecx
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [byte ebp+07Ah]
         lea edi, [byte edi+04h]
         movsx ebx, word [byte ebp-0Eh]
@@ -4570,7 +4609,7 @@ sub_DD970:
 .5:
         cmp edx, ebx
         jl short .4
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+076h]
         xor esi, esi
         movsx edx, word [eax]
@@ -4584,7 +4623,7 @@ sub_DD970:
         movsx eax, word [eax]
         cmp esi, eax
         jge short .8
-        call sub_E341C
+        call ServiceIdle
         lea edi, [byte esi+01h]
         mov ecx, dword [byte ebp+07Ah]
         mov eax, edi
@@ -4593,7 +4632,7 @@ sub_DD970:
         mov ebx, esi
         push dword [dword ebp+08Eh]
         mov eax, esi
-        call sub_DF274
+        call BuildPlayoffRecords
         test eax, eax
         jne short .7
         mov eax, dword [byte ebp-016h]
@@ -4678,7 +4717,7 @@ sub_DD970:
 .12:
         lea eax, [byte ebp+072h]
         call FileClose
-        call sub_E341C
+        call ServiceIdle
 .13:
         test edx, edx
         je short .14
@@ -4690,28 +4729,29 @@ sub_DD970:
         mov eax, dword [byte ebp+07Ah]
         lea edx, [byte ebp+046h]
         add eax, byte 4
-        call sub_DA76A
+        call MakeRecordKey
         mov eax, dword [byte ebp+07Ah]
         lea edx, [byte ebp+046h]
         add eax, byte 0Ch
         lea ebx, [byte ebp+046h]
-        call sub_DA797
+        call MakeKeyPair
         mov eax, dword [dword_1CD15C]
         xor edx, edx
-        call sub_D8B20
+        call AddIndexKey
         mov edx, eax
-        call sub_E341C
+        call ServiceIdle
 .14:
         lea eax, [byte ebp+076h]
         call FreePtr
         test edx, edx
-        jne near sub_DCFB0_31E
+        jne near CreateExhibitionFile_31E
         mov eax, dword [byte ebp-016h]
-        jmp near sub_DCFB0_319
+        jmp near CreateExhibitionFile_319
 ;-----------------------------------------------------------------------------
-; sub_DDC4A                                                       DDC4A  97 PC
+; CreateSeasonSchedule                            DDC4A  97 PC, low confidence
+; Creates the season schedule
 ;-----------------------------------------------------------------------------
-sub_DDC4A:
+CreateSeasonSchedule:
         push ecx
         push esi
         push edi
@@ -4726,7 +4766,7 @@ sub_DDC4A:
         mov eax, unk_16D7FC
         call OpenLeagueFile
         test eax, eax
-        je near sub_DDC4A_2F0
+        je near CreateSeasonSchedule_2F0
         mov eax, dword [byte ebp+072h]
         movsx edx, word [eax]
         imul edx, byte 18h
@@ -4743,7 +4783,7 @@ sub_DDC4A:
         call FreePtr
 .2:
         xor eax, eax
-        jmp near sub_DDC4A_2F0
+        jmp near CreateSeasonSchedule_2F0
 .3:
         mov eax, dword [byte ebp+07Ah]
         mov eax, dword [eax]
@@ -4787,7 +4827,7 @@ sub_DDC4A:
         shl ebx, 3
         mov edx, dword [byte edx+014h]
         mov eax, dword [byte eax+014h]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, dword [byte ebp+07Eh]
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [byte ebp+072h]
@@ -4795,11 +4835,11 @@ sub_DDC4A:
         mov edx, dword [byte edx+018h]
         mov eax, dword [byte eax+018h]
         shl ebx, 3
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, dword [byte ebp+07Eh]
         xor eax, eax
         add edx, byte 4
-        call sub_DCEA4
+        call MakeLeagueKey
         test eax, eax
         jne short .4
         mov eax, dword [byte ebp+07Ah]
@@ -4826,7 +4866,7 @@ sub_DDC4A:
 .6:
         cmp edx, ebx
         jl short .5
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+072h]
         xor esi, esi
         movsx edx, word [eax]
@@ -4840,7 +4880,7 @@ sub_DDC4A:
         movsx eax, word [eax]
         cmp esi, eax
         jge short .9
-        call sub_E341C
+        call ServiceIdle
         lea edi, [byte esi+01h]
         mov ecx, dword [byte ebp+07Eh]
         mov eax, edi
@@ -4849,7 +4889,7 @@ sub_DDC4A:
         push unk_16D7F4
         mov ebx, esi
         mov eax, esi
-        call sub_DF274
+        call BuildPlayoffRecords
         test eax, eax
         jne short .8
         mov eax, dword [byte ebp+07Ah]
@@ -4934,7 +4974,7 @@ sub_DDC4A:
 .13:
         lea eax, [byte ebp+06Eh]
         call FileClose
-        call sub_E341C
+        call ServiceIdle
 .14:
         test edx, edx
         je short .15
@@ -4946,17 +4986,17 @@ sub_DDC4A:
         mov eax, dword [byte ebp+07Eh]
         lea edx, [byte ebp+042h]
         add eax, byte 4
-        call sub_DA76A
+        call MakeRecordKey
         mov eax, dword [byte ebp+07Eh]
         lea edx, [byte ebp+042h]
         add eax, byte 0Ch
         lea ebx, [byte ebp+042h]
-        call sub_DA797
+        call MakeKeyPair
         mov eax, dword [dword_1CD15C]
         xor edx, edx
-        call sub_D8B20
+        call AddIndexKey
         mov edx, eax
-        call sub_E341C
+        call ServiceIdle
 .15:
         lea eax, [byte ebp+072h]
         call FreePtr
@@ -4968,7 +5008,7 @@ sub_DDC4A:
 .17:
         call sub_83558
         mov eax, edx
-sub_DDC4A_2F0:
+CreateSeasonSchedule_2F0:
         lea esp, [dword ebp+082h]
         pop ebp
         pop edi
@@ -4987,7 +5027,7 @@ sub_DDC4A_2F0:
         jne short .19
 .18:
         xor eax, eax
-        jmp short sub_DDC4A_2F0
+        jmp short CreateSeasonSchedule_2F0
 .19:
         movsx eax, word [edx]
         imul edx, eax, byte 18h
@@ -4998,7 +5038,7 @@ sub_DDC4A_2F0:
         mov eax, str_SCHED
         call AllocClearBlock20
         test eax, eax
-        je short sub_DDC4A_2F0
+        je short CreateSeasonSchedule_2F0
         mov eax, dword [byte ebp+076h]
         mov eax, dword [eax]
         mov dword [byte ebp+07Eh], eax
@@ -5041,7 +5081,7 @@ sub_DDC4A_2F0:
         mov eax, dword [byte ebp+07Ah]
         shl ebx, 3
         mov eax, dword [byte eax+014h]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, dword [byte ebp+07Eh]
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [byte ebp+07Ah]
@@ -5049,11 +5089,11 @@ sub_DDC4A_2F0:
         mov edx, dword [byte edx+018h]
         mov eax, dword [byte eax+018h]
         shl ebx, 3
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, dword [byte ebp+07Eh]
         xor eax, eax
         add edx, byte 4
-        call sub_DCEA4
+        call MakeLeagueKey
         test eax, eax
         jne short .20
         mov eax, dword [byte ebp+076h]
@@ -5082,7 +5122,7 @@ sub_DDC4A_2F0:
         cmp edx, ebx
         jl short .21
         mov edx, dword [byte ebp+07Ah]
-        call sub_E341C
+        call ServiceIdle
         mov eax, 243h
         movsx edx, word [edx]
         xor esi, esi
@@ -5095,14 +5135,14 @@ sub_DDC4A_2F0:
         movsx eax, word [eax]
         cmp esi, eax
         jge short .25
-        call sub_E341C
+        call ServiceIdle
         mov ecx, dword [byte ebp+07Eh]
         lea eax, [byte esi+01h]
         mov edx, dword [byte ebp+07Ah]
         call sub_834EC
         mov ebx, esi
         mov eax, esi
-        call sub_DFAF6
+        call BuildSeasonRecords
         test eax, eax
         jne short .24
         mov esi, dword [byte ebp+07Ah]
@@ -5191,7 +5231,7 @@ sub_DDC4A_2F0:
 .30:
         lea eax, [byte ebp+072h]
         call FileClose
-        call sub_E341C
+        call ServiceIdle
 .31:
         test edx, edx
         je short .32
@@ -5203,26 +5243,27 @@ sub_DDC4A_2F0:
         mov eax, dword [byte ebp+07Eh]
         lea edx, [byte ebp+046h]
         add eax, byte 4
-        call sub_DA76A
+        call MakeRecordKey
         mov eax, dword [byte ebp+07Eh]
         lea edx, [byte ebp+046h]
         add eax, byte 0Ch
         lea ebx, [byte ebp+046h]
-        call sub_DA797
+        call MakeKeyPair
         mov eax, dword [dword_1CD15C]
         xor edx, edx
-        call sub_D8B20
+        call AddIndexKey
         mov edx, eax
-        call sub_E341C
+        call ServiceIdle
 .32:
         test edx, edx
-        jne near sub_DDC4A.17
+        jne near CreateSeasonSchedule.17
         mov eax, dword [byte ebp+076h]
-        jmp near sub_DDC4A.16
+        jmp near CreateSeasonSchedule.16
 ;-----------------------------------------------------------------------------
-; sub_DE20B                                                       DE20B  97 PC
+; ScheduleEntryMatches                            DE20B  97 PC, low confidence
+; Returns whether a schedule entry matches
 ;-----------------------------------------------------------------------------
-sub_DE20B:
+ScheduleEntryMatches:
         push ecx
         push esi
         push edi
@@ -5265,9 +5306,10 @@ sub_DE20B:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DE25F                                                       DE25F  97 PC
+; FindNextSeasonGame                              DE25F  97 PC, low confidence
+; Finds the next game of the season
 ;-----------------------------------------------------------------------------
-sub_DE25F:
+FindNextSeasonGame:
         push ecx
         push esi
         push edi
@@ -5275,7 +5317,7 @@ sub_DE25F:
         mov ecx, eax
         mov esi, ebx
         lea ebx, [byte ebp-04h]
-        call sub_DE20B
+        call ScheduleEntryMatches
         test eax, eax
         je short .5
         xor edx, edx
@@ -5324,7 +5366,7 @@ sub_DE25F:
         mov ecx, ebx
         mov word [ebx], 0
         lea ebx, [byte ebp-04h]
-        call sub_DE20B
+        call ScheduleEntryMatches
         test eax, eax
         je short .10
         xor edx, edx
@@ -5362,7 +5404,7 @@ sub_DE25F:
         mov ecx, eax
         mov esi, ebx
         lea ebx, [byte ebp-04h]
-        call sub_DE20B
+        call ScheduleEntryMatches
         test eax, eax
         je short .15
         xor ebx, ebx
@@ -5404,27 +5446,27 @@ sub_DE25F:
         cmp word [word_16D7EE], byte 0
         jne short .16
         xor eax, eax
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
 .16:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov dword [eax], 0
         xor edx, edx
         mov eax, dword [dword_1CD15C]
-        call sub_DA020
+        call FindLastKey
 .17:
         test eax, eax
-        je near sub_DCC75_229
+        je near UpdatePlayerRecord_229
         cmp byte [byte ebp-030h], 0
-        je near sub_DB8E6_30C
+        je near LookupRecord_30C
         cmp dword [byte ebp-04h], byte 0FFFFFFFFh
-        je near sub_DB8E6_30C
+        je near LookupRecord_30C
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         inc dword [esi]
         xor edx, edx
         mov eax, dword [dword_1CD15C]
-        call sub_DA48C
+        call NextIndexKey
         jmp short .17
 ;-----------------------------------------------------------------------------
 ; OpenLeagueFile                                  DE3CF  97 PC, low confidence
@@ -5511,7 +5553,7 @@ OpenLeagueFile:
         call FileSeek
         test eax, eax
         je short .5
-        call sub_E341C
+        call ServiceIdle
         movsx eax, word [byte ebp-08h]
         imul eax, byte 18h
         movsx edx, word [byte ebp-04h]
@@ -5588,7 +5630,7 @@ OpenLeagueFile:
         mov eax, esi
         call FreePtr
 .12:
-        call sub_E341C
+        call ServiceIdle
         mov eax, edx
 .13:
         leave
@@ -5597,9 +5639,10 @@ OpenLeagueFile:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DE5A3                                                       DE5A3  97 PC
+; WriteLeagueHeader                               DE5A3  97 PC, low confidence
+; Writes the league file header
 ;-----------------------------------------------------------------------------
-sub_DE5A3:
+WriteLeagueHeader:
         push ebx
         push ecx
         push edx
@@ -5621,7 +5664,7 @@ sub_DE5A3:
         push eax
         call sprintf_
         add esp, byte 14h
-        call sub_E341C
+        call ServiceIdle
         lea eax, [byte ebp-054h]
         call FileExists
         test eax, eax
@@ -5737,7 +5780,7 @@ sub_DE5A3:
 .12:
         lea eax, [byte ebp-04h]
         call FileClose
-        call sub_E341C
+        call ServiceIdle
 .13:
         mov eax, edx
         leave
@@ -5746,9 +5789,10 @@ sub_DE5A3:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DE740                                                       DE740  97 PC
+; StartSeasonGame                                 DE740  97 PC, low confidence
+; Starts the next season game
 ;-----------------------------------------------------------------------------
-sub_DE740:
+StartSeasonGame:
         push ecx
         push esi
         push edi
@@ -5797,7 +5841,7 @@ sub_DE740:
         mov eax, dword [byte ebp-0Ch]
         mov edi, dword [byte ebp-0Ch]
         mov esi, unk_16D7F4
-        call sub_E2334
+        call ZeroBytesOk
         movsd
         movsd
         mov edi, dword [byte ebp-0Ch]
@@ -5811,12 +5855,12 @@ sub_DE740:
         mov word [byte edx+010h], ax
         mov ax, word [byte ecx+06h]
         mov word [byte edx+012h], ax
-        call sub_E341C
+        call ServiceIdle
         lea eax, [dword edx+04270h]
         mov word [dword edx+0426Eh], 0
         mov edx, 800h
         lea ebx, [byte ebp-04h]
-        call sub_E2334
+        call ZeroBytesOk
         mov edx, 329Eh
         mov eax, str_TEMP2
         call AllocClearBlock20
@@ -5829,7 +5873,7 @@ sub_DE740:
         add eax, edx
         mov edx, dword [byte ebp-04h]
         mov esi, dword [byte ebp-04h]
-        call sub_E036F
+        call FindGameRecord
         mov ebx, eax
         mov edx, eax
         mov eax, dword [byte ebp-04h]
@@ -5845,7 +5889,7 @@ sub_DE740:
         mov edx, dword [byte edx+01Ch]
         add eax, edx
         mov edx, esi
-        call sub_E036F
+        call FindGameRecord
         mov edx, eax
 .3:
         test edx, edx
@@ -5853,7 +5897,7 @@ sub_DE740:
         mov ebx, dword [byte ebp-0Ch]
         mov eax, dword [byte ebp-04h]
         mov edx, esi
-        call sub_DAD7E
+        call LoadGameRosters
         mov edx, eax
 .4:
         lea eax, [byte ebp-04h]
@@ -5866,9 +5910,10 @@ sub_DE740:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DE88E                                                       DE88E  97 PC
+; RecordHomeStats                                 DE88E  97 PC, low confidence
+; Records the home team's game stats
 ;-----------------------------------------------------------------------------
-sub_DE88E:
+RecordHomeStats:
         push ebx
         push ecx
         push esi
@@ -5883,12 +5928,12 @@ sub_DE88E:
         sete al
         movzx eax, al
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         lea edx, [byte ebp-028h]
         lea eax, [byte esi+028h]
-        call sub_E0841
+        call FindPlayerStat
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ebx, 17h
         lea edi, [dword ecx+0E6h]
         lea edx, [byte ebp-018h]
@@ -5899,18 +5944,18 @@ sub_DE88E:
         mov ebx, 17h
         lea edx, [byte ebp-018h]
         mov eax, edi
-        call sub_E22FC
+        call CopyBytesOk
         lea eax, [byte ebp-028h]
-        call sub_E08E9
+        call UpdatePlayerStat
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
 .1:
-        call sub_E341C
+        call ServiceIdle
         lea edx, [byte ebp-068h]
         lea eax, [byte esi+020h]
-        call sub_E0D0F
+        call FindTeamStat
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         cmp byte [dword ecx+0BEh], 2
         jae short .2
         inc word [byte ebp-050h]
@@ -5961,15 +6006,16 @@ sub_DE88E:
         mov word [byte ebp-034h], 0
 .7:
         lea eax, [byte ebp-068h]
-        call sub_E0F85
-sub_DE88E_15A:
+        call UpdateTeamStat
+RecordHomeStats_15A:
         test eax, eax
-        jne near sub_DB8E6_249
-        jmp near sub_E036F_A0
+        jne near LookupRecord_249
+        jmp near FindGameRecord_A0
 ;-----------------------------------------------------------------------------
-; sub_DE9F5                                                       DE9F5  97 PC
+; RecordAwayStats                                 DE9F5  97 PC, low confidence
+; Records the away team's game stats
 ;-----------------------------------------------------------------------------
-sub_DE9F5:
+RecordAwayStats:
         push esi
         push edi
         enter 70h, 0
@@ -5987,7 +6033,7 @@ sub_DE9F5:
         je near .11
         lea edx, [byte ebp-030h]
         lea eax, [byte edi+028h]
-        call sub_E0841
+        call FindPlayerStat
         test eax, eax
         je near .11
         mov ebx, 13h
@@ -6000,18 +6046,18 @@ sub_DE9F5:
         mov ebx, 13h
         lea edx, [byte ebp-020h]
         mov eax, ecx
-        call sub_E22FC
+        call CopyBytesOk
         lea eax, [byte ebp-030h]
-        call sub_E08E9
+        call UpdatePlayerStat
         test eax, eax
         je near .11
 .1:
         lea edx, [byte ebp-070h]
         lea eax, [byte edi+020h]
-        call sub_E0D0F
+        call FindTeamStat
         test eax, eax
         je near .11
-        call sub_E341C
+        call ServiceIdle
         cmp word [dword esi+0FDh], byte 0
         je short .2
         inc word [byte ebp-058h]
@@ -6086,7 +6132,7 @@ sub_DE9F5:
         add word [byte ebp-03Ch], ax
 .10:
         lea eax, [byte ebp-070h]
-        call sub_E0F85
+        call UpdateTeamStat
         test eax, eax
         je short .11
         mov eax, 1
@@ -6096,9 +6142,10 @@ sub_DE9F5:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_DEBA2                                                       DEBA2  97 PC
+; RecordGameResult                                DEBA2  97 PC, low confidence
+; Records the result of a game
 ;-----------------------------------------------------------------------------
-sub_DEBA2:
+RecordGameResult:
         push ecx
         push esi
         push edi
@@ -6219,7 +6266,7 @@ sub_DEBA2:
         lea ebx, [dword esi+0D09h]
         add word [byte eax+027h], dx
         lea edx, [dword ecx+0CBh]
-        call sub_E341C
+        call ServiceIdle
         mov dword [byte ebp-030h], edx
         lea edx, [dword ecx+021EEh]
         mov eax, 1
@@ -6241,7 +6288,7 @@ sub_DEBA2:
 .16:
         mov edx, ebx
         add eax, dword [byte ebp-08h]
-        call sub_DE88E
+        call RecordHomeStats
         add dword [byte ebp-08h], 125h
         inc dword [byte ebp-010h]
         add ebx, byte 38h
@@ -6285,7 +6332,7 @@ sub_DEBA2:
         mov ebx, dword [byte ebp-01Ch]
 .20:
         add eax, dword [byte ebp-04h]
-        call sub_DE9F5
+        call RecordAwayStats
         add dword [byte ebp-04h], 125h
         inc dword [byte ebp-0Ch]
         add dword [byte ebp-020h], byte 38h
@@ -6294,7 +6341,7 @@ sub_DEBA2:
         test eax, eax
         je short .22
         mov eax, esi
-        call sub_E0415
+        call UpdateGameRecord
 .22:
         leave
         pop edi
@@ -6302,9 +6349,10 @@ sub_DEBA2:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DEE3A                                                       DEE3A  97 PC
+; SaveGameResult                                  DEE3A  97 PC, low confidence
+; Saves the result of a game
 ;-----------------------------------------------------------------------------
-sub_DEE3A:
+SaveGameResult:
         push esi
         push edi
         enter 4, 0
@@ -6313,17 +6361,17 @@ sub_DEE3A:
         mov dword [byte ebp-04h], ebx
         mov edx, ecx
         mov ebx, 1
-        call sub_DEBA2
+        call RecordGameResult
         mov edx, eax
         test eax, eax
         je short .1
         mov edx, dword [byte ebp+010h]
         mov eax, esi
         xor ebx, ebx
-        call sub_DEBA2
+        call RecordGameResult
         mov edx, eax
 .1:
-        call sub_E341C
+        call ServiceIdle
         test edx, edx
         je short .2
         movsx edx, word [byte ebp-04h]
@@ -6336,16 +6384,17 @@ sub_DEE3A:
         mov byte [byte eax+03h], dl
 .2:
         mov eax, edi
-        call sub_DE5A3
-sub_DEE3A_55:
+        call WriteLeagueHeader
+SaveGameResult_55:
         leave
         pop edi
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_DEE95                                                       DEE95  97 PC
+; SaveExhibitionResult                            DEE95  97 PC, low confidence
+; Saves the result of an exhibition game
 ;-----------------------------------------------------------------------------
-sub_DEE95:
+SaveExhibitionResult:
         push ebx
         push ecx
         push esi
@@ -6357,7 +6406,7 @@ sub_DEE95:
         jle short .2
 .1:
         xor eax, eax
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .2:
         movsx eax, dx
         mov ecx, dword [byte esi+020h]
@@ -6390,16 +6439,16 @@ sub_DEE95:
         mov eax, str_TEMP2
         call AllocClearBlock20
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov eax, dword [byte ebp-08h]
         add eax, 329Eh
         mov ebx, dword [byte ebp-08h]
         mov dword [byte ebp-04h], eax
-        call sub_E341C
+        call ServiceIdle
         mov edx, dword [byte ebp-04h]
         lea eax, [byte ecx+08h]
         add ebx, 194Fh
-        call sub_E1C19
+        call FindReplayIndexEntry
         mov edx, eax
         test eax, eax
         je short .3
@@ -6408,7 +6457,7 @@ sub_DEE95:
         shl eax, 3
         add eax, edx
         mov edx, dword [byte ebp-08h]
-        call sub_E036F
+        call FindGameRecord
         mov edx, eax
 .3:
         test edx, edx
@@ -6418,7 +6467,7 @@ sub_DEE95:
         shl eax, 3
         add eax, edx
         mov edx, ebx
-        call sub_E036F
+        call FindGameRecord
         mov edx, eax
 .4:
         test edx, edx
@@ -6428,17 +6477,18 @@ sub_DEE95:
         push ebx
         mov edx, esi
         movsx ebx, di
-        call sub_DEE3A
+        call SaveGameResult
         mov edx, eax
 .5:
         lea eax, [byte ebp-08h]
         call FreePtr
         mov eax, edx
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 ;-----------------------------------------------------------------------------
-; sub_DEF96                                                       DEF96  97 PC
+; SaveSeasonResult                                DEF96  97 PC, low confidence
+; Saves the result of a season game
 ;-----------------------------------------------------------------------------
-sub_DEF96:
+SaveSeasonResult:
         push ecx
         push esi
         push edi
@@ -6483,7 +6533,7 @@ sub_DEF96:
         movsx ax, byte [byte ecx+01h]
         cmp ax, word [esi]
         jge short .1
-        call sub_E341C
+        call ServiceIdle
         lea ebx, [byte ebp-0Ch]
         mov edx, 329Eh
         mov eax, str_TEMP2
@@ -6498,7 +6548,7 @@ sub_DEF96:
         mov edx, dword [byte ebp-0Ch]
         add eax, dword [byte ebp-04h]
         add ebx, 194Fh
-        call sub_E036F
+        call FindGameRecord
         mov edx, eax
         test eax, eax
         je short .3
@@ -6507,7 +6557,7 @@ sub_DEF96:
         shl edx, 3
         add eax, edx
         mov edx, ebx
-        call sub_E036F
+        call FindGameRecord
         mov edx, eax
 .3:
         test edx, edx
@@ -6517,7 +6567,7 @@ sub_DEF96:
         push ebx
         mov edx, esi
         movsx ebx, di
-        call sub_DEE3A
+        call SaveGameResult
         mov edx, eax
 .4:
         lea eax, [byte ebp-0Ch]
@@ -6556,9 +6606,9 @@ sub_DEF96:
         pop ebx
         ret
 .7:
-        call sub_E341C
+        call ServiceIdle
         lea eax, [byte ecx+08h]
-        call sub_E1EC9
+        call DeleteReplayIndexEntry
         pop ecx
         pop ebx
         ret
@@ -6589,23 +6639,23 @@ sub_DEF96:
         lea eax, [byte ebp+02h]
         mov dword [byte ebp+02h], 0
         mov dword [byte ebp+06h], 0
-        call sub_E0AD0
+        call MakeTeamStatKey
         lea ebx, [byte ebp+042h]
         mov edx, 6
         mov eax, dword [dword_1CD15C]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
         je near .9
         lea ebx, [byte ebp+06Eh]
         lea edx, [byte ebp+042h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp+042h]
         lea ebx, [byte ebp+06Eh]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         mov edx, dword [byte ebp-06h]
         lea eax, [byte ebp+06Eh]
@@ -6619,12 +6669,12 @@ sub_DEF96:
         lea edx, [byte ebp+04Ch]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp+04Ch]
         lea ebx, [byte ebp+076h]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         mov edx, dword [byte ebp-02h]
         lea eax, [byte ebp+076h]
@@ -6644,9 +6694,10 @@ sub_DEF96:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DF1CF                                                       DF1CF  97 PC
+; MakeGameKey                                     DF1CF  97 PC, low confidence
+; Builds the key of a game record
 ;-----------------------------------------------------------------------------
-sub_DF1CF:
+MakeGameKey:
         push ecx
         push esi
         push edi
@@ -6663,38 +6714,38 @@ sub_DF1CF:
 .1:
         mov eax, 4
         mov edx, edi
-        call sub_DA544
+        call BuildKeyFromLong
 .2:
         mov eax, 4
         mov ebx, ecx
         mov edx, esi
-        call sub_DA57C
+        call BuildKeyFromString
         jmp short .5
 .3:
         add eax, byte 10h
         lea edx, [byte esi+014h]
         mov dword [byte ebp-04h], eax
         mov eax, 4
-        call sub_DA544
+        call BuildKeyFromLong
         mov edx, dword [byte ebp-04h]
         mov eax, 4
         mov ebx, ecx
-        call sub_DA57C
+        call BuildKeyFromString
         mov eax, esi
         mov ebx, ecx
         add eax, byte 8
         lea edx, [byte esi+0Ch]
         mov dword [byte ebp-04h], eax
         mov eax, 4
-        call sub_DA57C
+        call BuildKeyFromString
         mov edx, dword [byte ebp-04h]
         mov eax, 4
         mov ebx, ecx
-        call sub_DA57C
+        call BuildKeyFromString
         mov eax, 4
         mov ebx, ecx
         mov edx, edi
-        call sub_DA57C
+        call BuildKeyFromString
         jmp short .2
 .4:
         xor eax, eax
@@ -6711,9 +6762,10 @@ sub_DF1CF:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_DF274                                                       DF274  97 PC
+; BuildPlayoffRecords                             DF274  97 PC, low confidence
+; Builds the playoff records
 ;-----------------------------------------------------------------------------
-sub_DF274:
+BuildPlayoffRecords:
         push esi
         push edi
         enter 1A30h, 0
@@ -6724,7 +6776,7 @@ sub_DF274:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_DCFB0_325
+        jmp near CreateExhibitionFile_325
 .2:
         imul eax, dword 194Fh
         add edx, 0DF4h
@@ -6733,7 +6785,7 @@ sub_DF274:
         mov edx, 194Fh
         lea eax, [dword ebp-019B2h]
         lea edi, [dword ebp-019AAh]
-        call sub_E2334
+        call ZeroBytesOk
         lea esi, [byte esi+04h]
         movsd
         movsd
@@ -6742,18 +6794,18 @@ sub_DF274:
         lea eax, [dword ebp-019B2h]
         movsd
         movsd
-        call sub_E0297
+        call AddGameRecord
         test eax, eax
-        je near sub_DCFB0_325
-        call sub_E341C
+        je near CreateExhibitionFile_325
+        call ServiceIdle
         mov ebx, 36h
         lea edx, [dword ebp-0199Ah]
         lea eax, [byte ecx+018h]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, 0C7Eh
         lea edx, [dword ebp-0192Bh]
         lea eax, [dword ecx+087h]
-        call sub_E22FC
+        call CopyBytesOk
         mov ax, word [dword ecx+0D07h]
         mov word [dword ebp-0CABh], ax
         mov al, byte [byte ecx+05Bh]
@@ -6786,12 +6838,12 @@ sub_DF274:
         add esi, dword [byte ebp+072h]
         mov ebx, 38h
         mov eax, esi
-        call sub_E22FC
-        call sub_E341C
+        call CopyBytesOk
+        call ServiceIdle
         mov edx, 3Dh
         lea eax, [byte ebp-022h]
         mov ebx, 8
-        call sub_E2334
+        call ZeroBytesOk
         mov edx, unk_16D7F4
         mov eax, dword [byte ebp+03Eh]
         call memcmp_
@@ -6802,7 +6854,7 @@ sub_DF274:
         jne short .4
         lea edx, [byte ebp-062h]
         lea eax, [byte esi+020h]
-        call sub_E0D0F
+        call FindTeamStat
         test eax, eax
         jne short .5
 .4:
@@ -6831,21 +6883,21 @@ sub_DF274:
         test eax, eax
         je short .7
         lea eax, [byte ebp-022h]
-        call sub_E0B82
+        call AddTeamStat
         test eax, eax
         jne short .8
-        jmp near sub_DCFB0_325
+        jmp near CreateExhibitionFile_325
 .7:
         mov edx, dword [dword ebp+08Eh]
         lea eax, [byte ebp-022h]
-        call sub_E0C4F
+        call AddTeamStatAt
         test eax, eax
-        je near sub_DCFB0_325
+        je near CreateExhibitionFile_325
         mov eax, dword [dword ebp+08Eh]
         inc dword [byte eax+04h]
 .8:
         imul esi, dword [byte ebp+04Eh], byte 38h
-        call sub_E341C
+        call ServiceIdle
         lea edi, [dword esi+ebp-0C89h]
         lea esi, [byte ebp-022h]
         mov eax, dword [byte ebp+05Eh]
@@ -6934,11 +6986,11 @@ sub_DF274:
         add esi, dword [byte ebp+06Eh]
         mov ebx, 38h
         mov eax, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, 3Dh
         lea eax, [byte ebp-022h]
         mov ebx, 8
-        call sub_E2334
+        call ZeroBytesOk
         mov edx, unk_16D7F4
         mov eax, dword [byte ebp+07Ah]
         call memcmp_
@@ -6949,7 +7001,7 @@ sub_DF274:
         jne short .18
         lea edx, [byte ebp-062h]
         lea eax, [byte esi+020h]
-        call sub_E0D0F
+        call FindTeamStat
         test eax, eax
         jne short .19
 .18:
@@ -6970,7 +7022,7 @@ sub_DF274:
         mov edx, unk_16D7F4
         movsd
         movsd
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [dword ebp+08Eh]
         call memcmp_
         test eax, eax
@@ -6979,16 +7031,16 @@ sub_DF274:
         test eax, eax
         je short .21
         lea eax, [byte ebp-022h]
-        call sub_E0B82
+        call AddTeamStat
         test eax, eax
         jne short .22
-        jmp near sub_DCFB0_325
+        jmp near CreateExhibitionFile_325
 .21:
         mov edx, dword [dword ebp+08Eh]
         lea eax, [byte ebp-022h]
-        call sub_E0C4F
+        call AddTeamStatAt
         test eax, eax
-        je near sub_DCFB0_325
+        je near CreateExhibitionFile_325
         mov eax, dword [dword ebp+08Eh]
         inc dword [byte eax+04h]
 .22:
@@ -7081,11 +7133,11 @@ sub_DF274:
         add esi, dword [byte ebp+062h]
         mov ebx, 38h
         mov eax, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, 3Dh
         lea eax, [byte ebp-022h]
         mov ebx, 8
-        call sub_E2334
+        call ZeroBytesOk
         mov edx, unk_16D7F4
         mov eax, dword [byte ebp+042h]
         call memcmp_
@@ -7096,7 +7148,7 @@ sub_DF274:
         jne short .32
         lea edx, [byte ebp-062h]
         lea eax, [byte esi+020h]
-        call sub_E0D0F
+        call FindTeamStat
         test eax, eax
         jne short .33
 .32:
@@ -7117,7 +7169,7 @@ sub_DF274:
         mov edx, unk_16D7F4
         movsd
         movsd
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [dword ebp+08Eh]
         call memcmp_
         test eax, eax
@@ -7126,16 +7178,16 @@ sub_DF274:
         test eax, eax
         je short .35
         lea eax, [byte ebp-022h]
-        call sub_E0B82
+        call AddTeamStat
         test eax, eax
         jne short .36
-        jmp near sub_DCFB0_325
+        jmp near CreateExhibitionFile_325
 .35:
         mov edx, dword [dword ebp+08Eh]
         lea eax, [byte ebp-022h]
-        call sub_E0C4F
+        call AddTeamStatAt
         test eax, eax
-        je near sub_DCFB0_325
+        je near CreateExhibitionFile_325
         mov eax, dword [dword ebp+08Eh]
         inc dword [byte eax+04h]
 .36:
@@ -7228,11 +7280,11 @@ sub_DF274:
         add esi, dword [byte ebp+04Ah]
         mov ebx, 38h
         mov eax, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, 3Dh
         lea eax, [byte ebp-022h]
         mov ebx, 8
-        call sub_E2334
+        call ZeroBytesOk
         mov edx, unk_16D7F4
         mov eax, dword [byte ebp+03Ah]
         call memcmp_
@@ -7243,7 +7295,7 @@ sub_DF274:
         jne short .46
         lea edx, [byte ebp-062h]
         lea eax, [byte esi+020h]
-        call sub_E0D0F
+        call FindTeamStat
         test eax, eax
         jne short .47
 .46:
@@ -7272,21 +7324,21 @@ sub_DF274:
         test eax, eax
         je short .49
         lea eax, [byte ebp-022h]
-        call sub_E0B82
+        call AddTeamStat
         test eax, eax
         jne short .50
-        jmp near sub_DCFB0_325
+        jmp near CreateExhibitionFile_325
 .49:
         mov edx, dword [dword ebp+08Eh]
         lea eax, [byte ebp-022h]
-        call sub_E0C4F
+        call AddTeamStatAt
         test eax, eax
-        je near sub_DCFB0_325
+        je near CreateExhibitionFile_325
         mov eax, dword [dword ebp+08Eh]
         inc dword [byte eax+04h]
 .50:
         imul esi, dword [byte ebp+076h], byte 38h
-        call sub_E341C
+        call ServiceIdle
         lea edi, [dword esi+ebp-0EBh]
         lea esi, [byte ebp-022h]
         mov eax, dword [byte ebp+06Ah]
@@ -7358,9 +7410,9 @@ sub_DF274:
         mov ax, word [dword ecx+018A5h]
         mov word [dword ebp-010Dh], ax
         lea eax, [dword ebp-019B2h]
-        call sub_E0415
+        call UpdateGameRecord
         test eax, eax
-        je near sub_DCFB0_325
+        je near CreateExhibitionFile_325
         mov eax, dword [dword ebp-019B6h]
         mov edi, dword [dword ebp-019BAh]
         shl eax, 3
@@ -7370,11 +7422,12 @@ sub_DF274:
         mov eax, 1
         movsd
         movsd
-        jmp near sub_DCFB0_325
+        jmp near CreateExhibitionFile_325
 ;-----------------------------------------------------------------------------
-; sub_DFAF6                                                       DFAF6  97 PC
+; BuildSeasonRecords                              DFAF6  97 PC, low confidence
+; Builds the season records
 ;-----------------------------------------------------------------------------
-sub_DFAF6:
+BuildSeasonRecords:
         push esi
         push edi
         enter 3370h, 0
@@ -7384,20 +7437,20 @@ sub_DFAF6:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_DFAF6_797
+        jmp near BuildSeasonRecords_797
 .2:
         mov esi, eax
         shl esi, 3
         mov eax, dword [byte edx+01Ch]
         lea edx, [dword ebp-032EEh]
         add eax, esi
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
-        je near sub_DFAF6_797
+        je near BuildSeasonRecords_797
         mov edx, 194Fh
         lea eax, [dword ebp-0199Eh]
         lea edi, [dword ebp-01996h]
-        call sub_E2334
+        call ZeroBytesOk
         lea esi, [byte ecx+04h]
         movsd
         movsd
@@ -7406,17 +7459,17 @@ sub_DFAF6:
         lea eax, [dword ebp-0199Eh]
         movsd
         movsd
-        call sub_E0297
+        call AddGameRecord
         test eax, eax
-        je near sub_DFAF6_797
+        je near BuildSeasonRecords_797
         mov ebx, 36h
         lea edx, [dword ebp-01986h]
         lea eax, [dword ebp-032D6h]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, 0C7Eh
         lea edx, [dword ebp-01917h]
         lea eax, [dword ebp-03267h]
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [dword ebp-025E7h]
         mov word [dword ebp-0C97h], ax
         mov al, byte [dword ebp-03293h]
@@ -7442,18 +7495,18 @@ sub_DFAF6:
         movsx eax, word [dword ebp-025E9h]
         cmp eax, dword [byte ebp+062h]
         jle near .14
-        call sub_E341C
+        call ServiceIdle
         imul eax, dword [byte ebp+062h], byte 38h
         lea edx, [dword ebp-0C95h]
         lea esi, [dword ebp-025E5h]
         mov ebx, 38h
         add edx, eax
         add eax, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, 3Dh
         lea eax, [byte ebp-04Eh]
         mov ebx, 8
-        call sub_E2334
+        call ZeroBytesOk
         mov edx, unk_16D7F4
         mov eax, dword [byte ebp+05Ah]
         call memcmp_
@@ -7464,7 +7517,7 @@ sub_DFAF6:
         jne short .4
         lea edx, [byte ebp-0Eh]
         mov eax, dword [byte ebp+05Ah]
-        call sub_E0D0F
+        call FindTeamStat
         test eax, eax
         jne short .5
 .4:
@@ -7484,9 +7537,9 @@ sub_DFAF6:
         lea eax, [byte ebp-04Eh]
         movsd
         movsd
-        call sub_E0B82
+        call AddTeamStat
         test eax, eax
-        je near sub_DFAF6_797
+        je near BuildSeasonRecords_797
         lea eax, [dword ebp-0C95h]
         lea esi, [byte ebp-04Eh]
         lea edi, [dword edx+ebp-0C75h]
@@ -7570,18 +7623,18 @@ sub_DFAF6:
         movsx eax, word [dword ebp-0206Dh]
         cmp eax, dword [byte ebp+07Ah]
         jle near .26
-        call sub_E341C
+        call ServiceIdle
         imul eax, dword [byte ebp+07Ah], byte 38h
         lea edx, [dword ebp-071Bh]
         lea esi, [dword ebp-0206Bh]
         mov ebx, 38h
         add edx, eax
         add eax, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, 3Dh
         lea eax, [byte ebp-04Eh]
         mov ebx, 8
-        call sub_E2334
+        call ZeroBytesOk
         mov edx, unk_16D7F4
         mov eax, dword [byte ebp+072h]
         call memcmp_
@@ -7592,7 +7645,7 @@ sub_DFAF6:
         jne short .16
         lea edx, [byte ebp-0Eh]
         mov eax, dword [byte ebp+072h]
-        call sub_E0D0F
+        call FindTeamStat
         test eax, eax
         jne short .17
 .16:
@@ -7612,9 +7665,9 @@ sub_DFAF6:
         lea eax, [byte ebp-04Eh]
         movsd
         movsd
-        call sub_E0B82
+        call AddTeamStat
         test eax, eax
-        je near sub_DFAF6_797
+        je near BuildSeasonRecords_797
         lea eax, [dword ebp-071Bh]
         lea esi, [byte ebp-04Eh]
         lea edi, [dword edx+ebp-06FBh]
@@ -7698,18 +7751,18 @@ sub_DFAF6:
         movsx eax, word [dword ebp-01FC3h]
         cmp eax, dword [byte ebp+066h]
         jle near .38
-        call sub_E341C
+        call ServiceIdle
         imul eax, dword [byte ebp+066h], byte 38h
         lea edx, [dword ebp-0671h]
         lea esi, [dword ebp-01FC1h]
         mov ebx, 38h
         add edx, eax
         add eax, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, 3Dh
         lea eax, [byte ebp-04Eh]
         mov ebx, 8
-        call sub_E2334
+        call ZeroBytesOk
         mov edx, unk_16D7F4
         mov eax, dword [byte ebp+076h]
         call memcmp_
@@ -7720,7 +7773,7 @@ sub_DFAF6:
         jne short .28
         lea edx, [byte ebp-0Eh]
         mov eax, dword [byte ebp+076h]
-        call sub_E0D0F
+        call FindTeamStat
         test eax, eax
         jne short .29
 .28:
@@ -7740,9 +7793,9 @@ sub_DFAF6:
         lea eax, [byte ebp-04Eh]
         movsd
         movsd
-        call sub_E0B82
+        call AddTeamStat
         test eax, eax
-        je near sub_DFAF6_797
+        je near BuildSeasonRecords_797
         lea eax, [dword ebp-0671h]
         lea esi, [byte ebp-04Eh]
         lea edi, [dword edx+ebp-0651h]
@@ -7826,18 +7879,18 @@ sub_DFAF6:
         movsx eax, word [dword ebp-01A49h]
         cmp eax, dword [byte ebp+05Eh]
         jle near .50
-        call sub_E341C
+        call ServiceIdle
         imul eax, dword [byte ebp+05Eh], byte 38h
         lea edx, [dword ebp-0F7h]
         lea esi, [dword ebp-01A47h]
         mov ebx, 38h
         add edx, eax
         add eax, esi
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, 3Dh
         lea eax, [byte ebp-04Eh]
         mov ebx, 8
-        call sub_E2334
+        call ZeroBytesOk
         mov edx, unk_16D7F4
         mov eax, dword [byte ebp+056h]
         call memcmp_
@@ -7848,7 +7901,7 @@ sub_DFAF6:
         jne short .40
         lea edx, [byte ebp-0Eh]
         mov eax, dword [byte ebp+056h]
-        call sub_E0D0F
+        call FindTeamStat
         test eax, eax
         jne short .41
 .40:
@@ -7868,9 +7921,9 @@ sub_DFAF6:
         lea eax, [byte ebp-04Eh]
         movsd
         movsd
-        call sub_E0B82
+        call AddTeamStat
         test eax, eax
-        je near sub_DFAF6_797
+        je near BuildSeasonRecords_797
         lea eax, [dword ebp-0F7h]
         lea esi, [byte ebp-04Eh]
         lea edi, [dword edx+ebp-0D7h]
@@ -7944,9 +7997,9 @@ sub_DFAF6:
         mov eax, dword [dword ebp-01A49h]
         mov word [dword ebp-0F9h], ax
         lea eax, [dword ebp-0199Eh]
-        call sub_E0415
+        call UpdateGameRecord
         test eax, eax
-        je short sub_DFAF6_797
+        je short BuildSeasonRecords_797
         mov edi, dword [dword ebp-032F2h]
         mov eax, dword [byte ecx+01Ch]
         shl edi, 3
@@ -7954,18 +8007,19 @@ sub_DFAF6:
         add edi, eax
         movsd
         movsd
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
-sub_DFAF6_797:
+BuildSeasonRecords_797:
         lea esp, [dword ebp+082h]
         pop ebp
         pop edi
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_E0297                                                       E0297  97 PC
+; AddGameRecord                                   E0297  97 PC, low confidence
+; Adds a game record
 ;-----------------------------------------------------------------------------
-sub_E0297:
+AddGameRecord:
         push ebx
         push ecx
         push edx
@@ -7976,64 +8030,65 @@ sub_E0297:
         cmp word [word_16D7EE], byte 0
         jne short .1
         xor eax, eax
-        jmp near sub_DA7EB_18
+        jmp near OpenGameDatabase_18
 .1:
         mov edx, eax
         mov eax, 3
-        call sub_DCEA4
+        call MakeLeagueKey
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         mov ebx, 194Fh
         lea edx, [byte ebp-04h]
         mov eax, 2
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         mov ebx, 194Fh
         mov eax, dword [dword_1CD188]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         lea ebx, [byte ebp-05Ch]
         mov edx, 3
         mov eax, esi
-        call sub_DF1CF
+        call MakeGameKey
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 3
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         mov edi, eax
         test eax, eax
-        je short sub_E0297_CC
+        je short AddGameRecord_CC
         lea ebx, [byte ebp-030h]
         mov edx, 4
         mov eax, esi
-        call sub_DF1CF
+        call MakeGameKey
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 4
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
-        jne short sub_E0297_CC
+        jne short AddGameRecord_CC
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 3
-sub_E0297_C0:
+AddGameRecord_C0:
         mov eax, dword [dword_1CD15C]
-sub_E0297_C5:
-        call sub_D9960
+AddGameRecord_C5:
+        call DeleteIndexKey
         xor edi, edi
-sub_E0297_CC:
-        call sub_E341C
+AddGameRecord_CC:
+        call ServiceIdle
         mov eax, edi
-        jmp near sub_DA7EB_18
+        jmp near OpenGameDatabase_18
 ;-----------------------------------------------------------------------------
-; sub_E036F                                                       E036F  97 PC
+; FindGameRecord                                  E036F  97 PC, low confidence
+; Finds a game record
 ;-----------------------------------------------------------------------------
-sub_E036F:
+FindGameRecord:
         push ebx
         push ecx
         push esi
@@ -8043,7 +8098,7 @@ sub_E036F:
         cmp word [word_16D7EE], byte 0
         jne short .1
         xor eax, eax
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .1:
         lea ebx, [byte ebp-038h]
         lea ecx, [byte ebp-04h]
@@ -8053,23 +8108,23 @@ sub_E036F:
         mov eax, dword [byte ebp-03Ch]
         movsd
         movsd
-        call sub_DF1CF
+        call MakeGameKey
         lea ebx, [byte ebp-038h]
         mov edx, 3
         mov eax, dword [dword_1CD15C]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je short sub_E036F_A0
+        je short FindGameRecord_A0
         lea ebx, [byte ebp-0Ch]
         lea edx, [byte ebp-038h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-038h]
         lea ebx, [byte ebp-0Ch]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         mov edx, dword [byte ebp-03Ch]
         lea eax, [byte ebp-0Ch]
@@ -8078,14 +8133,14 @@ sub_E036F:
         sete al
         movzx eax, al
         test eax, eax
-        je short sub_E036F_A0
+        je short FindGameRecord_A0
         mov ecx, dword [byte ebp-03Ch]
         mov ebx, 194Fh
         mov edx, dword [byte ebp-04h]
         mov eax, 2
-sub_E036F_9B:
-        call sub_DAFF8
-sub_E036F_A0:
+FindGameRecord_9B:
+        call ReadDbRecord
+FindGameRecord_A0:
         leave
         pop edi
         pop esi
@@ -8093,9 +8148,10 @@ sub_E036F_A0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E0415                                                       E0415  97 PC
+; UpdateGameRecord                                E0415  97 PC, low confidence
+; Updates a game record
 ;-----------------------------------------------------------------------------
-sub_E0415:
+UpdateGameRecord:
         push ebx
         push ecx
         push edx
@@ -8108,28 +8164,28 @@ sub_E0415:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_DCC75_1A6
+        jmp near UpdatePlayerRecord_1A6
 .2:
         lea ebx, [byte ebp+04Ah]
         mov edx, 3
         lea ecx, [byte ebp+07Eh]
-        call sub_DF1CF
+        call MakeGameKey
         lea ebx, [byte ebp+04Ah]
         mov edx, 3
         mov eax, dword [dword_1CD15C]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea ebx, [byte ebp+076h]
         lea edx, [byte ebp+04Ah]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp+04Ah]
         lea ebx, [byte ebp+076h]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         lea eax, [byte ebp+076h]
         mov edx, esi
@@ -8145,56 +8201,56 @@ sub_E0415:
         mov ebx, 194Fh
         lea edx, [byte ebp+07Eh]
         mov eax, 2
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         mov ebx, 194Fh
         mov eax, dword [dword_1CD188]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea ebx, [byte ebp+04Ah]
         mov edx, 3
         mov eax, esi
-        call sub_DF1CF
+        call MakeGameKey
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
         mov edx, 3
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         mov edi, eax
         test eax, eax
         je short .3
         lea ebx, [byte ebp+01Eh]
         mov edx, 4
         mov eax, esi
-        call sub_DF1CF
+        call MakeGameKey
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+01Eh]
         mov edx, 4
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
         jne short .3
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
         mov edx, 3
         mov eax, dword [dword_1CD15C]
-        call sub_D9960
+        call DeleteIndexKey
         xor edi, edi
 .3:
         mov eax, edi
-        jmp near sub_DCC75_1A6
+        jmp near UpdatePlayerRecord_1A6
 .4:
-        call sub_E341C
+        call ServiceIdle
         lea ecx, [dword ebp-0195Eh]
         mov ebx, 194Fh
         mov edx, dword [byte ebp+07Eh]
         mov eax, 2
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         mov ebx, 8
         lea edx, [dword ebp-0194Eh]
         lea eax, [byte esi+010h]
@@ -8206,41 +8262,42 @@ sub_E0415:
         je short .5
         lea edx, [dword ebp-01956h]
         lea eax, [byte esi+08h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         jne short .6
 .5:
         lea ebx, [byte ebp-0Eh]
         mov edx, 4
         lea eax, [dword ebp-0195Eh]
-        call sub_DF1CF
+        call MakeGameKey
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Eh]
         mov edx, 4
         mov eax, dword [dword_1CD15C]
-        call sub_D9960
+        call DeleteIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea ebx, [byte ebp-0Eh]
         mov edx, 4
         mov eax, esi
-        call sub_DF1CF
+        call MakeGameKey
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Eh]
         mov edx, 4
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
 .6:
         mov ebx, 194Fh
         mov edx, dword [byte ebp+07Eh]
         mov eax, 2
-        jmp near sub_DCC75_19F
+        jmp near UpdatePlayerRecord_19F
 ;-----------------------------------------------------------------------------
-; sub_E0617                                                       E0617  97 PC
+; MakePlayerStatKey                               E0617  97 PC, low confidence
+; Builds the key of a player stats record
 ;-----------------------------------------------------------------------------
-sub_E0617:
+MakePlayerStatKey:
         push ecx
         push esi
         push edi
@@ -8257,27 +8314,27 @@ sub_E0617:
 .1:
         mov eax, 4
         mov edx, edi
-        call sub_DA544
+        call BuildKeyFromLong
 .2:
         mov eax, 4
         mov ebx, ecx
         mov edx, esi
-        call sub_DA57C
+        call BuildKeyFromString
         jmp short .5
 .3:
         add eax, edx
         mov dword [byte ebp-04h], eax
         lea edx, [byte esi+0Ch]
         mov eax, 4
-        call sub_DA544
+        call BuildKeyFromLong
         mov edx, dword [byte ebp-04h]
         mov eax, 4
         mov ebx, ecx
-        call sub_DA57C
+        call BuildKeyFromString
         mov eax, 4
         mov ebx, ecx
         mov edx, edi
-        call sub_DA57C
+        call BuildKeyFromString
         jmp short .2
 .4:
         xor eax, eax
@@ -8294,17 +8351,19 @@ sub_E0617:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E0691                                                       E0691  97 PC
+; MakeGoalieStatKey                               E0691  97 PC, low confidence
+; Builds the key of a goalie stats record (probably)
 ;-----------------------------------------------------------------------------
-sub_E0691:
+MakeGoalieStatKey:
         push edx
         mov edx, eax
         mov eax, 7
-        jmp near sub_DCFA4_5
+        jmp near MakeLeagueKeyBase_5
 ;-----------------------------------------------------------------------------
-; sub_E069E                                                       E069E  97 PC
+; AddPlayerStat                                   E069E  97 PC, low confidence
+; Adds a player stats record
 ;-----------------------------------------------------------------------------
-sub_E069E:
+AddPlayerStat:
         push ebx
         push ecx
         push edx
@@ -8315,56 +8374,57 @@ sub_E069E:
         cmp word [word_16D7EE], byte 0
         jne short .1
         xor eax, eax
-        jmp near sub_DA7EB_18
+        jmp near OpenGameDatabase_18
 .1:
         mov edx, eax
         mov eax, 7
-        call sub_DCEA4
+        call MakeLeagueKey
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         mov ebx, 27h
         lea edx, [byte ebp-04h]
         mov eax, 4
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         mov ebx, 27h
         mov eax, dword [dword_1CD190]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         lea ebx, [byte ebp-05Ch]
         mov edx, 7
         mov eax, esi
-        call sub_E0617
+        call MakePlayerStatKey
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 7
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         mov edi, eax
         test eax, eax
-        je near sub_E0297_CC
+        je near AddGameRecord_CC
         lea ebx, [byte ebp-030h]
         mov edx, 8
         mov eax, esi
-        call sub_E0617
+        call MakePlayerStatKey
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 8
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
-        jne near sub_E0297_CC
+        jne near AddGameRecord_CC
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 7
-        jmp near sub_E0297_C0
+        jmp near AddGameRecord_C0
 ;-----------------------------------------------------------------------------
-; sub_E076B                                                       E076B  97 PC
+; AddPlayerStatAt                                 E076B  97 PC, low confidence
+; Adds a player stats record at a key
 ;-----------------------------------------------------------------------------
-sub_E076B:
+AddPlayerStatAt:
         push ebx
         push ecx
         push esi
@@ -8375,7 +8435,7 @@ sub_E076B:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .2:
         mov eax, dword [edx]
         cmp eax, dword [dword_16D7F0]
@@ -8387,54 +8447,55 @@ sub_E076B:
         lea edx, [byte ebp-04h]
         movsd
         movsd
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ebx, 27h
         mov edx, dword [byte ebp-060h]
         mov eax, dword [dword_1CD190]
         call FileWriteRecord
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         lea ebx, [byte ebp-05Ch]
         mov edx, 7
         mov eax, dword [byte ebp-060h]
-        call sub_E0617
+        call MakePlayerStatKey
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 7
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         mov esi, eax
         test eax, eax
-        je short sub_E076B_CA
+        je short AddPlayerStatAt_CA
         lea ebx, [byte ebp-030h]
         mov edx, 8
         mov eax, dword [byte ebp-060h]
-        call sub_E0617
+        call MakePlayerStatKey
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 8
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
-        jne short sub_E076B_CA
+        jne short AddPlayerStatAt_CA
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 7
-sub_E076B_BE:
+AddPlayerStatAt_BE:
         mov eax, dword [dword_1CD15C]
-sub_E076B_C3:
-        call sub_D9960
+AddPlayerStatAt_C3:
+        call DeleteIndexKey
         xor esi, esi
-sub_E076B_CA:
-        call sub_E341C
+AddPlayerStatAt_CA:
+        call ServiceIdle
         mov eax, esi
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 ;-----------------------------------------------------------------------------
-; sub_E0841                                                       E0841  97 PC
+; FindPlayerStat                                  E0841  97 PC, low confidence
+; Finds a player stats record
 ;-----------------------------------------------------------------------------
-sub_E0841:
+FindPlayerStat:
         push ebx
         push ecx
         push esi
@@ -8444,7 +8505,7 @@ sub_E0841:
         cmp word [word_16D7EE], byte 0
         jne short .1
         xor eax, eax
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .1:
         lea ebx, [byte ebp-038h]
         lea ecx, [byte ebp-04h]
@@ -8454,23 +8515,23 @@ sub_E0841:
         mov eax, dword [byte ebp-03Ch]
         movsd
         movsd
-        call sub_E0617
+        call MakePlayerStatKey
         lea ebx, [byte ebp-038h]
         mov edx, 7
         mov eax, dword [dword_1CD15C]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         lea ebx, [byte ebp-0Ch]
         lea edx, [byte ebp-038h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-038h]
         lea ebx, [byte ebp-0Ch]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         mov edx, dword [byte ebp-03Ch]
         lea eax, [byte ebp-0Ch]
@@ -8479,16 +8540,17 @@ sub_E0841:
         sete al
         movzx eax, al
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ecx, dword [byte ebp-03Ch]
         mov ebx, 27h
         mov edx, dword [byte ebp-04h]
         mov eax, 4
-        jmp near sub_E036F_9B
+        jmp near FindGameRecord_9B
 ;-----------------------------------------------------------------------------
-; sub_E08E9                                                       E08E9  97 PC
+; UpdatePlayerStat                                E08E9  97 PC, low confidence
+; Updates a player stats record
 ;-----------------------------------------------------------------------------
-sub_E08E9:
+UpdatePlayerStat:
         push ebx
         push ecx
         push edx
@@ -8501,28 +8563,28 @@ sub_E08E9:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_DCC75_1A6
+        jmp near UpdatePlayerRecord_1A6
 .2:
         lea ebx, [byte ebp+022h]
         mov edx, 7
         lea ecx, [byte ebp+07Eh]
-        call sub_E0617
+        call MakePlayerStatKey
         lea ebx, [byte ebp+022h]
         mov edx, 7
         mov eax, dword [dword_1CD15C]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea ebx, [byte ebp+076h]
         lea edx, [byte ebp+022h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp+022h]
         lea ebx, [byte ebp+076h]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         lea eax, [byte ebp+076h]
         mov edx, esi
@@ -8538,56 +8600,56 @@ sub_E08E9:
         mov ebx, 27h
         lea edx, [byte ebp+07Eh]
         mov eax, 4
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         mov ebx, 27h
         mov eax, dword [dword_1CD190]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea ebx, [byte ebp+022h]
         mov edx, 7
         mov eax, esi
-        call sub_E0617
+        call MakePlayerStatKey
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+022h]
         mov edx, 7
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         mov edi, eax
         test eax, eax
         je short .3
         lea ebx, [byte ebp-036h]
         mov edx, 8
         mov eax, esi
-        call sub_E0617
+        call MakePlayerStatKey
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-036h]
         mov edx, 8
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
         jne short .3
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+022h]
         mov edx, 7
         mov eax, dword [dword_1CD15C]
-        call sub_D9960
+        call DeleteIndexKey
         xor edi, edi
 .3:
         mov eax, edi
-        jmp near sub_DCC75_1A6
+        jmp near UpdatePlayerRecord_1A6
 .4:
-        call sub_E341C
+        call ServiceIdle
         lea ecx, [byte ebp+04Eh]
         mov ebx, 27h
         mov edx, dword [byte ebp+07Eh]
         mov eax, 4
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         mov ebx, 8
         lea edx, [byte ebp+056h]
         lea eax, [byte esi+08h]
@@ -8600,34 +8662,35 @@ sub_E08E9:
         lea ebx, [byte ebp-0Ah]
         mov edx, 8
         lea eax, [byte ebp+04Eh]
-        call sub_E0617
+        call MakePlayerStatKey
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Ah]
         mov edx, 8
         mov eax, dword [dword_1CD15C]
-        call sub_D9960
+        call DeleteIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea ebx, [byte ebp-0Ah]
         mov edx, 8
         mov eax, esi
-        call sub_E0617
+        call MakePlayerStatKey
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Ah]
         mov edx, 8
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
 .5:
         mov ebx, 27h
         mov edx, dword [byte ebp+07Eh]
         mov eax, 4
-        jmp near sub_DCC75_19F
+        jmp near UpdatePlayerRecord_19F
 ;-----------------------------------------------------------------------------
-; sub_E0AD0                                                       E0AD0  97 PC
+; MakeTeamStatKey                                 E0AD0  97 PC, low confidence
+; Builds the key of a team stats record
 ;-----------------------------------------------------------------------------
-sub_E0AD0:
+MakeTeamStatKey:
         push ecx
         push esi
         push edi
@@ -8644,38 +8707,38 @@ sub_E0AD0:
 .1:
         mov eax, 4
         mov edx, edi
-        call sub_DA544
+        call BuildKeyFromLong
 .2:
         mov eax, 4
         mov ebx, ecx
         mov edx, esi
-        call sub_DA57C
+        call BuildKeyFromString
         jmp short .5
 .3:
         add eax, byte 10h
         lea edx, [byte esi+014h]
         mov dword [byte ebp-04h], eax
         mov eax, 4
-        call sub_DA544
+        call BuildKeyFromLong
         mov edx, dword [byte ebp-04h]
         mov eax, 4
         mov ebx, ecx
-        call sub_DA57C
+        call BuildKeyFromString
         mov eax, esi
         mov ebx, ecx
         add eax, byte 8
         lea edx, [byte esi+0Ch]
         mov dword [byte ebp-04h], eax
         mov eax, 4
-        call sub_DA57C
+        call BuildKeyFromString
         mov edx, dword [byte ebp-04h]
         mov eax, 4
         mov ebx, ecx
-        call sub_DA57C
+        call BuildKeyFromString
         mov eax, 4
         mov ebx, ecx
         mov edx, edi
-        call sub_DA57C
+        call BuildKeyFromString
         jmp short .2
 .4:
         xor eax, eax
@@ -8692,17 +8755,19 @@ sub_E0AD0:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E0B75                                                       E0B75  97 PC
+; MakeStandingsKey                                E0B75  97 PC, low confidence
+; Builds the key of a standings record (probably)
 ;-----------------------------------------------------------------------------
-sub_E0B75:
+MakeStandingsKey:
         push edx
         mov edx, eax
         mov eax, 5
-        jmp near sub_DCFA4_5
+        jmp near MakeLeagueKeyBase_5
 ;-----------------------------------------------------------------------------
-; sub_E0B82                                                       E0B82  97 PC
+; AddTeamStat                                     E0B82  97 PC, low confidence
+; Adds a team stats record
 ;-----------------------------------------------------------------------------
-sub_E0B82:
+AddTeamStat:
         push ebx
         push ecx
         push edx
@@ -8713,56 +8778,57 @@ sub_E0B82:
         cmp word [word_16D7EE], byte 0
         jne short .1
         xor eax, eax
-        jmp near sub_DA7EB_18
+        jmp near OpenGameDatabase_18
 .1:
         mov edx, eax
         mov eax, 5
-        call sub_DCEA4
+        call MakeLeagueKey
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         mov ebx, 3Dh
         lea edx, [byte ebp-04h]
         mov eax, 3
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         mov ebx, 3Dh
         mov eax, dword [dword_1CD18C]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         lea ebx, [byte ebp-05Ch]
         mov edx, 5
         mov eax, esi
-        call sub_E0AD0
+        call MakeTeamStatKey
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 5
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         mov edi, eax
         test eax, eax
-        je near sub_E0297_CC
+        je near AddGameRecord_CC
         lea ebx, [byte ebp-030h]
         mov edx, 6
         mov eax, esi
-        call sub_E0AD0
+        call MakeTeamStatKey
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 6
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
-        jne near sub_E0297_CC
+        jne near AddGameRecord_CC
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 5
-        jmp near sub_E0297_C0
+        jmp near AddGameRecord_C0
 ;-----------------------------------------------------------------------------
-; sub_E0C4F                                                       E0C4F  97 PC
+; AddTeamStatAt                                   E0C4F  97 PC, low confidence
+; Adds a team stats record at a key
 ;-----------------------------------------------------------------------------
-sub_E0C4F:
+AddTeamStatAt:
         push ebx
         push ecx
         push esi
@@ -8772,7 +8838,7 @@ sub_E0C4F:
         cmp word [word_16D7EE], byte 0
         jne short .1
         xor eax, eax
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .1:
         mov ebx, 3Dh
         mov edi, eax
@@ -8781,46 +8847,47 @@ sub_E0C4F:
         mov eax, 3
         movsd
         movsd
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ebx, 3Dh
         mov edx, dword [byte ebp-060h]
         mov eax, dword [dword_1CD18C]
         call FileWriteRecord
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         lea ebx, [byte ebp-05Ch]
         mov edx, 5
         mov eax, dword [byte ebp-060h]
-        call sub_E0AD0
+        call MakeTeamStatKey
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 5
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         mov esi, eax
         test eax, eax
-        je near sub_E076B_CA
+        je near AddPlayerStatAt_CA
         lea ebx, [byte ebp-030h]
         mov edx, 6
         mov eax, dword [byte ebp-060h]
-        call sub_E0AD0
+        call MakeTeamStatKey
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 6
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
-        jne near sub_E076B_CA
+        jne near AddPlayerStatAt_CA
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 5
-        jmp near sub_E076B_BE
+        jmp near AddPlayerStatAt_BE
 ;-----------------------------------------------------------------------------
-; sub_E0D0F                                                       E0D0F  97 PC
+; FindTeamStat                                    E0D0F  97 PC, low confidence
+; Finds a team stats record
 ;-----------------------------------------------------------------------------
-sub_E0D0F:
+FindTeamStat:
         push ebx
         push ecx
         push esi
@@ -8830,7 +8897,7 @@ sub_E0D0F:
         cmp word [word_16D7EE], byte 0
         jne short .1
         xor eax, eax
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .1:
         lea ebx, [byte ebp-038h]
         lea ecx, [byte ebp-04h]
@@ -8840,23 +8907,23 @@ sub_E0D0F:
         mov eax, dword [byte ebp-03Ch]
         movsd
         movsd
-        call sub_E0AD0
+        call MakeTeamStatKey
         lea ebx, [byte ebp-038h]
         mov edx, 5
         mov eax, dword [dword_1CD15C]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         lea ebx, [byte ebp-0Ch]
         lea edx, [byte ebp-038h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-038h]
         lea ebx, [byte ebp-0Ch]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         mov edx, dword [byte ebp-03Ch]
         lea eax, [byte ebp-0Ch]
@@ -8865,16 +8932,17 @@ sub_E0D0F:
         sete al
         movzx eax, al
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ecx, dword [byte ebp-03Ch]
         mov ebx, 3Dh
         mov edx, dword [byte ebp-04h]
         mov eax, 3
-        jmp near sub_E036F_9B
+        jmp near FindGameRecord_9B
 ;-----------------------------------------------------------------------------
-; sub_E0DB7                                                       E0DB7  97 PC
+; ReadTeamStats                                   E0DB7  97 PC, low confidence
+; Reads a team's stats records
 ;-----------------------------------------------------------------------------
-sub_E0DB7:
+ReadTeamStats:
         push ecx
         push esi
         push edi
@@ -8907,11 +8975,11 @@ sub_E0DB7:
         mov dword [byte ebx+04h], 0
         lea ebx, [byte ebp-054h]
         lea ecx, [byte ebp-018h]
-        call sub_E0AD0
+        call MakeTeamStatKey
         lea ebx, [byte ebp-054h]
         mov edx, 6
         mov eax, dword [dword_1CD15C]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
         je near .6
         lea edi, [byte ebp-020h]
@@ -8919,12 +8987,12 @@ sub_E0DB7:
         add edi, byte 4
         mov eax, 4
         mov ebx, edi
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-054h]
         lea ebx, [byte ebp-020h]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         mov edx, dword [byte ebp-05Ch]
         lea eax, [byte ebp-020h]
@@ -8941,11 +9009,11 @@ sub_E0DB7:
         lea esi, [byte ebp-04Ah]
         mov ebx, ecx
         add esi, byte 5
-        call sub_DA654
+        call KeyToLong
         lea ebx, [byte ebp-028h]
         mov eax, 4
         mov edx, esi
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         mov edx, dword [byte ebp-058h]
         lea eax, [byte ebp-028h]
@@ -8968,7 +9036,7 @@ sub_E0DB7:
         mov edx, 6
         mov dword [byte ebp-0Ch], eax
         mov eax, dword [dword_1CD15C]
-        call sub_DA48C
+        call NextIndexKey
         test eax, eax
         je near .6
         cmp byte [byte ebp-054h], 0
@@ -8984,19 +9052,19 @@ sub_E0DB7:
         mov ebx, dword [byte ebp-014h]
         lea edx, [byte ebp-054h]
         mov eax, 4
-        call sub_DA654
+        call KeyToLong
         lea ebx, [byte ebp-020h]
         mov edx, dword [byte ebp-010h]
         mov eax, 4
-        call sub_DA654
+        call KeyToLong
         mov ebx, dword [byte ebp-04h]
         lea edx, [byte ebp-04Ah]
         mov eax, 4
-        call sub_DA654
+        call KeyToLong
         lea ebx, [byte ebp-028h]
         mov edx, dword [byte ebp-08h]
         mov eax, 4
-        call sub_DA654
+        call KeyToLong
 .4:
         mov ebx, 8
         mov edx, dword [byte ebp-05Ch]
@@ -9009,7 +9077,7 @@ sub_E0DB7:
         je short .5
         mov edx, dword [byte ebp-058h]
         lea eax, [byte ebp-028h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         jne near .2
 .5:
@@ -9017,7 +9085,7 @@ sub_E0DB7:
         mov ebx, 3Dh
         mov edx, dword [byte ebp-0Ch]
         mov eax, 3
-        call sub_DAFF8
+        call ReadDbRecord
 .6:
         leave
         pop edi
@@ -9025,9 +9093,10 @@ sub_E0DB7:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E0F85                                                       E0F85  97 PC
+; UpdateTeamStat                                  E0F85  97 PC, low confidence
+; Updates a team stats record
 ;-----------------------------------------------------------------------------
-sub_E0F85:
+UpdateTeamStat:
         push ebx
         push ecx
         push edx
@@ -9040,28 +9109,28 @@ sub_E0F85:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_DCC75_1A6
+        jmp near UpdatePlayerRecord_1A6
 .2:
         lea ebx, [byte ebp+04Ah]
         mov edx, 5
         lea ecx, [byte ebp+07Eh]
-        call sub_E0AD0
+        call MakeTeamStatKey
         lea ebx, [byte ebp+04Ah]
         mov edx, 5
         mov eax, dword [dword_1CD15C]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea ebx, [byte ebp+076h]
         lea edx, [byte ebp+04Ah]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp+04Ah]
         lea ebx, [byte ebp+076h]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         lea eax, [byte ebp+076h]
         mov edx, esi
@@ -9077,56 +9146,56 @@ sub_E0F85:
         mov ebx, 3Dh
         lea edx, [byte ebp+07Eh]
         mov eax, 3
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         mov ebx, 3Dh
         mov eax, dword [dword_1CD18C]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea ebx, [byte ebp+04Ah]
         mov edx, 5
         mov eax, esi
-        call sub_E0AD0
+        call MakeTeamStatKey
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
         mov edx, 5
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         mov edi, eax
         test eax, eax
         je short .3
         lea ebx, [byte ebp+01Eh]
         mov edx, 6
         mov eax, esi
-        call sub_E0AD0
+        call MakeTeamStatKey
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+01Eh]
         mov edx, 6
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
         jne short .3
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
         mov edx, 5
         mov eax, dword [dword_1CD15C]
-        call sub_D9960
+        call DeleteIndexKey
         xor edi, edi
 .3:
         mov eax, edi
-        jmp near sub_DCC75_1A6
+        jmp near UpdatePlayerRecord_1A6
 .4:
-        call sub_E341C
+        call ServiceIdle
         lea ecx, [byte ebp-04Eh]
         mov ebx, 3Dh
         mov edx, dword [byte ebp+07Eh]
         mov eax, 3
-        call sub_DAFF8
+        call ReadDbRecord
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         mov ebx, 8
         lea edx, [byte ebp-03Eh]
         lea eax, [byte esi+010h]
@@ -9138,37 +9207,37 @@ sub_E0F85:
         je short .5
         lea edx, [byte ebp-046h]
         lea eax, [byte esi+08h]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         jne short .6
 .5:
         lea ebx, [byte ebp-0Eh]
         mov edx, 6
         lea eax, [byte ebp-04Eh]
-        call sub_E0AD0
+        call MakeTeamStatKey
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Eh]
         mov edx, 6
         mov eax, dword [dword_1CD15C]
-        call sub_D9960
+        call DeleteIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea ebx, [byte ebp-0Eh]
         mov edx, 6
         mov eax, esi
-        call sub_E0AD0
+        call MakeTeamStatKey
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Eh]
         mov edx, 6
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
+        call AddIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
 .6:
         mov ebx, 3Dh
         mov edx, dword [byte ebp+07Eh]
         mov eax, 3
-        jmp near sub_DCC75_19F
+        jmp near UpdatePlayerRecord_19F
 ;-----------------------------------------------------------------------------
 ; LoadExhibitionFile                           E117B  97 PC, medium confidence
 ; (&block): reads the exhibition file %s%s.EXH into a new "EXHIBIT" block
@@ -9227,7 +9296,7 @@ LoadExhibitionFile:
         call AllocClearBlock
         test eax, eax
         je short .1
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [ecx]
         movsx ebx, word [eax]
         imul ebx, byte 38h
@@ -9284,7 +9353,7 @@ SaveExhibitionFile:
         pop ebx
         ret
 .2:
-        call sub_E341C
+        call ServiceIdle
         cmp word [ecx], byte 0
         jle short .3
         movsx ebx, word [ecx]
@@ -9322,9 +9391,10 @@ FreeExhibitionFile:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E12EF                                                       E12EF  97 PC
+; ResetExhibitionStats                            E12EF  97 PC, low confidence
+; Resets the exhibition stats
 ;-----------------------------------------------------------------------------
-sub_E12EF:
+ResetExhibitionStats:
         push ebx
         push ecx
         push edx
@@ -9337,7 +9407,7 @@ sub_E12EF:
         mov eax, str_ORIGEXH
         call AllocClearBlock
         test eax, eax
-        je near sub_DA7EB_18
+        je near OpenGameDatabase_18
         mov eax, dword [ecx]
         mov word [eax], 0
         xor ebx, ebx
@@ -9353,23 +9423,23 @@ sub_E12EF:
         add edx, 0DF4h
         lea eax, [byte ebp-010h]
         add edx, ebx
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
         jne short .3
 .2:
         mov eax, ecx
         call FreePtr
         xor eax, eax
-        jmp near sub_DA7EB_18
+        jmp near OpenGameDatabase_18
 .3:
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [ecx]
         lea edx, [byte eax+02h]
         add eax, 0DF4h
         add eax, ebx
         add edx, dword [byte ebp-08h]
         add eax, byte 10h
-        call sub_DC653
+        call FindTeamRecord
         test eax, eax
         je short .2
         mov esi, dword [ecx]
@@ -9387,10 +9457,10 @@ sub_E12EF:
         movsd
         cmp dword [byte ebp-04h], byte 23h
         jl near .1
-        jmp near sub_DA7EB_13
+        jmp near OpenGameDatabase_13
 ;-----------------------------------------------------------------------------
 ; ResetExhibitionFile                             E13BF  97 PC, low confidence
-; Builds the original exhibition data (sub_E12EF, "ORIGEXH") and saves it as
+; Builds the original exhibition data (ResetExhibitionStats, "ORIGEXH") and saves it as
 ; the exhibition file
 ;-----------------------------------------------------------------------------
 ResetExhibitionFile:
@@ -9398,7 +9468,7 @@ ResetExhibitionFile:
         push edx
         enter 4, 0
         lea eax, [byte ebp-04h]
-        call sub_E12EF
+        call ResetExhibitionStats
         test eax, eax
         je short .2
         mov eax, dword [byte ebp-04h]
@@ -9420,9 +9490,10 @@ ResetExhibitionFile:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E13FE                                                       E13FE  97 PC
+; ImportTradedPlayers                             E13FE  97 PC, low confidence
+; Imports the traded players
 ;-----------------------------------------------------------------------------
-sub_E13FE:
+ImportTradedPlayers:
         push esi
         push edi
         enter 40h, 0
@@ -9465,7 +9536,7 @@ sub_E13FE:
         imul ebx, byte 38h
         mov edx, dword [byte ebp-08h]
         mov eax, dword [dword eax+0383C1h]
-        call sub_E22FC
+        call CopyBytesOk
 .3:
         mov eax, dword [byte ebp-044h]
         add eax, 383C1h
@@ -9475,7 +9546,7 @@ sub_E13FE:
         mov dword [dword edx+0383C1h], eax
         mov edx, 38h
         lea eax, [byte ebp-040h]
-        call sub_E2334
+        call ZeroBytesOk
         mov al, byte [byte ebp+014h]
         mov ebx, 8
         mov byte [byte ebp-03Fh], al
@@ -9483,23 +9554,23 @@ sub_E13FE:
         mov edx, esi
         mov byte [byte ebp-03Eh], al
         lea eax, [byte ebp-048h]
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, dword [byte ebp-048h]
         mov eax, esi
-        call sub_DCA6C
+        call AddTradeRecord
         test eax, eax
         je near .4
         mov ebx, 8
         lea eax, [byte ebp-048h]
         lea edx, [byte ecx+08h]
-        call sub_E22FC
+        call CopyBytesOk
         mov ebx, 8
         lea eax, [byte ebp-04h]
         mov edx, ecx
-        call sub_E22FC
+        call CopyBytesOk
         mov edx, dword [byte ebp-04h]
         mov eax, ecx
-        call sub_E076B
+        call AddPlayerStatAt
         test eax, eax
         je short .4
         lea edi, [byte ebp-028h]
@@ -9525,7 +9596,7 @@ sub_E13FE:
         mov ebx, 38h
         add edx, eax
         lea eax, [byte ebp-040h]
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [byte ebp-044h]
         mov ax, word [eax]
         mov edx, eax
@@ -9534,7 +9605,7 @@ sub_E13FE:
         mov word [ebx], dx
         mov edx, dword [byte ebp+01Ch]
         mov word [edx], ax
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
 .4:
         leave
@@ -9542,9 +9613,10 @@ sub_E13FE:
         pop esi
         ret 10h
 ;-----------------------------------------------------------------------------
-; sub_E1563                                                       E1563  97 PC
+; ImportNewPlayers                                E1563  97 PC, low confidence
+; Imports new players
 ;-----------------------------------------------------------------------------
-sub_E1563:
+ImportNewPlayers:
         push esi
         push edi
         enter 40h, 0
@@ -9571,7 +9643,7 @@ sub_E1563:
         imul ebx, byte 38h
         mov edx, dword [byte ebp-04h]
         mov eax, dword [dword eax+0383C1h]
-        call sub_E22FC
+        call CopyBytesOk
 .2:
         mov eax, dword [byte ebp-044h]
         add eax, 383C1h
@@ -9581,21 +9653,21 @@ sub_E1563:
         mov dword [dword edx+0383C1h], eax
         mov edx, 38h
         lea eax, [byte ebp-040h]
-        call sub_E2334
+        call ZeroBytesOk
         mov al, byte [byte ebp+010h]
         mov byte [byte ebp-03Eh], al
         mov eax, esi
         mov byte [byte ebp-03Fh], cl
-        call sub_DC99F
+        call AddPlayerRecord
         test eax, eax
         je near .3
         mov edx, dword [byte ebp-08h]
         mov ebx, 8
         mov eax, esi
         add edx, byte 8
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [byte ebp-08h]
-        call sub_E069E
+        call AddPlayerStat
         test eax, eax
         je short .3
         lea edi, [byte ebp-028h]
@@ -9621,7 +9693,7 @@ sub_E1563:
         mov ebx, 38h
         add edx, eax
         lea eax, [byte ebp-040h]
-        call sub_E22FC
+        call CopyBytesOk
         mov eax, dword [byte ebp-044h]
         mov ax, word [eax]
         mov edx, eax
@@ -9630,7 +9702,7 @@ sub_E1563:
         mov word [ebx], dx
         mov edx, dword [byte ebp+014h]
         mov word [edx], ax
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
 .3:
         leave
@@ -9638,9 +9710,10 @@ sub_E1563:
         pop esi
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_E167A                                                       E167A  97 PC
+; AllocImportBuffer                               E167A  97 PC, low confidence
+; Allocates the import buffer
 ;-----------------------------------------------------------------------------
-sub_E167A:
+AllocImportBuffer:
         push ebx
         push ecx
         push esi
@@ -9652,7 +9725,7 @@ sub_E167A:
         jl short .2
 .1:
         xor eax, eax
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .2:
         movsx eax, dx
         imul eax, byte 38h
@@ -9665,7 +9738,7 @@ sub_E167A:
         call FreePtr
         mov eax, 1
         mov word [ecx], 0
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .3:
         movsx eax, word [ecx]
         dec eax
@@ -9674,7 +9747,7 @@ sub_E167A:
         mov eax, str_AGENTS
         call AllocClearBlock
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         xor edi, edi
         mov dword [byte ebp-08h], 0
         mov dword [byte ebp-04h], edi
@@ -9691,7 +9764,7 @@ sub_E167A:
         add edx, dword [byte ebp-010h]
         add eax, dword [byte ebp-04h]
         add dword [byte ebp-0Ch], byte 38h
-        call sub_E22FC
+        call CopyBytesOk
 .5:
         add dword [byte ebp-04h], byte 38h
         inc edi
@@ -9705,11 +9778,12 @@ sub_E167A:
         call FreePtr
         mov eax, dword [byte ebp-010h]
         mov dword [dword ecx+0383C1h], eax
-        jmp near sub_DB8E6_244
+        jmp near LookupRecord_244
 ;-----------------------------------------------------------------------------
-; sub_E1744                                                       E1744  97 PC
+; PickDemoTeams                                   E1744  97 PC, low confidence
+; Picks the teams for a demo game
 ;-----------------------------------------------------------------------------
-sub_E1744:
+PickDemoTeams:
         push esi
         push edi
         enter 8, 0
@@ -9737,7 +9811,7 @@ sub_E1744:
         mov esi, unk_16D7F4
         mov eax, ecx
         mov edi, ecx
-        call sub_E2334
+        call ZeroBytesOk
         movsd
         movsd
         mov esi, unk_16D7F4
@@ -9747,7 +9821,7 @@ sub_E1744:
         movzx ebx, byte [byte ebp-08h]
         movzx edx, byte [byte ebp-07h]
         movsx eax, word [byte ebp-06h]
-        call sub_DB763
+        call DaysToYear
         mov word [byte ecx+012h], 131Eh
         mov word [byte ecx+010h], ax
         cmp word [byte ebp-010h], byte 1Ah
@@ -9827,7 +9901,7 @@ sub_E1744:
         add edx, eax
         add eax, ebx
         mov ebx, ecx
-        call sub_DAD7E
+        call LoadGameRosters
         leave
         pop edi
         pop esi
@@ -9852,13 +9926,13 @@ sub_E1744:
         jl short .16
 .15:
         xor eax, eax
-        jmp near sub_DEE3A_55
+        jmp near SaveGameResult_55
 .16:
         mov edx, 4A78h
         mov esi, unk_16D7F4
         mov eax, ecx
         mov edi, ecx
-        call sub_E2334
+        call ZeroBytesOk
         movsd
         movsd
         mov esi, unk_16D7F4
@@ -9868,7 +9942,7 @@ sub_E1744:
         movzx ebx, byte [byte ebp-08h]
         movzx edx, byte [byte ebp-07h]
         movsx eax, word [byte ebp-06h]
-        call sub_DB763
+        call DaysToYear
         mov word [byte ecx+012h], 131Eh
         mov word [byte ecx+010h], ax
         cmp word [byte ebp-0Ch], byte 1Ah
@@ -9942,12 +10016,13 @@ sub_E1744:
         mov edx, dword [byte ebp-018h]
         mov eax, dword [byte ebp-014h]
         mov ebx, ecx
-        call sub_DAD7E
-        jmp near sub_DEE3A_55
+        call LoadGameRosters
+        jmp near SaveGameResult_55
 ;-----------------------------------------------------------------------------
-; sub_E19D5                                                       E19D5  97 PC
+; AddReplayIndexEntry                             E19D5  97 PC, low confidence
+; Adds an entry to the saved replay index
 ;-----------------------------------------------------------------------------
-sub_E19D5:
+AddReplayIndexEntry:
         push ecx
         push esi
         push edi
@@ -9960,7 +10035,7 @@ sub_E19D5:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_DDC4A_2F0
+        jmp near CreateSeasonSchedule_2F0
 .2:
         mov ebx, 8
         mov edx, unk_16D7F4
@@ -9980,9 +10055,9 @@ sub_E19D5:
         mov dword [dword esi+04A74h], eax
         mov eax, 9
         mov dword [dword esi+04A70h], 0
-        call sub_DCEA4
+        call MakeLeagueKey
         test eax, eax
-        je near sub_DDC4A_2F0
+        je near CreateSeasonSchedule_2F0
         test edi, edi
         jle short .3
         mov eax, dword [esi]
@@ -10002,40 +10077,40 @@ sub_E19D5:
         call sub_11B104
         add esp, byte 0Ch
         test eax, eax
-        je near sub_DDC4A_2F0
+        je near CreateSeasonSchedule_2F0
         mov dword [dword esi+04A70h], edi
 .3:
         mov ebx, 4A78h
         lea edx, [byte ebp+07Ah]
         mov eax, 5
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_DDC4A_2F0
+        je near CreateSeasonSchedule_2F0
         mov ebx, 4A78h
         mov eax, dword [dword_1CD194]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
-        je near sub_DDC4A_2F0
+        je near CreateSeasonSchedule_2F0
         lea edx, [byte ebp+046h]
         mov eax, esi
         lea ebx, [byte ebp+046h]
-        call sub_DA76A
-        call sub_E341C
+        call MakeRecordKey
+        call ServiceIdle
         mov ecx, dword [byte ebp+07Ah]
         mov edx, 9
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
-        jmp near sub_DDC4A_2F0
+        call AddIndexKey
+        jmp near CreateSeasonSchedule_2F0
 .4:
         lea edx, [byte ebp+046h]
         lea ecx, [byte ebp+07Ah]
         mov eax, esi
         lea ebx, [byte ebp+046h]
-        call sub_DA76A
+        call MakeRecordKey
         mov edx, 9
         mov eax, dword [dword_1CD15C]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
         jne short .6
         mov eax, dword [esi]
@@ -10046,19 +10121,19 @@ sub_E19D5:
         mov ecx, edi
         mov edx, esi
         mov eax, esi
-        call sub_E1D45
-        jmp near sub_DDC4A_2F0
+        call RenameReplayIndexEntry
+        jmp near CreateSeasonSchedule_2F0
 .6:
         lea ebx, [byte ebp+072h]
         lea edx, [byte ebp+046h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp+046h]
         lea ebx, [byte ebp+072h]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         lea eax, [byte ebp+072h]
         mov edx, esi
@@ -10068,7 +10143,7 @@ sub_E19D5:
         movzx eax, al
         test eax, eax
         je short .5
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [esi]
         push dword [byte esi+04h]
         xor eax, 0ABCDCBAFh
@@ -10099,7 +10174,7 @@ sub_E19D5:
         call sub_11B104
         add esp, byte 0Ch
         test eax, eax
-        je near sub_DDC4A_2F0
+        je near CreateSeasonSchedule_2F0
         mov dword [dword esi+04A70h], edi
 .9:
         cmp dword [byte ebp+07Eh], byte 0
@@ -10115,12 +10190,13 @@ sub_E19D5:
         mov edx, dword [byte ebp+07Ah]
         mov eax, 5
         mov ecx, esi
-        call sub_DADD0
-        jmp near sub_DDC4A_2F0
+        call WriteDbRecord
+        jmp near CreateSeasonSchedule_2F0
 ;-----------------------------------------------------------------------------
-; sub_E1C19                                                       E1C19  97 PC
+; FindReplayIndexEntry                            E1C19  97 PC, low confidence
+; Finds an entry of the saved replay index
 ;-----------------------------------------------------------------------------
-sub_E1C19:
+FindReplayIndexEntry:
         push ebx
         push ecx
         push esi
@@ -10134,28 +10210,28 @@ sub_E1C19:
         mov esi, dword [byte ebp-03Ch]
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-038h]
-        call sub_E2334
+        call ZeroBytesOk
         lea edx, [byte ebp-038h]
         mov eax, dword [byte ebp-040h]
         movsd
         movsd
-        call sub_DA76A
+        call MakeRecordKey
         mov edx, 9
         mov eax, dword [dword_1CD15C]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_E036F_A0
-        call sub_E341C
+        je near FindGameRecord_A0
+        call ServiceIdle
         lea ebx, [byte ebp-0Ch]
         lea edx, [byte ebp-038h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-038h]
         lea ebx, [byte ebp-0Ch]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         mov edx, dword [byte ebp-03Ch]
         lea eax, [byte ebp-0Ch]
@@ -10164,12 +10240,12 @@ sub_E1C19:
         sete al
         movzx eax, al
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ecx, dword [byte ebp-040h]
         mov ebx, 4A78h
         mov edx, dword [byte ebp-04h]
         mov eax, 5
-        jmp near sub_E036F_9B
+        jmp near FindGameRecord_9B
 ;-----------------------------------------------------------------------------
 ; OpenReplayFile                                  E1CC0  97 PC, low confidence
 ; Builds a replay's file name ("%s%08x.%03x", id xor 0ABCDCBAFh) and opens it
@@ -10229,11 +10305,12 @@ OpenReplayFile:
         push edx
         mov edx, eax
         mov eax, 9
-        jmp near sub_DCFA4_5
+        jmp near MakeLeagueKeyBase_5
 ;-----------------------------------------------------------------------------
-; sub_E1D45                                                       E1D45  97 PC
+; RenameReplayIndexEntry                          E1D45  97 PC, low confidence
+; Renames an entry of the saved replay index
 ;-----------------------------------------------------------------------------
-sub_E1D45:
+RenameReplayIndexEntry:
         push esi
         push edi
         enter 88h, 0
@@ -10246,7 +10323,7 @@ sub_E1D45:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_DFAF6_797
+        jmp near BuildSeasonRecords_797
 .2:
         mov ebx, 8
         mov edx, unk_16D7F4
@@ -10268,23 +10345,23 @@ sub_E1D45:
         lea ebx, [byte ebp+04Ah]
         movsd
         movsd
-        call sub_DA76A
+        call MakeRecordKey
         mov edx, 9
         mov eax, dword [dword_1CD15C]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
         je short .3
-        call sub_E341C
+        call ServiceIdle
         lea ebx, [byte ebp+076h]
         lea edx, [byte ebp+04Ah]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp+04Ah]
         lea ebx, [byte ebp+076h]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         mov edx, dword [byte ebp-0Ah]
         lea eax, [byte ebp+076h]
@@ -10295,7 +10372,7 @@ sub_E1D45:
         test eax, eax
         jne near .1
 .3:
-        call sub_E341C
+        call ServiceIdle
         cmp dword [byte ebp-016h], byte 0
         jl near .1
         mov eax, dword [byte ebp-0Eh]
@@ -10318,7 +10395,7 @@ sub_E1D45:
         call sub_11B104
         add esp, byte 0Ch
         test eax, eax
-        je near sub_DFAF6_797
+        je near BuildSeasonRecords_797
         mov edx, dword [byte ebp-0Eh]
         mov eax, dword [byte ebp-016h]
         mov dword [dword edx+04A70h], eax
@@ -10326,29 +10403,30 @@ sub_E1D45:
         mov ebx, 4A78h
         lea edx, [byte ebp+07Eh]
         mov eax, 5
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_DFAF6_797
+        je near BuildSeasonRecords_797
         mov ebx, 4A78h
         mov edx, dword [byte ebp-0Eh]
         mov eax, dword [dword_1CD194]
         call FileWriteRecord
         test eax, eax
-        je near sub_DFAF6_797
+        je near BuildSeasonRecords_797
         lea edx, [byte ebp+04Ah]
         mov eax, dword [byte ebp-0Eh]
         lea ebx, [byte ebp+04Ah]
-        call sub_DA76A
-        call sub_E341C
+        call MakeRecordKey
+        call ServiceIdle
         mov ecx, dword [byte ebp+07Eh]
         mov edx, 9
         mov eax, dword [dword_1CD15C]
-        call sub_D8B20
-        jmp near sub_DFAF6_797
+        call AddIndexKey
+        jmp near BuildSeasonRecords_797
 ;-----------------------------------------------------------------------------
-; sub_E1EC9                                                       E1EC9  97 PC
+; DeleteReplayIndexEntry                          E1EC9  97 PC, low confidence
+; Deletes an entry of the saved replay index
 ;-----------------------------------------------------------------------------
-sub_E1EC9:
+DeleteReplayIndexEntry:
         push ebx
         push ecx
         push edx
@@ -10363,28 +10441,28 @@ sub_E1EC9:
         mov esi, dword [dword ebp-04A82h]
         lea ecx, [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
-        call sub_E2334
+        call ZeroBytesOk
         lea edx, [byte ebp+04Ah]
         lea eax, [dword ebp-04A7Eh]
         movsd
         movsd
-        call sub_DA76A
+        call MakeRecordKey
         mov edx, 9
         mov eax, dword [dword_1CD15C]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
-        call sub_E341C
+        je near UpdatePlayerRecord_1A6
+        call ServiceIdle
         lea ebx, [byte ebp+076h]
         lea edx, [byte ebp+04Ah]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp+04Ah]
         lea ebx, [byte ebp+076h]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         mov ebx, 8
         mov edx, dword [dword ebp-04A82h]
         lea eax, [byte ebp+076h]
@@ -10393,12 +10471,12 @@ sub_E1EC9:
         sete al
         movzx eax, al
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         lea edx, [dword ebp-04A7Eh]
         mov eax, dword [dword ebp-04A82h]
-        call sub_E1C19
+        call FindReplayIndexEntry
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         mov eax, dword [dword ebp-04A7Eh]
         push dword [dword ebp-04A7Ah]
         xor eax, 0ABCDCBAFh
@@ -10420,16 +10498,16 @@ sub_E1EC9:
         lea ebx, [byte ebp+04Ah]
         mov edx, 9
         mov eax, dword [dword_1CD15C]
-        call sub_D9960
+        call DeleteIndexKey
         test eax, eax
-        je near sub_DCC75_1A6
+        je near UpdatePlayerRecord_1A6
         mov ebx, 4A78h
         mov edx, dword [byte ebp+07Eh]
         mov eax, 5
-        call sub_DB508
+        call AppendDbRecord
         test eax, eax
-        jne near sub_DC11A_21E
-        jmp near sub_DCC75_1A6
+        jne near RepairDatabase_21E
+        jmp near UpdatePlayerRecord_1A6
         push ebx
         push ecx
         enter 8, 0
@@ -10442,20 +10520,21 @@ sub_E1EC9:
         add edx, byte 4
         mov ebx, ecx
         mov eax, 4
-        call sub_DA544
+        call BuildKeyFromLong
         lea edx, [byte ebp-08h]
         mov eax, 4
         mov ebx, ecx
-        call sub_DA57C
+        call BuildKeyFromString
         mov eax, 1
         leave
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E2041                                                       E2041  97 PC
+; SaveUserRecord                                  E2041  97 PC, low confidence
+; Saves a user record
 ;-----------------------------------------------------------------------------
-sub_E2041:
+SaveUserRecord:
         push ebx
         push ecx
         push esi
@@ -10470,10 +10549,10 @@ sub_E2041:
         mov dword [byte ebp-010h], eax
         lea eax, [byte ebp-010h]
         lea ebx, [byte ebp-04Ch]
-        call sub_DA76A
+        call MakeRecordKey
         mov edx, 6
         mov eax, dword [dword_1CD158]
-        call sub_D9D74
+        call FindIndexKey
         mov dword [byte ebp-04h], eax
         test eax, eax
         je short .1
@@ -10481,12 +10560,12 @@ sub_E2041:
         lea edx, [byte ebp-04Ch]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-04Ch]
         lea ebx, [byte ebp-018h]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         cmp edi, dword [byte ebp-014h]
         je short .1
         mov dword [byte ebp-04h], 0
@@ -10496,43 +10575,44 @@ sub_E2041:
         mov ebx, 176h
         lea edx, [byte ebp-08h]
         mov eax, 6
-        call sub_DB5B7
+        call AllocRecordSlot
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         mov ebx, 176h
         mov eax, dword [dword_1CD198]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
         jne short .3
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .2:
         mov ebx, 176h
         mov edx, dword [byte ebp-08h]
         mov eax, 6
         mov ecx, esi
-        call sub_DADD0
+        call WriteDbRecord
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
 .3:
         cmp dword [byte ebp-04h], byte 0
-        jne near sub_DB8E6_249
+        jne near LookupRecord_249
         lea edx, [byte ebp-04Ch]
         mov eax, dword [dword_16D7F0]
         lea ebx, [byte ebp-04Ch]
         mov dword [byte ebp-020h], eax
         lea eax, [byte ebp-020h]
         mov dword [byte ebp-01Ch], edi
-        call sub_DA76A
+        call MakeRecordKey
         mov ecx, dword [byte ebp-08h]
         mov edx, 6
         mov eax, dword [dword_1CD158]
-        call sub_D8B20
-        jmp near sub_DE88E_15A
+        call AddIndexKey
+        jmp near RecordHomeStats_15A
 ;-----------------------------------------------------------------------------
-; sub_E2141                                                       E2141  97 PC
+; LoadUserRecord                                  E2141  97 PC, low confidence
+; Loads a user record
 ;-----------------------------------------------------------------------------
-sub_E2141:
+LoadUserRecord:
         push ebx
         push ecx
         push esi
@@ -10547,36 +10627,37 @@ sub_E2141:
         mov dword [byte ebp-0Ch], eax
         lea eax, [byte ebp-0Ch]
         mov dword [byte ebp-08h], esi
-        call sub_DA76A
+        call MakeRecordKey
         mov edx, 6
         mov eax, dword [dword_1CD158]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_E036F_A0
+        je near FindGameRecord_A0
         lea ebx, [byte ebp-014h]
         lea edx, [byte ebp-040h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-040h]
         lea ebx, [byte ebp-014h]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         cmp esi, dword [byte ebp-010h]
         je short .1
         xor eax, eax
-        jmp near sub_E036F_A0
+        jmp near FindGameRecord_A0
 .1:
         mov ebx, 176h
         mov edx, dword [byte ebp-04h]
         mov eax, 6
         mov ecx, edi
-        jmp near sub_E036F_9B
+        jmp near FindGameRecord_9B
 ;-----------------------------------------------------------------------------
-; sub_E21C6                                                       E21C6  97 PC
+; DeleteUserRecord                                E21C6  97 PC, low confidence
+; Deletes a user record
 ;-----------------------------------------------------------------------------
-sub_E21C6:
+DeleteUserRecord:
         push ebx
         push ecx
         push edx
@@ -10590,39 +10671,39 @@ sub_E21C6:
         mov dword [byte ebp-0Ch], eax
         lea eax, [byte ebp-0Ch]
         mov dword [byte ebp-08h], esi
-        call sub_DA76A
+        call MakeRecordKey
         mov edx, 6
         mov eax, dword [dword_1CD158]
-        call sub_D9D74
+        call FindIndexKey
         test eax, eax
-        je near sub_DCC75_229
+        je near UpdatePlayerRecord_229
         lea ebx, [byte ebp-014h]
         lea edx, [byte ebp-040h]
         mov eax, 4
         add ebx, byte 4
-        call sub_DA654
+        call KeyToLong
         lea edx, [byte ebp-040h]
         lea ebx, [byte ebp-014h]
         mov eax, 4
         add edx, byte 5
-        call sub_DA654
+        call KeyToLong
         cmp esi, dword [byte ebp-010h]
         je short .1
         xor eax, eax
-        jmp near sub_DCC75_229
+        jmp near UpdatePlayerRecord_229
 .1:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-040h]
         mov edx, 6
         mov eax, dword [dword_1CD158]
-        call sub_D9960
+        call DeleteIndexKey
         test eax, eax
-        je near sub_DCC75_229
+        je near UpdatePlayerRecord_229
         mov ebx, 176h
         mov edx, dword [byte ebp-04h]
         mov eax, 6
-        call sub_DB508
-        jmp near sub_DCC75_221
+        call AppendDbRecord
+        jmp near UpdatePlayerRecord_221
         db 00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; AllocClearBlock                                 E2270  97 PC, low confidence
@@ -10709,9 +10790,10 @@ FreePtr:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E22FC                                                       E22FC  97 PC
+; CopyBytesOk                                     E22FC  97 PC, low confidence
+; Copies bytes and returns 1
 ;-----------------------------------------------------------------------------
-sub_E22FC:
+CopyBytesOk:
         push ecx
         push ebx
         push edx
@@ -10723,9 +10805,10 @@ sub_E22FC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E2310                                                       E2310  97 PC
+; CopyAndClear                                    E2310  97 PC, low confidence
+; Copies bytes and clears the rest
 ;-----------------------------------------------------------------------------
-sub_E2310:
+CopyAndClear:
         push ecx
         push esi
         mov esi, eax
@@ -10744,9 +10827,10 @@ sub_E2310:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E2334                                                       E2334  97 PC
+; ZeroBytesOk                                     E2334  97 PC, low confidence
+; Clears bytes and returns 1
 ;-----------------------------------------------------------------------------
-sub_E2334:
+ZeroBytesOk:
         push ecx
         push edx
         push eax
@@ -10757,9 +10841,10 @@ sub_E2334:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E2348                                                       E2348  97 PC
+; CompareKeyBytes                                 E2348  97 PC, low confidence
+; Compares two keys byte by byte
 ;-----------------------------------------------------------------------------
-sub_E2348:
+CompareKeyBytes:
         push ecx
         push esi
 .1:
@@ -11098,9 +11183,10 @@ FileLength:
         ret
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_E2590                                                       E2590  97 PC
+; ReadKeyboardPad                                 E2590  97 PC, low confidence
+; Reads a keyboard pad
 ;-----------------------------------------------------------------------------
-sub_E2590:
+ReadKeyboardPad:
         push ecx
         push esi
         mov esi, edx
@@ -11150,9 +11236,10 @@ sub_E2590:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E2620                                                       E2620  97 PC
+; ReadKeyboardPlayers                             E2620  97 PC, low confidence
+; Reads the keyboard players
 ;-----------------------------------------------------------------------------
-sub_E2620:
+ReadKeyboardPlayers:
         push ebx
         push ecx
         push edx
@@ -11160,59 +11247,59 @@ sub_E2620:
         mov edx, 10h
         mov ebx, eax
         mov eax, 2
-        call sub_E2590
+        call ReadKeyboardPad
         mov edx, 20h
         mov eax, 3
         mov ebx, ecx
-        call sub_E2590
+        call ReadKeyboardPad
         mov edx, 1
         mov eax, 4
         mov ebx, ecx
-        call sub_E2590
+        call ReadKeyboardPad
         mov edx, 8
         mov eax, 4
         mov ebx, ecx
-        call sub_E2590
+        call ReadKeyboardPad
         mov edx, 1
         mov eax, 5
         mov ebx, ecx
-        call sub_E2590
+        call ReadKeyboardPad
         mov edx, 1
         mov eax, 6
         mov ebx, ecx
-        call sub_E2590
+        call ReadKeyboardPad
         mov edx, 4
         mov eax, 6
         mov ebx, ecx
-        call sub_E2590
+        call ReadKeyboardPad
         mov edx, 8
         mov eax, 7
         mov ebx, ecx
-        call sub_E2590
+        call ReadKeyboardPad
         mov edx, 4
         mov eax, 8
         mov ebx, ecx
-        call sub_E2590
+        call ReadKeyboardPad
         mov edx, 2
         mov eax, 9
         mov ebx, ecx
-        call sub_E2590
+        call ReadKeyboardPad
         mov edx, 8
         mov eax, 9
         mov ebx, ecx
-        call sub_E2590
+        call ReadKeyboardPad
         mov edx, 2
         mov eax, 0Ah
         mov ebx, ecx
-        call sub_E2590
+        call ReadKeyboardPad
         mov edx, 2
         mov eax, 0Bh
         mov ebx, ecx
-        call sub_E2590
+        call ReadKeyboardPad
         mov edx, 4
         mov eax, 0Bh
         mov ebx, ecx
-        call sub_E2590
+        call ReadKeyboardPad
         mov dx, word [ecx]
         xor dh, dh
         mov eax, dword [dword_16D8B8]
@@ -11264,9 +11351,10 @@ sub_E2620:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E2790                                                       E2790  97 PC
+; ReadInputDriver                                 E2790  97 PC, low confidence
+; Reads the input driver
 ;-----------------------------------------------------------------------------
-sub_E2790:
+ReadInputDriver:
         push ebx
         push ecx
         push edx
@@ -11339,9 +11427,10 @@ sub_E2790:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E2838                                                       E2838  97 PC
+; ReadJoystickPads                                E2838  97 PC, low confidence
+; Reads the joystick pads
 ;-----------------------------------------------------------------------------
-sub_E2838:
+ReadJoystickPads:
         push ebx
         push ecx
         push edx
@@ -11548,11 +11637,11 @@ sub_E2838:
         mov ebx, HotKeyFlags
         mov edx, 1
         xor eax, eax
-        call sub_E2590
+        call ReadKeyboardPad
         mov ebx, HotKeyFlags
         mov edx, 2
         mov eax, 1
-        call sub_E2590
+        call ReadKeyboardPad
         pop edx
         pop ebx
         ret
@@ -11617,12 +11706,12 @@ PollControllers:
         mov dword [dword_1CD244], eax
         xor eax, eax
         mov esi, SlotWords
-        call sub_E2590
+        call ReadKeyboardPad
         mov ebx, HotKeyFlags
         mov edx, 2
         mov eax, 1
         xor edi, edi
-        call sub_E2590
+        call ReadKeyboardPad
         xor edx, edx
         xor ecx, ecx
         mov dword [byte esp+08h], edx
@@ -11659,23 +11748,23 @@ PollControllers:
         mov ebx, HotKeyFlags
         mov edx, 40h
         mov eax, 0Ch
-        call sub_E2590
+        call ReadKeyboardPad
         mov ebx, HotKeyFlags
         mov edx, 80h
         mov eax, 0Dh
-        call sub_E2590
+        call ReadKeyboardPad
         mov ebx, HotKeyFlags
         mov edx, 100h
         mov eax, 0Eh
-        call sub_E2590
+        call ReadKeyboardPad
         mov ebx, HotKeyFlags
         mov edx, 200h
         mov eax, 0Fh
-        call sub_E2590
+        call ReadKeyboardPad
         mov ebx, HotKeyFlags
         mov edx, 4000h
         mov eax, 14h
-        call sub_E2590
+        call ReadKeyboardPad
         mov eax, dword [tickcount]
         add eax, byte 12h
         mov dword [dword_16D8AC], eax
@@ -11692,23 +11781,23 @@ PollControllers:
         mov ebx, HotKeyFlags
         mov edx, 400h
         mov eax, 10h
-        call sub_E2590
+        call ReadKeyboardPad
         mov ebx, HotKeyFlags
         mov edx, 800h
         mov eax, 11h
-        call sub_E2590
+        call ReadKeyboardPad
         mov ebx, HotKeyFlags
         mov edx, 1000h
         mov eax, 12h
-        call sub_E2590
+        call ReadKeyboardPad
         mov ebx, HotKeyFlags
         mov edx, 2000h
         mov eax, 13h
-        call sub_E2590
+        call ReadKeyboardPad
         mov ebx, HotKeyFlags
         mov edx, 8000h
         mov eax, 15h
-        call sub_E2590
+        call ReadKeyboardPad
         mov eax, dword [tickcount]
         add eax, byte 12h
         mov dword [dword_16D8B0], eax
@@ -11726,7 +11815,7 @@ PollControllers:
         add eax, edx
         cmp ebx, byte 5
         jne near .8
-        call sub_E2838
+        call ReadJoystickPads
         mov ax, word [dword edx+SlotWords]
         xor ah, ah
         xor ebx, ebx
@@ -11772,10 +11861,10 @@ PollControllers:
 .8:
         cmp ebx, byte 2
         jne short .9
-        call sub_E2620
+        call ReadKeyboardPlayers
         jmp short .10
 .9:
-        call sub_E2790
+        call ReadInputDriver
 .10:
         mov ebx, esi
         mov dx, word [esi]
@@ -11844,7 +11933,7 @@ InputRecordTimer:
         cmp dword [dword_16DA9C], byte 0
         je short .4
         mov eax, dword [dword_16D89C]
-        call sub_E4288
+        call LinkInputTick
         test eax, eax
         je near .6
         mov edi, dword [dword_16D89C]
@@ -11992,9 +12081,10 @@ InitSlotTable:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E304C                                                       E304C  97 PC
+; StartInputRecording                             E304C  97 PC, low confidence
+; Starts recording input
 ;-----------------------------------------------------------------------------
-sub_E304C:
+StartInputRecording:
         push dword 18h
         call __CHK
         push ebx
@@ -12011,7 +12101,7 @@ sub_E304C:
         mov dword [InputRecordTail], edx
         mov dword [InputRecordHead], edx
         mov dword [InputRecordCount], edx
-        call sub_E30F4
+        call ResetInputState
         push InputRecordTimer
         mov dword [dword_16D894], edx
         mov dword [dword_16D898], edx
@@ -12026,9 +12116,10 @@ sub_E304C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E30BC                                                       E30BC  97 PC
+; StopInputTimer                                  E30BC  97 PC, low confidence
+; Stops the input timer
 ;-----------------------------------------------------------------------------
-sub_E30BC:
+StopInputTimer:
         push dword 10h
         call __CHK
         push ecx
@@ -12040,9 +12131,10 @@ sub_E30BC:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E30D8                                                       E30D8  97 PC
+; StartInputTimer                                 E30D8  97 PC, low confidence
+; Starts the input timer
 ;-----------------------------------------------------------------------------
-sub_E30D8:
+StartInputTimer:
         push dword 10h
         call __CHK
         push ecx
@@ -12054,9 +12146,10 @@ sub_E30D8:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E30F4                                                       E30F4  97 PC
+; ResetInputState                                 E30F4  97 PC, low confidence
+; Resets the input state
 ;-----------------------------------------------------------------------------
-sub_E30F4:
+ResetInputState:
         push dword 14h
         call __CHK
         push ebx
@@ -12066,7 +12159,7 @@ sub_E30F4:
         mov dx, word [word_16D8A4]
         test dx, dx
         jne short .2
-        call sub_E4218
+        call LinkSyncMenu
         mov word [word_1CD24E], dx
         xor edx, edx
         xor ecx, ecx
@@ -12075,7 +12168,7 @@ sub_E30F4:
         mov dword [dword_16D8AC], eax
         mov eax, dword [tickcount]
         mov dword [dword_16D8B0], eax
-        call sub_E4264
+        call ClearLinkInputs
         mov word [HotKeyFlags], cx
         xor eax, eax
 .1:
@@ -12089,7 +12182,7 @@ sub_E30F4:
         mov dword [dword edx+dword_16D8D8], ebx
         cmp eax, byte 10h
         jne short .1
-        call sub_E4218
+        call LinkSyncMenu
 .2:
         pop esi
         pop edx
@@ -12097,9 +12190,10 @@ sub_E30F4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E3174                                                       E3174  97 PC
+; IsInputRecording                                E3174  97 PC, low confidence
+; Returns whether input is being recorded
 ;-----------------------------------------------------------------------------
-sub_E3174:
+IsInputRecording:
         push dword 4
         call __CHK
         cmp word [word_16D8A4], byte 0
@@ -12108,9 +12202,10 @@ sub_E3174:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E3190                                                       E3190  97 PC
+; StopInputRecording                              E3190  97 PC, low confidence
+; Stops recording input
 ;-----------------------------------------------------------------------------
-sub_E3190:
+StopInputRecording:
         push dword 1Ch
         call __CHK
         push ebx
@@ -12133,7 +12228,7 @@ sub_E3190:
 .3:
         xor ebx, ebx
         mov word [word_16D8A4], bx
-        call sub_E30F4
+        call ResetInputState
         push byte 64h
         push InputRecordRing
         xor esi, esi
@@ -12208,16 +12303,17 @@ TakeInputRecord:
         ret
         db 090h
 jpt_E329C:
-        dd sub_E32B4_E8
-        dd sub_E32B4_D6
-        dd sub_E32B4_FF
-        dd sub_E32B4_10D
-        dd sub_E32B4_10D
-        dd sub_E32B4_11D
+        dd InitLinkSettings_E8
+        dd InitLinkSettings_D6
+        dd InitLinkSettings_FF
+        dd InitLinkSettings_10D
+        dd InitLinkSettings_10D
+        dd InitLinkSettings_11D
 ;-----------------------------------------------------------------------------
-; sub_E32B4                                                       E32B4  97 PC
+; InitLinkSettings                                E32B4  97 PC, low confidence
+; Sets up the link settings
 ;-----------------------------------------------------------------------------
-sub_E32B4:
+InitLinkSettings:
         push dword 6Ch
         call __CHK
         push ebx
@@ -12256,7 +12352,7 @@ sub_E32B4:
 .4:
         cmp ebp, dword [dword_16DA9C]
         je near .7
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .5
         cmp ebx, byte 3
@@ -12273,7 +12369,7 @@ sub_E32B4:
         and eax, 0FFh
         jne short .6
 .5:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .7
         cmp ebx, byte 4
@@ -12297,21 +12393,21 @@ sub_E32B4:
         mov al, byte [edx]
         and al, 7
         cmp al, 5
-        ja near sub_E32B4_E8
+        ja near InitLinkSettings_E8
         and eax, 0FFh
         jmp dword [nosplit cs:eax*4+jpt_E329C]
-sub_E32B4_D6:
+InitLinkSettings_D6:
         cmp ebp, dword [dword_16DA9C]
-        jne near sub_E32B4_E8
+        jne near InitLinkSettings_E8
 .8:
         mov al, byte [edx]
         and al, 0F8h
         mov byte [edx], al
-sub_E32B4_E8:
+InitLinkSettings_E8:
         inc ebx
         inc edx
         cmp ebx, byte 8
-        jl near sub_E32B4.4
+        jl near InitLinkSettings.4
         mov eax, esi
         add esp, byte 48h
         pop ebp
@@ -12321,17 +12417,17 @@ sub_E32B4_E8:
         pop ecx
         pop ebx
         ret
-sub_E32B4_FF:
+InitLinkSettings_FF:
         cmp ebp, dword [esp]
-        jne short sub_E32B4_D6.8
+        jne short InitLinkSettings_D6.8
         mov dword [esp], 1
-        jmp short sub_E32B4_E8
-sub_E32B4_10D:
+        jmp short InitLinkSettings_E8
+InitLinkSettings_10D:
         cmp ebp, dword [byte esp+04h]
-        jne short sub_E32B4_D6.8
+        jne short InitLinkSettings_D6.8
         mov dword [byte esp+04h], 1
-        jmp short sub_E32B4_E8
-sub_E32B4_11D:
+        jmp short InitLinkSettings_E8
+InitLinkSettings_11D:
         mov al, byte [edx]
         and al, 78h
         xor ecx, ecx
@@ -12339,29 +12435,31 @@ sub_E32B4_11D:
         mov cx, word [word_1684BE]
         sar eax, 3
         cmp eax, ecx
-        jge short sub_E32B4_D6.8
+        jge short InitLinkSettings_D6.8
         imul ecx, eax, byte 38h
         mov edi, dword [dword_1684C0]
         test byte [ecx+edi], 1
-        je short sub_E32B4_D6.8
+        je short InitLinkSettings_D6.8
         shl eax, 2
         cmp ebp, dword [byte esp+eax+08h]
-        jne short sub_E32B4_D6.8
+        jne short InitLinkSettings_D6.8
         mov dword [byte esp+eax+08h], 1
-        jmp short sub_E32B4_E8
+        jmp short InitLinkSettings_E8
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_E3410                                                       E3410  97 PC
+; ClearLinkAbort                                  E3410  97 PC, low confidence
+; Clears the link abort flag
 ;-----------------------------------------------------------------------------
-sub_E3410:
+ClearLinkAbort:
         mov eax, dword [dword_16DAB6]
         sar eax, 10h
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E341C                                                       E341C  97 PC
+; ServiceIdle                                     E341C  97 PC, low confidence
+; Services audio and keys while waiting
 ;-----------------------------------------------------------------------------
-sub_E341C:
+ServiceIdle:
         push ecx
         push edx
         mov eax, dword [tickcount]
@@ -12381,7 +12479,7 @@ sub_E341C:
         pop ecx
         ret
         db 08Bh,0C0h
-sub_E341C_34:
+ServiceIdle_34:
         mov eax, dword [tickcount]
         cmp eax, dword [dword_16DAC4]
         je short .2
@@ -12410,9 +12508,10 @@ sub_E341C_34:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E34A0                                                       E34A0  97 PC
+; QueueLinkPacket                                 E34A0  97 PC, low confidence
+; Queues a link packet
 ;-----------------------------------------------------------------------------
-sub_E34A0:
+QueueLinkPacket:
         push ebx
         push ecx
         push esi
@@ -12464,9 +12563,10 @@ sub_E34A0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E3530                                                       E3530  97 PC
+; SendLinkPacket                                  E3530  97 PC, low confidence
+; Sends a link packet
 ;-----------------------------------------------------------------------------
-sub_E3530:
+SendLinkPacket:
         push ebx
         push ecx
         push esi
@@ -12567,9 +12667,10 @@ sub_E3530:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E3640                                                       E3640  97 PC
+; ResendLinkPacket                                E3640  97 PC, low confidence
+; Resends a link packet
 ;-----------------------------------------------------------------------------
-sub_E3640:
+ResendLinkPacket:
         push ebx
         push esi
         push edi
@@ -12580,7 +12681,7 @@ sub_E3640:
         sar eax, 5
         cmp eax, byte 2
         jg short .1
-        call sub_E34A0
+        call QueueLinkPacket
         jmp near .4
 .1:
         cmp eax, byte 3
@@ -12636,9 +12737,10 @@ sub_E3640:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E3700                                                       E3700  97 PC
+; LinkTimerOn                                     E3700  97 PC, low confidence
+; Starts the link timer
 ;-----------------------------------------------------------------------------
-sub_E3700:
+LinkTimerOn:
         push dword 4
         call __CHK
         test eax, eax
@@ -12657,9 +12759,10 @@ sub_E3700:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E3738                                                       E3738  97 PC
+; LinkTimerOff                                    E3738  97 PC, low confidence
+; Stops the link timer
 ;-----------------------------------------------------------------------------
-sub_E3738:
+LinkTimerOff:
         push dword 8
         call __CHK
         push ebx
@@ -12673,9 +12776,10 @@ sub_E3738:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E375C                                                       E375C  97 PC
+; ResetLinkStats                                  E375C  97 PC, low confidence
+; Clears the link counters
 ;-----------------------------------------------------------------------------
-sub_E375C:
+ResetLinkStats:
         push dword 4
         call __CHK
         cmp eax, byte 2
@@ -12694,9 +12798,10 @@ sub_E375C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E3798                                                       E3798  97 PC
+; SyncLinkGame                                    E3798  97 PC, low confidence
+; Synchronises the game with the other computer
 ;-----------------------------------------------------------------------------
-sub_E3798:
+SyncLinkGame:
         push dword 28h
         call __CHK
         push esi
@@ -12808,7 +12913,7 @@ sub_E3798:
 .9:
         mov edx, esp
         mov eax, 4
-        call sub_E34A0
+        call QueueLinkPacket
         mov edx, dword [dword_16DAC8]
         test edx, edx
         je short .10
@@ -12836,7 +12941,7 @@ sub_E3798:
         je short .12
         mov edx, esp
         xor eax, eax
-        call sub_E3530
+        call SendLinkPacket
         mov eax, dword [byte esp+01h]
         and eax, 1FF800h
         sar eax, 0Bh
@@ -12850,7 +12955,7 @@ sub_E3798:
         mov edx, esp
         mov dword [dword_1CD284], eax
         mov eax, 4
-        call sub_E3530
+        call SendLinkPacket
         mov eax, dword [byte esp+01h]
         and eax, 1FF800h
         sar eax, 0Bh
@@ -12910,7 +13015,7 @@ NetInit:
         call IpxInit
         mov edx, eax
         mov ebx, eax
-        call sub_E5730
+        call InitNetSession
         cmp edx, eax
         jge short .2
         mov ebx, eax
@@ -12948,7 +13053,7 @@ NetShutdown:
         cmp dword [dword_16DAA0], byte 0
         je short .1
         call IpxCloseSocket
-        call sub_E59D8
+        call ShutdownNetSession
         mov ebx, dword [dword_16DAA4]
         push ebx
         call FreeMemBlock
@@ -12963,9 +13068,10 @@ NetShutdown:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E3AFC                                                       E3AFC  97 PC
+; StartNetworkLink                                E3AFC  97 PC, low confidence
+; Starts a network link game
 ;-----------------------------------------------------------------------------
-sub_E3AFC:
+StartNetworkLink:
         push dword 128h
         call __CHK
         push ebx
@@ -13009,19 +13115,19 @@ sub_E3AFC:
         mov eax, dword [byte esi+076h]
         lea edx, [byte esi+07Ah]
         sar eax, 10h
-        call sub_E5CD8
+        call HostNetGame
         test eax, eax
         je short .3
-        mov ebx, sub_E3640
+        mov ebx, ResendLinkPacket
         mov ecx, dword [dword_16DAA4]
-        mov edx, sub_E341C_34
+        mov edx, ServiceIdle_34
         push ecx
         lea eax, [byte esi+074h]
         mov ecx, dword_1CD2A4
         call JoinNetworkGame
         test eax, eax
         jne near .12
-        call sub_E5D6C
+        call LeaveNetGame
         call ShutdownPacketLink
         xor eax, eax
         add esp, 100h
@@ -13085,11 +13191,11 @@ sub_E3AFC:
         call GetLangText
         call sub_835BC
         mov edx, dword [dword_16DAA4]
-        mov ebx, sub_E3640
+        mov ebx, ResendLinkPacket
         push edx
         mov eax, esi
-        mov edx, sub_E341C_34
-        call sub_E5808
+        mov edx, ServiceIdle_34
+        call OpenNetSession
         test eax, eax
         jne short .5
         call ShutdownPacketLink
@@ -13171,7 +13277,7 @@ sub_E3AFC:
         mov edx, ecx
         call GetLangText
         call sub_7F5A4
-        call sub_E59A8
+        call CloseNetSession
         call ShutdownPacketLink
         xor eax, eax
         add esp, 100h
@@ -13262,11 +13368,11 @@ NetDisconnect:
         call sub_835BC
         cmp dword [dword_1CD2A8], byte 0
         je short .1
-        call sub_E7570
-        call sub_E5D6C
+        call CloseNetConnection
+        call LeaveNetGame
         jmp short .2
 .1:
-        call sub_E59A8
+        call CloseNetSession
 .2:
         push byte 0
         call sub_F9A88
@@ -13288,9 +13394,10 @@ NetDisconnect:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E3F04                                                       E3F04  97 PC
+; LinkHandshake                                   E3F04  97 PC, low confidence
+; Handshake with the other computer
 ;-----------------------------------------------------------------------------
-sub_E3F04:
+LinkHandshake:
         push dword 2Ch
         call __CHK
         push ebx
@@ -13540,48 +13647,52 @@ sub_E3F04:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E4218                                                       E4218  97 PC
+; LinkSyncMenu                                    E4218  97 PC, low confidence
+; Synchronises a menu with the other computer
 ;-----------------------------------------------------------------------------
-sub_E4218:
+LinkSyncMenu:
         push dword 8
         call __CHK
         push edx
         xor edx, edx
         xor eax, eax
-        call sub_E3F04
+        call LinkHandshake
         pop edx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E4230                                                       E4230  97 PC
+; LinkSyncScreen                                  E4230  97 PC, low confidence
+; Synchronises a screen with the other computer
 ;-----------------------------------------------------------------------------
-sub_E4230:
+LinkSyncScreen:
         push dword 8
         call __CHK
         push edx
         mov edx, eax
         xor eax, eax
-        call sub_E3F04
+        call LinkHandshake
         pop edx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E4248                                                       E4248  97 PC
+; LinkSyncGame                                    E4248  97 PC, low confidence
+; Synchronises the start of a game with the other computer
 ;-----------------------------------------------------------------------------
-sub_E4248:
+LinkSyncGame:
         push dword 8
         call __CHK
         push edx
         mov edx, eax
         mov eax, 1
-        call sub_E3F04
+        call LinkHandshake
         pop edx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E4264                                                       E4264  97 PC
+; ClearLinkInputs                                 E4264  97 PC, low confidence
+; Clears the link input buffers
 ;-----------------------------------------------------------------------------
-sub_E4264:
+ClearLinkInputs:
         push ecx
         push edx
         push byte 42h
@@ -13597,9 +13708,10 @@ sub_E4264:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E4288                                                       E4288  97 PC
+; LinkInputTick                                   E4288  97 PC, low confidence
+; Sends and receives the link inputs each tick
 ;-----------------------------------------------------------------------------
-sub_E4288:
+LinkInputTick:
         push ebx
         push ecx
         push edx
@@ -13705,7 +13817,7 @@ sub_E4288:
         je short .5
         mov edx, word_1CD2B4
         mov eax, 3
-        call sub_E34A0
+        call QueueLinkPacket
         jmp short .6
 .5:
         mov dword [dword_1CD26C], eax
@@ -13730,7 +13842,7 @@ sub_E4288:
         mov dword [dword_16D918], 1
         mov edx, word_1CD2B4
         mov eax, 3
-        call sub_E3530
+        call SendLinkPacket
         mov eax, dword [dword_1CD2B2]
         sar eax, 10h
         mov edx, eax
@@ -13741,7 +13853,7 @@ sub_E4288:
         mov edx, word_1CD2AC
         mov word [word_1CD2B4], ax
         mov eax, 1
-        call sub_E3530
+        call SendLinkPacket
         mov eax, dword [dword_1CD2AA]
         sar eax, 10h
         mov edx, eax
@@ -13880,7 +13992,7 @@ LinkSendBlock:
         xor edx, edx
         xor eax, eax
         mov esi, dword [dword esp+0FCh]
-        call sub_E3F04
+        call LinkHandshake
         xor ebp, ebp
         test esi, esi
         jle near .9
@@ -14012,7 +14124,7 @@ LinkSendBlock:
 .11:
         xor edx, edx
         xor eax, eax
-        call sub_E3F04
+        call LinkHandshake
 .12:
         add esp, 108h
         pop ebp
@@ -14052,7 +14164,7 @@ LinkReceiveBlock:
         xor edx, edx
         xor eax, eax
         mov dword [dword_16DAB4], ebx
-        call sub_E3F04
+        call LinkHandshake
         cmp dword [dword_16DAB4], byte 0
         jne short .5
 .1:
@@ -14085,7 +14197,7 @@ LinkReceiveBlock:
 .5:
         xor edx, edx
         xor eax, eax
-        call sub_E3F04
+        call LinkHandshake
 .6:
         add esp, byte 4
         pop edi
@@ -14356,7 +14468,7 @@ WaitForOtherComputer:
         call SetTextColor
         xor edx, edx
         xor eax, eax
-        call sub_E3F04
+        call LinkHandshake
         push byte 42h
         xor edx, edx
         push unk_1CD33E
@@ -14391,7 +14503,7 @@ WaitForOtherComputer:
 .9:
         xor edx, edx
         xor eax, eax
-        call sub_E3F04
+        call LinkHandshake
         mov eax, dword [dword_16DAB6]
         sar eax, 10h
         test eax, eax
@@ -14417,7 +14529,7 @@ WaitForOtherComputer:
 .11:
         xor edx, edx
         xor eax, eax
-        call sub_E3F04
+        call LinkHandshake
         mov eax, dword [dword esp+0154h]
         cmp eax, dword [dword esp+0150h]
         jge short .12
@@ -14865,7 +14977,7 @@ WaitForOtherComputer:
         je near .47
         lea edx, [dword esp+0140h]
         mov eax, 2
-        call sub_E3530
+        call SendLinkPacket
         xor edx, edx
         mov dword [dword esp+0198h], edx
 .39:
@@ -15059,7 +15171,7 @@ WaitForOtherComputer:
 .49:
         xor edx, edx
         xor eax, eax
-        call sub_E3F04
+        call LinkHandshake
         cmp dword [dword esp+016Ch], byte 0
         je short .50
         call SetScreenTarget
@@ -15084,9 +15196,10 @@ WaitForOtherComputer:
         ret
         db 00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_E5730                                                       E5730  97 PC
+; InitNetSession                                  E5730  97 PC, low confidence
+; Sets up the network session
 ;-----------------------------------------------------------------------------
-sub_E5730:
+InitNetSession:
         push ebx
         push ecx
         push edx
@@ -15165,9 +15278,10 @@ DefaultModemName:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E5808                                                       E5808  97 PC
+; OpenNetSession                                  E5808  97 PC, low confidence
+; Opens the network session
 ;-----------------------------------------------------------------------------
-sub_E5808:
+OpenNetSession:
         push esi
         push edi
         push ebp
@@ -15306,9 +15420,10 @@ sub_E5808:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E59A8                                                       E59A8  97 PC
+; CloseNetSession                                 E59A8  97 PC, low confidence
+; Closes the network session
 ;-----------------------------------------------------------------------------
-sub_E59A8:
+CloseNetSession:
         push ecx
         push edx
         cmp word [word_16E0F8], byte 0
@@ -15326,9 +15441,10 @@ sub_E59A8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_E59D8                                                       E59D8  97 PC
+; ShutdownNetSession                              E59D8  97 PC, low confidence
+; Shuts down the network session
 ;-----------------------------------------------------------------------------
-sub_E59D8:
+ShutdownNetSession:
         push ebx
         push ecx
         push edx
@@ -15356,9 +15472,10 @@ sub_E59D8:
         ret
         db 00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_E5A20                                                       E5A20  97 PC
+; SetNetPlayerName                                E5A20  97 PC, low confidence
+; Sets the network player name
 ;-----------------------------------------------------------------------------
-sub_E5A20:
+SetNetPlayerName:
         push ebx
         mov ecx, dword [byte esp+08h]
         cmp dword [dword_16E124], byte 0
@@ -15436,7 +15553,7 @@ IpxInit:
         xor ebx, ebx
         push ebx
         push dword 2580h
-        push sub_E5A20
+        push SetNetPlayerName
         mov dword [dword_16E124], ebx
         call sub_11D2D0
         add esp, byte 10h
@@ -15477,7 +15594,7 @@ IpxInit:
         push byte 0
         push dword 2580h
         xor esi, esi
-        push sub_E5A20
+        push SetNetPlayerName
         mov dword [dword_16E124], eax
         mov word [word_16E120], si
         call sub_11D2D0
@@ -15626,9 +15743,10 @@ IpxCloseSocket:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E5CD8                                                       E5CD8  97 PC
+; HostNetGame                                     E5CD8  97 PC, low confidence
+; Hosts a network game
 ;-----------------------------------------------------------------------------
-sub_E5CD8:
+HostNetGame:
         push ebx
         push ecx
         push esi
@@ -15683,9 +15801,10 @@ sub_E5CD8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E5D6C                                                       E5D6C  97 PC
+; LeaveNetGame                                    E5D6C  97 PC, low confidence
+; Leaves the network game
 ;-----------------------------------------------------------------------------
-sub_E5D6C:
+LeaveNetGame:
         push ebx
         push ecx
         push edx
@@ -15703,9 +15822,10 @@ sub_E5D6C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E5D98                                                       E5D98  97 PC
+; AddFoundGame                                    E5D98  97 PC, low confidence
+; Adds a found network game to the list
 ;-----------------------------------------------------------------------------
-sub_E5D98:
+AddFoundGame:
         push ebx
         push esi
         push edi
@@ -15826,7 +15946,7 @@ sub_E5D98:
         ret
 ;-----------------------------------------------------------------------------
 ; FindNetworkGames                                E5EE0  97 PC, low confidence
-; Looks for open "GAMEADDR" games on the network (sub_E5D98 matches "NHL97"
+; Looks for open "GAMEADDR" games on the network (AddFoundGame matches "NHL97"
 ; entries)
 ;-----------------------------------------------------------------------------
 FindNetworkGames:
@@ -15851,13 +15971,13 @@ FindNetworkGames:
         call SecondsToSamples
         call WaitSoundTime
         push byte 1Eh
-        push sub_E5D98
+        push AddFoundGame
         push unk_1CD480
         call sub_11D5C0
         add esp, byte 0Ch
         mov eax, dword [tickcount]
         lea ebx, [byte eax+05h]
-        call sub_E341C
+        call ServiceIdle
         mov cx, word [word_1CD634]
         test cx, cx
         jle near .4
@@ -15884,15 +16004,15 @@ FindNetworkGames:
         mov eax, dword [tickcount]
         cmp eax, ebx
         jge short .3
-        call sub_E341C
+        call ServiceIdle
         jmp short .2
 .3:
         push byte 1Eh
-        push sub_E5D98
+        push AddFoundGame
         push unk_1CD480
         call sub_11D5C0
         add esp, byte 0Ch
-        call sub_E341C
+        call ServiceIdle
 .4:
         mov eax, dword [dword_1CD632]
         sar eax, 10h
@@ -15902,9 +16022,10 @@ FindNetworkGames:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E5FD8                                                       E5FD8  97 PC
+; DrawNetGameList                                 E5FD8  97 PC, low confidence
+; Draws the list of network games
 ;-----------------------------------------------------------------------------
-sub_E5FD8:
+DrawNetGameList:
         push ebx
         push ecx
         push edx
@@ -16045,9 +16166,10 @@ sub_E5FD8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E61AC                                                       E61AC  97 PC
+; ChooseNetGame                                   E61AC  97 PC, low confidence
+; Lets the player choose a network game
 ;-----------------------------------------------------------------------------
-sub_E61AC:
+ChooseNetGame:
         push ebx
         push ecx
         push edx
@@ -16266,7 +16388,7 @@ sub_E61AC:
         mov eax, dword [dword_1CD54C]
         mov dword [dword eax+02EEh], 1
         call SetScreenTarget
-        call sub_E5FD8
+        call DrawNetGameList
         mov eax, dword [tickcount]
         add eax, 12Ch
         mov dword [dword_16E134], eax
@@ -16985,7 +17107,7 @@ ChooseNetworkGameScreen:
         mov dword [dword_16E138], edx
         mov byte [byte_1CD460], ah
         call SetScreenTarget
-        call sub_E61AC
+        call ChooseNetGame
         call sub_1013FC
         mov ebp, 2
         mov edi, 9
@@ -16998,7 +17120,7 @@ ChooseNetworkGameScreen:
         mov edx, dword [dword_1CD54C]
         mov dword [byte esp+030h], ecx
         push eax
-        mov ecx, sub_E61AC
+        mov ecx, ChooseNetGame
         mov eax, 0Ah
         call sub_8BFAC
         mov eax, dword [byte esp+02Ch]
@@ -17032,7 +17154,7 @@ ChooseNetworkGameScreen_A51:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .13
-        call sub_E341C
+        call ServiceIdle
         jmp short .12
 .13:
         inc ebx
@@ -17059,7 +17181,7 @@ ChooseNetworkGameScreen_A99:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .17
-        call sub_E341C
+        call ServiceIdle
         jmp short .16
 .17:
         inc ebx
@@ -17079,7 +17201,7 @@ ChooseNetworkGameScreen_AE5:
         mov dword [dword_16E138], eax
 .18:
         call SetScreenTarget
-        call sub_E5FD8
+        call DrawNetGameList
         call sub_1013FC
         jmp near ChooseNetworkGameScreen_BA2
 ChooseNetworkGameScreen_B21:
@@ -17097,7 +17219,7 @@ ChooseNetworkGameScreen_B21:
         mov dword [dword_16E138], ebx
 .19:
         call SetScreenTarget
-        call sub_E5FD8
+        call DrawNetGameList
         call sub_1013FC
         jmp short ChooseNetworkGameScreen_BA2
 .20:
@@ -17115,7 +17237,7 @@ ChooseNetworkGameScreen_B21:
         mov dword [dword_16E138], eax
 .21:
         call SetScreenTarget
-        call sub_E5FD8
+        call DrawNetGameList
         mov ebx, 0FFFFFFFFh
         call sub_1013FC
         mov dword [byte esp+02Ch], ebx
@@ -17239,9 +17361,10 @@ ChooseNetworkGameScreen_BA2:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E728C                                                       E728C  97 PC
+; CopyJoinedGameInfo                              E728C  97 PC, low confidence
+; Copies the joined game's info
 ;-----------------------------------------------------------------------------
-sub_E728C:
+CopyJoinedGameInfo:
         push ebx
         mov edx, dword [byte esp+0Ch]
         mov ebx, 5Ch
@@ -17317,7 +17440,7 @@ JoinNetworkGame:
         mov edx, str_NHL97
         lea eax, [byte esp+020h]
         call strcpy_
-        push sub_E728C
+        push CopyJoinedGameInfo
         push str_KWKJSK122691
         lea eax, [byte esp+08h]
         push eax
@@ -17366,7 +17489,7 @@ JoinNetworkGame:
         pop esi
         ret 4
 .4:
-        call sub_E341C
+        call ServiceIdle
         cmp dword [dword_16E140], byte 0
         je short .3
 .5:
@@ -17475,9 +17598,10 @@ JoinNetworkGame:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_E7570                                                       E7570  97 PC
+; CloseNetConnection                              E7570  97 PC, low confidence
+; Closes the network connection
 ;-----------------------------------------------------------------------------
-sub_E7570:
+CloseNetConnection:
         push ebx
         push ecx
         push edx
@@ -17496,9 +17620,10 @@ sub_E7570:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E759F                                                       E759F  97 PC
+; OptionsAnimFrame                                E759F  97 PC, low confidence
+; Draws one frame of the options animation
 ;-----------------------------------------------------------------------------
-sub_E759F:
+OptionsAnimFrame:
         push ebx
         push ecx
         push edx
@@ -17623,7 +17748,7 @@ sub_E759F:
         call sub_1013FC
 .11:
         leave
-sub_E759F_20C:
+OptionsAnimFrame_20C:
         pop edi
         pop esi
         pop edx
@@ -17631,9 +17756,10 @@ sub_E759F_20C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E77B1                                                       E77B1  97 PC
+; OptionsAnimScreen                               E77B1  97 PC, low confidence
+; Shows the options animation screen
 ;-----------------------------------------------------------------------------
-sub_E77B1:
+OptionsAnimScreen:
         push ebx
         push ecx
         push edx
@@ -17853,7 +17979,7 @@ sub_E77B1:
         jne short .12
         push byte 2
         lea eax, [byte ebp+072h]
-        mov ecx, sub_E759F
+        mov ecx, OptionsAnimFrame
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, unk_1CD6AC
@@ -17900,17 +18026,18 @@ sub_E77B1:
 .14:
         lea esp, [dword ebp+082h]
         pop ebp
-        jmp near sub_E759F_20C
+        jmp near OptionsAnimFrame_20C
 jpt_E7B1F:
-        dd sub_E7B33_C6
-        dd sub_E7B33_D1
-        dd sub_E7B33_DB
-        dd sub_E7B33_186
-        dd sub_E7B33_19C
+        dd SeasonIntroScreen_C6
+        dd SeasonIntroScreen_D1
+        dd SeasonIntroScreen_DB
+        dd SeasonIntroScreen_186
+        dd SeasonIntroScreen_19C
 ;-----------------------------------------------------------------------------
-; sub_E7B33                                                       E7B33  97 PC
+; SeasonIntroScreen                               E7B33  97 PC, low confidence
+; Shows the season intro screen
 ;-----------------------------------------------------------------------------
-sub_E7B33:
+SeasonIntroScreen:
         push ebx
         push ecx
         push edx
@@ -17958,15 +18085,15 @@ sub_E7B33:
         mov eax, dword [byte eax+02Ch]
         xor esi, esi
         call sub_80BBC
-        jmp near sub_E7B33_DB.2
-sub_E7B33_C6:
+        jmp near SeasonIntroScreen_DB.2
+SeasonIntroScreen_C6:
         call sub_7EDF0
         inc esi
-        jmp near sub_E7B33_DB.2
-sub_E7B33_D1:
+        jmp near SeasonIntroScreen_DB.2
+SeasonIntroScreen_D1:
         call sub_7EF70
-        jmp near sub_E7B33_DB.2
-sub_E7B33_DB:
+        jmp near SeasonIntroScreen_DB.2
+SeasonIntroScreen_DB:
         imul eax, byte 52h
         mov ebx, dword [dword eax+ebp-0304h]
         movsx edx, word [byte ebx+06h]
@@ -17998,7 +18125,7 @@ sub_E7B33_DB:
         call sub_E8923
 .2:
         test esi, esi
-        jne short sub_E7B33_19C.3
+        jne short SeasonIntroScreen_19C.3
         push byte 3
         lea eax, [byte ebp+07Eh]
         mov ebx, 0FFFFFFFFh
@@ -18011,20 +18138,20 @@ sub_E7B33_DB:
         ja short .2
         mov eax, dword [byte ebp+07Eh]
         jmp dword [nosplit cs:eax*4+jpt_E7B1F]
-sub_E7B33_186:
+SeasonIntroScreen_186:
         cmp dword [dword_1CD770], byte 0
-        jle short sub_E7B33_DB.2
+        jle short SeasonIntroScreen_DB.2
         mov eax, 1
         dec dword [dword_1CD770]
-        jmp short sub_E7B33_DB.1
-sub_E7B33_19C:
+        jmp short SeasonIntroScreen_DB.1
+SeasonIntroScreen_19C:
         mov eax, dword [dword_1CD76C]
         dec eax
         cmp eax, dword [dword_1CD770]
-        jle short sub_E7B33_DB.2
+        jle short SeasonIntroScreen_DB.2
         mov eax, 1
         inc dword [dword_1CD770]
-        jmp short sub_E7B33_DB.1
+        jmp short SeasonIntroScreen_DB.1
 .3:
         push dword [dword_1CD764]
         call FreeBitmap

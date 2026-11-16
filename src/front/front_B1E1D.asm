@@ -28,8 +28,8 @@ extern sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_823F0, sub_82F
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath
 extern sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E
 extern SetScrollBarPos, sub_8DEAC, GetLangText, AllocStatTable, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E
-extern sub_ACDAE, sub_AD151, sub_AD62E, sub_AD79F, sub_DA7EB, sub_DB6AC, LoadExhibitionFile, FreeExhibitionFile
-extern sub_E2041, sub_E2141, sub_E21C6, sub_E341C, sub_E4218, sub_E4230, WaitForOtherComputer, AllocMemBlock
+extern sub_ACDAE, sub_AD151, sub_AD62E, sub_AD79F, OpenGameDatabase, CloseGameDatabase, LoadExhibitionFile, FreeExhibitionFile
+extern SaveUserRecord, LoadUserRecord, DeleteUserRecord, ServiceIdle, LinkSyncMenu, LinkSyncScreen, WaitForOtherComputer, AllocMemBlock
 extern FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, MeasureText, tickcount
 extern unk_1665C8, unk_1665CB, unk_16661B, unk_166648, unk_1C5F4A, unk_1C9704, unk_1C9756, unk_1C989E
 extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, word_16D450, word_1AD68F, word_1AD693, word_1C3413
@@ -248,7 +248,7 @@ DeleteUser:
         call NameIndexPath
         lea eax, [byte ebp-022h]
         call sub_B1E1D
-        call sub_E21C6
+        call DeleteUserRecord
         test eax, eax
         je near .4
         mov edx, edi
@@ -346,7 +346,7 @@ sub_B211C:
         call sub_B1E9C
         mov edx, ebx
         lea eax, [dword ebp-01A4h]
-        call sub_E2041
+        call SaveUserRecord
         test eax, eax
         jne short .1
         mov eax, 0FBh
@@ -1079,7 +1079,7 @@ UserLogScreen_71B:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .17
-        call sub_E341C
+        call ServiceIdle
         jmp short .16
 .17:
         inc dword [byte ebp+07Ah]
@@ -1108,7 +1108,7 @@ UserLogScreen_77D:
         mov eax, dword [tickcount]
         cmp eax, edx
         jge short .21
-        call sub_E341C
+        call ServiceIdle
         jmp short .20
 .21:
         inc dword [byte ebp+07Ah]
@@ -1476,7 +1476,7 @@ sub_B2F49:
         movsd
         movsd
         movsd
-        call sub_DA7EB
+        call OpenGameDatabase
         lea eax, [byte ebp+052h]
         mov dword [byte ebp+06Ah], 0
         call LoadUserList
@@ -1497,7 +1497,7 @@ sub_B2F49:
         lea eax, [byte ebp-016h]
         lea edx, [dword ebp-0256h]
         call sub_B1E1D
-        call sub_E2141
+        call LoadUserRecord
         test eax, eax
         je near .55
         mov ebx, dword [dword_1AC814]
@@ -1992,7 +1992,7 @@ sub_B2F49:
         call sub_B1E1D
         mov edx, eax
         lea eax, [dword ebp-0256h]
-        call sub_E2041
+        call SaveUserRecord
 .55:
         inc dword [byte ebp+06Ah]
         cmp dword [byte ebp+06Ah], byte 8
@@ -2000,7 +2000,7 @@ sub_B2F49:
         mov edx, dword [byte ebp+052h]
         mov eax, 1
         call NameIndexFree
-        call sub_DB6AC
+        call CloseGameDatabase
         movsx eax, word [byte ebp+076h]
         lea esp, [dword ebp+082h]
         pop ebp
@@ -2036,7 +2036,7 @@ LoadUserRecords:
         add edx, eax
         lea eax, [byte ebp-050h]
         call sub_B1E1D
-        call sub_E2141
+        call LoadUserRecord
         test eax, eax
         jne short .2
         push byte 1
@@ -2818,7 +2818,7 @@ sub_B418C:
         cmp byte [byte_1CA9D8], 2
         jne short .2
         call UserRecordsScreen
-        call sub_E4218
+        call LinkSyncMenu
         mov edx, 1Ah
         mov eax, edx
         pop edx
@@ -2827,7 +2827,7 @@ sub_B418C:
         mov eax, 237h
         mov edx, 1Ah
         call GetLangText
-        call sub_E4230
+        call LinkSyncScreen
         mov eax, edx
         pop edx
         ret
@@ -3448,12 +3448,12 @@ UserRecordsScreen_96D:
         jne short .10
         lea eax, [dword ebp-02A0h]
         call sub_AD79F
-        call sub_E4218
+        call LinkSyncMenu
         jmp near UserRecordsScreen_AA5.15
 .10:
         mov eax, 237h
         call GetLangText
-        call sub_E4230
+        call LinkSyncScreen
         jmp near UserRecordsScreen_AA5.15
 UserRecordsScreen_9B4:
         mov eax, unk_1C9704
@@ -3652,7 +3652,7 @@ UserRecordsScreen_AA5:
         lea ebx, [dword esi+03EAh]
         lea edx, [dword ebp-01B4h]
         mov eax, ebx
-        call sub_E2141
+        call LoadUserRecord
         test eax, eax
         je near .17
         mov eax, dword [byte ebp-04h]
@@ -3697,7 +3697,7 @@ UserRecordsScreen_AA5:
         call sub_B1F4D
         mov dword [byte ebp-043h], eax
         lea eax, [dword ebp-01B4h]
-        call sub_E2041
+        call SaveUserRecord
 .17:
         leave
         pop edi

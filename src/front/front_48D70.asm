@@ -79,7 +79,7 @@ extern MusicStreamTick, WaitMusicEnd, ServiceSpeechQueue, sub_480CC, sub_4880C, 
 extern LoadRinkLines, LoadRinkModel, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
 extern sub_56740, LoadGoalieMask, LoadGameModels, SetupTeamModels, FreeGameModels, UpdateViewMatrix, ScaleModelLods, SetModelExtraFlags
 extern DrawPlayersSorted, DrawIceMarkers, DrawPlayerNames, DrawPuckArrow, NoOpDraw, ReplaySoundAllowed, ProjectRinkPoints, LoadAiIcons
-extern FreeCameraDebug, PlayMovie, sub_842F4, sub_E3410, sub_E341C, AllocMemBlock, FreeMemBlock, ZeroMem
+extern FreeCameraDebug, PlayMovie, sub_842F4, ClearLinkAbort, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, DrawTextAt, SetTextColors
 extern IntsToFloats, FloatsToInts, ScaleFloatsToInts, VecMulMat, TransformVecs, VecAdd, AddVecs, VecDistance
 extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, unk_1611B4
@@ -2740,7 +2740,7 @@ MakeDataPath_62:
         jb short .4
         call sub_FC410
         mov ecx, eax
-        call sub_E341C
+        call ServiceIdle
         mov edx, ebx
         mov eax, ecx
         call stricmp_
@@ -2947,7 +2947,7 @@ jpt_4AE54:
         enter 28h, 0
         mov edx, eax
         mov byte [byte ebp-028h], 0
-        call sub_E341C
+        call ServiceIdle
         test edx, edx
         jne short .1
         push edx
@@ -2996,7 +2996,7 @@ jpt_4AE54:
         call sub_FC410
         lea edx, [byte ebp-028h]
         mov ebx, eax
-        call sub_E341C
+        call ServiceIdle
         mov eax, ebx
         call stricmp_
         test eax, eax
@@ -3045,7 +3045,7 @@ jpt_4AE54:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_106D80
@@ -3053,7 +3053,7 @@ jpt_4AE54_137:
         add esp, byte 8
         mov edx, eax
         call MusicStreamTick
-        call sub_E341C
+        call ServiceIdle
         mov eax, edx
         pop ecx
         pop ebx
@@ -3070,7 +3070,7 @@ LoadDataFileHandle:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_106DA0
@@ -3081,7 +3081,7 @@ LoadDataFileHandle:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_106DE0
@@ -3092,7 +3092,7 @@ LoadDataFileHandle:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_106DF8
@@ -3103,7 +3103,7 @@ LoadDataFileHandle:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_107098
@@ -3114,7 +3114,7 @@ LoadDataFileHandle:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_1070B0
@@ -3125,7 +3125,7 @@ LoadDataFileHandle:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_10AE10
@@ -3142,7 +3142,7 @@ LoadDataFileLib:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_100498
@@ -3153,7 +3153,7 @@ LoadDataFileLib:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_1004B8
@@ -3164,7 +3164,7 @@ LoadDataFileLib:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_1004F8
@@ -3175,7 +3175,7 @@ LoadDataFileLib:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_100510
@@ -3192,7 +3192,7 @@ LoadDataFile:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_101584
@@ -3208,7 +3208,7 @@ LoadDataFileFlag0:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_101560
@@ -3219,7 +3219,7 @@ LoadDataFileFlag0:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_101524
@@ -3230,7 +3230,7 @@ LoadDataFileFlag0:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push unk_1AC7DC
         call sub_10150C
@@ -3245,11 +3245,11 @@ OpenDataLibrary:
         mov edx, eax
         mov eax, unk_1AC7DC
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push unk_1AC7DC
         call sub_FC330
         add esp, byte 4
-        call sub_E341C
+        call ServiceIdle
         pop edx
         pop ecx
         ret
@@ -3288,11 +3288,11 @@ SetArtArchive:
         mov eax, unk_1AC7DC
         mov edx, ebx
         call MakeDataPath
-        call sub_E341C
+        call ServiceIdle
         push unk_1AC7DC
         call sub_FC330
         add esp, byte 4
-        call sub_E341C
+        call ServiceIdle
         mov edx, ebx
         mov eax, unk_1AC7DC
         call MakeDataPath
@@ -3499,7 +3499,7 @@ WriteGlobalSet:
         je short .4
         cmp dword [dword_16DA9C], byte 0
         je short .1
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .2
 .1:
@@ -3677,12 +3677,12 @@ InitGameGraphics:
         xor edx, edx
         mov ebx, 0E7h
         call InitDisplayViews
-        call sub_E341C
+        call ServiceIdle
         xor edx, edx
         mov eax, 3Ch
         mov dword [dword_1ADC84], edx
         call sub_842F4
-        call sub_E341C
+        call ServiceIdle
         call InitPaletteManager
         mov eax, str_Render
         call AddPaletteRange
@@ -3711,7 +3711,7 @@ InitGameGraphics:
         call OpenArenaArchive
         mov eax, 46h
         call sub_842F4
-        call sub_E341C
+        call ServiceIdle
         push dword 0FF000000h
         call sub_FC4BC
         add esp, byte 4
@@ -3733,11 +3733,11 @@ InitGameGraphics:
         call LoadGameModels
         mov eax, 4Bh
         call sub_842F4
-        call sub_E341C
+        call ServiceIdle
         mov edx, dword [dword_16AF34]
         xor eax, eax
         call LoadGoalieMask
-        call sub_E341C
+        call ServiceIdle
         mov eax, 50h
         call sub_842F4
         mov eax, 1
@@ -3780,7 +3780,7 @@ InitGameGraphics:
         call AddModelName
         mov eax, 55h
         call sub_842F4
-        call sub_E341C
+        call ServiceIdle
         call QuantizeAllRanges
         mov eax, 0FFh
         call BuildGamePalette
@@ -3796,7 +3796,7 @@ InitGameGraphics:
         xor edx, edx
         xor eax, eax
         call SelectCameraView
-        call sub_E341C
+        call ServiceIdle
         mov eax, 5Fh
         mov edi, 0FFFFFFFFh
         call sub_842F4
@@ -5154,7 +5154,7 @@ LoadArenaArt:
         push ebp
         sub esp, byte 14h
         mov dword [byte esp+0Ch], eax
-        call sub_E341C
+        call ServiceIdle
         mov edx, dword [dword_1B108C]
         test edx, edx
         je short .1
@@ -5166,13 +5166,13 @@ LoadArenaArt:
 .2:
         call sub_10FFBC
         mov dword [dword_1B0F3C], eax
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         push str_Ice2
         call sub_101584
         add esp, byte 8
         mov dword [dword_1B0FB0], eax
-        call sub_E341C
+        call ServiceIdle
         push str_Pal
         mov ebx, dword [dword_1B0FB0]
         push ebx
@@ -5388,7 +5388,7 @@ LoadArenaArt:
         push eax
         call sprintf_
         add esp, byte 0Ch
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         lea eax, [byte esp+04h]
         push eax
@@ -12305,11 +12305,11 @@ LoadScoreboardArt:
         mov eax, str_ArenaViv2
         mov edx, 20h
         call SetArtArchive
-        call sub_E341C
+        call ServiceIdle
         mov eax, str_Zamboni
         call sub_10FFBC
         mov dword [dword_1B0B6C], eax
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [dword_1B0B6C]
         push byte 0
         add eax, byte 2Ch
@@ -12318,7 +12318,7 @@ LoadScoreboardArt:
         add esp, byte 8
         xor ebx, ebx
         mov dword [dword_1B0B18], eax
-        call sub_E341C
+        call ServiceIdle
         mov edx, dword [dword_1B0B18]
         mov eax, dword [dword_1ADC88]
         call RemapBankToRange
@@ -13587,7 +13587,7 @@ OpenArenaArchive:
         mov eax, str_ArenaViv2
         call SetArtArchive
         inc edx
-        call sub_E341C
+        call ServiceIdle
         cmp edx, byte 3
         ja near OpenArenaArchive_7D.2
         jmp dword [nosplit cs:edx*4+jpt_52484]

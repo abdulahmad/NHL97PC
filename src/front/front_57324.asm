@@ -170,7 +170,7 @@ extern StartMusicTrack, StopAllSfx, PlaySfxOr, PlaySfxVolume, PlaySfxAt, SetCrow
 extern ResetStreamAudio, SetArtArchive, RefreshViewDistance, AddModelName, FindModelName, ResetRenderTimers, DrawGameFrame, RedrawGameView
 extern TriggerCameraFlashes, DrawNetShadows, PeriodOver, IsCameraOnPuck, SetCameraMode, StartCrowdReaction, StartBenchCheer, UpdateScoreboardPos
 extern UpdateScoreboardSpin, sub_56798, sub_567B0, sub_568CC, sub_56908, sub_56A84, sub_56AE4, sub_56CD0
-extern sub_56CE4, sub_56CF8, sub_56D0C, sub_56DDC, sub_AA650, sub_BD61B, sub_E341C, AllocMemBlock
+extern sub_56CE4, sub_56CF8, sub_56D0C, sub_56DDC, sub_AA650, sub_BD61B, ServiceIdle, AllocMemBlock
 extern sub_FAAB4, FreeMemBlock, sub_FB4A4, ZeroMem, FillMem, sub_FC330, sub_FC4BC, sub_FCC40
 extern FreeBitmap, SetDrawTarget, sub_FD954, sub_FDC0C, sub_FDC68, FillRect, MeasureText, DrawTextAt
 extern SetTextColors, ClearIfNaN, FloatsToInts, MatRotX, MatRotY, MatTranspose, MatMul, VecMulMat
@@ -1034,7 +1034,7 @@ LoadPlayerCommonArt:
         call FindShape
         add esp, byte 8
         lea esi, [byte eax+010h]
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         push str_HndfistFsh
         mov ebx, dword_1B82E0
@@ -1050,7 +1050,7 @@ LoadPlayerCommonArt:
         mov dword [dword_1B8364], eax
         mov eax, str_Fist
         call AddBankToRange
-        call sub_E341C
+        call ServiceIdle
         mov eax, str_Torso0
         xor edx, edx
         call sub_10FFBC
@@ -1095,7 +1095,7 @@ LoadPlayerCommonArt:
         mov dword [dword ebx+dword_1B13E4], eax
         cmp esi, byte 0Ah
         jl short .2
-        call sub_E341C
+        call ServiceIdle
         mov eax, str_Helmet0
         xor edx, edx
         call sub_10FFBC
@@ -1135,7 +1135,7 @@ LoadPlayerCommonArt:
         call AttachModel
         cmp esi, byte 0Ch
         jne short .3
-        call sub_E341C
+        call ServiceIdle
         mov eax, str_Stick0
         xor edx, edx
         call sub_10FFBC
@@ -1164,7 +1164,7 @@ LoadPlayerCommonArt:
         call AttachModel
         cmp esi, byte 10h
         jne short .4
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         push str_Stick2Fsh
         call sub_101584
@@ -1227,7 +1227,7 @@ LoadPlayerCommonArt:
         call AttachModel
         cmp esi, byte 0Ch
         jne short .6
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         push str_Gstick2Fsh
         call sub_101584
@@ -1263,7 +1263,7 @@ LoadPlayerCommonArt:
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B8548]
         call AttachModel
-        call sub_E341C
+        call ServiceIdle
         mov eax, str_Grleg
         xor edx, edx
         call sub_10FFBC
@@ -1294,7 +1294,7 @@ LoadPlayerCommonArt:
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B8484]
         call AttachModel
-        call sub_E341C
+        call ServiceIdle
         mov eax, str_Ltrap2
         xor edx, edx
         call sub_10FFBC
@@ -1315,7 +1315,7 @@ LoadPlayerCommonArt:
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B8440]
         call AttachModel
-        call sub_E341C
+        call ServiceIdle
         mov eax, str_Lskate0
         xor edx, edx
         call sub_10FFBC
@@ -1356,7 +1356,7 @@ LoadPlayerCommonArt:
         add esp, byte 8
         cmp esi, byte 8
         jne short .8
-        call sub_E341C
+        call ServiceIdle
         mov eax, str_Rskate0
         xor edx, edx
         call sub_10FFBC
@@ -1436,7 +1436,7 @@ LoadUniformArt:
         add eax, byte 10h
         mov edx, dword [byte esp+028h]
         mov dword [byte esp+030h], eax
-        call sub_E341C
+        call ServiceIdle
         test edx, edx
         jne short .1
         push edx
@@ -1494,7 +1494,7 @@ LoadUniformArt:
         mov dword [nosplit esi*4+dword_1B8444], eax
         mov eax, str_Ori
         call RemapArtBank
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         push str_Helmet0Fsh
         call sub_101584
@@ -1550,7 +1550,7 @@ LoadUniformArt:
         cmp edi, byte 3
         jl short .3
         mov esi, dword [byte esp+028h]
-        call sub_E341C
+        call ServiceIdle
         test esi, esi
         jne near .4
         push esi
@@ -1606,7 +1606,7 @@ LoadUniformArt:
         xor ecx, ecx
         mov eax, str_Ori
         call RemapArtBank
-        call sub_E341C
+        call ServiceIdle
         mov ebx, 0Ah
         mov eax, dword [dword_1B8488]
         xor edx, edx
@@ -1655,7 +1655,7 @@ LoadUniformArt:
         call sub_10FBB0
         add esp, byte 8
 .4:
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         push str_Uarm
         mov ebx, dword_1B82E0
@@ -1690,7 +1690,7 @@ LoadUniformArt:
         mov dword [dword esi+dword_1B83C8], eax
         mov eax, str_Larm
         call AddBankToRange
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         push str_Uleg
         call sub_101584
@@ -1723,7 +1723,7 @@ LoadUniformArt:
         mov dword [dword esi+dword_1B8330], eax
         mov eax, str_Lleg
         call AddBankToRange
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         push str_Glove
         mov ebp, 1
@@ -1745,7 +1745,7 @@ LoadUniformArt:
         mov eax, str_Glove
         call AddBankToRange
         mov edx, dword [byte esp+024h]
-        call sub_E341C
+        call ServiceIdle
         push edx
         call FreeMemBlock
         add esp, byte 4
@@ -1953,7 +1953,7 @@ LoadGameModels:
         call AllocSpriteBuffers
         mov eax, str_PlyrcomnViv
         call SetArtArchive
-        call sub_E341C
+        call ServiceIdle
         push ebx
         push str_Marks2
         mov bl, 1
@@ -1996,7 +1996,7 @@ LoadGameModels:
         call LoadModelFile
         mov dword [dword_1B8540], eax
         call ScaleModelVerts
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [dword_1B8540]
         mov ebx, 100h
         call LoadFaceArt
@@ -2090,20 +2090,20 @@ LoadGameModels:
         xor ebx, ebx
         mov dword [dword_16B550], ebp
         call LoadPlayerCommonArt
-        call sub_E341C
+        call ServiceIdle
         xor eax, eax
         call LoadUniformArt
-        call sub_E341C
+        call ServiceIdle
         mov edx, dword [byte esp+08h]
         mov eax, ebp
         xor ebx, ebx
         call LoadUniformArt
-        call sub_E341C
+        call ServiceIdle
         mov eax, 2
         mov ebx, ebp
         xor edx, edx
         call LoadUniformArt
-        call sub_E341C
+        call ServiceIdle
         xor ebp, ebp
         mov ecx, 1
         xor esi, esi
@@ -5757,7 +5757,7 @@ LoadFaceArt:
         call sub_101584
         add esp, byte 8
         mov edi, eax
-        call sub_E341C
+        call ServiceIdle
         push str_Pal2
         push edi
         call FindShape
@@ -5773,7 +5773,7 @@ LoadFaceArt:
         xor edx, edx
         call sub_10FFBC
         mov dword [dword_1B89AC], eax
-        call sub_E341C
+        call ServiceIdle
         mov ebx, dword [dword_1B89AC]
         push ebx
         call sub_11004C
@@ -6936,7 +6936,7 @@ ReplayDrawFrame:
         mov eax, dword [tickcount]
 .3:
         call DrawGameFrame
-        call sub_E341C
+        call ServiceIdle
         call RedrawGameView
         pop edi
         pop esi
@@ -7321,7 +7321,7 @@ PlaySavedReplay:
         mov eax, edi
         call ReplayDrawFrame
 .7:
-        call sub_E341C
+        call ServiceIdle
         jmp near .3
 .8:
         mov dword [dword_1B8F50], esi
@@ -43094,7 +43094,7 @@ LoadAnimFile:
         lea edx, [dword esp+0198h]
         lea eax, [dword esp+0104h]
         call _makepath_
-        call sub_E341C
+        call ServiceIdle
         push esi
         lea eax, [dword esp+0104h]
         push eax
@@ -43102,7 +43102,7 @@ LoadAnimFile:
         add esp, byte 8
         mov ecx, eax
         mov edx, eax
-        call sub_E341C
+        call ServiceIdle
         mov ebx, dword [byte ecx+04h]
         add ebx, ecx
         mov esi, ecx

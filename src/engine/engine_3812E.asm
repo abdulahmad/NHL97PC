@@ -56,9 +56,9 @@ extern GetStickBladePos, SetSPA, SetSPAInPlace, ResetAnimTimer, PickSkateAnim, E
 extern SteerAndAccel, LimitSkateSpeed, PickSaveAnim, SaveDirection, GetAnimId, sub_789F0, sub_7B15D, sub_7DFC0
 extern sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C
 extern sub_7F5A4, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMenuItems, sub_8BFAC
-extern sub_8DF1F, GetLangText, sub_99DAC, sub_AC369, sub_D0098, sub_DB75E, sub_DB763, sub_DE25F
-extern OpenLeagueFile, sub_DE740, sub_E036F, sub_E0415, FileExists, FileCreate, FileSeek, FileReadRecord
-extern FileWriteRecord, FileClose, sub_E341C, BuildAllStarTeams, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
+extern sub_8DF1F, GetLangText, sub_99DAC, sub_AC369, sub_D0098, FreeDbBlock, DaysToYear, FindNextSeasonGame
+extern OpenLeagueFile, StartSeasonGame, FindGameRecord, UpdateGameRecord, FileExists, FileCreate, FileSeek, FileReadRecord
+extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
 extern AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, FillMem, addtimer, sub_FC008, sub_FC290
 extern WaitTicks, sub_FC330, sub_FC410, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
 extern ClearScreen, sub_FDC68, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, unk_160A56, unk_160B68
@@ -381,7 +381,7 @@ SeasonGameScreen_3EB:
         cmp dword [dword_19ED30], byte 0
         je short .19
         mov eax, dword_19ED30
-        call sub_DB75E
+        call FreeDbBlock
 .19:
         mov dword [dword_19ED30], 0
         cmp dword [dword_19ED48], byte 0
@@ -1394,7 +1394,7 @@ DrawSeasonGamePanel:
         mov ebx, 1
         movsx edx, ax
         movsx eax, word [nosplit esi*2+word_169054]
-        call sub_DB763
+        call DaysToYear
         mov bx, word [nosplit esi*4+word_169066]
         mov edx, eax
         add ebx, eax
@@ -1430,7 +1430,7 @@ DrawSeasonGamePanel:
         mov ebx, 1
         movsx eax, word [nosplit eax*2+word_169054]
         xor edi, edi
-        call sub_DB763
+        call DaysToYear
         mov dword [byte ebp-04h], eax
         jmp short .11
 .10:
@@ -1690,7 +1690,7 @@ DrawSeasonGamePanel:
         xor esi, esi
         jmp near .53
 .31:
-        call sub_E341C
+        call ServiceIdle
         mov eax, esi
         mov ebx, 7
         cdq
@@ -2029,7 +2029,7 @@ StartNextSeasonGame:
         lea ebx, [byte ebp-04h]
         lea edx, [byte ebp-0Ch]
         mov eax, dword [dword_1AC940]
-        call sub_DE25F
+        call FindNextSeasonGame
         test eax, eax
         jne short .4
         mov eax, dword [dword_1AC940]
@@ -2135,11 +2135,11 @@ StartNextSeasonGame:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-0195Ch]
-        call sub_E036F
+        call FindGameRecord
         lea eax, [dword ebp-0195Ch]
         call sub_7B15D
         lea eax, [dword ebp-0195Ch]
-        call sub_E0415
+        call UpdateGameRecord
         movsx edx, word [byte ebp-04h]
         mov eax, dword [dword_1AC940]
         shl edx, 4
@@ -2149,15 +2149,15 @@ StartNextSeasonGame:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-0195Ch]
-        call sub_E036F
+        call FindGameRecord
         lea eax, [dword ebp-0195Ch]
         call sub_7B15D
         lea eax, [dword ebp-0195Ch]
         mov ebx, dword_1C1334
-        call sub_E0415
+        call UpdateGameRecord
         movsx edx, word [byte ebp-04h]
         mov eax, dword [dword_1AC940]
-        call sub_DE740
+        call StartSeasonGame
 .10:
         mov eax, dword [byte ebp-04h]
 .11:
@@ -8292,7 +8292,7 @@ AddArtToRange:
         mov edx, dword [dword eax+0414h]
         mov dword [dword ecx+0C0Ch], edx
         mov dword [dword eax+0414h], ecx
-        call sub_E341C
+        call ServiceIdle
         pop edi
         pop esi
         ret 0Ch
@@ -8319,7 +8319,7 @@ AddBankToRange:
         mov dword [dword ecx+0C10h], eax
         mov eax, esi
         call LinkRangeHistogram
-        call sub_E341C
+        call ServiceIdle
         pop edi
         pop esi
         ret 4
@@ -8644,7 +8644,7 @@ RemapBankToRange:
         xor ebx, ebx
         jmp short .10
 .11:
-        call sub_E341C
+        call ServiceIdle
         add esp, 304h
         pop ebp
         pop edi
@@ -8921,7 +8921,7 @@ SplitColorBox:
         test edx, edx
         jle short .8
 .7:
-        call sub_E341C
+        call ServiceIdle
         mov edx, ebx
         mov eax, ecx
         call SplitColorBox
@@ -8996,7 +8996,7 @@ MergeColorBoxes:
         dec ebx
         add esp, byte 0Ch
         mov dword [esi], ebx
-        call sub_E341C
+        call ServiceIdle
         mov ebp, dword [esi]
         xor ecx, ecx
         test ebp, ebp
@@ -9176,7 +9176,7 @@ QuantizeRange:
         shl eax, 3
         add esi, eax
         mov ebx, dword [dword esi+0414h]
-        call sub_E341C
+        call ServiceIdle
         cmp dword [byte esi+010h], byte 0
         je near .24
         push byte 20h
@@ -9216,7 +9216,7 @@ QuantizeRange:
         test ebp, ebp
         jle short .6
 .5:
-        call sub_E341C
+        call ServiceIdle
         mov edx, ebx
         mov eax, ecx
         call SplitColorBox
@@ -9340,7 +9340,7 @@ QuantizeRange:
         call sub_105258
         add esp, byte 4
         mov dword [dword_16E500], eax
-        call sub_E341C
+        call ServiceIdle
         mov esi, dword [dword esi+0414h]
         test esi, esi
         je short .23
@@ -9355,7 +9355,7 @@ QuantizeRange:
         mov ecx, dword [dword esi+0C18h]
         call RemapArtRange
 .22:
-        call sub_E341C
+        call ServiceIdle
         push esi
         mov ebx, dword [dword esi+0C0Ch]
         call FreeMemBlock
@@ -13758,11 +13758,11 @@ OpenAudioStream_D8:
         call sub_47D70
         mov eax, 1
         call sub_47D70
-        call sub_E341C
+        call ServiceIdle
         xor eax, eax
         xor edx, edx
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
         mov dword [dword_169250], edx
         mov dword [dword_169254], eax
@@ -13902,25 +13902,25 @@ InitGameAudio:
 .3:
         xor eax, eax
         call sub_47D70
-        call sub_E341C
+        call ServiceIdle
         mov eax, 1
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov eax, 2
         mov ebx, 2
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov eax, 5
         mov dword [dword_169254], ebx
         call sub_842F4
-        call sub_E341C
+        call ServiceIdle
         mov eax, 3
         call LoadSfxBank
         test eax, eax
         setne al
         and eax, 0FFh
         mov dword [dword_169214], eax
-        call sub_E341C
+        call ServiceIdle
         mov eax, 0Ch
         call sub_842F4
         cmp dword [dword_169220], byte 0
@@ -13943,7 +13943,7 @@ InitGameAudio:
         xor edi, edi
         mov dword [dword_16921C], edi
 .7:
-        call sub_E341C
+        call ServiceIdle
         mov eax, 0Fh
         call sub_842F4
         mov eax, 5
@@ -13952,7 +13952,7 @@ InitGameAudio:
         setne al
         and eax, 0FFh
         mov dword [dword_169218], eax
-        call sub_E341C
+        call ServiceIdle
         cmp dword [dword_169210], byte 0
         je near .11
         mov eax, 10266h
@@ -13994,7 +13994,7 @@ InitGameAudio:
 .10:
         call FreeSfxBank
 .11:
-        call sub_E341C
+        call ServiceIdle
         mov eax, 12h
         call sub_842F4
         cmp byte [byte esp+050h], 0
@@ -14025,7 +14025,7 @@ InitGameAudio:
         shr eax, 19h
         cwde
         call SetMusicVolume
-        call sub_E341C
+        call ServiceIdle
         mov eax, 32h
         call sub_842F4
 .16:
@@ -14260,7 +14260,7 @@ InitGameSounds:
 .2:
         cmp dword [dword_169228], byte 0
         jle short .3
-        call sub_E341C
+        call ServiceIdle
         jmp short .2
 .3:
         call sub_10815C
@@ -14278,7 +14278,7 @@ InitGameSounds:
         call FreeSfxBank
         mov eax, 3
         call FreeSfxBank
-        call sub_E341C
+        call ServiceIdle
         mov edx, dword [dword_169250]
         test edx, edx
         je short .7
@@ -14298,14 +14298,14 @@ InitGameSounds:
 .6:
         xor eax, eax
         mov dword [dword_169250], eax
-        call sub_E341C
+        call ServiceIdle
 .7:
         mov eax, dword [dword_1AC819]
         shl eax, 17h
         shr eax, 19h
         cwde
         call SetMusicVolume
-        call sub_E341C
+        call ServiceIdle
         cmp dword [dword_169254], byte 0FFFFFFFFh
         jne short .8
         call sub_47EA4
@@ -14314,13 +14314,13 @@ InitGameSounds:
         call sub_47D70
         mov eax, 1
         call sub_47D70
-        call sub_E341C
+        call ServiceIdle
         xor eax, eax
         mov ecx, 1
         call OpenSpeechFile
-        call sub_E341C
+        call ServiceIdle
         mov dword [dword_169254], ecx
-        call sub_E341C
+        call ServiceIdle
         call sub_FC410
         test eax, eax
         je short .9
@@ -14364,7 +14364,7 @@ InitGameSounds:
 .14:
         call sub_FC330
         add esp, byte 4
-        call sub_E341C
+        call ServiceIdle
 .15:
         add esp, 0A0h
         pop ebp
@@ -14427,7 +14427,7 @@ ShutdownGameAudio:
 .3:
         cmp dword [dword_169228], byte 0
         jle short .4
-        call sub_E341C
+        call ServiceIdle
         jmp short .3
 .4:
         call sub_10815C
@@ -14461,7 +14461,7 @@ ShutdownGameAudio:
 .7:
         xor ebp, ebp
         mov dword [dword_169250], ebp
-        call sub_E341C
+        call ServiceIdle
 .8:
         xor edx, edx
 .9:
@@ -14521,7 +14521,7 @@ WaitSoundTime:
 .1:
         xor ebx, ebx
 .2:
-        call sub_E341C
+        call ServiceIdle
         cmp bx, word [word_1691B6]
         jge short .3
         call sub_108CE8
@@ -14843,7 +14843,7 @@ RequestMusicStop:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; WaitMusicEnd                                    41DD8  97 PC, low confidence
-; With music on, restarts the current track request and idles (sub_E341C)
+; With music on, restarts the current track request and idles (ServiceIdle)
 ; until MusicPlaying is 0
 ;-----------------------------------------------------------------------------
 WaitMusicEnd:
@@ -14871,7 +14871,7 @@ WaitMusicEnd:
         call MusicPlaying
         test eax, eax
         je short .3
-        call sub_E341C
+        call ServiceIdle
         jmp short .2
 .3:
         push byte 2
@@ -16275,7 +16275,7 @@ OpenSpeechBanks:
         call sprintf_
         add esp, byte 0Ch
         mov edx, dword_1AC7AC
-        call sub_E341C
+        call ServiceIdle
         lea eax, [byte esp+078h]
         xor esi, esi
         call FileCreate
@@ -16328,7 +16328,7 @@ OpenSpeechBanks:
         pop ecx
         ret
 .3:
-        call sub_E341C
+        call ServiceIdle
         push dword 81Ah
         mov ecx, dword [dword_1AC7B0]
         push ecx
@@ -16392,7 +16392,7 @@ OpenSpeechBanks:
         mov dword [dword esp+0100h], ecx
         cmp ecx, byte 54h
         jl short .7
-        call sub_E341C
+        call ServiceIdle
         mov ebx, 81Ah
         mov edx, dword [dword_1AC7B0]
         mov eax, dword [dword_1AC7AC]
@@ -16409,7 +16409,7 @@ OpenSpeechBanks:
         pop ecx
         ret
 .10:
-        call sub_E341C
+        call ServiceIdle
         cmp dword [dword esp+0104h], byte 0
         je short .11
         inc esi
@@ -16442,7 +16442,7 @@ OpenSpeechBanks:
         push eax
         call sprintf_
         add esp, byte 0Ch
-        call sub_E341C
+        call ServiceIdle
         lea eax, [dword esp+0F0h]
         mov edx, dword [dword_1AC7AC]
         call LoadSpeechBlock
@@ -16453,7 +16453,7 @@ OpenSpeechBanks:
         mov eax, esi
         call dword [dword esp+0104h]
 .13:
-        call sub_E341C
+        call ServiceIdle
         test edx, edx
         jne short .14
         mov eax, dword_1AC7AC
@@ -16490,7 +16490,7 @@ OpenSpeechBanks:
         jle short .16
         mov ecx, 20000h
 .16:
-        call sub_E341C
+        call ServiceIdle
         cmp dword [dword esp+0104h], byte 0
         je short .17
         inc esi
@@ -16529,7 +16529,7 @@ OpenSpeechBanks:
         mov edx, dword [dword_1AC7B0]
         mov eax, dword [dword eax+02C8h]
         mov dword [dword edx+02BCh], eax
-        call sub_E341C
+        call ServiceIdle
         mov edx, 0Ch
         mov eax, dword [dword_1AC7AC]
         call FileSeek

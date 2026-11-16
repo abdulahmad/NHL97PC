@@ -34,8 +34,8 @@ extern LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_816A4, sub_
 extern sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068, sub_84570, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F
 extern sub_8E6AF, GetLangText, sub_8E870, LoadFakeExhibition, SaveAgents, sub_92EE2, sub_92F25, EditLinesScreen
-extern sub_9D333, PlayerRatingsScreen, sub_DA7D6, sub_DB763, sub_DB7B1, sub_DC653, sub_DCBB0, sub_E036F
-extern sub_E0415, sub_E0841, sub_E0D0F, FreeExhibitionFile, sub_E12EF, AllocMemBlock, FreeMemBlock, MakeColor
+extern sub_9D333, PlayerRatingsScreen, KeysEqual, DaysToYear, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, FindGameRecord
+extern UpdateGameRecord, FindPlayerStat, FindTeamStat, FreeExhibitionFile, ResetExhibitionStats, AllocMemBlock, FreeMemBlock, MakeColor
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount
 extern unk_166E9D, unk_166F30, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D6C4
 extern word_16D6D2, word_16D6E4
@@ -901,7 +901,7 @@ AllocRosterInfo:
         mov eax, dword [byte ebx+01Ch]
         add edx, edi
         add eax, dword [byte ebp-04h]
-        call sub_E036F
+        call FindGameRecord
         test eax, eax
         jne short .2
         xor esi, esi
@@ -1082,7 +1082,7 @@ sub_C817F:
         add eax, ebx
         lea edx, [byte eax+04h]
         lea eax, [byte ecx+010h]
-        call sub_DC653
+        call FindTeamRecord
         imul edx, esi, dword 32C6h
         mov eax, dword [dword_1CC2AC]
         or byte [byte ebx+eax+06Ah], 1
@@ -1121,7 +1121,7 @@ sub_C817F:
         add eax, dword [byte ebp-010h]
         mov dword [byte ebp-010h], eax
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         imul edx, ebx, dword 0BCh
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1129,7 +1129,7 @@ sub_C817F:
         add edx, eax
         mov eax, dword [byte ebp-010h]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         mov eax, dword [dword_1CC2AC]
         add eax, edi
         add eax, byte 76h
@@ -1183,7 +1183,7 @@ sub_C817F:
         add eax, dword [byte ebp-0Ch]
         mov dword [byte ebp-08h], eax
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         imul edx, ebx, dword 0BCh
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1192,7 +1192,7 @@ sub_C817F:
         mov eax, dword [byte ebp-08h]
         add eax, byte 18h
         add edx, dword [byte ebp-0Ch]
-        call sub_DCBB0
+        call FindPlayerRecord
         mov eax, dword [dword_1CC2AC]
         add eax, edi
         add eax, 445h
@@ -1244,7 +1244,7 @@ sub_C817F:
         add eax, dword [byte ebp-0Ch]
         mov dword [byte ebp-0Ch], eax
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         imul edx, ebx, dword 0BCh
         mov eax, dword [dword_1CC2AC]
         add eax, edi
@@ -1252,7 +1252,7 @@ sub_C817F:
         add edx, eax
         mov eax, dword [byte ebp-0Ch]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         mov eax, dword [dword_1CC2AC]
         add eax, edi
         add eax, 4BAh
@@ -1306,7 +1306,7 @@ sub_C817F:
         add eax, dword [byte ebp-0Ch]
         mov dword [byte ebp-0Ch], eax
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         imul eax, ebx, dword 0BCh
         mov edx, dword [dword_1CC2AC]
         add edx, edi
@@ -1314,7 +1314,7 @@ sub_C817F:
         add edx, eax
         mov eax, dword [byte ebp-0Ch]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         mov eax, dword [dword_1CC2AC]
         add eax, edi
         add eax, 889h
@@ -1372,7 +1372,7 @@ sub_C817F:
         add edx, dword [byte ebp-08h]
         add eax, byte 18h
         add edx, byte 18h
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .22
         imul eax, esi, dword 32C6h
@@ -1399,7 +1399,7 @@ sub_C817F:
         lea eax, [dword ecx+01283h]
         add eax, dword [byte ebp-0Ch]
         add eax, byte 18h
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .25
         imul eax, esi, dword 32C6h
@@ -1425,7 +1425,7 @@ sub_C817F:
         lea eax, [dword ecx+0132Dh]
         add eax, dword [byte ebp-0Ch]
         add eax, byte 18h
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .28
         imul eax, esi, dword 32C6h
@@ -1452,7 +1452,7 @@ sub_C817F:
         add edx, dword [byte ebp-0Ch]
         add eax, byte 18h
         add edx, byte 18h
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .31
         imul eax, esi, dword 32C6h
@@ -7935,7 +7935,7 @@ sub_CDC8B:
         add eax, esi
         add edx, byte 18h
         add eax, byte 18h
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .8
         mov dword [byte ebp-0Ch], 1
@@ -9103,7 +9103,7 @@ sub_CE73B:
         imul eax, dword 194Fh
         mov edx, dword [dword_16D670]
         add eax, edx
-        call sub_E0415
+        call UpdateGameRecord
 .22:
         inc dword [byte ebp-0Ch]
 .23:
@@ -9134,7 +9134,7 @@ sub_CEBC0:
         mov eax, dword_16D66C
         call FreeExhibitionFile
         mov eax, dword_16D66C
-        call sub_E12EF
+        call ResetExhibitionStats
         mov dword [dword_1CC2A4], 0
 .3:
         pop edx
@@ -9669,7 +9669,7 @@ sub_CF162:
         lea ebx, [byte ebp-08h]
         movzx eax, word [dword edx+0B9h]
         lea edx, [byte ebp-04h]
-        call sub_DB7B1
+        call AgeFromBirthDate
         movsx eax, word [byte ebp-04h]
         mov edx, 7CDh
         sub edx, eax
@@ -10544,7 +10544,7 @@ CreatePlayerScreen:
         lea ecx, [byte ebp+076h]
         lea ebx, [byte ebp+07Ah]
         lea edx, [byte ebp+07Eh]
-        call sub_DB7B1
+        call AgeFromBirthDate
         movsx esi, word [byte ebp+07Eh]
         mov eax, 7CDh
         sub eax, esi
@@ -10561,7 +10561,7 @@ CreatePlayerScreen:
         movsx edx, word [byte ebp+07Ah]
         mov dword [byte ebp+07Eh], eax
         cwde
-        call sub_DB763
+        call DaysToYear
         mov word [byte ebp-07Dh], ax
         mov word [dword ebp-0199h], ax
         imul eax, dword [byte ebp+05Ah], byte 52h
@@ -11569,7 +11569,7 @@ sub_D096D:
         mov byte [byte ecx+05Dh], al
         mov eax, 7B2h
         mov byte [dword ecx+091h], 0
-        call sub_DB763
+        call DaysToYear
         mov ebx, 2Eh
         mov word [dword ecx+0BBh], 7C6h
         xor edx, edx
@@ -11665,7 +11665,7 @@ sub_D0ABE:
         mov byte [byte ecx+059h], al
         mov eax, 7B2h
         mov byte [dword ecx+091h], 0
-        call sub_DB763
+        call DaysToYear
         mov ebx, 2Eh
         mov word [dword ecx+0BBh], 7C6h
         xor edx, edx
@@ -12165,11 +12165,11 @@ BuildTradePlayerLists:
         add edi, eax
         add edx, dword [byte ebp-08h]
         lea eax, [byte edi+028h]
-        call sub_E0841
+        call FindPlayerStat
         imul edx, ebx, byte 3Dh
         lea eax, [byte edi+020h]
         add edx, dword [byte ebp-0Ch]
-        call sub_E0D0F
+        call FindTeamStat
         inc ebx
 .8:
         movsx eax, word [dword esi+0D05h]
@@ -12185,7 +12185,7 @@ BuildTradePlayerLists:
         add edx, dword [byte ebp-010h]
         add eax, byte 20h
         inc ebx
-        call sub_E0D0F
+        call FindTeamStat
 .10:
         movsx eax, word [dword esi+01281h]
         cmp ebx, eax

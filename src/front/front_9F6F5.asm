@@ -20,9 +20,9 @@ extern sub_7F04C, SetTextColor, DrawTextAligned, sub_7F5A4, sub_81114, sub_81650
 extern sub_83558, sub_835BC, sub_83850, NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500
 extern NameIndexRemove, NameIndexPath, sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar
 extern sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E6AF, GetLangText, sub_9F671, sub_AB240, sub_AC6EB
-extern sub_AC73E, sub_DA7D6, sub_DCBB0, sub_DCC75, OpenLeagueFile, sub_DE5A3, sub_E036F, sub_E0415
-extern sub_E076B, sub_E0841, sub_E08E9, sub_E0D0F, sub_E0F85, sub_E19D5, sub_E1C19, OpenReplayFile
-extern sub_E1D45, sub_E3410, sub_E341C, sub_E4218, LinkSendBlock, LinkReceiveBlock, sub_ED6C8, sub_EDDAC
+extern sub_AC73E, KeysEqual, FindPlayerRecord, UpdatePlayerRecord, OpenLeagueFile, WriteLeagueHeader, FindGameRecord, UpdateGameRecord
+extern AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, FindTeamStat, UpdateTeamStat, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile
+extern RenameReplayIndexEntry, ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSendBlock, LinkReceiveBlock, sub_ED6C8, sub_EDDAC
 extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, sub_FCF84, DrawShape, CreateBitmap, SetDrawTarget
 extern sub_FDC68, DrawTextAt, SetTextColors, tickcount, unk_165E4A, unk_16D7F4, unk_1ACB44, unk_1ACB49
 extern unk_1ACD2B, unk_1ACD30, unk_1ACE38, unk_1AD22E, unk_1AD236, unk_1AD250, unk_1AD255, unk_1AD35D
@@ -425,10 +425,10 @@ PickIndexEntryScreen_4EE:
 .25:
         cmp dword [dword_16DA9C], byte 0
         je near .68
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je near .48
-        call sub_E4218
+        call LinkSyncMenu
         lea edi, [byte ebp+02h]
         jmp short .27
 .26:
@@ -484,7 +484,7 @@ PickIndexEntryScreen_4EE:
         mov eax, dword_1C1334
         mov ebx, dword [dword_1C5DA4]
         mov edx, esi
-        call sub_E19D5
+        call AddReplayIndexEntry
         push esi
         call FreeMemBlock
         add esp, byte 4
@@ -680,7 +680,7 @@ PickIndexEntryScreen_4EE:
         call memcpy_
         mov edx, dword_1C1334
         lea eax, [byte ebp+04Eh]
-        call sub_E1C19
+        call FindReplayIndexEntry
         push byte 0
         push dword [dword_1C5DA4]
         push str_Replaybuf
@@ -705,7 +705,7 @@ PickIndexEntryScreen_4EE:
 .43:
         cmp dword [dword ebp-042Ah], byte 7
         jne near .47
-        call sub_E341C
+        call ServiceIdle
         push unk_1ACD2B
         lea eax, [byte ebp+02h]
         push eax
@@ -740,7 +740,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte ebp-03Eh]
         mov byte [byte esi+ebp-03Eh], 0
         call strcat_
-        call sub_E341C
+        call ServiceIdle
         push unk_1AD250
         lea eax, [byte ebp-03Eh]
         push eax
@@ -756,7 +756,7 @@ PickIndexEntryScreen_4EE:
 .47:
         cmp dword [dword ebp-042Ah], byte 9
         jne near .68
-        call sub_E341C
+        call ServiceIdle
         push unk_1AD250
         lea eax, [byte ebp+02h]
         push eax
@@ -770,7 +770,7 @@ PickIndexEntryScreen_4EE:
         mov eax, unk_1AD73A
         jmp near .67
 .48:
-        call sub_E4218
+        call LinkSyncMenu
         mov edx, 8
         lea eax, [byte ebp+042h]
         xor ebx, ebx
@@ -827,7 +827,7 @@ PickIndexEntryScreen_4EE:
         mov ecx, dword [dword_1C5DA4]
         mov ebx, esi
         mov eax, edx
-        call sub_E1D45
+        call RenameReplayIndexEntry
         push esi
         call FreeMemBlock
         add esp, byte 4
@@ -1010,7 +1010,7 @@ PickIndexEntryScreen_4EE:
         je near .42
         cmp dword [dword ebp-042Ah], byte 7
         jne short .66
-        call sub_E341C
+        call ServiceIdle
         push unk_1ACD2B
         lea eax, [byte ebp+02h]
         push eax
@@ -1044,7 +1044,7 @@ PickIndexEntryScreen_4EE:
 .66:
         cmp dword [dword ebp-042Ah], byte 9
         jne short .68
-        call sub_E341C
+        call ServiceIdle
         push unk_1AD250
         lea eax, [byte ebp+02h]
         push eax
@@ -1073,7 +1073,7 @@ PickIndexEntryScreen_4EE:
         je near .83
         jmp near .86
 .70:
-        call sub_E341C
+        call ServiceIdle
         push unk_1ACD2B
         lea eax, [byte ebp+02h]
         push eax
@@ -1094,7 +1094,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte ebp+02h]
         mov byte [byte esi+ebp+02h], 0
         call strcat_
-        call sub_E341C
+        call ServiceIdle
         push unk_1AD250
         lea eax, [byte ebp+02h]
         push eax
@@ -1133,7 +1133,7 @@ PickIndexEntryScreen_4EE:
         mov dword [dword_1ACF3A], eax
         jmp near .86
 .80:
-        call sub_E341C
+        call ServiceIdle
         push unk_1AD250
         lea eax, [byte ebp+02h]
         push eax
@@ -1169,7 +1169,7 @@ PickIndexEntryScreen_4EE:
         mov edx, dword_1C1334
         call sub_AC6EB
         lea eax, [byte ebp+04Eh]
-        call sub_E1C19
+        call FindReplayIndexEntry
         movsx eax, word [word_1C13C2]
         and eax, byte 3Fh
         and dword [dword_1ACB45], 0FFF03FFFh
@@ -1369,7 +1369,7 @@ sub_A0867:
         add edi, dword [byte ebp+07Ah]
         cmp dword [byte ebp-032h], byte 7
         jne short .5
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         lea eax, [byte ebp+02Eh]
         push eax
@@ -1422,7 +1422,7 @@ sub_A0867:
         lea eax, [byte ebp-02Ah]
         call NameIndexNew
         mov esi, eax
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je near .14
         mov eax, dword [byte ebp-02Eh]
@@ -1515,7 +1515,7 @@ sub_A0867:
         shl edx, 3
         lea eax, [byte ebp+04Eh]
         add edx, dword [byte ebp+07Ah]
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .21
         lea ebx, [byte ebp+02Eh]
@@ -1559,7 +1559,7 @@ sub_A0867:
         cmp edi, dword [byte ebp+07Eh]
         jg near .17
 .26:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne near .35
         mov edx, dword [byte ebp-02Eh]
@@ -2202,7 +2202,7 @@ sub_A12CD:
         lea edx, [byte ebp-03Ch]
         mov dword [byte ebp-010h], eax
         lea eax, [byte ebp-014h]
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-03Ch]
         inc dword [byte ebp-04h]
@@ -2222,7 +2222,7 @@ sub_A12CD:
         shl eax, 3
         add eax, edx
         mov edx, edi
-        call sub_E036F
+        call FindGameRecord
         mov edx, 194Fh
         mov eax, edi
         xor ebx, ebx
@@ -2236,7 +2236,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [dword ebp-0138h]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         mov edx, 0BCh
         lea eax, [dword ebp-0138h]
         call sub_A2F52
@@ -2248,7 +2248,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [byte ebp-03Ch]
         add eax, byte 30h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-03Ch]
         call sub_A2F52
@@ -2260,7 +2260,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [byte ebp-03Ch]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-03Ch]
         call sub_A2F52
@@ -2272,7 +2272,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [byte ebp-07Ch]
         add eax, byte 20h
-        call sub_E0D0F
+        call FindTeamStat
         mov edx, 3Dh
         lea eax, [byte ebp-07Ch]
         call sub_A2F52
@@ -2292,7 +2292,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [dword ebp-0138h]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         mov edx, 0BCh
         lea eax, [dword ebp-0138h]
         call sub_A2F52
@@ -2304,7 +2304,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [byte ebp-03Ch]
         add eax, byte 30h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-03Ch]
         call sub_A2F52
@@ -2316,7 +2316,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [byte ebp-03Ch]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-03Ch]
         call sub_A2F52
@@ -2328,7 +2328,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [byte ebp-07Ch]
         add eax, byte 20h
-        call sub_E0D0F
+        call FindTeamStat
         mov edx, 3Dh
         lea eax, [byte ebp-07Ch]
         call sub_A2F52
@@ -2348,7 +2348,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [dword ebp-0138h]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         mov edx, 0BCh
         lea eax, [dword ebp-0138h]
         call sub_A2F52
@@ -2360,7 +2360,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [byte ebp-03Ch]
         add eax, byte 30h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-03Ch]
         call sub_A2F52
@@ -2372,7 +2372,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [byte ebp-03Ch]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-03Ch]
         call sub_A2F52
@@ -2384,7 +2384,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [byte ebp-07Ch]
         add eax, byte 20h
-        call sub_E0D0F
+        call FindTeamStat
         mov edx, 3Dh
         lea eax, [byte ebp-07Ch]
         call sub_A2F52
@@ -2404,7 +2404,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [dword ebp-0138h]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         mov edx, 0BCh
         lea eax, [dword ebp-0138h]
         call sub_A2F52
@@ -2416,7 +2416,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [byte ebp-03Ch]
         add eax, byte 30h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-03Ch]
         call sub_A2F52
@@ -2428,7 +2428,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [byte ebp-03Ch]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-03Ch]
         call sub_A2F52
@@ -2440,7 +2440,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [byte ebp-07Ch]
         add eax, byte 20h
-        call sub_E0D0F
+        call FindTeamStat
         mov edx, 3Dh
         lea eax, [byte ebp-07Ch]
         call sub_A2F52
@@ -2477,7 +2477,7 @@ sub_A12CD:
         add eax, ebx
         mov edx, unk_16D7F4
         add eax, byte 8
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         jne near .39
         cmp dword [byte ebp-0Ch], byte 0
@@ -2499,7 +2499,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [dword ebp-04BB0h]
         add eax, byte 8
-        call sub_E1C19
+        call FindReplayIndexEntry
         cmp dword [dword ebp-0140h], byte 0
         je short .33
         push byte 0
@@ -2548,7 +2548,7 @@ sub_A12CD:
         add eax, edx
         lea edx, [dword ebp-04BB0h]
         add eax, byte 8
-        call sub_E1C19
+        call FindReplayIndexEntry
         cmp dword [dword ebp-0140h], byte 0
         je short .37
         push byte 0
@@ -2690,7 +2690,7 @@ sub_A1961:
         call memcpy_
         lea eax, [byte ebp+052h]
         add dword [dword_1C93C4], ecx
-        call sub_DE5A3
+        call WriteLeagueHeader
         cmp dword [dword ebp-04B4Eh], byte 0
         je short .3
         mov edx, 4
@@ -2716,7 +2716,7 @@ sub_A1961:
         lea edx, [byte ebp+076h]
         lea eax, [byte ebp+02Ah]
         add dword [dword_1C93C4], byte 27h
-        call sub_E076B
+        call AddPlayerStatAt
 .2:
         cmp edi, dword [dword_1AD24C]
         jl short .1
@@ -2734,7 +2734,7 @@ sub_A1961:
         call memcpy_
         mov eax, esi
         add dword [dword_1C93C4], 194Fh
-        call sub_E0415
+        call UpdateGameRecord
         jmp near .10
 .5:
         imul eax, ecx, byte 38h
@@ -2747,7 +2747,7 @@ sub_A1961:
         call memcpy_
         lea eax, [dword ebp-0D2h]
         add dword [dword_1C93C4], 0BCh
-        call sub_DCC75
+        call UpdatePlayerRecord
 .6:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+0D39h], byte 0
@@ -2759,7 +2759,7 @@ sub_A1961:
         call memcpy_
         lea eax, [byte ebp+02Ah]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .7:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+0D31h], byte 0
@@ -2771,7 +2771,7 @@ sub_A1961:
         call memcpy_
         lea eax, [byte ebp+02Ah]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .8:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+0D29h], byte 0
@@ -2783,7 +2783,7 @@ sub_A1961:
         call memcpy_
         lea eax, [byte ebp-016h]
         add dword [dword_1C93C4], byte 3Dh
-        call sub_E0F85
+        call UpdateTeamStat
 .9:
         inc ecx
 .10:
@@ -2803,7 +2803,7 @@ sub_A1961:
         call memcpy_
         lea eax, [dword ebp-0D2h]
         add dword [dword_1C93C4], 0BCh
-        call sub_DCC75
+        call UpdatePlayerRecord
 .12:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+012B3h], byte 0
@@ -2815,7 +2815,7 @@ sub_A1961:
         call memcpy_
         lea eax, [byte ebp+02Ah]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .13:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+012ABh], byte 0
@@ -2827,7 +2827,7 @@ sub_A1961:
         call memcpy_
         lea eax, [byte ebp+02Ah]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .14:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+012A3h], byte 0
@@ -2839,7 +2839,7 @@ sub_A1961:
         call memcpy_
         lea eax, [byte ebp-016h]
         add dword [dword_1C93C4], byte 3Dh
-        call sub_E0F85
+        call UpdateTeamStat
 .15:
         inc ecx
 .16:
@@ -2859,7 +2859,7 @@ sub_A1961:
         call memcpy_
         lea eax, [dword ebp-0D2h]
         add dword [dword_1C93C4], 0BCh
-        call sub_DCC75
+        call UpdatePlayerRecord
 .18:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+0135Dh], byte 0
@@ -2871,7 +2871,7 @@ sub_A1961:
         call memcpy_
         lea eax, [byte ebp+02Ah]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .19:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+01355h], byte 0
@@ -2883,7 +2883,7 @@ sub_A1961:
         call memcpy_
         lea eax, [byte ebp+02Ah]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .20:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+0134Dh], byte 0
@@ -2895,7 +2895,7 @@ sub_A1961:
         call memcpy_
         lea eax, [byte ebp-016h]
         add dword [dword_1C93C4], byte 3Dh
-        call sub_E0F85
+        call UpdateTeamStat
 .21:
         inc ecx
 .22:
@@ -2915,7 +2915,7 @@ sub_A1961:
         call memcpy_
         lea eax, [dword ebp-0D2h]
         add dword [dword_1C93C4], 0BCh
-        call sub_DCC75
+        call UpdatePlayerRecord
 .24:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+018D7h], byte 0
@@ -2927,7 +2927,7 @@ sub_A1961:
         call memcpy_
         lea eax, [byte ebp+02Ah]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .25:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+018CFh], byte 0
@@ -2939,7 +2939,7 @@ sub_A1961:
         call memcpy_
         lea eax, [byte ebp+02Ah]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .26:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+018C7h], byte 0
@@ -2951,7 +2951,7 @@ sub_A1961:
         call memcpy_
         lea eax, [byte ebp-016h]
         add dword [dword_1C93C4], byte 3Dh
-        call sub_E0F85
+        call UpdateTeamStat
 .27:
         inc ecx
 .28:
@@ -2983,7 +2983,7 @@ sub_A1961:
         add eax, ecx
         mov edx, unk_16D7F4
         add eax, byte 8
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         jne near .37
         cmp dword [dword ebp-04B4Eh], byte 0
@@ -3025,7 +3025,7 @@ sub_A1961:
         mov ebx, dword [dword ebp-0DAh]
         mov edx, dword [byte ebp+07Eh]
         lea eax, [dword ebp-04B4Ah]
-        call sub_E19D5
+        call AddReplayIndexEntry
         cmp dword [dword ebp-0DAh], byte 0
         je short .34
         push dword [byte ebp+07Eh]
@@ -3072,7 +3072,7 @@ sub_A1961:
         mov ebx, dword [dword ebp-0DAh]
         mov edx, dword [byte ebp+07Eh]
         lea eax, [dword ebp-04B4Ah]
-        call sub_E19D5
+        call AddReplayIndexEntry
         cmp dword [dword ebp-0DAh], byte 0
         je short .37
         push dword [byte ebp+07Eh]
@@ -3136,7 +3136,7 @@ sub_A219A:
         mov dword [byte ebp-014h], eax
         cmp dword [dword_16DA9C], byte 0
         je near .69
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .1
         mov edx, 525h
@@ -3242,7 +3242,7 @@ sub_A219A:
         mov eax, dword [byte ebp-04Dh]
         mov word [word_1AD242], ax
 .17:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je near .23
         xor eax, eax
@@ -3328,13 +3328,13 @@ sub_A219A:
         mov dword [byte ebp-010h], 0
 .30:
         call AllocCrusherBuffers
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .31
         cmp dword [byte ebp-010h], byte 0
         je short .32
 .31:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne near .48
         cmp dword [byte ebp-010h], byte 0
@@ -3353,7 +3353,7 @@ sub_A219A:
         shl eax, 3
         add eax, edx
         mov edx, dword [byte ebp-08h]
-        call sub_E036F
+        call FindGameRecord
         mov edx, 194Fh
         mov eax, dword [byte ebp-08h]
         xor ecx, ecx
@@ -3368,7 +3368,7 @@ sub_A219A:
         add eax, edx
         lea edx, [byte ebp-03Ch]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-03Ch]
         call sub_A2F52
@@ -3390,7 +3390,7 @@ sub_A219A:
         add eax, edx
         lea edx, [byte ebp-03Ch]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-03Ch]
         call sub_A2F52
@@ -3412,7 +3412,7 @@ sub_A219A:
         add eax, edx
         lea edx, [byte ebp-03Ch]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-03Ch]
         call sub_A2F52
@@ -3434,7 +3434,7 @@ sub_A219A:
         add eax, edx
         lea edx, [byte ebp-03Ch]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-03Ch]
         call sub_A2F52
@@ -3487,12 +3487,12 @@ sub_A219A:
         add eax, edx
         mov edx, dword [byte ebp-014h]
         mov esi, dword [byte ebp-014h]
-        call sub_E036F
+        call FindGameRecord
         lea edi, [byte edi+04Eh]
         lea esi, [byte esi+04Eh]
         mov eax, dword [byte ebp-08h]
         rep movsb
-        call sub_E0415
+        call UpdateGameRecord
         xor ecx, ecx
         jmp short .52
 .50:
@@ -3507,7 +3507,7 @@ sub_A219A:
         call memcpy_
         lea eax, [byte ebp-03Ch]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .51:
         inc ecx
 .52:
@@ -3529,7 +3529,7 @@ sub_A219A:
         call memcpy_
         lea eax, [byte ebp-03Ch]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .54:
         inc ecx
 .55:
@@ -3551,7 +3551,7 @@ sub_A219A:
         call memcpy_
         lea eax, [byte ebp-03Ch]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .57:
         inc ecx
 .58:
@@ -3573,7 +3573,7 @@ sub_A219A:
         call memcpy_
         lea eax, [byte ebp-03Ch]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .60:
         inc ecx
 .61:
@@ -3678,7 +3678,7 @@ sub_A289E:
         mov dword [byte ebp-010h], eax
         cmp dword [dword_16DA9C], byte 0
         je near .63
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .1
         mov edx, 4F7h
@@ -3753,7 +3753,7 @@ sub_A289E:
         mov eax, 1ECh
         jmp short .10
 .12:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je near .18
         xor eax, eax
@@ -3831,13 +3831,13 @@ sub_A289E:
         mov dword [byte ebp-0Ch], 0
 .25:
         call AllocCrusherBuffers
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .26
         cmp dword [byte ebp-0Ch], byte 0
         je short .27
 .26:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne near .43
         cmp dword [byte ebp-0Ch], byte 0
@@ -3856,7 +3856,7 @@ sub_A289E:
         shl edx, 3
         add eax, edx
         mov edx, dword [byte ebp-08h]
-        call sub_E036F
+        call FindGameRecord
         mov edx, 194Fh
         mov eax, dword [byte ebp-08h]
         xor ecx, ecx
@@ -3871,7 +3871,7 @@ sub_A289E:
         add eax, edx
         lea edx, [byte ebp-038h]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-038h]
         call sub_A2F52
@@ -3893,7 +3893,7 @@ sub_A289E:
         add eax, edx
         lea edx, [byte ebp-038h]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-038h]
         call sub_A2F52
@@ -3915,7 +3915,7 @@ sub_A289E:
         add eax, edx
         lea edx, [byte ebp-038h]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-038h]
         call sub_A2F52
@@ -3937,7 +3937,7 @@ sub_A289E:
         add eax, edx
         lea edx, [byte ebp-038h]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         mov edx, 27h
         lea eax, [byte ebp-038h]
         call sub_A2F52
@@ -3990,12 +3990,12 @@ sub_A289E:
         add eax, edx
         mov edx, dword [byte ebp-010h]
         mov esi, dword [byte ebp-010h]
-        call sub_E036F
+        call FindGameRecord
         lea edi, [byte edi+04Eh]
         lea esi, [byte esi+04Eh]
         mov eax, dword [byte ebp-08h]
         rep movsb
-        call sub_E0415
+        call UpdateGameRecord
         xor ecx, ecx
         jmp short .47
 .45:
@@ -4010,7 +4010,7 @@ sub_A289E:
         call memcpy_
         lea eax, [byte ebp-038h]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .46:
         inc ecx
 .47:
@@ -4032,7 +4032,7 @@ sub_A289E:
         call memcpy_
         lea eax, [byte ebp-038h]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .49:
         inc ecx
 .50:
@@ -4054,7 +4054,7 @@ sub_A289E:
         call memcpy_
         lea eax, [byte ebp-038h]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .52:
         inc ecx
 .53:
@@ -4076,7 +4076,7 @@ sub_A289E:
         call memcpy_
         lea eax, [byte ebp-038h]
         add dword [dword_1C93C4], byte 27h
-        call sub_E08E9
+        call UpdatePlayerStat
 .55:
         inc ecx
 .56:
@@ -4440,13 +4440,13 @@ sub_A31DE:
 sub_A31DE_20:
         cmp dword [dword_16DA9C], byte 0
         je short sub_A31DE_45.2
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .1
         cmp ecx, byte 3
         jg short sub_A31DE_45
 .1:
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short sub_A31DE_45.2
         cmp ecx, byte 4

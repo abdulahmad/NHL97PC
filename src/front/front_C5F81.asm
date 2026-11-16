@@ -21,7 +21,7 @@ extern RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9, RosterScreen_42C, R
 extern RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF, RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B
 extern RosterScreen_66C, rand_, sprintf_, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape
 extern sub_102B94, ConvertArtXY, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
-extern PlaySfx, LoadDataFile, sub_7DFC0, SetRegionRect, InitMenuItems, sub_8BFAC, sub_E341C, FreeMemBlock
+extern PlaySfx, LoadDataFile, sub_7DFC0, SetRegionRect, InitMenuItems, sub_8BFAC, ServiceIdle, FreeMemBlock
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, unk_1ACB44, unk_1ACD2B, unk_1CBC18
 extern unk_C5ED2
 global jpt_C6038, jpt_C750B, sub_C5F81_B1, sub_C6064_E65, sub_C6064_EB8, sub_C6064_F19, sub_C6064_1135, sub_C6064_115B
@@ -1043,7 +1043,7 @@ sub_C6064_EB8:
         mov eax, dword [tickcount]
         cmp eax, ebx
         jge short .36
-        call sub_E341C
+        call ServiceIdle
         jmp short .35
 .36:
         inc edi
@@ -1177,7 +1177,7 @@ sub_C6064_F19:
         mov eax, dword [tickcount]
         cmp eax, ebx
         jge short .46
-        call sub_E341C
+        call ServiceIdle
         jmp short .45
 .46:
         inc edi

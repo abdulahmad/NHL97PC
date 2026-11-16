@@ -33,9 +33,9 @@ extern PlayScreenMovie, LoadDataFile, OpenDataLibrary, sub_7DFC0, sub_7E860, sub
 extern SetTextColor, DrawTextAligned, sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_81D1C
 extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_840F8, sub_84138
 extern sub_84170, sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DBAC, sub_8DE10, DrawScrollBar
-extern sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, sub_DA7D6
-extern sub_DB75E, sub_DC653, sub_DCBB0, OpenLeagueFile, sub_E036F, sub_E0841, sub_E0D0F, sub_E341C
-extern sub_E4218, sub_E4230, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap
+extern sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, KeysEqual
+extern FreeDbBlock, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindPlayerStat, FindTeamStat, ServiceIdle
+extern LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, unk_16620D, unk_16622A, unk_16622D, unk_16622F, unk_166232, unk_166235
 extern unk_16623E, unk_1663A5, unk_1663B8, unk_16D7FC, unk_16D804, unk_1AD22E, unk_1AD236, unk_1AD73A
 extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D408, word_1C962C
@@ -2168,7 +2168,7 @@ TeamStatsScreen:
         add ecx, dword [byte ebp+052h]
         add eax, edx
         mov edx, ecx
-        call sub_E036F
+        call FindGameRecord
         movzx ax, byte [byte ecx+050h]
         movzx dx, byte [byte ecx+052h]
         add eax, eax
@@ -2216,7 +2216,7 @@ TeamStatsScreen:
         add edx, dword [byte ebp+04Ah]
         add eax, ecx
         inc ebx
-        call sub_DC653
+        call FindTeamRecord
         cmp ebx, byte 1Ah
         jl near .7
 .12:
@@ -2233,7 +2233,7 @@ TeamStatsScreen:
         add ecx, dword [byte ebp+056h]
         add eax, edx
         mov edx, ecx
-        call sub_E036F
+        call FindGameRecord
         movzx dx, byte [byte ecx+050h]
         movzx ax, byte [byte ecx+052h]
         add edx, edx
@@ -2281,7 +2281,7 @@ TeamStatsScreen:
         add edx, dword [byte ebp+042h]
         add eax, ecx
         inc ebx
-        call sub_DC653
+        call FindTeamRecord
 .18:
         mov eax, dword [byte ebp+012h]
         movsx eax, word [eax]
@@ -2678,7 +2678,7 @@ TeamStatsScreen:
         mov edx, dword [byte ebp+05Ah]
         mov eax, dword [byte ebp+06Ah]
         add edx, byte 4
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je near .45
         cmp dword [byte ebp+066h], byte 0
@@ -2735,7 +2735,7 @@ TeamStatsScreen:
         mov edx, dword [byte ebp+05Ah]
         mov eax, dword [byte ebp+066h]
         add edx, byte 4
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je near .47
         cmp dword [byte ebp+06Ah], byte 0
@@ -3216,12 +3216,12 @@ TeamStatsScreen_10ED:
         jne short .78
         lea eax, [dword ebp-0276h]
         call sub_AD79F
-        call sub_E4218
+        call LinkSyncMenu
         jmp near TeamStatsScreen.72
 .78:
         mov eax, 237h
         call GetLangText
-        call sub_E4230
+        call LinkSyncScreen
         jmp near TeamStatsScreen.72
 .79:
         lea ecx, [byte ebp+01Ah]
@@ -3381,12 +3381,12 @@ TeamStatsScreen_10ED:
         cmp dword [byte ebp+06Ah], byte 0
         je short .84
         lea eax, [byte ebp+0Eh]
-        call sub_DB75E
+        call FreeDbBlock
 .84:
         cmp dword [byte ebp+066h], byte 0
         je short .85
         lea eax, [byte ebp+012h]
-        call sub_DB75E
+        call FreeDbBlock
 .85:
         call sub_81678
         mov eax, dword [byte ebp+046h]
@@ -4124,7 +4124,7 @@ sub_AF074:
         mov dword [dword_16D404], 0
         lea eax, [byte ebp+06h]
         lea edx, [byte ebp+06h]
-        call sub_DB75E
+        call FreeDbBlock
         mov eax, dword [byte ebp+042h]
         call OpenLeagueFile
         mov eax, dword [byte ebp+072h]
@@ -4169,7 +4169,7 @@ sub_AF074:
         mov dword [dword_16D404], 1
         lea eax, [byte ebp+06h]
         lea edx, [byte ebp+06h]
-        call sub_DB75E
+        call FreeDbBlock
         mov eax, dword [byte ebp+04Ah]
         call OpenLeagueFile
         mov eax, dword [byte ebp+072h]
@@ -4572,12 +4572,12 @@ sub_AF074_D0E:
         jne short .71
         lea eax, [dword ebp-035Eh]
         call sub_AD79F
-        call sub_E4218
+        call LinkSyncMenu
         jmp near .100
 .71:
         mov eax, 237h
         call GetLangText
-        call sub_E4230
+        call LinkSyncScreen
         jmp near .100
 .72:
         dec dword [dword_16D400]
@@ -5192,7 +5192,7 @@ sub_AF074_D0E:
         call FreeMemBlock
         add esp, byte 4
         lea eax, [byte ebp+06h]
-        call sub_DB75E
+        call FreeDbBlock
         push dword [byte ebp+02Ah]
         call FreeBitmap
         add esp, byte 4
@@ -5233,16 +5233,16 @@ sub_B0906:
         shl ecx, 3
         add eax, ecx
         add edx, dword [byte ebp+05Eh]
-        call sub_E036F
+        call FindGameRecord
         imul edx, dword [byte ebp+062h], byte 66h
         mov eax, dword [byte edi+014h]
         add eax, ecx
         add edx, dword [byte ebp+076h]
         xor ecx, ecx
-        call sub_DC653
+        call FindTeamRecord
         jmp short .3
 .2:
-        call sub_E341C
+        call ServiceIdle
         imul eax, ecx, byte 38h
         imul edx, dword [esi], byte 3Dh
         mov dword [byte ebp+052h], eax
@@ -5252,16 +5252,16 @@ sub_B0906:
         mov dword [byte ebp+04Eh], eax
         add eax, byte 20h
         add edx, dword [dword ebp+08Ah]
-        call sub_E0D0F
+        call FindTeamStat
         mov eax, dword [byte ebp+04Eh]
         lea edx, [byte ebp-06Eh]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         imul edx, dword [esi], byte 27h
         mov eax, dword [byte ebp+04Eh]
         add eax, byte 28h
         add edx, dword [byte ebp+07Ah]
-        call sub_E0841
+        call FindPlayerStat
         lea eax, [byte ebp-056h]
         push eax
         lea eax, [byte ebp-066h]
@@ -5290,7 +5290,7 @@ sub_B0906:
         xor ecx, ecx
         jmp short .5
 .4:
-        call sub_E341C
+        call ServiceIdle
         imul eax, ecx, byte 38h
         imul edx, dword [esi], byte 3Dh
         mov dword [byte ebp+04Eh], eax
@@ -5300,16 +5300,16 @@ sub_B0906:
         mov dword [byte ebp+052h], eax
         add eax, byte 20h
         add edx, dword [dword ebp+08Ah]
-        call sub_E0D0F
+        call FindTeamStat
         mov eax, dword [byte ebp+052h]
         lea edx, [byte ebp-06Eh]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         imul edx, dword [esi], byte 27h
         mov eax, dword [byte ebp+052h]
         add eax, byte 28h
         add edx, dword [byte ebp+07Ah]
-        call sub_E0841
+        call FindPlayerStat
         lea eax, [byte ebp-056h]
         push eax
         lea eax, [byte ebp-066h]
@@ -5338,7 +5338,7 @@ sub_B0906:
         xor ecx, ecx
         jmp near .8
 .6:
-        call sub_E341C
+        call ServiceIdle
         imul eax, dword [ebx], byte 3Dh
         mov dword [byte ebp+052h], eax
         mov eax, dword [dword ebp+08Eh]
@@ -5350,16 +5350,16 @@ sub_B0906:
         mov edx, dword [byte ebp+052h]
         mov dword [byte ebp+052h], eax
         add eax, byte 20h
-        call sub_E0D0F
+        call FindTeamStat
         mov eax, dword [byte ebp+052h]
         lea edx, [byte ebp-06Eh]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         imul edx, dword [ebx], byte 27h
         mov eax, dword [byte ebp+052h]
         add eax, byte 28h
         add edx, dword [byte ebp+07Eh]
-        call sub_E0841
+        call FindPlayerStat
         lea eax, [byte ebp-056h]
         push eax
         lea eax, [byte ebp-066h]
@@ -5391,7 +5391,7 @@ sub_B0906:
         xor ecx, ecx
         jmp near .11
 .9:
-        call sub_E341C
+        call ServiceIdle
         imul eax, dword [ebx], byte 3Dh
         mov dword [byte ebp+052h], eax
         mov eax, dword [dword ebp+08Eh]
@@ -5403,16 +5403,16 @@ sub_B0906:
         mov edx, dword [byte ebp+052h]
         mov dword [byte ebp+052h], eax
         add eax, byte 20h
-        call sub_E0D0F
+        call FindTeamStat
         mov eax, dword [byte ebp+052h]
         lea edx, [byte ebp-06Eh]
         add eax, byte 18h
-        call sub_DCBB0
+        call FindPlayerRecord
         imul edx, dword [ebx], byte 27h
         mov eax, dword [byte ebp+052h]
         add eax, byte 28h
         add edx, dword [byte ebp+07Eh]
-        call sub_E0841
+        call FindPlayerStat
         lea eax, [byte ebp-056h]
         push eax
         lea eax, [byte ebp-066h]

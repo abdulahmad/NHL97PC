@@ -1257,30 +1257,148 @@ D26EE,PreGameStatsPanel,sub_D26EE,new,low,"from PreGameMatchupScreen: the ""home
 D3112,PreGameRostersScreen,sub_D3112,new,low,"game screen 13h before play: the home and visitor rosters (""hros"" / ""vros""), the ""blurb"" and the star players (STAR, FIR1, F%dP%d)",src/front/front_D3112.asm
 D4225,DrawMatchupNotes,sub_D4225,new,low,"pre-game: the playoff race notes, season series and ""last time they met"" lines",src/front/front_D3112.asm
 D4E24,GoalieMaskIntro,sub_D4E24,new,low,"from GoalieMaskScreen: the opening of the mask gallery (DOR0 / DOR1 doors, PANL, LADR, BB / AB buttons)",src/front/front_D4E24.asm
+D53A4,GoalieMaskAnim,sub_D53A4,new,low,animates the goalie mask screen with a random sound,src/front/front_D4E24.asm
 D547C,GoalieMaskScreen,sub_D547C,new,medium,"from RunFrontEnd: the goalie mask gallery (MASK00%02d.FSH, ""%s - %s - %s"" goalie - team - season captions, LEFT / RIGH / FRNT buttons)",src/front/front_D4E24.asm
 D67D4,FadePalette,sub_D67D4,96PC,medium,96 PC FadePalette: fades the 300h-byte palette,src/front/front_D4E24.asm
 D68AC,FadeOut,sub_D68AC,96PC,medium,NHL96PC 63A5B (similar 0.91): mnemonic similarity 0.90 over 22 instructions,src/front/front_D4E24.asm
+D68E0,RunIntroMovie,sub_D68E0,new,low,plays the intro movie and then the demo game,src/front/front_D4E24.asm
 D6930,RunIntro,sub_D6930,96PC,medium,"96 PC RunIntro: from main_, the intro screens (scr1, scr2, !pl0, !pl1, nhll, nhlp, bkgd) with music",src/front/front_D4E24.asm
+D6D38,DrawCreditsPage,sub_D6D38,new,low,draws one page of the credits,src/front/front_D4E24.asm
+D6E20,ScrollCredits,sub_D6E20,new,low,scrolls the credits,src/front/front_D4E24.asm
+D6FD8,CreditsKeyPressed,sub_D6FD8,new,low,returns whether a key or button was pressed during the credits,src/front/front_D4E24.asm
+D705C,PlayCreditsMusic,sub_D705C,new,low,starts the credits music,src/front/front_D4E24.asm
 D70C4,CreditsScreen,sub_D70C4,new,low,"from RunFrontEnd: the credits (reads the credits text file, EAC1/EAC2, CRD1/CRD2, QCRD) with the arena music",src/front/front_D4E24.asm
 D7A70,AllocPageStack,sub_D7A70,new,low,"allocates the front end's ""PAGESTACK"" block",src/front/front_D4E24.asm
+D7B64,FreeDbPages,sub_D7B64,new,low,frees the database page cache,src/front/front_D4E24.asm
 D7BB0,OldestDbPageSlot,sub_D7BB0,new,low,"database page cache: the slot to reuse (a free one, else the least recently used by the counters at dword_16D77C)",src/front/front_D4E24.asm
 D7C14,ReadDbPage,sub_D7C14,new,medium,"database page cache: (db, page, slot) seeks to page * 1000h and reads the 1000h-byte page into cache slot (dword_16D774)",src/front/front_D4E24.asm
 D7C74,WriteDbPage,sub_D7C74,new,medium,"database page cache: (db, page, slot) seeks to page * 1000h and writes the cache slot back",src/front/front_D4E24.asm
 D7CD4,GetDbPage,sub_D7CD4,new,low,"database page cache: finds a db file's page in the cache slots (dword_16D778) or reads it in (ReadDbPage), bumps its use counter, returns the slot",src/front/front_D4E24.asm
+D7E08,InitDbFileHeader,sub_D7E08,new,low,writes the header page of a new database file,src/front/front_D4E24.asm
 D7EC8,CreateDbFile,sub_D7EC8,new,low,database: creates a db file (FileCreate) with its header and first pages,src/front/front_D4E24.asm
 D8130,OpenDbFile,sub_D8130,new,low,database: opens a db file and reads its 1FEh-byte header into a new block,src/front/front_D4E24.asm
 D81D8,CloseDbFile,sub_D81D8,new,low,"database: writes the header back into page 0 (WriteDbPage), closes the file and frees the header",src/front/front_D4E24.asm
+D8270,CopyIndexNode,sub_D8270,new,low,copies an index node,src/front/front_D4E24.asm
+D8358,FlushDbPage,sub_D8358,new,low,writes a database page back,src/front/front_D4E24.asm
+D83C0,SplitIndexNode,sub_D83C0,new,low,splits a full index node in two,src/front/front_D4E24.asm
+D8614,InsertKeyUp,sub_D8614,new,low,inserts a key into the parent node after a split,src/front/front_D4E24.asm
+D8860,CompareIndexKey,sub_D8860,new,low,compares a key with an index entry,src/front/front_D4E24.asm
+D8944,InsertKeyInNode,sub_D8944,new,low,inserts a key into an index node,src/front/front_D4E24.asm
+D8B20,AddIndexKey,sub_D8B20,new,low,adds a key to the index,src/front/front_D4E24.asm
+D8CAC,MergeIndexNodes,sub_D8CAC,new,low,merges two index nodes after a delete,src/front/front_D4E24.asm
+D9614,RemoveKeyFromNode,sub_D9614,new,low,removes a key from an index node,src/front/front_D4E24.asm
+D9708,DeleteKeyFromNode,sub_D9708,new,low,deletes a key and rebalances the node,src/front/front_D4E24.asm
+D9960,DeleteIndexKey,sub_D9960,new,low,deletes a key from the index,src/front/front_D4E24.asm
+D9AB4,SearchIndexNode,sub_D9AB4,new,low,searches an index node for a key,src/front/front_D4E24.asm
+D9D74,FindIndexKey,sub_D9D74,new,low,finds a key in the index,src/front/front_D4E24.asm
+D9E18,LeftmostKey,sub_D9E18,new,low,walks down to the first key of a subtree,src/front/front_D4E24.asm
+D9ED8,RightmostKey,sub_D9ED8,new,low,walks down to the last key of a subtree,src/front/front_D4E24.asm
+D9FDC,FirstOrLastKey,sub_D9FDC,new,low,finds the first or the last key of the index,src/front/front_D4E24.asm
+DA020,FindLastKey,sub_DA020,new,low,finds the last key of the index (probably),src/front/front_D4E24.asm
+DA02C,FindFirstKey,sub_DA02C,new,low,finds the first key of the index (probably),src/front/front_D4E24.asm
+DA038,PrevKeyInNode,sub_DA038,new,low,steps to the previous key in a node,src/front/front_D4E24.asm
+DA158,NextKeyInNode,sub_DA158,new,low,steps to the next key in a node,src/front/front_D4E24.asm
+DA274,StepIndexKey,sub_DA274,new,low,steps to the next or previous key of the index,src/front/front_D4E24.asm
+DA48C,NextIndexKey,sub_DA48C,new,low,steps to the next key of the index,src/front/front_D4E24.asm
+DA498,PrevIndexKey,sub_DA498,new,low,steps to the previous key of the index,src/front/front_D4E24.asm
+DA4A4,BuildKey,sub_DA4A4,new,low,builds an index key from a number or string,src/front/front_D4E24.asm
+DA544,BuildKeyFromLong,sub_DA544,new,low,builds an index key from a number (two entries),src/front/front_D4E24.asm
+DA57C,BuildKeyFromString,sub_DA57C,new,low,builds an index key from a string,src/front/front_D4E24.asm
+DA5C4,ParseKey,sub_DA5C4,new,low,reads a number back from an index key,src/front/front_D4E24.asm
+DA654,KeyToLong,sub_DA654,new,low,reads a number back from an index key (two entries),src/front/front_D4E24.asm
 DA66D,AllocMediaBuffer,sub_DA66D,new,medium,"allocates the ""MEDIA BUFFER"" (200h paragraphs of DOS memory)",src/front/front_DA66D.asm
 DA713,AllocStaticBuffer,sub_DA713,new,medium,"allocates the ""STATIC BUF"" once (flag word_16D7EC)",src/front/front_DA66D.asm
+DA76A,MakeRecordKey,sub_DA76A,new,low,builds the key of a record from its type and number,src/front/front_DA66D.asm
+DA797,MakeKeyPair,sub_DA797,new,low,builds a two-part record key,src/front/front_DA66D.asm
+DA7D6,KeysEqual,sub_DA7D6,new,low,returns 1 when two eight-byte keys are equal,src/front/front_DA66D.asm
+DA7EB,OpenGameDatabase,sub_DA7EB,new,low,opens the game database files,src/front/front_DA66D.asm
+DAA82,LoadHomeRosterRecords,sub_DAA82,new,low,loads the home team's roster records,src/front/front_DA66D.asm
+DAB51,LoadAwayRosterRecords,sub_DAB51,new,low,loads the away team's roster records,src/front/front_DA66D.asm
+DAC1E,SetMatchupTeams,sub_DAC1E,new,low,sets the two teams of a matchup,src/front/front_DA66D.asm
+DAC72,LoadMatchupRosters,sub_DAC72,new,low,loads the rosters of both teams of a matchup,src/front/front_DA66D.asm
+DAD7E,LoadGameRosters,sub_DAD7E,new,low,loads the rosters for a game,src/front/front_DA66D.asm
+DADD0,WriteDbRecord,sub_DADD0,new,low,writes a record to the database,src/front/front_DA66D.asm
+DAFF8,ReadDbRecord,sub_DAFF8,new,low,reads a record from the database,src/front/front_DA66D.asm
+DB508,AppendDbRecord,sub_DB508,new,low,appends a record to the database,src/front/front_DA66D.asm
+DB5B7,AllocRecordSlot,sub_DB5B7,new,low,finds the file position for a new record,src/front/front_DA66D.asm
+DB6AC,CloseGameDatabase,sub_DB6AC,new,low,closes the game database files,src/front/front_DA66D.asm
+DB747,InitDbState,sub_DB747,new,low,clears the database state at start-up,src/front/front_DA66D.asm
+DB75E,FreeDbBlock,sub_DB75E,new,low,frees a database block,src/front/front_DA66D.asm
+DB763,DaysToYear,sub_DB763,new,low,converts a day count to a year,src/front/front_DA66D.asm
+DB7B1,AgeFromBirthDate,sub_DB7B1,new,low,works out a player's age from the birth date,src/front/front_DA66D.asm
+DB838,NewRecordKey,sub_DB838,new,low,builds the key for a new record,src/front/front_DA66D.asm
+DB8E6,LookupRecord,sub_DB8E6,new,low,looks up a record by key,src/front/front_DA66D.asm
+DBBFC,FindRecordByKey,sub_DBBFC,new,low,finds a record by key and reads it,src/front/front_DA66D.asm
+DBDC1,CountDbRecords,sub_DBDC1,new,low,counts the records of the database,src/front/front_DA66D.asm
+DBEB3,RebuildDbIndex,sub_DBEB3,new,low,rebuilds the database index,src/front/front_DA66D.asm
+DC11A,RepairDatabase,sub_DC11A,new,low,checks and repairs the database,src/front/front_DA66D.asm
+DC653,FindTeamRecord,sub_DC653,new,low,finds a team record,src/front/front_DA66D.asm
+DC71D,BuildAllStarRecords,sub_DC71D,new,low,builds the all-star teams,src/front/front_DA66D.asm
+DC99F,AddPlayerRecord,sub_DC99F,new,low,adds a player record,src/front/front_DA66D.asm
+DCA6C,AddTradeRecord,sub_DCA6C,new,low,adds a trade record,src/front/front_DA66D.asm
+DCBB0,FindPlayerRecord,sub_DCBB0,new,low,finds a player record,src/front/front_DA66D.asm
+DCC75,UpdatePlayerRecord,sub_DCC75,new,low,updates a player record,src/front/front_DA66D.asm
+DCEA4,MakeLeagueKey,sub_DCEA4,new,low,builds a league record key from its type and number,src/front/front_DA66D.asm
+DCFA4,MakeLeagueKeyBase,sub_DCFA4,new,low,builds a league record key of the base type,src/front/front_DA66D.asm
+DCFB0,CreateExhibitionFile,sub_DCFB0,new,low,creates the exhibition league file,src/front/front_DA66D.asm
+DD2DE,CreatePlayoffFile,sub_DD2DE,new,low,creates the playoff league file,src/front/front_DA66D.asm
+DD61F,CreatePlayoffSchedule,sub_DD61F,new,low,creates the playoff schedule,src/front/front_DA66D.asm
+DD970,CreateSeasonFile,sub_DD970,new,low,creates the season league file,src/front/front_DA66D.asm
+DDC4A,CreateSeasonSchedule,sub_DDC4A,new,low,creates the season schedule,src/front/front_DA66D.asm
+DE20B,ScheduleEntryMatches,sub_DE20B,new,low,returns whether a schedule entry matches,src/front/front_DA66D.asm
+DE25F,FindNextSeasonGame,sub_DE25F,new,low,finds the next game of the season,src/front/front_DA66D.asm
 DE3CF,OpenLeagueFile,sub_DE3CF,new,low,"(league id, ...): opens a season / playoff file (""%s%s.SEA"", ""%s%s.PLY"" or ""%s%08x.%03x"") and reads its header; from the season, playoff and stats screens",src/front/front_DA66D.asm
+DE5A3,WriteLeagueHeader,sub_DE5A3,new,low,writes the league file header,src/front/front_DA66D.asm
+DE740,StartSeasonGame,sub_DE740,new,low,starts the next season game,src/front/front_DA66D.asm
+DE88E,RecordHomeStats,sub_DE88E,new,low,records the home team's game stats,src/front/front_DA66D.asm
+DE9F5,RecordAwayStats,sub_DE9F5,new,low,records the away team's game stats,src/front/front_DA66D.asm
+DEBA2,RecordGameResult,sub_DEBA2,new,low,records the result of a game,src/front/front_DA66D.asm
+DEE3A,SaveGameResult,sub_DEE3A,new,low,saves the result of a game,src/front/front_DA66D.asm
+DEE95,SaveExhibitionResult,sub_DEE95,new,low,saves the result of an exhibition game,src/front/front_DA66D.asm
+DEF96,SaveSeasonResult,sub_DEF96,new,low,saves the result of a season game,src/front/front_DA66D.asm
+DF1CF,MakeGameKey,sub_DF1CF,new,low,builds the key of a game record,src/front/front_DA66D.asm
+DF274,BuildPlayoffRecords,sub_DF274,new,low,builds the playoff records,src/front/front_DA66D.asm
+DFAF6,BuildSeasonRecords,sub_DFAF6,new,low,builds the season records,src/front/front_DA66D.asm
+E0297,AddGameRecord,sub_E0297,new,low,adds a game record,src/front/front_DA66D.asm
+E036F,FindGameRecord,sub_E036F,new,low,finds a game record,src/front/front_DA66D.asm
+E0415,UpdateGameRecord,sub_E0415,new,low,updates a game record,src/front/front_DA66D.asm
+E0617,MakePlayerStatKey,sub_E0617,new,low,builds the key of a player stats record,src/front/front_DA66D.asm
+E0691,MakeGoalieStatKey,sub_E0691,new,low,builds the key of a goalie stats record (probably),src/front/front_DA66D.asm
+E069E,AddPlayerStat,sub_E069E,new,low,adds a player stats record,src/front/front_DA66D.asm
+E076B,AddPlayerStatAt,sub_E076B,new,low,adds a player stats record at a key,src/front/front_DA66D.asm
+E0841,FindPlayerStat,sub_E0841,new,low,finds a player stats record,src/front/front_DA66D.asm
+E08E9,UpdatePlayerStat,sub_E08E9,new,low,updates a player stats record,src/front/front_DA66D.asm
+E0AD0,MakeTeamStatKey,sub_E0AD0,new,low,builds the key of a team stats record,src/front/front_DA66D.asm
+E0B75,MakeStandingsKey,sub_E0B75,new,low,builds the key of a standings record (probably),src/front/front_DA66D.asm
+E0B82,AddTeamStat,sub_E0B82,new,low,adds a team stats record,src/front/front_DA66D.asm
+E0C4F,AddTeamStatAt,sub_E0C4F,new,low,adds a team stats record at a key,src/front/front_DA66D.asm
+E0D0F,FindTeamStat,sub_E0D0F,new,low,finds a team stats record,src/front/front_DA66D.asm
+E0DB7,ReadTeamStats,sub_E0DB7,new,low,reads a team's stats records,src/front/front_DA66D.asm
+E0F85,UpdateTeamStat,sub_E0F85,new,low,updates a team stats record,src/front/front_DA66D.asm
 E117B,LoadExhibitionFile,sub_E117B,new,medium,"(&block): reads the exhibition file %s%s.EXH into a new ""EXHIBIT"" block (383C1h bytes) with its ""AGENTS"" part",src/front/front_DA66D.asm
 E1245,SaveExhibitionFile,sub_E1245,new,medium,(block): writes the exhibition file %s%s.EXH,src/front/front_DA66D.asm
 E12D1,FreeExhibitionFile,sub_E12D1,new,medium,(&block): frees the exhibition block and its agents part (+383C1h),src/front/front_DA66D.asm
+E12EF,ResetExhibitionStats,sub_E12EF,new,low,resets the exhibition stats,src/front/front_DA66D.asm
 E13BF,ResetExhibitionFile,sub_E13BF,new,low,"builds the original exhibition data (sub_E12EF, ""ORIGEXH"") and saves it as the exhibition file",src/front/front_DA66D.asm
+E13FE,ImportTradedPlayers,sub_E13FE,new,low,imports the traded players,src/front/front_DA66D.asm
+E1563,ImportNewPlayers,sub_E1563,new,low,imports new players,src/front/front_DA66D.asm
+E167A,AllocImportBuffer,sub_E167A,new,low,allocates the import buffer,src/front/front_DA66D.asm
+E1744,PickDemoTeams,sub_E1744,new,low,picks the teams for a demo game,src/front/front_DA66D.asm
+E19D5,AddReplayIndexEntry,sub_E19D5,new,low,adds an entry to the saved replay index,src/front/front_DA66D.asm
+E1C19,FindReplayIndexEntry,sub_E1C19,new,low,finds an entry of the saved replay index,src/front/front_DA66D.asm
 E1CC0,OpenReplayFile,sub_E1CC0,new,low,"builds a replay's file name (""%s%08x.%03x"", id xor 0ABCDCBAFh) and opens it when it exists with the expected size",src/front/front_DA66D.asm
+E1D45,RenameReplayIndexEntry,sub_E1D45,new,low,renames an entry of the saved replay index,src/front/front_DA66D.asm
+E1EC9,DeleteReplayIndexEntry,sub_E1EC9,new,low,deletes an entry of the saved replay index,src/front/front_DA66D.asm
+E2041,SaveUserRecord,sub_E2041,new,low,saves a user record,src/front/front_DA66D.asm
+E2141,LoadUserRecord,sub_E2141,new,low,loads a user record,src/front/front_DA66D.asm
+E21C6,DeleteUserRecord,sub_E21C6,new,low,deletes a user record,src/front/front_DA66D.asm
 E2270,AllocClearBlock,sub_E2270,new,low,"(tag, size, &ptr): allocates a block (flag 0), clears it and stores it; returns 1, or 0 when out of memory",src/front/front_DA66D.asm
 E22A0,AllocClearBlock20,sub_E22A0,new,low,AllocClearBlock with allocation flag 20h,src/front/front_DA66D.asm
 E22D0,FreePtr,sub_E22D0,new,medium,"(&ptr): frees the block and clears the pointer; returns 1, or 0 when it was already null",src/front/front_DA66D.asm
+E22FC,CopyBytesOk,sub_E22FC,new,low,copies bytes and returns 1,src/front/front_DA66D.asm
+E2310,CopyAndClear,sub_E2310,new,low,copies bytes and clears the rest,src/front/front_DA66D.asm
+E2334,ZeroBytesOk,sub_E2334,new,low,clears bytes and returns 1,src/front/front_DA66D.asm
+E2348,CompareKeyBytes,sub_E2348,new,low,compares two keys byte by byte,src/front/front_DA66D.asm
 E2378,FileExists,sub_E2378,new,low,(path): 1 when the file exists (sub_10AED0),src/front/front_DA66D.asm
 E2388,FileDelete,sub_E2388,new,medium,"deletes a file; returns 1, or 0 with the error text ""FILEdelete"" in eax",src/front/front_DA66D.asm
 E23BC,FileCreate,sub_E23BC,new,medium,"fopen ""w+b""; returns 1, or 0 with the error text ""FILEcreate""",src/front/front_DA66D.asm
@@ -1292,24 +1410,66 @@ E2458,FileReadRecord,sub_E2458,new,medium,"freads one record; returns 1, or 0 wi
 E2494,FileWriteRecord,sub_E2494,new,medium,"fwrites one record; returns 1, or 0 with the error text ""FILEread"" (the game reuses the read message)",src/front/front_DA66D.asm
 E24D0,FileClose,sub_E24D0,new,medium,"fclose; returns 1, or 0 with the error text ""FILEclose""",src/front/front_DA66D.asm
 E24F0,FileLength,sub_E24F0,new,medium,"(file): the file's length (ftell at the end), keeping the position",src/front/front_DA66D.asm
+E2590,ReadKeyboardPad,sub_E2590,new,low,reads a keyboard pad,src/front/front_DA66D.asm
+E2620,ReadKeyboardPlayers,sub_E2620,new,low,reads the keyboard players,src/front/front_DA66D.asm
+E2790,ReadInputDriver,sub_E2790,new,low,reads the input driver,src/front/front_DA66D.asm
+E2838,ReadJoystickPads,sub_E2838,new,low,reads the joystick pads,src/front/front_DA66D.asm
 E2AF4,PollControllers,sub_E2AF4,96PC,high,96 PC PollControllers: controllers and hot keys into the slot words,src/front/front_DA66D.asm
 E2E28,InputRecordTimer,sub_E2E28,96PC,high,96 PC InputRecordTimer: timer callback pushing input records into the ring of 5,src/front/front_DA66D.asm
 E2F98,InitSlotTable,sub_E2F98,96PC,medium,slot words and teams from the 8 controller set-up bytes,src/front/front_DA66D.asm
+E304C,StartInputRecording,sub_E304C,new,low,starts recording input,src/front/front_DA66D.asm
+E30BC,StopInputTimer,sub_E30BC,new,low,stops the input timer,src/front/front_DA66D.asm
+E30D8,StartInputTimer,sub_E30D8,new,low,starts the input timer,src/front/front_DA66D.asm
+E30F4,ResetInputState,sub_E30F4,new,low,resets the input state,src/front/front_DA66D.asm
+E3174,IsInputRecording,sub_E3174,new,low,returns whether input is being recorded,src/front/front_DA66D.asm
+E3190,StopInputRecording,sub_E3190,new,low,stops recording input,src/front/front_DA66D.asm
 E3208,InputRecordAvail,sub_E3208,new,high,returns InputRecordCount (GameLoop's is there a record),src/front/front_DA66D.asm
 E3218,TakeInputRecord,sub_E3218,new,high,copies the next record out of InputRecordRing,src/front/front_DA66D.asm
+E32B4,InitLinkSettings,sub_E32B4,new,low,sets up the link settings,src/front/front_DA66D.asm
+E3410,ClearLinkAbort,sub_E3410,new,low,clears the link abort flag,src/front/front_DA66D.asm
+E341C,ServiceIdle,sub_E341C,new,low,services audio and keys while waiting,src/front/front_DA66D.asm
+E34A0,QueueLinkPacket,sub_E34A0,new,low,queues a link packet,src/front/front_DA66D.asm
+E3530,SendLinkPacket,sub_E3530,new,low,sends a link packet,src/front/front_DA66D.asm
+E3640,ResendLinkPacket,sub_E3640,new,low,resends a link packet,src/front/front_DA66D.asm
+E3700,LinkTimerOn,sub_E3700,new,low,starts the link timer,src/front/front_DA66D.asm
+E3738,LinkTimerOff,sub_E3738,new,low,stops the link timer,src/front/front_DA66D.asm
+E375C,ResetLinkStats,sub_E375C,new,low,clears the link counters,src/front/front_DA66D.asm
+E3798,SyncLinkGame,sub_E3798,new,low,synchronises the game with the other computer,src/front/front_DA66D.asm
 E3A44,NetInit,sub_E3A44,new,low,"from main_: once, starts IPX (IpxInit) and the serial layer, allocates the ""pktlayer"" buffer and marks the network ready (dword_16DAA0)",src/front/front_DA66D.asm
 E3AB8,NetShutdown,sub_E3AB8,new,low,"from main_: closes the IPX socket and the serial layer, frees ""pktlayer""",src/front/front_DA66D.asm
+E3AFC,StartNetworkLink,sub_E3AFC,new,low,starts a network link game,src/front/front_DA66D.asm
 E3E8C,NetDisconnect,sub_E3E8C,new,low,"ends a network session with the ""Disconnecting"" message (IPX or serial), then clears the connected flag (dword_16DA9C)",src/front/front_DA66D.asm
+E3F04,LinkHandshake,sub_E3F04,new,low,handshake with the other computer,src/front/front_DA66D.asm
+E4218,LinkSyncMenu,sub_E4218,new,low,synchronises a menu with the other computer,src/front/front_DA66D.asm
+E4230,LinkSyncScreen,sub_E4230,new,low,synchronises a screen with the other computer,src/front/front_DA66D.asm
+E4248,LinkSyncGame,sub_E4248,new,low,synchronises the start of a game with the other computer,src/front/front_DA66D.asm
+E4264,ClearLinkInputs,sub_E4264,new,low,clears the link input buffers,src/front/front_DA66D.asm
+E4288,LinkInputTick,sub_E4288,new,low,sends and receives the link inputs each tick,src/front/front_DA66D.asm
 E4638,LinkSendBlock,sub_E4638,96PC,low,"96 PC LinkSendBlock: (data, length, progress) sends a block to the other computer in packets (80h header), idling while it waits",src/front/front_DA66D.asm
 E4838,LinkReceiveBlock,sub_E4838,96PC,low,"96 PC LinkReceiveBlock: (dest, length, progress) waits (idling) for the next block from the other computer",src/front/front_DA66D.asm
 E4908,WaitForOtherComputer,sub_E4908,new,low,"the ""Waiting for other computer"" box: shows it and syncs with the other side",src/front/front_DA66D.asm
+E5730,InitNetSession,sub_E5730,new,low,sets up the network session,src/front/front_DA66D.asm
 E57EC,DefaultModemName,sub_E57EC,new,low,"(len out): ""Generic Hayes-Compatible"" (length 17h) when a modem is set up, else 0; from ModemSettingsScreen",src/front/front_DA66D.asm
+E5808,OpenNetSession,sub_E5808,new,low,opens the network session,src/front/front_DA66D.asm
+E59A8,CloseNetSession,sub_E59A8,new,low,closes the network session,src/front/front_DA66D.asm
+E59D8,ShutdownNetSession,sub_E59D8,new,low,shuts down the network session,src/front/front_DA66D.asm
+E5A20,SetNetPlayerName,sub_E5A20,new,low,sets the network player name,src/front/front_DA66D.asm
 E5A98,IpxInit,sub_E5A98,new,low,"looks for the IPX driver and allocates the ""IPXMEM"" / ""NETWORK"" blocks",src/front/front_DA66D.asm
 E5BF8,LoadServerList,sub_E5BF8,new,low,"loads the ""SERVLIST"" block for the network games screen",src/front/front_DA66D.asm
 E5C78,IpxCloseSocket,,new,low,closes the open IPX socket (sub_11D508) and frees its buffer (dword_16E128); the earlier 95 PC FreeRinkGfx match was wrong (only a mnemonic similarity),src/front/front_DA66D.asm
+E5CD8,HostNetGame,sub_E5CD8,new,low,hosts a network game,src/front/front_DA66D.asm
+E5D6C,LeaveNetGame,sub_E5D6C,new,low,leaves the network game,src/front/front_DA66D.asm
+E5D98,AddFoundGame,sub_E5D98,new,low,adds a found network game to the list,src/front/front_DA66D.asm
 E5EE0,FindNetworkGames,sub_E5EE0,new,low,"looks for open ""GAMEADDR"" games on the network (sub_E5D98 matches ""NHL97"" entries)",src/front/front_DA66D.asm
+E5FD8,DrawNetGameList,sub_E5FD8,new,low,draws the list of network games,src/front/front_DA66D.asm
+E61AC,ChooseNetGame,sub_E61AC,new,low,lets the player choose a network game,src/front/front_DA66D.asm
 E657C,ChooseNetworkGameScreen,sub_E657C,new,low,"network play: the ""Choose a game:"" list of open games",src/front/front_DA66D.asm
+E728C,CopyJoinedGameInfo,sub_E728C,new,low,copies the joined game's info,src/front/front_DA66D.asm
 E72B0,JoinNetworkGame,sub_E72B0,new,low,"network play: ""Waiting for connection"", runs ChooseNetworkGameScreen and connects to the chosen game",src/front/front_DA66D.asm
+E7570,CloseNetConnection,sub_E7570,new,low,closes the network connection,src/front/front_DA66D.asm
+E759F,OptionsAnimFrame,sub_E759F,new,low,draws one frame of the options animation,src/front/front_DA66D.asm
+E77B1,OptionsAnimScreen,sub_E77B1,new,low,shows the options animation screen,src/front/front_DA66D.asm
+E7B33,SeasonIntroScreen,sub_E7B33,new,low,shows the season intro screen,src/front/front_DA66D.asm
 E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 over 34 instructions,
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
 E9429,BuildAllStarTeams,sub_E9429,new,low,"from the season code: sets up the two All-Star teams (InitAllStarTeams, AllocAllStarRosters, PickAllStarPlayers)",src/front/front_E9429.asm

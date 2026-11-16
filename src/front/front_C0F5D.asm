@@ -20,8 +20,8 @@ extern LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, Lo
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, SetTextColor
 extern DrawTextAligned, sub_7F29C, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC
-extern sub_8DF1F, GetLangText, OptionsScreen, sub_CA44C, sub_D0098, sub_E341C, sub_E4218, sub_E4230
-extern sub_E77B1, ControlSetupScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, sub_FCEEC, DrawArt
+extern sub_8DF1F, GetLangText, OptionsScreen, sub_CA44C, sub_D0098, ServiceIdle, LinkSyncMenu, LinkSyncScreen
+extern OptionsAnimScreen, ControlSetupScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, sub_FCEEC, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C
 global jpt_C36A2, sub_C0F5D_60E, sub_C1577_73D, sub_C1577_73E, sub_C2633_42, DetailLevelScreen_A25, DetailLevelScreen_A36, DetailLevelScreen_A93
 global DetailLevelScreen_B18, DetailLevelScreen_B7E, DetailLevelScreen_C26, DetailLevelScreen_C86, DetailLevelScreen_CE6, DetailLevelScreen_D46, sub_C0F5D, sub_C1577
@@ -1701,7 +1701,7 @@ ExportHistoryCsv:
         mov edx, str_CSV
         lea eax, [byte ebp-050h]
         call strcat_
-        call sub_E341C
+        call ServiceIdle
         push byte 0
         lea eax, [byte ebp-050h]
         push eax
@@ -2294,7 +2294,7 @@ sub_C2A49:
         mov eax, dword [tickcount]
         cmp eax, dword [byte ebp-0Ch]
         jge short .3
-        call sub_E341C
+        call ServiceIdle
         jmp short .2
 .3:
         dec ebx
@@ -2414,7 +2414,7 @@ sub_C2BB2:
         mov eax, dword [tickcount]
         cmp eax, dword [byte ebp-0Ch]
         jge short .3
-        call sub_E341C
+        call ServiceIdle
         jmp short .2
 .3:
         inc edi
@@ -3067,13 +3067,13 @@ RunOptionsScreens:
         mov edx, eax
         cmp eax, byte 1Ah
         jne short .8
-        call sub_E4218
+        call LinkSyncMenu
         jmp short .8
 .4:
         mov eax, 252h
         mov edx, 1Ah
         call GetLangText
-        call sub_E4230
+        call LinkSyncScreen
         jmp short .8
 .5:
         xor eax, eax
@@ -3097,7 +3097,7 @@ RunOptionsScreens:
         jmp short .6
 .10:
         mov eax, dword [dword_1CBB88]
-        call sub_E77B1
+        call OptionsAnimScreen
         jmp short .7
 .11:
         pop edx
@@ -3785,7 +3785,7 @@ DetailLevelScreen:
         call PlaySfx
         jmp near .25
 .24:
-        call sub_E341C
+        call ServiceIdle
         push dword [byte ebp-010h]
         call SetDrawTarget
         add esp, byte 4
@@ -4188,7 +4188,7 @@ DetailLevelScreen_D46:
         call PlaySfx
         jmp near .48
 .47:
-        call sub_E341C
+        call ServiceIdle
         push dword [byte ebp-010h]
         call SetDrawTarget
         add esp, byte 4

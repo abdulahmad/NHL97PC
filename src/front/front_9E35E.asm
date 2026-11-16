@@ -14,7 +14,7 @@ extern PickIndexEntryScreen_4EE, rand_, sprintf_, BlitShape2, BlitArt, sub_1013F
 extern SetScreenTarget, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFile, sub_7E860
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, sub_80AB8, sub_80B28, sub_80BBC, sub_835BC
 extern sub_83850, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, LinkTransferSetup, sub_C6064
-extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E1744, sub_E3410, sub_E341C, LinkSendBlock, LinkReceiveBlock
+extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, ClearLinkAbort, ServiceIdle, LinkSendBlock, LinkReceiveBlock
 extern AllocMemBlock, FreeMemBlock, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, unk_16CFFC
 extern unk_1ACB44, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1ACB47, word_1C8EA0, word_1C8EA2
 global jpt_9E8E8, jpt_9F6DD, DrawHomeTeamPanel_1C9, DrawHomeTeamPanel_1EC, TeamSelectScreen_7BE, TeamSelectScreen_7CF, TeamSelectScreen_7E0, TeamSelectScreen_7FC
@@ -976,7 +976,7 @@ TeamSelectScreen_815:
         mov eax, dword [tickcount]
         cmp eax, ecx
         jge short .12
-        call sub_E341C
+        call ServiceIdle
         jmp short .11
 .12:
         inc ebx
@@ -1220,7 +1220,7 @@ TeamSelectScreen_B61:
 .34:
         cmp dword [dword_16DA9C], byte 0
         je short .35
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .36
 .35:
@@ -1228,11 +1228,11 @@ TeamSelectScreen_B61:
         movsx edx, word [byte ebp+07Ah]
         mov ecx, dword_1C1334
         mov eax, dword [dword_1C86FC]
-        call sub_E1744
+        call PickDemoTeams
 .36:
         cmp dword [dword_16DA9C], byte 0
         je short .37
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         je short .37
         mov eax, 227h
@@ -1246,7 +1246,7 @@ TeamSelectScreen_B61:
 .37:
         cmp dword [dword_16DA9C], byte 0
         je short .38
-        call sub_E3410
+        call ClearLinkAbort
         test eax, eax
         jne short .38
         mov eax, 227h

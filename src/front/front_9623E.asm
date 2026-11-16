@@ -33,7 +33,7 @@ extern LoadDataFile, LoadDataFileFlag0, OpenDataLibrary, sub_7B84B, LoadLogoName
 extern sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4
 extern sub_80BBC, sub_81678, sub_823F0, sub_830D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
 extern sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, GetLangText, sub_8E870, sub_C7EAE
-extern sub_C80C8, sub_C8127, sub_CA44C, sub_D0098, sub_DA7D6, sub_E036F, sub_E0841, sub_E341C
+extern sub_C80C8, sub_C8127, sub_CA44C, sub_D0098, KeysEqual, FindGameRecord, FindPlayerStat, ServiceIdle
 extern AllocMemBlock, FreeMemBlock, sub_FBE5D, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, unk_165BAB, unk_165BAE, unk_16D7F4
 extern unk_1C134A, unk_1C1352, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1C1344
@@ -1219,7 +1219,7 @@ sub_97228:
         call sub_1013FC
 .4:
         inc esi
-        call sub_E341C
+        call ServiceIdle
         cmp esi, byte 5
         jl short .1
         jmp near DrawPlayerLines_23B
@@ -1670,7 +1670,7 @@ sub_9732A:
         inc ebx
         cmp ebx, byte 3
         jl near .23
-        call sub_E341C
+        call ServiceIdle
         test edi, edi
         jle near .27
         cmp edi, byte 3
@@ -1722,7 +1722,7 @@ sub_9732A:
 .28:
         mov esi, dword [byte eax+02Ch]
         add esi, byte 10h
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+016h]
         mov eax, dword [byte eax+02Ch]
         add eax, byte 10h
@@ -1886,7 +1886,7 @@ sub_9732A:
         je short .40
         mov edi, 0Ah
 .43:
-        call sub_E341C
+        call ServiceIdle
         call SetScreenTarget
         mov eax, dword [byte ebp+016h]
         push dword [byte eax+02Ch]
@@ -2618,7 +2618,7 @@ LoadEditLinesRoster:
 .2:
         mov edx, unk_16D7F4
         mov eax, ebx
-        call sub_DA7D6
+        call KeysEqual
         test eax, eax
         je short .3
         mov ebx, 36h
@@ -2638,7 +2638,7 @@ LoadEditLinesRoster:
         add esp, byte 0Ch
         mov dword [byte ebp-04h], eax
         mov eax, ebx
-        call sub_E036F
+        call FindGameRecord
         jmp short .5
 .4:
         cmp dword [dword_1CC2AC], byte 0
@@ -3665,7 +3665,7 @@ EditLinesGridScreen:
         add esp, byte 0Ch
         mov dword [byte ebp+066h], esi
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+052h]
         mov dword [byte ebp+05Eh], ebx
         sub dword [byte ebp+06Eh], eax
@@ -4350,7 +4350,7 @@ EditLinesGridScreen_10DB:
         call BlitArt
         add esp, byte 0Ch
         call sub_1013FC
-        call sub_E341C
+        call ServiceIdle
         mov eax, dword [byte ebp+062h]
         add dword [byte ebp+066h], eax
         sub dword [byte ebp+05Eh], eax
@@ -8211,7 +8211,7 @@ LoadEditLinesArt:
         call DrawArt
         add esp, byte 0Ch
 .4:
-        call sub_E341C
+        call ServiceIdle
         inc esi
 .5:
         mov eax, dword [dword_1C8E24]
@@ -8285,7 +8285,7 @@ LoadEditLinesArt:
         call FreeMemBlock
         add esp, byte 4
 .9:
-        call sub_E341C
+        call ServiceIdle
         inc esi
 .10:
         mov eax, dword [dword_1C8E24]
@@ -8897,7 +8897,7 @@ sub_9CE1D:
         add eax, byte 6
         dec ebx
         mov dword [byte ebp-0Ch], eax
-        call sub_E341C
+        call ServiceIdle
 .5:
         test ebx, ebx
         jge short .2
@@ -9001,7 +9001,7 @@ sub_9CFD3:
         add eax, edx
         lea edx, [byte ebp+052h]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         lea eax, [byte ebp+062h]
         inc dword [byte ebp+07Ah]
         call sub_C80C8
@@ -9104,7 +9104,7 @@ sub_9CFD3:
         add eax, edx
         lea edx, [byte ebp+052h]
         add eax, byte 28h
-        call sub_E0841
+        call FindPlayerStat
         lea eax, [byte ebp+062h]
         inc dword [byte ebp+07Ah]
         call sub_C8127
@@ -9248,7 +9248,7 @@ sub_9D333:
         lea edx, [byte ebp+03Ah]
         add eax, byte 28h
         mov word [byte ebx+ebp-05Eh], si
-        call sub_E0841
+        call FindPlayerStat
         lea eax, [byte ebp+04Ah]
         call sub_C80C8
         mov word [byte ebx+ebp-05Ch], ax
@@ -9296,7 +9296,7 @@ sub_9D333:
         lea edx, [byte ebp+03Ah]
         add eax, byte 28h
         mov word [byte ebx+ebp+062h], si
-        call sub_E0841
+        call FindPlayerStat
         lea eax, [byte ebp+04Ah]
         call sub_C8127
         mov byte [byte ebx+ebp+067h], 47h
