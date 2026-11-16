@@ -20,7 +20,7 @@ extern dword_1C85D0, dword_1C8618, dword_1C8680, dword_1C86E8, dword_1C86EC, dwo
 extern dword_1C86FC, dword_1C8A8C, dword_1C8A90, dword_1C94E8, jpt_8E977, jpt_8E987, memcpy_, memset_
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, sub_101340
 extern sub_101390, sub_1013AC, sub_1013CC, sub_1013FC, sub_101429, sub_102C30, sub_10AED0, sub_11B094
-extern sub_11B0D0, sub_13C164, sub_3812E, sub_415A0, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC
+extern sub_11B0D0, sub_13C164, sub_3812E, sub_415A0, sub_419B0, sub_419B8, StopAllSfx, PlaySfx
 extern MakeDirPath, LoadDataFile, sub_7A9D8, sub_7BB27, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
 extern SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80AB8, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, sub_85D1D, NameIndexNew, NameIndexLoad, NameIndexFree
@@ -281,14 +281,14 @@ sub_8EBDF:
         cmp dword [dword_1C86EC], byte 0
         jne short .4
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_1C86EC], 1
 .4:
         test esi, esi
         jne short .5
         cmp dword [dword_1C86EC], byte 0
         je short .5
-        call sub_41FA0
+        call StopAllSfx
         mov dword [dword_1C86EC], esi
 .5:
         pop esi
@@ -1780,14 +1780,14 @@ sub_900AE:
         cmp dword [dword_1C86EC], byte 0
         jne short .4
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_1C86EC], 1
 .4:
         test esi, esi
         jne short .5
         cmp dword [dword_1C86EC], byte 0
         je short .5
-        call sub_41FA0
+        call StopAllSfx
         mov dword [dword_1C86EC], esi
 .5:
         pop esi

@@ -95,8 +95,8 @@ global sub_40298, sub_40380, sub_403C0, sub_40400, sub_40440, sub_404C4, sub_405
 global sub_40640, sub_40680, sub_40850, sub_4095C, LoadSfxBank, sub_40D80, OpenAudioStream, InitGameAudio
 global sub_414B8, sub_41550, sub_415A0, sub_415A8, sub_415F8, sub_41670, sub_41870, sub_419B0
 global sub_419B8, sub_41A28, sub_41ACC, sub_41CF0, sub_41D18, sub_41D30, sub_41D48, sub_41D94
-global sub_41DB8, sub_41DD8, MusicFileName, ArenaFileName, sub_41EE4, sub_41F2C, sub_41FA0, sub_41FDC
-global sub_42098, sub_420E4, PlaySfx, sub_42354, sub_423B4, sub_4241C, sub_424CC, sub_42550
+global sub_41DB8, sub_41DD8, MusicFileName, ArenaFileName, sub_41EE4, sub_41F2C, StopAllSfx, PlaySfx
+global PlaySfxOr, sub_420E4, PlaySfxVolume, sub_42354, sub_423B4, sub_4241C, sub_424CC, sub_42550
 global sub_425CC, sub_42650, sub_42910, sub_42960, sub_42A98, sub_42AD0, sub_42C38, sub_42D38
 global OpenSpeechBanks, sub_431E8, LoadTeamSpeech
 ;-----------------------------------------------------------------------------
@@ -2269,7 +2269,7 @@ sub_39BB6_6B:
         jne short .4
         cmp word [word_16914E], byte 0
         je short .4
-        call sub_41FA0
+        call StopAllSfx
         mov word [word_16914E], bx
 .4:
         test bx, bx
@@ -2277,7 +2277,7 @@ sub_39BB6_6B:
         cmp word [word_16914E], byte 0
         jne short .5
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov word [word_16914E], 1
 .5:
         pop esi
@@ -3077,7 +3077,7 @@ sub_3A440:
         mov edx, 64h
         add eax, 402h
 .9:
-        call PlaySfx
+        call PlaySfxVolume
 .10:
         mov eax, dword [off_168CFC]
         cmp dword [byte eax+024h], 42400000h
@@ -3157,7 +3157,7 @@ sub_3A564:
         mov eax, 420h
 .6:
         push dword [byte ecx+020h]
-        call PlaySfx
+        call PlaySfxVolume
 .7:
         test bl, 2
         je short .8
@@ -14835,9 +14835,10 @@ sub_41F2C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_41FA0                                                       41FA0  97 PC
+; StopAllSfx                                      41FA0  97 PC, low confidence
+; Stops every voice in PlaySfx's list (dword_1AC508)
 ;-----------------------------------------------------------------------------
-sub_41FA0:
+StopAllSfx:
         push ecx
         push edx
         cmp word [word_1691A4], byte 0
@@ -14860,9 +14861,12 @@ sub_41FA0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_41FDC                                                       41FDC  97 PC
+; PlaySfx                                      41FDC  96 PC, medium confidence
+; (id 1-48h): plays a digital sound effect from the loaded banks on a free
+; voice at the globalset volume; called from checkcheck, FallDown, CompPass,
+; the faceoff and the menus
 ;-----------------------------------------------------------------------------
-sub_41FDC:
+PlaySfx:
         push ebx
         push ecx
         push edx
@@ -14917,9 +14921,11 @@ sub_41FDC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_42098                                                       42098  97 PC
+; PlaySfxOr                                    42098  96 PC, medium confidence
+; (id, other): plays other instead of id when id is 40h+ and the extra bank
+; (dword_11D1F2) is not loaded
 ;-----------------------------------------------------------------------------
-sub_42098:
+PlaySfxOr:
         push ebx
         push ecx
         push esi
@@ -14946,7 +14952,7 @@ sub_42098:
         je short .2
         mov eax, edx
 .2:
-        call sub_41FDC
+        call PlaySfx
 .3:
         pop esi
         pop ecx
@@ -15061,12 +15067,11 @@ sub_420E4:
         ret 10h
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; PlaySfx                                      42220  96 PC, medium confidence
-; (id 1-48h): plays a digital sound effect from the loaded banks on a free
-; voice at the globalset volume; called from checkcheck, FallDown, CompPass,
-; the faceoff and the menus
+; PlaySfxVolume                                   42220  97 PC, low confidence
+; (id, volume 0-64h, ...): PlaySfx with a volume (scaled by the globalset
+; sound volume) and position
 ;-----------------------------------------------------------------------------
-PlaySfx:
+PlaySfxVolume:
         push ebx
         push ecx
         push esi
@@ -15199,7 +15204,7 @@ sub_42354:
         push dword [byte esp+014h]
 .3:
         push dword [byte esp+014h]
-        call PlaySfx
+        call PlaySfxVolume
 .4:
         pop edi
         pop esi

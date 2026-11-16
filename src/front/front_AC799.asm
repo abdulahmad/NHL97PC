@@ -28,7 +28,7 @@ extern dword_1C95EC, dword_1C95F0, dword_1C95F4, dword_1C95F8, dword_1C95FC, dwo
 extern dword_1C9618, dword_1C961C, dword_1C9620, dword_1C9624, dword_1C9628, fclose_, fopen_, fprintf_
 extern memset_, qsort_, rand_, sprintf_, sscanf_, strcmp_, strlen_, sub_101340
 extern sub_101390, sub_1013CC, sub_1013FC, sub_101429, sub_101584, sub_101EAC, sub_102B94, sub_10CD98
-extern sub_11B094, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, sub_41FDC
+extern sub_11B094, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, PlaySfx
 extern sub_4A4F4, LoadDataFile, OpenDataLibrary, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect
 extern sub_7F0D8, DrawTextAligned, sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_81D1C
 extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_840F8, sub_84138
@@ -1960,7 +1960,7 @@ sub_ADB4F:
         cmp dword [dword_1C9618], byte 0
         jne short .3
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_1C9618], 1
 .3:
         test edx, edx
@@ -3441,7 +3441,7 @@ sub_AEFAF:
         cmp dword [dword_1C9618], byte 0
         jne short .4
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_1C9618], 1
 .4:
         test edx, edx

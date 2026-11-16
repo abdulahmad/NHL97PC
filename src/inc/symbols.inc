@@ -391,10 +391,10 @@
 ;  41E64  MusicFileName                            engine/engine_3812E.asm                      1
 ;  41EA4  ArenaFileName                            engine/engine_3812E.asm                      8
 ;  41F2C  sub_41F2C                                engine/engine_3812E.asm                      9
-;  41FA0  sub_41FA0                                engine/engine_3812E.asm                      21
-;  41FDC  sub_41FDC                                engine/engine_3812E.asm                      23
-;  42098  sub_42098                                engine/engine_3812E.asm                      3
-;  42220  PlaySfx                                  engine/engine_3812E.asm                      3
+;  41FA0  StopAllSfx                               engine/engine_3812E.asm                      21
+;  41FDC  PlaySfx                                  engine/engine_3812E.asm                      23
+;  42098  PlaySfxOr                                engine/engine_3812E.asm                      3
+;  42220  PlaySfxVolume                            engine/engine_3812E.asm                      3
 ;  42354  sub_42354                                engine/engine_3812E.asm                      1
 ;  423B4  sub_423B4                                engine/engine_3812E.asm                      3
 ;  4241C  sub_4241C                                engine/engine_3812E.asm                      2

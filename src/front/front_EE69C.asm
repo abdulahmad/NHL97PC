@@ -16,7 +16,7 @@ extern dword_1CE4EC, dword_1CE4F0, dword_1CE528, dword_1CE52C, dword_1CE532, dwo
 extern dword_1CE542, dword_1CEF9C, dword_1CEFA0, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, rand_, sprintf_
 extern str_TR0D, strlen_, sub_100A68, sub_101324, sub_101340, sub_101390, sub_1013AC, sub_1013FC
 extern sub_101429, sub_10FE58, sub_115830, sub_1167AE, sub_11A318, sub_11A350, sub_11BDC0, sub_11FAAC
-extern sub_13C164, sub_1B88C, sub_419B0, sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC, LoadDataFileLib
+extern sub_13C164, sub_1B88C, sub_419B0, sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, LoadDataFileLib
 extern sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5B8, sub_80BBC
 extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, sub_E341C, WaitForOtherComputer, sub_EE0F7, sub_F20A1
 extern sub_F22AF, sub_F27A4, sub_FAF34, sub_FC4BC, sub_FC510, sub_FCD90, sub_FCF84, sub_FCFCC
@@ -43,7 +43,7 @@ sub_EE69C:
         cmp eax, byte 0FFFFFFFFh
         je near .2
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         test di, di
         jne short .1
         mov edi, 8
@@ -204,7 +204,7 @@ sub_EE69C:
         mov eax, 309h
         call sub_41F2C
         mov eax, 305h
-        call sub_41FDC
+        call PlaySfx
         mov eax, esi
         leave
 sub_EE69C_20A:
@@ -354,10 +354,10 @@ sub_EE8BB:
         call sub_101340
 .8:
         add esp, byte 4
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 200h
         mov dword [byte ebp-04h], 0
-        call sub_41FDC
+        call PlaySfx
         jmp near .14
 .9:
         push ebx
@@ -485,9 +485,9 @@ sub_EE8BB:
 .14:
         cmp word [byte ebp-04h], byte 5
         jle near .9
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 203h
-        call sub_41FDC
+        call PlaySfx
         push ebx
         call sub_FD0F8
         add esp, byte 4
@@ -610,7 +610,7 @@ sub_EECBC:
         mov dword [dword_1CE492], eax
         mov eax, 200h
         mov edi, 5
-        call sub_41FDC
+        call PlaySfx
         jmp short .2
 .1:
         movsx eax, di
@@ -1163,10 +1163,10 @@ sub_EECBC:
         call sub_115830
         add esp, byte 8
         mov ebx, eax
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 201h
         xor edi, edi
-        call sub_41FDC
+        call PlaySfx
         jmp short .15
 .14:
         call sub_13C164
@@ -1277,7 +1277,7 @@ sub_EF5B3:
         mov dword [byte ebp-010h], edx
         mov edi, ecx
         mov eax, 200h
-        call sub_41FDC
+        call PlaySfx
         mov eax, 2
         call sub_419B0
         call sub_419B8
@@ -1849,9 +1849,9 @@ sub_EF5B3:
         call sub_FCFCC
         add esp, byte 0Ch
         call sub_1013FC
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 203h
-        call sub_41FDC
+        call PlaySfx
         jmp near sub_EE8BB_3FB
 ;-----------------------------------------------------------------------------
 ; sub_EFD08                                                       EFD08  97 PC
@@ -1876,14 +1876,14 @@ sub_EFD08:
         cmp word [word_16E2F0], byte 0
         jne short .1
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
 .1:
         mov word [word_16E2F0], 1
         jmp short .4
 .2:
         cmp word [word_16E2F0], byte 0
         je short .3
-        call sub_41FA0
+        call StopAllSfx
 .3:
         mov word [word_16E2F0], 0
 .4:
@@ -2038,7 +2038,7 @@ sub_EFD08:
         cmp dword [dword_1CE318], byte 0
         jne short .17
         mov eax, 206h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_1CE318], 1
         jmp near sub_EE69C_20A
 .17:
@@ -2046,7 +2046,7 @@ sub_EFD08:
         jne near sub_EE69C_20A
         cmp dword [dword_1CE318], byte 0
         je near sub_EE69C_20A
-        call sub_41FA0
+        call StopAllSfx
         mov dword [dword_1CE318], esi
         jmp near sub_EE69C_20A
 ;-----------------------------------------------------------------------------
@@ -3790,7 +3790,7 @@ sub_F174F:
         call sub_419B0
         call sub_419B8
         mov eax, 200h
-        call sub_41FDC
+        call PlaySfx
         call sub_13C164
         push asc_16797A
         push edi
@@ -4269,10 +4269,10 @@ sub_F174F:
         call sub_1013AC
         add esp, byte 4
         call sub_1013FC
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 201h
         mov dword [byte ebp-08h], 0
-        call sub_41FDC
+        call PlaySfx
         jmp near .9
 .8:
         push dword [byte ebp-018h]

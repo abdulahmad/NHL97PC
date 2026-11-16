@@ -18,8 +18,8 @@ extern fclose_, fopen_, fputc_, jpt_845CC, memcpy_, memset_, rand_, sprintf_
 extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, sub_100A68, sub_101324
 extern sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_102B94, sub_102C30
 extern sub_106DA0, sub_10AED0, sub_110D70, sub_11A318, sub_11B094, sub_11B104, sub_13C164, sub_419B0
-extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, ArenaFileName, sub_41F2C, sub_41FA0
-extern sub_41FDC, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
+extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, ArenaFileName, sub_41F2C, StopAllSfx
+extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, RunNewSeason, RunSeasonMenus
 extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, sub_A4B7D, PostGameScreen
@@ -73,7 +73,7 @@ sub_845E4:
         cmp dword [dword_16CCEC], byte 0
         jne short .3
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_16CCEC], 1
 .3:
         test edx, edx
@@ -911,7 +911,7 @@ MainMenuScreen:
         mov eax, dword [tickcount]
         mov ebx, eax
         mov eax, 202h
-        call sub_41FDC
+        call PlaySfx
 .21:
         mov eax, dword [dword_1C82A4]
         add eax, byte 64h
@@ -1065,9 +1065,9 @@ MainMenuScreen:
         call sub_101390
         add esp, byte 0Ch
         call sub_1013FC
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 203h
-        call sub_41FDC
+        call PlaySfx
         mov eax, dword [tickcount]
         mov dword [dword_1C82A4], eax
         jmp near sub_84B55_CFF.48
@@ -2220,7 +2220,7 @@ sub_85E1E:
         je near .5
         mov eax, 304h
         mov dword [byte ebp+076h], 0FFFFFFFFh
-        call sub_41FDC
+        call PlaySfx
         jmp near .5
 .14:
         push dword [byte ebp+072h]

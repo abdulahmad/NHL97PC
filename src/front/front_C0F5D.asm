@@ -16,7 +16,7 @@ extern dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dwo
 extern dword_1CB100, dword_1CB104, dword_1CBB88, off_16D5F7, sprintf_, strcat_, strcpy_, strlen_
 extern sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101EAC, sub_102C10, sub_102C30
 extern sub_106D80, sub_106F64, sub_106F94, sub_11A318, sub_11A350, sub_11BDC0, sub_13C164, sub_415A0
-extern sub_415F8, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC, LoadDataFile, OpenDataLibrary, sub_7DA28
+extern sub_415F8, sub_419B0, sub_419B8, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F0D8
 extern DrawTextAligned, sub_7F29C, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC
@@ -2675,7 +2675,7 @@ sub_C2F86:
         je short .4
         cmp dword [dword_1CB0D4], byte 0
         jne short .4
-        call sub_41FA0
+        call StopAllSfx
         mov dword [dword_1CB090], 0
 .4:
         cmp dword [dword_1CB090], byte 0
@@ -2683,7 +2683,7 @@ sub_C2F86:
         cmp dword [dword_1CB0D4], byte 0
         je near sub_C2633_42
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_1CB090], 1
         jmp near sub_C2633_42
 ;-----------------------------------------------------------------------------
@@ -3773,10 +3773,10 @@ sub_C36CA:
         mov ax, word [byte eax+0Eh]
         add esp, byte 8
         mov word [byte edx+0Eh], ax
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 200h
         xor esi, esi
-        call sub_41FDC
+        call PlaySfx
         jmp near .25
 .24:
         call sub_E341C
@@ -3872,9 +3872,9 @@ sub_C36CA:
         cmp si, byte 14h
         jle near .24
         call sub_1013FC
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 201h
-        call sub_41FDC
+        call PlaySfx
         push asc_166C44
         push dword [byte ebp-0Ch]
         call sub_101429
@@ -4176,10 +4176,10 @@ sub_C36CA_D46:
 .46:
         cmp si, byte 9
         jle short .44
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 200h
         mov esi, 14h
-        call sub_41FDC
+        call PlaySfx
         jmp near .48
 .47:
         call sub_E341C
@@ -4247,9 +4247,9 @@ sub_C36CA_D46:
         test si, si
         jge near .47
         call sub_1013FC
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 201h
-        call sub_41FDC
+        call PlaySfx
         push dword [byte ebp-020h]
         call sub_FCD90
         add esp, byte 4

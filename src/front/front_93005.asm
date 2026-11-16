@@ -21,7 +21,7 @@ extern sub_9623E_18C, sub_9623E_2C7, sub_9623E_49D, sub_9623E_4C4, sub_9623E_5BA
 extern memcpy_, memset_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_
 extern sub_101324, sub_101340, sub_101390, sub_1013AC, sub_1013CC, sub_1013FC, sub_101429, sub_10AED0
 extern sub_11A318, sub_11B094, sub_11B0D0, sub_13C164, sub_3812E, sub_415A0, sub_415F8, sub_419B0
-extern sub_419B8, sub_41FA0, sub_41FDC, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0
+extern sub_419B8, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80B28
 extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, sub_85D1D, NameIndexNew, NameIndexLoad
 extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, StandingsScreen
@@ -412,14 +412,14 @@ sub_93480:
         cmp dword [dword_1C8A94], byte 0
         jne short .3
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_1C8A94], 1
 .3:
         test edx, edx
         jne short .4
         cmp dword [dword_1C8A94], byte 0
         je short .4
-        call sub_41FA0
+        call StopAllSfx
         mov dword [dword_1C8A94], edx
 .4:
         pop edx
@@ -2029,14 +2029,14 @@ sub_948B7:
         cmp dword [dword_1C8A94], byte 0
         jne short .17
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_1C8A94], 1
 .17:
         cmp dword [byte ebp-04h], byte 0
         jne near sub_93512_1A6
         cmp dword [dword_1C8A94], byte 0
         je near sub_93512_1A6
-        call sub_41FA0
+        call StopAllSfx
         mov dword [dword_1C8A94], 0
         jmp near sub_93512_1A6
 ;-----------------------------------------------------------------------------

@@ -20,7 +20,7 @@ extern dword_1CC7A8, dword_1CC7AC, dword_1CC7B0, dword_1CC7B4, dword_1CC7B8, dwo
 extern dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dword_1CC8A0, sub_D3112_B6A, sub_D3112_BA7
 extern sub_D3112_BB5, sub_D3112_BC3, memset_, rand_, sprintf_, strcpy_, sub_101340, sub_101390
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101430, sub_101560, sub_101584, sub_102C30, sub_11A318
-extern sub_11B094, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, sub_41FDC
+extern sub_11B094, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, PlaySfx
 extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, sub_7CB8C, sub_7E860, sub_7EDF0, sub_7EEB0
 extern sub_7EF70, sub_7F0D8, DrawTextAligned, sub_80BBC, sub_823F0, sub_84330, InitMenuItems, sub_8BFAC
 extern sub_E0DB7, sub_E341C, sub_FAA64, sub_FAF34, sub_FC330, sub_FC510, sub_FCD90, sub_FCFCC
@@ -1830,7 +1830,7 @@ sub_D2E1A:
         cmp byte [byte_1C6040], 0
         jne short .1
         mov eax, 207h
-        call sub_41FDC
+        call PlaySfx
 .1:
         cmp dword [dword_1CC7A8], byte 17h
         jb short .2
@@ -1952,7 +1952,7 @@ sub_D2ED6:
         cmp dword [dword_1CC7B0], byte 0
         je short .8
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov dword [dword_1CC79C], 1
 .8:
         pop edx

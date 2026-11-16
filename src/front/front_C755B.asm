@@ -28,7 +28,7 @@ extern dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4, jpt_C750B, memmov
 extern qword_166FC4, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, sub_101390
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101EAC, sub_102C10, sub_102C30, sub_106DA0, sub_11A318
 extern sub_11B094, sub_11B104, sub_11B98E, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8
-extern sub_41F2C, sub_41FDC, sub_4A4F4, LoadDataFile, sub_7B4E4, sub_7DFC0, sub_7E52C, sub_7E860
+extern sub_41F2C, PlaySfx, sub_4A4F4, LoadDataFile, sub_7B4E4, sub_7DFC0, sub_7E52C, sub_7E860
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7FE38
 extern sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_816E8
 extern sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068, sub_84570, InitMenuItems, sub_8BFAC
@@ -750,7 +750,7 @@ sub_C7CE8:
         cmp word [word_16D6E4], byte 0
         jne near sub_CF255_158
         mov eax, 309h
-        call sub_41FDC
+        call PlaySfx
         mov word [word_16D6E4], 1
         jmp near sub_CF255_158
         push esi

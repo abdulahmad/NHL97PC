@@ -121,7 +121,10 @@ address,name,auto_name,source,confidence,evidence,file
 4123C,InitGameAudio,sub_4123C,new,low,with sound on: the crowd (CROWD.CRD) and the play-by-play table (GAMEDATA\AUDPBP3.TSF),src/engine/engine_3812E.asm
 41E64,MusicFileName,sub_41E64,new,medium,"(track 0-43h, buf): the music file path ""%s%02d.ASF"" in data folder 58h",src/engine/engine_3812E.asm
 41EA4,ArenaFileName,sub_41EA4,new,low,"(clip 0-8, buf): the ""%s%02d.ASF"" path of data folder 59h (clip + 1)",src/engine/engine_3812E.asm
-42220,PlaySfx,sub_42220,96PC,medium,"96 PC PlaySfx: (id, volume, ...) plays a sound effect from the loaded banks (id high byte = bank 1-6) at the globalset volume",src/engine/engine_3812E.asm
+41FA0,StopAllSfx,sub_41FA0,new,low,stops every voice in PlaySfx's list (dword_1AC508),src/engine/engine_3812E.asm
+41FDC,PlaySfx,sub_41FDC,96PC,medium,96 PC PlaySfx: (id) plays a sound effect from the loaded banks (id high byte = bank 1-6) at the globalset volume; keeps the voice in a 16-entry list (dword_1AC508),src/engine/engine_3812E.asm
+42098,PlaySfxOr,sub_42098,96PC,medium,"96 PC PlaySfxOr: (id, other) plays other instead of id when id's bank is not loaded",src/engine/engine_3812E.asm
+42220,PlaySfxVolume,sub_42220,new,low,"(id, volume 0-64h, ...): PlaySfx with a volume (scaled by the globalset sound volume) and position",src/engine/engine_3812E.asm
 42D50,OpenSpeechBanks,sub_42D50,96PC,low,"opens the play-by-play speech files (%sAUDPBP3.TSF, KTSF, %sAUDPBP2.VIV, CBANK%03d.DAT), like 96 PC OpenSpeechBanks",src/engine/engine_3812E.asm
 4329C,LoadTeamSpeech,sub_4329C,new,low,"(team, other): loads the team name speech file TEAM%04d.DAT when it is not loaded",src/engine/engine_3812E.asm
 47F8C,ShutdownSound,sub_47F8C,96PC,medium,NHL96PC 699D0 (sem 0.61): C:2246,src/front/front_45BEC.asm

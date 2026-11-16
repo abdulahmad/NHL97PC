@@ -22,7 +22,7 @@ extern dword_1C5F64, dword_1C5F70, dword_1C5F74, dword_1C83B0, dword_1C8440, dwo
 extern dword_1C8450, dword_1C8454, fclose_, fgets_, fread_, fseek_, fwrite_, memcpy_
 extern memset_, sprintf_, strcmp_, strcpy_, strlen_, strstr_, sub_100A68, sub_101324
 extern sub_101340, sub_101390, sub_1013FC, sub_101429, sub_102B94, sub_11A318, sub_13C164, sub_419B0
-extern sub_419B8, sub_41FA0, sub_41FDC, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0, sub_7EEB0
+extern sub_419B8, StopAllSfx, PlaySfx, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0, sub_7EEB0
 extern SetRegionRect, sub_7F04C, sub_7F0D8, DrawTextAligned, sub_7F29C, sub_7F5B8, sub_7FE38, sub_80BBC
 extern sub_81114, sub_81678, sub_835BC, sub_83850, sub_867F0, sub_86878, sub_8BFAC, sub_8D956
 extern sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, GetLangText, sub_E32B4, sub_E3410
@@ -5135,7 +5135,7 @@ sub_8AAE5:
         mov dword [byte ebp+072h], eax
         mov eax, 200h
         mov esi, 0BEh
-        call sub_41FDC
+        call PlaySfx
 .2:
         push dword [byte ebp+05Eh]
         call sub_FD0F8
@@ -5348,9 +5348,9 @@ sub_8AAE5:
         call sub_E341C
         test esi, esi
         jg near .2
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 201h
-        call sub_41FDC
+        call PlaySfx
         push dword [byte ebp+05Eh]
         call sub_FCD90
         add esp, byte 4
@@ -5643,7 +5643,7 @@ sub_8B145:
         mov dword [byte ebp+062h], eax
         mov eax, 200h
         sub ebx, 0F4h
-        call sub_41FDC
+        call PlaySfx
 .3:
         push dword [byte ebp+06Ah]
         call sub_FD0F8
@@ -5865,9 +5865,9 @@ sub_8B145:
         call sub_E341C
         cmp edi, 0B4h
         jl near .3
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 201h
-        call sub_41FDC
+        call PlaySfx
         push dword [byte ebp+06Ah]
         call sub_FD0F8
         add esp, byte 4

@@ -13,7 +13,7 @@ extern dword_1C8400, dword_1C8404, dword_1C8408, dword_1C840C, dword_1C8410, dwo
 extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dword_1C8434, dword_1C8438, dword_1C843C
 extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, sub_8E997_DD, sub_8E997_E6, sub_8E997_EF, sub_8E997_F8
 extern sub_8E997_16F, sub_8E997_17B, sub_8E997_187, sub_8E997_193, off_16E4E0, qword_165550, qword_165558, qword_165568
-extern sub_101390, sub_1013CC, sub_1013FC, sub_101429, sub_1097F0, sub_11A318, sub_13C164, sub_41FDC
+extern sub_101390, sub_1013CC, sub_1013FC, sub_101429, sub_1097F0, sub_11A318, sub_13C164, PlaySfx
 extern LoadDataFileHandle, SetRegionRect, sub_835AC, sub_835BC, sub_83850, InitMenuItems, sub_E3410, sub_E341C
 extern sub_E375C, sub_E3798, sub_FAF34, sub_FC510, SetViewRect, sub_FCD90, sub_FCFCC, sub_FD08C
 extern sub_FD0F8, sub_FD110, sub_FDC68, tickcount, word_16CD04, word_16CD20, word_16CD22
@@ -1568,7 +1568,7 @@ sub_8BFAC:
         jl short .158
         mov eax, ecx
 .157:
-        call sub_41FDC
+        call PlaySfx
 .158:
         cmp dword [dword esp+084h], byte 0FFFFFFFFh
         jne near .173
@@ -2806,7 +2806,7 @@ sub_8DF1F:
         add esp, byte 0Ch
         call sub_1013FC
         mov eax, 30Ah
-        call sub_41FDC
+        call PlaySfx
         mov eax, dword [tickcount]
         mov ebx, eax
         lea edx, [byte ebx+05h]
@@ -3119,7 +3119,7 @@ sub_8E2EE:
         add esp, byte 0Ch
         call sub_1013FC
         mov eax, 30Ah
-        call sub_41FDC
+        call PlaySfx
         mov eax, dword [tickcount]
         mov ebx, eax
         lea edx, [byte ebx+05h]

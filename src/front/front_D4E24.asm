@@ -15,7 +15,7 @@ extern fopen_, memcpy_, memset_, off_16E4E0, rand_, sprintf_, sscanf_, str_CRD1
 extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, sub_101340
 extern sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_103298, sub_1167AE, sub_11A318
 extern sub_11BED4, sub_13C164, WaitRetraceEdges, RunDemoGame, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern sub_41D48, sub_41DB8, sub_41DD8, ArenaFileName, sub_41FA0, sub_41FDC, sub_4A4F4, MakeDataPath
+extern sub_41D48, sub_41DB8, sub_41DD8, ArenaFileName, StopAllSfx, PlaySfx, sub_4A4F4, MakeDataPath
 extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, AllocClearBlock
 extern FreePtr, sub_E22FC, sub_E2310, sub_E2334, sub_E2348, FileCreate, FileOpen, FileSeek
@@ -157,7 +157,7 @@ sub_D4E24:
         mov dword [byte esp+020h], eax
         mov eax, 202h
         mov word [byte esp+028h], dx
-        call sub_41FDC
+        call PlaySfx
 .1:
         mov ecx, dword [byte esp+020h]
         push ecx
@@ -495,9 +495,9 @@ sub_D4E24:
         push edx
         call sub_FCD90
         add esp, byte 4
-        call sub_41FA0
+        call StopAllSfx
         mov eax, 203h
-        call sub_41FDC
+        call PlaySfx
         add esp, byte 2Ch
         pop ebp
         pop edi
@@ -558,7 +558,7 @@ sub_D53A4:
         mov edi, 1
         mov eax, 309h
         mov dword [dword_16D754], edi
-        call sub_41FDC
+        call PlaySfx
 .5:
         test ebp, ebp
         jne short .6
@@ -566,7 +566,7 @@ sub_D53A4:
         je short .6
         xor eax, eax
         mov dword [dword_16D754], eax
-        call sub_41FA0
+        call StopAllSfx
 .6:
         pop ebp
         pop edi

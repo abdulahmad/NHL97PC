@@ -32,7 +32,7 @@ extern sub_22050, assextra4, sub_22FF0, assextra3, sub_240D0, sub_24220, sub_247
 extern sub_25010, sub_251F0, sub_25730, sub_2E310, CompLine, sub_30778, sub_3085C, sub_31C14
 extern sub_32260, AddPenalty2, EndPenaltyShot, sub_34330, sub_343F8, doplayeracc, sub_39DA4, sub_39EC0
 extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, sub_41D48
-extern sub_42098, PlaySfx, sub_424CC, sub_45BEC, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
+extern PlaySfxOr, PlaySfxVolume, sub_424CC, sub_45BEC, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
 extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, sub_57324, sub_576EC, sub_57738, LoadCupArt
 extern sub_5AC28, sub_5ED80, sub_60D6C, sub_60F48, sub_64EBC, sub_650A4, sub_650E8, sub_6619C
@@ -3964,7 +3964,7 @@ asspenalty:
         mov edx, 64h
         mov eax, 462h
         push dword [byte ebx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         mov eax, dword [dword ebx+0EEh]
         fld dword [eax]
         mov eax, dword [dword ebx+0EEh]
@@ -4004,7 +4004,7 @@ assdopen:
         mov edx, 64h
         mov eax, 463h
         push dword [byte ebx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         mov ch, byte [dword ebx+0BFh]
         xor edx, edx
         test ch, 40h
@@ -4079,7 +4079,7 @@ assepen:
         mov edx, 64h
         mov eax, 462h
         push dword [byte ebx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         mov dword [byte ebx+038h], 0
         mov eax, ebx
         mov dword [byte ebx+01Ch], 4096CBE4h
@@ -4117,7 +4117,7 @@ assepen:
         mov edx, 64h
         mov eax, 463h
         push dword [byte ebx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         mov eax, dword [dword ebx+0FEh]
         cmp word [byte eax+010h], byte 0
         setge al
@@ -4477,7 +4477,7 @@ assrefpenshot:
         mov edx, 64h
         mov eax, 461h
         push dword [byte ebx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         mov edx, 0FFFFFFFFh
         mov dword [byte ebx+060h], 64h
         mov dword [dword_19CBF8], edx
@@ -6548,7 +6548,7 @@ sub_2AC40:
         mov edx, 64h
         push dword [byte eax+020h]
         mov eax, 417h
-        call PlaySfx
+        call PlaySfxVolume
         mov eax, dword [off_168CF0]
         mov byte [eax], 0FFh
         test byte [byte_19CBC2], 1
@@ -6708,7 +6708,7 @@ sub_2AD18:
         cwde
         mov edx, 64h
         add eax, 402h
-        call PlaySfx
+        call PlaySfxVolume
         mov eax, dword [dword ecx+0A3h]
         mov esi, dword [dword ecx+0FEh]
         sar eax, 18h
@@ -6781,7 +6781,7 @@ sub_2AD18:
         push dword [byte ebx+028h]
         mov eax, 405h
         push dword [byte ebx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         cmp word [dword ebx+0A9h], byte 0
         jle short .12
         mov eax, dword [off_168CFC]
@@ -7103,7 +7103,7 @@ sub_2AFD8:
         mov edx, 64h
         mov eax, edi
         push dword [byte esi+020h]
-        call PlaySfx
+        call PlaySfxVolume
         mov eax, dword [off_168CF0]
         mov byte [eax], 0FFh
         cmp byte [dword ecx+0A4h], 0Ch
@@ -7182,7 +7182,7 @@ sub_2B4D4:
         push dword [byte ecx+028h]
         mov eax, 418h
         push dword [byte ecx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         test byte [byte_19CBC2], 1
         jne short .2
         cmp word [word_19CBF4], byte 0
@@ -7224,7 +7224,7 @@ sub_2B4D4:
         push dword [byte ecx+028h]
         mov eax, 416h
         push dword [byte ecx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         test byte [byte_19CBC2], 1
         jne short .6
         cmp word [word_19CBF4], byte 0
@@ -7292,7 +7292,7 @@ sub_2B4D4:
         mov eax, 416h
 .12:
         push dword [byte ecx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         mov eax, dword [off_168CFC]
         cmp dword [byte eax+030h], 41A00000h
         jle near .16
@@ -7442,7 +7442,7 @@ sub_2B4D4_469:
         mov edx, 64h
         mov eax, 419h
         push dword [byte ecx+020h]
-        call PlaySfx
+        call PlaySfxVolume
         mov eax, 3
         call randomd0
         movsx ebx, ax
@@ -7455,7 +7455,7 @@ sub_2B4D4_469:
         push dword [byte ecx+020h]
         mov ebx, 4000h
 .22:
-        call PlaySfx
+        call PlaySfxVolume
 .23:
         test byte [byte_19CBC2], 1
         jne short .25
@@ -9190,7 +9190,7 @@ pucknorm_body:
         and eax, 0FFh
         xor edx, edx
         add eax, 509h
-        call sub_42098
+        call PlaySfxOr
         jmp near .50
 .28:
         mov eax, dword [byte ebp-04h]
@@ -9237,7 +9237,7 @@ pucknorm_body:
 .31:
         mov eax, 50Bh
         xor edx, edx
-        call sub_42098
+        call PlaySfxOr
         jmp near .50
 .32:
         test bl, 40h
@@ -9262,7 +9262,7 @@ pucknorm_body:
 .33:
         mov eax, 502h
 .34:
-        call sub_42098
+        call PlaySfxOr
         jmp near .50
 .35:
         mov eax, dword [byte ebp-04h]
